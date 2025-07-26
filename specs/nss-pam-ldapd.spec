@@ -5,7 +5,7 @@
 
 Name:           nss-pam-ldapd
 Version:        0.9.10
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        An nsswitch module which uses directory servers
 License:        LGPL-2.0-or-later
 URL:            http://arthurdejong.org/nss-pam-ldapd/
@@ -111,6 +111,9 @@ install -m0644 -D nss-pam-ldapd.sysusers.conf %{buildroot}%{_sysusersdir}/nss-pa
 %systemd_postun_with_restart nslcd.service
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.10-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Mar  4 2025 Zbigniew Jedrzejewski-Szmek <zbyszek@in.waw.pl> - 0.9.10-20
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

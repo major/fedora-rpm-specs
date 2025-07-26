@@ -8,9 +8,9 @@
 Name: nrpe
 Version: 4.1.3
 %if 0%{?fromgit}
-Release: 3%{?dist}
+Release: 4%{?dist}
 %else
-Release: 3%{?dist}
+Release: 4%{?dist}
 %endif
 Summary: Host/service/network monitoring agent for Nagios
 
@@ -218,6 +218,9 @@ fi
 %endif
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 4.1.3-3
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

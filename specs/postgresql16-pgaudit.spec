@@ -1,4 +1,4 @@
-%{!?postgresql_default:%global postgresql_default 1}
+%{!?postgresql_default:%global postgresql_default 0}
 
 %global majorname pgaudit
 %global pgversion 16
@@ -22,10 +22,10 @@ Summary: PostgreSQL Audit Extension
 
 BuildRequires: make
 BuildRequires:	gcc
-BuildRequires:	postgresql-server-devel >= 16, postgresql-server-devel < 17
+BuildRequires:	postgresql16-server-devel
 BuildRequires:	openssl-devel
 
-Requires(pre): postgresql-server >= 16, postgresql-server < 17
+Requires(pre): postgresql16-server
 
 %global precise_version %{?epoch:%epoch:}%version-%release
 Provides: %{pkgname} = %precise_version
@@ -90,6 +90,9 @@ trail or audit log. The term audit log is used in this documentation.
 
 
 %changelog
+* Thu Jul 24 2025 Nikola Davidova <ndavidov@redhat.com> - 16.0-8
+- Make postgresql16 non default
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 16.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

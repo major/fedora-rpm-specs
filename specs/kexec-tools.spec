@@ -1,6 +1,6 @@
 Name: kexec-tools
 Version: 2.0.31
-Release: 2%{?dist}
+Release: 3%{?dist}
 URL: https://kernel.org/pub/linux/utils/kernel/kexec
 License: GPL-2.0-only
 Summary: The kexec/kdump userspace component
@@ -82,6 +82,9 @@ rm -f %{buildroot}/%{_libdir}/kexec-tools/kexec_test
 %doc TODO
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.31-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed May 21 2025 Coiby Xu <coxu@redhat.com> - 2.0.31-2
 - Add BuildRequires libzstd-devel to support loading zstd-compressed kernel
 

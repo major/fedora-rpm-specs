@@ -1,7 +1,7 @@
 Name: mythes-pl
 Summary: Polish thesaurus
 Version: 1.5
-Release: 36%{?dist}
+Release: 37%{?dist}
 Source: httip://downloads.sourceforge.net/synonimy/OOo2-Thesaurus-%{version}.zip
 # URL is dead now, please don't file bugs to fix it
 URL: http://synonimy.ux.pl/
@@ -38,6 +38,9 @@ cp -p th_pl_PL_v2.* $RPM_BUILD_ROOT/%{_datadir}/mythes
 %{_datadir}/mythes/*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

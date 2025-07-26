@@ -4,7 +4,7 @@
 Name:		irrlicht
 Summary: 	A high performance realtime 3D engine
 Version:	%{irrlicht_version}
-Release:	9%{?dist}
+Release:	10%{?dist}
 License:	zlib
 Source0:	http://downloads.sourceforge.net/irrlicht/%{name}-%{irrlicht_version}.zip
 # Various fixes, optflags, system libraries/headers
@@ -150,6 +150,9 @@ popd
 %{_libdir}/libIrrXML.so
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.5-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.5-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           ncdc
 Version:        1.24.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Modern and lightweight direct connect client
 
 License:        MIT
@@ -45,6 +45,9 @@ friendly ncurses interface.
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.24.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Feb 16 2025 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 1.24.1-1
 - Update to 1.24.1 (RHBZ#2130163 and #2340906)
 

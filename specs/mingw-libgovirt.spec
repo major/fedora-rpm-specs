@@ -2,7 +2,7 @@
 
 Name: mingw-libgovirt
 Version: 0.3.8
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: MinGW support for a GObject library for interacting with oVirt REST API
 
 License: LGPL-2.0-or-later
@@ -106,6 +106,9 @@ find $RPM_BUILD_ROOT -name "*.la" -delete
 %{mingw64_libdir}/libgovirt.a
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.8-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.8-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

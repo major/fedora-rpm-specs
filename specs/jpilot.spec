@@ -1,7 +1,7 @@
 Summary: pilot desktop software
 Name: jpilot
 Version: 1.8.2
-Release: 33%{?dist}
+Release: 34%{?dist}
 License: GPL-2.0-only
 URL: https://www.jpilot.org/
 Source0: https://www.jpilot.org/tarballs/jpilot-%{version}.tar.gz
@@ -128,6 +128,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/%{name}.app
 %{_metainfodir}/%{name}.appdata.xml
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 30 2025 Nikola Forró <nforro@redhat.com> - 1.8.2-33
 - Fix incompatible pointer type errors
 

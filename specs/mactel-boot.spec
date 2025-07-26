@@ -1,6 +1,6 @@
 Name:		mactel-boot
 Version:	0.9
-Release:	35%{?dist}
+Release:	36%{?dist}
 Summary:	Intel Mac boot files
 
 License:	GPL-2.0-or-later
@@ -59,6 +59,9 @@ rmdir %{buildroot}%{_prefix}/sbin
 %{_libexecdir}/mactel-boot-setup
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Mar 21 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.9-35
 - Modernize spec and handle sbin-bin merge
 

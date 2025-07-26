@@ -18,7 +18,7 @@ Version:        6.14
 %global golicenses COPYING
 
 Name:           incus
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Powerful system container and virtual machine manager
 License:        Apache-2.0
 URL:            https://linuxcontainers.org/incus
@@ -459,6 +459,9 @@ export CGO_LDFLAGS_ALLOW="(-Wl,-wrap,pthread_create)|(-Wl,-z,now)"
 %endif
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.14-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 30 2025 Robby Callicotte <rcallicotte@fedoraproject.org> - 6.14-1
 - Updated to incus-6.14
 - Added patch for non-constant format strings

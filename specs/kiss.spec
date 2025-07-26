@@ -12,7 +12,7 @@
 
 Name:           kiss
 Version:        0.1.0~%{date}git%{shortcommit}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Initial setup for systems using KDE Plasma
 License:        GPL-2.0-or-later
 URL:            https://invent.kde.org/system/%{name}
@@ -73,6 +73,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/%{orgname}
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0~20250524gitade7962-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon May 26 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.1.0~20250524gitade7962-1
 - Rebase to new rewrite
 

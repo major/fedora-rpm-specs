@@ -1,7 +1,7 @@
 Name:           libzfcphbaapi
 Summary:        HBA API for the zFCP device driver
 Version:        3.0.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        EPL-1.0
 URL:            https://github.com/ibm-s390-linux/libzfcphbaapi
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -85,6 +85,9 @@ fi
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu May 22 2025 Dan Horák <dan[at]danny.cz> - 3.0.3-1
 - updated to 3.0.3
 

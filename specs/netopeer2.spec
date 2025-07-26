@@ -1,6 +1,6 @@
 Name: netopeer2
 Version: 2.2.35
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Netopeer2 NETCONF tools suite
 Url: https://github.com/CESNET/netopeer2
 Source: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -121,6 +121,9 @@ set -e
 %{_datadir}/man/man1/netopeer2-cli.1.gz
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.35-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 31 2025 Michal Ruprich <mruprich@redhat.com> - 2.2.35-1
 - New version 2.2.35
 

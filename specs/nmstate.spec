@@ -15,7 +15,6 @@ Source3:        %{url}/releases/download/v%{version}/%{srcname}-vendor-%{version
 # https://issues.redhat.com/browse/RHEL-52890
 Requires:       (nmstate-libs%{?_isa} = %{version}-%{release} if nmstate-libs)
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  gnupg2
 BuildRequires:  systemd-devel
 BuildRequires:  systemd-rpm-macros
@@ -46,6 +45,11 @@ BuildRequires:  (crate(tokio/rt) >= 1.3 with crate(tokio/rt) < 2.0)
 BuildRequires:  (crate(tokio/signal) >= 1.3 with crate(tokio/signal) < 2.0)
 BuildRequires:  (crate(once_cell/default) >= 1.12 with crate(once_cell/default) < 2.0)
 %endif
+
+%generate_buildrequires
+pushd rust/src/python >/dev/null
+%pyproject_buildrequires
+popd >/dev/null
 
 %description
 Nmstate is a library with an accompanying command line tool that manages host
@@ -182,7 +186,7 @@ pushd rust
 popd
 
 pushd rust/src/python
-%py3_build
+%pyproject_wheel
 popd
 
 %install
@@ -193,7 +197,7 @@ env SKIP_PYTHON_INSTALL=1 \
     %make_install
 
 pushd rust/src/python
-%py3_install
+%pyproject_install
 popd
 
 %if ! 0%{?rhel}
@@ -239,7 +243,7 @@ popd
 %files -n python3-%{libname}
 %license LICENSE
 %{python3_sitelib}/%{libname}
-%{python3_sitelib}/%{srcname}-*.egg-info/
+%{python3_sitelib}/%{srcname}-*.dist-info/
 
 %files static
 %{_libdir}/libnmstate.a

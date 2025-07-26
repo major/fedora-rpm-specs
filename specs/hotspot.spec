@@ -1,6 +1,6 @@
 Name:    hotspot
 Version: 1.5.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: The Linux perf GUI for performance analysis
 
 License: GPL-2.0-or-later
@@ -80,6 +80,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/com.kdab.hotspot.des
 %{_kf6_datadir}/knotifications6/hotspot.notifyrc
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Apr 03 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 1.5.1-5
 - Support Rust symbol demangling
 

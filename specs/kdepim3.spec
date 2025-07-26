@@ -2,7 +2,7 @@
 Name:    kdepim3
 Summary: Compatibility support for kdepim3 
 Version: 3.5.10
-Release: 45%{?dist}
+Release: 46%{?dist}
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
@@ -138,6 +138,9 @@ export QA_RPATHS=0x0001
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.10-46
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.10-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

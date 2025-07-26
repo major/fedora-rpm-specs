@@ -1,6 +1,6 @@
 Name:		openbox
 Version:	3.6.1
-Release:	28%{?dist}
+Release:	29%{?dist}
 Summary:	A highly configurable and standards-compliant X11 window manager
 
 License:	GPL-2.0-or-later
@@ -173,6 +173,9 @@ rm -rf %{buildroot}%{_datadir}/doc/%{name}
 %ldconfig_scriptlets libs
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.1-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.1-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %global archivename crosextrafonts-20130214
 
 Version:        1.002
-Release:        0.20.20130214%{?dist}
+Release:        0.21.20130214%{?dist}
 Epoch:          1
 URL:            http://code.google.com/p/chromium/issues/detail?id=168879
 
@@ -48,6 +48,9 @@ cp -p %{SOURCE3} .
 %fontfiles
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.002-0.21.20130214
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.002-0.20.20130214
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

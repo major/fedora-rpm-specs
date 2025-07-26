@@ -3,7 +3,7 @@
 Summary:        Library providing a collection of special mathematical functions
 Name:           openspecfun
 Version:        0.5.3
-Release:        23%{?dist}
+Release:        24%{?dist}
 # Automatically converted from old format: MIT and Public Domain - review is highly recommended.
 License:        LicenseRef-Callaway-MIT AND LicenseRef-Callaway-Public-Domain
 Source0:        https://github.com/JuliaLang/openspecfun/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
@@ -73,6 +73,9 @@ rm %{buildroot}/%{_libdir}/libopenspecfun.a
 %endif
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

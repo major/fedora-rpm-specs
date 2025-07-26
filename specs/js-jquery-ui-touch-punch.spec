@@ -5,7 +5,7 @@
 
 Name:		js-%{jsname}
 Version:	0.2.3
-Release:	0.20.20141219git%{shortcommit}%{?dist}
+Release:	0.21.20141219git%{shortcommit}%{?dist}
 Summary:	Touch Event Support for jQuery UI
 
 # Automatically converted from old format: MIT or GPLv2 - review is highly recommended.
@@ -44,6 +44,9 @@ install -m 644 -p *.js %{buildroot}/%{_jsdir}/%{jsname}
 %doc README.md
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.3-0.21.20141219git4bc0091
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.3-0.20.20141219git4bc0091
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

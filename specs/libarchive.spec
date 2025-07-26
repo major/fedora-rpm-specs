@@ -2,7 +2,7 @@
 
 Name:           libarchive
 Version:        3.8.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A library for handling streaming archive formats
 
 # Licenses:
@@ -240,6 +240,9 @@ run_testsuite
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jul 23 2025 Lukas Javorsky <ljavorsk@redhat.com> - 3.8.1-2
 - Remove sharutils dependency, as it's not needed anymore
 

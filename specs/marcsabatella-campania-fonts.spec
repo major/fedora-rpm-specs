@@ -1,5 +1,5 @@
 Version:        2.009
-Release:        12%{?dist}
+Release:        13%{?dist}
 URL:            https://github.com/MarcSabatella/Campania
 VCS:            git:%{url}.git
 
@@ -54,6 +54,9 @@ sed -e 's,updatecontact,update_contact,g' \
 %fontfiles
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.009-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.009-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

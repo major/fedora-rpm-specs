@@ -2,7 +2,7 @@
 %global fonts font(dejavusans)
 
 # For rpmdev-bumpspec
-%global baserelease 1
+%global baserelease 2
 
 Name:		lincity-ng
 Version:	2.13.1
@@ -111,6 +111,9 @@ EOF
 %{_datadir}/lincity-ng/
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.13.1-1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Mar 24 2025 Tom Callaway <spot@fedoraproject.org> - 2.13.1-1
 - update to 2.13.1
 

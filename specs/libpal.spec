@@ -1,6 +1,6 @@
 Name:           libpal
 Version:        0.9.8
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Positional Astronomy Library
 
 # The entire source is GPLv3+, except:
@@ -91,6 +91,9 @@ make check
 %doc sun267.pdf
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.8-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.8-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

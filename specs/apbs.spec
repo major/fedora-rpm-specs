@@ -11,7 +11,7 @@
 Name: apbs
 Summary: Adaptive Poisson Boltzmann Solver
 Version: 3.0.0
-Release: 28%{datecommit}%{shortcommit}%{?dist}
+Release: 29%{datecommit}%{shortcommit}%{?dist}
 # iAPBS looks licensed with a LGPLv2+, APBS is released under BSD license.
 License: LGPL-2.0-or-later AND BSD-3-Clause
 URL: https://www.poissonboltzmann.org/
@@ -116,25 +116,23 @@ cp -p contrib/iapbs/COPYING contrib/iapbs/iapbs-COPYING
 cp -p %{SOURCE1} contrib/iapbs/iapbs-LGPLv2
 
 %build
-# CMake needs BUILD_SHARED_LIBS:BOOL=OFF to build Python libraries
-# Using CMake rpm macro automatically enables the shared libs building  
 export CFLAGS="%{build_cflags} -fopenmp -lm"
 export CXXFLAGS="%{build_cxxflags} -fopenmp -lm"
-mkdir -p build
-cmake -S . -B build -DCMAKE_BUILD_TYPE:STRING=Release \
+%cmake -DCMAKE_BUILD_TYPE:STRING=Release \
  -DENABLE_iAPBS:BOOL=ON -DENABLE_OPENMP:BOOL=ON -DENABLE_VERBOSE_DEBUG:BOOL=OFF \
  -DENABLE_FETK:BOOL=OFF -DCMAKE_C_FLAGS:STRING="%{build_cflags} -fopenmp -lm -DNDEBUG" \
  -DCMAKE_CXX_FLAGS:STRING="%{build_cxxflags} -fopenmp -lm -DNDEBUG" \
- -DBUILD_SHARED_LIBS:BOOL=OFF -DENABLE_PYTHON:BOOL=ON -DBUILD_DOC:BOOL=ON \
+ -DENABLE_PYTHON:BOOL=ON -DBUILD_DOC:BOOL=ON \
  -DBUILD_TESTING:BOOL=ON -DENABLE_TESTS:BOOL=ON \
  -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} \
  -DINCLUDE_INSTALL_DIR:PATH=%{_includedir} \
  -DLIB_INSTALL_DIR:PATH=%{_libdir} \
  -DSHARE_INSTALL_PREFIX:PATH=%{_datadir}
-make -O -j1 V=1 -C build
+
+%cmake_build
 
 %install
-%make_install -C build
+%cmake_install
 
 # Tools
 for bin in %{buildroot}%{_bindir}/{coulomb,born,mgmesh,dxmath,mergedx2,mergedx,value,uhbd_asc2bin,smooth,dx2mol,dx2uhbd,similarity,multivalue,benchmark,analysis,del2dx,tensor2dx}; do
@@ -155,7 +153,7 @@ mkdir -p %{buildroot}%{python3_sitearch}/apbs
 install -pm 755 tools/manip/psize.py %{buildroot}%{python3_sitearch}/apbs/
 %{__python3} %{_rpmconfigdir}/redhat/pathfix.py -pn -i "%{__python3}" %{buildroot}%{python3_sitearch}/apbs/psize.py
 ln -s %{python3_sitearch}/apbs/psize.py %{buildroot}%{_bindir}/apbs-psize.py
-install -pm 755 build/lib/_apbslib.so %{buildroot}%{python3_sitearch}/apbs/
+install -pm 755 %_vpath_builddir/lib/_apbslib.so %{buildroot}%{python3_sitearch}/apbs/
 
 # Remove redundant tools binary files in /usr/share
 rm -rf %{buildroot}%{_datadir}/apbs
@@ -169,6 +167,7 @@ done
 %check
 pushd tests
 export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
+export PATH=%{buildroot}%{_bindir}
 %{__python3} ./apbs_tester.py
 %endif
 
@@ -210,9 +209,12 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 
 %files doc
 %license LICENSE.md
-%doc build/doc
+%doc %_vpath_builddir/doc
 
 %changelog
+* Thu Jul 24 2025 Antonio Trande <sagitter@fedoraproject.org> - 3.0.0-29
+- Fix rhbz#2380463
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

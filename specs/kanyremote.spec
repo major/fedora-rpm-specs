@@ -1,7 +1,7 @@
 Summary: KDE frontend for anyRemote
 Name: kanyremote
 Version: 8.1.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License: GPL-3.0-or-later
 Source0: http://downloads.sourceforge.net/anyremote/%{name}-%{version}.tar.gz
@@ -37,6 +37,9 @@ desktop-file-install --vendor="" \
 rm -rf $RPM_BUILD_ROOT
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.1.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.1.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

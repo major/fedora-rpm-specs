@@ -50,7 +50,7 @@
 
 Name:           jetty
 Version:        9.4.40
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Java Webserver and Servlet Container
 
 # Jetty is dual licensed under both ASL 2.0 and EPL 1.0, see NOTICE.txt
@@ -966,6 +966,9 @@ install -m0644 -D jetty.sysusers.conf %{buildroot}%{_sysusersdir}/jetty.conf
 %license LICENSE NOTICE.txt LICENSE-MIT
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.4.40-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 23 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 9.4.40-15
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

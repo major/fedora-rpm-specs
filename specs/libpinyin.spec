@@ -2,7 +2,7 @@
 
 Name:           libpinyin
 Version:        2.10.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library to deal with pinyin
 
 License:        GPL-3.0-or-later
@@ -108,6 +108,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/libzhuyin*.so.*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri May 16 2025 Peng Wu  <pwu@redhat.com> - 2.10.2-1
 - Update to 2.10.2
 - fix memory leaks

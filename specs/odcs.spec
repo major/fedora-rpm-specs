@@ -1,6 +1,6 @@
 Name:       odcs
 Version:    0.9.0
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    The On Demand Compose Service
 
 
@@ -195,6 +195,9 @@ export ODCS_DEVELOPER_ENV=1
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 25 2025 Zbigniew Jedrzejewski-Szmek <zbyszek@in.waw.pl> - 0.9.0-2
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

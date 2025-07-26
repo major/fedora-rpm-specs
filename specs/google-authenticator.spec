@@ -1,6 +1,6 @@
 Name:           google-authenticator
 Version:        1.11
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        One-time pass-code support using open standards
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -52,6 +52,9 @@ make check
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.11-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jul 13 2025 Marcel Haerry <mh+fedora@scrit.ch> - 1.11-2
 * Require qrencode-libs - Fixes #2367497
 

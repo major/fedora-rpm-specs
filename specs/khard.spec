@@ -1,6 +1,6 @@
 Name:           khard
 Version:        0.19.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        An address book for the Linux console
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -59,6 +59,9 @@ install -p -m 0644 misc/zsh/_khard %{buildroot}%{_datadir}/zsh/site-functions/_k
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.19.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jul 09 2025 Ben Boeckel <fedora@me.benboeckel.net> - 0.19.1-7
 - Modernize RPM macros (rhbz#2377298)
 - Remove atomicwrites dependency (https://github.com/lucc/khard/pull/343)

@@ -3,7 +3,7 @@
 
 Name:           perl-Convert-UU
 Version:        0.5201
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Perl module for uuencode and uudecode
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Convert-UU
@@ -68,6 +68,9 @@ make test
 %{_mandir}/man3/Convert::UU.*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5201-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Apr 08 2025 Petr Pisar <ppisar@redhat.com> - 0.5201-40
 - Declare a minimal Perl version
 

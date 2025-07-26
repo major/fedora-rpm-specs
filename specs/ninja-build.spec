@@ -4,7 +4,7 @@
 
 Name:           ninja-build
 Version:        1.13.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Small build system with a focus on speed
 License:        Apache-2.0
 URL:            https://ninja-build.org/
@@ -125,6 +125,9 @@ cp -a %{ninja_distinfo} %{buildroot}%{python3_sitelib}
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 14 2025 Ben Boeckel <fedora@me.benboeckel.net> - 1.13.1-1
 - Update to 1.13.1 (rhbz#2379488)
 - Remove emacs-mode support (moved to a separate project)

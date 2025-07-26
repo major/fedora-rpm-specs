@@ -1,6 +1,6 @@
 Name:           perl-CGI-Application-Plugin-Authentication
 Version:        0.25
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Authentication framework for CGI::Application
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -82,6 +82,9 @@ CGI::Application::Plugin::Authentication plugin.
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.25-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.25-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

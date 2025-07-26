@@ -3,7 +3,7 @@
 Summary:	Reference implementation of the iCalendar data type and serialization format
 Name:		libical
 Version:	3.0.20
-Release:	2%{?dist}
+Release:	3%{?dist}
 License:	LGPL-2.1-only OR MPL-2.0
 URL:		https://libical.github.io/libical/
 Source:		https://github.com/%{name}/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -133,4 +133,7 @@ rm %{buildroot}/%{_libexecdir}/libical/ical-glib-src-generator
 %{_datadir}/gtk-doc/html/%{name}-glib
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.20-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 %autochangelog

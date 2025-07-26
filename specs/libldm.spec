@@ -1,6 +1,6 @@
 Name:           libldm
 Version:        0.2.5
-Release:        1%{?dist}%{?extra_release}
+Release:        2%{?dist}%{?extra_release}
 Summary:        A tool to manage Windows dynamic disks
 
 # Automatically converted from old format: LGPLv3+ and GPLv3+ - review is highly recommended.
@@ -75,6 +75,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Feb 06 2025 Richard W.M. Jones <rjones@redhat.com> - 0.2.5-1
 - New upstream version 0.2.5
 - Add some post-0.2.5 patches from upstream.

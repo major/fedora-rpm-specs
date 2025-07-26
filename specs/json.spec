@@ -4,7 +4,7 @@
 
 Name:           json
 Version:        3.11.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 # The entire source is MIT except
 # include/nlohmann/thirdparty/hedley/hedley.hpp, which is CC0-1.0
@@ -77,6 +77,9 @@ ln -svf %{_includedir}/doctest/doctest.h ./tests/thirdparty/doctest/doctest.h
 %{_datadir}/pkgconfig/nlohmann_json.pc
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.11.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.11.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

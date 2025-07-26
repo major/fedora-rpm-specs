@@ -10,7 +10,7 @@
 
 Name:           mediawiki-lastmodified
 Version:        0
-Release:        0.16.20200627git%{commit}%{?dist}
+Release:        0.17.20200627git%{commit}%{?dist}
 Summary:        Show the last modified page time
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -48,6 +48,9 @@ install -cpm 644 ./*md $RPM_BUILD_ROOT%{_datadir}/mediawiki/extensions/LastModif
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.17.20200627gitbe28231ebcd539fc99775811e5dc6df9064cfa94
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.16.20200627gitbe28231ebcd539fc99775811e5dc6df9064cfa94
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

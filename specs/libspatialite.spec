@@ -6,7 +6,7 @@
 
 Name:          libspatialite
 Version:       5.1.0
-Release:       10%{?dist}
+Release:       11%{?dist}
 Summary:       Enables SQLite to support spatial data
 
 License:       MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.0-or-later
@@ -181,6 +181,9 @@ make check  -C build_native %{?_smp_mflags} || :
 %endif
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Apr 18 2025 Sandro Mani <manisandro@gmail.com> - 5.1.0-10
 - Rebuild (minizip)
 

@@ -1,7 +1,7 @@
 Name: kover
 Summary: WYSIWYG CD cover printer with CDDB support
 Version: 6
-Release: 37%{?dist}
+Release: 38%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 Source0: http://lisas.de/kover/kover-6.tar.bz2
@@ -65,6 +65,9 @@ rm -rfv %{buildroot}%{_datadir}/icons/locolor
 %{_kde4_bindir}/kover
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

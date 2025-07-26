@@ -1,7 +1,7 @@
 Summary: Daemon that responds to network cables being plugged in and out
 Name: netplug
 Version: 1.2.9.2
-Release: 29%{?dist}
+Release: 30%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
 URL: http://www.red-bean.com/~bos/
@@ -79,6 +79,9 @@ rm -f %{buildroot}/etc/rc.d/init.d/netplugd
 %{_unitdir}/netplugd.service
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.9.2-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.9.2-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

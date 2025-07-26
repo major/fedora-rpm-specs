@@ -1,6 +1,6 @@
 Name:           perl-Alien-libmaxminddb
 Version:        2.001
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Find or download and install libmaxminddb
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Alien-libmaxminddb
@@ -65,6 +65,9 @@ make test
 %{_mandir}/man3/Alien::libmaxminddb.3*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.001-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Mar 15 2025 Andreas Vögele <andreas@andreasvoegele.com> - 2.001-1
 - Update to 2.001
 - Alien::Build is no longer required

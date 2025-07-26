@@ -6,7 +6,7 @@
 
 Name:           gydl
 Version:        0.1.1
-Release:        16.%{date}git%{shortcommit}%{?dist}
+Release:        17.%{date}git%{shortcommit}%{?dist}
 Summary:        GUI wrapper around youtube-dl program
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -62,6 +62,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{appname}.desktop
 %{_metainfodir}/*.appdata.xml
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-17.20190828gitae2d296
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-16.20190828gitae2d296
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

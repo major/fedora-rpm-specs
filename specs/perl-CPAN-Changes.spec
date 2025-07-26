@@ -4,7 +4,7 @@
 Name:		perl-CPAN-Changes
 Summary:	Read and write Changes files
 Version:	0.500005
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/CPAN-Changes
 Source0:	https://cpan.metacpan.org/modules/by-module/CPAN/CPAN-Changes-%{version}.tar.gz
@@ -92,6 +92,9 @@ make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 %{_mandir}/man3/Test::CPAN::Changes.3*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.500005-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Apr 18 2025 Paul Howarth <paul@city-fan.org> - 0.500005-1
 - Update to 0.500005
   - Fix Test::CPAN::Changes on perl 5.10 without upgrading version.pm

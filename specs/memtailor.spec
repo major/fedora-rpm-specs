@@ -6,7 +6,7 @@
 
 Name:           memtailor
 Version:        1.0
-Release:        29.%{gitdate}.git%{shorttag}%{?dist}
+Release:        30.%{gitdate}.git%{shorttag}%{?dist}
 Summary:        C++ library of special-purpose memory allocators
 
 License:        BSD-3-Clause
@@ -94,6 +94,9 @@ LD_LIBRARY_PATH=$PWD/.libs make check
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-30.20250513.git07c84a6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue May 27 2025 Jerry James <loganjerry@gmail.com> - 1.0-29.20250513.git07c84a6
 - Update to latest upstream snapshot
 - Drop upstreamed gtest patch

@@ -1,6 +1,6 @@
 Name:          neard
 Version:       0.19
-Release:       6%{?dist}
+Release:       7%{?dist}
 Summary:       Near Field Communication (NFC) manager
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:       GPL-2.0-only
@@ -74,6 +74,9 @@ make check %{?_smp_mflags}
 %{_libdir}/pkgconfig/neard.pc
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.19-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.19-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

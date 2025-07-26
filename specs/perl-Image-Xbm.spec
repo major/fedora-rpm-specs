@@ -1,6 +1,6 @@
 Name:           perl-Image-Xbm
 Version:        1.11
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Load, create, manipulate and save xbm image files in Perl
 # t/xbm.t : GNU General Public License
 # t/xbm-badfile.t : Perl 5 License
@@ -49,6 +49,9 @@ make test
 %{_mandir}/man3/*.3pm*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.11-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

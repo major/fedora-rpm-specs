@@ -1,6 +1,6 @@
 Name:           perl-FileHandle-Fmode
 Version:        0.15
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Determine whether a filehandle is opened for reading, writing, or both
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/FileHandle-Fmode
@@ -60,6 +60,9 @@ make test
 %{_mandir}/man3/FileHandle::Fmode.3*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.15-4
 - Perl 5.42 rebuild
 

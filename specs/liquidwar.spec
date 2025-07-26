@@ -1,6 +1,6 @@
 Name:           liquidwar
 Version:        5.6.5
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Multiplayer wargame with liquid armies
 License:        GPL-2.0-or-later
 URL:            http://www.ufoot.org/liquidwar/v5
@@ -146,6 +146,9 @@ install -m0644 -D liquidwar.sysusers.conf %{buildroot}%{_sysusersdir}/liquidwar.
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.5-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Mar 19 2025 Gwyn Ciesla <gwync@protonmail.com> - 5.6.5-20
 - Fix FTI
 

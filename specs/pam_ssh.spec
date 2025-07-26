@@ -1,7 +1,7 @@
 Summary: PAM module for use with SSH keys and ssh-agent
 Name: pam_ssh
 Version: 2.3
-Release: 20%{?dist}
+Release: 21%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License: BSD-2-Clause
 URL: http://sourceforge.net/projects/pam-ssh/
@@ -75,6 +75,9 @@ install -d -m 755 $RPM_BUILD_ROOT%{_rundir}/pam_ssh
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 23 2025 Dmitry Butskoy <Dmitry@Butskoy.name> - 2.3-20
 - Use gnu99 for build (#2340998)
 - Set SPDX license to BSD-2-Clause

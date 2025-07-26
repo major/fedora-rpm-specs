@@ -1,12 +1,12 @@
-%{!?postgresql_default:%global postgresql_default 1}
+%{!?postgresql_default:%global postgresql_default 0}
 
 %global pre Final
 %global majorname postgres-decoderbufs
 %global pgversion 16
 
 Name:		postgresql%{pgversion}-decoderbufs
-Version:	1.9.7
-Release:	9%{?pre:.%pre}%{?dist}
+Version:	3.2.0
+Release:	1%{?pre:.%pre}%{?dist}
 Summary:	PostgreSQL Protocol Buffers logical decoder plugin
 
 License:	MIT
@@ -26,11 +26,11 @@ Summary: PostgreSQL Audit Extension
 
 BuildRequires:	make
 BuildRequires:	gcc
-BuildRequires:	postgresql-server-devel >= 16, postgresql-server-devel < 17
+BuildRequires:	postgresql16-server-devel
 BuildRequires:	protobuf-c-devel
 
 Requires:	protobuf-c
-Requires(pre): postgresql-server >= 16, postgresql-server < 17
+Requires(pre): postgresql16-server
 
 %global precise_version %{?epoch:%epoch:}%version-%release
 Provides: %{pkgname} = %precise_version
@@ -80,6 +80,12 @@ Just-in-time compilation support for %{majorname}.
 
 
 %changelog
+* Wed Jul 23 2025 Nikola Davidova <ndavidov@redhat.com> - 3.2.0-1.Final
+- Rebase to v3.2.0
+
+* Wed Jul 23 2025 Nikola Davidova <ndavidov@redhat.com> - 1.9.7-10.Final
+- Make pg16 non default
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.7-9.Final
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

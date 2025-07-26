@@ -1,7 +1,7 @@
 %define		appname		kreetingkard
 
 %define		mainver		0.2.0
-%define		baserelease	9
+%define		baserelease	10
 %define		repoid		18013
 
 
@@ -55,6 +55,9 @@ echo "Nothing to do here"
 %{_datadir}/apps/%{appname}/templates/
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           editline
 Version:        1.17.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        A small compatible replacement for readline
 
 # https://fedoraproject.org/wiki/Licensing/Henry_Spencer_Reg-Ex_Library_License
@@ -31,6 +31,7 @@ Header files for the editline library.
 
 
 %build
+CFLAGS="$CFLAGS -std=gnu17"
 %configure --disable-static
 %make_build
 
@@ -59,6 +60,9 @@ rm %{buildroot}/%{_mandir}/man3/editline.3
 
 
 %changelog
+* Thu Jul 24 2025 Jens Petersen <petersen@redhat.com> - 1.17.1-14
+- workaround FTBFS with gcc15 (#2340112)
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 %define		mainver		0.7.1
-%define		baserelease	16
+%define		baserelease	17
 %define		repoid		18105
 
 
@@ -115,6 +115,9 @@ done
 %{_defaultdocdir}/HTML/en/%{name}/
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

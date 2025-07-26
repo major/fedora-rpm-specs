@@ -1,7 +1,7 @@
 Summary: epoxy runtime library
 Name: libepoxy
 Version: 1.5.10
-Release: 9%{?dist}
+Release: 10%{?dist}
 # SPDX
 License: MIT
 URL: https://github.com/anholt/libepoxy
@@ -58,6 +58,9 @@ xwfb-run -c mutter -- ninja -C %{_vpath_builddir} test || \
 %{_libdir}/pkgconfig/epoxy.pc
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.10-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.10-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

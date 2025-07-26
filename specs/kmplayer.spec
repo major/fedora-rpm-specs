@@ -3,7 +3,7 @@
 Name:    kmplayer
 Summary: A simple front-end for MPlayer/FFMpeg/Phonon
 Version: 0.12.0b
-Release: 15%{?dist}
+Release: 16%{?dist}
 # The documentation is GFDL.
 # The files under src/moz-sdk are MPLv1.1 or GPLv2+ or LGPLv2+
 # except src/moz-sdk/npruntime.h is BSD.
@@ -88,6 +88,9 @@ sed -i "s:Exec=kmplayer -caption %c %i %U:Exec=kmplayer %U:g" src/kmplayer.deskt
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0b-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0b-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

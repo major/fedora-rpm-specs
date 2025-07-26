@@ -1,6 +1,6 @@
 Name:           ois
 Version:        1.3.0
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Open Input System, OO gaming input library
 License:        zlib
 URL:            http://sourceforge.net/projects/wgois
@@ -63,6 +63,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

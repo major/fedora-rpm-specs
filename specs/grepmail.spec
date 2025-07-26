@@ -1,7 +1,7 @@
 Summary:	Search mailboxes for a particular email
 Name:		grepmail
 Version:	5.3111
-Release:	22%{?dist}
+Release:	23%{?dist}
 License:	GPL-2.0-only
 URL:		https://metacpan.org/release/grepmail
 Source0:	https://cpan.metacpan.org/authors/id/D/DC/DCOPPIT/grepmail-%{version}.tar.gz
@@ -93,6 +93,9 @@ make test
 %{_mandir}/man1/grepmail.1*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.3111-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.3111-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

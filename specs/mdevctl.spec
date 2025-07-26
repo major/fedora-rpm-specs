@@ -4,7 +4,7 @@
 
 Name:           mdevctl
 Version:        1.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A mediated device management utility for Linux
 
 License:        LGPL-2.1-only
@@ -77,6 +77,9 @@ sed  -e 's/SBINDIR=/SBINDIR\?=/' -i Makefile.in
 %{_datadir}/bash-completion/completions/lsmdev
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jan 28 2025 Alex Williamson <alex.williamson@redhat.com> - 1.4.0-1
 - New upstream release: https://github.com/mdevctl/mdevctl/releases/tag/v1.4.0
 

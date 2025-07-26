@@ -11,7 +11,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-re
 Version:        1.13.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A regular expression library for OCaml
 
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
@@ -67,6 +67,9 @@ developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 1.13.3-4
 - Rebuild to fix OCaml dependencies
 

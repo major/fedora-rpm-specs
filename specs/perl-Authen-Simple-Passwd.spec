@@ -1,6 +1,6 @@
 Name:           perl-Authen-Simple-Passwd
 Version:        0.6
-Release:        42%{?dist}
+Release:        43%{?dist}
 Summary:        Simple Passwd authentication
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Authen-Simple-Passwd
@@ -43,6 +43,9 @@ TEST_POD=1 ./Build test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

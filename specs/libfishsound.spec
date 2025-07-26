@@ -7,7 +7,7 @@
 
 Name:           libfishsound
 Version:        1.0.0
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Simple programming interface for Xiph.Org codecs
 
 License:        BSD-3-Clause
@@ -111,6 +111,9 @@ mv src/examples .
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue May 27 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.0.0-33
 - Rebuilt for flac 1.5.0
 

@@ -3,7 +3,7 @@
 Summary:	The Vorbis General Audio Compression Codec
 Name:		libvorbis
 Version:	1.3.7
-Release:	12%{?dist}
+Release:	13%{?dist}
 Epoch:		1
 License:	BSD-3-Clause
 URL:		https://www.xiph.org/
@@ -76,6 +76,9 @@ make check
 %ldconfig_scriptlets
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.3.7-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.3.7-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:    libkcompactdisc 
 Version: 25.07.80
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A KDE compact disc library
 
 # License for this library is very nebulous.
@@ -72,6 +72,9 @@ Obsoletes: kf5-libkcompactdisc-devel < 24.01.85
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 25.07.80-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jul 11 2025 Steve Cossette <farchord@gmail.com> - 25.07.80-1
 - 25.07.80
 

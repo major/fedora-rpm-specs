@@ -13,7 +13,7 @@
 Name:    kdepimlibs
 Summary: KDE PIM Libraries
 Version: 4.14.10
-Release: 48%{?dist}
+Release: 49%{?dist}
 
 # http://techbase.kde.org/Policies/Licensing_Policy
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -376,6 +376,9 @@ rm -fv %{buildroot}%{_kde4_datadir}/akonadi/agents/knutresource.desktop
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.14.10-49
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.14.10-48
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

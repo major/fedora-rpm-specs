@@ -5,7 +5,7 @@
 
 Name:           iguanaIR
 Version:        1.1.0
-Release:        43%{?dist}
+Release:        44%{?dist}
 Epoch:          2
 Summary:        Driver for Iguanaworks USB IR transceiver
 
@@ -235,6 +235,9 @@ install -m0644 -D iguanair.sysusers.conf %{buildroot}%{_sysusersdir}/iguanair.co
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:1.1.0-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2:1.1.0-43
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

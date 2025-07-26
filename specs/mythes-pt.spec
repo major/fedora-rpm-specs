@@ -2,7 +2,7 @@ Name: mythes-pt
 Summary: Portuguese thesaurus
 %global upstreamid 20060817
 Version: 0.%{upstreamid}
-Release: 37%{?dist}
+Release: 38%{?dist}
 Source: http://download.services.openoffice.org/contrib/dictionaries/thes_pt_PT_v2.zip
 URL: http://download.services.openoffice.org/contrib/dictionaries
 BuildRequires: unzip
@@ -45,6 +45,9 @@ done
 %{_datadir}/mythes/*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.20060817-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Mar 02 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 0.20060817-37
 - Fix alias symlinks
 

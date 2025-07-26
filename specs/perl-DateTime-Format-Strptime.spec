@@ -1,7 +1,7 @@
 Name:           perl-DateTime-Format-Strptime
 Epoch:          1
 Version:        1.79
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Parse and format strptime and strftime patterns
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/DateTime-Format-Strptime
@@ -74,6 +74,9 @@ make test
 %{_mandir}/man3/DateTime::Format::Strptime::Types.3*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.79-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.79-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

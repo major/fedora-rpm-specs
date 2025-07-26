@@ -1,6 +1,6 @@
 Name:		isa-l
 Version:	2.31.1
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Intel(R) Intelligent Storage Acceleration Library
 
 License:	BSD-3-Clause
@@ -97,6 +97,9 @@ rm %{buildroot}%{_libdir}/*.la
 %{_mandir}/man1/igzip.1*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.31.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Mar 17 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.31.1-5
 - Adderss compiler warnings on aarch64
 - Workaround for failing python-isal tests on aarch64

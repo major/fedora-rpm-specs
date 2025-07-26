@@ -5,7 +5,7 @@ Summary:    Convert Gregorian dates to Discordian dates
 License:    LicenseRef-Fedora-Public-Domain
 URL:        https://github.com/bo0ts/%{name}
 Source0:    %{url}/archive/v%{version}.tar.gz
-# Fix building with CMake 4, bug #2380534, proposed upstream,
+# Fix building with CMake 4, bug #2380534, in upstream after 0.2.2,
 # <https://github.com/bo0ts/ddate/pull/25>
 Patch0:     ddate-0.2.2-Fix-building-with-CMake-4.patch
 BuildRequires:  cmake   

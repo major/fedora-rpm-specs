@@ -3,7 +3,7 @@
 Summary:    Library to make writing a VNC server easy
 Name:       libvncserver
 Version:    0.9.15
-Release:    3%{?dist}
+Release:    4%{?dist}
 
 # NOTE: --with-filetransfer => GPLv2
 License:    GPL-2.0-or-later
@@ -140,6 +140,9 @@ done
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.15-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Feb 08 2025 Sérgio Basto <sergio@serjux.com> - 0.9.15-3
 - Add upstream patch fix-memory-leak-in-CompressClipData
 

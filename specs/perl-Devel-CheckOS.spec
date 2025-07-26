@@ -1,6 +1,6 @@
 Name:           perl-Devel-CheckOS
 Version:        2.04
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Check what OS we're running on
 # Devel/AssertOS/Extending.pod: CC-BY-SA-2.0-UK
 # Devel/CheckOS/Families.pod:   CC-BY-SA-2.0-UK
@@ -104,6 +104,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.04-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.04-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

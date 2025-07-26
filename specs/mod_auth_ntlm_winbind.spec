@@ -4,7 +4,7 @@
 Summary: NTLM authentication for the Apache web server using winbind daemon
 Name: mod_auth_ntlm_winbind
 Version: 0.0.0
-Release: 0.40.%{svn}%{?dist}
+Release: 0.41.%{svn}%{?dist}
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License: Apache-2.0
 URL: http://viewcvs.samba.org/cgi-bin/viewcvs.cgi/trunk/mod_auth_ntlm_winbind/?root=lorikeet
@@ -80,6 +80,9 @@ install -m644 %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/httpd/conf.d
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.0-0.41.20070129svn713
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.0-0.40.20070129svn713
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

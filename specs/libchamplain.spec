@@ -1,6 +1,6 @@
 Name:		libchamplain
 Version:	0.12.21
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	Map view for Clutter
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -84,6 +84,9 @@ into Gtk+ applications.
 %{_libdir}/libchamplain-gtk-0.12.so.0*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.21-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.21-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

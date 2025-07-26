@@ -11,7 +11,7 @@ URL: https://lazpaint.github.io
 License: GPL-3.0-only AND LGPL-3.0-only
 
 Version: 7.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # Versions taken from lazpaint/lazpaint.lpi
 %global bitmap_version   11.6.6
@@ -192,6 +192,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name_rtld}.m
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun May 25 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 7.3-1
 - Update to v7.3 (with BGRABitmap v11.6.6 and BGRAControls 9.0.2)
 

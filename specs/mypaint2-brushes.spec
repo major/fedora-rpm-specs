@@ -2,7 +2,7 @@
 
 Name: mypaint2-brushes
 Version: 2.0.2
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: Collections of brushes for MyPaint
 # Automatically converted from old format: CC0 - review is highly recommended.
 License: CC0-1.0
@@ -44,6 +44,9 @@ make check
 %{_datadir}/pkgconfig/mypaint-brushes-2.0.pc
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

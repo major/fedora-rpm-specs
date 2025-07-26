@@ -1,6 +1,6 @@
 Name:           perl-Apache-Session
 Version:        1.94
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Persistence framework for session data
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Apache-Session
@@ -84,6 +84,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/Apache::Session*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.94-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.94-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

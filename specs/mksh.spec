@@ -1,7 +1,7 @@
 Summary:          MirBSD enhanced version of the Korn Shell
 Name:             mksh
 Version:          59c
-Release:          13%{?dist}
+Release:          14%{?dist}
 # ISC (strlcpy.c) and MirOS (the rest)
 License:          MirOS AND ISC
 URL:              https://www.mirbsd.org/mksh.htm
@@ -170,6 +170,9 @@ done
 %{_mandir}/man1/rmksh.1*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 59c-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed May 14 2025 Michal Hlavinka <mhlavink@redhat.com> - 59c-13
 - fix dnf postun scriptlet error caused by leaking non-zero exit code
 

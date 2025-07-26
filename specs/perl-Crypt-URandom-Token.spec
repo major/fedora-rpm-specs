@@ -1,6 +1,6 @@
 Name:           perl-Crypt-URandom-Token
 Version:        0.005
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Generate secure strings for passwords, secrets and similar
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Crypt-URandom-Token
@@ -78,6 +78,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.005-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu May 22 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.005-1
 - 0.005 bump (rhbz#2367599)
 

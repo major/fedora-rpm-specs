@@ -4,7 +4,7 @@
 Name: 		newscache
 Summary: 	Free cache server for USENET News
 Version: 	1.2
-Release: 	0.51.rc6%{?dist}
+Release: 	0.52.rc6%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
 URL:		http://www.linuxhacker.at/newscache/
@@ -160,6 +160,9 @@ install -m0644 -D newscache.sysusers.conf %{buildroot}%{_sysusersdir}/newscache.
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-0.52.rc6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.2-0.51.rc6
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

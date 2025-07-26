@@ -1,6 +1,6 @@
 Name:           libmodelfile
 Version:        0.1.92
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        Library for accessing various model file formats
 
 License:        Zlib
@@ -57,6 +57,9 @@ make %{?_smp_mflags} check
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.92-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.92-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

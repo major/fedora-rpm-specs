@@ -2,7 +2,7 @@
 
 Name:           kshutdown
 Version:        5.2
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Graphical shutdown utility for Plasma 5
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
@@ -54,6 +54,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/kshutdown.desktop
 %{_datadir}/icons/hicolor/*/apps/kshutdown.png
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.2-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.2-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

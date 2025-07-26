@@ -8,7 +8,7 @@
 
 Name:           myproxy
 Version:        6.2.16
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Manage X.509 Public Key Infrastructure (PKI) security credentials
 
 License:        NCSA AND BSD-4-Clause AND BSD-2-Clause AND Apache-2.0
@@ -330,6 +330,9 @@ rm %{buildroot}%{_sbindir}/myproxy-server-setup
 %license LICENSE*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.16-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Mar 08 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.2.16-9
 - Rebuilt for updated systemd-rpm-macros (Fedora 42+)
 

@@ -1,6 +1,6 @@
 Name:		kpcli	
 Version:	4.1.3
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	KeePass Command Line Interface (CLI) / interactive shell
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 BuildArch:	noarch
@@ -47,6 +47,9 @@ install -p -m0755 %{name}-%{version}.pl %{buildroot}%{_bindir}/%{name}
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 24 2025 Charles R. Anderson <cra@alum.wpi.edu> - 4.1.3-1
 - Update to 4.1.3
 

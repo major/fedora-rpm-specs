@@ -1,6 +1,6 @@
 Name:           perl-Command-Runner
 Version:        0.201
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Run external commands and Perl code references
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Command-Runner
@@ -82,6 +82,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.201-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Apr 28 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.201-1
 - 0.201 bump (rhbz#2362435)
 

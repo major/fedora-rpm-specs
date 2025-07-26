@@ -4,7 +4,7 @@
 Name:		%{fontname}-fonts
 Summary:	Clean serif font based on Kennerly Old Style
 Version:	20080206
-Release:	30%{?dist}
+Release:	31%{?dist}
 License:	LicenseRef-Fedora-Public-Domain
 # Source was originally downloaded from here:
 # http://openfontlibrary.org/people/chemoelectric/chemoelectric_-_Goudy_Bookletter_1.zip
@@ -53,6 +53,9 @@ install -Dm 0644 -p %{SOURCE3} \
 %{_datadir}/appdata/%{fontname}.metainfo.xml
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20080206-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20080206-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

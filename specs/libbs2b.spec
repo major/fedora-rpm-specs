@@ -1,6 +1,6 @@
 Name:		libbs2b
 Version:	3.1.0
-Release:	35%{?dist}
+Release:	36%{?dist}
 Summary:	Bauer stereophonic-to-binaural DSP library
 
 License:	MIT
@@ -74,6 +74,9 @@ rm %{buildroot}/%{_libdir}/%{name}.la
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

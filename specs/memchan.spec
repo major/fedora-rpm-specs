@@ -3,7 +3,7 @@
 
 Name:           memchan
 Version:        2.3
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        In-memory channels for Tcl
 # All files MIT except isaac/rand.h and isaac/randport.c which
 # are public domain.
@@ -66,6 +66,9 @@ make test
 %{tcl_sitearch}/Memchan%{version}/*.a
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Mar 24 2025 Tom Callaway <spot@fedoraproject.org> - 2.3-32
 - force to tcl8 (this code was last touched in 2010)
 

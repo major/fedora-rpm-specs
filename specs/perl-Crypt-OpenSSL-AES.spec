@@ -1,6 +1,6 @@
 Name:           perl-Crypt-OpenSSL-AES
 Version:        0.21
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Perl interface to OpenSSL for AES
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Crypt-OpenSSL-AES
@@ -103,6 +103,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.21-5
 - Perl 5.42 rebuild
 

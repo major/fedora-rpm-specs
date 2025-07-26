@@ -3,7 +3,7 @@
 
 Name:           patchelf
 Version:        0.18.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A utility for patching ELF binaries
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -60,6 +60,9 @@ rm -rf %{buildroot}/usr/share/doc/%{name}
 %{_datadir}/zsh/site-functions/_patchelf
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 31 2025 Miro Hrončok <mhroncok@redhat.com> - 0.18.0-8
 - Allocate PHT & SHT at the end of the *.elf file
 - Fxies: rhbz#2321588

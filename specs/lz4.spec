@@ -2,7 +2,7 @@
 
 Name:           lz4
 Version:        1.10.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Extremely fast compression algorithm
 
 License:        GPL-2.0-or-later AND BSD-2-Clause
@@ -82,6 +82,9 @@ contains static libraries for static linking of applications.
 %{_libdir}/liblz4.a
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

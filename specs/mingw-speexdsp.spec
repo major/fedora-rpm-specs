@@ -4,7 +4,7 @@
 
 Name:           mingw-%{pkgname}
 Version:        1.2.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A voice compression format (DSP)
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -102,6 +102,9 @@ This is the DSP package, see the speex package for the codec part.
 # See https://fedoraproject.org/wiki/Packaging:MinGW
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:          gwebsockets
 Version:       0.7
-Release:       20%{?dist}
+Release:       21%{?dist}
 Summary:       GLib based websockets server
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -42,6 +42,9 @@ communication and hence it easily integrates with the GLib mainloop.
 %license LICENSE
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jul 08 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 0.7-20
 - Migrate to new python build macros (rhbz: 2377281)
 

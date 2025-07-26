@@ -11,8 +11,8 @@
 %endif
 
 Name:           fedora-license-data
-Version:        1.68
-Release:        2%{?dist}
+Version:        1.70
+Release:        1%{?dist}
 Summary:        Fedora Linux license data
 
 License:        CC0-1.0
@@ -128,8 +128,20 @@ make check-grammar
 
 
 %changelog
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.68-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+* Thu Jul 24 2025 Miroslav Suchý <msuchy@redhat.com> 1.70-1
+- add GPL-2.0-only WITH Universal-FOSS-exception-1.0
+- add libpng licenses
+- add UltraPermissive dedication of tolua++
+- add note and link that APSL-1.x can be used as APSL-2.0
+- add LicenseRef-Remix-icon as not-allowed
+- describe how to use LicenseRef-IUPAC-InChI-Trust
+- Add public-domain dedication for dcm2niix
+- add LicenseRef-Aalok-Everfree as not-allowed
+- add public domain dedication of libtommath
+- add public domain dedication of heimdal
+
+* Tue Jul 01 2025 Miroslav Suchý <msuchy@redhat.com> 1.69-1
+- add BSD-3-Clause-No-Nuclear-License as not allowed
 
 * Tue Jun 03 2025 Miroslav Suchý <msuchy@redhat.com> 1.68-1
 - add CC-SA-1.0 as allowed-content

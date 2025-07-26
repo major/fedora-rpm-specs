@@ -2,7 +2,7 @@
 
 Name:           %{pypi_name}
 Version:        0.9.3
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Active Directory information dumper via LDAP
 
 License:        MIT
@@ -50,6 +50,9 @@ sed -i -e '/^#!\//, 1d' ldapdomaindump/__main__.py
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.9.3-19
 - Rebuilt for Python 3.14
 

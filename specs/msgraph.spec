@@ -6,7 +6,7 @@
 
 Name:           msgraph
 Version:        0.3.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Library to access MS Graph API for Microsoft 365
 
 License:        LGPL-3.0-or-later
@@ -85,6 +85,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Apr 14 2025 Nieves Montero <nmontero@redhat.com> - 0.3.3-2
 - Rebuilt against a side tag
 

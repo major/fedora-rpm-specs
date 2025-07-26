@@ -1,6 +1,6 @@
 Name:           nullmodem
 Version:        0.0.6
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        A utility to loopback pseudo-terminals
 
 License:        GPL-1.0-or-later
@@ -38,6 +38,9 @@ make install DESTDIR=%{buildroot} INSTALL="install -p"
 %{_bindir}/%{name}
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.6-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.6-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

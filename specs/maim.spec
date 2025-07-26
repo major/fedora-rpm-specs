@@ -1,6 +1,6 @@
 Name:			maim
 Version:		5.8.1
-Release:		1%{?dist}
+Release:		2%{?dist}
 Summary:		Command-line screen capture tool
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -48,6 +48,9 @@ predetermined or user selected regions of your desktop.
 %license COPYING license.txt
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 21 2025 Alois Mahdal <netvor@vornet.cz> - 5.8.1-1
 - Update to upstream release 5.8.1 (RHBZ#2375383)
 

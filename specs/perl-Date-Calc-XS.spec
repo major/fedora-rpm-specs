@@ -1,6 +1,6 @@
 Name:           perl-Date-Calc-XS
 Version:        6.4
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        XS wrapper and C library plug-in for Date::Calc
 License:        LGPL-2.0-or-later AND ( GPL-1.0-or-later OR Artistic-1.0-Perl )
 URL:            https://metacpan.org/release/Date-Calc-XS
@@ -90,6 +90,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 6.4-33
 - Perl 5.42 rebuild
 

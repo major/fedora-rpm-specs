@@ -3,7 +3,7 @@
 Summary:    RFC 1413-compliant identification server with NAT support
 Name:       oidentd
 Version:    3.1.0
-Release:    8%{?dist}
+Release:    9%{?dist}
 # COPYING:                  GPL-2.0 text
 # COPYING.DOC:              GFDL-1.3 text
 # doc/book/src/download.md:                                 GFDL-1.3-no-invariants-or-later
@@ -201,6 +201,9 @@ exit 0
 %{_sysusersdir}/oidentd.conf
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.1.0-8
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

@@ -1,6 +1,6 @@
 Name:          ktextaddons-qt5
 Version:       1.5.4
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       Various text handling addons
 
 License:       CC0-1.0 AND LGPL-2.0-or-later AND GPL-2.0-or-later AND BSD-3-Clause
@@ -118,6 +118,9 @@ rename .po 5.po po/*/*.po
 %{_kf5_qtplugindir}/designer/texttranslatorwidgets5.so
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.4-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jul 17 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 1.5.4-4
 - Fix conflicts with ktextaddons-qt6
 

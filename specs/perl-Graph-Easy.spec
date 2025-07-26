@@ -1,6 +1,6 @@
 Name:           perl-Graph-Easy
 Version:        0.76
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Convert or render graphs as ASCII, HTML, SVG or via Graphviz
 License:        GPL-2.0-or-later AND Apache-1.1
 URL:            https://metacpan.org/release/Graph-Easy
@@ -86,6 +86,9 @@ make test
 %{_mandir}/man3/Graph::Easy*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.76-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.76-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

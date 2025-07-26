@@ -3,7 +3,7 @@
 Name:           jemalloc
 Version:        5.3.0
 
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        General-purpose scalable concurrent malloc implementation
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -108,6 +108,9 @@ find %{buildroot}%{_libdir}/ -name '*.a' -exec rm -vf {} ';'
 %ldconfig_scriptlets
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Mar 31 2025 Ingvar Hagelund <ingvar@redpill-linpro.com> - 5.3.0-12
 - Support allocation profiling, i.e. build with --enable-prof flag
 

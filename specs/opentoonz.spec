@@ -3,7 +3,7 @@
 
 Name:    opentoonz
 Version: 1.7.1
-Release: 16%{?dist}
+Release: 17%{?dist}
 Summary: 2D animation software
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -139,6 +139,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 04 2025 Sérgio Basto <sergio@serjux.com> - 1.7.1-16
 - Rebuild for opencv-4.11.0
 

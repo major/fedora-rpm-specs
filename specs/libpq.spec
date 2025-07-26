@@ -5,7 +5,7 @@
 Summary: PostgreSQL client library
 Name: libpq
 Version: %{majorversion}.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: PostgreSQL
 Url: http://www.postgresql.org/
@@ -146,6 +146,9 @@ find_lang_bins %name-devel.lst  pg_config
 %_libdir/pkgconfig/libpq.pc
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 18.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 09 2025 Nikola Davidova <ndavidov@redhat.com> - 18.0-1
 - Rebase to upstream release 18.0
 

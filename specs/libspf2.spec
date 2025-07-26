@@ -14,7 +14,7 @@
 
 Name:		libspf2
 Version:	1.2.11
-Release:	18.20210922git%{git}%{?dist}
+Release:	19.20210922git%{git}%{?dist}
 Summary:	An implementation of the SPF specification
 License:	BSD or LGPLv2+
 Url:		http://www.libspf2.org/
@@ -204,6 +204,9 @@ exit 0
 %{_mandir}/man3/Mail::SPF_XS.3pm*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.11-19.20210922git4915c308
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.2.11-18.20210922git4915c308
 - Perl 5.42 rebuild
 

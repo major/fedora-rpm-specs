@@ -8,7 +8,7 @@ Summary: Access to a small subset of the native HarfBuzz library
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License: GPL-1.0-or-later OR Artistic-1.0-Perl
 Version: 0.028
-Release: 2%{?dist}
+Release: 3%{?dist}
 Source: %{metacpan}/%{FullName}-%{version}.tar.gz
 Url: https://metacpan.org/release/%{FullName}
 
@@ -70,6 +70,9 @@ make test VERBOSE=1
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.028-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.028-2
 - Perl 5.42 rebuild
 

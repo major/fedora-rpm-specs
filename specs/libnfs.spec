@@ -1,6 +1,6 @@
 Name:		libnfs
 Version:	6.0.2
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Client library for accessing NFS shares over a network
 # The library is licensed as LGPL-2.1-or-later
 # The protocol definition is BSD-2-Clause
@@ -88,6 +88,9 @@ rm -f %{buildroot}%{_libdir}/*.la
 %{_mandir}/man1/nfs-*.1*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri May 23 2025 Xavier Bachelot <xavier@bachelot.org> - 6.0.2-4
 - Add upstream patch to fix undefined symbols (RHBZ#2368146)
 

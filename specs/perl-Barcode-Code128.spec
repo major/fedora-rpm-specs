@@ -1,6 +1,6 @@
 name:           perl-Barcode-Code128
 Version:        2.21
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Generate CODE 128 bar codes
 # README:       LicenseRef-Fedora-Public-Domain
 License:        LicenseRef-Fedora-Public-Domain
@@ -82,6 +82,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.21-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.21-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

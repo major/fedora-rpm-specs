@@ -1,6 +1,6 @@
 Name:           wafw00f
-Version:        2.1.0
-Release:        19%{?dist}
+Version:        2.3.1
+Release:        1%{?dist}
 Summary:        Tool to identifies and fingerprints Web Application Firewall (WAF)
 
 
@@ -11,7 +11,6 @@ Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 
 %description
 WAFW00F identifies and fingerprints Web Application Firewall (WAF) products.
@@ -20,20 +19,29 @@ WAFW00F identifies and fingerprints Web Application Firewall (WAF) products.
 %autosetup -n %{name}-%{version}
 sed -i -e '/^#!\//, 1d' {wafw00f/*.py,wafw00f/*/*.py}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
 %files
 %doc CREDITS.txt README.md
 %license LICENSE
 %{_bindir}/%{name}
-%{python3_sitelib}/%{name}-*.egg-info/
+%{python3_sitelib}/%{name}-*.dist-info/
 %{python3_sitelib}/%{name}/
 
 %changelog
+* Thu Jul 24 2025 Federico Pellegrin <fede@evolware.org> - 2.3.1-1
+- Bump to 2.3.1
+
+* Thu Jul 24 2025 Federico Pellegrin <fede@evolware.org> - 2.1.0-20
+- Use new Python macros in spec file (rhbz#2378500)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.1.0-19
 - Rebuilt for Python 3.14
 

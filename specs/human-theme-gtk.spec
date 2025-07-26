@@ -1,6 +1,6 @@
 Name:          human-theme-gtk
 Version:       2.5.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Human theme for GTK
 Summary(fr):   Thème Human pour GTK
 License:       GPL-3.0-or-later and LGPL-2.1-or-later and CC-BY-SA-3.0
@@ -53,6 +53,9 @@ install -Dpm 644 data/profile.sh %{buildroot}/etc/profile.d/%{name}.sh
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jun 06 2025 Fabrice Creuzot <code@luigifab.fr> - 2.5.0-1
 - New upstream release
 

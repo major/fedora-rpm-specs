@@ -2,7 +2,7 @@
 
 Name:    kf5-%{framework}
 Version: 5.116.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: QtQuickControls2 style for consistency between QWidget and QML apps
 License: LGPL-2.0-or-later AND (LGPL-3.0-only OR GPL-2.0-or-later) AND (LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only)
 URL:     https://invent.kde.org/frameworks/%{framework}
@@ -69,6 +69,9 @@ between QWidget-based and QML-based apps.
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.116.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.116.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

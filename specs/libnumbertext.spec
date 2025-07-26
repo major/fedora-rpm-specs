@@ -1,6 +1,6 @@
 Name:      libnumbertext
 Version:   1.0.11
-Release:   8%{?dist}
+Release:   9%{?dist}
 Summary:   Number to number name and money text conversion library
 
 #The entire source code is dual license LGPLv3+ or BSD, except for
@@ -54,6 +54,9 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/*.la
 %{_libdir}/*.so
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.11-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.11-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

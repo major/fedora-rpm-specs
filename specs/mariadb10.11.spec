@@ -163,7 +163,7 @@
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          8%{?with_debug:.debug}%{?dist}
+Release:          9%{?with_debug:.debug}%{?dist}
 Epoch:            3
 
 Summary:          A very fast and robust SQL database server
@@ -1855,6 +1855,9 @@ fi
 %endif
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3:10.11.13-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jun 06 2025 Pavol Sloboda <psloboda@redhat.com> - 3:10.11.13-1
 - Rebase to 10.11.13
 

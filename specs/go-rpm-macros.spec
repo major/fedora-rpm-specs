@@ -32,14 +32,6 @@ License:   GPL-3.0-or-later
 URL:       %{forgeurl}
 Source:    %{forgesource}
 
-# gobuild: set GOEXPERIMENT=nodwarf5 to fix debuginfo collection
-# https://gitlab.com/fedora/sigs/go/go-rpm-macros/-/merge_requests/7
-#
-# This is a hotfix to fix build failures with Go 1.25 until we have a better solution.
-# XXX: This patch is not compatible with Go 1.24 on Fedora <= 42.
-# Do not backport it.
-Patch:     https://gitlab.com/fedora/sigs/go/go-rpm-macros/-/merge_requests/7.patch
-
 %if %{with tests}
 BuildRequires: pyproject-rpm-macros
 %endif

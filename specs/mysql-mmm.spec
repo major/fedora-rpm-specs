@@ -2,7 +2,7 @@
 
 Name: mysql-mmm
 Version: 2.2.1
-Release: 39%{?dist}
+Release: 40%{?dist}
 Summary: Multi-Master Replication Manager for MySQL
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
@@ -181,6 +181,9 @@ mv %{buildroot}/usr/sbin/mmm_* %{buildroot}%{_bindir}
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Apr 05 2025 avid Beveridge <dave@bevhost.com> 2.2.1-39
 - add feature notify_cmd
 - suppress fatal escalation of uninitialized variables warning

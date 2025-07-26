@@ -1,6 +1,6 @@
 Name:           perl-HTML-HTML5-Entities
 Version:        0.004
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Drop-in replacement for HTML::Entities with HTML5 support
 # CONTRIBUTING:                 GPL+ or Artistic or (Creative Commons
 #                               Attribution ShareAlike 2.0 UK: England & Wales)
@@ -52,6 +52,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.004-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.004-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

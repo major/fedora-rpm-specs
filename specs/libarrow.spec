@@ -31,7 +31,7 @@
 
 Name:		libarrow
 Version:	20.0.0
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	A toolbox for accelerated data interchange and in-memory processing
 License:	Apache-2.0
 URL:		https://arrow.apache.org/
@@ -825,6 +825,9 @@ export LD_LIBRARY_PATH='%{buildroot}%{_libdir}'
 #--------------------------------------------------------------------
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20.0.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jul 15 2025  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 20.0.0-3
 - Arrow 20.0.0, rebuild with ORC (liborc) 2.1.3
 

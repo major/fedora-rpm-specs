@@ -1,6 +1,6 @@
 Name:           perl-Data-JavaScript
 Version:        1.15
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Dump perl data structures into JavaScript code
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -55,6 +55,9 @@ structures created on the server.
 %{_mandir}/man3/Data*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.15-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.15-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

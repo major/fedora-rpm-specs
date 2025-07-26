@@ -1,6 +1,6 @@
 Name:           neverball
 Version:        1.6.0
-Release:        34%{?dist}
+Release:        35%{?dist}
 
 Summary:        Common files for neverball and neverputt
 
@@ -182,6 +182,9 @@ cp -pr locale/* %{buildroot}%{_datadir}/locale/
 %{_datadir}/icons/hicolor/*/apps/neverball.png
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Apr 21 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.6.0-34
 - Include translations
 

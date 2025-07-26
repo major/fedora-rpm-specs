@@ -5,7 +5,7 @@
 Summary: Helper program for calling chroot(2) as non-root
 Name: linux-user-chroot
 Version: 2015.1
-Release: 22%{?dist}
+Release: 23%{?dist}
 #VCS: git:git://git.gnome.org/linux-user-chroot
 # I used "git archive" 
 Source0: https://git.gnome.org/browse/linux-user-chroot/snapshot/linux-user-chroot-%{version}.tar.xz
@@ -39,6 +39,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_mandir}/man8/*.gz
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2015.1-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2015.1-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

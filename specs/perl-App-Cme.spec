@@ -1,6 +1,6 @@
 Name:           perl-App-Cme
 Version:        1.043
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Check or edit configuration data with Config::Model
 License:        LGPL-2.1-or-later
 URL:            https://metacpan.org/release/App-Cme
@@ -138,6 +138,9 @@ unset AUTHOR_TESTING
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.043-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon May 12 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.043-1
 - 1.043 bump (rhbz#2365112)
 

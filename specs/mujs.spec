@@ -1,6 +1,6 @@
 Name:           mujs
 Version:        1.3.3
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        An embeddable Javascript interpreter
 License:        ISC
 URL:            https://mujs.com/
@@ -66,6 +66,9 @@ chmod a-x -v docs/*
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

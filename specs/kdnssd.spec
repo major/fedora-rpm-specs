@@ -3,7 +3,7 @@
 Name:    kdnssd
 Summary: KDE Network Monitor for DNS-SD services (Zeroconf)
 Version: 25.07.80
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPL-2.0-or-later AND LGPL-2.0-only
 URL:     https://invent.kde.org/network/%{base_name}
@@ -62,6 +62,9 @@ Provides:  kdenetwork-kdnssd = 7:%{version}-%{release}
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 25.07.80-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jul 11 2025 Steve Cossette <farchord@gmail.com> - 25.07.80-1
 - 25.07.80
 

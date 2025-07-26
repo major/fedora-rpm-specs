@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-pcre
 Version:        8.0.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl compatibility regular expressions (PCRE) for OCaml
 
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
@@ -58,6 +58,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 30 2025 Jerry James  <loganjerry@gmail.com> - 8.0.4-1
 - Version 8.0.4
 - BR ocaml-ounit for the tests

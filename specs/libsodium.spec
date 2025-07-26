@@ -16,7 +16,7 @@
 
 Name:           libsodium
 Version:        1.0.20
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        The Sodium crypto library
 # Most source code is ISC, except:
 # BSD-2-Clause:
@@ -195,6 +195,9 @@ make -C build_native check
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.20-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Mar 30 2025 Carl George <carlwgeorge@fedoraproject.org> - 1.0.20-5
 - Add missing SPDX identifiers to license field
 

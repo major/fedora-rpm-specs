@@ -3,7 +3,7 @@ Summary:        Lazarus Component Library and IDE for Free Pascal
 
 Version:        4.0
 
-%global baserelease 2
+%global baserelease 3
 Release:        %{baserelease}%{?dist}
 
 # The qt5pas version is taken from lcl/interfaces/qt5/cbindings/Qt5Pas.pro
@@ -554,6 +554,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun May 25 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 4.0-2
 - Fix lazbuild failing to build programs if IDE is not installed
 

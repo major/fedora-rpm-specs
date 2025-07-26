@@ -3,7 +3,7 @@
 
 Name:       man2html
 Version:    1.6
-Release:    39.%{posttag}%{?dist}
+Release:    40.%{posttag}%{?dist}
 Summary:    Convert man pages to HTML - CGI scripts
 
 # man2html.c and debian/sources/man2html.cgi.c are man2html
@@ -175,6 +175,9 @@ rm -f %{_localstatedir}/cache/man2html/* || :
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-40.g
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Feb 26 2025 Sérgio Basto <sergio@serjux.com> - 1.6-39.g
 - Add more patches from Debian
          004-spelling.patch

@@ -3,7 +3,7 @@
 
 Name:		mISDN
 Version:	2.0.22
-Release:	17%{?dist}
+Release:	18%{?dist}
 Summary:	Userspace part of Modular ISDN stack
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -102,6 +102,9 @@ install -m0644 -D misdn.sysusers.conf %{buildroot}%{_sysusersdir}/misdn.conf
 %endif
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.22-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.0.22-17
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

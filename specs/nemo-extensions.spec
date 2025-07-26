@@ -4,7 +4,7 @@
 
 Name:           nemo-extensions
 Version:        6.4.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Extensions for Nemo
 
 License:        GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
@@ -340,6 +340,9 @@ rm -rf %{buildroot}/%{_datadir}/doc/nemo-python/
 %{_mandir}/man1/nemo-seahorse-tool.1.* 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jul 12 2025 Leigh Scott <leigh123linux@gmail.com> - 6.4.0-4
 - Remove unused build requires
 

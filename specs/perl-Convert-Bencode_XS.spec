@@ -1,6 +1,6 @@
 Name:           perl-Convert-Bencode_XS
 Version:        0.06
-Release:        46%{?dist}
+Release:        47%{?dist}
 Summary:        Faster conversions to/from Bencode format
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Convert-Bencode_XS
@@ -52,6 +52,9 @@ PERL_PERTURB_KEYS=0 make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-47
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.06-46
 - Perl 5.42 rebuild
 

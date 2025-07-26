@@ -7,7 +7,7 @@
 
 Name:           perl-Gtk3
 Version:        0.038
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Perl interface to the 3.x series of the GTK+ toolkit
 License:        LGPL-2.1-or-later
 URL:            https://metacpan.org/release/Gtk3
@@ -170,6 +170,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.038-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jun 04 2025 Petr Pisar <ppisar@redhat.com> - 0.038-17
 - Run tests also against Wayland
 

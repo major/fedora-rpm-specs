@@ -3,7 +3,7 @@
 
 Name:           perl-Data-Peek
 Version:        0.53
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Collection of low-level debug facilities
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Data-Peek
@@ -93,6 +93,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.53-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.53-3
 - Perl 5.42 rebuild
 

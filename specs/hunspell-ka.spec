@@ -7,7 +7,7 @@
 Name: hunspell-ka
 Summary: Georgian hunspell dictionaries
 Version: 0.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 Source: https://github.com/gamag/ka_GE.spell/archive/refs/tags/%{version}.tar.gz#/ka_GE-%{version}.tar.gz
 URL: https://github.com/gamag/ka_GE.spell/
 License: MIT AND CC-BY-4.0
@@ -35,6 +35,9 @@ cp -p dictionaries/*.dic dictionaries/*.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_d
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Apr 24 2025 Parag Nemade <pnemade AT redhat DOT com> - 0.1-3
 - Fix Source and URL tags
 - Use correct upstream source tarball

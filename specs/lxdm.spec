@@ -26,7 +26,7 @@
 
 Name:           lxdm
 Version:        %{main_version}%{?git_version:^%{?git_version}}
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Lightweight X11 Display Manager
 
 # src/*.c	GPL-3.0-or-later
@@ -243,6 +243,9 @@ exit 0
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3^20220831git2d4ba970-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon May 26 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.3^20220831git2d4ba970-11
 - Add ACLOCAL_PATH for gettext 0.25 (ref: bug 2366708)
 

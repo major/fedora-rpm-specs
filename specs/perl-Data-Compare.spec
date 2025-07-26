@@ -1,6 +1,6 @@
 Name:           perl-Data-Compare
 Version:        1.29
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Compare perl data structures
 # Some of the metadata files suggest GPL2 rather than GPL (any version)
 # but the module is actually licensed "same as perl"
@@ -72,6 +72,9 @@ make test
 %{_mandir}/man3/Data::Compare::Plugins::Scalar::Properties.3*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.29-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.29-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

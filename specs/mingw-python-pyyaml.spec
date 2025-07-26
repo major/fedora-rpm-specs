@@ -4,7 +4,7 @@
 
 Name:          mingw-python-%{mod_name}
 Version:       6.0.2
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       MinGW Windows Python %{mod_name} library
 BuildArch:     noarch
 
@@ -76,6 +76,9 @@ sed -i 's/Cython<3.0/Cython/' pyproject.toml
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

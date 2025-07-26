@@ -13,7 +13,7 @@
 
 Name:		passt
 Version:	0^20250611.g0293c6f
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	User-mode networking daemons for virtual machines and namespaces
 License:	GPL-2.0-or-later AND BSD-3-Clause
 Group:		System Environment/Daemons
@@ -142,6 +142,9 @@ restorecon -R /run/user 2>/dev/null
 %{_datadir}/selinux/packages/%{selinuxtype}/passt-repair.pp
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0^20250611.g0293c6f-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jun 11 2025 Stefano Brivio <sbrivio@redhat.com> - 0^20250611.g0293c6f-1
 - Hide restorecon(8) errors in post-transaction scriptlet
 - Add container-selinux as dependency for passt-selinux

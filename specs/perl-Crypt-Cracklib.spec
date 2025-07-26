@@ -1,6 +1,6 @@
 Name:           perl-Crypt-Cracklib
 Version:        1.7
-Release:        47%{?dist}
+Release:        48%{?dist}
 Summary:        Crypt-Cracklib - Perl interface to Alec Muffett's Cracklib
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Crypt-Cracklib
@@ -67,6 +67,9 @@ make test
 %{_mandir}/man3/Crypt::Cracklib.3*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-48
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jul 09 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.7-47
 - Perl 5.42 re-rebuild updated packages
 

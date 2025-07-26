@@ -1,6 +1,6 @@
 Name:           mesa-libGLU
 Version:        9.0.3
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Mesa libGLU library
 
 License:        X11
@@ -49,6 +49,9 @@ find $RPM_BUILD_ROOT -name '*.a' -delete
 %{_libdir}/pkgconfig/glu.pc
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.3-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

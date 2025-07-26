@@ -3,7 +3,7 @@
 Summary:        MinGW Windows port of the GNOME 2.x Desktop Configuration Database System
 Name:           mingw-GConf2
 Version:        3.2.6
-Release:        29%{?dist}
+Release:        30%{?dist}
 # Automatically converted from old format: LGPLv2 or MPLv1.1 - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2 OR LicenseRef-Callaway-MPLv1.1
 URL:            http://www.gnome.org/
@@ -175,6 +175,9 @@ done
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.6-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.6-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

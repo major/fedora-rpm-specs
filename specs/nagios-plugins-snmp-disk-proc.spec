@@ -2,7 +2,7 @@
 
 Name:           nagios-plugins-snmp-disk-proc
 Version:        1.3.1
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Nagios SNMP plugins to monitor remote disk and processes
 # Version intent from README
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -45,6 +45,9 @@ install -p -m 755 check_snmp_proc $RPM_BUILD_ROOT/%{nagios_plugins_dir}
 %{nagios_plugins_dir}/check_snmp_proc
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

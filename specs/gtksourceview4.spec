@@ -5,7 +5,7 @@
 
 Name:           gtksourceview4
 Version:        4.8.4
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Source code editing widget
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -106,6 +106,9 @@ the functionality of the installed %{name} package.
 %{_datadir}/installed-tests/gtksourceview-4/
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.4-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.4-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

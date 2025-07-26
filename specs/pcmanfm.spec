@@ -51,7 +51,7 @@
 
 Name:		pcmanfm
 Version:	%{main_version}%{git_ver_rpm}
-Release:	3%{?dist}%{flagrel}
+Release:	4%{?dist}%{flagrel}
 Summary:	Extremly fast and lightweight file manager
 
 # SPDX confirmed
@@ -242,6 +242,9 @@ cd ..
 %{_includedir}/pcmanfm-modules.h
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon May 26 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.0-3
 - Use ACLOCAL_PATH environment instead of calling autopoint
 

@@ -6,7 +6,7 @@
 
 Name:		linuxptp
 Version:	4.4
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	PTP implementation for Linux
 
 License:	GPL-2.0-or-later
@@ -171,6 +171,9 @@ fi
 %{_mandir}/man8/*.8*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.4-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jul 08 2025 Miroslav Lichvar <mlichvar@redhat.com> 4.4-5
 - add ts2phc service and default configs
 

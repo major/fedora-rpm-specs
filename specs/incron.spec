@@ -1,7 +1,7 @@
 Summary:     Inotify cron system
 Name:        incron
 Version:     0.5.12
-Release:     27%{?dist}
+Release:     28%{?dist}
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:     GPL-2.0-only
@@ -73,6 +73,9 @@ make install-man MANPATH="%{buildroot}%{_mandir}" INSTALL="install -D -p"
 %dir %{_sysconfdir}/%{name}.d
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.12-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.12-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

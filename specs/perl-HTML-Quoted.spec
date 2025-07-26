@@ -1,6 +1,6 @@
 Name:           perl-HTML-Quoted
 Version:        0.04
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Extract structure of quoted HTML mail message
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/HTML-Quoted
@@ -45,6 +45,9 @@ rm -r inc
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

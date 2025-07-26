@@ -2,7 +2,7 @@
 
 Name:           %{pypi_name}
 Version:        1.9.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        CLI for SQLite databases
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -60,6 +60,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.9.0-11
 - Rebuilt for Python 3.14
 

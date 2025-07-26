@@ -1,7 +1,7 @@
 Name:           kgraphviewer
 Summary:        Graphviz dot graph file viewer
 Version:        25.07.80
-Release:        1%{?dist}
+Release:        2%{?dist}
 # Bit of a mess. README states it's GPLv2+, however the source files
 # indicate it's GPLv2. FDL is included in COPYING.DOC, but does not
 # apply to anything.
@@ -98,6 +98,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/*.appdata.
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 25.07.80-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 14 2025 Steve Cossette <farchord@gmail.com> - 25.07.80-1
 - 25.07.80
 

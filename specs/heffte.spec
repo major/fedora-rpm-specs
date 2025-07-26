@@ -1,7 +1,7 @@
 Name:           heffte
 Version:        2.4.1
 %global         sover 2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Highly Efficient FFT for Exascale
 
 License:        BSD-3-Clause
@@ -210,6 +210,9 @@ done
 %{_datadir}/%{name}/docs
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Mar 02 2025 Christoph Junghans <junghans@votca.org> - 2.4.1-6
 - Add missing fftw-devel dep for devel pkg
 

@@ -1,6 +1,6 @@
 Name:           open-vmdk
 Version:        0.3.8
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Tools to create OVA files from raw disk images
 License:        Apache-2.0
 URL:            https://github.com/vmware/open-vmdk
@@ -43,6 +43,9 @@ install -m0644 templates/*.ovf %{buildroot}%{_datadir}/%{name}
 %config(noreplace) %{_sysconfdir}/open-vmdk.conf
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.8-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

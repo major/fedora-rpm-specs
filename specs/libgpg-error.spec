@@ -1,6 +1,6 @@
 Name: libgpg-error
 Version: 1.55
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Library for error values used by GnuPG components
 URL: https://www.gnupg.org/related_software/libgpg-error/
 License: LGPL-2.1-or-later AND (BSD-3-Clause OR LGPL-2.1-or-later) AND FSFULLR AND GPL-2.0-or-later
@@ -89,6 +89,9 @@ make check
 %{_mandir}/man1/gpgrt-config.*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.55-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Apr 24 2025 Jakub Jelen <jjelen@redhat.com> - 1.55-1
 - New upstream release (#2362074)
 

@@ -5,17 +5,13 @@
 %global crate postcard
 
 Name:           rust-postcard
-Version:        1.1.2
+Version:        1.1.3
 Release:        %autorelease
 Summary:        No_std + serde compatible message library for Rust
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/postcard
 Source:         %{crates_source}
-# * Fix missing license files in published crates:
-#   https://github.com/jamesmunns/postcard/pull/227
-Source10:       https://github.com/jamesmunns/postcard/raw/refs/tags/postcard/v%{version}/LICENSE-APACHE
-Source11:       https://github.com/jamesmunns/postcard/raw/refs/tags/postcard/v%{version}/LICENSE-MIT
 # Manually created patch for downstream crate metadata changes
 # * Patch out features that would require embedded-io or defmt
 Patch:          postcard-fix-metadata.diff
@@ -201,7 +197,6 @@ use the "use-std" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
-cp -p '%{SOURCE10}' '%{SOURCE11}' .
 
 %generate_buildrequires
 %cargo_generate_buildrequires

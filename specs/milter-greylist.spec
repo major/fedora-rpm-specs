@@ -8,7 +8,7 @@
 Summary:		Milter for greylisting, the next step in the spam control war
 Name:			milter-greylist
 Version:		4.6.4
-Release:		18%{?dist}
+Release:		19%{?dist}
 # License is like BSD-4-Clause but without the 4th clause
 # We use spamd.c but not queue.h
 # See READNE for details
@@ -175,6 +175,9 @@ exit 0
 %{_unitdir}/milter-greylist.service
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.4-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu May 22 2025 Paul Howarth <paul@city-fan.org> - 4.6.4-18
 - Build with -DSM_CONF_STDBOOL_H=1 so it's not necessary to use -std=gnu17
 

@@ -31,7 +31,7 @@
 %dnl	%global		use_gcc_strict_sanitize	1
 
 %global		main_version	0.11.1
-%global		baserelease	1
+%global		baserelease	2
 
 Name:			lxpanel
 Version:		%{main_version}%{git_ver_rpm}
@@ -225,6 +225,9 @@ cd ..
 %{_libdir}/pkgconfig/lxpanel.pc
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Apr 11 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.11.1-1
 - 0.11.1
 

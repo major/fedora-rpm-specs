@@ -10,7 +10,7 @@
 
 Name:           mingw-headers
 Version:        13.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Win32/Win64 header files
 
 License:        BSD-3-Clause AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND GPL-2.0-or-later AND ZPL-2.1 AND MIT-Khronos-old AND LicenseRef-Fedora-Public-Domain
@@ -113,6 +113,9 @@ rm -f %{buildroot}%{ucrt64_includedir}/pthread_unistd.h
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 13.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jul 13 2025 Sandro Mani <manisandro@gmail.com> - 13.0.0-1
 - Update to 13.0.0
 

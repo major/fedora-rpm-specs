@@ -10,7 +10,7 @@ industry-leading performance on a range of Intel Processors.}
 
 Name:               intel-ipsec-mb
 Version:            2.0.1
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            IPsec cryptography library optimized for Intel Architecture
 
 License:            BSD-3-Clause
@@ -64,6 +64,9 @@ sed -i 's|man/man7|share/man/man7|g' lib/cmake/unix.cmake
 %{_mandir}/man7/libipsec-mb-dev.*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jul 23 2025 Marcel Cornu <marcel.d.cornu@intel.com> - 2.0.1-1
 - Update to 2.0.1
 

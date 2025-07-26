@@ -5,7 +5,7 @@
 Summary: Library for using OBEX
 Name: openobex
 Version: 1.7.2
-Release: 28%{?dist}
+Release: 29%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.1-or-later
 URL: http://openobex.sourceforge.net
 # git clone https://git.gitorious.org/openobex/mainline.git
@@ -108,6 +108,9 @@ rm -f $RPM_BUILD_ROOT%{_mandir}/man1/obex_test.1*
 %{_mandir}/man1/obex_push.1*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.2-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Mar 03 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1.7.2-28
 - Fix FTBFS due minimal CMake version(fedora#2340974)
 

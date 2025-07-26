@@ -3,7 +3,7 @@
 
 Name:           perl-IO-Interactive
 Version:        1.027
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Utilities for interactive I/O
 # lib/IO/Interactive.pm:    GPL-1.0-or-later OR Artistic-1.0-Perl
 # LICENSE:                  (GPL-1.0-or-later OR Artistic-1.0-Perl) AND Artistic-2.0
@@ -101,6 +101,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.027-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Apr 17 2025 Petr Pisar <ppisar@redhat.com> - 1.027-1
 - 1.027 bump
 

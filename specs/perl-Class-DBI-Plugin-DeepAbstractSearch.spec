@@ -1,6 +1,6 @@
 Name:           perl-Class-DBI-Plugin-DeepAbstractSearch
 Version:        0.08
-Release:        45%{?dist}
+Release:        46%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:        SQL::Abstract for Class::DBI
 Source:         https://cpan.metacpan.org/authors/id/S/SR/SRIHA/Class-DBI-Plugin-DeepAbstractSearch-%{version}.tar.gz
@@ -57,6 +57,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-46
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary:        Library for manipulating ID3v1 and ID3v2 tags
 Name:           id3lib
 Version:        3.8.3
-Release:        60%{?dist}
+Release:        61%{?dist}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
 URL:            http://id3lib.sourceforge.net/
@@ -102,6 +102,9 @@ make check
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.3-61
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.3-60
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

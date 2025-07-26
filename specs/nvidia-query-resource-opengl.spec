@@ -4,7 +4,7 @@
 
 Name:           nvidia-query-resource-opengl
 Version:        1.0.0
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Querying OpenGL resource usage of applications using the NVIDIA OpenGL driver
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -68,6 +68,9 @@ find . -name libnvidia-query-resource-opengl-preload.so -exec mv {} \
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

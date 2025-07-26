@@ -1,6 +1,6 @@
 Name:           mcrcon
 Version:        0.7.2
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Console based rcon client for minecraft servers
 License:        Zlib
 URL:            https://github.com/Tiiffi/mcrcon/
@@ -41,6 +41,9 @@ sed -i 's/\r$//' README.md
 %{_mandir}/man1/mcrcon.1*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

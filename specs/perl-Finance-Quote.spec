@@ -4,7 +4,7 @@ Name:           perl-Finance-Quote
 %global cpan_version 1.66
 # RPM version needs 4 digits after the decimal to preserve upgrade path
 Version:        %(LANG=C printf "%.4f" %{cpan_version})
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A Perl module that retrieves stock and mutual fund quotes
 License:        GPL-2.0-or-later
 URL:            https://metacpan.org/release/Finance-Quote
@@ -168,6 +168,9 @@ make test
 %{_mandir}/man3/Finance::Quote::ZA.3*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6600-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul  7 2025 Paul Howarth <paul@city-fan.org> - 1.6600-1
 - Update to 1.66
   - Modified CurrencyRates/CurrencyFreaks.pm to return from and to values

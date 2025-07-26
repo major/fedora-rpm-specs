@@ -3,7 +3,7 @@
 
 Name:           hddtemp
 Version:        0.3
-Release:        0.58.%{beta}%{?dist}
+Release:        0.59.%{beta}%{?dist}
 Summary:        Hard disk temperature tool
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -104,6 +104,9 @@ install -Dpm 644 %{S:5} %{buildroot}%{_sysconfdir}/security/console.apps/hddtemp
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-0.59.beta15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jul  26 2024 Miroslav Suchý <msuchy@redhat.com> - 0.3-0.58.beta15
 - convert license to SPDX
 

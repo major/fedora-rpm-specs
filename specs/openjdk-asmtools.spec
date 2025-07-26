@@ -9,7 +9,7 @@
 Name:           openjdk-asmtools
 Version:        %{major}.%{minor}
 #Release:        0.6.%%{commitdate}.git%%{shortcommit}%%{?dist}
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Set of tools used to assemble / disassemble proper and improper Java .class files
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -105,6 +105,9 @@ install -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_mandir}/man1/
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.b09-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.b09-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

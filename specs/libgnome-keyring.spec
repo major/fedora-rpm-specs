@@ -4,7 +4,7 @@
 
 Name: libgnome-keyring
 Version: 3.12.0
-Release: 31%{?dist}
+Release: 32%{?dist}
 Summary: Framework for managing passwords and other secrets
 
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
@@ -82,6 +82,9 @@ make check
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.12.0-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.12.0-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

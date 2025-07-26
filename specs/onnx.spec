@@ -1,6 +1,6 @@
 Name:       onnx
 Version:    1.17.0
-Release:    5%{?dist}
+Release:    6%{?dist}
 Summary:    Open standard for machine learning interoperability
 License:    Apache-2.0
 
@@ -122,6 +122,9 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
 %{_bindir}/check-node
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 17 2025 Python Maint <python-maint@redhat.com> - 1.17.0-5
 - Rebuilt for Python 3.14
 

@@ -1,6 +1,6 @@
 Name:           eb
 Version:        4.4.3
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Library for accessing Japanese CD-ROM electronic books
 Summary(ja):    CD-ROM 書籍にアクセスするためのライブラリ
 
@@ -52,6 +52,7 @@ This package contains development files needs to use eb in programs.
 %ifarch aarch64
 autoconf
 %endif
+CFLAGS="$CFLAGS -std=gnu17"
 %configure --disable-static --sysconfdir=%{_libdir}
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
@@ -91,6 +92,9 @@ cat %{name}utils.lang >> %{name}.lang
 
 
 %changelog
+* Thu Jul 24 2025 Jens Petersen <petersen@redhat.com> - 4.4.3-29
+- workaround FTBFS with gcc15 (#2340108)
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.3-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

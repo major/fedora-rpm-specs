@@ -2,7 +2,7 @@ Name: hyphen-ga
 Summary: Irish hyphenation rules
 %global upstreamid 20040220
 Version: 0.%{upstreamid}
-Release: 32%{?dist}
+Release: 33%{?dist}
 Source: http://download.services.openoffice.org/contrib/dictionaries/hyph_ga_IE.zip
 URL: http://borel.slu.edu/fleiscin/index.html
 License: GPL-1.0-or-later
@@ -28,6 +28,9 @@ cp -p hyph_ga_IE.dic $RPM_BUILD_ROOT/%{_datadir}/hyphen
 %{_datadir}/hyphen/*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.20040220-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.20040220-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

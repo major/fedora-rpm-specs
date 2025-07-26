@@ -55,7 +55,7 @@ Summary: KDE Libraries
 # shipped with kde applications, version...
 %global apps_version 17.08.3
 Version: 4.14.38
-Release: 48%{?dist}
+Release: 49%{?dist}
 
 Name: kdelibs
 Epoch: 6
@@ -910,6 +910,9 @@ time xvfb-run -a dbus-launch --exit-with-session make -C %{_target_platform}/ te
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6:4.14.38-49
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Mar 25 2025 Than Ngo <than@redhat.com> - 6:4.14.38-48
 - Fixed rhbz#2338968, Change path to certificates file
 

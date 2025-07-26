@@ -81,7 +81,7 @@ Patch5: hp2ps-C-gnu17.patch
 # needs more backporting to 9.6
 Patch9: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9604.patch
 
-# unregisterised
+# for unregisterized
 Patch16: ghc-hadrian-s390x-rts--qg.patch
 
 # Debian patches:
@@ -149,7 +149,6 @@ BuildRequires: llvm%{llvm_major}
 BuildRequires:  autoconf automake
 %if %{with build_hadrian}
 BuildRequires:  ghc-Cabal-devel
-BuildRequires:  ghc-QuickCheck-devel
 BuildRequires:  ghc-base-devel
 BuildRequires:  ghc-base16-bytestring-devel
 BuildRequires:  ghc-bytestring-devel
@@ -382,6 +381,9 @@ Installing this package causes %{name}-*-prof packages corresponding to
 
 %prep
 %setup -q -n ghc-%{version} %{?with_testsuite:-b1}
+( cd hadrian
+  cabal-tweak-flag selftest False
+)
 
 %patch -P1 -p1 -b .orig
 %patch -P2 -p1 -b .orig
@@ -422,9 +424,6 @@ cd libraries/directory
 
 
 %build
-# patch4
-autoupdate
-
 %ghc_set_gcc_flags
 export CC=%{_bindir}/gcc
 %if %{with ld_gold}

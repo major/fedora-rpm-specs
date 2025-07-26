@@ -3,7 +3,7 @@
 Name:    kf5-%{framework}
 Summary: KDE Frameworks 5 Tier 1 barcode library
 Version: 5.116.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND MIT
 URL:     https://invent.kde.org/frameworks/%{framework}
@@ -70,6 +70,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.116.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.116.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

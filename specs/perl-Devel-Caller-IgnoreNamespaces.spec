@@ -1,6 +1,6 @@
 Name:           perl-Devel-Caller-IgnoreNamespaces
 Version:        1.1
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Make available a function which can ignore name-spaces that you tell it about
 License:        GPL-2.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-Caller-IgnoreNamespaces
@@ -48,6 +48,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

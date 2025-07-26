@@ -1,6 +1,6 @@
 Name:           pcm
 Version:        202502
-Release:        0%{?dist}
+Release:        1%{?dist}
 Summary:        Intel(r) Performance Counter Monitor
 License:        BSD-3-Clause
 Url:            https://github.com/intel/pcm
@@ -66,6 +66,9 @@ rm -rf %{buildroot}/usr/share/doc/PCM/*.txt
 %{_unitdir}/%{name}-sensor-server.service
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 202502-1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 202409-1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

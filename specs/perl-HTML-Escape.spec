@@ -1,6 +1,6 @@
 Name:           perl-HTML-Escape
 Version:        1.11
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Extremely fast HTML escape
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -60,6 +60,9 @@ htmlspecialchars.
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.11-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.11-14
 - Perl 5.42 rebuild
 

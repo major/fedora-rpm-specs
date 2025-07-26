@@ -1,7 +1,7 @@
 Summary:        Tools to manage network attached LXI compatible instruments
 Name:           lxi-tools
 Version:        2.8
-Release:        2%{?dist}
+Release:        3%{?dist}
 # src/language-specs/lua-lxi-gui.lang is LGPL-2.1-or-later, rest is BSD-3-Clause
 License:        BSD-3-Clause AND LGPL-2.1-or-later
 URL:            https://lxi-tools.github.io/
@@ -74,6 +74,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/io.github.%
 %endif
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

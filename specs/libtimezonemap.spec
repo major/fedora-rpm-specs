@@ -1,6 +1,6 @@
 Name:           libtimezonemap
 Version:        0.4.5.3
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Time zone map widget for Gtk+
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -62,6 +62,9 @@ rm -f %{buildroot}%{_libdir}/*.la
 %{_datadir}/glade/catalogs/TimezoneMap.xml
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.5.3-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.5.3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -32,17 +32,30 @@
 
 %bcond_with sanitizers
 
+%if %{defined gitrev}
+%define package_version %{?gitrev}
+%else
+%define package_version 1.2.1
+%endif
+
 Summary:        Creates a common metadata repository
 Name:           createrepo_c
-Version:        1.2.0
-Release:        5%{?dist}
+Version:        %{package_version}
+Release:        1%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/createrepo_c
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Patch1:         0001-Fix-libname-of-Libs.private.patch
+Patch2:         0002-Use-IMPORTED_TARGET-for-3rd-party-dependencies.patch
+Patch3:         0003-Don-t-try-to-use-imported-targets-of-turned-off-depe.patch
+Patch4:         0004-spec-require-cmake-3.7.0.patch
+Patch5:         0005-Include-unistd.h-for-STDOUT_FILENO.patch
+Patch6:         0006-Use-RPMTAG_SHA1HEADER-instead-of-RPMTAG_HDRID.patch
+Patch7:         0007-spec-Consistently-use-CMake-RPM-macros.patch
 
 %global epoch_dep %{?epoch:%{epoch}:}
 
-BuildRequires:  cmake
+BuildRequires:  cmake >= 3.7.0
 BuildRequires:  gcc
 BuildRequires:  bzip2-devel
 BuildRequires:  doxygen
@@ -139,25 +152,25 @@ pushd build-py3
       -DWITH_LEGACY_HASHES=%{?with_legacy_hashes:ON}%{!?with_legacy_hashes:OFF} \
       -DENABLE_DRPM=%{?with_drpm:ON}%{!?with_drpm:OFF} \
       -DWITH_SANITIZERS=%{?with_sanitizers:ON}%{!?with_sanitizers:OFF}
-  make %{?_smp_mflags} RPM_OPT_FLAGS="%{optflags}"
+  %cmake_build
   # Build C documentation
-  make doc-c
+  %cmake_build -t doc-c
 popd
 
 %check
 # Run Python 3 tests
 pushd build-py3
   # Compile C tests
-  make tests
+  %cmake_build -t tests
 
   # Run Python 3 tests
-  make ARGS="-V" test
+  %ctest -V
 popd
 
 %install
 pushd build-py3
   # Install createrepo_c with Python 3
-  make install DESTDIR=%{buildroot}
+  %cmake_install
 popd
 
 %if 0%{?fedora} || 0%{?rhel} > 7
@@ -204,9 +217,17 @@ ln -sr %{buildroot}%{_bindir}/modifyrepo_c %{buildroot}%{_bindir}/modifyrepo
 %files -n python3-%{name}
 %doc examples/python/*
 %{python3_sitearch}/%{name}/
-%{python3_sitearch}/%{name}-%{version}-py%{python3_version}.egg-info
+%{python3_sitearch}/%{name}-*-py%{python3_version}.egg-info
 
 %changelog
+* Thu Jul 24 2025 Petr Pisar <ppisar@redhat.com> - 1.2.1-1
+- 1.2.1 bump
+- Fix building against rpm-5.99.91 (bug #2382611)
+- Fix lzma link argument in pkg-config file
+- Fix building with CMake 4 (bug #2380521)
+- Fix defining STDOUT_FILENO
+- Fix building with cmake and ninja (bug #2380983)
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

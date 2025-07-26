@@ -1,6 +1,6 @@
 Name:           mrbs
 Version:        1.11.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Meeting Room Booking System
 
 License:        GPL-2.0-only
@@ -93,6 +93,9 @@ install -m 0644 %{SOURCE1} \
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

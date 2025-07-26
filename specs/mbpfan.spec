@@ -1,6 +1,6 @@
 Name:       mbpfan
 Version:    2.4.0
-Release:    7%{?dist}
+Release:    8%{?dist}
 Summary:    A simple daemon to control fan speed on all MacBook/MacBook Pros
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:    GPL-3.0-only
@@ -68,6 +68,9 @@ install -Dpm 0644 -t %{buildroot}%{_mandir}/man8/ %{name}.8.gz
 %license COPYING
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

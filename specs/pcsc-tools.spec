@@ -1,6 +1,6 @@
 Name:           pcsc-tools
 Version:        1.7.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Tools to be used with smart cards and PC/SC
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -72,6 +72,9 @@ desktop-file-install --mode=644 \
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

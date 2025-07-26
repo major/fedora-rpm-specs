@@ -13,7 +13,7 @@
 
 Name:		mecab-ipadic
 Version:	%{majorver}.%{date}
-Release:	32%{?dist}
+Release:	33%{?dist}
 Summary:	IPA dictionary for MeCab
 
 # SPDX confirmed
@@ -111,6 +111,9 @@ fi
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0.20070801-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0.20070801-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

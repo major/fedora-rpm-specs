@@ -1,6 +1,6 @@
 Name:           inadyn-mt
 Version:        2.28.10
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Dynamic DNS Client
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
@@ -116,6 +116,9 @@ install -m0644 -D inadyn-mt.sysusers.conf %{buildroot}%{_sysusersdir}/inadyn-mt.
 %{_sysusersdir}/inadyn-mt.conf
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.28.10-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.28.10-24
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

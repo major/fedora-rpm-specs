@@ -1,8 +1,8 @@
 %global pypi_name pyshark
 
 Name:           python-%{pypi_name}
-Version:        0.4.3
-Release:        13%{?dist}
+Version:        0.6
+Release:        1%{?dist}
 Summary:        Python packet parsing using wireshark dissectors
 
 License:        MIT
@@ -21,10 +21,11 @@ ability to export XMLs to use its parsing.
 Summary:        %{summary}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
+BuildRequires:  python3-pip
 BuildRequires:  python3-logbook
 BuildRequires:  python3-lxml
 BuildRequires:  python3-pytest
+BuildRequires:  python3-termcolor
 BuildRequires:  wireshark-cli
 %{?python_provide:%python_provide python3-%{pypi_name}}
 
@@ -36,14 +37,17 @@ ability to export XMLs to use its parsing.
 %prep
 %autosetup -n %{pypi_name}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires -N requirements.txt
+
 %build
 pushd src
-%py3_build
+%pyproject_wheel
 popd
 
 %install
 pushd src
-%py3_install
+%pyproject_install
 popd
 
 # TShark is crashing during the tests, need upstream fix
@@ -54,9 +58,12 @@ popd
 %doc README.md
 %license LICENSE.txt
 %{python3_sitelib}/%{pypi_name}/
-%{python3_sitelib}/*.egg-info
+%{python3_sitelib}/*.dist-info
 
 %changelog
+* Thu Jul 24 2025 Federico Pellegrin <fede@evolware.org> - 0.6-1
+- Bump to 0.6 and use new Python macros in spec file (rhbz#2378081)
+
 * Thu Jun 05 2025 Python Maint <python-maint@redhat.com> - 0.4.3-13
 - Rebuilt for Python 3.14
 

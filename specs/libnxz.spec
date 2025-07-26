@@ -4,7 +4,7 @@
 
 Name:		libnxz
 Version:	0.64
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Zlib implementation for POWER processors
 License:    Apache-2.0 OR GPL-2.0-or-later
 Url:		https://github.com/libnxz/power-gzip
@@ -88,6 +88,9 @@ install -m0644 -D libnxz.sysusers.conf %{buildroot}%{_sysusersdir}/libnxz.conf
 %{_libdir}/libnxz.la
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.64-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.64-8
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

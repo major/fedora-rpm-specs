@@ -6,7 +6,7 @@
 
 Name:     kf5-%{component}
 Version:  5.27.11
-Release:  3%{?dist}
+Release:  4%{?dist}
 Summary:  Qt5QuickControls2 breeze style
 
 
@@ -67,6 +67,9 @@ This is a pure Qt Quick/Kirigami Qt5 Quick Controls style.
 %{_kf5_libdir}/cmake/KF5QQC2BreezeStyle/
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.27.11-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.27.11-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

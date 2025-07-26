@@ -1,6 +1,6 @@
 Name:		hsetroot
 Version:	1.0.5
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	Yet another wallpaper application
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -41,6 +41,9 @@ mkdir -p %{buildroot}%{_bindir}
 %{_bindir}/hsr-outputs
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

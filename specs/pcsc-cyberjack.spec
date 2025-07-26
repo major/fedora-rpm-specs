@@ -6,7 +6,7 @@ Summary:	PC/SC driver for REINER SCT cyberjack USB chip card reader
 Version:	3.99.5final.SP15
 %global version_prefix %(c=%{version}; echo ${c:0:6})
 %global version_suffix %(c=%{version}; echo ${c:12:4})
-Release:	11%{?dist}
+Release:	12%{?dist}
 License:	GPLv2+ and LGPLv2+
 URL:		https://www.reiner-sct.com/
 Source0:	https://support.reiner-sct.de/downloads/LINUX/V%{version_prefix}_%{version_suffix}/%{name}_%{version}.tar.bz2
@@ -158,6 +158,9 @@ exit 0
 %doc doc/verifypin_ascii.c doc/verifypin_fpin2.c
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.99.5final.SP15-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.99.5final.SP15-11
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

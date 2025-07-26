@@ -3,7 +3,7 @@
 Name:           kf6-%{framework}
 Summary:        A Tier 2 KDE Framework for extracting file metadata
 Version:        6.16.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 License:        BSD-3-Clause AND CC0-1.0 AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:            https://invent.kde.org/frameworks/%{framework}
@@ -98,6 +98,9 @@ mkdir -p %{buildroot}%{_kf6_plugindir}/kfilemetadata/writers/
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.16.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 14 2025 Steve Cossette <farchord@gmail.com> - 6.16.0-2
 - Rebuild for kdegraphics-mobipicket
 

@@ -7,7 +7,7 @@
 
 Name:           mod_auth_openid
 Version:        0.8
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        OpenID authentication for apache
 
 License:        MIT
@@ -76,6 +76,9 @@ install -m 755 src/.libs/mod_auth_openid.so %{buildroot}%{_httpd_moddir}
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

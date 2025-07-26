@@ -7,7 +7,7 @@
 Name:           libprometheus-cpp
 Summary:        Prometheus Client Library for Modern C++
 Version:        1.2.4
-Release:        5%{?dev:%{dev}}%{?dist}
+Release:        6%{?dev:%{dev}}%{?dist}
 License:        MIT AND 0BSD
 Url:            https://github.com/jupp0r/%{githubname}
 Source:         %{url}/archive/v%{version}/%{tarball}-%{version}.tar.gz
@@ -64,6 +64,9 @@ export GCC_COLORS=
 %{_libdir}/pkgconfig/%{githubname}-*.pc
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 1.2.4-5
 - Add explicit BR: libxcrypt-devel
 

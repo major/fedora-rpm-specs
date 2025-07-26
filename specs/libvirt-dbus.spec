@@ -8,7 +8,7 @@
 
 Name: libvirt-dbus
 Version: 1.4.1
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: libvirt D-Bus API binding
 License: LGPL-2.1-or-later
 URL: https://libvirt.org/
@@ -79,6 +79,9 @@ install -m0644 -D libvirt-dbus.sysusers.conf %{buildroot}%{_sysusersdir}/libvirt
 %{_sysusersdir}/libvirt-dbus.conf
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.4.1-7
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

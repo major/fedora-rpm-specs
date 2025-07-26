@@ -1,6 +1,6 @@
 Name:           lxde-icon-theme
 Version:        0.5.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Default icon theme for LXDE
 
 # SPDX confirmed
@@ -42,6 +42,9 @@ touch $RPM_BUILD_ROOT%{_datadir}/icons/nuoveXT2/icon-theme.cache
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jun 06 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.2-1
 - 0.5.2
 

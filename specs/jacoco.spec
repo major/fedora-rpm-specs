@@ -1,6 +1,6 @@
 Name:           jacoco
 Version:        0.8.11
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Java Code Coverage for Eclipse
 License:        EPL-2.0
 URL:            http://www.eclemma.org/jacoco/
@@ -130,6 +130,9 @@ echo %{name} %{name}/org.jacoco.ant objectweb-asm/asm > %{buildroot}%{_sysconfdi
 %files maven-plugin -f .mfiles-maven-plugin
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.11-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 23 2025 Jerry James <loganjerry@gmail.com> - 0.8.11-4
 - Add patch for maven-doxia 2.0.0
 

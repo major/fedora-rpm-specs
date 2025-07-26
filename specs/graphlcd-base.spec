@@ -3,7 +3,7 @@
 Summary:        GraphLCD drivers and tools
 Name:           %shortname-base
 Version:        2.0.3
-Release:        9%{?dist}
+Release:        10%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            https://github.com/M-Reimer/graphlcd-base
@@ -182,6 +182,9 @@ install -m644 graphlcd.conf %{buildroot}%{_sysconfdir}
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

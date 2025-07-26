@@ -8,7 +8,7 @@ Version:       1.18.0
 %global tag libdnet-%{version}
 %forgemeta
 
-Release:       7%{?dist}
+Release:       8%{?dist}
 URL:           %{forgeurl}
 Source:        %{forgesource}
 
@@ -96,6 +96,9 @@ popd
 %{python3_sitearch}/*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.18.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.18.0-7
 - Rebuilt for Python 3.14
 

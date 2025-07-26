@@ -9,7 +9,7 @@
 
 Name:           lirc
 Version:        0.10.2
-Release:        1%{?tag:.}%{?tag}%{?dist}
+Release:        2%{?tag:.}%{?tag}%{?dist}
 Summary:        The Linux Infrared Remote Control package
 
 %global repo    http://downloads.sourceforge.net/lirc/LIRC/%{version}
@@ -421,6 +421,9 @@ systemd-tmpfiles --create %{_tmpfilesdir}/lirc.conf
 %{_udevrulesdir}/99-remote-control-lirc.rules
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jun 08 2025 Sean Young <sean@mess.org> - 0.10.2-1
 - New upstream version 0.10.2
 

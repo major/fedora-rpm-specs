@@ -1,6 +1,6 @@
 Name: pdsh
 Version: 2.34
-Release: 15%{?dist}
+Release: 16%{?dist}
 Summary: Parallel remote shell program
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -393,6 +393,9 @@ fi
 %endif
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.34-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Feb 20 2025 Tom Callaway <spot@fedoraproject.org> - 2.34-15
 - disable torque
 - conditionalize bool enum for c17 or older

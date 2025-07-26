@@ -1,7 +1,7 @@
 Summary: The GNU disk partition manipulation program
 Name:    parted
 Version: 3.6
-Release: 12%{?dist}
+Release: 13%{?dist}
 License: GPL-3.0-or-later
 URL:     http://www.gnu.org/software/parted
 
@@ -126,6 +126,9 @@ make check
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.6-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri May 30 2025 Brian C. Lane <bcl@redhat.com> - 3.6-12
 - doc: Fix some groff/mandoc linting complaints (bcl)
 - nilfs2: Fixed possible sigsegv in case of corrupted superblock (abutenko)

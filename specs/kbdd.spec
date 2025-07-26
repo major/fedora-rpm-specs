@@ -1,6 +1,6 @@
 Name:           kbdd
 Version:        0.7.1
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Per window keyboard layout
 
 # Upstream license ticket https://github.com/qnikst/kbdd/issues/48
@@ -42,6 +42,9 @@ autoreconf -vfi
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

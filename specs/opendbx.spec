@@ -3,7 +3,7 @@
 
 Name:           opendbx
 Version:        1.4.6
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Lightweight but extensible database access library written in C
 
 License:        GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -201,6 +201,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_mandir}/man1/odbx-sql.1.gz
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.6-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu May 29 2025 Jonathan Wright <jonathan@almalinux.org> - 1.4.6-40
 - Don't build firebird package for el10
 

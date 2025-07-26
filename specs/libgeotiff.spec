@@ -6,7 +6,7 @@
 
 Name:          libgeotiff
 Version:       1.7.4
-Release:       2%{?dist}
+Release:       3%{?dist}
 
 Summary:       GeoTIFF format library
 License:       MIT
@@ -176,6 +176,9 @@ MINGW64_CMAKE_ARGS=-DCMAKE_INSTALL_INCLUDEDIR=%{mingw64_includedir}/%{name} \
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Mar 13 2025 Cristian Le <git@lecris.dev> - 1.7.4-2
 - Use modern Config.cmake formats
 - Use upstream's pkgconfig files

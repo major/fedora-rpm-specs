@@ -10,7 +10,7 @@
 
 Name:          magpie
 Version:       0.9.3
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       Window manager for Budgie Desktop
 
 License:       GPL-2.0-or-later
@@ -138,6 +138,9 @@ Header files and libraries for developing against Magpie.
 %{_libdir}/pkgconfig/%{name}-cogl-pango-0.pc
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 24 2025 Joshua Strobl <me@joshuastrobl.com> - 0.9.3-4
 - Fix FTBFS due to missing build deps (cvt) #2340810
 

@@ -5,7 +5,7 @@
 
 Name:           nethack
 Version:        3.6.7
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A rogue-like single player dungeon exploration game
 
 License:        NGPL
@@ -187,6 +187,9 @@ fi;
 %files -n %{fontname}-fonts-core
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.7-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jan 22 2025 Ron Olson <tachoknight@gmail.com> - 3.6.7-7
 - Fixes for gcc changes
   Resolves: rhbz#2340917

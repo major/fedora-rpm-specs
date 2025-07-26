@@ -1,7 +1,7 @@
 Summary:        Google C++ testing framework
 Name:           gtest
 Version:        1.15.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 # scripts/generator/* are Apache-2.0
 License:        BSD-3-Clause and Apache-2.0
 URL:            https://github.com/google/googletest
@@ -100,6 +100,9 @@ sed -e "s/set(GOOGLETEST_VERSION .*)/set(GOOGLETEST_VERSION %{version})/" -i CMa
 %{_libdir}/pkgconfig/gmock_main.pc
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jan 28 2025 Sérgio Basto <sergio@serjux.com> - 1.15.2-3
 - Fix: warning <ciso646> is deprecated in C++17, use <version> to detect
   implementation-specific macros

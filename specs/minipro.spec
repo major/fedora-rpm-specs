@@ -1,6 +1,6 @@
 Name:           minipro
 Version:        0.7
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Utility for MiniPro TL866A/TL866/CS programmer
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -49,6 +49,9 @@ rm %{buildroot}%{_udevrulesdir}/61-minipro-plugdev.rules
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

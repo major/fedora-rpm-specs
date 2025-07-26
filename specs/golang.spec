@@ -155,6 +155,7 @@ Requires:       %{name}-bin = %{version}-%{release}
 Requires:       %{name}-src = %{version}-%{release}
 Requires:       go-filesystem
 
+Patch1:         0001-Modify-go.env.patch
 Patch5:         0005-Skip-TestCrashDumpsAllThreads.patch
 Patch6:         0006-Default-to-ld.bfd-on-ARM64.patch
 # Related to https://gcc.gnu.org/PR118497

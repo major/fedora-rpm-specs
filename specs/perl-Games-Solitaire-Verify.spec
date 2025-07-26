@@ -2,7 +2,7 @@
 
 Name:       perl-%{upstream_name}
 Version:    0.2601
-Release:    2%{?dist}
+Release:    3%{?dist}
 
 Summary:    Process and verify solitaire games
 License:    MIT
@@ -71,6 +71,9 @@ chmod 755 %{buildroot}/%{_bindir}/*
 %{perl_vendorlib}/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2601-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2601-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

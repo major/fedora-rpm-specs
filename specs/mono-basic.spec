@@ -2,7 +2,7 @@
 
 Name:		mono-basic
 Version:	4.7
-Release:	17%{?dist}
+Release:	18%{?dist}
 Summary:	VisualBasic.NET support for mono
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:	LicenseRef-Callaway-LGPLv2+
@@ -65,6 +65,9 @@ EOF
 %{_libdir}/pkgconfig/mono-basic.pc
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.7-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.7-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

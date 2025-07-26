@@ -4,7 +4,7 @@
 
 Name:		gst-editing-services
 Version:        1.26.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:	Gstreamer editing services
 
 License:	GPL-2.0-or-later and LGPL-2.0-or-later
@@ -90,6 +90,9 @@ cp data/completions/ges-launch-1.0 \
 %{_datadir}/gir-1.0/GES-1.0.gir
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jun 27 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.26.3-1
 - 1.26.3
 

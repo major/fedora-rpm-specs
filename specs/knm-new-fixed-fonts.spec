@@ -5,7 +5,7 @@
 
 Name:		%{fontname}-fonts
 Version:	1.1
-Release:	42%{?dist}
+Release:	43%{?dist}
 
 Summary:	12x12 JIS X 0208 Bitmap fonts
 License:	GPL-1.0-or-later
@@ -61,6 +61,9 @@ ln -s -f %{_fontdir} $RPM_BUILD_ROOT%{catalogue}/%{fontname}
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

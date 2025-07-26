@@ -1,6 +1,8 @@
 %bcond efi_apps 0
 %bcond check    1
 
+%if 0%{?fedora}
+
 %ifarch aarch64
 %bcond efi_apps 1
 %define efiarch aa64
@@ -11,6 +13,8 @@ BuildRequires:  rust-std-static-aarch64-unknown-uefi
 %bcond efi_apps 1
 %define efiarch x64
 BuildRequires:  rust-std-static-x86_64-unknown-uefi
+%endif
+
 %endif
 
 Name:           virt-firmware-rs

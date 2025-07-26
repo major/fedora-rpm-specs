@@ -2,7 +2,7 @@
 
 Name:		ogdi
 Version:	4.1.1
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Open Geographic Datastore Interface
 # Automatically converted from old format: BSD - review is highly recommended.
 License:	LicenseRef-Callaway-BSD
@@ -163,6 +163,9 @@ touch -r ogdi-config.in %{buildroot}%{_bindir}/%{name}-config
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Feb 13 2025 Dan Horák <dan[at]danny.cz> - 4.1.1-5
 - work around GCC 15 / C23 build failure (rhbz#2340957)
 - work around Tcl 9 build failure (rhbz#2337742)

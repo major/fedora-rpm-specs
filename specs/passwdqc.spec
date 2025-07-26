@@ -1,7 +1,7 @@
 Summary: A password/passphrase strength checking and policy enforcement toolset
 Name: passwdqc
 Version: 2.0.3
-Release: 7%{?dist}
+Release: 8%{?dist}
 # Two manual pages (pam_passwdqc.8 and passwdqc.conf.5) are under the
 # 3-clause BSD-style license as specified within the files themselves.
 # The rest of the files in this package fall under the terms of
@@ -140,6 +140,9 @@ make install install_locales \
 %_mandir/man1/*.1*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 2.0.3-7
 - Add explicit BR: libxcrypt-devel
 

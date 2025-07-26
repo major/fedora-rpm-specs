@@ -7,7 +7,7 @@
 
 Name:		iaxclient
 Version:	%{mainver}
-Release:	0.52.%{betaver}%{?dist}
+Release:	0.53.%{betaver}%{?dist}
 Summary:	Library for creating telephony solutions that interoperate with Asterisk
 License:	LGPL-2.0-or-later
 URL:		http://iaxclient.wiki.sourceforge.net/
@@ -263,6 +263,9 @@ ln -s iaxcli iaxcli-Linux-%{tkphonearch}
 %{_datadir}/pixmaps/wxiax.png
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-0.53.beta3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Sandro Mani <manisandro@gmail.com> - 2.1-0.52.beta3
 - BR: tk-devel < 1:9
 

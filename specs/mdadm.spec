@@ -2,7 +2,7 @@
 
 Name:        mdadm
 Version:     4.3
-Release:     7%{?dist}
+Release:     8%{?dist}
 Summary:     The mdadm program controls Linux md devices (software RAID arrays)
 URL:         http://www.kernel.org/pub/linux/utils/raid/mdadm/
 License:     GPL-2.0-or-later
@@ -132,6 +132,9 @@ install -Dm644 raid6check.man %{buildroot}/%{_mandir}/man8/raid6check.man
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.3-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Apr 06 2025 Adam Williamson <awilliam@redhat.com> - 4.3-7
 - revert 'posix' name check to fix rhbz#2325906
 

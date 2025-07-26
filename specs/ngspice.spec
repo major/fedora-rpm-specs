@@ -19,7 +19,7 @@
 %undefine	prever
 %global	prerpmver	%(echo "%{?prever}" | sed -e 's|-||g')
 
-%global	baserelease	3
+%global	baserelease	4
 
 %if 0%{?usegitbare} >= 1
 # pre-master-42
@@ -501,6 +501,9 @@ popd
 %{_includedir}/ngspice/
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 44.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 31 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 44.2-3
 - Use tk8 explicitly
 

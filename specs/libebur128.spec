@@ -3,7 +3,7 @@
 
 Name:           libebur128
 Version:        1.2.6
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        A library that implements the EBU R 128 standard for loudness normalization
 License:        MIT
 URL:            https://github.com/jiixyj/%{name}
@@ -61,6 +61,9 @@ LD_LIBRARY_PATH=. ./r128-test-library
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.6-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jul 16 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.2.6-13
 - Cmake fix
 

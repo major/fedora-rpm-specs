@@ -2,7 +2,7 @@
 
 Name:		pcsc-lite-acsccid
 Version:	1.1.12
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	ACS CCID PC/SC Driver for Linux/Mac OS X
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -75,6 +75,9 @@ install -p -m 644 src/towitoko/README README.towitoko
 %{dropdir}/ifd-acsccid.bundle/Contents/Linux/libacsccid.so
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.12-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jul 08 2025 Jakub Jelen <jjelen@redhat.com> - 1.1.12-1
 - New upstream release (#2377059)
 

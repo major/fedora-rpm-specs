@@ -1,6 +1,6 @@
 Name:           perl-Device-SerialPort
 Version:        1.04
-Release:        54%{?dist}
+Release:        55%{?dist}
 Summary:        Linux/POSIX emulation of Win32::SerialPort functions
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -46,6 +46,9 @@ chmod -R u+rwX,go+rX,go-w $RPM_BUILD_ROOT/*
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.04-55
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.04-54
 - Perl 5.42 rebuild
 

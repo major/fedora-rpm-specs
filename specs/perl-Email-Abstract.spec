@@ -1,6 +1,6 @@
 Name:           perl-Email-Abstract
 Version:        3.010
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Unified interface to mail representations
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Email-Abstract
@@ -75,6 +75,9 @@ make test
 %{_mandir}/man3/Email::Abstract::Plugin.3*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.010-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.010-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

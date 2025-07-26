@@ -3,7 +3,7 @@
 
 Name:           libdispatch
 Version:        6.0.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Apple's Grand Central Dispatch library
 License:        Apache-2.0
 URL:            https://github.com/apple/swift-corelibs-libdispatch
@@ -85,6 +85,9 @@ chrpath --delete %{buildroot}%{_libdir}/libdispatch.so
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:6.0.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:6.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

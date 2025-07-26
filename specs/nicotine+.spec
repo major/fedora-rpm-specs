@@ -3,7 +3,7 @@
 
 Name:           nicotine+
 Version:        3.3.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A graphical client for Soulseek
 
 # - pynicotine/external/tinytag.py is MIT
@@ -77,6 +77,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/%{appdata_i
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jul 12 2025 Mohame El Morabity <melmorabity@fedoraproject.org> - 3.3.10-1
 - Update to 3.3.10
 

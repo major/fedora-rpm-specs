@@ -1,7 +1,7 @@
 Summary:    Check operability of computer hardware and find drivers
 Name:       hw-probe
 Version:    1.6.5
-Release:    7%{?dist}
+Release:    8%{?dist}
 BuildArch:  noarch
 License:    LGPL-2.1-or-later OR BSD-4-Clause
 URL:        https://github.com/linuxhw/hw-probe
@@ -56,6 +56,9 @@ mkdir -p %{buildroot}%{_prefix}
 %{_bindir}/%{name}
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.5-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.5-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

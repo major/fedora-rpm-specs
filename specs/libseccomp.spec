@@ -1,6 +1,6 @@
 Name:           libseccomp
 Version:        2.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Enhanced seccomp library
 License:        LGPL-2.1-only
 URL:            https://github.com/seccomp/libseccomp
@@ -90,6 +90,9 @@ rm -f %{buildroot}/%{_libdir}/libseccomp.la
 %{_libdir}/libseccomp.a
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 18 2025 Romain Geissler <romain.geissler@amadeus.com> - 2.6.0-1
 - New upstream version (#2341880)
 

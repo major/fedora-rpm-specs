@@ -1,7 +1,7 @@
 Name:           libghemical
 Summary:        Libraries for the Ghemical chemistry package
 Version:        3.0.0
-Release:        28%{?dist}
+Release:        29%{?dist}
 
 # SPDX confirmed
 License:        GPL-2.0-or-later
@@ -76,6 +76,9 @@ find %{buildroot}%{_libdir} -name *.la -exec rm -rf {} \;
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon May 26 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.0.0-28
 - Use ACLOCAL_PATH environment instead of calling autopoint
 

@@ -1,6 +1,6 @@
 Name:          intelhex
 Version:       2.3.0
-Release:       18%{?dist}
+Release:       19%{?dist}
 Summary:       Utilities for manipulating Intel HEX file format
 # Automatically converted from old format: BSD - review is highly recommended.
 License:       LicenseRef-Callaway-BSD
@@ -79,6 +79,9 @@ popd
 %doc docs/manual/.build/html/searchindex.js
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jul 08 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 2.3.0-18
 - Migrate to new python build macros (rhbz: 2377288)
 

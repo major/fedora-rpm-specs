@@ -4,7 +4,7 @@
 
 Name:           %{fontname}-fonts
 Version:        1.002.001
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        A coding-friendly monospace font
 
 # Automatically converted from old format: OFL - review is highly recommended.
@@ -70,6 +70,9 @@ install -Dm 0644 -p %{SOURCE2} \
 %doc *.txt
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.002.001-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.002.001-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name: pcs
 Version: 0.12.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/LicensingGuidelines/
 # https://fedoraproject.org/wiki/Licensing:Main?rd=Licensing#Good_Licenses
 # GPL-2.0-only: pcs
@@ -551,6 +551,9 @@ fi
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jul 18 2025 Michal Pospíšil <mpospisi@redhat.com> - 0.12.1-1
 - Rebased pcs to the newest major version (see CHANGELOG.md)
   Resolves: rhbz#2371770

@@ -1,6 +1,6 @@
 Name: 		perl-File-Find-Rule
 Version: 	0.35
-Release: 	1%{?dist}
+Release: 	2%{?dist}
 Summary: 	Perl module implementing an alternative interface to File::Find
 License: 	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL: 		https://metacpan.org/release/File-Find-Rule
@@ -53,6 +53,9 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 %{_mandir}/man3/File::Find::Rule*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.35-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jun 11 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.35-1
 - 0.35 bump (rhbz#2371137) - fix CVE-2011-10007
 - Updated BRs

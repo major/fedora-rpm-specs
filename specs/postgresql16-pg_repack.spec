@@ -1,10 +1,10 @@
-%{!?postgresql_default:%global postgresql_default 1}
+%{!?postgresql_default:%global postgresql_default 0}
 
 %global majorname pg_repack
 %global pgversion 16
 Name:           postgresql%{pgversion}-%{majorname}
-Version:        1.4.8
-Release:        10%{?dist}
+Version:        1.5.2
+Release:        1%{?dist}
 Summary:        Reorganize tables in PostgreSQL databases without any locks
 
 License:        BSD-3-Clause
@@ -20,13 +20,13 @@ Summary: Reorganize tables in PostgreSQL databases without any locks
 %endif
 
 BuildRequires: make
-BuildRequires:  gcc, openssl-devel, lz4-devel
-BuildRequires:  postgresql-server-devel >= 16, postgresql-server-devel < 17
-BuildRequires:  postgresql-server >= 16, postgresql-server < 17
-BuildRequires:  postgresql-static >= 16, postgresql-static < 17
+BuildRequires:  gcc, openssl-devel, lz4-devel, libzstd-devel
+BuildRequires:  postgresql16-server-devel
+BuildRequires:  postgresql16-server
+BuildRequires:  postgresql16-static
 BuildRequires:  readline-devel, zlib-devel
 BuildRequires:  python3-docutils
-Requires(pre): postgresql-server >= 16, postgresql-server < 17
+Requires(pre):  postgresql16-server
 
 %global precise_version %{?epoch:%epoch:}%version-%release
 Provides: %{pkgname} = %precise_version
@@ -99,6 +99,10 @@ make
 
 
 %changelog
+* Wed Jul 23 2025 Nikola Davidova <ndavidov@redhat.com> - 1.5.2-1
+- Make postgresql16 non default
+- Rebase to 1.5.2
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.8-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

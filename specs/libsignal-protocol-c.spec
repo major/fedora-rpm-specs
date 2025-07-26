@@ -1,6 +1,6 @@
 Name:       libsignal-protocol-c
 Version:    2.3.3
-Release:    15%{?dist}
+Release:    16%{?dist}
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:    GPL-3.0-only
@@ -65,6 +65,9 @@ ctest -V %{?_smp_mflags}
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

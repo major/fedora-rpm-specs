@@ -1,7 +1,7 @@
 Name:           libirman
 Epoch:          1
 Version:        0.5.2
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Library for IRMAN hardware
 
 
@@ -87,6 +87,9 @@ rm  $RPM_BUILD_ROOT%{_docdir}/libirman/TECHNICAL
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.5.2-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.5.2-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

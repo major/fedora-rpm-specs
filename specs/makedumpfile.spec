@@ -3,7 +3,7 @@
 Name: makedumpfile
 Version: 1.7.7
 Summary: make a small dumpfile of kdump
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: GPL-2.0-only
 URL: https://github.com/makedumpfile/makedumpfile
@@ -59,6 +59,9 @@ install -m 755 -D eppic_makedumpfile.so %{buildroot}/%{_libdir}/eppic_makedumpfi
 %license COPYING
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.7-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jul 17 2025 Tao Liu <ltao@redhat.com> - 1.7.7-3
 - Fix a data race in multi-threading mode (--num-threads=N)
 

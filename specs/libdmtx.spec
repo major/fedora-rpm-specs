@@ -1,6 +1,6 @@
 Name:           libdmtx
 Version:        0.7.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library for working with Data Matrix 2D bar-codes
 
 License:        BSD-2-Clause-Views
@@ -67,6 +67,9 @@ popd
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Mar 28 2025 Dan Horák <dan[at]danny.cz> - 0.7.8-1
 - updated to 0.7.8 (rhbz#2355617)
 

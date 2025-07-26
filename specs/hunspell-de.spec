@@ -1,7 +1,7 @@
 Name:          hunspell-de
 Summary:       German hunspell dictionaries
 Version:       20240224
-Release:       3%{?dist}
+Release:       4%{?dist}
 
 License:       GPL-2.0-only OR GPL-3.0-only
 URL:           https://cgit.freedesktop.org/libreoffice/dictionaries/tree/de
@@ -49,6 +49,9 @@ install -pm 0644 de_DE_frami.dic %{buildroot}%{_datadir}/hunspell/de_LU.dic
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20240224-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20240224-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:       %{fontname}-sfd-fonts
 Version:    2.0.2
-Release:    39%{?dist}
+Release:    40%{?dist}
 Summary:    Old Standard True-Type Fonts
 
 # Automatically converted from old format: OFL - review is highly recommended.
@@ -78,6 +78,9 @@ install -Dm 0644 -p %{SOURCE3} \
 %{_datadir}/appdata/%{fontname}.metainfo.xml
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

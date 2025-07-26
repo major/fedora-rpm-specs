@@ -1,6 +1,6 @@
 Name:		inkscape-psd
 Version:	0.1.1
-Release:	24%{?dist}
+Release:	25%{?dist}
 Summary:	Inkscape PSD Importer
 # Automatically converted from old format: BSD - review is highly recommended.
 License:	LicenseRef-Callaway-BSD
@@ -36,6 +36,9 @@ cp -rp psd_import %{buildroot}%{_datadir}/inkscape/extensions
 %{_datadir}/inkscape/extensions/*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

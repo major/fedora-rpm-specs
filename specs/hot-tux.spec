@@ -1,6 +1,6 @@
 Name:           hot-tux
 Version:        0.3.1
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Graphical CPU utilization monitoring utility
 
 # Automatically converted from old format: Artistic clarified - review is highly recommended.
@@ -42,6 +42,9 @@ export LDFLAGS="%{__global_ldflags}"
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

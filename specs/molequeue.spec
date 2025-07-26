@@ -1,7 +1,7 @@
 Name:    molequeue
 Summary: Desktop integration of high performance computing resources
 Version: 0.9.0
-Release: 25%{?dist}
+Release: 26%{?dist}
 License: BSD-3-Clause
 URL:     https://github.com/OpenChemistry/molequeue
 Source0: https://github.com/OpenChemistry/molequeue/archive/%{version}/%{name}-%{version}.tar.gz
@@ -126,6 +126,9 @@ desktop-file-install %{name}.desktop --dir %{buildroot}%{_datadir}/applications
 %license LICENSE
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jul 18 2025 Antonio Trande <sagitter@fedoraproject.org> - 0.9.0-25
 - Fix rhbz#2380916
 

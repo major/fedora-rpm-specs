@@ -2,7 +2,7 @@
 
 Name:		mawk
 Version:	1.3.4
-Release:	4.%{pver}%{?dist}
+Release:	5.%{pver}%{?dist}
 Epoch:		1
 Summary:	Interpreter for the AWK programming language
 License:	GPL-2.0-only
@@ -38,6 +38,9 @@ make install DESTDIR=%{buildroot} INSTALL='install -p'
 %{_mandir}/man7/mawk-*.7*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.3.4-5.20250131
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Feb 01 2025 Thomas Dickey <dickey@invisible-island.net> - 1:1.3.4-1.20250131
 - upgrade to 1.3.4-20250131
 - add byacc to build dependencies

@@ -1,6 +1,6 @@
 Name: openssl-gost-engine
 Version: 3.0.3
-Release: 7%{?dist}
+Release: 8%{?dist}
 
 URL: https://github.com/gost-engine/engine
 License: Apache-2.0
@@ -68,6 +68,9 @@ OPENSSL_ENGINES="$PWD/%{_vpath_builddir}/bin" \
 %_mandir/man1/gost*sum*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.3-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Mar 28 2025 Carlos Rodriguez-Fernandez <carlosrodrifernandez@gmail.com> - 3.0.3-7
 - Update license to match upstream and switched to SPDX identifier
 

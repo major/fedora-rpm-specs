@@ -26,7 +26,7 @@
 
 Name:           mir
 Version:        2.21.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Next generation Wayland display server toolkit
 
 # mircommon is LGPL-2.1-only/LGPL-3.0-only, everything else is GPL-2.0-only/GPL-3.0-only
@@ -296,6 +296,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/miral-shell.desktop
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.21.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jul 17 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.21.1-1
 - Update to 2.21.1
 - Start tracking library soversions properly

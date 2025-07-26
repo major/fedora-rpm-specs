@@ -2,7 +2,7 @@
 
 Name:           mot-adms
 Version:        2.3.7
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        An electrical compact device models converter
 
 # SPDX confirmed
@@ -74,6 +74,9 @@ find %{buildroot} -type l -name '*.so' -delete
 %{_mandir}/man1/admsXml.1*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.7-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.3.7-13
 - Support C23 strict prototype
 

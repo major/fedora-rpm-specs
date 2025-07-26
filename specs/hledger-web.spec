@@ -14,7 +14,7 @@
 Name:           %{pkg_name}
 Version:        1.40
 # can only be reset when subpkg bumped
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Web user interface for the hledger accounting system
 
 License:        GPL-3.0-or-later
@@ -278,6 +278,9 @@ PATH=%{buildroot}%{_bindir}:$PATH
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.40-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Mar 25 2025 Jens Petersen <petersen@redhat.com> - 1.40-3
 - https://hackage.haskell.org/package/hledger-web-1.40/changelog
 

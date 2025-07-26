@@ -1,7 +1,7 @@
 Summary:	Waveform Viewer
 Name:		gtkwave
 Version:	3.3.124
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	GPL-2.0-or-later
 URL:		http://gtkwave.sourceforge.net/
 Source0:	http://gtkwave.sourceforge.net/gtkwave-gtk3-%{version}.tar.gz
@@ -194,6 +194,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/io.github.
 %{_mandir}/man5/gtkwaverc.5*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.124-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed May 14 2025 Paul Howarth <paul@city-fan.org> - 3.3.124-1
 - Update to 3.3.124
   - Ensure type name in $var for VCD saver is >0 length

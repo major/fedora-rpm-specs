@@ -1,6 +1,6 @@
 Name:       perl-Catalyst-View-PDF-Reuse 
 Version:    0.05
-Release:    28%{?dist}
+Release:    29%{?dist}
 # lib/Catalyst/Helper/View/PDF/Reuse.pm -> GPL+ or Artistic
 # lib/Catalyst/View/PDF/Reuse.pm -> GPL+ or Artistic
 # lib/Template/Plugin/Catalyst/View/PDF/Reuse.pm -> GPL+ or Artistic
@@ -54,6 +54,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

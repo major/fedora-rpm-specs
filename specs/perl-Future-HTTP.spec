@@ -3,7 +3,7 @@
 
 Name:           perl-Future-HTTP
 Version:        0.17
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        HTTP client with a Future API
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Future-HTTP
@@ -90,6 +90,9 @@ make test
 %{_mandir}/man3/Future::HTTP*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

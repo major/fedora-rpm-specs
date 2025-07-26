@@ -41,10 +41,10 @@
 ## can be incremented to build packages reliably considered "newer"
 ## than previously built packages with the same pcmkversion)
 %global pcmkversion 3.0.1
-%global specversion 4.rc1
+%global specversion 4.rc2
 
 ## Upstream commit (full commit ID, abbreviated commit ID, or tag) to build
-%global commit 9a5e54bae85847c4bb6ed7c7fb06103ebebbc64a
+%global commit 1244f61942219375c8ea4fb460f510333fa2b993
 
 ## Since git v2.11, the extent of abbreviation is autoscaled by default
 ## (used to be constant of 7), so we need to convey it for non-tags, too.
@@ -762,6 +762,11 @@ fi
 %{_datadir}/pkgconfig/pacemaker-schemas.pc
 
 %changelog
+* Thu Jul 24 2025 Klaus Wenninger <kwenning@redhat.com> - 3.0.1-0.4.rc2
+- Update for new upstream release tarball: Pacemaker-3.0.1-rc2,
+  for full details, see included ChangeLog.md file or
+  https://github.com/ClusterLabs/pacemaker/releases/tag/Pacemaker-3.0.1-rc2
+
 * Fri Jun 27 2025 Klaus Wenninger <kwenning@redhat.com> - 3.0.1-0.4.rc1
 - seems as if pre-tasks need to have tags to be executed
   at least that worked on a pull request via pagure

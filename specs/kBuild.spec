@@ -3,7 +3,7 @@
 
 Name:           kBuild
 Version:        0.1.9998%{?svn_revision:.r%{svn_revision}}
-Release:        1%{?svn_date:.%{svn_date}}%{?dist}
+Release:        2%{?svn_date:.%{svn_date}}%{?dist}
 Summary:        A cross-platform build environment
 
 # Automatically converted from old format: BSD and GPLv2+ - review is highly recommended.
@@ -111,6 +111,9 @@ pod2man -c 'kBuild for Fedora/EPEL GNU/Linux' \
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.9998.r3674-2.20250422
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Apr 25 2025 Sérgio Basto <sergio@serjux.com> - 0.1.9998.r3674-1.20250422
 - Update to Revision 3674
 - (rhbz#2340684) Fix FTBFS

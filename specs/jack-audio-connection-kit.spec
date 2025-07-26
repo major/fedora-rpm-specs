@@ -14,7 +14,7 @@
 Summary:       The Jack Audio Connection Kit
 Name:          jack-audio-connection-kit
 Version:       1.9.22
-Release:       9%{?dist}
+Release:       10%{?dist}
 # The entire source (~500 files) is a mixture of these three licenses
 # Automatically converted from old format: GPLv2 and GPLv2+ and LGPLv2+ - review is highly recommended.
 License:       GPL-2.0-only AND GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
@@ -166,6 +166,9 @@ install -m0644 -D jack-audio-connection-kit.sysusers.conf %{buildroot}%{_sysuser
 %{_libdir}/pkgconfig/jack.pc
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.22-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.9.22-9
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

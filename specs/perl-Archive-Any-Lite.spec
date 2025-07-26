@@ -7,7 +7,7 @@
 
 Name:		perl-Archive-Any-Lite
 Version:	0.11
-Release:	28%{?dist}
+Release:	29%{?dist}
 Summary:	Simple CPAN package extractor 
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Archive-Any-Lite
@@ -78,6 +78,9 @@ make test TEST_POD=1
 %{_mandir}/man3/Archive::Any::Lite.3*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

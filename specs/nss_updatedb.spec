@@ -1,6 +1,6 @@
 Name:		nss_updatedb
 Version:	10
-Release:	32%{?dist}
+Release:	33%{?dist}
 Summary:	Maintains a local cache of network directory user and group information
 
 License:	GPL-1.0-or-later
@@ -40,6 +40,9 @@ mkdir -p $RPM_BUILD_ROOT%{_datadir}/doc/%name-%{version}
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 10-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 10-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

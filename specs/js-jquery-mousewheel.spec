@@ -1,6 +1,6 @@
 Name:       js-jquery-mousewheel
 Version:    3.1.13
-Release:    18%{?dist}
+Release:    19%{?dist}
 BuildArch:  noarch
 
 License:    MIT
@@ -48,6 +48,9 @@ cp -a jquery.mousewheel*.js %{buildroot}/%{_jsdir}
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.13-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.13-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

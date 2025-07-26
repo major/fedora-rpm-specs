@@ -4,7 +4,7 @@
 %forgemeta
 
 Version: 2.100
-Release: 13%{?dist}
+Release: 14%{?dist}
 URL:     %{forgeurl}
 
 %global foundry           google
@@ -43,6 +43,9 @@ chmod 644 %{fontdocs} %{fontlicenses}
 %fontfiles
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.100-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.100-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

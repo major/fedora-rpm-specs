@@ -1,6 +1,6 @@
 Name:           pdbg
 Version:        3.6
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        PowerPC FSI Debugger
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -74,6 +74,9 @@ rm -f %{buildroot}%{_libdir}/*.la
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.6-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.6-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

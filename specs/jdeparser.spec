@@ -3,7 +3,7 @@
 
 Name:             jdeparser
 Version:          2.0.3
-Release:          19%{?dist}
+Release:          20%{?dist}
 Summary:          Source generator library for Java
 License:          Apache-2.0
 URL:              https://github.com/jdeparser/jdeparser2
@@ -37,6 +37,9 @@ urged to use this project instead for source code generation.
 %license LICENSE.txt
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           paps
 Version:        0.8.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 
 License:        LGPL-2.0-or-later
 URL:            https://github.com/dov/paps
@@ -157,6 +157,9 @@ make install DESTDIR=$RPM_BUILD_ROOT INSTALL="/usr/bin/install -p"
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jan 27 2025 Akira TAGOH <tagoh@redhat.com> - 0.8.0-13
 - Fix FTBFS
   Resolves: rhbz#2341001

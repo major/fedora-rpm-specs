@@ -9,7 +9,7 @@ Version:       1.5.0
 
 Summary:       Block device I/O library
 Name:          libblkio
-Release:       3%{?dist}
+Release:       4%{?dist}
 URL:           %{forgeurl}
 Source0:       %{forgesource}
 # To create the vendor tarball:
@@ -128,6 +128,9 @@ export RUSTFLAGS="%build_rustflags"
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Data-Fake
 Version:        0.006
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Declaratively generate fake structured data for testing
 License:        Apache-2.0
 URL:            https://metacpan.org/release/Data-Fake
@@ -83,6 +83,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.006-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.006-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

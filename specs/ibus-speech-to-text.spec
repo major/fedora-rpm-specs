@@ -1,6 +1,6 @@
 Name:   ibus-speech-to-text
 Version:  0.5.0
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary:  A speech to text IBus Input Method using VOSK
 BuildArch:  noarch
 License:  GPL-3.0-or-later
@@ -51,6 +51,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/ibus-setup-stt.deskt
 %{_datadir}/glib-2.0/schemas/org.freedesktop.ibus.engine.stt.gschema.xml
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon May 5 2025 Manish Tiwari <matiwari@redhat.com> 0.5.0-1
 - Update to 0.5.0 release
 - Remove babel.patch

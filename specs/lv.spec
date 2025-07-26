@@ -2,7 +2,7 @@
 
 Name:		lv
 Version:	4.51
-Release:	55%{?dist}
+Release:	56%{?dist}
 License:	GPL-2.0-or-later
 URL:		http://www.ff.iij4u.or.jp/~nrt/lv/
 BuildRequires:	ncurses-devel autoconf
@@ -58,6 +58,9 @@ mkdir -p $RPM_BUILD_ROOT%{_mandir}/man1
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.51-56
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jan 27 2025 Akira TAGOH <tagoh@redhat.com> - 4.51-55
 - Fix FTBFS
   Resolves: rhbz#2340802

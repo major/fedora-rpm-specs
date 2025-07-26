@@ -1,6 +1,6 @@
 Name:           mm-common
 Version:        1.0.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Common build files of the C++ bindings
 
 BuildArch:      noarch
@@ -53,4 +53,7 @@ which could be used as a base for new mm module.
 %{_docdir}/%{name}/*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 %autochangelog

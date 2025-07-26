@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-astring
 Version:        0.8.5
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Alternative String module for OCaml
 
 License:        ISC
@@ -86,6 +86,9 @@ ocaml pkg/pkg.ml test
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.5-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 0.8.5-29
 - Rebuild to fix OCaml dependencies
 

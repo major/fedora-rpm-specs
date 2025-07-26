@@ -1,7 +1,7 @@
 Summary:       Serial terminal for the gnome desktop
 Name:          moserial
 Version:       3.0.21
-Release:       12%{?dist}
+Release:       13%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:       GPL-3.0-or-later
 URL:           https://wiki.gnome.org/moserial/
@@ -60,6 +60,9 @@ done
 %{_mandir}/man1/moserial.1*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.21-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.21-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

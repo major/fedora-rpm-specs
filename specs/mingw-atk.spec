@@ -5,7 +5,7 @@
 
 Name:           mingw-atk
 Version:        2.38.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        MinGW Windows Atk library
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -115,6 +115,9 @@ Static version of the MinGW Windows Atk library.
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.38.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.38.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

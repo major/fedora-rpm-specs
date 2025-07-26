@@ -1,6 +1,6 @@
 Name:           libzrtpcpp
 Version:        4.6.6
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        ZRTP support library for the GNU ccRTP stack
 
 License:        GPL-3.0-or-later
@@ -71,6 +71,9 @@ chmod 644 NEWS.md
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.6-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jul 17 2025 Sandro Mani <manisandro@gmail.com> - 4.6.6-22
 - Fix invalid variable expansion in cmake file
 

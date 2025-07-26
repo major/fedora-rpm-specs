@@ -1,6 +1,6 @@
 Name:           perl-DBIx-Class-TimeStamp
 Version:        0.14
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        DBIx::Class extension to update and create date and time based fields
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DBIx-Class-TimeStamp
@@ -81,6 +81,9 @@ TEST_POD=1 make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

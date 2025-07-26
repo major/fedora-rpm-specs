@@ -38,7 +38,7 @@
 
 Name:			lxde-common
 Version:		%{main_version}%{git_ver_rpm}
-Release:		2%{?dist}
+Release:		3%{?dist}
 Summary:		Default configuration files for LXDE
 
 # SPDX confirmed
@@ -226,6 +226,9 @@ install -cpm 0644 %{SOURCE11} %{buildroot}%{_sysconfdir}/xdg/lxsession/libfm/lib
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.99.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon May 26 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.99.3-2
 - Add ACLOCAL_PATH for gettext 0.25 (ref: bug 2366708)
 

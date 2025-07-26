@@ -1,6 +1,6 @@
 Name:		libax25
 Version:        1.1.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:	AX.25 library for hamradio applications
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -71,6 +71,9 @@ rm -f %{buildroot}%{_includedir}/{netax25/ax25.h,netrom/netrom.h,netrose/rose.h}
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

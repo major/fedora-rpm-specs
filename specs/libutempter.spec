@@ -3,7 +3,7 @@
 Summary: A privileged helper for utmp/wtmp updates
 Name: libutempter
 Version: 1.2.1
-Release: 18%{?dist}
+Release: 19%{?dist}
 License: LGPL-2.1-or-later AND LGPL-2.1-only AND BSD-2-Clause
 URL: ftp://ftp.altlinux.org/pub/people/ldv/utempter
 
@@ -62,6 +62,9 @@ install -D -m0644 %{name}.sysusers.conf %{buildroot}%{_sysusersdir}/%{name}.conf
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jun 20 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 1.2.1-18
 - Add sysusers.d config
 

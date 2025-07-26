@@ -35,7 +35,7 @@
 
 Name:			lxsession
 Version:		%{main_version}%{git_ver_rpm}
-Release:		1%{?dist}
+Release:		2%{?dist}
 Summary:		Lightweight X11 session manager
 Summary(de):	Leichtgewichtiger X11 Sitzungsverwalter
 
@@ -307,6 +307,9 @@ cd ..
 %{_datadir}/%{name}/ui/lxpolkit.ui
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Apr 03 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.6-1
 - 0.5.6
 

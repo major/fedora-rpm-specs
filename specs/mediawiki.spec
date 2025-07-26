@@ -1,7 +1,7 @@
 Summary: A wiki engine
 Name: mediawiki
 Version: 1.43.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later
 URL: https://www.mediawiki.org/
 Source0: https://releases.wikimedia.org/mediawiki/1.43/%{name}-%{version}.tar.gz
@@ -260,6 +260,9 @@ cd tests/phpunit
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.43.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jun 12 2025 Michael Cronenworth <mike@cchtml.com> - 1.43.1-1
 - Update to 1.43.1
 

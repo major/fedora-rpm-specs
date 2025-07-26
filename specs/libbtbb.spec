@@ -4,7 +4,7 @@
 
 Name:           libbtbb
 Version:        %{POSTYEAR}.%{POSTMONTH}.R%{POSTNUM}
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        A Bluetooth baseband decoding library
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
@@ -58,6 +58,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2020.12.R1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 
 * Fri Jul 18 2025 Sergey Avseyev <sergey.avseyev@gmail.com> - 2020.12.R1-13
 - Update CMake version requirements

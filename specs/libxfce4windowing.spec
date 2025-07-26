@@ -13,7 +13,7 @@
 
 Name:           libxfce4windowing
 Version:        4.20.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Windowing concept abstraction library for X11 and Wayland
 
 License:        LGPL-2.1-or-later
@@ -107,6 +107,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.20.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jun 01 2025 Mukundan Ragavan <nonamedotc@fedoraproject.org> - 4.20.3-1
 - Update to v4.20.3
 

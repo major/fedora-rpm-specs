@@ -2,7 +2,7 @@
 
 Name:           ode
 Version:        0.16.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        High performance library for simulating rigid body dynamics
 License:        BSD-3-Clause AND LGPL-2.1-or-later
 URL:            https://bitbucket.org/odedevs/ode
@@ -119,6 +119,9 @@ install -m 644 ode-double.pc $RPM_BUILD_ROOT%{_libdir}/pkgconfig
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.16.6-1
 - 0.16.6
 

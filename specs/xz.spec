@@ -5,7 +5,7 @@ Summary:	LZMA compression utilities
 Name:		xz
 Epoch:		1
 Version:	5.8.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 # liblzma - 0BSD
 # xz{,dec}, lzma{dec,info} - 0BSD
@@ -180,6 +180,9 @@ LD_LIBRARY_PATH=$PWD/src/liblzma/.libs make check
 
 
 %changelog
+* Thu Apr 24 2025 Adam Williamson <awilliam@redhat.com> - 1:5.8.1-2
+- Empty rebuild to try and fix gating issue
+
 * Thu Apr 03 2025 Richard W.M. Jones <rjones@redhat.com> - 1:5.8.1-1
 - New upstream version 5.8.1
 - Fixes CVE-2025-31115 heap-use-after-free bug in threaded .xz decoder

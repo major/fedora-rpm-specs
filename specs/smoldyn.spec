@@ -20,8 +20,7 @@ Release: %autorelease
 # distributed under the Gnu LGPL.
 #
 # source/libSteve/SFMT is licensed under the 'BSD 3-clause "New" or "Revised" License'
-# Automatically converted from old format: LGPLv3+ and Public Domain and BSD - review is highly recommended.
-License: LGPL-3.0-or-later AND LicenseRef-Callaway-Public-Domain AND LicenseRef-Callaway-BSD
+License: LGPL-3.0-or-later AND GPL-3.0-only AND BSD-3-Clause AND LicenseRef-Fedora-Public-Domain
 URL:   http://www.smoldyn.org
 Source0: https://github.com/ssandrews/Smoldyn/archive/refs/tags/v%{version}/Smoldyn-%{version}.tar.gz
 
@@ -169,7 +168,7 @@ find -name '*.pyc' -delete
  -DOPTION_PDE:BOOL=ON \
  -DPERL_VENDORLIB:PATH=%{perl_vendorlib} \
  -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_INSTALL_LIBDIR:PATH=%{_libdir} \
- -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} \
+ -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} -DLIB_INSTALL_DIR:PATH=%{_libdir} \
  -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE -DCMAKE_COLOR_MAKEFILE:BOOL=ON \
  -DCMAKE_SKIP_RPATH:BOOL=YES \
  -DHAVE_GL_FREEGLUT_H=TRUE -DOPTION_EXAMPLES:BOOL=OFF -DOPTION_DOCS:BOOL=OFF

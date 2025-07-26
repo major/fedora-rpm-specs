@@ -1,6 +1,6 @@
 Name: mtx
 Version: 1.3.12
-Release: 35%{?dist}
+Release: 36%{?dist}
 Summary: SCSI media changer control program
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
@@ -57,6 +57,9 @@ chmod a-x contrib/config_sgen_solaris.sh contrib/mtx-changer
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.12-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Feb 27 2025 Dan Horák <dan[at]danny.cz> 1.3.12-35
 - update for GCC 15 / C23 (rhbz#2340892)
 

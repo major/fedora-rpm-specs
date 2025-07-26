@@ -4,7 +4,7 @@
 
 Name:           pcb
 Version:        %{pcbver}
-Release:        18%{?dist}
+Release:        19%{?dist}
 
 Summary:        An interactive printed circuit board editor
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -177,6 +177,9 @@ mv %{buildroot}%{_pkgdocdir}/refcard.pdf %{buildroot}%{_pkgdocdir}/pcb-reference
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

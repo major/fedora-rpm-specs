@@ -6,7 +6,7 @@
 Name:		%{fontname}-fonts
 # This is the version from the compiled fonts (thanks fontforge)
 Version:	0.940
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	Font designed for dyslexics and high readability
 # Automatically converted from old format: OFL - review is highly recommended.
 License:	LicenseRef-Callaway-OFL
@@ -56,6 +56,9 @@ ln -s %{_fontconfig_templatedir}/%{fontconf} \
 %license OFL.txt
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.940-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.940-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

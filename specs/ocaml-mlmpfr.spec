@@ -8,7 +8,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-mlmpfr
 Version:        4.2.1
-Release:        9%{?dist}%{?bugfix:.%{bugfix}}
+Release:        10%{?dist}%{?bugfix:.%{bugfix}}
 Summary:        OCaml bindings for MPFR
 
 # FIXME: the individual files say LGPL-3.0-or-later, but opam says this:
@@ -66,6 +66,9 @@ cd -
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 4.2.1-9
 - Rebuild to fix OCaml dependencies
 

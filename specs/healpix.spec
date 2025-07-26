@@ -10,7 +10,7 @@
 
 Name:           healpix
 Version:        3.83
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Hierarchical Equal Area isoLatitude Pixelization of a sphere
 
 License:        GPL-2.0-or-later
@@ -350,6 +350,9 @@ popd
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.83-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.83-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

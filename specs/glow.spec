@@ -1,4 +1,4 @@
-%define goipath github.com/charmbracelet/glow
+%define goipath github.com/charmbracelet/glow/v2
 
 Name:           glow
 Version:        2.1.1

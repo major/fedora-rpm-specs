@@ -1,6 +1,6 @@
 Name:           irqbalance
 Version:        1.9.4
-Release:        6%{?dist}
+Release:        7%{?dist}
 Epoch:          2
 Summary:        IRQ balancing daemon
 License:        GPL-2.0-only
@@ -64,6 +64,9 @@ make check
 %systemd_postun_with_restart irqbalance.service
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:1.9.4-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 23 2025 Timothée Ravier <tim@siosm.fr> - 2:1.9.4-6
 - Backport fixes from upstream (fedora#2340662)
 

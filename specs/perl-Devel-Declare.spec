@@ -7,7 +7,7 @@
 
 Name:           perl-Devel-Declare
 Version:        0.006022
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Adding keywords to perl, in perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-Declare
@@ -89,6 +89,9 @@ make test
 %{_mandir}/man3/Devel::Declare.3*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.006022-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jul 08 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.006022-24
 - Perl 5.42 re-rebuild of bootstrapped packages
 

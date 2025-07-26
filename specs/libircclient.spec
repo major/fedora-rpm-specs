@@ -8,7 +8,7 @@
 Name:		libircclient
 Summary:	C library to create IRC clients
 Version:	1.10
-Release:	2%{?dist}
+Release:	3%{?dist}
 License:	LGPL-3.0-or-later
 URL:		https://www.ulduzsoft.com/libircclient/
 Source0:	https://downloads.sourceforge.net/libircclient/%{name}-%{version}.tar.gz
@@ -81,6 +81,9 @@ cp -p man/%{name}.1 %{buildroot}%{_mandir}/man1
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

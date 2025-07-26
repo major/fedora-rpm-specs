@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: MIT
 
 Version: 2.006
-Release: 30%{?dist}
+Release: 31%{?dist}
 URL:     http://sourceforge.net/projects/manchufont/
 
 %global foundry           Manchu
@@ -38,6 +38,9 @@ Source10: 66-%{fontpkgname}.conf
 %fontfiles
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.006-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.006-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

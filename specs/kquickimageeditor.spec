@@ -6,7 +6,7 @@
 
 Name:    kquickimageeditor
 Version: 0.5.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: QtQuick components providing basic image editing capabilities
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -109,6 +109,9 @@ popd
 %{_kf6_archdatadir}/mkspecs/modules/qt_KQuickImageEditor.pri
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Mar 27 2025 Jan Grulich <jgrulich@redhat.com> - 0.5.0-2
 - Rebuild (qt6)
 

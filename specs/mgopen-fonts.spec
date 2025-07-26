@@ -19,7 +19,7 @@ It can be safely uninstalled.
 
 Name:      %{fontname}-fonts
 Version:   0.%{upstream_date}
-Release:   45%{?dist}
+Release:   46%{?dist}
 Summary:   Truetype greek fonts
 
 # Automatically converted from old format: MgOpen - review is highly recommended.
@@ -162,6 +162,9 @@ install -Dm 0644 -p %{SOURCE6} \
 %files compat
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.20050515-46
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.20050515-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

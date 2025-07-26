@@ -1,7 +1,7 @@
 %global cpan_version 0.52
 Name:           perl-App-CLI
 Version:        0.520
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Dispatcher module for command line interface programs
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -66,6 +66,9 @@ command classes. It also supports sub-command and per-command options.
 %{_mandir}/man3/App*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.520-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.520-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

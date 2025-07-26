@@ -3,7 +3,7 @@
 Summary: ModSecurity Core Ruleset
 Name: mod_security_crs
 Version: 4.15.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Apache-2.0
 URL: https://coreruleset.org/
 Source: https://github.com/coreruleset/coreruleset/archive/refs/tags/v%{version}.tar.gz
@@ -68,6 +68,9 @@ exit 0
 %config(noreplace) %{_sysconfdir}/httpd/modsecurity.d/plugins/*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.15.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 03 2025 Daniel Demus <daniel-fedoauth@demus.dk> - 4.15.0-2
 - Prepare for plugins (see https://coreruleset.org/20220112/crs-plugin-mechanism/)
 

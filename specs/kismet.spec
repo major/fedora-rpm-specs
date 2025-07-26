@@ -1,5 +1,5 @@
 %global _hardened_build 1
-%global _version        2023-07-R1
+%global _version        2023-07-R2
 
 ## {Local macros...
 %global cfgdir          %_sysconfdir/%name
@@ -12,7 +12,7 @@
 Summary:        WLAN detector, sniffer and IDS
 Name:           kismet
 Version:        %_rpmversion
-Release:        10%{?dist}
+Release:        1%{?dist}
 License:        GPL-2.0-or-later
 URL:            http://www.kismetwireless.net/
 Source0:        http://www.kismetwireless.net/code/%{name}-%_version.tar.xz
@@ -20,6 +20,7 @@ Source0:        http://www.kismetwireless.net/code/%{name}-%_version.tar.xz
 Patch0:         kismet-include.patch
 Patch1:         kismet-install.patch
 Patch2:         hak5-types.patch
+Patch3:         2340697.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -49,6 +50,9 @@ traffic.
 %patch -P 0 -p0
 %patch -P 1 -p0
 %patch -P 2 -p0
+%ifnarch ppc64le
+%patch -P 3 -p1
+%endif
 
 sed -i 's!\$(prefix)/lib/!%{_libdir}/!g' plugin-*/Makefile
 
@@ -117,6 +121,9 @@ install -m0644 -D kismet.sysusers.conf %{buildroot}%{_sysusersdir}/kismet.conf
 %{_sysusersdir}/kismet.conf
 
 %changelog
+* Thu Jul 24 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.0.2023.07.R2-1
+- 2023.07.R2
+
 * Mon Jul 21 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 0.0.2023.07.R1-10
 - Rebuild for libwebsockets 4.4
 

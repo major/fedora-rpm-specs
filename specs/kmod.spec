@@ -16,7 +16,7 @@
 
 Name:		kmod
 Version:	34.2
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Linux kernel module management utilities
 
 # https://docs.fedoraproject.org/en-US/legal/license-field/#_no_effective_license_analysis
@@ -199,6 +199,9 @@ install -m 0644 %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/depmod.d/dist.conf
 %{_libdir}/libkmod.so
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 34.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Mar 31 2025 Josh Boyer <jwboyer@fedoraproject.org> - 34.2-1
 - New upstream v34.2
 - Resolves: rhbz#2355680

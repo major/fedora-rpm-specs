@@ -1,6 +1,6 @@
 Name:       miniupnpd
 Version:    2.3.9
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Lightweight UPnP IGD & PCP/NAT-PMP daemon
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -106,6 +106,9 @@ mv %{buildroot}/usr/sbin/%{name} %{buildroot}%{_bindir}/%{name}
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.9-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Apr 23 2025 - Michael Cronenworth <mike@cchtml.com> - 2.3.9-2
 - Install miniupnpd_functions.sh
 

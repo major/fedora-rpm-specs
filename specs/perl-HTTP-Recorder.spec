@@ -1,6 +1,6 @@
 Name:           perl-HTTP-Recorder
 Version:        0.07
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Record interaction with web sites
 
 License:        GPL-1.0-or-later
@@ -68,6 +68,9 @@ make test
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

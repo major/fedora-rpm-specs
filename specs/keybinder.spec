@@ -1,6 +1,6 @@
 Name:		keybinder
 Version:	0.3.1
-Release:	31%{?dist}
+Release:	32%{?dist}
 Summary:	A library for registering global keyboard shortcuts
 # python-keybinder/__init__.py	unused
 # SPDX confirmed
@@ -71,6 +71,9 @@ find %{buildroot} -name '*.la'| xargs rm -f
 %{_datadir}/gtk-doc/html/%{name}
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

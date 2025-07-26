@@ -2,7 +2,7 @@
 
 Name:           lv2-x42-plugins
 Version:        0.21.0
-Release:        0.1.%{prerelease}%{?dist}
+Release:        0.2.%{prerelease}%{?dist}
 Summary:        A number of LV2 plugins
 
 # files in balance.lv2/pugl are ISC, the rest are GPLv2+
@@ -66,6 +66,9 @@ export OPTIMIZATIONS="%{optflags}"
 %{_mandir}/man1/x42*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.21.0-0.2.20250512
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 03 2025 Guido Aulisi <guido.aulisi@gmail.com> - 0.21.0-0.1.20250512
 - Update to 20250512
 

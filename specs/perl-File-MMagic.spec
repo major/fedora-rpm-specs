@@ -1,6 +1,6 @@
 Name:           perl-File-MMagic
 Version:        1.30
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        A Perl module emulating the file(1) command
 # MMagic.pm and COPYING files contain identical license texts of App-s2p
 # license, BSD license, and ASL 1.0 license.
@@ -63,6 +63,9 @@ make test
 %{_mandir}/man3/File::MMagic.3*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.30-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.30-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

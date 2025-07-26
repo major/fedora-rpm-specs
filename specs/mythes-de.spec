@@ -3,7 +3,7 @@
 Summary:        German thesaurus
 Name:           mythes-de
 Version:        0.%{upstreamid}
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        LGPL-2.1-or-later OR CC-BY-SA-4.0
 URL:            https://www.openthesaurus.de/
 Source0:        https://www.openthesaurus.de/export/Deutscher-Thesaurus.oxt
@@ -55,6 +55,9 @@ popd
 %{_datadir}/mythes/*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.20240601-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.20240601-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

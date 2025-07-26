@@ -1,6 +1,6 @@
 Name:          iniparser
 Version:       4.2.6
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       C library for parsing "INI-style" files
 
 License:       MIT
@@ -68,6 +68,9 @@ rm -rf %{buildroot}%{_docdir}/%{name}/examples
 %{_libdir}/libiniparser.a
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 18 2025 David Cantrell <dcantrell@redhat.com> - 4.2.6-1
 - Upgrade to iniparser-4.2.6 (#2345965)
 - Upstream moved to gitlab.com

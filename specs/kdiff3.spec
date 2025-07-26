@@ -1,6 +1,6 @@
 Name:           kdiff3
 Version:        1.12.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Compare + merge 2 or 3 files or directories
 
 License:        GPL-2.0-or-later AND BSD-2-Clause AND CC0-1.0 AND MIT
@@ -72,6 +72,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue May 13 2025 Steve Cossette <farchord@gmail.com> - 1.12.3-1
 - 1.12.3
 

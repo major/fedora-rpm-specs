@@ -5,7 +5,7 @@
 
 Name:           mingw-gdk-pixbuf
 Version:        2.42.12
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        MinGW Windows GDK Pixbuf library
 
 License:        LGPL-2.0-or-later
@@ -139,6 +139,9 @@ install -m 0644 %{SOURCE1} %{buildroot}%{mingw64_libdir}/gdk-pixbuf-2.0/2.10.0/l
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.42.12-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jul 13 2025 Sandro Mani <manisandro@gmail.com> - 2.42.12-5
 - Backport fix for CVE-2025-7345
 

@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-integers
 Version:        0.7.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Various signed and unsigned integer types for OCaml
 
 License:        MIT
@@ -51,6 +51,9 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 0.7.0-19
 - Rebuild to fix OCaml dependencies
 

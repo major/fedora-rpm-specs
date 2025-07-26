@@ -1,6 +1,6 @@
 Name:      langpacks
 Version:   4.2
-Release:   4%{?dist}
+Release:   5%{?dist}
 Summary:   Langpacks meta-package
 
 License:   GPL-2.0-or-later
@@ -1793,6 +1793,9 @@ DESTDIR=%{buildroot} appstream-util split-appstream org.fedoraproject.default-fo
 DESTDIR=%{buildroot} appstream-util split-appstream org.fedoraproject.langpacks-fonts.xml
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jan 21 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 4.2-4
 - Recommend ibus-cangjie only on Fedora
 

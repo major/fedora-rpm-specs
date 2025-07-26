@@ -1,6 +1,6 @@
 Name: p0f
 Version: 3.09b
-Release: 22%{?dist}
+Release: 23%{?dist}
 
 Summary: Versatile passive OS fingerprinting tool
 License: LGPL-2.0-or-later
@@ -51,6 +51,9 @@ make %{?_smp_mflags} CFLAGS="$RPM_OPT_FLAGS"
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.09b-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.09b-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

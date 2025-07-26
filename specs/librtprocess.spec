@@ -1,6 +1,6 @@
 Name:           librtprocess
 Version:        0.12.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        RawTherapee's processing algorithms
 
 # The entire source is GPL-3.0-or-later, except:
@@ -61,6 +61,9 @@ These are the files needed to develop an application using librtprocess.
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

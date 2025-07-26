@@ -31,7 +31,7 @@
 
 Name:			lxmusic
 Version:		%{main_version}%{git_ver_rpm}
-Release:		1%{?dist}
+Release:		2%{?dist}
 Summary:		Lightweight XMMS2 client with simple user interface
 
 License:		GPL-2.0-or-later
@@ -175,6 +175,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Mar 16 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.4.8-1
 - 0.4.8
 

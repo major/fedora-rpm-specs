@@ -10,7 +10,7 @@
 
 Name:           micropython
 Version:        1.25.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Implementation of Python 3 with very low memory footprint
 
 # micorpython itself is MIT
@@ -121,6 +121,9 @@ install -pm 755 ports/unix/build-standard/micropython %{buildroot}%{_bindir}
 %{_bindir}/micropython
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.25.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri May 09 2025 Charalampos Stratakis <cstratak@redhat.com> - 1.25.0-1
 - Update to 1.25.0
 - Security fixes for CVE-2023-52353 and CVE-2024-23744 in mbedtls

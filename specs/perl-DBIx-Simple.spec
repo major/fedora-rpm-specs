@@ -1,7 +1,7 @@
 Name:           perl-DBIx-Simple
 Summary:        Easy-to-use OO interface to DBI
 Version:        1.37
-Release:        24%{?dist}
+Release:        25%{?dist}
 # This license is a little weird. It used to be in the Public Domain until after 1.32.
 # Now, it is released under any OSI approved license.
 # Since that is a sort of metalicense (and we do not want to encourage it), we will just choose
@@ -64,6 +64,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.37-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.37-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

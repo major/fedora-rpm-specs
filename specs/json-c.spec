@@ -28,7 +28,7 @@
 
 Name:           json-c
 Version:        0.18
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        JSON implementation in C
 
 License:        MIT
@@ -194,6 +194,9 @@ unset USE_VALGRIND
 %endif
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.18-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jul 13 2025 Sandro Mani <manisandro@gmail.com> - 0.18-4
 - Add libver to mingw dll
 

@@ -1,5 +1,5 @@
 Name:           uid_wrapper
-Version:        1.3.1
+Version:        1.3.2
 Release:        %autorelease
 
 Summary:        A wrapper for privilege separation
@@ -9,8 +9,6 @@ Url:            http://cwrap.org/
 Source0:        https://ftp.samba.org/pub/cwrap/%{name}-%{version}.tar.gz
 Source1:        https://ftp.samba.org/pub/cwrap/%{name}-%{version}.tar.gz.asc
 Source2:        uid_wrapper.keyring
-
-Patch0:         uwrap-fix-tests.patch
 
 BuildRequires:  gcc
 BuildRequires:  cmake

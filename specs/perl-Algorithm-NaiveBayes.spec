@@ -1,6 +1,6 @@
 Name:           perl-Algorithm-NaiveBayes
 Version:        0.04
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Bayesian prediction of categories
 
 # There is no license file included with the sources, I asked upstream for one:
@@ -63,6 +63,9 @@ find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null \;
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

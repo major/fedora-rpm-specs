@@ -37,7 +37,7 @@
 
 Name:			lxappearance
 Version:		%{main_version}%{git_ver_rpm}
-Release:		2%{?dist}
+Release:		3%{?dist}
 Summary:		Feature-rich GTK+ theme switcher for LXDE
 
 # SPDX confirmed
@@ -194,6 +194,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon May 26 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.6.4-2
 - Add ACLOCAL_PATH for gettext 0.25 (ref: bug 2366708)
 

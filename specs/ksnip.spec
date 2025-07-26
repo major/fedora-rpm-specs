@@ -1,6 +1,6 @@
 Name: ksnip
 Version: 1.10.1
-Release: 7%{?dist}
+Release: 8%{?dist}
 
 License: GPL-2.0-or-later
 Summary: Qt based cross-platform screenshot tool
@@ -66,6 +66,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_metainfodir}/*.appdata.xml
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

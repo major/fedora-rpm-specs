@@ -1,6 +1,6 @@
 Name:           mbuffer
 Version:        20241007
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Measuring Buffer is an enhanced version of buffer
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -43,6 +43,9 @@ rm -rf %{buildroot}/usr/etc/mbuffer.rc
 %config(noreplace) %{_sysconfdir}/mbuffer.rc
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20241007-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20241007-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

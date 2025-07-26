@@ -3,7 +3,7 @@
 Summary: An Atari ST/STE/TT/Falcon emulator suitable for playing games
 Name: hatari
 Version: 2.6.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later
 URL: https://www.hatari-emu.org/
 Source0: https://framagit.org/%{name}/releases/-/raw/main/v%{ver}/%{name}-%{version}.tar.bz2
@@ -125,6 +125,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.a
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jun 28 2025 Andrea Musuruane <musuruan@gmail.com> - 2.6.0-1
 - Updated to new upstream release
 - New website and Source URL

@@ -1,6 +1,6 @@
 Name:           home-assistant-cli
 Version:        0.9.6
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Command-line tool for Home Assistant
 
 License:        Apache-2.0
@@ -64,6 +64,9 @@ PYTHONPATH=%{buildroot}/%{python3_sitelib}/ pytest-%{python3_version} -v tests \
 %{python3_sitelib}/homeassistant_cli*.egg-info/
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.6-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.9.6-14
 - Rebuilt for Python 3.14
 

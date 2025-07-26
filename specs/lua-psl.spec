@@ -8,7 +8,7 @@
 
 Name:           lua-%{luapkgname}
 Version:        0.3
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Lua bindings to Public Suffix List library
 
 License:        MIT
@@ -80,6 +80,9 @@ install -p -m 0755 psl-%{luacompatver}.so %{buildroot}%{luacompatlibdir}/psl.so
 %endif
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

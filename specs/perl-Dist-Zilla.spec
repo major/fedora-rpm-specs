@@ -1,6 +1,6 @@
 Name:           perl-Dist-Zilla
 Version:        6.033
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Distribution builder; installer not included!
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Dist-Zilla
@@ -180,6 +180,9 @@ make test
 %{_sysconfdir}/bash_completion.d
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.033-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri May 09 2025 Michal Josef Špaček <mspacek@redhat.com> - 6.033-1
 - 6.033 bump
 

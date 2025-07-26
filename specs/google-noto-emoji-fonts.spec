@@ -25,7 +25,7 @@ BuildRequires:  cairo-devel
 BuildRequires:  make
 
 Version: 20250623
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL:     https://github.com/googlefonts/noto-emoji
 
 %global foundry           Google
@@ -96,6 +96,9 @@ cp -p fonts/Noto-COLRv1.ttf .
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20250623-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 23 2025 Bilal Bassam <belal2453@gmail.com> - 20250623-1
 - Update to v2.048
 - Update the flag of Syria

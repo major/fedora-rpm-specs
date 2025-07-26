@@ -2,7 +2,7 @@
 
 Name:           nagelfar
 Version:        1.3.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Syntax checker for Tcl
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -94,6 +94,9 @@ mv {doc/,}syntaxtokens.txt
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Feb 15 2025 Xavier Delaruelle <xavier.delaruelle@cea.fr> - 1.3.5-1
 - Update to 1.3.5 (#2344515)
 - Default syntaxdb points to Tcl 9.0 on Fedora>=42 and to Tcl 8.6 elsewhere

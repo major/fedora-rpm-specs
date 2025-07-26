@@ -5,12 +5,13 @@
 
 Name:           libstoragemgmt
 Version:        1.10.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Storage array management library
 License:        LGPL-2.1-or-later
 URL:            https://github.com/libstorage/libstoragemgmt
 Source0:        https://github.com/libstorage/libstoragemgmt/releases/download/%{version}/%{name}-%{version}.tar.gz
 Patch1:         0001_systemd_ug.patch
+Patch2:         0002_include_integration_script.patch
 Requires:       python3-%{name}%{_isa}
 Requires:       ledmon-libs
 
@@ -465,6 +466,9 @@ fi
 %{_mandir}/man1/local_lsmplugin.1*
 
 %changelog
+* Thu Jul 24 2025 Tony Asleson <tasleson@redhat.com> - 1.10.2-5
+- Convert to tmt testing
+
 * Wed Jun 11 2025 Tony Asleson <tasleson@redhat.com> - 1.10.2-4
 - Fix for https://bugzilla.redhat.com/show_bug.cgi?id=2371736
 

@@ -1,6 +1,6 @@
 Name:           guake
 Version:        3.7.0
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Drop-down terminal for GNOME
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -73,6 +73,9 @@ rm %{buildroot}%{_datadir}/glib-2.0/schemas/gschemas.compiled
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.0-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.7.0-22
 - Rebuilt for Python 3.14
 

@@ -13,7 +13,7 @@
 
 Name: pappl-retrofit
 Version: 1.0b2
-Release: 8%{?dist}
+Release: 9%{?dist}
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
 # https://lists.fedoraproject.org/archives/list/legal@lists.fedoraproject.org/message/A7GFSD6M3GYGSI32L2FC5KB22DUAEQI3/
@@ -195,6 +195,9 @@ make check
 %{_mandir}/man1/legacy-printer-app.1.gz
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0b2-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jul 22 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1.0b2-8
 - own spool directory
 

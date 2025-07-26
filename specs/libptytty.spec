@@ -1,6 +1,6 @@
 Name:    libptytty
 Version: 2.0
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: OS independent and secure pty/tty and utmp/wtmp/lastlog handling
 License: GPL-2.0-or-later
 URL:     http://software.schmorp.de/pkg/libptytty.html
@@ -66,6 +66,9 @@ signify -V -p '%{SOURCE2}' -m '%{SOURCE0}'
 %doc README
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

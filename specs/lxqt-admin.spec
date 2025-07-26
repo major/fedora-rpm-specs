@@ -1,7 +1,7 @@
 Name:           lxqt-admin
 Summary:        LXQt system administration tool
 Version:        2.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        LGPL-2.1-only
 URL:            https://lxqt-project.org/
 Source0:        https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -68,6 +68,9 @@ done
 %{_datadir}/lxqt/translations/lxqt-admin-time/lxqt-admin-time_ast.qm
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Apr 18 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> - 2.2.0-1
 - 2.2.0
 

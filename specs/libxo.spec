@@ -1,6 +1,6 @@
 Name:           libxo
 Version:        1.7.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A Library for Generating Text, XML, JSON, and HTML Output
 
 
@@ -74,6 +74,9 @@ rm -f %{buildroot}%{_docdir}/libxo/Copyright
 %{_libdir}/libxo/encoder/libenc*.so
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

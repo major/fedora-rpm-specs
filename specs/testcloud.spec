@@ -4,7 +4,7 @@
 
 Name:           testcloud
 # Update also version in testcloud/__init__.py and docs/source/conf.py when changing this!
-Version:        0.11.7
+Version:        0.11.8
 Release:        %autorelease
 Summary:        Tool for running cloud images locally
 

@@ -1,6 +1,6 @@
 Name:           perl-Business-ISBN-Data
 Version:        20250722.001
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The data pack for Business::ISBN
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Business-ISBN-Data
@@ -55,6 +55,9 @@ make test
 %{_mandir}/man3/Business::ISBN::Data.3*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20250722.001-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jul 22 2025 Paul Howarth <paul@city-fan.org> - 20250722.001-1
 - 20250722.001 bump
 

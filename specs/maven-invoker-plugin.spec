@@ -2,7 +2,7 @@
 
 Name:           maven-invoker-plugin
 Version:        3.9.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Maven Invoker Plugin
 
 License:        Apache-2.0
@@ -92,6 +92,9 @@ API documentation for %{name}.
 %license LICENSE NOTICE
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 23 2025 Jerry James <loganjerry@gmail.com> - 3.9.0-1
 - Version 3.9.0
 - Verify that the license is Apache-2.0

@@ -1,7 +1,7 @@
 Epoch:          1
 Name:           kawa
 Version:        3.1.1
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Scheme programming language
 License:        MIT
 URL:            https://www.gnu.org/software/kawa/
@@ -87,6 +87,9 @@ rm -rf %{buildroot}%{_datadir}/kawa/bin
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.1.1-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.1.1-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

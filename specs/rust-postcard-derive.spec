@@ -5,17 +5,13 @@
 %global crate postcard-derive
 
 Name:           rust-postcard-derive
-Version:        0.2.1
+Version:        0.2.2
 Release:        %autorelease
 Summary:        No_std + serde compatible message library for Rust - Derive Crate
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/postcard-derive
 Source:         %{crates_source}
-# * Fix missing license files in published crates:
-#   https://github.com/jamesmunns/postcard/pull/227
-Source10:       https://github.com/jamesmunns/postcard/raw/refs/tags/postcard-derive/v%{version}/LICENSE-APACHE
-Source11:       https://github.com/jamesmunns/postcard/raw/refs/tags/postcard-derive/v%{version}/LICENSE-MIT
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -54,7 +50,6 @@ use the "default" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
-cp -p '%{SOURCE10}' '%{SOURCE11}' .
 
 %generate_buildrequires
 %cargo_generate_buildrequires

@@ -3,7 +3,7 @@
 Name:           libmpris-qt5
 Summary:        Qt and QML MPRIS interface and adaptor
 Version:        1.0.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
 URL:            https://git.merproject.org/mer-core/%{repo}
@@ -59,6 +59,9 @@ Header files and libraries for %{name}.
 %{_libdir}/lib*.so
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Name:           mingw-%{pkgname}
 Version:        2.12
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        C library for encoding, decoding and manipulating JSON data
 License:        MIT 
 URL:            http://www.digip.org/jansson/
@@ -84,6 +84,9 @@ Small library for parsing and writing JSON documents.
 # See https://fedoraproject.org/wiki/Packaging:MinGW
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.12-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.12-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

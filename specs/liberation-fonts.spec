@@ -6,7 +6,7 @@ BuildRequires:    mkfontscale mkfontdir
 
 Epoch:      1
 Version:    2.1.5
-Release:    13%{?dist}
+Release:    14%{?dist}
 License:    OFL-1.1-RFN
 URL:        https://github.com/liberationfonts/liberation-fonts
 
@@ -140,6 +140,9 @@ ln -sf $(realpath --relative-to=%{_fontconfig_confdir} %{_fontconfig_templatedir
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.1.5-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.1.5-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

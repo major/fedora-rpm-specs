@@ -7,7 +7,7 @@
 Name: hunspell-es
 Summary: Spanish hunspell dictionaries
 Version: 2.9
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 1
 Source0: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_AR.oxt
 Source1: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_BO.oxt
@@ -372,6 +372,9 @@ done
 %{_datadir}/%{dict_dirname}/es_VE.*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.9-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Mar 17 2025 Parag Nemade <pnemade AT redhat DOT com> - 1:2.9-1
 - Update to 2.9 version (#2334961)
 

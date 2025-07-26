@@ -1,6 +1,6 @@
 Name:           minidlna
 Version:        1.3.3
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Lightweight DLNA/UPnP-AV server targeted at embedded systems
 
 # see minidlna-licensing-breakdown.txt for complete breakdown
@@ -141,6 +141,9 @@ install -d -m 755 %{buildroot}%{_localstatedir}/log/%{name}/
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 07 2025 Dominik Mierzejewski <dominik@greysector.net> - 1.3.3-13
 - use systemctl try-restart in postrotate script (resolves rhbz#2372859)
 - attempt to fix CVE-2023-47430 (resolves rhbz#2271621)

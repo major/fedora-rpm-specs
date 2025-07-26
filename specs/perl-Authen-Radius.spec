@@ -1,6 +1,6 @@
 Name:           perl-Authen-Radius
 Version:        0.33
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Provide simple Radius client facilities
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Authen-Radius
@@ -75,6 +75,9 @@ make test
 %{_mandir}/man3/Authen::Radius.3*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.33-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.33-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

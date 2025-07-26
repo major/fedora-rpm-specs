@@ -3,7 +3,7 @@
 
 Name:		mupen64plus
 Version:	2.6.0
-Release:	4%{?dist}
+Release:	5%{?dist}
 
 Summary:	Nintendo 64 Emulator
 # Automatically converted from old format: GPLv2+ and CC-BY-SA - review is highly recommended.
@@ -114,6 +114,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/mupen64plus.desktop
 %{_libdir}/libmupen64plus.so
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 David Auer <dreua@posteo.de> - 2.6.0-4
 - Fix build on rawhide (42)
 

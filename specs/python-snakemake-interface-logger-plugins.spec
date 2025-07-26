@@ -1,5 +1,5 @@
 Name:           python-snakemake-interface-logger-plugins
-Version:        1.2.3
+Version:        1.2.4
 Release:        %autorelease
 Summary:        Logger plugin interface for snakemake
 

@@ -20,7 +20,7 @@
 
 Name:    gtk3
 Version: 3.24.49
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: GTK+ graphical user interface library
 
 License: LGPL-2.0-or-later
@@ -315,6 +315,9 @@ gtk-query-immodules-3.0-%{__isa_bits} --update-cache &>/dev/null || :
 %{_datadir}/installed-tests/
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.24.49-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Mar 27 2025 Frantisek Zatloukal <fzatlouk@redhat.com> - 3.24.49-2
 - Backport #8332 and #8338 to fix gjs tests
 

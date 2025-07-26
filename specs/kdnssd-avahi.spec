@@ -4,7 +4,7 @@
 Summary: KDE zeroconf implementation based on avahi
 Name:	 kdnssd-avahi
 Version: 0.1.3
-Release: 0.48.%{beta}%{?dist}
+Release: 0.49.%{beta}%{?dist}
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2+
@@ -102,6 +102,9 @@ export QA_RPATHS=0x0001
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-0.49.20080116svn
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 07 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.1.3-0.48.20080116svn
 - Fix syntax error in acinclude.m4.in
 

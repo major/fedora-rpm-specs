@@ -104,7 +104,7 @@ ExcludeArch: %{ix86}
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          100%{?with_debug:.debug}%{?dist}
+Release:          101%{?with_debug:.debug}%{?dist}
 Summary:          MySQL client programs and shared libraries
 URL:              http://www.mysql.com
 
@@ -1119,6 +1119,9 @@ fi
 %endif
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.4.5-101
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jul 15 2025 Michal Schorm <mschorm@redhat.com> - 8.4.5-100
 - Disable the 'distribution default' in MySQL 8.0 (package 'mysql8.0')
 - Enable the 'distribution default' in MySQL 8.4 in this package

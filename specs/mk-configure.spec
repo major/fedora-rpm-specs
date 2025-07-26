@@ -1,6 +1,6 @@
 Name: mk-configure
 Version: 0.38.3
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: A build system on top of bmake
 License: BSD-2-Clause AND BSD-4-Clause AND ISC
 # Licenses listed in the doc/LICENSE file
@@ -113,6 +113,9 @@ env bmake test-tests
 %doc %{_docdir}/mk-configure/examples
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.38.3-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.38.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

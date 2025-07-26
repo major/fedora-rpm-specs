@@ -2,7 +2,7 @@
 
 Name:		ntp-refclock
 Version:	0.7
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Drivers for hardware reference clocks
 License:	BSD-2-Clause AND NTP AND BSD-3-Clause AND BSD-4-Clause AND Beerware
 URL:		https://github.com/mlichvar/ntp-refclock
@@ -122,6 +122,9 @@ install -m 644 -D ntp-refclock.sysusers.conf \
 %{_sysusersdir}/ntp-refclock.conf
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Mar 11 2025 Miroslav Lichvar <mlichvar@redhat.com> 0.7-1
 - update to 0.7
 

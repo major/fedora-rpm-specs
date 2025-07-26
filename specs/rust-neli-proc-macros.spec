@@ -3,16 +3,15 @@
 %global debug_package %{nil}
 
 %global crate neli-proc-macros
-%global crate_version 0.2.0-rc3
 
 Name:           rust-neli-proc-macros
-Version:        0.2.0~rc3
+Version:        0.2.1
 Release:        %autorelease
 Summary:        Procedural macros for neli
 
 License:        BSD-3-Clause
 URL:            https://crates.io/crates/neli-proc-macros
-Source:         %{crates_source %{crate} %{crate_version}}
+Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -47,7 +46,7 @@ use the "default" feature of the "%{crate}" crate.
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
-%autosetup -n %{crate}-%{crate_version} -p1
+%autosetup -n %{crate}-%{version} -p1
 %cargo_prep
 
 %generate_buildrequires

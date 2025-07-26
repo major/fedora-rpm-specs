@@ -19,12 +19,12 @@
 ### Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 ################################################################################
 
-%global toolsbuild      24697584
+%global toolsbuild      24696409
 %global toolsdaemon     vmtoolsd
 %global vgauthdaemon    vgauthd
 
 Name:             open-vm-tools
-Version:          12.5.2
+Version:          13.0.0
 Release:          %autorelease
 Summary:          Open Virtual Machine Tools for virtual machines hosted on VMware
 License:          GPL-2.0-only AND W3C AND LGPL-2.1-only AND ICU AND ISC AND MIT
@@ -38,8 +38,6 @@ Source4:          open-vm-tools.conf
 Source5:          vmtoolsd.pam
 
 ExclusiveArch:    %{ix86} x86_64 aarch64
-# Fix build when compiling with -std=c23 (GCC 15)
-Patch1:           https://github.com/vmware/open-vm-tools/pull/751.patch
 
 BuildRequires:    autoconf
 BuildRequires:    automake

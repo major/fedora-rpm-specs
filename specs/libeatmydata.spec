@@ -1,6 +1,6 @@
 Name:           libeatmydata
 Version:        131
-Release:        1%{?dist}
+Release:        2%{?dist}
 Group:          Development/Tools
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
@@ -68,6 +68,9 @@ find %{buildroot} -name "*.la" -type f -delete
 %{_libdir}/*.so
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 131-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jun 4 2025 Stewart Smith <stewart@flamingspork.com> - 131-1
 - New upstream release
 

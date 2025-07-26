@@ -1,5 +1,5 @@
 Version: 2.015
-Release: 23%{?dist}
+Release: 24%{?dist}
 URL:     http://www.latofonts.com/
 
 %global fontlicense       OFL-1.1
@@ -63,6 +63,9 @@ chmod 0644 OFL.txt README.txt
 %fontfiles
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.015-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.015-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

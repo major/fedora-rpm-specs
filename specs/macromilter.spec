@@ -3,7 +3,7 @@ Name:              macromilter
 URL:               https://github.com/sbidy/MacroMilter
 Version:           3.7.0
 License:           MIT
-%global            baserelease      16
+%global            baserelease      17
 
 # Build from release or from git snapshot
 %bcond_without     snapshot
@@ -137,6 +137,9 @@ exit 0
 %dir %attr(0750,%{name},%{name}) %{_localstatedir}/log/%{name}/
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.0-0.17.20191111git2761838
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.0-0.16.20191111git2761838
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

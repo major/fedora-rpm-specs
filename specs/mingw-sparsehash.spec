@@ -4,7 +4,7 @@
 
 Name:           mingw-%{mingw_pkg_name}
 Version:        2.0.3
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        MinGW Extremely memory-efficient C++ hash_map implementation
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -75,6 +75,9 @@ rm -rf $RPM_BUILD_ROOT%{mingw64_datadir}
 %{mingw64_libdir}/pkgconfig/libsparsehash.pc
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

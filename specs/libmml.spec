@@ -15,7 +15,7 @@ Obsoletes:  	libmml-qt6 < 0:2.4-14
 
 Name:           libmml
 Version:        2.4
-Release:        23.%{commitdate}git%{shortcommit}%{?dist}
+Release:        24.%{commitdate}git%{shortcommit}%{?dist}
 Summary:        MML Widget
 License:        GPL-3.0-only OR LGPL-2.1-only WITH Qt-LGPL-exception-1.1
 URL:            https://github.com/copasi/copasi-dependencies/tree/master/src/mml
@@ -207,6 +207,9 @@ popd
 %{_qt4_libdir}/%{name}-qt4.so
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-24.20210516git7ad58fac
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jul 19 2025 Antonio Trande <sagitter@fedoraproject.org> - 2.4-23.20210516git7ad58fac
 - Fix rhbz#2380735
 

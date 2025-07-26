@@ -1,6 +1,6 @@
 Name:           perl-Cflow
 Version:        1.053
-Release:        63%{?dist}
+Release:        64%{?dist}
 Summary:        Find flows in raw IP flow files
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -77,6 +77,9 @@ make test
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.053-64
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.053-63
 - Perl 5.42 rebuild
 

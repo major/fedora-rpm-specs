@@ -9,7 +9,7 @@
 
 Name:    pango
 Version: 1.56.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: System for layout and rendering of internationalized text
 
 License: LGPL-2.0-or-later
@@ -139,6 +139,9 @@ fi
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.56.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 30 2025 Carlos Garnacho <cgarnach@redhat.com> - 1.56.4-1
 - Update to 1.56.4
 

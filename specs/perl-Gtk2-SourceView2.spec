@@ -2,7 +2,7 @@
 
 Name:           perl-%{srcname}
 Version:        0.12
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Perl bindings for the GtkSourceView 2.x widget
 # Automatically converted from old format: GPLv2+ or Artistic 2.0 - review is highly recommended.
 License:        GPL-2.0-or-later OR Artistic-2.0
@@ -81,6 +81,9 @@ xvfb-run -a -w 1 make test
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.12-17
 - Perl 5.42 rebuild
 

@@ -1,11 +1,10 @@
 Name:		open-amp
-Version:	2024.10.0
-Release:	2%{?dist}
+Version:	2025.04.0
+Release:	1%{?dist}
 Summary:	Open Asymmetric Multi Processing (OpenAMP) framework project
 License:	BSD-3-Clause OR BSD-2-Clause
 URL:		https://github.com/OpenAMP/open-amp/
-Source0:	https://github.com/OpenAMP/open-amp/archive/v%{version}/%{name}-%{version}.tar.gz
-Requires:	%{name}-libs%{?_isa} = %{version}-%{release}
+Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:	cmake
 BuildRequires:	gcc
@@ -39,8 +38,8 @@ baremetal, and RTOS environments.
 %cmake -DCMAKE_INSTALL_LIBDIR=%{_libdir} \
 	-DCMAKE_INCLUDE_PATH=%{_includedir}/libmetal/ \
 	-DCMAKE_LIBRARY_PATH=%{_libdir} \
-	-DWITH_STATIC_LIB=OFF \
-	-DWITH_APPS=ON ..
+	-DWITH_STATIC_LIB=OFF
+
 %cmake_build
 
 
@@ -48,27 +47,9 @@ baremetal, and RTOS environments.
 %cmake_install
 
 
-%files
+%files libs
 %license LICENSE.md
 %doc README.md
-%{_bindir}/linux_rpc_demo-shared
-%{_bindir}/linux_rpc_demod-shared
-%{_bindir}/matrix_multiply-shared
-%{_bindir}/matrix_multiplyd-shared
-%{_bindir}/msg-test-rpmsg-flood-ping-shared
-%{_bindir}/msg-test-rpmsg-nocopy-echo-shared
-%{_bindir}/msg-test-rpmsg-nocopy-ping-shared
-%{_bindir}/msg-test-rpmsg-ping-shared
-%{_bindir}/msg-test-rpmsg-update-shared
-%{_bindir}/rpc_demod-shared
-%{_bindir}/rpmsg-echo-ping-shared
-%{_bindir}/rpmsg-echo-shared
-%{_bindir}/rpmsg-nocopy-echo-shared
-%{_bindir}/rpmsg-nocopy-ping-shared
-%{_bindir}/rpmsg-sample-echo-shared
-%{_bindir}/rpmsg-sample-ping-shared
-
-%files libs
 %{_libdir}/libopen_amp.so.1
 %{_libdir}/libopen_amp.so.1.*
 
@@ -78,6 +59,11 @@ baremetal, and RTOS environments.
 
 
 %changelog
+* Thu Jul 24 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 2025.04.0-1
+- Update to 2025.04
+- Demo applications dropped upstream
+- Minor spec cleanups
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2024.10.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

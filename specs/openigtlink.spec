@@ -3,7 +3,7 @@
 
 Name:		openigtlink
 Version:	2.1
-Release:	21%{?dist}
+Release:	22%{?dist}
 Summary:	Implementation of the OpenIGTLink network communication protocol
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -83,6 +83,9 @@ find . -type f -executable -a \( -name '*.h' -o -name '*.cxx' \) -exec chmod a-x
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

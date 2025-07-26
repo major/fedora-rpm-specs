@@ -4,7 +4,7 @@
 
 Name:       mock-core-configs
 Version:    42.4
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Mock core config files basic chroots
 
 License:    GPL-2.0-or-later
@@ -152,6 +152,9 @@ fi
 %ghost %config(noreplace,missingok) %{_sysconfdir}/mock/default.cfg
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 42.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jun 18 2025 Pavel Raiskup <praiskup@redhat.com> 42.4-1
 - fix sysusers packaging practice once more
 - configuration file owned by `root:root`

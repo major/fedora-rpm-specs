@@ -1,6 +1,6 @@
 Name:           pcmanfm-qt
 Version:        2.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        LXQt file manager PCManFM
 
 License:        GPL-2.0-or-later
@@ -106,6 +106,9 @@ done
 %dir %{_datadir}/%{name}/translations
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jun 05 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> - 2.2.0-1
 - 2.2.0
 

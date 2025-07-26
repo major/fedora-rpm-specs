@@ -2,7 +2,7 @@ Summary: Symbolic Computation Program
 Name:    maxima
 Version: 5.47.0
 
-Release: 9%{?dist}
+Release: 10%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
 URL:     https://maxima.sourceforge.io/
@@ -380,6 +380,9 @@ fi
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.47.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jul 16 2025 Jerry James <loganjerry@gmail.com> - 5.47.0-9
 - Stop building for 32-bit x86
 

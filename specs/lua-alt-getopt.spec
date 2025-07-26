@@ -1,6 +1,6 @@
 Name:           lua-alt-getopt
 Version:        0.8.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Argument processing module for Lua
 
 License:        MIT
@@ -38,6 +38,9 @@ cp -p alt_getopt.lua %{buildroot}%{lua_pkgdir}
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

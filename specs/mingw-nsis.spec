@@ -3,7 +3,7 @@
 
 Name:           mingw-nsis
 Version:        3.11
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Nullsoft Scriptable Install System
 
 License:        Zlib AND CPL-1.0
@@ -156,6 +156,9 @@ mv %{buildroot}%{_docdir}/nsis %{buildroot}%{_docdir}/%{name}
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.11-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Mar 23 2025 Sandro Mani <manisandro@gmail.com> - 3.11-1
 - Update to 3.11
 

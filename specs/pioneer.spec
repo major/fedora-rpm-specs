@@ -148,14 +148,13 @@ Data files of %{name}.
 %patch -P 3 -p1 -b .backup
 
 %build
-mkdir -p build
-%cmake -B build -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE \
+%cmake -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE \
        -DPROJECT_VERSION_INFO:STRING=%{version} \
        -DUSE_SYSTEM_LIBLUA:BOOL=OFF \
        -DUSE_SYSTEM_LIBGLEW:BOOL=ON \
        -DPIONEER_DATA_DIR:PATH=%{_datadir}/%{name}/data -DFMT_INSTALL:BOOL=ON \
        -DCMAKE_INSTALL_LIBDIR:PATH=%{_lib}/%{name}
-%make_build -C build all build-data
+%cmake_build -- all build-data
 
 ## Build documentation
 #pushd doxygen
@@ -166,13 +165,13 @@ mkdir -p build
 %fontbuild -a
 
 %install
-%make_install -C build
+%cmake_install
 
 # Install binary files manually
 mkdir -p %{buildroot}%{_bindir}
-install -pm 755 build/pioneer %{buildroot}%{_bindir}/
-install -pm 755 build/modelcompiler %{buildroot}%{_bindir}/
-install -pm 755 build/savegamedump %{buildroot}%{_bindir}/
+install -pm 755 %_vpath_builddir/pioneer %{buildroot}%{_bindir}/
+install -pm 755 %_vpath_builddir/modelcompiler %{buildroot}%{_bindir}/
+install -pm 755 %_vpath_builddir/savegamedump %{buildroot}%{_bindir}/
 
 # Remove rpaths
 chrpath -r %{_libdir}/%{name} %{buildroot}%{_bindir}/*
@@ -184,7 +183,7 @@ rm -rf %{buildroot}%{_libdir}/%{name}/pkgconfig
 
 # Install bundled libraries
 mkdir -p %{buildroot}%{_libdir}/%{name}
-install -pm 755 build/contrib/fmt/libfmt.so* %{buildroot}%{_libdir}/%{name}/
+install -pm 755 %_vpath_builddir/contrib/fmt/libfmt.so* %{buildroot}%{_libdir}/%{name}/
 
 ## Install icons
 mkdir -p %{buildroot}%{_datadir}/icons/%{name}
@@ -247,12 +246,9 @@ ln -sf %{_datadir}/fonts/inpionata-fonts/Inpionata.ttf %{buildroot}%{_datadir}/%
 ln -sf %{_datadir}/fonts/orbiteer-fonts/Orbiteer-Bold.ttf %{buildroot}%{_datadir}/%{name}/data/fonts/Orbiteer-Bold.ttf
 ln -sf %{_datadir}/fonts/pionilliumtext22l-fonts/PionilliumText22L-Medium.ttf %{buildroot}%{_datadir}/%{name}/data/fonts/PionilliumText22L-Medium.ttf
 
-
 %check	
 %fontcheck
-
 %fontfiles -a
-
 
 %files
 %{_bindir}/%{name}
@@ -283,7 +279,6 @@ ln -sf %{_datadir}/fonts/pionilliumtext22l-fonts/PionilliumText22L-Medium.ttf %{
 # Image Use Policy - NASA Spitzer Space Telescope
 %doc AUTHORS.txt Changelog.txt Quickstart.txt README.md
 %{_datadir}/%{name}/
-
 
 %changelog
 %autochangelog

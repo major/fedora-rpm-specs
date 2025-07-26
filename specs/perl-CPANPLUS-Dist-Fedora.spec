@@ -5,7 +5,7 @@
 
 Name:           perl-CPANPLUS-Dist-Fedora
 Version:        0.4.4
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        CPANPLUS backend to build Fedora/RedHat RPMs
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CPANPLUS-Dist-Fedora
@@ -120,6 +120,9 @@ unset TEST_CPANPLUS_FEDORA
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.4-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.4-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

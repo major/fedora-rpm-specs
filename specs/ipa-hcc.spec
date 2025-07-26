@@ -70,7 +70,7 @@
 
 Name:           %{package_name}
 Version:        0.18
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Hybrid Cloud Console extension for IPA
 
 BuildArch:      noarch
@@ -596,6 +596,9 @@ install -p -D -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/ipa-hcc.conf
 %endif
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.18-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 0.18-4
 - Rebuilt for Python 3.14
 

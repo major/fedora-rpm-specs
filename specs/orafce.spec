@@ -2,7 +2,7 @@
 
 Name:		orafce
 Version:	4.9.0
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Implementation of some Oracle functions into PostgreSQL
 # Automatically converted from old format: BSD - review is highly recommended.
 License:	LicenseRef-Callaway-BSD
@@ -45,6 +45,9 @@ for production work.
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

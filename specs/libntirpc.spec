@@ -3,7 +3,7 @@
 
 Name:		libntirpc
 Version:	6.3
-Release:	4%{?dev:%{dev}}%{?dist}
+Release:	5%{?dev:%{dev}}%{?dist}
 Summary:	New Transport Independent RPC Library
 License:	BSD-3-Clause
 Url:		https://github.com/nfs-ganesha/ntirpc
@@ -88,6 +88,9 @@ ln -s %{name}.so.%{version} %{buildroot}%{_libdir}/%{name}.so.4
 %{_libdir}/pkgconfig/libntirpc.pc
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jul 17 2025 Cristian Le <git@lecris.dev> - 6.3-4
 - Fix CMake 4.0 patch
 

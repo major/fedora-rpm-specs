@@ -1,7 +1,7 @@
 Summary: SQL / SQLI tokenizer parser analyzer library
 Name: libinjection
 Version: 3.10.0
-Release: 13%{?dist}
+Release: 14%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
 URL: https://github.com/libinjection/libinjection
@@ -101,6 +101,9 @@ rm -f %{buildroot}%{_libdir}/libinjection.*a
 %{_libdir}/*.so
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

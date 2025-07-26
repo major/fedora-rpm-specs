@@ -1,6 +1,6 @@
 Name:           opensc
 Version:        0.26.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Smart card library and applications
 
 License:        LGPL-2.1-or-later AND BSD-3-Clause
@@ -12,6 +12,8 @@ Patch1:         opensc-0.19.0-pinpad.patch
 Patch8:         %{name}-0.22.0-file-cache.patch
 # https://github.com/OpenSC/OpenSC/pull/3316
 Patch9:         %{name}-0.26.1-compiler.patch
+# https://github.com/OpenSC/OpenSC/pull/3458
+Patch10:        %{name}-0.26.1-bash-completion.patch
 
 BuildRequires:  make
 BuildRequires:  pcsc-lite-devel
@@ -63,7 +65,8 @@ OpenSC libraries.
 %setup -q
 %patch 1 -p1 -b .pinpad
 %patch 8 -p1 -b .file-cache
-%patch 9 -p1 -b .compiler.patch
+%patch 9 -p1 -b .compiler
+%patch 10 -p1 -b .bash-completion
 
 XFAIL_TESTS="test-pkcs11-tool-test-threads.sh test-pkcs11-tool-test.sh"
 
@@ -236,6 +239,9 @@ rm %{buildroot}%{_mandir}/man1/opensc-notify.1*
 
 
 %changelog
+* Thu Jul 24 2025 Veronika Hanulikova <vhanulik@redhat.com> - 0.26.1-3
+- Rename bash-completion function (#2377088)
+
 * Fri Jan 17 2025 Veronika Hanulikova <vhanulik@redhat.com> - 0.26.1-2
 - Fix errors found when compiling with new gcc 15
 

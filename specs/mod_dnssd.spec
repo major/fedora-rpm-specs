@@ -6,7 +6,7 @@
 
 Name:           mod_dnssd
 Version:        0.6
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        An Apache HTTPD module which adds Zeroconf support
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -52,6 +52,9 @@ install -Dp -m 0644 10-mod_dnssd.conf $RPM_BUILD_ROOT%{_httpd_modconfdir}/10-mod
 %{_libdir}/httpd/modules/mod_dnssd.so
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

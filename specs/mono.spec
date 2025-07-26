@@ -24,7 +24,7 @@
 %global xamarinrelease 199
 Name:           mono
 Version:        6.12.0
-Release:        19%{?dist}
+Release:        21%{?dist}
 Summary:        Cross-platform, Open Source, .NET development framework
 
 License:        MIT
@@ -505,7 +505,7 @@ rm %{buildroot}%{_bindir}/mono-find-provides
 
 %post core
 %{?ldconfig}
-cert-sync --quiet /etc/pki/tls/certs/ca-bundle.crt
+cert-sync --quiet /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
 
 %ldconfig_postun
 
@@ -945,6 +945,13 @@ cert-sync --quiet /etc/pki/tls/certs/ca-bundle.crt
 %files complete
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.12.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
+* Wed Jul 23 2025 Frantisek Krenzelok <fkrenzel@redhat.com> - 6.12.0-20
+- Change the certificate bundle used to popule Mono certificate store
+- https://fedoraproject.org/wiki/Changes/dropingOfCertPemFile
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.12.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

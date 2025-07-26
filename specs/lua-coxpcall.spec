@@ -5,7 +5,7 @@ Name:           lua-coxpcall
 License:        MIT
 
 Version:        1.17.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 
 URL:            http://keplerproject.github.io/coxpcall/ 
 Source0:        %{forgeurl}/archive/v%{gittag}/coxpcall-v%{gittag}.tar.gz
@@ -51,6 +51,9 @@ lua tests/test.lua
 %{lua_pkgdir}/coxpcall.lua
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

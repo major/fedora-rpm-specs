@@ -2,7 +2,7 @@
 
 Name:    kf6-%{framework}
 Version: 6.16.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Frameworks 6 Tier 3 addon with extensible daemon for system-level services
 
 License: CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later
@@ -78,6 +78,9 @@ mkdir -p %{buildroot}%{_kf6_plugindir}/kded
 %{_kf6_datadir}/dbus-1/interfaces/*.xml
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.16.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jul 05 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.16.0-1
 - 6.16.0
 

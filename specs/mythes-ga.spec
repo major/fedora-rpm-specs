@@ -2,7 +2,7 @@ Name: mythes-ga
 Summary: Irish thesaurus
 %global upstreamid 20071001
 Version: 0.%{upstreamid}
-Release: 35%{?dist}
+Release: 36%{?dist}
 Source: http://download.services.openoffice.org/contrib/dictionaries/thes_ga_IE_v2.zip
 URL: https://cadhan.com/lsg/index-en.html
 BuildRequires: unzip
@@ -39,6 +39,9 @@ cp -p th_ga_IE_v2.* $RPM_BUILD_ROOT/%{_datadir}/mythes
 %{_datadir}/mythes/*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.20071001-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.20071001-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

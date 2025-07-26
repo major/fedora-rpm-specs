@@ -6,7 +6,7 @@
 
 Name:           mingw-winpthreads
 Version:        13.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        MinGW pthread library
 
 # The main license of winpthreads is MIT, but parts of this library
@@ -231,6 +231,9 @@ rm -rf /tmp/wine-winpthreads
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 13.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jul 17 2025 Sandro Mani <manisandro@gmail.com> - 13.0.0-1
 - Update to 13.0.0
 

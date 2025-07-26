@@ -2,7 +2,7 @@
 
 Name:       perl-App-Asciio 
 Version:    1.90.02
-Release:    5%{?dist}
+Release:    6%{?dist}
 # see lib/App/Asciio.pm
 License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    Asciio back-end libraries 
@@ -158,6 +158,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications asciio.desktop
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.90.02-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jun 22 2025 Emmanuel Seyman <emmanuel@seyman.fr> - 1.90.02-5
 - Add missing Provides
 

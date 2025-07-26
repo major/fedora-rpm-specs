@@ -1,6 +1,6 @@
 Name:           make-it-quick
 Version:        0.3.2
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        A make-only build system for C/C++ programs
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -52,6 +52,9 @@ Development files for make-it-quick
 %{_datadir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

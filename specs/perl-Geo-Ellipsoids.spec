@@ -1,6 +1,6 @@
 Name:           perl-Geo-Ellipsoids
 Version:        0.17
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Package for standard Geo:: ellipsoid a, b, f and 1/f values
 
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
@@ -43,6 +43,9 @@ make test
 %{_mandir}/man3/Geo::Ellipsoids.3pm*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Feb 03 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.17-1
 - 0.17 bump (rhbz#2342511)
 

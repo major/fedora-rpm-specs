@@ -1,6 +1,6 @@
 Name: 		perl-File-Copy-Recursive
 Version: 	0.45
-Release: 	17%{?dist}
+Release: 	18%{?dist}
 Summary: 	Extension for recursively copying files and directories 
 License: 	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL: 		https://metacpan.org/release/File-Copy-Recursive
@@ -57,6 +57,9 @@ chmod -R u+w %{buildroot}/*
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.45-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.45-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary: A panoramic photo stitcher and more
 Name: hugin
 Version: 2024.0.0
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: GPL-2.0-or-later
 Source: https://downloads.sourceforge.net/hugin/%{name}-%{version}.tar.bz2
 Patch:  hugin-2024.0.0-UseGNUInstallDirs.patch
@@ -181,6 +181,9 @@ EOF
 %{_mandir}/man1/hugin_lensdb.*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2024.0.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 23 2025 Cristian Le <git@lecris.dev> - 2024.0.0-7
 - Use modern GNUInstallDirs patterns
 

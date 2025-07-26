@@ -1,6 +1,6 @@
 Name:           gom
 Version:        0.5.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        GObject to SQLite object mapper library
 
 # documentation is GFDL-1.1-or-later
@@ -60,6 +60,9 @@ developing applications that use %{name}.
 %doc %{_docdir}/gom-1.0/
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.5.3-3
 - Rebuilt for Python 3.14
 

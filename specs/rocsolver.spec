@@ -6,7 +6,7 @@
 
 %global upstreamname rocSOLVER
 %global rocm_release 6.4
-%global rocm_patch 0
+%global rocm_patch 2
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -73,7 +73,7 @@
 
 Name:           %{rocsolver_name}
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Next generation LAPACK implementation for ROCm platform
 Url:            https://github.com/ROCm/rocSOLVER
 
@@ -187,7 +187,7 @@ fi
 if [ ${HIP_JOBS} = 1 ]; then
     HIP_JOBS=`lscpu | grep '^CPU(s)' | awk '{ print $2 }'`
     if [ ${HIP_JOBS}x = x ]; then
-	HIP_JOBS=4
+        HIP_JOBS=4
     fi
 fi
 HIP_JOBS=`eval "expr ${HIP_JOBS} / 2"`
@@ -220,7 +220,7 @@ fi
 if [ ${COMPILE_JOBS} = 1 ]; then
     COMPILE_JOBS=`lscpu | grep '^CPU(s)' | awk '{ print $2 }'`
     if [ ${COMPILE_JOBS}x = x ]; then
-	COMPILE_JOBS=4
+        COMPILE_JOBS=4
     fi
 fi
 
@@ -295,6 +295,11 @@ fi
 %endif
 
 %changelog
+* Tue Jul 22 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 6.4.2-1
+- Update to 6.4.2
+- Rebase patch1
+- Fix some tabs to spaces in the specfile for consistent formatting
+
 * Thu Jun 12 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-3
 - Add hip jobs
 - Remove suse if check for ldconfig

@@ -1,6 +1,6 @@
 Name: libgbinder
 Version: 1.1.42
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Binder client library
 License: BSD
 URL: https://github.com/mer-hybris/libgbinder
@@ -85,6 +85,9 @@ Binder command line utilities
 %{_bindir}/binder-call
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.42-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jan 22 2025 Alessandro Astone <ales.astone@gmail.com> - 1.1.42-1
 - new version (rhbz#2324966)
 - Add patch to fix FTBFS with gcc15 (rhbz#2340731)

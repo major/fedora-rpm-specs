@@ -4,7 +4,7 @@
 Name:    libnvme
 Summary: Linux-native nvme device management library
 Version: 1.14
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: LGPL-2.1-or-later
 URL:     https://github.com/linux-nvme/libnvme
 Source0: %{url}/archive/v%{version_no_tilde}/%{name}-%{version_no_tilde}.tar.gz
@@ -102,6 +102,9 @@ rm -r %{buildroot}%{_pkgdocdir}/html/{.buildinfo,.doctrees/}
 %{python3_sitearch}/libnvme/*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.14-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jul 09 2025 Tomas Bzatek <tbzatek@redhat.com> - 1.14-1
 - Upstream v1.14 release
 - Disable io_uring support per upstream suggestion

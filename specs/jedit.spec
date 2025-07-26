@@ -1,6 +1,6 @@
 Name:           jedit
 Version:        5.6.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Programmer's text editor
 
 License:        GPL-2.0-or-later AND GFDL-1.1-no-invariants-or-later
@@ -92,6 +92,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications --set-icon=%{_da
 %license doc/Apache.LICENSE.txt
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

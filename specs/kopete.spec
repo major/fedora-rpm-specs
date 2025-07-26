@@ -1,7 +1,7 @@
 Name:    kopete
 Summary: Instant messenger
 Version: 23.08.5
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: GPL-2.0-or-later AND LGPL-2.1-only
 URL:     https://www.kde.org/applications/internet/kopete/
@@ -155,6 +155,9 @@ desktop-file-validate %{buildroot}%{_kde4_datadir}/applications/org.kde.kopete.d
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 23.08.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 23.08.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

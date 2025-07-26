@@ -1,6 +1,6 @@
 Name:           perl-Algorithm-Loops
 Version:        1.032
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Perl module for looping constructs
 License:        Unlicense
 URL:            https://metacpan.org/release/Algorithm-Loops
@@ -45,6 +45,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.032-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.032-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

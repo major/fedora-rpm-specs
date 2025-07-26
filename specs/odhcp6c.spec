@@ -5,7 +5,7 @@
 
 Name: odhcp6c
 Version: 0
-Release: 0.28.%{date}git%{shortcommit}%{?dist}
+Release: 0.29.%{date}git%{shortcommit}%{?dist}
 Summary: Embedded DHCPv6 and RA client
 # License is GPLv2 except:
 # ./src/md5.c: ISC
@@ -54,6 +54,9 @@ install -D -p -m 0644 %{SOURCE1} %{buildroot}%{_unitdir}/odhcp6c@.service
 %{_unitdir}/odhcp6c@.service
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.29.20250718git8aa8b70
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jul 18 2025 Juan Orti Alcaine <jortialc@redhat.com> - 0-0.28.20250718git8aa8b70
 - Add support for CMake 4.0 (RHBZ#2380959)
 

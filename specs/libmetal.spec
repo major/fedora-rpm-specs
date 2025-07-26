@@ -4,9 +4,9 @@ Release:	1%{?dist}
 Summary:	An abstraction layer across user-space Linux, baremetal, and RTOS environments 
 License:	BSD-3-Clause OR Apache-2.0 OR GPL-2.0-only
 URL:		https://github.com/OpenAMP/libmetal/
-
-Source0:	https://github.com/OpenAMP/libmetal/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch0:		libmetal-add-additional-arches.patch
+Patch1:		libmetal-opt-provide-ATOMIC_VAR_INIT.patch
 
 BuildRequires:	cmake
 BuildRequires:	doxygen
@@ -37,14 +37,11 @@ baremetal, and RTOS environments.
 
 
 %build
-mkdir build
-cd build
-%cmake -DCMAKE_INSTALL_LIBDIR=%{_libdir} -DWITH_STATIC_LIB=OFF ..
+%cmake -DCMAKE_INSTALL_LIBDIR=%{_libdir} -DWITH_STATIC_LIB=OFF
 %cmake_build
 
 
 %install
-cd build
 %cmake_install
 
 

@@ -1,6 +1,6 @@
 Name:           libetpan
 Version:        1.9.4
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Portable, efficient middle-ware for different kinds of mail access
 
 # src/bsd/getopt.c BSD-4-Clause (not used)
@@ -119,6 +119,9 @@ iconv -f iso8859-1 -t utf-8 ChangeLog > ChangeLog.conv && mv -f ChangeLog.conv C
 %{_libdir}/%{name}.so
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.4-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.4-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

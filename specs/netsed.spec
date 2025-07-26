@@ -1,6 +1,6 @@
 Name:           netsed
 Version:        1.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tool to modify network packets
 
 License:        GPL-2.0-or-later
@@ -41,6 +41,9 @@ install -Dp -m 0755 %{name} %{buildroot}%{_bindir}/%{name}
 %{_bindir}/%{name}
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jul 09 2025 Fabian Affolter <mail@fabian-affolter.ch> -1.4-1
 - Update to latest upstream release (closes rhbz#2366676)
 

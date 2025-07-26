@@ -1,6 +1,6 @@
 Name: libart_lgpl
 Version: 2.3.21
-Release: 35%{?dist}
+Release: 36%{?dist}
 Summary: Library of graphics routines used by libgnomecanvas
 URL: http://www.gnome.org/
 Source0: http://download.gnome.org/sources/libart_lgpl/2.3/%{name}-%{version}.tar.bz2
@@ -74,6 +74,9 @@ EOF
 %{_includedir}/*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.21-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.21-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

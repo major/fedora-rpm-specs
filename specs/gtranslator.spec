@@ -1,6 +1,6 @@
 Name:		gtranslator
 Version:	48.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Gettext po file editor for GNOME
 
 # Sources are GPL-2.0-or-later and GPL-3.0-or-later, help is CC-BY-SA-3.0 and
@@ -62,6 +62,9 @@ replace functions, auto translation, and translation learning,
 %{_mandir}/man1/gtranslator.1*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 48.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Apr 22 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 48.0-1
 - Update to 48.0
 

@@ -18,7 +18,7 @@
 
 Name:           netplan
 Version:        1.1.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Network configuration tool using YAML
 License:        GPL-3.0-only
 URL:            http://netplan.io/
@@ -282,6 +282,9 @@ EOF
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jun 12 2025 Jonathan Wright <jonathan@almalinux.org> - 1.1.2-1
 - update to 1.1.2 rhbz#2168690
 

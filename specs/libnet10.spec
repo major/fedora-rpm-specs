@@ -1,7 +1,7 @@
 Summary:	High-level API (toolkit) to construct and inject network packets
 Name:		libnet10
 Version:	1.0.2a
-Release:	48%{?dist}
+Release:	49%{?dist}
 License:	BSD-2-Clause AND BSD-4-Clause-UC
 URL:		http://www.packetfactory.net/libnet/
 Source0:	http://www.packetfactory.net/libnet/dist/deprecated/libnet-%{version}.tar.gz
@@ -84,6 +84,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}.{a,la}
 %{_includedir}/%{name}/
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2a-49
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2a-48
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

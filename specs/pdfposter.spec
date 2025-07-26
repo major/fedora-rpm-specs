@@ -1,6 +1,6 @@
 Name:           pdfposter
 Version:        0.7.post1
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Scale and tile PDF images/pages to print on multiple pages
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -43,6 +43,9 @@ done
 %{python3_sitelib}/pdftools.*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.post1-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.7.post1-25
 - Rebuilt for Python 3.14
 

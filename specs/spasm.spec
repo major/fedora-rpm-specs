@@ -35,6 +35,8 @@ Patch:          %{name}-cycleclock.patch
 # Fix binary file reading on big endian architectures
 # The affected code no longer exists in upstream git
 Patch:          %{name}-endian.patch
+# Fix a C++ compilation error
+Patch:          %{name}-c++.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

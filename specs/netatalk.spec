@@ -9,7 +9,7 @@
 Name:              netatalk
 Epoch:             5
 Version:           4.2.4
-Release:           1%{?dist}
+Release:           2%{?dist}
 Summary:           Open Source Apple Filing Protocol(AFP) File Server
 # Automatically converted from old format: GPL+ and GPLv2 and GPLv2+ and LGPLv2+ and BSD and FSFUL and MIT - review is highly recommended.
 License:           GPL-1.0-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-BSD AND FSFUL AND LicenseRef-Callaway-MIT
@@ -364,6 +364,9 @@ rm -rf %{buildroot}%{_pkgdocdir}/DOCKER.txt
 %doc %{_pkgdocdir}/htmldocs
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5:4.2.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jul 05 2025 Andrew Bauer <zonexpertconsulting@outlook.com> - 5:4.2.4-1
 - 4.2.4 release
 - add RunTimeDirectory to relevant service files, fixes RHBZ#2376521

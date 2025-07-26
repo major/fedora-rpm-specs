@@ -12,7 +12,7 @@
 Summary: Personal finance
 Name:    kmymoney
 Version: 5.1.3
-Release: 14%{?dist}
+Release: 15%{?dist}
 
 # kmm itself is GPLv2+
 # bundled kdchart is GPLv2 or GPLv3, but currently not using it
@@ -226,6 +226,9 @@ make test -C %{_target_platform} ARGS="--output-on-failure --timeout 300" ||:
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.3-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 5.1.3-14
 - Rebuilt for Python 3.14
 

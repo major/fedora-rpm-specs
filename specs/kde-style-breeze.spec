@@ -4,7 +4,7 @@
 Name:    kde-style-breeze 
 Epoch:   1
 Version: 5.18.5
-Release: 14%{?dist}
+Release: 15%{?dist}
 Summary: KDE 4 version of Plasma 5 artwork, style and assets 
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -62,6 +62,9 @@ Supplements: (kde-runtime and plasma-workspace)
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.18.5-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.18.5-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

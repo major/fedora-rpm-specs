@@ -4,7 +4,7 @@
 
 Name:          gupnp
 Version:       1.6.9
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       A framework for creating UPnP devices & control points
 
 License:       LGPL-2.1-or-later
@@ -85,6 +85,9 @@ This package contains developer documentation for %{name}.
 %{_docdir}/gupnp-%{apiver}/
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.9-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 30 2025 Carlos Garnacho <cgarnach@redhat.com> - 1.6.9-1
 - Update to 1.6.9
 

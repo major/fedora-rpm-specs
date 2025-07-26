@@ -4,7 +4,7 @@
 
 Name:		%{fontname}-fonts
 Version:	6.0
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	Fonts for Arabic from PakType
 
 License:	GPL-2.0-only WITH Font-exception-2.0
@@ -54,6 +54,9 @@ ln -s %{_fontconfig_templatedir}/%{fontconf}.conf \
 %doc PakType_Naqsh_License.txt PakTypeNaqshFeatures.pdf 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

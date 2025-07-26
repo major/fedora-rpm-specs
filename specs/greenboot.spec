@@ -2,7 +2,7 @@
 
 Name:               greenboot
 Version:            0.15.8
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            Generic Health Check Framework for systemd
 License:            LGPL-2.1-or-later
 
@@ -176,6 +176,9 @@ fi
 %{_prefix}/lib/%{name}/check/required.d/02_watchdog.sh
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 18 2025 Packit <hello@packit.dev> - 0.15.8-1
 ## What's Changed
  * ci: add ci test for pull request by @yih-redhat in https://github.com/fedora-iot/greenboot/pull/164

@@ -1,7 +1,7 @@
 Summary:	Open audio/video container format library
 Name:		libmatroska
 Version:	1.7.1
-Release:	11%{?dist}
+Release:	12%{?dist}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:	LicenseRef-Callaway-LGPLv2+
 URL:		https://www.matroska.org/
@@ -67,6 +67,9 @@ will use the Matroska container format.
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jul 18 2025 Dominik Mierzejewski <dominik@greysector.net> - 1.7.1-11
 - fix build with CMake 4.0 (resolves rhbz#2380736)
 

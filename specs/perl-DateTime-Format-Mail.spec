@@ -4,7 +4,7 @@
 Name:           perl-DateTime-Format-Mail
 Epoch:          1
 Version:        0.403
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Convert between DateTime and RFC2822/822 formats
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DateTime-Format-Mail            
@@ -70,6 +70,9 @@ make test %{?with_perl_DateTime_Format_Mail_enables_extra_test:\
 %{_mandir}/man3/DateTime::Format::Mail.3*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.403-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.403-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

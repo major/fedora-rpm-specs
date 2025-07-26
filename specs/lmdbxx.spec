@@ -1,6 +1,6 @@
 Name: lmdbxx
 Version: 1.0.0
-Release: 10%{?dist}
+Release: 11%{?dist}
 
 License: LicenseRef-Fedora-Public-Domain
 Summary: C++ wrapper for the LMDB embedded B+ tree database library
@@ -37,6 +37,9 @@ Provides: %{name}-static = %{?epoch:%{epoch}:}%{version}-%{release}
 %{_includedir}/lmdb++.h
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

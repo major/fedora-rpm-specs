@@ -9,7 +9,7 @@
 
 Name:           mingw-crt
 Version:        13.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        MinGW Windows cross-compiler runtime
 
 License:        LicenseRef-Fedora-Public-Domain AND ZPL-2.1
@@ -138,6 +138,9 @@ rm -rf %{buildroot}%{ucrt64_includedir}/*.c
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org>
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jul 16 2025 Sandro Mani <manisandro@gmail.com>
 - Update to 13.0.0
 

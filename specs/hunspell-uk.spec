@@ -7,7 +7,7 @@
 Name: hunspell-uk
 Summary: Ukrainian hunspell dictionaries
 Version: 1.8.0
-Release: 18%{?dist}
+Release: 19%{?dist}
 Source: https://downloads.sourceforge.net/project/ispell-uk/spell-uk/%{version}/dict-uk_UA-%{version}.oxt
 URL: http://sourceforge.net/projects/ispell-uk
 License: GPL-2.0-or-later OR LGPL-2.1-or-later OR MPL-1.1
@@ -35,6 +35,9 @@ cp -p uk_UA/uk_UA.dic $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

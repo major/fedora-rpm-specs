@@ -1,7 +1,7 @@
 Summary: Run-time libraries and programs
 Name: motif
 Version: 2.3.4
-Release: 38%{?dist}
+Release: 39%{?dist}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2+
 Source: http://downloads.sf.net/motif/motif-%{version}-src.tgz
@@ -152,6 +152,9 @@ rm -f %{buildroot}%{_libdir}/*.la
 %{_libdir}/lib*.a
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.4-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun  2 2025 Olivier Fourdan <ofourdan@redhat.com> - 2.3.4-38
 - Add Xinerama support from https://sourceforge.net/p/motif/code/merge-requests/9/
 

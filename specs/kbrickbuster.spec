@@ -1,7 +1,7 @@
 Name:    kbrickbuster
 Summary: Destroy bricks with a ball
 Version: 25.04.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # Automatically converted from old format: GPLv2+ and GFDL - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-GFDL
@@ -75,6 +75,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_datadir}/metainfo/org.k
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 25.04.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Apr 21 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 25.04.0-1
 - 25.04.0
 

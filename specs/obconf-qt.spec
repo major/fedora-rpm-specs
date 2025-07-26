@@ -1,6 +1,6 @@
 Name:           obconf-qt
 Version:        0.16.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A configuration editor for the OpenBox window manager
 
 License:        GPL-2.0-only
@@ -61,6 +61,9 @@ desktop-file-install \
 %doc AUTHORS README.md
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

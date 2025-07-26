@@ -13,7 +13,7 @@
 
 Name:           hdhomerun
 Version:        20250506
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Silicon Dust HDHomeRun configuration utility
 
 License:        LGPL-2.1-or-later
@@ -141,6 +141,9 @@ install -pm 0644 %{SOURCE3} %{buildroot}%{fw_services}/
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20250506-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jun 07 2025 Andrew Bauer <zonexpoertconsulting@outlook.com> - 20250506-1
 - 20250506 release
 

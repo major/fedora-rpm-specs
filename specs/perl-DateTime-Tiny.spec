@@ -1,6 +1,6 @@
 Name:           perl-DateTime-Tiny
 Version:        1.08
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Date object, with as little code as possible
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DateTime-Tiny
@@ -50,6 +50,9 @@ make test
 %{_mandir}/man3/DateTime::Tiny*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.08-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Apr 16 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.08-1
 - 1.08 bump (rhbz#2359731)
 

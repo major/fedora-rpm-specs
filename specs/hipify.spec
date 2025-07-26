@@ -9,7 +9,7 @@
 
 Name:           hipify
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Convert CUDA to HIP
 
 Url:            https://github.com/ROCm
@@ -81,6 +81,9 @@ fi
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jun 13 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.1-2
 - Fix hipify-clang rpath
 

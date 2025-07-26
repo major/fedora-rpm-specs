@@ -1,7 +1,7 @@
 Summary:        Command line tool that displays bandwidth usage on an interface
 Name:           iftop
 Version:        1.0
-Release:        0.36.pre4%{?dist}
+Release:        0.37.pre4%{?dist}
 # {ip,sll,tcp}.h are BSD-4-Clause-UC, rest is GPL-2.0-or-later
 License:        GPL-2.0-or-later AND BSD-4-Clause-UC
 URL:            http://www.ex-parrot.com/~pdw/%{name}/
@@ -44,6 +44,9 @@ touch -r aclocal.m4 configure*
 %{_mandir}/man8/%{name}.*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.37.pre4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu May 15 2025 Nicolas Chauvet <kwizart@gmail.com> - 1.0-0.36.pre4
 - Fix FTBFS - rhbz#2340638
 

@@ -14,7 +14,7 @@
 Summary: The Berkeley DB database library for C
 Name: libdb
 Version: 5.3.28
-Release: 65%{?dist}
+Release: 66%{?dist}
 Source0: http://download.oracle.com/berkeley-db/db-%{version}.tar.gz
 Source1: http://download.oracle.com/berkeley-db/db.1.85.tar.gz
 # For mt19937db.c
@@ -488,6 +488,9 @@ install -m 0755 db_converter-%{_converter_version}/db_converter %{buildroot}/%{_
 %endif
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.28-66
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.28-65
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

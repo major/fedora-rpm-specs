@@ -1,6 +1,6 @@
 Name:           perl-Hash-Merge
 Version:        0.302
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Merges arbitrary deep hashes into a single hash
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Hash-Merge
@@ -55,6 +55,9 @@ make test
 %{_mandir}/man3/Hash::Merge.3*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.302-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.302-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

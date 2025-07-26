@@ -5,7 +5,7 @@
 
 Name:           %{githubname}
 Version:        %{githubver}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Libbpf library
 
 License:        LGPL-2.1-only OR BSD-2-Clause
@@ -70,6 +70,9 @@ developing applications that use %{name}
 %{_libdir}/libbpf.a
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:1.6.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 21 2025 Viktor Malik <vmalik@redhat.com> - 2:1.6.1-1
 - release 1.6.1-1
 

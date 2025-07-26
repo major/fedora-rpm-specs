@@ -31,7 +31,7 @@
 
 Name:			gpicview
 Version:		%{main_version}%{git_ver_rpm}
-Release:		1%{?dist}
+Release:		2%{?dist}
 Summary:		Simple and fast Image Viewer for X
 
 # SPDX confirmed
@@ -147,6 +147,9 @@ cd ..
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Mar 29 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.3.1-1
 - 0.3.1
 

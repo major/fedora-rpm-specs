@@ -12,7 +12,7 @@ BuildRequires: fontpackages-devel
 
 Name:    lyx
 Version: 2.4.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: WYSIWYM (What You See Is What You Mean) document processor
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -252,6 +252,9 @@ make -k check ||:
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Apr 28 2025 José Matos  <jamatos@fedoraproject.org> - 2.4.3-1
 - Update to 2.4.3
 - add new upstream patch (compatibility with qt 5.9 needs a small change)

@@ -2,7 +2,7 @@
 
 Name:           mirrormanager2
 Version:        1.0.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Mirror management application
 
 # Most MirrorManager files are licensed under the MIT license. Some
@@ -308,6 +308,9 @@ MM2_SKIP_NETWORK_TESTS=1 %{pytest} tests
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.0.0-11
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

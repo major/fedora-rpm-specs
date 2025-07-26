@@ -2,7 +2,7 @@
 
 Name:           libopenshot-audio
 Version:        0.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Audio library used by OpenShot
 
 License:        GPL-3.0-or-later
@@ -75,6 +75,9 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Feb 10 2025 Sérgio Basto <sergio@serjux.com> - 0.4.0-1
 - Update libopenshot-audio to 0.4.0
 

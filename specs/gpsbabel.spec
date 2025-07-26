@@ -1,6 +1,6 @@
 Name:          gpsbabel
 Version:       1.10.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       A tool to convert between various formats used by GPS devices
 
 License:       GPL-2.0-or-later
@@ -104,6 +104,9 @@ install -m 0644 -p %{SOURCE2} %{buildroot}%{_datadir}/icons/hicolor/256x256/apps
 %endif
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Feb 26 2025 Ralf Corsépius <corsepiu@fedoraproject.org> - 1.10.0-1
 - Upstream update.
 - Switch to qt6.

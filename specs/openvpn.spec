@@ -22,7 +22,7 @@
 
 Name:              openvpn
 Version:           2.6.14
-Release:           2%{?dist}
+Release:           3%{?dist}
 Summary:           A full-featured TLS VPN solution
 URL:               https://community.openvpn.net/
 Source0:           https://build.openvpn.net/downloads/releases/%{name}-%{version}.tar.gz
@@ -238,6 +238,9 @@ done
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.14-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon May 5 2025 Frank Lichtenheld <frank@lichtenheld.com> - 2.6.14-2
 - Add Requires(post) on awk (RHBZ#2363809)
 

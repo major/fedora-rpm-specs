@@ -1,7 +1,7 @@
 Summary: An NFS traffic monitoring tool
 Name: nfswatch
 Version: 4.99.14
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
@@ -35,6 +35,9 @@ make STRIP= MANSUF=8 DESTDIR=${RPM_BUILD_ROOT} BINDIR=%{_sbindir} install
 %{_mandir}/man8/*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.99.14-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 30 2025 Christian Iseli <christian.iseli@epfl.ch> - 4.99.14-1
 - Update to latest upstream version
 - Fix FTBFS (bz 2340930)

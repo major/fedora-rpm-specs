@@ -1,6 +1,6 @@
 Name:           jackson-core
 Version:        2.18.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Core part of Jackson
 License:        Apache-2.0
 
@@ -53,6 +53,9 @@ sed -i 's/\r//' LICENSE jackson-core-NOTICE
 %license LICENSE jackson-core-NOTICE
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.18.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.18.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

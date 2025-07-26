@@ -7,7 +7,7 @@
 
 Name:           packit
 Version:        1.10.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A tool for integrating upstream projects with Fedora operating system
 
 License:        MIT
@@ -78,6 +78,9 @@ cp files/bash-completion/packit %{buildroot}%{bash_completions_dir}/packit
 %doc README.md
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jul 11 2025 Packit <hello@packit.dev> - 1.10.0-1
 - We have fixed a minor bug caused by adding the `PACKIT_SPECFILE_PATH` to the environment of Packit actions. (#2627)
 - We have added a support for ELN aliases in Packit. (#2630)

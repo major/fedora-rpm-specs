@@ -4,7 +4,7 @@
 Name:           gthumb
 Epoch:          1
 Version:        3.12.7
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Image viewer, editor, organizer
 
 License:        GPL-2.0-or-later
@@ -97,6 +97,9 @@ package.
 %{_datadir}/aclocal/gthumb.m4
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.12.7-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Mar 03 2025 nmontero <nmontero@redhat.com> - 1:3.12.7-3
 - Change webkit2gtk version from -4.1 to webkit2gtk-4.0
 

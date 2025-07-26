@@ -17,7 +17,7 @@
 Name:           %{pkg_name}
 Version:        0.7.4.0
 # can only be reset when all subpkgs bumped
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A formatter for Haskell source code
 
 License:        BSD-3-Clause
@@ -255,6 +255,9 @@ PATH=%{buildroot}%{_bindir}:$PATH
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.4.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Mar 25 2025 Jens Petersen <petersen@redhat.com> - 0.7.4.0-7
 - https://hackage.haskell.org/package/ormolu-0.7.4.0/changelog
 

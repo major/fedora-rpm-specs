@@ -2,7 +2,7 @@
 
 Name:           miniaudio
 Version:        0.11.21
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Audio playback and capture library
 
 License:        MIT-0
@@ -43,6 +43,9 @@ install -p %{name}.h %{buildroot}%{_includedir}/
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.21-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.21-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

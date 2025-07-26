@@ -9,17 +9,69 @@
 # Not yet in EPEL10: https://bugzilla.redhat.com/show_bug.cgi?id=2356387
 %bcond pendulum %{undefined el10}
 
+# By default, orjson uses a bundled copy of the C library yyjson,
+# https://github.com/ibireme/yyjson, as the JSON deserialization backend. It is
+# forked (customized) and compiled with a particular set of options via
+# preprocessor defines (see build.rs), so it is not a candidate for unbundling.
+#
+# We do have the option to disable the yyjson backend, in which case the json
+# crate from the Rust standard library, https://docs.rs/json, is used instead.
+%bcond yyjson 0
+
 Name:           python-orjson
-Version:        3.10.18
+Version:        3.11.0
 Release:        %autorelease
 Summary:        Fast, correct Python JSON library
 
-License:        Apache-2.0 OR MIT
+# The entire source is (Apache-2.0 OR MIT), except:
+#
+%if %{with yyjson}
+# MIT:
+# - include/yyjson/yyjson.c
+# - include/yyjson/yyjson.h
+#
+%endif
+# Apache-2.0:
+# - src/serialize/writer/str/mod.rs
+# - src/serialize/writer/str/sse2.rs
+License:        (Apache-2.0 OR MIT) AND Apache-2.0%{?with_yyjson: AND MIT}
+%if %{without yyjson}
+# Additionally, the following are removed in %%prep and do not contribute to
+# the licenses of the binary RPMs:
+#
+# MIT:
+# - include/yyjson/yyjson.c
+# - include/yyjson/yyjson.h
+%endif
+SourceLicense:  (Apache-2.0 OR MIT) AND Apache-2.0 AND MIT
 URL:            https://github.com/ijl/orjson
-Source:         %{pypi_source orjson}
-# Support Python 3.14
-# Updates bundled/forked pyo3-build-config/pyo3-ffi to 0.25.0
-Patch:          https://github.com/ijl/orjson/pull/570.patch
+# We must be careful about the source archive.
+#
+# The PyPI releases have a vendored Rust dependency bundle in include/cargo/,
+# which we would remove in %%prep, but which we must still check to make sure
+# everything has a license acceptable for distribution in Fedora before
+# uploading to the lookaside cache.
+# Source:         %%{pypi_source orjson}
+# The GitHub archives from
+# %%{url}/archive/%%{version}/orjson-%%{version}.tar.gz do not have the
+# vendored crates, but they contain benchmark data in data/, some of which is
+# lacking its license text (e.g.  data/blns.txt.xz, which is from
+# https://github.com/minimaxir/big-list-of-naughty-strings and should carry the
+# corresponding MIT license text), and some of which looks like it might have
+# at best unclear license status. Since the benchmark data is potentially
+# problematic, we would need to filter the GitHub archives with a script.
+Source0:        orjson-%{version}-filtered.tar.xz
+# ./get_source ${COMMIT} (or ${TAG})
+Source1:        get_source
+
+# Fix big-endian PyStr
+# https://github.com/ijl/orjson/commit/9c33ff9df61b3b9d71527acf4fb60a735d841025
+#
+# Fixes:
+#
+# Test regressions (segfaults) on s390x architecture in 3.11.0
+# https://github.com/ijl/orjson/issues/584
+Patch:          %{url}/commit/9c33ff9df61b3b9d71527acf4fb60a735d841025.patch
 
 BuildRequires:  tomcli
 BuildRequires:  python3-devel
@@ -48,34 +100,31 @@ datetimes, and numpy}
 
 %package -n     python3-orjson
 Summary:        %{summary}
+# Output of %%{cargo_license_summary}:
+#
 # (Apache-2.0 OR MIT) AND BSD-3-Clause
 # Apache-2.0 OR BSL-1.0
 # Apache-2.0 OR MIT
 # BSL-1.0
 # MIT
-# MIT OR Apache-2.0 (duplicate)
+# MIT OR Apache-2.0
 # Unlicense OR MIT
 #
-# Bundled PyO3 crates in include/pyo3/ are also (Apache-2.0 OR MIT).
+# Note that this must include the terms of the base package License expression.
 License:        %{shrink:
                 (Apache-2.0 OR MIT) AND
-                BSD-3-Clause AND
+                Apache-2.0 AND
                 (Apache-2.0 OR BSL-1.0) AND
+                BSD-3-Clause AND
                 BSL-1.0 AND
                 MIT AND
                 (Unlicense OR MIT)
                 }
 
-# Path to using published versions of pyo3-ffi/pyo3-build-config again?
-# https://github.com/ijl/orjson/issues/524
-#
-# “You are welcome to work to upstream the diff if you find the vendoring
-# unsuitable for your organization's own preferences.”
-#
-# Note that these crates are actually forked, not only bundled/vendored; see
-# https://github.com/ijl/orjson/issues/524#issuecomment-2424170405 for details.
-Provides:       bundled(crate(pyo3-build-config)) = 0.25.0
-Provides:       bundled(crate(pyo3-ffi)) = 0.25.0
+%if %{with yyjson}
+# Version from YYJSON_VERSION_STRING in include/yyjson/yyjson.h
+Provides:       bundled(yyjson) = 0.9.0
+%endif
 
 %description -n python3-orjson %{_description}
 
@@ -88,14 +137,10 @@ Provides:       bundled(crate(pyo3-ffi)) = 0.25.0
 # “Avoid bundling libgcc on musl.”
 tomcli-set Cargo.toml del 'features.unwind'
 tomcli-set Cargo.toml del 'dependencies.unwinding'
-# Remove bundled rust crates
-rm -r include/cargo
+%if %{without yyjson}
 # Remove bundled yyjson.
 rm -rv include/yyjson/
-
-# Collect licenses for remaining vendored crates
-mkdir -p LICENSES.vendored/pyo3
-cp -vp include/pyo3/LICENSE* LICENSES.vendored/pyo3/
+%endif
 
 %if %{without pendulum}
 sed -i '/^pendulum\b/d' test/requirements.txt
@@ -110,23 +155,15 @@ sed -i '/pytest-random-order/d' test/requirements.txt
 %generate_buildrequires
 %pyproject_buildrequires %{?with_tests:test/requirements.txt}
 %cargo_generate_buildrequires
-for dir in include/pyo3/*/
-do
-  pushd "${dir}" >/dev/null
-  %cargo_generate_buildrequires
-  popd >/dev/null
-done
 
 
 %build
 export RUSTFLAGS='%{build_rustflags}'
 %cargo_license_summary
 %{cargo_license} > LICENSES.dependencies
-# Fedora's pyo3 is patched to not check Python version when building RPM packages.
-# However, this uses a bundled version without the patch.
-# Rather than patching it, we set the environment variable,
-# which allows us to test this package with development Python versions.
-export UNSAFE_PYO3_SKIP_VERSION_CHECK=1
+%if %{without yyjson}
+export ORJSON_DISABLE_YYJSON=1
+%endif
 %pyproject_wheel
 
 
@@ -145,7 +182,6 @@ export UNSAFE_PYO3_SKIP_VERSION_CHECK=1
 
 
 %files -n python3-orjson -f %{pyproject_files}
-%license LICENSES.vendored/
 %doc README.md
 
 

@@ -1,6 +1,6 @@
 Name:           libxlsxwriter
 Version:        1.1.7
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A C library for creating Excel XLSX files
 
 # BSD: Most files
@@ -76,6 +76,9 @@ rm test/functional/test_output_buffer.py
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.7-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jul 17 2025 Sandro Mani <manisandro@gmail.com> - 1.1.7-4
 - Increase minimum cmake version
 

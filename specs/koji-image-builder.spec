@@ -1,11 +1,11 @@
 %global forgeurl https://github.com/osbuild/koji-image-builder
 
-Version:        6
+Version:        8
 
 %forgemeta
 
 Name:           koji-image-builder
-Release:        2%{?dist}
+Release:        1%{?dist}
 License:        Apache-2.0
 
 URL:            %{forgeurl}
@@ -84,6 +84,15 @@ install -p -m 0644 plugin/cli/image_builder.py %{buildroot}%{python3_sitelib}/ko
 %pycached %{python3_sitelib}/koji_cli_plugins/image_builder.py
 
 %changelog
+* Thu Jul 24 2025 Packit <hello@packit.dev> - 8-1
+Changes with 8
+----------------
+  * builder: return `release` in results (#14)
+    * Author: Simon de Vlieger, Reviewers: Tomáš Hozza
+
+— Somewhere on the Internet, 2025-07-24
+
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 6-2
 - Rebuilt for Python 3.14
 

@@ -4,7 +4,7 @@
 
 Name:           lua-md5
 Version:        1.3
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Cryptographic Library for MD5 hashes for Lua
 
 License:        MIT
@@ -45,6 +45,9 @@ make install LUA_DIR=%{buildroot}%{luapkgdir} LUA_LIBDIR=%{buildroot}%{lualibdir
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Crypt-JWT
 Version:        0.037
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        JSON Web Token (JWT, JWS, JWE) as defined by RFC7519, RFC7515, RFC7516
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Crypt-JWT
@@ -69,6 +69,9 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.037-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Apr 28 2025 Xavier Bachelot <xavier@bachelot.org> 0.037-1
 - Update to 0.037 (RHBZ#2362555)
 

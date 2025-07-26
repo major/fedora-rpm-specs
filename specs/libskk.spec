@@ -1,6 +1,6 @@
 Name:		libskk
 Version:	1.0.4
-Release:	17%{?dist}
+Release:	18%{?dist}
 Summary:	Library to deal with Japanese kana-to-kanji conversion method
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -84,6 +84,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

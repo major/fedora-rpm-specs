@@ -1,7 +1,7 @@
 %global __cmake_in_source_build 1
 Name: libsquish
 Version: 1.15
-Release: 19%{?dist}
+Release: 20%{?dist}
 URL: https://sourceforge.net/projects/libsquish/
 Summary: Open source DXT compression library
 License: MIT
@@ -46,6 +46,9 @@ applications which use DXT compression.
 %{_includedir}/*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.15-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jul 16 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.15-19
 - Support cmake4, ninja.
 

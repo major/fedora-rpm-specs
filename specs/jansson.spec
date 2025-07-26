@@ -3,7 +3,7 @@ Version:        2.14
 %forgemeta
 
 Name:		jansson
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	C library for encoding, decoding and manipulating JSON data
 
 # src/lookup3.h is LicenseRef-Fedora-Public-Domain
@@ -71,6 +71,9 @@ rm "$RPM_BUILD_ROOT%{_libdir}"/*.la
 %doc doc/_build/html/*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.14-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.14-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

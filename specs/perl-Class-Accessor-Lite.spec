@@ -1,6 +1,6 @@
 Name:           perl-Class-Accessor-Lite
 Version:        0.08
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Minimalistic variant of Class::Accessor
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Class-Accessor-Lite
@@ -45,6 +45,9 @@ rm -r inc
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

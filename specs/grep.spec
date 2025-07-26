@@ -1,7 +1,7 @@
 Summary: Pattern matching utilities
 Name: grep
 Version: 3.12
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-3.0-or-later AND LGPL-3.0-or-later AND LGPL-2.1-or-later AND GPL-2.0-or-later AND LGPL-2.0-or-later AND GFDL-1.3-no-invariants-or-later
 URL: https://www.gnu.org/software/grep/
 
@@ -89,6 +89,9 @@ make check
 %{_libexecdir}/grepconf.sh
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.12-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Apr 14 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 3.12-1
 - New version
   Resolves: rhbz#2358901

@@ -1,6 +1,6 @@
 Name:           inotify-tools
 Version:        4.23.9.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Command line utilities for inotify
 
 # GPL-2.0-only: the project as a whole
@@ -89,6 +89,9 @@ rm -rf %{buildroot}/%{_datadir}/doc/
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.23.9.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Feb 19 2025 Jan Kratochvil <jan@jankratochvil.net> - 4.23.9.0-4
 - Fix memory corruption with too many arguments
   https://bugzilla.redhat.com/show_bug.cgi?id=2345921

@@ -3,7 +3,7 @@
 
 Name:           perl-JSON-Create
 Version:        0.35
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Create JSON
 # lib/JSON/Create.pod:  GPL+ or Artistic
 # ppport.h:             GPL+ or Artistic
@@ -126,6 +126,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.35-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.35-15
 - Perl 5.42 rebuild
 

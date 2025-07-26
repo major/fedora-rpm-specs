@@ -2,7 +2,7 @@
 
 Name:           mingw-libssh2
 Version:        1.11.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        MinGW Windows library implementation of the SSH2 protocol
 
 License:        BSD-3-Clause
@@ -124,6 +124,9 @@ rm -r $RPM_BUILD_ROOT%{mingw64_mandir}/man3
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jul 22 2025 Michael Cronenworth <mike@cchtml.com> - 1.11.1-1
 - Version update
 

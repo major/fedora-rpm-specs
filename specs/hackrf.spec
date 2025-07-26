@@ -1,6 +1,6 @@
 Name:           hackrf
 Version:        2024.02.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        HackRF Utilities
 
 License:        GPL-2.0-or-later AND BSD-3-Clause
@@ -144,6 +144,9 @@ cp -a hardware %{buildroot}%{_datadir}/%{name}
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2024.02.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jul 16 2025 Steven A. Falco <stevenfalco@gmail.com> - 2024.02.1-4
 - Adapt to cmake 4.0 changes
 

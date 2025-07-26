@@ -1,6 +1,6 @@
 Name:           perl-Guard
 Version:        1.023
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Safe cleanup blocks
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Guard
@@ -56,6 +56,9 @@ make test
 %{_mandir}/man3/Guard.3*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.023-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.023-34
 - Perl 5.42 rebuild
 

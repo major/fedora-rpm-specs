@@ -1,6 +1,6 @@
 Name:           perl-Image-Xpm
 Version:        1.13
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Load, create, manipulate and save xpm image files in Perl
 License:        GPL-1.0-or-later
 URL:            https://metacpan.org/release/Image-Xpm
@@ -38,6 +38,9 @@ make test
 %{_mandir}/man3/*.3pm*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.13-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.13-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -11,7 +11,7 @@
 
 Name:           libx86emu
 Version:        3.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        x86 emulation library
 
 License:        HPND-sell-variant
@@ -64,6 +64,9 @@ library.
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Mar 04 2025 Lubomir Rintel <lkundrak@v3.sk> - 3.7-1
 - Update to 3.7
 

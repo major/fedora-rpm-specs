@@ -1,6 +1,6 @@
 Name:          kjournald
 Version:       25.07.80
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Framework for interacting with systemd-journald
 
 License:       BSD-3-Clause and CC0-1.0 and MIT and LGPL-2.1-or-later and MIT
@@ -74,6 +74,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.kj
 %{_kf6_libdir}/libkjournald.so.%{version}
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 25.07.80-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jul 15 2025 Neal Gompa <ngompa@fedoraproject.org> - 25.07.80-2
 - Add patch to restore the libkjournal library
 

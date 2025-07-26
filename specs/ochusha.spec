@@ -25,7 +25,7 @@
 %define		strtag		cvs%{codate}T%{cotime_JST}
 %define		repoid		36733
 
-%define		baserelease	20
+%define		baserelease	21
 %define		pre_release	1
 
 %if %{pre_release}
@@ -235,6 +235,9 @@ change_encoding \
 %{_datadir}/icons/hicolor/48x48/apps/*.png
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0.1-0.21.cvs20100817T0000
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0.1-0.20.cvs20100817T0000
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

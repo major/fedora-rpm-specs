@@ -3,7 +3,7 @@
 Name:    kf5-libkipi
 Summary: Common plugin infrastructure for KDE image applications
 Version: 24.05.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later
 URL:     https://invent.kde.org/graphics/%{base_name}
@@ -72,6 +72,9 @@ Requires: cmake(KF5XmlGui)
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 24.05.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 24.05.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

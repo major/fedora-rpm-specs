@@ -3,7 +3,7 @@
 Summary:        MinGW Windows IDL Parsing Library
 Name:           mingw-libIDL
 Version:        0.8.14
-Release:        27%{?dist}
+Release:        28%{?dist}
 # Automatically converted from old format: LGPLv2 or MPLv1.1 - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2 OR LicenseRef-Callaway-MPLv1.1
 URL:            ftp://ftp.gnome.org/pub/GNOME/sources/libIDL
@@ -120,6 +120,9 @@ find $RPM_BUILD_ROOT -name '*.la' -delete
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.14-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.14-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

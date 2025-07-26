@@ -2,7 +2,7 @@
 
 Name:         guile-reader
 Version:      0.6.3
-Release:      6%{?dist}
+Release:      7%{?dist}
 Summary:      A simple framework for building readers for GNU Guile
 
 License:      GPL-3.0-or-later
@@ -93,6 +93,9 @@ make check
 %{_libdir}/libguile-reader.so
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

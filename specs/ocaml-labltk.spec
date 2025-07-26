@@ -10,7 +10,7 @@ ExcludeArch: %{ix86}
 
 Name:          ocaml-labltk
 Version:       8.06.15
-Release:       2%{?dist}
+Release:       3%{?dist}
 
 Summary:       Tcl/Tk interface for OCaml
 
@@ -134,6 +134,9 @@ sed 's/8\.06\.6/%{version}/' support/META > \
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.06.15-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 8.06.15-2
 - Rebuild to fix OCaml dependencies
 

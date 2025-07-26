@@ -5,7 +5,7 @@
 Summary: X.Org X11 libXinerama runtime library
 Name: libXinerama
 Version: 1.1.5
-Release: 8%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+Release: 9%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 License: MIT AND MIT-open-group AND X11
 URL: http://www.x.org
 
@@ -70,6 +70,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_includedir}/X11/extensions/panoramiXext.h
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.5-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.5-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

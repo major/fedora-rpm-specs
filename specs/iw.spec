@@ -1,6 +1,6 @@
 Name:           iw
 Version:        6.9
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A nl80211 based wireless configuration tool
 
 # part of sha256.c is public domain
@@ -41,6 +41,9 @@ export CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="$RPM_LD_FLAGS"
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.9-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri May 16 2025 Jose Ignacio Tornos Martinez <jtornosm@redhat.com> - 6.9-4
 - Fix Documentation path (https://bugzilla.redhat.com/show_bug.cgi?id=2366225)
 

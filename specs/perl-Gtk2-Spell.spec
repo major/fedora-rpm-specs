@@ -2,7 +2,7 @@
 
 Name:           perl-Gtk2-Spell
 Version:        1.05
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Gtk2::Spell Perl module (deprecated)
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -97,6 +97,9 @@ find %{buildroot} -type f -name '*.bs' -a -size 0 -delete
 %{perl_vendorarch}/Gtk2/Spell/Install
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.05-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.05-17
 - Perl 5.42 rebuild
 

@@ -8,7 +8,7 @@
 
 Name:           perl-Gtk2-AppIndicator
 Version:        0.15
-Release:        42%{?dist}
+Release:        43%{?dist}
 Summary:        Perl extension for libappindicator
 # COPYRIGHT:    GPL+ or Artistic
 # LICENSE:      Artistic text
@@ -78,6 +78,9 @@ xvfb-run -d make test
 %{_mandir}/man3/Gtk2*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.15-42
 - Perl 5.42 rebuild
 

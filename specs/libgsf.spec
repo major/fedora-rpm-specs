@@ -6,7 +6,7 @@
 
 Name: libgsf
 Version: 1.14.53
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: GNOME Structured File library
 
 License: LGPL-2.1-only
@@ -173,6 +173,9 @@ find %{buildroot} -name '*.la' -delete -print
 %endif
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.53-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.53-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 %global shortcommit %(c=%{commit}; echo ${c:0:8})
 Name:           kolorfill
 Version:        0^20231224fe74b68f
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Simple flood fill game
 
 License:        MIT
@@ -62,6 +62,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0^20231224fe74b68f-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0^20231224fe74b68f-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

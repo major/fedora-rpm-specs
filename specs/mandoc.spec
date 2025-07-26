@@ -1,6 +1,6 @@
 Name:             mandoc
 Version:          1.14.6
-Release:          11%{?dist}
+Release:          12%{?dist}
 Summary:          A suite of tools for compiling mdoc and man
 
 License:          ISC AND BSD-2-Clause AND BSD-3-Clause
@@ -229,6 +229,9 @@ fi
 %{_mandir}/man3/tbl.3*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.6-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.6-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

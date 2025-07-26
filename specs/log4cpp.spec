@@ -1,6 +1,6 @@
 Name:           log4cpp
 Version:        1.1.3
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        C++ logging library
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -95,6 +95,9 @@ rm -f %{buildroot}%{_libdir}/*.la
 %doc rpmdocs/*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

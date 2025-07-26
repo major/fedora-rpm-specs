@@ -9,7 +9,7 @@
 
 Name:           libsecret
 Version:        0.21.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library for storing and retrieving passwords and other secrets
 
 # libsecret/mock/aes.py is Apache-2.0
@@ -133,6 +133,9 @@ cp -a libsecret/mock-service*.py %{buildroot}%{_datadir}/libsecret/
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.21.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Mar 18 2025 Packit <hello@packit.dev> - 0.21.7-1
 - Update to version 0.21.7
 - Resolves: rhbz#2338111

@@ -4,7 +4,7 @@
 Name:           libstatgrab
 Epoch:          1
 Version:        0.92.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        A library that provides cross platform access to statistics of the system
 License:        LGPL-2.1-or-later
 URL:            http://www.i-scream.org/libstatgrab
@@ -207,6 +207,9 @@ make check
 %{_mandir}/*/*statgrab*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.92.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.92.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

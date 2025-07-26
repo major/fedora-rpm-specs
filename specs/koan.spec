@@ -3,7 +3,7 @@
 
 Name:           koan
 Version:        3.0.1
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Kickstart over a network
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -60,6 +60,9 @@ koan python%{python3_pkgversion} module.
 %{python3_sitelib}/koan*.egg-info
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.0.1-15
 - Rebuilt for Python 3.14
 

@@ -1,7 +1,7 @@
 BuildRequires: fontforge
 
 Version: 2.000
-Release: 40%{?dist}
+Release: 41%{?dist}
 URL: http://madanpuraskar.org/
 
 %global fontlicense       GPL-1.0-or-later
@@ -50,6 +50,9 @@ chmod 755 sfd2ttf.pe madan.py
 %fontfiles
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.000-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.000-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

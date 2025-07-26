@@ -2,7 +2,7 @@
 
 Name:           octave-%{octpkg}
 Version:        2.1.1
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        General tools for Octave, string dictionary, parallel computing
 # Automatically converted from old format: GPLv3+ and BSD and Public Domain - review is highly recommended.
 License:        GPL-3.0-or-later AND LicenseRef-Callaway-BSD AND LicenseRef-Callaway-Public-Domain
@@ -60,6 +60,9 @@ install -p -m 0644 %SOURCE1 %{buildroot}%{_metainfodir}/
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:		pam-ssh-auth-info
 Version:	1.8.20230906
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	PAM SSH Authentication Information Module
 # GPL-3.0-or-later: * line_tokens_match_test.h
 # LGPL-3.0-or-later: pam_*.c *.h
@@ -44,6 +44,9 @@ make check
 %{_mandir}/man8/pam_ssh_auth_info.8.gz
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.20230906-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.20230906-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

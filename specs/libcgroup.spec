@@ -5,7 +5,7 @@
 Summary: Library to control and monitor control groups
 Name: libcgroup
 Version: 3.0
-Release: 8%{?dist}
+Release: 9%{?dist}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2+
 URL: http://libcg.sourceforge.net/
@@ -176,6 +176,9 @@ make -C tests/gunit check
 %{_libdir}/pkgconfig/libcgroup.pc
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

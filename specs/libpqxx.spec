@@ -5,7 +5,7 @@ Name:           libpqxx
 Summary:        C++ client API for PostgreSQL
 Epoch:          1
 Version:        7.10.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 %global         forgeurl https://github.com/jtv/%{name}/
 %global         tag %{version}
@@ -107,6 +107,9 @@ cd -
 %endif
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:7.10.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Apr 04 2025 Björn Esser <besser82@fedoraproject.org> - 1:7.10.1-1
 - Update to v7.10.1
   Fixes rhbz#2357284

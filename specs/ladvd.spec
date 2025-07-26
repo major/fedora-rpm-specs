@@ -4,7 +4,7 @@
 
 Name:           ladvd
 Version:        1.1.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        CDP/LLDP sender for UNIX
 
 License:        ISC
@@ -141,6 +141,9 @@ fi
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

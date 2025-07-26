@@ -1,6 +1,6 @@
 Name:           perl-Email-Template
 Version:        0.02
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Send "multipart/alternative" (text & html) e-mail from a Template
 # lib/Email/Template.pm
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
@@ -59,6 +59,9 @@ make test
 %{_mandir}/man3/Email*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

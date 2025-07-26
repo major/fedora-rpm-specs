@@ -61,7 +61,7 @@ BuildRequires:  python3dist(setuptools)
 %if %{with tox_tests}
 BuildRequires:  python3dist(tox-current-env) >= 0.0.16
 %endif
-BuildRequires:  python3dist(wheel)
+BuildRequires:  (python3dist(wheel) if python3dist(setuptools) < 71)
 BuildRequires:  (python3dist(tomli) if python3 < 3.11)
 %endif
 

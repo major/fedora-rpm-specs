@@ -1,6 +1,6 @@
 Name:           perl-Array-RefElem
 Version:        1.00
-Release:        53%{?dist}
+Release:        54%{?dist}
 Summary:        Set up array elements as aliases
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -47,6 +47,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.00-54
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.00-53
 - Perl 5.42 rebuild
 

@@ -13,7 +13,7 @@
 
 Name:           openni-primesense
 Version:        5.1.6.6
-Release:        30%{?gitrev}%{?dist}
+Release:        31%{?gitrev}%{?dist}
 Summary:        PrimeSensor/Kinect Modules for OpenNI
 License:        Apache-2.0
 URL:            https://github.com/PrimeSense/Sensor
@@ -124,6 +124,9 @@ fi
 %{_sysusersdir}/openni-primesense.conf
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.6.6-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 5.1.6.6-30
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

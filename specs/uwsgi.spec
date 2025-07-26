@@ -26,7 +26,7 @@
 %bcond_without tuntap
 %bcond_without zeromq
 %bcond_without perl
-%bcond_without perlcoro
+%bcond_with perlcoro
 %bcond_without glusterfs
 %bcond_without php
 %bcond_without pq
@@ -250,7 +250,7 @@
 
 Name:           uwsgi
 Version:        2.0.30
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Fast, self-healing, application container server
 # uwsgi is licensed under GPLv2 with a linking exception
 # docs are licensed under MIT
@@ -1962,6 +1962,10 @@ install -m0644 -D %{SOURCE8} %{buildroot}%{_sysusersdir}/uwsgi.conf
 
 
 %changelog
+* Thu Jul 24 2025 Ralf Ertzinger <ralf@skytale.net> - 2.0.30-4
+- Disable perl-Coro for rawhide, as this blocks rebuilding
+  for perl 5.42 (see https://bugzilla.redhat.com/show_bug.cgi?id=2379448)
+
 * Tue Jul 08 2025 Jitka Plesnikova <jplesnik@redhat.com> - 2.0.30-3
 - Perl 5.42 rebuild
 

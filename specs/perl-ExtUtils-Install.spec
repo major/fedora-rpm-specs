@@ -1,6 +1,6 @@
 Name:           perl-ExtUtils-Install
 Version:        2.22
-Release:        519%{?dist}
+Release:        520%{?dist}
 Summary:        Install Perl files from here to there
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/ExtUtils-Install
@@ -114,6 +114,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.22-520
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 2.22-519
 - Increase release to favour standalone package
 

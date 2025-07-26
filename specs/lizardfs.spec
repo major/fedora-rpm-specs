@@ -3,7 +3,7 @@
 Name:		lizardfs
 Summary:	Distributed, fault tolerant file system
 Version:	3.12.0
-Release:	30%{?dist}
+Release:	31%{?dist}
 # LizardFS is under GPLv3 while crcutil is under ASL 2.0 and there's one header,
 # src/common/coroutine.h, under the Boost license
 # Automatically converted from old format: GPLv3 and ASL 2.0 and Boost - review is highly recommended.
@@ -415,6 +415,9 @@ install -m0644 -D lizardfs.sysusers.conf %{buildroot}%{_sysusersdir}/lizardfs.co
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.12.0-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.12.0-30
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

@@ -15,7 +15,7 @@
 
 Name:           %{fontname}-fonts
 Version:        0.20080710
-Release:        41%{?dist}
+Release:        42%{?dist}
 License:        LicenseRef-Fedora-Public-Domain AND BSD-3-Clause AND mplus
 BuildArch:      noarch
 BuildRequires:  xorg-x11-font-utils mkfontdir gawk fontpackages-devel
@@ -335,6 +335,9 @@ ln -sf %{_fontdir} $RPM_BUILD_ROOT%{cataloguedir}/%{fontname}
 %{cataloguedir}/*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.20080710-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.20080710-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

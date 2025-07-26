@@ -1,6 +1,6 @@
 Name:           perl-DateTime-Format-XSD
 Version:        0.4
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Format DateTime according to xsd:dateTime
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DateTime-Format-XSD
@@ -50,6 +50,9 @@ make test
 %{_mandir}/man3/DateTime::Format::XSD.3*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Mar 25 2025 Paul Howarth <paul@city-fan.org> - 0.4-13
 - Spec modernization
   - Specify all dependencies

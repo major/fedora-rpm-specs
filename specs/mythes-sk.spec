@@ -2,7 +2,7 @@ Name: mythes-sk
 Summary: Slovak thesaurus
 %global upstreamid 20130130
 Version: 0.%{upstreamid}
-Release: 27%{?dist}
+Release: 28%{?dist}
 Source: http://www.sk-spell.sk.cx/thesaurus/download/OOo-Thesaurus2-sk_SK.zip
 URL: http://www.sk-spell.sk.cx/thesaurus/
 License: MIT
@@ -33,6 +33,9 @@ cp -p th_sk_SK_v2.* $RPM_BUILD_ROOT/%{_datadir}/mythes
 %{_datadir}/mythes/*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.20130130-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.20130130-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

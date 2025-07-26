@@ -1,6 +1,6 @@
 Name:           nipy-data
 Version:        0.2
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Test data and brain templates for nipy
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -30,6 +30,9 @@ done
 %{_datadir}/nipy/
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

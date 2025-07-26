@@ -1,6 +1,6 @@
 Name:           multiwatch
 Version:        1.0.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Forks and watches multiple instances of a program in the same context
 License:        MIT
 URL:            https://redmine.lighttpd.net/projects/multiwatch/wiki
@@ -44,6 +44,9 @@ instances.
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

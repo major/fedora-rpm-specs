@@ -1,6 +1,6 @@
 Name:           perl-Config-Onion
 Version:        1.007
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Layered configuration, because configs are like ogres
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Config-Onion
@@ -54,6 +54,9 @@ make test
 %{_mandir}/man3/Config::Onion*.3pm*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.007-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 09 2025 Michal Josef Špaček <mspacek@redhat.com> - 1.007-2
 - Add missing coreutils dependency.
 - Improve %files section.

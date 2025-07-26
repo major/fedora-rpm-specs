@@ -11,7 +11,7 @@
 Name:    kdegames3
 Summary: KDE 3 Games not ported to KDE 4
 Version: 3.5.10
-Release: 52%{?dist}
+Release: 53%{?dist}
 
 License: GPL-2.0-only
 Url:     http://www.kde.org
@@ -168,6 +168,9 @@ export QA_RPATHS=0x0001
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.10-53
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.10-52
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

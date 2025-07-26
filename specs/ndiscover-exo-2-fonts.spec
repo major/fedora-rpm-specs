@@ -4,7 +4,7 @@
 %forgemeta
 
 Version: 2.000
-Release: 13%{?dist}
+Release: 14%{?dist}
 URL:     %{forgeurl}
 
 %global foundry           NDISCOVER
@@ -45,6 +45,9 @@ Source10: 60-%{fontpkgname}.xml
 %fontfiles
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.000-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.000-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

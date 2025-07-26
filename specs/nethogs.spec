@@ -1,6 +1,6 @@
 Name:           nethogs
 Version:        0.8.8
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A tool resembling top for network traffic
 
 License:        GPL-1.0-or-later
@@ -44,6 +44,9 @@ install -m 0644 doc/nethogs.8 "${RPM_BUILD_ROOT}%{_mandir}/man8/"
 %doc %{_mandir}/man*/*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

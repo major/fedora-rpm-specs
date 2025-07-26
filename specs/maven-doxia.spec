@@ -1,7 +1,7 @@
 Name:           maven-doxia
 Epoch:          0
 Version:        2.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Content generation framework
 License:        Apache-2.0
 
@@ -228,6 +228,9 @@ rm doxia-core/src/test/java/org/apache/maven/doxia/util/XmlValidatorTest.java
 %license LICENSE NOTICE
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0:2.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jan 28 2025 Jerry James <loganjerry@gmail.com> - 0:2.0.0-1
 - Version 2.0.0
 - Drop all patches

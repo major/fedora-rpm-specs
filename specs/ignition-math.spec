@@ -4,7 +4,7 @@
 
 Name:		ignition-math
 Version:	4.0.0
-Release:	17%{?dist}
+Release:	18%{?dist}
 Summary:	Small, Fast, High Performance Math Library
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -89,6 +89,9 @@ sed -i 's/unset/#unset/g' CMakeLists.txt
 %doc %{_vpath_builddir}/doxygen/html
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -6,10 +6,10 @@
 # So pre releases can be tried
 %bcond_with gitcommit
 %if %{with gitcommit}
-# v2.8.0-rc6
-%global commit0 f2b69a083d15e3d0083bb304302a3fd0b5fb8705
+# v2.8.0-rc8
+%global commit0 a1cb3cc05d46d198467bebbb6e8fba50a325d4e7
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global date0 20250718
+%global date0 20250723
 %global pypi_version 2.8.0
 %global flatbuffers_version 24.12.23
 %global miniz_version 3.0.2
@@ -33,7 +33,11 @@
 %endif
 
 # For testing distributed+rccl etc.
+%if %{with gitcommit}
+%bcond_without rccl
+%else
 %bcond_with rccl
+%endif
 %bcond_with gloo
 %bcond_without mpi
 %bcond_without tensorpipe
@@ -103,13 +107,13 @@ Source80:       https://github.com/pytorch/kineto/archive/%{ki_commit}/kineto-%{
 
 %if %{without gitcommit}
 # https://github.com/pytorch/pytorch/issues/150187
-# The hack job
-# Patch11:       0001-python-torch-disable-ck.patch
-# Cleaned up hack job
 Patch11:       0001-Add-cmake-varaible-USE_ROCM_CK.patch
-
 %else
+# https://github.com/pytorch/pytorch/issues/150187
 Patch11:       0001-Add-cmake-variable-USE_ROCM_CK.patch
+# https://github.com/pytorch/pytorch/issues/156595
+# Patch12:       0001-Use-horrible-dynamo-stub.patch
+Patch12:       0001-Fix-compilation-and-import-torch-issues-for-cpython-.patch
 %endif
 
 ExclusiveArch:  x86_64 aarch64
@@ -153,6 +157,9 @@ BuildRequires:  python3dist(filelock)
 BuildRequires:  python3dist(jinja2)
 BuildRequires:  python3dist(networkx)
 BuildRequires:  python3dist(numpy)
+%if %{with gitcommit}
+BuildRequires:  python3dist(pip)
+%endif
 BuildRequires:  python3dist(pyyaml)
 BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(sphinx)
@@ -171,6 +178,9 @@ BuildRequires:  hipcub-devel
 BuildRequires:  hipfft-devel
 BuildRequires:  hiprand-devel
 BuildRequires:  hipsparse-devel
+%if %{with gitcommit}
+BuildRequires:  hipsparselt-devel
+%endif
 BuildRequires:  hipsolver-devel
 BuildRequires:  magma-devel
 BuildRequires:  miopen-devel
@@ -190,6 +200,7 @@ BuildRequires:  rocm-runtime-devel
 BuildRequires:  rocm-rpm-macros
 %if %{with gitcommit}
 BuildRequires:  rocsolver-devel
+BuildRequires:  rocm-smi-devel
 %endif
 BuildRequires:  rocthrust-devel
 BuildRequires:  roctracer-devel
@@ -337,6 +348,10 @@ sed -i -e 's@HIP_CLANG_FLAGS -fno-gpu-rdc@HIP_CLANG_FLAGS -fno-gpu-rdc -Wno-unus
 sed -i -e 's@HIP_CLANG_FLAGS -fno-gpu-rdc@HIP_CLANG_FLAGS -fno-gpu-rdc -Wno-deprecated-declarations@' cmake/Dependencies.cmake
 # Use parallel jobs
 sed -i -e 's@HIP_CLANG_FLAGS -fno-gpu-rdc@HIP_CLANG_FLAGS -fno-gpu-rdc -parallel-jobs=4@' cmake/Dependencies.cmake
+%if %{with gitcommit}
+# Need to link with librocm_smi64
+sed -i -e 's@hiprtc::hiprtc@hiprtc::hiprtc rocm_smi64@' cmake/Dependencies.cmake
+%endif
 
 # No third_party fmt, use system
 sed -i -e 's@fmt::fmt-header-only@fmt@' CMakeLists.txt
@@ -590,17 +605,21 @@ export DEVICE_LIB_PATH=${RESOURCE_DIR}/amdgcn/bitcode
 
 # pytorch uses clang, not hipcc
 export HIP_CLANG_PATH=%{rocmllvm_bindir}
-%if %{?fedora} <= 43
-export PYTORCH_ROCM_ARCH="gfx1100;gfx1201"
-%else
 export PYTORCH_ROCM_ARCH=%{rocm_gpu_list_default}
+
+%if %{with gitcommit}
+%pyproject_wheel
+%else
+%py3_build
 %endif
 
-%py3_build
-
 %else
 
+%if %{with gitcommit}
+%pyproject_wheel
+%else
 %py3_build
+%endif
 
 %endif
 
@@ -617,17 +636,32 @@ export DEVICE_LIB_PATH=${RESOURCE_DIR}/amdgcn/bitcode
 # pytorch uses clang, not hipcc
 export HIP_CLANG_PATH=%{rocmllvm_bindir}
 export PYTORCH_ROCM_ARCH=%{rocm_gpu_list_default}
+%if %{with gitcommit}
+%pyproject_install
+%else
 %py3_install
+%endif
 
 %else
 
+%if %{with gitcommit}
+%pyproject_install
+%pyproject_save_files torch
+%else
 %py3_install
-
+%endif
 
 %endif
 
+
+
 %check
+%if %{with gitcommit}
+# Not working yet
+# pyproject_check_import torch
+%else
 %py3_check_import torch
+%endif
 
 # Do not remote the empty files
 

@@ -13,7 +13,7 @@
 
 Name:		owfs
 Version:	3.2p4
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	1-Wire Virtual File System
 
 # some parts licensed differently, see http://owfs.org/index.php?page=license
@@ -375,6 +375,9 @@ install -m0644 -D owfs.sysusers.conf %{buildroot}%{_sysusersdir}/owfs.conf
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2p4-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Mar 28 2025 Tomasz Torcz <ttorcz@fedoraproject.org> - 3.2p4-12
 - adjust to TCL8 compat packages (rhbz#2340991, rhbz#2337745)
 

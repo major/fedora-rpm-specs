@@ -1,7 +1,7 @@
 Summary: GNU macro processor
 Name: m4
 Version: 1.4.20
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-3.0-or-later AND GFDL-1.3-or-later
 Source0: https://ftp.gnu.org/gnu/m4/m4-%{version}.tar.xz
 Source1: https://ftp.gnu.org/gnu/m4/m4-%{version}.tar.xz.sig
@@ -50,6 +50,9 @@ make %{?_smp_mflags} check
 %{_mandir}/man1/m4.1*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.20-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon May 12 2025 Frédéric Bérat <fberat@redhat.com> - 1.4.20-1
 - Update to m4-1.4.20 (#2365446)
 

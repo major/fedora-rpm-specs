@@ -2,7 +2,7 @@
 
 Name:           %{srcname}
 Version:        1.4.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A deduplicating backup program with compression and authenticated encryption
 # zlib:         src/borg/algorithms/{crc32_clmul.c, crc32_slice_by_8.c}
 # Apache-2.0:   src/borg/cache_sync/{sysdep.h, unpack.h, unpack_template.h, unpack_define.h}
@@ -19,6 +19,9 @@ Source2:        gpgkey-6D5B_EF9A_DD20_7580_5747_B70F_9F88_FB52_FAF7_B393.gpg
 
 # we don't need the guzzley_sphinx theme for only man page generation
 Patch1:         borgbackup-disable-guzzle-theme.patch
+# backport of upstream change for borg 2.0 from
+# https://github.com/borgbackup/borg/issues/8913
+Patch2:         borgbackup-python314-fix-tests-zerodivisionerror.patch
 
 BuildRequires:  gnupg2
 # build
@@ -137,6 +140,9 @@ TEST_SELECTOR="not test_fuse and not test_readonly_mount and not benchmark"
 
 
 %changelog
+* Thu Jul 24 2025 Felix Schwarz <fschwarz@fedoraproject.org> - 1.4.1-4
+- backport patch from borg 2.0 to fix test suite on Python 3.14
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

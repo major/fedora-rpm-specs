@@ -1,6 +1,6 @@
 Name:		perl-ExtUtils-InstallPaths
 Version:	0.014
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Build.PL install path logic made easy
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/ExtUtils-InstallPaths
@@ -59,6 +59,9 @@ make test
 %{_mandir}/man3/ExtUtils::InstallPaths.3*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.014-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.014-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

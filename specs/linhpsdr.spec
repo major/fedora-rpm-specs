@@ -15,7 +15,7 @@
 
 Name:		linhpsdr
 Version:	0
-Release:	0.16.%{git_suffix}%{?dist}
+Release:	0.17.%{git_suffix}%{?dist}
 Summary:	An HPSDR application for Linux
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
@@ -75,6 +75,9 @@ install -Dpm 0644 %{SOURCE1} %{buildroot}%{_metainfodir}/io.github.g0orx.LinHPSD
 %doc documentation/*.pdf
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.17.20250610git87a62907
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 10 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 0-0.16.20250610git87a62907
 - New snapshot
   Resolves: rhbz#2340773

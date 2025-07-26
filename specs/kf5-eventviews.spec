@@ -2,7 +2,7 @@
 
 Name:    kf5-%{framework}
 Version: 23.08.5
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: KDE PIM library for displaying events and calendars
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -107,6 +107,9 @@ sed -i "s/libeventviews/libeventviews5/" src/Messages.sh
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 23.08.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 23.08.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

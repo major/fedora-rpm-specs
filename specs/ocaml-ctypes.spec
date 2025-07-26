@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-ctypes
 Version:        0.23.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Combinators for binding to C libraries without writing any C
 
 License:        MIT
@@ -83,6 +83,9 @@ sed -i 's/ "-cclib"; "-Wl,--no-as-needed";//' src/ctypes-foreign/config/discover
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.23.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jul 12 2025 Jerry James  <loganjerry@gmail.com> - 0.23.0-5
 - Rebuild to fix OCaml dependencies
 

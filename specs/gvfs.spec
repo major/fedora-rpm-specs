@@ -22,7 +22,7 @@
 
 Name:    gvfs
 Version: 1.57.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Backends for the gio framework in GLib
 
 License: LGPL-2.0-or-later AND GPL-3.0-only AND MPL-2.0 AND BSD-3-Clause-Sun
@@ -430,6 +430,9 @@ killall -USR1 gvfsd >&/dev/null || :
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.57.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Apr 22 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 1.57.2-2
 - Limit msgraph dependency to the goa subpackage
 

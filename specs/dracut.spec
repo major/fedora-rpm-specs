@@ -8,7 +8,7 @@
 
 Name: dracut
 Version: 107
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 Summary: Initramfs generator using udev
 
@@ -51,12 +51,13 @@ Patch8:  0008-fix-ossl-ignore-compiler-warnings.patch
 Patch9:  0009-Revert-feat-fips-include-openssl-s-fips.so-and-opens.patch
 # Revert "chore: remove unused function"
 # Author: Adam Williamson <awilliam@redhat.com>
-# https://github.com/dracut-ng/dracut-ng/pull/1436
-Patch10: 0001-Revert-chore-remove-unused-function.patch
-# Revert "feat(systemd-sysusers): run systemd-sysusers as part of the build process"
+Patch10: 0010-Revert-chore-remove-unused-function.patch
+# Revert "feat(systemd-sysusers): run systemd-sysusers as part
 # Author: Adam Williamson <awilliam@redhat.com>
-# https://bugzilla.redhat.com/show_bug.cgi?id=2379116
-Patch11: 0001-Revert-feat-systemd-sysusers-run-systemd-sysusers-as.patch
+Patch11: 0011-Revert-feat-systemd-sysusers-run-systemd-sysusers-as.patch
+# Revert "feat(hwdb): add hwdb module to install hwdb.bin on demand"
+# Author: Pavel Valena <pvalena@redhat.com>
+Patch12: 0012-Revert-feat-hwdb-add-hwdb-module-to-install-hwdb.bin.patch
 
 # Please use source-git to work with this spec file:
 # HowTo: https://packit.dev/source-git/work-with-source-git
@@ -482,6 +483,9 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %{_prefix}/lib/kernel/install.d/51-dracut-rescue.install
 
 %changelog
+* Thu Jul 24 2025 Pavel Valena <pvalena@redhat.com> - 107-5
+- Revert "feat(hwdb): add hwdb module to install hwdb.bin on demand"
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 107-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

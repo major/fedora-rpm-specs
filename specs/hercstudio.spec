@@ -1,6 +1,6 @@
 Name:           hercstudio
 Version:        1.6.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GUI front-end to the Hercules mainframe Emulator
 
 License:        GPL-3.0-or-later
@@ -60,6 +60,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

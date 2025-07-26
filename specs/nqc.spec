@@ -1,6 +1,6 @@
 Name:           nqc
 Version:        3.1.7
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        Not Quite C compiler
 
 # Automatically converted from old format: MPLv1.0 - review is highly recommended.
@@ -163,6 +163,9 @@ install -m0644 -D nqc.sysusers.conf %{buildroot}%{_sysusersdir}/nqc.conf
 %lang(pt) %doc nqc-tutorial-pt.pdf
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.7-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.1.7-39
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

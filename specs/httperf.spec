@@ -4,7 +4,7 @@
 
 Name:           httperf
 Version:        0.9.1
-Release:        0.13%{?dist}
+Release:        0.14%{?dist}
 Summary:        Tool for measuring web server performance
 # Automatically converted from old format: GPLv2+ with exceptions - review is highly recommended.
 License:        LicenseRef-Callaway-GPLv2+-with-exceptions
@@ -56,6 +56,9 @@ chmod -x AUTHORS ChangeLog NEWS README.md TODO COPYRIGHT
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-0.14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-0.13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-lacaml
 Version:        11.1.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        BLAS/LAPACK-interface for OCaml
 
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
@@ -69,6 +69,9 @@ export LACAML_LIBS=-lflexiblas
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 11.1.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 11.1.1-3
 - Rebuild to fix OCaml dependencies
 

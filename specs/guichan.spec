@@ -2,7 +2,7 @@
 
 Name:           guichan
 Version:        0.8.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Portable C++ GUI library for games using Allegro, SDL and OpenGL
 
 License:        BSD-3-Clause
@@ -75,6 +75,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.a
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed May 14 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.8.3-1
 - New upstream location, 0.8.3
 

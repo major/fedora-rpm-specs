@@ -31,7 +31,7 @@
 # simplify cut and pasting.
 #
 Version: 003.03
-Release: 31%{?dist}
+Release: 32%{?dist}
 URL:     http://ossipedia.ipa.go.jp/ipafont/
 BuildRequires: fonts-rpm-macros >= 1:2.0.5-9
 
@@ -91,6 +91,9 @@ Source10: 69-ipa-gothic-fonts.conf
 %fontfiles
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 003.03-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 003.03-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

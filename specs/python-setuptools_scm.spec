@@ -43,9 +43,9 @@ It also handles file finders for the supported SCMs.
 %if %{defined rhel}
 # Remove unnecessary test dependencies:
 # rich is listed in both [rich] and [test] extras, so we need to be more careful
-sed -Ei '/^test = \[/,/^\]/ { /"(rich|build)",/d }' pyproject.toml
+sed -Ei '/^test = \[/,/^\]/ { /"(rich|build|wheel)",/d }' pyproject.toml
 # Don't blow up all of the tests by failing to report the installed version of build
-sed -i '0,/VERSION_PKGS/{s/, "build"//}' testing/conftest.py
+sed -Ei '0,/VERSION_PKGS/{s/, "(build|wheel)"//g}' testing/conftest.py
 %endif
 
 

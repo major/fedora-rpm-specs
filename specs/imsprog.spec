@@ -1,6 +1,6 @@
 Name: imsprog
 Version: 1.6.2
-Release: 1%dist
+Release: 2%dist
 
 Summary: I2C, SPI and MicroWire EEPROM/Flash chip programmer for CH341a devices
 Summary(ru_RU.UTF-8): I2C, SPI and MicroWire EEPROM/Flash программатор для CH341a устройств
@@ -185,6 +185,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.xml
 %license LICENSE
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jul 1 2025 Mikhail Medvedev 1.6.2-1
 - Fix: program crashed if security registers was less than 256 bytes
 - Fix: Information in the status bar disappears when hovering over a menu

@@ -4,7 +4,7 @@
 
 Name:       libprojectM
 Version:    3.1.12
-Release:    12%{?dist}
+Release:    13%{?dist}
 Summary:    The libraries for the projectM music visualization plugin
 License:    LGPLv2+
 URL:        https://github.com/projectM-visualizer/projectm
@@ -209,6 +209,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/projectM-jack.desktop
 %endif
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.12-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.12-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

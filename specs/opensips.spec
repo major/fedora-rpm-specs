@@ -16,6 +16,10 @@ Patch: opensips-0003-db_ora-null-terminating-string-is-more-safely-most-m.patch
 Patch: opensips-0004-Return-actual-payload-ID-in-case-of-a-dynamic-payloa.patch
 Patch: opensips-0005-Guard-VERSIONTYPE.patch
 Patch: opensips-0006-Replace-distutils-completely.patch
+Patch: opensips-0007-Possible-free-of-unitialized-variable.patch
+Patch: opensips-0008-Possible-use-of-unitialized-variable.patch
+Patch: opensips-0009-Make-GCC-happy.patch
+Patch: opensips-0010-Make-GCC-happy.patch
 
 URL:      https://opensips.org
 

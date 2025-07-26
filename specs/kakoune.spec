@@ -8,7 +8,7 @@
 
 Name:           kakoune
 Version:        2025.06.03
-Release:        0%{?dist}
+Release:        1%{?dist}
 Summary:        Code editor heavily inspired by Vim
 
 License:        Unlicense
@@ -87,6 +87,9 @@ LANG=en_US.utf8 %make_build test
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2025.06.03-1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2024.05.18-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

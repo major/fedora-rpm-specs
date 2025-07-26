@@ -1,7 +1,7 @@
 Summary: The GNU Scientific Library for numerical analysis
 Name: gsl
 Version: 2.8
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: https://www.gnu.org/software/gsl/
 VCS: git://git.savannah.gnu.org/gsl.git
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -77,6 +77,9 @@ rm -f %{buildroot}%{_libdir}/*.la
 %{_includedir}/gsl/
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Feb 02 2025 Orion Poplawski <orion@nwra.com> - 2.8-1
 - Update to 2.8
 

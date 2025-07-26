@@ -1,6 +1,6 @@
 Name:           maven-reporting-api
 Version:        4.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Epoch:          1
 Summary:        API to manage report generation
 License:        Apache-2.0
@@ -48,6 +48,9 @@ rm README.md.orig
 %license LICENSE NOTICE
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.0.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jul 16 2025 Jerry James  <loganjerry@gmail.com> - 1:4.0.0-2
 - Fix end of line encodings
 

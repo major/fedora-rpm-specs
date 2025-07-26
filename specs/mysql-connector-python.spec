@@ -21,7 +21,7 @@
 
 Name:           mysql-connector-python
 Version:        8.0.33
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        MySQL Connector for Python 3
 
 # Automatically converted from old format: GPLv2 with exceptions - review is highly recommended.
@@ -147,6 +147,9 @@ rm -r docs/mysqlx
 %{_mandir}/man1/%{name}3.1.*
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.33-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 21 2025 Michal Schorm <mschorm@redhat.com> - 8.0.33-3
 - Bump release for package rebuild
 

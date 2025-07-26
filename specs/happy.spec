@@ -15,7 +15,7 @@
 Name:           happy
 Version:        2.0.2
 # can only be reset when subpkg bumped
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Parser Generator for Haskell
 
 License:        BSD-2-Clause
@@ -121,6 +121,9 @@ PATH=%{buildroot}%{_bindir}:$PATH
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Apr 07 2025 Jens Petersen <petersen@redhat.com> - 2.0.2-2
 - Rebuild
 

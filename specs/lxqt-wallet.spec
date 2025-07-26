@@ -2,7 +2,7 @@
 
 Name:           %(echo %{srcname} |tr _ - )
 Version:        4.0.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Create a kwallet like functionality for LXQt
 
 License:        BSD-2-Clause
@@ -74,6 +74,9 @@ cp -p frontend/README README-frontend
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

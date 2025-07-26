@@ -3,7 +3,7 @@
 
 Name:      lua-cosmo
 Version:   16.06.04
-Release:   7%{?dist}
+Release:   8%{?dist}
 Summary:   Safe templates for Lua
 License:   MIT
 URL:       %{forgeurl}
@@ -46,6 +46,9 @@ lua tests/test_cosmo.lua
 %{lua_pkgdir}/cosmo/
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 16.06.04-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 16.06.04-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

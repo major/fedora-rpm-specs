@@ -1,6 +1,6 @@
 Name:           perl-Class-C3-Adopt-NEXT
 Version:        0.14
-Release:        29%{?dist}
+Release:        30%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:        Reduce one's dependency on NEXT
 Source:         https://cpan.metacpan.org/authors/id/E/ET/ETHER/Class-C3-Adopt-NEXT-%{version}.tar.gz
@@ -58,6 +58,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

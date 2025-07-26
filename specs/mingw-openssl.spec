@@ -16,7 +16,7 @@
 
 Name:           mingw-openssl
 Version:        3.2.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        MinGW port of the OpenSSL toolkit
 
 License:        OpenSSL
@@ -565,6 +565,9 @@ mkdir -m700 %{buildroot}%{ucrt64_sysconfdir}/pki/CA/private
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Mar 05 2025 Richard W.M. Jones <rjones@redhat.com> - 3.2.4-2
 - Remove downstream 0076-FIPS-140-3-DRBG.patch which breaks Windows
   (RHBZ#2349935, RHBZ#2341677)

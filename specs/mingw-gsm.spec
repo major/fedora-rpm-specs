@@ -5,7 +5,7 @@
 
 Name:           mingw-gsm
 Version:        1.0.16
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Shared libraries for GSM speech compressor
 
 License:        MIT
@@ -242,6 +242,9 @@ popd
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.16-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.16-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           ike-scan
 Version:        1.9.4
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        IKE protocol tool to discover, fingerprint and test IPsec VPN servers
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -52,6 +52,9 @@ autoreconf -s -i
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.4-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.4-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

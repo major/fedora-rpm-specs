@@ -4,7 +4,7 @@
 %global systemd_runtimedir (0%{?fedora} >= 21) || (0%{?rhel} >= 8)
 %global tmpfiles ((0%{?fedora} >= 15) || (0%{?rhel} == 7)) && !%{systemd_runtimedir}
 
-%global baserelease 22
+%global baserelease 23
 %global pre_rel Beta3
 
 Summary: An open source library and milter for providing ARC service
@@ -228,6 +228,9 @@ exit 0
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-0.23.Beta3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 23 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.0.0-0.22.Beta3
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

@@ -10,7 +10,7 @@
 #
 # baserelease is what we have standardized across Fedora and what
 # rpmdev-bumpspec knows how to handle.
-%global baserelease 6
+%global baserelease 7
 
 # This should be e.g. beta1 or %%nil
 %global pre_release %nil
@@ -742,6 +742,9 @@ exit 0
 %{_datarootdir}/%{name}-tests/%{_arch}
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.21.3-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jun 04 2025 Julien Rische <jrische@redhat.com> - 1.21.3-6
 - Do not block HMAC-MD4/5 in FIPS mode
   Resolves: rhbz#2370259

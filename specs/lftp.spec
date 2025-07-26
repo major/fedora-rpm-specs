@@ -1,7 +1,7 @@
 Summary:	A sophisticated file transfer program
 Name:		lftp
 Version:	4.9.3
-Release:	4%{?dist}
+Release:	5%{?dist}
 License:	GPL-3.0-or-later
 Source0:	http://lftp.yar.ru/ftp/%{name}-%{version}.tar.xz
 URL:		http://lftp.yar.ru/
@@ -106,6 +106,9 @@ desktop-file-install	\
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jul 23 2025 Michal Ruprich <mruprich@redhat.com> - 4.9.3-4
 - Resolves: #2380438 - Moving of off /etc/pki/tls/certs/ca-bundle.crt
 

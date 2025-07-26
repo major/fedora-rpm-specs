@@ -1,6 +1,6 @@
 Name:           openpace
 Version:        1.1.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Cryptographic library for EAC version 2
 
 License:        GPL-3.0-only
@@ -94,6 +94,9 @@ rm -rf %{buildroot}%{_docdir}/openpace/_static/bootswatch-3.3.7/fonts
 %doc %{_docdir}/openpace
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

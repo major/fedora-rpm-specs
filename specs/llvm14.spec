@@ -71,7 +71,7 @@
 
 Name:		%{pkg_name}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	NCSA
@@ -564,6 +564,9 @@ fi
 %endif
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 14.0.5-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu May 22 2025 Nikita Popov <npopov@redhat.com> - 14.0.5-12
 - Fix FTBFS (rhbz#2340790)
 - Fix bitcode in archives (rhbz#2365433)

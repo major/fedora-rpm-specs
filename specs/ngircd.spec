@@ -1,6 +1,6 @@
 Name:           ngircd
 Version:        27
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Next Generation IRC Daemon
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -99,6 +99,9 @@ make check
 %{_sysusersdir}/ngircd.conf
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 27-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 27-5
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

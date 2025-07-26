@@ -40,7 +40,7 @@
 Summary: Low-level DNS(SEC) library with API
 Name: ldns
 Version: 1.8.4
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 License: BSD-3-Clause
 Url: https://www.nlnetlabs.nl/%{name}/
@@ -365,6 +365,9 @@ rm -rf doc/man
 %doc doc/*.dox
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.4-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.8.4-4
 - Perl 5.42 rebuild
 

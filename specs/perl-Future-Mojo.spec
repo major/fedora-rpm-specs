@@ -1,6 +1,6 @@
 Name:           perl-Future-Mojo
 Version:        1.003
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Use Future with Mojo::IOLoop
 License:        Artistic-2.0
 URL:            https://metacpan.org/dist/Future-Mojo
@@ -61,6 +61,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/Future::Role*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.003-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.003-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

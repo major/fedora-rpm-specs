@@ -14,7 +14,7 @@ Name:           kiss-fft
 License:        BSD-3-Clause
 
 Version:        %{srcver}.1.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 
 URL:            https://github.com/mborgerding/%{srcname}
 Source0:        %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
@@ -153,6 +153,9 @@ done
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 131.1.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 131.1.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

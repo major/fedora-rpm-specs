@@ -28,7 +28,7 @@
 %endif
 
 # https://github.com/kata-containers/kata-containers
-Version: 3.14.0
+Version: 3.15.0
 %global tag         %{version}%{?rcstr}
 
 %global domain      github.com
@@ -53,7 +53,7 @@ workload isolation and security advantages of VMs. https://katacontainers.io/.}
                     src/agent/README.md
 
 Name:       %{repo}
-Release:    1%{?rcrel}%{?dist}.1
+Release:    1%{?rcrel}%{?dist}
 Summary:    Kata Containers version 3.x repository
 License:    Apache-2.0
 Url:        https://%{download}
@@ -387,6 +387,9 @@ fi
 
 
 %changelog
+* Thu Jul 24 2025 Christophe de Dinechin <dinechin@redhat.com> - 3.15.0-1
+- kata-containers 3.15.0
+
 * Wed Jul 23 2025 Christophe de Dinechin <dinechin@redhat.com> - 3.14.1-1
 - kata-containers 3.14.1, add fix for systemd configuration and rpm sanity test
 

@@ -13,7 +13,7 @@
 
 Name:               pagure
 Version:            5.14.1
-Release:            7%{?dist}
+Release:            8%{?dist}
 Summary:            A git-centered forge
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -605,6 +605,9 @@ done
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.14.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 5.14.1-7
 - Rebuilt for Python 3.14
 

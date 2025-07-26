@@ -1,6 +1,6 @@
 Name:           nekovm
 Version:        2.4.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Neko embedded scripting language and virtual machine
 
 # https://haxe.org/foundation/open-source.html#neko-license
@@ -109,6 +109,9 @@ ulimit -s unlimited
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Mar 19 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 2.4.0-2
 - Rebuild for mbedtls 3.6
 

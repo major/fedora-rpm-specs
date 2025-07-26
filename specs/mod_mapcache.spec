@@ -9,7 +9,7 @@ ExcludeArch: i686
 
 Name:           mod_mapcache
 Version:        %{maj}.%{min}.%{micro}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Caching server for WMS layers
 
 # mapcache-1.14.0/lib/hmac-sha.c - bsd-3
@@ -163,6 +163,9 @@ xmltoman %{SOURCE3} > %{buildroot}%{_mandir}/man1/mapcache_seed.1
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

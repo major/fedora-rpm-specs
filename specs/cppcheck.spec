@@ -1,11 +1,9 @@
-%undefine __cmake_in_source_build
-
 Name:           cppcheck
-Version:        2.17.1
-Release:        3%{?dist}
+Version:        2.18.0
+Release:        1%{?dist}
 Summary:        Tool for static C/C++ code analysis
 License:        GPL-3.0-or-later
-URL:            http://cppcheck.wiki.sourceforge.net/
+URL:            http://cppcheck.sourceforge.io/
 Source0:        https://github.com/danmar/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 # Fix location of translations
@@ -26,7 +24,7 @@ BuildRequires:  qt6-qtbase-devel
 BuildRequires:  qt6-qttools-devel
 BuildRequires:  qt6-linguist
 BuildRequires:  make
-
+BuildRequires:  boost-devel
 
 %description
 Cppcheck is a static analysis tool for C/C++ code. Unlike C/C++
@@ -68,11 +66,13 @@ pandoc man/reference-cfg-format.md -o man/reference-cfg-format.html -s --number-
 
 # Binaries
 # Upstream doesn't support shared libraries (unversioned solib)
-%cmake -DCMAKE_BUILD_TYPE=Release -DUSE_MATCHCOMPILER=ON -DHAVE_RULES=yes -DBUILD_GUI=1 -DUSE_QT6=1 -DBUILD_SHARED_LIBS:BOOL=OFF -DBUILD_TESTS=yes -DFILESDIR=%{_datadir}/Cppcheck -DUSE_BUNDLED_TINYXML2=OFF -DENABLE_OSS_FUZZ=OFF
+%cmake -DCMAKE_BUILD_TYPE=Release -DUSE_MATCHCOMPILER=ON -DHAVE_RULES=yes -DBUILD_GUI=1 -DUSE_QT6=1 -DBUILD_SHARED_LIBS:BOOL=OFF -DBUILD_TESTS=yes -DFILESDIR=%{_datadir}/Cppcheck -DUSE_BUNDLED_TINYXML2=OFF -DENABLE_OSS_FUZZ=OFF -DUSE_BOOST=1
+%ifarch i686
+export RPM_BUILD_NCPUS=1
+%endif
 %cmake_build
 
 %install
-rm -rf %{buildroot}
 %cmake_install
 install -D -p -m 644 cppcheck.1 %{buildroot}%{_mandir}/man1/cppcheck.1
 # Install desktop file
@@ -88,8 +88,11 @@ install -D -p -m 755 htmlreport/cppcheck-htmlreport %{buildroot}%{_bindir}/cppch
 grep -l "#\!/usr/bin/env python3" %{buildroot}%{_datadir}/Cppcheck/addons/*.py | xargs chmod +x
 
 %check
-cd %{_vpath_builddir}/bin
-./testrunner -g -q
+%ifarch i686
+%ctest -E "TestCppcheck|TestCondition|TestCmdlineParser|TestFileLister"
+%else
+%ctest -E "TestCppcheck|TestCondition"
+%endif
 
 %files
 %doc AUTHORS man/manual.html man/reference-cfg-format.html
@@ -109,6 +112,9 @@ cd %{_vpath_builddir}/bin
 %{_bindir}/cppcheck-htmlreport
 
 %changelog
+* Mon Jul 21 2025 Gwyn Ciesla <gwync@protonmail.com> - 2.18.0-1
+- 2.18.0
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.17.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

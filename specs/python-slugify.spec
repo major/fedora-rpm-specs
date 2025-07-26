@@ -1,8 +1,8 @@
 %global pypi_name slugify
 
 Name:           python-slugify
-Version:        6.1.2
-Release:        12%{?dist}
+Version:        8.0.4
+Release:        1%{?dist}
 Summary:        Python module to deal with unicode slugs
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -49,6 +49,9 @@ A Python slugify application that handles Unicode.
 
 
 %changelog
+* Thu Jul 24 2025 Federico Pellegrin <fede@evolware.org> - 8.0.4-1
+- Bump to 8.0.4
+
 * Tue Jul 22 2025 Federico Pellegrin <fede@evolware.org> - 6.1.2-12
 - Use new Python macros in spec file (rhbz#2378211)
 

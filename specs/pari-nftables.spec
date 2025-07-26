@@ -1,6 +1,6 @@
 Name:           pari-nftables
 Version:        20080929
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        PARI/GP Computer Algebra System number field tables
 
 # See http://pari.math.u-bordeaux.fr/packages.html for license information.
@@ -45,6 +45,9 @@ cp -a nftables %{buildroot}%{_datadir}/pari
 %{_datadir}/pari/
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20080929-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20080929-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

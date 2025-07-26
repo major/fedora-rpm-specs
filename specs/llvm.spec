@@ -316,7 +316,7 @@
 #region main package
 Name:		%{pkg_name_llvm}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -2804,6 +2804,12 @@ fi
 }}
 %endif
 
+%if %{maj_ver} >= 22
+%{expand_bins %{expand:
+    llvm-ir2vec
+}}
+%endif
+
 %{expand_mans %{expand:
     bugpoint
     clang-tblgen
@@ -2861,6 +2867,12 @@ fi
     opt
     tblgen
 }}
+
+%if %{maj_ver} >= 22
+%{expand_mans %{expand:
+    llvm-ir2vec
+}}
+%endif
 
 %expand_datas opt-viewer
 
@@ -3432,6 +3444,9 @@ fi
 
 #region changelog
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20.1.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jul 09 2025 Nikita Popov <npopov@redhat.com> - 20.1.8-1
 - Update to LLVM 20.1.8
 

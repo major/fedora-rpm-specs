@@ -1,6 +1,6 @@
 Name:           massdns
 Version:        0.3
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        High-performance DNS stub resolver for bulk lookups and reconnaissance
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -33,6 +33,9 @@ over 350,000 names per second using publicly available resolvers.
 %{_bindir}/%{name}
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

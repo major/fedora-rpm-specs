@@ -2,7 +2,7 @@
 
 Name:    ibm-plex-fonts
 Version: 6.4.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: IBM Plex, the new IBM set of coordinated grotesque corporate fonts
 
 License: OFL-1.1
@@ -119,6 +119,9 @@ Source18: 59-%{fontpkgname8}.xml
 %fontfiles -a
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:		perl-Image-ExifTool
 Version:	13.10
-Release:	2%{?dist}
+Release:	3%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:	Utility for reading and writing image meta info
 URL:		http://www.sno.phy.queensu.ca/%7Ephil/exiftool/
@@ -88,6 +88,9 @@ make test
 %{_mandir}/man3/Image::ExifTool*.3pm*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 13.10-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 18 2025 Xavier Bachelot <xavier@bachelot.org> - 13.10-2
 - Use CPAN URL, which only ships stable releases
 - Clean up specfile

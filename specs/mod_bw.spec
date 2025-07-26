@@ -3,7 +3,7 @@
 
 Name:           mod_bw
 Version:        0.8
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Bandwidth Limiter For Apache
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -50,6 +50,9 @@ install -Dpm 644 %{SOURCE1} \
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

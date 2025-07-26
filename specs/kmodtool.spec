@@ -3,7 +3,7 @@
 
 Name:           kmodtool
 Version:        1.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Tool for building kmod packages
 License:        MIT
 URL:            http://rpmfusion.org/Packaging/KernelModules/Kmods2
@@ -46,6 +46,9 @@ install -p -m 0644 %{SOURCE4} %{buildroot}%{_rpmmacrodir}/
 %{_rpmmacrodir}/macros.kmodtool
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Mar 06 2025 Leigh Scott <leigh123linux@gmail.com> - 1.1-13
 - Use fedora compression flags
 

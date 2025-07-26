@@ -1,6 +1,6 @@
 Name:           perl-End
 Version:        2009110401
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Generalized END blocks
 License:        MIT
 URL:            https://metacpan.org/release/End
@@ -50,6 +50,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2009110401-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2009110401-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 Name: hunspell-kn
 Summary: Kannada hunspell dictionaries
 Version: 1.0.3
-Release: 33%{?dist}
+Release: 34%{?dist}
 Source: https://downloads.sourceforge.net/project/aoo-extensions/2628/1/kannada.oxt
 URL: https://extensions.openoffice.org/project/kannada
 License: GPL-2.0-or-later OR LGPL-2.1-or-later OR MPL-1.1
@@ -35,6 +35,9 @@ cp -p kn_IN.* $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/
 %{_datadir}/%{dict_dirname}/kn_IN.dic
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

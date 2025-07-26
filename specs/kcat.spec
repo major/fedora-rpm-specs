@@ -3,7 +3,7 @@ Version:         1.7.1
 %global ref      %{version}
 %forgemeta
 Name:            kcat
-Release:         7%{?dist}
+Release:         8%{?dist}
 Summary:         Generic command line non-JVM Apache Kafka producer and consumer
 
 License:         BSD-2-Clause
@@ -54,6 +54,9 @@ sed -i -e 's/echo $(INSTALL)/$(INSTALL)/g' Makefile
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

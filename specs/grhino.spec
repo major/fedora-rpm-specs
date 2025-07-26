@@ -1,6 +1,6 @@
 Name:           grhino
 Version:        0.16.1
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Reversi game for GNOME, supporting the Go/Game Text Protocol
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -78,6 +78,9 @@ scrollkeeper-update -q || :
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.1-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.1-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

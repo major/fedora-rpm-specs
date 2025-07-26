@@ -1,6 +1,6 @@
 Name:          klevernotes
 Version:       1.2.2
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       BSD-3-Clause AND CC-BY-SA-4.0 AND CC0-1.0 AND FSFAP AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only
 Summary:       A convergent markdown note taking application
 URL:           https://apps.kde.org/klevernotes/
@@ -75,6 +75,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_kf6_metainfodir}/org.kde.klevernotes.metainfo.xml
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Mar 30 2025 Steve Cossette <farchord@gmail.com> - 1.2.2-1
 - 1.2.2
 

@@ -3,7 +3,7 @@
 
 Name:           lxqt-wayland-session
 Version:        0.2.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Wayland session files for LXQt
 # See "LICENSE" for a breakdown of license usage
 License:        LGPL-2.1-only AND GPL-3.0-only AND MIT AND GPL-2.0-only AND BSD-3-Clause
@@ -245,6 +245,9 @@ rm -v %{buildroot}%{_datadir}/lxqt/wayland/lxqt-hyprland.conf
 %fdupes -s %{buildroot}%{_datadir}/themes/
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jun 20 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.2.0-2
 - Restore niri support
 

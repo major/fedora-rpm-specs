@@ -14,7 +14,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       20.1.8
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       LLVM for MinGW
 # Only on i686: ld: out of memory allocating 1174616688 bytes after a total of 1517842432 bytes
 ExcludeArch:   i686
@@ -244,6 +244,9 @@ chrpath --delete %{buildroot}%{_prefix}/%{mingw64_target}/bin/llvm-tblgen
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20.1.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jul 12 2025 Sandro Mani <manisandro@gmail.com> - 20.1.8-1
 - Update to 20.1.8
 

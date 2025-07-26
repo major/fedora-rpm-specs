@@ -1,6 +1,6 @@
 Name:           openelp
 Version:        0.9.3
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Open Source EchoLink Proxy
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -115,6 +115,9 @@ install -m0644 -D openelp.sysusers.conf %{buildroot}%{_sysusersdir}/openelp.conf
 
 
 %changelog
+* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.9.3-5
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 
