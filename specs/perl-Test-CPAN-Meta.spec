@@ -7,7 +7,7 @@
 
 Name:           perl-Test-CPAN-Meta
 Version:        0.25
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Validation of the META.yml file in a CPAN distribution
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Test-CPAN-Meta
@@ -74,6 +74,9 @@ make test AUTOMATED_TESTING=1
 %{_mandir}/man3/Test::CPAN::Meta::Version.3*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.25-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.25-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Sub-Infix
 Version:        0.004
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Create a fake infix operator
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Sub-Infix
@@ -51,6 +51,9 @@ source filters, or Devel::Declare, or any of that magic.
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.004-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.004-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

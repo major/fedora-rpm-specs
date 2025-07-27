@@ -3,7 +3,7 @@
 
 Name:           perl-meta
 Version:        0.013
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Meta-programming API
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/meta
@@ -92,6 +92,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.013-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.013-2
 - Perl 5.42 rebuild
 

@@ -7,7 +7,7 @@
 
 Name:           slitherer
 Version:        0~git%{commitdate}.%{shortcommit}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple QtWebView based runner for Anaconda installer Web UI
 
 License:        MPL-2.0 and BSD-3-Clause
@@ -65,6 +65,9 @@ ln -sr %{buildroot}%{_bindir}/%{name} %{buildroot}%{_bindir}/%{name}-anaconda
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0~git20250617.1e00f77-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 17 2025 Neal Gompa <ngompa@fedoraproject.org> - 0~git20250617.1e00f77b-1
 - Initial package
 

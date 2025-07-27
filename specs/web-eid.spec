@@ -7,7 +7,7 @@
 
 Name:    web-eid
 Version: 2.6.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Web eID browser extension helper application
 License: MIT
 URL:     https://github.com/web-eid/web-eid-app
@@ -99,6 +99,9 @@ fi
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun May 11 2025 Germano Massullo <germano.massullo@gmail.com> - 2.6.0-3
 - Removed unnecessary %%global _hardened_build 1
 

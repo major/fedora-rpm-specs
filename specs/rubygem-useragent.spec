@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.16.11
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: HTTP User Agent parser
 License: MIT
 URL: https://github.com/gshutler/useragent
@@ -65,6 +65,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.11-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

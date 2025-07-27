@@ -41,7 +41,7 @@
 Summary: A widely used Mail Transport Agent (MTA)
 Name: sendmail
 Version: 8.18.1
-Release: 12%{?dist}
+Release: 13%{?dist}
 License: sendmail-8.23 AND MIT AND MIT-CMU AND BSD-3-Clause AND CDDL-1.0 AND BSD-4-Clause AND BSD-4-Clause-UC AND PostgreSQL AND ISC AND HPND-sell-variant AND mailprio
 URL: http://www.sendmail.org/
 
@@ -757,6 +757,9 @@ exit 0
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.18.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed May 14 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 8.18.1-12
 - Fixed alternative scripts for /usr/(s)bin merge
 

@@ -2,7 +2,7 @@ Name: pnm2ppa
 Summary: Drivers for printing to HP PPA printers
 Epoch: 1
 Version: 1.13
-Release: 6%{?dist}
+Release: 7%{?dist}
 URL: http://sourceforge.net/projects/pnm2ppa 
 Source: http://download.sourceforge.net/pnm2ppa/pnm2ppa-%{version}.tar.gz
 # Following sourcelink is dead currently.
@@ -117,6 +117,9 @@ done
 %config(noreplace) %{_sysconfdir}/pbm2ppa.conf
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.13-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Mar 03 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1:1.13-6
 - FTBFS with GCC 15 (fedora#2341084)
 

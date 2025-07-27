@@ -9,7 +9,7 @@
 Summary: Qt6 - QtImageFormats component
 Name:    qt6-%{qt_module}
 Version: 6.9.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -83,6 +83,9 @@ rm -rv src/3rdparty
 %{_qt6_libdir}/cmake/Qt6Gui/*.cmake
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.9.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.1-1
 - 6.9.1
 

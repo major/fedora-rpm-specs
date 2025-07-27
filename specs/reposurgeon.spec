@@ -2,8 +2,8 @@
 %global debug_package %{nil}
 
 Name:           reposurgeon
-Version:        5.2
-Release:        2%{?dist}
+Version:        5.3
+Release:        1%{?dist}
 Summary:        SCM Repository Manipulation Tool
 License:        BSD-2-Clause
 URL:            http://www.catb.org/~esr/reposurgeon/
@@ -74,6 +74,9 @@ rm -f %{buildroot}%{_mandir}/man1/repobench.1*
 export GOPATH=$(pwd):%{gopath}
 export GO111MODULE=off
 
+# Disable go vet for newer Go versions
+sed -i 's/go test /go test -vet=off /g' Makefile
+
 make check
 
 %files
@@ -90,6 +93,13 @@ make check
 %{_mandir}/man1/repotool.1*
 
 %changelog
+* Fri Jul 25 2025 Denis Fateyev <denis@fateyev.com> - 5.3-1
+- Disable go vet in tests
+- Update to 5.3
+
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

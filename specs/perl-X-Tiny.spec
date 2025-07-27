@@ -1,6 +1,6 @@
 Name:           perl-X-Tiny
 Version:        0.22
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Base class for a bare-bones exception factory
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/X-Tiny
@@ -57,6 +57,9 @@ make test
 %{_mandir}/man3/X::Tiny*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.22-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Apr 04 2025 Chris Adams <linux@cmadams.net> 0.22-4
 - add missing Requires on perl(overload) (done with eval so missed by autodep)
 

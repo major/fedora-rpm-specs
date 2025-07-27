@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.1.4
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Python wrapper for GIOS air quality data
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -50,6 +50,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.1.4-18
 - Rebuilt for Python 3.14
 

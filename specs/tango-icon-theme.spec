@@ -1,6 +1,6 @@
 Name:           tango-icon-theme
 Version:        0.8.90
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Icon theme from Tango Project
 Summary(de):    Symbolthema vom Tango Projekt
 Summary(es):    Iconos del Proyecto Tango
@@ -79,6 +79,9 @@ gtk-update-icon-cache -q %{_datadir}/icons/Tango &>/dev/null || :
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.90-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.90-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -43,7 +43,7 @@ Summary: Qt toolkit
 Name:    qt
 Epoch:   1
 Version: 4.8.7
-Release: 80%{?dist}
+Release: 81%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 # Automatically converted from old format: (LGPLv2 with exceptions or GPLv3 with exceptions) and ASL 2.0 and BSD and FTL and MIT - review is highly recommended.
@@ -1419,6 +1419,9 @@ fi
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.8.7-81
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 24 2025 Than Ngo <than@redhat.com> - 1:4.8.7-80
 - Fix rhbz#2341255, FTBFS due to new icu76
 

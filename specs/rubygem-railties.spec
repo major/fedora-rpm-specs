@@ -6,7 +6,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 8.0.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Tools for creating, working with, and running Rails applications
 License: MIT
 URL: https://rubyonrails.org
@@ -289,6 +289,9 @@ rm -rf ${PG_DIR}
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jul 10 2025 Vít Ondruch <vondruch@redhat.com> - 8.0.2-2
 - Fix tests failing in Active Storage test suite.
 

@@ -3,7 +3,7 @@
 
 Name:		uget
 Version:	%{mainver}
-Release:	14%{?minorver:.respin%minorver}%{?dist}
+Release:	15%{?minorver:.respin%minorver}%{?dist}
 Summary:	Download manager using GTK+ and libcurl
 
 # Overall		LGPL-2.1-or-later
@@ -76,6 +76,9 @@ desktop-file-install \
 %{_datadir}/pixmaps/%{name}/logo.png
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.3-15.respin1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.2.3-14.respin1
 - Support C23 strict prototype
 

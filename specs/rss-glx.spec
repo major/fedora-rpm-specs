@@ -16,7 +16,7 @@
 Summary: Really Slick Screensavers
 Name: rss-glx
 Version: 0.9.1%{patchext}
-Release: 63%{?dist}
+Release: 64%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
 URL: http://rss-glx.sourceforge.net/
@@ -170,6 +170,9 @@ fi
 %{xssbindir}/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1.p-64
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 17 2025 josef radinger <cheese@nosuchhost.net> - 0.9.1.p-63
 - rebuild for broken dependency on libMagickWand
 

@@ -9,7 +9,7 @@
 Summary: Tools for certain user account management tasks
 Name: usermode
 Version: 1.114
-Release: 12%{?dist}
+Release: 13%{?dist}
 License: GPL-2.0-or-later
 URL: https://pagure.io/%{name}/
 Source: https://releases.pagure.org/%{name}/%{name}-%{version}.tar.xz
@@ -115,6 +115,9 @@ done
 %endif
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.114-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 30 2025 Michal Hlavinka <mhlavink@redhat.com> - 1.114-12
 - fix static analysis issues and ftbfs
 

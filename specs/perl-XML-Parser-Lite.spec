@@ -2,7 +2,7 @@ Name:           perl-XML-Parser-Lite
 # Use three digits since 0.719 -> 0.72
 %global cpan_version 0.722
 Version:        %{cpan_version}
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Lightweight regexp-based XML parser
 License:        ( GPL-1.0-or-later OR Artistic-1.0-Perl ) AND LicenseRef-REX
 URL:            https://metacpan.org/release/XML-Parser-Lite
@@ -50,6 +50,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.722-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.722-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

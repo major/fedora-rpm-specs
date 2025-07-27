@@ -1,6 +1,6 @@
 Name: realtime-setup
 Version: 2.5
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: GPL-2.0-or-later
 Summary: Setup RT/low-latency environment details
 Source0: https://gitlab.com/rt-linux-tools/%{name}/-/archive/v%{version}/%{name}-%{version}.tar.bz2
@@ -78,6 +78,9 @@ install -m0644 -D realtime-setup.sysusers.conf %{buildroot}%{_sysusersdir}/realt
 %{_sysusersdir}/realtime-setup.conf
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.5-6
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

@@ -1,6 +1,6 @@
 Name:           spicctrl
 Version:        1.9
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Sony Vaio laptop SPIC control program
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -58,6 +58,9 @@ fi
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

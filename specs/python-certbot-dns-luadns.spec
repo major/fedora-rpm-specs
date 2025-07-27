@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.1.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        LuaDNS Authenticator plugin for Certbot
 
 License:        Apache-2.0
@@ -77,6 +77,9 @@ rm -rf html/.{doctrees,buildinfo}
 %doc html
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jun 27 2025 Python Maint <python-maint@redhat.com> - 2.1.0-8
 - Rebuilt for Python 3.14
 

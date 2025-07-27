@@ -1,6 +1,6 @@
 Name:           yersinia
 Version:        0.8.2
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Network protocols tester and attacker
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -66,6 +66,9 @@ make %{?_smp_mflags} CFLAGS="%{optflags} -fcommon"
 %{_bindir}/%{name}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

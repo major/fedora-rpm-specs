@@ -1,7 +1,7 @@
 Name:           perl-re-engine-RE2
 Summary:        RE2 regex engine
 Version:        0.18
-Release:        12%{?dist}
+Release:        13%{?dist}
 # lib/re/engine/RE2.pm: GPL-1.0-or-later OR Artistic-1.0-Perl
 # ppport.h:             GPL-1.0-or-later OR Artistic-1.0-Perl
 # README:               GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -204,6 +204,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.18-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.18-12
 - Perl 5.42 rebuild
 

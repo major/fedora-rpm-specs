@@ -1,7 +1,7 @@
 Name:		ptlib
 Summary:	Portable Tools Library
 Version:	2.10.11
-Release:	20%{?dist}
+Release:	21%{?dist}
 URL:		http://www.opalvoip.org/
 # Automatically converted from old format: MPLv1.0 - review is highly recommended.
 License:	LicenseRef-Callaway-MPLv1.0
@@ -100,6 +100,9 @@ chmod -R u+w %{buildroot}/*
 %attr(755,root,root) %{_bindir}/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.11-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.11-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

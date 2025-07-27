@@ -1,6 +1,6 @@
 Name:           perl-TermReadKey
 Version:        2.38
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        A perl module for simple terminal control
 License:        TermReadKey AND (GPL-1.0-or-later OR Artistic-1.0-Perl)
 URL:            https://metacpan.org/release/TermReadKey
@@ -88,6 +88,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.38-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 2.38-25
 - Perl 5.42 rebuild
 

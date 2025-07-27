@@ -3,7 +3,7 @@
 
 %global		mainver		1.5
 
-%global		baserelease	10
+%global		baserelease	11
 %global		rpmrel		%{baserelease}%{?postver:.%postrpmver}
 
 Name:		tideEditor
@@ -60,6 +60,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_bindir}/tideEditor
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-11.r2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-10.r2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

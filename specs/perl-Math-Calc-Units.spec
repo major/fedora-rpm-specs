@@ -1,6 +1,6 @@
 Name:		perl-Math-Calc-Units
 Version:	1.07
-Release:	44%{?dist}
+Release:	45%{?dist}
 Summary:	Human-readable unit-aware calculator
 License:	GPL-2.0-only OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Math-Calc-Units
@@ -68,6 +68,9 @@ make test
 %{_mandir}/man3/Math::Calc::Units.3*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.07-45
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.07-44
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

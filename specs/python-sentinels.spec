@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.0.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Various objects to denote special meanings in Python
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -47,6 +47,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.0.0-17
 - Rebuilt for Python 3.14
 

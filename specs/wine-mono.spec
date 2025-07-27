@@ -4,7 +4,7 @@
 
 Name:           wine-mono
 Version:        10.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Mono library required for Wine
 
 License:        GPL-2.0-or-later AND LGPL-2.1-only AND MIT AND BSD-4-Clause-UC AND MS-PL AND MPL-1.1
@@ -121,6 +121,9 @@ cp mono-basic/LICENSE mono-basic-LICENSE
 %{_datadir}/wine/mono/wine-mono-%{version}/
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 10.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 30 2025 Björn Esser <besser82@fedoraproject.org> - 10.1.0-1
 - version upgrade
 - Fix FTBFS by forcing DWARF debuginfo

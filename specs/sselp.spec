@@ -1,6 +1,6 @@
 Name:           sselp
 Version:        0.2
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Prints X selection to standard out
 License:        MIT
 URL:            http://tools.suckless.org/%{name}
@@ -34,6 +34,9 @@ make %{?_smp_mflags}
 %{_bindir}/%{name}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

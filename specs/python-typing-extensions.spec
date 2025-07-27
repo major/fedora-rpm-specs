@@ -1,6 +1,6 @@
 Name:           python-typing-extensions
 Version:        4.14.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Backported and Experimental Type Hints for Python
 
 License:        PSF-2.0
@@ -63,6 +63,9 @@ cd src
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.14.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jul 04 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 4.14.1-1
 - Updated to version 4.14.1 (close RHBZ#2376358)
 

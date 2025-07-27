@@ -1,6 +1,6 @@
 Name:           pybox2d
 Version:        2.3.2
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        A 2D rigid body simulation library for Python
 
 License:        zlib
@@ -51,6 +51,9 @@ This package provides the Python 3 build of %{name}.
 %doc README.md examples/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.2-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jul 08 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 2.3.2-30
 - Migrate to new python build macros (rhbz: 2377383)
 

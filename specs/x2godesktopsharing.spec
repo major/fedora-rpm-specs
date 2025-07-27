@@ -1,6 +1,6 @@
 Name:           x2godesktopsharing
 Version:        3.2.0.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Share X11 desktops with other users via X2Go
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -79,6 +79,9 @@ install -m0644 -D x2godesktopsharing.sysusers.conf %{buildroot}%{_sysusersdir}/x
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.2.0.0-17
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

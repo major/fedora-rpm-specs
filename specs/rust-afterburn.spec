@@ -7,7 +7,7 @@
 
 Name:           rust-afterburn
 Version:        5.9.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple cloud provider agent
 
 License:        Apache-2.0
@@ -159,6 +159,9 @@ cp -a dracut/* %{buildroot}%{dracutmodulesdir}
 %endif
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.9.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jul 08 2025 Packit <hello@packit.dev> - 5.9.0-1
 - New upstream release
 

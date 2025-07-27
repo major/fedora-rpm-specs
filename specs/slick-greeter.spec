@@ -3,7 +3,7 @@
 Summary:	A slick-looking LightDM greeter
 Name:		slick-greeter
 Version:	2.0.9
-Release:	4%{?dist}
+Release:	5%{?dist}
 License:	GPL-3.0-or-later
 URL:		https://github.com/linuxmint/%{name}
 Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -137,6 +137,9 @@ NOCONFIGURE=1 ./autogen.sh
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.9-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon May 19 2025 Leigh Scott <leigh123linux@gmail.com> - 2.0.9-4
 - Use a better fix for new gettext
 

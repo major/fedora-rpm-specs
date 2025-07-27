@@ -1,6 +1,6 @@
 Name:           perl-Test-FailWarnings
 Version:        0.008
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Add test failures if warnings are caught
 License:        Apache-2.0
 
@@ -57,6 +57,9 @@ need to know the test count in advance.
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.008-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.008-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

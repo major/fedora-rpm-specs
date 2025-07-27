@@ -3,7 +3,7 @@
 
 Name:           perl-Parse-DMIDecode
 Version:        0.03
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        Interface to SMBIOS using dmidecode
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -84,6 +84,9 @@ unset DEBUG
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

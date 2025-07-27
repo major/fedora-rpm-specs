@@ -27,7 +27,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        7.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Export PHP variables for visualization, version %{major}
 
 License:        BSD-3-Clause
@@ -113,6 +113,9 @@ exit $ret
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Feb 10 2025 Remi Collet <remi@remirepo.net> - 7.0.0-2
 - enable test suite
 

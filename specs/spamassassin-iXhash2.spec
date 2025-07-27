@@ -3,7 +3,7 @@
 Summary:        SpamAssassin plugin to lookup e-mail checksums in blacklists
 Name:           spamassassin-%{pkgname}
 Version:        4.00
-Release:        4%{?dist}
+Release:        5%{?dist}
 License:        Apache-2.0
 URL:            https://mailfud.org/%{pkgname}/
 Source0:        https://mailfud.org/%{pkgname}/%{pkgname}-%{version}.tar.gz
@@ -48,6 +48,9 @@ perldoc %{pkgname}.pm > $RPM_BUILD_ROOT%{_mandir}/man3/Mail::SpamAssassin::Plugi
 %{_mandir}/man3/*.3pm*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.00-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Feb 19 2025 Robert Scheck <robert@fedoraproject.org> 4.00-4
 - Remove retired iXhash blacklists from default configuration
   and provide only example configuration (#2345751, #2346368)

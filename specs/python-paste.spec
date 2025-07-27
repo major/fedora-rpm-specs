@@ -6,7 +6,7 @@ interfaces.
 
 Name:           python-paste
 Version:        3.10.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 BuildArch:      noarch
 
 # Most of the code is MIT
@@ -91,6 +91,9 @@ py.test-3 -k "not test_paste_website and not test_proxy_to_website and not test_
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 14 2025 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 3.10.1-8
 - Migrate from py_build/py_install to pyproject macros (bz#2378583)
 

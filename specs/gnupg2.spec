@@ -5,7 +5,7 @@
 Summary: Utility for secure communication and data storage
 Name:    gnupg2
 Version: 2.4.8
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later AND (BSD-3-Clause OR LGPL-3.0-or-later OR GPL-2.0-or-later) AND CC-BY-4.0 AND MIT
 Source0: https://gnupg.org/ftp/gcrypt/%{?pre:alpha/}gnupg/gnupg-%{version}%{?pre}.tar.bz2
@@ -41,6 +41,9 @@ Patch35: 0033-Support-large-RSA-keygen-in-non-batch-mode.patch
 
 # Fixes for issues found in Coverity scan - reported upstream
 Patch40: gnupg-2.4.7-coverity.patch
+
+# add a root certificate bundle due to changes in ca-certificates (#2380121)
+Patch45: gnupg-2.4.8-ca-certificates-bundle.patch
 
 URL:     https://www.gnupg.org/
 
@@ -427,6 +430,10 @@ make -k check
 
 
 %changelog
+* Fri Jul 25 2025 Frantisek Krenzelok <fkrenzel@redhat.com> - 2.4.8-4
+- add a root certificate bundle due to changes in ca-certificates (#2380121)
+- https://fedoraproject.org/wiki/Changes/dropingOfCertPemFile
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

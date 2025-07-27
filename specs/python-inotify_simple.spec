@@ -24,7 +24,7 @@ whistles, just a literal wrapper with ctypes. Only 122 lines of code!
 
 Name:           python-%sname
 Version:        1.3.5
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        %{sum Python}
 BuildArch:      noarch
 
@@ -98,6 +98,9 @@ Summary:        %{sum Python 3}
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.5-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.3.5-13
 - Rebuilt for Python 3.14
 

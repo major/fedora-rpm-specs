@@ -4,7 +4,7 @@
 
 %define name    safekeep
 %define version 1.5.1
-%define release 5
+%define release 6
 %define homedir %{_localstatedir}/lib/%{name}
 
 Name:           %{name}
@@ -108,6 +108,9 @@ install -m0644 -D safekeep.sysusers.conf %{buildroot}%{_sysusersdir}/safekeep.co
 %{_sysusersdir}/safekeep.conf
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1^20230910git75e66fe-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.5.1^20230910git75e66fe-5
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

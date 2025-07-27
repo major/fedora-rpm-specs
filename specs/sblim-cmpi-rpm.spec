@@ -1,6 +1,6 @@
 Name:           sblim-cmpi-rpm
 Version:        1.0.1
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        CIM access to installed software packages (currently RPMs)
 
 License:        CPL-1.0
@@ -164,6 +164,9 @@ fi
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

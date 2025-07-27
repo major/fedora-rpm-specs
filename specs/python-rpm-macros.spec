@@ -55,7 +55,7 @@ elseif posix.stat('macros.python-srpm') then
 end
 }
 Version:        %{__default_python3_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 BuildArch:      noarch
 
@@ -167,6 +167,9 @@ grep -E '^#[^%%]*%%[^%%]' %{buildroot}%{rpmmacrodir}/macros.* && exit 1 || true
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org>
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 21 2025 Íñigo Huguet <ihuguet@riseup.net> - 3.14-3
 - pathfix.py: Don't fail on symbolic links
 

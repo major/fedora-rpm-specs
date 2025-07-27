@@ -1,6 +1,6 @@
 Name:           webrtc-audio-processing
 Version:        1.3
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Library for echo cancellation
 
 License:        BSD-3-Clause
@@ -65,6 +65,9 @@ files for developing applications that use %{name}.
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon May 26 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 1.3-7
 - Rebuilt for abseil-cpp 20250512.0
 

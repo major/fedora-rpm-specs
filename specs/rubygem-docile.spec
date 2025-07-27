@@ -3,7 +3,7 @@
 Summary:       Docile keeps your Ruby DSLs tame and well-behaved
 Name:          rubygem-%{gem_name}
 Version:       1.1.5
-Release:       23%{?dist}
+Release:       24%{?dist}
 License:       MIT
 URL:           https://ms-ati.github.com/docile/
 Source0:       https://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -83,6 +83,9 @@ rspec -Ilib spec
 %{gem_instdir}/spec
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.5-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.5-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

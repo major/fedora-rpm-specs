@@ -9,10 +9,10 @@
 Name:           variety
 %if 0%{?usesnapshot}
 Version:        0.8.6
-Release:        0.12%{?snapshottag}%{?dist}
+Release:        0.13%{?snapshottag}%{?dist}
 %else
 Version:        0.8.13
-Release:        3%{?dist}
+Release:        4%{?dist}
 %endif
 Summary:        Wallpaper changer that automatically downloads wallpapers
 License:        GPL-3.0-only
@@ -124,6 +124,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.13-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jul 09 2025 Martin Gansser <martinkg@fedoraproject.org> - 0.8.13-3
 - Updated to use %%pyproject_* macros
 

@@ -1,6 +1,6 @@
 Name:           xfoil
 Version:        6.99
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Subsonic Airfoil Development System
 
 # Plotlib is LGPLv2+, the rest is GPLv2+
@@ -63,6 +63,9 @@ install -Dpm 0644 orrs/osmap.dat %{buildroot}/%{_datadir}/%{name}/osmap.dat
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.99-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.99-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.7.2
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Shell combinators library
 
 License:        MIT
@@ -85,6 +85,9 @@ rm -rf %{pypi_name}.egg-info
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.2-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.7.2-12
 - Rebuilt for Python 3.14
 

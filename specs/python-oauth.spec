@@ -1,6 +1,6 @@
 Name:           python-oauth
 Version:        1.0.1
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Library for OAuth version 1.0a
 
 License:        MIT
@@ -53,6 +53,9 @@ Summary: %summary
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jul 13 2025 Richard Shaw <hobbes1069@gmail.com> - 1.0.1-40
 - Update to use pyproject over deprecated setuptools for builds.
 - Add patch for urlparse as for Python 3 it has been moved to urllib.parse.

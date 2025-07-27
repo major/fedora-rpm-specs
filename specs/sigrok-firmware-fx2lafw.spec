@@ -1,6 +1,6 @@
 Name:           sigrok-firmware-fx2lafw
 Version:        0.1.7
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Firmware for logic analyzers based on the Cypress EZ-USB FX2(LP) chip
 # Combined and LGPLv2+ and GPLv2+
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -36,6 +36,9 @@ make %{?_smp_mflags}
 %{_datadir}/sigrok-firmware/fx2lafw-*.fw
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.7-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.7-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Web-Paste-Simple
 Version:        0.002
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Simple PSGI-based pastebin-like web site
 # CONTRIBUTING:             GPL-1.0-or-later OR Artistic-1.0-Perl OR CC-BY-SA-2.0-UK
 # lib/Web/Paste/Simple.pm   GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -147,6 +147,9 @@ exit 0
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.002-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Feb 12 2025 Petr Pisar <ppisar@redhat.com> - 0.002-32
 - Fix creating users on Fedora < 42
 

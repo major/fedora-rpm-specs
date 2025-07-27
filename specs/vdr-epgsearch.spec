@@ -16,7 +16,7 @@
 
 Name:           vdr-%{pname}
 Version:        2.4.3
-Release:        6%{?dist}
+Release:        7%{?dist}
 # Release:        0.12.%%{gitdate}git%%{shortcommit0}%%{?dist}
 Summary:        Powerful schedules menu replacement plugin for VDR
 
@@ -95,6 +95,9 @@ install -dm 755 $RPM_BUILD_ROOT%{vdr_vardir}/epgsearch
 %defattr(-,root,root,-)
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.3-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jun 21 2025 Martin Gansser <martinkg@fedoraproject.org> - 2.4.3-6
 - Rebuilt for new VDR API version 2.7.6
 

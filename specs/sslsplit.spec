@@ -1,7 +1,7 @@
 Summary: Transparent and scalable SSL/TLS interception
 Name: sslsplit
 Version: 0.5.5
-Release: 16%{?dist}
+Release: 17%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
 Url: http://www.roe.ch/SSLsplit
@@ -53,6 +53,9 @@ cp -a %{name}.1  %{buildroot}%{_mandir}/man1/
 %{_mandir}/*/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.5-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.5-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

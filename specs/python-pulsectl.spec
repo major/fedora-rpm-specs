@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        24.12.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python high-level interface and ctypes-based bindings for PulseAudio
 
 License:        MIT
@@ -50,6 +50,9 @@ samples to play, player-like client).
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 24.12.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 24.12.0-2
 - Rebuilt for Python 3.14
 

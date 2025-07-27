@@ -6,7 +6,7 @@
 
 Name:           todocli
 Version:        0.1
-Release:        35.%{date}git%{shortcommit}%{?dist}
+Release:        36.%{date}git%{shortcommit}%{?dist}
 Summary:        Command line To Do application
 
 License:        MIT
@@ -47,6 +47,9 @@ install -p -m 0644 todocli.1 %{buildroot}/%{_mandir}/man1/
 %{python3_sitelib}/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-36.20171025gitab9bbbd
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jul 16 2025 Didier Fabert <didier.fabert@gmail.com> - 0.1-35.20171025gitab9bbbd
 - Stop using deprecated py3_build/py3_install macros https://bugzilla.redhat.com/show_bug.cgi?id=2378474
 - migrated to last commit

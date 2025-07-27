@@ -4,7 +4,7 @@
 %global commit da33770d22b404d7333e46e26495eaca0c5a6d8a
 %global gittag 5.9.0
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global baserelease 2
+%global baserelease 3
 
 ExclusiveArch:  %{ix86} x86_64 aarch64
 
@@ -131,6 +131,9 @@ patchelf --set-rpath '%{_libdir}/rr/' %{buildroot}%{_libdir}/rr/testsuite/obj/bi
 %license LICENSE
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.9.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Feb 13 2025 William Cohen <wcohen@redhat.com> - 5.9.0-2
 - Add dependency for libzstd-devel and lldb.
 

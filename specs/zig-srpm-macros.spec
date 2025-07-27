@@ -1,7 +1,7 @@
 
 Name:           zig-srpm-macros
 Version:        1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        SRPM macros required for Zig packages
 
 License:        MIT
@@ -29,6 +29,9 @@ install -pm 644 macros.* %{buildroot}%{rpmmacrodir}/
 %{rpmmacrodir}/macros.zig-srpm
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:       recode
 Version:    3.7.15
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Conversion between character sets and surfaces
 # COPYING:              GPLv3 text
 # COPYING-LIB:          LGPLv3 text
@@ -131,6 +131,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_includedir}/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.15-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Mar 18 2025 Ondrej Pohorelsky <opohorel@redhat.com> - 3.7.15-1
 - 3.7.15 bump
 - Resolves: rhbz#2352975

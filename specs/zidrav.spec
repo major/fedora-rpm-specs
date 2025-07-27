@@ -1,7 +1,7 @@
 Summary: Zorba's Incredible Data Repairer And Verifier
 Name: zidrav
 Version: 1.2.0
-Release: 38%{?dist}
+Release: 39%{?dist}
 URL: https://sourceforge.net/projects/zidrav
 Source: https://downloads.sourceforge.net/project/zidrav/zidrav4unix/%{version}/zidrav4unix-%{version}.tar.gz
 Patch0: %{name}-rpm.patch
@@ -42,6 +42,9 @@ export CXXFLAGS="$CXXFLAGS -DCPU_BIGENDIAN"
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

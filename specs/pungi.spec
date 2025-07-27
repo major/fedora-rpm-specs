@@ -1,6 +1,6 @@
 Name:           pungi
 Version:        4.9.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Distribution compose tool
 
 License:        GPL-2.0-only
@@ -133,6 +133,9 @@ gzip _build/man/pungi.1
 %{_bindir}/%{name}-cache-cleanup
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jun 12 2025 Lubomír Sedlář <lsedlar@redhat.com> - 4.9.3-1
 - Recognize wsl2 images produced by koji (lsedlar)
 - Specify data_files with relative paths (lsedlar)

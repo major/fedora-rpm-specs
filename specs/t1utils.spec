@@ -1,7 +1,7 @@
 Summary:        Collection of Type 1 and 2 font manipulation utilities
 Name:           t1utils
 Version:        1.42
-Release:        10%{?dist}
+Release:        11%{?dist}
 # The Click license is an MIT variant.
 License:        MIT
 URL:            http://www.lcdf.org/~eddietwo/type/
@@ -42,6 +42,9 @@ and Macintosh resource forks.
 %{_mandir}/man1/t1unmac.1*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.42-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.42-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

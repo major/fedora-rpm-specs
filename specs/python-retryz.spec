@@ -9,7 +9,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.1.9
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Retry decorator with a bunch of configuration parameters
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -105,6 +105,9 @@ PYTHONPATH=. py.test-3
 %endif
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.9-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.1.9-30
 - Rebuilt for Python 3.14
 

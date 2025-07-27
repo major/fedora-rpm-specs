@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.6
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Plugin to run your pytest tests in a specific order
 
 License:        MIT
@@ -70,6 +70,9 @@ PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=%{buildroot}%{python3_sitelib} \
 %license LICENSE
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.6-19
 - Rebuilt for Python 3.14
 

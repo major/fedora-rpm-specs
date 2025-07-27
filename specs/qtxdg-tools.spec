@@ -1,7 +1,7 @@
 Name:    qtxdg-tools
 Summary: User tools for libqtxdg
 Version: 4.2.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: LGPL-2.0-or-later
 URL:     https://lxqt-project.org/
 Source0: https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -30,6 +30,9 @@ BuildRequires: gcc-c++
 %{_datadir}/cmake/qtxdg-tools/
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Apr 18 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> - 4.2.0-1
 - 4.2.0
 

@@ -18,7 +18,7 @@ BuildRequires: systemd
 
 Name: tarantool
 Version: 2.4.2.68
-Release: 22%{?dist}
+Release: 23%{?dist}
 Summary: In-Memory Database
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
@@ -148,6 +148,9 @@ install -m0644 -D tarantool.sysusers.conf %{buildroot}%{_sysusersdir}/tarantool.
 %{_includedir}/tarantool/module.h
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2.68-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.4.2.68-22
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

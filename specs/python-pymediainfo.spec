@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        6.1.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Python wrapper around the MediaInfo library
 
 License:        MIT
@@ -53,6 +53,9 @@ export LC_ALL=C.UTF-8
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 6.1.0-8
 - Rebuilt for Python 3.14
 

@@ -1,6 +1,6 @@
 Name:		vlfrx-tools
 Version:	0.9m
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	VLF Receiver Software Toolkit
 # Automatically converted from old format: BSD - review is highly recommended.
 License:	LicenseRef-Callaway-BSD
@@ -44,6 +44,9 @@ storage, and post-processing.
 %doc README changelog
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9m-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue May 27 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.9m-10
 - Rebuilt for flac 1.5.0
 

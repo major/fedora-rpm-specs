@@ -3,7 +3,7 @@
 Summary: Displays where a particular program in your path is located
 Name: which
 Version: 2.23
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-3.0-only
 Source0: http://ftp.gnu.org/gnu/which/%{name}-%{version}.tar.gz
 Source1: which2.sh
@@ -46,6 +46,9 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 %{_mandir}/man1/which.1*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.23-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jun 18 2025 Than Ngo <than@redhat.com> - 2.23-2
 - Add a check to ensure that /proc/$$/exe can be read
 

@@ -6,7 +6,7 @@
 
 Name:           the_silver_searcher
 Version:        2.2.0^%{date}.%{shortcommit}
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Super-fast text searching tool (ag)
 # The bundled copy of src/uthash.h is BSD-1-Clause, but we remove that in
 # %%prep so this package is only Apache-2.0.
@@ -82,6 +82,9 @@ make test
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0^2020704.5a1c8d8-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jun 22 2025 Shlomi Fish <shlomif@shlomifish.org> - 2.2.0^2020704.5a1c8d8-13
 - Port to use pcre2. Add patch from GitHub / Debian.
 

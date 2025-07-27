@@ -1,6 +1,6 @@
 Name:           sanlock
 Version:        3.9.5
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A shared storage lock manager
 License:	GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:            https://pagure.io/sanlock/
@@ -157,6 +157,9 @@ developing applications that use %{name}.
 %{_libdir}/pkgconfig/libsanlock_client.pc
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.5-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.9.5-4
 - Rebuilt for Python 3.14
 

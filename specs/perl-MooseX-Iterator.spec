@@ -1,6 +1,6 @@
 Name:           perl-MooseX-Iterator
 Version:        0.11
-Release:        46%{?dist}
+Release:        47%{?dist}
 Summary:        Iterate over collections
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -45,6 +45,9 @@ works with ArrayRefs and HashRefs.
 %{_mandir}/man3/Moose*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-47
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Apr 11 2025 Tim Landscheidt <tim@tim-landscheidt.de> - 0.11-46
 - Fix dependency filter
 - Fix spelling error in package description

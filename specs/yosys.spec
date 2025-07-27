@@ -5,7 +5,7 @@
 
 Name:           yosys
 Version:        0.55
-Release:        1.%{snapdate}git%{shortcommit0}%{?dist}
+Release:        2.%{snapdate}git%{shortcommit0}%{?dist}
 Summary:        Yosys Open SYnthesis Suite, including Verilog synthesizer
 License:        ISC and MIT
 URL:            http://www.clifford.at/yosys/
@@ -173,6 +173,9 @@ make test ABCEXTERNAL=%{_bindir}/abc SEED=314159265359
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.55-2.20250707git60f126c
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 07 2025 Gabriel Somlo <gsomlo@gmail.com> - 0.55.1.20250707git60f126c
 - update to 0.55 snapshot
 

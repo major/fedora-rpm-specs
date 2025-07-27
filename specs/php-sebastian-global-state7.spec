@@ -26,7 +26,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        7.0.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Snapshotting of global state, version %{major}
 
 License:        BSD-3-Clause
@@ -132,6 +132,9 @@ exit $ret
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb  4 2025 Remi Collet <remi@remirepo.net> - 7.0.2-3
 - enable test suite
 

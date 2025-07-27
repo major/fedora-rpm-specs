@@ -1,6 +1,6 @@
 Name:		potrace
 Version:	1.16
-Release:	14%{?dist}
+Release:	15%{?dist}
 Summary:	Transform bitmaps into vector graphics
 # README defines license as GPLv2+
 # potrace/potrace-1.16/src/getopt.c is LGPL-2.0-or-later
@@ -83,6 +83,9 @@ rm -rf %{buildroot}%{_docdir}/%{name}
 %doc potrace.pdf potracelib.pdf
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.16-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.16-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

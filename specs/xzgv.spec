@@ -2,7 +2,7 @@
 Summary:         Picture viewer
 Name:            xzgv
 Version:         0.9.2
-Release:         22%{?dist}
+Release:         23%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:         GPL-2.0-or-later
 URL:             http://sourceforge.net/projects/xzgv/
@@ -108,6 +108,9 @@ EOF
 %{_datadir}/pixmaps/xzgv.xpm
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon May 26 2025 Terje Rosten <terjeros@gmail.com> - 0.9.2-22
 - Add req on gdk-pixbuf2-modules-extra rhbz#2367799
 

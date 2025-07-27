@@ -1,6 +1,6 @@
 Name:           perl-Net-DAVTalk
 Version:        0.23
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Client for DAV servers
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Net-DAVTalk
@@ -99,6 +99,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.23-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jan 22 2025 Michal Josef Špaček <mspacek@redhat.com> - 0.23-1
 - 0.23 bump (BZ#2339404)
 

@@ -44,7 +44,7 @@
 Summary:    Scientific Tools for Python
 Name:       scipy
 Version:    1.15.3
-Release:    3%{?dist}
+Release:    4%{?dist}
 
 # BSD-3-Clause -- whole package except:
 # BSD-2-Clause -- scipy/_lib/_pep440.py
@@ -291,6 +291,9 @@ popd
 %endif
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jul 08 2025 Charalampos Stratakis <cstratak@redhat.com> - 1.15.3-3
 - Loosen the upper bound on Cython
 

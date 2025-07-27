@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.7.5
-Release: 15%{?dist}
+Release: 16%{?dist}
 Summary: WebSocket protocol handler with pluggable I/O
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License: Apache-2.0
@@ -88,6 +88,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.5-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.5-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

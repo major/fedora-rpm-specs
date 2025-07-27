@@ -10,7 +10,7 @@
 Name: webalizer
 Summary: A flexible Web server log file analysis program
 Version: 2.23_08
-Release: 28%{?dist}
+Release: 29%{?dist}
 URL: http://www.mrunix.net/webalizer/
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -104,6 +104,9 @@ install -m0644 -D webalizer.sysusers.conf %{buildroot}%{_sysusersdir}/webalizer.
 %{_sysusersdir}/webalizer.conf
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.23_08-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.23_08-28
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

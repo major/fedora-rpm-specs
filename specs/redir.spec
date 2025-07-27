@@ -1,6 +1,6 @@
 Name:           redir
 Version:        3.3
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        A TCP port redirector for UNIX
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -45,6 +45,9 @@ make check
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:       smatch
 Version:    1.73
-Release:    7%{?dist}
+Release:    8%{?dist}
 Summary:    A static analyzer for C
 
 # License breakdown:
@@ -72,6 +72,9 @@ grep "test.c:1 main() error: uninitialized symbol 'a'." out
 %{_datadir}/%{name}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.73-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jan 21 2025 Lukáš Zaoral <lzaoral@redhat.com> - 1.73-7
 - force gnu99 everywhere to fix FTBFS with GCC 15
 

@@ -5,7 +5,7 @@ of the computer.
 
 Name:           python-%{srcname}
 Version:        0.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python library that allows you to find all the IP addresses of the computer
 
 License:        MIT
@@ -44,6 +44,9 @@ Python 3 version.
 %{python3_sitelib}/%{srcname}-*.dist-info/
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 14 2025 Rafael Guterres Jeffman <rjeffman@redhat.com> - 0.2.0-1
 - Update to 0.2.0
 - Migrate from py3 pyproject macros

@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.0.2
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: Creates temporary files and directories for testing
 License: MIT
 URL: https://github.com/bhb/test_construct
@@ -75,6 +75,9 @@ popd
 %{gem_instdir}/test_construct.gemspec
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

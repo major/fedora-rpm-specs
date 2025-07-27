@@ -1,7 +1,7 @@
 Name:           pylibacl
 Summary:        POSIX.1e ACLs library wrapper for Python
 Version:        0.6.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
 URL:            https://pylibacl.k1024.org
@@ -61,6 +61,9 @@ python3 -m pytest tests -v \
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jul 16 2025 Python Maint <python-maint@redhat.com> - 0.6.0-14
 - Rebuilt for Python 3.14
 

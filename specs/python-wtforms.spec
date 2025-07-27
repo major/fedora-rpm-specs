@@ -2,7 +2,7 @@
 
 Name:           python-wtforms
 Version:        3.0.1
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Forms validation and rendering library for python
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -59,6 +59,9 @@ and keep those messy parameters out of your python code.
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 3.0.1-16
 - Rebuilt for Python 3.14
 

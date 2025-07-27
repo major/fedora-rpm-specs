@@ -64,7 +64,7 @@
 
 Name:           plplot
 Version:        5.15.0
-Release:        80%{?dist}
+Release:        81%{?dist}
 Summary:        Library of functions for making scientific plots
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -788,6 +788,9 @@ export LD_LIBRARY_PATH=$PWD/%{_vpath_builddir}/bindings/ocaml:$RPM_BUILD_ROOT%{_
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.0-81
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jul 12 2025 Jerry James  <loganjerry@gmail.com> - 5.15.0-80
 - Rebuild to fix OCaml dependencies
 

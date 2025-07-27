@@ -4,7 +4,7 @@
 
 Name:          rygel
 Version:       45~alpha
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       A collection of UPnP/DLNA services
 
 License:       LGPL-2.1-or-later AND CC-BY-SA-3.0
@@ -151,4 +151,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/rygel-preferences.de
 %{_datadir}/vala/vapi/rygel*.vapi
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 45~alpha-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 %autochangelog

@@ -4,7 +4,7 @@
 Summary:    	Hoe is a simple rake/rubygems helper for project Rakefiles
 Name:       	rubygem-%{gem_name}
 Version:    	4.2.3
-Release:    	2%{?dist}
+Release:    	3%{?dist}
 # SPDX confirmed
 License:    	MIT
 URL:        	https://github.com/seattlerb/hoe
@@ -137,6 +137,9 @@ popd
 %{gem_docdir}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jun 26 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.2.3-2
 - Upstream patch for rubygems 3.6.7 change wrt setting DEFAULT_SOURCE_DATE_EPOCH
 

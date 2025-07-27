@@ -17,7 +17,7 @@
 Summary:   PHP PECL package for parsing and working with email messages
 Name:      php-pecl-mailparse
 Version:   3.1.8
-Release:   3%{?dist}
+Release:   4%{?dist}
 License:   PHP-3.01
 URL:       https://pecl.php.net/package/mailparse
 Source0:   https://pecl.php.net/get/%{sources}.tgz
@@ -127,6 +127,9 @@ NO_INTERACTION=1 \
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.8-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

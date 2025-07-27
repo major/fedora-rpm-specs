@@ -2,7 +2,7 @@
 
 Name:               python-%{modname}
 Version:            0.3.5
-Release:            32%{?dist}
+Release:            33%{?dist}
 Summary:            Logging utilities
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -73,6 +73,9 @@ rm -rf %{modname}.egg-info
 %{python3_sitelib}/%{modname}-%{version}.dist-info/
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.5-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.3.5-32
 - Rebuilt for Python 3.14
 

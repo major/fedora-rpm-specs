@@ -13,7 +13,7 @@
 
 Name:           qjson
 Version:        0.9.0
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        A qt-based library that maps JSON data to QVariant objects
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -146,6 +146,9 @@ xvfb-run -a make test -C %{_target_platform}-qt5 ||:
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

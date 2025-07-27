@@ -1,6 +1,6 @@
 Name:           python-confuse
 Version:        2.0.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        A Python module for handling YAML configuration files
 
 License:        MIT

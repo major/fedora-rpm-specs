@@ -20,7 +20,7 @@
 
 Name:           php-bartlett-PHP-CompatInfo
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Find out version and the extensions required for a piece of code to run
 
 # SPDX: see bundled libraries list below
@@ -124,6 +124,9 @@ install -D -p -m 755 %{SOURCE1} \
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon May  5 2025 Remi Collet <remi@remirepo.net> - 7.2.3-1
 - update to 7.2.3
 - re-license spec file to CECILL-2.1

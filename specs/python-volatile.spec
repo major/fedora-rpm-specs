@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        2.1.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        A small extension for the tempfile module
 License:        MIT
 URL:            https://github.com/mbr/volatile
@@ -61,6 +61,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.1.0-17
 - Rebuilt for Python 3.14
 

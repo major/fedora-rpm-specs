@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        1.7.0
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        %{sum}
 
 License:        MIT
@@ -41,6 +41,9 @@ Robust and effective logging for Python 3.
 %{python3_sitelib}/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jul 11 2025 Gabriel Somlo <gsomlo@gmail.com> - 1.7.0-16
 - switch to pyproject macros (BZ #2377865)
 

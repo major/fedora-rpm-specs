@@ -12,7 +12,7 @@
 Summary: Qt6 - Speech component
 Name:    qt6-%{qt_module}
 Version: 6.9.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # Code can be either LicenseRef-Qt-Commercial OR LGPL-3.0-only OR GPL-2.0-only
 # See e.g. src/plugins/speechdispatcher or src/tts
@@ -162,6 +162,9 @@ popd
 %endif
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.9.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.1-1
 - 6.9.1
 

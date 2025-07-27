@@ -13,7 +13,7 @@
 
 Name:           perl-libnet
 Version:        3.15
-Release:        520%{?dist}
+Release:        521%{?dist}
 Summary:        Perl clients for various network protocols
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/libnet
@@ -122,6 +122,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.15-521
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jul 08 2025 Jitka Plesnikova <jplesnik@redhat.com> - 3.15-520
 - Perl 5.42 re-rebuild of bootstrapped packages
 

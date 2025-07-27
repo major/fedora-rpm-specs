@@ -2,7 +2,7 @@
 
 Name:           python-enchant
 Version:        3.2.2
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Python bindings for Enchant spellchecking library
 
 License:        LGPL-2.1-or-later
@@ -73,6 +73,9 @@ rm -rf $RPM_BUILD_ROOT/%{python3_sitelib}/%{srcname}/share
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.2-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.2.2-16
 - Rebuilt for Python 3.14
 

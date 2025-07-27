@@ -9,7 +9,7 @@
 
 Name:           python-%{modname}
 Version:        7.45.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A Python interface to libcurl
 
 License:        curl OR LGPL-2.1-or-later
@@ -96,6 +96,9 @@ export PYTEST_ADDOPTS="--ignore examples -m 'not online'"
 %{python3_sitearch}/%{modname}-%{version}-*.egg-info
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.45.6-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 7.45.6-2
 - Rebuilt for Python 3.14
 

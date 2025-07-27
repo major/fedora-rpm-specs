@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.3.14
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Python bindings for the XML Security Library
 
 License:        MIT
@@ -61,6 +61,9 @@ Requires: xmlsec1-openssl
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.14-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.3.14-4
 - Rebuilt for Python 3.14
 

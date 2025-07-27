@@ -3,7 +3,7 @@
 Summary: Ruby bindings to the Expat XML parsing library
 Name: rubygem-%{gem_name}
 Version: 0.7.2.1
-Release: 46%{?dist}
+Release: 47%{?dist}
 Group: Development/Languages
 # src/lib/xml/xpath.rb is GPLv2+
 # src/ext/encoding.h and the functions of encoding map are GPLv2+ or Artistic
@@ -69,6 +69,9 @@ cp -a ./%{gem_extdir_mri}/{gem.build_complete,*.so} %{buildroot}%{gem_extdir_mri
 %{gem_spec}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2.1-47
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2.1-46
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           resteasy
 Version:        3.0.26
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Framework for RESTful Web services and Java applications
 License:        Apache-2.0
 URL:            http://resteasy.jboss.org/
@@ -250,6 +250,9 @@ find -name '*.jar' -print -delete
 %license License.html
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.26-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jul 09 2025 Jack Magne <jmagne@redhat.com> - 3.0.26-33
 - Rebuilt with support and migration  for tomcat10 and jarkarta ee.
 

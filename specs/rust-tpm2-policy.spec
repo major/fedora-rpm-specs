@@ -5,7 +5,7 @@
 
 Name:           rust-%{crate}
 Version:        0.6.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Specify and send TPM2 policies to satisfy object authorization
 
 # Upstream license specification: EUPL-1.2
@@ -67,6 +67,9 @@ use the "default" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

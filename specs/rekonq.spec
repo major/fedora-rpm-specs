@@ -6,7 +6,7 @@
 
 Name:		rekonq
 Version: 	2.4.2
-Release:	28%{?dist}
+Release:	29%{?dist}
 Summary:	KDE browser based on QtWebkit
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -81,6 +81,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/kde4/rekonq.desktop
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

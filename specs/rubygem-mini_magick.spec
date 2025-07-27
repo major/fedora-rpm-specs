@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 4.11.0
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: Manipulate images with minimal use of memory via ImageMagick / GraphicsMagick
 License: MIT
 URL: https://github.com/minimagick/minimagick
@@ -103,6 +103,9 @@ popd
 %{gem_instdir}/Rakefile
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.11.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.11.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

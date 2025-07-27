@@ -9,7 +9,7 @@
 
 Name:           subunit
 Version:        1.4.4
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        C bindings for subunit
 
 %global majver  %(cut -d. -f-2 <<< %{version})
@@ -253,6 +253,9 @@ make check
 %{_bindir}/tap2subunit
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.4.4-6
 - Rebuilt for Python 3.14
 

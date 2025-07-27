@@ -1,7 +1,7 @@
 Name:          udpcast
 Summary:       UDP broadcast file distribution and installation
 Version:       20211207
-Release:       11%{?dist}
+Release:       12%{?dist}
 License:       GPL-2.0-or-later AND BSD-2-Clause-first-lines AND MPL-1.1
 URL:           http://udpcast.linux.lu/
 Source:        https://www.udpcast.linux.lu/download/%{name}-%{version}.tar.gz
@@ -62,6 +62,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20211207-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Feb 06 2025 Richard W.M. Jones <rjones@redhat.com> - 20211207-11
 - Bump and rebuild (RHBZ#2341475)
 

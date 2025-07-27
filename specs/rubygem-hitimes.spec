@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 3.0.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A fast, high resolution timer library for recording performance metrics
 License: ISC
 URL: http://github.com/copiousfreetime/hitimes
@@ -68,6 +68,9 @@ popd
 %{gem_instdir}/hitimes.gemspec
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

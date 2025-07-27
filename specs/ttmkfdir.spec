@@ -1,7 +1,7 @@
 Summary: Utility to create fonts.scale files for truetype fonts
 Name: ttmkfdir
 Version: 3.0.9
-Release: 72%{?dist}
+Release: 73%{?dist}
 # Only licensing attribution is in README, no version.
 License: LGPL-2.0-or-later
 # This is a Red Hat maintained package which is specific to
@@ -52,6 +52,9 @@ cp -p %{SOURCE10} %{buildroot}%{_mandir}/man1/
 %{_mandir}/man1/ttmkfdir.1*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.9-73
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.9-72
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

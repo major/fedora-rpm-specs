@@ -1,6 +1,6 @@
 Name:           perl-Test-Exception
 Version:        0.43
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Library of test functions for exception based Perl code
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Exception
@@ -61,6 +61,9 @@ make test
 %{_mandir}/man3/Test::Exception.3*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.43-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.43-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

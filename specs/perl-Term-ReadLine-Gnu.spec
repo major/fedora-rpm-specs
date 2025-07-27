@@ -1,6 +1,6 @@
 Name:           perl-Term-ReadLine-Gnu
 Version:        1.47
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Perl extension for the GNU Readline/History Library
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Term-ReadLine-Gnu
@@ -83,6 +83,9 @@ expect -c '
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.47-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jul 09 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.47-2
 - Perl 5.42 re-rebuild updated packages
 

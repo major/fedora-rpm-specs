@@ -1,6 +1,6 @@
 Name:           perl-RPM-VersionCompare
 Version:        0.1.1
-Release:        53%{?dist}
+Release:        54%{?dist}
 Summary:        Compare RPM version strings
 License:        GPL-3.0-or-later
 URL:            https://ppisar.fedorapeople.org/RPM-VersionCompare/
@@ -82,6 +82,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-54
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.1.1-53
 - Perl 5.42 rebuild
 

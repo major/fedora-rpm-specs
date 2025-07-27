@@ -3,7 +3,7 @@
 Summary:	Behaviour driven development (BDD) framework for Ruby
 Name:		rubygem-%{gem_name}
 Version:	3.13.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 License:	MIT
 URL:		http://rspec.info
@@ -52,6 +52,9 @@ rm -f %{buildroot}%{gem_cache}
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu May 29 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.13.1-1
 - 3.13.1
 

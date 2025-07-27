@@ -7,7 +7,7 @@
 
 Name:             python-%{mod_name}
 Version:          2.2.15
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Pure Python client for Apache Kafka
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -122,6 +122,9 @@ It makes sure the dependencies are installed.
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.15-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 14 2025 Hirotaka Wakabayashi <hiwkby@yahoo.com> - 2.2.15-1
 - update to 2.2.15
 

@@ -2,7 +2,7 @@
 
 Name:           x2goserver
 Version:        4.1.0.6
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        X2Go Server
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -600,6 +600,9 @@ exit 0
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0.6-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 4.1.0.6-8
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

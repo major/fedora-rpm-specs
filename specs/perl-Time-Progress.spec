@@ -1,6 +1,6 @@
 Name:           perl-Time-Progress
 Version:        2.15
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Elapsed and estimated finish time reporting
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Time-Progress
@@ -75,6 +75,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.15-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Mar 18 2025 Jitka Plesnikova <jplesnik@redhat.com> - 2.15-1
 - 2.15 bump (rhbz#2353067)
 - Package tests

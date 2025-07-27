@@ -3,7 +3,7 @@
 
 Name:		xreader
 Version:	4.2.6
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Simple document viewer
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -169,6 +169,9 @@ This package adds configuration to use %{name} as a thumbnailer.
 %doc %{_datadir}/doc/%{name}*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon May 26 2025 Leigh Scott <leigh123linux@gmail.com> - 4.2.6-1
 - Update to 4.2.6
 - Disable epub support, it's broken

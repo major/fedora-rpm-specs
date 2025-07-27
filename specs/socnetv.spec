@@ -2,7 +2,7 @@
 
 Name:		socnetv
 Version:	3.2
-Release:	1%{?dist}
+Release:	2%{?dist}
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:	GPL-3.0-only
 Summary:	A Social Networks Analyser and Visualiser
@@ -68,6 +68,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Apr 02 2025 RI_Eugene <ti.eugene@gmail.com> - 3.2-1
 - Version bump
 

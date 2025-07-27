@@ -1,6 +1,6 @@
 Name:           python-texext
 Version:        0.6.7
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Sphinx extensions for working with LaTeX math
 
 # BSD-2-Clause: the project as a whole
@@ -61,6 +61,9 @@ rst2html --no-datestamp README.rst README.html
 %doc README.html
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.7-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jun 05 2025 Python Maint <python-maint@redhat.com> - 0.6.7-14
 - Rebuilt for Python 3.14
 

@@ -1,6 +1,6 @@
 Name:    sugar-turtleart
 Version: 220
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: Turtle Art activity for sugar
 License: MIT
 URL:     http://sugarlabs.org/go/Activities/Turtle_Art
@@ -50,6 +50,9 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 220-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 220-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

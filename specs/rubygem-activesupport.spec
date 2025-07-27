@@ -5,7 +5,7 @@
 Name: rubygem-%{gem_name}
 Epoch: 1
 Version: 8.0.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A support libraries and Ruby core extensions extracted from the Rails framework
 License: MIT
 URL: https://rubyonrails.org
@@ -122,6 +122,9 @@ kill -INT $(cat $VALKEY_DIR/valkey.pid)
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:8.0.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jul 02 2025 Vít Ondruch <vondruch@redhat.com> - 1:8.0.2-1
 - Update to Active Support 8.0.2.
   Related: rhbz#2238177

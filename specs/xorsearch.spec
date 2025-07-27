@@ -1,6 +1,6 @@
 Name:           xorsearch
 Version:        1.11.4
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Search for a given string in an XOR, ROL, ROT or SHIFT encoded binary file
 
 # Automatically converted from old format: Public Domain - needs further work
@@ -47,6 +47,9 @@ install -m 755 -D %{name} "%{buildroot}/%{_bindir}/%{name}"
 %{_bindir}/%{name}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.4-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.4-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

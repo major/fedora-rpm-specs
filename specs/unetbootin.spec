@@ -2,7 +2,7 @@
 
 Name:		unetbootin
 Version:	702
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	Create bootable Live USB drives for a variety of Linux distributions
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
@@ -62,6 +62,9 @@ install -D -p -m 644 unetbootin_512.png %{buildroot}%{_datadir}/pixmaps/unetboot
 %{_datadir}/pixmaps/unetbootin.png
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 702-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 702-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

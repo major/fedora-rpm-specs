@@ -1,13 +1,13 @@
 %global srcname GitPython
 
 Name:           %{srcname}
-Version:        3.1.43
-Release:        4%{?dist}
+Version:        3.1.45
+Release:        1%{?dist}
 Summary:        Python Git Library
 
 License:        BSD-3-Clause
 URL:            https://github.com/gitpython-developers/GitPython
-Source0:        %pypi_source
+Source:         %{pypi_source gitpython}
 
 BuildArch:      noarch
 
@@ -35,7 +35,7 @@ Requires:       git-core
 %description -n python3-%{srcname} %{_description}
 
 %prep
-%autosetup -n %{srcname}-%{version} -p1
+%autosetup -n gitpython-%{version} -p1
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -60,6 +60,9 @@ Requires:       git-core
 %doc CHANGES AUTHORS
 
 %changelog
+* Thu Jul 24 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 3.1.45-1
+- Update to 3.1.45 (close RHBZ#2383187)
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.43-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

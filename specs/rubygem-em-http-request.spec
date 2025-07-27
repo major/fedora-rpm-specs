@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.1.7
-Release: 13%{?dist}
+Release: 14%{?dist}
 Summary: EventMachine based, async HTTP Request client
 License: MIT
 URL: http://github.com/igrigorik/em-http-request
@@ -104,6 +104,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.7-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.7-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

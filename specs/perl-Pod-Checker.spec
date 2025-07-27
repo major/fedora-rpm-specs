@@ -2,7 +2,7 @@ Name:           perl-Pod-Checker
 # Compete with perl.spec
 Epoch:          4
 Version:        1.77
-Release:        519%{?dist}
+Release:        520%{?dist}
 Summary:        Check POD documents for syntax errors
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Pod-Checker
@@ -101,6 +101,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4:1.77-520
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 4:1.77-519
 - Increase release to favour standalone package
 

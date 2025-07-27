@@ -144,7 +144,8 @@ Patch14: %{name}-4.41.283-fix_missing_header.patch
 Patch15: %{name}-find_qcp_libs.patch
 
 # Allow CMake 4.0 builds
-Patch20: https://github.com/copasi/COPASI/pull/11.patch
+# https://github.com/copasi/COPASI/pull/11
+Patch20: COPASI-cmake4.patch
 
 %description
 COPASI is a software application for simulation and analysis of biochemical
@@ -318,11 +319,13 @@ sed -i.bak '/double pow_dd(doublereal *,/d' copasi/odepack++/CRadau5.cpp
 sed -i.bak '/C_FLOAT64 d_lg10(C_FLOAT64 *);/d' copasi/optimization/CPraxis.cpp
 
 %build
+%global __cmake_in_source_build 1
+pushd copasi
 export CXXFLAGS="%{build_cxxflags} -I$PWD/copasi/lapack -I$PWD/copasi/CopasiSBW -I%{_includedir}/%{blaslib} %{__global_ldflags}"
 export LDFLAGS="%{__global_ldflags} -lbz2"
-%global __cmake_in_source_build copasi
 %cmake \
- -Wno-dev -DCOPASI_OVERRIDE_VERSION:STRING=%{version} \
+ -Wno-dev \
+ -DCOPASI_VERSION_MAJOR:STRING=4 -DCOPASI_VERSION_MINOR:STRING=45 -DCOPASI_VERSION_BUILD:STRING=%{buildid} \
 %if 0%{?with_python}
  -DENABLE_PYTHON:BOOL=ON \
  -DPYTHON_EXECUTABLE:FILEPATH=%{__python3} \
@@ -396,6 +399,7 @@ export LDFLAGS="%{__global_ldflags} -lbz2"
 %cmake_build
 
 %install
+pushd copasi
 %cmake_install
 
 # Remove directory of examples

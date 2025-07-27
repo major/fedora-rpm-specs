@@ -10,7 +10,7 @@ connections.}
 
 Name:           ubertooth
 Version:        %{POSTYEAR}.%{POSTMONTH}.R%{POSTNUM}
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Bluetooth wireless development platform for experimentation
 # This package is only includes host part of the Ubertooth project, which is licensed under GPLv2.
 # But parts of the firmware, which is running on the board, licensed under BSD (3 clause): lpcusb,
@@ -121,6 +121,9 @@ sed -i "s/version\s*=.*/version = '%{version}',/" \
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2020.12.R1-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2020.12.R1-20
 - Rebuilt for Python 3.14
 

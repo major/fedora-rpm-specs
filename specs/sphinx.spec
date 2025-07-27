@@ -20,7 +20,7 @@
 
 Name:		sphinx
 Version:	2.2.11
-Release:	33%{?dist}
+Release:	34%{?dist}
 Summary:	Free open-source SQL full-text search engine
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
@@ -304,6 +304,9 @@ chown -R %{sphinx_user}:root %{_localstatedir}/lib/%{name}/
 %{_datadir}/php/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.11-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.2.11-33
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

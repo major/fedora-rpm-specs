@@ -1,7 +1,7 @@
 Name:             zathura-pdf-mupdf
 
 Version:          0.4.4
-Release:          5%{?dist}
+Release:          6%{?dist}
 Summary:          PDF support for zathura via mupdf
 License:          Zlib
 URL:              https://pwmt.org/projects/%{name}/
@@ -54,6 +54,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 %{_datadir}/metainfo/org.pwmt.zathura-pdf-mupdf.metainfo.xml
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.4-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jul 06 2025 Michael J Gruber <mjg@fedoraproject.org> - 0.4.4-5
 - Rebuild (mupdf)
 

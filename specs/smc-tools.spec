@@ -1,6 +1,6 @@
 Name:           smc-tools
 Version:        1.8.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Shared Memory Communication Tools
 
 License:        EPL-1.0
@@ -66,6 +66,9 @@ sockets in Linux.
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jul 17 2025 Dan Horák <dan@danny.cz> - 1.8.5-1
 - update to 1.8.5 (rhbz#2381597)
 

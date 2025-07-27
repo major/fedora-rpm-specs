@@ -1,6 +1,6 @@
 Name: qtile
 Version: 0.32.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A pure-Python tiling window manager
 Source: https://github.com/qtile/qtile/archive/v%{version}/qtile-%{version}.tar.gz
 # Upstream uses the newer metadata labels to specify the project license.
@@ -156,6 +156,9 @@ desktop-file-install \
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.32.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jul 03 2025 Danny Colin <contact@dannycolin.com> - 0.32.0-1
 - New upstream release (0.32.0)
 - Recommend python3-dbus-fast which replace python3-dbus-next

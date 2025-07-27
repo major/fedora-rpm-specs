@@ -9,7 +9,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.4.0
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: HOCON Config Library
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License: Apache-2.0
@@ -94,6 +94,9 @@ rspec spec/
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

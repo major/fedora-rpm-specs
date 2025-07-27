@@ -1,7 +1,7 @@
 Summary: Spherical data types, functions, and operators for PostgreSQL
 Name: pgsphere
 Version: 1.4.1
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: BSD-3-Clause
 
 Source0: https://github.com/postgrespro/%{name}/archive/refs/tags/%{version}.tar.gz
@@ -37,6 +37,9 @@ spherical objects.
 %{_datadir}/pgsql/extension/pg_sphere*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

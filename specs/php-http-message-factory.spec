@@ -22,7 +22,7 @@
 # skip duplicated php prefix
 Name:      %{pk_vendor}-%{pk_project}
 Version:   1.1.0
-Release:   6%{?dist}
+Release:   7%{?dist}
 Summary:   Factory interfaces for PSR-7 HTTP Message
 
 License:   MIT
@@ -108,6 +108,9 @@ exit (interface_exists("%{ns_vendor}\\%{ns_project}\\RequestFactory") ? 0 : 1);
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

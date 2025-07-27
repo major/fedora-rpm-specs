@@ -1,6 +1,6 @@
 Name:           perl-Perl-Version
 Version:        1.018
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Parse and manipulate Perl version strings
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Perl-Version
@@ -101,6 +101,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.018-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jan 28 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.018-1
 - 1.018 bump (rhbz#2342256)
 

@@ -3,7 +3,7 @@
 
 Name:       rwhoisd 
 Version:    1.5.9.6
-Release:    36%{?dist}
+Release:    37%{?dist}
 Summary:    ARIN's Referral WHOIS server
 # common/strerror.c:                GPL-2.0-or-later (libiberty)
 # LICENSE:                          GPL-2.0 text
@@ -174,6 +174,9 @@ exit 0
 %{_localstatedir}/%{name}/samples
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.9.6-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Feb 12 2025 Petr Pisar <ppisar@redhat.com> - 1.5.9.6-36
 - Fix creating users on Fedora < 42
 

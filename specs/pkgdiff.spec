@@ -1,6 +1,6 @@
 Name:           pkgdiff
 Version:        1.8
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A tool for analyzing changes in Linux software packages
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -73,6 +73,9 @@ install -m 0644 %{name}.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

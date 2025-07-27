@@ -1,6 +1,6 @@
 Name:           wmname
 Version:        0.1
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Prints/sets the EWMH WM name property
 License:        MIT
 URL:            http://tools.suckless.org/%{name}
@@ -32,6 +32,9 @@ make install DESTDIR=%{buildroot} PREFIX=%{_prefix}
 %{_bindir}/wmname
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           python-pyopengl
 Version:        3.1.9
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python bindings for OpenGL
 License:        BSD-3-Clause and X11-distribute-modifications-variant
 URL:            https://github.com/mcfletch/pyopengl
@@ -133,6 +133,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch}:%{buildroot}%{python3_sitelib} \
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.9-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jul 10 2025 Scott Talbert <swt@techie.net> - 3.1.9-2
 - Fix FTFBS with Cython 3.1.2 (#2377049)
 

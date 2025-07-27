@@ -1,6 +1,6 @@
 Name:           perl-Text-Textile
 Version:        2.13
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        A humane web text generator
 # <https://github.com/bradchoate/text-textile/issues/15>
 # lib/Text/Textile.pm:      GPL+ or Artistic 2.0
@@ -64,6 +64,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.13-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.13-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -19,7 +19,7 @@ de débrancher l'appareil après l'installation.}
 
 Name:          python-radexreader
 Version:       1.2.5
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       %{common_summary_en}
 Summary(fr):   %{common_summary_fr}
 License:       GPL-2.0-or-later
@@ -82,6 +82,9 @@ install -Dpm 644 ../scripts/debian/python3-radexreader.udev %{buildroot}/lib/ude
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jul 12 2025 Fabrice Creuzot <code@luigifab.fr> - 1.2.5-3
 - Migrating to %pyproject macros
 

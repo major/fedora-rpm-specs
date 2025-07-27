@@ -3,7 +3,7 @@
 Summary: Pure ruby library for read/write, chunk-level access to PNG files
 Name: rubygem-%{gem_name}
 Version: 1.4.0
-Release: 12%{?dist}
+Release: 13%{?dist}
 # https://github.com/wvanbergen/chunky_png/pull/169
 # ruby3.2 removes Object#=~
 # Currently under review
@@ -76,6 +76,9 @@ popd
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

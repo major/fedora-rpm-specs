@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.24.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Deal PySol FC Cards
 License:        MIT
 URL:            https://fc-solve.shlomifish.org/
@@ -45,6 +45,9 @@ sed -i '/^#! \/usr\/bin\/env python\(3\)\?$/d' pysol_cards/*.py
 %doc README.rst
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.24.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jul 09 2025 Shlomi Fish <shlomif@shlomifish.org> 0.24.0-2%{?dist}
 - Stop using deprecated RPM macros (#2378090)
 

@@ -1,6 +1,6 @@
 Name:           python-productmd
 Version:        1.48
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library providing parsers for metadata related to OS installation
 
 License:        LGPL-2.1-only
@@ -43,6 +43,9 @@ Summary:        %{summary}
 %doc AUTHORS
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.48-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jul 08 2025 Lubomír Sedlář <lsedlar@redhat.com> - 1.48-1
 - Another fixup for dropping python-six
 

@@ -1,6 +1,6 @@
 Name:           raidem-music
 Version:        1.0
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Background music for the game raidem
 # Automatically converted from old format: CC-BY - review is highly recommended.
 License:        LicenseRef-Callaway-CC-BY
@@ -46,6 +46,9 @@ install -p -m 644 %{SOURCE3} $RPM_BUILD_ROOT%{_datadir}/raidem/music/level3
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

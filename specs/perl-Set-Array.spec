@@ -1,6 +1,6 @@
 Name:           perl-Set-Array
 Version:        0.30
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Arrays as objects with lots of handy methods
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Set-Array
@@ -57,6 +57,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/Set::Array.3*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.30-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.30-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

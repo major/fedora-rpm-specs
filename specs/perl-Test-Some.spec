@@ -1,7 +1,7 @@
 %define upstream_name Test-Some
 Name:       perl-%{upstream_name}
 Version:    0.2.1
-Release:    14%{?dist}
+Release:    15%{?dist}
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Group:      Development/Libraries
@@ -59,6 +59,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

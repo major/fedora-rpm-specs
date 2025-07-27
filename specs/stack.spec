@@ -31,7 +31,7 @@
 Name:           %{pkg_name}
 Version:        3.7.1
 # can only be reset when all subpkgs bumped
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Haskell stable package build tool
 
 License:        BSD-3-Clause
@@ -474,6 +474,9 @@ PATH=%{buildroot}%{_bindir}:$PATH
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.1-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jul 22 2025 Jens Petersen <petersen@redhat.com> - 3.7.1-37
 - https://hackage.haskell.org/package/stack-3.7.1/changelog
 - pantry-0.10.1, open-browser-0.3.0.1, mustache-2.4.3.1, static-bytes-0.1.1

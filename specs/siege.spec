@@ -1,6 +1,6 @@
 Name:           siege
 Version:        4.1.7
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        HTTP regression testing and benchmarking utility
 
 License:        GPL-3.0-or-later
@@ -64,6 +64,9 @@ mkdir -p %{buildroot}%{_sysconfdir}/siege
 %config(noreplace) %{_sysconfdir}/siege/siegerc
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.7-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Feb 13 2025 Björn Esser <besser82@fedoraproject.org> - 4.1.7-3
 - Backport patches from upstream PR to fix build with libtool >= 2.5.4
 

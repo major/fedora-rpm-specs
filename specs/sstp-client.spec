@@ -5,7 +5,7 @@
 
 Name:           sstp-client
 Version:        1.0.18
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Secure Socket Tunneling Protocol(SSTP) Client
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -106,6 +106,9 @@ rm -rf %{_localstatedir}/run/%{commonname}
 %{_libdir}/pkgconfig/sstp-client-1.0.pc
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.18-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.0.18-10
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

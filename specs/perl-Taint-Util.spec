@@ -1,6 +1,6 @@
 Name:		perl-Taint-Util
 Version:	0.08
-Release:	40%{?dist}
+Release:	41%{?dist}
 Summary:	Test for and flip the taint flag without regex matches or eval
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Taint-Util
@@ -61,6 +61,9 @@ make test
 %{_mandir}/man3/Taint::Util.3*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.08-40
 - Perl 5.42 rebuild
 

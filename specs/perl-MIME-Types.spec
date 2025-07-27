@@ -14,7 +14,7 @@
 
 Name:           perl-MIME-Types
 Version:        2.28
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        MIME types module for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MIME-Types
@@ -108,6 +108,9 @@ make test TEST_FILES="xt/*.t"
 %endif
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.28-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Apr 19 2025 Paul Howarth <paul@city-fan.org> - 2.28-1
 - Update to 2.28
   Fixes:

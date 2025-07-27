@@ -10,7 +10,7 @@
 
 Name:           rust-zincati
 Version:        0.0.30
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Update agent for Fedora CoreOS
 
 License:        Apache-2.0
@@ -153,6 +153,9 @@ install -Dpm0644 -t %{buildroot}%{_datadir}/dbus-1/system.d \
 %endif
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.30-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon May 05 2025 Jean-Baptiste Trystram <jbtrystram@redhat.com> - 0.0.30-3
 - Backport patch to fix rollback not sticking from https://github.com/coreos/zincati/pull/1293
   See https://github.com/coreos/fedora-coreos-tracker/issues/1938

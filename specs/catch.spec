@@ -1,11 +1,13 @@
 Name:           catch
-Version:        3.8.1
+Version:        3.9.0
 Release:        %autorelease
 Summary:        Modern, C++-native, header-only, framework for unit-tests, TDD and BDD
 
 License:        BSL-1.0
 URL:            https://github.com/catchorg/Catch2
 Source0:        https://github.com/catchorg/Catch2/archive/v%{version}/%{name}-%{version}.tar.gz
+# https://github.com/catchorg/Catch2/issues/3006
+Patch:          catch-destdir.patch
 
 BuildRequires:  cmake make gcc-c++ python3
 

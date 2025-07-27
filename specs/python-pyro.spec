@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        4.80
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        PYthon Remote Objects
 
 License:        MIT 
@@ -60,6 +60,9 @@ chmod -x examples/maxsize/Readme.txt
 %{_bindir}/pyro4*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.80-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 4.80-16
 - Rebuilt for Python 3.14
 

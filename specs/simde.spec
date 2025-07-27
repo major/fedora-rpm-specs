@@ -14,7 +14,7 @@ Name: simde
 Version: %{simde_version}%{?rc_version:~rc%{rc_version}}
 # Align the release format with the packages setting Source0 by commit hash
 # such as podman.spec and moby-engine.spec.
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Implementations of SIMD instruction sets for non-native systems
 # find simde/ -type f | xargs licensecheck
 #   simde: MIT
@@ -172,6 +172,9 @@ export CI_GCC_RPM_LDFLAGS="%{build_ldflags}"
 %{_includedir}/%{name}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 23 2025 Dominik Mierzejewski <dominik@greysector.net> - 0.8.2-4
 - Avoid undefined behaviour with signed integer multiplication
 

@@ -10,7 +10,7 @@ Name: qtwebkit
 Summary: Qt WebKit bindings
 
 Version: 2.3.4
-Release: 45%{?dist}
+Release: 46%{?dist}
 
 # Automatically converted from old format: LGPLv2 with exceptions or GPLv3 with exceptions - review is highly recommended.
 License: LGPL-2.0-or-later WITH FLTK-exception OR LicenseRef-Callaway-GPLv3-with-exceptions
@@ -217,6 +217,9 @@ popd
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.4-46
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.4-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

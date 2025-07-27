@@ -20,6 +20,9 @@ Patch: opensips-0007-Possible-free-of-unitialized-variable.patch
 Patch: opensips-0008-Possible-use-of-unitialized-variable.patch
 Patch: opensips-0009-Make-GCC-happy.patch
 Patch: opensips-0010-Make-GCC-happy.patch
+Patch: opensips-0011-Fix-function-type-mismatch.patch
+Patch: opensips-0012-Fix-function-type-mismatch.patch
+Patch: opensips-0013-Fix-variable-type-mismatch.patch
 
 URL:      https://opensips.org
 

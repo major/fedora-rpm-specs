@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.2.0
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Python client for interacting with Glances
 
 License:        MIT
@@ -39,6 +39,9 @@ A Python client for interacting with Glances.
 %{python3_sitelib}/glances_api*.egg-info
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.2.0-24
 - Rebuilt for Python 3.14
 

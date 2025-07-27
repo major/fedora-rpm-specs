@@ -14,7 +14,7 @@
 
 Name: sfp-master
 Version: 1.0.6
-Release: 1%dist
+Release: 2%dist
 
 Summary: Reading, writing SFP modules data
 Summary(ru_RU.UTF-8): Чтение, запись данных SFP-модулей
@@ -134,6 +134,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.xml
 %license LICENSE
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Mar 04 2025 Mikhail Medvedev 1.0.6-1
 - Fixed memory leaks
 * Wed Jan 08 2025 Mikhail Medvedev 1.0.5-1

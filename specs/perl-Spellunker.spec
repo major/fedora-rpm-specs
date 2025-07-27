@@ -1,6 +1,6 @@
 Name:           perl-Spellunker
 Version:        0.4.0
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Pure perl spelling checker implementation
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Spellunker
@@ -75,6 +75,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/Test::Spellunker.3*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

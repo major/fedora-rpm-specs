@@ -1,6 +1,6 @@
 Name:		proxyfuzz	
 Version:	20190404
-Release:	28%{?dist}
+Release:	29%{?dist}
 Summary:	Man-in-the-middle non-deterministic network fuzzer
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -45,6 +45,9 @@ install -m 755 -p proxyfuzz.py ${RPM_BUILD_ROOT}/%{_sbindir}/proxyfuzz
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20190404-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20190404-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           procdump
 Version:        3.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Sysinternals process dump utility
 
 License:        MIT
@@ -60,6 +60,9 @@ general process dump utility that you can embed in other scripts.
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 04 2025 Julio Faracco <jfaracco@redhat.com> - 3.4.0-1
 - Add ARM64 support
 - Fix clang compilation errors due to variable length arrays

@@ -5,7 +5,7 @@
 
 Name: python-%{srcname}
 Version: 2.0.10
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: A cross-platform windowing and multimedia library for Python
 
 License: BSD-3-Clause
@@ -156,6 +156,9 @@ ln -s %{_datadir}/sounds/purple/*.wav tests/data/media/
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.10-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2.0.10-5
 - Rebuilt for Python 3.14
 

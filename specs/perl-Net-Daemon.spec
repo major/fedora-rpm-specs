@@ -1,6 +1,6 @@
 Name:           perl-Net-Daemon
 Version:        0.49
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Perl extension for portable daemons
 
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
@@ -103,6 +103,9 @@ inheriting will safe you a lot of work anyways.
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.49-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.49-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

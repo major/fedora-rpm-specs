@@ -2,7 +2,7 @@
 
 Name:               x11-ssh-askpass
 Version:            1.2.4.1
-Release:            42%{?dist}
+Release:            43%{?dist}
 Summary:            A passphrase dialog for X and not only for OpenSSH
 License:            LicenseRef-Fedora-Public-Domain
 
@@ -76,6 +76,9 @@ rm -f %{buildroot}%{_mandir}/man1/ssh-askpass.1x*
 %{_mandir}/man1/x11-ssh-askpass.1x.gz
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4.1-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4.1-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

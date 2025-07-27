@@ -11,9 +11,7 @@ mdadm \\
 qemu-img \\
 mtd-utils \\
 mtd-utils-ubi \\
-erofs-utils \\
-uboot-tools \\
-erofs-utils
+uboot-tools
 EOF)
 
 Name:           genimage

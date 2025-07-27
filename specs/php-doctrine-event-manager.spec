@@ -27,7 +27,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}
 Version:        1.2.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Simple PHP event system
 
 License:        MIT
@@ -128,6 +128,9 @@ exit $ret
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

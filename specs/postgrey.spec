@@ -2,7 +2,7 @@
 
 Name:              postgrey
 Version:           1.37
-Release:           26%{?dist}
+Release:           27%{?dist}
 Summary:           Postfix Greylisting Policy Server
 # File headers only state "GNU GPL", but the LICENSE sections state v2 and "any
 # later version"
@@ -132,6 +132,9 @@ install -m0644 -D postgrey.sysusers.conf %{buildroot}%{_sysusersdir}/postgrey.co
 %{_sysusersdir}/postgrey.conf
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.37-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.37-26
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

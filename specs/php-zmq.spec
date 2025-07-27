@@ -14,7 +14,7 @@
 Summary:        ZeroMQ messaging
 Name:           php-%{pecl_name}
 Version:        1.1.3
-Release:        34%{?dist}
+Release:        35%{?dist}
 License:        BSD-3-Clause
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{version}.tgz
@@ -123,6 +123,9 @@ export TEST_PHP_ARGS="-n -d extension_dir=$PWD/modules -d extension=%{pecl_name}
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jan 22 2025 Remi Collet <remi@remirepo.net> - 1.1.3-34
 - fix build with GCC 15 using patch from
   https://github.com/zeromq/php-zmq/pull/238

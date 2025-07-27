@@ -17,7 +17,7 @@
 
 Name:           php-phpunit-git
 Version:        2.1.4
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Simple wrapper for Git
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -85,6 +85,9 @@ fi
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.4-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.4-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

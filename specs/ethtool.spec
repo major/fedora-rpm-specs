@@ -4,13 +4,18 @@ Summary:        Settings tool for Ethernet NICs
 Name:           ethtool
 Epoch:          2
 Version:        6.15
-Release:        2%{?dist}
+Release:        3%{?dist}
 # {json_print,qsfp,sff-common}.{c,h} are GPL-2.0-or-later, rest is GPL-2.0-only
 License:        GPL-2.0-only AND GPL-2.0-or-later
 URL:            https://www.kernel.org/pub/software/network/%{name}/
 Source0:        https://www.kernel.org/pub/software/network/%{name}/%{name}-%{version}.tar.xz
 Source1:        https://www.kernel.org/pub/software/network/%{name}/%{name}-%{version}.tar.sign
 Source2:        https://keys.openpgp.org/vks/v1/by-fingerprint/D2CB120AB45957B721CD9596F4554567B91DE934
+# netlink: fix missing headers in text output
+Patch0:         https://git.kernel.org/pub/scm/network/ethtool/ethtool.git/patch/?id=b70c928661024cd07914feb49122275daab904ea#/ethtool-netlink-fix-missing-headers.diff
+# follow-up fix to allow building with -Werror=format-security
+# https://www.spinics.net/lists/netdev/msg1111128.html
+Patch1:         ethtool-netlink-fix-print_string.diff
 BuildRequires:  gnupg2, xz
 BuildRequires:  gcc
 BuildRequires:  libappstream-glib
@@ -49,6 +54,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/%{appstream
 %{_metainfodir}/%{appstream_id}.metainfo.xml
 
 %changelog
+* Thu Jul 24 2025 Michel Lind <salimma@fedoraproject.org> - 2:6.15-3
+- Fix missing headers in text output (#2383328)
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:6.15-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

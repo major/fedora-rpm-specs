@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.3.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        TPM 2.0 TSS Bindings for Python
 
 License:        BSD-2-Clause
@@ -83,6 +83,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jun 13 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 2.3.0-6
 - Patch for cryptography 45; fixes RHBZ#2372172
 

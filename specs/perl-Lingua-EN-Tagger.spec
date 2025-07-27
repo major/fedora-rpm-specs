@@ -1,6 +1,6 @@
 Name:           perl-Lingua-EN-Tagger
 Version:        0.31
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Part-of-speech tagger for English natural language processing
 License:        GPL-3.0-only
 URL:            https://metacpan.org/release/Lingua-EN-Tagger
@@ -65,6 +65,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.31-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.31-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

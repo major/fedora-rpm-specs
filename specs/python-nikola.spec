@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        8.3.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A modular, fast, simple, static website and blog generator
 
 # Automatically converted from old format: MIT and CC0 and BSD - review is highly recommended.
@@ -115,6 +115,9 @@ rm -rf html/.{doctrees,buildinfo}
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.3.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jun 14 2025 Kevin Fenzi <kevin@scrye.com> - 8.3.3-1
 - Update to 8.3.3 (fixes rhbz#2277754 )
 - Fix FTBFS (fixes rhbz#2341174 )

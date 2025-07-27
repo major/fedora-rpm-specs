@@ -1,7 +1,7 @@
 Summary:       Performs a verified launch using Intel TXT
 Name:          tboot
 Version:       1.11.7
-Release:       12%{?dist}
+Release:       13%{?dist}
 Epoch:         1
 
 License:       BSD-3-Clause
@@ -76,6 +76,9 @@ grub2-mkconfig -o /etc/grub2.cfg
 /boot/tboot-syms
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.11.7-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 23 2025 David Cantrell <dcantrell@redhat.com> - 1:1.11.7-12
 - Patch Makefiles to install to /usr/bin rather than /usr/sbin (#2341415)
 

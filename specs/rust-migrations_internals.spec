@@ -6,7 +6,7 @@
 
 Name:           rust-migrations_internals
 Version:        2.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Internal implementation of diesels migration mechanism
 
 License:        MIT OR Apache-2.0
@@ -67,4 +67,7 @@ use the "default" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 %autochangelog

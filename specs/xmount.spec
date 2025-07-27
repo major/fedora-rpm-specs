@@ -2,7 +2,7 @@
 
 Name:           xmount
 Version:        0.7.6
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        A on-the-fly convert for multiple hard disk image types
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -68,6 +68,9 @@ chmod -x src/xmount.*
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.6-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.6-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

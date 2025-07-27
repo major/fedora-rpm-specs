@@ -1,6 +1,6 @@
 Name:		perl-Mail-Message
 Version:	3.017
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	MIME message handling
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Mail-Message
@@ -124,6 +124,9 @@ make test
 %{_mandir}/man3/Mail::*.3*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.017-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Apr 19 2025 Paul Howarth <paul@city-fan.org> - 3.017-1
 - Update to 3.017 (rhbz#2361103)
 

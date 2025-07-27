@@ -1,7 +1,7 @@
 Name:		wfview
 URL:		https://gitlab.com/eliggett/wfview/
 Version:	1.64
-Release:	5%{?dist}
+Release:	6%{?dist}
 License:	GPL-3.0-only
 BuildRequires:	make
 BuildRequires:	gcc-c++
@@ -131,6 +131,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.%{name}.%{
 %{_metainfodir}/org.wfview.wfview.metainfo.xml
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.64-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.64-5
 - Drop call to %sysusers_create_compat
 

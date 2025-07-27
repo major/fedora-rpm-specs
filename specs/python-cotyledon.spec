@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Cotyledon provides a framework for defining long-running services
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -59,6 +59,9 @@ rm -rf html/.doctrees html/.buildinfo
 %doc html
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jun 13 2025 Yatin Karel <ykarel@redhat.com> - 2.0.0-1
 - Update to 2.0.0 (Resolves rhbz#2343112)
 

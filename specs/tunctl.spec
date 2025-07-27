@@ -1,6 +1,6 @@
 Name:           tunctl
 Version:        1.5
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Create and remove virtual network interfaces
 
 License:        GPL-1.0-or-later
@@ -40,6 +40,9 @@ make DESTDIR=%{buildroot} BIN_DIR=%{_sbindir} install
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Feb 06 2025 Richard W.M. Jones <rjones@redhat.com> - 1.5-34
 - Set BIN_DIR to binary install directory
 

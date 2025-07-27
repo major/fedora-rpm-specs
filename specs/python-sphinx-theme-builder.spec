@@ -10,7 +10,7 @@
 
 Name:           python-sphinx-theme-builder
 Version:        0.2.0
-Release:        0.20.%{prerel}%{?dist}
+Release:        0.21.%{prerel}%{?dist}
 Summary:        Streamline the Sphinx theme development workflow
 
 # Most of the code is MIT.  However,
@@ -87,6 +87,9 @@ rm %{buildroot}%{_bindir}/stb
 %license LICENSE
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-0.21.b2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jun 18 2025 Python Maint <python-maint@redhat.com> - 0.2.0-0.20.b2
 - Bootstrap for Python 3.14.0b3 bytecode
 

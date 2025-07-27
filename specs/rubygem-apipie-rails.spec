@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.4.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Rails REST API documentation tool
 # The project itself is MIT
 # For ASL 2.0, see https://github.com/Apipie/apipie-rails/issues/66
@@ -126,6 +126,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jul 11 2025 Vít Ondruch <vondruch@redhat.com> - 1.4.2-1
 - Update to apipie-rails 1.4.2.
   Resolves: rhbz#2123907

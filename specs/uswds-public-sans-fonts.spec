@@ -3,7 +3,7 @@
 Version:            1.008
 %forgemeta
 
-Release: 17%{?dist}
+Release: 18%{?dist}
 URL:     https://public-sans.digital.gov/
 
 %global foundry           USWDS
@@ -53,6 +53,9 @@ chmod 644 %{fontdocs} %{fontlicenses}
 %fontfiles
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.008-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.008-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           rubygem-%{gem_name}
 Version:        2.14.17
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Fast XML parser and object serializer
 
 License:        MIT
@@ -95,6 +95,9 @@ popd
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.17-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.17-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

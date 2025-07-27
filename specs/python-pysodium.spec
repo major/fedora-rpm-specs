@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.7.12
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        A Python libsodium wrapper
 
 License:        BSD-2-Clause
@@ -47,6 +47,9 @@ Requires:       libsodium
 %{python3_sitelib}/%{pypi_name}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.12-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.7.12-14
 - Rebuilt for Python 3.14
 

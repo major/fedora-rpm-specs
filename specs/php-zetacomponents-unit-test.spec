@@ -16,7 +16,7 @@
 
 Name:           php-%{gh_owner}-%{cname}
 Version:        1.2.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Zeta UnitTest Component
 
 License:        Apache-2.0
@@ -82,6 +82,9 @@ cp -pr src/*_autoload.php \
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.6-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

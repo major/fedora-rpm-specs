@@ -1,6 +1,6 @@
 %global upstreamname hipfort
 %global rocm_release 6.4
-%global rocm_patch 0
+%global rocm_patch 2
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with debug
@@ -15,7 +15,7 @@
 
 Name:           hipfort
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Fortran interfaces for ROCm libraries
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -118,6 +118,9 @@ rm %{buildroot}%{_libdir}/cmake/%{name}/%{name}-config.cmake
 %{_libdir}/cmake/%{name}
 
 %changelog
+* Thu Jul 24 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 6.4.2-1
+- Update to 6.4.2
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

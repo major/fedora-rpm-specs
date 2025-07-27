@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        %{pypi_version}
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Python bindings for Oracle Berkeley DB
 
 # For a breakdown of the licensing, see licenses.txt
@@ -75,6 +75,9 @@ sed -i /env\ python/d $RPM_BUILD_ROOT%{python3_sitearch}/berkeleydb/dbshelve.py
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 18.1.4-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 18.1.4-16
 - Rebuilt for Python 3.14
 

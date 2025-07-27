@@ -15,7 +15,7 @@
 
 Name:		scummvm
 Version:	2.9.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Interpreter for several adventure games
 # OFL only used by font files (distributed as fonts.dat)
 License:	GPL-3.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-BSD AND LicenseRef-Callaway-OFL and LicenseRef-Callaway-MIT and ISC and Catharon AND Apache-2.0 AND BSL-1.0
@@ -149,6 +149,9 @@ find $RPM_BUILD_ROOT%{_libdir} -type f -name '*.so' | xargs chmod -Rc 0755
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jul 10 2025 Christian Krause <chkr@fedoraproject.org> - 2.9.1-1
 - Update to 2.9.1 (#2365404)
 

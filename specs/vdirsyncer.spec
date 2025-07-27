@@ -10,7 +10,7 @@
 
 Name:       vdirsyncer
 Version:    0.19.3
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    %{sum}
 
 License:    BSD-3-Clause
@@ -151,6 +151,9 @@ sh build.sh tests
 %doc docs/_build/html docs/_build/text
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.19.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jul 09 2025 Ben Boeckel <fedora@me.benboeckel.net> - 0.19.3-3
 - Modernize RPM macros (rhbz#2378494)
 

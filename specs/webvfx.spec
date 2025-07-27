@@ -1,6 +1,6 @@
 Name:           webvfx
 Version:        1.2.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Video effects engine based on web technologies
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -76,6 +76,9 @@ chrpath --delete %{buildroot}%{_bindir}/%{name}_render
 %doc doxydoc
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

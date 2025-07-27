@@ -4,7 +4,7 @@
 Summary:	Graphical X.509 certificate management tool
 Name:		xca
 Version:	2.7.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:	LicenseRef-Callaway-BSD
 URL:		https://hohnstaedt.de/xca/
@@ -116,6 +116,9 @@ desktop-file-install --mode 0644					\
 
 #-------------------------------------------------------------------------------
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

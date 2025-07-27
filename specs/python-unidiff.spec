@@ -3,7 +3,7 @@
 
 Name:           python-%{modname}
 Version:        0.7.5
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Python library to parse and interact with unified diffs (patches)
 License:        MIT
 URL:            http://github.com/matiasb/python-unidiff
@@ -49,6 +49,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} -m unittest discover -s t
 %{_bindir}/%{modname}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.5-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jul 09 2025 Matej Focko <mfocko@fedoraproject.org> - 0.7.5-8
 - Migrate from %py3* to %pyproject* (Fixes rhbz#2378305)
 

@@ -4,7 +4,7 @@
 Summary:        A screen manager that supports multiple logins on one terminal
 Name:           screen
 Version:        5.0.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 License:        GPL-3.0-or-later
 URL:            http://www.gnu.org/software/screen
 BuildRequires: make
@@ -115,6 +115,9 @@ install -m0644 -D screen.sysusers.conf %{buildroot}%{_sysusersdir}/screen.conf
 %{_sysusersdir}/screen.conf
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 30 2025 Josef Ridky <jridky@redhat.com> - 5.0.1-4
 - Modify configuration options to reflect changes in version 5.0.1
 

@@ -16,7 +16,7 @@
 Summary:	Ruby bindings for cairo
 Name:		rubygem-%{gem_name}
 Version:	1.18.4
-Release:	1%{?dist}
+Release:	2%{?dist}
 # From gemspec
 # SPDX confirmed
 License:	GPL-2.0-or-later OR Ruby
@@ -189,6 +189,9 @@ ruby ./test/run-test.rb
 %{header_dir}/rb_cairo.h
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.18.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Mar 12 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.18.4-1
 - 1.18.4
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.3.1.1
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        JSEncrypt (XStatic packaging standard)
 
 License:        MIT
@@ -82,6 +82,9 @@ chmod 644 %{buildroot}%{_jsdir}/jsencrypt/jsencrypt.js
 %{_jsdir}/jsencrypt
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1.1-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.3.1.1-27
 - Rebuilt for Python 3.14
 

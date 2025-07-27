@@ -2,7 +2,7 @@
 
 Name:		tpm2-pkcs11
 Version:	1.9.1
-Release:	3%{?candidate:.%{candidate}}%{?dist}
+Release:	4%{?candidate:.%{candidate}}%{?dist}
 Summary:	PKCS#11 interface for TPM 2.0 hardware
 
 License:	BSD-2-Clause
@@ -111,6 +111,9 @@ make check
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 17 2025 Python Maint <python-maint@redhat.com> - 1.9.1-3
 - Rebuilt for Python 3.14
 

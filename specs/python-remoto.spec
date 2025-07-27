@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.2.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Execute remote commands or processes
 
 License:        MIT
@@ -49,6 +49,9 @@ py.test-%{python3_version} -v remoto/tests
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.2.1-13
 - Rebuilt for Python 3.14
 

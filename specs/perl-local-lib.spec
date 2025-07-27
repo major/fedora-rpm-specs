@@ -1,6 +1,6 @@
 Name:           perl-local-lib
 Version:        2.000029
-Release:        9%{?dist}
+Release:        10%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:        Create and use a local lib/ for perl modules
 Url:            https://metacpan.org/release/local-lib
@@ -133,6 +133,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.000029-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.000029-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

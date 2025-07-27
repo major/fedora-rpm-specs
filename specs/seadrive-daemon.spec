@@ -3,7 +3,7 @@
 %global gh_name seadrive-fuse
 Name:           seadrive-daemon
 Version:        3.0.15
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Daemon part of Seafile Drive client
 
 License:        GPL-3.0-only
@@ -77,6 +77,9 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %{python3_sitearch}/seadrive/
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.15-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 21 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 3.0.15-2
 - Rebuild for libwebsockets 4.4
 

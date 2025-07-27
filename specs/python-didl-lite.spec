@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        1.2.5
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        DIDL-Lite (Digital Item Declaration Language) tools
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -50,6 +50,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/python_didl_lite-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.5-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.2.5-18
 - Rebuilt for Python 3.14
 

@@ -1,6 +1,6 @@
 Name:		sigscheme
 Version:	0.9.3
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	BSD-3-Clause
 URL:		https://github.com/uim/sigscheme
 BuildRequires: make
@@ -63,6 +63,9 @@ make check
 %{_libdir}/pkgconfig/sigscheme.pc
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue May 13 2025 Akira TAGOH <tagoh@redhat.com> - 0.9.3-1
 - New upstrem release.
   Resolves: rhbz#2363953

@@ -5,7 +5,7 @@
 
 Name:		scap-security-guide
 Version:	0.1.77
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Security guidance and baselines in SCAP formats
 License:	BSD-3-Clause
 URL:		https://github.com/ComplianceAsCode/content/
@@ -96,6 +96,9 @@ rm %{buildroot}/%{_docdir}/%{name}/Contributors.md
 %endif
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.77-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Matthew Burket <mburket@redhat.com> - 0.1.77-1
 - Update to latest upstream release:
   https://github.com/ComplianceAsCode/content/releases/tag/v0.1.77

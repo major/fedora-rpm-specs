@@ -4,13 +4,13 @@
 %global	plugin_least_ver	3.5.99
 
 %global	use_git	1
-%global	gitdate	20250714
-%global	githash	e852048b22efc746c095f4fad19e0973fb836a3d
+%global	gitdate	20250716
+%global	githash	033945cc4ec48746f5df80fc3ccab0595e410d85
 %global	shorthash	%(c=%{githash} ; echo ${c:0:7})
 
 %global	tarballver	%{mainver}%{?use_git:-%{gitdate}git%{shorthash}}
 
-%global	baserelease	2
+%global	baserelease	1
 %global	alphatag		.rc6
 
 %undefine _ld_strict_symbol_defs
@@ -265,6 +265,9 @@ popd
 %changelog
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.99^20250714gite852048-2.rc6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
+* Wed Jul 23 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.5.99^20250716git033945c-1.rc6
+- Update to the latest git (20250716git033945c)
 
 * Mon Jul 14 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.5.99^20250714gite852048-1.rc6
 - Update to the latest git (20250714gite852048)

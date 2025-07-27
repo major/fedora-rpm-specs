@@ -12,7 +12,7 @@
 
 Name:           yarnpkg
 Version:        1.22.22
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Fast, reliable, and secure dependency management.
 License:        BSD-2-Clause
 URL:            https://github.com/yarnpkg/yarn
@@ -93,6 +93,9 @@ if [[ $(%{buildroot}%{_bindir}/yarn --version) == %{version} ]] ; then echo PASS
 %{nodejs_sitelib}/%{npm_name}/
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.22-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 24 2025 Sandro Mani <manisandro@gmail.com> - 1.22.22-9
 - Add CVE-2025-6545_6547.prebundle.patch and regenerate bundle. Fixes CVE-2025-6545 and CVE-2025-6547.
 

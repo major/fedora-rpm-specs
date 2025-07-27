@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.6.6
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Efficient and thread-safe constant autoloader
 License: MIT
 URL: https://github.com/fxn/zeitwerk
@@ -77,6 +77,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.6-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.6-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

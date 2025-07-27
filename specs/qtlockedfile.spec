@@ -10,7 +10,7 @@
 Summary:	QFile extension with advisory locking functions
 Name:		qtlockedfile
 Version:	2.4
-Release:	44.%{commitdate}git%{shortcommit0}%{?dist}
+Release:	45.%{commitdate}git%{shortcommit0}%{?dist}
 
 # most files has BSD-3-Clause
 # project declared license is GPL-3.0-only OR LGPL-2.1-only WITH Digia-Qt-LGPL-exception-1.1
@@ -177,6 +177,9 @@ install -p -D -m644 qt6/qtlockedfile.prf %{buildroot}%{_qt6_archdatadir}/mkspecs
 %{_qt6_archdatadir}/mkspecs/features/qtlockedfile.prf
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-45.20150629git5a07df5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-44.20150629git5a07df5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

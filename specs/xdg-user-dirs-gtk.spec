@@ -1,6 +1,6 @@
 Name:		xdg-user-dirs-gtk
 Version:	0.11
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	Gnome integration of special directories
 
 License:	GPL-2.0-or-later
@@ -48,6 +48,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_sysconfdir}/xdg/autostart/user-dirs-upda
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

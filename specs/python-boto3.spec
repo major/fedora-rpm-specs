@@ -7,7 +7,7 @@
 %bcond awscrt 0
 
 Name:           python-boto3
-Version:        1.39.13
+Version:        1.39.14
 Release:        1%{?dist}
 Summary:        The AWS SDK for Python
 
@@ -83,6 +83,12 @@ hardlink -c '%{buildroot}%{python3_sitelib}/boto3'
 %license LICENSE
 
 %changelog
+* Fri Jul 25 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.39.14-1
+- 1.39.14
+
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.39.13-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jul 24 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.39.13-1
 - 1.39.13
 

@@ -15,7 +15,7 @@ care if they’re perfect.\
 
 Name:           python-%{pypi_name}
 Version:        0.4.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Python charting for 80% of humans
 
 License:        MIT
@@ -96,6 +96,9 @@ popd
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jul 11 2025 Julien Enselme <jujens@jujens.eu> - 0.4.0-6
 - Correct Python macro usages
 

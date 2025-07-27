@@ -16,7 +16,7 @@
 Name:           %{pkg_name}
 Version:        0.19.8
 # can only be reset when all subpkgs bumped
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Build system library, like Make, but more accurate dependencies
 
 License:        BSD-3-Clause
@@ -224,6 +224,9 @@ PATH=%{buildroot}%{_bindir}:$PATH
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.19.8-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Mar 30 2025 Jens Petersen <petersen@redhat.com> - 0.19.8-32
 - Rebuild
 

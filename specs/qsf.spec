@@ -4,7 +4,7 @@
 
 Name:           qsf
 Version:        1.2.15
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Quick Spam Filter
 
 License:        Artistic-2.0
@@ -58,6 +58,9 @@ make test
 %{_mandir}/man1/qsf.1*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.15-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 23 2025 Miroslav Lichvar <mlichvar@redhat.com> 1.2.15-11
 - fix FTBFS with new gcc (#2341253)
 

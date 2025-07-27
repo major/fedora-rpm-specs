@@ -1,6 +1,6 @@
 Name:          volk
 Version:       3.2.0
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       The Vector Optimized Library of Kernels
 License:       LGPL-3.0-or-later
 URL:           https://github.com/gnuradio/%{name}
@@ -111,6 +111,9 @@ cp -a %{__cmake_builddir}/html %{buildroot}%{_docdir}/%{name}
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.2.0-3
 - Rebuilt for Python 3.14
 

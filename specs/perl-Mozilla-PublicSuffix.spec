@@ -1,6 +1,6 @@
 Name:           perl-Mozilla-PublicSuffix
 Version:        1.0.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Get a domain name's public suffix via the Mozilla Public Suffix List
 License:        MIT
 URL:            https://metacpan.org/release/Mozilla-PublicSuffix
@@ -67,6 +67,9 @@ perl Build.PL installdirs=vendor --config system_publicsuffix_list=/usr/share/pu
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

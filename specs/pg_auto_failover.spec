@@ -4,7 +4,7 @@
 
 Name:           pg_auto_failover
 Version:        2.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Postgres extension and service for automated failover and high-availability
 
 License:        Apache-1.0
@@ -141,6 +141,9 @@ done
 %endif
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

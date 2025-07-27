@@ -3,7 +3,7 @@ Name: tzdata
 Version: 2025b
 %define tzdata_version 2025b
 %define tzcode_version 2025b
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: LicenseRef-Fedora-Public-Domain AND (GPL-2.0-only WITH ClassPath-exception-2.0)
 URL: https://www.iana.org/time-zones
 Source0: ftp://ftp.iana.org/tz/releases/tzdata%{tzdata_version}.tar.gz
@@ -146,6 +146,9 @@ echo ============END TESTING===========
 %{_datadir}/javazi-1.8
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2025b-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Mar 27 2025 Patsy Griffin <patsy@redhat.com> - 2025b-1
   Update to tzdata-2025b (#2354293)
   - Chile's Aysén Region moves from -04/-03 to -03 year-round,

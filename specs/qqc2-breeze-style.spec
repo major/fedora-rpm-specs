@@ -1,6 +1,6 @@
 Name:    qqc2-breeze-style
 Version: 6.4.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: QtQuickControls2 breeze style
 
 License: CC0-1.0 and GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -54,6 +54,9 @@ This is a pure Qt Quick/Kirigami Qt Quick Controls style.
 %{_kf6_libdir}/cmake/QQC2BreezeStyle/
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jul 15 2025 Steve Cossette <farchord@gmail.com> - 6.4.3-1
 - 6.4.3
 

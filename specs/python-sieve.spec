@@ -2,7 +2,7 @@
 
 Name:             python-sieve
 Version:          0.1.9
-Release:          37%{?dist}
+Release:          38%{?dist}
 Summary:          XML Comparison Utils
 
 License:          MIT
@@ -103,6 +103,9 @@ Example usage::
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.9-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 14 2025 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 0.1.9-37
 - Migrate from py_build/py_install to pyproject macros (bz#2378590)
 

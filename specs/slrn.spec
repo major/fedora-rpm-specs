@@ -1,7 +1,7 @@
 Summary: A threaded Internet news reader
 Name: slrn
 Version: 1.0.3a
-Release: 19%{?dist}
+Release: 20%{?dist}
 # COPYRIGHT:    GPL-2.0-or-later
 # src:          GPL-2.0-or-later
 # src/vms.c:    "donated for use in slrn by Andrew Greer"
@@ -164,6 +164,9 @@ exit 0
 %{_mandir}/man1/slrnpull.1*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3a-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.0.3a-19
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

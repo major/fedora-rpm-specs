@@ -3,7 +3,7 @@
 
 Name:       python-atomicwrites
 Version:    1.4.1
-Release:    14%{?git_tag}%{?dist}
+Release:    15%{?git_tag}%{?dist}
 Summary:    Python Atomic file writes on POSIX 
 
 License:    MIT
@@ -83,6 +83,9 @@ cp -r docs/_build/man/*.1 "$RPM_BUILD_ROOT%{_mandir}/man1"
 %endif
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jul 09 2025 Ben Boeckel <fedora@me.benboeckel.net> - 1.4.1-14
 - Modernize RPM macros (rhbz#2377464)
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        2.0.14
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Python module and programs for SPF (Sender Policy Framework)
 
 # Automatically converted from old format: Python - review is highly recommended.
@@ -73,6 +73,9 @@ sed -i -e '/^#!\//, 1d' %{buildroot}%{python3_sitelib}/*.py
 %{python3_sitelib}/pyspf-%{version}.dist-info
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.14-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jul 10 2025 Bojan Smojver <bojan@rexursive.com> - 2.0.14-24
 - Stop using deprecated %%py3_build and %%py3_install macros (bz#2378094)
 

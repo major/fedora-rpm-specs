@@ -1,7 +1,7 @@
 Name:           zipper
 Summary:        C++ wrapper around minizip compression library
 Version:        1.0.3
-Release:        10%{?dist}
+Release:        11%{?dist}
 URL:            https://github.com/sebastiandev/zipper
 
 ## Source archive from github obtained by
@@ -64,7 +64,10 @@ This package provides static library file of %{name}.
  -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE -DCMAKE_COLOR_MAKEFILE:BOOL=ON \
  -DCMAKE_SKIP_INSTALL_RPATH:BOOL=YES -DCMAKE_SKIP_RPATH:BOOL=YES \
  -DINSTALL_PKGCONFIG_DIR:PATH=%{_libdir}/pkgconfig \
- -DZLIB_INCLUDE_DIR:PATH=%{_includedir} -DZLIB_LIBRARY_RELEASE:FILEPATH=%{_libdir}/libz.so
+ -DZLIB_INCLUDE_DIR:PATH=%{_includedir} -DZLIB_LIBRARY_RELEASE:FILEPATH=%{_libdir}/libz.so \
+%if "%{?_lib}" == "lib64"
+  %{?_cmake_lib_suffix64}
+%endif
 %cmake_build
 
 %install
@@ -92,6 +95,9 @@ rm -f %{buildroot}%{_bindir}/Zipper-test
 %{_libdir}/libZipper-static.a
 
 %changelog
+* Fri Jul 25 2025 Antonio Trande <sagitter@fedoraproject.org> - 1.0.3-11
+- Fix rhbz#2381650 rhbz#2381687
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

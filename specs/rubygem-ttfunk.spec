@@ -3,7 +3,7 @@
 Summary: Font Metrics Parser for Prawn
 Name: rubygem-%{gem_name}
 Version: 1.7.0
-Release: 12%{?dist}
+Release: 13%{?dist}
 # Automatically converted from old format: GPLv2 or GPLv3 or Ruby - review is highly recommended.
 License: GPL-2.0-only OR GPL-3.0-only OR Ruby
 URL: https://github.com/prawnpdf/ttfunk
@@ -67,6 +67,9 @@ cp -a ./%{gem_dir}/* %{buildroot}%{gem_dir}/
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

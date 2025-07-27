@@ -6,7 +6,7 @@ overpy is a wrapper written in Python to access the Overpass API.}
 
 Name:           python-%{pretty_name}
 Version:        0.7
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Python Wrapper to access the Overpass API
 
 # SPDX
@@ -70,6 +70,9 @@ rm -rf html/.{doctrees,buildinfo}
 %doc html/
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.7-8
 - Rebuilt for Python 3.14
 

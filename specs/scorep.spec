@@ -6,7 +6,7 @@
 
 Name:           scorep
 Version:        9.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Scalable Performance Measurement Infrastructure for Parallel Codes
 License:        BSD-3-Clause
 URL:            http://www.vi-hps.org/projects/score-p/
@@ -351,6 +351,9 @@ make -C serial check V=1
 %endif
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 14 2025 Dave Love <loveshack@fedoraproject.org> - 9.2-1
 - Update to version 9.2
 

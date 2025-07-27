@@ -1,6 +1,6 @@
 Name:           rifiuti2
 Version:        0.7.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        A Windows Recycle Bin analyser
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -40,6 +40,9 @@ make check
 %{_bindir}/rifiuti*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

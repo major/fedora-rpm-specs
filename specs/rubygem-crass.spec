@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.0.4
-Release: 17%{?dist}
+Release: 18%{?dist}
 Summary: CSS parser based on the CSS Syntax Level 3 spec
 License: MIT
 URL: https://github.com/rgrove/crass/
@@ -67,6 +67,9 @@ popd
 %{gem_instdir}/%{gem_name}.gemspec
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

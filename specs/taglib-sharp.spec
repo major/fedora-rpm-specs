@@ -2,7 +2,7 @@
 
 Name:    taglib-sharp
 Version: 2.1.0.0
-Release: 26%{?dist}
+Release: 27%{?dist}
 Summary: Provides tag reading and writing for Banshee and other Mono apps
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -68,6 +68,9 @@ mv %{buildroot}%{_datadir}/pkgconfig/*.pc %{buildroot}%{_libdir}/pkgconfig/
 %{_libdir}/pkgconfig/taglib-sharp.pc
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0.0-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0.0-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

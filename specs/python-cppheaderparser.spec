@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.7.4
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Parse C++ header files and generate a data structure
 
 License:        BSD-3-Clause
@@ -48,6 +48,9 @@ sed -i -e '/^#!\//, 1d' CppHeaderParser/CppHeaderParser.py
 %doc README.txt README.html
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.4-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 14 2025 Tom Rix <Tom.Rix@amd.com> - 2.7.4-18
 - Use pyproject macros
 

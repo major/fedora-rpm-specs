@@ -1,6 +1,6 @@
 Name:           resolv_wrapper
 Version:        1.1.8
-Release:        9%{?dist}
+Release:        10%{?dist}
 
 Summary:        A wrapper for dns name resolving or dns faking
 License:        BSD-3-Clause
@@ -67,6 +67,9 @@ LD_PRELOAD=%{__cmake_builddir}/src/libpam_wrapper.so bash -c '>/dev/null'
 %{_mandir}/man1/resolv_wrapper.1*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.8-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.8-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

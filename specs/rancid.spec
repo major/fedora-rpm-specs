@@ -1,6 +1,6 @@
 Name: rancid
 Version: 3.13
-Release: 15%{?dist}
+Release: 16%{?dist}
 Summary: Really Awesome New Cisco confIg Differ
 
 License: BSD-3-Clause
@@ -125,6 +125,9 @@ install -m0644 -D rancid.sysusers.conf %{buildroot}%{_sysusersdir}/rancid.conf
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.13-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 3.13-15
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

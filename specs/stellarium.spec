@@ -1,6 +1,6 @@
 Name:           stellarium
 Version:        25.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Photo-realistic nightsky renderer
 
 License:        GPL-2.0-or-later
@@ -112,6 +112,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.stellarium.Ste
 %{_datadir}/stellarium
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 25.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri May 23 2025 Gwyn Ciesla <gwync@protonmail.com> = 25.1-4
 - Patch for GL context crash
 

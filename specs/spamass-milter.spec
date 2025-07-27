@@ -11,7 +11,7 @@
 Summary:	Milter (mail filter) for spamassassin
 Name:		spamass-milter
 Version:	0.4.0
-Release:	30%{?dist}
+Release:	31%{?dist}
 License:	GPL-2.0-or-later
 URL:		http://savannah.nongnu.org/projects/spamass-milt/
 Source0:	http://savannah.nongnu.org/download/spamass-milt/spamass-milter-%{version}.tar.gz
@@ -203,6 +203,9 @@ usermod -a -G postfix sa-milt || :
 %ghost %attr(-,sa-milt,postfix) /run/spamass-milter/postfix/sock
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Feb 14 2025 Paul Howarth <paul@city-fan.org> - 0.4.0-30
 - Drop EL-7 support
 - Drop homedir fix for upgrades from packages built in 2009 and earlier

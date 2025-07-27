@@ -1,6 +1,6 @@
 Name:           perl-Template-Plugin-Cycle
 Version:        1.06
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        Cyclically insert into a Template from a sequence of values
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Template-Plugin-Cycle
@@ -61,6 +61,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.06-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.06-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 
 %global	gem_name	rake
 
-%global	baserelease	100
+%global	baserelease	101
 
 Summary:	Rake is a Make-like program implemented in Ruby
 Name:		rubygem-%{gem_name}
@@ -120,6 +120,9 @@ popd
 %doc %{gem_instdir}/*.rdoc
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 13.3.0-101
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jun 05 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 13.3.0-100
 - 13.3.0
 

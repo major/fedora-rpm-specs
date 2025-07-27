@@ -11,7 +11,7 @@
 %define split_getimage   1
 %endif
 
-%define baserelease    2
+%define baserelease    3
 
 %global use_clang_as_cc 0
 %global use_clang_analyze 0
@@ -1210,6 +1210,9 @@ exit 0
 %endif
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:6.12-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jul 11 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:6.12-2
 - Fix heap buffer overflow on xscreensaver-settings when reading previous hack
 

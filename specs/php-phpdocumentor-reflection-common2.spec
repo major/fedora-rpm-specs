@@ -28,7 +28,7 @@
 
 Name:          php-%{composer_vendor}-%{composer_project}%{major}
 Version:       %{github_version}
-Release:       14%{?github_release}%{?dist}
+Release:       15%{?github_release}%{?dist}
 Summary:       Common reflection classes used by phpdocumentor
 
 Group:         Development/Libraries
@@ -116,6 +116,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jun 26 2025 Remi Collet <remi@remirepo.net> - 2.2.0-14
 - switch to phpunit9
 

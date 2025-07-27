@@ -1,6 +1,6 @@
 Name:          whichfont
 Version:       2.3.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Querying Fontconfig
 
 License:       GPL-3.0-or-later
@@ -34,6 +34,9 @@ Querying fontconfig for certain code point.
 %{_bindir}/%{name}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jun 11 2025 Sudip Shil <sshil@redhat.com> - 2.3.0-1
 - Improve input handling for -f option and Update test cases in to cover new scenarios and edge cases.
 - now tests.sh can capture segmentation fault and save in test_error txt file

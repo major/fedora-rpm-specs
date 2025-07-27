@@ -1,6 +1,6 @@
 Name:           worminator
 Version:        3.0R2.1
-Release:        45%{?dist}
+Release:        46%{?dist}
 Summary:        Sidescrolling platform and shoot'em up action-game
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -60,6 +60,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0R2.1-46
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0R2.1-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

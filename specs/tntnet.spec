@@ -1,6 +1,6 @@
 Name:             tntnet
 Version:          3.0
-Release:          13%{?dist}
+Release:          14%{?dist}
 Summary:          A web application server for web applications
 Epoch:            1
 
@@ -107,6 +107,9 @@ test/tntnet-test
 %{_datadir}/%{name}/template/
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1:3.0-13
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

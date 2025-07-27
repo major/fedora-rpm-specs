@@ -1,6 +1,6 @@
 Name:           pycmd
 Version:        1.2
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Tools for managing/searching Python related files
 License:        MIT
 URL:            https://pypi.python.org/pypi/pycmd
@@ -58,6 +58,9 @@ find %{buildroot}%{python3_sitelib} -name '*.py' \
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jul 12 2025 Thomas Moschny <thomas.moschny@gmx.de> - 1.2-20
 - Update for current Python packaging guidelines.
 

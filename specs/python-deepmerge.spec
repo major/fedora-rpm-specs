@@ -1,6 +1,6 @@
 Name:           python-deepmerge
 Version:        2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Toolset for deeply merging Python dictionaries
 
 License:        MIT
@@ -54,6 +54,9 @@ mv deepmerge/tests tests
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jun 11 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.0-1
 - Initial package
 

@@ -1,7 +1,7 @@
 Summary:	SSH (Secure Shell) client
 Name:		perl-Net-SSH-Perl
 Version:	2.143
-Release:	3%{?dist}
+Release:	4%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Net-SSH-Perl
 Source0:	https://cpan.metacpan.org/modules/by-module/Net/Net-SSH-Perl-%{version}.tar.gz
@@ -108,6 +108,9 @@ make test
 %{_mandir}/man3/Net::SSH::Perl*.3*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.143-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 2.143-3
 - Perl 5.42 rebuild
 

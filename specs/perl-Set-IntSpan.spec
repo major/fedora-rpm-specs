@@ -1,6 +1,6 @@
 Name:           perl-Set-IntSpan
 Version:        1.19
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Perl module for managing sets of integers
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -44,6 +44,9 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.19-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.19-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 Name:           prison
 Summary:        A Qt-based barcode abstraction library
 Version:        1.1.1
-Release:        27%{?dist}
+Release:        28%{?dist}
 
 License:        MIT
 URL:            https://projects.kde.org/projects/kdesupport/prison
@@ -87,6 +87,9 @@ Requires: %{name}-qt5%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

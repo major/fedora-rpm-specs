@@ -4,7 +4,7 @@
 Summary:    QIODevice that compresses data streams
 Name:       qtiocompressor
 Version:    2.3.1
-Release:    33%{?dist}
+Release:    34%{?dist}
 License:    GPLv3 or LGPLv2 with exceptions
 URL:        http://qt.nokia.com/products/appdev/add-on-products/catalog/4/Utilities/qtiocompressor/
 
@@ -86,6 +86,9 @@ cp -a %{SOURCE1} %{buildroot}%{_qt5_libdir}/qt5/mkspecs/features/
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           python-pydyf
 Version:        0.11.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Low-level PDF creator
 # The test suite is released under the AGPL but we are not shipping any test
 # code in the "binary" (noarch) RPM so we can just use the 3-clause BSD.
@@ -65,6 +65,9 @@ specification 1.7.
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.11.0-4
 - Rebuilt for Python 3.14
 

@@ -1,6 +1,6 @@
 Name:           svg2svgt
 Version:        0.9.6
-Release:        23%{?commit:.git%shortcommit}%{?dist}
+Release:        24%{?commit:.git%shortcommit}%{?dist}
 Summary:        SVG to SVG Tiny converter
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -146,6 +146,9 @@ rm -rf %{buildroot}%{mingw64_datadir}/{applications,icons,metainfo}/
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.6-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jul 18 2025 Sandro Mani <manisandro@gmail.com> - 0.9.6-23
 - Raise minimum cmake version, use GNUInstallDirs
 

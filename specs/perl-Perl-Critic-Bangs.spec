@@ -1,6 +1,6 @@
 Name:           perl-Perl-Critic-Bangs
 Version:        1.14
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Collection of handy Perl::Critic policies
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Perl-Critic-Bangs
@@ -98,6 +98,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.14-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.14-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

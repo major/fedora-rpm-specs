@@ -3,7 +3,7 @@
 
 Name:			xyzsh
 Version:		1.5.8
-Release:		29%{?dist}
+Release:		30%{?dist}
 Summary:		Interactive shell and text processing tool
 
 # LICENSE		MIT
@@ -119,6 +119,9 @@ make install \
 %{_includedir}/%{name}/
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.8-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.8-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

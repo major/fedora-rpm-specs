@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.9.3
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Python library for additional control over types
 
 License:        MIT
@@ -50,6 +50,9 @@ checks considering generics and typesafe duck-typing.
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.3-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.3-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

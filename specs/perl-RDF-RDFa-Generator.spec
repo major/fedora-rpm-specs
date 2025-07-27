@@ -1,6 +1,6 @@
 Name:           perl-RDF-RDFa-Generator
 Version:        0.204
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Generate data in RDFa
 # COPYRIGHT:    LicenseRef-Fedora-Public-Domain
 # other files:  GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -105,6 +105,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.204-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Feb 07 2025 Petr Pisar <ppisar@redhat.com> - 0.204-4
 - Adjust tests to perl-Test-Warnings ≥ 0.034 (bug #2341034)
 

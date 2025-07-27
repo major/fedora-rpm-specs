@@ -1,6 +1,6 @@
 Name:           perl-Net-CIDR
 Version:        0.26
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Manipulate IPv4/IPv6 netblocks in CIDR notation
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Net-CIDR
@@ -48,6 +48,9 @@ addresses.
 %{_mandir}/man3/Net::CIDR.3*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.26-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 23 2025 Paul Howarth <paul@city-fan.org> - 0.26-1
 - Update to 0.26 (rhbz#2374271)
   - cidrvalidate() should accept IPv6 addresses with one uncompressed 0

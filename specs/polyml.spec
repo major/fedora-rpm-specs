@@ -5,7 +5,7 @@
 
 Name:           polyml
 Version:        5.9.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Poly/ML compiler and runtime system
 
 License:        LGPL-2.1-or-later
@@ -129,6 +129,9 @@ make check
 %{_libdir}/libpolyml.so.14*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.9.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed May 28 2025 Jerry James  <loganjerry@gmail.com> - 5.9.1-7
 - Strip problematic flags out of polyc
 

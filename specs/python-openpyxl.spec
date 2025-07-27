@@ -7,7 +7,7 @@ Office Open XML format.
 
 Name:           python-%{pypi_name}
 Version:        3.1.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{sum}
 
 # Automatically converted from old format: MIT and Python - review is highly recommended.
@@ -59,6 +59,9 @@ Requires:       python3dist(numpy)
 %license LICENCE.rst
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jul 11 2025 Julien Enselme <jujens@jujens.eu> - 3.1.5-1
 - Update to 3.1.5
 - Correct Python macro usages

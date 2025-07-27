@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 3.1.0
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: Provides icon fonts for PrawnPDF
 # Automatically converted from old format: Ruby or GPLv2 or GPLv3 - review is highly recommended.
 License: Ruby OR GPL-2.0-only OR GPL-3.0-only
@@ -74,6 +74,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -8,7 +8,7 @@
 
 Name:     w3m
 Version:  0.5.3
-Release:  65.git%{gitdate}%{?dist}
+Release:  66.git%{gitdate}%{?dist}
 # Unicode-DFS-2015 is added for EastAsianWidth.txt source
 License:  MIT AND Unicode-DFS-2015
 URL:      http://w3m.sourceforge.net/
@@ -98,6 +98,9 @@ rm -f doc*/w3m.1
 %{_libexecdir}/w3m/w3mimgdisplay
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-66.git20230121
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-65.git20230121
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

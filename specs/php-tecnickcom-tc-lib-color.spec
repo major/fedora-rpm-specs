@@ -16,7 +16,7 @@
 
 Name:           php-%{gh_owner}-%{gh_project}
 Version:        2.2.13
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        PHP library to manipulate various color representations
 
 License:        LGPL-3.0-or-later
@@ -111,6 +111,9 @@ exit $ret
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.13-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jun  7 2025 Remi Collet <remi@remirepo.net> - 2.2.13-1
 - update to 2.2.13 (no change)
 

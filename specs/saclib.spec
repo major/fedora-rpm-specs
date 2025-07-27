@@ -1,6 +1,6 @@
 Name:           saclib
 Version:        2.2.8
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Computer algebra library
 
 License:        ISC
@@ -94,6 +94,9 @@ cp -p include/*.h %{buildroot}%{_includedir}/%{name}
 %{_libdir}/libsaclib.so
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.8-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.8-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

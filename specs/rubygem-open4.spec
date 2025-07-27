@@ -3,7 +3,7 @@
 Summary: Manage child processes and their IO handles easily
 Name: rubygem-%{gem_name}
 Version: 1.3.4
-Release: 22%{?dist}
+Release: 23%{?dist}
 # Automatically converted from old format: BSD or Ruby - review is highly recommended.
 License: LicenseRef-Callaway-BSD OR Ruby
 URL: http://github.com/ahoward/open4/
@@ -65,6 +65,9 @@ popd
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.4-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.4-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 %global fontname wqy-zenhei
 
 Version: 0.9.46
-Release: 33%{?dist}
+Release: 34%{?dist}
 URL:     http://wenq.org/enindex.cgi
 
 %global foundry           WQY
@@ -57,6 +57,9 @@ Source10: 66-%{fontpkgname}.conf
 %fontfiles
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.46-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.46-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 Summary:       Alternative to Python modules os, os.path and shutil
 Name:          python-unipath
 Version:       1.1
-Release:       31%{?dist}
+Release:       32%{?dist}
 License:       MIT
 URL:           https://pypi.python.org/pypi/Unipath/
 Source0:       https://files.pythonhosted.org/packages/source/U/%{oname}/%{oname}-%{version}.tar.gz
@@ -52,6 +52,9 @@ Summary:        %summary
 %doc BUGS.txt PKG-INFO README.html README.rst
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jul 17 2025 David Auer <dreua@posteo.de> - 1.1-31
 - Fix build on rawhide/f43
 

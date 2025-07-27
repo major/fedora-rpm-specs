@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 8.0.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Inbound email handling framework
 License: MIT
 URL: https://rubyonrails.org
@@ -91,6 +91,9 @@ ruby -Itest -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jul 09 2025 Vít Ondruch <vondruch@redhat.com> - 8.0.2-1
 - Update to Action Mailbox 8.0.2.
   Related: rhbz#2238177

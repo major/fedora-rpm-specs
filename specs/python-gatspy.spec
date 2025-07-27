@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        0.3
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        %{sum}
 
 License:        BSD-2-Clause
@@ -57,6 +57,9 @@ periodogram, the Supersmoother method, and others.
 %doc CHANGES.md README.md
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jul 19 2025 Sergio Pascual <sergiopr@fedoraproject.org> - 0.3-35
 - Update python packaging macros rhbz #2377738
 

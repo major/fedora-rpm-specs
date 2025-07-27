@@ -2,7 +2,7 @@
 
 Name:		wsjtx
 Version:	2.7.0
-Release:	13%{?dist}
+Release:	14%{?dist}
 Summary:	Weak Signal communication by K1JT
 
 License:	GPL-3.0-or-later
@@ -161,6 +161,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Mar 31 2025 Richard Shaw <hobbes1069@gmail.com> - 2.7.0-13
 - Update to 2.8.0 final release.
 

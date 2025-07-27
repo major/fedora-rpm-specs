@@ -1,6 +1,6 @@
 Name:           perl-String-Approx
 Version:        3.28
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Perl extension for approximate (fuzzy) matching
 # Fedora legal
 # <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/172>
@@ -75,6 +75,9 @@ make test
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.28-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jul 15 2025 Petr Pisar <ppisar@redhat.com> - 3.28-30
 - Correct a license tag to "(Artistic-2.0 OR LGPL-2.0-only) AND
   (LGPL-2.0-or-later)"

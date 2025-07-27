@@ -7,7 +7,7 @@
 
 Name:           pyproj
 Version:        3.7.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Cython wrapper to provide python interfaces to Proj
 # this software uses the "MIT:Modern Style with sublicense" license
 License:        MIT
@@ -193,6 +193,9 @@ py.test-3 -m "not network and not pandas"
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jun 18 2025 Jos de Kloe <josdekloe@gmail.com> 3.7.1
 - Update to 3.7.1; disable 4 tests due to a regression in proj 9.6.2
 

@@ -5,7 +5,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.0.2
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Python function signatures from PEP362 for Python 2.6, 2.7 and 3.2+
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -87,6 +87,9 @@ rm -rf html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.0.2-38
 - Rebuilt for Python 3.14
 

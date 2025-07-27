@@ -7,7 +7,7 @@ a storage back-end.}
 
 Name:           python-%{srcname}
 Version:        1.1.10
-Release:        13%{?dist}
+Release:        14%{?dist}
 
 Summary:        Back-end data caching and persistence daemon for Graphite
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -223,6 +223,9 @@ install -m0644 -D python-carbon.sysusers.conf %{buildroot}%{_sysusersdir}/python
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.10-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 17 2025 Python Maint <python-maint@redhat.com> - 1.1.10-13
 - Rebuilt for Python 3.14
 

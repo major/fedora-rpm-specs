@@ -3,7 +3,7 @@
 
 Name:       psutils
 Version:    2.10
-Release:    8%{?dist}
+Release:    9%{?dist}
 Summary:    PostScript utilities
 # COPYING:          GPLv3 text
 # epsffit.1:        GPLv3+
@@ -177,6 +177,9 @@ make check %{?_smp_mflags}
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.10-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.10-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

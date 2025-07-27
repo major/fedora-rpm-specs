@@ -1,6 +1,6 @@
 Name:           qsstv
 Version:        9.5.8
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Qt-based slow-scan TV and fax
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -99,6 +99,9 @@ find %{buildroot} -type f -name "*.a" -exec rm -f {} \;
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.5.8-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Feb 06 2025 Richard Shaw <hobbes1069@gmail.com> - 9.5.8-23
 - Rebuild for hamlib 4.6.
 

@@ -5,7 +5,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.5.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Fast Python ASN.1 parser and serializer
 
 License:        MIT
@@ -48,6 +48,9 @@ PKCS#12, PKCS#5, X.509 and TSP.
 %{python3_sitelib}/%{pypi_name}-%{version}.dist-info
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jul 10 2025 Rafael Guterres Jeffman - 1.5.1-13
 - Remove Python 2 macros
 - Migrate from py3 to pyproject macros

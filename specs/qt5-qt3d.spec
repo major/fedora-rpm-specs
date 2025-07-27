@@ -5,7 +5,7 @@
 Summary: Qt5 - Qt3D QML bindings and C++ APIs
 Name:    qt5-%{qt_module}
 Version: 5.15.17
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 # See also http://doc.qt.io/qt-5/licensing.html
@@ -179,6 +179,9 @@ popd
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.17-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon May 26 2025 Jan Grulich <jgrulich@redhat.com> - 5.15.17-1
 - 5.15.17
 

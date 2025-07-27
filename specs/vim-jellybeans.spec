@@ -1,6 +1,6 @@
 Name:           vim-jellybeans
 Version:        1.7
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        A colorful, dark color scheme for Vim
 License:        MIT
 URL:            https://github.com/nanotech/jellybeans.vim
@@ -33,6 +33,9 @@ install -D -p -m 644 colors/jellybeans.vim %{buildroot}%{vimfiles_root}/colors/j
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:		slurp
 Version:	1.5.0
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Select a region in Sway
 
 License:	MIT
@@ -40,6 +40,9 @@ and prints it to the standard output.
 %{_mandir}/man1/slurp.1*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

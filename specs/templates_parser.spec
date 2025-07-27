@@ -6,7 +6,7 @@
 
 Name:           templates_parser
 Version:        %{upstream_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        An Ada library for parsing templates
 
 License:        GPL-3.0-or-later WITH GCC-exception-3.1 OR GPL-3.0-or-later WITH GNAT-exception
@@ -208,6 +208,9 @@ sed --regexp-extended --in-place \
 ###############
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 25.0.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 25.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary:       A graphical interface for modifying the system language
 Name:          system-config-language
 Version:       3.5.0
-Release:       16%{?dist}
+Release:       17%{?dist}
 URL:           https://pagure.io/system-config-language
 Source0:       https://pagure.io/releases/%{name}/%{name}-%{version}.tar.xz
 License:       GPL-2.0-or-later
@@ -58,6 +58,9 @@ desktop-file-install --vendor system --delete-original       \
 %{_datadir}/polkit-1/actions/org.fedoraproject.config.language.policy
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Apr 21 2025 Parag Nemade <pnemade AT redhat DOT com> - 3.5.0-16
 - Use dnf-3 command to do package transactions
 - Resolves: rhbz#2322944, rhbz#2209413

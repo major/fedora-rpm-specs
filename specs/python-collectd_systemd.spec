@@ -7,7 +7,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.0.1
-Release:        0.34.%{snapinfo}%{?dist}
+Release:        0.35.%{snapinfo}%{?dist}
 Summary:        Collectd plugin to monitor systemd services
 
 License:        MIT
@@ -95,6 +95,9 @@ fi
 PYTHONPATH=. pytest-3
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.1-0.35.20181018git212cb79
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.0.1-0.34.20181018git212cb79
 - Rebuilt for Python 3.14
 

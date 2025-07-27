@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        2.0.1
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        %{sum}
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -97,6 +97,9 @@ rm -rf $RPM_BUILD_ROOT%{_bindir}/runxlrd.py* \
 %endif
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jul 09 2025 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 2.0.1-23
 - Migrate from py_build/py_install to pyproject macros (bz#2378516)
 

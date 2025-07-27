@@ -1,7 +1,7 @@
 Summary:       Qt based Fluidsynth GUI front end
 Name:          qsynth
 Version:       1.0.3
-Release:       1%{?dist}
+Release:       2%{?dist}
 URL:           http://qsynth.sourceforge.net
 Source0:       http://downloads.sourceforge.net/qsynth/%{name}-%{version}.tar.gz
 License:       GPL-2.0-or-later
@@ -77,6 +77,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.rncbc.qsyn
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Mar 27 2025 Christoph Karl <pampelmuse [AT] gmx [DOT] at> - 1.0.3-1
 - Update to version 1.0.3
 

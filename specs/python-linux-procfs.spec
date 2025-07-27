@@ -5,7 +5,7 @@
 
 Name: python-linux-procfs
 Version: 0.7.3
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: GPL-2.0-only
 Summary: Linux /proc abstraction classes
 Source: https://cdn.kernel.org/pub/software/libs/python/%{name}/%{name}-%{version}.tar.xz
@@ -48,6 +48,9 @@ rm -rf %{buildroot}
 %license COPYING
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.3-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.7.3-8
 - Rebuilt for Python 3.14
 

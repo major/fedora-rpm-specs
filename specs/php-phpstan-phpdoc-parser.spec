@@ -20,7 +20,7 @@
 
 Name:           php-%{gh_owner}-%{gh_project}%{major}
 Version:        2.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        PHPDoc parser with support for nullable, intersection and generic types
 
 License:        MIT
@@ -127,6 +127,9 @@ exit $ret
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jul 15 2025 Remi Collet <remi@remirepo.net> - 2.2.0-1
 - update to 2.2.0
 

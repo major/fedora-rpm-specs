@@ -4,7 +4,7 @@
 
 Name:           python-%{modname}
 Version:        1.1
-Release:        0.33.git%{shortcommit}%{?dist}
+Release:        0.34.git%{shortcommit}%{?dist}
 Summary:        Python library for interfacing with Cedrus XID and StimTracker devices
 
 # Automatically converted from old format: BSD with advertising - review is highly recommended.
@@ -52,6 +52,9 @@ Python 3 version.
 %{python3_sitelib}/%{modname}*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-0.34.gitc84afe9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.1-0.33.gitc84afe9
 - Rebuilt for Python 3.14
 

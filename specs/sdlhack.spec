@@ -1,6 +1,6 @@
 Name:           sdlhack
 Version:        1.4
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Force full-screen games to minimize
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -46,6 +46,9 @@ install -Dpm 644 %{SOURCE1} $RPM_BUILD_ROOT%{_mandir}/man1
 %{_mandir}/man1/%{name}.1.gz
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

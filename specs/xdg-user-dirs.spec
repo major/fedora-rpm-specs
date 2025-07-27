@@ -3,7 +3,7 @@
 
 Name:		xdg-user-dirs
 Version:	0.18
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	Handles user special directories
 
 License:	GPL-2.0-or-later AND MIT
@@ -82,6 +82,9 @@ rm -rf %{buildroot}%{_userunitdir}
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.18-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 23 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 0.18-10
 - Fix build with gettext-0.25
 

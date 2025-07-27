@@ -1,6 +1,6 @@
 Name:           telepathy-logger
 Version:        0.8.2
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Telepathy framework logging daemon
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -94,6 +94,9 @@ make check
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jul 10 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.8.2-23
 - Apply the upstream patch for gcc14 -Werror=incompatibe-pointer-types
 

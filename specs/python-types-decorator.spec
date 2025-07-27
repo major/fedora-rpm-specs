@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        %{pypi_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Typing stubs for decorator
 
 License:        Apache-2.0
@@ -50,6 +50,9 @@ and metadata should be...
 %{python3_sitelib}/types_decorator-%{version}.dist-info/
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.8.20240310-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 5.1.8.20240310-4
 - Rebuilt for Python 3.14
 

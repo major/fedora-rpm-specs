@@ -1,6 +1,6 @@
 Name: sysrepo
 Version: 3.3.10
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: YANG-based configuration and operational data store
 Url: https://github.com/sysrepo/sysrepo
 Source: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -129,6 +129,9 @@ rm -rf /dev/shm/srsub_*
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 31 2025 Michal Ruprich <mruprich@redhat.com> - 3.3.10-1
 - New version 3.3.10
 

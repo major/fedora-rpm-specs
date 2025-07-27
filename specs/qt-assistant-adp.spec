@@ -1,7 +1,7 @@
 Summary: Compatibility version of Qt Assistant
 Name:    qt-assistant-adp
 Version: 4.6.3
-Release: 34%{?dist}
+Release: 35%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 # Automatically converted from old format: LGPLv2 with exceptions or GPLv3 with exceptions - review is highly recommended.
@@ -130,6 +130,9 @@ popd
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.3-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.3-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

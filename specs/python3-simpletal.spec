@@ -3,7 +3,7 @@
 
 Name:		python3-%{pkgname}
 Version:	5.2
-Release:	32%{?dist}
+Release:	33%{?dist}
 Summary:	An XML based template processor for TAL, TALES and METAL specifications
 # Automatically converted from old format: BSD - review is highly recommended.
 License:	LicenseRef-Callaway-BSD
@@ -48,6 +48,9 @@ find examples -name '*.py' -exec chmod -x {} \;
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.2-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jul 12 2025 Thomas Moschny <thomas.moschny@gmx.de> - 5.2-32
 - Update for current Python packaging guidelines.
 

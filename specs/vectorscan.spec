@@ -4,7 +4,7 @@
 
 Name:           vectorscan
 Version:        5.4.11
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        A portable fork of hyperscan, used as a high performance pcre replacement
 # note google test framework not part of shipped binary
 # vectorscan is BSD-3-Clause but it utilizes boost, which is a C++ template
@@ -114,6 +114,9 @@ bin/unit-hyperscan
 
 #------------------------------------------------------------------------------
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.11-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.11-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

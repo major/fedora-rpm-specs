@@ -1,6 +1,6 @@
 Name:       virtualbox-guest-additions
 Version:    7.1.8
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    VirtualBox Guest Additions
 License:    GPL-3.0-only AND (GPL-3.0-only OR CDDL-1.0)
 URL:        https://www.virtualbox.org/wiki/VirtualBox
@@ -198,6 +198,9 @@ install -m0644 -D virtualbox-guest-additions.sysusers.conf %{buildroot}%{_sysuse
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Apr 16 2025 Sérgio Basto <sergio@serjux.com> - 7.1.8-1
 - Update virtualbox-guest-additions to 7.1.8 (rhbz#2359780)
 

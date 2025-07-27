@@ -28,7 +28,7 @@
 %endif
 
 # https://github.com/kata-containers/kata-containers
-Version: 3.15.0
+Version: 3.17.0
 %global tag         %{version}%{?rcstr}
 
 %global domain      github.com
@@ -52,6 +52,9 @@ workload isolation and security advantages of VMs. https://katacontainers.io/.}
                     CONTRIBUTING.md\\\
                     src/agent/README.md
 
+# Note: the original vendor tarball is quite big (918M for 3.16)
+# Unlike for RHEL, we cannot strip it down because we build all components
+# (RHEL builds only build kata-agent)
 Name:       %{repo}
 Release:    1%{?rcrel}%{?dist}
 Summary:    Kata Containers version 3.x repository
@@ -387,6 +390,12 @@ fi
 
 
 %changelog
+* Fri Jul 25 2025 Christophe de Dinechin <dinechin@redhat.com> - 3.17.0-1
+- kata-containers 3.17.0
+
+* Thu Jul 24 2025 Christophe de Dinechin <dinechin@redhat.com> - 3.16.0-1
+- kata-containers 3.16.0
+
 * Thu Jul 24 2025 Christophe de Dinechin <dinechin@redhat.com> - 3.15.0-1
 - kata-containers 3.15.0
 

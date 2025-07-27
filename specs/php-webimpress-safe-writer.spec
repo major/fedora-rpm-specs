@@ -26,7 +26,7 @@
 
 Name:          php-%{composer_vendor}-%{composer_project}
 Version:       %{github_version}
-Release:       11%{?github_release}%{?dist}
+Release:       12%{?github_release}%{?dist}
 Summary:       Tool to write files safely, to avoid race conditions
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -121,6 +121,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

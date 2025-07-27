@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 3.5.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Sprockets Rails integration
 License: MIT
 URL: https://github.com/rails/sprockets-rails
@@ -64,6 +64,9 @@ ruby -Ilib -e 'Dir.glob "./test/**/test_*.rb", &method(:require)'
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Apr 01 2025 Vít Ondruch <vondruch@redhat.com> - 3.5.2-1
 - Update to Sprockets Rails 3.5.2.
   Resolves: rhbz#2290690

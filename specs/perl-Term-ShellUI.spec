@@ -1,6 +1,6 @@
 Name:           perl-Term-ShellUI
 Version:        0.92
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Perl module to implement a full-featured shell-like command line environment
 License:        MIT
 URL:            https://metacpan.org/release/Term-ShellUI
@@ -40,6 +40,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.92-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.92-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

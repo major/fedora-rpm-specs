@@ -1,6 +1,6 @@
 Name:		perl-List-MoreUtils
 Version:	0.430
-Release:	13%{?dist}
+Release:	14%{?dist}
 Summary:	Provide the stuff missing in List::Util
 # All code present in version 0.416: GPL-1.0-or-later OR Artistic-1.0-Perl
 # All new code from version 0.417 onwards: Apache-2.0
@@ -80,6 +80,9 @@ make test
 %{_mandir}/man3/List::MoreUtils::PP.3*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.430-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.430-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

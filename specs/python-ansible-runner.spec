@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.4.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A tool and python library to interface with Ansible
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -16,6 +16,9 @@ Source0:        https://github.com/ansible/%{pypi_name}/archive/%{version}/%{pyp
 # https://github.com/ansible/ansible-runner/pull/1379
 # merged and looks staged for next release.
 Patch:          0001-Base64IO-set-write-buffer-before-doing-attr-check.patch
+# Fix a test failure with Python 3.14 - codecs.open was deprecated
+# https://github.com/ansible/ansible-runner/pull/1434
+Patch:          0001-Python-3.14-compat-replace-codecs.open-with-open.patch
 
 BuildArch:      noarch
 
@@ -101,8 +104,8 @@ ln -s ansible-runner-%{python3_version} %{buildroot}/%{_bindir}/ansible-runner-3
 %{_bindir}/ansible-runner
 
 %changelog
-* Sat Jun 07 2025 Python Maint <python-maint@redhat.com> - 2.4.1-2
-- Rebuilt for Python 3.14
+* Fri Jul 25 2025 Adam Williamson <awilliam@redhat.com> - 2.4.1-3
+- Backport #1434 to fix build with Python 3.14, rebuild
 
 * Wed Mar 26 2025 Dan Radez <dradez@redhat.com> - 2.4.1-1
 - new upstream release rhbz #2355070

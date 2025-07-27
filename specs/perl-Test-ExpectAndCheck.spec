@@ -1,6 +1,6 @@
 Name:           perl-Test-ExpectAndCheck
 Version:        0.07
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Expect/check-style unit testing with object methods
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -58,6 +58,9 @@ each object is checked to ensure all the expected methods were called.
 %{_mandir}/man3/Test*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

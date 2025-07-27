@@ -1,6 +1,6 @@
 Name:           rsvndump
 Version:        0.6.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Remote Subversion repository dumping tool
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -40,6 +40,9 @@ imported into a new subversion repository.
 %{_mandir}/man1/rsvndump.1*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

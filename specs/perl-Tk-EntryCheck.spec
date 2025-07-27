@@ -6,7 +6,7 @@
 
 Name:           perl-Tk-EntryCheck
 Version:        0.04
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Interface to Tk::Entry for controlling its length and content
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Tk-EntryCheck
@@ -101,6 +101,9 @@ xvfb-run -d make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

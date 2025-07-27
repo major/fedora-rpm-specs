@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.0.9
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Language detection library ported from Google's language-detection
 
 # Both python-langdetect and language-detection are under ASL 2.0
@@ -58,6 +58,9 @@ chmod 644 LICENSE NOTICE langdetect/profiles/*
 %{python3_sitelib}/%{pypi_name}-%{version}.dist-info/
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.9-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 14 2025 Sudip Shil <sshil@redhat.com> - 1.0.9-12
 - Migrate to %pyproject_* macros and remove deprecated %py3_build/install
 

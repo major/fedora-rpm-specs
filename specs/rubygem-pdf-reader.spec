@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.4.2
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: A library for accessing the content of PDF files
 License: MIT
 URL: https://github.com/yob/pdf-reader
@@ -82,6 +82,9 @@ popd
 %{gem_instdir}/examples
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

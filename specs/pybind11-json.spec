@@ -3,7 +3,7 @@
 
 Name:           pybind11-json
 Version:        0.2.15
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Using nlohmann::json with pybind11
 
 License:        BSD-3-Clause
@@ -63,6 +63,9 @@ Simply include the header, and the automatic conversion will be enabled.
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.15-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jan 08 2025 Scott K Logan <logans@cottsay.net> - 0.2.15-1
 - Update to 0.2.15
 - Switch to SPDX license identifier

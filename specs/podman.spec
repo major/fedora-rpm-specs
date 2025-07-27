@@ -13,6 +13,8 @@
 %define build_with_btrfs 1
 # qemu-system* isn't packageed for CentOS Stream / RHEL
 %define qemu 1
+# bats is included in the default repos (No epel/copr etc.)
+%define distro_bats 1
 %endif
 
 %if %{defined copr_username}
@@ -58,7 +60,7 @@ Epoch: 5
 # If that's what you're reading, Version must be 0, and will be updated by Packit for
 # copr and koji builds.
 # If you're reading this on dist-git, the version is automatically filled in by Packit.
-Version: 5.5.2
+Version: 5.6.0~rc1
 # The `AND` needs to be uppercase in the License for SPDX compatibility
 License: Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0
 Release: %autorelease
@@ -94,7 +96,7 @@ BuildRequires: shadow-utils-subid-devel
 BuildRequires: pkgconfig
 BuildRequires: make
 BuildRequires: man-db
-BuildRequires: ostree-devel
+BuildRequires: sqlite-devel
 BuildRequires: systemd
 BuildRequires: systemd-devel
 Requires: catatonit
@@ -142,7 +144,7 @@ pages and %{name}.
 Summary: Tests for %{name}
 
 Requires: %{name} = %{epoch}:%{version}-%{release}
-%if %{defined fedora}
+%if %{defined distro_bats}
 Requires: bats
 %endif
 Requires: attr
@@ -160,7 +162,8 @@ Requires: xfsprogs
 %description tests
 %{summary}
 
-This package contains system tests for %{name}
+This package contains system tests for %{name}. Only intended to be used for
+gating tests. Not supported for end users / customers.
 
 %package remote
 Summary: (Experimental) Remote client for managing %{name} containers
@@ -244,13 +247,13 @@ LDFLAGS="-X %{ld_libpod}/define.buildInfo=${SOURCE_DATE_EPOCH:-$(date +%s)} \
 
 # This variable will be set by Packit actions. See .packit.yaml in the root dir
 # of the repo (upstream as well as Fedora dist-git).
-GIT_COMMIT="e7d8226745ba07a64b7176a7f128e4ef53225a0e"
+GIT_COMMIT="a3a6d9cc332bfda817d04796968264dd3c03e462"
 LDFLAGS="$LDFLAGS -X %{ld_libpod}/define.gitCommit=$GIT_COMMIT"
 
 # build rootlessport first
 %gobuild -o bin/rootlessport ./cmd/rootlessport
 
-export BASEBUILDTAGS="seccomp $(hack/systemd_tag.sh) $(hack/libsubid_tag.sh)"
+export BASEBUILDTAGS="seccomp $(hack/systemd_tag.sh) $(hack/libsubid_tag.sh) libsqlite3 grpcnotrace"
 
 # libtrust_openssl buildtag switches to using the FIPS-compatible func
 # `ecdsa.HashSign`.
@@ -261,19 +264,19 @@ export BASEBUILDTAGS="$BASEBUILDTAGS libtrust_openssl"
 %endif
 
 # build %%{name}
-export BUILDTAGS="$BASEBUILDTAGS $(hack/btrfs_installed_tag.sh) $(hack/btrfs_tag.sh) $(hack/libdm_tag.sh)"
+export BUILDTAGS="$BASEBUILDTAGS $(hack/btrfs_installed_tag.sh)"
 %gobuild -o bin/%{name} ./cmd/%{name}
 
 # build %%{name}-remote
-export BUILDTAGS="$BASEBUILDTAGS exclude_graphdriver_btrfs btrfs_noversion remote"
+export BUILDTAGS="$BASEBUILDTAGS exclude_graphdriver_btrfs remote"
 %gobuild -o bin/%{name}-remote ./cmd/%{name}
 
 # build quadlet
-export BUILDTAGS="$BASEBUILDTAGS $(hack/btrfs_installed_tag.sh) $(hack/btrfs_tag.sh)"
+export BUILDTAGS="$BASEBUILDTAGS $(hack/btrfs_installed_tag.sh)"
 %gobuild -o bin/quadlet ./cmd/quadlet
 
 # build %%{name}-testing
-export BUILDTAGS="$BASEBUILDTAGS $(hack/btrfs_installed_tag.sh) $(hack/btrfs_tag.sh)"
+export BUILDTAGS="$BASEBUILDTAGS $(hack/btrfs_installed_tag.sh)"
 %gobuild -o bin/podman-testing ./cmd/podman-testing
 
 # reset LDFLAGS for plugins binaries
@@ -292,11 +295,6 @@ PODMAN_VERSION=%{version} %{__make} DESTDIR=%{buildroot} PREFIX=%{_prefix} ETCDI
        install.docker-docs \
        install.remote \
        install.testing
-
-# See above for the iptables.conf declaration
-%if %{defined fedora} && 0%{?fedora} < 41
-%{__make} DESTDIR=%{buildroot} MODULESLOADDIR=%{_modulesloaddir} install.modules-load
-%endif
 
 sed -i 's;%{buildroot};;g' %{buildroot}%{_bindir}/docker
 

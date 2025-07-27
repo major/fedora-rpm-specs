@@ -5,7 +5,7 @@ Version:        3.5.1
 %forgemeta
 
 Name:           python-%{srcname}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A bridge from UFOs to FontTool objects
 
 # The entire source is (SPDX) MIT, except:
@@ -74,6 +74,9 @@ k="${k-}${k+ and }not (test_kern_zyyy_zinh)"
 %doc README.rst
  
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jul 09 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 3.5.1-1
 - Update to 3.5.1 (close RHBZ#2376167)
 - Backport patch for current fonttools

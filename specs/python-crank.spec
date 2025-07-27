@@ -2,7 +2,7 @@
 
 Name:               python-crank
 Version:            0.8.1
-Release:            30%{?dist}
+Release:            31%{?dist}
 Summary:            Generalization of dispatch mechanism for use across frameworks
 
 License:            MIT
@@ -57,6 +57,9 @@ This package provides the python3 version of this module
 %files -n python3-%{modname} -f %{pyproject_files}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 14 2025 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 0.8.1-30
 - Migrate from py_build/py_install to pyproject macros (bz#2377588)
 

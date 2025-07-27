@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.1.3
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Python module for parsing semi-structured text into python tables
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -65,6 +65,9 @@ rm -rf %{pypi_name}.egg-info
 %{_bindir}/textfsm
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.1.3-7
 - Rebuilt for Python 3.14
 

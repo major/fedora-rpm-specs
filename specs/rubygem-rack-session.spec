@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.1.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A session implementation for Rack
 License: MIT
 URL: https://github.com/rack/rack-session
@@ -75,6 +75,9 @@ ruby -Itest -e 'Dir.glob "./test/**/spec_*.rb", &method(:require)'
 %doc %{gem_instdir}/security.md
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jul 11 2025 Vít Ondruch <vondruch@redhat.com> - 2.1.1-1
 - Update to Rack::Session 2.1.1
 - Rack::Session Session Persistence Vulnerability (CVE-2025-46336)

@@ -1,7 +1,7 @@
 %global cpan_version v0.5.3
 Name:           perl-Path-FindDev
 Version:        %(echo '%{cpan_version}' | tr -d 'v')
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Find a development path somewhere in an upper hierarchy
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Path-FindDev
@@ -56,6 +56,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

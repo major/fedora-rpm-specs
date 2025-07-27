@@ -1,7 +1,7 @@
 Name: sloccount
 Summary: Measures source lines of code (SLOC) in programs
 Version: 2.26
-Release: 42%{?dist}
+Release: 43%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 Source: http://www.dwheeler.com/sloccount/sloccount-%{version}.tar.gz
@@ -48,6 +48,9 @@ cmp ${RPM_BUILD_ROOT}%{_bindir}/sh_count ${RPM_BUILD_ROOT}%{_bindir}/awk_count &
 %{_mandir}/*/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.26-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.26-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

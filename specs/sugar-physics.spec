@@ -1,6 +1,6 @@
 Name:           sugar-physics
 Version:        35
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        A physical world simulator and playground for Sugar
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -48,6 +48,9 @@ chmod a-x $RPM_BUILD_ROOT%{sugaractivitydir}Physics.activity/activity/{activity.
 %{sugaractivitydir}/Physics.activity/
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 35-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 35-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

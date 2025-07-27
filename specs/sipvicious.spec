@@ -2,7 +2,7 @@
 
 Name:           %{pypi_name}
 Version:        0.3.3
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Set of tools to audit SIP based VoIP systems
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -61,6 +61,9 @@ mv %{buildroot}/usr/man/man1/sv*.* %{buildroot}/%{_mandir}/man1/
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.3-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.3.3-15
 - Rebuilt for Python 3.14
 

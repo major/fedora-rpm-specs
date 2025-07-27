@@ -4,7 +4,7 @@
 
 Name:       unzboot
 Version:    0.1~git.%{commitdate}.%{shortcommit}
-Release:    1%{?dist}
+Release:    2%{?dist}
 
 Summary:    Extracts a kernel vmlinuz image from a EFI application
 License:    GPL-2.0-or-later
@@ -43,6 +43,9 @@ compressed form.
 %{_bindir}/unzboot
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1~git.20250502.0c0c3ad-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon May 5 2025 Enric Balletbo i Serra <eballetbo@redhat.com> -  0.1~git.20250502.0c0c3ad-1
 - Add zstd compressed kernel support
 - Introduce test case infrastructure and add gunzip tests

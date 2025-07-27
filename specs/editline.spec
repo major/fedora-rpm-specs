@@ -1,6 +1,6 @@
 Name:           editline
 Version:        1.17.1
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        A small compatible replacement for readline
 
 # https://fedoraproject.org/wiki/Licensing/Henry_Spencer_Reg-Ex_Library_License
@@ -8,6 +8,7 @@ Summary:        A small compatible replacement for readline
 License:        Spencer-94
 URL:            https://troglobit.com/projects/editline/
 Source0:        https://github.com/troglobit/editline/releases/download/%{version}/editline-%{version}.tar.xz
+Patch0:         https://github.com/troglobit/editline/commit/f53bebdbe98c4dbfc9cc959032a071415324dde2-modified.patch
 BuildRequires:  gcc
 BuildRequires: make
 
@@ -27,11 +28,10 @@ Header files for the editline library.
 
 
 %prep
-%autosetup
+%autosetup -p1
 
 
 %build
-CFLAGS="$CFLAGS -std=gnu17"
 %configure --disable-static
 %make_build
 
@@ -60,6 +60,9 @@ rm %{buildroot}/%{_mandir}/man3/editline.3
 
 
 %changelog
+* Fri Jul 25 2025 Jens Petersen <petersen@redhat.com> - 1.17.1-15
+- patch for gcc15 properly
+
 * Thu Jul 24 2025 Jens Petersen <petersen@redhat.com> - 1.17.1-14
 - workaround FTBFS with gcc15 (#2340112)
 

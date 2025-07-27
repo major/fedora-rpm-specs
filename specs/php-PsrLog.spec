@@ -21,7 +21,7 @@
 
 Name:      php-PsrLog
 Version:   %{github_version}
-Release:   10%{?dist}
+Release:   11%{?dist}
 Summary:   Common interface for logging libraries
 
 License:   MIT
@@ -107,6 +107,9 @@ exit(0);
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

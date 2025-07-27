@@ -28,7 +28,7 @@ suitable for most developers.
 
 Name:           python-%{srcname}
 Version:        1.0.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A functional standard library for Python
 
 # The project is released under the BSD-3-Clause license.
@@ -81,6 +81,9 @@ BuildRequires:  python%{python3_pkgversion}-pytest
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jun 25 2025 Jerry James  <loganjerry@gmail.com> - 1.0.0-3
 - Add upstream patch for python 3.14 compatibility
 - Update License field

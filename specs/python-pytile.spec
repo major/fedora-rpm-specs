@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2022.02.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Python API for Tile Bluetooth trackers
 
 License:        MIT
@@ -53,6 +53,9 @@ sed -i -e '/pylint/d' pyproject.toml
 %doc README.md
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2022.02.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jun 05 2025 Python Maint <python-maint@redhat.com> - 2022.02.0-12
 - Rebuilt for Python 3.14
 

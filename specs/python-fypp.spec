@@ -2,7 +2,7 @@
 
 Name: python-%{pname}
 Version: 3.2
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: Fortran preprocessor
 License: BSD-2-Clause
 URL: https://github.com/aradi/fypp
@@ -50,6 +50,9 @@ test/runtests.sh %{__python3}
 %{_bindir}/%{pname}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jul 19 2025 Dominik Mierzejewski <dominik@greysector.net> - 3.2-8
 - switch to modern python packaging macros (resolves rhbz#2377736)
 

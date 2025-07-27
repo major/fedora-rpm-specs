@@ -3,7 +3,7 @@
 
 Name:      pyee
 Version:   13.0.0
-Release:   1%{?dist}
+Release:   2%{?dist}
 Summary:   A port of node.js's EventEmitter to python
 License:   MIT
 URL:       https://pypi.python.org/pypi/pyee
@@ -54,6 +54,9 @@ A port of node.js's EventEmitter to python.
 %license LICENSE
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 13.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jul 08 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 13.0.0-1
 - Update to 13.0.0
 - Migrate to new python build macros (rhbz: 2377386)

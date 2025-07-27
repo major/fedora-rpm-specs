@@ -1,7 +1,7 @@
 # SPDX-License-Identifqier: MIT
 %global forgeurl https://github.com/mitradranirban/font-uniol
 Version:   2.001
-Release:   3%{?dist}
+Release:   4%{?dist}
 %forgemeta
 URL: %{forgeurl}
 %global fontfamily    uniol
@@ -42,6 +42,9 @@ chmod 755 generate.pe
 %fontfiles
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.001-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 24 2025 Dr Anirban Mitra <mitra_anirban@yahoo.co.in> - 2.001-3
 - update licence to be SPDX compliant 
 * Fri Jun 13 2025 Dr Anirban Mitra <mitra_anirban@yahoo.co.in> - 2.001-2

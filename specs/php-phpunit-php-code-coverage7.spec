@@ -30,7 +30,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
 Version:        7.0.17
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        PHP code coverage information
 
 # SPDX: Main license is BSD-3-Clause
@@ -177,6 +177,9 @@ exit $ret
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.17-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu May 22 2025 Remi Collet <remi@remirepo.net> - 7.0.17-4
 - drop phpunit/php-token-stream v3
 

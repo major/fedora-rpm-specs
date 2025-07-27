@@ -5,7 +5,7 @@
 Summary: Displays the users logged into machines on the local network
 Name: rusers
 Version: 0.17
-Release: 108%{?dist}
+Release: 109%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
 Url: http://rstatd.sourceforge.net/
@@ -167,6 +167,9 @@ install -m 0644 %SOURCE3 ${RPM_BUILD_ROOT}%{_unitdir}/rstatd.service
 %{_unitdir}/rstatd.service
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-109
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-108
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

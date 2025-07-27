@@ -2,7 +2,7 @@
 
 Name:           perl-Pod-POM
 Version:        2.01
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Object-oriented interface to Perl POD documents
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -88,6 +88,9 @@ PERL_HASH_SEED=0 make test
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.01-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.01-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

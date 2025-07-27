@@ -29,7 +29,7 @@
 
 Name:      gnome-software
 Version:   49~alpha
-Release:   2%{?dist}
+Release:   3%{?dist}
 Summary:   A software center for GNOME
 
 License:   GPL-2.0-or-later
@@ -324,7 +324,4 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-doc/html/gnome-software/
 
 %changelog
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 49~alpha-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
 %autochangelog

@@ -1,6 +1,6 @@
 Name:		professor-is-missing
 Version:	0.1
-Release:	33%{?dist}
+Release:	34%{?dist}
 Summary:	The Professor is Missing, an AGI adventure game
 
 License:	CC-BY-ND-4.0
@@ -68,6 +68,9 @@ install -p -m 0644 %{SOURCE3} %{buildroot}%{_datadir}/icons/hicolor/32x32/apps/%
 %{_bindir}/professor-is-missing-wrapper.sh
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           thttpd
 Version:        2.29
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        A tiny, turbo, throttleable lightweight HTTP server
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -151,6 +151,9 @@ install -m0644 -D thttpd.sysusers.conf %{buildroot}%{_sysusersdir}/thttpd.conf
 %{_sysusersdir}/thttpd.conf
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.29-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.29-21
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

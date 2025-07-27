@@ -4,7 +4,7 @@
 Summary:        SBLIM nfsv3 instrumentation
 Name:           sblim-cmpi-nfsv3
 Version:        1.1.1
-Release:        35%{?dist}
+Release:        36%{?dist}
 License:        EPL-1.0
 URL:            http://sourceforge.net/projects/sblim/
 Source0:        http://downloads.sourceforge.net/project/sblim/providers/%{name}/%{version}/%{name}-%{version}.tar.bz2
@@ -108,6 +108,9 @@ echo "%{_libdir}/cmpi" > $RPM_BUILD_ROOT/%{_sysconfdir}/ld.so.conf.d/%{name}-%{_
 %postun -p /sbin/ldconfig
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Mar 05 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 1.1.1-35
 - Make test subpackage optional
 

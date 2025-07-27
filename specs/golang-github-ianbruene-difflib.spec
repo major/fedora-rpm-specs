@@ -5,7 +5,7 @@
 
 # https://github.com/ianbruene/go-difflib/difflib
 %global goipath         github.com/ianbruene/go-difflib
-Version:                1.2.0
+Version:                1.3.0
 
 %gometa
 
@@ -30,10 +30,6 @@ License:        LicenseRef-Callaway-BSD
 URL:            %{gourl}
 Source0:        %{gosource}
 
-Patch0:         0001-Fix-code-formatting.patch
-Patch1:         0002-Improve-tests-for-modern-Go-versions.patch
-Patch2:         0003-Change-import-of-tester.patch
-
 %description
 %{common_description}
 
@@ -41,7 +37,6 @@ Patch2:         0003-Change-import-of-tester.patch
 
 %prep
 %goprep
-%autopatch -p1
 
 %install
 %gopkginstall

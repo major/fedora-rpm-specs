@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.4.0
-Release: 14%{?dist}
+Release: 15%{?dist}
 Summary: Parallel HTTP library on top of libcurl multi
 License: MIT
 URL: https://github.com/typhoeus/typhoeus
@@ -99,6 +99,9 @@ popd
 %{gem_instdir}/typhoeus.gemspec
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jun 18 2025 Vít Ondruch <vondruch@redhat.com> - 1.4.0-14
 - Fix Rack 3 compatibility
 

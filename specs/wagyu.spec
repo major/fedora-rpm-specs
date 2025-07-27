@@ -8,7 +8,7 @@
 
 Name:           wagyu
 Version:        0.5.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        A general library for geometry operations of union, intersections, difference, and xor
 
 License:        BSL-1.0 AND BSD-3-Clause
@@ -88,6 +88,9 @@ cp -pr include/mapbox %{buildroot}%{_includedir}
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

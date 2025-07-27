@@ -7,7 +7,7 @@
 
 Name:		perl-Package-Stash-XS
 Version:	0.30
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	Faster and more correct implementation of the Package::Stash API
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Package-Stash-XS
@@ -78,6 +78,9 @@ make test
 %{_mandir}/man3/Package::Stash::XS.3*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.30-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.30-11
 - Perl 5.42 rebuild
 

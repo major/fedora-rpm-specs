@@ -24,7 +24,7 @@
 Summary:        A multimedia engine
 Name:           xine-lib
 Version:        1.2.13
-Release:        24%{?snapshot:.%{date}hg%{revision}}%{?dist}
+Release:        25%{?snapshot:.%{date}hg%{revision}}%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://www.xine-project.org/
 %if ! 0%{?snapshot}
@@ -358,6 +358,9 @@ mkdir -p %{buildroot}%{codecdir}
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.13-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jun 25 2025 Dominik Mierzejewski <dominik@greysector.net> - 1.2.13-24
 - Enable FAAD2 support
 

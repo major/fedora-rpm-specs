@@ -12,7 +12,7 @@ to make rebase-based and squash-based workflows simpler.}
 
 Name: rubygem-%{gem_name}
 Version: %{version}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A git/GitHub helper utility
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License: Apache-2.0
@@ -105,6 +105,9 @@ rm -rf %{buildroot}
 %{gem_spec}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon May 12 2025 Phil Dibowitz <phil@ipom.com> - 2.0.1-1
 - New upstream version
 

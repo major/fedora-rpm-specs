@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.3.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Modern concurrency tools for Ruby
 License: MIT
 URL: http://www.concurrent-ruby.com
@@ -91,6 +91,9 @@ RUBYOPT=-Ilib/concurrent-ruby rspec -rspec_helper \
 %{gem_instdir}/Rakefile
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jan 20 2025 Vít Ondruch <vondruch@redhat.com> - 1.3.5-1
 - Update to Concurrent Ruby 1.3.5.
   Resolves: rhbz#2066526

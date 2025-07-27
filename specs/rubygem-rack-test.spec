@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.2.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Simple testing API built on Rack
 License: MIT
 URL: https://github.com/rack/rack-test
@@ -74,6 +74,9 @@ ruby -Ispec -e 'Dir.glob "./spec/**/*_spec.rb", &method(:require)'
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Feb 10 2025 Vít Ondruch <vondruch@redhat.com> - 2.2.0-1
 - Update to Rack::Test 2.2.0
   rhbz#2100911

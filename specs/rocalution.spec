@@ -49,7 +49,7 @@
 
 Name:           %{rocalution_name}
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Next generation library for iterative sparse solvers for ROCm platform
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
@@ -182,6 +182,9 @@ fi
 %endif
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jun 15 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.1-3
 - Remove suse check for ldconfig
 

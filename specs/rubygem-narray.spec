@@ -2,7 +2,7 @@
 
 Name:           rubygem-%{gem_name}
 Version:        0.6.1.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        N-dimensional Numerical Array class for Ruby
 
 # Automatically converted from old format: BSD and Ruby - review is highly recommended.
@@ -79,6 +79,9 @@ popd
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Björn Esser <besser82@fedoraproject.org> - 0.6.1.2-1
 - New upstream release
 - Add patch with last upstream commits

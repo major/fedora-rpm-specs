@@ -1,6 +1,6 @@
 Name:           zanshin
 Version:        25.07.80
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Todo/action management software
 
 License:        CC0-1.0 AND GPL-2.0-only AND GPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND MIT
@@ -93,6 +93,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 %{_kf6_plugindir}/krunner/org.kde.%{name}.so
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 25.07.80-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jul 11 2025 Steve Cossette <farchord@gmail.com> - 25.07.80-1
 - 25.07.80
 

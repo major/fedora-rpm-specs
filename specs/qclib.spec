@@ -1,6 +1,6 @@
 Name:		qclib
 Version:	2.5.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Library for extraction of system information for Linux on z Systems
 License:	BSD-3-Clause
 URL:		https://github.com/ibm-s390-linux/qclib
@@ -84,6 +84,9 @@ make test-sh test
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue May 13 2025 Dan Horák <dan[at]danny.cz> - 2.5.1-1
 - updated to 2.5.1
 

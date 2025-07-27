@@ -3,7 +3,7 @@
 
 Name:		%{fontname}-fonts
 Version:	1.000
-Release:	22%{?dist}
+Release:	23%{?dist}
 Summary:	A display sans-serif font 
 
 # Automatically converted from old format: OFL - review is highly recommended.
@@ -58,6 +58,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/%{fontnam
 %endif
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.000-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.000-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

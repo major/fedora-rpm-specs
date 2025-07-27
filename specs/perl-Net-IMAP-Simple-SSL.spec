@@ -1,6 +1,6 @@
 Name:          perl-Net-IMAP-Simple-SSL
 Version:       1.3
-Release:       42%{?dist}
+Release:       43%{?dist}
 Summary:       Simple IMAP account handling with SSL
 License:       GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:           https://metacpan.org/release/Net-IMAP-Simple-SSL
@@ -47,6 +47,9 @@ make %{?_smp_mflags} test
 %{_mandir}/man3/Net::IMAP::Simple::SSL.3*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

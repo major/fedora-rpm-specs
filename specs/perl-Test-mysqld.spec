@@ -1,6 +1,6 @@
 Name:           perl-Test-mysqld
 Version:        1.0030
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Mysqld runner for tests
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -59,6 +59,9 @@ AUTHOR_TESTING=1 RELEASE_TESTING=1 ./Build test
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0030-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0030-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 Summary: Kernel analysis utility for live systems, netdump, diskdump, kdump, LKCD or mcore dumpfiles
 Name: crash
 Version: 9.0.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPL-3.0-only
 Source0: https://github.com/crash-utility/crash/archive/crash-%{version}.tar.gz
 Source1: http://ftp.gnu.org/gnu/gdb/gdb-16.2.tar.gz
@@ -28,6 +28,11 @@ Patch7: 0006-arm64-Add-gdb-multi-stack-unwind-support.patch
 Patch8: 0007-ppc64-Add-gdb-multi-stack-unwind-support.patch
 Patch9: 0008-Fix-the-issue-of-page-excluded-messages-flooding.patch
 Patch10: 0009-Fix-kmem-p-option-on-Linux-6.16-rc1-and-later-kernel.patch
+Patch11: 0001-x86_64-filter-unwanted-warning-message-for-bt-T-cmd.patch
+Patch12: 0002-doc-Update-requirements-for-building-on-Fedora.patch
+Patch13: 0003-gdb-Fix-a-regression-for-eppic-extension-on-gdb-16.2.patch
+Patch14: 0004-Fix-crash-initialization-failure-on-LoongArch-with-r.patch
+Patch15: 0005-gdb-Disable-DT_DEBUG-lookup-by-GDB-inside-the-vmcore.patch
 
 %description
 The core analysis suite is a self-contained tool that can be used to
@@ -58,6 +63,11 @@ offered by Mission Critical Linux, or the LKCD kernel patch.
 %patch -P 8 -p1
 %patch -P 9 -p1
 %patch -P 10 -p1
+%patch -P 11 -p1
+%patch -P 12 -p1
+%patch -P 13 -p1
+%patch -P 14 -p1
+%patch -P 15 -p1
 
 %build
 
@@ -83,6 +93,13 @@ cp -p defs.h %{buildroot}%{_includedir}/crash
 %{_includedir}/*
 
 %changelog
+* Fri Jul 25 2025 Lianbo Jiang <lijiang@redhat.com> - 9.0.0-4
+- x86_64: filter unwanted warning message for "bt -T" cmd
+- doc: Update requirements for building on Fedora
+- gdb: Fix a regression for eppic extension on gdb-16.2
+- Fix crash initialization failure on LoongArch with recent GDB versions
+- gdb: Disable DT_DEBUG lookup by GDB inside the vmcore
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

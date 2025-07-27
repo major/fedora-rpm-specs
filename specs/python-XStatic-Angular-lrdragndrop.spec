@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.0.2.2
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Angular-lrdragndrop (XStatic packaging standard)
 
 License:        MIT
@@ -83,6 +83,9 @@ chmod 644 %{buildroot}%{_jsdir}/angular_lrdragndrop/lrdragndrop.js
 %{_jsdir}/angular_lrdragndrop
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2.2-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.0.2.2-34
 - Rebuilt for Python 3.14
 

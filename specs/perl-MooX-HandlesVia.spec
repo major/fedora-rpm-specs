@@ -1,6 +1,6 @@
 Name:           perl-MooX-HandlesVia
 Version:        0.001009
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        NativeTrait-like behavior for Moo
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MooX-HandlesVia
@@ -69,6 +69,9 @@ code, for which there was no Moo alternative.
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.001009-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.001009-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

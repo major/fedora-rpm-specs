@@ -1,6 +1,6 @@
 Name: thc-ipv6
 Version: 3.8
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: Toolkit for attacking the IPv6 protocol suite
 
 
@@ -42,6 +42,9 @@ and ICMPv6, including an easy to use packet factory library.
 %{_mandir}/man8/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.8-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.8-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

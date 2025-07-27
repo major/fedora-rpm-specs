@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.36.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: SVG renderer for Prawn PDF library
 License: MIT
 URL: http://github.com/mogest/prawn-svg
@@ -73,6 +73,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.36.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Feb 17 2025 Sergi Jimenez <tripledes@fedoraproject.org> - 0.36.2-1
 - Bump to version 0.36.2
 

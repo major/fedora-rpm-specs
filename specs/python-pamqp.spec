@@ -1,7 +1,7 @@
 %global module pamqp
 Name:		python-%{module}
 Version:	3.3.0
-Release:	3%{?dist}
+Release:	4%{?dist}
 License:	BSD-3-Clause
 Summary:	AMQP 0-9-1 library
 URL:		https://github.com/gmr/%{module}
@@ -54,6 +54,9 @@ used by client libraries for marshaling and unmarshaling AMQP frames.
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.3.0-3
 - Rebuilt for Python 3.14
 

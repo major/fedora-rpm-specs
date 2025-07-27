@@ -1,6 +1,6 @@
 Name:           perl-String-License
 Version:        0.0.11
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Detect source code license statements in a text string
 License:        AGPL-3.0-or-later
 
@@ -77,6 +77,9 @@ make test
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.11-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

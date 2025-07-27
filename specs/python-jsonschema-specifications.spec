@@ -15,7 +15,7 @@ referencing-based Schema Registry.}
 Name:           python-%{pypi_name}
 Summary:        JSON Schema meta-schemas and vocabularies, exposed as a Registry
 Version:        2024.10.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        MIT
 URL:            https://github.com/python-jsonschema/jsonschema-specifications
 Source0:        %{pypi_source %{pkg_name}}
@@ -108,6 +108,9 @@ rm -rf docs/build/html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2024.10.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 2024.10.1-3
 - Rebuilt for Python 3.14
 

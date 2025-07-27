@@ -3,7 +3,7 @@
 
 Name:           python-easyprocess
 Version:        1.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Easy to use Python subprocess interface
 
 License:        BSD-2-Clause
@@ -54,6 +54,9 @@ rm -f tests/test_fast/test_deadlock.py
 %doc README.md
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jul 08 2025 Scott Talbert <swt@techie.net> - 1.1-7
 - Migrate to pyproject macros (#2377681)
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.3.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A tiny test runner that outputs TAP results to standard output
 
 License:        MIT
@@ -50,6 +50,9 @@ find %{buildroot}/%{python3_sitelib} -name '*.py' | xargs sed -i '/^#!/d'
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jul 09 2025 Shlomi Fish <shlomif@shlomifish.org> 1.3.1-7
 - Stop using deprecated RPM macros ( https://bugzilla.redhat.com/show_bug.cgi?id=2378026 )
 

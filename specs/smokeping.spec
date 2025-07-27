@@ -1,7 +1,7 @@
 Summary:          Latency Logging and Graphing System
 Name:             smokeping
 Version:          2.9.0
-Release:          13%{?dist}
+Release:          14%{?dist}
 License:          GPL-2.0-or-later AND GPL-3.0-or-later AND MIT
 URL:              https://oss.oetiker.ch/smokeping/
 Source0:          https://oss.oetiker.ch/smokeping/pub/smokeping-%{version}.tar.gz
@@ -181,6 +181,9 @@ exit 0
 %{_mandir}/man7/smokeping_*.7*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Mar 29 2025 Terje Rosten <terjeros@gmail.com> - 2.9.0-13
 - Use sysusers for fc43+
 

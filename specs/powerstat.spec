@@ -1,6 +1,6 @@
 Name:           powerstat
 Version:        0.04.05
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Measures the power consumption of a machine
 
 License:        GPL-2.0-or-later
@@ -51,6 +51,9 @@ deviation and min/max of the gathered data.
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.04.05-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri May 16 2025 Benson Muite <fed500@fedoraproject.org> - 0.04.05-1
 - Update to latest release
 

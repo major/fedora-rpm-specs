@@ -1,6 +1,6 @@
 Name:		spacefm
 Version:	1.0.6
-Release:	21%{?dist}
+Release:	22%{?dist}
 Summary:	Multi-panel tabbed file and desktop manager
 
 # overall		GPL-3.0-or-later
@@ -121,6 +121,9 @@ gtk-update-icon-cache %{_datadir}/icons/Faenza &>/dev/null || :
 %{_datadir}/icons/Faenza/apps/*/%{name}*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jan 21 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0.6-21
 - Support C23
   - Avoid bool keyword usage

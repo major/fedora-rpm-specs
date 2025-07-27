@@ -5,7 +5,7 @@
 %global	rpmminorver		.%(echo %preminorver | sed -e 's|^\\.\\.*||')
 %global	fullver		%{majorver}%{?preminorver}
 
-%global	baserelease		3
+%global	baserelease		4
 
 %global	gem_name		mechanize
 
@@ -157,6 +157,9 @@ popd
 %{gem_instdir}/examples/
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri May 30 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.14.0-3
 - Fix unexpanded macro warning
 

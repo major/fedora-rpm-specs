@@ -3,7 +3,7 @@
 Name:           rubygem-%{gem_name}
 Summary:        Useful extensions to Ruby's String class
 Version:        2.8.6
-Release:        5%{?dist}
+Release:        6%{?dist}
 # SPDX confirmed
 License:        MIT
 
@@ -88,6 +88,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.6-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.6-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

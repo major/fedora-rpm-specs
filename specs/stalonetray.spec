@@ -1,6 +1,6 @@
 Name:           stalonetray
 Version:        0.8.5
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A stand alone notification area
 
 # License is only mentioned in COPYING
@@ -51,6 +51,9 @@ install -D -m644 stalonetrayrc.sample %{buildroot}%{_sysconfdir}/stalonetrayrc
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.5-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Feb 13 2025 Ben Boeckel <fedora@me.benboeckel.net> - 0.8.5-5
 - Run autoreconf until upstream makes proper source artifacts
 

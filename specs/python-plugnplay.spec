@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.5.4
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        A generic plug-in system for Python
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -47,6 +47,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py*.egg-info/
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.4-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.5.4-19
 - Rebuilt for Python 3.14
 

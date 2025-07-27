@@ -1,6 +1,6 @@
 Name:           perl-Text-Diff
 Version:        1.45
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Perform diffs on files and record sets
 # lib/Text/Diff.pm - GPL-2.0-or-later OR Artistic-1.0-Perl
 # lib/Text/Diff/Config.pm - MIT
@@ -61,6 +61,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.45-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.45-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

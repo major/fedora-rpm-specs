@@ -2,7 +2,7 @@
 
 Name:             python-%{modname}
 Version:          0.36.0
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Mock D-Bus objects
 
 License:          LGPL-3.0-or-later
@@ -57,6 +57,9 @@ rm -rf python-%{modname}.egg-info
 %doc README.md COPYING
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.36.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jul 15 2025 Packit <hello@packit.dev> - 0.36.0-1
 - mockobject: Fix _wrap_in_dbus_variant for Struct and Dict types (thanks Sebastian Wick)
 - Drop setup.{cfg,py} and RHEL 9 support, move to pybuild (rhbz#2377609)

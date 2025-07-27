@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        0.6.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        %{sum}
 
 # Note, this package is not actively developed
@@ -58,6 +58,9 @@ no longer needed.
 %doc CHANGES.rst README.rst
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jul 19 2025 Sergio Pascual <sergiopr@fedoraproyect.org> - 0.6.0-7
 - Updated python packaging macros rhbz #2378115 
 

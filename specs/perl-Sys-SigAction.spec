@@ -1,6 +1,6 @@
 Name:           perl-Sys-SigAction
 Version:        0.24
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl extension for Consistent Signal Handling
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Sys-SigAction
@@ -61,6 +61,9 @@ make test
 %{_mandir}/man3/Sys::SigAction.*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.24-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Apr 01 2025 Petr Pisar <ppisar@redhat.com> - 0.24-1
 - 0.24 bump
 

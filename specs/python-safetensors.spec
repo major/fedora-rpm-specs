@@ -58,13 +58,16 @@ Summary:	%{summary}
 
 %prep
 %autosetup -p1 -n safetensors-%{version}
-%cargo_prep
 # Delete the bundled crate
 rm -r safetensors/
 # Also delete all the miscellaneous stuff from the GitHub release bundle
 rm -r attacks/ docs/ .github/ codecov.y* Dockerfile.* .dockerignore flake.* .gitignore Makefile RELEASE.md
 # Move toplevel README.md to eliminate name conflict
 mv README.md README-safetensors.md
+# cargo_prep needs to be run where Cargo.toml lives
+cd bindings/python
+%cargo_prep
+cd ../..
 # The following Python sources are part of extras with dependencies not packaged in Fedora
 # If that changes, we should enable and build the extras as well as not removing the sources
 rm bindings/python/py_src/safetensors/flax.py

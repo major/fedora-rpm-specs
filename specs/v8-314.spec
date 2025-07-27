@@ -28,7 +28,7 @@
 
 Name:		%{truename}-314
 Version:	%{somajor}.%{sominor}.%{sobuild}.%{sotiny}
-Release:	39%{?dist}
+Release:	40%{?dist}
 Summary:	JavaScript Engine
 License:	BSD-3-Clause
 URL:		https://developers.google.com/v8/
@@ -413,6 +413,9 @@ chmod -R -x %{buildroot}%{python_sitelib}/*.py*
 %endif
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.14.5.10-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.14.5.10-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -128,6 +128,9 @@ Static version of the MinGW Windows Gtk2 library.
 
 
 %build
+
+export MINGW32_CFLAGS='%mingw32_cflags -fno-strict-aliasing -std=gnu99'
+export MINGW64_CFLAGS='%mingw64_cflags -fno-strict-aliasing -std=gnu99'
 %mingw_configure --disable-cups --enable-static
 
 # The pre-generated gtk.def file can't be used for MinGW-W64

@@ -1,6 +1,6 @@
 Name:           perl-NetPacket
 Version:        1.7.2
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Assemble/disassemble network packets at the protocol level
 # CODE_OF_CONDUCT.md:   CC-BY
 # lib/NetPacket.pm:     Artistic 2.0
@@ -61,6 +61,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.2-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.2-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

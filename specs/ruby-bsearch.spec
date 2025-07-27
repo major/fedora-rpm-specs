@@ -1,6 +1,6 @@
 Name:		ruby-bsearch
 Version:	1.5
-Release:	33%{?dist}
+Release:	34%{?dist}
 Summary:	Binary search library for Ruby
 
 # SPDX confirmed
@@ -43,6 +43,9 @@ cd ..
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

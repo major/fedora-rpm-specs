@@ -4,7 +4,7 @@
 
 Name:             php-pecl-%{pecl_name}
 Version:          1.1.5
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Pecl package for XML diff and merge
 
 License:          BSD-2-Clause
@@ -119,6 +119,9 @@ php -n run-tests.php -q --show-diff
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 25 2025 Remi Collet <remi@remirepo.net> - 1.1.5-1
 - update to 1.1.5
 

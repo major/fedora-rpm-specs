@@ -1,6 +1,6 @@
 Name: qtile-extras
 Version: 0.32.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A collection of mods for Qtile
 
 License: MIT
@@ -123,6 +123,9 @@ pytest_expressions+=" and not test_syncthing_http_error"
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.32.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jul 13 2025 Jakub Kadlcik <frostyx@email.cz> - 0.32.0-1
 - New upstream version
 

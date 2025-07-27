@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.3.2
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: XMLRPC is a lightweight protocol that enables remote procedure calls over HTTP
 # Automatically converted from old format: Ruby or BSD - review is highly recommended.
 License: Ruby OR LicenseRef-Callaway-BSD
@@ -72,6 +72,9 @@ popd
 %{gem_instdir}/NEWS.md
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

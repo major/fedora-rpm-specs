@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.2.2
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Script tag with additional attributes for django.forms.Media
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -46,6 +46,9 @@ rm -vr *.egg-info
 %{python3_sitelib}/js_asset/
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.2.2-20
 - Rebuilt for Python 3.14
 

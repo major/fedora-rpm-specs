@@ -1,6 +1,6 @@
 Name:           tetrinetx
 Version:        1.13.16
-Release:        42%{?dist}
+Release:        43%{?dist}
 Summary:        The GNU TetriNET server
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -110,6 +110,9 @@ install -m0644 -D tetrinetx.sysusers.conf %{buildroot}%{_sysusersdir}/tetrinetx.
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.16-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.16-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 - Add sysusers.d config file to allow rpm to create users/groups automatically

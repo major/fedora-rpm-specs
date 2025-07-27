@@ -2,7 +2,7 @@
 
 Name:           quake2
 Version:        8.41
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Quake II (Yamagi version)
 
 License:        GPL-2.0-or-later
@@ -133,6 +133,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.41-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.41-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

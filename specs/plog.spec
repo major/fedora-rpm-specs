@@ -3,7 +3,7 @@
 
 Name:           plog
 Version:        1.1.10
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Portable, simple and extensible C++ logging library
 
 License:        MIT
@@ -60,6 +60,9 @@ rm -rv %{buildroot}%{_datadir}/doc/%{name}
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.10-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.10-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

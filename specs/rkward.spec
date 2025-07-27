@@ -3,7 +3,7 @@
 
 Name:           rkward
 Version:        0.8.2~pre^1.git%{commit_short}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Graphical frontend for R language
 
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
@@ -93,6 +93,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 %{_libexecdir}/%{name}.rbackend
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2~pre^1.gitc45a3696-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 10 2025 Iñaki Úcar <iucar@fedoraproject.org> - 0.8.2~pre^1.gitc45a3696-1
 - Update to prerelease version (rhbz#2371311)
 

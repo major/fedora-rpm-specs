@@ -7,7 +7,7 @@ Implementation of Bat Algorithm in Python.}
 
 Name:           python-%{new_name}
 Version:        0.3.1
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Bat Algorithm for optimization
 
 License:        MIT
@@ -41,6 +41,9 @@ BuildRequires:  python3-setuptools
 %pycached %{python3_sitelib}/%{pretty_name}.py
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.3.1-15
 - Rebuilt for Python 3.14
 

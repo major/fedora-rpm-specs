@@ -1,7 +1,7 @@
 Name:		perl-Test-Perl-Critic
 Summary:	Use Perl::Critic in test programs
 Version:	1.04
-Release:	24%{?dist}
+Release:	25%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Test-Perl-Critic
 Source0:	https://cpan.metacpan.org/modules/by-module/Test/Test-Perl-Critic-%{version}.tar.gz
@@ -68,6 +68,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/Test::Perl::Critic.3*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.04-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.04-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

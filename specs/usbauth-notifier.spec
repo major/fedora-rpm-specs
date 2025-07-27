@@ -27,7 +27,7 @@ Summary:        Notifier for USB Firewall to use with desktop environments
 URL:            https://github.com/kochstefan/usbauth-all/tree/master/usbauth-notifier
 Source:         https://github.com/kochstefan/usbauth-all/archive/v%{version}.tar.gz
 
-Release:        7%{?dist}
+Release:        8%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
 
@@ -82,6 +82,9 @@ install -m0644 -D usbauth-notifier.sysusers.conf %{buildroot}%{_sysusersdir}/usb
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.0.4-7
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

@@ -7,7 +7,7 @@ BuildRequires:  bdftopcf
 BuildRequires:  perl-interpreter
 
 Version: 1.1.0
-Release: 37%{?dist}
+Release: 38%{?dist}
 URL:     http://wenq.org/enindex.cgi
 
 %global foundry           WQY
@@ -60,6 +60,9 @@ make
 %fontfiles
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Feb  5 2025 Peng Wu <pwu@redhat.com> - 1.1.0-37
 - Fix build
 - Resolves: RHBZ#2341555

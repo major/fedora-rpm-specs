@@ -48,7 +48,7 @@
 
 Name:           suitesparse
 Version:        7.10.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A collection of sparse matrix libraries
 
 # See LICENSE.txt for a breakdown of all licenses:
@@ -466,6 +466,9 @@ done
 %doc Doc/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.10.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Mar 03 2025 Orion Poplawski <orion@nwra.com> - 7.10.0-1
 - Update to 7.10.0
 

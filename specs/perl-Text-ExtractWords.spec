@@ -1,7 +1,7 @@
 Name:           perl-Text-ExtractWords
 Summary:        Perl extension to extract words from strings
 Version:        0.08
-Release:        41%{?dist}
+Release:        42%{?dist}
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Text-ExtractWords
@@ -57,6 +57,9 @@ make test
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.08-41
 - Perl 5.42 rebuild
 

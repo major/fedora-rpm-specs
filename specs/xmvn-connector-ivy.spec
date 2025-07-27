@@ -1,6 +1,6 @@
 Name:           xmvn-connector-ivy
 Version:        4.0.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        XMvn Connector for Apache Ivy
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -45,6 +45,9 @@ This package provides %{summary}.
 %license LICENSE NOTICE
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

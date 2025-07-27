@@ -3,15 +3,11 @@
 
 Name:    libnvme
 Summary: Linux-native nvme device management library
-Version: 1.14
-Release: 2%{?dist}
+Version: 1.15
+Release: 1%{?dist}
 License: LGPL-2.1-or-later
 URL:     https://github.com/linux-nvme/libnvme
 Source0: %{url}/archive/v%{version_no_tilde}/%{name}-%{version_no_tilde}.tar.gz
-
-# https://bugzilla.redhat.com/show_bug.cgi?id=2370805
-Patch0:  libnvme-1.15_ioctl-only_use_io_uring_for_char_devices.patch
-Patch1:  libnvme-1.15_types-Fix_nvme_ns_id_desc_packing.patch
 
 BuildRequires: gcc gcc-c++
 BuildRequires: swig
@@ -80,9 +76,9 @@ rm -r %{buildroot}%{_pkgdocdir}/html/{.buildinfo,.doctrees/}
 %files
 %license COPYING ccan/licenses/*
 %{_libdir}/libnvme.so.1
-%{_libdir}/libnvme.so.1.14.0
+%{_libdir}/libnvme.so.1.15.0
 %{_libdir}/libnvme-mi.so.1
-%{_libdir}/libnvme-mi.so.1.14.0
+%{_libdir}/libnvme-mi.so.1.15.0
 
 %files devel
 %{_libdir}/libnvme.so
@@ -102,6 +98,9 @@ rm -r %{buildroot}%{_pkgdocdir}/html/{.buildinfo,.doctrees/}
 %{python3_sitearch}/libnvme/*
 
 %changelog
+* Fri Jul 25 2025 Tomas Bzatek <tbzatek@redhat.com> - 1.15-1
+- Upstream v1.15 release
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.14-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

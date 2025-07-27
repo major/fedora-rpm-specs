@@ -2,7 +2,7 @@
 
 Name:           %{pypi_name}
 Version:        0.1.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        TCP/UDP communication suite
 
 License:        MIT
@@ -55,6 +55,9 @@ install -Dp -m 0644 man/%{name}.1 %{buildroot}%{_mandir}/man1/%{name}.1
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.1.0-18
 - Rebuilt for Python 3.14
 

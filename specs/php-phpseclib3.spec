@@ -6,7 +6,7 @@
 %bcond_without                  tests
 
 Version:    3.0.44
-Release:    1%{?dist}
+Release:    2%{?dist}
 %global vmajor %(v="%{version}"; v=(${v//./ }); echo "${v[0]}")
 
 Name:       php-%{composer_project}%{vmajor}
@@ -111,6 +111,9 @@ exit $ret
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.44-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jun 15 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.0.44-1
 - Update to v3.0.44
 

@@ -2,7 +2,7 @@
 
 Name: vim-commentary
 Version: 1.3
-Release: 18%{?dist}
+Release: 19%{?dist}
 Summary: Comment and uncomments stuff in Vim using motion as a target
 License: Vim
 URL: http://www.vim.org/scripts/script.php?script_id=3695
@@ -60,6 +60,9 @@ vim -c ":helptags %{vimfiles_root}/doc" -c :q &> /dev/null
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

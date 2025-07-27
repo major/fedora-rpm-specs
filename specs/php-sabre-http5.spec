@@ -25,7 +25,7 @@
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Summary:        Library for dealing with http requests and responses
 Version:        5.1.12
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 License:        BSD-3-Clause
@@ -181,6 +181,9 @@ exit $ret
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.12-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.12-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

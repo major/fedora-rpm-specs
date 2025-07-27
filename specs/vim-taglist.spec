@@ -7,7 +7,7 @@
 Summary:          The taglist plugin for VIM editor
 Name:             vim-%{zipname}
 Version:          %{baseversion}
-Release:          28%{?dist}
+Release:          29%{?dist}
 
 License:          Vim
 URL:              http://vim-taglist.sourceforge.net/
@@ -53,6 +53,9 @@ vim -c ":helptags %{vimfiles_root}/doc" -c :q &> /dev/null
 %{_datadir}/appdata/%{name}.metainfo.xml
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.6-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.6-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

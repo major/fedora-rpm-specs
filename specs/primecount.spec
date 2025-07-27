@@ -1,6 +1,6 @@
 Name:           primecount
 Version:        7.19
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Fast prime counting function implementation
 
 # BSD-2-Clause: the project as a whole
@@ -107,6 +107,9 @@ export CXXFLAGS='%{build_cxxflags} -DLIBDIVIDE_SSE2'
 %{_libdir}/pkgconfig/primecount.pc
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.19-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jun 04 2025 Kim Walisch <walki@fedoraproject.org> - 7.19-2
 - nth_prime_sieve.hpp: Add missing include guards
 - Update ChangeLog

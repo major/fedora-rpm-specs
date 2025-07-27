@@ -3,7 +3,7 @@
 Name:           rubygem-%{gem_name}
 Summary:        Coderay syntax highlighting for kramdown
 Version:        1.0.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 License:        MIT
 
 URL:            https://github.com/kramdown/syntax-coderay
@@ -74,6 +74,9 @@ popd
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

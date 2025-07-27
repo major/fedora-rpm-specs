@@ -1,6 +1,6 @@
 Name:           perl-Package-New
 Version:        0.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple base package from which to inherit
 License:        BSD-3-Clause
 URL:            https://metacpan.org/release/Package-New
@@ -41,6 +41,9 @@ make test
 %{_mandir}/man3/Package::New*.3pm*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jun 11 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.10-1
 - 0.10 bump (rhbz#2335731)
 - Update license

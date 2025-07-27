@@ -2,7 +2,7 @@
 
 Name:           sysusage
 Version:        5.7
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        System monitoring based on Perl, rrdtool, and sysstat
 License:        GPL-3.0-or-later
 URL:            https://sysusage.darold.net/
@@ -139,6 +139,9 @@ find %{buildroot} -name .packlist -type f -delete
 %{_bindir}/rsysusage
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.7-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.7-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

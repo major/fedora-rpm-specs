@@ -18,7 +18,7 @@
 Summary:        Xorg X11 openchrome video driver
 Name:           xorg-x11-drv-openchrome
 Version:        0.6.604%{!?tag:^%{date}git%{shortcommit0}}
-Release:        2%{?dist}
+Release:        3%{?dist}
 URL:            http://www.freedesktop.org/wiki/Openchrome/
 License:        MIT
 
@@ -90,6 +90,9 @@ rm -f %{buildroot}%{_libdir}/libchromeXvMC*.so
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.604^20230328git857d892-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.604^20230328git857d892-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

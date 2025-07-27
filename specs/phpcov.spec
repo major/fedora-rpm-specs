@@ -25,7 +25,7 @@
 
 Name:           %{pk_project}
 Version:        11.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        CLI frontend for PHP_CodeCoverage
 
 License:        BSD-3-Clause
@@ -144,6 +144,9 @@ exit $ret;
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 11.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jun 18 2025 Remi Collet <remi@remirepo.net> - 11.0.1-1
 - update to 11.0.1 (no change)
 - raise dependency on phpunit/phpunit 12.1.6

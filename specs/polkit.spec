@@ -4,7 +4,7 @@
 Summary: An authorization framework
 Name: polkit
 Version: 126
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: LGPL-2.0-or-later
 URL: https://github.com/polkit-org/polkit
 Source0: https://github.com/polkit-org/polkit/archive/refs/tags/%{version}.tar.gz
@@ -161,6 +161,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_libdir}/girepository-1.0/*.typelib
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 126-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jun 06 2025 Jan Rybar <jrybar@redhat.com> - 126-5
 - fix crash caused by nested XML .policy files
 

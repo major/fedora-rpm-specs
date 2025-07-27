@@ -1,7 +1,7 @@
 Summary:        Multi-library, cross-platform audio decoding in Python
 Name:           python-audioread
 Version:        3.0.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 License:        MIT
 URL:            http://pypi.python.org/pypi/audioread/
 Source0:        https://files.pythonhosted.org/packages/source/a/audioread/audioread-%{version}.tar.gz
@@ -47,6 +47,9 @@ Requires:       (/usr/bin/ffmpeg or (gstreamer1 and gstreamer1-plugins-base and 
 %{python3_sitelib}/audioread-*.dist-info/
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 3.0.1-7
 - Rebuilt for Python 3.14
 

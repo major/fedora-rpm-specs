@@ -1,6 +1,6 @@
 Name:           uhubctl
 Version:        2.6.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        USB hub per-port power control
 
 License:        GPL-2.0-only
@@ -40,6 +40,9 @@ is defined as one that implements per-port power switching.
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri May 23 2025 Dominik Mierzejewski <dominik@greysector.net> - 2.6.0-3
 - Fix build after https://fedoraproject.org/wiki/Changes/Unify_bin_and_sbin
 

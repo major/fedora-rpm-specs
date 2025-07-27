@@ -1,6 +1,6 @@
 Name:           pkcs11-helper
 Version:        1.30.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A library for using PKCS#11 providers
 
 License:        GPL-2.0-only OR BSD-3-Clause
@@ -71,6 +71,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.30.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.30.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

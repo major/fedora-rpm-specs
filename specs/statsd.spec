@@ -5,7 +5,7 @@
 
 Name:       statsd
 Version:    0.8.6
-Release:    12%{?dist}
+Release:    13%{?dist}
 Summary:    A simple, lightweight network daemon to collect metrics over UDP
 License:    MIT
 URL:        https://github.com/statsd/statsd
@@ -112,6 +112,9 @@ install -m0644 -D statsd.sysusers.conf %{buildroot}%{_sysusersdir}/statsd.conf
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.6-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.8.6-12
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

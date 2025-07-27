@@ -1,6 +1,6 @@
 Name:           perl-Module-Mask
 Version:        0.06
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Pretend certain modules are not installed
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Mask
@@ -54,6 +54,9 @@ to @INC and blocks require calls to restricted modules.
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

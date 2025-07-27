@@ -2,7 +2,7 @@
 
 Name:           shellinabox
 Version:        2.20
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Web based AJAX terminal emulator
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
@@ -138,6 +138,9 @@ fi
 %{_sysusersdir}/shellinabox.conf
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.20-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.20-26
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

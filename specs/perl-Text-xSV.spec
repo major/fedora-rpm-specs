@@ -1,6 +1,6 @@
 Name:           perl-Text-xSV
 Version:        0.21
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Read character separated files
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -50,6 +50,9 @@ Microsoft products using tabs, colons, or other characters.
 %{_mandir}/man3/Text*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

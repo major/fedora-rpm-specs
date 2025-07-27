@@ -5,7 +5,7 @@
 
 Name:          tpm2-tss
 Version:       4.1.3
-Release:       7%{?candidate:.%{candidate}}%{?dist}
+Release:       8%{?candidate:.%{candidate}}%{?dist}
 Summary:       TPM2.0 Software Stack
 
 # The entire source code is under BSD except implementation.h and tpmb.h which
@@ -155,6 +155,9 @@ use tpm2-tss.
 %{_mandir}/man7/tss2*.7.gz
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.3-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 4.1.3-7
 - Drop call to %sysusers_create_compat
 

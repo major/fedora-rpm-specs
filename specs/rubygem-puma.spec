@@ -12,7 +12,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 6.4.2
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: A simple, fast, threaded, and highly concurrent HTTP 1.1 server
 # MIT: lib/puma/sd_notify.rb
 # https://github.com/puma/puma/issues/3311
@@ -242,6 +242,9 @@ popd
 %{gem_instdir}/tools
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 09 2025 Vít Ondruch <vondruch@redhat.com> - 6.4.2-7
 - BR: `rackup` for Rack 3.x+ compatibility.
 

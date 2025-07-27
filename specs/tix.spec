@@ -8,7 +8,7 @@ Summary: A set of extension widgets for Tk
 Name: tix
 Epoch: 1
 Version: %{tixmajor}.3
-Release: 44%{?dist}
+Release: 45%{?dist}
 License: TCL
 URL: http://tix.sourceforge.net/
 Source0: http://downloads.sourceforge.net/project/%{name}/%{name}/%{version}/Tix%{version}-src.tar.gz
@@ -130,6 +130,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/Tix%{tixmajor}/license.terms
 %doc %{tcl_sitelib}/Tix%{tixmajor}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:8.4.3-45
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 31 2025 Miro Hrončok <mhroncok@redhat.com> - 1:8.4.3-44
 - Drop needles runtime requirements on tk-devel and tcl-devel
 - Make the package installable with tk/ctl 8 as well as tk8/tcl8 compat packages

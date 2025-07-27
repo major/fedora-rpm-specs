@@ -2,7 +2,7 @@
 
 Name:           python-%{pkg_name}
 Version:        2.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Python 3 implementation of geographiclib
 
 License:        MIT
@@ -96,6 +96,9 @@ MinGW Windows %{pkg_name} python 3 bindings.
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 14 2025 Sandro Mani <manisandro@gmail.com> - 2.0-4
 - Don't explicitly add %%license to %%files as %%pyproject_save_files -l is used
 

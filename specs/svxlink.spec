@@ -10,7 +10,7 @@
 Name:		svxlink
 Epoch:		2
 Version:	%{main_version}
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	Repeater controller and EchoLink (simplex or repeater)
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -343,6 +343,9 @@ exit 0
 %{_unitdir}/svxreflector.service
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:24.02-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Mar 10 2025 Zbigniew Jędrzejewski-Szmek  <zbyszek@in.waw.pl> - 2:24.02-6
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

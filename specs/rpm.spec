@@ -24,7 +24,7 @@
 
 %global rpmver 5.99.91
 #global snapver rc1
-%global baserelease 1
+%global baserelease 2
 %global sover 10
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
@@ -621,6 +621,9 @@ fi
 %doc %{_defaultdocdir}/rpm/API/
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.99.91-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jul 02 2025 Panu Matilainen <pmatilai@redhat.com> - 5.99.91-1
 - Rebase to 6.0 beta1
 - Revert to v4 package format by default for now (upstream switched to v6)

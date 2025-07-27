@@ -1,7 +1,7 @@
 Summary: Port Scan Attack Detector (psad) watches for suspect traffic
 Name: psad
 Version: 2.4.6
-Release: 22%{?dist}
+Release: 23%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL: https://www.cipherdyne.org/psad/
@@ -194,6 +194,9 @@ fi
 %ghost %attr(0700,root,root) /run/%{name}/psad.cmd
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.6-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jul 05 2025 Dominik Mierzejewski <rpm@greysector.net> - 2.4.6-22
 - fix some new SELinux AVC denials
 - use modern /run path in tmpfiles config

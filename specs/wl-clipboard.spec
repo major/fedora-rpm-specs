@@ -1,6 +1,6 @@
 Name:           wl-clipboard
 Version:        2.2.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Command-line copy/paste utilities for Wayland
 
 License:        GPL-3.0-or-later
@@ -46,6 +46,9 @@ sockets, files and so on.
 %{_datadir}/zsh/site-functions/_wl-*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

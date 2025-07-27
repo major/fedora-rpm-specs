@@ -15,7 +15,7 @@ Name:           perl-Test-Simple
 Summary:        Basic utilities for writing tests
 Epoch:          3
 Version:        1.302214
-Release:        3%{?dist}
+Release:        4%{?dist}
 # CC0-1.0: lib/ok.pm
 # Public Domain: lib/Test/Tutorial.pod
 # GPL-1.0-or-later OR Artistic-1.0-Perl: the rest of the distribution
@@ -404,6 +404,9 @@ make test %{!?perl_bootstrap:AUTHOR_TESTING=1}
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3:1.302214-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jul 08 2025 Jitka Plesnikova <jplesnik@redhat.com> - 3:1.302214-3
 - Perl 5.42 re-rebuild of bootstrapped packages
 

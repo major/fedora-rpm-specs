@@ -14,7 +14,7 @@
 
 Name:           php-pear-CAS
 Version:        1.6.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Central Authentication Service client library in php
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -121,6 +121,9 @@ echo "Ok\n";
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

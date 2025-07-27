@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.0.17
-Release: 14%{?dist}
+Release: 15%{?dist}
 Summary: Ruby extension for the vips image processing library
 License: MIT
 URL: http://github.com/libvips/ruby-vips
@@ -92,6 +92,9 @@ popd
 %{gem_instdir}/install-vips.sh
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.17-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.17-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -40,7 +40,7 @@ It provides: \
 
 Name:       python-%{pypi_name}
 Version:    1.20.0
-Release:    5%{?dist}
+Release:    6%{?dist}
 Summary:    %{summary}
 
 License:    MIT
@@ -200,6 +200,9 @@ export TERM=xterm-256color
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.20.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.20.0-5
 - Rebuilt for Python 3.14
 

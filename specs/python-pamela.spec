@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.2.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python PAM interface
 
 License:        MIT
@@ -46,6 +46,9 @@ py.test-%{python3_version} -v
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.2.0-3
 - Rebuilt for Python 3.14
 

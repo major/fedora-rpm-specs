@@ -6,7 +6,7 @@
 
 %define	name	s3cmd
 %define	version	2.4.0
-%define	release	7
+%define	release	8
 
 Name:           %{name}
 Version:        %{version}
@@ -84,6 +84,9 @@ install -D -p -m 0644 -t %{buildroot}%{_mandir}/man1 %{name}.1
 %endif
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jun 27 2025 Frank Crawford <frank@crawford.emu.id.au> - 2.4.0-7
 - Fix for python3-magic/python3-file-magic requirement issue (BZ2375030)
 

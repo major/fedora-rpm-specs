@@ -1,6 +1,6 @@
 Name:           wol
 Version:        0.7.1
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Wake On Lan client
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -44,6 +44,9 @@ rm -f %{buildroot}%{_infodir}/dir
 %{_bindir}/%{name}*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Apr 30 2025 David Auer <dreua@posteo.de> - 0.7.1-37
 - Fix build with GCC 15
 

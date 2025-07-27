@@ -1,6 +1,6 @@
 Name: sgx-rpm-macros
 Version: 1
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: MIT-0
 Summary: RPM macros for working with the SGX SDK
 
@@ -24,6 +24,9 @@ cp %{SOURCE0} %{buildroot}/%{_rpmmacrodir}/
 %{_rpmmacrodir}/macros.sgx
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

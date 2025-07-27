@@ -17,7 +17,7 @@
 
 Name:      php-%{pk_vendor}-%{pk_project}
 Version:   1.1.0
-Release:   1%{?dist}
+Release:   2%{?dist}
 Summary:   Common interfaces for PSR-7 HTTP message factories
 
 License:   MIT
@@ -95,6 +95,9 @@ exit (interface_exists("Psr\\Http\\Message\\RequestFactoryInterface") ? 0 : 1);
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Mar  4 2025 Remi Collet <remi@remirepo.net> - 1.1.0-1
 - update to 1.1.0
 - re-license spec file to CECILL-2.1

@@ -1,6 +1,6 @@
 Name:           perl-RDF-Prefixes
 Version:        0.005
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Simple way to turn URIs into QNames
 # other files:      GPL+ or Artisticc
 # CONTRIBUTING:     CC-BY-SA
@@ -55,6 +55,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.005-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.005-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

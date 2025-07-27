@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.0.1
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Cross-platform uptime library
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -44,6 +44,9 @@ sed -i -e '/^#!\//, 1d' src/__*.py
 %{python3_sitearch}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.0.1-17
 - Rebuilt for Python 3.14
 

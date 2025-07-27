@@ -7,7 +7,7 @@
 
 Name:       xorg-x11-drv-amdgpu
 Version:    23.0.0
-Release:    7%{?dist}
+Release:    8%{?dist}
 
 Summary:    AMD GPU video driver
 License:    MIT
@@ -56,6 +56,9 @@ find %{buildroot} -name '*.la' -delete
 %{_mandir}/man4/amdgpu.4*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 23.0.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 23.0.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

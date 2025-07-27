@@ -23,8 +23,8 @@ Name: linux-system-roles
 %endif
 Url: https://github.com/linux-system-roles
 Summary: Set of interfaces for unified system management
-Version: 1.107.0
-Release: 2%{?dist}
+Version: 1.108.0
+Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv3+ and MIT and BSD and Python - review is highly recommended.
 License: GPL-3.0-or-later AND LicenseRef-Callaway-MIT AND LicenseRef-Callaway-BSD AND LicenseRef-Callaway-Python
@@ -110,7 +110,7 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 6 1.18.19
 
 %global rolename7 metrics
-%deftag 7 1.12.0
+%deftag 7 1.13.0
 
 %global rolename8 tlog
 %deftag 8 1.4.2
@@ -703,6 +703,9 @@ find %{buildroot}%{ansible_roles_dir} -mindepth 1 -maxdepth 1 | \
 %endif
 
 %changelog
+* Thu Jul  24 2025 Packit <hello@packit.dev> - 1.108.0-1
+- Update to upstream version 1.108.0
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

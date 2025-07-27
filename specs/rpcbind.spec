@@ -4,7 +4,7 @@
 
 Name:           rpcbind
 Version:        1.2.7
-Release:        2.rc1%{?dist}
+Release:        2.rc1%{?dist}.1
 Summary:        Universal Addresses to RPC Program Number Mapper
 License:        BSD-3-Clause
 URL:            http://nfsv4.bullopensource.org
@@ -120,6 +120,9 @@ install -m0644 -D rpcbind.sysusers.conf %{buildroot}%{_sysusersdir}/rpcbind.conf
 %{_sysusersdir}/rpcbind.conf
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.7-2.rc1.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed May  7 2025 Scott Mayhew <smayhew@redhat.com> - 1.2.7-2.rc1
 - Fix rpm scriptlets to remove excessive restarts during upgrade
 

@@ -20,7 +20,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_name}
 Version:        0.7.8
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A set of generic stream wrappers
 
 # See SPDX-License-Identifier in src tree
@@ -100,6 +100,9 @@ exit $ret
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

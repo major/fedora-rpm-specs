@@ -1,6 +1,6 @@
 Name:           rpm-spec-language-server
 Version:        0.0.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Language Server for RPM spec files
 
 License:        GPL-2.0-or-later
@@ -54,6 +54,9 @@ Supported LSP endpoints:
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jun 06 2025 Python Maint <python-maint@redhat.com> - 0.0.1-6
 - Rebuilt for Python 3.14
 

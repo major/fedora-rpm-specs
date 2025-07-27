@@ -6,7 +6,7 @@
 
 Name:           tinysparql
 Version:        3.10~alpha
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Desktop-neutral metadata database and search tool
 
 License:        GPL-2.0-or-later
@@ -167,4 +167,7 @@ This package contains the documentation for %{name}.
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.10~alpha-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 %autochangelog

@@ -2,7 +2,7 @@
 
 Name:           python-django-database-url
 Version:        0.5.0
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Use Database URLs in your Django Application
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -46,4 +46,7 @@ Obsoletes:      python2-django-database-url < 0.4.2-4
 %doc README.rst
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 %autochangelog

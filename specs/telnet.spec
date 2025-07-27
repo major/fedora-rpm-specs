@@ -3,7 +3,7 @@
 Summary: The client program for the Telnet remote login protocol
 Name: telnet
 Version: 0.17
-Release: 94%{?dist}
+Release: 95%{?dist}
 Epoch: 1
 License: BSD-3-Clause AND BSD-4-Clause AND BSD-4-Clause-UC
 Source0: ftp://ftp.uk.linux.org/pub/linux/Networking/netkit/netkit-telnet-%{version}.tar.gz
@@ -164,6 +164,9 @@ install -D -p -m644 %SOURCE6 ${RPM_BUILD_ROOT}%{_unitdir}/telnet.socket
 %{_mandir}/man8/telnetd.8*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.17-95
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.17-94
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

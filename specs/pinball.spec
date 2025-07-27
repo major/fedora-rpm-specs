@@ -3,7 +3,7 @@
 
 Name:           pinball
 Version:        0.3.4
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Emilia 3D Pinball Game
 # core license is GPLv2+
 # gnu table licenses are (GFDL or Free Art or CC-BY-SA) and GPLv3 and CC-BY-SA
@@ -101,6 +101,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.4-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon May 12 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.3.4-19
 - Patch for keyboard config issue.
 

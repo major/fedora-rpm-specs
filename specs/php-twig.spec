@@ -31,7 +31,7 @@
 
 Name:          php-%{composer_project}
 Version:       %{github_version}
-Release:       8%{?dist}
+Release:       9%{?dist}
 Summary:       The flexible, fast, and secure template engine for PHP
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -180,6 +180,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.44.7-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.44.7-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

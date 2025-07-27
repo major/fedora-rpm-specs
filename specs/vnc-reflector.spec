@@ -1,6 +1,6 @@
 Name:       vnc-reflector
 Version:    1.2.4 
-Release:    41%{?dist}
+Release:    42%{?dist}
 Summary:    A specialized, multiplexing vnc proxy server
 # LICENSE:  BSD-3-Clause
 # region.c: MIT-open-group AND SMLNJ
@@ -53,6 +53,9 @@ install -D -t %{buildroot}%{_bindir} vncreflector
 %{_bindir}/vncreflector
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Feb 14 2025 Petr Pisar <ppisar@redhat.com> - 1.2.4-41
 - Adapt to GCC 15 (bug #2341514)
 - Correct a license tag to "BSD-3-Clause AND MIT-open-group AND SMLNJ"

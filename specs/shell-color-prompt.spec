@@ -3,7 +3,7 @@
 
 Name:           shell-color-prompt
 Version:        0.7.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Color prompt for bash shell
 
 License:        GPL-2.0-or-later
@@ -65,6 +65,9 @@ BASH_COLOR_PROMPT_DIR=%{buildroot}%{profiledir} bats --timing --gather-test-outp
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jun 27 2025 Jens Petersen <petersen@redhat.com> - 0.7.1-1
 - slightly revert the terminal detection to avoid serial term regressions:
   still setup for COLORTERM but otherwise TERM must be "*color" or "linux"

@@ -14,7 +14,7 @@
 
 Name:           %{core_name}
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A utility to get the ROCm release version
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
@@ -76,6 +76,9 @@ find %{buildroot} -type f -name 'runpath_to_rpath.py' -exec rm {} \;
 %{_libdir}/cmake/rocm-core/*.cmake
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jul 22 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 6.4.2-1
 - Update to 6.4.2
 

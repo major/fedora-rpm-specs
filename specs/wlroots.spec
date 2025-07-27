@@ -6,7 +6,7 @@
 
 Name:           wlroots
 Version:        0.19.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A modular Wayland compositor library
 
 # Source files/overall project licensed as MIT, but
@@ -141,6 +141,9 @@ install -pm0644 -D '%{SOURCE3}' '%{buildroot}/%{_pkgdocdir}/examples/meson.build
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.19.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri May 16 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.19.0-1
 - Update to 0.19.0 (#2359256)
 

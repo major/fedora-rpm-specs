@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.6.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Flake8 extension to check for new lines after class definitions
 
 License:        MIT
@@ -52,6 +52,9 @@ BuildRequires:  python%{python3_pkgversion}-devel
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 1.6.0-6
 - Rebuilt for Python 3.14
 

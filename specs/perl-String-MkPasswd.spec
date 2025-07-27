@@ -1,6 +1,6 @@
 Name:           perl-String-MkPasswd
 Version:        0.05
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Perl module for generating random passwords
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/String-MkPasswd
@@ -49,6 +49,9 @@ make test
 %{_mandir}/man1/mkpasswd.pl.1*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jun 06 2025 Dominik Mierzejewski <dominik@greysector.net> - 0.05-2
 - own the String directory as well
 

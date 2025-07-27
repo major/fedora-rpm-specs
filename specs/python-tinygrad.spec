@@ -4,7 +4,7 @@ Version:        0.7.0
 %forgemeta
 
 Name:           python-%{pypi_name}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        You like pytorch? You like micrograd? You love tinygrad! 
 
 License:        MIT
@@ -75,6 +75,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

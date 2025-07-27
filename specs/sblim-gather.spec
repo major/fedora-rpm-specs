@@ -4,7 +4,7 @@
 
 Name:           sblim-gather
 Version:        2.2.9
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        SBLIM Gatherer
 
 License:        EPL-1.0
@@ -306,6 +306,9 @@ fi
 %ldconfig_postun provider
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.9-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jul 18 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.2.9-40
 - Opt-out of the ninja generator, it's used just for missing providers build
   Resolves: #2381122

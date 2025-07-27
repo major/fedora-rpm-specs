@@ -1,6 +1,6 @@
 Name:           plee-the-bear
 Version:        0.7.1
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        2D platform game
 # Code and artwork respectively
 # Automatically converted from old format: GPLv3 and CC-BY-SA - review is highly recommended.
@@ -125,6 +125,9 @@ EOF
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

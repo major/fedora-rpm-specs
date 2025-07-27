@@ -32,7 +32,7 @@
 Summary:        MongoDB driver for PHP version 2
 Name:           php-pecl-%{pecl_name}2
 Version:        %{upstream_version}%{?upstream_lower}
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        Apache-2.0
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}.tgz
@@ -168,6 +168,9 @@ OPT="-n"
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon May 26 2025 Remi Collet <remi@remirepo.net> - 2.1.0-1
 - update to 2.1.0
 

@@ -6,7 +6,7 @@
 
 Name:           wxGTK
 Version:        3.2.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GTK port of the wxWidgets GUI library
 License:        LGPL-2.0-or-later WITH WxWindows-exception-3.1
 URL:            https://www.wxwidgets.org/
@@ -350,6 +350,9 @@ fi
 %doc html
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue May 06 2025 Scott Talbert <swt@techie.net> - 3.2.8-1
 - Update to new upstream release 3.2.8 (#2363255)
 

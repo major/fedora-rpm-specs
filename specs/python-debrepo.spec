@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.0.3
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Inspect and compare Debian repositories
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -58,6 +58,9 @@ sed -i -e 's|#!/usr/bin/env python|#!%{__python3}|' \
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.3-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.0.3-34
 - Rebuilt for Python 3.14
 

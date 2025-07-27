@@ -3,7 +3,7 @@
 Summary:  An archiving tool with ACL support
 Name: star
 Version: 1.6
-Release: 17%{?dist}
+Release: 18%{?dist}
 License: CDDL-1.0 AND GPL-2.0-only
 URL: http://freecode.com/projects/star
 Source: https://downloads.sourceforge.net/s-tar/%{name}-%{version}.tar.bz2
@@ -203,6 +203,9 @@ fi
 %{_sysconfdir}/rmt
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 30 2025 Lukas Javorsky <ljavorsk@redhat.com> - 1.6-17
 - Fix the install dir of `rmt` to /usr/bin due to Fedora Change
 

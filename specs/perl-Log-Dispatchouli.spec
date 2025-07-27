@@ -1,6 +1,6 @@
 Name:           perl-Log-Dispatchouli
 Version:        3.010
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple wrapper around Log::Dispatch
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Log-Dispatchouli
@@ -110,6 +110,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.010-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jul 22 2025 Jitka Plesnikova <jplesnik@redhat.com> - 3.010-1
 - 3.010 bump (rhbz#2382315)
 

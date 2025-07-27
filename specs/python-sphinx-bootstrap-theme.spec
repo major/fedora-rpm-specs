@@ -12,7 +12,7 @@ of different Bootswatch CSS themes.
 
 Name:           python-%{srcname}
 Version:        0.8.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        %{common_sum}
 
 # Automatically converted from old format: MIT and ASL 2.0 - review is highly recommended.
@@ -83,6 +83,9 @@ done
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.8.1-13
 - Rebuilt for Python 3.14
 

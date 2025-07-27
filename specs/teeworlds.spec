@@ -1,6 +1,6 @@
 Name:           teeworlds
 Version:        0.7.5
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Online multi-player platform 2D shooter
 
 # zlib: src/engine/externals/md5/*
@@ -139,6 +139,9 @@ install -m0644 -D teeworlds.sysusers.conf %{buildroot}%{_sysusersdir}/teeworlds.
 %{_sysusersdir}/teeworlds.conf
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.5-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jul 18 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.7.5-18
 - CMake fixes
 

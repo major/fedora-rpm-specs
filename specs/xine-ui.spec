@@ -4,7 +4,7 @@
 
 Name:           xine-ui
 Version:        0.99.14
-Release:        13%{?snapshot:.%{date}hg%{commit}}%{?dist}
+Release:        14%{?snapshot:.%{date}hg%{commit}}%{?dist}
 Summary:        A skinned xlib-based gui for xine-lib
 License:        GPL-2.0-or-later
 URL:            http://www.xine-project.org/
@@ -238,6 +238,9 @@ cp -a fedoraskins/* %{buildroot}%{_datadir}/xine/skins/
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.99.14-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jun 25 2025 Xavier Bachelot <xavier@bachelot.org> - 0.99.14-13
 - Re-enable lirc for EL10
 

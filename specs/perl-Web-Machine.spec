@@ -1,6 +1,6 @@
 Name:           perl-Web-Machine
 Version:        0.17
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Perl port of Webmachine
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -86,6 +86,9 @@ can also be the target for POST requests to create a new user, email, etc.
 %{_mandir}/man3/Web*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

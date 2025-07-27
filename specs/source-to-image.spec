@@ -18,7 +18,7 @@ container images to version your runtime environments.}
 %global golicenses LICENSE
 
 Name:           source-to-image
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A tool for building artifacts from source and injecting into docker images
 License:        Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0
 URL:            %{gourl}
@@ -104,6 +104,9 @@ export LDFLAGS="$LDFLAGS -X %{goipath}/pkg/version.versionFromGit=v%{version} "
 %endif
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jan 27 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 1.5.0-1
 - Update to 1.5.0 (rhbz#2337561)
 

@@ -2,7 +2,7 @@
 Summary: Restricted shell for ssh based file services
 Name: scponly
 Version: 4.8
-Release: 37%{?dist}
+Release: 38%{?dist}
 License: BSD-2-Clause
 URL: http://sublimation.org/scponly/
 Source: http://downloads.sf.net/scponly/scponly-%{version}.tgz
@@ -59,6 +59,9 @@ make install DESTDIR=%{buildroot}
 %config(noreplace) %{_sysconfdir}/scponly/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.8-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.8-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

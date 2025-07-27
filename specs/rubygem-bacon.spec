@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.2.0
-Release: 22%{?dist}
+Release: 23%{?dist}
 Summary: A small RSpec clone
 License: MIT
 URL: http://github.com/chneukirchen/bacon
@@ -76,6 +76,9 @@ popd
 %doc %{gem_docdir}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

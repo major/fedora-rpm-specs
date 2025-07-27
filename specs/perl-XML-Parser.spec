@@ -1,6 +1,6 @@
 Name:           perl-XML-Parser
 Version:        2.47
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Perl module for parsing XML documents
 
 License:        Artistic-2.0
@@ -132,6 +132,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.47-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 2.47-7
 - Perl 5.42 rebuild
 

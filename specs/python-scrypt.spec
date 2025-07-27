@@ -1,6 +1,6 @@
 Name:           python-scrypt
 Version:        0.8.27
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python bindings for the scrypt key derivation function
 
 License:        BSD-2-Clause
@@ -59,6 +59,9 @@ sed -i '1d' scrypt/scrypt.py
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.27-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jul 15 2025 Jonny Heggheim <hegjon@gmail.com> - 0.8.27-3
 - Removed deprecated macros
   https://fedoraproject.org/wiki/Changes/DeprecateSetuppyMacros

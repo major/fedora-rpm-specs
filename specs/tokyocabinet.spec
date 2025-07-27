@@ -1,7 +1,7 @@
 Summary:	A modern implementation of a DBM
 Name:		tokyocabinet
 Version:	1.4.48
-Release:	27%{?dist}
+Release:	28%{?dist}
 License:	LGPL-2.1-or-later
 URL:		http://fallabs.com/tokyocabinet/
 Source:		http://fallabs.com/%{name}/%{name}-%{version}.tar.gz
@@ -76,6 +76,9 @@ make check
 %doc doc/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.48-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.48-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

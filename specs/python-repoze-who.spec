@@ -2,7 +2,7 @@
 
 Name:           python-repoze-who
 Version:        3.1.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        An identification and authentication framework for WSGI
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -76,6 +76,9 @@ considered to be the domain of the WSGI application.
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 14 2025 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 3.1.0-3
 - Migrate from py_build/py_install to pyproject macros (bz#2378163)
 

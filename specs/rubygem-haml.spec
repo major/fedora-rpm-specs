@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 5.2.2
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: An elegant, structured (X)HTML/XML templating engine
 License: MIT and WTFPL
 URL: http://haml.info/
@@ -124,6 +124,9 @@ popd
 %exclude %{gem_instdir}/yard/default/.gitignore
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.2-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 23 2025 Vít Ondruch <vondruch@redhat.com> - 5.2.2-12
 - Fix Ruby on Rails 8 compatibility.
 

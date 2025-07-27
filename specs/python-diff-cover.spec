@@ -9,7 +9,7 @@ diff.
 
 Name:           python-diff-cover
 Version:        9.4.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 BuildArch:      noarch
 
 License:        Apache-2.0
@@ -69,6 +69,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} \
 %{_bindir}/diff-quality
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.4.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 24 2025 Mattia Verga <mattia.verga@proton.me> - 9.4.1-1
 - Update to 9.4.1 to fix FTB with Python 3.14 (Fedora#2332362, Fedora#2350299)
 

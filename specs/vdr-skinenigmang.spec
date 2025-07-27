@@ -11,7 +11,7 @@
 
 Name:           vdr-%{pname}
 Version:        0.1.5
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A skin for VDR based on the Enigma text2skin add on
 
 License:        GPL-1.0-or-later
@@ -69,6 +69,9 @@ cp -a skinenigmang/{flags,icons} $RPM_BUILD_ROOT%{vdr_resdir}
 %{vdr_resdir}/icons
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.5-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jun 21 2025 Martin Gansser <martinkg@fedoraproject.org> - 0.1.5-5
 - Rebuilt for new VDR API version 2.7.6
 

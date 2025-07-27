@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT
 Version: 3.2.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 URL:     https://gitlab.com/rit-fonts/rit-%{fontfamily}
 
 %global foundry         RIT
@@ -42,6 +42,9 @@ Source0:  %{url}/-/jobs/artifacts/%{version}/download?job=build-tag#/rit-%{fontf
 %fontfiles
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jun 21 2025 Rajeesh KV <rajeeshknambiar@fedoraproject.org> - 3.2.2-2
 - Add MIT license used for AppData file
 

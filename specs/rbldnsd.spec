@@ -18,7 +18,7 @@
 Summary:	Small, fast daemon to serve DNSBLs
 Name:		rbldnsd
 Version:	0.998b
-Release:	17%{?dist}
+Release:	18%{?dist}
 License:	GPL-2.0-or-later
 URL:		https://rbldnsd.io/
 Source0:	https://rbldnsd.io/dwl/rbldnsd-%{version}.tgz
@@ -123,6 +123,9 @@ fi
 %endif
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.998b-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Feb 12 2025 Paul Howarth <paul@city-fan.org> - 0.998b-17
 - Add sysusers.d config file to allow rpm to create users/groups automatically
   from Fedora 43 onwards

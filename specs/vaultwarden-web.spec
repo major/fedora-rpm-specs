@@ -1,6 +1,6 @@
 Name:           vaultwarden-web
 Version:        2025.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Web vault for vaultwarden
 
 License:        GPL-3.0-only AND MIT AND BSD-3-Clause AND (MIT OR GPL-3.0-only)
@@ -53,6 +53,9 @@ install -pm644 %{SOURCE1} %{_builddir}/web-vault/
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2025.1.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 30 2025 Jonathan Wright <jonathan@almalinux.org> - 2025.1.1-1
 - update to 2025.1.1 rhbz#2334734
 

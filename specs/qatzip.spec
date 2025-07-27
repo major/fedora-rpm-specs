@@ -5,7 +5,7 @@
 
 Name:           qatzip
 Version:        1.3.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Intel QuickAssist Technology (QAT) QATzip Library
 License:        BSD-3-Clause
 URL:            https://github.com/intel/%{githubname}
@@ -87,6 +87,9 @@ rm -vf %{buildroot}%{_mandir}/*.pdf
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Apr 25 2025 Vladis Dronov <vdronov@redhat.com> - 1.3.1-1
 - Update to qatzip 1.3.1 @ 10dbadba
 - Fix qatzip docker file build broken issue

@@ -16,7 +16,7 @@
 
 Name:           php-phpspec-prophecy
 Version:        1.22.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Highly opinionated mocking framework for PHP
 
 License:        MIT
@@ -199,6 +199,9 @@ exit $ret
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Apr 30 2025 Remi Collet <remi@remirepo.net> - 1.22.0-1
 - update to 1.22.0
 - re-license spec file to CECILL-2.1

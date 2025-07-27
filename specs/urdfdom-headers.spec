@@ -2,7 +2,7 @@
 
 Name:		urdfdom-headers
 Version:	1.1.2
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	The URDF (U-Robot Description Format) headers
 
 License:	BSD-3-Clause
@@ -52,6 +52,9 @@ http://ros.org/wiki/urdf
 %{_datadir}/%{realname}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

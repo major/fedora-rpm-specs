@@ -1,6 +1,6 @@
 Name:           spatialite-tools
 Version:        5.1.0a
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A set of useful CLI tools for SpatiaLite
 
 License:        GPL-3.0-or-later
@@ -61,6 +61,9 @@ export LDFLAGS="%{__global_ldflags} -lxml2 -lm"
 %{_bindir}/spatialite_xml2utf8
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.0a-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.0a-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

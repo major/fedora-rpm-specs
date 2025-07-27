@@ -6,7 +6,7 @@ ExcludeArch: aarch64 %{ix86} %{power64} s390x
 Name:          qcas
 Summary:       Qt5 GUI application for Giac
 Version:       0.5.3
-Release:       27%{?dist}
+Release:       28%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:       GPL-3.0-or-later
 URL:           http://webusers.imj-prg.fr/~frederic.han/qcas
@@ -166,6 +166,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 %{_datadir}/metainfo/%{name}.appdata.xml
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jul 16 2025 Jerry James <loganjerry@gmail.com> - 0.5.3-27
 - Stop building for 32-bit x86
 

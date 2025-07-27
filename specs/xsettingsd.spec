@@ -1,6 +1,6 @@
 Name:           xsettingsd
 Version:        1.0.2
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Provides settings to X11 clients via the XSETTINGS specification
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -53,6 +53,9 @@ sound effects.
 %{_userunitdir}/xsettingsd.service
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

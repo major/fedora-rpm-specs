@@ -1,6 +1,6 @@
 Name:           perl-Test-AutoLoader
 Version:        0.03
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Testing utility for autosplit/autoloaded modules
 License:        GPL-1.0-or-later
 URL:            https://metacpan.org/release/Test-AutoLoader
@@ -57,6 +57,9 @@ LC_ALL=C make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

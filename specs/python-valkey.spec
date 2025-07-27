@@ -2,7 +2,7 @@
 
 Name:           python-valkey
 Version:        6.1.1
-Release:        0.1.b1%{?dist}
+Release:        0.2.b1%{?dist}
 Summary:        The Python interface to the Valkey key-value store
 License:        MIT
 URL:            https://github.com/valkey-io/valkey-py
@@ -77,4 +77,7 @@ kill %1
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.1-0.2.b1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 %autochangelog

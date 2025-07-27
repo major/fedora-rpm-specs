@@ -2,7 +2,7 @@ Summary: The NIS (Network Information Service) server
 
 Name: ypserv
 Version: 4.2
-Release: 14%{?dist}
+Release: 15%{?dist}
 License: GPL-2.0-only
 URL: https://www.thkukuk.de/nis/nis/ypserv/
 
@@ -167,6 +167,9 @@ install -m 755 %{SOURCE4} $RPM_BUILD_ROOT%{_libexecdir}/rpc.yppasswdd.env
 %{_includedir}/rpcsvc
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 4.2-14
 - Add explicit BR: libxcrypt-devel
 

@@ -1,6 +1,6 @@
 Name:		tuptime
 Version:	5.2.4
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Report historical system real time
 
 License:	GPL-2.0-or-later
@@ -85,6 +85,9 @@ chmod +x %{buildroot}%{_datadir}/tuptime/*.py
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 24 2025 Frank Crawford <frank3Y@crawford.emu.id.au> - 5.2.4-3
 - Update spec file to introduce sysuser.d configuration
 

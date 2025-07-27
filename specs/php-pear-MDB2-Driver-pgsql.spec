@@ -6,9 +6,9 @@
 Name:           php-pear-MDB2-Driver-pgsql
 Version:        1.5.0
 %if 0%{?prever:1}
-Release:        0.31.%{prever}%{?dist}
+Release:        0.32.%{prever}%{?dist}
 %else
-Release:        24%{?dist}
+Release:        25%{?dist}
 %endif
 Summary:        PostgreSQL MDB2 driver
 
@@ -80,6 +80,9 @@ fi
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-0.32.b4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-0.31.b4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

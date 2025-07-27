@@ -56,7 +56,7 @@ WeCom Bot, WhatsApp, Webex Teams, Workflows, WxPusher, XBMC}
 
 Name:           python-%{pypi_name}
 Version:        1.9.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A simple wrapper to many popular notification services used today
 License:        BSD-2-Clause
 URL:            https://github.com/caronc/%{pypi_name}
@@ -149,6 +149,9 @@ LANG=C.UTF-8 PYTHONPATH=%{buildroot}%{python3_sitelib} py.test-%{python3_version
 %{python3_sitelib}/%{pypi_name}/cli.*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.9.3-2
 - Rebuilt for Python 3.14
 

@@ -5,7 +5,7 @@ projects.
 
 Name: python-%{srcname}
 Version: 1.0.13
-Release: 15%{?dist}
+Release: 16%{?dist}
 BuildArch: noarch
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -57,6 +57,9 @@ Summary: %{summary}
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.13-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 14 2025 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 1.0.13-15
 - Migrate from py_build/py_install to pyproject macros (bz#??????)
 

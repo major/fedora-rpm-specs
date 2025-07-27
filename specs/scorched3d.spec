@@ -2,7 +2,7 @@
 
 Name:           scorched3d
 Version:        44
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Game based loosely on the classic DOS game Scorched Earth
 # Automatically converted from old format: GPLv2+ and CC-BY-SA - review is highly recommended.
 License:        GPL-2.0-or-later AND LicenseRef-Callaway-CC-BY-SA
@@ -152,6 +152,9 @@ EOF
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 44-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 44-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

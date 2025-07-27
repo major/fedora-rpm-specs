@@ -15,7 +15,7 @@ need to import publicsuffix2 instead.
 
 Name: python-%{pypi_name}
 Version: 2.20191221
-Release: 18%{?dist}
+Release: 19%{?dist}
 Summary: Get a public suffix for a domain name using the Public Suffix List
 License: MIT
 URL: https://github.com/nexb/python-publicsuffix2
@@ -54,6 +54,9 @@ ln -s ../../../../share/publicsuffix/public_suffix_list.dat %{buildroot}%{python
 %doc README.rst
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.20191221-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 21 2025 Dominik Mierzejewski <dominik@greysector.net> 2.20191221-18
 - switch to modern python packaging macros (resolves rhbz#2378011)
 

@@ -138,7 +138,7 @@ by (URW)++ company, and are mainly utilized by applications using Ghostscript.
 Name:             %{fontname}-fonts
 Summary:          Core Font Set containing 35 freely distributable fonts from (URW)++
 Version:          20200910
-Release:          25%{?dist}
+Release:          26%{?dist}
 
 # NOTE: (URW)++ holds the copyright, but Artifex Software has obtained rights to
 #       release these fonts under GNU Affero General Public License (version 3).
@@ -403,6 +403,9 @@ mkfontdir   %{legacydir}
 # =============================================================================
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20200910-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jun 11 2025 Zbigniew Jedrzejewski-Szmek  <zbyszek@in.waw.pl> - 20200910-25
 - Drop noop scriptlets
 

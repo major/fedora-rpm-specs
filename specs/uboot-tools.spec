@@ -10,7 +10,7 @@
 
 Name:     uboot-tools
 Version:  2025.07
-Release:  2%{?candidate:.%{candidate}}%{?dist}
+Release:  3%{?candidate:.%{candidate}}%{?dist}
 Epoch:    1
 Summary:  U-Boot utilities
 # Automatically converted from old format: GPLv2+ BSD LGPL-2.1+ LGPL-2.0+ - review is highly recommended.
@@ -280,6 +280,9 @@ install -p -m 0755 builds/tools/env/fw_printenv %{buildroot}%{_bindir}
 %endif
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2025.07-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jul 10 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2025.07-2
 - Update patch for rebase issue
 

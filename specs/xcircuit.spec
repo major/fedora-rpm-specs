@@ -5,7 +5,7 @@
 
 Name:			xcircuit
 Version:		%{short_version}.30
-Release:		14%{?dist}
+Release:		15%{?dist}
 Summary:		Electronic circuit schematic drawing program
 
 # Xw/		HPND unused
@@ -121,6 +121,9 @@ desktop-file-install \
 %{_mandir}/man1/%{name}.1.*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.30-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 31 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.10.30-14
 - Use tk8 explicitly
 

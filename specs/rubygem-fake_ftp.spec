@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.3.0
-Release: 18%{?dist}
+Release: 19%{?dist}
 Summary: Creates a fake FTP server for use in testing
 License: MIT
 URL: http://rubygems.org/gems/fake_ftp
@@ -75,6 +75,9 @@ popd
 %license %{gem_instdir}/LICENSE.md
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

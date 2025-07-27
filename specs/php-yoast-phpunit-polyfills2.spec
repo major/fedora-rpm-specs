@@ -24,7 +24,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        2.0.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Set of polyfills for changed PHPUnit functionality, version %{major}
 
 License:        BSD-3-Clause
@@ -125,6 +125,9 @@ exit $ret
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Feb 10 2025 Remi Collet <remi@remirepo.net> - 2.0.4-1
 - update to 2.0.4
 

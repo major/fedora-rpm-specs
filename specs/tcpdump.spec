@@ -4,7 +4,7 @@ Summary: A network traffic monitoring tool
 Name: tcpdump
 Epoch: 14
 Version: 4.99.5
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause AND BSD-4-Clause-UC AND ISC AND NTP
 URL: http://www.tcpdump.org
 BuildRequires: make
@@ -89,6 +89,9 @@ sed -i 's/\(\.TH[a-zA-Z ]*\)[1-9]\(.*\)/\18\2/' \
 %{_mandir}/man8/tcpdump.8*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 14:4.99.5-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jun 05 2025 Michal Ruprich <mruprich@redhat.com> - 14:4.99.5-5
 - Updating tcpslice to version 1.8
 

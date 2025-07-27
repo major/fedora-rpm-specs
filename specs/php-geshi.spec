@@ -7,7 +7,7 @@ License:        GPL-2.0-or-later
 %global git_short %(c="%{git_commit}"; echo "${c:0:7}")
 
 Version:        1.0.9.1
-Release:        18.%{git_date}git%{git_short}%{?dist}
+Release:        19.%{git_date}git%{git_short}%{?dist}
 
 URL:            https://github.com/GeSHi/geshi-1.0
 Source0:        %{url}/archive/%{git_commit}/GeSHi-%{git_commit}.tar.gz
@@ -69,6 +69,9 @@ phpunit8 --verbose
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.9.1-19.20230219git7884d22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.9.1-18.20230219git7884d22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           python3-lxc
 Version:        5.0.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Python binding for LXC
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -67,6 +67,9 @@ sed -i -e '1 s@^#!.*@#!%{__python3}@' examples/*.py
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jul 15 2025 Thomas Moschny <thomas.moschny@gmx.de> - 5.0.0-12
 - Update for current Python packaging guidelines.
 - Cherry pick upstream commit for Python 3.13+.

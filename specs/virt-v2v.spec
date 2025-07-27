@@ -7,7 +7,7 @@
 Name:          virt-v2v
 Epoch:         1
 Version:       2.9.2
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Convert a virtual machine to run on KVM
 
 License:       GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -313,6 +313,9 @@ done
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.9.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jul 19 2025 Richard W.M. Jones <rjones@redhat.com> - 1:2.9.2-2
 - Bump minimum version of nbdkit to 1.45.1, matching current Rawhide
 - Bump minimum version of nbdcopy to 1.22, matching current Fedora 42

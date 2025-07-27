@@ -24,7 +24,7 @@
 
 Name:           php-sebastian-resource-operations%{major}
 Version:        2.0.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Provides a list of PHP built-in functions that operate on resources, version %{major}
 
 License:        BSD-3-Clause
@@ -96,6 +96,9 @@ exit $ret
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jun 26 2025 Remi Collet <remi@remirepo.net> - 2.0.3-4
 - use phpunit8
 - re-license spec file to CECILL-2.1

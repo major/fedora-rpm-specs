@@ -7,7 +7,7 @@
 
 Name: rabbitmq-server
 Version: 4.0.7
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: MPL-2.0
 Source0: https://github.com/rabbitmq/rabbitmq-server/releases/download/v%{version}/%{name}_%{version}.orig.tar.xz
 Source1: https://github.com/rabbitmq/rabbitmq-server/releases/download/v%{version}/%{name}_%{version}.orig.tar.xz.asc
@@ -176,6 +176,9 @@ rm -f %{_rabbit_libdir}/lib/rabbitmq_server-%{version}/ebin/rabbit.{rel,script,b
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.7-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Mar 10 2025 Zbigniew Jedrzejewski-Szmek  <zbyszek@in.waw.pl> - 4.0.7-2
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

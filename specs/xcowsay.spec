@@ -1,6 +1,6 @@
 Name:           xcowsay
 Version:        1.6
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Displays a cute cow and message on your desktop
 
 License:        GPL-3.0-or-later
@@ -62,6 +62,9 @@ desktop-file-install --vendor=""     \
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

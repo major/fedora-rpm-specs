@@ -4,7 +4,7 @@
 
 Name:           python-%{modname}
 Version:        1.1.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Bindings for libssh C library
 
 License:        GPL-2.0-or-later
@@ -84,6 +84,9 @@ Summary:        %{summary} documentation
 %doc examples/ _build/html/
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jul 10 2025 Federico Pellegrin <fede@evolware.org> - 1.1.1-4
 - Use new python macros (rhbz#2378249)
 

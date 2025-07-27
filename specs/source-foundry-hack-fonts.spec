@@ -1,5 +1,5 @@
 Version: 3.003
-Release: 5%{dist}
+Release: 6%{dist}
 URL: https://sourcefoundry.org/hack/
 
 %global foundry           source-foundry
@@ -62,6 +62,9 @@ cp %{SOURCE10} .
 %fontfiles
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.003-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.003-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

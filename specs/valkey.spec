@@ -11,7 +11,7 @@
 
 Name:              valkey
 Version:           8.1.3
-Release:           1%{?dist}
+Release:           2%{?dist}
 Summary:           A persistent key-value database
 # valkey: BSD-3-Clause
 # hiredis: BSD-3-Clause
@@ -404,6 +404,9 @@ fi
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.1.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul  7 2025 Remi Collet <remi@fedoraproject.org> - 8.1.3-1
 - update to 8.1.3
   fixes CVE-2025-CVE-2025-32023 and CVE-2025-48367

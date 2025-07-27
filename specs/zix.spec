@@ -2,7 +2,7 @@
 
 Name:           zix
 Version:        0.6.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A lightweight C library of portability wrappers and data structures
 
 License:        ISC
@@ -76,6 +76,9 @@ mv %{buildroot}%{_docdir}/%{name}-%{maj} %{buildroot}%{_docdir}/%{name}
 %doc %{_docdir}/%{name}/%{name}-%{maj}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Guido Aulisi <guido.aulisi@inps.it> - 0.6.2-1
 - Update to 0.6.2
 - Verify sources

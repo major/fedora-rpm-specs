@@ -1,7 +1,7 @@
 Name:    qt6-doc
 Summary: Qt6 - Complete documentation
 Version: 6.9.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 BuildArch: noarch
 
 License: GFDL
@@ -61,6 +61,9 @@ tar xf %{SOURCE0} -C %{buildroot}
 %{_qt6_docdir}/*/*.index
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.9.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 10 2025 Marie Loise Nolden <loise@kde.org> - 6.9.1-2
 - add *.index files to devel
 

@@ -17,7 +17,7 @@
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global date0 20240327
 %else
-%global pypi_version 0.8.0
+%global pypi_version 0.11.0
 %endif
 
 %bcond_with test
@@ -41,7 +41,7 @@ Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz#/data-%{version}.tar
 %endif
 # Do not use git submodules
 # Do not use distutils
-Patch0:         0001-Prepare-torchdata-setup-for-fedora.patch
+# Patch0:         0001-Prepare-torchdata-setup-for-fedora.patch
 
 
 # Limit to these because that is what torch is on
@@ -49,7 +49,9 @@ ExclusiveArch:  x86_64 aarch64
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+BuildRequires:  python3dist(pip)
 BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(pyyaml)
 BuildRequires:  python3dist(requests)
 BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(torch)
@@ -75,28 +77,28 @@ easily constructing data pipelines.
 
 rm -rf third_party/*
 
-# pyproject_ is broken it is generate_buildrequires looks for
-# python3-cmake and python3-ninja, revert to old py3_
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
+%check
+%pyproject_check_import
 # Testing has a circular dependency
 # E   ModuleNotFoundError: No module named 'torchtext'
 # We need torchdata to build torchtext :(
 %if %{with test}
-%check
 %pytest
 %endif
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{pypi_name}
 
-%files -n python3-%{pypi_name}
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE
 %doc README.md
-%{python3_sitelib}/%{pypi_name}
-%{python3_sitelib}/%{pypi_name}-*.egg-info
 
 %changelog
 %autochangelog

@@ -38,7 +38,7 @@
 
 Name:          php-%{composer_vendor}-%{composer_project}
 Version:       %{github_version}
-Release:       7%{?github_release}%{?dist}
+Release:       8%{?github_release}%{?dist}
 Summary:       Assertions to validate method input/output with nice error messages
 
 License:       MIT
@@ -151,6 +151,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           xnvme
 Version:        0.7.5
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Unified API and tools for traditional and emerging I/O interfaces
 
 License:        BSD-3-Clause
@@ -99,6 +99,9 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %{bash_completions_dir}/zoned-completions
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.5-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

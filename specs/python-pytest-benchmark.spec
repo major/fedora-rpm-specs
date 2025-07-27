@@ -2,7 +2,7 @@
 
 Name: python-%{srcname}
 Version: 5.1.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A py.test fixture for benchmarking code
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
@@ -55,4 +55,7 @@ Requires: python3-cpuinfo
 %{_bindir}/pytest-benchmark
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 %autochangelog

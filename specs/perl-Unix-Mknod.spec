@@ -1,6 +1,6 @@
 Name:           perl-Unix-Mknod
 Version:        0.05
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Perl extension for mknod, major, minor, and makedev
 License:        NCSA
 URL:            https://metacpan.org/release/Unix-Mknod
@@ -77,6 +77,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.05-7
 - Perl 5.42 rebuild
 

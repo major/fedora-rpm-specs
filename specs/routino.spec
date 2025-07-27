@@ -1,7 +1,7 @@
 Name: routino
 Summary: Router for OpenStreetMap Data
 Version: 3.4.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: AGPL-3.0-or-later AND MIT
 URL: http://www.routino.org/
 Source0: http://www.routino.org/download/routino-%{version}.tgz
@@ -101,6 +101,9 @@ rm -rf extras
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Apr 26 2025 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 3.4.3-1
 - Update to 3.4.3 (rhbz#2362439)
 

@@ -1,6 +1,6 @@
 Name:           kicad
 Version:        9.0.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Epoch:          1
 Summary:        EDA software suite for creation of schematic diagrams and PCBs
 
@@ -73,7 +73,7 @@ diagrams and printed circuit board artwork of up to
 
 %package        packages3d
 Summary:        3D Models for KiCad
-License:        CC-BY-SA
+License:        CC-BY-SA-4.0
 BuildArch:      noarch
 Requires:       kicad >= 9.0.0
 
@@ -82,7 +82,7 @@ Requires:       kicad >= 9.0.0
 
 %package        doc
 Summary:        Documentation for KiCad
-License:        GPL-3.0-or-later or CC-BY
+License:        GPL-3.0-or-later or CC-BY-3.0
 BuildArch:      noarch
 
 %description    doc
@@ -223,6 +223,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
+* Fri Jul 25 2025 Steven A. Falco <stevenfalco@gmail.com> - 1:9.0.3-3
+- Add version info to licenses
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:9.0.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

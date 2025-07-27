@@ -22,7 +22,7 @@
 
 Name:           rocm-rpp
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        ROCm Performace Primatives for computer vision
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT AND Apache-2.0 AND LicenseRef-Fedora-Public-Domain
@@ -135,6 +135,9 @@ chrpath -r %{rocmllvm_libdir} %{buildroot}%{_libdir}/librpp.so.1.*.*
 %endif
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jun 13 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-2
 - Add --with test
 

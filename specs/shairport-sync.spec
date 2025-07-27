@@ -1,6 +1,6 @@
 Name:           shairport-sync
 Version:        4.3.7
-Release:        0%{?dist}
+Release:        1%{?dist}
 Summary:        AirTunes emulator. Multi-Room with Audio Synchronisation
 # MIT licensed except for tinysvcmdns under BSD, 
 # FFTConvolver/ under GPLv3+ and audio_sndio.c 
@@ -94,6 +94,9 @@ install -m0644 -D shairport-sync.sysusers.conf %{buildroot}%{_sysusersdir}/shair
 %{_sysusersdir}/shairport-sync.conf
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.7-1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Mar 04 2025 Bill Peck <bpeck@redhat.com> - 4.3.7-0
 - Disable airplay2, Unfortantely airplay2 support requires libavcodec-freeworld
 

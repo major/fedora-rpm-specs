@@ -7,7 +7,7 @@
 
 Name: vagrant
 Version: 2.3.4
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: Build and distribute virtualized development environments
 License: MIT
 URL: http://vagrantup.com
@@ -494,6 +494,9 @@ end
 %{vagrant_plugin_instdir}/vagrant-spec.config.example.rb
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org>
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 16 2025 Jarek Prokop <jprokop@redhat.com> - 2.3.4-7
 - Fix default URL used for pulling boxes.
   Resolves: rhbz#2337302

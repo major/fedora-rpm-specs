@@ -10,7 +10,7 @@
 
 Name:       totpcgi
 Version:    0.6.0
-Release:    0.24.20190713git%{?dist}
+Release:    0.25.20190713git%{?dist}
 Summary:    A centralized totp solution based on google-authenticator
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -213,6 +213,9 @@ fi
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-0.25.20190713git
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.6.0-0.24.20190713git
 - Rebuilt for Python 3.14
 

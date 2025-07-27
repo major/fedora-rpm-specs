@@ -2,7 +2,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	1.0.7
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 Summary:	Additional test assertions for Ruby standard libraries
 # SPDX confirmed
@@ -67,6 +67,9 @@ exit 0
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jun 15 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0.7-1
 - 1.0.7
 

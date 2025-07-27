@@ -11,7 +11,7 @@
 
 Name:           php-pear-Net-Socket
 Version:        1.2.2
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Network Socket Interface
 
 License:        BSD-2-Clause
@@ -81,6 +81,9 @@ fi
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

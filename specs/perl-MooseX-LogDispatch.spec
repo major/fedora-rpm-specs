@@ -1,6 +1,6 @@
 Name:           perl-MooseX-LogDispatch
 Version:        1.2002
-Release:        42%{?dist}
+Release:        43%{?dist}
 Summary:        Logging Role for Moose
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -68,6 +68,9 @@ sed -i -e '/^inc\// d' MANIFEST
 %{_mandir}/man3/MooseX*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2002-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Apr 11 2025 Tim Landscheidt <tim@tim-landscheidt.de> - 1.2002-42
 - Fix dependency filter
 - Remove non-working --skipdeps option to Makefile.PL

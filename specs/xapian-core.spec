@@ -7,7 +7,7 @@
 
 Name:          xapian-core
 Version:       1.4.29
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       The Xapian Probabilistic Information Retrieval Library
 License:       GPL-2.0-or-later
 URL:           https://www.xapian.org/
@@ -103,6 +103,9 @@ make check %{?_smp_mflags}
 %{_mandir}/man1/xapian-config.1*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.29-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon May 12 2025 Christiano Anderson <chris@christiano.dev> - 1.4.29-2
 - Rebuild 1.4.29
 

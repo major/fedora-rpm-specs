@@ -52,7 +52,7 @@
 
 Name:           python-%{pypi_name}
 Version:        %{pypi_version}
-Release:        4%{?dist}
+Release:        6%{?dist}
 Summary:        A language and compiler for custom Deep Learning operations
 
 License:        MIT AND Apache-2.0 AND BSD-3-Clause AND BSD-2-Clause
@@ -269,12 +269,12 @@ export TRITON_CODEGEN_AMD=ON
 export TRITON_CODEGEN_NVIDIA=ON
 
 cd python
-%py3_build
+%pyproject_wheel
 
 %install
 
 cd python
-%py3_install
+%pyproject_install
 
 # empty files
 rm %{buildroot}%{python3_sitearch}/triton/compiler/make_launcher.py
@@ -283,7 +283,6 @@ rm %{buildroot}%{python3_sitearch}/triton/compiler/make_launcher.py
 rm -rf %{buildroot}%{python3_sitearch}/triton/backends/amd/include/*
 
 %check
-%py3_check_import %{pypi_name}
 %if %{with test}
 # Unit tests download so are not suitable for mock
 cd python
@@ -291,10 +290,15 @@ cd python
 %endif
 
 %files -n python3-%{pypi_name}
-%{python3_sitearch}/%{pypi_name}
-%{python3_sitearch}/%{pypi_name}*.egg-info
+%{python3_sitearch}/%{pypi_name}*
 
 %changelog
+* Fri Jul 25 2025 Tom Rix <Tom.Rix@amd.com> - 3.1.0-6
+- Use pyproject macros
+
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 3.1.0-4
 - Rebuilt for Python 3.14
 

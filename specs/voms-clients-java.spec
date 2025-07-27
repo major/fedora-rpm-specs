@@ -1,6 +1,6 @@
 Name:		voms-clients-java
 Version:	3.3.5
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Virtual Organization Membership Service Java clients
 
 License:	Apache-2.0
@@ -168,6 +168,9 @@ fi
 %license LICENSE
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jul 08 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.3.5-3
 - Allow alternative java versions in EPEL 9
 

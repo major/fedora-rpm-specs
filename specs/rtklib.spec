@@ -5,7 +5,7 @@
 
 Name:           rtklib
 Version:        2.4.3.b33
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Program Package for GNSS Positioning
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -173,6 +173,9 @@ chrpath --delete %{buildroot}%{_bindir}/*_qt
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.3.b33-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.3.b33-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

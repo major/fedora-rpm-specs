@@ -5,7 +5,7 @@
 
 Name:     wev
 Version:  1.0.1
-Release:  0.20230429git%{shortcommit}%{?dist}
+Release:  0.20230430git%{shortcommit}%{?dist}
 Summary:  A tool for debugging events on a sway Wayland window
 License:  MIT
 URL:      https://git.sr.ht/~sircmpwn/wev
@@ -39,6 +39,9 @@ analogous to the X11 tool xev.
 %doc README.md
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-0.20230430git0fc0549
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-0.20230429git0fc0549
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 Summary:	Shared library for the S-Lang extension language
 Name:		slang
 Version:	2.3.3
-Release:	7%{?dist}
+Release:	8%{?dist}
 License:	GPL-2.0-or-later
 URL:		https://www.jedsoft.org/slang/
 Source:		https://www.jedsoft.org/releases/%{name}/%{name}-%{version}.tar.bz2
@@ -108,6 +108,9 @@ make check
 %{_includedir}/slang
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

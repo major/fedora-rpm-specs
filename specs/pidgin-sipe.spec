@@ -1,7 +1,7 @@
 Name:           pidgin-sipe
 Summary:        Pidgin protocol plugin to connect to MS Office Communicator
 Version:        1.25.0
-Release:        21%{?dist}
+Release:        22%{?dist}
 
 License:        GPL-2.0-or-later
 URL:            http://sipe.sourceforge.net/
@@ -126,6 +126,9 @@ rm -f \
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.25.0-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.25.0-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 Name:		xkeycaps
 Summary: 	Graphical front end to xmodmap
 Version:	2.46
-Release:	39%{?dist}
+Release:	40%{?dist}
 License:	MIT
 Source0:	http://www.jwz.org/xkeycaps/%{name}-%{version}.tar.Z
 Source1:	xkeycaps.desktop
@@ -52,6 +52,9 @@ desktop-file-install                             \
 %{_mandir}/man1/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.46-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Feb 24 2025 Tom Callaway <spot@fedoraproject.org> - 2.46-39
 - revert patch to fix cast issues, looks like the dependent library behavior reverted
 

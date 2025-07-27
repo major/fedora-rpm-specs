@@ -14,7 +14,7 @@
 
 Name:           qatengine
 Version:        2.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Intel QuickAssist Technology (QAT) OpenSSL Engine
 
 # Most of the source code is BSD, with the following exceptions:
@@ -78,6 +78,9 @@ openssl engine -v %{name}
 %endif
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 10 2025 Nagha Abirami <naghax.abirami@intel.com> - 2.0.0-1
 - Update to qatengine v2.0.0
 

@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        1.2.2
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Minimalistic C kernel for Jupyter
 
 License:        MIT
@@ -69,6 +69,9 @@ rm %{buildroot}%{_bindir}/install_c_kernel
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jun 05 2025 Python Maint <python-maint@redhat.com> - 1.2.2-26
 - Rebuilt for Python 3.14
 

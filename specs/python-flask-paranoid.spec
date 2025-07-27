@@ -2,7 +2,7 @@
 
 Name:           python-%{pkg_name}
 Version:        0.3.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Flask Simple user session protection
 License:        MIT
 
@@ -53,6 +53,9 @@ sed -r -i 's/01-Jan-1970/01 Jan 1970/' tests/test_paranoid.py
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.3.0-13
 - Rebuilt for Python 3.14
 

@@ -3,7 +3,7 @@
 
 Name:           perl-Math-Factor-XS
 Version:        0.40
-Release:        45%{?dist}
+Release:        46%{?dist}
 Summary:        Factorize numbers and calculate matching multiplications
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -62,6 +62,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.40-46
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.40-45
 - Perl 5.42 rebuild
 

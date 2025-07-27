@@ -1,6 +1,6 @@
 Name:       vconfig
 Version:    1.9
-Release:    40%{?dist}
+Release:    41%{?dist}
 Summary:    Linux 802.1q VLAN configuration utility
 # candela_2.4.21.patch:             GPL-2.0-or-later
 # contrib/vlan_2.2-full.patch:      GPL-2.0-or-later
@@ -42,6 +42,9 @@ install -D -m644 vconfig.8 ${RPM_BUILD_ROOT}%{_mandir}/man8/vconfig.8
 %{_mandir}/man8/vconfig.8*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jun 18 2025 Petr Pisar <ppisar@redhat.com> - 1.9-40
 - Update URLs to use HTTPS
 

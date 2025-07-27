@@ -1,6 +1,6 @@
 Name:           perl-Object-InsideOut
 Version:        4.05
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Comprehensive inside-out object support module
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Object-InsideOut
@@ -82,6 +82,9 @@ make test
 %{_mandir}/man3/Object::InsideOut::Metadata.3*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.05-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jul 08 2025 Jitka Plesnikova <jplesnik@redhat.com> - 4.05-29
 - Perl 5.42 re-rebuild of bootstrapped packages
 

@@ -2,7 +2,7 @@
 
 Name:           python-chameleon
 Version:        4.6.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        XML-based template compiler
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -59,6 +59,9 @@ Requires:   python3-lxml
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 14 2025 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 4.6.0-4
 - Migrate from py_build/py_install to pyproject macros (bz#2378521)
 - Move deletes to files/exclude

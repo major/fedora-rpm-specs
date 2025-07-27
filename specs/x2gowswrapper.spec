@@ -5,7 +5,7 @@
 
 Name:     x2gowswrapper
 Version:  0.0.0.1
-Release:  0.7%{?dist}
+Release:  0.8%{?dist}
 Summary:  Helper utility for X2Go HTML5 client
 License:  GPL-2.0-or-later
 URL:      http://www.x2go.org
@@ -38,6 +38,9 @@ install -D -p --mode=644 man/man1/x2gowswrapper.1 %{buildroot}%{_mandir}/man1/x2
 %{_mandir}/man1/x2gowswrapper.1*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.0.1-0.8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.0.1-0.7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

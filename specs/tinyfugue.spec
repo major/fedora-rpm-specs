@@ -3,7 +3,7 @@
 
 Name:           tinyfugue
 Version:        5.0
-Release:        0.114.b8%{?dist}
+Release:        0.115.b8%{?dist}
 Summary:        A MU* client
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -72,6 +72,9 @@ install -D -p -m 644 src/tf.1.nroffman %{buildroot}%{_mandir}/man1/tf.1
 %{_mandir}/man1/tf.1*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-0.115.b8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-0.114.b8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

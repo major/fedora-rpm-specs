@@ -1,6 +1,6 @@
 Name:       xclipboard
 Version:    1.1.5
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Utility to collect and display text selections
 
 License:    MIT-open-group
@@ -45,6 +45,9 @@ autoreconf -v --install
 %{_datadir}/X11/app-defaults/XClipboard
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

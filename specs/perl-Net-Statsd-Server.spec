@@ -4,7 +4,7 @@
 
 Name:           perl-Net-Statsd-Server
 Version:        0.20
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Library for the Perl port of Flickr/Etsy's statsd metrics daemon
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -133,6 +133,9 @@ possibilities, or write a back-end yourself.
 %{_sysusersdir}/perl-net-statsd-server.conf
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.20-28
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

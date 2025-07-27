@@ -1,6 +1,6 @@
 Name:           python-b2sdk
 Version:        1.21.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Backblaze B2 SDK
 
 License:        MIT
@@ -52,6 +52,9 @@ rm -rf %{buildroot}%{python3_sitelib}/test
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.21.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.21.0-9
 - Rebuilt for Python 3.14
 

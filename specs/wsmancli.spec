@@ -1,6 +1,6 @@
 Name:           wsmancli
 Version:        2.8.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        BSD-3-Clause
 Url:            http://www.openwsman.org/
 # You can get this tarball here:
@@ -41,6 +41,9 @@ make DESTDIR=%{buildroot} install
 %doc COPYING README AUTHORS
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Apr 08 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.8.0-1
 - Update to wsmancli-2.8.0
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.0.0
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        A Python interface to libgphoto2
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -56,6 +56,9 @@ rm -rf %{buildroot}%{_datadir}/%{name}
 %{python3_sitearch}/%{pypi_name}/
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.0.0-24
 - Rebuilt for Python 3.14
 

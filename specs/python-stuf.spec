@@ -3,7 +3,7 @@
 
 Name:               python-stuf
 Version:            0.9.16
-Release:            40%{?dist}
+Release:            41%{?dist}
 Summary:            Fancy python dictionary types
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -54,6 +54,9 @@ rm -rf %{buildroot}%{python3_sitelib}/tests/
 %{python3_sitelib}/%{modname}-%{version}-*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.16-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.9.16-40
 - Rebuilt for Python 3.14
 

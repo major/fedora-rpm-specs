@@ -1,6 +1,6 @@
 Name:           perl-UNIVERSAL-isa
 Version:        1.20171012
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Hack around module authors using UNIVERSAL::isa as a function
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/UNIVERSAL-isa
@@ -60,6 +60,9 @@ make test
 %{_mandir}/man3/UNIVERSAL::isa.3*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.20171012-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.20171012-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

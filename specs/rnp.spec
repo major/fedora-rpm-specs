@@ -26,7 +26,7 @@
 Name:          rnp
 Summary:       OpenPGP (RFC4880) tools
 Version:       0.18.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 # See rnp-files-by-license.txt and upstream LICENSE* files
 License:       BSD-2-Clause AND Apache-2.0 AND MIT
 
@@ -188,6 +188,9 @@ FILTER="s2k_iteration_tuning|test_key_add_userid|test_ffi_security_profile|Encry
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun  2 2025 Remi Collet <remi@remirepo.net> - 0.18.0-1
 - update to 0.18.0
 - re-license spec file to CECILL-2.1

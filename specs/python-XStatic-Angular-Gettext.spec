@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.1.0.2
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Angular-Gettext (XStatic packaging standard)
 
 License:        MIT
@@ -83,6 +83,9 @@ chmod 644 %{buildroot}%{_jsdir}/angular_gettext/angular-gettext.js
 %{_jsdir}/angular_gettext
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0.2-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.1.0.2-33
 - Rebuilt for Python 3.14
 

@@ -1,6 +1,6 @@
 Name:           python-moddb
 Version:        0.14.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A Python scraper/parser for ModDB
 License:        MIT
 URL:            https://github.com/ClementJ18/moddb
@@ -53,6 +53,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jun 11 2025 Chris King <bunnyapocalypse@protonmail.com> - 0.14.0-1
 - New version
 

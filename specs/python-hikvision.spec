@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.0.3
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Python interface to interact with a Hikvision camera
 
 License:        MIT
@@ -41,6 +41,9 @@ with a Hikvision IP Camera.
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 2.0.3-16
 - Rebuilt for Python 3.14
 

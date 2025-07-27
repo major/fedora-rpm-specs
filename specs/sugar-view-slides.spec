@@ -1,6 +1,6 @@
 Name:           sugar-view-slides
 Version:        15
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Image series viewer for Sugar
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -53,6 +53,9 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 15-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 15-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

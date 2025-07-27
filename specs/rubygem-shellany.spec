@@ -9,7 +9,7 @@
 
 Name:           rubygem-%{gem_name}
 Version:        0.0.1
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Simple, somewhat portable command capturing
 
 License:        MIT
@@ -88,6 +88,9 @@ popd
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.1-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.1-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

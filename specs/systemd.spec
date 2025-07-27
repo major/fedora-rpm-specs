@@ -83,7 +83,9 @@ Summary:        System and Service Manager
 # download tarballs with "spectool -g systemd.spec"
 # packit will always rewrite the first Source0 it finds, ignoring any conditionals so list
 # the fallback source that's used if neither %%branch nor %%commit are defined first.
-%if %{undefined branch} && %{undefined commit}
+%if %{with obs}
+Source0:        https://github.com/systemd/systemd/archive/v%{version_no_tilde}/%{name}-%{version}.tar.gz
+%elif %{undefined branch} && %{undefined commit}
 Source0:        https://github.com/systemd/systemd/archive/v%{version_no_tilde}/%{name}-%{version_no_tilde}.tar.gz
 %elif %{defined branch}
 Source0:        https://github.com/systemd/systemd/archive/refs/heads/%{branch}.tar.gz
@@ -740,6 +742,8 @@ main systemd package and is meant for use in exitrds.
 %autosetup -n %{name}-%{branch} -p1
 %elif %{defined commit}
 %autosetup -n %{name}-%{commit} -p1
+%elif %{with obs}
+%autosetup -n %{name}-%{version} -p1
 %else
 %autosetup -n %{name}-%{version_no_tilde} -p1
 %endif

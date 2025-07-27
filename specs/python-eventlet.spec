@@ -9,7 +9,7 @@ io operations appear blocking at the source code level.}
 
 Name:           python-%{srcname}
 Version:        0.40.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Highly concurrent networking library
 License:        MIT
 
@@ -66,6 +66,9 @@ export EVENTLET_NO_GREENDNS=yes
 %doc doc/build/html
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.40.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri May 16 2025 Peter Stensmyr <peter.stensmyr@aiven.io> - 0.40.0-1
 - Update to 0.40.0
 

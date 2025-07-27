@@ -3,7 +3,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	2.6.0
-Release:	19%{?dist}
+Release:	20%{?dist}
 Summary:	Forwardable with hash, and instance variable extensions
 
 License:	MIT
@@ -57,6 +57,9 @@ This package contains the documentation files for %{name}.
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary:        PostScript Type 1 font rasterizer
 Name:           t1lib
 Version:        5.1.2
-Release:        41%{?dist}
+Release:        42%{?dist}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
 URL:            ftp://sunsite.unc.edu/pub/Linux/libs/graphics/t1lib-%{version}.lsm
@@ -137,6 +137,9 @@ touch %{buildroot}%{_datadir}/t1lib/{FontDatabase,t1lib.config}
 %{_libdir}/libt1x.a
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.2-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Mar 18 2025 Terje Rosten <terjeros@gmail.com> - 5.1.2-41
 - Fix build with GCC 15
 

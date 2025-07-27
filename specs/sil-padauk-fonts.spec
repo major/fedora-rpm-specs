@@ -1,5 +1,5 @@
 Version:  3.003
-Release:  19%{?dist}
+Release:  20%{?dist}
 URL:      https://software.sil.org/padauk/
 
 %global         foundry         SIL
@@ -54,6 +54,9 @@ Source11: 66-%{fontpkgname1}.conf
 %fontfiles -a
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.003-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jul 10 2025 Akira TAGOH <tagoh@redhat.com> - 3.003-19
 - Add fallback rule of monospace.
   See https://fedoraproject.org/wiki/Changes/SetDefaultMonospaceFallbackFont

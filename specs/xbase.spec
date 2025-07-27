@@ -1,7 +1,7 @@
 Name:		xbase
 Summary: 	XBase compatible database library
 Version: 	3.1.2
-Release: 	33%{?dist}
+Release: 	34%{?dist}
 License: 	LGPL-2.1-or-later
 URL:		http://linux.techass.com/projects/xdb/
 Source0:	http://downloads.sourceforge.net/xdb/%{name}64-%{version}.tar.gz
@@ -115,6 +115,9 @@ popd
 %{_bindir}/dbfutil1
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.2-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.2-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

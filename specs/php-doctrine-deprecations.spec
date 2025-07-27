@@ -22,7 +22,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}
 Version:        1.1.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A small layer on top of triggeFr_error or PSR-3 logging
 
 License:        MIT
@@ -149,6 +149,9 @@ exit $ret
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Apr  8 2025 Remi Collet <remi@remirepo.net> - 1.1.5-1
 - update to 1.1.5 (no change)
 - switch to phpunit12

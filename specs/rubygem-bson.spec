@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 4.15.0
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: Ruby implementation of the BSON specification
 License: Apache-2.0
 # Keep the URL, while different URL is used in the upstream gemspec file.
@@ -93,6 +93,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.15.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.15.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

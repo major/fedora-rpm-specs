@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.0.1
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Support library for building plugins systems
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -21,7 +21,6 @@ plugin systems in Python.
 Summary:        %{sum}
 %{?python_provide:%python_provide python3-%{srcname}}
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-pytest
 
 %description -n python3-%{srcname} %{_description}
@@ -31,25 +30,31 @@ Python 3 version.
 %prep
 %autosetup -n %{srcname}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
 %check
 pushd tests
-  PYTHONPATH=%{buildroot}%{python3_sitelib} py.test-%{python3_version} -v
+  PYTHONPATH=%{buildroot}%{python3_sitelib} %pytest -v
 popd
 
 %files -n python3-%{srcname}
 %license LICENSE
 %doc README.rst
-%{python3_sitelib}/%{srcname}-*.egg-info/
+%{python3_sitelib}/%{srcname}-*.dist-info/
 %{python3_sitelib}/%{srcname}.py
 %{python3_sitelib}/__pycache__/%{srcname}.*
 
 %changelog
+* Fri Jul 25 2025 Federico Pellegrin <fede@evolware.org> - 1.0.1-15
+- Use new Python macros in spec file (rhbz#2377996)
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.0.1-14
 - Rebuilt for Python 3.14
 

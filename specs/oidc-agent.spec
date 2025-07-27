@@ -5,8 +5,8 @@
 %endif
 
 Name:		oidc-agent
-Version:	5.3.2
-Release:	2%{?dist}
+Version:	5.3.3
+Release:	1%{?dist}
 Summary:	Managing OpenID Connect tokens on the command line
 
 License:	MIT AND ISC AND LGPL-2.1-or-later AND BSD-2-Clause
@@ -181,6 +181,9 @@ ln -s liboidc-agent.so.%{version} %{buildroot}%{_libdir}/liboidc-agent.so
 %{_libdir}/liboidc-agent.so
 
 %changelog
+* Fri Jul 25 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 5.3.3-1
+- Update to version 5.3.3
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

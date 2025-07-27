@@ -1,6 +1,6 @@
 Name:       perl-rpm-build-perl 
 Version:    0.82
-Release:    49%{?dist}
+Release:    50%{?dist}
 # ConstOptree/ConstOptree.pm:   GPL-2.0-or-later
 # lib/B/Clobbers.pm:            GPL-2.0-or-later
 # lib/B/PerlReq.pm:             GPL-2.0-or-later
@@ -190,6 +190,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.82-50
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.82-49
 - Perl 5.42 rebuild
 

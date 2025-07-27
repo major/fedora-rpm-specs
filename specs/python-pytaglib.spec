@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        2.1.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Python audio metadata ("tagging") library based on TagLib
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -65,6 +65,9 @@ sed -i 's/cython==3\.0\.\*/cython==3.*/' pyproject.toml
 %{python3_sitearch}/__pycache__/pyprinttags.*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jul 08 2025 Charalampos Stratakis <cstratak@redhat.com> - 2.1.0-4
 - Remove explicit Cython version
 

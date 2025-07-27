@@ -6,7 +6,7 @@
 Summary:       Mizuho documentation formatting tool
 Name:          rubygem-%{gem_name}
 Version:       0.9.20
-Release:       24%{?dist}
+Release:       25%{?dist}
 License:       MIT
 URL:           https://github.com/FooBarWidget/mizuho
 Source0:       https://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -98,6 +98,9 @@ popd
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.20-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.20-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

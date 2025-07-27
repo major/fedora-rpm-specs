@@ -5,7 +5,7 @@
 
 Name:          tesseract-tessdata
 Version:       4.1.0
-Release:       10%{?pre:.%pre}%{?commit:.git%{shortcommit}}%{?dist}
+Release:       11%{?pre:.%pre}%{?commit:.git%{shortcommit}}%{?dist}
 Summary:       Trained models for the Tesseract Open Source OCR Engine
 BuildArch:     noarch
 
@@ -304,6 +304,9 @@ rm -f %{buildroot}/%{_datadir}/tesseract/tessdata/pdf.ttf
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon May 12 2025 Sandro Mani <manisandro@gmail.com> - 4.1.0-10
 - Require tesseract-common from langpack/script packages
 

@@ -1,6 +1,6 @@
 Name:           perl-XML-LibXML-PrettyPrint
 Version:        0.006
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Add pleasant white space to an XML tree
 # CONTRIBUTING: GPL+ or Artistic or CC-BY-SA
 # COPYRIGHT:    Public Domain
@@ -60,6 +60,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.006-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.006-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

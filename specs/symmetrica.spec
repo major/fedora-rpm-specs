@@ -2,7 +2,7 @@
 
 Name:           symmetrica
 Version:        3.1.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A Collection of Routines for Solving Symmetric Groups
 # Note: they claim it's 'public domain' but then provide this:
 # http://www.algorithm.uni-bayreuth.de/en/research/SYMMETRICA/copyright_engl.html
@@ -77,6 +77,9 @@ cd -
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

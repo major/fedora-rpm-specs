@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.1.3
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Parses a list of ranges or numbers
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -45,6 +45,9 @@ RangeParser is a Python package to parse ranges easily.
 %{python3_sitelib}/%{pkg_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.1.3-18
 - Rebuilt for Python 3.14
 

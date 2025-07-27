@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 3.7.4
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: A powerful but elegant CSS compiler that makes CSS fun again
 License: MIT
 URL: http://sass-lang.com/
@@ -111,6 +111,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.4-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.4-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

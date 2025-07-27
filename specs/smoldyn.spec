@@ -145,6 +145,9 @@ find -name '*.pyc' -delete
 %build
 # Python binding needs shared libraries
 %cmake -Wno-dev \
+%if "%{?_lib}" == "lib64"
+ %{?_cmake_lib_suffix64} \
+%endif
  -DCPACK_BINARY_STGZ:BOOL=OFF \
  -DCPACK_BINARY_TGZ:BOOL=OFF \
  -DCPACK_BINARY_TZ:BOOL=OFF \

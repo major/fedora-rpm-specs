@@ -1,7 +1,7 @@
 %global module PFT
 Name:           perl-%{module}
 Version:        1.4.1
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Hacker friendly static blog generator, core library
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -85,6 +85,9 @@ LC_ALL=C.UTF-8 make test
 %license LICENSE
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.0.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        The code formerly known as django.contrib.comments
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -61,6 +61,9 @@ PYTHONWARNINGS=default %{__python3} tests/runtests.py
 %{python3_sitelib}/django_contrib_comments-%{version}-py*.egg-info
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2.0.0-18
 - Rebuilt for Python 3.14
 

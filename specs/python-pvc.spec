@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        0.3.0
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Python vSphere Client with a dialog interface
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -88,6 +88,9 @@ rm -rf docs/_build/html/.{doctrees,buildinfo}
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jun 06 2025 Python Maint <python-maint@redhat.com> - 0.3.0-27
 - Rebuilt for Python 3.14
 

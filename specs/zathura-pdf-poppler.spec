@@ -1,6 +1,6 @@
 Name:             zathura-pdf-poppler
 Version:          0.3.3
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          PDF support for zathura via poppler
 License:          Zlib
 URL:              http://pwmt.org/projects/%{name}
@@ -50,6 +50,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 %{_datadir}/metainfo/org.pwmt.zathura-pdf-poppler.metainfo.xml
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

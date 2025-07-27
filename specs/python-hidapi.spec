@@ -2,7 +2,7 @@
 
 Name:     python-hidapi
 Version:  0.14.0.post4
-Release:  2%{?dist}
+Release:  3%{?dist}
 Summary:  Interface to the hidapi library
 
 # Automatically converted from old format: GPLv3+ or BSD or Public Domain - review is highly recommended.
@@ -62,6 +62,9 @@ sed -i -e 's|/usr/include/hidapi|%{_includedir}/hidapi|' setup.py
 %{python3_sitearch}/hidapi-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0.post4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.14.0.post4-2
 - Rebuilt for Python 3.14
 

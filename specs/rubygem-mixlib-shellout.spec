@@ -19,7 +19,7 @@
 Summary: Run external commands on Unix or Windows
 Name: rubygem-%{gem_name}
 Version: 2.3.2
-Release: 17%{?dist}
+Release: 18%{?dist}
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License: Apache-2.0
 URL: https://github.com/chef/mixlib-shellout
@@ -98,6 +98,9 @@ popd
 %{gem_instdir}/Rakefile
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.2-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.2-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

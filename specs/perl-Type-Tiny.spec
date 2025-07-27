@@ -1,6 +1,6 @@
 Name:           perl-Type-Tiny
 Version:        2.008002
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tiny, yet Moo(se)-compatible type constraint
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Type-Tiny
@@ -190,6 +190,9 @@ sed -i -e '/^inc\//d' MANIFEST
 %{_mandir}/man3/Test::TypeTiny.3pm*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.008002-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon May 05 2025 Jitka Plesnikova <jplesnik@redhat.com> - 2.008002-1
 - 2.008002 bump (rhbz#2357958)
 

@@ -1,7 +1,7 @@
 Summary:        SpamAssassin plugin for Spamhaus Data Query Service (DQS)
 Name:           spamassassin-dqs
 Version:        1.5.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 License:        Apache-2.0
 URL:            https://github.com/spamhaus/spamassassin-dqs
 Source0:        https://github.com/spamhaus/spamassassin-dqs/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -84,6 +84,9 @@ grep -q -i fail tests/lint.log && { cat tests/lint.log; exit 1; } || :
 %{perl_vendorlib}/Mail/SpamAssassin/Plugin/SH.pm
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

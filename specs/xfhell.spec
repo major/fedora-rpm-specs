@@ -1,6 +1,6 @@
 Name:           xfhell
 Version:        3.5.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        GTK based Ham Radio application for the Hellschreiber communications mode
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -67,6 +67,9 @@ cp -a doc/%{name}.1.gz %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

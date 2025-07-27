@@ -1,6 +1,6 @@
 Name:           regextester
 Version:        1.1.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Regex Tester for elementary OS
 
 # For license file: https://github.com/artemanufrij/regextester/issues/25
@@ -51,6 +51,9 @@ Regex Tester for elementary OS
 %{_datadir}/icons/hicolor/*/apps/com.github.artemanufrij.regextester.*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

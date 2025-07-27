@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.2.5
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: Generic connection pool for Ruby
 License: MIT
 URL: https://github.com/mperham/connection_pool
@@ -65,6 +65,9 @@ popd
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.5-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.5-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

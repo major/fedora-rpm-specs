@@ -2,7 +2,7 @@
 
 Name:           python-formencode
 Version:        2.1.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        HTML form validation, generation, and convertion package  
 # Automatically converted from old format: Python - review is highly recommended.
 License:        LicenseRef-Callaway-Python
@@ -90,6 +90,9 @@ rm -f $RPM_BUILD_ROOT%{_prefix}/LICENSE.txt
 %files -n python-formencode-langpacks
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jul 09 2025 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 2.1.1-3
 - Migrate from py_build/py_install to pyproject macros (bz#2377724)
 

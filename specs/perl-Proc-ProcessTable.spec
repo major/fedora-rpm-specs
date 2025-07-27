@@ -1,6 +1,6 @@
 Name:           perl-Proc-ProcessTable
 Version:        0.636
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Perl extension to access the Unix process table
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Proc-ProcessTable
@@ -70,6 +70,9 @@ make test
 %{_mandir}/man3/Proc::ProcessTable::Process.3*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.636-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.636-7
 - Perl 5.42 rebuild
 

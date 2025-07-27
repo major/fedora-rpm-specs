@@ -1,6 +1,6 @@
 Name:           perl-XML-Generator-DBI
 Version:        1.00    
-Release:        52%{?dist}
+Release:        53%{?dist}
 Summary:        Generate SAX events from SQL queries
 
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
@@ -64,6 +64,9 @@ make test
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.00-53
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.00-52
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

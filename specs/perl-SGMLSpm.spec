@@ -1,6 +1,6 @@
 Name:           perl-SGMLSpm
 Version:        1.03ii
-Release:        64%{?dist}
+Release:        65%{?dist}
 Summary:        Perl library for parsing the output of nsgmls
 
 License:        GPL-2.0-or-later
@@ -39,6 +39,9 @@ make install_system \
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.03ii-65
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.03ii-64
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

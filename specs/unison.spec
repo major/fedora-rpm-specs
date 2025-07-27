@@ -12,7 +12,7 @@ ExcludeArch:    %{ix86}
 
 Name:           unison
 Version:        2.53.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        File Synchronizer
 
 %global         forgeurl https://github.com/bcpierce00/%{name}/
@@ -150,6 +150,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 %endif
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.53.7-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jul 12 2025 Jerry James  <loganjerry@gmail.com> - 2.53.7-2
 - Rebuild to fix OCaml dependencies
 

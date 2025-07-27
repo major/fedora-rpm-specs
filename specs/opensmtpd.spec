@@ -8,7 +8,7 @@
 Summary:	Free implementation of the server-side SMTP protocol as defined by RFC 5321
 Name:		opensmtpd
 Version:	7.7.0p0
-Release:	2%{?dist}
+Release:	3%{?dist}
 
 License:	ISC
 URL:		http://www.opensmtpd.org/
@@ -64,6 +64,11 @@ if you want to switch to OpenSMTPD MTA immediately after install, and
 "alternatives --set mta %{_sbindir}/sendmail.sendmail" to revert
 back to Sendmail as a default mail daemon.
 
+The package default installation comes with a minimalistic configuration
+that uses the "mbox" storage format and protects system directories.
+If you require a custom or less restrictive service configuration,
+do not modify the default systemd unit file. Instead, create an override
+configuration at "/etc/systemd/system/opensmtpd.service".
 
 %prep
 %autosetup
@@ -92,7 +97,8 @@ export CFLAGS="%{optflags}"
     --with-group-queue=smtpq \
     --with-path-empty=%{_localstatedir}/empty/smtpd \
     --with-path-mbox=%{_localstatedir}/spool/mail \
-    --with-path-socket=%{_localstatedir}/run \
+    --with-path-socket=%{_rundir} \
+    --with-path-pidfile=%{_rundir} \
     --without-rpath
 
 %make_build
@@ -147,6 +153,9 @@ done
 # fix aliases path in the config
 sed -i -e 's|/etc/mail/aliases|/etc/aliases|g' %{buildroot}/%{_sysconfdir}/opensmtpd/smtpd.conf
 ln -s %{_sysconfdir}/aliases %{buildroot}/%{_sysconfdir}/opensmtpd/aliases
+
+# fix group in man pages
+sed -i -e 's|_smtpd|smtpd|g' %{buildroot}/%{_mandir}/man5/smtpd.conf.5
 
 # set mbox delivery method
 sed -i -e 's|^action "local" maildir|action "local" mbox|g' %{buildroot}/%{_sysconfdir}/opensmtpd/smtpd.conf
@@ -262,6 +271,9 @@ exit 0
 
 
 %changelog
+* Fri Jul 25 2025 Denis Fateyev <denis@fateyev.com> - 7.7.0p0-3
+- Small cleanup: invalid group id, pid path and description
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.7.0p0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

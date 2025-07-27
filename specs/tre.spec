@@ -5,7 +5,7 @@
 
 Name: tre
 Version: 0.9.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: BSD-2-Clause
 %if 0%{?git}
 Source0: https://github.com/laurikari/tre/archive/%{commit}/tre-%{commit}.tar.gz
@@ -123,6 +123,9 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %{_mandir}/man1/agrep.1*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jul 11 2025 Dominik Mierzejewski <dominik@greysector.net> 0.9.0-1
 - update to 0.9.0
 - drop upstreamed patches

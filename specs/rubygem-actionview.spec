@@ -5,7 +5,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 8.0.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Rendering framework putting the V in MVC (part of Rails)
 License: MIT
 URL: https://rubyonrails.org
@@ -95,6 +95,9 @@ find test -type f -name '*_test.rb' -print0 | \
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jul 04 2025 Vít Ondruch <vondruch@redhat.com> - 8.0.2-1
 - Update to Action View 8.0.2.
   Related: rhbz#2238177

@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.6.5
-Release: 16%{?dist}
+Release: 17%{?dist}
 Summary: systemu
 License: Ruby
 URL: https://github.com/ahoward/systemu
@@ -65,6 +65,9 @@ cp -a .%{gem_dir}/* \
 %{gem_instdir}/test
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.5-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.5-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        8.4.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Python library that sorts lists using the "natural order" sort
 
 License:        MIT
@@ -59,6 +59,9 @@ Summary:	%{summary}
 %{_bindir}/%{srcname}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.4.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jul 09 2025 Robert Scheck <robert@fedoraproject.org> - 8.4.0-5
 - Stop using deprecated %%py3_build/%%py3_install macros (#2377922)
 

@@ -1,6 +1,6 @@
 Name:           perl-List-SomeUtils-XS
 Version:        0.58
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        XS implementation for List::SomeUtils
 License:        Artistic-2.0 AND ( GPL-1.0-or-later OR Artistic-1.0-Perl )
 URL:            https://metacpan.org/release/List-SomeUtils-XS
@@ -66,6 +66,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.58-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.58-25
 - Perl 5.42 rebuild
 

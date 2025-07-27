@@ -1,6 +1,6 @@
 Name:           perl-Path-Iter
 Version:        0.2
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Simple Efficient Path Iteration
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Path-Iter
@@ -47,6 +47,9 @@ entire list first.
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

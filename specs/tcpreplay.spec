@@ -10,7 +10,7 @@
 
 Name:           tcpreplay
 Version:        4.5.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Replay captured network traffic
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -68,6 +68,9 @@ autoreconf -vif
 %{_bindir}/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jan 22 2025 Bojan Smojver <bojan@rexursive com> - 4.5.1-5
 - Drop unknown configure option --enable-tcpreplay-edit
 - Change tcpdump dependency to package

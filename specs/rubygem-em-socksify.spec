@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.3.0
-Release: 31%{?dist}
+Release: 32%{?dist}
 Summary: Transparent proxy support for any EventMachine protocol
 License: MIT
 URL: https://github.com/igrigorik/em-socksify
@@ -73,6 +73,9 @@ cp -p %{SOURCE1} %{buildroot}/%{gem_instdir}/
 %{gem_instdir}/em-socksify.gemspec
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

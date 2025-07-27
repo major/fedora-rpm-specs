@@ -1,6 +1,6 @@
 Name:           perl-TAP-Formatter-JUnit
 Version:        0.17
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Harness output delegate for JUnit output
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/TAP-Formatter-JUnit
@@ -79,6 +79,9 @@ make test
 %{_mandir}/man3/TAP::Formatter::JUnit::Session.3*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Feb  6 2025 Paul Howarth <paul@city-fan.org> - 0.17-1
 - Update to 0.17 (rhbz#2344113)
   - Bump minimum required Perl to 5.010; XML::Generator v1.11 now requires that

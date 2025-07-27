@@ -1,6 +1,6 @@
 Name:           perl-Net-Pcap
 Version:        0.21
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Interface to pcap(3) LBL packet capture library
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -123,6 +123,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.21-9
 - Perl 5.42 rebuild
 

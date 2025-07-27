@@ -9,7 +9,7 @@
 
 Name:           sdl2-compat
 Version:        2.32.56
-Release:        1%{?dist}
+Release:        2%{?dist}
 SourceLicense:  Zlib and Apache-2.0 and MIT and BSD-3-Clause
 Summary:        SDL 2.0 runtime compatibility library using SDL 3.0
 License:        Zlib
@@ -167,6 +167,9 @@ install -p -m 644 %{SOURCE2} %{buildroot}%{_includedir}/SDL2/SDL_revision.h
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.32.56-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat May 10 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.32.56-1
 - Update to 2.32.56
 

@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.3.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Provides "its" method formerly part of rspec-core
 License: MIT
 URL: https://github.com/rspec/rspec-its
@@ -76,6 +76,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

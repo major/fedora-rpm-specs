@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        2.1.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Python library to search and download subtitles
 License:        MIT
 URL:            https://github.com/Diaoul/subliminal
@@ -115,6 +115,9 @@ install -D -m 0644 docs/_build/man/%{srcname}.1 %{buildroot}%{_mandir}/man1/%{sr
 %{_mandir}/man1/%{srcname}.1*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jun 26 2025 Juan Orti Alcaine <jortialc@redhat.com> - 2.1.0-19
 - Bump release
 

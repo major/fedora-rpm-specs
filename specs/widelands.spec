@@ -3,7 +3,7 @@
 
 Name:           widelands
 Version:        1.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Open source realtime-strategy game
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -209,6 +209,9 @@ popd
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Feb 16 2025 Peter Hanecak <hany@hany.sk> - 1.2.1-1
 - New upstream release 1.2 (rhbz#2322776)
 - Generate font file symlinks also for DejaVuSansCondensed (rhbz#2334803)

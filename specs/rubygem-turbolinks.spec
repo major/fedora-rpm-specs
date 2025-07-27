@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 5.1.1
-Release: 14%{?dist}
+Release: 15%{?dist}
 Summary: Turbolinks makes navigating your web application faster
 License: MIT
 URL: https://github.com/turbolinks/turbolinks
@@ -51,6 +51,9 @@ cp -a .%{gem_dir}/* \
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.1-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.1-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

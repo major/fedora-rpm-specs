@@ -4,7 +4,7 @@
 %global libusdm_soversion 0
 Name:             qatlib
 Version:          25.08.0
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Intel QuickAssist user space library
 # The entire source code is released under BSD.
 # For a breakdown of inbound licenses see the INSTALL file.
@@ -138,6 +138,9 @@ install -m0644 -D qatlib.sysusers.conf %{buildroot}%{_sysusersdir}/qatlib.conf
 %{_mandir}/man8/qat_init.sh.8*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 25.08.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jul 17 2025 Giovanni Cabiddu <giovanni.cabiddu@intel.com> - 25.08.0-1
 - Update to qatlib 25.08.0
 - Add autoconf-archive as a dependency

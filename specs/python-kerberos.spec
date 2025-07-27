@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        1.3.0
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        %{sum}
 
 License:        Apache-2.0
@@ -67,6 +67,9 @@ export PYTHONPATH=%{buildroot}%{python3_sitearch}
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jul 08 2025 Rob Crittenden <rcritten@redhat.com> - 1.3.0-29
 - Stop using deprecated python build/install macros (#2377840)
 

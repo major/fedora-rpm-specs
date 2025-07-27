@@ -1,7 +1,7 @@
 %global pypi_name pelican
 Name:           python-%{pypi_name}
 Version:        4.8.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        A tool to generate a static blog from reStructuredText or Markdown input files
 
 # Automatically converted from old format: AGPLv3
@@ -137,6 +137,9 @@ ln -s ./pelican-themes %{buildroot}/%{_bindir}/pelican-themes-3
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 4.8.0-11
 - Rebuilt for Python 3.14
 

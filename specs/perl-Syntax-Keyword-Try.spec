@@ -7,7 +7,7 @@
 
 Name:           perl-Syntax-Keyword-Try
 Version:        0.30
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        try/catch/finally syntax for perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Syntax-Keyword-Try/
@@ -116,6 +116,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.30-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.30-3
 - Perl 5.42 rebuild
 

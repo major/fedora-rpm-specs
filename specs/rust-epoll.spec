@@ -6,7 +6,7 @@
 
 Name:           rust-epoll
 Version:        4.3.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Safe epoll interface
 
 License:        MPL-2.0
@@ -65,6 +65,9 @@ use the "default" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

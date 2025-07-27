@@ -15,7 +15,7 @@
 
 Name:           php-%{gh_owner}-%{gh_project}
 Version:        1.3.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        reCAPTCHA PHP client library
 
 License:        BSD-3-Clause
@@ -113,6 +113,9 @@ exit $ret
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jun 27 2025 Remi Collet <remi@remirepo.net> - 1.3.1-1
 - update to 1.3.1
 - re-license spec file to CECILL-2.1

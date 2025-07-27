@@ -5,7 +5,7 @@
 
 Name:           perl-libwww-perl
 Version:        6.79
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A Perl interface to the World-Wide Web
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/libwww-perl
@@ -211,6 +211,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.79-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jul 03 2025 Michal Josef Špaček <mspacek@redhat.com> - 6.79-1
 - 6.79 bump (rhbz#2375525)
 

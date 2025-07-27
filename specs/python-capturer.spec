@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        3.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Easily capture stdout/stderr of the current process and subprocesses
 
 License:        MIT
@@ -79,6 +79,9 @@ rm docs/build/html/.buildinfo
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jul 18 2025 Scott K Logan <logans@cottsay.net> - 3.0-19
 - Add proposed patch to unblock Python 3.14 builds (rhbz#2328004)
 - Switch to pyproject build macros (rhbz#2377504)

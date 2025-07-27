@@ -13,7 +13,7 @@ for typical Sphinx themes.}
 
 Name:           python-%{pypi_name}
 Version:        1.4.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A minimal pure-CSS theme for Sphinx
 License:        ISC
 URL:            https://gitlab.com/lv2/%{pypi_name}
@@ -60,6 +60,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jul 08 2025 Guido Aulisi <guido.aulisi@gmail.com> - 1.4.2-4
 - Migrate to pyproject macros (#2378238)
 

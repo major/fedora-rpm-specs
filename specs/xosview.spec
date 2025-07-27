@@ -1,7 +1,7 @@
 Summary:       An X Window System utility for monitoring system resources
 Name:          xosview
 Version:       1.24
-Release:       6%{?dist}
+Release:       7%{?dist}
 # The netbsd/swapinternal.{cc,h} source files are BSD only (with 
 # advertising), but neither file is used in the linux version of 
 # xosview.  Instead, the source files used are linux/swapmeter.{cc,h}, 
@@ -43,6 +43,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/xosview.desktop
 %{_datadir}/X11/app-defaults/XOsview
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.24-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.24-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

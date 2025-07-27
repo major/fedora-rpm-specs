@@ -2,7 +2,7 @@
 
 Name:           python-imagecodecs
 Version:        2024.9.22
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Image transformation, compression, and decompression codecs
 
 License:        BSD-3-Clause
@@ -281,6 +281,9 @@ TEST_OPTS=(
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2024.9.22-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jun 06 2025 Python Maint <python-maint@redhat.com> - 2024.9.22-2
 - Rebuilt for Python 3.14
 

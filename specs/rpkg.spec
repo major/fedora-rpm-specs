@@ -1,6 +1,6 @@
 Name:           rpkg
 Version:        1.68
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 Summary:        Python library for interacting with rpm+git
 # Automatically converted from old format: GPLv2+ and LGPLv2 - review is highly recommended.
@@ -277,6 +277,9 @@ example_cli_dir=$RPM_BUILD_ROOT%{_datadir}/%{name}/examples/cli
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.68-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 24 2025 Ondřej Nosek <onosek@redhat.com> - 1.68-3
 - Switch to %%pyproject_* macros for Fedora releases
 

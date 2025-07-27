@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.6.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python connector for WiZ light devices
 
 License:        MIT
@@ -42,6 +42,9 @@ A Python connector for WiZ light devices.
 %{_bindir}/wizlight
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jul 09 2025 Fabian Affolter <mail@fabian-affolter.ch> - 0.6.3-1
 - Update to latest upstream release 0.6.3 (closes rhbz#2355176)
 

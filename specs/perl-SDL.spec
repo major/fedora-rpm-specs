@@ -1,6 +1,6 @@
 Name:           perl-SDL
 Version:        2.548
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Simple DirectMedia Layer for Perl
 # COPYING:                      GPL-2.0 text
 # lib/pods/SDL.pod:             GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -189,6 +189,9 @@ find %{buildroot} -type f -name '*.bs' -a -size 0 -delete
 %{_mandir}/man3/Module::Build::SDL.*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.548-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jul 11 2025 Petr Pisar <ppisar@redhat.com> - 2.548-29
 - Adapt t/core_surface.t test to SDL3 (bug #2341036)
 

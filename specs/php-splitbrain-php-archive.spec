@@ -3,7 +3,7 @@
 Name: php-%{author}-%{project}
 
 Version: 1.3.1
-Release: 8%{?dist}
+Release: 9%{?dist}
 
 Summary: Pure-PHP implementation to read and write TAR and ZIP archives
 License: MIT
@@ -105,6 +105,9 @@ phpunit8 --verbose --bootstrap ./bootstrap.php
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

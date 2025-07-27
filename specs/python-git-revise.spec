@@ -16,7 +16,7 @@ avoids unnecessarily invalidating builds.
 
 Name:           python-%{shortname}
 Version:        0.7.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Efficiently update, split, and rearrange git commits
 
 License:        MIT
@@ -92,6 +92,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} -m pytest
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jun 18 2025 Ian McInerney <ian.s.mcinerney@ieee.org> - 0.7.0-13
 - Add patch to fix reflog behavior in git 2.48 (rhbz #2341157)
 

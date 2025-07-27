@@ -12,7 +12,7 @@
 Summary:        Random number generator related utilities
 Name:           rng-tools
 Version:        6.17
-Release:        6%{?dist}
+Release:        7%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://github.com/nhorman/rng-tools
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -104,6 +104,9 @@ install -D %{SOURCE2} -m0644 %{buildroot}%{_sysconfdir}/sysconfig/rngd
 %config(noreplace) %attr(0644,root,root)    %{_sysconfdir}/sysconfig/rngd
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.17-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jun 26 2025 Vladis Dronov <vdronov@redhat.com> - 6.17-6
 - Disable jitter entropy source by default
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.4.5
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Wikipedia API for Python
 
 License:        MIT
@@ -50,6 +50,9 @@ from a page, and more.
 %doc README.rst
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.5-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jul 15 2025 Martin Gansser <martinkg@fedoraproject.org> - 1.4.5-34
 - Updated to use %%pyproject_* macros
 

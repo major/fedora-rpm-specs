@@ -9,7 +9,7 @@
 
 Name:           uudeview
 Version:        0.5.20%{?snapshot:^%{commitdate}git%{shortcommit}}
-Release:        4%{?dist}
+Release:        5%{?dist}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -96,6 +96,9 @@ install -p -m 0644 uulib/libuu.a $RPM_BUILD_ROOT/%{_libdir}/
 %{_libdir}/*.a
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.20^20241111git7ef9e26-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Feb  3 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 0.5.20^20241111git7ef9e26-4
 - Rebuilt for tcl/tk
 

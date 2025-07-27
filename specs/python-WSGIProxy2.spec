@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.4.6
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        WSGI Proxy that supports several HTTP backends
 
 License:        MIT
@@ -48,6 +48,9 @@ Python 3 version.
 %doc README_fixt.py README.rst
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.6-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jul 09 2025 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 0.4.6-21
 - Migrate from py_build/py_install to pyproject macros (bz#2378349)
 

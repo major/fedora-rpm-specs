@@ -1,6 +1,6 @@
 Name:           perl-Test-Unit
 Version:        0.25
-Release:        52%{?dist}
+Release:        53%{?dist}
 Summary:        The PerlUnit testing framework
 
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
@@ -89,6 +89,9 @@ make test
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.25-53
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.25-52
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

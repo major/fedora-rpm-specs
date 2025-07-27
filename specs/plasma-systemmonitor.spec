@@ -1,6 +1,6 @@
 Name:    plasma-systemmonitor
 Version: 6.4.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: An application for monitoring system resources
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -76,6 +76,9 @@ resources.
 %{_kf6_datadir}/kconf_update/plasma-systemmonitor*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jul 15 2025 Steve Cossette <farchord@gmail.com> - 6.4.3-1
 - 6.4.3
 

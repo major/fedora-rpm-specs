@@ -16,7 +16,7 @@
 
 Name:           php-%{gh_owner}-%{gh_project}
 Version:        2.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Integrating the Prophecy mocking library in PHPUnit test cases
 
 License:        MIT
@@ -135,6 +135,9 @@ exit $ret
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon May 26 2025 Remi Collet <remi@remirepo.net> - 2.4.0-1
 - update to 2.4.0 (no change)
 - allow phpunit12

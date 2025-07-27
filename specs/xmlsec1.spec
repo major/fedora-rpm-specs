@@ -10,7 +10,7 @@
 Summary: Library providing support for "XML Signature" and "XML Encryption" standards
 Name: xmlsec1
 Version: 1.2.41
-Release: 2%{?dist}%{?extra_release}
+Release: 3%{?dist}%{?extra_release}
 Epoch: 1
 License: MIT
 Source0: https://github.com/lsh123/xmlsec/releases/download/%{version}/xmlsec1-%{version}.tar.gz
@@ -212,6 +212,9 @@ mv %{buildroot}%{_docdir}/xmlsec1/* __tmp_doc
 %endif
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.2.41-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.2.41-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

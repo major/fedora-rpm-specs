@@ -8,7 +8,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.2.7
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Speed, persistence, http(s)
 License: MIT
 URL: https://github.com/excon/excon
@@ -124,6 +124,9 @@ popd
 %{gem_instdir}/excon.gemspec
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jul 11 2025 Vít Ondruch <vondruch@redhat.com> - 1.2.7-1
 - Update to Excon 1.2.7.
   Resolves: rhbz#2233807

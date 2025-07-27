@@ -4,7 +4,7 @@
 Summary: Opportunistically encrypt TCP connections
 Name: tcpcrypt
 Version: 0.5
-Release: 18%{?dist}
+Release: 19%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
 Url: http://tcpcrypt.org/
@@ -103,6 +103,9 @@ install -m0644 -D tcpcrypt.sysusers.conf %{buildroot}%{_sysusersdir}/tcpcrypt.co
 %systemd_postun_with_restart tcpcryptd.service
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.5-18
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

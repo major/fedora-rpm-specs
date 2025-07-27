@@ -1,6 +1,6 @@
 Name:           perl-Regexp-Shellish
 Version:        0.93
-Release:        49%{?dist}
+Release:        50%{?dist}
 Summary:        Shell-like regular expressions
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Regexp-Shellish
@@ -44,6 +44,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.93-50
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.93-49
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

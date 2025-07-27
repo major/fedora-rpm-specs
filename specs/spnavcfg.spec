@@ -3,7 +3,7 @@
 
 Name:           spnavcfg
 Version:        1.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Spacenav daemon interactive configuration program
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -57,6 +57,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 16 2025 Richard Shaw <hobbes1069@gmail.com> - 1.3-1
 - Update to 1.3.
 - Move from Qt5 to Qt6.

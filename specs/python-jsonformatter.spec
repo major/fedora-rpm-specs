@@ -2,7 +2,7 @@
 
 Name:           python-%{pkg_name}
 Version:        0.3.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Formatter to output json logs
 
 License:        BSD-2-Clause
@@ -54,6 +54,9 @@ jsonformatter is a formatter for python to output json logs.
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.3.4-3
 - Rebuilt for Python 3.14
 

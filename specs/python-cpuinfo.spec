@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        9.0.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        %{sum}
 
 License:        MIT
@@ -78,6 +78,9 @@ sed -i -e '/^#!\//, 1d' cpuinfo/cpuinfo.py
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jul 10 2025 Parag Nemade <pnemade AT redhat DOT com> - 9.0.0-13
 - Convert a spec to use pyproject macros (rh#2377586)
 

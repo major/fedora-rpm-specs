@@ -1,7 +1,7 @@
 Name: trousers
 Summary: TCG's Software Stack v1.2
 Version: 0.3.15
-Release: 14%{?dist}
+Release: 15%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
 Url: http://trousers.sourceforge.net
@@ -119,6 +119,9 @@ install -m0644 -D trousers.sysusers.conf %{buildroot}%{_sysusersdir}/trousers.co
 %{_libdir}/libtddl.a
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.15-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 23 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.3.15-14
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

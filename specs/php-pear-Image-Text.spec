@@ -12,7 +12,7 @@
 
 Name:           php-pear-Image-Text
 Version:        0.7.0
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Advanced text manipulations in images
 
 # Automatically converted from old format: PHP - review is highly recommended.
@@ -89,6 +89,9 @@ fi
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Name: xtrkcad
 Summary: CAD for Model Railroad layout
 Version: 5.3.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
 URL: https://sourceforge.net/projects/xtrkcad-fork
@@ -104,6 +104,9 @@ mv %{buildroot}/%{_datadir}/%{name}/applications/xtrkcad.xml \
 %{_datadir}/locale/ru/LC_MESSAGES/%{name}.mo
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jan 24 2025 Phil Cameron <pecameron1 -at- gmail.com> - 5.3.0-5
 - Fix conflicting types for ‘canonicalize’
 

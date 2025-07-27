@@ -3,7 +3,7 @@
 
 Name:     squid
 Version:  6.14
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary:  The Squid proxy caching server
 Epoch:    7
 # See CREDITS for breakdown of non GPLv2+ code
@@ -316,6 +316,9 @@ fi
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7:6.14-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 21 2025 Luboš Uhliarik <luhliari@redhat.com> - 7:6.14-1
 - new version 6.14
 

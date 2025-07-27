@@ -12,7 +12,7 @@
 
 Name:           rust-coreos-installer
 Version:        0.24.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Installer for Fedora CoreOS and RHEL CoreOS
 
 License:        Apache-2.0
@@ -180,6 +180,9 @@ mv %{buildroot}%{_bindir}/rdcore %{buildroot}%{dracutlibdir}/modules.d/50rdcore/
 %endif
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.24.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue May 27 2025 Paul Whalen <pwhalen@fedoraproject.org> - 0.24.0-2
 - Bump dracut version to 1a0a13f to fix iot-simplified-provisioner
 

@@ -2,7 +2,7 @@
 
 Name:           sugar-%{shortname}
 Version:        20
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Implode for Sugar
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -56,6 +56,9 @@ done
 %{sugaractivitydir}/Implode.activity/
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

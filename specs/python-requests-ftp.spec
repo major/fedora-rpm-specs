@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.3.1
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        FTP transport adapter for python-requests
 
 License:        Apache-2.0
@@ -57,6 +57,9 @@ This is the Python 3 version of the transport adapter module.
 %license LICENSE
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jul  8 2025 David Shea <reallylongword@gmail.com> - 0.3.1-38
 - Switch to pyproject macros
 - Remove python2 support

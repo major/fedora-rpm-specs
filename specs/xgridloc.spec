@@ -1,6 +1,6 @@
 Name:		xgridloc
 Version:	1.8.4
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	A GTK+ application for the calculation of Maidenhead QRA Locators
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -60,6 +60,9 @@ desktop-file-install  \
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.4-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.4-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

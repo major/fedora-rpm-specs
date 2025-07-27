@@ -14,7 +14,7 @@
 
 Name:       tor
 Version:    0.4.8.17
-Release:    2%{?dist}
+Release:    3%{?dist}
 License:    BSD-3-Clause
 Summary:    Anonymizing overlay network for TCP
 URL:        https://www.torproject.org
@@ -168,6 +168,9 @@ rm -rf %{buildroot}%{_datadir}/doc
 %{_sysusersdir}/tor.conf
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.8.17-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jul 13 2025 Marcel Härry <mh+fedora@scrit.ch> - 0.4.8.17-2
 - Enable drop-in configuration by default bz#2338912
 

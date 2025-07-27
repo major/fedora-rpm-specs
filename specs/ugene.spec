@@ -50,7 +50,7 @@ Name:		ugene
 Summary:	Integrated bioinformatics toolkit
 
 Version:	%{fedoraver}
-Release:	2%{?dist}
+Release:	3%{?dist}
 
 #The entire source code is GPLv2+ except:
 #file src/libs_3rdparty/qtbindings_core/src/qtscriptconcurrent.h which is GPLv2
@@ -269,6 +269,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 52.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jul 18 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 52.1-2
 - Fix data files symlink
 

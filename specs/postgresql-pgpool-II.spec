@@ -10,7 +10,7 @@
 Summary:		Pgpool is a connection pooling/replication server for PostgreSQL
 Name:			postgresql-%{short_name}
 Version:		4.5.1
-Release:		5%{?dist}
+Release:		6%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:		LicenseRef-Callaway-BSD
 
@@ -254,6 +254,9 @@ fi
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 4.5.1-5
 - Add explicit BR: libxcrypt-devel
 

@@ -2,7 +2,7 @@
 
 Name:           verbiste
 Version:        0.1.49
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        French conjugation system
 License:        GPL-2.0-or-later
 URL:            http://sarrazip.com/dev/verbiste.html
@@ -115,6 +115,9 @@ rm -frv %{buildroot}%{_docdir}
 %{_mandir}/man3/verbiste.3*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.49-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.49-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

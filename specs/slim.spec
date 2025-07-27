@@ -1,6 +1,6 @@
 Name:           slim
 Version:        1.4.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Simple Login Manager
 License:        GPL-2.0-or-later
 #changed from GPLv2+ per BZ: 2173236, comment 11 and https://fedoraproject.org/wiki/Changes/SPDX_Licenses_Phase_2
@@ -130,6 +130,9 @@ mkdir -p %{buildroot}/%{_libdir}/
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jun 01 2025 Ranjan Maitra <aarem@Fedoraproject.org> - 1.4.0-12
 - dropped the requirement of f%{?fedora}=backgrounds-base
 - changed /var/run to /run in the selinux patch.

@@ -1,6 +1,6 @@
 Name:		python-augeas
 Version:	1.2.0
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Python bindings to augeas
 License:	LGPL-2.1-or-later
 URL:		http://augeas.net/
@@ -49,6 +49,9 @@ python3-augeas is a set of Python bindings around augeas.
 %{python3_sitearch}/python_augeas-*.dist-info
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jul 08 2025 Rafael Guterres Jeffman <rjeffman@redhat.com> - 1.2.0-3
 - Migrate from deprecated py3 macros to pyproject macros
 

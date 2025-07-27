@@ -1,6 +1,6 @@
 Name:           verne-backgrounds
 Version:        15.92.1
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Verne desktop backgrounds
 
 License:        CC-BY-SA-4.0
@@ -165,6 +165,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 15.92.1-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 15.92.1-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

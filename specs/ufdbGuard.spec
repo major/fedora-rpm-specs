@@ -1,6 +1,6 @@
 Name:		ufdbGuard
 Version:	1.35.8
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	A URL filter for squid
 URL:		https://www.urlfilterdb.com/
 License:	GPL-2.0-only
@@ -133,6 +133,9 @@ install -m0644 -D ufdbguard.sysusers.conf %{buildroot}%{_sysusersdir}/ufdbguard.
 %{_sysusersdir}/ufdbguard.conf
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.35.8-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.35.8-5
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

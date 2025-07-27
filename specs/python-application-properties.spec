@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.8.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A simple, easy to use, unified manner of accessing program properties
 
 License:        MIT
@@ -63,6 +63,9 @@ rm -f %{buildrot}%{python3_sitelib}application_properties/.external-package
 %doc README.md
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 16 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.8.3-1
 - 0.8.3
 

@@ -4,7 +4,7 @@
 
 Name: wxmacmolplt
 Version: 7.7.3
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: A graphics program for plotting 3-D molecular structures and normal modes
 License: GPL-2.0-or-later
 URL: http://brettbode.github.io/wxmacmolplt/
@@ -64,6 +64,9 @@ rm %{buildroot}%{_pkgdocdir}/LICENSE
 %{_datadir}/wxmacmolplt
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.7.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.7.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

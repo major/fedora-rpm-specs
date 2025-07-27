@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.3.0
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: An efficient digital signature library providing the Ed25519 algorithm
 License: MIT
 URL: https://github.com/crypto-rb/ed25519
@@ -83,6 +83,9 @@ popd
 %{gem_instdir}/ed25519.png
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

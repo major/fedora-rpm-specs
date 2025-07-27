@@ -3,7 +3,7 @@
 Name:           tempest
 # There is no version, so we use pre-release style versioning with a date
 Version:        0
-Release:        0.40.%{pkgtimestamp}%{?dist}
+Release:        0.41.%{pkgtimestamp}%{?dist}
 Summary:        Tempest OpenGL screensaver
 
 # tempest.c	GPL-2.0-or-later
@@ -80,6 +80,9 @@ fi
 %{_datadir}/xscreensaver/hacks.conf.d/%{name}.conf
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.41.20081027
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.40.20081027
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           fntsample
-Version:        5.3
-Release:        20%{?dist}
+Version:        5.4
+Release:        2%{?dist}
 Summary:        A program for making font samples that show Unicode coverage of the font
 
 License:        GPL-3.0-or-later
@@ -37,10 +37,17 @@ ctest -V %{?_smp_flags}
 %doc ChangeLog README.rst
 %license COPYING
 %{_bindir}/fntsample
+%{_bindir}/pdf-extract-outline
 %{_bindir}/pdfoutline
 %{_mandir}/man1/*.gz
 
 %changelog
+* Fri Jul 25 2025 Parag Nemade <pnemade AT redhat DOT com> - 5.4-2
+- Install new binary pdf-extract-outline
+
+* Fri Jul 25 2025 Parag Nemade <pnemade AT redhat DOT com> - 5.4-1
+- Update to 5.4 version (rh#2381002 and rh#2380596)
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.3-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

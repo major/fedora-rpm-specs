@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.11.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Extension to Sphinx for documenting APIs built with Pecan and WSME
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -49,6 +49,9 @@ built with the Pecan WSGI object-dispatching web framework and WSME
 %{python3_sitelib}/*-nspkg.pth
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.11.0-2
 - Rebuilt for Python 3.14
 

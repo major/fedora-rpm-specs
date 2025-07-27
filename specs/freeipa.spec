@@ -215,7 +215,7 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        14%{?rc_version:.%rc_version}%{?dist}
+Release:        15%{?rc_version:.%rc_version}%{?dist}
 Summary:        The Identity, Policy and Audit system
 
 License:        GPL-3.0-or-later
@@ -240,6 +240,7 @@ Patch0001:      freeipa-4-12-2-post-updates-1.patch
 Patch0002:      freeipa-4-12-2-post-updates-edns.patch
 # This one includes CVE-2025-4404 fixes as well
 Patch0003:      freeipa-4-12-2-post-updates-2.patch
+Patch0004:      0004-Change-the-path-to-identify-the-tomcat-version-for-T.patch
 
 # RHEL spec file only: START: Change branding to IPA and Identity Management
 # Moved branding logos and background to redhat-logos-ipa-80.4:
@@ -308,7 +309,7 @@ BuildRequires:  libsss_certmap-devel
 BuildRequires:  libsss_nss_idmap-devel >= %{sssd_version}
 %if 0%{?fedora} >= 41 || 0%{?rhel} >= 10
 # Do not use nodejs22 on fedora < 41, https://pagure.io/freeipa/issue/9643
-BuildRequires: nodejs(abi)
+BuildRequires: nodejs(abi) == 127
 %elif 0%{?fedora} >= 39
 # Do not use nodejs20 on fedora < 39, https://pagure.io/freeipa/issue/9374
 BuildRequires:  nodejs(abi) < 127
@@ -1938,6 +1939,9 @@ fi
 %endif
 
 %changelog
+* Thu Jul 24 2025 Rob Crittenden <rcritten@redhat.com> - 4.12.2-15
+- Support Tomcat 10
+
 * Tue Jun 17 2025 Alexander Bokovoy <abokovoy@redhat.com> - 4.12.2-14
 - CVE-2025-4404
 - Include encrypted DNS support subpackages

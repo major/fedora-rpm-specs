@@ -6,7 +6,7 @@ License: Unlicense
 Summary: Minimal, header-only, Modern C++ library for terminal goodies
 
 Version: 3.2
-Release: 7%{?dist}
+Release: 8%{?dist}
 
 URL: https://agauniyal.github.io/rang/
 Source0: https://github.com/agauniyal/rang/archive/v%{version}/rang-v%{version}.tar.gz
@@ -77,6 +77,9 @@ pushd test/%{__cmake_builddir}
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

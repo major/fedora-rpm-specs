@@ -1,6 +1,6 @@
 Name:           perl-Math-BaseCnv
 Version:        1.14
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Fast functions to CoNVert between number Bases
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -65,6 +65,9 @@ make test
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.14-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.14-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

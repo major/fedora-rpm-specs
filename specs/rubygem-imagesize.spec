@@ -6,7 +6,7 @@
 Summary:	Measure image size(GIF, PNG, JPEG ,,, etc)
 Name:		rubygem-%{gem_name}
 Version:	0.1.1
-Release:	35%{?dist}
+Release:	36%{?dist}
 # SPDX confirmed
 License:	Ruby OR GPL-2.0-only
 
@@ -113,6 +113,9 @@ ruby -Ilib -rtest/unit ./test/test_image_size.rb || echo "rescue for now"
 %exclude	%{gem_instdir}/test/
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

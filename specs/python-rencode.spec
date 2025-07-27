@@ -2,7 +2,7 @@
 
 Name:           python-rencode
 Version:        1.0.6
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Web safe object pickling/unpickling
 # Automatically converted from old format: GPLv3+ and BSD - review is highly recommended.
 License:        GPL-3.0-or-later AND LicenseRef-Callaway-BSD
@@ -76,6 +76,9 @@ popd
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.0.6-29
 - Rebuilt for Python 3.14
 

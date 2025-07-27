@@ -1,7 +1,7 @@
 Name:           perl-ORLite
 Summary:        Extremely light weight SQLite-specific ORM
 Version:        2.00
-Release:        5%{?dist}
+Release:        6%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETHER/ORLite-%{version}.tar.gz
 # Normalize shebangs, not suitable for the upstream
@@ -124,6 +124,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.00-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.00-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

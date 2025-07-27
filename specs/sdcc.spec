@@ -1,6 +1,6 @@
 Name:           sdcc
 Version:        4.4.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Small Device C Compiler
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -159,6 +159,9 @@ popd
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jan 29 2025 Roy Rankin <rrankin@ihug.com.au> - 4.4.0-2
 - Fix SPDX license regression
 

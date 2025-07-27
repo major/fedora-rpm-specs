@@ -8,7 +8,7 @@
 %global date0 20240318
 %global pypi_version 2.3.0
 %else
-%global pypi_version 2.7.0
+%global pypi_version 2.7.1
 %endif
 
 %global desc %{expand: \
@@ -28,10 +28,6 @@ makes it easy to use and feel like a natural extension. }
 %bcond_with rocm
 %endif
 %endif
-# Which families gpu build for
-%global rocm_gpu_list gfx9
-%global rocm_default_gpu default
-%bcond_with rocm_loop
 
 # torch toolchain
 %global toolchain gcc
@@ -71,6 +67,7 @@ BuildRequires:  hipcub-devel
 BuildRequires:  hipfft-devel
 BuildRequires:  hiprand-devel
 BuildRequires:  hipsparse-devel
+BuildRequires:  hipsparselt-devel
 BuildRequires:  hipsolver-devel
 BuildRequires:  miopen-devel
 BuildRequires:  rocblas-devel
@@ -84,6 +81,8 @@ BuildRequires:  rocm-hip-devel
 BuildRequires:  rocm-runtime-devel
 BuildRequires:  rocm-rpm-macros
 BuildRequires:  rocm-rpm-macros-modules
+BuildRequires:  rocm-smi-devel
+BuildRequires:  rocsolver-devel
 BuildRequires:  rocthrust-devel
 BuildRequires:  roctracer-devel
 %endif
@@ -101,15 +100,6 @@ Summary:        Audio signal processing, powered by PyTorch
 %description -n python3-%{pypi_name}
 %{desc}
 
-%if %{with rocm}
-%package -n python3-%{pypi_name}-rocm-gfx9
-Summary:        %{name} for ROCm gfx9
-
-%description -n python3-%{pypi_name}-rocm-gfx9
-%{summary}
-
-%endif
-
 %prep
 %if %{with gitcommit}
 %autosetup -p1 -n audio-%{commit0}
@@ -118,6 +108,9 @@ Summary:        %{name} for ROCm gfx9
 %endif
 
 rm -rf third_party/*
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
 # Building uses python3_sitearch/torch/utils/cpp_extension.py
@@ -136,27 +129,12 @@ export HIP_CLANG_PATH=`hipconfig -l`
 RESOURCE_DIR=`${HIP_CLANG_PATH}/clang -print-resource-dir`
 export DEVICE_LIB_PATH=${RESOURCE_DIR}/amdgcn/bitcode
 
-gpu=%{rocm_default_gpu}
-module load rocm/$gpu
-export PYTORCH_ROCM_ARCH=$ROCM_GPUS
-%py3_build
-mv build build-${gpu}
-module purge
-
-%if %{with rocm_loop}
-for gpu in %{rocm_gpu_list}
-do
-    module load rocm/$gpu
-    export PYTORCH_ROCM_ARCH=$ROCM_GPUS
-    %py3_build
-    mv build build-${gpu}
-    module purge
-done
-%endif
+export PYTORCH_ROCM_ARCH=%{rocm_gpu_list_default}
+%pyproject_wheel
 
 %else
 
-%py3_build
+%pyproject_wheel
 
 %endif
 
@@ -171,30 +149,13 @@ export HIP_CLANG_PATH=`hipconfig -l`
 RESOURCE_DIR=`${HIP_CLANG_PATH}/clang -print-resource-dir`
 export DEVICE_LIB_PATH=${RESOURCE_DIR}/amdgcn/bitcode
 
-gpu=%{rocm_default_gpu}
-module load rocm/$gpu
-export PYTORCH_ROCM_ARCH=$ROCM_GPUS
-mv build-${gpu} build
-%py3_install
-mv build build-${gpu}
-module purge
-
-%if %{with rocm_loop}
-for gpu in %{rocm_gpu_list}
-do
-    module load rocm/$gpu
-    export PYTORCH_ROCM_ARCH=$ROCM_GPUS
-    mv build-${gpu} build
-    # need to customize the install location, so replace py3_install
-    %{__python3} %{py_setup} %{?py_setup_args} install -O1 --skip-build --root %{buildroot} --prefix /usr/lib64/rocm/${gpu} %{?*}
-    rm -rfv %{buildroot}/usr/lib/rocm/${gpu}/bin/__pycache__
-    mv build build-${gpu}
-    module purge
-done
-%endif
+export PYTORCH_ROCM_ARCH=%{rocm_gpu_list_default}
+%pyproject_install
+%pyproject_save_files %{pypi_name}
 
 %else
-%py3_install
+%pyproject_install
+%pyproject_save_files %{pypi_name}
 
 %endif
 
@@ -205,17 +166,10 @@ for f in `find %{buildroot} -name '*.py'`; do
     fi
 done
 
-%files -n python3-%{pypi_name}
+%files -n python3-%{pypi_name}  -f %{pyproject_files}
 %license LICENSE
 %doc README.md 
-%{python3_sitearch}/%{pypi_name}
 %{python3_sitearch}/torio
-%{python3_sitearch}/%{pypi_name}-*.egg-info/
-
-%if %{with rocm_loop}
-%files -n python3-%{pypi_name}-rocm-gfx9
-%{_libdir}/rocm/gfx9/lib64/*
-%endif
 
 %changelog
 %autochangelog

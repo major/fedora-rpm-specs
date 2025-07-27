@@ -1,6 +1,6 @@
 Name:           perl-Math-Polygon
 Version:        1.11
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Maintaining polygon data
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Group:          Development/Libraries
@@ -81,6 +81,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.11-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon May 05 2025 Petr Pisar <ppisar@redhat.com> - 1.11-1
 - 1.11 bump
 - Package the tests

@@ -1,6 +1,6 @@
 Name:           perl-Thread-SigMask
 Version:        0.004
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Thread specific signal masks
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Thread-SigMask
@@ -52,6 +52,9 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -exec rm -f {} \;
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.004-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.004-40
 - Perl 5.42 rebuild
 

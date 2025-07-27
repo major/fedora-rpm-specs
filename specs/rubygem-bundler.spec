@@ -14,7 +14,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.6.9
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Library and utilities to manage a Ruby application's gem dependencies
 # BSD-2-Clause OR Ruby:
 #   lib/bundler/vendor/fileutils
@@ -260,6 +260,9 @@ RUBYOPT=-I%{_builddir}/rubygems GEM_PATH=%{gem_dir} BUNDLER_GEM_DEFAULT_DIR=%{ge
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.9-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 03 2025 Vít Ondruch <vondruch@redhat.com> - 2.6.9-2
 - Use proper SPDX identifiers.
 

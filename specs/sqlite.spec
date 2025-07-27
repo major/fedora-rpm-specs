@@ -13,7 +13,7 @@
 Summary: Library that implements an embeddable SQL database engine
 Name: sqlite
 Version: %{rpmver}
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: blessing
 URL: http://www.sqlite.org/
 
@@ -349,6 +349,9 @@ make test
 %endif
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.50.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jun 28 2025 Packit <hello@packit.dev> - 3.50.2-1
 - Update to version 3.50.2
 - Resolves: rhbz#2370851

@@ -6,7 +6,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.5.0
-Release: 17%{?dist}
+Release: 18%{?dist}
 Summary: Extracts supported Ruby versions from Travis file
 License: MIT
 URL: https://github.com/e2/ruby_dep
@@ -77,6 +77,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

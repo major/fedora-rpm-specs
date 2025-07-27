@@ -16,7 +16,7 @@
 Name:           %{pkg_name}
 Version:        0.48.1
 # can only be reset when all subpkgs bumped
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        A minimalistic text-based status bar
 
 License:        BSD-3-Clause
@@ -247,6 +247,9 @@ PATH=%{buildroot}%{_bindir}:$PATH
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.48.1-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Mar 30 2025 Jens Petersen <petersen@redhat.com> - 0.48.1-33
 - Rebuild
 

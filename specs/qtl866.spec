@@ -3,7 +3,7 @@
 
 Name:           qtl866
 Version:        0
-Release:        0.20161050git%{shortcommit}%{?dist}
+Release:        0.20161051git%{shortcommit}%{?dist}
 Summary:        GUI driver for the TL866 (MiniPRO) chip programmer
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -81,6 +81,9 @@ appstream-util --nonet validate-relax %{buildroot}%{_datadir}/appdata/qtl866.app
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.20161051git544d42c
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.20161050git544d42c
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

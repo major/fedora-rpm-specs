@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.2.0
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Authentication Results Header Module
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -52,6 +52,9 @@ BuildRequires: python3-devel python3-setuptools
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.2.0-24
 - Rebuilt for Python 3.14
 

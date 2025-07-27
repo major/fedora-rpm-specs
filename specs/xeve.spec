@@ -1,6 +1,6 @@
 Name:           xeve
 Version:        0.5.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Reference MPEG-5 Part 1 (EVC) encoder
 
 License:        BSD-3-Clause
@@ -96,6 +96,9 @@ rm -rfv %{buildroot}%{_libdir}/%{name}*
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue May 13 2025 Dominik Mierzejewski <dominik@greysector.net> - 0.5.1-2
 - fix build on non-x86
 - unbundle sse2neon

@@ -1,6 +1,6 @@
 Name:           perl-Number-Format
 Version:        1.76
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Perl extension for formatting numbers
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Number-Format
@@ -47,6 +47,9 @@ make test
 %{_mandir}/man3/Number::Format.3*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.76-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.76-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

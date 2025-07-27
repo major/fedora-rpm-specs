@@ -10,7 +10,7 @@ Summary: Simple kernel loader which boots from a FAT filesystem
 Name: syslinux
 Version: 6.04
 %define tarball_version 6.04-pre1
-Release: 0.32%{?dist}
+Release: 0.33%{?dist}
 License: GPL-2.0-or-later
 URL: http://syslinux.zytor.com/wiki/index.php/The_Syslinux_Project
 Source0: http://www.kernel.org/pub/linux/utils/boot/syslinux/%{name}-%{tarball_version}.tar.xz
@@ -259,6 +259,9 @@ fi
 %endif
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.04-0.33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Apr 29 2025 Leo Sandoval <lsandova@redhat.com> - 6.04-0.32
 - Remove _sbindir macro, it is not required anymore
 - Resolves: #2362819

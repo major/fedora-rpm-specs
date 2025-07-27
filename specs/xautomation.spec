@@ -1,6 +1,6 @@
 Name:           xautomation
 Version:        1.09
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Tools to automate tasks in X, even detecting on screen images
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -51,6 +51,9 @@ programs to find buttons, etc, on the screen to click on.
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.09-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.09-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

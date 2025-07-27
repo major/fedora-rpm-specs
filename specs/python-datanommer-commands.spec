@@ -1,6 +1,6 @@
 Name:           python-datanommer-commands
 Version:        1.4.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Console commands for datanommer
 
 License:        GPL-3.0-or-later
@@ -59,4 +59,7 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 %autochangelog

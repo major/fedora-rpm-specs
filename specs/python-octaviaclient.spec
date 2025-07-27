@@ -16,7 +16,7 @@ Client for OpenStack Octavia (Load Balancer as a Service)
 
 Name:           python-%{pypi_name}
 Version:        3.8.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Client for OpenStack Octavia (Load Balancer as a Service)
 
 License:        Apache-2.0
@@ -151,6 +151,9 @@ rm -f ./octaviaclient/tests/unit/test_hacking.py
 %{python3_sitelib}/%{pypi_name}/tests
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

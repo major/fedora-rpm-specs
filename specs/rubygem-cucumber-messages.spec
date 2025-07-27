@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 17.1.0
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: Protocol Buffer messages for Cucumber's inter-process communication.
 License: MIT
 URL: https://github.com/cucumber/messages-ruby#readme
@@ -57,6 +57,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 17.1.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 17.1.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

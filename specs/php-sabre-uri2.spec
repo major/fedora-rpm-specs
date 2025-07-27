@@ -25,7 +25,7 @@
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Summary:        Functions for making sense out of URIs
 Version:        2.3.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 License:        BSD-3-Clause
@@ -137,6 +137,9 @@ exit $ret
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

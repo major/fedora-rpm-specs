@@ -1,6 +1,6 @@
 Name:           websvn
 Version:        2.8.4
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Online subversion repository browser
 
 License:        GPL-2.0-or-later
@@ -115,6 +115,9 @@ fi
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.4-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Feb 03 2025 Christian Krause <chkr@fedoraproject.org> - 2.8.4-4
 - Fix FailsToInstall in F42 due to orphaned package (php-erusev-parsedown)
   by removing that dependency (RHBZ#2342582)

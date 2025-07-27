@@ -2,7 +2,7 @@
 Name:    websocketpp
 Summary: C++ WebSocket Protocol Library
 Version: 0.8.2
-Release: 18%{?dist}
+Release: 19%{?dist}
 
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
@@ -97,6 +97,9 @@ rm -rfv %{buildroot}%{_includedir}/test_connection/
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jul 18 2025 Wolfgang Stöggl <c72578@yahoo.de> - 0.8.2-18
 - Add patch: websocketpp-0.8.2-cmake40.patch
 - Fix CMake 4.0 FTBFS #2381633

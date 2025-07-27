@@ -1,6 +1,6 @@
 Name:           sigrok-cli
 Version:        0.7.2
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Basic hardware access drivers for logic analyzers
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -39,6 +39,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_datadir}/icons/*/*/*/%{name}.svg
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

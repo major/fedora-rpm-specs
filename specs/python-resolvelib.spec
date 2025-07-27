@@ -6,7 +6,7 @@ Name:           python-%{pypi_name}
 Version:        1.0.1
 %global tag %{version}
 %forgemeta
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Resolve abstract dependencies into concrete ones
 
 License:        ISC
@@ -62,6 +62,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.0.1-8
 - Rebuilt for Python 3.14
 

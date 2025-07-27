@@ -1,15 +1,16 @@
+%global forgeurl https://github.com/beartype/beartype
+%global commit a3a0fff60e4549bf5bbd1d8209458efdf9035747
+%global date 20240712
+%global version0 0.21.0
+%forgemeta
+
 Name:           python-beartype
-Version:        0.18.5
+Version:        %forgeversion
 Release:        %autorelease
 Summary:        Unbearably fast runtime type checking in pure Python
 License:        MIT
 URL:            https://beartype.readthedocs.io
-Source:         %{pypi_source beartype}
-# Python 3.13 backport
-Patch:          4b27fbb518cabad406132b0fc321028ddb26d829.patch
-Patch:          e07f8ee04819e27e11270c33777649586c6f4d87.patch
-Patch:          0b4453f83c7ed4be054d8733aab8075e1478e166.patch
-Patch:          c8c4f05d49ac1dd240a7325652404ed995004eb9.patch
+Source:         %forgesource
 
 BuildArch:      noarch
 
@@ -31,7 +32,7 @@ Summary:        %{summary}
 %description -n python3-beartype %_description
 
 %prep
-%autosetup -p1 -n beartype-%{version}
+%autosetup -p1 %{forgesetupargs}
 
 %generate_buildrequires
 %pyproject_buildrequires -r

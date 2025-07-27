@@ -4,7 +4,7 @@
 Summary: System Tray Icon Support for Tk on X11
 Name: tktray
 Version: 1.3.9
-Release: 31%{?dist}
+Release: 32%{?dist}
 URL: http://code.google.com/p/tktray/
 Source0: http://tktray.googlecode.com/files/%{name}%{version}.tar.gz
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -47,6 +47,9 @@ make DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p" install
 %{_mandir}/*/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.9-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.9-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

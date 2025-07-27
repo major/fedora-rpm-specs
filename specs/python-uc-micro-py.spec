@@ -1,6 +1,6 @@
 Name:           python-uc-micro-py
 Version:        1.0.3
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Micro subset of Unicode data files for linkify-it.py projects
 
 License:        MIT
@@ -42,6 +42,9 @@ Summary:        Micro subset of Unicode data files for linkify-it.py projects
 %doc CHANGELOG.md README.md
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.0.3-5
 - Rebuilt for Python 3.14
 

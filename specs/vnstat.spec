@@ -1,7 +1,7 @@
 Summary: Console-based network traffic monitor
 Name: vnstat
 Version: 2.10
-Release: 8%{?dist}
+Release: 9%{?dist}
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
@@ -103,6 +103,9 @@ install -m0644 -D vnstat.sysusers.conf %{buildroot}%{_sysusersdir}/vnstat.conf
 %{_bindir}/vnstati
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.10-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.10-8
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

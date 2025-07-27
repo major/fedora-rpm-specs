@@ -1,6 +1,6 @@
 Name:           perl-Test-Roo
 Version:        1.004
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Composable, reusable tests with roles and Moo
 License:        Apache-2.0
 
@@ -66,6 +66,9 @@ make test
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.004-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.004-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

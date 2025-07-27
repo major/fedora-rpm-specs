@@ -1,7 +1,7 @@
 %global gittag 1.8.0
 Name:           tlp
 Version:        1.8.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Optimize laptop battery life
 License:        GPL-2.0-or-later
 URL:            https://linrunner.de/tlp
@@ -130,6 +130,9 @@ fi
 %systemd_postun_with_restart tlp.service
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Feb 17 2025 Sergi Jimenez <tripledes@fedoraproject.org> - 1.8.0-1
 - Bump version to 1.8.0
 - Closes RHBZ#2310404

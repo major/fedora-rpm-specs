@@ -1,6 +1,6 @@
 Name:           perl-Text-Soundex
 Version:        3.05
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Implementation of the soundex algorithm
 # The original license was (Copyright only). Since 3.05 somebody (RJBS?)
 # added Perl license but kept the original license text.
@@ -84,6 +84,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.05-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 3.05-34
 - Perl 5.42 rebuild
 

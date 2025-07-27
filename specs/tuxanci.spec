@@ -1,6 +1,6 @@
 Name:           tuxanci
 Version:        0.21.0
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        First Tux shooter multi-player network game
 # LICENCE:      GPLv2 text
 ## unused
@@ -78,6 +78,9 @@ appstream-util validate-relax --nonet \
 %{_datadir}/appdata/tuxanci.appdata.xml
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.21.0-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jul 17 2025 Petr Pisar <ppisar@redhat.com> - 0.21.0-25
 - Adapt to CMake 4.0 (bug #2381617)
 

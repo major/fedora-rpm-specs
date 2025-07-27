@@ -22,7 +22,7 @@ different backends to be used with OpenStack projects.
 
 Name:           python-%{pypi_name}
 Version:        5.9.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Taskflow structured state management library
 
 License:        Apache-2.0
@@ -127,6 +127,9 @@ rm -rf doc/build/html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.9.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jan 22 2025 Eric Harney <eharney@redhat.com> - 5.9.1-3
 - Exclude zake from python buildreqs
 

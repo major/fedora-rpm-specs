@@ -1,6 +1,6 @@
 name:           pysysbot
 Version:        0.3.0
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        A simple python jabber bot for getting system information
 
 License:        LicenseRef-Callaway-BSD
@@ -60,6 +60,9 @@ rm -rf %{buildroot}%{_defaultdocdir}
 %{_unitdir}/%{name}.service
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jul 09 2025 Fabian Affolter <mail@fabian-affolter.ch> - 0.3.0-25
 - Closes rhbz#2377410
 

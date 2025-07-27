@@ -10,6 +10,14 @@ License:        Apache-2.0
 URL:            https://github.com/spdx/tools-python
 Source:         %url/archive/v%{version}/%{github_name}-%{version}.tar.gz
 
+# Update excepted typecheck error after beartype update
+# https://github.com/spdx/tools-python/pull/841
+# https://github.com/spdx/tools-python/commit/6817ca7056cadfd71c5619b7d75452461e4bbb18
+Patch:          0001-Update-excepted-typecheck-error-after-beartype-updat.patch
+# relationship_writer: properly access __annotations__ dict #858
+# https://github.com/spdx/tools-python/pull/858
+Patch:          0002-relationship_writer-properly-access-__annotations__-.patch
+
 BuildArch:      noarch
 BuildRequires:  help2man
 BuildRequires:  python3-devel

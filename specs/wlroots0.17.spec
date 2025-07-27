@@ -6,7 +6,7 @@
 
 Name:           wlroots%{compat_ver}
 Version:        %{compat_ver}.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A modular Wayland compositor library
 
 # Source files/overall project licensed as MIT, but
@@ -123,6 +123,9 @@ MESON_OPTIONS=(
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Feb 10 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.17.4-3
 - Rebuild for libdisplay-info 0.2.0
 

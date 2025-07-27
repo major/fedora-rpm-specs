@@ -1,7 +1,7 @@
 Name:           perl-Test2-Plugin-UUID
 %global cpan_version 0.002010
 Version:        0.2.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Use real UUIDs in Test2
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test2-Plugin-UUID
@@ -105,6 +105,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Mar 31 2025 Petr Pisar <ppisar@redhat.com> - 0.2.10-1
 - 0.002010 bump
 

@@ -1,6 +1,6 @@
 Name:           taskd
 Version:        1.1.0
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Secure server providing multi-user, multi-client access to task data
 License:        MIT
 URL:            https://github.com/goldenHairDafo/taskd/
@@ -138,6 +138,9 @@ install -m0644 -D taskd.sysusers.conf %{buildroot}%{_sysusersdir}/taskd.conf
 %{_sysusersdir}/taskd.conf
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1.1.0-26
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

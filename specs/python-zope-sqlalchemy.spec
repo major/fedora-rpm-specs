@@ -1,6 +1,6 @@
 Name:           python-zope-sqlalchemy
 Version:        3.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 BuildArch:      noarch
 
 License:        ZPL-2.1
@@ -64,6 +64,9 @@ configure engines.
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 14 2025 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 3.1-9
 - Migrate from py_build/py_install to pyproject macros (bz#2378597)
 

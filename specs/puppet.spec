@@ -4,7 +4,7 @@
 
 Name:           puppet
 Version:        8.10.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Network tool for managing many disparate systems
 License:        Apache-2.0
 URL:            https://puppet.com
@@ -214,6 +214,9 @@ rm %{buildroot}%{_datadir}/%{name}/ext/{build_defaults.yaml,project_data.yaml}
 %systemd_postun_with_restart %{name}.service
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.10.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Apr 15 2025 Ewoud Kohl van Wijngaarden <ewoud@kohlvanwijngaarden.nl> - 8.10.0-1
 - Update to 8.10.0 (fixes rhbz#2291351)
 - Ruby 3.3 regexp incompability bugfix (fixes rhbz#2280109)

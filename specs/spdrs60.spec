@@ -2,7 +2,7 @@
 Summary:	SRCP based locking table for digital model railroads
 Name:		spdrs60
 Version:	0.6.5
-Release:	7%{?dist}
+Release:	8%{?dist}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
@@ -72,6 +72,9 @@ desktop-file-install \
 %{_docdir}/%{name}/html
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.5-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.5-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

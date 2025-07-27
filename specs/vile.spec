@@ -1,6 +1,6 @@
 Name:		vile
 Version:	9.8za
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	VI Like Emacs
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:	GPL-2.0-only
@@ -116,6 +116,9 @@ popd
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.8za-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Feb 01 2025 Björn Esser <besser82@fedoraproject.org> - 9.8za-6
 - Add explicit BR: libxcrypt-devel
 

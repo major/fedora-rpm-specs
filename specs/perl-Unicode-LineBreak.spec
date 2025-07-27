@@ -7,7 +7,7 @@
 
 Name:           perl-Unicode-LineBreak
 Version:        2019.001
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        UAX #14 Unicode Line Breaking Algorithm
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Unicode-LineBreak
@@ -121,6 +121,9 @@ make test
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2019.001-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 2019.001-24
 - Perl 5.42 rebuild
 

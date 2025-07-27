@@ -3,7 +3,7 @@
 
 Name:           sblim-cmpi-network
 Version:        1.4.0
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        SBLIM Network Instrumentation
 
 License:        EPL-1.0
@@ -104,6 +104,9 @@ echo "%{_libdir}/cmpi" > $RPM_BUILD_ROOT/%{_sysconfdir}/ld.so.conf.d/%{name}-%{_
 %postun -p /sbin/ldconfig
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Mar 05 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 1.4.0-37
 - Make test subpackage optional
 

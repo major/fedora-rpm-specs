@@ -2,7 +2,7 @@
 
 Name:           python-flask-sqlalchemy-lite
 Version:        0.1.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Adds SQLAlchemy support to Flask application
 
 License:        MIT
@@ -71,6 +71,9 @@ Python 3 version.
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 0.1.0-4
 - Rebuilt for Python 3.14
 

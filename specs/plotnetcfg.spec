@@ -3,7 +3,7 @@
 
 Name:           plotnetcfg
 Version:        0.4.1
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        A tool to plot network configuration
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -36,6 +36,9 @@ make %{?_smp_mflags} CFLAGS="%{optflags}"
 %{_mandir}/man8/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

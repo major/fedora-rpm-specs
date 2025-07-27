@@ -1,6 +1,6 @@
 Name: sane-frontends
 Version: 1.0.14
-Release: 52%{?dist}
+Release: 53%{?dist}
 Summary: Graphical frontend to SANE
 URL: http://www.sane-project.org
 
@@ -77,6 +77,9 @@ rm -f %{buildroot}%{_datadir}/sane/sane-style.rc
 # intended to be used from the command line
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.14-53
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Mar 06 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1.0.14-52
 - sane-frontends: FTBFS in Fedora rawhide/f42 (fedora#2341321)
 

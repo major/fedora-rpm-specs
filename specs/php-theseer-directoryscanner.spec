@@ -22,7 +22,7 @@
 
 Name:           php-theseer-directoryscanner
 Version:        1.3.3
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        A recursive directory scanner and filter
 
 License:        BSD-2-Clause
@@ -104,6 +104,9 @@ fi
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jun 26 2025 Remi Collet <remi@remirepo.net> - 1.3.3-11
 - use phpunit9
 - re-license spec file to CECILL-2.1

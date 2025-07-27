@@ -5,7 +5,7 @@ Version:       1.1
 
 Summary:       Userspace block driver server and ublk tool
 Name:          ubdsrv
-Release:       1.rc1%{?dist}.4
+Release:       1.rc1%{?dist}.5
 URL:           %{forgeurl}
 Source:        %{forgesource}
 License:       LGPLv2+ or MIT
@@ -70,6 +70,9 @@ rm %{buildroot}%{_libdir}/*.la
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-1.rc1.5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-1.rc1.4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

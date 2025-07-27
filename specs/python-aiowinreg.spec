@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.0.12
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Windows registry file reader
 
 License:        MIT
@@ -40,6 +40,9 @@ Windows registry file reader.
 %{python3_sitelib}/%{pypi_name}-%{version}-py*.egg-info
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.12-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.0.12-3
 - Rebuilt for Python 3.14
 

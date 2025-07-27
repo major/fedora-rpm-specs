@@ -3,7 +3,7 @@
 Summary: Qt5 - WebChannel component
 Name:    qt5-%{qt_module}
 Version: 5.15.17
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -95,6 +95,9 @@ popd
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.17-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon May 26 2025 Jan Grulich <jgrulich@redhat.com> - 5.15.17-1
 - 5.15.17
 

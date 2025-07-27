@@ -1,6 +1,6 @@
 Name:           rfcdiff
 Version:        1.48
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Compares two internet draft files and outputs the difference
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -48,6 +48,9 @@ install -pm 0644 %{name}.1.gz %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.48-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.48-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

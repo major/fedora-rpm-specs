@@ -27,7 +27,7 @@
 
 Name:		raceintospace
 Version:	2.0.0
-Release:	15%{?extra:.%extra}%{?dist}
+Release:	16%{?extra:.%extra}%{?dist}
 Summary:	Race into Space game
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -125,6 +125,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.raceintosp
 %doc doc/manual
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-16.rc1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Feb 27 2025 Björn Esser <besser82@fedoraproject.org> - 2.0.0-15.rc1
 - Rebuild (jsoncpp)
 - Explicitly set CMAKE_POLICY_VERSION_MINIMUM=3.5

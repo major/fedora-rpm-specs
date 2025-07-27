@@ -1,6 +1,6 @@
 Name:           renameutils
 Version:        0.12.0
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        A set of programs to make renaming and copying of files easier
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -70,6 +70,9 @@ make %{?_smp_mflags}
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jul 09 2025 Ben Boeckel <fedora@me.benboeckel.net> - 0.12.0-29
 - Fix GCC 15 issues (rhbz#2341278)
 

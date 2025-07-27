@@ -1,6 +1,6 @@
 Name:           xpad
 Version:        5.8.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Sticky notepad for GTK
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -62,6 +62,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Feb 08 2025 Kevin Fenzi <kevin@scrye.com> - 5.8.0-10
 - Fix ftbfs. Fixes rhbz#2341579
 

@@ -1,6 +1,6 @@
 Name:      plasma-welcome-fedora
 Version:   6.3.4
-Release:   1%{?dist}
+Release:   2%{?dist}
 Summary:   Fedora-related customizations for Plasma-welcome
 # License is specified in 01-EnableExtraRepos.qml
 License:   (GPL-2.0-only OR GPL-3.0-only) AND CC-BY-SA-4.0
@@ -39,6 +39,9 @@ make build_all
 %{_datadir}/icons/hicolor/scalable/apps/mascot_konqi_3rdparty.svg
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Mar 31 2025 Steve Cossette <farchord@gmail.com> - 6.3.4-1
 - 6.3.4
 

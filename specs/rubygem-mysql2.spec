@@ -6,7 +6,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.5.5
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: A simple, fast Mysql library for Ruby, binding to libmysql
 License: MIT
 URL: https://github.com/brianmario/mysql2
@@ -200,6 +200,9 @@ kill "$(cat "${MYSQL_TEST_PID_FILE}")"
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.5-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Feb 04 2025 Michal Schorm <mschorm@redhat.com> - 0.5.5-9
 - Re-enable test cases, the FTBFS due to mariadb-connector-c-3.4.1-1.fc42 was fixed in
   mariadb-connector-c-3.4.3-10

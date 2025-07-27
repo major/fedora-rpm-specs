@@ -1,6 +1,6 @@
 Name:           sjasm
 Version:        0.42c
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A z80 cross assembler
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -50,6 +50,9 @@ make -C sjasmsrc42c install DESTDIR=%{buildroot}
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.42c-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.42c-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

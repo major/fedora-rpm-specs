@@ -2,7 +2,7 @@
 Summary: User space tools for kernel auditing
 Name: audit
 Version: 4.1.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: https://github.com/linux-audit/audit-userspace/
 Source0: audit-userspace-%{version}.tar.gz
@@ -148,11 +148,11 @@ if [ $1 -eq 2 ] ; then
     state=$(systemctl show -P ActiveState auditd)
     if [ $state = "active" ] ; then
         auditctl --signal stop || true
-        systemctl start auditd
+        systemctl start auditd || true
     fi
 # if an install, start it since preset says we should be running
 elif [ $1 -eq 1 ] ; then
-        systemctl start auditd
+        systemctl start auditd || true
 fi
 
 %post rules
@@ -301,6 +301,9 @@ fi
 %attr(750,root,root) %{_sbindir}/audispd-zos-remote
 
 %changelog
+* Fri Jul 25 2025 Steve Grubb <sgrubb@redhat.com> 4.1.0-3
+- Attempt correcting install with no systemd (#2380048)
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
@@ -528,239 +531,4 @@ fi
 
 * Tue Jul 17 2018 Steve Grubb <sgrubb@redhat.com> 3.0-0.1.20180717gitacd53d1
 - New upstream feature prerelease
-
-* Thu Jul 12 2018 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.4-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Wed Jul  4 2018 Peter Robinson <pbrobinson@fedoraproject.org> 2.8.4-3
-- Remove unused sys V initscripts legacy bits
-
-* Mon Jul 02 2018 Miro Hrončok <mhroncok@redhat.com> - 2.8.4-2
-- Rebuilt for Python 3.7
-
-* Tue Jun 19 2018 Steve Grubb <sgrubb@redhat.com> 2.8.4-1
-- New upstream bugfix release
-
-* Tue Jun 19 2018 Miro Hrončok <mhroncok@redhat.com> - 2.8.3-4
-- Rebuilt for Python 3.7
-
-* Tue Apr 10 2018 Pete Walter <pwalter@fedoraproject.org> - 2.8.3-3
-- Rename Python 2 and 3 subpackages to python2-audit and python3-audit as per guidelines
-
-* Mon Mar 26 2018 Steve Grubb <sgrubb@redhat.com> 2.8.3-2
-- Fix Obsoletion of audit-libs-python not handled properly (#1559674)
-
-* Sat Mar 10 2018 Steve Grubb <sgrubb@redhat.com> 2.8.3-1
-- New upstream bugfix release
-
-* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.2-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Mon Feb 05 2018 Steve Grubb <sgrubb@redhat.com> 2.8.2-3
-- Add a Provides audit-libs-python (#1537864)
-- Remove tcp_wrappers support?
-
-* Thu Dec 14 2017 Steve Grubb <sgrubb@redhat.com> 2.8.2-2
-- Rename things from python to python2
-
-* Thu Dec 14 2017 Steve Grubb <sgrubb@redhat.com> 2.8.2-1
-- New upstream bugfix release
-
-* Thu Oct 12 2017 Steve Grubb <sgrubb@redhat.com> 2.8.1-1
-- New upstream bugfix release
-
-* Tue Oct 10 2017 Steve Grubb <sgrubb@redhat.com> 2.8-1
-- New upstream feature release
-
-* Mon Sep 18 2017 Steve Grubb <sgrubb@redhat.com> 2.7.8-1
-- New upstream bugfix release
-
-* Wed Aug 02 2017 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.7-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
-
-* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.7-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Fri Jul 14 2017 Steve Grubb <sgrubb@redhat.com> 2.7.7-3
-- undo scratch build
-
-* Fri Jun 16 2017 Steve Grubb <sgrubb@redhat.com> 2.7.7-1
-- New upstream bugfix release
-
-* Wed Apr 19 2017 Steve Grubb <sgrubb@redhat.com> 2.7.6-1
-- New upstream bugfix release
-
-* Mon Apr 10 2017 Steve Grubb <sgrubb@redhat.com> 2.7.5-1
-- New upstream bugfix release
-
-* Tue Mar 28 2017 Steve Grubb <sgrubb@redhat.com> 2.7.4-1
-- New upstream feature and bugfix release
-
-* Fri Feb 24 2017 Steve Grubb <sgrubb@redhat.com> 2.7.3-1
-- New upstream feature and bugfix release
-
-* Mon Feb 13 2017 Steve Grubb <sgrubb@redhat.com> 2.7.2-2
-- Fix ausearch csv output
-
-* Mon Feb 13 2017 Steve Grubb <sgrubb@redhat.com> 2.7.2-1
-- New upstream feature and bugfix release
-
-* Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Fri Jan 13 2017 Steve Grubb <sgrubb@redhat.com> 2.7.1-1
-- New upstream bugfix release
-
-* Mon Dec 19 2016 Miro Hrončok <mhroncok@redhat.com> - 2.7-2
-- Rebuild for Python 3.6
-
-* Thu Dec 15 2016 Steve Grubb <sgrubb@redhat.com> 2.7-1
-- New upstream feature release
-
-* Sun Sep 11 2016 Steve Grubb <sgrubb@redhat.com> 2.6.7-1
-- New upstream bugfix release
-
-* Mon Aug 01 2016 Steve Grubb <sgrubb@redhat.com> 2.6.6-1
-- New upstream bugfix release
-
-* Thu Jul 21 2016 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.6.5-3
-- https://fedoraproject.org/wiki/Changes/golang1.7
-
-* Tue Jul 19 2016 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.6.5-2
-- https://fedoraproject.org/wiki/Changes/Automatic_Provides_for_Python_RPM_Packages
-
-* Thu Jul 14 2016 Steve Grubb <sgrubb@redhat.com> 2.6.5-1
-- New upstream bugfix release
-
-* Fri Jul 08 2016 Steve Grubb <sgrubb@redhat.com> 2.6.4-2
-- Correct size information of dispatched event
-
-* Fri Jul 08 2016 Steve Grubb <sgrubb@redhat.com> 2.6.4-1
-- New upstream bugfix release
-
-* Tue Jul 05 2016 Steve Grubb <sgrubb@redhat.com> 2.6.3-2
-- Fix sockaddr event interpretation
-
-* Tue Jul 05 2016 Steve Grubb <sgrubb@redhat.com> 2.6.3-1
-- New upstream bugfix release
-
-* Fri Jul 01 2016 Steve Grubb <sgrubb@redhat.com> 2.6.2-1
-- New upstream bugfix release
-- Fixes 1351954 - prevents virtual machine from starting up in GNOME Boxes
-
-* Tue Jun 28 2016 Steve Grubb <sgrubb@redhat.com> 2.6.1-1
-- New upstream bugfix release
-
-* Wed Jun 22 2016 Steve Grubb <sgrubb@redhat.com> 2.6-3
-- New upstream release
-
-* Fri Apr 29 2016 Steve Grubb <sgrubb@redhat.com> 2.5.2-1
-- New upstream release
-
-* Thu Apr 28 2016 Steve Grubb <sgrubb@redhat.com> 2.5.1-2
-- Refactor plugins to split out zos-remote to lower dependencies
-
-* Wed Apr 13 2016 Steve Grubb <sgrubb@redhat.com> 2.5.1-1
-- New upstream release
-
-* Fri Mar 18 2016 Steve Grubb <sgrubb@redhat.com> 2.5-4
-- Fixes #1313152 - post script fails on dnf --setopt=tsflags=nodocs install
-
-* Mon Feb 22 2016 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.5-3
-- https://fedoraproject.org/wiki/Changes/golang1.6
-
-* Wed Feb 03 2016 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
-
-* Mon Jan 11 2016 Steve Grubb <sgrubb@redhat.com> 2.5-1
-- New upstream release
-- Fixes #1241565 - still logs way too much
-- Fixes #1238051 - audit.rules should be generated from by augenrules
-
-* Fri Dec 18 2015 Steve Grubb <sgrubb@redhat.com> 2.4.4-1
-- New upstream bugfix release
-
-* Wed Nov 04 2015 Robert Kuska <rkuska@redhat.com> - 2.4.4-3
-- Rebuilt for Python3.5 rebuild
-
-* Wed Sep 16 2015 Peter Robinson <pbrobinson@fedoraproject.org> 2.4.4-2
-- Fix FTBFS with hardened flags by using the distro CFLAGS
-- Tighten deps with the _isa macro
-- Use goarches macro to define supported GO architectures
-- Minor cleanups
-
-* Thu Aug 13 2015 Steve Grubb <sgrubb@redhat.com> 2.4.4-1
-- New upstream bugfix release
-- Fixes CVE-2015-5186 Audit: log terminal emulator escape sequences handling
-
-* Thu Jul 16 2015 Steve Grubb <sgrubb@redhat.com> 2.4.3-1
-- New upstream bugfix release
-- Adds python3 support
-
-* Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.4.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
-
-* Tue Apr 28 2015 Steve Grubb <sgrubb@redhat.com> 2.4.2-1
-- New upstream bugfix release
-
-* Sat Feb 21 2015 Till Maas <opensource@till.name> - 2.4.1-2
-- Rebuilt for Fedora 23 Change
-  https://fedoraproject.org/wiki/Changes/Harden_all_packages_with_position-independent_code
-
-* Tue Oct 28 2014 Steve Grubb <sgrubb@redhat.com> 2.4.1-1
-- New upstream feature and bugfix release
-
-* Mon Oct 06 2014 Karsten Hopp <karsten@redhat.com> 2.4-2
-- bump release and rebuild for upgradepath
-
-* Sun Aug 24 2014 Steve Grubb <sgrubb@redhat.com> 2.4-1
-- New upstream feature and bugfix release
-
-* Fri Aug 15 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.3.8-0.3.svn20140803
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
-
-* Mon Aug  4 2014 Peter Robinson <pbrobinson@fedoraproject.org> 2.3.8-0.2.svn20140803
-- aarch64/PPC/s390 don't have golang
-
-* Sat Aug 02 2014 Steve Grubb <sgrubb@redhat.com> 2.3.8-0.1.svn20140803
-- New upstream svn snapshot
-
-* Tue Jul 22 2014 Steve Grubb <sgrubb@redhat.com> 2.3.7-4
-- Bug 1117953 - Per fesco#1311, please disable syscall auditing by default
-
-* Fri Jul 11 2014 Tom Callaway <spot@fedoraproject.org> - 2.3.7-3
-- mark license files properly
-
-* Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.3.7-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
-
-* Tue Jun 03 2014 Steve Grubb <sgrubb@redhat.com> 2.3.7-1
-- New upstream bugfix release
-
-* Fri Apr 11 2014 Steve Grubb <sgrubb@redhat.com> 2.3.6-1
-- New upstream bugfix/enhancement release
-
-* Mon Mar 17 2014 Steve Grubb <sgrubb@redhat.com> 2.3.5-1
-- New upstream bugfix/enhancement release
-
-* Thu Feb 27 2014 Steve Grubb <sgrubb@redhat.com> 2.3.4-1
-- New upstream bugfix/enhancement release
-
-* Thu Jan 16 2014 Steve Grubb <sgrubb@redhat.com> 2.3.3-1
-- New upstream bugfix/enhancement release
-
-* Mon Jul 29 2013 Steve Grubb <sgrubb@redhat.com> 2.3.2-1
-- New upstream bugfix/enhancement release
-
-* Fri Jun 21 2013 Steve Grubb <sgrubb@redhat.com> 2.3.1-3
-- Drop prelude support
-
-* Fri May 31 2013 Steve Grubb <sgrubb@redhat.com> 2.3.1-2
-- Fix unknown lvalue in auditd.service (#969345)
-
-* Thu May 30 2013 Steve Grubb <sgrubb@redhat.com> 2.3.1-1
-- New upstream bugfix/enhancement release
-
-* Fri May 03 2013 Steve Grubb <sgrubb@redhat.com> 2.3-2
-- If no rules exist, copy shipped rules into place
 

@@ -12,7 +12,7 @@
 Name:           xmlada
 Epoch:          2
 Version:        %{upstream_version}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        XML library for Ada
 
 License:        GPL-3.0-or-later WITH GCC-exception-3.1 AND Unicode-DFS-2016
@@ -277,6 +277,9 @@ find %{buildroot}%{_includedir}/%{name}/sources -type d -empty -delete
 ###############
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:25.0.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:25.0.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

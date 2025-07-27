@@ -4,7 +4,7 @@
 
 Name:           rocm
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        ROCm Metapackage
 License:        MIT
 
@@ -149,6 +149,9 @@ install -pm 644 %{SOURCE0} .
 %license License.txt
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 16 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.1-2
 - Add a suse version
 

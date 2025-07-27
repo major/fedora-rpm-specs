@@ -1,6 +1,6 @@
 Name:           rsync-bpc
 Version:        3.1.3.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        A customized fork of rsync that is used as part of BackupPC
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -58,6 +58,9 @@ Rsync-bpc serves no purpose outside of BackupPC.
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.3.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.3.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           python-netdisco
 Version:        3.0.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Python library to scan local network for services and devices
 
 License:        MIT
@@ -67,6 +67,9 @@ Current methods of scanning:
 %{python3_sitelib}/%{srcname}*.egg-info
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 3.0.0-12
 - Rebuilt for Python 3.14
 

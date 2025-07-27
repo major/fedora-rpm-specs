@@ -11,7 +11,7 @@ graphs.}
 
 Name:           python-%{pypi_name}
 Version:        0.15.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        GeoTiler is a library to create map using tiles from a map provider
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -127,6 +127,9 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
 %doc _latex/geotiler.pdf
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jul 15 2025 Python Maint <python-maint@redhat.com> - 0.15.1-6
 - Rebuilt for Python 3.14
 

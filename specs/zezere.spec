@@ -1,6 +1,6 @@
 Name:          zezere
 Version:       0.5.2
-Release:       10%{?dist}
+Release:       11%{?dist}
 Summary:       A provisioning service for Fedora IoT
 License:       MIT
 URL:           https://github.com/fedora-iot/zezere
@@ -54,6 +54,9 @@ ln -s /run/zezere-ignition-banner %{buildroot}%{_sysconfdir}/issue.d/zezere_igni
 %{_unitdir}/*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jul 08 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 0.5.2-10
 - Migrate to new python build macros (rhbz: 2378512)
 

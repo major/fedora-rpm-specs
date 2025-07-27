@@ -1,6 +1,6 @@
 Name:           powerpc-utils
 Version:        1.3.13
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        PERL-based scripts for maintaining and servicing PowerPC systems
 
 License:        GPL-2.0-only
@@ -211,6 +211,9 @@ systemctl enable hcn-init.service >/dev/null 2>&1 || :
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.13-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Mar 19 2025 Than Ngo <than@redhat.com> - 1.3.13-3
 - Fixed rhbz#2341093, FTBFS with gcc15
 

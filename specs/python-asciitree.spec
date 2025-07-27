@@ -2,7 +2,7 @@
 
 Name:       python-%{pypi_name}
 Version:    0.3.3
-Release:    32%{?dist}
+Release:    33%{?dist}
 Summary:    Draws ASCII trees
 
 License:    MIT
@@ -47,6 +47,9 @@ Read the documentation at http://pythonhosted.org/asciitree
 %{python3_sitelib}/%{pypi_name}-%{version}*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.3-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.3.3-32
 - Rebuilt for Python 3.14
 

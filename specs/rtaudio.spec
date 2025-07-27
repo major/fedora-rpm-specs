@@ -1,6 +1,6 @@
 Name:           rtaudio
 Version:        6.0.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Real-time Audio I/O Library
 
 License:        MIT
@@ -88,6 +88,9 @@ export CFLAGS="%optflags -fPIC"
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           pipenightdreams
 Version:        0.10.0
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        Connect the waterpipes to create a proper pipeline
 License:        GPL-2.0-or-later
 URL:            http://www.libsdl.org/projects/pipenightdreams/
@@ -65,6 +65,9 @@ install -p -m 644 images/pipes_space/horizontal.png \
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

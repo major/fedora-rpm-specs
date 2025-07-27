@@ -1,6 +1,6 @@
 Name:       pure-ftpd
 Version:    1.0.52
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Lightweight, fast and secure FTP server
 # Automatically converted from old format: BSD - review is highly recommended.
 License:    LicenseRef-Callaway-BSD
@@ -220,6 +220,9 @@ fi
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.52-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue May 20 2025 Jonathan Wright <jonathan@almalinux.org> - 1.0.52-1
 - update to 1.0.52 rhbz#2313435
 - Fixes CVE-2024-48208 rhbz#2343476

@@ -38,7 +38,7 @@
 
 Name:           %{rocjpeg_name}
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A high-performance jpeg decode library for AMD’s GPUs
 
 Url:            https://github.com/ROCm/rocJPEG
@@ -174,6 +174,9 @@ fi
 %{_datadir}/rocjpeg
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jun 15 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-3
 - Remove suse check on ldconfig
 

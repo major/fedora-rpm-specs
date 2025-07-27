@@ -4,7 +4,7 @@
 Summary: Circuit simulator
 Name:    qucs
 Version: 0.0.20
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-1.0-or-later
 URL:     http://qucs.sourceforge.net/
 Source0: https://github.com/Qucs/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -89,6 +89,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.20-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 23 2025 Jaroslav Škarvada  <jskarvad@redhat.com> - 0.0.20-2
 - Switched to autotools build system (upstream preferred)
 - Dropped useless subpackages

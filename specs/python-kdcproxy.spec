@@ -2,7 +2,7 @@
 
 Name:           python-%{realname}
 Version:        1.0.0
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        MS-KKDCP (kerberos proxy) WSGI module
 
 License:        MIT
@@ -59,6 +59,9 @@ ls -ld %{python3_sitelib}/
 %{python3_sitelib}/%{realname}-%{version}*.dist-info
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 14 2025 Rafael Guterres Jeffman <rjeffman@redhat.com> - 1.0.0-21
 - Migrate from py3 to pyproject macros
 

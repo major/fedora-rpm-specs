@@ -9,7 +9,7 @@
 
 Name:           steam-devices
 Version:        1.0.0.101^git%{commitdate}.%{shortcommit}
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        MIT
 Summary:        Device support for Steam-related hardware
 Url:            https://github.com/ValveSoftware/steam-devices/
@@ -42,6 +42,9 @@ install -Dpm0644 60-steam-vr.rules %{buildroot}%{_udevrulesdir}/60-steam-vr.rule
 %{_udevrulesdir}/60-steam-vr.rules
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0.101^git20240522.e2971e4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Mar 18 2025 Shawn W. Dunn <sfalken@cloverleaf-linux.org> - 1.0.0.101^git20240522.e2971e4-2
 - Added Conditional to fix FTBFS on epel8 and epel9
 

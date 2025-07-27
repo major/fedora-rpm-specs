@@ -2,7 +2,7 @@ Name:		sha
 #Upstream will continue in the next version 
 #with the behavior of shared libraries (specifically version 1.2)
 Version:	1.0.4b
-Release:	27%{?dist}
+Release:	28%{?dist}
 Summary:	File hashing utility
 # Automatically converted from old format: BSD - review is highly recommended.
 License:	LicenseRef-Callaway-BSD
@@ -61,6 +61,9 @@ install -pm 644 *.h %{buildroot}/%{_includedir}/sha
 %{_libdir}/*.so
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4b-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4b-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

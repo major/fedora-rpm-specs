@@ -23,7 +23,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_name}
 Version:        0.13.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Arbitrary-precision arithmetic library
 
 License:        MIT
@@ -122,6 +122,9 @@ exit $ret
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Apr  7 2025 Remi Collet <remi@remirepo.net> - 0.13.1-1
 - update to 0.13.1
 

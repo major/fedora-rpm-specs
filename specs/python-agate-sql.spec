@@ -7,7 +7,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.7.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Adds SQL read/write support to agate
 
 License:        MIT
@@ -85,6 +85,9 @@ popd
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Jul 11 2025 Julien Enselme <jujens@jujens.eu> - 0.7.2-6
 - Correct Python macro usages
 

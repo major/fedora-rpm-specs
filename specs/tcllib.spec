@@ -4,7 +4,7 @@
 Summary:    The standard Tcl library
 Name:       tcllib
 Version:    2.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:    LicenseRef-Callaway-BSD
 Source:     https://core.tcl-lang.org/tcllib/uv/%{name}-%{version}.tar.xz
@@ -63,6 +63,9 @@ find %{buildroot}/%{_datadir} -name \*.tcl -exec chmod 0644 {} \;
 %{_bindir}/tcldocstrip
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Fri Apr 18 2025 Dmitrij S. Kryzhevich <kryzhev@ispms.ru> - 2.0-1
 - Update to new 2.0.
 

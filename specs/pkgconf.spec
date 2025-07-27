@@ -23,7 +23,7 @@
 
 Name:           pkgconf
 Version:        2.3.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Package compiler and linker metadata toolkit
 
 # cli/getopt_long.c, libpkgconf/bsdstubs.c, libpkgconf/pkg.c and tests/* are ISC
@@ -226,6 +226,9 @@ rm -rf %{buildroot}%{_datadir}/aclocal
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jan 20 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

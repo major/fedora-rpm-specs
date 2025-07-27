@@ -4,7 +4,7 @@
 
 Name: rtl-433
 Version: 25.02
-Release: 2.%{commit_date}git%{commit_short}%{dist}
+Release: 3.%{commit_date}git%{commit_short}%{dist}
 
 Summary: Generic radio data receiver
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -88,6 +88,9 @@ done
 %{_includedir}/rtl_433*.h
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 25.02-3.20250302gitd422a7e
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Mar 02 2025 Andrew Bauer <zonexpertconsulting@outlook.com> - 25.02-2.20250302gitd422a7e
 - Set CMAKE_POLICY_VERSION_MINIMUM to allow building with newer cmake
 

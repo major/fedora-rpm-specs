@@ -18,7 +18,7 @@
 
 Name:           php-%{gh_owner}-%{gh_project}
 Version:        8.2.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        PHPUnit Legacy Versions Adapter
 
 License:        Apache-2.0
@@ -132,6 +132,9 @@ exit $ret
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.2.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jun 26 2025 Remi Collet <remi@remirepo.net> - 8.2.2-7
 - tests: remove phpunit7, add phpunit11 and phpunit12
 - re-license spec file to CECILL-2.1

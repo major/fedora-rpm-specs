@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        3.7.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Django application for handling the server headers required for CORS
 
 License:        MIT
@@ -45,6 +45,9 @@ rm -vrf *.egg-info
 %{python3_sitelib}/corsheaders/
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.7.0-15
 - Rebuilt for Python 3.14
 

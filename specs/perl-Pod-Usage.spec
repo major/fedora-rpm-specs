@@ -2,7 +2,7 @@ Name:           perl-Pod-Usage
 # Compete with perl.spec's epoch
 Epoch:          4
 Version:        2.05
-Release:        519%{?dist}
+Release:        520%{?dist}
 Summary:        Print a usage message from embedded POD documentation
 # License clarification CPAN RT#102529
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -127,6 +127,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4:2.05-520
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 4:2.05-519
 - Increase release to favour standalone package
 

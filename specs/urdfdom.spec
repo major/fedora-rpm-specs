@@ -2,7 +2,7 @@
 
 Name:       urdfdom
 Version:    4.0.0
-Release:    4%{?dist}
+Release:    5%{?dist}
 Summary:    U-Robot Description Format Document Object Model
 
 License:    BSD-3-Clause
@@ -56,6 +56,9 @@ rm -rf %{buildroot}%{_bindir}/urdf_mem_test
 %{_includedir}/%{name}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

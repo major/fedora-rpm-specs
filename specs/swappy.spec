@@ -2,7 +2,7 @@
 
 Name: swappy
 Version: 1.5.1
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Wayland native snapshot editing tool, inspired by Snappy on macOS
 License: MIT
 URL:     https://github.com/jtheoof/swappy
@@ -68,6 +68,9 @@ sed -i 's/^Exec=.*$/Exec=sh -c "if [ -n \\"\\\\$*\\" ]; then exec swappy -f \\"\
 %{_mandir}/man1/%{name}.1.*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

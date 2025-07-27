@@ -1,6 +1,6 @@
 Name:           uredir
 Version:        3.3
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        UDP port redirector
 
 License:        ISC
@@ -43,6 +43,9 @@ rm -rf %{buildroot}%{_docdir}/%{name}
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

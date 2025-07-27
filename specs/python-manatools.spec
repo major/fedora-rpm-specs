@@ -2,7 +2,7 @@
 
 Name:           python-%{module}
 Version:        0.0.4
-Release:        13%{?dist}
+Release:        14%{?dist}
 
 Summary:        A Python framework to build ManaTools applications
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -54,6 +54,9 @@ sed -i 's|0.0.1|%{version}|' manatools/version.py
 %{python3_sitelib}/python_manatools-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.4-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.0.4-13
 - Rebuilt for Python 3.14
 

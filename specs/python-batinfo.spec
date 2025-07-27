@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.4.2
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Python module to retrieve battery information
 
 License:        LGPL-3.0-or-later
@@ -45,6 +45,9 @@ rm -rf %{buildroot}%{_defaultdocdir}/%{pypi_name}/
 %license LICENSE
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Jul 09 2025 Fabian Affolter <mail@fabian-affolter.ch> - 0.4.2-34
 - Replace py3_build/py3_install (closes rhbz#2377475)
 

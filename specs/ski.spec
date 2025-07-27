@@ -1,6 +1,6 @@
 Name:           ski
 Version:        1.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        IA-64 user and system mode simulator
 
 License:        GPL-2.0-only and GPL-2.0-or-later
@@ -58,6 +58,9 @@ The Ski IA-64 user and system simulator originally developed by HP.
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Feb 13 2025 Dan Horák <dan[at]danny.cz> - 1.5.0-1
 - updated to 1.5.0
 - fixes GCC 15 FTBFS (rhbz#2341356)

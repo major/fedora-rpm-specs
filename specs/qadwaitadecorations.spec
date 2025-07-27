@@ -6,7 +6,7 @@
 
 Name:           qadwaitadecorations
 Version:        0.1.6
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Qt decoration plugin implementing Adwaita-like client-side decorations
 
 License:        LGPL-2.1-or-later
@@ -98,6 +98,9 @@ Supplements:   (qt6-qtbase and gnome-shell)
 %endif
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.6-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon May 26 2025 Jan Grulich <jgrulich@redhat.com> - 0.1.6-8
 - Rebuild (qt5)
 

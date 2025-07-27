@@ -3,7 +3,7 @@
 
 Name:           perl-gettext
 Version:        1.07
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Interface to gettext family of functions
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -73,6 +73,9 @@ LANG=en_US.UTF-8 %{__make} test
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.07-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.07-35
 - Perl 5.42 rebuild
 

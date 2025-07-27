@@ -6,7 +6,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 3.0.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Your personal string matching expert
 License: MIT
 URL: https://github.com/sinatra/mustermann
@@ -88,6 +88,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

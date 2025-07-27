@@ -1,6 +1,6 @@
 Name:           spacenavd
 Version:        1.3.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A free, compatible alternative for 3Dconnexion's input drivers
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -67,6 +67,9 @@ install -p -m 0644 contrib/systemd/spacenavd.service %{buildroot}%{_unitdir}
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jul 13 2025 Davide Cavalca <dcavalca@fedoraproject.org> - 1.3.1-1
 - Update to 1.3; Fixes: RHBZ#2379679
 - Backport upstream commit to use the systemd journal; Fixes: RHBZ#2375403

@@ -3,7 +3,7 @@
 
 Name:		vpnc
 Version:	0.5.3^20241114.git%{shortcommit}
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	IPSec VPN client compatible with Cisco equipment
 License:	GPL-2.0-or-later and BSD-2-Clause
 URL:		https://davidepucci.it/doc/vpnc/
@@ -100,6 +100,9 @@ install -m 0644 %{SOURCE8} %{buildroot}%{_tmpfilesdir}/%{name}.conf
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3^20241114.git11e15a1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed May 07 2025 Christian Krause <chkr@fedoraproject.org> - 0.5.3^20241114.git11e15a1-2
 - Fix issues with /usr/bin/ and /usr/sbin/ merge (#2363531)
 - Always use consolehelper, implicitly allowed for root,

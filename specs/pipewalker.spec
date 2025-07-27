@@ -3,7 +3,7 @@ Summary: Puzzle game about connecting components into a single circuit
 License: MIT
 
 Version: 1.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 URL: https://github.com/artemsen/pipewalker
 Source0: %{URL}/archive/v%{version}/%{name}-v%{version}.tar.gz
@@ -87,6 +87,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jan 20 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.1-4
 - Add a patch to fix FTBFS due to missing includes
 

@@ -2,7 +2,7 @@
 Name:    qtscriptgenerator
 Summary: A tool to generate Qt bindings for Qt Script
 Version: 0.2.0
-Release: 34%{?dist}
+Release: 35%{?dist}
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only  
@@ -135,6 +135,9 @@ install -D -p -m755 generator/generator %{buildroot}%{_qt4_bindir}/generator
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

@@ -2,10 +2,11 @@ Name:           targetd
 License:        GPL-3.0-only
 Summary:        Service to make storage remotely configurable
 Version:        0.10.4
-Release:        7%{?dist}
+Release:        8%{?dist}
 URL:            https://github.com/open-iscsi/targetd
 Source:         https://github.com/open-iscsi/targetd/archive/v%{version}/targetd-%{version}.tar.gz
 Source1:        targetd.service
+Patch1:         0001_rtslib_fb_api_fix.patch
 BuildArch:      noarch
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  python3-devel python3-gobject-base python3-blockdev libblockdev-lvm
@@ -19,7 +20,7 @@ administrator allocate volumes from an LVM volume group, and export
 those volumes over iSCSI.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -60,6 +61,10 @@ install -m 644 targetd.yaml.5 %{buildroot}%{_mandir}/man5/
 %config(noreplace) %{_sysconfdir}/target/targetd.yaml
 
 %changelog
+* Thu Jul 24 2025 Tony Asleson <tasleson@redhat.com> - 0.10.4-8
+- Workaround for: https://github.com/open-iscsi/rtslib-fb/issues/220
+- Resolves: https://bugzilla.redhat.com/show_bug.cgi?id=2383084
+
 * Mon Jun 09 2025 Python Maint <python-maint@redhat.com> - 0.10.4-7
 - Rebuilt for Python 3.14
 

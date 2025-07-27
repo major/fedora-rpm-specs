@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.7.2
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Click params for GeoJSON CLI
 
 License:        BSD-3-Clause
@@ -54,6 +54,9 @@ chmod -x README.rst
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.7.2-16
 - Rebuilt for Python 3.14
 

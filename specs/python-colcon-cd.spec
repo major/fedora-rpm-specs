@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.2.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Extension for colcon to change the current working directory
 
 License:        Apache-2.0
@@ -64,6 +64,9 @@ install -p -D function/colcon_cd.sh %{buildroot}%{_datadir}/colcon_cd/function/c
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.2.1-5
 - Rebuilt for Python 3.14
 

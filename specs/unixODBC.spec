@@ -2,7 +2,7 @@
 
 Name:    unixODBC
 Version: 2.3.12
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 # See README: Programs are GPL, libraries are LGPL
 # News Server library (Drivers/nn/yyparse.c) is GPLv3+
@@ -124,6 +124,9 @@ find $RPM_BUILD_ROOT%{_libdir} -name "*.so"   | sed "s|^$RPM_BUILD_ROOT||" > dev
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.12-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.12-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

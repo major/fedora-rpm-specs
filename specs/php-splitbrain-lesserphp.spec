@@ -3,7 +3,7 @@
 
 Name:    php-%{vendor}-%{project}
 Version: 0.10.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 Summary: A compiler for LESS written in PHP
 License: MIT OR GPL-3.0-only
@@ -85,6 +85,9 @@ phpunit9 --verbose --bootstrap %{buildroot}%{pkg_project_dir}/autoload.php
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Thu Jan 30 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.10.2-2
 - Remove unnecessary Obsoletes
 - Fix directory ownership

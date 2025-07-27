@@ -1,6 +1,6 @@
 Name:           primer3
 Version:        2.4.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        PCR primer design tool
 # Automatically converted from old format: BSD and GPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-BSD AND GPL-2.0-or-later
@@ -59,6 +59,9 @@ popd
 %{_sysconfdir}/primer3_config
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

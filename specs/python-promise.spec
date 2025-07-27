@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.3.0
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Promises/A+ implementation for Python
 
 License:        MIT
@@ -61,6 +61,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-*-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2.3.0-22
 - Rebuilt for Python 3.14
 

@@ -5,7 +5,7 @@
 
 Name:           python-uinput
 Version:        0.11.2
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Pythonic API to the Linux uinput kernel module
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -67,6 +67,9 @@ chmod a-x examples/*
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.2-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.11.2-15
 - Rebuilt for Python 3.14
 

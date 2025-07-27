@@ -1,6 +1,6 @@
 Name:           perl-Mail-Transport-Dbx
 Version:        0.07
-Release:        55%{?dist}
+Release:        56%{?dist}
 Summary:        Parse Outlook Express mailboxes
 # libdbx/libdbx.c:  GPLv2+
 # README:           GPL+ or Artistic
@@ -73,6 +73,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-56
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Mon Jul 07 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.07-55
 - Perl 5.42 rebuild
 

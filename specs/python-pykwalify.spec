@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.8.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Python lib/cli for JSON/YAML schema validation
 
 License:        MIT
@@ -53,6 +53,9 @@ found at: http://www.kuwata-lab.com/kwalify/
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.8.0-13
 - Rebuilt for Python 3.14
 

@@ -9,7 +9,7 @@
 
 Name: koji
 Version: 1.35.3
-Release: 4%{?dist}
+Release: 5%{?dist}
 # the included arch lib from yum's rpmUtils is GPLv2+
 License: LGPL-2.1-only AND GPL-2.0-or-later
 Summary: Build system tools
@@ -198,7 +198,7 @@ koji-web is a web UI to the Koji system.
 # to the wheel we will produce.
 sed -e '/util\/koji/g' -e '/koji_cli_plugins/g' -i setup.py
 
-%if 0%{?fedora} > 42
+%if 0%{?fedora} > 42 || 0%{?rhel} >= 10
 # Create a sysusers.d config file
 cat >koji.sysusers.conf <<EOF
 u kojibuilder - - /builddir /bin/bash
@@ -240,7 +240,7 @@ for fn in $extra_dirs ; do
     %py_byte_compile %{__python3} %{buildroot}$fn
 done
 
-%if 0%{?fedora} > 42
+%if 0%{?fedora} > 42 || 0%{?rhel} >= 10
 install -m0644 -D koji.sysusers.conf %{buildroot}%{_sysusersdir}/koji.conf
 %endif
 
@@ -322,7 +322,7 @@ install -m0644 -D koji.sysusers.conf %{buildroot}%{_sysusersdir}/koji.conf
 %dir /etc/kojid
 %config(noreplace) /etc/kojid/kojid.conf
 %attr(-,kojibuilder,kojibuilder) /etc/mock/koji
-%if 0%{?fedora} > 42
+%if 0%{?fedora} > 42 || 0%{?rhel} >= 10
 %{_sysusersdir}/koji.conf
 %endif
 
@@ -362,6 +362,9 @@ install -m0644 -D koji.sysusers.conf %{buildroot}%{_sysusersdir}/koji.conf
 %systemd_postun kojira.service
 
 %changelog
+* Fri Jul 25 2025 Adam Williamson <awilliam@redhat.com> - 1.35.3-5
+- Also do sysusers for EL 10+
+
 * Wed Jul 23 2025 Kevin Fenzi <kevin@scrye.com> - 1.35.3-4
 - Conditionalize sysusers for f43+
 

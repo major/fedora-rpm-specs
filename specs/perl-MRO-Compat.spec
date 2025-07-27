@@ -1,6 +1,6 @@
 Name:		perl-MRO-Compat
 Version:	0.15
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	Mro::* interface compatibility for Perls < 5.9.5
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/MRO-Compat
@@ -59,6 +59,9 @@ make test
 %{_mandir}/man3/MRO::Compat.3*
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 

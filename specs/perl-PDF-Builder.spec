@@ -13,7 +13,7 @@
 
 Name:           perl-PDF-Builder
 Version:        3.027
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Creation and modification of PDF files in Perl
 # docs/buildDoc.pl:             same as PDF-Builder
 # examples/Column.pl:           LGPL-2.1-or-later
@@ -207,6 +207,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.027-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Apr 22 2025 Petr Pisar <ppisar@redhat.com> - 3.027-1
 - 3.027 bump
 

@@ -15,7 +15,7 @@ Code from the future, delivered to you in the now.
 
 Name:           python-%{pypi_name}
 Version:        3.0.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Useful additions to futures, from the future
 
 License:        Apache-2.0
@@ -113,6 +113,9 @@ rm -rf doc/build/html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 3.0.0-5
 - Rebuilt for Python 3.14
 
