@@ -4,8 +4,8 @@
 
 Name:    akonadi-server
 Summary: PIM Storage Service
-Version: 25.07.80
-Release: 2%{?dist}
+Version: 25.07.90
+Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
 URL:     https://invent.kde.org/frameworks/akonadi
@@ -252,6 +252,9 @@ fi
 
 
 %changelog
+* Fri Jul 25 2025 Steve Cossette <farchord@gmail.com> - 25.07.90-1
+- 25.07.90
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 25.07.80-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

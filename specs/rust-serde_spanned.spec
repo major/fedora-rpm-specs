@@ -6,7 +6,7 @@
 %global crate serde_spanned
 
 Name:           rust-serde_spanned
-Version:        0.6.9
+Version:        1.0.0
 Release:        %autorelease
 Summary:        Serde-compatible spanned Value
 
@@ -48,6 +48,18 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+alloc-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+alloc-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "alloc" feature of the "%{crate}" crate.
+
+%files       -n %{name}+alloc-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+serde-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -58,6 +70,18 @@ This package contains library source intended for building other packages which
 use the "serde" feature of the "%{crate}" crate.
 
 %files       -n %{name}+serde-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+std-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+std-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "std" feature of the "%{crate}" crate.
+
+%files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

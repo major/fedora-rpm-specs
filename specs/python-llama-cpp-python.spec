@@ -1,5 +1,5 @@
 %global pypi_name llama-cpp-python
-%global pypi_version 0.3.7
+%global pypi_version 0.3.14
 # it's all python code
 %global debug_package %{nil}
 

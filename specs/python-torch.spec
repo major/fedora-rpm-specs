@@ -214,6 +214,7 @@ BuildRequires:  google-benchmark-devel
 %endif
 
 Requires:       python3dist(dill)
+Requires:       python3dist(yaml)
 
 Obsoletes:      caffe  = 1.0^git20200212.9b89154
 
@@ -638,6 +639,7 @@ export HIP_CLANG_PATH=%{rocmllvm_bindir}
 export PYTORCH_ROCM_ARCH=%{rocm_gpu_list_default}
 %if %{with gitcommit}
 %pyproject_install
+%pyproject_save_files '*torch*'
 %else
 %py3_install
 %endif
@@ -646,7 +648,7 @@ export PYTORCH_ROCM_ARCH=%{rocm_gpu_list_default}
 
 %if %{with gitcommit}
 %pyproject_install
-%pyproject_save_files torch
+%pyproject_save_files '*torch*'
 %else
 %py3_install
 %endif
@@ -670,10 +672,8 @@ export PYTORCH_ROCM_ARCH=%{rocm_gpu_list_default}
 %doc README.md 
 %{_bindir}/torchrun
 %{_bindir}/torchfrtrace
-%{python3_sitearch}/%{pypi_name}
-%{python3_sitearch}/%{pypi_name}-*.egg-info
+%{python3_sitearch}/%{pypi_name}*
 %{python3_sitearch}/functorch
-%{python3_sitearch}/torchgen
 
 %changelog
 %autochangelog

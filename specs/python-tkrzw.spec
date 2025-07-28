@@ -2,7 +2,7 @@
 
 Name:		python-%{module}
 Version:	0.1.32
-Release:	6%{?dist}
+Release:	7%{?dist}
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:	Apache-2.0
 Summary:	TKRZW Python bindings
@@ -14,6 +14,8 @@ BuildRequires:	gcc-c++
 BuildRequires:	python3-setuptools
 # python3-devel
 BuildRequires:	pkgconfig(python3)
+# python3-pip
+BuildRequires:	python3dist(pip)
 # python3-sphinx
 BuildRequires:	python3dist(sphinx)
 # tkrzw due tkrzw_build_util
@@ -54,15 +56,18 @@ This package contains API documentation of it.
 
 %prep
 %autosetup -n %{module}-python-%{version}
+%generate_buildrequires
+%pyproject_buildrequires
 
 
 %build
-%py3_build
+%pyproject_wheel
 %make_build apidoc
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{module}
 
 
 %check
@@ -70,14 +75,8 @@ export PYTHONPATH=%{buildroot}%{python3_sitearch}
 %make_build check
 
 
-%files -n python3-%{module}
+%files -n python3-%{module} -f %{pyproject_files}
 %license COPYING
-%{python3_sitearch}/%{module}-%{version}-py%{python3_version}.egg-info
-%if 0%{?epel} && 0%{?epel} < 9
-%{python3_sitearch}/tkrzw.cpython-%{python3_version_nodots}m-*-linux-gnu*.so
-%else
-%{python3_sitearch}/tkrzw.cpython-%{python3_version_nodots}-*-linux-gnu*.so
-%endif
 
 %files doc
 %license COPYING
@@ -85,6 +84,9 @@ export PYTHONPATH=%{buildroot}%{python3_sitearch}
 
 
 %changelog
+* Sat Jul 26 2025 TI_Eugene <ti.eugene@gmail.com> - 0.1.32-7
+- Removed deprecated macroses (rhbz #2378278)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.32-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

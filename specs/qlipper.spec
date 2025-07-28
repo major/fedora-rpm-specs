@@ -1,6 +1,6 @@
 Name:		qlipper
 Version:	5.1.2
-Release:	20%{?dist}
+Release:	21%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:	GPL-3.0-or-later
 Summary:	Lightweight clipboard history
@@ -24,7 +24,7 @@ Lightweight clipboard history applet.
 
 
 %build
-%cmake -DCMAKE_BUILD_TYPE=release -DUSE_SYSTEM_QXT=OFF -DUSE_SYSTEM_QTSA=ON
+%cmake -DCMAKE_BUILD_TYPE=release -DUSE_SYSTEM_QXT=OFF -DUSE_SYSTEM_QTSA=ON -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake_build
 
 
@@ -42,6 +42,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Sat Jul 26 2025 TI_Eugene <ti.eugene@gmail.com> - 5.1.2-21
+- Cmake 4.x fix (rhbz #2381391)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.2-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

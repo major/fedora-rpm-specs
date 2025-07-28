@@ -1,7 +1,7 @@
 %global xwlver 24.1
 
 Name:           wayback
-Version:        0.1
+Version:        0.2
 Release:        %autorelease
 Summary:        X11 compatibility layer built on wlroots and Xwayland
 

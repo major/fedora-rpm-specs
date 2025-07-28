@@ -5,7 +5,7 @@
 
 Name:		qxkb
 Version:	0.5.1
-Release:	15%{?dist}
+Release:	16%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:	GPL-2.0-only
 Url:		https://github.com/disels/qxkb
@@ -34,7 +34,7 @@ Can use svg icon for indicate language layer.
 %autosetup
 
 %build
-%cmake
+%cmake -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake_build
 
 %install
@@ -49,6 +49,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}.png
 
 %changelog
+* Sat Jul 26 2025 TI_Eugene <ti.eugene@gmail.com> - 0.5.1-16
+- Cmake 4.x fix (rhbz #2381404)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

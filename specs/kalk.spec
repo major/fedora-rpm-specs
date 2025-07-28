@@ -1,8 +1,8 @@
 %global kf6_min_version 5.240.0
 
 Name:           kalk
-Version:        25.07.80
-Release:        2%{?dist}
+Version:        25.07.90
+Release:        1%{?dist}
 License:        BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND GPL-3.0-or-later
 Summary:        %{name} is a convergent calculator for Plasma.
 Url:            https://apps.kde.org/%{name}/
@@ -68,6 +68,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 %license LICENSES/*
 
 %changelog
+* Fri Jul 25 2025 Steve Cossette <farchord@gmail.com> - 25.07.90-1
+- 25.07.90
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 25.07.80-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

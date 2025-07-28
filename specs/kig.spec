@@ -3,8 +3,8 @@
 
 Name:    kig
 Summary: Interactive Geometry 
-Version: 25.07.80
-Release: 2%{?dist}
+Version: 25.07.90
+Release: 1%{?dist}
 
 License: BSD-3-Clause AND GFDL-1.2-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.1-or-later
 URL:     https://invent.kde.org/education/%{name}
@@ -15,11 +15,12 @@ Source0: http://download.kde.org/%{stable_kf5}/release-service/%{version}/src/%{
 # https://bugzilla.redhat.com/show_bug.cgi?id=1238113
 # https://bugs.kde.org/show_bug.cgi?id=335965#c23
 # https://git.reviewboard.kde.org/r/126549/
-Patch1: 0001-explicitly-use-QLibrary-to-load-libpython-like-pykde.patch
+Patch1: 6889b48a624b3fea4d0582efc032115a91ef0979.patch
 
 ## upstream patches
 
 BuildRequires: boost-devel
+BuildRequires: boost-python3
 BuildRequires: python3
 BuildRequires: python3-rpm-macros
 BuildRequires: python3-devel
@@ -100,6 +101,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Fri Jul 25 2025 Steve Cossette <farchord@gmail.com> - 25.07.90-1
+- 25.07.90
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 25.07.80-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

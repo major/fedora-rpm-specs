@@ -9,6 +9,7 @@ License:       GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
 URL:           http://mate-desktop.org
 Source0:       http://pub.mate-desktop.org/releases/%{branch}/%{name}-%{version}.tar.xz
 
+BuildRequires: dbus-glib-devel
 BuildRequires: gucharmap-devel
 BuildRequires: libgtop2-devel
 BuildRequires: libmateweather-devel

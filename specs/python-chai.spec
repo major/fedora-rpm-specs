@@ -2,7 +2,7 @@
 
 Name:               python-%{modname}
 Version:            1.1.2
-Release:            36%{?dist}
+Release:            37%{?dist}
 Summary:            Easy to use mocking/stub/spy framework
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -19,10 +19,8 @@ for Ruby.
 
 %package -n         python%{python3_pkgversion}-%{modname}
 Summary:            Easy to use mocking/stub framework
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{modname}}
 
 BuildRequires:      python%{python3_pkgversion}-devel
-BuildRequires:      python%{python3_pkgversion}-setuptools
 # For testing
 BuildRequires:      python%{python3_pkgversion}-pytest
 
@@ -33,9 +31,6 @@ for Ruby.
 
 %prep
 %setup -q -n %{modname}-%{version}
-
-# Remove bundled egg-info in case it exists
-rm -rf %{modname}.egg-info
 
 # Remove py2-only files.  They make our tests fail on py3.
 rm chai/python2.py
@@ -51,22 +46,26 @@ sed -i \
     -e 's|assert_equals(|assertEqual(|' \
 $(find tests -type f)
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%{py3_build}
+%pyproject_wheel
 
 %install
-%{py3_install}
+%pyproject_install
+%pyproject_save_files -l %{modname}
 
 %check
 %pytest
 
-%files -n python%{python3_pkgversion}-%{modname}
+%files -n python%{python3_pkgversion}-%{modname} -f %{pyproject_files}
 %doc README.rst
-%license LICENSE.txt
-%{python3_sitelib}/%{modname}/
-%{python3_sitelib}/%{modname}-%{version}-*
 
 %changelog
+* Sat Jul 26 2025 Romain Geissler <romain.geissler@amadeus.com> - 1.1.2-37
+- Migrate to pyproject macros (rhbz#2377782).
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

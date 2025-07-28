@@ -3,7 +3,7 @@
 Summary: Network monitoring tools including ping
 Name: iputils
 Version: 20250602
-Release: 2%{?dist}
+Release: 3%{?dist}
 # some parts are under the original BSD (ping.c)
 # some are under GPLv2+ (tracepath.c)
 License: BSD-4-Clause-UC AND GPL-2.0-or-later
@@ -23,7 +23,6 @@ BuildRequires: meson
 BuildRequires: gettext
 BuildRequires: glibc-kernheaders >= 2.4-8.19
 BuildRequires: libidn2-devel
-BuildRequires: openssl-devel
 BuildRequires: libcap-devel
 BuildRequires: libxslt docbook5-style-xsl
 BuildRequires: systemd
@@ -90,6 +89,9 @@ install -cp ifenslave.8 ${RPM_BUILD_ROOT}%{_mandir}/man8/
 %attr(644,root,root) %{_mandir}/man8/ifenslave.8*
 
 %changelog
+* Fri Jul 25 2025 Jan Macku <jamacku@redhat.com> - 20250602-3
+- remove build dependency on openssl-devel removed in s20200821
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20250602-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,8 +1,8 @@
 Name:    filelight
 Summary: Graphical disk usage statistics
 Epoch:   1
-Version: 25.07.80
-Release: 2%{?dist}
+Version: 25.07.90
+Release: 1%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
 License: GPL-2.0-only OR GPL-3.0-only
@@ -74,6 +74,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 %{_kf6_datadir}/kio/servicemenus/filelight.desktop
 
 %changelog
+* Fri Jul 25 2025 Steve Cossette <farchord@gmail.com> - 1:25.07.90-1
+- 25.07.90
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:25.07.80-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

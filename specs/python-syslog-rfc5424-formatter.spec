@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.2.3
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Logging formatter which produces well-formatted RFC5424 Syslog Protocol messages
 
 License:        ISC
@@ -11,7 +11,6 @@ Source0:        %{pypi_source}
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
 
 %description
 This module implements a python logging formatter which produces well-formed
@@ -19,7 +18,6 @@ RFC5424-compatible Syslog messages to a given socket.
 
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
 This module implements a python logging formatter which produces well-formed
@@ -27,26 +25,29 @@ RFC5424-compatible Syslog messages to a given socket.
 
 %prep
 %autosetup -n %{pypi_name}-%{version}
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files syslog_rfc5424_formatter
 
 %check
-%py3_check_import syslog_rfc5424_formatter
+%pyproject_check_import
 
-%files -n python3-%{pypi_name}
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE.txt
 %doc README.md
 %doc CHANGES.md
-%{python3_sitelib}/syslog_rfc5424_formatter
-%{python3_sitelib}/syslog_rfc5424_formatter-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jul 25 2025  Laura Barcziova <lbarczio@redhat.com> - 1.2.3-12
+- Migrate from deprecated python macros
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

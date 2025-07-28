@@ -1,6 +1,6 @@
 Name:    kldap
-Version: 25.07.80
-Release: 2%{?dist}
+Version: 25.07.90
+Release: 1%{?dist}
 Summary: The KLDAP Library
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND MIT
@@ -82,6 +82,9 @@ find ./po -type f -name libkldap5.po -execdir mv {} libkldap6.po \;
 
 
 %changelog
+* Fri Jul 25 2025 Steve Cossette <farchord@gmail.com> - 25.07.90-1
+- 25.07.90
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 25.07.80-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

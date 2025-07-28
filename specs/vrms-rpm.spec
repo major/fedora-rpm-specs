@@ -3,7 +3,7 @@ Summary:       Report non-free software
 License:       GPL-3.0-only
 
 Version:       2.3
-Release:       5%{?dist}
+Release:       6%{?dist}
 
 BuildRequires: gcc
 BuildRequires: gettext-devel
@@ -15,12 +15,15 @@ BuildRequires: rpm-devel
 URL:           https://github.com/suve/%{name}
 Source0:       %{url}/archive/%{git_tag}/%{name}-%{git_tag}.tar.gz
 
+# Fix build errors with glibc 2.42
+Patch0:        0000-glibc-2.42.patch
+
 %description
 vrms-rpm ("virtual Richard M. Stallman") reports non-free packages
 installed on the system.
 
 %prep
-%autosetup -n %{name}-%{git_tag}
+%autosetup -p1 -n %{name}-%{git_tag}
 
 %build
 make all PREFIX=%{_prefix} %{?_smp_mflags} \
@@ -42,6 +45,9 @@ make test %{?_smp_mflags}
 %license LICENCE.txt IMAGE-CREDITS.txt
 
 %changelog
+* Sat Jul 26 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 2.3-6
+- Fix build failure with glibc 2.42
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -103,6 +103,9 @@ PCRE_LDFLAGS="-lpcreposix"
 PCRE_LDFLAGS="-lpcre2-posix"
 %endif
 %cmake -S METIS-%{version} -B METIS-%{version} \
+%if "%{?_lib}" == "lib64"
+ %{?_cmake_lib_suffix64} \
+%endif
  -DCMAKE_BUILD_TYPE:STRING=Release \
  -DGKLIB_PATH=METIS-%{version}/src//GKlib \
  -DGKRAND:BOOL=ON \
@@ -126,6 +129,9 @@ PCRE_LDFLAGS="-lpcreposix"
 PCRE_LDFLAGS="-lpcre2-posix"
 %endif
 %cmake -S metis64 -B metis64 \
+%if "%{?_lib}" == "lib64"
+ %{?_cmake_lib_suffix64} \
+%endif
  -DCMAKE_BUILD_TYPE:STRING=Release \
  -Dintsize:STRING=64 -Drealsize:STRING=64 \
  -DGKLIB_PATH=METIS-%{version}/src/GKlib \

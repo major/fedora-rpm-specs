@@ -6,7 +6,7 @@
 %global crate toml_edit
 
 Name:           rust-toml_edit
-Version:        0.22.27
+Version:        0.23.2
 Release:        %autorelease
 Summary:        Yet another format-preserving TOML parser
 
@@ -48,6 +48,18 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+debug-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+debug-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "debug" feature of the "%{crate}" crate.
+
+%files       -n %{name}+debug-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+display-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -72,18 +84,6 @@ use the "parse" feature of the "%{crate}" crate.
 %files       -n %{name}+parse-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+perf-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+perf-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "perf" feature of the "%{crate}" crate.
-
-%files       -n %{name}+perf-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+serde-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -106,18 +106,6 @@ This package contains library source intended for building other packages which
 use the "unbounded" feature of the "%{crate}" crate.
 
 %files       -n %{name}+unbounded-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+unstable-debug-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+unstable-debug-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "unstable-debug" feature of the "%{crate}" crate.
-
-%files       -n %{name}+unstable-debug-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

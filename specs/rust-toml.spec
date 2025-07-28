@@ -6,7 +6,7 @@
 %global crate toml
 
 Name:           rust-toml
-Version:        0.8.23
+Version:        0.9.2
 Release:        %autorelease
 Summary:        Native Rust encoder and decoder of TOML-formatted files and streams
 
@@ -51,6 +51,18 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+debug-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+debug-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "debug" feature of the "%{crate}" crate.
+
+%files       -n %{name}+debug-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+display-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -63,16 +75,16 @@ use the "display" feature of the "%{crate}" crate.
 %files       -n %{name}+display-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+indexmap-devel
+%package     -n %{name}+fast_hash-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+indexmap-devel %{_description}
+%description -n %{name}+fast_hash-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "indexmap" feature of the "%{crate}" crate.
+use the "fast_hash" feature of the "%{crate}" crate.
 
-%files       -n %{name}+indexmap-devel
+%files       -n %{name}+fast_hash-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+parse-devel
@@ -97,6 +109,30 @@ This package contains library source intended for building other packages which
 use the "preserve_order" feature of the "%{crate}" crate.
 
 %files       -n %{name}+preserve_order-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+serde-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+serde-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "serde" feature of the "%{crate}" crate.
+
+%files       -n %{name}+serde-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+std-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+std-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "std" feature of the "%{crate}" crate.
+
+%files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+unbounded-devel

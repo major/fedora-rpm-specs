@@ -1,7 +1,7 @@
 Name:    kdegraphics-mobipocket
 Summary: A collection of plugins to handle mobipocket files
-Version: 25.07.80
-Release: 2%{?dist}
+Version: 25.07.90
+Release: 1%{?dist}
 
 License: GPL-2.0-or-later AND CC0-1.0 AND LGPL-2.1-or-later
 URL:     https://www.kde.org/applications/graphics/
@@ -48,6 +48,7 @@ Provides:  qmobipocket-devel%{?_isa} = %{version}-%{release}
 %files
 %license LICENSES/*
 %{_libdir}/libQMobipocket6.so.3*
+%{_datadir}/qlogging-categories6/qmobipocket.categories
 
 %files devel
 %{_libdir}/libQMobipocket6.so
@@ -56,6 +57,9 @@ Provides:  qmobipocket-devel%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Fri Jul 25 2025 Steve Cossette <farchord@gmail.com> - 25.07.90-1
+- 25.07.90
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 25.07.80-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

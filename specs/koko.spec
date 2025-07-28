@@ -1,6 +1,6 @@
 Name:           koko
-Version:        25.07.80
-Release:        2%{?dist}
+Version:        25.07.90
+Release:        1%{?dist}
 # Automatically converted from old format: GPLv2+ and GPLv3 and LGPLv2 and LGPLv2+ and CC0 and BSD - review is highly recommended.
 License:        GPL-2.0-or-later AND GPL-3.0-only AND LicenseRef-Callaway-LGPLv2 AND LicenseRef-Callaway-LGPLv2+ AND CC0-1.0 AND LicenseRef-Callaway-BSD
 Summary:        An Image gallery application
@@ -87,6 +87,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 %{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
 
 %changelog
+* Fri Jul 25 2025 Steve Cossette <farchord@gmail.com> - 25.07.90-1
+- 25.07.90
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 25.07.80-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

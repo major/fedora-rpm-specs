@@ -7,8 +7,8 @@
 
 Name:    kamoso
 Summary: Application for taking pictures and videos from a webcam
-Version: 25.07.80
-Release: 2%{?dist}
+Version: 25.07.90
+Release: 1%{?dist}
 
 License: GFDL-1.2-or-later AND GPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later
 URL:     https://userbase.kde.org/Kamoso
@@ -43,6 +43,7 @@ BuildRequires:  cmake(KF6KIO)
 BuildRequires:  cmake(KF6I18n)
 BuildRequires:  cmake(KF6Purpose)
 BuildRequires:  cmake(KF6Notifications)
+BuildRequires:  cmake(KF6Kirigami)
 
 %if 0%{?tests}
 BuildRequires: mesa-libGL
@@ -53,6 +54,7 @@ BuildRequires: make
 
 # currently not linked, needs qml resources
 Requires: kf6-purpose%{?_isa}
+Requires: kf6-kirigami%{?_isa}
 Requires: qt6-qtdeclarative%{?_isa}
 
 %description
@@ -96,6 +98,9 @@ xvfb-run -a bash -c "%ctest"
 
 
 %changelog
+* Fri Jul 25 2025 Steve Cossette <farchord@gmail.com> - 25.07.90-1
+- 25.07.90
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 25.07.80-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

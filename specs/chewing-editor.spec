@@ -1,10 +1,6 @@
-%global snapdate 20240716
-%global commit  0c25a466458dcf6ad94fa4ca3501babb85a3cce2
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-
 Name:           chewing-editor
-Version:        0.1.1^%{snapdate}g%{shortcommit}
-Release:        3%{?dist}
+Version:        0.1.2
+Release:        1%{?dist}
 Summary:        Cross platform chewing user phrase editor
 Summary(zh_TW): 跨平台酷音詞庫編輯器
 
@@ -12,17 +8,18 @@ Summary(zh_TW): 跨平台酷音詞庫編輯器
 # gmock BSD-3-Clause
 License:        GPL-2.0-or-later AND BSD-3-Clause
 URL:            https://github.com/chewing/chewing-editor
-%if 0
-Source0:        %{url}/archive/refs/tags/%{version}.tar.gz
-%endif
-Source0:        %{url}/archive/%{commit}.tar.gz#/chewing-editor-%{shortcommit}.tar.gz
+Source0:        %{url}/releases/download/%{version}/chewing-editor-%{version}-Source.tar.gz
+Source1:        %{url}/releases/download/%{version}/chewing-editor-%{version}-Source.tar.gz.asc
+Source2:        https://chewing.im/.well-known/openpgpkey/hu/y84sdmnksfqswe7fxf5mzjg53tbdz8f5?l=release#/libchewing.pgp
 
 BuildRequires:  cmake gcc-c++
 BuildRequires:  cmake(Qt5Widgets)
 BuildRequires:  cmake(Qt5LinguistTools)
 BuildRequires:  pkgconfig(chewing) >= 0.4.0
+BuildRequires:  pkgconfig(gtest) >= 1.7.0
 BuildRequires:  help2man
 BuildRequires:  desktop-file-utils
+BuildRequires:  gnupg2
 Requires:       hicolor-icon-theme
 
 %description
@@ -35,7 +32,8 @@ chewing-editor 是一個跨平台的詞庫編輯器。它提供了簡單管理�
 有了它，使用者可以自訂自己的詞庫來提高輸入效率。
 
 %prep
-%autosetup -p1 -n %{name}-%{commit}
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%autosetup -p1 -n %{name}-%{version}-Source
 
 
 %build
@@ -61,6 +59,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/chewing-editor.deskt
 
 
 %changelog
+* Sat Jul 26 2025 Kan-Ru Chen <kanru@kanru.info> - 0.1.2-1
+- New upstream release
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1^20240716g0c25a46-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -65,12 +65,12 @@ sed -i '/setuptools/s/>=.*"/"/' pyproject.toml
 %files -n mingw32-python3-%{mod_name}
 %license LICENSE.txt
 %{mingw32_python3_sitearch}/%{mod_name}/
-%{mingw32_python3_sitearch}/MarkupSafe-%{version}.dist-info/
+%{mingw32_python3_sitearch}/%{mod_name}-%{version}.dist-info/
 
 %files -n mingw64-python3-%{mod_name}
 %license LICENSE.txt
 %{mingw64_python3_sitearch}/%{mod_name}/
-%{mingw64_python3_sitearch}/MarkupSafe-%{version}.dist-info/
+%{mingw64_python3_sitearch}/%{mod_name}-%{version}.dist-info/
 
 
 %changelog

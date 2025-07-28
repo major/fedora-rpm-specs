@@ -19,7 +19,7 @@
 %bcond yyjson 0
 
 Name:           python-orjson
-Version:        3.11.0
+Version:        3.11.1
 Release:        %autorelease
 Summary:        Fast, correct Python JSON library
 
@@ -63,15 +63,6 @@ URL:            https://github.com/ijl/orjson
 Source0:        orjson-%{version}-filtered.tar.xz
 # ./get_source ${COMMIT} (or ${TAG})
 Source1:        get_source
-
-# Fix big-endian PyStr
-# https://github.com/ijl/orjson/commit/9c33ff9df61b3b9d71527acf4fb60a735d841025
-#
-# Fixes:
-#
-# Test regressions (segfaults) on s390x architecture in 3.11.0
-# https://github.com/ijl/orjson/issues/584
-Patch:          %{url}/commit/9c33ff9df61b3b9d71527acf4fb60a735d841025.patch
 
 BuildRequires:  tomcli
 BuildRequires:  python3-devel

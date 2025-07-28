@@ -47,6 +47,7 @@ BuildRequires:  ocaml-cairo-devel
 %if %{with doc}
 BuildRequires:  hevea
 BuildRequires:  lynx
+BuildRequires:  tex-ec
 BuildRequires:  tex-latex
 %endif
 

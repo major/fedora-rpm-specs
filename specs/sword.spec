@@ -91,7 +91,15 @@ Perl bindings for The SWORD Library.
 %autosetup -p1
 
 %build
-%cmake -DLIBSWORD_LIBRARY_TYPE=Shared \
+%cmake -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
+       -DINCLUDE_INSTALL_DIR:PATH=%{_includedir} \
+       -DLIB_INSTALL_DIR:PATH=%{_libdir} \
+       -DSYSCONF_INSTALL_DIR:PATH=%{_sysconfdir} \
+       -DSHARE_INSTALL_PREFIX:PATH=%{_datadir} \
+       %if "%{?_lib}" == "lib64"
+         %{?_cmake_lib_suffix64} \
+       %endif
+       -DLIBSWORD_LIBRARY_TYPE=Shared \
        -DSWORD_PYTHON_3:BOOL=TRUE \
        -DSWORD_PERL:BOOL=TRUE \
        -DSWORD_BUILD_UTILS="Yes" \
@@ -156,6 +164,11 @@ make tests
 
 
 %changelog
+* Sat Jul 26 2025 Aaron Rainbolt <arraybolt@fedoraproject.org> - 1:1.9.0-33
+- Set minimum CMake version to 3.5 (rhbz#2381472)
+- Set non-standard CMake variables back to expected values (rhbz#2381665)
+- Migrate InstallMgr test to tmt framework (rhbz#2383081)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.9.0-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

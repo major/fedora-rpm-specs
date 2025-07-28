@@ -9,8 +9,8 @@
 %bcond check 1
 
 Name:           python-glyphsLib
-Version:        6.11.3
-Release:        2%{?dist}
+Version:        6.11.4
+Release:        1%{?dist}
 Summary:        A bridge from Glyphs source files to UFOs
 
 # The entire package is Apache-2.0, except:
@@ -127,6 +127,9 @@ ignore="${ignore-} --ignore=tests/builder/interpolation_test.py"
 %{_mandir}/man1/ufo2glyphs.1*
 
 %changelog
+* Sat Jul 26 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 6.11.4-1
+- Update to 6.11.4 (close RHBZ#2383571)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.11.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

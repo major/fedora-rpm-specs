@@ -3,12 +3,14 @@
 Name:		nomacs
 Summary:	Lightweight image viewer
 Version:	3.21.1
-Release:	2%{?dist}
+Release:	3%{?dist}
 # Automatically converted from old format: GPLv3+ and CC-BY - review is highly recommended.
 License:	GPL-3.0-or-later AND LicenseRef-Callaway-CC-BY
 Url:		http://nomacs.org
 Source0:	https://github.com/%{github_owner}/%{name}/releases/tag/%{name}-%{version}.tar.gz
 Source1:	https://github.com/novomesk/%{name}-plugins/archive/refs/tags/%{name}-plugins-%{version}.tar.gz
+# https://github.com/nomacs/nomacs/issues/1365
+Patch0:		%{name}-%{version}-libdir.diff
 BuildRequires:	gcc-c++
 BuildRequires:	cmake
 BuildRequires:	desktop-file-utils
@@ -58,11 +60,11 @@ Some usefull plugins for nomacs:
 %prep
 %setup
 %setup -T -D -a 1 -n %{name}-%{version}
-%setup -T -D -a 1 -n %{name}-%{version}
 # plug them in
 mv nomacs-plugins-%{version}/* ImageLounge/plugins/
 # Be sure
 rmdir {3rd-party/*,3rd-party}
+%patch 0
 
 
 %build
@@ -101,6 +103,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.nomacs.ImageLoung
 
 
 %changelog
+* Sat Jul 26 2025 TI_Eugene <ti.eugene@gmail.com> - 3.21.1-3
+- LIB_SUFFIX removed (rhbz #2381322)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.21.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

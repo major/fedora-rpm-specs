@@ -1,22 +1,10 @@
 Name:           perl-Inline-Python
-Version:        0.57
-Release:        17%{?dist}
+Version:        0.58
+Release:        1%{?dist}
 Summary:        Write Perl subs and classes in Python
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Inline-Python
 Source0:        https://cpan.metacpan.org/authors/id/N/NI/NINE/Inline-Python-%{version}.tar.gz
-#               Fix makefile logic
-#               https://github.com/niner/inline-python-pm/pull/38
-Patch0:         %{name}-makefile.patch
-#               Improve compatibility with strict(er) C99 compilers
-#               https://github.com/niner/inline-python-pm/pull/39
-Patch1:         %{name}-c99.patch
-#               Fix compiler warnings
-#               https://github.com/niner/inline-python-pm/pull/41
-Patch2:         %{name}-warn.patch
-#               Fix compilation with Python 3.13
-#               https://github.com/niner/inline-python-pm/pull/42
-Patch3:         %{name}-py3.13.patch
 
 BuildRequires:  gcc
 BuildRequires:  findutils
@@ -67,10 +55,6 @@ name-space is cached, and subsequent calls use the cached version.
 
 %prep
 %setup -q -n Inline-Python-%{version}
-%patch -P 0 -p1
-%patch -P 1 -p1
-%patch -P 2 -p1
-%patch -P 3 -p1
 
 %build
 INLINE_PYTHON_EXECUTABLE=/usr/bin/python3 %{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
@@ -93,6 +77,10 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sat Jul 26 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.58-1
+- 0.58 bump
+- Drop patches accepted upstream
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.57-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

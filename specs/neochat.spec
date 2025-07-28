@@ -1,6 +1,6 @@
 Name: neochat
-Version: 25.07.80
-Release: 2%{?dist}
+Version: 25.07.90
+Release: 1%{?dist}
 
 License: GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND BSD-3-Clause
 URL: https://invent.kde.org/network/%{name}
@@ -123,6 +123,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_kf6_datadir}/dbus-1/services/org.kde.neochat.service
 
 %changelog
+* Fri Jul 25 2025 Steve Cossette <farchord@gmail.com> - 25.07.90-1
+- 25.07.90
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 25.07.80-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -37,7 +37,7 @@ Name:           llama-cpp
 # This is the main license
 
 License:        MIT AND Apache-2.0 AND LicenseRef-Fedora-Public-Domain
-Version:        b4580
+Version:        b5904
 Release:        %autorelease
 
 URL:            https://github.com/ggerganov/llama.cpp
@@ -162,6 +162,7 @@ Requires:       python3dist(sentencepiece)
 # verson the *.so
 sed -i -e 's/POSITION_INDEPENDENT_CODE ON/POSITION_INDEPENDENT_CODE ON SOVERSION %{version}/' src/CMakeLists.txt
 sed -i -e 's/POSITION_INDEPENDENT_CODE ON/POSITION_INDEPENDENT_CODE ON SOVERSION %{version}/' ggml/src/CMakeLists.txt
+sed -i -e 's/POSITION_INDEPENDENT_CODE ON/POSITION_INDEPENDENT_CODE ON SOVERSION %{version}/' tools/mtmd/CMakeLists.txt
 sed -i '/target_link_libraries(ggml-hip PRIVATE ggml-base.*/aset_target_properties(ggml-hip PROPERTIES SOVERSION %{version})' ggml/src/ggml-hip/CMakeLists.txt
 sed -i '/target_compile_features(${GGML_CPU_NAME} PRIVATE c_std_11.*/aset_target_properties(${GGML_CPU_NAME} PROPERTIES SOVERSION %{version})' ggml/src/ggml-cpu/CMakeLists.txt
 
@@ -174,6 +175,7 @@ rm -rf exmples/llma.android
 find . -name '.gitignore' -exec rm -rf {} \;
 
 %build
+
 %if %{with examples}
 cd %{_vpath_srcdir}/gguf-py
 %pyproject_wheel
@@ -231,12 +233,27 @@ rm %{buildroot}%{_bindir}/convert*.py
 %files
 %license LICENSE
 %{_libdir}/libllama.so.%{version}
+%{_libdir}/libmtmd.so.%{version}
 %{_libdir}/libggml.so.%{version}
 %{_libdir}/libggml-base.so.%{version}
 %{_libdir}/libggml-cpu.so.%{version}
 %if %{with rocm}
 %{_libdir}/libggml-hip.so.%{version}
 %endif
+%{_bindir}/llama-batched-bench
+%{_bindir}/llama-bench
+%{_bindir}/llama-cli
+%{_bindir}/llama-cvector-generator
+%{_bindir}/llama-export-lora
+%{_bindir}/llama-gguf-split
+%{_bindir}/llama-imatrix
+%{_bindir}/llama-mtmd-cli
+%{_bindir}/llama-perplexity
+%{_bindir}/llama-quantize
+%{_bindir}/llama-run
+%{_bindir}/llama-server
+%{_bindir}/llama-tokenize
+%{_bindir}/llama-tts
 
 %files devel
 %dir %{_libdir}/cmake/llama
@@ -245,7 +262,9 @@ rm %{buildroot}%{_bindir}/convert*.py
 %{_includedir}/gguf.h
 %{_includedir}/ggml*.h
 %{_includedir}/llama*.h
+%{_includedir}/mtmd*.h
 %{_libdir}/libllama.so
+%{_libdir}/libmtmd.so
 %{_libdir}/libggml.so
 %{_libdir}/libggml-base.so
 %{_libdir}/libggml-cpu.so
@@ -254,7 +273,7 @@ rm %{buildroot}%{_bindir}/convert*.py
 %endif
 %{_libdir}/cmake/llama/*.cmake
 %{_libdir}/cmake/ggml/*.cmake
-%{_exec_prefix}/lib/pkgconfig/llama.pc
+%{_libdir}/pkgconfig/llama.pc
 
 %if %{with test}
 %files test

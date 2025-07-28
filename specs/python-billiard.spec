@@ -9,6 +9,7 @@ Summary:        Python multiprocessing fork with improvements and bugfixes
 License:        BSD-3-Clause
 URL:            https://github.com/celery/billiard
 Source:         %{pypi_source billiard}
+Patch:          0001-Don-t-set-_USE_VFORK-on-Python-3.14.patch
 
 BuildRequires:  python3-devel
 

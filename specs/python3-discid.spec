@@ -1,14 +1,18 @@
 Name:    python3-discid
-Version: 1.2.0
+Version: 1.3.0
 Release: %autorelease
 Summary: Libdiscid Python bindings
-URL:     https://github.com/JonnyJD/python-discid
+URL:     https://github.com/metabrainz/python-discid
 License: LGPL-3.0-or-later
 
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildArch: noarch
+
+BuildRequires: libdiscid
 BuildRequires: python3-devel
+BuildRequires: python3dist(pytest)
+
 Requires: libdiscid
 
 
@@ -34,7 +38,7 @@ Python-discid implements Python bindings for MusicBrainz libdiscid.
 
 
 %check
-%{python3} setup.py check
+%pytest
 
 
 %files -f %{pyproject_files}

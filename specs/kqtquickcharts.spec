@@ -1,7 +1,7 @@
 Name:    kqtquickcharts
 Summary: A QtQuick plugin to render beautiful and interactive charts
-Version: 25.07.80
-Release: 2%{?dist}
+Version: 25.07.90
+Release: 1%{?dist}
 
 # KDE e.V. may determine that future LGPL versions are accepted
 License: LGPL-2.1-only
@@ -51,6 +51,9 @@ Provides: %{name}-devel%{?_isa} = %{version}-%{release}
 %{_kf6_libdir}/cmake/KQtQuickCharts/KQtQuickChartsConfig.cmake
 
 %changelog
+* Fri Jul 25 2025 Steve Cossette <farchord@gmail.com> - 25.07.90-1
+- 25.07.90
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 25.07.80-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

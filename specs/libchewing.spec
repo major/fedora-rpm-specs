@@ -5,7 +5,7 @@
 %global name_zh_TW %{im_name_zh_TW}函式庫
 
 Name:           libchewing
-Version:        0.9.1
+Version:        0.10.0
 Release:        %autorelease
 Summary:        Intelligent phonetic input method library for Traditional Chinese
 Summary(zh_TW): %{name_zh_TW}

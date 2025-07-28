@@ -69,12 +69,12 @@ MinGW Python 3 %{pypi_name} library.
 %files -n mingw32-python3-%{mod_name}
 %dir %{mingw32_python3_sitearch}/PyQt5/
 %{mingw32_python3_sitearch}/PyQt5/sip*
-%{mingw32_python3_sitearch}/PyQt5_sip-%{version}.dist-info/
+%{mingw32_python3_sitearch}/pyqt5_sip-%{version}.dist-info/
 
 %files -n mingw64-python3-%{mod_name}
 %dir %{mingw64_python3_sitearch}/PyQt5/
 %{mingw64_python3_sitearch}/PyQt5/sip*
-%{mingw64_python3_sitearch}/PyQt5_sip-%{version}.dist-info/
+%{mingw64_python3_sitearch}/pyqt5_sip-%{version}.dist-info/
 
 
 %changelog
