@@ -1,10 +1,7 @@
 %bcond tests 1
 
-%global commit b0175de473823f6f6927b9ecdc8998059727a086
-%global snapdate 20250723
-
 Name:           python-pydantic
-Version:        2.11.7^%{snapdate}git%{sub %{commit} 1 7}
+Version:        2.12.0~a1
 %global srcversion %{lua:return(rpm.expand("%{version}"):gsub("~",""))}
 Release:        %autorelease
 Summary:        Data validation using Python type hinting
@@ -12,8 +9,7 @@ Summary:        Data validation using Python type hinting
 # SPDX
 License:        MIT
 URL:            https://github.com/pydantic/pydantic
-%dnl Source:         %{url}/archive/v%{srcversion}/pydantic-%{srcversion}.tar.gz
-Source:         %{url}/archive/%{commit}/pydantic-%{commit}.tar.gz
+Source:         %{url}/archive/v%{srcversion}/pydantic-%{srcversion}.tar.gz
 
 BuildArch:      noarch
 
@@ -68,8 +64,7 @@ This package includes the documentation for Pydantic in Markdown format.
 
 
 %prep
-%dnl %autosetup -n pydantic-%{srcversion} -p1
-%autosetup -n pydantic-%{commit} -p1
+%autosetup -n pydantic-%{srcversion} -p1
 
 # Delete pytest addopts. We don't care about benchmarking or coverage.
 tomcli-set pyproject.toml del 'tool.pytest.ini_options.addopts'

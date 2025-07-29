@@ -1,7 +1,5 @@
 %{?mingw_package_header}
 
-%global pypi_name PyQt5
-
 Name:           mingw-python-qt5
 Summary:        MinGW Windows PyQt5
 Version:        5.15.11
@@ -11,7 +9,7 @@ BuildArch:      noarch
 # Some examples are BSD-3-Clause and MIT, but examples are not packaged
 License:        GPL-3.0-only
 Url:            http://www.riverbankcomputing.com/software/pyqt/
-Source0:        %{pypi_source}
+Source0:        %{pypi_source PyQt5}
 
 
 BuildRequires:  make
@@ -73,7 +71,7 @@ MinGW Windows Python3-Qt5
 
 
 %prep
-%autosetup -p1 -n %{pypi_name}-%{version}
+%autosetup -p1 -n PyQt5-%{version}
 
 
 %build
@@ -90,16 +88,16 @@ mingw64-sip-build --build-dir=build_win64 --no-make --qt-shared --confirm-licens
 %license LICENSE
 %{mingw32_libdir}/qt5/plugins/designer/pyqt5.dll
 %{mingw32_libdir}/qt5/plugins/PyQt5/
-%{mingw32_python3_sitearch}/%{pypi_name}/
-%{mingw32_python3_sitearch}/%{pypi_name}-%{version}.dist-info/
+%{mingw32_python3_sitearch}/PyQt5/
+%{mingw32_python3_sitearch}/pyqt5-%{version}.dist-info/
 
 
 %files -n mingw64-python3-qt5
 %license LICENSE
 %{mingw64_libdir}/qt5/plugins/designer/pyqt5.dll
 %{mingw64_libdir}/qt5/plugins/PyQt5/
-%{mingw64_python3_sitearch}/%{pypi_name}/
-%{mingw64_python3_sitearch}/%{pypi_name}-%{version}.dist-info/
+%{mingw64_python3_sitearch}/PyQt5/
+%{mingw64_python3_sitearch}/pyqt5-%{version}.dist-info/
 
 
 %changelog

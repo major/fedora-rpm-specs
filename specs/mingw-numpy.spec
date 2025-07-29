@@ -7,8 +7,8 @@
 
 Name:          mingw-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       2.3.1
-Release:       2%{?dist}
+Version:       2.3.2
+Release:       1%{?dist}
 
 # Everything is BSD except for class SafeEval in numpy/lib/utils.py which is Python
 License:       BSD-3-Clause AND Apache-2.0
@@ -223,6 +223,9 @@ ln -s %{mingw64_python3_sitearch}/numpy/_core/include/numpy/ %{buildroot}%{mingw
 
 
 %changelog
+* Sun Jul 27 2025 Sandro Mani <manisandro@gmail.com> - 2.3.2-1
+- Update to 2.3.2
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -6,8 +6,8 @@
 Name:           pgadmin4
 # NOTE: Also regenerate requires as indicated below when updating!
 # Verify Patch4 on next update
-Version:        9.5
-Release:        2%{?dist}
+Version:        9.6
+Release:        1%{?dist}
 Summary:        Administration tool for PostgreSQL
 
 # i686, armv7hl: The webpack terser plugin aborts with JS heap memory exhaustion on these arches
@@ -41,13 +41,6 @@ Patch1:         pgadmin4_azure-mgmt-rdbms.patch
 Patch2:         pgadmin4_sphinx_youtube.patch
 # Drop packageManager field from package.json to avoid yarn complaining about corepack
 Patch3:         pgadmin4_corepack.patch
-# Don't store commit hash when building bundle
-Patch4:         pgadmin4_no-git.patch
-
-# Patch for building bundled mozjpeg
-%global mozjpeg_ver 4.1.1
-Source8:        https://github.com/mozilla/mozjpeg/archive/v%{mozjpeg_ver}/mozjpeg-%{mozjpeg_ver}.tar.gz
-Patch100:       mozjpeg.patch
 
 # For docs
 BuildRequires:  glibc-langpack-en
@@ -63,7 +56,6 @@ BuildRequires:  automake
 BuildRequires:  libpng-devel
 BuildRequires:  libtool
 BuildRequires:  yasm
-BuildRequires:  optipng
 
 # cd pgadmin4-<ver>
 # patch -p1 < pgadmin4_requirements.patch
@@ -182,15 +174,6 @@ Supplements:   (%{name} = %{version}-%{release} and langpacks-%{1})\
 sed -i 's|Exec=.*|Exec=%{_bindir}/%{name}-qt|' pkg/linux/%{name}.desktop
 cp -a %{SOURCE2} .
 
-# Use system optipng, remove bundled source code
-find .package-cache -name optipng.tar.gz -delete
-ln -s %{_bindir}/optipng $(readlink -f .package-cache/v6/npm-optipng-bin-*/node_modules/optipng-bin/vendor)/optipng
-
-# Update bundled mozjpeg
-mozjpeg_dir=$(readlink -f .package-cache/v6/npm-mozjpeg-*/node_modules/mozjpeg/)
-cp -a %SOURCE8 ${mozjpeg_dir}/vendor/source/mozjpeg.tar.gz
-%patch 100 -p0 -d ${mozjpeg_dir}/lib
-
 
 %build
 (
@@ -264,6 +247,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Sun Jul 27 2025 Sandro Mani <manisandro@gmail.com> - 9.6-1
+- Update to 9.6
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

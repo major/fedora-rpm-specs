@@ -25,7 +25,7 @@ URL:            https://github.com/biojppm/c4log
 Source:         %{url}/archive/%{commit}/c4log-%{commit}.tar.gz
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-%if %{undefined fc40} && %{undefined fc41}
+%if %{undefined fc41}
 ExcludeArch:    %{ix86}
 %endif
 

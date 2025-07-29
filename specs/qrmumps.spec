@@ -69,7 +69,12 @@ PDF documentation files of %{name}.
 rm -f aux/find/Find{BLAS,LAPACK}.cmake
 
 %build
+# TODO: Remove LIB_SUFFIX flag once upstream properly supports GNUInstallDirs
+# https://gitlab.com/qr_mumps/qr_mumps/-/merge_requests/9
 %cmake -Wno-dev -DQRM_VERSION:STRING=%{version} \
+%if "%{?_lib}" == "lib64"
+ %{?_cmake_lib_suffix64} \
+%endif
  -DARITH="d;s;z;c" -DCMAKE_BUILD_TYPE:STRING=Release \
  -DQRM_ORDERING_AMD:BOOL=ON -DQRM_ORDERING_METIS:BOOL=ON \
  -DQRM_ORDERING_SCOTCH:BOOL=ON -DQRM_WITH_STARPU:BOOL=OFF \

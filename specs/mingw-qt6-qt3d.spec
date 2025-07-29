@@ -30,17 +30,19 @@ Source0:        https://github.com/qt/%{qt_module}/archive/%{commit}/%{qt_module
 %else
 Source0:        http://download.qt.io/%{?pre:development}%{?!pre:official}_releases/qt/%{release_version}/%{version}%{?pre:-%pre}/submodules/%{qt_module}-everywhere-src-%{version}%{?pre:-%pre}.tar.xz
 %endif
+# Fix undefined reference to __imp__fstat32
+Patch0:         qt3d-stat.patch
 
 BuildRequires:  cmake
 BuildRequires:  ninja-build
 
-BuildRequires:  mingw32-filesystem >= 96
+BuildRequires:  mingw32-filesystem
 BuildRequires:  mingw32-gcc-c++
 BuildRequires:  mingw32-qt6-qtbase = %{version}
 BuildRequires:  mingw32-qt6-qtdeclarative = %{version}
 BuildRequires:  mingw32-qt6-qtshadertools = %{version}
 
-BuildRequires:  mingw64-filesystem >= 96
+BuildRequires:  mingw64-filesystem
 BuildRequires:  mingw64-gcc-c++
 BuildRequires:  mingw64-qt6-qtbase = %{version}
 BuildRequires:  mingw64-qt6-qtdeclarative = %{version}

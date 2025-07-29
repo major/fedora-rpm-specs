@@ -5,7 +5,7 @@
 %global crate safetensors
 
 Name:           rust-safetensors
-Version:        0.5.3
+Version:        0.6.0
 Release:        %autorelease
 Summary:        Functions for safer PyTorch safetensors read/write operations
 
@@ -17,8 +17,9 @@ Source:         %{crates_source}
 Patch:          safetensors-fix-metadata.diff
 
 # Test failures on i686:
-# tensor::tests::test_validation_overflow
+# tensor::tests::test_gpt2
 # tensor::tests::test_json_attack
+# tensor::tests::test_validation_overflow
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 

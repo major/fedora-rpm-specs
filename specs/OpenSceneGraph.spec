@@ -42,11 +42,11 @@
 
 Name:           OpenSceneGraph
 Version:        3.6.5
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        High performance real-time graphics toolkit
 
 # The OSGPL is just the wxWidgets license.
-License:        GPL-2.0-or-later WITH WxWindows-exception-3.1
+License:        LGPL-2.1-only WITH WxWindows-exception-3.1
 URL:            http://www.openscenegraph.org/
 Source0:        https://github.com/openscenegraph/%{name}/archive/%{name}-%{version}/%{name}-%{version}.tar.gz
 
@@ -794,6 +794,9 @@ mkdir -p %{buildroot}%{_datadir}/OpenSceneGraph
 %endif
 
 %changelog
+* Sun Jul 27 2025 Sandro Mani <manisandro@gmail.com> - 3.6.5-35
+- Fix license
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.5-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

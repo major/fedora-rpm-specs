@@ -110,6 +110,9 @@ Patch1: %{name}-gcc14.patch
 Patch2: %{name}-fix_GCC15.patch
 Patch3: %{name}-20250501-use_python3.patch
 
+# CMake 4.0 support
+Patch4: https://github.com/pioneerspacesim/pioneer/pull/6124.patch
+
 %fontpkg -a
 
 
@@ -146,6 +149,7 @@ Data files of %{name}.
 %patch -P 1 -p1 -b .backup
 %patch -P 2 -p1 -b .backup
 %patch -P 3 -p1 -b .backup
+%patch -P 4 -p1 -b .backup
 
 %build
 %cmake -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE \

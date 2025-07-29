@@ -44,8 +44,6 @@ Patch:          0003-Remove-unused-tracing-support.patch
 Patch:          0004-Remove-unused-git-based-versioning.patch
 # * Revert back to rustls/ring instead of aws_lc_rs
 Patch:          0005-Revert-back-to-rustls-ring-instead-of-aws_lc_rs.patch
-# * temporarily downgrade opener dependency from 0.7 to 0.6 to match cargo
-Patch:          0006-temporarily-downgrade-opener-dependency-from-0.7-to-.patch
 # * Serialize all tests with proxy-sensitive URLs
 #   https://github.com/rust-lang/rustup/pull/4372
 Patch:          0001-Serialize-all-tests-with-proxy-sensitive-URLs.patch

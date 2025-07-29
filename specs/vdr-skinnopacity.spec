@@ -3,7 +3,7 @@
 
 # Set vdr_version based on Fedora version
 %if 0%{?fedora} >= 43
-%global vdr_version 2.7.6
+%global vdr_version 2.7.7
 %elif 0%{?fedora} == 42
 %global vdr_version 2.7.4
 %else
@@ -12,7 +12,7 @@
 
 Name:           vdr-skinnopacity
 Version:        1.1.19
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A highly customizable native true color skin for the Video Disc Recorder
 License:        GPL-2.0-or-later
 URL:            https://gitlab.com/kamel5/SkinNopacity
@@ -77,6 +77,9 @@ install -Dpm 644 %{SOURCE1} \
 %{vdr_resdir}/plugins/skinnopacity/icons/
 
 %changelog
+* Fri Jul 25 2025 Martin Gansser <martinkg@fedoraproject.org> - 1.1.19-7
+- Rebuilt for new VDR API version 2.7.7
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.19-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

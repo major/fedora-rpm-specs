@@ -9,7 +9,7 @@ License:        BSD-2-Clause
 Source:         %{url}/archive/v%{version}/debugbreak-%{version}.tar.gz
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-%if %{undefined fc40} && %{undefined fc41}
+%if %{undefined fc41}
 ExcludeArch:    %{ix86}
 %endif
 

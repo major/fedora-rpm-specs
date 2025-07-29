@@ -3,7 +3,7 @@
 
 Name:           pyhoca-cli
 Version:        0.6.1.3
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Command line X2Go client written in Python
 
 License:        AGPL-3.0-or-later
@@ -12,7 +12,7 @@ Source0:        http://code.x2go.org/releases/source/%{name}/%{name}-%{version}.
 
 BuildArch:      noarch
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
+# Requires are in /usr/bin/pyhoca-cli and not generate automatically
 Requires:       python%{python3_pkgversion}-setproctitle
 Requires:       python%{python3_pkgversion}-x2go
 
@@ -35,30 +35,36 @@ on desktops and thin clients.
 %autosetup -p1
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
 # Fix shebang of pyhoca-cli executable.
 %py3_shebang_fix %{name}
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l pyhoca
 mkdir -p %{buildroot}/%{_bindir}/
 cp -p %{name} %{buildroot}/%{_bindir}/
 mkdir -p %{buildroot}/%{_mandir}/
 cp -rp man/* %{buildroot}/%{_mandir}/
 
 
-%files
-%license COPYING
+%files -f %{pyproject_files}
 %doc README TODO
 %{_bindir}/%{name}
-%{python3_sitelib}/PyHoca_CLI-*
-%{python3_sitelib}/pyhoca/
 %{_mandir}/man1/%{name}.1*
+%{python3_sitelib}/PyHoca_CLI-*-nspkg.pth
 
 
 %changelog
+* Sun Jul 27 2025 Orion Poplawski <orion@nwra.com> - 0.6.1.3-10
+- Use pyproject macros (rhbz#2377391)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1.3-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

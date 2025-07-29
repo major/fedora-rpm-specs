@@ -14,7 +14,7 @@
 
 Name: openbabel
 Version: 3.1.1
-Release: 37%{?dist}
+Release: 38%{?dist}
 Summary: Chemistry software file format converter
 License: GPL-2.0-only
 URL: https://openbabel.org/
@@ -55,6 +55,10 @@ Patch10: %{name}-3.1.1-bug2493.patch
 
 # (temporarily) disable some tests on: riscv64
 Patch11: %{name}-disable-tests-riscv64.patch
+
+# CMake 4.0 support
+# Cherry-picked from: https://github.com/openbabel/openbabel/pull/2784
+Patch12: 2784.patch
 
 BuildRequires: make
 BuildRequires: boost-devel
@@ -184,6 +188,7 @@ Ruby wrapper for the Open Babel library.
 %ifarch riscv64
 %patch -P 11 -p1 -b .riscv64
 %endif
+%patch -P 12 -p1 -b .backup
 
 %if 0%{?fedora}
 rm -rf src/formats/libinchi
@@ -218,6 +223,9 @@ export CXXFLAGS="%{optflags} -DEIGEN_ALTIVEC_DISABLE_MMA"
 %endif
 %endif
 %cmake \
+%if "%{?_lib}" == "lib64"
+ %{?_cmake_lib_suffix64} \
+%endif
  -Wno-dev \
  -DCMAKE_SKIP_RPATH:BOOL=ON \
  -DBUILD_GUI:BOOL=ON \
@@ -328,6 +336,10 @@ export PYTHONPATH=%{buildroot}%{python3_sitearch}
 %{ruby_vendorarchdir}/openbabel.so
 
 %changelog
+* Fri Jul 25 2025 Cristian Le <git@lecris.dev> - 3.1.1-38
+- Add CMake 4.0 support (rhbz#2381326)
+- Pass LIB_SUFFIX explicitly (rhbz#2381326)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.1-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

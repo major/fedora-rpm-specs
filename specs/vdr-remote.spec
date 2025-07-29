@@ -12,7 +12,7 @@
 
 Name:           vdr-%{pname}
 Version:        0.7.0
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Extended remote control plugin for VDR
 License:        GPL-1.0-or-later
 URL:            http://www.escape-edv.de/endriss/vdr/
@@ -74,8 +74,11 @@ usermod -a -G input %{vdr_user} || :
 %{vdr_libdir}/libvdr-%{pname}.so.%{vdr_apiversion}
 
 %changelog
-* Fri Jul 25 2025 Martin Gansser <martinkg@fedoraproject.org> - 0.7.0-40
+* Fri Jul 25 2025 Martin Gansser <martinkg@fedoraproject.org> - 0.7.0-41
 - Rebuilt for new VDR API version 2.7.7
+
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
 * Sat Jun 21 2025 Martin Gansser <martinkg@fedoraproject.org> - 0.7.0-39
 - Rebuilt for new VDR API version 2.7.6

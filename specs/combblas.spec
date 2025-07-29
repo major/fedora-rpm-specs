@@ -25,7 +25,7 @@
 
 Name:          combblas
 Version:       2.0.0
-Release:       12%{?dist}
+Release:       13%{?dist}
 Summary:       The Combinatorial BLAS Library
 
 # Main license for CombBLAS is BSD-3-Clause-LBNL
@@ -44,14 +44,15 @@ BuildRequires: gcc-c++
 BuildRequires: cmake
 BuildRequires: chrpath
 
-# Set MPI library paths
-Patch0: %{name}-libpaths.patch
-
 # Use a versioned soname for all libraries
 Patch1: %{name}-sublibs_soname.patch
 
 # https://github.com/PASSIONLab/CombBLAS/commit/ecf96214a0c666662954cf24b84df97f61d52dc9
 Patch2: %{name}-%{version}-removing_MPI_COMM_WORLD.patch
+
+# CMake 4.0 support
+# Cherry-picked from https://github.com/PASSIONLab/CombBLAS/pull/31
+Patch3: 31.patch
 
 %global desc \
 The Combinatorial BLAS (CombBLAS) is an extensible distributed-memory parallel \
@@ -121,14 +122,13 @@ find . -type f -name "*.tcc" -exec chmod 0644 '{}' \;
 %if %{with openmpi}
 %{_openmpi_load}
 mkdir -p build/openmpi
+%define _vpath_builddir build/openmpi
 export LDFLAGS="%{__global_ldflags} -lm -lrt"
-export CC=$MPI_BIN/mpicc
-export CXX=$MPI_BIN/mpic++
-%cmake -B build/openmpi -S ./ -DCMAKE_INSTALL_PREFIX=%{_prefix} \
+%cmake \
+ -DCMAKE_INSTALL_PREFIX:PATH=${MPI_HOME} \
+ -DCMAKE_INSTALL_LIBDIR:PATH=lib \
+ -DCMAKE_INSTALL_INCLUDEDIR:PATH=${MPI_INCLUDE} \
  -DMPIEXEC_NUMPROC_FLAG=-n -DMPIEXEC_MAX_NUMPROCS:STRING="`/usr/bin/getconf _NPROCESSORS_ONLN`" \
- -DMPI_C_HEADER_DIR:PATH=$MPI_INCLUDE -DMPI_C_ADDITIONAL_INCLUDE_DIRS:STRING=$MPI_INCLUDE \
- -DMPI_CXX_HEADER_DIR:PATH=$MPI_INCLUDE -DMPI_CXX_ADDITIONAL_INCLUDE_DIRS:STRING=$MPI_INCLUDE \
- -DMPI_LIB:PATH=..$MPI_LIB -DMPI_INCLUDE:PATH=..$MPI_INCLUDE \
 %if %{with debug}
  -DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo \
  -DCMAKE_C_FLAGS_RELWITHDEBINFO:STRING="-O0 -g -DDEBUG" -DCMAKE_CXX_FLAGS_RELWITHDEBINFO:STRING="-O0 -g -DDEBUG" \
@@ -137,8 +137,6 @@ export CXX=$MPI_BIN/mpic++
 %else
  -DCMAKE_BUILD_TYPE:STRING=Release
 %endif
-
-%define _vpath_builddir build/openmpi
 %cmake_build
 %{_openmpi_unload}
 %endif
@@ -148,14 +146,13 @@ export CXX=$MPI_BIN/mpic++
 %if %{with mpich}
 %{_mpich_load}
 mkdir -p build/mpich
+%define _vpath_builddir build/mpich
 export LDFLAGS="%{__global_ldflags} -lm -lrt"
-export CC=$MPI_BIN/mpicc
-export CXX=$MPI_BIN/mpic++
-%cmake -B build/mpich -S ./ -DCMAKE_INSTALL_PREFIX=%{_prefix} \
+%cmake \
+ -DCMAKE_INSTALL_PREFIX:PATH=${MPI_HOME} \
+ -DCMAKE_INSTALL_LIBDIR:PATH=lib \
+ -DCMAKE_INSTALL_INCLUDEDIR:PATH=${MPI_INCLUDE} \
  -DMPIEXEC_NUMPROC_FLAG=-n -DMPIEXEC_MAX_NUMPROCS:STRING="`/usr/bin/getconf _NPROCESSORS_ONLN`" \
- -DMPI_C_HEADER_DIR:PATH=$MPI_INCLUDE -DMPI_C_ADDITIONAL_INCLUDE_DIRS:STRING=$MPI_INCLUDE \
- -DMPI_CXX_HEADER_DIR:PATH=$MPI_INCLUDE -DMPI_CXX_ADDITIONAL_INCLUDE_DIRS:STRING=$MPI_INCLUDE \
- -DMPI_LIB:PATH=..$MPI_LIB -DMPI_INCLUDE:PATH=..$MPI_INCLUDE \
 %if %{with debug}
  -DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo \
  -DCMAKE_C_FLAGS_RELWITHDEBINFO:STRING="-O0 -g -DDEBUG" -DCMAKE_CXX_FLAGS_RELWITHDEBINFO:STRING="-O0 -g -DDEBUG" \
@@ -164,7 +161,6 @@ export CXX=$MPI_BIN/mpic++
  -DCMAKE_BUILD_TYPE:STRING=Release
 %endif
 
-%define _vpath_builddir build/mpich
 %cmake_build
 %{_mpich_unload}
 %endif
@@ -176,10 +172,6 @@ export CXX=$MPI_BIN/mpic++
 %define _vpath_builddir build/openmpi
 %cmake_install
 
-mkdir -p %{buildroot}$MPI_INCLUDE/%{truename}/3DSpGEMM %{buildroot}$MPI_INCLUDE/%{truename}/Applications %{buildroot}$MPI_INCLUDE/%{truename}/BipartiteMatchings
-install -pm 644 3DSpGEMM/*.h %{buildroot}$MPI_INCLUDE/%{truename}/3DSpGEMM/
-install -pm 644 Applications/*.h %{buildroot}$MPI_INCLUDE/%{truename}/Applications/
-
 chrpath -r $MPI_LIB %{buildroot}$MPI_LIB/libCombBLAS.so.*
 %{_openmpi_unload}
 %endif
@@ -188,10 +180,6 @@ chrpath -r $MPI_LIB %{buildroot}$MPI_LIB/libCombBLAS.so.*
 %{_mpich_load}
 %define _vpath_builddir build/mpich
 %cmake_install
-
-mkdir -p %{buildroot}$MPI_INCLUDE/%{truename}/3DSpGEMM %{buildroot}$MPI_INCLUDE/%{truename}/Applications %{buildroot}$MPI_INCLUDE/%{truename}/BipartiteMatchings
-install -pm 644 3DSpGEMM/*.h %{buildroot}$MPI_INCLUDE/%{truename}/3DSpGEMM/
-install -pm 644 Applications/*.h %{buildroot}$MPI_INCLUDE/%{truename}/Applications/
 
 chrpath -r $MPI_LIB %{buildroot}$MPI_LIB/libCombBLAS.so.*
 %{_mpich_unload}
@@ -266,6 +254,10 @@ export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB:$MPI_LIB
 %endif
 
 %changelog
+* Fri Jul 25 2025 Cristian Le <git@lecris.dev> - 2.0.0-13
+- CMake 4.0 support (rhbz#2380512)
+- Simplify install command
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

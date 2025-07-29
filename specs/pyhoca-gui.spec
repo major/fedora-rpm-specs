@@ -1,6 +1,6 @@
 Name:           pyhoca-gui
 Version:        0.6.1.1
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Graphical X2Go client written in (wx)Python
 
 License:        AGPL-3.0-or-later
@@ -8,42 +8,18 @@ URL:            https://www.x2go.org/
 Source0:        https://code.x2go.org/releases/source/%{name}/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
-%if 0%{?fedora} || 0%{?rhel} >= 8
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  python%{python3_pkgversion}-distutils-extra
-%else
-BuildRequires:  python2-devel
-BuildRequires:  python2-setuptools
-BuildRequires:  python2-distutils-extra
-%endif
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
 BuildRequires:  intltool
-%if 0%{?fedora} || 0%{?rhel} >= 8
+# Requires are in /usr/bin/pyhoca and not found by dependency generator
 Requires:       python%{python3_pkgversion}-cups
 Requires:       python%{python3_pkgversion}-setproctitle
 Requires:       python%{python3_pkgversion}-x2go >= 0.5.0.0
 Requires:       libnotify
 Requires:       python%{python3_pkgversion}-gobject-base
 Requires:       python%{python3_pkgversion}-wxpython4
-%else
-%if 0%{?rhel} && 0%{?rhel} < 7
-Requires:       system-config-printer-libs
-Requires:       python-argparse
-%else
-Requires:       python2-cups
-%endif
-Requires:       python2-setproctitle
-Requires:       python2-x2go >= 0.5.0.0
-%if 0%{?fedora} >= 22
-Requires:       libnotify
-Requires:       python2-gobject-base
-%else
-Requires:       notify-python
-%endif
-Requires:       python2-wxpython
-%endif
 
 %description
 X2Go is a server based computing environment with:
@@ -63,60 +39,43 @@ notification area and allows multiple X2Go session handling.
 %autosetup -p1
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%if 0%{?fedora} || 0%{?rhel} >= 8
 # Fix shebang of pyhoca-gui executable.
 %py3_shebang_fix %{name}
 %{__python3} setup.py build_i18n
-%py3_build
-%else
-%{__python2} setup.py build_i18n
-%py2_build
-%endif
+%pyproject_wheel
 
 
 %install
-%if 0%{?fedora} || 0%{?rhel} >= 8
-%py3_install
-%else
-%py2_install
-%endif
+%pyproject_install
+rm -r %{buildroot}%{python3_sitelib}%{_datadir}/locale
+mv %{buildroot}%{python3_sitelib}%{_datadir}/* %{buildroot}%{_datadir}/
+%pyproject_save_files -l pyhoca
 mkdir -p %{buildroot}%{_bindir}/
 cp -p %{name} %{buildroot}%{_bindir}/
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %find_lang PyHoca-GUI
 
 
-%post
-/bin/touch --no-create %{_datadir}/icons/PyHoca &>/dev/null || :
-
-%postun
-if [ $1 -eq 0 ] ; then
-    /bin/touch --no-create %{_datadir}/icons/PyHoca &>/dev/null
-    /usr/bin/gtk-update-icon-cache %{_datadir}/icons/PyHoca &>/dev/null || :
-fi
-
-%posttrans
-/usr/bin/gtk-update-icon-cache %{_datadir}/icons/PyHoca &>/dev/null || :
-
-
-%files -f PyHoca-GUI.lang
-%license COPYING
+%files -f PyHoca-GUI.lang -f %{pyproject_files}
 %doc README TODO
 %{_bindir}/%{name}
-%if 0%{?fedora} || 0%{?rhel} >= 8
-%{python3_sitelib}/*
-%else
-%{python2_sitelib}/*
-%endif
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/PyHoca/
 %{_datadir}/pixmaps/pyhoca_x2go-logo-ubuntu.svg
 %{_datadir}/pyhoca
 %{_mandir}/man1/%{name}.1*
+%{python3_sitelib}/PyHoca_GUI-*-nspkg.pth
 
 
 %changelog
+* Sun Jul 27 2025 Orion Poplawski <orion@nwra.com> - 0.6.1.1-23
+- Use pyproject macros (rhbz#2377392)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1.1-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

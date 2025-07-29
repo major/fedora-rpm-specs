@@ -2,12 +2,15 @@
 
 Name:           mingw-libxslt
 Version:        1.1.43
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        MinGW Windows Library providing the Gnome XSLT engine
 
 License:        MIT
 URL:            https://gitlab.gnome.org/GNOME/libxslt
 Source0:        https://gitlab.gnome.org/GNOME/libxslt/-/archive/v%{version}/libxslt-v%{version}.tar.bz2
+# Proposed fix for CVE-2025-7424
+# https://gitlab.gnome.org/GNOME/libxslt/-/issues/139#note_2479564
+Patch0:         gnome-libxslt-bug-139-apple-fix.patch
 
 BuildArch:      noarch
 
@@ -145,6 +148,9 @@ find %{buildroot} -name "*.la" -delete
 
 
 %changelog
+* Sun Jul 27 2025 Sandro Mani <manisandro@gmail.com> - 1.1.43-3
+- Apply proposed fix for CVE-2025-7424
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.43-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

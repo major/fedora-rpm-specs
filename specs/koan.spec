@@ -3,10 +3,9 @@
 
 Name:           koan
 Version:        3.0.1
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Kickstart over a network
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            https://github.com/cobbler/koan
 Source0:        https://github.com/cobbler/koan/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -24,14 +23,6 @@ system. For use with a boot-server configured with Cobbler.
 %package -n python%{python3_pkgversion}-koan
 Summary:        koan python%{python3_pkgversion} module
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
-%{?python_enable_dependency_generator}
-%if 0%{?el7}
-Requires:       python%{python3_pkgversion}-distro
-Requires:       python%{python3_pkgversion}-libvirt
-Requires:       python%{python3_pkgversion}-netifaces
-Requires:       python%{python3_pkgversion}-simplejson
-%endif
 Requires:       virt-install
 
 %description -n python%{python3_pkgversion}-koan
@@ -42,11 +33,15 @@ koan python%{python3_pkgversion} module.
 %autosetup -p1
 %py3_shebang_fix bin
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l koan
 
 %files
 %license COPYING
@@ -54,12 +49,12 @@ koan python%{python3_pkgversion} module.
 %{_bindir}/koan
 %{_bindir}/cobbler-register
 
-%files -n python%{python3_pkgversion}-koan
-%license COPYING
-%{python3_sitelib}/koan/
-%{python3_sitelib}/koan*.egg-info
+%files -n python%{python3_pkgversion}-koan -f %{pyproject_files}
 
 %changelog
+* Sun Jul 27 2025 Orion Poplawski <orion@nwra.com> - 3.0.1-17
+- Use pyproject macros (rhbz#2377299)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

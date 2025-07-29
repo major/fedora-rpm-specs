@@ -12,7 +12,7 @@
 %global crate cargo
 
 Name:           rust-cargo
-Version:        0.87.1
+Version:        0.88.0
 Release:        %autorelease
 Summary:        Package manager for Rust
 
@@ -23,7 +23,6 @@ Source:         %{crates_source}
 Patch:          cargo-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * drop features for statically linking cURL, libgit2, OpenSSL, and SQLite
-# * relax opener dependency to allow building with both v0.6 and v0.7
 # * relax exact openssl and openssl-sys dependencies
 # * relax rusqlite dependency to allow building with both v0.31 and v0.32
 Patch:          cargo-fix-metadata.diff
@@ -80,18 +79,6 @@ This package contains library source intended for building other packages which
 use the "openssl" feature of the "%{crate}" crate.
 
 %files       -n %{name}+openssl-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+openssl-sys-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+openssl-sys-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "openssl-sys" feature of the "%{crate}" crate.
-
-%files       -n %{name}+openssl-sys-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

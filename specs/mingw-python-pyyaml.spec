@@ -66,13 +66,13 @@ sed -i 's/Cython<3.0/Cython/' pyproject.toml
 %license LICENSE
 %{mingw32_python3_sitearch}/yaml/
 %{mingw32_python3_sitearch}/_yaml/
-%{mingw32_python3_sitearch}/PyYAML-%{version}.dist-info/
+%{mingw32_python3_sitearch}/pyyaml-%{version}.dist-info/
 
 %files -n mingw64-python3-%{mod_name}
 %license LICENSE
 %{mingw64_python3_sitearch}/yaml/
 %{mingw64_python3_sitearch}/_yaml/
-%{mingw64_python3_sitearch}/PyYAML-%{version}.dist-info/
+%{mingw64_python3_sitearch}/pyyaml-%{version}.dist-info/
 
 
 %changelog

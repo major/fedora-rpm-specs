@@ -7,7 +7,7 @@
 
 # Set vdr_version based on Fedora version
 %if 0%{?fedora} >= 43
-%global vdr_version 2.7.6
+%global vdr_version 2.7.7
 %elif 0%{?fedora} == 42
 %global vdr_version 2.7.4
 %else
@@ -32,7 +32,7 @@ Version:        0.6.4
 %if 0%{?gitver:0}
 Release:        0.48%{?gitver:.git%{gitshort}}%{?dist}
 %else
-Release:        6%{?dist}
+Release:        7%{?dist}
 %endif
 Summary:        Streaming plug-in for VDR
 License:        GPL-1.0-or-later AND GPL-2.0-or-later
@@ -114,6 +114,9 @@ install -Dpm 644 %{SOURCE2} \
 %config(noreplace) %{_sysconfdir}/sysconfig/vdr-plugins.d/%{pname}-client.conf
 
 %changelog
+* Fri Jul 25 2025 Martin Gansser <martinkg@fedoraproject.org> - 0.6.4-7
+- Rebuilt for new VDR API version 2.7.7
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

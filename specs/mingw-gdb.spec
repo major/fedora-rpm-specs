@@ -9,6 +9,8 @@ Summary:        MinGW Windows port of the GDB debugger
 License:        GPL-3.0-or-later AND BSD-3-Clause AND FSFAP AND LGPL-2.1-or-later AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LicenseRef-Fedora-Public-Domain AND GFDL-1.3-or-later AND LGPL-2.0-or-later WITH GCC-exception-2.0 AND GPL-3.0-or-later WITH GCC-exception-3.1 AND GPL-2.0-or-later WITH GNU-compiler-exception
 URL:            http://gnu.org/software/gdb/
 Source0:        https://ftp.gnu.org/gnu/gdb/gdb-%{version}.tar.xz
+# Fix incorrect termcap forward declarations
+Patch0:         gdb-termcap-decls.patch
 
 BuildArch:      noarch
 

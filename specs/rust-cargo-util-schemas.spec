@@ -5,7 +5,7 @@
 %global crate cargo-util-schemas
 
 Name:           rust-cargo-util-schemas
-Version:        0.8.0
+Version:        0.8.1
 Release:        %autorelease
 Summary:        Deserialization schemas for Cargo
 

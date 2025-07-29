@@ -127,7 +127,7 @@ mv %{buildroot}%{mingw64_libdir}/qscintilla2_qt5.dll %{buildroot}%{mingw64_bindi
 %files -n mingw32-python3-%{pkgname}-qt5
 %{mingw32_python3_sitearch}/PyQt5/bindings/Qsci/
 %{mingw32_python3_sitearch}/PyQt5/Qsci.pyd
-%{mingw32_python3_sitearch}/QScintilla-%{version}.dist-info/
+%{mingw32_python3_sitearch}/qscintilla-%{version}.dist-info/
 %{mingw32_datadir}/qt5/qsci/
 
 
@@ -141,7 +141,7 @@ mv %{buildroot}%{mingw64_libdir}/qscintilla2_qt5.dll %{buildroot}%{mingw64_bindi
 %files -n mingw64-python3-%{pkgname}-qt5
 %{mingw64_python3_sitearch}/PyQt5/bindings/Qsci/
 %{mingw64_python3_sitearch}/PyQt5/Qsci.pyd
-%{mingw64_python3_sitearch}/QScintilla-%{version}.dist-info/
+%{mingw64_python3_sitearch}/qscintilla-%{version}.dist-info/
 %{mingw64_datadir}/qt5/qsci/
 
 

@@ -7,7 +7,7 @@
 %bcond_without tests
 
 Name:           yt-dlp
-Version:        2025.06.30
+Version:        2025.07.21
 Release:        %autorelease
 Summary:        A command-line program to download videos from online video platforms
 
@@ -22,6 +22,11 @@ Source:         yt-dlp.spec.license
 # Revert this patch for compatibility with older Fedora versions
 # This patch is applied conditionally to Fedora <= 41
 Patch1000:      0001-Revert-rh-websockets-Upgrade-websockets-to-13.0-1081.patch
+# https://github.com/yt-dlp/yt-dlp/commit/c2ff2dbaec7929015373fe002e9bd4849931a4ce
+# [rh:requests] Work around partial read dropping data (#13599)
+# Revert this patch for compatibility with older Fedora versions
+# This patch is applied conditionally to Fedora <= 41
+Patch1001:      0001-Revert-rh-requests-Work-around-partial-read-dropping.patch
 
 BuildArch:      noarch
 
@@ -83,7 +88,7 @@ Fish command line completion support for yt-dlp.
 %autopatch -M 999 -p1
 %if %{defined fedora} && 0%{?fedora} <= 41
 # Revert patch for compatibility with older websockets
-%autopatch 1000 -p1
+%autopatch -m 1000 -p1
 %endif
 
 # Remove unnecessary shebangs

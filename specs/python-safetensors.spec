@@ -1,35 +1,35 @@
-Name:		python-safetensors
-Version:	0.5.3
-Release:	%autorelease
-Summary:	Python bindings for the safetensors library
+Name:           python-safetensors
+Version:        0.6.0
+Release:        %autorelease
+Summary:        Python bindings for the safetensors library
 
 # Results of the Cargo License Check
 # 
 # Apache-2.0
 # Apache-2.0 OR BSL-1.0
-# Apache-2.0 OR MIT
 # MIT
 # MIT OR Apache-2.0
 # Unlicense OR MIT
-License:	Apache-2.0 AND (Apache-2.0 OR BSL-1.0) AND MIT AND (Unlicense OR MIT)
-SourceLicense:	Apache-2.0
+License:        Apache-2.0 AND (Apache-2.0 OR BSL-1.0) AND MIT AND (Unlicense OR MIT)
+SourceLicense:  Apache-2.0
 # The PyPI package lives at https://pypi.org/project/safetensors/
 # But the GitHub URL encompasses the entire project including the separately-packaged Rust crate
-URL:		https://github.com/huggingface/safetensors
-Source:		%{url}/archive/refs/tags/v%{version}.tar.gz
+URL:            https://github.com/huggingface/safetensors
+Source:         %{url}/archive/refs/tags/v%{version}/safetensors-%{version}.tar.gz
 # Patch the bindings crate to use the distro crate, rather than the bundled crate sources
-Patch:		pysafetensors.patch
+# Also, for v0.6.0 sources, patch out the development version suffix
+Patch:          pysafetensors.patch
 
 # Exclude i686 because rust-safetensors does
-ExcludeArch:	%{ix86}
+ExcludeArch:   %{ix86}
 # Right now, torch is exclusive to x86_64 and aarch64
-%ifarch x86_64 || arch aarch64
+%ifarch %{x86_64} %{arm64}
 # Temporarily disable torch extra because pytorch is not cmpatible with Python 3.14
 # F43FailsToInstall: python3-torch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2372164
-%bcond_with torch
+%bcond torch 0
 %else
-%bcond_with torch
+%bcond torch 0
 %endif
 
 BuildRequires:	python3-devel
@@ -49,11 +49,7 @@ Summary:	%{summary}
 
 %description -n python3-safetensors %_description
 
-%if %{with torch}
-%pyproject_extras_subpkg -n python3-safetensors numpy,torch
-%else
-%pyproject_extras_subpkg -n python3-safetensors numpy
-%endif
+%pyproject_extras_subpkg -n python3-safetensors numpy%{?with_torch:,torch}
 
 
 %prep
@@ -92,24 +88,22 @@ rm bindings/python/tests/test_simple.py
 # Get the cargo buildrequires first, so that maturin will succeed
 cd bindings/python/
 %cargo_generate_buildrequires
-%if %{with torch}
-%pyproject_buildrequires -x numpy,torch
-%else
-%pyproject_buildrequires -x numpy
-%endif
+%pyproject_buildrequires -x numpy%{?with_torch:,torch}
 cd ../..
 
 %build
 cd bindings/python/
-%pyproject_wheel
+# Generate the dependency license file first, so maturin will find it
 %cargo_license_summary
 %{cargo_license} > LICENSE.dependencies
+%pyproject_wheel
 cd ../..
 
 
 %install
 %pyproject_install
-%pyproject_save_files safetensors
+# When saving the files, assert that a license file was found
+%pyproject_save_files -l safetensors
 
 
 %check
@@ -123,7 +117,6 @@ cd ../..
 
 
 %files -n python3-safetensors -f %{pyproject_files}
-%license LICENSE bindings/python/LICENSE.dependencies
 %doc README-safetensors.md bindings/python/README.md
 
 

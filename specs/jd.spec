@@ -11,19 +11,19 @@
 ##########################################
 # Defined by upsteam
 #
-%define         main_ver      0.13.0
+%define         main_ver      0.14.0
 #%%define         strtag        20200118
-%dnl %define         pre_ver       beta
+%dnl %define         pre_ver       alpha
 ##########################################
 #
 %global         reponame      JDim
-%global         gitdate       20250111
-%global         gitcommit     afa6968bb0196ada6f2e8bdacc0184815c13e5b2
+%global         gitdate       20250727
+%global         gitcommit     11a0e8c648092d51308acb67bc86cc44cf9b0e20
 %dnl %global         gitcommit     JDim-v%{main_ver}
 %global         shortcommit   %(c=%{gitcommit}; echo ${c:0:7})
 
-%global         tarballdate   20250111
-%global         tarballtime   2245
+%global         tarballdate   20250727
+%global         tarballtime   2350
 
 ##########################################
 # Defined by vendor
@@ -76,7 +76,7 @@
 Name:           jd
 Epoch:          1
 Version:        %{main_ver}%{?strtag:.%{strtag}}%{?pre_ver:~%{pre_ver}}%{gitver_rpm}
-Release:        3%{?dist}%{flagrel}
+Release:        1%{?dist}%{flagrel}
 Summary:        A 2ch browser
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -211,6 +211,9 @@ export ASAN_OPTIONS=detect_leaks=0
 %{_datadir}/icons/hicolor/*/apps/jdim.*
 
 %changelog
+* Sun Jul 27 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:0.14.0-1
+- 0.14.0
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.13.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

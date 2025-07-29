@@ -1,6 +1,6 @@
 Name:           netcdf4-python
 Version:        1.7.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Python/numpy interface to netCDF
 
 License:        MIT
@@ -11,12 +11,6 @@ Source0:        https://github.com/Unidata/netcdf4-python/archive/refs/tags/v%{v
 Patch0:         netcdf4-python-norpath.patch
 
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools >= 18
-BuildRequires:  python%{python3_pkgversion}-certifi
-BuildRequires:  python%{python3_pkgversion}-cftime
-BuildRequires:  python%{python3_pkgversion}-Cython
-BuildRequires:  python%{python3_pkgversion}-dateutil
-BuildRequires:  python%{python3_pkgversion}-numpy
 BuildRequires:  netcdf-devel
 Requires:       python%{python3_pkgversion}-netcdf4 = %{version}-%{release}
 
@@ -37,12 +31,6 @@ containing vlens, and vlens containing compound types) are not supported.
 
 %package -n python%{python3_pkgversion}-netcdf4
 Summary:        Python/numpy interface to netCDF
-Requires:       python%{python3_pkgversion}-certifi
-Requires:       python%{python3_pkgversion}-cftime
-Requires:       python%{python3_pkgversion}-Cython
-Requires:       python%{python3_pkgversion}-numpy
-Obsoletes:      netcdf4-python%{python3_pkgversion} < 1.2.7-3
-Provides:       netcdf4-python%{python3_pkgversion} = %{version}-%{release}
 
 %description -n python%{python3_pkgversion}-netcdf4
 netCDF version 4 has many features not found in earlier versions of the
@@ -63,17 +51,22 @@ containing vlens, and vlens containing compound types) are not supported.
 %autosetup -p1 -n %{name}-%{version}rel
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
 # Set to get libs from ncconfig to avoid directly linking to -lhdf5
 export USE_NCCONFIG=1
 # This causes the plugins to be duplicated into the python package
 # https://github.com/Unidata/netcdf4-python/issues/1263
 #export NETCDF_PLUGIN_DIR=%%{_libdir}/hdf5/plugin
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l netCDF4
 
  
 %check
@@ -95,13 +88,14 @@ PYTHONPATH=$(echo ../build/lib.linux-*) %{__python3} run_all.py
 %{_bindir}/ncinfo
 
 
-%files -n python%{python3_pkgversion}-netcdf4
-%license LICENSE
+%files -n python%{python3_pkgversion}-netcdf4 -f %{pyproject_files}
 %doc Changelog docs examples README.md
-%{python3_sitearch}/*
 
 
 %changelog
+* Sun Jul 27 2025 Orion Poplawski <orion@nwra.com> - 1.7.2-6
+- Use pyproject macros (rhbbz#2377339)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

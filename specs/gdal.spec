@@ -42,12 +42,12 @@
 %bcond_with java
 %endif
 
-#global pre rc1
+#global pre beta1
 
 
 Name:          gdal
-Version:       3.10.3
-Release:       6%{?dist}
+Version:       3.11.3
+Release:       1%{?dist}
 Summary:       GIS file format library
 License:       MIT
 URL:           http://www.gdal.org
@@ -67,12 +67,6 @@ Source5:       %{name}-cleaner.sh
 
 # Add some utils to the default install target
 Patch0:        gdal_utils.patch
-# Fix passing incompatible pointer type
-Patch1:        gdal_incompatible-pointer-types.patch
-# Add definitions of missing int16_t and int32_t
-Patch2:        gdal-3.10.2-integer-types.patch
-# Fix build against poppler 2025.05.0+
-Patch3:        https://github.com/OSGeo/gdal/commit/a689e2189ff0a464f3150ed8b2dd5a3cc1194012.patch
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -128,7 +122,6 @@ BuildRequires: libzstd-devel
 BuildRequires: mariadb-connector-c-devel
 %endif
 BuildRequires: netcdf-devel
-BuildRequires: ogdi-devel
 BuildRequires: openexr-devel
 BuildRequires: openssl-devel-engine
 %ifnarch %{ix86} %{arm}
@@ -175,6 +168,7 @@ BuildRequires: mingw32-expat
 BuildRequires: mingw32-freexl
 BuildRequires: mingw32-geos
 BuildRequires: mingw32-giflib
+BuildRequires: mingw32-json-c
 BuildRequires: mingw32-libarchive
 BuildRequires: mingw32-libgeotiff
 BuildRequires: mingw32-libgta
@@ -211,6 +205,7 @@ BuildRequires: mingw64-expat
 BuildRequires: mingw64-freexl
 BuildRequires: mingw64-geos
 BuildRequires: mingw64-giflib
+BuildRequires: mingw64-json-c
 BuildRequires: mingw64-libarchive
 BuildRequires: mingw64-libgeotiff
 BuildRequires: mingw64-libgta
@@ -380,22 +375,23 @@ MinGW Windows Python3 GDAL bindings.
 %endif
 
 %prep
-%autosetup -N -p1 -n %{name}-%{version}-fedora
+%autosetup -N -p1 -n %{name}-%{version}%{?pre:%pre}-fedora
 
 # Delete bundled libraries
-rm -rf frmts/zlib
+# rm -rf frmts/zlib
 rm -rf frmts/png/libpng
 rm -rf frmts/gif/giflib
 rm -rf frmts/jpeg/libjpeg
 rm -rf frmts/jpeg/libjpeg12
 rm -rf frmts/gtiff/libgeotiff
-rm -rf frmts/gtiff/libtiff
+# FIXME: frmts/libertiff/libtiff_codecs.h requires tif_lzw.c, tif_packbits.c, tif_lerc.c
+# rm -rf frmts/gtiff/libtiff
 rm -rf mrf/LERCV1
 rm -rf third_party/LercLib
 
 # Setup autotest directory
 tar xf %{SOURCE1}
-mv %{name}autotest-%{version} autotest
+mv %{name}autotest-%{version}%{?pre:%pre} autotest
 
 # Need to patch autotest
 %autopatch -p1
@@ -407,6 +403,8 @@ cp -a %{SOURCE4} .
 %build
 %cmake \
   -DCMAKE_INSTALL_INCLUDEDIR=include/gdal \
+  -DGDAL_USE_EXTERNAL_LIB=ON \
+  -DGDAL_USE_INTERNAL_LIBS=OFF \
 %if %{with java}
   -DGDAL_JAVA_INSTALL_DIR=%{_jnidir}/%{name} \
   -DGDAL_JAVA_JNI_INSTALL_DIR=%{_jnidir}/%{name} \
@@ -414,26 +412,17 @@ cp -a %{SOURCE4} .
 %if ! 0%{?fedora}
   -DGDAL_BUILD_OPTIONAL_DRIVERS=OFF \
   -DOGR_BUILD_OPTIONAL_DRIVERS=OFF \
-  -DGDAL_USE_JPEG=ON \
-  -DGDAL_USE_JPEG_INTERNAL=OFF \
-  -DGDAL_USE_GOOGLETEST=OFF \
-  -DGDAL_USE_LERC=OFF \
-  -DGDAL_USE_LERC_INTERNAL=OFF \
-  -DGDAL_USE_GEOTIFF=OFF \
-  -DGDAL_USE_GEOTIFF_INTERNAL=OFF \
   -DBUILD_PYTHON_BINDINGS=OFF \
-  -DBUILD_TESTING=OFF \
+  -DBUILD_TESTING=OFF
 %endif
-  -DGDAL_USE_JPEG12_INTERNAL=OFF \
-  -DENABLE_DEFLATE64=OFF
 %cmake_build
 
 %if %{with mingw}
 %mingw_cmake \
   -DBUILD_TESTING=OFF \
   -DCMAKE_INSTALL_INCLUDEDIR=include/gdal \
-  -DGDAL_USE_JPEG12_INTERNAL=OFF \
-  -DENABLE_DEFLATE64=OFF
+  -DGDAL_USE_EXTERNAL_LIB=ON \
+  -DGDAL_USE_INTERNAL_LIBS=OFF
 %mingw_make_build
 %endif
 
@@ -481,6 +470,9 @@ done
 
 
 %files
+%{_bindir}/gdal
+%{_bindir}/gdaladdo
+%{_bindir}/gdalbuildvrt
 %{_bindir}/gdal_contour
 %{_bindir}/gdal_create
 %{_bindir}/gdal_footprint
@@ -567,8 +559,8 @@ done
 %files libs
 %license LICENSE.TXT
 %doc NEWS.md PROVENANCE.TXT COMMITTERS PROVENANCE.TXT-fedora
-%{_libdir}/libgdal.so.36
-%{_libdir}/libgdal.so.36.*
+%{_libdir}/libgdal.so.37
+%{_libdir}/libgdal.so.37.*
 %{_datadir}/%{name}/
 %{_libdir}/gdalplugins/
 
@@ -635,23 +627,23 @@ done
 %{_bindir}/pct2rgb
 %{_bindir}/pct2rgb.py
 %{_bindir}/rgb2pct
-%{_bindir}/rgb2pct.py
-%{_datadir}/bash-completion/completions/gdal2tiles.py
-%{_datadir}/bash-completion/completions/gdal2xyz.py
-%{_datadir}/bash-completion/completions/gdal_calc.py
-%{_datadir}/bash-completion/completions/gdal_edit.py
-%{_datadir}/bash-completion/completions/gdal_fillnodata.py
-%{_datadir}/bash-completion/completions/gdal_merge.py
-%{_datadir}/bash-completion/completions/gdal_polygonize.py
-%{_datadir}/bash-completion/completions/gdal_proximity.py
-%{_datadir}/bash-completion/completions/gdal_retile.py
-%{_datadir}/bash-completion/completions/gdal_sieve.py
-%{_datadir}/bash-completion/completions/gdalchksum.py
-%{_datadir}/bash-completion/completions/gdalcompare.py
-%{_datadir}/bash-completion/completions/gdalident.py
-%{_datadir}/bash-completion/completions/gdalimport.py
-%{_datadir}/bash-completion/completions/gdalmove.py
-%{_datadir}/bash-completion/completions/ogrmerge.py
+%{_datadir}/bash-completion/completions/gdal
+%{_datadir}/bash-completion/completions/gdal2tiles
+%{_datadir}/bash-completion/completions/gdal2xyz
+%{_datadir}/bash-completion/completions/gdal_calc
+%{_datadir}/bash-completion/completions/gdalchksum
+%{_datadir}/bash-completion/completions/gdalcompare
+%{_datadir}/bash-completion/completions/gdal_edit
+%{_datadir}/bash-completion/completions/gdal_fillnodata
+%{_datadir}/bash-completion/completions/gdalident
+%{_datadir}/bash-completion/completions/gdalimport
+%{_datadir}/bash-completion/completions/gdal_merge
+%{_datadir}/bash-completion/completions/gdalmove
+%{_datadir}/bash-completion/completions/gdal_polygonize
+%{_datadir}/bash-completion/completions/gdal_proximity
+%{_datadir}/bash-completion/completions/gdal_retile
+%{_datadir}/bash-completion/completions/gdal_sieve
+%{_datadir}/bash-completion/completions/ogrmerge
 %{_mandir}/man1/gdal2tiles.1*
 %{_mandir}/man1/gdal_calc.1*
 %{_mandir}/man1/gdalcompare.1*
@@ -668,12 +660,80 @@ done
 %{_mandir}/man1/ogrmerge.1*
 %{_mandir}/man1/pct2rgb.1*
 %{_mandir}/man1/rgb2pct.1*
+%{_mandir}/man1/gdal-convert.1*
+%{_mandir}/man1/gdal-info.1*
+%{_mandir}/man1/gdal-mdim-convert.1*
+%{_mandir}/man1/gdal-mdim-info.1*
+%{_mandir}/man1/gdal-mdim.1*
+%{_mandir}/man1/gdal-raster-calc.1*
+%{_mandir}/man1/gdal-raster-clean-collar.1*
+%{_mandir}/man1/gdal-raster-clip.1*
+%{_mandir}/man1/gdal-raster-color-map.1*
+%{_mandir}/man1/gdal-raster-contour.1*
+%{_mandir}/man1/gdal-raster-convert.1*
+%{_mandir}/man1/gdal-raster-create.1*
+%{_mandir}/man1/gdal-raster-edit.1*
+%{_mandir}/man1/gdal-raster-fill-nodata.1*
+%{_mandir}/man1/gdal-raster-footprint.1*
+%{_mandir}/man1/gdal-raster-hillshade.1*
+%{_mandir}/man1/gdal-raster-index.1*
+%{_mandir}/man1/gdal-raster-info.1*
+%{_mandir}/man1/gdal-raster-mosaic.1*
+%{_mandir}/man1/gdal-raster-overview-add.1*
+%{_mandir}/man1/gdal-raster-overview-delete.1*
+%{_mandir}/man1/gdal-raster-pipeline.1*
+%{_mandir}/man1/gdal-raster-pixel-info.1*
+%{_mandir}/man1/gdal-raster-polygonize.1*
+%{_mandir}/man1/gdal-raster-reclassify.1*
+%{_mandir}/man1/gdal-raster-reproject.1*
+%{_mandir}/man1/gdal-raster-resize.1*
+%{_mandir}/man1/gdal-raster-roughness.1*
+%{_mandir}/man1/gdal-raster-scale.1*
+%{_mandir}/man1/gdal-raster-select.1*
+%{_mandir}/man1/gdal-raster-set-type.1*
+%{_mandir}/man1/gdal-raster-sieve.1*
+%{_mandir}/man1/gdal-raster-slope.1*
+%{_mandir}/man1/gdal-raster-stack.1*
+%{_mandir}/man1/gdal-raster-tile.1*
+%{_mandir}/man1/gdal-raster-tpi.1*
+%{_mandir}/man1/gdal-raster-tri.1*
+%{_mandir}/man1/gdal-raster-unscale.1*
+%{_mandir}/man1/gdal-raster-viewshed.1*
+%{_mandir}/man1/gdal-raster.1*
+%{_mandir}/man1/gdal-vector-clip.1*
+%{_mandir}/man1/gdal-vector-convert.1*
+%{_mandir}/man1/gdal-vector-edit.1*
+%{_mandir}/man1/gdal-vector-filter.1*
+%{_mandir}/man1/gdal-vector-geom-buffer.1*
+%{_mandir}/man1/gdal-vector-geom-explode-collections.1*
+%{_mandir}/man1/gdal-vector-geom-make-valid.1*
+%{_mandir}/man1/gdal-vector-geom-segmentize.1*
+%{_mandir}/man1/gdal-vector-geom-set-type.1*
+%{_mandir}/man1/gdal-vector-geom-simplify.1*
+%{_mandir}/man1/gdal-vector-geom-swap-xy.1*
+%{_mandir}/man1/gdal-vector-geom.1*
+%{_mandir}/man1/gdal-vector-grid.1*
+%{_mandir}/man1/gdal-vector-info.1*
+%{_mandir}/man1/gdal-vector-pipeline.1*
+%{_mandir}/man1/gdal-vector-rasterize.1*
+%{_mandir}/man1/gdal-vector-select.1*
+%{_mandir}/man1/gdal-vector-sql.1*
+%{_mandir}/man1/gdal-vector.1*
+%{_mandir}/man1/gdal-vector_concat.1*
+%{_mandir}/man1/gdal-vsi-copy.1*
+%{_mandir}/man1/gdal-vsi-delete.1*
+%{_mandir}/man1/gdal-vsi-list.1*
+%{_mandir}/man1/gdal-vsi-move.1*
+%{_mandir}/man1/gdal-vsi-sozip.1*
+%{_mandir}/man1/gdal-vsi-sync.1*
+%{_mandir}/man1/gdal-vsi.1*
+%{_mandir}/man1/gdal.1*
 %endif
 
 %if %{with mingw}
 %files -n mingw32-%{name}
 %license LICENSE.TXT
-%{mingw32_bindir}/libgdal-36.dll
+%{mingw32_bindir}/libgdal-37.dll
 %{mingw32_bindir}/gdal-config
 %{mingw32_libdir}/libgdal.dll.a
 %{mingw32_libdir}/cmake/gdal/
@@ -729,7 +789,7 @@ done
 
 %files -n mingw64-%{name}
 %license LICENSE.TXT
-%{mingw64_bindir}/libgdal-36.dll
+%{mingw64_bindir}/libgdal-37.dll
 %{mingw64_bindir}/gdal-config
 %{mingw64_libdir}/libgdal.dll.a
 %{mingw64_libdir}/cmake/gdal/
@@ -786,6 +846,9 @@ done
 
 
 %changelog
+* Sun Jul 27 2025 Sandro Mani <manisandro@gmail.com> - 3.11.3-1
+- Update to 3.11.3
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

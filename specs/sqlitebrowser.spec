@@ -1,9 +1,9 @@
-#global commit a302128d2e23984501ed0a77413594ad440eddde
-#global shortcommit %(c=%{commit}; echo ${c:0:7})
+%global commit ffe7e576c1c0f4b46ce710a79c89b6d7d9506e62
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           sqlitebrowser
 Version:        3.13.1
-Release:        3%{?dist}
+Release:        4%{?commit:.git%shortcommit}%{?dist}
 Summary:        Create, design, and edit SQLite database files
 
 License:        GPL-3.0-or-later OR MPL-2.0
@@ -21,12 +21,13 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
 BuildRequires:  libappstream-glib
 BuildRequires:  make
-BuildRequires:  qcustomplot-qt5-devel
-BuildRequires:  qhexedit2-qt5-devel
+BuildRequires:  qcustomplot-qt6-devel
+BuildRequires:  qhexedit2-qt6-devel
 BuildRequires:  sqlcipher-devel
-BuildRequires:  qscintilla-qt5-devel
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qttools-devel
+BuildRequires:  qscintilla-qt6-devel
+BuildRequires:  qt6-qtbase-devel
+BuildRequires:  qt6-qttools-devel
+BuildRequires:  qt6-qt5compat-devel
 
 Requires:       hicolor-icon-theme
 
@@ -46,11 +47,15 @@ rm -rf libs/{qcustomplot-source,qhexedit,qscintilla}
 
 %build
 %cmake \
+    -DQT_MAJOR=Qt6 \
     -DENABLE_TESTING=1 \
     -DFORCE_INTERNAL_QCUSTOMPLOT=OFF \
     -DFORCE_INTERNAL_QHEXEDIT=OFF \
-    -DQSCINTILLA_INCLUDE_DIR=%{_qt5_includedir} \
-    -DQSCINTILLA_LIBRARY=%{_libdir}/libqscintilla2_qt5.so \
+    -DQSCINTILLA_INCLUDE_DIR=%{_qt6_includedir} \
+    -DQSCINTILLA_LIBRARY=%{_libdir}/libqscintilla2_qt6.so \
+    -DQCustomPlot_LIBRARY=%{_libdir}/libqcustomplot-qt6.so \
+    -DQHexEdit_INCLUDE_DIR=%{_includedir}/qhexedit2-qt6 \
+    -DQHexEdit_LIBRARY=%{_libdir}/libqhexedit-qt6.so \
     -Dsqlcipher=ON
 %cmake_build
 
@@ -75,6 +80,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Sun Jul 27 2025 Sandro Mani <manisandro@gmail.com> - 3.13.1-4.gitffe7e57
+- Update to git ffe7e57, switch to qt6
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

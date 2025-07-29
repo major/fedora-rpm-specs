@@ -1,7 +1,7 @@
 %global octpkg statistics
 
 Name:           octave-%{octpkg}
-Version:        1.7.3
+Version:        1.7.5
 Release:        %autorelease
 Summary:        Additional statistics functions for Octave
 License:        GPL-3.0-or-later AND LicenseRef-Fedora-Public-Domain
@@ -51,7 +51,6 @@ chmod a-x %{buildroot}/%{octpkgdir}/*.m
 %{octpkgdir}/PKG_ADD
 %{octpkgdir}/PKG_DEL
 %{octpkgdir}/*.m
-%{octpkgdir}/@cvpartition/
 %{octpkgdir}/Classification/
 %{octpkgdir}/Clustering/
 %{octpkgdir}/datasets/

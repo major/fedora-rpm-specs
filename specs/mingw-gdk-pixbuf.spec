@@ -4,8 +4,8 @@
 %global release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-gdk-pixbuf
-Version:        2.42.12
-Release:        6%{?dist}
+Version:        2.43.3
+Release:        1%{?dist}
 Summary:        MinGW Windows GDK Pixbuf library
 
 License:        LGPL-2.0-or-later
@@ -15,15 +15,13 @@ Source0:        http://download.gnome.org/sources/gdk-pixbuf/%{release_version}/
 # If you want to rebuild this, do:
 # wine /usr/i686-w64-mingw32/sys-root/mingw/bin/gdk-pixbuf-query-loaders.exe | sed s@'Z:/usr/i686-w64-mingw32/sys-root/mingw'@'..'@ > gdk-pixbuf.loaders
 Source1:        gdk-pixbuf.loaders
-# Backport fix for CVE-2025-6199
-Patch0:         https://gitlab.gnome.org/GNOME/gdk-pixbuf/-/commit/c4986342b241cdc075259565f3fa7a7597d32a32.patch
 # Backport fix for CVE-2025-7345
 Patch1:         https://gitlab.gnome.org/GNOME/gdk-pixbuf/-/commit/4af78023ce7d3b5e3cec422a59bb4f48fa4f5886.patch
 
 BuildArch:      noarch
 
-BuildRequires:  mingw32-filesystem >= 95
-BuildRequires:  mingw64-filesystem >= 95
+BuildRequires:  mingw32-filesystem
+BuildRequires:  mingw64-filesystem
 BuildRequires:  mingw32-gcc
 BuildRequires:  mingw64-gcc
 BuildRequires:  mingw32-binutils
@@ -71,7 +69,12 @@ MinGW Windows GDK Pixbuf library.
 
 
 %build
-%mingw_meson -Drelocatable=true -Dbuiltin_loaders=bmp,gif,ico,jpeg,tiff,png -Dman=false -Dothers=enabled
+%mingw_meson \
+  -Drelocatable=true \
+  -Dbuiltin_loaders=bmp,gif,ico,jpeg,tiff,png \
+  -Dman=false \
+  -Ddocumentation=false \
+  -Dothers=enabled
 
 # Copy the loaders.cache file to the source tree
 install -m 0644 %{SOURCE1} build_win32/gdk-pixbuf/loaders.cache
@@ -139,6 +142,9 @@ install -m 0644 %{SOURCE1} %{buildroot}%{mingw64_libdir}/gdk-pixbuf-2.0/2.10.0/l
 
 
 %changelog
+* Sun Jul 27 2025 Sandro Mani <manisandro@gmail.com> - 2.43.3-1
+- Update to 2.43.3
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.42.12-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -14,7 +14,6 @@ BuildArch:      noarch
  
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
-BuildRequires:  python3-setuptools
 
 %global _description %{expand:
 Bringing the elegance of C EventHandler to Python The C language provides a
@@ -36,24 +35,26 @@ Summary:        %{summary}
 %prep
 %forgesetup
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+
+%pyproject_save_files -l events
 
 
 %check
 %pytest events/tests/tests.py
 
 
-%files -n python3-events
-%license LICENSE
+%files -n python3-events -f %{pyproject_files}
 %doc README.rst
-%{python3_sitelib}/events
-%{python3_sitelib}/Events-%{version}-py%{python3_version}.egg-info
 
 
 %changelog

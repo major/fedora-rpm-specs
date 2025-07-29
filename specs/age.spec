@@ -37,6 +37,8 @@ BuildRequires:  go-vendor-tools
 %go_vendor_license_buildrequires -c %{S:2}
 
 %build
+%global gomodulesmode GO111MODULE=on
+GO_LDFLAGS="-X main.Version=%{version}"
 for cmd in cmd/* ; do
   %gobuild -o %{gobuilddir}/bin/$(basename $cmd) %{goipath}/$cmd
 done
@@ -53,7 +55,7 @@ install -m 644 doc/age-keygen.1 %{buildroot}%{_mandir}/man1/
 %check
 %go_vendor_license_check -c %{S:2}
 %if %{with check}
-%gocheck
+%gotest ./...
 %endif
 
 %files -f %{go_vendor_license_filelist}
@@ -61,7 +63,8 @@ install -m 644 doc/age-keygen.1 %{buildroot}%{_mandir}/man1/
 %doc doc AUTHORS README.md
 %{_bindir}/age
 %{_bindir}/age-keygen
-%{_mandir}/man1/*
+%{_mandir}/man1/age.1*
+%{_mandir}/man1/age-keygen.1*
 
 
 %changelog

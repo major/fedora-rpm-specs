@@ -1,8 +1,8 @@
 %{?mingw_package_header}
 
 Name:           mingw-glib2
-Version:        2.85.1
-Release:        3%{?dist}
+Version:        2.85.2
+Release:        1%{?dist}
 Summary:        MinGW Windows GLib2 library
 
 License:        LGPL-2.0-or-later
@@ -297,6 +297,9 @@ find %{buildroot} -name "*.la" -delete
 
 
 %changelog
+* Sun Jul 27 2025 Sandro Mani <manisandro@gmail.com> - 2.85.2-1
+- Update to 2.85.2
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.85.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

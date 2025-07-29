@@ -47,8 +47,8 @@
 %global commit 6ab1e9eb9e67264218ffbdfc25010650da449a39
 
 Name:           suitesparse
-Version:        7.10.0
-Release:        2%{?dist}
+Version:        7.11.0
+Release:        1%{?dist}
 Summary:        A collection of sparse matrix libraries
 
 # See LICENSE.txt for a breakdown of all licenses:
@@ -363,6 +363,7 @@ done
 %{_libdir}/cmake/SuiteSparse_config/
 %{_libdir}/cmake/SuiteSparse/
 %{_libdir}/cmake/UMFPACK/
+%exclude %{_libdir}/cmake/*/*_static*.cmake
 %{_libdir}/pkgconfig/AMD.pc
 %{_libdir}/pkgconfig/BTF.pc
 %{_libdir}/pkgconfig/CAMD.pc
@@ -387,6 +388,7 @@ done
 %endif
 
 %files static
+%{_libdir}/cmake/*/*_static*.cmake
 %{_libdir}/lib*.a
 %if 0%{?build64}
 %exclude %{_libdir}/lib*64*.a
@@ -466,6 +468,10 @@ done
 %doc Doc/*
 
 %changelog
+* Sun Jul 27 2025 Orion Poplawski <orion@nwra.com> - 7.11.0-1
+- Update to 7.11.0
+- Separate static cmake config (rhbz#2355055)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.10.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

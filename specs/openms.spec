@@ -11,16 +11,21 @@ ExclusiveArch: %{qt6_qtwebengine_arches}
 %global __provides_exclude ^(%%(find %{buildroot}%{_libdir}/OpenMS -name '*.so' | xargs -n1 basename | sort -u | paste -s -d '|' -))
 %global __requires_exclude ^(%%(find %{buildroot}%{_libdir}/OpenMS -name '*.so' | xargs -n1 basename | sort -u | paste -s -d '|' -))
 
+%global commit b886c44b4ca0625932f9874613918856774cfd8d
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+%global date 20250722
+
 Name:      openms
 Summary:   LC/MS data management and analyses
 Version:   3.4.1
 Epoch:     2
-Release:   %autorelease
+Release:   %autorelease -s %{date}git%{shortcommit}
 # BSD-3-Clause is the main license
 # Apache-2.0, CC-BY-4.0 and CC0-1.0 are coming from TDL directory
 License:   BSD-3-Clause AND Apache-2.0 AND CC-BY-4.0 AND CC0-1.0
 URL:       http://www.openms.de/
-Source0:   https://github.com/OpenMS/OpenMS/archive/Release%{version}/OpenMS-release-%{version}.tar.gz
+#Source0:   https://github.com/OpenMS/OpenMS/archive/Release%%{version}/OpenMS-release-%%{version}.tar.gz
+Source0:   https://github.com/OpenMS/OpenMS/archive/%{commit}/OpenMS-%{commit}.tar.gz
 
 ##TOPPView, TOPPAS, INIFileEditor .desktop and icon files
 Source1:   https://raw.githubusercontent.com/OpenMS/OpenMS/develop/src/openms_gui/source/VISUAL/ICONS/TOPPView.png
@@ -74,7 +79,6 @@ Requires: R-core%{?_isa}
 Patch0: %{name}-remove_testflag.patch
 
 Patch1: %{name}-3.2.0-bz2254779.patch
-Patch2: %{name}-3.2.0-fix_GCC15.patch
 Patch3: %{name}-bug7907.patch
 
 
@@ -146,9 +150,9 @@ Summary: Python wrapper for OpenMS
 BuildRequires: python3-setuptools
 BuildRequires: python3-devel
 BuildRequires: python3-numpy
-BuildRequires: python3-autowrap >= 0.8.1
+BuildRequires: python3-autowrap >= 0.23.0
 BuildRequires: python3-pip
-BuildRequires: %{_bindir}/cython
+BuildRequires: python3-cython >= 3.1.0
 BuildRequires: python3-wheel
 BuildRequires: python3-biopython
 BuildRequires: python3-virtualenv
@@ -186,11 +190,10 @@ Summary: OpenMS documentation
 HTML documentation of OpenMS.
 
 %prep
-%autosetup -N -n OpenMS-release-%{version}
+%autosetup -N -n OpenMS-%{commit}
 
 %patch -P 0 -p1 -b .backup
 %patch -P 1 -p1 -b .backup
-%patch -P 2 -p1 -b .backup
 %ifarch %{power64}
 %patch -P 3 -p1 -b .backup
 %endif
@@ -203,10 +206,9 @@ sed -e 's| <project_group></project_group>||g' -i share/OpenMS/DESKTOP/*.appdata
 # Likely running out of memory during build
 %global _smp_ncpus_max 2
 
-mkdir -p build
 %if %{with debug}
-cmake -Wno-dev -B build -S ./ -DCMAKE_CXX_COMPILER_VERSION:STRING=$(gcc -dumpversion) \
- -DENABLE_UPDATE_CHECK:BOOL=OFF \
+cmake -Wno-dev -DCMAKE_CXX_COMPILER_VERSION:STRING=$(gcc -dumpversion) \
+ -DENABLE_UPDATE_CHECK:BOOL=OFF -DGIT_TRACKING:BOOL=OFF \
  -DCMAKE_COLOR_MAKEFILE:BOOL=ON \
  -DENABLE_IPO:BOOL=ON \
  -DCMAKE_CXX_FLAGS_DEBUG:STRING="-DDEBUG -O0 -g %{__global_ldflags}" -DCMAKE_C_FLAGS_DEBUG:STRING="-DDEBUG -O0 -g %{__global_ldflags}" \
@@ -216,7 +218,7 @@ cmake -Wno-dev -B build -S ./ -DCMAKE_CXX_COMPILER_VERSION:STRING=$(gcc -dumpver
  -DBoost_REGEX_LIBRARY_DEBUG:FILEPATH=%{_libdir}/libboost_regex.so \
  -DXercesC_LIBRARY_DEBUG:FILEPATH=%{_libdir}/libxerces-c.so \
 %else
-%cmake -Wno-dev -B build -S ./ -DCMAKE_CXX_COMPILER_VERSION:STRING=$(gcc -dumpversion) \
+%cmake -Wno-dev -DCMAKE_CXX_COMPILER_VERSION:STRING=$(gcc -dumpversion) \
  -DGIT_TRACKING:BOOL=OFF \
  -DENABLE_UPDATE_CHECK:BOOL=OFF \
  -DCMAKE_COLOR_MAKEFILE:BOOL=ON \
@@ -264,29 +266,32 @@ cmake -Wno-dev -B build -S ./ -DCMAKE_CXX_COMPILER_VERSION:STRING=$(gcc -dumpver
 %if 0%{?with_pyOpenMS}
  -DPYOPENMS=ON -DPYTHON_EXECUTABLE:FILEPATH=%{__python3} \
  -DCYTHON_EXECUTABLE:FILEPATH=%{_bindir}/cython3 \
- -DPY_NUM_THREADS:STRING=2 -DPY_NUM_MODULES:STRING=4
+ -DPY_NUM_THREADS:STRING=2 -DPY_NUM_MODULES:STRING=4 \
 %else
- -DPYOPENMS=OFF
+ -DPYOPENMS=OFF \
+%endif
+%if "%{?_lib}" == "lib64"
+  %{?_cmake_lib_suffix64}
 %endif
 
 %if %{with check}
-%make_build all -C build
+%cmake_build
 %else
-%make_build OpenMS TOPP GUI -C build
+%cmake_build -- OpenMS TOPP GUI
 %endif
 
 %if 0%{?with_pyOpenMS}
 export LD_LIBRARY_PATH=$PWD/lib:$LD_LIBRARY_PATH
-make -j1 pyopenms -C build
+%cmake_build -- -j1 pyopenms
 %endif
 
 %install
 export LD_LIBRARY_PATH=$PWD/lib:$LD_LIBRARY_PATH
-%{_bindir}/xvfb-run -a %make_install -C build
+%{_bindir}/xvfb-run -a %cmake_install
 
 # Install executable tests
 %if %{with check}
-install -pm 755 build/src/tests/class_tests/bin/*_test %{buildroot}%{_bindir}/
+install -pm 755 %_vpath_builddir/src/tests/class_tests/bin/*_test %{buildroot}%{_bindir}/
 %endif
 
 # Fix rpaths
@@ -294,7 +299,7 @@ patchelf --set-rpath %{_libdir}/OpenMS %{buildroot}%{_bindir}/*
 patchelf --set-rpath %{_libdir}/OpenMS %{buildroot}%{_libdir}/OpenMS/*.so
 
 %if 0%{?with_pyOpenMS}
-pushd build/pyOpenMS
+pushd %_vpath_builddir/pyOpenMS
 %py3_install
 
 ln -s -f %{_libdir}/OpenMS/libOpenMS.so %{buildroot}%{python3_sitearch}/pyopenms/libOpenMS.so
