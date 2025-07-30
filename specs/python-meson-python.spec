@@ -1,7 +1,8 @@
 %bcond tests 1
-# The python-pytest-mock dependency is unwanted on RHEL; we can omit it and
-# still run most of the tests.
+# The python-pytest-mock and wheel dependencies are unwanted on RHEL;
+# we can omit them and still run most of the tests.
 %bcond pytest_mock %{undefined rhel}
+%bcond wheel %{undefined rhel}
 # RHEL will not have patchelf (which is used for adjusting RPATH in shared
 # libraries bundled in wheels); that is OK because the package is
 # buildroot-only there and the packages built with python-meson-python will not
@@ -81,6 +82,9 @@ sed -r -i "s/^  '(build|pytest-cov)/#&/" pyproject.toml
 %if %{without pytest_mock}
 sed -r -i "s/^  '(pytest-mock)/#&/" pyproject.toml
 %endif
+%if %{without wheel}
+sed -r -i "s/^  '(wheel)/#&/" pyproject.toml
+%endif
 
 
 %check -a
@@ -93,6 +97,11 @@ ignore="${ignore-} --ignore=tests/test_pep518.py"
 %if %{without pytest_mock}
 k="${k-}${k+ and }not test_invalid_build_dir"
 k="${k-}${k+ and }not test_use_ansi_escapes"
+%endif
+%if %{without wheel}
+ignore="${ignore-} --ignore=tests/test_editable.py"
+ignore="${ignore-} --ignore=tests/test_wheel.py"
+ignore="${ignore-} --ignore=tests/test_wheelfile.py"
 %endif
 %if %{without patchelf}
 k="${k-}${k+ and }not test_contents"

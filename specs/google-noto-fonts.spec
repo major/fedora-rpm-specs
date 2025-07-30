@@ -33,7 +33,7 @@ in Unicode.\
 
 Name:           %{fontname}-fonts
 Version:        %{rpmver}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Hinted and Non Hinted OpenType fonts for Unicode scripts
 License:        OFL-1.1
 URL:            https://notofonts.github.io/
@@ -335,7 +335,7 @@ local subpackages = {
       obsoletes={ "sans-phags-pa" },
     },
     { alias="sans-serif", family="Sans Phoenician",
-      obsoletes={ "sans-phenician-vf" }
+      obsoletes={ "sans-phoenician-vf" }
     },
     { alias="sans-serif", family="Sans Psalter Pahlavi" },
     { alias="sans-serif", family="Sans Rejang", lang={ "rej" } },
@@ -1220,6 +1220,10 @@ done
 
 
 %changelog
+* Mon Jul 28 2025 Akira TAGOH <tagoh@redhat.com> - 20250701-4
+- Fix a typo in Obsolete.
+  Resolves: rhbz#2382600
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

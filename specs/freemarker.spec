@@ -1,6 +1,6 @@
 Name:           freemarker
 Version:        2.3.31
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        The Apache FreeMarker Template Engine
 License:        Apache-2.0
 URL:            https://freemarker.apache.org
@@ -16,11 +16,9 @@ Patch0:         enable-jdom.patch
 # Fix compatibility with javacc 7.0.12
 Patch2:         90.patch
 
-BuildRequires:  ant
+BuildRequires:  ant-openjdk25 
 BuildRequires:  gnupg2
 BuildRequires:  ivy-local
-BuildRequires:  java-1.8.0-openjdk
-BuildRequires:  java-11-openjdk-devel
 BuildRequires:  mvn(biz.aQute:bnd)
 BuildRequires:  mvn(commons-logging:commons-logging)
 BuildRequires:  mvn(dom4j:dom4j)
@@ -108,6 +106,10 @@ JAVA_HOME=%{_jvmdir}/java-11 ant \
 %license LICENSE NOTICE
 
 %changelog
+* Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 2.3.31-17
+- Rebuilt for java-25-openjdk as preffered jdk
+- removed useless jdk8 and 11
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.31-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

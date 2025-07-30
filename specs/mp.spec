@@ -40,7 +40,7 @@ Summary: An open-source library for mathematical programming
 # GPL-2.0-or-later: src/asl/mkstemps.c (not included in the binary RPM)
 # GPL-3.0-or-later: src/gsl/default.c (not included in the binary RPM)
 License: SMLNJ AND BSD-2-Clause
-Release: 14%{?dist}
+Release: 15%{?dist}
 URL: https://mp.ampl.com/
 VCS: git:%{forgeurl}.git
 Source0: %{forgesource}
@@ -89,7 +89,7 @@ BuildRequires: gecode-devel
 BuildRequires: git-core
 %if 0%{?with_jacop}
 BuildRequires: jacop
-BuildRequires: java-devel
+BuildRequires: java-25-devel
 BuildRequires: make
 Requires: jacop
 %endif
@@ -246,6 +246,9 @@ rm -rf %{buildroot}%{_datadir}
 %{_includedir}/mp
 
 %changelog
+* Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 20240319-15
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20240319-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

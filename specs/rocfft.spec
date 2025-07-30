@@ -87,18 +87,9 @@
 %global gpu_list %{rocm_gpu_list_default}
 %endif
 
-# gfx950 is an experimental target
-# Enabling will short circuit the normal build.
-# There is no check support.
-# To use do
-# $ module load rocm/gfx950
-#     <do stuff>
-# $ module purge
-%bcond_with gfx950
-
 Name:           %{rocfft_name}
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        ROCm Fast Fourier Transforms (FFT) library
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -180,37 +171,6 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %{summary}
 %endif
 
-%if %{with gfx950}
-
-%package gfx950
-Summary:        The gfx950 rocFFT package
-Provides:       rocfft-gfx950 = %{version}-%{release}
-Conflicts:      %{name}
-
-%description gfx950
-%{summary}
-
-%package gfx950-devel
-Summary:        The gfx950 rocFFT development package
-Requires:       %{name}-gfx950%{?_isa} = %{version}-%{release}
-Provides:       rocfft-gfx950-devel = %{version}-%{release}
-Conflicts:      %{name}-devel
-
-%description gfx950-devel
-%{summary}
-
-%if %{with test}
-%package gfx950-test
-Summary:        The gfx950 rocFFT test package
-Requires:       %{name}-gfx950%{?_isa} = %{version}-%{release}
-Conflicts:      %{name}-test
-
-%description gfx950-test
-%{summary}
-
-%endif # gfx950-test
-%endif # gfx950
-
 %prep
 %autosetup -n %{upstreamname}-rocm-%{version} -p 1
 
@@ -228,29 +188,11 @@ export LDFLAGS="${LDFLAGS} -pie"
 # RHEL 9 has an issue with missing symbol __truncsfhf2 in libgcc.
 # So switch from libgcc to rocm-llvm's libclang-rt.builtins with
 # the rtlib=compiler-rt. Leave unwind unchange with unwindlib=libgcc
-
-%if %{with gfx950}
-
-module load rocm/gfx950
-
-%cmake %{cmake_generator} %{cmake_config} \
-    -DGPU_TARGETS=${ROCM_GPUS} \
-    -DCMAKE_INSTALL_BINDIR=${ROCM_BIN} \
-    -DCMAKE_INSTALL_INCLUDEDIR=${ROCM_INCLUDE} \
-    -DCMAKE_INSTALL_LIBDIR=${ROCM_LIB}
-
-%else
 %cmake %{cmake_generator} %{cmake_config} \
     -DGPU_TARGETS=%{gpu_list} \
     -DCMAKE_INSTALL_LIBDIR=%_libdir
 
-%endif
-
 %cmake_build
-
-%if %{with gfx950}
-module purge
-%endif
 
 %install
 %cmake_install
@@ -276,28 +218,6 @@ fi
 %endif
 %endif
 
-%if %{with gfx950}
-%files gfx950
-%doc README.md
-%license LICENSE.md
-%{_libdir}/rocm/gfx950/lib/librocfft.so.0{,.*}
-
-%files gfx950-devel
-%dir %{_libdir}/rocm/gfx950/include/rocfft
-%dir %{_libdir}/rocm/gfx950/lib/cmake/rocfft
-%{_libdir}/rocm/gfx950/include/rocfft/*.h
-%{_libdir}/rocm/gfx950/lib/librocfft.so
-%{_libdir}/rocm/gfx950/lib/cmake/rocfft/*.cmake
-
-
-%if %{with test}
-%files gfx950-test
-%{_libdir}/rocm/gfx950/bin/rocfft-test
-%{_libdir}/rocm/gfx950/bin/rtc_helper_crash
-%endif
-
-%else
-
 %files
 %doc README.md
 %license LICENSE.md
@@ -315,9 +235,11 @@ fi
 %{_bindir}/rocfft-test
 %{_bindir}/rtc_helper_crash
 %endif
-%endif
 
 %changelog
+* Mon Jul 28 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-3
+- Remove experimental gfx950
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

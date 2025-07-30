@@ -15,7 +15,7 @@ Summary:    Blog tool and publishing platform
 URL:        https://wordpress.org/
 Name:       wordpress
 Version:    %{upstream_version}%{?upstream_prever:~%upstream_lower}
-Release:    2%{?dist}
+Release:    3%{?dist}
 # Wordpress     is GPL-2.0-or-later
 # php-simplepie is BSD-3-Clause
 # php-getid3    is LGPL-3.0-or-later (or some others)
@@ -95,7 +95,7 @@ Requires: php-zip
 Requires: php-zlib
 Requires: httpd
 # Unbundled
-Requires: ca-certificates
+Requires: /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
 # Bundled
 # grep "SIMPLEPIE_VERSION'" wordpress/wp-includes/class-simplepie.php
 Provides: bundled(php-simplepie) = 1.8.0
@@ -208,7 +208,7 @@ rm -f ${RPM_BUILD_ROOT}%{_datadir}/wordpress/{license.txt,readme.html}
 
 # Remove bundled ca-bundle.crt
 rm ${RPM_BUILD_ROOT}%{_datadir}/wordpress/wp-includes/certificates/ca-bundle.crt
-ln -s %{_sysconfdir}/pki/tls/certs/ca-bundle.crt \
+ln -s %{_sysconfdir}/pki/ca-trust/extracted/pem/tls-ca-bundle.pem \
    ${RPM_BUILD_ROOT}%{_datadir}/wordpress/wp-includes/certificates/ca-bundle.crt
 
 # Remove backup copies of patches
@@ -252,6 +252,9 @@ end
 
 
 %changelog
+* Mon Jul 28 2025 Remi Collet <remi@remirepo.net> - 6.8.2-3
+- fix system certificates path
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.8.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

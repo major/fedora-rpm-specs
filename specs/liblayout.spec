@@ -1,13 +1,13 @@
 Name: liblayout
 Version: 0.2.10
-Release: 39%{?dist}
+Release: 40%{?dist}
 Summary: CSS based layouting framework
 License: LGPL-2.1-or-later and Unicode-DFS-2016
 Source: http://downloads.sourceforge.net/jfreereport/liblayout-%{version}.zip
 URL: http://reporting.pentaho.org/
-BuildRequires: ant, java-devel, jpackage-utils, flute, libloader
+BuildRequires: ant-openjdk25 , java-25-devel, jpackage-utils, flute, libloader
 BuildRequires: librepository, pentaho-libxml, libfonts, sac, libbase >= 1.1.3
-Requires: java-headless, jpackage-utils, flute, libloader >= 1.1.3
+Requires: java-25-headless, jpackage-utils, flute, libloader >= 1.1.3
 Requires: librepository >= 1.1.3, libfonts >= 1.1.3, sac
 Requires: pentaho-libxml, libbase >= 1.0.0
 BuildArch: noarch
@@ -60,6 +60,9 @@ cp -rp build/api $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 %{_javadocdir}/%{name}
 
 %changelog
+* Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 0.2.10-40
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.10-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

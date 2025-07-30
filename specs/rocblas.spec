@@ -117,18 +117,9 @@
 %global gpu_list %{rocm_gpu_list_default}
 %endif
 
-# gfx950 is an experimental target
-# Enabling will short circuit the normal build.
-# There is no check support.
-# To use do
-# $ module load rocm/gfx950
-#     <do stuff>
-# $ module purge
-%bcond_with gfx950
-
 Name:           %{rocblas_name}
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        BLAS implementation for ROCm
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT AND BSD-3-Clause
@@ -239,37 +230,6 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %{summary}
 %endif
 
-%if %{with gfx950}
-
-%package gfx950
-Summary:        The gfx950 rocBLAS package
-Provides:       rocblas-gfx950 = %{version}-%{release}
-Conflicts:      %{name}
-
-%description gfx950
-%{summary}
-
-%package gfx950-devel
-Summary:        The gfx950 rocBLAS development package
-Requires:       %{name}-gfx950%{?_isa} = %{version}-%{release}
-Provides:       rocblas-gfx950-devel = %{version}-%{release}
-Conflicts:      %{name}-devel
-
-%description gfx950-devel
-%{summary}
-
-%if %{with test}
-%package gfx950-test
-Summary:        The gfx950 rocBLAS test package
-Requires:       %{name}-gfx950%{?_isa} = %{version}-%{release}
-Conflicts:      %{name}-test
-
-%description gfx950-test
-%{summary}
-
-%endif # gfx950-test
-%endif # gfx950
-
 %prep
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
 sed -i -e 's@set( BLAS_LIBRARY "blas" )@set( BLAS_LIBRARY "cblas" )@' clients/CMakeLists.txt
@@ -316,29 +276,12 @@ if [ ${CORES} = 1 ]; then
     fi
 fi
 
-%if %{with gfx950}
-
-module load rocm/gfx950
-
-%cmake %{cmake_generator} %{cmake_config} \
-    -DGPU_TARGETS=${ROCM_GPUS} \
-    -DBUILD_WITH_TENSILE=OFF \
-    -DCMAKE_INSTALL_BINDIR=${ROCM_BIN} \
-    -DCMAKE_INSTALL_INCLUDEDIR=${ROCM_INCLUDE} \
-    -DCMAKE_INSTALL_LIBDIR=${ROCM_LIB}
-
-%else
 %cmake %{cmake_generator} %{cmake_config} \
     -DGPU_TARGETS=%{gpu_list} \
     -DBUILD_WITH_TENSILE=%{build_tensile} \
     -DCMAKE_INSTALL_LIBDIR=%_libdir \
 
-%endif
-
 %cmake_build
-%if %{with gfx950}
-module purge
-%endif
 
 %install
 %cmake_install
@@ -359,25 +302,6 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library/src:$LD_LIBRARY_PATH
 %endif
 %endif
 %endif
-
-%if %{with gfx950}
-%files gfx950
-%license LICENSE.md
-%{_libdir}/rocm/gfx950/lib/librocblas.so.4{,.*}
-
-%files gfx950-devel
-%dir %{_libdir}/rocm/gfx950/include/rocblas
-%dir %{_libdir}/rocm/gfx950/lib/cmake/rocblas
-%{_libdir}/rocm/gfx950/include/rocblas/rocblas_module.f90
-%{_libdir}/rocm/gfx950/lib/librocblas.so
-%{_libdir}/rocm/gfx950/lib/cmake/rocblas/*.cmake
-
-%if %{with test}
-%files gfx950-test
-%{_libdir}/rocm/gfx950/bin/rocblas*
-%endif
-
-%else
 
 %files
 %license LICENSE.md
@@ -402,9 +326,11 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library/src:$LD_LIBRARY_PATH
 %{_bindir}/rocblas*
 %endif
 
-%endif # gfx950
-
 %changelog
+* Mon Jul 28 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-3
+- Remove experimental gfx950
+- Remove debian dir
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Name:           sblim-cim-client2
 Version:        2.2.5
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Java CIM Client library
 
 License:        EPL-1.0
@@ -15,11 +15,11 @@ Patch0:         sblim-cim-client2-2.2.5-fix-for-java-11-openjdk.patch
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-BuildRequires:  java-devel >= 1.4
+BuildRequires:  java-25-devel >= 1.4
 BuildRequires:  jpackage-utils >= 0:1.5.32
-BuildRequires:  ant >= 0:1.6
+BuildRequires:  ant-openjdk25  >= 0:1.6
 
-Requires:       java-headless >= 1.4
+Requires:       java-25-headless >= 1.4
 Requires:       jpackage-utils >= 0:1.5.32
 
 %description
@@ -112,6 +112,9 @@ cp -pr %{archive_folder}/doc/* $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 
 
 %changelog
+* Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 2.2.5-33
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.5-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

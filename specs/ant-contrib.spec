@@ -3,7 +3,7 @@
 Summary:        Collection of tasks for Ant
 Name:           ant-contrib
 Version:        1.0
-Release:        0.48.%{beta_number}%{?dist}
+Release:        0.49.%{beta_number}%{?dist}
 # Project site on sf lists both Apache Software License, Apache License V2.0
 # see: https://sourceforge.net/projects/ant-contrib/
 License:        Apache-2.0 AND Apache-1.1
@@ -17,19 +17,19 @@ Source2:        http://www.apache.org/licenses/LICENSE-2.0.txt
 Patch2:         ant-contrib-antservertest.patch
 Patch3:         ant-contrib-java-8.patch
 
-BuildRequires:  ivy-local
+BuildRequires:  ivy-local, ant-openjdk25 , ant-openjdk25 
 BuildRequires:  junit
 BuildRequires:  ant-junit
 BuildRequires:  xerces-j2
 BuildRequires:  bcel
-BuildRequires:  java-devel
+BuildRequires:  java-25-devel
 BuildRequires:  apache-ivy
 BuildRequires:  apache-commons-logging
 BuildRequires:  apache-commons-parent
 
-Requires:       java-headless
+Requires:       java-25-headless
 Requires:       junit
-Requires:       ant
+Requires:       ant-openjdk25 
 Requires:       xerces-j2
 
 BuildArch:      noarch
@@ -90,6 +90,9 @@ echo "ant-contrib/ant-contrib" > $RPM_BUILD_ROOT%{_sysconfdir}/ant.d/ant-contrib
 %license target/docs/LICENSE.txt LICENSE-2.0.txt
 
 %changelog
+* Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 1.0-0.49.b3
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.48.b3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

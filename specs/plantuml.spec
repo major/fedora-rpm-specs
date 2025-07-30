@@ -11,11 +11,11 @@ Source:         https://github.com/%{name}/%{name}/archive/v%{version}/%{name}-%
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-BuildRequires:  ant
+BuildRequires:  ant-openjdk25 
 BuildRequires:  help2man
-BuildRequires:  javapackages-local
+BuildRequires:  javapackages-local-openjdk25
 
-Requires:       java
+Requires:       java-25
 # Explicit requires for javapackages-tools since plantuml script
 # uses /usr/share/java-utils/java-functions
 Requires:       javapackages-tools

@@ -1,10 +1,10 @@
-%global commit 88e927d2302966993724f06d57e89cc4bf6d5e35
+%global commit 082fa6b14815340d0f0d9e23b1ded318ba77c82c
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global tz_ver 2022g
+%global tz_ver 2024b
 
 Name:          libzonedetect
 Version:       0~git%{shortcommit}
-Release:       11%{?snap}%{?dist}
+Release:       12%{?snap}%{?dist}
 Summary:       Find the timezone for a given latitude and longitude
 
 # The library is BSD-3, timezone-boundary-builder is MIT, the built database is ODbL-1.0
@@ -13,7 +13,7 @@ URL:           https://github.com/BertoldVdb/ZoneDetect
 Source0:       https://github.com/BertoldVdb/ZoneDetect/archive/%{commit}/ZoneDetect-%{shortcommit}.tar.gz
 Source1:       CMakeLists.txt
 # For building DB
-Source2:       https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries_lakes.zip
+Source2:       https://naciscdn.org/naturalearth/10m/cultural/ne_10m_admin_0_countries_lakes.zip
 Source3:       https://github.com/evansiroky/timezone-boundary-builder/releases/download/%{tz_ver}/timezones-with-oceans.shapefile.zip
 Source4:       README.data
 
@@ -21,8 +21,6 @@ Source4:       README.data
 Patch1:        ZoneDetect_builddb.patch
 # Improve help of sample program, fix memory leak
 Patch2:        ZoneDetect_demo.patch
-# Add missing cstdint include
-Patch3:        ZoneDetect_cstdint.patch
 
 BuildRequires: gcc-c++
 BuildRequires: cmake
@@ -133,6 +131,9 @@ cp -a %{SOURCE4} %{buildroot}%{_datadir}/ZoneDetect/
 
 
 %changelog
+* Mon Jul 28 2025 Sandro Mani <manisandro@gmail.com> - 0~git082fa6b-12
+- Update to git 082fa6b
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0~git88e927d-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

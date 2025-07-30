@@ -2,11 +2,10 @@
 
 Name:           python-%{pypi_name}
 Version:        0.56.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Python support for FTDI devices
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-3-Clause
 URL:            https://github.com/eblot/pyftdi
 Source0:        %{url}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
 BuildArch:      noarch
@@ -18,7 +17,10 @@ PyFtdi aims at providing a user-space driver for modern FTDI devices.
 Summary:        %{summary}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
+BuildRequires:  %{py3_dist Sphinx}
+BuildRequires:  %{py3_dist sphinx_rtd_theme}
+BuildRequires:  %{py3_dist sphinxcontrib-autoprogram}
+BuildRequires:  %{py3_dist sphinx-autodoc-typehints}
 %{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
@@ -27,19 +29,33 @@ PyFtdi aims at providing a user-space driver for modern FTDI devices.
 %prep
 %autosetup -n %{pypi_name}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
+pushd .
+cd pyftdi/doc
+sphinx-build -M html . ../../build -W
+rm ../../build/html/.buildinfo
+popd
 
 %install
-%py3_install
+%pyproject_install
+# Docs are in module, remove them as they were built to HTML and packaged as such
+rm -rf %{buildroot}%{python3_sitelib}/%{pypi_name}/doc %{buildroot}%{python3_sitelib}/%{pypi_name}/INSTALL
 
 %files -n python3-%{pypi_name}
-%doc README.md
+%license LICENSE
+%doc README.md build/html/*
 %{_bindir}/*.py
-%{python3_sitelib}/%{pypi_name}/
-%{python3_sitelib}/%{pypi_name}*.egg-info/
+%{python3_sitelib}/%{pypi_name}
+%{python3_sitelib}/%{pypi_name}*.dist-info/
 
 %changelog
+* Mon Jul 28 2025 Federico Pellegrin <fede@evolware.org> - 0.56.0-5
+- Use new Python macros in spec file (rhbz#2378036), build and package docs
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.56.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -3,10 +3,10 @@
 # Build a C-API shared library with cargo-c and install it?
 #
 # Once we build a shared library in an EPEL release, we are almost guaranteed
-# to eventually need to maintain a ccompat package to preserve its API/ABI
+# to eventually need to maintain a compat package to preserve its API/ABI
 # stability. For the time being, we don’t plan to ship a shared library in any
 # EPEL release unless someone specifically asks for it.
-%bcond capi %{expr:%{undefined fc40} && %{undefined fc41} && %{undefined epel}}
+%bcond capi %{expr:%{undefined fc42} && %{undefined fc41} && %{undefined epel}}
 
 %global crate libcramjam
 
@@ -14,8 +14,8 @@ Name:           rust-libcramjam
 # Even though this is just MAJOR.MINOR from the SemVer version, we repeat it
 # explicitly to help prevent undetected/unannounced SONAME version bumps in the
 # libcramjam/libcramjam-devel subpackages.
-%global soversion 0.7
-Version:        0.7.0
+%global soversion 0.8
+Version:        0.8.0
 Release:        %autorelease
 Summary:        Compression library combining a plethora of algorithms
 
@@ -30,10 +30,6 @@ Source:         %{crates_source}
 # * Patch out all -static features
 # * Patch out features requiring blosc2-rs or isal-rs so we can stop packaging
 #   those crates
-# * Drop unused direct cbindgen build-dependency:
-#   https://github.com/cramjam/libcramjam/pull/23
-# * Relax bzip2 dependency to allow building with both v0.4 and v0.5:
-#   https://github.com/cramjam/libcramjam/pull/24
 Patch:          libcramjam-fix-metadata.diff
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval

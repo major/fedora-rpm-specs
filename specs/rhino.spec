@@ -4,7 +4,7 @@
 
 Name:           rhino
 Version:        1.7.14
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Rhino
 
 # rhino itself is MPLv2.0 but use other codes, breakdown:
@@ -24,7 +24,7 @@ Source3:        https://repo1.maven.org/maven2/org/mozilla/%{name}-runtime/%{ver
 # required for tests
 Source4:        https://github.com/tc39/test262/archive/%{test262_shortcommit}/test262-%{test262_shortcommit}.tar.gz
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(jakarta.xml.soap:jakarta.xml.soap-api)
@@ -285,6 +285,9 @@ install -m 644 man/%{name}.1 %{buildroot}%{_mandir}/man1/%{name}.1
 %doc README.md CODE_OF_CONDUCT.md RELEASE-NOTES.md
 
 %changelog
+* Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 1.7.14-16
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.14-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

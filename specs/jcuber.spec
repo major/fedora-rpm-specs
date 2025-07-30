@@ -3,17 +3,17 @@
 
 Name:           jcuber
 Version:        4.9
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        CUBE reader for Java
 # tarviewer is ASL
 License:        BSD-3-Clause AND Apache-2.0
 URL:            http://www.scalasca.org/software/cube-4.x/download.html
 Source0:        http://apps.fz-juelich.de/scalasca/releases/cube/%(echo %version|awk -F. '{print $1 "." $2}')/dist/jcuber-%version.tar.gz
-BuildRequires:  java-devel
+BuildRequires:  java-25-devel
 BuildRequires:  jpackage-utils
 BuildRequires:  xerces-j2
 BuildRequires: make
-Requires:       java jpackage-utils
+Requires:       java-25 jpackage-utils
 Obsoletes:      cube-java <= 4.3.2-1
 Provides:       cube-java = %version-%release
 BuildArch:      noarch
@@ -70,6 +70,9 @@ cp -rp examples AUTHORS %buildroot%_defaultdocdir/%name
 
 
 %changelog
+* Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 4.9-3
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

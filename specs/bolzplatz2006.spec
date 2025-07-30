@@ -7,7 +7,7 @@
 
 Name:           bolzplatz2006
 Version:        1.0.3
-Release:        62%{?dist}
+Release:        63%{?dist}
 Summary:        Slam Soccer 2006 is a funny football game in 3D-comic-style
 Summary(fr):    Coup de Foot 2006 est un jeu comique en 3D
 Summary(de):    Bolzplatz 2006 ist ein spaßiges Fußballspiel im 3D-Comic-Stil
@@ -38,13 +38,13 @@ Patch10:        %{name}-use-system-extgl.patch
 Patch11:        %{name}-gcc6.patch
 Patch12:        %{name}-openjdk11.patch
 BuildRequires:  gcc-c++ make
-BuildRequires:  ant sdljava dom4j vecmath1.2 swig xml-commons-apis
+BuildRequires:  ant-openjdk25  sdljava dom4j vecmath1.2 swig xml-commons-apis
 BuildRequires:  libGLU-devel DevIL-devel libXxf86vm-devel libjpeg-devel
 BuildRequires:  libpng-devel libXext-devel libXrandr-devel libXcursor-devel
 BuildRequires:  libXt-devel libXrender-devel libvorbis-devel desktop-file-utils
-BuildRequires:  java-devel
+BuildRequires:  java-25-devel
 BuildRequires:  libappstream-glib
-Requires:       sdljava dom4j vecmath1.2 java jpackage-utils
+Requires:       sdljava dom4j vecmath1.2 java-25 jpackage-utils
 Requires:       hicolor-icon-theme autodownloader
 # These are dynamically opened by lwjgl:
 Requires:       openal-soft
@@ -222,6 +222,9 @@ install -p -m 644 %{name}-functions.sh %{SOURCE8} %{SOURCE9} \
 
 
 %changelog
+* Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 1.0.3-63
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-62
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

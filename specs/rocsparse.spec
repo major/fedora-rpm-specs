@@ -77,18 +77,9 @@
   -DBUILD_CLIENTS_TESTS_OPENMP=OFF \\\
   -DBUILD_FORTRAN_CLIENTS=OFF
 
-# gfx950 is an experimental target
-# Enabling will short circuit the normal build.
-# There is no check support.
-# To use do
-# $ module load rocm/gfx950
-#     <do stuff>
-# $ module purge
-%bcond_with gfx950
-
 Name:           %{rocsparse_name}
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        SPARSE implementation for ROCm
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
@@ -114,11 +105,7 @@ BuildRequires:  pkgconfig(libzstd)
 %if %{with test}
 BuildRequires:  libomp-devel
 BuildRequires:  python3dist(pyyaml)
-%if %{with gfx950}
-BuildRequires:  rocblas-gfx950-devel
-%else
 BuildRequires:  rocblas-devel
-%endif
 
 %if 0%{?suse_version}
 BuildRequires:  gcc-fortran
@@ -174,56 +161,10 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %{summary}
 %endif
 
-%if %{with gfx950}
-
-%package gfx950
-Summary:        The gfx950 rocSPARSE package
-Provides:       rocsparse-gfx950 = %{version}-%{release}
-Conflicts:      %{name}
-
-%description gfx950
-%{summary}
-
-%package gfx950-devel
-Summary:        The gfx950 rocSPARSE development package
-Requires:       %{name}-gfx950%{?_isa} = %{version}-%{release}
-Provides:       rocsparse-gfx950-devel = %{version}-%{release}
-Conflicts:      %{name}-devel
-
-%description gfx950-devel
-%{summary}
-
-%if %{with test}
-%package gfx950-test
-Summary:        The gfx950 rocSPARSE test package
-Requires:       %{name}-gfx950%{?_isa} = %{version}-%{release}
-Conflicts:      %{name}-test
-
-%description gfx950-test
-%{summary}
-
-%endif # gfx950-test
-%endif # gfx950
-
 %prep
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
 
 %build
-%if %{with gfx950}
-
-module load rocm/gfx950
-
-# Build fails in 6.4.0
-# /usr/include/rocprim/intrinsics/atomic.hpp:210:6: error: support for 128-bit atomics not implemented for current architecture
-# https://github.com/ROCm/rocPRIM/issues/738
-%cmake %{cmake_generator} %{cmake_config} \
-    -DGPU_TARGETS=${ROCM_GPUS} \
-    -DCMAKE_INSTALL_BINDIR=${ROCM_BIN} \
-    -DCMAKE_INSTALL_INCLUDEDIR=${ROCM_INCLUDE} \
-    -DCMAKE_INSTALL_LIBDIR=${ROCM_LIB}
-
-%else
-
 %cmake %{cmake_generator} %{cmake_config} \
     -DGPU_TARGETS=%{rocm_gpu_list_default} \
     -DCMAKE_INSTALL_LIBDIR=%_libdir \
@@ -231,14 +172,7 @@ module load rocm/gfx950
     -DCMAKE_MATRICES_DIR=%{_builddir}/rocsparse-test-matrices/
 %endif
 
-
-%endif
-
 %cmake_build
-
-%if %{with gfx950}
-module purge
-%endif
 
 %install
 %cmake_install
@@ -265,24 +199,6 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library:$LD_LIBRARY_PATH
 %endif
 %endif
 
-%if %{with gfx950}
-%files gfx950
-%license LICENSE.md
-%{_libdir}/rocm/gfx950/lib/librocsparse.so.1{,.*}
-
-%files gfx950-devel
-%dir %{_libdir}/rocm/gfx950/lib/cmake/rocsparse
-%dir %{_libdir}/rocm/gfx950/include/rocsparse
-%{_libdir}/rocm/gfx950/lib/cmake/rocsparse/*.cmake
-%{_libdir}/rocm/gfx950/lib/librocsparse.so
-%{_libdir}/rocm/gfx950/include/rocsparse/*.{h,hpp}
-
-%if %{with test}
-%files gfx950-test
-%endif
-
-%else
-
 %files 
 %license LICENSE.md
 %{_libdir}/librocsparse.so.1{,.*}
@@ -305,9 +221,11 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library:$LD_LIBRARY_PATH
 %{_datadir}/rocsparse/matrices/*
 
 %endif
-%endif
 
 %changelog
+* Mon Jul 28 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-3
+- Remove experimental gfx950
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

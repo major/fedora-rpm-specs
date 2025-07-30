@@ -204,6 +204,7 @@ sed -i -e 's|CACHE_JSON_INSTALL_DIR ${OV_CPACK_PLUGINSDIR}|CACHE_JSON_INSTALL_DI
 
 # python:prep
 sed -i '/openvino-telemetry/d' src/bindings/python/requirements.txt
+sed -i 's/numpy>=1.16.6,<2.3.0/numpy>=1.16.6/' src/bindings/python/requirements.txt
 cp %{SOURCE5} src/bindings/python
 
 # gcc 15 include cstdint

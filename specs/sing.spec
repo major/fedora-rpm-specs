@@ -1,17 +1,20 @@
-Summary:	Sends fully customized ICMP packets from command line
-Name:		sing
-Version:	1.1
-Release:	33%{?dist}
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
-License:	GPL-2.0-or-later
-URL:		http://www.sourceforge.net/projects/%{name}/
-Source:		http://downloads.sourceforge.net/%{name}/SING-%{version}.tgz
-Patch0:		sing-1.1-fedora.patch
-Patch1:		sing-1.1-suid_log.patch
-Patch2:		sing-1.1-sys_errlist.patch
-Patch3: sing-c99.patch
-BuildRequires: make
-BuildRequires:	gcc, libpcap-devel, libnet10-devel, automake, autoconf
+Summary:        Sends fully customized ICMP packets from command line
+Name:           sing
+Version:        1.1
+Release:        33%{?dist}
+License:        GPL-2.0-or-later
+URL:            https://sourceforge.net/projects/%{name}/
+Source0:        https://downloads.sourceforge.net/%{name}/SING-%{version}.tgz
+Patch0:         sing-1.1-fedora.patch
+Patch1:         sing-1.1-suid_log.patch
+Patch2:         sing-1.1-sys_errlist.patch
+Patch3:         sing-c99.patch
+BuildRequires:  autoconf
+BuildRequires:  automake
+BuildRequires:  gcc
+BuildRequires:  libnet10-devel
+BuildRequires:  libpcap-devel
+BuildRequires:  make
 
 %description
 Sing is a little tool that sends fully customized ICMP packets from command
@@ -31,11 +34,7 @@ certain enhancements as:
    Unix and Windows at the moment
 
 %prep
-%setup -q -n SING-%{version}
-%patch -P0 -p1 -b .fedora
-%patch -P1 -p1 -b .sing_suid
-%patch -P2 -p1 -b .sys_errlist
-%patch -P3 -p1 -b .c99
+%autosetup -n SING-%{version} -p1
 
 # Rebuilding of configure file is needed for Patch0
 autoconf
@@ -44,6 +43,10 @@ autoconf
 cp -f %{_datadir}/automake-*/config.* .
 
 %build
+%if 0%{?fedora} > 41 || 0%{?rhel} > 10
+export CFLAGS="$CFLAGS -std=gnu17"
+%endif
+
 %configure --bindir=%{_sbindir}
 %make_build
 

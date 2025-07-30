@@ -42,13 +42,14 @@
 
 Name:           dnf-plugins-core
 Version:        4.10.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Core Plugins for DNF
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf-plugins-core
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Patch1:         0001-Fix-building-with-CMake-4.patch
 BuildArch:      noarch
-BuildRequires:  cmake
+BuildRequires:  cmake >= 3.5.0
 BuildRequires:  gettext
 # Documentation
 %if %{with python3}
@@ -878,6 +879,9 @@ ln -sf %{yum_utils_subpackage_name}.1.gz %{buildroot}%{_mandir}/man1/repotrack.1
 %endif
 
 %changelog
+* Fri Jul 25 2025 Petr Pisar <ppisar@redhat.com> - 4.10.1-4
+- Fix building with CMake 4 (bug #2380548)
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.10.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

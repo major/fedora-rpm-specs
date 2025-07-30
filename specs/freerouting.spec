@@ -1,6 +1,6 @@
 Name:           freerouting
 Version:        1.3.1
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Circuit Board Routing Tool
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -15,12 +15,12 @@ Source4:        freerouting.appdata.xml
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-BuildRequires:  java-devel >= 1:1.8
+BuildRequires:  java-25-devel >= 1:1.8
 BuildRequires:  jpackage-utils
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 
-Requires:       java >= 1:1.8
+Requires:       java-25 >= 1:1.8
 Requires:       jpackage-utils
 
 
@@ -76,6 +76,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.a
 
 
 %changelog
+* Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 1.3.1-22
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

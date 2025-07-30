@@ -1,7 +1,7 @@
 %global run_valgrind_tests ON
 # valgrind finds invalid writes in libcmocka on arm and power
 # see bug #1699304 for more information
-%ifarch %{arm} ppc64le
+%ifarch %{arm} ppc64le %{ix86}
 %global run_valgrind_tests OFF
 %endif
 # Turn off valgrind unilaterally on all arches which don't have
@@ -11,8 +11,8 @@
 %endif
 
 Name: libyang
-Version: 3.7.8
-Release: 2%{?dist}
+Version: 3.12.2
+Release: 1%{?dist}
 Summary: YANG data modeling language library
 Url: https://github.com/CESNET/libyang
 Source: %{url}/archive/%{name}-%{version}.tar.gz
@@ -24,8 +24,9 @@ Patch1: disable-test_structure.patch
 BuildRequires:  cmake
 BuildRequires:  doxygen
 BuildRequires:  gcc
-BuildRequires:  cmake(cmocka) >= 1.0.0
+BuildRequires:  cmake(cmocka) >= 1.0.1
 BuildRequires:  make
+BuildRequires:  git-core
 BuildRequires:  pkgconfig(libpcre2-8) >= 10.21
 %ifarch %{valgrind_arches}
 BuildRequires:  valgrind
@@ -62,7 +63,7 @@ Libyang is YANG data modeling language parser and toolkit
 written (and providing API) in C.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -S git
 
 %build
 %cmake \
@@ -112,6 +113,9 @@ cp -a doc/html %{buildroot}/%{_docdir}/libyang/html
 %{_docdir}/libyang
 
 %changelog
+* Mon Jul 28 2025 Michal Ruprich <mruprich@redhat.com> - 3.12.2-1
+- New version 3.12.2
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

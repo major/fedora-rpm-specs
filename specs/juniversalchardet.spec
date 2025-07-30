@@ -1,6 +1,6 @@
 Name:           juniversalchardet
 Version:        2.4.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Java character encoding detection
 
 # Choice of licenses offered in each source file
@@ -10,7 +10,7 @@ BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk21
 BuildRequires:  mvn(commons-codec:commons-codec)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-source-plugin)
@@ -28,7 +28,7 @@ encoding detector library of Mozilla.
 sed -i.orig 's/\r//' README.md
 touch -r README.md.orig README.md
 rm README.md.orig
-
+sed 's;<compiler.level>1.7</compiler.level>;<compiler.level>1.8</compiler.level>;' -i pom.xml
 # Plugins not needed for an RPM build
 %pom_remove_plugin :maven-gpg-plugin
 %pom_remove_plugin :maven-javadoc-plugin
@@ -49,6 +49,10 @@ rm README.md.orig
 %license LICENSE
 
 %changelog
+* Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 2.4.0-16
+- Rebuilt for java-25-openjdk as preffered jdk
+- reset back to jdk21
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

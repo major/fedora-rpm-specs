@@ -6,8 +6,8 @@
 %global jarname ivy
 
 Name:           apache-%{jarname}
-Version:        2.5.2
-Release:        8%{?dist}
+Version:        2.5.3
+Release:        1%{?dist}
 Summary:        Java-based dependency manager
 License:        Apache-2.0
 URL:            https://ant.apache.org/ivy
@@ -21,12 +21,12 @@ Source2:        https://archive.apache.org/dist/ant/KEYS
 # Non-upstreamable.  Add /etc/ivy/ivysettings.xml at the end list of
 # settings files Ivy tries to load.  This file will be used only as
 # last resort, when no other setting files exist.
-Patch0:         00-global-settings.patch
+Source3:         00-global-settings.patch
 
 BuildRequires:  gnupg2
-BuildRequires:  ant
+BuildRequires:  ant-openjdk21
 BuildRequires:  ivy-local
-BuildRequires:  java-11-devel
+BuildRequires:  dos2unix
 BuildRequires:  mvn(org.apache.ant:ant)
 BuildRequires:  mvn(org.bouncycastle:bcpg-jdk18on)
 BuildRequires:  mvn(org.bouncycastle:bcprov-jdk18on)
@@ -63,7 +63,9 @@ reporting and publication.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%autosetup -p1
+%autosetup
+dos2unix src/java/org/apache/ivy/ant/IvyAntSettings.java
+patch -p1 -l < %{SOURCE3}
 # Don't hardcode sysconfdir path
 sed -i 's:/etc/ivy/:%{_sysconfdir}/ivy/:' src/java/org/apache/ivy/ant/IvyAntSettings.java
 # remove BOM
@@ -135,7 +137,7 @@ rm -rf asciidoc
 # create custom ant configuration
 mkdir -p ~/.ant
 cp /etc/ant.conf ~/.ant
-sed -i '$a JAVA_HOME=/usr/lib/jvm/java-11-openjdk' ~/.ant/ant.conf
+sed -i '$a JAVA_HOME=/usr/lib/jvm/java-21-openjdk' ~/.ant/ant.conf
 
 ant -Divy.mode=local \
     -f build-release.xml \
@@ -153,6 +155,11 @@ echo "apache-ivy/ivy" > %{buildroot}%{_sysconfdir}/ant.d/%{name}
 %{_sysconfdir}/ant.d/%{name}
 
 %changelog
+* Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 2.5.2-9
+- Rebuilt for java-25-openjdk as preffered jdk
+- removed useless jdk11
+- downgraded back to jdk21
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

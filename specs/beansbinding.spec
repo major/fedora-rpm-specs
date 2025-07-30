@@ -1,6 +1,6 @@
 Name:           beansbinding
 Version:        1.2.1
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Beans Binding (JSR 295) reference implementation
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -10,11 +10,11 @@ Source0:        https://beansbinding.dev.java.net/files/documents/6779/73673/bea
 Patch0:         disable-doclint.patch
 Patch1:         new-source-target.patch
 
-BuildRequires:  ant
+BuildRequires:  ant-openjdk25 
 BuildRequires:  ant-junit
-BuildRequires:  java-devel
+BuildRequires:  java-25-devel
 
-Requires:       java >= 1:1.6.0
+Requires:       java-25 >= 1:1.6.0
 Requires:       javapackages-tools
 
 BuildArch:      noarch
@@ -58,6 +58,9 @@ find . -type f \( -iname "*.jar" -o -iname "*.zip" \) -print0 | xargs -t -0 %{__
 %{_javadocdir}/%{name}
 
 %changelog
+* Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 1.2.1-41
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

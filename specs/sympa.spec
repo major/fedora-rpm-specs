@@ -1,3 +1,7 @@
+%if 0%{?fedora} >= 43
+ExcludeArch: %{ix86}
+%endif
+
 %bcond_with autoreconf
 %bcond_with authorcheck
 
@@ -83,7 +87,7 @@
 
 Name:        sympa
 Version:     6.2.76
-Release:     %{?pre_rel:0.}1%{?pre_rel:.%pre_rel}%{?dist}.2
+Release:     %{?pre_rel:0.}1%{?pre_rel:.%pre_rel}%{?dist}.3
 Summary:     Powerful multilingual List Manager
 Summary(fr): Gestionnaire de listes électroniques
 Summary(ja): 高機能で多言語対応のメーリングリスト管理ソフトウェア
@@ -841,6 +845,10 @@ fi
 
 
 %changelog
+* Mon Jul 28 2025 Michal Schorm <mschorm@redhat.com> - 6.2.76-1.3
+- Rebuild without i686 architecture - MySQL 8.4 no longer supports it,
+  so perl-DBD-MySQL no longer builds it
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.76-1.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

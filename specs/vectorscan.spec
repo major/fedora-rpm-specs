@@ -1,10 +1,10 @@
-%global vectorscan_tag d29730e1cb9daaa66bda63426cdce83505d2c809
+%global vectorscan_tag b585ad466658624bb31fb1d194cdb168df34833c
 %global __cmake_in_source_build 1
 %global _lto_cflags %{nil}
 
 Name:           vectorscan
-Version:        5.4.11
-Release:        10%{?dist}
+Version:        5.4.12
+Release:        0%{?dist}
 Summary:        A portable fork of hyperscan, used as a high performance pcre replacement
 # note google test framework not part of shipped binary
 # vectorscan is BSD-3-Clause but it utilizes boost, which is a C++ template
@@ -17,8 +17,7 @@ ExcludeArch: s390x
 URL:            https://github.com/VectorCamp/vectorscan
 Source0:        https://github.com/VectorCamp/vectorscan/archive/%{vectorscan_tag}.tar.gz
 
-Patch0: 0001-Change-PPC-default-to-power8.patch
-Patch1: 0001-documentation-Add-cmake-option-to-build-man-pages.patch
+Patch0: 0001-update-python-sphinx-to-use-non-deprecated-api.patch
 
 # hyperscan is x86 only, so lets obsolete it. There is one package in the
 # fedora repos that depends on hyperscan (suricata) and it appears to work
@@ -80,12 +79,10 @@ to develop .
 %prep
 %setup -q -n vectorscan-%{vectorscan_tag}
 %patch -P0 -p1
-%patch -P1 -p1
 
 %build
-%cmake  -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS:BOOL=ON %{fatruntime} . -Wno-dev
+%cmake  -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS:BOOL=ON %{fatruntime} -DUSE_CPU_NATIVE=OFF . -Wno-dev
 %cmake_build
-
 
 %install
 %cmake_install
@@ -114,6 +111,9 @@ bin/unit-hyperscan
 
 #------------------------------------------------------------------------------
 %changelog
+* Mon Jul 28 2025 Jeremy Linton <jeremy.linton@arm.com> - 5.4.12-0
+- Update to upstream 5.4.12, drop patches except for doc/build ones
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.11-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

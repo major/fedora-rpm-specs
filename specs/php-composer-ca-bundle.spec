@@ -17,7 +17,7 @@
 
 Name:           php-composer-ca-bundle
 Version:        1.5.7
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        Lets you find a path to the system CA
 
 License:        MIT
@@ -44,7 +44,7 @@ BuildRequires:  phpunit10
 # Autoloader
 BuildRequires:  php-composer(fedora/autoloader)
 # ca-certificates
-BuildRequires:  %{_sysconfdir}/pki/tls/certs/ca-bundle.crt
+BuildRequires:  %{_sysconfdir}/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
 %endif
 
 # From composer.json, "require": {
@@ -59,7 +59,7 @@ Requires:       php-pcre
 # Autoloader
 Requires:       php-composer(fedora/autoloader)
 # ca-certificates
-Requires:       %{_sysconfdir}/pki/tls/certs/ca-bundle.crt
+Requires:       %{_sysconfdir}/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
 
 Provides:       php-composer(%{gh_owner}/%{gh_project}) = %{version}
 
@@ -107,7 +107,7 @@ EOF
 ret=0
 %{_bindir}/phpunit10 --migrate-configuration
 
-for cmd in php php81 php82 php83 php84; do
+for cmd in php php81 php82 php83 php84 php85; do
   if which $cmd; then
     $cmd %{_bindir}/phpunit10 --no-coverage || ret=1
   fi
@@ -127,6 +127,12 @@ exit $ret
 
 
 %changelog
+* Mon Jul 28 2025 Remi Collet <remi@remirepo.net> - 1.5.7-4
+- fix system certificates path rhbz#2383719
+
+* Mon Jul 28 2025 Remi Collet <remi@remirepo.net> - 1.5.7-3
+- fix system certificates path rhbz#2383719
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

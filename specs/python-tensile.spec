@@ -20,7 +20,7 @@ Name:           python-tensile-devel
 Name:           python-tensile
 %endif
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Tool for creating benchmark-driven backend libraries for GEMMs
 
 URL:            https://github.com/ROCmSoftwarePlatform/Tensile
@@ -28,6 +28,8 @@ License:        MIT
 Source0:        %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
 Patch1:         0001-tensile-fedora-gpus.patch
+Patch2:         0001-tensile-gfx950.patch
+Patch3:         0001-tensile-gfx1153.patch
 
 %if 0%{?fedora} || 0%{?suse_version}
 BuildRequires:  fdupes
@@ -181,6 +183,10 @@ mv %{buildroot}%{_datadir}/cmake/Tensile/*.cmake %{buildroot}%{python3_sitelib}/
 %{python_sitelib}/%{upstreamname}*.egg-info/*
 
 %changelog
+* Sun Jul 27 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-5
+- patch in gfx950 support from develop branch
+- patch in gfx1153 support
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name: libbase
 Version: 1.1.3
-Release: 45%{?dist}
+Release: 46%{?dist}
 Summary: JFree Base Services
 License: LGPL-2.1-only
 #Original source: http://downloads.sourceforge.net/jfreereport/%%{name}-%%{version}.zip
@@ -8,8 +8,8 @@ License: LGPL-2.1-only
 #to simplify the licensing
 Source: %{name}-%{version}-jarsdeleted.zip
 URL: http://reporting.pentaho.org/
-BuildRequires: ant, java-devel, jpackage-utils
-Requires: java-headless, jpackage-utils
+BuildRequires: ant-openjdk25 , java-25-devel, jpackage-utils
+Requires: java-25-headless, jpackage-utils
 BuildArch: noarch
 ExclusiveArch:  %{java_arches} noarch
 
@@ -58,6 +58,9 @@ cp -rp bin/javadoc/docs/api $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 %{_javadocdir}/%{name}
 
 %changelog
+* Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 1.1.3-46
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

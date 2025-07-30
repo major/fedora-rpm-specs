@@ -13,13 +13,13 @@ Name:           jss
 # Downstream release number:
 # - development/stabilization (unsupported): 0.<n> where n >= 1
 # - GA/update (supported): <n> where n >= 1
-%global         release_number 0.1
+%global         release_number 0.3
 
 # Development phase:
 # - development (unsupported): alpha<n> where n >= 1
 # - stabilization (unsupported): beta<n> where n >= 1
 # - GA/update (supported): <none>
-%global         phase beta1
+%global         phase beta3
 
 %undefine       timestamp
 %undefine       commit_id
@@ -149,14 +149,14 @@ This only works with gcj. Other JREs require that JCE providers be signed.
 Summary:        Java Security Services (JSS) Connector for Tomcat
 
 # Tomcat
-BuildRequires:  mvn(org.apache.tomcat:tomcat-catalina) >= 10.1.33
-BuildRequires:  mvn(org.apache.tomcat:tomcat-coyote) >= 10.1.33
-BuildRequires:  mvn(org.apache.tomcat:tomcat-juli) >= 10.1.33
+BuildRequires:  mvn(org.apache.tomcat:tomcat-catalina) >= 10.1.43
+BuildRequires:  mvn(org.apache.tomcat:tomcat-coyote) >= 10.1.43
+BuildRequires:  mvn(org.apache.tomcat:tomcat-juli) >= 10.1.43
 
 Requires:       %{product_id} = %{version}-%{release}
-Requires:       mvn(org.apache.tomcat:tomcat-catalina) >= 10.1.33
-Requires:       mvn(org.apache.tomcat:tomcat-coyote) >= 10.1.33
-Requires:       mvn(org.apache.tomcat:tomcat-juli) >= 10.1.33
+Requires:       mvn(org.apache.tomcat:tomcat-catalina) >= 10.1.43
+Requires:       mvn(org.apache.tomcat:tomcat-coyote) >= 10.1.43
+Requires:       mvn(org.apache.tomcat:tomcat-juli) >= 10.1.43
 
 # Tomcat JSS has been replaced with JSS Connector for Tomcat.
 # This will remove installed Tomcat JSS packages.
@@ -393,6 +393,9 @@ cp base/target/jss-tests.jar %{buildroot}%{_datadir}/jss/tests/lib
 
 ################################################################################
 %changelog
+* Mon Jul 28 2025 Dogtag PKI Team <devel@lists.dogtagpki.org> 5.8.0.3
+- Rebase to JSS 5.8.0-beta3
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.0-0.1.beta1.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

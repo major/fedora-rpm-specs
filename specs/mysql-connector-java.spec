@@ -17,7 +17,7 @@ Patch:          0002-Remove-authentication-plugin.patch
 Patch:          0003-Remove-StatementsTest.patch
 Patch:          0004-Port-to-Java-21.patch
 
-BuildRequires:  javapackages-local-openjdk21
+BuildRequires:  javapackages-local-openjdk25
 BuildRequires:  ant-junit5
 BuildRequires:  javassist
 BuildRequires:  protobuf-java

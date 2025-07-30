@@ -1,6 +1,6 @@
 Name:		libnfs
 Version:	6.0.2
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Client library for accessing NFS shares over a network
 # The library is licensed as LGPL-2.1-or-later
 # The protocol definition is BSD-2-Clause
@@ -11,6 +11,8 @@ Source0:	%{url}/archive/%{name}-%{version}/%{name}-%{version}.tar.gz
 
 # https://github.com/sahlberg/libnfs/pull/518
 Patch0:         libnfs-6.0.2-fix_gnutls_undefined_symbols.patch
+# https://github.com/sahlberg/libnfs/commit/2cdfedaba379cbb512d3c203a1b9eae795f4fb23
+Patch1:         libnfs-6.0.2-fix_missing_include.patch
 
 BuildRequires:	automake
 BuildRequires:	gcc
@@ -54,6 +56,7 @@ NFS servers using libnfs.
 %prep
 %setup -q -n %{name}-%{name}-%{version}
 %patch -P0 -p1
+%patch -P1 -p1
 autoreconf -vif
 
 %build
@@ -88,6 +91,9 @@ rm -f %{buildroot}%{_libdir}/*.la
 %{_mandir}/man1/nfs-*.1*
 
 %changelog
+* Mon Jul 28 2025 Xavier Bachelot <xavier@bachelot.org> - 6.0.2-6
+- Add upstream patch to fix missing include
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

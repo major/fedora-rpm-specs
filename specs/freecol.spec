@@ -7,7 +7,7 @@
 
 Name:           freecol
 Version:        1.2.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Turn-based multi-player strategy game
 License:        GPL-1.0-or-later
 URL:            http://www.freecol.org/
@@ -29,15 +29,15 @@ Patch2:         freecol-source-encoding.patch
 Patch3:         freecol-1.2.0-commons-cli-1.5.0.patch
 Patch4:         freecol-1.1.0-java-17.patch
 Patch5:         freecol-1.2.0-findbugs-annotations.patch
-BuildRequires:  ant xml-commons-apis xml-commons-resolver
+BuildRequires:  ant-openjdk25  xml-commons-apis xml-commons-resolver
 BuildRequires:  tex(tex4ht.sty) desktop-file-utils fontpackages-devel
 BuildRequires:  apache-commons-cli >= 1.5.0 cortado jorbis miglayout >= 5.3
 BuildRequires:  tex(latex)
-BuildRequires:  java-devel >= 1:17.0.0
+BuildRequires:  java-25-devel >= 1:17.0.0
 BuildRequires:  ImageMagick
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
-Requires:       java >= 1:17.0.0 jpackage-utils hicolor-icon-theme
+Requires:       java-25 >= 1:17.0.0 jpackage-utils hicolor-icon-theme
 Requires:       apache-commons-cli >= 1.5.0 cortado jorbis miglayout >= 5.3
 Requires:       %{name}-shadowedblack-fonts
 
@@ -164,6 +164,9 @@ install -p -m 644 packaging/common/freecol.svg \
 
 
 %changelog
+* Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 1.2.0-4
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

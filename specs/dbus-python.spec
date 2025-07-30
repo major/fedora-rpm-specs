@@ -28,7 +28,6 @@ BuildRequires: python3-devel
 # for py3_build
 BuildRequires: python3dist(setuptools)
 BuildRequires: python3dist(setuptools-scm)
-BuildRequires: python3dist(wheel)
 BuildRequires: python3dist(pip)
 BuildRequires: python3dist(ninja)
 BuildRequires: make

@@ -45,20 +45,20 @@
 Name: ovn
 Summary: Open Virtual Network support
 URL: http://www.openvswitch.org/
-Version: 25.03.0
-Release: 53%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
+Version: 25.03.1
+Release: 42%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
 Obsoletes: openvswitch-ovn-common < %{?epoch_ovs:%{epoch_ovs}:}2.11.0-8
 Provides: openvswitch-ovn-common = %{?epoch:%{epoch}:}%{version}-%{release}
 
 License: Apache-2.0 AND LGPL-2.1-only AND SISSL
 
-%define ovncommit c24b1aa3c724de1aa9fd2461f07e4127a6bfa190
+%define ovncommit 4b8dac64fd3fbbfb39a7105365d5143c7ffa5a35
 
 # Always pull an upstream release, since this is what we rebase to.
 Source: https://github.com/ovn-org/ovn/archive/%{ovncommit}.tar.gz#/ovn-%{version}.tar.gz
 
-%define ovscommit bb059333496a9b48d6d798b6b32108c9f2720479
-%define ovsshortcommit bb05933
+%define ovscommit a0f636163b60a6afe5e20da221b7e7a47a8a3753
+%define ovsshortcommit a0f6361
 
 Source10: https://github.com/openvswitch/ovs/archive/%{ovscommit}.tar.gz#/openvswitch-%{ovsshortcommit}.tar.gz
 %define ovsdir ovs-%{ovscommit}
@@ -437,6 +437,98 @@ fi
 %{_unitdir}/ovn-controller-vtep.service
 
 %changelog
+* Mon Jul 28 2025 Dumitru Ceara <dceara@redhat.com> - 25.03.1-32
+- Updated the OVN sources to upstream release 25.03.1
+  with the base OVN commit 4b8dac64fd3fbbfb39a7105365d5143c7ffa5a35
+  and OVS commit a0f636163b60a6afe5e20da221b7e7a47a8a3753.
+  The following commits are also synced:
+- logical-fields: Fix inconsistency of register usage.
+[Upstream: 4e12cc2cb655c09e80fa906edeb7f153e1a66040]
+
+- ovn-trace: Fix pop action in trace.
+[Upstream: 6a473e324ec6260a2c1ee20b95d639ba6b2bb9a0]
+
+- multinode tests: Fix tests for ENABLE_SSL="yes" clusters.
+[Upstream: c6edf6ad9291e2e660cb4d1292ed3032d5183d72]
+
+- tests: Fix flaky "interconnection".
+[Upstream: b3bff9ded592338b45b51391a6bd314e4969b69b]
+
+- tests: Add missing check for scapy.
+[Upstream: 0b79d0aad78a082a0a4f23917ad8027aad5cd114]
+
+- tests: Remove unused commands from mac-binding test.
+[Upstream: 89184aa4285766daa838e5425464d1588123b179]
+
+- tests: Fix flaky "send arp for nexthop".
+[Upstream: 59607a4c8f932e683ad81b6dea2f85c084dd3574]
+
+- tests: Fix flaky tests not properly waiting for ovn-controller exit.
+[Upstream: fddffe180bb16a222ec2cfa22d3e2ba5bdae597f]
+
+- tests: Fix flaky "NAT on a provider network with no localnet ports".
+[Upstream: 3c545c0bb76e1f014061d30006979e4a7e39c7db]
+
+- tests: Avoid calling ovs/ovn commands when ovs/ovn are stopped.
+[Upstream: eba392509f1343cec7ea0bd2315301a554351f58]
+
+- tests: Avoid unloading not existing modules.
+[Upstream: 09eb45dfa5bd37af23af94ffc86607b8b28e449b]
+
+- tests: Fix ovn-macro when ovn_check_packets__ fails.
+[Upstream: e51b73cdf1c88338d057cb3668e22a4d53d7bc39]
+
+- ovn-nbctl: Fix lrp set gateway chassis duplicate gc.
+[Upstream: e16b45a97b7eda51653fb14a9fc2c5709d7d6ce0]
+
+- multinode.at: Cleanup test interfaces created in br-ex.
+[Upstream: 857e0c931e2904c4e4b6dc59800c343939d50ed0]
+
+- multinode-macros: Cleanup and check resources on all chassis.
+[Upstream: f954ca224291859e4b1034dc36653205691e4de2]
+
+- ovn-ctl: Fix ovsdb-server/sync-status command output.
+[Upstream: 6a59909bdb36640db27a8358d2585faf11b003f2]
+
+- multinode tests: Dump logs when test exits.
+[Upstream: 1c12218ba7eaf33e42602855c5311fea980476d9]
+
+- multinode: Avoid code duplication in macros.
+[Upstream: 382e67032079d69f23f6aad38929500680e0b8a1]
+
+- route-exchange: Don't keep trying to delete non-existent VRFs.
+[Upstream: 14f9a157e21234b67b977a865fa370155e74f164]
+
+- controller: Fix bad backport of route_exchange_sb_ro_handler().
+[Upstream: 84048893727f2586c9d379fb347453f1697d47b7]
+
+- route-table-notify: Avoid unnecessary lookups.
+[Upstream: a264720144fda2d0091f7f6692bd4220a97c5297]
+
+- controller: Prevent assert with BGP when SB is read only.
+[Upstream: 3e53345ab6899617be3a94ff30b5e5f7636b5940]
+
+- controller: Slightly optimize the runtime_data handler for sb_ro.
+[Upstream: 02266e0c58b28514032a5bbf31c2dc1e0e1785be]
+
+- Revert "northd: Don't skip the unSNAT stage for traffic towards VIPs."
+[Upstream: 69a5b2e894324805e5bec0200783a462a9b348f9]
+
+- ci: Rebalance system tests to speed up the testing.
+[Upstream: d3a1264d29d7bdfcf156e8ec21e9a4628d46a0b7]
+
+- test: Add missing sync calls.
+[Upstream: 1eb9d441d1a2a47da968d6bffb4dd580976279bf]
+
+- controller: Install QoS rules even on 'system' ports. (#FDP-1472)
+[Upstream: 6f66904ae108917db8090b9dfe8590642e2f895f]
+
+- controller: Make sure we run engine_cleanup after thread destroy.
+[Upstream: fd0e5c6fa50f7d67731f168cc498c893071b6f02]
+
+- Prepare for 25.03.2.
+[Upstream: c1a1c3461f26e0a3e5f231f39b9ae52c78fa5a51]
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 25.03.0-53
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

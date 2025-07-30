@@ -1,13 +1,13 @@
 Name:          javapoet
 Version:       1.7.0
-Release:       26%{?dist}
+Release:       27%{?dist}
 Summary:       A Java API for generating .java source files
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:       Apache-2.0
 URL:           https://github.com/square/javapoet
 Source0:       https://github.com/square/%{name}/archive/%{name}-%{version}.tar.gz
 
-BuildRequires: maven-local
+BuildRequires: maven-local-openjdk21
 
 %if 0
 # test dependencies
@@ -34,7 +34,7 @@ This package contains javadoc for %{name}.
 
 %prep
 %setup -q -n %{name}-%{name}-%{version}
-
+sed 's;<java.version>1.7</java.version>;<java.version>1.8</java.version>;' -i pom.xml
 # remove unnecessary dependency on parent POM
 %pom_remove_parent
 
@@ -57,6 +57,10 @@ This package contains javadoc for %{name}.
 %license LICENSE.txt
 
 %changelog
+* Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 1.7.0-27
+- Rebuilt for java-25-openjdk as preffered jdk
+- reset back to jdk21
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

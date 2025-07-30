@@ -1,6 +1,6 @@
 Name:           rocm-rpm-macros
-Version:        6.4.0
-Release:        5%{?dist}
+Version:        6.4.2
+Release:        1%{?dist}
 Summary:        ROCm RPM macros
 License:        GPL-2.0-or-later
 
@@ -110,6 +110,9 @@ cp -p modules/* %{buildroot}%{_datadir}/modulefiles/rocm/
 %endif
 
 %changelog
+* Sun Jul 27 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-1
+- Add gfx950,gfx1153 to default list
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

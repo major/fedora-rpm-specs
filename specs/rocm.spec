@@ -1,10 +1,10 @@
 %global rocm_release 6.4
-%global rocm_patch 1
+%global rocm_patch 2
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 Name:           rocm
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm Metapackage
 License:        MIT
 
@@ -33,7 +33,9 @@ Requires: rocsolver >= %{rocm_release}
 Requires: rocsparse >= %{rocm_release}
 
 %if 0%{?fedora}
+Requires: aqlprofile
 Requires: hipblaslt >= %{rocm_release}
+Requires: hipsparselt >= %{rocm_release}
 Requires: miopen >= %{rocm_release}
 Requires: mivisionx >= %{rocm_release}
 Requires: rccl >= %{rocm_release}
@@ -91,7 +93,9 @@ Requires: rocsolver-devel >= %{rocm_release}
 Requires: rocsparse-devel >= %{rocm_release}
 
 %if 0%{?fedora}
+Requires: aqlprofile-devel
 Requires: hipblaslt-devel >= %{rocm_release}
+Requires: hipsparselt-devel >= %{rocm_release}
 Requires: hipify >= %{rocm_release}
 Requires: miopen-devel >= %{rocm_release}
 Requires: mivisionx-devel >= %{rocm_release}
@@ -149,6 +153,9 @@ install -pm 644 %{SOURCE0} .
 %license License.txt
 
 %changelog
+* Mon Jul 28 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-1
+- Add aqlprofile and hipsparselt to fedora
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,16 +1,15 @@
 Summary:        Encrypt Data with Cipher Block Chaining Mode
 Name:           perl-Crypt-CBC
-Version:        3.04
-Release:        18%{?dist}
+Version:        3.07
+Release:        1%{?dist}
 # Upstream confirms that they're under the same license as perl.
 # Wording in CBC.pm is less than clear, but still.
+# https://github.com/cpan-authors/Lib-Crypt-CBC/issues/14
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Crypt-CBC
-Source0:        https://cpan.metacpan.org/modules/by-module/Crypt/Crypt-CBC-%{version}.tar.gz
+Source0:        https://www.cpan.org/modules/by-module/Crypt/Crypt-CBC-%{version}.tar.gz
 Source1:        cbctest1.pl
 Source2:        Crypt-CBC-GH6.pl
-Patch0:         Crypt-CBC-3.04-3.05.patch
-Patch1:         randomiv.patch
 BuildArch:      noarch
 # Build:
 BuildRequires:  coreutils
@@ -19,6 +18,8 @@ BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
 # Runtime
 BuildRequires:  perl(base)
 BuildRequires:  perl(bytes)
@@ -26,19 +27,18 @@ BuildRequires:  perl(Carp)
 BuildRequires:  perl(constant)
 BuildRequires:  perl(Crypt::Cipher::AES)
 BuildRequires:  perl(Crypt::PBKDF2)
+BuildRequires:  perl(Crypt::URandom)
 BuildRequires:  perl(Digest::MD5) >= 2.00
 BuildRequires:  perl(Digest::SHA)
 BuildRequires:  perl(File::Basename)
 # Not available on 32-bit platforms (#1948957)
 #BuildRequires:  perl(Math::Int128)
 BuildRequires:  perl(Scalar::Util)
-BuildRequires:  perl(strict)
-BuildRequires:  perl(vars)
 # Test Suite
 BuildRequires:  perl(Encode)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test)
-BuildRequires:  perl(warnings)
+BuildRequires:  perl(Test::More) >= 0.88
 # Optional Tests
 # Modules used for test suite, skipped when bootstrapping as
 # some of these modules use Crypt::CBC themselves
@@ -67,19 +67,6 @@ compatible with the encryption format used by SSLeay.
 %prep
 %setup -q -n Crypt-CBC-%{version}
 
-# Upstream tagged a 3.05 release but didn't upload it to PAUSE
-# This fixes an issue around the -literal_key option
-# https://github.com/lstein/Lib-Crypt-CBC/issues/4
-%patch -P 0 -p1
-
-# Fix decryption of ciphertext created with 'header' => 'randomiv'
-# https://bugzilla.redhat.com/show_bug.cgi?id=2235322
-# https://github.com/lstein/Lib-Crypt-CBC/issues/6
-# https://github.com/lstein/Lib-Crypt-CBC/pull/7
-cd lib/Crypt
-%patch -P 1
-cd -
-
 chmod -c 644 eg/*.pl
 
 %build
@@ -101,11 +88,25 @@ PERL5LIB=%{buildroot}%{perl_vendorlib} perl %{SOURCE2}
 %endif
 
 %files
-%doc Changes README eg/
+%license LICENSE
+%doc Changes eg/ README SECURITY.md vulnerabilities.txt
 %{perl_vendorlib}/Crypt/
 %{_mandir}/man3/Crypt::CBC.3*
 
 %changelog
+* Mon Jul 28 2025 Paul Howarth <paul@city-fan.org> - 3.07-1
+- Update to 3.07 (rhbz#2383870)
+  - New upstream maintainer
+  - Fix CVE-2025-2814 by using Crypt::URandom
+  - Fix decryption of ciphertext created with 'header' => 'randomiv'
+  - Fixed bug in which manually-specified key and -pkdf=>"none" was not having
+    any effect
+  - Converted build process to Dist::Zilla
+  - Miscellaneous minor Dist::Zilla related changes
+- Switch upstream source URL from cpan.metacpan.org to www.cpan.org to skip a
+  redirect
+- Package new LICENSE, SECURITY.md and vulnerabilities.txt files
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.04-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

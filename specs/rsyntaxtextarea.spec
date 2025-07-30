@@ -2,7 +2,7 @@
 
 Name:           rsyntaxtextarea
 Version:        3.1.3
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        A syntax highlighting, code folding text editor for Java Swing applications
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -11,10 +11,10 @@ URL:            https://github.com/bobbylight/%{upname}
 Source0:        https://github.com/bobbylight/%{upname}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Source1:        pom.xml
 
-BuildRequires:  java-devel
-BuildRequires:  maven-local
+BuildRequires:  java-25-devel
+BuildRequires:  maven-local-openjdk25
 
-Requires:       java-headless
+Requires:       java-25-headless
 
 # Apply workaround until gradle doesn't exists in repos
 Provides:       mvn(com.fifesoft:rsyntaxtextarea)
@@ -77,6 +77,9 @@ popd
 
 
 %changelog
+* Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 3.1.3-16
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.3-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

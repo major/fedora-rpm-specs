@@ -1,6 +1,6 @@
 Name:		voms-clients-java
 Version:	3.3.5
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Virtual Organization Membership Service Java clients
 
 License:	Apache-2.0
@@ -10,7 +10,7 @@ Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildArch:	noarch
 ExclusiveArch:	%{java_arches} noarch
 
-BuildRequires:	maven-local
+BuildRequires:	maven-local-openjdk25
 BuildRequires:	mvn(org.italiangrid:voms-api-java) >= 3.3.5
 BuildRequires:	mvn(commons-cli:commons-cli)
 BuildRequires:	mvn(commons-io:commons-io)
@@ -21,7 +21,7 @@ Requires:	mvn(org.italiangrid:voms-api-java) >= 3.3.5
 Requires:	(java-headless or java-11-headless or java-17-headless or java-21-headless)
 Suggests:	java-headless
 %else
-Requires:	java-headless
+Requires:	java-25-headless
 %endif
 
 Requires(post):		%{_sbindir}/update-alternatives
@@ -168,6 +168,9 @@ fi
 %license LICENSE
 
 %changelog
+* Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 3.3.5-5
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

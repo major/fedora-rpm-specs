@@ -1,7 +1,7 @@
 Summary:        Diagrams Through ASCII Art
 Name:           ditaa
 Version:        0.10
-Release:        29%{?dist}
+Release:        30%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            http://ditaa.sourceforge.net/
@@ -13,8 +13,8 @@ Patch1:         https://sources.debian.org/data/main/d/ditaa/0.10+ds1-1.2/debian
 Patch2:         jdk17.patch
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
-BuildRequires:  java-devel >= 1:1.6.0
-BuildRequires:  ant
+BuildRequires:  java-25-devel >= 1:1.6.0
+BuildRequires:  ant-openjdk25 
 BuildRequires:  jpackage-utils
 BuildRequires:  batik
 BuildRequires:  jericho-html
@@ -25,7 +25,7 @@ Requires:       xml-commons-apis
 Requires:       jericho-html
 Requires:       batik
 Requires:       jpackage-utils
-Requires:       java-headless >= 1:1.6.0
+Requires:       java-25-headless >= 1:1.6.0
 
 %description
 ditaa is a small command-line utility written in Java, that can
@@ -53,6 +53,9 @@ install -D -p -m 0755 %{SOURCE1} %{buildroot}%{_bindir}/%{name}
 %{_javadir}/%{name}.jar
 
 %changelog
+* Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 0.10-30
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

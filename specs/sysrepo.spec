@@ -1,6 +1,6 @@
 Name: sysrepo
-Version: 3.3.10
-Release: 2%{?dist}
+Version: 3.6.11
+Release: 1%{?dist}
 Summary: YANG-based configuration and operational data store
 Url: https://github.com/sysrepo/sysrepo
 Source: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -14,7 +14,7 @@ BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  make
-BuildRequires:  pkgconfig(libyang) >= 2.0.7
+BuildRequires:  pkgconfig(libyang) >= 2.2.0
 # for tests
 BuildRequires:  pkgconfig(cmocka)
 # for sysrepo-plugind systemd support
@@ -92,6 +92,12 @@ rm -rf /dev/shm/srsub_*
     getent passwd sysrepo-plugind 1>/dev/null || useradd -r -M -s /sbin/nologin -c "sysrepo plugind user" -g sysrepo sysrepo-plugind
 %endif
 
+if [ $1 -gt 1 ] ; then
+# sysrepo apps shared memory
+rm -rf /dev/shm/sr_*
+rm -rf /dev/shm/srsub_*
+fi
+
 %post plugind
 %systemd_post %{name}-plugind.service
 
@@ -106,6 +112,10 @@ rm -rf /dev/shm/srsub_*
 %{_libdir}/libsysrepo.so.7*
 %attr(0770,root,sysrepo) %{_sysconfdir}/sysrepo
 %{_datadir}/yang/modules/sysrepo/*.yang
+%dir %{_datadir}/yang/modules/sysrepo/
+%dir %{_sysconfdir}/sysrepo
+%dir %{_libdir}/sysrepo/plugins
+%dir %{_libdir}/sysrepo
 
 %files devel
 %{_libdir}/libsysrepo.so
@@ -129,6 +139,9 @@ rm -rf /dev/shm/srsub_*
 
 
 %changelog
+* Mon Jul 28 2025 Michal Ruprich <mruprich@redhat.com> - 3.6.11-1
+- New version 3.6.11
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

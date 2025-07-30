@@ -1,6 +1,6 @@
 Name: libserializer
 Version: 1.1.2
-Release: 46%{?dist}
+Release: 47%{?dist}
 Summary: JFreeReport General Serialization Framework
 License: LGPL-2.1-or-later
 #Original source: http://downloads.sourceforge.net/jfreereport/libserializer-%%{version}.zip
@@ -8,8 +8,8 @@ License: LGPL-2.1-or-later
 #to simplify the licensing
 Source: libserializer-%{version}-jarsdeleted.zip
 URL: http://reporting.pentaho.org
-BuildRequires: ant, java-devel, jpackage-utils, libbase >= 1.1.2
-Requires: java-headless, jpackage-utils, libbase >= 1.1.2
+BuildRequires: ant-openjdk25 , java-25-devel, jpackage-utils, libbase >= 1.1.2
+Requires: java-25-headless, jpackage-utils, libbase >= 1.1.2
 BuildArch: noarch
 ExclusiveArch:  %{java_arches} noarch
 Patch0: libserializer-1.1.2.build.patch
@@ -58,6 +58,9 @@ cp -rp bin/javadoc/docs/api $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 %{_javadocdir}/%{name}
 
 %changelog
+* Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 1.1.2-47
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-46
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

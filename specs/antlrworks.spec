@@ -1,6 +1,6 @@
 Name:           antlrworks
 Version:        1.5.2
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Grammar development environment for ANTLR v3 grammars
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -16,7 +16,7 @@ Patch1:         %{name}-1.5.2-browsers.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(com.jgoodies:jgoodies-forms)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.antlr:antlr)
@@ -26,7 +26,7 @@ Requires:       graphviz
 # Owns /usr/share/icons/hicolor
 Requires:       hicolor-icon-theme
 # Antlrworks requires javac
-Requires:       java-devel >= 1:1.6.0
+Requires:       java-25-devel >= 1:1.6.0
 # Explicit requires for javapackages-tools since antlrworks-script
 # uses /usr/share/java-utils/java-functions
 Requires:       javapackages-tools
@@ -99,6 +99,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/appdata/%{name}
 
 
 %changelog
+* Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 1.5.2-34
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

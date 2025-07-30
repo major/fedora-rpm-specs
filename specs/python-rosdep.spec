@@ -1,14 +1,16 @@
 %global srcname rosdep
 
 Name:           python-%{srcname}
-Version:        0.23.0
-Release:        7%{?dist}
+Version:        0.26.0
+Release:        1%{?dist}
 Summary:        ROS System Dependency Installer
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-3-Clause
 URL:            http://ros.org/wiki/%{srcname}
 Source0:        https://github.com/ros-infrastructure/%{srcname}/archive/%{version}/%{srcname}-%{version}.tar.gz
+
+# Submitted upstream as ros-infrastructure/rosdep#1012
+Patch0:         intersphinx-mapping.patch
 
 BuildArch:      noarch
 
@@ -34,30 +36,12 @@ HTML documentation for the '%{srcname}' python module
 %package -n python%{python3_pkgversion}-%{srcname}
 Summary:        ROS System Dependency Installer
 BuildRequires:  npm
-BuildRequires:  python%{python3_pkgversion}-catkin_pkg >= 0.4.0
 BuildRequires:  python%{python3_pkgversion}-devel
-%if 0%{?rhel} && 0%{?rhel} < 9
-BuildRequires:  python%{python3_pkgversion}-importlib-metadata
-%endif
 BuildRequires:  python%{python3_pkgversion}-pip
 BuildRequires:  python%{python3_pkgversion}-pytest
-BuildRequires:  python%{python3_pkgversion}-PyYAML >= 3.1
-BuildRequires:  python%{python3_pkgversion}-rosdistro >= 0.7.5
-BuildRequires:  python%{python3_pkgversion}-rospkg >= 1.4.0
-BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  rubygems
 Requires:       python-srpm-macros
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
-
-%if %{undefined __pythondist_requires}
-Requires:       python%{python3_pkgversion}-catkin_pkg >= 0.4.0
-%if 0%{?rhel} && 0%{?rhel} < 9
-Requires:       python%{python3_pkgversion}-importlib-metadata
-%endif
-Requires:       python%{python3_pkgversion}-PyYAML >= 3.1
-Requires:       python%{python3_pkgversion}-rosdistro >= 0.7.5
-Requires:       python%{python3_pkgversion}-rospkg >= 1.4.0
-%endif
 
 %if !0%{?rhel} || 0%{?rhel} >= 8
 Recommends:     python%{python3_pkgversion}-pip
@@ -80,25 +64,29 @@ specify a dependency on 'boost'.
 %autosetup -p1 -n %{srcname}-%{version}
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 PYTHONPATH=$PWD/src %make_build -C doc man html SPHINXBUILD=sphinx-build-%{python3_version}
 rm doc/_build/html/.buildinfo
 
 
 %install
-%py3_install -- --install-scripts %{_bindir}/scripts
+%pyproject_install
+%pyproject_save_files -l rosdep2
 
-echo -n > py3_bins
-for f in `ls %{buildroot}%{_bindir}/scripts`; do
-    mv %{buildroot}%{_bindir}/scripts/$f %{buildroot}%{_bindir}/$f-%{python3_version}
+#echo -n > py3_bins
+for f in `ls %{buildroot}%{_bindir}`; do
+    mv %{buildroot}%{_bindir}/$f %{buildroot}%{_bindir}/$f-%{python3_version}
     ln -s $f-%{python3_version} %{buildroot}%{_bindir}/$f-3
     ln -s $f-%{python3_version} %{buildroot}%{_bindir}/$f
-    echo -e "%{_bindir}/$f\n%{_bindir}/$f-3\n%{_bindir}/$f-%{python3_version}" >> py3_bins
+    echo -e "%{_bindir}/$f\n%{_bindir}/$f-3\n%{_bindir}/$f-%{python3_version}" >> %{pyproject_files}
 done
 
-rm -rf %{buildroot}%{_bindir}/scripts
 install -D -p -m 0644 doc/man/rosdep.1 %{buildroot}%{_mandir}/man1/rosdep.1
 install -D -p -m 0644 /dev/null %{buildroot}%{_sysconfdir}/ros/rosdep/sources.list.d/20-default.list
 
@@ -112,11 +100,8 @@ install -D -p -m 0644 /dev/null %{buildroot}%{_sysconfdir}/ros/rosdep/sources.li
 %license LICENSE
 %doc doc/_build/html
 
-%files -n python%{python3_pkgversion}-%{srcname} -f py3_bins
-%license LICENSE
+%files -n python%{python3_pkgversion}-%{srcname} -f %{pyproject_files}
 %doc README.md
-%{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info/
-%{python3_sitelib}/%{srcname}2/
 %{_mandir}/man1/%{srcname}.1.gz
 %dir %{_sysconfdir}/ros/rosdep/
 %dir %{_sysconfdir}/ros/rosdep/sources.list.d/
@@ -124,6 +109,12 @@ install -D -p -m 0644 /dev/null %{buildroot}%{_sysconfdir}/ros/rosdep/sources.li
 
 
 %changelog
+* Mon Jul 28 2025 Scott K Logan <logans@cottsay.net> - 0.26.0-1
+- Update to 0.26.0 (rhbz#2307470)
+- Switch to pyproject build macros (rhbz#2378179)
+- Add patch for sphinx 8 compatibility (rhbz#2329891)
+- Review SPDX licensing
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.23.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

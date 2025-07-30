@@ -1,7 +1,7 @@
 Summary: A Java template engine
 Name: stringtemplate
 Version: 3.2.1
-Release: 39%{?dist}
+Release: 40%{?dist}
 License: BSD-3-Clause
 URL: http://www.stringtemplate.org/
 Source0: http://www.stringtemplate.org/download/stringtemplate-%{version}.tar.gz
@@ -14,10 +14,10 @@ Patch1: stringtemplate-3.2.1-ambiguity.patch
 # Update deprecated uses of "new Integer" and "new Boolean"
 Patch2: stringtemplate-3.2.1-deprecated.patch
 
-BuildRequires: ant
+BuildRequires: ant-openjdk25 
 BuildRequires: ant-antlr
 BuildRequires: ant-junit
-BuildRequires: javapackages-local
+BuildRequires: javapackages-local-openjdk25
 
 BuildArch: noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -60,6 +60,9 @@ ant javadocs -Dpackages= -Djavadocs.additionalparam="-Xdoclint:none"
 %{_javadocdir}/%{name}
 
 %changelog
+* Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 3.2.1-40
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

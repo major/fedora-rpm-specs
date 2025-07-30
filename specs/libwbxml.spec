@@ -1,6 +1,6 @@
 Name:           libwbxml
 Version:        0.11.10
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Library and tools to parse, encode and handle WBXML documents
 ## Used and installed:
 # COPYING:                          LGPL-2.1-or-later
@@ -25,6 +25,9 @@ Source:         %{url}/archive/%{name}-%{version}.tar.gz
 # Fix installing CMake configuration files, in upstream after 0.11.10,
 # <https://github.com/libwbxml/libwbxml/pull/95>.
 Patch0:         libwbxml-0.11.10-Fix-installing-CMake-configuration-files.patch
+# Fix building with nonstandard CMake variables, bug #2381269,
+# in upstream after 0.11.10, <https://github.com/libwbxml/libwbxml/pull/104>
+Patch1:         libwbxml-0.11.10-Use-GNUInstallDirs-for-defining-installation-directo.patch
 BuildRequires:  cmake >= 3.5
 BuildRequires:  coreutils
 BuildRequires:  expat-devel
@@ -107,6 +110,9 @@ developing applications that use %{name}.
 %{_libdir}/pkgconfig/libwbxml2.pc
 
 %changelog
+* Mon Jul 28 2025 Petr Pisar <ppisar@redhat.com> - 0.11.10-5
+- Fix building with nonstandard CMake variables (bug #2381269)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.10-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

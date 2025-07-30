@@ -6,8 +6,8 @@
 %endif
 
 Name:           packit
-Version:        1.10.0
-Release:        2%{?dist}
+Version:        1.11.0
+Release:        1%{?dist}
 Summary:        A tool for integrating upstream projects with Fedora operating system
 
 License:        MIT
@@ -78,6 +78,9 @@ cp files/bash-completion/packit %{buildroot}%{bash_completions_dir}/packit
 %doc README.md
 
 %changelog
+* Mon Jul 28 2025 Packit <hello@packit.dev> - 1.11.0-1
+- `packit test` now supports running and validating TMT tests locally without requiring a PR or a release, including result parsing and basic failure reporting. (#2632)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

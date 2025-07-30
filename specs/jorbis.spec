@@ -1,6 +1,6 @@
 Name:           jorbis
 Version:        0.0.17
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Pure Java Ogg Vorbis Decoder
 URL:            http://www.jcraft.com/jorbis/
 License:        LGPLv2+
@@ -13,8 +13,8 @@ Source0:        http://www.jcraft.com/jorbis/%{name}-%{version}.zip
 Patch0:         jorbis-0.0.17-cortado-fixes.patch
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
-BuildRequires:  java-devel
-Requires:       java-headless
+BuildRequires:  java-25-devel
+Requires:       java-25-headless
 # We used to also package the comment editor example, but that is not so
 # useful to end users (esp. the passing of cmdline args as java defines)
 Obsoletes:      %{name}-comment <= 0.0.17-3
@@ -34,7 +34,7 @@ This package contains the API documentation for jorbis.
 Summary:        Java applet for playing ogg-vorbis files from a browser
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
-Requires:       java
+Requires:       java-25
 Requires:       %{name} = %{version}-%{release}
 
 %description player
@@ -79,6 +79,9 @@ cp -a doc $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 
 
 %changelog
+* Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 0.0.17-39
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.17-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

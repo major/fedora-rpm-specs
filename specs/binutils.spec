@@ -6,8 +6,8 @@ Name: binutils%{?_with_debug:-debug}
 # A version number of X.XX.90 is a pre-release snapshot.
 # The variable %%{source} (see below) should be set to indicate which of these
 # origins is being used.
-Version: 2.44.90
-Release: 4%{?dist}
+Version: 2.45
+Release: 1%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -111,8 +111,8 @@ URL: https://sourceware.org/binutils
 # They are a "snapshot" of the about to be released branch sources, rather than
 # a snapshot of the mainline development sources.
 
-# %%define source official-release
-%define source pre-release
+%define source official-release
+# %%define source pre-release
 # %%define source snapshot
 # %%define source tarball
 
@@ -206,7 +206,8 @@ URL: https://sourceware.org/binutils
 #----------------------------------------------------------------------------
 
 %if "%{source}" == "official-release"
-Source0: https://ftp.gnu.org/gnu/binutils/binutils-with-gold-%{version}.tar.xz
+# Source0: https://ftp.gnu.org/gnu/binutils/binutils-with-gold-%%{version}.tar.xz
+Source0: https://ftp.gnu.org/gnu/binutils/binutils-%{version}.tar.xz
 %endif
 %if "%{source}" == "pre-release"
 Source0: binutils-%{version}.tar.xz
@@ -325,10 +326,6 @@ Patch18: binutils-fix-ar-test.patch
 # Purpose:  Fix a seg fault in the AArch64 linker when building u-boot.
 # Lifetime: Fixed in 2.45
 Patch19: binutils-aarch64-small-plt0.patch
-
-# Purpose:  Improve strip's handling of archives containing bitcodes.
-# Lifetime: ?
-Patch20: binutils-strip-plugin-fix.patch
 
 #----------------------------------------------------------------------------
 
@@ -1465,6 +1462,9 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Mon Jul 28 2025 Nick Clifton <nickc@redhat.com> - 2.45-1
+- Rebase to official GNU Binutils 2.45 release.
+
 * Fri Jul 25 2025 Nick Clifton <nickc@redhat.com> - 2.44.90-4
 - Properly handle LLVM IR bitcodes.  (#2382341) (PR 33198)
 

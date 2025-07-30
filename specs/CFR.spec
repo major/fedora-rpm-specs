@@ -1,6 +1,6 @@
 Name:           CFR
 Version:        0.151
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        CFR - Another Java Decompiler
 
 License:        MIT
@@ -10,10 +10,10 @@ Source0:        https://github.com/leibnitz27/cfr/archive/refs/tags/%{version}.t
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  maven-compiler-plugin
 
-Requires:       java-headless
+Requires:       java-25-headless
 Requires:       javapackages-tools
 
 Provides:       cfr
@@ -71,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 0.151-19
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.151-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

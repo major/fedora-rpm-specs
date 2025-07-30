@@ -1,6 +1,6 @@
 Name:           cortado
 Version:        0.6.0
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Java media framework
 URL:            http://www.theora.org/cortado/
 # The codecs are all LGPLv2+, the jst framework is mixed, the player applet GPL
@@ -10,8 +10,8 @@ Source0:        http://downloads.xiph.org/releases/%{name}/%{name}-%{version}.ta
 Patch0:         cortado-0.6.0-javadoc-fix.patch
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
-BuildRequires:  jpackage-utils java-devel jorbis
-Requires:       java jpackage-utils jorbis
+BuildRequires:  jpackage-utils java-25-devel jorbis
+Requires:       java-25 jpackage-utils jorbis
 
 %description
 Cortado is a Java media framework based on GStreamer's design.
@@ -66,6 +66,9 @@ cp -a doc $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 
 
 %changelog
+* Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 0.6.0-37
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

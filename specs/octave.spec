@@ -101,9 +101,9 @@ BuildRequires:  gperf
 BuildRequires:  GraphicsMagick-c++-devel
 BuildRequires:  hdf5-devel
 %if %{with java}
-BuildRequires:  java-devel
+BuildRequires:  java-25-devel
 %if 0%{?fedora}
-BuildRequires:  javapackages-local
+BuildRequires:  javapackages-local-openjdk25
 %endif
 %endif
 BuildRequires:  less
@@ -154,7 +154,7 @@ Requires:       gnuplot-common
 Requires:       hdf5 = %{_hdf5_version}
 Requires:       hicolor-icon-theme
 %if %{with java}
-Requires:       java-headless
+Requires:       java-25-headless
 %endif
 Requires:       less
 %if %{undefined flatpak}

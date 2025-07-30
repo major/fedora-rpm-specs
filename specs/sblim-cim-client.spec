@@ -7,7 +7,7 @@
 Summary:        Java CIM Client library
 Name:           sblim-cim-client
 Version:        1.3.9.3
-Release:        37%{?dist}
+Release:        38%{?dist}
 License:        EPL-1.0
 URL:            http://sourceforge.net/projects/sblim/
 Source0:        http://downloads.sourceforge.net/project/sblim/%{name}/%{version}/%{name}-%{version}-src.zip
@@ -17,13 +17,13 @@ Patch0:         sblim-cim-client-1.3.9.3-fix-for-java-11-openjdk.patch
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-BuildRequires:  java-devel >= 1.4
+BuildRequires:  java-25-devel >= 1.4
 BuildRequires:  jpackage-utils
 BuildRequires:  xerces-j2 >= 2.7.1
-BuildRequires:  ant >= 0:1.6
+BuildRequires:  ant-openjdk25  >= 0:1.6
 BuildRequires:  dos2unix
 
-Requires:       java-headless >= 1.4
+Requires:       java-25-headless >= 1.4
 Requires:       jpackage-utils
 Requires:       xerces-j2 >= 2.7.1
 Requires:       tog-pegasus >= 2:2.5.1
@@ -114,6 +114,9 @@ cp -pr %{archive_folder_name}/doc/* $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 %{_datadir}/%{name}
 
 %changelog
+* Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 1.3.9.3-38
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.9.3-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

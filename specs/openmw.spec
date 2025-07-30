@@ -38,7 +38,7 @@ Summary:        OpenMW is an open-source game engine
 License:        %{shrink:
                 GPL-3.0-only AND 
                 (Zlib AND MIT AND BSD-3-clause AND BSL-1.0 AND NTP) AND
-                (GPL-2.0-only LGPL-2.0-or-later WITH WxWindows-exception-3.1) AND 
+                (GPL-2.0-only AND LGPL-2.0-or-later WITH WxWindows-exception-3.1) AND 
                 MIT AND 
                 OFL-1.1-RFN}
 URL:            https://openmw.org/
@@ -165,21 +165,22 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Various utility tools for developing and debugging with OpenMW
 
 %prep
-%setup -qn %{name}-openmw-%{version}
-%__rpmuncompress -x %{SOURCE1} -C %{_builddir}/bullet
-%__rpmuncompress -x %{SOURCE2} -C %{_builddir}/osg
-%__rpmuncompress -x %{SOURCE3} -C %{_builddir}/recastnavigation
+# Unpack the main source archive and the secondary sources
+# into separate directories in %%{_builddir}.
+# Then, switch into the unpacked Source0 directory.
+%setup -q %{forgesetupargs0} -b1 -b2 -b3
 %autopatch -p1
 
 %conf
 # Prepare the cmake
+# topdir<number> is set for each source by %%forgemeta.
 %cmake -G Ninja \
     -DBUILD_OPENMW_TESTS:BOOL=ON \
     -DBULLET_STATIC:BOOL=ON \
     -DFETCHCONTENT_FULLY_DISCONNECTED:BOOL=ON \
-    -DFETCHCONTENT_SOURCE_DIR_BULLET:PATH=%{_builddir}/bullet \
-    -DFETCHCONTENT_SOURCE_DIR_OSG:PATH:PATH=%{_builddir}/osg \
-    -DFETCHCONTENT_SOURCE_DIR_RECASTNAVIGATION:PATH=%{_builddir}/recastnavigation \
+    -DFETCHCONTENT_SOURCE_DIR_BULLET:PATH=%{_builddir}/%{topdir1} \
+    -DFETCHCONTENT_SOURCE_DIR_OSG:PATH:PATH=%{_builddir}/%{topdir2} \
+    -DFETCHCONTENT_SOURCE_DIR_RECASTNAVIGATION:PATH=%{_builddir}/%{topdir3} \
     -DGLOBAL_DATA_PATH:PATH=%{_datadir} \
     -DOPENMW_USE_SYSTEM_BULLET:BOOL=OFF \
     -DOPENMW_USE_SYSTEM_GOOGLETEST:BOOL=ON \

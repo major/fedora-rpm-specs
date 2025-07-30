@@ -4,6 +4,7 @@ Release:        %{autorelease}
 License:        Apache-2.0
 URL:            https://github.com/elixir-lang/%{name}
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+BuildRequires:  tree-sitter-srpm-macros >= 0.4.2
 BuildSystem:    tree_sitter
 BuildOption(build): PARSER_NAME=elixir
 BuildOption(install): PARSER_NAME=elixir

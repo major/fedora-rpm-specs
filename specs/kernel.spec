@@ -165,13 +165,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.16.0
 %define specversion 6.16.0
 %define patchversion 6.16
-%define pkgrelease 0.rc7.60
+%define pkgrelease 65
 %define kversion 6
-%define tarfile_release 6.16-rc7
+%define tarfile_release 6.16
 # This is needed to do merge window version magic
 %define patchlevel 16
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc7.60%{?buildid}%{?dist}
+%define specrelease 65%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.16.0
 
@@ -812,7 +812,7 @@ BuildRequires: clang llvm-devel fuse-devel zlib-devel binutils-devel python3-doc
 %ifarch x86_64 riscv64
 BuildRequires: lld
 %endif
-BuildRequires: libcap-devel libcap-ng-devel rsync libmnl-devel
+BuildRequires: libcap-devel libcap-ng-devel rsync libmnl-devel libxml2-devel
 BuildRequires: numactl-devel
 %endif
 BuildConflicts: rhbuildsys(DiskFree) < 500Mb
@@ -3265,7 +3265,7 @@ if [ ! -f tools/bpf/bpftool/bootstrap/bpftool ]; then
 fi
 
 %{log_msg "build samples/bpf"}
-%{make} %{?_smp_mflags} ARCH=$Arch BPFTOOL=$(pwd)/tools/bpf/bpftool/bootstrap/bpftool V=1 M=samples/bpf/ VMLINUX_H="${RPM_VMLINUX_H}" || true
+%{make} %{?_smp_mflags} EXTRA_CXXFLAGS="${RPM_OPT_FLAGS}" ARCH=$Arch BPFTOOL=$(pwd)/tools/bpf/bpftool/bootstrap/bpftool V=1 M=samples/bpf/ VMLINUX_H="${RPM_VMLINUX_H}" || true
 
 pushd tools/testing/selftests
 # We need to install here because we need to call make with ARCH set which
@@ -3277,7 +3277,20 @@ pushd tools/testing/selftests
 %endif
 
 %{log_msg "main selftests compile"}
-%{make} %{?_smp_mflags} ARCH=$Arch V=1 TARGETS="bpf cgroup kmod mm net net/forwarding net/mptcp net/netfilter net/packetdrill tc-testing memfd drivers/net drivers/net/hw iommu cachestat pid_namespace rlimits timens pidfd" SKIP_TARGETS="" $force_targets INSTALL_PATH=%{buildroot}%{_libexecdir}/kselftests VMLINUX_H="${RPM_VMLINUX_H}" install
+
+# Some selftests (especially bpf) do not build with source fortification.
+# Since selftests are not shipped, disable source fortification for them.
+%global _fortify_level_bak %{_fortify_level}
+%undefine _fortify_level
+export CFLAGS="%{build_cflags}"
+export CXXFLAGS="%{build_cxxflags}"
+
+%{make} %{?_smp_mflags} EXTRA_CFLAGS="${RPM_OPT_FLAGS}" EXTRA_CXXFLAGS="${RPM_OPT_FLAGS}" EXTRA_LDFLAGS="%{__global_ldflags}" ARCH=$Arch V=1 TARGETS="bpf cgroup kmod mm net net/forwarding net/mptcp net/netfilter net/packetdrill tc-testing memfd drivers/net drivers/net/hw iommu cachestat pid_namespace rlimits timens pidfd" SKIP_TARGETS="" $force_targets INSTALL_PATH=%{buildroot}%{_libexecdir}/kselftests VMLINUX_H="${RPM_VMLINUX_H}" install
+
+# Restore the original level of source fortification
+%define _fortify_level %{_fortify_level_bak}
+export CFLAGS="%{build_cflags}"
+export CXXFLAGS="%{build_cxxflags}"
 
 # 'make install' for bpf is broken and upstream refuses to fix it.
 # Install the needed files manually.
@@ -3296,6 +3309,19 @@ for dir in bpf bpf/no_alu32 bpf/progs; do
 done
 %buildroot_save_unstripped "usr/libexec/kselftests/bpf/test_progs"
 %buildroot_save_unstripped "usr/libexec/kselftests/bpf/test_progs-no_alu32"
+
+# The urandom_read binary doesn't pass the check-rpaths check and upstream
+# refuses to fix it. So, we save it to buildroot_unstripped and delete it so it
+# will be hidden from check-rpaths and will automatically get restored later.
+%buildroot_save_unstripped "usr/libexec/kselftests/bpf/urandom_read"
+%buildroot_save_unstripped "usr/libexec/kselftests/bpf/no_alu32/urandom_read"
+rm -f %{buildroot}/usr/libexec/kselftests/bpf/urandom_read
+rm -f %{buildroot}/usr/libexec/kselftests/bpf/no_alu32/urandom_read
+
+# Copy bpftool to kselftests so selftests is packaged with
+# the full bpftool instead of bootstrap bpftool
+cp ./bpf/tools/sbin/bpftool %{buildroot}%{_libexecdir}/kselftests/bpf/bpftool
+
 popd
 %{log_msg "end build selftests"}
 %endif
@@ -4342,8 +4368,31 @@ fi\
 #
 #
 %changelog
-* Wed Jul 23 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc7.60]
+* Mon Jul 28 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-65]
 - redhat/configs: clang_lto: disable CONFIG_FORTIFY_KUNIT_TEST (Scott Weaver)
+
+* Mon Jul 28 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-64]
+- Linux v6.16.0
+
+* Sun Jul 27 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc7.ec2df4364666.63]
+- Linux v6.16.0-0.rc7.ec2df4364666
+
+* Sat Jul 26 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc7.5f33ebd2018c.62]
+- redhat/spec: package full bpftool in selftests (Gregory Bell)
+- selftests/bpf: Remove ksyms_weak_lskel test (Artem Savkov)
+- redhat/spec: Add libxml2-devel dependency for selftests build (Viktor Malik)
+- redhat/spec: Bypass check-rpaths for kselftests/bpf/urandom_read (Viktor Malik)
+- redhat/spec: Do not use source fortification for C++ selftest binaries (Viktor Malik)
+- redhat/spec: Do not use source fortification for selftests (Viktor Malik)
+- redhat/spec: Fix BPF selftests build with PIE (Viktor Malik)
+- redhat/spec: Add EXTRA_CXXFLAGS to bpf samples and selftests make (Artem Savkov)
+- Linux v6.16.0-0.rc7.5f33ebd2018c
+
+* Fri Jul 25 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc7.2942242dde89.61]
+- Linux v6.16.0-0.rc7.2942242dde89
+
+* Thu Jul 24 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc7.25fae0b93d1d.60]
+- Linux v6.16.0-0.rc7.25fae0b93d1d
 
 * Wed Jul 23 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc7.59]
 - fedora: minor cleanups (Peter Robinson)

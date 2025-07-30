@@ -46,7 +46,7 @@ BuildRequires: pkgconfig(libsystemd)
 Name:    qt6-qtbase
 Summary: Qt6 - QtBase components
 Version: 6.9.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://qt-project.org/
@@ -94,6 +94,10 @@ Patch56: qtbase-mysql.patch
 
 # fix FTBFS against libglvnd-1.3.4+
 Patch58: qtbase-libglvnd.patch
+
+# Adjust to https://fedoraproject.org/wiki/Changes/dropingOfCertPemFile
+# https://codereview.qt-project.org/c/qt/qtbase/+/664056
+Patch59: 0001-Update-SSL-trust-store-locations-for-modern-Red-Hat.patch
 
 # upstream patches
 
@@ -928,6 +932,9 @@ make check -k ||:
 
 
 %changelog
+* Mon Jul 28 2025 Adam Williamson <awilliam@redhat.com> - 6.9.1-3
+- Adjust for https://fedoraproject.org/wiki/Changes/dropingOfCertPemFile removals
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.9.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -8,23 +8,18 @@
 %global hitch_datadir	%{_datadir}/hitch
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
 
-# A bug in the rhel7 builders? Looks like they set _pkgdocdir fedora style
-# without version...?
-%if 0%{?rhel} == 7
-%global _pkgdocdir %{_docdir}/%{name}-%{version}
-%endif
-
 %global _hardened_build 1
 
 Name:		hitch
 Version:	1.8.0
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Network proxy that terminates TLS/SSL connections
 
 # Automatically converted from old format: BSD - review is highly recommended.
 License:	LicenseRef-Callaway-BSD
 URL:		https://hitch-tls.org/
 Source0:	https://hitch-tls.org/source/%{name}-%{version}%{?v_rc}.tar.gz
+Source1:	hitch.sysusers
 
 BuildRequires:	make
 BuildRequires:	libev-devel
@@ -47,6 +42,7 @@ Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
 BuildRequires: systemd
+%{?sysusers_requires_compat}
 
 %description
 hitch is a network proxy that terminates TLS/SSL connections and forwards the
@@ -95,6 +91,7 @@ install -d -m 0755 %{buildroot}%{hitch_homedir}
 install -d -m 0755 %{buildroot}%{hitch_datadir}
 install -p -D -m 0644 hitch.service %{buildroot}%{_unitdir}/hitch.service
 install -p -D -m 0644 limit.conf    %{buildroot}%{_sysconfdir}/systemd/system/%{name}.service.d/limit.conf
+install -p -D -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/hitch.conf
 
 # check is not enabled by default, as it won't work on the koji builders, 
 # nor on machines that can't reach the Internet. 
@@ -104,8 +101,7 @@ make check
 %endif
 
 %pre
-groupadd -r %{hitch_group} &>/dev/null ||:
-useradd -r -g %{hitch_group} -s /sbin/nologin -d %{hitch_homedir} %{hitch_user} &>/dev/null ||:
+%sysusers_create_compat %{SOURCE1}
 
 
 %post
@@ -129,10 +125,15 @@ useradd -r -g %{hitch_group} -s /sbin/nologin -d %{hitch_homedir} %{hitch_user} 
 %attr(0700,%hitch_user,%hitch_user) %dir %hitch_homedir
 %config(noreplace) %{_sysconfdir}/%{name}/%{name}.conf
 %{_unitdir}/%{name}.service
+%{_sysusersdir}/%{name}.conf
 %config(noreplace) %{_sysconfdir}/systemd/system/%{name}.service.d/limit.conf
 %ghost %verify(not md5 size mtime)  /run/%{name}/%{name}.pid
 
 %changelog
+* Mon Jul 28 2025 Ingvar Hagelund <ingvar@redpill-linpro.com> - 1.8.0-9
+- systemd user setup
+- pulled el7 support
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

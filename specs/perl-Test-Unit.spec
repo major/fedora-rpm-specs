@@ -1,28 +1,18 @@
 Name:           perl-Test-Unit
-Version:        0.25
-Release:        53%{?dist}
+Version:        0.27
+Release:        1%{?dist}
 Summary:        The PerlUnit testing framework
 
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            http://perlunit.sourceforge.net/
-Source0:        https://cpan.metacpan.org/authors/id/M/MC/MCAST/Test-Unit-%{version}.tar.gz
-# https://rt.cpan.org/Public/Bug/Display.html?id=69025
-Patch0:         tests5.14.patch
-# https://rt.cpan.org/Public/Bug/Display.html?id=77779
-Patch1:         perl5.16.patch
-# Fix random test failures with perl 5.18, bug #1104134, CPAN RT#87017
-Patch2:         Test-Unit-0.25-Accept-all-family-differences-in-the-AssertTest-test.patch
-# Adapt tests to Perl 5.30, bugs #1716422, #1749253, CPAN RT#129738
-Patch3:         Test-Unit-0.25-Adapt-tests-to-Perl-5.30.patch
+Source0:        https://cpan.metacpan.org/authors/id/R/RJ/RJBS/Test-Unit-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Class::Inner)
@@ -39,12 +29,17 @@ BuildRequires:  perl(overload)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Test)
 BuildRequires:  perl(Tk)
+BuildRequires:  perl(Tk::BrowseEntry)
 BuildRequires:  perl(Tk::Canvas)
 BuildRequires:  perl(Tk::Derived)
 BuildRequires:  perl(Tk::DialogBox)
 BuildRequires:  perl(Tk::ROText)
 BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
+
+%{?perl_default_filter}
+%global __provides_exclude %{?__provides_exclude}|perl\\(Experimental::Sample\\)|perl\\(fail_example\\)|perl\\(fail_example_testsuite_setup\\)
+%global __requires_exclude %{?__requires_exclude}|perl\\(Exporter\\)
 
 
 %description
@@ -53,29 +48,21 @@ development paradigm (with support for inheritance of tests etc.) and is
 derived from the JUnit testing framework for Java by Kent Beck and Erich
 Gamma.
 
-%perl_default_filter
-%global __provides_exclude %{?__provides_exclude}|perl\\(Experimental::Sample\\)|perl\\(fail_example\\)|perl\\(fail_example_testsuite_setup\\)
-%global __requires_exclude %{?__requires_exclude}|perl\\(Exporter\\)
 
 %prep
 %setup -q -n Test-Unit-%{version}
-%patch -P0 -p1
-%patch -P1 -p1
-%patch -P2 -p1
-%patch -P3 -p1
-sed -i 's/\r//' examples/Experimental/Sample.pm
+perl -pi -e 's/\r//' examples/Experimental/Sample.pm
 chmod a+x TkTestRunner.pl TestRunner.pl
 
+
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} ';'
-find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null ';'
-chmod -R u+w $RPM_BUILD_ROOT/*
+%{make_install}
+%{_fixperms} $RPM_BUILD_ROOT
 
 
 %check
@@ -83,12 +70,16 @@ make test
 
 
 %files
-%doc AUTHORS ChangeLog Changes COPYING.Artistic COPYING.GPL-2 doc examples README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*.3*
+%license COPYING.Artistic COPYING.GPL-2
+%doc AUTHORS ChangeLog Changes doc examples README
+%{perl_vendorlib}/Test*
+%{_mandir}/man3/Test::Unit*.3*
 
 
 %changelog
+* Mon Jul 28 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.27-1
+- 0.27 bump (rhbz#2295397)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.25-53
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

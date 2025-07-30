@@ -30,7 +30,7 @@
 
 Name:           bsh
 Version:        2.1.0
-Release:        16%{?dist}
+Release:        17%{?dist}
 Epoch:          0
 Summary:        Lightweight Scripting for Java
 URL:            https://beanshell.github.io/
@@ -53,15 +53,15 @@ Patch1:         0001-java-11-compatibility.patch
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-BuildRequires:  ant
+BuildRequires:  ant-openjdk25 
 BuildRequires:  bsf
 BuildRequires:  glassfish-servlet-api
 BuildRequires:  javacc
-BuildRequires:  javapackages-local
+BuildRequires:  javapackages-local-openjdk25
 BuildRequires:  junit
 
 Requires:       bsf
-Requires:       java-headless
+Requires:       java-25-headless
 Requires:       jline2
 
 # Explicit javapackages-tools requires since scripts use
@@ -161,6 +161,9 @@ cat scripts/bshdoc.bsh >> %{buildroot}%{_bindir}/bshdoc
 %license LICENSE NOTICE
 
 %changelog
+* Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 0:2.1.0-17
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0:2.1.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

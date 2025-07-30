@@ -394,8 +394,7 @@ Patch106: 0001-19-Always-build-shared-libs-for-LLD.patch
 #endregion LLD patches
 
 #region polly patches
-Patch2001: 0001-20-polly-shared-libs.patch
-Patch2101: 0001-20-polly-shared-libs.patch
+Patch107: 0001-20-polly-shared-libs.patch
 #endregion polly patches
 
 #region RHEL patches

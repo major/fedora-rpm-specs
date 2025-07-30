@@ -71,6 +71,7 @@ Requires:       qt6-qtlocation
 Requires:       qt6-qtmultimedia
 Requires:       kf6-kitemmodels
 Requires:       kf6-prison
+Requires:       kf6-qqc2-desktop-style
 
 %description
 %summary.

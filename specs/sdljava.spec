@@ -7,7 +7,7 @@
 
 Name:           sdljava
 Version:        0.9.1
-Release:        66%{?dist}
+Release:        67%{?dist}
 Summary:        Java binding to the SDL API
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -30,8 +30,8 @@ BuildRequires:  SDL_image-devel
 BuildRequires:  SDL_mixer-devel
 BuildRequires:  SDL_ttf-devel
 
-BuildRequires:  javapackages-local
-BuildRequires:  ant
+BuildRequires:  javapackages-local-openjdk25
+BuildRequires:  ant-openjdk25 
 BuildRequires:  swig
 BuildRequires:  jdom
 BuildRequires:  xml-commons-apis
@@ -42,7 +42,7 @@ BuildRequires:  font(dejavusans) fontconfig
 # sdljava provides java bindings for SDL, so it can only run on java_arches
 ExclusiveArch:  %{java_arches}
 
-Requires:       java
+Requires:       java-25
 Requires:       javapackages-filesystem
 Requires:       jdom
 
@@ -216,6 +216,9 @@ ln -s $(fc-match -f "%{file}" "sans:bold:italic") \
 
 
 %changelog
+* Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 0.9.1-67
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-66
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

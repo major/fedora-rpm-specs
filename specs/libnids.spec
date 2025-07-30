@@ -36,11 +36,13 @@ the API documentation of the library, too.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%setup -q
-%patch -P0 -p1 -b .inline
-%patch -P1 -p1
+%autosetup -p1
 
 %build
+%if 0%{?fedora} > 41 || 0%{?rhel} > 10
+export CFLAGS="$CFLAGS -std=gnu17"
+%endif
+
 %configure --enable-shared
 %make_build
 

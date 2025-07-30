@@ -1,6 +1,6 @@
 Name:           perl-POSIX-2008
-Version:        0.25
-Release:        2%{?dist}
+Version:        0.26
+Release:        1%{?dist}
 Summary:        Perl interface to POSIX.1-2008
 # COPYING:              WTFPL text
 # lib/POSIX/2008.pod:   WTFPL
@@ -33,8 +33,8 @@ BuildRequires:  perl(Carp)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(IO::Dir)
 BuildRequires:  perl(IO::File)
-# Run-time:
 BuildRequires:  perl(Time::HiRes)
+# Run-time:
 BuildRequires:  perl(XSLoader)
 # Tests:
 BuildRequires:  perl(bigrat)
@@ -115,6 +115,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jul 28 2025 Petr Pisar <ppisar@redhat.com> - 0.26-1
+- 0.26 bump
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.25-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

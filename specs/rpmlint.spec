@@ -3,7 +3,7 @@
 
 Name:           rpmlint
 Version:        2.7.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Tool for checking common errors in RPM packages
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/rpmlint
@@ -67,6 +67,11 @@ sed -i -e '/^ *--cov=rpmlint$/d' pytest.ini
 # Avoid warnings about pytest.mark.no_cover marker
 sed -i '/^@pytest.mark.no_cover/d' test/test_lint.py
 
+if ! which dash checkbashisms >/dev/null; then
+    # Disable bashisms check if dash or checkbashisms is unavailable.
+    sed -i -e '/BashismsCheck/d' %{SOURCE1}
+fi
+
 %generate_buildrequires
 %pyproject_buildrequires
 
@@ -93,6 +98,9 @@ cp -a %{SOURCE1} %{SOURCE3} %{SOURCE4} %{SOURCE5} %{buildroot}%{_sysconfdir}/xdg
 %{_bindir}/rpmlint
 
 %changelog
+* Mon Jul 28 2025 Ulrik Haugen <qha@lysator.liu.se> - 2.7.0-6
+- Disable bashisms check if dash or checkbashisms is unavailable.
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

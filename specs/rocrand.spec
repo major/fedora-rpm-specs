@@ -81,18 +81,9 @@
 %global gpu_list %{rocm_gpu_list_default}
 %endif
 
-# gfx950 is an experimental target
-# Enabling will short circuit the normal build.
-# There is no check support.
-# To use do
-# $ module load rocm/gfx950
-#     <do stuff>
-# $ module purge
-%bcond_with gfx950
-
 Name:           %{rocrand_name}
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        ROCm random number generator
 
 Url:            https://github.com/ROCm/rocRAND
@@ -164,37 +155,6 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %{summary}
 %endif
 
-%if %{with gfx950}
-
-%package gfx950
-Summary:        The gfx950 rocRAND package
-Provides:       rocrand-gfx950 = %{version}-%{release}
-Conflicts:      %{name}
-
-%description gfx950
-%{summary}
-
-%package gfx950-devel
-Summary:        The gfx950 rocRAND development package
-Requires:       %{name}-gfx950%{?_isa} = %{version}-%{release}
-Provides:       rocrand-gfx950-devel = %{version}-%{release}
-Conflicts:      %{name}-devel
-
-%description gfx950-devel
-%{summary}
-
-%if %{with test}
-%package gfx950-test
-Summary:        The gfx950 rocRAND test package
-Requires:       %{name}-gfx950%{?_isa} = %{version}-%{release}
-Conflicts:      %{name}-test
-
-%description gfx950-test
-%{summary}
-
-%endif # gfx950-test
-%endif # gfx950
-
 %prep
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
 
@@ -207,28 +167,11 @@ sed -i -e 's@set(CMAKE_CXX_STANDARD 11)@set(CMAKE_CXX_STANDARD 14)@' {,test/{cpp
 
 %build
 
-%if %{with gfx950}
-
-module load rocm/gfx950
-
-%cmake %{cmake_generator} %{cmake_config} \
-    -DAMDGPU_TARGETS=${ROCM_GPUS} \
-    -DCMAKE_INSTALL_BINDIR=${ROCM_BIN} \
-    -DCMAKE_INSTALL_INCLUDEDIR=${ROCM_INCLUDE} \
-    -DCMAKE_INSTALL_LIBDIR=${ROCM_LIB}
-
-%else
 %cmake %{cmake_generator} %{cmake_config} \
     -DAMDGPU_TARGETS=%{gpu_list} \
     -DCMAKE_INSTALL_LIBDIR=%_libdir
-%endif
 
 %cmake_build
-
-%if %{with gfx950}
-module purge
-%endif
-
 
 %install
 %cmake_install
@@ -248,28 +191,6 @@ export LD_LIBRARY_PATH=$PWD/build/library:$LD_LIBRARY_PATH
 %ctest
 %endif
 
-%if %{with gfx950}
-%files gfx950
-%doc README.md
-%license LICENSE.txt
-%{_libdir}/rocm/gfx950/lib/librocrand.so.1{,.*}
-
-%files gfx950-devel
-%dir %{_libdir}/rocm/gfx950/lib/cmake/rocrand
-%dir %{_libdir}/rocm/gfx950/include/rocrand
-%{_libdir}/rocm/gfx950/include/rocrand/*.{h,hpp}
-%{_libdir}/rocm/gfx950/lib/cmake/rocrand/*.cmake
-%{_libdir}/rocm/gfx950/lib/librocrand.so
-
-%if %{with test}
-%files gfx950-test
-%dir %{_libdir}/rocm/gfx950/bin/rocRAND
-%{_libdir}/rocm/gfx950/bin/test_*
-%{_libdir}/rocm/gfx950/bin/rocRAND/*.cmake
-%endif
-
-%else
-
 %files 
 %doc README.md
 %license LICENSE.txt
@@ -288,9 +209,12 @@ export LD_LIBRARY_PATH=$PWD/build/library:$LD_LIBRARY_PATH
 %{_bindir}/test_*
 %{_bindir}/rocRAND/*.cmake
 %endif
-%endif
 
 %changelog
+* Mon Jul 28 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-4
+- Remove experimental gfx950
+- Remove debian dir
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

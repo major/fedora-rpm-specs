@@ -15,7 +15,7 @@
 
 Name:             byteman
 Version:          4.0.16
-Release:          18%{?dist}
+Release:          19%{?dist}
 Summary:          Java agent-based bytecode injection tool
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:          LicenseRef-Callaway-LGPLv2+
@@ -27,8 +27,8 @@ BuildArch:        noarch
 ExclusiveArch:  %{java_arches} noarch
 
 # Byteman 4.x requires JDK 9+ to build. Require JDK 10 explicitly.
-BuildRequires:    java-devel >= 1:11
-BuildRequires:    maven-local
+BuildRequires:    java-25-devel >= 1:11
+BuildRequires:    maven-local-openjdk25
 BuildRequires:    maven-shade-plugin
 BuildRequires:    maven-source-plugin
 BuildRequires:    maven-plugin-plugin
@@ -52,7 +52,7 @@ Provides:         bundled(objectweb-asm) = 9.1
 Provides:         bundled(java_cup) = 1:0.11b-17
 # We are filtering java-headless >= 1:1.9 requirement. Add
 # JDK 8 requirement here explicitly which shouldn't match the filter.
-Requires:         java-headless >= 1:1.8
+Requires:         java-25-headless >= 1:1.8
 
 # Related pieces removed via pom_xpath_remove macros
 Patch1:           remove_submit_integration_test_verification.patch
@@ -221,6 +221,9 @@ ln -s %{_javadir}/byteman/byteman.jar $RPM_BUILD_ROOT%{homedir}/lib/byteman.jar
 %{homedir}/lib/byteman-dtest.jar
 
 %changelog
+* Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 4.0.16-19
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.16-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

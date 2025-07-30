@@ -22,6 +22,9 @@ Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{na
 # https://bugzilla.redhat.com/show_bug.cgi?id=2349314
 # Ensure the login collection is registered after unlocking
 Patch:          78.patch
+# https://gitlab.gnome.org/GNOME/gnome-keyring/-/merge_requests/96
+# build: Add gkm_marshal header to libgkm sources
+Patch:          gnome-keyring-48.0-gkm_marshal-header.patch
 
 BuildRequires:  pkgconfig(gcr-3) >= %{gcr_version}
 BuildRequires:  pkgconfig(glib-2.0) >= %{glib2_version}

@@ -1,5 +1,5 @@
 Name:             python-alembic
-Version:          1.16.1
+Version:          1.16.4
 Release:          %autorelease
 Summary:          Database migration tool for SQLAlchemy
 
@@ -17,9 +17,10 @@ BuildArch:        noarch
 BuildRequires:    help2man
 
 BuildRequires:    python3-devel
-BuildRequires:    python3-pytest
+BuildRequires:    python3dist(black)
+BuildRequires:    python3dist(pytest)
 %if %{undefined rhel}
-BuildRequires:    python3-pytest-xdist
+BuildRequires:    python3dist(pytest-xdist)
 %endif
 
 BuildRequires:    tzdata

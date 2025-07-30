@@ -1,6 +1,6 @@
 Name: hid4java
 Version: 0.7.0
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: Java wrapper for the hidapi library
 
 License: MIT
@@ -10,10 +10,10 @@ Patch0: load-correct-library-name.patch
 BuildArch: noarch
 ExclusiveArch:  %{java_arches} noarch
 
-Requires: java-headless
+Requires: java-25-headless
 Requires: hidapi
 
-BuildRequires: maven-local
+BuildRequires: maven-local-openjdk25
 BuildRequires: mvn(net.java.dev.jna:jna)
 BuildRequires: maven-surefire maven-surefire-provider-junit5
 BuildRequires: junit5
@@ -67,6 +67,9 @@ done
 %license LICENSE
 
 %changelog
+* Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 0.7.0-12
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

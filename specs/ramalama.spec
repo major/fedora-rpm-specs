@@ -1,7 +1,7 @@
 %global pypi_name ramalama
 %global forgeurl  https://github.com/containers/%{pypi_name}
 # see ramalama/version.py
-%global version0  0.11.0
+%global version0  0.11.2
 %forgemeta
 
 %global summary   Command line tool for working with AI LLM models
@@ -15,7 +15,7 @@ Name:             %{pypi_name}
 # If that's what you're reading, Version must be 0, and will be updated by Packit for
 # copr and koji builds.
 # If you're reading this on dist-git, the version is automatically filled in by Packit.
-Version:          0.11.0
+Version:          0.11.2
 License:          MIT
 Release:          %{autorelease}
 Summary:          %{summary}
@@ -31,9 +31,10 @@ BuildRequires:    make
 BuildRequires:    python3-devel
 BuildRequires:    podman
 BuildRequires:    python3-pytest
+BuildRequires:    mailcap
 
 Provides: python3-ramalama = %{version}-%{release}
-Obsoletes: python3-ramalama < 0.10.1-2
+Obsoletes: python3-ramalama < 0.11.2-1
 
 Requires: podman
 
@@ -55,14 +56,12 @@ will run the AI Models within a container based on the OCI image.
 %forgeautosetup -p1
 
 %build
+make docs
 %pyproject_wheel
-%{__make} docs
 
 %install
 %pyproject_install
 %pyproject_save_files -l %{pypi_name}
-%{__make} DESTDIR=%{buildroot} PREFIX=%{_prefix} install-docs install-shortnames
-%{__make} DESTDIR=%{buildroot} PREFIX=%{_prefix} install-completions
 
 %check
 %pytest -v test/unit

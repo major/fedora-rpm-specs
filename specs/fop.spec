@@ -26,7 +26,7 @@ Patch3:         0003-Port-to-QDox-2.0.patch
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-Requires:       java
+Requires:       java-21
 Requires:       xalan-j2 >= 2.7.0
 Requires:       xml-commons-apis >= 1.3.04
 # Explicit requires for javapackages-tools since fop script
@@ -38,12 +38,12 @@ BuildRequires:  apache-commons-logging
 BuildRequires:  batik
 BuildRequires:  fontbox
 BuildRequires:  gnupg2
-BuildRequires:  javapackages-local
+BuildRequires:  javapackages-local-openjdk21
 BuildRequires:  junit
 BuildRequires:  maven-antrun-plugin
 BuildRequires:  maven-assembly-plugin
 BuildRequires:  maven-clean-plugin
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk21
 BuildRequires:  build-helper-maven-plugin
 BuildRequires:  mvn(javax.servlet:servlet-api)
 # For servlet, not packaged

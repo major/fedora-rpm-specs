@@ -4,7 +4,7 @@
 Name:    console-image-viewer
 
 Version: 1.2
-Release: 26%{?dist}
+Release: 27%{?dist}
 Summary: Terminal image viewer
 
 License:  MIT
@@ -15,10 +15,10 @@ Source1:  %{launcher}.man
 BuildArch: noarch
 ExclusiveArch:  %{java_arches} noarch
 
-BuildRequires: java-devel
-BuildRequires: ant
+BuildRequires: java-25-devel
+BuildRequires: ant-openjdk25 
 
-Requires: java
+Requires: java-25
 Requires: javapackages-tools
 
 %description
@@ -61,6 +61,9 @@ gzip -c %{SOURCE1}  > $RPM_BUILD_ROOT/%{_mandir}/man1/%{launcher}.1.gz
 
 
 %changelog
+* Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 1.2-27
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

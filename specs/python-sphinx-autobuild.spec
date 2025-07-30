@@ -10,6 +10,8 @@ License:        MIT
 URL:            https://sphinx-autobuild.readthedocs.io/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/%{version}/sphinx-autobuild-%{version}.tar.gz
+# Fix --help invocations
+Patch:          %{giturl}/pull/199.patch
 
 BuildArch:      noarch
 
@@ -48,7 +50,7 @@ Summary:        Documentation for sphinx-autobuild
 Documentation for sphinx-autobuild.
 
 %prep
-%autosetup -n sphinx-autobuild-%{version}
+%autosetup -n sphinx-autobuild-%{version} -p1
 
 %generate_buildrequires
 %pyproject_buildrequires -x test

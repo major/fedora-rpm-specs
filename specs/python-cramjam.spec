@@ -4,7 +4,7 @@
 #global snapdate YYYYMMDD
 
 Name:           python-cramjam
-Version:        2.11.0~rc3
+Version:        2.11.0
 Release:        %autorelease
 Summary:        Thin Python bindings to de/compression algorithms in Rust
 
@@ -33,11 +33,6 @@ Source1:        get_source
 
 %endif
 
-# Ban mutating immutable buffers on the free-threaded build
-# (Updates to PyO3 0.25 and fixes Python 3.14 support)
-# https://github.com/milesgranger/cramjam/pull/214
-Patch:          https://github.com/milesgranger/cramjam/pull/214.patch
-
 BuildSystem:            pyproject
 BuildOption(install):   -l cramjam
 
@@ -62,7 +57,6 @@ BuildRequires:  %{py3_dist hypothesis}
 Summary:        %{summary}
 # 0BSD OR MIT OR Apache-2.0
 # Apache-2.0
-# Apache-2.0 OR MIT
 # BSD-3-Clause
 # BSD-3-Clause AND MIT
 # MIT

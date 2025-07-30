@@ -184,8 +184,8 @@
 # main package definition
 #################################################################################
 Name:		ceph
-Version:	19.2.2
-Release:	9%{?dist}
+Version:	19.2.3
+Release:	1%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -303,6 +303,7 @@ BuildRequires:	gperftools-devel >= 2.4
 BuildRequires:	libaio-devel
 BuildRequires:	libblkid-devel >= 2.17
 BuildRequires:	cryptsetup-devel
+BuildRequires:	libnbd-devel
 BuildRequires:	libcurl-devel
 BuildRequires:	libcap-devel
 BuildRequires:	libcap-ng-devel
@@ -705,6 +706,7 @@ Requires:	python%{python3_pkgversion}-setuptools
 %if 0%{?fedora} || 0%{?rhel} >= 9
 Requires:	python%{python3_pkgversion}-grpcio
 Requires:	python%{python3_pkgversion}-grpcio-tools
+Requires:	python%{python3_pkgversion}-xmltodict
 %endif
 %if 0%{?fedora} || 0%{?rhel}
 Requires:	python%{python3_pkgversion}-cherrypy
@@ -1828,6 +1830,7 @@ fi
 %{_mandir}/man8/rbd-replay-many.8*
 %{_mandir}/man8/rbd-replay-prep.8*
 %{_mandir}/man8/rgw-orphan-list.8*
+%{_mandir}/man8/rgw-gap-list.8*
 %{_mandir}/man8/rgw-restore-bucket-index.8*
 %dir %{_datadir}/ceph/
 %{_datadir}/ceph/known_hosts_drop.ceph.com
@@ -2156,6 +2159,7 @@ fi
 
 %files -n ceph-exporter
 %{_bindir}/ceph-exporter
+%{_unitdir}/ceph-exporter.service
 
 %files -n rbd-fuse
 %{_bindir}/rbd-fuse
@@ -2740,6 +2744,9 @@ exit 0
 %{python3_sitelib}/ceph_node_proxy-*
 
 %changelog
+* Mon Jul 28 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.3-1
+- ceph-19.2.3 GA
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:19.2.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

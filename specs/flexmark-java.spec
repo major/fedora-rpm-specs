@@ -15,6 +15,10 @@ VCS:            git:%{url}.git
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 # https://github.com/vsch/flexmark-java/pull/635
 Patch:          0001-Fix-abbreviations-matching-with-Java-19.patch
+# Fix issue with native images
+Patch:          %{url}/pull/578.patch
+# Adapt to changes in jsoup >= 1.20
+Patch:          %{name}-jsoup.patch
 
 BuildArch:      noarch
 ExclusiveArch:  noarch %{java_arches}

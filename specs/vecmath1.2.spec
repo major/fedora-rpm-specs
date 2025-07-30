@@ -1,6 +1,6 @@
 Name:           vecmath1.2
 Version:        1.14
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        Free version of vecmath from the Java3D 1.2 specification
 License:        MIT
 URL:            http://www.objectclub.jp/download/vecmath_e
@@ -10,8 +10,8 @@ Patch1:         vecmath1.2-1.14-javac-1.8.patch
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 BuildRequires: make
-BuildRequires:  java-devel >= 1:1.6.0
-Requires:       java-headless >= 1:1.6.0
+BuildRequires:  java-25-devel >= 1:1.6.0
+Requires:       java-25-headless >= 1:1.6.0
 Requires:       javapackages-filesystem
 # Necessary due to architecture change to noarch
 Obsoletes:      %{name} < %{version}-%{release}
@@ -67,6 +67,9 @@ cp -r docs/* $RPM_BUILD_ROOT%{_javadocdir}/%{name}/
 
 
 %changelog
+* Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 1.14-40
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.14-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

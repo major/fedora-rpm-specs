@@ -1,6 +1,6 @@
 Name:           miglayout
 Version:        5.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Versatile and flexible Swing layout manager
 URL:            http://www.miglayout.com/
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -12,9 +12,9 @@ Source1:        miglayout-swing-%{version}-sources.jar
 
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
-BuildRequires:  java-devel
+BuildRequires:  java-25-devel
 
-Requires:       java
+Requires:       java-25
 # We no longer have an examples sub-package, note no provides as the examples
 # are no longer packaged, so we do not provide them
 Obsoletes:      %{name}-examples < %{version}-%{release}
@@ -61,6 +61,9 @@ cp -a doc %{buildroot}%{_javadocdir}/%{name}
 %doc %{_javadocdir}/%{name}
 
 %changelog
+* Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 5.3-5
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -33,15 +33,15 @@ Patch2:         imagej-1.53r-unix-script.patch
 # Set javac source / target version to 1.8 to fix building with Java 11.
 Patch3:         imagej-1.53r-source-target-version.patch
 
-BuildRequires:  ant
+BuildRequires:  ant-openjdk25 
 BuildRequires:  desktop-file-utils
 
 BuildRequires:  jpackage-utils
-BuildRequires:  java-devel
+BuildRequires:  java-25-devel
 
 Requires:       jpackage-utils
 # Require java-devel, not only java, for plugins build
-Requires:       java-devel
+Requires:       java-25-devel
 
 # We no longer package javadoc documentation because it has guidelines issues
 # pertaining to bundled and pre-minified JavaScript and CSS.  See

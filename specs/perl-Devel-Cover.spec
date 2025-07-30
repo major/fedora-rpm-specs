@@ -1,6 +1,6 @@
 Name:           perl-Devel-Cover
-Version:        1.50
-Release:        3%{?dist}
+Version:        1.51
+Release:        1%{?dist}
 Summary:        Code coverage metrics for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-Cover
@@ -117,7 +117,7 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
 make test
 
 %files
-%doc Changes README.md docs/BUGS docs/TODO
+%doc Changes CLAUDE.md README.md docs/BUGS docs/TODO
 %{_bindir}/cover
 %{_bindir}/cpancover
 %{_bindir}/gcov2perl
@@ -129,6 +129,9 @@ make test
 %{_mandir}/man3/Devel::Cover*.3*
 
 %changelog
+* Mon Jul 28 2025 Paul Howarth <paul@city-fan.org> - 1.51-1
+- 1.51 bump (rhbz#2383872)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.50-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

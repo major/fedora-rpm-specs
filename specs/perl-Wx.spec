@@ -12,7 +12,7 @@
 
 Name:           perl-Wx
 Version:        0.9932
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Interface to the wxWidgets cross-platform GUI toolkit
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Wx
@@ -744,6 +744,9 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 %{_mandir}/man3/*.3pm*
 
 %changelog
+* Mon Jul 28 2025 Miro Hrončok <mhroncok@redhat.com> - 0.9932-41
+- Rebuilt with perl(Alien::wxWidgets::Config::gtk_3_2_8_uni_gcc_3_4)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9932-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

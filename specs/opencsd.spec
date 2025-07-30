@@ -1,7 +1,7 @@
-%global opencsd_tag 1900c6fd110275305b956aa47bd9f0c76b13a134
+%global opencsd_tag 78141e2f0ef8fb67284cc1a159cb62737666c965
 
 Name:           opencsd
-Version:        1.5.6
+Version:        1.6.1
 Release:        %autorelease
 Summary:        An open source CoreSight(tm) Trace Decode library
 

@@ -1,7 +1,7 @@
 Name:       fann
 Summary:    A fast artificial neural network library
 Version:    2.2.0
-Release:    34%{?dist}
+Release:    36%{?dist}
 License:    LGPL-2.0-or-later
 URL:        http://leenissen.dk/fann/wp/
 
@@ -37,7 +37,11 @@ LIBS=-lm
 export LIBS
 
 %build
-%{cmake} -DPKGCONFIG_INSTALL_DIR=/%{_lib}/pkgconfig
+%{cmake} -DPKGCONFIG_INSTALL_DIR=/%{_lib}/pkgconfig \
+	%if "%{?_lib}" == "lib64"
+		%{?_cmake_lib_suffix64} \
+	%endif
+
 make -C "%{_vpath_builddir}"
 
 %install
@@ -70,6 +74,12 @@ find $RPM_BUILD_ROOT -name "*.la" -exec rm {} \;
 %{_includedir}/*.h
 
 %changelog
+* Mon Jul 28 2025 Tomas Smetana <tsmetana@redhat.com> - 2.2.0-36
+- Fix FTBFS on i380: rhbz#2381207
+
+* Mon Jul 28 2025 Tomas Smetana <tsmetana@redhat.com> - 2.2.0-35
+- Fix FTBFS with new CMake macros: rhbz#2381207
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -27,7 +27,7 @@ actual REST API client actions.
 
 Name:             python-%{sname}
 Version:          7.1.2
-Release:          6%{?dist}
+Release:          7%{?dist}
 Summary:          OpenStack Command-line Client
 
 License:          Apache-2.0
@@ -172,7 +172,7 @@ openstack complete | sed -n '/_openstack/,$p' > /etc/bash_completion.d/osc.bash_
 
 %check
 export PYTHON=%{__python3}
-%tox -e %{default_toxenv}
+%tox -e %{default_toxenv} -- -- --exclude-regex 'openstackclient.tests.unit.common.test_module.TestModuleList.*'
 
 %files -n python3-%{sname}
 %license LICENSE
@@ -193,6 +193,9 @@ export PYTHON=%{__python3}
 %license LICENSE
 
 %changelog
+* Mon Jul 28 2025 Python Maint <python-maint@redhat.com> - 7.1.2-7
+- Rebuilt for Python 3.14
+
 * Wed Jul 23 2025 Python Maint <python-maint@redhat.com> - 7.1.2-6
 - Bootstrap for Python 3.14
 

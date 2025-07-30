@@ -2,7 +2,7 @@
 
 Name:          python-%{modname}
 Version:       0.6.6
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       Lightweight way of building RPMs, and sabotaging them
 
 License:       GPL-2.0-or-later
@@ -27,7 +27,6 @@ Summary:        %{summary}
 BuildRequires:  gcc
 BuildRequires:  python3-devel
 BuildRequires:  python3-rpm
-BuildRequires:  python3-setuptools
 Requires:       rpm-build
 Requires:       createrepo_c
 
@@ -38,11 +37,14 @@ Python 3 version.
 %prep
 %autosetup -n %{modname}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
 %check
 python3 -m unittest %{modname}.test
@@ -53,6 +55,9 @@ python3 -m unittest %{modname}.test
 %{python3_sitelib}/*
 
 %changelog
+* Mon Jul 28 2025 Jan Hutar <jhutar@redhat.com> - 0.6.6-4
+- Rebuild with new macros
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

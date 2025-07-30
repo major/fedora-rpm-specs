@@ -1,5 +1,5 @@
-# Prevent % py3_build from specifying -s in the executable - that would prevent thg from picking up user installed extensions
-%define py3_shbang_opts %nil
+# Prevent %%pyproject_install from specifying -s in the executable - that would prevent thg from picking up user installed extensions
+%undefine _py3_shebang_s
 
 Name:           tortoisehg
 Version:        7.0.1

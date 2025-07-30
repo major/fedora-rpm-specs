@@ -1,6 +1,6 @@
 Name:           swing-layout
 Version:        1.0.4
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Natural layout for Swing panels
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2
@@ -15,11 +15,11 @@ Patch0:         %{name}-%{version}-project_properties.patch
 Patch1:         %{name}-%{version}-fix-incorrect-fsf-address.patch
 
 BuildRequires:  junit >= 3.8.2
-BuildRequires:  javapackages-local
-BuildRequires:  java-devel >= 1.3
-BuildRequires:  ant
+BuildRequires:  javapackages-local-openjdk25
+BuildRequires:  java-25-devel >= 1.3
+BuildRequires:  ant-openjdk25 
 BuildRequires:  dos2unix
-Requires:       java-headless >= 1.3
+Requires:       java-25-headless >= 1.3
 
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -54,6 +54,9 @@ cat %{SOURCE1} | sed "s|<version>1.0.3</version>|<version>%{version}</version>|"
 %license COPYING
 
 %changelog
+* Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 1.0.4-35
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:      brazil
 Version:   2.3
-Release:   40%{?dist}
+Release:   41%{?dist}
 Summary:   Extremely small footprint Java HTTP stack
 License:   SPL-1.0
 URL:       https://github.com/mbooth101/brazil
@@ -16,10 +16,10 @@ Patch0:   jdk17.patch
 BuildArch:        noarch
 ExclusiveArch:  %{java_arches} noarch
 
-BuildRequires:    java-devel
+BuildRequires:    java-25-devel
 BuildRequires:    jpackage-utils
-BuildRequires:    ant
-Requires:         java-headless
+BuildRequires:    ant-openjdk25 
+Requires:         java-25-headless
 Requires:         jpackage-utils
 
 %description
@@ -81,6 +81,9 @@ cp -pr samples %{buildroot}%{_datadir}/%{name}
 %{_datadir}/%{name}
 
 %changelog
+* Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 2.3-41
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -8,7 +8,7 @@
 
 Name:           OpenStego
 Version:        0.7.4
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Free Steganography solution
 Summary(fr):    Solution libre pour la steganographie
 
@@ -25,11 +25,11 @@ Patch0:         %{name}-antbuild.patch
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-BuildRequires:  java-devel
+BuildRequires:  java-25-devel
 BuildRequires:  jpackage-utils
-BuildRequires:  ant
+BuildRequires:  ant-openjdk25 
 BuildRequires:  desktop-file-utils
-Requires:       java-headless
+Requires:       java-25-headless
 Requires:       jpackage-utils
 
 
@@ -98,6 +98,9 @@ desktop-file-install                       \
 
 
 %changelog
+* Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 0.7.4-17
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.4-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

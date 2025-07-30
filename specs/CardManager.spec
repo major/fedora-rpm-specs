@@ -1,6 +1,6 @@
 Name:           CardManager
 Version:        3
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Java application to allows you to play any, especially collectible, card game
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -15,12 +15,12 @@ BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
 BuildRequires:  jpackage-utils
-BuildRequires:  java-devel
-BuildRequires:  ant
+BuildRequires:  java-25-devel
+BuildRequires:  ant-openjdk25 
 BuildRequires:  desktop-file-utils
 
 Requires:       jpackage-utils
-Requires:       java
+Requires:       java-25
 
 %description
 This is free, open source multiplatform (java) application which allows you to
@@ -95,6 +95,9 @@ cp -r dist/javadoc/* $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 
 
 %changelog
+* Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 3-35
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

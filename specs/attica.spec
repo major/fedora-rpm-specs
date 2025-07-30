@@ -1,7 +1,7 @@
 
 Name:           attica
 Version:        0.4.2
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Implementation of the Open Collaboration Services API
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -29,7 +29,12 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 
 %build
-%cmake -DQT4_BUILD:BOOL=ON
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
+%cmake \
+%if "%{?_lib}" == "lib64"
+  %{?_cmake_lib_suffix64} \
+%endif
+  -DQT4_BUILD:BOOL=ON
 %cmake_build
 
 
@@ -58,6 +63,10 @@ test "$(pkg-config --modversion libattica)" = "%{version}"
 
 
 %changelog
+* Mon Jul 28 2025 Cristian Le <git@lecris.dev> - 0.4.2-34
+- CMake 4.0 support (rhbz#2380469)
+- Explicitly pass LIB_SUFFIX (rhbz#2381179)
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

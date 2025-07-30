@@ -1,6 +1,6 @@
 Name:           deja-dup
-Version:        48.2
-Release:        2%{?dist}
+Version:        48.3
+Release:        1%{?dist}
 Summary:        Simple backup tool and frontend for duplicity
 
 License:        GPL-3.0-or-later
@@ -75,6 +75,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.metain
 %{_datadir}/help/*
 
 %changelog
+* Mon Jul 28 2025 Gwyn Ciesla <gwync@protonmail.com> - 48.3-1
+- 48.3
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 48.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -3,7 +3,7 @@ Name:           colossus
 %global         revdate    20130917
 Version:        0.14.0
 %global         branch    %{nil}
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Allows people to play Titan against each other or AIs
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -28,13 +28,13 @@ ExclusiveArch:  %{java_arches} noarch
 
 # Note the intention is to eventually require only java 1.5 for both building
 # and installing. But bug 510243 in gjdoc currently blocks this.
-BuildRequires:  java-devel
+BuildRequires:  java-25-devel
 BuildRequires:  jpackage-utils
-BuildRequires:  ant
+BuildRequires:  ant-openjdk25 
 BuildRequires:  jdom
 BuildRequires:  desktop-file-utils
 BuildRequires:  zip
-Requires:       java
+Requires:       java-25
 Requires:       jpackage-utils
 Requires:       jdom
 Requires(post):  coreutils
@@ -181,6 +181,9 @@ EOF
 %{_javadocdir}/%{name}
 
 %changelog
+* Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 0.14.0-32
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

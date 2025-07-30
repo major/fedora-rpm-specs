@@ -5,7 +5,7 @@
 Name:           openjfx
 Epoch:          3
 Version:        17.0.13.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Rich client application platform for Java
 %forgemeta
 
@@ -49,12 +49,12 @@ Patch3: openjfx-fix-type.patch
 
 ExclusiveArch:  %{java_arches}
 
-Requires:       java-headless
+Requires:       java-25-headless
 
 BuildRequires:  javapackages-tools
-BuildRequires:  java-devel
-BuildRequires:  maven-local
-BuildRequires:  ant
+BuildRequires:  java-25-devel
+BuildRequires:  maven-local-openjdk25
+BuildRequires:  ant-openjdk25 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  libstdc++-static
@@ -163,6 +163,9 @@ cp -a modules/javafx.graphics/mvn-lib{decora,javafx_font,javafx_font_freetype,ja
 %doc README.md
 
 %changelog
+* Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 3:17.0.13.0-5
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3:17.0.13.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,23 +1,20 @@
- %bcond_without tests
+%bcond_without tests
 
 %global pypi_name geotiler
 
-%global _description %{expand:
-GeoTiler is a library to create maps using tiles from a map provider.
-The main goal of the library is to enable a programmer to create maps
-using tiles downloaded from OpenStreetMap, Stamen or other map provider.
-The maps can be used by interactive applications or to create data analysis
-graphs.}
-
 Name:           python-%{pypi_name}
 Version:        0.15.1
-Release:        7%{?dist}
+Release:        %autorelease
 Summary:        GeoTiler is a library to create map using tiles from a map provider
+
+%global forgeurl https://github.com/wrobell/geotiler
+%global tag geotiler-%{version}
+%forgemeta
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
-URL:            https://github.com/wrobell/%{pypi_name}
-Source0:        %{pypi_source %{pypi_name}}
+URL:            %forgeurl
+Source0:        %forgesource
 
 # Upstream for modestmaps-py was asked to clarify the exact BSD license
 # text via https://github.com/stamen/modestmaps-py/issues/19 and by direct
@@ -33,14 +30,21 @@ Source2:        geotiler-fetch.1
 Source3:        geotiler-lint.1
 Source4:        geotiler-route.1
 
-# Downstream-only: patch out linting and coverage dependencies
-# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-Patch:          geotiler-0.15.0-linters.patch
+# Make tests compatible with Python 3.14
+# https://github.com/wrobell/geotiler/pull/39
+Patch:          %{url}/pull/39.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  make
 
 BuildArch:      noarch
+
+%global _description %{expand:
+GeoTiler is a library to create maps using tiles from a map provider.
+The main goal of the library is to enable a programmer to create maps
+using tiles downloaded from OpenStreetMap, Stamen or other map provider.
+The maps can be used by interactive applications or to create data analysis
+graphs.}
 
 %description %_description
 
@@ -76,10 +80,17 @@ Summary:        %{summary}
 Documentation for %{name}.
 
 %prep
-%autosetup -n %{pypi_name}-%{version} -p1
+%forgeautosetup -p1
 cp -p %{SOURCE1} %{SOURCE2} %{SOURCE3} %{SOURCE4} .
 
 rm -fv poetry.lock
+
+# Remove linter and coverage dependencies
+sed -r \
+    -e '/mypy/d' \
+    -e '/pytest-cov/d' \
+    -e '/addopts/d' \
+    -i setup.cfg
 
 %generate_buildrequires
 %pyproject_buildrequires -r %{?with_tests:-x tests}
@@ -110,7 +121,7 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
 
 %check
 %if %{with tests}
-%pytest
+%pytest -r fEs
 %endif
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
@@ -127,65 +138,4 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
 %doc _latex/geotiler.pdf
 
 %changelog
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.1-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Tue Jul 15 2025 Python Maint <python-maint@redhat.com> - 0.15.1-6
-- Rebuilt for Python 3.14
-
-* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 0.15.1-4
-- convert license to SPDX
-
-* Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Fri Jun 21 2024 Python Maint <python-maint@redhat.com> - 0.15.1-2
-- Rebuilt for Python 3.13
-
-* Fri Feb 09 2024 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.15.1-1
-- Update to 0.15.1 (close RHBZ#2259601)
-
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Aug 02 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.15.0-1
-- Update to 0.15.0 (close RHBZ#2228274)
-
-* Mon Jul 31 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.14.7-4
-- Patch out unused uvloop test dependency
-- Patch for Pillow 10 (fix RHBZ#2220253, fix RHBZ#2226199)
-- Patch out unwanted linting and coverage test dependencies
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.7-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.7-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Tue Jan 3 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.14.7-1
-- Update to the latest upstream's release
-- Remove patch
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.5-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 20 2022 Python Maint <python-maint@redhat.com> - 0.14.5-4
-- Rebuilt for Python 3.11
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.5-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Sun Nov 28 2021 Benjamin A. Beasley <code@musicinmybrain.net> - 0.14.5-2
-- Do not omit first argument to pypi_source
-- Reduce LaTeX PDF build verbosity
-- Add extra dependencies for geotiler-route CLI tool
-- Add man pages for command-line tools
-
-* Sun Oct 17 2021 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.14.5-1
-- Initial package
+%autochangelog

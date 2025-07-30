@@ -3,7 +3,7 @@
 
 Name:           jpanoramamaker
 Version:        %{majorv}.%{minorv}
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Tool for stitching photos to panorama in linear curved space
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -17,13 +17,13 @@ Source1:        %{name}.appdata.xml
 Patch1:         bumpJdkVersion.patch
 
 BuildRequires:  jpackage-utils
-BuildRequires:  java-devel
-BuildRequires:  ant
+BuildRequires:  java-25-devel
+BuildRequires:  ant-openjdk25 
 BuildRequires:  swing-layout
 BuildRequires:  desktop-file-utils
 
 Requires:       jpackage-utils
-Requires:       java
+Requires:       java-25
 Requires:       swing-layout
 
 %description
@@ -109,6 +109,9 @@ install -Dpm0644 %{SOURCE1} %{buildroot}%{_datadir}/appdata/%{name}.appdata.xml
 
 
 %changelog
+* Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 5.6-38
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.6-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

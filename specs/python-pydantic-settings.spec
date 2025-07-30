@@ -14,7 +14,7 @@
 %global tag %{version}
 
 Name:           python-pydantic-settings
-Version:        2.10.0
+Version:        2.10.1
 %forgemeta
 Release:        %autorelease
 Summary:        Settings management using pydantic
