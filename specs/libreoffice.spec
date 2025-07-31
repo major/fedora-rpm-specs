@@ -279,8 +279,8 @@ BuildRequires: zxcvbn-c-devel
 
 %ifarch %{java_arches}
 # java stuff
-BuildRequires: ant
-BuildRequires: java-devel
+BuildRequires: ant-openjdk25 
+BuildRequires: java-25-devel
 BuildRequires: junit
 BuildRequires: pentaho-reporting-flow-engine
 BuildRequires: Java-WebSocket
@@ -410,7 +410,7 @@ Summary: Database front-end for LibreOffice
 Requires: firebird
 %endif
 %ifarch %{java_arches}
-Requires: java-headless >= 1:1.6
+Requires: java-25-headless >= 1:1.6
 %endif
 Requires: pentaho-reporting-flow-engine
 Requires: postgresql-jdbc
@@ -616,7 +616,7 @@ Requires: %{name}-core%{?_isa} = %{epoch}:%{version}-%{release}
 Requires: %{name}-ure%{?_isa} = %{epoch}:%{version}-%{release}
 Requires: unzip%{?_isa}
 %ifarch %{java_arches}
-Requires: java-devel
+Requires: java-25-devel
 %endif
 
 %description sdk

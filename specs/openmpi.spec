@@ -97,7 +97,7 @@ BuildRequires:  hwloc-devel
 # So configure can find lstopo
 BuildRequires:  hwloc-gui
 %if %{with java}
-BuildRequires:  java-devel
+BuildRequires:  java-25-devel
 %else
 Obsoletes:      %{name}-java < %{version}-%{release}
 Obsoletes:      %{name}-java-devel < %{version}-%{release}
@@ -190,7 +190,7 @@ HTML documentation for openmpi.
 %package java
 Summary:        Java library
 Requires:       %{name} = %{version}-%{release}
-Requires:       java-headless
+Requires:       java-25-headless
 
 %description java
 Java library.
@@ -198,7 +198,7 @@ Java library.
 %package java-devel
 Summary:        Java development files for openmpi
 Requires:       %{name}-java = %{version}-%{release}
-Requires:       java-devel
+Requires:       java-25-devel
 
 %description java-devel
 Contains development wrapper for compiling Java with openmpi.

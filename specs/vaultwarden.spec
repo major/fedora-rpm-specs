@@ -9,8 +9,8 @@
 %global rustflags_debuginfo 1
 
 Name:           vaultwarden
-Version:        1.33.2
-Release:        3%{?dist}
+Version:        1.34.2
+Release:        1%{?dist}
 Summary:        Unofficial Bitwarden compatible server
 
 ExcludeArch:    ppc64le s390x
@@ -56,15 +56,6 @@ BuildRequires:  systemd-rpm-macros
 
 Requires:       %{name}-web
 
-Patch:          remove-remote-git-patch.patch
-Patch:          downgrade_diesel_version.patch
-%if 0%{?rhel} == 9
-Patch:          remove-rust-version-check.patch
-Patch:          enable-unstable-apis.patch
-Patch:          fix-is_none_or.patch
-Patch:          fix-refutable-pattern-in-for-loop.patch
-%endif
-
 %{?sysusers_requires_compat}
 
 %global _description %{expand:
@@ -82,20 +73,6 @@ Patch:          fix-refutable-pattern-in-for-loop.patch
 %cargo_prep
 %generate_buildrequires
 %cargo_generate_buildrequires
-%endif
-
-%if %{with vendor}
-# ring doesn't specify a license at all, should be "ISC AND MIT AND OpenSSL"
-# determined in https://bugzilla.redhat.com/show_bug.cgi?id=2269411#c8
-# if a license spec is added upstream in an update lets fail out so we don't miss it
-if grep -q 'license =' vendor/ring/Cargo.toml; then
-    echo "License specification found in ring crate.  Please review."
-    exit 1
-else
-    sed -i '/\[package\]/a license = "ISC AND MIT AND OpenSSL"' vendor/ring/Cargo.toml
-    # we modified Cargo.toml so checksums are on longer valid on it
-    sed -E -i 's/"Cargo.toml":"[a-z0-9]{64}",//g' vendor/ring/.cargo-checksum.json
-fi
 %endif
 
 %build
@@ -167,6 +144,9 @@ install -Dp %{SOURCE2} %{buildroot}%{_unitdir}/%{name}.service
 
 
 %changelog
+* Tue Jul 29 2025 Jonathan Wright <jonathan@almalinux.org> - 1.34.2-1
+- update to 1.34.2 rhbz#2368636
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.33.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

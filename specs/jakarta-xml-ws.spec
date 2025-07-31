@@ -2,7 +2,7 @@
 
 Name:           jakarta-xml-ws
 Version:        4.0.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Jakarta XML Web Services API
 # spec and enterprise-ws-spec is under EPL-2.0 but it is not shipped
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -14,7 +14,7 @@ Source0:        %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(jakarta.xml.bind:jakarta.xml.bind-api)
 BuildRequires:  mvn(jakarta.xml.soap:jakarta.xml.soap-api)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
@@ -64,6 +64,9 @@ cd -
 
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 4.0.0-11
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -40,7 +40,7 @@ URL: https://easyrpg.org
 License: GPL-3.0-or-later AND CC-BY-SA-4.0 AND (Unlicense OR MIT-0) AND (MIT AND CC0-1.0) AND BSD-3-Clause AND Baekmuk AND LicenseRef-Fedora-Public-Domain AND MIT AND GPL-2.0-or-later WITH Font-exception-2.0
 
 Version: 0.8.1.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 %global repo_owner EasyRPG
 %global repo_name Player
@@ -48,6 +48,18 @@ Source0: https://github.com/%{repo_owner}/%{repo_name}/archive/%{version}/%{repo
 
 # Unbundle libraries
 Patch2: 0002-unbundle-dr_wav.patch
+
+# Update dr_wav to 0.14, adapting to API changes
+# https://github.com/EasyRPG/Player/pull/3456
+#
+# We don’t need to update the bundled dr_wav since we will not use it, so we
+# just cherry-pick the following commits:
+#
+# Adapt to API changes in dr_wav 0.14
+# https://github.com/EasyRPG/Player/pull/3456/commits/4420531dfd1726f8f127800344ae3a31df39a6af
+# dr_wav: Conditional support for old dr_wav 0.13.x
+# https://github.com/EasyRPG/Player/pull/3456/commits/081a06f22cbcd9e115950f09c3e8f8e2e98f40af
+Patch3: 0003-dr_wav-0.14.patch
 
 BuildRequires: cmake >= 3.13
 BuildRequires: desktop-file-utils
@@ -137,6 +149,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 
 
 %changelog
+* Tue Jul 29 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 0.8.1.1-3
+- Patch for compatibility with dr_wav 0.14
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

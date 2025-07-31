@@ -1,6 +1,6 @@
 Name:           apache-commons-pool
 Version:        1.6
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        Apache Commons Pool Package
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -10,7 +10,7 @@ ExclusiveArch:  %{java_arches} noarch
 
 Source0:        http://www.apache.org/dist/commons/pool/source/commons-pool-%{version}-src.tar.gz
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.commons:commons-parent:pom:)
 
@@ -40,6 +40,9 @@ interface that makes these implementations interchangeable.
 %doc README.txt RELEASE-NOTES.txt
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 1.6-42
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

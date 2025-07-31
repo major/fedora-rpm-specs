@@ -1,7 +1,7 @@
 Name: opencryptoki
 Summary: Implementation of the PKCS#11 (Cryptoki) specification v3.0 and partially v3.1
 Version: 3.25.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: CPL-1.0
 URL: https://github.com/opencryptoki/opencryptoki
 Source0: https://github.com/opencryptoki/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -16,14 +16,23 @@ Patch1: opencryptoki-3.25.0-p11sak.patch
 # tmpfiles.d config files for image mode
 Patch2: opencryptoki-3.24.0-tmpfiles-image-mode.patch
 
+# everything using /var/lock should be fixed in the end to use /run/lock
+# https://gitlab.com/fedora/bootc/base-images/-/issues/48
+Patch3: opencryptoki-lockdir-image-mode.patch
+
 # upstream patches
+# Fix detection of EC curve not supported by OpenSSL-3.5.x
+Patch10: opencryptoki-openssl-3.5.x.patch
+
+# Fix covscan findings, https://github.com/opencryptoki/opencryptoki/pull/880
+Patch11: opencryptoki-3.25.0-covscan-findings.patch
 
 Requires(pre): coreutils
 Requires: (selinux-policy >= 34.9-1 if selinux-policy-targeted)
 BuildRequires: gcc gcc-c++
-BuildRequires: openssl-devel >= 1.1.1
+BuildRequires: openssl-devel >= 3.5.1
 # testcases require 'openssl' command line tool
-BuildRequires: openssl >= 1.1.1
+BuildRequires: openssl >= 3.5.1
 # testcases require 'jq' command line tool
 BuildRequires: jq 
 %if 0%{?tmptok}
@@ -43,6 +52,7 @@ BuildRequires: libica-devel >= 3.3
 # for /usr/include/libudev.h
 BuildRequires: systemd-devel
 %endif
+Requires: openssl >= 1:3.5.1
 Requires(pre): %{name}-libs%{?_isa} = %{version}-%{release}
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 Requires: %{name}(token)
@@ -403,6 +413,13 @@ fi
 
 
 %changelog
+* Tue Jul 29 2025 Than Ngo <than@redhat.com> - 3.25.0-4
+- Require openssl >= 3.5.1
+- Fix incorrect effective group id of pkcsslotd daemon
+- Fix covscan findings
+- Fix detection of EC curve not supported by OpenSSL-3.5.x
+- Fix the image mode issue again as bootc expects to use /run/lock 
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.25.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -8,7 +8,7 @@ Epoch: 1
 Summary: Eclipse Compiler for Java
 Name: ecj
 Version: %{eclipse_ver}
-Release: 13%{?dist}
+Release: 14%{?dist}
 URL: https://www.eclipse.org
 License: EPL-2.0
 
@@ -24,9 +24,9 @@ Patch0: 0001-Always-generate-bytecode-debuginfo.patch
 BuildArch: noarch
 ExclusiveArch:  %{java_arches} noarch
 
-BuildRequires: ant
-BuildRequires: javapackages-local
-BuildRequires: java-devel >= 1:11
+BuildRequires: ant-openjdk25 
+BuildRequires: javapackages-local-openjdk25
+BuildRequires: java-25-devel >= 1:11
 
 # Explicit requires for javapackages-tools since ecj
 # uses /usr/share/java-utils/java-functions
@@ -71,6 +71,9 @@ install -m 644 -p ecj.1 $RPM_BUILD_ROOT%{_mandir}/man1/ecj.1
 %{_mandir}/man1/ecj*
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 1:4.23-14
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.23-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

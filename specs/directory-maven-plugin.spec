@@ -1,6 +1,6 @@
 Name:       directory-maven-plugin
 Version:    1.0
-Release:    5%{?dist}
+Release:    6%{?dist}
 Summary:    Establish locations for files in multi-module builds
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -15,7 +15,7 @@ Patch0:     directory-maven-plugin-fix-no-mojo-definition.patch
 BuildArch:  noarch
 ExclusiveArch:  %{java_arches} noarch
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(org.apache.maven:maven-core)
 BuildRequires:  mvn(org.apache.maven:maven-model)
 BuildRequires:  mvn(org.apache.maven:maven-parent:pom:)
@@ -61,6 +61,9 @@ sed -i 's/1.7/1.8/g' pom.xml
 %license LICENSE
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 1.0-6
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

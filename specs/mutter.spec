@@ -32,6 +32,11 @@ Source1:       org.gnome.mutter.fedora.gschema.override
 # https://bugzilla.redhat.com/show_bug.cgi?id=1936991
 Patch:         mutter-42.alpha-disable-tegra.patch
 
+# https://gitlab.gnome.org/GNOME/mutter/-/issues/4206
+# https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/4550
+# Fix crash when locking screen on VMs
+Patch:         0001-clutter-Skip-null-actors-in-create_event_emission_ch.patch
+
 BuildRequires: pkgconfig(gobject-introspection-1.0) >= 1.41.0
 BuildRequires: pkgconfig(sm)
 BuildRequires: pkgconfig(libwacom)

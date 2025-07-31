@@ -3,7 +3,7 @@
 
 Name: qmapshack
 Version: 1.17.1
-Release: 16%{?dist}
+Release: 17%{?dist}
 Summary: GPS mapping and management tool
 
 # src/animation = WTFPL
@@ -111,6 +111,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/qmaptool.desktop
 
 
 %changelog
+* Tue Jul 29 2025 Sandro Mani <manisandro@gmail.com> - 1.17.1-17
+- Rebuild (gdal)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.1-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

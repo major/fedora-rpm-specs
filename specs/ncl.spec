@@ -9,7 +9,7 @@
 
 Name:           ncl
 Version:        6.6.2
-Release:        51%{?dist}
+Release:        52%{?dist}
 Summary:        NCAR Command Language and NCAR Graphics
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -369,6 +369,9 @@ done
 
 
 %changelog
+* Tue Jul 29 2025 Sandro Mani <manisandro@gmail.com> - 6.6.2-52
+- Rebuild (gdal)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.2-51
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

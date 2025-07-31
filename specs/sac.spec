@@ -1,6 +1,6 @@
 Name: sac
 Version: 1.3
-Release: 49%{?dist}
+Release: 50%{?dist}
 Summary: Java standard interface for CSS parser
 License: W3C
 #Original source: http://www.w3.org/2002/06/%{name}java-%{version}.zip
@@ -12,8 +12,8 @@ Source2: %{name}-MANIFEST.MF
 Source3: https://repo1.maven.org/maven2/org/w3c/css/sac/1.3/sac-1.3.pom
 URL: http://www.w3.org/Style/CSS/SAC/
 
-BuildRequires: ant
-BuildRequires: javapackages-local
+BuildRequires: ant-openjdk25 
+BuildRequires: javapackages-local-openjdk25
 
 BuildArch: noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -51,6 +51,9 @@ jar ufm build/lib/sac.jar %{SOURCE2}
 %license COPYRIGHT.html
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 1.3-50
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-49
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,18 +1,17 @@
 %global	urlver		3.5
 %global	mainver		3.5.99
 
-%global	core_least_ver	3.5.99
+%global	core_least_ver	3.5.99^20250729gitc86686d
 
 %global	use_git	1
-%global	gitdate	20250714
-%global	githash	a4267783cd3a9aa79e14c4a6c729eb04c0665ec2
+%global	gitdate	20250729
+%global	githash	eb8fa4c93cf411fa0e68f2918aeb4ab3f7a3d28d
 %global	shorthash	%(c=%{githash} ; echo ${c:0:7})
 
 %global	tarballver	%{mainver}%{?use_git:-%{gitdate}git%{shorthash}}
 
-%global	baserelease	2
-%global	alphatag		.rc4
-
+%global	baserelease	1
+%global	alphatag		.rc5
 
 %global	ruby_vendorlib	%(ruby -rrbconfig -e "puts RbConfig::CONFIG['vendorlibdir']")
 %global	dbus_datadir	%{_datadir}/cairo-dock/plug-ins/Dbus
@@ -53,7 +52,7 @@ BuildRequires:  gcc-c++
 BuildRequires:	cmake
 BuildRequires:	gettext
 
-BuildRequires:	pkgconfig(gldi) = %{core_least_ver}
+BuildRequires:	pkgconfig(gldi) >= %{mainver}
 BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	pkgconfig(gio-2.0)
 
@@ -423,6 +422,9 @@ popd
 %{_datadir}/cairo-dock/plug-ins/Dbus/CDApplet.h
 
 %changelog
+* Tue Jul 29 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.5.99^20250729giteb8fa4c-1.rc5
+- Update to the latest git (20250729giteb8fa4c)
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.99^20250714gita426778-2.rc4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

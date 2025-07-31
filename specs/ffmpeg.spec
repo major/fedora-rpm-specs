@@ -85,7 +85,7 @@ Name:           ffmpeg
 %global pkg_name %{name}%{?pkg_suffix}
 
 Version:        7.1.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A complete solution to record, convert and stream audio and video
 License:        GPL-3.0-or-later
 URL:            https://ffmpeg.org/
@@ -858,6 +858,9 @@ rm -rf %{buildroot}%{_datadir}/%{name}/examples
 %{_mandir}/man3/libswscale.3*
 
 %changelog
+* Tue Jul 29 2025 Nicolas Chauvet <kwizart@gmail.com> - 7.1.1-6
+- Rebuilt for libplacebo
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           jacoco
 Version:        0.8.11
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Java Code Coverage for Eclipse
 License:        EPL-2.0
 URL:            http://www.eclemma.org/jacoco/
@@ -11,7 +11,7 @@ Source0:        https://github.com/jacoco/jacoco/archive/v%{version}/%{name}-%{v
 # The deprecated org.codehaus.doxia.sink.Sink interface was removed
 Patch:          %{name}-maven-doxia-2.patch
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(args4j:args4j)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-antrun-plugin)
@@ -130,6 +130,9 @@ echo %{name} %{name}/org.jacoco.ant objectweb-asm/asm > %{buildroot}%{_sysconfdi
 %files maven-plugin -f .mfiles-maven-plugin
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 0.8.11-6
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.11-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

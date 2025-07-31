@@ -57,7 +57,7 @@
 Name:    qt5-qtbase
 Summary: Qt5 - QtBase components
 Version: 5.15.17
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, for exception details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -156,6 +156,11 @@ Patch101: qtbase-5.15.10-fix-missing-qtsan-include.patch
 # https://bugreports.qt.io/browse/QTBUG-112136
 Patch102: qtbase-QTBUG-111994.patch
 Patch103: qtbase-QTBUG-112136.patch
+
+# qt5 backport of https://codereview.qt-project.org/c/qt/qtbase/+/664056
+# to fix ssl trust store discovery with
+# https://fedoraproject.org/wiki/Changes/dropingOfCertPemFile
+Patch104: 0001-Update-SSL-trust-store-locations-for-modern-Red-Hat-.patch
 
 ## Qt 6 backports for better Gtk/GNOME integration
 # https://fedoraproject.org/wiki/Changes/Qt_Wayland_By_Default_On_Gnome
@@ -1169,6 +1174,9 @@ fi
 
 
 %changelog
+* Tue Jul 29 2025 Adam Williamson <awilliam@redhat.com> - 5.15.17-3
+- Backport SSL trust store location fix for the cert.pem change
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.17-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

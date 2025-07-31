@@ -20,12 +20,12 @@ Patch4: 0002-Fix-path-to-stylesheet-and-overview.patch
 %global blaslib openblas
 %endif
 
-BuildRequires:  javapackages-local
+BuildRequires:  javapackages-local-openjdk25
 BuildRequires:  make
-BuildRequires:  ant
+BuildRequires:  ant-openjdk25 
 BuildRequires:  gcc-gfortran
 BuildRequires:  ruby-devel
-BuildRequires:  java-devel
+BuildRequires:  java-25-devel
 BuildRequires:  junit
 BuildRequires:  %{blaslib}-devel
 

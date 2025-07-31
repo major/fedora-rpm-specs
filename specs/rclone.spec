@@ -7,9 +7,6 @@ Version:                1.70.3
 
 %gometa -L -f
 
-# This package uses gold. Tell package-notes implementation about this.
-%global _package_note_linker gold
-
 Name:           rclone
 Release:        %autorelease
 Summary:        Rsync for cloud storage

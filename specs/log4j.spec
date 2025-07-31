@@ -117,7 +117,7 @@ Apache Log4j Tag Library for Web Applications.
 
 %package jmx-gui
 Summary:        Apache Log4j JMX GUI
-Requires:       java-devel
+Requires:       java-25-devel
 
 %description jmx-gui
 Swing-based client for remotely editing the log4j configuration and remotely

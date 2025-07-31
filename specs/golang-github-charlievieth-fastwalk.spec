@@ -29,7 +29,7 @@ Source:         %{gosource}
 
 %prep
 %goprep -A
-%autopatch -p1
+%autopatch -q -p1
 
 %generate_buildrequires
 %go_generate_buildrequires
@@ -39,6 +39,11 @@ Source:         %{gosource}
 
 %if %{with check}
 %check
+%ifarch s390x
+# Remove buggy test.
+# https://github.com/charlievieth/fastwalk/issues/61#issuecomment-3017638504
+rm internal/dirent/endian_test.go
+%endif
 %gocheck
 %endif
 

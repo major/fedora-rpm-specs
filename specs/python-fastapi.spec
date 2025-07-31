@@ -1052,6 +1052,23 @@ ignore="${ignore-} --ignore-glob=tests/test_tutorial/test_sql_databases/*"
 # dependency versions in CI.
 warningsfilter="${warningsfilter-} -W ignore::DeprecationWarning"
 
+# Several tests fail with pydantic.warnings.UnsupportedFieldAttributeWarning,
+# treated as an error, with Pydantic 2.12.0a1 on Python 3.14. It may be worth
+# reporting these upstream if they persist in the 2.12.0 final release.
+# Currently, these are:
+#   tests/test_forms_single_model.py::test_send_all_data
+#   tests/test_forms_single_model.py::test_defaults
+#   tests/test_forms_single_model.py::test_invalid_data
+#   tests/test_forms_single_model.py::test_no_data
+warningsfilter="${warningsfilter-} -W ignore::pydantic.warnings.UnsupportedFieldAttributeWarning"
+
+# In Pydantic 3.12.0a1, the JSON Schema representation is not identical to what
+# FastAPI upstream expects. This kind of change is normal in a new Pydantic
+# release. We should ask upstream to adapt this test, but probably not until
+# Pydantic 3.12.0 final is available. For now, we should ignore this harmless
+# discrepancy.
+k="${k-}${k+ and }not test_openapi_schema"
+
 %pytest ${warningsfilter-} -k "${k-}" ${ignore-}
 
 

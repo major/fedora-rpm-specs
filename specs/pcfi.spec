@@ -2,7 +2,7 @@
 
 Name:           pcfi
 Version:        2010.08.09
-Release:        34.20111103git%{commit}%{?dist}
+Release:        35.20111103git%{commit}%{?dist}
 Summary:        PDF Core Font Information
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -14,7 +14,7 @@ Source0:        https://github.com/jukka/pcfi/tarball/%{commit}/jukka-pcfi-%{com
 Source1:        License
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 Requires:       jpackage-utils
 
 
@@ -45,6 +45,9 @@ cp %SOURCE1 .
 
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 2010.08.09-35.20111103gitbd245c9
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2010.08.09-34.20111103gitbd245c9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

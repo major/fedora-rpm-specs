@@ -2,7 +2,7 @@
 
 Name:           batik
 Version:        1.14
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Scalable Vector Graphics for Java
 # Automatically converted from old format: ASL 2.0 and W3C - review is highly recommended.
 License:        Apache-2.0 AND W3C
@@ -15,7 +15,7 @@ Patch1:         0001-Fix-imageio-codec-lookup.patch
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-assembly-plugin)
@@ -48,7 +48,7 @@ Summary:        Batik SVG browser
 # uses /usr/share/java-utils/java-functions
 Requires:       javapackages-tools
 # Requires AWT, so can't rely on java-headless alone
-Requires:       java
+Requires:       java-25
 
 %description    squiggle
 The Squiggle SVG Browser lets you view SVG file, zoom, pan and rotate
@@ -96,7 +96,7 @@ Summary:        Batik SVG slideshow
 # uses /usr/share/java-utils/java-functions
 Requires:       javapackages-tools
 # Requires AWT, so can't rely on java-headless alone
-Requires:       java
+Requires:       java-25
 
 %description    slideshow
 Batik SVG slideshow.
@@ -230,6 +230,9 @@ cp -pr samples $RPM_BUILD_ROOT%{_datadir}/%{name}/
 
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 1.14-17
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.14-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

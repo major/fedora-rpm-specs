@@ -1,6 +1,6 @@
 Name:          pdfbox
 Version:       2.0.30
-Release:       5%{?dist}
+Release:       6%{?dist}
 Summary:       Apache PDFBox library for working with PDF documents
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:       Apache-2.0
@@ -14,7 +14,7 @@ Patch1:        pdfbox-use-system-icc-profiles-openicc.patch
 # bumped jdi setup to 1.8
 Patch2:        1.8.patch
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(commons-io:commons-io)
 BuildRequires:  mvn(commons-logging:commons-logging)
 BuildRequires:  mvn(junit:junit)
@@ -262,6 +262,9 @@ rm pdfbox/src/test/java/org/apache/pdfbox/pdmodel/graphics/image/CCITTFactoryTes
 %license LICENSE.txt NOTICE.txt
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 2.0.30-6
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.30-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

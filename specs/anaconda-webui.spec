@@ -1,6 +1,6 @@
 Name:           anaconda-webui
-Version:        44
-Release:        2%{?dist}
+Version:        45
+Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
 URL:            https://github.com/rhinstaller/%{name}
@@ -38,13 +38,13 @@ Requires: fedora-logos
 %endif
 BuildRequires: desktop-file-utils
 
-Provides: bundled(npm(@patternfly/patternfly)) = 6.2.3
-Provides: bundled(npm(@patternfly/react-core)) = 6.2.2
-Provides: bundled(npm(@patternfly/react-icons)) = 6.2.2
-Provides: bundled(npm(@patternfly/react-log-viewer)) = 6.2.0
-Provides: bundled(npm(@patternfly/react-styles)) = 6.2.2
-Provides: bundled(npm(@patternfly/react-table)) = 6.2.2
-Provides: bundled(npm(@patternfly/react-tokens)) = 6.2.2
+Provides: bundled(npm(@patternfly/patternfly)) = 6.3.0
+Provides: bundled(npm(@patternfly/react-core)) = 6.3.0
+Provides: bundled(npm(@patternfly/react-icons)) = 6.3.0
+Provides: bundled(npm(@patternfly/react-log-viewer)) = 6.3.0
+Provides: bundled(npm(@patternfly/react-styles)) = 6.3.0
+Provides: bundled(npm(@patternfly/react-table)) = 6.3.0
+Provides: bundled(npm(@patternfly/react-tokens)) = 6.3.0
 Provides: bundled(npm(attr-accept)) = 2.2.5
 Provides: bundled(npm(dequal)) = 2.0.3
 Provides: bundled(npm(file-selector)) = 2.1.2
@@ -52,6 +52,7 @@ Provides: bundled(npm(focus-trap)) = 7.6.4
 Provides: bundled(npm(js-tokens)) = 4.0.0
 Provides: bundled(npm(lodash)) = 4.17.21
 Provides: bundled(npm(loose-envify)) = 1.4.0
+Provides: bundled(npm(luxon)) = 3.7.1
 Provides: bundled(npm(memoize-one)) = 5.2.1
 Provides: bundled(npm(object-assign)) = 4.1.1
 Provides: bundled(npm(prop-types)) = 15.8.1
@@ -98,6 +99,7 @@ exit 0
 %{_datadir}/cockpit/anaconda-webui/index.css.map
 %{_datadir}/cockpit/anaconda-webui/manifest.json
 %{_datadir}/cockpit/anaconda-webui/po.*.js.gz
+%{_libexecdir}/anaconda/cockpit-coproc-wrapper.sh
 %dir %{_datadir}/anaconda/firefox-theme
 %dir %{_datadir}/anaconda/firefox-theme/default
 %dir %{_datadir}/anaconda/firefox-theme/default/chrome
@@ -118,6 +120,13 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Tue Jul 29 2025 Packit <hello@packit.dev> - 45-1
+- components. datetime: introduce a Date and Time screen
+- components: users: autogenerate username from full name
+- components: users: support skipping account creation in the users screen (rhbz#2379957)
+- components: users: improve text around user being in wheel group
+- components: users: add hint for not using the root account
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 44-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

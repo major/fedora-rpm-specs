@@ -1,6 +1,6 @@
 Name:           plexus-i18n
 Version:        1.0
-Release:        0.35.b10.4%{?dist}
+Release:        0.36.b10.4%{?dist}
 Summary:        Plexus I18N Component
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -10,7 +10,7 @@ ExclusiveArch:  %{java_arches} noarch
 # svn export http://svn.codehaus.org/plexus/plexus-components/tags/plexus-i18n-1.0-beta-10/
 # tar cjf plexus-i18n-1.0-beta-10-src.tar.bz2 plexus-i18n-1.0-beta-10/
 Source0:        plexus-i18n-1.0-beta-10-src.tar.bz2
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(com.google.inject:guice)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-component-metadata)
@@ -52,6 +52,9 @@ is like a J2EE application server, without all the baggage.
 %files -f .mfiles
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 1.0-0.36.b10.4
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.35.b10.4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

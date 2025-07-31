@@ -17,7 +17,7 @@
 
 Name:          postgis
 Version:       3.5.3
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Geographic Information Systems Extensions to PostgreSQL
 License:       GPL-2.0-or-later
 
@@ -460,6 +460,9 @@ fi
 
 
 %changelog
+* Tue Jul 29 2025 Sandro Mani <manisandro@gmail.com> - 3.5.3-3
+- Rebuild (gdal)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

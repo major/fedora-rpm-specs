@@ -48,7 +48,7 @@ BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  javapackages-local-openjdk25
 BuildRequires:  libffi-devel
-BuildRequires:  ant
+BuildRequires:  ant-openjdk25 
 BuildRequires:  ant-junit
 BuildRequires:  junit
 BuildRequires:  libX11-devel

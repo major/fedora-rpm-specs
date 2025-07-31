@@ -3,16 +3,18 @@
 %global debug_package %{nil}
 
 %global crate picky
-%global crate_version 7.0.0-rc.12
+%global crate_version 7.0.0-rc.15
 
 Name:           rust-picky
-Version:        7.0.0~rc.12
+Version:        7.0.0~rc.15
 Release:        %autorelease
 Summary:        Portable X.509, PKI, JOSE and HTTP signature implementation
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/picky
 Source:         %{crates_source %{crate} %{crate_version}}
+# Manually created patch for downstream crate metadata changes
+Patch:          picky-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

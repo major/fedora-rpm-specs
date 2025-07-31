@@ -1,7 +1,7 @@
 Summary: Utilities for managing accounts and shadow password files
 Name: shadow-utils
 Version: 4.18.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Epoch: 2
 License: BSD-3-Clause AND GPL-2.0-or-later
 URL: https://github.com/shadow-maint/shadow
@@ -269,6 +269,10 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/libsubid.a
 %{_libdir}/libsubid.so
 
 %changelog
+* Tue Jul 29 2025 Alexey Tikhonov <atikhono@redhat.com> - 2:4.18.0-3
+- Revert "Stop assigning subids by default"
+  Resolves: #2382662
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:4.18.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

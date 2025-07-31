@@ -1,8 +1,8 @@
 %global pypi_name pytest-isort
 
 Name:           python-%{pypi_name}
-Version:        3.0.0
-Release:        14%{?dist}
+Version:        4.0.0
+Release:        1%{?dist}
 Summary:        Pytest plugin to check import ordering using isort
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -20,7 +20,6 @@ Summary:        %{summary}
 BuildRequires:  python3-devel
 BuildRequires:  python3-isort
 BuildRequires:  python3-pytest
-BuildRequires:  python3-setuptools
 %{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
@@ -28,21 +27,32 @@ py.test plugin to check import ordering using isort.
 
 %prep
 %autosetup -n %{pypi_name}-%{version}
-rm -rf %{pypi_name}.egg-info
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+
+%check
+%{pytest} -v tests
 
 %files -n python3-%{pypi_name}
 %license LICENSE.rst
-%doc README.rst
+%doc README.rst CHANGELOG.rst
 %{python3_sitelib}/pytest_isort/
-%{python3_sitelib}/pytest_isort-%{version}-py%{python3_version}.egg-info
+%{python3_sitelib}/*.dist-info
 
 %changelog
+* Tue Jul 29 2025 Federico Pellegrin <fede@evolware.org> - 4.0.0-1
+- Bump to 4.0.0
+
+* Tue Jul 29 2025 Federico Pellegrin <fede@evolware.org> - 3.0.0-15
+- Use new Python macros in spec file (rhbz#2378111)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 %global crate ironrdp-async
 
 Name:           rust-ironrdp-async
-Version:        0.5.0
+Version:        0.6.0
 Release:        %autorelease
 Summary:        Futures wrapping the IronRDP state machines conveniently
 

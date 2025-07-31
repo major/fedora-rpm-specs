@@ -1,6 +1,6 @@
 Name:           maven-reporting-impl
 Version:        4.0.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Abstract classes to manage report generation
 License:        Apache-2.0
 URL:            https://maven.apache.org/shared/maven-reporting-impl/
@@ -15,7 +15,7 @@ BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
 BuildRequires:  gnupg2
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(org.apache.maven:maven-archiver)
 BuildRequires:  mvn(org.apache.maven:maven-artifact)
 BuildRequires:  mvn(org.apache.maven:maven-core)
@@ -77,6 +77,9 @@ rm README.md.orig
 %license LICENSE NOTICE
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 4.0.0-4
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

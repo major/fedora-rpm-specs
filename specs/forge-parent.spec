@@ -1,6 +1,6 @@
 Name:           forge-parent
 Version:        38
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Sonatype Forge Parent Pom
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -11,7 +11,7 @@ ExclusiveArch:  %{java_arches} noarch
 Source0:        http://repo1.maven.org/maven2/org/sonatype/forge/%{name}/%{version}/%{name}-%{version}.pom
 Source1:        http://www.apache.org/licenses/LICENSE-2.0.txt
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 
 %description
 Sonatype Forge is an open-source community dedicated to the creation of the 
@@ -36,6 +36,9 @@ cp -p %{SOURCE1} LICENSE
 %doc LICENSE
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 38-33
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 38-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

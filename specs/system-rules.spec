@@ -1,6 +1,6 @@
 Name:           system-rules
 Version:        1.19.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        A collection of JUnit rules for testing code which uses java.lang.System
 # Automatically converted from old format: CPL - review is highly recommended.
 License:        CPL-1.0
@@ -9,7 +9,7 @@ BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 Source0:        https://github.com/stefanbirkner/%{name}/archive/%{name}-%{version}/%{name}-%{version}.tar.gz
 Source1:         sm.patch
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(com.github.stefanbirkner:fishbowl)
 BuildRequires:  mvn(commons-io:commons-io)
 BuildRequires:  mvn(junit:junit)
@@ -59,6 +59,9 @@ find -type f '(' -iname '*.jar' -o -iname '*.class' ')' -print -delete
 %license LICENSE
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 1.19.0-13
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.19.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

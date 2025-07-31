@@ -40,7 +40,6 @@ BuildRequires:  pkgconfig(libpcre2-8) >= %{pcre2_version}
 BuildRequires:  pkgconfig(libsystemd) >= %{libsystemd_version}
 BuildRequires:  pkgconfig(pango) >= %{pango_version}
 BuildRequires:  pkgconfig(simdutf) >= %{simdutf_version}
-BuildRequires:  fast_float-devel
 BuildRequires:  gcc-c++
 BuildRequires:  gettext
 BuildRequires:  gi-docgen

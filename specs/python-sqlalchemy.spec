@@ -1,7 +1,7 @@
 %global srcname SQLAlchemy
 %global canonicalname %{py_dist_name %{srcname}}
 Name:           python-%{canonicalname}
-Version:        2.0.41
+Version:        2.0.42
 
 # Mypy plugin is deprecated in 2.0. mypy is not in RHEL.
 # Some mypy plugin tests fail with mypy 1.14.1:
@@ -60,21 +60,15 @@ License:        MIT
 URL:            https://www.sqlalchemy.org/
 Source0:        %{pypi_source %{canonicalname} %{srcversion}}
 
-# unxfail one tests to fix build with Python 3.14.0b2+
-# from https://github.com/sqlalchemy/sqlalchemy/commit/be8ffcfa4d
-Patch:          python3.14.0b2.patch
-
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
-BuildRequires:  patch
 BuildRequires:  python3-devel >= 3.7
 # The dependencies needed for testing don’t get auto-generated.
 BuildRequires:  python3dist(pytest)
 %if %{with xdist}
 BuildRequires:  python3dist(pytest-xdist)
 %endif
-BuildRequires:  unzip
 
 %description
 SQLAlchemy is an Object Relational Mapper (ORM) that provides a flexible,

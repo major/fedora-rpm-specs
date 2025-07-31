@@ -14,7 +14,7 @@ Source1:        https://repo1.maven.org/maven2/org/jetbrains/annotations/%{versi
 BuildArch:      noarch
 ExclusiveArch:  noarch %{java_arches}
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(org.apache.maven.plugins:maven-compiler-plugin)
 
 %description

@@ -11,7 +11,7 @@
 
 %global toolchain rocm
 # hipcc does not support some clang flags
-%global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host -fcf-protection/' -e 's/-flto=thin//' )
+%global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host -fcf-protection/' -e 's/-flto=thin//' -e 's/-mtls-dialect=gnu2//')
 
 %global _lto_cflags %{nil}
 
@@ -49,7 +49,7 @@
 
 Name:           %{rccl_name}
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        ROCm Communication Collectives Library
 
 Url:            https://github.com/ROCm/rccl
@@ -206,6 +206,9 @@ fi
 %endif
 
 %changelog
+* Tue Jul 29 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-3
+- Remove -mtls-dialect cflag
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

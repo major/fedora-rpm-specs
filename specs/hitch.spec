@@ -12,7 +12,7 @@
 
 Name:		hitch
 Version:	1.8.0
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	Network proxy that terminates TLS/SSL connections
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -27,16 +27,16 @@ BuildRequires:	openssl
 BuildRequires:	pkgconfig
 BuildRequires:	libtool
 #BuildRequires:	python-docutils >= 0.6
-%if 0%{fedora} >= 41
+%if 0%{?fedora} >= 41
 BuildRequires:  openssl-devel-engine
 %else
 BuildRequires:	openssl-devel
 %endif
-
 Requires:	openssl
 
 Patch0:		hitch.systemd.service.patch
-Patch1:		hitch.initrc.redhat.patch
+# https://github.com/varnish/hitch/issues/395
+Patch1:		hitch-1.8.0.fix_el10_build.patch
 
 Requires(post): systemd
 Requires(preun): systemd
@@ -52,12 +52,13 @@ of connections efficiently on multicore machines.
 %prep
 %setup -q -n %{name}-%{version}%{?v_rc}
 %patch -P0
+
+%if 0%{?rhel} >= 10
 %patch -P1
+%endif
 
 %build
 #./bootstrap
-
-#export CFLAGS
 
 # manpages are prebuilt, no need to build again
 export RST2MAN=/bin/true
@@ -130,6 +131,10 @@ make check
 %ghost %verify(not md5 size mtime)  /run/%{name}/%{name}.pid
 
 %changelog
+* Tue Jul 29 2025 Ingvar Hagelund <ingvar@redpill-linpro.com> - 1.8.0-10
+- Buildfix for el10
+- Removed old sysv init script
+
 * Mon Jul 28 2025 Ingvar Hagelund <ingvar@redpill-linpro.com> - 1.8.0-9
 - systemd user setup
 - pulled el7 support

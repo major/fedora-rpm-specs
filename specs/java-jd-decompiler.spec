@@ -1,6 +1,6 @@
 Name:           java-jd-decompiler
 Version:        1.1.3
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        JAVA library having JAVA decompiler of "Java Decompiler project"
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -15,8 +15,8 @@ Source4:        java-jd-decompiler.1
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-BuildRequires:  java-devel
-BuildRequires:  maven-local
+BuildRequires:  java-25-devel
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  maven-jar-plugin
 
 Requires:       %{name}-core = %{version}-%{release}
@@ -81,6 +81,9 @@ cp -v %{SOURCE4} $RPM_BUILD_ROOT/%{_mandir}/man1
 %doc README.md
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 1.1.3-14
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

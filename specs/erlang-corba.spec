@@ -38,7 +38,7 @@ BuildRequires:	erlang-jinterface
 BuildRequires:	erlang-parsetools
 BuildRequires:	erlang-rpm-macros
 BuildRequires:	gcc
-BuildRequires:	java-devel
+BuildRequires:	java-25-devel
 %if %{with doc}
 BuildRequires:	fop
 BuildRequires:	libxslt

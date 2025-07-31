@@ -5,7 +5,7 @@
 %global crate munge
 
 Name:           rust-munge
-Version:        0.4.5
+Version:        0.4.6
 Release:        %autorelease
 Summary:        Macro for custom destructuring
 
@@ -51,8 +51,8 @@ use the "default" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 # Despite https://github.com/djkoloski/munge/pull/5, we still see some
-# CRLF-terminated files in the releases crates.
-find . -type f | xargs -r -t dos2unix --keepdate
+# CRLF-terminated files in the released crates.
+find . -type f -exec dos2unix --keepdate '{}' '+'
 %cargo_prep
 
 %generate_buildrequires

@@ -120,7 +120,14 @@ ignore="${ignore-} --ignore=tests/test_mongo_object_id.py"
 ignore="${ignore-} --ignore=tests/test_json_schema.py"
 %endif
 
-%pytest -Wdefault ${ignore-} -v
+# With Pydantic 3.12.0a1, this test fails because the generated JSON schema
+# takes a slightly different form than the tests expect. This kind of change is
+# normal in a new Pydantic release. We should ask upstream to adapt this test,
+# but probably not until Pydantic 3.12.0 final is available. For now, we should
+# ignore this harmless discrepancy.
+k="${k-}${k+ and }not test_json_schema"
+
+%pytest -Wdefault ${ignore-} -k "${k-}" -v
 %endif
 
 

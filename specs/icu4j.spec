@@ -12,7 +12,7 @@ VCS:            git:%{giturl}.git
 
 Source:         %{giturl}/archive/release-%{dashver}.tar.gz
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(com.google.code.gson:gson)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-assembly-plugin)

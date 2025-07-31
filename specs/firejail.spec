@@ -5,8 +5,11 @@
 Name: firejail
 Summary: Linux namespaces sandbox program
 
-Version: 0.9.74
-Release: 2%{?dist}
+%global ver_no 0.9.76
+%global ver_rc rc4
+
+Version: %{expand:%{ver_no}%{?ver_rc:~}%{?ver_rc}}
+Release: 1%{?dist}
 
 BuildRequires: coreutils
 BuildRequires: gcc
@@ -22,7 +25,9 @@ Requires: xdg-dbus-proxy
 # released under MIT
 License: GPL-2.0-or-later
 URL: https://github.com/netblue30/firejail
-Source0: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+
+%global git_tag %{expand:%{ver_no}%{?ver_rc:-}%{?ver_rc}}
+Source0: %{url}/archive/%{git_tag}/%{name}-%{git_tag}.tar.gz
 
 %description
 Firejail is a SUID sandbox program that reduces the risk of security
@@ -31,7 +36,7 @@ using Linux namespaces. It includes a sandbox profile for Mozilla Firefox.
 
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n firejail-%{git_tag}
 
 
 %build
@@ -94,6 +99,9 @@ rm %{buildroot}%{_datadir}/gtksourceview-5/language-specs/firejail-profile.lang
 %config(noreplace) %{_sysconfdir}/%{name}
 
 %changelog
+* Tue Jul 29 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.9.76~rc4-1
+- Update to v0.9.76-rc4 (rhbz#2376996)
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.74-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

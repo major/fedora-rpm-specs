@@ -1,11 +1,10 @@
 Name: libnetconf2
 Version: 3.7.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: NETCONF protocol library
 Url: https://github.com/CESNET/libnetconf2
 Source: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-# Automatically converted from old format: BSD - review is highly recommended.
-License: LicenseRef-Callaway-BSD
+License: BSD-3-Clause
 
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -45,6 +44,7 @@ servers. NETCONF is the NETwork CONFiguration protocol introduced by IETF.
 %license LICENSE
 %doc README.md FAQ.md
 %{_libdir}/libnetconf2.so.*
+%dir %{_datadir}/yang/modules/libnetconf2
 %{_datadir}/yang/modules/libnetconf2/*.yang
 
 %files devel
@@ -57,6 +57,9 @@ servers. NETCONF is the NETwork CONFiguration protocol introduced by IETF.
 
 
 %changelog
+* Tue Jul 29 2025 Michal Ruprich <mruprich@redhat.com> - 3.7.1-2
+- Fixing the license identifier
+
 * Mon Jul 28 2025 Michal Ruprich <mruprich@redhat.com> - 3.7.1-1
 - New version 3.7.1
 

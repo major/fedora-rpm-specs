@@ -6,7 +6,7 @@
 Name:           clojure-spec-alpha
 Epoch:          1
 Version:        0.5.238
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Spec is a Clojure library to describe the structure of data and functions
 
 Group:          Development/Languages
@@ -18,7 +18,7 @@ Source0:        https://github.com/%{project}/%{artifactId}/archive/refs/tags/v%
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(org.codehaus.mojo:exec-maven-plugin)
 BuildRequires:  mvn(com.theoryinpractise:clojure-maven-plugin)
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
@@ -96,6 +96,9 @@ use generative testing to test functions.
 %license LICENSE
 %doc CHANGES.md README.md CONTRIBUTING.md
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 1:0.5.238-4
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.5.238-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

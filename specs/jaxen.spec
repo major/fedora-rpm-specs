@@ -4,7 +4,7 @@ Name:           jaxen
 Summary:        An XPath engine written in Java
 Epoch:          0
 Version:        1.2.0
-Release:        21%{?dist}
+Release:        22%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
 
@@ -14,7 +14,7 @@ Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(jdom:jdom)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-assembly-plugin)
@@ -91,6 +91,9 @@ cp -pr src/java/samples/* %{buildroot}%{_datadir}/%{name}/samples
 
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 0:1.2.0-22
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0:1.2.0-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

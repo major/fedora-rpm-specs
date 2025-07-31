@@ -12,7 +12,7 @@ Source0:        https://github.com/mjiderhamn/classloader-leak-prevention/archiv
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.bcel:bcel)
 

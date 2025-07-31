@@ -1,6 +1,6 @@
 Name:             jtidy
 Version:          1.0
-Release:          0.48.20100930svn1125%{?dist}
+Release:          0.49.20100930svn1125%{?dist}
 Epoch:            2
 Summary:          HTML syntax checker and pretty printer
 License:          zlib
@@ -15,8 +15,8 @@ Patch0:           javac-1.8.patch
 BuildArch:        noarch
 ExclusiveArch:  %{java_arches} noarch
 
-BuildRequires:    javapackages-local
-BuildRequires:    ant
+BuildRequires:    javapackages-local-openjdk25
+BuildRequires:    ant-openjdk25 
 BuildRequires:    mvn(xerces:dom3-xml-apis)
 # Explicit javapackages-tools requires since jtidy script uses
 # /usr/share/java-utils/java-functions
@@ -71,6 +71,9 @@ EOF
 
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 2:1.0-0.49.20100930svn1125
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:1.0-0.48.20100930svn1125
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

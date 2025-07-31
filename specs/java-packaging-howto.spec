@@ -1,6 +1,6 @@
 Name:           java-packaging-howto
 Version:        40.0.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Fedora Java packaging HowTo
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -14,7 +14,7 @@ BuildRequires:  asciidoctor
 BuildRequires:  dia
 BuildRequires:  man
 BuildRequires:  colorized-logs
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 
 %description
 Offline version of Fedora Java packaging HowTo.
@@ -33,6 +33,9 @@ make clean-all all
 %doc index.html
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 40.0.1-6
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 40.0.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

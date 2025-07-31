@@ -10,11 +10,11 @@
 %bcond_without       tests
 
 # Github
-%global gh_commit    ddec29dfc128eba9c204389960f2063f3b7fa170
+%global gh_commit    086553c5b2e0e1e20293d782d788ab768202b621
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner    sebastianbergmann
 %global gh_project   php-code-coverage
-%global gh_date      2025-06-18
+%global gh_date      2025-07-29
 # Packagist
 %global pk_vendor    phpunit
 %global pk_project   php-code-coverage
@@ -25,8 +25,8 @@
 %global ver_major    12
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
-Version:        12.3.1
-Release:        2%{?dist}
+Version:        12.3.2
+Release:        1%{?dist}
 Summary:        PHP code coverage information, version %{ver_major}
 
 # SPDX: Main license is BSD-3-Clause
@@ -187,6 +187,9 @@ exit $ret
 
 
 %changelog
+* Tue Jul 29 2025 Remi Collet <remi@remirepo.net> - 12.3.2-1
+- update to 12.3.2
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 12.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

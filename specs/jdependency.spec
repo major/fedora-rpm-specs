@@ -1,6 +1,6 @@
 Name:           jdependency
 Version:        2.12
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Class dependency analysis library for Java
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -10,7 +10,7 @@ ExclusiveArch:  %{java_arches} noarch
 
 Source0:        http://github.com/tcurdt/%{name}/archive/%{name}-%{version}.tar.gz
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(commons-io:commons-io)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-antrun-plugin)
@@ -54,6 +54,9 @@ Summary:        API documentation for %{name}
 %license LICENSE.txt
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 2.12-3
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.12-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

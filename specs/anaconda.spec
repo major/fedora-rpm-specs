@@ -1,7 +1,7 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 43.31
-Release: 2%{?dist}
+Version: 43.32
+Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -180,8 +180,8 @@ system.
 Summary: Live installation specific files and dependencies
 BuildArch: noarch
 BuildRequires: desktop-file-utils
-# live installation currently implies a graphical installation
-Requires: anaconda-gui = %{version}-%{release}
+# live installation currently implies a graphical installation with Web UI
+Requires: anaconda-webui
 Requires: zenity
 Recommends: xhost
 # FIXME: This is currently needed by the locale1-x11-sync script.
@@ -513,6 +513,19 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jul 29 2025 Packit <hello@packit.dev> - 43.32-1
+- Make sure the pre_install queue is run (#2378660) (mkolman)
+- Default to GTK UI when available, fallback to Web UI otherwise (k.koukiou)
+- build: switch live installation dependency from anaconda-gui to anaconda-
+  webui (k.koukiou)
+- users: fix guess_username to return empty string for invalid usernames
+  (k.koukiou)
+- users: expose guess_username as GuessUsernameFromFullName API (k.koukiou)
+- data: profile: hide date time screen from workstation (k.koukiou)
+- Create new D-Bus API for NTP server checking (k.koukiou)
+- Test for ntp servers from config (adamkankovsky)
+- Create new DBUS API for ntp servers from config (adamkankovsky)
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 43.31-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

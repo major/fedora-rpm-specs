@@ -47,8 +47,8 @@ BuildRequires:  gcc-c++
 BuildRequires:  ghostscript-tools-dvipdf
 BuildRequires:  glpk-devel
 %ifarch %{java_arches}
-BuildRequires:  java-devel
-BuildRequires:  javapackages-local
+BuildRequires:  java-25-devel
+BuildRequires:  javapackages-local-openjdk25
 %endif
 BuildRequires:  make
 BuildRequires:  mpfr-devel

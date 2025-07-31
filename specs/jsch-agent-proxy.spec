@@ -1,6 +1,6 @@
 Name:           jsch-agent-proxy
 Version:        0.0.8
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Proxy to ssh-agent and Pageant in Java
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -10,7 +10,7 @@ ExclusiveArch:  %{java_arches} noarch
 
 Source0:        https://github.com/ymnk/jsch-agent-proxy/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(com.jcraft:jsch)
 BuildRequires:  mvn(com.trilead:trilead-ssh2)
 BuildRequires:  mvn(net.java.dev.jna:jna)
@@ -124,6 +124,9 @@ This package provides %{summary}.
 %license LICENSE.txt
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 0.0.8-30
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.8-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

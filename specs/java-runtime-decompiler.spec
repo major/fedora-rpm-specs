@@ -26,7 +26,7 @@ Patch7: removeMultilineSpotbugs.patch
 
 BuildArch: noarch
 ExclusiveArch:  %{java_arches} noarch
-BuildRequires: maven-local
+BuildRequires: maven-local-openjdk25
 BuildRequires: byteman
 BuildRequires: rsyntaxtextarea
 BuildRequires: junit5
@@ -39,7 +39,7 @@ BuildRequires: maven-surefire-provider-junit5
 BuildRequires: maven-surefire
 BuildRequires: maven-surefire-plugin
 BuildRequires: maven-clean-plugin
-BuildRequires: java-devel
+BuildRequires: java-25-devel
 BuildRequires: google-gson
 BuildRequires: desktop-file-utils
 BuildRequires: classpathless-compiler

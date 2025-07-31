@@ -162,18 +162,18 @@ Summary: The Linux kernel
 #  the --with-release option overrides this setting.)
 %define debugbuildsenabled 1
 # define buildid .local
-%define specrpmversion 6.16.0
-%define specversion 6.16.0
-%define patchversion 6.16
-%define pkgrelease 65
+%define specrpmversion 6.17.0
+%define specversion 6.17.0
+%define patchversion 6.17
+%define pkgrelease 0.rc0.250729g86aa72182095.2
 %define kversion 6
-%define tarfile_release 6.16
+%define tarfile_release 6.16-2094-g86aa72182095
 # This is needed to do merge window version magic
-%define patchlevel 16
+%define patchlevel 17
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 65%{?buildid}%{?dist}
+%define specrelease 0.rc0.250729g86aa72182095.2%{?buildid}%{?dist}
 # This defines the kabi tarball version
-%define kabiversion 6.16.0
+%define kabiversion 6.17.0
 
 # If this variable is set to 1, a bpf selftests build failure will cause a
 # fatal kernel package build error
@@ -719,7 +719,7 @@ Name: %{package_name}
 License: ((GPL-2.0-only WITH Linux-syscall-note) OR BSD-2-Clause) AND ((GPL-2.0-only WITH Linux-syscall-note) OR BSD-3-Clause) AND ((GPL-2.0-only WITH Linux-syscall-note) OR CDDL-1.0) AND ((GPL-2.0-only WITH Linux-syscall-note) OR Linux-OpenIB) AND ((GPL-2.0-only WITH Linux-syscall-note) OR MIT) AND ((GPL-2.0-or-later WITH Linux-syscall-note) OR BSD-3-Clause) AND ((GPL-2.0-or-later WITH Linux-syscall-note) OR MIT) AND 0BSD AND BSD-2-Clause AND (BSD-2-Clause OR Apache-2.0) AND BSD-3-Clause AND BSD-3-Clause-Clear AND CC0-1.0 AND GFDL-1.1-no-invariants-or-later AND GPL-1.0-or-later AND (GPL-1.0-or-later OR BSD-3-Clause) AND (GPL-1.0-or-later WITH Linux-syscall-note) AND GPL-2.0-only AND (GPL-2.0-only OR Apache-2.0) AND (GPL-2.0-only OR BSD-2-Clause) AND (GPL-2.0-only OR BSD-3-Clause) AND (GPL-2.0-only OR CDDL-1.0) AND (GPL-2.0-only OR GFDL-1.1-no-invariants-or-later) AND (GPL-2.0-only OR GFDL-1.2-no-invariants-only) AND (GPL-2.0-only OR GFDL-1.2-no-invariants-or-later) AND (GPL-2.0-only WITH Linux-syscall-note) AND GPL-2.0-or-later AND (GPL-2.0-or-later OR BSD-2-Clause) AND (GPL-2.0-or-later OR BSD-3-Clause) AND (GPL-2.0-or-later OR CC-BY-4.0) AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (GPL-2.0-or-later WITH Linux-syscall-note) AND ISC AND LGPL-2.0-or-later AND (LGPL-2.0-or-later OR BSD-2-Clause) AND (LGPL-2.0-or-later WITH Linux-syscall-note) AND LGPL-2.1-only AND (LGPL-2.1-only OR BSD-2-Clause) AND (LGPL-2.1-only WITH Linux-syscall-note) AND LGPL-2.1-or-later AND (LGPL-2.1-or-later WITH Linux-syscall-note) AND (Linux-OpenIB OR GPL-2.0-only) AND (Linux-OpenIB OR GPL-2.0-only OR BSD-2-Clause) AND Linux-man-pages-copyleft AND MIT AND (MIT OR Apache-2.0) AND (MIT OR GPL-2.0-only) AND (MIT OR GPL-2.0-or-later) AND (MIT OR LGPL-2.1-only) AND (MPL-1.1 OR GPL-2.0-only) AND (X11 OR GPL-2.0-only) AND (X11 OR GPL-2.0-or-later) AND Zlib AND (copyleft-next-0.3.1 OR GPL-2.0-or-later)
 URL: https://www.kernel.org/
 Version: %{specrpmversion}
-Release: %{pkg_release}
+Release: %{pkg_release}.1
 # DO NOT CHANGE THE 'ExclusiveArch' LINE TO TEMPORARILY EXCLUDE AN ARCHITECTURE BUILD.
 # SET %%nobuildarches (ABOVE) INSTEAD
 %if 0%{?fedora}
@@ -769,7 +769,7 @@ BuildRequires: sparse
 %if %{with_perf}
 BuildRequires: zlib-devel binutils-devel newt-devel perl(ExtUtils::Embed) bison flex xz-devel
 BuildRequires: audit-libs-devel python3-setuptools
-BuildRequires: java-devel
+BuildRequires: java-25-devel
 BuildRequires: libbpf-devel >= 0.6.0-1
 BuildRequires: libbabeltrace-devel
 BuildRequires: libtraceevent-devel
@@ -1163,9 +1163,9 @@ The %{package_name} meta package
 Provides: kernel = %{specversion}-%{pkg_release}\
 Provides: %{name} = %{specversion}-%{pkg_release}\
 %endif\
-Provides: %{name}-%{_target_cpu} = %{specrpmversion}-%{pkg_release}%{uname_suffix %{?1:+%{1}}}\
-Provides: %{name}-uname-r = %{KVERREL}%{uname_suffix %{?1:+%{1}}}\
-Requires: %{name}%{?1:-%{1}}-modules-core-uname-r = %{KVERREL}%{uname_suffix %{?1:+%{1}}}\
+Provides: %{name}-%{_target_cpu} = %{specrpmversion}-%{pkg_release}%{uname_suffix %{?1}}\
+Provides: %{name}-uname-r = %{KVERREL}%{uname_suffix %{?1:}}\
+Requires: %{name}%{?1:-%{1}}-modules-core-uname-r = %{KVERREL}%{uname_suffix %{?1}}\
 Requires(pre): %{kernel_prereq}\
 Requires(pre): %{initrd_prereq}\
 Requires(pre): ((linux-firmware >= 20150904-56.git6ebf5d57) if linux-firmware)\
@@ -1472,9 +1472,9 @@ This is required to use SystemTap with %{name}%{?1:-%{1}}-%{KVERREL}.\
 %package %{?1:%{1}-}devel\
 Summary: Development package for building kernel modules to match the %{?2:%{2} }kernel\
 Provides: %{name}%{?1:-%{1}}-devel-%{_target_cpu} = %{specrpmversion}-%{release}\
-Provides: %{name}-devel-%{_target_cpu} = %{specrpmversion}-%{release}%{uname_suffix %{?1:+%{1}}}\
-Provides: kernel-devel-uname-r = %{KVERREL}%{uname_suffix %{?1:+%{1}}}\
-Provides: %{name}-devel-uname-r = %{KVERREL}%{uname_suffix %{?1:+%{1}}}\
+Provides: %{name}-devel-%{_target_cpu} = %{specrpmversion}-%{release}%{uname_suffix %{?1}}\
+Provides: kernel-devel-uname-r = %{KVERREL}%{uname_suffix %{?1}}\
+Provides: %{name}-devel-uname-r = %{KVERREL}%{uname_suffix %{?1}}\
 Provides: installonlypkg(kernel)\
 AutoReqProv: no\
 Requires(pre): findutils\
@@ -1487,7 +1487,7 @@ Requires: flex\
 Requires: make\
 Requires: gcc\
 %if %{-m:1}%{!-m:0}\
-Requires: %{name}-devel-uname-r = %{KVERREL}%{uname_variant %{?1:%{1}}}\
+Requires: %{name}-devel-uname-r = %{KVERREL}%{uname_variant %{?1}}\
 %endif\
 %description %{?1:%{1}-}devel\
 This package provides kernel headers and makefiles sufficient to build modules\
@@ -1524,13 +1524,13 @@ This meta package provides a single reference that other packages can Require to
 Summary: Extra kernel modules to match the %{?2:%{2} }kernel\
 Group: System Environment/Kernel\
 Provides: %{name}%{?1:-%{1}}-modules-internal-%{_target_cpu} = %{specrpmversion}-%{release}\
-Provides: %{name}%{?1:-%{1}}-modules-internal-%{_target_cpu} = %{specrpmversion}-%{release}%{uname_suffix %{?1:+%{1}}}\
-Provides: %{name}%{?1:-%{1}}-modules-internal = %{specrpmversion}-%{release}%{uname_suffix %{?1:+%{1}}}\
+Provides: %{name}%{?1:-%{1}}-modules-internal-%{_target_cpu} = %{specrpmversion}-%{release}%{uname_suffix %{?1}}\
+Provides: %{name}%{?1:-%{1}}-modules-internal = %{specrpmversion}-%{release}%{uname_suffix %{?1}}\
 Provides: installonlypkg(kernel-module)\
-Provides: %{name}%{?1:-%{1}}-modules-internal-uname-r = %{KVERREL}%{uname_suffix %{?1:+%{1}}}\
-Requires: %{name}-uname-r = %{KVERREL}%{uname_suffix %{?1:+%{1}}}\
-Requires: %{name}%{?1:-%{1}}-modules-uname-r = %{KVERREL}%{uname_suffix %{?1:+%{1}}}\
-Requires: %{name}%{?1:-%{1}}-modules-core-uname-r = %{KVERREL}%{uname_suffix %{?1:+%{1}}}\
+Provides: %{name}%{?1:-%{1}}-modules-internal-uname-r = %{KVERREL}%{uname_suffix %{?1}}\
+Requires: %{name}-uname-r = %{KVERREL}%{uname_suffix %{?1}}\
+Requires: %{name}%{?1:-%{1}}-modules-uname-r = %{KVERREL}%{uname_suffix %{?1}}\
+Requires: %{name}%{?1:-%{1}}-modules-core-uname-r = %{KVERREL}%{uname_suffix %{?1}}\
 AutoReq: no\
 AutoProv: yes\
 %description %{?1:%{1}-}modules-internal\
@@ -1545,15 +1545,15 @@ This package provides kernel modules for the %{?2:%{2} }kernel package for Red H
 %package %{?1:%{1}-}modules-extra\
 Summary: Extra kernel modules to match the %{?2:%{2} }kernel\
 Provides: %{name}%{?1:-%{1}}-modules-extra-%{_target_cpu} = %{specrpmversion}-%{release}\
-Provides: %{name}%{?1:-%{1}}-modules-extra-%{_target_cpu} = %{specrpmversion}-%{release}%{uname_suffix %{?1:+%{1}}}\
-Provides: %{name}%{?1:-%{1}}-modules-extra = %{specrpmversion}-%{release}%{uname_suffix %{?1:+%{1}}}\
+Provides: %{name}%{?1:-%{1}}-modules-extra-%{_target_cpu} = %{specrpmversion}-%{release}%{uname_suffix %{?1}}\
+Provides: %{name}%{?1:-%{1}}-modules-extra = %{specrpmversion}-%{release}%{uname_suffix %{?1}}\
 Provides: installonlypkg(kernel-module)\
-Provides: %{name}%{?1:-%{1}}-modules-extra-uname-r = %{KVERREL}%{uname_suffix %{?1:+%{1}}}\
-Requires: %{name}-uname-r = %{KVERREL}%{uname_suffix %{?1:+%{1}}}\
-Requires: %{name}%{?1:-%{1}}-modules-uname-r = %{KVERREL}%{uname_suffix %{?1:+%{1}}}\
-Requires: %{name}%{?1:-%{1}}-modules-core-uname-r = %{KVERREL}%{uname_suffix %{?1:+%{1}}}\
+Provides: %{name}%{?1:-%{1}}-modules-extra-uname-r = %{KVERREL}%{uname_suffix %{?1}}\
+Requires: %{name}-uname-r = %{KVERREL}%{uname_suffix %{?1}}\
+Requires: %{name}%{?1:-%{1}}-modules-uname-r = %{KVERREL}%{uname_suffix %{?1}}\
+Requires: %{name}%{?1:-%{1}}-modules-core-uname-r = %{KVERREL}%{uname_suffix %{?1}}\
 %if %{-m:1}%{!-m:0}\
-Requires: %{name}-modules-extra-uname-r = %{KVERREL}%{uname_variant %{?1:+%{1}}}\
+Requires: %{name}-modules-extra-uname-r = %{KVERREL}%{uname_variant %{?1}}\
 %endif\
 AutoReq: no\
 AutoProv: yes\
@@ -1569,14 +1569,14 @@ This package provides less commonly used kernel modules for the %{?2:%{2} }kerne
 %package %{?1:%{1}-}modules\
 Summary: kernel modules to match the %{?2:%{2}-}core kernel\
 Provides: %{name}%{?1:-%{1}}-modules-%{_target_cpu} = %{specrpmversion}-%{release}\
-Provides: %{name}-modules-%{_target_cpu} = %{specrpmversion}-%{release}%{uname_suffix %{?1:+%{1}}}\
-Provides: %{name}-modules = %{specrpmversion}-%{release}%{uname_suffix %{?1:+%{1}}}\
+Provides: %{name}-modules-%{_target_cpu} = %{specrpmversion}-%{release}%{uname_suffix %{?1}}\
+Provides: %{name}-modules = %{specrpmversion}-%{release}%{uname_suffix %{?1}}\
 Provides: installonlypkg(kernel-module)\
-Provides: %{name}%{?1:-%{1}}-modules-uname-r = %{KVERREL}%{uname_suffix %{?1:+%{1}}}\
-Requires: %{name}-uname-r = %{KVERREL}%{uname_suffix %{?1:+%{1}}}\
-Requires: %{name}%{?1:-%{1}}-modules-core-uname-r = %{KVERREL}%{uname_suffix %{?1:+%{1}}}\
+Provides: %{name}%{?1:-%{1}}-modules-uname-r = %{KVERREL}%{uname_suffix %{?1}}\
+Requires: %{name}-uname-r = %{KVERREL}%{uname_suffix %{?1}}\
+Requires: %{name}%{?1:-%{1}}-modules-core-uname-r = %{KVERREL}%{uname_suffix %{?1}}\
 %if %{-m:1}%{!-m:0}\
-Requires: %{name}-modules-uname-r = %{KVERREL}%{uname_variant %{?1:+%{1}}}\
+Requires: %{name}-modules-uname-r = %{KVERREL}%{uname_variant %{?1}}\
 %endif\
 AutoReq: no\
 AutoProv: yes\
@@ -1592,13 +1592,13 @@ This package provides commonly used kernel modules for the %{?2:%{2}-}core kerne
 %package %{?1:%{1}-}modules-core\
 Summary: Core kernel modules to match the %{?2:%{2}-}core kernel\
 Provides: %{name}%{?1:-%{1}}-modules-core-%{_target_cpu} = %{specrpmversion}-%{release}\
-Provides: %{name}-modules-core-%{_target_cpu} = %{specrpmversion}-%{release}%{uname_suffix %{?1:+%{1}}}\
-Provides: %{name}-modules-core = %{specrpmversion}-%{release}%{uname_suffix %{?1:+%{1}}}\
+Provides: %{name}-modules-core-%{_target_cpu} = %{specrpmversion}-%{release}%{uname_suffix %{?1}}\
+Provides: %{name}-modules-core = %{specrpmversion}-%{release}%{uname_suffix %{?1}}\
 Provides: installonlypkg(kernel-module)\
-Provides: %{name}%{?1:-%{1}}-modules-core-uname-r = %{KVERREL}%{uname_suffix %{?1:+%{1}}}\
-Requires: %{name}-uname-r = %{KVERREL}%{uname_suffix %{?1:+%{1}}}\
+Provides: %{name}%{?1:-%{1}}-modules-core-uname-r = %{KVERREL}%{uname_suffix %{?1}}\
+Requires: %{name}-uname-r = %{KVERREL}%{uname_suffix %{?1}}\
 %if %{-m:1}%{!-m:0}\
-Requires: %{name}-modules-core-uname-r = %{KVERREL}%{uname_variant %{?1:+%{1}}}\
+Requires: %{name}-modules-core-uname-r = %{KVERREL}%{uname_variant %{?1}}\
 %endif\
 AutoReq: no\
 AutoProv: yes\
@@ -1637,11 +1637,11 @@ The meta-package for the %{1} kernel\
 %define kernel_variant_package(n:mo) \
 %package %{?1:%{1}-}core\
 Summary: %{variant_summary}\
-Provides: %{name}-%{?1:%{1}-}core-uname-r = %{KVERREL}%{uname_suffix %{?1:+%{1}}}\
+Provides: %{name}-%{?1:%{1}-}core-uname-r = %{KVERREL}%{uname_suffix %{?1}}\
 Provides: installonlypkg(kernel)\
 %if %{-m:1}%{!-m:0}\
-Requires: %{name}-core-uname-r = %{KVERREL}%{uname_variant %{?1:+%{1}}}\
-Requires: %{name}-%{?1:%{1}-}-modules-core-uname-r = %{KVERREL}%{uname_variant %{?1:+%{1}}}\
+Requires: %{name}-core-uname-r = %{KVERREL}%{uname_variant %{?1}}\
+Requires: %{name}-%{?1:%{1}-}-modules-core-uname-r = %{KVERREL}%{uname_variant %{?1}}\
 %endif\
 %{expand:%%kernel_reqprovconf %{?1:%{1}} %{-o:%{-o}}}\
 %if %{?1:1} %{!?1:0} \
@@ -1663,8 +1663,8 @@ Requires: %{name}-%{?1:%{1}-}-modules-core-uname-r = %{KVERREL}%{uname_variant %
 %package %{?1:%{1}-}uki-virt\
 Summary: %{variant_summary} unified kernel image for virtual machines\
 Provides: installonlypkg(kernel)\
-Provides: %{name}-uname-r = %{KVERREL}%{uname_suffix %{?1:+%{1}}}\
-Requires: %{name}%{?1:-%{1}}-modules-core-uname-r = %{KVERREL}%{uname_suffix %{?1:+%{1}}}\
+Provides: %{name}-uname-r = %{KVERREL}%{uname_suffix %{?1}}\
+Requires: %{name}%{?1:-%{1}}-modules-core-uname-r = %{KVERREL}%{uname_suffix %{?1}}\
 Requires(pre): %{kernel_prereq}\
 Requires(pre): systemd >= 254-1\
 Recommends: uki-direct\
@@ -1688,13 +1688,13 @@ Requires(pre): systemd >= 254-1\
 Summary: Extra kernel modules to match the %{?2:%{2} }kernel\
 Group: System Environment/Kernel\
 Provides: %{name}%{?1:-%{1}}-modules-partner-%{_target_cpu} = %{specrpmversion}-%{release}\
-Provides: %{name}%{?1:-%{1}}-modules-partner-%{_target_cpu} = %{specrpmversion}-%{release}%{uname_suffix %{?1:+%{1}}}\
-Provides: %{name}%{?1:-%{1}}-modules-partner = %{specrpmversion}-%{release}%{uname_suffix %{?1:+%{1}}}\
+Provides: %{name}%{?1:-%{1}}-modules-partner-%{_target_cpu} = %{specrpmversion}-%{release}%{uname_suffix %{?1}}\
+Provides: %{name}%{?1:-%{1}}-modules-partner = %{specrpmversion}-%{release}%{uname_suffix %{?1}}\
 Provides: installonlypkg(kernel-module)\
-Provides: %{name}%{?1:-%{1}}-modules-partner-uname-r = %{KVERREL}%{uname_suffix %{?1:+%{1}}}\
-Requires: %{name}-uname-r = %{KVERREL}%{uname_suffix %{?1:+%{1}}}\
-Requires: %{name}%{?1:-%{1}}-modules-uname-r = %{KVERREL}%{uname_suffix %{?1:+%{1}}}\
-Requires: %{name}%{?1:-%{1}}-modules-core-uname-r = %{KVERREL}%{uname_suffix %{?1:+%{1}}}\
+Provides: %{name}%{?1:-%{1}}-modules-partner-uname-r = %{KVERREL}%{uname_suffix %{?1}}\
+Requires: %{name}-uname-r = %{KVERREL}%{uname_suffix %{?1}}\
+Requires: %{name}%{?1:-%{1}}-modules-uname-r = %{KVERREL}%{uname_suffix %{?1}}\
+Requires: %{name}%{?1:-%{1}}-modules-core-uname-r = %{KVERREL}%{uname_suffix %{?1}}\
 AutoReq: no\
 AutoProv: yes\
 %description %{?1:%{1}-}modules-partner\
@@ -4368,16 +4368,19 @@ fi\
 #
 #
 %changelog
-* Mon Jul 28 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-65]
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 6.17.0-0.rc0.250729g86aa72182095.2.1
+- Rebuilt for java-25-openjdk as preffered jdk
+
+* Tue Jul 29 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc0.86aa72182095.2]
 - redhat/configs: clang_lto: disable CONFIG_FORTIFY_KUNIT_TEST (Scott Weaver)
 
-* Mon Jul 28 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-64]
-- Linux v6.16.0
-
-* Sun Jul 27 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc7.ec2df4364666.63]
-- Linux v6.16.0-0.rc7.ec2df4364666
-
-* Sat Jul 26 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc7.5f33ebd2018c.62]
+* Tue Jul 29 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc0.86aa72182095.1]
+- Flip TEGRA124_CPUFREQ to m for config mismatch (Justin M. Forbes)
+- Reset RHEL_RELEASE for the 6.17 cycle (Justin M. Forbes)
+- redhat/kernel.spec: fix uname_variant call sites (Jan Stancek) [RHEL-104231]
+- redhat/kernel.spec: fix uname_suffix call sites (Jan Stancek) [RHEL-104231]
+- redhat/configs: Add evaluate_configs.py and documentation (Prarit Bhargava)
+- redhat: Remove old evaluate_configs (Prarit Bhargava)
 - redhat/spec: package full bpftool in selftests (Gregory Bell)
 - selftests/bpf: Remove ksyms_weak_lskel test (Artem Savkov)
 - redhat/spec: Add libxml2-devel dependency for selftests build (Viktor Malik)
@@ -4386,49 +4389,18 @@ fi\
 - redhat/spec: Do not use source fortification for selftests (Viktor Malik)
 - redhat/spec: Fix BPF selftests build with PIE (Viktor Malik)
 - redhat/spec: Add EXTRA_CXXFLAGS to bpf samples and selftests make (Artem Savkov)
-- Linux v6.16.0-0.rc7.5f33ebd2018c
-
-* Fri Jul 25 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc7.2942242dde89.61]
-- Linux v6.16.0-0.rc7.2942242dde89
-
-* Thu Jul 24 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc7.25fae0b93d1d.60]
-- Linux v6.16.0-0.rc7.25fae0b93d1d
-
-* Wed Jul 23 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc7.59]
 - fedora: minor cleanups (Peter Robinson)
 - fedora: aarch64: enable a couple of brcmstb reset drivers (Peter Robinson)
-
-* Tue Jul 22 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc7.58]
 - rhel/aarch64: enable CONFIG_TCG_ARM_CRB_FFA as a module (Marcin Juszkiewicz)
 - redhat/configs: Move CONFIG_MITIGATION_TSA under common/generic/x86 (Waiman Long)
 - Set CONFIG_TEST_VMALLOC to off for s390 zfcpdump (Justin M. Forbes)
 - Revert "redhat/configs: automotive: Turn off ACPI Processor package for aarch64" (Enric Balletbo i Serra)
 - redhat/configs: automotive: Disable CONFIG_NUMA config (Dorinda Bassey)
 - Consolidate configs to common for 6.16 (Justin M. Forbes)
-
-* Mon Jul 21 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc7.57]
-- Linux v6.16.0-0.rc7
-
-* Sun Jul 20 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc6.f4a40a4282f4.56]
-- Linux v6.16.0-0.rc6.f4a40a4282f4
-
-* Sat Jul 19 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc6.4871b7cb27f4.55]
 - arm64: enable SND_HDA_ACPI as a module (Marcin Juszkiewicz)
-- Linux v6.16.0-0.rc6.4871b7cb27f4
-
-* Fri Jul 18 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc6.6832a9317eee.54]
 - kernel.spec: always provide kernel-devel-uname-r (Scott Weaver)
 - kernel.spec: always provide kernel (Scott Weaver)
 - kernel.spec: dynamically set provides/requires name (Scott Weaver)
-- Linux v6.16.0-0.rc6.6832a9317eee
-
-* Thu Jul 17 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc6.e2291551827f.53]
-- Linux v6.16.0-0.rc6.e2291551827f
-
-* Tue Jul 15 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc6.155a3c003e55.52]
-- Linux v6.16.0-0.rc6.155a3c003e55
-
-* Mon Jul 14 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc6.51]
 - kernel.spec: use %%{name} in partner/internal modules (Scott Weaver)
 - kernel.spec: introduce with_automotive_build (Scott Weaver)
 - kernel.spec: fix kernel-automotive packaging (Scott Weaver)
@@ -4438,121 +4410,29 @@ fi\
 - kernel.spec: automotive: disable kernel signature by default (Eric Chanudet)
 - redhat/configs: automotive: enable extra system cert (Eric Chanudet)
 - redhat/configs: automotive: Disable module signature with modules_install (Eric Chanudet)
-- Linux v6.16.0-0.rc6
-
-* Sun Jul 13 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc5.3f31a806a62e.50]
-- Linux v6.16.0-0.rc5.3f31a806a62e
-
-* Sat Jul 12 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc5.379f604cc3dc.49]
-- Linux v6.16.0-0.rc5.379f604cc3dc
-
-* Fri Jul 11 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc5.bc9ff192a6c9.48]
 - kernel.spec: honor packaging flags (Scott Weaver)
 - Fix FIPS mode for Fedora (Justin M. Forbes)
-- Linux v6.16.0-0.rc5.bc9ff192a6c9
-
-* Thu Jul 10 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc5.8c2e52ebbe88.47]
-- Linux v6.16.0-0.rc5.8c2e52ebbe88
-
-* Wed Jul 09 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc5.733923397fd9.46]
-- Linux v6.16.0-0.rc5.733923397fd9
-
-* Tue Jul 08 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc5.d006330be3f7.45]
 - Turn on TSA Mitigation for Fedora (Justin M. Forbes)
-- Linux v6.16.0-0.rc5.d006330be3f7
-
-* Mon Jul 07 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc5.44]
-- Linux v6.16.0-0.rc5
-
-* Sun Jul 06 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc4.1f988d0788f5.43]
-- Linux v6.16.0-0.rc4.1f988d0788f5
-
-* Sat Jul 05 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc4.a79a588fc176.42]
-- Linux v6.16.0-0.rc4.a79a588fc176
-
-* Fri Jul 04 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc4.4c06e63b9203.41]
 - redhat/configs: Enable CONFIG_AMD_HSMP_ACPI and CONFIG_AMD_HSMP_PLAT on RHEL (David Arcari)
-- Linux v6.16.0-0.rc4.4c06e63b9203
-
-* Thu Jul 03 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc4.b4911fb0b060.40]
 - redhat/configs: CONFIG_WWAN enough as a module (Jose Ignacio Tornos Martinez)
 - redhat/configs: Enable CONFIG_NET_SCH_BPF on RHEL (Viktor Malik)
 - config: new config in drivers/phy (Izabela Bakollari)
-- Linux v6.16.0-0.rc4.b4911fb0b060
-
-* Wed Jul 02 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc4.66701750d556.39]
 - livepatch: no need to build kselftests with kernel (Radomir Vrbovsky)
 - redhat: Restore the status quo wrt memory onlining (Vitaly Kuznetsov) [2375049]
 - redhat/spec: Disable gdb index for riscv cross-compile (Jennifer Berringer)
 - gitlab-ci: Enable CI for riscv64 on centos/eln (Jennifer Berringer)
 - redhat: Enable RISC-V arch for centos/eln (Jennifer Berringer)
-
-* Tue Jul 01 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc4.66701750d556.38]
-- Linux v6.16.0-0.rc4.66701750d556
-
-* Mon Jun 30 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc4.37]
-- Linux v6.16.0-0.rc4
-
-* Sun Jun 29 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc3.dfba48a70cb6.36]
-- Linux v6.16.0-0.rc3.dfba48a70cb6
-
-* Sat Jun 28 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc3.aaf724ed6926.35]
-- Linux v6.16.0-0.rc3.aaf724ed6926
-
-* Fri Jun 27 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc3.67a993863163.34]
 - redhat/kernel.spec.template: add drivers/net and drivers/net/hw selftest (Hangbin Liu)
 - uki: enable FIPS mode (Vitaly Kuznetsov)
-- Linux v6.16.0-0.rc3.67a993863163
-
-* Thu Jun 26 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc3.ee88bddf7f2f.33]
-- Linux v6.16.0-0.rc3.ee88bddf7f2f
-
-* Wed Jun 25 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc3.7595b66ae9de.32]
 - redhat/configs: Move CONFIG_MITIGATION_ITS to common/generic/x86 (Waiman Long)
-- Linux v6.16.0-0.rc3.7595b66ae9de
-
-* Tue Jun 24 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc3.78f4e737a53e.31]
 - redhat/configs: enable fwctl for RHEL (Michal Schmidt) [RHEL-96987]
-- Linux v6.16.0-0.rc3.78f4e737a53e
-
-* Mon Jun 23 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc3.30]
-- Linux v6.16.0-0.rc3
-
-* Sun Jun 22 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc2.739a6c93cc75.29]
-- Linux v6.16.0-0.rc2.739a6c93cc75
-
-* Sat Jun 21 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc2.3f75bfff44be.28]
 - Fedora configs for 6.16 (Justin M. Forbes)
-- Linux v6.16.0-0.rc2.3f75bfff44be
-
-* Fri Jun 20 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc2.75f5f23f8787.27]
 - aarch64: Switch TI_SCI_CLK and TI_SCI_PM_DOMAINS symbols to built-in (Peter Robinson)
-- Linux v6.16.0-0.rc2.75f5f23f8787
-
-* Thu Jun 19 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc2.fb4d33ab452e.26]
 - redhat/configs: enable CONFIG_TCG_SVSM (Stefano Garzarella)
 - redhat: enable CONFIG_CRASH_DM_CRYPT and CONFIG_KEXEC_HANDOVER for all (Coiby Xu)
 - Simplify include Makefile.rhelver (Don Zickus)
-- Linux v6.16.0-0.rc2.fb4d33ab452e
-
-* Wed Jun 18 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc2.52da431bf03b.25]
 - redhat/configs/common/generic: enable vgem module via CONFIG_DRM_VGEM (Alexander Kanavin)
-- Linux v6.16.0-0.rc2.52da431bf03b
-
-* Tue Jun 17 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc2.9afe652958c3.24]
-- Linux v6.16.0-0.rc2.9afe652958c3
-
-* Mon Jun 16 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc2.23]
-- Linux v6.16.0-0.rc2
-
-* Sun Jun 15 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc1.8c6bc74c7f89.22]
-- Linux v6.16.0-0.rc1.8c6bc74c7f89
-
-* Sat Jun 14 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc1.4774cfe3543a.21]
 - redhat/configs: enable IWLMLD for rhel (Jose Ignacio Tornos Martinez)
-- Linux v6.16.0-0.rc1.4774cfe3543a
-
-* Fri Jun 13 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc1.27605c8c0f69.20]
 - kernel.spec: fedora automotive build is not supported (Scott Weaver)
 - gitignore: kernel-automotive generated files (Scott Weaver)
 - gitlab-ci: use AUTOMOTIVE_BUILD with dist-srpm (Scott Weaver)
@@ -4560,82 +4440,29 @@ fi\
 - redhat/Makefile: introduce AUTOMOTIVE_BUILD (Scott Weaver)
 - kernel.spec: updates for automotive-only build (Scott Weaver)
 - fedora: Updates for the 6.16 merge window (Peter Robinson)
-- Linux v6.16.0-0.rc1.27605c8c0f69
-
-* Thu Jun 12 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc1.2c4a1f3fe03e.19]
 - redhat/kernel.spec: drop modules-extra-matched for noarch (Jan Stancek)
 - redhat/configs: fedora: set some qcom clk, icc, and pinctrl drivers to built in (Brian Masney)
 - fedora: disable SND_OSSEMUL (Peter Robinson)
 - fedora: disable OSS sound for real HW (Peter Robinson)
-- Linux v6.16.0-0.rc1.2c4a1f3fe03e
-
-* Wed Jun 11 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc1.aef17cb3d3c4.18]
 - gitlab-ci: disable merge-rt-automotive (Scott Weaver)
 - redhat/configs: automotive: enable j784s4evm DSP remoteproc configs (Jared Kangas) [RHEL-95436]
-- Linux v6.16.0-0.rc1.aef17cb3d3c4
-
-* Tue Jun 10 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc1.f09079bd04a9.17]
 - redhat/configs: add LED kernel configs (Rupinderjit Singh)
-- Linux v6.16.0-0.rc1.f09079bd04a9
-
-* Mon Jun 09 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc1.16]
 - redhat: enable test_kmod, test_module and install kmod selftests (Herton R. Krzesinski)
 - package the newly added cpupower.service (Thorsten Leemhuis)
 - process_configs: always print errors (Thorsten Leemhuis)
-- Linux v6.16.0-0.rc1
-
-* Sun Jun 08 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc0.8630c59e9936.15]
-- Linux v6.16.0-0.rc0.8630c59e9936
-
-* Sat Jun 07 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc0.bdc7f8c5adad.14]
 - redhat/configs: disable RZ/V2N in automotive (Eric Chanudet)
 - redhat/configs: Move RZ/G3E config to automotive (Eric Chanudet)
 - redhat: add more namespace selftests to kernel-modules-internal package (Joel Savitz) [RHEL-94503]
-- Linux v6.16.0-0.rc0.bdc7f8c5adad
-
-* Fri Jun 06 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc0.e271ed52b344.13]
-- Linux v6.16.0-0.rc0.e271ed52b344
-
-* Thu Jun 05 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc0.ec7714e49479.12]
 - redhat/configs: Enable CONFIG_PCIE_TPH (Ivan Vecera)
 - spec: fix spec warning for /usr/include/ynl (Jan Stancek)
 - redhat/configs: Move CONFIG_PPC_FTRACE_OUT_OF_LINE_NUM_RESERVE to powerpc (Viktor Malik)
-- Linux v6.16.0-0.rc0.ec7714e49479
-
-* Wed Jun 04 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc0.5abc7438f1e9.11]
-- Linux v6.16.0-0.rc0.5abc7438f1e9
-
-* Tue Jun 03 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc0.546b1c9e93c2.10]
 - Fix up powerpc mismatch (Justin M. Forbes)
-- Linux v6.16.0-0.rc0.546b1c9e93c2
-
-* Mon Jun 02 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc0.cd2e103d57e5.9]
-- Linux v6.16.0-0.rc0.cd2e103d57e5
-
-* Sun Jun 01 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc0.7d4e49a77d99.8]
 - Fix another mismatch for 6.16 (Justin M. Forbes)
-- Linux v6.16.0-0.rc0.7d4e49a77d99
-
-* Sat May 31 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc0.4cb6c8af8591.7]
 - Fix up a mismatch for Fedora aarch64 (Justin M. Forbes)
-- Linux v6.16.0-0.rc0.4cb6c8af8591
-
-* Fri May 30 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc0.f66bc387efbe.6]
-- Linux v6.16.0-0.rc0.f66bc387efbe
-
-* Thu May 29 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc0.90b83efa6701.5]
 - Fix up mismatches for RHEL s390 zfpcdump (Justin M. Forbes)
 - More mismatch fixes for 6.16 (Justin M. Forbes)
-- Linux v6.16.0-0.rc0.90b83efa6701
-
-* Wed May 28 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc0.feacb1774bd5.4]
 - Turn CROS_EC_PROTO to m for Fedora to avoid mismatch (Justin M. Forbes)
-- Linux v6.16.0-0.rc0.feacb1774bd5
-
-* Wed May 28 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc0.914873bc7df9.3]
 - Reset changelog for 6.16 cycle (Justin M. Forbes)
-
-* Tue May 27 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-0.rc0.914873bc7df9.2]
 - Fix up CRYPTO_SHA256 configs for mismatch (Justin M. Forbes)
 - Reset RHEL_RELEASE for the 6.16 cycle (Justin M. Forbes)
 - fedora: add 'fedora' SBAT suffix for UKI addons (Li Tian)
@@ -4737,7 +4564,6 @@ fi\
 - Revert "be2iscsi: remove unsupported device IDs" (Scott Weaver)
 - Revert "megaraid_sas: remove deprecated pci-ids" (Scott Weaver)
 - Revert "[scsi] megaraid_sas: re-add certain pci-ids" (Scott Weaver)
-- media: ov08x40: Extend sleep after reset to 5 ms (Hans de Goede)
 - redhat/configs: automotive: Disable VLAN_8021Q_GVRP config (Dorinda Bassey)
 - redhat/configs: automotive: Disable DCB and MPLS configs (Dorinda Bassey)
 - redhat/configs: automotive: Disable IEEE 802.15.4 config (Dorinda Bassey)
@@ -7532,11 +7358,7 @@ fi\
 - [initial commit] Add scripts (Laura Abbott)
 - [initial commit] Add configs (Laura Abbott)
 - [initial commit] Add Makefiles (Laura Abbott)
-- Linux v6.16.0-0.rc0.914873bc7df9
+- Linux v6.17.0-0.rc0.86aa72182095
 
-###
-# The following Emacs magic makes C-c C-e use UTC dates.
-# Local Variables:
-# rpm-change-log-uses-utc: t
-# End:
-###
+* Mon Jul 28 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.16.0-64]
+- Linux v6.16.0

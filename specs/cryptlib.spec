@@ -4,7 +4,7 @@
 
 Name:       cryptlib
 Version:    3.4.8  
-Release:    13%{?dist}
+Release:    14%{?dist}
 Summary:    Security library and toolkit for encryption and authentication services    
 
 License:    Sleepycat and OpenSSL and BSD-3-Clause   
@@ -34,7 +34,7 @@ BuildRequires: libbsd-devel
 BuildRequires: gnupg2
 BuildRequires: coreutils
 BuildRequires: python3-devel
-BuildRequires: java-devel
+BuildRequires: java-25-devel
 BuildRequires: perl-interpreter
 BuildRequires: perl-devel
 BuildRequires: perl-generators
@@ -83,7 +83,7 @@ Cryptlib test programs for C, Java, Perl and Python3
 %package java
 Summary:  Cryptlib bindings for Java
 Requires: %{name}%{?_isa} = %{version}-%{release}
-Requires: java-headless
+Requires: java-25-headless
 
 %description java
 Cryptlib module for application development in Java
@@ -344,6 +344,9 @@ cp /%{buildroot}%{cryptlibdir}/tools/man/clsmime.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 3.4.8-14
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.8-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

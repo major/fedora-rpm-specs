@@ -2,18 +2,19 @@
 #%%global		dev rc3
 
 Name:		libntirpc
-Version:	6.3
-Release:	5%{?dev:%{dev}}%{?dist}
+Version:	7.0
+Release:	3%{?dev:%{dev}}%{?dist}
 Summary:	New Transport Independent RPC Library
 License:	BSD-3-Clause
 Url:		https://github.com/nfs-ganesha/ntirpc
 
+%global prometh_ver_long	48d09c45ee6deb90e02579b03037740e1c01fd27
+%global prometh_ver_short	48d09c45
 Source0:	https://github.com/nfs-ganesha/ntirpc/archive/v%{version}/ntirpc-%{version}%{?dev:%{dev}}.tar.gz
+Source1:	https://github.com/biaks/prometheus-cpp-lite/archive/%{prometh_ver_long}/prometheus-cpp-lite-%{prometh_ver_short}.tar.gz
+Patch:		0001-CMakeLists.txt.patch
 
-# Add CMake 4.0 support
-Patch:		https://github.com/nfs-ganesha/ntirpc/pull/352.patch
-
-BuildRequires:	gcc cmake
+BuildRequires:	cmake gcc gcc-c++
 %ifarch x86_64 aarch64
 BuildRequires:	mold
 %endif
@@ -49,9 +50,12 @@ Requires:	%{name}%{?_isa} = %{version}
 Development headers and auxiliary files for developing with %{name}.
 
 %prep
+tar xpf %{SOURCE1}
 %autosetup -p1 -n ntirpc-%{version}%{?dev:%{dev}}
 
 %build
+export VERBOSE=1
+mv ../prometheus-cpp-lite-%{prometh_ver_long}/* ./src/monitoring/prometheus-cpp-lite
 %cmake \
     -DOVERRIDE_INSTALL_PREFIX=/usr \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
@@ -73,21 +77,27 @@ export GCC_COLORS=
 mkdir -p %{buildroot}%{_libdir}/pkgconfig
 
 %cmake_install
-
-ln -s %{name}.so.%{version} %{buildroot}%{_libdir}/%{name}.so.4
+install -p -m 644 src/monitoring/include/monitoring.h %{buildroot}%{_includedir}/ntirpc
+mv src/monitoring/prometheus-cpp-lite/core/include/prometheus %{buildroot}%{_includedir}/ntirpc
+ln -s %{name}.so.%{version} %{buildroot}%{_libdir}/%{name}.so.7
 
 %files
 %{_libdir}/libntirpc.so.*
+%{_libdir}/libntirpcmonitoring.so.*
 %{!?_licensedir:%global license %%doc}
 %license COPYING
 %doc NEWS README
 
 %files devel
 %{_libdir}/libntirpc.so
+%{_libdir}/libntirpcmonitoring.so
 %{_includedir}/ntirpc/
 %{_libdir}/pkgconfig/libntirpc.pc
 
 %changelog
+* Tue Jul 29 2025 Kaleb S. KEITHLEY <kkeithle at redhat.com> 7.0-1
+- ntirpc-7.0 GA
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

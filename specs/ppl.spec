@@ -1,6 +1,6 @@
 Name:			ppl
 Version:		1.2
-Release:		36%{?dist}
+Release:		37%{?dist}
 Summary:		The Parma Polyhedra Library: a library of numerical abstractions
 License:		GPL-3.0-or-later
 URL:			http://www.bugseng.com/ppl
@@ -104,9 +104,9 @@ Install this package if you want to use the library in SWI-Prolog programs.
 %ifarch %{java_arches}
 %package java
 Summary:	The Java interface of the Parma Polyhedra Library
-BuildRequires:	java-devel
+BuildRequires:	java-25-devel
 BuildRequires:	javapackages-tools
-Requires:	java-headless
+Requires:	java-25-headless
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 
 %description java
@@ -298,6 +298,9 @@ mv \
 %endif
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 1.2-37
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

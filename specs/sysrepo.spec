@@ -1,14 +1,13 @@
 Name: sysrepo
 Version: 3.6.11
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: YANG-based configuration and operational data store
 Url: https://github.com/sysrepo/sysrepo
 Source: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source2: sysrepo.sysusers
 Source3: sysrepo-plugind.sysusers
 Source4: sysrepo-plugind.service
-# Automatically converted from old format: BSD - review is highly recommended.
-License: LicenseRef-Callaway-BSD
+License: BSD-3-Clause
 
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -139,6 +138,9 @@ fi
 
 
 %changelog
+* Tue Jul 29 2025 Michal Ruprich <mruprich@redhat.com> - 3.6.11-2
+- Fixing the license identifier
+
 * Mon Jul 28 2025 Michal Ruprich <mruprich@redhat.com> - 3.6.11-1
 - New version 3.6.11
 

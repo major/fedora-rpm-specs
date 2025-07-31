@@ -3,7 +3,7 @@
 
 Name:           maven-archetype
 Version:        3.2.1.0.%{hashShort}
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Maven project templating toolkit
 
 # Most of the code is under ASL 2.0, but some bundled jdom sources are
@@ -26,7 +26,7 @@ Patch3: 0003-Port-to-commons-lang3.patch
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(commons-io:commons-io)
 BuildRequires:  mvn(net.sourceforge.jchardet:jchardet)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
@@ -197,6 +197,9 @@ popd
 %license NOTICE.txt
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 3.2.1.0.8b3bdb6-18
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1.0.8b3bdb6-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

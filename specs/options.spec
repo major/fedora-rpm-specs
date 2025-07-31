@@ -1,6 +1,6 @@
 Name:           options
 Version:        1.7
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Library for managing sets of JVM properties to configure an app or library
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -10,7 +10,7 @@ ExclusiveArch:  %{java_arches} noarch
 
 Source0:        %{url}/archive/%{name}-%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(junit:junit)
 
 %description
@@ -36,6 +36,9 @@ configuration for an application or library.
 %doc README.md
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 1.7-15
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           maven-patch-plugin
 Version:        1.2
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Maven Patch Plugin
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -11,7 +11,7 @@ Source0:        http://repo1.maven.org/maven2/org/apache/maven/plugins/%{name}/%
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
 BuildRequires:  mvn(org.apache.maven:maven-plugin-api)
@@ -43,6 +43,9 @@ API documentation for %{name}.
 %license LICENSE NOTICE
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 1.2-32
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

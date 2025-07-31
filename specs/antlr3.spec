@@ -1,7 +1,7 @@
 %global antlr_version 3.5.3
 %global c_runtime_version 3.4
 %global javascript_runtime_version 3.1
-%global baserelease 13
+%global baserelease 14
 
 # This package needs itself to build.  Use this to bootstrap on a new system.
 %bcond bootstrap 0
@@ -64,9 +64,9 @@ Patch:          0007-update-java-target.patch
 # Fix source for tighter gcc template checks
 Patch:          0008-unconst-cyclicdfa-gcc-14.patch
 
-BuildRequires:  ant
+BuildRequires:  ant-openjdk25 
 BuildRequires:  make
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 %if %{without bootstrap}
 BuildRequires:  mvn(org.antlr:antlr)
 BuildRequires:  mvn(org.antlr:antlr3-maven-plugin)
@@ -358,6 +358,9 @@ install -pm 644 runtime/Cpp/include/* $RPM_BUILD_ROOT/%{_includedir}/
 %doc tool/LICENSE.txt
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 1:3.5.3-14
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.5.3-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

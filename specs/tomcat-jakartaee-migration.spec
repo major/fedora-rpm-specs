@@ -1,6 +1,6 @@
 Name:           tomcat-jakartaee-migration
 Version:        1.0.9
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Tomcat Migration Tool for Jakarta EE
 
 License:        Apache-2.0
@@ -14,10 +14,10 @@ ExclusiveArch:  %{java_arches} noarch
 BuildRequires:  bcel
 BuildRequires:  apache-commons-compress
 BuildRequires:  apache-commons-io
-BuildRequires:  ant
-BuildRequires:  java-devel
+BuildRequires:  ant-openjdk25 
+BuildRequires:  java-25-devel
 	
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache:apache:pom:)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-antrun-plugin)
@@ -62,6 +62,9 @@ API documentation for %{name}.
 %license LICENSE.txt
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 1.0.9-7
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.9-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

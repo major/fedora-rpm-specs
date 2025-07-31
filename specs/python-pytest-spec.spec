@@ -9,8 +9,8 @@ Available features:\
 - Remove test_ and underscores for every test.
 
 Name:           python-%{pypi_name}
-Version:        4.0.0
-Release:        4%{?dist}
+Version:        5.0.0
+Release:        1%{?dist}
 Summary:        Pytest plugin to display test execution output like a SPECIFICATION
 
 License:        GPL-2.0-or-later
@@ -51,10 +51,13 @@ rm -rf setup.cfg
 %pytest -v test/*
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
-%doc CHANGES.txt README.md LICENSE.txt
+%doc CHANGES.txt README.md
 %license LICENSE.txt
 
 %changelog
+* Tue Jul 29 2025 Federico Pellegrin <fede@evolware.org> - 5.0.0-1
+- Bump to 5.0.0 (rhbz#2369969)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

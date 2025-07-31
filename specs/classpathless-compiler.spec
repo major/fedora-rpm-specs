@@ -12,7 +12,7 @@ ExclusiveArch:  %{java_arches} noarch
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  jurand
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(com.beust:jcommander)
 BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-engine)
 BuildRequires:  mvn(org.ow2.asm:asm-tree)

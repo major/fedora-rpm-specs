@@ -23,11 +23,11 @@ Patch1: %{name}-shared.patch
 # demosrc/tiny_obj_loader.h: MIT
 # demosrc/trackball.c: SGI-OpenGL
 # demosrc/trackball.h: SGI-OpenGL
-# docs/*.sty: LPPL
+# docs/*.sty: LPPL - Fedora chosen to use LPPL-1.3a+ variant
 # except:
 # docs/algorithm.sty: LGPL-2.0-or-later
 # docs/algorithmic.sty: LGPL-2.0-or-later
-License: BSD-3-Clause AND MIT AND ( MIT OR Unlicense ) AND LPPL AND SGI-OpenGL AND LGPL-2.0-or-later
+License: BSD-3-Clause AND MIT AND ( MIT OR Unlicense ) AND LPPL-1.3a+ AND SGI-OpenGL AND LGPL-2.0-or-later
 BuildRequires: make
 BuildRequires: gcc
 BuildRequires: libGL-devel

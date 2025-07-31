@@ -1,8 +1,8 @@
 %global pypi_name pytest-datafiles
 
 Name:           python-%{pypi_name}
-Version:        2.0
-Release:        19%{?dist}
+Version:        3.0.0
+Release:        1%{?dist}
 Summary:        A pytest plugin to create a 'tmpdir' containing predefined content
 
 License:        MIT
@@ -20,9 +20,7 @@ own version of the same files.
 Summary:        %{summary}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-py
 BuildRequires:  python3-pytest
-BuildRequires:  python3-setuptools
 %{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
@@ -33,27 +31,33 @@ own version of the same files.
 
 %prep
 %autosetup -n %{pypi_name}-%{version}
-rm -rf %{pypi_name}.egg-info
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
 %check
-PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version} -v tests
-rm -rf %{buildroot}%{python3_sitelib}/__pycache__/pytest_datafiles.cpython-*-PYTEST.pyc
-
+PYTHONPATH=%{buildroot}%{python3_sitelib} %pytest -v tests
 
 %files -n python3-%{pypi_name}
 %license LICENSE
-%doc README.rst
+%doc README.rst CHANGELOG.rst
 %{python3_sitelib}/__pycache__/*
 %{python3_sitelib}/pytest_datafiles.py
-%{python3_sitelib}/pytest_datafiles-%{version}-py*.egg-info/
+%{python3_sitelib}/*.dist-info/
 
 %changelog
+* Tue Jul 29 2025 Federico Pellegrin <fede@evolware.org> - 3.0.0-1
+- Bump to 3.0.0
+
+* Tue Jul 29 2025 Federico Pellegrin <fede@evolware.org> - 2.0-20
+- Use new Python macros in spec file (rhbz#2378109)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

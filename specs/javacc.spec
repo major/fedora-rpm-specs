@@ -55,7 +55,7 @@ Patch:          0001-Fix-javadoc-errors-in-JavaCharStream.template.patch
 BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  javapackages-local-openjdk25
-BuildRequires:  ant
+BuildRequires:  ant-openjdk25 
 BuildRequires:  javacc
 %endif
 

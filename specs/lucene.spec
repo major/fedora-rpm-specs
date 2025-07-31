@@ -48,7 +48,7 @@ Source33:       https://repo1.maven.org/maven2/org/apache/lucene/lucene-test-fra
 
 Patch1:         0001-Use-antlr4-automatic-module-name.patch
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(com.ibm.icu:icu4j)
 BuildRequires:  mvn(commons-codec:commons-codec)
 BuildRequires:  mvn(org.antlr:antlr4-runtime)

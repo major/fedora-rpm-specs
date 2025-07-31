@@ -24,7 +24,7 @@
 
 Name:           mapserver
 Version:        8.4.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Environment for building spatially-enabled internet applications
 %global dashver %(echo %version | sed 's|\\.|-|g')
 
@@ -337,6 +337,9 @@ rm %{buildroot}%{_usr}/%{_sysconfdir}/mapserver-sample.conf
 %{ruby_sitearchdir}/mapscript.so
 
 %changelog
+* Tue Jul 29 2025 Sandro Mani <manisandro@gmail.com> - 8.4.0-5
+- Rebuild (gdal)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.4.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

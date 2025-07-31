@@ -1,7 +1,7 @@
 Name:           apache-logging-parent
 Summary:        Parent pom for Apache Logging Services projects
 Version:        9
-Release:        9%{?dist}
+Release:        10%{?dist}
 License:        Apache-2.0
 
 URL:            https://logging.apache.org/
@@ -10,7 +10,7 @@ Source1:        https://www.apache.org/licenses/LICENSE-2.0.txt
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(org.apache:apache:pom:)
 
 %description
@@ -36,6 +36,9 @@ cp -p %SOURCE1 LICENSE
 
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 9-10
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

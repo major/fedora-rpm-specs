@@ -62,7 +62,7 @@ BuildRequires:  rubygem-asciidoctor
 BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  javapackages-local-openjdk25
-BuildRequires:  ant
+BuildRequires:  ant-openjdk25 
 BuildRequires:  ant-junit
 %endif
 

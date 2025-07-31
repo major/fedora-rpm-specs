@@ -1,6 +1,6 @@
 Name:           jboss-parent
 Version:        20
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        JBoss Parent POM
 License:        CC0-1.0
 URL:            http://www.jboss.org/
@@ -12,7 +12,7 @@ ExclusiveArch:  %{java_arches} noarch
 Source0:        https://github.com/jboss/jboss-parent-pom/archive/%{name}-%{version}.tar.gz
 Source1:        http://repository.jboss.org/licenses/cc0-1.0.txt
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(org.apache.maven.plugins:maven-source-plugin)
 
 %description
@@ -47,6 +47,9 @@ sed -i 's/\r//' LICENSE
 %license LICENSE
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 20-25
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

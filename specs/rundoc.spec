@@ -1,6 +1,6 @@
 Name:           rundoc
 Version:        0.11
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        An Ant task designed to help with the single-sourcing of program documentation
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -10,8 +10,8 @@ Source0:        http://martiansoftware.com/lab/rundoc/rundoc-0.11-src.zip
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-BuildRequires:  ant
-BuildRequires:  javapackages-local
+BuildRequires:  ant-openjdk25 
+BuildRequires:  javapackages-local-openjdk25
 #/usr/share/java must be owned: 
 Requires:       javapackages-tools
 
@@ -53,6 +53,9 @@ mv javadoc/ %{buildroot}%{_javadocdir}/%{name}
 
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 0.11-30
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

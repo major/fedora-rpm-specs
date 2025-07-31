@@ -9,6 +9,19 @@ License: LGPL-2.0-or-later AND LGPL-2.1-or-later
 URL:     https://wiki.gnome.org/Projects/libsoup
 Source0: https://download.gnome.org/sources/libsoup/3.6/libsoup-%{version}.tar.xz
 
+# https://bugzilla.redhat.com/show_bug.cgi?id=2367183
+Patch:   CVE-2025-4948.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2359343
+Patch:   CVE-2025-32908.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2359342
+Patch:   CVE-2025-32907.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2367552
+Patch:   CVE-2025-4969.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2367175
+Patch:   CVE-2025-4945.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2366513
+Patch:   CVE-2025-4476.patch
+
 BuildRequires: gcc
 BuildRequires: gettext
 BuildRequires: glib-networking >= %{glib2_version}

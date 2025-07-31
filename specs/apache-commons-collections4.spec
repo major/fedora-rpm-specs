@@ -1,7 +1,7 @@
 Name:           apache-commons-collections4
 Summary:        Extension of the Java Collections Framework
 Version:        4.4
-Release:        18%{?dist}
+Release:        19%{?dist}
 License:        Apache-2.0
 
 URL:            http://commons.apache.org/proper/commons-collections/
@@ -10,7 +10,7 @@ Source0:        http://archive.apache.org/dist/commons/collections/source/common
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.commons:commons-lang3)
 BuildRequires:  mvn(org.apache.commons:commons-parent:pom:)
@@ -51,6 +51,9 @@ This package provides %{summary}.
 
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 4.4-19
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.4-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

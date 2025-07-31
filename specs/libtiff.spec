@@ -1,13 +1,16 @@
 Summary:       Library of functions for manipulating TIFF format image files
 Name:          libtiff
 Version:       4.7.0
-Release:       4%{?dist}
+Release:       6%{?dist}
 License:       libtiff
 URL:           http://www.simplesystems.org/libtiff/
 
 Source:        http://download.osgeo.org/libtiff/tiff-%{version}.tar.gz
 #from upstream, for <=4.7.0, fix s390x test failure, upstream issue #652
 Patch1:        libsndfile-1.2.2-fixdirectorytest.patch
+#from upstream, for <=4.7.0, fix CVE-2025-8177, rhbz#2383827
+Patch2:        libtiff-4.7.0-mr737.diff
+Patch3:        libtiff-4.7.0-mr727.patch
 
 BuildRequires: gcc, gcc-c++
 BuildRequires: zlib-devel libjpeg-devel jbigkit-devel libzstd-devel libwebp-devel liblerc-devel
@@ -61,6 +64,8 @@ image files using the libtiff library.
 %prep
 %autosetup -n tiff-%{version} -N
 %patch -P 1 -p1 -b .fixdirtest
+%patch -P 2 -p1 -b .mr737
+%patch -P 3 -p1 -b .mr727
 # Use build system's libtool.m4, not the one in the package.
 rm -f libtool.m4
 
@@ -170,6 +175,12 @@ fi
 %{_mandir}/man1/*
 
 %changelog
+* Tue Jul 29 2025 Michal Hlavinka <mhlavink@redhat.com> - 4.7.0-6
+- fix CVE-2025-8176: use after free in tiffmedian (rhbz#2383821)
+
+* Tue Jul 29 2025 Michal Hlavinka <mhlavink@redhat.com> - 4.7.0-5
+- fix CVE-2025-8177: buffer oveflow in thumbnail setrow when processing malformed TIFF (rhbz#2383827)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

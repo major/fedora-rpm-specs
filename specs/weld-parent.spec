@@ -1,6 +1,6 @@
 Name:           weld-parent
 Version:        46
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Parent POM for Weld
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -11,7 +11,7 @@ Source0:        https://github.com/weld/parent/archive/%{version}/%{name}-%{vers
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
 
 %description
@@ -37,6 +37,9 @@ Parent POM for Weld
 %files -f .mfiles
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 46-12
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 46-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

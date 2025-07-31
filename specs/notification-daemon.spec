@@ -1,26 +1,29 @@
-%define gtk3_version            3.15.2
+Summary:	Desktop Notification Daemon
+Name:		notification-daemon
 
-Summary: Desktop Notification Daemon
-Name: notification-daemon
-Version: 3.20.0
-Release: 23%{?dist}
-URL: https://wiki.gnome.org/Projects/GnomeFlashback
+Version:	3.20.0
+Release:	24%{?dist}
+
+URL:		https://wiki.gnome.org/Projects/GnomeFlashback
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
-License: GPL-2.0-or-later
-Provides: desktop-notification-daemon
+License:	GPL-2.0-or-later
+Provides:	desktop-notification-daemon
 
-BuildRequires: make
-BuildRequires: gcc
-BuildRequires: gtk3-devel >= %{gtk3_version}
-BuildRequires: libcanberra-devel
-BuildRequires: intltool
+BuildRequires:	make
+BuildRequires:	gcc
+BuildRequires:	pkgconfig(gtk+-3.0) >= 3.19.5
+BuildRequires:	pkgconfig(glib-2.0) >= 2.27.0
+BuildRequires:	desktop-file-utils
+BuildRequires:	intltool
 
-Obsoletes: notify-daemon
-Provides: notify-daemon
-Obsoletes: notification-daemon-engine-slider < 0.2.0-3
-Provides: notification-daemon-engine-slider = %{version}-%{release}
+%if 0%{?fedora} < 43
+Obsoletes:		notify-daemon
+Provides:		notify-daemon
+Obsoletes:		notification-daemon-engine-slider < 0.2.0-3
+Provides:		notification-daemon-engine-slider = %{version}-%{release}
+%endif
 
-Source0: http://download.gnome.org/sources/notification-daemon/3.20/%{name}-%{version}.tar.xz
+Source0:		http://download.gnome.org/sources/notification-daemon/3.20/%{name}-%{version}.tar.xz
 
 %description
 notification-daemon is the server implementation of the freedesktop.org
@@ -33,22 +36,31 @@ in the user's way.
 
 %build
 %configure --disable-static
-make
+%make_build
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT
+%make_install
 
 %find_lang %{name}
 
+%check
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 %files -f %{name}.lang
-%doc COPYING AUTHORS NEWS
+%license	COPYING
+%doc	AUTHORS
+%doc	NEWS
 
-%{_libexecdir}/notification-daemon
-%{_datadir}/applications/notification-daemon.desktop
+%{_libexecdir}/%{name}
+%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Tue Jul 29 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.20.0-24
+- Some spec file clean up
+- Use recent style macros
+- Remove old Obsoletes / Provides
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.20.0-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

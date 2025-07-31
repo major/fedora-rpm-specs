@@ -4,7 +4,7 @@
 
 Name:          scannotation
 Version:       1.0.3
-Release:       0.37.%{alphatag}%{?dist}
+Release:       0.38.%{alphatag}%{?dist}
 Summary:       A Java annotation scanner
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:       Apache-2.0
@@ -20,7 +20,7 @@ Source1:       License.txt
 BuildArch:     noarch
 ExclusiveArch:  %{java_arches} noarch
 
-BuildRequires: maven-local
+BuildRequires: maven-local-openjdk25
 BuildRequires: mvn(javassist:javassist)
 BuildRequires: mvn(javax.servlet:javax.servlet-api)
 BuildRequires: mvn(junit:junit)
@@ -70,6 +70,9 @@ cp -p %SOURCE1 .
 %license License.txt
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 1.0.3-0.38.r12
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-0.37.r12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:		open-amp
 Version:	2025.04.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Open Asymmetric Multi Processing (OpenAMP) framework project
 License:	BSD-3-Clause OR BSD-2-Clause
 URL:		https://github.com/OpenAMP/open-amp/
@@ -18,6 +18,8 @@ software applications for Asymmetric Multiprocessing (AMP) systems.
 
 %package libs
 Summary:	Libaries for OpenAMP
+Obsoletes:	open-amp <= 2025.04.0
+Provides:	open-amp
 %description libs
 Libaries for OpenAMP baremetal, and RTOS environments.
 
@@ -58,6 +60,9 @@ baremetal, and RTOS environments.
 
 
 %changelog
+* Tue Jul 29 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 2025.04.0-3
+- Update open-amp Obsoletes/Provides
+
 * Sun Jul 27 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 2025.04.0-2
 - Fix devel subpackage deps
 

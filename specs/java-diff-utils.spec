@@ -7,7 +7,7 @@ License:        Apache-2.0
 URL:            https://java-diff-utils.github.io/java-diff-utils/
 Source0:        https://github.com/%{name}/%{name}/archive/%{name}-parent-%{version}.tar.gz
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.apache.maven.surefire:surefire-junit-platform)
 BuildRequires:  mvn(org.apiguardian:apiguardian-api)

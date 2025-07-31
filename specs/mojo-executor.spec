@@ -14,7 +14,7 @@ Patch:          %{name}-javadoc.patch
 
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(ant-contrib:ant-contrib)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.commons:commons-lang3)

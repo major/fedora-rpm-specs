@@ -8,7 +8,7 @@ Source0:        https://github.com/ongres/stringprep/archive/%{version}/stringpr
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(org.apache.maven.plugins:maven-enforcer-plugin)
 BuildRequires:  mvn(org.junit.jupiter:junit-jupiter)
 

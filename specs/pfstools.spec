@@ -1,6 +1,6 @@
 Name:		pfstools
 Version:	2.2.0
-Release:	20%{?dist}
+Release:	21%{?dist}
 Summary:	Programs for handling high-dynamic range images
 
 License:	GPL-2.0-or-later
@@ -134,7 +134,13 @@ etc., for developing programs which can handle HDR graphics files.
 %if 0%{?fedora} >= 33
 export CXXFLAGS="%{optflags} -std=gnu++11"
 %endif
-%{cmake} -DBUILD_SHARED_LIBS=ON -DLIB_DIR=%{_lib} -DWITH_OpenCV=OFF
+%{cmake} -DBUILD_SHARED_LIBS=ON \
+	-DLIB_DIR=%{_lib} \
+	-DWITH_OpenCV=OFF \
+	%if "%{?_lib}" == "lib64"
+		%{?_cmake_lib_suffix64} \
+	%endif
+
 # Not parallel build safe
 %global _smp_build_ncpus 1
 %{cmake_build}
@@ -307,6 +313,9 @@ export CXXFLAGS="%{optflags} -std=gnu++11"
 %{_includedir}/pfs
 
 %changelog
+* Tue Jul 29 2025 Tomas Smetana <tsmetana@redhat.com> - 2.2.0-21
+- Fix FTBFS with new CMake macros: rhbz#2381413
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

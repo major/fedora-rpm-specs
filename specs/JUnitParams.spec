@@ -31,7 +31,7 @@ Patch:          %{name}-single-method-filter.patch
 # Use hasMessageContaining instead of hasMessage
 Patch:          %{name}-has-message-containing.patch
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-compiler-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-jar-plugin)

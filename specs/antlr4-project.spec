@@ -34,7 +34,7 @@ BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  help2man
 BuildRequires:  make
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(com.google.code.maven-replacer-plugin:replacer)
 BuildRequires:  mvn(com.ibm.icu:icu4j)
 BuildRequires:  mvn(com.webguys:string-template-maven-plugin)
@@ -91,7 +91,7 @@ This package provides the runtime library used by Java ANTLR parsers.
 Summary:        Parser generator (ANother Tool for Language Recognition)
 BuildArch:      noarch
 Requires:       antlr4-runtime = %{version}-%{release}
-Requires:       java-headless
+Requires:       java-25-headless
 Requires:       javapackages-tools
 
 %description -n antlr4 %_desc

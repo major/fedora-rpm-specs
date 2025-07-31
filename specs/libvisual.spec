@@ -2,7 +2,7 @@
 
 Name:           libvisual
 Version:        0.4.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Epoch:          1
 
 Summary:        Abstraction library for audio visualisation plugins
@@ -41,6 +41,16 @@ Libvisual is an abstraction library that comes between applications and
 audio visualisation plugins.
 
 This package contains the files needed to build an application with libvisual.
+
+%package        tools
+Summary:        Command-line tools for libvisual
+Requires:       %{name}%{?_isa} = %{epoch}:%{version}-%{release}
+
+%description    tools
+Libvisual is an abstraction library that comes between applications and
+audio visualisation plugins.
+
+This package contains tools for interacting with libvisual.
 
 %prep
 %setup -q
@@ -99,9 +109,7 @@ find %{buildroot} -type f -name "*.la" -exec rm -f {} ';'
 %files -f %{name}-%{smallversion}.lang
 %doc AUTHORS ChangeLog NEWS README TODO
 %license COPYING
-%{_bindir}/lv-tool-%{smallversion}
 %{_libdir}/*.so.*
-%{_mandir}/man1/lv-tool-%{smallversion}.1*
 
 %files devel
 %doc README NEWS TODO AUTHORS
@@ -109,8 +117,15 @@ find %{buildroot} -type f -name "*.la" -exec rm -f {} ';'
 %{_libdir}/pkgconfig/*.pc
 %{_includedir}/%{name}-%{smallversion}
 
+%files tools
+%{_bindir}/lv-tool-%{smallversion}
+%{_mandir}/man1/lv-tool-%{smallversion}.1*
+
 
 %changelog
+* Fri Jul 25 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 1:0.4.2-3
+- Separate subpackage for tools
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.4.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

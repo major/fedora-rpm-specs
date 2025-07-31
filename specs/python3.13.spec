@@ -49,7 +49,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: Python-2.0.1
 
 
@@ -398,6 +398,10 @@ Patch464: 00464-enable-pac-and-bti-protections-for-aarch64.patch
 # in the conditionalized skip to a release available in CentOS Stream 10,
 # which is tested as working.
 Patch466: 00466-downstream-only-skip-tests-not-working-with-older-expat-version.patch
+
+# 00467 # e4a33ed8bbb729606c58ba1e80bac5cfedf29147
+# gh-130577: tarfile now validates archives to ensure member offsets are non-negative
+Patch467: 00467-CVE-2025-8194.patch
 
 # (New patches go here ^^^)
 #
@@ -1740,6 +1744,9 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Mon Jul 28 2025 Miro Hrončok <mhroncok@redhat.com> - 3.13.5-4
+- Fix CVE-2025-8194: Tarfile infinite loop during parsing with negative member offset
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

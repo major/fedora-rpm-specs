@@ -4,7 +4,7 @@
 
 Name:           merkaartor
 Version:        0.20.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Qt-Based OpenStreetMap editor
 
 # GPL-2.0-or-later: main program
@@ -102,6 +102,9 @@ appstreamcli validate --no-net %{buildroot}%{_metainfodir}/org.%{name}.%{name}.a
 %{_metainfodir}/org.%{name}.%{name}.appdata.xml
 
 %changelog
+* Tue Jul 29 2025 Sandro Mani <manisandro@gmail.com> - 0.20.0-6
+- Rebuild (gdal)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.20.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

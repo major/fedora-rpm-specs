@@ -3,7 +3,7 @@
 
 Name:             apache-%{short_name}
 Version:          2.0.1
-Release:          44%{?dist}
+Release:          45%{?dist}
 Summary:          Model MBeans utility classes
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:          Apache-2.0
@@ -15,7 +15,7 @@ Source0:          http://www.apache.org/dist/commons/%{base_name}/source/%{short
 # POM file based on the one from an unreleased upstream snapstream
 Source1:          pom.xml
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(commons-digester:commons-digester)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.ant:ant)
@@ -73,6 +73,9 @@ cp -p %{SOURCE1} .
 %doc LICENSE.txt NOTICE.txt
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 2.0.1-45
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-44
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

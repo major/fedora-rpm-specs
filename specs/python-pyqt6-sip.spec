@@ -6,7 +6,7 @@
 
 Name:           python-%{pkg_name}
 Version:        13.10.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        The sip module support for PyQt6
 
 License:        GPL-2.0-only OR GPL-3.0-only
@@ -15,8 +15,6 @@ Source0:        %{pypi_source}
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist setuptools} >= 30.3
-BuildRequires:  %{py3_dist wheel}
 
 %global _description %{expand:
 The sip extension module provides support for the PyQt6 package.
@@ -35,22 +33,31 @@ Provides: python3-pyqt6-sip-api(%{_sip_api_major})%{?_isa} = %{_sip_api}
 %autosetup -p1 -n %{pypi_name}-%{version}
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l PyQt6
 
 
-%files -n python3-%{pkg_name}
+%check
+%pyproject_check_import
+
+
+%files -n python3-%{pkg_name} -f %{pyproject_files}
 %doc README
-%license LICENSE
-%{python3_sitearch}/PyQt6_sip*
-%{python3_sitearch}/PyQt6/
 
 
 %changelog
+* Fri Jul 25 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 13.10.2-4
+- Convert to pyproject macros
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 13.10.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -7,6 +7,10 @@
 # Please, preserve the changelog entries
 #
 
+%if 0%{?fedora} >= 43
+ExcludeArch: %{ix86}
+%endif
+
 # Tests only run on manual build --with tests
 # Tests rely on MySQL version 5.6
 %global with_tests   %{?_with_tests:1}%{!?_with_tests:0}
@@ -21,7 +25,7 @@
 
 Name:           mysql-connector-python
 Version:        8.0.33
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        MySQL Connector for Python 3
 
 # Automatically converted from old format: GPLv2 with exceptions - review is highly recommended.
@@ -147,6 +151,9 @@ rm -r docs/mysqlx
 %{_mandir}/man1/%{name}3.1.*
 
 %changelog
+* Tue Jul 29 2025 Michal Schorm <mschorm@redhat.com> - 8.0.33-5
+- Rebuild without i686 architecture - MySQL 8.4 no longer supports it
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.33-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

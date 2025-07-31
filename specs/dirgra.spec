@@ -9,7 +9,7 @@ ExclusiveArch:  %{java_arches} noarch
 
 Source0:        %{url}/archive/%{name}-%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 
 %description
 Simple Directed Graph Implementation.

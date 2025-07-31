@@ -127,6 +127,9 @@ sed -i -e 's:resDir + "/fonts/Roboto-Medium.ttf":"%{_datadir}/fonts/google-robot
 
 
 %build
+# For compatibility with CMake 4.0
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
+
 # Not building Falcon9 decoder as it requires ffplay which is in rpmfusion
 # Not building hardware support which does not have libraries in Fedora
 # Building for new PortAudio

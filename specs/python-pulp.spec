@@ -2,7 +2,7 @@
 %bcond tests 1
 
 Name:           python-pulp
-Version:        3.2.1
+Version:        3.2.2
 Release:        %autorelease
 Summary:        Linear and mixed integer programming modeler
 
@@ -30,14 +30,6 @@ Patch:          0003-Skip-HiGHS_CMDTest.test_time_limit_no_solution.patch
 # report it upstream until PySCIPOpt releases binary PyPI wheels based on
 # scip 9.2.2 or later.
 Patch:          0004-Expect-SCIP_PY-to-report-unbounded-problems-the-same.patch
-# Test examples only if they are found; fixes #844
-# https://github.com/coin-or/pulp/pull/845
-#
-# Fixes:
-#
-# Running pulptest requires examples
-# https://github.com/coin-or/pulp/issues/844
-Patch:          %{forgeurl}/pull/845.patch
 
 BuildSystem:            pyproject
 BuildOption(install):   -L pulp

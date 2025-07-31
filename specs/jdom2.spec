@@ -25,7 +25,7 @@ Patch:          0001-Adapt-build.patch
 BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  javapackages-local-openjdk25
-BuildRequires:  ant
+BuildRequires:  ant-openjdk25 
 BuildRequires:  ant-junit
 %endif
 # TODO Remove in Fedora 46

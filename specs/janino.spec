@@ -9,7 +9,7 @@ ExclusiveArch:  %{java_arches} noarch
 
 Source0:        https://github.com/janino-compiler/janino/archive/v%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.ant:ant)

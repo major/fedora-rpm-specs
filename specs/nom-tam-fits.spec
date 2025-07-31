@@ -7,7 +7,7 @@ URL:           http://nom-tam-fits.github.io/nom-tam-fits/
 Source0:       https://github.com/nom-tam-fits/nom-tam-fits/archive/%{name}-%{version}.tar.gz
 Patch0:        0001-Skip-tests-if-we-cannot-download-images.patch
 
-BuildRequires: maven-local
+BuildRequires: maven-local-openjdk25
 BuildRequires: mvn(junit:junit)
 BuildRequires: mvn(org.apache.commons:commons-compress)
 BuildRequires: mvn(org.codehaus.mojo:exec-maven-plugin)

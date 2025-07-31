@@ -1,22 +1,22 @@
 # Fedora spec file for php-pecl-apcu
 #
-# Copyright (c) 2013-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2013-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
 
+%global pie_vend   apcu
+%global pie_proj   apcu
 %global pecl_name  apcu
-%global with_zts   0%{?__ztsphp:1}
 %global ini_name   40-%{pecl_name}.ini
 %global sources    %{pecl_name}-%{version}
-%global _configure ../%{sources}/configure
 
 Name:           php-pecl-apcu
 Summary:        APC User Cache
-Version:        5.1.24
-Release:        4%{?dist}
+Version:        5.1.25
+Release:        2%{?dist}
 Source0:        https://pecl.php.net/get/%{sources}.tgz
 Source1:        %{pecl_name}.ini
 Source2:        %{pecl_name}-panel.conf
@@ -35,11 +35,12 @@ BuildRequires:  php-pear
 Requires:       php(zend-abi) = %{php_zend_api}
 Requires:       php(api) = %{php_core_api}
 
-Obsoletes:      php-apcu < 4.0.0-1
-Provides:       php-apcu = %{version}
-Provides:       php-apcu%{?_isa} = %{version}
-Provides:       php-pecl(apcu) = %{version}
-Provides:       php-pecl(apcu)%{?_isa} = %{version}
+Provides:       php-%{pecl_name}                 = %{version}
+Provides:       php-%{pecl_name}%{?_isa}         = %{version}
+Provides:       php-pecl(%{pecl_name})           = %{version}
+Provides:       php-pecl(%{pecl_name})%{?_isa}   = %{version}
+Provides:       php-pie(%{pie_vend}/%{pie_proj}) = %{version}
+Provides:       php-%{pie_vend}-%{pie_proj}      = %{version}
 
 
 %description
@@ -55,9 +56,6 @@ in replacement for APC.
 Summary:       APCu developer files (header)
 Requires:      %{name}%{?_isa} = %{version}-%{release}
 Requires:      php-devel%{?_isa}
-Obsoletes:     php-pecl-apc-devel < 4
-Provides:      php-pecl-apc-devel = %{version}-%{release}
-Provides:      php-pecl-apc-devel%{?_isa} = %{version}-%{release}
 
 %description devel
 These are the files needed to compile programs using APCu.
@@ -70,8 +68,6 @@ Requires:      %{name} = %{version}-%{release}
 Requires:      php(httpd)
 Requires:      php-gd
 Requires:      httpd
-Obsoletes:     apc-panel < 4
-Provides:      apc-panel = %{version}-%{release}
 
 %description -n apcu-panel
 This package provides the APCu control panel, with Apache
@@ -92,11 +88,6 @@ if test "x${extver}" != "x%{version}"; then
 fi
 cd ..
 
-mkdir NTS
-%if %{with_zts}
-mkdir ZTS
-%endif
-
 # Fix path to configuration file
 sed -e s:apc.conf.php:%{_sysconfdir}/apcu-panel/conf.php:g \
     -i  %{sources}/apc.php
@@ -107,38 +98,26 @@ cd %{sources}
 %{__phpize}
 sed -e 's/INSTALL_ROOT/DESTDIR/' -i build/Makefile.global
 
-cd ../NTS
 %configure \
    --enable-apcu \
    --with-php-config=%{__phpconfig}
-%make_build
 
-%if %{with_zts}
-cd ../ZTS
-%configure \
-   --enable-apcu \
-   --with-php-config=%{__ztsphpconfig}
 %make_build
-%endif
 
 
 %install
-# Install the NTS stuff
-%make_install -C NTS
+cd %{sources}
+
+# Install extension and configuration
+%make_install
 install -D -m 644 %{SOURCE1} %{buildroot}%{php_inidir}/%{ini_name}
 
-%if %{with_zts}
-# Install the ZTS stuff
-%make_install -C ZTS
-install -D -m 644 %{SOURCE1} %{buildroot}%{php_ztsinidir}/%{ini_name}
-%endif
-
 # Install the package XML file
-install -D -m 644 package.xml %{buildroot}%{pecl_xmldir}/%{name}.xml
+install -D -m 644 ../package.xml %{buildroot}%{pecl_xmldir}/%{name}.xml
 
 # Install the Control Panel
 # Pages
-install -D -m 644 -p %{sources}/apc.php  \
+install -D -m 644 -p apc.php  \
         %{buildroot}%{_datadir}/apcu-panel/index.php
 # Apache config
 install -D -m 644 -p %{SOURCE2} \
@@ -148,7 +127,6 @@ install -D -m 644 -p %{SOURCE3} \
         %{buildroot}%{_sysconfdir}/apcu-panel/conf.php
 
 # Test & Documentation
-cd %{sources}
 for i in $(grep 'role="test"' ../package.xml | sed -e 's/^.*name="//;s/".*$//')
 do install -Dpm 644 $i %{buildroot}%{pecl_testdir}/%{pecl_name}/$i
 done
@@ -159,25 +137,17 @@ done
 
 %check
 cd %{sources}
+# see https://github.com/krakjoe/apcu/pull/579
+sed -e 's/%s/%A/' -i tests/apc_entry_003.phpt
+
 %{__php} -n \
    -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so \
    -m | grep '^apcu$'
 
-# Upstream test suite for NTS extension
+# Upstream test suite
 TEST_PHP_EXECUTABLE=%{__php} \
 TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
 %{__php} -n run-tests.php -q --show-diff
-
-%if %{with_zts}
-%{__ztsphp} -n \
-   -d extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so \
-   -m | grep '^apcu$'
-
-# Upstream test suite for ZTS extension
-TEST_PHP_EXECUTABLE=%{__ztsphp} \
-TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so" \
-%{__ztsphp} -n run-tests.php -q --show-diff
-%endif
 
 
 %files
@@ -188,19 +158,10 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so" \
 %config(noreplace) %{php_inidir}/%{ini_name}
 %{php_extdir}/%{pecl_name}.so
 
-%if %{with_zts}
-%{php_ztsextdir}/%{pecl_name}.so
-%config(noreplace) %{php_ztsinidir}/%{ini_name}
-%endif
-
 
 %files devel
 %doc %{pecl_testdir}/%{pecl_name}
 %{php_incldir}/ext/%{pecl_name}
-
-%if %{with_zts}
-%{php_ztsincldir}/ext/%{pecl_name}
-%endif
 
 
 %files -n apcu-panel
@@ -212,6 +173,15 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Tue Jul 29 2025 Remi Collet <remi@remirepo.net> - 5.1.25-2
+- cleanup spec file, remove ZTS stuff and very old Obsoletes
+- add pie Provides
+- refresh configuration for new option and new default values
+
+* Tue Jul 29 2025 Remi Collet <remi@remirepo.net> - 5.1.25-1
+- update to 5.1.25
+- re-license spec file to CECILL-2.1
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.24-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

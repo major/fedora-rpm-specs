@@ -316,7 +316,7 @@
 #region main package
 Name:		%{pkg_name_llvm}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -405,6 +405,18 @@ Patch501: 0001-Fix-page-size-constant-on-aarch64-and-ppc64le.patch
 # Fix an isel error triggered by Rust 1.85 on s390x
 # https://github.com/llvm/llvm-project/issues/124001
 Patch1901: 0001-SystemZ-Fix-ICE-with-i128-i64-uaddo-carry-chain.patch
+
+# Fix a pgo miscompilation triggered by building Rust 1.87 with pgo on ppc64le.
+# https://github.com/llvm/llvm-project/issues/138208
+Patch2004: 0001-CodeGenPrepare-Make-sure-instruction-get-from-SunkAd.patch
+
+# Fix Power9/Power10 crbit spilling
+# https://github.com/llvm/llvm-project/pull/146424
+Patch108: 21-146424.patch
+
+# Fix for highway package build on ppc64le
+Patch2005: 0001-PowerPC-Fix-handling-of-undefs-in-the-PPC-isSplatShu.patch
+Patch2006: 0001-Add-REQUIRES-asserts-to-test-added-in-145149-because.patch
 
 %if 0%{?rhel} == 8
 %global python3_pkgversion 3.12
@@ -3443,6 +3455,11 @@ fi
 
 #region changelog
 %changelog
+* Mon Jul 28 2025 Paul Murphy <murp@redhat.com> - 20.1.8-3
+- Backport fix for pgo optimized rust toolchain on ppc64le (rhbz#2382683)
+- Backport fix for crbit spill miscompile on ppc64le power9 and power10 (rhbz#2383037)
+- Backport fix for build of highway package on ppc64le (rhbz#2383182)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20.1.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

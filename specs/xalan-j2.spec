@@ -19,7 +19,7 @@ Source6:        generate-tarball.sh
 Patch:          xalan-j2-noxsltcdeps.patch
 
 BuildRequires:  javapackages-local-openjdk25
-BuildRequires:  ant
+BuildRequires:  ant-openjdk25 
 BuildRequires:  apache-parent
 BuildRequires:  bcel
 BuildRequires:  java_cup

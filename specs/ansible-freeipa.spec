@@ -11,8 +11,8 @@
 
 Summary: Roles and playbooks to deploy FreeIPA servers, replicas and clients
 Name: ansible-freeipa
-Version: 1.14.7
-Release: 2%{?dist}
+Version: 1.15.0
+Release: 1%{?dist}
 URL: https://github.com/freeipa/ansible-freeipa
 License: GPL-3.0-or-later
 Source: https://github.com/freeipa/ansible-freeipa/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
@@ -157,6 +157,15 @@ cp %{buildroot}/%{ansible_collections_dir}/%{collection_namespace}/%{collection_
 %{ansible_collections_dir}/%{collection_namespace}/%{collection_name}
 
 %changelog
+* Tue Jul 29 2025 Thomas Woerner <twoerner@redhat.com> - 1.15.0-1
+- Update to version 1.14.7
+  https://github.com/freeipa/ansible-freeipa/releases/tag/v1.15.0
+  - DNS over TLS support for ipaserver, ipareplica and ipaclient deployment
+    roles
+  - ipaidrange: Enforce requirement of baserid and secondarybaserid for ID
+    ranges
+  - Fix ipaserver and ipareplica deployment roles for use in Mitogen
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

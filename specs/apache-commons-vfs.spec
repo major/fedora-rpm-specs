@@ -22,7 +22,7 @@ Source2:        https://downloads.apache.org/commons/KEYS
 Patch:          %{name}-httpclient.patch
 
 BuildRequires:  gnupg2
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(com.jcraft:jsch)
 BuildRequires:  mvn(com.sun.mail:jakarta.mail)
 BuildRequires:  mvn(commons-codec:commons-codec)
@@ -86,7 +86,7 @@ Some of the features of Commons VFS are:
 %package       ant
 Summary:       Development files for Commons VFS
 Requires:      %{name} = %{version}-%{release}
-Requires:      ant
+Requires:      ant-openjdk25 
 
 %description   ant
 This package enables support for the Commons VFS ant tasks.

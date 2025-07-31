@@ -12,7 +12,7 @@ ExclusiveArch: %{java_arches}
 
 BuildRequires:  make
 BuildRequires:  gcc-c++
-BuildRequires:  java-devel
+BuildRequires:  java-25-devel
 BuildRequires:  jpackage-utils
 BuildRequires:  apr-devel
 BuildRequires:  openssl-devel

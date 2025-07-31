@@ -2,7 +2,7 @@
 
 Name:           jgoodies-common
 Version:        1.8.1
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Common library shared by JGoodies libraries and applications
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -13,7 +13,7 @@ Source0:        http://www.jgoodies.com/download/libraries/%{shortname}/%{name}-
 # fontconfig and DejaVu fonts needed for tests
 BuildRequires:  dejavu-sans-fonts
 BuildRequires:  fontconfig
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(junit:junit)
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -79,6 +79,9 @@ done
 
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 1.8.1-26
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.1-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

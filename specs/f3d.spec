@@ -106,7 +106,7 @@ This package contains Python 3 bindings for %{name}.
 %package        java
 Summary:        Java bindings for the %{name}
 BuildRequires:  javapackages-tools
-BuildRequires:  java-devel
+BuildRequires:  java-25-devel
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description    java

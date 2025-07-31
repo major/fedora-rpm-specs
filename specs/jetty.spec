@@ -50,7 +50,7 @@
 
 Name:           jetty
 Version:        9.4.40
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Java Webserver and Servlet Container
 
 # Jetty is dual licensed under both ASL 2.0 and EPL 1.0, see NOTICE.txt
@@ -67,7 +67,7 @@ Source6:        LICENSE-MIT
 Patch1:         0001-Distro-jetty.home.patch
 Patch2:         0002-Port-to-servlet-api-4-5.patch
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(javax.servlet:javax.servlet-api)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-shade-plugin)
@@ -75,7 +75,7 @@ BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
 BuildRequires:  mvn(org.slf4j:slf4j-api)
 
 %if %{without jp_minimal}
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(com.github.jnr:jnr-unixsocket)
 BuildRequires:  mvn(javax.annotation:javax.annotation-api)
 BuildRequires:  mvn(javax.enterprise:cdi-api)
@@ -966,6 +966,9 @@ install -m0644 -D jetty.sysusers.conf %{buildroot}%{_sysusersdir}/jetty.conf
 %license LICENSE NOTICE.txt LICENSE-MIT
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 9.4.40-17
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.4.40-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

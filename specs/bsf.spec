@@ -14,7 +14,7 @@ Patch:          build-file.patch
 Patch:          build.properties.patch
 
 BuildRequires:  javapackages-local-openjdk25
-BuildRequires:  ant
+BuildRequires:  ant-openjdk25 
 BuildRequires:  apache-commons-logging
 BuildRequires:  apache-parent
 BuildRequires:  xalan-j2

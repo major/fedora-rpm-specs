@@ -1,6 +1,6 @@
 Name:		kealib
 Version:	1.5.0
-Release:	13%{?dist}
+Release:	14%{?dist}
 Summary:	HDF5 Based Raster File Format as a GDAL plugin
 
 License:	MIT
@@ -73,6 +73,9 @@ mv %{buildroot}%{_prefix}/lib/gdalplugins/* %{buildroot}%{_libdir}/gdalplugins/
 %{_includedir}/libkea
 
 %changelog
+* Tue Jul 29 2025 Sandro Mani <manisandro@gmail.com> - 1.5.0-14
+- Rebuild (gdal)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 Name:           clojure
 Epoch:          1
 Version:        1.12.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A dynamic programming language that targets the Java Virtual Machine
 
 License:        EPL-1.0
@@ -16,7 +16,7 @@ Source0:        https://github.com/%{name}/%{name}/archive/%{name}-%{version}.zi
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(org.apache.maven.plugins:maven-antrun-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-assembly-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-source-plugin)
@@ -59,6 +59,9 @@ can avoid reflection.
 %{_bindir}/%{name}
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 1:1.12.0-4
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.12.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

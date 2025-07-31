@@ -59,7 +59,7 @@ ExclusiveArch:  %{java_arches} noarch
 
 Provides:       pgjdbc = %{version}-%{release}
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(com.ongres.scram:scram-client)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-dependency-plugin)

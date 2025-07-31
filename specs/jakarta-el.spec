@@ -2,7 +2,7 @@
 
 Name:           jakarta-el
 Version:        4.0.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Jakarta Expression Language
 # Automatically converted from old format: EPL-2.0 or GPLv2 with exceptions - review is highly recommended.
 License:        EPL-2.0 OR LicenseRef-Callaway-GPLv2-with-exceptions
@@ -13,7 +13,7 @@ Source0:        %{url}/archive/%{version}-RELEASE/%{srcname}-%{version}.tar.gz
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.apache.maven.surefire:surefire-junit47)
@@ -109,6 +109,9 @@ sed -i -e 's/jakarta\./javax./g' $(find api/src/main/java/javax -name *.java)
 
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 4.0.0-19
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

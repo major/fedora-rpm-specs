@@ -2,7 +2,7 @@
 
 Name:           plexus-components-pom
 Version:        14.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Plexus Components POM
 License:        Apache-2.0
 URL:            https://github.com/codehaus-plexus/plexus-components
@@ -15,7 +15,7 @@ Source1:        https://www.apache.org/licenses/LICENSE-2.0.txt
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(org.codehaus.plexus:plexus-component-metadata)
 BuildRequires:  mvn(org.codehaus.plexus:plexus:pom:)
 %endif
@@ -38,6 +38,9 @@ cp -p %{SOURCE1} LICENSE
 %doc LICENSE
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 14.2-9
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 14.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

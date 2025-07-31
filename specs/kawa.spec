@@ -1,17 +1,17 @@
 Epoch:          1
 Name:           kawa
 Version:        3.1.1
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Scheme programming language
 License:        MIT
 URL:            https://www.gnu.org/software/kawa/
 Source0:        https://ftp.gnu.org/gnu/kawa/kawa-%{version}.tar.gz
 # Exclude i686 due to dropping i686 JDKS: https://fedoraproject.org/wiki/Changes/Drop_i686_JDKs
 ExcludeArch:    i686
-BuildRequires:  ant
+BuildRequires:  ant-openjdk25 
 BuildRequires:  antlr
 BuildRequires:  groff
-BuildRequires:  java-21-openjdk-devel
+BuildRequires:  java-25-devel
 BuildRequires:  libtool
 BuildRequires:  ncurses-devel
 BuildRequires:  readline-devel
@@ -20,7 +20,7 @@ BuildRequires:  texinfo
 BuildRequires:  util-linux-ng
 BuildRequires:  make
 Requires:       jakarta-servlet
-Requires:       java-21-openjdk-headless
+Requires:       java-25-headless
 
 #Test doesn't pass against Jboss servlet 3.0 till Kawa support Tomcat servlet 4.0
 #See https://gitlab.com/kashell/Kawa/issues/41
@@ -87,6 +87,9 @@ rm -rf %{buildroot}%{_datadir}/kawa/bin
 
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 1:3.1.1-24
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.1.1-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

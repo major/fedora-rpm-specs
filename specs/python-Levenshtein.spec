@@ -39,8 +39,8 @@ Summary:  %{summary}
 
 %prep
 %autosetup -n %{srcname}-%{version}
-# Levenshtein can build under older Cython successfully
-sed 's/Cython>=3.0.0[ab0-9]\+/Cython>=0.29.26/' -i pyproject.toml
+# Remove Cython's upper constraint
+sed -i '/Cython>=3\.[0-9]\+\./s/,\s*<3\.[0-9]\+\.[0-9a-z]*[0-9]*//' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires

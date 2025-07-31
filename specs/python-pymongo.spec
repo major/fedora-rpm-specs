@@ -4,8 +4,8 @@
 %global giturl  https://github.com/mongodb/mongo-python-driver
 
 Name:           python-pymongo
-Version:        4.13.1
-Release:        2%{?dist}
+Version:        4.13.2
+Release:        1%{?dist}
 
 License:        Apache-2.0
 Summary:        Python driver for MongoDB
@@ -200,6 +200,9 @@ rm doc/_build/html/.buildinfo
 
 
 %changelog
+* Tue Jul 29 2025 Gwyn Ciesla <gwync@protonmail.com> - 4.13.2-1
+- 4.13.2
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.13.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

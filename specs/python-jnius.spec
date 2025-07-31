@@ -5,7 +5,7 @@
 
 Name:           python-%{modname}
 Version:        1.6.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        %{sum}
 
 License:        MIT
@@ -27,8 +27,8 @@ BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(sphinx) 
 BuildRequires:  python3dist(furo)
 
-BuildRequires:  ant
-BuildRequires:  java-devel
+BuildRequires:  ant-openjdk25 
+BuildRequires:  java-25-devel
 
 ExclusiveArch:  %{java_arches}
 
@@ -40,7 +40,7 @@ ExclusiveArch:  %{java_arches}
 
 %package     -n python3-%{srcname}
 Summary:        %{sum}
-Requires:       java-headless
+Requires:       java-25-headless
 Requires:       python3-six
 %{?python_provide:%python_provide python3-%{srcname}}
 Provides:       python3-%{modname}
@@ -106,6 +106,9 @@ popd
 
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 1.6.1-9
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

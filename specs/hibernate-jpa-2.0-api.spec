@@ -3,7 +3,7 @@
 
 Name:             hibernate-jpa-2.0-api
 Version:          1.0.1
-Release:          43%{?dist}
+Release:          44%{?dist}
 Summary:          Java Persistence 2.0 (JSR 317) API
 License:          EPL-1.0 OR BSD-3-Clause
 URL:              http://www.hibernate.org/
@@ -16,7 +16,7 @@ Patch1:           %{name}-%{namedversion}-osgi-manifest.patch
 BuildArch:        noarch
 ExclusiveArch:  %{java_arches} noarch
 
-BuildRequires:    maven-local
+BuildRequires:    maven-local-openjdk25
 
 %description
 Hibernate definition of the Java Persistence 2.0 (JSR 317) API.
@@ -54,6 +54,9 @@ This package contains the API documentation for %{name}.
 %license license.txt
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 1.0.1-44
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

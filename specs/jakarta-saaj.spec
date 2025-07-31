@@ -2,7 +2,7 @@
 
 Name:           jakarta-saaj
 Version:        3.0.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        SOAP with Attachments API for Java
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -12,7 +12,7 @@ ExclusiveArch:  %{java_arches} noarch
 
 Source0:        %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(jakarta.activation:jakarta.activation-api)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-enforcer-plugin)
@@ -65,6 +65,9 @@ popd
 %license LICENSE.md NOTICE.md
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 3.0.2-6
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

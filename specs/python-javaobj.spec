@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.4.4
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Python module for serializing and deserializing Java objects
 
 License:        Apache-2.0
@@ -23,7 +23,7 @@ Summary:        %{summary}
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-pytest
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  xorg-x11-server-Xvfb
 
 %description -n python3-%{pypi_name}
@@ -53,6 +53,9 @@ sed -i -e '/^#!\//, 1d' {javaobj/*.py,javaobj/v1/*.py,javaobj/v2/*.py}
 %{python3_sitelib}/%{pypi_name}*.egg-info/
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 0.4.4-5
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

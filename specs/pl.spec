@@ -72,7 +72,7 @@ BuildRequires:  openssl
 BuildRequires:  pkgconfig(openssl)
 # jpl
 %ifarch %{java_arches}
-BuildRequires:  java-devel
+BuildRequires:  java-25-devel
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.hamcrest:hamcrest)
 %endif
@@ -313,7 +313,7 @@ follows a rather unique approach for developing GUI applications, as follows:
 %package     -n swi-prolog-java
 Summary:        Bidirectional interface between SWI-Prolog and Java
 Requires:       swi-prolog-nox%{?_isa} = %{version}-%{release}
-Requires:       java-headless
+Requires:       java-25-headless
 Requires:       javapackages-tools
 
 # This can be removed when F45 reaches EOL

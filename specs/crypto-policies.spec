@@ -11,7 +11,7 @@
 
 Name:           crypto-policies
 Version:        %{git_date}
-Release:        2.git%{git_commit_hash}%{?dist}
+Release:        3.git%{git_commit_hash}%{?dist}
 Summary:        System-wide crypto policies
 
 License:        LGPL-2.1-or-later
@@ -26,7 +26,7 @@ BuildRequires: openssl
 BuildRequires: nss-tools
 BuildRequires: gnutls-utils
 BuildRequires: openssh-clients
-BuildRequires: java-devel
+BuildRequires: java-25-devel
 BuildRequires: bind
 BuildRequires: python3-devel >= 3.12
 BuildRequires: python3-pytest
@@ -289,6 +289,9 @@ exit 0
 %{_datarootdir}/crypto-policies/python
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 20250714-3.gitcd6043a
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20250714-2.gitcd6043a
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

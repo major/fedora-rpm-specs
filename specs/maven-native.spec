@@ -4,7 +4,7 @@
 
 Name:          maven-native
 Version:       1.0
-Release:       0.22%{dotreltag}%{?dist}
+Release:       0.23%{dotreltag}%{?dist}
 Summary:       Compile c and c++ source under Maven
 # Automatically converted from old format: ASL 2.0 and MIT - review is highly recommended.
 License:       Apache-2.0 AND LicenseRef-Callaway-MIT
@@ -15,7 +15,7 @@ Source2:       plexus_components-generic-c.xml
 Source3:       plexus_components-manager.xml
 Source4:       plexus_components-msvc.xml
 
-BuildRequires: maven-local
+BuildRequires: maven-local-openjdk25
 BuildRequires: mojo-parent
 BuildRequires: mvn(aopalliance:aopalliance)
 BuildRequires: mvn(bcel:bcel)
@@ -130,6 +130,9 @@ done
 %license LICENSE.txt
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 1.0-0.23.alpha.11
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.22.alpha.11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

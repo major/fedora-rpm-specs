@@ -17,7 +17,7 @@ Patch:          %{name}-1.2-crosslink.patch
 Patch:          %{name}-1.2-osgi.patch
 
 BuildRequires:  javapackages-local-openjdk25
-BuildRequires:  ant
+BuildRequires:  ant-openjdk25 
 BuildRequires:  apache-parent
 # TODO Remove in Fedora 46
 Obsoletes:      %{name}-javadoc < 1.2-53

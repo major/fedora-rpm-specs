@@ -17,7 +17,7 @@ Source3:        http://repo1.maven.org/maven2/xml-apis/xml-apis/2.0.2/xml-apis-2
 Source4:        http://repo1.maven.org/maven2/xml-apis/xml-apis-ext/1.3.04/xml-apis-ext-1.3.04.pom
 
 BuildRequires:  javapackages-local-openjdk25
-BuildRequires:  ant
+BuildRequires:  ant-openjdk25 
 BuildRequires:  apache-parent
 # TODO Remove in Fedora 46
 Obsoletes:      %{name}-javadoc < 1.4.01-59

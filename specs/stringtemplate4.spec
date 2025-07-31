@@ -2,7 +2,7 @@
 
 Name:           stringtemplate4
 Version:        4.3.4
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A Java template engine
 License:        BSD-3-Clause
 URL:            http://www.stringtemplate.org/
@@ -16,7 +16,7 @@ Patch:          %{name}-java11.patch
 # Adapt tests to JDK 21
 Patch:          %{name}-java21.patch
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mesa-dri-drivers
 BuildRequires:  mutter
 BuildRequires:  mvn(junit:junit)
@@ -58,6 +58,9 @@ xwfb-run -c mutter -- %mvn_build
 %license LICENSE.txt
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 4.3.4-8
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.4-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

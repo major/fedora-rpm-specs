@@ -2,7 +2,7 @@
 
 Name:           jackson-jaxrs-providers
 Version:        2.18.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Jackson JAX-RS providers
 License:        Apache-2.0
 
@@ -14,7 +14,7 @@ BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 %endif
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(com.fasterxml.jackson.core:jackson-core) >= %{version}
 BuildRequires:  mvn(com.fasterxml.jackson.core:jackson-databind) >= %{version}
 BuildRequires:  mvn(com.fasterxml.jackson.module:jackson-module-jaxb-annotations) >= %{version}
@@ -173,6 +173,9 @@ rm json/src/test/java/com/fasterxml/jackson/jaxrs/json/resteasy/RestEasyProvider
 %license LICENSE NOTICE
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 2.18.2-4
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.18.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

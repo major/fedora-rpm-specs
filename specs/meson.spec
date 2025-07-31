@@ -31,7 +31,7 @@ BuildRequires:  gcc-gfortran
 BuildRequires:  gcc-objc
 BuildRequires:  gcc-objc++
 %endif
-BuildRequires:  java-devel
+BuildRequires:  java-25-devel
 BuildRequires:  libomp-devel
 %if %{undefined rhel}
 BuildRequires:  mono-core mono-devel

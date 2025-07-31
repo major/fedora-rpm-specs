@@ -5,7 +5,7 @@
 %global crate ironrdp
 
 Name:           rust-ironrdp
-Version:        0.10.0
+Version:        0.11.0
 Release:        %autorelease
 Summary:        Meta crate re-exporting IronRDP crates for convenience
 

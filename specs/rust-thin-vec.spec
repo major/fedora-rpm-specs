@@ -13,6 +13,11 @@ Summary:        Vec that takes up less space on the stack
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/thin-vec
 Source:         %{crates_source}
+# * Use core::mem::align_of to determine proper type aligment,
+#   https://github.com/Gankra/thin-vec/pull/57
+# * Fixes: "cargo test --features=serde" fails on i686,
+#   https://github.com/Gankra/thin-vec/issues/56
+Patch10:        https://github.com/Gankra/thin-vec/pull/57.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

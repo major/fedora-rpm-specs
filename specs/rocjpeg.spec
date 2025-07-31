@@ -12,7 +12,7 @@
 
 %global toolchain rocm
 # hipcc does not support some clang flags
-%global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host -fcf-protection/')
+%global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host -fcf-protection/' -e 's/-mtls-dialect=gnu2//')
 
 # Requires actual HW, so disabled by default.
 # Testing is not well behaved.
@@ -38,7 +38,7 @@
 
 Name:           %{rocjpeg_name}
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A high-performance jpeg decode library for AMD’s GPUs
 
 Url:            https://github.com/ROCm/rocJPEG
@@ -174,6 +174,9 @@ fi
 %{_datadir}/rocjpeg
 
 %changelog
+* Tue Jul 29 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-5
+- Remove -mtls-dialect cflag
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

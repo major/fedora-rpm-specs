@@ -69,7 +69,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  gmp-devel
 BuildRequires:  indent
 %ifarch %{java_arches}
-BuildRequires:  java-devel
+BuildRequires:  java-25-devel
 BuildRequires:  javapackages-tools
 %endif
 BuildRequires:  libtool

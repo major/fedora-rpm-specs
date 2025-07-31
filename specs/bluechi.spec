@@ -10,8 +10,8 @@
 
 
 Name:		bluechi
-Version:	1.0.1
-Release:	3%{?dist}
+Version:	1.1.0
+Release:	1%{?dist}
 Summary:	A systemd service controller for multi-nodes environments
 License:	LGPL-2.1-or-later AND CC0-1.0
 URL:		https://github.com/eclipse-bluechi/bluechi
@@ -34,7 +34,7 @@ BuildRequires: sed
 %endif
 
 %description
-BlueChi is a systemd service controller for multi-nodes environements with a
+BlueChi is a systemd service controller for multi-nodes environments with a
 predefined number of nodes and with a focus on highly regulated environment
 such as those requiring functional safety (for example in cars).
 
@@ -58,7 +58,7 @@ Obsoletes:	bluechi < 0.7.0
 Provides:	bluechi = %{version}-%{release}
 
 %description controller
-BlueChi is a systemd service controller for multi-nodes environements with a
+BlueChi is a systemd service controller for multi-nodes environments with a
 predefined number of nodes and with a focus on highly regulated environment
 such as those requiring functional safety (for example in cars).
 This package contains the controller service.
@@ -115,7 +115,7 @@ Obsoletes:	hirte-agent < 0.6.0
 Provides:	hirte-agent = %{version}-%{release}
 
 %description agent
-BlueChi is a systemd service controller for multi-nodes environements with a
+BlueChi is a systemd service controller for multi-nodes environments with a
 predefined number of nodes and with a focus on highly regulated environment
 such as those requiring functional safety (for example in cars).
 This package contains the node agent.
@@ -220,7 +220,7 @@ Obsoletes:	hirte-ctl < 0.6.0
 Provides:	hirte-ctl = %{version}-%{release}
 
 %description ctl
-BlueChi is a systemd service controller for multi-nodes environements with a
+BlueChi is a systemd service controller for multi-nodes environments with a
 predefined number of nodes and with a focus on highly regulated environment
 such as those requiring functional safety (for example in cars).
 This package contains the service controller command line tool.
@@ -246,7 +246,7 @@ Requires:	bluechi-coverage = %{version}-%{release}
 %endif
 
 %description is-online
-BlueChi is a systemd service controller for multi-nodes environements with a
+BlueChi is a systemd service controller for multi-nodes environments with a
 predefined number of nodes and with a focus on highly regulated environment
 such as those requiring functional safety (for example in cars).
 This package contains a command line tool for checking and monitoring the
@@ -269,6 +269,7 @@ Summary:	Python bindings for BlueChi
 BuildArch:	noarch
 BuildRequires:	python3-devel
 BuildRequires:	python3-setuptools
+BuildRequires:	python3-wheel
 Requires:	python3-dasbus
 
 Obsoletes:	python3-hirte < 0.6.0
@@ -280,10 +281,7 @@ It contains typed python code that is auto-generated from BlueChi's
 API description and manually written code to simplify recurring tasks.
 
 %files -n python3-bluechi
-%license LICENSE
-%doc README.md
-%{python3_sitelib}/bluechi-*.egg-info/
-%{python3_sitelib}/bluechi/
+%{python3_sitelib}
 %endif
 
 
@@ -311,6 +309,11 @@ will be used during integration tests when creating code coverage report.
 %prep
 %autosetup -S git_am
 
+%if %{with_python}
+ln -s src/bindings/python/pyproject.toml pyproject.toml
+%generate_buildrequires
+%pyproject_buildrequires
+%endif
 
 %build
 %meson -Dapi_bus=system %{?coverage_flags}
@@ -318,7 +321,7 @@ will be used during integration tests when creating code coverage report.
 
 %if %{with_python}
 pushd src/bindings/python
-%py3_build
+%pyproject_wheel
 popd
 %endif
 
@@ -338,7 +341,7 @@ mkdir -p %{buildroot}/%{_localstatedir}/tmp/bluechi-coverage/
 
 %if %{with_python}
 pushd src/bindings/python
-%py3_install
+%pyproject_install
 popd
 %endif
 
@@ -353,6 +356,9 @@ build-scripts/generate-unit-tests-code-coverage.sh %{_vpath_builddir} %{buildroo
 
 
 %changelog
+* Mon Jul 28 2025 Packit <hello@packit.dev> - 1.1.0-1
+- Update to version 1.1.0
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

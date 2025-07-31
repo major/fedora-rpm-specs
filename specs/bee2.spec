@@ -4,7 +4,7 @@
 Summary:       Cryptographic library
 Name:          bee2
 Version:       2.1.6
-Release:       2%{?dist}
+Release:       3%{?dist}
 License:       GPL-3.0-only and GPL-3.0-or-later
 Url:           http://apmi.bsu.by/resources/tools.html
 Source0:       https://github.com/agievich/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -78,9 +78,11 @@ sed -i 's/bee2_static/bee2/g' cmd/CMakeLists.txt
 sed -i 's/bee2_static/bee2/g' test/CMakeLists.txt
 
 %build
+# TODO: Can remove LIB_INSTALL_DIR after https://github.com/agievich/bee2/pull/62
 LDFLAGS="${LDFLAGS} -pie"
 %cmake -DBUILD_DOC=ON\
        -DCMAKE_C_COMPILER=clang\
+       -DLIB_INSTALL_DIR:PATH=%{_libdir} \
        -DBUILD_TESTS=ON\
        -DBUILD_PIC=ON\
        -DCMAKE_BUILD_TYPE=RELEASE
@@ -126,6 +128,9 @@ rm %{buildroot}%{_libdir}/libbee2_static.a
 
 
 %changelog
+* Mon Jul 28 2025 Cristian Le <git@lecris.dev> - 2.1.6-3
+- Explicitly pass LIB_INSTALL_DIR (rhbz#2381180)
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

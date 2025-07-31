@@ -1,6 +1,6 @@
 Name:           xmlstreambuffer
 Version:        2.1.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Stream Based Representation for XML Infoset
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -10,7 +10,7 @@ ExclusiveArch:  %{java_arches} noarch
 
 Source0:        %{url}/archive/%{version}/metro-xmlstreambuffer-%{version}.tar.gz
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(jakarta.activation:jakarta.activation-api)
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
@@ -58,6 +58,9 @@ popd
 %license LICENSE.md NOTICE.md
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 2.1.0-10
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

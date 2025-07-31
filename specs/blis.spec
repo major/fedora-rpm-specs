@@ -5,8 +5,8 @@
 %bcond_with fulltest
 
 # We need to manipulate the built *.so.%%sover
-%global sover .2.1.0
-%global soshort .2
+%global sover .4.0.0
+%global soshort .4
 
 %if 0%{?el7}
 # Use devtoolset for avx512 support
@@ -22,8 +22,8 @@
 %define _lto_cflags %{nil}
 
 Name:		blis
-Version:	0.9.0
-Release:	6%{?dist}
+Version:	2.0
+Release:	2%{?dist}
 Summary:	BLAS-like Library Instantiation Software Framework
 License:	BSD-3-Clause
 URL:		https://github.com/flame/blis
@@ -41,7 +41,10 @@ BuildRequires:	make
 # updating in el7.  It should support other targets, but only x86_64
 # is packaged.
 %ifarch x86_64
+# removed from RHEL10
+%if 0%{?el8}%{?el9}%{?fedora}
 BuildRequires: memkind-devel
+%endif
 %endif
 
 %global desc \
@@ -134,8 +137,7 @@ BLIS architecture macros.
 # shouldn't have, since only undocumented interfaces have changed from
 # 0.6.0: removed bli_thread_get_env, bli_thread_init_rntm; indirect
 # sub-types in bli_addd_ex; ARCH enum in bli_arch_query_id.
-echo %sover | awk -F. '{printf("%s\n%s.%s\n", $2,$3,$4)}' >so_version
-
+#echo %sover | awk -F. '{printf("%s\n%s.%s\n", $2,$3,$4)}' >so_version
 
 %build
 %{?dts:. /opt/rh/devtoolset-%{?dts}/enable}
@@ -383,6 +385,13 @@ export LD_LIBRARY_PATH=`pwd`/serial/lib
 %{macrosdir}/macros.blis-srpm
 
 %changelog
+* Tue Jul 29 2025 Dave Love <loveshack@fedoraproject.org> - 2.0-2
+- Avoid memkind on EL10
+
+* Tue Jul 29 2025 Dave Love <loveshack@fedoraproject.org> - 2.0-1
+- Update to v. 2.0
+- Fixes FTBFS with GCC 15 (#2336444)
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

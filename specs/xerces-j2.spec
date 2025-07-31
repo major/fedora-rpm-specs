@@ -27,7 +27,7 @@ Patch:          %{name}-build.patch
 Patch:          %{name}-manifest.patch
 
 BuildRequires:  javapackages-local-openjdk25
-BuildRequires:  ant
+BuildRequires:  ant-openjdk25 
 BuildRequires:  apache-parent
 BuildRequires:  xml-commons-apis >= 1.4.01
 BuildRequires:  xml-commons-resolver >= 1.2

@@ -1,6 +1,6 @@
 Name:           xmlpull
 Version:        1.2.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        XML Pull Parsing API
 
 # Automatically converted from old format: Public Domain - needs further work
@@ -10,7 +10,7 @@ Source0:        %{url}/archive/%{name}-xpp3-parent-%{version}.tar.gz
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-enforcer-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-source-plugin)
@@ -47,6 +47,9 @@ rm xmlpull/src/main/java/module-info.java
 %doc %{name}/README.adoc
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 1.2.0-13
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

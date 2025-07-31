@@ -12,7 +12,7 @@ Patch:          0002-Remove-usage-of-junit-pioneer.patch
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(net.java.dev.jna:jna)
 BuildRequires:  mvn(net.java.dev.jna:jna-platform)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-dependency-plugin)

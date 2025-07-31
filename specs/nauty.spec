@@ -1,5 +1,5 @@
 Name:           nauty
-Version:        2.8.9
+Version:        2.9.0
 Release:        %autorelease
 Summary:        Graph canonical labeling and automorphism group computation
 
@@ -8,10 +8,11 @@ Summary:        Graph canonical labeling and automorphism group computation
 # The projects as a whole is Apache-2.0.
 # The bundled cliquer code in nautycliquer.c is GPL-2.0-or-later, but we patch
 # it out.
+# The SHA256 code in nausha.{c,h} is in the public domain.
 # Other licenses are due to embedded fonts in the PDF manual.
 # CM: Knuth-CTAN
 # CM-Super: GPL-1.0-or-later
-License:        Apache-2.0 AND Knuth-CTAN AND GPL-1.0-or-later
+License:        Apache-2.0 AND LicenseRef-Fedora-Public-Domain AND Knuth-CTAN AND GPL-1.0-or-later
 URL:            https://pallini.di.uniroma1.it/
 Source:         https://pallini.di.uniroma1.it/%{name}%{nautytarver}.tar.gz
 
@@ -27,8 +28,6 @@ Patch:          %{name}-shared.patch
 Patch:          %{name}-popcnt.patch
 # Unbundle cliquer
 Patch:          %{name}-unbundle-cliquer.patch
-# Fix incorrect printf format strings
-Patch:          %{name}-format.patch
 # Fix uninitialized variable warnings
 Patch:          %{name}-uninitialized.patch
 # Fix a function that can fall off the end
@@ -87,9 +86,6 @@ This package contains files needed to develop programs that use libnauty.
 # Remove the pregenerated makefile
 rm -f makefile
 
-# Avoid obsolescence warnings
-sed -i 's/egrep/grep -E/' configure.ac
-
 # Regenerate the configure script due to the patches
 aclocal
 autoreconf -fi
@@ -106,7 +102,7 @@ export LIBS='-lz-ng'
 %configure \
     --enable-ansi \
     --enable-generic \
-%ifarch %{ix86} x86_64
+%ifarch %{ix86} %{x86_64}
     --disable-popcnt \
     --enable-runtime-popcnt \
 %endif
@@ -149,7 +145,7 @@ chmod a+x runalltests
 LD_LIBRARY_PATH=$PWD/.libs PATH=$PWD:$PATH make check
 
 %files
-%doc README nug28.pdf
+%doc README nug29.pdf
 %{_bindir}/*g
 %{_bindir}/*gL
 %{_bindir}/dreadnaut
@@ -164,19 +160,19 @@ LD_LIBRARY_PATH=$PWD/.libs PATH=$PWD:$PATH make check
 %{_mandir}/man1/watercluster2.1*
 
 %files -n libnauty
-%doc changes24-28.txt formats.txt
+%doc changes24-29.txt formats.txt
 %license COPYRIGHT LICENSE-2.0.txt
-%{_libdir}/libnauty-2.8.9.so
-%{_libdir}/libnautyS-2.8.9.so
-%{_libdir}/libnautyW-2.8.9.so
-%{_libdir}/libnautyL-2.8.9.so
-%{_libdir}/libnauty1-2.8.9.so
-%{_libdir}/libnautyS1-2.8.9.so
-%{_libdir}/libnautyW1-2.8.9.so
-%{_libdir}/libnautyL1-2.8.9.so
+%{_libdir}/libnauty-2.9.0.so
+%{_libdir}/libnautyS-2.9.0.so
+%{_libdir}/libnautyW-2.9.0.so
+%{_libdir}/libnautyL-2.9.0.so
+%{_libdir}/libnauty1-2.9.0.so
+%{_libdir}/libnautyS1-2.9.0.so
+%{_libdir}/libnautyW1-2.9.0.so
+%{_libdir}/libnautyL1-2.9.0.so
 %if 0%{?__isa_bits} == 64
-%{_libdir}/libnautyQ-2.8.9.so
-%{_libdir}/libnautyQ1-2.8.9.so
+%{_libdir}/libnautyQ-2.9.0.so
+%{_libdir}/libnautyQ1-2.9.0.so
 %endif
 
 %files -n libnauty-devel

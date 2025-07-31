@@ -23,7 +23,7 @@ ExclusiveArch:  %{java_arches} noarch
 BuildRequires: python3-devel
 
 # for %%check
-BuildRequires: java-headless
+BuildRequires: java-25-headless
 
 Requires: python3-enjarify = %{version}-%{release}
 

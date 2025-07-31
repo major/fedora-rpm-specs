@@ -12,7 +12,7 @@ ExclusiveArch:  %{java_arches} noarch
 
 BuildRequires:  jurand
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(com.ongres.stringprep:saslprep)
 BuildRequires:  mvn(org.junit.jupiter:junit-jupiter)
 

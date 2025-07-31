@@ -45,7 +45,7 @@ Source2:        http://repo1.maven.org/maven2/%{base_name}/%{base_name}/%{versio
 Patch:          %{name}-build-xml.patch
 
 BuildRequires:  javapackages-local-openjdk25
-BuildRequires:  ant
+BuildRequires:  ant-openjdk25 
 # TODO Remove in Fedora 46
 Obsoletes:      %{name}-javadoc < 2.0.8-53
 Provides:       deprecated()

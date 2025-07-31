@@ -11,8 +11,12 @@ Source0:        %{url}/archive/v%{version}/yte-%{version}.tar.gz
 # Man page written for Fedora in groff_man(7) format based on --help output
 Source1:        yte.1
 
+# Add project.license-files to pyproject.toml
+# https://github.com/yte-template-engine/yte/pull/65
+Patch:          %{url}/pull/65.patch
+
 BuildSystem:            pyproject
-BuildOption(install):   -L yte
+BuildOption(install):   -l yte
 
 BuildArch:      noarch
 
@@ -55,7 +59,6 @@ install -t '%{buildroot}%{_mandir}/man1' -m 0644 -p -D '%{SOURCE1}'
 
 
 %files -n python3-yte -f %{pyproject_files}
-%license LICENSE
 %doc CHANGELOG.md
 %doc README.md
 %doc docs/main.md

@@ -12,7 +12,7 @@
 
 %global toolchain rocm
 # hipcc does not support some clang flags
-%global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host -fcf-protection/')
+%global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host -fcf-protection/' -e 's/-mtls-dialect=gnu2//')
 
 # Requires actual HW, so disabled by default.
 # Tests also have issues and possibly requires ffmpeg from rpmfusion to work 
@@ -38,7 +38,7 @@
 
 Name:           %{rocdecode_name}
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        High-performance video decode SDK for AMD GPUs
 
 Url:            https://github.com/ROCm/rocDecode
@@ -155,6 +155,9 @@ fi
 %exclude %{_datadir}/rocdecode/samples
 
 %changelog
+* Tue Jul 29 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-4
+- Remove -mtls-dialect cflag
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

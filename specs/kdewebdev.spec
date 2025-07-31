@@ -6,7 +6,7 @@ Name:    kdewebdev
 Summary: Web development applications 
 Epoch:   6
 Version: 3.5.10
-Release: 60%{?dist}
+Release: 61%{?dist}
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
@@ -48,6 +48,7 @@ Patch307: kdewebdev-configure-c99.patch
 # ftbfs, include cstdlib
 Patch308: kdewebdev-3.5.10-include-cstdlib.patch
 Patch309: kdewebdev-3.5.10-ftbfs.patch
+Patch310: kdewebdev-3.5.10-xslt-api.patch
 
 BuildRequires: gcc gcc-c++
 BuildRequires: automake libtool
@@ -120,6 +121,7 @@ install -m644 -p %{SOURCE5} kxsldbg/
 %patch -P307 -p1 -b .configure-c99
 %patch -P308 -p1 -b .ftbfs
 %patch -P309 -p1 -b .ftbfs
+%patch -P310 -p1 -b .xslt-api-change
 
 make -f admin/Makefile.common cvs
 
@@ -127,7 +129,7 @@ make -f admin/Makefile.common cvs
 %build
 unset QTDIR && . /etc/profile.d/qt.sh
 
-export CXXFLAGS="%{optflags} -std=gnu++98 -fpermissive"
+export CXXFLAGS="%{optflags} -std=gnu++98 -fpermissive -D FORCE_DEBUGGER"
 
 %configure \
   --includedir=%{_includedir}/kde \
@@ -224,6 +226,9 @@ done
 
 
 %changelog
+* Tue Jul 29 2025 Than Ngo <than@redhat.com> - 6:3.5.10-61
+- Fixed FTBFS
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6:3.5.10-60
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

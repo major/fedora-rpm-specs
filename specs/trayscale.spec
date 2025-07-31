@@ -9,7 +9,7 @@
 
 # https://github.com/DeedleFake/trayscale
 %global goipath         github.com/DeedleFake/trayscale
-Version:                0.18.0
+Version:                0.18.1
 
 %if 0%{?rhel}
 %gometa
@@ -24,7 +24,7 @@ An unofficial GUI wrapper around the Tailscale CLI client.}
 %global godocs          README.md
 
 Name:           trayscale
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        An unofficial GUI wrapper around the Tailscale CLI client
 
 # main source code is MIT
@@ -204,6 +204,7 @@ install -D -t %{buildroot}%{_bindir} trayscale
 install -Dm644 -t %{buildroot}%{_datadir}/applications dev.deedles.Trayscale.desktop
 install -Dm644 -t %{buildroot}%{_datadir}/icons/hicolor/256x256/apps dev.deedles.Trayscale.png
 install -Dm644 -t %{buildroot}%{_metainfodir} dev.deedles.Trayscale.metainfo.xml
+install -Dm644 -t %{buildroot}%{_datadir}/glib-2.0/schemas dev.deedles.Trayscale.gschema.xml
 %endif
 
 
@@ -220,6 +221,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/dev.deedles.Tr
 %doc README.md
 %{_bindir}/trayscale
 %{_datadir}/applications/dev.deedles.Trayscale.desktop
+%{_datadir}/glib-2.0/schemas/dev.deedles.Trayscale.gschema.xml
 %{_datadir}/icons/hicolor/*/apps/dev.deedles.Trayscale.png
 %{_metainfodir}/dev.deedles.Trayscale.metainfo.xml
 
@@ -230,6 +232,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/dev.deedles.Tr
 
 
 %changelog
+* Tue Jul 29 2025 Jonathan Wright <jonathan@almalinux.org> - 0.18.1-1
+- update to 0.18.1 rhbz#2384201
+- Include preference gschema rhbz#2343982
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

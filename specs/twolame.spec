@@ -1,6 +1,6 @@
 Name:       twolame
 Version:    0.4.0
-Release:    7%{?dist}
+Release:    8%{?dist}
 Summary:    Optimized MPEG Audio Layer 2 encoding library based on tooLAME
 # build-scripts/install-sh is MIT/X11, build-scripts/{libtool.m4, ltmain.sh} are GPLv2+
 License:    LGPL-2.1-or-later
@@ -14,6 +14,8 @@ BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  libtool
 BuildRequires:  pkgconfig(sndfile) >= 1.0.0
+
+Requires:   %{name}-libs%{?_isa} = %{version}-%{release}
 
 %description
 TwoLAME is an optimized MPEG Audio Layer 2 (MP2) encoder. It should be able to
@@ -78,6 +80,9 @@ rm -rf %{buildroot}%{_docdir}
 %{_includedir}/%{name}.h
 
 %changelog
+* Tue Jul 29 2025 Wim Taymans <wtaymans@redhat.com> - 0.4.0-8
+- Add Requires: to main package
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           jgoodies-forms
 Version:        1.9.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Framework to lay out and implement elegant Swing panels in Java
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -13,7 +13,7 @@ URL:            https://www.jgoodies.com/freeware/libraries/forms/
 Source0:        https://repo1.maven.org/maven2/com/jgoodies/%{name}/%{version}/%{name}-%{version}-sources.jar
 Source1:        https://repo1.maven.org/maven2/com/jgoodies/%{name}/%{version}/%{name}-%{version}.pom
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(com.jgoodies:jgoodies-common)
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -66,6 +66,9 @@ cp %{SOURCE1} pom.xml
 
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 1.9.0-16
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

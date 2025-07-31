@@ -50,7 +50,7 @@ Patch:          CVE-2021-33813.patch
 BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  javapackages-local-openjdk25
-BuildRequires:  ant
+BuildRequires:  ant-openjdk25 
 %endif
 # TODO Remove in Fedora 46
 Obsoletes:      %{name}-javadoc < 1.1.3-45

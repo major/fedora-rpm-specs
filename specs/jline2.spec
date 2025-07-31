@@ -1,6 +1,6 @@
 Name:           jline2
 Version:        2.14.6
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Java library for handling console input
 License:        BSD-3-Clause
 URL:            http://jline.github.io/jline2/
@@ -10,7 +10,7 @@ Source0:        https://github.com/jline/jline2/archive/jline-%{version}.tar.gz
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-source-plugin)
@@ -79,6 +79,9 @@ find -name TerminalFactoryTest.java -delete
 %license LICENSE.txt
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 2.14.6-16
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.6-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

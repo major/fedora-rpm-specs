@@ -3,7 +3,7 @@ Name: tzdata
 Version: 2025b
 %define tzdata_version 2025b
 %define tzcode_version 2025b
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: LicenseRef-Fedora-Public-Domain AND (GPL-2.0-only WITH ClassPath-exception-2.0)
 URL: https://www.iana.org/time-zones
 Source0: ftp://ftp.iana.org/tz/releases/tzdata%{tzdata_version}.tar.gz
@@ -15,7 +15,7 @@ Patch003: 0003-continue-to-ship-posixrules.patch
 BuildRequires: make
 BuildRequires: gcc
 BuildRequires: gawk, glibc, perl-interpreter
-BuildRequires: java-devel
+BuildRequires: java-25-devel
 BuildRequires: glibc-common >= 2.5.90-7
 Conflicts: glibc-common <= 2.3.2-63
 BuildArchitectures: noarch
@@ -146,6 +146,9 @@ echo ============END TESTING===========
 %{_datadir}/javazi-1.8
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 2025b-3
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2025b-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

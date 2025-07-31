@@ -23,7 +23,7 @@ Patch:          %{name}-jsoup.patch
 BuildArch:      noarch
 ExclusiveArch:  noarch %{java_arches}
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.logging.log4j:log4j-1.2-api)
 BuildRequires:  mvn(org.apache.logging.log4j:log4j-api)

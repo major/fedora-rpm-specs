@@ -50,7 +50,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  antlr-C++
 BuildRequires:  antlr-tool
 %if %{with java}
-BuildRequires:  java-devel
+BuildRequires:  java-25-devel
 %endif
 BuildRequires:  eigen3-static
 BuildRequires:  expat-devel

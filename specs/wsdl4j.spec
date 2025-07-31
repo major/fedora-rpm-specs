@@ -2,7 +2,7 @@ Summary:        Web Services Description Language Toolkit for Java
 Name:           wsdl4j
 Epoch:          0
 Version:        1.6.3
-Release:        34%{?dist}
+Release:        35%{?dist}
 # Automatically converted from old format: CPL - review is highly recommended.
 License:        CPL-1.0
 URL:            http://sourceforge.net/projects/wsdl4j
@@ -13,9 +13,9 @@ Source0:        http://downloads.sourceforge.net/project/wsdl4j/WSDL4J/%{version
 Source1:        %{name}-MANIFEST.MF
 Source2:        http://repo1.maven.org/maven2/wsdl4j/wsdl4j/%{version}/wsdl4j-%{version}.pom
 
-BuildRequires:  ant
+BuildRequires:  ant-openjdk25 
 BuildRequires:  ant-junit
-BuildRequires:  javapackages-local
+BuildRequires:  javapackages-local-openjdk25
 
 Provides:       javax.wsdl
 
@@ -62,6 +62,9 @@ ln -sf ../qname.jar %{buildroot}%{_javadir}/javax.wsdl/
 %license license.html
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 0:1.6.3-35
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0:1.6.3-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

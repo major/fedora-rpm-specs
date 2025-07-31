@@ -5,11 +5,10 @@
 %global crate ironrdp-error
 
 Name:           rust-ironrdp-error
-Version:        0.1.2
+Version:        0.1.3
 Release:        %autorelease
 Summary:        IronPDU generic error definition
 
-# Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/ironrdp-error
 Source:         %{crates_source}

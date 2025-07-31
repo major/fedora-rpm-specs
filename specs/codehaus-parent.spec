@@ -1,6 +1,6 @@
 Name:           codehaus-parent
 Version:        4
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Parent pom file for codehaus projects
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -14,7 +14,7 @@ Source1:        http://www.apache.org/licenses/LICENSE-2.0.txt
 
 Patch0:         %{name}-enforcer.patch
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 
 %description
 This package contains the parent pom file for codehaus projects.
@@ -35,6 +35,9 @@ cp -p %{SOURCE1} LICENSE
 %doc LICENSE
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 4-35
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

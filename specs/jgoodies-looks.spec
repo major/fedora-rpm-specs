@@ -2,7 +2,7 @@
 
 Name:           jgoodies-looks
 Version:        2.7.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Free high-fidelity Windows and multi-platform appearance
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -15,7 +15,7 @@ Source1:        https://repo1.maven.org/maven2/com/jgoodies/%{name}/%{version}/%
 # Fix build with JDK 11
 Patch0:         %{name}-2.7.0-jdk11.patch
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(com.jgoodies:jgoodies-common)
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -70,6 +70,9 @@ rm -r src/main/java/com/jgoodies/looks/windows/
 
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 2.7.0-16
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

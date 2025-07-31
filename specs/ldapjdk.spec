@@ -28,7 +28,7 @@ Summary:          LDAP SDK
 URL:              https://github.com/dogtagpki/ldap-sdk
 License:          MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.1-or-later
 Version:          %{major_version}.%{minor_version}.%{update_version}
-Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}.2
+Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}.3
 
 # To create a tarball from a version tag:
 # $ git archive \
@@ -61,9 +61,9 @@ ExclusiveArch:    %{java_arches} noarch
 # Build Dependencies
 ################################################################################
 
-BuildRequires:    ant
+BuildRequires:    ant-openjdk25 
 BuildRequires:    %{java_devel}
-BuildRequires:    maven-local
+BuildRequires:    maven-local-openjdk25
 BuildRequires:    mvn(org.slf4j:slf4j-api)
 BuildRequires:    mvn(org.slf4j:slf4j-jdk14)
 BuildRequires:    mvn(org.dogtagpki.jss:jss-base) >= 5.6.0
@@ -160,6 +160,9 @@ ln -sf %{name}/ldaptools.pom %{buildroot}%{_mavenpomdir}/JPP-ldaptools.pom
 
 ################################################################################
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 5.6.0-0.1.alpha1.3
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.0-0.1.alpha1.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

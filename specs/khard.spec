@@ -1,6 +1,6 @@
 Name:           khard
-Version:        0.19.1
-Release:        8%{?dist}
+Version:        0.20.0
+Release:        2%{?dist}
 Summary:        An address book for the Linux console
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -13,7 +13,6 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools_scm
 Requires:       python3-configobj
 Requires:       python3-ruamel-yaml
-Requires:       python3-unidecode
 Requires:       python3-vobject
 
 %description
@@ -59,6 +58,12 @@ install -p -m 0644 misc/zsh/_khard %{buildroot}%{_datadir}/zsh/site-functions/_k
 
 
 %changelog
+* Tue Jul 29 2025 Ben Boeckel <fedora@me.benboeckel.net> - 0.20.0-2
+- Remove unnecessary `unidecode` dependency
+
+* Tue Jul 29 2025 Ben Boeckel <fedora@me.benboeckel.net> - 0.20.0-1
+- Update to 0.20.0 (rhbz#2383631)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.19.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

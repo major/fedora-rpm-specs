@@ -2,7 +2,7 @@
 
 Name:           string-template-maven-plugin
 Version:        1.1
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Execute StringTemplate files during a maven build
 
 License:        MIT
@@ -21,7 +21,7 @@ Patch:          %{name}-annotations.patch
 # Work around https://issues.apache.org/jira/browse/MNG-5346
 Patch:          %{name}-descriptor.patch
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(org.antlr:ST4)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-enforcer-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-plugin-plugin)
@@ -80,6 +80,9 @@ sed -i 's/1\.6/1.8/g' pom.xml tests/pom.xml \
 %files javadoc -f .mfiles-javadoc
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 1.1-18
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

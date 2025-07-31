@@ -3,8 +3,8 @@
 %global rpcbind_state_dir %{_rundir}/rpcbind
 
 Name:           rpcbind
-Version:        1.2.7
-Release:        2.rc1%{?dist}.1
+Version:        1.2.8
+Release:        0%{?dist}
 Summary:        Universal Addresses to RPC Program Number Mapper
 License:        BSD-3-Clause
 URL:            http://nfsv4.bullopensource.org
@@ -22,8 +22,6 @@ Requires(pre): coreutils
 Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd coreutils
-
-Patch001: rpcbind-1.2.8-rc1.patch
 
 Patch100: rpcbind-0.2.3-systemd-tmpfiles.patch
 Patch101: rpcbind-0.2.4-systemd-rundir.patch
@@ -120,6 +118,9 @@ install -m0644 -D rpcbind.sysusers.conf %{buildroot}%{_sysusersdir}/rpcbind.conf
 %{_sysusersdir}/rpcbind.conf
 
 %changelog
+* Sat Jul 26 2025 Steve Dickson <steved@redhat.com> 1.2.8-0
+- Updated to latest upstream release: rpcbind-1_2_8 (bz 2300081)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.7-2.rc1.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

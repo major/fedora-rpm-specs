@@ -529,6 +529,9 @@ install -m0644 -D tomcat.sysusers.conf %{buildroot}%{_sysusersdir}/tomcat.conf
 %{appdir}/ROOT
 
 %changelog
+* Tue Jul 29 2025 Dimitris Soumis <dsoumis@redhat.com> - 1:10.1.43-5
+- Rebuilt for the side tag f43-build-side-114811
+
 * Fri Jan 10 2025 Dimitris Soumis <dsoumis@redhat.com> - 1:10.1.34-1
 - Update to version 10.1.34
 

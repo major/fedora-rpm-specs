@@ -10,7 +10,7 @@ Source0:        https://repo1.maven.org/maven2/org/codehaus/mojo/%{name}/%{versi
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  maven-artifact-transfer
 BuildRequires:  maven-dependency-plugin
 BuildRequires:  mvn(junit:junit)

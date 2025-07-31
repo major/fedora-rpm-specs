@@ -11,7 +11,7 @@
 
 %global toolchain rocm
 # hipcc does not support some clang flags
-%global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host -fcf-protection/')
+%global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host -fcf-protection/' -e 's/-mtls-dialect=gnu2//')
 
 %bcond_with debug
 %if %{with debug}
@@ -119,7 +119,7 @@
 
 Name:           %{rocblas_name}
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        BLAS implementation for ROCm
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT AND BSD-3-Clause
@@ -327,6 +327,9 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library/src:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Tue Jul 29 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-4
+- Remove -mtls-dialect cflag
+
 * Mon Jul 28 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-3
 - Remove experimental gfx950
 - Remove debian dir

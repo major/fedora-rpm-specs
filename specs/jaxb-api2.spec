@@ -1,6 +1,6 @@
 Name:           jaxb-api2
 Version:        2.3.3
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Jakarta XML Binding API
 License:        BSD
 URL:            https://github.com/eclipse-ee4j/jaxb-api
@@ -9,7 +9,7 @@ ExclusiveArch:  %{java_arches} noarch
 
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(jakarta.activation:jakarta.activation-api:1.2.2)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
@@ -69,6 +69,9 @@ sed -i 's/JAXB-API/jaxb-api2\/jakarta.xml.bind-api-2/' %{buildroot}%{_datadir}/m
 %license LICENSE.md NOTICE.md
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 2.3.3-14
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

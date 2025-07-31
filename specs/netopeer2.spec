@@ -1,11 +1,13 @@
 Name: netopeer2
-Version: 2.2.35
-Release: 2%{?dist}
+Version: 2.4.1
+Release: 1%{?dist}
 Summary: Netopeer2 NETCONF tools suite
 Url: https://github.com/CESNET/netopeer2
 Source: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source2: netopeer2-server.service
 License: BSD-3-Clause
+
+Patch0: 0000-force-remove-modules.patch
 
 BuildRequires: gcc
 BuildRequires: cmake
@@ -31,8 +33,6 @@ Requires: %{name}-cli%{?_isa} = %{version}-%{release}
 Summary: netopeer2 NETCONF server
 
 Requires: libyang >= 2.0.231
-# needed by script merge_hostkey.sh (run in post)
-Requires: openssl
 # needed by script setup.sh (run in post)
 Requires: sysrepo-tools
 # for provided systemd units
@@ -82,6 +82,12 @@ a single established NETCONF session.
 install -D -p -m 0644 %{SOURCE2} %{buildroot}%{_unitdir}/netopeer2-server.service
 mkdir -p -m=700 %{buildroot}%{_sharedstatedir}/netopeer2-server
 
+%pre server
+if [ $1 -gt 1 ] ; then
+rm -rf /dev/shm/sr_*
+rm -rf /dev/shm/srsub_*
+fi
+
 %post server
 set -e
 export NP2_MODULE_DIR=%{_datadir}/yang/modules/netopeer2
@@ -90,8 +96,6 @@ export NP2_MODULE_OWNER=root
 export LN2_MODULE_DIR=%{_datadir}/yang/modules/libnetconf2
 
 %{_datadir}/netopeer2/scripts/setup.sh
-%{_datadir}/netopeer2/merge_hostkey.sh
-%{_datadir}/netopeer2/merge_config.sh
 
 %systemd_post netopeer2-server.service
 
@@ -121,6 +125,9 @@ set -e
 %{_datadir}/man/man1/netopeer2-cli.1.gz
 
 %changelog
+* Mon Jul 28 2025 Michal Ruprich <mruprich@redhat.com> - 2.4.1-1
+- New version 2.4.1
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.35-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

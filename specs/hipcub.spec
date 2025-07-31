@@ -7,7 +7,7 @@
 # Compiler is hipcc, which is clang based:
 %global toolchain rocm
 # hipcc does not support some clang flags
-%global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host -fcf-protection/')
+%global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host -fcf-protection/' -e 's/-mtls-dialect=gnu2//')
 # there is no debug package
 %global debug_package %{nil}
 
@@ -30,7 +30,7 @@
 
 Name:           hipcub
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        ROCm port of CUDA CUB library
 
 Url:            https://github.com/ROCm
@@ -141,6 +141,9 @@ fi
 %endif
 
 %changelog
+* Tue Jul 29 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-3
+- Remove -mtls-dialect cflag
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

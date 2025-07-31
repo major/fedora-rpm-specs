@@ -20,7 +20,7 @@ Patch:         %{name}-%{version}-configure-c99.patch
 
 BuildRequires: gcc-c++
 BuildRequires: make
-BuildRequires: ant
+BuildRequires: ant-openjdk25 
 BuildRequires: javapackages-local-openjdk25
 
 # TODO Remove in Fedora 46

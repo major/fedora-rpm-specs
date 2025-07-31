@@ -44,7 +44,7 @@ BuildRequires:  ethos
 BuildRequires:  flex
 BuildRequires:  gcc-c++
 BuildRequires:  git-core
-BuildRequires:  java-devel
+BuildRequires:  java-25-devel
 BuildRequires:  javapackages-tools
 BuildRequires:  kissat-devel
 BuildRequires:  lfsc-devel
@@ -114,7 +114,7 @@ SMT problems.
 %package        java
 Summary:        Java interface to %{name}
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
-Requires:       java-headless
+Requires:       java-25-headless
 Requires:       javapackages-tools
 
 # This can be removed when F42 reaches EOL

@@ -6,7 +6,7 @@
 Name:           clojure-core-specs-alpha
 Epoch:          1
 Version:        0.4.74
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Clojure library containing specs to describe Clojure core macros and functions
 
 Group:          Development/Languages
@@ -17,7 +17,7 @@ Source0:        %{URL}/archive/refs/tags/v%{full_version}.zip
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(com.theoryinpractise:clojure-maven-plugin)
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
 BuildRequires:  mvn(org.clojure:clojure)
@@ -94,6 +94,9 @@ core macros and functions.
 %doc epl-v10.html CHANGES.md README.md CONTRIBUTING.md
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 1:0.4.74-4
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.4.74-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

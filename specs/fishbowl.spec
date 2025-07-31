@@ -1,6 +1,6 @@
 Name:           fishbowl
 Version:        1.4.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        A collection of helper methods for dealing with exceptions in Java 8
 License:        MIT
 URL:            https://stefanbirkner.github.io/fishbowl
@@ -9,7 +9,7 @@ ExclusiveArch:  %{java_arches} noarch
 
 Source0:        https://github.com/stefanbirkner/%{name}/archive/%{name}-%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.assertj:assertj-core)
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
@@ -57,6 +57,9 @@ rm ./src/test/java8/com/github/stefanbirkner/fishbowl/FishbowlTestNgReadmeTest.j
 %doc README.md
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 1.4.1-13
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

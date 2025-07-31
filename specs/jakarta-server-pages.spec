@@ -2,7 +2,7 @@
 
 Name:           jakarta-server-pages
 Version:        2.3.6
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Jakarta Server Pages (JSP)
 # some files have Apache-2.0 license headers
 # https://github.com/eclipse-ee4j/jsp-api/issues/180
@@ -24,7 +24,7 @@ Patch2:         0002-Port-to-latest-version-of-Servlet-API.patch
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(jakarta.el:jakarta.el-api)
 BuildRequires:  mvn(jakarta.servlet:jakarta.servlet-api)
 BuildRequires:  mvn(javax.servlet:javax.servlet-api)
@@ -130,6 +130,9 @@ rm impl/src/main/java/org/apache/jasper/runtime/PerThreadTagHandlerPool.java
 
 
 %changelog
+* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 2.3.6-20
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.6-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

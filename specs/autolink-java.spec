@@ -11,7 +11,7 @@ Source:         %{url}/archive/autolink-%{version}.tar.gz
 BuildArch:      noarch
 ExclusiveArch:  noarch %{java_arches}
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-compiler-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-jar-plugin)
