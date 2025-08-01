@@ -3,17 +3,15 @@
 
 Name:           python-%{srcname}
 Version:        2.39
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        %{sum}
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            https://launchpad.net/python-distutils-extra
 Source0:        http://launchpad.net/%{name}/trunk/%{version}/+download/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 
 %description
 Enables you to easily integrate gettext support, themed icons and
@@ -31,19 +29,26 @@ scrollkeeper based documentation into Python's distutils.
 %prep
 %autosetup -n %{name}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
 %files -n python3-%{srcname}
 %doc doc/*
 %license LICENSE
 %{python3_sitelib}/DistUtilsExtra/
-%{python3_sitelib}/python_distutils_extra*.egg-info
+%{python3_sitelib}/python_distutils_extra*.dist-info
 
 %changelog
+* Fri Jul 25 2025 David Auer <dreua@posteo.de> - 2.39-36
+- Use pyproject macros
+  Closes: rhbz#2377631
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.39-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

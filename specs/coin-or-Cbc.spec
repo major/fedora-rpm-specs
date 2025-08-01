@@ -9,7 +9,7 @@
 Name:		coin-or-%{module}
 Summary:	Coin-or branch and cut
 Version:	2.10.12
-Release:	7%{?dist}
+Release:	8%{?dist}
 
 # The project as a whole is licensed EPL-2.0.  However, many source files still
 # claim to be licensed EPL-1.0.  This is probably an upstream oversight.
@@ -188,6 +188,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %{_docdir}/%{name}/cbc_doxy.tag
 
 %changelog
+* Wed Jul 30 2025 Jerry James <loganjerry@gmail.com> - 2.10.12-8
+- Rebuild for nauty 2.9.0
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.12-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

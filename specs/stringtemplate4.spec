@@ -2,7 +2,7 @@
 
 Name:           stringtemplate4
 Version:        4.3.4
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A Java template engine
 License:        BSD-3-Clause
 URL:            http://www.stringtemplate.org/
@@ -16,7 +16,7 @@ Patch:          %{name}-java11.patch
 # Adapt tests to JDK 21
 Patch:          %{name}-java21.patch
 
-BuildRequires:  maven-local-openjdk25
+BuildRequires:  maven-local-openjdk21
 BuildRequires:  mesa-dri-drivers
 BuildRequires:  mutter
 BuildRequires:  mvn(junit:junit)
@@ -58,6 +58,9 @@ xwfb-run -c mutter -- %mvn_build
 %license LICENSE.txt
 
 %changelog
+* Wed Jul 30 2025 jiri vanek <jvanek@redhat.com> - 4.3.4-9
+- Rrevert to jdk21
+
 * Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 4.3.4-8
 - Rebuilt for java-25-openjdk as preffered jdk
 

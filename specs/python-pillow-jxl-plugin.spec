@@ -1,12 +1,12 @@
 %global pypi_name pillow_jxl_plugin
 
 Name:           python-pillow-jxl-plugin
-Version:        1.3.3
+Version:        1.3.4
 Release:        %autorelease
 Summary:        Pillow plugin for JPEG-XL
 # GPL-3.0-or-later for code
 # CC-BY and CC-BY-SA for test images
-SourceLicense:  GPL-3.0-or-later and CC-BY-4.0 and CC-BY-SA-4.0
+SourceLicense:  GPL-3.0-or-later AND CC-BY-4.0 AND CC-BY-SA-4.0
 
 # GPL-3.0-or-later
 # MIT
@@ -20,10 +20,6 @@ Source:         %{pypi_source %{pypi_name}}
 
 # drop custom build system that is unnecessary and only breaks stuff
 Patch:          0001-Unconditionally-dynamically-link-libjxl.patch
-
-# (deps): Update pyo3 requirement from 0.24.0 to 0.25.1
-# https://github.com/Isotr0py/pillow-jpegxl-plugin/pull/107
-Patch:          %{url}/pull/107.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  python3-devel

@@ -12,7 +12,7 @@
 %global toolchain rocm
 # hipcc does not support some clang flags
 # build_cxxflags does not honor CMAKE_BUILD_TYPE, strip out -g
-%global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host -fcf-protection/' -e 's/-g / /')
+%global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host -fcf-protection/' -e 's/-g / /' -e 's/-mtls-dialect=gnu2//')
 
 %bcond_with debug
 %if %{with debug}
@@ -73,7 +73,7 @@
 
 Name:           %{rocsolver_name}
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Next generation LAPACK implementation for ROCm platform
 Url:            https://github.com/ROCm/rocSOLVER
 
@@ -295,6 +295,9 @@ fi
 %endif
 
 %changelog
+* Wed Jul 30 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-2
+- Remove -mtls-dialect cflag
+
 * Tue Jul 22 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 6.4.2-1
 - Update to 6.4.2
 - Rebase patch1

@@ -4,7 +4,7 @@
 
 Name: freecell-solver
 Version: 6.14.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: MIT
 Source0: https://fc-solve.shlomifish.org/downloads/fc-solve/%{name}-%{version}.tar.xz
 URL: https://fc-solve.shlomifish.org/
@@ -63,13 +63,10 @@ BuildRequires: python3-devel
 BuildRequires: python3-cffi
 BuildRequires: python3-freecell_solver
 BuildRequires: python3-pysol-cards >= 0.24
-BuildRequires: python3-random2
 BuildRequires: python3-rpm-macros
 BuildRequires: python3dist(six)
 BuildRequires: python3dist(pycotap)
 Requires: %{libname}%{?_isa} = %{version}-%{release}
-# BuildRequires: tap-devel
-BuildRequires: the_silver_searcher
 %ifarch %{valgrind_arches}
 BuildRequires: valgrind
 %endif
@@ -161,7 +158,7 @@ Freecell Solver from within your programs.
 %ifnarch %{valgrind_arches}
 export FCS_TEST_WITHOUT_VALGRIND=1
 %endif
-%__rm -f t/t/py-flake8.t t/t/tidyall.t
+%__rm -f t/t/py-flake8.t t/t/spelling.t t/t/tidyall.t
 src="`pwd`"
 cd "%{__cmake_builddir}"
 perl "$src"/run-tests.pl
@@ -193,6 +190,9 @@ done
 find %{buildroot} -name *.a -delete
 
 %changelog
+* Wed Jul 30 2025 Shlomi Fish <shlomif@shlomifish.org> 6.14.0-3
+- Fix the build on Rawhide. Avoid deprecated BuildRequires
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.14.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

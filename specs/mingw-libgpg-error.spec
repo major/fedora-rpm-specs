@@ -1,8 +1,8 @@
 %?mingw_package_header
 
 Name:           mingw-libgpg-error
-Version:        1.36
-Release:        17%{?dist}
+Version:        1.55
+Release:        1%{?dist}
 Summary:        MinGW Windows GnuPGP error library
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -10,8 +10,6 @@ License:        LicenseRef-Callaway-LGPLv2+
 URL:            ftp://ftp.gnupg.org/gcrypt/libgpg-error/
 Source0:        ftp://ftp.gnupg.org/gcrypt/libgpg-error/libgpg-error-%{version}.tar.bz2
 Source1:        ftp://ftp.gnupg.org/gcrypt/libgpg-error/libgpg-error-%{version}.tar.bz2.sig
-Patch1:         libgpg-error-1.29-multilib.patch
-Patch2:         libgpg-error-prepare-for-gawk-5.0.patch
 BuildArch:      noarch
 
 BuildRequires: make
@@ -69,8 +67,6 @@ Static library for mingw64-libgpg-error development.
 
 %prep
 %setup -q -n libgpg-error-%{version}
-%patch -P1 -p1 -b .multilib
-%patch -P2 -p1 -b .gawk-5.0
 
 # Upstream has applied a libtool hack in libgpg-error 1.12
 # which automatically gives the libgpg-error library a
@@ -103,7 +99,6 @@ rm -rf $RPM_BUILD_ROOT%{mingw64_infodir} $RPM_BUILD_ROOT%{mingw64_mandir}
 
 
 %files -n mingw32-libgpg-error -f mingw32-libgpg-error.lang
-%{mingw32_bindir}/gpg-error-config
 %{mingw32_bindir}/gpgrt-config
 %{mingw32_bindir}/gpg-error.exe
 %{mingw32_bindir}/yat2m.exe
@@ -121,7 +116,6 @@ rm -rf $RPM_BUILD_ROOT%{mingw64_infodir} $RPM_BUILD_ROOT%{mingw64_mandir}
 %{mingw32_libdir}/libgpg-error.a
 
 %files -n mingw64-libgpg-error -f mingw64-libgpg-error.lang
-%{mingw64_bindir}/gpg-error-config
 %{mingw64_bindir}/gpgrt-config
 %{mingw64_bindir}/gpg-error.exe
 %{mingw64_bindir}/yat2m.exe
@@ -140,6 +134,9 @@ rm -rf $RPM_BUILD_ROOT%{mingw64_infodir} $RPM_BUILD_ROOT%{mingw64_mandir}
 
 
 %changelog
+* Wed Jul 30 2025 Marc-André Lureau <marcandre.lureau@redhat.com> - 1.55-1
+- new version, fixes: rhbz#2385186
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.36-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

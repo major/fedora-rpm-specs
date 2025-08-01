@@ -5,20 +5,18 @@
 
 Name:           perl-HTTP-Body
 Summary:        HTTP Body Parser
-Version:        1.22
-Release:        32%{?dist}
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
+Version:        1.23
+Release:        1%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Source0:        https://cpan.metacpan.org/authors/id/G/GE/GETTY/HTTP-Body-%{version}.tar.gz
-URL:            https://metacpan.org/release/HTTP-Body
+URL:            https://metacpan.org/dist/HTTP-Body
 BuildArch:      noarch
 
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.42
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time:
@@ -66,14 +64,11 @@ parts of an HTTP Body.
 %setup -q -n HTTP-Body-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-rm -rf $RPM_BUILD_ROOT
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} ';'
-find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
@@ -83,12 +78,16 @@ export TEST_POD=1
 make test
 
 %files
+%license LICENSE
 %doc Changes README
 %{perl_vendorlib}/HTTP/
-%{_mandir}/man3/*.3*
+%{_mandir}/man3/HTTP::Body*.3*
 
 
 %changelog
+* Tue Jul 29 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.23-1
+- 1.23 bump (rhbz#2273395)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.22-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

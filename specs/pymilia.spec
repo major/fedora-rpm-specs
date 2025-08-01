@@ -1,9 +1,8 @@
 
 Name: pymilia
 Version: 1.0.0
-Release: 48%{?dist}
+Release: 49%{?dist}
 Summary: Python wrappers for milia
-# Automatically converted from old format: GPLv3+ - review is highly recommended.
 License: GPL-3.0-or-later
 
 URL: http://guaix.fis.ucm.es/projects/pymilia/wiki
@@ -21,14 +20,8 @@ Friedmann-Lemaître-Robertson-Walker metric.
 
 %package -n python3-pymilia
 Summary: Python wrappers for milia
-BuildRequires: python3-devel python3-setuptools 
-BuildRequires: python3-Cython
-
-# we don't want to provide private python extension libs
-%{?filter_setup:
-%filter_provides_in %{python3_sitearch}/.*\.so$
-%filter_setup
-}
+BuildRequires: python3-devel 
+BuildRequires: %{py3_dist Cython}
 
 %description -n python3-pymilia 
 Python wrappers for milia. Milia is a C++ library created to 
@@ -38,19 +31,24 @@ Friedmann-Lemaître-Robertson-Walker metric.
 %prep
 %setup -q
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
-%files -n python3-pymilia
-%doc README.txt NEWS.txt
-%license LICENSE.txt
-%{python3_sitearch}/milia/
-%{python3_sitearch}/*.egg-info
+%pyproject_save_files milia
+
+%files -n python3-pymilia -f %{pyproject_files}
+%doc README.txt 
 
 %changelog
+* Wed Jul 30 2025 Sergio Pascual <sergiopr@fedoraproject.org> - 1.0.0-49
+- Use new style Python macros, fixes rhbz #2377398
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-48
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -13,7 +13,8 @@ Summary:        A portable fork of hyperscan, used as a high performance pcre re
 # the source is contained in the boost-devel packages.
 License:        BSD-3-Clause AND BSL-1.0
 # https://bugzilla.redhat.com/show_bug.cgi?id=2264465
-ExcludeArch: s390x
+# 32-bit x86 disabled because upstream can't keep it working.
+ExcludeArch: s390x i686
 URL:            https://github.com/VectorCamp/vectorscan
 Source0:        https://github.com/VectorCamp/vectorscan/archive/%{vectorscan_tag}.tar.gz
 
@@ -48,7 +49,7 @@ BuildRequires:  libpcap-devel
 %ifarch aarch64
 %global fatruntime -DFAT_RUNTIME=ON -DBUILD_SVE=ON -DBUILD_SVE2=ON -DBUILD_SVE2_BITPERM=ON
 %else
-%global fatruntime -DFAT_RUNTIME=OFF
+%global fatruntime -DFAT_RUNTIME=OFF -DBUILD_BENCHMARKS=OFF
 %endif
 
 %endif
@@ -81,7 +82,7 @@ to develop .
 %patch -P0 -p1
 
 %build
-%cmake  -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS:BOOL=ON %{fatruntime} -DUSE_CPU_NATIVE=OFF . -Wno-dev
+%cmake  -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS:BOOL=ON %{fatruntime} . -Wno-dev
 %cmake_build
 
 %install

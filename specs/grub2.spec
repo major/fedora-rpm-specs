@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.12
-Release:	37%{?dist}
+Release:	38%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPL-3.0-or-later
 URL:		http://www.gnu.org/software/grub/
@@ -598,6 +598,9 @@ fi
 %endif
 
 %changelog
+* Tue Jul 29 2025 Leo Sandoval <lsandova@redhat.com> 2.12-38
+- Set correctly the memory attributes for the kernel PE sections
+
 * Tue Jul 8 2025 Nicolas Frayer <nfrayer@redhat.com> - 2.12-37
 - spec: fix grub stub cfg creation script
 

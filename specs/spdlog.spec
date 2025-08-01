@@ -8,6 +8,9 @@ URL:            https://github.com/gabime/%{name}
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch0:         %{name}-fmt_external.patch
 
+# https://github.com/gabime/spdlog/pull/3451
+Patch100:       %{name}-1.15.3-catch2-fixes.patch
+
 BuildRequires:  catch-devel >= 3.0.0
 BuildRequires:  fmt-devel >= 10.0.0
 BuildRequires:  google-benchmark-devel
@@ -36,7 +39,6 @@ applications that use %{name}.
 %autosetup -p1
 find . -name '.gitignore' -delete
 sed -e "s,\r,," -i README.md
-rm -f tests/catch.hpp
 
 %build
 %cmake -G Ninja \

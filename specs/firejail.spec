@@ -6,7 +6,7 @@ Name: firejail
 Summary: Linux namespaces sandbox program
 
 %global ver_no 0.9.76
-%global ver_rc rc4
+#%%global ver_rc rc4
 
 Version: %{expand:%{ver_no}%{?ver_rc:~}%{?ver_rc}}
 Release: 1%{?dist}
@@ -99,6 +99,9 @@ rm %{buildroot}%{_datadir}/gtksourceview-5/language-specs/firejail-profile.lang
 %config(noreplace) %{_sysconfdir}/%{name}
 
 %changelog
+* Wed Jul 30 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.9.76-1
+- Update to v0.9.76
+
 * Tue Jul 29 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.9.76~rc4-1
 - Update to v0.9.76-rc4 (rhbz#2376996)
 

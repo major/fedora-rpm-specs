@@ -4,7 +4,7 @@
 Epoch:          1
 Name:           apache-sshd
 Version:        2.11.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Apache SSHD
 
 # One file has ISC licensing:
@@ -18,7 +18,7 @@ Source0:        https://archive.apache.org/dist/mina/sshd/%{version}/apache-sshd
 # Avoid optional dep on tomcat native APR library
 Patch0:         0001-Avoid-optional-dependency-on-native-tomcat-APR-libra.patch
 
-BuildRequires:  maven-local-openjdk25
+BuildRequires:  maven-local-openjdk21
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(net.i2p.crypto:eddsa)
 BuildRequires:  mvn(org.apache:apache:pom:)
@@ -102,6 +102,9 @@ sed "s;<bouncycastle.version>.*;<bouncycastle.version>%{bouncycastleVer}</bouncy
 %license LICENSE.txt NOTICE.txt assembly/src/main/legal/licenses/jbcrypt.txt
 
 %changelog
+* Wed Jul 30 2025 jiri vanek <jvanek@redhat.com> - 1:2.11.0-7
+- Rrevert to jdk21
+
 * Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 1:2.11.0-6
 - Rebuilt for java-25-openjdk as preffered jdk
 

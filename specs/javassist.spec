@@ -1,6 +1,6 @@
 Name:           javassist
 Version:        3.30.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Java Programming Assistant for Java bytecode manipulation
 License:        MPL-1.1 OR LGPL-2.1-or-later OR Apache-2.0
 
@@ -12,7 +12,7 @@ Source0:        https://github.com/jboss-%{name}/%{name}/archive/refs/tags/%{ups
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-BuildRequires:  maven-local-openjdk25
+BuildRequires:  maven-local-openjdk21
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.hamcrest:hamcrest-all)
@@ -74,6 +74,9 @@ find src/test -name "*.class" -print -delete
 
 
 %changelog
+* Wed Jul 30 2025 jiri vanek <jvanek@redhat.com> - 3.30.2-9
+- Rrevert to jdk21
+
 * Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 3.30.2-8
 - Rebuilt for java-25-openjdk as preffered jdk
 

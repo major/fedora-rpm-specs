@@ -2,7 +2,7 @@
 
 Name:           xbean
 Version:        4.24
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Java plugin based web server
 License:        Apache-2.0
 URL:            https://geronimo.apache.org/xbean/
@@ -17,7 +17,7 @@ Patch2:         0002-Remove-dependency-on-log4j-and-commons-logging.patch
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
-BuildRequires:  maven-local-openjdk25
+BuildRequires:  maven-local-openjdk21
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.osgi:org.osgi.core)
@@ -91,6 +91,9 @@ sed -i '/testGetBytecode/i@org.junit.Ignore' xbean-finder/src/test/java/org/apac
 %license LICENSE NOTICE
 
 %changelog
+* Wed Jul 30 2025 jiri vanek <jvanek@redhat.com> - 4.24-8
+- Rrevert to jdk21
+
 * Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 4.24-7
 - Rebuilt for java-25-openjdk as preffered jdk
 

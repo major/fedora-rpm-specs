@@ -8,11 +8,11 @@
 # don't require bundled modules
 %global __requires_exclude_from ^(%{nodejs_sitelib}/yarn/lib/.*|%{nodejs_sitelib}/yarn/bin/yarn(|\\.cmd|\\.ps1|pkg.*))$
 
-%global bundledate 20250624
+%global bundledate 20250728
 
 Name:           yarnpkg
 Version:        1.22.22
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Fast, reliable, and secure dependency management.
 License:        BSD-2-Clause
 URL:            https://github.com/yarnpkg/yarn
@@ -21,20 +21,15 @@ Source0:        %{name}-v%{version}-bundled-%{bundledate}.tar.gz
 Source1:        yarnpkg-tarball.sh
 
 # These are applied by yarnpkg-tarball.sh
-# async-CVE-2021-43138.prebundle.patch
-# minimatch-CVE-2022-3517.prebundle.patch
-# thenify-CVE-2020-7677.prebundle.patch
-# decode-uri-component-CVE-2022-38900.prebundle.patch
-# CVE-2024-48949.prebundle.patch
-# CVE-2024-37890.prebundle.patch
-# CVE-2024-12905.prebundle.patch
-# CVE-2025-6545_6547.prebundle.patch
+# yarn-update-jest.prebundle.patch
 
 Patch0:         CVE-2023-26136.patch
 Patch1:         CVE-2022-37599.patch
-Patch2:         CVE-2023-46234.patch
-Patch3:         CVE-2024-4067.patch
-
+Patch2:         CVE-2024-4067.patch
+# https://github.com/yarnpkg/yarn/commit/97731871e674bf93bcbf29e9d3258da8685f3076.patch
+Patch3:         CVE-2025-8262.patch
+# https://github.com/form-data/form-data/commit/3d1723080e6577a66f17f163ecd345a21d8d0fd0
+Patch4:         CVE-2025-8263.patch
 
 ExclusiveArch:  %{nodejs_arches}
 
@@ -77,6 +72,7 @@ find %{buildroot}%{nodejs_sitelib}/%{npm_name}/node_modules \
     -ipath '*/test/*' -type f -executable \
     -exec chmod -x '{}' +
 
+
 %if 0%{?enable_tests}
 %check
 %nodejs_symlink_deps --check
@@ -92,7 +88,14 @@ if [[ $(%{buildroot}%{_bindir}/yarn --version) == %{version} ]] ; then echo PASS
 %{_bindir}/yarn
 %{nodejs_sitelib}/%{npm_name}/
 
+
 %changelog
+* Wed Jul 30 2025 Sandro Mani <manisandro@gmail.com> - 1.22.22-11
+- Refresh bundle
+- Drop patches obsoleted by new bundle
+- Add yarn-update-jest.prebundle.patch to update jest and avoid some vulerable dependencies
+- Apply fixes for CVE-2025-8262 and CVE-2025-8263
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.22-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

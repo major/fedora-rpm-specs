@@ -5,7 +5,7 @@
 %global crate rustc-demangle
 
 Name:           rust-rustc-demangle
-Version:        0.1.25
+Version:        0.1.26
 Release:        %autorelease
 Summary:        Rust compiler symbol demangling
 
@@ -33,6 +33,7 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

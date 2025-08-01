@@ -5,7 +5,7 @@
 %global crate calloop
 
 Name:           rust-calloop
-Version:        0.14.2
+Version:        0.14.3
 Release:        %autorelease
 Summary:        Callback-based event loop
 

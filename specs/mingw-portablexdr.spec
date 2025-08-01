@@ -2,7 +2,7 @@
 
 Name:		mingw-portablexdr
 Version:	4.9.1
-Release:	37%{?dist}
+Release:	38%{?dist}
 Summary:	MinGW Windows PortableXDR / RPC Library
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -67,7 +67,7 @@ MinGW Windows PortableXDR XDR / RPC library, static version.
 %autosetup -S git -n portablexdr-%{version}
 
 %build
-%mingw_configure --enable-static
+%mingw_configure --enable-static CFLAGS="-std=gnu89" 
 # Force bison to generate yylex() prototype to avoid build
 # failure with new GCC which is strict about missing prototypes
 export POSIXLY_CORRECT=1
@@ -106,6 +106,9 @@ find $RPM_BUILD_ROOT -name "*.la" -delete
 
 
 %changelog
+* Wed Jul 30 2025 Marc-André Lureau <marcandre.lureau@redhat.com> - 4.9.1-38
+- Fix FTBFS using gnu89.. Fixes: rhbz#2385188
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.1-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

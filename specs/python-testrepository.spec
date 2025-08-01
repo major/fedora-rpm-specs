@@ -1,15 +1,14 @@
-# Created by pyp2rpm-1.0.1
 %global pypi_name testrepository
 
 Name:           python-%{pypi_name}
-Version:        0.0.20
-Release:        40%{?dist}
+Version:        0.0.21
+Release:        1%{?dist}
 Summary:        A repository of test results
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
-URL:            https://launchpad.net/testrepository
-Source0:        http://pypi.python.org/packages/source/t/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
+URL:            https://github.com/testing-cabal/testrepository
+Source0:        https://pypi.python.org/packages/source/t/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
 BuildArch:      noarch
 
 %description
@@ -23,7 +22,6 @@ TAP test suite and any pyunit compatible test suite.
 %package -n python3-%{pypi_name}
 Summary:        A repository of test results (for Python 3)
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-fixtures
 BuildRequires:  python3-subunit
 BuildRequires:  python3-testtools
@@ -32,7 +30,6 @@ Requires:       python3-fixtures
 Requires:       python3-subunit
 Requires:       python3-testtools
 Requires:       python3-extras
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
 # Provide a clean upgrade path
 Obsoletes:      python-%{pypi_name} < 0.0.20-20
@@ -49,27 +46,30 @@ This package is for Python 3.
 
 %prep
 %setup -q -n %{pypi_name}-%{version}
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{pypi_name}
 mv %{buildroot}%{_bindir}/testr{,-%{python3_version}}
 ln -s ./testr-%{python3_version} %{buildroot}%{_bindir}/testr
 
 
-%files -n python3-%{pypi_name}
-%doc README.txt Apache-2.0
+%files -n python3-%{pypi_name} -f %{pyproject_files}
+%doc README.rst Apache-2.0
 %{_bindir}/testr
 %{_bindir}/testr-%{python3_version}
-%{python3_sitelib}/%{pypi_name}/
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Wed Jul 30 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.0.21-1
+- 0.0.21
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.20-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

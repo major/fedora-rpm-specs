@@ -1,6 +1,6 @@
 Name:       xgamma
-Version:    1.0.7
-Release:    6%{?dist}
+Version:    1.0.8
+Release:    1%{?dist}
 Summary:    X utility to query and alter the gamma correction of a monitor
 # COPYING:      X11 AND HPND-sell-variant
 # man/xgamma.man:   X11 without the permision grant, probably a copy-and-paste
@@ -11,6 +11,7 @@ Summary:    X utility to query and alter the gamma correction of a monitor
 # configure.ac: HPND-sell-variant
 # INSTALL:      FSFAP
 # Makefile.am:  HPND-sell-variant
+# meson.build:  MIT
 ## Unbundled
 # aclocal.m4:   FSFULLRWD AND FSFULLR AND
 #               GPL-2.0-or-later WITH Autoconf-exception-generic AND
@@ -28,8 +29,9 @@ License:    X11 AND HPND-sell-variant
 URL:        https://www.x.org/
 Source0:    %{url}releases/individual/app/%{name}-%{version}.tar.xz
 Source1:    %{url}releases/individual/app/%{name}-%{version}.tar.xz.sig
-# Key exported from Petr Pisar's keyring
-Source2:    gpgkey-4A193C06D35E7C670FA4EF0BA2FB9E081F2D130E.gpg
+# Key imported from hkp://keyserver.ubuntu.com server and verified using the
+# previous 4A193C06D35E7C670FA4EF0BA2FB9E081F2D130E key.
+Source2:    gpgkey-3AB285232C46AE43D8E192F4DAB0F78EA6E7E2D2.gpg
 BuildRequires:  autoconf >= 2.60
 BuildRequires:  automake
 BuildRequires:  coreutils
@@ -68,6 +70,9 @@ autoreconf -v --force --install
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Mon Jul 28 2025 Petr Pisar <ppisar@redhat.com> - 1.0.8-1
+- 1.0.8 bump
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -12,7 +12,7 @@
 
 Name: libyang
 Version: 3.12.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: YANG data modeling language library
 Url: https://github.com/CESNET/libyang
 Source: %{url}/archive/%{name}-%{version}.tar.gz
@@ -73,9 +73,7 @@ written (and providing API) in C.
    -DENABLE_VALGRIND_TESTS=%{run_valgrind_tests}
 %cmake_build
 
-pushd redhat-linux-build
-make doc
-popd
+%cmake_build -t doc
 
 %check
 pushd redhat-linux-build
@@ -113,6 +111,9 @@ cp -a doc/html %{buildroot}/%{_docdir}/libyang/html
 %{_docdir}/libyang
 
 %changelog
+* Wed Jul 30 2025 Michal Ruprich <mruprich@redhat.com> - 3.12.2-2
+- Opting-out from the default ninja build due to docs
+
 * Mon Jul 28 2025 Michal Ruprich <mruprich@redhat.com> - 3.12.2-1
 - New version 3.12.2
 

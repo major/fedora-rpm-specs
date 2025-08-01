@@ -1,6 +1,6 @@
 Name:           xmlgraphics-commons
 Version:        2.11
-Release:        3%{?dist}
+Release:        4%{?dist}
 Epoch:          0
 Summary:        XML Graphics Commons
 
@@ -11,7 +11,7 @@ Source0:        http://archive.apache.org/dist/xmlgraphics/commons/source/xmlgra
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-BuildRequires:  maven-local-openjdk25
+BuildRequires:  maven-local-openjdk21
 BuildRequires:  mvn(commons-io:commons-io)
 BuildRequires:  mvn(commons-logging:commons-logging)
 BuildRequires:  mvn(junit:junit)
@@ -67,6 +67,9 @@ find -name "*.jar" -delete
 %license LICENSE NOTICE
 
 %changelog
+* Wed Jul 30 2025 jiri vanek <jvanek@redhat.com> - 0:2.11-4
+- Rrevert to jdk21
+
 * Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 0:2.11-3
 - Rebuilt for java-25-openjdk as preffered jdk
 

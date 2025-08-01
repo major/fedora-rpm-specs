@@ -342,7 +342,7 @@
 %global top_level_dir_name   %{vcstag}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        32
-%global rpmrelease      3
+%global rpmrelease      4
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -2054,11 +2054,11 @@ popd
 %{__mkdir} -p $RPM_BUILD_ROOT/usr/lib/debug/%{_jvmdir}/%{sdkdir -- %{normal_suffix}}/lib/server
 %{__mkdir} -p $RPM_BUILD_ROOT/usr/lib/debug/%{_jvmdir}/%{sdkdir -- %{normal_suffix}}/bin
 pushd $RPM_BUILD_ROOT
-for f in $(find usr/lib/jvm/%{sdkdir -- %{normal_suffix}} -name \*.debuginfo); do
+for f in $(find .%{_jvmdir}/%{sdkdir -- %{normal_suffix}} -name \*.debuginfo); do
   %{__mv} $f "$RPM_BUILD_ROOT/usr/lib/debug/$(dirname $f)/$(basename $f)"
 done
 popd
-pushd $RPM_BUILD_ROOT/usr/lib/debug/usr/lib/jvm
+pushd $RPM_BUILD_ROOT/usr/lib/debug%{_jvmdir}
 find %{compatiblename} -name \*.debuginfo | sed 's,^,/usr/lib/debug%{_jvmdir}/,' >> %{_builddir}/%{compatiblename}/debugfiles.list
 popd
 

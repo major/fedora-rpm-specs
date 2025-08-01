@@ -4,13 +4,13 @@
 
 Name: kdump-anaconda-addon
 Version: 006
-Release: 14.%{snapshotdate}git%{gitshortcommit}%{?dist}
+Release: 15.%{snapshotdate}git%{gitshortcommit}%{?dist}
 Url: https://github.com/rhinstaller/kdump-anaconda-addon
 License: GPL-2.0-only
 Summary: Kdump configuration anaconda addon
 
 BuildArch: noarch
-Requires: anaconda >= 34.13
+Requires: anaconda-core >= 34.13
 Requires: hicolor-icon-theme
 BuildRequires: intltool gettext
 BuildRequires: make
@@ -41,6 +41,9 @@ Kdump anaconda addon
 %{_datadir}/icons/hicolor/scalable/apps/kdump.svg
 
 %changelog
+* Wed Jul 30 2025 Adam Williamson <awilliam@redhat.com> - 006-15.20220714git7ca2d3e
+- Depend on anaconda-core not anaconda
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 006-14.20220714git7ca2d3e
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

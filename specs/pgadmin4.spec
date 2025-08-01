@@ -7,7 +7,7 @@ Name:           pgadmin4
 # NOTE: Also regenerate requires as indicated below when updating!
 # Verify Patch4 on next update
 Version:        9.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Administration tool for PostgreSQL
 
 # i686, armv7hl: The webpack terser plugin aborts with JS heap memory exhaustion on these arches
@@ -55,7 +55,6 @@ BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  libpng-devel
 BuildRequires:  libtool
-BuildRequires:  yasm
 
 # cd pgadmin4-<ver>
 # patch -p1 < pgadmin4_requirements.patch
@@ -247,6 +246,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Tue Jul 29 2025 Dominik Mierzejewski <dominik@greysector.net> - 9.6-2
+- Drop unused yasm dependency, part of:
+  https://fedoraproject.org/wiki/Changes/DeprecateYASM
+
 * Sun Jul 27 2025 Sandro Mani <manisandro@gmail.com> - 9.6-1
 - Update to 9.6
 

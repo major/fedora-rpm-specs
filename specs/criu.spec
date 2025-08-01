@@ -11,8 +11,8 @@
 %undefine _auto_set_build_flags
 
 Name: criu
-Version: 4.1
-Release: 5%{?dist}
+Version: 4.1.1
+Release: 1%{?dist}
 Summary: Tool for Checkpoint/Restore in User-space
 License: GPL-2.0-only AND LGPL-2.1-only AND MIT
 URL: http://criu.org/
@@ -188,6 +188,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libcriu.a
 %tmpfiles_create %{name}.conf
 
 %changelog
+* Wed Jul 30 2025 Adrian Reber <adrian@lisas.de> - 4.1.1-1
+- Update to 4.1.1
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:     mod_mono
 Version:  3.13
-Release:  18%{?dist}
+Release:  19%{?dist}
 Summary:  A module to deploy an ASP.NET application on Apache with Mono
 
 License:  MIT
@@ -8,6 +8,7 @@ URL:      http://www.mono-project.com/docs/web/mod_mono/
 Source0:  http://download.mono-project.com/sources/%{name}/%{name}-%{version}.tar.gz
 Source1:  %{name}-tmpfiles.conf
 Patch0:   mod_mono-varrun.patch
+Patch1:   mod_mono-ignoresbin.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -33,6 +34,7 @@ that is installed along with XSP
 %prep
 %setup -q
 %patch -P0 -p1 -b .varrun
+%patch -P1 -p1 -b .ignoresbin
 
 # fixup character set
 iconv -f iso8859-1 -t utf-8 ChangeLog > ChangeLog.conv && \
@@ -40,6 +42,7 @@ touch -r ChangeLog ChangeLog.conv && \
 mv -f ChangeLog.conv ChangeLog
 
 %build
+autoreconf -f -i
 %configure --disable-static
 make %{?_smp_mflags}
 
@@ -63,6 +66,9 @@ install -d -m 0755 %{buildroot}/run/%{name}/
 %doc %{_mandir}/man8/mod_mono.8*
 
 %changelog
+* Wed Jul 30 2025 Timotheus Pokorra <timotheus.pokorra@solidcharity.com> - 3.13-19
+- fix issue with apr-1-config regarding sbin vs bin
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.13-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

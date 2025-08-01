@@ -10,7 +10,7 @@
 %global srcname %{modname}
 %global pypi_name %{modname}
 %global forgeurl https://github.com/janLuke/%{pypi_name}
-%global version0 3.0.5
+%global version0 3.0.7
 %forgemeta
 
 %global desc CLOUP extends Click with options

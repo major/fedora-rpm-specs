@@ -1,13 +1,13 @@
-%global nspr_version 4.36.0
-%global nss_version 3.113.0
+%global nspr_version 4.37.0
+%global nss_version 3.114.0
 # NOTE: To avoid NVR clashes of nspr* packages:
 # - reset %%{nspr_release} to 1, when updating %%{nspr_version}
 # - increment %%{nspr_version}, when updating the NSS part only
-%global baserelease 2
+%global baserelease 1
 %global nss_release %baserelease
 # use "%%global nspr_release %%[%%baserelease+n]" to handle offsets when
 # release number between nss and nspr are different.
-%global nspr_release %[%baserelease+9]
+%global nspr_release %[%baserelease+0]
 # only need to update this as we added new
 # algorithms under nss policy control
 %global crypto_policies_version 20240521
@@ -1087,6 +1087,9 @@ fi
 
 
 %changelog
+* Wed Jul 30 2025 Frantisek Krenzelok <krenzelok.frantisek@gmail.com> - 3.114.0-1
+- Update NSS to 3.114.0
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.113.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

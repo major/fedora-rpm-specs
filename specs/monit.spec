@@ -1,6 +1,6 @@
 Name:           monit
-Version:        5.34.4
-Release:        4%{?dist}
+Version:        5.35.2
+Release:        1%{?dist}
 Summary:        Manages and monitors processes, files, directories and devices
 
 # Automatically converted from old format: AGPLv3
@@ -85,6 +85,9 @@ mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/monit.d
 %{_mandir}/man1/monit.1*
 
 %changelog
+* Wed Jul 30 2025 Stewart Adam <s.adam@diffingo.com> - 5.35.2-1
+- Update to 5.35.2
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.34.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

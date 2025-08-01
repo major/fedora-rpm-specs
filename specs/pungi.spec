@@ -1,6 +1,6 @@
 Name:           pungi
-Version:        4.9.3
-Release:        2%{?dist}
+Version:        4.10.0
+Release:        1%{?dist}
 Summary:        Distribution compose tool
 
 License:        GPL-2.0-only
@@ -133,6 +133,13 @@ gzip _build/man/pungi.1
 %{_bindir}/%{name}-cache-cleanup
 
 %changelog
+* Wed Jul 30 2025 Lubomír Sedlář <lsedlar@redhat.com> - 4.10.0-1
+- Add more tracing to kojiwrapper (lsedlar)
+- phases: implement image-builder (supakeen)
+- Add a tracing span around call to skopeo inspect (lsedlar)
+- Add retries to skopeo inspect calls (lsedlar)
+- otel: Explicitly initialize telemetry provider and tracer (lsedlar)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

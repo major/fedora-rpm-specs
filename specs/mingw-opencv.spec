@@ -4,7 +4,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       4.11.0
-Release:       2%{?dist}
+Release:       4%{?dist}
 Summary:       MinGW Windows OpenCV library
 
 BuildArch:     noarch
@@ -23,6 +23,8 @@ Source2:       %{pkgname}-clean.sh
 Patch0:        opencv_unbundle.patch
 # Pass -mbig-obj to linker when linking python module, to prevent "too many sections" failure
 Patch1:        opencv_bigobj.patch
+# Backport fix for CVE-2025-53644
+Patch2:        https://github.com/opencv/opencv/commit/a39db41390de546d18962ee1278bd6dbb715f466.patch
 
 
 BuildRequires: make
@@ -236,6 +238,12 @@ rm -f %{buildroot}%{mingw64_prefix}/{LICENSE,setup_vars_opencv4.cmd}
 
 
 %changelog
+* Wed Jul 30 2025 Sandro Mani <manisandro@gmail.com> - 4.11.0-4
+- Backport fix for CVE-2025-53644
+
+* Wed Jul 30 2025 Sandro Mani <manisandro@gmail.com> - 4.11.0-3
+- Rebuild (gdal)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.11.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,8 +1,8 @@
 %global pypi_name geojson
 
 Name:       python-%{pypi_name}
-Version:    3.1.0
-Release:    4%{?dist}
+Version:    3.2.0
+Release:    1%{?dist}
 Summary:    Encoder/decoder for simple GIS features
 
 License:    LicenseRef-Callaway-BSD
@@ -41,6 +41,8 @@ Summary:        %{summary}
 %pyproject_save_files %{pypi_name}
 
 %check
+%pyproject_check_import
+
 %{pytest} -v
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
@@ -48,6 +50,9 @@ Summary:        %{summary}
 %license LICENSE.rst
 
 %changelog
+* Tue Jul 29 2025 Christiano Anderson <chris@christiano.dev> - 3.2.0-1
+- New upstream version 3.2.0
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

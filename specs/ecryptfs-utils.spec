@@ -16,13 +16,14 @@ the interface supplied by the %{name} library.
 
 Name: ecryptfs-utils
 Version: 111
-Release: 40%{?dist}
+Release: 41%{?dist}
 Summary: The eCryptfs mount helper and support libraries
 License: GPL-2.0-or-later
 URL: https://launchpad.net/ecryptfs
 
 Source0: http://launchpad.net/ecryptfs/trunk/%{version}/+download/%{name}_%{version}.orig.tar.gz
 Source1: ecryptfs-mount-private.png
+Source2: ecryptfs-utils.sysusers
 
 ### upstream patches
 # rhbz#1384023, openssl 1.1.x
@@ -226,6 +227,8 @@ mkdir -p $RPM_BUILD_ROOT/usr/lib/modules-load.d/
 echo -e "# ecryptfs module is needed before ecryptfs mount, so mount helper can \n# check for file name encryption support\necryptfs" \
  >$RPM_BUILD_ROOT/usr/lib/modules-load.d/ecryptfs.conf
 
+install -p -D -m 0644 %{SOURCE2} $RPM_BUILD_ROOT%{_sysusersdir}/%{name}.conf
+
 %find_lang %{name}
 
 
@@ -245,7 +248,9 @@ done
 %endif
 
 %pre
-groupadd -r -f ecryptfs
+%if 0%{?fedora} < 42
+%sysusers_create_compat %{SOURCE2}
+%endif
 
 %post loginmount
 /sbin/ldconfig
@@ -321,6 +326,7 @@ fi
 %{_mandir}/man8/mount.ecryptfs.8.gz
 %{_mandir}/man8/pam_ecryptfs.8.gz
 %{_mandir}/man8/umount.ecryptfs.8.gz
+%{_sysusersdir}/%{name}.conf
 
 %files loginmount
 
@@ -337,6 +343,9 @@ fi
 
 
 %changelog
+* Tue Jul 29 2025 Michal Hlavinka <mhlavink@redhat.com> - 111-41
+- use sysusers.d for ecryptfs group creation
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 111-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 %global crate backon
 
 Name:           rust-backon
-Version:        1.5.1
+Version:        1.5.2
 Release:        %autorelease
 Summary:        Make retry like a built-in feature provided by Rust
 

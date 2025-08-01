@@ -1,7 +1,7 @@
 %global pypi_name google-auth-oauthlib
 
 Name:           python-%{pypi_name}
-Version:        1.2.1
+Version:        1.2.2
 Release:        %autorelease
 Summary:        Google oAuth Authentication Library
 

@@ -2,7 +2,7 @@
 
 Name:             python-%{modname}
 Version:          0.36.0
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          Mock D-Bus objects
 
 License:          LGPL-3.0-or-later
@@ -11,11 +11,7 @@ Source0:          https://files.pythonhosted.org/packages/source/p/%{name}/pytho
 
 BuildArch:        noarch
 BuildRequires:    git
-BuildRequires:    python3-dbus
 BuildRequires:    python3-devel
-BuildRequires:    python3dist(setuptools-scm)
-BuildRequires:    python3dist(wheel)
-BuildRequires:    python3-setuptools
 BuildRequires:    python3-gobject
 BuildRequires:    python3-pytest
 BuildRequires:    dbus-x11
@@ -57,6 +53,10 @@ rm -rf python-%{modname}.egg-info
 %doc README.md COPYING
 
 %changelog
+* Tue Jul 29 2025 Miro Hrončok <mhroncok@redhat.com> - 0.36.0-3
+- Drop redundant manual BuildRequires
+- Drop unused BuildRequires on python3dist(wheel)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.36.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

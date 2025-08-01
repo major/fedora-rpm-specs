@@ -32,6 +32,8 @@ Patch:          %{name}-unbundle-cliquer.patch
 Patch:          %{name}-uninitialized.patch
 # Fix a function that can fall off the end
 Patch:          %{name}-fall-off.patch
+# Fix SHA256 computation on big-endian architectures
+Patch:          %{name}-big-endian.patch
 
 BuildRequires:  cliquer-devel
 BuildRequires:  gcc

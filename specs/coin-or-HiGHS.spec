@@ -23,6 +23,8 @@ Patch:          %{name}-popcount.patch
 Patch:          %{name}-vector.patch
 # Unbundle cli11, pdqsort, and zstr
 Patch:          %{name}-unbundle.patch
+# Fix a build failure with pybind11 3.0
+Patch:          %{giturl}/pull/2467.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

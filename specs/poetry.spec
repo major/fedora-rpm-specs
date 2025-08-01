@@ -24,9 +24,12 @@ Source0:        https://github.com/python-poetry/poetry/archive/%{version}/poetr
 # This temporary patch returns correct wheels by calling
 # get_system_wheels_paths() from virtualenv.
 # TODO get rid of this patch by talking to virtualenv and poetry upstream about a better solution.
-Patch:         Patch-get_embedded_wheel-to-return-system-wheels-fro.patch
+Patch:          Patch-get_embedded_wheel-to-return-system-wheels-fro.patch
 
-Patch:         https://github.com/python-poetry/poetry/pull/10397.patch
+Patch:          https://github.com/python-poetry/poetry/pull/10397.patch
+
+# Fix test_python_get_preferred_default for rc Python releases
+Patch:          https://github.com/python-poetry/poetry/pull/10478.patch
 
 BuildArch:      noarch
 

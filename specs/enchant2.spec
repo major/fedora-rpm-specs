@@ -1,8 +1,8 @@
 %bcond mingw %[%{undefined rhel} && %{undefined flatpak}]
 
 Name:          enchant2
-Version:       2.8.11
-Release:       2%{?dist}
+Version:       2.8.12
+Release:       1%{?dist}
 Summary:       An Enchanting Spell Checking Library
 
 License:       LGPL-2.0-or-later
@@ -237,6 +237,9 @@ find %{buildroot} -name '*.la' -delete
 
 
 %changelog
+* Wed Jul 30 2025 Sandro Mani <manisandro@gmail.com> - 2.8.12-1
+- Update to 2.8.12
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

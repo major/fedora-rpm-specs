@@ -17,7 +17,7 @@ Summary: OpenPrinting CUPS filters for CUPS 2.X
 Name:    cups-filters
 Epoch:   1
 Version: 2.0.1
-Release: 7%{?dist}
+Release: 8%{?dist}
 
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
@@ -33,6 +33,9 @@ Source2: lftocrlf
 # Patches
 # https://github.com/OpenPrinting/cups-filters/pull/618
 Patch001: 0001-Fix-build-failure-with-GCC-15-and-std-c23.patch
+# introducing foomatic-hash, but without rejecting values in foomatic-rip
+# https://github.com/OpenPrinting/cups-filters/pull/648
+Patch002: 0001-Introduce-foomatic-hash-and-reject-unauthorized-valu.patch
 
 
 # driverless backend/driver was moved into a separate package to
@@ -185,6 +188,7 @@ fi
 %files
 %license COPYING LICENSE NOTICE
 %doc AUTHORS ABOUT-NLS CHANGES.md CONTRIBUTING.md DEVELOPING.md README.md
+%{_bindir}/foomatic-hash
 %{_bindir}/foomatic-rip
 %attr(0744,root,root) %{_cups_serverbin}/backend/beh
 # all backends needs to be run only as root because of kerberos
@@ -222,6 +226,8 @@ fi
 %{_datadir}/cups/mime/cupsfilters-ghostscript.convs
 %{_datadir}/cups/mime/cupsfilters-individual.convs
 %{_datadir}/cups/mime/cupsfilters-poppler.convs
+%dir %{_datadir}/foomatic
+%dir %{_datadir}/foomatic/hashes.d
 %{_datadir}/ppd/cupsfilters
 %if %{with cups_ppdc}
 # escp.h and pcl.h are required during runtime, because
@@ -234,7 +240,9 @@ fi
 %{_datadir}/ppdc/escp.h
 %{_datadir}/ppdc/pcl.h
 %endif
+%{_mandir}/man1/foomatic-hash.1.gz
 %{_mandir}/man1/foomatic-rip.1.gz
+%config(noreplace) %{_sysconfdir}/foomatic
 
 %files driverless
 %license COPYING LICENSE NOTICE
@@ -248,6 +256,9 @@ fi
 
 
 %changelog
+* Wed Jul 30 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0.1-8
+- Introduce foomatic-hash, but not rejecting values in foomatic-rip
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.0.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 Summary: Helps troubleshoot SELinux problems
 Name: setroubleshoot
 Version: 3.3.35
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: GPL-2.0-or-later
 URL: https://gitlab.com/setroubleshoot/setroubleshoot
 Source0: https://gitlab.com/-/project/24478376/uploads/eade7bc68ab559b9afc00d59644bdee0/setroubleshoot-3.3.35.tar.gz
@@ -17,7 +17,8 @@ Source2: %{name}.sysusers
 BuildRequires: gcc
 BuildRequires: make
 BuildRequires: libcap-ng-devel
-BuildRequires: intltool gettext python3 python3-devel python3-setuptools python3-wheel python3-pip
+BuildRequires: intltool gettext python3 python3-devel python3-setuptools python3-pip
+BuildRequires: (python3-wheel if python3-setuptools < 71)
 BuildRequires: desktop-file-utils libnotify-devel libselinux-devel polkit-devel
 BuildRequires: audit-libs-devel >= 3.0.1
 BuildRequires: python3-libselinux python3-dasbus python3-gobject gtk3-devel
@@ -77,7 +78,7 @@ to user preference. The same tools can be run on existing log files.
 make
 
 %install
-%make_install PREFIX=/usr
+%make_install PREFIX=/usr PIP_NO_BUILD_ISOLATION=0
 desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{buildroot}/%{_datadir}/applications/%{name}.desktop
 mkdir -p %{buildroot}%{pkgvardatadir}
 mkdir -p %{buildroot}%{_rundir}/setroubleshoot
@@ -192,6 +193,9 @@ to user preference. The same tools can be run on existing log files.
 %doc AUTHORS COPYING ChangeLog DBUS.md NEWS README TODO
 
 %changelog
+* Tue Jul 29 2025 Miro Hrončok <mhroncok@redhat.com> - 3.3.35-8
+- Drop unused BuildRequires on python3-wheel
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.35-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

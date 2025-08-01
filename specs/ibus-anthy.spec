@@ -98,6 +98,7 @@ fi
 
 %build
 #autoreconf -f -i -v
+autoreconf -f -i -v
 %configure \
 %if %have_default_layout
   --with-layout='default' \

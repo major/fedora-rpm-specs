@@ -394,6 +394,7 @@ Requires:         %{pkgname}-errmsg = %{sameevr}
 %{?mecab:Requires: mecab-ipadic}
 Requires:         coreutils
 # We require this to be present for %%{_tmpfilesdir}
+# `systemd` is also required for logrotate, as it uses `systemctl kill`
 Requires:         systemd
 # Make sure it's there when scriptlets run, too
 %{?systemd_requires: %systemd_requires}

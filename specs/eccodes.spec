@@ -4,7 +4,7 @@
 
 Name:           eccodes
 Version:        2.42.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        WMO data format decoding and encoding
 
 # force the shared libraries to have these so versions
@@ -52,6 +52,9 @@ Source1:        https://get.ecmwf.int/repository/test-data/eccodes/eccodes_test_
 # a custom script to create man pages
 Source2:        eccodes_create_man_pages.sh
 
+# a custom script to undo directory to symbolic-link changes
+Source3:        eccodes_revert_directory_to_symlink_changes.py
+
 # Add soversion to the shared libraries, since upstream refuses to do so
 # https://jira.ecmwf.int/browse/SUP-1809
 Patch1:         eccodes-soversion.patch
@@ -77,6 +80,9 @@ BuildRequires:  perl(File::Compare)
 
 # For creation of man pages
 BuildRequires:  help2man
+
+# For undoing the directory-to-symlink rename in the data package
+BuildRequires:  python3
 
 # The data is needed by the library and all tools provided in the main package.
 # The other way around, the data package could be installed without
@@ -252,6 +258,10 @@ cp fortran/grib_api_constants.h %{_vpath_builddir}/fortran/
 mkdir -p %{buildroot}%{_fmoddir}
 mv %{buildroot}%{_includedir}/*.mod %{buildroot}%{_fmoddir}/
 
+# undo a change from directories to symbolic links in the data package
+# since the rpm tool cannot handle upgrades if this happens.
+%{python3} %{SOURCE3} %{buildroot}%{_datadir}/%{name}
+
 # remove a script that does not belong in the doc section
 # and triggers an rpmlint error
 rm %{buildroot}%{_datadir}/%{name}/definitions/installDefinitions.sh
@@ -311,6 +321,8 @@ sed -i 's|^libs=.*$|libs=-L${libdir} -leccodes_f90 -leccodes|g' %{buildroot}/%{_
 
 %ldconfig_scriptlets
 
+
+#####################################################
 %check
 cd  %{_vpath_builddir}
 
@@ -331,7 +343,7 @@ ctest3 -V %{?_smp_mflags}
 
 %files
 %license LICENSE
-%doc README.md ChangeLog AUTHORS NEWS NOTICE
+%doc ChangeLog AUTHORS NEWS NOTICE
 %{_bindir}/*
 %{_libdir}/*.so.*
 %{_mandir}/man1/*.1*
@@ -356,6 +368,12 @@ ctest3 -V %{?_smp_mflags}
 %doc %{_datadir}/doc/%{name}/
 
 %changelog
+
+* Wed Jul 30 2025 Jos de Kloe <josdekloe@gmail.com> - 2.42.0-3
+- Add calling a little python script in the install stage to revert
+  the (upstream) replacing of directories by a symlinks 
+  which causes upgrade problems with rpm for the data package.
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.42.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

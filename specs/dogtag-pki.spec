@@ -16,13 +16,13 @@ Name:             dogtag-pki
 # Downstream release number:
 # - development/stabilization (unsupported): 0.<n> where n >= 1
 # - GA/update (supported): <n> where n >= 1
-%global           release_number 0.2
+%global           release_number 0.3
 
 # Development phase:
 # - development (unsupported): alpha<n> where n >= 1
 # - stabilization (unsupported): beta<n> where n >= 1
 # - GA/update (supported): <none>
-%global           phase beta2
+%global           phase beta3
 
 %undefine         timestamp
 %undefine         commit_id
@@ -32,7 +32,7 @@ URL:              https://www.dogtagpki.org
 # The entire source code is GPLv2 except for 'pki-tps' which is LGPLv2
 License:          GPL-2.0-only AND LGPL-2.0-only
 Version:          %{major_version}.%{minor_version}.%{update_version}
-Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}.2
+Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}.3
 
 
 # To create a tarball from a version tag:
@@ -81,10 +81,10 @@ ExcludeArch: i686
 
 %else
 
-%define java_runtime java-21-openjdk
-%define java_devel java-21-openjdk-devel
-%define java_headless java-21-openjdk-headless
-%define java_home %{_jvmdir}/jre-21-openjdk
+%define java_runtime java-25-openjdk
+%define java_devel java-25-openjdk-devel
+%define java_headless java-25-openjdk-headless
+%define java_home %{_jvmdir}/jre-25-openjdk
 %define maven_local maven-local
 
 %endif
@@ -150,7 +150,6 @@ ExcludeArch: i686
 %define pki_groupname pkiuser
 %define pki_gid 17
 
-%define tomcat_groupname tomcat
 
 # Create a home directory for PKI user at /home/pkiuser
 # to store rootless Podman container.
@@ -250,10 +249,10 @@ BuildRequires:    mvn(org.jboss.resteasy:resteasy-servlet-initializer)
 BuildRequires:    tomcat9-lib
 %endif
 
-BuildRequires:    mvn(org.apache.tomcat:tomcat-catalina) >= 10.1.36
-BuildRequires:    mvn(org.apache.tomcat:tomcat-servlet-api) >= 10.1.36
-BuildRequires:    mvn(org.apache.tomcat:tomcat-jaspic-api) >= 10.1.36
-BuildRequires:    mvn(org.apache.tomcat:tomcat-util-scan) >= 10.0.36
+BuildRequires:    mvn(org.apache.tomcat:tomcat-catalina) >= 10.1.43
+BuildRequires:    mvn(org.apache.tomcat:tomcat-servlet-api) >= 10.1.43
+BuildRequires:    mvn(org.apache.tomcat:tomcat-jaspic-api) >= 10.1.43
+BuildRequires:    mvn(org.apache.tomcat:tomcat-util-scan) >= 10.0.43
 
 BuildRequires:    mvn(org.dogtagpki.jss:jss-base) >= 5.8
 BuildRequires:    mvn(org.dogtagpki.jss:jss-tomcat) >= 5.8
@@ -670,9 +669,7 @@ Requires:         mvn(org.jboss.resteasy:resteasy-servlet-initializer)
 Provides:         bundled(resteasy-servlet-initializer)
 %endif
 
-Requires:         tomcat >= 1:10.1.36
-Requires:         tomcat-user-instance >= 1:10.1.36
-Requires:         tomcat-jakartaee-migration
+Requires:         tomcat >= 1:10.1.43
 
 Requires:         mvn(org.dogtagpki.jss:jss-tomcat) >= 5.8
 
@@ -1266,7 +1263,6 @@ fi
 cat > %{product_id}.sysusers.conf <<EOF
 g %{pki_username} %{pki_gid}
 u %{pki_groupname} %{pki_uid} 'Certificate System' %{pki_homedir} -
-m %{pki_username} %{tomcat_groupname}
 EOF
 
 %endif
@@ -1610,9 +1606,7 @@ getent group %{pki_groupname} >/dev/null || groupadd -f -g %{pki_gid} -r %{pki_g
 if ! getent passwd %{pki_username} >/dev/null ; then
     useradd -r -u %{pki_uid} -g %{pki_groupname} -d %{pki_homedir} -s /sbin/nologin -c "Certificate System" %{pki_username}
 fi
-# Add pkiuser to the tomcat group for now to get things working
-# while we investigate the issue.
-usermod -a -G %{tomcat_groupname} %{pki_username}
+
 %endif
 
 # create PKI home directory if it doesn't exist
@@ -2077,6 +2071,9 @@ fi
 
 ################################################################################
 %changelog
+* Wed Jul 30 2025 jiri vanek <jvanek@redhat.com> - 11.8.0-0.2.beta2.3
+- Rrevert to jdk21
+
 * Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 11.8.0-0.2.beta2.2
 - Rebuilt for java-25-openjdk as preffered jdk
 

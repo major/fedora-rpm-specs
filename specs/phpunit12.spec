@@ -16,8 +16,8 @@
 %bcond_with          defcmd
 %endif
 
-%global gh_commit    8b1348b254e5959acaf1539c6bd790515fb49414
-%global gh_date      2025-07-11
+%global gh_commit    49dc7c0669b97c7a36f63411635f48eedc140eb4
+%global gh_date      2025-07-30
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   phpunit
@@ -30,12 +30,12 @@
 %global ver_major    12
 %global ver_minor    2
 
-%global upstream_version 12.2.7
+%global upstream_version 12.2.8
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        The PHP Unit Testing framework version %{ver_major}
 
 License:        BSD-3-Clause
@@ -52,7 +52,7 @@ BuildRequires:  php(language) >= 8.3
 BuildRequires:  (php-composer(myclabs/deep-copy) >= 1.13.3            with php-composer(myclabs/deep-copy) <  2)
 BuildRequires:  (php-composer(phar-io/manifest) >= 2.0.4              with php-composer(phar-io/manifest) < 3)
 BuildRequires:  (php-composer(phar-io/version) >= 3.2.1               with php-composer(phar-io/version) <  4)
-BuildRequires:  (php-composer(phpunit/php-code-coverage) >= 12.3.1    with php-composer(phpunit/php-code-coverage) < 13)
+BuildRequires:  (php-composer(phpunit/php-code-coverage) >= 12.3.2    with php-composer(phpunit/php-code-coverage) < 13)
 BuildRequires:  (php-composer(phpunit/php-file-iterator) >= 6.0.0     with php-composer(phpunit/php-file-iterator) < 7)
 BuildRequires:  (php-composer(phpunit/php-invoker) >= 6.0.0           with php-composer(phpunit/php-invoker) < 7)
 BuildRequires:  (php-composer(phpunit/php-text-template) >= 5.0.0     with php-composer(phpunit/php-text-template) < 6)
@@ -87,7 +87,7 @@ BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 #        "myclabs/deep-copy": "^1.13.3",
 #        "phar-io/manifest": "^2.0.4",
 #        "phar-io/version": "^3.2.1",
-#        "phpunit/php-code-coverage": "^12.3.1",
+#        "phpunit/php-code-coverage": "^12.3.2",
 #        "phpunit/php-file-iterator": "^6.0.0",
 #        "phpunit/php-invoker": "^6.0.0",
 #        "phpunit/php-text-template": "^5.0.0",
@@ -113,7 +113,7 @@ Requires:       php-xmlwriter
 Requires:       (php-composer(myclabs/deep-copy) >= 1.13.3            with php-composer(myclabs/deep-copy) <  2)
 Requires:       (php-composer(phar-io/manifest) >= 2.0.4              with php-composer(phar-io/manifest) < 3)
 Requires:       (php-composer(phar-io/version) >= 3.2.1               with php-composer(phar-io/version) < 4)
-Requires:       (php-composer(phpunit/php-code-coverage) >= 12.3.1    with php-composer(phpunit/php-code-coverage) < 13)
+Requires:       (php-composer(phpunit/php-code-coverage) >= 12.3.2    with php-composer(phpunit/php-code-coverage) < 13)
 Requires:       (php-composer(phpunit/php-file-iterator) >= 6.0.0     with php-composer(phpunit/php-file-iterator) < 7)
 Requires:       (php-composer(phpunit/php-invoker) >= 6.0.0           with php-composer(phpunit/php-invoker) < 7)
 Requires:       (php-composer(phpunit/php-text-template) >= 5.0.0     with php-composer(phpunit/php-text-template) < 6)
@@ -283,6 +283,10 @@ exit $ret
 
 
 %changelog
+* Wed Jul 30 2025 Remi Collet <remi@remirepo.net> - 12.2.8-1
+- update to 12.2.8
+- raise dependency on phpunit/php-code-coverage 12.3.2
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 12.2.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

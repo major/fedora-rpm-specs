@@ -36,7 +36,6 @@ BuildRequires:  pcre-devel
 
 BuildRequires:  python3-qt5
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-sphinx
 
 BuildRequires:  xorg-x11-server-Xvfb
@@ -61,8 +60,11 @@ Obsoletes:      python2-%{srcname} < 3.2.0
 # disable PyQt5 mocking for sphinx
 sed -i -r 's,(MOCK_MODULES = \[).*\],\1],' doc/source/conf.py
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 pushd doc
 sphinx-build-3 source html
 # E: non-standard-executable-perm
@@ -71,10 +73,13 @@ sphinx-build-3 source html
 rm -r html/.buildinfo html/.doctrees
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{srcname}
 
 
 %check
+%pyproject_check_import
+
 # let's find all modules and don't crash after execution
 pushd tests
 rm -f test_all.py
@@ -94,11 +99,9 @@ xvfb-run -s '-screen :0 1024x768x16'\
 %endif
 
 
-%files -n python3-%{srcname}
-%license LICENSE
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.md ChangeLog todo.txt
 %doc doc/html/
-%{python3_sitearch}/%{srcname}*
 
 
 %changelog

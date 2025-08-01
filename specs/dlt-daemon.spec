@@ -6,13 +6,14 @@
 
 Name: dlt-daemon
 Version: 2.18.10
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: DLT - Diagnostic Log and Trace
 Group: System Environment/Base
 License: MPL-2.0
 URL: https://github.com/COVESA/dlt-daemon
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch0: dlt-daemon-config.patch
+Patch1: dlt-daemon-cmake.patch
 
 BuildRequires: cmake
 %if 0%{?docs}

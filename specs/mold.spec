@@ -6,7 +6,7 @@
 %global has_32bit_support 0%{?rhel} < 10
 
 Name:           mold
-Version:        2.40.2
+Version:        2.40.3
 Release:        %autorelease
 Summary:        A Modern Linker
 
@@ -16,9 +16,6 @@ Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 # Allow building against the system-provided `xxhash.h`
 Patch0:         0001-Use-system-compatible-include-path-for-xxhash.h.patch
-
-# Fix unit test on AArch64: https://github.com/rui314/mold/issues/1483
-Patch1:         0002-Fix-test.patch
 
 BuildRequires:  blake3-devel
 BuildRequires:  cmake

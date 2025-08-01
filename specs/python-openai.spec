@@ -1,5 +1,13 @@
 %global srcname openai
 
+# Realtime support requires websockets >= 13.0.0, which is available on
+# Fedora 42+.
+%if 0%{?fedora} >= 42
+%bcond realtime 1
+%else
+%bcond realtime 0
+%endif
+
 Name:           python-%{srcname}
 Version:        1.95.1
 Release:        %autorelease
@@ -30,7 +38,9 @@ Summary:        %{summary}
 %description -n python3-%{srcname} %_description
 
 # Include realtime support subpackage for WebSocket connections
+%if %{with realtime}
 %pyproject_extras_subpkg -n python3-%{srcname} realtime
+%endif
 
 # The "aiohttp", "datalib" and "voice_helpers" extras are not available on
 # Fedora due to missing dependencies on "httpx_aiohttp", "pandas-stubs" and
@@ -40,7 +50,7 @@ Summary:        %{summary}
 %autosetup -p1 -n %{srcname}-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires %{?with_realtime:-x realtime}
 
 %build
 %pyproject_wheel

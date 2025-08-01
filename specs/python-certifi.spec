@@ -1,22 +1,22 @@
 Name:           python-certifi
-Version:        2024.08.30
+Version:        2025.07.09
 Release:        %autorelease
 Summary:        Python package for providing Mozilla's CA Bundle
 
 License:        MPL-2.0
 URL:            https://certifi.io/
 Source:         https://github.com/certifi/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
-Patch:          certifi-2024.08.30-use-system-cert.patch
+Patch:          certifi-2025.07.09-use-system-cert.patch
 
 BuildArch:      noarch
 
 # Require the system certificate bundle (/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem)
-BuildRequires: ca-certificates
+BuildRequires:  ca-certificates
 
 BuildRequires:  python3-devel
 
 # Run upstream tests
-BuildRequires: python3-pytest
+BuildRequires:  python3-pytest
 
 %description
 Certifi is a carefully curated collection of Root Certificates for validating
@@ -60,7 +60,7 @@ rm -rf certifi/*.pem
 
 %install
 %pyproject_install
-%pyproject_save_files certifi
+%pyproject_save_files -l certifi
 
 
 %check

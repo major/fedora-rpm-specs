@@ -10,11 +10,11 @@ URL:       https://github.com/tych0/xcffib
 BuildArch: noarch
 
 BuildRequires:  libxcb-devel
-
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
-BuildRequires:  python%{python3_pkgversion}-cffi >= 1.1.2
-BuildRequires:  python%{python3_pkgversion}-six
+# For tests
+BuildRequires:  python%{python3_pkgversion}-pytest
+BuildRequires:  xeyes
+BuildRequires:  xorg-x11-server-Xvfb
 
 
 %description
@@ -39,23 +39,23 @@ the 29 (xprint and xkb are missing) X extensions in 1.10.
 
 
 %prep
-%setup -q -n xcffib-%{version}
+%setup -q -n %{srcname}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
-
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{srcname}
 
+%check
+%pytest
 
-%files -n python%{python3_pkgversion}-xcffib
-%doc LICENSE
+%files -n python%{python3_pkgversion}-%{srcname} -f %{pyproject_files}
 %doc README.md
-%{python3_sitelib}/xcffib
-%{python3_sitelib}/xcffib*.egg-info
-
 
 %changelog
 %autochangelog

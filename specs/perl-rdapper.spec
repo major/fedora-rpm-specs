@@ -1,6 +1,6 @@
 Name:           perl-rdapper
-Version:        1.15
-Release:        2%{?dist}
+Version:        1.17
+Release:        1%{?dist}
 Summary:        Simple console-based RDAP client
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/App-rdapper
@@ -8,20 +8,31 @@ URL:            https://metacpan.org/dist/App-rdapper
 # from <https://github.com/jodrell/rdapper> that was announced by the author
 # at <https://www.ietf.org/mail-archive/web/weirds/current/msg01981.html>.
 Source0:        https://cpan.metacpan.org/authors/id/G/GB/GBROWN/App-rdapper-%{version}.tar.gz
+# Fix displaying object names, in upstream after 1.17,
+# <https://github.com/gbxyz/rdapper/issues/17>
+Patch0:         App-rdapper-1.17-don-t-assume-name-returns-an-object-closes-17.patch
 BuildArch:      noarch
+BuildRequires:  bash
 BuildRequires:  coreutils
+BuildRequires:  findutils
+BuildRequires:  gettext
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl(File::ShareDir::Install)
 BuildRequires:  perl(strict)
 # Run-time:
+BuildRequires:  perl(base)
 BuildRequires:  perl(constant)
-# Encode not used at tests
+BuildRequires:  perl(Encode)
+BuildRequires:  perl(File::ShareDir)
 BuildRequires:  perl(Getopt::Long)
 # I18N::Langinfo not used at tests
 BuildRequires:  perl(JSON)
 BuildRequires:  perl(List::Util) >= 1.33
+BuildRequires:  perl(locale)
+BuildRequires:  perl(Locale::Maketext::Gettext)
 BuildRequires:  perl(Net::ASN)
 BuildRequires:  perl(Net::DNS::Domain)
 BuildRequires:  perl(Net::IP)
@@ -29,6 +40,8 @@ BuildRequires:  perl(Net::IDN::Encode)
 BuildRequires:  perl(Net::RDAP) >= 0.35
 BuildRequires:  perl(Net::RDAP::EPPStatusMap)
 BuildRequires:  perl(Pod::Usage)
+BuildRequires:  perl(POSIX)
+BuildRequires:  perl(PPI)
 BuildRequires:  perl(Term::ANSIColor)
 BuildRequires:  perl(Term::Size)
 BuildRequires:  perl(Text::Wrap)
@@ -59,24 +72,33 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %autosetup -p1 -n App-rdapper-%{version}
+# Remove pregenerated files
+rm locale/*/LC_MESSAGES/*.mo
 
 %build
+./mkmo.sh
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %{make_build}
 
 %install
 %{make_install}
 %{_fixperms} %{buildroot}/*
+# Remove unhelpful intermediate files
+# <https://github.com/gbxyz/rdapper/issues/16>
+rm %{buildroot}%{perl_vendorlib}/auto/share/module/App-rdapper/rdapper.pot
+rm %{buildroot}%{perl_vendorlib}/auto/share/module/App-rdapper/*/LC_MESSAGES/*.po
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t %{buildroot}%{_libexecdir}/%{name}
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
 #!/bin/sh
+unset RDAPPER_LOCALE_DIR
 cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
 EOF
 chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+unset RDAPPER_LOCALE_DIR
 export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
@@ -84,13 +106,19 @@ make test
 %doc Changes README.md
 %{_bindir}/rdapper
 %dir %{perl_vendorlib}/App
-%{perl_vendorlib}/App/rdapper.pm
-%{_mandir}/man3/App::rdapper.*
+%{perl_vendorlib}/App/rdapper{,.pm}
+%dir %{perl_vendorlib}/auto/share/module/App-rdapper
+%lang(en) %{perl_vendorlib}/auto/share/module/App-rdapper/en
+%lang(fr) %{perl_vendorlib}/auto/share/module/App-rdapper/fr
+%{_mandir}/man3/App::rdapper{::,.}*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jul 29 2025 Petr Pisar <ppisar@redhat.com> - 1.17-1
+- 1.17 bump
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.15-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

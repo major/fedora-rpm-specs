@@ -1,6 +1,6 @@
 Name: pcs
 Version: 0.12.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/LicensingGuidelines/
 # https://fedoraproject.org/wiki/Licensing:Main?rd=Licensing#Good_Licenses
 # GPL-2.0-only: pcs
@@ -74,6 +74,7 @@ Source101: https://github.com/ClusterLabs/pcs-web-ui/releases/download/%{ui_vers
 # Patch1: name.patch
 Patch1: show-info-page-instead-of-webui.patch
 Patch2: fix-pcsd-not-starting-with-older-rack.patch
+Patch3: do-not-require-wheel.patch
 
 # ui patches: >200
 # Patch201: name-web-ui.patch
@@ -111,7 +112,8 @@ BuildRequires: python3-tornado
 BuildRequires: python3-cryptography
 BuildRequires: python3-lxml
 # for building bundled python packages
-BuildRequires: python3-wheel
+# setuptools 71+ builds wheels by itself
+BuildRequires: (python3-wheel if python3-setuptools < 71)
 # ruby and gems for pcsd
 BuildRequires: ruby >= 2.5.0
 BuildRequires: ruby-devel
@@ -338,6 +340,7 @@ update_times_patch(){
 # update_times_patch %%{PATCH1}
 update_times_patch %{PATCH1}
 update_times_patch %{PATCH2}
+update_times_patch %{PATCH3}
 
 # generate .tarball-version if building from an untagged commit, not a released version
 # autogen uses git-version-gen which uses .tarball-version for generating version number
@@ -551,6 +554,9 @@ fi
 
 
 %changelog
+* Wed Jul 30 2025 Michal Pospíšil <mpospisi@redhat.com> - 0.12.1-3
+- Remove BuildRequires: python3-wheel when using setuptools 71+
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

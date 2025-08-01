@@ -1,4 +1,4 @@
-%global device_mapper_version 1.02.207
+%global device_mapper_version 1.02.208
 
 %global enable_cache 1
 %global enable_lvmdbusd 1
@@ -49,7 +49,7 @@ Name: lvm2
 %if 0%{?rhel}
 Epoch: %{rhel}
 %endif
-Version: 2.03.33
+Version: 2.03.34
 Release: %autorelease
 License: GPL-2.0-only
 URL: https://sourceware.org/lvm2
@@ -239,6 +239,7 @@ systemctl start lvm2-lvmpolld.socket >/dev/null 2>&1 || :
 %{_sbindir}/lvmconfig
 %{_sbindir}/lvmdevices
 %{_sbindir}/lvmdump
+%{_sbindir}/lvmpersist
 %if %{enable_lvmpolld}
 %{_sbindir}/lvmpolld
 %endif
@@ -305,12 +306,13 @@ systemctl start lvm2-lvmpolld.socket >/dev/null 2>&1 || :
 %{_mandir}/man8/lvextend.8.gz
 %{_mandir}/man8/lvm.8.gz
 %{_mandir}/man8/lvm-config.8.gz
+%{_mandir}/man8/lvm-dumpconfig.8.gz
+%{_mandir}/man8/lvm-fullreport.8.gz
 %{_mandir}/man8/lvmconfig.8.gz
 %{_mandir}/man8/lvmdevices.8.gz
-%{_mandir}/man8/lvm-dumpconfig.8.gz
 %{_mandir}/man8/lvmdiskscan.8.gz
 %{_mandir}/man8/lvmdump.8.gz
-%{_mandir}/man8/lvm-fullreport.8.gz
+%{_mandir}/man8/lvmpersist.8.gz
 %{_mandir}/man8/lvmsadc.8.gz
 %{_mandir}/man8/lvmsar.8.gz
 %{_mandir}/man8/lvreduce.8.gz

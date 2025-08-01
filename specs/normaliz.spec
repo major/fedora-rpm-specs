@@ -21,6 +21,9 @@ VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/v%{version}/%{name}-%{version}.tar.gz
 # Use libcrypto from openssl instead of the (unpackaged) hash-library
 Patch:          %{name}-hash-library.patch
+# Adapt to changes in nauty 2.9.0
+# https://github.com/Normaliz/Normaliz/issues/436
+Patch:          %{name}-nauty2.9.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

@@ -40,6 +40,9 @@ BuildRequires:  python3-devel
 %prep
 %autosetup -n %{srcname}-%{version} -p1
 
+# Remove upper bound version restriction for Cython
+sed -i 's/cython~=3\.0\.2/cython>=3.0.2,<3.2/' pyproject.toml
+
 %generate_buildrequires
 %pyproject_buildrequires -x ipython,plot,test
 

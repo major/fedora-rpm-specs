@@ -1,5 +1,5 @@
-%global glibcsrcdir glibc-2.41.9000-517-g0263528f8d
-%global glibcversion 2.41.9000
+%global glibcsrcdir glibc-2.42-3-gbc13db7393
+%global glibcversion 2.42
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
 #
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 24
+%global baserelease 1
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -342,7 +342,6 @@ Patch23: glibc-python3.patch
 # https://bugs.winehq.org/show_bug.cgi?id=58523
 # revert 3d3572f59059e2b19b8541ea648a6172136ec42e to fix wine build
 # applied with PP powers as we really need to build wine to fix scriptlet problems
-Patch100: 0001-Revert-Linux-Keep-termios-ioctl-constants-strictly-i.patch
 
 ##############################################################################
 # Continued list of core "glibc" package information:
@@ -2386,6 +2385,32 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Wed Jul 30 2025 Florian Weimer <fweimer@redhat.com> - 2.41.9000-1
+- Drop 0001-Revert-Linux-Keep-termios-ioctl-constants-strictly-i.patch,
+  merged upstream.
+- Auto-sync with upstream branch release/2.42/master,
+  commit bc13db73937730401d592b33092db6df806d193e:
+- inet-fortified: fix namespace violation (bug 33227)
+- Bump version number to 2.42
+- math: Update auto-libm-tests-in with ldbl-128ibm compoundn/pown failures
+- INSTALL: Update newest tested binutils version
+- elf: Compile _dl_debug_state separately (bug 33224)
+- sframe: Add support for SFRAME_F_FDE_FUNC_START_PCREL flag
+- Disable SFrame support by default
+- math: xfail some pown and compoundn tests for ibm128-libgcc
+- posix: Fix double-free after allocation failure in regcomp (bug 33185)
+- Revert "Linux: Keep termios ioctl constants strictly internal"
+- termios: manual: document the SPEED_MAX and BAUD_MAX constants
+- termios: SPEED_MAX and BAUD_MAX constants
+- termios: move the baud_t interface from __USE_MISC to __USE_GNU
+- termios: manual: improve the explanation of various tty concepts
+- termios: manual: remove duplicate cfgetospeed() definition
+- termios: manual: fix typo: tcsettattr -> tcsetattr
+- elf: Initialize GLRO (dl_read_only_area) after static dlopen (bug 33139)
+- x86-64: Properly compile ISA optimized modf and modff
+- x86-64: Compile ISA versions of modf/modff with -fno-stack-protector
+- iconv: iconv -o should not create executable files (bug 33164)
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.41.9000-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

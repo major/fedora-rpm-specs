@@ -121,7 +121,8 @@ sed -i '/self.driver.start(env=env)/i \ \ \ \ \ \ \ \ env["PYTHONPATH"] = "%{bui
 
 export TESTS_REMOVE_REPO_ROOT_FROM_PATH=1 TZ=UTC
 export OPENSSL_ENABLE_SHA1_SIGNATURES=yes
-%pytest --verbose %{!?rhel:--numprocesses=auto --dist=loadfile --maxprocesses=4} tests/unit tests/functional
+# the 'which' tests in tests/unit/customizations/emr/test_emr_utils.py are failing if they run after tests that change the environment and remove PATH
+%pytest --verbose %{!?rhel:--numprocesses=auto --dist=loadfile --maxprocesses=4 -k 'not test_which'} tests/unit tests/functional
 
 
 %files -f %{pyproject_files}

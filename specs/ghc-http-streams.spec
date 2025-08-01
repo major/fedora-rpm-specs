@@ -20,6 +20,7 @@ URL:            https://hackage.haskell.org/package/http-streams
 # Begin cabal-rpm sources:
 Source0:        https://hackage.haskell.org/package/%{pkgver}/%{pkgver}.tar.gz
 # End cabal-rpm sources
+Patch0:         http-streams-update-certs-ca-bundle.patch
 
 # Begin cabal-rpm deps:
 BuildRequires:  ghc-Cabal-devel
@@ -126,6 +127,7 @@ This package provides the Haskell %{pkg_name} profiling library.
 # Begin cabal-rpm setup:
 %setup -q -n %{pkgver}
 # End cabal-rpm setup
+%patch -P0 -p1 -b .orig
 
 
 %build

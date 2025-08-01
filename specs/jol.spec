@@ -1,6 +1,6 @@
 Name:           jol
 Version:        0.17
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Java Object Layout
 
 # GPL-2.0-only: the project as a whole
@@ -13,7 +13,7 @@ License:        GPL-2.0-only AND GPL-2.0-only WITH Classpath-exception-2.0
 URL:            https://openjdk.java.net/projects/code-tools/jol/
 Source0:        https://github.com/openjdk/jol/archive/%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires:  maven-local-openjdk25
+BuildRequires:  maven-local-openjdk21
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(net.sf.jopt-simple:jopt-simple)
 BuildRequires:  mvn(org.ow2.asm:asm)
@@ -83,6 +83,9 @@ This package contains a command line interface to JOL.
 %files cli -f .mfiles-jol-cli
 
 %changelog
+* Wed Jul 30 2025 jiri vanek <jvanek@redhat.com> - 0.17-10
+- Rrevert to jdk21
+
 * Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 0.17-9
 - Rebuilt for java-25-openjdk as preffered jdk
 

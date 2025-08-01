@@ -79,7 +79,7 @@ Paths=(
         afs boot dev \
         etc/{X11/{applnk,fontpath.d,xinit/{xinitrc,xinput}.d},xdg/autostart,opt,pm/{config.d,power.d,sleep.d},skel,sysconfig,keys/ima,pki,bash_completion.d,default,rwtab.d,statetab.d} \
         home media mnt opt root run srv tmp \
-        usr/{bin,games,include,%{_lib}/{bpf,games,X11,pm-utils/{module.d,power.d,sleep.d}},lib/{debug/{.dwz,usr},games,locale,modules,sysimage,systemd/{system,user},swidtag,sysusers.d,tmpfiles.d},libexec,local/{bin,etc,games,lib,%{_lib}/bpf,src,share/{applications,man/man{1,2,3,4,5,6,7,8,9,n,1x,2x,3x,4x,5x,6x,7x,8x,9x},info},libexec,include,},share/{aclocal,appdata,applications,augeas/lenses,backgrounds,bash-completion{,/completions,/helpers},desktop-directories,dict,doc,empty,fish/vendor_completions.d,games,gnome,help,icons,idl,info,licenses,man/man{1,2,3,4,5,6,7,8,9,n,1x,2x,3x,4x,5x,6x,7x,8x,9x,0p,1p,3p},metainfo,mime-info,misc,modulefiles,omf,pixmaps,sounds,themes,xsessions,X11/fonts,wayland-sessions,zsh/site-functions},src,src/kernels,src/debug} \
+        usr/{bin,games,include,%{_lib}/{bpf,games,X11,pkgconfig,pm-utils/{module.d,power.d,sleep.d}},lib/{debug/{.dwz,usr},games,locale,modules,sysimage,systemd/{system,user},swidtag,sysusers.d,tmpfiles.d},libexec,local/{bin,etc,games,lib,%{_lib}/bpf,src,share/{applications,man/man{1,2,3,4,5,6,7,8,9,n,1x,2x,3x,4x,5x,6x,7x,8x,9x},info},libexec,include,},share/{aclocal,appdata,applications,augeas/lenses,backgrounds,bash-completion{,/completions,/helpers},desktop-directories,dict,doc,empty,fish/vendor_completions.d,games,gnome,help,icons,idl,info,licenses,man/man{1,2,3,4,5,6,7,8,9,n,1x,2x,3x,4x,5x,6x,7x,8x,9x,0p,1p,3p},metainfo,mime-info,misc,modulefiles,omf,pixmaps,pkgconfig,sounds,themes,xsessions,X11/fonts,wayland-sessions,zsh/site-functions},src,src/kernels,src/debug} \
         var/{adm,empty,ftp,lib/{games,misc,rpm-state},local,log,nis,preserve,spool/{mail,lpd},tmp,db,cache/bpf,opt,games,yp}
 )
 for i in "${Paths[@]}"; do
@@ -194,6 +194,8 @@ posix.mkdir("/usr/lib/debug/usr/bin")
 posix.mkdir("/usr/lib/debug/usr/lib")
 posix.mkdir("/usr/lib/debug/usr/%{_lib}")
 posix.mkdir("/usr/%{_lib}")
+posix.mkdir("/usr/local")
+posix.mkdir("/usr/local/bin")
 posix.symlink("usr/bin", "/bin")
 posix.symlink("usr/sbin", "/sbin")
 posix.symlink("usr/lib", "/lib")
@@ -263,7 +265,8 @@ while a do
           sta.type == "link" and stb.type == "link" and
           posix.readlink(a) == posix.readlink(b)) then
         print('Symlinking /usr/sbin/'..name..' -> /usr/bin/'..name)
-        posix.symlink("../bin/"..name, "/usr/sbin/"..name)
+        posix.symlink("../bin/"..name, "/usr/sbin/"..name..".tmp")
+        os.rename("/usr/sbin/"..name..".tmp", "/usr/sbin/"..name)
       end
     end
 
@@ -292,7 +295,8 @@ while a do
           sta.type == "link" and stb.type == "link" and
           posix.readlink(a) == posix.readlink(b)) then
         print('Symlinking '..b..' -> /usr/bin/'..name)
-        posix.symlink("../bin/"..name, b)
+        posix.symlink("../bin/"..name, b..".tmp")
+        os.rename(b..".tmp", b)
       elseif not sta and stb and stb.type == "link" then
         target = posix.readlink(b)
         if target ==  "../bin/"..name then
@@ -330,7 +334,8 @@ while b do
           sta.type == "link" and stb.type == "link" and
           posix.readlink(a) == posix.readlink(b)) then
         print('Symlinking /usr/sbin/'..name..' -> '..a)
-        posix.symlink("../bin/"..name, "/usr/sbin/"..name)
+        posix.symlink("../bin/"..name, "/usr/sbin/"..name..".tmp")
+        os.rename("/usr/sbin/"..name..".tmp", "/usr/sbin/"..name)
       end
     end
 
@@ -365,7 +370,8 @@ for _,path in pairs({"/usr/sbin", "/usr/local/sbin"}) do
           if target ~= "../bin/"..name and
              target ~= path:gsub("/sbin","/bin").."/"..name and
              target ~= "../.."..path:gsub("/sbin","/bin").."/"..name and
-             target ~= "../../.."..path:gsub("/sbin","/bin").."/"..name then
+             target ~= "../../.."..path:gsub("/sbin","/bin").."/"..name and
+             target ~= posix.readlink(path:gsub("/sbin","/bin").."/"..name) then
 
             print(path.." cannot be merged yet, "..v.." points to "..target)
             good = false
@@ -391,9 +397,10 @@ end
 %endif
 
 %posttrans -p <lua>
---# we need to restorecon on some dirs created in %pretrans or by other packages
+--# we need to restorecon on some dirs and symlinks created in %pretrans or by other packages
 if posix.access ("/usr/sbin/restorecon", "x") then
-  rpm.execute("/usr/sbin/restorecon", "/var", "/var/run", "/var/lock", "/sys", "/boot", "/dev", "/media", "/afs")
+  rpm.execute("/usr/sbin/restorecon", "/var", "/var/run", "/var/lock", "/sys", "/boot", "/dev",
+              "/media", "/afs", "/usr/sbin", "/usr/local/sbin")
   rpm.execute("/usr/sbin/restorecon", "-r", "/usr/lib/debug")
 end
 
@@ -491,6 +498,7 @@ end
 %ifarch riscv64
 /usr/%{_lib}/lp64d
 %endif
+/usr/%{_lib}/pkgconfig
 /usr/libexec
 %dir /usr/local
 %if %{with merged_sbin}
@@ -534,6 +542,7 @@ end
 %dir /usr/share/modulefiles
 /usr/share/omf
 /usr/share/pixmaps
+/usr/share/pkgconfig
 /usr/share/sounds
 /usr/share/themes
 /usr/share/xsessions

@@ -43,6 +43,7 @@ BuildRequires: python3
 %endif
 %endif
 BuildRequires: pkgconfig(zlib)
+BuildRequires: chrpath
 
 %description
 %{name} is a standalone file import filter library for spreadsheet
@@ -130,6 +131,9 @@ install -p -m 0644 orcus-*.1 %{buildroot}/%{_mandir}/man1
 
 # build documentation
 make doc-doxygen
+
+find %{buildroot}/%{_bindir} -type f -name 'orcus-*' -print0 | xargs -0 chrpath --delete
+find %{buildroot}/%{_libdir} -type f -name '*.so.*' -print0 | xargs -0 chrpath --delete
 
 %check
 #export LD_LIBRARY_PATH=%{buildroot}%{_libdir}${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}

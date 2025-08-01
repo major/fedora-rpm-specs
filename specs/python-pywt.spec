@@ -3,8 +3,8 @@
 %define pkgname PyWavelets
 
 Name:           python-%{modname}
-Version:        1.6.0
-Release:        4%{?dist}
+Version:        1.8.0
+Release:        1%{?dist}
 Summary:        PyWavelets, wavelet transform module
 License:        MIT
 URL:            https://pywavelets.readthedocs.io/en/latest
@@ -93,6 +93,10 @@ popd
 %doc README.rst
 
 %changelog
+* Wed Jul 30 2025 Charalampos Stratakis <cstratak@redhat.com> - 1.8.0-1
+- Update to 1.8.0
+Resolves: rhbz#2127203
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

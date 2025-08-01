@@ -16,7 +16,7 @@ panning and zooming windows, star catalog access, cuts, star pick/fwhm,
 thumbnails, etc.}
 
 Name:           ginga
-Version:        5.2.0
+Version:        5.3.0
 Release:        %autorelease
 Summary:        %{sum}
 # License breakdown
@@ -59,9 +59,11 @@ Examples for %{name}
 %prep
 %autosetup
 sed -i -e s/opencv-python-headless/opencv/ -e s/python-magic.*/file-magic/ setup.cfg
+# we don't have pillow-heif packaged
+sed -i -e /pillow-heif/d setup.cfg
 
 %generate_buildrequires
-%pyproject_buildrequires -x recommended -x qt5
+%pyproject_buildrequires -x recommended -x qt5 -t
 
 %build
 %pyproject_wheel
@@ -97,6 +99,9 @@ chmod 755 %{buildroot}/%{python3_sitelib}/%{name}/util/mosaic.py
 
 # Fix wrong interpreters in some scripts...
 %py3_shebang_fix %{buildroot}/%{python3_sitelib}/ginga/web/pgw/ipg.py %{buildroot}/%{python3_sitelib}/ginga/examples
+
+%check
+%tox
 
 %files
 %doc README.md LONG_DESC.txt doc/WhatsNew.rst

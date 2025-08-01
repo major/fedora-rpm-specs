@@ -2,7 +2,7 @@
 
 Name:           apache-%{jarname}
 Version:        1.10.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Apache Commons Text is a library focused on algorithms working on strings
 License:        Apache-2.0
 URL:            https://commons.apache.org/proper/%{jarname}
@@ -15,7 +15,7 @@ Source2:        https://archive.apache.org/dist/commons/KEYS
 Patch0:         0001-disable-url-lookup.patch
 
 BuildRequires:  gnupg2
-BuildRequires:  maven-local-openjdk25
+BuildRequires:  maven-local-openjdk21
 BuildRequires:  mvn(org.apache.commons:commons-parent:pom:)
 BuildRequires:  mvn(org.assertj:assertj-core)
 BuildRequires:  mvn(org.junit.jupiter:junit-jupiter)
@@ -55,6 +55,9 @@ find -type f '(' -name '*.jar' -o -name '*.class' ')' -print -delete
 %doc README.md RELEASE-NOTES.txt
 
 %changelog
+* Wed Jul 30 2025 jiri vanek <jvanek@redhat.com> - 1.10.0-11
+- Rrevert to jdk21
+
 * Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 1.10.0-10
 - Rebuilt for java-25-openjdk as preffered jdk
 

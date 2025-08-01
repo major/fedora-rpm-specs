@@ -14,7 +14,16 @@ URL:            https://crates.io/crates/idna
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * drop unused, benchmark-only bencher dev-dependency
+# * exclude tests/IdnaTestV2.txt to avoid needing a Unicode-3.0 term in the
+#   licenses of the binary RPMs
 Patch:          idna-fix-metadata.diff
+# * Cherry-pick “Update tests to Unicode 16.0,”
+#   https://github.com/servo/rust-url/commit/68f151c01682d620605b749b61684084150a6c41,
+#   to idna-v1.0.3; see also https://github.com/servo/rust-url/pull/1045. Omit
+#   changes to the upstream CI configuration, which is outside of the part of
+#   the source tree corresponding to the released idna crates anyway. Fixes test
+#   compatibiility with idna_adapter 1.2.1 / ICU4X 2.0.
+Patch10:        0001-Update-tests-to-Unicode-16.0-1045.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

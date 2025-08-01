@@ -1,8 +1,8 @@
 
 Summary: User space tools for kernel auditing
 Name: audit
-Version: 4.1.0
-Release: 3%{?dist}
+Version: 4.1.1
+Release: 1%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: https://github.com/linux-audit/audit-userspace/
 Source0: audit-userspace-%{version}.tar.gz
@@ -251,6 +251,7 @@ fi
 %attr(750,root,root) %{_libexecdir}/initscripts/legacy-actions/auditd/rotate
 %attr(750,root,root) %{_libexecdir}/initscripts/legacy-actions/auditd/state
 %attr(750,root,root) %{_libexecdir}/initscripts/legacy-actions/auditd/stop
+%attr(644,root,root) %{_sysconfdir}/bash_completion.d/audit.bash_completion
 %ghost %{_localstatedir}/run/auditd.state
 %attr(-,root,-) %dir %{_var}/log/audit
 %attr(750,root,root) %dir /etc/audit/plugins.d
@@ -301,6 +302,9 @@ fi
 %attr(750,root,root) %{_sbindir}/audispd-zos-remote
 
 %changelog
+* Wed Jul 30 2025 Steve Grubb <sgrubb@redhat.com> 4.1.1-1
+- New upstream release
+
 * Fri Jul 25 2025 Steve Grubb <sgrubb@redhat.com> 4.1.0-3
 - Attempt correcting install with no systemd (#2380048)
 

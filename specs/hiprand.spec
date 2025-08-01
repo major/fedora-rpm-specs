@@ -12,7 +12,7 @@
 
 %global toolchain rocm
 # hipcc does not support some clang flags
-%global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host -fcf-protection/')
+%global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host -fcf-protection/' -e 's/-mtls-dialect=gnu2//')
 
 %bcond_with debug
 %if %{with debug}
@@ -41,7 +41,7 @@
 
 Name:           %{hiprand_name}
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        HIP random number generator
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -174,6 +174,9 @@ export LD_LIBRARY_PATH=$PWD/build/library:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Wed Jul 30 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-4
+- Remove -mtls-dialect cflag
+
 * Mon Jul 28 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-3
 - Remove debian dir
 

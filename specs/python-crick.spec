@@ -10,9 +10,12 @@ Summary:        High performance approximate and streaming algorithms
 %forgemeta
 
 # Apache-2.0 applies to `crick/tdigest_stubs.c`
-License:        BSD-3-Clause AND Apache-2.0
+# MIT applies to `crick/klib/khash.h`
+License:        BSD-3-Clause AND Apache-2.0 AND MIT
 URL:            %forgeurl
 Source:         %forgesource
+# Fix a segfault in the test suite
+Patch:          %{forgeurl}/pull/69.patch
 
 ExcludeArch:    %{ix86}
 BuildRequires:  gcc

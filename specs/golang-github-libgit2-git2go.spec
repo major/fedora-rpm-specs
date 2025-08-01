@@ -32,6 +32,8 @@ URL:            %{gourl}
 Source:         %{gosource}
 Patch:          0001-Skip-tests-that-use-the-network.patch
 Patch:          libgit2_1.9.patch
+# Fir format strings with Go 1.24.
+Patch:          fix-format-strings.patch
 
 BuildRequires: (pkgconfig(libgit2) >= 1.9 with pkgconfig(libgit2) < 1.10)
 BuildRequires: golang(github.com/google/shlex)

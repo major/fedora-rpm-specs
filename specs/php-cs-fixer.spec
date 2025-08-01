@@ -7,15 +7,15 @@
 # Please, preserve the changelog entries
 #
 
-%global gh_commit    38dad0767bf2a9b516b976852200ae722fe984ca
+%global gh_commit    2fb6d7f6c3398dca5786a1635b27405d73a417ba
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
-%global gh_date      2025-07-15
+%global gh_date      2025-07-29
 %global gh_owner     FriendsOfPHP
 %global gh_project   PHP-CS-Fixer
 
 Name:           php-cs-fixer
-Version:        3.84.0
-Release:        2%{?dist}
+Version:        3.85.1
+Release:        1%{?dist}
 Summary:        PHP Coding Standards Fixer
 
 # see bundled list below, SPDX
@@ -102,6 +102,9 @@ PHP_CS_FIXER_IGNORE_ENV=1 ./%{name} --version | grep %{version}
 
 
 %changelog
+* Wed Jul 30 2025 Remi Collet <remi@remirepo.net> - 3.85.1-1
+- update to 3.85.1
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.84.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

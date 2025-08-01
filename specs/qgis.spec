@@ -2,7 +2,7 @@
 
 Name:           qgis
 Version:        3.44.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A user friendly Open Source Geographic Information System
 
 # http://issues.qgis.org/issues/3789
@@ -305,6 +305,9 @@ rm -f %{buildroot}%{_prefix}/lib/liboauth2authmethod_static.a
 
 
 %changelog
+* Wed Jul 30 2025 Sandro Mani <manisandro@gmail.com> - 3.44.1-3
+- Rebuild (GDAL)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.44.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

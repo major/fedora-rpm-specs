@@ -13,7 +13,7 @@
 
 %global toolchain rocm
 # hipcc does not support some clang flags
-%global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host -fcf-protection/')
+%global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host -fcf-protection/' -e 's/-mtls-dialect=gnu2//')
 
 %bcond_with test
 %if %{with test}
@@ -28,7 +28,7 @@
 %global tensile_version 4.33.0
 %global tensile_verbose 1
 
-%global amdgpu_targets "gfx1100"
+%global amdgpu_targets "gfx1100;gfx1200;gfx1201"
 
 # Compression type and level for source/binary package payloads.
 #  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
@@ -37,7 +37,7 @@
 
 Name:           hipsparselt
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A SPARSE marshaling library
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
@@ -247,6 +247,10 @@ chrpath -r %{rocmllvm_libdir} %{buildroot}%{_bindir}/hipsparselt-test
 %endif
 
 %changelog
+* Wed Jul 30 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-2
+- Remove -mtls-dialect cflag
+- Add gfx1200,gfx1201
+
 * Thu Jul 24 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 6.4.2-1
 - Update to 6.4.2
 

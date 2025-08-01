@@ -5,7 +5,7 @@
 %global crate spytools
 
 Name:           rust-spytools
-Version:        0.3.0
+Version:        0.3.1
 Release:        %autorelease
 Summary:        Tools for spying on running processes
 

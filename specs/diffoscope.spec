@@ -113,7 +113,7 @@ BuildRequires: help2man
 BuildRequires: make
 BuildRequires: git
 %ifarch %{java_arches}
-BuildRequires: java-25-devel
+BuildRequires: java-21-devel
 %endif
 
 Recommends:    %toolz

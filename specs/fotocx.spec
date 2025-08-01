@@ -7,7 +7,6 @@ License: GPL-3.0-or-later
 URL:     https://kornelix.net/fotocx/fotocx.html
 Source0: https://kornelix.net/downloads/downloads/fotocx-%{version}-source.tar.gz
 Source1: %{name}.desktop
-Patch0:  metainfo.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -72,6 +71,7 @@ desktop-file-install --vendor="" \
     --dir %{buildroot}%{_datadir}/applications/ \
     %{SOURCE1}
 
+sed -i /release/d %{buildroot}%{_metainfodir}/*%{name}.metainfo.xml
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*%{name}.metainfo.xml
 
 #symlink identical binaries

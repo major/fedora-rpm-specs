@@ -3,7 +3,7 @@
 
 Name:           maven-archetype
 Version:        3.2.1.0.%{hashShort}
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Maven project templating toolkit
 
 # Most of the code is under ASL 2.0, but some bundled jdom sources are
@@ -26,7 +26,7 @@ Patch3: 0003-Port-to-commons-lang3.patch
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-BuildRequires:  maven-local-openjdk25
+BuildRequires:  maven-local-openjdk21
 BuildRequires:  mvn(commons-io:commons-io)
 BuildRequires:  mvn(net.sourceforge.jchardet:jchardet)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
@@ -197,6 +197,9 @@ popd
 %license NOTICE.txt
 
 %changelog
+* Wed Jul 30 2025 jiri vanek <jvanek@redhat.com> - 3.2.1.0.8b3bdb6-19
+- Rrevert to jdk21
+
 * Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 3.2.1.0.8b3bdb6-18
 - Rebuilt for java-25-openjdk as preffered jdk
 

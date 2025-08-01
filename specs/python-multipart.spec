@@ -5,7 +5,7 @@ The parser can be used to replace cgi.FieldStorage to work around its
 limitations.}
 
 Name:           python-multipart
-Version:        0.2.5
+Version:        1.3.0
 Release:        %autorelease
 Summary:        Parser for multipart/form-data
 License:        MIT

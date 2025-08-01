@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/oracle/ktls-utils
-%global baseversion 1.2.0
+%global baseversion 1.2.1
 
 Name:           ktls-utils
 Version:        %{baseversion}
@@ -35,7 +35,7 @@ negotiated session parameters are passed back to the kernel via
 standard kTLS socket options.
 
 %prep
-%setup -q -n %{name}-%{baseversion}
+%autosetup -p1 -n %{name}-%{name}-%{baseversion}
 
 %build
 ./autogen.sh

@@ -13,6 +13,8 @@ Source0: https://github.com/ostreedev/%{name}/releases/download/v%{version}/libo
 License: LGPL-2.0-or-later
 URL: https://ostreedev.github.io/ostree/
 
+Patch0: 0001-soft-reboot-also-handle-boot.patch
+
 # Conditional to ELN right now to reduce blast radius; xref
 # https://github.com/containers/composefs/pull/229#issuecomment-1838735764
 %if 0%{?rhel} >= 10

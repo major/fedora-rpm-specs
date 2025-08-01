@@ -5,8 +5,8 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-gtk4
-Version:        4.14.4
-Release:        3%{?dist}
+Version:        4.19.2
+Release:        1%{?dist}
 Summary:        MinGW Windows GTK+ library
 
 License:        LGPLv2+
@@ -34,8 +34,8 @@ BuildRequires:  mingw32-gettext
 BuildRequires:  mingw64-gettext
 BuildRequires:  mingw32-graphene
 BuildRequires:  mingw64-graphene
-BuildRequires:  mingw32-gstreamer1-plugins-bad-free
-BuildRequires:  mingw64-gstreamer1-plugins-bad-free
+BuildRequires:  mingw32-gstreamer1-plugins-bad-free >= 1.26.3-3
+BuildRequires:  mingw64-gstreamer1-plugins-bad-free >= 1.26.3-3
 BuildRequires:  mingw64-graphene
 BuildRequires:  mingw32-glib2
 BuildRequires:  mingw64-glib2
@@ -144,6 +144,10 @@ rm -rf %{buildroot}%{mingw64_datadir}/icons/
 rm -rf %{buildroot}%{mingw32_datadir}/metainfo/
 rm -rf %{buildroot}%{mingw64_datadir}/metainfo/
 
+# Bash-completion files aren't interesting for mingw
+rm -rf %{buildroot}%{mingw32_datadir}/bash-completion/
+rm -rf %{buildroot}%{mingw64_datadir}/bash-completion/
+
 %mingw_find_lang %{name} --all-name
 
 
@@ -151,7 +155,6 @@ rm -rf %{buildroot}%{mingw64_datadir}/metainfo/
 %license COPYING
 %{mingw32_bindir}/gtk4-demo-application.exe
 %{mingw32_bindir}/gtk4-demo.exe
-%{mingw32_bindir}/gtk4-icon-browser.exe
 %{mingw32_bindir}/gtk4-widget-factory.exe
 %{mingw32_bindir}/gtk4-builder-tool.exe
 %{mingw32_bindir}/gtk4-encode-symbolic-svg.exe
@@ -160,13 +163,9 @@ rm -rf %{buildroot}%{mingw64_datadir}/metainfo/
 %{mingw32_bindir}/gtk4-path-tool.exe
 %{mingw32_bindir}/gtk4-print-editor.exe
 %{mingw32_bindir}/gtk4-rendernode-tool.exe
+%{mingw32_bindir}/gtk4-image-tool.exe
 %{mingw32_bindir}/libgtk-4-1.dll
 %{mingw32_includedir}/gtk-4.0/
-%dir %{mingw32_libdir}/gtk-4.0
-%dir %{mingw32_libdir}/gtk-4.0/%{bin_version}
-%dir %{mingw32_libdir}/gtk-4.0/%{bin_version}/media
-%{mingw32_libdir}/gtk-4.0/%{bin_version}/media/libmedia-gstreamer.dll
-%{mingw32_libdir}/gtk-4.0/%{bin_version}/media/libmedia-gstreamer.dll.a
 %{mingw32_libdir}/libgtk-4.dll.a
 %{mingw32_libdir}/pkgconfig/gtk4.pc
 %{mingw32_libdir}/pkgconfig/gtk4-win32.pc
@@ -176,6 +175,7 @@ rm -rf %{buildroot}%{mingw64_datadir}/metainfo/
 %{mingw32_datadir}/glib-2.0/schemas/org.gtk.gtk4.Settings.Debug.gschema.xml
 %{mingw32_datadir}/glib-2.0/schemas/org.gtk.gtk4.Settings.EmojiChooser.gschema.xml
 %{mingw32_datadir}/glib-2.0/schemas/org.gtk.gtk4.Settings.FileChooser.gschema.xml
+%{mingw32_datadir}/glib-2.0/schemas/org.gtk.gtk4.Inspector.gschema.xml
 %{mingw32_datadir}/gtk-4.0/
 
 %files -n mingw32-gtk4-update-icon-cache
@@ -186,7 +186,6 @@ rm -rf %{buildroot}%{mingw64_datadir}/metainfo/
 %license COPYING
 %{mingw64_bindir}/gtk4-demo-application.exe
 %{mingw64_bindir}/gtk4-demo.exe
-%{mingw64_bindir}/gtk4-icon-browser.exe
 %{mingw64_bindir}/gtk4-widget-factory.exe
 %{mingw64_bindir}/gtk4-builder-tool.exe
 %{mingw64_bindir}/gtk4-encode-symbolic-svg.exe
@@ -195,13 +194,9 @@ rm -rf %{buildroot}%{mingw64_datadir}/metainfo/
 %{mingw64_bindir}/gtk4-path-tool.exe
 %{mingw64_bindir}/gtk4-print-editor.exe
 %{mingw64_bindir}/gtk4-rendernode-tool.exe
+%{mingw64_bindir}/gtk4-image-tool.exe
 %{mingw64_bindir}/libgtk-4-1.dll
 %{mingw64_includedir}/gtk-4.0/
-%dir %{mingw64_libdir}/gtk-4.0
-%dir %{mingw64_libdir}/gtk-4.0/%{bin_version}
-%dir %{mingw64_libdir}/gtk-4.0/%{bin_version}/media
-%{mingw64_libdir}/gtk-4.0/%{bin_version}/media/libmedia-gstreamer.dll
-%{mingw64_libdir}/gtk-4.0/%{bin_version}/media/libmedia-gstreamer.dll.a
 %{mingw64_libdir}/libgtk-4.dll.a
 %{mingw64_libdir}/pkgconfig/gtk4.pc
 %{mingw64_libdir}/pkgconfig/gtk4-win32.pc
@@ -211,6 +206,7 @@ rm -rf %{buildroot}%{mingw64_datadir}/metainfo/
 %{mingw64_datadir}/glib-2.0/schemas/org.gtk.gtk4.Settings.Debug.gschema.xml
 %{mingw64_datadir}/glib-2.0/schemas/org.gtk.gtk4.Settings.EmojiChooser.gschema.xml
 %{mingw64_datadir}/glib-2.0/schemas/org.gtk.gtk4.Settings.FileChooser.gschema.xml
+%{mingw64_datadir}/glib-2.0/schemas/org.gtk.gtk4.Inspector.gschema.xml
 %{mingw64_datadir}/gtk-4.0/
 
 %files -n mingw64-gtk4-update-icon-cache
@@ -219,6 +215,9 @@ rm -rf %{buildroot}%{mingw64_datadir}/metainfo/
 
 
 %changelog
+* Wed Jul 30 2025 Marc-André Lureau <marcandre.lureau@redhat.com> - 4.19.2-1
+- new version
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.14.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

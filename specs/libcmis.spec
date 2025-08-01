@@ -18,6 +18,7 @@ BuildRequires: pkgconfig(libcurl)
 BuildRequires: pkgconfig(libxml-2.0)
 BuildRequires: xmlto
 BuildRequires: make
+BuildRequires: chrpath
 
 %description
 LibCMIS is a C/C++ client library for working with CM (content management)
@@ -57,6 +58,7 @@ sed -i \
 %install
 %make_install
 rm -f %{buildroot}/%{_libdir}/*.la
+find %{buildroot}/%{_libdir} -type f -name '*.so.*' -print0 | xargs -0 chrpath --delete
 
 %ldconfig_scriptlets
 

@@ -63,7 +63,7 @@
 Name:           ibus
 Version:        1.5.32
 # https://github.com/fedora-infra/rpmautospec/issues/101
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -360,6 +360,7 @@ fi
 #make -C src/compose maintainer-clean-generic
 #make -C tools maintainer-clean-generic
 #make -C ui/gtk3 maintainer-clean-generic
+autoreconf -f -i -v
 %configure \
     --disable-static \
 %if %{with gtk2}
@@ -641,6 +642,9 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Thu Jul 31 2025 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.32-8
+- Resolves #2385068 Remake aclocal.m4 for automake-1.18.1
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.32-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

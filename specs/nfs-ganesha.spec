@@ -81,6 +81,9 @@ Requires: openSUSE-release
 %bcond_without system_ntirpc
 %global use_system_ntirpc %{on_off_switch system_ntirpc}
 
+%bcond_without qos
+%global use_qos %{on_off_switch_qos}
+
 %bcond_without man_page
 %global use_man_page %{on_off_switch man_page}
 
@@ -101,18 +104,20 @@ Requires: openSUSE-release
 %bcond_without rpcbind
 %global use_rpcbind %{on_off_switch rpcbind}
 
+%bcond_without unwind
+%global use_unwind %{on_off_switch unwind}
+
+%bcond_without unwind_enriched_bt
+%global use_unwind_enriched_bt %{on_off_switch unwind_enriched_bt}
+
 %bcond_without mspac_support
 %global use_mspac_support %{on_off_switch mspac_support}
-
 
 %bcond_with sanitize_address
 %global use_sanitize_address %{on_off_switch sanitize_address}
 
 %bcond_with legacy_python_install
 %global use_legacy_python_install %{on_off_switch legacy_python_install}
-
-%bcond_without monitoring
-%global use_monitoring %{on_off_switch monitoring}
 
 %if ( 0%{?rhel} && 0%{?rhel} < 7 )
 %global _rundir %{_localstatedir}/run
@@ -122,18 +127,15 @@ Requires: openSUSE-release
 #%%global dev rc6
 
 Name:		nfs-ganesha
-Version:	6.5
-Release:	6%{?dev:%{dev}}%{?dist}
+Version:	7.0
+Release:	1%{?dev:%{dev}}%{?dist}
 Summary:	NFS-Ganesha is a NFS Server running in user space
 License:	LGPL-3.0-or-later
 Url:		https://github.com/nfs-ganesha/nfs-ganesha/wiki
 
-%global prometh_ver_long	48d09c45ee6deb90e02579b03037740e1c01fd27
-%global prometh_ver_short	48d09c45
 Source0:	https://github.com/%{name}/%{name}/archive/V%{version}%{?dev:-%{dev}}/%{name}-%{version}%{?dev:%{dev}}.tar.gz
-Source1:	https://github.com/biaks/prometheus-cpp-lite/archive/%{prometh_ver_long}/prometheus-cpp-lite-%{prometh_ver_short}.tar.gz
 Patch:		0001-config_samples-log_rotate.patch
-Patch:		0002-src-selinux-ganesha.te.patch
+Patch:		0002-src-MainNFSD-CMakeLists.txt.patch
 
 BuildRequires:	cmake
 BuildRequires:	make
@@ -169,13 +171,9 @@ BuildRequires:	libuuid-devel
 %if ( 0%{?with_mspac_support} )
 BuildRequires: libwbclient-devel
 %endif
-%if ( 0%{?with_monitoring_support} )
-BuildRequires: libcurl-devel
-BuildRequires: zlib-ng-devel
-%endif
-BuildRequires:	gcc-c++
+BuildRequires:	gcc gcc-c++
 %if ( 0%{?with_system_ntirpc} )
-BuildRequires:	libntirpc-devel >= 6.3
+BuildRequires:	libntirpc-devel >= 7.0
 %else
 Requires: libntirpc = @NTIRPC_VERSION_EMBED@
 %endif
@@ -195,10 +193,6 @@ Requires:	policycoreutils-python-utils
 BuildRequires: libasan
 %endif
 Requires:	nfs-utils
-
-%if %{with monitoring}
-Requires:      gmonitoring
-%endif
 
 %if ( 0%{?with_rpcbind} )
 %if ( 0%{?fedora} ) || ( 0%{?rhel} && 0%{?rhel} >= 6 ) || ( 0%{?suse_version} )
@@ -257,16 +251,14 @@ This package contains the mount.9P script that clients can use
 to simplify mounting to NFS-GANESHA. This is a 9p mount helper.
 %endif
 
-%if %{with monitoring}
-%package -n gmonitoring
+%package -n ganesha_monitoring
 Summary: The NFS-GANESHA Monitoring module
 Group: Applications/System
-Provides: libgmonitoring.so
+Provides: libganesha_monitoring.so
 
-%description -n gmonitoring
+%description -n ganesha_monitoring
 The monitoring module contains metrics collectors and HTTP exposer
 in Prometheus format.
-%endif
 
 %package vfs
 Summary: The NFS-GANESHA VFS FSAL
@@ -534,7 +526,7 @@ Url:		https://github.com/nfs-ganesha/ntirpc
 Requires:	libtirpc
 
 %if %{with monitoring}
-Requires:      gmonitoring
+Requires:      ganesha_monitoring
 %endif
 
 %description -n libntirpc
@@ -562,7 +554,6 @@ Development headers and auxiliary files for developing with %{name}.
 %endif
 
 %prep
-tar xpf %{SOURCE1}
 %autosetup -p1
 
 # Create a sysusers.d config file
@@ -572,7 +563,6 @@ EOF
 
 %build
 export VERBOSE=1
-mv ../prometheus-cpp-lite-%{prometh_ver_long}/* ./src/monitoring/prometheus-cpp-lite
 cd src && %cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo	\
 	-DBUILD_CONFIG=rpmbuild				\
 	-DCMAKE_COLOR_MAKEFILE:BOOL=OFF			\
@@ -587,8 +577,11 @@ cd src && %cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo	\
 	-DUSE_FSAL_GLUSTER=%{use_fsal_gluster}		\
 	-DUSE_FSAL_SAUNAFS=%{use_fsal_saunafs}		\
 	-DUSE_SYSTEM_NTIRPC=%{use_system_ntirpc}	\
+	-DENABLE_QOS=%{use_qos}				\
 	-DUSE_9P_RDMA=%{use_rdma}			\
 	-DUSE_LTTNG=%{use_lttng}			\
+	-DUSE_UNWIND=%{use_unwind}			\
+	-DUSE_UNWIND_ENRICHED_BT=%{use_unwind_enriched_bt}	\
 	-DUSE_ADMIN_TOOLS=%{use_utils}			\
 	-DUSE_GUI_ADMIN_TOOLS=%{use_gui_utils}		\
 	-DUSE_RADOS_RECOV=%{use_rados_recov}		\
@@ -603,7 +596,6 @@ cd src && %cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo	\
 	-DUSE_MAN_PAGE=%{use_man_page}			\
 	-DRPCBIND=%{use_rpcbind}			\
 	-D_MSPAC_SUPPORT=%{use_mspac_support}		\
-	-DUSE_MONITORING=%{use_monitoring}		\
 	-DSANITIZE_ADDRESS=%{use_sanitize_address}	\
 	-DUSE_LEGACY_PYTHON_INSTALL=%{use_legacy_python_install} \
 %ifarch x86_64 aarch64
@@ -792,6 +784,10 @@ killall -SIGHUP dbus-daemon >/dev/null 2>&1 || :
 %endif
 %endif
 
+%if %{with qos}
+%{_mandir}/*/ganesha-qos-config.8.gz
+%endif
+
 %if ( 0%{?with_rados_urls} )
 %files rados-urls
 %{_libdir}/libganesha_rados_urls.so*
@@ -805,10 +801,8 @@ killall -SIGHUP dbus-daemon >/dev/null 2>&1 || :
 %endif
 %endif
 
-%if %{with monitoring}
-%files -n gmonitoring
-%{_libdir}/libgmonitoring*
-%endif
+%files -n ganesha_monitoring
+%{_libdir}/libganesha_monitoring*
 
 %files vfs
 %{_libdir}/ganesha/libfsalvfs*
@@ -971,6 +965,9 @@ killall -SIGHUP dbus-daemon >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Wed Jul 30 2025 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 7.0-1
+- NFS-Ganesha 7.0 GA
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.5-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,3 +1,8 @@
+# Add a rebuild comment to force a new build
+#
+# This commit forces a rebuild due to infrastructure changes or similar.
+# No functional changes are present in this commit.
+
 %global project beetpost
 %global goipath codeberg.org/gbcox/%{project}
 %global forgeurl https://codeberg.org/gbcox/%{project}/

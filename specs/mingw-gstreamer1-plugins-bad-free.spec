@@ -5,7 +5,7 @@
 
 Name:           mingw-gstreamer1-plugins-bad-free
 Version:        1.26.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Cross compiled GStreamer1 plug-ins "bad"
 
 # The freeze and nfs plugins are LGPLv2 (only)
@@ -18,6 +18,7 @@ Source0:        gst-plugins-bad-free-%{version}.tar.xz
 Source1:        gst-p-bad-cleanup.sh
 # Adapt for directxmath header location
 Patch1:        gst-p-bad-directxmath.patch
+Patch2:        0001-meson-d3d12-Add-support-for-MinGW-DirectXMath-packag.patch
 
 BuildArch:      noarch
 
@@ -40,6 +41,8 @@ BuildRequires:  mingw32-bzip2
 BuildRequires:  mingw64-bzip2
 BuildRequires:  mingw32-curl
 BuildRequires:  mingw64-curl
+BuildRequires:  mingw32-directx-headers
+BuildRequires:  mingw64-directx-headers
 BuildRequires:  mingw32-gettext
 BuildRequires:  mingw64-gettext
 BuildRequires:  mingw32-gnutls
@@ -164,8 +167,8 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
     -D sctp=disabled -D svthevcenc=disabled -D voaacenc=disabled \
     -D zxing=disabled -D wpe=disabled -D x11=disabled \
     -D openh264=disabled \
-    -D examples=disabled -D tests=disabled
-#    -D d3d11=disabled \
+    -D examples=disabled -D tests=disabled \
+    -D codec2json=disabled
 
 
 %mingw_ninja
@@ -195,6 +198,7 @@ rm -f %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 %{mingw32_bindir}/libgstcodecparsers-1.0-0.dll
 %{mingw32_bindir}/libgstcuda-1.0-0.dll
 %{mingw32_bindir}/libgstd3d11-1.0-0.dll
+%{mingw32_bindir}/libgstd3d12-1.0-0.dll
 %{mingw32_bindir}/libgstd3dshader-1.0-0.dll
 %{mingw32_bindir}/libgstdxva-1.0-0.dll
 %{mingw32_bindir}/libgstinsertbin-1.0-0.dll
@@ -235,6 +239,7 @@ rm -f %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 %{mingw32_libdir}/gstreamer-%{api_version}/libgstcurl.dll
 %{mingw32_libdir}/gstreamer-%{api_version}/libgstd3d.dll
 %{mingw32_libdir}/gstreamer-%{api_version}/libgstd3d11.dll
+%{mingw32_libdir}/gstreamer-%{api_version}/libgstd3d12.dll
 %{mingw32_libdir}/gstreamer-%{api_version}/libgstdash.dll
 %{mingw32_libdir}/gstreamer-%{api_version}/libgstdebugutilsbad.dll
 %{mingw32_libdir}/gstreamer-%{api_version}/libgstdecklink.dll
@@ -329,6 +334,7 @@ rm -f %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 %{mingw32_includedir}/gstreamer-%{api_version}/gst/webrtc/
 %{mingw32_includedir}/gstreamer-%{api_version}/gst/cuda/
 %{mingw32_includedir}/gstreamer-%{api_version}/gst/d3d11/
+%{mingw32_includedir}/gstreamer-%{api_version}/gst/d3d12/
 
 %{mingw32_libdir}/gstreamer-%{api_version}/include/
 %{mingw32_libdir}/libgstadaptivedemux-%{api_version}.dll.a
@@ -338,6 +344,7 @@ rm -f %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 %{mingw32_libdir}/libgstcodecs-%{api_version}.dll.a
 %{mingw32_libdir}/libgstcodecparsers-%{api_version}.dll.a
 %{mingw32_libdir}/libgstd3d11-%{api_version}.dll.a
+%{mingw32_libdir}/libgstd3d12-%{api_version}.dll.a
 %{mingw32_libdir}/libgstd3dshader-1.0.dll.a
 %{mingw32_libdir}/libgstdxva-%{api_version}.dll.a
 %{mingw32_libdir}/libgstinsertbin-%{api_version}.dll.a
@@ -368,6 +375,7 @@ rm -f %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 %{mingw32_libdir}/pkgconfig/gstreamer-webrtc-%{api_version}.pc
 %{mingw32_libdir}/pkgconfig/gstreamer-cuda-%{api_version}.pc
 %{mingw32_libdir}/pkgconfig/gstreamer-d3d11-%{api_version}.pc
+%{mingw32_libdir}/pkgconfig/gstreamer-d3d12-%{api_version}.pc
 
 %{mingw32_datadir}/gstreamer-%{api_version}/presets/
 %{mingw32_datadir}/gstreamer-%{api_version}/encoding-profiles/
@@ -387,6 +395,7 @@ rm -f %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 %{mingw64_bindir}/libgstcodecparsers-1.0-0.dll
 %{mingw64_bindir}/libgstcuda-1.0-0.dll
 %{mingw64_bindir}/libgstd3d11-1.0-0.dll
+%{mingw64_bindir}/libgstd3d12-1.0-0.dll
 %{mingw64_bindir}/libgstd3dshader-1.0-0.dll
 %{mingw64_bindir}/libgstdxva-1.0-0.dll
 %{mingw64_bindir}/libgstinsertbin-1.0-0.dll
@@ -427,6 +436,7 @@ rm -f %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 %{mingw64_libdir}/gstreamer-%{api_version}/libgstcurl.dll
 %{mingw64_libdir}/gstreamer-%{api_version}/libgstd3d.dll
 %{mingw64_libdir}/gstreamer-%{api_version}/libgstd3d11.dll
+%{mingw64_libdir}/gstreamer-%{api_version}/libgstd3d12.dll
 %{mingw64_libdir}/gstreamer-%{api_version}/libgstdash.dll
 %{mingw64_libdir}/gstreamer-%{api_version}/libgstdebugutilsbad.dll
 %{mingw64_libdir}/gstreamer-%{api_version}/libgstdecklink.dll
@@ -521,6 +531,7 @@ rm -f %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 %{mingw64_includedir}/gstreamer-%{api_version}/gst/webrtc/
 %{mingw64_includedir}/gstreamer-%{api_version}/gst/cuda/
 %{mingw64_includedir}/gstreamer-%{api_version}/gst/d3d11/
+%{mingw64_includedir}/gstreamer-%{api_version}/gst/d3d12/
 
 %{mingw64_libdir}/gstreamer-%{api_version}/include/
 %{mingw64_libdir}/libgstadaptivedemux-%{api_version}.dll.a
@@ -530,6 +541,7 @@ rm -f %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 %{mingw64_libdir}/libgstcodecs-%{api_version}.dll.a
 %{mingw64_libdir}/libgstcodecparsers-%{api_version}.dll.a
 %{mingw64_libdir}/libgstd3d11-%{api_version}.dll.a
+%{mingw64_libdir}/libgstd3d12-%{api_version}.dll.a
 %{mingw64_libdir}/libgstd3dshader-1.0.dll.a
 %{mingw64_libdir}/libgstdxva-%{api_version}.dll.a
 %{mingw64_libdir}/libgstinsertbin-%{api_version}.dll.a
@@ -560,12 +572,16 @@ rm -f %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 %{mingw64_libdir}/pkgconfig/gstreamer-webrtc-%{api_version}.pc
 %{mingw64_libdir}/pkgconfig/gstreamer-cuda-%{api_version}.pc
 %{mingw64_libdir}/pkgconfig/gstreamer-d3d11-%{api_version}.pc
+%{mingw64_libdir}/pkgconfig/gstreamer-d3d12-%{api_version}.pc
 
 %{mingw64_datadir}/gstreamer-%{api_version}/presets/
 %{mingw64_datadir}/gstreamer-%{api_version}/encoding-profiles/
 
 
 %changelog
+* Wed Jul 30 2025 Marc-André Lureau <marcandre.lureau@redhat.com> - 1.26.3-3
+- Add d3d12 plugin
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

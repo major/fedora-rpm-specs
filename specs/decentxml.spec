@@ -2,7 +2,7 @@
 
 Name:             decentxml
 Version:          1.4
-Release:          39%{?dist}
+Release:          41%{?dist}
 Summary:          XML parser optimized for round-tripping and code reuse
 # Automatically converted from old format: BSD - review is highly recommended.
 License:          LicenseRef-Callaway-BSD
@@ -24,7 +24,7 @@ Source0:          https://bitbucket.org/digulla/%{name}/get/r%{version}.zip
 # For running w3c conformance test suite.
 Source1:          http://www.w3.org/XML/Test/xmlts20031210.zip
 
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk21
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-assembly-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-source-plugin)
@@ -83,6 +83,12 @@ sed -i '/not_wf_sa_16[89] /d' src/test/java/de/pdark/decentxml/XMLConformanceTes
 %license LICENSE
 
 %changelog
+* Wed Jul 30 2025 jiri vanek <jvanek@redhat.com> - 1.4-41
+- Rrevert to jdk21
+
+* Wed Jul 30 2025 jiri vanek <jvanek@redhat.com> - 1.4-40
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

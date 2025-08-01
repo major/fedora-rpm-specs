@@ -1,6 +1,6 @@
 Name:    vsomeip3
-Version: 3.5.5
-Release: 3%{?dist}
+Version: 3.5.6
+Release: 1%{?dist}
 Summary: COVESA implementation of SOME/IP protocol
 
 License: MPL-2.0
@@ -30,11 +30,12 @@ BuildRequires: cmake
 BuildRequires: dlt-libs-devel
 BuildRequires: systemd-devel
 BuildRequires: gcc-c++
-BuildRequires: gtest-devel
+BuildRequires: google-benchmark-devel
 
 # Fedora has extra tools for secondary items
 %if 0%{?fedora}
 BuildRequires: doxygen
+BuildRequires: gtest-devel
 BuildRequires: asciidoc
 %endif
 
@@ -242,9 +243,6 @@ fi
 %{_libdir}/pkgconfig/vsomeip3.pc
 
 %changelog
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.5-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
 * Mon Mar 31 2025 Stephen Smoogen <smooge@fedoraproject.org> - 3.5.5-2
 - Updated 3.5.4 to 3.5.5.
 - Try to make the Cmake pic vs pie patch upstreamable

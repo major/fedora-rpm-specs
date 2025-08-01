@@ -5,23 +5,21 @@ ExcludeArch: %{ix86}
 # About:
 #   https://dev.mysql.com/doc/connectors/en/connector-odbc-installation-source-unix.html
 Name:           mysql-connector-odbc
-Version:        8.0.42
+Version:        9.4.0
 Release:        %autorelease
 Summary:        ODBC driver for MySQL
 # Automatically converted from old format: GPLv2 with exceptions - review is highly recommended.
 License:        LicenseRef-Callaway-GPLv2-with-exceptions
 URL:            https://dev.mysql.com/downloads/connector/odbc/
 
-Source0:        http://dev.mysql.com/get/Downloads/Connector-ODBC/8.0/%{name}-%{version}-src.tar.gz
+Source0:        http://dev.mysql.com/get/Downloads/Connector-ODBC/9.4/%{name}-%{version}-src.tar.gz
 Patch0:         myodbc-64bit.patch
-Patch1:         mysql-connector-odbc-c99.patch
-Patch2:         mysql-connector-odbc-pointer-type.patch
 Patch3:         mysql-connector-odbc-rpath.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
-BuildRequires:  community-mysql-devel >= 8
+BuildRequires:  mysql-devel >= 8
 BuildRequires:  unixODBC-devel
 BuildRequires:  libzstd-devel
 
@@ -37,8 +35,6 @@ An ODBC (rev 3) driver for MySQL, for use with unixODBC.
 %prep
 %setup -q -n %{name}-%{version}-src
 %patch -P0 -p1
-%patch -P1 -p1
-%patch -P2 -p1
 %patch -P3 -p1
 
 %build
@@ -51,7 +47,7 @@ An ODBC (rev 3) driver for MySQL, for use with unixODBC.
         -DDISABLE_GUI=YES \
         -DBUILD_SHARED_LIBS=OFF
 
-cmake -B %_vpath_builddir -LAH
+cmake -B %_vpath_builddir -LAH -N
 
 %cmake_build
 
@@ -66,7 +62,7 @@ rm %{buildroot}%{_bindir}/myodbc-installer
 find %{buildroot}/usr/ -maxdepth 1 -type f -delete
 
 # Create a symlink for library to offer name that users are used to
-ln -sf libmyodbc8w.so %{buildroot}%{_libdir}/libmyodbc8.so
+ln -sf libmyodbc9w.so %{buildroot}%{_libdir}/libmyodbc9.so
 
 # From Fedora 34, the unixODBC package introduced a libdir subdirectory for its plugins
 mkdir %{buildroot}%{_libdir}/unixODBC

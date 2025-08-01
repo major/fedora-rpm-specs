@@ -8,14 +8,14 @@ ExcludeArch: %{ix86}
 %global giturl  https://github.com/ocaml-community/utop
 
 Name:           utop
-Version:        2.15.0
+Version:        2.16.0
 Release:        %autorelease
 Summary:        Improved toplevel for OCaml
 
 License:        BSD-3-Clause
 URL:            https://ocaml-community.github.io/utop/
 VCS :           git:%{giturl}.git
-Source:         %{giturl}/releases/download/%{version}/%{name}-%{version}.tar.gz
+Source:         %{giturl}/archive/%{version}/%{name}-%{version}.tar.gz
 # Upstream patch to fix the version number
 Patch:          %{name}-version.patch
 

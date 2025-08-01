@@ -1,6 +1,6 @@
 Summary:      Advanced drum machine for GNU/Linux
 Name:         hydrogen
-Version:      1.2.5
+Version:      1.2.6
 Release:      %autorelease
 URL:          http://www.hydrogen-music.org/
 Source0:      https://github.com/hydrogen-music/%{name}/archive/refs/tags/%{version}/%{name}-%{version}.tar.gz

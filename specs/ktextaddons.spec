@@ -1,6 +1,6 @@
 Name:          ktextaddons
-Version:       1.6.0
-Release:       2%{?dist}
+Version:       1.7.0
+Release:       1%{?dist}
 Summary:       Various text handling addons
 
 License:       CC0-1.0 AND LGPL-2.0-or-later AND GPL-2.0-or-later AND BSD-3-Clause
@@ -103,6 +103,11 @@ BuildArch:      noarch
 %{_kf6_plugindir}/translator/translator_libretranslate.so
 %{_kf6_plugindir}/translator/translator_lingva.so
 %{_kf6_plugindir}/translator/translator_yandex.so
+%{_kf6_plugindir}/textautogeneratetext/autogeneratetext_genericnetwork.so
+%{_kf6_libdir}/libtextautogenerate-cmark-rc-copy.so.0
+%{_kf6_libdir}/libtextautogenerate-cmark-rc-copy.so.0.31.0
+%{_kf6_libdir}/libtextautogenerategenericnetwork.so.1
+%{_kf6_libdir}/libtextautogenerategenericnetwork.so.%{version}
 %{_kf6_datadir}/qlogging-categories6/ktextaddons.categories
 %{_kf6_datadir}/qlogging-categories6/ktextaddons.renamecategories
 
@@ -142,6 +147,8 @@ BuildArch:      noarch
 %{_kf6_libdir}/cmake/KF6TextUtils/
 %{_kf6_libdir}/cmake/KF6TextAutoGenerateText/
 %{_kf6_libdir}/cmake/KF6TextSpeechToText/
+%{_kf6_libdir}/cmake/textautogenerate-cmark-rc-copy/
+%{_kf6_libdir}/libtextautogenerate-cmark-rc-copy.so
 %{_kf6_libdir}/libKF6TextAutoGenerateText.so
 %{_kf6_libdir}/libKF6TextSpeechToText.so
 %{_kf6_qtplugindir}/designer/textcustomeditor.so
@@ -158,6 +165,9 @@ BuildArch:      noarch
 %doc README.md
 
 %changelog
+* Wed Jul 30 2025 Steve Cossette <farchord@gmail.com> - 1.7.0-1
+- 1.7.0
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

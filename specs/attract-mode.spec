@@ -37,7 +37,6 @@ BuildRequires:  libXrandr-devel
 BuildRequires:  openal-soft-devel
 BuildRequires:  mesa-libGL-devel
 BuildRequires:  mesa-libGLU-devel
-BuildRequires:  miniz-devel
 BuildRequires:  rapidjson-devel
 BuildRequires:  SFML-devel
 # Enforce the the minimum EVR to contain fixes for all of:
@@ -116,9 +115,8 @@ rm -r extlibs/{expat,nvapi} src/backward.{cpp,hpp}
 # use system rapidjson
 rm -r extlibs/rapidjson/include/rapidjson
 ln -s %{_includedir}/rapidjson extlibs/rapidjson/include/
-# use system miniz
+# bundled miniz is not used when building with system libarchive
 rm extlibs/miniz/*
-ln -s %{_includedir}/miniz.h extlibs/miniz/
 # use system stb_image
 ln -sf %{_includedir}/stb_image.h src/
 

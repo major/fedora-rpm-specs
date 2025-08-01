@@ -4,8 +4,8 @@
 %global srcname statsmodels
 
 Name: python-%{srcname}
-Version: 0.14.4
-Release: 4%{?dist}
+Version: 0.14.5
+Release: 1%{?dist}
 Summary: Statistics in Python
 
 # Package is licensed under BSD (3 clauses)
@@ -85,10 +85,6 @@ pushd statsmodels
  cp -a stats/libqsturng/LICENSE.txt ../LICENSE.libqsturng.txt
 popd
 
-sed -i -e "s/oldest-supported-numpy/numpy/" pyproject.toml
-sed -i -e "s/setuptools>=69.0.2/setuptools/" pyproject.toml
-
-
 %generate_buildrequires
 %pyproject_buildrequires
 
@@ -97,6 +93,7 @@ sed -i -e "s/setuptools>=69.0.2/setuptools/" pyproject.toml
 
 %install
 %pyproject_install
+
 %pyproject_save_files statsmodels
 
 
@@ -118,6 +115,9 @@ popd
 ## %doc build/sphinx/html
 
 %changelog
+* Wed Jul 30 2025 Sergio Pascual <sergiopr@fedoraproject.org> - 0.14.5-1
+- Updated to new upstream 0.14.5
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

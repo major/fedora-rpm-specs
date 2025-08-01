@@ -9,6 +9,11 @@ Source:         %{pypi_source click_plugins}
 
 BuildArch:      noarch
 
+# Fix tests with click >= 8.2
+# This patch is a minimal backported version from upstream 2.0 to 1.1.1.2
+# https://github.com/click-contrib/click-plugins/commit/29e66eb05a5911e333501bd21466f02e6b697892
+Patch:          fix-click-8.2-tests.patch
+
 %global _description %{expand:
 An extension module for click to register external CLI commands via setuptools
 entry-points.}
@@ -28,7 +33,7 @@ Provides: deprecated()
 
 
 %prep
-%autosetup -n click_plugins-%{version}
+%autosetup -p1 -n click_plugins-%{version}
 
 
 %generate_buildrequires

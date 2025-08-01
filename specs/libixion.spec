@@ -17,6 +17,7 @@ BuildRequires: pkgconfig(mdds-3.0)
 BuildRequires: pkgconfig(python3)
 BuildRequires: pkgconfig(spdlog)
 BuildRequires: make
+BuildRequires: chrpath
 
 %description
 Ixion is a general purpose formula parser & interpreter that can calculate
@@ -97,6 +98,8 @@ help2man -S '%{name} %{version}' -N -n 'parser' -o ixion-parser.1 ./src/ixion-pa
 help2man -S '%{name} %{version}' -N -n 'sorter' -o ixion-sorter.1 ./src/ixion-sorter
 install -m 0755 -d %{buildroot}/%{_mandir}/man1
 install -m 0644 ixion-*.1 %{buildroot}/%{_mandir}/man1
+
+find %{buildroot}/%{_libdir} -type f -name '*.so.*' -print0 | xargs -0 chrpath --delete
 
 # generate docs
 # make doc

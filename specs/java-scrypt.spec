@@ -1,6 +1,6 @@
 Name: java-scrypt
 Version: 1.4.0
-Release: 29%{?dist}
+Release: 30%{?dist}
 Summary: Java implementation of scrypt
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -47,6 +47,9 @@ find -name '*.jar' -print -delete
 %license LICENSE
 
 %changelog
+* Wed Jul 30 2025 jiri vanek <jvanek@redhat.com> - 1.4.0-30
+- Rebuilt for java-25-openjdk as preffered jdk
+
 * Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 1.4.0-29
 - Rebuilt for java-25-openjdk as preffered jdk
 
