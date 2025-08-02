@@ -1,16 +1,20 @@
 %{?mingw_package_header}
 
 Name:           mingw-nettle
-Version:        3.7.2
-Release:        13%{?dist}
+Version:        3.10.2
+Release:        1%{?dist}
 
 Summary: MinGW package for nettle cryptographic library
 # Automatically converted from old format: LGPLv3+ or GPLv2+ - review is highly recommended.
 License: LGPL-3.0-or-later OR GPL-2.0-or-later
 URL:    http://www.lysator.liu.se/~nisse/nettle/
-# https://ftp.gnu.org/gnu/nettle/nettle-%%{version}.tar.gz
-Source: nettle-%{version}-hobbled.tar.xz
-Patch0: nettle-3.7.2-suppress-maybe-uninit.patch
+
+Source0: http://www.lysator.liu.se/~nisse/archive/nettle-%{version}.tar.gz
+Source1: http://www.lysator.liu.se/~nisse/archive/nettle-%{version}.tar.gz.sig
+Source2: nettle-release-keyring.gpg
+# MinGW does not support explicit_bzero()
+#Patch0:  nettle-3.8-zeroize-stack.patch
+Patch1:  nettle-3.10-hobble-to-configure.patch
 
 BuildArch:      noarch
 
@@ -66,17 +70,14 @@ or even in kernel space.
 
 
 %prep
-%setup -q -n nettle-%{version}
-# Disable -ggdb3 which makes debugedit unhappy
-sed s/ggdb3/g/ -i configure
-sed 's/ecc-secp192r1.c//g' -i Makefile.in
-sed 's/ecc-secp224r1.c//g' -i Makefile.in
-%patch -P0 -p1 -b .ecc
+%autosetup -Tb 0 -p1 -n nettle-%{version}
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 
 
 %build
 autoreconf -ifv
-%mingw_configure --enable-shared --enable-fat
+%mingw_configure --enable-shared --enable-fat \
+  --disable-sm3 --disable-sm4 --disable-ecc-secp192r1 --disable-ecc-secp224r1
 %mingw_make %{?_smp_mflags}
 
 

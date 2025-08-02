@@ -96,13 +96,10 @@ You dont need any CAD experience to get started with QCAD immediately.
 rm -rf ../*-SPECPARTS
 
 # Use Fedora Qt5 scripts
-cp -a src/3rdparty/qt-labs-qtscriptgenerator-5.15.8 src/3rdparty/qt-labs-qtscriptgenerator-5.15.15
-mv src/3rdparty/qt-labs-qtscriptgenerator-5.15.15/qt-labs-qtscriptgenerator-5.15.8.pro \
- src/3rdparty/qt-labs-qtscriptgenerator-5.15.15/qt-labs-qtscriptgenerator-5.15.15.pro
- 
-cp -a src/3rdparty/qt-labs-qtscriptgenerator-5.15.8 src/3rdparty/qt-labs-qtscriptgenerator-5.15.14
-mv src/3rdparty/qt-labs-qtscriptgenerator-5.15.14/qt-labs-qtscriptgenerator-5.15.8.pro \
- src/3rdparty/qt-labs-qtscriptgenerator-5.15.14/qt-labs-qtscriptgenerator-5.15.14.pro
+cp -a src/3rdparty/qt-labs-qtscriptgenerator-5.15.8 src/3rdparty/qt-labs-qtscriptgenerator-5.15.17
+mv src/3rdparty/qt-labs-qtscriptgenerator-5.15.17/qt-labs-qtscriptgenerator-5.15.8.pro \
+ src/3rdparty/qt-labs-qtscriptgenerator-5.15.17/qt-labs-qtscriptgenerator-5.15.17.pro
+
 
 %build
 # QT is known not to work properly with LTO at this point.  Some of the issues

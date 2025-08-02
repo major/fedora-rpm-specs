@@ -44,6 +44,7 @@ Patch:          rav1e-fix-metadata-auto.diff
 # * compatibility fixes for cargo-c v0.9.26 and newer:
 #   https://github.com/lu-zero/cargo-c/pull/346
 #   https://github.com/lu-zero/cargo-c/pull/352
+# * allow console 0.16: https://github.com/xiph/rav1e/pull/3436
 Patch:          rav1e-fix-metadata.diff
 Patch2:         0001-remove-references-to-removed-built-and-profiling-cra.patch
 

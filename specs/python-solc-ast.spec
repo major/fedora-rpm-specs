@@ -11,7 +11,6 @@ VCS:           git:%{url}.git
 Source0:       %{pypi_source %{pypi_name}}
 Patch1:        python-solc-ast-0001-Remove-all-shebangs.patch
 BuildSystem:   pyproject
-BuildOption(prep):    -n %{pypi_name}-%{version}
 BuildOption(install): -l solcast
 
 %description

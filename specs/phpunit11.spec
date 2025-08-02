@@ -16,8 +16,8 @@
 %bcond_with          defcmd
 %endif
 
-%global gh_commit    446d43867314781df7e9adf79c3ec7464956fd8f
-%global gh_date      2025-07-11
+%global gh_commit    93f30aa3889e785ac63493d4976df0ae9fdecb60
+%global gh_date      2025-07-31
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   phpunit
@@ -30,12 +30,12 @@
 %global ver_major    11
 %global ver_minor    5
 
-%global upstream_version 11.5.27
+%global upstream_version 11.5.28
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        The PHP Unit Testing framework version %{ver_major}
 
 License:        BSD-3-Clause
@@ -245,6 +245,7 @@ cat << 'EOF' | tee -a tests/autoload.php
   __DIR__ . '/_files/CoveredFunction.php',
   __DIR__ . '/_files/Generator.php',
   __DIR__ . '/_files/NamespaceCoveredFunction.php',
+  __DIR__ . '/end-to-end/_files/listing-tests-and-groups/ExampleAbstractTestCase.php',
 ]);
 EOF
 
@@ -291,6 +292,9 @@ exit $ret
 
 
 %changelog
+* Thu Jul 31 2025 Remi Collet <remi@remirepo.net> - 11.5.28-1
+- update to 11.5.28
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 11.5.27-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

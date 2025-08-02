@@ -1,11 +1,13 @@
-Name:			rkcommon
-Version:		1.14.2
-Release:		%autorelease
-Summary:		Intel renderKit common C++/CMake infrastructure
+Name:		rkcommon
+Version:	1.14.2
+Release:	%autorelease
+Summary:	Intel renderKit common C++/CMake infrastructure
 
-License:		Apache-2.0
-URL:			https://github.com/Renderkit/rkcommon
-Source0:		%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+License:	Apache-2.0
+URL:		https://github.com/Renderkit/rkcommon
+Source0:	%url/archive/%{version}/%{name}-%{version}.tar.gz
+
+Patch0:		test-rsqrt-overload.patch
 
 # Upstream only supports x86-64 and ARM64 architectures
 ExclusiveArch:	x86_64 aarch64
@@ -18,16 +20,16 @@ BuildRequires:	tbb-devel
 This project represents a common set of C++ infrastructure and CMake utilities
 used by various components of Intel oneAPI rendering toolkit.
 
-%package		devel
-Summary:		Development files for %{name}
-Requires:		%{name}%{?_isa} = %{version}-%{release}
+%package devel
+Summary:	Development file for %{name}
+Requires:	%{name}%{?_isa} = %{version}-%{release}
 
-%description	devel
+%description devel
 The %{name}-devel package contains libraries and header files for
 applications that use %{name}.
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
 %cmake

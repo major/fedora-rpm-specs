@@ -1,6 +1,6 @@
 Name:           at-spi2-core
 Version:        2.57.0
-Release:        2%{?dist}
+Release:        %autorelease
 Summary:        Protocol definitions and daemon for D-Bus at-spi
 
 License:        LGPL-2.1-or-later
@@ -169,7 +169,4 @@ install -Dpm 0755 %{SOURCE1} %{buildroot}%{_sysconfdir}/xdg/Xwayland-session.d/0
 %{_libdir}/pkgconfig/atk-bridge-2.0.pc
 
 %changelog
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.57.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
 %autochangelog

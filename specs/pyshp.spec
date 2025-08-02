@@ -1,12 +1,12 @@
 Name:           pyshp
-Version:        2.3.1
+Version:        2.4.1
 Release:        %autorelease
 Summary:        Pure Python read/write support for ESRI Shapefile format
 
 # SPDX
 License:        MIT
-# See Source10-Source24.
-SourceLicense:  %{license} AND LicenseRef-Fedora-Public-Domain
+# See Source10-Source25.
+SourceLicense:  %{license} AND LicenseRef-Fedora-Public-Domain AND ODbl-1.0
 URL:            https://github.com/GeospatialPython/pyshp
 Source0:        %{url}/archive/%{version}/pyshp-%{version}.tar.gz
 
@@ -28,8 +28,13 @@ Source21:       %{ne_url}/raw/%{ne_commit}/110m_cultural/ne_110m_admin_0_tiny_co
 Source22:       %{ne_url}/raw/%{ne_commit}/110m_cultural/ne_110m_admin_0_tiny_countries.prj
 Source23:       %{ne_url}/raw/%{ne_commit}/110m_cultural/ne_110m_admin_0_tiny_countries.shp
 Source24:       %{ne_url}/raw/%{ne_commit}/110m_cultural/ne_110m_admin_0_tiny_countries.shx
-# Upstream also uses https://biogeo.ucdavis.edu/data/diva/rrd/NIC_rrd.zip, but
-# the license is unclear, so we skip this one.
+# This is an OpenStreetMap extract originally obtained from
+# https://download.geofabrik.de/, so it is ODbl-1.0; see
+# https://www.openstreetmap.org/copyright/.
+%global data_url https://github.com/JamesParrott/PyShp_test_shapefile
+# Upstream uses “main”
+%global data_commit 2583dba70d0892fc787e1a837df07c3ea8e69950
+Source25:       %{data_url}/raw/%{data_commit}/gis_osm_natural_a_free_1.zip
 
 BuildSystem:            pyproject
 BuildOption(install):   -l shapefile
@@ -79,22 +84,24 @@ dos2unix --keepdate LICENSE.TXT changelog.txt shapefile.py
 # Allow newer versions of test dependencies
 sed -r -i 's/==/>=/' requirements.test.txt
 
-# Make a copy of README.md for which we do not need network access—either by
-# using local copies of the resources that would be fetched, or by skipping
-# tests where the resources are not appropriate for the source RPM (unclear
-# licensing).
-sed -r \
-  -e 's@(Reader\("https?://biogeo.*)@\1  # doctest: +SKIP@' \
-  -e 's@(Reader\(")(https?://github\.com/nvkelso/natural-earth-vector/[^"]*)/([^/"?]+)(\?[^/"]*)?@\1\3@' \
-  'README.md' > 'README-no-network.md'
-cp -p '%{SOURCE10}' '%{SOURCE11}' '%{SOURCE12}' '%{SOURCE13}' '%{SOURCE14}' \
-    '%{SOURCE20}' '%{SOURCE21}' '%{SOURCE22}' '%{SOURCE23}' '%{SOURCE24}' .
+mkdir -p _testdata
+ln '%{SOURCE10}' '%{SOURCE11}' '%{SOURCE12}' '%{SOURCE13}' '%{SOURCE14}' \
+    '%{SOURCE20}' '%{SOURCE21}' '%{SOURCE22}' '%{SOURCE23}' '%{SOURCE24}' \
+    '%{SOURCE25}' _testdata/
 
 
 %check -a
-# Although shapefile.py has an integrated runner for the doctests, we run them
-# with pytest because we need to skip those that require network access.
-%pytest --doctest-glob='README-no-network.md' -m '(not network)'
+# Serve the test data locally; see the “Network tests” section in README.md
+pushd _testdata
+%{python3} -m http.server 8000 &
+SERVER_PID="$!"
+trap "kill '${SERVER_PID}'" INT TERM EXIT
+popd
+export REPLACE_REMOTE_URLS_WITH_LOCALHOST='yes'
+
+%pytest -v
+# Run the doctests with the integrated runner in shapefile.py
+%{py3_test_envvars} %{python3} shapefile.py
 
 
 %files -n python3-pyshp -f %{pyproject_files}

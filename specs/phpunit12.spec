@@ -16,8 +16,8 @@
 %bcond_with          defcmd
 %endif
 
-%global gh_commit    49dc7c0669b97c7a36f63411635f48eedc140eb4
-%global gh_date      2025-07-30
+%global gh_commit    442c06d0a952a5dbffba181cff969b91fdc9bada
+%global gh_date      2025-07-31
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   phpunit
@@ -30,7 +30,7 @@
 %global ver_major    12
 %global ver_minor    2
 
-%global upstream_version 12.2.8
+%global upstream_version 12.2.9
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
@@ -237,6 +237,7 @@ cat << 'EOF' | tee -a tests/autoload.php
   __DIR__ . '/_files/CoveredFunction.php',
   __DIR__ . '/_files/Generator.php',
   __DIR__ . '/_files/NamespaceCoveredFunction.php',
+  __DIR__ . '/end-to-end/_files/listing-tests-and-groups/ExampleAbstractTestCase.php',
 ]);
 EOF
 
@@ -283,6 +284,9 @@ exit $ret
 
 
 %changelog
+* Thu Jul 31 2025 Remi Collet <remi@remirepo.net> - 12.2.9-1
+- update to 12.2.9
+
 * Wed Jul 30 2025 Remi Collet <remi@remirepo.net> - 12.2.8-1
 - update to 12.2.8
 - raise dependency on phpunit/php-code-coverage 12.3.2

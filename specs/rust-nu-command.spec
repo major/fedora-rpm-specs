@@ -27,6 +27,7 @@ Patch:          nu-command-fix-metadata-auto.diff
 # * allow roxmltree 0.20: https://github.com/nushell/nushell/pull/14513
 # * Update lscolors from 0.17 to 0.20:
 #   https://github.com/nushell/nushell/pull/15737
+# * Allow indicatif 0.18: https://github.com/nushell/nushell/pull/16248
 Patch:          nu-command-fix-metadata.diff
 # * Allow compiling with quick-xml 0.33+
 # * https://github.com/nushell/nushell/pull/14354

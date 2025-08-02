@@ -70,6 +70,10 @@ Patch:          0004-Bump-base64-from-0.21-to-0.22-and-itertools-from-0.1.patch
 # * revert to building maturin with setuptools instead of boostrapping maturin
 Patch:          0005-revert-to-using-setuptools-for-non-maturin-bootstrap.patch
 
+# * Allow console 0.16; see “Update console dependency from 0.15.4 to 0.16.0,”
+#   https://github.com/PyO3/maturin/pull/2688
+Patch:          0006-Allow-console-0.16.patch
+
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  python3-devel
 

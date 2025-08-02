@@ -11,7 +11,7 @@
 Name:    qca
 Summary: Qt Cryptographic Architecture
 Version: 2.3.10
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: LGPL-2.1-only
 URL:     https://userbase.kde.org/QCA
@@ -224,6 +224,8 @@ Requires: %{name}-qt6%{?_isa} = %{version}-%{release}
 
 
 %build
+# https://fedoraproject.org/wiki/Changes/dropingOfCertPemFile
+export QC_CERTSTORE_PATH=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
 cmake_opts="-Wno-dev \
   -DBUILD_TESTS:BOOL=%{?tests:ON}%{!?tests:OFF} \
   -DQCA_INSTALL_IN_QT_PREFIX:BOOL=ON \
@@ -420,6 +422,9 @@ test "$(pkg-config --modversion qca2-qt6)" = "%{version}"
 %endif
 
 %changelog
+* Tue Jul 29 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 2.3.10-3
+- Fix for https://fedoraproject.org/wiki/Changes/dropingOfCertPemFile
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

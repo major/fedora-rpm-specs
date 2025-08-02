@@ -13,7 +13,7 @@
 
 Name:           perl-PDF-Builder
 Version:        3.027
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Creation and modification of PDF files in Perl
 # docs/buildDoc.pl:             same as PDF-Builder
 # examples/Column.pl:           LGPL-2.1-or-later
@@ -29,6 +29,8 @@ Source0:        https://cpan.metacpan.org/authors/id/P/PM/PMPERRY/PDF-Builder-%{
 # Renable tests, we have downstream-fixed ghostcript-9.56.1, bug #2123391,
 # not suitable for the upstream
 Patch0:         PDF-Builder-3.024-Don-t-skip-ghostscript-9.56.-0-1.patch
+# Adjust tests to SVGPDF-0.091, bug #2385393, in upstream after 3.027
+Patch1:         PDF-Builder-3.027-Adjust-tests-to-SVGPDF-0.091.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -67,7 +69,7 @@ BuildRequires:  perl(Math::Trig)
 BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Scalar::Util)
 %if %{with perl_PDF_Builder_enables_svg}
-BuildRequires:  perl(SVGPDF) >= 0.087
+BuildRequires:  perl(SVGPDF) >= 0.091
 %endif
 %if %{with perl_PDF_Builder_enables_markdown}
 # Text::Markdown >= 1.000031 not used at tests
@@ -137,6 +139,9 @@ License:        LGPL-2.1-or-later
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
 Requires:       perl(Test::Memory::Cycle) >= 1
+%if %{with perl_PDF_Builder_enables_svg}
+Requires:       perl(SVGPDF) >= 0.091
+%endif
 %if %{with perl_PDF_Builder_enables_optional_test}
 Requires:       font(dejavusans)
 # For "gs" program
@@ -207,6 +212,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jul 31 2025 Petr Pisar <ppisar@redhat.com> - 3.027-3
+- Adjust tests to SVGPDF-0.091 (bug #2385393)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.027-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

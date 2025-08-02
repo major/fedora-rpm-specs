@@ -1,77 +1,58 @@
-# what it's called on pypi
-%global srcname repomd
-# what it's imported as
-%global libname %{srcname}
-# name of egg info directory
-%global eggname %{srcname}
-# package name fragment
-%global pkgname %{srcname}
-
-%global _description \
-This library provides an object-oriented interface to get information out of\
-dnf/yum repositories.
-
-%bcond_without tests
-
-
-Name:           python-%{pkgname}
+Name:           python-repomd
 Version:        0.2.1
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Library for reading dnf/yum repositories
 License:        MIT
 URL:            https://github.com/carlwgeorge/repomd
-Source0:        %pypi_source
+Source:         %{pypi_source repomd}
 BuildArch:      noarch
+
+%global _description %{expand:
+This library provides an object-oriented interface to get information out of
+dnf/yum repositories.}
 
 
 %description %{_description}
 
 
-%package -n python3-%{pkgname}
+%package -n python3-repomd
 Summary:        %{summary}
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools >= 38.6.0
-%if %{with tests}
 BuildRequires:  python3-pytest
-BuildRequires:  python3-defusedxml
-BuildRequires:  python3-lxml
-%endif
-Requires:       python3-defusedxml
-Requires:       python3-lxml
-%{?python_provide:%python_provide python3-%{pkgname}}
 
 
-%description -n python3-%{pkgname} %{_description}
+%description -n python3-repomd %{_description}
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
-rm -r source/%{eggname}.egg-info setup.cfg
+%autosetup -n repomd-%{version}
+rm setup.cfg
+
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l repomd
 
 
-%if %{with tests}
 %check
-PYTHONPATH=%{buildroot}%{python3_sitelib} py.test-%{python3_version} --verbose tests
-%endif
+%pytest --verbose
 
 
-%files -n python3-%{pkgname}
-%license LICENSE
-%doc README.md
-%{python3_sitelib}/%{libname}.py
-%{python3_sitelib}/__pycache__/%{libname}.cpython-%{python3_version_nodots}*.py*
-%{python3_sitelib}/%{eggname}-%{version}-py%{python3_version}.egg-info
+%files -n python3-repomd -f %{pyproject_files}
 
 
 %changelog
+* Thu Jul 31 2025 Carl George <carlwgeorge@fedoraproject.org> - 0.2.1-23
+- Port to pyproject macros rhbz#2378160
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

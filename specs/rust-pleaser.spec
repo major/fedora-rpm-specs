@@ -5,12 +5,13 @@
 
 Name:           rust-pleaser
 Version:        0.5.6
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Please, a polite regex-first sudo alternative
 
 License:        GPL-3.0-or-later
 URL:            https://crates.io/crates/pleaser
 Source:         %{crates_source}
+Patch0:         pleaser-0.5.6.file.patch
 # Manually created patch for downstream crate metadata changes
 # * restrict dependencies on nix and syslog crates to compatible versions
 
@@ -130,6 +131,9 @@ EOF
 %endif
 
 %changelog
+* Thu Jul 31 2025 ed neville <ed@s5h.net> - 0.5.6-4
+- Patching for nix
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

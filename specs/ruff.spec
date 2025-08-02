@@ -93,6 +93,8 @@ Patch:          0004-do-not-strip-debuginfo-from-built-binary-executable.patch
 Patch:          0005-drop-unavailable-features-from-uuid-dependency.patch
 # * ignore tests in vendored annotate-snippets that hang indefinitely:
 Patch:          0006-ignore-vendored-annotate-snippets-tests-that-hang-in.patch
+# * update indicatif to 0.18: https://github.com/astral-sh/ruff/pull/19165
+Patch:          0007-Update-Rust-crate-indicatif-to-0.18.0-19165.patch
 
 ExcludeArch:	%{ix86}
 

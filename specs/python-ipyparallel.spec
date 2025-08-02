@@ -1,32 +1,12 @@
 Name:		python-ipyparallel
 Version:	9.0.1
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Interactive Parallel Computing with IPython
 
 License:	BSD-3-Clause
 URL:		https://github.com/ipython/ipyparallel
 Source0:	%pypi_source ipyparallel
-
 BuildArch:	noarch
-BuildRequires:	make
-BuildRequires:	python3-devel >= 3.8
-BuildRequires:	pyproject-rpm-macros
-BuildRequires:	python3-pip
-BuildRequires:	python3dist(hatchling) >= 0.25
-BuildRequires:	(python3dist(importlib-metadata) if python3 < 3.10)
-BuildRequires:	python3dist(decorator)
-BuildRequires:	python3dist(pyzmq) >= 25
-BuildRequires:	python3dist(traitlets) >= 5
-BuildRequires:	python3dist(ipython) >= 5
-BuildRequires:	python3dist(jupyter-client) >= 7
-BuildRequires:	python3dist(ipykernel) >= 6.9.1
-BuildRequires:	python3dist(tornado) >= 6.1
-BuildRequires:	python3dist(psutil)
-BuildRequires:	python3dist(python-dateutil) >= 2.1
-BuildRequires:	python3dist(tqdm)
-#		For testing:
-BuildRequires:	python3dist(pytest)
-BuildRequires:	python3dist(pytest-asyncio)
 
 %description
 IPython Parallel (ipyparallel) is a Python package and collection of
@@ -59,6 +39,9 @@ This package contains the tests of python3-ipyparallel.
 
 rm ipyparallel/labextension/schemas/ipyparallel-labextension/package.json.orig
 
+%generate_buildrequires
+%pyproject_buildrequires -x test
+
 %build
 %pyproject_wheel
 
@@ -75,10 +58,7 @@ done
 mv %{buildroot}%{_prefix}%{_sysconfdir} %{buildroot}%{_sysconfdir}
 
 %check
-# The version of jupyter-client in Fedora 39/40 calls datetime.utcnow()
-# Ignore DeprecationWarning from Python 3.12 due to this
-%pytest -v --color=no \
-    -W "ignore:datetime.datetime.utcnow() is deprecated:DeprecationWarning"
+%pytest -v --color=no
 
 %files -n python3-ipyparallel
 %license COPYING.md
@@ -109,6 +89,9 @@ mv %{buildroot}%{_prefix}%{_sysconfdir} %{buildroot}%{_sysconfdir}
 %{python3_sitelib}/ipyparallel/tests
 
 %changelog
+* Thu Jul 31 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 9.0.1-4
+- Generate build requires instead of hardcoding them
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

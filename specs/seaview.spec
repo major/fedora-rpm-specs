@@ -1,15 +1,13 @@
 Name:           seaview
-Version:        5.0
-Release:        13%{?dist}
+Version:        5.1
+Release:        1%{?dist}
 Summary:        Graphical multiple sequence alignment editor
-
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
-License:        GPL-2.0-or-later
+License:        GPLv3
 URL:            http://doua.prabi.fr/software/seaview
-Source0:        ftp://pbil.univ-lyon1.fr/pub/mol_phylogeny/seaview/archive/seaview_5.0.tar.gz
+Source0:        ftp://pbil.univ-lyon1.fr/pub/mol_phylogeny/seaview/archive/seaview_5.1.tar.gz
 Source1:        seaview.desktop
 Patch0:         seaview-chris.patch
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  fltk-devel
 BuildRequires:  desktop-file-utils
@@ -68,6 +66,11 @@ install -m 644 seaview.1 $RPM_BUILD_ROOT/%{_mandir}/man1
 
 
 %changelog
+* Thu Jul 31 2025 Christian Iseli <christian.iseli@epfl.ch> - 5.1-1
+- New upstream version
+- Fix FTBFS bugzilla 2385624
+- Update license definition according to upstream
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

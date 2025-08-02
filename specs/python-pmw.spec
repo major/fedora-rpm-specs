@@ -3,12 +3,11 @@
 
 Name: python-pmw
 Version: 2.1.1
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: Python powerwidgets
-# Automatically converted from old format: MIT and GPLv2+ - review is highly recommended.
-License: LicenseRef-Callaway-MIT AND GPL-2.0-or-later
-URL: http://pmw.sourceforge.net/
-Source: http://downloads.sourceforge.net/pmw/Pmw-%{version}.tar.gz
+License: MIT AND GPL-2.0-or-later
+URL: https://pmw.sourceforge.net/
+Source: https://downloads.sourceforge.net/pmw/Pmw-%{version}.tar.gz
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
 BuildRequires: dos2unix
@@ -39,11 +38,15 @@ widgets, paned widgets, scrolled widgets and dialog windows.
 %prep
 %autosetup -n Pmw-%{version} -p1
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files Pmw
 
 # file fixes
 chmod 644 Pmw/Pmw_1_3_3/doc/*
@@ -51,12 +54,16 @@ chmod 644 Pmw/Pmw_2_1_1/doc/*
 
 rm -rf %{buildroot}%{python3_sitelib}/Pmw/Pmw_1_3_3
 
-%files -n python3-%{srcname}
+%check
+%pyproject_check_import
+
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc Pmw/Pmw_2_1_1/doc
-%{python3_sitelib}/*egg-info
-%{python3_sitelib}/Pmw/
 
 %changelog
+* Thu Jul 31 2025 Antonio Trande <sagitter@fedoraproject.org> - 2.1.1-13
+- Fix rhbz#2378001
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

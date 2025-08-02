@@ -2,7 +2,7 @@
 %define _empty_manifest_terminate_build 0
 
 Name:           authselect
-Version:        1.6.0
+Version:        1.6.1
 Release:        %autorelease
 Summary:        Configures authentication and identity sources from supported profiles
 URL:            https://github.com/authselect/authselect
@@ -22,15 +22,6 @@ Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 # Set the default profile
 %{?fedora:%global default_profile local with-silent-lastlog}
 %{?rhel:%global default_profile local}
-
-# Patches
-
-# RHEL-only patches
-%if 0%{?rhel}
-Patch0901: 0901-rhel10-remove-systemd-homed.patch
-Patch0902: 0902-rhel10-remove-ecryptfs-support.patch
-Patch0903: 0903-rhel10-remove-systemd-resolved.patch
-%endif
 
 BuildRequires:  autoconf
 BuildRequires:  automake

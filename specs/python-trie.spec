@@ -12,13 +12,12 @@ License:       MIT
 URL:           https://github.com/ethereum/py-trie
 VCS:           git:%{url}.git
 Source0:       %{pypi_source %pypi_name}
-# PyuPi archive lacks tests-suite
+# PyPi archive lacks tests-suite
 Patch:         python-trie-0001-Readd-tools.patch
 Patch:         python-trie-0002-Re-add-Trie-fixtures.patch
 BuildRequires: python3-hypothesis
 BuildRequires: python3-pytest
 BuildSystem:   pyproject
-BuildOption(prep):    -n %{pypi_name}-%{version}
 BuildOption(install): -l %{pypi_name}
 
 %description %{common_description}

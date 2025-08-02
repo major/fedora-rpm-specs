@@ -22,7 +22,7 @@
 
 Name:              openvpn
 Version:           2.6.14
-Release:           3%{?dist}
+Release:           4%{?dist}
 Summary:           A full-featured TLS VPN solution
 URL:               https://community.openvpn.net/
 Source0:           https://build.openvpn.net/downloads/releases/%{name}-%{version}.tar.gz
@@ -34,6 +34,8 @@ Source10:          gpgkey-F554A3687412CFFEBDEFE0A312F5F7B42F2B01E7.gpg
 Source11:          openvpn.rpmlintrc
 Patch1:            0001-Change-the-default-cipher-to-AES-256-GCM-for-server-.patch
 Patch2:            fedora-crypto-policy-compliance.patch
+Patch3:            0001-dco-linux-avoid-redefining-ovpn-enums-2.6.patch
+Patch4:            0001-unit_tests-plugins-auth-pam-fix-stdint.h-related-bui.patch
 Patch50:           openvpn-2.4-change-tmpfiles-permissions.patch
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:           GPL-2.0-only
@@ -96,10 +98,7 @@ to similar features as the various script-hooks.
 
 %prep
 gpgv2 --quiet --keyring %{SOURCE10} %{SOURCE1} %{SOURCE0}
-%setup -q -n %{name}-%{version}
-%patch -P 1 -p1
-%patch -P 2 -p1
-%patch -P 50 -p1
+%autosetup -p1
 
 # %%doc items shouldn't be executable.
 find contrib sample -type f -perm /100 \
@@ -238,6 +237,10 @@ done
 
 
 %changelog
+* Thu Jul 31 2025 Frank Lichtenheld <frank@lichtenheld.com> - 2.6.14-4
+- Fix build with Linux 6.16 (RHBZ#2385369)
+- Fix build with glibc 2.42
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.14-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

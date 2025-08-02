@@ -11,7 +11,6 @@ VCS:           git:%{url}.git
 Source0:       %{pypi_source %pypi_name}
 BuildRequires: python3-pytest
 BuildSystem:   pyproject
-BuildOption(prep):    -n %{pypi_name}-%{version}
 BuildOption(install): -l %{pypi_name}
 
 %description

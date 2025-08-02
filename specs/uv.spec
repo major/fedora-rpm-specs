@@ -11,7 +11,7 @@
 %bcond it %{undefined el10}
 
 Name:           uv
-Version:        0.7.22
+Version:        0.8.4
 Release:        %autorelease
 Summary:        An extremely fast Python package installer and resolver, written in Rust
 
@@ -594,12 +594,6 @@ tomcli set crates/uv/Cargo.toml del dependencies.tracing-durations-export
 # #   currently packaged: 0.1.2
 # #   https://bugzilla.redhat.com/show_bug.cgi?id=1234567
 # tomcli set crates/uv/Cargo.toml str dev-dependencies.foocrate.version 0.1.2
-# indicatif
-#   wanted: 0.18.0
-#   currently packaged: 0.17.11
-#   https://bugzilla.redhat.com/show_bug.cgi?id=2376290
-tomcli set Cargo.toml str workspace.dependencies.indicatif.version \
-    '>=0.17.11, <0.19'
 
 %cargo_prep
 
@@ -715,7 +709,7 @@ skip="${skip-} --skip python_pin::python_pin_resolve"
 # https://github.com/astral-sh/uv/pull/13699#issuecomment-2916115588.
 skip="${skip-} --skip remote_metadata::remote_metadata_with_and_without_cache"
 
-%if %[ %{defined fc41} || %{defined fc40} || %{defined el10} || %{defined el9} ]
+%if %[ %{defined fc41} || %{defined el10} || %{defined el9} ]
 # Trivial difference in snapshots: packages appear in a different order.
 skip="${skip-} --skip lock::tests::missing_dependency_source_unambiguous"
 skip="${skip-} --skip lock::tests::missing_dependency_version_dynamic"
@@ -748,6 +742,10 @@ skip="${skip-} --skip middleware::tests::test_tracing_url"
 #           0 │+7ba9bfcaf3c0354c2cb8578922a00726b1ff6bdfa85fcb738bd45978fa86fd0a
 # ────────────┴───────────────────────────────────────────────────────────────────
 skip="${skip-} --skip tests::built_by_uv_building"
+
+# Since 0.8.0, version_get_fallback_unmanaged_json fails outside of a git checkout
+# https://github.com/astral-sh/uv/issues/14785
+skip="${skip-} --skip version::version_get_fallback_unmanaged_json"
 
 %ifarch s390x
 # ---- registry_client::tests::test_redirect_to_server_with_credentials stdout ----

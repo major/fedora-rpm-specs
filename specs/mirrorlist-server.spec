@@ -16,16 +16,15 @@ SourceLicense:  MIT
 # ISC
 # MIT
 # MIT OR Apache-2.0
-# MIT OR Apache-2.0 OR Zlib
+# Unicode-3.0
 # Unlicense OR MIT
-# Zlib OR Apache-2.0 OR MIT
 License:        %{shrink:
     MIT AND
     ISC AND
+    Unicode-3.0 AND
     Unicode-DFS-2016 AND
     (Apache-2.0 OR MIT) AND
     (BSD-2-Clause OR Apache-2.0 OR MIT) AND
-    (MIT OR Apache-2.0 OR Zlib) AND
     (Unlicense OR MIT)
 }
 # LICENSE.dependencies contains a full license breakdown
@@ -36,6 +35,14 @@ Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Patch:          0001-set-license-in-crate-metadata.patch
 # https://github.com/adrianreber/mirrorlist-server/commit/4f59b4b
 Patch:          0002-bump-pretty_env_logger-dependency-from-0.4-to-0.5.patch
+# Allow console 0.16.0 and indicatif 0.18; see:
+#
+# Update console dependency to 0.16.0
+# https://github.com/adrianreber/mirrorlist-server/pull/336
+#
+# Bump indicatif from 0.17.9 to 0.17.11
+# https://github.com/adrianreber/mirrorlist-server/commit/da5c1b7070fe1ca2e5faffce62a2dcaf5f195fcf
+Patch:          0003-Allow-console-0.16-and-indicatif-0.18.patch
 
 BuildRequires:  cargo-rpm-macros >= 26
 

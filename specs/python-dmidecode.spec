@@ -13,7 +13,7 @@
 Name: python-dmidecode
 Summary: Python module to access DMI data
 Version: 3.12.3
-Release: 12%{date}%{shortcommit}%{?dist}
+Release: 13%{date}%{shortcommit}%{?dist}
 License: GPL-2.0-only
 URL: https://github.com/nima/python-dmidecode
 Source0: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -25,8 +25,6 @@ BuildRequires: gcc
 BuildRequires: libxml2-devel
 BuildRequires: python3-devel
 BuildRequires: libxml2-python3
-BuildRequires: python3-setuptools
-BuildRequires: python-distutils-extra
 
 %global _description\
 python-dmidecode is a python extension module that uses the\
@@ -47,6 +45,12 @@ Requires: libxml2-python3
 %prep
 %autosetup -n %{name}-%{version} -N
 %patch 0 -p1 -b .backup
+# upstream Makefile calls src/setup.py which imports src/setup_common.py
+# we need the setup.py file in PWD to make the setuptools build backend see it
+mv src/setup*.py .
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
 # -std=gnu89 is there to avoid `undefined symbol: dmixml_GetContent`
@@ -55,27 +59,30 @@ export CFLAGS="%{build_cflags} -std=gnu89"
 export CXXFLAGS="%{build_cxxflags} -std=gnu89"
 export CC=gcc
 export CXX=g++
-%make_build
+%pyproject_wheel
 
 %install
-%{__python3} src/setup.py install --root %{buildroot} --prefix=%{_prefix}
+%pyproject_install
+%pyproject_save_files -L dmidecode dmidecodemod
 
 
 %check
+%pyproject_check_import
 export PYTHONPATH=%{buildroot}%{python3_sitearch}
 export PYTHON_BIN=%{__python3}
 make -C unit-tests
 
 
-%files -n python3-dmidecode
+%files -n python3-dmidecode -f %{pyproject_files}
 %license doc/LICENSE
 %doc README doc/AUTHORS doc/AUTHORS.upstream
-%{python3_sitearch}/dmidecodemod.cpython-%{python3_version_nodots}*.so
-%pycached %{python3_sitearch}/dmidecode.py
-%{python3_sitearch}/*.egg-info
 %{_datadir}/%{name}/
 
 %changelog
+* Tue Jul 29 2025 Miro Hrončok <mhroncok@redhat.com> - 3.12.3-13
+- Convert to pyproject RPM macros
+- Fixes: rhbz#2378577
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.12.3-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

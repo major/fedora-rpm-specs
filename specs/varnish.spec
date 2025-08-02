@@ -14,11 +14,14 @@
 
 # Default: Use jemalloc, as adviced by upstream project
 # Change to 1 to use system allocator (ie. glibc)
-%if 0%{?rhel}
-%bcond_without system_allocator
-%else
-%bcond_with system_allocator
-%endif
+#
+# for rhel >= 10, use bundled jemalloc
+# for rhel < 10, use system allocator
+%bcond system_allocator %[0%{?rhel} && 0%{?rhel} < 10]
+%bcond bundled_jemalloc %[0%{?rhel} >= 10]
+
+%define jemalloc_version 5.3.0
+%define jemalloc_prefix varnish_
 
 %if %{with system_allocator}
 # use _lto_cflags if present
@@ -29,16 +32,23 @@
 Summary: High-performance HTTP accelerator
 Name: varnish
 Version: 7.7.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: BSD-2-Clause AND (BSD-2-Clause-FreeBSD AND BSD-3-Clause AND LicenseRef-Fedora-Public-Domain AND Zlib)
 URL: https://www.varnish-cache.org/
 Source0: http://varnish-cache.org/_downloads/%{name}-%{version}.tgz
 Source1: https://github.com/varnishcache/pkg-varnish-cache/archive/%{commit1}.tar.gz#/pkg-varnish-cache-%{shortcommit1}.tar.gz
 Source2: varnish.sysusers
+Source3: https://github.com/jemalloc/jemalloc/releases/download/%{jemalloc_version}/jemalloc-%{jemalloc_version}.tar.bz2
 
 # Fix for h2 switch in varnishtest
 # https://github.com/varnishcache/varnish-cache/issues/4298
 Patch0:   varnish-7.7.0_fix_4298.patch
+
+%if %{with bundled_jemalloc}
+# bundled jemalloc patch
+Patch100: jemalloc-5.3.0_fno-builtin.patch
+Patch101: jemalloc-5.3.0-aarch64-ts-segfault.patch
+%endif
 
 Provides: varnish%{_isa} = %{version}-%{release}
 Provides: varnishd(abi)%{_isa} = %{abi}
@@ -55,17 +65,23 @@ Provides: vmod(std)%{_isa} = %{version}-%{release}
 Provides: vmod(unix)%{_isa} = %{version}-%{release}
 Provides: vmod(vtc)%{_isa} = %{version}-%{release}
 
+%if %{with bundled_jemalloc}
+Provides: bundled(jemalloc)
+%endif
+
 BuildRequires: systemd-rpm-macros
 %{?systemd_requires}
 %{?sysusers_requires_compat}
 
 BuildRequires: python3, python3-sphinx, python3-docutils
 BuildRequires: gcc
+%if %{without bundled_jemalloc}
 %if %{with system_allocator}
 # use glibc
 %else
 %ifnarch aarch64
 BuildRequires: jemalloc-devel
+%endif
 %endif
 %endif
 
@@ -74,6 +90,11 @@ BuildRequires: make
 BuildRequires: ncurses-devel
 BuildRequires: pcre2-devel
 BuildRequires: pkgconfig
+
+%if %{with bundled_jemalloc}
+BuildRequires:  /usr/bin/xsltproc
+BuildRequires:  perl-generators
+%endif
 
 # Extra requirements for the build suite
 #   needs haproxy2
@@ -94,7 +115,9 @@ Requires(post): /usr/bin/uuidgen
 %if %{with system_allocator}
 # use glibc
 %else
+%if %{without bundled_jemalloc}
 Requires: jemalloc
+%endif
 %endif
 
 %description
@@ -136,7 +159,54 @@ ln -s pkg-varnish-cache-%{commit1}/debian debian
 cp redhat/find-provides .
 sed -i 's,rst2man-3.6,rst2man-3.4,g; s,rst2html-3.6,rst2html-3.4,g; s,phinx-build-3.6,phinx-build-3.4,g' configure
 
+# jemalloc
+%if %{with bundled_jemalloc}
+tar xjf %SOURCE3
+sed -i '/^LIBPREFIX/s/@libprefix@/@libprefix@%{jemalloc_prefix}/' jemalloc*/Makefile.in
+pushd jemalloc*
+%patch 100 -p1 -b .jemalloc
+%patch 101 -p1 -b .ts-segfault
+popd
+
+# Override PAGESIZE, bz #1545539
+%ifarch %ix86 %arm x86_64 s390x riscv64
+%define lg_page --with-lg-page=12
+%endif
+
+%ifarch ppc64 ppc64le aarch64
+%define lg_page --with-lg-page=16
+%endif
+
+# Disable thp on systems not supporting this for now
+%ifarch %ix86 %arm aarch64 s390x
+%define disable_thp --disable-thp
+%endif
+%endif
+
 %build
+%if %{with bundled_jemalloc}
+# build bundled jemalloc first
+pushd jemalloc*
+
+echo "For debugging package builders"
+echo "What is the pagesize?"
+getconf PAGESIZE
+
+echo "What mm features are available?"
+ls /sys/kernel/mm
+ls /sys/kernel/mm/transparent_hugepage || true
+cat /sys/kernel/mm/transparent_hugepage/enabled || true
+
+echo "What kernel version and config is this?"
+uname -a
+
+%configure %{?disable_thp} %{?lg_page} --enable-prof
+make %{?_smp_mflags}
+popd
+%endif
+
+
+# varnish
 %if %{with system_allocator}
 export CFLAGS="%{optflags}"
 %else
@@ -174,6 +244,14 @@ export RST2MAN=/bin/true
 # Explicit python, please
 export PYTHON=python3
 
+for f in configure configure.ac; do
+  sed -i 's|ljemalloc|l%{jemalloc_prefix}jemalloc|g' $f
+done
+
+%if %{with bundled_jemalloc}
+export LDFLAGS="$LDFLAGS -L%{_builddir}/%{name}-%{version}/jemalloc-%{jemalloc_version}/lib"
+%endif
+
 %configure LT_SYS_LIBRARY_PATH=%_libdir \
  --disable-static \
   --localstatedir=/var/lib  \
@@ -184,8 +262,12 @@ export PYTHON=python3
   --enable-pcre2-jit=no \
 %endif
 %endif
-%if %{with system_allocator}
+%if %{with system_allocator} || %{without bundled_jemalloc}
   --with-jemalloc=no \
+%endif
+
+%if %{with bundled_jemalloc}
+export LD_LIBRARY_PATH=%{_builddir}/%{name}-%{version}/jemalloc-%{jemalloc_version}/lib
 %endif
 
 %make_build
@@ -197,6 +279,12 @@ sed -i 's,User=varnishlog,User=varnish,g;' redhat/varnishncsa.service
 rm -rf doc/html/_sources
 
 %check
+# check jemalloc first
+%if %{with bundled_jemalloc}
+pushd jemalloc*
+make %{?_smp_mflags} check
+popd
+%endif
 
 # Up the stack size in tests, necessary on secondary arches
 sed -i 's/thread_pool_stack 80k/thread_pool_stack 128k/g;' bin/varnishtest/tests/*.vtc
@@ -207,6 +295,9 @@ sed -i 's/file,2M/file,8M/' bin/varnishtest/tests/r04036.vtc
 #rm bin/varnishtest/tests/a02022.vtc
 #endif
 
+%if %{with bundled_jemalloc}
+export LD_LIBRARY_PATH=%{_builddir}/%{name}-%{version}/jemalloc-%{jemalloc_version}/lib
+%endif
 
 # Just a hack to avoid too high load on secondary arch builders
 %ifarch s390x ppc64le
@@ -219,6 +310,18 @@ make -j2 check
 
 %install
 rm -rf %{buildroot}
+
+# jemalloc
+%if %{with bundled_jemalloc}
+pushd jemalloc*
+make DESTDIR=%{buildroot} install_lib %{?_smp_mflags}
+
+find %{buildroot}%{_libdir}/ -name '*.a' -exec rm -vf {} ';'
+
+# we don't need .pc file
+rm  %{buildroot}%{_libdir}/pkgconfig/jemalloc.pc
+popd
+%endif
 
 %{make_install}
 
@@ -304,6 +407,9 @@ test -f /etc/varnish/secret || (uuidgen > /etc/varnish/secret && chmod 0600 /etc
 
 
 %changelog
+* Fri Jun 31 2025 Luboš Uhliarik <luhliari@redhat.com> - 7.7.1-4
+- bundle jemalloc in RHEL
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.7.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

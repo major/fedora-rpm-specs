@@ -1,6 +1,6 @@
 Name:           davfs2
 Version:        1.7.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A filesystem driver for WebDAV
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -13,10 +13,10 @@ Source1:        https://download.savannah.gnu.org/releases/davfs2/%{name}-%{vers
 # no not like the query string.
 Source2:        davfs2-memberlist-gpgkeys.asc
 
-Patch0:         davfs2-neon-34.patch
+Patch0:         davfs2-configure.ac-neon-35.patch
+Patch1:         davfs2-configure-neon-35.patch
 
 Conflicts:      filesystem < 3
-BuildRequires:  automake
 BuildRequires:  gcc
 BuildRequires:  gettext
 BuildRequires:  gnupg2
@@ -34,7 +34,14 @@ as a disk drive.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%autosetup -p1
+%setup -q
+
+# Add support for building with neon 35
+%patch -P 0 -p1
+touch aclocal.m4
+touch Makefile.in
+%patch -P 1 -p1
+touch config.h.in
 
 # Create a sysusers.d config file
 cat >davfs2.sysusers.conf <<EOF
@@ -98,6 +105,9 @@ install -m0644 -D davfs2.sysusers.conf %{buildroot}%{_sysusersdir}/davfs2.conf
 %{_sysusersdir}/davfs2.conf
 
 %changelog
+* Thu Jul 31 2025 Paul Howarth <paul@city-fan.org> - 1.7.1-5
+- Add support for building with neon version 0.35 (rhbz#2384528)
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,11 +1,11 @@
 Name:           python-jupyter-lsp
-Version:        2.2.5
+Version:        2.2.6
 Release:        %autorelease
 Summary:        Multi-Language Server WebSocket proxy for Jupyter Notebook/Lab server
 # SPDX
 License:        BSD-3-Clause
 URL:            https://pypi.org/project/jupyter-lsp/
-Source:         %{pypi_source jupyter-lsp}
+Source:         %{pypi_source jupyter_lsp}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -27,7 +27,7 @@ Requires:       python-jupyter-filesystem
 
 
 %prep
-%autosetup -p1 -n jupyter-lsp-%{version}
+%autosetup -p1 -n jupyter_lsp-%{version}
 
 sed -i "/--cov /d" setup.cfg
 sed -i "/--cov-report/d" setup.cfg

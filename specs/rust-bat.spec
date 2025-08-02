@@ -22,6 +22,7 @@ Patch:          bat-fix-metadata-auto.diff
 # * drop unused lessopen feature and its dependencies
 # * bump etcetera to 0.10:
 #   https://github.com/sharkdp/bat/commit/d7b10b4352ebf519c9af85d461e84c0021f91f7e
+# * allow console 0.16: https://github.com/sharkdp/bat/pull/3351
 Patch:          bat-fix-metadata.diff
 Patch:          0001-port-from-path_abs-to-path-absolutize.patch
 

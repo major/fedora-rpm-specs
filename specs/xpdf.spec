@@ -3,7 +3,7 @@
 Summary: A PDF file viewer for the X Window System
 Name: xpdf
 Version: 4.05
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: (GPL-2.0-only OR GPL-3.0-only) AND BSD-3-Clause
 Epoch: 1
 Url: https://www.xpdfreader.com/
@@ -176,7 +176,7 @@ done
 
 export CFLAGS="%{optflags} -fPIC"
 export CXXFLAGS="%{optflags} -Wno-deprecated -fPIC"
-%cmake -DMULTITHREADED=ON -DOPI_SUPPORT=ON -DXPDFWIDGET_PRINTING=1 -DSYSTEM_XPDFRC="%{_sysconfdir}/xpdfrc"
+%cmake -DMULTITHREADED=ON -DOPI_SUPPORT=ON -DXPDFWIDGET_PRINTING=1 -DSYSTEM_XPDFRC="%{_sysconfdir}/xpdfrc" -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 
 %cmake_build
 %if 0%{?fedora}
@@ -341,6 +341,9 @@ sed -i -e 's:/usr/local/share/:%{_datadir}/:g' $RPM_BUILD_ROOT%{_sysconfdir}/xpd
 %{_libdir}/lib*.so.*
 
 %changelog
+* Thu Jul 31 2025 Tom Callaway <spot@fedoraproject.org> - 1:4.05-8
+- passing -DCMAKE_POLICY_VERSION_MINIMUM=3.5 to fix FTBFS with CMake4 (bz2381643)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.05-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,8 +1,11 @@
+# RHEL does not include all the test dependencies
+%bcond tests %{undefined rhel}
+
 %global srcname requests-ftp
 
 Name:           python-%{srcname}
 Version:        0.3.1
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        FTP transport adapter for python-requests
 
 License:        Apache-2.0
@@ -40,7 +43,7 @@ This is the Python 3 version of the transport adapter module.
 %autosetup -n %{srcname}-%{commit} -p1
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires %{?with_tests:test_requirements.txt}
 
 %build
 %pyproject_wheel
@@ -50,13 +53,19 @@ This is the Python 3 version of the transport adapter module.
 %pyproject_save_files requests_ftp
 
 %check
-%tox
+%pyproject_check_import
+%if %{with tests}
+%pytest tests
+%endif
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst
 %license LICENSE
 
 %changelog
+* Fri Jul 25 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 0.3.1-40
+- Avoid tox dependency
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

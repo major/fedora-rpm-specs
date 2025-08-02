@@ -33,6 +33,8 @@ Source14:       kea-ctrl-agent.service
 Source15:       systemd-tmpfiles.conf
 Source16:       systemd-sysusers.conf
 
+Patch1:         kea-sd-daemon.patch
+
 BuildRequires: boost-devel
 # %%meson -D crypto=openssl
 BuildRequires: openssl-devel
@@ -50,6 +52,8 @@ BuildRequires: libpq-devel
 %else
 BuildRequires: postgresql-server-devel
 %endif
+# %%meson -D systemd=enabled
+BuildRequires: systemd-devel
 %if %{with sysrepo}
 # %%meson -D netconf=enabled
 BuildRequires: sysrepo-devel
@@ -160,7 +164,8 @@ export KEA_PKG_TYPE_IN_CONFIGURE="rpm"
     -D crypto=openssl \
     -D krb5=enabled \
     -D mysql=enabled \
-    -D postgresql=enabled
+    -D postgresql=enabled \
+    -D systemd=enabled
 
 %meson_build
 %meson_build doc
@@ -298,8 +303,6 @@ fi
 %dir %attr(0750,root,kea) %{_sysconfdir}/kea/
 %config(noreplace) %attr(0640,root,kea) %{_sysconfdir}/kea/kea*.conf
 %ghost %config(noreplace,missingok) %attr(0640,root,kea) %verify(not md5 size mtime) %{_sysconfdir}/kea/kea-api-password
-%dir %{_sysconfdir}/kea/radius
-%{_sysconfdir}/kea/radius/dictionary
 %dir %attr(0750,kea,kea) %{_sharedstatedir}/kea
 %config(noreplace) %attr(0640,kea,kea) %{_sharedstatedir}/kea/kea-leases*.csv
 %dir %attr(0750,kea,kea) %{_rundir}/kea/
@@ -362,6 +365,8 @@ fi
 %{_libdir}/pkgconfig/kea.pc
 
 %files hooks
+%dir %{_sysconfdir}/kea/radius
+%{_sysconfdir}/kea/radius/dictionary
 %dir %{_libdir}/kea
 %dir %{_libdir}/kea/hooks
 %{_libdir}/kea/hooks/libddns_gss_tsig.so

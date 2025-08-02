@@ -1,10 +1,5 @@
-%global common_description %{expand:
-sh is a full-fledged subprocess replacement for Python that allows you to call
-any program as if it were a function.  sh is not a collection of system
-commands implemented in Python.}
-
 Name:           python-sh
-Version:        2.1.0
+Version:        2.2.2
 Release:        %autorelease
 Summary:        Python subprocess replacement
 License:        MIT
@@ -15,10 +10,10 @@ BuildRequires:  python3-devel
 # Several tests run the python command.
 BuildRequires:  python-unversioned-command
 
-# Python 3.14 test fix.
-# https://github.com/amoffat/sh/issues/741
-# https://github.com/amoffat/sh/pull/742
-Patch:          0001-Avoid-manual-async-loop-management.patch
+%global common_description %{expand:
+sh is a full-fledged subprocess replacement that allows you to call any program
+as if it were a function.  sh is not a collection of system commands
+implemented in Python.}
 
 
 %description %{common_description}

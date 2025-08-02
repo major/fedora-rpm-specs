@@ -2,7 +2,7 @@
 %global         libmajor 1
 
 Name:           openxr
-Version:        1.1.49
+Version:        1.1.50
 Release:        %autorelease
 Summary:        Cross-platform VR/AR runtime and API
 License:        Apache-2.0
@@ -67,6 +67,8 @@ Headers and development files for building applications using OpenXR XR API.
 
 %install
 %cmake_install
+# Remove redundant LICENSE file for doc directory
+rm %{buildroot}%{_docdir}/%{name}/LICENSE
 
 %check
 %ctest
@@ -74,7 +76,7 @@ Headers and development files for building applications using OpenXR XR API.
 %files
 %license LICENSE
 # Include license in doc otherwise build complains
-%doc CHANGELOG.SDK.md LICENSE README.md
+%doc CHANGELOG.SDK.md README.md
 %{_bindir}/*
 %{_datadir}/%{name}
 %{_mandir}/man1/*.1*

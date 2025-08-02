@@ -14,7 +14,6 @@ VCS:           git:%{url}.git
 Source0:       %{url}/archive/%{git_commit}/%{pypi_name}-%{git_commit}.tar.gz
 BuildRequires: tox
 BuildSystem:   pyproject
-BuildOption(prep): -n %{name}-%{version}
 BuildOption(generate_buildrequires): -t
 BuildOption(install): -l %{pypi_name}
 

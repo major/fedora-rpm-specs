@@ -1,7 +1,7 @@
 Name:           zipper
 Summary:        C++ wrapper around minizip compression library
 Version:        1.0.3
-Release:        11%{?dist}
+Release:        12%{?dist}
 URL:            https://github.com/sebastiandev/zipper
 
 ## Source archive from github obtained by
@@ -59,6 +59,8 @@ This package provides static library file of %{name}.
 %autosetup -n %{name} -p1
 
 %build
+# TODO: remove CMAKE_POLICY_VERSION_MINIMUM if the new upstream source is used
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake -Wno-cpp -Wno-dev \
  -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} -DBUILD_SHARED_VERSION:BOOL=ON -DBUILD_STATIC_VERSION:BOOL=ON \
  -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE -DCMAKE_COLOR_MAKEFILE:BOOL=ON \
@@ -95,6 +97,9 @@ rm -f %{buildroot}%{_bindir}/Zipper-test
 %{_libdir}/libZipper-static.a
 
 %changelog
+* Wed Jul 30 2025 Cristian Le <git@lecris.dev> - 1.0.3-12
+- Add temporary fix for CMake 4.0 (rhbz#2381650)
+
 * Fri Jul 25 2025 Antonio Trande <sagitter@fedoraproject.org> - 1.0.3-11
 - Fix rhbz#2381650 rhbz#2381687
 

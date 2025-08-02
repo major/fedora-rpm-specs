@@ -13,12 +13,13 @@ Summary:        Interactive tool to view and record historical system data
 License:        Apache-2.0
 URL:            https://crates.io/crates/below
 Source:         %{crates_source}
-# Get these from the repo as they aren't included in the crate
+# * Get these from the repo as they aren't included in the crate
 Source1:        %{forgeurl}/raw/v%{version}/etc/below.service
 Source2:        %{forgeurl}/raw/v%{version}/etc/logrotate.conf
 # Manually created patch for downstream crate metadata changes
 # * temporarily loosen version bound on libbpf-* to allow 0.24 and 0.25
 # * remove dependency on unstable tokio/tracing
+# * allow indicatif 0.18: https://github.com/facebookincubator/below/pull/8256
 Patch:          below-fix-metadata.diff
 
 # Many dependencies not available
@@ -59,7 +60,6 @@ Summary:        %{summary}
 # BSD-2-Clause OR Apache-2.0 OR MIT
 # LGPL-2.1-only OR BSD-2-Clause
 # MIT
-# MIT AND (MIT OR Apache-2.0)
 # MIT OR Apache-2.0
 # MPL-2.0 OR MIT OR Apache-2.0
 # Unlicense OR MIT

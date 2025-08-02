@@ -38,7 +38,7 @@
 %global ftver 2.13.1
 
 Name:           python-matplotlib
-Version:        3.10.3
+Version:        3.10.5
 %global Version %{version_no_tilde %{quote:%nil}}
 Release:        %autorelease
 Summary:        Python 2D plotting library
@@ -64,12 +64,6 @@ Patch0001:      0004-Use-old-stride_windows-implementation-on-32-bit-x86.patch
 
 # Temporary fix for some tests.
 Patch0002:      0005-Partially-revert-TST-Fix-minor-issues-in-interactive.patch
-
-# https://github.com/matplotlib/matplotlib/pull/29393
-Patch0004:      python3.14.patch
-
-# https://github.com/matplotlib/matplotlib/pull/30096
-Patch0005:      https://github.com/matplotlib/matplotlib/pull/30101.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++

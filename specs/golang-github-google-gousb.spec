@@ -44,7 +44,7 @@ BuildRequires:  pkgconfig(libusb)
 
 %if %{with check}
 %check
-%gochecks
+%gocheck
 %endif
 
 %gopkgfiles

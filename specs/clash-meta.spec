@@ -4,7 +4,7 @@
 
 # https://github.com/metacubex/mihomo
 %global goipath         github.com/metacubex/mihomo
-Version:                1.19.11
+Version:                1.19.12
 
 # Fix error about undefined reference
 # golang.org/x/sys/unix.sendmsg
@@ -28,6 +28,7 @@ Source0:        %{gosource}
 Source1:        %{archivename}-vendor.tar.bz2
 Source2:        go-vendor-tools.toml
 Source3:        clash-meta.service
+Source4:        clash-meta@.service
 
 BuildRequires:  go-vendor-tools
 BuildRequires:  systemd-rpm-macros
@@ -54,6 +55,7 @@ install -m 0755 -vd                     %{buildroot}%{_sysconfdir}/clash-meta
 install -m 0755 -vd                     %{buildroot}%{_localstatedir}/lib/clash-meta
 install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 install -m 0644 -vp %{S:3}              %{buildroot}%{_unitdir}/
+install -m 0644 -vp %{S:4}              %{buildroot}%{_unitdir}/
 ln -r -s %{buildroot}%{_bindir}/clash-meta %{buildroot}%{_bindir}/mihomo
 
 %check
@@ -71,6 +73,7 @@ ln -r -s %{buildroot}%{_bindir}/clash-meta %{buildroot}%{_bindir}/mihomo
 %{_bindir}/clash-meta
 %{_bindir}/mihomo
 %{_unitdir}/clash-meta.service
+%{_unitdir}/clash-meta@.service
 %dir %{_sysconfdir}/clash-meta
 %dir %{_localstatedir}/lib/clash-meta
 

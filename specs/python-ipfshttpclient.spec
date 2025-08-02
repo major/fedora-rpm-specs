@@ -12,20 +12,24 @@ VCS:           git:%{url}.git
 Source0:       %{pypi_source %{pypi_name} %{version}%{prerelease}}
 # Fedora-specific. Fedora ships a higher but still compatible versions of a
 # build dependencies.
-Patch1:        python-ipfshttpclient-0001-Relax-dependencies.patch
+Patch:         python-ipfshttpclient-0001-Relax-dependencies.patch
 # Likewise. Our pytest is a very recent.
-Patch2:        python-ipfshttpclient-0002-Adjust-test-for-Pytest-7.patch
+Patch:         python-ipfshttpclient-0002-Adjust-test-for-Pytest-7.patch
 # Some tests requires a working IPFS node which we don't have in Fedora. Even
 # if we have one it will require internet access to operate properly which is
 # not available while building.
-Patch3:        python-ipfshttpclient-0003-Workaround-until-we-test-with-available-IPFS-node.patch
-BuildRequires: python3-devel
+Patch:         python-ipfshttpclient-0003-Workaround-until-we-test-with-available-IPFS-node.patch
+Patch:         python-ipfshttpclient-0004-Adjust-to-Python-3.14.patch
 BuildRequires: python3-httpcore
 BuildRequires: python3-httpx
 BuildRequires: python3-pytest
 BuildRequires: python3-pytest-cid
 BuildRequires: python3-pytest-cov
 BuildRequires: python3-pytest-dependency
+BuildRequires: python3-pytest-localserver
+BuildRequires: python3-pytest-mock
+BuildSystem:   pyproject
+BuildOption(install): %{pypi_name}
 
 %description
 %{summary}.
@@ -36,21 +40,7 @@ Summary: %{summary}
 %description -n python3-%{pypi_name}
 %{summary}.
 
-%prep
-%autosetup -p1 -n %{pypi_name}-%{version}%{prerelease}
-
-%generate_buildrequires
-%pyproject_buildrequires -t
-
-%build
-%pyproject_wheel
-
-%install
-%pyproject_install
-%pyproject_save_files %{pypi_name}
-
-%check
-%pyproject_check_import
+%check -a
 %pytest
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}

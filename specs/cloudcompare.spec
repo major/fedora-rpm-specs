@@ -64,6 +64,11 @@ Patch:          %{name}-pcl1.12.patch
 # https://github.com/qcad/qcad/commit/1eeffc5daf
 Patch:          %{name}-CVE-2021-21897.patch
 
+# Change required CMake version to 3.10
+# https://github.com/CloudCompare/CloudCompare/commit/ffd19dccb7
+# Fixes FTBFS with cmake 4 https://bugzilla.redhat.com/2380504
+Patch:          %{name}-cmake3.10.patch
+
 BuildRequires:  boost-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  cmake >= 3
@@ -147,7 +152,7 @@ This is the documentation.
 
 
 %prep
-%autosetup -n %{cname}-%{version} -p1
+%autosetup -n %{cname}-%{version} -N
 
 rmdir plugins/core/Standard/qPoissonRecon/PoissonReconLib
 tar -xf %{SOURCE1}
@@ -156,6 +161,8 @@ mv PoissonRecon-%{pr_commit} plugins/core/Standard/qPoissonRecon/PoissonReconLib
 rmdir plugins/core/IO/qE57IO/extern/libE57Format
 tar -xf %{SOURCE2}
 mv libE57Format-%{lE57F_commit} plugins/core/IO/qE57IO/extern/libE57Format
+
+%autopatch -p1
 
 # On 64bits, change /usr/lib/cloudcompare to /usr/lib64/cloudcompare
 sed -i 's|lib/%{name}|%{_lib}/%{name}|g' $(grep -r lib/%{name} -l)

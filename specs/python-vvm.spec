@@ -16,7 +16,6 @@ Patch:         python-vvm-0001-chore-remove-upper-version-limit-from-packaging-4
 BuildRequires: python3-pytest
 BuildRequires: python3-pytest-cov
 BuildSystem:   pyproject
-BuildOption(prep):    -n %{pypi_name}-%{version}
 BuildOption(install): -l %{pypi_name}
 
 %description %{common_description}

@@ -11,18 +11,14 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2379742
 %bcond cloudcli 0
 
-%bcond inline_snapshot %{undefined el10}
+%bcond inline_snapshot 1
 %bcond orjson 1
-# https://bugzilla.redhat.com/show_bug.cgi?id=2321338
-%bcond passlib %{undefined el10}
+%bcond passlib 1
 # Not yet packaged: https://pypi.org/project/PyJWT/
 %bcond pyjwt 0
-# F43FailsToInstall: python3-sqlmodel, python3-sqlmodel-slim
-# https://bugzilla.redhat.com/show_bug.cgi?id=2372150#c3
+# Python 3.14 / Pydantic 3.12 / PEP 649 compat. issues; orphaned for F43
 %bcond sqlmodel %[ %{without bootstrap} && 0 ]
-# F43FailsToInstall: python3-uvicorn+standard, python3-uvicorn
-# https://bugzilla.redhat.com/show_bug.cgi?id=2372189
-%bcond uvicorn 0
+%bcond uvicorn 1
 
 # For translations, check docs/*/docs/index.md
 # Note that there are many other localized versions of the documentation

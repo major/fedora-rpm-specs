@@ -2,24 +2,30 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate similar-asserts
+%global crate esaxx-rs
 
-Name:           rust-similar-asserts
-Version:        1.7.0
+Name:           rust-esaxx-rs
+Version:        0.1.10
 Release:        %autorelease
-Summary:        Assert_eq! like macros with colorized diff output
+Summary:        Wrapping around sentencepiece's esaxxx library
 
-License:        Apache-2.0
-URL:            https://crates.io/crates/similar-asserts
+License:        Apache-2.0 AND MIT
+URL:            https://crates.io/crates/esaxx-rs
 Source:         %{crates_source}
+# * Add MIT license from bundled C++ sources
+# * See: https://github.com/Narsil/esaxx-rs/issues/17
+Source2:        LICENSE-MIT
 # Manually created patch for downstream crate metadata changes
-# * Update console to 0.16; downstream-only due to upstream MSRV
-Patch:          similar-asserts-fix-metadata.diff
+# * Fix license expression
+# * See: https://github.com/Narsil/esaxx-rs/issues/17
+# * Drop criterion dev-dependency not present in Fedora
+Patch:          esaxx-rs-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  gcc-c++
 
 %global _description %{expand:
-Provides assert_eq! like macros with colorized diff output.}
+Wrapping around sentencepiece's esaxxx library.}
 
 %description %{_description}
 
@@ -34,7 +40,7 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
-%doc %{crate_instdir}/CHANGELOG.md
+%license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -50,32 +56,34 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+serde-devel
+%package     -n %{name}+cc-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+serde-devel %{_description}
+%description -n %{name}+cc-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "serde" feature of the "%{crate}" crate.
+use the "cc" feature of the "%{crate}" crate.
 
-%files       -n %{name}+serde-devel
+%files       -n %{name}+cc-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+unicode-devel
+%package     -n %{name}+cpp-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+unicode-devel %{_description}
+%description -n %{name}+cpp-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "unicode" feature of the "%{crate}" crate.
+use the "cpp" feature of the "%{crate}" crate.
 
-%files       -n %{name}+unicode-devel
+%files       -n %{name}+cpp-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
+cp -pL %{SOURCE2} .
+rm -r benches/ data/ examples/
 %cargo_prep
 
 %generate_buildrequires

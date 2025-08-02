@@ -80,6 +80,11 @@ autoconf
 automake --add-missing
 
 %build
+# The upstream code hasn't been updated in 18 years and uses some
+# old-style C assumptions, in particular assuming that 'false' and
+# 'true' are not keywords.  Hence use C99:
+%global mingw32_cppflags -std=c99
+%global mingw64_cppflags -std=c99
 %mingw_configure --enable-static --enable-shared
 %mingw_make %{?_smp_mflags}
 

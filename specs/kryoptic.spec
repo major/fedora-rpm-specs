@@ -34,8 +34,11 @@ Source0:        https://github.com/latchset/kryoptic/releases/download/v%{versio
 Source1:        https://github.com/latchset/kryoptic/releases/download/v%{version}/%{name}-%{version}.tar.gz.asc
 Source2:        https://people.redhat.com/~ssorce/simo_redhat.asc
 %endif
-# Update cryptoki to 0.10.0
+# Relax cryptoki and asn1 requirement versions
 Patch:          kryoptic-fix-metadata.diff
+# Fix the NSS DB search query
+# https://github.com/latchset/kryoptic/pull/306
+Patch:          kryoptic-fix-nssdb.diff
 
 BuildRequires:  cargo-rpm-macros >= 26
 BuildRequires:  openssl-devel

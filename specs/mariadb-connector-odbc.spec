@@ -5,7 +5,7 @@
 
 Name:           mariadb-connector-odbc
 Version:        3.2.6
-Release:        2%{?with_debug:.debug}%{?dist}
+Release:        3%{?with_debug:.debug}%{?dist}
 Summary:        The MariaDB Native Client library (ODBC driver)
 License:        LGPL-2.1-or-later
 Source:         https://archive.mariadb.org/connector-odbc-%{version}/%{name}-%{version}-src.tar.gz
@@ -90,6 +90,9 @@ FCFLAGS="$FCFLAGS   -O0 -g"; export FCFLAGS
 %{_libdir}/pkgconfig/libmaodbc.pc
 
 %changelog
+* Thu Jul 31 2025 Michal Schorm <mschorm@redhat.com> - 3.2.6-3
+- Bump release for package rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

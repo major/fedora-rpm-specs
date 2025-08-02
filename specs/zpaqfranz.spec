@@ -15,7 +15,7 @@
 Name:           zpaqfranz
 Epoch:          1
 Version:        62.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Advanced multiversioned archiver with hardware acceleration
 # LICENSE:  MIT text
 # man/LICENSE:  Unlicense text
@@ -153,6 +153,9 @@ install -m 0644 -D -t %{buildroot}%{_mandir}/man1 man/zpaqfranz.1
 %{_mandir}/man1/zpaqfranz.1*
 
 %changelog
+* Thu Jul 31 2025 Petr Pisar <ppisar@redhat.com> - 1:62.5-2
+- Disable pipefail in the TMT test
+
 * Wed Jul 30 2025 Petr Pisar <ppisar@redhat.com> - 1:62.5-1
 - 62.5 bump
 

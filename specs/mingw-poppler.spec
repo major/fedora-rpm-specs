@@ -3,8 +3,8 @@
 %global pkgname poppler
 
 Name:          mingw-%{pkgname}
-Version:       25.02.0
-Release:       3%{?dist}
+Version:       25.07.0
+Release:       1%{?dist}
 Summary:       MinGW Windows Poppler library
 
 License:       (GPL-2.0-only OR GPL-3.0-only) AND GPL-2.0-or-later AND LGPL-2.0-or-later AND MIT
@@ -14,10 +14,6 @@ Source0:       http://poppler.freedesktop.org/%{pkgname}-%{version}.tar.xz
 
 # Downstream fix for CVE-2017-9083 (#1453200)
 Patch1:        poppler_CVE-2017-9083.patch
-# Backport fix for CVE-2025-32364
-Patch2:        https://gitlab.freedesktop.org/poppler/poppler/-/commit/d87bc726c7cc98f8c26b60ece5f20236e9de1bc3.patch
-# Backport fix for CVE-2025-32365
-Patch3:        https://gitlab.freedesktop.org/poppler/poppler/-/commit/1f151565bbca5be7449ba8eea6833051cc1baa41.patch
 
 BuildRequires: make
 BuildRequires: cmake
@@ -184,7 +180,7 @@ rm -f %{buildroot}%{mingw64_bindir}/*.exe
 %files -n mingw32-%{pkgname}
 %license COPYING
 %doc README.md
-%{mingw32_bindir}/libpoppler-146.dll
+%{mingw32_bindir}/libpoppler-151.dll
 %{mingw32_includedir}/poppler/
 %exclude %{mingw32_includedir}/poppler/cpp/
 %exclude %{mingw32_includedir}/poppler/glib/
@@ -219,7 +215,7 @@ rm -f %{buildroot}%{mingw64_bindir}/*.exe
 %files -n mingw64-%{pkgname}
 %license COPYING
 %doc README.md
-%{mingw64_bindir}/libpoppler-146.dll
+%{mingw64_bindir}/libpoppler-151.dll
 %{mingw64_includedir}/poppler/
 %exclude %{mingw64_includedir}/poppler/cpp/
 %exclude %{mingw64_includedir}/poppler/glib/
@@ -253,6 +249,9 @@ rm -f %{buildroot}%{mingw64_bindir}/*.exe
 
 
 %changelog
+* Thu Jul 31 2025 Sandro Mani <manisandro@gmail.com> - 25.07.0-1
+- Update to 25.07.0
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 25.02.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -2,17 +2,19 @@
 
 Name:       mingw-gmp
 Version:    6.3.0
-Release:    3%{?dist}
+Release:    4%{?dist}
 
 Summary:    Cross-compiled GNU arbitrary precision library
 # Automatically converted from old format: LGPLv3+ or GPLv2+ - review is highly recommended.
 License:    LGPL-3.0-or-later OR GPL-2.0-or-later
 URL:        http://gmplib.org/
 Source0:    ftp://ftp.gnu.org/pub/gnu/gmp/gmp-%{version}.tar.xz
+# https://gmplib.org/repo/gmp/rev/8e7bb4ae7a18
+Patch0: gmp-6.3.0-c23.patch
 
 BuildArch:      noarch
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  mingw32-filesystem >= 95
 BuildRequires:  mingw32-gcc
 BuildRequires:  mingw32-gcc-c++
@@ -21,6 +23,7 @@ BuildRequires:  mingw64-filesystem >= 95
 BuildRequires:  mingw64-gcc
 BuildRequires:  mingw64-gcc-c++
 
+BuildRequires:  git
 BuildRequires:  libtool
 
 
@@ -77,15 +80,16 @@ library.
 
 
 %prep
-%setup -q -n gmp-%{version}
+%autosetup -S git -n gmp-%{version}
 
 
 %build
+autoreconf -ifv
 %mingw_configure \
     --enable-shared \
     --disable-static \
-    --enable-mpbsd \
-    --enable-cxx
+    --enable-cxx \
+    --enable-fat
 export LD_LIBRARY_PATH=`pwd`/.libs
 %mingw_make %{?_smp_mflags}
 
@@ -132,6 +136,9 @@ rm -r $RPM_BUILD_ROOT/%{mingw64_prefix}/share
 
 
 %changelog
+* Thu Jul 31 2025 Michael Cronenworth <mike@cchtml.com> - 6.3.0-4
+- Fix FTBFS (RHBZ#2385183)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

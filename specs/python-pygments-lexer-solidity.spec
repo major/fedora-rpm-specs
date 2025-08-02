@@ -10,7 +10,6 @@ URL:           https://gitlab.com/veox/%{pypi_name}
 VCS:           git:%{url}.git
 Source0:       %{pypi_source %{pypi_name}}
 BuildSystem:   pyproject
-BuildOption(prep):    -n %{pypi_name}-%{version}
 BuildOption(install): -l pygments_lexer_solidity
 
 %description

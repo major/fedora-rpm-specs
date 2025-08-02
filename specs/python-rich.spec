@@ -1,7 +1,7 @@
 %global pypi_name rich
 
 Name:           python-%{pypi_name}
-Version:        14.0.0
+Version:        14.1.0
 Release:        %autorelease
 Summary:        Render rich text and beautiful formatting in the terminal
 
@@ -9,12 +9,6 @@ Summary:        Render rich text and beautiful formatting in the terminal
 License:        MIT
 URL:            https://github.com/Textualize/rich
 Source0:        %{url}/archive/v%{version}/rich-%{version}.tar.gz
-# Support pygments 2.19+
-Patch:          https://github.com/Textualize/rich/pull/3604.patch
-Patch:          https://github.com/Textualize/rich/pull/3608.patch
-# Support Python 3.14
-Patch:          https://github.com/Textualize/rich/pull/3622.patch
-
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -59,7 +53,7 @@ code, tracebacks, and more — out of the box.
 %pyproject_check_import
 # test_assemble_meta fails with Python 3.14
 # https://github.com/Textualize/rich/issues/3740
-%pytest -vv -k 'not test_attrs_broken_310 and not test_assemble_meta'
+%pytest -vv -k 'not test_assemble_meta and not test_inspect_builtin_function_except_python311 and not test_inspect_integer_with_methods_python38_and_python39 and not test_inspect_integer_with_methods_python310only and not test_inspect_integer_with_methods_python311 and not test_attrs_broken'
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE

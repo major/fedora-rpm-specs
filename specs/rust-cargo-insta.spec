@@ -13,6 +13,7 @@ URL:            https://crates.io/crates/cargo-insta
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Drop rust-strings dev-dependency, used only for a few tests
+# * Allow console 0.16: https://github.com/mitsuhiko/insta/pull/789
 Patch:          cargo-insta-fix-metadata.diff
 # * Downstream: Patch out tests that would require rust-strings. It is not worth
 #   packaging it solely for these.

@@ -2,32 +2,28 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate rd-util
+# prevent executables from being installed
+%global cargo_install_bin 0
 
-Name:           rust-rd-util
-Version:        2.2.5
+%global crate protox
+
+Name:           rust-protox
+Version:        0.8.0
 Release:        %autorelease
-Summary:        Utility collection library for resctl-demo
+Summary:        Rust implementation of the protobuf compiler
 
-License:        Apache-2.0
-URL:            https://crates.io/crates/rd-util
+License:        (MIT OR Apache-2.0) AND BSD-3-Clause
+URL:            https://crates.io/crates/protox
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * bump vergen to 8.3
-# * allow console 0.16:
-#   https://github.com/facebookexperimental/resctl-demo/pull/332
-Patch:          rd-util-fix-metadata.diff
-# * https://github.com/facebookexperimental/resctl-demo/commit/460219e8ac6020e2d87db8596113642e6b1100be
-Patch10:        rd-util-vergen-bump.patch
-# * https://github.com/facebookexperimental/resctl-demo/commit/e0fc927e34b96b09bf69e72b9f3d3512b4bb686b
-Patch11:        rd-util-cargo-fmt.patch
-# * https://github.com/facebookexperimental/resctl-demo/commit/9da5cab06e0b1292f4e0fb862d5a8028599ac113
-Patch12:        rd-util-vergen-improve.patch
+# * Fix the license metadata
+#   https://github.com/andrewhickman/protox/pull/92
+Patch:          protox-fix-metadata.diff
 
-BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  cargo-rpm-macros >= 26
 
 %global _description %{expand:
-Utility collection library for resctl-demo.}
+A rust implementation of the protobuf compiler.}
 
 %description %{_description}
 
@@ -35,13 +31,17 @@ Utility collection library for resctl-demo.}
 Summary:        %{summary}
 BuildArch:      noarch
 
+Provides:       bundled(protobuf) = 3.21.3
+
 %description    devel %{_description}
 
 This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
+%license %{crate_instdir}/protobuf/LICENSE
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -60,19 +60,22 @@ use the "default" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
+# Broken test because tests.rs is not in crate
+sed -i '/#\[cfg(test)\]/,/mod tests/d' src/file/mod.rs
+sed -i '/#\[cfg(test)\]/,/mod tests/d' src/compile/mod.rs
 
 %generate_buildrequires
-%cargo_generate_buildrequires
+%cargo_generate_buildrequires -f bin
 
 %build
-%cargo_build
+%cargo_build -f bin
 
 %install
-%cargo_install
+%cargo_install -f bin
 
 %if %{with check}
 %check
-%cargo_test
+%cargo_test -f bin
 %endif
 
 %changelog

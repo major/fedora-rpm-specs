@@ -1,6 +1,6 @@
 Name:           ntpsec
 Version:        1.2.4
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        NTP daemon and utilities
 
 License:        NTP AND BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause AND ISC AND Apache-2.0 AND Beerware
@@ -123,7 +123,7 @@ done
 mv .%{_bindir}/ntpq .%{_sbindir}/ntpq
 %else
 # Fix incorrect installation
-mv ./usr/sbin/* .%{_bindir}
+[ -d ./usr/sbin ] && mv ./usr/sbin/* .%{_bindir}
 %endif
 
 mkdir -p .%{_localstatedir}/{lib/ntp,log/ntpstats}
@@ -205,6 +205,9 @@ sed -i.bak -E '/^restrict/s/no(e?peer|trap)//g' %{_sysconfdir}/ntp.conf
 %{_sysusersdir}/ntpsec.conf
 
 %changelog
+* Thu Jul 31 2025 Miroslav Lichvar <mlichvar@redhat.com> 1.2.4-5
+- fix FTBFS with new waf (#2385219)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

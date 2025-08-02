@@ -16,8 +16,8 @@
 
 Name:           zabbix
 Epoch:          1
-Version:        7.2.11
-Release:        2%{?dist}
+Version:        7.4.1
+Release:        1%{?dist}
 Summary:        Open-source monitoring solution for your IT infrastructure
 
 # TODO - Note additional licenses in src/go when we start building with go
@@ -43,7 +43,7 @@ Summary:        Open-source monitoring solution for your IT infrastructure
 # ui/vendor/paragonie/constant_time_encoding/src/*.php: MIT License
 License:        AGPL-3.0-only AND MIT AND GPL-2.0-or-later AND Zlib AND BSD-3-Clause AND BSD-2-Clause AND ISC
 URL:            https://www.zabbix.com
-Source0:        https://cdn.zabbix.com/zabbix/sources/stable/7.2/zabbix-%{version}.tar.gz
+Source0:        https://cdn.zabbix.com/zabbix/sources/stable/7.4/zabbix-%{version}.tar.gz
 Source1:        %{srcname}-web.conf
 Source2:        %{srcname}-php-fpm.conf
 Source5:        %{srcname}-logrotate.in
@@ -839,6 +839,9 @@ fi
 %files web-pgsql
 
 %changelog
+* Thu Jul 31 2025 Gwyn Ciesla <gwync@protonmail.com> - 1:7.4.1-1
+- 7.4.1
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:7.2.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

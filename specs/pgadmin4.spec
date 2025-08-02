@@ -7,7 +7,7 @@ Name:           pgadmin4
 # NOTE: Also regenerate requires as indicated below when updating!
 # Verify Patch4 on next update
 Version:        9.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Administration tool for PostgreSQL
 
 # i686, armv7hl: The webpack terser plugin aborts with JS heap memory exhaustion on these arches
@@ -112,6 +112,14 @@ Provides:  pgadmin3 = %{version}-%{release}
 %description
 pgAdmin is the most popular and feature rich Open Source administration and development
 platform for PostgreSQL, the most advanced Open Source database in the world.
+
+
+%package doc
+Summary:       pgadmin4 documentation
+BuildArch:     noarch
+
+%description doc
+pgadmin4 documentation.
 
 
 %ifarch %{qt6_qtwebengine_arches}
@@ -225,10 +233,14 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 %files
 %license LICENSE %{name}-%{version}-vendor-licenses.txt
-%doc docs/en_US/_build/html README.md
+%doc README.md
 %{_prefix}/lib/%{name}
 # Packaged by separate langpack subpackages
 %exclude %{_prefix}/lib/%{name}/pgadmin/translations/*
+
+%files doc
+%license LICENSE %{name}-%{version}-vendor-licenses.txt
+%doc docs/en_US/_build/html
 
 %ifarch %{qt6_qtwebengine_arches}
 %files qt
@@ -246,6 +258,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Thu Jul 31 2025 Sandro Mani <manisandro@gmail.com> - 9.6-3
+- Split out docs to subpackage
+
 * Tue Jul 29 2025 Dominik Mierzejewski <dominik@greysector.net> - 9.6-2
 - Drop unused yasm dependency, part of:
   https://fedoraproject.org/wiki/Changes/DeprecateYASM

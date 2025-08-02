@@ -13,6 +13,7 @@ Patch1:		python-pyownet-002-remove-www.google.com-from-tests.patch
 # temporary before 0.11.0 is released
 # setup.py chunk manualy removed
 Patch2:		python-pyownet-003-2to3.patch
+Patch3:		python-pyownet-004-pyproject-remove-pin-on-setuptools.patch
 
 BuildArch:	noarch
 BuildRequires:	python3-devel

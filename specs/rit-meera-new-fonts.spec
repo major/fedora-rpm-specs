@@ -1,7 +1,9 @@
 # SPDX-License-Identifier: MIT
 Version:    1.6.2
-Release:    3%{?dist}
+Release:    4%{?dist}
 URL:        https://gitlab.com/rit-fonts/%{fontsource}
+
+Patch1:     %{name}-add-monospace-fallback.patch
 
 %global foundry         RIT
 %global fontlicense     OFL-1.1
@@ -29,6 +31,7 @@ Source0:    %{fontsource}-%{version}.zip
 
 %prep
 %setup -qc
+%patch -P1 -p1
 
 %build
 %fontbuild
@@ -43,6 +46,10 @@ Source0:    %{fontsource}-%{version}.zip
 
 
 %changelog
+* Thu Jul 31 2025 Akira TAGOH <tagoh@redhat.com> - 1.6.2-4
+- Add fallback rule of monospace.
+  See https://fedoraproject.org/wiki/Changes/SetDefaultMonospaceFallbackFont
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

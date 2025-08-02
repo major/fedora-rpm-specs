@@ -5,9 +5,9 @@
 %global crate tracing-indicatif
 
 Name:           rust-tracing-indicatif
-Version:        0.3.9
+Version:        0.3.11
 Release:        %autorelease
-Summary:        Tracing layer that automatically creates and manages progress bars for active spans
+Summary:        Tracing layer that automatically creates and manages progress bars
 
 License:        MIT
 URL:            https://crates.io/crates/tracing-indicatif

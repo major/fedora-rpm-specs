@@ -1,36 +1,30 @@
 %global _hardened_build 1
 
+# Upstream moved to github
+%global forgeurl https://github.com/apalrd/tayga
+%global	date 20250731
+%global commit fb5c58f16adc79d1bda31b103b15fd8d55e7083f
+%forgemeta
+
+# tayga no longer builds cleanly on 32bit
+ExcludeArch: %{ix86}
+
 Name:		tayga
-Version:	0.9.2
-Release:	26%{?dist}
+Version:	0.9.6
+Release:	0.1%{?dist}
 Summary:	Simple, no-fuss NAT64
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
-URL:		http://www.litech.org/%{name}/
-Source0:	http://www.litech.org/%{name}/%{name}-%{version}.tar.bz2
-
-#		Patches are sent upstream. 
-#		No issue tracker nor mailing list available
-Patch0:		tayga-0.9.2_redhat_initscripts_and_systemd.patch
-Patch1:		tayga-0.9.2_cflags_override.patch
-Patch2:		tayga-c99.patch
+URL:		%{forgeurl}
+Source0:	%{forgesource}
+source1:	tayga.tmpfilesd.conf
 
 Requires:	iproute
 
 BuildRequires:	gcc
 BuildRequires:	make
 BuildRequires:	coreutils
-
-%if 0%{?fedora} >= 18 || 0%{?rhel} >=7 
-Requires(post):		systemd
-Requires(preun):	systemd
-BuildRequires:		systemd
-%else
-Requires(post):		initscripts
-Requires(preun):	initscripts
-%endif
-
+BuildRequires:	systemd-units
 
 
 %description
@@ -41,84 +35,63 @@ dedicated NAT64 hardware would be overkill.
 
 
 %prep
-%setup -q
-%patch -P0 -p1
-%patch -P1 -p0
-%patch -P2 -p1
+echo Building %{forgesource} > /dev/null
+%forgesetup
+sed -i '
+	s,setcap,#setcap,;
+	s,\$(sysconfdir)/systemd/system,%{_unitdir},g;
+	s,daemon-reload,--version,;
+' Makefile
 
 
 %build
+%make_build CFLAGS="%{optflags}"
 
-# Some hardening on epel5,6
-%if 0%{?rhel} == 5 || 0%{?rhel} == 6 
-CFLAGS="%{optflags} -fPIE"
-LDFLAGS="$LDFLAGS -Wl,-z,now" 
-export CFLAGS
-export LDFLAGS
-%endif
 
-%configure
-make %{?_smp_mflags}
+%check
+%make_build test
 
 
 %install
 rm -rf %{buildroot}
-make install DESTDIR=%{buildroot} INSTALL="install -p"
-echo %{buildroot}
-mkdir -p %{buildroot}%{_sysconfdir}/%{name}
-mv %{buildroot}%{_sysconfdir}/%{name}.conf.example %{buildroot}%{_sysconfdir}/%{name}/default.conf
-sed -i 's, /var/db/tayga, /var/lib/tayga/default,g;' %{buildroot}%{_sysconfdir}/%{name}/default.conf
+%make_install prefix=%{_prefix} sbindir=%{_sbindir}
 mkdir -p %{buildroot}%{_sharedstatedir}/%{name}
-%if 0%{?fedora} >= 18 || 0%{?rhel} >= 7
-install -p -D -m 0644 %{name}.service %{buildroot}%{_unitdir}/%{name}@.service
-install -p -D -m 0644 tayga.tmpfilesd.conf %{buildroot}%{_tmpfilesdir}/%{name}.conf
-%else
-install -p -D -m 0755 tayga.initrc.redhat %{buildroot}%{_initrddir}/%{name}
-install -d -m 0755 %{buildroot}%{_localstatedir}/run/%{name}
-%endif
+install -p -D -m 0644 %SOURCE1 %{buildroot}%{_tmpfilesdir}/%{name}.conf
+
+# Install a default unit
+sed -i 's,%i,default,g' scripts/tayga@.service
+install -p -D -m 0644 scripts/tayga@.service %{buildroot}/%{_unitdir}/%{name}.service
 
 
 %post
-%if 0%{?fedora} >= 18 || 0%{?rhel} >= 7
-%tmpfiles_create %{_tmpfilesdir}/tayga.conf
-%else
-/sbin/chkconfig --add tayga
-%endif
+%tmpfiles_create_package %{name} %{name}.tmpfilesd.conf
+%systemd_post %{name}
 
 
 %preun
-%if 0%{?fedora} >= 18 || 0%{?rhel} >= 7
 %systemd_preun %{name}@.service
-%else
-/sbin/service %{name} stop > /dev/null 2>&1
-/sbin/chkconfig --del %{name}
-%endif
 
 
 %files
-%doc README README.redhat
-%if 0%{?fedora} >= 22 || 0%{?rhel} >= 7
-%license COPYING
-%else
-%doc COPYING
-%endif
 %config(noreplace) %{_sysconfdir}/%{name}/default.conf
+%doc README.md
+%license LICENSE
 %{_sbindir}/%{name}
-%{_mandir}/man5/*
-%{_mandir}/man8/*
+%{_mandir}/*/*
 %{_sharedstatedir}/%{name}
-%if 0%{?fedora} >= 18 || 0%{?rhel} >= 7
 %{_unitdir}/%{name}@.service
-%{_tmpfilesdir}/tayga.conf
-%else
-%{_initrddir}/tayga
-%attr(0755,root,root) %dir %{_localstatedir}/run/tayga
-%endif
+%{_unitdir}/%{name}.service
+%{_tmpfilesdir}/%{name}.conf
 
 
 %changelog
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-26
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+* Thu Jun 19 2025 Ingvar Hagelund <ingvar@redpill-linpro.com> - 0.9.6-0.1
+- Snapshot of upcoming upstream release 0.9.6
+- New upstream source at github
+- Removed patches and hacks merged upstream
+- Installs a default systemd unit tayga.service that points to a default config
+  (similar to Debian and upstream)
+- Pulled support for older EL releases
 
 * Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild

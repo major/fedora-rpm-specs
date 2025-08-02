@@ -18,6 +18,7 @@ Source:         %{crates_source}
 # * relax bat dependency from 0.24.0 to >=0.24.0,<=0.25.0
 # * relax unicode-width dependency from =0.1.12 to 0.1.14
 # * relax rstest dev-dependency from ^0.21.0 to >=0.18.2,<0.24
+# * relax console dependency from 0.15.0 to >=0.15.0,<0.17.0
 Patch:          git-delta-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -44,12 +45,34 @@ Summary:        %{summary}
 # LGPL-3.0-or-later
 # MIT
 # MIT OR Apache-2.0
-# MIT OR Apache-2.0 OR Zlib
 # MIT OR Zlib OR Apache-2.0
 # MPL-2.0
+# Unicode-3.0
 # Unlicense OR MIT
 # Zlib OR Apache-2.0 OR MIT
-License:        MIT AND Apache-2.0 AND BSD-2-Clause AND BSD-2-Clause-Views AND BSD-3-Clause AND CC-BY-SA-3.0 AND GPL-2.0-only WITH GCC-exception-2.0 AND LGPL-3.0-or-later AND MPL-2.0 AND Unicode-DFS-2016 AND Unlicense AND WTFPL AND (0BSD OR MIT OR Apache-2.0) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (MIT OR Apache-2.0 OR Zlib) AND (Unlicense OR MIT)
+License:        %{shrink:
+                MIT AND
+                0BSD AND
+                Apache-2.0 AND
+                BSD-2-Clause AND
+                BSD-2-Clause-Views AND
+                BSD-3-Clause AND
+                CC-BY-SA-3.0 AND
+                GPL-2.0-only WITH GCC-exception-2.0 AND
+                LGPL-3.0-or-later AND
+                MIT AND
+                MPL-2.0 AND
+                Unicode-3.0 AND
+                Unicode-DFS-2016 AND
+                Unlicense AND
+                WTFPL AND
+                (0BSD OR MIT OR Apache-2.0) AND
+                (Apache-2.0 OR BSL-1.0) AND
+                (Apache-2.0 OR MIT) AND
+                (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
+                (MIT OR Zlib OR Apache-2.0) AND
+                (Unlicense OR MIT)
+                }
 # LICENSE.dependencies contains a full license breakdown
 
 %description -n %{crate} %{_description}

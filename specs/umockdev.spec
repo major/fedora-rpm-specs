@@ -1,6 +1,6 @@
 Name:             umockdev
-Version:          0.19.1
-Release:          3%{?dist}
+Version:          0.19.2
+Release:          1%{?dist}
 Summary:          Mock hardware devices
 
 License:          LGPL-2.1-or-later
@@ -75,6 +75,9 @@ rm -rf $RPM_BUILD_ROOT/%{_datadir}/doc/umockdev
 %{_datadir}/vala/vapi/umockdev-1.0.vapi
 
 %changelog
+* Wed Jul 30 2025 Packit <hello@packit.dev> - 0.19.2-1
+- preload: Trap dirfd access to /dev, fstat(), and open_tree()
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.19.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

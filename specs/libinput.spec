@@ -4,8 +4,8 @@
 %global gitversion 58abea394
 
 Name:           libinput
-Version:        1.28.903
-Release:        2%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+Version:        1.29.0
+Release:        1%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 Summary:        Input device library
 
 # SPDX
@@ -118,6 +118,7 @@ intended to be run by users.
 %{_libexecdir}/libinput/libinput-analyze-recording
 %{_libexecdir}/libinput/libinput-analyze-touch-down-state
 %{_libexecdir}/libinput/libinput-debug-tablet
+%{_libexecdir}/libinput/libinput-debug-tablet-pad
 %{_libexecdir}/libinput/libinput-list-kernel-devices
 %{_libexecdir}/libinput/libinput-measure
 %{_libexecdir}/libinput/libinput-measure-fuzz
@@ -134,6 +135,7 @@ intended to be run by users.
 %{_mandir}/man1/libinput-analyze-recording.1*
 %{_mandir}/man1/libinput-analyze-touch-down-state.1*
 %{_mandir}/man1/libinput-debug-tablet.1*
+%{_mandir}/man1/libinput-debug-tablet-pad.1*
 %{_mandir}/man1/libinput-list-kernel-devices.1*
 %{_mandir}/man1/libinput-measure.1*
 %{_mandir}/man1/libinput-measure-fuzz.1*
@@ -156,6 +158,9 @@ intended to be run by users.
 
 
 %changelog
+* Thu Jul 31 2025 Peter Hutterer <peter.hutterer@redhat.com> - 1.29.0-1
+- libinput 1.29.0
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.28.903-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

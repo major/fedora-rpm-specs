@@ -14,6 +14,8 @@ License:        LGPL-2.1-or-later
 URL:            https://gitlab.gnome.org/GNOME/gdk-pixbuf
 Source0:        https://download.gnome.org/sources/gdk-pixbuf/2.43/gdk-pixbuf-%{version}.tar.xz
 
+Patch:          0001-jpeg-Be-more-careful-with-chunked-icc-data.patch
+
 BuildRequires:  docbook-style-xsl
 BuildRequires:  gettext
 BuildRequires:  gi-docgen

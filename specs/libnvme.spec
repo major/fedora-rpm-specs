@@ -4,10 +4,14 @@
 Name:    libnvme
 Summary: Linux-native nvme device management library
 Version: 1.15
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: LGPL-2.1-or-later
 URL:     https://github.com/linux-nvme/libnvme
 Source0: %{url}/archive/v%{version_no_tilde}/%{name}-%{version_no_tilde}.tar.gz
+
+# https://github.com/linux-nvme/libnvme/pull/1046
+# https://bugzilla.redhat.com/show_bug.cgi?id=2385228
+Patch0:  libnvme-1.16-tree-NULL_strdup.patch
 
 BuildRequires: gcc gcc-c++
 BuildRequires: swig
@@ -98,6 +102,9 @@ rm -r %{buildroot}%{_pkgdocdir}/html/{.buildinfo,.doctrees/}
 %{python3_sitearch}/libnvme/*
 
 %changelog
+* Thu Jul 31 2025 Tomas Bzatek <tbzatek@redhat.com> - 1.15-2
+- Fix loop transport address matching (#2385228)
+
 * Fri Jul 25 2025 Tomas Bzatek <tbzatek@redhat.com> - 1.15-1
 - Upstream v1.15 release
 

@@ -1,7 +1,7 @@
 Summary:	Mail filter for Sender Policy Framework verification
 Name:		smf-spf
 Version:	2.5.1^20220423g061e937
-Release:	6%{?dist}
+Release:	7%{?dist}
 License:	GPL-2.0-or-later
 URL:		https://github.com/jcbf/smf-spf/
 Source0:	https://github.com/jcbf/smf-spf/archive/061e9371f761f70afd40af349f4037fe0460725c.zip
@@ -45,7 +45,7 @@ install -m 0644 %{SOURCE3} .
 install -m 0644 %{SOURCE4} .
 
 %build
-%make_build OPTFLAGS="%{optflags}" LDFLAGS="%{build_ldflags} -lmilter -lpthread -lspf2"
+%make_build OPTFLAGS="-DSM_CONF_STDBOOL_H %{optflags}" LDFLAGS="%{build_ldflags} -lmilter -lpthread -lspf2"
 
 %install
 install -d -m 700 %{buildroot}/run/smfs
@@ -82,6 +82,9 @@ install -Dp -m 644 %{SOURCE4} %{buildroot}%{_tmpfilesdir}/smfs.conf
 %{_tmpfilesdir}/smfs.conf
 
 %changelog
+* Thu Jul 31 2025 Jordi Sanfeliu <jordi@fibranet.cat> 2.5.1^20220423g061e937-7
+- Added -DSM_CONF_STDBOOL_H in %make_build to fix BZ#2385632.
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1^20220423g061e937-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

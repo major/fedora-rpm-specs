@@ -15,8 +15,11 @@
 %global miniz_version 3.0.2
 %global pybind11_version 2.13.6
 %else
-%global pypi_version 2.7.0
-%global flatbuffers_version 23.3.3
+%global commit0 a1cb3cc05d46d198467bebbb6e8fba50a325d4e7
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+%global date0 20250723
+%global pypi_version 2.8.0
+%global flatbuffers_version 24.12.23
 %global miniz_version 3.0.2
 %global pybind11_version 2.13.6
 %endif
@@ -33,11 +36,7 @@
 %endif
 
 # For testing distributed+rccl etc.
-%if %{with gitcommit}
 %bcond_without rccl
-%else
-%bcond_with rccl
-%endif
 %bcond_with gloo
 %bcond_without mpi
 %bcond_without tensorpipe
@@ -56,7 +55,7 @@ Name:           python-%{pypi_name}
 %if %{with gitcommit}
 Version:        %{pypi_version}^git%{date0}.%{shortcommit0}
 %else
-Version:        %{pypi_version}
+Version:        %{pypi_version}.rc8
 %endif
 Release:        %autorelease
 Summary:        PyTorch AI/ML framework
@@ -68,7 +67,8 @@ URL:            https://pytorch.org/
 Source0:        %{forgeurl}/archive/%{commit0}/pytorch-%{shortcommit0}.tar.gz
 Source1000:     pyproject.toml
 %else
-Source0:        %{forgeurl}/releases/download/v%{version}/pytorch-v%{version}.tar.gz
+Source0:        %{forgeurl}/archive/%{commit0}/pytorch-%{shortcommit0}.tar.gz
+Source1000:     pyproject.toml
 %endif
 Source1:        https://github.com/google/flatbuffers/archive/refs/tags/v%{flatbuffers_version}.tar.gz
 Source2:        https://github.com/pybind/pybind11/archive/refs/tags/v%{pybind11_version}.tar.gz
@@ -96,25 +96,16 @@ Source70:       https://github.com/yhirose/cpp-httplib/archive/%{hl_commit}/cpp-
 %endif
 
 %if %{without kineto}
-%if %{with gitcommit}
 %global ki_commit 5e7501833f1021ce6f618572d3baf657b6319658
-%else
-%global ki_commit be1317644c68b4bfc4646024a6b221066e430031
-%endif
 %global ki_scommit %(c=%{ki_commit}; echo ${c:0:7})
 Source80:       https://github.com/pytorch/kineto/archive/%{ki_commit}/kineto-%{ki_scommit}.tar.gz
 %endif
 
-%if %{without gitcommit}
-# https://github.com/pytorch/pytorch/issues/150187
-Patch11:       0001-Add-cmake-varaible-USE_ROCM_CK.patch
-%else
 # https://github.com/pytorch/pytorch/issues/150187
 Patch11:       0001-Add-cmake-variable-USE_ROCM_CK.patch
 # https://github.com/pytorch/pytorch/issues/156595
 # Patch12:       0001-Use-horrible-dynamo-stub.patch
 Patch12:       0001-Fix-compilation-and-import-torch-issues-for-cpython-.patch
-%endif
 
 ExclusiveArch:  x86_64 aarch64
 %global toolchain gcc
@@ -157,9 +148,7 @@ BuildRequires:  python3dist(filelock)
 BuildRequires:  python3dist(jinja2)
 BuildRequires:  python3dist(networkx)
 BuildRequires:  python3dist(numpy)
-%if %{with gitcommit}
 BuildRequires:  python3dist(pip)
-%endif
 BuildRequires:  python3dist(pyyaml)
 BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(sphinx)
@@ -178,9 +167,7 @@ BuildRequires:  hipcub-devel
 BuildRequires:  hipfft-devel
 BuildRequires:  hiprand-devel
 BuildRequires:  hipsparse-devel
-%if %{with gitcommit}
 BuildRequires:  hipsparselt-devel
-%endif
 BuildRequires:  hipsolver-devel
 BuildRequires:  magma-devel
 BuildRequires:  miopen-devel
@@ -198,10 +185,8 @@ BuildRequires:  rocm-core-devel
 BuildRequires:  rocm-hip-devel
 BuildRequires:  rocm-runtime-devel
 BuildRequires:  rocm-rpm-macros
-%if %{with gitcommit}
 BuildRequires:  rocsolver-devel
 BuildRequires:  rocm-smi-devel
-%endif
 BuildRequires:  rocthrust-devel
 BuildRequires:  roctracer-devel
 
@@ -275,7 +260,9 @@ Requires:       python3-%{pypi_name}%{?_isa} = %{version}-%{release}
 cp %{SOURCE1000} .
 
 %else
-%autosetup -p1 -n pytorch-v%{version}
+%autosetup -p1 -n pytorch-%{commit0}
+# Overwrite with a git checkout of the pyproject.toml
+cp %{SOURCE1000} .
 %endif
 
 # Remove bundled egg-info
@@ -349,10 +336,8 @@ sed -i -e 's@HIP_CLANG_FLAGS -fno-gpu-rdc@HIP_CLANG_FLAGS -fno-gpu-rdc -Wno-unus
 sed -i -e 's@HIP_CLANG_FLAGS -fno-gpu-rdc@HIP_CLANG_FLAGS -fno-gpu-rdc -Wno-deprecated-declarations@' cmake/Dependencies.cmake
 # Use parallel jobs
 sed -i -e 's@HIP_CLANG_FLAGS -fno-gpu-rdc@HIP_CLANG_FLAGS -fno-gpu-rdc -parallel-jobs=4@' cmake/Dependencies.cmake
-%if %{with gitcommit}
 # Need to link with librocm_smi64
 sed -i -e 's@hiprtc::hiprtc@hiprtc::hiprtc rocm_smi64@' cmake/Dependencies.cmake
-%endif
 
 # No third_party fmt, use system
 sed -i -e 's@fmt::fmt-header-only@fmt@' CMakeLists.txt
@@ -449,9 +434,7 @@ mv googletest third_party
 #
 # Fake out pocketfft, and system header will be used
 mkdir third_party/pocketfft
-%if %{with gitcommit}
 cp /usr/include/pocketfft_hdronly.h third_party/pocketfft/
-%endif
 
 #
 # Use the system valgrind headers
@@ -608,19 +591,11 @@ export DEVICE_LIB_PATH=${RESOURCE_DIR}/amdgcn/bitcode
 export HIP_CLANG_PATH=%{rocmllvm_bindir}
 export PYTORCH_ROCM_ARCH=%{rocm_gpu_list_default}
 
-%if %{with gitcommit}
 %pyproject_wheel
-%else
-%py3_build
-%endif
 
 %else
 
-%if %{with gitcommit}
 %pyproject_wheel
-%else
-%py3_build
-%endif
 
 %endif
 
@@ -637,33 +612,21 @@ export DEVICE_LIB_PATH=${RESOURCE_DIR}/amdgcn/bitcode
 # pytorch uses clang, not hipcc
 export HIP_CLANG_PATH=%{rocmllvm_bindir}
 export PYTORCH_ROCM_ARCH=%{rocm_gpu_list_default}
-%if %{with gitcommit}
 %pyproject_install
 %pyproject_save_files '*torch*'
-%else
-%py3_install
-%endif
 
 %else
 
-%if %{with gitcommit}
 %pyproject_install
 %pyproject_save_files '*torch*'
-%else
-%py3_install
-%endif
 
 %endif
 
 
 
 %check
-%if %{with gitcommit}
 # Not working yet
 # pyproject_check_import torch
-%else
-%py3_check_import torch
-%endif
 
 # Do not remote the empty files
 

@@ -5,7 +5,7 @@
 %global crate console
 
 Name:           rust-console
-Version:        0.15.11
+Version:        0.16.0
 Release:        %autorelease
 Summary:        Terminal and console abstraction for Rust
 
@@ -52,6 +52,18 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+alloc-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+alloc-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "alloc" feature of the "%{crate}" crate.
+
+%files       -n %{name}+alloc-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+ansi-parsing-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -62,6 +74,18 @@ This package contains library source intended for building other packages which
 use the "ansi-parsing" feature of the "%{crate}" crate.
 
 %files       -n %{name}+ansi-parsing-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+std-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+std-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "std" feature of the "%{crate}" crate.
+
+%files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+unicode-width-devel

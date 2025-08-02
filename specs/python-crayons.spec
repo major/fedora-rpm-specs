@@ -18,8 +18,6 @@ Summary:        %{summary}
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-colorama
-BuildRequires:  python3-setuptools
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
 This module provides a simple and elegant wrapper for colorama.
@@ -27,18 +25,21 @@ This module provides a simple and elegant wrapper for colorama.
 %prep
 %autosetup -n %{pypi_name}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{pypi_name}
 
-%files -n python3-%{pypi_name}
-%license LICENSE
+%check
+%pyproject_check_import
+
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.rst
-%{python3_sitelib}/%{pypi_name}-*.egg-info/
-%{python3_sitelib}/%{pypi_name}.py
-%{python3_sitelib}/__pycache__/%{pypi_name}.*.py*
 
 %changelog
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-17

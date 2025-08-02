@@ -12,6 +12,10 @@ Summary:        Snapshot testing library for Rust
 License:        Apache-2.0
 URL:            https://crates.io/crates/insta
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * Update console dependency from 0.15.4 to 0.16.0:
+#   https://github.com/mitsuhiko/insta/pull/789
+Patch:          insta-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 %if %{with check}

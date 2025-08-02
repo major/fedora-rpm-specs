@@ -14,7 +14,12 @@ Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          hyperfine-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * relax indicatif dependency from =0.17.4 to ^0.17.4
+# * Relax indicatif dependency from =0.17.4 to >=0.17.4,<0.19.0. Note that there
+#   are issues with ETA estimation for long-running benchmarks since indicatif
+#   0.17.5, which is why upstream pinned 0.17.4, but we cannot respect that pin.
+#   This adjustment remains downstream-only for the same reason. See
+#   https://github.com/console-rs/indicatif/issues/580 and
+#   https://github.com/sharkdp/hyperfine/issues/670.
 Patch:          hyperfine-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

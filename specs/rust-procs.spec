@@ -18,6 +18,7 @@ Patch:          procs-fix-metadata-auto.diff
 # * relax directories dependency to allow building with both v5 and v6
 # * relax which dependency to allow building with both v7 and v8
 #   (https://github.com/dalance/procs/pull/796)
+# * allow console 0.16: https://github.com/dalance/procs/pull/797
 Patch:          procs-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

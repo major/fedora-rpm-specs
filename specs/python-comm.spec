@@ -1,5 +1,5 @@
 Name:           python-comm
-Version:        0.2.2
+Version:        0.2.3
 Release:        %autorelease
 Summary:        Jupyter Python Comm implementation, for usage in ipykernel, xeus-python etc.
 License:        BSD-3-Clause

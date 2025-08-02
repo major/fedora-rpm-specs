@@ -5,13 +5,8 @@
 
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 
-%if 0%{?fedora} >= 32 || 0%{?rhel} >= 8
-%bcond_with python2
-%else
-%bcond_without python2
-%endif
-
-%ifarch aarch64 ppc64le x86_64
+# ucx on ppc64le/power10 is broken https://github.com/openucx/ucx/issues/10780
+%ifarch aarch64 x86_64
 %bcond_without ucx
 %else
 %bcond_with ucx
@@ -68,7 +63,6 @@ ExcludeArch:    %{ix86}
 # We can't use %%{name} here because of _cc_name_suffix
 Source0:        https://www.open-mpi.org/software/ompi/v5.0/downloads/openmpi-%{version}.tar.bz2
 Source1:        openmpi.module.in
-Source2:        openmpi.pth.py2
 Source3:        openmpi.pth.py3
 Source4:        macros.openmpi
 
@@ -208,17 +202,6 @@ Contains development wrapper for compiling Java with openmpi.
 # particular package, version, compiler
 %global namearch openmpi-%{_arch}%{?_cc_name_suffix}
 
-%if %{with python2}
-%package -n python2-openmpi
-Summary:        OpenMPI support for Python 2
-BuildRequires:  python2-devel
-Requires:       %{name} = %{version}-%{release}
-Requires:       python(abi) = %{python2_version}
-
-%description -n python2-openmpi
-OpenMPI support for Python 2.
-%endif
-
 %package -n python%{python3_pkgversion}-openmpi
 Summary:        OpenMPI support for Python 3
 Requires:       %{name} = %{version}-%{release}
@@ -280,11 +263,6 @@ sed 's#@LIBDIR@#%{_libdir}/%{name}#;
      s#@FMODDIR@#%{_fmoddir}/%{name}#;
      s#@INCDIR@#%{_includedir}/%{namearch}#;
      s#@MANDIR@#%{_mandir}/%{namearch}#;
-%if %{with python2}
-     s#@PY2SITEARCH@#%{python2_sitearch}/%{name}#;
-%else
-     /@PY2SITEARCH@/d;
-%endif
      s#@PY3SITEARCH@#%{python3_sitearch}/%{name}#;
      s#@COMPILER@#openmpi-%{_arch}%{?_cc_name_suffix}#;
      s#@SUFFIX@#%{?_cc_name_suffix}_openmpi#' \
@@ -320,10 +298,6 @@ sed -i -e s/-ldl// -e s/-lhwloc// \
   %{buildroot}%{_libdir}/%{name}/share/openmpi/*-wrapper-data.txt
 
 # install .pth files
-%if %{with python2}
-mkdir -p %{buildroot}/%{python2_sitearch}/%{name}
-install -pDm0644 %{SOURCE2} %{buildroot}/%{python2_sitearch}/openmpi.pth
-%endif
 mkdir -p %{buildroot}/%{python3_sitearch}/%{name}
 install -pDm0644 %{SOURCE3} %{buildroot}/%{python3_sitearch}/openmpi.pth
 
@@ -429,12 +403,6 @@ make check || ( cat test/*/test-suite.log && exit $fail )
 %{_libdir}/%{name}/bin/mpijavac.pl
 %doc %{_libdir}/%{name}/share/doc/openmpi/javadoc-openmpi
 %{_mandir}/%{namearch}/man1/mpijavac.1.gz
-%endif
-
-%if %{with python2}
-%files -n python2-openmpi
-%dir %{python2_sitearch}/%{name}
-%{python2_sitearch}/openmpi.pth
 %endif
 
 %files -n python%{python3_pkgversion}-openmpi

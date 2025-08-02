@@ -1,12 +1,11 @@
 Summary:       Analyzes C files charting control flow within the program
 Name:          cflow
-Version:       1.7
-Release:       13%{?dist}
+Version:       1.8
+Release:       1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:       GPL-2.0-or-later
 URL:           http://www.gnu.org/software/cflow/
 Source0:       http://ftp.gnu.org/gnu/cflow/cflow-%{version}.tar.bz2
-Patch:         cflow-1.7-decl.patch
 # to install lisp files
 BuildRequires: gcc
 BuildRequires: emacs
@@ -23,7 +22,6 @@ output formats are implemented: POSIX and GNU (extended).
 %autosetup -p1
 
 %build
-export CFLAGS="%{optflags} -Wno-incompatible-pointer-types"
 %configure --disable-silent-rules
 %make_build
 
@@ -42,8 +40,16 @@ make check
 %{_infodir}/cflow.info.*
 %{_mandir}/man1/cflow.1.*
 %{_datadir}/emacs/site-lisp/cflow-mode.el
+%{_datadir}/emacs/site-lisp/cflow-mode.elc
+%dir %{_datadir}/cflow
+%dir %{_datadir}/cflow/%{version}
+%{_datadir}/cflow/%{version}/c11.cfo
+%{_datadir}/cflow/%{version}/gcc.cfo
 
 %changelog
+* Thu Jul 31 2025 Terje Rosten <terjeros@gmail.com> - 1.8-1
+- 1.8
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

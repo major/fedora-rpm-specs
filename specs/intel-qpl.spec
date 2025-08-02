@@ -1,5 +1,5 @@
 Name:		intel-qpl
-Version:	1.7.0
+Version:	1.8.0
 Release:	%autorelease
 Summary:	Intel Query Processing Library
 
