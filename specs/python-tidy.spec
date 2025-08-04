@@ -1,25 +1,15 @@
 %global         oname uTidylib
 
-%if 0%{?fedora} < 31 && 0%{?rhel} < 9
-%global         py2 1
-%endif
-
 Summary:        Python wrapper for tidy, from the HTML tidy project
 Name:           python-tidy
 Version:        0.6
-Release:        21%{?dist}
+Release:        22%{?dist}
 License:        MIT
 URL:            https://cihar.com/software/utidylib/
 Source0:        http://dl.cihar.com/utidylib/uTidylib-%{version}.tar.bz2
-%if 0%{?py2}
+Patch:          python-tidy-soname.patch
 BuildRequires:  libtidy
-BuildRequires:  python2-devel
-BuildRequires:  python2-setuptools
-BuildRequires:  python2-six
-BuildRequires:  python2-tools
-%endif
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-six
 BuildArch:      noarch
 %global         _description\
@@ -28,54 +18,36 @@ files through a Pythonic interface.
 
 %description    %_description
 
-%if 0%{?py2}
-%package     -n python2-tidy
-Summary:        %summary
-%{?python_provide:%python_provide python2-tidy}
-Requires:       libtidy
-Requires:       python2-six
-%description -n python2-tidy %_description
-%endif
-
 %package     -n python3-tidy
 Summary:        %summary
-%{?python_provide:%python_provide python3-tidy}
 Requires:       libtidy
 Requires:       python3-six
 %description -n python3-tidy %_description
 
 %prep
-%setup -q -n %{oname}-%{version}
+%autosetup -p1 -n %{oname}-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%{?py2:%{py2_build}}
-%{py3_build}
+%{pyproject_wheel}
 
 %install
-%{?py2:%{py2_install}}
-%{py3_install}
+%{pyproject_install}
+%pyproject_save_files -l tidy
 
 %check
-# fail after tidy 5.6
-%{?py2:%{__python2} setup.py test || :}
-# todo: fails
-%{__python3} setup.py test || :
+%pyproject_check_import
 
-%if 0%{?py2}
-%files -n python2-tidy
-%license LICENSE
+%files -n python3-tidy -f %{pyproject_files}
 %doc README.rst
-%{python2_sitelib}/tidy
-%{python2_sitelib}/uTidylib-*-py2*.egg-info
-%endif
-
-%files -n python3-tidy
-%license LICENSE
-%doc README.rst
-%{python3_sitelib}/tidy
-%{python3_sitelib}/uTidylib-*-py3*.egg-info
 
 %changelog
+* Sat Aug 02 2025 Terje Rosten <terje.rosten@ntnu.no> - 0.3-22
+- Convert to modern macros
+- Remove Python 2 logic
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

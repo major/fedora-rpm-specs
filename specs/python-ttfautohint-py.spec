@@ -1,7 +1,7 @@
 %bcond tests 1
 
 Name:           python-ttfautohint-py
-Version:        0.5.1
+Version:        0.6.0
 Release:        %autorelease
 Summary:        Python wrapper for ttfautohint, a free auto-hinter for TrueType fonts
 
@@ -22,23 +22,19 @@ URL:            https://github.com/fonttools/ttfautohint-py
 # appear in the source archive.
 Source:         %{url}/archive/v%{version}/ttfautohint-py-%{version}.tar.gz
 
-# python: ttfautohint: Python 3.12 support
-# https://github.com/fonttools/ttfautohint-py/pull/22
-#
-# Eliminates use of the deprecated pkg_resources module, and (since
-# pkg_resources was moved to setuptools) fixes an undeclared runtime dependency
-# on setuptools.
-Patch:         %{url}/pull/22.patch
-
 BuildSystem:            pyproject
-%if %{with tests}
-BuildOption(generate_buildrequires): test-requirements-filtered.txt
-%endif
 BuildOption(install):   -l ttfautohint
 
 BuildArch: noarch
 
-BuildRequires:  ttfautohint-devel
+BuildRequires:  /usr/bin/ttfautohint
+
+%if %{with tests}
+# See the "testing" extra, but we don’t want coverage-analysis dependencies:
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+BuildRequires:  %{py3_dist pytest}
+BuildRequires:  %{py3_dist fontTools}
+%endif
 
 %global common_description %{expand:
 %{summary}.}
@@ -53,18 +49,12 @@ Summary:        %{summary}
 # module, which in the end is using dlopen(). Since the shared library is not
 # linked into an ELF file, the automatic dependency generator cannot help us
 # here, and an explicit manual dependency is required.
-Requires:       ttfautohint-libs
+Requires:       /usr/bin/ttfautohint
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_provides_for_importable_modules
 %py_provides python3-ttfautohint
 
 %description -n python3-ttfautohint-py %{common_description}
-
-
-%prep -a
-# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-sed -r -s 's/^(coverage)\b/# &/' test-requirements.txt |
-  tee test-requirements-filtered.txt
 
 
 %generate_buildrequires -p
@@ -83,7 +73,7 @@ export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 
 
 %files -n python3-ttfautohint-py -f %{pyproject_files}
-%doc README.rst
+%doc README.md
 
 
 %changelog

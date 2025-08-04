@@ -1,9 +1,8 @@
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
-%global vimdatadir %{_datadir}/vim/vimfiles
 
 Name:           environment-modules
-Version:        5.5.0
-Release:        4%{?dist}
+Version:        5.6.0
+Release:        1%{?dist}
 Summary:        Provides dynamic modification of a user's environment
 
 License:        GPL-2.0-or-later
@@ -25,7 +24,10 @@ Requires:       tcl
 Requires:       sed
 Requires:       less
 Requires:       util-linux-core
+BuildRequires:  vim-filesystem
 Requires:       vim-filesystem
+BuildRequires:  emacs-nw
+Requires:       emacs-filesystem%{?_emacs_version: >= %{_emacs_version}}
 Requires:       procps-ng
 Requires:       man-db
 Requires(post): coreutils
@@ -73,11 +75,12 @@ have access to the module alias.
            --bindir=%{_datadir}/Modules/bin \
            --libexecdir=%{_datadir}/Modules/libexec \
            --mandir=%{_mandir} \
-           --vimdatadir=%{vimdatadir} \
+           --vimdatadir=%{vimfiles_root} \
+           --emacsdatadir=%{_emacs_sitelispdir}/%{name} \
            --nagelfardatadir=%{_datadir}/Modules/nagelfar \
-           --with-bashcompletiondir=%{_datadir}/bash-completion/completions \
-           --with-fishcompletiondir=%{_datadir}/fish/vendor_completions.d \
-           --with-zshcompletiondir=%{_datadir}/zsh/site-functions \
+           --with-bashcompletiondir=%{bash_completions_dir} \
+           --with-fishcompletiondir=%{fish_completions_dir} \
+           --with-zshcompletiondir=%{zsh_completions_dir} \
            --enable-multilib-support \
            --disable-doc-install \
            --enable-modulespath \
@@ -114,7 +117,10 @@ mv {doc/build/,}INSTALL.txt
 mv {doc/build/,}changes.txt
 
 # install the rpm config file
-install -Dpm 644 contrib/rpm/macros.%{name} %{buildroot}/%{macrosdir}/macros.%{name}
+install -Dpm 644 share/rpm/macros.%{name} %{buildroot}/%{macrosdir}/macros.%{name}
+
+# install Emacs init file
+install -Dpm 644 share/emacs/lisp/%{name}-init.el %{buildroot}/%{_emacs_sitestartdir}/%{name}-init.el
 
 
 %check
@@ -164,31 +170,42 @@ fi
 %dir %{_datadir}/Modules/init
 %{_datadir}/Modules/init/*
 # do not need to require shell package as we "own" completion dir
-%dir %{_datadir}/bash-completion/completions
-%{_datadir}/bash-completion/completions/module
-%{_datadir}/bash-completion/completions/ml
-%dir %{_datadir}/zsh/site-functions
-%{_datadir}/zsh/site-functions/_module
-%dir %{_datadir}/fish/vendor_completions.d
-%{_datadir}/fish/vendor_completions.d/module.fish
+%dir %{bash_completions_dir}
+%{bash_completions_dir}/module
+%{bash_completions_dir}/ml
+%dir %{zsh_completions_dir}
+%{zsh_completions_dir}/_module
+%dir %{fish_completions_dir}
+%{fish_completions_dir}/module.fish
 %dir %{_sysconfdir}/%{name}
 %config(noreplace) %{_sysconfdir}/%{name}/initrc
 %config(noreplace) %{_sysconfdir}/%{name}/modulespath
 %config(noreplace) %{_sysconfdir}/%{name}/siteconfig.tcl
 %{_datadir}/Modules/modulefiles
 %{_datadir}/modulefiles
+%{_mandir}/man1/envml.1.gz
 %{_mandir}/man1/ml.1.gz
 %{_mandir}/man1/module.1.gz
 %{_mandir}/man5/modulefile.5.gz
 %{macrosdir}/macros.%{name}
-%{vimdatadir}/ftdetect/modulefile.vim
-%{vimdatadir}/ftplugin/modulefile.vim
-%{vimdatadir}/syntax/modulefile.vim
+%{vimfiles_root}/ftdetect/modulefile.vim
+%{vimfiles_root}/ftplugin/modulefile.vim
+%{vimfiles_root}/syntax/modulefile.vim
+%dir %{_emacs_sitelispdir}/%{name}
+%{_emacs_sitelispdir}/%{name}/*
+%{_emacs_sitestartdir}/%{name}-init.el
 %dir %{_datadir}/Modules/nagelfar
 %{_datadir}/Modules/nagelfar/*
 
 
 %changelog
+* Thu Jul 31 2025 Xavier Delaruelle <xavier.delaruelle@cea.fr> - 5.6.0-1
+- Update to 5.6.0 (#2385838)
+- Add envml(1) man page
+- Use shell completion path macros
+- Install Emacs addon files
+- Use 'vimfiles_root' macro provided by vim-filesystem
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.5.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

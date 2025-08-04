@@ -29,6 +29,7 @@ Requires:       python3-basemap
 Summary:        Plots data on map projections (with continental and political boundaries)
 License:        LGPL-2.1-or-later
 BuildRequires:  python3-devel, proj-devel, shapelib-devel, python3-numpy-f2py, geos-devel
+BuildRequires:  python3-setuptools, python3-pip
 BuildRequires:  chrpath
 # Needed to regenerate Cython generated files.
 BuildRequires:  python3-Cython

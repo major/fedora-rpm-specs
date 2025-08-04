@@ -389,8 +389,10 @@ Provides: nodejs-devel = %{nodejs_envr}
 %endif
 %unversioned_obsoletes_of_nodejsXX_if_default devel
 
-Provides: nodejs-devel-pkg = %{nodejs_envr}
+Provides: alternative-for(nodejs-devel) = %{nodejs_envr}
+Conflicts: alternative-for(nodejs-devel)
 Conflicts: nodejs-devel-pkg
+# previously VP used for the same reason as alternative-for() above
 
 
 %description -n %{pkgname}-devel

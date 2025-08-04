@@ -3,10 +3,9 @@
 
 Name:		python-%{pypi_name}
 Version:	0.2.0
-Release:	15%{?dist}
+Release:	16%{?dist}
 Summary:	Provides interfaces for secure cookies and sessions in WSGI applications
-# Automatically converted from old format: BSD - review is highly recommended.
-License:	LicenseRef-Callaway-BSD
+License:	BSD-3-Clause
 URL:		https://pypi.org/project/%{src_name}
 Source0:	%{pypi_source %{src_name}}
 
@@ -23,7 +22,6 @@ and responses.
 
 %package -n python3-%{pypi_name}
 Summary:		Provides interfaces for secure cookies and sessions in WSGI applications
-BuildRequires:	python3-setuptools
 BuildRequires:	python3-devel
 %{?python_provide:%python_provide python3-%{pypi_name}}
 
@@ -35,19 +33,26 @@ BuildRequires:	python3-devel
 # Remove bundled egg-info
 rm -rf %{src_name}.egg-info
 
+%generate_buildrequires
+%pyproject_buildrequires 
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{pypi_name}
 
-%files -n python3-%{pypi_name}
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.rst CHANGES.rst
 %license LICENSE.rst
-%{python3_sitelib}/%{pypi_name}
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Sat Aug 02 2025 Rajeesh KV <rajeeshknambiar@fedoraproject.org> - 0.2.0-16
+- Fix License
+- Migrate to new python RPM macros
+- Fixes RHBZ#2378197
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

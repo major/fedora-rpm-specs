@@ -1,8 +1,8 @@
 %global pname   carla
 
 Name:           Carla
-Version:        2.5.9
-Release:        4%{?dist}
+Version:        2.5.10
+Release:        1%{?dist}
 Summary:        Audio plugin host
 
 # The entire source code is GPLv2+ except
@@ -52,11 +52,8 @@ License:        GPL-2.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND BSL-1.0 A
 URL:            https://github.com/falkTX/Carla
 Source0:        https://github.com/falkTX/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 # https://github.com/falkTX/Carla/issues/1444
-Patch0:         %{name}-2.5-libdir.patch
+Patch0:         %{name}-libdir.patch
 Patch1:         %{name}-single-libs-path.patch
-# https://github.com/falkTX/Carla/pull/1933
-# Support pyliblo3 as well as liblo (to work on F41+)
-Patch2:         0001-carla_host_control-import-from-pyliblo3-if-available.patch
 
 BuildRequires:  gcc gcc-c++
 BuildRequires:  pkgconfig(alsa)
@@ -71,7 +68,7 @@ BuildRequires:  pkgconfig(mxml)
 BuildRequires:  pkgconfig(gl)
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  python3-qt5-base
-BuildRequires:  python3-magic
+# BuildRequires:  python3-magic
 BuildRequires:  pkgconfig(liblo)
 BuildRequires:  pkgconfig(zlib)
 BuildRequires:  desktop-file-utils
@@ -145,9 +142,8 @@ This package contains the Carla LV2 plugin.
 %prep
 #%%autosetup -p0 -n %%{name}-%%{version}
 %setup -qn %{name}-%{version}
-%patch 0 -p0
-%patch 1 -p0
-%patch 2 -p1
+%patch 0 -p1
+%patch 1 -p1
 
 # remove windows stuff
 rm -rf data/{macos,windows}
@@ -231,6 +227,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/studio.kx
 %{_libdir}/pkgconfig/%{pname}-host-plugin.pc
 
 %changelog
+* Fri Aug 01 2025 Martin Gansser <martinkg@fedoraproject.org> - 1:2.5.10-1
+- Update to 2.5.10
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.5.9-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

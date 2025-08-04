@@ -53,8 +53,8 @@
 ### Abstract ###
 
 Name: evolution-data-server
-Version: 3.57.1
-Release: 2%{?dist}
+Version: 3.57.2
+Release: 1%{?dist}
 Summary: Backend data server for Evolution
 License: LGPL-2.0-or-later
 URL: https://gitlab.gnome.org/GNOME/evolution/-/wikis/home
@@ -316,8 +316,8 @@ find $RPM_BUILD_ROOT -name '*.so.*' -exec chmod +x {} \;
 %files
 %license COPYING
 %doc README ChangeLog NEWS
-%{_libdir}/libcamel-1.2.so.65
-%{_libdir}/libcamel-1.2.so.65.0.0
+%{_libdir}/libcamel-1.2.so.66
+%{_libdir}/libcamel-1.2.so.66.0.0
 %{_libdir}/libebackend-1.2.so.11
 %{_libdir}/libebackend-1.2.so.11.0.0
 %{_libdir}/libebook-1.2.so.21
@@ -519,7 +519,4 @@ find $RPM_BUILD_ROOT -name '*.so.*' -exec chmod +x {} \;
 %{_datadir}/installed-tests
 
 %changelog
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.57.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
 %autochangelog

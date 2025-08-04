@@ -250,9 +250,9 @@ Provides:         bundled(rapidjson)
 # https://github.com/martinus/unordered_dense
 Provides:         bundled(unordered_dense)
 
-%{?with_conflicts_mariadb:Conflicts: mariadb}
+%{?with_conflicts_mariadb:Conflicts: mariadb-any}
 # Explicitly disallow installation of mysql + mariadb-server
-%{?with_conflicts_mariadb:Conflicts: mariadb-server}
+%{?with_conflicts_mariadb:Conflicts: mariadb-server-any}
 %{?with_provides_community_mysql:Provides: community-mysql = %community_mysql_version}
 %{?with_provides_community_mysql:Provides: community-mysql%{?_isa} = %community_mysql_version}
 %{?with_obsoletes_community_mysql:Obsoletes: community-mysql <= %obsolete_community_mysql_version}
@@ -411,11 +411,11 @@ Requires:         (mysql-selinux if selinux-policy-targeted)
 
 Suggests:         logrotate
 
-%{?with_conflicts_mariadb:Conflicts: mariadb-server}
-%{?with_conflicts_mariadb:Conflicts: mariadb-server-utils}
-%{?with_conflicts_mariadb:Conflicts: mariadb-server-galera}
+%{?with_conflicts_mariadb:Conflicts: mariadb-server-any}
+%{?with_conflicts_mariadb:Conflicts: mariadb-server-utils-any}
+%{?with_conflicts_mariadb:Conflicts: mariadb-server-galera-any}
 # Explicitly disallow installation of mysql + mariadb-server
-%{?with_conflicts_mariadb:Conflicts: mariadb}
+%{?with_conflicts_mariadb:Conflicts: mariadb-any}
 %{?with_provides_community_mysql:Provides: community-mysql-server = %community_mysql_version}
 %{?with_provides_community_mysql:Provides: community-mysql-server%{?_isa} = %community_mysql_version}
 %{?with_obsoletes_community_mysql:Obsoletes: community-mysql-server <= %obsolete_community_mysql_version}
@@ -436,7 +436,7 @@ Summary:          Files for development of MySQL applications
 Requires:         openssl-devel
 Requires:         zlib-devel
 Requires:         libzstd-devel
-%{?with_conflicts_mariadb:Conflicts: mariadb-devel}
+%{?with_conflicts_mariadb:Conflicts: mariadb-devel-any}
 %{?with_conflicts_mariadb:Conflicts: mariadb-connector-c-devel}
 %{?with_provides_community_mysql:Provides: community-mysql-devel = %community_mysql_version}
 %{?with_provides_community_mysql:Provides: community-mysql-devel%{?_isa} = %community_mysql_version}
@@ -479,7 +479,7 @@ Requires:         perl(Test::More)
 Requires:         perl(Time::HiRes)
 Requires:         perl(File::Compare)
 
-%{?with_conflicts_mariadb:Conflicts: mariadb-test}
+%{?with_conflicts_mariadb:Conflicts: mariadb-test-any}
 %{?with_provides_community_mysql:Provides: community-mysql-test = %community_mysql_version}
 %{?with_provides_community_mysql:Provides: community-mysql-test%{?_isa} = %community_mysql_version}
 %{?with_obsoletes_community_mysql:Obsoletes: community-mysql-test <= %obsolete_community_mysql_version}

@@ -12,6 +12,8 @@ Source1:        LICENSE
 Patch1:         0002-Explicitly-export-required-symbols.patch
 Patch2:         0003-Fix-CMake-build-system.patch
 Patch3:         0004-Add-test-executable-for-CTest.patch
+# Fix detection of miniz built with upstream cmake
+Patch4:         %{name}-miniz.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc

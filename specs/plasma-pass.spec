@@ -1,13 +1,10 @@
 Name:           plasma-pass
-Version:        1.2.2
-Release:        4%{?dist}
+Version:        1.3.0
+Release:        1%{?dist}
 Summary:        Plasma applet to access passwords from the Pass password manager
 License:        CC0-1.0 AND LGPL-2.1-or-later
 URL:            https://invent.kde.org/plasma/%{name}.git
 Source0:        https://download.kde.org/stable/%{name}/%{name}-%{version}.tar.xz
-
-# Exclude QML plugins from provides()
-%global __provides_exclude_from ^(%{_kf5_qmldir}/.*\\.so|%{_kf5_qtplugindir}/.*\\.so)$
 
 
 BuildRequires:  gcc
@@ -16,12 +13,13 @@ BuildRequires:  cmake
 BuildRequires:  extra-cmake-modules
 BuildRequires:  kf6-rpm-macros
 BuildRequires:  desktop-file-utils
+BuildRequires:  libappstream-glib
 
 BuildRequires:  cmake(Qt6Core)
-BuildRequires:  cmake(Qt5DBus)
+BuildRequires:  cmake(Qt6DBus)
 BuildRequires:  cmake(Qt6Gui)
 BuildRequires:  cmake(Qt6Qml)
-BuildRequires:  cmake(Qt5Concurrent)
+BuildRequires:  cmake(Qt6Concurrent)
 
 BuildRequires:  cmake(Plasma)
 BuildRequires:  cmake(Plasma5Support)
@@ -59,8 +57,10 @@ password manager.
 
 %install
 %cmake_install
-
 %find_lang plasma_applet_org.kde.plasma.pass
+
+%check
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.plasma.pass.appdata.xml ||:
 
 %files -f plasma_applet_org.kde.plasma.pass.lang
 %license LICENSES/*
@@ -68,9 +68,13 @@ password manager.
 %{_kf6_qmldir}/org/kde/plasma/private/plasmapass/
 %{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.pass/
 %{_kf6_datadir}/qlogging-categories6/plasma-pass.categories
+%{_metainfodir}/org.kde.plasma.pass.appdata.xml
 
 
 %changelog
+* Sat Aug 02 2025 Steve Cossette <farchord@gmail.com> - 1.3.0-1
+- 1.3.0
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

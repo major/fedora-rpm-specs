@@ -58,6 +58,9 @@ Patch6:        %{name}-undefine_GLIBCXX_ASSERTIONS.patch
 # https://xcas.univ-grenoble-alpes.fr/forum/viewtopic.php?f=4&t=2930
 Patch7:        %{name}-faking_mkjs.patch
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:   %{ix86}
+
 BuildRequires: autoconf, libtool
 BuildRequires: python3-devel
 BuildRequires: readline-devel

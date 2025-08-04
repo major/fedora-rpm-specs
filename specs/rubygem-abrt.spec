@@ -2,16 +2,19 @@
 %global gem_name abrt
 
 Name: rubygem-%{gem_name}
-Version: 0.4.0
-Release: 13%{?dist}
+Version: 0.5.0
+Release: 1%{?dist}
 Summary: ABRT support for Ruby
 License: MIT
 URL: http://github.com/voxik/abrt-ruby
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/voxik/abrt-ruby.git && cd abrt-ruby
-# git archive -v -o abrt-0.4.0-spec.tar.gz v0.4.0 spec/
+# git archive -v -o abrt-0.5.0-spec.tar.gz v0.5.0 spec/
 Source1: %{gem_name}-%{version}-spec.tar.gz
 Requires: libreport-filesystem
+# `logger` is now used instead of Ruby `Syslog`
+# https://github.com/voxik/abrt-ruby/pull/15/commits/ae31cc838a576794309209ec3ea83a18d12eb14e
+Requires: %{_bindir}/logger
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -73,6 +76,12 @@ popd
 %{gem_instdir}/Rakefile
 
 %changelog
+* Fri Aug 01 2025 Vít Ondruch <vondruch@redhat.com> - 0.5.0-1
+- Update to abrt 0.5.0
+  Resolves: rhbz#2385934
+- Fix FTBFS in Fedora rawhide/f43
+  Resolves: rhbz#2385583
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

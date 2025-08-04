@@ -8,10 +8,8 @@ Name: ags
 Summary: Engine for creating and running videogames of adventure (quest) genre
 Version: 3.6.2.12
 URL:     http://www.adventuregamestudio.co.uk/site/ags/
-Release: 2%{?dist}
+Release: 3%{?dist}
 Source0: https://github.com/adventuregamestudio/ags/archive/%{fver}/ags-%{fver}.tar.gz
-# https://github.com/richgel999/miniz/issues/249
-Source1: FindMiniz.cmake
 Patch0: ags-use-system-libraries.patch
 # Most code is under Artistic-2.0, except:
 # Common/libsrc/aastr-0.1.1: LicenseRef-Fedora-UltraPermissive
@@ -42,7 +40,7 @@ BuildRequires: libogg-devel
 BuildRequires: libtheora-devel
 BuildRequires: libvorbis-devel
 BuildRequires: make
-BuildRequires: miniz-devel
+BuildRequires: cmake(miniz)
 BuildRequires: SDL2-devel
 BuildRequires: SDL2_sound-devel
 BuildRequires: tinyxml2-devel
@@ -71,7 +69,6 @@ since continued to be developed by contributors.
 %prep
 %setup -q
 %patch 0 -p1 -b .orig
-cp -p %{S:1} CMake/
 # delete unused bundled stuff
 pushd Common/libinclude
 rm -r ogg
@@ -109,9 +106,9 @@ mv Changes.txt.utf-8 Changes.txt
     -DAGS_USE_LOCAL_OGG=TRUE \
     -DAGS_USE_LOCAL_VORBIS=TRUE \
     -DAGS_USE_LOCAL_THEORA=TRUE \
-    -DAGS_USE_SYSTEM_GLM=TRUE \
-    -DAGS_USE_SYSTEM_TINYXML2=TRUE \
-    -DAGS_USE_SYSTEM_MINIZ=TRUE \
+    -DAGS_USE_LOCAL_GLM=TRUE \
+    -DAGS_USE_LOCAL_TINYXML2=TRUE \
+    -DAGS_USE_LOCAL_MINIZ=TRUE \
 
 %cmake_build
 
@@ -124,6 +121,10 @@ mv Changes.txt.utf-8 Changes.txt
 %{_bindir}/ags
 
 %changelog
+* Sun Jul 20 2025 Dominik Mierzejewski <dominik@greysector.net> - 3.6.2.12-3
+- follow upstream convention in option naming
+- drop custom miniz detection and require a fixed build instead
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.2.12-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

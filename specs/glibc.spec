@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.42-3-gbc13db7393
+%global glibcsrcdir glibc-2.42-6-g5e298d2d93
 %global glibcversion 2.42
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 1
+%global baserelease 2
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2385,7 +2385,14 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
-* Wed Jul 30 2025 Florian Weimer <fweimer@redhat.com> - 2.41.9000-1
+* Fri Aug 01 2025 Florian Weimer <fweimer@redhat.com> - 2.42-2
+- Auto-sync with upstream branch release/2.42/master,
+  commit 5e298d2d937b6da06500478be956abeb24357e05:
+- elf: Handle ld.so with LOAD segment gaps in _dl_find_object (bug 31943)
+- elf: Extract rtld_setup_phdr function from dl_main
+- stdlib: resolve a double lock init issue after fork [BZ #32994]
+
+* Wed Jul 30 2025 Florian Weimer <fweimer@redhat.com> - 2.42-1
 - Drop 0001-Revert-Linux-Keep-termios-ioctl-constants-strictly-i.patch,
   merged upstream.
 - Auto-sync with upstream branch release/2.42/master,

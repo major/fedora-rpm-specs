@@ -57,7 +57,7 @@
 Summary: Automatic bug detection and reporting tool
 Name: abrt
 Version: 2.17.6
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: GPL-2.0-or-later
 URL: https://abrt.readthedocs.org/
 Source: https://github.com/abrt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -118,6 +118,11 @@ Requires: libreport-plugin-systemd-journal
 %endif
 # to fix upgrade path abrt-plugin-sosreport was removed in 2.14.5 version.
 Obsoletes: abrt-plugin-sosreport < 2.14.5
+# fros was retired 2025-07, and was initially added to comps to support
+# abrt-desktop, so let's obsolete it here
+Obsoletes: fros < 1.1-42
+Obsoletes: fros-gnome < 1.1-42
+Obsoletes: fros-recordmydesktop < 1.1-42
 
 #gui
 BuildRequires: libreport-gtk-devel >= %{libreport_ver}
@@ -989,6 +994,9 @@ killall abrt-dbus >/dev/null 2>&1 || :
 %config(noreplace) %{_sysconfdir}/profile.d/abrt-console-notification.sh
 
 %changelog
+* Fri Aug 01 2025 Adam Williamson <awilliam@redhat.com> - 2.17.6-8
+- Obsolete fros packages
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.17.6-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

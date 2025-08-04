@@ -6,10 +6,11 @@ The KIWI Image System provides an operating system image builder \
 for Linux supported hardware platforms as well as for virtualization \
 and cloud systems like Xen, KVM, VMware, EC2 and more.
 
+%bcond check 0
 
 Name:           kiwi
-Version:        10.2.27
-Release:        2%{?dist}
+Version:        10.2.31
+Release:        1%{?dist}
 URL:            http://osinside.github.io/kiwi/
 Summary:        Flexible operating system image builder
 License:        GPL-3.0-or-later
@@ -40,10 +41,12 @@ BuildRequires:  shadow-utils
 # doc build requirements
 BuildRequires:  python3dist(sphinx)
 BuildRequires:  python3dist(sphinx-rtd-theme)
+%if %{with check}
 # for tests
 BuildRequires:  python3dist(pytest)
 %if 0%{?fedora}
 BuildRequires:  python3dist(pytest-xdist)
+%endif
 %endif
 
 %description %{desc}
@@ -539,6 +542,8 @@ if [ $1 -eq 0 ]; then
     fi
 fi
 
+
+%if %{with check}
 %check
 pushd test/unit
 # skipped tests require anymarkup which was retired from Fedora
@@ -547,6 +552,8 @@ pushd test/unit
   "not test_process_image_info_print_yaml and not test_process_image_info_print_toml \
    and not test_config_sections_defaults and not test_config_sections_invalid"
 popd
+%endif
+
 
 %files -n python3-%{name}
 %license LICENSE
@@ -631,6 +638,10 @@ popd
 
 
 %changelog
+* Sat Aug 02 2025 Neal Gompa <ngompa@fedoraproject.org> - 10.2.31-1
+- Update to 10.2.31
+- Turn check section off by default
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 10.2.27-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

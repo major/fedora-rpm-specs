@@ -4,8 +4,8 @@
 %global		framework kidletime
 
 Name:		kf6-%{framework}
-Version:	6.16.0
-Release:	2%{?dist}
+Version:	6.17.0
+Release:	1%{?dist}
 Summary:	KDE Frameworks 6 Tier 1 integration module for idle time detection
 License:	CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
 URL:		https://invent.kde.org/frameworks/%{framework}
@@ -109,6 +109,9 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Fri Aug 01 2025 Steve Cossette <farchord@gmail.com> - 6.17.0-1
+- 6.17.0
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.16.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

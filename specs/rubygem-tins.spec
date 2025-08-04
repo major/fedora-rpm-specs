@@ -2,7 +2,7 @@
 %global gem_name tins
 
 Name: rubygem-%{gem_name}
-Version: 1.38.0
+Version: 1.39.1
 Release: %autorelease
 Summary: Useful tools library in Ruby
 License: MIT

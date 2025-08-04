@@ -16,10 +16,14 @@ Patch:          0001-Downstream-only-do-not-upper-bound-the-Python-interp.patch
 
 # Update dependency rich to v14
 # https://github.com/jrnl-org/jrnl/pull/1989
+# Update dependency rich to >=14.1.0, <14.2.0
+# https://github.com/jrnl-org/jrnl/pull/2013
 #
-# We have modified the patch to include only changes to pyproject.toml,
-# omitting those to poetry.lock since they are unnecessary (for Fedora) and
-# likely to cause conflicts.
+# We have combined the two mentioned PR’s and modified the patch to include
+# only changes to pyproject.toml, omitting those to poetry.lock since they are
+# unnecessary (for Fedora) and likely to cause conflicts. Furthermore, we have
+# widened the ersion range as suggested upstream in
+# https://github.com/jrnl-org/jrnl/pull/2013#issuecomment-3146456826.
 Patch:          jrnl-4.2-rich-14.patch
 
 BuildSystem:            pyproject

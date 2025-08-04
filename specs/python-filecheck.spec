@@ -7,7 +7,7 @@
 
 Name: python-%{pypi_name}
 Version: 0.0.24
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Flexible pattern matching file verifier
 License: Apache-2.0
 URL: https://github.com/mull-project/FileCheck.py
@@ -26,10 +26,7 @@ BuildArch: noarch
 
 %package -n python3-%{pypi_name}
 Summary: %{summary}
-BuildRequires: pyproject-rpm-macros
 BuildRequires: python3-devel
-BuildRequires: python3-pip
-BuildRequires: python3-hatchling
 BuildRequires: sed
 %if %{with check}
 BuildRequires: %{_bindir}/invoke
@@ -46,14 +43,19 @@ BuildRequires: gcc
 %autosetup -p1 -n FileCheck.py-%{version}
 sed -i -e '/#!.*python3/d' filecheck/filecheck.py
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
 %pyproject_wheel
 
 %install
 %pyproject_install
+%pyproject_save_files %{pypi_name}
 
 %if %{with check}
 %check
+%pyproject_check_import
 # lit seems to overwrite PYTHONPATH, so inject the buildroot paths directly
 if ! grep -q %{buildroot} tests/integration/tests/examples/lit-and-filecheck/lit.local.cfg ; then
 cat << __EOF__ >> tests/integration/tests/examples/lit-and-filecheck/lit.local.cfg
@@ -65,13 +67,14 @@ fi
 %{_bindir}/invoke -e test
 %endif
 
-%files -n python3-%{pypi_name}
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE
 %{_bindir}/%{pypi_name}
-%{python3_sitelib}/%{pypi_name}-%{version}.dist-info
-%{python3_sitelib}/%{pypi_name}
 
 %changelog
+* Sat Aug 02 2025 Dominik Mierzejewski <dominik@greysector.net> 0.0.24-7
+- use generate_buildrequires/pyproject_buildrequires
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.24-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

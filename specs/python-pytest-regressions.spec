@@ -12,10 +12,11 @@ Source:         %{giturl}/archive/v%{version}/pytest-regressions-%{version}.tar.
 
 BuildArch:      noarch
 BuildSystem:    pyproject
-BuildOption(generate_buildrequires): -t -x num,image,dataframe
+BuildOption(generate_buildrequires): -x num,image,dataframe
 BuildOption(install):                -l pytest_regressions
 
 BuildRequires:  make
+BuildRequires:  %{py3_dist matplotlib}
 BuildRequires:  %{py3_dist sphinx}
 BuildRequires:  %{py3_dist sphinx_rtd_theme}
 
@@ -86,7 +87,7 @@ rm doc/_build/html/.buildinfo
 if [ $(uname -m) = s390x ]; then
   sed -i 's/int64/<i8/' tests/test_ndarrays_regression.py
 fi
-%tox -- -- -Wdefault
+%pytest
 
 %files -n python3-pytest-regressions -f %{pyproject_files}
 %doc CHANGELOG.html README.html

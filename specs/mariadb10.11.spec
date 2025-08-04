@@ -337,10 +337,10 @@ Recommends:       %{pkgname}-client-utils
 
 Suggests:         %{pkgname}-server%{?_isa} = %{sameevr}
 
-%{?with_conflicts_mysql:Conflicts: mysql}
+%{?with_conflicts_mysql:Conflicts: mysql-any}
 %{?with_conflicts_community_mysql:Conflicts: community-mysql}
 # Explicitly disallow combination mariadb + mysql-server
-%{?with_conflicts_mysql:Conflicts: mysql-server}
+%{?with_conflicts_mysql:Conflicts: mysql-server-any}
 %{?with_conflicts_community_mysql:Conflicts: community-mysql-server}
 
 %define conflict_with_other_streams() %{expand:\
@@ -405,7 +405,7 @@ Requires:         %{pkgname}-common = %{sameevr}
 
 %virtual_conflicts_and_provides libs
 
-%{?with_conflicts_mysql:Conflicts: mysql-libs}
+%{?with_conflicts_mysql:Conflicts: mysql-libs-any}
 %{?with_conflicts_community_mysql:Conflicts: community-mysql-libs}
 
 %description      -n %{pkgname}-libs
@@ -556,10 +556,10 @@ Requires:         iproute
 # The 'wsrep_sst_common' and 'wsrep_sst_rsync_tunnel' calls 'which' utility
 %{?with_galera:Requires: which}
 
-%{?with_conflicts_mysql:Conflicts: mysql-server}
+%{?with_conflicts_mysql:Conflicts: mysql-server-any}
 %{?with_conflicts_community_mysql:Conflicts: community-mysql-server}
 # Explicitly disallow combination mariadb-server + mysql
-%{?with_conflicts_mysql:Conflicts: mysql}
+%{?with_conflicts_mysql:Conflicts: mysql-any}
 %{?with_conflicts_community_mysql:Conflicts: community-mysql}
 
 %description      -n %{pkgname}-server
@@ -742,7 +742,7 @@ Requires:         perl(DBI) perl(DBD::MariaDB)
 # which is not wanted
 %conflict_with_other_streams server-utils
 
-%{?with_conflicts_mysql:Conflicts: mysql-server}
+%{?with_conflicts_mysql:Conflicts: mysql-server-any}
 %{?with_conflicts_community_mysql:Conflicts: community-mysql-server}
 
 %description      -n %{pkgname}-server-utils
@@ -763,7 +763,7 @@ Requires:         mariadb-connector-c-devel >= 3.0
 
 %virtual_conflicts_and_provides devel
 
-%{?with_conflicts_mysql:Conflicts: mysql-devel}
+%{?with_conflicts_mysql:Conflicts: mysql-devel-any}
 %{?with_conflicts_community_mysql:Conflicts: community-mysql-devel}
 
 %description      -n %{pkgname}-devel
@@ -804,9 +804,6 @@ Requires:         libaio-devel
 
 %virtual_conflicts_and_provides embedded-devel
 
-%{?with_conflicts_mysql:Conflicts: mysql-embedded-devel}
-%{?with_conflicts_community_mysql:Conflicts: community-mysql-embedded-devel}
-
 %description      -n %{pkgname}-embedded-devel
 MariaDB is a multi-user, multi-threaded SQL database server.
 MariaDB is a community developed fork from MySQL.
@@ -836,7 +833,7 @@ Requires:         perl(Time::HiRes)
 
 %virtual_conflicts_and_provides test
 
-%{?with_conflicts_mysql:Conflicts: mysql-test}
+%{?with_conflicts_mysql:Conflicts: mysql-test-any}
 %{?with_conflicts_community_mysql:Conflicts: community-mysql-test}
 
 %description      -n %{pkgname}-test

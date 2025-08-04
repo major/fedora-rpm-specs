@@ -13,6 +13,7 @@ Source0:        %{pypi_source}
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(setuptools)
+BuildRequires:  python3dist(pip)
 BuildRequires:  gcc
 BuildRequires:  libdb-devel
 BuildRequires:  chrpath

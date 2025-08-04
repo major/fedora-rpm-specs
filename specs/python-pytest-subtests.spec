@@ -10,7 +10,16 @@ Source:         %{pypi_source pytest_subtests}
 
 BuildSystem:            pyproject
 BuildOption(install):   -l pytest_subtests
-BuildOption(generate_buildrequires): -t
+
+# Don’t depend on pytest-xdist on RHEL/ELN, since it’s unwanted there. Keep the
+# dependency in Fedora because it enables several integration tests.
+#
+# (For similar reasons, we don’t pass -t to %%pyproject_buildrequires and we
+# run tests via %%pytest directly instead of via %%tox: tox is unwanted in
+# RHEL/ELN, and the benefit of using it in this package is small.)
+%if %{undefined rhel}
+BuildRequires:  python3dist(pytest-xdist)
+%endif
 
 BuildArch:      noarch
 
@@ -26,7 +35,7 @@ Summary:        %{summary}
 
 
 %check -a
-%tox -- -- -rs -v tests
+%pytest -rs -v tests
 
 
 %files -n python3-pytest-subtests -f %{pyproject_files}

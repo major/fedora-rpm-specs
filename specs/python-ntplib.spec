@@ -1,16 +1,8 @@
-%if 0%{?fedora} || 0%{?rhel} > 7
-# Enable python3 build by default
-%endif
-
-%if 0%{?rhel} > 7
-# Disable python2 build by default
-%endif
-
 # tests require internet connection
 %global with_tests 0
 Name:           python-ntplib
 Version:        0.3.3
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Python module that offers a simple interface to query NTP servers
 
 License:        MIT
@@ -31,9 +23,9 @@ modules, it should work on any platform with a Python implementation.
 Summary:        Python 3 module that offers a simple interface to query NTP servers
 
 BuildRequires:	python3-devel
-BuildRequires:	python3-setuptools
+%generate_buildrequires
+%pyproject_buildrequires
 
-%{?python_provide:%python_provide python3-ntplib}
 
 %description -n python3-ntplib
 The ntplib is a python module that offers a simple interface to query NTP
@@ -49,12 +41,10 @@ Python 3 version.
 %setup -q -n ntplib-%{?version}
 
 %build
-
-%py3_build
+%pyproject_wheel
 
 %install
-
-%py3_install
+%pyproject_install
 
 %if 0%{?with_tests}
 
@@ -68,6 +58,9 @@ Python 3 version.
 %{python3_sitelib}/__pycache__/*
 
 %changelog
+* Fri Aug 01 2025 Vratislav Podzimek <v.podzimek+fedora@mykolab.com> - 0.3.3-37
+- Changes for https://fedoraproject.org/wiki/Changes/DeprecateSetuppyMacros
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.3-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

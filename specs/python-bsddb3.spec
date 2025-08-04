@@ -38,6 +38,8 @@ BuildRequires:  gcc libdb-devel
 %package -n     %{python3_name}
 Summary:        %{summary}
 BuildRequires:  python%{python3_pkgversion}-devel
+BuildRequires:  python%{python3_pkgversion}-setuptools
+BuildRequires:  python%{python3_pkgversion}-pip
 
 %description -n %{python3_name} %{common_description}
 

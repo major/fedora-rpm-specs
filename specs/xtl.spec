@@ -53,14 +53,11 @@ make html SPHINXBUILD=sphinx-build-3
 rm build/html/.buildinfo
 popd
 
-
 %install
 %cmake_install
 
-
 %check
-make -C "%{_vpath_builddir}" xtest
-
+%cmake_build --target xtest
 
 %files devel
 %doc README.md
@@ -71,7 +68,6 @@ make -C "%{_vpath_builddir}" xtest
 
 %files doc
 %doc docs/build/html
-
 
 %changelog
 %autochangelog

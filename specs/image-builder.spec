@@ -7,7 +7,7 @@
 
 %global goipath         github.com/osbuild/image-builder-cli
 
-Version:        28
+Version:        29
 
 %gometa
 
@@ -109,7 +109,7 @@ Provides: bundled(golang(github.com/opencontainers/image-spec)) = 1.1.1
 Provides: bundled(golang(github.com/opencontainers/runtime-spec)) = 1.2.1
 Provides: bundled(golang(github.com/opencontainers/selinux)) = 1.12.0
 Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.10.0
-Provides: bundled(golang(github.com/osbuild/images)) = c064f98
+Provides: bundled(golang(github.com/osbuild/images)) = 0.168.0
 Provides: bundled(golang(github.com/pkg/errors)) = 0.9.1
 Provides: bundled(golang(github.com/pmezard/go-difflib)) = 5d4384e
 Provides: bundled(golang(github.com/proglottis/gpgme)) = 0.1.4
@@ -152,7 +152,6 @@ Provides: bundled(golang(gopkg.in/ini.v1)) = 1.67.0
 Provides: bundled(golang(gopkg.in/yaml.v2)) = 2.4.0
 Provides: bundled(golang(gopkg.in/yaml.v3)) = 3.0.1
 Provides: bundled(golang(sigs.k8s.io/yaml)) = 1.5.0
-Provides: bundled(golang(github.com/osbuild/images)) = c064f98
 # BUNDLE_END
 %endif
 
@@ -221,6 +220,15 @@ cd $PWD/_build/src/%{goipath}
 %{_bindir}/image-builder
 
 %changelog
+* Fri Aug 01 2025 Packit <hello@packit.dev> - 29-1
+Changes with 29
+----------------
+  * deps: fix images 0.168 (#266)
+    * Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Lukáš Zapletal
+
+— Somewhere on the Internet, 2025-08-01
+
+
 * Thu Jul 31 2025 Packit <hello@packit.dev> - 28-1
 Changes with 28
 ----------------

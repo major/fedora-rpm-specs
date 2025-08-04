@@ -3,7 +3,7 @@
 
 Name:           espresso
 Version:        4.2.2
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Extensible Simulation Package for Research on Soft matter
 # segfault on s390x: https://github.com/espressomd/espresso/issues/3753
 # segfault on armv7hl: https://src.fedoraproject.org/rpms/espresso/pull-request/4
@@ -22,6 +22,9 @@ Patch1:         %{name}-cmake.patch
 # improve build reproducibility (diffoscope)
 # https://github.com/espressomd/espresso/commit/2111342
 Patch2:         %{name}-cython.patch
+# fix floating-point accuracy bugs on ARM64
+# https://github.com/espressomd/espresso/pull/5109
+Patch3:         %{name}-arm64.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake3 >= 3.16
@@ -174,6 +177,9 @@ done
 %{python3_sitearch}/mpich/%{name}md/
 
 %changelog
+* Fri Aug  1 2025 Jean-Noël Grad <jgrad@icp.uni-stuttgart.de> - 4.2.2-13
+- ARM bugfix
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

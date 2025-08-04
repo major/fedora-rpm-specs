@@ -3,7 +3,7 @@
 
 Name:		python-%{pypi_name}
 Version:	3.2.3
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Python module for writing files in the Excel 2007+ XLSX file format
 License:	BSD-2-Clause
 URL:		https://pypi.python.org/pypi/XlsxWriter
@@ -41,7 +41,6 @@ It supports Python 2.7, 3.4+, Jython and PyPy and uses standard libraries only.
 
 %package -n python3-%{pypi_name}
 Summary:		Python 3 modules for writing files in the Excel 2007+ XLSX file format
-BuildRequires:	python3-setuptools
 BuildRequires:	python3-devel
 %{?python_provide:%python_provide python3-%{pypi_name}}
 
@@ -53,20 +52,26 @@ BuildRequires:	python3-devel
 # Remove bundled egg-info
 rm -rf %{pypi_name}.egg-info
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{pypi_name}
 
-%files -n python3-%{pypi_name}
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.rst
 %license LICENSE.txt
-%{python3_sitelib}/%{pypi_name}
-%{python3_sitelib}/%{src_name}-%{version}-py%{python3_version}.egg-info
 %{_bindir}/vba_extract.py
 
 %changelog
+* Sat Aug 02 2025 Rajeesh KV <rajeeshknambiar@fedoraproject.org> - 3.2.3-4
+- Migrate to new python RPM macros
+- Fixes RHBZ#2378358
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

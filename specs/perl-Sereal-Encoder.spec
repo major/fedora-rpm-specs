@@ -7,7 +7,7 @@
 
 Name:           perl-Sereal-Encoder
 Version:        5.004
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Perl serialization into Sereal format
 # lib/Sereal/Encoder.pm:    GPL+ or Artistic
 # qsort.h:                  LGPLv2+ (borrowed from glibc)
@@ -101,7 +101,7 @@ perl -i -ne 'print $_ unless m{^zstd/}' MANIFEST
 %build
 unset DEBUG SEREAL_USE_BUNDLED_LIBS SEREAL_USE_BUNDLED_CSNAPPY \
     SEREAL_USE_BUNDLED_MINIZ SEREAL_USE_BUNDLED_ZSTD
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="%{optflags}"
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="%{optflags}" INC="$(pkg-config --cflags miniz)"
 %{make_build}
 
 %install
@@ -119,6 +119,9 @@ make test
 %{_mandir}/man3/Sereal::Encoder.3*
 
 %changelog
+* Sat Aug 02 2025 Dominik Mierzejewski <dominik@greysector.net> - 5.004-11
+- Rebuilt for miniz SONAME bump (and fixed include path)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.004-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

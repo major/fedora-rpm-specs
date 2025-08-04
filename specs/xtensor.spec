@@ -1,7 +1,7 @@
 %undefine __cmake_in_source_build
 
 Name:           xtensor
-Version:        0.25.0
+Version:        0.27.0
 Release:        %autorelease
 Summary:        C++ tensors with broadcasting and lazy computing
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -49,7 +49,7 @@ Requires:       xsimd-devel
 %autosetup -p1
 
 %ifarch s390x
-find -name '*.npy' -exec %{__python3} -c "import numpy as np; np.save('{}', np.load('{}').byteswap().newbyteorder())" \;
+find -name '*.npy' -exec %{__python3} -c "import numpy as np; arr = np.load('{}').byteswap() ; np.save('{}', arr.view(arr.dtype.newbyteorder()))" \;
 %endif
 
 %build

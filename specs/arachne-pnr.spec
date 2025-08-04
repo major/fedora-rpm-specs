@@ -13,15 +13,19 @@
 
 Name:           arachne-pnr
 Version:        0.1
-Release:        0.21.20190729git%{shortcommit0}%{?dist}
+Release:        0.23.20190729git%{shortcommit0}%{?dist}
 Summary:        Place and route for FPGA compilation
-# Automatically converted from old format: GPLv2 - review is highly recommended.
-License:        GPL-2.0-only
+License:        MIT
 URL:            https://github.com/cseed/arachne-pnr
 Source0:        https://github.com/cseed/%{name}/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
+
+# https://github.com/YosysHQ/arachne-pnr/issues/126
+Patch0:         use-std-priority-queue.patch
+Patch1:         make-use-of-emplace.patch
+
 BuildRequires:  gcc-c++
 BuildRequires:  icestorm
-BuildRequires: make
+BuildRequires:  make
 
 %description
 Arachne-pnr implements the place and route step of the hardware
@@ -36,7 +40,7 @@ Together, Yosys, arachne-pnr and IceStorm provide an fully open-source
 Verilog-to-bistream tool chain for iCE40 1K and 8K FPGA development.
 
 %prep
-%setup -q -n %{name}-%{commit0}
+%autosetup -n %{name}-%{commit0} -p1
 
 # can't use git from Makefile to extract version information
 sed -i 's/^VER =.*/VER = %{ver0}/' Makefile
@@ -61,6 +65,12 @@ make install PREFIX="%{_prefix}" \
 %{_datadir}/%{name}
 
 %changelog
+* Fri Aug 01 2025 Alexander F. Lent <lx@xanderlent.com> - 0.1-0.23.20190729gitc40fb22
+- Fix License, upstream moved to MIT in 2017.
+
+* Fri Aug  1 2025 Marcus A. Romer <aimylios@gmx.de> - 0.1-0.22.20190729gitc40fb22
+- Fix RHBZ #1810351
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-0.21.20190729gitc40fb22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,8 +1,8 @@
 %global srcname pyswip
 
 Name:           python-%{srcname}
-Version:        0.3.2
-Release:        4%{?dist}
+Version:        0.3.3
+Release:        1%{?dist}
 Summary:        Python-SWI-Prolog bridge
 
 License:        MIT
@@ -61,6 +61,9 @@ Pythonic interface.
 
 
 %changelog
+* Sat Aug  2 2025 Christoph Karl <pampelmuse [AT] gmx [DOT] at> - 0.3.3-1
+- Update to version 0.3.3
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

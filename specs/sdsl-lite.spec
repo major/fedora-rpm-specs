@@ -1,14 +1,15 @@
 %global debug_package %{nil}
-%global middle_release 0
+%global middle_release 1
 
 %bcond_without check
+%bcond_with doc
 
 ExclusiveArch: %{power64} x86_64 aarch64
 
 %if 0%{?middle_release}
-%global  commit      4604f1b2db7131ea10b9d9ff56bf5a93e8c66847
-%global  date        .20210809git
-%global  shortcommit %(c=%{commit}; echo ${c:0:8})
+%global  commit      bb2eebb2de8a556661c00ba3c5b4c33b7c2c7a25
+%global  date        .20250414git
+%global  shortcommit %(c=%{commit}; echo ${c:0:7})
 %else
 %global  commit      %{nil}
 %global  date        %{nil}
@@ -18,15 +19,16 @@ ExclusiveArch: %{power64} x86_64 aarch64
 Name:      sdsl-lite
 Summary:   SDSL v3 - Succinct Data Structure Library
 Version:   3.0.3
-Release:   5%{date}%{shortcommit}%{?dist}
+Release:   6%{date}%{shortcommit}%{?dist}
 License:   BSD-3-Clause
 URL:       https://github.com/xxsds/%{name}
-Source0:   https://github.com/xxsds/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0:   https://github.com/xxsds/%{name}/archive/%{commit}/%{name}-%{commit}.tar.gz
 
 BuildRequires: gcc, gcc-c++
 BuildRequires: cmake
 BuildRequires: cereal-devel >= 1.3.2
 BuildRequires: gtest-devel >= 1.13.0
+BuildRequires: texlive-endnotes
 
 Patch0: %{name}-unbundle_libraries.patch
 
@@ -46,11 +48,12 @@ data structure and the equivalent succinct data structure are
 Summary: SDSL v3 - Succinct Data Structure Library
 Requires: cmake >= 3.13
 Requires: cereal-devel%{?_isa} >= 1.3.2
+Obsoletes: %{name}-doc < 0:3.0.3-6
 
 %description devel
 Developer files for SDSL 3, in the form for C header files.
 
-
+%if %{with doc}
 %package doc
 Summary: SDSL v3 HTML/Latex documentation
 BuildRequires: doxygen
@@ -58,15 +61,18 @@ BuildArch: noarch
 
 %description doc
 SDSL v3 HTML/Latex documentation.
+%endif
 
 %prep
-%autosetup -n sdsl-lite-%{version} -N
+%autosetup -n sdsl-lite-%{commit} -N
 
 %patch -P 0 -p1 -b .backup
 
 %build
 %cmake -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE -DCMAKE_BUILD_TYPE:STRING=Release \
-       -DSDSL_HEADER_TEST:BOOL=OFF -DGENERATE_DOC:BOOL=ON -DUSE_LIBCPP:BOOL=OFF -DSDSL_CEREAL=1
+       -DSDSL_HEADER_TEST:BOOL=OFF -DGENERATE_DOC:BOOL=OFF -DUSE_LIBCPP:BOOL=OFF -DSDSL_CEREAL=1 \
+       -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+
 %cmake_build
 
 %install
@@ -81,15 +87,21 @@ rm -f %{buildroot}%{_includedir}/sdsl/.gitignore
 %ctest -- -E 'k2-treap-test_k2-0.1.0.0'
 %endif
 
+%if %{with doc}
 %files doc
 %doc %__cmake_builddir/extras/docs/html
 %doc %__cmake_builddir/extras/docs/latex
+%endif
 
 %files devel
 %license LICENSE
 %{_includedir}/sdsl/
 
 %changelog
+* Sat Aug 02 2025 Antonio Trande <sagitter@fedoraproject.org> - 3.0.3-6
+- Bump to the commit bb2eebb
+- Fix rhbz#2380805
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

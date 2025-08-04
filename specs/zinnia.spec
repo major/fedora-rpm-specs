@@ -1,6 +1,6 @@
 Name:		zinnia
 Version:	0.07
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Online handwriting recognition system with machine learning
 
 License:	BSD-3-Clause
@@ -8,6 +8,7 @@ URL:		https://github.com/silverhikari/zinnia
 Source0:	https://github.com/silverhikari/zinnia/releases/download/%{version}/%{name}-%{version}.tar.gz
 Source1:	https://raw.githubusercontent.com/silverhikari/%{name}/master/%{name}/tomoe2s.pl
 Source2:	Makefile.tomoe
+Source3:	requirements.txt
 Patch0:		zinnia-0.05-bindings.patch
 Patch2:		always-store-data-in-little-endian-format.patch
 Patch4:		zinnia-fixes-python-setuptools.patch
@@ -22,7 +23,6 @@ BuildRequires:	perl(ExtUtils::MakeMaker)
 BuildRequires:	tomoe
 BuildRequires:	autoconf
 BuildRequires:	gnome-common
-BuildRequires:	python3-setuptools
 
 %description
 Zinnia provides a simple, customizable, and portable dynamic OCR
@@ -70,7 +70,6 @@ Requires:	%{name} = %{version}-%{release}
 This package contains perl bindings for %{name}.
 
 %package 	-n python3-zinnia
-%{?python_provide:%python_provide python3-zinnia}
 Summary:	Python bindings for %{name}
 Requires:	%{name} = %{version}-%{release}
 
@@ -115,6 +114,9 @@ pushd swig
 make python
 popd
 
+%generate_buildrequires
+%pyproject_buildrequires -N %{SOURCE3}
+
 %build
 gnome-autogen.sh
 %configure --disable-static --disable-rpath
@@ -127,7 +129,7 @@ make %{?_smp_mflags}
 popd
 
 pushd python
-python3 setup.py build
+%pyproject_wheel
 popd
 
 %install
@@ -140,10 +142,8 @@ make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
 popd
 
 pushd python
-python3 setup.py install --root $RPM_BUILD_ROOT
-
-#the following line fixes RHBZ#2048104
-rm -rf $RPM_BUILD_ROOT%{python3_sitearch}/zinnia_python-0.0.0-py%{python3_version}.egg-info
+%pyproject_install
+%pyproject_save_files '%{name}*' _%{name}
 pushd
 
 #remove something unnecessary
@@ -155,8 +155,9 @@ find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} ';'
 chmod 0755 $RPM_BUILD_ROOT%{perl_vendorarch}/auto/%{name}/%{name}.so
 
 
-
-%ldconfig_scriptlets
+%check
+export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
+%pyproject_check_import
 
 
 %files
@@ -181,10 +182,8 @@ chmod 0755 $RPM_BUILD_ROOT%{perl_vendorarch}/auto/%{name}/%{name}.so
 %{perl_vendorarch}/auto/%{name}/
 %{perl_vendorarch}/%{name}.pm
 
-%files	-n python3-zinnia
-%{python3_sitearch}/_%{name}.*.so
-%{python3_sitearch}/%{name}*
-%{python3_sitearch}/__pycache__/*
+%files	-n python3-zinnia -f %{pyproject_files}
+%exclude %{python3_sitearch}/zinnia_python-0.0.0.dist-info
 
 %files tomoe-ja
 %dir %{_datadir}/zinnia/model/tomoe/
@@ -195,6 +194,10 @@ chmod 0755 $RPM_BUILD_ROOT%{perl_vendorarch}/auto/%{name}/%{name}.so
 %{_datadir}/zinnia/model/tomoe/handwriting-zh_CN.model
 
 %changelog
+* Fri Jul 25 2025 Peng Wu  <pwu@redhat.com> - 0.07-4
+- Update for https://fedoraproject.org/wiki/Changes/DeprecateSetuppyMacros
+- Resolves: RHBZ#2378641
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

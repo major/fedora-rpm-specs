@@ -1,28 +1,36 @@
 Name:           SDL2_sound
 Version:        2.0.4
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        An abstract soundfile decoder library
+# src/dr_{flac,mp3}.h: Unlicense or MIT-0
 # src/stb_vorbis.h: MIT or Unlicense
 # src/libmodplug: Public-Domain
 # src/timidity: LGPL-2.1-or-later or Artistic-1.0-Perl (See https://gitlab.com/fedora/legal/fedora-license-data/-/issues/589)
-License:        Zlib AND LGPL-2.1-or-later AND ( MIT OR Unlicense ) AND LicenseRef-Fedora-Public-Domain
+License:        Zlib AND LGPL-2.1-or-later AND (Unlicense OR MIT-0) AND (MIT OR Unlicense) AND LicenseRef-Fedora-Public-Domain
 URL:            http://www.icculus.org/SDL_sound
 Source0:        https://github.com/icculus/SDL_sound/archive/v%{version}/%{name}-%{version}.tar.gz
-# Remove references to the bundled dr_flac and dr_mp3 headers from the build
-# system, since we will remove these and use the system copies of these
-# header-only libraries instead.
-Patch0:         SDL2_sound-2.0.2-unbundle-dr_libs.patch
+# updated dr_libs from mainstream.
+# https://github.com/icculus/SDL_sound/commit/74bc83aa5c842ef74b2bc0b51dd1f53a09dc94cb
+#
+# This updates dr_flac from 0.12.42 to 0.12.43 and dr_mp3 from  0.6.38 to
+# 0.6.40. Version 0.12.43 of dr_flac fixes a possible buffer overflow during
+# decoding.
+Patch0:         https://github.com/icculus/SDL_sound/commit/74bc83aa5c842ef74b2bc0b51dd1f53a09dc94cb.patch
 BuildRequires:  cmake
 BuildRequires:  doxygen
 BuildRequires:  gcc-c++
 BuildRequires:  make
 BuildRequires:  SDL2-devel
-# Header-only libraries (thus the -static)
-# Version 0.12.43 fixes a possible buffer overflow during decoding.
-BuildRequires:  dr_flac-static >= 0.12.43
-BuildRequires:  dr_mp3-static
 # https://github.com/icculus/SDL_sound/issues/42
 Provides:       bundled(libmodplug) = 0.8.9.1
+# Backporting unreleased upstream support for the latest dr_flac 0.13 and
+# dr_mp3 0.7 is not straightforward, since the new flac_tell() and mp3_tell()
+# routines required for dr_libs API changes are based on SDL_TellIO(x), and SDL
+# 2.x lacks both this routine and the SDL_IO_SEEK_CUR needed for its
+# implementation, SDL_SeekIO(x, 0, SDL_IO_SEEK_CUR). Instead, we fall back to
+# using the bundled dr_flac and dr_mp3 libraries.
+Provides:       bundled(dr_flac) = 0.12.43
+Provides:       bundled(dr_mp3) = 0.6.40
 # This has been forked; see "#ifdef __SDL_SOUND_INTERNAL__"
 Provides:       bundled(stb_vorbis) = 1.22
 # SDL_mixer fork, stripped further, see https://github.com/icculus/SDL_sound/tree/main/src/timidity/CHANGES
@@ -54,8 +62,6 @@ This package contains the headers and libraries for SDL_sound development.
 
 %prep
 %autosetup -n SDL_sound-%{version} -p1
-# Unbundle dr_flac and dr_mp3, from dr_libs.
-rm src/dr_flac.h src/dr_mp3.h
 
 %build
 %cmake \
@@ -109,6 +115,10 @@ mv man3 %{buildroot}/%{_mandir}
 
 
 %changelog
+* Thu Jul 31 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 2.0.4-5
+- Go back to bundling dr_flac and dr_mp3, since it is not straightforward to
+  patch for the current releases
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

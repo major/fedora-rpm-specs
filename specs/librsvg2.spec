@@ -39,6 +39,10 @@ Source0:        https://download.gnome.org/sources/librsvg/2.60/librsvg-%{versio
 #   cargo vendor --versioned-dirs && tar Jcvf ../librsvg-%%{version}-vendor.tar.xz vendor/ ; popd
 Source1:        librsvg-%{version}-vendor.tar.xz
 
+Source2:        filters-composite-04-f-ref.png
+Source3:        filters-conv-02-f-ref.png
+Source4:        filters-conv-04-f-ref.png
+
 # Patches to build with Fedora-packaged rust crates
 Patch:          0001-Fedora-Drop-dependencies-required-for-benchmarking.patch
 Patch:          0002-bump-dependencies-to-markup5ever-0.14-xml5ever-0.20.patch
@@ -118,6 +122,10 @@ sed -i 's/, "--locked"//g' meson/cargo_wrapper.py
 # cargo-c requires all optional dependencies to be available
 %cargo_generate_buildrequires -a
 %endif
+
+cp %{SOURCE2} rsvg/tests/fixtures/reftests/svg1.1/filters-composite-04-f-ref.png
+cp %{SOURCE3} rsvg/tests/fixtures/reftests/svg1.1/filters-conv-02-f-ref.png
+cp %{SOURCE4} rsvg/tests/fixtures/reftests/svg1.1/filters-conv-04-f-ref.png
 
 %build
 %meson %{?rhel:-Davif=disabled}

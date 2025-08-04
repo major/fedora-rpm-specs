@@ -1,10 +1,10 @@
 %global forgeurl https://github.com/antirez/%{name}
-%global commit          de61bd564f1aa929bae414a70e421acd0b81789a
+%global commit          0c3bb23eb447d4ae47c7013346fa6fa97482bb1d
 
 %forgemeta
 Name:           dump1090
 Version:        0
-Release:        15%{?dist}
+Release:        17%{?dist}
 Summary:        Simple Mode S decoder specifically designed for RTLSDR devices
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -22,6 +22,8 @@ Source3:	testoutput2.gz
 # There are many ways to run the daemon, and no obvious standard system service.
 # https://github.com/antirez/dump1090/issues/163
 Patch0:         dump1090-share.patch
+# use correct function signature for sigWinchCallback
+Patch1:         dump1090-sigwin.patch
 
 BuildRequires:  gcc rtl-sdr-devel
 BuildRequires:  pandoc
@@ -84,6 +86,12 @@ diff testout testoutput || diff testout testoutput2
 %{_mandir}/man1/%{name}.1.gz
 
 %changelog
+* Sat Aug  2 2025 Stuart D. Gathman <stuart@gathman.org> - 0-17
+- New upstream commit from Jan 21, 2024
+
+* Sat Aug  2 2025 Stuart D. Gathman <stuart@gathman.org> - 0-16
+- Fix function signature for sigWinchCallback
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

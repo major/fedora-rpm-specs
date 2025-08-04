@@ -16,8 +16,8 @@
 %bcond_with          defcmd
 %endif
 
-%global gh_commit    442c06d0a952a5dbffba181cff969b91fdc9bada
-%global gh_date      2025-07-31
+%global gh_commit    264da860d6fe0d00582355a6ecbbf7ae57b44895
+%global gh_date      2025-08-01
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   phpunit
@@ -28,9 +28,9 @@
 %global ns_vendor    PHPUnit12
 %global php_home     %{_datadir}/php
 %global ver_major    12
-%global ver_minor    2
+%global ver_minor    3
 
-%global upstream_version 12.2.9
+%global upstream_version 12.3.0
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
@@ -284,6 +284,9 @@ exit $ret
 
 
 %changelog
+* Fri Aug  1 2025 Remi Collet <remi@remirepo.net> - 12.3.0-1
+- update to 12.3.0
+
 * Thu Jul 31 2025 Remi Collet <remi@remirepo.net> - 12.2.9-1
 - update to 12.2.9
 

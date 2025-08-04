@@ -10,6 +10,7 @@ License: BSD-3-Clause
 Source: https://github.com/Blosc/c-blosc/archive/v%{version}/blosc-%{version}.tar.gz
 Patch:  blosc-gcc11.patch
 Patch:  blosc-gcc23.patch
+Patch:  https://github.com/Blosc/c-blosc/commit/051b9d2cb9437e375dead8574f66d80ebce47bee.patch#/blosc-CMake4.0.patch
 
 URL:  https://github.com/Blosc/c-blosc
 BuildRequires: gcc

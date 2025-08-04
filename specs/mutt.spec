@@ -20,7 +20,7 @@
 Summary: A text mode mail user agent
 Name: mutt
 Version: 2.2.14
-Release: 3%{?dist}
+Release: 4%{?dist}
 Epoch: 5
 # The entire source code is GPLv2+ except
 # pgpewrap.c setenv.c sha1.c wcwidth.c which are Public Domain
@@ -88,7 +88,7 @@ for selecting groups of messages.
 %patch -P12 -p1 -b .nodotlock
 %patch -P14 -p1
 
-autoreconf --install
+autoreconf -fiv
 %patch -P1 -p1 -b .muttrc
 %patch -P2 -p1 -b .cabundle
 %patch -P3 -p1 -b .syncdebug
@@ -219,6 +219,9 @@ ln -sf ./muttrc.5 %{buildroot}%{_mandir}/man5/muttrc.local.5
 
 
 %changelog
+* Fri Aug 01 2025 Michal Hlavinka <mhlavink@redhat.com> - 5:2.2.14-4
+- fix FTBFS (rhbz#2385201)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5:2.2.14-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

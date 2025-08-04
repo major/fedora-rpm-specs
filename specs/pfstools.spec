@@ -1,6 +1,6 @@
 Name:		pfstools
 Version:	2.2.0
-Release:	21%{?dist}
+Release:	22%{?dist}
 Summary:	Programs for handling high-dynamic range images
 
 License:	GPL-2.0-or-later
@@ -130,10 +130,6 @@ etc., for developing programs which can handle HDR graphics files.
 %autosetup -p1
 
 %build
-%{?el7:export CXXFLAGS="%{optflags} -std=gnu++11"}
-%if 0%{?fedora} >= 33
-export CXXFLAGS="%{optflags} -std=gnu++11"
-%endif
 %{cmake} -DBUILD_SHARED_LIBS=ON \
 	-DLIB_DIR=%{_lib} \
 	-DWITH_OpenCV=OFF \
@@ -313,6 +309,10 @@ export CXXFLAGS="%{optflags} -std=gnu++11"
 %{_includedir}/pfs
 
 %changelog
+* Sat Aug 02 2025 Orion Poplawski <orion@nwra.com> - 2.2.0-22
+- Drop -std=gnu+11, no longer needed and breaks build with octave 10 that uses
+  C++17
+
 * Tue Jul 29 2025 Tomas Smetana <tsmetana@redhat.com> - 2.2.0-21
 - Fix FTBFS with new CMake macros: rhbz#2381413
 

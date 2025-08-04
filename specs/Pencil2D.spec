@@ -149,7 +149,7 @@ BuildRequires:  pkgconfig(Qt6Xml)
 # CONFIG += precompile_header lrelease embed_translations
 BuildRequires:  qt6-linguist
 
-BuildRequires:  miniz-devel
+BuildRequires:  pkgconfig(miniz)
 # Header-only:
 BuildRequires:  catch2-static
 
@@ -332,7 +332,8 @@ Pencil2D是适用于Mac OS X，Windows和Linux的动画/绘图软件。它允许
 # Unbundle miniz
 rm -v core_lib/src/miniz.h core_lib/src/miniz.cpp
 sed -r -i '/\bminiz\.(h|cpp)/d' core_lib/core_lib.pro
-echo 'LIBS_PRIVATE += -lminiz' | tee -a */*.pro >/dev/null
+echo "LIBS_PRIVATE += $(pkgconf --libs miniz)" | tee -a */*.pro >/dev/null
+echo "INCLUDEPATH += $(pkgconf --variable=includedir miniz)" | tee -a */*.pro >/dev/null
 
 # Unbundle catch2
 rm -v tests/src/catch.hpp

@@ -1,6 +1,6 @@
 Name:           TeXmacs
-Version:        2.1.2
-Release:        11%{?dist}
+Version:        2.1.4
+Release:        1%{?dist}
 Summary:        Structured WYSIWYG scientific text editor
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -8,6 +8,9 @@ URL:            http://www.texmacs.org
 Source:         http://www.texmacs.org/Download/ftp/tmftp/source/TeXmacs-%{version}-src.tar.gz
 # Make plugins/mathematica/bin/realpath.py Python 3 compatible
 Patch0:         https://github.com/texmacs/texmacs/pull/73.patch
+# Changes for C++20
+Patch1:         https://github.com/texmacs/texmacs/pull/107.patch
+Patch2:         https://github.com/texmacs/texmacs/pull/109.patch
 Requires:       ghostscript
 Requires:       texmacs-fedora-fonts = %{version}-%{release}
 BuildRequires:  cmake
@@ -71,7 +74,7 @@ BuildArch:      noarch
 TeXmacs font.
 
 %prep
-%autosetup -p1 -n TeXmacs-%{version}-src
+%autosetup -p1 -n TeXmacs
 %{py3_shebang_fix} plugins/mathematica/bin/realpath.py
 
 %build
@@ -108,31 +111,12 @@ rm -f %{buildroot}%{_datadir}/icons/gnome/icon-theme.cache
 find %{buildroot}%{_datadir}/mime/ -type f -maxdepth 1 -print | xargs rm -f
 
 
-%if ( 0%{?rhel} && 0%{?rhel} <= 7 )
-%post
-/usr/bin/update-desktop-database /usr/share/applications > /dev/null 2>&1 || :
-/bin/touch --no-create %{_datadir}/mime/packages &> /dev/null || :
-/usr/bin/update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
-
-%postun
-/usr/bin/update-desktop-database /usr/share/applications > /dev/null 2>&1 || :
-if [ $1 -eq 0 ]; then
-    /bin/touch --no-create %{_datadir}/mime/packages &> /dev/null || :
-    /usr/bin/update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
-fi
-
-%posttrans
-/usr/bin/update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
-/usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
-%endif
-
-
 %files
 %license LICENSE
 %doc COPYING TeXmacs/README TeXmacs/TEX_FONTS
 %{_bindir}/*
 %{_mandir}/man*/*
-%{_prefix}/lib/*
+%{_prefix}/lib/texmacs/
 %{_datadir}/TeXmacs
 %exclude %{_datadir}/TeXmacs/examples/plugins
 %{_datadir}/applications/*
@@ -158,6 +142,9 @@ fi
 
 
 %changelog
+* Thu Jul 24 2025 Orion Poplawski <orion@nwra.com> - 2.1.4-1
+- Update to 2.1.4 (FTBFS rhbz#2384446)
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

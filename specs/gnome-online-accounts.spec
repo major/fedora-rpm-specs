@@ -5,7 +5,7 @@
 %global libsoup_version 3.0
 
 Name:		gnome-online-accounts
-Version:	3.55.0
+Version:	3.55.1
 Release:	%autorelease
 Summary:	Single sign-on framework for GNOME
 
@@ -108,7 +108,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.gnome.OnlineAcco
 %{_datadir}/applications/org.gnome.OnlineAccounts.OAuth2.desktop
 %{_datadir}/dbus-1/services/org.gnome.OnlineAccounts.service
 %{_datadir}/dbus-1/services/org.gnome.Identity.service
-%{_datadir}/glib-2.0/schemas/org.gnome.online-accounts.gschema.xml
+#%%{_datadir}/glib-2.0/schemas/org.gnome.online-accounts.gschema.xml
 %endif
 %{_datadir}/icons/hicolor/*/apps/goa-*.svg
 

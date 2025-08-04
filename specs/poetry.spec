@@ -63,17 +63,9 @@ Conflicts:      python3-virtualenv < 20.19.0-2
 
 %prep
 %autosetup -p1
-# Relax version constraint to allow older virtualenv we have in Fedora
-# Downstream report: https://bugzilla.redhat.com/show_bug.cgi?id=2188155#c8 
-sed -i 's/virtualenv = "^20.23.0"/virtualenv = ">=20.21.1"/' pyproject.toml
-sed -i 's/jsonschema = ">=4.10.0,<4.18.0"/jsonschema = ">=4.10.0,<4.20.0"/' pyproject.toml
-# Convert the SemVer bound on the version of keyring to a lower bound, since
-# its major version increases frequently, usually without significant
-# incompatibilities.
-sed -i -r 's/(keyring = ")\^/\1>=/' pyproject.toml
-
-# Allow newer version of dulwich, which has landed in Fedora
-sed -i 's/dulwich = "^0.21.2"/dulwich = ">=0.21.2"/' pyproject.toml
+# Drop upper bounds of some dependencies that release more frequently.
+# poetry pins bery agressibly with upper bounds for not yet released versions.
+sed -i -r 's/(keyring|virtualenv|fastjsonschema|dulwich) \(>=([^,]+),<.*\)/\1 >= \2/' pyproject.toml
 
 
 %generate_buildrequires

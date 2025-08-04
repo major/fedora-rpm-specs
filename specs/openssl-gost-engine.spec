@@ -1,13 +1,13 @@
 Name: openssl-gost-engine
 Version: 3.0.3
-Release: 8%{?dist}
+Release: 9%{?dist}
 
 URL: https://github.com/gost-engine/engine
 License: Apache-2.0
 Summary: A reference implementation of the Russian GOST crypto algorithms for OpenSSL
 
 Source: https://github.com/gost-engine/engine/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch1: 01-engine-nowerror.patch
+Patch1: libprov-cmake.patch
 
 BuildRequires: make
 BuildRequires: cmake-rpm-macros
@@ -33,7 +33,7 @@ GOST file digesting utilities.
 %global _enginesdir %(pkg-config --variable=enginesdir libcrypto)
 %global _providersdir %(pkg-config --variable=modulesdir libcrypto)
 %prep
-%autosetup -n engine-%version
+%autosetup -n engine-%version -p1
 
 %build
 %cmake -B "%{_vpath_builddir}"
@@ -68,6 +68,9 @@ OPENSSL_ENGINES="$PWD/%{_vpath_builddir}/bin" \
 %_mandir/man1/gost*sum*
 
 %changelog
+* Fri Aug 01 2025 Carlos Rodriguez-Fernandez <carlosrodrifernandez@gmail.com> - 3.0.3-9
+- Prepare for CMake 4 update (rhbz#2381340)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

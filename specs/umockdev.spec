@@ -1,5 +1,5 @@
 Name:             umockdev
-Version:          0.19.2
+Version:          0.19.3
 Release:          1%{?dist}
 Summary:          Mock hardware devices
 
@@ -75,6 +75,9 @@ rm -rf $RPM_BUILD_ROOT/%{_datadir}/doc/umockdev
 %{_datadir}/vala/vapi/umockdev-1.0.vapi
 
 %changelog
+* Fri Aug 01 2025 Packit <hello@packit.dev> - 0.19.3-1
+- preload: Wrap __fstat64_time64()
+
 * Wed Jul 30 2025 Packit <hello@packit.dev> - 0.19.2-1
 - preload: Trap dirfd access to /dev, fstat(), and open_tree()
 

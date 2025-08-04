@@ -3,7 +3,7 @@
 
 Name:           btrfs-progs
 Version:        6.15
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Userspace programs for btrfs
 
 License:        GPL-2.0-only
@@ -32,6 +32,7 @@ BuildRequires:  python3dist(sphinx-rtd-theme)
 BuildRequires:  systemd
 BuildRequires:  python3-devel >= 3.4
 BuildRequires:  python3-setuptools
+BuildRequires:  python3dist(pip)
 
 %description
 The btrfs-progs package provides all the userspace programs needed to create,
@@ -91,6 +92,7 @@ which can be used for btrfs filesystem-specific programs in Python.
 You should install python3-btrfsutil if you want to use or develop
 btrfs filesystem-specific programs in Python.
 
+
 %prep
 xzcat '%{SOURCE0}' | %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data=-
 %autosetup -n %{name}-v%{version_no_tilde} -S git_am
@@ -100,14 +102,16 @@ xzcat '%{SOURCE0}' | %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}
 %{?__scm_source_timestamp:GIT_COMMITTER_DATE=%{__scm_source_timestamp}} git am --reject %{SOURCE1001}
 %endif
 
+
 %build
 ./autogen.sh
 %configure CFLAGS="%{optflags} -fno-strict-aliasing" --with-crypto=libgcrypt --disable-python
 %make_build
 
 pushd libbtrfsutil/python
-%py3_build
+%pyproject_wheel
 popd
+
 
 %install
 %make_install mandir=%{_mandir} bindir=%{_sbindir} libdir=%{_libdir} incdir=%{_includedir}
@@ -116,8 +120,10 @@ install -Dpm0644 btrfs-completion %{buildroot}%{_datadir}/bash-completion/comple
 rm -v %{buildroot}%{_libdir}/*.a
 
 pushd libbtrfsutil/python
-%py3_install
+%pyproject_install
+%pyproject_save_files -L btrfsutil
 popd
+
 
 %files
 %license COPYING
@@ -153,12 +159,14 @@ popd
 %{_libdir}/pkgconfig/libbtrfsutil.pc
 %{_mandir}/man2/*btrfs*
 
-%files -n python3-btrfsutil
+%files -n python3-btrfsutil -f %{pyproject_files}
 %license libbtrfsutil/COPYING
-%{python3_sitearch}/btrfsutil.*.so
-%{python3_sitearch}/btrfsutil-*.egg-info/
+
 
 %changelog
+* Sat Aug 02 2025 Michel Lind <salimma@fedoraproject.org> - 6.15-3
+- Stop using deprecated Python macros; Resolves: RHBZ#2377213
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.15-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

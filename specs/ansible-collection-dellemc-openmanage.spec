@@ -1,11 +1,11 @@
 %bcond tests %{undefined rhel}
 
 Name:           ansible-collection-dellemc-openmanage
-Version:        9.10.0
+Version:        9.12.3
 Release:        %autorelease
 Summary:        Dell OpenManage collection for Ansible
 
-# All file ares GPL-3.0-only except for:
+# All file are GPL-3.0-only except for:
 # plugins/module_utils/dellemc_idrac.py: BSD 2-Clause License
 # plugins/module_utils/idrac_redfish.py: BSD 2-Clause License
 # plugins/module_utils/ome.py: BSD 2-Clause License
@@ -26,7 +26,7 @@ Source2:        gpgkey-42550ABD1E80D7C1BC0BAD851285491434D8786F.gpg
 Source3:        https://raw.githubusercontent.com/dell/dellemc-openmanage-ansible-modules/v%{version}/galaxy.yml
 
 # build_ignore development files, tests, and docs, downstream only
-Patch:          build_ignore.patch
+Patch0:          build_ignore.patch
 
 BuildArch:      noarch
 
@@ -56,7 +56,7 @@ Requires:       python3dist(netaddr)
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -N -c -n dellemc-openmanage-%{version}
 cp '%{SOURCE3}' galaxy.yml
-%autopatch
+%autopatch -p1
 
 # Remove shebangs on non-executable files
 find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{}' +

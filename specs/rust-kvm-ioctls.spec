@@ -9,7 +9,7 @@
 %global supported_arches aarch64 riscv64 x86_64
 
 Name:           rust-kvm-ioctls
-Version:        0.21.0
+Version:        0.23.0
 Release:        %autorelease
 Summary:        Safe wrappers over KVM ioctls
 

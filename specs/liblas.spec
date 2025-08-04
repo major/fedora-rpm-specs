@@ -3,11 +3,11 @@
 
 Name:           liblas
 Version:        1.8.2
-Release:        0.25%{?shortcommit:.git%shortcommit}%{?dist}
+Release:        0.26%{?shortcommit:.git%shortcommit}%{?dist}
 Summary:        Library for reading and writing the very common LAS LiDAR format
 
 License:        BSD-3-Clause AND BSL-1.0
-URL:            https://www.liblas.org
+URL:            https://github.com/libLAS/libLAS
 %if 0%{?commit:1}
 Source0:        https://github.com/libLAS/libLAS/archive/%{commit}/libLAS-%{shortcommit}.tar.gz
 %else
@@ -30,6 +30,9 @@ Patch4:         liblas_stdc++14.patch
 Patch5:         liblas-gcc15.patch
 # Increase minimum cmake version to 3.5
 Patch6:         liblas_cmakever.patch
+# Fix loading of cmake module not finding PROJ::proj
+# https://github.com/libLAS/libLAS/issues/229
+Patch7:         liblas-proj.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  boost-devel >= 1.53
@@ -111,6 +114,9 @@ libLAS utility applications.
 
 
 %changelog
+* Sat Aug 02 2025 Orion Poplawski <orion@nwra.com> - 1.8.2-0.26.git62f3d57
+- Add patch to fix loading of cmake module
+
 * Tue Jul 29 2025 Sandro Mani <manisandro@gmail.com> - 1.8.2-0.25.git62f3d57
 - Rebuild (gdal)
 

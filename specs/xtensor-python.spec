@@ -1,8 +1,8 @@
 %undefine __cmake_in_source_build
 
 Name:           xtensor-python
-Version:        0.26.0
-Release:        9%{?dist}
+Version:        0.28.0
+Release:        %autorelease
 Summary:        Python bindings for xtensor
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -10,6 +10,10 @@ URL:            https://xtensor-python.readthedocs.io/
 
 %global github  https://github.com/QuantStack/xtensor-python
 Source0:        %{github}/archive/%{version}/%{name}-%{version}.tar.gz
+Patch0:         %{github}/pull/324.diff
+Patch1:         %{github}/pull/326.diff
+Patch2:         %{github}/pull/325.diff
+Patch3:         %{github}/pull/327.diff
 
 # because xtensor does so for armv7hl, ppc64le and s390x
 ExcludeArch:    armv7hl ppc64le s390x
@@ -68,49 +72,7 @@ Requires:       python3-numpy
 %license LICENSE
 %{_includedir}/%{name}/
 %{_libdir}/cmake/%{name}/
+%{_datadir}/pkgconfig/%{name}.pc
 
 %changelog
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.26.0-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.26.0-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Wed Sep 4 2024 Miroslav Suchý <msuchy@redhat.com> - 0.26.0-7
-- convert license to SPDX
-
-* Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.26.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Mon Jan 29 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.26.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.26.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.26.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.26.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed May 11 2022 sguelton@redhat.com - 0.26.0-1
-- Upstream release
-
-* Sat Jan 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.24.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.24.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Thu Jan 28 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.24.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.24.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Thu Jan 30 2020 sguelton@redhat.com - 0.24.1-0
-- Upstream release
-
-* Tue Sep 3 2019 sguelton@redhat.com - 0.23.1-0
-- Initial package
+%autochangelog

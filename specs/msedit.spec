@@ -10,9 +10,12 @@
 %global commitdate       20250710
 
 # icu soversion
-%global icu_sover 76
-%if "%{__isa_bits}" == "64"
-%global lib64_suffix ()(64bit)
+%global icu_sover       %(icu-config --version | cut -d. -f1)
+%global libicuuc        libicuuc.so.%{icu_sover}
+%global libicui18n      libicui18n.so.%{icu_sover}
+
+%if %[ %{?__isa_bits} != 32 ]
+%global lib_suffix ()(%{__isa_bits}bit)
 %endif
 
 Name:           msedit
@@ -33,8 +36,8 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  libicu-devel
 
 # For dlopen() libicu
-Requires:       libicuuc.so.%{icu_sover}%{?lib64_suffix}
-Requires:       libicui18n.so.%{icu_sover}%{?lib64_suffix}
+Recommends:     %{libicuuc}%{?lib_suffix}
+Recommends:     %{libicui18n}%{?lib_suffix}
 
 %global _description %{expand:
 %{summary}
@@ -56,14 +59,20 @@ use.
 
 %build
 # Set environment variables for ICU libraries
-EDIT_CFG_ICUUC_SONAME=libicuuc.so.%{icu_sover}
-EDIT_CFG_ICUI18N_SONAME=libicui18n.so.%{icu_sover}
+export EDIT_CFG_ICUUC_SONAME=%{libicuuc}
+export EDIT_CFG_ICUI18N_SONAME=%{libicui18n}
+export EDIT_CFG_ICU_RENAMING_VERSION=%{icu_sover}
 
 %cargo_build
 %{cargo_license_summary}
 %{cargo_license} > LICENSE.dependencies
 
 %install
+# Set environment variables for ICU libraries
+export EDIT_CFG_ICUUC_SONAME=%{libicuuc}
+export EDIT_CFG_ICUI18N_SONAME=%{libicui18n}
+export EDIT_CFG_ICU_RENAMING_VERSION=%{icu_sover}
+
 %cargo_install
 
 # de-conflict with vim
@@ -89,6 +98,11 @@ mv %{buildroot}%{_mandir}/man1/edit.1 %{buildroot}%{_mandir}/man1/%{name}.1
 
 %if %{with check}
 %check
+# Set environment variables for ICU libraries
+export EDIT_CFG_ICUUC_SONAME=%{libicuuc}
+export EDIT_CFG_ICUI18N_SONAME=%{libicui18n}
+export EDIT_CFG_ICU_RENAMING_VERSION=%{icu_sover}
+
 %cargo_test
 %endif
 

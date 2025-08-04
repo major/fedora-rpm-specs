@@ -4,7 +4,7 @@ Release:        %autorelease
 Summary:        Python bindings for the safetensors library
 
 # Results of the Cargo License Check
-# 
+#
 # Apache-2.0
 # Apache-2.0 OR BSL-1.0
 # MIT
@@ -19,21 +19,19 @@ Source:         %{url}/archive/refs/tags/v%{version}/safetensors-%{version}.tar.
 # Patch the bindings crate to use the distro crate, rather than the bundled crate sources
 # Also, for v0.6.0 sources, patch out the development version suffix
 Patch:          pysafetensors.patch
+# https://github.com/huggingface/safetensors/pull/634
+Patch:          correct-failing-tests.patch
 
 # Exclude i686 because rust-safetensors does
 ExcludeArch:   %{ix86}
-# Right now, torch is exclusive to x86_64 and aarch64
+# Right now, torch is exclusive to x86_64 and aarch64 so only build the torch extra on those arches.
 %ifarch %{x86_64} %{arm64}
-# Temporarily disable torch extra because pytorch is not cmpatible with Python 3.14
-# F43FailsToInstall: python3-torch
-# https://bugzilla.redhat.com/show_bug.cgi?id=2372164
-%bcond torch 0
+%bcond torch 1
 %else
 %bcond torch 0
 %endif
 
 BuildRequires:	python3-devel
-BuildRequires:	gcc
 BuildRequires:	cargo-rpm-macros >= 24
 # Test requirements
 BuildRequires:	python3-pytest

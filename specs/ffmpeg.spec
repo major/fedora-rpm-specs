@@ -1,12 +1,11 @@
-# For a complete build enable these two
-%bcond upstream_tarball 0
+# For a complete build enable this
 %bcond all_codecs 0
 
 # Break dependency cycles by disabling certain optional dependencies.
 %bcond bootstrap 0
 
-# If you want to do a build with the upstream source tarball, then set the
-# pkg_suffix to %%nil. We can't handle this with a conditional, as srpm
+# If building with all codecs, then set the pkg_suffix to %%nil.
+# We can't handle this with a conditional, as srpm
 # generation would not take it into account.
 %global pkg_suffix -free
 
@@ -85,7 +84,7 @@ Name:           ffmpeg
 %global pkg_name %{name}%{?pkg_suffix}
 
 Version:        7.1.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A complete solution to record, convert and stream audio and video
 License:        GPL-3.0-or-later
 URL:            https://ffmpeg.org/
@@ -530,9 +529,7 @@ pixel format conversion operations.
 This subpackage contains the headers for FFmpeg libswscale.
 
 %prep
-%if %{with upstream_tarball}
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%endif
 
 %autosetup -S git_am
 install -m 0644 %{SOURCE20} enable_decoders
@@ -858,6 +855,9 @@ rm -rf %{buildroot}%{_datadir}/%{name}/examples
 %{_mandir}/man3/libswscale.3*
 
 %changelog
+* Fri Aug 01 2025 Neal Gompa <ngompa@fedoraproject.org> - 7.1.1-7
+- Always verify sources
+
 * Tue Jul 29 2025 Nicolas Chauvet <kwizart@gmail.com> - 7.1.1-6
 - Rebuilt for libplacebo
 

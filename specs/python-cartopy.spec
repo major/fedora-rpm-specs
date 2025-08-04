@@ -4,7 +4,7 @@
 %bcond_with network
 
 Name:           python-%{srcname}
-Version:        0.24.1
+Version:        0.25.0
 Release:        %autorelease
 Summary:        Cartographic Python library with Matplotlib visualisations
 

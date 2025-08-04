@@ -15,6 +15,8 @@ URL:            %{forgeurl}
 Source:         %{url}/archive/%{commit}/argos-%{commit}.tar.gz#/argos-%{version}.tar.gz
 # use xdg-terminal-exec rather than hardcoding which terminal to use
 Patch:          https://patch-diff.githubusercontent.com/raw/p-e-w/argos/pull/170.patch#/argos-use-xdg-terminal-exec.diff
+# WIP: support GNOME 49
+Patch:          argos-gnome49.diff
 
 BuildArch:      noarch
 

@@ -69,7 +69,7 @@
 Summary: Connects C/C++/Objective C to some high-level programming languages
 Name:    swig
 Version: 4.3.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPL-3.0-or-later AND BSD-3-Clause
 URL:     https://www.swig.org/
 Source0: http://downloads.sourceforge.net/project/swig/swig/swig-%{version}/swig-%{version}.tar.gz
@@ -82,6 +82,9 @@ Source4: ccache-swig.csh
 %endif
 # https://github.com/swig/swig/pull/3159
 Patch0:  swig-python-Python-3.14-support.patch
+# Python DeprecationWarning fixes - in upstream after 4.4.0
+# https://github.com/swig/swig/issues/2881
+Patch1:  swig-4.4.0-Python-DeprecationWarning-fixes.patch
 
 BuildRequires: coreutils
 BuildRequires: findutils
@@ -365,6 +368,9 @@ install -pm 644 Tools/swig.gdb %{buildroot}%{_datadir}/%{name}/gdb
 %{_datadir}/%{name}/gdb
 
 %changelog
+* Thu Jul 31 2025 Jitka Plesnikova <jplesnik@redhat.com> - 4.3.1-4
+- Fix Python DeprecationWarning
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

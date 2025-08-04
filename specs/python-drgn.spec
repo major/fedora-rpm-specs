@@ -80,9 +80,14 @@ if [ ! -f drgn/internal/version.py ]; then
   echo '__version__ = "%{version}"' > drgn/internal/version.py
 fi
 
+
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
 # verbose build
-V=1 %py3_build
+V=1 %pyproject_wheel
 
 %if %{with docs}
 # generate html docs
@@ -91,27 +96,29 @@ PYTHONPATH=${PWD} sphinx-build-3 docs html
 rm -rf html/.{doctrees,buildinfo}
 %endif
 
+
 %install
-%py3_install
+%pyproject_install
+
+%pyproject_save_files -l drgn _drgn_util
+
 mkdir -p %{buildroot}%{_datadir}/drgn
 cp -PR contrib tools %{buildroot}%{_datadir}/drgn
+
 
 %if %{with tests}
 %check
 %pytest
 %endif
 
-%files -n %{pypi_name}
-%license COPYING
+
+%files -n %{pypi_name} -f %{pyproject_files}
 %license LICENSES
 %doc README.rst
 %{_bindir}/drgn
 %{_datadir}/drgn
 %{python3_sitearch}/_%{pypi_name}.pyi
 %{python3_sitearch}/_%{pypi_name}.cpython*.so
-%{python3_sitearch}/%{pypi_name}
-%{python3_sitearch}/_%{pypi_name}_util
-%{python3_sitearch}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %if %{with docs}
 %files -n %{pypi_name}-doc
@@ -119,6 +126,7 @@ cp -PR contrib tools %{buildroot}%{_datadir}/drgn
 %license LICENSES
 %doc html
 %endif
+
 
 %changelog
 %autochangelog

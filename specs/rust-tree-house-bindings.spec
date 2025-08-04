@@ -2,33 +2,37 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate cc
+%global crate tree-house-bindings
 
-Name:           rust-cc
-Version:        1.2.31
+Name:           rust-tree-house-bindings
+Version:        0.2.1
 Release:        %autorelease
-Summary:        Build-time dependency for Cargo build scripts to invoke the native C compiler
+Summary:        Homey Rust bindings for the tree-sitter C library
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/cc
+License:        MPL-2.0 AND MIT AND Unicode-DFS-2016
+URL:            https://crates.io/crates/tree-house-bindings
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * update license field
+Patch:          tree-house-bindings-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
-BuildRequires:  /usr/bin/gcc
-BuildRequires:  /usr/bin/g++
 
 %global _description %{expand:
-A build-time dependency for Cargo build scripts to assist in invoking
-the native C compiler to compile native C code into a static archive to
-be linked into Rust code.}
+Homey Rust bindings for the tree-sitter C library.}
 
 %description %{_description}
 
 %package        devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       /usr/bin/gcc
-Requires:       /usr/bin/g++
+
+# The create contains a bundled copy of the tree-sitter C library.
+# MIT
+Provides:       bundled(tree-sitter) = 0.25.7
+# The tree-sitter C library contains a small subset of files from the ICU library
+# Unicode-DFS-2016
+Provides:       bundled(icu) = 65.1
 
 %description    devel %{_description}
 
@@ -36,11 +40,11 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
+%license %{crate_instdir}/LICENSE
 %doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
+%exclude %{crate_instdir}/vendor.sh
 
 %package     -n %{name}+default-devel
 Summary:        %{summary}
@@ -54,28 +58,16 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+jobserver-devel
+%package     -n %{name}+ropey-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+jobserver-devel %{_description}
+%description -n %{name}+ropey-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "jobserver" feature of the "%{crate}" crate.
+use the "ropey" feature of the "%{crate}" crate.
 
-%files       -n %{name}+jobserver-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+parallel-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+parallel-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "parallel" feature of the "%{crate}" crate.
-
-%files       -n %{name}+parallel-devel
+%files       -n %{name}+ropey-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

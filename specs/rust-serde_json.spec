@@ -5,7 +5,7 @@
 %global crate serde_json
 
 Name:           rust-serde_json
-Version:        1.0.141
+Version:        1.0.142
 Release:        %autorelease
 Summary:        JSON serialization file format
 

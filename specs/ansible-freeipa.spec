@@ -11,7 +11,7 @@
 
 Summary: Roles and playbooks to deploy FreeIPA servers, replicas and clients
 Name: ansible-freeipa
-Version: 1.15.0
+Version: 1.15.1
 Release: 1%{?dist}
 URL: https://github.com/freeipa/ansible-freeipa
 License: GPL-3.0-or-later
@@ -157,8 +157,13 @@ cp %{buildroot}/%{ansible_collections_dir}/%{collection_namespace}/%{collection_
 %{ansible_collections_dir}/%{collection_namespace}/%{collection_name}
 
 %changelog
+* Fri Aug  1 2025 Thomas Woerner <twoerner@redhat.com> - 1.15.1-1
+- Update to version 1.15.1
+  https://github.com/freeipa/ansible-freeipa/releases/tag/v1.15.0
+  - ipaclient: client_dns has new statestore arg with IPA change e6445b8
+
 * Tue Jul 29 2025 Thomas Woerner <twoerner@redhat.com> - 1.15.0-1
-- Update to version 1.14.7
+- Update to version 1.15.0
   https://github.com/freeipa/ansible-freeipa/releases/tag/v1.15.0
   - DNS over TLS support for ipaserver, ipareplica and ipaclient deployment
     roles

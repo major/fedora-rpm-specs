@@ -8,8 +8,8 @@
 %define version_underscore %{gsub %{version} %. _}
 
 Name:      icu
-Version:   76.1
-Release:   5%{?dist}
+Version:   77.1
+Release:   1%{?dist}
 Summary:   International Components for Unicode
 
 License:   Unicode-DFS-2016 AND BSD-2-Clause AND BSD-3-Clause AND NAIST-2003 AND LicenseRef-Fedora-Public-Domain
@@ -32,17 +32,8 @@ Requires: lib%{name}%{?_isa} = %{version}-%{release}
 
 Patch4: gennorm2-man.patch
 Patch5: icuinfo-man.patch
-
-# To be removed next release, rhbz#2335638
-Patch101: 0001-ICU-22954-USet-C-iterator-return-std-u16string.patch
-Patch102: 0002-ICU-22954-U_ICU_NAMESPACE_OR_INTERNAL-header-only-lo.patch
-Patch103: 0003-ICU-22954-intltest.h-IcuTestErrorCode-usable-without.patch
-Patch104: 0004-ICU-22954-header-only-test-USet-C-iterators.patch
-Patch105: 0005-ICU-22954-Partially-revert-PR-3295-U_ICU_NAMESPACE_O.patch
-Patch106: 0006-ICU-22954-USetHeaderOnlyTest-use-unique_ptr.patch
-Patch107: 0007-ICU-22954-Delete-copy-assign-from-IcuTestErrorCode.patch
-Patch108: 0008-ICU-22954-Workaround-Replace-std-u16string-member-wi.patch
-Patch109: 0009-ICU-22954-Revert-to-using-std-u16string-instead-of-U.patch
+# https://github.com/unicode-org/icu/pull/3496
+Patch6: 3496.patch
 
 %description
 Tools and utilities for developing with icu.
@@ -127,9 +118,8 @@ sed -i -r 's|(PKGDATA_OPTS = )|\1-v |' data/Makefile
 
 
 %install
-rm -rf source/__docs
+#rm -rf source/doc
 %make_install %{?_smp_mflags} -C source
-make %{?_smp_mflags} -C source install-doc docdir=__docs
 chmod +x $RPM_BUILD_ROOT%{_libdir}/*.so.*
 (
  cd $RPM_BUILD_ROOT%{_bindir}
@@ -206,10 +196,13 @@ LD_LIBRARY_PATH=lib:stubdata:tools/ctestfw:$LD_LIBRARY_PATH bin/uconv -l
 %files -n lib%{name}-doc
 %license LICENSE
 %doc readme.html
-%doc source/__docs/%{name}/html/*
+%doc source/doc/html/*
 
 
 %changelog
+* Thu Jul 24 2025 Frantisek Zatloukal <fzatlouk@redhat.com> - 77.1-1
+- Update to 77.1
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 76.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

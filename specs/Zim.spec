@@ -9,6 +9,8 @@ Summary:        Desktop wiki & notekeeper
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
 URL:            http://zim-wiki.org/
 Source0:        http://www.zim-wiki.org/downloads/zim-%{version}.tar.gz
+# Crashes the test run, and is also disabled for Mac OS in upstream repo
+Patch:          0000-Disable-TestPlugins-test.patch
 BuildArch:      noarch
 
 BuildRequires:  desktop-file-utils

@@ -1,13 +1,13 @@
-%global upstream_name ofxparse
+%global pypi_name ofxparse
 
 
-Name:           python-%{upstream_name}
+Name:           python-%{pypi_name}
 Version:        0.21
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Python library for working with the OFX (Open Financial Exchange) file format
 License:        MIT
 URL:            https://pypi.org/project/ofxparse/
-Source0:        https://files.pythonhosted.org/packages/source/o/%{upstream_name}/%{upstream_name}-%{version}.tar.gz
+Source0:        https://files.pythonhosted.org/packages/source/o/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
 BuildArch:      noarch
 
 %description
@@ -16,44 +16,46 @@ are available from almost any online banking site, so they work well if you
 want to pull together your finances from multiple sources. Online trading 
 accounts also provide account statements in OFX files.
 
-%package -n python3-%{upstream_name}
+%package -n python3-%{pypi_name}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{upstream_name}}
+%{?python_provide:%python_provide python3-%{pypi_name}}
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-pytest
 BuildRequires:  python3-beautifulsoup4
 BuildRequires:  python3-six
 BuildRequires:  python3-lxml
-Requires:       python3-beautifulsoup4
-Requires:       python3-six
-Requires:       python3-lxml
 
-%description -n python3-%{upstream_name}
+%description -n python3-%{pypi_name}
 ofxparse is a parser for Open Financial Exchange (.ofx) format files. OFX files 
 are available from almost any online banking site, so they work well if you 
 want to pull together your finances from multiple sources. Online trading 
 accounts also provide account statements in OFX files.
 
 %prep
-%autosetup -p1 -n %{upstream_name}-%{version}
+%autosetup -p1 -n %{pypi_name}-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{pypi_name}
 
 %check
 %pytest
 
-%files -n python3-%{upstream_name}
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE
 %doc README.rst AUTHORS
-%{python3_sitelib}/%{upstream_name}
-%{python3_sitelib}/%{upstream_name}*.egg-info
 
 %changelog
+* Sat Aug 02 2025 Rajeesh KV <rajeeshknambiar@fedoraproject.org> - 0.21-12
+- Migrate to new python RPM macros
+- Fixes RHBZ#2377946
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

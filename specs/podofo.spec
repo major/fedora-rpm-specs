@@ -7,19 +7,18 @@
 #global pre rc1
 
 Name:           podofo
-Version:        0.10.4
-Release:        5%{?dist}
+Version:        1.0.1
+Release:        1%{?dist}
 Summary:        Tools and libraries to work with the PDF file format
 
 License:        LGPL-2.0-or-later
 URL:            https://github.com/podofo/podofo
 Source0:        https://github.com/podofo/podofo/archive/%{version}%{?pre:-%pre}/%{name}-%{version}%{?pre:-%pre}.tar.gz
 
-# Fix header case
-Patch0:         podofo-case.patch
 # Downstream patch for CVE-2019-20093
 # https://sourceforge.net/p/podofo/tickets/75/
 Patch1:         podofo_CVE-2019-20093.patch
+
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -143,19 +142,19 @@ echo "HTML_TIMESTAMP = NO" >> Doxyfile
 
 %build
 # Natve build
-%cmake -DPODOFO_ENABLE_TOOLS=1
+%cmake
 %cmake_build
 
 %if %{with mingw}
 # MinGW build
-%mingw_cmake -DPODOFO_ENABLE_TOOLS=1
+%mingw_cmake -DPODOFO_BUILD_TEST=OFF
 %mingw_make_build
 %endif
 
 # Doc build
 doxygen
 # set timestamps on generated files to some constant
-find doc/html -exec touch -r %{SOURCE0} {} \;
+find html -exec touch -r %{SOURCE0} {} \;
 
 
 %install
@@ -169,11 +168,6 @@ rm -rf %{buildroot}%{mingw64_datadir}
 %mingw_debug_install_post
 %endif
 
-# Move incorrectly installed files
-mkdir -p %{buildroot}%{_libdir}/cmake/podofo/
-mv %{buildroot}%{_datadir}/podofo/*.cmake %{buildroot}%{_libdir}/cmake/podofo/
-rmdir %{buildroot}%{_datadir}/podofo/
-
 
 %check
 %ctest
@@ -182,11 +176,11 @@ rmdir %{buildroot}%{_datadir}/podofo/
 %files
 %doc AUTHORS.md CHANGELOG.md README.md TODO.md
 %license COPYING
-%{_libdir}/*.so.0.10.4
-%{_libdir}/*.so.2
+%{_libdir}/*.so.1.0.1
+%{_libdir}/*.so.3
 
 %files devel
-%doc doc/html examples
+%doc html examples
 %{_includedir}/%{name}
 %{_libdir}/*.so
 %{_libdir}/cmake/%{name}/
@@ -197,6 +191,7 @@ rmdir %{buildroot}%{_datadir}/podofo/
 %license COPYING
 %{mingw32_bindir}/libpodofo.dll
 %{mingw32_libdir}/libpodofo.dll.a
+%{mingw32_libdir}/cmake/%{name}/
 %{mingw32_libdir}/pkgconfig/libpodofo.pc
 %{mingw32_includedir}/podofo/
 
@@ -204,12 +199,16 @@ rmdir %{buildroot}%{_datadir}/podofo/
 %license COPYING
 %{mingw64_bindir}/libpodofo.dll
 %{mingw64_libdir}/libpodofo.dll.a
+%{mingw64_libdir}/cmake/%{name}/
 %{mingw64_libdir}/pkgconfig/libpodofo.pc
 %{mingw64_includedir}/podofo/
 %endif
 
 
 %changelog
+* Sat Aug 02 2025 Sandro Mani <manisandro@gmail.com> - 1.0.1-1
+- Update to 1.0.1
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

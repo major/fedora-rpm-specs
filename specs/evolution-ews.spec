@@ -5,8 +5,8 @@
 %global libsoup_version 3.1.1
 
 Name: evolution-ews
-Version: 3.57.1
-Release: 2%{?dist}
+Version: 3.57.2
+Release: 1%{?dist}
 Summary: Evolution extension for Exchange Web Services
 License: LGPL-2.1-or-later
 URL: https://gitlab.gnome.org/GNOME/evolution/-/wikis/home
@@ -104,6 +104,7 @@ export CFLAGS="$RPM_OPT_FLAGS -Wno-deprecated-declarations"
 %{_libdir}/evolution-data-server/registry-modules/module-ews-backend.so
 %{_libdir}/evolution-data-server/registry-modules/module-microsoft365-backend.so
 %{_libdir}/evolution-ews/libcamelews-priv.so
+%{_libdir}/evolution-ews/libcamelmicrosoft365-priv.so
 %{_libdir}/evolution-ews/libevolution-ews.so
 %{_libdir}/evolution-ews/libevolution-ews-common.so
 %{_libdir}/evolution-ews/libevolution-microsoft365.so
@@ -112,7 +113,4 @@ export CFLAGS="$RPM_OPT_FLAGS -Wno-deprecated-declarations"
 %files langpacks -f %{name}.lang
 
 %changelog
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.57.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
 %autochangelog

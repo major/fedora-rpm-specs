@@ -28,8 +28,8 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/plugins-%{gs_plugin_version}/.*\\.so.*$
 
 Name:      gnome-software
-Version:   49~alpha
-Release:   3%{?dist}
+Version:   49~beta
+Release:   2%{?dist}
 Summary:   A software center for GNOME
 
 License:   GPL-2.0-or-later
@@ -83,6 +83,7 @@ BuildRequires: pkgconfig(rpm-ostree-1)
 %endif
 BuildRequires: pkgconfig(sysprof-capture-4)
 BuildRequires: pkgconfig(xmlb) >= %{libxmlb_version}
+BuildRequires: systemd
 
 Requires: appstream-data
 Requires: appstream%{?_isa} >= %{appstream_version}
@@ -284,7 +285,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_libdir}/gnome-software/plugins-%{gs_plugin_version}/libgs_plugin_provenance-license.so
 %{_libdir}/gnome-software/plugins-%{gs_plugin_version}/libgs_plugin_provenance.so
 %{_libdir}/gnome-software/plugins-%{gs_plugin_version}/libgs_plugin_repos.so
-%{_sysconfdir}/xdg/autostart/org.gnome.Software.desktop
 %if %{with webapps}
 %dir %{_datadir}/swcatalog
 %dir %{_datadir}/swcatalog/xml
@@ -299,6 +299,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/glib-2.0/schemas/org.gnome.software-fedora.gschema.override
 %{_libexecdir}/gnome-software-cmd
 %{_libexecdir}/gnome-software-restarter
+%{_userunitdir}/gnome-software.service
 
 %if %{with dkms}
 %{_datadir}/polkit-1/actions/org.gnome.software.dkms-helper.policy

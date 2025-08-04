@@ -2,12 +2,14 @@
 
 Name:           openmsx
 Version:        20.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        An emulator for the MSX home computer system
-# Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
 URL:            https://openmsx.org/
 Source0:        https://github.com/openMSX/openMSX/releases/download/RELEASE_%{pkgverdir}/%{name}-%{version}.tar.gz
+# Fix build failure with GCC 15
+# Patch from Debian
+Patch0:         %{name}-20.0-iterator.patch
 BuildRequires:  alsa-lib-devel
 BuildRequires:  desktop-file-utils libappstream-glib
 BuildRequires:  docbook-utils
@@ -41,7 +43,7 @@ computer systems.
 
 
 %prep
-%autosetup
+%autosetup -p1
 
 
 %build
@@ -179,6 +181,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Fri Aug 01 2025 Andrea Musuruane <musuruan@gmail.com> - 20.0-5
+- Fix build failure with GCC 15 (BZ #2385367)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

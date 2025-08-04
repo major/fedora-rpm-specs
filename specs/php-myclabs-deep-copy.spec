@@ -8,7 +8,7 @@
 #
 %bcond_without       tests
 
-%global gh_commit    faed855a7b5f4d4637717c2b3863e277116beb36
+%global gh_commit    07d290f0c47959fd5eed98c95ee5602db07e0b6a
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     myclabs
 %global gh_project   DeepCopy
@@ -17,8 +17,8 @@
 %global php_home     %{_datadir}/php
 
 Name:           php-myclabs-deep-copy%{major}
-Version:        1.13.3
-Release:        2%{?dist}
+Version:        1.13.4
+Release:        1%{?dist}
 
 Summary:        Create deep copies (clones) of your objects
 
@@ -120,6 +120,9 @@ exit $ret
 
 
 %changelog
+* Fri Aug  1 2025 Remi Collet <remi@remirepo.net> - 1.13.4-1
+- update to 1.13.4
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

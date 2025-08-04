@@ -165,13 +165,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.17.0
 %define specversion 6.17.0
 %define patchversion 6.17
-%define pkgrelease 0.rc0.250730g4b290aae788e.3
+%define pkgrelease 0.rc0.250801g89748acdf226.7
 %define kversion 6
-%define tarfile_release 6.16-4405-g4b290aae788e
+%define tarfile_release 6.16-10499-g89748acdf226
 # This is needed to do merge window version magic
 %define patchlevel 17
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc0.250730g4b290aae788e.3%{?buildid}%{?dist}
+%define specrelease 0.rc0.250801g89748acdf226.7%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.17.0
 
@@ -1164,7 +1164,7 @@ Provides: kernel = %{specversion}-%{pkg_release}\
 Provides: %{name} = %{specversion}-%{pkg_release}\
 %endif\
 Provides: %{name}-%{_target_cpu} = %{specrpmversion}-%{pkg_release}%{uname_suffix %{?1}}\
-Provides: %{name}-uname-r = %{KVERREL}%{uname_suffix %{?1:}}\
+Provides: %{name}-uname-r = %{KVERREL}%{uname_suffix %{?1}}\
 Requires: %{name}%{?1:-%{1}}-modules-core-uname-r = %{KVERREL}%{uname_suffix %{?1}}\
 Requires(pre): %{kernel_prereq}\
 Requires(pre): %{initrd_prereq}\
@@ -4368,11 +4368,24 @@ fi\
 #
 #
 %changelog
-* Wed Jul 30 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.17.0-0.rc0.250730g4b290aae788e.3]
-- Turn off TEST_MISC_MINOR as its deps are no longer met (Justin M. Forbes)
-
-* Wed Jul 30 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc0.4b290aae788e.3]
+* Fri Aug 01 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc0.89748acdf226.7]
 - redhat/configs: clang_lto: disable CONFIG_FORTIFY_KUNIT_TEST (Scott Weaver)
+
+* Fri Aug 01 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc0.89748acdf226.6]
+- Add to pending to fix precendence and avoid mismatch (Justin M. Forbes)
+- CONFIG_PAGE_BLOCK_ORDER is now CONFIG_PAGE_BLOCK_MAX_ORDER (Justin M. Forbes)
+- Linux v6.17.0-0.rc0.89748acdf226
+
+* Fri Aug 01 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc0.260f6f4fda93.5]
+- redhat/kernel.spec: fix leftover typo in Provides line (Jan Stancek)
+
+* Thu Jul 31 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc0.260f6f4fda93.4]
+- fedora: Updates for 6.17 merge (Peter Robinson)
+- Fix a mismatch, needs further investigation (Justin M. Forbes)
+- Linux v6.17.0-0.rc0.260f6f4fda93
+
+* Thu Jul 31 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc0.4b290aae788e.3]
+- Turn off TEST_MISC_MINOR as its deps are no longer met (Justin M. Forbes)
 
 * Wed Jul 30 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc0.4b290aae788e.2]
 - redhat/configs: Disable CRYPTO_KRB5 for zfcpdump (Vladis Dronov)

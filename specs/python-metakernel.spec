@@ -6,7 +6,7 @@ Name:		python-metakernel
 #		Running rpmdev-bumpspec on this specfile will update all the
 #		release tags automatically
 Version:	0.30.3
-Release:	3%{?dist}
+Release:	4%{?dist}
 %global pkgversion %{version}
 %global pkgrelease %{release}
 Summary:	Metakernel for Jupyter
@@ -18,17 +18,8 @@ Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 #		https://github.com/Calysto/metakernel/issues/279
 #		https://github.com/Calysto/metakernel/pull/280
 Patch0:		0001-Test-compatibility-with-Python-3.13.patch
-
 BuildArch:	noarch
-BuildRequires:	make
-BuildRequires:	python3-devel >= 3.8
-BuildRequires:	pyproject-rpm-macros
-BuildRequires:	python3-pip
-BuildRequires:	python3dist(hatchling) >= 1.5
-BuildRequires:	python3dist(ipykernel) >= 5.5.6
-BuildRequires:	python3dist(jedi) >= 0.18
-BuildRequires:	python3dist(jupyter-core) >= 4.9.2
-BuildRequires:	python3dist(pexpect) >= 4.8
+
 #		For testing:
 BuildRequires:	python3dist(pytest)
 BuildRequires:	python3dist(pytest-timeout)
@@ -37,6 +28,7 @@ BuildRequires:	python3dist(ipyparallel)
 BuildRequires:	python3dist(pydot)
 BuildRequires:	man
 #		For documentation
+BuildRequires:	make
 BuildRequires:	python3dist(sphinx)
 BuildRequires:	python3dist(sphinx-bootstrap-theme)
 BuildRequires:	python3dist(myst-parser)
@@ -77,7 +69,7 @@ This package contains the documentation of python-metakernel.
 
 %package -n python3-metakernel-python
 Version:	0.19.1
-Release:	75%{?dist}
+Release:	76%{?dist}
 Summary:	A Python kernel for Jupyter/IPython
 %py_provides	python3-metakernel-python
 Requires:	python3-metakernel = %{pkgversion}-%{pkgrelease}
@@ -88,7 +80,7 @@ A Python kernel for Jupyter/IPython, based on MetaKernel.
 
 %package -n python3-metakernel-echo
 Version:	0.19.1
-Release:	75%{?dist}
+Release:	76%{?dist}
 Summary:	A simple echo kernel for Jupyter/IPython
 %py_provides	python3-metakernel-echo
 Requires:	python3-metakernel = %{pkgversion}-%{pkgrelease}
@@ -100,6 +92,9 @@ A simple echo kernel for Jupyter/IPython, based on MetaKernel.
 %prep
 %setup -q -n metakernel-%{pkgversion}
 %patch -P0 -p1
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -137,14 +132,7 @@ PYTHONPATH=metakernel_echo \
 touch ~/.bashrc
 PYTHONPATH=metakernel_python ipcluster start -n 3 --location localhost &
 pid=$!
-# The version of jupyter-client in Fedora 39/40 calls datetime.utcnow()
-# Ignore DeprecationWarning from Python 3.12 due to this
-# The version of jupyter-client in Fedora 41 calls datetime.strptime()
-# with a deprecated set of arguments
-# Ignore DeprecationWarning from Python 3.13 due to this
-pytest -v --color=no \
-    -W "ignore:datetime.datetime.utcnow() is deprecated:DeprecationWarning" \
-    -W "ignore:Parsing dates involving a day of month without a year specified is ambiguious:DeprecationWarning"
+pytest -v --color=no
 ipcluster stop
 wait $pid
 
@@ -183,6 +171,9 @@ wait $pid
 %{_datadir}/jupyter/kernels/python3-metakernel-echo
 
 %changelog
+* Thu Jul 31 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.30.3-4
+- Generate build requires instead of hardcoding them
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.30.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
@@ -190,7 +181,7 @@ wait $pid
 - Rebuilt for Python 3.14
 
 * Fri Apr 04 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.30.3-1
-- Update to version 0.30.2
+- Update to version 0.30.3
 
 * Wed Feb 19 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.30.2-7
 - Properly bump package versions

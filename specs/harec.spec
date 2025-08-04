@@ -1,6 +1,6 @@
 %undefine _auto_set_build_flags
 
-%global srcver  0.24.2
+%global srcver  0.25.2
 %global pkgsrc  %{srcver}%{?srcpre:-%{srcpre}}
 
 Name:           harec

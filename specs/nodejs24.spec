@@ -174,6 +174,12 @@ Requires:       openssl-devel%{?_isa}
 # Hence the Provides: in place of metapackage.
 Provides:       nodejs-devel = %{node_evr}
 
+Provides: alternative-for(nodejs-devel) = %{nodejs_evr}
+Conflicts: alternative-for(nodejs-devel)
+Conflicts: nodejs-devel-pkg
+ # previously VP used for the same reason as alternative-for() above
+
+
 %description    devel
 Development headers for the Node.js JavaScript runtime.
 

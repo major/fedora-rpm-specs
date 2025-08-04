@@ -3,7 +3,7 @@
 Summary: Tools needed to create Texinfo format documentation files
 Name: texinfo
 Version: 7.2
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: GPL-3.0-or-later
 Url: http://www.gnu.org/software/texinfo/
 Source0: ftp://ftp.gnu.org/gnu/texinfo/texinfo-%{version}.tar.xz
@@ -17,6 +17,8 @@ Patch1: texinfo-6.5-fix-info-dir.patch
 Patch3: texinfo-7.1-various-sast-fixes.patch
 # Patch4: fixes issues detected by static analysis
 Patch4: texinfo-7.1-make-tainted-data-safe.patch
+# Patch5: fixes Perl precedence warnings (already upstream)
+Patch5: texinfo-7.2-fix-perl-precedence-warnings.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -148,6 +150,10 @@ export ALL_TESTS=yes
 %{_mandir}/man1/pdftexi2dvi.1*
 
 %changelog
+* Fri Aug 01 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 7.2-6
+- Fix FTBFS (Perl precedence warnings)
+  Resolves: #2385687
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

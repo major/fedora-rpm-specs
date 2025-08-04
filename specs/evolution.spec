@@ -43,8 +43,8 @@
 ### Abstract ###
 
 Name: evolution
-Version: 3.57.1
-Release: 2%{?dist}
+Version: 3.57.2
+Release: 1%{?dist}
 Summary: Mail and calendar client for GNOME
 License: GPL-2.0-or-later AND GFDL-1.3-or-later
 URL: https://gitlab.gnome.org/GNOME/evolution/-/wikis/home
@@ -405,7 +405,7 @@ grep -v "%{_datadir}/locale" evolution.lang > help.lang
 %{_bindir}/evolution.bin
 %endif
 
-%{_datadir}/metainfo/org.gnome.Evolution.appdata.xml
+%{_datadir}/metainfo/org.gnome.Evolution.metainfo.xml
 
 # Desktop files:
 %{_datadir}/applications/org.gnome.Evolution.desktop
@@ -599,7 +599,4 @@ grep -v "%{_datadir}/locale" evolution.lang > help.lang
 %endif
 
 %changelog
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.57.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
 %autochangelog

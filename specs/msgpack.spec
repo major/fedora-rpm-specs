@@ -1,23 +1,22 @@
-%global __cmake_in_source_build 1
-
 Name:		msgpack
 Version:	3.1.0
-Release:	19%{?dist}
+Release:	20%{?dist}
 Summary:	Binary-based efficient object serialization library
 
 # Automatically converted from old format: Boost - review is highly recommended.
 License:	BSL-1.0
 URL:		http://msgpack.org
 Source0:	https://github.com/msgpack/msgpack-c/releases/download/cpp-%{version}/%{name}-%{version}.tar.gz
-Patch:		0001-Fixed-724.patch
+Patch0:	0001-Fixed-724.patch
+Patch1:     msgpack-cmake4.patch
 
 BuildRequires: make
-BuildRequires:  cmake
-BuildRequires:  gcc-c++
-BuildRequires:  doxygen
+BuildRequires: cmake
+BuildRequires: gcc-c++
+BuildRequires: doxygen
 # for %%check
-BuildRequires:	gtest-devel
-BuildRequires:	zlib-devel
+BuildRequires: gtest-devel
+BuildRequires: zlib-devel
 
 %description
 MessagePack is a binary-based efficient object serialization
@@ -40,31 +39,18 @@ Libraries and header files for %{name}
 sed -i "s|-std=c++98|-std=gnu++14|g" CMakeLists.txt
 
 %build
-if test ! -e "obj"; then
-  mkdir obj
-fi
-pushd obj
-%cmake .. -DCMAKE_INSTALL_LIBDIR=%{_libdir} -Dlibdir=%{_libdir} -DBUILD_SHARED_LIBS=ON
-%make_build
-
-popd
+%cmake -DCMAKE_INSTALL_LIBDIR=%{_libdir} -Dlibdir=%{_libdir} -DBUILD_SHARED_LIBS=ON
+%cmake_build
 
 %check
-pushd obj
 # https://github.com/msgpack/msgpack-c/issues/697
 export GTEST_FILTER=-object_with_zone.ext_empty
-make test || {
-    cat Testing/Temporary/LastTest.log;
-    exit 1;
-}
-popd
+%ctest
+cat %_vpath_builddir/Testing/Temporary/LastTest.log
 
 
 %install
-make install/fast DESTDIR=$RPM_BUILD_ROOT -C obj
-
-%ldconfig_scriptlets
-
+%cmake_install
 
 %files
 %license LICENSE_1_0.txt COPYING
@@ -79,6 +65,9 @@ make install/fast DESTDIR=$RPM_BUILD_ROOT -C obj
 
 
 %changelog
+* Sat Aug 02 2025 Antonio Trande <sagitter@fedoraproject.org> - 3.1.0-20
+- Fix rhbz#2381079
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

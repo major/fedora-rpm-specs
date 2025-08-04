@@ -1,6 +1,6 @@
 Name:       miniz
 Version:    3.0.2
-Release:    8%{?dist}
+Release:    9%{?dist}
 Summary:    Compression library implementing the zlib and Deflate
 # examples/example1.c:  Unlicense (refers to "unlicense" statement at the end
 #                       of tinfl.c from miniz-1.15)
@@ -15,10 +15,13 @@ Summary:    Compression library implementing the zlib and Deflate
 # readme.md:    MIT
 License:    MIT AND Unlicense
 URL:        https://github.com/richgel999/%{name}
-Source0:    %{url}/releases/download/%{version}/%{name}-%{version}.zip
+Source0:    %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 # Adjust examples for building against a system miniz library,
 # not suitable for upstream that prefers a copy-lib approach.
 Patch0:     miniz-2.2.0-Examples-to-include-system-miniz.h.patch
+# Fix build with CMake 4.0
+Patch1:     miniz-cmake4.patch
+BuildRequires:  cmake
 BuildRequires:  coreutils
 # diffutils for cmp
 BuildRequires:  diffutils
@@ -31,8 +34,7 @@ BuildRequires:  clang
 %{error:Unknown toolchain.}
 %endif
 %endif
-BuildRequires:  sed
-BuildRequires:  unzip
+BuildRequires:  dos2unix
 
 %description
 Miniz is a lossless, high performance data compression library in a single
@@ -48,91 +50,73 @@ compressor function designed to compare well against fastlz/minilzo.
 %package devel
 Summary:    Development files for the %{name} library
 Requires:   %{name}%{?_isa} = %{version}-%{release}
+Requires:   cmake-filesystem
+Requires:   pkg-config%{?_isa}
 
 %description devel
 Header files for developing applications that use the %{name} library.
 
 
 %prep
-%setup -c -T -n %{name}-%{version}
-unzip -e '%{SOURCE0}'
+%setup -q -n %{name}-%{version}
 %patch -P0 -p1
-# Normalize end-of-lines
-sed -e 's/\r$//' ChangeLog.md > ChangeLog.md.new
-touch -r ChangeLog.md ChangeLog.md.new
-mv ChangeLog.md.new ChangeLog.md
+%patch -P1 -p1
 
-%global soname lib%{name}.so.0.3
+# Normalize end-of-lines
+dos2unix -k ChangeLog.md LICENSE
 
 %build
-# A release archive is missing a CMake build script
-# <https://github.com/richgel999/miniz/issues/201>.
-# Inject downstream SONAME, bug #1152653
-%{build_cc} %{optflags} -fPIC -DPIC -D_LARGEFILE64_SOURCE=1 -D_FILE_OFFSET_BITS=64 \
-    %{name}.c -c -o %{name}.o
-%{build_cc} %{?__global_ldflags} -fPIC -shared -Wl,-soname,%{soname} \
-    %{name}.o -o %{soname}
-ln -s %{soname} lib%{name}.so
-# Build examples against the library
-pushd examples
-for EXAMPLE in *.c; do
-    EXAMPLE=${EXAMPLE%.c}
-    %{build_cc} %{optflags} -D_LARGEFILE64_SOURCE=1 -D_FILE_OFFSET_BITS=64 \
-        -I.. "${EXAMPLE}.c" -c -o "${EXAMPLE}.o"
-    case "$EXAMPLE" in
-        example6)
-            %{build_cc} %{?__global_ldflags} "${EXAMPLE}.o" -L.. -l%{name} -lm -o "$EXAMPLE"
-            ;;
-        *)
-            %{build_cc} %{?__global_ldflags} "${EXAMPLE}.o" -L.. -l%{name} -o "$EXAMPLE"
-            ;;
-    esac
-done
+%cmake
+%cmake_build
+
+%install
+%cmake_install
 
 %check
-pushd examples
-for EXAMPLE in *.c; do
-    EXAMPLE=${EXAMPLE%.c}
+pushd bin
+for EXAMPLE in *; do
     case "$EXAMPLE" in
         example3)
-            LD_LIBRARY_PATH=.. "./${EXAMPLE}" c ../readme.md readme.md.z
-            LD_LIBRARY_PATH=.. "./${EXAMPLE}" d readme.md.z readme.md
+            LD_LIBRARY_PATH=../%{__cmake_builddir} "./${EXAMPLE}" c ../readme.md readme.md.z
+            LD_LIBRARY_PATH=../%{__cmake_builddir} "./${EXAMPLE}" d readme.md.z readme.md
             cmp ../readme.md readme.md
             ;;
         example4)
-            LD_LIBRARY_PATH=.. "./${EXAMPLE}" readme.md.z readme.md
+            LD_LIBRARY_PATH=../%{__cmake_builddir} "./${EXAMPLE}" readme.md.z readme.md
             cmp ../readme.md readme.md
             ;;
         example5)
-            LD_LIBRARY_PATH=.. "./${EXAMPLE}" c ../readme.md readme.md.z
-            LD_LIBRARY_PATH=.. "./${EXAMPLE}" d readme.md.z readme.md
+            LD_LIBRARY_PATH=../%{__cmake_builddir} "./${EXAMPLE}" c ../readme.md readme.md.z
+            LD_LIBRARY_PATH=../%{__cmake_builddir} "./${EXAMPLE}" d readme.md.z readme.md
             cmp ../readme.md readme.md
             ;;
         *)
-            LD_LIBRARY_PATH=.. "./${EXAMPLE}"
+            LD_LIBRARY_PATH=../%{__cmake_builddir} "./${EXAMPLE}"
             ;;
     esac
 done
-
-%install
-install -d '%{buildroot}/%{_libdir}'
-install %{soname} '%{buildroot}/%{_libdir}'
-ln -s %{soname} '%{buildroot}/%{_libdir}/lib%{name}.so'
-install -d '%{buildroot}/%{_includedir}'
-install -m 0644 %{name}.h '%{buildroot}/%{_includedir}'
 
 %files
 %license LICENSE
 %doc ChangeLog.md readme.md
-%{_libdir}/%{soname}
+%{_libdir}/lib%{name}.so.{3,%{version}}
 
 %files devel
 %doc examples/*.c
-%{_includedir}/%{name}.h
+%{_includedir}/%{name}
+%{_libdir}/cmake/%{name}
 %{_libdir}/lib%{name}.so
+%{_libdir}/pkgconfig/%{name}.pc
 
 
 %changelog
+* Tue Jul 29 2025 Dominik Mierzejewski <dominik@greysector.net> - 3.0.2-9
+- switch to tar.gz source to avoid manual build
+- build using CMake (use upstream SONAME)
+- ship pkg-config and CMake files (resolves rhbz#2378931)
+- fix build with CMake 4.0
+- use dos2unix instead of sed
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,11 +1,6 @@
 %define srcname notofonttools
 
-%if 0%{?fedora} >= 31 || 0%{?rhel} >= 9
 %define with_python3 1
-%else
-%define with_python2 1
-%define with_python3 1
-%endif
 
 %global common_desc \
 The nototools python package contains python scripts \
@@ -13,8 +8,8 @@ used to maintain the Noto Fonts project, \
 including the google.com/get/noto website.
 
 Name:		nototools
-Version:	0.2.19
-Release:	6%{?dist}
+Version:	0.2.20
+Release:	1%{?dist}
 Summary:	Noto fonts support tools and scripts plus web site generation
 
 # In nototools source
@@ -23,25 +18,16 @@ Summary:	Noto fonts support tools and scripts plus web site generation
 License:	Apache-2.0
 URL:		https://github.com/googlefonts/nototools
 Source0:	%pypi_source
+Source1:	requirements.txt
 
-BuildArch:	noarch
-%if %{with python2}
-BuildRequires:	python2-devel
-BuildRequires:	python2-wheel
-BuildRequires:	python2-setuptools_scm
-%endif
-%if %{with python3}
-BuildRequires:	python3-devel
-BuildRequires:	python3-setuptools
-BuildRequires:	python3-wheel
-BuildRequires:	python3-setuptools_scm
-%endif
-
-%if %{with python2}
-Requires:	python2-nototools = %{version}-%{release}
-%endif
 %if %{with python3}
 Requires:	python3-nototools = %{version}-%{release}
+%endif
+
+BuildArch:	noarch
+%if %{with python3}
+%generate_buildrequires
+%pyproject_buildrequires -N %{SOURCE1}
 %endif
 
 %description
@@ -58,19 +44,8 @@ BuildRequires:	python3dist(fonttools)
 
 %endif
 
-%if %{with python2}
-%package     -n python2-nototools
-Summary:	Noto tools for python 2
-Requires:	python2dist(fonttools)
-BuildRequires:	python2dist(fonttools)
-
-%description -n python2-nototools
-%common_desc
-
-%endif
-
 %prep
-%setup -c
+%autosetup -c
 
 # remove unneeded files
 rm -rf %{srcname}-%{version}/third_party/{cldr,dspl,fontcrunch,ohchr,spiro,udhr,unicode}
@@ -84,15 +59,9 @@ cp -a python2 python3
 cp python2/*.md python2/LICENSE .
 
 %build
-%if %{with python2}
-pushd python2
-%py2_build
-popd
-%endif
-
 %if %{with python3}
 pushd python3
-%py3_build
+%pyproject_wheel
 popd
 %endif
 
@@ -100,7 +69,8 @@ popd
 %install
 %if %{with python3}
 pushd python3
-%py3_install
+%pyproject_install
+%pyproject_save_files %{name} third_party
 for lib in %{buildroot}%{python3_sitelib}/nototools/*.py; do
  sed '1{\@^#!/usr/bin/env python@d}' $lib > $lib.new &&
  touch -r $lib $lib.new &&
@@ -109,32 +79,11 @@ done
 popd
 %endif
 
-%if %{with python2}
-pushd python2
-%py2_install
-for lib in %{buildroot}%{python2_sitelib}/nototools/*.py; do
- sed '1{\@^#!/usr/bin/env python@d}' $lib > $lib.new &&
- touch -r $lib $lib.new &&
- mv $lib.new $lib
-done
-popd
-%endif
-
 %check
-%if %{with python2}
-pushd python2
-# This doesn’t actually run any tests at all, therefore it doesn‘t fail:
-%{__python2} setup.py test
-popd
-%endif
-
-%if %{with python3}
 pushd python3
 # Comment it out for the moment because it tries to run something which fails
-#%{__python3} setup.py test
+#pyproject_check_import
 popd
-%endif
-
 
 %files
 %license LICENSE
@@ -158,22 +107,20 @@ popd
 %{_bindir}/subset_symbols.py
 %{_bindir}/test_vertical_extents.py
 
-%if %{with python2}
-%files -n python2-nototools
-%{python2_sitelib}/%{name}
-%{python2_sitelib}/%{srcname}-%{version}-py2.7.egg-info
-%{python2_sitelib}/third_party
-%endif
-
 %if %{with python3}
-%files -n python3-nototools
-%{python3_sitelib}/%{name}
-%{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info
-%{python3_sitelib}/third_party
+%files -n python3-nototools -f %{pyproject_files}
+%exclude %{python3_sitelib}/notofonttools-0.0.0.dist-info
 %endif
 
 
 %changelog
+* Thu Jul 24 2025 Peng Wu  <pwu@redhat.com> - 0.2.20-2
+- Update for https://fedoraproject.org/wiki/Changes/DeprecateSetuppyMacros
+- Resolves: RHBZ#2377347
+
+* Thu Jul 24 2025 Peng Wu  <pwu@redhat.com> - 0.2.20-1
+- Update to 0.2.20
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.19-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

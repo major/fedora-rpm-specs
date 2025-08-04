@@ -383,7 +383,7 @@ desktop-file-validate %buildroot%_datadir/applications/PrusaGcodeviewer.desktop
 # Some tests are Perl but there is a framework for other tests even though
 # currently the only thing that uses them is one of the bundled libraries.
 # There's no reason not to run as much as we can.
-%cmake_build -- test ARGS=-V
+%ctest
 
 
 %files -f license-files -f lang-files
