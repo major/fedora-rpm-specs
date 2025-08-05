@@ -7,7 +7,7 @@
 %global lcms2_version 2.6
 %global colord_version 1.4.5
 %global libei_version 1.3.901
-%global mutter_api_version 16
+%global mutter_api_version 17
 
 %global major_version %%(echo %{version} | cut -d '.' -f1 | cut -d '~' -f 1)
 %global tarball_version %%(echo %{version} | tr '~' '.')
@@ -19,7 +19,7 @@
 %endif
 
 Name:          mutter
-Version:       49~alpha.1
+Version:       49~beta
 Release:       %autorelease
 Summary:       Window and compositing manager based on Clutter
 

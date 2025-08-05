@@ -56,8 +56,8 @@ Shared library version of ddcutil, exposing a C API.
 
 %package -n libddcutil-devel
 Summary:        Development files for libddcutil
-# FindDDCUtils.cmake has BSD license header
-License:        GPLv2+ and BSD
+# FindDDCUtils.cmake has BSD-3-Clause license header
+License:        GPL-2.0-or-later AND BSD-3-Clause
 Requires:       libddcutil%{?_isa} = %{version}-%{release}
 Requires:       cmake-filesystem%{?_isa}
 

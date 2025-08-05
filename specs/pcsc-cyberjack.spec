@@ -7,7 +7,7 @@ Version:	3.99.5final.SP15
 %global version_prefix %(c=%{version}; echo ${c:0:6})
 %global version_suffix %(c=%{version}; echo ${c:12:4})
 Release:	12%{?dist}
-License:	GPLv2+ and LGPLv2+
+License:	GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
 URL:		https://www.reiner-sct.com/
 Source0:	https://support.reiner-sct.de/downloads/LINUX/V%{version_prefix}_%{version_suffix}/%{name}_%{version}.tar.bz2
 Source1:	pcsc-cyberjack-3.99.5final.SP09-README-FEDORA

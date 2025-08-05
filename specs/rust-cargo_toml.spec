@@ -5,7 +5,7 @@
 %global crate cargo_toml
 
 Name:           rust-cargo_toml
-Version:        0.22.1
+Version:        0.22.3
 Release:        %autorelease
 Summary:        Cargo.toml struct definitions for parsing with Serde
 

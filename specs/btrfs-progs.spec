@@ -3,7 +3,7 @@
 
 Name:           btrfs-progs
 Version:        6.15
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Userspace programs for btrfs
 
 License:        GPL-2.0-only
@@ -31,8 +31,6 @@ BuildRequires:  python3-sphinx
 BuildRequires:  python3dist(sphinx-rtd-theme)
 BuildRequires:  systemd
 BuildRequires:  python3-devel >= 3.4
-BuildRequires:  python3-setuptools
-BuildRequires:  python3dist(pip)
 
 %description
 The btrfs-progs package provides all the userspace programs needed to create,
@@ -102,10 +100,17 @@ xzcat '%{SOURCE0}' | %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}
 %{?__scm_source_timestamp:GIT_COMMITTER_DATE=%{__scm_source_timestamp}} git am --reject %{SOURCE1001}
 %endif
 
-
-%build
+# this generates version.py so we have to run it early
 ./autogen.sh
 %configure CFLAGS="%{optflags} -fno-strict-aliasing" --with-crypto=libgcrypt --disable-python
+
+%generate_buildrequires
+pushd libbtrfsutil/python >/dev/null
+%pyproject_buildrequires
+popd >/dev/null
+
+
+%build
 %make_build
 
 pushd libbtrfsutil/python
@@ -119,10 +124,10 @@ install -Dpm0644 btrfs-completion %{buildroot}%{_datadir}/bash-completion/comple
 # Nuke the static lib
 rm -v %{buildroot}%{_libdir}/*.a
 
-pushd libbtrfsutil/python
+pushd libbtrfsutil/python >/dev/null
 %pyproject_install
 %pyproject_save_files -L btrfsutil
-popd
+popd >/dev/null
 
 
 %files
@@ -164,6 +169,9 @@ popd
 
 
 %changelog
+* Sun Aug 03 2025 Michel Lind <salimma@fedoraproject.org> - 6.15-4
+- Enable automatic build requirement generation
+
 * Sat Aug 02 2025 Michel Lind <salimma@fedoraproject.org> - 6.15-3
 - Stop using deprecated Python macros; Resolves: RHBZ#2377213
 

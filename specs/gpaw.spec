@@ -19,8 +19,8 @@ ExcludeArch: %{ix86}
 %endif
 
 Name:			gpaw
-Version:		25.1.0
-Release:		4%{?dist}
+Version:		25.7.0
+Release:		1%{?dist}
 Summary:		A grid-based real-space PAW method DFT code
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -46,12 +46,13 @@ BuildRequires:		which
 BuildRequires:		python3-devel
 BuildRequires:		python3-pytest
 BuildRequires:		python3-scipy
-BuildRequires:		python3-setuptools
 
 BuildRequires:		python3-ase
-
-
 BuildRequires:		%{name}-setups
+
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 
 %global desc_base \
@@ -111,24 +112,21 @@ This package contains the mpich Python 3 version.
 
 
 %prep
-%setup -qTc -a 0
-pushd %{name}-%{version}
-popd
+%setup -qn %{name}-%{version}
 
-pushd %{name}-%{version}
-popd
-mv %{name}-%{version} python3
+cp siteconfig_example.py siteconfig.py
 
-# create siteconfig.py
-cp python3/siteconfig_example.py python3/siteconfig.py
-
-cp -p python3/LICENSE .
+# Remove dependency on gpaw-data,
+# https://gitlab.com/gpaw/gpaw-data would need to be packaged
+sed -i  "s|'gpaw-data'||" setup.py
 
 # fix the shebangs python version in the scripts
-find python3/tools -type f | xargs sed -i '1s|^#!/usr/bin/env python.*|#!%{_bindir}/python3|'
+find tools -type f | xargs sed -i '1s|^#!/usr/bin/env python.*|#!%{_bindir}/python3|'
+# Exclude python scripts from shebang mangling
+%global __brp_mangle_shebangs_exclude_from bin/gpaw.*$
 
 # workaround for "assert terminalreporter is not None" https://gitlab.com/gpaw/gpaw/-/issues/1026
-sed -i 's/except AttributeError:/except (AttributeError, AssertionError):/' python3/gpaw/test/conftest.py
+sed -i 's/except AttributeError:/except (AttributeError, AssertionError):/' gpaw/test/conftest.py
 
 
 %build
@@ -138,62 +136,56 @@ sed -i 's/except AttributeError:/except (AttributeError, AssertionError):/' pyth
 %global dobuild() \
 cat siteconfig.py \
 unset CC \
-${PYTHON} setup.py build && \
+(%{pyproject_wheel}) && \
 mv build build$MPI_SUFFIX && \
-${PYTHON} setup.py clean
+rm -rfv build dist *.dist-info
 
 # disable mpi
-sed -i 's/.*mpi =.*/mpi = False/' python3/siteconfig.py
+sed -i 's/.*mpi =.*/mpi = False/' siteconfig.py
 # disable scalapack
-sed -i 's/.*scalapack =.*/scalapack = False/' python3/siteconfig.py
+sed -i 's/.*scalapack =.*/scalapack = False/' siteconfig.py
 # enable flexiblas/openblas
 %if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
-echo "libraries += ['flexiblas']" >> python3/siteconfig.py
+echo "libraries += ['flexiblas']" >> siteconfig.py
 %else
-echo "libraries += ['openblas']" >> python3/siteconfig.py
+echo "libraries += ['openblas']" >> siteconfig.py
 %endif
 # force -fPIC
-echo "extra_compile_args += ['-fPIC']" >> python3/siteconfig.py
+echo "extra_compile_args += ['-fPIC']" >> siteconfig.py
 # specify MPI_INCLUDE (use /usr/include for serial build)
-echo "import os" >> python3/siteconfig.py
-echo "include_dirs += [os.environ.get('MPI_INCLUDE', '/usr/include')]" >> python3/siteconfig.py
+echo "import os" >> siteconfig.py
+echo "include_dirs += [os.environ.get('MPI_INCLUDE', '/usr/include')]" >> siteconfig.py
 
 # build serial version
-pushd python3
 MPI_SUFFIX=_serial PYTHON=python3 %dobuild
-popd
 
 # build openmpi version
 %{_openmpi_load}
 # enable mpi
-sed -i 's/.*mpi =.*/mpi = True/' python3/siteconfig.py
+sed -i 's/.*mpi =.*/mpi = True/' siteconfig.py
 # enable scalapack
-sed -i 's/.*scalapack =.*/scalapack = True/' python3/siteconfig.py
+sed -i 's/.*scalapack =.*/scalapack = True/' siteconfig.py
 # force mpicc
-sed -i 's/# compiler =.*/compiler = "mpicc"/' python3/siteconfig.py
+sed -i 's/# compiler =.*/compiler = "mpicc"/' siteconfig.py
 which mpicc
 mpicc --version
 mpicc foo.c --showme
-pushd python3
 PYTHON=python3 %dobuild
-popd
 %{_openmpi_unload}
 
 # build mpich version
 %{_mpich_load}
 # enable mpi
-sed -i 's/.*mpi =.*/mpi = True/' python3/siteconfig.py
+sed -i 's/.*mpi =.*/mpi = True/' siteconfig.py
 # enable scalapack
-sed -i 's/.*scalapack =.*/scalapack = True/' python3/siteconfig.py
+sed -i 's/.*scalapack =.*/scalapack = True/' siteconfig.py
 # force mpicc
-sed -i 's/# compiler =.*/compiler = "mpicc"/' python3/siteconfig.py
+sed -i 's/# compiler =.*/compiler = "mpicc"/' siteconfig.py
 which mpicc
 mpicc --version
 mpicc -compile_info
 mpicc -link_info
-pushd python3
 PYTHON=python3 %dobuild
-popd
 %{_mpich_unload}
 
 
@@ -209,22 +201,16 @@ cp -rpv build$MPI_SUFFIX/lib.*/%{name} $RPM_BUILD_ROOT/$MPI_PYTHON3_SITEARCH/&& 
 install -p -m 755 build$MPI_SUFFIX/lib.*/*.so $RPM_BUILD_ROOT/$MPI_PYTHON3_SITEARCH/
 
 # install serial version
-pushd python3
 PYTHON=python3 MPI_SUFFIX="_serial" MPI_BIN=%{_bindir} MPI_PYTHON3_SITEARCH=%{python3_sitearch} %doinstall
-popd
 
 # install openmpi version
 %{_openmpi_load}
-pushd python3
 PYTHON=python3 %doinstall
-popd
 %{_openmpi_unload}
 
 # install mpich version
 %{_mpich_load}
-pushd python3
 PYTHON=python3 %doinstall
-popd
 %{_mpich_unload}
 
 
@@ -245,33 +231,28 @@ export TIMEOUT_OPTS='--preserve-status --kill-after 10 1800'
 # https://gitlab.com/gpaw/gpaw/-/issues/612
 %global docheck() \
 GPAW_PLATFORM_GLOB=$($PYTHON -c "from distutils import util, sysconfig; print(util.get_platform()+'-*')")&& \
+. /etc/profile.d/gpaw-*.sh&& \
 export PYTHONPATH=$(echo $(pwd)/build$MPI_SUFFIX/lib.${GPAW_PLATFORM_GLOB}) \
 PATH=`pwd`/tools:${PATH} \
 timeout ${TIMEOUT_OPTS} time $GPAW_EXECUTABLE -m ci -v 2>&1 | tee gpaw-test${NPROC}$MPI_SUFFIX.log || true
 
 # check serial version
-pushd python3
 MPI_SUFFIX="_serial" PYTHON="python3" GPAW_EXECUTABLE="pytest" NPROC=1 %docheck
 gpaw -T test
-popd
 
 # check openmpi version
 %{_openmpi_load}
-pushd python3
 PYTHON="python3" GPAW_EXECUTABLE="mpiexec -np ${NPROC_PARALLEL} pytest" NPROC=${NPROC_PARALLEL} %docheck
 mpiexec -np ${NPROC_PARALLEL} gpaw -T test
-popd
 %{_openmpi_unload}
 
 # check mpich version
 %{_mpich_load}
-pushd python3
 PYTHON="python3" GPAW_EXECUTABLE="mpiexec -np ${NPROC_PARALLEL} pytest" NPROC=${NPROC_PARALLEL} %docheck
 # Exclude test due to "Fatal error in internal_Bcast" on f42
 %ifnarch s390x
 mpiexec -np ${NPROC_PARALLEL} gpaw -T test
 %endif
-popd
 %{_mpich_unload}
 
 
@@ -299,6 +280,11 @@ popd
 
 
 %changelog
+* Sun Aug 03 2025 Marcin Dulak <marcindulak@fedoraproject.org> - 25.7.0-1
+- New upstream release
+- Move away from deprecated setup.py build/install
+- Remove temporary python3 top level dir
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 25.1.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -3,13 +3,12 @@
 Summary:        Python bindings for Chromaprint acoustic fingerprinting and the Acoustid API
 Name:           python-acoustid
 Version:        1.3.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 License:        MIT
 URL:            http://pypi.python.org/pypi/pyacoustid
 Source0:        https://files.pythonhosted.org/packages/source/p/%{oname}/%{oname}-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 
 %description
 Chromaprint and its associated Acoustid Web service make up a
@@ -22,7 +21,6 @@ which provides fingerprint look ups.
 Summary:       Python bindings for Chromaprint acoustic fingerprinting and the Acoustid API
 Requires:      libchromaprint
 Requires:      python3-audioread
-%{?python_provide:%python_provide python3-acoustid}
 %description -n python3-acoustid
 Chromaprint and its associated Acoustid Web service make up a
 high-quality, open-source acoustic fingerprinting system. This package
@@ -33,21 +31,26 @@ which provides fingerprint look ups.
 %prep
 %setup -q -n %{oname}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%{py3_build}
+%{pyproject_wheel}
 
 %install
-%{py3_install}
+%{pyproject_install}
+%pyproject_save_files acoustid chromaprint
 
-%files -n python3-acoustid
+%check
+%pyproject_check_import
+
+%files -n python3-acoustid -f %{pyproject_files}
 %doc README.rst aidmatch.py fpcalc.py
-%{python3_sitelib}/acoustid.py
-%{python3_sitelib}/chromaprint.py
-%{python3_sitelib}/pyacoustid-%{version}-*.egg-info/
-%{python3_sitelib}/__pycache__/acoustid.*.py*
-%{python3_sitelib}/__pycache__/chromaprint.*.py*
 
 %changelog
+* Sun Aug 03 2025 Terje Rosten <terjeros@gmail.com> - 1.3.0-9
+- New set of build macros
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

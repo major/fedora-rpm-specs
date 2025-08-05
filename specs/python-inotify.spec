@@ -3,17 +3,16 @@
 Summary:       Monitor filesystem events with Python under Linux
 Name:          python-inotify
 Version:       0.9.6
-Release:       39%{?dist}
+Release:       40%{?dist}
 License:       MIT
 URL:           https://github.com/seb-m/pyinotify
 Source0:       http://seb.dbzteam.org/pub/pyinotify/releases/pyinotify-%{version}.tar.gz
-Patch01:       pyinotify-0.9.6-epoint.patch
+Patch:         pyinotify-0.9.6-epoint.patch
 # Upstream pull request https://github.com/seb-m/pyinotify/pull/205
 # Upstream issue https://github.com/seb-m/pyinotify/issues/204
-Patch02:       pyinotify-python-3.12-fix.patch
+Patch:         pyinotify-python-3.12-fix.patch
 BuildRequires: gmp-devel
 BuildRequires: python%{python3_pkgversion}-devel
-BuildRequires: python%{python3_pkgversion}-setuptools
 BuildArch:     noarch
 %global _description \
 This is a Python module for watching filesystems changes. pyinotify \
@@ -24,30 +23,34 @@ kernel space to user space.
 
 %package    -n python%{python3_pkgversion}-inotify
 Summary:       %{summary}
-%{?python_provide:%python_provide python%{python3_pkgversion}-inotify}
 %description -n python%{python3_pkgversion}-inotify %_description
 
 %prep
 %autosetup -p1 -n %{oname}-%{version}
 sed -i '1c#! %{__python3}' python3/pyinotify.py
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l '%{oname}*'
 
 %check
+%pyproject_check_import
 %py3_check_import pyinotify
 
-%files -n python%{python3_pkgversion}-inotify
-%license COPYING
+%files -n python%{python3_pkgversion}-inotify -f %{pyproject_files}
 %doc ACKS README.md
 %{_bindir}/%{oname}
-%{python3_sitelib}/%{oname}*
-%{python3_sitelib}/__pycache__/%{oname}*
 
 %changelog
+* Sun Aug 03 2025 Terje Rosten <terje.rosten@ntnu.no> - 0.9.4-40
+- Use correct python macros
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.6-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

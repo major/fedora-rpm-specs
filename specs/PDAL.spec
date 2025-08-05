@@ -11,9 +11,8 @@
 
 Summary:	Point Data Abstraction Library
 Name:		PDAL
-# NOTE: Re-verifiy test exclusions in %%check when updating
-Version:	2.8.4
-Release:	3%{?dist}
+Version:	2.9.0
+Release:	1%{?dist}
 # The code is licensed BSD except for:
 # - filters/private/csf/* and plugins/i3s/lepcc/* are ASL 2.0
 # - vendor/arbiter/*, plugins/nitf/io/nitflib.h and plugins/oci/io/OciWrapper.* are Expat/MIT
@@ -40,6 +39,9 @@ Source:		https://github.com/%{name}/%{name}/releases/download/%{version}/%{name}
 
 # Unbundle some bundled libraries
 Patch0:		PDAL_unbundle.patch
+
+# Fix missing include dir
+Patch1:         PDAL_missing-include-dir.patch
 
 BuildRequires:	boost-devel
 BuildRequires:	cmake
@@ -202,10 +204,10 @@ sphinx-build -b html . build/html
 %license LICENSE.txt
 %license vendor/arbiter/LICENSE
 %license plugins/e57/libE57Format/LICENSE.md
-%{_libdir}/libpdalcpp.so.18*
-%{_libdir}/libpdal_plugin_kernel_fauxplugin.so.18*
-%{_libdir}/libpdal_plugin_reader_pgpointcloud.so.18*
-%{_libdir}/libpdal_plugin_writer_pgpointcloud.so.18*
+%{_libdir}/libpdalcpp.so.19*
+%{_libdir}/libpdal_plugin_kernel_fauxplugin.so.19*
+%{_libdir}/libpdal_plugin_reader_pgpointcloud.so.19*
+%{_libdir}/libpdal_plugin_writer_pgpointcloud.so.19*
 
 %files devel
 %{_bindir}/pdal-config
@@ -229,6 +231,9 @@ sphinx-build -b html . build/html
 %endif
 
 %changelog
+* Fri Aug 01 2025 Sandro Mani <manisandro@gmail.com> - 2.9.0-1
+- Update to 2.9.0
+
 * Tue Jul 29 2025 Sandro Mani <manisandro@gmail.com> - 2.8.4-3
 - Rebuild (gdal)
 

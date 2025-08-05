@@ -14,7 +14,7 @@
 %endif
 
 Name:           gnome-shell
-Version:        49~alpha.1
+Version:        49~beta
 Release:        %autorelease
 Summary:        Window management and application launching for GNOME
 
@@ -40,7 +40,7 @@ Patch: 3611.patch
 %define gjs_version 1.73.1
 %define gtk4_version 4.0.0
 %define adwaita_version 1.5.0
-%define mutter_version 48.0
+%define mutter_version 49~beta
 %define polkit_version 0.100
 %define gsettings_desktop_schemas_version 48.0
 %define ibus_version 1.5.2

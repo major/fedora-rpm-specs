@@ -1,9 +1,9 @@
 Name:           lazarus
 Summary:        Lazarus Component Library and IDE for Free Pascal
 
-Version:        4.0
+Version:        4.2
 
-%global baserelease 3
+%global baserelease 1
 Release:        %{baserelease}%{?dist}
 
 # The qt5pas version is taken from lcl/interfaces/qt5/cbindings/Qt5Pas.pro
@@ -170,7 +170,7 @@ using the GTK2 widgetset.
 
 
 %package lcl-gtk3
-Summary: Lazarus Component Library - GTK2 widgetset support
+Summary: Lazarus Component Library - GTK3 widgetset support
 Requires: %{name}-lcl%{?_isa} = %{version}-%{release}
 
 Requires: gtk3-devel%{?_isa}
@@ -256,7 +256,7 @@ Qt6 bindings for Pascal from Lazarus.
 %package -n     qt6pas-devel
 Version:        %{qt6pas_version}
 Release:        %{qt6pas_release}
-Summary:        Development files for qt5pas
+Summary:        Development files for qt6pas
 
 Requires:       qt6-qtbase-devel%{?_isa}
 Requires:       qt6pas%{?_isa} = %{qt6pas_version}-%{qt6pas_release}
@@ -490,7 +490,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 %{_libdir}/%{name}/components/
 %{_libdir}/%{name}/lcl/
 %lcl_base_files -n nogui %exclude
-%lcl_extra_files -n gtk %exclude
+%lcl_base_files  -n gtk %exclude
 %lcl_extra_files -n gtk %exclude
 %lcl_base_files  -n gtk2 %exclude
 %lcl_extra_files -n gtk2 %exclude
@@ -554,6 +554,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 
 
 %changelog
+* Sun Aug 03 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 4.2-1
+- Update to v4.2
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -3,8 +3,8 @@
 %global _lto_cflags %nil
 
 Name:          objfw
-Version:       1.3.2
-Release:       3%{?dist}
+Version:       1.4
+Release:       2%{?dist}
 Summary:       Portable, lightweight framework for the Objective-C language
 
 License:       LGPL-3.0-only
@@ -13,8 +13,6 @@ Source0:       https://objfw.nil.im/downloads/objfw-%{version}.tar.gz
 Source1:       https://objfw.nil.im/downloads/objfw-%{version}.tar.gz.sig
 # gpg2 --export --export-options export-minimal DC43171B6BE93978D09AD8B2C601EE21773E7C8F >gpgkey-objfw.gpg
 Source2:       gpgkey-%{name}.gpg
-
-Patch0:        utils-pie.patch
 
 BuildRequires: clang
 BuildRequires: make
@@ -32,6 +30,7 @@ Requires:      ofarc%{_isa} = %{version}-%{release}
 Requires:      ofdns%{_isa} = %{version}-%{release}
 Requires:      ofhash%{_isa} = %{version}-%{release}
 Requires:      ofhttp%{_isa} = %{version}-%{release}
+Requires:      ofgctester%{_isa} = %{version}-%{release}
 
 %description
 ObjFW is a portable, lightweight framework for the Objective-C language. It
@@ -143,6 +142,12 @@ ofhttp is a command line downloader for HTTP and HTTPS using ObjFW's
 OFHTTPClient class. It supports all features one would expect from a modern
 command line downloader such as resuming of downloads, using a SOCKS5 proxy, a
 modern terminal-based UI, etc.
+
+%package -n ofgctester
+Summary:       Game controller tester for the terminal
+
+%description -n ofgctester
+ofgctester is a game controller tester for the terminal.
 
 %package doc
 Summary:       Documentation for ObjFW
@@ -260,6 +265,11 @@ make check
 %{_bindir}/ofhttp
 %{_datadir}/ofhttp
 %{_mandir}/man1/ofhttp.1.gz
+
+%files -n ofgctester
+%license COPYING
+%license COPYING.LESSER
+%{_bindir}/ofgctester
 
 %files doc
 %license COPYING

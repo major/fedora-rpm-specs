@@ -5,10 +5,13 @@
 %bcond python %[ %{?__isa_bits} != 32 || %{defined fc41} ]
 
 Name:           re2
-%global tag 2024-07-02
+%global tag 2025-07-22
 %global so_version 11
-Version:        %(echo '%{tag}' | tr -d -)
-Epoch:          1
+%global base_version %(echo '%{tag}' | tr -d -)
+# Ensure this matches the version in the metadata / setup.py!
+%global py_version 1.1.%{base_version}
+Version:        %{base_version}
+Epoch:          2
 Release:        %autorelease
 Summary:        C++ fast alternative to backtracking RE engines
 
@@ -28,6 +31,14 @@ Source:         %{url}/archive/%{tag}/re2-%{tag}.tar.gz
 #
 #   Making benchmarks optional when building and running tests
 #   https://groups.google.com/g/re2-dev/c/JXcU38P9krM
+#
+# The idea was implemented upstream as
+#
+#   CMakeLists: updates for clang-cl, skipping benchmarks, and C++17
+#   https://github.com/google/re2/commit/cf62c8d5d0a068b13fa8d11957dafe618d7bab97
+#
+# but since it was mixed with other changes, we’ll continue using our original
+# patch until the next release, which will contain the upstream change.
 Patch:          %{url}/pull/545.patch
 
 BuildRequires:  cmake
@@ -61,7 +72,7 @@ library.}
 %package        devel
 Summary:        C++ header files and library symbolic links for re2
 
-Requires:       re2%{?_isa} = %{epoch}:%{version}-%{release}
+Requires:       re2%{?_isa} = %{epoch}:%{base_version}-%{release}
 
 %description    devel %{common_description}
 
@@ -73,9 +84,10 @@ need to install re2-devel.
 %if %{with python}
 %package -n     python3-google-re2
 Summary:        RE2 Python bindings
+Version:        %{py_version}
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/#_requiring_base_package
-Requires:       re2%{?_isa} = %{epoch}:%{version}-%{release}
+Requires:       re2%{?_isa} = %{epoch}:%{base_version}-%{release}
 
 Conflicts:      python3-fb-re2
 Obsoletes:      python3-fb-re2 < 1.0.7-19

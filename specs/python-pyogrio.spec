@@ -4,7 +4,7 @@
 %global srcname pyogrio
 
 Name:           python-%{srcname}
-Version:        0.11.0
+Version:        0.11.1
 Release:        %autorelease
 Summary:        Vectorized spatial vector file format I/O using GDAL/OGR
 

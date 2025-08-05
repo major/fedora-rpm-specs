@@ -2,13 +2,17 @@
 
 Name:           octave-%{octpkg}
 Version:        1.6.2
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        A non-linear optimization tool kit for Octave
 # C++ and .m are GPLv3+, documentation is GFDL
 # Automatically converted from old format: GPLv3+ and GFDL - review is highly recommended.
 License:        GPL-3.0-or-later AND LicenseRef-Callaway-GFDL
-URL:            https://octave.sourceforge.io/optim/
+URL:            https://gnu-octave.github.io/packages/optim/
 Source0:        https://downloads.sourceforge.net/octave/%{octpkg}-%{version}.tar.gz
+
+# Fails to build with octave 10.  Patch is based on
+# https://savannah.gnu.org/bugs/?func=detailitem&item_id=65526
+Patch:          octave-optim-octave10.patch
 
 BuildRequires:  octave-devel
 BuildRequires:  octave-struct >= 1.0.12
@@ -32,7 +36,7 @@ functions for curve fitting and the following minimization algorithms:
 * Simulated Annealing
 
 %prep
-%setup -q -n %{octpkg}-%{version}
+%autosetup -p1 -n %{octpkg}-%{version}
 
 %build
 %octave_pkg_build
@@ -67,6 +71,9 @@ rm -rf  %{buildroot}/%{octpkgdir}/doc
 %doc doc/development/interfaces.txt
 
 %changelog
+* Sat Aug 02 2025 Orion Poplawski <orion@nwra.com> - 1.6.2-14
+- Add patch to support octave 10
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

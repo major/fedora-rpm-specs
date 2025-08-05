@@ -5,7 +5,7 @@
 %endif
 
 Name:           nextcloud
-Version:        31.0.6
+Version:        31.0.7
 Release:        %autorelease
 Summary:        Private file sync and share server
 # Automatically converted from old format: AGPLv3+ and MIT and BSD and ASL 2.0 and WTFPL and CC-BY-SA and GPLv3+ and Adobe - review is highly recommended.
@@ -94,8 +94,9 @@ Requires:       php-xmlwriter
 Requires:       php-zip
 # For systemd support during install/uninstall
 %{?systemd_requires}
-# the CA cert bundle is linked to from the config dir
-Requires:       %{_sysconfdir}/pki/tls/certs/ca-bundle.crt
+# Fedora dropped legacy CA cert bundle symlinks
+# See https://fedoraproject.org/wiki/Changes/dropingOfCertPemFile
+Requires:       %{_sysconfdir}/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
 
 # jquery-ui-multiselect bundled via user_ldap app
 Provides:       bundled(jquery-ui-multiselect) = 1.13
@@ -285,7 +286,7 @@ install -pm 755 occ %{buildroot}%{_datadir}/%{name}
 ln -s ../../../%{_sysconfdir}/%{name} %{buildroot}%{_datadir}/%{name}/config
 
 # nextcloud looks for ca-bundle.crt in config dir
-ln -s ../pki/tls/certs/ca-bundle.crt %{buildroot}%{_sysconfdir}/%{name}/ca-bundle.crt
+ln -s ../pki/ca-trust/extracted/pem/tls-ca-bundle.pem %{buildroot}%{_sysconfdir}/%{name}/ca-bundle.crt
 
 # set default config
 install -pm 644 %{SOURCE1}    %{buildroot}%{_sysconfdir}/%{name}/config.php

@@ -1,6 +1,6 @@
 Name:           dvdauthor
 Version:        0.7.2
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Command line DVD authoring tool
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -36,7 +36,8 @@ GUI-based front ends if you prefer.
 
 
 %build
-export LDFLAGS="$RPM_LD_FLAGS -Wl,--as-needed" # *Magick-config linkage bloat
+# Add -z noexecstack linker flag, fixex RHBZ#2384922
+export LDFLAGS="$RPM_LD_FLAGS -Wl,--as-needed,-z noexecstack" # *Magick-config linkage bloat
 %configure --disable-rpath --enable-default-video-format=NTSC
 %make_build
 
@@ -65,6 +66,9 @@ export LDFLAGS="$RPM_LD_FLAGS -Wl,--as-needed" # *Magick-config linkage bloat
 
 
 %changelog
+* Sun Aug 03 2025 Andrew Bauer <zonexpertconsulting@outlook.com> - 0.7.2-28
+- Fix FTBS RHBZ#2384922
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

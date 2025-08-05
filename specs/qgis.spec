@@ -2,7 +2,7 @@
 
 Name:           qgis
 Version:        3.44.1
-Release:        3%{?dist}
+Release:        5%{?dist}
 Summary:        A user friendly Open Source Geographic Information System
 
 # http://issues.qgis.org/issues/3789
@@ -305,6 +305,12 @@ rm -f %{buildroot}%{_prefix}/lib/liboauth2authmethod_static.a
 
 
 %changelog
+* Sun Aug 03 2025 Sandro Mani <manisandro@gmail.com> - 3.44.1-5
+- Rebuild (PDAL)
+
+* Sun Aug 03 2025 Sandro Mani <manisandro@gmail.com> - 3.44.1-4
+- Rebuild (PDAL)
+
 * Wed Jul 30 2025 Sandro Mani <manisandro@gmail.com> - 3.44.1-3
 - Rebuild (GDAL)
 

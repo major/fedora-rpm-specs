@@ -17,8 +17,8 @@ ExcludeArch: %{ix86}
 %endif
 
 Name:    ga
-Version: 5.9
-Release: 3%{?dist}
+Version: 5.9.2
+Release: 1%{?dist}
 Summary: Global Arrays Toolkit
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
@@ -123,11 +123,9 @@ done
 
 
 %build
-# https://github.com/GlobalArrays/ga/issues/359
-# Set -std=gnu17 to avoid gcc-15 ma compilation errors
 %define doBuild \
 export LIBS="-lscalapack -l%{blaslib}" && \
-export CFLAGS="%{optflags} -std=gnu17 -O1" && \
+export CFLAGS="%{optflags} -O1" && \
 export CXXFLAGS="%{optflags} -O1" && \
 export FFLAGS="%{optflags} -O1" && \
 cd %{name}-%{version}-$MPI_COMPILER_NAME && \
@@ -185,7 +183,7 @@ echo 'kernel.shmmax = 134217728' > $RPM_BUILD_ROOT/%{_sysconfdir}/sysctl.d/armci
 %{_mpich_load}
 cd %{name}-%{version}-mpich
 make NPROCS=2 VERBOSE=1 check-ma check-travis
-make NPROCS=2 TESTS="global/testing/test.x global/testing/testc.x global/testing/testmatmult.x global/testing/patch.x global/testing/simple_groups_comm.x global/testing/elempatch.x" check-TESTS VERBOSE=1
+(make NPROCS=2 TESTS="global/testing/test.x global/testing/testc.x global/testing/testmatmult.x global/testing/patch.x global/testing/simple_groups_comm.x global/testing/elempatch.x" check-TESTS VERBOSE=1; EXIT=$? && cat ./test-suite.log && exit ${EXIT})
 cd ..
 %{_mpich_unload}
 %endif
@@ -194,7 +192,7 @@ cd %{name}-%{version}-openmpi
 export OMPI_MCA_btl=^uct
 export OMPI_MCA_btl_base_warn_component_unused=0
 make NPROCS=2 VERBOSE=1 check-ma check-travis
-make NPROCS=2 TESTS="global/testing/test.x global/testing/testc.x global/testing/testmatmult.x global/testing/patch.x global/testing/simple_groups_comm.x global/testing/elempatch.x" check-TESTS VERBOSE=1
+(make NPROCS=2 TESTS="global/testing/test.x global/testing/testc.x global/testing/testmatmult.x global/testing/patch.x global/testing/simple_groups_comm.x global/testing/elempatch.x" check-TESTS VERBOSE=1; EXIT=$? && cat ./test-suite.log && exit ${EXIT})
 cd ..
 %{_openmpi_unload}
 %endif
@@ -235,6 +233,10 @@ cd ..
 %{_libdir}/openmpi/lib/lib*.a
 
 %changelog
+* Sun Aug 03 2025 Marcin Dulak <marcindulak@fedoraproject.org> - 5.9.2-1
+- New upstream release
+- cat ./test-suite.log
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.9-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

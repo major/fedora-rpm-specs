@@ -52,7 +52,7 @@ compliant.
 
 %package        devel
 Summary:        Development files for %{name}
-License:        LGPLv2+
+License:        LGPL-2.0-or-later
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description    devel

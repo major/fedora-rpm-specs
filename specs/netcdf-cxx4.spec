@@ -21,6 +21,9 @@ Source0:        https://github.com/Unidata/netcdf-cxx4/archive/v%{version}/%{nam
 # Fix tests on big-endian
 # https://github.com/Unidata/netcdf-cxx4/issues/45
 Patch0:         netcdf-cxx4-bigendian.patch
+# Do not use netcdf logging if not enabled
+# https://github.com/Unidata/netcdf-cxx4/pull/162
+Patch1:         netcdf-cxx4-logging.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  make
@@ -133,8 +136,7 @@ NetCDF parallel openmpi static libraries
 
 
 %prep
-%setup -q
-%patch -P0 -p1 -b .bigendian
+%autosetup -p1
 # Fix line endings
 sed -i -e 's/\r//' examples/*.cpp
 

@@ -8,18 +8,13 @@
 %global supported_arches x86_64
 
 Name:           rust-az-cvm-vtpm
-Version:        0.7.1
+Version:        0.7.3
 Release:        %autorelease
 Summary:        Package with shared code for Azure Confidential VMs
 
 License:        MIT
 URL:            https://crates.io/crates/az-cvm-vtpm
 Source:         %{crates_source}
-# * The crate does not contain LICENSE; Get it from upstream git repo
-# * http://github.com/kinvolk/azure-cvm-tooling/
-# * A patch was sent upstream:
-# * https://github.com/kinvolk/azure-cvm-tooling/pull/64
-Source1:        https://raw.githubusercontent.com/kinvolk/azure-cvm-tooling/2bef60b88db7554935177ec63dd169190a39eab7/LICENSE
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -116,7 +111,6 @@ use the "verifier" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-cp -f %{SOURCE1} .
 %cargo_prep
 
 %generate_buildrequires

@@ -16,8 +16,8 @@ ase-3.23 requires pyproject.toml setuptools support
 %global upstream_name ase
 
 Name:			python-ase
-Version:		3.24.0
-Release:		4%{?dist}
+Version:		3.25.0
+Release:		2%{?dist}
 Summary:		Atomic Simulation Environment
 
 
@@ -36,12 +36,8 @@ BuildRequires:		gettext
 BuildRequires:		desktop-file-utils
 
 BuildRequires:		python3-devel
-BuildRequires:		python3-matplotlib
-BuildRequires:		python3-numpy
 BuildRequires:		python3-pytest
 BuildRequires:		python3-pytest-mock
-BuildRequires:		python3-scipy
-BuildRequires:		python3-setuptools
 BuildRequires:		python3-tkinter
 
 Requires:		python3-matplotlib
@@ -53,6 +49,11 @@ Requires:		python3-scipy
 Requires:		python3-spglib
 Requires:		python3-tkinter
 
+
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %global _description\
 The Atomic Simulation Environment (ASE) is the common part of the simulation\
 tools developed at CAMd. ASE provides Python modules for manipulating atoms,\
@@ -63,20 +64,23 @@ analyzing simulations, visualization etc.
 %package -n python3-ase
 Summary:		Atomic Simulation Environment for Python 3
 Obsoletes:		python2-ase < 3.16.2-7
-%{?python_provide:%python_provide python3-ase}
+%{?python_provide:%python_provide python3-%{upstream_name}}
+Provides:		%{upstream_name} = %{version}-%{release}
+Provides:		%{upstream_name}%{?_isa} = %{version}-%{release}
 
 %description -n python3-ase
 The Atomic Simulation Environment (ASE) is the common part of the simulation
 tools developed at CAMd. ASE provides Python 3 modules for manipulating atoms,
 analyzing simulations, etc.
 
+
 %prep
 %setup -qn %{upstream_name}-%{version}
 
 # https://gitlab.com/ase/ase/-/issues/1461
 rm -f ase/test/fio/test_espresso.py
-# https://gitlab.com/ase/ase/-/issues/1614
-rm -f ase/test/db/test_o2b2o.py
+# Fixed some time after 3.25.0
+rm -f ase/test/db/test_cli.py
 
 # copy required sources and remove doc directory
 cp -p doc/static/%{upstream_name}256.png %{upstream_name}.png
@@ -85,14 +89,14 @@ rm -rf doc
 
 find . -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python3}|'
 
+
 %build
-%{__python3} setup.py build
+%pyproject_wheel
 
 
 %install
-
-%{__python3} setup.py install --skip-build --prefix=%{_prefix} \
-	   --optimize=1 --root $RPM_BUILD_ROOT
+%pyproject_install
+python3 -m compileall -q -o 1 %{buildroot}%{python3_sitelib}/%{upstream_name}
 
 # doc would go under $RPM_BUILD_ROOT%%{_datadir}/%%{name}
 # if only we get rid of povray dependency one could build doc with:
@@ -123,6 +127,7 @@ find $RPM_BUILD_ROOT%{python3_sitelib}/%{upstream_name} -type f ! -name "*.mo" >
 cat ag.lang d3.list f3.list > files3.list
 # trim the $RPM_BUILD_ROOT
 sed -i "s|$RPM_BUILD_ROOT||g" files3.list
+cat files3.list
 
 
 %check
@@ -140,10 +145,17 @@ cd -
 %{_bindir}/ase*
 %{_datadir}/applications/%{upstream_name}-gui.desktop
 %{_datadir}/pixmaps/%{upstream_name}.png
-%{python3_sitelib}/*.egg-info
+%{python3_sitelib}/*.dist-info
 
 
 %changelog
+* Sun Aug 03 2025 Marcin Dulak <marcindulak@fedoraproject.org> - 3.25.0-2
+- Add explicit Requires: ase
+
+* Sun Aug 03 2025 Marcin Dulak <marcindulak@fedoraproject.org> - 3.25.0-1
+- New upstream release
+- Move away from deprecated setup.py build/install
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.24.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

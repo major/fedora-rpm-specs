@@ -32,6 +32,10 @@ Source:         %{crates_source}
 #   however, site-packages/andes/utils/lazyimport.py carries a (SPDX) MIT
 #   license.
 Source10:       https://github.com/prefix-dev/async_http_range_reader/raw/v%{version}/test-data/andes-1.8.3-pyhd8ed1ab_0.conda
+# Manually created patch for downstream crate metadata changes
+# * Update rstest dev-dependency from 0.23 to 0.26:
+#   https://github.com/prefix-dev/async_http_range_reader/pull/24
+Patch:          async_http_range_reader-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

@@ -9,8 +9,8 @@
 
 Name:           mingw-python-%{pypi_name}
 Summary:        MinGW Python %{pypi_name} library
-Version:        1.2.2
-Release:        3%{?dist}
+Version:        1.3.0
+Release:        1%{?dist}
 BuildArch:      noarch
 
 License:        MIT
@@ -74,7 +74,7 @@ mkdir %{distinfo}
 cat > %{distinfo}/METADATA << EOF
 Metadata-Version: 2.2
 Name: %{pypi_name}
-Version: 1.2.2
+Version: 1.3.0
 EOF
 %else
 %global distinfo %{pypi_name}-%{version}.dist-info
@@ -129,6 +129,9 @@ install -Dpm 0644 %{SOURCE2} %{buildroot}%{_rpmconfigdir}/macros.d/macros.mingw6
 
 
 %changelog
+* Sun Aug 03 2025 Sandro Mani <manisandro@gmail.com> - 1.3.0-1
+- Update to 1.3.0
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

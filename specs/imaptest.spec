@@ -1,15 +1,23 @@
+%global commit  44ff753f51d1a767b8d71b04e882847664d9f0c8
+
 Summary:        Generic IMAP server compliancy tester
 Name:           imaptest
 # Upstream is not really planning on adding version numbers
-Version:        20210705
-Release:        10%{?dist}
+Version:        20250509
+Release:        1%{?dist}
 License:        MIT
-URL:            https://www.imapwiki.org/ImapTest
-Source0:        https://dovecot.org/nightly/%{name}/%{name}-%{version}.tar.gz
-BuildRequires:  gcc, make, dovecot-devel >= 2.3.15
-BuildRequires:  autoconf, automake, libtool
+URL:            https://dovecot.github.io/imaptest/
+Source0:        https://github.com/dovecot/imaptest/archive/%{commit}/%{name}-%{commit}.tar.gz
+Patch0:         https://github.com/dovecot/imaptest/commit/39d3dcc8f8ae4e7e751cb0ba633301630e32f54e.patch#/imaptest-20250520-so-file.patch
+BuildRequires:  dovecot-devel >= 2.4.1
+BuildRequires:  gcc
+BuildRequires:  make
+BuildRequires:  openssl-devel
+BuildRequires:  autoconf
+BuildRequires:  automake
+BuildRequires:  libtool
 # dovecot-devel.i686 was removed with dovecot-2.3.21-7.fc41
-%if 0%{?fedora} > 40 || 0%{?rhel} > 9
+%if 0%{?fedora} || 0%{?rhel} > 9
 ExcludeArch:    %{ix86}
 %endif
 
@@ -24,7 +32,7 @@ verifies that server returns expected output.
 Examples and details are provided online at: https://www.imapwiki.org/ImapTest
 
 %prep
-%setup -q
+%autosetup -n %{name}-%{commit} -p1
 autoreconf -i
 
 # Workaround for https://bugzilla.redhat.com/show_bug.cgi?id=1103927#c4 (and later)
@@ -46,11 +54,14 @@ $RPM_BUILD_ROOT%{_bindir}/%{name} --help
 
 %files
 %license COPYING COPYING.MIT
-%doc AUTHORS ChangeLog profile.conf pop3-profile.conf
+%doc AUTHORS profile.conf pop3-profile.conf
 %{_bindir}/%{name}
 %{_datadir}/%{name}/
 
 %changelog
+* Sun Aug 03 2025 Robert Scheck <robert@fedoraproject.org> 20250509-1
+- Upgrade to 20250509 (#2373996, #2385074)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20210705-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

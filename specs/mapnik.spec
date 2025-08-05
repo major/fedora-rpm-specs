@@ -1,12 +1,12 @@
 %global vectortiledate 20250505
 %global vectortilecommit 5a0cfbb6b909ae945f4a9e40777772a2b1c8fe9b
-%global testcommit 41c4ceeb0be4e5e699cdd50bd808054a826c922b
+%global testcommit 5716a2794023035b64ced1143bf8a391dd9a0e02
 %global visualcommit db003ccfe204725035e89e543e54cef764b1e3bb
 
 %global vectortileshortcommit %(c=%{vectortilecommit}; echo ${c:0:7})
 
 Name:      mapnik
-Version:   4.1.1
+Version:   4.1.2
 Release:   %autorelease
 Summary:   Free Toolkit for developing mapping applications
 License:   LGPL-2.1-only
@@ -37,7 +37,7 @@ BuildRequires: gdal-devel proj-devel
 BuildRequires: cmake make desktop-file-utils gcc-c++
 BuildRequires: qt6-qtbase-devel
 BuildRequires: libxml2-devel boost-devel libicu-devel
-BuildRequires: libtiff-devel libjpeg-devel libpng-devel libwebp-devel
+BuildRequires: libtiff-devel libjpeg-devel libpng-devel libwebp-devel libavif-devel
 BuildRequires: cairo-devel freetype-devel harfbuzz-devel
 BuildRequires: sqlite-devel
 BuildRequires: sparsehash-devel

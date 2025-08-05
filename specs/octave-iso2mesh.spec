@@ -2,7 +2,7 @@
 
 Name:           octave-%{octpkg}
 Version:        1.9.8
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A 3D surface and volumetric mesh generator for MATLAB/Octave
 # Main package: GPLv3+
 # Meshfix: GPLv2+
@@ -22,7 +22,9 @@ Source3:        http://ftp.mcs.anl.gov/pub/petsc/externalpackages/tetgen1.5.1.ta
 #  Policy CMP0064 is not set: Support new TEST if() operator.
 # See also https://github.com/CGAL/cgal/issues/5857
 Patch0:         iso2mesh-1.9.6-CMakeCMP0064.patch
-
+# Fix build with suplerlu 7
+# https://github.com/fangq/iso2mesh/issues/86
+Patch1:         octave-iso2mesh-superlu7.patch
 Patch2:         octave-iso2mesh-c99.patch
 
 ExcludeArch:    armv7hl
@@ -77,6 +79,7 @@ rm -rf tools/tetgen
 mv ../cork-0.9.1 tools/cork
 mv ../meshfix-1.2.2 tools/meshfix
 mv ../tetgen1.5.1 tools/tetgen
+%patch -P 1 -p1
 %patch -P 2 -p1
 rm -rf bin/*.mex* bin/*.exe bin/*.dll
 
@@ -169,6 +172,9 @@ install -m 0755 -vp  bin/* %{buildroot}%{_libexecdir}/%{octpkg}/
 %doc sample
 
 %changelog
+* Sun Aug 03 2025 Orion Poplawski <orion@nwra.com> - 1.9.8-4
+- Add patch to fix build with superlu 7 (FTBFS rhbz#2385361)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

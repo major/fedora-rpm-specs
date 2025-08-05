@@ -2,8 +2,8 @@
 %{?mingw_package_header}
 
 Name:          mingw-objfw
-Version:       1.3.2
-Release:       2%{?dist}
+Version:       1.4
+Release:       1%{?dist}
 Summary:       MinGW port of ObjFW
 
 License:       LGPL-3.0-only
@@ -119,7 +119,7 @@ pushd mingw32
 for i in objfw-config objfw-compile objfw-embed; do
         mv %{buildroot}/%{mingw32_bindir}/%{mingw32_target}-$i %{buildroot}/%{_bindir}/
 done
-for i in objfw-new ofarc ofdns ofhash ofhttp; do
+for i in objfw-new ofarc ofdns ofhash ofhttp ofgctester; do
         rm %{buildroot}/%{mingw32_bindir}/$i.exe
         rm -fr %{buildroot}/%{mingw32_datadir}/$i
 done
@@ -131,7 +131,7 @@ pushd mingw64
 for i in objfw-config objfw-compile objfw-embed; do
         mv %{buildroot}/%{mingw64_bindir}/%{mingw64_target}-$i %{buildroot}/%{_bindir}/
 done
-for i in objfw-new ofarc ofdns ofhash ofhttp; do
+for i in objfw-new ofarc ofdns ofhash ofhttp ofgctester; do
         rm %{buildroot}/%{mingw64_bindir}/$i.exe
         rm -fr %{buildroot}/%{mingw64_datadir}/$i
 done
@@ -143,7 +143,7 @@ pushd ucrt64
 for i in objfw-config objfw-compile objfw-embed; do
         mv %{buildroot}/%{ucrt64_bindir}/%{ucrt64_target}-$i %{buildroot}/%{_bindir}/
 done
-for i in objfw-new ofarc ofdns ofhash ofhttp; do
+for i in objfw-new ofarc ofdns ofhash ofhttp ofgctester; do
         rm %{buildroot}/%{ucrt64_bindir}/$i.exe
         rm -fr %{buildroot}/%{ucrt64_datadir}/$i
 done

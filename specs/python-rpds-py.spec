@@ -2,7 +2,7 @@
 %global modname rpds_py
 
 Name:           python-rpds-py
-Version:        0.25.0
+Version:        0.26.0
 Release:        %autorelease
 Summary:        Python bindings to the Rust rpds crate
 # Full license breakdown in LICENSES.dependencies
@@ -12,6 +12,9 @@ Source:         %{pypi_source %{modname}}
 
 # The 'generate-import-lib' extension is only useful on MS Win
 Patch:          do_not_require_win_only_pyo3_extension.patch
+
+# Allow us to use maturin 1.8
+Patch:          relax_maturin_dep.patch
 
 BuildRequires:  cargo-rpm-macros
 BuildRequires:  dos2unix

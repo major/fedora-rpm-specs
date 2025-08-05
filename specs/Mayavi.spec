@@ -2,7 +2,7 @@
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           Mayavi
-Version:        4.8.2
+Version:        4.8.3
 Release:        %autorelease
 Summary:        Scientific data 3-dimensional visualizer
 # Automatically converted from old format: BSD and EPL and LGPLv2+ and LGPLv2 and LGPLv3 - review is highly recommended.
@@ -10,9 +10,6 @@ License:        LicenseRef-Callaway-BSD AND LicenseRef-Callaway-EPL AND LicenseR
 URL:            http://code.enthought.com/projects/mayavi/
 Source0:        https://github.com/enthought/mayavi/archive/%{version}/mayavi-%{version}.tar.gz
 Source1:        mayavi2.desktop
-# NumPy 2.x patch
-# https://github.com/enthought/mayavi/pull/1315
-Patch:          https://github.com/enthought/mayavi/pull/1315.patch
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  python%{python3_pkgversion}-devel
@@ -21,7 +18,8 @@ BuildRequires:  python%{python3_pkgversion}-setuptools
 # For tests
 BuildRequires:  python%{python3_pkgversion}-pytest
 BuildRequires:  python%{python3_pkgversion}-pytest-xvfb
-BuildRequires:  python%{python3_pkgversion}-apptools
+BuildRequires:  python%{python3_pkgversion}-apptools+gui
+BuildRequires:  python%{python3_pkgversion}-apptools+preferences
 BuildRequires:  python%{python3_pkgversion}-qt5
 BuildRequires:  python%{python3_pkgversion}-traits
 BuildRequires:  python%{python3_pkgversion}-traitsui
@@ -53,11 +51,11 @@ module.
 %package -n python%{python3_pkgversion}-mayavi
 Summary:        Python 3 mayavi module
 Requires:       python%{python3_pkgversion}-vtk
-Requires:       python%{python3_pkgversion}-apptools
+Requires:       python%{python3_pkgversion}-apptools+gui
+Requires:       python%{python3_pkgversion}-apptools+preferences
 Requires:       python%{python3_pkgversion}-traitsui
 Requires:       python%{python3_pkgversion}-envisage
 Requires:       python%{python3_pkgversion}-pyface-qt
-%{?python_provide:%python_provide python%{python3_pkgversion}-mayavi}
 
 %description -n python%{python3_pkgversion}-mayavi
 Python 3 mayavi module
@@ -135,7 +133,8 @@ install -p -m 644 ./docs/source/mayavi/images/mayavi2-48x48.png \
  $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/48x48/apps/mayavi2.png
 
 %check
-%pytest -v mayavi
+# https://github.com/enthought/mayavi/issues/1349
+%pytest -v --deselect mayavi/tests/test_garbage_collection.py::TestMayaviGarbageCollection::test_mlab_scene_model_with_gui mayavi
 
 %files
 %license *LICENSE*

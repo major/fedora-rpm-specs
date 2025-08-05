@@ -2,6 +2,12 @@
 %bcond_with debug
 #
 
+%if 0%{?fedora}
+%bcond_without openh264
+%else
+%bcond_with openh264
+%endif
+
 %global __js_jquery_latest %{_datadir}/javascript/jquery/latest/
 
 # Remove private provides from .so files in the python3_sitearch directory
@@ -84,6 +90,9 @@ BuildRequires:  pkgconfig(libavformat)
 BuildRequires:  pkgconfig(libavutil)
 BuildRequires:  pkgconfig(libswscale)
 #endif
+%if %{with openh264}
+BuildRequires:  noopenh264-devel
+%endif
 
 Requires: python3-pillow
 Requires: python3-cups
@@ -166,7 +175,7 @@ EOF
 
 %build
 export CFLAGS="%{optflags} -I%{_includedir}/security"
-%pyproject_wheel -C--global-option=--without-nvidia -C--global-option=--without-pandoc_lua -C--global-option=--with-verbose -C--global-option=--with-Xdummy -C--global-option=--with-Xdummy_wrapper -C--global-option=--without-strict -C--global-option=--with-enc_ffmpeg -C--global-option=--with-vpx -C--global-option=--with-dec_avcodec2 -C--global-option=--with-csc_swscale -C--global-option=--with-debug
+%pyproject_wheel -C--global-option=--without-nvidia -C--global-option=--without-pandoc_lua -C--global-option=--with-verbose -C--global-option=--with-Xdummy -C--global-option=--with-Xdummy_wrapper -C--global-option=--without-strict -C--global-option=--with-enc_ffmpeg -C--global-option=--with-vpx -C--global-option=--with-dec_avcodec2 -C--global-option=--with-csc_swscale -C--global-option=--with-debug -C--global-option=--with-openh264 -C--global-option=--with-openh264_decoder -C--global-option=--with-openh264_encoder
 
 %install
 %pyproject_install

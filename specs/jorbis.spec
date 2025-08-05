@@ -3,7 +3,7 @@ Version:        0.0.17
 Release:        39%{?dist}
 Summary:        Pure Java Ogg Vorbis Decoder
 URL:            http://www.jcraft.com/jorbis/
-License:        LGPLv2+
+License:        LGPL-2.0-or-later
 Source0:        http://www.jcraft.com/jorbis/%{name}-%{version}.zip
 # Some fixes from the jorbis copy embedded in cortada. I've mailed upstream
 # asking them to integrate these, for more info also see:

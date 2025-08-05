@@ -10,7 +10,7 @@
 %global py3_shebang_flags %(echo %py3_shebang_flags | sed s/s//)
 
 Name:    salt
-Version: 3007.5
+Version: 3007.6
 Release: %autorelease
 Summary: A parallel remote execution system
 Group:   System Environment/Daemons
