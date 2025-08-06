@@ -1,8 +1,8 @@
 %global appname com.github.avojak.warble
 
 Name:		warble
-Version:	1.5.0
-Release:	8%{?dist}
+Version:	2.0.1
+Release:	1%{?dist}
 Summary:	The word-guessing game
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -14,9 +14,9 @@ BuildRequires:	gcc
 BuildRequires:	cmake
 BuildRequires:	meson
 BuildRequires:	pkgconfig(gee-0.8)
-BuildRequires:	pkgconfig(granite)
-BuildRequires:	pkgconfig(gtk+-3.0)
-BuildRequires:	pkgconfig(libhandy-1)
+BuildRequires:	pkgconfig(granite-7)
+BuildRequires:	pkgconfig(gtk4)
+BuildRequires:	pkgconfig(libadwaita-1)
 BuildRequires:	vala
 BuildRequires:	/usr/bin/appstream-util
 BuildRequires:	/usr/bin/desktop-file-validate
@@ -40,7 +40,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{appname}.app
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{appname}.desktop
 
 %files
-%license COPYING LICENSE
+%license LICENSE
 %doc CONTRIBUTING.md README.md
 %{_bindir}/%{appname}
 %{_datadir}/%{appname}
@@ -50,6 +50,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{appname}.desktop
 %{_datadir}/metainfo/%{appname}.appdata.xml
 
 %changelog
+* Sun Jul 27 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 2.0.1-1
+- Update to 2.0.1
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

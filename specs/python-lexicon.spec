@@ -1,13 +1,12 @@
 %bcond_without tests
 
 Name:		python-lexicon
-Version:	2.0.1
-Release:	18%{?dist}
+Version:	3.0.0
+Release:	1%{?dist}
 Summary:	Powerful dict subclass(es) with aliasing and attribute access
 License:	BSD-2-Clause
 URL:		https://github.com/bitprophet/lexicon
 Source0:	https://github.com/bitprophet/lexicon/archive/%{version}/lexicon-%{version}.tar.gz
-Patch0:		lexicon-2.0.1-pytest8.patch
 BuildArch:	noarch
 BuildRequires:	python3-devel
 
@@ -28,9 +27,6 @@ Lexicon is a simple collection of dict sub-classes providing extra power.
 
 %prep
 %setup -q -n lexicon-%{version}
-
-# Fix for pytest 8
-%patch -P 0
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -53,6 +49,11 @@ Lexicon is a simple collection of dict sub-classes providing extra power.
 %{python3_sitelib}/lexicon-%{version}.dist-info/
 
 %changelog
+* Mon Aug  4 2025 Paul Howarth <paul@city-fan.org> - 3.0.0-1
+- Update to 3.0.0
+  - Dropped support for Python <3.9
+  - Modernized project metadata re: Python interpreters, development
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

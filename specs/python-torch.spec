@@ -449,6 +449,11 @@ sed -i -e 's@list(APPEND Caffe2_DEPENDENCY_LIBS foxi_loader)@#list(APPEND Caffe2
 
 # cmake version changed
 sed -i -e 's@cmake_minimum_required(VERSION 3.4)@cmake_minimum_required(VERSION 3.5)@' third_party/tensorpipe/third_party/libuv/CMakeLists.txt
+sed -i -e 's@cmake_minimum_required(VERSION 3.4)@cmake_minimum_required(VERSION 3.5)@' libuv*/CMakeLists.txt
+%if %{without opentelemtry}
+sed -i -e 's@cmake_minimum_required(VERSION 3.1)@cmake_minimum_required(VERSION 3.5)@' third_party/opentelemetry-cpp/CMakeLists.txt
+%endif
+
 
 %if %{with rocm}
 # hipify

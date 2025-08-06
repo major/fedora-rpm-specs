@@ -1,6 +1,6 @@
 Name:           gerbera
-Version:        2.5.0
-Release:        2%{?dist}
+Version:        2.6.0
+Release:        1%{?dist}
 Summary:        UPnP Media Server
 License:        GPL-2.0-only AND MIT AND OFL-1.1
 Url:            https://gerbera.io
@@ -31,6 +31,8 @@ BuildRequires:  systemd
 BuildRequires:  systemd-devel
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  make
+BuildRequires:  jsoncpp-devel
+BuildRequires:  libicu-devel
 Requires:       %{name}-data = %{version}-%{release}
 
 %description
@@ -111,6 +113,7 @@ EOF
 %{_mandir}/man1/*
 %{_unitdir}/gerbera.service
 %{_sysusersdir}/gerbera.conf
+%{bash_completions_dir}/gerbera
 
 %files data
 %{_datadir}/%{name}/
@@ -119,6 +122,9 @@ EOF
 %config(noreplace) %{_datadir}/%{name}/js/common.js
 
 %changelog
+* Mon Aug 04 2025 Gwyn Ciesla <gwync@protonmail.com> - 2.6.0-1
+- 2.6.0
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

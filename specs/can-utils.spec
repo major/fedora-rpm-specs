@@ -1,15 +1,13 @@
 Name:		can-utils
 Version:	2025.01
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	SocketCAN user space utilities and tools
 
 # most utilities are dual-licensed but some are GPLv2 only
 # Automatically converted from old format: GPLv2 and (GPLv2 or BSD) - review is highly recommended.
 License:	GPL-2.0-only AND (GPL-2.0-only OR LicenseRef-Callaway-BSD)
 URL:		https://github.com/linux-can/can-utils
-Source0:	https://github.com/linux-can/can-utils/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
-# Use this to extract new snapshots from upstream git repo
-Source1:	can-snapshot.sh
+Source0:	%{url}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildRequires:	cmake
 BuildRequires:	gcc
@@ -26,6 +24,7 @@ This package contains some user space utilities for Linux SocketCAN subsystem.
 %package devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+
 %description devel
 Development file for %{name}.
 
@@ -86,6 +85,9 @@ head -39 asc2log.c | tail -37 | cut -c4- > COPYING
 %{_libdir}/libisobusfs*.so
 
 %changelog
+* Mon Aug 04 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 2025.01-3
+- Minor spec cleanups
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2025.01-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

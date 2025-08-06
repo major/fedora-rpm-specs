@@ -7,7 +7,7 @@
 %bcond_with bootstrap
 
 Name:           python-%{srcname}
-Version:        6.4.3
+Version:        7.0.2
 Release:        %autorelease
 Summary:        Explicitly typed attributes for Python
 # Images have different licenses. For image license breakdown check
@@ -16,8 +16,6 @@ License:        BSD-3-Clause AND CC-BY-3.0
 URL:            http://docs.enthought.com/traits/
 #Source0:        https://github.com/enthought/traits/archive/%{commit}/%{modname}-%{shortcommit}.tar.gz
 Source0:        https://github.com/enthought/%{modname}/archive/%{version}/%{modname}-%{version}.tar.gz
-# Upstream fix for Python 3.13
-Patch:          https://github.com/enthought/traits/pull/1767.patch
 BuildRequires:  gcc
 BuildRequires:  xorg-x11-server-Xvfb
 

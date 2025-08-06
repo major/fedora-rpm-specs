@@ -4,7 +4,7 @@
 #global bootstrap 1
 
 %if !0%{?bootstrap}
-%global tests 1
+%global tests 0
 %endif
 
 Name:    kf5-%{framework}

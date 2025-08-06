@@ -37,7 +37,6 @@ rm -rf %{pypi_name}.egg-info
 
 %build
 %pyproject_wheel
-%py3_build
 
 %install
 %pyproject_install

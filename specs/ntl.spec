@@ -1,9 +1,7 @@
-%global multilib_arches %{ix86} x86_64 ppc ppc64 s390 s390x sparcv9 sparc64
-
 Summary: High-performance algorithms for vectors, matrices, and polynomials 
 Name:    ntl 
 Version: 11.5.1
-Release: 13%{?dist}
+Release: 14%{?dist}
 
 # LGPL-2.1-or-later: the project as a whole
 # BSD-2-Clause: src/FFT.cpp
@@ -11,12 +9,14 @@ License: LGPL-2.1-or-later AND BSD-2-Clause
 URL:     https://libntl.org/
 VCS:     git:https://github.com/libntl/ntl.git
 
-Source0: https://libntl.org/%{name}-%{version}.tar.gz
-Source1: multilib_template.h
+Source:  https://libntl.org/%{name}-%{version}.tar.gz
 # Detect CPU at load time, optionally use PCLMUL, AVX, FMA, and AVX2 features.
 # This patch was sent upstream, but upstream prefers that the entire library
 # be built for a specific CPU, which we cannot do in Fedora.
 Patch:   %{name}-loadtime-cpu.patch
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires: gcc-c++
 BuildRequires: gf2x-devel
@@ -75,7 +75,7 @@ pushd src
   NATIVE=off \
   NTL_GF2X_LIB=on \
   NTL_STD_CXX14=on \
-%ifarch x86_64
+%ifarch %{x86_64}
   NTL_LOADTIME_CPU=on \
   TUNE=x86 \
 %else
@@ -107,19 +107,6 @@ rm -rfv %{buildroot}%{_docdir}/NTL
 rm -fv  %{buildroot}%{_libdir}/libntl.la
 rm -fv  %{buildroot}%{_libdir}/libntl.a
 
-%ifarch %{multilib_arches}
-# hack to allow parallel installation of multilib factory-devel
-for header in NTL/config NTL/gmp_aux NTL/mach_desc  ; do
-mv  %{buildroot}%{_includedir}/${header}.h \
-    %{buildroot}%{_includedir}/${header}-%{__isa_bits}.h
-install -p -m644 %{SOURCE1} %{buildroot}%{_includedir}/${header}.h
-sed -i \
-  -e "s|@@INCLUDE@@|${header}|" \
-  -e "s|@@INCLUDE_MACRO@@|$(echo ${header} | tr '/.' '_')|" \
-  %{buildroot}%{_includedir}/${header}.h
-done
-%endif
-
 
 %files
 %doc README
@@ -133,6 +120,10 @@ done
 
 
 %changelog
+* Mon Aug 04 2025 Jerry James <loganjerry@gmail.com> - 11.5.1-14
+- Stop building for 32-bit x86
+- Remove unneeded multilib support
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 11.5.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

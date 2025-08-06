@@ -165,13 +165,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.17.0
 %define specversion 6.17.0
 %define patchversion 6.17
-%define pkgrelease 0.rc0.250801g89748acdf226.7
+%define pkgrelease 0.rc0.250804gd2eedaa3909b.10
 %define kversion 6
-%define tarfile_release 6.16-10499-g89748acdf226
+%define tarfile_release 6.16-11489-gd2eedaa3909b
 # This is needed to do merge window version magic
 %define patchlevel 17
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc0.250801g89748acdf226.7%{?buildid}%{?dist}
+%define specrelease 0.rc0.250804gd2eedaa3909b.10%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.17.0
 
@@ -4368,8 +4368,18 @@ fi\
 #
 #
 %changelog
-* Fri Aug 01 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc0.89748acdf226.7]
+* Mon Aug 04 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc0.d2eedaa3909b.10]
 - redhat/configs: clang_lto: disable CONFIG_FORTIFY_KUNIT_TEST (Scott Weaver)
+
+* Mon Aug 04 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc0.d2eedaa3909b.9]
+- Remove CONFIG_TEST_MISC_MINOR as deps are no longer met (Justin M. Forbes)
+- Linux v6.17.0-0.rc0.d2eedaa3909b
+
+* Sun Aug 03 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc0.186f3edfdd41.8]
+- Linux v6.17.0-0.rc0.186f3edfdd41
+
+* Sat Aug 02 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc0.a6923c06a3b2.7]
+- Linux v6.17.0-0.rc0.a6923c06a3b2
 
 * Fri Aug 01 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc0.89748acdf226.6]
 - Add to pending to fix precendence and avoid mismatch (Justin M. Forbes)

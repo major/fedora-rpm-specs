@@ -14,7 +14,8 @@ URL:            https://crates.io/crates/gengo
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Do not depend on criterion; it is needed only for benchmarks
-# * Allow an older version of rstest
+# * Bump rstest from 0.25.0 to 0.26.1:
+#   https://github.com/spenserblack/gengo/pull/573
 Patch:          gengo-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

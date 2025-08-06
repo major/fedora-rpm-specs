@@ -20,7 +20,7 @@
 Summary: PyQt5 is Python bindings for Qt5
 Name:    python-qt5
 Version: 5.15.11
-Release: 9%{?dist}
+Release: 10%{?dist}
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License: GPL-3.0-only
@@ -236,7 +236,7 @@ sed -i \
 %license LICENSE
 %{python3_dbus_dir}/pyqt5.abi3.so
 %dir %{python3_sitearch}/PyQt5/
-%{python3_sitearch}/PyQt5-%{version}%{?snap:.%{snap}}.dist-info
+%{python3_sitearch}/pyqt5-%{version}%{?snap:.%{snap}}.dist-info
 %{python3_sitearch}/PyQt5/__pycache__/__init__.*
 %{python3_sitearch}/PyQt5/__init__.py*
 %{python3_sitearch}/PyQt5/Qt.*
@@ -291,6 +291,9 @@ sed -i \
 
 
 %changelog
+* Mon Aug 04 2025 Jan Grulich <jgrulich@redhat.com> - 5.15.11-10
+- Fix build against Python 3.14
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.11-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

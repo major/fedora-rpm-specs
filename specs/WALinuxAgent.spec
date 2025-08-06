@@ -94,6 +94,9 @@ install -m0755 -D --target-directory=%{buildroot}%{_prefix}/lib/dracut/modules.d
 
 sed -i 's,#!/usr/bin/env python,#!/usr/bin/python3,' %{buildroot}%{_sbindir}/waagent
 sed -i 's,/usr/bin/python ,/usr/bin/python3 ,' %{buildroot}%{_unitdir}/waagent.service
+# Other commonly-used tools can handle formatting resource disks (cloud-init, azure-vm-utils) so
+# by default, let's have WALinuxAgent not do that.
+sed -i 's,ResourceDisk.Format=y,ResourceDisk.Format=n,' %{buildroot}%{_sysconfdir}/waagent.conf
 
 
 %post

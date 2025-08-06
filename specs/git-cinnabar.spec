@@ -1,10 +1,10 @@
 #global rcver b4
-%global bundled_git_version 2.37.1
+%global bundled_git_version 2.38.1
 %global gitexecdir %{_libexecdir}/git-core
 %global _python_bytecompile_extra 0
 
 Name:           git-cinnabar
-Version:        0.5.10
+Version:        0.5.11
 Release:        %autorelease
 Summary:        Git remote helper to interact with mercurial repositories
 
@@ -21,8 +21,14 @@ Source2:        jqplot-e8af8a37f0f1.hg
 Patch:          0001-Skip-version-checks.patch
 # Shebangs must match package requirements.
 Patch:          0002-Make-Python-shebangs-explicit.patch
-# https://github.com/glandium/git-cinnabar/pull/305
-Patch:          0003-Fix-compatibility-with-Python-3.11.patch
+# Test errors due to a missing module 'distutils'
+Patch:          0003-Skip-more-version-checks.patch
+Patch:          0004-Fix-compatibility-with-Mercurial-6.4.patch
+# Backport of https://github.com/glandium/git-cinnabar/pull/320 for C + Python codebase
+Patch:          0005-Fix-access-to-ssh-remotes-with-absolute-path.patch
+
+# Patches over 1000 are for bundled git.
+Patch1000:      https://github.com/git/git/commit/639cd8db63b07c958062bde4d3823dadbf469b0b.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -47,10 +53,15 @@ of its libraries.
 
 
 %prep
-%autosetup -p1 -n %{name}-%{version}%{?rcver}
+%autosetup -N -n %{name}-%{version}%{?rcver}
 %setup -D -T -n %{name}-%{version}%{?rcver} -q -a 1
 rmdir git-core
 mv git-%{bundled_git_version} git-core
+
+%autopatch -q -M 999 -p1
+pushd git-core
+%autopatch -q -m 1000
+popd
 
 # Use these same options for every invocation of 'make'.
 # Otherwise it will rebuild in %%install due to flags changes.

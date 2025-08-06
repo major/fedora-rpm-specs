@@ -1,6 +1,6 @@
 Name:           gf2x
 Version:        1.3.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Polynomial multiplication over the binary field
 
 # GPL-3.0-or-later: the project as a whole
@@ -14,6 +14,9 @@ Patch:          %{name}-mismatched-decls.patch
 # Change configure due to the Modern C initiative.  See
 # https://fedoraproject.org/wiki/Changes/PortingToModernC
 Patch:          %{name}-modern-c.patch
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc-c++
 BuildRequires:  libtool
@@ -54,9 +57,22 @@ fixtimestamp() {
 
 # Build the SSE2 version for x86, the native version for all other arches.
 # Support for pclmul would be nice, but not all x86s support it.
-%ifarch %{ix86} x86_64
+%ifarch %{x86_64}
 %configure --disable-static --disable-hardware-specific-code --enable-sse2 \
-  --disable-sse3 --disable-ssse3 --disable-sse41 --disable-pclmul \
+%ifarch x86_64_v2 x86_64_v3 x86_64_v4
+  --enable-sse3 \
+  --enable-ssse3 \
+  --enable-sse41 \
+%ifarch x86_64_v3 x86_64_v4
+  --enable-pclmul \
+%else
+  --disable-pclmul \
+%endif
+%else
+  --disable-sse3 \
+  --disable-ssse3 \
+  --disable-sse41 \
+%endif
   --disable-silent-rules --enable-fft-interface
 # Workaround broken configure macros
 sed -i.orig 's,/\* #undef \(GF2X_HAVE_SSE2_SUPPORT\) \*/,#define \1 1,' \
@@ -106,6 +122,9 @@ LD_LIBRARY_PATH=$PWD/.libs:$PWD/fft/.libs make check
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Mon Aug 04 2025 Jerry James <loganjerry@gmail.com> - 1.3.0-16
+- Stop building for 32-bit x86
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

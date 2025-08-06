@@ -3,7 +3,7 @@
 
 Name:           memchan
 Version:        2.3
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        In-memory channels for Tcl
 # All files MIT except isaac/rand.h and isaac/randport.c which
 # are public domain.
@@ -14,7 +14,8 @@ Source0:        http://downloads.sourceforge.net/%{name}/Memchan%{version}.tar.g
 Patch0:         memchan-2.3-c23.patch
 BuildRequires:  make
 BuildRequires:  gcc
-BuildRequires:  tcl8-devel, tcllib
+BuildRequires:  tcl8-devel, tcl8-tcllib
+# No, this ancient relic does not support tcl9
 Requires:       tcl(abi) = 8.6
 
 %description
@@ -66,6 +67,9 @@ make test
 %{tcl_sitearch}/Memchan%{version}/*.a
 
 %changelog
+* Mon Aug  4 2025 Tom Callaway <spot@fedoraproject.org> - 2.3-34
+- force this to tcl8 until tcl8 dies
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

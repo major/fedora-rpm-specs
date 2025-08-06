@@ -9,7 +9,7 @@ between multiple scripts. Noto family supports almost all scripts available\
 in Unicode.\
 %{nil}
 
-%global srcver	2025.07.01
+%global srcver	2025.08.01
 %global majorver	%{lua: v, _ = string.gsub(rpm.expand("%{srcver}"), "(%d+)%.%d+%.%d+", "%1"); print(v)}
 %global minorver	%{lua: v, _ = string.gsub(rpm.expand("%{srcver}"), "%d+%.(%d+)%.%d+", "%1"); print(v)}
 %global patchver	%{lua: v, _ = string.gsub(rpm.expand("%{srcver}"), "%d+%.%d+%.(%d+)", "%1"); print(v)}
@@ -1220,6 +1220,9 @@ done
 
 
 %changelog
+* Mon Aug  4 2025 Akira TAGOH <tagoh@redhat.com> - 20250801-1
+- Updates to monthly release of 2025.08.01.
+
 * Mon Jul 28 2025 Akira TAGOH <tagoh@redhat.com> - 20250701-4
 - Fix a typo in Obsolete.
   Resolves: rhbz#2382600

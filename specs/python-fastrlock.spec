@@ -33,6 +33,10 @@ Summary:        %{summary}
 # So we do not have to keep up with a license for something we don't use.
 rm appveyor_env.cmd
 
+# Adjust cython's upper bound limit
+sed -i -e 's@Cython>=3.0.11, <3.1@Cython>=3.0.11, <3.2@' requirements.txt
+grep Cython requirements.txt
+
 %generate_buildrequires
 %pyproject_buildrequires -t
 

@@ -1,6 +1,6 @@
 Name:           mpfi
 Version:        1.5.4
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        An interval arithmetic library based on MPFR
 
 # Most files have an LGPL-2.1-or-later notice.  Exceptions:
@@ -19,6 +19,9 @@ Patch:          %{name}-mismatched-type.patch
 Patch:          %{name}-bad-ref.patch
 # Fix a missing #include in a test file
 Patch:          %{name}-test.patch
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -103,6 +106,9 @@ make check
 %{_libdir}/lib%{name}.a
 
 %changelog
+* Mon Aug 04 2025 Jerry James <loganjerry@gmail.com> - 1.5.4-10
+- Stop building for 32-bit x86
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.4-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

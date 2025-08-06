@@ -1,6 +1,6 @@
 Name:           sasl-xoauth2
-Version:        0.26
-Release:        4%{?dist}
+Version:        0.27
+Release:        1%{?dist}
 Summary:        The xoauth2 plugin for cyrus-sasl
 
 License:        Apache-2.0
@@ -72,6 +72,9 @@ relays from Postfix.
 %{_mandir}/man1/%{name}-tool.1.gz
 
 %changelog
+* Mon Aug 04 2025 Jakub Jelen <jjelen@redhat.com> - 0.27-1
+- New upstream release (#2386194)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.26-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -64,7 +64,7 @@ License:        %{shrink:
     (Apache-2.0 OR BSL-1.0) AND
     (Apache-2.0 OR MIT) AND
     (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
-    (BSD-2-Clause OR Apache-2.0 OR MIT)
+    (BSD-2-Clause OR Apache-2.0 OR MIT) AND
     (MIT OR Apache-2.0 OR Zlib) AND
     (Unlicense OR MIT)
 }

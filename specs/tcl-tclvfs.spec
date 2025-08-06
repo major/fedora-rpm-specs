@@ -1,33 +1,33 @@
 %{!?tcl_version: %global tcl_version %(echo 'puts $tcl_version' | tclsh)}
 %{!?tcl_sitearch: %global tcl_sitearch %{_libdir}/tcl%{tcl_version}}
 %global realname tclvfs
+%global checkin 166cafa5ca
 
 Name:		tcl-%{realname}
-Version:	20080503
-Release:	36%{?dist}
+Version:	1.5.0
+Release:	1%{?dist}
+Epoch:		1
 Summary:	Tcl extension for Virtual Filesystem support
 License:	MIT
-URL:		http://sourceforge.net/projects/tclvfs
-Source0:	http://downloads.sourceforge.net/%{realname}/%{realname}-%{version}.tar.gz
-Patch0:		tclvfs-20080503-tcl86.patch
-Patch1:		tcl-tclvfs-configure-c99.patch
+URL:		https://core.tcl-lang.org/tclvfs
+Source0:	https://core.tcl-lang.org/tclvfs/tarball/%{checkin}/tclvfs-%{checkin}.tar.gz
 Provides:	tcl-vfs = %{version}-%{release}
 Provides:	%{realname} = %{version}-%{release}
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc
-BuildRequires:	tcl-devel >= 8.6, tk-devel
-Requires:	tcl(abi) = 8.6, tcl-trf
+BuildRequires:	tcl-devel >= 9.0, tk-devel
+Requires:	tcl(abi) = 9.0, tcl-trf
 
 %description
-The TclVfs project aims to provide an extension to the Tcl language which 
-allows Virtual Filesystems to be built using Tcl scripts only. It is also a 
-repository of such Tcl-implemented filesystems (metakit, zip, ftp, tar, 
-http, webdav, namespace, url)
+The TclVfs project aims to provide an extension to the Tcl language which
+allows Virtual Filesystems to be built using Tcl scripts only. It is also a
+repository of such Tcl-implemented filesystems (metakit, zip, tar, http,
+webdav, namespace, url)
 
 %prep
-%setup -q -n %{realname}-%{version}
-%patch -P0 -p1 -b .tcl86
-%patch -P1 -p1 -b .configure-c99
+%setup -q -n %{realname}-%{checkin}
+# %%patch -P0 -p1 -b .tcl86
+# %%patch -P1 -p1 -b .configure-c99
 
 %build
 %configure
@@ -37,16 +37,19 @@ make %{?_smp_mflags}
 %install
 make DESTDIR=%{buildroot} install
 install -d %{buildroot}%{tcl_sitearch}
-mv %{buildroot}%{_libdir}/vfs1.3 %{buildroot}%{tcl_sitearch}/vfs1.3
-chmod +x %{buildroot}%{tcl_sitearch}/vfs1.3/template/fishvfs.tcl
+mv %{buildroot}%{_libdir}/vfs1.5.0 %{buildroot}%{tcl_sitearch}/vfs1.5.0
+chmod +x %{buildroot}%{tcl_sitearch}/vfs1.5.0/template/fishvfs.tcl
 
 %files
 %doc Readme.txt DESCRIPTION.txt ChangeLog
 %license license.terms
-%{tcl_sitearch}/vfs1.3/
+%{tcl_sitearch}/vfs1.5.0/
 %{_mandir}/mann/vfs*
 
 %changelog
+* Mon Aug  4 2025 Tom Callaway <spot@fedoraproject.org> - 1:1.5.0-1
+- holy cannoli, this thing is actually alive and might build for tcl9?
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20080503-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

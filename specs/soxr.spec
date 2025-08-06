@@ -2,7 +2,7 @@
 
 Name:           soxr
 Version:        0.1.3
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        The SoX Resampler library
 
 License:        LGPL-2.1-or-later
@@ -68,6 +68,9 @@ rm -rf %{buildroot}%{_docdir}/*
 
 
 %changelog
+* Wed Jul 30 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 0.1.3-20
+- Fix for https://fedoraproject.org/wiki/Changes/CMake_drop_install_vars
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

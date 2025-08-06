@@ -1,5 +1,5 @@
 Name:           sway-contrib
-Version:        1.10.1
+Version:        1.11
 Release:        %autorelease
 Summary:        Collection of user-contributed scripts for Sway
 

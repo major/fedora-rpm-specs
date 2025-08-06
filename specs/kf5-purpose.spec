@@ -46,8 +46,7 @@ BuildRequires: pkgconfig(Qt5Qml)
 
 %if 0%{?fedora} || 0%{?rhel} > 7
 BuildRequires: kaccounts-integration-devel
-# runtime dep?
-BuildRequires: kde-connect
+
 BuildRequires: pkgconfig(accounts-qt5)
 BuildRequires: pkgconfig(libaccounts-glib)
 %endif

@@ -14,7 +14,7 @@ Source0:        https://github.com/OpenImageDenoise/%{name}/releases/download/v%
 # hipcc is clang based and the extra rpm induced gcc args confuse it
 %global toolchain clang
 # hipcc does not support some clang flags
-%global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong//' -e 's/-fcf-protection//')
+%global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong//' -e 's/-fcf-protection//' -e 's/-mtls-dialect=gnu2//' )
 %endif
 
 # Library only available on x86_64

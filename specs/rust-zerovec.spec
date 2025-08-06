@@ -5,7 +5,7 @@
 %global crate zerovec
 
 Name:           rust-zerovec
-Version:        0.11.2
+Version:        0.11.3
 Release:        %autorelease
 Summary:        Zero-copy vector backed by a byte array
 
@@ -33,12 +33,6 @@ Patch:          zerovec-fix-metadata.diff
 #   https://src.fedoraproject.org/rpms/rust-zerovec/pull-request/1#comment-232114
 #   and subsequent discussion.
 Patch10:        0001-Downstream-only-Ignore-a-few-tests-we-can-t-compile.patch
-# * zerovec: two failing tests on big-endian s390x architecture
-# * https://github.com/unicode-org/icu4x/issues/6588
-# * On big-endian, skip two tests failing due to #6588
-# * https://github.com/unicode-org/icu4x/pull/6587
-# * Exported with git format-patch --relative so it applies to the crate.
-Patch11:        0001-On-big-endian-skip-two-tests-failing-due-to-6588.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

@@ -1,14 +1,12 @@
 %{!?_httpd_apxs: %{expand: %%global _httpd_apxs %%{_sbindir}/apxs}}
-%{!?_httpd_mmn: %{expand: %%global _httpd_mmn %%(cat %{_includedir}/httpd/.mmn || echo 0-0)}}
+%{!?_httpd_mmn: %{expand: %%global _httpd_mmn %%(cat %{_includedir}/httpd/.mmn 2>/dev/null || echo 0-0)}}
 # /etc/httpd/conf.d with httpd < 2.4 and defined as /etc/httpd/conf.modules.d with httpd >= 2.4
 %{!?_httpd_modconfdir: %{expand: %%global _httpd_modconfdir %%{_sysconfdir}/httpd/conf.d}}
-%{!?_httpd_confdir:    %{expand: %%global _httpd_confdir    %%{_sysconfdir}/httpd/conf.d}}
-%{!?_httpd_moddir:    %{expand: %%global _httpd_moddir    %%{_libdir}/httpd/modules}}
 
 
 Name:           mod_qos
-Version:        11.75
-Release:        5%{?dist}
+Version:        11.76
+Release:        1%{?dist}
 Summary:        Quality of service module for Apache
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -63,13 +61,7 @@ popd
 install -Dpm 755 apache2/.libs/mod_qos.so \
     $RPM_BUILD_ROOT%{_libdir}/httpd/modules/mod_qos.so
 
-%if "%{_httpd_modconfdir}" != "%{_httpd_confdir}"
-    # 2.4-style
-    install -Dpm 644 %{SOURCE1} %{buildroot}%{_httpd_modconfdir}/10-mod_qos.conf
-%else
-    # 2.2-style
-    install -Dpm 644 %{SOURCE1} %{buildroot}%{_httpd_confdir}/mod_qos.conf
-%endif
+install -Dpm 644 %{SOURCE1} %{buildroot}%{_httpd_modconfdir}/10-mod_qos.conf
 
 cd tools/
 %make_install
@@ -83,16 +75,14 @@ install -Dpm 644 man1/*  %{buildroot}%{_mandir}/man1/
 %{_mandir}/man1/*
 %doc doc README.TXT
 %{_libdir}/httpd/modules/mod_qos.so
-%if "%{_httpd_modconfdir}" != "%{_httpd_confdir}"
-    # 2.4-style
-    %config(noreplace)  %{_httpd_modconfdir}/10-mod_qos.conf
-%else
-    # 2.2-style
-    %config(noreplace) %{_httpd_confdir}/mod_qos.conf
-%endif
+%config(noreplace)  %{_httpd_modconfdir}/10-mod_qos.conf
 
 
 %changelog
+* Mon Aug 04 2025 Robert Scheck <robert@fedoraproject.org> - 11.76-1
+- Update to 11.76 (#2276050)
+- Remove build-time conditionals for Apache HTTP Server 2.2
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 11.75-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

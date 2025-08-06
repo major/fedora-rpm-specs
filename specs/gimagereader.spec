@@ -1,13 +1,11 @@
 Name:          gimagereader
-Version:       3.4.2
-Release:       8%{?dist}
+Version:       3.4.3
+Release:       1%{?dist}
 Summary:       A front-end to tesseract-ocr
 
 License:       GPL-3.0-or-later
 URL:           https://github.com/manisandro/gimagereader
 Source0:       https://github.com/manisandro/gimagereader/releases/download/v%{version}/%{name}-%{version}.tar.xz
-
-Patch0:        0001-Work-around-enchant_get_prefix_dir-which-is-not-avai.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: djvulibre-devel
@@ -146,6 +144,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}-q
 %{_datadir}/applications/%{name}-qt6.desktop
 
 %changelog
+* Mon Aug 04 2025 Sandro Mani <manisandro@gmail.com> - 3.4.3-1
+- Update to 3.4.3
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

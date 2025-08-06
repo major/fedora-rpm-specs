@@ -25,7 +25,7 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-pyqt6-devel
 BuildRequires:  python3-pyqt6
-BuildRequires:  podofo-devel
+BuildRequires:  podofo0.10-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  xdg-utils
 BuildRequires:  chmlib-devel

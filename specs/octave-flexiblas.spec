@@ -25,6 +25,7 @@ without recompiling the programs.
 
 %prep
 %setup -q -n %{octpkg}-octave
+sed -i 's/-std=c++11//' src/Makefile
 
 %build
 %octave_pkg_build

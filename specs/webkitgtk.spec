@@ -19,7 +19,7 @@
 %endif
 
 Name:           webkitgtk
-Version:        2.49.3
+Version:        2.49.4
 Release:        %autorelease
 Summary:        GTK web content engine library
 
@@ -57,9 +57,8 @@ Source1:        https://webkitgtk.org/releases/webkitgtk-%{version}.tar.xz.asc
 # $ gpg --export --export-options export-minimal 013A0127AC9C65B34FFA62526C1009B693975393 5AA3BC334FD7E3369E7C77B291C559DBE4C9123B > webkitgtk-keys.gpg
 Source2:        webkitgtk-keys.gpg
 
-# https://commits.webkit.org/296729@main
-# https://github.com/WebKit/WebKit/pull/47302
-Patch0:         gtk3-build.patch
+# https://github.com/WebKit/WebKit/pull/48770
+Patch:          gtk3-build.patch
 
 BuildRequires:  bison
 BuildRequires:  bubblewrap

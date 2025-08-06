@@ -2,7 +2,7 @@
 
 Name:           robin-map
 Version:        1.3.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        C++ implementation of a fast hash map and hash set using robin hood hashing
 
 License:        MIT
@@ -51,6 +51,8 @@ implementations in the tsl namespace).
 %prep
 %autosetup -p1
 
+# Update the minimum cmake version for CMake 4
+sed -i -e 's@cmake_minimum_required(VERSION 3.3)@cmake_minimum_required(VERSION 3.5)@' CMakeLists.txt
 
 %build
 %cmake
@@ -75,6 +77,9 @@ pushd tests
 
 
 %changelog
+* Mon Aug 4 2025 Tom Rix <Tom.Rix@amd.com> - 1.3.0-6
+- Increase min cmake version to 3.5
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

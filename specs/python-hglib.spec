@@ -1,7 +1,7 @@
 Summary:        Mercurial Python library
 Name:           python-hglib
 Version:        2.6.2
-Release:        20%{?dist}
+Release:        21%{?dist}
 License:        MIT
 URL:            http://selenic.com/repo/python-hglib
 Source0:        https://files.pythonhosted.org/packages/source/p/%{name}/%{name}-%{version}.tar.gz
@@ -12,7 +12,6 @@ BuildArch:      noarch
 BuildRequires:  mercurial
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
-BuildRequires:  python3-setuptools
 %description
 python-hglib is a library with a fast, convenient interface to
 Mercurial. It uses Mercurials command server for communication with
@@ -20,7 +19,6 @@ hg.
 
 %package     -n python3-hglib
 Summary:        Mercurial Python library
-%{?python_provide:%python_provide python3-hglib}
 %description -n python3-hglib
 python-hglib is a library with a fast, convenient interface to
 Mercurial. It uses Mercurials command server for communication with
@@ -29,21 +27,27 @@ hg.
 %prep
 %autosetup -p1
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%{py3_build}
+%{pyproject_wheel}
 
 %install
-%{py3_install}
+%{pyproject_install}
+%pyproject_save_files -l hglib
 
 %check
+%pyproject_check_import
+
 %pytest
 
-%files -n python3-hglib
-%license LICENSE
-%{python3_sitelib}/hglib
-%{python3_sitelib}/python_hglib-*-py*egg-info
+%files -n python3-hglib -f %{pyproject_files}
 
 %changelog
+* Mon Aug 04 2025 Terje Rosten <terjeros@gmail.com> - 2.6.2-21
+- New macros
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.2-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

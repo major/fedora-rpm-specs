@@ -9,8 +9,8 @@
 
 Summary: A fast, lightweight Source Control Management system
 Name: mercurial
-Version: 7.0.3
-Release: 2%{?dist}
+Version: 7.1
+Release: 1%{?dist}
 
 # Release: 1.rc1%%{?dist}
 
@@ -40,9 +40,7 @@ BuildRequires: rust-packaging
 %endif
 
 Provides: hg = %{version}-%{release}
-Requires: python3
 Requires: emacs-filesystem
-Recommends: python3-fb-re2
 Provides: mercurial-rust = %{version}-%{release}
 Obsoletes: mercurial-rust < %{version}-%{release}
 
@@ -84,6 +82,7 @@ With chg, a Mercurial command server background process is created that runs
 Mercurial. When you type chg, a C program connects to that background process
 and executes Mercurial commands.
 
+
 %if %{with rust}
 %package rust
 Summary:    Mercurial Rust binaries and extensions
@@ -112,7 +111,27 @@ subset is initially small but grows over time as `rhg` is improved. When
 fallback to the Python implementation is configured, `rhg` aims to be a drop-in
 replacement for `hg` that should behave the same, except that some commands run
 faster.
+
+Warning: rhg is experimental and has some rough edges, in order of worse to
+less bad:
+  * A node/rev that is ambiguous with a name (tag, bookmark, topic, branch)
+    will result in the command using the node/rev instead of the name, because
+    names are not implemented yet. For example, `rhg cat -r abc` will resolve
+    the `abc` node prefix and not look for the `abc` name.
+  * some config options may be ignored entirely (this is a bug, please report)
+  * pager support is not implemented yet
+  * minor errors may be silenced
+  * some error messages or error behavior may be slightly different
+  * some warning and/or error output may do lossy encoding
+  * other "terminal behavior" may be different, like color handling, etc.
+  * rhg may be overly cautious in falling back
+  * possibly other things we haven't caught yet
+
+With this in mind, `rhg` has been used in production successfully for years now,
+and is reasonably well tested, so feel free to use it with these warnings
+in mind.
 %endif
+
 
 %prep
 %autosetup -p1 -n %{name}-%{upstreamversion}
@@ -123,10 +142,11 @@ pushd rust
 popd
 
 %generate_buildrequires
-for crate in rust/hg-core rust/hg-cpython rust/rhg; do
+for crate in rust/hg-core rust/hg-pyo3 rust/rhg rust/pyo3-sharedref; do
   cd $crate
   # Temporarily remove  hg-core = { path = "../hg-core"}  dependencies while generating buildrequires.
-  sed -i.br -r -e '/=\s*\{[^}]+path\s*=/d' Cargo.toml
+  # Also, handle another error: feature `full-tracing` includes `hg-core/full-tracing`, but `hg-core` is not a dependency
+  sed -i.br -r -e '/=\s*\{[^}]+path\s*=/d' -e '/^full-tracing *=/d' Cargo.toml
   %cargo_generate_buildrequires
   mv -f Cargo.toml{.br,}
   cd - >/dev/null
@@ -136,6 +156,7 @@ done
 
 # These are shipped as examples in /usr/share/docs and should not be executable
 chmod -x hgweb.cgi contrib/hgweb.fcgi
+
 
 %build
 %py3_build
@@ -151,6 +172,7 @@ pushd rust
 %cargo_build
 popd
 %endif
+
 
 %install
 %py3_install
@@ -251,6 +273,9 @@ rm -rf %{buildroot}%{python3_sitearch}/mercurial/locale
 
 
 %changelog
+* Mon Aug 04 2025 Mads Kiilerich <mads@kiilerich.com> - 7.1-1
+- mercurial 7.1
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

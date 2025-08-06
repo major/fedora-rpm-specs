@@ -17,6 +17,7 @@ BuildRequires: freetype-devel
 BuildRequires: libjpeg-turbo-devel
 BuildRequires: libpng-devel
 BuildRequires: openssl-devel
+BuildRequires: openssl-devel-engine
 BuildRequires: podofo0.9-devel
 
 %description

@@ -6,7 +6,7 @@
 %global crate glib-macros
 
 Name:           rust-glib-macros
-Version:        0.20.12
+Version:        0.21.0
 Release:        %autorelease
 Summary:        Rust bindings for the GLib library, proc macros crate
 

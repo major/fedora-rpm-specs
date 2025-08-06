@@ -21,7 +21,8 @@
 %bcond sdl %[!(0%{?rhel} >= 10)]
 
 %ifnarch s390x
-%bcond crystalhd %[0%{?fedora} || 0%{?rhel} < 9]
+# retired from F43, was never in EPEL 9+
+%bcond crystalhd 0
 %bcond ieee1394 1
 %endif
 
@@ -381,6 +382,16 @@ Requires:	google-noto-serif-vf-fonts
 %endif
 Recommends:	libv4l%{?_isa}
 Conflicts:	%{name}-core < %{epoch}:%{version}-%{release}
+%if %{without crystalhd}
+Obsoletes:	%{name}-plugin-crystalhd < %{epoch}:%{version}-%{release}
+%endif
+%if %{without ieee1394}
+Obsoletes:	%{name}-plugin-ieee1394 < %{epoch}:%{version}-%{release}
+%endif
+%if %{without opencv}
+Obsoletes:	%{name}-plugin-opencv < %{epoch}:%{version}-%{release}
+%endif
+
 %description plugins-base
 VLC media player core components
 

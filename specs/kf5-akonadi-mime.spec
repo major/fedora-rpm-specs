@@ -5,7 +5,7 @@
 #global bootstrap 1
 
 %if !0%{?bootstrap}
-%global tests 1
+%global tests 0
 %endif
 
 Name:    kf5-%{framework}
@@ -118,9 +118,7 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 %{_kf5_libdir}/libKPim5AkonadiMime.so.*
 
 %files devel 
-%if 0%{?tests}
 %{_kf5_bindir}/akonadi_benchmarker
-%endif
 %{_kf5_archdatadir}/mkspecs/modules/qt_AkonadiMime.pri
 %{_includedir}/KPim5/AkonadiMime/
 %{_kf5_libdir}/cmake/KF5AkonadiMime/

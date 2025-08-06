@@ -1,7 +1,7 @@
 Summary:        Secure HTTP request signing using the HTTP Signature draft specification
 Name:           python-httpsig-cffi
 Version:        15.0.0
-Release:        28%{?dist}
+Release:        29%{?dist}
 License:        MIT
 URL:            https://github.com/hawkowl/httpsig_cffi
 Source0:        https://files.pythonhosted.org/packages/source/h/httpsig-cffi/httpsig_cffi-%{version}.tar.gz
@@ -11,7 +11,6 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(cryptography)
 BuildRequires:  python3dist(requests)
-BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(six)
 BuildRequires:  python3-pytest
 %description
@@ -24,7 +23,6 @@ PyPy support.
 
 %package -n     python3-httpsig-cffi
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-httpsig-cffi} 
 Requires:       python3dist(cryptography)
 Requires:       python3dist(requests)
 Requires:       python3dist(six)
@@ -44,23 +42,27 @@ PyPy support.
 %autopatch -p1 0
 %endif
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
-rm -rf %{buildroot}%{python3_sitelib}/httpsig_cffi/tests
+%pyproject_install
+%pyproject_save_files -l httpsig_cffi
 
 %check
+%pyproject_check_import
 %{pytest} --color=yes
 
-%files -n python3-httpsig-cffi
-%license LICENSE.txt
+%files -n python3-httpsig-cffi -f %{pyproject_files}
 %doc README.rst
-%{python3_sitelib}/httpsig_cffi
-%{python3_sitelib}/httpsig_cffi-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Mon Aug 04 2025 Terje Rosten <terjeros@gmail.com> - 15.0.0-29
+- New set of rpm macros
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 15.0.0-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

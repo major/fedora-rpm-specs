@@ -52,7 +52,7 @@ sed -i "s/task-version\"\, expected\: \"unknown\"/task-version\"\, expected\: \"
 
 %build
 %global gomodulesmode GO111MODULE=on
-%gobuild -o %{gobuilddir}/bin/task
+%gobuild -o %{gobuilddir}/bin/task -v ./cmd/task
 
 %install
 %go_vendor_license_install -c %{S:2}

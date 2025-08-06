@@ -4,14 +4,13 @@
 Summary:    The standard Tcl library
 Name:       tcllib
 Version:    2.0
-Release:    2%{?dist}
-# Automatically converted from old format: BSD - review is highly recommended.
-License:    LicenseRef-Callaway-BSD
+Release:    3%{?dist}
+License:    TCL
 Source:     https://core.tcl-lang.org/tcllib/uv/%{name}-%{version}.tar.xz
 URL:        https://core.tcl-lang.org/tcllib/doc/trunk/embedded/index.md
 BuildArch:  noarch
 
-Requires:   tcl(abi) = 8.6
+Requires:   tcl(abi) = 9.0
 
 BuildRequires: tcl >= 8.6
 
@@ -19,6 +18,15 @@ BuildRequires: tcl >= 8.6
 Tcllib, the Tcl Standard Library is a collection of Tcl packages
 that provide utility functions useful to a large collection of Tcl
 programmers.
+
+%package -n tcl8-tcllib
+Summary: The standard tcllib library in the tcl8.6 dir
+Requires: tcl(abi) = 8.6
+
+%description -n tcl8-tcllib
+Tcllib, the Tcl Standard Library is a collection of Tcl packages
+that provide utility functions useful to a large collection of Tcl
+programmers. This is a compatibility copy for TCL 8.6.
 
 %prep
 %setup -q
@@ -46,6 +54,12 @@ for module in comm exif ftp mime stooop struct textutil; do
 done
 popd
 
+# do a tcl8 round
+%{_bindir}/tclsh installer.tcl -no-gui -no-wait -no-html -no-examples \
+    -pkg-path %{buildroot}/%{_datadir}/tcl8.6/%{name}-%{version} \
+    -app-path %{buildroot}%{_bindir} \
+    -nroff-path %{buildroot}%_mandir/mann
+
 # Clean up rpmlint warnings
 find %{buildroot}/%{_datadir} -name \*.tcl -exec chmod 0644 {} \;
 
@@ -62,7 +76,15 @@ find %{buildroot}/%{_datadir} -name \*.tcl -exec chmod 0644 {} \;
 %{_bindir}/pt
 %{_bindir}/tcldocstrip
 
+%files -n tcl8-tcllib
+%license license.terms
+%{_datadir}/tcl8.6/%{name}-%{version}
+# binaries and manpages are not here anymore, this is just for compat.
+
 %changelog
+* Mon Aug  4 2025 Tom Callaway <spot@fedoraproject.org> - 2.0-3
+- make tcl8-tcllib subpackage
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

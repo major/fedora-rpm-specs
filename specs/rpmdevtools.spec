@@ -1,6 +1,6 @@
 Name:           rpmdevtools
 Version:        9.6
-Release:        11%{?dist}.git83b35ac
+Release:        12%{?dist}.git83b35ac
 Summary:        RPM Development Tools
 
 # rpmdev-md5 and rpmdev-setuptree are GPL-2.0-only,
@@ -15,6 +15,8 @@ Source1:        progressbar.py
 Patch1001:      0001-Force-legacy-datestamp-while-RHBZ-1715412-is-still-a.patch
 ## latest unreleased changes from git
 Patch1002:      0002-rpmdevtools-git-83b35ac.patch
+# Patch1002 needs autoreconf, see %%build below, remove for new release
+BuildRequires:  autoconf automake
 
 # RHEL-specific downstream patches
 ## Remove fakeroot dependency (rhbz#1905465)
@@ -135,6 +137,9 @@ cp %{SOURCE1} %{buildroot}%{_datadir}/rpmdevtools/
 
 
 %changelog
+* Mon Aug 04 2025 Mark Wielaard <mjw@fedoraproject.org> - 9.6-12.git83b35ac
+- Add BuildRequires for autoreconf, fixes rhbz#2385580
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.6-11.git83b35ac
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

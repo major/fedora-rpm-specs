@@ -40,11 +40,11 @@ Jack as realtime audio infrastructure and can be controlled via Midi.
 # Fix optflags
 # SSE instruction set, which provides improved functionality, is only available in these archs:
 %ifnarch %{ix86} x86_64 ia64
-sed -i "s|\(^env.Append(CCFLAGS =\).*|\1 ['%{optflags}'.split() ])|" SConstruct
+sed -i "s|\(^env.Append(CCFLAGS =\).*|\1 ['%{optflags} -Wno-incompatible-pointer-types'.split() ])|" SConstruct
 %else
-sed -i "s|\(^env.Append(CCFLAGS =\).*|\1 ['%{optflags}'.split(),'-msse','-mfpmath=sse' ])|" SConstruct
+sed -i "s|\(^env.Append(CCFLAGS =\).*|\1 ['%{optflags} -Wno-incompatible-pointer-types'.split(),'-msse','-mfpmath=sse' ])|" SConstruct
 %endif
-sed -i "s|\(^guienv.Append(CPPFLAGS =\).*|\1 ['%{optflags}'.split() ])|" SConstruct
+sed -i "s|\(^guienv.Append(CPPFLAGS =\).*|\1 ['%{optflags} -Wno-incompatible-pointer-types'.split() ])|" SConstruct
 
 %build
 scons %{?_smp_mflags}

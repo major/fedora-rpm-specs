@@ -42,6 +42,7 @@ Patch6:		mail-notification-jb-c99.patch
 Patch7:		mail-notification-incompatible-pointer-types.patch
 Patch8:		mail-notification-maybe-uninitialized.patch
 Patch9:		mail-notification-libxml2.patch
+Patch10:	mail-notification-gint64.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -112,6 +113,7 @@ Evolution support for Mail Notification.
 %patch -P7 -p1 -b .incompatible-pointer-types
 %patch -P8 -p1 -b .maybe-uninitialized
 %patch -P9 -p1 -b .libxml2
+%patch -P10 -p0 -b .gint64
 
 # update config.{guess,sub} manually
 cp -p /usr/lib/rpm/redhat/config.{guess,sub} jbsrc/tools/
@@ -231,6 +233,7 @@ desktop-file-install \
 %changelog
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.4-114.git.9ae8768
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+- add patch for gint64 (to avoid incompatible pointer types on i686)
 
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.4-113.git.9ae8768
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild

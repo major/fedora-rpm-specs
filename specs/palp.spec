@@ -1,20 +1,20 @@
 Name:           palp
-Version:        2.11
-Release:        12%{?dist}
+Version:        2.21
+Release:        1%{?dist}
 Summary:        A Package for Analyzing Lattice Polytopes
 License:        GPL-3.0-or-later
 URL:            http://hep.itp.tuwien.ac.at/~kreuzer/CY/CYpalp.html
+VCS:            git:https://gitlab.com/stringstuwien/PALP.git
 Source0:        http://hep.itp.tuwien.ac.at/~kreuzer/CY/palp/palp-%{version}.tar.gz
 Source1:        https://export.arxiv.org/pdf/1205.4147
 
-# Fix some buffer overflows
-Patch0:         %{name}-buffer-overflow.patch
 # Do not fork and execute a shell just to delete a file
-Patch1:         %{name}-unlink.patch
+Patch:          %{name}-unlink.patch
 # Fedora changed the name of the latte-integrale "count" binary
-Patch2:         %{name}-latte.patch
+Patch:          %{name}-latte.patch
 # Fix a use-after-free
-Patch3:         %{name}-use-after-free.patch
+# https://gitlab.com/stringstuwien/PALP/-/merge_requests/8
+Patch:          %{name}-use-after-free.patch
 
 %global _docdir_fmt %{name}
 
@@ -99,6 +99,10 @@ cp -p man/*.1 $RPM_BUILD_ROOT%{_mandir}/man1
 
 
 %changelog
+* Mon Aug 04 2025 Jerry James <loganjerry@gmail.com> - 2.21-1
+- Version 2.21
+- Drop upstreamed buffer overflow patch
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.11-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
