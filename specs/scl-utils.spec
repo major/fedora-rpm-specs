@@ -22,6 +22,7 @@ Patch2:     BZ-2056462-do-not-error-out-on-SIGINT.patch
 Patch3:     BZ-2091000-remove-tmp-file.patch
 Patch4:     brp-python-hardlink.patch
 Patch5:     rpm-bare-words.patch
+Patch6:     0001-add-missing-include.patch
 
 %description
 Run-time utility for alternative packaging.
@@ -82,6 +83,11 @@ make check
 %{_rpmconfigdir}/brp-scl-python-bytecompile
 
 %changelog
+* Tue Aug  5 2025 Remi Collet <remi@remirepo.net> - 1:2.0.3-6
+- fix build with GCC 15 using patch from
+  https://github.com/sclorg/scl-utils/pull/57
+- FTBFS rhbz#2385622 workaround to rhbz#2386537
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.0.3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -10,7 +10,7 @@
 
 # https://github.com/lxc/incus
 %global goipath github.com/lxc/incus
-Version:        6.14
+Version:        6.15
 
 %gometa
 
@@ -18,7 +18,7 @@ Version:        6.14
 %global golicenses COPYING
 
 Name:           incus
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Powerful system container and virtual machine manager
 License:        Apache-2.0
 URL:            https://linuxcontainers.org/incus
@@ -55,9 +55,6 @@ Source202:      %{swaggerui_source_baseurl}/swagger-ui-standalone-preset.js#/swa
 Source203:      %{swaggerui_source_baseurl}/swagger-ui.css#/swagger-ui-%{swaggerui_version}.css
 
 # Patches upstream or proposed upstream
-# Fix for non-constant format string in call to fmt.Errorf
-# https://github.com/lxc/incus/pull/2260
-Patch1001:      2260.patch
 
 # Downstream only patches
 ## Allow offline builds
@@ -459,6 +456,9 @@ export CGO_LDFLAGS_ALLOW="(-Wl,-wrap,pthread_create)|(-Wl,-z,now)"
 %endif
 
 %changelog
+* Sun Aug 03 2025 Robby Callicotte <rcallicotte@fedoraproject.org> - 6.15-1
+- Updated to incus-6.15
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.14-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

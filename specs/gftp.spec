@@ -8,6 +8,7 @@ Url: https://github.com/masneyb/gftp/tags
 Source0: https://github.com/masneyb/gftp/archive/%{version}/%{name}-%{version}.tar.gz
 
 Patch0:  pointer-types.patch
+Patch1:  autopoint.patch
 
 BuildRequires: gcc
 BuildRequires: gtk2-devel >= 2.2.0
@@ -32,6 +33,7 @@ Install gftp if you need a graphical FTP client.
 %setup -q
 
 %patch -P 0 -p0
+%patch -P 1 -p0
 
 %build
 ./autogen.sh

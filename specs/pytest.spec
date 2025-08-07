@@ -10,6 +10,18 @@ Source:         %{pypi_source pytest %{version}}
 # Compatibility fix for attrs 25.2+
 Patch:          https://github.com/pytest-dev/pytest/pull/13291.patch
 
+# Officially support Python 3.14
+# This fixes/xfails Python 3.14 test failures
+# Rebased from https://github.com/pytest-dev/pytest/pull/13440
+Patch:          13440.patch
+
+# Fix compatibility with Twisted 25
+# Rebased from https://github.com/pytest-dev/pytest/pull/13502
+Patch:          13502.patch
+
+# Fix test_doctest_unexpected_exception on Python 3.14
+Patch:          https://github.com/pytest-dev/pytest/pull/13548.patch
+
 # Remove -s from Python shebang,
 # ensure that packages installed with pip to user locations are testable
 # https://bugzilla.redhat.com/2152171

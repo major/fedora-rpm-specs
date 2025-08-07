@@ -23,6 +23,9 @@ License:        LGPL-3.0-only OR Artistic-2.0
 URL:            https://veripool.org/verilator/
 Source:         https://github.com/verilator/verilator/archive/refs/tags/v%{version}/%{name}-%{version}.tar.gz
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  autoconf
 BuildRequires:  bison
 BuildRequires:  coreutils

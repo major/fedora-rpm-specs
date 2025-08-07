@@ -1,14 +1,14 @@
 %global gjs_version 1.69.2
-%global libadwaita_version 1.7~alpha
-%global libshumate_version 1.4~alpha
+%global libadwaita_version 1.8~alpha
+%global libshumate_version 1.5~alpha
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 %global __provides_exclude_from ^%{_libdir}/%{name}/.*\\.so.*$
 
 Name:           gnome-maps
-Version:        49~alpha
-Release:        2%{?dist}
+Version:        49~beta
+Release:        %autorelease
 Summary:        Map application for GNOME
 
 License:        GPL-2.0-or-later AND CC0-1.0
@@ -76,7 +76,7 @@ rm %{buildroot}%{_libdir}/gnome-maps/libgnome-maps.so
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.gnome.Maps.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.gnome.Maps.metainfo.xml
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Maps.desktop
 %meson_test
 
@@ -91,12 +91,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Maps.deskto
 %{_datadir}/%{name}
 %{_datadir}/icons/hicolor/scalable/apps/org.gnome.Maps.svg
 %{_datadir}/icons/hicolor/symbolic/apps/org.gnome.Maps-symbolic.svg
-%{_metainfodir}/org.gnome.Maps.appdata.xml
+%{_metainfodir}/org.gnome.Maps.metainfo.xml
 %{_libdir}/%{name}/
 
 
 %changelog
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 49~alpha-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
 %autochangelog

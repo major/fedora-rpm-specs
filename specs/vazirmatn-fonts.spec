@@ -121,7 +121,13 @@ for UI and without Latin glyphs.
 %global fontsummary8      %{fontsummary0} (variable version)
 %global fontpkgheader8    %{fontpkgheader0}
 %global fonts8            fonts/variable/*.ttf
-%global fontconfs8        %{fontconfs0}
+%{lua:
+function conf2vf(conf, n)
+  local vfconf = conf:gsub("-fonts.conf", "-vf-fonts.conf")
+  rpm.define("fontconfs" .. tostring(n) .. " " .. vfconf)
+end
+conf2vf(rpm.expand("%{fontconfs0}"), 8)
+}
 %global fontdescription8  %{expand:
 %{fontdescription0}
 This is the variable version of this font.
@@ -131,7 +137,9 @@ This is the variable version of this font.
 %global fontsummary9      %{fontsummary1} (variable version)
 %global fontpkgheader9    %{fontpkgheader1}
 %global fonts9            misc/Non-Latin/fonts/variable/*.ttf
-%global fontconfs9        %{fontconfs1}
+%{lua:
+conf2vf(rpm.expand("%{fontconfs1}"), 9)
+}
 %global fontdescription9  %{expand:
 %{fontdescription1}
 This is the variable version of this font.
@@ -141,7 +149,9 @@ This is the variable version of this font.
 %global fontsummary10      %{fontsummary4} (variable version)
 %global fontpkgheader10    %{fontpkgheader4}
 %global fonts10            Round-Dots/fonts/variable/*.ttf
-%global fontconfs10        %{fontconfs4}
+%{lua:
+conf2vf(rpm.expand("%{fontconfs4}"), 10)
+}
 %global fontdescription10  %{expand:
 %{fontdescription4}
 This is the variable version of this font.
@@ -151,7 +161,9 @@ This is the variable version of this font.
 %global fontsummary11      %{fontsummary5} (variable version)
 %global fontpkgheader11    %{fontpkgheader5}
 %global fonts11            Round-Dots/misc/Non-Latin/fonts/variable/*.ttf
-%global fontconfs11        %{fontconfs5}
+%{lua:
+conf2vf(rpm.expand("%{fontconfs5}"), 11)
+}
 %global fontdescription11  %{expand:
 %{fontdescription5}
 This is the variable version of this font.
@@ -175,6 +187,10 @@ Source17: 62-%{fontpkgname7}.conf
 
 %prep
 %setup -q -c
+cp %{fontconfs0} %{fontconfs8}
+cp %{fontconfs1} %{fontconfs9}
+cp %{fontconfs4} %{fontconfs10}
+cp %{fontconfs5} %{fontconfs11}
 %linuxtext *.txt
 
 %build
@@ -182,16 +198,7 @@ Source17: 62-%{fontpkgname7}.conf
 sed -i 's/VF/(Variable)/' org*.xml
 
 %install
-%{lua:
-for i = 0, 7 do
-    print(rpm.expand('%fontinstall -z ' .. i))
-end}
-# Remove shared symlinks to prevent errors during fontinstall
-rm -f %{buildroot}%{_sysconfdir}/fonts/conf.d/55-*
-%{lua:
-for i = 8, 11 do
-    print(rpm.expand('%fontinstall -z ' .. i))
-end}
+%fontinstall -a
 
 %check
 %fontcheck -a

@@ -1,11 +1,5 @@
 %bcond tests 1
 
-# Sphinx-generated HTML documentation is not suitable for packaging; see
-# https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
-#
-# We can generate PDF documentation as a substitute.
-%bcond doc_pdf 1
-
 Name:           python-pyscaffold
 Version:        4.6
 Release:        %autorelease
@@ -26,31 +20,18 @@ Source1:        putup.1
 # Downstream-only: do not run coverage analysis
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 Patch:          PyScaffold-4.5-no-coverage.patch
-# Downstream-only: remove animated demo from docs since this cannot be included
-# in a PDF
-Patch:          PyScaffold-4.1-no-animated-doc-demo.patch
 
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
 
 %if %{with tests}
-BuildRequires:  git-core
 # Needs vim (vim-enhanced) or vi (vim-minimal); we choose the lighter-weight BR
 BuildRequires:  vim-minimal
 BuildRequires:  python-unversioned-command
 %endif
 
-%if %{with doc_pdf}
-BuildRequires:  make
-BuildRequires:  python3-sphinx-latex
-BuildRequires:  latexmk
-BuildRequires:  /usr/bin/xindy
-BuildRequires:  tex-xetex-bin
-BuildRequires:  /usr/bin/rsvg-convert
-%endif
-
-%global common_description %{expand: \
+%global common_description %{expand:
 PyScaffold is a project generator for bootstrapping high quality Python
 packages, ready to be shared on PyPI and installable via pip. It is easy to use
 and encourages the adoption of the best tools and practices of the Python
@@ -65,15 +46,11 @@ half a decade!}
 %package -n python3-pyscaffold
 Summary:        %{summary}
 
+# Removed in F43; can drop Obsoletes after F45 EOL
+Obsoletes:      python-pyscaffold-doc < 4.6-5
+
 %description -n python3-pyscaffold
 %{common_description}
-
-
-%package doc
-Summary:        %{summary}
-
-%description doc
-Documentation for %{name}.
 
 
 # We do not package the “all” extra as a metapackage, because it has the
@@ -103,24 +80,6 @@ Documentation for %{name}.
 # Correct all shebangs in tests and templates
 %py3_shebang_fix tests
 
-# Drop intersphinx mappings, since we can’t download remote inventories and
-# can’t easily produce working hyperlinks from inventories in local
-# documentation packages.
-echo 'intersphinx_mapping.clear()' >> docs/conf.py
-# Since pdflatex cannot handle Unicode inputs in general:
-echo "latex_engine = 'xelatex'" >> docs/conf.py
-# Cannot use SVG images when building PDF documentation; rewrite to use PDFs,
-# which we will generate in %%build
-find docs -type f -exec \
-    gawk '/\.svg/ { print FILENAME; nextfile }' '{}' '+' |
-  xargs -r -t sed -r -i 's/\.svg/\.pdf/g'
-# Drop “furo” HTML theme dependency, since we do not need it to build a PDF.
-sed -r -i '/\bfuro\b/d' docs/requirements.txt
-# Drop sphinx-github-role dependency; it is not packaged and the degradation
-# without it is trivial.
-sed -r -i '/\bsphinx-github-role\b/d' docs/requirements.txt
-sed -r -i 's/^([[:blank:]]*)("sphinx_github_role",?)$/\1# \2/' docs/conf.py
-
 # Cannot install “all” extra for testing
 sed -r -i 's/^([[:blank:]]*)(all)\b/\1# \2/' tox.ini
 
@@ -130,24 +89,11 @@ sed -r -i '/\bplatformdirs\b/ s/<4/<5/' setup.cfg
 
 %generate_buildrequires
 # Missing dependencies for “all”, “md”, and “ds” extras
-%pyproject_buildrequires %{?with_tests:-t} %{?with_doc_pdf:docs/requirements.txt}
+%pyproject_buildrequires %{?with_tests:-t}
 
 
 %build
 %pyproject_wheel
-
-%if %{with doc_pdf}
-# Cannot use SVG images when building PDF documentation; convert to PDFs
-find docs -type f -name '*.svg' |
-  while read -r fn
-  do
-    rsvg-convert --format=pdf \
-        --output="$(dirname "${fn}")/$(basename "${fn}" .svg).pdf" "${fn}"
-  done
-
-PYTHONPATH="${PWD}" %make_build -C docs latex SPHINXOPTS='%{?_smp_mflags}'
-%make_build -C docs/_build/latex LATEXMKOPTS='-quiet'
-%endif
 
 
 %install
@@ -162,14 +108,6 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE1}'
 
 %check
 %if %{with tests}
-# Hopefully keep from overwriting user’s git config if building locally
-TEST_HOME="$(mktemp -d)"
-trap "rm -vrf '${TEST_HOME}'" INT TERM EXIT
-export HOME="${TEST_HOME}"
-# Required for a test
-git config --global user.email 'jane@doe.com'
-git config --global user.name 'jane doe'
-
 # skip tests that need network access
 k="${k-}${k+ and }not test_inplace_update"
 k="${k-}${k+ and }not test_piptools_works_with_pyscaffold"
@@ -185,7 +123,7 @@ k="${k-}${k+ and }not test_pipenv_works_with_pyscaffold"
 #
 # While upstream explicitly supports running tests in parallel, we observe a
 # race condition causing flaky failures in test_get_log_level in practice.
-%pytest -k "${k-}" \
+%pytest -k "${k-}" -rs \
     --ignore=tests/test_install.py \
     --ignore=tests/system/test_common.py
 %endif
@@ -198,13 +136,6 @@ k="${k-}${k+ and }not test_pipenv_works_with_pyscaffold"
 
 %{_bindir}/putup
 %{_mandir}/man1/putup.1*
-
-
-%files doc
-%license LICENSE.txt
-%if %{with doc_pdf}
-%doc docs/_build/latex/user_guide.pdf
-%endif
 
 
 %changelog

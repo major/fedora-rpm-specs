@@ -6,13 +6,14 @@ Summary:        Extensible mail notification service
 License:        GPL-2.0-only
 URL:            http://bubblemail.free.fr/
 Source0:        https://framagit.org/razer/%{name}/-/archive/v%{version}/%{name}-v%{version}.tar.bz2
+#temporary workaround until upstream moves away from setup.py install
+Patch0:         01.bubblemail-fix_missing_locales.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 BuildRequires:  folks-devel
 BuildRequires:  gettext
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-pillow
 BuildRequires:  python3-pyxdg
 BuildRequires:  vala
@@ -30,9 +31,12 @@ Requires:       python3-pysocks
 Recommends:     gnome-online-accounts
 Recommends:     gnome-shell-extension-bubblemail
 
+%generate_buildrequires
+%pyproject_buildrequires -r
+
 %description
 Bubblemail is a D-Bus service providing a list of the new and unread user's mail
-from local mailboxes, pop, imap, and gnome online accounts. It include a
+from local mailboxes, pop, imap, and gnome online accounts. It includes a
 libnotify frontend to create notifications and can be used by other frontends as
 well.
 
@@ -43,11 +47,14 @@ sed -i '1{\@^#!/usr/bin/env python@d}' \
         bubblemail/plugins/userscriptplugin.py
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+mv %{buildroot}%{python3_sitelib}/etc/ %{buildroot}/etc/
+%pyproject_save_files -l %{name}
 %find_lang %{name}
+cat %{name}.lang >> %{pyproject_files}
 
 %check
 appstream-util validate-relax --nonet \
@@ -55,7 +62,7 @@ appstream-util validate-relax --nonet \
 desktop-file-validate \
         %{buildroot}/%{_datadir}/applications/*.desktop
 
-%files -f %{name}.lang
+%files -f %{pyproject_files}
 %license LICENSE.txt
 %doc AUTHORS CHANGELOG.md CONTRIBUTING.md README.md
 %{_mandir}/man1/%{name}.1*
@@ -64,8 +71,6 @@ desktop-file-validate \
 %{_bindir}/%{name}
 %{_bindir}/%{name}-avatar-provider
 %{_bindir}/%{name}d
-%{python3_sitelib}/%{name}-%{version}-py*.egg-info
-%{python3_sitelib}/%{name}/
 %{_datadir}/applications/bubblemail.desktop
 %{_datadir}/%{name}/
 %{_datadir}/icons/hicolor/*/apps/%{name}.svg

@@ -244,7 +244,7 @@
 %endif
 
 Name:	chromium
-Version: 138.0.7204.183
+Version: 139.0.7258.66
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -287,7 +287,7 @@ Patch131: chromium-107-proprietary-codecs.patch
 # fix tab crash with SIGTRAP error when using system ffmpeg
 Patch132: chromium-118-sigtrap_system_ffmpeg.patch
 # need for old ffmpeg 6.0/5.x on epel9 and fedora < 40
-Patch133: chromium-121-system-old-ffmpeg.patch
+Patch133: chromium-139-el9-ffmpeg-5.1.x.patch
 # revert, it causes build error: use of undeclared identifier 'AVFMT_FLAG_NOH264PARSE'
 Patch135: chromium-133-disable-H.264-video-parser-during-demuxing.patch
 # Workaround for youtube stop working
@@ -374,6 +374,7 @@ Patch375: 0008-sandbox-fix-ppc64le-glibc234.patch
 Patch376: 0001-third_party-angle-Include-missing-header-cstddef-in-.patch
 Patch377: 0001-Add-PPC64-support-for-boringssl.patch
 Patch378: 0001-third_party-libvpx-Properly-generate-gni-on-ppc64.patch
+Patch379: 0009-sandbox-updates-138.patch
 Patch380: 0001-third_party-pffft-Include-altivec.h-on-ppc64-with-SI.patch
 Patch381: 0002-Add-PPC64-generated-files-for-boringssl.patch
 Patch382: 0002-third_party-lss-kernel-structs.patch
@@ -982,10 +983,10 @@ Qt6 UI for chromium.
 %patch -P128 -p1 -b .el9-ffmpeg-deprecated-apis
 %patch -P129 -p1 -R -b .ffmpeg-5.x-reordered_opaque
 %patch -P130 -p1 -b .ffmpeg-5.x-duration
+%patch -P133 -p1 -b .el9-ffmpeg-5.1.x
 %endif
 %patch -P131 -p1 -b .prop-codecs
 %patch -P132 -p1 -b .sigtrap_system_ffmpeg
-%patch -P133 -p1 -b .system-old-ffmpeg
 %patch -P135 -p1 -b .disable-H.264-video-parser-during-demuxing
 %patch -P136 -p1 -b .workaround-system-ffmpeg-whitelist
 %endif
@@ -1058,6 +1059,7 @@ Qt6 UI for chromium.
 %patch -P376 -p1 -b .0001-third_party-angle-Include-missing-header-cstddef-in-
 %patch -P377 -p1 -b .0001-Add-PPC64-support-for-boringssl
 %patch -P378 -p1 -b .0001-third_party-libvpx-Properly-generate-gni-on-ppc64
+%patch -P379 -p1 -b .0009-sandbox-updates-138
 %patch -P380 -p1 -b .0001-third_party-pffft-Include-altivec.h-on-ppc64-with-SI
 %patch -P381 -p1 -b .002-Add-PPC64-generated-files-for-boringssl
 %patch -P382 -p1 -b .0002-third_party-lss-kernel-structs
@@ -1223,7 +1225,7 @@ CHROMIUM_CORE_GN_DEFINES=""
 CHROMIUM_CORE_GN_DEFINES+=' custom_toolchain="//build/toolchain/linux/unbundle:default"'
 CHROMIUM_CORE_GN_DEFINES+=' host_toolchain="//build/toolchain/linux/unbundle:default"'
 CHROMIUM_CORE_GN_DEFINES+=' is_debug=false dcheck_always_on=false dcheck_is_configurable=false'
-CHROMIUM_CORE_GN_DEFINES+=' enable_nacl=false'
+CHROMIUM_CORE_GN_DEFINES+=' enable_enterprise_companion=false'
 CHROMIUM_CORE_GN_DEFINES+=' system_libdir="%{_lib}"'
 
 %if %{official_build}
@@ -1741,6 +1743,19 @@ fi
 %endif
 
 %changelog
+* Tue Aug 05 2025 Than Ngo <than@redhat.com> - 139.0.7258.66-1
+- Updated to 139.0.7258.66
+  * CVE-2025-8576: Use after free in Extensions
+  * CVE-2025-8578: Use after free in Cast
+  * CVE-2025-8579: Inappropriate implementation in Gemini Live in Chrome
+  * CVE-2025-8580: Inappropriate implementation in Filesystems
+  * CVE-2025-8581: Inappropriate implementation in Extensions
+  * CVE-2025-8582: Insufficient validation of untrusted input in DOM
+  * CVE-2025-8583: Inappropriate implementation in Permissions
+
+* Mon Aug 04 2025 Tom Stellard <tstellar@redhat.com> - 138.0.7204.183-2
+- Backport fix for build failure with clang-21
+
 * Wed Jul 30 2025 Than Ngo <than@redhat.com> - 138.0.7204.183-1
 - Update to 138.0.7204.183
   * CVE-2025-8292: Use after free in Media Stream

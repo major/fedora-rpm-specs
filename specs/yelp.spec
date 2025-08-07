@@ -4,8 +4,8 @@
 
 Name:          yelp
 Epoch:         2
-Version:       42.3
-Release:       2%{?dist}
+Version:       49~beta
+Release:       1%{?dist}
 Summary:       Help browser for the GNOME desktop
 
 # Automatically converted from old format: LGPLv2+ and ASL 2.0 and GPLv2+ - review is highly recommended.
@@ -13,17 +13,14 @@ License:       LicenseRef-Callaway-LGPLv2+ AND Apache-2.0 AND GPL-2.0-or-later
 URL:           https://wiki.gnome.org/Apps/Yelp
 Source:        https://download.gnome.org/sources/%{name}/42/%{name}-%{tarball_version}.tar.xz
 
-# https://bugzilla.gnome.org/show_bug.cgi?id=687960
-Patch1:        0001-Center-new-windows.patch
-
-BuildRequires: pkgconfig(gtk+-3.0)
-BuildRequires: pkgconfig(libhandy-1) >= %{libhandy_version}
+BuildRequires: pkgconfig(gtk4)
+BuildRequires: pkgconfig(libadwaita-1)
 BuildRequires: pkgconfig(liblzma)
 BuildRequires: pkgconfig(libxml-2.0)
 BuildRequires: pkgconfig(libexslt)
 BuildRequires: pkgconfig(libxslt)
 BuildRequires: pkgconfig(sqlite3)
-BuildRequires: pkgconfig(webkit2gtk-4.1)
+BuildRequires: pkgconfig(webkitgtk-6.0)
 BuildRequires: pkgconfig(yelp-xsl)
 BuildRequires: desktop-file-utils
 BuildRequires: bzip2-devel
@@ -69,25 +66,25 @@ find $RPM_BUILD_ROOT%{_libdir} -name '*.la' -delete
 %find_lang %{name}
 
 %check
-desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/yelp.desktop
+desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Yelp.desktop
 
 %files -f %{name}.lang
 %doc AUTHORS NEWS README.md
 %license COPYING
 %{_bindir}/*
-%{_datadir}/applications/yelp.desktop
+%{_datadir}/applications/org.gnome.Yelp.desktop
 %{_datadir}/glib-2.0/schemas/org.gnome.yelp.gschema.xml
 %{_datadir}/icons/hicolor/scalable/apps/org.gnome.Yelp.svg
 %{_datadir}/icons/hicolor/symbolic/apps/org.gnome.Yelp-symbolic.svg
-%{_datadir}/metainfo/yelp.appdata.xml
+%{_datadir}/metainfo/org.gnome.Yelp.metainfo.xml
 %{_datadir}/yelp/
 %{_datadir}/yelp-xsl/xslt/common/domains/yelp.xml
 
 %files libs
 %{_libdir}/libyelp.so.0*
 %dir %{_libdir}/yelp
-%dir %{_libdir}/yelp/web-extensions
-%{_libdir}/yelp/web-extensions/libyelpwebextension.so
+%dir %{_libdir}/yelp/web-process-extensions
+%{_libdir}/yelp/web-process-extensions/libyelpwebprocessextension.so
 
 %files devel
 %{_libdir}/libyelp.so
@@ -95,6 +92,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/yelp.desktop
 
 
 %changelog
+* Tue Aug 05 2025 Marek Kasik <mkasik@redhat.com> - 2:49~beta-1
+- Update to 49.beta
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:42.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

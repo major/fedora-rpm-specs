@@ -395,9 +395,10 @@ mkdir -p %{buildroot}%{_sysconfdir}/{pam.d,security/console.apps}
 # install util-linux
 %make_install
 
-# And a dirs uuidd needs that the makefiles don't create
-install -d %{buildroot}/run/uuidd
-install -d %{buildroot}/var/lib/libuuid
+# And a dirs that the makefiles don't create
+install -d %{buildroot}%{_rundir}/uuidd
+install -d %{buildroot}%{_sharedstatedir}/libuuid
+install -d %{buildroot}%{_sharedstatedir}/liblastlog
 
 # /etc/adjtime
 install -m 644 %{SOURCE5} %{buildroot}%{_sysconfdir}/adjtime
@@ -927,8 +928,8 @@ fi
 %{_mandir}/man8/uuidd.8*
 %{_sbindir}/uuidd
 %{_unitdir}/uuidd.*
-%dir %attr(2775, uuidd, uuidd) /var/lib/libuuid
-%dir %attr(2775, uuidd, uuidd) /run/uuidd
+%dir %attr(2775, uuidd, uuidd) %{_sharedstatedir}/libuuid
+%dir %attr(2775, uuidd, uuidd) %{_rundir}/uuidd
 %{compldir}/uuidd
 %{_tmpfilesdir}/uuidd-tmpfiles.conf
 %{_sysusersdir}/uuidd-sysusers.conf
@@ -969,6 +970,7 @@ fi
 
 %files -n liblastlog2
 %license Documentation/licenses/COPYING.BSD-2-Clause
+%dir %{_sharedstatedir}/liblastlog
 %{_libdir}/liblastlog2.so.*
 %{_pam_moduledir}/pam_lastlog2.so
 %{_tmpfilesdir}/lastlog2-tmpfiles.conf

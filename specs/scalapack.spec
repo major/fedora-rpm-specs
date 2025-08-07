@@ -57,7 +57,7 @@
 Summary: A subset of LAPACK routines redesigned for heterogeneous computing
 Name: scalapack
 Version: 2.2.2
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: BSD-3-Clause-Open-MPI
 URL: http://www.netlib.org/scalapack/
 Source0: https://github.com/Reference-ScaLAPACK/scalapack/archive/v%{version}.tar.gz
@@ -356,10 +356,17 @@ CC="$CC -std=gnu89"
 %global build_fflags %(echo %build_fflags -fallow-argument-mismatch| sed 's|-Werror=format-security||g')
 %global dobuild() \
 cd %{name}-%{version}-$MPI_COMPILER_NAME ; \
+%ifarch i686 \
+%cmake -DBUILD_SHARED_LIBS:BOOL=OFF -DBUILD_STATIC_LIBS:BOOL=ON -DMPI_BASE_DIR=%{_libdir}/$MPI_COMPILER_NAME %{blasflags}; \
+%cmake_build ;\
+%cmake -DBUILD_SHARED_LIBS:BOOL=ON -DBUILD_STATIC_LIBS:BOOL=OFF -DMPI_BASE_DIR=%{_libdir}/$MPI_COMPILER_NAME %{blasflags}; \
+%cmake_build ;\
+%else \
 %cmake -DBUILD_SHARED_LIBS:BOOL=OFF -DBUILD_STATIC_LIBS:BOOL=ON -DMPI_BASE_DIR=%{_libdir}/$MPI_COMPILER_NAME %{blasflags} %{?_cmake_lib_suffix64}; \
 %cmake_build ;\
 %cmake -DBUILD_SHARED_LIBS:BOOL=ON -DBUILD_STATIC_LIBS:BOOL=OFF -DMPI_BASE_DIR=%{_libdir}/$MPI_COMPILER_NAME %{blasflags} %{?_cmake_lib_suffix64}; \
 %cmake_build ;\
+%endif \
 cd ..
 
 %if %{with mpich}
@@ -487,6 +494,9 @@ sed -i 's|lapack blas|flexiblas|g' %{buildroot}%{_libdir}/mpich/lib/pkgconfig/sc
 %endif
 
 %changelog
+* Tue Aug  5 2025 Tom Callaway <spot@fedoraproject.org> - 2.2.2-5
+- conditionalize use of %_cmake_lib_suffix64 so we don't try to use it on i686
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,14 +1,12 @@
-%global forgeurl https://github.com/%{name}/%{name}
-
 Summary:        Intrusion detection environment
 Name:           aide
-Version:        0.18.8
+Version:        0.19.1
 Release:        %autorelease
-URL:            https://aide.github.io/
+URL:            https://github.com/aide/aide
 License:        GPL-2.0-or-later
 
-Source0:        %{forgeurl}/releases/download/v%{version}/%{name}-%{version}.tar.gz
-Source1:        %{forgeurl}/releases/download/v%{version}/%{name}-%{version}.tar.gz.asc
+Source0:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
+Source1:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz.asc
 # gpg2 --recv-keys 2BBBD30FAAB29B3253BCFBA6F6947DAB68E7B931
 # gpg2 --export --export-options export-minimal 2BBBD30FAAB29B3253BCFBA6F6947DAB68E7B931 >gpgkey-aide.gpg
 Source2:        gpgkey-aide.gpg
@@ -20,7 +18,7 @@ BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  bison flex
 BuildRequires:  pcre2-devel
-BuildRequires:  libgpg-error-devel libgcrypt-devel
+BuildRequires:  libgpg-error-devel nettle-devel
 BuildRequires:  zlib-devel
 BuildRequires:  libcurl-devel
 BuildRequires:  libacl-devel
@@ -44,14 +42,15 @@ checker and intrusion detection program.
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
-cp -a %{S:4} .
+cp -a %{SOURCE4} .
 
 %build
 #autoreconf -ivf
 %configure  \
   --disable-static \
   --with-config_file=%{_sysconfdir}/aide.conf \
-  --with-gcrypt \
+  --without-gcrypt \
+  --with-nettle \
   --with-zlib \
   --with-curl \
   --with-posix-acl \
@@ -66,14 +65,14 @@ make check
 
 %install
 %make_install bindir=%{_sbindir}
-install -Dpm0644 -t %{buildroot}%{_sysconfdir} %{S:3}
-install -Dpm0644 %{S:5} %{buildroot}%{_sysconfdir}/logrotate.d/aide
+install -Dpm0644 -t %{buildroot}%{_sysconfdir} %{SOURCE3}
+install -Dpm0644 %{SOURCE5} %{buildroot}%{_sysconfdir}/logrotate.d/aide
 mkdir -p %{buildroot}%{_localstatedir}/log/aide
 mkdir -p -m0700 %{buildroot}%{_localstatedir}/lib/aide
 
 %files
 %license COPYING
-%doc AUTHORS ChangeLog NEWS README contrib/
+%doc AUTHORS ChangeLog NEWS README
 %doc README.quickstart
 %{_sbindir}/aide
 %{_mandir}/man1/*.1*

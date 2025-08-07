@@ -57,7 +57,7 @@
 Name:    qt5-qtbase
 Summary: Qt5 - QtBase components
 Version: 5.15.17
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, for exception details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -1174,6 +1174,9 @@ fi
 
 
 %changelog
+* Tue Aug 05 2025 František Zatloukal <fzatlouk@redhat.com> - 5.15.17-4
+- Rebuilt for icu 77.1
+
 * Tue Jul 29 2025 Adam Williamson <awilliam@redhat.com> - 5.15.17-3
 - Backport SSL trust store location fix for the cert.pem change
 

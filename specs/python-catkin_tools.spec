@@ -2,12 +2,14 @@
 
 Name:           python-%{srcname}
 Version:        0.9.4
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Command line tools for working with catkin
 
 License:        Apache-2.0
 URL:            http://catkin-tools.readthedocs.org
 Source0:        https://github.com/catkin/%{srcname}/archive/%{version}/%{srcname}-%{version}.tar.gz
+# From https://github.com/catkin/catkin_tools/commit/8ef11ff40514ea9cdb973e4f8486fcc26f5eadcf
+Patch0:         %{srcname}-0.9.5-sphinx8.patch
 
 BuildArch:      noarch
 
@@ -93,6 +95,9 @@ install -p -m0644 -D docs/_build/man/%{srcname}.1 %{buildroot}%{_mandir}/man1/%{
 
 
 %changelog
+* Tue Aug 05 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.9.4-9
+- Apply upstream patch to build with sphinx 8 (bug 2329848)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.4-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -5,7 +5,7 @@ Name:           python-pyliblo3
 %global snapinfo ^%{snapdate}git%{sub %{commit} 1 7}
 #Version:        0.16.2%%{snapinfo}
 Version:        0.16.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Python bindings for the liblo Open Sound Control (OSC) library
 # Main code is LGPL-2.1-or-later
 License:        LGPL-2.1-or-later
@@ -13,6 +13,10 @@ URL:            https://github.com/gesellkammer/pyliblo3
 #Source:         https://github.com/gesellkammer/pyliblo3/archive/%%{commit}/pyliblo3-%%{commit}.tar.gz
 Source:         https://github.com/gesellkammer/pyliblo3/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 #Patch:          https://github.com/gesellkammer/pyliblo3/pull/11/commits/6f0c8a73fd25fd05f528f79ac204a25657cebab7.patch
+
+# Fix build with Cython >= 3.1
+# Backported from upstream PR: https://github.com/gesellkammer/pyliblo3/pull/15
+Patch: fix-cython-3.1-build.patch
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel
@@ -85,6 +89,10 @@ cp -a scripts/dump_osc.1 scripts/send_osc.1 %{buildroot}%{_mandir}/man1/
 %doc examples/
 
 %changelog
+* Tue Aug 05 2025 Charalampos Stratakis <cstratak@redhat.com> - 0.16.3-5
+- Fix compatibility with Cython >= 3.1
+- Fixes: rhbz#2377046
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

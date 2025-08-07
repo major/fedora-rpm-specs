@@ -91,6 +91,15 @@ echo "Checking directory contents"
 ls -lash
 ls -lash vendor/
 
+# Fix perms and drop shebangs for scripts that users are meant to copy over to
+# use
+find scripts/ -type f -exec chmod -x {} ';'
+find scripts/ -type f -exec sed -i -e '1{\@^#!.*@d}' {} ';'
+sed -i -e '1{\@^#!.*@d}' doc/rc/refresh
+
+# exclude scripts for updating holiday data
+rm -rf ./doc/rc/refresh
+rm -rf ./scripts/addons
 
 %build
 # critical, doesn't work without this
@@ -107,39 +116,39 @@ export CARGO_HOME=%{_builddir}/%{name}-%{version}/.cargo
 %cmake_install
 
 # Move shell completion stuff to the right place
-mkdir -p %{buildroot}%{_datadir}/zsh/site-functions/
-install -Dpm0644 scripts/zsh/_%{name} %{buildroot}%{_datadir}/zsh/site-functions/_%{name}
-mkdir -p %{buildroot}%{_datadir}/bash-completion/completions/
-install -Dpm0644 scripts/bash/%{name}.sh %{buildroot}%{_datadir}/bash-completion/completions/%{name}
-mkdir -p %{buildroot}%{_datadir}/fish/completions/
-install -Dpm0644 scripts/fish/%{name}.fish %{buildroot}%{_datadir}/fish/completions/%{name}.fish
+install -p -m 0755 -d $RPM_BUILD_ROOT/%{bash_completions_dir}/
+install -D -p -m 0644 $RPM_BUILD_ROOT/%{_pkgdocdir}/scripts/bash/%{name}.sh $RPM_BUILD_ROOT%{bash_completions_dir}/%{name}
 
-# Fix perms and drop shebangs
-# that's only docs and it's written in README about permissings
-find scripts/ -type f -exec chmod -x {} ';'
-find scripts/ -type f -exec sed -i -e '1{\@^#!.*@d}' {} ';'
+install -p -m 0755 -d $RPM_BUILD_ROOT/%{fish_completions_dir}/
+install -D -p -m 0644 $RPM_BUILD_ROOT/%{_pkgdocdir}/scripts/fish/%{name}.fish $RPM_BUILD_ROOT%{fish_completions_dir}/%{name}.fish
 
-rm -vrf %{buildroot}%{_datadir}/doc/%{name}/
+# move bits to expected locations: keep this similar to task2
+install -p -m 0755 -d $RPM_BUILD_ROOT/%{_datadir}/%{name}
+install -p -m 0644 $RPM_BUILD_ROOT/%{_pkgdocdir}/rc/* -t $RPM_BUILD_ROOT/%{_datadir}/%{name}/
+
+# clean up
+rm -rfv $RPM_BUILD_ROOT/%{_pkgdocdir}/rc
+rm -fv $RPM_BUILD_ROOT/%{_pkgdocdir}/INSTALL
+rm -fv $RPM_BUILD_ROOT/%{_pkgdocdir}/LICENSE
+rm -frv $RPM_BUILD_ROOT/%{_pkgdocdir}/scripts/{bash,fish}
 
 %files
 %license LICENSE
 %license LICENSE.dependencies
-%doc doc/ref/%{name}-ref.pdf
-%doc scripts/vim/ scripts/hooks/
 %{_bindir}/%{name}
 %{_mandir}/man1/%{name}.1*
 %{_mandir}/man5/%{name}rc.5*
 %{_mandir}/man5/%{name}-color.5*
 %{_mandir}/man5/%{name}-sync.5*
 %dir %{_datadir}/zsh/
-%dir %{_datadir}/zsh/site-functions/
-%{_datadir}/zsh/site-functions/_%{name}
-%dir %{_datadir}/bash-completion/
-%dir %{_datadir}/bash-completion/completions/
-%{_datadir}/bash-completion/completions/%{name}
-%dir %{_datadir}/fish/
-%dir %{_datadir}/fish/completions/
-%{_datadir}/fish/completions/%{name}.fish
+%dir %{zsh_completions_dir}
+%{zsh_completions_dir}/_%{name}
+%dir %{bash_completions_dir}
+%{bash_completions_dir}/%{name}
+%dir %{fish_completions_dir}
+%{fish_completions_dir}/%{name}.fish
+%{_datadir}/%{name}
+%{_pkgdocdir}
 
 %changelog
 %autochangelog

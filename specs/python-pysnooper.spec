@@ -11,9 +11,7 @@ Source0:        %pypi_source
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(six)
-BuildRequires:  python3dist(setuptools)
 
 %global _description %{expand:
 PySnooper is a replacement for debug print statements in code. After decorating
@@ -36,20 +34,22 @@ Summary:        %{summary}
 %prep
 %autosetup -n %{srcname}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l pysnooper
 
 %check
+%pyproject_check_import
 PYTHONPATH=%{buildroot}%{python3_sitelib} %python3 -m pytest -v tests/
 
-%files -n python3-pysnooper
-%license LICENSE
+%files -n python3-pysnooper -f %{pyproject_files}
 %doc README.md
-%{python3_sitelib}/pysnooper/
-%{python3_sitelib}/PySnooper-%{version}-py%{python3_version}.egg-info/
 
 %changelog
 %autochangelog

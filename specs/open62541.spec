@@ -1,14 +1,14 @@
 %bcond_without docs
 
 Name:     open62541
-Version:  1.4.11.1
-Release:  2%{?dist}
+Version:  1.4.13
+Release:  1%{?dist}
 Summary:  OPC UA implementation
 License:  MPL-2.0
 URL:      http://open62541.org
 Source0:  https://github.com/open62541/open62541/archive/v%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires: cmake3
+BuildRequires: cmake
 BuildRequires: gcc
 BuildRequires: graphviz
 BuildRequires: libbpf-devel
@@ -46,7 +46,7 @@ The %{name}-doc package contains documentation for %{name}.
 %build
 # The version is usually extracted from the git tag, which is not available in the tarball.
 # Therefore we need to set it manually.
-%cmake3 \
+%cmake \
   -DOPEN62541_VERSION=v%{version} \
   -DCMAKE_BUILD_TYPE=RelWithDebInfo \
   -DCMAKE_INSTALL_LIBDIR=%{_libdir} \
@@ -65,7 +65,7 @@ The %{name}-doc package contains documentation for %{name}.
   -DUA_ENABLE_PUBSUB_MONITORING=ON \
   -DUA_ENABLE_SUBSCRIPTIONS=ON \
   -DUA_ENABLE_SUBSCRIPTIONS_EVENTS=ON \
-  .
+  %nil
 
 #  -DUA_BUILD_EXAMPLES=ON \
 
@@ -112,6 +112,9 @@ cd -
 %endif
 
 %changelog
+* Tue Aug 05 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1.4.13-1
+- Update to 1.4.13
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.11.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

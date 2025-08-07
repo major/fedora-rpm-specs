@@ -46,7 +46,7 @@ BuildRequires: pkgconfig(libsystemd)
 Name:    qt6-qtbase
 Summary: Qt6 - QtBase components
 Version: 6.9.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://qt-project.org/
@@ -932,6 +932,9 @@ make check -k ||:
 
 
 %changelog
+* Tue Aug 05 2025 František Zatloukal <fzatlouk@redhat.com> - 6.9.1-4
+- Rebuilt for icu 77.1
+
 * Mon Jul 28 2025 Adam Williamson <awilliam@redhat.com> - 6.9.1-3
 - Adjust for https://fedoraproject.org/wiki/Changes/dropingOfCertPemFile removals
 

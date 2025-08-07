@@ -165,13 +165,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.17.0
 %define specversion 6.17.0
 %define patchversion 6.17
-%define pkgrelease 0.rc0.250804gd2eedaa3909b.10
+%define pkgrelease 0.rc0.250805g7e161a991ea7.11
 %define kversion 6
-%define tarfile_release 6.16-11489-gd2eedaa3909b
+%define tarfile_release 6.16-11699-g7e161a991ea7
 # This is needed to do merge window version magic
 %define patchlevel 17
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc0.250804gd2eedaa3909b.10%{?buildid}%{?dist}
+%define specrelease 0.rc0.250805g7e161a991ea7.11%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.17.0
 
@@ -3889,11 +3889,18 @@ touch %{_localstatedir}/lib/rpm-state/%{name}/installing_core_%{KVERREL}%{?-v:+%
 
 #
 # This macro defines a %%preun script for a kernel package.
-#	%%kernel_variant_preun [-v <subpackage>] -u [uki-suffix]
+#	%%kernel_variant_preun [-v <subpackage>] -u [uki-suffix] -e
+# Add kernel-install's --entry-type=type1|type2|all option (if supported) to limit removal
+# to a specific boot entry type.
 #
-%define kernel_variant_preun(v:u:) \
+%define kernel_variant_preun(v:u:e) \
 %{expand:%%preun %{?-v:%{-v*}-}%{!?-u*:core}%{?-u*:uki-%{-u*}}}\
-/bin/kernel-install remove %{KVERREL}%{?-v:+%{-v*}} || exit $?\
+entry_type=""\
+%{-e: \
+/bin/kernel-install --help|grep -q -- '--entry-type=' &&\
+    entry_type="--entry-type %{!?-u:type1}%{?-u:type2}" \
+}\
+/bin/kernel-install remove %{KVERREL}%{?-v:+%{-v*}} $entry_type || exit $?\
 %if !%{with_automotive}\
 if [ -x %{_sbindir}/weak-modules ]\
 then\
@@ -3904,11 +3911,11 @@ fi\
 
 %if %{with_up_base} && %{with_efiuki}
 %kernel_variant_posttrans -u virt
-%kernel_variant_preun -u virt
+%kernel_variant_preun -u virt -e
 %endif
 
 %if %{with_up_base}
-%kernel_variant_preun
+%kernel_variant_preun -e
 %kernel_variant_post
 %endif
 
@@ -3919,52 +3926,52 @@ fi\
 
 %if %{with_up} && %{with_debug} && %{with_efiuki}
 %kernel_variant_posttrans -v debug -u virt
-%kernel_variant_preun -v debug -u virt
+%kernel_variant_preun -v debug -u virt -e
 %endif
 
 %if %{with_up} && %{with_debug}
-%kernel_variant_preun -v debug
+%kernel_variant_preun -v debug -e
 %kernel_variant_post -v debug
 %endif
 
 %if %{with_arm64_16k_base}
-%kernel_variant_preun -v 16k
+%kernel_variant_preun -v 16k -e
 %kernel_variant_post -v 16k
 %endif
 
 %if %{with_debug} && %{with_arm64_16k}
-%kernel_variant_preun -v 16k-debug
+%kernel_variant_preun -v 16k-debug -e
 %kernel_variant_post -v 16k-debug
 %endif
 
 %if %{with_arm64_16k} && %{with_debug} && %{with_efiuki}
 %kernel_variant_posttrans -v 16k-debug -u virt
-%kernel_variant_preun -v 16k-debug -u virt
+%kernel_variant_preun -v 16k-debug -u virt -e
 %endif
 
 %if %{with_arm64_16k_base} && %{with_efiuki}
 %kernel_variant_posttrans -v 16k -u virt
-%kernel_variant_preun -v 16k -u virt
+%kernel_variant_preun -v 16k -u virt -e
 %endif
 
 %if %{with_arm64_64k_base}
-%kernel_variant_preun -v 64k
+%kernel_variant_preun -v 64k -e
 %kernel_variant_post -v 64k
 %endif
 
 %if %{with_debug} && %{with_arm64_64k}
-%kernel_variant_preun -v 64k-debug
+%kernel_variant_preun -v 64k-debug -e
 %kernel_variant_post -v 64k-debug
 %endif
 
 %if %{with_arm64_64k} && %{with_debug} && %{with_efiuki}
 %kernel_variant_posttrans -v 64k-debug -u virt
-%kernel_variant_preun -v 64k-debug -u virt
+%kernel_variant_preun -v 64k-debug -u virt -e
 %endif
 
 %if %{with_arm64_64k_base} && %{with_efiuki}
 %kernel_variant_posttrans -v 64k -u virt
-%kernel_variant_preun -v 64k -u virt
+%kernel_variant_preun -v 64k -u virt -e
 %endif
 
 %if %{with_realtime_base}
@@ -4368,8 +4375,13 @@ fi\
 #
 #
 %changelog
-* Mon Aug 04 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc0.d2eedaa3909b.10]
+* Tue Aug 05 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc0.7e161a991ea7.11]
 - redhat/configs: clang_lto: disable CONFIG_FORTIFY_KUNIT_TEST (Scott Weaver)
+
+* Tue Aug 05 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc0.7e161a991ea7.10]
+- rename CONFIG_PAGE_BLOCK_ORDER to CONFIG_PAGE_BLOCK_MAX_ORDER (Justin M. Forbes)
+- kernel.spec: add '-e' option to %%preun for kernel-core and kernel-uki-virt (Xuemin Li)
+- Linux v6.17.0-0.rc0.7e161a991ea7
 
 * Mon Aug 04 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc0.d2eedaa3909b.9]
 - Remove CONFIG_TEST_MISC_MINOR as deps are no longer met (Justin M. Forbes)

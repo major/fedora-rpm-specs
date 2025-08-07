@@ -3,14 +3,14 @@
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
 
 Name:		gperftools
-Version:	2.15
-Release:	6%{?dist}
+Version:	2.17
+Release:	1%{?dist}
 License:	BSD-3-Clause
 Summary:	Very fast malloc and performance analysis tools
 URL:		https://github.com/gperftools/gperftools
 Source0:	https://github.com/gperftools/gperftools/releases/download/%{name}-%{version}/%{name}-%{version}.tar.gz
 # Conditionalize generic dynamic tls model
-Patch1:		gperftools-2.7.90-disable-generic-dynamic-tls.patch
+Patch1:		gperftools-2.17-disable-generic-dynamic-tls.patch
 
 ExcludeArch:	s390
 BuildRequires:  gcc-c++
@@ -19,7 +19,7 @@ BuildRequires:	perl-generators
 BuildRequires:	autoconf, automake, libtool
 BuildRequires:	make
 Requires:	gperftools-devel = %{version}-%{release}
-Requires:	pprof = %{version}-%{release}
+# Requires:	pprof = %%{version}-%%{release}
 
 %description
 Perf Tools is a collection of performance analysis tools, including a
@@ -27,8 +27,8 @@ high-performance multi-threaded malloc() implementation that works
 particularly well with threads and STL, a thread-friendly heap-checker,
 a heap profiler, and a cpu-profiler.
 
-This is a metapackage which pulls in all of the gperftools (and pprof)
-binaries, libraries, and development headers, so that you can use them.
+This is a metapackage which pulls in all of the gperftools binaries,
+libraries, and development headers, so that you can use them.
 
 %package devel
 Summary:	Development libraries and headers for gperftools
@@ -47,15 +47,17 @@ Obsoletes:	google-perftools-libs < 2.0
 %description libs
 Libraries provided by gperftools, including libtcmalloc and libprofiler.
 
-%package -n pprof
-Summary:	CPU and Heap Profiler tool
-Requires:	gv, graphviz
-BuildArch:	noarch
-Provides:	google-perftools = %{version}-%{release}
-Obsoletes:	google-perftools < 2.0
+# Upstream removed pprof.
 
-%description -n pprof
-Pprof is a heap and CPU profiler tool, part of the gperftools suite.
+# %%package -n pprof
+# Summary:	CPU and Heap Profiler tool
+# Requires:	gv, graphviz
+# BuildArch:	noarch
+# Provides:	google-perftools = %%{version}-%%{release}
+# Obsoletes:	google-perftools < 2.0
+
+# %%description -n pprof
+# Pprof is a heap and CPU profiler tool, part of the gperftools suite.
 
 %prep
 %setup -q
@@ -103,15 +105,15 @@ rm -rf %{buildroot}%{_pkgdocdir}/INSTALL
 
 %files
 
-%files -n pprof
-%license COPYING
-%{_bindir}/pprof
-%{_bindir}/pprof-symbolize
-%{_mandir}/man1/*
+# %%files -n pprof
+# %%license COPYING
+# %%{_bindir}/pprof
+# %%{_bindir}/pprof-symbolize
+# %%{_mandir}/man1/*
 
 %files devel
 %{_pkgdocdir}/
-%{_includedir}/google/
+# %%{_includedir}/google/
 %{_includedir}/gperftools/
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*.pc
@@ -121,6 +123,10 @@ rm -rf %{buildroot}%{_pkgdocdir}/INSTALL
 %{_libdir}/*.so.*
 
 %changelog
+* Tue Aug  5 2025 Tom Callaway <spot@fedoraproject.org> - 2.17-1
+- update to 2.17
+- drop pprof subpackage, code removed upstream
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.15-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 
 Name:           python-%{modname}
 Version:        1.6.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        %{sum}
 
 License:        MIT
@@ -14,6 +14,12 @@ URL:            https://github.com/kivy/%{srcname}
 ExclusiveArch:  %{java_arches}
 
 Source0:        %{url}/archive/%{version}.tar.gz#/%{srcname}-%{version}.tar.gz
+
+# Fix compatibility with Cython >= 3.1
+# Backported from upstream:
+# https://github.com/kivy/pyjnius/pull/753
+# https://github.com/kivy/pyjnius/pull/756
+Patch:          fix-cython-3.1-build.patch
 
 BuildRequires:  make
 # avoid strict pointer checks with gcc 14, https://bugs.gentoo.org/917562
@@ -106,6 +112,10 @@ popd
 
 
 %changelog
+* Mon Aug 04 2025 Charalampos Stratakis <cstratak@redhat.com> - 1.6.1-10
+- Fix compatibility with Cython >= 3.1
+  Fixes: rhbz#2377043
+
 * Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 1.6.1-9
 - Rebuilt for java-25-openjdk as preffered jdk
 

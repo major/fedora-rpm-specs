@@ -1,5 +1,5 @@
 Name:       swaylock
-Version:    1.8.2
+Version:    1.8.3
 Release:    %{autorelease}
 Summary:    Screen locker for Wayland
 

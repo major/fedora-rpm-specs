@@ -15,7 +15,7 @@ Source:         %{crates_source}
 Patch:          onefetch-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * Use gix 0.70, gix-features 0.40; see Patch10
-# * Allow (older) rstest 0.23-0.24
+# * Update rstest to 0.26: https://github.com/o2sh/onefetch/pull/1594
 # * Do not depend on criterion; it is needed only for benchmarks
 # * Patch out tests/repo.rs, which requires gix-testtools, and remove the
 #   dev-dependency on gix-testtools. In theory, we could package gix-testtools,

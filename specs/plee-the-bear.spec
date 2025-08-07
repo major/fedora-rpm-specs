@@ -1,6 +1,6 @@
 Name:           plee-the-bear
 Version:        0.7.1
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        2D platform game
 # Code and artwork respectively
 # Automatically converted from old format: GPLv3 and CC-BY-SA - review is highly recommended.
@@ -35,6 +35,7 @@ Plee the Bear is a 2D platform game in the spirit of 1990s console games.
 # plee the bear uses some private libs which it builds as unversioned .so files
 # we put them in a private-libdir, and use a wrapper to set LD_LIBRARY_PATH
 %cmake \
+        -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
         -DCMAKE_BUILD_TYPE=release \
         -DPTB_LIBRARY_PATH=%{_libdir} \
         -DPTB_INSTALL_CUSTOM_LIBRARY_DIR=%{_lib} \
@@ -125,6 +126,9 @@ EOF
 
 
 %changelog
+* Tue Aug  5 2025 Tom Callaway <spot@fedoraproject.org> - 0.7.1-23
+- keep this old bear building
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -2,8 +2,8 @@
 %bcond_without perl_Inline_enables_optional_test
 
 Name:           perl-Inline
-Version:        0.86
-Release:        20%{?dist}
+Version:        0.87
+Release:        1%{?dist}
 Summary:        Inline Perl module
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Url:            https://metacpan.org/release/Inline
@@ -41,8 +41,6 @@ BuildRequires:  perl(File::Path)
 BuildRequires:  perl(File::Spec::Functions)
 BuildRequires:  perl(Inline::Files)
 BuildRequires:  perl(lib)
-BuildRequires:  perl(TestML::Bridge)
-BuildRequires:  perl(TestML::Run::TAP)
 BuildRequires:  perl(Test::More)
 # Test::Pod 1.41 not used
 BuildRequires:  perl(Test::Warn) >= 0.23
@@ -94,9 +92,6 @@ with "%{_libexecdir}/%{name}/test".
 %prep
 %setup -q -n Inline-%{version}
 find example -type f -exec chmod 0644 {} +
-# Remove bundled modules
-rm -rf inc/lib
-perl -i -ne 'print $_ unless m{^inc/lib/}' MANIFEST
 # Help generators to recognize Perl scripts
 for F in t/*.t; do
     if [ "$F" != "t/03errors.t" ] && [ "$F" != "t/09perl5lib.t" ]; then
@@ -142,6 +137,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Aug 05 2025 Michal Josef Špaček <mspacek@redhat.com> - 0.87-1
+- 0.87 bump
+  Bundle TestML back, in Inline is developer release of TestML.
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.86-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

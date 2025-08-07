@@ -1,6 +1,6 @@
 Name:           perl-Perl-MinimumVersion
-Version:        1.40
-Release:        15%{?dist}
+Version:        1.44
+Release:        1%{?dist}
 Summary:        Find a minimum required version of perl for Perl code
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Perl-MinimumVersion
@@ -19,10 +19,10 @@ BuildRequires: perl(Exporter)
 BuildRequires: perl(List::Util) >= 1.20
 BuildRequires: perl(Params::Util) >= 0.25
 BuildRequires: perl(Perl::Critic::Utils) >= 1.104
-BuildRequires: perl(PPI) >= 1.215
+BuildRequires: perl(PPI) >= 1.252
 BuildRequires: perl(PPI::Util)
 BuildRequires: perl(PPIx::Utils)
-BuildRequires: perl(PPIx::Regexp) >= 0.033
+BuildRequires: perl(PPIx::Regexp) >= 0.051
 BuildRequires: perl(strict)
 BuildRequires: perl(vars)
 BuildRequires: perl(version) >= 0.76
@@ -63,12 +63,15 @@ Find a minimum required version of perl for Perl code
 %files
 %doc Changes
 %license LICENSE
-%{_bindir}/*
+%{_bindir}/perlver*
 %{perl_vendorlib}/Perl
-%{_mandir}/man1/*
-%{_mandir}/man3/*
+%{_mandir}/man1/perlver*
+%{_mandir}/man3/Perl::MinimumVersion*
 
 %changelog
+* Tue Aug 05 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.44-1
+- 1.44 bump (rhbz#2366212)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.40-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Authen-SASL
-Version:        2.1800
-Release:        3%{?dist}
+Version:        2.1900
+Release:        1%{?dist}
 Summary:        SASL Authentication framework for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Authen-SASL
@@ -19,6 +19,7 @@ BuildRequires:  perl(warnings)
 # Run-time
 BuildRequires:  perl(bytes)
 BuildRequires:  perl(Carp)
+BuildRequires:  perl(Crypt::URandom)
 BuildRequires:  perl(Digest::HMAC_MD5)
 BuildRequires:  perl(Digest::MD5)
 BuildRequires:  perl(GSSAPI)
@@ -91,6 +92,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Aug 05 2025 Jitka Plesnikova <jplesnik@redhat.com> - 2.1900-1
+- 2.1900 bump (rhbz#2386534)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1800-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

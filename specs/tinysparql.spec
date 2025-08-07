@@ -5,8 +5,8 @@
 %global tracker_obsoletes_version 3.8
 
 Name:           tinysparql
-Version:        3.10~alpha
-Release:        2%{?dist}
+Version:        3.10~beta
+Release:        1%{?dist}
 Summary:        Desktop-neutral metadata database and search tool
 
 License:        GPL-2.0-or-later
@@ -167,6 +167,9 @@ This package contains the documentation for %{name}.
 
 
 %changelog
+* Tue Aug 05 2025 nmontero <nmontero@redhat.com> - 3.10~beta-1
+- Update to 3.10.beta
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.10~alpha-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

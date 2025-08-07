@@ -14,7 +14,7 @@
 %endif
 
 Name:           gnome-initial-setup
-Version:        49~alpha
+Version:        49~beta.1
 Release:        %autorelease
 Summary:        Bootstrapping your OS
 
@@ -90,9 +90,6 @@ you through configuring it. It is integrated with gdm.
 %install
 %meson_install
 
-desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/gnome-initial-setup-copy-worker.desktop
-desktop-file-validate %{buildroot}%{_datadir}/applications/gnome-initial-setup.desktop
-
 mkdir -p %{buildroot}%{_datadir}/gnome-initial-setup
 
 
@@ -109,9 +106,6 @@ useradd -rM -d /run/gnome-initial-setup/ -s /sbin/nologin %{name} &>/dev/null ||
 %doc NEWS README.md
 %{_libexecdir}/gnome-initial-setup
 %{_libexecdir}/gnome-initial-setup-copy-worker
-%{_sysconfdir}/xdg/autostart/gnome-initial-setup-copy-worker.desktop
-%{_sysconfdir}/xdg/autostart/gnome-initial-setup-first-login.desktop
-%{_datadir}/applications/gnome-initial-setup.desktop
 %{_datadir}/dconf/profile/gnome-initial-setup
 %dir %{_datadir}/gnome-initial-setup
 %{_datadir}/gnome-initial-setup/initial-setup-dconf-defaults

@@ -3,7 +3,7 @@
 
 Name: pdns
 Version: 4.9.7
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A modern, advanced and high performance authoritative-only name server
 License: GPL-2.0-only
 URL: http://powerdns.com
@@ -17,6 +17,7 @@ Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
 
+BuildRequires: chrpath
 BuildRequires: make
 BuildRequires: bison
 BuildRequires: boost-devel
@@ -170,10 +171,26 @@ export CPPFLAGS="-DLDAP_DEPRECATED"
 	--enable-dns-over-tls \
 	--enable-systemd
 
+sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
+sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
+
 %make_build
 
 %install
 %make_install
+
+chrpath --delete $RPM_BUILD_ROOT%{_bindir}/dnsbulktest || :
+chrpath --delete $RPM_BUILD_ROOT%{_bindir}/dnspcap2calidns || :
+chrpath --delete $RPM_BUILD_ROOT%{_bindir}/dnspcap2protobuf || :
+chrpath --delete $RPM_BUILD_ROOT%{_bindir}/dnsreplay || :
+chrpath --delete $RPM_BUILD_ROOT%{_bindir}/dnsscope || :
+chrpath --delete $RPM_BUILD_ROOT%{_bindir}/dnstcpbench || :
+chrpath --delete $RPM_BUILD_ROOT%{_bindir}/dnswasher || :
+chrpath --delete $RPM_BUILD_ROOT%{_bindir}/ixfrdist || :
+chrpath --delete $RPM_BUILD_ROOT%{_bindir}/pdns_notify || :
+chrpath --delete $RPM_BUILD_ROOT%{_bindir}/pdnsutil || :
+chrpath --delete $RPM_BUILD_ROOT%{_bindir}/nproxy || :
+chrpath --delete $RPM_BUILD_ROOT%{_bindir}/calidns || :
 
 %{__rm} -f %{buildroot}%{_libdir}/%{name}/*.la
 %{__mv} %{buildroot}%{_sysconfdir}/%{name}/pdns.conf{-dist,}
@@ -340,6 +357,9 @@ getent passwd pdns >/dev/null || \
 %{_unitdir}/ixfrdist@.service
 
 %changelog
+* Tue Aug 05 2025 Morten Stevens <mstevens@fedoraproject.org> - 4.9.7-3
+- Removed RPATHs from binaries to comply with Fedora guidelines
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

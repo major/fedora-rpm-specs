@@ -1,6 +1,6 @@
 Name:           perl-PPIx-Utils
-Version:        0.003
-Release:        15%{?dist}
+Version:        0.004
+Release:        1%{?dist}
 Summary:        Utility functions for PPI
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -10,9 +10,9 @@ Source0:        https://cpan.metacpan.org/authors/id/D/DB/DBOOK/PPIx-Utils-%{ver
 BuildArch:      noarch
 
 BuildRequires:  %{__make}
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
-BuildRequires:  perl(:VERSION) >= 0:5.006
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(:VERSION) >= 5.6
 
 BuildRequires:  perl(B::Keywords) >= 1.09
 BuildRequires:  perl(Data::Dumper)
@@ -53,10 +53,13 @@ from the appropriate submodule or via this module.
 %files
 %license LICENSE
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/PPIx
+%{_mandir}/man3/PPIx::Utils*
 
 %changelog
+* Tue Aug 05 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.004-1
+- 0.004 bump (rhbz#2363947)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.003-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

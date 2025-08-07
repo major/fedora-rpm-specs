@@ -20,7 +20,7 @@
 Name:              NLopt
 Version:           2.10.0
 %global tag        v%{version}
-Release:           3%{?dist}
+Release:           4%{?dist}
 Summary:           Open-Source library for nonlinear optimization
 
 # Get a lowercase name for virtual provides.
@@ -61,6 +61,10 @@ Source0:           https://github.com/stevengj/%{lc_name}/archive/%{tag}/%{lc_na
 
 # Kill RPATH.
 Patch0:            nlopt-2.9.1-kill_rpath.patch
+# Enable build for Octave
+# https://github.com/stevengj/nlopt/pull/597
+# backported to release 2.10.0
+Patch1:            octave-build.patch
 
 BuildRequires:     cmake3
 BuildRequires:     gcc
@@ -300,6 +304,9 @@ EOF
 %{python3_sitearch}/%{lc_name}-%{relversion}.dist-info/METADATA
 
 %changelog
+* Tue Aug 05 2025 Benson Muite <benson_muite@emailplus.org> - 2.10.0-4
+- Enable Octave 10.1 compatibility
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

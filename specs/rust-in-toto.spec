@@ -15,6 +15,7 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * bump derp and untrusted dependencies:
 #   https://github.com/in-toto/in-toto-rs/pull/103
+# * update rstest to 0.26: https://github.com/in-toto/in-toto-rs/pull/109
 Patch:          in-toto-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

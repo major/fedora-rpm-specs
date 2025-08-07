@@ -11,7 +11,6 @@ BuildArch:      noarch
 Requires:       python3-virtualenv
 Requires:       python3-setuptools
 
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
 
@@ -24,8 +23,6 @@ nicer to use. And it works with non-bash shells.
 
 %prep
 %autosetup -n %{name}-%{version}
-# Remove bundled egg-info
-rm -rf %{name}.egg-info
 # Remove useless files (merge info)
 rm -rf %{name}/shell_configs/zsh.orig
 rm -rf %{name}/shell_configs/fish.orig
@@ -33,21 +30,23 @@ rm -rf %{name}/shell_configs/fish.orig
 # Port from mock to unittest.mock
 sed -i "s/^from mock import /from unittest.mock import /" vex/tests/test_config.py vex/tests/test_main.py vex/tests/test_run.py vex/tests/test_shell_config.py
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{name}
 
 %check
+%pyproject_check_import
 %{__python3} -m pytest %{name}/tests/
 
-%files
+%files -f %{pyproject_files}
 %doc README.rst
-%license LICENSE
 %{_bindir}/%{name}
-%{python3_sitelib}/%{name}
-%{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
 %autochangelog

@@ -3,15 +3,14 @@
 %global __suggests_exclude ^R\\((BSgenome\\.Hsapiens\\.UCSC\\.hg19|GenomicFeatures|TxDb\\.Hsapiens\\.UCSC\\.hg19\\.knownGene|genefilter|hgu133plus2\\.db|humanStemCell|limma|microRNA|org\\.Hs\\.eg\\.db)\\)
 
 Name:             R-%{packname}
-Version:          1.66.0
-Release:          4%{dist}
+Version:          1.68.0
+Release:          1%{dist}
 Summary:          R interface to genome browsers and their annotation tracks
 # Automatically converted from old format: Artistic 2.0 and BSD - review is highly recommended.
 License:          Artistic-2.0 AND LicenseRef-Callaway-BSD
 URL:              http://www.bioconductor.org/packages/release/bioc/html/rtracklayer.html
 Source0:          http://www.bioconductor.org/packages/release/bioc/src/contrib/%{packname}_%{version}.tar.gz
 Source1:          rtracklayer_jimkent_license.txt
-Patch0:           R-rtracklayer-1.66.0-c23.patch
 Requires:         texlive-latex
 BuildRequires:    R-devel >= 3.3.0, R-methods, R-RCurl >= 1.4.2, R-XML >= 1.98.0
 BuildRequires:    R-IRanges-devel >= 2.13.13, R-GenomicRanges >= 1.37.2, R-Biostrings-devel >= 2.47.6
@@ -35,9 +34,6 @@ modify the browser state, such as the current viewport.
 %setup -c -q -n %{packname}
 sed -i -e 's|zlibbioc,||' rtracklayer/DESCRIPTION
 sed -i -e 's|import(zlibbioc)||' rtracklayer/NAMESPACE
-pushd %{packname}
-%patch -P0 -p1 -b .c23
-popd
 
 
 # This email confirms that we have permission to use the Jim Kent
@@ -84,6 +80,9 @@ rm -rf %{buildroot}%{_libdir}/R/library/%{packname}/tests/quickload/T_species_Oc
 %{_libdir}/R/library/%{packname}/unitTests/
 
 %changelog
+* Tue Aug  5 2025 Tom Callaway <spot@fedoraproject.org> - 1.68.0-1
+- update to 1.68.0
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.66.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

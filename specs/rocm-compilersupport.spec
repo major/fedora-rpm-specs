@@ -37,19 +37,9 @@
 # Enable ppc and aarch64 builds
 %bcond_with alt_arch
 
-# There is a circular dependency with rocm-runtime
-# https://github.com/ROCm/llvm-project/issues/269
-# Turn this on when there isn't a rocm-runtime to use
-%if 0%{?fedora}
-%bcond_with bootstrap
-%else
-%bcond_without bootstrap
-%endif
-
-
 Name:           rocm-compilersupport
 Version:        %{llvm_maj_ver}
-Release:        14.rocm%{rocm_version}%{?dist}
+Release:        15.rocm%{rocm_version}%{?dist}
 Summary:        Various AMD ROCm LLVM related services
 %if 0%{?suse_version}
 Group:          Development/Languages/Other
@@ -208,13 +198,10 @@ Requires:      rocm-libc++%{?_isa} = %{version}-%{release}
 %package -n rocm-llvm
 Summary:       The ROCm LLVM
 Requires:      rocm-llvm-libs%{?_isa} = %{version}-%{release}
-%if %{without bootstrap}
 # https://bugzilla.redhat.com/show_bug.cgi?id=2362780
 #  /usr/lib64/rocm/llvm/bin/amdgpu-arch 
 #  Failed to 'dlopen' libhsa-runtime64.so
-# Leave off the version so bootstrapping doesn't have to happen every release.
-Requires:      rocm-runtime-devel
-%endif
+Recommends:      rocm-runtime-devel
 
 %description -n rocm-llvm
 %{summary}
@@ -585,7 +572,7 @@ pushd .
 %define _vpath_builddir build-comgr
 %endif
 
-%cmake \
+%cmake -G "Unix Makefiles" \
        %{llvmrocm_cmake_config} \
        %{llvmrocm_tools_config} \
        %{llvmrocm_devicelibs_config} \
@@ -1037,6 +1024,10 @@ rm %{buildroot}%{_bindir}/hip*.pl
 %{bundle_prefix}/lib/libc++experimental.a
 
 %changelog
+* Tue Aug 5 2025 Tom Rix <Tom.Rix@amd.com> - 19-15.rocm6.4.2
+- Remove bootstrap logic
+- Use explicit Unix Makefiles for build-comgr step
+
 * Sun Jul 27 2025 Tom Rix <Tom.Rix@amd.com> - 19-14.rocm6.4.2
 - Add gfx1153 dirs
 

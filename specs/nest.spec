@@ -84,6 +84,10 @@ Patch:          0006-use-online-documentation.patch
 # Remove hard coded O0
 Patch:          0007-remove-hard-coded-O0.patch
 
+# Fix FTBFS with Cython >= 3.1
+# Fixed upstream: https://github.com/nest/nest-simulator/pull/3497
+Patch:          0008-fix-cython-3.1-build.patch
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 

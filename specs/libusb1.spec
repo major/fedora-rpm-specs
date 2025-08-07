@@ -2,7 +2,7 @@
 
 Summary:        Library for accessing USB devices
 Name:           libusb1
-Version:        1.0.28
+Version:        1.0.29
 Release:        %autorelease
 Source0:        https://github.com/libusb/libusb/releases/download/v%{version}/libusb-%{version}.tar.bz2
 Source1:        https://github.com/libusb/libusb/releases/download/v%{version}/libusb-%{version}.tar.bz2.asc
@@ -94,7 +94,7 @@ MinGW Windows %{name} library.
 chmod -x examples/*.c
 mkdir -p m4
 sed -i '/AM_LDFLAGS = -static/d' tests/Makefile.am
-%if (0%{?fedora} && 0%{?fedora} < 43) || (0%{?rhel} && 0%{?rhel} < 11)
+%if (0%{?fedora} && 0%{?fedora} < 44) || (0%{?rhel} && 0%{?rhel} < 11)
 autoscan
 aclocal
 autoconf

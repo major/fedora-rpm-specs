@@ -12,7 +12,6 @@ URL:            https://github.com/spyder-ide/%{simple_name}
 Source0:        https://github.com/spyder-ide/%{simple_name}/archive/v%{version}/%{simple_name}-%{version}.tar.gz
 BuildArch:      noarch
 
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-devel
 
 %description
@@ -28,7 +27,6 @@ qtpy instead of PyQt5.
 
 %package -n     python3-%{pypi_name}
 Summary:        Provides an abstraction layer on top of the various Qt bindings
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
 
@@ -44,20 +42,19 @@ qtpy instead of PyQt5.
 %prep
 %autosetup -n %{simple_name}-%{version}
 
-rm -rf %{pypi_name}.egg-info
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l qtpy
 
-%files -n python3-%{pypi_name}
-%license LICENSE.txt
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc CHANGELOG.md README.md
 %{_bindir}/qtpy
-%{python3_sitelib}/qtpy
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
 %autochangelog

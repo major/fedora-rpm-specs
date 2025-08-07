@@ -35,7 +35,7 @@
 
 Name:           R
 Version:        %{major_version}.%{minor_version}.%{patch_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A language for data analysis and graphics
 
 License:        GPL-2.0-or-later
@@ -960,6 +960,9 @@ TZ="Europe/Paris" make check
 %{_libdir}/libRmath.a
 
 %changelog
+* Tue Aug 05 2025 František Zatloukal <fzatlouk@redhat.com> - 4.5.1-3
+- Rebuilt for icu 77.1
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

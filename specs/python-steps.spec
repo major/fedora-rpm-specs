@@ -72,7 +72,10 @@ Patch:          0007-template-matching-collections_hpp.patch
 # Fixes failure to compile with GCC 13.
 # https://github.com/CNS-OIST/STEPS/pull/29
 Patch:          https://github.com/CNS-OIST/STEPS/pull/29.patch
-
+# Fix build with Cython >= 3.1
+# Partial backport from upstream:
+# https://github.com/CNS-OIST/STEPS/pull/47
+Patch:          fix-cython-3.1-build.patch
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 

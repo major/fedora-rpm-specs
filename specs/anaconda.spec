@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 43.33
+Version: 43.34
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -513,6 +513,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Aug 05 2025 Packit <hello@packit.dev> - 43.34-1
+- Document Lorax template patching (mkolman)
+
 * Thu Jul 31 2025 Packit <hello@packit.dev> - 43.33-1
 - Revert "Default to GTK UI when available, fallback to Web UI otherwise"
   (k.koukiou)

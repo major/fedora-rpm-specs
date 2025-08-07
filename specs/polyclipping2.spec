@@ -2,20 +2,27 @@
 # The developer is fine with the choosen name polyclipping for the previous version
 # of the library. This rpm packages the "clipper2" polygon clipping library
 
-%global _vpath_srcdir CPP
+# Conditionals for optional features
+%bcond_without tests  # Disable tests by default
+%bcond_without docs   # Enable docs by default
 
 Name:           polyclipping2
-Version:        1.4.0
-Release:        3%{?dist}
+Version:        1.5.4
+Release:        %autorelease
 Summary:        Polygon Clipping and Offsetting Library v2
 License:        BSL-1.0
 URL:            https://angusj.com/clipper2/Docs/Overview.htm
 Source:         https://github.com/AngusJohnson/Clipper2/archive/refs/tags/Clipper2_%{version}.tar.gz
 
-BuildRequires:  gcc
+# Build dependencies
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  gtest-devel
+
+# Obsolete the redundant clipper2 only for Rawhide
+# https://bugzilla.redhat.com/show_bug.cgi?id=2386078
+Obsoletes:      clipper2 < %{version}
+Provides:       clipper2 = %{version}
 
 %description
 This library primarily performs the boolean clipping operations -
@@ -35,13 +42,35 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 
-%prep
-%autosetup -n Clipper2-Clipper2_%{version} -p0
-rm -rf CPP/Tests/googletest
+%package static
+Summary:        Static files for %{name}
+Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
+%description static
+Static libraries for Clipper2.
 
+%if %{with docs}
+%package doc
+Summary:        Documentation for %{name}
+BuildRequires:  doxygen
+BuildRequires:  graphviz
+BuildArch:      noarch
+%description doc
+Documentation for Clipper2 library.
+%endif
+
+%prep
+%autosetup -n Clipper2-Clipper2_%{version}
 
 %build
-%cmake -DUSE_EXTERNAL_GTEST=ON
+%cmake -S CPP \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DBUILD_SHARED_LIBS=ON \
+    -DCLIPPER2_BUILD_EXAMPLES=OFF \
+    -DCLIPPER2_BUILD_TESTS=%{?with_tests:ON}%{!?with_tests:OFF} \
+    -DCLIPPER2_DOCS=%{?with_docs:ON}%{!?with_docs:OFF} \
+    -DCLIPPER2_HI_PRECISION=ON \
+    -DCLIPPER2_PKGCONFIG=ON \
+    -DUSE_EXTERNAL_GTEST=ON
 %cmake_build
 
 
@@ -49,12 +78,13 @@ rm -rf CPP/Tests/googletest
 %cmake_install
 
 
+%if %{with tests}
 %check
-pushd %{_vpath_builddir}
-./ClipperTests
-./ClipperTestsZ
-popd
-
+# Skip failing test
+# https://github.com/AngusJohnson/Clipper2/issues/1001
+%ctest -E  "TestMultiplePolygons" \
+   --test-dir %{_vpath_builddir}  # Out-of-source test directory
+%endif
 
 %files
 %license LICENSE
@@ -64,27 +94,24 @@ popd
 %{_libdir}/libClipper2Z.so.1
 %{_libdir}/libClipper2Z.so.%{version}
 
-
 %files devel
+%license LICENSE
 %{_libdir}/pkgconfig/Clipper2.pc
 %{_libdir}/pkgconfig/Clipper2Z.pc
 %{_includedir}/clipper2/
 %{_libdir}/libClipper2.so
 %{_libdir}/libClipper2Z.so
-%{_libdir}/cmake
+%{_libdir}/cmake/clipper2/
 
+%files static
+%{_libdir}/libClipper2utils.a
+%{_libdir}/libClipper2Zutils.a
+
+# Documentation
+%if %{with docs}
+%files doc
+%doc %{_docdir}/%{name}
+%endif
 
 %changelog
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Tue Jan 07 2025 Thomas Sailer <fedora@tsailer.ch> - 1.4.0-1
-- Update to 1.4.0
-- Package cmake files
-- Reviewer comments
-
-* Wed Jun 05 2024 Thomas Sailer <fedora@tsailer.ch> - 1.3.0-1
-- Initial package based on polyclipping
+%autochangelog

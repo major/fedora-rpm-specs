@@ -7,7 +7,7 @@
 
 Name:           icestorm
 Version:        0
-Release:        0.41.%{snapdate}git%{shortcommit0}%{?dist}
+Release:        0.42.%{snapdate}git%{shortcommit0}%{?dist}
 Summary:        Lattice iCE40 FPGA bitstream creation/analysis/programming tools
 License:        ISC
 URL:            http://bygone.clairexen.net/%{name}
@@ -18,7 +18,7 @@ Patch1:         %{name}-datadir.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  python%{python3_pkgversion} libftdi-devel
-BuildRequires: make
+BuildRequires:  make
 
 %description
 Project IceStorm aims at documenting the bitstream format of Lattice iCE40
@@ -46,7 +46,6 @@ make %{?_smp_mflags} \
 %make_install PREFIX="%{_prefix}"
 chmod +x %{buildroot}%{_bindir}/icebox.py
 mv %{buildroot}%{_datarootdir}/icebox %{buildroot}%{_datarootdir}/%{name}
-mv %{buildroot}%{_bindir}/iceboxdb.py %{buildroot}%{_datarootdir}/%{name}
 install -pm644 icefuzz/timings_*.txt %{buildroot}%{_datarootdir}/%{name}
 
 # We could do a minimal check section by running make in the example
@@ -60,6 +59,9 @@ install -pm644 icefuzz/timings_*.txt %{buildroot}%{_datarootdir}/%{name}
 %{_datarootdir}/%{name}
 
 %changelog
+* Fri Aug 01 2025 Alexander F. Lent <lx@xanderlent.com> - 0-0.42.20250707gitf31c39c
+- Fix incorrect install location for iceboxdb.py
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.41.20250707gitf31c39c
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

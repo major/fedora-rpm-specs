@@ -1,8 +1,8 @@
 Name:           seaview
 Version:        5.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Graphical multiple sequence alignment editor
-License:        GPLv3
+License:        GPL-3.0-or-later
 URL:            http://doua.prabi.fr/software/seaview
 Source0:        ftp://pbil.univ-lyon1.fr/pub/mol_phylogeny/seaview/archive/seaview_5.1.tar.gz
 Source1:        seaview.desktop
@@ -66,6 +66,9 @@ install -m 644 seaview.1 $RPM_BUILD_ROOT/%{_mandir}/man1
 
 
 %changelog
+* Tue Aug 05 2025 Christian Iseli <christian.iseli@epfl.ch> - 5.1-2
+- Fix license denomination - as specified in the source code
+
 * Thu Jul 31 2025 Christian Iseli <christian.iseli@epfl.ch> - 5.1-1
 - New upstream version
 - Fix FTBFS bugzilla 2385624

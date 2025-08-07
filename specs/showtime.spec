@@ -4,7 +4,7 @@
 %global blueprint_compiler_version 0.18
 
 Name:           showtime
-Version:        49~alpha
+Version:        49~beta
 
 Release:        %autorelease
 Summary:        Modern video player built using GTK4
@@ -73,6 +73,7 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 %{python3_sitelib}/showtime/
 %{_bindir}/showtime
 %{_datadir}/applications/org.gnome.Showtime.desktop
+%{_datadir}/dbus-1/services/org.gnome.Showtime.service
 %{_datadir}/glib-2.0/schemas/org.gnome.Showtime.gschema.xml
 %{_datadir}/icons/hicolor/scalable/apps/org.gnome.Showtime.svg
 %{_datadir}/icons/hicolor/symbolic/apps/org.gnome.Showtime-symbolic.svg

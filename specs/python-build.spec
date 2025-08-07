@@ -7,7 +7,7 @@
 %global pypi_name build
 
 Name:           python-%{pypi_name}
-Version:        1.2.2
+Version:        1.3.0
 Release:        %autorelease
 Summary:        A simple, correct PEP517 package builder
 
@@ -17,8 +17,9 @@ Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
 
 # downstream-only
 Patch:          0001-fedora-disable-some-build-requirements.patch
-# https://github.com/pypa/build/pull/911
-Patch:          0002-tests-optional-virtualenv.patch
+
+# Upstream fix for a test failure
+Patch:          14aecb.patch
 
 BuildArch:      noarch
 
@@ -46,7 +47,7 @@ A simple, correct PEP517 package builder.
 
 
 %generate_buildrequires
-%pyproject_buildrequires %{?with_tests:-x test} %{?with_extras:-x virtualenv,uv}
+%pyproject_buildrequires %{?with_tests:-g test} %{?with_extras:-x virtualenv,uv}
 
 %build
 %pyproject_wheel

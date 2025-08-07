@@ -13,7 +13,8 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/chromaterm
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * Allow older rstest (0.23) until it can be updated
+# * Update rstest dev-dependency to 0.26:
+#   https://github.com/spenserblack/chromaterm/pull/8
 Patch:          chromaterm-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

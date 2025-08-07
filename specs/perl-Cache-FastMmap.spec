@@ -1,13 +1,11 @@
 Name:           perl-Cache-FastMmap
-Version:        1.59
-Release:        3%{?dist}
+Version:        1.60
+Release:        1%{?dist}
 Summary:        Uses an mmap'ed file to act as a shared memory interprocess cache
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/pod/Cache::FastMmap
 Source0:        https://cpan.metacpan.org/authors/id/R/RO/ROBM/Cache-FastMmap-%{version}.tar.gz
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  perl-interpreter
@@ -60,11 +58,14 @@ situation better.
 
 %files
 %doc Changes README
-%{perl_vendorarch}/auto/*
+%{perl_vendorarch}/auto/Cache*
 %{perl_vendorarch}/Cache*
-%{_mandir}/man3/*
+%{_mandir}/man3/Cache::FastMmap*
 
 %changelog
+* Tue Aug 05 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.60-1
+- 1.60 bump (rhbz#2383705)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.59-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

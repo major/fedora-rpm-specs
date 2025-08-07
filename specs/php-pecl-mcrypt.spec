@@ -3,26 +3,26 @@
 #
 # remirepo spec file for php-pecl-mcrypt
 #
-# Copyright (c) 2017-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2017-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
 
-%global with_zts       0%{!?_without_zts:%{?__ztsphp:1}}
+%global pie_vend       pecl
+%global pie_proj       mcrypt
 %global pecl_name      mcrypt
 %global ini_name       30-%{pecl_name}.ini
+%global sources        %{pecl_name}-%{version}
 
 Summary:      Bindings for the libmcrypt library
 Name:         php-pecl-mcrypt
-Version:      1.0.7
-Release:      3%{?dist}
+Version:      1.0.9
+Release:      1%{?dist}
 License:      PHP-3.01
 URL:          https://pecl.php.net/package/mcrypt
-Source0:      https://pecl.php.net/get/%{pecl_name}-%{version}%{?prever}.tgz
-
-Patch0:       19.patch
+Source0:      https://pecl.php.net/get/%{sources}.tgz
 
 ExcludeArch:   %{ix86}
 
@@ -38,6 +38,7 @@ Provides:     php-pecl(%{pecl_name})%{?_isa} = %{version}
 Obsoletes:    php-%{pecl_name} < 7.2.0
 Provides:     php-%{pecl_name} = 1:%{version}-%{release}
 Provides:     php-%{pecl_name}%{?_isa} = 1:%{version}-%{release}
+Provides:     php-pie(%{pie_vend}/%{pie_proj}) = %{version}
 
 
 %description
@@ -47,16 +48,13 @@ Provides bindings for the unmaintained libmcrypt.
 
 %prep 
 %setup -c -q
-mv %{pecl_name}-%{version}%{?prever} NTS
 
 # Don't install/register tests
 sed -e 's/role="test"/role="src"/' \
-    %{?_licensedir:-e '/LICENSE/s/role="doc"/role="src"/' } \
+    -e '/LICENSE/s/role="doc"/role="src"/' \
     -i package.xml
 
-cd NTS
-%patch -P0 -p1
-
+cd %{sources}
 # Sanity check, really often broken
 extver=$(sed -n '/#define PHP_MCRYPT_VERSION/{s/.* "//;s/".*$//;p}' php_mcrypt.h)
 if test "x${extver}" != "x%{version}%{?prever}"; then
@@ -71,102 +69,68 @@ cat >%{ini_name} << 'EOF'
 extension=%{pecl_name}
 EOF
 
-%if %{with_zts}
-: Duplicate sources tree for ZTS build
-cp -pr NTS ZTS
-%endif
-
 
 %build
-cd NTS
-%{_bindir}/phpize
+cd %{sources}
+%{__phpize}
+sed -e 's/INSTALL_ROOT/DESTDIR/' -i build/Makefile.global
+
 %configure \
   --with-mcrypt \
-  --with-php-config=%{_bindir}/php-config
+  --with-php-config=%{__phpconfig}
 
-make %{?_smp_mflags}
-
-%if %{with_zts}
-cd ../ZTS
-%{_bindir}/zts-phpize
-%configure \
-  --with-mcrypt \
-  --with-php-config=%{_bindir}/zts-php-config
-
-make %{?_smp_mflags}
-%endif
+%make_build
 
 
 %install
-make -C NTS install INSTALL_ROOT=%{buildroot}
-install -D -m 644 %{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
+cd %{sources}
+%make_install
+
+# Configuration
+install -D -m 644 ../%{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
 
 # Install XML package description
-install -D -m 644 package.xml %{buildroot}%{pecl_xmldir}/%{name}.xml
-
-%if %{with_zts}
-make -C ZTS install INSTALL_ROOT=%{buildroot}
-install -D -m 644 %{ini_name} %{buildroot}%{php_ztsinidir}/%{ini_name}
-%endif
+install -D -m 644 ../package.xml %{buildroot}%{pecl_xmldir}/%{name}.xml
 
 # Documentation
-cd NTS
 for i in $(grep 'role="doc"' ../package.xml | sed -e 's/^.*name="//;s/".*$//')
 do install -Dpm 644 $i %{buildroot}%{pecl_docdir}/%{pecl_name}/$i
 done
 
 
 %check
-export REPORT_EXIT_STATUS=1
-export NO_INTERACTION=1
+cd %{sources}
+: minimal load test of the extension
+%{__php} --no-php-ini \
+    --define extension=%{buildroot}%{php_extdir}/%{pecl_name}.so \
+    --modules | grep '^%{pecl_name}$'
 
-# Warning: Use of undefined constant MCRYPT_CBC - assumed 'MCRYPT_CBC'
-rm ?TS/tests/bug8040.phpt
-
-cd NTS
-: minimal load test of NTS extension
-%{_bindir}/php --no-php-ini \
-    --define extension_dir=modules \
-    --define extension=%{pecl_name} \
-    --modules | grep %{pecl_name}
-
-: upstream test suite for NTS extension
-make test
-
-%if %{with_zts}
-cd ../ZTS
-: minimal load test of ZTS extension
-%{_bindir}/zts-php --no-php-ini \
-    --define extension_dir=modules \
-    --define extension=%{pecl_name} \
-    --modules | grep %{pecl_name}
-
-: upstream test suite for ZTS extension
-make test
-%endif
+: upstream test suite
+make test TESTS='-q --show-diff'
 
 
 %files
-%license NTS/LICENSE
+%license %{sources}/LICENSE
 %{pecl_xmldir}/%{name}.xml
 
 %config(noreplace) %{php_inidir}/%{ini_name}
 %{php_extdir}/%{pecl_name}.so
 
-%if %{with_zts}
-%config(noreplace) %{php_ztsinidir}/%{ini_name}
-%{php_ztsextdir}/%{pecl_name}.so
-%endif
-
 
 %changelog
+* Tue Aug  5 2025 Remi Collet <remi@fedoraproject.org> - 1.0.9-1
+- update to 1.0.9
+- re-license spec file to CECILL-2.1
+- modernize the spec file
+- add pie virtual provides
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
-* Mon Oct 14 2024 Remi Collet <remi@fedoraproject.org> - 1.0.7-14
+* Mon Oct 14 2024 Remi Collet <remi@fedoraproject.org> - 1.0.7-1
 - update to 1.0.7
 - rebuild for https://fedoraproject.org/wiki/Changes/php84
 - fix build with PHP 8.4 using patch from

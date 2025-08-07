@@ -1,6 +1,6 @@
 Name:		voms-api-java
-Version:	3.3.5
-Release:	4%{?dist}
+Version:	3.3.6
+Release:	1%{?dist}
 Summary:	Virtual Organization Membership Service Java API
 
 License:	Apache-2.0
@@ -10,7 +10,11 @@ Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildArch:	noarch
 ExclusiveArch:	%{java_arches} noarch
 
+%if %{?fedora}%{!?fedora:0} >= 43
 BuildRequires:	maven-local-openjdk25
+%else
+BuildRequires:	maven-local
+%endif
 BuildRequires:	mvn(eu.eu-emi.security:canl) >= 2.8.3
 Requires:	mvn(eu.eu-emi.security:canl) >= 2.8.3
 
@@ -47,10 +51,6 @@ Virtual Organization Membership Service (VOMS) Java API Documentation.
 %pom_remove_plugin org.apache.maven.plugins:maven-enforcer-plugin
 
 %if %{?rhel}%{!?rhel:0} == 9
-# Default openjdk in RHEL 9 is 11
-%pom_xpath_replace "//pom:plugin[pom:artifactId='maven-compiler-plugin']/pom:configuration/pom:release/text()" 11
-%pom_xpath_replace "//pom:properties/pom:maven.compiler.release/text()" 11
-
 # Modify bouncycastle dependencies for RHEL 9
 %pom_change_dep org.bouncycastle:bcprov-jdk18on org.bouncycastle:bcprov-jdk15on
 %pom_change_dep org.bouncycastle:bcpkix-jdk18on org.bouncycastle:bcpkix-jdk15on
@@ -70,6 +70,9 @@ Virtual Organization Membership Service (VOMS) Java API Documentation.
 %license LICENSE
 
 %changelog
+* Tue Aug 05 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.3.6-1
+- Update to version 3.3.6
+
 * Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 3.3.5-4
 - Rebuilt for java-25-openjdk as preffered jdk
 

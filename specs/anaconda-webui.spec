@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        45
+Version:        46
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -120,6 +120,9 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Tue Aug 05 2025 Packit <hello@packit.dev> - 46-1
+- components: review: show selected timezone in the review screen
+
 * Tue Jul 29 2025 Packit <hello@packit.dev> - 45-1
 - components. datetime: introduce a Date and Time screen
 - components: users: autogenerate username from full name

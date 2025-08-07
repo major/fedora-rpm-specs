@@ -23,6 +23,10 @@ License:        BSD-3-Clause
 URL:            https://dipy.org/
 Source:         %forgesource
 
+# Fix build with Cython >= 3.1
+# Backported from upstream: https://github.com/dipy/dipy/pull/3549
+Patch: fix-cython-3.1-build.patch
+
 BuildRequires:      python3-devel
 BuildRequires:      gcc-c++
 %if %{with tests}

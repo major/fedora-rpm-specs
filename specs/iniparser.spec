@@ -1,6 +1,6 @@
 Name:          iniparser
 Version:       4.2.6
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       C library for parsing "INI-style" files
 
 License:       MIT
@@ -24,13 +24,6 @@ Requires:      %{name} = %{version}-%{release}
 This package contains the header files, static libraries and development
 documentation for %{name}. If you like to develop programs using %{name},
 you will need to install %{name}-devel.
-
-%package static
-Summary:       C library for parsing "INI-style" files - static library
-Requires:      %{name}-devel = %{version}-%{release}
-
-%description static
-Static library (.a) version of libiniparser.
 
 %prep
 %autosetup -n %{name}-v%{version}
@@ -59,15 +52,16 @@ rm -rf %{buildroot}%{_docdir}/%{name}/examples
 %{_libdir}/libiniparser.so.*
 
 %files devel
+%{_libdir}/libiniparser.a
 %{_libdir}/libiniparser.so
 %{_includedir}/%{name}
 %{_libdir}/cmake/%{name}
 %{_libdir}/pkgconfig/%{name}.pc
 
-%files static
-%{_libdir}/libiniparser.a
-
 %changelog
+* Tue Aug 05 2025 David Cantrell <dcantrell@redhat.com> - 4.2.6-3
+- Merge the 'static' package in to the 'devel' package (#2375287)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

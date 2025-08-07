@@ -9,7 +9,7 @@
 Name:    plasma-discover
 Summary: KDE and Plasma resources management GUI
 Version: 6.4.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://invent.kde.org/plasma/discover
@@ -21,6 +21,8 @@ Source1: https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{base_name}-%
 Source10: discoverrc
 
 ## upstream patches
+# https://invent.kde.org/plasma/discover/-/merge_requests/1131
+Patch100: 0001-discover-Move-flatpak-https-support-to-flatpak-deskt.patch
 
 ## downstream patches
 # Adjust periodic refresh from 1/24hr to 1/12hr
@@ -292,7 +294,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.discover.desk
 %{_datadir}/libdiscover/categories/packagekit-backend-categories.xml
 
 %files flatpak
-%{_datadir}/applications/org.kde.discover-flatpak.desktop
+%{_datadir}/applications/org.kde.discover.flatpak.desktop
 %{_kf6_metainfodir}/org.kde.discover.flatpak.appdata.xml
 %{_kf6_qtplugindir}/discover-notifier/FlatpakNotifier.so
 %{_kf6_qtplugindir}/discover/flatpak-backend.so
@@ -325,6 +327,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.discover.desk
 %{_kf6_qtplugindir}/discover/kns-backend.so
 
 %changelog
+* Fri Aug 01 2025 Timothée Ravier <tim@siosm.fr> - 6.4.3-3
+- Fix flatpak+https support
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

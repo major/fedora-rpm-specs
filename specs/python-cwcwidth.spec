@@ -1,14 +1,13 @@
 Summary:        Python bindings for wc(s)width
 Name:           python-cwcwidth
 Version:        0.1.10
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        MIT
 URL:            https://github.com/sebastinas/cwcwidth
 Source0:        %{pypi_source cwcwidth}
 BuildRequires:  gcc
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(cython) >= 0.28
-BuildRequires:  python3dist(setuptools)
 %global _description \
 Python bindings for wc(s)widthcwcwidth provides Python bindings for \
 wcwidth and wcswidth functions defined in POSIX.1-2001 and \
@@ -18,29 +17,33 @@ length of a unicode character/string on a terminal.
 
 %package     -n python3-cwcwidth
 Summary:        %{summary}
-%{?fc32:%py_provides python3-cwcwidth}
 %description -n python3-cwcwidth %_description
 
 %prep
 %autosetup -n cwcwidth-%{version}
-rm -rf cwcwidth.egg-info
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l cwcwidth
 
 %check
+%pyproject_check_import
+
 (cd tests ; PYTHONPATH=%{buildroot}%{python3_sitearch} %{__python3} -m unittest -v)
 
-%files -n python3-cwcwidth
-%license LICENSE
+%files -n python3-cwcwidth -f %{pyproject_files}
 %doc README.md
-%{python3_sitearch}/cwcwidth
-%{python3_sitearch}/cwcwidth-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Tue Aug 05 2025 Terje Rosten <terjeros@gmail.com> - 0.1.10-4
+- Use modern macros
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.10-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

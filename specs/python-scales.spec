@@ -17,7 +17,6 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-six
 BuildRequires:  python3-simplejson
 BuildRequires:  python3-pytest
-BuildRequires:  python3-setuptools
 
 %global _description\
 Tracks server state and statistics, allowing you to see what your server is\
@@ -44,21 +43,22 @@ sed -i "s/self.assertEquals/self.assertEqual/g" \
     src/greplin/scales/aggregation_test.py \
     src/greplin/scales/formats_test.py
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%{__python3} setup.py build
+%pyproject_wheel
 
 
 %install
-%{__python3} setup.py install --skip-build --root %{buildroot}
-
+%pyproject_install
+%pyproject_save_files -l greplin
 
 %check
 %pytest
 
 
-%files -n python3-scales
-%{python3_sitelib}/greplin/
-%{python3_sitelib}/scales*.egg-info
+%files -n python3-scales -f %{pyproject_files}
 %{python3_sitelib}/scales*.pth
 %doc AUTHORS LICENSE README.md
 

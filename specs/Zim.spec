@@ -11,12 +11,13 @@ URL:            http://zim-wiki.org/
 Source0:        http://www.zim-wiki.org/downloads/zim-%{version}.tar.gz
 # Crashes the test run, and is also disabled for Mac OS in upstream repo
 Patch:          0000-Disable-TestPlugins-test.patch
+# Install icons even when building Python wheels
+Patch:          https://github.com/zim-desktop-wiki/zim-desktop-wiki/pull/2859.patch
 BuildArch:      noarch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  python3-devel
 BuildRequires:  python3-gobject
-BuildRequires:  python3-setuptools
 BuildRequires:  gtk3, python3-pyxdg
 # for tests
 BuildRequires:  /usr/bin/xvfb-run
@@ -34,26 +35,29 @@ automatically. Creating a new page is as easy as linking to a non-existing
 page. Pages are ordered in a hierarchical structure that gives it the look
 and feel of an outliner. This tool is intended to keep track of TODO lists
 or to serve as a personal scratch book.
-fkini
+
 %prep
 %autosetup -p1 -n zim-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-./setup.py build
+%pyproject_wheel
 
 %install
-rm -rf %{buildroot}
-./setup.py install --root=%{buildroot} --skip-build
+%pyproject_install
+%pyproject_save_files -l zim
 
 %find_lang zim
+cat zim.lang >> %{pyproject_files}
 
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.zim_wiki.Zim.desktop
 
 %check
 LANG=en_US.UTF-8 xvfb-run ./test.py
 
-%files -f zim.lang
-%license LICENSE
+%files -f %{pyproject_files}
 %doc *.md contrib/
 %{_mandir}/man[13]/*.[13]*
 %{_bindir}/*
@@ -64,8 +68,6 @@ LANG=en_US.UTF-8 xvfb-run ./test.py
 %{_datadir}/icons/hicolor/*/mimetypes/*
 # No package in Fedora provides such directories
 %{_datadir}/icons/ubuntu-mono-*/
-%{python3_sitelib}/zim-*.egg-info
-%{python3_sitelib}/zim/
 %{_datadir}/metainfo/*
 
 %changelog

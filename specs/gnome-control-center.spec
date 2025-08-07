@@ -8,7 +8,7 @@
 %global upower_version 1.90.6
 %global gtk4_version 4.15.2
 %global gnome_bluetooth_version 42~alpha
-%global libadwaita_version 1.7~alpha
+%global libadwaita_version 1.8~alpha
 %global nm_version 1.52.0
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
@@ -17,7 +17,7 @@
 %bcond malcontent %[!0%{?rhel}]
 
 Name:           gnome-control-center
-Version:        49~alpha
+Version:        49~beta
 Release:        %autorelease
 Summary:        Utilities to configure the GNOME desktop
 
@@ -208,7 +208,7 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/gnome/cursor-fonts
 %{_datadir}/icons/gnome-logo-text*.svg
 %{_datadir}/icons/hicolor/*/*/*
 %{_mandir}/man1/gnome-control-center.1*
-%{_metainfodir}/org.gnome.Settings.appdata.xml
+%{_metainfodir}/org.gnome.Settings.metainfo.xml
 %{_datadir}/pixmaps/faces
 %{_datadir}/pkgconfig/gnome-keybindings.pc
 %{_datadir}/polkit-1/actions/org.gnome.controlcenter.*.policy

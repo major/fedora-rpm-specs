@@ -7,7 +7,7 @@
 
 Name:           epiphany
 Epoch:          1
-Version:        49~alpha
+Version:        49~beta
 Release:        %autorelease
 Summary:        Web browser for GNOME
 
@@ -17,7 +17,6 @@ Source0:        https://download.gnome.org/sources/epiphany/49/%{name}-%{tarball
 
 # Fedora bookmarks
 Patch0:         epiphany-default-bookmarks.patch
-Patch1:         epiphany-49.alpha-build.patch
 
 BuildRequires:  /usr/bin/rst2man
 BuildRequires:  blueprint-compiler
@@ -87,12 +86,12 @@ installing the epiphany application itself.
 
 %check
 desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.gnome.Epiphany.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.gnome.Epiphany.metainfo.xml
 
 %files -f %{name}.lang
 %{_datadir}/applications/org.gnome.Epiphany.desktop
 %{_datadir}/dbus-1/services/org.gnome.Epiphany.SearchProvider.service
-%{_metainfodir}/org.gnome.Epiphany.appdata.xml
+%{_metainfodir}/org.gnome.Epiphany.metainfo.xml
 %dir %{_datadir}/gnome-shell/
 %dir %{_datadir}/gnome-shell/search-providers/
 %{_datadir}/gnome-shell/search-providers/org.gnome.Epiphany.SearchProvider.ini

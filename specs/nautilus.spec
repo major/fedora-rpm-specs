@@ -6,7 +6,7 @@
 %global libadwaita_version 1.6~beta
 
 Name:           nautilus
-Version:        49~alpha
+Version:        49~beta
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 %global major_version %%(cut -d "." -f 1 <<<%{tarball_version})
@@ -136,7 +136,7 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 %files extensions
 %license libnautilus-extension/LICENSE
 %{_libdir}/libnautilus-extension.so.4*
-%{_libdir}/girepository-1.0/Nautilus-4.0.typelib
+%{_libdir}/girepository-1.0/Nautilus-4.1.typelib
 %dir %{_libdir}/nautilus
 %dir %{_libdir}/nautilus/extensions-4
 
@@ -144,7 +144,7 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 %{_includedir}/nautilus
 %{_libdir}/pkgconfig/libnautilus-extension-4.pc
 %{_libdir}/libnautilus-extension.so
-%{_datadir}/gir-1.0/Nautilus-4.0.gir
+%{_datadir}/gir-1.0/Nautilus-4.1.gir
 %doc %{_datadir}/doc/nautilus/
 
 %changelog

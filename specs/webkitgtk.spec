@@ -60,6 +60,9 @@ Source2:        webkitgtk-keys.gpg
 # https://github.com/WebKit/WebKit/pull/48770
 Patch:          gtk3-build.patch
 
+# https://bugs.webkit.org/show_bug.cgi?id=296888
+Patch:          system-malloc-build.patch
+
 BuildRequires:  bison
 BuildRequires:  bubblewrap
 BuildRequires:  clang

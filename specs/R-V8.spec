@@ -1,5 +1,5 @@
 %global packname V8
-%global packver  6.0.3
+%global packver  6.0.5
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
@@ -61,8 +61,8 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 %check
 export LANG=C.UTF-8
-# Some check in a manpage fails
-#%{_bindir}/R CMD check %{packname} --ignore-vignettes
+export R_LIBS_USER=%{buildroot}%{rlibdir}
+%{_bindir}/R CMD check %{packname} --ignore-vignettes --no-manual --no-install
 
 
 %files

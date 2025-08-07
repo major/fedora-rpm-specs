@@ -3,7 +3,7 @@
 %global version_snap %(VER='%{version}'; echo "${VER/*^/}")
 
 Name:		chirp
-Version:	%{ver}^20250718
+Version:	%{ver}^20250801
 Release:	%autorelease
 Summary:	A tool for programming two-way radio equipment
 

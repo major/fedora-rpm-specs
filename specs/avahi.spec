@@ -60,7 +60,7 @@
 
 Name:             avahi
 Version:          0.9%{?rc:~%{rc}}
-Release:          5%{?dist}
+Release:          6%{?dist}
 Summary:          Local network service discovery
 License:          LGPL-2.1-or-later AND LGPL-2.0-or-later AND BSD-2-Clause-Views AND MIT
 URL:              http://avahi.org
@@ -126,6 +126,7 @@ BuildRequires:    mono-devel
 BuildRequires:    monodoc-devel
 %endif
 BuildRequires:    systemd
+BuildRequires:    systemd-devel
 BuildRequires:    gcc
 BuildRequires:    gcc-c++
 BuildRequires:    gettext-devel
@@ -137,6 +138,10 @@ Source0:          https://github.com/avahi/avahi/releases/download/v%{version_no
 %endif
 
 ## upstream patches
+# https://github.com/avahi/avahi/pull/662
+Patch1: avahi-0.9-CVE-2024-52615.patch
+# https://github.com/avahi/avahi/pull/707
+Patch2: avahi-0.9-address-data-size.patch
 
 ## downstream patches
 Patch100: avahi-0.6.30-mono-libdir.patch
@@ -844,6 +849,11 @@ fi
 
 
 %changelog
+* Tue Aug 05 2025 Petr Menšík <pemensik@redhat.com> - 0.9~rc2-6
+- Fix port randomization for wide area queries (CVE-2024-52615)
+- Add systemd-devel dependency
+- Fix test crashing because FORTIFY_SOURCE protection
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9~rc2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

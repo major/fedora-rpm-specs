@@ -2,8 +2,8 @@
 
 Summary:        Python helpers for common CLI tasks
 Name:           python-cli-helpers
-Version:        2.4.0
-Release:        3%{?dist}
+Version:        2.7.0
+Release:        1%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
 URL:            https://github.com/dbcli/cli_helpers
@@ -12,7 +12,6 @@ BuildArch:      noarch
 BuildRequires:  python3-configobj
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-tabulate
 BuildRequires:  python3-terminaltables
 BuildRequires:  python3-wcwidth
@@ -24,7 +23,6 @@ command-line interfaces.
 
 %package -n     python3-cli-helpers
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-cli-helpers}
 Requires:       python3-configobj >= 5.0.5
 Requires:       python3-pygments >= 1.6
 Requires:       python3-tabulate >= 0.8.2
@@ -32,28 +30,34 @@ Requires:       python3-terminaltables >= 3.0.0
 Requires:       python3-wcwidth
 %description -n python3-cli-helpers %_description
 
-%{?python_extras_subpkg:%python_extras_subpkg -n python3-cli-helpers -i %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info styles}
+%pyproject_extras_subpkg -n python3-cli-helpers styles
 
 %prep
 %autosetup -n %{pypi_name}-%{version}
-rm -rf %{pypi_name}.egg-info
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{pypi_name}
 
 %check
+%pyproject_check_import
+
 PYTHONPATH=build/lib/ py.test-3
 
-%files -n python3-cli-helpers
-%license LICENSE
+%files -n python3-cli-helpers -f %{pyproject_files}
 %doc AUTHORS CHANGELOG README.rst
-%{python3_sitelib}/%{pypi_name}
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Tue Aug 05 2025 Terje Rosten <terjeros@gmail.com> - 2.7.0-1
+- 2.7.0
+- Convert to new set of macros
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

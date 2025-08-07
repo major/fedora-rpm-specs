@@ -48,6 +48,13 @@ If pkg-config is not on the path, raises EnvironmentError.
 
 %prep
 %autosetup -n %{srcname}-%{version}
+%if 0%{?rhel}
+# RHEL does not have poetry-core.
+# By renaming the [build-system] section we fallback to setuptools (default per PEP 517).
+# This only works because there is also a setup.py file in the sdist.
+test -f setup.py
+sed -i 's/\[build-system\]/[ignore-this]/' pyproject.toml
+%endif
 
 %build
 %pyproject_wheel

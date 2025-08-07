@@ -26,6 +26,7 @@ Summary: %{summary}
 
 %check -a
 # FIXME test_get_abi_strategy_returns_certain_strategies_for_known_type_strings
+# fails because of PEP 515 enforcement in Hypothesis 6.108.7 or later.
 PYTHONPATH=$(pwd) %pytest -k 'not test_install_local_wheel and not test_get_abi_strategy_returns_certain_strategies_for_known_type_strings'
 
 %files -n python3-eth-abi -f %{pyproject_files}

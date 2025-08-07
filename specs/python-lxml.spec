@@ -16,6 +16,10 @@ URL:            https://github.com/lxml/lxml
 Source0:        lxml-%{version}-no-isoschematron-rng.tar.gz
 Source1:        get-lxml-source.sh
 
+# Fix for test_wrap_html
+# https://bugs.launchpad.net/lxml/+bug/2119510
+Patch:          https://github.com/lxml/lxml/pull/473.patch
+
 BuildRequires:  gcc
 BuildRequires:  libxml2-devel
 BuildRequires:  libxslt-devel

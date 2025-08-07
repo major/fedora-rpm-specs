@@ -17,7 +17,8 @@ Source:         %{crates_source}
 # * bump git2 dependency from 0.18 to 0.19
 # * relax bat dependency from 0.24.0 to >=0.24.0,<=0.25.0
 # * relax unicode-width dependency from =0.1.12 to 0.1.14
-# * relax rstest dev-dependency from ^0.21.0 to >=0.18.2,<0.24
+# * bump rstest dev-dependency from 0.21.0 to 0.26.0:
+#   https://github.com/dandavison/delta/pull/1970#issuecomment-3153268557
 # * relax console dependency from 0.15.0 to >=0.15.0,<0.17.0
 Patch:          git-delta-fix-metadata.diff
 

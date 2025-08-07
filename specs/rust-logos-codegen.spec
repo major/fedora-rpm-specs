@@ -13,7 +13,7 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/logos-codegen
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * Allow rstest 0.23 (https://github.com/maciejhirsz/logos/pull/438)
+# * Update rstest to 0.26: https://github.com/maciejhirsz/logos/pull/493
 Patch:          logos-codegen-fix-metadata.diff
 # * Fix issue with s390x test failure
 # * https://github.com/maciejhirsz/logos/pull/431

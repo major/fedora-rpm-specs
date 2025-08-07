@@ -15,7 +15,8 @@ Source:         %{crates_source}
 Source1:        coreutils-ls-commands.sh
 # Manually created patch for downstream crate metadata changes
 # * drop uudoc, unneeded
-# * allow up to rstest 0.23
+# * update rstest to 0.26:
+#   https://github.com/uutils/coreutils/commit/001a91fbe6adea29a566326df3fcda30f89e97ab
 # * enable feat_acl
 # * TODO: enable unix
 # * allow procfs 0.17

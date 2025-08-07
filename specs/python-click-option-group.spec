@@ -1,11 +1,11 @@
 Name:           python-click-option-group
-Version:        0.5.6
+Version:        0.5.7
 Release:        %autorelease
 Summary:        Option groups missing in Click 
 
 License:        BSD-3-Clause
 URL:            https://github.com/click-contrib/click-option-group
-Source:         %{pypi_source click-option-group}
+Source:         %{pypi_source click_option_group}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -22,11 +22,11 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n click-option-group-%{version}
+%autosetup -n click_option_group-%{version}
 
 
 %generate_buildrequires
-%pyproject_buildrequires -x tests
+%pyproject_buildrequires -x test
 
 
 %build

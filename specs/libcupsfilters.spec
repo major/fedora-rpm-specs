@@ -5,7 +5,7 @@
 Name: libcupsfilters
 Epoch: 1
 Version: 2.1.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Library for developing printing filters
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
@@ -16,6 +16,8 @@ Source0: %{URL}/releases/download/%{version}/%{name}-%{version}.tar.gz
 
 
 # Patches
+# https://github.com/OpenPrinting/libcupsfilters/pull/96
+Patch001: 0001-configure.ac-Make-CJK-fonts-name-configurable.patch
 
 
 # for generating configure and Makefile scripts in autogen.h
@@ -117,7 +119,8 @@ Development files for OpenPrinting cupsfilters library.
  --disable-rpath\
  --disable-silent-rules\
  --disable-static\
- --enable-dbus
+ --enable-dbus\
+ --with-cjk-fonts=droidsansfallback
 
 # fix rpmlint error about linking to libraries, but not actually using their functions
 # it happens when the required libraries uses pkgconfig - pkgconfig file doesn't know
@@ -193,6 +196,9 @@ rm -f %{buildroot}%{_pkgdocdir}/{LICENSE,COPYING,NOTICE}
 
 
 %changelog
+* Tue Aug 05 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.1.1-4
+- use Droid Sans Fallback fonts for CJK fonts
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.1.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

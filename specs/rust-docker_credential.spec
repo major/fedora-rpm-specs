@@ -12,6 +12,10 @@ Summary:        Reads a user's docker credentials from config
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/docker_credential
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * Update rstest to 0.26.1, the current version:
+#   https://github.com/keirlawson/docker_credential/pull/20
+Patch:          docker_credential-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
