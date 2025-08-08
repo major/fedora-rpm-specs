@@ -1,13 +1,13 @@
 Name: libnl3
 Version: 3.11.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Convenience library for kernel netlink sockets
 License: LGPL-2.1-only
 URL: http://www.infradead.org/~tgr/libnl/
 
 %global version_path libnl%(echo %{version} | tr . _)
 
-%if 0%{?rhel} > 8
+%if 0%{?rhel} > 8 || 0%{?fedora} > 42
 # Disable python3 build by default
 %bcond_with python3
 %else
@@ -87,8 +87,8 @@ make %{?_smp_mflags}
 %if %{with python3}
 pushd ./python/
 # build twice, otherwise capi.py is not copied to the build directory.
-CFLAGS="$RPM_OPT_FLAGS" %py3_build
-CFLAGS="$RPM_OPT_FLAGS" %py3_build
+CFLAGS="$RPM_OPT_FLAGS" %pyproject_wheel
+CFLAGS="$RPM_OPT_FLAGS" %pyproject_wheel
 popd
 %endif
 
@@ -99,7 +99,7 @@ find $RPM_BUILD_ROOT -name \*.la -delete
 
 %if %{with python3}
 pushd ./python/
-%py3_install
+%pyproject_install
 popd
 %endif
 
@@ -149,10 +149,14 @@ popd
 %if %{with python3}
 %files -n python3-libnl3
 %{python3_sitearch}/netlink
-%{python3_sitearch}/netlink-*.egg-info
+%{python3_sitearch}/netlink-*.dist-info
 %endif
 
 %changelog
+* Wed Aug  6 2025 Thomas Haller <thaller@redhat.com> - 3.11.0-6
+- Update python macros in spec file (rh#2377311)
+- Disable python subpackages for Fedora 43+
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.11.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

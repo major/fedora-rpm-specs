@@ -1,4 +1,5 @@
 %global giturl  https://github.com/stp/stp
+%global _cmake_generator "Unix Makefiles"
 
 Name:		stp
 Version:	2.3.4

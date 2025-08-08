@@ -2,7 +2,7 @@
 
 Name:           xiphos
 Version:        4.3.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Bible study and research tool
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -94,6 +94,9 @@ rm -frv %{buildroot}%{_docdir}/%{name}
 %{_mandir}/man1/%{name}-nav.1.gz
 
 %changelog
+* Wed Aug 06 2025 František Zatloukal <fzatlouk@redhat.com> - 4.3.2-4
+- Rebuilt for icu 77.1
+
 * Sat Aug 2 2025 Aaron Rainbolt <arraybolt3@fedoraproject.org> - 4.3.2-3
 - Switch to webkitgtk4.1 since webkitgtk4.0 has been retired (rhbz#2385989)
 

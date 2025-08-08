@@ -1,6 +1,15 @@
+# Qt-Color-Widgets and kdsingleapplication are linked statically within
+# flameshot, the standard upstream build systemd does this via a git clone
+# as part of the build process
+%global qtcolor_commit 352bc8f99bf2174d5724ee70623427aa31ddc26a
+%global qtcolor_url https://gitlab.com/mattbas/Qt-Color-Widgets
+
+%global kdsingle_url https://github.com/KDAB/KDSingleApplication
+%global kdsingle_ver 1.2.0
+
 Name: flameshot
-Version: 12.1.0
-Release: 9%{?dist}
+Version: 13.0.0
+Release: 2%{?dist}
 
 # Main code: GPL-3.0-or-later
 # Logo: LAL-1.3
@@ -13,17 +22,20 @@ License: GPL-3.0-or-later AND Apache-2.0 AND GPL-2.0-only AND LGPL-3.0-or-later 
 Summary: Powerful and simple to use screenshot software
 URL: https://github.com/flameshot-org/%{name}
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source1: %{qtcolor_url}/-/archive/%{qtcolor_commit}/Qt-Color-Widgets-%{qtcolor_commit}.tar.gz
+Source2: %{kdsingle_url}/releases/download/v%{kdsingle_ver}/kdsingleapplication-%{kdsingle_ver}.tar.gz
 
-BuildRequires: cmake(KF5GuiAddons) >= 5.89.0
-BuildRequires: cmake(Qt5Concurrent)
-BuildRequires: cmake(Qt5Core)
-BuildRequires: cmake(Qt5DBus)
-BuildRequires: cmake(Qt5Gui)
-BuildRequires: cmake(Qt5LinguistTools)
-BuildRequires: cmake(Qt5Multimedia)
-BuildRequires: cmake(Qt5Network)
-BuildRequires: cmake(Qt5Svg)
-BuildRequires: cmake(Qt5Widgets)
+Patch0: 24332cf77a9ae19bfe0096a025bf0638e9b54835.patch
+
+BuildRequires: cmake(KF6GuiAddons)
+BuildRequires: cmake(Qt6Concurrent)
+BuildRequires: cmake(Qt6DBus)
+BuildRequires: cmake(Qt6Gui)
+BuildRequires: cmake(Qt6LinguistTools)
+BuildRequires: cmake(Qt6Multimedia)
+BuildRequires: cmake(Qt6Network)
+BuildRequires: cmake(Qt6Svg)
+BuildRequires: cmake(Qt6Widgets)
 
 BuildRequires: cmake
 BuildRequires: desktop-file-utils
@@ -32,10 +44,10 @@ BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: libappstream-glib
 BuildRequires: ninja-build
-BuildRequires: qtsingleapplication-qt5-devel
+BuildRequires: qtsingleapplication-qt6-devel
 
 Requires: hicolor-icon-theme
-Requires: qt5-qtsvg%{?_isa}
+Requires: qt6-qtsvg%{?_isa}
 
 # XDG portals are required to take screenshots on Wayland:
 # https://github.com/flameshot-org/flameshot/issues/1910
@@ -45,25 +57,37 @@ Recommends: (xdg-desktop-portal-kde%{?_isa} if plasma-workspace-wayland%{?_isa})
 Recommends: (xdg-desktop-portal-wlr%{?_isa} if wlroots%{?_isa})
 
 Provides: bundled(qt-color-widgets) = 2.2.0
+Provides: bundled(kdsingleapplication) = 1.2.0
 
 %description
 Powerful and simple to use screenshot software with built-in
 editor with advanced features.
 
 %prep
-%autosetup -p1
-rm -rf external/{QHotkey,singleapplication}
+%setup -q -n %{name}-%{version}
+mkdir -p external/{Qt-Color-Widgets,KDSingleApplication}
+tar -xf %{SOURCE1} -C external/Qt-Color-Widgets --strip-components=1
+tar -xf %{SOURCE2} -C external/KDSingleApplication --strip-components=1
+%autopatch -p1
 
 %build
 %cmake -G Ninja \
     -DCMAKE_BUILD_TYPE=Release \
     -DUSE_WAYLAND_CLIPBOARD:BOOL=ON \
-    -DUSE_EXTERNAL_SINGLEAPPLICATION:BOOL=ON \
+    -DBUILD_SHARED_LIBS:BOOL=OFF \
     -DUSE_LAUNCHER_ABSOLUTE_PATH:BOOL=OFF
 %cmake_build
 
 %install
 %cmake_install
+rm -rf %{buildroot}%{_includedir}/QtColorWidgets
+rm -rf %{buildroot}%{_libdir}/cmake/QtColorWidgets
+rm -f %{buildroot}%{_libdir}/libQtColorWidgets.*
+rm -f %{buildroot}%{_libdir}/pkgconfig/QtColorWidgets.pc
+rm -rf %{buildroot}%{_includedir}/kdsingleapplication-qt6
+rm -rf %{buildroot}%{_libdir}/cmake/KDSingleApplication-qt6
+rm -f %{buildroot}%{_libdir}/libkdsingleapplication-qt6.*
+
 %find_lang Internationalization --with-qt
 %fdupes %{buildroot}%{_datadir}/icons
 
@@ -91,6 +115,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Wed Aug 06 2025 Shawn W Dunn <sfalken@opensuse.org> - 13.0.0-2
+- Added missed buildflag
+
+* Wed Aug 06 2025 Shawn W Dunn <sfalken@opensuse.org> - 13.0.0-1
+- Updated to version 13.0.0
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 12.1.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

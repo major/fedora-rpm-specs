@@ -57,11 +57,12 @@ Source1:        postgresql_jdbc_tests_init.sh
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
+Patch:          0001-Port-to-junit-5.13.patch
+
 Provides:       pgjdbc = %{version}-%{release}
 
-BuildRequires:  maven-local-openjdk21
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(com.ongres.scram:scram-client)
-BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-dependency-plugin)
 BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-api)
 BuildRequires:  mvn(se.jiderhamn:classloader-leak-test-framework)
@@ -93,6 +94,9 @@ This package contains tests for %{name}.
 
 # remove any binary libs
 find -type f \( -name "*.jar" -or -name "*.class" \) -delete
+
+%pom_remove_dep junit:junit
+%pom_remove_dep org.junit.vintage:junit-vintage-engine
 
 # Build parent POMs in the same Maven call.
 %pom_remove_plugin :maven-shade-plugin

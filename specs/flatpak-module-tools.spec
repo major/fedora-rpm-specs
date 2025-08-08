@@ -1,8 +1,8 @@
 %global srcname flatpak_module_tools
-%global project_version 1.1.2
+%global project_version 1.2.0
 
 Name:		flatpak-module-tools
-Version:	1.1.2
+Version:	1.2.0
 Release:	%autorelease
 Summary:	Tools for maintaining Flatpak applications and runtimes as Fedora modules
 

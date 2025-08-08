@@ -24,8 +24,8 @@
 
 
 Name:          mathgl
-Version:       8.0.1
-Release:       22%{?dist}
+Version:       8.0.3
+Release:       1%{?dist}
 Summary:       Cross-platform library for making high-quality scientific graphics
 Summary(de):   Plattformübergreifende Bibliothek für hochwertige wissenschaftliche Graphiken
 Summary(ru):   Библиотека для осуществления высококачественной визуализации данных
@@ -49,8 +49,9 @@ Patch3:        mathgl-nooctaveinstall.patch
 # There is no easy way to disable ONLY octave. Have to cut it from CmakeList.txt
 Patch4:        mathgl-2.4.1-nooctave.patch
 
-# Add python3 support
-Patch5:        mathgl-lang.patch
+# Fix python install location
+# https://sourceforge.net/p/mathgl/discussion/508395/thread/a130201517/
+Patch5:        mathgl-sitearch.patch
 
 # Fix convertions
 Patch6:        mathgl-2.4.1-gcc7.patch
@@ -71,9 +72,6 @@ Patch10: mathgl-libharu2.4.patch
 
 # Use flexiblas instead of gslcblas
 Patch11:       mathgl-flexiblas.patch
-
-# Update to lates numpy.i
-Patch12:       mathgl-8.0.1_numpy.patch
 
 Requires:      %{name}-common = %{version}-%{release}
 
@@ -345,7 +343,7 @@ done
 %patch -P0 -p1 -b .examples
 %patch -P1 -p1 -b .fluid
 %patch -P2 -p1 -b .no-hdf4-and-hdf5-simultaneously
-%patch -P5 -p1 -b .lang
+%patch -P5 -p1 -b .sitearch
 %patch -P6 -p1 -b .gcc7
 %patch -P7 -p1 -b .no_updatedb
 %if 0%{?with_octave}
@@ -357,7 +355,6 @@ done
 %patch -P9 -p1 -b .norebuild_l10n
 %patch -P10 -p1 -b .libharu2.4
 %patch -P11 -p1 -b .flexiblas
-%patch -P12 -p1 -b .numpy
 
 # Fix hardcoded Python version
 #sed -i -e 's,3\.[0-9],%{python3_version},g' \
@@ -581,7 +578,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/mgllab.desktop
 %dir %{_datadir}/udav/
 
 %files -n python%{python3_pkgversion}-mathgl
-%{python3_sitelib}/*
+%{python3_sitearch}/*
 
 %files lua
 %{_libdir}/mgl-lua.so
@@ -634,6 +631,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/mgllab.desktop
 %endif
 
 %changelog
+* Thu Jul 31 2025 Orion Poplawski <orion@nwra.com> - 8.0.3-1
+- Update to 8.0.3
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.1-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

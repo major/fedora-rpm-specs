@@ -6,7 +6,7 @@
 %global crate libadwaita-sys
 
 Name:           rust-libadwaita-sys
-Version:        0.7.2
+Version:        0.8.0
 Release:        %autorelease
 Summary:        FFI bindings for libadwaita
 
@@ -129,7 +129,7 @@ use the "v1_6" feature of the "%{crate}" crate.
 %package     -n %{name}+v1_7-devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       pkgconfig(libadwaita-1) >= 1.7~
+Requires:       pkgconfig(libadwaita-1) >= 1.7
 
 %description -n %{name}+v1_7-devel %{_description}
 
@@ -137,6 +137,19 @@ This package contains library source intended for building other packages which
 use the "v1_7" feature of the "%{crate}" crate.
 
 %files       -n %{name}+v1_7-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+v1_8-devel
+Summary:        %{summary}
+BuildArch:      noarch
+Requires:       pkgconfig(libadwaita-1) >= 1.8~
+
+%description -n %{name}+v1_8-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "v1_8" feature of the "%{crate}" crate.
+
+%files       -n %{name}+v1_8-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

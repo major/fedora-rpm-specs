@@ -7,7 +7,7 @@
 Summary:    X Keyboard Extension configuration data
 Name:       xkeyboard-config
 Version:    2.44
-Release:    2%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+Release:    3%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 License:    HPND AND HPND-sell-variant AND X11 AND X11-distribute-modifications-variant AND MIT AND MIT-open-group AND xkeyboard-config-Zinoviev
 URL:        http://www.freedesktop.org/wiki/Software/XKeyboardConfig
 
@@ -54,30 +54,20 @@ Development files for %{name}.
 %install
 %meson_install
 
-# Remove unnecessary symlink
-rm -f $RPM_BUILD_ROOT%{_datadir}/X11/xkb/compiled
 %find_lang %{name}
 
-# Create filelist
-{
-   FILESLIST=${PWD}/files.list
-   pushd $RPM_BUILD_ROOT
-   find .%{_datadir}/X11/xkb -type d | sed -e "s/^\./%dir /g" > $FILESLIST
-   find .%{_datadir}/X11/xkb -type f | sed -e "s/^\.//g" >> $FILESLIST
-   popd
-}
-
-%files -f files.list -f %{name}.lang
+%files -f %{name}.lang
 %doc AUTHORS README.md COPYING docs/README.* docs/HOWTO.*
 %{_mandir}/man7/xkeyboard-config.*
-%{_datadir}/X11/xkb/rules/xorg
-%{_datadir}/X11/xkb/rules/xorg.lst
-%{_datadir}/X11/xkb/rules/xorg.xml
+%{_datadir}/X11/xkb/
 
 %files devel
 %{_datadir}/pkgconfig/xkeyboard-config.pc
 
 %changelog
+* Thu Aug 07 2025 Peter Hutterer <peter.hutterer@redhat.com> - 2.44-3
+- Remove packaging hacks, with meson now have a clean build
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.44-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,36 +1,23 @@
-%global app_defaults_dir %{_datadir}/X11/app-defaults
+%global commit ce9782a404b6a527393839369aac13dcfb66ff16
+%global commitdate 20250317
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Summary: An X Window System tool for drawing basic vector graphics
 Name: xfig
-Version: 3.2.9
-Release: 7%{?dist}
+Version: 3.2.9a
+Release: 1.%{commitdate}git%{shortcommit}%{?dist}
 License: MIT
 URL:     https://en.wikipedia.org/wiki/Xfig
-Source0: http://downloads.sourceforge.net/mcj/xfig-%{version}.tar.xz
+#Source0: http://downloads.sourceforge.net/mcj/xfig-%%{version}.tar.xz
+Source0: https://sourceforge.net/code-snapshots/git/m/mc/mcj/xfig.git/mcj-xfig-%{commit}.zip
 Source1: xfig-icons.tar.gz
-Source2: xfig.desktop
-Source3: xfig.appdata.xml
-# https://sourceforge.net/p/mcj/tickets/165/
-# https://bugzilla.redhat.com/show_bug.cgi?id=2252679
-# https://sourceforge.net/p/mcj/xfig/ci/68403622a6f6c7d74f73e38989cfc0ed86fb83fc/
-Patch0:  Sanitize-a-call-to-realloc-ticket-165.patch
-# https://sourceforge.net/p/mcj/tickets/163/
-# https://sourceforge.net/p/mcj/xfig/ci/a4a2f3f3aa29ec7fc84f9d782306b37bbe75025c/
-Patch1:  Fix-exporting-only-active-layers-ticket-163.patch
-# https://sourceforge.net/p/mcj/tickets/159/
-# https://bugzilla.redhat.com/show_bug.cgi?id=2260359
-# https://sourceforge.net/p/mcj/xfig/ci/1e2d842875502b4ce0e74ec779454304c71efe54/
-Patch2: 0001-Map-symbol-and-dingbat-glyphs-to-their-unicode-locat.patch
-# compile fix for above patch
-Patch3: xfig-3.2.9-compile-fix.patch
-#Patch0: xfig-3.2.5a-default-apps.patch
-#Patch1: xfig-3.2.5-urwfonts.patch
 
 BuildRequires: make
 BuildRequires: gcc libtool
 BuildRequires: transfig
 BuildRequires: libjpeg-devel
 BuildRequires: libpng-devel
+BuildRequires: libtiff-devel
 BuildRequires: libICE-devel
 BuildRequires: libSM-devel
 BuildRequires: libX11-devel
@@ -43,7 +30,6 @@ BuildRequires: libXpm-devel
 BuildRequires: libXt-devel
 BuildRequires: Xaw3d-devel
 BuildRequires: man2html-core ImageMagick
-BuildRequires: desktop-file-utils libappstream-glib
 # For eps preview generation
 Requires: ghostscript
 Requires: transfig
@@ -72,7 +58,7 @@ graphics.
 
 
 %prep
-%autosetup -p1 -a 1
+%autosetup -p1 -a 1 -n mcj-xfig-%{commit}
 for i in doc/html/japanese/button_frame.fig doc/html/japanese/japanese.ps \
          doc/html/animate.js; do
   sed -i.orig 's/\r//' $i; touch -r $i.orig $i; rm $i.orig
@@ -100,26 +86,26 @@ convert %{name}32x32.xpm \
 convert %{name}64x64.xpm \
   $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/64x64/apps/%{name}.png
 
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications
-desktop-file-install --dir $RPM_BUILD_ROOT%{_datadir}/applications %{SOURCE2}
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/appdata
-install -p -m 644 %{SOURCE3} $RPM_BUILD_ROOT%{_datadir}/appdata
-appstream-util validate-relax --nonet \
-  $RPM_BUILD_ROOT%{_datadir}/appdata/%{name}.appdata.xml
-
 
 %files
 %doc %{_docdir}/%{name}
 %{_bindir}/%{name}
 %{_datadir}/%{name}
 %{_mandir}/man1/%{name}.1*
-%{app_defaults_dir}/Fig
-%{_datadir}/appdata/%{name}.appdata.xml
-%{_datadir}/applications/%{name}.desktop
+%{_datadir}/X11/app-defaults/Fig
+%{_datadir}/metainfo/org.xfig.xfig.metainfo.xml
+%{_datadir}/applications/org.xfig.xfig.desktop
 %{_datadir}/icons/hicolor/??x??/apps/%{name}.png
 
 
 %changelog
+* Wed Aug 6 2025 Hans de Goede <hans@hansg.org> - 3.2.9a-1.20250317gitce9782a
+- Update to 3.2.9a + latest git changes to fix build with -std=c11
+- Switch to upstream appdata/metainfo and desktop file
+- Drop all patches (all upstreamed)
+- Resolves: rhbz#2341567
+- Resolves: rhbz#2385740
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.9-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

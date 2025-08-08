@@ -1,7 +1,7 @@
 %global srcname fido2
 
 Name:           python-%{srcname}
-Version:        1.2.0
+Version:        2.0.0
 Release:        %autorelease
 Summary:        Functionality for FIDO 2.0, including USB device communication
 
@@ -12,8 +12,6 @@ Summary:        Functionality for FIDO 2.0, including USB device communication
 License:        LicenseRef-Callaway-BSD AND Apache-2.0 AND MPL-2.0
 URL:            https://github.com/Yubico/python-fido2
 Source0:        https://github.com/Yubico/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
-# Fix build with cryptography 45+
-Patch0:         0001-cryptography-dep.patch
 
 BuildArch:      noarch
 

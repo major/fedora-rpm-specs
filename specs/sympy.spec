@@ -1,10 +1,3 @@
-# We used to build with Theano support.  However, we no longer have a compatible
-# version of Theano in Fedora.  If aesara is ever packaged for Fedora, we can
-# use it instead.
-
-# We are archful (see below), but there are no ELF objects in the binary RPM.
-%global debug_package %{nil}
-
 %global giturl  https://github.com/sympy/sympy
 %global commit  fe935ceb303891d1f8bea4c03b19fd9ec9464b02
 
@@ -22,34 +15,36 @@ Source0:        %{giturl}/archive/%{name}-%{version}.tar.gz
 # For intersphinx
 Source1:        https://matplotlib.org/stable/objects.inv#/objects-matplotlib.inv
 Source2:        https://docs.scipy.org/doc/scipy/objects.inv#/objects-scipy.inv
-Source3:        https://numpy.org/doc/stable/objects.inv#/objects-numpy.inv
 # Do not depend on intersphinx_registry, which is not available in Fedora
 Patch:          %{name}-intersphinx.patch
 
-# This package used to be noarch, and should still be noarch.  However, because
-# there is no JDK available on i686 anymore, the antlr4 package is also not
-# available on i686.  When we can stop building on i686 altogether, we can bring
-# this back.  In the meantime, we cannot claim to be noarch, because the i686
-# build is different from the other arches in lacking BuildRequires: antlr4.
-# BuildArch:      noarch
+# We have to build on an architecture that:
+# - Supports Java (for antlr4), which excludes 32-bit x86
+# - Has lfortran, which includes x86_64 only
+# - Has a version of llvmlite that doesn't crash, which excludes ppc64le,
+#   s390x, and riscv64
+# So even though this package is noarch, it can only be built on x86_64
+ExclusiveArch:  %{x86_64}
+BuildArch:      noarch
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): -x dev
+BuildOption(install): -l isympy sympy
 
-%ifarch %{java_arches}
 BuildRequires:  antlr4
-BuildRequires:  %{py3_dist antlr4-python3-runtime}
-%endif
-
 BuildRequires:  fdupes
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  gcc-gfortran
-BuildRequires:  python3-devel
 BuildRequires:  python3-clang
+BuildRequires:  python3-devel
+BuildRequires:  python3-numpy-doc
+BuildRequires:  python3-numpy-f2py
+BuildRequires:  %{py3_dist antlr4-python3-runtime}
 BuildRequires:  %{py3_dist cython}
 BuildRequires:  %{py3_dist gmpy2}
 BuildRequires:  %{py3_dist matplotlib}
 BuildRequires:  %{py3_dist numexpr}
 BuildRequires:  %{py3_dist pycosat}
-BuildRequires:  python3-numpy-f2py
 BuildRequires:  %{py3_dist scipy}
 
 # Documentation
@@ -72,17 +67,12 @@ BuildRequires:  tex(latex)
 BuildRequires:  tex-dvipng
 
 # Tests
-%ifarch x86_64
 BuildRequires:  lfortran
-%endif
 BuildRequires:  %{py3_dist autowrap}
 BuildRequires:  %{py3_dist cloudpickle}
 BuildRequires:  %{py3_dist ipython}
 BuildRequires:  %{py3_dist lark}
-# FIXME: Crashes in llvmlite on ppc64le, s390x and riscv64
-%ifnarch ppc64le s390x riscv64
 BuildRequires:  %{py3_dist llvmlite}
-%endif
 BuildRequires:  %{py3_dist lxml}
 BuildRequires:  %{py3_dist pytest-split}
 BuildRequires:  %{py3_dist pytest-xdist}
@@ -105,9 +95,7 @@ Recommends:     tex(amsmath.sty)
 Recommends:     tex(euler.sty)
 Recommends:     tex(eulervm.sty)
 Recommends:     tex(standalone.cls)
-%ifarch %{java_arches}
 Recommends:     %{py3_dist antlr4-python3-runtime}
-%endif
 Recommends:     %{py3_dist cython}
 Recommends:     %{py3_dist gmpy2}
 Recommends:     %{py3_dist matplotlib}
@@ -181,7 +169,7 @@ done
 # Use local objects.inv for intersphinx
 sed -e "s|\('https://matplotlib\.org/stable/', \)None|\1'%{SOURCE1}'|" \
     -e "s|\(.https://docs\.scipy\.org/doc/scipy/., \)None|\1'%{SOURCE2}'|" \
-    -e "s|\(.https://numpy\.org/doc/stable/., \)None|\1'%{SOURCE3}'|" \
+    -e "s|\(.https://numpy\.org/doc/stable/., \)None|\1'%{_docdir}/python3-numpy-doc/objects.inv'|" \
     -i doc/src/conf.py
 
 # Help sphinx find the git commit
@@ -191,28 +179,18 @@ echo -n '%{commit}' > doc/commit_hash.txt
 sed -i s'/4\.11/4.13/g' sympy/parsing/autolev/_parse_autolev_antlr.py \
     sympy/parsing/latex/_parse_latex_antlr.py
 
-%generate_buildrequires
-%pyproject_buildrequires -x dev
-
-%build
-%ifarch %{java_arches}
+%build -p
 # Regenerate the ANTLR files
 %{python3} setup.py antlr
-%endif
 
-# Build
-%pyproject_wheel
-
+%build -a
 # Build the documentation
 pushd doc
 make html SPHINXOPTS=%{?_smp_mflags} PYTHON=%{python3}
 make cheatsheet
 popd
 
-%install
-%pyproject_install
-%pyproject_save_files -l isympy sympy
-
+%install -a
 ## Remove extra files
 rm -f %{buildroot}%{_bindir}/{,doc}test
 

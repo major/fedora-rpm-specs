@@ -1,8 +1,8 @@
 %bcond tests 1
 
 Name:           python-click
-Version:        8.1.7
-Release:        9%{?dist}
+Version:        8.2.2
+Release:        1%{?dist}
 Summary:        Simple wrapper around optparse for powerful command line utilities
 
 License:        BSD-3-Clause
@@ -32,7 +32,7 @@ Summary:        %{summary}
 
 
 %generate_buildrequires
-%pyproject_buildrequires %{?with_tests:requirements/tests.in}
+%pyproject_buildrequires %{?with_tests:-g tests}
 
 
 %build
@@ -52,11 +52,15 @@ Summary:        %{summary}
 
 
 %files -n python%{python3_pkgversion}-click -f %pyproject_files
-%license LICENSE.rst
-%doc README.rst CHANGES.rst
+%license LICENSE.txt
+%doc README.md CHANGES.rst
 
 
 %changelog
+* Tue Aug 05 2025 Charalampos Stratakis <cstratak@redhat.com> - 8.2.2-1
+- Update to 8.2.2
+Resolves: rhbz#2365473
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.1.7-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
@@ -72,7 +76,7 @@ Summary:        %{summary}
 * Fri Jun 07 2024 Python Maint <python-maint@redhat.com> - 8.1.7-5
 - Rebuilt for Python 3.13
 
-* Wed Jan 31 2023 Maxwell G <maxwell@gtmx.me> - 8.1.7-4
+* Wed Jan 31 2024 Maxwell G <maxwell@gtmx.me> - 8.1.7-4
 - Add test bcond to make click easier to bootstrap
 - Use pytest directly instead of pulling in tox
 

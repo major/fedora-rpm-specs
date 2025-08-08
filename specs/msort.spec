@@ -1,7 +1,7 @@
 Summary:       Sort files in sophisticated ways
 Name:          msort
 Version:       8.53
-Release:       58%{?dist}
+Release:       59%{?dist}
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:       GPL-3.0-only
 URL:           http://billposer.org/Software/msort.html
@@ -58,6 +58,9 @@ rm hybrid-ips.txt
 %{_mandir}/man1/msort.1*
 
 %changelog
+* Wed Aug 06 2025 František Zatloukal <fzatlouk@redhat.com> - 8.53-59
+- Rebuilt for icu 77.1
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.53-58
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -18,7 +18,7 @@
 Summary:       The BOINC client
 Name:          boinc-client
 Version:       8.0.2
-Release:       3%{?dist}
+Release:       4%{?dist}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:       LicenseRef-Callaway-LGPLv2+
 URL:           http://boinc.berkeley.edu/
@@ -59,7 +59,9 @@ Requires:         logrotate
 Requires(post):   systemd
 Requires(preun):  systemd
 Requires(postun): systemd
+%if ! (0%{?fedora} >= 42 || 0%{?rhel} >= 10)
 Requires(pre):    shadow-utils
+%endif
 
 BuildRequires: curl-devel
 %if 0%{?el7}
@@ -175,6 +177,11 @@ for file in $(ls clientgui | grep .cpp$ ) $(ls clientgui | grep .h$ ); do
     chmod 644 clientgui/${file}
 done
 
+# Create a sysusers.d config file
+cat >boinc-client.sysusers.conf <<EOF
+u boinc - 'BOINC client account.' %{_localstatedir}/lib/boinc -
+EOF
+
 %build
 %if 0%{?el7}
 . /opt/rh/devtoolset-7/enable
@@ -261,14 +268,16 @@ install -p -m644 %{SOURCE5} $RPM_BUILD_ROOT%{_metainfodir}/edu.berkeley.BOINC.me
 # bash-completion
 install -p -m644 client/scripts/boinc.bash $RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d/boinc-client
 
-%pre
+install -m0644 -D boinc-client.sysusers.conf %{buildroot}%{_sysusersdir}/boinc-client.conf
 
+%if ! (0%{?fedora} >= 42 || 0%{?rhel} >= 10)
 # Create BOINC user and group
 getent group boinc >/dev/null || groupadd -r boinc
 getent passwd boinc >/dev/null || \
 useradd -r -g boinc -d %{_localstatedir}/lib/boinc -s /sbin/nologin \
     -c "BOINC client account." boinc
 exit 0
+%endif
 
 %post
 %{?ldconfig}
@@ -310,6 +319,7 @@ fi
 %attr(-,boinc,boinc) %{_localstatedir}/lib/boinc/
 %{_sysconfdir}/X11/Xsession.d/36x11-common_xhost-boinc
 %{_sysconfdir}/boinc-client/config.properties
+%{_sysusersdir}/boinc-client.conf
 
 
 %files doc
@@ -345,6 +355,9 @@ fi
 %{_libdir}/pkgconfig/libboinc_opencl.pc
 
 %changelog
+* Tue Aug 05 2025 Zbigniew Jedrzejewski-Szmek  <zbyszek@in.waw.pl> - 8.0.2-4
+- Add sysusers.d config file to allow rpm to create users/groups automatically
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name: cockpit-files
-Version: 25
-Release: 2%{?dist}
+Version: 26
+Release: 1%{?dist}
 Summary: A filesystem browser for Cockpit
 License: LGPL-2.1-or-later
 
@@ -20,12 +20,12 @@ Requires: cockpit-bridge >= 318
 # Replace the older cockpit-navigator provided by 45Drives
 Obsoletes: cockpit-navigator < 0.5.11
 
-Provides: bundled(npm(@patternfly/patternfly)) = 6.2.3
-Provides: bundled(npm(@patternfly/react-core)) = 6.2.2
-Provides: bundled(npm(@patternfly/react-icons)) = 6.2.2
-Provides: bundled(npm(@patternfly/react-styles)) = 6.2.2
-Provides: bundled(npm(@patternfly/react-table)) = 6.2.2
-Provides: bundled(npm(@patternfly/react-tokens)) = 6.2.2
+Provides: bundled(npm(@patternfly/patternfly)) = 6.3.0
+Provides: bundled(npm(@patternfly/react-core)) = 6.3.0
+Provides: bundled(npm(@patternfly/react-icons)) = 6.3.0
+Provides: bundled(npm(@patternfly/react-styles)) = 6.3.0
+Provides: bundled(npm(@patternfly/react-table)) = 6.3.0
+Provides: bundled(npm(@patternfly/react-tokens)) = 6.3.0
 Provides: bundled(npm(attr-accept)) = 2.2.5
 Provides: bundled(npm(dequal)) = 2.0.3
 Provides: bundled(npm(file-selector)) = 2.1.2
@@ -74,6 +74,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Wed Aug 6 2025 Packit <hello@packit.dev> - 26-1
+Bug fixes and translation updates
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 25-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

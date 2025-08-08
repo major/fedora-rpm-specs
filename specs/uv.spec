@@ -11,7 +11,7 @@
 %bcond it %{undefined el10}
 
 Name:           uv
-Version:        0.8.4
+Version:        0.8.5
 Release:        %autorelease
 Summary:        An extremely fast Python package installer and resolver, written in Rust
 
@@ -198,6 +198,14 @@ Source400:      %{tl_git}/archive/%{tl_rev}/tl-%{tl_rev}.tar.gz
 #   Should uv.find_uv_bin() be able to find /usr/bin/uv?
 #   https://github.com/astral-sh/uv/issues/4451
 Patch:          0001-Downstream-patch-always-find-the-system-wide-uv-exec.patch
+
+# Downstream-only: unpin h2 (pinned in
+# https://github.com/astral-sh/uv/commit/b2c382f7c1f6949c007cd95248cdcaa9ec3dd559)
+# because we cannot respect the version downgrade using system packages;
+# unfortunately, this means we will continue to be affected by
+# https://github.com/astral-sh/uv/issues/15056,
+# https://github.com/hyperium/h2/issues/856.
+Patch:          uv-0.8.5-unpin-h2.patch
 
 # Update sanitize-filename requirement from 0.5 to 0.6
 Patch100:       https://github.com/Majored/rs-async-zip/pull/153.patch

@@ -185,7 +185,7 @@
 #################################################################################
 Name:		ceph
 Version:	19.2.3
-Release:	1%{?dist}
+Release:	2%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -2744,6 +2744,9 @@ exit 0
 %{python3_sitelib}/ceph_node_proxy-*
 
 %changelog
+* Wed Aug 06 2025 František Zatloukal <fzatlouk@redhat.com> - 2:19.2.3-2
+- Rebuilt for icu 77.1
+
 * Mon Jul 28 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.3-1
 - ceph-19.2.3 GA
 

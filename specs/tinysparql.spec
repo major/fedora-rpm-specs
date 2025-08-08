@@ -6,7 +6,7 @@
 
 Name:           tinysparql
 Version:        3.10~beta
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Desktop-neutral metadata database and search tool
 
 License:        GPL-2.0-or-later
@@ -167,6 +167,9 @@ This package contains the documentation for %{name}.
 
 
 %changelog
+* Wed Aug 06 2025 František Zatloukal <fzatlouk@redhat.com> - 3.10~beta-2
+- Rebuilt for icu 77.1
+
 * Tue Aug 05 2025 nmontero <nmontero@redhat.com> - 3.10~beta-1
 - Update to 3.10.beta
 

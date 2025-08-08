@@ -1,7 +1,7 @@
 %global pypi_name opensearch-py
 
 Name:           python-%{pypi_name}
-Version:        2.8.0
+Version:        3.0.0
 Release:        %autorelease
 Summary:        Python low-level client for OpenSearch
 

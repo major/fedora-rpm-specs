@@ -51,7 +51,7 @@ BuildRequires:  go-vendor-tools
 %go_vendor_license_buildrequires -c %{S:2}
 
 %build
-export GO_LDFLAGS="-X helm.sh/helm/v3/internal/version.version=%{version} \
+export GO_LDFLAGS="-X helm.sh/helm/v3/internal/version.version=v%{version} \
                 -X helm.sh/helm/v3/internal/version.gitCommit=%{git_commit} \
                 -X helm.sh/helm/v3/internal/version.gitTreeState=clean \
                 -X helm.sh/helm/v3/pkg/lint/rules.k8sVersionMajor=%{k8s_major} \

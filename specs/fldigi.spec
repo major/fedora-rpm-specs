@@ -8,11 +8,11 @@ Summary:        Digital modem program for Linux
 
 License:        GPL-3.0-or-later AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-3.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND GPL-2.0-only AND BSL-1.0 AND MIT-0 AND LGPL-3.0-only AND GPL-1.0-only AND Apache-2.0
 
-URL:            http://www.w1hkj.com/Fldigi.html
+URL:            https://www.w1hkj.org/
 %if %{alpha}
-Source0:        http://www.w1hkj.com/alpha/%{name}/%{name}-%{version}.tar.gz
+Source0:        https://www.w1hkj.org/alpha/%{name}/%{name}-%{version}.tar.gz
 %else
-Source0:        http://www.w1hkj.com/files/%{name}/%{name}-%{version}.tar.gz
+Source0:        https://www.w1hkj.org/files/%{name}/%{name}-%{version}.tar.gz
 %endif
 Source100:      fldigi.appdata.xml
 

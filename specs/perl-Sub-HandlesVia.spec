@@ -1,6 +1,6 @@
 Name:           perl-Sub-HandlesVia
-Version:        0.050002
-Release:        2%{?dist}
+Version:        0.050003
+Release:        1%{?dist}
 
 Summary:        Alternative handles_via implementation
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -10,6 +10,7 @@ Source0:        https://cpan.metacpan.org/authors/id/T/TO/TOBYINK/Sub-HandlesVia
 
 BuildArch:      noarch
 
+BuildRequires:  coreutils
 BuildRequires:  %{__make}
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
@@ -73,10 +74,13 @@ you should have a fairly good idea what this does.
 %files
 %license LICENSE
 %doc Changes CREDITS README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/Sub
+%{_mandir}/man3/Sub::HandlesVia*
 
 %changelog
+* Wed Aug 06 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.050003-1
+- 0.050003 bump (rhbz#2383710)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.050002-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,14 +1,14 @@
 %global srcname pykdtree
 
 Name:           python-%{srcname}
-Version:        1.4.2
+Version:        1.4.3
 Release:        %autorelease
 Summary:        Fast kd-tree implementation with OpenMP-enabled queries
 
 License:        LGPL-3.0-or-later
 URL:            https://github.com/storpipfugl/pykdtree
 Source0:        %pypi_source %srcname
-Patch:          0001-Unpin-NumPy-build-requirement.patch
+Patch:          0001-Unpin-NumPy-Cython-build-requirement.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}

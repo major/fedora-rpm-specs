@@ -3,7 +3,7 @@
 
 Name:       pygrib
 Version:    2.1.6
-Release:    5%{?dist}
+Release:    6%{?dist}
 Summary:    Python module for reading and modifying GRIB files
 
 # this software uses the "MIT:Modern Style with sublicense" license
@@ -22,6 +22,10 @@ Patch2: %{name}-test-gaussian.patch
 # https://github.com/jswhit/pygrib/issues/261
 # https://numpy.org/doc/2.2/release/2.0.0-notes.html#representation-of-numpy-scalars-changed
 Patch3: pygrib-use-legacy-printing.patch
+
+# Fix build with Cython >= 3.1
+# https://github.com/jswhit/pygrib/pull/269
+Patch4: pygrib-cython-3.1-build.patch
 
 # exclude architectures not supported by eccodes
 # as explained in bugzilla #1562066
@@ -167,6 +171,10 @@ cd  $TESTROOT/test
 %{_mandir}/man1/grib_*
 
 %changelog
+* Tue Aug 05 2025 Charalampos Stratakis <cstratak@redhat.com> - 2.1.6-6
+- Fix compatibility with Cython >= 3.1
+- Fixes: rhbz#2377039
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.6-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

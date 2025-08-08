@@ -1,28 +1,23 @@
 %global srcname rencode
 
 Name:           python-rencode
-Version:        1.0.6
-Release:        30%{?dist}
+Version:        1.0.8
+Release:        1%{?dist}
 Summary:        Web safe object pickling/unpickling
 # Automatically converted from old format: GPLv3+ and BSD - review is highly recommended.
 License:        GPL-3.0-or-later AND LicenseRef-Callaway-BSD
 URL:            https://github.com/aresch/rencode
 
-Source0:        https://files.pythonhosted.org/packages/source/l/%{srcname}/%{srcname}-%{version}.tar.gz
+Source0:        https://github.com/aresch/rencode/archive/v%{version}.tar.gz#/rencode-%{version}.tar.gz
 
-# PyPi source tarball doesn't contain the .pyx file. This is the .pyx file
-# corresponding to tag 1.0.6. Updating the version will also require this file
-# to be updated.
-# https://github.com/aresch/rencode/issues/22
-Source1:        https://raw.githubusercontent.com/aresch/rencode/53d72ac53d9df007aad3a980f049a80d81836619/rencode/rencode.pyx
-Patch1:         https://github.com/aresch/rencode/compare/v1.0.6...572ff74586d9b1daab904c6f7f7009ce0143bb75.diff
+# Fix the build on aarc64
+# Resolved upstream:
+# https://github.com/aresch/rencode/commit/591b9f4d85d7e2d4f4e99441475ef15366389be2
+# https://github.com/aresch/rencode/commit/e7ec8ea718e73a8fee7dbc007c262e1584f7f94b
+Patch:          fix-arm-build.patch
 
 BuildRequires:  gcc
-
 BuildRequires:  python3-devel
-BuildRequires:  python3-Cython
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-wheel
 
 
 %description
@@ -34,7 +29,6 @@ b-encodings.
 
 %package -n python3-rencode
 Summary:    Web safe object pickling/unpickling
-%{?python_provide:%python_provide python%{python3_pkgversion}-rencode}
 
 
 %description -n python3-rencode
@@ -45,37 +39,41 @@ b-encodings.
 
 
 %prep
-%setup -n rencode-%{version}
-cp -a %{SOURCE1} ./rencode
+%autosetup -n rencode-%{version}
 
 # Make sure we rebuild the module
-rm -f ./rencode/rencode.c
+rm -f ./rencode/_rencode.c
 
-%patch -P1 -p1
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
-
+%pyproject_wheel
 
 %install
-%py3_install
-
+%pyproject_install
+%pyproject_save_files -L rencode
 
 %check
+%pyproject_check_import
+
 pushd tests
 PYTHONPATH=$RPM_BUILD_ROOT%{python3_sitearch} %{__python3} test_rencode.py
 PYTHONPATH=$RPM_BUILD_ROOT%{python3_sitearch} %{__python3} timetest.py
 popd
 
 
-%files -n python%{python3_pkgversion}-rencode
-%{python3_sitearch}/rencode
-%{python3_sitearch}/rencode*.egg-info
+%files -n python%{python3_pkgversion}-rencode -f %{pyproject_files}
 %doc README.md
 %license COPYING
 
 
 %changelog
+* Mon Aug 04 2025 Charalampos Stratakis <cstratak@redhat.com> - 1.0.8-1
+- Update to 1.0.8
+- Convert to pyproject macros
+- Fixes: rhbz#2369099, rhbz#2377051, rhbz#2378157
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

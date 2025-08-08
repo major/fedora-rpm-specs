@@ -2,7 +2,7 @@ Name:           dionaea
 Version:        0.11.0
 Summary:        Low interaction honeypot
 # Show as the RPM release number (keep same number line for tarball and git builds)
-%global         baserelease     6
+%global         baserelease     7
 
 %if 0%{?rhel}
 # Group needed for EPEL
@@ -113,6 +113,9 @@ Patch18:        dionaea-18_python_regex.patch
 # Reported https://github.com/DinoTools/dionaea/pull/343
 Patch19:        dionaea-19_setuptools.patch
 
+# Fix compatibility with Cython >= 3.1
+# Reported https://github.com/DinoTools/dionaea/pull/345
+Patch20:        dionaea-20_fix_cython3.1_build.patch
 
 %if 0%{?fedora} || 0%{?rhel} >= 8
 BuildRequires:  cmake
@@ -443,6 +446,10 @@ install -m0644 -D dionaea.sysusers.conf %{buildroot}%{_sysusersdir}/dionaea.conf
 
 
 %changelog
+* Tue Aug 05 2025 Charalampos Stratakis <cstratak@redhat.com> - 0.11.0-7.20210228git4e459f1
+- Fix compatibility with Cython >= 3.1
+- Fixes: rhbz#2377036
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-6.20210228git4e459f1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -78,6 +78,10 @@ Patch1:         0002-Add-django.contrib.admin-to-INSTALLED_APPS-to-fix-te.patch
 # https://github.com/getsentry/sentry-python/pull/4388
 Patch2:         0003-test-logs-avoid-failures-when-running-with-integrati.patch
 
+# Remove pyrsistent from test dependencies
+# https://github.com/getsentry/sentry-python/pull/4588
+Patch3:         %{forgeurl}/pull/4588.patch
+
 BuildArch:      noarch
 BuildRequires:  python3-devel
 %if %{with tests}

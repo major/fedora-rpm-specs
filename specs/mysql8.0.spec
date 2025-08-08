@@ -1,6 +1,6 @@
 # Name of the package without any prefixes
 %global majorname mysql
-%global package_version 8.0.42
+%global package_version 8.0.43
 %define majorversion %(echo %{package_version} | cut -d'.' -f1-2 )
 %global pkgnamepatch mysql
 
@@ -102,7 +102,7 @@
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          101%{?with_debug:.debug}%{?dist}
+Release:          1%{?with_debug:.debug}%{?dist}
 Summary:          MySQL client programs and shared libraries
 URL:              http://www.mysql.com
 
@@ -306,11 +306,13 @@ client/server implementation consisting of a server daemon (mysqld)
 and many different client programs and libraries. The base package
 contains the standard MySQL client programs and generic MySQL files.
 
+%if %?mysql_default
 %description -n %{pkgname}
 MySQL is a multi-user, multi-threaded SQL database server. MySQL is a
 client/server implementation consisting of a server daemon (mysqld)
 and many different client programs and libraries. The base package
 contains the standard MySQL client programs and generic MySQL files.
+%endif
 
 %if %{with clibrary}
 %package          -n %{pkgname}-libs
@@ -804,9 +806,6 @@ popd
 
 %post -n %{pkgname}-server
 %systemd_post %{daemon_name}.service
-if [ ! -e "%{logfile}" -a ! -h "%{logfile}" ] ; then
-    install /dev/null -m0640 -omysql -gmysql "%{logfile}"
-fi
 
 %preun -n %{pkgname}-server
 %systemd_preun %{daemon_name}.service
@@ -999,7 +998,6 @@ fi
 %attr(0700,mysql,mysql) %dir %{_localstatedir}/lib/mysql-keyring
 %attr(0755,mysql,mysql) %dir %{pidfiledir}
 %attr(0750,mysql,mysql) %dir %{logfiledir}
-%attr(0640,mysql,mysql) %config %ghost %verify(not md5 size mtime) %{logfile}
 %config(noreplace) %{logrotateddir}/%{daemon_name}
 
 %if %{with devel}
@@ -1119,6 +1117,12 @@ fi
 %endif
 
 %changelog
+* Wed Aug 06 2025 Pavol Sloboda <psloboda@redhat.com> - 8.0.43-1
+- Rebase to MySQL 8.0.43
+
+* Wed Aug 06 2025 František Zatloukal <fzatlouk@redhat.com> - 8.0.42-102
+- Rebuilt for icu 77.1
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.42-101
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

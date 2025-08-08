@@ -1,6 +1,6 @@
 Name:           gf2x
 Version:        1.3.0
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Polynomial multiplication over the binary field
 
 # GPL-3.0-or-later: the project as a whole
@@ -59,21 +59,8 @@ fixtimestamp() {
 # Support for pclmul would be nice, but not all x86s support it.
 %ifarch %{x86_64}
 %configure --disable-static --disable-hardware-specific-code --enable-sse2 \
-%ifarch x86_64_v2 x86_64_v3 x86_64_v4
-  --enable-sse3 \
-  --enable-ssse3 \
-  --enable-sse41 \
-%ifarch x86_64_v3 x86_64_v4
-  --enable-pclmul \
-%else
-  --disable-pclmul \
-%endif
-%else
-  --disable-sse3 \
-  --disable-ssse3 \
-  --disable-sse41 \
-%endif
-  --disable-silent-rules --enable-fft-interface
+  --disable-sse3 --disable-ssse3 --disable-sse41 --disable-pclmul \
+  --disable-silent-rules --enable-fft-interface hwdir=x86_64
 # Workaround broken configure macros
 sed -i.orig 's,/\* #undef \(GF2X_HAVE_SSE2_SUPPORT\) \*/,#define \1 1,' \
     gf2x/gf2x-config.h gf2x/gf2x-config-export.h
@@ -86,7 +73,7 @@ sed -e "s/GF2X_SSE2_AVAILABLE_TRUE=$/&'#'/" \
     -i configure
 %configure --disable-static --disable-hardware-specific-code --disable-sse2 \
   --disable-sse3 --disable-ssse3 --disable-sse41 --disable-pclmul \
-  --disable-silent-rules --enable-fft-interface
+  --disable-silent-rules --enable-fft-interface hwdir=generic64
 %endif
 
 # Get rid of undesirable hardcoded rpaths; workaround libtool reordering
@@ -100,7 +87,6 @@ sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
 
 %install
 %make_install INSTALL="install -p"
-rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 
 %check
 LD_LIBRARY_PATH=$PWD/.libs:$PWD/fft/.libs make check
@@ -122,6 +108,10 @@ LD_LIBRARY_PATH=$PWD/.libs:$PWD/fft/.libs make check
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Wed Aug 06 2025 Jerry James <loganjerry@gmail.com> - 1.3.0-17
+- Use the x86_64 hwdir on x86_64
+- PCLMUL is not included in any x86_64_vX level
+
 * Mon Aug 04 2025 Jerry James <loganjerry@gmail.com> - 1.3.0-16
 - Stop building for 32-bit x86
 

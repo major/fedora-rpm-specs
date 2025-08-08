@@ -1,6 +1,6 @@
 Name:           harfbuzz
 Version:        11.3.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Text shaping library
 
 License:        MIT-Modern-Variant
@@ -110,6 +110,9 @@ This package contains Harfbuzz Cairo support library.
 %{_libdir}/libharfbuzz-cairo.so.*
 
 %changelog
+* Wed Aug 06 2025 František Zatloukal <fzatlouk@redhat.com> - 11.3.3-2
+- Rebuilt for icu 77.1
+
 * Sun Jul 27 2025 Parag Nemade <pnemade AT redhat DOT com> - 11.3.3-1
 - Update to 11.3.3 version (#2382209)
 

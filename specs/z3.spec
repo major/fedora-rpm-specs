@@ -25,6 +25,9 @@ Source:         %{giturl}/archive/%{name}-%{version}.tar.gz
 # Do not try to build or install native OCaml artifacts on bytecode-only arches
 Patch:          %{name}-ocaml.patch
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  cmake
 BuildRequires:  doxygen
 BuildRequires:  gcc-c++
@@ -37,12 +40,10 @@ BuildRequires:  javapackages-tools
 %endif
 BuildRequires:  make
 BuildRequires:  ninja-build
-%ifnarch %{ix86}
 BuildRequires:  ocaml
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-ocamldoc
 BuildRequires:  ocaml-zarith-devel
-%endif
 BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist setuptools}
 
@@ -119,8 +120,6 @@ Requires:       javapackages-tools
 Java interface to z3.
 %endif
 
-# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
-%ifnarch %{ix86}
 %package -n ocaml-z3
 Summary:        Ocaml interface to z3
 Requires:       z3-libs%{?_isa} = %{version}-%{release}
@@ -135,12 +134,14 @@ Requires:       ocaml-zarith-devel%{?_isa}
 
 %description -n ocaml-z3-devel
 Files for building ocaml applications that use z3.
-%endif
 
 %package -n python3-z3
 Summary:        Python 3 interface to z3
 BuildArch:      noarch
 Requires:       z3-libs = %{version}-%{release}
+
+# Provide the PyPI name
+%py_provides python3-z3-solver
 
 %description -n python3-z3
 Python 3 interface to z3.
@@ -191,7 +192,6 @@ export PYTHON=%{python3}
 
 %cmake_build
 
-%ifnarch %{ix86}
 # The cmake build system does not build the OCaml interface.  Do that manually.
 #
 # First, run the configure script to generate several files.
@@ -208,7 +208,6 @@ sed -i '/^api/s/ libz3\$(SO_EXT)//g' build/Makefile
 
 # Fourth, build the OCaml interface
 %make_build -C build ml
-%endif
 
 %install
 # Install the C++, python3, and Java interfaces
@@ -223,7 +222,6 @@ ln -s %{_jnidir}/com.microsoft.z3.jar %{buildroot}%{_libdir}/z3
 mv %{buildroot}%{_libdir}/libz3java.so %{buildroot}%{_libdir}/z3
 %endif
 
-%ifnarch %{ix86}
 # Install the OCaml interface
 cd build/api/ml
 mkdir -p %{buildroot}%{ocamldir}/Z3
@@ -234,7 +232,6 @@ cp -p META *.{a,cma,cmi,mli} %{buildroot}%{ocamldir}/Z3
 mkdir -p %{buildroot}%{ocamldir}/stublibs
 cp -p *.so %{buildroot}%{ocamldir}/stublibs
 cd -
-%endif
 
 # We handle the documentation files below
 rm -rf %{buildroot}%{_docdir}/Z3
@@ -280,7 +277,6 @@ cd -
 %{_jnidir}/com.microsoft.z3*jar
 %endif
 
-%ifnarch %{ix86}
 %files -n ocaml-z3
 %dir %{ocamldir}/Z3/
 %{ocamldir}/Z3/META
@@ -298,7 +294,6 @@ cd -
 %{ocamldir}/Z3/*.cmxa
 %endif
 %{ocamldir}/Z3/*.mli
-%endif
 
 %files -n python3-z3
 %{python3_sitelib}/z3/

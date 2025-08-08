@@ -1,8 +1,8 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 12.98
-Release: 2%{?dist}
+Version: 12.99
+Release: 1%{?dist}
 License: GPL-3.0-or-later AND LGPL-2.0-or-later AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND GFDL-1.3-or-later
 URL: https://sourceware.org/annobin/
 # Maintainer: nickc@redhat.com
@@ -536,6 +536,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Aug 06 2025 Nick Clifton  <nickc@redhat.com> - 12.99-1
+- Annocheck: Improve detection of glibc static maths libraries.  (RHEL-107470)
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 12.98-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

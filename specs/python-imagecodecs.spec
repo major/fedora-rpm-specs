@@ -1,8 +1,8 @@
 %global srcname imagecodecs
 
 Name:           python-imagecodecs
-Version:        2024.9.22
-Release:        3%{?dist}
+Version:        2025.3.30
+Release:        %autorelease
 Summary:        Image transformation, compression, and decompression codecs
 
 License:        BSD-3-Clause
@@ -281,47 +281,4 @@ TEST_OPTS=(
 
 
 %changelog
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2024.9.22-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Fri Jun 06 2025 Python Maint <python-maint@redhat.com> - 2024.9.22-2
-- Rebuilt for Python 3.14
-
-* Wed Jan 22 2025 Sandro <devel@penguinpee.nl> - 2024.9.22-1
-- Update to 2024.9.22
-- Add support for NumPy 2.x
-- Close RHBZ#2341164
-
-* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2023.1.23-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Tue Sep 10 2024 Zbigniew Jedrzejewski-Szmek <zbyszek@in.waw.pl> - 2023.1.23-4
-- Rebuilt for blosc2-2.15.1-1
-
-* Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2023.1.23-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Mon Jun 17 2024 Python Maint <python-maint@redhat.com> - 2023.1.23-2
-- Rebuilt for Python 3.13
-
-* Sun Apr 21 2024 Orion Poplawski <orion@nwra.com> - 2023.1.23-1
-- Update to 2023.1.23
-- Add more test dependencies
-
-* Sun Apr 21 2024 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2022.9.26-6
-- Rebuilt for blosc2 2.14.4
-
-* Wed Jan 31 2024 František Zatloukal <fzatlouk@redhat.com> - 2022.9.26-5
-- Rebuilt for libavif 1.0.3
-
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2022.9.26-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2022.9.26-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2022.9.26-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Fri Jun 02 2023 Orion Poplawski <orion@nwra.com> - 2022.9.26-1
-- Initial Fedora package
+%autochangelog

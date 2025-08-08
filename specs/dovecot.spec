@@ -6,7 +6,7 @@ Name: dovecot
 Epoch: 1
 Version: 2.4.1
 %global prever -4
-Release: 4%{?dist}
+Release: 5%{?dist}
 #dovecot itself is MIT, a few sources are PD, pigeonhole is LGPLv2
 License: MIT AND LGPL-2.1-only
 
@@ -473,6 +473,9 @@ make check
 %{_libdir}/%{name}/dict/libdriver_pgsql.so
 
 %changelog
+* Wed Aug 06 2025 František Zatloukal <fzatlouk@redhat.com> - 1:2.4.1-5
+- Rebuilt for icu 77.1
+
 * Wed Jul 30 2025 Michal Hlavinka <mhlavink@redhat.com> - 1:2.4.1-4
 - fix compatibility with latest openssl (#2383209)
 

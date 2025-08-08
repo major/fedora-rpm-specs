@@ -10,6 +10,10 @@ License:        MIT
 URL:            https://timvink.github.io/mkdocs-git-revision-date-localized-plugin/
 Source:         %{pypi_source mkdocs_git_revision_date_localized_plugin}
 
+# Fix tests with click >= 8.2
+# Resolved upstream: https://github.com/timvink/mkdocs-git-revision-date-localized-plugin/pull/187
+Patch:          fix-click-8.2.1-tests.patch
+
 BuildArch:      noarch
 BuildRequires:  python3-devel
 %if 0%{?fc41} || 0%{?el10}

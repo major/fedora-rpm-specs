@@ -2,8 +2,8 @@
 
 Summary: Network monitoring tools including ping
 Name: iputils
-Version: 20250602
-Release: 3%{?dist}
+Version: 20250605
+Release: 1%{?dist}
 # some parts are under the original BSD (ping.c)
 # some are under GPLv2+ (tracepath.c)
 License: BSD-4-Clause-UC AND GPL-2.0-or-later
@@ -89,6 +89,9 @@ install -cp ifenslave.8 ${RPM_BUILD_ROOT}%{_mandir}/man8/
 %attr(644,root,root) %{_mandir}/man8/ifenslave.8*
 
 %changelog
+* Wed Aug 06 2025 Kevin Fenzi <kevin@scrye.com> - 20250605-1
+- Update to 20250605 to fix regression with ping -c1 (fixes rhbz#2384212 )
+
 * Fri Jul 25 2025 Jan Macku <jamacku@redhat.com> - 20250602-3
 - remove build dependency on openssl-devel removed in s20200821
 

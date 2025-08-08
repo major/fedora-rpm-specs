@@ -7,12 +7,12 @@
 # Copyright (c) 2022 Red Hat GmbH
 # Author: Stefano Brivio <sbrivio@redhat.com>
 
-%global git_hash 0293c6f4a316baa561a9b43388906707f8cf7e81
+%global git_hash 309eefd6af5ba20f760b92b6131a9ea7f2e161d4
 %global selinuxtype targeted
 %global selinux_policy_version 41.41
 
 Name:		passt
-Version:	0^20250611.g0293c6f
+Version:	0^20250805.g309eefd
 Release:	2%{?dist}
 Summary:	User-mode networking daemons for virtual machines and namespaces
 License:	GPL-2.0-or-later AND BSD-3-Clause
@@ -142,6 +142,9 @@ restorecon -R /run/user 2>/dev/null
 %{_datadir}/selinux/packages/%{selinuxtype}/passt-repair.pp
 
 %changelog
+* Tue Aug  5 2025 Stefano Brivio <sbrivio@redhat.com> - 0^20250805.g309eefd-1
+- Upstream changes: https://passt.top/passt/log/?qt=range&q=2025_06_11.0293c6f..2025_08_05.309eefd
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0^20250611.g0293c6f-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

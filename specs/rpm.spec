@@ -24,7 +24,7 @@
 
 %global rpmver 5.99.91
 #global snapver rc1
-%global baserelease 2
+%global baserelease 3
 %global sover 10
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
@@ -84,7 +84,7 @@ BuildRequires: sqlite-devel
 %endif
 
 BuildRequires: doxygen scdoc
-BuildRequires: rpm-sequoia-devel >= 1.4.0
+BuildRequires: rpm-sequoia-devel >= 1.9.0
 
 # Couple of patches change makefiles so, require for now...
 BuildRequires: automake libtool
@@ -124,6 +124,9 @@ rpm-6.0-rpmformat.patch
 0001-Revert-Add-a-deprecation-warning-for-clamp_mtime_to_.patch
 
 # Patches already upstream:
+0001-Support-updating-individual-IDs-in-a-digest-bundle.patch
+0002-Support-OpenPGP-v6-signature-pre-salting.patch
+0001-Only-ever-call-pgpDigParamsSalt-on-signatures.patch
 
 # These are not yet upstream
 rpm-4.7.1-geode-i686.patch
@@ -146,8 +149,8 @@ License:  GPL-2.0-or-later OR LGPL-2.1-or-later
 # Either full systemd or systemd-standalone-sysusers
 Requires: /usr/bin/systemd-sysusers
 Requires(meta): %{name} = %{version}-%{release}
-# >= 1.4.0 required for pgpVerifySignature2() and pgpPrtParams2()
-Requires: rpm-sequoia%{_isa} >= 1.4.0
+# >= 1.9.0 required for pgpDigParamsSalt()
+Requires: rpm-sequoia%{_isa} >= 1.9.0
 # Most systems should have a central package operations log
 Recommends: rpm-plugin-audit
 
@@ -621,6 +624,9 @@ fi
 %doc %{_defaultdocdir}/rpm/API/
 
 %changelog
+* Tue Aug 05 2025 Panu Matilainen <pmatilai@redhat.com> - 5.99.91-3
+- Fix OpenPGP v6 signature verification, requires rpm-sequoia >= 1.9
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.99.91-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

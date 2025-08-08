@@ -16,8 +16,8 @@
 #
 
 Name:           cockpit-machines
-Version:        336
-Release:        2%{?dist}
+Version:        337
+Release:        1%{?dist}
 Summary:        Cockpit user interface for virtual machines
 License:        LGPL-2.1-or-later AND MIT
 URL:            https://github.com/cockpit-project/cockpit-machines
@@ -69,12 +69,12 @@ Recommends: python3-gobject-base
 Suggests: (qemu-virtiofsd or virtiofsd)
 
 Provides: bundled(npm(@novnc/novnc)) = 1.5.0
-Provides: bundled(npm(@patternfly/patternfly)) = 6.2.3
-Provides: bundled(npm(@patternfly/react-core)) = 6.2.2
-Provides: bundled(npm(@patternfly/react-icons)) = 6.2.2
-Provides: bundled(npm(@patternfly/react-styles)) = 6.2.2
-Provides: bundled(npm(@patternfly/react-table)) = 6.2.2
-Provides: bundled(npm(@patternfly/react-tokens)) = 6.2.2
+Provides: bundled(npm(@patternfly/patternfly)) = 6.3.0
+Provides: bundled(npm(@patternfly/react-core)) = 6.3.0
+Provides: bundled(npm(@patternfly/react-icons)) = 6.3.0
+Provides: bundled(npm(@patternfly/react-styles)) = 6.3.0
+Provides: bundled(npm(@patternfly/react-table)) = 6.3.0
+Provides: bundled(npm(@patternfly/react-tokens)) = 6.3.0
 Provides: bundled(npm(@xterm/addon-canvas)) = 0.7.0
 Provides: bundled(npm(@xterm/xterm)) = 5.5.0
 Provides: bundled(npm(attr-accept)) = 2.2.5
@@ -119,6 +119,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Aug 06 2025 Packit <hello@packit.dev> - 337-1
+Bug fixes and translation updates
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 336-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

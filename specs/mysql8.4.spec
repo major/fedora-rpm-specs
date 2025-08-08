@@ -104,13 +104,13 @@ ExcludeArch: %{ix86}
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          1%{?with_debug:.debug}%{?dist}
+Release:          2%{?with_debug:.debug}%{?dist}
 Summary:          MySQL client programs and shared libraries
 URL:              http://www.mysql.com
 
-# Exceptions allow client libraries to be linked with most open source SW,
-# not only GPL code.  See README.mysql-license
-License:          GPL-2.0-or-later AND LGPL-2.1-only AND BSL-1.0 AND BSD-2-Clause
+# The the `Universal-FOSS-exception-1.0` exception allow client libraries to be linked with most open source SW, not only GPL code.
+# Usage of the `Universal-FOSS-exception-1.0` in the SPDX license expression does not signify that we regard "Interfaces" as protected by copyright.
+License:          GPL-2.0-only AND ( GPL-2.0-only WITH Universal-FOSS-exception-1.0 ) AND GPL-2.0-or-later AND ( LGPL-2.0-only WITH Universal-FOSS-exception-1.0 ) AND ( GPL-3.0-or-later WITH Bison-exception-2.2 ) AND ( GPL-2.0-only OR BSD-2-Clause ) AND BSD-2-Clause AND BSL-1.0 AND Apache-2.0 AND MIT
 
 Source0:          https://cdn.mysql.com/Downloads/MySQL-8.4/mysql-%{version}.tar.gz
 Source3:          my.cnf.in
@@ -801,9 +801,6 @@ popd
 
 %post -n %{pkgname}-server
 %systemd_post %{daemon_name}.service
-if [ ! -e "%{logfile}" -a ! -h "%{logfile}" ] ; then
-    install /dev/null -m0640 -omysql -gmysql "%{logfile}"
-fi
 
 %preun -n %{pkgname}-server
 %systemd_preun %{daemon_name}.service
@@ -985,7 +982,6 @@ fi
 %attr(0700,mysql,mysql) %dir %{_localstatedir}/lib/mysql-keyring
 %attr(0755,mysql,mysql) %dir %{pidfiledir}
 %attr(0750,mysql,mysql) %dir %{logfiledir}
-%attr(0640,mysql,mysql) %config %ghost %verify(not md5 size mtime) %{logfile}
 %config(noreplace) %{logrotateddir}/%{daemon_name}
 
 %if %{with devel}
@@ -1120,6 +1116,9 @@ fi
 %endif
 
 %changelog
+* Wed Aug 06 2025 František Zatloukal <fzatlouk@redhat.com> - 8.4.6-2
+- Rebuilt for icu 77.1
+
 * Thu Jul 24 2025 Pavol Sloboda <psloboda@redhat.com> - 8.4.6-1
 - Rebase to 8.4.6
 

@@ -6,7 +6,7 @@
 %global crate gtk4
 
 Name:           rust-gtk4
-Version:        0.9.7
+Version:        0.10.0
 Release:        %autorelease
 Summary:        Rust bindings of the GTK 4 library
 
@@ -144,6 +144,18 @@ use the "gnome_47" feature of the "%{crate}" crate.
 %files       -n %{name}+gnome_47-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+gnome_48-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+gnome_48-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "gnome_48" feature of the "%{crate}" crate.
+
+%files       -n %{name}+gnome_48-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+unsafe-assume-initialized-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -226,6 +238,18 @@ This package contains library source intended for building other packages which
 use the "v4_2" feature of the "%{crate}" crate.
 
 %files       -n %{name}+v4_2-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+v4_20-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+v4_20-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "v4_20" feature of the "%{crate}" crate.
+
+%files       -n %{name}+v4_20-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+v4_4-devel

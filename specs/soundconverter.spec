@@ -1,13 +1,12 @@
 Name:           soundconverter
-Version:        4.1.0
-Release:        2%{?dist}
+Version:        4.1.1
+Release:        1%{?dist}
 Summary:        Simple sound converter application for GNOME
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
 
-URL:            http://soundconverter.org
-Source0:        http://launchpad.net/%{name}/trunk/%{version}/+download/%{name}-%{version}.tar.gz
-Patch0:         %{name}-appdata.patch
+URL:            https://soundconverter.org
+Source0:        https://github.com/kassoulet/soundconverter/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
 
@@ -85,6 +84,9 @@ rm -f %{buildroot}%{_datadir}/glib-2.0/schemas/gschemas.compiled
 
 
 %changelog
+* Wed Aug 06 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 4.1.1-1
+- Update to 4.1.1 (rhbz#2382818)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

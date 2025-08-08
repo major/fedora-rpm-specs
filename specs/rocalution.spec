@@ -17,8 +17,7 @@
 %if %{with debug}
 %global build_type DEBUG
 %else
-%global build_type RELEASE
-%global debug_package %{nil}
+%global build_type RelWithDebInfo
 %endif
 
 %bcond_with test
@@ -49,14 +48,12 @@
 
 Name:           %{rocalution_name}
 Version:        %{rocm_version}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Next generation library for iterative sparse solvers for ROCm platform
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
 
 Source0:        %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
-# combine libs because of circular dependency reported in fedora-review
-# Patch0:         0001-prepare-rocalution-cmake-for-fedora.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -182,6 +179,9 @@ fi
 %endif
 
 %changelog
+* Wed Aug 6 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.1-6
+- Default build type RelWithDebInfo
+
 * Wed Jul 30 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.1-5
 - Remove -mtls-dialect cflag
 

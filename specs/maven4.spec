@@ -261,7 +261,7 @@ update-alternatives --install %{_bindir}/mvn mvn %{homedir}/bin/mvn %{?maven_alt
 --slave %{_bindir}/mvnDebug mvnDebug %{homedir}/bin/mvnDebug \
 --slave %{_mandir}/man1/mvn.1.gz mvn1 %{homedir}/bin/mvn.1.gz \
 --slave %{_mandir}/man1/mvnenc.1.gz mvnenc1 %{homedir}/bin/mvnenc.1.gz \
---slave %{_mandir}/man1/mvnDebug.1.gz mvnDebug1 %{homedir}/bin/mvn.1.gz \
+--slave %{_mandir}/man1/mvnDebug.1.gz mvnDebug1 %{homedir}/bin/mvn.1.gz
 
 %postun
 if [[ $1 -eq 0 ]]; then update-alternatives --remove mvn %{homedir}/bin/mvn; fi

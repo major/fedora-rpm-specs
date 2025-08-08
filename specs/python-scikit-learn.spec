@@ -9,7 +9,7 @@ simple and efficient, accessible to everybody, and reusable
 in various contexts.}
 
 Name: python-scikit-learn
-Version: 1.6.1
+Version: 1.7.1
 Release: %autorelease
 Summary: Machine learning in Python
 # sklearn/externals/_arff.py is MIT
@@ -22,11 +22,6 @@ License: BSD-3-Clause AND CC-BY-2.0 AND MIT AND BSD-2-Clause AND PSF-2.0
 
 URL: http://scikit-learn.org/
 Source0: %{pypi_source scikit_learn}
-
-# Don't leak cache_directory from test_check_memory
-# This created a cache_directory in %%{python3_sitearch} during %%check
-# Since joblib 1.5.0, the directory would no longer be empty and it would fail the build
-Patch: https://github.com/scikit-learn/scikit-learn/pull/31453.patch
 
 BuildRequires: gcc
 BuildRequires: gcc-c++
@@ -58,7 +53,7 @@ BuildRequires: %{py3_dist threadpoolctl} >= 2.0.0
 
 %prep
 %autosetup -n scikit_learn-%{version} -p1
-sed -i -e 's|numpy>=2|numpy|' pyproject.toml
+sed -i -e 's|numpy>=2,<2.3.0|numpy|' pyproject.toml
 # EPEL 10 has Cython 3.0.9, and the only reason Cython 3.0.10
 # is required upstream is for Windows, see
 # https://github.com/scikit-learn/scikit-learn/pull/28743

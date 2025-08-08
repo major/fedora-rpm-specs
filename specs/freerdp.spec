@@ -30,7 +30,7 @@
 Name:           freerdp
 Epoch:          2
 Version:        3.16.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Free implementation of the Remote Desktop Protocol (RDP)
 
 # The effective license is Apache-2.0 but:
@@ -376,6 +376,9 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/winpr-tools3.pc
 
 %changelog
+* Wed Aug 06 2025 František Zatloukal <fzatlouk@redhat.com> - 2:3.16.0-4
+- Rebuilt for icu 77.1
+
 * Sun Jul 27 2025 Orion Poplawski <orion@nwra.com> - 2:3.16.0-3
 - Rebuild for fuse3 soname bump
 

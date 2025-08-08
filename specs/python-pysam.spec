@@ -11,6 +11,11 @@ URL:            https://github.com/pysam-developers/pysam
 Source0:        %{pypi_source}
 Patch:          python-pysam-configure-c99.patch
 
+# Fix compatibility with Cython >= 3.1
+# Backported from upstream:
+# https://github.com/pysam-developers/pysam/pull/1340
+Patch:          fix-cython-3.1-build.patch
+
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(sphinx)

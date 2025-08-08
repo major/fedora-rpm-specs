@@ -1,7 +1,7 @@
 %global pypi_name commoncode
 
 Name:           python-%{pypi_name}
-Version:        32.2.1
+Version:        32.3.0
 Release:        %autorelease
 Summary:        Common functions and utilities for handling paths, dates, files and hashes
 
@@ -16,6 +16,12 @@ Source:         %url/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(pytest)
+# The docs extra was removed, so specify this manually
+# based on the dependencies in the dev extra.
+BuildRequires:  %{py3_dist Sphinx}
+BuildRequires:  %{py3_dist sphinx-rtd-theme}
+BuildRequires:  %{py3_dist sphinx-reredirects}
+BuildRequires:  %{py3_dist sphinx-copybutton}
 
 %global common_description %{expand:
 Commoncode provides a set of common functions and utilities for handling various
@@ -56,11 +62,12 @@ sed -i \
     -e '/doc8/d' \
     -e '/sphinx-rtd-dark-mode/d' \
     -e '/sphinx-autobuild/d' \
+    -e 's/click >=.*/click/' \
 setup.cfg
 sed -i '/"sphinx_rtd_dark_mode"/d' docs/source/conf.py
 
 %generate_buildrequires
-%pyproject_buildrequires -x docs
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel

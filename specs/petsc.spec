@@ -9,13 +9,13 @@
 
 # Python binding and its testing
 %bcond_without python
-# MPI is failing in s390x with the message
-# Abort(76) on node 1 (rank 0 in comm 16): application called MPI_Abort(MPI_COMM_SELF, 76) - process 0
-%ifnarch s390x %{power64}
-%bcond_with pycheck
+%if %{with python}
+%bcond_without pycheck
+%endif
+
 # Testing libpetsc ?
 %bcond_without check
-%endif
+
 %global pymodule_name petsc4py
 %global pymodule_version %{version}
 #
@@ -448,7 +448,7 @@ Portable Extensible Toolkit for Scientific Computation (developer files).
 %if %{with python}
 %package -n     python3-%{name}-openmpi
 Summary:        Python3 bindings for OpenMPI PETSc
-%{?python_provide:%python_provide python3-%{name}-openmpi}
+%py_provides    python3-%{name}-openmpi
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -457,11 +457,7 @@ BuildRequires:  hdf5-openmpi-devel
 BuildRequires:  scalapack-openmpi-devel
 BuildRequires:  ptscotch-openmpi-devel
 BuildRequires:  python3-numpy
-%if 0%{?rhel}
-BuildRequires:  python3-pip
-%else
 BuildRequires:  python3-Cython
-%endif
 Requires:       petsc-openmpi%{?_isa}
 Requires:       hdf5-openmpi%{?_isa}
 Requires:       scalapack-openmpi%{?_isa}
@@ -537,7 +533,7 @@ Portable Extensible Toolkit for Scientific Computation (developer files).
 %if %{with python}
 %package -n     python3-%{name}-mpich
 Summary:        Python3 bindings for MPICH PETSc
-%{?python_provide:%python_provide python3-%{name}-mpich}
+%py_provides    python3-%{name}-mpich
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -546,11 +542,8 @@ BuildRequires:  hdf5-mpich-devel
 BuildRequires:  scalapack-mpich-devel
 BuildRequires:  ptscotch-mpich-devel
 BuildRequires:  python3-numpy
-%if 0%{?rhel}
 BuildRequires:  python3-pip
-%else
 BuildRequires:  python3-Cython
-%endif
 Requires:       petsc-mpich%{?_isa}
 Requires:       hdf5-mpich%{?_isa}
 Requires:       scalapack-mpich%{?_isa}
@@ -726,7 +719,7 @@ make V=1 PETSC_DIR=%{_builddir}/%{name}-%{version}/buildopenmpi_dir PETSC_ARCH=%
 pushd src/binding/petsc4py
 export PETSC_ARCH=%{_arch}
 export PETSC_DIR=../../../
-%py3_build
+%pyproject_wheel
 unset PETSC_ARCH
 unset PETSC_DIR
 popd
@@ -769,7 +762,7 @@ make V=1 PETSC_DIR=%{_builddir}/%{name}-%{version}/buildmpich_dir PETSC_ARCH=%{_
 pushd src/binding/petsc4py
 export PETSC_ARCH=%{_arch}
 export PETSC_DIR=../../../
-%py3_build
+%pyproject_wheel
 unset PETSC_ARCH
 unset PETSC_DIR
 popd
@@ -796,7 +789,7 @@ cp -a include/* %{buildroot}%{_includedir}/%{name}/
 
 cp -a %{_arch}/lib/pkgconfig %{buildroot}%{_libdir}/
 sed -e 's|${prefix}/lib|${prefix}/%{_lib}|g' -i %{buildroot}%{_libdir}/pkgconfig/PETSc.pc
-ln -sf %{_libdir}/pkgconfig/PETSc.pc %{buildroot}%{_libdir}/pkgconfig/petsc.pc
+ln -srf %{_libdir}/pkgconfig/PETSc.pc %{buildroot}%{_libdir}/pkgconfig/petsc.pc
 
 install -pm 644 %{_arch}/lib/petsc/conf/petscrules %{buildroot}%{_libdir}/%{name}/conf/
 install -pm 644 %{_arch}/lib/petsc/conf/petscvariables %{buildroot}%{_libdir}/%{name}/conf/
@@ -870,7 +863,7 @@ sed -e 's|-L${libdir}|-L%{_libdir}/openmpi/lib|g' -i %{buildroot}$MPI_LIB/pkgcon
 sed -e 's|ldflag_rpath=-L|ldflag_rpath=-L%{_libdir}/openmpi/lib|g' -i %{buildroot}$MPI_LIB/pkgconfig/PETSc.pc
 sed -e 's|-lpetsc|-lpetsc -lhdf5|' -i %{buildroot}$MPI_LIB/pkgconfig/PETSc.pc
 sed -e 's|${prefix}/lib|${prefix}/%{_lib}/openmpi/lib|g' -i %{buildroot}$MPI_LIB/pkgconfig/PETSc.pc
-ln -fs $MPI_LIB/pkgconfig/PETSc.pc %{buildroot}$MPI_LIB/pkgconfig/petsc.pc
+ln -srf $MPI_LIB/pkgconfig/PETSc.pc %{buildroot}$MPI_LIB/pkgconfig/petsc.pc
 
 install -pm 644 %{_arch}/lib/petsc/conf/petscrules %{buildroot}$MPI_LIB/%{name}/conf/
 install -pm 644 %{_arch}/lib/petsc/conf/petscvariables %{buildroot}$MPI_LIB/%{name}/conf/
@@ -889,7 +882,7 @@ sed -e 's|${PETSC_DIR}|%{_prefix}|g' -i %{buildroot}$MPI_LIB/%{name}/conf/petscv
 pushd src/binding/petsc4py
 export PETSC_ARCH=%{_arch}
 export PETSC_DIR=../../../
-%py3_install -- --verbose
+%pyproject_install
 unset PETSC_ARCH
 unset PETSC_DIR
 popd
@@ -902,8 +895,8 @@ MPI_PYTHON3_SITEARCH=%{python3_sitearch}/openmpi
 mkdir -p %{buildroot}$MPI_PYTHON3_SITEARCH
 cp -a %{buildroot}%{python3_sitearch}/%{pymodule_name} %{buildroot}$MPI_PYTHON3_SITEARCH/
 rm -rf %{buildroot}%{python3_sitearch}/%{pymodule_name}
-cp -a %{buildroot}%{python3_sitearch}/%{pymodule_name}-%{pymodule_version}-py%{python3_version}.egg-info %{buildroot}$MPI_PYTHON3_SITEARCH/
-rm -rf %{buildroot}%{python3_sitearch}/%{pymodule_name}-%{pymodule_version}-py%{python3_version}.egg-info
+cp -a %{buildroot}%{python3_sitearch}/%{pymodule_name}-%{pymodule_version}.dist-info %{buildroot}$MPI_PYTHON3_SITEARCH/
+rm -rf %{buildroot}%{python3_sitearch}/%{pymodule_name}-%{pymodule_version}.dist-info
 
 chrpath -r %{_libdir}/openmpi/lib %{buildroot}$MPI_PYTHON3_SITEARCH/%{pymodule_name}/lib/%{_arch}/*.so
 %endif
@@ -933,7 +926,7 @@ sed -e 's|-L${libdir}|-L%{_libdir}/mpich/lib|g' -i %{buildroot}$MPI_LIB/pkgconfi
 sed -e 's|ldflag_rpath=-L|ldflag_rpath=-L%{_libdir}/mpich/lib|g' -i %{buildroot}$MPI_LIB/pkgconfig/PETSc.pc
 sed -e 's|-lpetsc|-lpetsc -lhdf5|' -i %{buildroot}$MPI_LIB/pkgconfig/PETSc.pc
 sed -e 's|${prefix}/lib|${prefix}/%{_lib}/mpich/lib|g' -i %{buildroot}$MPI_LIB/pkgconfig/PETSc.pc
-ln -sf $MPI_LIB/pkgconfig/PETSc.pc %{buildroot}$MPI_LIB/pkgconfig/petsc.pc
+ln -srf $MPI_LIB/pkgconfig/PETSc.pc %{buildroot}$MPI_LIB/pkgconfig/petsc.pc
 
 install -pm 644 %{_arch}/lib/petsc/conf/petscrules %{buildroot}$MPI_LIB/%{name}/conf/
 install -pm 644 %{_arch}/lib/petsc/conf/petscvariables %{buildroot}$MPI_LIB/%{name}/conf/
@@ -952,7 +945,7 @@ sed -e 's|${PETSC_DIR}|%{_prefix}|g' -i %{buildroot}$MPI_LIB/%{name}/conf/petscv
 pushd src/binding/petsc4py
 export PETSC_ARCH=%{_arch}
 export PETSC_DIR=../../../
-%py3_install -- --verbose
+%pyproject_install
 unset PETSC_ARCH
 unset PETSC_DIR
 popd
@@ -965,8 +958,8 @@ MPI_PYTHON3_SITEARCH=%{python3_sitearch}/mpich
 mkdir -p %{buildroot}$MPI_PYTHON3_SITEARCH
 cp -a %{buildroot}%{python3_sitearch}/%{pymodule_name} %{buildroot}$MPI_PYTHON3_SITEARCH/
 rm -rf %{buildroot}%{python3_sitearch}/%{pymodule_name}
-cp -a %{buildroot}%{python3_sitearch}/%{pymodule_name}-%{pymodule_version}-py%{python3_version}.egg-info %{buildroot}$MPI_PYTHON3_SITEARCH/
-rm -rf %{buildroot}%{python3_sitearch}/%{pymodule_name}-%{pymodule_version}-py%{python3_version}.egg-info
+cp -a %{buildroot}%{python3_sitearch}/%{pymodule_name}-%{pymodule_version}.dist-info %{buildroot}$MPI_PYTHON3_SITEARCH/
+rm -rf %{buildroot}%{python3_sitearch}/%{pymodule_name}-%{pymodule_version}.dist-info
 
 chrpath -r %{_libdir}/mpich/lib %{buildroot}$MPI_PYTHON3_SITEARCH/%{pymodule_name}/lib/%{_arch}/*.so
 %endif
@@ -1188,7 +1181,7 @@ popd
 %if %{with python}
 %files -n python3-%{name}-openmpi
 %{python3_sitearch}/openmpi/%{pymodule_name}/
-%{python3_sitearch}/openmpi/%{pymodule_name}-%{pymodule_version}-py%{python3_version}.egg-info
+%{python3_sitearch}/openmpi/%{pymodule_name}-%{pymodule_version}.dist-info
 %endif
 %endif
 
@@ -1210,7 +1203,7 @@ popd
 %if %{with python}
 %files -n python3-%{name}-mpich
 %{python3_sitearch}/mpich/%{pymodule_name}/
-%{python3_sitearch}/mpich/%{pymodule_name}-%{pymodule_version}-py%{python3_version}.egg-info
+%{python3_sitearch}/mpich/%{pymodule_name}-%{pymodule_version}.dist-info
 %endif
 %endif
 

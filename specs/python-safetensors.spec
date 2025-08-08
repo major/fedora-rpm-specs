@@ -1,5 +1,5 @@
 Name:           python-safetensors
-Version:        0.6.0
+Version:        0.6.1
 Release:        %autorelease
 Summary:        Python bindings for the safetensors library
 
@@ -16,11 +16,6 @@ SourceLicense:  Apache-2.0
 # But the GitHub URL encompasses the entire project including the separately-packaged Rust crate
 URL:            https://github.com/huggingface/safetensors
 Source:         %{url}/archive/refs/tags/v%{version}/safetensors-%{version}.tar.gz
-# Patch the bindings crate to use the distro crate, rather than the bundled crate sources
-# Also, for v0.6.0 sources, patch out the development version suffix
-Patch:          pysafetensors.patch
-# https://github.com/huggingface/safetensors/pull/634
-Patch:          correct-failing-tests.patch
 
 # Exclude i686 because rust-safetensors does
 ExcludeArch:   %{ix86}
@@ -33,8 +28,11 @@ ExcludeArch:   %{ix86}
 
 BuildRequires:	python3-devel
 BuildRequires:	cargo-rpm-macros >= 24
+BuildRequires:	tomcli
 # Test requirements
-BuildRequires:	python3-pytest
+BuildRequires:	python3dist(pytest)
+# https://github.com/huggingface/safetensors/pull/640
+BuildRequires:	python3dist(fsspec)
 
 %global _description %{expand:
 This library implements a new simple format for storing tensors safely
@@ -54,6 +52,10 @@ Summary:	%{summary}
 %autosetup -p1 -n safetensors-%{version}
 # Delete the bundled crate
 rm -r safetensors/
+# Replace the path-based dependency on the bundled crate with an exact-version
+# dependency.
+tomcli set bindings/python/Cargo.toml del dependencies.safetensors.path
+tomcli set bindings/python/Cargo.toml str dependencies.safetensors.version '=%{version}'
 # Also delete all the miscellaneous stuff from the GitHub release bundle
 rm -r attacks/ docs/ .github/ codecov.y* Dockerfile.* .dockerignore flake.* .gitignore Makefile RELEASE.md
 # Move toplevel README.md to eliminate name conflict

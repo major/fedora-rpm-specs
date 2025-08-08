@@ -54,8 +54,8 @@
 # than a Fedora release lifecycle.
 %global nodejs_epoch 1
 %global nodejs_major 22
-%global nodejs_minor 17
-%global nodejs_patch 1
+%global nodejs_minor 18
+%global nodejs_patch 0
 # nodejs_soversion - from NODE_MODULE_VERSION in src/node_version.h
 %global nodejs_soversion 127
 %global nodejs_abi %{nodejs_soversion}
@@ -78,7 +78,7 @@
 %global v8_release %{nodejs_epoch}.%{nodejs_major}.%{nodejs_minor}.%{nodejs_patch}.%{nodejs_release}
 
 # zlib - from deps/zlib/zlib.h
-%global zlib_version 1.3.0.1-motley
+%global zlib_version 1.3.1
 
 # c-ares - from deps/cares/include/ares_version.h
 # https://github.com/nodejs/node/pull/9332
@@ -122,7 +122,7 @@
 
 # npm - from deps/npm/package.json
 %global npm_epoch 1
-%global npm_version 10.9.2
+%global npm_version 10.9.3
 
 # In order to avoid needing to keep incrementing the release version for the
 # main package forever, we will just construct one for npm that is guaranteed
@@ -139,7 +139,7 @@
 %global histogram_version 0.9.7
 
 # sqlite – from deps/sqlite/sqlite3.h
-%global sqlite_version 3.50.0
+%global sqlite_version 3.50.2
 
 
 Name: nodejs%{nodejs_pkg_major}
@@ -171,7 +171,6 @@ Source300: test-runner.sh
 Source301: test-should-pass.txt
 
 Patch: 0001-Remove-unused-OpenSSL-config.patch
-Patch: 0003-tools-make-nodedownload-module-compatible-with-Pytho.patch
 
 %if 0%{?nodejs_default}
 %global pkgname nodejs

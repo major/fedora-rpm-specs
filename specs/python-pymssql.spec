@@ -4,12 +4,16 @@ a Python DB-API (PEP-249) interface to Microsoft SQL Server.}
 
 Name:           python-%{pypi_name}
 Version:        2.3.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        DB-API interface to Microsoft SQL Server
 
 License:        LGPL-2.0-or-later
 URL:            http://pymssql.org/
 Source0:        %{pypi_source}
+
+# Fix compatibility with Cython >= 3.1
+# Backported from upstream: https://github.com/pymssql/pymssql/pull/938
+Patch:          fix-cython-3.1-build.patch
 
 BuildRequires:  freetds-devel
 BuildRequires:  gcc
@@ -35,7 +39,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n %{pypi_name}-%{version} -p0
+%autosetup -n %{pypi_name}-%{version} -p1
 
 # - Drop non-mandatory test dependencies not available in Fedora
 # - Remove version constraints for some test dependencies
@@ -70,6 +74,10 @@ LINK_FREETDS_STATICALLY=no %pyproject_wheel
 
 
 %changelog
+* Tue Aug 05 2025 Charalampos Stratakis <cstratak@redhat.com> - 2.3.2-5
+- Fix compatibility with Cython >= 3.1
+- Fixes: rhbz#2377048
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

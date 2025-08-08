@@ -1,6 +1,6 @@
 Name:           cockpit-image-builder
-Version:        72
-Release:        2%{?dist}
+Version:        73
+Release:        1%{?dist}
 Summary:        Image builder plugin for Cockpit
 
 License:        Apache-2.0
@@ -46,6 +46,83 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Wed Aug 6 2025 Packit <hello@packit.dev> - 73-1
+Changes with 73
+----------------
+  * ESLint: Set `no-unused-vars` rule to error (HMS-8923) (#3463)
+    * Author: Klara Simickova, Reviewers: Gianluca Zuccarelli, Michal Gold
+  * Move prettier config to ESLint config (HMS-8997) (#3495)
+    * Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+  * Refactor oscap (#3299)
+    * Author: Anna Vítová, Reviewers: Gianluca Zuccarelli
+  * Revert "playwright: Add duration to test account creation request (HMS-8958)" (#3489)
+    * Author: Klara Simickova, Reviewers: Michal Gold
+  * Update API (HMS-8938) (#3472)
+    * Author: Klara Simickova, Reviewers: Gianluca Zuccarelli, Michal Gold
+  * Wizard: Add FIPS state management infrastructure (HMS-8992) (#3490)
+    * Author: Michal Gold, Reviewers: Klara Simickova
+  * Wizard: Add fetch and error state for target environments (HMS-8941) (#3474)
+    * Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+  * Wizard: Fix registration validation for Satellite on edit (HMS-8998) (#3498)
+    * Author: Klara Simickova, Reviewers: Gianluca Zuccarelli, Michal Gold
+  * Wizard: disable adding empty user tabs (HMS-8652) (#3300)
+    * Author: Katarína Sieklová, Reviewers: Klara Simickova
+  * api: remove pull command (#3454)
+    * Author: Gianluca Zuccarelli, Reviewers: Klara Simickova
+  * build(deps): bump @patternfly/react-code-editor from 6.1.0 to 6.3.0 (#3458)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps): bump @patternfly/react-core from 6.1.0 to 6.3.0 (#3473)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps): bump @patternfly/react-table from 6.3.0 to 6.3.1 (#3500)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps): bump @redhat-cloud-services/frontend-components from 6.1.0 to 6.1.1 (#3464)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps): bump @redhat-cloud-services/frontend-components-notifications from 6.1.0 to 6.1.1 (#3470)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps): bump @redhat-cloud-services/frontend-components-notifications from 6.1.1 to 6.1.3 (#3497)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps): bump @redhat-cloud-services/frontend-components-utilities from 6.1.0 to 6.1.1 (#3478)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps): bump @sentry/webpack-plugin from 3.6.1 to 4.0.0 (#3453)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps): bump @sentry/webpack-plugin from 4.0.0 to 4.0.1 (#3465)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps): bump @sentry/webpack-plugin from 4.0.1 to 4.0.2 (#3482)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps): bump @unleash/proxy-client-react from 5.0.0 to 5.0.1 (#3471)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps): bump axios from 1.10.0 to 1.11.0 (#3457)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps-dev): bump @currents/playwright from 1.15.2 to 1.15.3 (#3492)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps-dev): bump @eslint/js from 9.31.0 to 9.32.0 (#3496)
+    * Author: dependabot[bot], Reviewers: Gianluca Zuccarelli
+  * build(deps-dev): bump @patternfly/react-icons from 6.1.0 to 6.3.0 (#3461)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps-dev): bump @testing-library/dom from 10.4.0 to 10.4.1 (#3476)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps-dev): bump @types/node from 24.0.13 to 24.1.0 (#3460)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps-dev): bump eslint from 9.30.1 to 9.32.0 (#3484)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps-dev): bump eslint-plugin-playwright from 2.2.0 to 2.2.1 (#3466)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps-dev): bump eslint-plugin-playwright from 2.2.1 to 2.2.2 (#3491)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps-dev): bump eslint-plugin-testing-library from 7.6.0 to 7.6.3 (#3483)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * build(deps-dev): bump stylelint from 16.22.0 to 16.23.0 (#3493)
+    * Author: dependabot[bot], Reviewers: Klara Simickova
+  * on-prem: enable building & uploading AWS images (HMS-5823) (#3055)
+    * Author: Gianluca Zuccarelli, Reviewers: Sanne Raymaekers
+  * playwright: Add duration to test account creation request (HMS-8958) (#3485)
+    * Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+  * playwright: Update required Oscap packages (#3488)
+    * Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+
+— Somewhere on the Internet, 2025-08-06
+
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 72-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

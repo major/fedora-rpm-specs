@@ -17,6 +17,10 @@ Source0:        https://github.com/celery/celery/archive/v%{upstream_version}/%{
 Source1:        pytest.ini
 Summary:        Distributed Task Queue
 
+# Fix tests with click >= 8.2
+# Resolved upstream: https://github.com/celery/celery/pull/9590
+Patch:          fix-click-8.2.1-tests.patch
+
 %description
 An open source asynchronous task queue/job queue based on
 distributed message passing. It is focused on real-time

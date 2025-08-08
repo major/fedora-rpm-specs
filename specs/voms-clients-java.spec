@@ -1,6 +1,6 @@
 Name:		voms-clients-java
-Version:	3.3.5
-Release:	5%{?dist}
+Version:	3.3.6
+Release:	1%{?dist}
 Summary:	Virtual Organization Membership Service Java clients
 
 License:	Apache-2.0
@@ -10,19 +10,24 @@ Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildArch:	noarch
 ExclusiveArch:	%{java_arches} noarch
 
+%if %{?fedora}%{!?fedora:0} >= 43
 BuildRequires:	maven-local-openjdk25
-BuildRequires:	mvn(org.italiangrid:voms-api-java) >= 3.3.5
+%else
+BuildRequires:	maven-local
+%endif
+BuildRequires:	mvn(org.italiangrid:voms-api-java) >= 3.3.6
 BuildRequires:	mvn(commons-cli:commons-cli)
 BuildRequires:	mvn(commons-io:commons-io)
 BuildRequires:	mvn(junit:junit)
 BuildRequires:	asciidoctor
-Requires:	mvn(org.italiangrid:voms-api-java) >= 3.3.5
+Requires:	mvn(org.italiangrid:voms-api-java) >= 3.3.6
 %if %{?rhel}%{!?rhel:0} == 9
-Requires:	(java-headless or java-11-headless or java-17-headless or java-21-headless)
-Suggests:	java-headless
+Requires:	(java-headless or java-1.8.0-headless or java-11-headless or java-17-headless or java-21-headless or java-25-headless)
 %else
-Requires:	java-25-headless
+Requires:	(java-headless or java-21-headless or java-25-headless)
 %endif
+Suggests:	java-headless
+Requires:	javapackages-tools
 
 Requires(post):		%{_sbindir}/update-alternatives
 Requires(preun):	%{_sbindir}/update-alternatives
@@ -59,12 +64,6 @@ voms-proxy-init, voms-proxy-destroy and voms-proxy-info.
 # The asciidoctor plugin is not available in Fedora
 # Run asciidoctor explicitly in the build section instead
 %pom_remove_plugin org.asciidoctor:asciidoctor-maven-plugin
-
-%if %{?rhel}%{!?rhel:0} == 9
-# Default build JDK in RHEL 9 is 11
-%pom_xpath_replace "//pom:plugin[pom:artifactId='maven-compiler-plugin']/pom:configuration/pom:source/text()" 11
-%pom_xpath_replace "//pom:plugin[pom:artifactId='maven-compiler-plugin']/pom:configuration/pom:target/text()" 11
-%endif
 
 %build
 %mvn_build -j
@@ -168,6 +167,9 @@ fi
 %license LICENSE
 
 %changelog
+* Wed Aug 06 2025 Mattias Ellert  <mattias.ellert@physics.uu.se> - 3.3.6-1
+- Update to version 3.3.6
+
 * Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 3.3.5-5
 - Rebuilt for java-25-openjdk as preffered jdk
 

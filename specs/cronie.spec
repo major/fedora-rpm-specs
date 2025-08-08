@@ -18,6 +18,8 @@ Patch:     make_error_func_prototype_complete.patch
 Patch:     fix_range_parsing.patch
 # https://github.com/cronie-crond/cronie/pull/201
 Patch:     move_parsing_code.patch
+# https://github.com/cronie-crond/cronie/pull/206
+Patch:     crontab-fix-backup-failure.patch
 
 Requires:  dailyjobs
 

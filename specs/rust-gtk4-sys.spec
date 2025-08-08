@@ -6,7 +6,7 @@
 %global crate gtk4-sys
 
 Name:           rust-gtk4-sys
-Version:        0.9.6
+Version:        0.10.0
 Release:        %autorelease
 Summary:        FFI bindings of GTK 4
 
@@ -103,7 +103,7 @@ use the "v4_16" feature of the "%{crate}" crate.
 %package     -n %{name}+v4_18-devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       pkgconfig(gtk4) >= 4.17
+Requires:       pkgconfig(gtk4) >= 4.18
 
 %description -n %{name}+v4_18-devel %{_description}
 
@@ -124,6 +124,19 @@ This package contains library source intended for building other packages which
 use the "v4_2" feature of the "%{crate}" crate.
 
 %files       -n %{name}+v4_2-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+v4_20-devel
+Summary:        %{summary}
+BuildArch:      noarch
+Requires:       pkgconfig(gtk4) >= 4.19
+
+%description -n %{name}+v4_20-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "v4_20" feature of the "%{crate}" crate.
+
+%files       -n %{name}+v4_20-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+v4_4-devel

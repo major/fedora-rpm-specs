@@ -15,8 +15,8 @@
 
 Name:           php-pecl-apcu
 Summary:        APC User Cache
-Version:        5.1.25
-Release:        2%{?dist}
+Version:        5.1.26
+Release:        1%{?dist}
 Source0:        https://pecl.php.net/get/%{sources}.tgz
 Source1:        %{pecl_name}.ini
 Source2:        %{pecl_name}-panel.conf
@@ -137,9 +137,6 @@ done
 
 %check
 cd %{sources}
-# see https://github.com/krakjoe/apcu/pull/579
-sed -e 's/%s/%A/' -i tests/apc_entry_003.phpt
-
 %{__php} -n \
    -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so \
    -m | grep '^apcu$'
@@ -173,6 +170,9 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Wed Aug  6 2025 Remi Collet <remi@remirepo.net> - 5.1.26-1
+- update to 5.1.26
+
 * Tue Jul 29 2025 Remi Collet <remi@remirepo.net> - 5.1.25-2
 - cleanup spec file, remove ZTS stuff and very old Obsoletes
 - add pie Provides

@@ -3,7 +3,7 @@
 Name:           sword
 Epoch:          1
 Version:        1.9.0
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Free Bible Software Project
 License:        GPL-2.0-only AND LicenseRef-Fedora-Public-Domain AND Apache-2.0 AND LGPL-2.0-or-later AND Zlib AND LGPL-2.1-or-later AND (0BSD OR MIT-0 OR MIT)
 URL:            http://www.crosswire.org/sword/
@@ -164,6 +164,9 @@ make tests
 
 
 %changelog
+* Wed Aug 06 2025 František Zatloukal <fzatlouk@redhat.com> - 1:1.9.0-34
+- Rebuilt for icu 77.1
+
 * Sat Jul 26 2025 Aaron Rainbolt <arraybolt@fedoraproject.org> - 1:1.9.0-33
 - Set minimum CMake version to 3.5 (rhbz#2381472)
 - Set non-standard CMake variables back to expected values (rhbz#2381665)

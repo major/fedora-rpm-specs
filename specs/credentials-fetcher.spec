@@ -3,7 +3,7 @@
 %global patch_version 8
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 2
+%global baserelease 3
 %define _unpackaged_files_terminate_build 0
 
 Name:           credentials-fetcher
@@ -88,6 +88,9 @@ ctest
 %attr(0700, -, -) /usr/sbin/credentials_fetcher_utf16_private.runtimeconfig.json
 
 %changelog
+* Wed Aug 06 2025 František Zatloukal <fzatlouk@redhat.com> - 1.3.8-3
+- Rebuilt for icu 77.1
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

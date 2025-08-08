@@ -18,7 +18,7 @@
 Name:           %{pkg_name}
 Version:        2.12.0
 # can only be reset when all subpkgs bumped
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Dockerfile linter, validate inline bash
 
 License:        GPL-3.0-or-later
@@ -252,6 +252,9 @@ PATH=%{buildroot}%{_bindir}:$PATH
 
 
 %changelog
+* Wed Aug 06 2025 Jens Petersen <petersen@redhat.com> - 2.12.0-21
+- rebuild against ShellCheck-0.11.0
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

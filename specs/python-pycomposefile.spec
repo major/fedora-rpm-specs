@@ -3,7 +3,7 @@
 %global         srcname pycomposefile
 
 Name:           python-%{srcname}
-Version:        0.0.32
+Version:        0.0.34
 Release:        %autorelease
 Summary:        Structured deserialization of Docker Compose files
 
@@ -16,6 +16,7 @@ BuildRequires:  python3-devel
 
 %if %{with tests}
 BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(timeout-decorator)
 %endif
 
 %global _description %{expand:
@@ -32,25 +33,19 @@ Summary:        %{summary}
 
 %prep
 %autosetup -p1 -n %{srcname}-%{version}
+# For reasons I can't begin to guess they set the version to not-the-right-version.
+sed -i 's/version = "0.0.1a1"/version = "%{version}"/' pyproject.toml
 
 
 %generate_buildrequires
-# Work around an upstream bug with the version number.
-# https://github.com/smurawski/pycomposefile/issues/29
-export BUILD_TAG='%{version}'
-cd src/
 %pyproject_buildrequires
 
 
 %build
-export BUILD_TAG='%{version}'
-cd src/
 %pyproject_wheel
 
 
 %install
-export BUILD_TAG='%{version}'
-cd src/
 %pyproject_install
 
 # Remove the installed tests.
@@ -61,7 +56,6 @@ rm -rf %{buildroot}%{python3_sitelib}/tests
 
 %check
 %pyproject_check_import
-#%%pyproject_check_import -e tests.service.test_service_environment
 
 %if %{with tests}
 %pytest
