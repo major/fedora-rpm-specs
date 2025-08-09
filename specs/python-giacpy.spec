@@ -21,7 +21,9 @@ BuildRequires:  gmp-devel, qt5-qtsvg-devel
 
 # https://gitlab.math.univ-paris-diderot.fr/han/giacpy/-/commit/0e2875ceef9b2f4eb6883252c89dec66193b21c4
 Patch0:         %{name}-fix_doctest.patch
-
+# Fix build with Cython >= 3.1
+# Downstream only as of now
+Patch1:         fix-cython-3.1-build.patch
 %description
 A Cython frontend to the c++ library Giac (Computer Algebra System).
 

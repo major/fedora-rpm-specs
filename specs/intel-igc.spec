@@ -1,4 +1,4 @@
-%global vc_commit 9d255266e1df8f1dc5d11e1fbb03213acfaa4fc7
+%global vc_commit 46286b96fb9eee9fa4fcf8b8ecf74a8c01af4c1a
 %global vc_shortcommit %(c=%{vc_commit}; echo ${c:0:7})
 
 %global optflags %{optflags} -w
@@ -9,7 +9,7 @@
 %endif
 
 Name: intel-igc
-Version: 2.12.7
+Version: 2.14.4
 Release: %autorelease
 Summary: Intel Graphics Compiler for OpenCL
 

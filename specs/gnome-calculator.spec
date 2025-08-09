@@ -4,16 +4,15 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-calculator
-Version:        49~alpha
-Release:        2%{?dist}
+Version:        49~beta
+Release:        %autorelease
 Summary:        A desktop calculator
 
 License:        GPL-3.0-or-later AND CC-BY-SA-3.0 AND CC0-1.0
 URL:            https://wiki.gnome.org/Apps/Calculator
 Source0:        https://download.gnome.org/sources/%{name}/49/%{name}-%{tarball_version}.tar.xz
 
-Patch:          0001-Dont-use-development-vala-API.patch
-
+BuildRequires:  blueprint-compiler
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
 BuildRequires:  itstool
@@ -107,7 +106,4 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.gnome.Calculator
 
 
 %changelog
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 49~alpha-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
 %autochangelog

@@ -17,6 +17,8 @@ Patch1:         f765f0b312f2998498f629d93369babfb2c975b4.patch
 Patch2:         0001-fix-make-additions-be-constant-time.patch
 # Look for fedora extract pem cert bundle
 Patch3:         0001-fix-use-fedora-new-pem-cert-location.patch
+# Fixes vulnerability CVE-2024-50382
+Patch4:         0001-backport-security-fix-for-compiler-induced-side-chan.patch
 
 
 BuildRequires:  gcc-c++

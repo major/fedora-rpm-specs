@@ -1,4 +1,9 @@
+# unexplained type mismatch on s390x and sometimes (?!?) ppc64le
+#     = note: expected signature `fn(&TestLogger, codemap::SpanLoc, &_)`
+#               found signature `fn(&TestLogger, SpanLoc, &_)`
+%ifarch aarch64 x86_64
 %bcond check 1
+%endif
 
 %global srcname grass
 
@@ -21,6 +26,10 @@ BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  tomcli
 
 Conflicts:      grass
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+# also, str_split_big_limit fails on 32-bit due to use of a large integer
+ExcludeArch:    %{ix86}
 
 %description
 A Sass compiler written purely in Rust.

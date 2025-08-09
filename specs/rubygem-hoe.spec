@@ -3,8 +3,8 @@
 
 Summary:    	Hoe is a simple rake/rubygems helper for project Rakefiles
 Name:       	rubygem-%{gem_name}
-Version:    	4.2.3
-Release:    	3%{?dist}
+Version:    	4.3.0
+Release:    	1%{?dist}
 # SPDX confirmed
 License:    	MIT
 URL:        	https://github.com/seattlerb/hoe
@@ -17,11 +17,6 @@ Patch0:		rubygem-hoe-3.0.6-rescue-missing-Manifest.patch
 # /usr/share/gems/gems/psych-3.1.0/lib/psych/parser.rb:34:in `<class:Parser>': 
 # superclass mismatch for class Mark (TypeError)
 Patch1:		rubygem-hoe-3.21.0-always-search-gem-for-psych.patch
-# ref: https://github.com/rubygems/rubygems/pull/8568
-# https://github.com/rubygems/rubygems/commit/3570ad3606798f68c66369b545f89b636b598602
-# rubygems 3.6.7 sets DEFAULT_SOURCE_DATE_EPOCH
-# https://github.com/seattlerb/hoe/commit/b80a4958591d7b7cdfbf6c9e743f76e6558f6dac
-Patch2:		rubygem-hoe-4.2.3-forcely-set-spec_date.patch
 
 Requires:	ruby(release)
 BuildRequires:	ruby(release)
@@ -65,7 +60,6 @@ mv ../%{gem_name}-%{version}.gemspec .
 # Patches
 %patch -P0 -p0
 %patch -P1 -p1
-%patch -P2 -p1
 
 # Allow RubyInline 3.8.4
 sed -i -e '/RubyInline/s|~> 3\.9|>= 3.8.4|' \
@@ -137,6 +131,9 @@ popd
 %{gem_docdir}
 
 %changelog
+* Thu Aug 07 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.0-1
+- 4.3.0
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -12,14 +12,13 @@
 %global toolchain rocm
 # hipcc does not support some clang flags
 # build_cxxflags does not honor CMAKE_BUILD_TYPE, strip out -g
-%global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host -fcf-protection/' -e 's/-g / /' -e 's/-mtls-dialect=gnu2//')
+%global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host -fcf-protection/' -e 's/-mtls-dialect=gnu2//')
 
 %bcond_with debug
 %if %{with debug}
 %global build_type DEBUG
 %else
-%global build_type RELEASE
-%global debug_package %{nil}
+%global build_type RelWithDebInfo
 %endif
 
 %bcond_without compress
@@ -73,7 +72,7 @@
 
 Name:           %{rocsolver_name}
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Next generation LAPACK implementation for ROCm platform
 Url:            https://github.com/ROCm/rocSOLVER
 
@@ -193,7 +192,7 @@ fi
 HIP_JOBS=`eval "expr ${HIP_JOBS} / 2"`
 
 # Take into account memmory usage per core, do not thrash real memory
-BUILD_MEM=16
+BUILD_MEM=32
 MEM_KB=0
 MEM_KB=`cat /proc/meminfo | grep MemTotal | awk '{ print $2 }'`
 MEM_MB=`eval "expr ${MEM_KB} / 1024"`
@@ -225,7 +224,7 @@ if [ ${COMPILE_JOBS} = 1 ]; then
 fi
 
 # Take into account memmory usage per core, do not thrash real memory
-BUILD_MEM=4
+BUILD_MEM=8
 MEM_KB=0
 MEM_KB=`cat /proc/meminfo | grep MemTotal | awk '{ print $2 }'`
 MEM_MB=`eval "expr ${MEM_KB} / 1024"`
@@ -234,7 +233,7 @@ COMPILE_JOBS_MEM=`eval "expr 1 + ${MEM_GB} / ${BUILD_MEM}"`
 if [ "$COMPILE_JOBS_MEM" -lt "$COMPILE_JOBS" ]; then
     COMPILE_JOBS=$COMPILE_JOBS_MEM
 fi
-LINK_MEM=16
+LINK_MEM=32
 LINK_JOBS=`eval "expr 1 + ${MEM_GB} / ${LINK_MEM}"`
 JOBS=${COMPILE_JOBS}
 if [ "$LINK_JOBS" -lt "$JOBS" ]; then
@@ -295,6 +294,9 @@ fi
 %endif
 
 %changelog
+* Wed Aug 6 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-3
+- Default build type RelWithDebInfo
+
 * Wed Jul 30 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-2
 - Remove -mtls-dialect cflag
 

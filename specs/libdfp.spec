@@ -1,6 +1,6 @@
 Name:		libdfp
-Version:	1.0.16
-Release:	13%{?dist}
+Version:	1.0.17
+Release:	1%{?dist}
 Summary:	Decimal Floating Point C Library
 License:	LGPL-2.1-or-later
 Url:		https://github.com/libdfp/libdfp
@@ -8,8 +8,6 @@ Source0:	https://github.com/libdfp/libdfp/releases/download/%{version}/%{name}-%
 #
 # Patches from upstream
 #
-Patch1: bz2045793.patch
-Patch2: bz2261309.patch
 
 # Be explicit about the soname in order to avoid unintentional changes.
 %global soname libdfp.so.1
@@ -19,7 +17,7 @@ Patch2: bz2261309.patch
 %global cpu_variants power6
 %endif
 
-ExclusiveArch:	ppc ppc64 ppc64le s390 s390x x86_64
+ExclusiveArch:	aarch64 ppc ppc64 ppc64le s390 s390x x86_64
 BuildRequires: make
 BuildRequires:	gcc, python3
 %if 0%{?cpu_variants:1}
@@ -148,6 +146,9 @@ done
 %{_libdir}/pkgconfig/libdecnumber.pc
 
 %changelog
+* Thu Aug 07 2025 Paul Murphy <murp@redhat.com> - 1.0.17-1
+- Update to libdfp 1.0.17
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.16-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

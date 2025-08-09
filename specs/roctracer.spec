@@ -7,9 +7,8 @@
 # hipcc does not support some clang flags
 %global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host -fcf-protection/')
 
-%global gpu_list "gfx900;gfx906:xnack-;gfx908:xnack-;gfx90a:xnack+;gfx90a:xnack-;gfx942;gfx1010;gfx1012;gfx1030;gfx1031;gfx1035;gfx1100;gfx1101;gfx1102;gfx1103;gfx1150;gfx1151;gfx1152;gfx1200;gfx1201"
-
 # Needs ROCm HW and is only suitable for local testing
+# GPU_TARGETS in the cmake config are only for testing
 %bcond_with test
 %if %{with test}
 # rpm flags interfere with building the tests
@@ -25,7 +24,7 @@
 
 Name:           roctracer
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        ROCm Tracer Callback/Activity Library for Performance tracing AMD GPUs
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -129,6 +128,12 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 # No knob in cmake to turn off testing
 %if %{without test}
 sed -i -e 's@add_subdirectory(test)@#add_subdirectory(test)@' CMakeLists.txt
+
+%else
+
+# Adjust test running script lib dir
+sed -i -e 's@../lib/@../lib64/@' test/run.sh
+
 %endif
 
 %build
@@ -136,11 +141,12 @@ sed -i -e 's@add_subdirectory(test)@#add_subdirectory(test)@' CMakeLists.txt
     -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/clang++ \
     -DCMAKE_C_COMPILER=%rocmllvm_bindir/clang \
     -DCMAKE_MODULE_PATH=%{_libdir}/cmake/hip \
+    -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
     -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
     -DROCM_SYMLINK_LIBS=OFF \
+    -DGPU_TARGETS=%{rocm_gpu_list_test} \
     -DHIP_PLATFORM=amd \
     -DBUILD_SHARED_LIBS=ON \
-    -DAMDGPU_TARGETS=%{gpu_list} \
     -DCMAKE_BUILD_TYPE=RelDebInfo
 
 %cmake_build
@@ -184,6 +190,9 @@ rm -rf rm %{buildroot}%{_datadir}/html
 %endif
 
 %changelog
+* Thu Aug 7 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-4
+- Fix building test subpackage - 6.4.0-3
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

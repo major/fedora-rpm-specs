@@ -2,7 +2,7 @@
 
 Name:           octave-%{octpkg}
 Version:        1.0.18
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Structure handling for Octave
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -50,6 +50,9 @@ included in the octave core.
 
 
 %changelog
+* Thu Aug 07 2025 Orion Poplawski <orion@nwra.com> - 1.0.18-11
+- Rebuild for Octave 10.2
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.18-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

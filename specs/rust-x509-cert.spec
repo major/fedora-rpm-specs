@@ -14,7 +14,8 @@ URL:            https://crates.io/crates/x509-cert
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * drop unused sct feature / tls_codec dependency
-# * bump rstest dev-dependency from 0.18 to 0.23
+# * bump rstest dev-dependency from 0.18 to 0.26:
+#   https://github.com/RustCrypto/formats/pull/1988
 Patch:          x509-cert-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

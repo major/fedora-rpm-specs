@@ -22,6 +22,7 @@ Source:         %{crates_source}
 # * Do not depend on fakeit; it is needed only for benchmarks.
 #   (examples/table.rs is also removed)
 # * Remove octocrab dependency and examples/async.rs
+# * Update rstest to 0.26: https://github.com/ratatui/ratatui/pull/2041
 Patch:          ratatui-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

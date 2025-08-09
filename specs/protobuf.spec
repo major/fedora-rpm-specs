@@ -25,7 +25,7 @@ Name:           protobuf
 # “patch” updates of protobuf.
 Version:        3.19.6
 %global so_version 30
-Release:        15%{?dist}
+Release:        16%{?dist}
 
 # The entire source is BSD-3-Clause, except the following files, which belong
 # to the build system; are unpackaged maintainer utility scripts; or are used
@@ -190,8 +190,6 @@ lacks descriptors, reflection, and some other features.
 %package -n python3-protobuf
 Summary:        Python bindings for Google Protocol Buffers
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
-BuildRequires:  python3dist(wheel)
 %if %{with python_cpp}
 Requires:       protobuf%{?_isa} = %{version}-%{release}
 %else
@@ -337,6 +335,10 @@ find -name '*.java' | xargs sed -ri \
 
 rm -f src/solaris/libstdc++.la
 
+%generate_buildrequires
+cd python
+%pyproject_buildrequires
+
 %build
 iconv -f iso8859-1 -t utf-8 CONTRIBUTORS.txt > CONTRIBUTORS.txt.utf8
 mv CONTRIBUTORS.txt.utf8 CONTRIBUTORS.txt
@@ -353,7 +355,7 @@ export PTHREAD_LIBS="-lpthread"
 
 %if %{with python}
 pushd python
-%py3_build %{?with_python_cpp:-- --cpp_implementation}
+%pyproject_wheel %{?with_python_cpp:-C--global-option=--cpp_implementation}
 popd
 %endif
 
@@ -374,6 +376,10 @@ export MAVEN_OPTS=-Xmx1024m
 
 %check
 %make_build check CXXFLAGS="%{build_cxxflags} -Wno-error=type-limits"
+%if %{with python_cpp}
+export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
+%endif
+%pyproject_check_import -e '*json_format_proto3_pb2' %{!?with_python_cpp:-e '*.pyext*'}
 
 
 %install
@@ -385,7 +391,8 @@ install -p -m 0644 -D -t '%{buildroot}%{_mandir}/man1' '%{SOURCE4}'
 
 %if %{with python}
 pushd python
-%py3_install %{?with_python_cpp:-- --cpp_implementation}
+%pyproject_install
+%pyproject_save_files -L google
 %if %{without python_cpp}
 find %{buildroot}%{python3_sitelib} -name \*.py -exec sed -i -e '1{\@^#!@d}' {} +
 %endif
@@ -440,19 +447,13 @@ install -p -m 0644 %{SOURCE2} %{buildroot}%{_emacs_sitestartdir}
 %{_libdir}/pkgconfig/protobuf-lite.pc
 
 %if %{with python}
-%files -n python3-protobuf
+%files -n python3-protobuf -f %{pyproject_files}
 %if %{with python_cpp}
-%dir %{python3_sitearch}/google
-%{python3_sitearch}/google/protobuf/
-%{python3_sitearch}/protobuf-%{version}%{?rcver}-py3.*.egg-info/
 %{python3_sitearch}/protobuf-%{version}%{?rcver}-py3.*-nspkg.pth
 %else
-%license LICENSE
-%dir %{python3_sitelib}/google
-%{python3_sitelib}/google/protobuf/
-%{python3_sitelib}/protobuf-%{version}%{?rcver}-py3.*.egg-info/
 %{python3_sitelib}/protobuf-%{version}%{?rcver}-py3.*-nspkg.pth
 %endif
+%license LICENSE
 %doc python/README.md
 %doc examples/add_person.py examples/list_people.py examples/addressbook.proto
 %endif
@@ -490,6 +491,9 @@ install -p -m 0644 %{SOURCE2} %{buildroot}%{_emacs_sitestartdir}
 
 
 %changelog
+* Tue Jul 29 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 3.19.6-16
+- Convert to pyproject macros
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.19.6-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

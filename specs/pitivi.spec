@@ -3,7 +3,7 @@
 
 Name:           pitivi
 Version:        2023.03
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Non-linear video editor
 
 License:        LGPL-2.0-or-later
@@ -11,6 +11,9 @@ URL:            http://www.pitivi.org/
 Source0:        https://download.gnome.org/sources/pitivi/2023/pitivi-%{version}.tar.xz
 
 Patch0:         485.patch
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  meson
 BuildRequires:  gcc
@@ -113,6 +116,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.pitivi.Pitivi.des
 %{python3_sitearch}/pitivi/
 
 %changelog
+* Thu Aug 07 2025 Jerry James <loganjerry@gmail.com> - 2023.03-17
+- Stop building for 32-bit x86
+
 * Thu Jul 31 2025 Gwyn Ciesla <gwync@protonmail.com> - 2023.03-16
 - Patch to fix preview window bug
 

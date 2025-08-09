@@ -1,11 +1,11 @@
 # From src/version.h:#define OCTAVE_API_VERSION
-%global octave_api api-v59
+%global octave_api api-v60
 
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 
 %global builddocs 1
 
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 9
 %bcond_without flexiblas
 %endif
 %if %{with flexiblas}
@@ -36,7 +36,7 @@
 
 Name:           octave
 Epoch:          6
-Version:        9.4.0
+Version:        10.2.0
 Release:        %autorelease
 Summary:        A high-level language for numerical computations
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -136,7 +136,7 @@ BuildRequires:  tex(dvips)
 BuildRequires:  texinfo
 BuildRequires:  texinfo-tex
 BuildRequires:  texlive-collection-fontsrecommended
-%if 0%{?rhel} >= 7
+%if 0%{?rhel}
 BuildRequires:  texlive-ec
 BuildRequires:  texlive-metapost
 %endif
@@ -305,8 +305,8 @@ perl -pi -e "s,%{buildroot},," %{buildroot}%{_datadir}/%{name}/ls-R
 touch %{buildroot}%{_datadir}/%{name}/ls-R
 
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.octave.Octave.desktop
-# RHEL7 still doesn't like the GNU project_group
-%{?el7:sed -i -e /project_group/d %{buildroot}/%{_datadir}/metainfo/org.octave.Octave.metainfo.xml}
+# RHEL9 appstream does not know url type
+%{?el9:sed -i -e '/url type=/d' %{buildroot}/%{_datadir}/metainfo/org.octave.Octave.metainfo.xml}
 appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/org.octave.Octave.metainfo.xml
 
 # Create directories for add-on packages
@@ -411,9 +411,10 @@ make check
 %{_bindir}/octave*
 %dir %{_libdir}/octave/
 %dir %{_libdir}/octave/%{version}
-%{_libdir}/octave/%{version}/liboctave.so.11*
-%{_libdir}/octave/%{version}/liboctgui.so.12*
-%{_libdir}/octave/%{version}/liboctinterp.so.12*
+%{_libdir}/octave/%{version}/liboctave.so.12*
+%{_libdir}/octave/%{version}/liboctgui.so.13*
+%{_libdir}/octave/%{version}/liboctinterp.so.13*
+%{_libdir}/octave/%{version}/liboctmex.so.1*
 %{_libdir}/octave/%{version}/mkoctfile-%{version}
 %{_libdir}/octave/%{version}/oct/
 %{_libdir}/octave/%{version}/octave-config-%{version}
@@ -444,8 +445,10 @@ make check
 %{_libdir}/octave/%{version}/liboctave.so
 %{_libdir}/octave/%{version}/liboctgui.so
 %{_libdir}/octave/%{version}/liboctinterp.so
+%{_libdir}/octave/%{version}/liboctmex.so
 %{_libdir}/pkgconfig/octave.pc
 %{_libdir}/pkgconfig/octinterp.pc
+%{_libdir}/pkgconfig/octmex.pc
 %{_mandir}/man1/mkoctfile.1.*
 
 %files doc

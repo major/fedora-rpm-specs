@@ -2,7 +2,7 @@
 
 Name:           octave-%{octpkg}
 Version:        1.6.2
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        A non-linear optimization tool kit for Octave
 # C++ and .m are GPLv3+, documentation is GFDL
 # Automatically converted from old format: GPLv3+ and GFDL - review is highly recommended.
@@ -71,6 +71,9 @@ rm -rf  %{buildroot}/%{octpkgdir}/doc
 %doc doc/development/interfaces.txt
 
 %changelog
+* Thu Aug 07 2025 Orion Poplawski <orion@nwra.com> - 1.6.2-15
+- Rebuild for Octave 10.2
+
 * Sat Aug 02 2025 Orion Poplawski <orion@nwra.com> - 1.6.2-14
 - Add patch to support octave 10
 

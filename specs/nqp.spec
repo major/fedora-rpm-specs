@@ -1,5 +1,5 @@
 Name:           nqp
-Version:        2025.04
+Version:        2025.06
 Release:        %autorelease
 Summary:        Perl 6 compiler implementation that runs on MoarVM
 License:        Artistic-2.0

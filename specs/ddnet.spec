@@ -2,8 +2,8 @@
 %bcond_without ninja_build
 
 Name:           ddnet
-Version:        19.2.1
-Release:        2%{?dist}
+Version:        19.3
+Release:        1%{?dist}
 Summary:        DDraceNetwork, a cooperative racing mod of Teeworlds
 
 #
@@ -177,6 +177,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Thu Aug 07 2025 Rafael Fontenelle <rafaelff@gnome.org> - 19.3-1
+- Update to version 19.3
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 19.2.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

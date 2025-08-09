@@ -1,7 +1,7 @@
 Summary:        In memory VT-compatible terminal emulator
 Name:           python-pyte
 Version:        0.8.2
-Release:        10%{?dist}
+Release:        11%{?dist}
 # Automatically converted from old format: LGPLv3 - review is highly recommended.
 License:        LGPL-3.0-only
 URL:            https://github.com/selectel/pyte
@@ -10,7 +10,6 @@ Patch0:         python-pyte-0.8.0-docs.patch
 BuildArch:      noarch
 BuildRequires:  make
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-pytest
 BuildRequires:  python3-pytest-runner
 BuildRequires:  python3-sphinx
@@ -34,22 +33,25 @@ This contains documentation of the API in Python module pyte.
 %prep
 %autosetup -p1 -n pyte-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 pushd docs && make all
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l pyte
 
 %check
+%pyproject_check_import
+
 export PYTHONPATH=%{buildroot}%{python3_sitelib}
 %{pytest} --color=yes
 
-%files -n python3-pyte
-%license LICENSE
+%files -n python3-pyte -f %{pyproject_files}
 %doc AUTHORS CHANGES README 
-%{python3_sitelib}/pyte/
-%{python3_sitelib}/pyte-%{version}-py*.egg-info
 
 %files -n python3-pyte-docs
 %license LICENSE
@@ -57,6 +59,9 @@ export PYTHONPATH=%{buildroot}%{python3_sitelib}
 %doc docs/_build/html
 
 %changelog
+* Thu Aug 07 2025 Terje Rosten <terjeros@gmail.com> - 0.8.2-11
+- New macros
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

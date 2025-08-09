@@ -2,7 +2,7 @@
 
 Name:		octave-%{octpkg}
 Version:	2.1.1
-Release:	20%{?dist}
+Release:	21%{?dist}
 Summary:	Octave bindings to the GNU Scientific Library
 # Some test files are GPLv3+ but they're not shipped.
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -60,6 +60,9 @@ rm -f %{buildroot}%{octpkgdir}/doc-cache
 %{octpkgdir}/packinfo/on_uninstall.m
 
 %changelog
+* Thu Aug 07 2025 Orion Poplawski <orion@nwra.com> - 2.1.1-21
+- Rebuild for Octave 10.2
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -18,6 +18,9 @@ Source:         %{url}/archive/%{version}/sklearn-genetic-%{version}.tar.gz
 # https://github.com/manuel-calzolari/sklearn-genetic/pull/49
 Patch:          %{url}/pull/49.patch
 
+# Compatibility for scikit-learn 1.7.1
+# https://github.com/manuel-calzolari/sklearn-genetic/pull/50
+Patch:          %{url}/pull/50.patch
 BuildArch:      noarch
 
 %description %_description

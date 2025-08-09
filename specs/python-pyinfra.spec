@@ -1,7 +1,7 @@
 %global  forgeurl https://github.com/pyinfra-dev/pyinfra
 %global  pypi_name pyinfra
 Name:           python-%{pypi_name}
-Version:        3.2
+Version:        3.4.1
 %global  tag    v%{version}
 Release:        %autorelease
 
@@ -18,6 +18,8 @@ BuildRequires:  python3-devel
 # Test dependencies include extra formatting and coverage tests
 # that are not needed in Fedora CI
 BuildRequires:  python3-pytest
+BuildRequires:  python3-pyyaml
+BuildRequires:  python3-pytest-testinfra
 
 %global _description %{expand:
 pyinfra turns Python code into shell commands and runs them on your

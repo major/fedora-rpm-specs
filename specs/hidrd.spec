@@ -6,13 +6,20 @@
 
 Name:		hidrd
 Version:	0.2.0
-Release:	25.%{git_suffix}%{?dist}
+Release:	26.%{git_suffix}%{?dist}
 Summary:	HID report descriptor I/O library and conversion tool
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
 URL:		https://github.com/DIGImend/hidrd
 Source0:	https://github.com/DIGImend/hidrd/archive/%{git_commit}.tar.gz#/%{name}-%{version}-%{git_suffix}.tar.gz
-BuildRequires:	gcc, make, automake, autoconf, libtool, libxml2-devel
+BuildRequires:	gcc
+BuildRequires:	make
+BuildRequires:	automake
+BuildRequires:	autoconf
+BuildRequires:	libtool
+BuildRequires:	libxml2-devel
+# Upstream PR: https://github.com/DIGImend/hidrd/pull/33
+Patch:		hidrd-2.0.0-nonstring-workaround.patch
 
 %package devel
 Summary:	Development files needed for %{name}
@@ -26,7 +33,7 @@ Hidrd is a library and a tool for reading, writing and converting HID report
 descriptors in/between various formats.
 
 %prep
-%autosetup -n %{name}-%{git_commit}
+%autosetup -n %{name}-%{git_commit} -p1
 ./bootstrap
 
 %build
@@ -57,6 +64,10 @@ rm -vf %{buildroot}%{_libdir}/*.{a,la}
 %{_includedir}/%{name}
 
 %changelog
+* Thu Aug 07 2025 Jaroslav Škarvada  <jskarvad@redhat.com> - 0.2.0-26.20180117git7e94881a
+- Fixed FTBFS
+  Resolves: rhbz#2340611
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-25.20180117git7e94881a
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

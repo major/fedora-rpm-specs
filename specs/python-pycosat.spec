@@ -15,6 +15,9 @@ License:        MIT
 URL:            https://github.com/ContinuumIO/%{srcname}
 Source0:        https://github.com/ContinuumIO/%{srcname}/archive/%{version}/%{srcname}-%{version}.tar.gz
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  gcc
 BuildRequires:  picosat-devel
 

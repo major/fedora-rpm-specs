@@ -1,18 +1,17 @@
 %global project_version_prime 5
 %global project_version_major 2
-%global project_version_minor 15
+%global project_version_minor 16
 %global project_version_micro 0
 
 %bcond dnf5_obsoletes_dnf %[0%{?fedora} > 40 || 0%{?rhel} > 10]
 
 Name:           dnf5
 Version:        %{project_version_prime}.%{project_version_major}.%{project_version_minor}.%{project_version_micro}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Command-line package manager
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf5
 Source0:        %{url}/archive/%{version}/dnf5-%{version}.tar.gz
-Patch0:         0001-Disable-fastest_mirror-callback-for-package-download.patch
 
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Requires:       libdnf5-cli%{?_isa} = %{version}-%{release}
@@ -1024,6 +1023,9 @@ mkdir -p %{buildroot}%{_libdir}/libdnf5/plugins
 %ldconfig_scriptlets
 
 %changelog
+* Thu Aug 07 2025 Packit <hello@packit.dev> - 5.2.16.0-1
+- Update to version 5.2.16.0
+
 * Thu Jul 24 2025 Petr Pisar <ppisar@redhat.com> - 5.2.15.0-3
 - Fix a crash when downloading packages with enabled fastestmirror option
   (bug #2381859)

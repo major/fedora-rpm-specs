@@ -16,6 +16,7 @@ Source:         %{crates_source}
 Patch:          time-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * remove WASM-specific features
+# * update rstest to 0.26: https://github.com/time-rs/time/pull/747
 Patch:          time-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

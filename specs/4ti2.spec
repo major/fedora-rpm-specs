@@ -1,7 +1,7 @@
 %global giturl  https://github.com/4ti2/4ti2
 
 Name:           4ti2
-Version:        1.6.12
+Version:        1.6.13
 Release:        %autorelease
 Summary:        Algebraic, geometric and combinatorial problems on linear spaces
 
@@ -13,6 +13,22 @@ Summary:        Algebraic, geometric and combinatorial problems on linear spaces
 # CM: Knuth-CTAN
 # CM-Super: GPL-1.0-or-later
 License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND GPL-1.0-or-later
+# Source files under licenses other than GPL-2.0-or-later:
+# GPL-2.0-or-later WITH Autoconf-exception-macro: compile,
+#   m4/ax_cflags_warn_all.m4
+# GPL-2.0-or-later WITH Libtool-exception: configure, ltmain.sh
+# GPL-2.0-or-later OR MIT: ltmain.sh
+# GPL-3.0-or-later: lib/*.{c,h} (not compiled into the binary)
+# GPL-3.0-or-later WITH Autoconf-exception-generic: lib/Makefile.am,
+#   m4/onceonly.m4
+# GPL-3.0-or-later WITH Autoconf-exception-macro: config.guess,
+#   m4/ax_check_compile_flag.m4
+# FSFUL: configure, m4/libtool.m4
+# FSFULLR: aclocal.m4, m4/00gnulib.m4, m4/libtool.m4
+# FSFULLRWD: aclocal.m4, Makefile.in
+# X11: install-sh
+# LicenseRef-Fedora-Public-Domain: install-sh
+SourceLicense:  GPL-2.0-or-later AND GPL-2.0-or-later WITH Autoconf-exception-macro AND GPL-2.0-or-later WITH Libtool-exception AND (GPL-2.0-or-later OR MIT) AND GPL-3.0-or-later AND GPL-3.0-or-later WITH Autoconf-exception-generic AND GPL-3.0-or-later WITH Autoconf-exception-macro AND FSFUL AND FSFULLR AND FSFULLRWD AND X11 AND LicenseRef-Fedora-Public-Domain
 URL:            https://4ti2.github.io/
 VCS:            git:%{giturl}.git
 Source0:        %{giturl}/releases/download/Release_%{relver}/%{name}-%{version}.tar.gz

@@ -5,21 +5,23 @@
 
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       8.1.7
-Release:       6%{?dist}
+Version:       8.2.2
+Release:       1%{?dist}
 BuildArch:     noarch
 
 License:       BSD-3-Clause
 URL:           https://palletsprojects.com/p/click/
 Source0:       %{pypi_source}
 
-BuildRequires: mingw32-filesystem >= 95
+BuildRequires: mingw32-filesystem
 BuildRequires: mingw32-python3
 BuildRequires: mingw32-python3-build
+BuildRequires: mingw32-python3-flit-core
 
-BuildRequires: mingw64-filesystem >= 95
+BuildRequires: mingw64-filesystem
 BuildRequires: mingw64-python3
 BuildRequires: mingw64-python3-build
+BuildRequires: mingw64-python3-flit-core
 
 
 %description
@@ -55,17 +57,20 @@ MinGW Windows Python3 %{pypi_name} library.
 
 
 %files -n mingw32-python3-%{pypi_name}
-%license LICENSE.rst
+%license LICENSE.txt
 %{mingw32_python3_sitearch}/%{pypi_name}/
 %{mingw32_python3_sitearch}/%{pypi_name}-%{version}.dist-info/
 
 %files -n mingw64-python3-%{pypi_name}
-%license LICENSE.rst
+%license LICENSE.txt
 %{mingw64_python3_sitearch}/%{pypi_name}/
 %{mingw64_python3_sitearch}/%{pypi_name}-%{version}.dist-info/
 
 
 %changelog
+* Thu Aug 07 2025 Sandro Mani <manisandro@gmail.com> - 8.2.2-1
+- Update to 8.2.2
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.1.7-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

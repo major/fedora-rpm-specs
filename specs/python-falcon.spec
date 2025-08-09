@@ -1,6 +1,6 @@
 Name:           python-falcon
 Epoch:          1
-Version:        4.0.2
+Version:        4.1.0
 Release:        %autorelease
 Summary:        ASGI+WSGI framework for building data plane APIs
 License:        Apache-2.0
@@ -9,8 +9,6 @@ Source:         %{pypi_source falcon}
 
 # downstream-only patch to remove coverage build requirement
 Patch:          0001-Remove-coverage-test-requirement.patch
-# https://github.com/falconry/falcon/pull/2412
-Patch:          0002-chore-implement-initial-support-for-CPython-3.14-2412.patch
 
 BuildRequires:  gcc
 

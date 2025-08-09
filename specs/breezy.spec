@@ -3,7 +3,7 @@
 #   bzrmajor:  main bzr version
 #   Version: bzr version, add subrelease version here
 %global brzmajor 3.3
-%global brzminor .11
+%global brzminor .12
 
 Name:           breezy
 Version:        %{brzmajor}%{?brzminor}
@@ -14,9 +14,8 @@ Summary:        Friendly distributed version control system
 # see packaged LICENSE.dependencies for details
 License:        GPL-2.0-or-later AND (MIT OR Apache-2.0) AND Unicode-DFS-2016 AND Apache-2.0 AND MIT AND (Unlicense OR MIT)
 URL:            http://www.breezy-vcs.org/
-Source0:        https://launchpad.net/brz/%{brzmajor}/%{version}%{?brzrc}/+download/%{name}-%{version}%{?brzrc}.tar.gz
-Source1:        https://launchpad.net/brz/%{brzmajor}/%{version}%{?brzrc}/+download/%{name}-%{version}%{?brzrc}.tar.gz.asc
-Source2:        brz-icon-64.png
+Source0:        https://github.com/breezy-team/breezy/archive/brz-%{version}%{?brzrc}.tar.gz
+Source1:        brz-icon-64.png
 
 BuildRequires:  python3-devel
 BuildRequires:  rust-packaging >= 21
@@ -56,7 +55,7 @@ BuildArch:      noarch
 This package contains the documentation for the Breezy version control system.
 
 %prep
-%autosetup -p1 -n %{name}-%{version}%{?brzrc}
+%autosetup -p1 -n %{name}-brz-%{version}%{?brzrc}
 
 %cargo_prep
 
@@ -80,9 +79,12 @@ find . -name '*_pyx.c' -exec rm \{\} \;
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 chmod a-x contrib/bash/brzbashprompt.sh
+
+# Generate man pages (needed because pyproject_wheel doesn't run setup.py build_man)
+%{__python3} tools/generate_docs.py man
 
 # Build documents
 make docs-sphinx PYTHON=%{__python3}
@@ -98,7 +100,7 @@ popd
 %{cargo_license} > LICENSE.dependencies
 
 %install
-%py3_install
+%pyproject_install
 chmod -R a+rX contrib
 chmod 0644 contrib/debian/init.d
 chmod 0644 contrib/bzr_ssh_path_limiter  # note the bzr here
@@ -109,10 +111,12 @@ install -Dpm 0644 contrib/bash/brz %{buildroot}%{bash_completions_dir}/brz
 rm contrib/bash/brz
 
 install -d %{buildroot}%{_datadir}/pixmaps
-install -m 0644 %{SOURCE2} %{buildroot}%{_datadir}/pixmaps/brz.png
+install -m 0644 %{SOURCE1} %{buildroot}%{_datadir}/pixmaps/brz.png
 
-# weird man page location
-mv %{buildroot}%{_prefix}/man %{buildroot}%{_datadir}
+# Install man pages manually
+install -d %{buildroot}%{_mandir}/man1
+install -m 0644 brz.1 %{buildroot}%{_mandir}/man1/
+install -m 0644 breezy/git/git-remote-bzr.1 %{buildroot}%{_mandir}/man1/
 
 # move git-remote-bzr to avoid conflict
 mv %{buildroot}%{_bindir}/git-remote-bzr %{buildroot}%{_bindir}/git-remote-brz
@@ -142,7 +146,7 @@ fi
 %{_bindir}/git-remote-bzr
 %{_mandir}/man1/*
 %{python3_sitearch}/%{name}/
-%{python3_sitearch}/*.egg-info/
+%{python3_sitearch}/*.dist-info/
 %{bash_completions_dir}/brz
 %{_datadir}/pixmaps/brz.png
 

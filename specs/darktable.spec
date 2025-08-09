@@ -6,8 +6,8 @@
 ###
 
 Name: darktable
-Version: 5.2.0
-Release: 3%{?dist}
+Version: 5.2.1
+Release: 2%{?dist}
 
 Summary: Utility to organize and develop raw images
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -245,6 +245,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.darkt
 %{_libexecdir}/darktable/tools/darktable-curve-tool-helper
 
 %changelog
+* Thu Aug 07 2025 František Zatloukal <fzatlouk@redhat.com> - 5.2.1-2
+- Rebuilt for icu 77.1
+
+* Thu Aug 07 2025 Germano Massullo <germano.massullo@thetra.eu> - 5.2.1-1
+- 5.2.1 release
+
 * Wed Aug 06 2025 František Zatloukal <fzatlouk@redhat.com> - 5.2.0-3
 - Rebuilt for icu 77.1
 

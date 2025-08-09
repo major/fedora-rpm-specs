@@ -10,7 +10,7 @@
 # Python binding and its testing
 %bcond_without python
 %if %{with python}
-%bcond_without pycheck
+%bcond_with pycheck
 %endif
 
 # Testing libpetsc ?
@@ -990,7 +990,7 @@ pushd buildopenmpi_dir
 %{_openmpi_load}
 export PETSC_ARCH=%{_arch}
 export PETSC_DIR=./
-export PYTHONPATH=%{buildroot}$MPI_PYTHON3_SITEARCH
+export PYTHONPATH=%{buildroot}$MPI_PYTHON3_SITEARCH/%{pymodule_name}
 export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB
 export MPIEXEC=$MPI_BIN/mpiexec
 xvfb-run -a make V=0 petsc4pytest PETSC4PY_NP=4
@@ -1007,7 +1007,7 @@ pushd buildopenmpi_dir
 export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB
 export PETSC_DIR=%{_builddir}/%{name}-%{version}/buildopenmpi_dir
 export PETSC_ARCH=%{_arch}
-export PYTHONPATH=%{buildroot}$MPI_PYTHON3_SITEARCH
+export PYTHONPATH=%{buildroot}$MPI_PYTHON3_SITEARCH/%{pymodule_name}
 export MPI_INTERFACE_HOSTNAME=localhost
 export OMPI_MCA_btl_base_warn_component_unused=0
 export wPETSC_DIR=./
@@ -1039,7 +1039,7 @@ pushd buildmpich_dir
 %{_mpich_load}
 export PETSC_ARCH=%{_arch}
 export PETSC_DIR=./
-export PYTHONPATH=%{buildroot}$MPI_PYTHON3_SITEARCH
+export PYTHONPATH=%{buildroot}$MPI_PYTHON3_SITEARCH/%{pymodule_name}
 export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB
 export MPIEXEC=$MPI_BIN/mpiexec
 xvfb-run -a make V=0 petsc4pytest PETSC4PY_NP=4
@@ -1056,7 +1056,7 @@ pushd buildmpich_dir
 export LD_LIBRARY_PATH=%{_builddir}/%{name}-%{version}/buildmpich_dir/%{_arch}/lib
 export PETSC_DIR=%{_builddir}/%{name}-%{version}/buildmpich_dir
 export PETSC_ARCH=%{_arch}
-export PYTHONPATH=%{buildroot}$MPI_PYTHON3_SITEARCH
+export PYTHONPATH=%{buildroot}$MPI_PYTHON3_SITEARCH/%{pymodule_name}
 export MPI_INTERFACE_HOSTNAME=localhost
 export OMPI_MCA_btl_base_warn_component_unused=0
 export wPETSC_DIR=./

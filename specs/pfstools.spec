@@ -1,6 +1,6 @@
 Name:		pfstools
 Version:	2.2.0
-Release:	22%{?dist}
+Release:	23%{?dist}
 Summary:	Programs for handling high-dynamic range images
 
 License:	GPL-2.0-or-later
@@ -309,6 +309,9 @@ etc., for developing programs which can handle HDR graphics files.
 %{_includedir}/pfs
 
 %changelog
+* Thu Aug 07 2025 Orion Poplawski <orion@nwra.com> - 2.2.0-23
+- Rebuild for Octave 10.2
+
 * Sat Aug 02 2025 Orion Poplawski <orion@nwra.com> - 2.2.0-22
 - Drop -std=gnu+11, no longer needed and breaks build with octave 10 that uses
   C++17

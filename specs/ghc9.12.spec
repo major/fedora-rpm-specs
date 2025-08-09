@@ -439,11 +439,15 @@ rm libffi-tarballs/libffi-*.tar.gz
 
 # Unique Word64 disabled on fedora ghc-9.8.4.i686 (but not ghc9.8)
 # remove for ghc-9.10
-%if "%{_arch}" != "i686" || 0%{?fedora} < 43
+%if 0%{?fedora} >= 43
+%ifnarch %{ix86}
+%patch -P6 -p1 -b .orig
+%endif
+%else
 %patch -P6 -p1 -b .orig
 %endif
 
-%ifarch %{ghc_unregisterized_arches} riscv64
+%ifarch %{ghc_unregisterized_arches}
 %patch -P16 -p1 -b .orig
 %endif
 # remove if epel9 ghc using llvm
@@ -500,7 +504,9 @@ export LANG=C.utf8
 
 %if %{with build_hadrian}
 # do not disable debuginfo with ghc_bin_build
+%if %{with releasebuild}
 %global ghc_debuginfo 1
+%endif
 (
 cd hadrian
 ln -s ../libraries/file-io file-io-%{file_io_ver}

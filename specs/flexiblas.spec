@@ -256,7 +256,7 @@ rm -rf contributed
 %if %{with system_lapack}
     -DLAPACK_API_VERSION=%{laapi_version} \
     -DSYS_BLAS_LIBRARY=$(pkg-config --variable=libdir blas)/libblas.a \
-    -DSYS_LAPACK_LIBRARY=$(pkg-config --variable=libdir lapack)/liblapack_pic.a \
+    -DSYS_LAPACK_LIBRARY=$(pkg-config --variable=libdir lapack)/liblapack.a \
 %endif
     -DINTEGER8=OFF \
     -DCMAKE_SKIP_INSTALL_RPATH=ON \
@@ -267,7 +267,7 @@ rm -rf contributed
 %if %{with system_lapack}
     -DLAPACK_API_VERSION=%{laapi_version} \
     -DSYS_BLAS_LIBRARY=$(pkg-config --variable=libdir blas)/libblas64.a \
-    -DSYS_LAPACK_LIBRARY=$(pkg-config --variable=libdir lapack)/liblapack_pic64.a \
+    -DSYS_LAPACK_LIBRARY=$(pkg-config --variable=libdir lapack)/liblapack64.a \
 %endif
     -DINTEGER8=ON \
     -DCMAKE_SKIP_INSTALL_RPATH=ON \

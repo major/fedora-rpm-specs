@@ -1,18 +1,17 @@
 Name:		alienarena
 Summary:	Multiplayer retro sci-fi deathmatch game
-Version:	7.71.6
-Release:	4%{?dist}
+Version:	7.71.7
+Release:	1%{?dist}
 License:	GPL-2.0-or-later AND Zlib
 # Source0:	http://red.planetarena.org/files/%%{name}-%%{version}-linux20130827.tar.gz
-# svn co svn://svn.icculus.org/alienarena/tags/7.71.6
-# cd 7.71.6
+# svn co svn://svn.icculus.org/alienarena/tags/7.71.7
+# cd 7.71.7
 # find . -name "*.dll" -type f -delete
 # find . -name "*.exe" -type f -delete
 # cd ..
-# mv 7.71.6 alienarena-7.71.6
-# tar --exclude-vcs -cJf alienarena-7.71.6.tar.xz alienarena-7.71.6
+# mv 7.71.7 alienarena-7.71.7
+# tar --exclude-vcs -cJf alienarena-7.71.7.tar.xz alienarena-7.71.7
 Source0:	alienarena-%{version}.tar.xz
-Source1:	%{name}.desktop
 Source2:	GPL.acebot.txt
 Source3:	alienarena.appdata.xml
 Patch3:		alienarena-7.66-no-qglBlitFramebufferEXT.patch
@@ -22,11 +21,10 @@ Patch5:		alienarena-7.71.2-svn5674-system-ode-double.patch
 # So I just added -fcommon.
 Patch6:		alienarena-7.71.4-gcc10.patch
 Patch7:		alienarena-c99.patch
-Patch8:		alienarena-7.71.6-fix-missing-stat-header.patch
 Patch9:		alienarena-7.71.6-fix-incompatible-pointer.patch
-Patch10:	alienarena-7.71.6-zlib-for-uLong.patch
 Patch11:	alienarena-7.71.6-fix-bad-sprintf-use.patch
 Patch12:	alienarena-7.71.6-fix-CL_GetLatestGameVersion.patch
+Patch13:	alienarena-7.71.7-minizip-fix.patch
 URL:		http://red.planetarena.org/
 BuildRequires:  gcc
 BuildRequires:	libX11-devel, libXext-devel, libXxf86vm-devel, libjpeg-devel
@@ -86,11 +84,10 @@ This is the game data.
 %patch -P5 -p1 -b .ode-double
 %patch -P6 -p1 -b .gcc10
 %patch -P7 -p1 -b .c99
-%patch -P8 -p1 -b .fix-missing-stat-header
 %patch -P9 -p1 -b .fix-incompatible-pointer
-%patch -P10 -p1 -b .zlib-for-uLong
 %patch -P11 -p1 -b .fix-bad-sprintf-use
 %patch -P12 -p1 -b .fix-CL_GetLatestGameVersion
+%patch -P13 -p1 -b .minizip-fix
 
 # We don't want the bundled ode code.
 rm -rf source/unix/ode
@@ -121,11 +118,15 @@ make %{?_smp_mflags}
 cp -a %{SOURCE3} %{buildroot}%{_datadir}/appdata
 
 %{__mkdir_p} %{buildroot}%{_datadir}/applications
-desktop-file-install --dir %{buildroot}%{_datadir}/applications	%{SOURCE1}
+sed -i 's|/usr/games/alien-arena --quiet|/usr/bin/alienarena-wrapper|g' unix_dist/alien-arena.desktop
+desktop-file-install --dir %{buildroot}%{_datadir}/applications	unix_dist/alien-arena.desktop
 
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/32x32/apps/
 mv %{buildroot}%{_datadir}/icons/%{name}/*.png \
     %{buildroot}/%{_datadir}/icons/hicolor/32x32/apps/
+
+mkdir -p %{buildroot}%{_datadir}/icons/hicolor/256x256/apps/
+cp -a unix_dist/alien-arena.png %{buildroot}%{_datadir}/icons/hicolor/256x256/apps/
 
 # Fedora's little opengl checker
 ln -s opengl-game-wrapper.sh %{buildroot}/%{_bindir}/%{name}-wrapper
@@ -135,8 +136,9 @@ cp -a GPL.acebot.txt %{buildroot}%{_defaultdocdir}/%{name}/
 %files
 %{_bindir}/%{name}
 %{_bindir}/%{name}-wrapper
-%{_datadir}/applications/%{name}.desktop
+%{_datadir}/applications/alien-arena.desktop
 %{_datadir}/icons/hicolor/32x32/apps/*.png
+%{_datadir}/icons/hicolor/256x256/apps/*.png
 %{_datadir}/appdata/*.xml
 
 %files server
@@ -148,6 +150,10 @@ cp -a GPL.acebot.txt %{buildroot}%{_defaultdocdir}/%{name}/
 %{_datadir}/%{name}
 
 %changelog
+* Tue Aug  5 2025 Tom Callaway <spot@fedoraproject.org> - 7.71.7-1
+- update to 7.71.7
+- use upstream desktop and logo png
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.71.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -14,7 +14,7 @@
 %define po_package gnome-session-%{major_version}
 
 Name:           gnome-session
-Version:        49~alpha.1
+Version:        49~beta
 Release:        %autorelease
 Summary:        GNOME session manager
 
@@ -23,8 +23,6 @@ URL:            https://gitlab.gnome.org/GNOME/gnome-session
 Source:         https://download.gnome.org/sources/gnome-session/%{major_version}/%{name}-%{tarball_version}.tar.xz
 
 # For https://fedoraproject.org/w/index.php?title=Changes/HiddenGrubMenu
-# This should go upstream once systemd has a generic interface for this
-Patch:          0001-Fedora-Set-grub-boot-flags-on-shutdown-reboot.patch
 
 BuildRequires:  meson
 BuildRequires:  gcc
@@ -134,9 +132,8 @@ rm %{buildroot}%{_datadir}/applications/gnome-mimeapps.list
 %doc NEWS
 %license COPYING
 %{_bindir}/gnome-session*
-%{_libexecdir}/gnome-session-binary
 %{_libexecdir}/gnome-session-ctl
-%{_libexecdir}/gnome-session-failed
+%{_libexecdir}/gnome-session-service
 %{_mandir}/man1/gnome-session*1.*
 %{_datadir}/gnome-session/
 %dir %{_datadir}/xdg-desktop-portal

@@ -1,12 +1,12 @@
 # Architectures that have libquadmath
-%ifarch x86_64 ppc64le
+%ifarch %{x86_64} %{power64}
 %global quadmath 1
 %else
 %global quadmath 0
 %endif
 
 Name:           soplex
-Version:        7.1.4
+Version:        7.1.5
 Release:        %autorelease
 Summary:        Sequential object-oriented simplex
 

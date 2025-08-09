@@ -8,7 +8,7 @@
 
 Name:           squeak-vm
 Version:        %{vmver}
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        The Squeak virtual machine
 
 License:        MIT
@@ -60,6 +60,7 @@ This package contains just the Squeak virtual machine.
 sed -i 's|libdir="${prefix}/lib/squeak"|libdir="%{_libdir}/squeak"|' unix/cmake/squeak.in
 
 %build
+export CFLAGS="%{build_cflags} -std=gnu17"
 %cmake ./unix -DCMAKE_VERBOSE_MAKEFILE=ON -DVM_HOST="%{_host}" -DVM_VERSION="%{vmver2}" -DPLATFORM_SOURCE_VERSION="%{rev}"
 %cmake_build
 
@@ -147,6 +148,10 @@ install -m0755 %{SOURCE1} %{buildroot}%{_bindir}/inisqueak
 %{_datadir}/icons/gnome/*/mimetypes/*.png
 
 %changelog
+* Thu Aug 07 2025 Jaroslav Škarvada  <jskarvad@redhat.com> - 4.10.2.2614-38
+- Fixed FTBFS
+  Resolves: rhbz#2341379
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.10.2.2614-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

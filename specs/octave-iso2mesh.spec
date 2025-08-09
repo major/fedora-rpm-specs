@@ -2,7 +2,7 @@
 
 Name:           octave-%{octpkg}
 Version:        1.9.8
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A 3D surface and volumetric mesh generator for MATLAB/Octave
 # Main package: GPLv3+
 # Meshfix: GPLv2+
@@ -172,6 +172,9 @@ install -m 0755 -vp  bin/* %{buildroot}%{_libexecdir}/%{octpkg}/
 %doc sample
 
 %changelog
+* Thu Aug 07 2025 Orion Poplawski <orion@nwra.com> - 1.9.8-5
+- Rebuild for Octave 10.2
+
 * Sun Aug 03 2025 Orion Poplawski <orion@nwra.com> - 1.9.8-4
 - Add patch to fix build with superlu 7 (FTBFS rhbz#2385361)
 

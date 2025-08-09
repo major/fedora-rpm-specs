@@ -1,7 +1,7 @@
 %global xfceversion 4.20
 
 Name:           orage
-Version:        %{xfceversion}.1
+Version:        %{xfceversion}.2
 Release:        %autorelease
 Summary:        A calendar application
 

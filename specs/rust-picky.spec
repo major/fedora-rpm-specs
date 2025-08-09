@@ -14,6 +14,7 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/picky
 Source:         %{crates_source %{crate} %{crate_version}}
 # Manually created patch for downstream crate metadata changes
+# * Update rstest to 0.26: https://github.com/Devolutions/picky-rs/pull/391
 Patch:          picky-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

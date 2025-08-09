@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.12
-Release:	39%{?dist}
+Release:	40%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPL-3.0-or-later
 URL:		http://www.gnu.org/software/grub/
@@ -598,6 +598,10 @@ fi
 %endif
 
 %changelog
+* Wed Aug 6 2025 Jan Stancek <jstancek@redhat.com> - 2.12-40
+- 55-set-boot-entry.install: fix initrd check
+- Resolves: #2386118
+
 * Tue Jul 15 2025 FeRD (Frank Dana) <ferdnyc@gmail.com> - 2.12-39
 - kernel-install: Suppress warnings about missing /etc/default/grub
   file when attempting to grep its contents

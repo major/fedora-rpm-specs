@@ -16,13 +16,15 @@ URL:		https://github.com/ve7fet/linuxax25
 # git archive --prefix=ax25apps-2.0.0/ -o ../ax25apps-2.0.0.tar.gz HEAD
 Source0:	ax25apps-%{version}.tar.gz
 
-Patch1:     ax25-apps-0.0.6-nongenericnames.patch
+Patch0:     ax25-apps-0.0.6-nongenericnames.patch
+Patch1:     ax25-apps-ioctl.patch
 
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	gcc
 BuildRequires:	libtool
 BuildRequires:  make
+BuildRequires:	glibc-devel
 BuildRequires:	libax25-devel
 BuildRequires:	ncurses-devel
 
@@ -42,6 +44,10 @@ Net/ROM or ROSE network protocols:
 
 %prep
 %autosetup -p1 -n ax25apps-%{version}
+
+# termio.h has been obsolete for many years, substitute with termios.h
+sed -i "s|termio|termios|" ax25ipd/io.c 
+sed -i "s|termio.h||" configure.ac
 
 
 %build

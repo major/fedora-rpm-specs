@@ -13,7 +13,7 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/notify-types
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * Allow a slightly older version of rstest
+# * update rstest to 0.26: https://github.com/notify-rs/notify/pull/707
 # * omit web-time feature, not needed in non-WASM environments
 Patch:          notify-types-fix-metadata.diff
 

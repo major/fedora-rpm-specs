@@ -2,7 +2,7 @@
 
 Name:           octave-%{octpkg}
 Version:        0.5
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        A fully automated high-quality brain tetrahedral mesh generation toolbox
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -93,6 +93,9 @@ mv *.m inst/
 %doc examples
 
 %changelog
+* Thu Aug 07 2025 Orion Poplawski <orion@nwra.com> - 0.5-18
+- Rebuild for Octave 10.2
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 %global rocm_release 6.4
-%global rocm_patch 2
+%global rocm_patch 3
 %global rocm_version %{rocm_release}.%{rocm_patch}
 %global upstreamname rocm_smi_lib
 
@@ -14,7 +14,7 @@
 
 Name:       rocm-smi
 Version:    %{rocm_version}
-Release:    2%{?dist}
+Release:    1%{?dist}
 Summary:    ROCm System Management Interface Library
 
 License:    MIT AND NCSA
@@ -118,6 +118,10 @@ fi
 %endif
 
 %changelog
+* Thu Aug 7 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.3-1
+- Update to 6.4.3
+- remove debian dir
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

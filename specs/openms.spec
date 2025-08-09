@@ -287,7 +287,7 @@ export LD_LIBRARY_PATH=$PWD/lib:$LD_LIBRARY_PATH
 
 %install
 export LD_LIBRARY_PATH=$PWD/lib:$LD_LIBRARY_PATH
-%{_bindir}/xvfb-run -a %cmake_install
+%cmake_install
 
 # Install executable tests
 %if %{with check}
@@ -389,7 +389,7 @@ LD_PRELOAD=%{buildroot}%{_libdir}/OpenMS/libOpenMS_GUI.so
 LD_PRELOAD=%{buildroot}%{_libdir}/OpenMS/libOpenMS.so
 LD_PRELOAD=%{buildroot}%{_libdir}/OpenMS/libOpenSwathAlgo.so
 LD_PRELOAD=%{buildroot}%{_libdir}/OpenMS/libSuperHirn.so
-%{_bindir}/ctest -j 4 -V --force-new-ctest-process --output-on-failure --test-dir build -E 'MRMAssay_test|MzMLFile_test|File_test|TOPP_OpenSwathWorkflow|Doxygen_Warning_test'
+%ctest --test-dir %_vpath_builddir -E 'MRMAssay_test|MzMLFile_test|File_test|TOPP_OpenSwathWorkflow|Doxygen_Warning_test'
 %endif
 
 %files

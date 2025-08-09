@@ -6,7 +6,7 @@
 Name:           egl-wayland2
 Version:        1.0.0%{!?tag:~%{date}git%{shortcommit0}}
 Release:        %autorelease
-Summary:        EGLStream-based Wayland external platform
+Summary:        Dma-buf-based Wayland external platform library
 # src/wayland/dma-buf.h is GPL 2, rest is Apache 2.0
 License:        Apache-2.0 and GPL-2.0
 URL:            https://github.com/NVIDIA/%{name}
@@ -34,11 +34,9 @@ BuildRequires:  pkgconfig(wayland-server)
 Requires:       libglvnd-egl%{?_isa}
 
 %description
-EGL External Platform library to add client-side Wayland support to EGL on top
-of EGLDevice and EGLStream families of extensions.
-
-This library implements an EGL External Platform interface to work along with
-EGL drivers that support the external platform mechanism.
+This is a new implementation of the EGL External Platform Library for Wayland
+(EGL_KHR_platform_wayland), using the NVIDIA driver's new platform surface
+interface, which simplifies a lot of the library and improves window resizing.
 
 %prep
 %if 0%{?tag:1}

@@ -8,6 +8,9 @@ Source0:       https://github.com/dankamongmen/%{name}/releases/download/v%{vers
 Source1:       https://github.com/dankamongmen/%{name}/releases/download/v%{version}/notcurses_%{version}+dfsg.orig.tar.xz.asc
 Source2:       https://nick-black.com/dankamongmen.gpg
 
+# Fix manpages installation via Python wheels
+Patch:         https://github.com/dankamongmen/notcurses/pull/2891.patch
+
 BuildRequires: gnupg2
 BuildRequires: cmake
 BuildRequires: doctest-devel
@@ -146,8 +149,8 @@ cd cffi
 %files -n python3-%{name}
 %{_bindir}/notcurses-pydemo
 %{_bindir}/ncdirect-pydemo
-%{python3_sitearch}/%{_mandir}/man1/notcurses-pydemo.1*
-%{python3_sitearch}/%{_mandir}/man1/ncdirect-pydemo.1*
+%{_mandir}/man1/notcurses-pydemo.1*
+%{_mandir}/man1/ncdirect-pydemo.1*
 %{python3_sitearch}/notcurses-%{version}.dist-info/
 %{python3_sitearch}/notcurses/
 %attr(0755, -, -) %{python3_sitearch}/notcurses/notcurses.py

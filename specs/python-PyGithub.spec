@@ -1,5 +1,5 @@
 Name:           python-PyGithub
-Version:        2.6.1
+Version:        2.7.0
 Release:        %autorelease
 Summary:        Python library to work with the Github API
 License:        LGPL-3.0-or-later

@@ -14,7 +14,7 @@
 
 %global upstreamname hipBLASLt
 %global rocm_release 6.4
-%global rocm_patch 2
+%global rocm_patch 3
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -48,7 +48,7 @@
 #
 # build is timing out, remove some of the ISA targets
 # gfx942;gfx1102
-%global amdgpu_targets "gfx90a:xnack+;gfx90a:xnack-;gfx1100;gfx1101;gfx1200;gfx1201"
+%global amdgpu_targets "gfx90a:xnack+;gfx90a:xnack-;gfx1100;gfx1101;gfx1103;gfx1150;gfx1151;gfx1200;gfx1201"
 
 # Compression type and level for source/binary package payloads.
 #  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
@@ -230,6 +230,27 @@ sed -i 's@find_package(LLVM REQUIRED CONFIG)@find_package(LLVM REQUIRED CONFIG P
 # Reduce requirements
 sed -i -e '/joblib/d' tensilelite/requirements.*
 
+# As of 6.4, there is a long poll
+# compile_code_object.sh gfx90a,gfx1100,gfx1101,gfx1151,gfx1200,gfx1201 RelWithDebInfo sha1 hipblasltTransform.hsaco
+# This compiles a large file with multiple gpus.
+GPUS=`echo %{amdgpu_targets} | grep -o 'gfx' | wc -l`
+
+HIP_JOBS=`lscpu | grep 'Core(s)' | awk '{ print $4 }'`
+if [ ${HIP_JOBS}x = x ]; then
+    HIP_JOBS=1
+fi
+# Try again..
+if [ ${HIP_JOBS} = 1 ]; then
+    HIP_JOBS=`lscpu | grep '^CPU(s)' | awk '{ print $2 }'`
+    if [ ${HIP_JOBS}x = x ]; then
+        HIP_JOBS=4
+    fi
+fi
+if [ "$GPUS" -lt "$HIP_JOBS" ]; then
+    HIP_JOBS=$GPUS
+fi
+sed -i -e "s@--offload-arch@-parallel-jobs=${HIP_JOBS} --offload-arch@" library/src/amd_detail/rocblaslt/src/kernels/compile_code_object.sh
+
 %build
 
 # Do a manual install instead of cmake's virtualenv
@@ -315,6 +336,10 @@ fi
 %endif
 
 %changelog
+* Thu Aug 7 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.3-1
+- Update to 6.4.3
+- Add gfx1103,gfx1150,gfx1151 targets
+
 * Thu Jul 24 2025 Jeremy Newton <alexjnewt at hotmail dot com> - 6.4.2-1
 - Update to 6.4.2
 

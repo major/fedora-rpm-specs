@@ -20,7 +20,7 @@
 Name:              NLopt
 Version:           2.10.0
 %global tag        v%{version}
-Release:           4%{?dist}
+Release:           5%{?dist}
 Summary:           Open-Source library for nonlinear optimization
 
 # Get a lowercase name for virtual provides.
@@ -304,6 +304,9 @@ EOF
 %{python3_sitearch}/%{lc_name}-%{relversion}.dist-info/METADATA
 
 %changelog
+* Thu Aug 07 2025 Orion Poplawski <orion@nwra.com> - 2.10.0-5
+- Rebuild for Octave 10.2
+
 * Tue Aug 05 2025 Benson Muite <benson_muite@emailplus.org> - 2.10.0-4
 - Enable Octave 10.1 compatibility
 

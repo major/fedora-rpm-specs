@@ -1,6 +1,6 @@
 Name:           picosat
 Version:        965
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        A SAT solver
 
 License:        MIT
@@ -16,6 +16,9 @@ Source3:        picomus.1
 # This patch has not been sent upstream.  It is specific to Fedora's build of
 # two distinct binaries, one with trace support and one without.
 Patch:          %{name}-trace.patch
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -97,35 +100,33 @@ sed -e 's/@CC@/gcc/' \
 
 %install
 # Install the header file
-mkdir -p $RPM_BUILD_ROOT%{_includedir}
-cp -p picosat.h $RPM_BUILD_ROOT%{_includedir}
+mkdir -p %{buildroot}%{_includedir}
+cp -p picosat.h %{buildroot}%{_includedir}
 
 # Install the libraries
-mkdir -p $RPM_BUILD_ROOT%{_libdir}
+mkdir -p %{buildroot}%{_libdir}
 install -m 0755 -p libpicosat-R.so \
-  $RPM_BUILD_ROOT%{_libdir}/libpicosat-R.so.0.0.%{version}
-ln -s libpicosat-R.so.0.0.%{version} $RPM_BUILD_ROOT%{_libdir}/libpicosat-R.so.0
-ln -s libpicosat-R.so.0 $RPM_BUILD_ROOT%{_libdir}/libpicosat-R.so
+  %{buildroot}%{_libdir}/libpicosat-R.so.0.0.%{version}
+ln -s libpicosat-R.so.0.0.%{version} %{buildroot}%{_libdir}/libpicosat-R.so.0
+ln -s libpicosat-R.so.0 %{buildroot}%{_libdir}/libpicosat-R.so
 install -m 0755 -p libpicosat-trace.so \
-  $RPM_BUILD_ROOT%{_libdir}/libpicosat-trace.so.0.0.%{version}
-ln -s libpicosat-trace.so.0.0.%{version} $RPM_BUILD_ROOT%{_libdir}/libpicosat-trace.so.0
-ln -s libpicosat-trace.so.0 $RPM_BUILD_ROOT%{_libdir}/libpicosat-trace.so
+  %{buildroot}%{_libdir}/libpicosat-trace.so.0.0.%{version}
+ln -s libpicosat-trace.so.0.0.%{version} \
+  %{buildroot}%{_libdir}/libpicosat-trace.so.0
+ln -s libpicosat-trace.so.0 %{buildroot}%{_libdir}/libpicosat-trace.so
 install -m 0755 -p libpicosat.so \
-  $RPM_BUILD_ROOT%{_libdir}/libpicosat.so.0.0.%{version}
-ln -s libpicosat.so.0.0.%{version} $RPM_BUILD_ROOT%{_libdir}/libpicosat.so.0
-ln -s libpicosat.so.0 $RPM_BUILD_ROOT%{_libdir}/libpicosat.so
+  %{buildroot}%{_libdir}/libpicosat.so.0.0.%{version}
+ln -s libpicosat.so.0.0.%{version} %{buildroot}%{_libdir}/libpicosat.so.0
+ln -s libpicosat.so.0 %{buildroot}%{_libdir}/libpicosat.so
 
 # Install the binaries
-mkdir -p $RPM_BUILD_ROOT%{_bindir}
+mkdir -p %{buildroot}%{_bindir}
 install -m 0755 -p picosat picosat.trace picomus picomcs picogcnf \
-  $RPM_BUILD_ROOT%{_bindir}
+  %{buildroot}%{_bindir}
 
 # Install the man pages
-mkdir -p $RPM_BUILD_ROOT%{_mandir}/man1
-cp -p %{SOURCE1} %{SOURCE2} %{SOURCE3} $RPM_BUILD_ROOT%{_mandir}/man1
-
-%ldconfig_scriptlets R
-%ldconfig_scriptlets libs
+mkdir -p %{buildroot}%{_mandir}/man1
+cp -p %{SOURCE1} %{SOURCE2} %{SOURCE3} %{buildroot}%{_mandir}/man1
 
 %files
 %{_bindir}/pico*
@@ -134,13 +135,11 @@ cp -p %{SOURCE1} %{SOURCE2} %{SOURCE3} $RPM_BUILD_ROOT%{_mandir}/man1
 
 %files R
 %doc NEWS
-%{!?_licensedir:%global license %%doc}
 %license LICENSE
 %{_libdir}/libpicosat-R.so.0*
 
 %files libs
 %doc NEWS
-%{!?_licensedir:%global license %%doc}
 %license LICENSE
 %{_libdir}/libpicosat-trace.so.0*
 %{_libdir}/libpicosat.so.0*
@@ -152,6 +151,10 @@ cp -p %{SOURCE1} %{SOURCE2} %{SOURCE3} $RPM_BUILD_ROOT%{_mandir}/man1
 %{_libdir}/libpicosat.so
 
 %changelog
+* Thu Aug 07 2025 Jerry James <loganjerry@gmail.com> - 965-28
+- Stop building for 32-bit x86
+- Minor spec file cleanups
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 965-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

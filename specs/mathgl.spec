@@ -25,7 +25,7 @@
 
 Name:          mathgl
 Version:       8.0.3
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Cross-platform library for making high-quality scientific graphics
 Summary(de):   Plattformübergreifende Bibliothek für hochwertige wissenschaftliche Graphiken
 Summary(ru):   Библиотека для осуществления высококачественной визуализации данных
@@ -631,6 +631,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/mgllab.desktop
 %endif
 
 %changelog
+* Thu Aug 07 2025 Orion Poplawski <orion@nwra.com> - 8.0.3-2
+- Rebuild for Octave 10.2
+
 * Thu Jul 31 2025 Orion Poplawski <orion@nwra.com> - 8.0.3-1
 - Update to 8.0.3
 

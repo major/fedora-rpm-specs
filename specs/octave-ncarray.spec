@@ -2,13 +2,13 @@
 
 Name:           octave-%{octpkg}
 Version:        1.0.6
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Access NetCDF files as a multi-dimensional array
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
-URL:            http://octave.sourceforge.net/ncarray/
-Source0:        http://downloads.sourceforge.net/octave/ncarray-%{version}.tar.gz
+URL:            https://gnu-octave.github.io/packages/ncarray/
+Source0:        https://downloads.sourceforge.net/octave/ncarray-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  octave-devel
@@ -55,6 +55,7 @@ Access a single or a collection of NetCDF files as a multi-dimensional array.
 %{octpkgdir}/@ncBaseArray/
 %doc %{octpkgdir}/doc-cache
 %dir %{octpkgdir}/packinfo
+%doc %{octpkgdir}/packinfo/doc-cache
 %license %{octpkgdir}/packinfo/COPYING
 %{octpkgdir}/packinfo/DESCRIPTION
 %{octpkgdir}/packinfo/INDEX
@@ -64,6 +65,9 @@ Access a single or a collection of NetCDF files as a multi-dimensional array.
 
 
 %changelog
+* Thu Aug 07 2025 Orion Poplawski <orion@nwra.com> - 1.0.6-7
+- Rebuild for Octave 10.2
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

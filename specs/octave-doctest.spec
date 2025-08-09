@@ -53,6 +53,7 @@ up-to-date during software development.
 %{octpkgdir}/private
 %dir %{octpkgdir}/packinfo
 %license %{octpkgdir}/packinfo/COPYING
+%doc %{octpkgdir}/packinfo/doc-cache
 %doc %{octpkgdir}/packinfo/NEWS
 %{octpkgdir}/packinfo/DESCRIPTION
 %{octpkgdir}/packinfo/INDEX

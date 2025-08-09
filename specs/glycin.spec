@@ -94,6 +94,8 @@ Sandboxed and extendable image decoding.
 %package        loaders
 Summary:        Sandboxed image rendering (image loading backends)
 
+Requires:       bubblewrap
+
 %description    loaders
 Sandboxed and extendable image decoding.
 

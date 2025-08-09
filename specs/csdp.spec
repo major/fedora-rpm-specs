@@ -169,4 +169,7 @@ cp -p %{SOURCE2} %{SOURCE3} %{SOURCE4} %{SOURCE5} %{SOURCE6} \
 %{octavedir}
 
 %changelog
+* Thu Aug 07 2025 Orion Poplawski <orion@nwra.com> - 6.2.0-1.1
+- Rebuild for Octave 10.2
+
 %autochangelog

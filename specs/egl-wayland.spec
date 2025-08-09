@@ -4,8 +4,8 @@
 %global tag %{version}
 
 Name:           egl-wayland
-Version:        1.1.19%{!?tag:~%{date}git%{shortcommit0}}
-Release:        4%{?dist}
+Version:        1.1.20%{!?tag:~%{date}git%{shortcommit0}}
+Release:        %autorelease
 Summary:        EGLStream-based Wayland external platform
 License:        MIT
 URL:            https://github.com/NVIDIA/%{name}
@@ -71,7 +71,7 @@ find %{buildroot} -name '*.la' -delete
 %doc README.md
 %license COPYING
 %{_libdir}/libnvidia-egl-wayland.so.1
-%{_libdir}/libnvidia-egl-wayland.so.1.1.19
+%{_libdir}/libnvidia-egl-wayland.so.1.*
 %{_datadir}/egl/egl_external_platform.d/10_nvidia_wayland.json
 
 %files devel
@@ -81,82 +81,4 @@ find %{buildroot} -name '*.la' -delete
 %{_libdir}/pkgconfig/wayland-eglstream.pc
 
 %changelog
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.19-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Wed Apr 23 2025 Simone Caronni <negativo17@gmail.com> - 1.1.19-3
-- Update to 1.1.19 final.
-- Trim changelog.
-
-* Sun Apr 13 2025 Simone Caronni <negativo17@gmail.com> - 1.1.19~20250407git3acc518-2
-- Update to latest snapshot.
-
-* Mon Mar 17 2025 Simone Caronni <negativo17@gmail.com> - 1.1.19~20250313gitf1fd514-1
-- Update to latest snapshot.
-
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.18~20250114git26ba0e3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Wed Jan 15 2025 Simone Caronni <negativo17@gmail.com> - 1.1.18~20250114git26ba0e3-2
-- Update to latest snapshot.
-
-* Mon Dec 16 2024 Simone Caronni <negativo17@gmail.com> - 1.1.18~20241210git0c6f823-1
-- Update to 1.1.18 pre-release snapshot.
-
-* Mon Dec 09 2024 Simone Caronni <negativo17@gmail.com> - 1.1.17-6
-- Update to final 1.1.17 (no change to the codebase).
-
-* Mon Nov 18 2024 Simone Caronni <negativo17@gmail.com> - 1.1.17^20241118giteeb29e1-5
-- Update to latest snapshot.
-
-* Sun Nov 03 2024 Simone Caronni <negativo17@gmail.com> - 1.1.17^20241101git218f678-4
-- Update to latest snapshot.
-
-* Wed Oct 16 2024 Simone Caronni <negativo17@gmail.com> - 1.1.17^20241016git0cd471d-3
-- Update to latest snapshot.
-
-* Mon Oct 07 2024 Simone Caronni <negativo17@gmail.com> - 1.1.17^20240924gitc10c530-2
-- Update to latest snapshot.
-
-* Fri Sep 20 2024 Simone Caronni <negativo17@gmail.com> - 1.1.17^20240919gitf5d9c69-1
-- Update to latest snapshot.
-- ICD is installed directly from sources.
-
-* Thu Sep 19 2024 Simone Caronni <negativo17@gmail.com> - 1.1.17^20240918git845568c-1
-- Update to latest snapshot.
-- Switch to more recent packaging guidelines for snapshot versions.
-- Move egl-gbm ICD to egl-gbm package.
-
-* Tue Sep 03 2024 Simone Caronni <negativo17@gmail.com> - 1.1.17-2.20240828git2d5ecff
-- Update to latest snapshot.
-
-* Fri Aug 23 2024 Simone Caronni <negativo17@gmail.com> - 1.1.16-1
-- Switch to 1.1.16 final.
-
-* Wed Aug 21 2024 Simone Caronni <negativo17@gmail.com> - 1.1.15-2.20240819git8188db9
-- Update to latest snapshot (#2305705).
-
-* Fri Aug 09 2024 Simone Caronni <negativo17@gmail.com> - 1.1.15-1
-- Update to 1.1.15 final.
-
-* Thu Aug 08 2024 Simone Caronni <negativo17@gmail.com> - 1.1.14-3.20240808git4480345
-- Update to latest snapshot.
-
-* Wed Aug 07 2024 Simone Caronni <scaronni@nvidia.com> - 1.1.14-2.20240805gitc439cd5
-- Update to latest snapshot with commits required for NVIDIA driver 560+ with
-  explicit sync support.
-
-* Thu Jul 18 2024 Leigh Scott <leigh123linux@gmail.com> - 1.1.14-1
-- Update to 1.1.14
-
-* Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.13-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Tue May 21 2024 Leigh Scott <leigh123linux@gmail.com> - 1.1.13-4
-- Add Wayland explicit sync support
-
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.13-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.13-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+%autochangelog

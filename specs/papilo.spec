@@ -1,5 +1,5 @@
 # Architectures that have libquadmath
-%ifarch x86_64 ppc64le
+%ifarch %{x86_64} %{power64}
 %global quadmath 1
 %else
 %global quadmath 0
@@ -13,7 +13,7 @@
 %global giturl  https://github.com/scipopt/papilo/
 
 Name:           papilo
-Version:        2.4.2
+Version:        2.4.3
 Release:        %autorelease
 Summary:        Parallel presolve for integer and linear optimization
 

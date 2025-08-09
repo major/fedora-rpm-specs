@@ -3,7 +3,7 @@
 %global shortname vbam
 
 Name:           visualboyadvance-m
-Version:        2.2.0
+Version:        2.2.2
 Release:        %autorelease
 Summary:        High compatibility Gameboy Advance Emulator combining VBA builds
 

@@ -1,7 +1,7 @@
 %global srcname usbsdmux
 
 Name:           python-usbsdmux
-Version:        24.11.1
+Version:        25.08
 Release:        %autorelease
 Summary:        USB-SD-Mux control software and library
 License:        LGPL-2.1-or-later
@@ -67,8 +67,8 @@ done
 %pytest
 
 %files -n python3-%{srcname} -f %{pyproject_files}
-%license COPYING
-%doc README.rst contrib
+%license LICENSES/LGPL-2.1-or-later.txt
+%doc AUTHORS README.rst contrib
 %{_bindir}/usbsdmux*
 %{_mandir}/man1/usbsdmux*1*
 %{_udevrulesdir}/99-usbsdmux.rules

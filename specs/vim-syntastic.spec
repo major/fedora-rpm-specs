@@ -6,7 +6,7 @@
 
 Name:           vim-%{upstream_name}
 Version:        3.10.0
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        A vim plugins to check syntax for programming languages
 Summary(fr):    Une extension de vim vérifiant la syntaxe pour les langages de programmation
 
@@ -291,6 +291,9 @@ appstream-util validate-relax --nonet %{buildroot}%{appdata_dir}/vim-syntastic.m
 
 
 %changelog
+* Thu Aug 07 2025 Orion Poplawski <orion@nwra.com> - 3.10.0-27
+- Rebuild for Octave 10.2
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.0-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

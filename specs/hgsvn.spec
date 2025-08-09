@@ -1,7 +1,7 @@
 Summary:       A set of scripts to work locally on subversion checkouts using mercurial
 Name:          hgsvn
 Version:       0.6.0
-Release:       20%{?dist}
+Release:       21%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:       GPL-3.0-or-later
 URL:           http://pypi.python.org/pypi/hgsvn/
@@ -16,7 +16,6 @@ BuildRequires: mercurial >= 1.4.3
 BuildRequires: python3-devel
 BuildRequires: python3-hglib
 BuildRequires: python3-pytest
-BuildRequires: python3-setuptools
 BuildRequires: subversion
 
 %description
@@ -31,25 +30,31 @@ fast local operations like hg log and hg annotate.
 %prep
 %autosetup
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%{py3_build}
+%{pyproject_wheel}
 
 %install
-%{py3_install}
+%{pyproject_install}
+%pyproject_save_files -l %{name}
 
 %check
+%pyproject_check_import
+
 %pytest || :
 
-%files
-%license COPYING.txt
+%files -f %{pyproject_files}
 %doc AUTHORS.txt README.txt TODO.txt
 %{_bindir}/hgimportsvn
 %{_bindir}/hgpullsvn
 %{_bindir}/hgpushsvn
-%{python3_sitelib}/%{name}
-%{python3_sitelib}/%{name}-*-py*.egg-info
 
 %changelog
+* Thu Aug 07 2025 Terje Røsten <terjeros@gmail.com> - 0.6.0-21
+- New macros
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

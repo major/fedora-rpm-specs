@@ -1,5 +1,5 @@
 Name:           rust
-Version:        1.88.0
+Version:        1.89.0
 Release:        %autorelease
 Summary:        The Rust Programming Language
 License:        (Apache-2.0 OR MIT) AND (Artistic-2.0 AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0 AND Unicode-3.0)
@@ -12,11 +12,11 @@ URL:            https://www.rust-lang.org
 ExclusiveArch:  %{rust_arches}
 
 # To bootstrap from scratch, set the channel and date from src/stage0
-# e.g. 1.88.0 wants rustc: 1.87.0-2025-05-15
+# e.g. 1.89.0 wants rustc: 1.88.0-2025-06-26
 # or nightly wants some beta-YYYY-MM-DD
-%global bootstrap_version 1.87.0
-%global bootstrap_channel 1.87.0
-%global bootstrap_date 2025-05-15
+%global bootstrap_version 1.88.0
+%global bootstrap_channel 1.88.0
+%global bootstrap_date 2025-06-26
 
 # Only the specified arches will use bootstrap binaries.
 # NOTE: Those binaries used to be uploaded with every new release, but that was
@@ -28,8 +28,7 @@ ExclusiveArch:  %{rust_arches}
 # We need CRT files for *-wasi targets, at least as new as the commit in
 # src/ci/docker/host-x86_64/dist-various-2/build-wasi-toolchain.sh
 %global wasi_libc_url https://github.com/WebAssembly/wasi-libc
-#global wasi_libc_ref wasi-sdk-25
-%global wasi_libc_ref 640c0cfc19a96b099e0791824be5ef0105ce2084
+%global wasi_libc_ref wasi-sdk-27
 %global wasi_libc_name wasi-libc-%{wasi_libc_ref}
 %global wasi_libc_source %{wasi_libc_url}/archive/%{wasi_libc_ref}/%{wasi_libc_name}.tar.gz
 %global wasi_libc_dir %{_builddir}/%{wasi_libc_name}
@@ -46,7 +45,7 @@ ExclusiveArch:  %{rust_arches}
 # is insufficient. Rust currently requires LLVM 19.0+.
 # See src/bootstrap/src/core/build_steps/llvm.rs, fn check_llvm_version
 %global min_llvm_version 19.0.0
-%global bundled_llvm_version 20.1.5
+%global bundled_llvm_version 20.1.7
 #global llvm_compat_version 19
 %global llvm llvm%{?llvm_compat_version}
 %bcond_with bundled_llvm
@@ -63,7 +62,7 @@ ExclusiveArch:  %{rust_arches}
 %endif
 
 # Try to use system oniguruma (only used at build time for rust-docs)
-# src/tools/rustbook -> ... -> onig_sys v69.8.1 needs at least 6.9.3
+# src/tools/rustbook -> ... -> onig_sys v69.9.1 needs at least 6.9.3
 %global min_oniguruma_version 6.9.3
 %if 0%{?rhel} && 0%{?rhel} < 9
 %bcond_without bundled_oniguruma
@@ -141,9 +140,11 @@ Patch5:         0002-set-an-external-library-path-for-wasm32-wasi.patch
 # We don't want to use the bundled library in libsqlite3-sys
 Patch6:         rustc-1.88.0-unbundle-sqlite.patch
 
-# Ensure stack in two places that affect s390x
-# https://github.com/rust-lang/rust/pull/142047
-Patch7:         rust-pr142047.patch
+# stage0 tries to copy all of /usr/lib, sometimes unsuccessfully, see #143735
+Patch7:         0001-only-copy-rustlib-into-stage0-sysroot.patch
+
+# PR #143752, fixed upstream.
+Patch8:         0001-Don-t-always-panic-if-WASI_SDK_PATH-is-not-set-when-.patch
 
 ### RHEL-specific patches below ###
 
@@ -154,7 +155,7 @@ Source102:      cargo_vendor.attr
 Source103:      cargo_vendor.prov
 
 # Disable cargo->libgit2->libssh2 on RHEL, as it's not approved for FIPS (rhbz1732949)
-Patch100:       rustc-1.88.0-disable-libssh2.patch
+Patch100:       rustc-1.89.0-disable-libssh2.patch
 
 # Get the Rust triple for any architecture and ABI.
 %{lua: function rust_triple(arch, abi)
@@ -511,6 +512,8 @@ Summary:        GDB pretty printers for Rust
 BuildArch:      noarch
 Requires:       gdb
 Requires:       %{name}-debugger-common = %{version}-%{release}
+# rust-gdb uses rustc to find the sysroot
+Requires:       %{name} = %{version}-%{release}
 
 %description gdb
 This package includes the rust-gdb script, which allows easier debugging of Rust
@@ -523,6 +526,8 @@ BuildArch:      noarch
 Requires:       lldb
 Requires:       python3-lldb
 Requires:       %{name}-debugger-common = %{version}-%{release}
+# rust-lldb uses rustc to find the sysroot
+Requires:       %{name} = %{version}-%{release}
 
 %description lldb
 This package includes the rust-lldb script, which allows easier debugging of Rust
@@ -692,6 +697,7 @@ rm -rf %{wasi_libc_dir}/dlmalloc/
 %patch -P6 -p1
 %endif
 %patch -P7 -p1
+%patch -P8 -p1
 
 %if %with disabled_libssh2
 %patch -P100 -p1
@@ -880,6 +886,7 @@ test -r "%{profiler}"
   --set build.test-stage=2 \
   --set build.optimized-compiler-builtins=false \
   --set rust.llvm-tools=false \
+  --set rust.verify-llvm-ir=true \
   --enable-extended \
   --tools=cargo,clippy,rust-analyzer,rustfmt,src \
   --enable-vendor \
