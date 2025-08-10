@@ -6,8 +6,8 @@
 %define __perl_provides %{nil}
 
 Name:           moodle
-Version:        5.0.1
-Release:       	2%{?dist}
+Version:        5.0.2
+Release:       	1%{?dist}
 Summary:        A Course Management System
 
 License:        GPL-2.0-or-later
@@ -169,6 +169,9 @@ end
 %{_datadir}/php/php-simplepie/moodle_simplepie.php
 
 %changelog
+* Fri Aug 08 2025 Gwyn Ciesla <gwync@protonmail.com> - 5.0.2-1
+- 5.0.2
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary:        Modular SIP user-agent with audio and video support
 Name:           baresip
-Version:        3.23.0
-Release:        2%{?dist}
+Version:        4.0.0
+Release:        1%{?dist}
 License:        BSD-3-Clause
 URL:            https://github.com/baresip/baresip
 Source0:        https://github.com/baresip/baresip/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -13,13 +13,15 @@ Source14:       https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/raw/master/C
 BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  libre-devel >= 3.23.0
+BuildRequires:  libre-devel >= 4.0.0
 %if 0%{?fedora} || 0%{?rhel} >= 9
 BuildRequires:  openssl-devel
 Recommends:     %{name}-pipewire%{?_isa} = %{version}-%{release}
 %else
-# https://github.com/baresip/re/pull/1015
+# https://github.com/baresip/re/pull/1371
 BuildRequires:  openssl3-devel
+# https://github.com/baresip/re/pull/1374
+BuildRequires:  gcc-toolset-12
 Recommends:     %{name}-pulse%{?_isa} = %{version}-%{release}
 %endif
 Obsoletes:      %{name}-cairo < 1.1.0-1
@@ -414,6 +416,10 @@ This module provides the X11 video output driver.
 %autosetup -p1
 
 %build
+%if 0%{?rhel} == 8
+. /opt/rh/gcc-toolset-12/enable
+%endif
+
 %cmake \
   -DDEFAULT_CAFILE:PATH="%{_sysconfdir}/pki/tls/certs/ca-bundle.crt" \
   -DDEFAULT_CAPATH:PATH="%{_sysconfdir}/pki/tls/certs" \
@@ -468,7 +474,7 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %license LICENSE
 %doc CHANGELOG.md docs/THANKS docs/examples
 %{_bindir}/%{name}
-%{_libdir}/lib%{name}.so.20*
+%{_libdir}/lib%{name}.so.21*
 %dir %{_libdir}/%{name}/
 %dir %{_libdir}/%{name}/modules/
 %{_libdir}/%{name}/modules/account.so
@@ -483,7 +489,6 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %{_libdir}/%{name}/modules/ctrl_tcp.so
 %{_libdir}/%{name}/modules/debug_cmd.so
 %{_libdir}/%{name}/modules/dtls_srtp.so
-%{_libdir}/%{name}/modules/ebuacip.so
 %{_libdir}/%{name}/modules/echo.so
 %{_libdir}/%{name}/modules/evdev.so
 %{_libdir}/%{name}/modules/fakevideo.so
@@ -625,6 +630,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %{_libdir}/%{name}/modules/x11.so
 
 %changelog
+* Sat Aug 09 2025 Robert Scheck <robert@fedoraproject.org> 4.0.0-1
+- Upgrade to 4.0.0 (#2379005)
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.23.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

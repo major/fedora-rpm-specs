@@ -23,7 +23,7 @@ Name: linux-system-roles
 %endif
 Url: https://github.com/linux-system-roles
 Summary: Set of interfaces for unified system management
-Version: 1.108.3
+Version: 1.108.4
 Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv3+ and MIT and BSD and Python - review is highly recommended.
@@ -101,7 +101,7 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 3 1.10.2
 
 %global rolename4 kdump
-%deftag 4 1.4.11
+%deftag 4 1.4.12
 
 %global rolename5 network
 %deftag 5 1.17.5
@@ -113,7 +113,7 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 7 1.13.0
 
 %global rolename8 tlog
-%deftag 8 1.4.2
+%deftag 8 1.4.3
 
 %global rolename9 kernel_settings
 %deftag 9 1.3.5
@@ -142,7 +142,7 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 16 1.6.0
 
 %global rolename17 ha_cluster
-%deftag 17 1.25.3
+%deftag 17 1.25.4
 
 %global rolename18 vpn
 %deftag 18 1.6.11
@@ -178,7 +178,7 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 28 1.1.10
 
 %global rolename29 bootloader
-%deftag 29 1.1.3
+%deftag 29 1.1.4
 
 %global rolename30 snapshot
 %deftag 30 1.5.2
@@ -703,6 +703,9 @@ find %{buildroot}%{ansible_roles_dir} -mindepth 1 -maxdepth 1 | \
 %endif
 
 %changelog
+* Fri Aug  8 2025 Packit <hello@packit.dev> - 1.108.4-1
+- Update to upstream version 1.108.4
+
 * Sat Aug  2 2025 Packit <hello@packit.dev> - 1.108.3-1
 - Update to upstream version 1.108.3
 

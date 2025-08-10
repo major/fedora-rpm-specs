@@ -6,7 +6,7 @@
 
 Name:           vim-%{upstream_name}
 Version:        3.10.0
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        A vim plugins to check syntax for programming languages
 Summary(fr):    Une extension de vim vérifiant la syntaxe pour les langages de programmation
 
@@ -88,7 +88,7 @@ Permet de vérifier les fichiers sources écrit en %{-n*}.                      
 # cofee-script has been retired
 #%%add_subpackage -n coffee coffee-script
 %add_subpackage -n coq coq
-%add_subpackage -n cpp gcc-c++
+%add_subpackage -n cpp gcc-c++ vim-syntastic-c
 %add_subpackage -n cs mono-core
 %add_subpackage -n css csslint
 %add_subpackage -n cucumber rubygem-cucumber
@@ -291,6 +291,9 @@ appstream-util validate-relax --nonet %{buildroot}%{appdata_dir}/vim-syntastic.m
 
 
 %changelog
+* Fri Aug 08 2025 Martin Jackson <orion@nwra.com> - 3.10.0-28
+- Add dependency for -cpp to also install -c. Fixes bz#1830768
+
 * Thu Aug 07 2025 Orion Poplawski <orion@nwra.com> - 3.10.0-27
 - Rebuild for Octave 10.2
 

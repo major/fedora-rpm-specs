@@ -1,6 +1,6 @@
 Name:           zasx
 Version:        1.30
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        Asteroid like game with powerups
 License:        GPL-2.0-or-later AND Giftware
 URL:            https://www.allegro.cc/depot/Zasx/
@@ -12,8 +12,9 @@ Patch0:         zasx-1.30-fixes.patch
 Patch1:         zasx-1.30-datadir.patch
 Patch2:         zasx-1.30-format-security.patch
 Patch3:         zasx-1.30-locale-fix.patch
-BuildRequires: make
-BuildRequires:  gcc
+Patch4:         zasx-1.30-remove-al-fix-aliases.patch
+Patch5:         zasx-1.30-Makefile.patch
+BuildRequires:  gcc make
 BuildRequires:  dumb-devel ImageMagick desktop-file-utils libappstream-glib
 Requires:       hicolor-icon-theme
 
@@ -31,7 +32,8 @@ mv docs html
 
 %build
 make %{?_smp_mflags} PREFIX=%{_prefix} \
-  CFLAGS="$RPM_OPT_FLAGS -fsigned-char -DALLEGRO_FIX_ALIASES -Wno-deprecated-declarations"
+  CFLAGS="$RPM_OPT_FLAGS -fsigned-char -Wno-deprecated-declarations" \
+  LDFLAGS="$RPM_LD_FLAGS"
 convert -transparent black -resize 64x64 %{name}.ico %{name}.png
 
 
@@ -63,6 +65,11 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Thu Aug  7 2025 Hans de Goede <hans@hansg.org> - 1.30-42
+- Fix FTBFS with gcc15
+- Resolves: rhbz#2341600
+- Resolves: rhbz#2385756
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.30-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

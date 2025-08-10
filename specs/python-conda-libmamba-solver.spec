@@ -1,10 +1,10 @@
 %global srcname conda-libmamba-solver
 
-%bcond tests 1
+%bcond tests 0
 
 Name:           python-%{srcname}
-Version:        24.9.0
-Release:        5%{?dist}
+Version:        25.4.0
+Release:        1%{?dist}
 Summary:        The libmamba based solver for conda
 
 License:        BSD-3-Clause
@@ -148,6 +148,10 @@ export CONDA_TEST_DATA_DIR=/usr/share/conda/tests/data
 %doc README.*
 
 %changelog
+* Fri Aug 08 2025 Orion Poplawski <orion@nwra.com> - 25.4.0-1
+- Update to 25.4.0
+- Disable tests for libmamba/conda major update bootstrap
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 24.9.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

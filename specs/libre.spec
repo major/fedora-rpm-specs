@@ -1,7 +1,7 @@
 Summary:        Generic library for real-time communications
 Name:           libre
-Version:        3.23.0
-Release:        2%{?dist}
+Version:        4.0.0
+Release:        1%{?dist}
 License:        BSD-3-Clause
 URL:            https://github.com/baresip/re
 Source0:        https://github.com/baresip/re/archive/v%{version}/re-%{version}.tar.gz
@@ -11,8 +11,10 @@ BuildRequires:  gcc-c++
 %if 0%{?fedora} || 0%{?rhel} >= 9
 BuildRequires:  openssl-devel
 %else
-# https://github.com/baresip/re/pull/1015
+# https://github.com/baresip/re/pull/1371
 BuildRequires:  openssl3-devel
+# https://github.com/baresip/re/pull/1374
+BuildRequires:  gcc-toolset-12
 %endif
 BuildRequires:  zlib-devel
 # Cover multiple third party repositories
@@ -65,6 +67,10 @@ developing programs which use the re C library.
 %autosetup -p1 -n re-%{version}
 
 %build
+%if 0%{?rhel} == 8
+. /opt/rh/gcc-toolset-12/enable
+%endif
+
 %cmake \
 %if 0%{?rhel} == 8
   -DOPENSSL_ROOT_DIR:PATH="%{_includedir}/openssl3;%{_libdir}/openssl3"
@@ -79,6 +85,10 @@ developing programs which use the re C library.
 rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}.a
 
 %check
+%if 0%{?rhel} == 8
+. /opt/rh/gcc-toolset-12/enable
+%endif
+
 %cmake_build --target retest
 %{__cmake_builddir}/test/retest -d test/data/ -v -r
 
@@ -87,7 +97,7 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}.a
 %files
 %license LICENSE
 %doc CHANGELOG.md README.md
-%{_libdir}/%{name}.so.34*
+%{_libdir}/%{name}.so.36*
 
 %files devel
 %{_libdir}/%{name}.so
@@ -97,6 +107,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}.a
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Sat Aug 09 2025 Robert Scheck <robert@fedoraproject.org> 4.0.0-1
+- Upgrade to 4.0.0 (#2378962)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.23.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

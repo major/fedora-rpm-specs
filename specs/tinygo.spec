@@ -102,6 +102,8 @@ Patch:          0005-Normalize-expected-path-for-chdir-tests.patch
 Patch:          https://github.com/tinygo-org/tinygo/commit/1b5d312c689a004434cb77f161f65b9615c98036.patch
 # https://github.com/tinygo-org/tinygo/issues/4969
 Patch:          0006-Skip-x86-tests-on-ARM.patch
+# Support for Go 1.25.
+Patch:          https://github.com/tinygo-org/tinygo/pull/4954.patch
 
 # Fix CVE-2025-26519 in musl.
 Patch1600:      https://www.openwall.com/lists/musl/2025/02/13/1/1#/musl-cve-2025-26519-1.patch

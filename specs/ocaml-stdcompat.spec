@@ -1,5 +1,5 @@
 Name:           ocaml-stdcompat
-Version:        20.1
+Version:        21.0
 Release:        %autorelease
 Summary:        Compatibility module for the OCaml standard library
 
@@ -7,25 +7,12 @@ License:        BSD-2-Clause
 URL:            https://github.com/ocamllibs/stdcompat
 VCS:            git:%{url}.git
 Source:         %{url}/archive/%{version}/stdcompat-%{version}.tar.gz
-# Fix detection of OCaml tools
-# https://github.com/thierry-martinez/stdcompat/pull/31
-Patch:          %{name}-configure.patch
-# Add support for OCaml 5.3
-# https://github.com/thierry-martinez/stdcompat/pull/35
-Patch:          %{name}-ocaml5.3.patch
 
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}
 
-BuildRequires:  make
-BuildRequires:  ocaml
-BuildRequires:  ocaml-findlib
-BuildRequires:  ocaml-rpm-macros
-
-# Needed only until the configure patch is merged upstream
-BuildRequires:  autoconf
-BuildRequires:  automake
-BuildRequires:  libtool
+BuildRequires:  ocaml >= 4.11
+BuildRequires:  ocaml-dune >= 2.0
 
 %description
 Stdcompat is a compatibility layer allowing programs to use some recent
@@ -54,43 +41,16 @@ files for developing applications that use %{name}.
 %prep
 %autosetup -n stdcompat-%{version} -p1
 
-%conf
-# Regenerate configure after Patch0 and Patch1
-autoreconf -fi .
-
-# Generate debuginfo
-sed -i 's/-nolabels/-g &/' Makefile.in
-
 %build
-%configure --libdir=%{ocamldir}
-
-# Parallel make does NOT work; there seem to be missing dependencies
-make all
+%dune_build
 
 %install
-%make_install
-
-# We do not want the ml files
-find %{buildroot}%{ocamldir} -name \*.ml -delete
-
-# Install the mli files
-cp -p *.mli %{buildroot}%{ocamldir}/stdcompat
-
-# Install the opam file
-cp -p stdcompat.opam %{buildroot}%{ocamldir}/stdcompat/opam
-
-# Remove spurious executable bits
-chmod a-x %{buildroot}%{ocamldir}/stdcompat/{META,*.{a,cma,cmi,cmt,h}}
-%ifarch %{ocaml_native_compiler}
-chmod a-x %{buildroot}%{ocamldir}/stdcompat/*.{cmx,cmxa}
-%endif
-
-%ocaml_files
+%dune_install
 
 %ifarch %{ocaml_native_compiler}
 # The tests assume that ocamlopt is available
 %check
-LD_LIBRARY_PATH=$PWD make test
+%dune_check
 %endif
 
 %files -f .ofiles

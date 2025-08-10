@@ -1,19 +1,22 @@
+# Cannot build statically yet
+%bcond micromamba 0
+
 Name:           libmamba
-Version:        1.5.12
+Version:        2.3.1
 Release:        %autorelease
 Summary:        C++ API for mamba depsolving library
 
 License:        BSD-3-Clause
 URL:            https://github.com/mamba-org/mamba
-Source0:        https://github.com/mamba-org/mamba/archive/%{name}-%{version}/%{name}-%{version}.tar.gz
-# Force the install to be arch dependent
-Source1:        setup.py
-# Upstream fix for csh file
-Patch0:         libmamba-csh.patch
-# https://github.com/mamba-org/mamba/pull/3016
-Patch1:         libmamba-deps.patch
-# Use Fedora versions of yaml-cpp and zstd
-Patch2:         libmamba-fedora.patch
+Source0:        https://github.com/mamba-org/mamba/archive/%{version}/%{name}-%{version}.tar.gz
+# Use Fedora versions of zstd
+# Install into /etc/profile.d
+Patch:          libmamba-fedora.patch
+# Use scikit-build-core https://github.com/mamba-org/mamba/pull/3802
+Patch:          https://github.com/mamba-org/mamba/pull/3802.patch
+# Fix abort in MatchSpec.parse()
+# https://github.com/mamba-org/mamba/issues/3809
+Patch:          https://github.com/mamba-org/mamba/pull/4040.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -35,6 +38,8 @@ BuildRequires:  yaml-cpp-devel
 # https://src.fedoraproject.org/rpms/zstd/pull-request/7
 #BuildRequires:  cmake(zstd)
 BuildRequires:  libzstd-devel
+# Fails to build on i686 https://github.com/mamba-org/mamba/issues/4041
+ExcludeArch: %{ix86}
 
 %description
 libmamba is a reimplementation of the conda package manager in C++.
@@ -65,18 +70,50 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 
-%package -n     micromamba
-Summary:        Tiny version of the mamba package manager
+%package -n     mamba
+Summary:        The Fast Cross-Platform Package Manager
 BuildRequires:  cli11-devel
 BuildRequires:  pybind11-devel
 # Generate a simple man page until https://github.com/mamba-org/mamba/issues/3032 is addressed
 BuildRequires:  help2man
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+%if %{without micromamba}
+Obsoletes:      micromamba < %{version}-%{release}
+Provides:       micromamba = %{version}-%{release}
+%endif
+
+%description -n mamba
+mamba is a reimplementation of the conda package manager in C++.
+
+ * parallel downloading of repository data and package files using multi-
+   threading
+ * libsolv for much faster dependency solving, a state of the art library
+   used in the RPM package manager of Red Hat, Fedora and OpenSUSE
+ * core parts of mamba are implemented in C++ for maximum efficiency
+
+At the same time, mamba utilizes the same command line parser, package
+installation and deinstallation code and transaction verification routines as
+conda to stay as compatible as possible.
+
+mamba is part of the conda-forge ecosystem, which also consists of quetz, an
+open source conda package server.
+
+
+%if %{with micromamba}
+%package -n     micromamba
+Summary:        Tiny version of the mamba package manager
+BuildRequires:  cli11-devel
+BuildRequires:  pybind11-devel
+BuildRequires:  yaml-cpp-static
+# Generate a simple man page until https://github.com/mamba-org/mamba/issues/3032 is addressed
+BuildRequires:  help2man
 
 %description -n micromamba
-micromamba is a tiny version of the mamba package manager. It is a C++
-executable with a separate command line interface. It does not need a base
-environment and does not come with a default version of Python.
+micromamba is the statically linked version of mamba.
+
+It can be installed as a standalone executable without any dependencies,
+making it a perfect fit for CI/CD pipelines and containerized environments.
+%endif
 
 
 %package -n     python3-libmambapy
@@ -93,47 +130,112 @@ Python bindings for libmamba.
 
 
 %prep
-%autosetup -p1 -n mamba-libmamba-%{version}
-cp -p %SOURCE1 libmambapy/setup.py
-sed -i '/LIBRARY DESTINATION/s,\${CMAKE_CURRENT_SOURCE_DIR},${Python_STDARCH}/site-packages,' libmambapy/CMakeLists.txt
+%autosetup -p1 -n mamba-%{version}
+sed -i -e '/cmake/d' -e '/ninja/d' libmambapy/pyproject.toml
+
+
+%generate_buildrequires
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
+cd libmambapy
+%pyproject_buildrequires
 
 
 %build
+export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
+%if %{with micromamba}
+%global _vpath_builddir %{_vendor}-%{_target_os}-build-micromamba
+export CMAKE_MODULE_PATH=%{_libdir}/cmake/yaml-cpp-static
 %cmake \
-   -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-   -DBUILD_LIBMAMBA=ON \
-   -DBUILD_LIBMAMBAPY=ON \
-   -DBUILD_MICROMAMBA=ON \
-   -DBUILD_EXE=ON \
-   -DBUILD_SHARED=ON \
-   -DBUILD_STATIC=OFF \
-   -DENABLE_TESTS=ON
+  -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+  -DCMAKE_MODULE_PATH=%{_libdir}/cmake/yaml-cpp-static \
+  -DBUILD_LIBMAMBA=ON \
+  -DBUILD_LIBMAMBAPY=OFF \
+  -DBUILD_MAMBA=OFF \
+  -DBUILD_MICROMAMBA=ON \
+  -DBUILD_EXE=ON \
+  -DBUILD_SHARED=OFF \
+  -DBUILD_STATIC=ON
 %cmake_build
-cd libmambapy
-%pyproject_wheel
-cd -
 help2man %{_vpath_builddir}/micromamba/micromamba > %{_vpath_builddir}/micromamba/micromamba.1
+%endif
+%global _vpath_builddir %{_vendor}-%{_target_os}-build
+%cmake \
+  -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+  -DBUILD_LIBMAMBA=ON \
+  -DBUILD_LIBMAMBAPY=ON \
+  -DBUILD_MAMBA=OFF \
+  -DBUILD_MICROMAMBA=OFF \
+  -DBUILD_EXE=OFF \
+  -DBUILD_SHARED=ON \
+  -DBUILD_STATIC=OFF \
+  -DENABLE_TESTS=ON \
+  -DMAMBA_WARNING_AS_ERROR=OFF
+%cmake_build
+#cmake --install %{__cmake_builddir} --prefix install
+cd libmambapy
+export SKBUILD_CMAKE_VERBOSE=ON
+export CMAKE_BUILD_PARALLEL_LEVEL=%{_smp_build_ncpus}
+%{pyproject_wheel %{shrink:
+  -C cmake.build-type=RelWithDebInfo
+  -C cmake.define.libmamba_ROOT=$(pwd)/../%{_vpath_builddir}/libmamba
+}}
+cd -
+%cmake \
+  -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+  -DBUILD_LIBMAMBA=ON \
+  -DBUILD_LIBMAMBAPY=ON \
+  -DBUILD_MAMBA=ON \
+  -DBUILD_MICROMAMBA=OFF \
+  -DBUILD_EXE=ON \
+  -DBUILD_SHARED=ON \
+  -DBUILD_STATIC=OFF \
+  -DENABLE_TESTS=ON \
+  -DMAMBA_WARNING_AS_ERROR=OFF
+%cmake_build
+help2man %{_vpath_builddir}/micromamba/mamba > %{_vpath_builddir}/micromamba/mamba.1
 
 
 %install
+%global _vpath_builddir %{_vendor}-%{_target_os}-build
 %cmake_install
 cd libmambapy
 %pyproject_install
 %pyproject_save_files libmambapy
 cd -
+%if %{with micromamba}
+%global _vpath_builddir %{_vendor}-%{_target_os}-build-micromamba
+%cmake_install
+%else
+ln -s mamba %{buildroot}%{_bindir}/micromamba
+%endif
 
 # Install init scripts
 mkdir -p %{buildroot}/etc/profile.d
 for shell in csh sh 
 do
-  sed -e 's,\$MAMBA_EXE,%{_bindir}/micromamba,' < libmamba/data/micromamba.$shell > %{buildroot}/etc/profile.d/micromamba.$shell
+  sed -e 's,\${\?MAMBA_EXE}\?,%{_bindir}/mamba,' < libmamba/data/mamba.$shell > %{buildroot}/etc/profile.d/mamba.$shell
 done
 mkdir -p %{buildroot}%{_datadir}/fish/vendor_conf.d
-sed -e 's,\$MAMBA_EXE,%{_bindir}/micromamba,' < libmamba/data/mamba.fish > %{buildroot}%{_datadir}/fish/vendor_conf.d/micromamba.fish
+sed -e 's,\${\?MAMBA_EXE}\?,%{_bindir}/mamba,' < libmamba/data/mamba.fish > %{buildroot}%{_datadir}/fish/vendor_conf.d/mamba.fish
+
+# man page
+mkdir -p %{buildroot}%{_mandir}/man1
+cp -p %{_vpath_builddir}/micromamba/mamba.1 %{buildroot}%{_mandir}/man1/
+
+%if %{with micromamba}
+# Install init scripts
+mkdir -p %{buildroot}/etc/profile.d
+for shell in csh sh 
+do
+  sed -e 's,\${\?MAMBA_EXE}\?,%{_bindir}/micromamba,' < libmamba/data/micromamba.$shell > %{buildroot}/etc/profile.d/micromamba.$shell
+done
+mkdir -p %{buildroot}%{_datadir}/fish/vendor_conf.d
+sed -e 's,\${\?MAMBA_EXE}\?,%{_bindir}/micromamba,' < libmamba/data/mamba.fish > %{buildroot}%{_datadir}/fish/vendor_conf.d/micromamba.fish
 
 # man page
 mkdir -p %{buildroot}%{_mandir}/man1
 cp -p %{_vpath_builddir}/micromamba/micromamba.1 %{buildroot}%{_mandir}/man1/
+%endif
 
 
 %check
@@ -143,14 +245,27 @@ cp -p %{_vpath_builddir}/micromamba/micromamba.1 %{buildroot}%{_mandir}/man1/
 %files
 %license LICENSE
 %doc CHANGELOG.md README.md
-%{_libdir}/libmamba.so.2
-%{_libdir}/libmamba.so.2.*
+%{_libdir}/libmamba.so.4
+%{_libdir}/libmamba.so.4.*
 
 %files devel
 %{_includedir}/mamba/
 %{_libdir}/libmamba.so
 %{_libdir}/cmake/%{name}/
 
+%files -n mamba
+# TODO - better ownership of vendor_conf.d
+%dir %{_datadir}/fish/vendor_conf.d
+%{_datadir}/fish/vendor_conf.d/mamba.fish
+/etc/profile.d/mamba.sh
+/etc/profile.d/mamba.csh
+%{_bindir}/mamba
+%if %{without micromamba}
+%{_bindir}/micromamba
+%endif
+%{_mandir}/man1/mamba.1*
+
+%if %{with micromamba}
 %files -n micromamba
 # TODO - better ownership of vendor_conf.d
 %dir %{_datadir}/fish/vendor_conf.d
@@ -159,10 +274,10 @@ cp -p %{_vpath_builddir}/micromamba/micromamba.1 %{buildroot}%{_mandir}/man1/
 /etc/profile.d/micromamba.csh
 %{_bindir}/micromamba
 %{_mandir}/man1/micromamba.1*
+%endif
 
 %files -n python3-libmambapy -f %{pyproject_files}
 %doc CHANGELOG.md README.md
-%{python3_sitearch}/libmambapy/bindings.*
 
 
 %changelog

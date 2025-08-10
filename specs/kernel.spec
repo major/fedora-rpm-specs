@@ -165,13 +165,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.17.0
 %define specversion 6.17.0
 %define patchversion 6.17
-%define pkgrelease 0.rc0.250807g6e64f4580381.13
+%define pkgrelease 0.rc0.250808g37816488247d.14
 %define kversion 6
-%define tarfile_release 6.16-11952-g6e64f4580381
+%define tarfile_release 6.16-12063-g37816488247d
 # This is needed to do merge window version magic
 %define patchlevel 17
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc0.250807g6e64f4580381.13%{?buildid}%{?dist}
+%define specrelease 0.rc0.250808g37816488247d.14%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.17.0
 
@@ -4375,8 +4375,11 @@ fi\
 #
 #
 %changelog
-* Thu Aug 07 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc0.6e64f4580381.13]
+* Fri Aug 08 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc0.37816488247d.14]
 - redhat/configs: clang_lto: disable CONFIG_FORTIFY_KUNIT_TEST (Scott Weaver)
+
+* Fri Aug 08 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc0.37816488247d.13]
+- Linux v6.17.0-0.rc0.37816488247d
 
 * Thu Aug 07 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc0.6e64f4580381.12]
 - Fix up some networking configs to make docker work again (Justin M. Forbes)

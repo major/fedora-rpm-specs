@@ -61,7 +61,7 @@
 
 Name:           %{miopen_name}
 Version:        %{rocm_version}
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        AMD's Machine Intelligence Library
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT AND BSD-2-Clause AND Apache-2.0 AND LicenseRef-Fedora-Public-Domain
@@ -83,6 +83,9 @@ Patch2:         0001-add-link-and-compile-pools-for-miopen.patch
 BuildRequires:  cmake
 BuildRequires:  pkgconfig(eigen3)
 BuildRequires:  gcc-c++
+%if 0%{?fedora} || 0%{?suse_version}
+BuildRequires:  fdupes
+%endif
 BuildRequires:  fplus-devel
 BuildRequires:  frugally-deep-devel
 BuildRequires:  half-devel
@@ -136,6 +139,10 @@ BuildRequires:  ninja
 %endif
 
 Provides:       miopen = %{version}-%{release}
+
+# Use ROCm devel at runtime
+Requires:       rocm-hip-devel
+Requires:       rocrand-devel
 
 # Only x86_64 works right now:
 ExclusiveArch:  x86_64
@@ -282,6 +289,10 @@ if [ -f %{buildroot}%{_prefix}/share/doc/miopen-hip/LICENSE.txt ]; then
     rm %{buildroot}%{_prefix}/share/doc/miopen-hip/LICENSE.txt
 fi
 
+%if 0%{?fedora} || 0%{?suse_version}
+%fdupes %{buildroot}%{_prefix}
+%endif
+
 %files
 %license LICENSE.txt
 %dir %_libexecdir/miopen
@@ -305,6 +316,10 @@ fi
 %endif
 
 %changelog
+* Fri Aug 8 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-8
+- Uses hip and rocrand devel at runtime.
+- Cleanup dupes
+
 * Wed Jul 30 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-7
 - Remove -mtls-dialect cflag
 

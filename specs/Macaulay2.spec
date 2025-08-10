@@ -47,8 +47,8 @@
 
 Summary: System for algebraic geometry and commutative algebra
 Name:    Macaulay2
-Version: 1.25.05
-Release: 5%{?dist}
+Version: 1.25.06
+Release: 1%{?dist}
 
 # GPL-2.0-only OR GPL-3.0-only:
 #   - the project as a whole
@@ -594,13 +594,16 @@ make check -C BUILD/%{_target_platform}/Macaulay2/bin
 
 
 %changelog
+* Fri Aug 08 2025 Jerry James <loganjerry@gmail.com> - 1.25.06-1
+- Version 1.25.06
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.25.05-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Fri Jun 13 2025 Jerry James  <loganjerry@gmail.com> - 1.25.05-4
+* Fri Jun 13 2025 Jerry James <loganjerry@gmail.com> - 1.25.05-4
 - Unbundle factory-gftables (bz 2372455)
 
-* Wed Jun 11 2025 Jerry James  <loganjerry@gmail.com> - 1.25.05-3
+* Wed Jun 11 2025 Jerry James <loganjerry@gmail.com> - 1.25.05-3
 - Rebuild for normaliz 3.10.5
 
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.25.05-2

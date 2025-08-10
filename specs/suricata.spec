@@ -1,7 +1,7 @@
 Summary: Intrusion Detection System
 Name: suricata
-Version: 7.0.10
-Release: 3%{?dist}
+Version: 7.0.11
+Release: 1%{?dist}
 License: GPL-2.0-only
 URL: https://suricata-ids.org/
 Source0: https://www.openinfosecfoundation.org/download/%{name}-%{version}.tar.gz
@@ -205,6 +205,9 @@ fi
 %endif
 
 %changelog
+* Fri Aug 08 2025 Steve Grubb <sgrubb@redhat.com> 7.0.11-1
+- New bugfix release
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.10-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

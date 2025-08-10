@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.42-6-g5e298d2d93
+%global glibcsrcdir glibc-2.42-13-gc5476b7907
 %global glibcversion 2.42
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 2
+%global baserelease 3
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2385,6 +2385,17 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Fri Aug 08 2025 Frédéric Bérat <fberat@redhat.com> - 2.42-3
+- Auto-sync with upstream branch release/2.42/master,
+  commit c5476b7907d01207ede6bf57b26cef151b601f35:
+- hurd: support: Fix running SGID tests
+- Revert "tst-freopen4-main.c: Call support_capture_subprocess with chroot"
+- tst-env-setuid: Delete LD_DEBUG_OUTPUT output
+- tst-freopen4-main.c: Call support_capture_subprocess with chroot
+- tst-fopen-threaded.c: Delete temporary file
+- Delete temporary files in support_subprocess
+- nptl: Fix SYSCALL_CANCEL for return values larger than INT_MAX (BZ 33245)
+
 * Fri Aug 01 2025 Florian Weimer <fweimer@redhat.com> - 2.42-2
 - Auto-sync with upstream branch release/2.42/master,
   commit 5e298d2d937b6da06500478be956abeb24357e05:

@@ -10,7 +10,7 @@
 Summary:	Ruby binding of GdkPixbuf-2.x
 Name:		rubygem-%{gem_name}
 Version:	4.3.0
-Release:	3%{?dist}
+Release:	4%{?dist}
 # SPDX confirmed
 # LGPL-2.1-or-later: gemspec
 License:	LGPL-2.1-or-later
@@ -28,12 +28,6 @@ BuildRequires:	ruby-devel
 BuildRequires:	gdk-pixbuf2-devel
 BuildRequires:	gdk-pixbuf2-modules
 BuildRequires:	rubygem(test-unit)
-# Workaround for gdk-pixbuf2-2.43.3-4.fc43 with
-# glycin backend dependency (ref: bug 2387002)
-%if 0%{?fedora} >= 43
-BuildRequires:	/usr/bin/bwrap
-Requires:	/usr/bin/bwrap
-%endif
 Requires:	rubygems
 Provides:	rubygem(%{gem_name}) = %{version}
 
@@ -139,6 +133,9 @@ popd
 %exclude	%{gem_instdir}/test/
 
 %changelog
+* Sat Aug 09 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.0-4
+- Remove bwrap workaround
+
 * Thu Aug 07 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.0-3
 - Workaround for new gdk-pixbuf with glycin backend dependency (ref: bug
   2387002)

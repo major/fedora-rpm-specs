@@ -1,11 +1,12 @@
 Name:           pungi
-Version:        4.10.0
+Version:        4.10.1
 Release:        1%{?dist}
 Summary:        Distribution compose tool
 
 License:        GPL-2.0-only
 URL:            https://pagure.io/pungi
 Source0:        https://pagure.io/releases/%{name}/%{name}-%{version}.tar.bz2
+Patch:          https://pagure.io/pungi/pull-request/1860.patch
 
 BuildRequires:  make
 BuildRequires:  python3-pytest
@@ -133,6 +134,14 @@ gzip _build/man/pungi.1
 %{_bindir}/%{name}-cache-cleanup
 
 %changelog
+* Fri Aug 08 2025 Lubomír Sedlář <lsedlar@redhat.com> - 4.10.1-1
+- osbuild: Handle wsl2 images (lsedlar)
+- repoclosure: Clean up cache for dnf5 (lsedlar)
+- Ignore errors for rmtree after archive extraction (dhodovsk)
+- imagebuilder: accept `manifest_type` (supakeen)
+- Add a telemetry span over image building threads (lsedlar)
+- Add specific exception for skopeo copy (lsedlar)
+
 * Wed Jul 30 2025 Lubomír Sedlář <lsedlar@redhat.com> - 4.10.0-1
 - Add more tracing to kojiwrapper (lsedlar)
 - phases: implement image-builder (supakeen)

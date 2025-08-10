@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.2.9
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Kerberos manipulation library in Python
 
 License:        MIT
@@ -17,7 +17,6 @@ Kerberos manipulation library in pure Python.
 Summary:        %{summary}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 %{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
@@ -35,17 +34,20 @@ Command line tools for Kerberos manipulations.
 # Remove shebangs. https://github.com/skelsec/minikerberos/issues/7
 sed -i -e '/^#!\//, 1d' %{pypi_name}/{*.py,*/*.py,*/*/*.py}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
 %files -n python3-%{pypi_name}
 %doc README.md
 %license LICENSE
 %{python3_sitelib}/%{pypi_name}/
-%{python3_sitelib}/%{pypi_name}*.egg-info
+%{python3_sitelib}/%{pypi_name}*.dist-info
 
 %files -n %{pypi_name}
 %doc README.md
@@ -53,6 +55,9 @@ sed -i -e '/^#!\//, 1d' %{pypi_name}/{*.py,*/*.py,*/*/*.py}
 %{_bindir}/*
 
 %changelog
+* Fri Aug 08 2025 Federico Pellegrin <fede@evolware.org> - 0.2.9-17
+- Use new Python macros in spec file (rhbz#2377889)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.9-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

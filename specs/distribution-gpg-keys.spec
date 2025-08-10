@@ -1,6 +1,6 @@
 Name:		distribution-gpg-keys
-Version:	1.113
-Release:	2%{?dist}
+Version:	1.114
+Release:	1%{?dist}
 Summary:	GPG keys of various Linux distributions
 
 License:	CC0-1.0
@@ -53,8 +53,8 @@ cp -a keys/* %{buildroot}%{_datadir}/%{name}/
 %{_datadir}/%{name}/copr
 
 %changelog
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.113-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+* Fri Aug 08 2025 Pavel Raiskup <praiskup@redhat.com> 1.114-1
+- Add Fedora 45 key
 
 * Tue Jun 17 2025 Pavel Raiskup <praiskup@redhat.com> 1.113-1
 - Add Rocky Linux 10 keys

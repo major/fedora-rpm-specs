@@ -1,10 +1,10 @@
-%global DATE 20250210
-%global gitrev c45fb1d26a522a6e06a9e2d8403284e4436fc965
-%global gcc_version 14.2.1
+%global DATE 20250808
+%global gitrev 38f4a87cc67b52941fa8292ab5a7f99302e679be
+%global gcc_version 14.3.1
 %global gcc_major 14
 # Note, gcc_release must be integer, if you want to add suffixes to
 # %%{release}, append them after %%{gcc_release} on Release: line.
-%global gcc_release 8
+%global gcc_release 1
 %global _performance_build 1
 # Hardening slows the compiler way too much.
 %undefine _hardened_build
@@ -35,7 +35,7 @@
 Summary: Various compatibility compilers (C, C++, Fortran, ...)
 Name: gcc%{gcc_major}
 Version: %{gcc_version}
-Release: %{gcc_release}%{?dist}.1
+Release: %{gcc_release}%{?dist}
 # License notes for some of the less obvious ones:
 #   gcc/doc/cppinternals.texi: Linux-man-pages-copyleft-2-para
 #   isl: MIT, BSD-2-Clause
@@ -894,8 +894,8 @@ rm -rf testlogs-%{_target_platform}-%{version}-%{release}
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/plugin/gcc-annobin.so.0.0.0
 
 %changelog
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 14.2.1-8.1
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+* Fri Aug  8 2025 Jakub Jelinek <jakub@redhat.com> 14.3.1-3
+- update from gcc-14.3.1-3.fc41
 
 * Mon Feb 10 2025 Jakub Jelinek <jakub@redhat.com> 14.2.1-8
 - initial package

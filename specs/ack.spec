@@ -1,7 +1,7 @@
 Name:           ack
 Version:        3.9.0
 Release:        %autorelease
-Summary:        Grep-like text finder
+Summary:        A Grep-like source code search tool
 # SPDX migration
 License:        Artistic-2.0
 URL:            http://beyondgrep.com/
@@ -59,7 +59,9 @@ Requires:       perl(Pod::Usage) >= 1.26
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(File::Next\\)
 
 %description
-Ack is designed as a replacement for grep.
+Ack is a grep-like search tool designed for use with large heterogeneous
+trees of source code.  It searchs recursively and ignores common version
+control directories.
 
 %prep
 %setup -q -n ack3-%{version}

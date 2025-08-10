@@ -1,7 +1,7 @@
 %global pypi_name asysocks
 
 Name:           python-%{pypi_name}
-Version:        0.2.13
+Version:        0.2.17
 Release:        %autorelease
 Summary:        Socks5/Socks4 client and server library
 
@@ -38,6 +38,7 @@ sed -i -e '/^#!\//, 1d' asysocks/__init__.py
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE
+%doc README.md
 %{_bindir}/asysock*
 
 %changelog

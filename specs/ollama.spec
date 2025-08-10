@@ -35,6 +35,10 @@ Summary:        Get up and running AI LLMs
 License:        Apache-2.0 AND MIT
 URL:            %{gourl}
 Source:         %{gosource}
+# Fixup ollama to look at gtt vs vram mem and enable iGPU's
+# https://github.com/Crandel/ollama-amd-igpu.git
+# d70b7b91791181c0bca95dbbc223f9f3543f3747
+Patch0:         0001-rewrite-for-ollama-4.0.patch
 
 BuildRequires:  fdupes
 BuildRequires:  gcc-c++

@@ -1,6 +1,6 @@
 Name:           urlwatch
-Version:        2.28
-Release:        8%{?dist}
+Version:        2.29
+Release:        1%{?dist}
 Summary:        A tool for monitoring webpages for updates
 
 License:        LicenseRef-Callaway-BSD
@@ -9,7 +9,11 @@ Source0:        https://github.com/thp/urlwatch/archive/%{version}.tar.gz#/%{nam
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
+BuildRequires:  python3dist(sphinx)
+# Build deps for testing
+BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(docutils)
+BuildRequires:  python3dist(pycodestyle)
 
 Requires:  python3dist(platformdirs)
 Requires:  python3dist(html2text)
@@ -40,25 +44,40 @@ Basic features
 %prep
 %autosetup
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
+pushd .
+cd docs
+sphinx-build -M html source ../build
+rm ../build/html/.buildinfo
+popd
 
 %install
-%py3_install
-# Fix exec permission for rpmlint
-chmod 0755 %{buildroot}%{python3_sitelib}/%{name}/*txt.py
-chmod a+x %{buildroot}%{python3_sitelib}/%{name}/handler.py
+%pyproject_install
+
+%check
+# test_filter_documentation requires jq and pdftotext which are not packaged in Fedora
+%pytest lib/urlwatch/tests -k "not test_filter_documentation"
 
 %files
-%doc CHANGELOG.md README.md
+%doc CHANGELOG.md README.md build/html/*
 %license COPYING
 %{_mandir}/man*/*.*
 %{_bindir}/%{name}
 %{_datadir}/%{name}/examples/
 %{python3_sitelib}/%{name}/
-%{python3_sitelib}/%{name}*.egg-info
+%{python3_sitelib}/%{name}*.dist-info
 
 %changelog
+* Fri Aug 08 2025 Federico Pellegrin <fede@evolware.org> - 2.29-1
+- Bump to 2.29, add tests execution and docs build
+
+* Fri Aug 08 2025 Federico Pellegrin <fede@evolware.org> - 2.28-9
+- Use new Python macros in spec file (rhbz#2378492)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.28-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

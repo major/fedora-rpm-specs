@@ -1,5 +1,5 @@
 %global rocm_release 6.4
-%global rocm_patch 2
+%global rocm_patch 3
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 Name:           rocm
@@ -130,7 +130,10 @@ This is a meta package for all of the ROCm devel packages.
 
 %package test
 Summary:        Tests for ROCm
-Requires: kfdtest >= %{rocm_release}
+Requires: kfdtest             >= %{rocm_release}
+%if 0%{?fedora}
+Requires: rocm-bandwidth-test >= %{rocm_release}
+%endif
 
 %description test
 This is a meta package for all of the ROCm test packages.
@@ -153,6 +156,9 @@ install -pm 644 %{SOURCE0} .
 %license License.txt
 
 %changelog
+* Thu Aug 7 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.3-1
+- Add rocm-bandwidth-test to fedora
+
 * Mon Jul 28 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-1
 - Add aqlprofile and hipsparselt to fedora
 

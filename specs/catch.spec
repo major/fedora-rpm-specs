@@ -1,5 +1,5 @@
 Name:           catch
-Version:        3.9.0
+Version:        3.9.1
 Release:        %autorelease
 Summary:        Modern, C++-native, header-only, framework for unit-tests, TDD and BDD
 

@@ -1,4 +1,6 @@
 %undefine _hardened_build
+#Needed for bundled SFML
+%undefine _cmake_shared_libs
 
 %global shortname vbam
 
@@ -23,7 +25,7 @@ BuildRequires:  mesa-libGL-devel
 BuildRequires:  nasm
 BuildRequires:  openal-soft-devel
 BuildRequires:  SDL2-devel
-BuildRequires:  SFML-devel
+#BuildRequires:  SFML-devel
 BuildRequires:  wxGTK-devel
 BuildRequires:  zlib-devel
 BuildRequires:  zip
@@ -34,6 +36,9 @@ BuildRequires:  hicolor-icon-theme
 BuildRequires:  libappstream-glib
 
 Requires:  hicolor-icon-theme
+
+#TODO remove when SFML is updated in fedora
+Provides:       bundled(SFML) = 3.1.0
 
 # 32bit package serves very little purpose, s390x has build issues:
 ExcludeArch: %{ix86} s390x
@@ -62,6 +67,11 @@ Advance project, with many improvements from various developments of VBA.
 sed -i 's/ -mtune=generic//g' CMakeLists.txt
 #Some odd permission issues:
 chmod -x src/wx/rpi.h
+#TODO Remove bundled sfml when updated in fedora to 3.0
+#rm -rf third_party/sfml
+#sed -i "/third_party\/sfml/d" CMakeLists.txt
+#sed -i "s|[./]*third_party/sfml/include/||" \
+#    src/core/gba/gbaLink.cpp src/core/gba/internal/gbaSockClient.h
 
 %build
 %cmake \

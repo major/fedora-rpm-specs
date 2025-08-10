@@ -15,9 +15,6 @@
 %global miniz_version 3.0.2
 %global pybind11_version 2.13.6
 %else
-%global commit0 a1cb3cc05d46d198467bebbb6e8fba50a325d4e7
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global date0 20250723
 %global pypi_version 2.8.0
 %global flatbuffers_version 24.12.23
 %global miniz_version 3.0.2
@@ -55,7 +52,7 @@ Name:           python-%{pypi_name}
 %if %{with gitcommit}
 Version:        %{pypi_version}^git%{date0}.%{shortcommit0}
 %else
-Version:        %{pypi_version}.rc8
+Version:        %{pypi_version}
 %endif
 Release:        %autorelease
 Summary:        PyTorch AI/ML framework
@@ -67,8 +64,7 @@ URL:            https://pytorch.org/
 Source0:        %{forgeurl}/archive/%{commit0}/pytorch-%{shortcommit0}.tar.gz
 Source1000:     pyproject.toml
 %else
-Source0:        %{forgeurl}/archive/%{commit0}/pytorch-%{shortcommit0}.tar.gz
-Source1000:     pyproject.toml
+Source0:        %{forgeurl}/releases/download/v%{version}/pytorch-v%{version}.tar.gz
 %endif
 Source1:        https://github.com/google/flatbuffers/archive/refs/tags/v%{flatbuffers_version}.tar.gz
 Source2:        https://github.com/pybind/pybind11/archive/refs/tags/v%{pybind11_version}.tar.gz
@@ -260,9 +256,7 @@ Requires:       python3-%{pypi_name}%{?_isa} = %{version}-%{release}
 cp %{SOURCE1000} .
 
 %else
-%autosetup -p1 -n pytorch-%{commit0}
-# Overwrite with a git checkout of the pyproject.toml
-cp %{SOURCE1000} .
+%autosetup -p1 -n pytorch-v%{version}
 %endif
 
 # Remove bundled egg-info
@@ -310,8 +304,8 @@ rm -rf third_party/kineto/*
 cp -r kineto-*/* third_party/kineto/
 %endif
 
-# hipblaslt only building with gfx90a
-sed -i -e 's@"gfx90a", "gfx940", "gfx941", "gfx942"@"gfx90a"@' aten/src/ATen/native/cuda/Blas.cpp
+# Adjust for the hipblaslt's we build
+sed -i -e 's@"gfx90a", "gfx940", "gfx941", "gfx942"@"gfx90a", "gfx1103", "gfx1150", "gfx1151", "gfx1100", "gfx1101", "gfx1200", "gfx1201"@' aten/src/ATen/native/cuda/Blas.cpp
 
 %if 0%{?rhel}
 # In RHEL but too old

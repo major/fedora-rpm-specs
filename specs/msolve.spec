@@ -57,6 +57,7 @@ Summary:        Library for Polynomial System Solving through Algebraic Methods
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+Requires:       flint-devel%{?_isa}
 Requires:       gmp-devel%{?_isa}
 
 %description    devel
@@ -87,25 +88,20 @@ sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
 
 %install
 %make_install
-rm %{buildroot}%{_libdir}/*.la
 
-# Install the header files, swizzling #include directives along the way
-mkdir -p %{buildroot}%{_includedir}/msolve
-cd src/msolve
-for h in *.h; do
-  sed -e '/#include/s,"\.\./\(neogb/[[:alnum:]_-]*\.h\)",<\1>,' \
-      -e '/#include/s,"\([[:alnum:]_-]*\.h\)",<msolve/\1>,' $h > \
-    %{buildroot}%{_includedir}/msolve/$h
-  touch -r $h %{buildroot}%{_includedir}/msolve/$h
+# Swizzle #include directives
+cd %{buildroot}%{_includedir}/msolve
+for h in msolve/*.h; do
+  sed -e '/#include/s,"\.\./\(neogb/[[:alnum:]_-]*\.h\)",<msolve/\1>,' \
+      -e '/#include/s,"\([[:alnum:]_-]*\.h\)",<msolve/msolve/\1>,' \
+      -i.orig $h
+  touch -r $h.orig $h
+  rm $h.orig
 done
-cd -
-
-mkdir -p %{buildroot}%{_includedir}/neogb
-cd src/neogb
-for h in *.h; do
-  sed '/#include/s,"\([[:alnum:]_-]*\.h\)",<neogb/\1>,' $h > \
-    %{buildroot}%{_includedir}/neogb/$h
-  touch -r $h %{buildroot}%{_includedir}/neogb/$h
+for h in neogb/*.h; do
+  sed -i.orig '/#include/s,"\([[:alnum:]_-]*\.h\)",<msolve/neogb/\1>,' $h
+  touch -r $h.orig $h
+  rm $h.orig
 done
 cd -
 
@@ -131,7 +127,6 @@ make check
 
 %files devel
 %{_includedir}/msolve/
-%{_includedir}/neogb/
 %{_libdir}/libmsolve.so
 %{_libdir}/libneogb.so
 %{_libdir}/pkgconfig/msolve.pc

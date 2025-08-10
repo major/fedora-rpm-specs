@@ -1,11 +1,11 @@
-%global DATE 20250719
-%global gitrev bb8f920b2f550ec98041230db4bae5837f749371
-%global gcc_version 15.1.1
+%global DATE 20250808
+%global gitrev f833458d29b4fa40ffce6cf3b37ab9a30a864901
+%global gcc_version 15.2.1
 %global gcc_major 15
 # Note, gcc_release must be integer, if you want to add suffixes to
 # %%{release}, append them after %%{gcc_release} on Release: line.
-%global gcc_release 5
-%global nvptx_tools_gitrev 87ce9dc5999e5fca2e1d3478a30888d9864c9804
+%global gcc_release 1
+%global nvptx_tools_gitrev a0c1fff6534a4df9fb17937c3c4a4b1071212029
 %global newlib_cygwin_gitrev d35cc82b5ec15bb8a5fe0fe11e183d1887992e99
 %global _unpackaged_files_terminate_build 0
 %if 0%{?fedora:1}
@@ -149,7 +149,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}%{?dist}.1
+Release: %{gcc_release}%{?dist}
 # License notes for some of the less obvious ones:
 #   gcc/doc/cppinternals.texi: Linux-man-pages-copyleft-2-para
 #   isl: MIT, BSD-2-Clause
@@ -3765,8 +3765,34 @@ end
 %endif
 
 %changelog
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 15.1.1-5.1
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+* Fri Aug  8 2025 Jakub Jelinek <jakub@redhat.com> 15.2.1-1
+- update from releases/gcc-15 branch
+  - GCC 15.2 release
+  - PRs ada/120440, ada/121184, c/119950, c/120055, c/120353, c/120354,
+	c++/95615, c++/108080, c++/109283, c++/115605, c++/115908, c++/116775,
+	c++/118074, c++/118903, c++/119916, c++/120224, c++/120243,
+	c++/120273, c++/120412, c++/120453, c++/120495, c++/120577,
+	c++/120756, c++/120800, c++/120845, c++/121055, c++/121133,
+	c++/121219, c++/121238, cobol/119231, cobol/119323, cobol/119335,
+	cobol/119337, cobol/119377, cobol/119524, cobol/119632, cobol/119695,
+	cobol/119770, cobol/119771, cobol/119772, cobol/119790, cobol/119810,
+	cobol/119885, cobol/119975, cobol/120251, cobol/120328, cobol/120402,
+	cobol/120621, cobol/120765, cobol/120772, cobol/120779, cobol/120790,
+	cobol/120791, cobol/120794, fortran/119106, fortran/121145,
+	fortran/121203, ipa/114790, libstdc++/119962, libstdc++/121373,
+	lto/120308, middle-end/119835, middle-end/121095, middle-end/121159,
+	middle-end/121322, middle-end/121389, rtl-optimization/121340,
+	target/118891, target/119692, target/119737, target/119853,
+	target/119854, target/120119, target/120351, target/120427,
+	target/120530, target/120645, target/120714, target/121027,
+	target/121028, target/121064, target/121121, target/121274,
+	target/121277, testsuite/121286, testsuite/121288,
+	tree-optimization/117423, tree-optimization/118891,
+	tree-optimization/119085, tree-optimization/121127,
+	tree-optimization/121130, tree-optimization/121190,
+	tree-optimization/121202, tree-optimization/121256,
+	tree-optimization/121264, tree-optimization/121320,
+	tree-optimization/121323, tree-optimization/121413
 
 * Sat Jul 19 2025 Jakub Jelinek <jakub@redhat.com> 15.1.1-5
 - update from releases/gcc-15 branch

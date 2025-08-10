@@ -1,8 +1,8 @@
 %undefine _hardened_build
 
 Name:           btop
-Version:        1.4.0
-Release:        3%{?dist}
+Version:        1.4.4
+Release:        1%{?dist}
 Summary:        Modern and colorful command line resource monitor that shows usage and stats
 
 # The entire source code is ASL 2.0 except:
@@ -74,6 +74,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/btop.desktop
 %{_mandir}/man1/%{name}.1.gz
 
 %changelog
+* Fri Aug 08 2025 Jonathan Wright <jonathan@almalinux.org> - 1.4.4-1
+- update to 1.4.4 rhbz#2362554
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

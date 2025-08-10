@@ -1,3 +1,6 @@
+%global mingw_build_ucrt64 1
+%{?mingw_package_header}
+
 # Disable debug as this package only provides a static archive (and no shared object).
 # debuginfo will be made available via consumer (mesa) instead.
 %global debug_package %{nil}
@@ -24,6 +27,15 @@ BuildRequires:  gcc-c++
 # Test assumes the build is under WSL, which is unlikely
 %{?_with_test:BuildRequires: gtest-devel}
 
+BuildRequires: mingw32-filesystem
+BuildRequires: mingw32-gcc-c++
+
+BuildRequires: mingw64-filesystem
+BuildRequires: mingw64-gcc-c++
+
+BuildRequires: ucrt64-filesystem
+BuildRequires: ucrt64-gcc-c++
+
 
 %description
 Official Direct3D 12 headers
@@ -36,6 +48,25 @@ Provides:       %{name}-static = %{version}-%{release}
 %description    devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
+
+
+%package -n mingw32-directx-headers
+Summary:        Official DirectX headers available under an open source license
+
+%description -n mingw32-directx-headers
+Official DirectX headers available under an open source license
+
+%package -n mingw64-directx-headers
+Summary:        Official DirectX headers available under an open source license
+
+%description -n mingw64-directx-headers
+Official DirectX headers available under an open source license
+
+%package -n ucrt64-directx-headers
+Summary:        Official DirectX headers available under an open source license
+
+%description -n ucrt64-directx-headers
+Official DirectX headers available under an open source license
 
 
 %prep
@@ -53,10 +84,14 @@ done
 
 %meson_build
 
+%mingw_meson
+%mingw_ninja
+
 
 %install
 %meson_install
 
+%mingw_ninja_install
 
 %check
 %{?_with_test:
@@ -73,6 +108,36 @@ done
 %{_libdir}/libDirectX-Guids.a
 %{_libdir}/libd3dx12-format-properties.a
 %{_libdir}/pkgconfig/DirectX-Headers.pc
+
+%files -n mingw32-directx-headers
+%doc README.md SECURITY.md
+%license LICENSE
+%{mingw32_libdir}/pkgconfig/DirectX-Headers.pc
+%{mingw32_libdir}/libDirectX-Guids.a
+%{mingw32_libdir}/libd3dx12-format-properties.a
+%{mingw32_includedir}/wsl/
+%{mingw32_includedir}/dxguids/
+%{mingw32_includedir}/directx/
+
+%files -n mingw64-directx-headers
+%doc README.md SECURITY.md
+%license LICENSE
+%{mingw64_libdir}/pkgconfig/DirectX-Headers.pc
+%{mingw64_libdir}/libDirectX-Guids.a
+%{mingw64_libdir}/libd3dx12-format-properties.a
+%{mingw64_includedir}/wsl/
+%{mingw64_includedir}/dxguids/
+%{mingw64_includedir}/directx/
+
+%files -n ucrt64-directx-headers
+%doc README.md SECURITY.md
+%license LICENSE
+%{ucrt64_libdir}/pkgconfig/DirectX-Headers.pc
+%{ucrt64_libdir}/libDirectX-Guids.a
+%{ucrt64_libdir}/libd3dx12-format-properties.a
+%{ucrt64_includedir}/wsl/
+%{ucrt64_includedir}/dxguids/
+%{ucrt64_includedir}/directx/
 
 
 %changelog
