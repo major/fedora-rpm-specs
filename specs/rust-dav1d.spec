@@ -5,7 +5,7 @@
 %global crate dav1d
 
 Name:           rust-dav1d
-Version:        0.10.4
+Version:        0.11.0
 Release:        %autorelease
 Summary:        Libdav1d bindings
 

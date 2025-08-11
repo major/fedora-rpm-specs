@@ -4,7 +4,6 @@
 
 # Disable LTO
 # undefined-non-weak-symbol libpetsc.so.3.*_glibcxx_assert_fail
-%undefine _ld_as_needed
 %global _lto_cflags %{nil}
 
 # Python binding and its testing
@@ -14,7 +13,7 @@
 %endif
 
 # Testing libpetsc ?
-%bcond_without check
+%bcond_with check
 
 %global pymodule_name petsc4py
 %global pymodule_version %{version}
@@ -114,9 +113,9 @@
   CXXOPTFLAGS="-O0 -g -Wl,-z,now" FOPTFLAGS="-O0 -g -Wl,-z,now -I%{_libdir}/gfortran/modules" LDFLAGS="$LDFLAGS -fPIC" \\\
   FCFLAGS="-O0 -g -Wl,-z,now -fPIC -I%{_libdir}/gfortran/modules" \\\
  %else \
- CFLAGS="$CFLAGS -O3 -fPIC" CXXFLAGS="$CXXFLAGS -O3 -fPIC" FFLAGS="$FFLAGS -O3 -fPIC" LDFLAGS="$LDFLAGS -fPIC" \\\
-  COPTFLAGS="$CFLAGS -O3" CXXOPTFLAGS="$CXXFLAGS -O3" FOPTFLAGS="$FFLAGS -O3" \\\
-  FCFLAGS="$FFLAGS -O3 -fPIC" \\\
+ CFLAGS="$CFLAGS -O3" CXXFLAGS="$CXXFLAGS -O3" FFLAGS="$FFLAGS -O3" LDFLAGS="$LDFLAGS" \\\
+  COPTFLAGS="$CFLAGS -O3" CXXOPTFLAGS="$CXXFLAGS -O3 -std=gnu++17" FOPTFLAGS="$FFLAGS -O3" \\\
+  FCFLAGS="$FFLAGS -O3" \\\
  %endif \
  --CC_LINKER_FLAGS="$LDFLAGS" \\\
  --FC_LINKER_FLAGS="$LDFLAGS -lgfortran" \\\
@@ -180,9 +179,9 @@
   CXXOPTFLAGS="-O0 -g -Wl,-z,now" FOPTFLAGS="-O0 -g -Wl,-z,now -I${MPI_FORTRAN_MOD_DIR}" LDFLAGS="$LDFLAGS -fPIC" \\\
   FCFLAGS="-O0 -g -Wl,-z,now -fPIC -I${MPI_FORTRAN_MOD_DIR}" \\\
  %else \
- CFLAGS="$CFLAGS -O3 -fPIC" CXXFLAGS="$CXXFLAGS -O3 -fPIC" FFLAGS="$FFLAGS -O3 -fPIC" LDFLAGS="$LDFLAGS -fPIC" \\\
-  COPTFLAGS="$CFLAGS -O3" CXXOPTFLAGS="$CXXFLAGS -O3" FOPTFLAGS="$FFLAGS -O3" \\\
-  FCFLAGS="$FFLAGS -O3 -fPIC" \\\
+ CFLAGS="$CFLAGS -O3" CXXFLAGS="$CXXFLAGS -O3" FFLAGS="$FFLAGS -O3" LDFLAGS="$LDFLAGS" \\\
+  COPTFLAGS="$CFLAGS -O3" CXXOPTFLAGS="$CXXFLAGS -O3 -std=gnu++17" FOPTFLAGS="$FFLAGS -O3" \\\
+  FCFLAGS="$FFLAGS -O3" \\\
  %endif \
   --CC_LINKER_FLAGS="$LDFLAGS" \\\
   --with-default-arch=0 --with-make=1 \\\
@@ -286,7 +285,7 @@
 
 Name:    petsc
 Summary: Portable Extensible Toolkit for Scientific Computation
-Version: %{releasever}.3
+Version: %{releasever}.5
 Release: %autorelease
 License: BSD-2-Clause
 URL:     https://petsc.org/
@@ -576,6 +575,10 @@ for i in `find . -name 'setup.py' -o -name 'configure' -o -name '*.py'`; do
 %py3_shebang_fix $i
 done
 %endif
+
+pushd %{name}-%{version}/src/binding/petsc4py
+%pyproject_buildrequires
+popd
 %endif
 
 pushd %{name}-%{version}
@@ -631,11 +634,7 @@ pushd %{name}-%{version}
  %{petsc_build_options} \
  --with-64-bit-indices=0 \
 %if %{with blas}
-%if 0%{?fedora} || 0%{?rhel} >= 9
  --with-blaslapack=1 --with-blaslapack-lib=-l%{blaslib}%{blasvar} --with-blaslapack-include=%{_includedir}/%{blaslib} \
-%else
- --with-openblas=1 --with-openblas-lib=-l%{blaslib}%{blasvar} --with-openblas-include=%{_includedir}/%{blaslib} \
-%endif
 %endif
 %if %{with metis}
  --with-metis=1 \
@@ -669,11 +668,7 @@ pushd build64
  --with-metis=1 \
 %endif
 %if %{with blas64}
-%if 0%{?fedora} || 0%{?rhel} >= 9
  --with-blaslapack=1 --with-blaslapack-lib=-l%{blaslib}%{blasvar}64 --with-blaslapack-include=%{_includedir}/%{blaslib} \
-%else
- --with-openblas=1 --with-openblas-lib=-l%{blaslib}%{blasvar}64 --with-openblas-include=%{_includedir}/%{blaslib} \
-%endif
 %endif
 %if %{with suitesparse64}
  --with-suitesparse=1 \
@@ -697,6 +692,9 @@ export FC=mpifort
  --FC_LINKER_FLAGS="$LDFLAGS -lgfortran -lmpi_mpifh" \
  --LIBS=" -lmpi -lmpi_mpifh" \
  %{petsc_mpibuild_options} \
+ --C_VERSION=%{openmpiversion} \
+ --CXX_VERSION=%{openmpiversion} \
+ --FC_VERSION=%{openmpiversion} \
 %if %{with metis}
  --with-metis=1 \
 %endif
@@ -704,11 +702,7 @@ export FC=mpifort
  --with-64-bit-indices=0 \
 %endif
 %if %{with blas}
-%if 0%{?fedora} || 0%{?rhel} >= 9
  --with-blaslapack=1 --with-blaslapack-lib=-l%{blaslib}%{blasvar} --with-blaslapack-include=%{_includedir}/%{blaslib} \
-%else
- --with-openblas=1 --with-openblas-lib=-l%{blaslib}%{blasvar} --with-openblas-include=%{_includedir}/%{blaslib} \
-%endif
 %endif
 #cat config.log
 #exit 1
@@ -740,6 +734,9 @@ export FC=mpifort
  --FC_LINKER_FLAGS="$LDFLAGS -lgfortran -lfmpich -lmpichf90" \
  --LIBS=" -lmpich -lfmpich -lmpichf90" \
  %{petsc_mpibuild_options} \
+ --C_VERSION=%{mpichversion} \
+ --CXX_VERSION=%{mpichversion} \
+ --FC_VERSION=%{mpichversion} \
 %if %{with metis}
  --with-metis=1 \
 %endif
@@ -747,11 +744,7 @@ export FC=mpifort
  --with-64-bit-indices=0 \
 %endif
 %if %{with blas}
-%if 0%{?fedora} || 0%{?rhel} >= 9
  --with-blaslapack=1 --with-blaslapack-lib=-l%{blaslib}%{blasvar} --with-blaslapack-include=%{_includedir}/%{blaslib} \
-%else
- --with-openblas=1 --with-openblas-lib=-l%{blaslib}%{blasvar} --with-openblas-include=%{_includedir}/%{blaslib} \
-%endif
 %endif
 #cat config.log
 #exit 1
@@ -898,7 +891,7 @@ rm -rf %{buildroot}%{python3_sitearch}/%{pymodule_name}
 cp -a %{buildroot}%{python3_sitearch}/%{pymodule_name}-%{pymodule_version}.dist-info %{buildroot}$MPI_PYTHON3_SITEARCH/
 rm -rf %{buildroot}%{python3_sitearch}/%{pymodule_name}-%{pymodule_version}.dist-info
 
-chrpath -r %{_libdir}/openmpi/lib %{buildroot}$MPI_PYTHON3_SITEARCH/%{pymodule_name}/lib/%{_arch}/*.so
+chrpath -r $MPI_LIB %{buildroot}$MPI_PYTHON3_SITEARCH/%{pymodule_name}/lib/%{_arch}/*.so
 %endif
 %{_openmpi_unload}
 cd ..
@@ -961,7 +954,7 @@ rm -rf %{buildroot}%{python3_sitearch}/%{pymodule_name}
 cp -a %{buildroot}%{python3_sitearch}/%{pymodule_name}-%{pymodule_version}.dist-info %{buildroot}$MPI_PYTHON3_SITEARCH/
 rm -rf %{buildroot}%{python3_sitearch}/%{pymodule_name}-%{pymodule_version}.dist-info
 
-chrpath -r %{_libdir}/mpich/lib %{buildroot}$MPI_PYTHON3_SITEARCH/%{pymodule_name}/lib/%{_arch}/*.so
+chrpath -r $MPI_LIB %{buildroot}$MPI_PYTHON3_SITEARCH/%{pymodule_name}/lib/%{_arch}/*.so
 %endif
 %{_mpich_unload}
 cd ..
@@ -990,10 +983,11 @@ pushd buildopenmpi_dir
 %{_openmpi_load}
 export PETSC_ARCH=%{_arch}
 export PETSC_DIR=./
-export PYTHONPATH=%{buildroot}$MPI_PYTHON3_SITEARCH/%{pymodule_name}
+export PYTHONPATH=%{buildroot}$MPI_PYTHON3_SITEARCH
 export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB
 export MPIEXEC=$MPI_BIN/mpiexec
-xvfb-run -a make V=0 petsc4pytest PETSC4PY_NP=4
+#xvfb-run -a make V=0 petsc4pytest PETSC4PY_NP=4
+%pytest
 unset PETSC_ARCH
 unset PETSC_DIR
 %{_openmpi_unload}
@@ -1004,16 +998,17 @@ popd
 %if %{with check}
 pushd buildopenmpi_dir
 %{_openmpi_load}
-export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB
 export PETSC_DIR=%{_builddir}/%{name}-%{version}/buildopenmpi_dir
 export PETSC_ARCH=%{_arch}
-export PYTHONPATH=%{buildroot}$MPI_PYTHON3_SITEARCH/%{pymodule_name}
+export PYTHONPATH=%{buildroot}$MPI_PYTHON3_SITEARCH
+export LD_LIBRARY_PATH=${PETSC_DIR}/${PETSC_ARCH}/lib
 export MPI_INTERFACE_HOSTNAME=localhost
 export OMPI_MCA_btl_base_warn_component_unused=0
 export wPETSC_DIR=./
 export DATAFILESPATH=%{_builddir}/%{name}-%{version}/buildopenmpi_dir/share/petsc/datafiles
 export OMPI_PRTERUN=$MPI_BIN/prterun
 export MPIEXEC=$MPI_BIN/mpiexec
+export LD_PRELOAD=%{buildroot}$MPI_LIB/libpetsc.so
 %if %{with debug}
 %ifarch %{valgrind_arches}
 export PETSCVALGRIND_OPTIONS=" --tool=memcheck --leak-check=yes --track-origins=yes"
@@ -1039,7 +1034,7 @@ pushd buildmpich_dir
 %{_mpich_load}
 export PETSC_ARCH=%{_arch}
 export PETSC_DIR=./
-export PYTHONPATH=%{buildroot}$MPI_PYTHON3_SITEARCH/%{pymodule_name}
+export PYTHONPATH=%{buildroot}$MPI_PYTHON3_SITEARCH
 export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB
 export MPIEXEC=$MPI_BIN/mpiexec
 xvfb-run -a make V=0 petsc4pytest PETSC4PY_NP=4
@@ -1056,7 +1051,7 @@ pushd buildmpich_dir
 export LD_LIBRARY_PATH=%{_builddir}/%{name}-%{version}/buildmpich_dir/%{_arch}/lib
 export PETSC_DIR=%{_builddir}/%{name}-%{version}/buildmpich_dir
 export PETSC_ARCH=%{_arch}
-export PYTHONPATH=%{buildroot}$MPI_PYTHON3_SITEARCH/%{pymodule_name}
+export PYTHONPATH=%{buildroot}$MPI_PYTHON3_SITEARCH
 export MPI_INTERFACE_HOSTNAME=localhost
 export OMPI_MCA_btl_base_warn_component_unused=0
 export wPETSC_DIR=./

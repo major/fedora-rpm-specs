@@ -14,6 +14,7 @@ URL:            https://crates.io/crates/image
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * drop unused, benchmark-only criterion dev-dependency
+# * relax dav1d dependency to allow building with both v0.10 and v0.11
 Patch:          image-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

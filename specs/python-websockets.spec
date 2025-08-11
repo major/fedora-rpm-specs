@@ -15,6 +15,9 @@ Patch:          https://github.com/python-websockets/websockets/commit/3128f5619
 # Fix from websockets.(asyncio|sync).router import * without werkzeug
 # This makes the tests pass without werkzeug as well
 Patch:          https://github.com/python-websockets/websockets/pull/1639.patch
+# Support for Python 3.14
+# I remove the patch on the changelog because auto apply fails.
+Patch:          https://github.com/python-websockets/websockets/commit/036fd45c16afec1b713ae7f37393c76c3ff528a5.patch
 
 BuildRequires:  gcc
 BuildRequires:  python3dist(pytest)

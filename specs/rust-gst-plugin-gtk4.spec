@@ -4,7 +4,7 @@
 %global crate gst-plugin-gtk4
 
 Name:           rust-gst-plugin-gtk4
-Version:        0.13.7
+Version:        0.14.0
 Release:        %autorelease
 Summary:        GStreamer GTK 4 sink element
 
@@ -144,18 +144,6 @@ use the "gst-allocators" feature of the "%{crate}" crate.
 %files       -n %{name}+gst-allocators-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+gst-gl-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+gst-gl-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "gst-gl" feature of the "%{crate}" crate.
-
-%files       -n %{name}+gst-gl-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+gst-gl-egl-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -238,6 +226,30 @@ This package contains library source intended for building other packages which
 use the "gtk_v4_16" feature of the "%{crate}" crate.
 
 %files       -n %{name}+gtk_v4_16-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+gtk_v4_18-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+gtk_v4_18-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "gtk_v4_18" feature of the "%{crate}" crate.
+
+%files       -n %{name}+gtk_v4_18-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+gtk_v4_20-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+gtk_v4_20-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "gtk_v4_20" feature of the "%{crate}" crate.
+
+%files       -n %{name}+gtk_v4_20-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+static-devel

@@ -1,7 +1,7 @@
 %global app_id  org.kde.skladnik
 
 Name:           skladnik
-Version:        25.07.90
+Version:        25.08.0
 Release:        1%{?dist}
 Summary:        Warehouse keeper game
 # GPL: code
@@ -76,6 +76,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{app_id}.meta
 
 
 %changelog
+* Fri Aug 08 2025 Steve Cossette <farchord@gmail.com> - 25.08.0-1
+- 25.08.0
+
 * Fri Jul 25 2025 Steve Cossette <farchord@gmail.com> - 25.07.90-1
 - 25.07.90
 

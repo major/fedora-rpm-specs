@@ -6,7 +6,7 @@
 %global crate gstreamer-gl-x11-sys
 
 Name:           rust-gstreamer-gl-x11-sys
-Version:        0.23.5
+Version:        0.24.0
 Release:        %autorelease
 Summary:        FFI bindings to libgstgl-1.0 (X11 support)
 

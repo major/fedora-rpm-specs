@@ -22,6 +22,9 @@ License: MIT AND MIT-CMU AND MIT-Modern-Variant AND BSD-2-Clause AND BSD-3-Claus
 URL: http://www.bahargroup.org/prody
 Source0: https://github.com/prody/ProDy/archive/v%{version}/ProDy-%{version}.tar.gz
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires: gcc, gcc-c++
 
 # Patch for NumPy 2.x compatibility (backported)

@@ -5,7 +5,7 @@
 %global crate gstreamer-check-sys
 
 Name:           rust-gstreamer-check-sys
-Version:        0.23.5
+Version:        0.24.0
 Release:        %autorelease
 Summary:        FFI bindings to libgstcheck-1.0
 

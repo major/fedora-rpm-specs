@@ -6,7 +6,7 @@
 %global crate gstreamer-gl-wayland-sys
 
 Name:           rust-gstreamer-gl-wayland-sys
-Version:        0.23.5
+Version:        0.24.0
 Release:        %autorelease
 Summary:        FFI bindings to libgstgl-1.0 (Wayland support)
 

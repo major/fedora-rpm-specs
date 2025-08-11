@@ -9,14 +9,41 @@
 
 Name:          budgie-control-center
 Version:       1.4.0
-Release:       7%{?dist}
+Release:       8%{?dist}
 Summary:       A fork of GNOME Control Center for the Budgie 10 Series
 
-# Automatically converted from old format: GPLv2+ and CC-BY-SA - review is highly recommended.
-License:       GPL-2.0-or-later AND LicenseRef-Callaway-CC-BY-SA
+# GPL-2.0-or-later: the entire project
+# GPL-3.0-or-later:
+# - panels/applications/*
+# - panels/background/bg-recent-source.{c,h}
+# - panels/background/cc-background-{chooser,preview}.{c,h}
+# - panels/common/cc-list-row.{c,h}
+# - panels/common/cc-permission-infobar.{c,h}
+# - panels/multitasking/cc-multitasking-row.{c,h}
+# - panels/network/cc-qr-code.{c,h}
+# - panels/network/cc-wifi-hotspot-dialog.{c,h}
+# - panels/power/cc-power-profile-{info-,}row.{c,h}
+# - panels/printers/pp-job-row.{c,h}
+# - panels/wwan/*
+# LGPL-2.0-or-later:
+# - panels/notifications/cc-app-notifications-dialog.{c,h}
+# - panels/notifications/cc-notifications-panel.{c,h}
+# - panels/online-accounts/cc-online-accounts-panel.{c,h}
+# LGPL-2.1-or-later:
+# - panels/thunderbolt/*
+# LGPL-3.0-or-later:
+# - panels/sharing/cc-tls-certificate.{c,h}
+# LicenseRef-Fedora-Public-Domain:
+# - panels/datetime/backward
+# Files with inconsistent license statements (GPL or LGPL?):
+# - panels/universal-access/*
+License:       GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later AND LicenseRef-Fedora-Public-Domain
 URL:           https://github.com/BuddiesOfBudgie/budgie-control-center
 Source0:       %{url}/releases/download/v%{version}/budgie-control-center-%{version}.tar.xz
 Patch0:        0001-fix-FTBFS-with-incompatible-pointer-types.patch
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:   %{ix86}
 
 BuildRequires:  chrpath
 BuildRequires:  cups-devel
@@ -203,6 +230,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.a
 %{_datadir}/sounds/budgie/default/alerts/*.ogg
 
 %changelog
+* Fri Aug 08 2025 Jerry James <loganjerry@gmail.com> - 1.4.0-8
+- Stop building for 32-bit x86
+- Add additional licenses found on review of the code
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

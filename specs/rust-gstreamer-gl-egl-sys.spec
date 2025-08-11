@@ -6,7 +6,7 @@
 %global crate gstreamer-gl-egl-sys
 
 Name:           rust-gstreamer-gl-egl-sys
-Version:        0.23.6
+Version:        0.24.0
 Release:        %autorelease
 Summary:        FFI bindings to libgstgl-1.0 (EGL support)
 

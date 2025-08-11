@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           python-uv-build
-Version:        0.8.5
+Version:        0.8.8
 Release:        %autorelease
 Summary:        The uv build backend
 
@@ -102,14 +102,6 @@ Source200:      %{pubgrub_git}/archive/%{pubgrub_rev}/pubgrub-%{pubgrub_rev}.tar
 %global reqwest_middleware_snapdate 20250607
 %global reqwest_retry_baseversion 0.7.0
 Source300:      %{reqwest_middleware_git}/archive/%{reqwest_middleware_rev}/reqwest-middleware-%{reqwest_middleware_rev}.tar.gz
-
-# Downstream-only: unpin h2 (pinned in
-# https://github.com/astral-sh/uv/commit/b2c382f7c1f6949c007cd95248cdcaa9ec3dd559)
-# because we cannot respect the version downgrade using system packages;
-# unfortunately, this means we will continue to be affected by
-# https://github.com/astral-sh/uv/issues/15056,
-# https://github.com/hyperium/h2/issues/856.
-Patch:          uv_build-0.8.5-unpin-h2.patch
 
 BuildSystem:            pyproject
 BuildOption(install):   -l uv_build

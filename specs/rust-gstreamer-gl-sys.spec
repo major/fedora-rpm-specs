@@ -6,7 +6,7 @@
 %global crate gstreamer-gl-sys
 
 Name:           rust-gstreamer-gl-sys
-Version:        0.23.6
+Version:        0.24.0
 Release:        %autorelease
 Summary:        FFI bindings to libgstgl-1.0
 

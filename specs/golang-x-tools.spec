@@ -12,7 +12,7 @@
 %global forgeurl        https://github.com/golang/tools
 Epoch:                  1
 # This package should be split per go.mod
-Version:                0.35.0
+Version:                0.36.0
 
 %gometa -L
 

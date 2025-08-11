@@ -14,6 +14,7 @@ Source0:        %{forgesource}
 Patch0:         %{name}-debn-font-p0.patch
 Patch1:         %{name}-debn-qtio-p1.patch
 Patch2:         %{name}-drop-qtio-p2.patch
+Patch3:         %{name}-hidebroken-p3.patch
 
 BuildRequires:  kf6-kitemviews-devel
 BuildRequires:  kf6-karchive-devel
@@ -58,7 +59,7 @@ Requires:       font(fontawesome6free)
 Cantata is a graphical client for the music player daemon (MPD).
 
 %prep
-%forgesetup
+%forgeautosetup -p1
 # Remove unused bundled libraries — confirmed inactive in Fedora build
 rm -rf \
   3rdparty/ebur128-not-used \

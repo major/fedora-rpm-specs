@@ -1,6 +1,6 @@
 Name:           lmfit
-Version:        8.2.2
-%global         sover 8
+Version:        9.0
+%global         sover 9
 Release:        %autorelease
 Summary:        Levenberg-Marquardt least-squares minimization and curve fitting
 # software is BSD, documentation is CC-BY
@@ -8,8 +8,6 @@ Summary:        Levenberg-Marquardt least-squares minimization and curve fitting
 License:        LicenseRef-Callaway-BSD AND LicenseRef-Callaway-CC-BY
 URL:            https://jugit.fz-juelich.de/mlz/lmfit
 Source0:        https://jugit.fz-juelich.de/mlz/lmfit/-/archive/v%{version}/lmfit-v%{version}.tar.bz2
-Patch0:         8828e7071ed30dbded893228b1043b040b5cd26e.patch
-Patch1:         version.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -34,10 +32,6 @@ cp -ra demo _demo
 # install to libdir
 sed -i 's@${destination}/lib@${destination}/%{_lib}@' lib/CMakeLists.txt CMakeLists.txt
 
-# install to mandir
-sed -i 's@${CMAKE_INSTALL_PREFIX}/man@%{_mandir}@' man/CMakeLists.txt
-
-
 %build
 %{cmake}
 %cmake_build
@@ -54,7 +48,7 @@ mv -f _demo demo
 %files
 %doc COPYING CHANGELOG
 %{_libdir}/lib%{name}.so.%{sover}
-%{_libdir}/lib%{name}.so.%{version}
+%{_libdir}/lib%{name}.so.%{sover}.*
 
 %files devel
 %doc demo

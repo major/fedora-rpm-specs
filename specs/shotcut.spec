@@ -74,8 +74,10 @@ BuildRequires:  pkgconfig(xkbcommon)
 BuildRequires:  webvfx-devel
 BuildRequires:  fftw-devel
 
+%if %{undefined flatpak}
 Requires:       gstreamer1-plugins-bad-free-extras
 Requires:       frei0r-plugins
+%endif
 Requires:       qt6-qt5compat
 Requires:       ladspa
 Requires:       lame
@@ -212,7 +214,7 @@ mkdir -p %{buildroot}%{_libdir}/%{name}
 mv %{buildroot}%{_libdir}/libCuteLogger.so %{buildroot}%{_libdir}/%{name}/
 
 # Remove duplicate files and create hardlinks
-hardlink -v %{buildroot}/usr/share/shotcut/qml/filters
+hardlink -v %{buildroot}%{_datadir}/shotcut/qml/filters
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{org_name_shotcut}.desktop

@@ -11,7 +11,7 @@
 %bcond it %{undefined el10}
 
 Name:           uv
-Version:        0.8.5
+Version:        0.8.8
 Release:        %autorelease
 Summary:        An extremely fast Python package installer and resolver, written in Rust
 
@@ -147,9 +147,9 @@ Source1:        uv.toml
 # We therefore bundle the fork as prescribed in
 #   https://docs.fedoraproject.org/en-US/packaging-guidelines/Rust/#_replacing_git_dependencies
 %global async_zip_git https://github.com/astral-sh/rs-async-zip
-%global async_zip_rev c909fda63fcafe4af496a07bfda28a5aae97e58d
+%global async_zip_rev 285e48742b74ab109887d62e1ae79e7c15fd4878
 %global async_zip_baseversion 0.0.17
-%global async_zip_snapdate 20241114
+%global async_zip_snapdate 20250807
 Source100:      %{async_zip_git}/archive/%{async_zip_rev}/rs-async-zip-%{async_zip_rev}.tar.gz
 
 # For the foreseeable future, uv must use a fork of pubgrub (and the
@@ -198,17 +198,6 @@ Source400:      %{tl_git}/archive/%{tl_rev}/tl-%{tl_rev}.tar.gz
 #   Should uv.find_uv_bin() be able to find /usr/bin/uv?
 #   https://github.com/astral-sh/uv/issues/4451
 Patch:          0001-Downstream-patch-always-find-the-system-wide-uv-exec.patch
-
-# Downstream-only: unpin h2 (pinned in
-# https://github.com/astral-sh/uv/commit/b2c382f7c1f6949c007cd95248cdcaa9ec3dd559)
-# because we cannot respect the version downgrade using system packages;
-# unfortunately, this means we will continue to be affected by
-# https://github.com/astral-sh/uv/issues/15056,
-# https://github.com/hyperium/h2/issues/856.
-Patch:          uv-0.8.5-unpin-h2.patch
-
-# Update sanitize-filename requirement from 0.5 to 0.6
-Patch100:       https://github.com/Majored/rs-async-zip/pull/153.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -418,14 +407,6 @@ pushd crates/async_zip
 %autopatch -p1 -m100 -M199
 popd
 install -t LICENSE.bundled/async_zip -D -p -m 0644 crates/async_zip/LICENSE
-# Drop dev-dependencies that are only required for compiling the
-# actix-multipart example, and remove it. Note that while “futures” is in this
-# section of Cargo.toml, it is in fact also used in a test.
-tomcli set crates/async_zip/Cargo.toml del dev-dependencies.actix-multipart
-mv crates/async_zip/examples/actix_multipart.rs{,.disabled}
-tomcli set crates/async_zip/Cargo.toml del dev-dependencies.actix-web
-tomcli set crates/async_zip/Cargo.toml del dev-dependencies.derive_more
-tomcli set crates/async_zip/Cargo.toml del dev-dependencies.uuid
 
 # See comments above Source200:
 %setup -q -T -D -b 200 -n uv-%{version}
@@ -553,6 +534,7 @@ tomcli set crates/uv-extract/Cargo.toml del features.static
 # - python-managed: Introduces a testing dependency on managed Python
 #   installations. (These are pre-compiled Pythons downloaded from the
 #   Internet.)
+# - r2: Introduces a testing dependency on R2.
 #
 # These are OK:
 # - python: Introduces a testing dependency on a local Python installation.
@@ -563,7 +545,7 @@ tomcli set crates/uv-extract/Cargo.toml del features.static
 # Python installation with specific patch versions,” is already not among the
 # default features.
 tomcli set crates/uv/Cargo.toml lists delitem features.default-tests \
-    '(crates-io|git|pypi|python-managed)'
+    '(crates-io|git|pypi|python-managed|r2)'
 
 %if %{without it}
 # Integration tests (it crate) nearly all require specific Python interpreter
@@ -708,6 +690,18 @@ skip="${skip-} --skip python_list::python_list_downloads"
 # reporting upstream at some point, but it is not a serious issue.
 skip="${skip-} --skip python_pin::python_pin_resolve"
 %endif
+# TODO: Each of these has stdout something like this:
+#   cpython-3.12.11-linux-x86_64-gnu    /tmp/uv/tests/.tmp0dvvpZ/python/3.12/python3 -> /usr/bin/python3.12
+#   cpython-3.11.13-linux-x86_64-gnu    /tmp/uv/tests/.tmp0dvvpZ/python/3.11/python3 -> /usr/bin/python3.11
+# … and a difference in snapshots like this:
+#       3       │-cpython-3.12.[X]-[PLATFORM] [PYTHON-3.12]
+#             3 │+cpython-3.12.[X]-[PLATFORM] [PYTHON-3.12] -> [PYTHON-BIN-3.11]python3.12
+# Check whether we can reproduce this in a git checkout and/or whether we
+# should report it upstream.
+skip="${skip-} --skip python_list::python_list"
+skip="${skip-} --skip python_list::python_list_duplicate_path_entries"
+skip="${skip-} --skip python_list::python_list_pin"
+skip="${skip-} --skip python_list::python_list_venv"
 %endif
 # -p uv-client --test it:
 # This requires specific Python interpreter versions (so it would be grouped

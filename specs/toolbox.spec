@@ -1,7 +1,7 @@
 %global __brp_check_rpaths %{nil}
 
 Name:          toolbox
-Version:       0.1.2
+Version:       0.2
 
 %global goipath github.com/containers/%{name}
 
@@ -17,7 +17,7 @@ Version:       0.1.2
 %endif
 %endif
 
-%global toolbx_go 1.21
+%global toolbx_go 1.22
 
 %if 0%{?fedora}
 %global toolbx_go 1.23.9
@@ -33,7 +33,7 @@ Version:       0.1.2
 %endif
 %endif
 
-Release:       2%{?dist}
+Release:       1%{?dist}
 Summary:       Tool for interactive command line environments on Linux
 
 License:       Apache-2.0
@@ -188,6 +188,10 @@ install -m0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/containers/%{name}.conf
 
 
 %changelog
+* Sat Aug 09 2025 Debarshi Ray <rishi@fedoraproject.org> - 0.2-1
+- Update to 0.2
+- Fix CVE-2025-23266, CVE-2025-23267, and GHSA-fv92-fjc5-jj9h or GO-2025-3787
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

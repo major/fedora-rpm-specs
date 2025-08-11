@@ -6,7 +6,7 @@
 %global crate gstreamer-tag-sys
 
 Name:           rust-gstreamer-tag-sys
-Version:        0.23.6
+Version:        0.24.0
 Release:        %autorelease
 Summary:        FFI bindings to libgsttag-1.0
 

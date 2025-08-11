@@ -8,10 +8,22 @@
 
 Name:           budgie-desktop
 Version:        10.9.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A feature-rich, modern desktop designed to keep out the way of the user
 
-License:        GPLv2 and LGPLv2
+# GPL-2.0-or-later:
+# - /usr/bin/*
+# - /usr/share/icons/hicolor/scalable/actions/notification-disabled-symbolic.svg
+# GPL-2.0-only:
+# - /usr/share/icons/hicolor/scalable/actions/pane-hide-symbolic.svg
+# - /usr/share/icons/hicolor/scalable/actions/pane-show-symbolic.svg
+# LGPL-2.1-or-later: all libraries
+# CC-1.0:
+# - /usr/share/backgrounds/budgie/default.jpg
+# - /usr/share/icons/hicolor/scalable/actions/budgie-menu-symbolic.svg
+# - /usr/share/icons/hicolor/scalable/actions/notification-alert-symbolic.svg
+# CC-BY-SA-4.0: All icons except those noted above
+License:        GPL-2.0-or-later AND GPL-2.0-only AND LGPL-2.1-or-later AND CC0-1.0 AND CC-BY-SA-4.0
 URL:            https://github.com/BuddiesOfBudgie/budgie-desktop
 Source0:        %{url}/releases/download/v%{version}/%{name}-v%{version}.tar.xz
 Source1:        %{url}/releases/download/v%{version}/%{name}-v%{version}.tar.xz.asc
@@ -21,6 +33,9 @@ Patch0:         Adapt-to-libxfce4windowing-4_19_7.patch
 # Upstream Patches
 Patch1:         46c83b1265b4230668da472d9ef6926941678418.patch
 Patch2:         c24091bb424abe99ebcdd33eedd37068f735ad2a.patch
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  pkgconfig(accountsservice) >= 0.6.55
 BuildRequires:  pkgconfig(alsa) >= 1.2.6
@@ -184,6 +199,11 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-doc/html/%{name}/*
 
 %changelog
+* Thu Aug 07 2025 Jerry James <loganjerry@gmail.com> - 10.9.2-9
+- Stop building for 32-bit x86
+- Convert the License field to SPDX
+- Add additional licenses found on review of the code
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 10.9.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

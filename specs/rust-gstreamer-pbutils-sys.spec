@@ -6,7 +6,7 @@
 %global crate gstreamer-pbutils-sys
 
 Name:           rust-gstreamer-pbutils-sys
-Version:        0.23.5
+Version:        0.24.0
 Release:        %autorelease
 Summary:        FFI bindings to libgstpbutils-1.0
 

@@ -1,5 +1,5 @@
 Name:          kjournald
-Version:       25.07.90
+Version:       25.08.0
 Release:       1%{?dist}
 Summary:       Framework for interacting with systemd-journald
 
@@ -7,9 +7,6 @@ License:       BSD-3-Clause and CC0-1.0 and MIT and LGPL-2.1-or-later and MIT
 URL:           https://invent.kde.org/system/%{name}
 
 Source:        https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
-
-# From: https://invent.kde.org/system/kjournald/-/merge_requests/47
-Patch1:        0001-cmake-Restore-setting-the-VERSION-and-SOVERSION-for-.patch
 
 BuildRequires: systemd-devel
 BuildRequires: kf6-rpm-macros
@@ -74,6 +71,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.kj
 %{_kf6_libdir}/libkjournald.so.%{version}
 
 %changelog
+* Fri Aug 08 2025 Steve Cossette <farchord@gmail.com> - 25.08.0-1
+- 25.08.0
+
 * Fri Jul 25 2025 Steve Cossette <farchord@gmail.com> - 25.07.90-1
 - 25.07.90
 

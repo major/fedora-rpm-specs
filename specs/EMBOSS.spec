@@ -20,7 +20,7 @@
 
 Name:           EMBOSS
 Version:        6.6.0
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        The European Molecular Biology Open Software Suite
 
 # Files under jemboss/, ajax/ensembl/ are LGPLv2+
@@ -344,6 +344,9 @@ rm -rf ${RPM_BUILD_ROOT}%{_datadir}/EMBOSS/jemboss
 %{_includedir}/EMBOSS/eplplot/
 
 %changelog
+* Sat Aug 09 2025 Orion Poplawski <orion@nwra.com> - 6.6.0-35
+- Rebuild for libharu 2.4.5
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.0-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

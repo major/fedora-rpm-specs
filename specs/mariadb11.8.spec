@@ -1,6 +1,6 @@
 # Plain package name for cases, where %%{name} differs (e.g. for versioned packages)
 %global majorname mariadb
-%global package_version 11.8.2
+%global package_version 11.8.3
 %global majorversion %(echo %{package_version} | cut -d'.' -f1-2 )
 
 # Set if this package will be the default one in distribution
@@ -15,7 +15,7 @@
 # The last version on which the full testsuite has been run
 # In case of further rebuilds of that version, don't require full testsuite to be run
 # run only "main" suite
-%global last_tested_version 11.8.2
+%global last_tested_version 11.8.3
 # Set to 1 to force run the testsuite even if it was already tested in current version
 %global force_run_testsuite 0
 
@@ -163,7 +163,7 @@
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          3%{?with_debug:.debug}%{?dist}
+Release:          1%{?with_debug:.debug}%{?dist}
 Epoch:            3
 
 Summary:          A very fast and robust SQL database server
@@ -231,10 +231,6 @@ Patch13:          %{majorname}-libfmt.patch
 Patch14:          %{majorname}-mtr.patch
 
 Patch16:          %{majorname}-federated.patch
-#   Patch17: Remove '/usr/bin/galera_new_cluster' when galera building is disabled
-Patch17:          upstream_9a4a30aec003a8efdf9d35d3ac669385286ba4b4.patch
-
-
 
 # This macro is used for package/sub-package names in the entire specfile
 %if %?mariadb_default
@@ -888,7 +884,6 @@ rm -r storage/rocksdb/
 
 %patch -P14 -p1
 %patch -P16 -p1
-%patch -P17 -p1
 
 # generate a list of tests that fail, but are not disabled by upstream
 cat %{SOURCE50} | tee -a mysql-test/unstable-tests
@@ -1846,6 +1841,9 @@ fi
 %endif
 
 %changelog
+* Fri Aug 08 2025 Michal Schorm <mschorm@redhat.com> - 3:11.8.3-1
+- Rebase to 11.8.3
+
 * Fri Aug 01 2025 Michal Schorm <mschorm@redhat.com> - 3:11.8.2-3
 - Bump release for package rebuild
 

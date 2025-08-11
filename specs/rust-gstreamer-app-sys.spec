@@ -6,7 +6,7 @@
 %global crate gstreamer-app-sys
 
 Name:           rust-gstreamer-app-sys
-Version:        0.23.5
+Version:        0.24.0
 Release:        %autorelease
 Summary:        FFI bindings to libgstapp-1.0
 

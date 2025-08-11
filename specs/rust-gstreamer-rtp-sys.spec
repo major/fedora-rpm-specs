@@ -6,7 +6,7 @@
 %global crate gstreamer-rtp-sys
 
 Name:           rust-gstreamer-rtp-sys
-Version:        0.23.5
+Version:        0.24.0
 Release:        %autorelease
 Summary:        FFI bindings to libgstrtp-1.0
 

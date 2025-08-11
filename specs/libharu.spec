@@ -1,13 +1,12 @@
-# NOTE - every version updates the soname and requires rebuilding all dependent packages
 Name:           libharu
-Version:        2.4.3
-Release:        8%{?dist}
+Version:        2.4.5
+# NOTE - sover is major.minor so minor updates will require rebuilds of dependent packages 
+%global sover %(v=%{version}; echo ${v%.*})
+Release:        1%{?dist}
 Summary:        C library for generating PDF files
 License:        zlib-acknowledgement
 URL:            http://libharu.org
 Source0:        https://github.com/libharu/libharu/archive/v%{version}/%{name}-%{version}.tar.gz
-# Set the soname to the version of the library because upstream does not maintain ABI
-Patch0:         libharu-soname.patch
 
 BuildRequires:  gcc
 BuildRequires:  cmake
@@ -28,7 +27,6 @@ developing applications that use %{name}.
 
 %prep
 %setup -q
-%patch -P0 -p1 -b .soname
 
 %build
 %cmake -DLIBHPDF_STATIC=NO
@@ -43,7 +41,7 @@ developing applications that use %{name}.
 %files
 %license LICENSE
 %doc README.md
-%{_libdir}/libhpdf.so.%{version}
+%{_libdir}/libhpdf.so.%{sover}*
 %{_datadir}/%{name}
 
 %files devel
@@ -51,6 +49,9 @@ developing applications that use %{name}.
 %{_libdir}/libhpdf.so
 
 %changelog
+* Sat Aug 02 2025 Orion Poplawski <orion@nwra.com> - 2.4.5-1
+- Update to 2.4.5
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

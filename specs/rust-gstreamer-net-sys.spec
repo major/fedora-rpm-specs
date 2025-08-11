@@ -6,7 +6,7 @@
 %global crate gstreamer-net-sys
 
 Name:           rust-gstreamer-net-sys
-Version:        0.23.5
+Version:        0.24.0
 Release:        %autorelease
 Summary:        FFI bindings to libgstnet-1.0
 

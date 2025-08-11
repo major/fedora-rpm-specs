@@ -3,7 +3,7 @@
 
 Name:    kig
 Summary: Interactive Geometry 
-Version: 25.07.90
+Version: 25.08.0
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND GFDL-1.2-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.1-or-later
@@ -12,10 +12,6 @@ URL:     https://invent.kde.org/education/%{name}
 Source0: http://download.kde.org/%{stable_kf5}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 ## upstreamable patches
-# https://bugzilla.redhat.com/show_bug.cgi?id=1238113
-# https://bugs.kde.org/show_bug.cgi?id=335965#c23
-# https://git.reviewboard.kde.org/r/126549/
-Patch1: 6889b48a624b3fea4d0582efc032115a91ef0979.patch
 
 ## upstream patches
 
@@ -101,6 +97,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Fri Aug 08 2025 Steve Cossette <farchord@gmail.com> - 25.08.0-1
+- 25.08.0
+
 * Fri Jul 25 2025 Steve Cossette <farchord@gmail.com> - 25.07.90-1
 - 25.07.90
 

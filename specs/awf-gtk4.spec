@@ -1,6 +1,6 @@
 Name:          awf-gtk4
-Version:       3.0.0
-Release:       2%{?dist}
+Version:       3.1.0
+Release:       1%{?dist}
 Summary:       Theme preview application for GTK 4
 Summary(fr):   Application d'aperçu de thème pour GTK 4
 License:       GPL-3.0-or-later
@@ -75,6 +75,10 @@ done
 
 
 %changelog
+* Fri Aug 08 2025 Fabrice Creuzot <code@luigifab.fr> - 3.1.0-1
+- New upstream release
+- Add support for CSD dialog
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

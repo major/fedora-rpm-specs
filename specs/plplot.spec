@@ -64,7 +64,7 @@
 
 Name:           plplot
 Version:        5.15.0
-Release:        82%{?dist}
+Release:        83%{?dist}
 Summary:        Library of functions for making scientific plots
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -788,6 +788,9 @@ export LD_LIBRARY_PATH=$PWD/%{_vpath_builddir}/bindings/ocaml:$RPM_BUILD_ROOT%{_
 
 
 %changelog
+* Sat Aug 09 2025 Orion Poplawski <orion@nwra.com> - 5.15.0-83
+- Rebuild for libharu 2.4.5
+
 * Thu Aug 07 2025 Orion Poplawski <orion@nwra.com> - 5.15.0-82
 - Rebuild for Octave 10.2
 

@@ -5,18 +5,13 @@
 %global crate gstreamer
 
 Name:           rust-gstreamer
-Version:        0.23.7
+Version:        0.24.0
 Release:        %autorelease
 Summary:        Rust bindings for GStreamer
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/gstreamer
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * Update to ron 0.10
-#   (https://gitlab.freedesktop.org/gstreamer/gstreamer-rs/-/commit/c8d752affc,
-#   https://gitlab.freedesktop.org/gstreamer/gstreamer-rs/-/merge_requests/1718)
-Patch:          gstreamer-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

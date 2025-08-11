@@ -5,7 +5,7 @@
 %global crate gstreamer-allocators
 
 Name:           rust-gstreamer-allocators
-Version:        0.23.5
+Version:        0.24.0
 Release:        %autorelease
 Summary:        Rust bindings for GStreamer Allocators library
 

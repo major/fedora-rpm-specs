@@ -10,7 +10,7 @@ handle thousands of simultaneous standing connections, which means it is
 ideal for real-time web services.}
 
 Name:           python-%{srcname}
-Version:        6.5.1
+Version:        6.5.2
 Release:        %autorelease
 Summary:        Scalable, non-blocking web server and tools
 

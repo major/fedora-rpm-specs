@@ -6,7 +6,7 @@
 %global crate gstreamer-audio-sys
 
 Name:           rust-gstreamer-audio-sys
-Version:        0.23.6
+Version:        0.24.0
 Release:        %autorelease
 Summary:        FFI bindings to libgstaudio-1.0
 

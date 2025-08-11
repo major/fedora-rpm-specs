@@ -1,5 +1,5 @@
-%global commit b541b98df1e3e5aabb5def27422a75c876f5a88a
-%global snapdate 20250624
+%global commit 5e317108f872c904eb726cb8d560dcadbdf88a72
+%global snapdate 20250809
 
 Name:           pythoncapi-compat
 Summary:        Python C API compatibility

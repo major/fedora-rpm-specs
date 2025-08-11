@@ -6,7 +6,7 @@
 %global crate gstreamer-video-sys
 
 Name:           rust-gstreamer-video-sys
-Version:        0.23.6
+Version:        0.24.0
 Release:        %autorelease
 Summary:        FFI bindings to libgstvideo-1.0
 

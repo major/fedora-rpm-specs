@@ -2,7 +2,7 @@
 %global libcall_ui_version 0.1.4
 
 Name:		phosh
-Version:	0.48.0
+Version:	0.49~rc1
 Release:	%autorelease
 Summary:	Graphical shell for mobile devices
 License:	GPL-3.0-or-later
@@ -42,7 +42,7 @@ BuildRequires:	pkgconfig(polkit-agent-1) >= 0.122
 BuildRequires:	pkgconfig(libsoup-3.0) >= 3.6
 BuildRequires:	pkgconfig(libsystemd) >= 241
 BuildRequires:	pkgconfig(libsecret-1)
-BuildRequires:	pkgconfig(upower-glib) >= 0.99.1
+BuildRequires:	pkgconfig(upower-glib) >= 1.90
 BuildRequires:	pkgconfig(wayland-client) >= 1.14
 BuildRequires:	pkgconfig(wayland-protocols) >= 1.12
 BuildRequires:	pkgconfig(gtk4) >= 4.12
@@ -53,7 +53,7 @@ BuildRequires:	pkgconfig(alsa)
 BuildRequires:	pkgconfig(libpulse) >= 12.99.3
 BuildRequires:	pkgconfig(libpulse-mainloop-glib)
 BuildRequires:	pkgconfig(libcallaudio-0.1)
-BuildRequires:	pkgconfig(mm-glib)
+BuildRequires:	pkgconfig(mm-glib) >= 1.24.0
 BuildRequires:	/usr/bin/xvfb-run
 BuildRequires:	/usr/bin/xauth
 BuildRequires:	dbus-daemon
@@ -116,7 +116,7 @@ mv libgnome-volume-control-%{gvc_commit} subprojects/gvc
 mv libcall-ui-v%{libcall_ui_version} subprojects/libcall-ui
 
 %build
-%meson -Dphoc_tests=disabled -Dbindings-lib=true
+%meson -Dphoc_tests=disabled -Dbindings-lib=true -Dsearchd=true
 %meson_build
 
 %install
@@ -140,6 +140,7 @@ SH
 %{_bindir}/phosh-session
 %{_libexecdir}/phosh
 %{_libexecdir}/phosh-calendar-server
+%{_libexecdir}/phosh-searchd
 %{_datadir}/applications/mobi.phosh.Shell.desktop
 %{_datadir}/glib-2.0/schemas/mobi.phosh.shell.gschema.xml
 %{_datadir}/glib-2.0/schemas/mobi.phosh.shell.enums.xml
@@ -159,6 +160,8 @@ SH
 %{_datadir}/xdg-desktop-portal/phosh-portals.conf
 %{_datadir}/icons/hicolor/symbolic/apps/mobi.phosh.Shell-symbolic.svg
 %{_datadir}/dbus-1/services/mobi.phosh.Shell.CalendarServer.service
+%{_datadir}/dbus-1/services/mobi.phosh.Shell.Search.service
+%{_libdir}/phosh/libphoshsearch.so
 %{_libdir}/phosh/plugins/caffeine-quick-setting.plugin
 %{_libdir}/phosh/plugins/calendar.plugin
 %{_libdir}/phosh/plugins/dark-mode-quick-setting.plugin
