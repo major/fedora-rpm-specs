@@ -7,7 +7,7 @@
 %global crate gix-blame
 
 Name:           rust-gix-blame
-Version:        0.0.0
+Version:        0.3.0
 Release:        %autorelease
 Summary:        Git blame algorithm
 

@@ -5,7 +5,7 @@
 %global crate gix-tempfile
 
 Name:           rust-gix-tempfile
-Version:        16.0.0
+Version:        18.0.0
 Release:        %autorelease
 Summary:        Tempfile implementation with a global registry to assure cleanup
 

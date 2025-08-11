@@ -1,16 +1,19 @@
 %global         pypi_name mycli
 Summary:        Interactive CLI for MySQL Database with auto-completion and syntax highlighting
 Name:           mycli
-Version:        1.31.2
-Release:        3%{?dist}
+Version:        1.37.1
+Release:        1%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
 URL:            https://mycli.net
 Source0:        %{pypi_source}
-Patch:          0001-SQL-quote-test-fix.patch
-Patch:          0002-Switch-from-pyaes-to-pycryptodomex.patch
-Patch:          0003-Paramiko-fix.patch
-Patch:          0004-Python-3.13.patch
+Patch1:         0001-SQL-quote-test-fix.patch
+Patch2:         0002-Switch-from-pyaes-to-pycryptodomex.patch
+Patch3:         0003-Paramiko-fix.patch
+Patch4:         0004-Python-3.13.patch
+Patch5:         0005-Revert-to-sqlglot-5.1.3.patch
+Patch6:         0006-Revert-to-older-toml-format.patch
+Patch7:         0007-Relax-click-reqs.patch
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  pyproject-rpm-macros
@@ -38,8 +41,12 @@ syntax highlighting.
 %pyproject_buildrequires -x ssh
 
 %prep
-%autosetup -p1
-
+%autosetup -N -p1
+%if 0%{?fedora} > 42
+%autopatch -p1 -m 2
+%else
+%autopatch -p1 -m 1
+%endif
 %build
 %pyproject_wheel
 
@@ -56,6 +63,9 @@ syntax highlighting.
 %{_bindir}/%{pypi_name}
 
 %changelog
+* Sun Aug 10 2025 Terje Rosten <terjeros@gmail.com> - 1.37.1-1
+- 1.37.1
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.31.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Summary:	LaTeX editor
 Name:		texmaker
-Version:	5.1.4
+Version:	6.0.1
 Release:	%{autorelease}
 Epoch:		1
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -21,38 +21,35 @@ BuildRequires:  qt6-qtbase-private-devel
 BuildRequires:	qt6-qtwebengine-devel
 BuildRequires:	qt6-qt5compat-devel
 BuildRequires:	qtsingleapplication-qt6-devel
+BuildRequires:  cmake(Qt6LinguistTools)
 BuildRequires:	lcms2-devel
 BuildRequires:	libappstream-glib
 BuildRequires:	libjpeg-turbo-devel
+# libjpeg-turbo target requires turbojpeg
+# https://bugzilla.redhat.com/show_bug.cgi?id=2387454
+BuildRequires:  turbojpeg
 BuildRequires:	libpng-devel
 BuildRequires:	poppler-qt6-devel
 BuildRequires:	zlib-devel
 
 Requires:	tetex-latex
 
-# setup the .pro file to unbundle qtsingleapplication and hunspell
-# also fixes a single header file to use system singleapp
-Patch0:		%{name}-%{version}-unbundle-qtsingleapp.patch
+# Unbundle packages
+Patch0:		%{name}-unbundle.patch
 
-# fix header files to use system hunspell
-Patch1:		%{name}-%{version}-unbundle-hunspell.patch
-
-# use system pdf viewers instead of hardcoded evince
-Patch2:		%{name}-%{version}-viewfiles.patch
-
-# Use system libraries
-Patch3: texmaker-zlib.patch
-Patch4: texmaker-lcms.patch
-Patch5: texmaker-libpng.patch
+# Always use xdg-open
+Patch1:		%{name}-%{version}-viewfiles.patch
 
 # Bundled libraries
+Provides: bundled(encodingprober)
 Provides: bundled(pdfium)
+Provides: bundled(synctex)
 #  pdfium/third_party
 #   Not packaged
 Provides: bundled(agg23)
 Provides: bundled(base)
 Provides: bundled(bigint)
-#   Fedora has openjpeg 2.5
+#   Fedora has openjpeg 2.5 and pdfium uses internal openjpeg functions
 Provides: bundled(libopenjpeg) = 2.0
 
 
@@ -64,43 +61,34 @@ license
 
 %prep
 %setup -q
-%patch -P0 -p0
+%patch -P0 -p1 -b .unbundle
 %patch -P1 -p0
-%patch -P2 -p0
-%patch -P3 -p1 -b .zlib
-%patch -P4 -p1 -b .lcms
-%patch -P5 -p1 -b .libpng
-
-# get rid of zero-length space
-sed -i 's/\xe2\x80\x8b//g' utilities/%{name}.metainfo.xml
 
 # remove bundled stuff (hunspell and qtsingleapplication)
 # libtiff, pymock appear to be unused by anything
-rm -fr hunspell singleapp pdfium/third_party/{lcms,libjpeg,libpng,libtiff,pymock,zlib}*
+rm -r 3rdparty/{hunspell,singleapp,pdfium/third_party/{lcms,libjpeg,libpng,libtiff,pymock,zlib}*}
 # pdfium needs an internal freetype header pstables.h
-find pdfium/third_party/freetype -name pstables.h -o -type f -delete
-# Use system libraries
-sed -i -e '1iPKGCONFIG += freetype2 lcms2 libjpeg libpng zlib' -e '/third_party\/\(freetype\|lcms\|libjpeg\|libpng\)/d' texmaker.pro
+find 3rdparty/pdfium/third_party/freetype -name pstables.h -o -type f -delete
 
 
 %build
 export CXXFLAGS="%{optflags} -DUSE_SYSTEM_LIBJPEG"
-%{qmake_qt6} texmaker.pro
-%make_build
+%cmake
+%cmake_build
 
 %install
-# cannot use make_install macro - inappropriate
-make INSTALL_ROOT=%{buildroot} install INSTALL="install -p"
+%cmake_install
 
-install -Dp -m 0644 utilities/texmaker16x16.png %{buildroot}%{_datadir}/icons/hicolor/16x16/apps/texmaker.png
-install -Dp -m 0644 utilities/texmaker22x22.png %{buildroot}%{_datadir}/icons/hicolor/22x22/apps/texmaker.png
-install -Dp -m 0644 utilities/texmaker32x32.png %{buildroot}%{_datadir}/icons/hicolor/32x32/apps/texmaker.png
-install -Dp -m 0644 utilities/texmaker48x48.png %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/texmaker.png
-install -Dp -m 0644 utilities/texmaker64x64.png %{buildroot}%{_datadir}/icons/hicolor/64x64/apps/texmaker.png
-install -Dp -m 0644 utilities/texmaker128x128.png %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/texmaker.png
+install -Dp -m 0644 datas/distrib/linux/texmaker16x16.png %{buildroot}%{_datadir}/icons/hicolor/16x16/apps/texmaker.png
+install -Dp -m 0644 datas/distrib/linux/texmaker22x22.png %{buildroot}%{_datadir}/icons/hicolor/22x22/apps/texmaker.png
+install -Dp -m 0644 datas/distrib/linux/texmaker32x32.png %{buildroot}%{_datadir}/icons/hicolor/32x32/apps/texmaker.png
+install -Dp -m 0644 datas/distrib/linux/texmaker48x48.png %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/texmaker.png
+install -Dp -m 0644 datas/distrib/linux/texmaker64x64.png %{buildroot}%{_datadir}/icons/hicolor/64x64/apps/texmaker.png
+install -Dp -m 0644 datas/distrib/linux/texmaker128x128.png %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/texmaker.png
+install -Dp -m 0644 datas/distrib/linux/texmaker256x256.png %{buildroot}%{_datadir}/icons/hicolor/256x256/apps/texmaker.png
 
 # Don't package these twice
-rm -rf %{buildroot}%{_datadir}/%{name}/{AUTHORS,COPYING,*.desktop,tex*.png}
+rm -r %{buildroot}%{_datadir}/%{name}/{AUTHORS,COPYING,tex*.png}
 rm -f %{buildroot}%{_datadir}/applications/texmaker.desktop
 
 desktop-file-install 		\
@@ -109,16 +97,13 @@ desktop-file-install 		\
 	--remove-category X-SuSE-Core-Office		\
 	--remove-category X-Mandriva-Office-Publishing	\
 	--remove-category X-Misc			\
-	utilities/texmaker.desktop
+	datas/distrib/linux/texmaker.desktop
 
-%check
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.metainfo.xml
 
-%ldconfig_scriptlets
-
 %files
-%license utilities/COPYING
-%doc utilities/AUTHORS doc/*
+%license COPYING
+%doc AUTHORS datas/doc/*
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}.png

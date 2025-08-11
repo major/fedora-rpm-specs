@@ -5,7 +5,7 @@
 %global crate event-listener
 
 Name:           rust-event-listener
-Version:        5.4.0
+Version:        5.4.1
 Release:        %autorelease
 Summary:        Notify async tasks or threads
 

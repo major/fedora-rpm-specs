@@ -5,7 +5,7 @@
 %global crate gix-attributes
 
 Name:           rust-gix-attributes
-Version:        0.24.0
+Version:        0.27.0
 Release:        %autorelease
 Summary:        Gix implemenation for handling git attributes files
 

@@ -5,7 +5,7 @@
 %global crate gix-utils
 
 Name:           rust-gix-utils
-Version:        0.1.14
+Version:        0.3.0
 Release:        %autorelease
 Summary:        Utilities for gitoxide
 

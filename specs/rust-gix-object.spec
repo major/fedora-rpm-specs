@@ -5,7 +5,7 @@
 %global crate gix-object
 
 Name:           rust-gix-object
-Version:        0.47.0
+Version:        0.50.1
 Release:        %autorelease
 Summary:        Immutable and mutable git objects with decoding and encoding support
 

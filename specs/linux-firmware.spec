@@ -4,7 +4,7 @@
 %define _binaries_in_noarch_packages_terminate_build 0
 
 Name:		linux-firmware
-Version:	20250708
+Version:	20250808
 Release:	1%{?dist}
 Summary:	Firmware files used by the Linux kernel
 License:	GPL-1.0-or-later AND GPL-2.0-or-later AND MIT AND LicenseRef-Callaway-Redistributable-no-modification-permitted
@@ -23,6 +23,7 @@ BuildRequires:	rdfind
 
 Requires:	linux-firmware-whence = %{version}-%{release}
 Requires:	((linux-firmware = %{version}-%{release}) if linux-firmware)
+Requires:	qcom-wwan-firmware
 Recommends:	amd-gpu-firmware
 Recommends:	amd-ucode-firmware
 Recommends:	atheros-firmware
@@ -78,7 +79,7 @@ Requires:	linux-firmware-whence = %{version}-%{release}
 %description -n amd-ucode-firmware
 Microcode updates for AMD CPUs, AMD SEV and AMD TEE.
 
-# WiFi/Bluetooth firmwares
+# WiFi/Bluetooth/WWAN firmwares
 %package -n atheros-firmware
 Summary:	Firmware for Qualcomm Atheros WiFi/Bluetooth adapters
 License:	LicenseRef-Callaway-Redistributable-no-modification-permitted
@@ -152,6 +153,14 @@ Requires:	linux-firmware-whence = %{version}-%{release}
 %description -n realtek-firmware
 Firmware for Realtek WiFi/Bluetooth adapters
 
+%package -n qcom-wwan-firmware
+Summary:	Firmware for Qualcomm Wireless WAN modems
+License:	LicenseRef-Callaway-Redistributable-no-modification-permitted
+Requires:	linux-firmware-whence = %{version}-%{release}
+%description -n qcom-wwan-firmware
+Firmware for Qualcomm Snapdragon X-series (SDX) wireless WAN modems used
+across numerous WWAN cards from numerous vendors.
+
 %package -n tiwilink-firmware
 Summary:	Firmware for Texas Instruments WiFi/Bluetooth adapters
 License:	LicenseRef-Callaway-Redistributable-no-modification-permitted
@@ -188,6 +197,15 @@ Requires:	linux-firmware-whence = %{version}-%{release}
 %description -n netronome-firmware
 Firmware for Netronome Smart NICs
 
+%package -n qcom-accel-firmware
+Summary:	Firmware for Qualcomm Technologies data center / Open-vRAN Accelerators
+License:	LicenseRef-Callaway-Redistributable-no-modification-permitted
+Requires:	linux-firmware-whence = %{version}-%{release}
+%description -n qcom-accel-firmware
+Firmware for Qualcomm Technologies data center and Open-vRAN accelerators
+including the X100 5G RAN Accelerator Card, the QRU100 5G RAN Platform
+and the Cloud AI 100.
+
 %package -n qed-firmware
 Summary:	Firmware for Marvell FastLinQ adapters family
 License:	LicenseRef-Callaway-Redistributable-no-modification-permitted
@@ -204,9 +222,8 @@ License:	LicenseRef-Callaway-Redistributable-no-modification-permitted
 Requires:	linux-firmware-whence = %{version}-%{release}
 Requires:	atheros-firmware = %{version}-%{release}
 %description -n qcom-firmware
-Firmware for various compoents in Qualcomm SoCs including Adreno
-GPUs, Venus video encode/decode, Audio DSP, Compute DSP, WWAN
-modem, Sensor DSPs.
+Firmware for various compoents in Qualcomm SoCs including Adreno GPUs,
+Venus video encode/decode, Audio DSP, Compute DSP, modem, Sensor DSPs.
 
 # Vision and ISP hardware
 %package -n intel-vsc-firmware
@@ -526,6 +543,11 @@ end
 %dir %{_firmwarepath}/nxp
 %{_firmwarepath}/nxp/*
 
+%files -n qcom-wwan-firmware
+%license LICENSE.qcom qcom/NOTICE.txt
+%dir %{_firmwarepath}/qcom
+%{_firmwarepath}/qcom/sdx*/
+
 %files -n realtek-firmware
 %license LICENCE.rtlwifi_firmware.txt
 %{_firmwarepath}/rtl_bt/
@@ -558,6 +580,13 @@ end
 %dir %{_firmwarepath}/netronome
 %{_firmwarepath}/netronome/*
 
+%files -n qcom-accel-firmware
+%dir %{_firmwarepath}/qcom
+%dir %{_firmwarepath}/qcom/aic100
+%dir %{_firmwarepath}/qcom/qdu100
+%{_firmwarepath}/qcom/aic100/*
+%{_firmwarepath}/qcom/qdu100/*
+
 %files -n qed-firmware
 %dir %{_firmwarepath}/qed
 %{_firmwarepath}/qed/*
@@ -566,8 +595,21 @@ end
 %files -n qcom-firmware
 %license LICENSE.qcom LICENSE.qcom_yamato qcom/NOTICE.txt
 %dir %{_firmwarepath}/qcom
-%{_firmwarepath}/qcom/*
 %{_firmwarepath}/a300_p*
+%{_firmwarepath}/qcom/*.fw*
+%{_firmwarepath}/qcom/*.bin*
+%{_firmwarepath}/qcom/*.m*
+%{_firmwarepath}/qcom/apq*/
+%{_firmwarepath}/qcom/qcm*/
+%{_firmwarepath}/qcom/qcs*/
+%{_firmwarepath}/qcom/qrb*/
+%{_firmwarepath}/qcom/sa*/
+%{_firmwarepath}/qcom/sc*/
+%{_firmwarepath}/qcom/sdm*/
+%{_firmwarepath}/qcom/sm*/
+%{_firmwarepath}/qcom/venus-*/
+%{_firmwarepath}/qcom/vpu*/
+%{_firmwarepath}/qcom/x1*/
 
 # Vision and ISP hardware
 %files -n intel-vsc-firmware
@@ -611,6 +653,36 @@ end
 %{_firmwarepath}/v4l-cx2*
 
 %changelog
+* Sun Aug 10 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 20250808-1
+- Update to 20250808
+- Split out QCom Datacenter/Open-vRAN accelerator firmware
+- Split out QCom 4G/5G WWan Adapters
+- qcom: Add QDSP firmware file for Qualcomm QDU100 device.
+- ath12k: WCN7850 hw2.0: update to WLAN.HMT.1.1.c5-00302-QCAHMTSWPL_V1.0_V2.0_SILICONZ-1.115823.3
+- ath12k: QCN9274 hw2.0: update to WLAN.WBE.1.5-01651-QCAHKSWPL_SILICONZ-1
+- ath11k: WCN6855 hw2.0: update board-2.bin
+- ath11k: QCA6698AQ hw2.1: update to WLAN.HSP.1.1-04650-QCAHSPSWPL_V1_V2_SILICONZ_IOE-2
+- ath11k: QCA2066 hw2.1: update to WLAN.HSP.1.1-03926.13-QCAHSPSWPL_V2_SILICONZ_CE-2.52297.9
+- ath11k: QCA2066 hw2.1: update board-2.bin
+- qcom: Update xbl_config firmware file.
+- qcom: Add QDU100 firmware image files required for booting.
+- Add firmware for airoha-npu driver
+- update firmware for MT7925 WiFi device
+- mediatek MT7925: update bluetooth firmware to 20250721233113
+- qcom: Update DSP firmware for qcm6490 platform
+- qcom: update Venus firmware file for v6.0
+- i915: Xe3LPD DMC v2.29
+- Update AMD cpu microcode
+- qcom: Add QCS6490 symlink for QUPv3 firmware
+- qcom: Add firmware binary for SM8750.
+- amdgpu: various firmware updates
+- cirrus: cs35l41/cs35l56: Update Firmwares for Dell/ASUS laptops
+- qcom: Add Audio topology for QCS6490 RB3Gen2
+- intel_vpu: Update NPU firmware
+- rtw89: Updated firmware for 8852b/8852bt/8922a/8852c/8922a
+- qcom: Update gpu firmwares of QCS615 chipset
+- Update firmware file for Intel WiFi Solar/BlazarU/BlazarI core
+
 * Tue Jul 08 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 20250708-1
 - Update to 20250708
 - Drop incorrect nvidia ghost entries

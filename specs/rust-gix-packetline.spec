@@ -5,7 +5,7 @@
 %global crate gix-packetline
 
 Name:           rust-gix-packetline
-Version:        0.18.3
+Version:        0.19.1
 Release:        %autorelease
 Summary:        Implementation of the the pkt-line serialization format for gix
 
@@ -81,6 +81,18 @@ This package contains library source intended for building other packages which
 use the "document-features" feature of the "%{crate}" crate.
 
 %files       -n %{name}+document-features-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+futures-lite-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+futures-lite-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "futures-lite" feature of the "%{crate}" crate.
+
+%files       -n %{name}+futures-lite-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+serde-devel

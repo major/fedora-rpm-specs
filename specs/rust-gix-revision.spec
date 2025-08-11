@@ -5,7 +5,7 @@
 %global crate gix-revision
 
 Name:           rust-gix-revision
-Version:        0.32.0
+Version:        0.35.0
 Release:        %autorelease
 Summary:        Deal with finding names for revisions and parsing specifications
 

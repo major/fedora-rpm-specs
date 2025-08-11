@@ -5,7 +5,7 @@
 %global crate gix-config
 
 Name:           rust-gix-config
-Version:        0.43.0
+Version:        0.46.0
 Release:        %autorelease
 Summary:        Git-config file parser and editor from the gitoxide project
 

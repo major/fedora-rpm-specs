@@ -5,7 +5,7 @@ Version:        2.2.0
 Release:        %autorelease
 Summary:        GRIB2 encoder/decoder and search/indexing routines in C
 
-License:        LGPL-3.0
+License:        LGPL-3.0-only
 URL:            https://github.com/NOAA-EMC/NCEPLIBS-g2c
 Source0:        https://github.com/NOAA-EMC/NCEPLIBS-g2c/archive/v%{version}/%{name}-%{version}.tar.gz
 

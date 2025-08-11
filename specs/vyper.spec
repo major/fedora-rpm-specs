@@ -8,7 +8,9 @@ BuildArch:	noarch
 License:	Apache-2.0
 URL:		https://vyperlang.org
 Source0:	%{pypi_source %{name}}
+# Fedora-specific
 Patch:		vyper-0001-Use-Cryptodomex.patch
+# Reverts https://github.com/vyperlang/vyper/pull/3613
 Patch:		vyper-0002-Ease-version-requirements.patch
 Patch:		vyper-0003-Remove-unnecessary-shebang.patch
 BuildRequires:	git

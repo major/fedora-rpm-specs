@@ -1,16 +1,20 @@
 Summary:        Feature rich, easy to use tag editor
 Name:           puddletag
-Version:        2.4.0
-Release:        6%{?dist}
+Version:        2.5.0
+Release:        1%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 URL:            http://docs.puddletag.net/
 Source0:        https://github.com/puddletag/puddletag/archive/refs/tags/%{version}.tar.gz
-Patch0:         puddletag-2.4.0-req.patch
+Patch0:         puddletag-2.5.0-req.patch
 BuildArch:      noarch
+BuildRequires:  chromaprint-tools
+BuildRequires:  desktop-file-utils
+BuildRequires:  python3-acoustid
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-Buildrequires:  desktop-file-utils
+BuildRequires:  python3-lxml
+BuildRequires:  python3-qt5
+BuildRequires:  quodlibet
 Requires:       PyQt5
 Requires:       python3-pyparsing >= 1.5.5
 Requires:       python3-acoustid
@@ -39,27 +43,38 @@ WavPack (wv).
 
 %prep
 %autosetup -p1
+# Stray files
+rm puddlestuff/mainwin/teststuff.py
+rm puddlestuff/tagsources/example.py
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%{py3_build}
+%{pyproject_wheel}
 
 %install
-%{py3_install}
+%{pyproject_install}
+%pyproject_save_files puddlestuff
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
-find %{buildroot} -name exampletags\* -delete
 chmod 0644 %{buildroot}%{python3_sitelib}/puddlestuff/data/{menus,shortcuts}
 
-%files
+%check
+%pyproject_check_import
+
+%files -f %{pyproject_files}
 %license copyright
 %doc NEWS THANKS TODO
 %{_bindir}/%{name}
 %{_mandir}/man1/%{name}.1*
-%{python3_sitelib}/puddlestuff/
-%{python3_sitelib}/%{name}-%{version}-py*.egg-info
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}.png
 
 %changelog
+* Thu Aug 07 2025 Terje Røsten <terjeros@gmail.com> - 2.5.0-1
+- 2.5.0
+- Use modern macros and remove some stray files
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

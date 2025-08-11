@@ -5,7 +5,7 @@
 %global crate gix-traverse
 
 Name:           rust-gix-traverse
-Version:        0.44.0
+Version:        0.47.0
 Release:        %autorelease
 Summary:        Implementation for traversing git commit graphs and trees used by gix
 

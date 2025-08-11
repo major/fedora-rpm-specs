@@ -1,6 +1,6 @@
 %global forgeurl  https://gitlab.freedesktop.org/monado/demos/openxr-simple-playground
-%global commit    b7f23921db6c8829275c9f194713ae7cfc302ae8
-%global date      20250323
+%global commit    91da21114551e8a54a04cc4d5baa9a139a1f7bf7
+%global date      20250723
 %forgemeta
 
 Name:           openxr-simple-playground

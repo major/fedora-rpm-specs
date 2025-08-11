@@ -15,6 +15,7 @@ Patch0:         %{name}-debn-font-p0.patch
 Patch1:         %{name}-debn-qtio-p1.patch
 Patch2:         %{name}-drop-qtio-p2.patch
 Patch3:         %{name}-hidebroken-p3.patch
+Patch4:         %{name}-no-tag-edit-p4.patch
 
 BuildRequires:  kf6-kitemviews-devel
 BuildRequires:  kf6-karchive-devel
@@ -72,7 +73,6 @@ rm -rf \
 %build
 %cmake -DCMAKE_BUILD_TYPE=Release \
   -DCMAKE_INSTALL_PREFIX=/usr \
-  -DCMAKE_PREFIX_PATH=%{_libdir}/cmake/Qt6Solutions_IOCompressor \
   -DENABLE_CATEGORIZED_VIEW=OFF \
   -DBUILD_PLUGIN_DEBUG=OFF \
   -DENABLE_DEVICES_SUPPORT=ON \
@@ -85,7 +85,9 @@ rm -rf \
   -DENABLE_PROXY_CONFIG=ON \
   -DENABLE_HTTP_SERVER=ON \
   -DENABLE_LIBVLC=OFF \
-  -DENABLE_HTTP_STREAM_PLAYBACK=ON
+  -DENABLE_HTTP_STREAM_PLAYBACK=ON \
+  -DENABLE_TAGEDITOR_SUPPORT=OFF \
+  -DENABLE_TRACKORGANIZER_SUPPORT=OFF
 %cmake_build
 
 %install

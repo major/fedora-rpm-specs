@@ -7,7 +7,7 @@
 %global crate gix-ref
 
 Name:           rust-gix-ref
-Version:        0.50.0
+Version:        0.53.0
 Release:        %autorelease
 Summary:        Gix implementation for handling git references
 

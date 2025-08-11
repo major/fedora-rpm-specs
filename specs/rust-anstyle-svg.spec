@@ -5,7 +5,7 @@
 %global crate anstyle-svg
 
 Name:           rust-anstyle-svg
-Version:        0.1.9
+Version:        0.1.10
 Release:        %autorelease
 Summary:        Convert ANSI escape codes to SVG
 

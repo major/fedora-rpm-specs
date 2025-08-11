@@ -5,7 +5,7 @@
 %global crate gix-worktree-state
 
 Name:           rust-gix-worktree-state
-Version:        0.17.0
+Version:        0.20.0
 Release:        %autorelease
 Summary:        Set worktrees to a particular state
 

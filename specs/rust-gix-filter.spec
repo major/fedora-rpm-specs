@@ -7,7 +7,7 @@
 %global crate gix-filter
 
 Name:           rust-gix-filter
-Version:        0.17.0
+Version:        0.20.0
 Release:        %autorelease
 Summary:        Git filters implementation
 
@@ -35,10 +35,7 @@ use the "%{crate}" crate.
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
 %{crate_instdir}/
-# We exclude the tests directory because they contain bash scripts
-# and the automatic Requires detection falsely adds bash as a required dependency.
-# Tests are disabled anyway so this should have no effect.
-%exclude %{crate_instdir}/tests
+%exclude %{crate_instdir}/tests/
 
 %package     -n %{name}+default-devel
 Summary:        %{summary}

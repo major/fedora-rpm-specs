@@ -1,5 +1,5 @@
 Name:           NiaAML-GUI
-Version:        0.4.2
+Version:        0.4.3
 Release:        %autorelease
 Summary:        GUI for NiaAML Python package
 

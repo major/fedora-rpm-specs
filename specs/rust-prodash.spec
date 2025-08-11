@@ -5,7 +5,7 @@
 %global crate prodash
 
 Name:           rust-prodash
-Version:        29.0.2
+Version:        30.0.1
 Release:        %autorelease
 Summary:        Dashboard for visualizing progress of asynchronous and possibly blocking tasks
 

@@ -84,7 +84,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 # Add some more gfx's
 # https://bitbucket.org/icl/magma/issues/76/a-few-new-rocm-gpus
-sed -i -e 's@1032 1033@1032 1033 1100 1101 1102 1103 1150 1151 1152 1200 1201@' Makefile
+sed -i -e 's@1032 1033@950 1032 1033 1100 1101 1102 1103 1150 1151 1152 1153 1200 1201@' Makefile
 
 # Remove some tests,
 sed -i -e '/testing_zgenerate.cpp/d' testing/Makefile.src
@@ -122,7 +122,7 @@ export DEVICE_LIB_PATH=${RESOURCE_DIR}/amdgcn/bitcode
 
 echo "BACKEND = hip"                          > make.inc
 echo "FORT = false"                          >> make.inc
-echo "GPU_TARGET = gfx900;gfx906:xnack-;gfx908:xnack-;gfx90a:xnack+;gfx90a:xnack-;gfx942;gfx1010;gfx1012;gfx1030;gfx1031;gfx1035;gfx1100;gfx1101;gfx1102;gfx1103;gfx1150;gfx1151;gfx1152;gfx1200;gfx1201" >> make.inc
+echo "GPU_TARGET = gfx900;gfx906:xnack-;gfx908:xnack-;gfx90a:xnack+;gfx90a:xnack-;gfx942;gfx950;gfx1010;gfx1012;gfx1030;gfx1031;gfx1035;gfx1100;gfx1101;gfx1102;gfx1103;gfx1150;gfx1151;gfx1152;gfx1153;gfx1200;gfx1201" >> make.inc
 
 make generate
 

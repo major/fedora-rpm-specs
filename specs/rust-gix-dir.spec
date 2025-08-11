@@ -7,7 +7,7 @@
 %global crate gix-dir
 
 Name:           rust-gix-dir
-Version:        0.12.0
+Version:        0.15.0
 Release:        %autorelease
 Summary:        Handle git-style directory walk
 

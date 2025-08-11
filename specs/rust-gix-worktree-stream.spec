@@ -7,7 +7,7 @@
 %global crate gix-worktree-stream
 
 Name:           rust-gix-worktree-stream
-Version:        0.19.0
+Version:        0.22.0
 Release:        %autorelease
 Summary:        Generate a byte-stream from a git-tree
 
@@ -34,11 +34,8 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
-# We exclude the tests directory because they contain bash scripts
-# and the automatic Requires detection falsely adds bash as a required dependency.
-# Tests are disabled anyway so this should have no effect.
-%exclude %{crate_instdir}/tests
 %{crate_instdir}/
+%exclude %{crate_instdir}/tests/
 
 %package     -n %{name}+default-devel
 Summary:        %{summary}

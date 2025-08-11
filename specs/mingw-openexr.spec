@@ -4,7 +4,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       3.3.5
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
 License:       BSD-3-Clause
@@ -165,6 +165,9 @@ rm -rf %{buildroot}%{mingw64_docdir}/OpenEXR
 
 
 %changelog
+* Sun Aug 10 2025 Sandro Mani <manisandro@gmail.com> - 3.3.5-2
+- Rebuild (imath)
+
 * Sun Jul 27 2025 Sandro Mani <manisandro@gmail.com> - 3.3.5-1
 - Update to 3.3.5
 

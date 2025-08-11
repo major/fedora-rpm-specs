@@ -2,14 +2,14 @@
 %bcond_with x264
 
 %global forgeurl0      https://github.com/WiVRn/WiVRn
-%global wivrn_version  25.6.1
+%global wivrn_version  25.8
 %global tag0           v%{wivrn_version}
-%global date           20250626
+%global date           20250810
 
 # WiVRn is based on Monado, we need the full source
 # Monado base source (find in monado-rev file)
 %global forgeurl1      https://gitlab.freedesktop.org/monado/monado
-%global commit1        bb9bcee2a3be75592de819d9e3fb2c8ed27bb7dc
+%global commit1        5c137fe28b232fe460f9b03defa7749adc32ee48
 %global monado_version 25.0.0
 
 %forgemeta
@@ -98,13 +98,17 @@ Patch0006:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/
 # downstream-only - WiVRn specific Monado patches
 Patch0007:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0007-store-alpha-channel-in-layer-1.patch
 # downstream-only - WiVRn specific Monado patches
-Patch0008:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0008-st-oxr-bind-to-dynamic-role-s-profile.patch
+Patch0008:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0008-c-main-allow-custom-pacing-app-factory.patch
 # downstream-only - WiVRn specific Monado patches
-Patch0009:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0009-c-main-allow-custom-pacing-app-factory.patch
+Patch0009:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0009-st-oxr-forward-0-refresh-rate.patch
 # downstream-only - WiVRn specific Monado patches
-Patch0010:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0010-st-oxr-forward-0-refresh-rate.patch
+Patch0010:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0010-Replace-distortion-with-pixel-aligned-foveation.patch
 # downstream-only - WiVRn specific Monado patches
-Patch0011:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0011-Replace-distortion-with-pixel-aligned-foveation.patch
+Patch0011:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0011-a-vk-Track-VK_KHR_video_maintenance1.patch
+# downstream-only - WiVRn specific Monado patches
+Patch0012:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0012-a-vk-Expose-video_maintenance_1-device-feature.patch
+# downstream-only - WiVRn specific Monado patches
+Patch0013:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0013-c-util-Request-video_maintenance_1-feature.patch
 
 BuildRequires:  boost-devel
 BuildRequires:  cmake
@@ -134,6 +138,7 @@ BuildRequires:  pkgconfig(gstreamer-1.0)
 BuildRequires:  pkgconfig(gstreamer-app-1.0)
 BuildRequires:  pkgconfig(gstreamer-video-1.0)
 BuildRequires:  pkgconfig(hidapi-libusb)
+BuildRequires:  pkgconfig(libarchive)
 BuildRequires:  pkgconfig(libavcodec)
 BuildRequires:  pkgconfig(libavfilter)
 BuildRequires:  pkgconfig(libavutil)
@@ -147,6 +152,7 @@ BuildRequires:  pkgconfig(libpipewire-0.3)
 BuildRequires:  pkgconfig(libudev)
 BuildRequires:  pkgconfig(libusb-1.0)
 BuildRequires:  pkgconfig(libuvc)
+BuildRequires:  pkgconfig(librsvg-2.0)
 BuildRequires:  pkgconfig(libswscale)
 BuildRequires:  pkgconfig(libva)
 BuildRequires:  pkgconfig(nlohmann_json)
@@ -234,7 +240,8 @@ pushd _deps/monado-src
 %patch -P0009 -p1
 %patch -P0010 -p1
 %patch -P0011 -p1
-
+%patch -P0012 -p1
+%patch -P0013 -p1
 popd
 
 
@@ -294,7 +301,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_libdir}/%{name}/libmonado_wivrn.so.25.0.0
 %{_datarootdir}/openxr/1/openxr_wivrn.json
 %{_userunitdir}/wivrn.service
-%{_userunitdir}/wivrn-application.service
 %{_prefix}/lib/firewalld/services/wivrn.xml
 %{_metainfodir}/io.github.wivrn.wivrn.metainfo.xml
 %{_sysconfdir}/ld.so.conf.d/%{name}.conf
@@ -307,15 +313,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 %post
 %systemd_user_post %{name}.service
-%systemd_user_post %{name}-application.service
 
 %preun
 %systemd_user_preun %{name}.service
-%systemd_user_preun %{name}-application.service
 
 %postun
 %systemd_user_postun %{name}.service
-%systemd_user_postun %{name}-application.service
 
 
 %changelog

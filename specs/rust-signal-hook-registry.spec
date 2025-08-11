@@ -6,7 +6,7 @@
 %global crate signal-hook-registry
 
 Name:           rust-signal-hook-registry
-Version:        1.4.5
+Version:        1.4.6
 Release:        %autorelease
 Summary:        Backend crate for signal-hook
 

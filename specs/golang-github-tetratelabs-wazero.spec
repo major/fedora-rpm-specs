@@ -46,6 +46,8 @@ Patch:          0003-Ensure-interpreter.Engine-is-empty-after-closing.patch
 Patch:          0004-Add-ppc64le-s390x-Linux-to-supported-stat-implementa.patch
 # https://github.com/tetratelabs/wazero/pull/2415
 Patch:          0005-TST-Increase-buffer-size-of-TestWriteFdNonblock.patch
+# https://github.com/tetratelabs/wazero/issues/2413#issuecomment-3172806637
+Patch:          0006-TST-Pin-test-stacks-in-TestAdjustClonedStack.patch
 
 %description %{common_description}
 

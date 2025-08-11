@@ -14,7 +14,7 @@
 
 Name:           openjpeg
 Version:        2.5.3
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        C-Library for JPEG 2000
 
 # windirent.h is MIT, the rest is BSD
@@ -25,6 +25,9 @@ Source0:        https://github.com/uclouvain/openjpeg/archive/v%{version}/%{name
 # git clone git@github.com:uclouvain/openjpeg-data.git
 Source1:        data.tar.xz
 %endif
+# Backport fix for CVE-2025-54874
+Patch0:         https://github.com/uclouvain/openjpeg/commit/f809b80c67717c152a5ad30bf06774f00da4fd2d.patch
+
 
 BuildRequires:  cmake
 BuildRequires:  doxygen
@@ -453,6 +456,9 @@ rm -rf %{buildroot}%{mingw64_datadir}/doc
 
 
 %changelog
+* Sun Aug 10 2025 Sandro Mani <manisandro@gmail.com> - 2.5.3-8
+- Backport fix for CVE-2025-54874
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

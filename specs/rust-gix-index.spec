@@ -7,7 +7,7 @@
 %global crate gix-index
 
 Name:           rust-gix-index
-Version:        0.38.0
+Version:        0.41.0
 Release:        %autorelease
 Summary:        Git index file implementation used by gix
 

@@ -6,7 +6,7 @@
 Summary:           Flexible communications server for Jabber/XMPP
 Name:              prosody
 Version:           13.0.2
-Release:           3%{?dist}
+Release:           4%{?dist}
 License:           MIT
 URL:               https://prosody.im/
 Source0:           https://prosody.im/downloads/source/%{name}-%{version}.tar.gz
@@ -62,6 +62,11 @@ added functionality, or prototype new protocols.
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %setup -q
 %patch -P0 -p1 -b .config
+
+# https://fedoraproject.org/wiki/Changes/dropingOfCertPemFile
+%if 0%{?fedora} >= 43 || 0%{?rhel} >= 11
+sed -e '/^[[:space:]]*cafile = "/d' -i core/certmanager.lua
+%endif
 
 %build
 ./configure \
@@ -203,6 +208,12 @@ fi
 %{_mandir}/man1/%{name}ctl.1*
 
 %changelog
+* Sun Aug 10 2025 Robert Scheck <robert@fedoraproject.org> 13.0.2-4
+- Use 'systemctl try-reload-or-restart' in logrotate postrotate
+  script (#2371331, thanks to Marcos Mello)
+- Do not use removed /etc/pki/tls/certs/ca-bundle.crt bundle file
+  for Fedora 42 >= and RHEL >= 11
+
 * Wed Aug 06 2025 František Zatloukal <fzatlouk@redhat.com> - 13.0.2-3
 - Rebuilt for icu 77.1
 

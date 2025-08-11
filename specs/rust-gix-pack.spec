@@ -7,7 +7,7 @@
 %global crate gix-pack
 
 Name:           rust-gix-pack
-Version:        0.57.0
+Version:        0.60.0
 Release:        %autorelease
 Summary:        Implements git packs and related data structures
 

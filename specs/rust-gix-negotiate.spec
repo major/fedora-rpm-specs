@@ -7,7 +7,7 @@
 %global crate gix-negotiate
 
 Name:           rust-gix-negotiate
-Version:        0.18.0
+Version:        0.21.0
 Release:        %autorelease
 Summary:        Implementation of various negotiation algorithms used by gix
 

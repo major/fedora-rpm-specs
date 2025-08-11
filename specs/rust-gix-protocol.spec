@@ -7,7 +7,7 @@
 %global crate gix-protocol
 
 Name:           rust-gix-protocol
-Version:        0.48.0
+Version:        0.51.0
 Release:        %autorelease
 Summary:        Git protocols implementation
 
@@ -94,6 +94,18 @@ This package contains library source intended for building other packages which
 use the "fetch" feature of the "%{crate}" crate.
 
 %files       -n %{name}+fetch-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+futures-lite-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+futures-lite-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "futures-lite" feature of the "%{crate}" crate.
+
+%files       -n %{name}+futures-lite-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+handshake-devel

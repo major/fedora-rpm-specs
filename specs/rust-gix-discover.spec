@@ -5,7 +5,7 @@
 %global crate gix-discover
 
 Name:           rust-gix-discover
-Version:        0.38.0
+Version:        0.41.0
 Release:        %autorelease
 Summary:        Discover git repositories and check if a directory is a git repository
 

@@ -31,6 +31,8 @@ Python interface for reading bout++ data files.
 Summary:        %{summary}
 
 Provides:       python3-boututils = %{version}-%{release}
+Provides:       python3dist(boututils)
+Provides:       python%{python3_version}dist(boututils)
 Obsoletes:      python3-boututils < 0.3.0-1
 
 %description -n python3-%{pypi_name}

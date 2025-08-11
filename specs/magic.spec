@@ -1,7 +1,7 @@
 %undefine   __brp_mangle_shebangs
 
 Name:		magic
-Version:	8.3.532
+Version:	8.3.538
 Release:	1%{?dist}
 Summary:	A very capable VLSI layout tool
 
@@ -21,7 +21,7 @@ Source2:	%{name}.png
 Patch1:	%{name}-7.4.35-64bit.patch
 # https://sourceware.org/pipermail/libc-alpha/2025-March/165574.html
 # glibc 2.42 removes termio.h
-Patch2:	%{name}-8.3.526-remove-termio.patch
+Patch2:	%{name}-8.3.538-remove-termio.patch
 
 BuildRequires:	make
 BuildRequires:	gcc
@@ -70,7 +70,7 @@ and some tutorials.
 %setup -q -T -c %{name}-%{version} -a 0
 cd %{name}-%{version}
 
-rm -rf readline
+find readline \( -name \*.h -or -name \*.c \) -delete
 rm -rf risp
 
 sed -i.cflags -e 's|CFLAGS=.*CFLAGS|:|' configure
@@ -188,6 +188,9 @@ rm -f %{buildroot}%{_mandir}/man1/extcheck.1*
 %doc	scmos/
 
 %changelog
+* Sun Aug 10 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.3.538-1
+- 8.3.538
+
 * Mon Jul 28 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.3.532-1
 - 8.3.532
 

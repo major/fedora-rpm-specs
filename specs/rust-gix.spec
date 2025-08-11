@@ -5,7 +5,7 @@
 %global crate gix
 
 Name:           rust-gix
-Version:        0.70.0
+Version:        0.73.0
 Release:        %autorelease
 Summary:        Interact with git repositories just like git would
 
@@ -298,18 +298,6 @@ use the "extras" feature of the "%{crate}" crate.
 %files       -n %{name}+extras-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+fast-sha1-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+fast-sha1-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "fast-sha1" feature of the "%{crate}" crate.
-
-%files       -n %{name}+fast-sha1-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+gix-archive-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -490,18 +478,6 @@ use the "parallel" feature of the "%{crate}" crate.
 %files       -n %{name}+parallel-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+parallel-walkdir-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+parallel-walkdir-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "parallel-walkdir" feature of the "%{crate}" crate.
-
-%files       -n %{name}+parallel-walkdir-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+prodash-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -680,6 +656,18 @@ This package contains library source intended for building other packages which
 use the "zlib-ng" feature of the "%{crate}" crate.
 
 %files       -n %{name}+zlib-ng-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+zlib-rs-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+zlib-rs-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "zlib-rs" feature of the "%{crate}" crate.
+
+%files       -n %{name}+zlib-rs-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+zlib-stock-devel

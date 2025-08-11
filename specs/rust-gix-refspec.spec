@@ -5,7 +5,7 @@
 %global crate gix-refspec
 
 Name:           rust-gix-refspec
-Version:        0.28.0
+Version:        0.31.0
 Release:        %autorelease
 Summary:        Gix implementation for parsing and representing refspecs
 

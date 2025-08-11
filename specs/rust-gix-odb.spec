@@ -5,7 +5,7 @@
 %global crate gix-odb
 
 Name:           rust-gix-odb
-Version:        0.67.0
+Version:        0.70.0
 Release:        %autorelease
 Summary:        Implements various git object databases
 

@@ -1,20 +1,16 @@
-Summary:	Perl script to send XMPP messages
-Name:		sendxmpp
-Version:	1.24
-Release:	22%{?dist}
-License:	GPL-2.0-only
-URL:		https://sendxmpp.hostname.sk/
-Source:		https://github.com/lhost/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
-Patch0:		sendxmpp-1.24-git20161113.patch
-BuildRequires:	perl-generators
-%if 0%{?rhel} && 0%{?rhel} <= 7
-BuildRequires:	perl(ExtUtils::MakeMaker), findutils
-%else
-BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
-%endif
-BuildRequires:	make
-BuildRequires:	perl(Net::XMPP)
-BuildArch:	noarch
+Summary:        Perl script to send XMPP messages
+Name:           sendxmpp
+Version:        1.24
+Release:        23%{?dist}
+License:        GPL-2.0-only
+URL:            https://sendxmpp.hostname.sk/
+Source:         https://github.com/lhost/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+Patch0:         sendxmpp-1.24-git20250721.patch
+BuildRequires:  make
+BuildRequires:  perl-generators
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl(Net::XMPP)
+BuildArch:      noarch
 
 %description
 Sendxmpp is a Perl script to send XMPP (Jabber) messages from the command
@@ -22,8 +18,7 @@ line, similar to what mail(1) does for mail. Messages can be sent both to
 individual recipients and chat rooms.
 
 %prep
-%setup -q
-%patch -P0 -p1 -b .git20161113
+%autosetup -p1
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -31,9 +26,6 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 %install
 %make_install
-%if 0%{?rhel} && 0%{?rhel} <= 7
-find $RPM_BUILD_ROOT \( -name perllocal.pod -o -name .packlist \) -exec rm -f {} \;
-%endif
 chmod -R u+w $RPM_BUILD_ROOT/*
 
 %files
@@ -42,6 +34,9 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sun Aug 10 2025 Robert Scheck <robert@fedoraproject.org> 1.24-23
+- Upgrade to GIT 20250721
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.24-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

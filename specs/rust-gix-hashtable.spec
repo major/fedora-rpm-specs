@@ -5,7 +5,7 @@
 %global crate gix-hashtable
 
 Name:           rust-gix-hashtable
-Version:        0.7.0
+Version:        0.9.0
 Release:        %autorelease
 Summary:        Hashtable based data structures optimized to utilize ObjectId keys
 

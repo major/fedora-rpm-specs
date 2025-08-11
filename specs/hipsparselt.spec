@@ -15,6 +15,14 @@
 # hipcc does not support some clang flags
 %global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host -fcf-protection/' -e 's/-mtls-dialect=gnu2//')
 
+# On CS10
+# Depends on finding the build dir
+# $ hipsparselt-test 
+# hipSPARSELt version: 203
+# ...
+# [ FATAL ] /builddir/build/BUILD/googletest-1.14.0/googletest/src/gtest-internal-inl.h:685:: Condition !original_working_dir_.IsEmpty() failed. Failed to get the current working directory.
+#
+# So need to build with rpmbuild, not mock and run test on same machine with a newer gtest
 %bcond_with test
 %if %{with test}
 %global __brp_check_rpaths %{nil}
@@ -35,9 +43,21 @@
 %global _source_payload w7T0.xzdio
 %global _binary_payload w7T0.xzdio
 
+%if 0%{?fedora}
+%bcond_without ninja
+%else
+%bcond_with ninja
+%endif
+
+%if %{with ninja}
+%global cmake_generator -G Ninja
+%else
+%global cmake_generator %{nil}
+%endif
+
 Name:           hipsparselt
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A SPARSE marshaling library
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
@@ -45,7 +65,10 @@ License:        MIT
 Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
 Source1:        https://github.com/ROCm/hipBLASLt/archive/%{hipblaslt_commit}/hipBLASLt-%{hipblaslt_scommit}.tar.gz
 
+%if %{with ninja}
 BuildRequires:  ninja-build
+%endif
+
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  git
@@ -62,7 +85,6 @@ BuildRequires:  rocm-runtime-devel
 BuildRequires:  rocm-rpm-macros
 BuildRequires:  rocm-smi
 BuildRequires:  rocsparse-devel
-BuildRequires:  roctracer-devel
 BuildRequires:  zlib-devel
 
 # For tensilelite
@@ -75,11 +97,10 @@ BuildRequires:  msgpack-devel
 
 %if %{with test}
 BuildRequires:  chrpath
+BuildRequires:  flexiblas-devel
 BuildRequires:  gcc-gfortran
 BuildRequires:  gtest-devel
 BuildRequires:  gmock-devel
-BuildRequires:  blas-static
-BuildRequires:  lapack-static
 BuildRequires:  rocm-omp-devel
 %endif
 
@@ -152,7 +173,11 @@ sed -i -e 's@virtualenv_install@#virtualenv_install@' CMakeLists.txt
 # Unforce the setting of libdir
 # https://github.com/ROCm/hipSPARSELt/issues/256
 sed -i -e 's@set(CMAKE_INSTALL_LIBDIR@#set(CMAKE_INSTALL_LIBDIR@' CMakeLists.txt
-    
+
+# change looking for cblas to flexiblas
+sed -i -e 's@find_package( cblas REQUIRED CONFIG )@#find_package( cblas REQUIRED CONFIG )@' clients/CMakeLists.txt
+sed -i -e 's@set( BLAS_LIBRARY "blas" )@set( BLAS_LIBRARY "flexiblas" )@' clients/CMakeLists.txt
+sed -i -e 's@lapack cblas@flexiblas@' clients/gtest/CMakeLists.txt
 %build
 
 # Do a manual install instead of cmake's virtualenv
@@ -177,12 +202,14 @@ export Tensile_DIR=${TL}%{python3_sitelib}/Tensile
 # Uncomment and see if the path is sane
 # TensileGetPath
 
-%cmake -G Ninja \
+%cmake %{cmake_generator} \
        -DTensile_TEST_LOCAL_PATH=${TL} \
        -DAMDGPU_TARGETS=%{amdgpu_targets} \
+       -DBLAS_INCLUDE_DIR=%{_includedir}/flexiblas \
        -DBUILD_CLIENTS_TESTS=%{build_test} \
        -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
        -DBUILD_VERBOSE=ON \
+       -DBUILD_WITH_TENSILE=ON \
        -DCMAKE_BUILD_TYPE=RelWithDebInfo \
        -DCMAKE_INSTALL_LIBDIR=%{_lib} \
        -DCMAKE_C_COMPILER=%{rocmllvm_bindir}/clang \
@@ -191,7 +218,6 @@ export Tensile_DIR=${TL}%{python3_sitelib}/Tensile
        -DCMAKE_VERBOSE_MAKEFILE=ON \
        -DHIP_PLATFORM=amd \
        -DROCM_SYMLINK_LIBS=OFF \
-       -DBUILD_WITH_TENSILE=ON \
        -DTensile_COMPILER=clang++ \
        -DTensile_LIBRARY_FORMAT=msgpack \
        -DTensile_VERBOSE=%{tensile_verbose} \
@@ -247,6 +273,9 @@ chrpath -r %{rocmllvm_libdir} %{buildroot}%{_bindir}/hipsparselt-test
 %endif
 
 %changelog
+* Sun Aug 10 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-3
+- Build for EPEL
+
 * Wed Jul 30 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-2
 - Remove -mtls-dialect cflag
 - Add gfx1200,gfx1201

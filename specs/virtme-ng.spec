@@ -9,7 +9,7 @@
 
 %global forgeurl https://github.com/arighi/virtme-ng
 
-Version:        1.36
+Version:        1.37
 %forgemeta
 Name:           virtme-ng
 Release:        %autorelease
@@ -103,7 +103,6 @@ cd virtme_ng_init
 # Man page already installs in the right place, remove the sitelib copy
 rm -rf %{buildroot}%{python3_sitelib}%{_mandir}
 # These need to be moved into the right place
-mv %{buildroot}%{python3_sitelib}/etc %{buildroot}%{_sysconfdir}
 mv %{buildroot}%{python3_sitelib}/usr/share/* %{buildroot}%{_datadir}
 rm -rf %{buildroot}%{python3_sitelib}/usr
 
@@ -118,7 +117,7 @@ rm -rf %{buildroot}%{python3_sitelib}/usr
 %license virtme_ng_init/LICENSE.dependencies
 %endif
 %doc README.md
-%config(noreplace) %{_sysconfdir}/virtme-ng.conf
+%ghost %{_sysconfdir}/virtme-ng.conf
 %{_bindir}/vng
 %{_bindir}/virtme-ng
 %{_bindir}/virtme-run

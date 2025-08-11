@@ -5,7 +5,7 @@
 %global crate gix-diff
 
 Name:           rust-gix-diff
-Version:        0.50.0
+Version:        0.53.0
 Release:        %autorelease
 Summary:        Calculate differences between various git objects
 

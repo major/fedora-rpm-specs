@@ -69,8 +69,6 @@ binaries are available at: http://potassco.org/
 
 %build
 %cmake \
-  -H. \
-  -Brelease \
   -DCLINGO_MANAGE_RPATH:BOOL=OFF \
   -DBUILD_SHARED_LIBS:BOOL=OFF \
   -DCLINGO_BUILD_APPS:BOOL=ON \
@@ -79,11 +77,11 @@ binaries are available at: http://potassco.org/
   -DCLINGO_BUILD_WITH_PYTHON:BOOL=ON \
   -DLUACLINGO_INSTALL_DIR:PATH=%{lua_libdir}
 
-cmake --build release -- %{?_smp_mflags}
+%cmake_build
 
 
 %install
-%make_install -C release
+%cmake_install
 
 %files
 %doc README.md INSTALL.md

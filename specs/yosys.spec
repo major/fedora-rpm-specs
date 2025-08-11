@@ -1,11 +1,11 @@
-%global commit0 60f126cd00c94892782470192d6c9f7abebe7c05
+%global commit0 8c71226d0050b3ff71e9bc44297480811a21bb56
 %global shortcommit0 %%(c=%%{commit0}; echo ${c:0:7})
 
-%global snapdate 20250707
+%global snapdate 20250810
 
 Name:           yosys
-Version:        0.55
-Release:        2.%{snapdate}git%{shortcommit0}%{?dist}
+Version:        0.56
+Release:        1.%{snapdate}git%{shortcommit0}%{?dist}
 Summary:        Yosys Open SYnthesis Suite, including Verilog synthesizer
 License:        ISC and MIT
 URL:            http://www.clifford.at/yosys/
@@ -39,7 +39,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  cxxopts-devel
 BuildRequires:  bison flex readline-devel pkgconfig
 BuildRequires:  tcl-devel libffi-devel
-BuildRequires:  yosyshq-abc >= 0.52
+BuildRequires:  yosyshq-abc >= 0.56
 BuildRequires:  iverilog >= 12.0
 BuildRequires:  python%{python3_pkgversion}
 BuildRequires:  python3-devel
@@ -62,7 +62,7 @@ BuildRequires: rsync
 
 Requires:       %{name}-share = %{version}-%{release}
 Requires:       graphviz python-click python-xdot
-Requires:       yosyshq-abc >= 0.51
+Requires:       yosyshq-abc >= 0.56
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval :
 ExcludeArch: %{ix86}
@@ -173,6 +173,9 @@ make test ABCEXTERNAL=%{_bindir}/abc SEED=314159265359
 
 
 %changelog
+* Sun Aug 10 2025 Gabriel Somlo <gsomlo@gmail.com> - 0.56.1.20250810git8c71226
+- update to 0.56 snapshot
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.55-2.20250707git60f126c
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

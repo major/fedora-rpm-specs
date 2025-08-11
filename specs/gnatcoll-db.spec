@@ -7,7 +7,7 @@
 Name:           gnatcoll-db
 Epoch:          2
 Version:        %{upstream_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        The GNAT Components Collection – database packages
 Summary(sv):    GNAT Components Collection – databaspaket
 
@@ -489,6 +489,9 @@ cp --preserve=timestamps COPYING3 COPYING.RUNTIME \
 ###############
 
 %changelog
+* Sun Aug 10 2025 Björn Persson <Bjorn@Rombobjörn.se> - 2:25.0.0-4
+- Rebuilt because the ALI of System.OS_Constants changed.
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:25.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

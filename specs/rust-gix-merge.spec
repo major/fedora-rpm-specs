@@ -7,7 +7,7 @@
 %global crate gix-merge
 
 Name:           rust-gix-merge
-Version:        0.3.0
+Version:        0.6.0
 Release:        %autorelease
 Summary:        Git merge algorithms
 

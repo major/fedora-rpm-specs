@@ -1,13 +1,17 @@
 # INFO: Package contains data-only, no binaries, so no debuginfo is needed
 %global debug_package %{nil}
 
+# Installed destination is now xkeyboard-config-2, but upstream package
+# name is the same
+%global pkgconfig_name xkeyboard-config-2
+
 #global gitdate 20110415
 #global gitversion 19a0026b5
 
 Summary:    X Keyboard Extension configuration data
 Name:       xkeyboard-config
-Version:    2.44
-Release:    3%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+Version:    2.45
+Release:    1%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 License:    HPND AND HPND-sell-variant AND X11 AND X11-distribute-modifications-variant AND MIT AND MIT-open-group AND xkeyboard-config-Zinoviev
 URL:        http://www.freedesktop.org/wiki/Software/XKeyboardConfig
 
@@ -54,17 +58,59 @@ Development files for %{name}.
 %install
 %meson_install
 
+# Replace with relative symlink
+rm $RPM_BUILD_ROOT%{_datadir}/X11/xkb
+ln -srf $RPM_BUILD_ROOT%{_datadir}/%{pkgconfig_name} $RPM_BUILD_ROOT%{_datadir}/X11/xkb
+
+%find_lang %{pkgconfig_name}
 %find_lang %{name}
 
-%files -f %{name}.lang
+# Note: 2.45 changed the install location from the decades-old /usr/share/X11/xkb
+# to a package-specific /usr/share/xkeyboard-config-2. Upstream installs a symlink
+# for /usr/share/X11/xkb since those two dirctories are guaranteed to be the same.
+#
+# The "official" script [1] is buggy if an .rpmmoved directory already exists so
+# this is an approximation taken from OpenSuSE [2]
+# [1] https://fedoraproject.org/wiki/Packaging:Directory_Replacement#Replacing_a_symlink_with_a_directory_or_a_directory_with_any_type_of_file
+# [2] https://build.opensuse.org/request/show/1294803
+%pretrans -p <lua>
+-- Define the path to directory being replaced below.
+-- DO NOT add a trailing slash at the end.
+local path = "%{_datadir}/X11/xkb"
+local st = posix.stat(path)
+
+if st and st.type == "directory" then
+  local target = path .. ".rpmmoved"
+  local suffix = 1
+
+  while posix.stat(target) do
+    suffix = suffix + 1
+    target = path .. ".rpmmoved" .. suffix
+  end
+
+  os.rename(path, target)
+end
+
+%files -f %{pkgconfig_name}.lang -f %{name}.lang
 %doc AUTHORS README.md COPYING docs/README.* docs/HOWTO.*
-%{_mandir}/man7/xkeyboard-config.*
-%{_datadir}/X11/xkb/
+%{_mandir}/man7/%{name}.*
+%{_mandir}/man7/%{pkgconfig_name}.*
+%{_datadir}/X11/xkb
+%{_datadir}/%{pkgconfig_name}/
+%ghost %attr(0755, root, root) %dir %{_datadir}/X11/xkb.rpmmoved
 
 %files devel
-%{_datadir}/pkgconfig/xkeyboard-config.pc
+%{_datadir}/pkgconfig/%{pkgconfig_name}.pc
+%{_datadir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Aug 07 2025 Peter Hutterer <peter.hutterer@redhat.com> - 2.45-1
+- xkeyboard-config 2.45
+  xkeyboard-config changed from /usr/share/X11/xkb to /usr/share/xkeyboard-config-2/,
+  with the same contents and the old location symlinked to the new one.
+  Add a pretrans script to move the old location to the new one to stick with the
+  upstream packaging approach.
+
 * Thu Aug 07 2025 Peter Hutterer <peter.hutterer@redhat.com> - 2.44-3
 - Remove packaging hacks, with meson now have a clean build
 

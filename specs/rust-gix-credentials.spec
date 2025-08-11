@@ -7,7 +7,7 @@
 %global crate gix-credentials
 
 Name:           rust-gix-credentials
-Version:        0.27.0
+Version:        0.30.0
 Release:        %autorelease
 Summary:        Gix implementation for interacting with git credentials helpers
 
@@ -35,8 +35,8 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
-%exclude %{crate_instdir}/tests/fixtures/
 %{crate_instdir}/
+%exclude %{crate_instdir}/tests/fixtures/
 
 %package     -n %{name}+default-devel
 Summary:        %{summary}

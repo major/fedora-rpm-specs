@@ -1,5 +1,5 @@
 Name: nheko
-Version: 0.12.0
+Version: 0.12.1
 Release: %autorelease
 
 License: GPL-3.0-or-later
@@ -7,16 +7,13 @@ Summary: Desktop client for the Matrix protocol
 URL: https://github.com/Nheko-Reborn/%{name}
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
-# https://github.com/Nheko-Reborn/nheko/pull/1776
-Patch100: %{name}-0.12.0-fmt11-fix.patch
-
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 %if 0%{?fedora} && 0%{?fedora} >= 42
 ExcludeArch: %{ix86}
 %endif
 
 BuildRequires: cmake(KDSingleApplication-qt6) >= 1.0.0
-BuildRequires: cmake(MatrixClient) >= 0.10.0
+BuildRequires: cmake(MatrixClient) >= 0.10.1
 BuildRequires: cmake(Olm) >= 3.2.12
 BuildRequires: cmake(Qt6Core)
 BuildRequires: cmake(Qt6DBus)

@@ -58,6 +58,7 @@ BuildRequires:  tex(tgtermes.sty)
 BuildRequires:  tex(upquote.sty)
 BuildRequires:  tex(wrapfig.sty)
 BuildRequires:  tex-urlbst
+BuildRequires:  vim-filesystem
 
 Requires:       gtksourceview3%{?_isa}
 Requires:       hicolor-icon-theme
@@ -212,10 +213,10 @@ appstream-util validate-relax --nonet \
   %{buildroot}%{_metainfodir}/fr.lri.%{name}.metainfo.xml
 
 # Move the vim file to the right place
-mkdir -p %{buildroot}%{_datadir}/vim/vimfiles
+mkdir -p %{buildroot}%{vimfiles_root}
 mv %{buildroot}%{_datadir}/%{name}/vim/ftdetect \
    %{buildroot}%{_datadir}/%{name}/vim/syntax \
-   %{buildroot}%{_datadir}/vim/vimfiles
+   %{buildroot}%{vimfiles_root}
 
 # Byte compile the Emacs support files
 cp -p share/whyitp/whyitp.el %{buildroot}%{_emacs_sitelispdir}
@@ -246,8 +247,8 @@ chmod 0755 %{buildroot}%{_bindir}/* \
 %{_datadir}/gtksourceview-3.0/language-specs/%{name}c.lang
 %{_datadir}/gtksourceview-3.0/language-specs/%{name}py.lang
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
-%{_datadir}/vim/vimfiles/ftdetect/%{name}.vim
-%{_datadir}/vim/vimfiles/syntax/%{name}.vim
+%{vimfiles_root}/ftdetect/%{name}.vim
+%{vimfiles_root}/syntax/%{name}.vim
 %{_texmf}/tex/latex/why3/
 %{_libdir}/%{name}/
 %{_metainfodir}/fr.lri.%{name}.metainfo.xml

@@ -6,15 +6,13 @@
 %global crate tokio-util
 
 Name:           rust-tokio-util
-Version:        0.7.15
+Version:        0.7.16
 Release:        %autorelease
 Summary:        Additional utilities for working with Tokio
 
 License:        MIT
 URL:            https://crates.io/crates/tokio-util
 Source:         %{crates_source}
-# Automatically generated patch to strip dependencies and normalize metadata
-Patch:          tokio-util-fix-metadata-auto.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -110,6 +108,18 @@ use the "futures-util" feature of the "%{crate}" crate.
 %files       -n %{name}+futures-util-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+hashbrown-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+hashbrown-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "hashbrown" feature of the "%{crate}" crate.
+
+%files       -n %{name}+hashbrown-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+io-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -132,6 +142,18 @@ This package contains library source intended for building other packages which
 use the "io-util" feature of the "%{crate}" crate.
 
 %files       -n %{name}+io-util-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+join-map-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+join-map-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "join-map" feature of the "%{crate}" crate.
+
+%files       -n %{name}+join-map-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+net-devel

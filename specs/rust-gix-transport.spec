@@ -5,7 +5,7 @@
 %global crate gix-transport
 
 Name:           rust-gix-transport
-Version:        0.45.0
+Version:        0.48.0
 Release:        %autorelease
 Summary:        Implementation of the git transport layer used by gix
 
@@ -192,6 +192,18 @@ This package contains library source intended for building other packages which
 use the "http-client-curl" feature of the "%{crate}" crate.
 
 %files       -n %{name}+http-client-curl-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+http-client-insecure-credentials-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+http-client-insecure-credentials-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "http-client-insecure-credentials" feature of the "%{crate}" crate.
+
+%files       -n %{name}+http-client-insecure-credentials-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+http-client-reqwest-devel

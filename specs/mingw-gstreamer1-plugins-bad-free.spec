@@ -5,7 +5,7 @@
 
 Name:           mingw-gstreamer1-plugins-bad-free
 Version:        1.26.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Cross compiled GStreamer1 plug-ins "bad"
 
 # The freeze and nfs plugins are LGPLv2 (only)
@@ -579,6 +579,9 @@ rm -f %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 
 
 %changelog
+* Sun Aug 10 2025 Sandro Mani <manisandro@gmail.com> - 1.26.3-4
+- Rebuild (imath)
+
 * Wed Jul 30 2025 Marc-André Lureau <marcandre.lureau@redhat.com> - 1.26.3-3
 - Add d3d12 plugin
 

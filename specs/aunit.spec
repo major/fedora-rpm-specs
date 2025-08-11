@@ -10,7 +10,7 @@
 Name:           aunit
 Epoch:          2
 Version:        %{upstream_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A unit testing framework for Ada
 
 License:        GPL-3.0-or-later WITH GCC-exception-3.1
@@ -238,6 +238,9 @@ make -C test || { cat test/test.out.full >&2 ; false ; }
 ###############
 
 %changelog
+* Sun Aug 10 2025 Björn Persson <Bjorn@Rombobjörn.se> - 2:25.0.0-5
+- Rebuilt because the ALI of System.OS_Constants changed.
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:25.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

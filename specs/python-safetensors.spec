@@ -1,5 +1,5 @@
 Name:           python-safetensors
-Version:        0.6.1
+Version:        0.6.2
 Release:        %autorelease
 Summary:        Python bindings for the safetensors library
 

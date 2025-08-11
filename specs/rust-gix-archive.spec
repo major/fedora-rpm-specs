@@ -7,16 +7,16 @@
 %global crate gix-archive
 
 Name:           rust-gix-archive
-Version:        0.19.0
+Version:        0.22.0
 Release:        %autorelease
 Summary:        Archive generation from of a worktree stream
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/gix-archive
 Source:         %{crates_source}
-# Set zip version to 0.6 since that is the only version that is available at
-# the moment
-Patch:          decrease-zip-version.diff
+# Manually created patch for downstream crate metadata changes
+# * downgrade zip crate for now
+Patch:          gix-archive-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -37,10 +37,6 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
-# We exclude the tests directory because they contain bash scripts
-# and the automatic Requires detection falsely adds bash as a required dependency.
-# Tests are disabled anyway so this should have no effect.
-%exclude %{crate_instdir}/tests
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

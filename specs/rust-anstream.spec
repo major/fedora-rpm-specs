@@ -5,9 +5,9 @@
 %global crate anstream
 
 Name:           rust-anstream
-Version:        0.6.19
+Version:        0.6.20
 Release:        %autorelease
-Summary:        Simple cross platform library for writing colored text to a terminal
+Summary:        IO stream adapters for writing colored text
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/anstream
@@ -23,7 +23,8 @@ Patch:          0001-drop-is_terminal_polyfill-and-replace-with-std-io-Is.patch
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-A simple cross platform library for writing colored text to a terminal.}
+IO stream adapters for writing colored text that will gracefully degrade
+according to your terminal's capabilities.}
 
 %description %{_description}
 

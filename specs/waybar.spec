@@ -1,6 +1,6 @@
 Name:           waybar
-Version:        0.13.0
-Release:        3%{?dist}
+Version:        0.14.0
+Release:        1%{?dist}
 Summary:        Highly customizable Wayland bar for Sway and Wlroots based compositors
 # Source files/overall project licensed as MIT, but
 # - BSL-1.0
@@ -21,10 +21,6 @@ Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 #  - Remove several modules from the config
 #  - Switch font to monospace
 Patch:          waybar-fedora-config-changes.patch
-# Fixes for some 0.13.0 regressions
-Patch:          %{url}/commit/460b19ba.patch#/waybar-0.13.0-Fix-default-icon-in-tray-module.patch
-Patch:          %{url}/commit/7505e2c3.patch#/waybar-0.13.0-fix-hyprland-language-layout-parsing.patch
-Patch:          %{url}/commit/b6c13ba5.patch#/waybar-0.13.0-fix-ethernet-network-state-should-have-precedence-ov.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -101,6 +97,9 @@ Recommends:     font(fontawesome6brands)
 %{_userunitdir}/%{name}.service
 
 %changelog
+* Sun Aug 10 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.14.0-1
+- Update to 0.14.0 (#2387223)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 %global crate gix-packetline-blocking
 
 Name:           rust-gix-packetline-blocking
-Version:        0.18.2
+Version:        0.19.1
 Release:        %autorelease
 Summary:        Duplicate of gix-packetline with the blocking-io feature pre-selected
 

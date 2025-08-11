@@ -5,7 +5,7 @@
 %global crate gix-config-value
 
 Name:           rust-gix-config-value
-Version:        0.14.11
+Version:        0.15.1
 Release:        %autorelease
 Summary:        Parser for gix-config values
 

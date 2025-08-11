@@ -1,6 +1,6 @@
 Name:           coturn
 Version:        4.7.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        TURN/STUN & ICE Server
 # MIT (src/{apps/relay/acme.c,server/ns_turn_khash.h} and BSD-3-Clause (the rest)
 License:        BSD-3-Clause AND MIT
@@ -220,6 +220,9 @@ ldd %{buildroot}%{_bindir}/turnserver | grep -q libsystemd.so
 %{_includedir}/turn/client/*
 
 %changelog
+* Sun Aug 10 2025 Robert Scheck <robert@fedoraproject.org> - 4.7.0-3
+- Start after network-online.target not network.target
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

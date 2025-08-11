@@ -5,7 +5,7 @@
 %global crate gix-sec
 
 Name:           rust-gix-sec
-Version:        0.10.11
+Version:        0.12.0
 Release:        %autorelease
 Summary:        Shared trust model implementation for gix
 

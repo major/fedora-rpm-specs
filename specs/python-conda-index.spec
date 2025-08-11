@@ -1,15 +1,16 @@
 # Circular test dependency on conda-build
-%bcond_with bootstrap
+%bcond bootstrap 1
+
+%global srcname conda_index
 
 Name:           python-conda-index
-Version:        0.5.0
+Version:        0.6.1
 Release:        %autorelease
 Summary:        Create repodata.json for collections of conda packages
 License:        BSD-3-Clause
 URL:            https://github.com/conda/conda-index
+#Source0:        %{pypi_source}
 Source0:        https://github.com/conda/conda-index/archive/%{version}/conda-index-%{version}.tar.gz
-# Fix for tests with updated conda-build
-Patch:          https://github.com/conda/conda-index/commit/8cb985ac8fc2df52183748fb2fb0cf6ac065a431.patch
 BuildRequires:  make
 BuildArch:      noarch
 
@@ -54,10 +55,12 @@ sed -i -E '/".*cov.*"/d' pyproject.toml
 
 
 %generate_buildrequires
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 %pyproject_buildrequires %{!?with_bootstrap:-x test}
 
 
 %build
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 %pyproject_wheel
 make man
 
@@ -69,9 +72,13 @@ mkdir -p %{buildroot}%{_mandir}/man1
 install -m644 build/man/conda-index.1 %{buildroot}%{_mandir}/man1/
 
 
-%if %{without bootstrap}
 %check
+%if %{without bootstrap}
 %pytest -v -W ignore::DeprecationWarning
+%else
+# Basic smoke test
+%py3_check_import conda_index
+%py3_check_import conda_index.api
 %endif
 
 

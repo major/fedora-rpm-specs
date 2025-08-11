@@ -5,7 +5,7 @@
 %global crate gix-worktree
 
 Name:           rust-gix-worktree
-Version:        0.39.0
+Version:        0.42.0
 Release:        %autorelease
 Summary:        Worktree related types and utilities used by gix
 

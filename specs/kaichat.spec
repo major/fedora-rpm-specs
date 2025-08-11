@@ -1,5 +1,5 @@
 Name:           kaichat
-Version:        0.4.0
+Version:        0.4.1
 Release:        1%{?dist}
 Summary:        Chat interface for AI models such as ollama
 
@@ -72,5 +72,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_kf6_datadir}/qlogging-categories6/kaichat.categories
 
 %changelog
+* Mon Aug 11 2025 Steve Cossette <farchord@gmail.com> - 0.4.1-1
+- 0.4.1
+
 * Sat Aug 2 2025 Steve Cossette <farchord@gmail.com> - 0.4.0-1
 - 0.4.0

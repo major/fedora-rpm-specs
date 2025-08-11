@@ -1,14 +1,11 @@
 Name: mtxclient
-Version: 0.10.0
+Version: 0.10.1
 Release: %autorelease
 
 License: MIT
 Summary: Client API library for Matrix, built on top of Boost.Asio
 URL: https://github.com/Nheko-Reborn/%{name}
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-
-# https://github.com/Nheko-Reborn/mtxclient/pull/108
-Patch100: %{name}-0.12.0-fmt11-fix.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 %if 0%{?fedora} && 0%{?fedora} >= 42

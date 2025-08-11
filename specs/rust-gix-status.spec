@@ -7,7 +7,7 @@
 %global crate gix-status
 
 Name:           rust-gix-status
-Version:        0.17.0
+Version:        0.20.0
 Release:        %autorelease
 Summary:        Git status implemenation used by gix
 

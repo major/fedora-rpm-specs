@@ -7,7 +7,7 @@
 %global crate gix-pathspec
 
 Name:           rust-gix-pathspec
-Version:        0.9.0
+Version:        0.12.0
 Release:        %autorelease
 Summary:        Library for dealing with magical pathspecs used by gix
 
@@ -36,10 +36,7 @@ use the "%{crate}" crate.
 %license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
-# We exclude the tests directory because they contain bash scripts
-# and the automatic Requires detection falsely adds bash as a required dependency.
-# Tests are disabled anyway so this should have no effect.
-%exclude %{crate_instdir}/tests
+%exclude %{crate_instdir}/tests/
 
 %package     -n %{name}+default-devel
 Summary:        %{summary}

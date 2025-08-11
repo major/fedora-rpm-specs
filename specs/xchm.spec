@@ -37,8 +37,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.a
 %find_lang %{name}
 
 %files -f %{name}.lang
-%doc ChangeLog README
-%license AUTHORS COPYING
+%doc AUTHORS ChangeLog README
+%license COPYING
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}*

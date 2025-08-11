@@ -5,7 +5,7 @@
 %global crate gix-features
 
 Name:           rust-gix-features
-Version:        0.40.0
+Version:        0.43.1
 Release:        %autorelease
 Summary:        Integrate various capabilities using compile-time feature flags
 
@@ -83,18 +83,6 @@ use the "document-features" feature of the "%{crate}" crate.
 %files       -n %{name}+document-features-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+fast-sha1-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+fast-sha1-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "fast-sha1" feature of the "%{crate}" crate.
-
-%files       -n %{name}+fast-sha1-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+fs-read-dir-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -105,18 +93,6 @@ This package contains library source intended for building other packages which
 use the "fs-read-dir" feature of the "%{crate}" crate.
 
 %files       -n %{name}+fs-read-dir-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+fs-walkdir-parallel-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+fs-walkdir-parallel-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "fs-walkdir-parallel" feature of the "%{crate}" crate.
-
-%files       -n %{name}+fs-walkdir-parallel-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+io-pipe-devel
@@ -203,18 +179,6 @@ use the "progress-unit-human-numbers" feature of the "%{crate}" crate.
 %files       -n %{name}+progress-unit-human-numbers-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+rustsha1-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+rustsha1-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "rustsha1" feature of the "%{crate}" crate.
-
-%files       -n %{name}+rustsha1-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+tracing-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -273,6 +237,18 @@ This package contains library source intended for building other packages which
 use the "zlib-ng" feature of the "%{crate}" crate.
 
 %files       -n %{name}+zlib-ng-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+zlib-rs-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+zlib-rs-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "zlib-rs" feature of the "%{crate}" crate.
+
+%files       -n %{name}+zlib-rs-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+zlib-rust-backend-devel
