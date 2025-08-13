@@ -3,7 +3,7 @@ Version:        21.0
 Release:        %autorelease
 Summary:        Compatibility module for the OCaml standard library
 
-License:        BSD-2-Clause
+License:        LGPL-2.1-or-later
 URL:            https://github.com/ocamllibs/stdcompat
 VCS:            git:%{url}.git
 Source:         %{url}/archive/%{version}/stdcompat-%{version}.tar.gz

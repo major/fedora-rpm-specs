@@ -1,6 +1,6 @@
 Summary:       A high-performance MySQL proxy
 Name:          proxysql
-Version:       2.7.2
+Version:       3.0.2
 Release:       %autorelease
 # Proxysql Google group for free community support: https://groups.google.com/g/proxysql
 URL:           https://proxysql.com/
@@ -28,6 +28,8 @@ BuildRequires: libdaemon-devel
 BuildRequires: libconfig-devel
 BuildRequires: lz4-devel
 BuildRequires: libuuid-devel
+BuildRequires: libicu-devel
+BuildRequires: libevent-devel
 
 # Used by provided (scripts) tools
 BuildRequires: perl
@@ -36,7 +38,7 @@ BuildRequires: python3
 # Specific dependency for Fedora/RHEL/Centos
 BuildRequires: gnutls-devel
 
-Suggests: mariadb, community-mysql
+Suggests: mariadb, mysql, postgresql
 
 # Build in other architectures aside from x86 is not yet supported due to some
 # use of assembly code, but is on the upstream roadmap to support them.
@@ -65,6 +67,7 @@ Source0:       https://github.com/sysown/proxysql/archive/refs/tags/v%{version}.
 Source1:       proxysql.1
 
 Source2:       0007-Fix-gcc-15.patch
+Source3:       0009-Fix-gcc-15-postgresql.patch
 
 %description
 ProxySQL is a high performance, high availability, protocol aware proxy for
@@ -87,8 +90,9 @@ MySQL and forks (like Percona Server and MariaDB).
 0002-Enable-tcp_fastopen-in-bundled-libhttpserver.patch
 0003-Simplify-systemd-services.patch
 0004-Apply-fPIC-properly-in-re2-build.patch
-0005-Fix-clickhouse-cpp-build-on-i686-aarch64.patch
 0006-Fix-coredumper-build.patch
+0008-apply-gcc15-patches.patch
+0010-btree-uint16_t.patch 
 
 %prep
 %autosetup -p1
@@ -102,6 +106,9 @@ EOF
 
 # Patch 0007
 mv %{SOURCE2} deps/mariadb-client-library/ma_global.h.patch
+
+# Patch 0009
+mv %{SOURCE3} deps/postgresql/c.h.patch
 
 %build
 export GIT_VERSION=%{version}

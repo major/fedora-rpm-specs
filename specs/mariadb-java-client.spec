@@ -1,5 +1,5 @@
 Name:           mariadb-java-client
-Version:        3.5.3
+Version:        3.5.5
 Release:        %autorelease
 Summary:        Connects applications developed in Java to MariaDB and MySQL databases
 License:        LGPL-2.1-only
@@ -8,6 +8,7 @@ Source0:        https://github.com/mariadb-corporation/mariadb-connector-j/archi
 # optional dependency not in Fedora
 Patch:          0001-Remove_waffle-jna.patch
 Patch:          0002-Remove-usage-of-junit-pioneer.patch
+Patch:          0003-Fix-Java-version-parsing-for-non-standard-versions.patch
 
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -83,7 +84,7 @@ rm -f src/main/java/org/mariadb/jdbc/plugin/authentication/addon/gssapi/WindowsN
 
 %pom_remove_plugin org.jacoco:jacoco-maven-plugin
 %pom_remove_plugin org.apache.maven.plugins:maven-source-plugin
-%pom_remove_plugin org.sonatype.plugins:nexus-staging-maven-plugin
+%pom_remove_plugin org.sonatype.central:central-publishing-maven-plugin
 %pom_remove_plugin -r :maven-gpg-plugin
 %pom_remove_plugin -r :maven-javadoc-plugin
 

@@ -5,7 +5,7 @@
 
 Name:           mingw-gstreamer1-plugins-bad-free
 Version:        1.26.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Cross compiled GStreamer1 plug-ins "bad"
 
 # The freeze and nfs plugins are LGPLv2 (only)
@@ -98,6 +98,8 @@ Summary:        %{summary}
 Requires:       mingw32-gstreamer1 >= %{version}
 Obsoletes:      mingw32-gstreamer1-plugins-bad < 1.14.1-1
 Provides:       mingw32-gstreamer1-plugins-bad = 1.14.1-1
+Requires:       mingw32-directxmath
+Requires:       mingw32-directx-headers
 
 %description -n mingw32-gstreamer1-plugins-bad-free
 GStreamer is a streaming media framework, based on graphs of elements which
@@ -113,6 +115,8 @@ Summary:        %{summary}
 Requires:       mingw64-gstreamer1 >= %{version}
 Obsoletes:      mingw64-gstreamer1-plugins-bad < 1.14.1-1
 Provides:       mingw64-gstreamer1-plugins-bad = 1.14.1-1
+Requires:       mingw64-directxmath
+Requires:       mingw64-directx-headers
 
 %description -n mingw64-gstreamer1-plugins-bad-free
 GStreamer is a streaming media framework, based on graphs of elements which
@@ -579,6 +583,9 @@ rm -f %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 
 
 %changelog
+* Mon Aug 11 2025 Marc-André Lureau <marcandre.lureau@redhat.com> - 1.26.3-5
+- Require DirectX headers
+
 * Sun Aug 10 2025 Sandro Mani <manisandro@gmail.com> - 1.26.3-4
 - Rebuild (imath)
 

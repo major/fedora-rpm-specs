@@ -55,7 +55,7 @@ elseif posix.stat('macros.python-srpm') then
 end
 }
 Version:        %{__default_python3_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 
 BuildArch:      noarch
 
@@ -167,6 +167,9 @@ grep -E '^#[^%%]*%%[^%%]' %{buildroot}%{rpmmacrodir}/macros.* && exit 1 || true
 
 
 %changelog
+* Mon Aug 11 2025 Lumír Balhar <lbalhar@redhat.com> - 3.14-5
+- import_all_modules: Add error handling for import failures
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

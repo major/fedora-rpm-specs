@@ -11,7 +11,7 @@
 Summary: SELinux policy core utilities
 Name:    policycoreutils
 Version: 3.9
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-2.0-or-later
 # https://github.com/SELinuxProject/selinux/wiki/Releases
 Source0: https://github.com/SELinuxProject/selinux/releases/download/%{version}/selinux-%{version}.tar.gz
@@ -61,7 +61,8 @@ Provides: /usr/sbin/semodule
 BuildRequires: gcc make
 BuildRequires: pam-devel libsepol-static >= %{libsepolver} libsemanage-devel >= %{libsemanagever} libselinux-devel >= %{libselinuxver}  libcap-devel audit-libs-devel >=  %{libauditver} gettext
 BuildRequires: desktop-file-utils dbus-devel glib2-devel
-BuildRequires: python3-devel python3-setuptools python3-wheel python3-pip
+BuildRequires: python3-devel python3-setuptools python3-pip
+BuildRequires: (python3-wheel if python3-setuptools < 71)
 BuildRequires: systemd
 BuildRequires: git-core
 BuildRequires: gnupg2
@@ -128,7 +129,7 @@ mkdir -p %{buildroot}%{_mandir}/man8
 
 %make_install -C policycoreutils LSPP_PRIV=y SBINDIR="%{_sbindir}" LIBDIR="%{_libdir}" SEMODULE_PATH="/usr/sbin" LIBSEPOLA="%{_libdir}/libsepol.a"
 
-%make_install -C python PYTHON=%{__python3} SBINDIR="%{_sbindir}" LIBDIR="%{_libdir}" LIBSEPOLA="%{_libdir}/libsepol.a"
+%make_install -C python PYTHON=%{__python3} PIP_NO_BUILD_ISOLATION=0 SBINDIR="%{_sbindir}" LIBDIR="%{_libdir}" LIBSEPOLA="%{_libdir}/libsepol.a"
 
 %make_install -C gui PYTHON=%{__python3} SBINDIR="%{_sbindir}" LIBDIR="%{_libdir}" LIBSEPOLA="%{_libdir}/libsepol.a"
 
@@ -444,7 +445,4 @@ The policycoreutils-restorecond package contains the restorecond service.
 %systemd_postun_with_restart restorecond.service
 
 %changelog
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.9-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
 %autochangelog

@@ -1,7 +1,7 @@
 Name:		alienarena
 Summary:	Multiplayer retro sci-fi deathmatch game
 Version:	7.71.7
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	GPL-2.0-or-later AND Zlib
 # Source0:	http://red.planetarena.org/files/%%{name}-%%{version}-linux20130827.tar.gz
 # svn co svn://svn.icculus.org/alienarena/tags/7.71.7
@@ -13,7 +13,7 @@ License:	GPL-2.0-or-later AND Zlib
 # tar --exclude-vcs -cJf alienarena-7.71.7.tar.xz alienarena-7.71.7
 Source0:	alienarena-%{version}.tar.xz
 Source2:	GPL.acebot.txt
-Source3:	alienarena.appdata.xml
+Source3:	org.fedoraproject.alienarena.metainfo.xml
 Patch3:		alienarena-7.66-no-qglBlitFramebufferEXT.patch
 Patch5:		alienarena-7.71.2-svn5674-system-ode-double.patch
 # I started to clean this up properly
@@ -114,8 +114,8 @@ make %{?_smp_mflags}
 %install
 %make_install
 
-%{__mkdir_p} %{buildroot}%{_datadir}/appdata
-cp -a %{SOURCE3} %{buildroot}%{_datadir}/appdata
+%{__mkdir_p} %{buildroot}%{_datadir}/metainfo
+cp -a %{SOURCE3} %{buildroot}%{_datadir}/metainfo
 
 %{__mkdir_p} %{buildroot}%{_datadir}/applications
 sed -i 's|/usr/games/alien-arena --quiet|/usr/bin/alienarena-wrapper|g' unix_dist/alien-arena.desktop
@@ -139,7 +139,7 @@ cp -a GPL.acebot.txt %{buildroot}%{_defaultdocdir}/%{name}/
 %{_datadir}/applications/alien-arena.desktop
 %{_datadir}/icons/hicolor/32x32/apps/*.png
 %{_datadir}/icons/hicolor/256x256/apps/*.png
-%{_datadir}/appdata/*.xml
+%{_datadir}/metainfo/*.xml
 
 %files server
 %{_bindir}/alienarena-ded
@@ -150,6 +150,9 @@ cp -a GPL.acebot.txt %{buildroot}%{_defaultdocdir}/%{name}/
 %{_datadir}/%{name}
 
 %changelog
+* Mon Aug 11 2025 Tom Callaway <spot@fedoraproject.org> - 7.71.7-2
+- fix appstream file, thanks to Daniel Rusek
+
 * Tue Aug  5 2025 Tom Callaway <spot@fedoraproject.org> - 7.71.7-1
 - update to 7.71.7
 - use upstream desktop and logo png

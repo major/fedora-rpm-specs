@@ -239,7 +239,7 @@ cmake -Wno-dev -DCMAKE_CXX_COMPILER_VERSION:STRING=$(gcc -dumpversion) \
  -DHAS_XSERVER:BOOL=OFF \
  -DCMAKE_INSTALL_PREFIX=%{_prefix} \
  -DINSTALL_BIN_DIR:PATH=bin -DINSTALL_CMAKE_DIR:PATH=%{_lib}/cmake/OpenMS \
- -DINSTALL_DOC_DIR:PATH=share/doc/openms-doc -DINSTALL_INCLUDE_DIR:PATH=include \
+ -DINSTALL_INCLUDE_DIR:PATH=include \
  -DINSTALL_LIB_DIR:PATH=%{_lib}/OpenMS -DINSTALL_SHARE_DIR:PATH=share/OpenMS \
  -DPACKAGE_TYPE:STRING=none -DWITH_GUI:BOOL=ON \
  -DXercesC_INCLUDE_DIRS:PATH=%{_includedir}/xercesc \
@@ -279,6 +279,10 @@ cmake -Wno-dev -DCMAKE_CXX_COMPILER_VERSION:STRING=$(gcc -dumpversion) \
 %else
 %cmake_build -- OpenMS TOPP GUI
 %endif
+
+pushd %_vpath_builddir/doc
+make doc_minimal
+popd
 
 %if 0%{?with_pyOpenMS}
 export LD_LIBRARY_PATH=$PWD/lib:$LD_LIBRARY_PATH
@@ -356,11 +360,6 @@ desktop-file-install \
 # Install appdata files
 mkdir -p %{buildroot}%{_metainfodir}
 install -pm 644 share/OpenMS/DESKTOP/*.appdata.xml %{buildroot}%{_metainfodir}/
-
-# HTML files copied
-# I want to pack them by using %%doc macro
-cp -a %{buildroot}%{_datadir}/doc/openms-doc/html html
-rm -rf %{buildroot}%{_datadir}/doc/openms-doc/html
 
 # Tool Description Library (TDL)
 mv src/openms/extern/tool_description_lib/README.md src/openms/extern/tool_description_lib/README-tdl.md
@@ -563,7 +562,7 @@ LD_PRELOAD=%{buildroot}%{_libdir}/OpenMS/libSuperHirn.so
 %files doc
 %doc CHANGELOG AUTHORS README* CODE_OF_CONDUCT.md
 %license LICENSE*
-%doc html
+%doc %_vpath_builddir/doc/html
 
 %files devel
 %license LICENSE* src/openms/extern/tool_description_lib/LICENSES/*.txt

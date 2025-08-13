@@ -25,6 +25,7 @@ Patch:          cargo-fix-metadata-auto.diff
 # * drop features for statically linking cURL, libgit2, OpenSSL, and SQLite
 # * relax exact openssl and openssl-sys dependencies
 # * relax rusqlite dependency to allow building with both v0.31 and v0.32
+# * bump gix to 0.73
 Patch:          cargo-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 26

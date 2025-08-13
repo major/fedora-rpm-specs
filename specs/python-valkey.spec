@@ -1,12 +1,10 @@
-%define beta_version b1
-
 Name:           python-valkey
 Version:        6.1.1
-Release:        0.2.b1%{?dist}
+Release:        %autorelease
 Summary:        The Python interface to the Valkey key-value store
 License:        MIT
 URL:            https://github.com/valkey-io/valkey-py
-Source:         %{url}/archive/v%{version}%{beta_version}/python-valkey-%{version}%{beta_version}.tar.gz
+Source:         %{url}/archive/v%{version}/python-valkey-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -31,7 +29,7 @@ This is a Python 3 interface to the Valkey key-value store.
 
 
 %prep
-%autosetup -p1 -n valkey-py-%{version}%{beta_version}
+%autosetup -p1 -n valkey-py-%{version}
 # Upstream pins this dependency, but we need to be more flexible.
 sed -e '/ocsp/ s/pyopenssl==/pyopenssl>=/' \
     -i setup.py

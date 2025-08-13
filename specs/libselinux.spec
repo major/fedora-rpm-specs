@@ -4,7 +4,7 @@
 Summary: SELinux library and simple utilities
 Name: libselinux
 Version: 3.9
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: LicenseRef-Fedora-Public-Domain
 # https://github.com/SELinuxProject/selinux/wiki/Releases
 Source0: https://github.com/SELinuxProject/selinux/releases/download/%{version}/libselinux-%{version}.tar.gz
@@ -23,7 +23,8 @@ Patch0001: 0001-Use-SHA-2-instead-of-SHA-1.patch
 # Patch list end
 BuildRequires: gcc make
 BuildRequires: ruby-devel ruby libsepol-static >= %{libsepolver} swig pcre2-devel
-BuildRequires: python3 python3-devel python3-setuptools python3-wheel python3-pip
+BuildRequires: python3 python3-devel python3-setuptools python3-pip
+BuildRequires: (python3-wheel if python3-setuptools < 71)
 BuildRequires: systemd
 BuildRequires: gnupg2
 Requires: libsepol%{?_isa} >= %{libsepolver} pcre2
@@ -127,6 +128,7 @@ InstallPythonWrapper() {
 
   make \
     PYTHON=$BinaryName \
+    PIP_NO_BUILD_ISOLATION=0 \
     DESTDIR="%{buildroot}" LIBDIR="%{_libdir}" \
     SHLIBDIR="%{_lib}" BINDIR="%{_bindir}" \
     SBINDIR="%{_sbindir}" \
@@ -219,7 +221,4 @@ rm -f %{buildroot}%{_mandir}/man8/togglesebool*
 %{ruby_vendorarchdir}/selinux.so
 
 %changelog
-* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.9-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
 %autochangelog

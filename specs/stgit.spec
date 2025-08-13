@@ -26,7 +26,8 @@ SourceLicense:    GPL-2.0-only
 License:        Apache-2.0 AND BSD-3-Clause AND GPL-2.0-only AND MIT AND Unicode-3.0 AND (0BSD OR Apache-2.0 OR MIT) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND (Apache-2.0 OR MIT OR Zlib) AND (MIT OR Unlicense)
 
 URL:        https://stacked-git.github.io/
-Source:     https://github.com/stacked-git/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
+Source0:    https://github.com/stacked-git/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
+Source1:    %{name}-%{version}-vendor.tar.gz
 # Relax clap dependency to allow building with clap 4.5+
 # Relax thiserror dependency
 Patch:      stgit-fix-metadata.diff
@@ -36,6 +37,7 @@ BuildRequires:  asciidoc
 BuildRequires:  make
 BuildRequires:  perl
 BuildRequires:  xmlto
+BuildRequires:  openssl-devel
 
 %if %{with check}
 BuildRequires:  procps-ng
@@ -57,11 +59,8 @@ efficiently, with each patch focused on a single concern, resulting in both a
 clean Git commit history and improved productivity.
 
 %prep
-%autosetup -n %{name}-%{version} -p1
-%cargo_prep
-
-%generate_buildrequires
-%cargo_generate_buildrequires
+%autosetup -n %{name}-%{version} -a1 -p1
+%cargo_prep -v vendor
 
 %build
 # The build.rs file only adds an environment variable with the current git
@@ -77,6 +76,7 @@ rm build.rs
 make all CARGO="%{__cargo}" STG_PROFILE=rpm
 %{cargo_license_summary}
 %{cargo_license} > LICENSE.dependencies
+%{cargo_vendor_manifest}
 
 %install
 make install install-man install-completion install-contrib CARGO="%{__cargo}" STG_PROFILE=rpm DESTDIR=$RPM_BUILD_ROOT prefix=%{_prefix}
@@ -94,6 +94,7 @@ make test CARGO="%{__cargo}" STG_PROFILE=rpm
 %files
 %license COPYING
 %license LICENSE.dependencies
+%license cargo-vendor.txt
 %doc CHANGELOG.md
 %doc README.md
 %{_bindir}/stg

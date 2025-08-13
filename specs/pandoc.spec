@@ -25,7 +25,7 @@
 Name:           %{pkg_name}
 Version:        3.6.4
 # can only be reset when all subpkgs bumped
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Conversion between markup formats
 
 License:        GPL-2.0-or-later
@@ -419,6 +419,9 @@ echo %{_bindir}/jira-wiki-markup >> %{jirawikimarkup}/ghc-jira-wiki-markup.files
 
 
 %changelog
+* Mon Aug 11 2025 Jens Petersen <petersen@redhat.com> - 3.6.4-36
+- Rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.4-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -18,6 +18,9 @@ Source:         %{crates_source}
 # $ askalono cache load-spdx spdx-license-list/json/details
 # $ mv askalono-cache.bin.zstd askalono-cache-3.22.bin.zstd
 Source:         askalono-cache-3.22.bin.zstd
+# Manually created patch for downstream crate metadata changes
+# * bump gix to 0.73
+Patch:          cargo-deny-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -32,31 +35,31 @@ Summary:        %{summary}
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
 # 0BSD OR MIT OR Apache-2.0
 # Apache-2.0
+# Apache-2.0 AND ISC AND (MIT OR Apache-2.0)
 # Apache-2.0 OR BSL-1.0
 # Apache-2.0 OR ISC OR MIT
 # Apache-2.0 OR MIT
 # Apache-2.0 WITH LLVM-exception
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
-# BSD-2-Clause OR Apache-2.0 OR MIT
 # BSD-3-Clause
+# CDLA-Permissive-2.0
 # ISC
-# ISC AND MIT AND OpenSSL
 # MIT
 # MIT OR Apache-2.0
 # MIT OR Apache-2.0 OR Zlib
 # MIT OR Zlib OR Apache-2.0
-# MPL-2.0
+# Unicode-3.0
 # Unlicense OR MIT
+# Zlib
 # Zlib OR Apache-2.0 OR MIT
 License:        %{shrink:
     Apache-2.0 AND
     Apache-2.0 WITH LLVM-exception AND
     BSD-3-Clause AND
     CC0-1.0 AND
+    CDLA-Permissive-2.0 AND
     ISC AND
     MIT AND
-    MPL-2.0 AND
-    OpenSSL AND
     Unicode-DFS-2016 AND
     (0BSD OR MIT OR Apache-2.0) AND
     (Apache-2.0 OR BSL-1.0) AND
@@ -65,7 +68,9 @@ License:        %{shrink:
     (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
     (BSD-2-Clause OR Apache-2.0 OR MIT) AND
     (MIT OR Apache-2.0 OR Zlib) AND
-    (Unlicense OR MIT)
+    (Unlicense OR MIT) AMD
+    Unicode-3.0 AND
+    Zlib
 }
 # LICENSE.dependencies contains a full license breakdown
 

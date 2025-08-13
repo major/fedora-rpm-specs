@@ -1,5 +1,5 @@
 Name:           libdsk
-Version:        1.5.21
+Version:        1.5.22
 Release:        %autorelease
 Summary:        Library for accessing disk images
 License:        LGPL-2.0-or-later

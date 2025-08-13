@@ -29,15 +29,7 @@
 %global aspnetcore_runtime_rpm_version %{aspnetcore_runtime_version}
 %global sdk_rpm_version %{sdk_version}
 
-%if 0%{?fedora} || 0%{?rhel} < 8
-%global use_bundled_libunwind 0
-%else
 %global use_bundled_libunwind 1
-%endif
-
-%ifarch aarch64 ppc64le s390x
-%global use_bundled_libunwind 1
-%endif
 
 %ifarch aarch64
 %global runtime_arch arm64

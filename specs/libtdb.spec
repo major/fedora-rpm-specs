@@ -1,5 +1,5 @@
 Name:            libtdb
-Version:         1.4.13
+Version:         1.4.14
 Release:         %autorelease
 Summary:         The tdb library
 License:         LGPL-3.0-or-later
@@ -51,6 +51,8 @@ Python3 bindings for libtdb
 
 %build
 zcat %{SOURCE0} | gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} -
+# workaround https://gitlab.com/ita1024/waf/-/issues/2472
+export PYTHONARCHDIR=%{python3_sitearch}
 %configure --disable-rpath \
            --bundled-libraries=NONE \
            --builtin-libraries=replace

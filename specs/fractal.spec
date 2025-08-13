@@ -7,7 +7,7 @@
 
 Name:           fractal
 Version:        11.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Matrix group messaging app
 
 # fractal itself is GPL-3.0-or-later. The rest are statically linked rust libraries based on cargo_license_summary output.
@@ -19,7 +19,6 @@ Source0:        https://gitlab.gnome.org/World/fractal/-/archive/%{tarball_versi
 Source1:        fractal-%{version}-vendor.tar.bz2
 # fix the build with vendored sources
 Patch0:          cargo-vendor.patch
-Patch1:          sass.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -29,7 +28,7 @@ BuildRequires:  cargo-rpm-macros
 BuildRequires:  clang-devel
 BuildRequires:  llvm-devel
 BuildRequires:  meson
-BuildRequires:  rubygem-sass
+BuildRequires:  grass-compiler
 BuildRequires:  pkgconfig(gio-2.0)
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(gstreamer-1.0)
@@ -98,6 +97,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Fri Aug 01 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 11.2-3
+- Fix UI styling by using supported Sass compiler (rhbz#2373009)
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 11.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

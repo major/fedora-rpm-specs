@@ -14,7 +14,11 @@ URL:            https://crates.io/crates/rustsec
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * drop unused features with missing dependencies
+# * bump gix to 0.73
 Patch:          rustsec-fix-metadata.diff
+# Backport gix changes in PR 1367
+# * https://github.com/rustsec/rustsec/pull/1367
+Patch:          pr-1367.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

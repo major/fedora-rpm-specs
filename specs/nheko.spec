@@ -115,13 +115,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %files
 %doc README.md CHANGELOG.md
 %license COPYING
-%dir %{_datadir}/zsh/site-functions
 %{_bindir}/%{name}
 %{_metainfodir}/%{name}.appdata.xml
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}.*
-%{_datadir}/zsh/site-functions/_%{name}
 %{_mandir}/man1/%{name}.1*
+%{zsh_completions_dir}/_%{name}
 
 %changelog
 %autochangelog

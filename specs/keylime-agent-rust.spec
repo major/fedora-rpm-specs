@@ -15,7 +15,7 @@
 %endif
 
 Name:           keylime-agent-rust
-Version:        0.2.7
+Version:        0.2.8
 Release:        %{?autorelease}%{!?autorelease:1%{?dist}}
 Summary:        Rust agent for Keylime
 
@@ -54,28 +54,17 @@ Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz
 #   tar jcf rust-keylime-%%{version}-vendor.tar.xz vendor
 Source1:        rust-keylime-%{version}-vendor.tar.xz
 ## (0-99) General patches
-# Enable logging for the keylime library
-# Patch from https://github.com/keylime/rust-keylime/pull/922
-Patch0:         rust-keylime-enable-logging-keylime-lib.patch
+# Drop deprecated features and workaround unavailable components
+Patch0:       rust-keylime-metadata.patch
+# Set the directories used by the services, mode, and ownership
+Patch1:       rust-keylime-services-ownership.patch
 ## (100-199) Patches for building from system Rust libraries (Fedora)
-# Drop completely the legacy-python-actions feature
-Patch100:       rust-keylime-metadata.patch
 ## (200+) Patches for building from vendored Rust libraries (RHEL)
 
 ExclusiveArch:  %{rust_arches}
 
-Requires: tpm2-tss
-Requires: util-linux-core
-
-# The keylime-base package provides the keylime user creation. It is available
-# from Fedora 36
-%if 0%{?fedora} >= 36 || 0%{?rhel} >= 9
-Requires: keylime-base
-%endif
-
 BuildRequires:  systemd
 BuildRequires:  openssl-devel
-BuildRequires:  libarchive-devel
 BuildRequires:  tpm2-tss-devel
 BuildRequires:  clang
 %if 0%{?bundled_rust_deps}
@@ -84,12 +73,64 @@ BuildRequires:  rust-toolset
 BuildRequires:  rust-packaging >= 21-2
 %endif
 
-# Virtual Provides to support swapping between Python and Rust implementation
-Provides:       keylime-agent
-Conflicts:      keylime-agent
-
 %description
-Rust agent for Keylime
+The Keylime agent
+
+# The keylime-base package provides the keylime user creation. It is available
+# from Fedora 36
+%if 0%{?fedora} >= 36 || 0%{?rhel} >= 9
+Requires:       keylime-base
+%endif
+
+# The default agent is for the pull model deployment
+Requires: keylime-agent-rust-pull
+
+# The meta-package has no files
+%files
+
+#===============================================================================
+
+%package pull
+Summary:        The Keylime for pull model deployment
+Requires:       tpm2-tss
+Requires:       util-linux-core
+
+# The keylime-base package provides the keylime user creation. It is available
+# from Fedora 36
+%if 0%{?fedora} >= 36 || 0%{?rhel} >= 9
+Requires:       keylime-base
+%endif
+
+# Virtual Provides to support swapping between pull and push model agents
+Provides:       keylime-agent
+Conflicts:      keylime-agent-rust-push
+Obsoletes:      keylime-agent-rust < %{version}-%{release}
+
+%description pull
+The Keylime agent for pull model deployment
+
+#===============================================================================
+
+%package push
+Summary:        The Keylime agent for push model deployment
+Requires:       tpm2-tss
+Requires:       util-linux-core
+
+# The keylime-base package provides the keylime user creation. It is available
+# from Fedora 36
+%if 0%{?fedora} >= 36 || 0%{?rhel} >= 9
+Requires:       keylime-base
+%endif
+
+# Virtual Provides to support swapping between pull and push model agents
+Provides:       keylime-agent
+Conflicts:      keylime-agent-rust-pull
+Obsoletes:      keylime-agent-rust < %{version}-%{release}
+
+%description push
+The Keylime agent for push model deployment
+
+#===============================================================================
 
 %prep
 %autosetup -n rust-keylime-%{version} -N %{?bundled_rust_deps:-a1}
@@ -97,9 +138,11 @@ Rust agent for Keylime
 %if 0%{?bundled_rust_deps}
 # Source1 is vendored dependencies
 %cargo_prep -v vendor
-%autopatch -m 200 -p1
+# Add back the line below if patches are added (do not forget the '%')
+# autopatch -m 200 -p1
 %else
-%autopatch -m 100 -M 199 -p1
+# Add back the line below if patches are added (do not forget the '%')
+# autopatch -m 100 -M 199 -p1
 %cargo_prep
 %generate_buildrequires
 %cargo_generate_buildrequires
@@ -130,6 +173,9 @@ install -Dpm 644 ./dist/systemd/system/keylime_agent.service \
 install -Dpm 644 ./dist/systemd/system/var-lib-keylime-secure.mount \
     %{buildroot}%{_unitdir}/var-lib-keylime-secure.mount
 
+install -Dpm 644 ./dist/systemd/system/keylime_push_model_agent.service \
+    %{buildroot}%{_unitdir}/keylime_push_model_agent.service
+
 # Setting up the agent to use keylime:keylime user/group after dropping privileges.
 cat > %{buildroot}/%{_sysconfdir}/keylime/agent.conf.d/001-run_as.conf << EOF
 [agent]
@@ -142,22 +188,21 @@ install -Dpm 0755 \
 install -Dpm 0755 \
     -t %{buildroot}%{_bindir} \
     ./target/release/keylime_ima_emulator
-
-%posttrans
-chmod 500 %{_sysconfdir}/keylime/agent.conf.d
-chmod 400 %{_sysconfdir}/keylime/agent.conf.d/*.conf
-chmod 500 %{_sysconfdir}/keylime
-chown -R keylime:keylime %{_sysconfdir}/keylime
+install -Dpm 0755 \
+    -t %{buildroot}%{_bindir} \
+    ./target/release/keylime_push_model_agent
 
 %preun
+%systemd_preun keylime_push_model_agent.service
 %systemd_preun keylime_agent.service
 %systemd_preun var-lib-keylime-secure.mount
 
 %postun
+%systemd_postun_with_restart keylime_push_model_agent.service
 %systemd_postun_with_restart keylime_agent.service
 %systemd_postun_with_restart var-lib-keylime-secure.mount
 
-%files
+%files pull
 %license LICENSE
 %license LICENSE.dependencies
 %if 0%{?bundled_rust_deps}
@@ -175,6 +220,23 @@ chown -R keylime:keylime %{_sysconfdir}/keylime
 %attr(700,keylime,keylime) %{_libexecdir}/keylime
 %{_bindir}/keylime_agent
 %{_bindir}/keylime_ima_emulator
+
+%files push
+%license LICENSE
+%license LICENSE.dependencies
+%if 0%{?bundled_rust_deps}
+%license cargo-vendor.txt
+%endif
+%doc README.md
+%attr(500,keylime,keylime) %dir %{_sysconfdir}/keylime
+%attr(500,keylime,keylime) %dir %{_sysconfdir}/keylime/agent.conf.d
+%config(noreplace) %attr(400,keylime,keylime) %{_sysconfdir}/keylime/agent.conf.d/001-run_as.conf
+%config(noreplace) %attr(400,keylime,keylime) %{_sysconfdir}/keylime/agent.conf
+%{_unitdir}/keylime_push_model_agent.service
+%attr(700,keylime,keylime) %dir %{_rundir}/keylime
+%attr(700,keylime,keylime) %{_sharedstatedir}/keylime
+%attr(700,keylime,keylime) %{_libexecdir}/keylime
+%{_bindir}/keylime_push_model_agent
 
 %if %{with check}
 %check

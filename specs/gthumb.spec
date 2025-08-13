@@ -1,10 +1,19 @@
 %global __provides_exclude_from ^%{_libdir}/gthumb/.*\\.so$
 %global __requires_exclude ^(%%(find %{buildroot}%{_libdir}/gthumb/ -name '*.so' | xargs -n1 basename | sort -u | paste -s -d '|' -))
 
+# webkit2gtk-4.0 is needed for the webservices option, but it was retired in
+# Fedora 43.
+# https://pagure.io/fesco/issue/3418
+%if %[ %{?fedora} >= 43 ]
+%bcond webservices 0
+%else
+%bcond webservices 1
+%endif
+
 Name:           gthumb
 Epoch:          1
 Version:        3.12.7
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Image viewer, editor, organizer
 
 License:        GPL-2.0-or-later
@@ -25,7 +34,6 @@ BuildRequires:  pkgconfig(gsettings-desktop-schemas)
 BuildRequires:  pkgconfig(gstreamer-plugins-base-1.0)
 BuildRequires:  pkgconfig(gstreamer-video-1.0)
 BuildRequires:  pkgconfig(gtk+-3.0)
-BuildRequires:  pkgconfig(json-glib-1.0)
 BuildRequires:  pkgconfig(lcms2)
 BuildRequires:  pkgconfig(libbrasero-burn3)
 BuildRequires:  pkgconfig(libheif)
@@ -33,10 +41,7 @@ BuildRequires:  pkgconfig(libjxl)
 BuildRequires:  pkgconfig(libpng)
 BuildRequires:  pkgconfig(libraw)
 BuildRequires:  pkgconfig(librsvg-2.0)
-BuildRequires:  pkgconfig(libsecret-1)
-BuildRequires:  pkgconfig(libsoup-2.4)
 BuildRequires:  pkgconfig(libwebp)
-BuildRequires:  pkgconfig(webkit2gtk-4.0)
 BuildRequires:  pkgconfig(zlib)
 BuildRequires:  gcc gcc-c++
 BuildRequires:  gettext
@@ -46,6 +51,12 @@ BuildRequires:  libtiff-devel
 BuildRequires:  meson
 # For Web albums extension
 BuildRequires:  bison flex
+%if %{with webservices}
+BuildRequires:  pkgconfig(libsoup-2.4)
+BuildRequires:  pkgconfig(json-glib-1.0)
+BuildRequires:  pkgconfig(webkit2gtk-4.0)
+BuildRequires:  pkgconfig(libsecret-1)
+%endif
 
 Requires: hicolor-icon-theme
 
@@ -69,7 +80,7 @@ package.
 %autosetup -p1
 
 %build
-%meson
+%meson -Dwebservices=%{?with_webservices:true}%{!?with_webservices:false}
 %meson_build
 
 %install
@@ -97,6 +108,9 @@ package.
 %{_datadir}/aclocal/gthumb.m4
 
 %changelog
+* Fri Aug 01 2025 Carl George <carlwgeorge@fedoraproject.org> - 1:3.12.7-5
+- Build without webservices on Fedora 43+ to avoid webkit2gtk-4.0 dependency rhbz#2385977
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.12.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

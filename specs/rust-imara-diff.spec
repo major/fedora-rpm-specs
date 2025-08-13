@@ -7,7 +7,7 @@
 %global crate imara-diff
 
 Name:           rust-imara-diff
-Version:        0.1.8
+Version:        0.2.0
 Release:        %autorelease
 Summary:        High performance library for computing diffs
 

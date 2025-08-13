@@ -2,8 +2,8 @@
 %bcond perl_IPC_Run_enables_optional_test %{undefined rhel}
 
 Name:           perl-IPC-Run
-Version:        20231003.0
-Release:        7%{?dist}
+Version:        20250809.0
+Release:        1%{?dist}
 Summary:        Perl module for interacting with child processes
 # the rest:                     GPL+ or Artistic
 # The Win32* modules are not part of the binary RPM package
@@ -16,11 +16,10 @@ Source0:        https://cpan.metacpan.org/modules/by-module/IPC/IPC-Run-%{versio
 BuildArch:      noarch
 # Build
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  sed
 # IO::Pty not needed strictly for build script
 # Run-time:
@@ -57,7 +56,7 @@ BuildRequires:  perl(Test::More) >= 0.47
 # Optional Tests
 BuildRequires:  perl(Readonly)
 %endif
-# Runtime
+# Dependencies
 Requires:       perl(Data::Dumper)
 Requires:       perl(File::Basename)
 Requires:       perl(IO::Pty) >= 1.08
@@ -87,12 +86,11 @@ sed -i -e '/^t/readonly\.t/d' MANIFEST
 %endif
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -108,6 +106,14 @@ make test
 %{_mandir}/man3/IPC::Run::Timer.3*
 
 %changelog
+* Mon Aug 11 2025 Paul Howarth <paul@city-fan.org> - 20250809.0-1
+- Update to 20250809.0 (rhbz#2387443)
+  - Reduce delays in detecting child exit (GH#172)
+  - Add quickstart section at the top of the docs (GH#174)
+  - Retry _read() on EINTR instead of losing pipe contents (GH#177)
+  - In test suite, work around bug in NetBSD 10
+- Use %%{make_build] and %%{make_install}
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20231003.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

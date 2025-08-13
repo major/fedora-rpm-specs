@@ -1,8 +1,8 @@
 %global tarball_name xkbcommon
 
 Name:           libxkbcommon
-Version:        1.10.0
-Release:        2%{?gitdate:.%{gitdate}}%{?dist}
+Version:        1.11.0
+Release:        1%{?gitdate:.%{gitdate}}%{?dist}
 Summary:        X.Org X11 XKB parsing library
 License:        MIT AND X11 AND MIT-CMU
 URL:            http://www.x.org
@@ -107,8 +107,10 @@ Requires:       %{name}-utils%{?_isa} = %{version}-%{release}
 %{_bindir}/xkbcli
 %{_libexecdir}/xkbcommon/xkbcli-compile-compose
 %{_libexecdir}/xkbcommon/xkbcli-compile-keymap
+%{_libexecdir}/xkbcommon/xkbcli-dump-keymap
 %{_libexecdir}/xkbcommon/xkbcli-dump-keymap-wayland
 %{_libexecdir}/xkbcommon/xkbcli-how-to-type
+%{_libexecdir}/xkbcommon/xkbcli-interactive
 %{_libexecdir}/xkbcommon/xkbcli-interactive-evdev
 %{_libexecdir}/xkbcommon/xkbcli-interactive-wayland
 %{_libexecdir}/xkbcommon/xkbcli-list
@@ -129,6 +131,9 @@ Requires:       %{name}-utils%{?_isa} = %{version}-%{release}
 %{_mandir}/man1/xkbcli-dump-keymap-x11.1.gz
 
 %changelog
+* Mon Aug 11 2025 Peter Hutterer <peter.hutterer@redhat.com> - 1.11.0-1
+- libxkbcommon 1.11.0
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 %global crate jql-parser
 
 Name:           rust-jql-parser
-Version:        8.0.6
+Version:        8.0.7
 Release:        %autorelease
 Summary:        Parser for jql - the JSON Query Language tool
 

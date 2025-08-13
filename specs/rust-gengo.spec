@@ -16,6 +16,7 @@ Source:         %{crates_source}
 # * Do not depend on criterion; it is needed only for benchmarks
 # * Bump rstest from 0.25.0 to 0.26.1:
 #   https://github.com/spenserblack/gengo/pull/573
+# * Bump gix to 0.73
 Patch:          gengo-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

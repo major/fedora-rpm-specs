@@ -4,7 +4,7 @@
 
 Name:           trafficserver
 Version:        10.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fast, scalable and extensible HTTP/1.1 and HTTP/2 caching proxy server
 
 License:        Apache-2.0
@@ -63,11 +63,11 @@ Requires:       python3 python3-colorama python3-jsonschema python3-pyyaml
 Requires:       (%{name}-selinux = %{version}-%{release} if selinux-policy-%{selinuxtype})
 %endif
 
-# swoc is not yet packaged for Fedora
+# swoc is not separately packaged for Fedora -- literally nothing else uses this
 Provides:       bundled(swoc) =  1.5.12
 
 # Exclude our own internal libraries from requires
-%global __requires_exclude ^lib(swoc-.*|ts.*)\\.so.*$
+%global __requires_exclude ^lib(swoc.*|ts.*)\\.so.*$
 
 # Do not check .so files in the application-specific library directory
 %global __provides_exclude_from ^%{_libdir}/%{name}/.*\\.so.*$
@@ -280,6 +280,9 @@ fi
 
 
 %changelog
+* Mon Aug 11 2025 Jered Floyd <jered@redhat.com> 10.1.0-2
+- Fix spec to not Require bundled libswoc
+
 * Tue Aug 5 2025 Jered Floyd <jered@redhat.com> 10.1.0-1
 - Update to upstream 10.1.0
 

@@ -7,7 +7,7 @@
 
 %global goipath         github.com/osbuild/image-builder-cli
 
-Version:        29
+Version:        30
 
 %gometa
 
@@ -48,7 +48,26 @@ Provides: bundled(golang(github.com/Microsoft/go-winio)) = 0.6.2
 Provides: bundled(golang(github.com/Microsoft/hcsshim)) = 0.13.0
 Provides: bundled(golang(github.com/VividCortex/ewma)) = 1.2.0
 Provides: bundled(golang(github.com/acarl005/stripansi)) = 5a71ef0
-Provides: bundled(golang(github.com/aws/aws-sdk-go)) = 1.55.7
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2)) = 1.37.1
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream)) = 1.7.0
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/config)) = 1.30.2
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/credentials)) = 1.18.2
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/feature/ec2/imds)) = 1.18.1
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/feature/s3/manager)) = 1.18.2
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/configsources)) = 1.4.1
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/endpoints/v2)) = 2.7.1
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/ini)) = 1.8.3
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/v4a)) = 1.4.1
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/ec2)) = 1.239.0
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding)) = 1.13.0
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/checksum)) = 1.8.1
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/presigned-url)) = 1.13.1
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/s3shared)) = 1.19.1
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/s3)) = 1.85.1
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/sso)) = 1.26.1
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/ssooidc)) = 1.31.1
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/sts)) = 1.35.1
+Provides: bundled(golang(github.com/aws/smithy-go)) = 1.22.5
 Provides: bundled(golang(github.com/cheggaaa/pb/v3)) = 3.1.7
 Provides: bundled(golang(github.com/containerd/cgroups/v3)) = 3.0.5
 Provides: bundled(golang(github.com/containerd/errdefs)) = 1.0.0
@@ -87,7 +106,6 @@ Provides: bundled(golang(github.com/hashicorp/errwrap)) = 1.1.0
 Provides: bundled(golang(github.com/hashicorp/go-multierror)) = 1.1.1
 Provides: bundled(golang(github.com/hashicorp/go-version)) = 1.7.0
 Provides: bundled(golang(github.com/inconshreveable/mousetrap)) = 1.1.0
-Provides: bundled(golang(github.com/jmespath/go-jmespath)) = b0104c8
 Provides: bundled(golang(github.com/json-iterator/go)) = 1.1.12
 Provides: bundled(golang(github.com/klauspost/compress)) = 1.18.0
 Provides: bundled(golang(github.com/klauspost/pgzip)) = 1.2.6
@@ -108,11 +126,12 @@ Provides: bundled(golang(github.com/opencontainers/go-digest)) = 1.0.0
 Provides: bundled(golang(github.com/opencontainers/image-spec)) = 1.1.1
 Provides: bundled(golang(github.com/opencontainers/runtime-spec)) = 1.2.1
 Provides: bundled(golang(github.com/opencontainers/selinux)) = 1.12.0
-Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.10.0
-Provides: bundled(golang(github.com/osbuild/images)) = 0.168.0
+Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.12.0
+Provides: bundled(golang(github.com/osbuild/images)) = 0.172.0
 Provides: bundled(golang(github.com/pkg/errors)) = 0.9.1
 Provides: bundled(golang(github.com/pmezard/go-difflib)) = 5d4384e
 Provides: bundled(golang(github.com/proglottis/gpgme)) = 0.1.4
+Provides: bundled(golang(github.com/prometheus/client_golang)) = 1.23.0
 Provides: bundled(golang(github.com/rivo/uniseg)) = 0.4.7
 Provides: bundled(golang(github.com/secure-systems-lab/go-securesystemslib)) = 0.9.0
 Provides: bundled(golang(github.com/sigstore/fulcio)) = 1.6.6
@@ -145,11 +164,10 @@ Provides: bundled(golang(golang.org/x/sys)) = 0.34.0
 Provides: bundled(golang(golang.org/x/term)) = 0.33.0
 Provides: bundled(golang(golang.org/x/text)) = 0.27.0
 Provides: bundled(golang(google.golang.org/genproto/googleapis/api)) = a45f3df
-Provides: bundled(golang(google.golang.org/genproto/googleapis/rpc)) = a45f3df
+Provides: bundled(golang(google.golang.org/genproto/googleapis/rpc)) = f173205
 Provides: bundled(golang(google.golang.org/grpc)) = 1.74.2
 Provides: bundled(golang(google.golang.org/protobuf)) = 1.36.6
 Provides: bundled(golang(gopkg.in/ini.v1)) = 1.67.0
-Provides: bundled(golang(gopkg.in/yaml.v2)) = 2.4.0
 Provides: bundled(golang(gopkg.in/yaml.v3)) = 3.0.1
 Provides: bundled(golang(sigs.k8s.io/yaml)) = 1.5.0
 # BUNDLE_END
@@ -220,6 +238,17 @@ cd $PWD/_build/src/%{goipath}
 %{_bindir}/image-builder
 
 %changelog
+* Mon Aug 11 2025 Packit <hello@packit.dev> - 30-1
+Changes with 30
+----------------
+  * image-builder: move to latest images library (#272)
+    * Author: Michael Vogt, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  * image-builder: use `github.com/osbuild/blueprint` (#273)
+    * Author: Michael Vogt, Reviewers: Achilleas Koutsou, Gianluca Zuccarelli
+
+— Somewhere on the Internet, 2025-08-11
+
+
 * Fri Aug 01 2025 Packit <hello@packit.dev> - 29-1
 Changes with 29
 ----------------

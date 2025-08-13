@@ -4,32 +4,46 @@
 %global runtime_directory_path %{_libdir}/helix/runtime
 
 Name:           helix
-Version:        25.01.1
+Version:        25.07.1
 Release:        %autorelease
 # Output of %%{cargo_license_summary} + themes specific licenses (Unlicense)
 # (Apache-2.0 OR MIT) AND BSD-3-Clause
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
-# 0BSD OR MIT OR Apache-2.0
 # Apache-2.0
 # Apache-2.0 OR BSL-1.0
 # Apache-2.0 OR MIT
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
-# BSD-2-Clause OR Apache-2.0 OR MIT
-# BSD-3-Clause
 # ISC
 # MIT
-# MIT AND Unicode-DFS-2016 AND BSD-2-Clause AND BSD-3-Clause AND LicenseRef-Fedora-Public-Domain
 # MIT OR Apache-2.0
 # MIT OR Apache-2.0 OR Zlib
-# MIT OR Zlib OR Apache-2.0
 # MIT-0 OR Apache-2.0
 # MPL-2.0
+# MPL-2.0 AND MIT AND Unicode-DFS-2016
 # MPL-2.0+
 # Unicode-3.0
 # Unlicense OR MIT
 # Zlib
 # Zlib OR Apache-2.0 OR MIT
-License:        (Apache-2.0 OR MIT) AND BSD-3-Clause AND Unicode-DFS-2016 AND (0BSD OR MIT OR Apache-2.0) AND Apache-2.0 AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND ISC AND MIT AND (MIT AND Unicode-DFS-2016 AND BSD-2-Clause AND BSD-3-Clause AND LicenseRef-Fedora-Public-Domain) AND (MIT OR Apache-2.0 OR Zlib) AND (CC0-1.0 OR MIT-0 OR Apache-2.0) AND MPL-2.0 AND MPL-2.0+ AND Unicode-3.0 AND (Unlicense OR MIT) AND Zlib AND Unlicense
+License:        %{shrink:
+                (Apache-2.0 OR MIT) AND
+                BSD-3-Clause AND
+                Unicode-DFS-2016 AND
+                Apache-2.0 AND
+                (Apache-2.0 OR BSL-1.0) AND
+                (Apache-2.0 OR MIT) AND
+                (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
+                ISC AND
+                MIT AND
+                (MIT OR Apache-2.0 OR Zlib) AND
+                (CC0-1.0 OR MIT-0 OR Apache-2.0) AND
+                MPL-2.0 AND
+                MPL-2.0+ AND
+                Unicode-3.0 AND
+                (Unlicense OR MIT) AND
+                Zlib AND
+                Unlicense
+                }
 Summary:        A post-modern modal text editor written in Rust
 URL:            https://helix-editor.com/
 # This tarball includes grammars because we can't download them at build time
@@ -40,13 +54,6 @@ Source200:      https://raw.githubusercontent.com/blinxen/tree-sitter-eex/main/L
 
 # Remove windows dependencies
 Patch:          remove-windows-dependency.patch
-# Compatibility patch for gix 0.70
-# * https://github.com/helix-editor/helix/pull/12614/files
-Patch:          gix-0.70-compatibility.patch
-# Allow which 8
-# build(deps): bump which from 7.0.3 to 8.0.0
-# https://github.com/helix-editor/helix/pull/13729
-Patch:          which-8.patch
 
 # Exclude %%{ix86} since the build fails with LLVM ERROR: out of memory Allocation failed error
 ExcludeArch: %{ix86}
@@ -71,18 +78,20 @@ Recommends:     wl-clipboard
 # Added manually
 Provides:       bundled(tree-sitter-sql)
 Provides:       bundled(tree-sitter-v)
-Provides:       bundled(tree-sitter-perl)
-Provides:       bundled(tree-sitter-pod)
 # Created with:
 # cd runtime/grammars/sources && fd '^package.json$' --max-depth 2 --exec /bin/sh -c 'cat {} | jq  ". | \"Provides:       bundled(\" + .name + \")\""' | sort | sed s/\"//g
-# First 3 provide have "@" at the beginnig of the name, so we just remove it manually
 Provides:       bundled(tree-sitter-pkl)
 Provides:       bundled(tree-sitter-elm)
+Provides:       bundled(tree-sitter-gren)
 Provides:       bundled(tree-sitter-lua)
 Provides:       bundled(tree-sitter-latex)
+Provides:       bundled(tree-sitter-luau)
+Provides:       bundled(tree-sitter-tlaplus)
 Provides:       bundled(tree-sitter-ada)
 Provides:       bundled(tree-sitter-adl)
 Provides:       bundled(tree-sitter-agda)
+Provides:       bundled(tree-sitter-alloy)
+Provides:       bundled(tree-sitter-amber)
 Provides:       bundled(tree-sitter-astro)
 Provides:       bundled(tree-sitter-awk)
 Provides:       bundled(tree-sitter-bash)
@@ -94,27 +103,35 @@ Provides:       bundled(tree-sitter-bitbake)
 Provides:       bundled(tree-sitter-blade)
 Provides:       bundled(tree-sitter-blueprint)
 Provides:       bundled(tree-sitter-c)
+Provides:       bundled(tree-sitter-caddyfile)
 Provides:       bundled(tree-sitter-cairo)
 Provides:       bundled(tree-sitter-capnp)
 Provides:       bundled(tree-sitter-cassette)
 Provides:       bundled(tree-sitter-cel)
+Provides:       bundled(tree-sitter-circom)
+Provides:       bundled(tree-sitter-clarity)
 Provides:       bundled(tree-sitter-clojure)
 Provides:       bundled(tree-sitter-cmake)
 Provides:       bundled(tree-sitter-comment)
 Provides:       bundled(tree-sitter-cpon)
 Provides:       bundled(tree-sitter-cpp)
+Provides:       bundled(tree-sitter-crystal)
 Provides:       bundled(tree-sitter-c-sharp)
 Provides:       bundled(tree-sitter-css)
 Provides:       bundled(tree-sitter-cue)
+Provides:       bundled(tree-sitter-cylc)
 Provides:       bundled(tree-sitter-d)
 Provides:       bundled(tree-sitter-dart)
 Provides:       bundled(tree-sitter-dbml)
+Provides:       bundled(tree-sitter-debian)
 Provides:       bundled(tree-sitter-devicetree)
 Provides:       bundled(tree-sitter-dhall)
 Provides:       bundled(tree-sitter-diff)
+Provides:       bundled(tree-sitter-djot)
 Provides:       bundled(tree-sitter-dockerfile)
 Provides:       bundled(tree-sitter-dot)
 Provides:       bundled(tree-sitter-dtd)
+Provides:       bundled(tree-sitter-dunstrc)
 Provides:       bundled(tree-sitter-earthfile)
 Provides:       bundled(tree-sitter-edoc)
 Provides:       bundled(tree-sitter-eex)
@@ -124,6 +141,8 @@ Provides:       bundled(tree-sitter-elvish)
 Provides:       bundled(tree-sitter-embedded-template)
 Provides:       bundled(tree-sitter-erlang)
 Provides:       bundled(tree-sitter-esdl)
+Provides:       bundled(tree-sitter-fennel)
+Provides:       bundled(tree-sitter-fga)
 Provides:       bundled(tree-sitter-fidl)
 Provides:       bundled(tree-sitter-fish)
 Provides:       bundled(tree-sitter-forth)
@@ -131,7 +150,8 @@ Provides:       bundled(tree-sitter-fortran)
 Provides:       bundled(tree-sitter-fsharp)
 Provides:       bundled(tree-sitter-gas)
 Provides:       bundled(tree-sitter-gdscript)
-Provides:       bundled(tree-sitter-gemini)
+Provides:       bundled(tree-sitter-gherkin)
+Provides:       bundled(tree-sitter-ghostty)
 Provides:       bundled(tree-sitter-gitattributes)
 Provides:       bundled(tree-sitter-gitcommit)
 Provides:       bundled(tree-sitter-git-config)
@@ -142,10 +162,12 @@ Provides:       bundled(tree-sitter-glsl)
 Provides:       bundled(tree-sitter-gn)
 Provides:       bundled(tree-sitter-go)
 Provides:       bundled(tree-sitter-godot-resource)
-Provides:       bundled(tree-sitter-go-mod)
+Provides:       bundled(tree-sitter-gomod)
 Provides:       bundled(tree-sitter-go-template)
 Provides:       bundled(tree-sitter-go-work)
+Provides:       bundled(tree-sitter-gpr)
 Provides:       bundled(tree-sitter-markdown)
+Provides:       bundled(tree-sitter-zig)
 Provides:       bundled(tree-sitter-graphql)
 Provides:       bundled(tree-sitter-groovy)
 Provides:       bundled(tree-sitter-hare)
@@ -157,15 +179,19 @@ Provides:       bundled(tree-sitter-hocon)
 Provides:       bundled(tree-sitter-hoon)
 Provides:       bundled(tree-sitter-hosts)
 Provides:       bundled(tree-sitter-html)
+Provides:       bundled(tree-sitter-htmldjango)
 Provides:       bundled(tree-sitter-hurl)
 Provides:       bundled(tree-sitter-hyprlang)
 Provides:       bundled(tree-sitter-iex)
 Provides:       bundled(tree-sitter-ini)
+Provides:       bundled(tree-sitter-ink)
 Provides:       bundled(tree-sitter-inko)
 Provides:       bundled(tree-sitter-janet-simple)
 Provides:       bundled(tree-sitter-java)
 Provides:       bundled(tree-sitter-javascript)
 Provides:       bundled(tree-sitter-jinja2)
+Provides:       bundled(tree-sitter-jjdescription)
+Provides:       bundled(tree-sitter-jq)
 Provides:       bundled(tree-sitter-jsdoc)
 Provides:       bundled(tree-sitter-json)
 Provides:       bundled(tree-sitter-json5)
@@ -175,6 +201,7 @@ Provides:       bundled(tree-sitter-just)
 Provides:       bundled(tree-sitter-kdl)
 Provides:       bundled(tree-sitter-koka)
 Provides:       bundled(tree-sitter-kotlin)
+Provides:       bundled(tree-sitter-koto)
 Provides:       bundled(tree-sitter-ld)
 Provides:       bundled(tree-sitter-ldif)
 Provides:       bundled(tree-sitter-lean)
@@ -183,6 +210,7 @@ Provides:       bundled(tree-sitter-llvm)
 Provides:       bundled(tree-sitter-llvm-mir)
 Provides:       bundled(tree-sitter-log)
 Provides:       bundled(tree-sitter-lpf)
+Provides:       bundled(tree-sitter-mail)
 Provides:       bundled(tree-sitter-make)
 Provides:       bundled(tree-sitter-markdoc)
 Provides:       bundled(tree-sitter-matlab)
@@ -191,6 +219,7 @@ Provides:       bundled(tree-sitter-meson)
 Provides:       bundled(tree-sitter-mojo)
 Provides:       bundled(tree-sitter-move)
 Provides:       bundled(tree-sitter-nasm)
+Provides:       bundled(tree-sitter-nginx)
 Provides:       bundled(tree-sitter-nickel)
 Provides:       bundled(tree-sitter-nim)
 Provides:       bundled(tree-sitter-nix)
@@ -204,18 +233,26 @@ Provides:       bundled(tree-sitter-org)
 Provides:       bundled(tree-sitter-pascal)
 Provides:       bundled(tree-sitter-passwd)
 Provides:       bundled(tree-sitter-pem)
+Provides:       bundled(tree-sitter-perl)
 Provides:       bundled(tree-sitter-pest)
 Provides:       bundled(tree-sitter-php)
 Provides:       bundled(tree-sitter-po)
+Provides:       bundled(tree-sitter-pod)
 Provides:       bundled(tree-sitter-ponylang)
 Provides:       bundled(tree-sitter-powershell)
 Provides:       bundled(tree-sitter-prisma)
-Provides:       bundled(tree-sitter-protobuf)
+Provides:       bundled(tree-sitter-prolog)
+Provides:       bundled(tree-sitter-properties)
+Provides:       bundled(tree-sitter-proto)
 Provides:       bundled(tree-sitter-prql)
-Provides:       bundled(tree-sitter-purescript)
+Provides:       bundled(tree-sitter-pug)
 Provides:       bundled(tree-sitter-python)
+Provides:       bundled(tree-sitter-ql)
 Provides:       bundled(tree-sitter-qmljs)
+Provides:       bundled(tree-sitter-query)
+Provides:       bundled(tree-sitter-quint)
 Provides:       bundled(tree-sitter-r)
+Provides:       bundled(tree-sitter-rainbow-csv)
 Provides:       bundled(tree-sitter-rebase)
 Provides:       bundled(tree-sitter-regex)
 Provides:       bundled(tree-sitter-rego)
@@ -225,14 +262,19 @@ Provides:       bundled(tree-sitter-ron)
 Provides:       bundled(tree-sitter-rst)
 Provides:       bundled(tree-sitter-ruby)
 Provides:       bundled(tree-sitter-rust)
+Provides:       bundled(tree-sitter-rust-format-args)
 Provides:       bundled(tree-sitter-scala)
 Provides:       bundled(tree-sitter-scheme)
 Provides:       bundled(tree-sitter-scss)
+Provides:       bundled(tree-sitter-slang)
 Provides:       bundled(tree-sitter-slint)
 Provides:       bundled(tree-sitter-smali)
 Provides:       bundled(tree-sitter-smithy)
 Provides:       bundled(tree-sitter-sml)
+Provides:       bundled(tree-sitter-snakemake)
 Provides:       bundled(tree-sitter-solidity)
+Provides:       bundled(tree-sitter-sourcepawn)
+Provides:       bundled(tree-sitter-spade)
 Provides:       bundled(tree-sitter-spicedb)
 Provides:       bundled(tree-sitter-ssh-client-config)
 Provides:       bundled(tree-sitter-strace)
@@ -245,31 +287,36 @@ Provides:       bundled(tree-sitter-tablegen)
 Provides:       bundled(tree-sitter-tact)
 Provides:       bundled(tree-sitter-task)
 Provides:       bundled(tree-sitter-tcl)
+Provides:       bundled(tree-sitter-teal)
 Provides:       bundled(tree-sitter-templ)
+Provides:       bundled(tree-sitter-tera)
 Provides:       bundled(tree-sitter-test)
+Provides:       bundled(tree-sitter-textproto)
+Provides:       bundled(tree-sitter-thrift)
 Provides:       bundled(tree-sitter-todotxt)
 Provides:       bundled(tree-sitter-toml)
-Provides:       bundled(tree-sitter-tsq)
 Provides:       bundled(tree-sitter-twig)
 Provides:       bundled(tree-sitter-typescript)
+Provides:       bundled(tree-sitter-typespec)
 Provides:       bundled(tree-sitter-ungrammar)
 Provides:       bundled(tree-sitter-unison)
 Provides:       bundled(tree-sitter-uxntal)
 Provides:       bundled(tree-sitter-vala)
+Provides:       bundled(tree-sitter-vento)
 Provides:       bundled(tree-sitter-verilog)
 Provides:       bundled(tree-sitter-vhdl)
 Provides:       bundled(tree-sitter-vue)
 Provides:       bundled(tree-sitter-wasm)
+Provides:       bundled(tree-sitter-werk-2)
+Provides:       bundled(tree-sitter-wesl)
 Provides:       bundled(tree-sitter-wgsl)
 Provides:       bundled(tree-sitter-wit)
-Provides:       bundled(tree-sitter-wren)
 Provides:       bundled(tree-sitter-xit)
 Provides:       bundled(tree-sitter-xml)
 Provides:       bundled(tree-sitter-XTC)
 Provides:       bundled(tree-sitter-yaml)
+Provides:       bundled(tree-sitter-yara)
 Provides:       bundled(tree-sitter-yuck)
-Provides:       bundled(tree-sitter-zig)
-
 
 %description
 A Kakoune / Neovim inspired editor, written in Rust.
@@ -299,21 +346,10 @@ A Kakoune / Neovim inspired editor, written in Rust.
 
 %prep
 %autosetup -c -p1
-# Bump gix to version 0.70
-tomcli set helix-vcs/Cargo.toml str dependencies.gix.version 0.70
-# Bump tree-sitter to version 0.23
-tomcli set Cargo.toml str workspace.dependencies.tree-sitter.version 0.23
+# Bump gix to version 0.73
+tomcli set helix-vcs/Cargo.toml str dependencies.gix.version 0.73
 # Relax unicode-width lower bound
 tomcli set helix-core/Cargo.toml str dependencies.unicode-width 0.1.14
-# Bump pulldown-cmark to 0.13:
-# https://github.com/helix-editor/helix/commit/7275b7f85014aad7e15d4987ec4f2249572eecfb
-tomcli set helix-term/Cargo.toml str dependencies.pulldown-cmark.version 0.13
-# Bump etcetera to 0.10:
-# https://github.com/helix-editor/helix/commit/9440feae7cf1bd67a741eb0b9bc2450a40e1b431
-for t in helix-{core,loader,stdx}/Cargo.toml
-do
-  tomcli set "${t}" str dependencies.etcetera 0.10
-done
 
 # Rename license files for themes so they can be installed
 find runtime/themes/licenses -type f -exec /bin/sh -c 'cp -pav {} LICENSE-themes-$(basename {} .LICENSE)' \;

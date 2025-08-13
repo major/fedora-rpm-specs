@@ -3,7 +3,7 @@
 Summary: Dynamic analysis tools to detect memory or thread bugs and profile
 Name: %{?scl_prefix}valgrind
 Version: 3.25.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 Epoch: 1
 
 # This ignores licenses that are only found in the test or perf sources
@@ -88,6 +88,11 @@ Patch4: valgrind-3.16.0-some-Wl-z-now.patch
 # VALGRIND_3_25_BRANCH patches
 Patch5: 0001-Prepare-NEWS-for-branch-3.25.x-fixes.patch
 Patch6: 0002-Bug-503241-s390x-Support-z17-changes-to-the-NNPA-ins.patch
+Patch7: 0003-Add-several-missing-syscall-hooks-to-ppc64-linux.patch
+
+# Proposed upstream patches
+# https://bugs.kde.org/show_bug.cgi?id=508145
+Patch101: ppc64-strcmp-ld.patch
 
 BuildRequires: make
 BuildRequires: glibc-devel
@@ -270,6 +275,9 @@ Valgrind User Manual for details.
 
 %patch -P5 -p1
 %patch -P6 -p1
+%patch -P7 -p1
+
+%patch -P101 -p1
 
 %build
 # LTO triggers undefined symbols in valgrind.  But valgrind has a
@@ -509,6 +517,10 @@ echo ===============END TESTING===============
 %endif
 
 %changelog
+* Mon Aug 11 2025 Mark Wielaard <mjw@fedoraproject.org> - 3.25.1-4
+- Add ppc64-strcmp-ld.patch
+- Add 0003-Add-several-missing-syscall-hooks-to-ppc64-linux.patch
+
 * Tue Aug  5 2025 Mark Wielaard <mjw@fedoraproject.org> - 3.25.1-3
 - Add VALGRIND_3_25_BRANCH patches
   - 0001-Prepare-NEWS-for-branch-3.25.x-fixes.patch

@@ -8,7 +8,7 @@
 %bcond openh264 %{defined fedora}
 %bcond svtav1 %{defined fedora}
 # requires new webrtc-audio-processing-1
-%bcond webrtcdsp %[ %{defined fedora} || 0%{?rhel} >= 10 ]
+%bcond webrtc %[ %{defined fedora} || 0%{?rhel} >= 10 ]
 # The 1394 stack is not built on s390x
 # libldac is not built on s390x, see rhbz#1677491
 %ifnarch s390x
@@ -26,7 +26,7 @@
 
 Name:           gstreamer1-plugins-bad-free
 Version:        1.26.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GStreamer streaming media framework "bad" plugins
 
 # Automatically converted from old format: LGPLv2+ and LGPLv2 - review is highly recommended.
@@ -107,7 +107,8 @@ BuildRequires:  pkgconfig(openh264)
 %if %{with svtav1}
 BuildRequires:  pkgconfig(SvtAv1Enc)
 %endif
-%if %{with webrtcdsp}
+%if %{with webrtc}
+BuildRequires:  pkgconfig(webrtc-audio-coding-1)
 BuildRequires:  pkgconfig(webrtc-audio-processing-1)
 %endif
 %if %{with extras}
@@ -327,7 +328,8 @@ aren't tested well enough, or the code is not of good enough quality.
 %if %{without qsv}
     -D qsv=disabled \
 %endif
-%if %{without webrtcdsp}
+%if %{without webrtc}
+    -D isac=disabled \
     -D webrtcdsp=disabled \
 %endif
 %if %{without extras}
@@ -374,7 +376,6 @@ aren't tested well enough, or the code is not of good enough quality.
     -D faac=disabled \
     -D gs=disabled \
     -D iqa=disabled \
-    -D isac=disabled \
     -D lcevcdecoder=disabled \
     -D lcevcencoder=disabled \
     -D libde265=disabled \
@@ -650,7 +651,8 @@ EOF
 %if %{with svtav1}
 %{_libdir}/gstreamer-%{majorminor}/libgstsvtav1.so
 %endif
-%if %{with webrtcdsp}
+%if %{with webrtc}
+%{_libdir}/gstreamer-%{majorminor}/libgstisac.so
 %{_libdir}/gstreamer-%{majorminor}/libgstwebrtcdsp.so
 %endif
 %if %{with extras}
@@ -869,6 +871,9 @@ EOF
 
 
 %changelog
+* Tue Aug 12 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 1.26.5-2
+- Enable isac plugin
+
 * Fri Aug 08 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.26.5-1
 - 1.26.5
 

@@ -1,8 +1,8 @@
 %{!?qt6_qtwebengine_arches:%global qt6_qtwebengine_arches %{ix86} x86_64 %{arm} aarch64 mips mipsel mips64el}
 
 Name:           frescobaldi
-Version:        4.0.3
-Release:        3%{?dist}
+Version:        4.0.4
+Release:        1%{?dist}
 Summary:        Edit LilyPond sheet music with ease!
 
 # hyphenator.py is LGPL-2.0-or-later
@@ -99,6 +99,9 @@ cp frescobaldi/icons/org.frescobaldi.Frescobaldi.svg %{buildroot}%{_datadir}/ico
 %{_metainfodir}/*.metainfo.xml
 
 %changelog
+* Mon Aug 11 2025 Gwyn Ciesla <gwync@protonmail.com> - 4.0.4-1
+- 4.0.4
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

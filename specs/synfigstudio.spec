@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 Name:           synfigstudio
 Version:        1.5.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Vector-based 2D animation studio
 
 License:        GPL-2.0-or-later
@@ -10,6 +10,9 @@ Source0:        http://download.sourceforge.net/synfig/%{name}-%{version}.tar.gz
 # git clone, d4e547
 #Source0:        synfig-studio.tar.gz
 Patch1:         synfig-studio-m4_pattern_allow.patch
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires: make
 BuildRequires:  desktop-file-utils
@@ -98,6 +101,9 @@ desktop-file-install \
 
 
 %changelog
+* Mon Aug 11 2025 Jerry James <loganjerry@gmail.com> - 1.5.3-4
+- Stop building for 32-bit x86
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

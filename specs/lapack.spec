@@ -13,10 +13,10 @@
 Summary: Numerical linear algebra package libraries
 Name: lapack
 Version: %{mediumver}.0
-Release: 9%{?dist}
+Release: 10%{?dist}
 License: BSD-3-Clause-Open-MPI
 URL: http://www.netlib.org/lapack/
-Source0: https://github.com/Reference-LAPACK/lapack/archive/v%{mediumver}.0.tar.gz
+Source0: https://github.com/Reference-LAPACK/lapack/archive/v%{version}.tar.gz
 Source1: http://www.netlib.org/lapack/manpages.tgz
 Source4: http://www.netlib.org/lapack/lapackqref.ps
 Source5: http://www.netlib.org/blas/blasqr.ps
@@ -121,8 +121,8 @@ This build has 64bit INTEGER support and a symbol name suffix.
 %endif
 
 %prep
-%setup -q -n %{name}-%{mediumver}.0
-%setup -q -n %{name}-%{mediumver}.0 -D -T -a1
+%setup -q -n %{name}-%{version}
+%setup -q -n %{name}-%{version} -D -T -a1
 %patch -P0 -p1
 
 mkdir manpages
@@ -133,26 +133,26 @@ rm -rf manpages/man/man3/.*.3
 
 
 %build
-%global optflags %{optflags} -frecursive --no-optimize-sibling-calls
+%global common_flags -DCMAKE_SKIP_RPATH:BOOL=ON -DBUILD_DEPRECATED=ON -DLAPACKE=ON -DLAPACKE_WITH_TMG=ON -DCBLAS=ON
 
 # shared normal
-%cmake -DCMAKE_SKIP_RPATH:BOOL=ON -DBUILD_DEPRECATED=ON -DBUILD_SHARED_LIBS=ON -DLAPACKE=ON -DLAPACKE_WITH_TMG=ON -DCBLAS=ON
+%cmake %{common_flags} -DBUILD_SHARED_LIBS=ON
 %cmake_build
 mv %_vpath_builddir %_vpath_builddir-SHARED
 
 # static normal
-%cmake -DBUILD_DEPRECATED=ON -DBUILD_SHARED_LIBS=OFF -DLAPACKE=ON -DLAPACKE_WITH_TMG=ON -DCBLAS=ON
+%cmake %{common_flags} -DBUILD_SHARED_LIBS=OFF
 %cmake_build
 mv %_vpath_builddir %_vpath_builddir-STATIC
 
 %if 0%{?arch64}
 # shared 64
-%cmake -DCMAKE_SKIP_RPATH:BOOL=ON -DBUILD_DEPRECATED=ON -DBUILD_SHARED_LIBS=ON -DBUILD_INDEX64=ON -DLAPACKE=OFF -DCBLAS=ON
+%cmake %{common_flags} -DBUILD_SHARED_LIBS=ON -DBUILD_INDEX64=ON
 %cmake_build
 mv %_vpath_builddir %_vpath_builddir-SHARED64
 
 # static 64
-%cmake -DBUILD_DEPRECATED=ON -DBUILD_SHARED_LIBS=OFF -DBUILD_INDEX64=ON -DLAPACKE=OFF -DCBLAS=ON
+%cmake %{common_flags} -DBUILD_SHARED_LIBS=OFF -DBUILD_INDEX64=ON
 %cmake_build
 mv %_vpath_builddir %_vpath_builddir-STATIC64
 
@@ -161,39 +161,14 @@ mv %_vpath_builddir %_vpath_builddir-STATIC64
 
 # shared 64 SUFFIX
 sed -i 's|64"|64_"|g' CMakeLists.txt
-%cmake -DCMAKE_SKIP_RPATH:BOOL=ON -DBUILD_DEPRECATED=ON -DBUILD_SHARED_LIBS=ON -DBUILD_INDEX64=ON -DLAPACKE=OFF -DCBLAS=ON
+%cmake %{common_flags} -DBUILD_SHARED_LIBS=ON -DBUILD_INDEX64=ON
 %cmake_build
 mv %_vpath_builddir %_vpath_builddir-SHARED64SUFFIX
 
 # static 64 SUFFIX
-%cmake -DBUILD_DEPRECATED=ON -DBUILD_SHARED_LIBS=OFF -DBUILD_INDEX64=ON -DLAPACKE=OFF -DCBLAS=ON
+%cmake %{common_flags} -DBUILD_SHARED_LIBS=OFF -DBUILD_INDEX64=ON
 %cmake_build
 mv %_vpath_builddir %_vpath_builddir-STATIC64SUFFIX
-
-# Undo the 64_ suffix
-sed -i 's|64_"|64"|g' CMakeLists.txt
-%endif
-
-%global optflags %{optflags} -frecursive --no-optimize-sibling-calls -fPIC
-# static normal lapack FPIC
-%cmake -DBUILD_DEPRECATED=ON -DBUILD_SHARED_LIBS=OFF -DLAPACKE=OFF -DCBLAS=OFF
-%cmake_build
-mv %_vpath_builddir %_vpath_builddir-STATICFPIC
-mv %_vpath_builddir-STATICFPIC/lib/liblapack.a %_vpath_builddir-STATICFPIC/lib/liblapack_pic.a
-
-%if 0%{?arch64}
-# static 64 lapack FPIC
-%cmake -DBUILD_DEPRECATED=ON -DBUILD_SHARED_LIBS=OFF -DBUILD_INDEX64=ON -DLAPACKE=OFF -DCBLAS=OFF
-%cmake_build
-mv %_vpath_builddir %_vpath_builddir-STATIC64FPIC
-mv %_vpath_builddir-STATIC64FPIC/lib/liblapack64.a %_vpath_builddir-STATIC64FPIC/lib/liblapack_pic64.a
-
-# static 64 lapack suffix FPIC
-sed -i 's|64"|64_"|g' CMakeLists.txt
-%cmake -DBUILD_DEPRECATED=ON -DBUILD_SHARED_LIBS=OFF -DBUILD_INDEX64=ON -DLAPACKE=OFF -DCBLAS=OFF
-%cmake_build
-mv %_vpath_builddir %_vpath_builddir-STATIC64SUFFIXFPIC
-mv %_vpath_builddir-STATIC64SUFFIXFPIC/lib/liblapack64_.a %_vpath_builddir-STATIC64SUFFIXFPIC/lib/liblapack_pic64_.a
 
 # Undo the 64_ suffix
 sed -i 's|64_"|64"|g' CMakeLists.txt
@@ -221,26 +196,20 @@ for t in SHARED64SUFFIX STATIC64SUFFIX; do
 	%cmake_install
 	mv %_vpath_builddir %_vpath_builddir-$t
 done
-%endif
-
-install -m0644 %_vpath_builddir-STATICFPIC/lib/liblapack_pic.a %{buildroot}%{_libdir}
-%if 0%{?arch64}
-install -m0644 %_vpath_builddir-STATIC64FPIC/lib/liblapack_pic64.a %{buildroot}%{_libdir}
-install -m0644 %_vpath_builddir-STATIC64SUFFIXFPIC/lib/liblapack_pic64_.a %{buildroot}%{_libdir}
 
 pushd %{buildroot}%{_libdir}
-for name in blas cblas lapack; do
-	for i in `readelf -Ws lib${name}64_.so.%{version} | awk '{print $8}' | grep -v GLIBC |grep -v GFORTRAN |grep -v "Name" `; do echo "$i" "64_$i"; done > ${name}-prefix.def.dirty
-	sort -n ${name}-prefix.def.dirty | uniq > ${name}-prefix.def
-	objcopy --redefine-syms ${name}-prefix.def lib${name}64_.so.%{version} lib${name}64_.so.%{version}.fixed
+for name in blas cblas lapack lapacke; do
+	for i in `readelf -Ws lib${name}64_.so.%{version} | awk '{print $8}' | grep -v GLIBC |grep -v GFORTRAN |grep -v "Name" `; do echo "$i" "${i}64_"; done > ${name}-suffix.def.dirty
+	sort -n ${name}-suffix.def.dirty | uniq > ${name}-suffix.def
+	objcopy --redefine-syms ${name}-suffix.def lib${name}64_.so.%{version} lib${name}64_.so.%{version}.fixed
 	rm -rf lib${name}64_.so.%{version}
 	mv lib${name}64_.so.%{version}.fixed lib${name}64_.so.%{version}
 done
 
-for name in blas cblas lapack lapack_pic; do
-	for i in `nm lib${name}64_.a |grep " T " | awk '{print $3}'`; do echo "$i" "64_$i"; done > ${name}-static-prefix.def.dirty
-	sort -n ${name}-static-prefix.def.dirty | uniq > ${name}-static-prefix.def
-	objcopy --redefine-syms ${name}-static-prefix.def lib${name}64_.a lib${name}64_.a.fixed
+for name in blas cblas lapack lapacke; do
+	for i in `nm lib${name}64_.a |grep " T " | awk '{print $3}'`; do echo "$i" "${i}64_"; done > ${name}-static-suffix.def.dirty
+	sort -n ${name}-static-suffix.def.dirty | uniq > ${name}-static-suffix.def
+	objcopy --redefine-syms ${name}-static-suffix.def lib${name}64_.a lib${name}64_.a.fixed
 	rm -rf lib${name}64_.a
 	mv lib${name}64_.a.fixed lib${name}64_.a
 done
@@ -337,22 +306,32 @@ cp -f manpages/man/man3/* ${RPM_BUILD_ROOT}%{_mandir}/man3
 %{_libdir}/pkgconfig/lapacke.pc
 %if 0%{?arch64}
 %{_libdir}/liblapack64.so
-%{_libdir}/cmake/lapack64*
+%{_libdir}/liblapacke64.so
+%{_libdir}/libtmglib64.so
+%{_libdir}/cmake/lapack64-*
+%{_libdir}/cmake/lapacke64-*
 %{_libdir}/pkgconfig/lapack64.pc
+%{_libdir}/pkgconfig/lapacke64.pc
 %{_libdir}/liblapack64_.so
+%{_libdir}/liblapacke64_.so
+%{_libdir}/libtmglib64_.so
+%{_libdir}/cmake/lapack64_-*
+%{_libdir}/cmake/lapacke64_-*
 %{_libdir}/pkgconfig/lapack64_.pc
+%{_libdir}/pkgconfig/lapacke64_.pc
 %endif
 
 %files static
 %{_libdir}/liblapack.a
-%{_libdir}/liblapack_pic.a
 %{_libdir}/liblapacke.a
 %{_libdir}/libtmglib.a
 %if 0%{?arch64}
 %{_libdir}/liblapack64.a
-%{_libdir}/liblapack_pic64.a
 %{_libdir}/liblapack64_.a
-%{_libdir}/liblapack_pic64_.a
+%{_libdir}/liblapacke64.a
+%{_libdir}/liblapacke64_.a
+%{_libdir}/libtmglib64.a
+%{_libdir}/libtmglib64_.a
 %endif
 
 %files -n blas -f blasmans
@@ -398,6 +377,8 @@ cp -f manpages/man/man3/* ${RPM_BUILD_ROOT}%{_mandir}/man3
 %files -n lapack64
 %doc README.md LICENSE
 %{_libdir}/liblapack64.so.*
+%{_libdir}/liblapacke64.so.*
+%{_libdir}/libtmglib64.so.*
 
 %files -n blas64_
 %doc LICENSE
@@ -407,9 +388,16 @@ cp -f manpages/man/man3/* ${RPM_BUILD_ROOT}%{_mandir}/man3
 %files -n lapack64_
 %doc README.md LICENSE
 %{_libdir}/liblapack64_.so.*
+%{_libdir}/liblapacke64_.so.*
+%{_libdir}/libtmglib64_.so.*
 %endif
 
 %changelog
+* Thu Aug 07 2025 Iñaki Úcar <iucar@fedoraproject.org> - 3.12.0-10
+- Build 64-bit LAPACKE versions
+- Fix 64_ variants to provide suffixes instead of prefixes, as stated
+- Drop duplicated _pic libraries
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.12.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

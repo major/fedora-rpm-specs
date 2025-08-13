@@ -45,7 +45,6 @@ BuildRequires:  %py3_dist pytest
 BuildRequires:  %py3_dist pytest-mock
 BuildRequires:  %py3_dist pytest-xdist
 BuildRequires:  %py3_dist httpretty
-BuildRequires:  %py3_dist cachy
 BuildRequires:  %py3_dist deepdiff
 %endif
 

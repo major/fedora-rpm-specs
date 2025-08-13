@@ -6,8 +6,8 @@
 %endif
 
 Name:		perl-Specio
-Version:	0.51
-Release:	2%{?dist}
+Version:	0.52
+Release:	1%{?dist}
 Summary:	Type constraints and coercions for Perl
 # lib/Specio/PartialDump.pm:	GPL-1.0-or-later OR Artistic-1.0-Perl
 #				<https://github.com/houseabsolute/Specio/issues/17>
@@ -25,7 +25,6 @@ BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
 # Module Runtime
 BuildRequires:	perl(Carp)
 BuildRequires:	perl(Clone)
-BuildRequires:	perl(Clone::Choose)
 BuildRequires:	perl(Clone::PP)
 BuildRequires:	perl(Devel::StackTrace)
 BuildRequires:	perl(Eval::Closure)
@@ -59,7 +58,7 @@ BuildRequires:	perl(open)
 BuildRequires:	perl(Test::Needs)
 BuildRequires:	perl(utf8)
 %if %{with perl_Specio_enables_optional_test}
-# Optional Tests
+# Optional Tests (note: Moose/Mouse use DateTime and hence Specio in their test suites)
 BuildRequires:	perl(CPAN::Meta) >= 2.120900
 BuildRequires:	perl(CPAN::Meta::Prereqs)
 BuildRequires:	perl(Moo)
@@ -116,7 +115,8 @@ make test
 
 %files
 %license LICENSE
-%doc Changes CODE_OF_CONDUCT.md CONTRIBUTING.md README.md TODO.md
+%doc Changes CODE_OF_CONDUCT.md CONTRIBUTING.md GOVERNANCE.md README.md
+%doc SECURITY.md SUPPORT.md TODO.md
 %{perl_vendorlib}/Specio.pm
 %{perl_vendorlib}/Specio/
 %{_mandir}/man3/Specio.3*
@@ -164,6 +164,13 @@ make test
 %{_mandir}/man3/Test::Specio.3*
 
 %changelog
+* Mon Aug 11 2025 Paul Howarth <paul@city-fan.org> - 0.52-1
+- Update to 0.52
+  - Really made it possible to force Specio to use only pure Perl dependencies;
+    the changes in 0.51 were incomplete, so lots of places still loaded the
+    Clone (XS) module (GH#23)
+- Package new GOVERNANCE.md, SECURITY.md and SUPPORT.md files
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.51-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

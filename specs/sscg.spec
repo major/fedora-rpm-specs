@@ -11,7 +11,7 @@
 Name:           sscg
 Version:        3.0.8
 Release:        %autorelease
-Summary:        Simple SSL certificate generator
+Summary:        Simple Signed Certificate Generator
 
 License:        GPL-3.0-or-later WITH cryptsetup-OpenSSL-exception
 URL:            https://%{provider_prefix}

@@ -20,7 +20,7 @@ Patch:          nu-command-fix-metadata-auto.diff
 # * Update quick-xml from 0.32.0 to >=0.33.0,<0.38.0
 # * Update titlecase from 2.0 to 3.0
 # * Relax chrono-tz dependency to allow building with 0.8..=0.10
-# * allow rstest 0.23: https://github.com/nushell/nushell/pull/14350
+# * update rstest to 0.26: https://github.com/nushell/nushell/pull/16359
 # * allow procfs 0.17 and which 7,
 #   https://github.com/nushell/nushell/pull/14489, and which 8,
 #   https://github.com/nushell/nushell/pull/16045

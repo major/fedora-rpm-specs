@@ -2,7 +2,7 @@
 # package version, as a reminder of the need to rebuild dependent packages on
 # every update. See additional notes near the downstream ABI versioning patch.
 # It should be 0.MAJOR.MINOR without leading zeros, e.g. 22.03 → 0.22.3.
-%global downstream_so_version 0.25.5
+%global downstream_so_version 0.25.8
 
 %bcond alembic       1
 %bcond draco         1
@@ -27,7 +27,7 @@
 %bcond test          0
 
 Name:           usd
-Version:        25.05.01
+Version:        25.08
 Release:        %autorelease
 Summary:        3D VFX pipeline interchange file format
 
@@ -126,12 +126,17 @@ Source1:        org.openusd.usdview.desktop
 # built with -DPXR_BUILD_EXAMPLES=OFF, but it is.)
 Patch:          0001-Downstream-only-add-an-SONAME-version.patch
 
-# Port to Embree 4.x
-# https://github.com/PixarAnimationStudios/OpenUSD/pull/2266
-# See also:
 # hdEmbree: add support for building against embree4
 # https://github.com/PixarAnimationStudios/USD/pull/2313
-Patch:          %{forgeurl}/pull/2266.patch
+Patch:          %{forgeurl}/pull/2313.patch
+
+# Downstream-only: use Valgrind macro instead of inline assembly
+#
+# Upstream already has a plan to make this change, but is waiting to be
+# able to add a build dependency on valgrind-devel. We have no such
+# obstacle, and this change fixes the inline assembly failing to compile
+# on aarch64.
+Patch:          0001-Downstream-only-use-Valgrind-macro-instead-of-inline.patch
 
 # Downstream-only: use the system double-conversion library
 Patch:          0001-Downstream-only-use-the-system-double-conversion-lib.patch
@@ -174,6 +179,9 @@ BuildRequires:  pkgconfig(libdeflate)
 BuildRequires:  pkgconfig(libavif)
 
 BuildRequires:  cmake(Imath) >= 3.0
+
+# Introduced by 0001-Downstream-only-use-Valgrind-macro-instead-of-inline.patch
+BuildRequires:  valgrind-devel
 
 %if %{with alembic}
 BuildRequires:  cmake(Alembic)
@@ -552,6 +560,7 @@ extra_flags="${extra_flags-} -DTBB_SUPPRESS_DEPRECATED_MESSAGES=1"
      -DPXR_BUILD_TESTS=%{expr:%{with test}?"ON":"OFF"} \
      -DPXR_BUILD_TUTORIALS=OFF \
      -DPXR_BUILD_USD_IMAGING=ON \
+     -DPXR_BUILD_EXEC=ON \
      -DPXR_BUILD_USD_TOOLS=ON \
      -DPXR_BUILD_USDVIEW=%{expr:%{with usdview}?"ON":"OFF"} \
      \
@@ -585,6 +594,10 @@ extra_flags="${extra_flags-} -DTBB_SUPPRESS_DEPRECATED_MESSAGES=1"
 # Fix python3 files installation
 mkdir -p %{buildroot}%{python3_sitearch}
 mv %{buildroot}%{python3_sitelib}/* %{buildroot}%{python3_sitearch}
+
+# Upstream may expect to use this as a script in development, but we install it
+# without executable permissions, so we remove the shebang.
+sed -r -i '1{/^#!/d}' '%{buildroot}%{python3_sitearch}/pxr/Usd/usdGenSchema.py'
 
 %if %{with usdview}
 # Install a desktop icon for usdview

@@ -45,11 +45,11 @@ URL: https://www.python.org/
 
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
-%global general_version %{pybasever}.5
+%global general_version %{pybasever}.6
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 4%{?dist}
+Release: 1%{?dist}
 License: Python-2.0.1
 
 
@@ -109,31 +109,30 @@ License: Python-2.0.1
 # This needs to be manually updated when we update Python.
 # Explore the sources tarball (you need the version before %%prep is executed):
 #  $ tar -tf Python-%%{upstream_version}.tar.xz | grep whl
-%global pip_version 25.1.1
+%global pip_version 25.2
 %global setuptools_version 79.0.1
 # All of those also include a list of indirect bundled libs:
 # pip
 #  $ %%{_rpmconfigdir}/pythonbundles.py <(unzip -p Lib/ensurepip/_bundled/pip-*.whl pip/_vendor/vendor.txt)
 %global pip_bundled_provides %{expand:
-Provides: bundled(python3dist(cachecontrol)) = 0.14.2
-Provides: bundled(python3dist(certifi)) = 2025.1.31
+Provides: bundled(python3dist(cachecontrol)) = 0.14.3
+Provides: bundled(python3dist(certifi)) = 2025.7.14
 Provides: bundled(python3dist(dependency-groups)) = 1.3.1
-Provides: bundled(python3dist(distlib)) = 0.3.9
+Provides: bundled(python3dist(distlib)) = 0.4
 Provides: bundled(python3dist(distro)) = 1.9
 Provides: bundled(python3dist(idna)) = 3.10
-Provides: bundled(python3dist(msgpack)) = 1.1
+Provides: bundled(python3dist(msgpack)) = 1.1.1
 Provides: bundled(python3dist(packaging)) = 25
-Provides: bundled(python3dist(platformdirs)) = 4.3.7
-Provides: bundled(python3dist(pygments)) = 2.19.1
+Provides: bundled(python3dist(platformdirs)) = 4.3.8
+Provides: bundled(python3dist(pygments)) = 2.19.2
 Provides: bundled(python3dist(pyproject-hooks)) = 1.2
-Provides: bundled(python3dist(requests)) = 2.32.3
-Provides: bundled(python3dist(resolvelib)) = 1.1
-Provides: bundled(python3dist(rich)) = 14
+Provides: bundled(python3dist(requests)) = 2.32.4
+Provides: bundled(python3dist(resolvelib)) = 1.2
+Provides: bundled(python3dist(rich)) = 14.1
 Provides: bundled(python3dist(setuptools)) = 70.3
 Provides: bundled(python3dist(tomli)) = 2.2.1
 Provides: bundled(python3dist(tomli-w)) = 1.2
 Provides: bundled(python3dist(truststore)) = 0.10.1
-Provides: bundled(python3dist(typing-extensions)) = 4.13.2
 Provides: bundled(python3dist(urllib3)) = 1.26.20
 }
 # setuptools
@@ -398,10 +397,6 @@ Patch464: 00464-enable-pac-and-bti-protections-for-aarch64.patch
 # in the conditionalized skip to a release available in CentOS Stream 10,
 # which is tested as working.
 Patch466: 00466-downstream-only-skip-tests-not-working-with-older-expat-version.patch
-
-# 00467 # e4a33ed8bbb729606c58ba1e80bac5cfedf29147
-# gh-130577: tarfile now validates archives to ensure member offsets are non-negative
-Patch467: 00467-CVE-2025-8194.patch
 
 # (New patches go here ^^^)
 #
@@ -1744,6 +1739,9 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Thu Aug 07 2025 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.13.5-5
+- Update to 3.13.6
+
 * Mon Jul 28 2025 Miro Hrončok <mhroncok@redhat.com> - 3.13.5-4
 - Fix CVE-2025-8194: Tarfile infinite loop during parsing with negative member offset
 

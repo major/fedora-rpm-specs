@@ -1,9 +1,9 @@
 # https://fedoraproject.org/wiki/Packaging:Haskell
 
-%global Agda_version 2.7.0.1
+%global Agda_version 2.8.0
 
 Name:           Agda-stdlib
-Version:        2.1.1
+Version:        2.3
 Release:        %autorelease
 Summary:        Agda standard libraries
 

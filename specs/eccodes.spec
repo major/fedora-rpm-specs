@@ -4,7 +4,7 @@
 
 Name:           eccodes
 Version:        2.42.0
-Release:        3%{?dist}
+Release:        5%{?dist}
 Summary:        WMO data format decoding and encoding
 
 # force the shared libraries to have these so versions
@@ -52,9 +52,6 @@ Source1:        https://get.ecmwf.int/repository/test-data/eccodes/eccodes_test_
 # a custom script to create man pages
 Source2:        eccodes_create_man_pages.sh
 
-# a custom script to undo directory to symbolic-link changes
-Source3:        eccodes_revert_directory_to_symlink_changes.py
-
 # Add soversion to the shared libraries, since upstream refuses to do so
 # https://jira.ecmwf.int/browse/SUP-1809
 Patch1:         eccodes-soversion.patch
@@ -80,9 +77,6 @@ BuildRequires:  perl(File::Compare)
 
 # For creation of man pages
 BuildRequires:  help2man
-
-# For undoing the directory-to-symlink rename in the data package
-BuildRequires:  python3
 
 # The data is needed by the library and all tools provided in the main package.
 # The other way around, the data package could be installed without
@@ -175,6 +169,74 @@ both the official WMO tables and a number of often used
 local definitions by ECMWF and other meteorological centers.
 
 #####################################################
+# include a LUA scriptlet as suggested on:
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Directory_Replacement/
+# to assist in replacing a directory by a symlink
+
+%pretrans -n eccodes-data -p <lua>
+
+-- This should solve a problem where directories were replaced
+-- by symbolic links when upgrading eccodes from 2.41.0 to 2.42.0
+
+problematic_dirs = {
+    "/usr/share/eccodes/definitions/bufr/tables/0/local/8/78/1",
+    "/usr/share/eccodes/definitions/bufr/tables/0/local/8/78/110",
+    "/usr/share/eccodes/definitions/bufr/tables/0/local/8/78/174",
+    "/usr/share/eccodes/definitions/bufr/tables/0/local/8/78/2",
+    "/usr/share/eccodes/definitions/bufr/tables/0/local/8/78/20",
+    "/usr/share/eccodes/definitions/bufr/tables/0/local/8/78/21",
+    "/usr/share/eccodes/definitions/bufr/tables/0/local/8/78/221",
+    "/usr/share/eccodes/definitions/bufr/tables/0/local/8/78/222",
+    "/usr/share/eccodes/definitions/bufr/tables/0/local/8/78/223",
+    "/usr/share/eccodes/definitions/bufr/tables/0/local/8/78/225",
+    "/usr/share/eccodes/definitions/bufr/tables/0/local/8/78/226",
+    "/usr/share/eccodes/definitions/bufr/tables/0/local/8/78/227",
+    "/usr/share/eccodes/definitions/bufr/tables/0/local/8/78/228",
+    "/usr/share/eccodes/definitions/bufr/tables/0/local/8/78/229",
+    "/usr/share/eccodes/definitions/bufr/tables/0/local/8/78/230",
+    "/usr/share/eccodes/definitions/bufr/tables/0/local/8/78/231",
+    "/usr/share/eccodes/definitions/bufr/tables/0/local/8/78/232",
+    "/usr/share/eccodes/definitions/bufr/tables/0/local/8/78/233",
+    "/usr/share/eccodes/definitions/bufr/tables/0/local/8/78/234",
+    "/usr/share/eccodes/definitions/bufr/tables/0/local/8/78/235",
+    "/usr/share/eccodes/definitions/bufr/tables/0/local/8/78/236",
+    "/usr/share/eccodes/definitions/bufr/tables/0/local/8/78/237",
+    "/usr/share/eccodes/definitions/bufr/tables/0/local/8/78/31",
+    "/usr/share/eccodes/definitions/bufr/tables/0/local/8/78/41",
+    "/usr/share/eccodes/definitions/bufr/tables/0/local/8/78/42",
+    "/usr/share/eccodes/definitions/bufr/tables/0/local/8/78/64",
+    "/usr/share/eccodes/definitions/bufr/tables/0/wmo/10",
+    "/usr/share/eccodes/definitions/bufr/tables/0/wmo/11",
+    "/usr/share/eccodes/definitions/bufr/tables/0/wmo/12",
+    "/usr/share/eccodes/definitions/bufr/tables/0/wmo/7",
+    "/usr/share/eccodes/definitions/bufr/tables/0/wmo/8",
+    "/usr/share/eccodes/definitions/bufr/tables/0/wmo/9"}
+
+for index, path in ipairs(problematic_dirs) do
+  print("handling path:" .. index .. ":" .. path)
+  st = posix.stat(path)
+  if st and st.type == "directory" then
+    status = os.rename(path, path .. ".rpmmoved")
+    if status then
+      print("renamed:" .. path .. " to " .. path .. ".rpmmoved")
+    end
+    if not status then
+      suffix = 0
+      while not status do
+        suffix = suffix + 1
+        status = os.rename(path .. ".rpmmoved", path .. ".rpmmoved." .. suffix)
+        if status then
+          print("renamed:" .. path .. ".rpmmoved to " .. path .. ".rpmmoved." .. suffix)
+	end
+      end
+      os.rename(path, path .. ".rpmmoved")
+      print("renamed:" .. path .. " to " .. path .. ".rpmmoved")
+    end
+  end
+end
+
+--#####################################################
+
 %package doc
 Summary:    Documentation and example code
 BuildArch:  noarch
@@ -257,10 +319,6 @@ cp fortran/grib_api_constants.h %{_vpath_builddir}/fortran/
 %cmake_install
 mkdir -p %{buildroot}%{_fmoddir}
 mv %{buildroot}%{_includedir}/*.mod %{buildroot}%{_fmoddir}/
-
-# undo a change from directories to symbolic links in the data package
-# since the rpm tool cannot handle upgrades if this happens.
-%{python3} %{SOURCE3} %{buildroot}%{_datadir}/%{name}
 
 # remove a script that does not belong in the doc section
 # and triggers an rpmlint error
@@ -363,11 +421,53 @@ ctest3 -V %{?_smp_mflags}
 %{_datadir}/%{name}/definitions/
 %{_datadir}/%{name}/samples/
 %{_datadir}/%{name}/ifs_samples/
+%ghost %{_datadir}/%{name}/definitions/bufr/tables/0/local/8/78/1.rpmmoved
+%ghost %{_datadir}/%{name}/definitions/bufr/tables/0/local/8/78/110.rpmmoved
+%ghost %{_datadir}/%{name}/definitions/bufr/tables/0/local/8/78/174.rpmmoved
+%ghost %{_datadir}/%{name}/definitions/bufr/tables/0/local/8/78/2.rpmmoved
+%ghost %{_datadir}/%{name}/definitions/bufr/tables/0/local/8/78/20.rpmmoved
+%ghost %{_datadir}/%{name}/definitions/bufr/tables/0/local/8/78/21.rpmmoved
+%ghost %{_datadir}/%{name}/definitions/bufr/tables/0/local/8/78/221.rpmmoved
+%ghost %{_datadir}/%{name}/definitions/bufr/tables/0/local/8/78/222.rpmmoved
+%ghost %{_datadir}/%{name}/definitions/bufr/tables/0/local/8/78/223.rpmmoved
+%ghost %{_datadir}/%{name}/definitions/bufr/tables/0/local/8/78/225.rpmmoved
+%ghost %{_datadir}/%{name}/definitions/bufr/tables/0/local/8/78/226.rpmmoved
+%ghost %{_datadir}/%{name}/definitions/bufr/tables/0/local/8/78/227.rpmmoved
+%ghost %{_datadir}/%{name}/definitions/bufr/tables/0/local/8/78/228.rpmmoved
+%ghost %{_datadir}/%{name}/definitions/bufr/tables/0/local/8/78/229.rpmmoved
+%ghost %{_datadir}/%{name}/definitions/bufr/tables/0/local/8/78/230.rpmmoved
+%ghost %{_datadir}/%{name}/definitions/bufr/tables/0/local/8/78/231.rpmmoved
+%ghost %{_datadir}/%{name}/definitions/bufr/tables/0/local/8/78/232.rpmmoved
+%ghost %{_datadir}/%{name}/definitions/bufr/tables/0/local/8/78/233.rpmmoved
+%ghost %{_datadir}/%{name}/definitions/bufr/tables/0/local/8/78/234.rpmmoved
+%ghost %{_datadir}/%{name}/definitions/bufr/tables/0/local/8/78/235.rpmmoved
+%ghost %{_datadir}/%{name}/definitions/bufr/tables/0/local/8/78/236.rpmmoved
+%ghost %{_datadir}/%{name}/definitions/bufr/tables/0/local/8/78/237.rpmmoved
+%ghost %{_datadir}/%{name}/definitions/bufr/tables/0/local/8/78/31.rpmmoved
+%ghost %{_datadir}/%{name}/definitions/bufr/tables/0/local/8/78/41.rpmmoved
+%ghost %{_datadir}/%{name}/definitions/bufr/tables/0/local/8/78/42.rpmmoved
+%ghost %{_datadir}/%{name}/definitions/bufr/tables/0/local/8/78/64.rpmmoved
+%ghost %{_datadir}/%{name}/definitions/bufr/tables/0/wmo/10.rpmmoved
+%ghost %{_datadir}/%{name}/definitions/bufr/tables/0/wmo/11.rpmmoved
+%ghost %{_datadir}/%{name}/definitions/bufr/tables/0/wmo/12.rpmmoved
+%ghost %{_datadir}/%{name}/definitions/bufr/tables/0/wmo/7.rpmmoved
+%ghost %{_datadir}/%{name}/definitions/bufr/tables/0/wmo/8.rpmmoved
+%ghost %{_datadir}/%{name}/definitions/bufr/tables/0/wmo/9.rpmmoved
 
 %files doc
 %doc %{_datadir}/doc/%{name}/
 
 %changelog
+
+* Mon Aug 11 2025 Jos de Kloe <josdekloe@gmail.com> - 2.42.0-5
+- Forgot to update the changelog date for the previous commit, so fixed this
+  with this update.
+- Also fix a typo in the ghost definitions.
+
+* Mon Aug 11 2025 Jos de Kloe <josdekloe@gmail.com> - 2.42.0-4
+- Add a LUA script in a pretrans section to assist in replacing a directory
+  by a symlink (this removes the need for the python script added in
+  the previous commit)
 
 * Wed Jul 30 2025 Jos de Kloe <josdekloe@gmail.com> - 2.42.0-3
 - Add calling a little python script in the install stage to revert

@@ -13,13 +13,17 @@ Name:           jss
 # Downstream release number:
 # - development/stabilization (unsupported): 0.<n> where n >= 1
 # - GA/update (supported): <n> where n >= 1
-%global         release_number 0.3
+%global         release_number 0.4
 
 # Development phase:
 # - development (unsupported): alpha<n> where n >= 1
 # - stabilization (unsupported): beta<n> where n >= 1
 # - GA/update (supported): <none>
-%global         phase beta3
+%global         phase beta4
+
+%if 0%{?rhel} && 0%{?rhel} >= 10
+%global enable_nss_version_pqc_def_flag -DENABLE_NSS_VERSION_PQC_DEF=ON
+%endif
 
 %undefine       timestamp
 %undefine       commit_id
@@ -28,7 +32,7 @@ Summary:        Java Security Services (JSS)
 URL:            https://github.com/dogtagpki/jss
 License:        (MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.1-or-later) AND Apache-2.0
 Version:        %{major_version}.%{minor_version}.%{update_version}
-Release:        %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}.3
+Release:        %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}.1
 
 # To generate the source tarball:
 # $ git clone https://github.com/dogtagpki/jss.git
@@ -61,12 +65,12 @@ ExcludeArch: i686
 
 # maven-local is a subpackage of javapackages-tools
 
-%if 0%{?fedora} && 0%{?fedora} <= 39 || 0%{?rhel} && 0%{?rhel} <= 9
+%if 0%{?fedora} && 0%{?fedora} >= 43
 
-%define java_devel java-17-openjdk-devel
-%define java_headless java-17-openjdk-headless
-%define java_home %{_jvmdir}/jre-17-openjdk
-%define maven_local maven-local-openjdk17
+%define java_devel java-25-openjdk-devel
+%define java_headless java-25-openjdk-headless
+%define java_home %{_jvmdir}/jre-25-openjdk
+%define maven_local maven-local-openjdk25
 
 %else
 
@@ -149,14 +153,14 @@ This only works with gcj. Other JREs require that JCE providers be signed.
 Summary:        Java Security Services (JSS) Connector for Tomcat
 
 # Tomcat
-BuildRequires:  mvn(org.apache.tomcat:tomcat-catalina) >= 10.1.43
-BuildRequires:  mvn(org.apache.tomcat:tomcat-coyote) >= 10.1.43
-BuildRequires:  mvn(org.apache.tomcat:tomcat-juli) >= 10.1.43
+BuildRequires:  mvn(org.apache.tomcat:tomcat-catalina) >= 10.1.36
+BuildRequires:  mvn(org.apache.tomcat:tomcat-coyote) >= 10.1.36
+BuildRequires:  mvn(org.apache.tomcat:tomcat-juli) >= 10.1.36
 
 Requires:       %{product_id} = %{version}-%{release}
-Requires:       mvn(org.apache.tomcat:tomcat-catalina) >= 10.1.43
-Requires:       mvn(org.apache.tomcat:tomcat-coyote) >= 10.1.43
-Requires:       mvn(org.apache.tomcat:tomcat-juli) >= 10.1.43
+Requires:       mvn(org.apache.tomcat:tomcat-catalina) >= 10.1.36
+Requires:       mvn(org.apache.tomcat:tomcat-coyote) >= 10.1.36 
+Requires:       mvn(org.apache.tomcat:tomcat-juli) >= 10.1.36
 
 # Tomcat JSS has been replaced with JSS Connector for Tomcat.
 # This will remove installed Tomcat JSS packages.
@@ -393,11 +397,8 @@ cp base/target/jss-tests.jar %{buildroot}%{_datadir}/jss/tests/lib
 
 ################################################################################
 %changelog
-* Wed Jul 30 2025 jiri vanek <jvanek@redhat.com> - 5.8.0-0.3.beta3.3
-- Rrevert to jdk21
-
-* Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 5.8.0-0.3.beta3.2
-- Rebuilt for java-25-openjdk as preffered jdk
+* Mon Aug 11 2025 Dogtag PKI Team <devel@lists.dogtagpki.org> 5.8.0.4
+- Rebase to JSS 5.8.0-beta4
 
 * Mon Jul 28 2025 Dogtag PKI Team <devel@lists.dogtagpki.org> 5.8.0.3
 - Rebase to JSS 5.8.0-beta3

@@ -14,7 +14,7 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/vergen
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * bump gix dependency from 0.63 to 0.70
+# * update gix dependency to 0.73
 Patch:          vergen-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

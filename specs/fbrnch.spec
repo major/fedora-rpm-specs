@@ -12,7 +12,7 @@
 Name:           fbrnch
 Version:        1.7.1
 # can only be reset when all subpkgs bumped
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Fedora packager tool to build package branches
 
 # copr-api: GPLv3+
@@ -205,6 +205,9 @@ help2man --no-info %{buildroot}%{_bindir}/%{name} > %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Mon Aug 11 2025 Jens Petersen <petersen@redhat.com> - 1.7.1-33
+- Rebuild
+
 * Wed Jul 30 2025 Jens Petersen <petersen@redhat.com> - 1.7.1-32
 - rebuild for http-streams update to new f43 cert ca-bundle path
 

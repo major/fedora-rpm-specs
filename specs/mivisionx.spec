@@ -22,7 +22,7 @@
 
 Name:           mivisionx
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        AMD's computer vision toolkit
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT AND Apache-2.0 AND MIT-Khronos-old AND GPL-3.0-or-later
@@ -52,7 +52,9 @@ BuildRequires:  hipcc
 # BuildRequires:  ffmpeg-free-devel
 BuildRequires:  libavcodec-free-devel
 BuildRequires:  libavformat-free-devel
+%if 0%{?fedora}
 BuildRequires:  mesa-va-drivers
+%endif
 BuildRequires:  miopen-devel
 BuildRequires:  opencv-devel
 BuildRequires:  rocblas-devel
@@ -156,6 +158,9 @@ rm -rf %{buildroot}%{_datadir}/%{name}/test
 %{_libdir}/libvxu.so
 
 %changelog
+* Mon Aug 11 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-4
+- mesa-va-drivers are not on RHEL
+
 * Wed Jul 30 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-3
 - Remove -mtls-dialect cflag
 

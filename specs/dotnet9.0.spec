@@ -39,14 +39,6 @@
 %global use_bundled_rapidjson 1
 %endif
 
-%if 0%{?fedora} || 0%{?rhel} < 8
-%global use_bundled_libunwind 0
-%endif
-
-%ifarch aarch64 ppc64le s390x
-%global use_bundled_libunwind 1
-%endif
-
 %ifarch aarch64
 %global runtime_arch arm64
 %endif

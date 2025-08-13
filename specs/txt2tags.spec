@@ -1,7 +1,7 @@
 Name:    txt2tags
 Summary: Summary: Converts text files to HTML, XHTML, LaTeX, and other formats
 Version: 3.3
-Release: 20%{?dist}
+Release: 21%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
 URL:     http://txt2tags.sourceforge.net/
@@ -12,7 +12,6 @@ Source0: https://github.com/jendrikseipp/txt2tags/archive/%{version}.tar.gz
 BuildArch: noarch
 
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
 Requires:      python3
 
 %description
@@ -36,21 +35,28 @@ Txt2tags is a document generator. It reads a text file with minimal markup as
 %prep
 %setup -q
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%{py3_build}
+%{pyproject_wheel}
 
 %install
-%{py3_install}
+%{pyproject_install}
+%pyproject_save_files -l %{name}
 
-%files
+%check
+%pyproject_check_import
+
+%files -f %{pyproject_files}
 %doc CHANGELOG.md README.md
-%license COPYING
 %{_bindir}/txt2tags
-%{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info
-%{python3_sitelib}/%{name}.py
-%{python3_sitelib}/__pycache__/%{name}*
 
 %changelog
+* Mon Aug 11 2025 Miro Hrončok <mhroncok@redhat.com> - 3.3-21
+- Convert to pyproject RPM macros
+- Fixes: rhbz#2378484
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

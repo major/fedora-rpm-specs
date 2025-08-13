@@ -54,7 +54,7 @@
 %global source_directory 1.45-development
 
 Name:           nbdkit
-Version:        1.45.3
+Version:        1.45.4
 Release:        1%{?dist}
 Summary:        NBD server
 
@@ -85,10 +85,6 @@ Source5:        nbdkit-find-provides
 Source6:        %{modulename}.te
 Source7:        %{modulename}.if
 Source8:        %{modulename}.fc
-
-# Fix for test.
-# Upstream in 8aef52989c6e4cc5f3e40189d426c1f2ddf13862.
-Patch:          0001-tests-test-at-file.sh-Fix-srcdir-builddir.patch
 
 # For applying the patches:
 BuildRequires:  git
@@ -1548,6 +1544,9 @@ fi
 
 
 %changelog
+* Mon Aug 11 2025 Richard W.M. Jones <rjones@redhat.com> - 1.45.4-1
+- New upstream version 1.45.4
+
 * Tue Jul 29 2025 Richard W.M. Jones <rjones@redhat.com> - 1.45.3-1
 - New upstream version 1.45.3
 

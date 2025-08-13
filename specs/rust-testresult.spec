@@ -13,7 +13,7 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/testresult
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * bump rstest to version packaged in Fedora
+# * Update rstest to 0.26: https://github.com/wiktor-k/testresult/pull/17
 Patch:          testresult-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

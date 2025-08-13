@@ -1,5 +1,5 @@
-%global commit 660795b2834aebb2217c9849d668b6e4bd4ef810
-%global snapdate 20241216
+%global commit 80bc8919291e4751edfb4e541363c0f30a7cc6a6
+%global snapdate 20250722
 
 Name:           dr_libs
 # While the individual header-only libraries are versioned, the overall
@@ -15,96 +15,19 @@ Summary:        Single-file audio decoding libraries for C/C++
 URL:            https://github.com/mackron/dr_libs
 # See LICENSE.
 License:        Unlicense OR MIT-0
-# Additionally, the following are under different terms, but are not used; to
-# make certain, they are removed in %%prep.
-#   - old/*.h are Unlicense (only)
-#
-# The test file sintel_trailer-audio.flac, Source125, is CC-BY-3.0.
-SourceLicense:  (%{license}) AND Unlicense AND CC-BY-3.0
 
-%global dr_flac_version 0.12.43
-%global dr_mp3_version 0.6.40
-%global dr_wav_version 0.13.17
+%global dr_flac_version 0.13.0
+%global dr_mp3_version 0.7.0
+%global dr_wav_version 0.14.0
 
-Source0:        %{url}/archive/%{commit}/dr_libs-%{commit}.tar.gz
-# Upstream does not provide a build system for the tests. We have written a
-# downstream Makefile that builds and runs all but the “playback” tests. (We do
-# not want to handle those, since they requires sound hardware on the build
-# host, and also require an additional “minaudio” dependency.)
-Source1:        Makefile
+Source:        %{url}/archive/%{commit}/dr_libs-%{commit}.tar.gz
 
-# Upstream instructs that the FLAC library should be tested with the FLAC files
-# from https://media.xiph.org/. Normally, we would like to test the code the
-# same way upstream recommends, but there are some reasons not to:
-#
-#   • There is not a single-file archive for these, so we would have a number
-#     of individual sources. This is annoying but workable.
-#   • These files are HUGE—over 2GiB in total—yet not particularly designed to
-#     exercise a large variety of decoder feeatures. The limited benefit of
-#     packaging them all in the source RPM does not seem worth the cost in
-#     storage and bandwidth.
-#
-# We compromise by picking only the single smallest FLAC to test. The Source#:
-# declarations for the remaining FLAC files and archives of FLAC files are
-# preserved as comments below.
-#
-# Note that none of the FLAC files used for testing are installed, so their
-# licenses do not affect the License field.
-
-# From short film “Elephant’s Dream”, CC-BY-2.5:
-#   https://media.xiph.org/ED/readme.txt
-#   https://media.xiph.org/ED/ED-CM-readme.txt
-# Having the README in the SRPM ensures we satisfy CC-BY-2.5.
-#Source100:      https://media.xiph.org/ED/EC-CM-readme.txt
-#Source101:      https://media.xiph.org/ED/ED-CM-5.1-DVD-C.flac
-#Source102:      https://media.xiph.org/ED/ED-CM-5.1-DVD-L.flac
-#Source103:      https://media.xiph.org/ED/ED-CM-5.1-DVD-LFE.flac
-#Source104:      https://media.xiph.org/ED/ED-CM-5.1-DVD-LS.flac
-#Source105:      https://media.xiph.org/ED/ED-CM-5.1-DVD-R.flac
-#Source106:      https://media.xiph.org/ED/ED-CM-5.1-DVD-RS.flac
-#Source107:      https://media.xiph.org/ED/ED-CM-5.1-DVD.flac
-#Source108:      https://media.xiph.org/ED/ED-CM-St-16bit.flac
-
-# From short film “Big Buck Bunny”, CC-BY-3.0:
-#   https://peach.blender.org/about/
-#   https://media.xiph.org/BBB/bbb3d/README.txt
-# Having the README in the SRPM ensures we satisfy CC-BY-3.0.
-#Source110:      https://media.xiph.org/BBB/bbb3d/README.txt#/BBB-README.txt
-#Source111:      https://media.xiph.org/BBB/BigBuckBunny-DVDMaster-5_1-FLAC.zip
-#Source112:      https://media.xiph.org/BBB/BigBuckBunny-stereo.flac
-#Source113:      https://media.xiph.org/BBB/BigBuckBunny-surround.flac
-#Source114:      https://media.xiph.org/BBB/bbb3d/audio/bbb3d_sunflower_soundtrack_surround.flac
-
-# From short film “Sintel”, CC-BY-3.0:
-#   https://durian.blender.org/about/
-#   https://media.xiph.org/sintel/README.txt
-# Having the README in the SRPM ensures we satisfy CC-BY-3.0.
-Source120:      https://media.xiph.org/sintel/README.txt#/sintel-README.txt
-#Source121:      https://media.xiph.org/sintel/Jan_Morgenstern-Sintel-FLAC.zip
-#Source122:      https://media.xiph.org/sintel/sintel-master-51-flac.zip
-#Source123:      https://media.xiph.org/sintel/sintel-master-51.flac
-#Source124:      https://media.xiph.org/sintel/sintel-master-st.flac
-Source125:      https://media.xiph.org/sintel/sintel_trailer-audio.flac
-
-# From short film “Tears of Steel”, CC-BY-3.0:
-#   https://media.xiph.org/tearsofsteel/README.txt
-# Having the README in the SRPM ensures we satisfy CC-BY-3.0.
-#Source130:      https://media.xiph.org/tearsofsteel/README.txt#/tearsofsteel-README.txt
-#Source131:      https://media.xiph.org/tearsofsteel/tearsofsteel-stereo.flac
-#Source132:      https://media.xiph.org/tearsofsteel/tearsofsteel-surround.flac
-
-# From short film “Cosmos Laundromat”, CC-BY-SA-4.0:
-#   https://media.xiph.org/cosmoslaundromat/README.txt
-# Having the README in the SRPM ensures we satisfy CC-BY-SA-4.0.
-#Source140:      https://media.xiph.org/cosmoslaundromat/README.txt#/cosmoslaundromat-README.txt
-#Source141:      https://media.xiph.org/cosmoslaundromat/Cosmos_Laundromat_1.flac
+BuildRequires:  cmake
+BuildRequires:  gcc-c++
 
 # For tests:
-BuildRequires:  make
-BuildRequires:  gcc
-BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig(flac)
-BuildRequires:  pkgconfig(sndfile)
+BuildRequires:  libsndfile-devel
 
 # No compiled binaries are installed, so this would be empty.
 %global debug_package %{nil}
@@ -185,59 +108,37 @@ Documentation for dr_libs.
 %prep
 %autosetup -n dr_libs-%{commit}
 
-cp -p '%{SOURCE1}' tests/
+# Omit the "playback" tests. We cannot run these anyway, so we would hae to
+# skip them, and by not even compiling them, we can avoid a BuildRequires on
+# miniaudio.
+sed -r -i 's/^([[:blank:]]*)(.*_playback)/\1# \2/' CMakeLists.txt
 
-# Remove some unused parts of the source tree that could contribute different
-# (but acceptable) license terms if they were used—just to prove that we do not
-# use them.
-rm -rvf old
+mkdir -p tests/testvectors/mp3/tests
 
-flacdir='tests/testvectors/flac/tests'
-mkdir -p "${flacdir}"
 
-cp -vp '%{SOURCE125}' "${flacdir}"
-rm -rvf "${flacdir}/"*.md
-
-# If we were testing with ALL of the FLAC files from from
-# https://media.xiph.org/:
-
-#cp -vp \
-#    '%%{SOURCE101}' '%%{SOURCE102}' '%%{SOURCE103}' '%%{SOURCE104}' \
-#      '%%{SOURCE105}' '%%{SOURCE106}' '%%{SOURCE107}' '%%{SOURCE108}' \
-#    '%%{SOURCE112}' '%%{SOURCE113}' '%%{SOURCE114}' \
-#    '%%{SOURCE123}' '%%{SOURCE124}' '%%{SOURCE125}' \
-#    '%%{SOURCE131}' '%%{SOURCE132}' \
-#    '%%{SOURCE141}' \
-#    "${flacdir}"
-#for zipfile in '%%{SOURCE111}' '%%{SOURCE121}' '%%{SOURCE122}'
-#do
-#  unzip "${zipfile}" -d "${flacdir}"
-#done
-#mv -v \
-#    "${flacdir}/Jan_Morgenstern-Sintel-FLAC/"*.flac \
-#    "${flacdir}/sintel-master-51-flac/"*.flac \
-#    "${flacdir}"
-#rm -rvf \
-#    "${flacdir}/Jan_Morgenstern-Sintel-FLAC" \
-#    "${flacdir}/sintel-master-51-flac" \
-#    "${flacdir}/__MACOSX" \
-#    "${flacdir}/"*.md
+%conf
+%cmake -DDR_LIBS_BUILD_TESTS:BOOL=ON
 
 
 %build
-# There is no compiled code to install, since all dr_libs libraries are
-# header-only. We do need to build the tests.
-%make_build -C tests
+%cmake_build
 
 
 %install
+# There are no install targets in CMakeLists.txt, so %%cmake_install would do
+# nothing. We install manually instead:
 install -t '%{buildroot}%{_includedir}' -p -m 0644 -D dr_*.h
 
 
 %check
-# We could append -j1 to override _smp_mflags and prevent interleaving of test
-# output lines—at the cost of slower execution, of course.
-%make_build -C tests check
+skips='^($.'
+# Fails with “No output file specified.”
+skips="${skips}|wav_encoding"
+# These require files in tests/testvectors/mp3/tests/ that are not distributed:
+skips="${skips}|mp3_(basic|extract)"
+skips="${skips})$"
+
+%ctest --exclude-regex "${skips}"
 
 # As a sanity check, verify that all of the subpackage version numbers appear
 # in the corresponding headers.

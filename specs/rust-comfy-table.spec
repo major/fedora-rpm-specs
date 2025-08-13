@@ -16,7 +16,7 @@ Source:         %{crates_source}
 Patch:          comfy-table-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * drop unused, benchmark-only criterion dev-dependency
-# * loosen the rstest version bound until it can be updated
+# * update rstest to 0.26: https://github.com/Nukesor/comfy-table/pull/184
 # * allow console 0.16:
 #   https://github.com/Nukesor/comfy-table/commit/2c6316226db6e2e8685c9280bbc61c2d21868329
 Patch:          comfy-table-fix-metadata.diff

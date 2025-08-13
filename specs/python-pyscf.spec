@@ -16,7 +16,7 @@
 
 Name:           python-pyscf
 Version:        2.8.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Python module for quantum chemistry
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -28,9 +28,12 @@ Patch1:         pyscf-2.6.0-rpath.patch
 # Need to load libpbc before libdft, https://github.com/pyscf/pyscf/pull/2273
 Patch2:         2273.patch
 
+# i686 disabled since this is a leaf package; see
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+#
 # ppc64 doesn't appear to have floats beyond 64 bits, so ppc64 is
 # disabled as per upstream's request as for the libcint package.
-ExcludeArch:    %{power64}
+ExcludeArch:    %{ix86} %{power64}
 
 BuildRequires:  %{blaslib}-devel
 BuildRequires:  python3-devel
@@ -129,6 +132,9 @@ export PYTHONPATH=$PWD
 %{python3_sitearch}/pyscf/
 
 %changelog
+* Mon Aug 11 2025 Jerry James <loganjerry@gmail.com> - 2.8.0-5
+- Stop building for 32-bit x86
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

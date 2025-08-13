@@ -1,5 +1,5 @@
 Name:           glib2
-Version:        2.85.2
+Version:        2.85.3
 Release:        %autorelease
 Summary:        A library of handy utility functions
 
@@ -14,9 +14,6 @@ Patch:          gnutls-hmac.patch
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=2192204
 Patch:          default-terminal.patch
-
-Patch:          4713.patch
-Patch:          4709.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++

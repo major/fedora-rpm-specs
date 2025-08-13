@@ -7,10 +7,12 @@
 
 %global subpkgs %{htmlentities}
 
+%global shortname cblrpm
+
 Name:           cabal-rpm
 Version:        2.3.0
 # can only be reset when subpkg bumped
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        RPM packaging tool for Haskell Cabal-based packages
 
 License:        GPL-3.0-or-later
@@ -71,7 +73,7 @@ BuildRequires:  ghc-attoparsec-prof
 BuildRequires:  ghc-unordered-containers-prof
 %endif
 # End cabal-rpm deps
-Provides:       cblrpm = %{version}-%{release}
+Provides:       %{shortname} = %{version}-%{release}
 Requires:       cabal-install
 Requires:       dos2unix
 Requires:       ghc-rpm-macros
@@ -136,10 +138,10 @@ mkdir -p %{buildroot}%{_mandir}/man1/
 help2man --no-info %{buildroot}%{_bindir}/%{name} > %{buildroot}%{_mandir}/man1/%{name}.1
 # End cabal-rpm install
 
-ln -s %{name} %{buildroot}%{_bindir}/cblrpm
-sed -i -e "s/ _%{name} / _%{name} cblrpm /" %{buildroot}%{bash_completions_dir}/%{name}
-ln -s %{name} %{buildroot}%{_datadir}/bash-completion/completions/cblrpm
-ln -s %{name}.1 %{buildroot}%{_mandir}/man1/cblrpm.1
+ln -s %{name} %{buildroot}%{_bindir}/%{shortname}
+sed -i -e "s/ _%{name} / _%{name} %{shortname} /" %{buildroot}%{bash_completions_dir}/%{name}
+ln -s %{name} %{buildroot}%{_datadir}/bash-completion/completions/%{shortname}
+ln -s %{name}.1 %{buildroot}%{_mandir}/man1/%{shortname}.1
 
 
 %files
@@ -150,12 +152,15 @@ ln -s %{name}.1 %{buildroot}%{_mandir}/man1/cblrpm.1
 %{bash_completions_dir}/%{name}
 %{_mandir}/man1/%{name}.1*
 # End cabal-rpm files
-%{_bindir}/cblrpm
-%{_datadir}/bash-completion/completions/cblrpm
-%{_mandir}/man1/cblrpm.1*
+%{_bindir}/%{shortname}
+%{_datadir}/bash-completion/completions/%{shortname}
+%{_mandir}/man1/%{shortname}.1*
 
 
 %changelog
+* Tue Aug 12 2025 Jens Petersen <petersen@redhat.com> - 2.3.0-4
+- rebuild with shortname macro
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

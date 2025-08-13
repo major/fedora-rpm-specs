@@ -7,6 +7,7 @@
 %global libadwaita_version 1.6.0
 %global libxmlb_version 0.3.4
 %global packagekit_version 1.2.5
+%global dnf5_version 5.2.16
 
 # Disable WebApps for RHEL builds
 %bcond webapps %[!0%{?rhel}]
@@ -29,7 +30,7 @@
 
 Name:      gnome-software
 Version:   49~beta
-Release:   2%{?dist}
+Release:   3%{?dist}
 Summary:   A software center for GNOME
 
 License:   GPL-2.0-or-later
@@ -91,7 +92,7 @@ Requires: appstream%{?_isa} >= %{appstream_version}
 Requires: epiphany-runtime%{?_isa}
 %endif
 %if %{with dnf5}
-Requires: dnf5daemon-server%{?_isa}
+Requires: dnf5daemon-server%{?_isa} >= %{dnf5_version}
 Requires: dnf5daemon-server-polkit
 Requires: libdnf5-plugin-appstream%{?_isa}
 Requires: rpm-plugin-dbus-announce%{?_isa}

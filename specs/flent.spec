@@ -2,7 +2,7 @@
 
 Name:             flent
 Version:          2.2.0
-Release:          4%{?dist}
+Release:          5%{?dist}
 Summary:          FLExible Network Tester for bufferbloat testing and more
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -58,14 +58,16 @@ ping times before, during and after a link is loaded.
 %prep
 %autosetup -n %{srcname}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 %make_build -C doc/ html PYTHON=%{__python3} SPHINXBUILD=sphinx-build-3
 rm -f doc/_build/html/index.html doc/_build/html/.buildinfo
 
 %install
-%py3_install
+%pyproject_install
 
 %check
 %make_build test PYTHON=%{__python3}
@@ -74,7 +76,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 %files
 %{python3_sitelib}/flent
-%{python3_sitelib}/%{srcname}-*.egg-info/
+%{python3_sitelib}/%{srcname}-*.dist-info/
 %{_bindir}/flent
 %{_bindir}/flent-gui
 %{_datadir}/applications/flent.desktop
@@ -88,6 +90,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %doc doc/_build/html
 
 %changelog
+* Mon Aug 11 2025 Toke Høiland-Jørgensen <toke@toke.dk> 2.2.0-5
+- Migrate RPM spec to pyproject macros (fedora#2377258)
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

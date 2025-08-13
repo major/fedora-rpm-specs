@@ -4,7 +4,7 @@
 %global commit da33770d22b404d7333e46e26495eaca0c5a6d8a
 %global gittag 5.9.0
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global baserelease 3
+%global baserelease 4
 
 ExclusiveArch:  %{ix86} x86_64 aarch64
 
@@ -29,6 +29,9 @@ License:        MIT AND BSD-2-Clause AND Zlib AND CC0-1.0 AND FSFAP-no-warranty-
 URL:            http://rr-project.org
 
 Source: https://github.com/rr-debugger/rr/archive/%{gittag}/%{name}-%{version}.tar.gz
+
+Patch1: remove-termio.patch
+Patch2: update-cmake-ver.patch
 
 %if  0%{?rhel} == 7
 BuildRequires: cmake3
@@ -131,6 +134,10 @@ patchelf --set-rpath '%{_libdir}/rr/' %{buildroot}%{_libdir}/rr/testsuite/obj/bi
 %license LICENSE
 
 %changelog
+* Mon Aug 11 2025 Aaron Merey <amerey@redhat.com> - 5.9.0-4
+- Add remove-termio.patch
+- Add update-cmake-ver.patch
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.9.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

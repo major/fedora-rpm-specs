@@ -6,7 +6,7 @@
 
 Name:           gns3-server
 Version:        2.2.54
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Graphical Network Simulator 3
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -15,7 +15,8 @@ URL:            http://gns3.com
 Source0:        https://github.com/GNS3/gns3-server/archive/v%{git_tag}/%{name}-%{git_tag}.tar.gz
 Source1:        gns3.service
 Patch0:         0001-changing-busybox-udhcpc-script-path.patch
-
+# https://github.com/GNS3/gns3-server/issues/2541
+Patch1:         gns3-server-2.2.54-asyncio-fix.patch
 BuildArch:      noarch
 
 BuildRequires:  git-core
@@ -147,6 +148,9 @@ cp -fp %{_datadir}/edk2/ovmf/OVMF_VARS.fd %{python3_sitelib}/gns3server/disks/OV
 %systemd_postun_with_restart gns3.service
 
 %changelog
+* Tue Aug 12 2025 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.54-5
+- Python 3.14 asyncio fixes
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.54-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

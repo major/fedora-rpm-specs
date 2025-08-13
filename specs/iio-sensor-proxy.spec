@@ -1,15 +1,12 @@
 Name:           iio-sensor-proxy
-Version:        3.7
+Version:        3.8
 Release:        %autorelease
 Summary:        IIO accelerometer sensor to input device proxy
 
 # tests/unittest_inspector.py is LGPL-2.1-or-later but it is not packaged
 License:        GPL-3.0-or-later
-URL:            https://gitlab.freedesktop.org/hadess/iio-sensor-proxy/
-Source0:        https://gitlab.freedesktop.org/hadess/iio-sensor-proxy/-/archive/%{version}/iio-sensor-proxy-%{version}.tar.bz2
-
-# Fixes for chromebook-style accelerometer (e.g. Framework laptops)
-Patch0101:      https://gitlab.freedesktop.org/hadess/iio-sensor-proxy/-/merge_requests/400.patch
+URL:            https://gitlab.freedesktop.org/hadess/iio-sensor-proxy
+Source0:        %{url}/-/archive/%{version}/%{name}-%{version}.tar.bz2
 
 BuildRequires:  meson
 BuildRequires:  gcc

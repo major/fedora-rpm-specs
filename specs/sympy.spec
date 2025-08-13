@@ -24,7 +24,7 @@ Patch:          %{name}-intersphinx.patch
 # - Has a version of llvmlite that doesn't crash, which excludes ppc64le,
 #   s390x, and riscv64
 # So even though this package is noarch, it can only be built on x86_64
-ExclusiveArch:  %{x86_64}
+ExclusiveArch:  %{x86_64} noarch
 BuildArch:      noarch
 BuildSystem:    pyproject
 BuildOption(generate_buildrequires): -x dev

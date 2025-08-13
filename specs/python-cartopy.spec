@@ -19,6 +19,9 @@ Patch:          0001-Reduce-numpy-build-dependency.patch
 # Might not go upstream in current form.
 Patch:          0002-Increase-tolerance-for-new-FreeType.patch
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  gcc-c++
 BuildRequires:  proj-data-uk
 BuildRequires:  python3-devel
@@ -43,9 +46,7 @@ Summary:        %{summary}
 Requires:       python-%{srcname}-common = %{version}-%{release}
 Recommends:     python3dist(cartopy[ows]) = %{version}-%{release}
 Recommends:     python3dist(cartopy[plotting]) = %{version}-%{release}
-%ifnarch %{ix86}
 Recommends:     python3dist(cartopy[speedups]) = %{version}-%{release}
-%endif
 
 %description -n python3-%{srcname} %{_description}
 
@@ -65,11 +66,7 @@ Suggests:       natural-earth-map-data-10m
 Data files for %{srcname}.
 
 
-%ifnarch %{ix86}
 %pyproject_extras_subpkg -n python3-cartopy ows plotting speedups
-%else
-%pyproject_extras_subpkg -n python3-cartopy ows plotting
-%endif
 
 
 %prep
@@ -83,11 +80,7 @@ rm lib/cartopy/trace.cpp
 
 
 %generate_buildrequires
-%ifnarch %{ix86}
 %pyproject_buildrequires -r -x ows,plotting,speedups,test
-%else
-%pyproject_buildrequires -r -x ows,plotting,test
-%endif
 
 
 %build

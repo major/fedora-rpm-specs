@@ -1,6 +1,6 @@
-%global ghdlver 3.0.0
-%global ghdldate 20230308
-%global ghdlcommit 7de967c51f352fe2d724dbec549b71a392e5ebae
+%global ghdlver 5.1.1
+%global ghdldate 20250618
+%global ghdlcommit 91725e47fdded6a3ac2e4e5ee5fa1adb4b8b4f6f
 %global ghdlshortcommit %(c=%{ghdlcommit}; echo ${c:0:7})
 %global ghdlgitrev %{ghdldate}git%{ghdlshortcommit}
 
@@ -13,7 +13,6 @@
 #workaround for another compiler error
 #bcond_without llvm
 
-#ifarch %%{ix86} x86_64 ppc64le
 %ifarch x86_64 ppc64le
 %bcond_without llvm
 %else
@@ -22,10 +21,10 @@
 
 %bcond_with gnatwae
 
-%global DATE 20240208
-%global gitrev b006f0561c0b004822f600ad0ea9a2b90fb29d7f
-%global gcc_version 14.0.1
-%global gcc_major 14
+%global DATE 20250808
+%global gitrev f833458d29b4fa40ffce6cf3b37ab9a30a864901
+%global gcc_version 15.2.1
+%global gcc_major 15
 # Note, gcc_release must be integer, if you want to add suffixes to
 # %%{release}, append them after %%{gcc_release} on Release: line.
 %global gcc_release 1
@@ -40,7 +39,7 @@
 Summary: A VHDL simulator, using the GCC technology
 Name: ghdl
 Version: %{ghdlver}
-Release: 5.%{ghdlgitrev}%{?dist}
+Release: 1.%{ghdlgitrev}%{?dist}
 # Automatically converted from old format: GPLv2+ and GPLv3+ and GPLv3+ with exceptions and GPLv2+ with exceptions and LGPLv2+ and BSD - review is highly recommended.
 License: GPL-2.0-or-later AND GPL-3.0-or-later AND LicenseRef-Callaway-GPLv3+-with-exceptions AND LicenseRef-Callaway-GPLv2+-with-exceptions AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-BSD
 URL: http://ghdl.free.fr/
@@ -53,21 +52,19 @@ URL: http://ghdl.free.fr/
 Source0: gcc-%{gcc_version}-%{DATE}.tar.xz
 %global isl_version 0.16.1
 
-Patch0: gcc14-hack.patch
-Patch3: gcc14-libgomp-omp_h-multilib.patch
-Patch4: gcc14-libtool-no-rpath.patch
-Patch5: gcc14-isl-dl.patch
-Patch6: gcc14-isl-dl2.patch
-Patch8: gcc14-no-add-needed.patch
-Patch9: gcc14-Wno-format-security.patch
-Patch10: gcc14-rh1574936.patch
+Patch0: gcc15-hack.patch
+Patch3: gcc15-libgomp-omp_h-multilib.patch
+Patch4: gcc15-libtool-no-rpath.patch
+Patch5: gcc15-isl-dl.patch
+Patch6: gcc15-isl-dl2.patch
+Patch8: gcc15-no-add-needed.patch
+Patch9: gcc15-Wno-format-security.patch
+Patch10: gcc15-rh1574936.patch
+Patch12: gcc15-pr119006.patch
 
 Source100: https://github.com/ghdl/ghdl/archive/%{ghdlcommit}/%{name}-%{ghdlshortcommit}.tar.gz
-Patch102: ghdl-gcc13.patch
-Patch103: ghdl-gcc14.patch
-Patch104: ghdl-llvm.patch
-Patch106: ghdl-llvm16.patch
-Patch107: ghdl-llvm17.patch
+Patch102: ghdl-gcc15.patch
+Patch103: ghdl-gcc15-ortho.patch
 # From: Thomas Sailer <t.sailer@alumni.ethz.ch>
 # To: ghdl-discuss@gna.org
 # Date: Thu, 02 Apr 2009 15:36:00 +0200
@@ -206,6 +203,7 @@ that tracks signal updates and schedules processes.
 %if 0%{?fedora} >= 29 || 0%{?rhel} > 7
 %patch -P 10 -p0 -b .rh1574936~
 %endif
+%patch -P 12 -p0 -b .pr119006~
 
 
 echo 'Red Hat GHDL %{version}-%{release}' > gcc/DEV-PHASE
@@ -222,11 +220,8 @@ sed -i -e 's/Common Driver Var(flag_report_bug)/& Init(1)/' gcc/common.opt
 mv ghdl-%{ghdlcommit} ghdl
 
 pushd ghdl
-%patch -P 102 -p1 -b .gcc13~
-%patch -P 103 -p1 -b .gcc14~
-%patch -P 104 -p1 -b .llvm~
-%patch -P 106 -p1 -b .llvm16~
-%patch -P 107 -p1 -b .llvm17~
+%patch -P 102 -p1 -b .gcc15~
+%patch -P 103 -p1 -b .gcc15-ortho~
 popd
 
 # fix library and include path
@@ -533,6 +528,11 @@ rm %{buildroot}/usr/lib/libghdl.{a,link}
 
 
 %changelog
+* Mon Aug 11 2025 Dan Horák <dan[at]danny.cz> - 5.1.1-1.20250618git91725e4
+- updated to ghdl 5.1.1
+- updated to gcc 15.2.1
+- Resolves: rhbz#2384626
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-5.20230308git7de967c
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

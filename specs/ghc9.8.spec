@@ -25,7 +25,8 @@
 %global xhtml_ver 3000.2.2.1
 
 # bootstrap needs 9.4+
-%if 0%{?fedora} < 41 && 0%{?rhel} < 10
+# can't build with f43 ghc-9.8.i686 (Unique Word64)
+%if 0%{?fedora} >= 43 || %{defined el9}
 %global ghcboot_major 9.6
 %endif
 %global ghcboot ghc%{?ghcboot_major}
@@ -58,7 +59,7 @@ Version: 9.8.4
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 15%{?dist}
+Release: 16%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -98,6 +99,8 @@ Patch40: cabal-add-riscv64.patch
 # Enable GHCi support on riscv64
 # Upstream in >= 9.9.
 Patch41: https://gitlab.haskell.org/ghc/ghc/-/commit/dd38aca95ac25adc9888083669b32ff551151259.patch
+
+Patch60: ghc9.8-32bit-unique-word-revert.patch
 
 # https://github.com/haskell/directory/pull/184
 Patch50: https://patch-diff.githubusercontent.com/raw/haskell/directory/pull/184.patch
@@ -415,6 +418,9 @@ rm libffi-tarballs/libffi-*.tar.gz
 #GHCi support
 %patch -P41 -p1 -b .orig
 %endif
+
+# ghc 9.6.7 has Unique Word64
+%patch -P60 -p1
 
 # https://github.com/haskell/directory/pull/184
 (
@@ -836,6 +842,9 @@ make test
 
 
 %changelog
+* Fri Jul 25 2025 Jens Petersen <petersen@redhat.com> - 9.8.4-16
+- build with ghc9.6 for F43
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.8.4-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -10,7 +10,11 @@ ExcludeArch: i686
 %global __provides_exclude ^libjemalloc\\.so.*$
 %endif
 
-%bcond bundle_libdb %{defined rhel}
+%bcond bundle_libdb 0
+%if 0%{?rhel} == 10
+%bcond bundle_libdb 1
+%endif
+
 %if %{with bundle_libdb}
 %global libdb_version 5.3
 %global libdb_base_version db-%{libdb_version}.28
@@ -22,6 +26,11 @@ ExcludeArch: i686
 %else
 %global libdb_base_dir %{libdb_base_version}
 %endif
+%endif
+
+%bcond libbdb_ro 0
+%if 0%{?fedora} >= 43
+%bcond libbdb_ro 1
 %endif
 
 # This is used in certain builds to help us know if it has extra features.
@@ -399,8 +408,10 @@ BuildRequires:    libtsan
 BuildRequires:    libubsan
 %endif
 %endif
+%if %{without libbdb_ro}
 %if %{without bundle_libdb}
 BuildRequires:    libdb-devel
+%endif
 %endif
 
 # The following are needed to build the snmp ldap-agent
@@ -437,6 +448,9 @@ BuildRequires:    npm
 BuildRequires:    nodejs
 %endif
 
+# For autosetup -S git
+BuildRequires:    git
+
 Requires:         %{name}-libs = %{version}-%{release}
 Requires:         python%{python3_pkgversion}-lib389 = %{version}-%{release}
 
@@ -457,13 +471,19 @@ Requires:         cyrus-sasl-md5
 # This is optionally supported by us, as we use it in our tests
 Requires:         cyrus-sasl-plain
 # this is needed for backldbm
+%if %{with libbdb_ro}
+Requires:         %{name}-robdb-libs = %{version}-%{release}
+%else
 %if %{without bundle_libdb}
 Requires:         libdb
 %endif
+%endif
 Requires:         lmdb-libs
 # Needed by logconv.pl
+%if %{without libbdb_ro}
 %if %{without bundle_libdb}
 Requires:         perl-DB_File
+%endif
 %endif
 Requires:         perl-Archive-Tar
 %if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
@@ -490,6 +510,35 @@ Source4:          389-ds-base.sysusers
 Source5:          https://fedorapeople.org/groups/389ds/libdb-5.3.28-59.tar.bz2
 %endif
 
+Patch:            0001-Issue-6782-Improve-paged-result-locking.patch
+Patch:            0002-Issue-6822-Backend-creation-cleanup-and-Database-UI-.patch
+Patch:            0003-Issue-6753-Add-add_exclude_subtree-and-remove_exclud.patch
+Patch:            0004-Issue-6857-uiduniq-allow-specifying-match-rules-in-t.patch
+Patch:            0005-Issue-6756-CLI-UI-Properly-handle-disabled-NDN-cache.patch
+Patch:            0006-Issue-6854-Refactor-for-improved-data-management-685.patch
+Patch:            0007-Issue-6850-AddressSanitizer-memory-leak-in-mdb_init.patch
+Patch:            0008-Issue-6848-AddressSanitizer-leak-in-do_search.patch
+Patch:            0009-Issue-6865-AddressSanitizer-leak-in-agmt_update_init.patch
+Patch:            0010-Issue-6868-UI-schema-attribute-table-expansion-break.patch
+Patch:            0011-Issue-6859-str2filter-is-not-fully-applying-matching.patch
+Patch:            0012-Issue-6872-compressed-log-rotation-creates-files-wit.patch
+Patch:            0013-Issue-6888-Missing-access-JSON-logging-for-TLS-Clien.patch
+Patch:            0014-Issue-6772-dsconf-Replicas-with-the-consumer-role-al.patch
+Patch:            0015-Issue-6893-Log-user-that-is-updated-during-password-.patch
+Patch:            0016-Issue-6901-Update-changelog-trimming-logging.patch
+Patch:            0017-Issue-6430-implement-read-only-bdb-6431.patch
+Patch:            0018-Issue-6663-Fix-NULL-subsystem-crash-in-JSON-error-lo.patch
+Patch:            0019-Issue-6895-Crash-if-repl-keep-alive-entry-can-not-be.patch
+Patch:            0020-Issue-6884-Mask-password-hashes-in-audit-logs-6885.patch
+Patch:            0021-Issue-6778-Memory-leak-in-roles_cache_create_object_.patch
+Patch:            0022-Issue-6901-Update-changelog-trimming-logging-fix-tes.patch
+Patch:            0023-Issue-6181-RFE-Allow-system-to-manage-uid-gid-at-sta.patch
+Patch:            0024-Issue-6468-CLI-Fix-default-error-log-level.patch
+Patch:            0025-Issue-6768-ns-slapd-crashes-when-a-referral-is-added.patch
+
+# For ELN
+Patch:            0001-Issue-5120-Fix-compilation-error.patch
+Patch:            0001-Issue-6929-Compilation-failure-with-rust-1.89-on-Fed.patch
 
 %description
 389 Directory Server is an LDAPv3 compliant server.  The base package includes
@@ -498,6 +547,17 @@ the LDAP server and command line utilities for server administration.
 WARNING! This build is linked to Address Sanitisation libraries. This probably
 isn't what you want. Please contact support immediately.
 Please see http://seclists.org/oss-sec/2016/q1/363 for more information.
+%endif
+
+%if %{with libbdb_ro}
+%package        robdb-libs
+Summary:        Read-only Berkeley Database Library
+License:          GPL-3.0-or-later WITH GPL-3.0-389-ds-base-exception AND (0BSD OR Apache-2.0 OR MIT) AND (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR LGPL-2.1-or-later OR MIT) AND (Apache-2.0 OR MIT OR Zlib) AND (Apache-2.0 OR MIT) AND (CC-BY-4.0 AND MIT) AND (MIT OR Apache-2.0) AND Unicode-3.0 AND (MIT OR CC0-1.0) AND (MIT OR Unlicense) AND 0BSD AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC AND MIT AND MIT AND ISC AND MPL-2.0 AND PSF-2.0 AND Zlib
+
+%description    robdb-libs
+The %{name}-robdb-lib package contains a library derived from rpm
+project (https://github.com/rpm-software-management/rpm) that provides
+some basic functions to search and read Berkeley Database records
 %endif
 
 
@@ -611,7 +671,7 @@ cd src/lib389
 %pyproject_buildrequires -g test
 
 %prep
-%autosetup -p1 -n %{name}-%{version}
+%autosetup -S git -p1 -n %{name}-%{version}
 
 %if %{with bundle_jemalloc}
 %setup -q -n %{name}-%{version} -T -D -b 3
@@ -698,6 +758,11 @@ popd
 autoreconf -fiv
 
 %configure \
+%if %{with libbdb_ro}
+          --with-libbdb-ro \
+%else
+          --without-libbdb-ro \
+%endif
 %if %{with bundle_libdb}
            --with-bundle-libdb=%{_builddir}/%{libdb_base_version}/BUILD/%{libdb_base_dir}/dist/dist-tls \
 %endif
@@ -799,6 +864,21 @@ cp -pa $libdbbuilddir/dist/dist-tls/.libs/%{libdb_bundle_name} $RPM_BUILD_ROOT%{
 popd
 %endif
 
+%if %{with libbdb_ro}
+pushd lib/librobdb
+cp -pa COPYING %{_builddir}/%{name}-%{version}/COPYING.librobdb
+cp -pa COPYING.RPM %{_builddir}/%{name}-%{version}/COPYING.RPM
+install -m 0755 -d %{buildroot}/%{_libdir}
+install -m 0755 -d %{buildroot}/%{_docdir}/%{name}-robdb-libs
+install -m 0755 -d %{buildroot}/%{_licensedir}/%{name}
+install -m 0755 -d %{buildroot}/%{_licensedir}/%{name}-robdb-libs
+install -m 0644 $PWD/README.md %{buildroot}/%{_docdir}/%{name}-robdb-libs/README.md
+install -m 0644 $PWD/COPYING %{buildroot}/%{_licensedir}/%{name}-robdb-libs/COPYING
+install -m 0644 $PWD/COPYING.RPM %{buildroot}/%{_licensedir}/%{name}-robdb-libs/COPYING.RPM
+install -m 0644 $PWD/COPYING %{buildroot}/%{_licensedir}/%{name}/COPYING.librobdb
+install -m 0644 $PWD/COPYING.RPM %{buildroot}/%{_licensedir}/%{name}/COPYING.RPM
+popd
+%endif
 
 %check
 # This checks the code, if it fails it prints why, then re-raises the fail to shortcircuit the rpm build.
@@ -949,6 +1029,9 @@ exit 0
 %exclude %{_libdir}/%{pkgname}/lib/libjemalloc_pic.a
 %exclude %{_libdir}/%{pkgname}/lib/pkgconfig
 %endif
+%if %{with libbdb_ro}
+%exclude %{_libdir}/%{pkgname}/librobdb.so
+%endif
 
 %files devel
 %doc LICENSE LICENSE.GPLv3+ LICENSE.openssl README.devel
@@ -1015,6 +1098,17 @@ exit 0
 %files -n cockpit-389-ds -f cockpit.list
 %{_datarootdir}/metainfo/389-console/org.port389.cockpit_console.metainfo.xml
 %doc README.md
+%endif
+
+%if %{with libbdb_ro}
+%files robdb-libs
+%license COPYING.librobdb COPYING.RPM
+%doc %{_defaultdocdir}/%{name}-robdb-libs/README.md
+%{_libdir}/%{pkgname}/librobdb.so
+%{_licensedir}/%{name}-robdb-libs/COPYING
+%{_licensedir}/%{name}/COPYING.RPM
+%{_licensedir}/%{name}/COPYING.librobdb
+
 %endif
 
 %changelog

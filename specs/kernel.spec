@@ -165,13 +165,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.17.0
 %define specversion 6.17.0
 %define patchversion 6.17
-%define pkgrelease 0.rc0.250808g37816488247d.14
+%define pkgrelease 0.rc1.17
 %define kversion 6
-%define tarfile_release 6.16-12063-g37816488247d
+%define tarfile_release 6.17-rc1
 # This is needed to do merge window version magic
 %define patchlevel 17
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc0.250808g37816488247d.14%{?buildid}%{?dist}
+%define specrelease 0.rc1.17%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.17.0
 
@@ -3133,7 +3133,7 @@ fi
 %global perf_build_extra_opts CORESIGHT=1
 %endif
 %global perf_make \
-  %{__make} %{?make_opts} EXTRA_CFLAGS="${RPM_OPT_FLAGS}" EXTRA_CXXFLAGS="${RPM_OPT_FLAGS}" LDFLAGS="%{__global_ldflags} -Wl,-E" %{?cross_opts} -C tools/perf V=1 NO_PERF_READ_VDSO32=1 NO_PERF_READ_VDSOX32=1 WERROR=0 NO_LIBUNWIND=1 HAVE_CPLUS_DEMANGLE=1 NO_GTK2=1 NO_STRLCPY=1 NO_BIONIC=1 LIBBPF_DYNAMIC=1 LIBTRACEEVENT_DYNAMIC=1 %{?perf_build_extra_opts} prefix=%{_prefix} PYTHON=%{__python3}
+  %{__make} %{?make_opts} EXTRA_CFLAGS="${RPM_OPT_FLAGS}" EXTRA_CXXFLAGS="${RPM_OPT_FLAGS}" LDFLAGS="%{__global_ldflags} -Wl,-E" %{?cross_opts} -C tools/perf V=1 NO_PERF_READ_VDSO32=1 NO_PERF_READ_VDSOX32=1 WERROR=0 NO_LIBUNWIND=1 HAVE_CPLUS_DEMANGLE=1 NO_GTK2=1 NO_STRLCPY=1 NO_BIONIC=1 LIBTRACEEVENT_DYNAMIC=1 %{?perf_build_extra_opts} prefix=%{_prefix} PYTHON=%{__python3}
 %if %{with_perf}
 %{log_msg "Build perf"}
 # perf
@@ -4375,8 +4375,27 @@ fi\
 #
 #
 %changelog
-* Fri Aug 08 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc0.37816488247d.14]
+* Mon Aug 11 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.17.0-0.rc1.17]
+- arm64: dts: qcom: x1e80100-lenovo-yoga-slim7x: add Bluetooth support (Jens Glathe)
+- Turn off libbpf dynamic for perf (Justin M. Forbes)
+
+* Mon Aug 11 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc1.17]
 - redhat/configs: clang_lto: disable CONFIG_FORTIFY_KUNIT_TEST (Scott Weaver)
+
+* Mon Aug 11 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc1.16]
+- redhat/script: Fix instructions for dist-cross-setup (Thomas Huth)
+- redhat/configs: Fix location of the S390_MODULES_SANITY_TEST switch (Thomas Huth)
+- redhat/configs: Fix location of the CONFIG_S390_KPROBES_SANITY_TEST switch (Thomas Huth)
+- redhat/configs: Remove superfluous generic CONFIG_TUNE_Z16 switch (Thomas Huth)
+- redhat/configs: Consolidate the CONFIG_TUNE_Z17 switch (Thomas Huth)
+- redhat/configs: Consolidate the CONFIG_RANDOMIZE_IDENTITY_BASE switch (Thomas Huth)
+- Linux v6.17.0-0.rc1
+
+* Sun Aug 10 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc0.2b38afce25c4.15]
+- Linux v6.17.0-0.rc0.2b38afce25c4
+
+* Sat Aug 09 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc0.c30a13538d9f.14]
+- Linux v6.17.0-0.rc0.c30a13538d9f
 
 * Fri Aug 08 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc0.37816488247d.13]
 - Linux v6.17.0-0.rc0.37816488247d

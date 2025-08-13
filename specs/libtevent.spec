@@ -1,7 +1,7 @@
 %global talloc_version 2.4.3
 
 Name:           libtevent
-Version:        0.16.2
+Version:        0.17.1
 Release:        %autorelease
 Summary:        The tevent library
 License:        LGPL-3.0-or-later
@@ -58,6 +58,8 @@ zcat %{SOURCE0} | gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} -
 %autosetup -n tevent-%{version} -p1
 
 %build
+# workaround https://gitlab.com/ita1024/waf/-/issues/2472
+export PYTHONARCHDIR=%{python3_sitearch}
 %configure --disable-rpath \
            --bundled-libraries=NONE \
            --builtin-libraries=replace

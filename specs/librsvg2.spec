@@ -123,9 +123,11 @@ sed -i 's/, "--locked"//g' meson/cargo_wrapper.py
 %cargo_generate_buildrequires -a
 %endif
 
+%if ! 0%{?bundled_rust_deps}
 cp %{SOURCE2} rsvg/tests/fixtures/reftests/svg1.1/filters-composite-04-f-ref.png
 cp %{SOURCE3} rsvg/tests/fixtures/reftests/svg1.1/filters-conv-02-f-ref.png
 cp %{SOURCE4} rsvg/tests/fixtures/reftests/svg1.1/filters-conv-04-f-ref.png
+%endif
 
 %build
 %meson %{?rhel:-Davif=disabled}

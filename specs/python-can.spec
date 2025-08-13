@@ -3,12 +3,12 @@
 %define with_tests 0
 
 Name:      python-can
-Version:   4.5.0
+Version:   4.6.0
 Release:   %autorelease
 Summary:   Controller Area Network (CAN) support for Python
 License:   LGPL-3.0-only
 URL:       https://github.com/hardbyte/python-can
-Source0:   https://github.com/hardbyte/python-can/archive/%{version}.tar.gz#/%{name}-%{version}%{?candidate:%{candidate}}.tar.gz
+Source0:   %{url}/archive/%{version}.tar.gz#/%{name}-%{version}%{?candidate:%{candidate}}.tar.gz
 
 BuildArch: noarch
 

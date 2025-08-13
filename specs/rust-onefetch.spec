@@ -14,7 +14,7 @@ Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          onefetch-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * Use gix 0.70, gix-features 0.40; see Patch10
+# * Use gix 0.73, gix-features 0.43
 # * Update rstest to 0.26: https://github.com/o2sh/onefetch/pull/1594
 # * Do not depend on criterion; it is needed only for benchmarks
 # * Patch out tests/repo.rs, which requires gix-testtools, and remove the
@@ -23,10 +23,6 @@ Patch:          onefetch-fix-metadata-auto.diff
 #   reasonably citing upstream discouragement in
 #   https://github.com/Byron/gitoxide/discussions/900.
 Patch:          onefetch-fix-metadata.diff
-# * Downstream-only: Revert the source change associated with gix 0.71.
-# * Work with gix 0.70 for now, RHBZ#2357370.
-# * Remove this patch, and stop patching Cargo.toml, when gix 0.71 is ready.
-Patch10:        0001-Revert-the-source-change-associated-with-gix-0.71.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  help2man
@@ -45,8 +41,6 @@ Summary:        %{summary}
 # Apache-2.0 OR BSL-1.0
 # Apache-2.0 OR MIT
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
-# BSD-2-Clause OR Apache-2.0 OR MIT
-# BSD-3-Clause
 # MIT
 # MIT OR Apache-2.0
 # MIT OR Apache-2.0 OR Zlib
@@ -60,7 +54,6 @@ License:        %{shrink:
                 (0BSD OR Apache-2.0 OR MIT) AND
                 Apache-2.0 AND
                 (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT) AND
-                (Apache-2.0 OR BSD-2-Clause OR MIT) AND
                 (Apache-2.0 OR BSL-1.0) AND
                 (Apache-2.0 OR MIT) AND
                 (Apache-2.0 OR MIT OR Zlib) AND

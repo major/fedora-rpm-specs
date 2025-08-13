@@ -1,6 +1,6 @@
 Name:		timeline
-Version:	2.10.0
-Release:	3%{?dist}
+Version:	2.11.0
+Release:	1%{?dist}
 Summary:	Displays and navigates events on a timeline
 
 License:	GPL-3.0-only
@@ -68,6 +68,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/timeline/dependencies
 %{python3_sitelib}/timelinelib*
 
 %changelog
+* Mon Aug 11 2025 Gwyn Ciesla <gwync@protonmail.com> - 2.11.0-1
+- 2.11.0
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
