@@ -2,11 +2,10 @@
 
 Name:           python-%{pypi_name}
 Version:        3.1.15
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Advanced Enumerations, NamedTuples and NamedConstants for Python
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-3-Clause
 URL:            https://pypi.org/project/aenum/
 Source0:        %{pypi_source}
 BuildArch:      noarch
@@ -75,6 +74,9 @@ rm %{pypi_name}/_py2.py
 %{python3_sitelib}/%{pypi_name}-%{version}.dist-info/
 
 %changelog
+* Tue Aug 12 2025 Umut Demir <umutd3401@proton.me> - 3.1.15-4
+- Migrated to SPDX license
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.15-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

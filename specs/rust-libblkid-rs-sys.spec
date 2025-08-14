@@ -5,7 +5,7 @@
 %global crate libblkid-rs-sys
 
 Name:           rust-libblkid-rs-sys
-Version:        0.3.1
+Version:        0.3.2
 Release:        %autorelease
 Summary:        Low level bindings for libblkid
 

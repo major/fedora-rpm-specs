@@ -1,45 +1,50 @@
 Name:           perl-Log-Any
-Version:        1.717
-Release:        6%{?dist}
+Version:        1.718
+Release:        1%{?dist}
 Summary:        Bringing loggers and listeners together
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Log-Any
 Source0:        https://cpan.metacpan.org/authors/id/P/PR/PREACTION/Log-Any-%{version}.tar.gz
 BuildArch:      noarch
 # Build
-BuildRequires:  findutils
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
+BuildRequires:  perl(base)
+BuildRequires:  perl(Carp)
+BuildRequires:  perl(Config)
+BuildRequires:  perl(constant)
+BuildRequires:  perl(Devel::StackTrace)
+BuildRequires:  perl(Exporter)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl(Fcntl)
+BuildRequires:  perl(File::Basename)
+BuildRequires:  perl(IO::File)
+BuildRequires:  perl(overload)
+BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(strict)
+BuildRequires:  perl(Sys::Syslog)
+BuildRequires:  perl(Test::Builder)
 BuildRequires:  perl(warnings)
 # Runtime
 BuildRequires:  perl(B)
-# XXX: BuildRequires:  perl(Carp)
-# XXX: BuildRequires:  perl(Config)
-BuildRequires:  perl(constant)
-# XXX: BuildRequires:  perl(Data::Dumper)
-BuildRequires:  perl(Exporter)
-# XXX: BuildRequires:  perl(Fcntl)
-# XXX: BuildRequires:  perl(IO::File)
-BuildRequires:  perl(Sys::Syslog)
-# XXX: BuildRequires:  perl(Test::Builder)
-# XXX: BuildRequires:  perl(Unix::Syslog)
+BuildRequires:  perl(Data::Dumper)
+BuildRequires:  perl(Unix::Syslog)
 # Tests only
-BuildRequires:  perl(base)
 BuildRequires:  perl(blib)
-BuildRequires:  perl(Devel::StackTrace)
-BuildRequires:  perl(Devel::StackTrace::Extract)
-BuildRequires:  perl(File::Basename)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(FindBin)
 BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(IPC::Open3)
 BuildRequires:  perl(lib)
-BuildRequires:  perl(overload)
+BuildRequires:  perl(List::Util)
+BuildRequires:  perl(Mojo::Exception)
+BuildRequires:  perl(Moose::Exception)
+BuildRequires:  perl(Storable)
 BuildRequires:  perl(Test::More)
+BuildRequires:  perl(Throwable::Error)
 Requires:       perl(B)
 Requires:       perl(Data::Dumper)
 
@@ -55,15 +60,12 @@ such as Log::Dispatch or Log::Log4perl.
 %prep
 %setup -q -n Log-Any-%{version}
 
-# delete version-control-internal-file
-find . -name .gitignore -exec rm -f {} \; >/dev/null
-
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %make_build
 
 %install
-make pure_install DESTDIR=%{buildroot}
+%make_install
 %{_fixperms} %{buildroot}
 
 %check
@@ -73,9 +75,13 @@ make test
 %license LICENSE
 %doc Changes README
 %{perl_vendorlib}/Log/
-%{_mandir}/man3/*
+%{_mandir}/man3/Log::Any*.3pm*
 
 %changelog
+* Mon Jul 28 2025 Xavier Bachelot <xavier@bachelot.org> - 1.718-1
+- Update to 1.718 (RHBZ#2371156)
+- Clean up specfile
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.717-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

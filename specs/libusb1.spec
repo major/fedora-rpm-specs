@@ -18,6 +18,10 @@ BuildRequires:  gnupg2
 Provides:       libusbx = %{version}-%{release}
 Obsoletes:      libusbx < %{version}-%{release}
 
+Patch01:        0001-tests-umockdev-remove-UMOCKDEV_HOTPLUG-workaround.patch
+Patch02:        0002-linux_udev-only-return-initialized-devices-during-en.patch
+
+
 %if %{with mingw}
 BuildRequires:  mingw32-filesystem >= 95
 BuildRequires:  mingw32-gcc-c++

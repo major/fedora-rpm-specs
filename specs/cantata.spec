@@ -16,9 +16,11 @@ Patch1:         %{name}-debn-qtio-p1.patch
 Patch2:         %{name}-drop-qtio-p2.patch
 Patch3:         %{name}-hidebroken-p3.patch
 Patch4:         %{name}-no-tag-edit-p4.patch
+Patch5:         %{name}-trayicon-p5.patch
 
 BuildRequires:  kf6-kitemviews-devel
 BuildRequires:  kf6-karchive-devel
+BuildRequires:  kf6-rpm-macros
 BuildRequires:  gcc-c++
 
 
@@ -106,6 +108,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/dog.unix.cantata.Cant
 %{_datadir}/Cantata/icons/*
 %{_datadir}/Cantata/scripts/*
 %{_datadir}/applications/*
+%{_kf6_datadir}/knotifications6/%{name}.notifyrc
 %{_datadir}/metainfo/*
 %{_datadir}/icons/hicolor/scalable/apps/dog.unix.cantata.Cantata.svg
 %{_datadir}/icons/hicolor/symbolic/apps/dog.unix.cantata.Cantata-symbolic.svg

@@ -20,7 +20,7 @@ it compatible with cython.
 }
 
 # Test the C++ library, independent of the Python wrapper?
-%ifnarch x86_64 %{ix86}
+%ifnarch %{x86_64}
 # Test failure with GCC/Linux on non-x86 architectures at -O2
 # https://github.com/the-virtual-brain/tvb-gdist/issues/76
 %bcond_with cxx_tests
@@ -43,6 +43,9 @@ License:        GPL-3.0-or-later
 URL:            %forgeurl
 # GitHub archive has tests etc., which the PyPI sdist lacks.
 Source0:        %forgesource
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  python3-devel
 BuildRequires:  gcc-c++

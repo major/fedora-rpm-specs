@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 48%{?dist}
+Release: 49%{?dist}
 # Python is Python
 # pip MIT is and bundles:
 #   appdirs: MIT
@@ -847,6 +847,12 @@ Patch457: 00457-ssl-raise-oserror-for-err_lib_sys.patch
 #   fixes mulriple CVE fixes in the tarfile module
 # - downstream only fixes that makes the changes work and compatible with Python 3.6
 Patch465: 00465-tarfile-cves.patch
+
+# 00467 # f0b2819ec35fe1f732f661aea68863a5e4dd829f
+# tarfile CVE-2025-8194
+#
+# tarfile now validates archives to ensure member offsets are non-negative (GH-137027)
+Patch467: 00467-tarfile-cve-2025-8194.patch
 
 # (New patches go here ^^^)
 #
@@ -2127,6 +2133,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Mon Aug 11 2025 Lumír Balhar <lbalhar@redhat.com> - 3.6.15-49
+- Security fix for CVE-2025-8194
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.15-48
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

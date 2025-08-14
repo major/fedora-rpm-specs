@@ -5,7 +5,7 @@
 %global crate zerovec
 
 Name:           rust-zerovec
-Version:        0.11.3
+Version:        0.11.4
 Release:        %autorelease
 Summary:        Zero-copy vector backed by a byte array
 

@@ -19,7 +19,7 @@
 %bcond yyjson 0
 
 Name:           python-orjson
-Version:        3.11.1
+Version:        3.11.2
 Release:        %autorelease
 Summary:        Fast, correct Python JSON library
 

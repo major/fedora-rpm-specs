@@ -4,6 +4,13 @@
 #global gitdate 20241117.082905
 #global shortcommit %%(c=%%{gitcommit}; echo ${c:0:7})
 
+# No libcerf-3 on s390x
+%ifarch s390x
+%bcond libcerf 0
+%else
+%bcond libcerf 1
+%endif
+
 Name:           LabPlot
 Version:        2.12.0%{?gitdate:~%{gitdate}.%{shortcommit}}
 Release:        %autorelease
@@ -70,7 +77,9 @@ BuildRequires:  netcdf-devel
 
 BuildRequires:  cmake(Qt6Mqtt)
 BuildRequires:  cfitsio-devel
+%if %{with cerf}
 BuildRequires:  libcerf-devel
+%endif
 BuildRequires:  libspectre-devel
 BuildRequires:  libzstd-devel
 BuildRequires:  zlib-devel

@@ -4,14 +4,14 @@
 %global	plugin_least_ver	3.5.99
 
 %global	use_git	1
-%global	gitdate	20250729
-%global	githash	c86686d16925052015ae45b5677ca611aa8ec13c
+%global	gitdate	20250812
+%global	githash	ba992c49d8db5750af0d03131e08b3ffa4dfff21
 %global	shorthash	%(c=%{githash} ; echo ${c:0:7})
 
 %global	tarballver	%{mainver}%{?use_git:-%{gitdate}git%{shorthash}}
 
 %global	baserelease	1
-%global	alphatag		.rc7
+%global	alphatag		.rc8
 
 %undefine _ld_strict_symbol_defs
 %undefine __brp_mangle_shebangs
@@ -263,6 +263,9 @@ popd
 %{_libdir}/pkgconfig/gldi.pc
 
 %changelog
+* Tue Aug 12 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.5.99^20250812gitba992c4-1.rc8
+- Update to the latest git (20250812gitba992c4)
+
 * Tue Jul 29 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.5.99^20250729gitc86686d-1.rc7
 - Update to the latest git (20250729gitc86686d)
 

@@ -38,7 +38,7 @@
 
 Name:			lxde-common
 Version:		%{main_version}%{git_ver_rpm}
-Release:		3%{?dist}
+Release:		4%{?dist}
 Summary:		Default configuration files for LXDE
 
 # SPDX confirmed
@@ -179,8 +179,11 @@ desktop-file-install \
 desktop-file-install \
 	--dir=%{buildroot}%{_datadir}/applications               \
 	%{SOURCE1}
-# cannot use desktop-file-utils because it is out of date
-install -pm 0644 %{SOURCE2} %{buildroot}%{_datadir}/applications/
+
+desktop-file-install \
+	--remove-key=Encoding \
+	--dir=%{buildroot}%{_datadir}/applications \
+	%{SOURCE2}
 
 #install custom gtkrc
 mkdir -p %{buildroot}%{_sysconfdir}/xdg/lxsession/gtk-2.0
@@ -226,6 +229,9 @@ install -cpm 0644 %{SOURCE11} %{buildroot}%{_sysconfdir}/xdg/lxsession/libfm/lib
 
 
 %changelog
+* Tue Aug 12 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.99.3-4
+- Call desktop-file-install for more desktop file
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.99.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

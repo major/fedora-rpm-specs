@@ -437,12 +437,10 @@ LD_PRELOAD=%{buildroot}%{_libdir}/OpenMS/libSuperHirn.so
 %{_bindir}/FeatureLinkerLabeled
 %{_bindir}/FeatureLinkerUnlabeled
 %{_bindir}/FeatureLinkerUnlabeledQT
-%{_bindir}/MascotAdapter
 %{_bindir}/MascotAdapterOnline
 %{_bindir}/IonMobilityBinning
 %{_bindir}/AssayGeneratorMetaboSirius
 %{_bindir}/SiriusExport
-%{_bindir}/SpecLibSearcher
 %{_bindir}/ConsensusID
 %{_bindir}/FalseDiscoveryRate
 %{_bindir}/IDConflictResolver
@@ -477,7 +475,6 @@ LD_PRELOAD=%{buildroot}%{_libdir}/OpenMS/libSuperHirn.so
 %{_bindir}/LuciphorAdapter
 %{_bindir}/SageAdapter
 %{_bindir}/DatabaseFilter
-%{_bindir}/XTandemAdapter
 %{_metainfodir}/*.appdata.xml
 %{_datadir}/applications/TOPPAS.desktop
 %{_datadir}/applications/TOPPView.desktop

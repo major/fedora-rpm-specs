@@ -8,7 +8,7 @@
 %global forgeurl https://github.com/rfc1036/whois
 
 Name:       whois       
-Version:    5.6.2
+Version:    5.6.4
 Release:    %autorelease
 Summary:    Improved WHOIS client
 License:    GPL-2.0-or-later
@@ -17,7 +17,9 @@ VCS:        git:%{forgeurl}
 Source0:    https://ftp.debian.org/debian/pool/main/w/%{name}/%{name}_%{version}.tar.xz
 Source1:    https://ftp.debian.org/debian/pool/main/w/%{name}/%{name}_%{version}.dsc
 # This keyring needs to be processed at prep time, dscverify is not able to use it as it is
-Source2:    https://www.linux.it/~md/md-pgp.asc
+# Debian-tag2upload service key obtained from
+# <https://packages.debian.org/trixie/debian-tag2upload-keyring>.
+Source2:    gpgkey-374D8CE4DB96E9CBD4C0972A606D084E4683C079.gpg
 BuildRequires:  coreutils
 BuildRequires:  gcc
 BuildRequires:  gettext
@@ -95,7 +97,7 @@ whois tools messages translated into different natural languages.
   dscverify --keyring "${TMPKEY}" %{SOURCE1}
   rm -rf "$GNUPGHOME"
 %endif
-%autosetup -p1 -n %{name}
+%autosetup -p1 -n work
 
 %build
 %{make_build} CONFIG_FILE="%{_sysconfdir}/%{cfgfile}" \

@@ -1,17 +1,17 @@
 %global	urlver		3.5
 %global	mainver		3.5.99
 
-%global	core_least_ver	3.5.99^20250729gitc86686d
+%global	core_least_ver	3.5.99^20250812gitba992c4
 
 %global	use_git	1
-%global	gitdate	20250729
-%global	githash	eb8fa4c93cf411fa0e68f2918aeb4ab3f7a3d28d
+%global	gitdate	20250810
+%global	githash	987890ddac525c4a6424ec669b389492ed8fb4a4
 %global	shorthash	%(c=%{githash} ; echo ${c:0:7})
 
 %global	tarballver	%{mainver}%{?use_git:-%{gitdate}git%{shorthash}}
 
 %global	baserelease	1
-%global	alphatag		.rc5
+%global	alphatag		.rc6
 
 %global	ruby_vendorlib	%(ruby -rrbconfig -e "puts RbConfig::CONFIG['vendorlibdir']")
 %global	dbus_datadir	%{_datadir}/cairo-dock/plug-ins/Dbus
@@ -42,11 +42,6 @@ URL:			http://glx-dock.org/
 Source0:		cairo-dock-plugins-fedora-%{tarballver}.tar.gz
 # Source0 is created from Source1
 Source1:		cairo-dock-plug-ins-create-fedora-tarball.sh
-# Port to WebKit2
-Patch11:		cairo-dock-plugins-3.4.1-port-WebKit2.patch
-# https://fedoraproject.org/wiki/Changes/Remove_webkit2gtk-4.0_API_Version
-# Use webkit2gtk-4.1 for F-39+
-Patch13:		cairo-dock-plugins-3.4.1-port-WebKit2_gtk41.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:	cmake
@@ -55,6 +50,7 @@ BuildRequires:	gettext
 BuildRequires:	pkgconfig(gldi) >= %{mainver}
 BuildRequires:	pkgconfig(glib-2.0)
 BuildRequires:	pkgconfig(gio-2.0)
+BuildRequires:	cairo-dock-devel >= %{core_least_ver}
 
 # Plug-ins
 BuildRequires:	pkgconfig(ayatana-indicator3-0.4)
@@ -210,8 +206,6 @@ binding for Cairo-Dock.
 
 %prep
 %setup -q -n cairo-dock-plugins-%{mainver}%{?use_git:-%{gitdate}git%{shorthash}}
-%patch -P11 -p1 -b .wk2
-%patch -P13 -p1 -b .wk2_gtk41
 
 ## permission
 # %%_fixperms cannot fix permissions completely here
@@ -275,6 +269,7 @@ rm -f CMakeCache.txt
 	-Denable-doncky=TRUE \
 	-Denable-global-menu=TRUE \
 	-Denable-network-monitor=TRUE \
+	-Denable-weblets=TRUE \
 %if 0
 	-Denable-scooby-do=TRUE \
 %endif
@@ -422,6 +417,9 @@ popd
 %{_datadir}/cairo-dock/plug-ins/Dbus/CDApplet.h
 
 %changelog
+* Tue Aug 12 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.5.99^20250810git987890d-1.rc6
+- Update to the latest git (20250810git987890d)
+
 * Tue Jul 29 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.5.99^20250729giteb8fa4c-1.rc5
 - Update to the latest git (20250729giteb8fa4c)
 

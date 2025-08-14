@@ -107,13 +107,20 @@
 %bcond etcd_mutex 0
 %endif
 
+# Build the prometheus exporter by default on Fedora
+%if 0%{?fedora}
+%bcond prometheus 1
+%else
+%bcond prometheus 0
+%endif
+
 %ifarch aarch64 ppc64le s390x x86_64 riscv64
 %bcond lmdb 1
 %else
 %bcond lmdb 0
 %endif
 
-%global samba_version 4.22.3
+%global samba_version 4.23.0
 
 # The release field is extended:
 # <pkgrel>[.<extraver>][.<snapinfo>]%%{?dist}[.<minorbump>]
@@ -128,7 +135,7 @@
 #                    default is 1).
 %global samba_release %autorelease
 
-%global pre_release %nil
+%global pre_release rc1
 %if "x%{?pre_release}" != "x"
 %global samba_release %autorelease -p -e %pre_release
 %endif
@@ -159,8 +166,8 @@
 %global libwbclient_so_version 0
 
 %global talloc_version 2.4.3
-%global tdb_version 1.4.13
-%global tevent_version 0.16.2
+%global tdb_version 1.4.14
+%global tevent_version 0.17.1
 
 %global required_mit_krb5 1.20.1
 
@@ -214,8 +221,6 @@ Source18:       samba-winbind-systemd-sysusers.conf
 
 Source201:      README.downgrade
 Source202:      samba.abignore
-
-Patch0:         samba-4.22.x-get_kdc_ip_string.patch
 
 Requires(pre): %{name}-common = %{samba_depver}
 Requires: %{name}-common = %{samba_depver}
@@ -344,6 +349,9 @@ BuildRequires: librados-devel
 %endif
 %if %{with etcd_mutex}
 BuildRequires: python3-etcd
+%endif
+%if %{with prometheus}
+BuildRequires: libevent-devel
 %endif
 
 BuildRequires: cepces-certmonger >= 0.3.8
@@ -1206,6 +1214,18 @@ Support for using an existing CEPH cluster as a mutex helper for CTDB
 #endif with clustering
 %endif
 
+%if %{with prometheus}
+
+%package prometheus
+Summary: SMB Prometheus exporter
+Requires: samba = %{samba_depver}
+
+%description prometheus
+Support for exporting metrics via Prometheus
+
+#endif with prometheus
+%endif
+
 ### LIBLDB
 %package -n libldb
 Summary: A schema-less, ldap like, API and database
@@ -1357,6 +1377,8 @@ if [ -n "${CCACHE}" ]; then
 fi
 %endif
 
+# workaround https://gitlab.com/ita1024/waf/-/issues/2472
+export PYTHONARCHDIR=%{python3_sitearch}
 %configure \
         --enable-fhs \
         --with-piddir=/run \
@@ -1396,6 +1418,9 @@ fi
 %endif
 %if %{with etcd_mutex}
         --enable-etcd-reclock \
+%endif
+%if %{with prometheus}
+        --with-prometheus-exporter \
 %endif
         --with-profiling-data \
         --with-systemd \
@@ -1995,22 +2020,25 @@ fi
 %{_libdir}/samba/libndr-samba4-private-samba.so
 %{_libdir}/samba/libnet-keytab-private-samba.so
 %{_libdir}/samba/libnetif-private-samba.so
+%{_libdir}/samba/libngtcp2-crypto-gnutls-private-samba.so
+%{_libdir}/samba/libngtcp2-private-samba.so
 %{_libdir}/samba/libnpa-tstream-private-samba.so
 %{_libdir}/samba/libposix-eadb-private-samba.so
 %{_libdir}/samba/libprinter-driver-private-samba.so
 %{_libdir}/samba/libprinting-migrate-private-samba.so
+%{_libdir}/samba/libquic-private-samba.so
 %{_libdir}/samba/libregistry-private-samba.so
 %{_libdir}/samba/libsamba-cluster-support-private-samba.so
 %{_libdir}/samba/libsamba-debug-private-samba.so
 %{_libdir}/samba/libsamba-modules-private-samba.so
 %{_libdir}/samba/libsamba-security-private-samba.so
+%{_libdir}/samba/libsamba-security-trusts-private-samba.so
 %{_libdir}/samba/libsamba-sockets-private-samba.so
 %{_libdir}/samba/libsamba3-util-private-samba.so
 %{_libdir}/samba/libsamdb-common-private-samba.so
 %{_libdir}/samba/libsecrets3-private-samba.so
 %{_libdir}/samba/libserver-id-db-private-samba.so
 %{_libdir}/samba/libserver-role-private-samba.so
-%{_libdir}/samba/libsmb-transport-private-samba.so
 %{_libdir}/samba/libsmbclient-raw-private-samba.so
 %{_libdir}/samba/libsmbd-base-private-samba.so
 %{_libdir}/samba/libsmbd-shim-private-samba.so
@@ -2106,6 +2134,7 @@ fi
 %{_mandir}/man8/net.8*
 %{_mandir}/man8/pdbedit.8*
 %{_mandir}/man8/smbpasswd.8*
+%{_datadir}/locale/*/LC_MESSAGES/net.mo
 
 ### TOOLS
 %files tools
@@ -2228,6 +2257,7 @@ fi
 %{_libdir}/samba/service/dns.so
 %{_libdir}/samba/service/dns_update.so
 %{_libdir}/samba/service/drepl.so
+%{_libdir}/samba/service/ft_scanner.so
 %{_libdir}/samba/service/kcc.so
 %{_libdir}/samba/service/kdc.so
 %{_libdir}/samba/service/ldap.so
@@ -2580,6 +2610,7 @@ fi
 %{python3_sitearch}/samba/dcerpc/atsvc.*.so
 %{python3_sitearch}/samba/dcerpc/auth.*.so
 %{python3_sitearch}/samba/dcerpc/base.*.so
+%{python3_sitearch}/samba/dcerpc/bcrypt_rsakey_blob.*.so
 %{python3_sitearch}/samba/dcerpc/claims.*.so
 %{python3_sitearch}/samba/dcerpc/conditional_ace.*.so
 %{python3_sitearch}/samba/dcerpc/dcerpc.*.so
@@ -2595,6 +2626,7 @@ fi
 %{python3_sitearch}/samba/dcerpc/idmap.*.so
 %{python3_sitearch}/samba/dcerpc/initshutdown.*.so
 %{python3_sitearch}/samba/dcerpc/irpc.*.so
+%{python3_sitearch}/samba/dcerpc/keycredlink.*.so
 %{python3_sitearch}/samba/dcerpc/krb5ccache.*.so
 %{python3_sitearch}/samba/dcerpc/krb5pac.*.so
 %{python3_sitearch}/samba/dcerpc/lsa.*.so
@@ -2616,6 +2648,7 @@ fi
 %{python3_sitearch}/samba/dcerpc/spoolss.*.so
 %{python3_sitearch}/samba/dcerpc/srvsvc.*.so
 %{python3_sitearch}/samba/dcerpc/svcctl.*.so
+%{python3_sitearch}/samba/dcerpc/tpm20_rsakey_blob.*.so
 %{python3_sitearch}/samba/dcerpc/unixinfo.*.so
 %{python3_sitearch}/samba/dcerpc/winbind.*.so
 %{python3_sitearch}/samba/dcerpc/windows_event_ids.*.so
@@ -3119,6 +3152,7 @@ fi
 %{python3_sitearch}/samba/tests/__pycache__/auth_log_netlogon_bad_creds.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/auth_log_samlogon.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/auth_log_winbind.*.pyc
+%{python3_sitearch}/samba/tests/__pycache__/bcrypt_rsakey_blob.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/common.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/complex_expressions.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/compression.*.pyc
@@ -3160,6 +3194,7 @@ fi
 %{python3_sitearch}/samba/tests/__pycache__/hostconfig.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/imports.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/join.*.pyc
+%{python3_sitearch}/samba/tests/__pycache__/key_credential_link.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/krb5_credentials.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/ldap_raw.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/ldap_referrals.*.pyc
@@ -3237,6 +3272,7 @@ fi
 %{python3_sitearch}/samba/tests/__pycache__/subunitrun.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/tdb_util.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/token_factory.*.pyc
+%{python3_sitearch}/samba/tests/__pycache__/tpm20_rsakey_blob.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/upgrade.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/upgradeprovision.*.pyc
 %{python3_sitearch}/samba/tests/__pycache__/upgradeprovisionneeddc.*.pyc
@@ -3254,6 +3290,7 @@ fi
 %{python3_sitearch}/samba/tests/auth_log_pass_change.py
 %{python3_sitearch}/samba/tests/auth_log_samlogon.py
 %{python3_sitearch}/samba/tests/auth_log_winbind.py
+%{python3_sitearch}/samba/tests/bcrypt_rsakey_blob.py
 %dir %{python3_sitearch}/samba/tests/blackbox
 %{python3_sitearch}/samba/tests/blackbox/__init__.py
 %dir %{python3_sitearch}/samba/tests/blackbox/__pycache__
@@ -3414,6 +3451,7 @@ fi
 %{python3_sitearch}/samba/tests/kcc/graph_utils.py
 %{python3_sitearch}/samba/tests/kcc/kcc_utils.py
 %{python3_sitearch}/samba/tests/kcc/ldif_import_export.py
+%{python3_sitearch}/samba/tests/key_credential_link.py
 %dir %{python3_sitearch}/samba/tests/krb5
 %dir %{python3_sitearch}/samba/tests/krb5/__pycache__
 %{python3_sitearch}/samba/tests/krb5/__pycache__/alias_tests.*.pyc
@@ -3529,6 +3567,12 @@ fi
 %{python3_sitearch}/samba/tests/net_join_no_spnego.py
 %{python3_sitearch}/samba/tests/net_join.py
 %{python3_sitearch}/samba/tests/netlogonsvc.py
+%dir %{python3_sitearch}/samba/tests/nss
+%dir %{python3_sitearch}/samba/tests/nss/__pycache__
+%{python3_sitearch}/samba/tests/nss/__pycache__/base.*.pyc
+%{python3_sitearch}/samba/tests/nss/__pycache__/group.*.pyc
+%{python3_sitearch}/samba/tests/nss/base.py
+%{python3_sitearch}/samba/tests/nss/group.py
 %{python3_sitearch}/samba/tests/ntacls.py
 %{python3_sitearch}/samba/tests/ntacls_backup.py
 %{python3_sitearch}/samba/tests/ntlmdisabled.py
@@ -3689,10 +3733,21 @@ fi
 %{python3_sitearch}/samba/tests/subunitrun.py
 %{python3_sitearch}/samba/tests/tdb_util.py
 %{python3_sitearch}/samba/tests/token_factory.py
+%{python3_sitearch}/samba/tests/tpm20_rsakey_blob.py
 %{python3_sitearch}/samba/tests/upgrade.py
 %{python3_sitearch}/samba/tests/upgradeprovision.py
 %{python3_sitearch}/samba/tests/upgradeprovisionneeddc.py
 %{python3_sitearch}/samba/tests/usage.py
+%dir %{python3_sitearch}/samba/tests/varlink
+%dir %{python3_sitearch}/samba/tests/varlink/__pycache__
+%{python3_sitearch}/samba/tests/varlink/__pycache__/base.*.pyc
+%{python3_sitearch}/samba/tests/varlink/__pycache__/getgrouprecord.*.pyc
+%{python3_sitearch}/samba/tests/varlink/__pycache__/getmemberships.*.pyc
+%{python3_sitearch}/samba/tests/varlink/__pycache__/getuserrecord.*.pyc
+%{python3_sitearch}/samba/tests/varlink/base.py
+%{python3_sitearch}/samba/tests/varlink/getgrouprecord.py
+%{python3_sitearch}/samba/tests/varlink/getmemberships.py
+%{python3_sitearch}/samba/tests/varlink/getuserrecord.py
 %{python3_sitearch}/samba/tests/xattr.py
 
 ### TEST
@@ -3761,6 +3816,7 @@ fi
 %config(noreplace) %{_sysconfdir}/security/pam_winbind.conf
 %{_mandir}/man5/pam_winbind.conf.5*
 %{_mandir}/man8/pam_winbind.8*
+%{_datadir}/locale/*/LC_MESSAGES/pam_winbind.mo
 
 %if %{with clustering}
 %files -n ctdb
@@ -3910,6 +3966,13 @@ fi
 %{_mandir}/man1/winexe.1.gz
 %endif
 
+%if %{with prometheus}
+%files prometheus
+%{_bindir}/smb_prometheus_endpoint
+%{_mandir}/man8/smb_prometheus_endpoint.8.gz
+#endif with prometheus
+
+%endif
 %files -n libldb
 %license lib/ldb/LICENSE
 %{_libdir}/libldb.so.*
@@ -3933,6 +3996,7 @@ fi
 %{_libdir}/samba/ldb/server_sort.so
 %{_libdir}/samba/ldb/skel.so
 %{_libdir}/samba/ldb/tdb.so
+%{_libdir}/samba/ldb/trust_notify.so
 
 %files -n libldb-devel
 %{_includedir}/samba-4.0/ldb_module.h

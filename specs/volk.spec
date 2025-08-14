@@ -1,12 +1,15 @@
 Name:          volk
 Version:       3.2.0
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       The Vector Optimized Library of Kernels
 License:       LGPL-3.0-or-later
 URL:           https://github.com/gnuradio/%{name}
 Source0:       https://github.com/gnuradio/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Source1:       https://github.com/gnuradio/volk/releases/download/v%{version}/%{name}-%{version}.tar.gz.asc
 Source2:       https://github.com/gnuradio/volk/releases/download/v2.4.1/gpg_volk_release_key.asc
+# Patches:
+#  https://github.com/gnuradio/volk/issues/794
+Patch1:        0001-rotator2-disable-SSE-4.1-kernels-wildly-incorrect-re.patch
 
 BuildRequires: gnupg2
 BuildRequires: make
@@ -64,22 +67,15 @@ sed -i '1 {/#!\s*\/usr\/bin\/env\s\+python/ d}' __init__.py cfg.py
 popd
 
 %build
-# workaround, the code is not yet compatible with the strict-aliasing
-export CFLAGS="%{optflags} -fno-strict-aliasing"
-export CXXFLAGS="$CFLAGS"
 %cmake
 %cmake_build
 
 # Use make_build for EL8 compat
 %make_build -C %{__cmake_builddir} volk_doc
 
-
-# temporally disabled the testsuite due to https://github.com/gnuradio/volk/issues/442
-# gnuradio (and all volk consumers) could coredump on s390x and ppc64le under some
-# circumstances, see https://bugzilla.redhat.com/show_bug.cgi?id=1917625#c6
-#%%check
-#cd %{__cmake_builddir}
-#make test
+%check
+cd %{__cmake_builddir}
+ctest --output-on-failure
 
 
 %install
@@ -111,6 +107,11 @@ cp -a %{__cmake_builddir}/html %{buildroot}%{_docdir}/%{name}
 
 
 %changelog
+* Fri Jul 25 2025 Fedora Release Engineering <marcus_fedora@baseband.digital> - 3.2.0-5
+- Enable tests
+- Disable rotator2 SSE 4.1 kernels (other implementations available)
+- Use default compiler flags (strict aliasing works)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,20 +1,21 @@
 Name:           perl-Data-Integer
-Version:        0.006
+Version:        0.007
 Release:        %autorelease
 Summary:        Details of the native integer data type
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Data-Integer
-Source0:        https://cpan.metacpan.org/authors/id/Z/ZE/ZEFRAM/Data-Integer-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/R/RR/RRWO/Data-Integer-%{version}.tar.gz
 BuildArch:      noarch
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  perl(:VERSION) >= 5.6
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(constant)
 BuildRequires:  perl(Exporter)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(integer)
-BuildRequires:  perl(Module::Build)
 BuildRequires:  perl(parent)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Test::More)
@@ -32,20 +33,20 @@ integer type.
 %autosetup -n Data-Integer-%{version}
 
 %build
-%{__perl} Build.PL --installdirs=vendor
-./Build
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-./Build install --destdir=$RPM_BUILD_ROOT --create_packlist=0
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
-./Build test
+make test
 
 %files
-%doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%doc Changes README SECURITY.md
+%{perl_vendorlib}/Data
+%{_mandir}/man3/Data::Integer*
 
 %changelog
 %autochangelog

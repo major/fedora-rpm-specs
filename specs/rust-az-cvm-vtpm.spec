@@ -8,7 +8,7 @@
 %global supported_arches x86_64
 
 Name:           rust-az-cvm-vtpm
-Version:        0.7.3
+Version:        0.7.4
 Release:        %autorelease
 Summary:        Package with shared code for Azure Confidential VMs
 
@@ -42,6 +42,7 @@ Summary:        %{summary}
 BuildArch:      noarch
 
 %description -n %{name}+default-devel %{_description}
+
 
 This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.

@@ -2,6 +2,10 @@
 # first f42 https://koji.fedoraproject.org/koji/taskinfo?taskID=124917502
 # then f40 https://koji.fedoraproject.org/koji/taskinfo?taskID=125295645
 # then also f41 https://koji.fedoraproject.org/koji/taskinfo?taskID=125632253
+# Excluded due to https://bugzilla.mozilla.org/show_bug.cgi?id=1792159
+# https://bugzilla.redhat.com/show_bug.cgi?id=2129720
+ExcludeArch: i686
+
 %ifarch ppc64le
 %global rustflags_debuginfo 1
 %endif
@@ -87,13 +91,13 @@ ExcludeArch: armv7hl
 
 Summary:        Mozilla Thunderbird mail/newsgroup client
 Name:           thunderbird
-Version:        128.13.0
+Version:        140.1.0
 Release:        1%{?dist}
 URL:            http://www.mozilla.org/projects/thunderbird/
 License:        MPL-2.0 OR GPL-2.0-or-later OR LGPL-2.0-or-later
 Source0:        https://archive.mozilla.org/pub/thunderbird/releases/%{version}%{?pre_version}/source/thunderbird-%{version}%{?pre_version}.source.tar.xz
 %if %{build_langpacks}
-Source1:        thunderbird-langpacks-%{version}%{?pre_version}-20250723.tar.xz
+Source1:        thunderbird-langpacks-%{version}%{?pre_version}-20250731.tar.xz
 %endif
 Source3:        get-calendar-langpacks.sh
 Source4:        cbindgen-vendor.tar.xz
@@ -126,8 +130,6 @@ Patch53:        firefox-gcc-build.patch
 Patch71:        0001-GLIBCXX-fix-for-GCC-12.patch
 Patch78:        firefox-i686-build.patch
 Patch79:        firefox-gcc-13-build.patch
-Patch80:        build-swgl-gcc15-D221744.diff
-Patch81:        build-swgl-gcc15-D222067.diff
 # PROTOBUF_MUSTTAIL return ...  error: cannot tail-call: target is not able to optimize the call into a sibling call
 Patch82:        build-s390x-protobuf-musttail.patch
 
@@ -140,9 +142,6 @@ Patch402:       mozilla-526293.patch
 Patch406:        mozilla-1170092.patch
 
 # Bundled expat backported patches
-Patch501:       expat-CVE-2022-25235.patch
-Patch502:       expat-CVE-2022-25236.patch
-Patch503:       expat-CVE-2022-25315.patch
 
 # Tentative patch for RUSTFLAGS parsing issue,
 # borrowed from firefox commit 24c9accce19c5cae9394430b24eaf938a9c17882:
@@ -183,10 +182,10 @@ BuildRequires:  libXrender-devel
 BuildRequires:  hunspell-devel
 BuildRequires:  llvm
 %if 0%{?fedora} >= 40 || 0%{?rhel} >= 10
-BuildRequires:  clang17
-BuildRequires:  clang17-libs
-BuildRequires:  llvm17-devel
-%global llvm_suffix -17
+BuildRequires:  clang
+BuildRequires:  clang-libs
+BuildRequires:  llvm-devel
+%global llvm_suffix -20
 %else
 BuildRequires:  clang
 BuildRequires:  clang-libs
@@ -311,21 +310,15 @@ debug %{name}, you want to install %{name}-debuginfo instead.
 
 %patch -P 422 -p1 -b .0001-GLIBCXX-fix-for-GCC-12
 
-%patch -P 501 -p1 -b .expat-CVE-2022-25235
-%patch -P 502 -p1 -b .expat-CVE-2022-25236
-%patch -P 503 -p1 -b .expat-CVE-2022-25315
-
-%patch -P40 -p1 -b .aarch64-skia
+#patch -P40 -p1 -b .aarch64-skia
 %patch -P44 -p1 -b .build-arm-libopus
 #patch -P53 -p1 -b .firefox-gcc-build
 %patch -P71 -p1 -b .0001-GLIBCXX-fix-for-GCC-12
 %patch -P78 -p1 -b .firefox-i686
 %patch -P79 -p1 -b .firefox-gcc-13-build
-%patch -P80 -p1 -b .swgl-gcc15-1
-%patch -P81 -p1 -b .swgl-gcc15-2
 %patch -P82 -p1 -b .build-s390x-protobuf-musttail
 
-%patch -P 1200 -p1 -b .rustflags-commasplit
+#patch -P 1200 -p1 -b .rustflags-commasplit
 
 %if %{official_branding}
 # Required by Mozilla Corporation
@@ -417,8 +410,6 @@ echo "ac_add_options --disable-crashreporter" >> .mozconfig
 
 # Same as https://bugzilla.redhat.com/show_bug.cgi?id=2239046 for Firefox:
 # Clang 17 upstream's detection fails, tell it where to look.
-echo "ac_add_options --with-clang-path=`which clang%{?llvm_suffix}`" >> .mozconfig
-echo "ac_add_options --with-libclang-path=`llvm-config%{?llvm_suffix} --libdir`" >> .mozconfig
 
 echo 'export NODEJS="%{nodewrapperdir}/node-stdout-nonblocking-wrapper"' >> .mozconfig
 
@@ -426,6 +417,14 @@ echo 'export NODEJS="%{nodewrapperdir}/node-stdout-nonblocking-wrapper"' >> .moz
 echo 'export MOZ_APP_REMOTINGNAME=net.thunderbird.Thunderbird' >> .mozconfig
 %else
 echo 'export MOZ_APP_REMOTINGNAME=thunderbird' >> .mozconfig
+%endif
+# https://bugzilla.redhat.com/show_bug.cgi?id=2239046
+# with clang 17 upstream's detection fails, so let's just tell it
+# where to look
+%if 0%{?fedora} >= 42
+echo "ac_add_options --with-libclang-path=`llvm-config-20 --libdir`" >> .mozconfig
+%else
+echo "ac_add_options --with-libclang-path=`llvm-config --libdir`" >> .mozconfig
 %endif
 
 # Remove executable bit to make brp-mangle-shebangs happy.

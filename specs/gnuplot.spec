@@ -10,19 +10,16 @@
 %bcond_with wx
 %endif
 
-# libcerf is unavailable in this architecture
 %if 0%{?fedora} || 0%{?rhel} >= 9
-%ifarch s390x
-%bcond_with libcerf
-%else
 %bcond_without libcerf
-%endif
+%else
+%bcond_with libcerf
 %endif
 
 Summary: A program for plotting mathematical expressions and data
 Name: gnuplot
 Version: %{major}.%{minor}.%{patchlevel}
-Release: 3%{?dist}
+Release: 4%{?dist}
 # MIT .. term/PostScript/aglfn.txt
 License: gnuplot and MIT
 URL: http://www.gnuplot.info/
@@ -316,6 +313,9 @@ fi
 %{_texmf_vendor}/tex/latex/gnuplot/
 
 %changelog
+* Tue Aug 12 2025 Antonio Trande <sagitter@fedoraproject.org> - 6.0.3-4
+- Include libcerf support on s390x (pagure issue #12873)
+
 * Mon Aug 11 2025 Antonio Trande <sagitter@fedoraproject.org> - 6.0.3-3
 - Rebuild for libcerf-3.1
 - Exclude libcerf support on s390x

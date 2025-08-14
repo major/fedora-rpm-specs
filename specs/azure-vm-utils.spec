@@ -1,5 +1,5 @@
 Name:           azure-vm-utils
-Version:        0.6.0
+Version:        0.7.0
 Release:        %autorelease
 Summary:        Core utilities and configuration for Linux VMs on Azure
 
@@ -12,9 +12,23 @@ BuildRequires:  gcc
 BuildRequires:  pkgconfig(libudev)
 BuildRequires:  json-c-devel
 BuildRequires:  libcmocka-devel
+BuildRequires:  systemd-rpm-macros
+Requires:       util-linux
+Recommends:     mdadm
 
 Provides:       azure-nvme-utils = %{version}-%{release}
 Obsoletes:      azure-nvme-utils < 0.1.3-3
+
+
+%post
+%systemd_post azure-ephemeral-disk-setup.service
+
+%preun
+%systemd_preun azure-ephemeral-disk-setup.service
+
+%postun
+%systemd_postun azure-ephemeral-disk-setup.service
+
 
 %description
 This package provides a home for core utilities, udev rules and other
@@ -39,15 +53,18 @@ rm %{buildroot}%{_mandir}/man8/azure-vm-utils-selftest.8
 
 %files
 %defattr(-,root,root,-)
-%{_mandir}/man8/azure-nvme-id.8.gz
 %dir %{_prefix}/lib/dracut/modules.d/97azure-disk
 %{_prefix}/lib/dracut/modules.d/97azure-disk/module-setup.sh
 %{_prefix}/lib/dracut/modules.d/97azure-unmanaged-sriov/module-setup.sh
 %{_prefix}/lib/systemd/network/01-azure-unmanaged-sriov.network
-
-%{_bindir}/azure-nvme-id
-%{_udevrulesdir}/80-azure-disk.rules
+%{_unitdir}/azure-ephemeral-disk-setup.service
 %{_udevrulesdir}/10-azure-unmanaged-sriov.rules
+%{_udevrulesdir}/80-azure-disk.rules
+%{_bindir}/azure-ephemeral-disk-setup
+%{_bindir}/azure-nvme-id
+%{_mandir}/man8/azure-ephemeral-disk-setup.8.*
+%{_mandir}/man8/azure-nvme-id.8.*
+%config(noreplace) %{_sysconfdir}/azure-ephemeral-disk-setup.conf
 
 %changelog
 %autochangelog

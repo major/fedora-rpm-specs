@@ -1,16 +1,28 @@
+%ifarch s390x
+%bcond libcerf 0
+%else
+%bcond libcerf 1
+%endif
+
 Name:           libecpint
 Version:        1.0.7
-Release:        13%{?dist}
+Release:        15%{?dist}
 Summary:        Efficient evaluation of integrals over ab initio effective core potentials
 License:        MIT
 Url:            https://github.com/robashaw/libecpint
 Source0:        https://github.com/robashaw/libecpint/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+# Fix build with libcerf 3 - https://github.com/robashaw/libecpint/pull/66
+Patch:          libecpint-cerf3.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake >= 3.12
 BuildRequires:  pugixml-devel
 BuildRequires:  gtest-devel
+%if %{with libcerf}
 BuildRequires:  libcerf-devel >= 1.17
+%else
+Provides:       bundled(Faddeeva}
+%endif
 BuildRequires:  python3
 BuildRequires:  doxygen
 BuildRequires:  sphinx
@@ -38,13 +50,13 @@ Requires:       libcerf-devel >= 1.17
 This package contains development headers and libraries for libecpint.
 
 %prep
-%setup -q
+%autosetup -p1
 # gtest 1.13.0 requires C++14 or later
 # https://github.com/robashaw/libecpint/issues/58
 sed -r -i 's/\b(CMAKE_CXX_STANDARD[[:blank:]]+)11\b/\114/' CMakeLists.txt
 
 %build
-%cmake -DLIBECPINT_USE_CERF=ON
+%cmake %{?with_libcerf:-DLIBECPINT_USE_CERF=ON}
 %cmake_build
 
 %install
@@ -68,6 +80,12 @@ sed -r -i 's/\b(CMAKE_CXX_STANDARD[[:blank:]]+)11\b/\114/' CMakeLists.txt
 %{_libdir}/lib*.so
 
 %changelog
+* Tue Aug 12 2025 Orion Poplawski <orion@nwra.com> - 1.0.7-15
+- No libcerf-3 on s390x
+
+* Tue Aug 12 2025 Christoph Junghans <junghans@votca.org> - 1.0.7-14
+- Rebuild for libcerf-3
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

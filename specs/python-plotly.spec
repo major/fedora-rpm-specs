@@ -13,6 +13,10 @@
 # to a PyPI release and allows us to run tests.
 %bcond tests 1
 
+# F43FailsToInstall: python3-xarray+io, python3-xarray
+# https://bugzilla.redhat.com/show_bug.cgi?id=2372200
+%bcond xarray %[ %{defined fc41} || %{defined fc42} ]
+
 # Conditionalize test suits for selecting dependencies and tests to run
 # Run core tests
 %bcond test_core 1
@@ -83,7 +87,9 @@ BuildRequires:  python3-ipywidgets
 %endif
 %if %{with test_optional}
 BuildRequires:  python3-scipy
+%if %{with xarray}
 BuildRequires:  python3-xarray
+%endif
 BuildRequires:  python3-pillow
 BuildRequires:  python3-statsmodels
 BuildRequires:  python3-scikit-image
@@ -180,6 +186,9 @@ k="${k-}${k+ and }not test_sanitize_json"
 %endif
 %if %{with test_optional}
 ts="${ts-}${ts+ }plotly/tests/test_optional"
+%if %{without xarray}
+ts="${ts-}${ts+ }--ignore=plotly/tests/test_optional/test_px/test_imshow.py"
+%endif
 # kaleido is not packaged for Fedora
 k="${k-}${k+ and }not test_kaleido"
 # This optional test fails in koji (not in local mock build)

@@ -10,6 +10,10 @@ License:   LGPL-3.0-only
 URL:       https://github.com/hardbyte/python-can
 Source0:   %{url}/archive/%{version}.tar.gz#/%{name}-%{version}%{?candidate:%{candidate}}.tar.gz
 
+# Allow wrapt 2.x
+# https://github.com/hardbyte/python-can/pull/1980
+Patch:     %{url}/pull/1980.patch
+
 BuildArch: noarch
 
 BuildRequires:  python3-devel

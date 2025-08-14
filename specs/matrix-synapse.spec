@@ -1,7 +1,7 @@
 %bcond_without check
 
 Name:       matrix-synapse
-Version:    1.135.2
+Version:    1.136.0
 Release:    %autorelease
 Summary:    A Matrix reference homeserver written in Python using Twisted
 License:    AGPL-3.0-or-later
@@ -84,7 +84,7 @@ install -p -D -m 0644 %{SOURCE3} %{buildroot}%{_sysusersdir}/%{name}.conf
 %if %{with check}
 %check
 set -o pipefail
-PYTHONPATH=%{buildroot}%{python3_sitearch}:%{buildroot}%{python3_sitelib}:$PWD trial-3 %_smp_mflags tests | tee trial.stdout
+PYTHONPATH=%{buildroot}%{python3_sitearch}:%{buildroot}%{python3_sitelib}:$PWD trial-3 %{!?fc41:%_smp_mflags} tests | tee trial.stdout
 
 # Guard against new types of tests being skipped.
 WHITELIST="Requires hiredis

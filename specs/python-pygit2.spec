@@ -24,7 +24,6 @@ the core of Git.
 
 %package -n     python3-%{pkgname}
 Summary:        Python 3 bindings for libgit2
-%{?python_provide:%python_provide python3-%{pkgname}}
 BuildRequires:  python3-pytest
 
 %description -n python3-%{pkgname}
@@ -56,11 +55,12 @@ Documentation for %{name}.
 %pyproject_wheel
 
 make -C docs html
+find %{_builddir} -name '.buildinfo' -print -delete
 
 
 %install
 %pyproject_install
-find %{_builddir} -name '.buildinfo' -print -delete
+%pyproject_save_files -l %{pkgname}
 
 
 %check
@@ -68,17 +68,14 @@ find %{_builddir} -name '.buildinfo' -print -delete
 rm -f pygit2/__init__.py
 # https://github.com/libgit2/pygit2/issues/812
 %ifarch ppc64 s390x
-  PYTHONPATH=%{buildroot}%{python3_sitearch} py.test-%{python3_version} -v || :
+%pytest -v -k "not (test_no_context_lines or test_diff_blobs)"
 %else
-  PYTHONPATH=%{buildroot}%{python3_sitearch} py.test-%{python3_version} -v
+%pytest -v
 %endif
 
 
-%files -n python3-%{pkgname}
-%license COPYING
+%files -n python3-%{pkgname} -f %{pyproject_files}
 %doc README.md
-%{python3_sitearch}/%{pkgname}-*.dist-info/
-%{python3_sitearch}/%{pkgname}/
 
 %files doc
 %license COPYING

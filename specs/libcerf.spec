@@ -1,7 +1,7 @@
 Name:           libcerf
 Version:        3.1
 %global         sover 3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A library that provides complex error functions
 
 License:        MIT
@@ -11,9 +11,6 @@ Source0:        https://jugit.fz-juelich.de/mlz/libcerf/-/archive/v%{version}/%{
 %if (0%{?rhel} || (0%{?fedora} && 0%{?fedora} < 33))
 %undefine __cmake_in_source_build
 %endif
-
-# https://jugit.fz-juelich.de/mlz/libcerf/-/issues/12
-ExcludeArch: s390x
 
 BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig
@@ -42,7 +39,12 @@ developing applications that use %{name}.
 %build
 # avoid non-portable default build flags (-march=native -O3), by setting overwrite
 # CERF_COMPILE_OPTIONS to a harmless flags like -Wall and let cmake do its thing
-%cmake -DCERF_COMPILE_OPTIONS='-Wall'
+%cmake -DCERF_COMPILE_OPTIONS='-Wall' \
+%ifarch s390x
+    -DCERF_IEEE754=OFF
+%else
+    %{nil}
+%endif
 %cmake_build
 
 
@@ -71,6 +73,9 @@ mv $RPM_BUILD_ROOT/%{_datadir}/doc/cerf/html $RPM_BUILD_ROOT/%{_datadir}/doc/%{n
 
 
 %changelog
+* Tue Aug 12 2025 Dan Horák <dan[at]danny.cz> - 3.1-2
+- fix build on s390x
+
 * Sun Aug 10 2025 Christoph Junghans <junghans@votca.org> - 3.1-1
 - Version bump to v3.1
 - Fixes: rhbz#2362012

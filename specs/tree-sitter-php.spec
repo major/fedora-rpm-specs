@@ -1,5 +1,5 @@
 Name:           tree-sitter-php
-Version:        0.23.12
+Version:        0.24.0
 Release:        %{autorelease}
 License:        MIT
 URL:            https://github.com/tree-sitter/%{name}

@@ -71,7 +71,7 @@ BuildRequires: metis-devel
 
 Name: superlu_dist
 Version: 8.2.0
-Release: 9%{?dist}
+Release: 10%{?dist}
 Epoch:   1
 Summary: Solution of large, sparse, nonsymmetric systems of linear equations
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -215,7 +215,7 @@ export LDFLAGS="%build_ldflags -L$MPI_LIB -lptscotch -lptscotcherr -lptscotcherr
  -DTPL_ENABLE_COLAMD=OFF \
  -DMPI_C_LINK_FLAGS:STRING="-L$MPI_LIB -lptscotch -lptscotcherr -lptscotcherrexit -L%{_libdir} %{METISLINK} -lscotch" \
 %endif
- -DTPL_BLAS_LIBRARIES:BOOL=ON -DTPL_BLAS_LIBRARIES:FILEPATH=%{_libdir}%{OPENBLASLIB} -DTPL_ENABLE_LAPACKLIB:BOOL=OFF -DTPL_LAPACK_LIBRARIES:BOOL=OFF \
+ -DTPL_ENABLE_INTERNAL_BLASLIB:BOOL=OFF -DTPL_BLAS_LIBRARIES:FILEPATH=%{_libdir}%{OPENBLASLIB} -DTPL_ENABLE_LAPACKLIB:BOOL=OFF -DTPL_LAPACK_LIBRARIES:BOOL=OFF \
  -DMPI_C_HEADER_DIR:PATH="$MPI_INCLUDE -I%{METISINC}" \
  -DMPI_CXX_LINK_FLAGS:STRING="-L$MPI_LIB -lptscotch -lptscotcherr -lptscotcherrexit -L%{_libdir} %{METISLINK} -lscotch -fopenmp" \
 %if 0%{?fedora}
@@ -231,7 +231,7 @@ export LDFLAGS="%build_ldflags -L$MPI_LIB -lptscotch -lptscotcherr -lptscotcherr
  -Denable_double:BOOL=ON -Denable_complex16:BOOL=ON \
  -Denable_examples:BOOL=ON -Denable_tests:BOOL=ON -DBUILD_TESTING:BOOL=ON \
  -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} -DCMAKE_INSTALL_BINDIR:PATH=$MPI_BIN -DCMAKE_INSTALL_INCLUDEDIR:PATH=$MPI_INCLUDE/%{name} \
- -DCMAKE_INSTALL_LIBDIR:PATH=$MPI_LIB -DTPL_ENABLE_INTERNAL_BLASLIB:BOOL=ON -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON
+ -DCMAKE_INSTALL_LIBDIR:PATH=$MPI_LIB -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON
 
 %make_build V=1 -C build/openmpi
 %{_openmpi_unload}
@@ -260,7 +260,7 @@ export LDFLAGS="%build_ldflags -L$MPI_LIB -lptscotch -lptscotcherr -lptscotcherr
  -DTPL_ENABLE_COLAMD=OFF \
  -DMPI_C_LINK_FLAGS:STRING="-L$MPI_LIB -lptscotch -lptscotcherr -lptscotcherrexit -L%{_libdir} %{METISLINK} -lscotch" \
 %endif
- -DTPL_BLAS_LIBRARIES:BOOL=ON -DTPL_BLAS_LIBRARIES:FILEPATH=%{_libdir}%{OPENBLASLIB} -DTPL_ENABLE_LAPACKLIB:BOOL=OFF -DTPL_LAPACK_LIBRARIES:BOOL=OFF \
+ -DTPL_ENABLE_INTERNAL_BLASLIB:BOOL=OFF -DTPL_BLAS_LIBRARIES:FILEPATH=%{_libdir}%{OPENBLASLIB} -DTPL_ENABLE_LAPACKLIB:BOOL=OFF -DTPL_LAPACK_LIBRARIES:BOOL=OFF \
  -DMPI_C_HEADER_DIR:PATH="$MPI_INCLUDE -I%{METISINC}" \
  -DMPI_CXX_LINK_FLAGS:STRING="-L$MPI_LIB -lptscotch -lptscotcherr -lptscotcherrexit -L%{_libdir} %{METISLINK} -lscotch" \
 %if 0%{?fedora}
@@ -276,7 +276,7 @@ export LDFLAGS="%build_ldflags -L$MPI_LIB -lptscotch -lptscotcherr -lptscotcherr
  -Denable_double:BOOL=ON -Denable_complex16:BOOL=ON \
  -Denable_examples:BOOL=ON -Denable_tests:BOOL=ON -DBUILD_TESTING:BOOL=ON \
  -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} -DCMAKE_INSTALL_BINDIR:PATH=$MPI_BIN -DCMAKE_INSTALL_INCLUDEDIR:PATH=$MPI_INCLUDE/%{name} \
- -DCMAKE_INSTALL_LIBDIR:PATH=$MPI_LIB -DTPL_ENABLE_INTERNAL_BLASLIB:BOOL=ON -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON
+ -DCMAKE_INSTALL_LIBDIR:PATH=$MPI_LIB -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON
 
 %make_build -C build/mpich
 %{_mpich_unload}
@@ -362,6 +362,9 @@ chrpath -r $MPI_LIB %buildroot$MPI_LIB/libsuperlu_dist*.so*
 
 
 %changelog
+* Tue Aug 12 2025 Dave Love <loveshack@fedoraproject.org> - 1:8.2.0-10
+- Fix #2276427
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:8.2.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

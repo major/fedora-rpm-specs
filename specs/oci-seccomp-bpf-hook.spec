@@ -7,30 +7,18 @@
 %global debug_package   %{nil}
 %endif
 
-%global provider github
-%global provider_tld com
-%global project containers
-%global repo oci-seccomp-bpf-hook
-# https://github.com/containers/oci-seccomp-bpf-hook
-%global import_path %{provider}.%{provider_tld}/%{project}/%{repo}
-%global git0 https://%{import_path}
+%global gomodulesmode GO111MODULE=on
 
-%global built_tag v1.2.10
-%global built_tag_strip %(b=%{built_tag}; echo ${b:1})
-%global gen_version %(b=%{built_tag_strip}; echo ${b/-/"~"})
-
-# use the same arch definitions as present in the bcc package
-ExclusiveArch:  x86_64 %{power64} aarch64 s390x armv7hl
-
-Name: %{repo}
-Version: %{gen_version}
+Name: oci-seccomp-bpf-hook
+Version: 1.2.10
 License: Apache-2.0 and BSD-2-Clause and BSD-3-Clause and ISC and MIT
 Release: %autorelease
-ExclusiveArch: %{golang_arches_future}
+# use the same arch definitions as present in the bcc package
+ExclusiveArch: x86_64 %{power64} aarch64 s390x armv7hl
 Summary: OCI Hook to generate seccomp json files based on EBF syscalls used by container
-URL: %{git0}
+URL: https://github.com/containers/%{name}
 # Tarball fetched from upstream
-Source0: %{url}/archive/%{built_tag}.tar.gz
+Source0: %{url}/archive/v%{version}.tar.gz
 BuildRequires: golang
 BuildRequires: go-md2man
 BuildRequires: go-rpm-macros
@@ -44,14 +32,6 @@ BuildRequires: make
 Requires: bcc
 Enhances: podman
 Enhances: cri-o
-# vendored libraries
-# awk '{print "Provides: bundled(golang("$1")) = "$2}' go.mod | sort | uniq | sed -e 's/-/_/g' -e '/bundled(golang())/d' -e '/bundled(golang(go\|module\|replace\|require))/d'
-Provides: bundled(golang(github.com/iovisor/gobpf)) = v0.2.0
-Provides: bundled(golang(github.com/opencontainers/runtime_spec)) = v1.0.3_0.20200728170252_4d89ac9fbff6
-Provides: bundled(golang(github.com/seccomp/containers_golang)) = v0.6.0
-Provides: bundled(golang(github.com/seccomp/libseccomp_golang)) = v0.9.1
-Provides: bundled(golang(github.com/sirupsen/logrus)) = v1.8.1
-Provides: bundled(golang(github.com/stretchr/testify)) = v1.4.0
 
 %description
 %{summary}
@@ -71,7 +51,7 @@ Requires: podman
 This package contains system tests for %{name}
 
 %prep
-%autosetup -Sgit -n %{name}-%{built_tag_strip}
+%autosetup -Sgit -n %{name}-%{version}
 sed -i 's;HOOK_BIN_DIR;%{_libexecdir}/oci/hooks.d;' %{name}.json
 sed -i '/$(HOOK_DIR)\/%{name}.json/d' Makefile
 
@@ -87,27 +67,13 @@ CGO_CFLAGS=$(echo $CGO_CFLAGS | sed 's/-specs=\/usr\/lib\/rpm\/redhat\/redhat-an
 export CGO_CFLAGS+=" -m64 -mtune=generic -fcf-protection=full"
 %endif
 
-export GO111MODULE=off
-export GOPATH=$(pwd):$(pwd)/_build
-
-mkdir _build
-cd _build
-mkdir -p src/%{provider}.%{provider_tld}/%{project}
-ln -s ../../../../ src/%{import_path}
-cd ..
-ln -s vendor src
-
-export GOPATH=$(pwd)/_build:$(pwd)
 export LDFLAGS="-X main.version=%{version}"
-%gobuild -o bin/%{name} %{import_path}
+%gobuild -o bin/%{name} .
 
-cd docs
-go-md2man -in %{name}.md -out %{name}.1
-cd ..
+%{__make} docs
 
 %install
-%{__make} DESTDIR=%{buildroot} PREFIX=%{_prefix} install-nobuild
-%{__make} DESTDIR=%{buildroot} PREFIX=%{_prefix} GOMD2MAN=go-md2man -C docs install-nobuild
+%{__make} DESTDIR=%{buildroot} PREFIX=%{_prefix} install.docs-nobuild install-nobuild
 
 install -d -p %{buildroot}/%{_datadir}/%{name}/test/system
 cp -pav test/. %{buildroot}/%{_datadir}/%{name}/test/system

@@ -1,20 +1,28 @@
+# from https://www.unicode.org/Public files (unicode-ucd pkg)
+%global unicodedir  %{_datadir}/unicode
+%global ucddir      %{unicodedir}/ucd
+
 Name:           mujs
-Version:        1.3.3
-Release:        8%{?dist}
+Version:        1.3.7
+Release:        1%{?dist}
 Summary:        An embeddable Javascript interpreter
 License:        ISC
 URL:            https://mujs.com/
 Source0:        https://mujs.com/downloads/%{name}-%{version}.tar.gz
 
 # https://github.com/ccxvii/mujs/pull/187
-Patch0:         set-library-soname-version.patch
+Patch:          set-library-soname-version.patch
 
 # use custom soname version until it lands upstream to avoid future potential conflict
-Patch1:         downstream-soname-version.patch
+Patch:          downstream-soname-version.patch
+
+# Remove curl commands to get Unicode files (linked in prep section from unicode-ucd pkg)
+Patch:          remove-curl-from-Makefile.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  readline-devel
+BuildRequires:  unicode-ucd
 
 %description
 MuJS is a lightweight Javascript interpreter designed for embedding in
@@ -38,6 +46,8 @@ This package provides the MuJS static library.
 %prep
 %autosetup -p1
 chmod a-x -v docs/*
+ln -s %{ucddir}/UnicodeData.txt
+ln -s %{ucddir}/SpecialCasing.txt
 
 %build
 %make_build release prefix="%{_prefix}" libdir="%{_libdir}" CFLAGS="%{build_cflags} %{build_ldflags}"
@@ -45,6 +55,8 @@ chmod a-x -v docs/*
 %install
 %make_install prefix="%{_prefix}" libdir="%{_libdir}"
 %{__make} install-shared DESTDIR=%{?buildroot} INSTALL="%{__install} -p" prefix="%{_prefix}" libdir="%{_libdir}"
+
+%check
 
 
 %files
@@ -66,6 +78,11 @@ chmod a-x -v docs/*
 
 
 %changelog
+* Tue Aug 12 2025 Alain Vigne <avigne@fedoraproject.org> 1.3.7-1
+- upstream release 1.3.7
+- Add a patch + dependency to get Unicode files from distrib, and not from the Internet
+- Add empty check section
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

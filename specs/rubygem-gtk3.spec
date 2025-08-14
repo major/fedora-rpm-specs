@@ -8,7 +8,7 @@
 Summary:	Ruby/GTK3 is a Ruby binding of GTK+-3.x
 Name:		rubygem-%{gem_name}
 Version:	4.3.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 
 # SPDX confirmed
 # LGPL-2.1-or-later: gemspec
@@ -123,6 +123,14 @@ rm -f .%{gem_instdir}/extconf.rb
 popd
 
 %check
+# ref: https://bugzilla.redhat.com/show_bug.cgi?id=2275913
+# glycin on ppc64le is currently unusable
+%if 0%{?fedora} >= 43
+%ifarch ppc64le
+exit 0
+%endif
+%endif
+
 pushd .%{gem_instdir}
 
 tar xf %{SOURCE2}
@@ -190,6 +198,9 @@ popd
 %exclude	%{gem_instdir}/test/
 
 %changelog
+* Tue Aug 12 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.0-3
+- Exclude tests on glycin ppc64le for now (bug 2275913)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

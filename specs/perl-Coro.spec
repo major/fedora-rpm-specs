@@ -1,7 +1,7 @@
 %global cpan_version 6.57
 Name:           perl-Coro
 Version:        6.570
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        The only real threads in perl
 # Coro/libcoro:    GPL-2.0-or-later OR BSD-2-Clause
 # Rest of package: GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -11,6 +11,8 @@ Source0:        https://cpan.metacpan.org/authors/id/M/ML/MLEHMANN/Coro-%{cpan_v
 Patch0:         %{name}-5.25-ucontext-default.patch
 # Do not disable hardening
 Patch1:         Coro-6.512-Disable-disabling-FORTIFY_SOURCE.patch
+# https://rt.cpan.org/Public/Bug/Display.html?id=158609, https://bugzilla.redhat.com/show_bug.cgi?id=2379448
+Patch2:         Coro-6.57-c23.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -107,6 +109,7 @@ with "%{_libexecdir}/%{name}/test".
 %patch -P0 -p1 -b .ucontext-default
 %endif
 %patch -P1 -p1
+%patch -P2 -p1
 
 # Unbundle libecb
 rm Coro/ecb.h
@@ -161,6 +164,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Aug 11 2025 Michal Josef Špaček <mspacek@redhat.com> - 6.570-23
+- Fix C23 build
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.570-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

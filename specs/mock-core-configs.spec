@@ -3,8 +3,8 @@
 %endif
 
 Name:       mock-core-configs
-Version:    42.4
-Release:    2%{?dist}
+Version:    43.1
+Release:    1%{?dist}
 Summary:    Mock core config files basic chroots
 
 License:    GPL-2.0-or-later
@@ -22,7 +22,7 @@ BuildArch:  noarch
 Provides: mock-configs
 
 # distribution-gpg-keys contains GPG keys used by mock configs
-Requires:   distribution-gpg-keys >= 1.113
+Requires:   distribution-gpg-keys >= 1.114
 # specify minimal compatible version of mock
 Requires:   mock >= 6.1.test
 Requires:   mock-filesystem
@@ -152,8 +152,8 @@ fi
 %ghost %config(noreplace,missingok) %{_sysconfdir}/mock/default.cfg
 
 %changelog
-* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 42.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+* Tue Aug 12 2025 Jiri Kyjovsky <j1.kyjovsky@gmail.com> 43.1-1
+- Move Rawhide to F44
 
 * Wed Jun 18 2025 Pavel Raiskup <praiskup@redhat.com> 42.4-1
 - fix sysusers packaging practice once more

@@ -22,6 +22,9 @@ Source0:       %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 # https://github.com/Tom-McDermott/gr-hpsdr/issues/18
 Patch0:        gr-hpsdr-3.0-soname-fix.patch
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 %description
 GNU Radio modules for OpenHPSDR Hermes / Metis and Red Pitaya using the
 OpenHpsdr protocol.

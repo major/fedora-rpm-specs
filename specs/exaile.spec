@@ -1,14 +1,10 @@
 Name:           exaile
-Version:        4.1.3
-Release:        10%{?dist}
+Version:        4.1.4
+Release:        1%{?dist}
 Summary:        Simple but powerful Amarok-style music player for GTK users
 License:        GPL-2.0-or-later
 URL:            http://www.exaile.org
 Source0:        https://github.com/exaile/exaile/archive/%{version}/%{name}-%{version}.tar.gz
-# 'pipes' is deprecated (#935)
-Patch0:         f37bb5e3ef33f05c12fd30fcbf38207498d7a909.patch
-# 'sunau' is deprecated (#936)
-Patch1:         af42edf558fcf614ff861c18806986c2bf6fdfe7.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-rpm-macros
@@ -145,6 +141,9 @@ make test
 %{_mandir}/man1/exaile*.1*
 
 %changelog
+* Tue Aug 12 2025 Graham White <graham_alton@hotmail.com> - 4.1.4-1
+- Update to 4.1.4
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.3-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

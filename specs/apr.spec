@@ -1,5 +1,7 @@
 %define aprver 1
 
+%bcond tests 1
+
 # Arches on which the multilib apr.h hack is needed:
 %define multilib_arches %{ix86} ia64 ppc ppc64 s390 s390x x86_64
 
@@ -12,7 +14,7 @@
 Summary: Apache Portable Runtime library
 Name: apr
 Version: 1.7.6
-Release: 2%{?dist}
+Release: 3%{?dist}
 # Apache-2.0: everything
 # ISC: network_io/apr-1.4.6/network_io/unix/inet_?to?.c
 # BSD-4-Clause-UC:  strings/apr_snprintf.c, strings/apr_fnmatch.c,
@@ -27,7 +29,7 @@ Source1: apr-wrapper.h
 Patch1: apr-1.7.2-libdir.patch
 Patch2: apr-1.2.7-pkgconf.patch
 Patch3: apr-1.7.0-deepbind.patch
-Patch4: apr-1.7.2-autoconf.patch
+Patch4: apr-1.7.6-autoconf.patch
 BuildRequires: gcc, autoconf, libtool, libuuid-devel, python3
 BuildRequires: make
 BuildRequires: libxcrypt-devel
@@ -50,7 +52,7 @@ Apache Portable Runtime (APR) is to provide a free library of
 C data structures and routines.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -S gendiff
 
 %build
 # regenerate configure script etc.
@@ -62,6 +64,27 @@ C data structures and routines.
         --with-devrandom=/dev/urandom \
         --disable-static \
         --disable-sctp
+
+# Sanity tests to catch subtle configure script failures:
+#
+# 1. Fail if apr_strtoi64() is not using libc strtol/strtoll
+strfn=`echo XXX APR_INT64_STRFN | cpp -I./include -I./include/arch/unix -include include/arch/unix/apr_private.h \
+            | sed -n '/^XXX/{s/XXX //;p;}'`
+: APR_INT64_STRFN detected as $strfn
+if test "x$strfn" = "x"; then
+    cat config.log
+    : configure failed to detect working strtol, bailing.
+fi
+
+# 2. Fail if LFS support isn't present in a 32-bit build, since this
+# breaks ABI and the soname doesn't change: see #254241
+if grep 'define SIZEOF_VOIDP 4' include/apr.h \
+   && ! grep off64_t include/apr.h; then
+    cat config.log
+    : LFS support not present in 32-bit build
+    exit 1
+fi
+
 %{make_build}
 
 %install
@@ -100,18 +123,14 @@ for f in build/gen-build.py build/install.sh build/config.*; do
 done
 
 %check
-# Fail if LFS support isn't present in a 32-bit build, since this
-# breaks ABI and the soname doesn't change: see #254241
-if grep 'define SIZEOF_VOIDP 4' include/apr.h \
-   && ! grep off64_t include/apr.h; then
-  cat config.log
-  : LFS support not present in 32-bit build
-  exit 1
-fi
+grep ^cross_compiling=no $RPM_BUILD_ROOT%{_bindir}/apr-%{aprver}-config
+
+%if %{with tests}
 pushd test
   make %{?_smp_mflags}
   ./testall -v -q
 popd
+%endif
 
 %ldconfig_scriptlets
 
@@ -134,6 +153,12 @@ popd
 %{_datadir}/aclocal/*.m4
 
 %changelog
+* Thu Aug 07 2025 Joe Orton  <jorton@redhat.com> - 1.7.6-3
+- fix APR_TRY_COMPILE_NO_WARNING in apr_common.m4
+- add tests bcond
+- move configure sanity tests into build section
+- fix cross-compilation detection (#2386875)
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Name:		alienarena
 Summary:	Multiplayer retro sci-fi deathmatch game
 Version:	7.71.7
-Release:	2%{?dist}
+Release:	4%{?dist}
 License:	GPL-2.0-or-later AND Zlib
 # Source0:	http://red.planetarena.org/files/%%{name}-%%{version}-linux20130827.tar.gz
 # svn co svn://svn.icculus.org/alienarena/tags/7.71.7
@@ -13,7 +13,7 @@ License:	GPL-2.0-or-later AND Zlib
 # tar --exclude-vcs -cJf alienarena-7.71.7.tar.xz alienarena-7.71.7
 Source0:	alienarena-%{version}.tar.xz
 Source2:	GPL.acebot.txt
-Source3:	org.fedoraproject.alienarena.metainfo.xml
+Source3:	org.alienarena.alienarena.metainfo.xml
 Patch3:		alienarena-7.66-no-qglBlitFramebufferEXT.patch
 Patch5:		alienarena-7.71.2-svn5674-system-ode-double.patch
 # I started to clean this up properly
@@ -118,12 +118,14 @@ make %{?_smp_mflags}
 cp -a %{SOURCE3} %{buildroot}%{_datadir}/metainfo
 
 %{__mkdir_p} %{buildroot}%{_datadir}/applications
-sed -i 's|/usr/games/alien-arena --quiet|/usr/bin/alienarena-wrapper|g' unix_dist/alien-arena.desktop
+sed -i 's|/usr/games/alien-arena --quiet|alienarena-wrapper|g' unix_dist/alien-arena.desktop
+sed -i 's|alien-arena.png|alien-arena|g' unix_dist/alien-arena.desktop
 desktop-file-install --dir %{buildroot}%{_datadir}/applications	unix_dist/alien-arena.desktop
 
-mkdir -p %{buildroot}%{_datadir}/icons/hicolor/32x32/apps/
-mv %{buildroot}%{_datadir}/icons/%{name}/*.png \
-    %{buildroot}/%{_datadir}/icons/hicolor/32x32/apps/
+# Just use the 256.
+# mkdir -p %{buildroot}%{_datadir}/icons/hicolor/32x32/apps/
+# mv %{buildroot}%{_datadir}/icons/%{name}/*.png \
+#     %{buildroot}/%{_datadir}/icons/hicolor/32x32/apps/
 
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/256x256/apps/
 cp -a unix_dist/alien-arena.png %{buildroot}%{_datadir}/icons/hicolor/256x256/apps/
@@ -137,7 +139,8 @@ cp -a GPL.acebot.txt %{buildroot}%{_defaultdocdir}/%{name}/
 %{_bindir}/%{name}
 %{_bindir}/%{name}-wrapper
 %{_datadir}/applications/alien-arena.desktop
-%{_datadir}/icons/hicolor/32x32/apps/*.png
+%{_datadir}/icons/%{name}
+# %%{_datadir}/icons/hicolor/32x32/apps/*.png
 %{_datadir}/icons/hicolor/256x256/apps/*.png
 %{_datadir}/metainfo/*.xml
 
@@ -150,6 +153,13 @@ cp -a GPL.acebot.txt %{buildroot}%{_defaultdocdir}/%{name}/
 %{_datadir}/%{name}
 
 %changelog
+* Tue Aug 12 2025 Tom Callaway <spot@fedoraproject.org> - 7.71.7-4
+- no more 32x32 icon
+- rename metainfo
+
+* Mon Aug 11 2025 Tom Callaway <spot@fedoraproject.org> - 7.71.7-3
+- fix desktop file (more)
+
 * Mon Aug 11 2025 Tom Callaway <spot@fedoraproject.org> - 7.71.7-2
 - fix appstream file, thanks to Daniel Rusek
 

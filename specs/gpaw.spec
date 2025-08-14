@@ -20,7 +20,7 @@ ExcludeArch: %{ix86}
 
 Name:			gpaw
 Version:		25.7.0
-Release:		1%{?dist}
+Release:		2%{?dist}
 Summary:		A grid-based real-space PAW method DFT code
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -243,13 +243,19 @@ gpaw -T test
 # check openmpi version
 %{_openmpi_load}
 PYTHON="python3" GPAW_EXECUTABLE="mpiexec -np ${NPROC_PARALLEL} pytest" NPROC=${NPROC_PARALLEL} %docheck
+# Exclude tests on f42
+# prterun noticed that process rank 0 with PID 31162 on node a5d2098df7854ae2848c183375b89c89 exited on
+# signal 4 (Illegal instruction).
+%ifnarch ppc64le
 mpiexec -np ${NPROC_PARALLEL} gpaw -T test
+%endif
 %{_openmpi_unload}
 
 # check mpich version
 %{_mpich_load}
 PYTHON="python3" GPAW_EXECUTABLE="mpiexec -np ${NPROC_PARALLEL} pytest" NPROC=${NPROC_PARALLEL} %docheck
-# Exclude test due to "Fatal error in internal_Bcast" on f42
+# Exclude tests on f42
+# Fatal error in internal_Bcast
 %ifnarch s390x
 mpiexec -np ${NPROC_PARALLEL} gpaw -T test
 %endif
@@ -280,6 +286,9 @@ mpiexec -np ${NPROC_PARALLEL} gpaw -T test
 
 
 %changelog
+* Tue Aug 12 2025 Marcin Dulak <marcindulak@fedoraproject.org> - 25.7.0-2
+- Don't run tests on ppc64le since they fail
+
 * Sun Aug 03 2025 Marcin Dulak <marcindulak@fedoraproject.org> - 25.7.0-1
 - New upstream release
 - Move away from deprecated setup.py build/install

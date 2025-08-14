@@ -1,7 +1,7 @@
 %bcond tests %{undefined rhel}
 
 Name:           python-fasteners
-Version:        0.19
+Version:        0.20
 Release:        %autorelease
 Summary:        A python package that provides useful locks
 
@@ -12,10 +12,12 @@ Source:         %{url}/archive/%{version}/fasteners-%{version}.tar.gz
 
 BuildSystem:            pyproject
 %if %{with tests}
-BuildOption(generate_buildrequires): requirements-test-filtered.txt
+BuildOption(generate_buildrequires): -g test
 %endif
 BuildOption(install):   -l fasteners
 BuildOption(check):     -e 'fasteners.pywin32*'
+
+BuildRequires:  tomcli
 
 BuildArch:      noarch
 
@@ -33,8 +35,7 @@ Summary:        A python package that provides useful locks
 
 %prep -a
 # Omit eventlet integration tests: retired since Fedora 41
-sed -r 's/^eventlet\b/# &/' requirements-test.txt |
-  tee requirements-test-filtered.txt
+tomcli set pyproject.toml lists delitem dependency-groups.test eventlet
 
 
 %check -a
@@ -42,7 +43,7 @@ sed -r 's/^eventlet\b/# &/' requirements-test.txt |
 # See notes in %%prep:
 ignore="${ignore-} --ignore=tests/test_eventlet.py"
 
-%pytest ${ignore-} -v
+%pytest ${ignore-} -rs -v
 %endif
 
 

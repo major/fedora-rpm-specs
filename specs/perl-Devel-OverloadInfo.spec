@@ -1,6 +1,6 @@
 Name:		perl-Devel-OverloadInfo
-Version:	0.007
-Release:	13%{?dist}
+Version:	0.008
+Release:	1%{?dist}
 Summary:	Introspect overloaded operators
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Devel-OverloadInfo
@@ -8,14 +8,13 @@ Source0:	https://cpan.metacpan.org/modules/by-module/Devel/Devel-OverloadInfo-%{
 BuildArch:	noarch
 # Module Build
 BuildRequires:	coreutils
-BuildRequires:	findutils
 BuildRequires:	gcc
 BuildRequires:	make
 BuildRequires:	perl-devel
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
 BuildRequires:	perl(ExtUtils::HasCompiler) >= 0.023
-BuildRequires:	perl(ExtUtils::MakeMaker)
+BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:	perl(Text::ParseWords)
 # Module Runtime
 BuildRequires:	perl(Exporter) >= 5.57
@@ -46,12 +45,11 @@ rm -rf inc/
 perl -ni -e 'print unless /^inc\//;' MANIFEST
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -64,6 +62,12 @@ make test
 %{_mandir}/man3/Devel::OverloadInfo.3*
 
 %changelog
+* Tue Aug 12 2025 Paul Howarth <paul@city-fan.org> - 0.008-1
+- Update to 0.008
+  - Generate README.md in the repository
+  - Move git repository to Codeberg
+- Use %%{make_build} and %%{make_install}
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.007-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

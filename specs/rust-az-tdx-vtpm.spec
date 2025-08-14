@@ -11,7 +11,7 @@
 %global supported_arches x86_64
 
 Name:           rust-az-tdx-vtpm
-Version:        0.7.3
+Version:        0.7.4
 Release:        %autorelease
 Summary:        VTPM based TDX attestation for Azure Confidential VMs
 

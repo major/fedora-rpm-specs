@@ -1,7 +1,9 @@
 %global gtk4_version 4.15.3
 
+%global tarball_version %%(echo %{version} | tr '~' '.')
+
 Name:           gnome-contacts
-Version:        48.0
+Version:        49~beta
 Release:        %autorelease
 Summary:        Contacts manager for GNOME
 
@@ -19,6 +21,7 @@ BuildRequires:  docbook-style-xsl
 BuildRequires:  gettext
 BuildRequires:  meson
 BuildRequires:  vala
+BuildRequires:  blueprint-compiler
 BuildRequires:  /usr/bin/appstreamcli
 BuildRequires:  /usr/bin/xsltproc
 BuildRequires:  pkgconfig(folks)

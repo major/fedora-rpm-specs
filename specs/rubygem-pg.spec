@@ -2,21 +2,18 @@
 %global gem_name pg
 
 Name: rubygem-%{gem_name}
-Version: 1.5.9
-Release: 5%{?dist}
-Summary: A Ruby interface to the PostgreSQL RDBMS
+Version: 1.6.1
+Release: 1%{?dist}
+Summary: Pg is the Ruby interface to the PostgreSQL RDBMS
 License: (BSD-2-Clause OR Ruby) AND PostgreSQL
 URL: https://github.com/ged/ruby-pg
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone --no-checkout https://github.com/ged/ruby-pg.git
-# git -C ruby-pg archive -v -o pg-1.5.9-spec.tar.gz v1.5.9 spec/
+# git archive -v -o pg-1.6.1-spec.tar.gz v1.6.1 spec/
 Source1: %{gem_name}-%{version}-spec.tar.gz
 # Disable RPATH.
 # https://github.com/ged/ruby-pg/issues/183
 Patch0: rubygem-pg-1.3.0-remove-rpath.patch
-# Fix test compatibility with Linux 6.10+.
-# https://github.com/ged/ruby-pg/pull/607
-Patch1: rubygem-pg-1.5.9-Fix-writing-lots-of-data-through-the-TcpGateScheduler.patch
 # lib/pg/text_{de,en}coder.rb
 Requires: rubygem(json)
 # This is optional dependency now.
@@ -36,8 +33,8 @@ BuildRequires: rubygem(bigdecimal)
 BuildRequires: rubygem(rspec)
 
 %description
-This is the extension library to access a PostgreSQL database from Ruby.
-This library works with PostgreSQL 9.3 and later.
+Pg is the Ruby interface to the PostgreSQL RDBMS. It works with PostgreSQL 10
+and later.
 
 
 %package doc
@@ -53,9 +50,6 @@ Documentation for %{name}.
 
 %patch 0 -p1
 
-pushd %{builddir}
-%patch 1 -p1
-popd
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -105,20 +99,20 @@ popd
 %license %{gem_instdir}/LICENSE
 %license %{gem_instdir}/POSTGRES
 %{gem_libdir}
+%exclude %{gem_instdir}/ports
 %exclude %{gem_cache}
 %{gem_spec}
 
 %files doc
 %doc %{gem_docdir}
+%doc %{gem_instdir}/CHANGELOG.md
 %doc %{gem_instdir}/Contributors.rdoc
 %{gem_instdir}/Gemfile
-%doc %{gem_instdir}/History.md
-%doc %{gem_instdir}/Manifest.txt
 %doc %{gem_instdir}/README-OS_X.rdoc
 %doc %{gem_instdir}/README-Windows.rdoc
 %lang(ja) %doc %{gem_instdir}/README.ja.md
 %doc %{gem_instdir}/README.md
-%{gem_instdir}/Rakefile*
+%{gem_instdir}/Rakefile
 %{gem_instdir}/certs
 %{gem_instdir}/misc
 %{gem_instdir}/pg.gemspec
@@ -126,6 +120,11 @@ popd
 %{gem_instdir}/sample
 
 %changelog
+* Tue Aug 12 2025 Vít Ondruch <vondruch@redhat.com> - 1.6.1-1
+- Update to pg 1.6.1.
+  Resolves: rhbz#2383782
+  Resolves: rhbz#2385765
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.9-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

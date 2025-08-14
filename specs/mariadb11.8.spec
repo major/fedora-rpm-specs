@@ -163,7 +163,7 @@
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          1%{?with_debug:.debug}%{?dist}
+Release:          2%{?with_debug:.debug}%{?dist}
 Epoch:            3
 
 Summary:          A very fast and robust SQL database server
@@ -1841,6 +1841,9 @@ fi
 %endif
 
 %changelog
+* Tue Aug 12 2025 Michal Schorm <mschorm@redhat.com> - 3:11.8.3-2
+- Bump release for package rebuild
+
 * Fri Aug 08 2025 Michal Schorm <mschorm@redhat.com> - 3:11.8.3-1
 - Rebase to 11.8.3
 

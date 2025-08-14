@@ -1,8 +1,8 @@
 %global srcname flake8-comprehensions
 
 Name:           python-%{srcname}
-Version:        3.10.1
-Release:        13%{?dist}
+Version:        3.16.0
+Release:        1%{?dist}
 Summary:        Flake8 plugin that helps you write better list/set/dict comprehensions
 
 License:        MIT
@@ -22,6 +22,7 @@ A flake8 plugin to identify the following patterns:
 - C409-410: Unnecessary <list/tuple> passed to <list/tuple>() - (remove the
   outer call to <list/tuple>``()/rewrite as a ``<list/tuple> literal).
 - C411: Unnecessary list call - remove the outer call to list().
+- C412: Unnecessary <dict/list/set> comprehension - in can take a generator.
 - C413: Unnecessary <list/reversed> call around sorted().
 - C414: Unnecessary <list/reversed/set/sorted/tuple> call within
   <list/set/sorted/tuple>().
@@ -29,7 +30,12 @@ A flake8 plugin to identify the following patterns:
   <reversed/set/sorted>().
 - C416: Unnecessary <list/set> comprehension - rewrite using <list/set>().
 - C417: Unnecessary map usage - rewrite using a generator
-  expression/<list/set/dict> comprehension.}
+  expression/<list/set/dict> comprehension.
+- C418: Unnecessary <dict/dict comprehension> passed to dict() - remove the
+  outer call to dict().
+- C419 Unnecessary list comprehension in <any/all>() prevents short-
+  circuiting - rewrite as a generator.
+- C420: Unnecessary dict comprehension - rewrite using dict.fromkeys().}
 
 %description %_description
 
@@ -46,7 +52,7 @@ BuildRequires:  python%{python3_pkgversion}-devel
 
 
 %generate_buildrequires
-%pyproject_buildrequires requirements/requirements.in
+%pyproject_buildrequires
 
 
 %build
@@ -55,11 +61,11 @@ BuildRequires:  python%{python3_pkgversion}-devel
 
 %install
 %pyproject_install
-%pyproject_save_files flake8_comprehensions
+%pyproject_save_files -l flake8_comprehensions
 
 
 %check
-%pytest
+%pyproject_check_import flake8_comprehensions
 
 
 %files -n python%{python3_pkgversion}-%{srcname} -f %{pyproject_files}
@@ -67,6 +73,10 @@ BuildRequires:  python%{python3_pkgversion}-devel
 
 
 %changelog
+* Tue Aug 12 2025 Scott K Logan <logans@cottsay.net> - 3.16.0-1
+- Update to 3.16.0
+- Drop pytest until flake8-path is available
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

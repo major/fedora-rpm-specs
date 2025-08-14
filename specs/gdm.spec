@@ -7,7 +7,7 @@
 
 Name:           gdm
 Epoch:          1
-Version:        49~alpha.1
+Version:        49~beta
 Release:        %autorelease
 Summary:        The GNOME Display Manager
 
@@ -247,8 +247,6 @@ fi
 %dir %{_datadir}/gdm/greeter
 %dir %{_datadir}/gdm/greeter/applications
 %{_datadir}/gdm/greeter/applications/*
-%dir %{_datadir}/gdm/greeter/autostart
-%{_datadir}/gdm/greeter/autostart/*
 %{_datadir}/gdm/greeter-dconf-defaults
 %{_datadir}/gdm/locale.alias
 %{_datadir}/gdm/gdb-cmd
@@ -270,7 +268,7 @@ fi
 %{_unitdir}/gdm.service
 %{_unitdir}/gnome-headless-session@.service
 %dir %{_userunitdir}/gnome-session@gnome-login.target.d/
-%{_userunitdir}/gnome-session@gnome-login.target.d/session.conf
+%{_userunitdir}/gnome-session@gnome-login.target.d/gnome-login.session.conf
 %{_sysusersdir}/%{name}.conf
 
 %files devel

@@ -4,27 +4,31 @@
 %{?haskell_setup}
 
 %bcond lua 1
+%bcond server 1
 
 %if %{with lua}
 %global hsluacli hslua-cli-1.4.3
 %global hslualist hslua-list-1.1.4
-%global hsluamoduledoclayout hslua-module-doclayout-1.2.0
+%global hsluamoduledoclayout hslua-module-doclayout-1.2.0.1
 %global hsluamodulepath hslua-module-path-1.1.1
-%global hsluamodulesystem hslua-module-system-1.1.2
+%global hsluamodulesystem hslua-module-system-1.1.3
 %global hsluamoduleversion hslua-module-version-1.1.1
-%global hsluamodulezip hslua-module-zip-1.1.3
+%global hsluamodulezip hslua-module-zip-1.1.4
 %global hsluarepl hslua-repl-0.1.2
 %global lpeg lpeg-1.1.0
 %global pandocluaengine pandoc-lua-engine-0.4.1.1
-%global pandocluamarshal pandoc-lua-marshal-0.3.0
+%global pandocluamarshal pandoc-lua-marshal-0.3.1
+%if %{with server}
+%global pandocserver pandoc-server-0.1.0.11
+%endif
 
-%global subpkgs %{hslualist} %{hsluamoduledoclayout} %{hsluamodulepath} %{hsluamodulesystem} %{hsluamoduleversion} %{hsluamodulezip} %{hsluarepl} %{hsluacli} %{lpeg} %{pandocluamarshal} %{pandocluaengine}
+%global subpkgs %{hslualist} %{hsluamoduledoclayout} %{hsluamodulepath} %{hsluamodulesystem} %{hsluamoduleversion} %{hsluamodulezip} %{hsluarepl} %{hsluacli} %{lpeg} %{pandocluamarshal} %{pandocluaengine} %{?pandocserver}
 %endif
 
 Name:           pandoc-cli
 Version:        3.6.4
 # can only be reset when all subpkgs bumped
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Conversion between documentation formats
 
 License:        GPL-2.0-or-later
@@ -44,6 +48,10 @@ Source9:        https://hackage.haskell.org/package/%{lpeg}/%{lpeg}.tar.gz
 Source10:       https://hackage.haskell.org/package/%{pandocluaengine}/%{pandocluaengine}.tar.gz
 Source11:       https://hackage.haskell.org/package/%{pandocluamarshal}/%{pandocluamarshal}.tar.gz
 %endif
+%if %{with server}
+Source12:       https://hackage.haskell.org/package/%{pandocserver}/%{pandocserver}.tar.gz
+%endif
+
 # End cabal-rpm sources
 
 # Begin cabal-rpm deps:
@@ -57,15 +65,31 @@ BuildRequires:  ghc-pandoc-devel
 %if %{with lua}
 #BuildRequires:  ghc-pandoc-lua-engine-devel
 %endif
+%if %{with server}
+#BuildRequires:  ghc-pandoc-server-devel
+BuildRequires:  ghc-safe-devel
+%endif
 BuildRequires:  ghc-temporary-devel
 BuildRequires:  ghc-text-devel
+%if %{with server}
+BuildRequires:  ghc-wai-extra-devel
+BuildRequires:  ghc-warp-devel
+%endif
 %if %{with ghc_prof}
 BuildRequires:  ghc-base-prof
 #BuildRequires:  ghc-hslua-cli-prof
 BuildRequires:  ghc-pandoc-prof
 #BuildRequires:  ghc-pandoc-lua-engine-prof
+%if %{with server}
+#BuildRequires:  ghc-pandoc-server-prof
+BuildRequires:  ghc-safe-prof
+%endif
 BuildRequires:  ghc-temporary-prof
 BuildRequires:  ghc-text-prof
+%if %{with server}
+BuildRequires:  ghc-wai-extra-prof
+BuildRequires:  ghc-warp-prof
+%endif
 %endif
 # for missing dep 'hslua-cli':
 BuildRequires:  ghc-bytestring-devel
@@ -106,17 +130,23 @@ BuildRequires:  ghc-hslua-marshalling-prof
 BuildRequires:  ghc-hslua-packaging-prof
 %endif
 # for missing dep 'hslua-module-system':
+BuildRequires:  ghc-bytestring-devel
 BuildRequires:  ghc-directory-devel
 BuildRequires:  ghc-exceptions-devel
 BuildRequires:  ghc-hslua-core-devel
 BuildRequires:  ghc-hslua-marshalling-devel
 BuildRequires:  ghc-hslua-packaging-devel
+BuildRequires:  ghc-process-devel
+BuildRequires:  ghc-time-devel
 %if %{with ghc_prof}
+BuildRequires:  ghc-bytestring-prof
 BuildRequires:  ghc-directory-prof
 BuildRequires:  ghc-exceptions-prof
 BuildRequires:  ghc-hslua-core-prof
 BuildRequires:  ghc-hslua-marshalling-prof
 BuildRequires:  ghc-hslua-packaging-prof
+BuildRequires:  ghc-process-prof
+BuildRequires:  ghc-time-prof
 %endif
 # for missing dep 'hslua-module-version':
 BuildRequires:  ghc-filepath-devel
@@ -130,8 +160,6 @@ BuildRequires:  ghc-hslua-marshalling-prof
 BuildRequires:  ghc-hslua-packaging-prof
 %endif
 # for missing dep 'hslua-module-zip':
-BuildRequires:  ghc-bytestring-devel
-BuildRequires:  ghc-filepath-devel
 BuildRequires:  ghc-hslua-core-devel
 BuildRequires:  ghc-hslua-marshalling-devel
 BuildRequires:  ghc-hslua-packaging-devel
@@ -139,8 +167,6 @@ BuildRequires:  ghc-hslua-typing-devel
 BuildRequires:  ghc-time-devel
 BuildRequires:  ghc-zip-archive-devel
 %if %{with ghc_prof}
-BuildRequires:  ghc-bytestring-prof
-BuildRequires:  ghc-filepath-prof
 BuildRequires:  ghc-hslua-core-prof
 BuildRequires:  ghc-hslua-marshalling-prof
 BuildRequires:  ghc-hslua-packaging-prof
@@ -203,7 +229,6 @@ BuildRequires:  ghc-exceptions-devel
 BuildRequires:  ghc-hslua-devel
 BuildRequires:  ghc-hslua-marshalling-devel
 BuildRequires:  ghc-pandoc-types-devel
-BuildRequires:  ghc-safe-devel
 %if %{with ghc_prof}
 BuildRequires:  ghc-aeson-prof
 BuildRequires:  ghc-bytestring-prof
@@ -212,7 +237,33 @@ BuildRequires:  ghc-exceptions-prof
 BuildRequires:  ghc-hslua-prof
 BuildRequires:  ghc-hslua-marshalling-prof
 BuildRequires:  ghc-pandoc-types-prof
-BuildRequires:  ghc-safe-prof
+%endif
+# for missing dep 'pandoc-server':
+BuildRequires:  ghc-aeson-devel
+BuildRequires:  ghc-base64-bytestring-devel
+BuildRequires:  ghc-bytestring-devel
+BuildRequires:  ghc-containers-devel
+BuildRequires:  ghc-data-default-devel
+BuildRequires:  ghc-doctemplates-devel
+BuildRequires:  ghc-pandoc-types-devel
+BuildRequires:  ghc-servant-server-devel
+BuildRequires:  ghc-skylighting-devel
+BuildRequires:  ghc-unicode-collation-devel
+BuildRequires:  ghc-wai-devel
+BuildRequires:  ghc-wai-cors-devel
+%if %{with ghc_prof}
+BuildRequires:  ghc-aeson-prof
+BuildRequires:  ghc-base64-bytestring-prof
+BuildRequires:  ghc-bytestring-prof
+BuildRequires:  ghc-containers-prof
+BuildRequires:  ghc-data-default-prof
+BuildRequires:  ghc-doctemplates-prof
+BuildRequires:  ghc-pandoc-types-prof
+BuildRequires:  ghc-servant-server-prof
+BuildRequires:  ghc-skylighting-prof
+BuildRequires:  ghc-unicode-collation-prof
+BuildRequires:  ghc-wai-prof
+BuildRequires:  ghc-wai-cors-prof
 %endif
 # End cabal-rpm deps
 
@@ -264,6 +315,7 @@ or texlive-collection-luatex respectively.
 %ghc_lib_subpackage -l MIT %{lpeg}
 %ghc_lib_subpackage -l GPL-2.0-or-later %{pandocluaengine}
 %ghc_lib_subpackage -l MIT %{pandocluamarshal}
+%ghc_lib_subpackage -l GPL-2.0-or-later %{pandocserver}
 %endif
 
 %global version %{main_version}
@@ -272,12 +324,14 @@ or texlive-collection-luatex respectively.
 
 %prep
 # Begin cabal-rpm setup:
-%setup -q %{?with_lua:-a1 -a2 -a3 -a4 -a5 -a6 -a7 -a8 -a9 -a10 -a11}
+%setup -q %{?with_lua:-a1 -a2 -a3 -a4 -a5 -a6 -a7 -a8 -a9 -a10 -a11} %{?with_server:-a12}
 # End cabal-rpm setup
 %if %{without lua}
 cabal-tweak-flag lua False
 %endif
+%if %{without server}
 cabal-tweak-flag server False
+%endif
 
 
 %build
@@ -301,6 +355,9 @@ mkdir -p %{buildroot}%{_mandir}/man1/
 install -m 644 -p -t %{buildroot}%{_mandir}/man1/ ./man/pandoc-lua.1
 %endif
 install -m 644 -p -t %{buildroot}%{_mandir}/man1/ ./man/pandoc.1
+%if %{with server}
+install -m 644 -p -t %{buildroot}%{_mandir}/man1/ ./man/pandoc-server.1
+%endif
 # End cabal-rpm install
 
 %if %{with lua}
@@ -329,6 +386,9 @@ echo | %{buildroot}%{_bindir}/pandoc --data-dir=%{buildroot}%{_datadir}/%{pandoc
 %{_mandir}/man1/pandoc-lua.1*
 %endif
 %{_mandir}/man1/pandoc.1*
+%if %{with server}
+%{_mandir}/man1/pandoc-server.1*
+%endif
 # End cabal-rpm files
 %if %{with lua}
 %{_bindir}/pandoc-lua
@@ -340,6 +400,13 @@ echo | %{buildroot}%{_bindir}/pandoc --data-dir=%{buildroot}%{_datadir}/%{pandoc
 
 
 %changelog
+* Tue Aug 12 2025 Jens Petersen <petersen@redhat.com> - 3.6.4-37
+- enable pandoc server (semantically safe) with pandoc-server-0.1.0.11
+- hslua-module-doclayout-1.2.0.1
+- hslua-module-system-1.1.3
+- hslua-module-zip-1.1.4
+- pandoc-lua-marshal-0.3.1
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.4-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

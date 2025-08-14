@@ -1,15 +1,15 @@
 Summary: UROnode addon - an SMTP mailbox
 Name: axmail
 Version: 2.9
-Release: 16%{?dist}
+Release: 17%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL: http://axmail.sourceforge.net
 Source0: http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 Source1: axmail-README.fedora
-Patch0: axmail-2.9-install-fix.patch
-Patch1: axmail-2.8-gcc-10-fix.patch
-Patch2: axmail-c99.patch
+Patch: axmail-2.9-install-fix.patch
+Patch: axmail-2.8-gcc-10-fix.patch
+Patch: axmail-c99.patch
 BuildRequires: gcc
 BuildRequires: make
 BuildRequires: libxcrypt-devel
@@ -24,10 +24,7 @@ using just a dumb terminal. Setup is easy and many options are available
 for the SysOp.
 
 %prep
-%setup -q
-%patch -P0 -p1 -b .install-fix
-%patch -P1 -p1 -b .gcc-10-fix
-%patch -P2 -p1 -b .c99
+%autosetup -p1
 
 # Copy Fedora readme into place
 cp -p %{SOURCE1} README.fedora
@@ -41,10 +38,11 @@ rm -f .COPYING
 mv -f etc/welcome.txt etc/axmail-welcome.txt
 
 %build
-make %{?_smp_mflags} CFLAGS="%{optflags}" LDFLAGS="%{?__global_ldflags}"
+%make_build CFLAGS="%{build_cflags}" LDFLAGS="%{build_ldflags}"
 
 %install
-make %{?_smp_mflags} DESTDIR="%{buildroot}" MAN_DIR="%{buildroot}%{_mandir}" install
+%make_install DESTDIR="%{buildroot}" MANDIR="%{_mandir}" \
+  SBINDIR="%{_sbindir}" install
 
 # Ghosts
 mkdir -p %{buildroot}%{_var}/lock
@@ -61,6 +59,10 @@ touch %{buildroot}%{_var}/lock/axmail
 %ghost %{_var}/lock/axmail
 
 %changelog
+* Tue Aug 12 2025 Jaroslav Škarvada  <jskarvad@redhat.com> - 2.9-17
+- Consolidated makefile variables, fixed FTBFS
+  Resolves: rhbz#2339918
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.9-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

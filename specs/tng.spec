@@ -13,7 +13,7 @@ beginning of the file.
 
 Name:          tng
 Version:       1.8.2
-Release:       19%{?dist}
+Release:       20%{?dist}
 Summary:       Trajectory Next Generation binary format manipulation library
 
 # Automatically converted from old format: BSD and zlib - review is highly recommended.
@@ -21,6 +21,8 @@ License:       LicenseRef-Callaway-BSD AND Zlib
 Source0:       https://github.com/gromacs/tng/archive/v%{version}/%{name}-%{version}.tar.gz
 # fix build with gfortran 12, see https://www.gnu.org/software/gcc//gcc-12/changes.html
 Patch0:        tng-gf12.patch
+# bump cmake version, https://gitlab.com/gromacs/tng/-/merge_requests/49
+Patch1:        49.patch
 URL:           http://www.gromacs.org/Developer_Zone/Programming_Guide/File_formats
 
 BuildRequires:  cmake3 >= 3.1
@@ -102,6 +104,10 @@ popd
 %{_docdir}/%{name}
 
 %changelog
+* Tue Aug 12 2025 Christoph Junghans <junghans@votca.org> - 1.8.2-20
+- add cmake-4 support
+- Fixes: rhbz#2381610
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

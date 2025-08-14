@@ -1,6 +1,6 @@
 Name:		stalld
-Version:	1.20.2
-Release:	2%{?dist}
+Version:	1.20.3
+Release:	1%{?dist}
 Summary:	Daemon that finds starving tasks and gives them a temporary boost
 
 License:	GPL-2.0-or-later AND GPL-2.0-only
@@ -62,6 +62,10 @@ allow 10 microseconds of runtime for 1 second of clock time.
 %systemd_postun_with_restart %{name}.service
 
 %changelog
+* Tue Aug 12 2025 Clark Williams <williams@redhat.com> - 1.20.3-1
+- Makefile: bump version to v1.20.3
+- stalld.service: Fix failure to set FIFO scheduling class
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.20.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

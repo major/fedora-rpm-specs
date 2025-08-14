@@ -3,32 +3,34 @@
 %bcond_without spec_integration
 
 Name: rubygem-%{gem_name}
-Version: 4.27.0
-Release: 5%{?dist}
+Version: 4.34.0
+Release: 1%{?dist}
 Summary: Selenium is a browser automation tool for automated testing of webapps and more
 License: Apache-2.0
 URL: https://selenium.dev
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
-# git clone https://github.com/SeleniumHQ/selenium
-# git -C selenium archive -v -o selenium-webdriver-4.27.0-spec.tar.gz selenium-4.27.0 rb/spec
+# git clone https://github.com/SeleniumHQ/selenium && cd selenium
+# git archive -v -o selenium-webdriver-4.34.0-spec.tar.gz selenium-4.34.0 rb/spec
 Source1: %{gem_name}-%{version}-spec.tar.gz
 # Needed for integration `spec/integration`
-# git -C selenium archive -v -o selenium-webdriver-4.27.0-web.tar.gz selenium-4.27.0 common/src/web
+# git archive -v -o selenium-webdriver-4.34.0-web.tar.gz selenium-4.34.0 common/src/web
 Source2: %{gem_name}-%{version}-web.tar.gz
-# `selenium-manager` stub replacing the bundled binary blobs.
-Source3: selenium-manager
-# Ruby 3.4 `Hash#inspect` compatibility.
-# https://github.com/SeleniumHQ/selenium/issues/14934
-Patch0: rubygem-selenium-webdriver-4.27.0-Hash-inspect-formatting-for-Ruby-3.4-compatibili.patch
+# Make the test suite compatible with Rack 3+.
+# https://github.com/SeleniumHQ/selenium/pull/16158
+Patch0: rubygem-selenium-webdriver-4.34.0-Use-Rack-Files-for-Rack-3-compatibility.patch
 
 # There is no other driver in Fedora, therefore suggest what we have. This also
 # reflescts the `selenium-manager` stub above.
 Recommends: chromedriver
 Recommends: chromium chromium-headless
 
+Requires: %{_bindir}/selenium-manager
+BuildRequires: %{_bindir}/selenium-manager
+
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
+BuildRequires: rubygem(base64)
 BuildRequires: rubygem(curb)
 BuildRequires: rubygem(rspec)
 BuildRequires: rubygem(rubyzip)
@@ -36,6 +38,7 @@ BuildRequires: rubygem(webmock)
 BuildRequires: rubygem(websocket)
 %if %{with spec_integration}
 BuildRequires: rubygem(rack)
+BuildRequires: rubygem(rackup)
 BuildRequires: rubygem(webrick)
 BuildRequires: chromedriver
 BuildRequires: chromium chromium-headless
@@ -69,19 +72,10 @@ cd %{builddir}
 %patch 0 -p1
 )
 
-# Drop the original selenium-manager binaries as long as we cannot recreate
-# them from source. Their purpose is described here:
-# https://www.selenium.dev/documentation/selenium_manager/
-# and they are included from this repo:
-# https://github.com/SeleniumHQ/selenium_manager_artifacts
-# TODO: Try to build them from source:
-# https://github.com/SeleniumHQ/selenium/tree/trunk/rust
-# https://www.selenium.dev/documentation/selenium_manager/#building-a-custom-selenium-manager
-# BTW: python-selenium package is struggling with the same issue:
-# https://bugzilla.redhat.com/show_bug.cgi?id=2278096#c13
-%gemspec_remove_file Dir.glob('bin/{windows,macos}/selenium-manager{,.exe}')
-# Provide minimal `selenium-manager` stub.
-cp -a %{SOURCE3} bin/linux/
+# Drop the original selenium-manager binaries and replace them by symlink to
+# selenium-manager binary from the package of the same name.
+%gemspec_remove_file Dir.glob('bin/{windows,macos,linux}/selenium-manager{,.exe}')
+rm -rf bin
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -92,9 +86,18 @@ mkdir -p %{buildroot}%{gem_dir}
 cp -a .%{gem_dir}/* \
         %{buildroot}%{gem_dir}/
 
+# Create folder for binaries and create symlink to the selenium-manager from repos
+mkdir -p %{buildroot}%{gem_instdir}/bin/linux/
+ln -sf %{_bindir}/selenium-manager %{buildroot}%{gem_instdir}/bin/linux/
+
+
 %check
-pushd .%{gem_instdir}
-ln -s %{_builddir}/rb/spec .
+( cd .%{gem_instdir}
+cp -a %{builddir}/rb/spec .
+cp -a %{builddir}/common ..
+
+mkdir -p ./bin/linux/
+ln -sf %{_bindir}/selenium-manager ./bin/linux/
 
 # `DevTools` are part of separate `selenium-devtools` gem.
 mv spec/unit/selenium/devtools_spec.rb{,.disable}
@@ -116,20 +119,29 @@ sed -i "/it 'errors if cannot find' do/a\          skip" \
 rspec spec/unit
 
 %if %{with spec_integration}
+# This query is not supported by the `selenium` wrapper. But we won't have beta
+# version of Chrome anyway.
+sed -i -r '/GlobalTestEnv\.beta_chrome_version/ s/exclude: \{.*\},//' \
+  spec/integration/selenium/webdriver/network_spec.rb
+
 # Ignore `spec/integration/selenium/server_spec.rb`, which downloads some
 # content from internet.
 mv spec/integration/selenium/server_spec.rb{,.disable}
 
-# These test are passing when they are expected to fail. Maybe chromium
-# supports these actions now?
+# Test passes when it is expected to fail. Maybe Chromium supports this action
+# now?
 sed -i -r \
-  -e "/it 'can make window full screen'/ s/(^\s*)it/\1skip/" \
   -e "/it 'can minimize the window'/ s/(^\s*)it/\1skip/" \
+  spec/integration/selenium/webdriver/window_spec.rb
+
+# This test fails and should likely be guarded by the `headless` flag.
+sed -i -r \
+  -e "/it 'can maximize the current window'/ s/(^\s*)it/\1skip/" \
   spec/integration/selenium/webdriver/window_spec.rb
 
 HEADLESS=true SE_CHROMEDRIVER=chromedriver rspec spec/integration
 %endif
-popd
+)
 
 %files
 %dir %{gem_instdir}
@@ -148,6 +160,14 @@ popd
 %{gem_instdir}/selenium-webdriver.gemspec
 
 %changelog
+* Mon Aug 11 2025 Tomáš Juhász <tjuhasz@redhat.com> - 4.34.0-1
+- Use packaged selenium-manager binary.
+
+* Thu Aug 07 2025 Vít Ondruch <vondruch@redhat.com> - 4.34.0-1
+- Update to selenium-webdriver 4.34.0.
+  Resolves: rhbz#2339033
+  Resolves: rhbz#2385596
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.27.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

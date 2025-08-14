@@ -1,5 +1,6 @@
 %bcond_without gui
 
+
 %if 0%{?fedora}
 %bcond_without default_editor
 %bcond_without gpm
@@ -10,7 +11,23 @@
 %bcond_with libsodium_crypt
 %endif
 
+
 %define patchlevel 1623
+%define withnetbeans 1
+
+%define withhunspell 0
+%define withlua 1
+%define withperl 1
+
+# VIm upstream wants to build with FORTIFY_SOURCE=1,
+# because higher levels causes crashes of valid code constructs
+# and their reimplementation would cost unnecessary maintenance
+# https://github.com/vim/vim/pull/3507
+%define _fortify_level 1
+
+%define baseversion 9.1
+%define vimdir vim91
+
 
 %if %{?WITH_SELINUX:0}%{!?WITH_SELINUX:1}
 %define WITH_SELINUX 1
@@ -26,26 +43,12 @@
 %define desktop_file_utils_version 0.2.93
 %endif
 
-%define withnetbeans 1
-
-%define withvimspell 0
-%define withhunspell 0
-%define withlua 1
-%define withperl 1
 %if 0%{?flatpak}
 %define withruby 0
 %else
 %define withruby 1
 %endif
 
-# VIm upstream wants to build with FORTIFY_SOURCE=1,
-# because higher levels causes crashes of valid code constructs
-# and their reimplementation would cost unnecessary maintenance
-# https://github.com/vim/vim/pull/3507
-%define _fortify_level 1
-
-%define baseversion 9.1
-%define vimdir vim91
 
 Summary: The VIM editor
 URL:     http://www.vim.org/
@@ -77,38 +80,26 @@ Source11: vim-default-editor.fish
 Source12: view_wrapper
 Source13: vi_wrapper
 
-%if %{withvimspell}
-Source100: vim-spell-files.tar.bz2
-%endif
 
-
-Patch2000: vim-7.0-fixkeys.patch
-Patch2001: vim-7.4-specsyntax.patch
-
-%if %{withhunspell}
-Patch2002: vim-7.0-hunspell.patch
-BuildRequires: hunspell-devel
-%endif
-
-Patch3000: vim-7.3-manpage-typo-668894-675480.patch
-Patch3001: vim-manpagefixes-948566.patch
-Patch3002: vim-7.4-globalsyntax.patch
+Patch1: vim-7.0-fixkeys.patch
+Patch2: vim-7.4-specsyntax.patch
+Patch3: vim-7.3-manpage-typo-668894-675480.patch
+Patch4: vim-manpagefixes-948566.patch
+Patch5: vim-7.4-globalsyntax.patch
 # migrate shebangs in script to /usr/bin/python3 and use python2 when necessary
-Patch3003: vim-python3-tests.patch
+Patch6: vim-python3-tests.patch
 # fips warning (Fedora downstream patch)
-Patch3004: vim-crypto-warning.patch
+Patch7: vim-crypto-warning.patch
 # don't ever set mouse (Fedora downstream patch)
-Patch3005: vim-8.0-copy-paste.patch
+Patch8: vim-8.0-copy-paste.patch
+
+
+# patch only when hunspell is enabled
+Patch10000: vim-7.0-hunspell.patch
 
 
 # uses autoconf in spec file
 BuildRequires: autoconf
-
-%if %{desktop_file}
-# for /usr/bin/desktop-file-install
-BuildRequires: desktop-file-utils >= %{desktop_file_utils_version}
-Requires: desktop-file-utils
-%endif
 
 # gcc is no longer in buildroot by default
 BuildRequires: gcc
@@ -120,16 +111,34 @@ BuildRequires: gettext
 # formats during compilation.
 BuildRequires: glibc-gconv-extra
 
+# for setting ACL on created files
+BuildRequires: libacl-devel
+
+# uses libtool for linking
+BuildRequires: libtool
+
+# uses make
+BuildRequires: make
+# screen handling library
+BuildRequires: ncurses-devel
+
+# for python plugin
+BuildRequires: python3-devel
+
+
+%if %{desktop_file}
+# for /usr/bin/desktop-file-install
+BuildRequires: desktop-file-utils >= %{desktop_file_utils_version}
+Requires: desktop-file-utils
+%endif
+
 %if %{with gpm}
 # for mouse support in console
 BuildRequires: gpm-devel
 %endif
-# for setting ACL on created files
-BuildRequires: libacl-devel
 
-# selinux support
-%if %{WITH_SELINUX}
-BuildRequires: libselinux-devel
+%if %{withhunspell}
+BuildRequires: hunspell-devel
 %endif
 
 # for xchacha20 encryption
@@ -137,18 +146,11 @@ BuildRequires: libselinux-devel
 BuildRequires: libsodium-devel
 %endif
 
-# uses libtool for linking
-BuildRequires: libtool
-
 # for lua plugin
 %if "%{withlua}" == "1"
 BuildRequires: lua-devel
 %endif
 
-# uses make
-BuildRequires: make
-# screen handling library
-BuildRequires: ncurses-devel
 # for perl plugin
 %if "%{withperl}" == "1"
 BuildRequires: perl-devel
@@ -156,13 +158,16 @@ BuildRequires: perl-generators
 BuildRequires: perl(ExtUtils::Embed)
 BuildRequires: perl(ExtUtils::ParseXS)
 %endif
-# for python plugin
-BuildRequires: python3-devel
 
 # for ruby plugin
 %if "%{withruby}" == "1"
 BuildRequires: ruby
 BuildRequires: ruby-devel
+%endif
+
+# selinux support
+%if %{WITH_SELINUX}
+BuildRequires: libselinux-devel
 %endif
 
 
@@ -172,26 +177,15 @@ vi editor.  Vi was the first real screen-based editor for UNIX, and is
 still very popular.  VIM improves on vi by adding new features:
 multiple windows, multi-level undo, block highlighting and more.
 
+
 %package common
 Summary: The common files needed by any version of the VIM editor
-# conflicts in package because of manpage move (bug #1599663)
-# conflicts because of defaults.vim (bug #2026651)
-# remove after F36 EOL+after release CentOS Stream > 9
-Conflicts: %{name}-minimal < %{epoch}:8.2.3642-2
 # shared files between common and minimal
 Requires: %{name}-data = %{epoch}:%{version}-%{release}
 Requires: %{name}-filesystem
 # the hexdump binary was part of the package for long time, ship it with it
 # still for convenience
 Requires: xxd
-# vim-toml was a separate package but the runtime files have been included
-# directly in vim since 8.2.3519.  The vim-toml package has been retired in
-# Fedora, obsolete it so it doesn't get left on users' systems.  Added in F38,
-# can be removed in F40.
-# https://github.com/cespare/vim-toml/commit/2c8983cc391287e5e26e015c3ab9c38de9f9b759
-# https://github.com/vim/vim/commit/2286304cdbba53ceb52b3ba2ba4a521b0a2f8d0f
-Provides: vim-toml = %{epoch}:%{version}-%{release}
-Obsoletes: vim-toml < 0^1.717bd87-4
 
 %description common
 VIM (VIsual editor iMproved) is an updated and improved version of the
@@ -204,20 +198,9 @@ order to run.
 If you are installing vim-enhanced or vim-X11, you'll also need
 to install the vim-common package.
 
-%package spell
-Summary: The dictionaries for spell checking. This package is optional
-Requires: vim-common = %{epoch}:%{version}-%{release}
-
-%description spell
-This subpackage contains dictionaries for vim spell checking in
-many different languages.
 
 %package minimal
 Summary: A minimal version of the VIM editor
-# conflicts in package because of manpage move (bug #1599663)
-# conflicts because of defaults.vim (bug #2026651)
-# remove after F36 EOL+after release CentOS Stream > 9
-Conflicts: %{name}-common < %{epoch}:8.2.3642-2
 Provides: vi
 Provides: %{_bindir}/vi
 # shared files between common and minimal
@@ -232,6 +215,7 @@ vim-minimal package includes a minimal version of VIM, providing
 the commands vi, view, ex, rvi, and rview. NOTE: The online help is
 only available when the vim-common package is installed.
 
+
 %package enhanced
 Summary: A version of the VIM editor which includes recent enhancements
 # vim bundles libvterm, which is used during build - so we need to provide
@@ -244,6 +228,9 @@ Provides: %{_bindir}/vim
 Requires: vim-common = %{epoch}:%{version}-%{release}
 # required for vimtutor (#395371)
 Requires: which
+Suggests: python3
+Suggests: python3-libs
+
 # suggest python3, python2, lua, ruby and perl packages because of their 
 # embedded functionality in Vim/GVim
 %if "%{withlua}" == "1"
@@ -253,9 +240,6 @@ Suggests: lua-libs
 %if "%{withperl}" == "1"
 Suggests: perl-devel
 %endif
-
-Suggests: python3
-Suggests: python3-libs
 
 %if "%{withruby}" == "1"
 Suggests: ruby
@@ -275,6 +259,7 @@ VIM editor which includes recently added enhancements like
 interpreters for the Python and Perl scripting languages.  You'll also
 need to install the vim-common package.
 
+
 %package filesystem
 Summary: VIM filesystem layout
 BuildArch: noarch
@@ -282,6 +267,36 @@ BuildArch: noarch
 %Description filesystem
 This package provides some directories which are required by other
 packages that add vim files, p.e.  additional syntax files or filetypes.
+
+
+%package data
+Summary: Shared data for Vi and Vim
+BuildArch: noarch
+
+%description data
+The subpackage is used for shipping files and directories, which need to be
+shared between vim-minimal and vim-common packages.
+
+
+%package -n xxd
+Summary: A hex dump utility
+
+%description -n xxd
+xxd creates a hex dump of a given file or standard input.  It can also convert
+a hex dump back to its original binary form.
+
+
+%if %{with default_editor}
+%package default-editor
+Summary: Set vim as the default editor
+BuildArch: noarch
+Conflicts: system-default-editor
+Provides: system-default-editor
+Requires: vim-enhanced
+
+%description default-editor
+This subpackage contains files needed to set Vim as the default editor.
+%endif
 
 %if %{with gui}
 %package X11
@@ -310,25 +325,27 @@ Provides: vim(plugins-supported)
 Provides: %{_bindir}/mergetool
 Provides: %{_bindir}/gvim
 
-%if 0%{?fedora} >= 40 || 0%{?rhel} > 9
 # glib2 in Fedora 40 introduced a new function, which is not used in GVim, but it is present
 # in compiled gvim binary as symbol when Vim is compiled with glib2-2.79.1
 # there does not seem to be a better solution than version based requires on glib2...
 # https://bugzilla.redhat.com/show_bug.cgi?id=2262371
 Requires: glib2 >= 2.79.1
-%endif
 # GVIM graphics are based on GTK3
 Requires: gtk3
 # needed for icons (#226526)
 Requires: hicolor-icon-theme
-%if 0%{?fedora} >= 41
-# needed for icons (#2277751)
-Requires: gdk-pixbuf2-modules-extra%{?_isa}
-%endif
 # for getting/setting extended attributes - they are pairs (name:value)
 # from inodes (files, dirs etc.)
 Requires: libattr >= 2.4
 Requires: vim-common = %{epoch}:%{version}-%{release} 
+Suggests: python3
+Suggests: python3-libs
+
+  %if 0%{?fedora} >= 41
+  # needed for icons (#2277751)
+Requires: gdk-pixbuf2-modules-extra%{?_isa}
+  %endif
+
 # suggest python3, python2, lua, ruby and perl packages because of their 
 # embedded functionality in Vim/GVim
   %if "%{withlua}" == "1"
@@ -338,9 +355,6 @@ Suggests: lua-libs
   %if "%{withperl}" == "1"
 Suggests: perl-devel
   %endif
-
-Suggests: python3
-Suggests: python3-libs
 
   %if "%{withruby}" == "1"
 Suggests: ruby
@@ -361,71 +375,30 @@ with graphics and mouse capabilities.  You'll also need to install the
 vim-common package.
 %endif
 
-%package data
-Summary: Shared data for Vi and Vim
-BuildArch: noarch
-# moved files from filesystem, common and minimal to data
-# remove after F36 EOL+after release of CentOS Stream > 9
-Conflicts: %{name}-common < 2:8.2.3642-2
-Conflicts: %{name}-filesystem < 2:8.2.3642-2
-Conflicts: %{name}-minimal < 2:8.2.3642-2
-
-%description data
-The subpackage is used for shipping files and directories, which need to be
-shared between vim-minimal and vim-common packages.
-
-%if %{with default_editor}
-%package default-editor
-Summary: Set vim as the default editor
-BuildArch: noarch
-Conflicts: system-default-editor
-Provides: system-default-editor
-Requires: vim-enhanced
-
-%description default-editor
-This subpackage contains files needed to set Vim as the default editor.
-%endif
-
-%package -n xxd
-Summary: A hex dump utility
-# the xxd related file were shipped in vim-common in the past,
-# we have to conflict with the old ones
-# remove this Conflicts once C10S is released
-Conflicts: %{name}-common < 2:9.0.1440-2
-
-%description -n xxd
-xxd creates a hex dump of a given file or standard input.  It can also convert
-a hex dump back to its original binary form.
-
 
 %prep
 %setup -q -b 0 -n %{vimdir}
 
 # use %%{__python3} macro for defining shebangs in python3 tests
-sed -i -e 's,/usr/bin/python3,%{__python3},' %{PATCH3005}
+sed -i -e 's,/usr/bin/python3,%{__python3},' %{PATCH6}
 
 # fix rogue dependencies from sample code
 chmod -x runtime/tools/mve.awk
-%patch -P 2000 -p1 -b .fixkeys
-%patch -P 2001 -p1 -b .spec-syntax
-
-%if %{withhunspell}
-%patch -P 2002 -p1
-%endif
+%patch -P 1 -p1 -b .fixkeys
+%patch -P 2 -p1 -b .spec-syntax
 
 perl -pi -e "s,bin/nawk,bin/awk,g" runtime/tools/mve.awk
 
-# install spell files
-%if %{withvimspell}
-%{__tar} xjf %{SOURCE100}
-%endif
+%patch -P 3 -p1 -b .mantypo
+%patch -P 4 -p1 -b .manpagefixes
+%patch -P 5 -p1 -b .globalsyntax
+%patch -P 6 -p1 -b .python-tests
+%patch -P 7 -p1 -b .fips-warning
+%patch -P 8 -p1 -b .copypaste
 
-%patch -P 3000 -p1 -b .mantypo
-%patch -P 3001 -p1 -b .manpagefixes
-%patch -P 3002 -p1 -b .globalsyntax
-%patch -P 3003 -p1 -b .python-tests
-%patch -P 3004 -p1 -b .fips-warning
-%patch -P 3005 -p1 -b .copypaste
+%if %{withhunspell}
+%patch -P 10000 -p1
+%endif
 
 
 %build
@@ -478,70 +451,8 @@ perl -pi -e "s/vimrc/virc/"  os_unix.h
 cp vim minimal-vim
 make clean
 
+
 mv -f os_unix.h.save os_unix.h
-
-%if %{with gui}
-# More configure options:
-# --enable-xim - enabling X Input Method - international input module for X,
-#                it is for multibyte languages in Vim with X
-# --enable-termtruecolor - use terminal with true colors
-
-%configure CFLAGS="${CFLAGS} -DSYS_VIMRC_FILE='\"/etc/vimrc\"'" \
-  --with-features=huge \
-  --enable-python3interp=dynamic \
-  --with-python3-stable-abi \
-  --disable-tclinterp --with-x=yes \
-  --enable-xim --enable-multibyte \
-  --with-tlib=ncurses \
-  --enable-gtk3-check --enable-gui=gtk3 \
-  --enable-fips-warning \
-  --with-compiledby="<bugzilla@redhat.com>" --enable-cscope \
-  --with-modified-by="<bugzilla@redhat.com>" \
-%if %{with gpm}
- --enable-gpm \
-%else
- --disable-gpm \
-%endif
-  %if "%{withnetbeans}" == "1"
-  --enable-netbeans \
-  %else
-  --disable-netbeans \
-  %endif
-  %if %{WITH_SELINUX}
-  --enable-selinux \
-  %else
-  --disable-selinux \
-  %endif
-  %if "%{withperl}" == "1"
-  --enable-perlinterp=dynamic \
-  --with-xsubpp=$(which xsubpp) \
-  %else
-  --disable-perlinterp \
-  %endif
-  %if "%{withruby}" == "1"
-  --enable-rubyinterp=dynamic \
-  %else
-  --disable-rubyinterp \
-  %endif
-  %if "%{withlua}" == "1"
-  --enable-luainterp=dynamic \
-  %else
-  --disable-luainterp \
-  %endif
-  %if %{with libsodium_crypt}
-  --enable-libsodium \
-  %else
-  --disable-libsodium \
-  %endif
-  --enable-fail-if-missing \
-  --with-wayland \
-  --enable-year2038 \
-  --enable-canberra
-
-%make_build
-cp vim gvim
-make clean
-%endif
 
 %configure CFLAGS="${CFLAGS} -DSYS_VIMRC_FILE='\"/etc/vimrc\"'" \
  --prefix=%{_prefix} --with-features=huge \
@@ -598,6 +509,71 @@ make clean
 %make_build
 cp vim enhanced-vim
 
+
+%if %{with gui}
+# More configure options:
+# --enable-xim - enabling X Input Method - international input module for X,
+#                it is for multibyte languages in Vim with X
+# --enable-termtruecolor - use terminal with true colors
+
+%configure CFLAGS="${CFLAGS} -DSYS_VIMRC_FILE='\"/etc/vimrc\"'" \
+  --with-features=huge \
+  --enable-python3interp=dynamic \
+  --with-python3-stable-abi \
+  --disable-tclinterp --with-x=yes \
+  --enable-xim --enable-multibyte \
+  --with-tlib=ncurses \
+  --enable-gtk3-check --enable-gui=gtk3 \
+  --enable-fips-warning \
+  --with-compiledby="<bugzilla@redhat.com>" --enable-cscope \
+  --with-modified-by="<bugzilla@redhat.com>" \
+  %if %{with gpm}
+  --enable-gpm \
+  %else
+  --disable-gpm \
+  %endif
+  %if "%{withnetbeans}" == "1"
+  --enable-netbeans \
+  %else
+  --disable-netbeans \
+  %endif
+  %if %{WITH_SELINUX}
+  --enable-selinux \
+  %else
+  --disable-selinux \
+  %endif
+  %if "%{withperl}" == "1"
+  --enable-perlinterp=dynamic \
+  --with-xsubpp=$(which xsubpp) \
+  %else
+  --disable-perlinterp \
+  %endif
+  %if "%{withruby}" == "1"
+  --enable-rubyinterp=dynamic \
+  %else
+  --disable-rubyinterp \
+  %endif
+  %if "%{withlua}" == "1"
+  --enable-luainterp=dynamic \
+  %else
+  --disable-luainterp \
+  %endif
+  %if %{with libsodium_crypt}
+  --enable-libsodium \
+  %else
+  --disable-libsodium \
+  %endif
+  --enable-fail-if-missing \
+  --with-wayland \
+  --enable-year2038 \
+  --enable-canberra
+
+%make_build
+cp vim gvim
+make clean
+%endif
+
+
 %install
 mkdir -p %{buildroot}/%{_bindir}
 mkdir -p %{buildroot}/%{_datadir}/%{name}/vimfiles/{after,autoload,colors,compiler,doc,ftdetect,ftplugin,indent,keymap,lang,plugin,print,spell,syntax,tutor}
@@ -606,12 +582,12 @@ cp -f %{SOURCE7} %{buildroot}/%{_datadir}/%{name}/vimfiles/template.spec
 # Those aren't Linux info files but some binary files for Amiga:
 rm -f README*.info
 
-
 cd src
 # Adding STRIP=/bin/true, because Vim wants to strip the binaries by himself
 # and put the stripped files into correct dirs. Build system (koji/brew) 
 # does it for us, so there is no need to do it in Vim
 %make_install BINDIR=%{_bindir} STRIP=/bin/true
+
 # make install creates vim binary and view symlink, they will be wrappers
 # so remove them here
 rm -f %{buildroot}%{_bindir}/{vim,view}
@@ -698,7 +674,7 @@ EOF
 
 appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.appdata.xml
 
-for i in gvim.1 gex.1 gview.1 vimx.1; do 
+for i in gvim.1 gex.1 gview.1 vimx.1 eview.1 rgvim.1 rgview.1; do
   echo ".so man1/vim.1" > %{buildroot}/%{_mandir}/man1/$i
 done
 echo ".so man1/vimdiff.1" > %{buildroot}/%{_mandir}/man1/gvimdiff.1
@@ -711,9 +687,9 @@ rm %{buildroot}/%{_datadir}/icons/{hicolor,locolor}/*/apps/gvim.png
 %endif
 
 ( cd %{buildroot}
-  ln -sf %{_libexecdir}/vi .%{_bindir}/rvi
-  ln -sf %{_libexecdir}/vi .%{_bindir}/rview
-  ln -sf %{_libexecdir}/vi .%{_bindir}/ex
+  ln -sf .%{_libexecdir}/vi .%{_bindir}/rvi
+  ln -sf .%{_libexecdir}/vi .%{_bindir}/rview
+  ln -sf .%{_libexecdir}/vi .%{_bindir}/ex
   ln -sf vim .%{_bindir}/rvim
   ln -sf vim .%{_bindir}/vimdiff
   perl -pi -e "s,%{buildroot},," .%{_mandir}/man1/vim.1 .%{_mandir}/man1/vimtutor.1
@@ -726,10 +702,13 @@ rm %{buildroot}/%{_datadir}/icons/{hicolor,locolor}/*/apps/gvim.png
   ln -sf vim.1.gz .%{_mandir}/man1/vimdiff.1.gz
 
 %if %{with gui}
+  ln -sf gvim ./%{_bindir}/evim
+  ln -sf gvim ./%{_bindir}/eview
   ln -sf gvim ./%{_bindir}/gview
   ln -sf gvim ./%{_bindir}/gex
-  ln -sf gvim ./%{_bindir}/evim
   ln -sf gvim ./%{_bindir}/gvimdiff
+  ln -sf gvim ./%{_bindir}/rgvim
+  ln -sf gvim ./%{_bindir}/rgview
   ln -sf gvim ./%{_bindir}/vimx
 
   %if "%{desktop_file}" == "1"
@@ -758,21 +737,6 @@ chmod 644 ../runtime/doc/vim2html.pl
 mkdir -p %{buildroot}%{_sysconfdir}
 install -p -m644 %{SOURCE1} %{buildroot}%{_sysconfdir}/virc
 install -p -m644 %{SOURCE2} %{buildroot}%{_sysconfdir}/vimrc
-
-# if Vim isn't built for Fedora, use redhat augroup
-%if 0%{?rhel} >= 7
-sed -i -e "s/augroup fedora/augroup redhat/" %{buildroot}/%{_sysconfdir}/vimrc
-sed -i -e "s/augroup fedora/augroup redhat/" %{buildroot}/%{_sysconfdir}/virc
-%endif
-
-%if %{with default_editor}
-mkdir -p %{buildroot}/%{_sysconfdir}/profile.d
-install -p -m644 %{SOURCE9} %{buildroot}/%{_sysconfdir}/profile.d/vim-default-editor.sh
-install -p -m644 %{SOURCE10} %{buildroot}/%{_sysconfdir}/profile.d/vim-default-editor.csh
-mkdir -p %{buildroot}/%{_datadir}/fish/vendor_conf.d/
-install -p -m644 %{SOURCE11} %{buildroot}/%{_datadir}/fish/vendor_conf.d/vim-default-editor.fish
-mkdir -p %{buildroot}/%{_datadir}/fish/vendor_functions.d/
-%endif
 
 mkdir -p %{buildroot}%{_rpmconfigdir}/macros.d/
 install -p -m644 %{SOURCE8} %{buildroot}%{_rpmconfigdir}/macros.d/
@@ -810,6 +774,21 @@ touch %{buildroot}/%{_datadir}/%{name}/vimfiles/doc/tags
 rm %{buildroot}%{_datadir}/%{name}/%{vimdir}/LICENSE
 rm %{buildroot}%{_datadir}/%{name}/%{vimdir}/README.txt
 
+# if Vim isn't built for Fedora, use redhat augroup
+%if 0%{?rhel} >= 7
+sed -i -e "s/augroup fedora/augroup redhat/" %{buildroot}/%{_sysconfdir}/vimrc
+sed -i -e "s/augroup fedora/augroup redhat/" %{buildroot}/%{_sysconfdir}/virc
+%endif
+
+%if %{with default_editor}
+mkdir -p %{buildroot}/%{_sysconfdir}/profile.d
+install -p -m644 %{SOURCE9} %{buildroot}/%{_sysconfdir}/profile.d/vim-default-editor.sh
+install -p -m644 %{SOURCE10} %{buildroot}/%{_sysconfdir}/profile.d/vim-default-editor.csh
+mkdir -p %{buildroot}/%{_datadir}/fish/vendor_conf.d/
+install -p -m644 %{SOURCE11} %{buildroot}/%{_datadir}/fish/vendor_conf.d/vim-default-editor.fish
+mkdir -p %{buildroot}/%{_datadir}/fish/vendor_functions.d/
+%endif
+
 
 # Refresh documentation helptags
 %transfiletriggerin common -- %{_datadir}/%{name}/vimfiles/doc
@@ -844,11 +823,7 @@ rm %{buildroot}%{_datadir}/%{name}/%{vimdir}/README.txt
 %{_datadir}/%{name}/%{vimdir}/print
 %{_datadir}/%{name}/%{vimdir}/syntax
 %{_datadir}/%{name}/%{vimdir}/tutor
-
-%if ! %{withvimspell}
 %{_datadir}/%{name}/%{vimdir}/spell
-%endif
-
 %lang(af) %{_datadir}/%{name}/%{vimdir}/lang/af
 %lang(ca) %{_datadir}/%{name}/%{vimdir}/lang/ca
 %lang(cs) %{_datadir}/%{name}/%{vimdir}/lang/cs
@@ -899,9 +874,12 @@ rm %{buildroot}%{_datadir}/%{name}/%{vimdir}/README.txt
 %{_mandir}/man5/vimrc.*
 
 %if %{with gui}
+%{_mandir}/man1/eview.*
 %{_mandir}/man1/gex.*
 %{_mandir}/man1/gview.*
 %{_mandir}/man1/gvim*
+%{_mandir}/man1/rgvim.*
+%{_mandir}/man1/rgview.*
 %{_mandir}/man1/vimx.*
 %endif
 
@@ -913,63 +891,6 @@ rm %{buildroot}%{_datadir}/%{name}/%{vimdir}/README.txt
 %lang(pl) %{_mandir}/pl/man1/*
 %lang(ru) %{_mandir}/ru/man1/*
 %lang(tr) %{_mandir}/tr/man1/*
-
-%if %{withvimspell}
-%files spell
-%dir %{_datadir}/%{name}/%{vimdir}/spell
-%{_datadir}/%{name}/vim70/spell/cleanadd.vim
-%lang(af) %{_datadir}/%{name}/%{vimdir}/spell/af.*
-%lang(am) %{_datadir}/%{name}/%{vimdir}/spell/am.*
-%lang(bg) %{_datadir}/%{name}/%{vimdir}/spell/bg.*
-%lang(ca) %{_datadir}/%{name}/%{vimdir}/spell/ca.*
-%lang(cs) %{_datadir}/%{name}/%{vimdir}/spell/cs.*
-%lang(cy) %{_datadir}/%{name}/%{vimdir}/spell/cy.*
-%lang(da) %{_datadir}/%{name}/%{vimdir}/spell/da.*
-%lang(de) %{_datadir}/%{name}/%{vimdir}/spell/de.*
-%lang(el) %{_datadir}/%{name}/%{vimdir}/spell/el.*
-%lang(en) %{_datadir}/%{name}/%{vimdir}/spell/en.*
-%lang(eo) %{_datadir}/%{name}/%{vimdir}/spell/eo.*
-%lang(es) %{_datadir}/%{name}/%{vimdir}/spell/es.*
-%lang(fo) %{_datadir}/%{name}/%{vimdir}/spell/fo.*
-%lang(fr) %{_datadir}/%{name}/%{vimdir}/spell/fr.*
-%lang(ga) %{_datadir}/%{name}/%{vimdir}/spell/ga.*
-%lang(gd) %{_datadir}/%{name}/%{vimdir}/spell/gd.*
-%lang(gl) %{_datadir}/%{name}/%{vimdir}/spell/gl.*
-%lang(he) %{_datadir}/%{name}/%{vimdir}/spell/he.*
-%lang(hr) %{_datadir}/%{name}/%{vimdir}/spell/hr.*
-%lang(hu) %{_datadir}/%{name}/%{vimdir}/spell/hu.*
-%lang(id) %{_datadir}/%{name}/%{vimdir}/spell/id.*
-%lang(it) %{_datadir}/%{name}/%{vimdir}/spell/it.*
-%lang(ku) %{_datadir}/%{name}/%{vimdir}/spell/ku.*
-%lang(la) %{_datadir}/%{name}/%{vimdir}/spell/la.*
-%lang(lt) %{_datadir}/%{name}/%{vimdir}/spell/lt.*
-%lang(lv) %{_datadir}/%{name}/%{vimdir}/spell/lv.*
-%lang(mg) %{_datadir}/%{name}/%{vimdir}/spell/mg.*
-%lang(mi) %{_datadir}/%{name}/%{vimdir}/spell/mi.*
-%lang(ms) %{_datadir}/%{name}/%{vimdir}/spell/ms.*
-%lang(nb) %{_datadir}/%{name}/%{vimdir}/spell/nb.*
-%lang(nl) %{_datadir}/%{name}/%{vimdir}/spell/nl.*
-%lang(nn) %{_datadir}/%{name}/%{vimdir}/spell/nn.*
-%lang(ny) %{_datadir}/%{name}/%{vimdir}/spell/ny.*
-%lang(pl) %{_datadir}/%{name}/%{vimdir}/spell/pl.*
-%lang(pt) %{_datadir}/%{name}/%{vimdir}/spell/pt.*
-%lang(ro) %{_datadir}/%{name}/%{vimdir}/spell/ro.*
-%lang(ru) %{_datadir}/%{name}/%{vimdir}/spell/ru.*
-%lang(rw) %{_datadir}/%{name}/%{vimdir}/spell/rw.*
-%lang(sk) %{_datadir}/%{name}/%{vimdir}/spell/sk.*
-%lang(sl) %{_datadir}/%{name}/%{vimdir}/spell/sl.*
-%lang(sr) %{_datadir}/%{name}/%{vimdir}/spell/sr.*
-%lang(sv) %{_datadir}/%{name}/%{vimdir}/spell/sv.*
-%lang(sw) %{_datadir}/%{name}/%{vimdir}/spell/sw.*
-%lang(tet) %{_datadir}/%{name}/%{vimdir}/spell/tet.*
-%lang(th) %{_datadir}/%{name}/%{vimdir}/spell/th.*
-%lang(tl) %{_datadir}/%{name}/%{vimdir}/spell/tl.*
-%lang(tn) %{_datadir}/%{name}/%{vimdir}/spell/tn.*
-%lang(uk) %{_datadir}/%{name}/%{vimdir}/spell/uk.*
-%lang(yi) %{_datadir}/%{name}/%{vimdir}/spell/yi.*
-%lang(yi-tr) %{_datadir}/%{name}/%{vimdir}/spell/yi-tr.*
-%lang(zu) %{_datadir}/%{name}/%{vimdir}/spell/zu.*
-%endif
 
 %files minimal
 %config(noreplace) %{_sysconfdir}/virc
@@ -1031,6 +952,9 @@ rm %{buildroot}%{_datadir}/%{name}/%{vimdir}/README.txt
 %{_bindir}/vimtutor
 %{_bindir}/vimx
 %{_bindir}/evim
+%{_bindir}/eview
+%{_bindir}/rgvim
+%{_bindir}/rgview
 %{_mandir}/man1/evim.*
 %dir %{_datadir}/icons/hicolor
 %dir %{_datadir}/icons/hicolor/*

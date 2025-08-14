@@ -170,6 +170,10 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2158587
 %undefine _include_frame_pointers
 
+# Opt out of https://fedoraproject.org/wiki/Changes/StaticLibraryPreserveDebuginfo
+# Debuginfo for LLVM static libraries is huge.
+%undefine _preserve_static_debuginfo
+
 # Suffixless tarball name (essentially: basename -s .tar.xz llvm-project-17.0.6.src.tar.xz)
 %if %{with snapshot_build}
 %global src_tarball_dir llvm-project-%{llvm_snapshot_git_revision}

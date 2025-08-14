@@ -1,6 +1,4 @@
-# F43FailsToInstall: python3-plotly
-# https://bugzilla.redhat.com/show_bug.cgi?id=2372034
-%bcond plotly 0
+%bcond plotly 1
 
 # Add a BuildRequires on vtk merely for smoke-testing imports of VTK
 # integration modules? This does not enable additional tests.

@@ -5,7 +5,7 @@
 
 Name:           %{githubname}
 Version:        %{githubver}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Libbpf library
 
 License:        LGPL-2.1-only OR BSD-2-Clause
@@ -13,6 +13,8 @@ URL:            https://github.com/%{githubname}/%{githubname}
 Source:         https://github.com/%{githubname}/%{githubname}/archive/v%{githubver}.tar.gz
 BuildRequires:  gcc elfutils-libelf-devel elfutils-devel
 BuildRequires: make
+
+Patch1:         libbpf-Add-the-ability-to-suppress-perf-event-enable.patch
 
 # This package supersedes libbpf from kernel-tools,
 # which has default Epoch: 0. By having Epoch: > 0
@@ -70,6 +72,9 @@ developing applications that use %{name}
 %{_libdir}/libbpf.a
 
 %changelog
+* Tue Aug 12 2025 Viktor Malik <vmalik@redhat.com> - 2:1.6.1-3
+- Backport patch to fix latest perf builds
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:1.6.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

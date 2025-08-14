@@ -6,13 +6,18 @@
 Name:             fbb
 URL:              https://sourceforge.net/projects/linfbb/
 Version:          7.0.11
-Release:          %{?prerel:0.}1%{?prerel:.%{prerel}}%{?dist}.11
+Release:          %{?prerel:0.}2%{?prerel:.%{prerel}}%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:          GPL-2.0-or-later
 Summary:          Packet radio mailbox and utilities
 BuildRequires:    gcc
-BuildRequires:    automake, libax25-devel, ncurses-devel, libX11-devel
-BuildRequires:    libXt-devel, libXext-devel,libXpm-devel
+BuildRequires:    automake
+BuildRequires:    libax25-devel
+BuildRequires:    ncurses-devel
+BuildRequires:    libX11-devel
+BuildRequires:    libXt-devel
+BuildRequires:    libXext-devel
+BuildRequires:    libXpm-devel
 %if 0%{?fedora} >= 24
 BuildRequires:    motif-devel
 %else
@@ -32,17 +37,19 @@ Source4:          fbb.desktop
 Source5:          org.fbb.gui.policy
 Source6:          README.Fedora
 # Remove real callsigns
-Patch2:           fbb-7.0.8-beta-sample-conf.patch
+Patch:           fbb-7.0.8-beta-sample-conf.patch
 # Use /var/lib/fbb instead of /var/ax25/fbb
 # /var/ax25 is currently not allowed by FHS, but it was requested
 # to be added to the FHS
-Patch3:           fbb-7.0.11-var-lib.patch
+Patch:           fbb-7.0.11-var-lib.patch
 # Non interactive service start
-Patch4:           fbb-7.0.11-non-interactive.patch
-Patch5:           fbb-7.0.9-write-port-errors.patch
-Patch6:           fbb-7.0.9-stdout.patch
-Patch7:           fbb-7.0.11-ncurses-fix.patch
-Patch8:           fbb-remove-XmGrabTheFocus.patch
+Patch:           fbb-7.0.11-non-interactive.patch
+Patch:           fbb-7.0.9-write-port-errors.patch
+Patch:           fbb-7.0.9-stdout.patch
+Patch:           fbb-7.0.11-ncurses-fix.patch
+Patch:           fbb-remove-XmGrabTheFocus.patch
+# https://sourceforge.net/p/linfbb/tickets/90/
+Patch:           fbb-7.0.11-x11-access-macro-fix.patch
 
 %description
 F6FBB BBS software for bulletins and messages distribution via Packet Radio
@@ -64,14 +71,7 @@ Summary:          GUI for fbb
 GUI for fbb.
 
 %prep
-%setup -q -n %{name}-%{version}%{?prerel:-%{prerel}}
-%patch -P2 -p1 -b .sample-conf
-%patch -P3 -p1 -b .var-lib
-%patch -P4 -p1 -b .non-interactive
-%patch -P5 -p1 -b .write-port-errors
-%patch -P6 -p1 -b .beta-stdout
-%patch -P7 -p1 -b .ncurses-fix
-%patch -P8 -p1
+%autosetup -p1 -n %{name}-%{version}%{?prerel:-%{prerel}}
 
 cp %{SOURCE6} README.Fedora
 
@@ -212,6 +212,10 @@ statis.dat,themes.dat,tpstat.sys,wfbid.sys,sat/satel.dat,wp/wp.sys}
 %{_datadir}/polkit-1/actions/org.fbb.gui.policy
 
 %changelog
+* Tue Aug 12 2025 Jaroslav Škarvada  <jskarvad@redhat.com> - 7.0.11-2
+- Fixed FTBFS
+  Resolves: rhbz#2340151
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.11-1.11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
