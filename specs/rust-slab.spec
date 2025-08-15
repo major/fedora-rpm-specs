@@ -5,7 +5,7 @@
 %global crate slab
 
 Name:           rust-slab
-Version:        0.4.10
+Version:        0.4.11
 Release:        %autorelease
 Summary:        Pre-allocated storage for a uniform data type
 

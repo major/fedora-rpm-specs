@@ -9,7 +9,7 @@ The img2pdf command complements the pdfimages command.
 
 Name:           python-%{srcname}
 Version:        0.6.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Lossless images to PDF conversion library and command
 
 License:        LGPL-3.0-or-later
@@ -21,10 +21,6 @@ Patch0:         magick-prog.patch
 
 
 BuildArch:      noarch
-
-# cf. Bug 1851638 - img2pdf fails to build on s390x because of issues in the ImageMagick dependency
-# https://bugzilla.redhat.com/show_bug.cgi?id=1851638
-ExcludeArch:    s390x
 
 # Disable tests on EPEL8 for now, since some of the dependencies aren't available
 %if 0%{?epel} == 0
@@ -117,6 +113,9 @@ PYTHONPATH=src %{__python3} -m pytest src/img2pdf_test.py -v -k 'not miff_c and 
 
 
 %changelog
+* Wed Aug 13 2025 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.6.1-4
+- Re-enable building on s390x (fixes fedora#2296176)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,14 +1,14 @@
 Summary:       Debugger using ptrace written in Python
 Name:          python-ptrace
 Version:       0.9.9
-Release:       7%{?dist}
-# Automatically converted from old format: GPLv2 - review is highly recommended.
+Release:       8%{?dist}
 License:       GPL-2.0-only
 URL:           https://github.com/vstinner/python-ptrace
 Source0:       https://files.pythonhosted.org/packages/source/p/%{name}/%{name}-%{version}.tar.gz
 BuildRequires: gcc
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
+# See ptrace/syscall/names.py
+ExcludeArch:   s390x
 %global _description \
 python-ptrace is a debugger using ptrace written in Python. \
 Features: \
@@ -21,41 +21,48 @@ Features: \
  o Dump registers, memory mappings, stack, etc. \
  o Syscall tracer and parser (strace.py command) \
  o Can use distorm disassembler (if available)
+
 %description %_description
 %package    -n python3-ptrace
 Summary:       Debugger using ptrace written in Python 3
-%{?python_provide:%python_provide python3-ptrace}
 %description -n python3-ptrace %_description
 
 %prep
 %autosetup
 chmod 0644 examples/*.py
+# requires https://github.com/gdabah/distorm
+rm ptrace/pydistorm.py
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%{py3_build}
+%{pyproject_wheel}
 %{__python3} setup_cptrace.py build
 
 %install
-%{py3_install}
-%{__python3} setup_cptrace.py install -O1 --skip-build --root %{buildroot}
 
+%{pyproject_install}
+%pyproject_save_files -l ptrace
+%{__python3} setup_cptrace.py install -O1 --skip-build --root %{buildroot}
 rm -f %{buildroot}%{_bindir}/{gdb,strace}.{pyo,pyc}
 
 %check
+%pyproject_check_import
 %{__python3} runtests.py || :
 
-%files -n python3-ptrace
-%license COPYING
+%files -n python3-ptrace -f %{pyproject_files}
 %doc README.rst
 %doc doc/* examples
 %{_bindir}/gdb.py
 %{_bindir}/strace.py
-%{python3_sitelib}/ptrace/
-%{python3_sitelib}/python_ptrace-*-py*.egg-info
 %{python3_sitearch}/cptrace.cpython-*.so
 %{python3_sitearch}/cptrace-*-py*.egg-info
 
 %changelog
+* Wed Aug 13 2025 Terje Rosten <terjeros@gmail.com> - 0.9.9-8
+- New set of rpm macros
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.9-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

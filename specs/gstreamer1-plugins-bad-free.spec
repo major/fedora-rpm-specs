@@ -15,9 +15,12 @@
 %bcond dc1394 %{defined fedora}
 %bcond ldac %{defined fedora}
 %endif
+%ifnarch %{ix86} s390x
+%bcond onnx %{defined fedora}
+%endif
 # VPL runtimes (intel-mediasdk/intel-vpl-gpu-rt) are x86_64 only
 %ifarch x86_64
-%bcond qsv %{defined fedora}
+%bcond vpl %{defined fedora}
 %endif
 
 #global gitrel     140
@@ -26,7 +29,7 @@
 
 Name:           gstreamer1-plugins-bad-free
 Version:        1.26.5
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        GStreamer streaming media framework "bad" plugins
 
 # Automatically converted from old format: LGPLv2+ and LGPLv2 - review is highly recommended.
@@ -84,6 +87,7 @@ BuildRequires:  pkgconfig(libwebpmux)
 BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(opus)
 BuildRequires:  pkgconfig(orc-0.4)
+BuildRequires:  pkgconfig(sbc)
 BuildRequires:  pkgconfig(sndfile)
 BuildRequires:  pkgconfig(soundtouch)
 BuildRequires:  pkgconfig(wayland-client)
@@ -98,6 +102,9 @@ BuildRequires:  pkgconfig(libdc1394-2)
 %if %{with ldac}
 BuildRequires:  pkgconfig(ldacBT-enc)
 %endif
+%if %{with onnx}
+BuildRequires:  pkgconfig(libonnxruntime) >= 1.16.1
+%endif
 %if %{with opencv}
 BuildRequires:  pkgconfig(opencv4)
 %endif
@@ -106,6 +113,9 @@ BuildRequires:  pkgconfig(openh264)
 %endif
 %if %{with svtav1}
 BuildRequires:  pkgconfig(SvtAv1Enc)
+%endif
+%if %{with vpl}
+BuildRequires:  pkgconfig(vpl) >= 2.2
 %endif
 %if %{with webrtc}
 BuildRequires:  pkgconfig(webrtc-audio-coding-1)
@@ -132,6 +142,7 @@ BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  pkgconfig(lilv-0)
 BuildRequires:  pkgconfig(lrdf)
 BuildRequires:  pkgconfig(microdns)
+BuildRequires:  pkgconfig(mjpegtools) >= 2.0.0
 BuildRequires:  pkgconfig(nice)
 BuildRequires:  pkgconfig(openal)
 BuildRequires:  pkgconfig(OpenEXR)
@@ -146,8 +157,8 @@ BuildRequires:  pkgconfig(zxing)
 
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
-# dvdspu, faad used to be shipped in -freeworld
-Conflicts: gstreamer1-plugins-bad-freeworld < 1:1.26.2-2
+# mpeg2enc, mplex used to be shipped in -freeworld
+Conflicts: gstreamer1-plugins-bad-freeworld < 1:1.26.3-3
 # Plugins get moved around from time to time
 Conflicts: %{name}-extras < %{version}-%{release}
 
@@ -316,6 +327,9 @@ aren't tested well enough, or the code is not of good enough quality.
 %if %{without ldac}
     -D ldac=disabled \
 %endif
+%if %{without onnx}
+    -D onnx=disabled \
+%endif
 %if %{without opencv}
     -D opencv=disabled \
 %endif
@@ -325,7 +339,8 @@ aren't tested well enough, or the code is not of good enough quality.
 %if %{without svtav1}
     -D svtav1=disabled \
 %endif
-%if %{without qsv}
+%if %{without vpl}
+    -D msdk=disabled \
     -D qsv=disabled \
 %endif
 %if %{without webrtc}
@@ -352,6 +367,8 @@ aren't tested well enough, or the code is not of good enough quality.
     -D lv2=disabled \
     -D microdns=disabled \
     -D modplug=disabled \
+    -D mpeg2enc=disabled \
+    -D mplex=disabled \
     -D musepack=disabled \
     -D openal=disabled \
     -D openexr=disabled \
@@ -380,19 +397,14 @@ aren't tested well enough, or the code is not of good enough quality.
     -D lcevcencoder=disabled \
     -D libde265=disabled \
     -D magicleap=disabled \
-    -D mpeg2enc=disabled \
-    -D mplex=disabled \
-    -D msdk=disabled \
     -D neon=disabled \
     -D nvcomp=disabled \
     -D nvdswrapper=disabled \
-    -D onnx=disabled \
     -D openaptx=disabled \
     -D openni2=disabled \
     -D opensles=disabled \
     -D qt6d3d11=disabled \
     -D rtmp=disabled \
-    -D sbc=disabled \
     -D svthevcenc=disabled \
     -D svtjpegxs=disabled \
     -D tinyalsa=disabled \
@@ -609,7 +621,8 @@ EOF
 %if %{with extras}
 %{_libdir}/gstreamer-%{majorminor}/libgstfbdevsink.so
 %endif
-%if %{with qsv}
+%if %{with vpl}
+%{_libdir}/gstreamer-%{majorminor}/libgstmsdk.so
 %{_libdir}/gstreamer-%{majorminor}/libgstqsv.so
 %endif
 %{_libdir}/gstreamer-%{majorminor}/libgstshm.so
@@ -637,6 +650,7 @@ EOF
 %{_libdir}/gstreamer-%{majorminor}/libgstopusparse.so
 %{_libdir}/gstreamer-%{majorminor}/libgstresindvd.so
 %{_libdir}/gstreamer-%{majorminor}/libgstrsvg.so
+%{_libdir}/gstreamer-%{majorminor}/libgstsbc.so
 %{_libdir}/gstreamer-%{majorminor}/libgstsctp.so
 %{_libdir}/gstreamer-%{majorminor}/libgstsndfile.so
 %{_libdir}/gstreamer-%{majorminor}/libgstsoundtouch.so
@@ -690,7 +704,12 @@ EOF
 %endif
 %{_libdir}/gstreamer-%{majorminor}/libgstmicrodns.so
 %{_libdir}/gstreamer-%{majorminor}/libgstmodplug.so
+%{_libdir}/gstreamer-%{majorminor}/libgstmpeg2enc.so
+%{_libdir}/gstreamer-%{majorminor}/libgstmplex.so
 %{_libdir}/gstreamer-%{majorminor}/libgstmusepack.so
+%if %{with onnx}
+%{_libdir}/gstreamer-%{majorminor}/libgstonnx.so
+%endif
 %{_libdir}/gstreamer-%{majorminor}/libgstopenexr.so
 %{_libdir}/gstreamer-%{majorminor}/libgstopenmpt.so
 %{_libdir}/gstreamer-%{majorminor}/libgstqroverlay.so
@@ -871,6 +890,13 @@ EOF
 
 
 %changelog
+* Wed Aug 13 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 1.26.5-4
+- Move sbc to main package
+
+* Wed Aug 13 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 1.26.5-3
+- Enable msdk plugin on x86_64
+- Enable mpeg2enc, mplex, onnx, sbc plugins in extras
+
 * Tue Aug 12 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 1.26.5-2
 - Enable isac plugin
 

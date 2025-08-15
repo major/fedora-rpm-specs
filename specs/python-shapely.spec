@@ -1,13 +1,6 @@
 # Break a circular dependency on pyproj introduced by running doctests.
-%bcond boostrap 0
-# Many doctests fail with things like:
-#   Expected: 2 Got: np.int64(2)
-# or
-#   Expected: True Got: True_
-# We can’t reproduce this in a virtualenv and haven’t yet been able to
-# understand why it happens only in the package, so we leave the doctests
-# disabled for now.
-%bcond doctests %[ 0 && %{without boostrap} ]
+%bcond bootstrap 0
+%bcond doctests %{without bootstrap}
 
 Name:           python-shapely
 Version:        2.1.1
@@ -67,7 +60,7 @@ find shapely -type f -name '*.c' -print -delete
 tomcli set pyproject.toml lists delitem \
     project.optional-dependencies.test pytest-cov
 
-%if %{without doctest}
+%if %{without doctests}
 tomcli set pyproject.toml lists delitem \
     project.optional-dependencies.test scipy-doctest
 %endif
@@ -96,7 +89,8 @@ ln -s ../shapely/tests/
 %pytest -v
 
 %if %{with doctests}
-%pytest --doctest-modules '%{buildroot}%{python3_sitearch}/shapely' \
+%pytest --doctest-modules --doctest-only-doctests=true \
+    '%{buildroot}%{python3_sitearch}/shapely' \
     --ignore='%{buildroot}%{python3_sitearch}/shapely/tests' -v
 %endif
 

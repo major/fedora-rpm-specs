@@ -24,7 +24,7 @@
 
 Name:           roctracer
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        ROCm Tracer Callback/Activity Library for Performance tracing AMD GPUs
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -42,11 +42,7 @@ BuildRequires:  rocm-rpm-macros
 
 %if 0%{?suse_version}
 BuildRequires:  libatomic1
-%if %{suse_version} < 1699
-BuildRequires:  python3-cppheaderparser
-%else
-BuildRequires:  python313-cppheaderparser
-%endif
+BuildRequires:  %{python_module CppHeaderParser}
 %else
 BuildRequires:  libatomic
 # https://github.com/ROCm/roctracer/issues/113
@@ -190,6 +186,9 @@ rm -rf rm %{buildroot}%{_datadir}/html
 %endif
 
 %changelog
+* Tue Aug 7 2025 Egbert Eich <eich@suse.com> - 6.4.0-5
+- Fix python dependencies for SUSE.
+
 * Thu Aug 7 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-4
 - Fix building test subpackage - 6.4.0-3
 

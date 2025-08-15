@@ -39,7 +39,7 @@
 Name:		root
 Version:	6.36.02
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -3581,6 +3581,9 @@ fi
 %endif
 
 %changelog
+* Wed Aug 13 2025 Orion Poplawski <orion@nwra.com> - 6.36.02-3
+- Rebuild for libarrow 21
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.36.02-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

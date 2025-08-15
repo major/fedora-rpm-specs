@@ -1,8 +1,8 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           orca
-Version:        49~alpha
-Release:        2%{?dist}
+Version:        49~beta
+Release:        %autorelease
 Summary:        Assistive technology for people with visual impairments
 
 License:        LGPL-2.1-or-later AND CC-BY-SA-3.0
@@ -73,10 +73,8 @@ desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/orca-autostart.de
 %{_datadir}/orca
 %{_sysconfdir}/xdg/autostart/orca-autostart.desktop
 %{_mandir}/man1/orca.1*
+%{_userunitdir}/orca.service
 
 
 %changelog
-* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 49~alpha-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
 %autochangelog

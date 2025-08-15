@@ -32,8 +32,9 @@ License:        BSD-3-Clause AND Apache-2.0 AND Zlib
 URL:            https://jpeg.org/jpegxl/
 Source0:        https://github.com/libjxl/libjxl/archive/v%{version}/%{name}-%{version}.tar.gz
 
-# set VERSION and run ./update_third_party.sh to get Source1
+# set VERSION and run ./update_third_party.sh to get Source1 and Source2
 Source1:        third_party-%{version}.tar.gz
+Source2:        testdata-%{version}.tar.gz
 
 BuildRequires:  asciidoc
 BuildRequires:  cmake
@@ -51,6 +52,7 @@ BuildRequires:  pkgconfig(gimp-3.0)
 #BuildRequires:  (pkgconfig(glut) or pkgconfig(freeglut))
 BuildRequires:  gtest-devel
 BuildRequires:  gflags-devel
+BuildRequires:  gmock-devel
 BuildRequires:  pkgconfig(libhwy)
 BuildRequires:  pkgconfig(libbrotlicommon)
 BuildRequires:  pkgconfig(lcms2)
@@ -151,12 +153,12 @@ This is a GIMP plugin for loading and saving JPEG-XL images.
 
 %prep
 %autosetup -p1 -n libjxl-%{version}
-rm -rf third_party/
-%setup -q -T -D -a 1 -n libjxl-%{version}
+rm -rf testdata/ third_party/
+%setup -q -T -D -a 1 -a 2 -n libjxl-%{version}
 
 %build
 %cmake  -DENABLE_CCACHE=1 \
-        -DBUILD_TESTING=OFF \
+        -DBUILD_TESTING=ON \
         -DINSTALL_GTEST:BOOL=OFF \
         -DJPEGXL_ENABLE_BENCHMARK:BOOL=OFF \
         -DJPEGXL_ENABLE_PLUGINS:BOOL=ON \
@@ -179,6 +181,14 @@ cp -p %{_libdir}/libjxl.so.%{sover_old}*     \
   %{_libdir}/libjxl_threads.so.%{sover_old}* \
   %{_libdir}/libjxl_cms.so.%{sover_old}* \
   %{buildroot}%{_libdir}
+%endif
+
+%check
+%ifarch s390x
+# https://github.com/libjxl/libjxl/issues/3629
+%ctest -E 'DecodeTest\.(ProgressionTestLosslessAlpha|FlushTestLosslessProgressiveAlpha)|EncodeTest\.FrameSettingsTest|JxlTest\.RoundtripAlpha(Resampling(OnlyAlpha)?|16)|JxlTest\.RoundtripProgressive(Level2Slow)?|ModularTest\.RoundtripLossy(DeltaPalette|16)?|RoundtripLossless/ModularTestParam\.RoundtripLossless/1bitSqueeze|RoundtripLossless/ModularTestParam\.RoundtripLossless/(1|2[01467]|30)bitSqueeze|PassesTest\.ProgressiveDownsample2DegradesCorrectly(Grayscale)?'
+%else
+%ctest
 %endif
 
 %files -n libjxl-utils

@@ -39,7 +39,7 @@
 Summary: A VHDL simulator, using the GCC technology
 Name: ghdl
 Version: %{ghdlver}
-Release: 1.%{ghdlgitrev}%{?dist}
+Release: 2.%{ghdlgitrev}%{?dist}
 # Automatically converted from old format: GPLv2+ and GPLv3+ and GPLv3+ with exceptions and GPLv2+ with exceptions and LGPLv2+ and BSD - review is highly recommended.
 License: GPL-2.0-or-later AND GPL-3.0-or-later AND LicenseRef-Callaway-GPLv3+-with-exceptions AND LicenseRef-Callaway-GPLv2+-with-exceptions AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-BSD
 URL: http://ghdl.free.fr/
@@ -70,6 +70,7 @@ Patch103: ghdl-gcc15-ortho.patch
 # Date: Thu, 02 Apr 2009 15:36:00 +0200
 # https://gna.org/bugs/index.php?13390
 Patch110: ghdl-ppc64abort.patch
+Patch111: 0001-Add-support-for-llvm21.patch
 Requires: gcc
 
 BuildRequires: binutils >= 2.31
@@ -222,6 +223,7 @@ mv ghdl-%{ghdlcommit} ghdl
 pushd ghdl
 %patch -P 102 -p1 -b .gcc15~
 %patch -P 103 -p1 -b .gcc15-ortho~
+%patch -P 111 -p1 -b .llvm21
 popd
 
 # fix library and include path
@@ -528,6 +530,9 @@ rm %{buildroot}/usr/lib/libghdl.{a,link}
 
 
 %changelog
+* Wed Aug 13 2025 Tom Stellard <tstellar@redhat.com> - 5.1.1-2.20250618git91725e4
+- Fix build with llvm 21
+
 * Mon Aug 11 2025 Dan Horák <dan[at]danny.cz> - 5.1.1-1.20250618git91725e4
 - updated to ghdl 5.1.1
 - updated to gcc 15.2.1

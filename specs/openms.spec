@@ -370,9 +370,12 @@ sed -i "1 s|^#!/usr/bin/env Rscript\b|#!/usr/bin/Rscript|" %{buildroot}%{_datadi
 
 chmod 0755 %{buildroot}%{_datadir}/OpenMS/SCRIPTS/plot_trafo.R
 
-# Remove unused files
+# Remove unused/duplicated files
 rm -rf %{buildroot}%{_includedir}/thirdparty
 rm -rf %{buildroot}%{_datadir}/doc/OpenMS_host
+rm -rf %{buildroot}%{_datadir}/doc/html
+rm -f %{buildroot}%{_libdir}/libsqlite3.a
+rm -f %{buildroot}%{_includedir}/sqlite3.h
 
 %check
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
@@ -459,6 +462,7 @@ LD_PRELOAD=%{buildroot}%{_libdir}/OpenMS/libSuperHirn.so
 %{_bindir}/OpenSwathFeatureXMLToTSV
 %{_bindir}/OpenSwathConfidenceScoring
 %{_bindir}/OpenSwathAssayGenerator
+%{_bindir}/OpenNuXL
 %{_bindir}/GenericWrapper
 %{_bindir}/ExecutePipeline
 %{_bindir}/FeatureFinderIdentification
@@ -530,8 +534,6 @@ LD_PRELOAD=%{buildroot}%{_libdir}/OpenMS/libSuperHirn.so
 %{_bindir}/DecoyDatabase
 %{_bindir}/SequenceCoverageCalculator
 %{_bindir}/IDExtractor
-%{_bindir}/IDMassAccuracy 
-%{_bindir}/SpecLibCreator
 %{_bindir}/MRMPairFinder
 %{_bindir}/ImageCreator
 %{_bindir}/MassCalculator

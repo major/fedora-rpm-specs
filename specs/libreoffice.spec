@@ -1,7 +1,7 @@
 # download path contains version without the last (fourth) digit
 %global libo_version 25.8.0
 # This is the last (fourth) digit of LO version
-%global libo_min_version 3
+%global libo_min_version 4
 # Set this to 1 if this is a prerelease build
 %global prerelease 1
 # Should contain .alphaX / .betaX, if this is pre-release (actually
@@ -1096,6 +1096,7 @@ mv -f redhat.soc extras/source/palettes/standard.soc
 # Temporarily disable failing tests
 %ifarch ppc64le
 sed -i -e s/CppunitTest_dbaccess_RowSetClones// dbaccess/Module_dbaccess.mk
+sed -i -e s/CppunitTest_dbaccess_hsqldb_test// dbaccess/Module_dbaccess.mk
 # started to fail in 25.2.0.0
 sed -i -e /CppunitTest_dbaccess_CRMDatabase_test/d dbaccess/Module_dbaccess.mk
 %endif

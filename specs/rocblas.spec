@@ -82,6 +82,8 @@
 %endif
 
 %global cmake_config \\\
+  -DBLAS_INCLUDE_DIR=%{_includedir}/%{blaslib} \\\
+  -DBLAS_LIBRARY=%{blaslib} \\\
   -DCMAKE_CXX_COMPILER=hipcc \\\
   -DCMAKE_C_COMPILER=hipcc \\\
   -DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \\\
@@ -98,7 +100,6 @@
   -DBUILD_CLIENTS_TESTS=%{build_test} \\\
   -DBUILD_CLIENTS_TESTS_OPENMP=OFF \\\
   -DBUILD_FORTRAN_CLIENTS=OFF \\\
-  -DBLAS_LIBRARY=cblas \\\
   -DBUILD_OFFLOAD_COMPRESS=%{build_compress} \\\
   -DBUILD_WITH_HIPBLASLT=OFF \\\
   -DTensile_COMPILER=hipcc \\\
@@ -106,7 +107,6 @@
   -DTensile_LIBRARY_FORMAT=%{tensile_library_format} \\\
   -DTensile_VERBOSE=%{tensile_verbose} \\\
   -DTensile_DIR=${TP}/cmake \\\
-  -DDISABLE_ROCTRACER=ON \\\
   -DBUILD_WITH_PIP=OFF
 
 %bcond_with generic
@@ -119,7 +119,7 @@
 
 Name:           %{rocblas_name}
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        BLAS implementation for ROCm
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT AND BSD-3-Clause
@@ -127,7 +127,7 @@ License:        MIT AND BSD-3-Clause
 Source0:        %{url}/archive/refs/tags/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
 Patch2:         0001-fixup-install-of-tensile-output.patch
 Patch4:         0001-offload-compress-option.patch
-Patch6:         0001-option-to-disable-roctracer-logging.patch
+Patch6:         0001-rocblas-remove-roctracer.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -137,7 +137,6 @@ BuildRequires:  rocm-compilersupport-macros
 BuildRequires:  rocm-hip-devel
 BuildRequires:  rocm-runtime-devel
 BuildRequires:  rocm-rpm-macros
-BuildRequires:  rocm-rpm-macros-modules
 
 %if %{with tensile}
 %if 0%{?suse_version}
@@ -172,19 +171,27 @@ BuildRequires:  pkgconfig(libzstd)
 
 %if %{with test}
 
-BuildRequires:  blas-devel
 BuildRequires:  libomp-devel
 BuildRequires:  python3dist(pyyaml)
 BuildRequires:  rocminfo
 BuildRequires:  rocm-smi-devel
-BuildRequires:  roctracer-devel
 
 %if 0%{?suse_version}
-BuildRequires:  cblas-devel
-BuildRequires:  gcc-fortran
+BuildRequires:  openblas-devel
 BuildRequires:  gtest
+BuildRequires:  gcc-fortran
+%global blaslib openblas
 %else
+BuildRequires:  gcc-gfortran
 BuildRequires:  gtest-devel
+%if 0%{?rhel}
+BuildRequires:  flexiblas-devel
+%global blaslib flexiblas
+%else
+BuildRequires:  blas-devel
+%global blaslib cblas
+%endif
+
 %endif
 
 %endif
@@ -232,8 +239,8 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %prep
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
-sed -i -e 's@set( BLAS_LIBRARY "blas" )@set( BLAS_LIBRARY "cblas" )@' clients/CMakeLists.txt
-sed -i -e 's@target_link_libraries( rocblas-test PRIVATE ${BLAS_LIBRARY} ${GTEST_BOTH_LIBRARIES} roc::rocblas )@target_link_libraries( rocblas-test PRIVATE cblas ${GTEST_BOTH_LIBRARIES} roc::rocblas )@' clients/gtest/CMakeLists.txt
+sed -i -e 's@set( BLAS_LIBRARY "blas" )@set( BLAS_LIBRARY "%blaslib" )@' clients/CMakeLists.txt
+sed -i -e 's@target_link_libraries( rocblas-test PRIVATE ${BLAS_LIBRARY} ${GTEST_BOTH_LIBRARIES} roc::rocblas )@target_link_libraries( rocblas-test PRIVATE %blaslib ${GTEST_BOTH_LIBRARIES} roc::rocblas )@' clients/gtest/CMakeLists.txt
 
 # no git in this build
 sed -i -e 's@find_package(Git REQUIRED)@find_package(Git)@' library/CMakeLists.txt
@@ -327,6 +334,10 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library/src:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Tue Aug 12 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-5
+- remove roctracer
+- Use distro appropriate blas libs
+
 * Tue Jul 29 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-4
 - Remove -mtls-dialect cflag
 

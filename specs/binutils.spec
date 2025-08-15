@@ -7,7 +7,7 @@ Name: binutils%{?_with_debug:-debug}
 # The variable %%{source} (see below) should be set to indicate which of these
 # origins is being used.
 Version: 2.45
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -22,7 +22,7 @@ URL: https://sourceware.org/binutils
 # --with    debug        Build without optimizations and without splitting the debuginfo into a separate file.
 # --without debuginfod   Disable support for debuginfod.
 # --without docs         Skip building documentation.  Default is with docs, except when building a cross binutils.
-# --without gold         Disable building of the GOLD linker.
+# --with    gold         Enable building of the GOLD linker.
 # --without gprofng      Do not build the GprofNG profiler.
 # --without systemzlib   Use the binutils version of zlib.  Default is to use the system version.
 # --without testsuite    Do not run the testsuite.  Default is to run it.
@@ -142,13 +142,8 @@ URL: https://sourceware.org/binutils
 # Default: Use the xxhash-devel library.
 %bcond_without xxhash
 
-# Note - in the future the gold linker may become deprecated.
-%ifnarch riscv64
-%bcond_without gold
-%else
-# RISC-V does not have ld.gold thus disable by default.
+# Note - do not enable for RISC-V - it does not have a port of gold.
 %bcond_with gold
-%endif
 
 # Allow the user to override the compiler used to build the binutils.
 # The default build compiler is gcc if %%toolchain is not clang.
@@ -198,7 +193,7 @@ URL: https://sourceware.org/binutils
 # ODD numbered upstream GNU Binutils releases do not include the sources
 # for the GOLD linker, so we use a snapshot from the mainline development
 # sources instead - but only for GOLD, not for the rest of the binutils.
-#
+
 # FIXME: Delete this once the gold linker is fully deprecated.
 # %%define use_separate_gold_tarball 0
 %define gold_tarball %(echo "binutils-with-gold-2.44.50-21e608528c3")
@@ -220,6 +215,7 @@ Source0: binutils-%{version}-%{commit_id}.tar.xz
 %endif
 
 Source1: binutils-2.19.50.0.1-output-format.sed
+
 %if "%{gold_tarball}" != ""
 Source2: %{gold_tarball}.tar.xz
 %endif
@@ -274,67 +270,70 @@ Patch06: binutils-2.27-aarch64-ifunc.patch
 # Lifetime: Permanent.
 Patch07: binutils-do-not-link-with-static-libstdc++.patch
 
+# Purpose:  Allow the binutils to be configured with any (recent) version of
+#            autoconf.
+# Lifetime: Fixed in 2.44 (maybe ?)
+Patch08: binutils-autoconf-version.patch
+
+# Purpose:  Stop libtool from inserting useless runpaths into binaries.
+# Lifetime: Who knows.
+Patch09: binutils-libtool-no-rpath.patch
+
+# Purpose:  Fix binutils testsuite failures.
+# Lifetime: Permanent, but varies with each rebase.
+Patch10: binutils-testsuite-fixes.patch
+
+# Purpose:  Fix binutils testsuite failures for the RISCV-64 target.
+# Lifetime: Permanent, but varies with each rebase.
+Patch11: binutils-riscv-testsuite-fixes.patch
+
+# Purpose:  Fix the ar test of non-deterministic archives.
+# Lifetime: Fixed in 2.44
+Patch12: binutils-fix-ar-test.patch
+
+# Purpose:  Fix a seg fault in the AArch64 linker when building u-boot.
+# Lifetime: Fixed in 2.45
+Patch13: binutils-aarch64-small-plt0.patch
+
+%if %{with gold}
+
+# Purpose:  Make the GOLD linker ignore the "-z pack-relative-relocs" command line option.
+# Lifetime: Fixed in 2.44 (maybe)
+Patch14: binutils-gold-pack-relative-relocs.patch
+
+# Purpose:  Let the gold linker ignore --error-execstack and --error-rwx-segments.
+# Lifetime: Fixed in 2.44 (maybe)
+Patch15: binutils-gold-ignore-execstack-error.patch
+
 # Purpose:  Stop gold from aborting when input sections with the same name
 #            have different flags.
 # Lifetime: Fixed in 2.43 (maybe)
-Patch08: binutils-gold-mismatched-section-flags.patch
+Patch16: binutils-gold-mismatched-section-flags.patch
 
 # Purpose:  Change the gold configuration script to only warn about
 #            unsupported targets.  This allows the binutils to be built with
 #            BPF support enabled.
 # Lifetime: Permanent.
-Patch09: binutils-gold-warn-unsupported.patch
+Patch17: binutils-gold-warn-unsupported.patch
 
 # Purpose:  Enable the creation of .note.gnu.property sections by the GOLD
 #            linker for x86 binaries.
 # Lifetime: Permanent.
-Patch10: binutils-gold-i386-gnu-property-notes.patch
-
-# Purpose:  Allow the binutils to be configured with any (recent) version of
-#            autoconf.
-# Lifetime: Fixed in 2.44 (maybe ?)
-Patch11: binutils-autoconf-version.patch
-
-# Purpose:  Stop libtool from inserting useless runpaths into binaries.
-# Lifetime: Who knows.
-Patch12: binutils-libtool-no-rpath.patch
+Patch18: binutils-gold-i386-gnu-property-notes.patch
 
 # Purpose:  Stop an abort when using dwp to process a file with no dwo links.
 # Lifetime: Fixed in 2.44 (maybe)
-Patch13: binutils-gold-empty-dwp.patch
-
-# Purpose:  Fix binutils testsuite failures.
-# Lifetime: Permanent, but varies with each rebase.
-Patch14: binutils-testsuite-fixes.patch
-
-# Purpose:  Fix binutils testsuite failures for the RISCV-64 target.
-# Lifetime: Permanent, but varies with each rebase.
-Patch15: binutils-riscv-testsuite-fixes.patch
-
-# Purpose:  Make the GOLD linker ignore the "-z pack-relative-relocs" command line option.
-# Lifetime: Fixed in 2.44 (maybe)
-Patch16: binutils-gold-pack-relative-relocs.patch
-
-# Purpose:  Let the gold linker ignore --error-execstack and --error-rwx-segments.
-# Lifetime: Fixed in 2.44 (maybe)
-Patch17: binutils-gold-ignore-execstack-error.patch
-
-# Purpose:  Fix the ar test of non-deterministic archives.
-# Lifetime: Fixed in 2.44
-Patch18: binutils-fix-ar-test.patch
-
-# Purpose:  Fix a seg fault in the AArch64 linker when building u-boot.
-# Lifetime: Fixed in 2.45
-Patch19: binutils-aarch64-small-plt0.patch
+Patch19: binutils-gold-empty-dwp.patch
+%endif
 
 #----------------------------------------------------------------------------
 
-# Purpose:  Suppress the x86 linker's p_align-1 tests due to kernel bug on CentOS-10
+# Purpose:  Suppress the x86 linker's p_align-1 tests due to kernel bug on CentOS-10.
 # Lifetime: TEMPORARY
 Patch99: binutils-suppress-ld-align-tests.patch
 
 # Purpose: Disable GCS warnings when shared dependencies are not built with GCS
-# support
+# support.
 # Lifetime: TEMPORARY
 Patch100: binutils-disable-gcs-report-dynamic.patch
 Patch101: binutils-disable-gcs-report-dynamic-tests.patch
@@ -353,8 +352,7 @@ Provides: bundled(libiberty)
 # Perl, sed and touch are all used in the %%prep section of this spec file.
 BuildRequires: autoconf, automake, perl, sed, coreutils, make
 
-# bison is used to generate either gold/yyscript.c or ld/ldgram.c depending
-# on the build architecture.
+# Bison is used to generate gold/yyscript.c and ld/ldgram.c.
 BuildRequires: bison
 
 %if %{with clang}
@@ -596,10 +594,14 @@ use by developers.  It is NOT INTENDED FOR PRODUCTION use.
 %if "%{gold_tarball}" != ""
 
 %setup -q -n binutils-%{version} -a 0
+
+%if %{with gold}
+
 %setup -q -n binutils-%{version} -D -b 2 
 
 mv ../%{gold_tarball}/gold .
 mv ../%{gold_tarball}/elfcpp .
+%endif
 
 %autopatch -p1 
 
@@ -618,8 +620,10 @@ mv ../%{gold_tarball}/elfcpp .
 # On ppc64 and aarch64, we might use 64KiB pages
 sed -i -e '/#define.*ELF_COMMONPAGESIZE/s/0x1000$/0x10000/' bfd/elf*ppc.c
 sed -i -e '/#define.*ELF_COMMONPAGESIZE/s/0x1000$/0x10000/' bfd/elf*aarch64.c
+%if %{with gold}
 sed -i -e '/common_pagesize/s/4 /64 /' gold/powerpc.cc
 sed -i -e '/pagesize/s/0x1000,/0x10000,/' gold/aarch64.cc
+%endif
 
 # LTP sucks
 perl -pi -e 's/i\[3-7\]86/i[34567]86/g' */conf*
@@ -1462,6 +1466,9 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Wed Aug 13 2025 Nick Clifton <nickc@redhat.com> - 2.45-2
+- Disable building of gold by default.  Ref: https://fedoraproject.org/wiki/Changes/DeprecateGoldLinker
+
 * Mon Jul 28 2025 Nick Clifton <nickc@redhat.com> - 2.45-1
 - Rebase to official GNU Binutils 2.45 release.
 

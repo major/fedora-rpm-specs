@@ -1,9 +1,9 @@
 %global glib2_version 2.68.0
 %global gobject_introspection_version 1.72.0
-%global mozjs128_version 128.11.0
+%global mozjs140_version 140.1.0
 
 Name:           gjs
-Version:        1.85.1
+Version:        1.85.2
 Release:        2%{?dist}
 Summary:        Javascript Bindings for GNOME
 
@@ -17,9 +17,6 @@ License:        MIT AND BSD-3-Clause AND (MIT OR LGPL-2.0-or-later) AND (MPL-1.1
 URL:            https://wiki.gnome.org/Projects/Gjs
 Source0:        https://download.gnome.org/sources/%{name}/1.85/%{name}-%{version}.tar.xz
 
-# gobject-introspection-tests s390x backport
-Patch:          s390x-tests-fix.patch
-
 BuildRequires:  gcc-c++
 BuildRequires:  meson
 BuildRequires:  gettext
@@ -28,7 +25,7 @@ BuildRequires:  pkgconfig(cairo-gobject)
 BuildRequires:  pkgconfig(gio-2.0) >= %{glib2_version}
 BuildRequires:  pkgconfig(gobject-introspection-1.0) >= %{gobject_introspection_version}
 BuildRequires:  pkgconfig(gtk4)
-BuildRequires:  pkgconfig(mozjs-128) >= %{mozjs128_version}
+BuildRequires:  pkgconfig(mozjs-140) >= %{mozjs140_version}
 BuildRequires:  pkgconfig(sysprof-capture-4)
 # For GTK+ 3 tests
 BuildRequires:  gtk3
@@ -42,7 +39,7 @@ BuildRequires:  xwayland-run
 
 Requires: glib2%{?_isa} >= %{glib2_version}
 Requires: gobject-introspection%{?_isa} >= %{gobject_introspection_version}
-Requires: mozjs128%{?_isa} >= %{mozjs128_version}
+Requires: mozjs140%{?_isa} >= %{mozjs140_version}
 
 %description
 Gjs allows using GNOME libraries from Javascript. It's based on the
@@ -102,7 +99,4 @@ the functionality of the installed gjs package.
 %{_datadir}/installed-tests/
 
 %changelog
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.85.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
 %autochangelog

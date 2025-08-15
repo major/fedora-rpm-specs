@@ -1,5 +1,5 @@
 %global forgeurl https://gitlab.com/megapixels-org/Megapixels
-Version:        1.8.2
+Version:        1.8.3
 %global tag %{version}
 %forgemeta
 
@@ -10,6 +10,12 @@ Summary:        GTK4 camera application that knows how to deal with the media re
 License:        GPL-3.0-or-later
 URL:            %{forgeurl}
 Source0:        %{forgesource}
+
+# Only available on 64-bit architectures due to memory requirements
+ExcludeArch:    %{ix86} armv7hl
+
+# Patches
+Patch0:         0001-fix-capture-callback-signature.patch
 
 BuildRequires:  gcc
 BuildRequires:  meson
@@ -24,11 +30,11 @@ BuildRequires:  pkgconfig(xrandr)
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(libjpeg)
 
-BuildRequires:	/usr/bin/xvfb-run
-BuildRequires:	/usr/bin/xauth
+BuildRequires:  /usr/bin/xvfb-run
+BuildRequires:  /usr/bin/xauth
 
-BuildRequires:	desktop-file-utils
-BuildRequires:	libappstream-glib
+BuildRequires:  desktop-file-utils
+BuildRequires:  libappstream-glib
 
 Requires:       hicolor-icon-theme
 # for postprocess.sh

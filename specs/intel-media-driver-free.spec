@@ -92,6 +92,7 @@ export CXXFLAGS="%{optflags} -D_FILE_OFFSET_BITS=64"
   -DENABLE_KERNELS:BOOL=OFF \
   -DBUILD_KERNELS:BOOL=OFF \
   -DLIBVA_DRIVERS_PATH=%{_libdir}/dri \
+  -DBUILD_CMRTLIB=ON \
   -DMEDIA_BUILD_FATAL_WARNINGS=OFF \
   -DVC1_Decode_Supported="no" \
   -DAVC_Encode_VME_Supported="no" \

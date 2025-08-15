@@ -47,7 +47,7 @@
 
 Name:          gdal
 Version:       3.11.3
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       GIS file format library
 License:       MIT
 URL:           http://www.gdal.org
@@ -845,6 +845,9 @@ done
 
 
 %changelog
+* Wed Aug 13 2025 Orion Poplawski <orion@nwra.com> - 3.11.3-3
+- Rebuild for libarrow 21
+
 * Thu Jul 31 2025 Sandro Mani <manisandro@gmail.com> - 3.11.3-2
 - Rebuild (mingw-poppler)
 

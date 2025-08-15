@@ -1,6 +1,6 @@
 Name:           sslscan
-Version:        2.1.5
-%global         bundled_openssl_version    3.0.15
+Version:        2.2.0
+%global         bundled_openssl_version    3.5.0
 Release:        %autorelease
 Summary:        Security assessment tool for SSL/TLS
 
@@ -61,7 +61,7 @@ make %{?_smp_mflags} CFLAGS="%{optflags}"
 make install DESTDIR=%{buildroot} BINPATH=%{_bindir}/ MANPATH=%{_mandir}/
 
 %files
-%doc Changelog README.md TODO
+%doc Changelog README.md INSTALL
 %license LICENSE
 %{_bindir}/%{name}
 %{_mandir}/man1/%{name}.1*

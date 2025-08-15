@@ -1,6 +1,6 @@
 Name:           rpminspect
 Version:        2.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Build deviation analysis and compliance tool
 Group:          Development/Tools
 # librpminspect is licensed under the LGPL-3.0-or-later, and:
@@ -211,6 +211,9 @@ install -D -m 0644 libtoml/LICENSE %{buildroot}%{_defaultlicensedir}/%{name}/lib
 
 
 %changelog
+* Thu Aug 14 2025 Frantisek Zatloukal <fzatlouk@redhat.com> - 2.0-5
+- Rebuilt for ICU 77.1
+
 * Thu Apr 10 2025 David Cantrell <dcantrell@redhat.com> - 2.0-4
 - Fixed the FTBFS erors on rawhide (SWMBZBUGSM-411)
 

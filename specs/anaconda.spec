@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 43.34
+Version: 43.35
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -513,6 +513,10 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Aug 12 2025 Packit <hello@packit.dev> - 43.35-1
+- storage: Fix AttributeError and protect installation media in bootloader
+  partition removal (k.koukiou)
+
 * Tue Aug 05 2025 Packit <hello@packit.dev> - 43.34-1
 - Document Lorax template patching (mkolman)
 

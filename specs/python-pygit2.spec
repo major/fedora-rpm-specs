@@ -1,7 +1,7 @@
 %global pkgname pygit2
 
 Name:           python-%{pkgname}
-Version:        1.18.0
+Version:        1.18.1
 Release:        %autorelease
 Summary:        Python bindings for libgit2
 

@@ -614,12 +614,7 @@ mv out/Release/lib/libnode.so.%{nodejs_soversion} out/Release/
 mv %{buildroot}%{nodejs_default_sitelib} \
    %{buildroot}%{nodejs_private_sitelib}
 
-%if 0%{?nodejs_default}
-ln -srf %{buildroot}%{nodejs_private_sitelib} \
-        %{buildroot}%{nodejs_default_sitelib}
-%else
 rm -f %{buildroot}%{_datadir}/systemtap/tapset/node.stp
-%endif
 
 
 # Set the binary permissions properly
@@ -694,7 +689,7 @@ mv %{buildroot}/%{_datadir}/doc/node/gdbinit %{buildroot}/%{_pkgdocdir}/gdbinit
 mkdir -p %{buildroot}%{_mandir}/nodejs-%{nodejs_pkg_major}/man1 \
          %{buildroot}%{_mandir}/nodejs-%{nodejs_pkg_major}/man5 \
          %{buildroot}%{_mandir}/nodejs-%{nodejs_pkg_major}/man7 \
-         %{buildroot}%{nodejs_default_sitelib}/npm/man \
+         %{buildroot}%{nodejs_default_sitelib} \
          %{buildroot}%{nodejs_private_sitelib}/npm/man \
          %{buildroot}%{_pkgdocdir}/npm
 
@@ -810,7 +805,12 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{buildroot}%{_bindir}/node-%{nodejs_pkg_
 # Make sure i18n support is working
 NODE_PATH=%{buildroot}%{_prefix}/lib/node_modules:%{buildroot}%{nodejs_private_sitelib}/npm/node_modules LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{buildroot}/%{_bindir}/node-%{nodejs_pkg_major} --icu-data-dir=%{buildroot}%{icudatadir} %{SOURCE2}
 
-
+%pretrans -n %{pkgname} -p <lua>
+path = "/usr/lib/node_modules"
+st = posix.stat(path)
+if st and st.type == "link" then
+  os.remove(path)
+end
 
 %files -n %{pkgname}
 %doc CHANGELOG.md onboarding.md GOVERNANCE.md README.md

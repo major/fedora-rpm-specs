@@ -5,7 +5,7 @@
 %bcond python %[ %{?__isa_bits} != 32 || %{defined fc41} ]
 
 Name:           re2
-%global tag 2025-07-22
+%global tag 2025-08-12
 %global so_version 11
 %global base_version %(echo '%{tag}' | tr -d -)
 # Ensure this matches the version in the metadata / setup.py!
@@ -22,24 +22,6 @@ License:        BSD-3-Clause
 SourceLicense:  %{license} AND Apache-2.0
 URL:            https://github.com/google/re2
 Source:         %{url}/archive/%{tag}/re2-%{tag}.tar.gz
-
-# Allow building tests without benchmarks
-# https://github.com/google/re2/pull/545
-#
-# It turns out that upstream only accepts contributions by email discussion
-# followed by code review in Gerrit. I started that process with an email:
-#
-#   Making benchmarks optional when building and running tests
-#   https://groups.google.com/g/re2-dev/c/JXcU38P9krM
-#
-# The idea was implemented upstream as
-#
-#   CMakeLists: updates for clang-cl, skipping benchmarks, and C++17
-#   https://github.com/google/re2/commit/cf62c8d5d0a068b13fa8d11957dafe618d7bab97
-#
-# but since it was mixed with other changes, we’ll continue using our original
-# patch until the next release, which will contain the upstream change.
-Patch:          %{url}/pull/545.patch
 
 BuildRequires:  cmake
 BuildRequires:  ninja-build
@@ -133,8 +115,8 @@ cd python
 
 %conf
 %cmake \
-    -DRE2_BUILD_TESTING:BOOL=ON \
-    -DRE2_BUILD_NO_BENCHMARKS:BOOL=ON \
+    -DRE2_TEST:BOOL=ON \
+    -DRE2_BENCHMARK:BOOL=OFF \
     -DRE2_USE_ICU:BOOL=ON \
     -GNinja
 
@@ -212,7 +194,7 @@ LD_LIBRARY_PATH='%{buildroot}%{_libdir}' %pytest re2_test.py
 
 %files
 %license LICENSE
-%doc README
+%doc README.md
 %{_libdir}/libre2.so.%{so_version}{,.*}
 
 

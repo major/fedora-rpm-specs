@@ -2,8 +2,8 @@
 
 Summary:	Mock object library for ruby
 Name:		rubygem-%{gem_name}
-Version:	3.0.1
-Release:	4%{?dist}
+Version:	3.0.2
+Release:	1%{?dist}
 License:	MIT
 URL:		https://github.com/doudou/flexmock
 Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -11,7 +11,9 @@ Source1:	%{gem_name}-%{version}-test-missing-files.tar.gz
 # Source1 is created fron Source2
 Source2:	flexmock-create-missing-test-files.sh
 # make testsuite compatible for ruby34 formatting change
-Patch0:	flexmock-3.0.1-testsuite-ruby34-formatting.patch
+Patch0:	flexmock-3.0.2-testsuite-ruby34-formatting.patch
+# Remove warnings for string literal being frozen in the future
+Patch1:	flexmock-3.0.2-ruby34-string-literal-frozen.patch
 
 Requires:	ruby(release)
 BuildRequires:	ruby(release)
@@ -37,10 +39,10 @@ This package contains documentation for %{name}.
 %setup -q -n %{gem_name}-%{version} -a 1
 mv ../%{gem_name}-%{version}.gemspec .
 
-(
-cd flexmock/test
-%patch -P0 -p2
-)
+mv flexmock/test .
+
+%patch -P0 -p1
+%patch -P1 -p1
 
 find . -name \*.rb | xargs sed -i -e '\@/usr/bin/env@d'
 find . -name \*.gem -or -name \*.rb -or -name \*.rdoc | xargs chmod 0644
@@ -69,7 +71,7 @@ popd
 rm -f %{buildroot}%{gem_cache}
 
 %check
-cp -a flexmock/test .%{gem_instdir}
+cp -a test .%{gem_instdir}
 pushd .%{gem_instdir}
 
 export RUBYOPT=-W:deprecated
@@ -99,6 +101,10 @@ popd
 %{gem_docdir}/
 
 %changelog
+* Wed Aug 13 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.0.2-1
+- 3.0.2
+- Fix warnigs for string literal being frozen in the future ruby
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

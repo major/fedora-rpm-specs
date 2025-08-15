@@ -185,7 +185,7 @@
 #################################################################################
 Name:		ceph
 Version:	19.2.3
-Release:	2%{?dist}
+Release:	3%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -228,6 +228,7 @@ Patch:		0052-src-tracing.patch
 Patch:		0053-src-test-neorados-common_tests.h.patch
 Patch:		0055-python314.patch
 Patch:		0056-libarrow-20.0.0.patch
+Patch:		0057-src-ceph-volume-ceph-volume-main.py.patch
 
 # ceph 14.0.1 does not support 32-bit architectures, bugs #1727788, #1727787
 ExcludeArch:	i686 armv7hl
@@ -2744,6 +2745,9 @@ exit 0
 %{python3_sitelib}/ceph_node_proxy-*
 
 %changelog
+* Wed Aug 13 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.3-3
+- ceph-19.2.3, rhbz#2310236
+
 * Wed Aug 06 2025 František Zatloukal <fzatlouk@redhat.com> - 2:19.2.3-2
 - Rebuilt for icu 77.1
 

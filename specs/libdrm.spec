@@ -49,7 +49,7 @@ end}
 Name:           libdrm
 Summary:        Direct Rendering Manager runtime library
 Version:        2.4.%{lib_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        MIT
 
 URL:            https://dri.freedesktop.org
@@ -59,7 +59,6 @@ Source2:        91-drm-modeset.rules
 
 BuildRequires:  meson >= 0.43
 BuildRequires:  gcc
-BuildRequires:  libatomic_ops-devel
 BuildRequires:  kernel-headers
 %if %{with intel}
 BuildRequires:  pkgconfig(pciaccess) >= 0.10
@@ -280,6 +279,9 @@ cp %{SOURCE1} %{buildroot}%{_docdir}/libdrm
 %endif
 
 %changelog
+* Tue Aug 12 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 2.4.125-3
+- Drop unnecessary libatomic_ops dependency
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.125-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

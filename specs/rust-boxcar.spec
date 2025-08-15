@@ -5,7 +5,7 @@
 %global crate boxcar
 
 Name:           rust-boxcar
-Version:        0.2.13
+Version:        0.2.14
 Release:        %autorelease
 Summary:        Concurrent, append-only vector
 

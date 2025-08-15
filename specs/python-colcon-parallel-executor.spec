@@ -1,17 +1,13 @@
 %global srcname colcon-parallel-executor
 
 Name:           python-%{srcname}
-Version:        0.3.0
-Release:        7%{?dist}
+Version:        0.4.0
+Release:        2%{?dist}
 Summary:        Extension for colcon to process packages in parallel
 
-# Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
 URL:            https://colcon.readthedocs.io
 Source0:        https://github.com/colcon/%{srcname}/archive/%{version}/%{srcname}-%{version}.tar.gz
-
-# Not submitted upstream - compatibility with pytest 2.9.X
-Patch0:         %{srcname}-0.3.0-pytest-compat.patch
 
 BuildArch:      noarch
 
@@ -21,15 +17,8 @@ An extension for colcon-core to process packages in parallel.
 
 %package -n python%{python3_pkgversion}-%{srcname}
 Summary:        %{summary}
-BuildRequires:  python%{python3_pkgversion}-colcon-core >= 0.3.15
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-pytest
-BuildRequires:  python%{python3_pkgversion}-setuptools >= 30.3.0
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
-
-%if %{undefined __pythondist_requires}
-Requires:       python%{python3_pkgversion}-colcon-core >= 0.3.15
-%endif
 
 %description -n python%{python3_pkgversion}-%{srcname}
 An extension for colcon-core to process packages in parallel.
@@ -39,29 +28,36 @@ An extension for colcon-core to process packages in parallel.
 %autosetup -p1 -n %{srcname}-%{version}
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l colcon_parallel_executor
 
 
 %check
-%{__python3} -m pytest \
-    --ignore=test/test_spell_check.py \
-    --ignore=test/test_flake8.py \
-    test
+%pytest test -m 'not linter'
 
 
-%files -n python%{python3_pkgversion}-%{srcname}
-%license LICENSE
+%files -n python%{python3_pkgversion}-%{srcname} -f %{pyproject_files}
 %doc README.rst
-%{python3_sitelib}/colcon_parallel_executor/
-%{python3_sitelib}/colcon_parallel_executor-%{version}-py%{python3_version}.egg-info/
 
 
 %changelog
+* Wed Aug 13 2025 Scott K Logan <logans@cottsay.net> - 0.4.0-2
+- Switch to pyproject build macros (rhbz#2377548)
+
+* Wed Aug 13 2025 Scott K Logan <logans@cottsay.net> - 0.4.0-1
+- Update to 0.4.0
+- Drop RHEL 7 spec support
+- Review SPDX licensing
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

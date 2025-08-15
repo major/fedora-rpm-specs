@@ -4,8 +4,8 @@
 %global         api_version     1.0
 
 Name:           mingw-gstreamer1-plugins-bad-free
-Version:        1.26.3
-Release:        5%{?dist}
+Version:        1.26.5
+Release:        1%{?dist}
 Summary:        Cross compiled GStreamer1 plug-ins "bad"
 
 # The freeze and nfs plugins are LGPLv2 (only)
@@ -17,8 +17,7 @@ URL:            http://gstreamer.freedesktop.org/
 Source0:        gst-plugins-bad-free-%{version}.tar.xz
 Source1:        gst-p-bad-cleanup.sh
 # Adapt for directxmath header location
-Patch1:        gst-p-bad-directxmath.patch
-Patch2:        0001-meson-d3d12-Add-support-for-MinGW-DirectXMath-packag.patch
+Patch1:         gst-p-bad-directxmath.patch
 
 BuildArch:      noarch
 
@@ -583,6 +582,9 @@ rm -f %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 
 
 %changelog
+* Wed Aug 13 2025 Sandro Mani <manisandro@gmail.com> - 1.26.5-1
+- Update to 1.26.5
+
 * Mon Aug 11 2025 Marc-André Lureau <marcandre.lureau@redhat.com> - 1.26.3-5
 - Require DirectX headers
 

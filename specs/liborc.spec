@@ -1,13 +1,14 @@
 Summary: Library for producing small, fast columnar storage for Hadoop workloads
 Name:    liborc
-Version: 2.1.3
-Release: 2%{?dist}
+Version: 2.2.0
+Release: 1%{?dist}
 License: Apache-2.0
 URL:     http://orc.apache.org/
 Source:  https://downloads.apache.org/orc/orc-%{version}/orc-%{version}.tar.gz
 Source1: https://downloads.apache.org/orc/orc-format-1.1.0/orc-format-1.1.0.tar.gz
-Patch0001:	0001-cmake.patch
-Patch0002:	0002-c++-src-CpuInfoUtil.cc.patch
+Patch:	0001-cmake.patch
+Patch:	0002-c++-src-CpuInfoUtil.cc.patch
+
 # Apache ORC has numerous compile errors and apparently assumes a 64-bit
 # build and runtime environment. The only consumer of this package is 
 # Ceph (by way of Apache Arrow) which is also 64-bit only

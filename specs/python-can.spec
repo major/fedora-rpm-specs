@@ -3,7 +3,7 @@
 %define with_tests 0
 
 Name:      python-can
-Version:   4.6.0
+Version:   4.6.1
 Release:   %autorelease
 Summary:   Controller Area Network (CAN) support for Python
 License:   LGPL-3.0-only

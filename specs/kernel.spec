@@ -165,13 +165,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.17.0
 %define specversion 6.17.0
 %define patchversion 6.17
-%define pkgrelease 0.rc1.250812g53e760d89498.18
+%define pkgrelease 0.rc1.250813g8742b2d8935f.19
 %define kversion 6
-%define tarfile_release 6.17-rc1-4-g53e760d89498
+%define tarfile_release 6.17-rc1-16-g8742b2d8935f
 # This is needed to do merge window version magic
 %define patchlevel 17
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc1.250812g53e760d89498.18%{?buildid}%{?dist}
+%define specrelease 0.rc1.250813g8742b2d8935f.19%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.17.0
 
@@ -4381,14 +4381,16 @@ fi\
 #
 #
 %changelog
-* Tue Aug 12 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.17.0-0.rc1.250812g53e760d89498.18]
-- fedora: more updates for 6.17 (Peter Robinson)
-
-* Tue Aug 12 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc1.53e760d89498.18]
+* Wed Aug 13 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc1.8742b2d8935f.19]
 - arm64: dts: qcom: x1e80100-lenovo-yoga-slim7x: add Bluetooth support (Jens Glathe)
 - Turn off libbpf dynamic for perf (Justin M. Forbes)
 - ALSA HDA driver configuration split for 6.17 upstream (Jaroslav Kysela)
 - redhat/configs: clang_lto: disable CONFIG_FORTIFY_KUNIT_TEST (Scott Weaver)
+
+* Wed Aug 13 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc1.8742b2d8935f.18]
+- Enable PHY drivers required for automotive board (Radu Rendec)
+- fedora: more updates for 6.17 (Peter Robinson)
+- Linux v6.17.0-0.rc1.8742b2d8935f
 
 * Tue Aug 12 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc1.53e760d89498.17]
 - specfile: change conditionals for realtime for fedora (Clark Williams)

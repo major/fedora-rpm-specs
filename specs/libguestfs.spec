@@ -33,7 +33,7 @@ ExcludeArch: %{ix86}
 %global verify_tarball_signature 1
 
 # The source directory.
-%global source_directory 1.56-stable
+%global source_directory 1.57-development
 
 # Filter perl provides.
 %{?perl_default_filter}
@@ -44,8 +44,8 @@ ExcludeArch: %{ix86}
 Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
-Version:       1.56.1
-Release:       4%{?dist}
+Version:       1.57.1
+Release:       1%{?dist}
 License:       LGPL-2.1-or-later
 
 # Build only for architectures that have a kernel
@@ -1067,6 +1067,9 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Wed Aug 13 2025 Richard W.M. Jones <rjones@redhat.com> - 1:1.57.1-1
+- New upstream development version 1.57.1
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.56.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

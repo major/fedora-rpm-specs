@@ -30,8 +30,8 @@
 %bcond_without have_utf8proc
 
 Name:		libarrow
-Version:	20.0.0
-Release:	4%{?dist}
+Version:	21.0.0
+Release:	1%{?dist}
 Summary:	A toolbox for accelerated data interchange and in-memory processing
 License:	Apache-2.0
 URL:		https://arrow.apache.org/
@@ -168,6 +168,7 @@ Libraries and header files for Apache Arrow C++.
 %dir %{_includedir}/arrow/
      %{_includedir}/arrow/*
 %exclude %{_includedir}/arrow/dataset/
+%exclude %{_includedir}/arrow/compute/
 %if %{with use_flight}
 %exclude %{_includedir}/arrow/flight/
 %exclude %{_includedir}/arrow-flight-glib
@@ -187,7 +188,6 @@ Libraries and header files for Apache Arrow C++.
      %{_libdir}/cmake/Arrow/ArrowTargets*.cmake
      %{_libdir}/cmake/Arrow/arrow-config.cmake
 %{_libdir}/libarrow.so
-%{_libdir}/pkgconfig/arrow-compute.pc
 %{_libdir}/pkgconfig/arrow-csv.pc
 %{_libdir}/pkgconfig/arrow-filesystem.pc
 %{_libdir}/pkgconfig/arrow-json.pc
@@ -195,6 +195,36 @@ Libraries and header files for Apache Arrow C++.
 %{_libdir}/pkgconfig/arrow.pc
 %{_datadir}/arrow/gdb/gdb_arrow.py
 %{_datadir}/gdb/auto-load%{_libdir}/libarrow.so.*-gdb.py
+
+#--------------------------------------------------------------------
+
+%package compute-libs
+Summary:	C++ library to read and write semantic datasets
+Requires:	%{name}%{?_isa} = %{version}-%{release}
+Requires:	%{name}-doc = %{version}-%{release}
+
+%description compute-libs
+This package contains the libraries for Apache Arrow Compute
+
+%files compute-libs
+%{_libdir}/libarrow_compute.so.*
+
+#--------------------------------------------------------------------
+
+%package compute-devel
+Summary:	Libraries and header files for Apache Arrow compute
+Requires:	%{name}%{?_isa} = %{version}-%{release}
+Requires:	%{name}-compute-libs%{?_isa} = %{version}-%{release}
+
+%description compute-devel
+Libraries and header files for Apache Arrow Compute
+
+%files compute-devel
+%dir %{_includedir}/arrow/compute/
+     %{_includedir}/arrow/compute/*
+%{_libdir}/cmake/ArrowCompute/*.cmake
+%{_libdir}/libarrow_compute.so
+%{_libdir}/pkgconfig/arrow-compute.pc
 
 #--------------------------------------------------------------------
 
@@ -825,6 +855,9 @@ export LD_LIBRARY_PATH='%{buildroot}%{_libdir}'
 #--------------------------------------------------------------------
 
 %changelog
+* Wed Aug 13 2025  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 21.0.0-1
+- Arrow 21.0.0 GA f43-build-side-110906
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,11 +1,14 @@
-%bcond plotly 1
+# Remove the plotly dependency from the “vis” extra until python-plotly is
+# updated to a sufficiently current version, 6.x:
+# https://bugzilla.redhat.com/show_bug.cgi?id=2342667
+%bcond plotly 0
 
 # Add a BuildRequires on vtk merely for smoke-testing imports of VTK
 # integration modules? This does not enable additional tests.
 %bcond vtk_dep 0
 
 Name:           python-geomdl
-Version:        5.3.1
+Version:        5.4.0
 Release:        %autorelease
 Summary:        Object-oriented pure Python B-Spline and NURBS library
 
@@ -24,17 +27,8 @@ URL:            https://onurraufbingol.com/NURBS-Python/
 %global forgeurl https://github.com/orbingol/NURBS-Python
 Source:         %{forgeurl}/archive/v%{version}/NURBS-Python-%{version}.tar.gz
 
-# Upstream uses something like “setup.py bdist_wheel --use-cython” to turn on
-# the optional Cython-generated extensions. This doesn’t fit well with the
-# pyproject-rpm-macros approach (which uses “pip wheel …”), so we just patch
-# setup.py to unconditionally enable Cython.
-Patch:          geomdl-5.3.1-unconditional-Cython.patch
-# Stop using deprecated/removed np.float/np.int
-# https://github.com/orbingol/NURBS-Python/pull/163
-Patch:          %{forgeurl}/pull/163.patch
-
 BuildSystem:            pyproject
-BuildOption(generate_buildrequires): requirements-filtered.txt
+BuildOption(generate_buildrequires): -x test,vis
 BuildOption(install):   -l geomdl
 %if %{without vtk_dep} || %{without plotly}
 BuildOption(check):     %{shrink:
@@ -45,6 +39,7 @@ BuildOption(check):     %{shrink:
 %endif
 
 BuildRequires:  gcc
+BuildRequires:  tomcli
 
 # Upstream uses weird tox environments for testing:
 #  https://github.com/orbingol/NURBS-Python/blob/v5.3.1/tox.ini#L5
@@ -92,15 +87,24 @@ Obsoletes:      python-geomdl-doc < 5.3.1-34
 %description -n python3-geomdl %{common_description}
 
 
-%prep -a
-# Allow newer versions in cases where exact versions are pinned.
-sed -r \
-    -e 's/==/>=/' \
-%if %{without plotly}
-    -e 's/^plotly\b/# &/' \
-%endif
-    requirements.txt | tee requirements-filtered.txt
+%pyproject_extras_subpkg -n python3-geomdl vis
 
+
+%prep -a
+%if %{without plotly}
+tomcli set pyproject.toml lists delitem project.optional-dependencies.vis \
+    'plotly\b.*'
+%endif
+
+
+%generate_buildrequires -p
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
+export SETUPTOOLS_USE_CYTHON=1
+
+
+%build -p
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
+export SETUPTOOLS_USE_CYTHON=1
 
 
 %check -a
@@ -112,8 +116,6 @@ sed -r \
 # important license information, too.
 %license docs/citing.rst
 %doc CHANGELOG.md
-%doc CONTRIBUTORS.rst
-%doc DESCRIPTION.rst
 %doc README.rst
 
 

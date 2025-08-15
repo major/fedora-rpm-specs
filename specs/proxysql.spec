@@ -111,6 +111,7 @@ mv %{SOURCE2} deps/mariadb-client-library/ma_global.h.patch
 mv %{SOURCE3} deps/postgresql/c.h.patch
 
 %build
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 export GIT_VERSION=%{version}
 %global _configure :
 %configure help

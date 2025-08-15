@@ -17,10 +17,10 @@ BuildArch:        noarch
 BuildRequires:    help2man
 
 BuildRequires:    python3-devel
-BuildRequires:    python3dist(black)
 BuildRequires:    python3dist(pytest)
 %if %{undefined rhel}
 BuildRequires:    python3dist(pytest-xdist)
+BuildRequires:    python3dist(black)
 %endif
 
 BuildRequires:    tzdata
@@ -100,7 +100,8 @@ ln -s alembic-%{python3_version}.1 %{buildroot}%{_mandir}/man1/alembic.1
 
 
 %check
-%pytest %{?!rhel:-n auto}
+# test_module.* uses 'black'
+%pytest %{?!rhel:-n auto} %{?rhel:-k 'not test_module'}
 
 
 %files -n python3-alembic -f %{pyproject_files}

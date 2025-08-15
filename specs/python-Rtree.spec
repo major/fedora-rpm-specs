@@ -10,21 +10,6 @@ Summary:        R-Tree spatial index for Python GIS
 # no debuginfo to generate.
 %global debug_package %{nil}
 
-%global _description %{expand:
-Rtree is a ctypes Python wrapper of libspatialindex that provides a number of
-advanced spatial indexing features for the spatially curious Python user. These
-features include:
-
-  • Nearest neighbor search
-  • Intersection search
-  • Multi-dimensional indexes
-  • Clustered indexes (store Python pickles directly with index entries)
-  • Bulk loading
-  • Deletion
-  • Disk serialization
-  • Custom storage implementation (to implement spatial indexing in ZODB, for
-    example)}
-
 # SPDX
 License:        MIT
 URL:            https://github.com/Toblerity/rtree
@@ -43,15 +28,31 @@ Source:         %{pypi_source rtree}
 # https://bugzilla.redhat.com/show_bug.cgi?id=2050010
 Patch:          0001-Treat-as-pure-Python-since-libspatialindex-is-not-bu.patch
 
-BuildRequires:  spatialindex-devel
+BuildSystem:            pyproject
+BuildOption(install):   -l rtree
 
-BuildRequires:  python3-devel
+BuildRequires:  spatialindex-devel
 
 # For testing:
 BuildRequires:  %{py3_dist pytest}
 BuildRequires:  %{py3_dist numpy}
 
-%description %{_description}
+%global common_description %{expand:
+Rtree is a ctypes Python wrapper of libspatialindex that provides a number of
+advanced spatial indexing features for the spatially curious Python user. These
+features include:
+
+  • Nearest neighbor search
+  • Intersection search
+  • Multi-dimensional indexes
+  • Clustered indexes (store Python pickles directly with index entries)
+  • Bulk loading
+  • Deletion
+  • Disk serialization
+  • Custom storage implementation (to implement spatial indexing in ZODB, for
+    example)}
+
+%description %{common_description}
 
 
 %package -n python3-rtree
@@ -61,27 +62,10 @@ BuildArch:      noarch
 
 Requires:       spatialindex
 
-%description -n python3-rtree %{_description}
+%description -n python3-rtree %{common_description}
 
 
-%prep
-%autosetup -n rtree-%{version} -p1
-
-
-%generate_buildrequires
-%pyproject_buildrequires
-
-
-%build
-%pyproject_wheel
-
-
-%install
-%pyproject_install
-%pyproject_save_files -l rtree
-
-
-%check
+%check -a
 %pytest --doctest-modules tests rtree
 
 

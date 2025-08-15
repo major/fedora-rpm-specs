@@ -73,17 +73,17 @@
 # The gcc versioning information.  In a sed command below, the specfile winds
 # pre-release version numbers in BASE-VER back to the last actually-released
 # number.
-%global DATE 20250425
-%global gitrev ac84ab7066626410dfe17804c7abd090e875ba3b
-%global gcc_version 15.1.1
+%global DATE 20250808
+%global gitrev f833458d29b4fa40ffce6cf3b37ab9a30a864901
+%global gcc_version 15.2.1
 %global gcc_major 15
 
 # Note, cross_gcc_release must be integer, if you want to add suffixes
 # to %%{release}, append them after %%{cross_gcc_release} on Release:
 # line.  gcc_release is the Fedora gcc release that the patches were
 # taken from.
-%global gcc_release 1
-%global cross_gcc_release 3
+%global gcc_release 2
+%global cross_gcc_release 1
 %global cross_binutils_version 2.43.1-1
 %global isl_version 0.16.1
 %global isl_libmajor 15
@@ -869,6 +869,9 @@ chmod +x %{__ar_no_strip}
 %do_files xtensa-linux-gnu	%{build_xtensa}
 
 %changelog
+* Wed Aug 13 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 15.2.1-1
+- Update to 15.2.1 GA
+
 * Tue Jul 29 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 15.1.1-3
 - Enable PAC/BTI/GCS in aarch64 CRT
 

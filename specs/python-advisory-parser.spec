@@ -1,8 +1,8 @@
 %global pypi_name advisory-parser
 
 Name:           python-%{pypi_name}
-Version:        1.10
-Release:        18%{?dist}
+Version:        1.12
+Release:        2%{?dist}
 Summary:        Security flaw parser for upstream security advisories
 
 # Automatically converted from old format: LGPLv3+ - review is highly recommended.
@@ -24,6 +24,9 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-beautifulsoup4
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-pytest
+BuildRequires:  python3-pip
+BuildRequires:  python3-wheel
+BuildRequires:  pyproject-rpm-macros
 %{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
@@ -36,11 +39,14 @@ others; for a full list, see the advisory_parser/flaw.py file.
 %autosetup -n %{pypi_name}-%{version}
 rm -rf %{pypi_name}.egg-info
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
 %check
 PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version} -v tests
@@ -49,9 +55,15 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version} -v tests
 %license LICENSE COPYRIGHT
 %doc README.rst
 %{python3_sitelib}/advisory_parser
-%{python3_sitelib}/advisory_parser-%{version}-py%{python3_version}.egg-info
+%{python3_sitelib}/advisory_parser-%{version}.dist-info
 
 %changelog
+* Tue Aug 13 2025 Sandipan Roy <sandipan@fedoraproject.org> - 1.12-2
+- Migrate to pyproject macros (replacing deprecated %py3_build/%py3_install)
+
+* Tue Aug 13 2025 Sandipan Roy <sandipan@fedoraproject.org> - 1.12-1
+- Update to version 1.12
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

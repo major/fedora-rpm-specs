@@ -89,7 +89,7 @@
 
 Name:           %{rocfft_name}
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        ROCm Fast Fourier Transforms (FFT) library
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -127,7 +127,11 @@ Requires:  rocm-hip-devel
 %endif
 
 %if %{with doc}
-BuildRequires:  python3-sphinx
+%if 0%{?suse_version}
+BuildRequires:  %{python_module Sphinx}
+%else
+BuildRequires:  python3dist(sphinx)
+%endif
 %endif
 
 %if %{with ninja}
@@ -237,6 +241,9 @@ fi
 %endif
 
 %changelog
+* Fri Aug 8 2025 Egbert Eich <eich@suse.com> - 6.4.2-4
+- Adjust python dependency for SUSE.
+
 * Mon Jul 28 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-3
 - Remove experimental gfx950
 

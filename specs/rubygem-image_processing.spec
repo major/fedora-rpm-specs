@@ -5,19 +5,16 @@
 %bcond_with dhash-vips
 
 Name: rubygem-%{gem_name}
-Version: 1.12.2
-Release: 9%{?dist}
+Version: 1.14.0
+Release: 1%{?dist}
 Summary: High-level wrapper for processing images for the web with ImageMagick or libvips
 License: MIT
 URL: https://github.com/janko/image_processing
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # Tests are not shipped with the gem, you may check them out like so:
 # git clone --no-checkout https://github.com/janko/image_processing
-# git -C image_processing archive -v -o image_processing-1.12.2-tests.txz v1.12.2 test/
-Source1: %{gem_name}-%{version}-tests.txz
-# Fix compatibility with Minitest 5.19+
-# https://github.com/janko/image_processing/pull/114
-Patch0: rubygem-image_processing-1.12.2-Fix-compatibility-with-Minitest-5.19.patch
+# git archive -v -o image_processing-1.14.0-tests.tar.gz v1.14.0 test/
+Source1: %{gem_name}-%{version}-tests.tar.gz
 
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
@@ -46,10 +43,6 @@ Documentation for %{name}.
 %prep
 %setup -q -n %{gem_name}-%{version} -b1
 
-pushd %{_builddir}
-%patch 0 -p1
-popd
-
 # dhash-vips is not in Fedora yet.
 %if %{without dhash-vips}
 %gemspec_remove_dep -d -g dhash-vips
@@ -65,13 +58,13 @@ cp -a .%{gem_dir}/* \
         %{buildroot}%{gem_dir}/
 
 %check
-pushd .%{gem_instdir}
-ln -s %{_builddir}/test .
+( cd .%{gem_instdir}
+ln -s %{builddir}/test .
 
 # Tests dependencies that are not needed
 sed -i '/require .minitest.hooks/ s/^/#/g' test/test_helper.rb
 sed -i '/require .minispec-metadata/ s/^/#/g' test/test_helper.rb
-sed -i '/require .bundler./ s/^/#/g' test/test_helper.rb
+sed -i '/require .bundler./ s/^/#/' test/test_helper.rb
 
 %if %{without dhash-vips}
 sed -i -e '/require .dhash-vips./ s/^/#/g' \
@@ -80,16 +73,8 @@ sed -i -e '/require .dhash-vips./ s/^/#/g' \
 
 %endif
 
-# Use the RUBY_ENGINE check to avoid phashion dependency
-sed -i '/RUBY_ENGINE == "jruby"/ s/jruby/ruby/' test/test_helper.rb
-
-# Test output has changed with vips or rubygems-vips version
-# https://github.com/janko/image_processing/issues/98
-sed -i '/it "raises correct Vips::Error on unknown saver" do/ a\
-  skip ' test/vips_test.rb
-
 ruby -Ilib:test -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
-popd
+)
 
 %files
 %dir %{gem_instdir}
@@ -102,9 +87,12 @@ popd
 %doc %{gem_docdir}
 %doc %{gem_instdir}/CHANGELOG.md
 %doc %{gem_instdir}/README.md
-%{gem_instdir}/%{gem_name}.gemspec
+%{gem_instdir}/image_processing.gemspec
 
 %changelog
+* Tue Aug 12 2025 Vít Ondruch <vondruch@redhat.com> - 1.14.0-1
+- Update to ImageProcessing 1.14.0.
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

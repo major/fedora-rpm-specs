@@ -19,7 +19,7 @@
 
 Name:       amdsmi
 Version:    %{rocm_version}
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    AMD System Management Interface
 
 License:    NCSA AND MIT AND BSD-3-Clause
@@ -44,7 +44,11 @@ BuildRequires: libdrm-devel
 BuildRequires: python3-devel
 
 %if %{with test}
+%if 0%{?suse_version}
+BuildRequires: gtest
+%else
 BuildRequires: gtest-devel
+%endif
 %endif
 
 Requires:      python3dist(pyyaml)
@@ -159,15 +163,15 @@ strip %{buildroot}/%{python3_sitelib}/amdsmi/*.so
 # E: non-executable-script .../amdsmi_cli/amdsmi_cli_exceptions.py 644 /usr/bin/env python3
 chmod a+x %{buildroot}/%{_libexecdir}/amdsmi_cli/amdsmi_*.py
 
-%if 0%{?suse_version}
-%post   -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
-%endif
-
 %if %{with test}
 # put the test files in a reasonable place
 mkdir %{buildroot}%{_datadir}/amdsmi
 mv %{buildroot}%{_datadir}/tests %{buildroot}%{_datadir}/amdsmi/.
+%endif
+
+%if 0%{?suse_version}
+%post   -p /sbin/ldconfig
+%postun -p /sbin/ldconfig
 %endif
 
 %files
@@ -196,6 +200,9 @@ mv %{buildroot}%{_datadir}/tests %{buildroot}%{_datadir}/amdsmi/.
 %endif
 
 %changelog
+* Wed Aug 13 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-3
+- Build -test on SUSE
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

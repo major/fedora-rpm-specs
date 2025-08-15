@@ -7,6 +7,10 @@ License:        curl
 URL:            https://curl.se/trurl
 Source0:        https://github.com/curl/trurl/releases/download/%{name}-%{version}/%{name}-%{version}.tar.gz
 
+# Fix tests to use uppercase-hex
+# https://github.com/curl/trurl/issues/394
+Patch:          uppercase-hex.patch
+
 BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  pkgconfig(libcurl)

@@ -16,7 +16,7 @@
 
 Name:		kmod
 Version:	34.2
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Linux kernel module management utilities
 
 # https://docs.fedoraproject.org/en-US/legal/license-field/#_no_effective_license_analysis
@@ -199,6 +199,10 @@ install -m 0644 %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/depmod.d/dist.conf
 %{_libdir}/libkmod.so
 
 %changelog
+* Wed Aug 13 2025 Zamir SUN <zsun@fedoraproject.org> - 34.2-3
+- Rebuild to switch gating to TMT.
+- Resolves: rhbz#2382934
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 34.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

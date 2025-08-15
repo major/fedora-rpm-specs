@@ -1,7 +1,7 @@
 %global pypi_name xword_dl
 
 Name:           python-xword-dl
-Version:        2025.7.5.1
+Version:        2025.8.4
 Release:        %autorelease
 Summary:        Download tool for online crossword puzzles
 
@@ -30,7 +30,8 @@ Summary:        %{summary}
 %autosetup -p1 -n %{pypi_name}-%{version}
 
 # Relax dependencies version pinning
-sed -i requirements.txt -e 's/==.*$//g'
+rm uv.lock
+sed -i pyproject.toml -e 's/==/>=/g'
 
 %generate_buildrequires
 %pyproject_buildrequires

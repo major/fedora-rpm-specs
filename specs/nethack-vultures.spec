@@ -1,6 +1,6 @@
 Name:           nethack-vultures
 Version:        2.1.2
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        NetHack - Vulture's Eye and Vulture's Claw
 
 License:        NGPL
@@ -46,7 +46,9 @@ Requires:       %{fonts}
 
 Requires:       /usr/bin/bzip2
 Requires:       logrotate
+%if 0%{?fedora} < 43
 Requires(pre):  shadow-utils
+%endif
 Requires(pre):  coreutils
 Obsoletes:      nethack-falconseye <= 1.9.4-6.a
 
@@ -152,9 +154,17 @@ install -Dpm 644 %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/%{name}
 install -dm 775 $RPM_BUILD_ROOT%{_var}/log/vultures/
 
 
+%if 0%{?fedora} >= 43
+mkdir -p $RPM_BUILD_ROOT%{_sysusersdir}
+cat > $RPM_BUILD_ROOT%{_sysusersdir}/%{name}.conf <<EOF
+g vultures -
+EOF
+%endif
 
 %pre
+%if 0%{?fedora} < 43
 /usr/sbin/groupadd vultures 2> /dev/null || :
+%endif
 # Get dir symlinks that were there once out of the way
 for dir in graphics sound music ; do
     [ -L %{_prefix}/games/vulturesclaw/$dir ] && \
@@ -205,9 +215,15 @@ done
 %config(noreplace) %{_var}/games/vulturesclaw/logfile
 %dir %{_var}/games/vulturesclaw/save/
 %dir %{_var}/log/vultures/
+%if 0%{?fedora} >= 43
+%{_sysusersdir}/%{name}.conf
+%endif
 
 
 %changelog
+* Wed Aug 06 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.1.2-44
+- F-43+: Add sysusers.d config file (ref: bug 2383855)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

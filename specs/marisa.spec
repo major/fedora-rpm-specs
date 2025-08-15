@@ -1,6 +1,6 @@
 Name:          marisa
 Version:       0.3.0
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Static and spece-efficient trie data structure library
 
 License:       BSD-2-Clause OR LGPL-2.1-or-later
@@ -10,6 +10,7 @@ Source1: requirements.txt
 
 Patch0: marisa-fix-python-setup.patch
 Patch1: marisa-fix-cmake.patch
+Patch2: marisa-fix-cmake-vars.patch
 
 BuildRequires: cmake
 BuildRequires: make
@@ -149,7 +150,7 @@ rm -f $RPM_BUILD_ROOT%{perl_vendorarch}/sample.pl
 
 %check
 pushd bindings/python3
-export LD_LIBRARY_PATH="%{_builddir}/%{name}-trie-%{version}/redhat-linux-build"
+export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
 %pyproject_check_import
 popd
 
@@ -187,6 +188,9 @@ popd
 %{ruby_vendorarchdir}/marisa.so
 
 %changelog
+* Wed Aug 13 2025 Peng Wu  <pwu@redhat.com> - 0.3.0-3
+- Update for https://fedoraproject.org/wiki/Changes/CMake_drop_install_vars
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

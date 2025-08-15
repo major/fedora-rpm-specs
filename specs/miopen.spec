@@ -16,10 +16,17 @@
 %global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host -fcf-protection/' -e 's/-g / /' -e 's/-mtls-dialect=gnu2//')
 
 %bcond_with debug
+%if 0%{?suse_version}
+%if %{without debug}
+%global build_type RELEASE
+%global build_cxxflags %(echo %{optflags} | sed -e 's/-g\\( \\|$\\)/ /')
+%endif
+%else
 %if %{with debug}
 %global build_type DEBUG
 %else
 %global build_type RelWithDebInfo
+%endif
 %endif
 
 # For testing
@@ -61,10 +68,10 @@
 
 Name:           %{miopen_name}
 Version:        %{rocm_version}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        AMD's Machine Intelligence Library
 Url:            https://github.com/ROCm/%{upstreamname}
-License:        MIT AND BSD-2-Clause AND Apache-2.0 AND LicenseRef-Fedora-Public-Domain
+License:        MIT AND BSD-2-Clause AND Apache-2.0 AND %{?fedora:LicenseRef-Fedora-Public-Domain}%{?suse_version:SUSE-Public-Domain}
 # The base license is MIT with a couple of exceptions
 # BSD-2-Clause
 #   driver/mloSoftmaxHost.hpp
@@ -106,7 +113,7 @@ BuildRequires:  zlib-devel
 %if 0%{?suse_version}
 BuildRequires:  libbz2-devel
 BuildRequires:  libzstd-devel-static
-%if 0%{?sle_version} == 150600 
+%if 0%{?suse_version} < 1600
 BuildRequires:  libboost_filesystem1_75_0-devel
 BuildRequires:  libboost_system1_75_0-devel
 %else
@@ -235,6 +242,7 @@ fi
 LINK_MEM=32
 LINK_JOBS=`eval "expr 1 + ${MEM_GB} / ${LINK_MEM}"`
 
+%{?suse_version:%{?build_cxxflags:CXXFLAGS="%{build_cxxflags}"}}
 %cmake %{cmake_generator} \
        -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
        -DCMAKE_CXX_COMPILER=hipcc \
@@ -244,7 +252,7 @@ LINK_JOBS=`eval "expr 1 + ${MEM_GB} / ${LINK_MEM}"`
        -DAMDGPU_TARGETS=%{rocm_gpu_list_default} \
        -DCMAKE_INSTALL_LIBDIR=%_libdir \
        -DBUILD_TESTING=%{build_test} \
-       -DCMAKE_BUILD_TYPE=%{build_type} \
+       %{?build_type:-DCMAKE_BUILD_TYPE=%{build_type}} \
        -DCMAKE_SKIP_RPATH=ON \
        -DBoost_USE_STATIC_LIBS=OFF \
        -DMIOPEN_PARALLEL_COMPILE_JOBS=$COMPILE_JOBS \
@@ -293,6 +301,9 @@ fi
 %fdupes %{buildroot}%{_prefix}
 %endif
 
+%post -p /sbin/ldconfig
+%postun -p /sbin/ldconfig
+
 %files
 %license LICENSE.txt
 %dir %_libexecdir/miopen
@@ -316,6 +327,12 @@ fi
 %endif
 
 %changelog
+* Sun Aug 10 2025 Egbert Eich <eich@suse.com> - 6.4.0-9
+- Fix build for older SUSE enterprise versions.
+- Add calls to ldconfig for SUSE.
+- Replace an unknown license string at SUSE.
+- Fix buildinfo and compiler flags handling for SUSE.
+
 * Fri Aug 8 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-8
 - Uses hip and rocrand devel at runtime.
 - Cleanup dupes

@@ -5,7 +5,7 @@
 %endif
 
 Name:           cloud-init
-Version:        25.1.4
+Version:        25.2
 Release:        %autorelease
 Summary:        Cloud instance init scripts
 License:        Apache-2.0 OR GPL-3.0-only
@@ -46,8 +46,6 @@ Requires:       procps
 Requires:       shadow-utils
 Requires:       util-linux
 Requires:       xfsprogs
-# https://bugzilla.redhat.com/show_bug.cgi?id=1974262
-Requires:       gdisk
 Requires:       openssl
 
 %{?systemd_requires}

@@ -35,6 +35,7 @@ BuildRequires:  clang
 BuildRequires:  gcc-c++
 %endif
 BuildRequires:  ispc
+Recommends:     ispc-gpu
 %if %{with ninja}
 BuildRequires:  ninja-build
 %endif
