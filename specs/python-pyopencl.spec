@@ -1,7 +1,7 @@
 %global srcname pyopencl
 
 Name:           python-%{srcname}
-Version:        2024.1
+Version:        2025.2.6
 Release:        %autorelease
 Summary:        Python wrapper for OpenCL
 
@@ -29,9 +29,6 @@ Summary:        Python wrapper for OpenCL
 License:        LicenseRef-Callaway-MIT AND BSL-1.0 AND Apache-2.0 AND GPL-2.0-only AND LicenseRef-Callaway-BSD
 URL:            https://mathema.tician.de/software/pyopencl
 Source0:        %{pypi_source}
-Patch1:         0001-disable-executing-git-submodule.patch
-# Have not asked upstream, but they want to enforce CFLAGS/LDFLAGS
-Patch2:         0002-don-t-hack-distutils-with-C-LDFLAGS.patch
 
 # pyopencl/cl/pyopencl-bessel-[j,y].cl and
 # pyopencl/cl/pyopencl-eval-tbl.cl contain snippets taken from boost
@@ -51,6 +48,8 @@ BuildRequires:  opencl-headers
 BuildRequires:  ocl-icd-devel
 BuildRequires:  pkgconfig(libffi)
 BuildRequires:  pkgconfig(gl)
+BuildRequires:  python3-devel
+BuildRequires:  python3-nanobind-devel
 
 %description
 PyOpenCL makes it possible to access GPUs and other massively\
@@ -61,11 +60,6 @@ API in a manner similar to the sister project `PyCUDA`.
 %package -n python3-%{srcname}
 Summary:        Python 3 wrapper for OpenCL
 %{?python_provide:%python_provide python3-%{srcname}}
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3dist(pybind11)
-BuildRequires:  python3dist(numpy)
-BuildRequires:  python3dist(zombie-imp)
 Recommends:     python3dist(Mako)
 
 %description -n python3-%{srcname}
@@ -73,8 +67,12 @@ Python 3 version of python-pyopencl.
 
 %prep
 %autosetup -n %{srcname}-%{version} -p1
+sed -i 's/pytools>=2025.1.6/pytools/' pyproject.toml
 rm -vrf *.egg-info
 rm -vf examples/download-examples-from-wiki.py
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 # generate html docs
 #sphinx-build doc/source html
@@ -82,19 +80,18 @@ rm -vf examples/download-examples-from-wiki.py
 #rm -rf html/.{doctrees,buildinfo}
 
 %build
-%{__python3} configure.py --cl-enable-gl --cl-pretend-version=1.2
-%py3_build
+export PYOPENCL_ENABLE_GL=ON PYOPENCL_PRETEND_CL_VERSION=1.2
+%pyproject_wheel -Ccmake.build-type="RelWithDebInfo"
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{srcname}
 
 find %{buildroot}%{python3_sitearch}/%{srcname} -name '*.so' -exec chmod 755 {} \+
 
-%files -n python3-%{srcname}
+%files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE
 %doc examples
-%{python3_sitearch}/%{srcname}/
-%{python3_sitearch}/%{srcname}-*.egg-info/
 
 %changelog
 %autochangelog

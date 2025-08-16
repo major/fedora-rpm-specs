@@ -13,8 +13,8 @@
 
 Summary: Network UPS Tools
 Name: nut
-Version: 2.8.3
-Release: 4%{?dist}
+Version: 2.8.4
+Release: 1%{?dist}
 License: GPL-2.0-or-later AND GPL-3.0-or-later
 Url: https://www.networkupstools.org/
 Source: https://www.networkupstools.org/source/2.8/%{name}-%{version}.tar.gz
@@ -33,6 +33,7 @@ Recommends: nut-xml
 Requires: group(dialout)
 Requires: group(tty)
 
+BuildRequires: asciidoc
 BuildRequires: make
 BuildRequires: autoconf
 BuildRequires: automake
@@ -131,9 +132,9 @@ necessary to develop NUT client applications.
 
 %prep
 %setup -q
-%patch -P 2 -p1 -b .piddir-owner
+#patch -P 2 -p1 -b .piddir-owner
 %patch -P 9 -p1 -b .rmpidf
-%patch -P 15 -p1
+#patch -P 15 -p1
 %patch -P 16 -p2 -b .rhinoname
 
 sed -i 's|=NUT-Monitor|=nut-monitor|'  scripts/python/app/nut-monitor-py3qt5.desktop
@@ -194,7 +195,8 @@ export LDFLAGS="-Wl,-z,now"
     --with-pkgconfig-dir=%{_libdir}/pkgconfig \
     --disable-static \
     --with-udev-dir=%{_usr}/lib/udev \
-    --libdir=%{_libdir}
+    --libdir=%{_libdir} \
+    --enable-docs-changelog=no
 #    --with-doc # does not work in 2.7.1
 
 # for rhbz#838139 check if still needed?
@@ -370,6 +372,7 @@ fi
 %{_mandir}/man8/dummy-ups.8.gz
 %{_mandir}/man8/everups.8.gz
 %{_mandir}/man8/etapro.8.gz
+%{_mandir}/man8/failover.8.gz
 %{_mandir}/man8/gamatronic.8.gz
 %{_mandir}/man8/generic_modbus.8.gz
 %{_mandir}/man8/genericups.8.gz
@@ -392,6 +395,7 @@ fi
 %{_mandir}/man8/nhs_ser.8.gz
 %{_mandir}/man8/nutupsdrv.8.gz
 %{_mandir}/man8/nutdrv_atcl_usb.8.gz
+%{_mandir}/man8/nutdrv_hashx.8.gz
 %{_mandir}/man8/nutdrv_siemens_sitop.8.gz
 %{_mandir}/man8/nut-driver-enumerator.8.gz
 %{_mandir}/man8/nut-ipmipsu.8.gz
@@ -407,6 +411,8 @@ fi
 %{_mandir}/man8/powerman-pdu.8.gz
 %endif
 %{_mandir}/man8/powerpanel.8.gz
+%{_mandir}/man8/powervar_cx_ser.8.gz
+%{_mandir}/man8/powervar_cx_usb.8.gz
 %{_mandir}/man8/nutdrv_rhino.8.gz
 %{_mandir}/man8/richcomm_usb.8.gz
 %{_mandir}/man8/riello_ser.8.gz
@@ -420,12 +426,13 @@ fi
 %{_mandir}/man8/tripplite.8.gz
 %{_mandir}/man8/tripplite_usb.8.gz
 %{_mandir}/man8/tripplitesu.8.gz
-%{_mandir}/man8/victronups.8.gz
 %{_mandir}/man8/upscode2.8*
 %{_mandir}/man8/upsd.8.gz
 %{_mandir}/man8/upsdrvctl.8.gz
 %{_mandir}/man8/upsdrvsvcctl.8.gz
 %{_mandir}/man8/usbhid-ups.8.gz
+%{_mandir}/man8/victronups.8.gz
+%{_mandir}/man8/ve-direct.8.gz
 %{_sysusersdir}/nut.conf
 
 %files client
@@ -456,6 +463,7 @@ fi
 %{_mandir}/man5/nut.conf.5.gz
 %{_mandir}/man5/upsmon.conf.5.gz
 %{_mandir}/man5/upssched.conf.5.gz
+%{_mandir}/man7/nut.7.gz
 %{_mandir}/man8/upsc.8.gz
 %{_mandir}/man8/upscmd.8.gz
 %{_mandir}/man8/upslog.8.gz
@@ -507,6 +515,9 @@ fi
 %{_libdir}/pkgconfig/libnutscan.pc
 
 %changelog
+* Thu Aug 14 2025 Michal Hlavinka <mhlavink@redhat.com> - 2.8.4-1
+- updated to 2.8.4 (#2387244)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

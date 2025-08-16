@@ -4,7 +4,7 @@
 %global snap 20130812
 
 # rpmdev-bumpspec / releng automation compatible
-%global baserelease 52
+%global baserelease 53
 
 Summary:	A C++ port of Lucene
 Name:		clucene
@@ -100,10 +100,18 @@ rm -rfv src/ext/{boost/,zlib/}
 
 
 %build
-%{cmake} \
+%cmake \
+   -DINCLUDE_INSTALL_DIR:PATH=%{_includedir} \
+   -DLIB_INSTALL_DIR:PATH=%{_libdir} \
+   -DSYSCONF_INSTALL_DIR:PATH=%{_sysconfdir} \
+   -DSHARE_INSTALL_PREFIX:PATH=%{_datadir} \
+   %if "%{?_lib}" == "lib64"
+     %{?_cmake_lib_suffix64} \
+   %endif
   -DBUILD_CONTRIBS_LIB:BOOL=ON \
   -DLIB_DESTINATION:PATH=%{_libdir} \
-  -DLUCENE_SYS_INCLUDES:PATH=%{_libdir}
+  -DLUCENE_SYS_INCLUDES:PATH=%{_libdir} \
+  -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 
 %cmake_build
 
@@ -151,6 +159,9 @@ time make -C %{_target_platform} test ARGS="--timeout 300 --output-on-failure" |
 
 
 %changelog
+* Thu Aug 14 2025 Gwyn Ciesla <gwync@protonmail.com> - 2.3.3.4-53.20130812.e8e3d20git
+- CMake fixes
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3.4-52.20130812.e8e3d20git
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

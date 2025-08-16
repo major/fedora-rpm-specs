@@ -2,8 +2,8 @@
 %bcond_without perl_Mail_DMARC_enables_optional_test
 
 Name:           perl-Mail-DMARC
-Version:        1.20250610
-Release:        2%{?dist}
+Version:        1.20250805
+Release:        1%{?dist}
 Summary:        Perl implementation of DMARC
 # README.md and other files:    GPL-1.0-or-later OR Artistic-1.0-Perl
 # share/public_suffix_list:     MPL-2.0
@@ -30,9 +30,6 @@ URL:            https://metacpan.org/dist/Mail-DMARC
 # is non-free CC-BY-NC-3.0.
 Source0:        Mail-DMARC-%{version}_repackaged.tar.gz
 Source1:        repackage.sh
-# Do not add ./lib to INC, in upstream after 1.20250610,
-# <https://github.com/msimerson/mail-dmarc/issues/258>
-Patch0:         Mail-DMARC-1.20250203-Do-not-add-.-lib-to-INC-in-the-scripts.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -255,6 +252,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Aug 14 2025 Petr Pisar <ppisar@redhat.com> - 1.20250805-1
+- 1.20250805 bump
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.20250610-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

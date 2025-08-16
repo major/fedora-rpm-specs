@@ -1,6 +1,6 @@
 %global __cmake_in_source_build 1
 %global _legacy_common_support 1
-
+%global _cmake_generator "Unix Makefiles"
 %global warsow_libdir %{_prefix}/lib/warsow
 
 %global nodotver 21
@@ -101,8 +101,9 @@ pushd source/source/cmake_build
 %cmake \
   -DQFUSION_GAME=Warsow \
   -DUSE_SDL2=YES \
+  -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
   ..
-make %{?_smp_mflags}
+%cmake_build
 
 popd
 

@@ -9,8 +9,8 @@
 %global _warning_options %_warning_options -Wformat
 
 Name:           micropython
-Version:        1.25.0
-Release:        2%{?dist}
+Version:        1.26.0
+Release:        1%{?dist}
 Summary:        Implementation of Python 3 with very low memory footprint
 
 # micorpython itself is MIT
@@ -22,19 +22,14 @@ License:        MIT AND BSD-4-Clause-UC AND Apache-2.0
 URL:            http://micropython.org/
 Source0:        https://github.com/micropython/micropython/archive/v%{version}.tar.gz
 
-%global berkley_commit 85373b548f1fb0119a463582570b44189dfb09ae
+%global berkley_commit 0f3bb6947c2f57233916dccd7bb425d7bf86e5a6
 Source1:       https://github.com/pfalcon/berkeley-db-1.xx/archive/%{berkley_commit}/berkeley-db-1.xx-%{berkley_commit}.tar.gz
 
 %global mbedtls_commit 107ea89daaefb9867ea9121002fbbdf926780e98
 Source2:       https://github.com/Mbed-TLS/mbedtls/archive/%{mbedtls_commit}/mbedtls-%{mbedtls_commit}.tar.gz
 
-%global micropython_lib_commit 5b496e944ec045177afa1620920a168410b7f60b
+%global micropython_lib_commit 34c4ee1647ac4b177ae40adf0ec514660e433dc0
 Source3: https://github.com/micropython/micropython-lib/archive/%{micropython_lib_commit}/micropython-lib-%{micropython_lib_commit}.tar.gz
-
-# Fix FTBFS with gcc 15 using the -Wunterminated-string-literal warning.
-# Resolved upstream:
-# https://github.com/micropython/micropython/pull/17269
-Patch: fix-gcc-15-ftbfs.patch
 
 # Other arches need active porting, i686 removed via:
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -121,6 +116,10 @@ install -pm 755 ports/unix/build-standard/micropython %{buildroot}%{_bindir}
 %{_bindir}/micropython
 
 %changelog
+* Tue Aug 12 2025 Charalampos Stratakis <cstratak@redhat.com> - 1.26.0-1
+- Update to 1.26.0
+Resolves: rhbz#2387402
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.25.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

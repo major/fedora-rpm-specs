@@ -16,6 +16,9 @@ Source0:        https://download.gnome.org/sources/gdk-pixbuf/2.43/gdk-pixbuf-%{
 
 Patch:          0001-jpeg-Be-more-careful-with-chunked-icc-data.patch
 
+# https://gitlab.gnome.org/GNOME/gdk-pixbuf/-/merge_requests/224
+Patch:          sort.patch
+
 BuildRequires:  docbook-style-xsl
 BuildRequires:  gettext
 BuildRequires:  gi-docgen

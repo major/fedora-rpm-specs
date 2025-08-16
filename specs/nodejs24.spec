@@ -453,11 +453,18 @@ declare NPM_DIR="${RPM_BUILD_ROOT}%{nodejs_private_sitelib}/npm"
 # Adjust npm scripts to use the renamed interpreter
 readonly SHEBANG_ERE='^#!/usr/bin/(env\s+)?node\b'
 readonly SHEBANG_FIX='#!%{_bindir}/node-%{node_version_major}'
-readonly -a npm_bin_dirs=("${NPM_DIR}/bin" "${NPM_DIR}/node_modules/node-gyp/bin")
+readonly -a npm_bin_dirs=("${NPM_DIR}/bin" "${NPM_DIR}/node_modules")
 
 find "${npm_bin_dirs[@]}" -type f \
 | xargs grep --extended-regexp --files-with-matches "${SHEBANG_ERE}" \
 | xargs sed --regexp-extended --in-place "s;${SHEBANG_ERE};${SHEBANG_FIX};"
+
+# Fix shell scripts that call 'node' as command
+readonly -a known_shell_scripts=(
+    "${NPM_DIR}/bin/node-gyp-bin/node-gyp"
+    "${NPM_DIR}/node_modules/@npmcli/run-script/lib/node-gyp-bin/node-gyp"
+)
+sed --regexp-extended --in-place 's;\bnode(\s);%{_bindir}/node-%{node_version_major}\1;' "${known_shell_scripts[@]}"
 
 # Replace npm %%{_bindir} symlinks with properly versioned ones
 # usage: relink_bin <basename> <source>

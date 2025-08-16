@@ -30,7 +30,7 @@ Epoch: 102
 %else
 Epoch: 2
 %endif
-Version: 1.15.2
+Version: 1.16.0
 Release: %autorelease
 # The `AND` needs to be uppercase in the License for SPDX compatibility
 License: Apache-2.0 AND BSD-3-Clause AND MIT
@@ -82,8 +82,7 @@ Its features include:
     including MACVLAN networks
 * All required firewall configuration to perform NAT and port
     forwarding as required for containers
-* Support for iptables and firewalld at present, with support
-    for nftables planned in a future release
+* Support for iptables, firewalld and nftables
 * Support for rootless containers
 * Support for IPv4 and IPv6
 * Support for container DNS resolution via aardvark-dns.

@@ -5,7 +5,7 @@
 %bcond cython_compile 1
 
 Name:           Cython
-Version:        3.1.2
+Version:        3.1.3
 Release:        %autorelease
 Summary:        Language for writing Python extension modules
 

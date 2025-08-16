@@ -16,7 +16,7 @@
 
 Name:           strongswan
 Version:        5.9.14
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        An OpenSource IPsec-based VPN and TNC solution
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -159,6 +159,7 @@ for Strongswan runtime configuration from perl applications.
 
 %build
 # only for snapshots
+export ACLOCAL_PATH=/usr/share/gettext/m4:$ACLOCAL_PATH
 autoreconf -fiv
 
 # --with-ipsecdir moves internal commands to /usr/libexec/strongswan
@@ -426,6 +427,9 @@ install -D -m 0644 %{SOURCE3} %{buildroot}/%{_tmpfilesdir}/strongswan-starter.co
 %endif
 
 %changelog
+* Thu Aug 14 2025 Carlos Rodriguez-Fernandez <carlosrodrifernandez@gmail.com> - 5.9.14-9
+- Fix build issue (rhbz#2368971)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.9.14-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

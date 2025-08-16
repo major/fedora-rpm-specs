@@ -1,10 +1,10 @@
 Summary: Run-time libraries and programs
 Name: motif
-Version: 2.3.4
-Release: 39%{?dist}
+Version: 2.3.8
+Release: 1%{?dist}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2+
-Source: http://downloads.sf.net/motif/motif-%{version}-src.tgz
+Source: http://downloads.sf.net/motif/motif-%{version}.tar.gz
 Source1: xmbind
 URL: http://www.motifzone.net/
 Obsoletes: openmotif < 2.3.4
@@ -31,14 +31,10 @@ Patch48: motif-2.3.4-Fix-issues-with-Werror-format-security.patch
 Patch49: motif-configure-c99.patch
 Patch50: motif-c99-void-sprintf.patch
 Patch51: motif-c99-string.patch
-Patch52: motif-c99-bug1602.patch
-Patch53: motif-c99-bug1605.patch
-Patch54: motif-c99-bug1609.patch
 # CVE-2023-43788
 Patch55: 0001-Fix-CVE-2023-43788-Out-of-bounds-read-in-XpmCreateXp.patch
 # CVE-2023-43789
 Patch56: 0001-Fix-CVE-2023-43789-Out-of-bounds-read-on-XPM-with-co.patch
-Patch57: motif-c99-bug1599.patch
 # https://sourceforge.net/p/motif/code/merge-requests/9/
 Patch58: 0001-build-Check-for-Xinerama-availability.patch
 Patch59: 0002-Xm-Display-Add-optional-Xinerama-support.patch
@@ -47,6 +43,8 @@ Patch61: 0004-Xm-DropDown-Use-Xinerama-for-placement.patch
 Patch62: 0005-Xm-RCMenu-Use-Xinerama-for-placement.patch
 Patch63: 0006-Xm-Tooltip-Use-Xinerama-for-placement.patch
 Patch64: 0007-Xm-ComboBox-Use-Xinerama-for-placement.patch
+
+Patch65: includes.patch
 
 Conflicts: lesstif <= 0.92.32-6
 
@@ -79,22 +77,18 @@ This package contains the static Motif libraries.
 
 %prep
 %setup -q
-%patch -P22 -p1 -b .no_demos
-%patch -P23 -p1 -b .uil_lib
-%patch -P43 -p1 -b .rgbtxt
-%patch -P45 -p1 -b .mwmrc_dir
-%patch -P46 -p1 -b .bindings
-%patch -P47 -p1 -b .no_X11R6
-%patch -P48 -p1 -b .format-security
-%patch -P49 -p1
-%patch -P50 -p1
-%patch -P51 -p1
-%patch -P52 -p1
-%patch -P53 -p1
-%patch -P54 -p1
-%patch -P55 -p1
-%patch -P56 -p1
-%patch -P 57 -p1
+%patch -P 22 -p1 -b .no_demos
+%patch -P 23 -p1 -b .uil_lib
+%patch -P 43 -p1 -b .rgbtxt
+%patch -P 45 -p1 -b .mwmrc_dir
+%patch -P 46 -p1 -b .bindings
+%patch -P 47 -p1 -b .no_X11R6
+%patch -P 48 -p1 -b .format-security
+%patch -P 49 -p1
+%patch -P 50 -p1
+%patch -P 51 -p1
+%patch -P 55 -p1
+%patch -P 56 -p1
 %patch -P 58 -p1 -b .xinerama
 %patch -P 59 -p1 -b .xinerama
 %patch -P 60 -p1 -b .xinerama
@@ -103,9 +97,12 @@ This package contains the static Motif libraries.
 %patch -P 63 -p1 -b .xinerama
 %patch -P 64 -p1 -b .xinerama
 
+%patch -P 65 -p1 -b .includes
+
 %build
 export CFLAGS="$CFLAGS -std=gnu17"
-./autogen.sh
+touch AUTHORS NEWS
+autoreconf -fi
 %configure --enable-static --enable-xft --enable-jpeg --enable-png
 
 make clean %{?_smp_mflags}
@@ -152,6 +149,9 @@ rm -f %{buildroot}%{_libdir}/*.la
 %{_libdir}/lib*.a
 
 %changelog
+* Thu Aug 14 2025 Gwyn Ciesla <gwync@protonmail.com> - 2.3.8-1
+- 2.3.8
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.4-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        156
+Version:        158
 
 %forgemeta
 
@@ -9,7 +9,7 @@ Version:        156
 %global         pkgdir %{_prefix}/lib/%{pypi_name}
 
 Name:           %{pypi_name}
-Release:        2%{?dist}
+Release:        1%{?dist}
 License:        Apache-2.0
 
 URL:            %{forgeurl}
@@ -329,6 +329,23 @@ fi
 %{pkgdir}/solver.json
 
 %changelog
+* Wed Aug 13 2025 Packit <hello@packit.dev> - 158-1
+Changes with 158
+----------------
+  - New script: update test manifests (#2140)
+    - Author: Achilleas Koutsou, Reviewers: Brian C. Lane, Simon de Vlieger
+  - Update images dependency ref to latest (#2162)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - Update images dependency ref to latest (#2164)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Tomáš Hozza
+  - Update snapshots to 20250730 (#2159)
+    - Author: SchutzBot, Reviewers: Sanne Raymaekers, Simon de Vlieger
+  - stages/tar: add --numeric-owner option [RHEL-102854] (#2144)
+    - Author: Achilleas Koutsou, Reviewers: Simon de Vlieger, Tomáš Hozza
+
+— Somewhere on the Internet, 2025-08-13
+
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 156-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

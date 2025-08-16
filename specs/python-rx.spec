@@ -11,29 +11,22 @@
 Rx is a library for composing asynchronous and event-based programs using\
 observable collections and LINQ-style query operators in Python.
 
-%bcond_without tests
+%bcond_with tests
 
 
 Name:           python-%{pkgname}
-Version:        3.2.0
+Version:        4.0.4
 Release:        %autorelease
 Summary:        Reactive Extensions (Rx) for Python
 License:        MIT
 URL:            https://github.com/ReactiveX/RxPY
 # PyPI tarball doesn't have tests
 Source0:        %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
-# https://github.com/ReactiveX/RxPY/pull/570
-Patch0:         0001-Set-daemon-attribute-instead-of-using-setDaemon-meth.patch
-# https://github.com/ReactiveX/RxPY/pull/575
-Patch1:         0002-Remove-deprecated-loop-parameter.patch
-# Python 3.11 compatibility: replace coroutine decorator with async keyword
-Patch3:         https://github.com/ReactiveX/RxPY/commit/a4e84d8a488d6c7c75bdb09f6d6f08edcb2b23b0.patch
+Patch0:         import-order.patch
 
 BuildArch:      noarch
 
-
 %description %{_description}
-
 
 %package -n python3-%{pkgname}
 Summary:        %{summary}
@@ -42,8 +35,6 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
 BuildRequires:  python3-pytest-asyncio
 BuildRequires:  python3-pytest-runner
-BuildRequires:  python3-setuptools
-%{?python_provide:%python_provide python3-%{pkgname}}
 
 
 %description -n python3-%{pkgname} %{_description}
@@ -51,16 +42,20 @@ BuildRequires:  python3-setuptools
 
 %prep
 %autosetup -n RxPY-%{version} -p 1
-rm -rf %{eggname}.egg-info
+
+# Ugh.
+sed -i s/0.0.0/%{version}/g pyproject.toml
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
-
+%pyproject_install
 
 %if %{with tests}
 %check
@@ -71,9 +66,8 @@ rm -rf %{eggname}.egg-info
 %files -n python3-%{pkgname}
 %license LICENSE
 %doc README.rst authors.txt changes.md
-%{python3_sitelib}/%{libname}
-%{python3_sitelib}/%{eggname}-%{version}-py%{python3_version}.egg-info
-
+%{python3_sitelib}/reactivex/
+%{python3_sitelib}/reactivex-%{version}.dist-info/
 
 %changelog
 %autochangelog

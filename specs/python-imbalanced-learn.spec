@@ -1,7 +1,7 @@
 %bcond tests 1
 
 Name:           python-imbalanced-learn
-Version:        0.13.0
+Version:        0.14.0
 Release:        %autorelease
 Summary:        A Python Package to Tackle the Imbalanced Datasets in Machine Learning
 
@@ -15,10 +15,6 @@ Summary:        A Python Package to Tackle the Imbalanced Datasets in Machine Le
 License:        MIT
 URL:            %forgeurl
 Source:         %forgesource
-
-# MAINT fix compatibility with scikit-learn 1.7
-# https://github.com/scikit-learn-contrib/imbalanced-learn/pull/1137
-Patch:          %{forgeurl}/pull/1137.patch
 
 BuildArch:      noarch
 

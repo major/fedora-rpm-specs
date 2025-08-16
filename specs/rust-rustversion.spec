@@ -5,7 +5,7 @@
 %global crate rustversion
 
 Name:           rust-rustversion
-Version:        1.0.21
+Version:        1.0.22
 Release:        %autorelease
 Summary:        Conditional compilation according to rustc compiler version
 

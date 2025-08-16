@@ -5,7 +5,7 @@
 %global crate ab_glyph_rasterizer
 
 Name:           rust-ab_glyph_rasterizer
-Version:        0.1.9
+Version:        0.1.10
 Release:        %autorelease
 Summary:        Coverage rasterization for lines, quadratic & cubic beziers
 

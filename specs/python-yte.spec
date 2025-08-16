@@ -20,8 +20,6 @@ BuildOption(install):   -l yte
 
 BuildArch:      noarch
 
-BuildRequires:  python3-devel
-
 # For tests, from the “dev” dependency group, which has too many unwanted
 # linters etc. to use it for generating BuildRequires:
 BuildRequires:  %{py3_dist pytest}

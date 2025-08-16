@@ -7,7 +7,7 @@
 
 Name:           gstreamermm
 Version:        1.10.0
-Release:        26%{?dist}
+Release:        27%{?dist}
 
 Summary:        C++ wrapper for GStreamer library
 
@@ -16,9 +16,9 @@ License:        LicenseRef-Callaway-LGPLv2+
 URL:            https://www.gtkmm.org/
 Source0:        https://download.gnome.org/sources/gstreamermm/%{branch}/%{name}-%{version}.tar.xz
 Patch0:         https://gitlab.gnome.org/GNOME/gstreamermm/-/merge_requests/4.patch
+# https://gitlab.gnome.org/GNOME/gstreamermm/-/issues/13
 Patch1:         %{name}-tests.patch
-# Fix mingw build issues, based on:
-# https://gstreamer.freedesktop.org/documentation/video/gstvideooverlay.html?gi-language=c#gstvideooverlay-and-gtk
+# https://gitlab.gnome.org/GNOME/gstreamermm/-/merge_requests/6
 Patch2:         %{name}-mingw.patch
 # Don't hardcode -std=c++11 or -std=c++0x
 Patch3:         %{name}-nostdcxx.patch
@@ -161,12 +161,12 @@ popd
 %files
 %license COPYING
 %doc AUTHORS ChangeLog NEWS README
-%{_libdir}/*.so.*
+%{_libdir}/libgstreamermm-1.0.so.1{,.0.0}
 
 %files devel
 %{_includedir}/%{name}-%{api_ver}
-%{_libdir}/*.so
-%{_libdir}/pkgconfig/*.pc
+%{_libdir}/libgstreamermm-1.0.so
+%{_libdir}/pkgconfig/gstreamermm-1.0.pc
 %{_libdir}/%{name}-%{api_ver}
 
 %files doc
@@ -199,6 +199,10 @@ popd
 %endif
 
 %changelog
+* Thu Aug 14 2025 Dominik Mierzejewski <dominik@greysector.net> - 1.10.0-27
+- disable failing test (resolves rhbz#2385042)
+- avoid wildcards in file list
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

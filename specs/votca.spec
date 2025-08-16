@@ -2,7 +2,7 @@ Name:           votca
 Version:        2025
 %global         uversion %{version}
 %global         sover 2025
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Versatile Object-oriented Toolkit for Coarse-graining Applications
 License:        Apache-2.0
 URL:            http://www.votca.org
@@ -254,6 +254,9 @@ export PYTHONPATH="${MPI_PYTHON3_SITEARCH}${PYTHONPATH:+:}${PYTHONPATH}"
 %{_datadir}/bash-completion/completions/votca
 
 %changelog
+* Thu Aug 14 2025 Christoph Junghans <junghans@votca.org> - 2025-3
+- Rebuilt for gromacs-2025
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2025-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

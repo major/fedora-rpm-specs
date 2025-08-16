@@ -77,14 +77,22 @@ easily constructing data pipelines.
 
 rm -rf third_party/*
 
+%if 0%{?fedora}
 %generate_buildrequires
 %pyproject_buildrequires
+%endif
 
 %build
+%if 0%{?fedora}
 %pyproject_wheel
+%else
+%py3_build
+%endif
 
 %check
+%if 0%{?fedora}
 %pyproject_check_import
+%endif
 # Testing has a circular dependency
 # E   ModuleNotFoundError: No module named 'torchtext'
 # We need torchdata to build torchtext :(
@@ -93,12 +101,17 @@ rm -rf third_party/*
 %endif
 
 %install
+%if 0%{?fedora}
 %pyproject_install
 %pyproject_save_files %{pypi_name}
+%else
+%py3_build
+%endif
 
-%files -n python3-%{pypi_name} -f %{pyproject_files}
+%files -n python3-%{pypi_name}
 %license LICENSE
 %doc README.md
+%{python3_sitelib}/%{pypi_name}*
 
 %changelog
 %autochangelog

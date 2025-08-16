@@ -1,27 +1,28 @@
 
 Name:    lucene++
 Summary: A high-performance, full-featured text search engine written in C++
-Version: 3.0.7
-Release: 45%{?dist}
+Version: 3.0.9
+Release: 1%{?dist}
 
 # Automatically converted from old format: ASL 2.0 or LGPLv3+ - review is highly recommended.
 License: Apache-2.0 OR LGPL-3.0-or-later
 Url:     https://github.com/luceneplusplus/LucenePlusPlus
 Source:  https://github.com/luceneplusplus/LucenePlusPlus/archive/rel_%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
-## upstream patches
-Patch1: 0001-Fix-FSDirectory-sync-to-sync-writes-to-disk.patch
-Patch2: 0002-minor-fix-to-allow-full-lines-to-be-input-to-demo-qu.patch
-Patch5: 0005-Use-maxSize-of-BooleanQuery-as-base-for-the-queue-si.patch
-Patch6: 0006-Fix-packageconfig-path.patch
-Patch7: 0007-boost-1.58-variant.patch
+# Fix install path for liblucene++.pc
+# https://github.com/luceneplusplus/LucenePlusPlus/commit/f40f59c
+Patch0: lucene++-3.0.9-fix_install_path_for_liblucene++.pc.patch
 
+# Fix compilation with clang-17
+# https://github.com/luceneplusplus/LucenePlusPlus/commit/b77d1c7
+Patch1: lucene++-3.0.9-fix_compilation_with_clang-17.patch
 
 BuildRequires: boost-devel
-BuildRequires: cmake >= 2.8.6
+BuildRequires: cmake >= 3.5
 BuildRequires: gcc-c++
 BuildRequires: pkgconfig
 BuildRequires: subversion
+BuildRequires: zlib-devel
 
 %description
 An up to date C++ port of the popular Java Lucene library, a high-performance, full-featured text search engine.
@@ -38,7 +39,7 @@ Development files for lucene++, a high-performance, full-featured text search en
 
 
 %build
-%cmake -DCMAKE_BUILD_TYPE:String="release"
+%cmake -DCMAKE_BUILD_TYPE:String="release" -DINSTALL_GTEST=OFF
 %cmake_build --target lucene++ lucene++-contrib
 
 
@@ -62,9 +63,15 @@ Development files for lucene++, a high-performance, full-featured text search en
 %{_libdir}/liblucene++-contrib.so
 %{_libdir}/pkgconfig/liblucene++.pc
 %{_libdir}/pkgconfig/liblucene++-contrib.pc
+%{_libdir}/cmake/liblucene++/
+%{_libdir}/cmake/liblucene++-contrib/
 
 
 %changelog
+* Wed Aug 13 2025 Wolfgang Stöggl <c72578@yahoo.de> - 3.0.9-1
+- Update to 3.0.9
+  This also fixes CMake 4.0 FTBFS (#2380880)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.7-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

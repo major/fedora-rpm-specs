@@ -2,7 +2,7 @@
 %bcond bootstrap 0
 
 Name:           mkdocs-material
-Version:        9.6.12
+Version:        9.6.16
 Release:        %autorelease
 Summary:        Material design theme for MkDocs
 
@@ -22,7 +22,9 @@ Recommends:     python3dist(mkdocs-material[recommended]) = %{version}-%{release
 %description
 This package provides a powerful documentation framework on top of MkDocs.
 
-%if %{without bootstrap}
+%if %{with bootstrap}
+%pyproject_extras_subpkg -n %{name} imaging
+%else
 %pyproject_extras_subpkg -n %{name} git,imaging,recommended
 %endif
 
@@ -30,7 +32,7 @@ This package provides a powerful documentation framework on top of MkDocs.
 %autosetup -p1
 
 # Relax version pins
-sed -i 's/~=/>=/g' pyproject.toml
+sed -i 's/~=/>=/g' pyproject.toml requirements.txt
 
 %generate_buildrequires
 %pyproject_buildrequires %{!?with_bootstrap:-x git,imaging,recommended}

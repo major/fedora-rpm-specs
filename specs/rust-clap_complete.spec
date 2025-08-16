@@ -6,7 +6,7 @@
 %global crate clap_complete
 
 Name:           rust-clap_complete
-Version:        4.5.55
+Version:        4.5.57
 Release:        %autorelease
 Summary:        Generate shell completion scripts for your clap::Command
 

@@ -48,7 +48,7 @@
 
 Name:           %{rocalution_name}
 Version:        %{rocm_version}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Next generation library for iterative sparse solvers for ROCm platform
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
@@ -69,7 +69,11 @@ BuildRequires:  rocrand-devel
 BuildRequires:  rocsparse-devel
 
 %if %{with test}
+%if 0%{?suse_version}
+BuildRequires:  gtest
+%else
 BuildRequires:  gtest-devel
+%endif
 %endif
 
 %if %{with ninja}
@@ -129,6 +133,12 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %prep
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
 
+%if 0%{?suse_version}
+# On TW
+# /usr/include/gtest/internal/gtest-port.h:273:2: error: C++ versions less than C++17 are not supported.
+sed -i -e 's@set(CMAKE_CXX_STANDARD 14)@set(CMAKE_CXX_STANDARD 17)@' clients/CMakeLists.txt
+%endif
+
 %build
 %cmake %{cmake_generator} \
     -DCMAKE_CXX_COMPILER=hipcc \
@@ -179,6 +189,9 @@ fi
 %endif
 
 %changelog
+* Thu Aug 14 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.1-7
+- Build -with test on SUSE
+
 * Wed Aug 6 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.1-6
 - Default build type RelWithDebInfo
 

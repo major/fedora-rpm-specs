@@ -3,7 +3,7 @@
 # NOTE: To avoid NVR clashes of nspr* packages:
 # - reset %%{nspr_release} to 1, when updating %%{nspr_version}
 # - increment %%{nspr_version}, when updating the NSS part only
-%global baserelease 1
+%global baserelease 2
 %global nss_release %baserelease
 # use "%%global nspr_release %%[%%baserelease+n]" to handle offsets when
 # release number between nss and nspr are different.
@@ -138,6 +138,8 @@ Patch42:          nss-3.103-unused-cipherwrap2.patch
 
 # https://issues.redhat.com/browse/FC-1613
 Patch50:          nss-3.110-dissable_test-ssl_policy_pkix_oscp.patch
+
+Patch51:          nss-3.114-merge-test.patch
 
 Patch100:         nspr-config-pc.patch
 Patch101:         nspr-gcc-atomics.patch
@@ -1087,6 +1089,9 @@ fi
 
 
 %changelog
+* Thu Aug 14 2025 Bojan Smojver <bojan@rexursive.com> - 3.114.0-2
+- Patch for merge test failure (Bob Relyea <rrelyea@redhat.com>)
+
 * Wed Jul 30 2025 Frantisek Krenzelok <krenzelok.frantisek@gmail.com> - 3.114.0-1
 - Update NSS to 3.114.0
 

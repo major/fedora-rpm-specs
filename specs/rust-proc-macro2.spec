@@ -5,7 +5,7 @@
 %global crate proc-macro2
 
 Name:           rust-proc-macro2
-Version:        1.0.95
+Version:        1.0.97
 Release:        %autorelease
 Summary:        Substitute implementation of the Rust compiler's proc_macro API
 
@@ -91,10 +91,8 @@ use the "span-locations" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-%cargo_test -- --lib
 # * skip doctests that don't compile
-%cargo_test -- --doc -- --skip 'src/lib.rs'
-%cargo_test -- --tests
+%cargo_test -- -- --skip 'src/lib.rs'
 %endif
 
 %changelog

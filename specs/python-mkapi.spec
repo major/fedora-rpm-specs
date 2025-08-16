@@ -2,7 +2,7 @@
 %global forgeurl https://github.com/daizutabi/mkapi
 
 Name:           python-mkapi
-Version:        4.0.1
+Version:        4.4.5
 Release:        %autorelease
 Summary:        Plugin for MkDocs to generate API documentation
 
@@ -13,6 +13,8 @@ License:        MIT
 URL:            https://daizutabi.github.io/mkapi/
 # PyPI tarball is missing test fixtures
 Source:         %{forgeurl}/archive/%{version}/mkapi-%{version}.tar.gz
+# build: update uv_build requirement to latest version
+Patch:          %{forgeurl}/commit/e0777398e7f5e285bf88fbd0b048f2eeb3d9ceaa.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

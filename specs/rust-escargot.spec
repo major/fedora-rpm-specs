@@ -9,7 +9,7 @@
 %global crate escargot
 
 Name:           rust-escargot
-Version:        0.5.14
+Version:        0.5.15
 Release:        %autorelease
 Summary:        Cargo API written in Paris
 

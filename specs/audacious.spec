@@ -5,7 +5,7 @@
 
 Name: audacious
 Version: 4.5
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 %global tar_ver %{version}
 
@@ -22,6 +22,8 @@ URL: https://audacious-media-player.org/
 Group: Applications/Multimedia
 
 Source0: https://distfiles.audacious-media-player.org/%{name}-%{tar_ver}.tar.bz2
+
+Patch0: audacious-4.5-blues-tag.patch
 
 # for /usr/bin/appstream-util
 BuildRequires: libappstream-glib
@@ -210,6 +212,9 @@ appstream-util validate-relax --nonet ${RPM_BUILD_ROOT}%{_datadir}/appdata/%{nam
 
 
 %changelog
+* Thu Aug 14 2025 Michael Schwendt <mschwendt@fedoraproject.org> - 4.5-3
+- merge ID3 Blues tag fix
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

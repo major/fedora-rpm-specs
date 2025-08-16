@@ -1,10 +1,14 @@
 Name:           ncmpcpp
 Version:        0.10.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Featureful ncurses based MPD client inspired by ncmpc
 License:        GPL-2.0-or-later
 URL:            http://ncmpcpp.rybczak.net/
 Source0:        https://github.com/%{name}/%{name}/archive/refs/tags/%{version}.tar.gz
+# bash 5.3 treats cd with null directory as error as specified in POSIX.1-2024
+# https://www.austingroupbugs.net/view.php?id=1047
+# https://cgit.git.savannah.gnu.org/cgit/bash.git/commit/?h=devel&id=136cdf8108f2d6c6dd9710c544b1b7b6bd790617
+Patch0:         ncmpcpp-0.10.1-boost_m4-bash53.patch
 
 BuildRequires:  make
 BuildRequires:  gcc-c++
@@ -34,7 +38,7 @@ A featureful ncurses based MPD client inspired by ncmpc. The main features are:
 .. and a lot more minor functions.
 
 %prep
-%autosetup
+%autosetup -p1
 autoreconf -fiv
 
 %build
@@ -58,6 +62,9 @@ rm -f %{buildroot}/%{_docdir}/%{name}/COPYING
 
 
 %changelog
+* Thu Aug 14 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.10.1-6
+- Patch for boost.m4 with behavior change on bash 5.3 (on rawhide)
+
 * Wed Aug 06 2025 František Zatloukal <fzatlouk@redhat.com> - 0.10.1-5
 - Rebuilt for icu 77.1
 

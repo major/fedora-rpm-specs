@@ -48,6 +48,12 @@
 %bcond_with httplib
 %bcond_with kineto
 
+%if 0%{?fedora}
+%bcond_without onnx
+%else
+%bcond_with onnx
+%endif
+
 Name:           python-%{pypi_name}
 %if %{with gitcommit}
 Version:        %{pypi_version}^git%{date0}.%{shortcommit0}
@@ -97,6 +103,11 @@ Source70:       https://github.com/yhirose/cpp-httplib/archive/%{hl_commit}/cpp-
 Source80:       https://github.com/pytorch/kineto/archive/%{ki_commit}/kineto-%{ki_scommit}.tar.gz
 %endif
 
+%if %{without onnx}
+%global ox_ver 1.18.0
+Source90:       https://github.com/onnx/onnx/archive/refs/tags/v%{ox_ver}.tar.gz
+%endif
+
 # https://github.com/pytorch/pytorch/issues/150187
 Patch11:       0001-Add-cmake-variable-USE_ROCM_CK.patch
 # https://github.com/pytorch/pytorch/issues/156595
@@ -123,7 +134,9 @@ BuildRequires:  json-devel
 BuildRequires:  libomp-devel
 BuildRequires:  numactl-devel
 BuildRequires:  ninja-build
+%if %{with onnx}
 BuildRequires:  onnx-devel
+%endif
 %if %{with mpi}
 BuildRequires:  openmpi-devel
 %endif
@@ -304,6 +317,12 @@ rm -rf third_party/kineto/*
 cp -r kineto-*/* third_party/kineto/
 %endif
 
+%if %{without onnx}
+tar xf %{SOURCE90}
+rm -rf third_party/onnx/*
+cp -r onnx-*/* third_party/onnx/
+%endif
+
 # Adjust for the hipblaslt's we build
 sed -i -e 's@"gfx90a", "gfx940", "gfx941", "gfx942"@"gfx90a", "gfx1103", "gfx1150", "gfx1151", "gfx1100", "gfx1101", "gfx1200", "gfx1201"@' aten/src/ATen/native/cuda/Blas.cpp
 
@@ -393,6 +412,10 @@ mv third_party/cpp-httplib .
 mv third_party/kineto .
 %endif
 
+%if %{without onnx}
+mv third_party/onnx .
+%endif
+
 %if %{with test}
 mv third_party/googletest .
 %endif
@@ -421,6 +444,10 @@ mv cpp-httplib third_party
 mv kineto third_party
 %endif
 
+%if %{without onnx}
+mv onnx third_party
+%endif
+
 %if %{with test}
 mv googletest third_party
 %endif
@@ -447,7 +474,6 @@ sed -i -e 's@cmake_minimum_required(VERSION 3.4)@cmake_minimum_required(VERSION 
 %if %{without opentelemtry}
 sed -i -e 's@cmake_minimum_required(VERSION 3.1)@cmake_minimum_required(VERSION 3.5)@' third_party/opentelemetry-cpp/CMakeLists.txt
 %endif
-
 
 %if %{with rocm}
 # hipify
@@ -534,7 +560,9 @@ export USE_PYTORCH_QNNPACK=OFF
 export USE_ROCM=OFF
 export USE_SYSTEM_SLEEF=ON
 export USE_SYSTEM_EIGEN_INSTALL=ON
+%if %{with onnx}
 export USE_SYSTEM_ONNX=ON
+%endif
 export USE_SYSTEM_PYBIND11=OFF
 export USE_SYSTEM_LIBS=OFF
 export USE_SYSTEM_NCCL=OFF
@@ -575,7 +603,6 @@ export BUILD_TEST=ON
 #
 # See BZ 2244862
 
-
 %if %{with rocm}
 
 export USE_ROCM=ON
@@ -590,13 +617,14 @@ export DEVICE_LIB_PATH=${RESOURCE_DIR}/amdgcn/bitcode
 export HIP_CLANG_PATH=%{rocmllvm_bindir}
 export PYTORCH_ROCM_ARCH=%{rocm_gpu_list_default}
 
-%pyproject_wheel
-
-%else
-
-%pyproject_wheel
-
 %endif
+
+%if 0%{?fedora}
+%pyproject_wheel
+%else
+%py3_build
+%endif
+
 
 %install
 
@@ -611,16 +639,15 @@ export DEVICE_LIB_PATH=${RESOURCE_DIR}/amdgcn/bitcode
 # pytorch uses clang, not hipcc
 export HIP_CLANG_PATH=%{rocmllvm_bindir}
 export PYTORCH_ROCM_ARCH=%{rocm_gpu_list_default}
-%pyproject_install
-%pyproject_save_files '*torch*'
-
-%else
-
-%pyproject_install
-%pyproject_save_files '*torch*'
 
 %endif
 
+%if 0%{?fedora}
+%pyproject_install
+%pyproject_save_files '*torch*'
+%else
+%py3_install
+%endif
 
 
 %check

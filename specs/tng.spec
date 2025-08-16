@@ -13,7 +13,7 @@ beginning of the file.
 
 Name:          tng
 Version:       1.8.2
-Release:       20%{?dist}
+Release:       21%{?dist}
 Summary:       Trajectory Next Generation binary format manipulation library
 
 # Automatically converted from old format: BSD and zlib - review is highly recommended.
@@ -54,8 +54,7 @@ BuildArch:     noarch
 This package contains the documentation.
 
 %prep
-%setup -q
-%patch -P0 -p1 -b .gf12
+%autosetup -p1
 
 %build
 %{cmake3} \
@@ -104,6 +103,9 @@ popd
 %{_docdir}/%{name}
 
 %changelog
+* Thu Aug 14 2025 Cristian Le <git@lecris.dev> - 1.8.2-21
+- Apply the patch from previous change
+
 * Tue Aug 12 2025 Christoph Junghans <junghans@votca.org> - 1.8.2-20
 - add cmake-4 support
 - Fixes: rhbz#2381610

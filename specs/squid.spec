@@ -2,8 +2,8 @@
 %define version_underscore %(echo %{version} | tr '.' '_')
 
 Name:     squid
-Version:  6.14
-Release:  2%{?dist}
+Version:  7.1
+Release:  1%{?dist}
 Summary:  The Squid proxy caching server
 Epoch:    7
 # See CREDITS for breakdown of non GPLv2+ code
@@ -26,12 +26,7 @@ Source98: perl-requires-squid.sh
 # Upstream patches
 
 # Backported patches
-# Upstream PR: https://github.com/squid-cache/squid/pull/1442
-Patch101: squid-6.1-crash-half-closed.patch
-# Upstream PR: https://github.com/squid-cache/squid/pull/1914
-Patch102: squid-6.11-ignore-wsp-after-chunk-size.patch
-# Upstream commit: https://github.com/squid-cache/squid/commit/022dbabd89249f839d1861aa87c1ab9e1a008a47
-Patch103: squid-6.13-cache-peer-connect-errors.patch
+# Patch101: squid-7.1-.....patch
 
 # Local patches
 # Applying upstream patches first makes it less likely that local patches
@@ -119,8 +114,8 @@ sed -i 's|@SYSCONFDIR@/squid.conf.documented|%{_pkgdocdir}/squid.conf.documented
    --enable-eui \
    --enable-follow-x-forwarded-for \
    --enable-auth \
-   --enable-auth-basic="DB,fake,getpwnam,LDAP,NCSA,PAM,POP3,RADIUS,SASL,SMB,SMB_LM" \
-   --enable-auth-ntlm="SMB_LM,fake" \
+   --enable-auth-basic="DB,fake,getpwnam,LDAP,NCSA,PAM,POP3,RADIUS,SASL,SMB" \
+   --enable-auth-ntlm="fake" \
    --enable-auth-digest="file,LDAP" \
    --enable-auth-negotiate="kerberos" \
    --enable-external-acl-helpers="LDAP_group,time_quota,session,unix_group,wbinfo_group,kerberos_ldap_group" \
@@ -156,9 +151,9 @@ sed -i 's|@SYSCONFDIR@/squid.conf.documented|%{_pkgdocdir}/squid.conf.documented
    --enable-translation
 
 # workaround to build squid v5
-mkdir -p src/icmp/tests
-mkdir -p tools/squidclient/tests
-mkdir -p tools/tests
+#mkdir -p src/icmp/tests
+#mkdir -p tools/squidclient/tests
+#mkdir -p tools/tests
 
 %make_build
 
@@ -229,7 +224,6 @@ install -p -D -m 0644 %{SOURCE9} %{buildroot}%{_sysusersdir}/squid.conf
 
 %config(noreplace) %attr(644,root,root) %{_sysconfdir}/httpd/conf.d/squid.conf
 %config(noreplace) %attr(640,root,squid) %{_sysconfdir}/squid/squid.conf
-%config(noreplace) %attr(644,root,squid) %{_sysconfdir}/squid/cachemgr.conf
 %config(noreplace) %{_sysconfdir}/squid/mime.conf
 %config(noreplace) %{_sysconfdir}/squid/errorpage.css
 %config(noreplace) %{_sysconfdir}/sysconfig/squid
@@ -237,7 +231,6 @@ install -p -D -m 0644 %{SOURCE9} %{buildroot}%{_sysusersdir}/squid.conf
 %config %{_sysconfdir}/squid/squid.conf.default
 %config %{_sysconfdir}/squid/mime.conf.default
 %config %{_sysconfdir}/squid/errorpage.css.default
-%config %{_sysconfdir}/squid/cachemgr.conf.default
 %config(noreplace) %{_sysconfdir}/pam.d/squid
 %config(noreplace) %{_sysconfdir}/logrotate.d/squid
 
@@ -246,10 +239,7 @@ install -p -D -m 0644 %{SOURCE9} %{buildroot}%{_sysusersdir}/squid.conf
 %{_prefix}/lib/NetworkManager
 %{_datadir}/squid/icons
 %{_sbindir}/squid
-%{_bindir}/squidclient
-%{_bindir}/purge
 %{_mandir}/man8/*
-%{_mandir}/man1/*
 %{_libdir}/squid/*
 %{_datadir}/snmp/mibs/SQUID-MIB.txt
 %{_sysusersdir}/squid.conf
@@ -316,6 +306,13 @@ fi
 
 
 %changelog
+* Thu Aug 14 2025 Luboš Uhliarik <luhliari@redhat.com> - 7:7.1-1
+- new version 7.1
+- removed squidclient
+- removed purge
+- removed cachemgr.cgi
+- removed basic_smb_lm_auth and ntlm_smb_lm_auth helpers
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7:6.14-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

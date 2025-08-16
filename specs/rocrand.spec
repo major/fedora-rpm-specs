@@ -83,7 +83,7 @@
 
 Name:           %{rocrand_name}
 Version:        %{rocm_version}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        ROCm random number generator
 
 Url:            https://github.com/ROCm/rocRAND
@@ -158,12 +158,11 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %prep
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
 
-# On Tumbleweed Q2,2025
-# /usr/include/gtest/internal/gtest-port.h:279:2: error: C++ versions less than C++14 are not supported.
-#   279 | #error C++ versions less than C++14 are not supported.
-# https://github.com/ROCm/rocRAND/issues/639
-# Convert the c++11's to c++14
-sed -i -e 's@set(CMAKE_CXX_STANDARD 11)@set(CMAKE_CXX_STANDARD 14)@' {,test/{cpp_wrapper,package}/}CMakeLists.txt
+# On Tumbleweed Q3,2025
+# https://github.com/ROCm/rocm-libraries/issues/83
+# /usr/include/gtest/internal/gtest-port.h:273:2: error: C++ versions less than C++17 are not supported.
+# Convert the c++11's to c++17
+sed -i -e 's@set(CMAKE_CXX_STANDARD 11)@set(CMAKE_CXX_STANDARD 17)@' {,test/{cpp_wrapper,package}/}CMakeLists.txt
 
 %build
 
@@ -211,6 +210,9 @@ export LD_LIBRARY_PATH=$PWD/build/library:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Thu Aug 14 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-6
+- Build -test on TW
+
 * Tue Jul 29 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-5
 - Remove -mtls-dialog cflag
 

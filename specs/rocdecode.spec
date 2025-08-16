@@ -16,7 +16,7 @@
 
 # Requires actual HW, so disabled by default.
 # Tests also have issues and possibly requires ffmpeg from rpmfusion to work 
-%bcond_with test
+%bcond_with check
 
 # Compression type and level for source/binary package payloads.
 #  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
@@ -38,7 +38,7 @@
 
 Name:           %{rocdecode_name}
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        High-performance video decode SDK for AMD GPUs
 
 Url:            https://github.com/ROCm/rocDecode
@@ -57,7 +57,7 @@ BuildRequires:  rocm-hip-devel
 BuildRequires:  rocm-runtime-devel
 BuildRequires:  rocm-rpm-macros
 
-%if %{with test}
+%if %{with check}
 BuildRequires:  ffmpeg-free
 BuildRequires:  libavcodec-free-devel
 BuildRequires:  libavformat-free-devel
@@ -139,7 +139,7 @@ if [ -f %{buildroot}%{_prefix}/share/doc/packages/%{name}-asan/LICENSE ]; then
     rm %{buildroot}%{_prefix}/share/doc/packages/%{name}-asan/LICENSE
 fi
 
-%if %{with test}
+%if %{with check}
 %check
 %ctest
 %endif
@@ -155,6 +155,9 @@ fi
 %exclude %{_datadir}/rocdecode/samples
 
 %changelog
+* Thu Aug 14 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-5
+- change --with test to --with check
+
 * Tue Jul 29 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-4
 - Remove -mtls-dialect cflag
 

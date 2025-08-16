@@ -1,11 +1,11 @@
 %global rh_backgrounds_version 15
 %global waves_version 0.1.2
-%global fedora_release_name f42
+%global fedora_release_name f43
 %global gnome_default default
 %global picture_ext jxl
 
 Name:           desktop-backgrounds
-Version:        42.0.0
+Version:        43.0.0
 Release:        %autorelease
 Summary:        Desktop backgrounds
 

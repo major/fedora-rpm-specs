@@ -108,6 +108,17 @@ Summary: The Linux kernel
 %global signkernel 0
 %endif
 
+# RHEL/CentOS specific .SBAT entries
+%if 0%{?centos}
+%global sbat_suffix centos
+%else
+%if 0%{?fedora}
+%global sbat_suffix fedora
+%else
+%global sbat_suffix rhel
+%endif
+%endif
+
 # Sign modules on all arches
 %global signmodules 1
 
@@ -165,13 +176,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.17.0
 %define specversion 6.17.0
 %define patchversion 6.17
-%define pkgrelease 0.rc1.250813g8742b2d8935f.19
+%define pkgrelease 0.rc1.250814g0cc53520e68b.20
 %define kversion 6
-%define tarfile_release 6.17-rc1-16-g8742b2d8935f
+%define tarfile_release 6.17-rc1-38-g0cc53520e68b
 # This is needed to do merge window version magic
 %define patchlevel 17
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc1.250813g8742b2d8935f.19%{?buildid}%{?dist}
+%define specrelease 0.rc1.250814g0cc53520e68b.20%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.17.0
 
@@ -776,7 +787,6 @@ BuildRequires: sparse
 BuildRequires: zlib-devel binutils-devel newt-devel perl(ExtUtils::Embed) bison flex xz-devel
 BuildRequires: audit-libs-devel python3-setuptools
 BuildRequires: java-devel
-BuildRequires: libbpf-devel >= 0.6.0-1
 BuildRequires: libbabeltrace-devel
 BuildRequires: libtraceevent-devel
 %ifnarch s390x
@@ -1039,6 +1049,8 @@ Source76: partial-clang_lto-aarch64-snip.config
 Source77: partial-clang_lto-aarch64-debug-snip.config
 Source80: generate_all_configs.sh
 Source81: process_configs.sh
+
+Source85: kernel.sbat.template
 
 Source86: dracut-virt.conf
 
@@ -2029,6 +2041,9 @@ rm -f localversion-next localversion-rt
 	Documentation \
 	scripts/clang-tools 2> /dev/null
 
+# SBAT data
+sed -e s,@KVER,%{KVERREL}, -e s,@SBAT_SUFFIX,%{sbat_suffix}, %{SOURCE85} > kernel.sbat
+
 # only deal with configs if we are going to build for the arch
 %ifnarch %nobuildarches
 
@@ -2779,20 +2794,8 @@ BuildKernel() {
 %if %{with_efiuki}
         %{log_msg "Setup the EFI UKI kernel"}
 
-        # RHEL/CentOS specific .SBAT entries
-%if 0%{?centos}
-        SBATsuffix="centos"
-%else
-%if 0%{?fedora}
-        SBATsuffix="fedora"
-%else
-        SBATsuffix="rhel"
-%endif
-%endif
         SBAT=$(cat <<- EOF
-	linux,1,Red Hat,linux,$KernelVer,mailto:secalert@redhat.com
-	linux.$SBATsuffix,1,Red Hat,linux,$KernelVer,mailto:secalert@redhat.com
-	kernel-uki-virt.$SBATsuffix,1,Red Hat,kernel-uki-virt,$KernelVer,mailto:secalert@redhat.com
+	kernel-uki-virt.%{sbat_suffix},1,Red Hat,kernel-uki-virt,$KernelVer,mailto:secalert@redhat.com
 	EOF
 	)
 
@@ -2814,9 +2817,7 @@ BuildKernel() {
            --kmoddir "$RPM_BUILD_ROOT/lib/modules/$KernelVer/" \
            --logfile=$(mktemp) \
            --uefi \
-%if 0%{?rhel} && !0%{?eln}
            --sbat "$SBAT" \
-%endif
            --kernel-image $(realpath $KernelImage) \
            --kernel-cmdline 'console=tty0 console=ttyS0' \
 	   $KernelUnifiedImage
@@ -4381,11 +4382,16 @@ fi\
 #
 #
 %changelog
-* Wed Aug 13 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc1.8742b2d8935f.19]
+* Thu Aug 14 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc1.0cc53520e68b.20]
 - arm64: dts: qcom: x1e80100-lenovo-yoga-slim7x: add Bluetooth support (Jens Glathe)
-- Turn off libbpf dynamic for perf (Justin M. Forbes)
 - ALSA HDA driver configuration split for 6.17 upstream (Jaroslav Kysela)
 - redhat/configs: clang_lto: disable CONFIG_FORTIFY_KUNIT_TEST (Scott Weaver)
+
+* Thu Aug 14 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc1.0cc53520e68b.19]
+- Turn off LIBBPF_DYNAMIC for perf builds (Justin M. Forbes)
+- redhat: Add SBAT information to Linux kernel (Vitaly Kuznetsov)
+- redhat: Add SBAT to the UKI unconditionally (Vitaly Kuznetsov)
+- Linux v6.17.0-0.rc1.0cc53520e68b
 
 * Wed Aug 13 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc1.8742b2d8935f.18]
 - Enable PHY drivers required for automotive board (Radu Rendec)

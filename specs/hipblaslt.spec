@@ -71,7 +71,7 @@
 
 Name:           %{hipblaslt_name}
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm general matrix operations beyond BLAS
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT
@@ -101,7 +101,6 @@ BuildRequires:  rocm-llvm-devel
 BuildRequires:  rocm-runtime-devel
 BuildRequires:  rocm-rpm-macros
 BuildRequires:  rocm-smi-devel
-BuildRequires:  roctracer-devel
 BuildRequires:  zlib-devel
 
 # For tensilelite
@@ -129,11 +128,26 @@ BuildRequires:  msgpack-devel
 %endif
 
 %if %{with test}
-BuildRequires:  blas-static
+BuildRequires:  rocm-omp-devel
+%if 0%{?suse_version}
+BuildRequires:  gcc-fortran
+BuildRequires:  gmock
+BuildRequires:  gtest
+BuildRequires:  openblas-devel
+%global blaslib openblas
+%else
 BuildRequires:  gcc-gfortran
-BuildRequires:  gtest-devel
 BuildRequires:  gmock-devel
+BuildRequires:  gtest-devel
+%if 0%{?rhel}
+BuildRequires:  flexiblas-devel
+%global blaslib flexiblas
+%else
+BuildRequires:  blas-static
 BuildRequires:  lapack-static
+%global blaslib cblas
+%endif
+%endif
 %endif
 
 %if %{with ninja}
@@ -251,6 +265,13 @@ if [ "$GPUS" -lt "$HIP_JOBS" ]; then
 fi
 sed -i -e "s@--offload-arch@-parallel-jobs=${HIP_JOBS} --offload-arch@" library/src/amd_detail/rocblaslt/src/kernels/compile_code_object.sh
 
+# change looking for cblas to blaslib
+sed -i -e 's@find_package( cblas REQUIRED CONFIG )@#find_package( cblas REQUIRED CONFIG )@' clients/CMakeLists.txt
+sed -i -e 's@set( BLAS_LIBRARY "blas" )@set( BLAS_LIBRARY "%blaslib" )@' clients/CMakeLists.txt
+%if ! 0%{?fedora}
+sed -i -e 's@lapack cblas@%blaslib@' clients/gtest/CMakeLists.txt
+%endif
+
 %build
 
 # Do a manual install instead of cmake's virtualenv
@@ -283,6 +304,8 @@ export Tensile_DIR=${TL}%{python3_sitelib}/Tensile
 # Use ld.lld to work around a problem with ld
 %cmake %{cmake_generator} \
        -DAMDGPU_TARGETS=%{amdgpu_targets} \
+       -DBLAS_INCLUDE_DIR=%{_includedir}/%{blaslib} \
+       -DBLAS_LIBRARY=%{blaslib} \
        -DBUILD_CLIENTS_TESTS=%{build_test} \
        -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
        -DBUILD_VERBOSE=ON \
@@ -293,6 +316,7 @@ export Tensile_DIR=${TL}%{python3_sitelib}/Tensile
        -DCMAKE_CXX_FLAGS="-fuse-ld=%{rocmllvm_bindir}/ld.lld" \
        -DCMAKE_VERBOSE_MAKEFILE=ON \
        -DHIP_PLATFORM=amd \
+       -DHIPBLASLT_ENABLE_MARKER=OFF \
        -DROCM_SYMLINK_LIBS=OFF \
        -DBUILD_WITH_TENSILE=ON \
        -DTensile_COMPILER=%{rocmllvm_bindir}/clang++ \
@@ -336,6 +360,10 @@ fi
 %endif
 
 %changelog
+* Wed Aug 13 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.3-2
+- Remove roctracer
+- Build on EPEL
+
 * Thu Aug 7 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.3-1
 - Update to 6.4.3
 - Add gfx1103,gfx1150,gfx1151 targets

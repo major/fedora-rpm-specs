@@ -1,5 +1,5 @@
 Name:           python-Rtree
-Version:        1.4.0
+Version:        1.4.1
 Release:        %autorelease
 Summary:        R-Tree spatial index for Python GIS
 

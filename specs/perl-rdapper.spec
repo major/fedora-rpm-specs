@@ -1,5 +1,5 @@
 Name:           perl-rdapper
-Version:        1.17
+Version:        1.18
 Release:        1%{?dist}
 Summary:        Simple console-based RDAP client
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -8,9 +8,6 @@ URL:            https://metacpan.org/dist/App-rdapper
 # from <https://github.com/jodrell/rdapper> that was announced by the author
 # at <https://www.ietf.org/mail-archive/web/weirds/current/msg01981.html>.
 Source0:        https://cpan.metacpan.org/authors/id/G/GB/GBROWN/App-rdapper-%{version}.tar.gz
-# Fix displaying object names, in upstream after 1.17,
-# <https://github.com/gbxyz/rdapper/issues/17>
-Patch0:         App-rdapper-1.17-don-t-assume-name-returns-an-object-closes-17.patch
 BuildArch:      noarch
 BuildRequires:  bash
 BuildRequires:  coreutils
@@ -102,20 +99,27 @@ unset RDAPPER_LOCALE_DIR
 export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
+%define l10n_dir() %lang(%1) %{perl_vendorlib}/auto/share/module/App-rdapper/%1
+
 %files
 %doc Changes README.md
 %{_bindir}/rdapper
 %dir %{perl_vendorlib}/App
 %{perl_vendorlib}/App/rdapper{,.pm}
 %dir %{perl_vendorlib}/auto/share/module/App-rdapper
-%lang(en) %{perl_vendorlib}/auto/share/module/App-rdapper/en
-%lang(fr) %{perl_vendorlib}/auto/share/module/App-rdapper/fr
+%{l10n_dir de}
+%{l10n_dir en}
+%{l10n_dir fr}
+%{l10n_dir pt}
 %{_mandir}/man3/App::rdapper{::,.}*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Aug 14 2025 Petr Pisar <ppisar@redhat.com> - 1.18-1
+- 1.18 bump
+
 * Tue Jul 29 2025 Petr Pisar <ppisar@redhat.com> - 1.17-1
 - 1.17 bump
 

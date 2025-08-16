@@ -6,13 +6,30 @@
 %bcond nibabel 1
 
 Name:           python-indexed_gzip
-Version:        1.9.5
+Version:        1.10.1
 Release:        %autorelease
 Summary:        Fast random access of gzip files in Python
 
 License:        Zlib
 URL:            https://github.com/pauldmccarthy/indexed_gzip
 Source:         %{pypi_source indexed_gzip}
+
+BuildSystem:    pyproject
+BuildOption(install):   -l indexed_gzip
+
+BuildRequires:  gcc
+BuildRequires:  zlib-devel
+
+%if %{with tests}
+# tests_require in setup.py:
+BuildRequires:  %{py3_dist pytest}
+BuildRequires:  %{py3_dist numpy}
+%if %{with nibabel}
+BuildRequires:  %{py3_dist nibabel}
+%endif
+# added downstream to run tests in parallel:
+BuildRequires:  %{py3_dist pytest-xdist}
+%endif
 
 %global desc %{expand:
 The indexed_gzip project is a Python extension which aims to provide a drop-in
@@ -37,23 +54,9 @@ decompress (on average) 512KB of data to read from any location in the file.}
 
 %description %{desc}
 
+
 %package -n python3-indexed-gzip
 Summary:        %{summary}
-BuildRequires:  python3-devel
-
-BuildRequires:  gcc
-BuildRequires:  zlib-devel
-
-%if %{with tests}
-# tests_require in setup.py:
-BuildRequires:  %{py3_dist pytest}
-BuildRequires:  %{py3_dist numpy}
-%if %{with nibabel}
-BuildRequires:  %{py3_dist nibabel}
-%endif
-# added downstream to run tests in parallel:
-BuildRequires:  %{py3_dist pytest-xdist}
-%endif
 
 # The binary subpackage was renamed to match the project canonical name
 # (https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_canonical_project_name).
@@ -64,11 +67,8 @@ Obsoletes:      python3-indexed_gzip < 1.7.0-4
 
 %description -n python3-indexed-gzip %{desc}
 
-%generate_buildrequires
-%pyproject_buildrequires
 
-%prep
-%autosetup -n indexed_gzip-%{version} -p1
+%prep -a
 # Remove shebangs from non-script sources
 find indexed_gzip -type f -name '*.py' \
     -exec gawk '/^#!/ { print FILENAME }; { nextfile }' '{}' '+' |
@@ -77,20 +77,16 @@ find indexed_gzip -type f -name '*.py' \
 # be regenerated. Retain “hand-written” C sources.
 find indexed_gzip -type f -name '*.pyx' | sed -r 's/\.pyx$/.c/' | xargs -r rm -vf
 
-%build
-%pyproject_wheel
 
-%install
-%pyproject_install
-%pyproject_save_files -l indexed_gzip
-
-%check
+%check -a
 %if %{with tests}
 %pytest %{buildroot}%{python3_sitearch}/indexed_gzip -n auto -k "${k-}"
 %endif
 
+
 %files -n python3-indexed-gzip -f %{pyproject_files}
 %doc README.md
+
 
 %changelog
 %autochangelog

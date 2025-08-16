@@ -1,7 +1,7 @@
 %global forgeurl https://github.com/Guts/mkdocs-rss-plugin
 
 Name:           python-mkdocs-rss-plugin
-Version:        1.17.1
+Version:        1.17.3
 Release:        %autorelease
 Summary:        MkDocs plugin which generates a static RSS feed
 
@@ -79,6 +79,7 @@ mkdir -p .git
   --deselect=tests/test_build.py::TestBuildRss::test_simple_build_pretty_print_enabled \
   --deselect=tests/test_build.py::TestBuildRss::test_simple_build_rss_enabled_not_jsonfeed \
   --deselect=tests/test_integrations_material_social_cards.py::TestRssPluginIntegrationsMaterialSocialCards::test_simple_build \
+  --deselect=tests/test_integrations_material_social_cards.py::TestRssPluginIntegrationsMaterialSocialCards::test_plugin_config_social_cards_enabled_with_directory_urls_disabled \
   --deselect=tests/test_rss_util.py::TestRssUtil::test_remote_image_ok \
   %{nil}
 

@@ -438,6 +438,9 @@ Patch511: 0002-Fix-Missing-OPENSSL_NO_ENGINE-Guard.patch
 
 # upstream patches
 
+# https://github.com/chromium/chromium/commit/b0ff8c3b258a8816c05bdebf472dbba719d3c491
+Patch512: b0ff8c3b258a8816c05bdebf472dbba719d3c491.patch
+
 ## CEF: CEF-specific fix patches
 Patch900: cef-no-sysroot.patch
 Patch901: cef-no-libxml-visibility-patch.patch
@@ -744,7 +747,6 @@ BuildRequires: brotli-devel
 %endif
 
 BuildRequires: speech-dispatcher-devel
-BuildRequires: yasm
 BuildRequires: zlib-devel
 
 # remote desktop needs this
@@ -1071,6 +1073,7 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 %endif
 
 # Upstream patches
+%patch -P512 -p1 -b .b0ff8c3b258a8816c05bdebf472dbba719d3c491
 
 ## CEF: CEF-specific fix patches & other fixup
 %patch -P900 -p1 -b .cef-no-sysroot

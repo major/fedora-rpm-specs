@@ -2,8 +2,8 @@
 %{!?version_no_tilde: %define version_no_tilde %{shrink:%(echo '%{version}' | tr '~' '-')}}
 
 Name:           btrfs-progs
-Version:        6.15
-Release:        4%{?dist}
+Version:        6.16
+Release:        1%{?dist}
 Summary:        Userspace programs for btrfs
 
 License:        GPL-2.0-only
@@ -169,6 +169,10 @@ popd >/dev/null
 
 
 %changelog
+* Wed Aug 13 2025 Packit <hello@packit.dev> - 6.16-1
+- Update to version 6.16
+- Resolves: rhbz#2388440
+
 * Sun Aug 03 2025 Michel Lind <salimma@fedoraproject.org> - 6.15-4
 - Enable automatic build requirement generation
 

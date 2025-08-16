@@ -11,7 +11,7 @@
 %global __provides_exclude_from ^(%{_libdir}/papers/.*\\.so|%{_libdir}/nautilus/extensions-4/.*\\.so)$
 
 Name:           papers
-Version:        49~alpha
+Version:        49~beta
 Release:        %autorelease
 Summary:        View multipage documents
 
@@ -200,12 +200,10 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 %{_libdir}/libppsdocument-4.0.so.6{,.*}
 %{_libdir}/libppsview-4.0.so.5{,.*}
 %{_libdir}/papers/
-%{_metainfodir}/papers-comicsdocument.metainfo.xml
-%if %{with djvu}
-%{_metainfodir}/papers-djvudocument.metainfo.xml
-%endif
-%{_metainfodir}/papers-pdfdocument.metainfo.xml
-%{_metainfodir}/papers-tiffdocument.metainfo.xml
+%{_metainfodir}/org.gnome.Papers.ComicsDocument.metainfo.xml
+%{_metainfodir}/org.gnome.Papers.DjvuDocument.metainfo.xml
+%{_metainfodir}/org.gnome.Papers.PdfDocument.metainfo.xml
+%{_metainfodir}/org.gnome.Papers.TiffDocument.metainfo.xml
 
 %files devel
 %{_includedir}/papers/

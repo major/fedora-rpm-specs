@@ -1,6 +1,6 @@
 Name:           gqrx
 Version:        2.17.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Software defined radio receiver powered by GNU Radio and Qt
 
 # Automatically converted from old format: GPLv3+ and GPLv2+ and BSD - review is highly recommended.
@@ -37,8 +37,6 @@ BuildRequires:  fftw-devel
 BuildRequires:  libunwind-devel
 BuildRequires:  jack-audio-connection-kit-devel
 BuildRequires:  portaudio-devel
-# https://github.com/gqrx-sdr/gqrx/pull/1413
-Patch:         gqrx-2.17.6-cmake-4.patch
 
 %description
 Gqrx is a software defined radio receiver powered by the GNU Radio SDR
@@ -83,6 +81,10 @@ appstream-util validate-relax --nonet \
 %doc COPYING README.md
 
 %changelog
+* Thu Aug 14 2025 Jaroslav Škarvada  <jskarvad@redhat.com> - 2.17.7-3
+- Fixed FTBFS
+  Resolves: rhbz#2385036
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.17.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

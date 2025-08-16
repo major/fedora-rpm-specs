@@ -5,7 +5,7 @@
 %global crate derive-where
 
 Name:           rust-derive-where
-Version:        1.5.0
+Version:        1.6.0
 Release:        %autorelease
 Summary:        Deriving with custom trait bounds
 

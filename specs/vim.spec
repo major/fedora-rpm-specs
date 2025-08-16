@@ -51,7 +51,7 @@
 
 
 Summary: The VIM editor
-URL:     http://www.vim.org/
+URL:     https://www.vim.org/
 Name: vim
 Version: %{baseversion}.%{patchlevel}
 Release: 1%{?dist}

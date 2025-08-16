@@ -6,8 +6,8 @@
 %global goipath         github.com/osbuild/weldr-client/v2
 
 Name:      weldr-client
-Version:   35.14
-Release:   4%{?dist}
+Version:   36.0
+Release:   1%{?dist}
 # Upstream license specification: Apache-2.0
 License:   Apache-2.0
 Summary:   Command line utility to control osbuild-composer
@@ -19,8 +19,6 @@ Source0:   https://github.com/osbuild/weldr-client/releases/download/v%{version}
 Source1:   https://github.com/osbuild/weldr-client/releases/download/v%{version}/%{name}-%{version}.tar.gz.asc
 Source2:   https://keys.openpgp.org/vks/v1/by-fingerprint/117E8C168EFE3A7F#/gpg-117E8C168EFE3A7F.key
 %endif
-
-Patch0001: 0001-Fix-non-constant-log-strings.patch
 
 Obsoletes: composer-cli < 35.0
 Provides: composer-cli = %{version}-%{release}
@@ -40,6 +38,7 @@ BuildRequires: git-core
 BuildRequires: make
 BuildRequires: gnupg2
 
+Patch0001: 0001-tests-Skip-checking-arch-when-testing-sent-body.patch
 
 %description
 Command line utility to control osbuild-composer
@@ -133,29 +132,87 @@ composer-cli package.
 
 
 %changelog
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 35.14-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Mon Jan 27 2025 Brian C. Lane <bcl@redhat.com> - 35.14-3
-- Fix non-constant log strings
-  Resolves: rhbz#2341535
-
-* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 35.14-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Tue Nov 12 2024 Brian C. Lane <bcl@redhat.com> - 35.14-1
-- New release: 35.14 (bcl)
-- tests: Remove openstack (bcl)
-- readme: project links (lukas)
-- Makefile: implement "fully source containers" HMS-3883 (florian.schueller)
-- README: fix anchor typo (florian.schueller)
-- README: fix compatibility with docusaurus (florian.schueller)
-- go.mod: Use go 1.21 (bcl)
-- workflows: Use go 1.21.x for govuln tests (bcl)
-- build(deps): bump github.com/spf13/cobra from 1.8.0 to 1.8.1 (49699333+dependabot[bot])
-- build(deps): bump github.com/BurntSushi/toml from 1.3.2 to 1.4.0 (49699333+dependabot[bot])
-- Makefile: dnf5 builddep accepts .spec files without --spec (bcl)
-- Containerfile: Install dnf5-plugins for builddep support (bcl)
-- bash: Add status show to bash completion (bcl)
-- go.mod: Use go 1.20 (bcl)
-- bash: Add wait command to bash completion (bcl)
+* Thu Aug 14 2025 Brian C. Lane <bcl@redhat.com> - 36.0-1
+- tests: Skip checking arch when testing sent body
+- New release: 36.0 (bcl)
+- golangci: Disable linting for a few things (bcl)
+- test: Remove unneeded fmt.Sprintf (bcl)
+- lint: Clean up lint errcheck errors (bcl)
+- workflows: Update to golangci-lint 2.3.0 (bcl)
+- workflows: Update to use go 1.23 and drop 1.21 and 1.22 (bcl)
+- GHA: enable the stale action to delete its saved state (thozza)
+- composer-cli: Add cloudapi support to delete command (bcl)
+- cloud: Add DeleteCompose function and tests (bcl)
+- cloud: Add DeleteRaw function and tests (bcl)
+- tests: Fix TestComposeInfoCloud (bcl)
+- cloud: Handle unexpected status codes (bcl)
+- composer-cli: Add cloudapi support to compose image command (bcl)
+- cloud: Add ComposeImagePath function (bcl)
+- cloud: Add GetFilePath function to download an image file (bcl)
+- common: Move part of GetFilePath into common.SaveResponseBodyToFile (bcl)
+- composer-cli: Add size to the compose status cloud command (bcl)
+- composer-cli: Add support for more cloudapi detail to compose list (bcl)
+- composer-cli: Add cloudapi support to the compose info command (bcl)
+- apischema: Add UploadTypes function to ComposeMetadataV1 (bcl)
+- cloud: Add GetComposeMetadata function (bcl)
+- common: Move blueprint struct to common (bcl)
+- cloud: Move status mapping into a function (bcl)
+- apischema: Move ComposeResponseV1 to apischema (bcl)
+- apischema: Move Status to apischema (bcl)
+- apischema: Move PackageDetails to apischema (bcl)
+- apischema: Move ComposeInfo to apischema (bcl)
+- apischema: Add a common location to define cloudapi structs (bcl)
+- build(deps): bump github.com/BurntSushi/toml from 1.4.0 to 1.5.0 (49699333+dependabot[bot])
+- compose: Add listing cloud composes to the status command (bcl)
+- compose: Add listing cloud composes to the list command (bcl)
+- cloud: Add test for ListComposes (bcl)
+- cloud: Implement ListComposes to return cloudapi compose info (bcl)
+- projects: Add cloudapi support to depsolve command (bcl)
+- blueprints: Add cloudapi support for depsolving local blueprint files (bcl)
+- cloud: Add DepsolveBlueprint function (bcl)
+- depsolve: Move parsing of weldr response into apischema (bcl)
+- depsolve: Use common.PackageNEVRA (bcl)
+- README.md: align with image-builder-cli (florian.schueller)
+- projects: Add cloudapi support to the list command (bcl)
+- projects: Add cloudapi support for project info command (bcl)
+- cloud: Add SearchPackages function (bcl)
+- composer-cli: Add a --weldr-only flag (bcl)
+- tests: OSTree does not support the qcow2 image type (bcl)
+- compose: Add cloudapi support to the compose types command (bcl)
+- cloud: Add ComposeTypes function to return image types (bcl)
+- common: Add SortedMapKeys helper (bcl)
+- distros: Add cloudapi support to the list command (bcl)
+- cloud: Add test for ListDistros (bcl)
+- cloud: Add ListDistros function to return distro names (bcl)
+- github/workflows/pr_best_practices: initial version (florian.schueller)
+- common: PackageNEVRA JSON epoch field can be string or int (bcl)
+- common: Move PackageNEVRA to common (bcl)
+- common: Move GetHostDistroName to common (bcl)
+- common: Refactor GetContentFilename (bcl)
+- common: Refactor cloud common to use internal common functions (bcl)
+- common: Create a common package to share functions (bcl)
+- weldr: Function to check APIResponse for an error ID (bcl)
+- build(deps): bump github.com/spf13/cobra from 1.8.1 to 1.9.1 (49699333+dependabot[bot])
+- cloud: Make the test bool private (bcl)
+- compose: Return an error when opening a file (bcl)
+- cloud: Add tests for ComposeWait function (bcl)
+- compose: Add cloud API --wait to start command (bcl)
+- compose: Add support for cloud API UUIDs to compose wait (bcl)
+- cloud: Add ComposeWait function (bcl)
+- cloud: Add test for ComposeInfo (bcl)
+- cloud: Add ComposeInfo function (bcl)
+- compose: Remove redundant 'Error' from error strings in start (bcl)
+- compose: Add upload handling for cloud (bcl)
+- cloud: Add support for passing upload options (bcl)
+- compose: Add ability to use a local blueprint to start a compose (bcl)
+- cloud: Add StartCompose function (bcl)
+- cloud: Add ServerStatus function (bcl)
+- status: Add cloudapi status to show command (bcl)
+- Makefile: Pass VERSION into build container (bcl)
+- cmd: Add cloudapi client (bcl)
+- cloud: Add basic Client functions for cloud api (bcl)
+- go.mod: Upgrade modules to current versions (bcl)
+- go.mod: Bump go version to 1.22.6 (bcl)
+- tools: Use go toolbox in prepare-source.sh (bcl)
+- Fix non-constant log strings (bcl)
+- Bump testify version to 1.10.0 (bcl)

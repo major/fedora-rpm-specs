@@ -5,7 +5,7 @@
 %global crate serde-untagged
 
 Name:           rust-serde-untagged
-Version:        0.1.7
+Version:        0.1.8
 Release:        %autorelease
 Summary:        Serde Visitor implementation for deserializing untagged enums
 

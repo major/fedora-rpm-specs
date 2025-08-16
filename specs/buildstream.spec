@@ -8,6 +8,7 @@ ExcludeArch:   %{ix86}
 Version:       2.5.0
 Release:       %autorelease
 Source0:       https://github.com/apache/buildstream/archive/%{version}/buildstream-%{version}.tar.gz
+Patch:         0001-requirements-requirements.in-Do-not-limit-protobuf-v.patch
 
 BuildRequires: gcc
 BuildRequires: python3-devel >= 3.9

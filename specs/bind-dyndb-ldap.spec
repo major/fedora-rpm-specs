@@ -19,7 +19,7 @@
 
 Name:           bind-dyndb-ldap
 Version:        11.11
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        LDAP back-end plug-in for BIND
 
 License:        GPL-2.0-or-later
@@ -125,6 +125,9 @@ sed -i.bak -e "$SEDSCRIPT" /etc/named.conf
 
 
 %changelog
+* Thu Aug 14 2025 Petr Menšík <pemensik@redhat.com> - 11.11-6
+- Rebuilt for to 9.18.38 (rhbz#2367771)
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 11.11-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

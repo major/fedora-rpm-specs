@@ -3,8 +3,8 @@
 %global _vpath_srcdir sdk/%{name}/projects/meson/
 
 Name:           angelscript
-Version:        2.35.1
-Release:        8%{?dist}
+Version:        2.38.0
+Release:        2%{?dist}
 Summary:        Flexible cross-platform scripting library
 
 License:        zlib
@@ -44,7 +44,7 @@ developing applications that use %{name}.
 
 %files
 %doc sdk/docs/articles/*.html
-%{_libdir}/lib%{name}.so.*
+%{_libdir}/lib%{name}.so.23800
 
 %files devel
 %doc sdk/docs/manual/*
@@ -52,6 +52,12 @@ developing applications that use %{name}.
 %{_includedir}/%{name}.h
 
 %changelog
+* Thu Aug 14 2025 Gwyn Ciesla <gwync@protonmail.com> - 2.38.0-2
+- specify solib
+
+* Thu Aug 14 2025 Gwyn Ciesla <gwync@protonmail.com> - 2.38.0-1
+- 2.38.0
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.35.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

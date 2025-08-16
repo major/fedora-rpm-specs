@@ -13,6 +13,7 @@ Source0:        https://github.com/Warzone2100/warzone2100/releases/download/%{v
 Source1:        https://github.com/Warzone2100/wz-sequences/releases/download/v3/high-quality-en-sequences.wz
 
 Patch0:         SQLiteCPP-gcc15.patch
+Patch1:         cmake4.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

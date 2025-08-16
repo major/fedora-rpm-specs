@@ -649,12 +649,16 @@ chrpath --delete %{buildroot}%{_bindir}/node
 # Rename the node binary
 mv %{buildroot}%{_bindir}/node %{buildroot}%{_bindir}/node-%{nodejs_pkg_major}
 
-# Adjust the npm binaries
-# 1. Replace all hasbangs with versioned ones
-grep --extended-regexp --files-with-matches --recursive \
-    '^#!/usr/bin/(env )?node($|[[:space:]])+' '%{buildroot}%{nodejs_private_sitelib}/npm/bin' \
-| xargs sed --in-place --regexp-extended \
-    's;^#!/usr/bin/(env )?node($|[[:space:]])+;#!/usr/bin/node-%{nodejs_pkg_major};'
+# Adjust npm binaries
+# 1. Replace all hashbangs with versioned ones
+readonly NPM_DIR="%{buildroot}%{nodejs_private_sitelib}/npm"
+readonly SHEBANG_ERE='^#!/usr/bin/(env\s+)?node\b'
+readonly SHEBANG_FIX='#!%{_bindir}/node-%{nodejs_pkg_major}'
+readonly -a npm_bin_dirs=("${NPM_DIR}/bin" "${NPM_DIR}/node_modules")
+
+find "${npm_bin_dirs[@]}" -type f \
+| xargs grep --extended-regexp --files-with-matches "${SHEBANG_ERE}" \
+| xargs sed --regexp-extended --in-place "s;${SHEBANG_ERE};${SHEBANG_FIX};"
 
 # 2. Replace original links with the adjusted ones
 for bin in npm npx; do
@@ -674,6 +678,13 @@ ln -srf %{buildroot}%{_bindir}/npm-%{nodejs_pkg_major} \
 ln -srf %{buildroot}%{_bindir}/npx-%{nodejs_pkg_major} \
         %{buildroot}%{_bindir}/npx
 %endif
+
+# Fix shell scripts that call 'node' as command
+readonly -a known_shell_scripts=(
+    "${NPM_DIR}/bin/node-gyp-bin/node-gyp"
+    "${NPM_DIR}/node_modules/@npmcli/run-script/lib/node-gyp-bin/node-gyp"
+)
+sed --regexp-extended --in-place 's;\bnode(\s);%{_bindir}/node-%{nodejs_pkg_major}\1;' "${known_shell_scripts[@]}"
 
 # Install library symlink
 ln -srf %{buildroot}%{_libdir}/libnode.so.%{nodejs_soversion} \
@@ -767,11 +778,6 @@ find %{buildroot}%{nodejs_private_sitelib}/npm \
 # The above command is a little overzealous. Add a few permissions back.
 chmod 0755 %{buildroot}%{nodejs_private_sitelib}/npm/node_modules/@npmcli/run-script/lib/node-gyp-bin/node-gyp
 chmod 0755 %{buildroot}%{nodejs_private_sitelib}/npm/node_modules/node-gyp/bin/node-gyp.js
-
-# Set the hashbang to use the matching Node.js interpreter
-sed --in-place --regexp-extended \
-    's;^#!/usr/bin/env node($|\ |\t)+;#!/usr/bin/node-%{nodejs_pkg_major};g' \
-    %{buildroot}%{nodejs_private_sitelib}/npm/node_modules/node-gyp/bin/node-gyp.js
 
 # Drop the NPM builtin configuration in place
 sed -e 's#@SYSCONFDIR@#%{_sysconfdir}#g' \

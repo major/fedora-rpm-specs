@@ -13,8 +13,11 @@ Source0:        %forgesource
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  help2man
-BuildRequires:  task
-Requires:       task
+
+# use the newest task release
+BuildRequires:  (task >= 3 or task2)
+# either of these will do, depends on the user
+Requires:       (task >= 3 or task2)
 
 %{?python_provide:%python_provide python3-vit}
 
@@ -50,7 +53,7 @@ find vit/ -type f -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' {} 
 %pyproject_save_files vit
 
 # Install bashcompletion
-install -m 0644 -p -D -t  $RPM_BUILD_ROOT/%{_datadir}/bash-completion/completions/vit/ scripts/bash/%{name}.bash_completion
+install -m 0644 -p -D -T scripts/bash/%{name}.bash_completion $RPM_BUILD_ROOT/%{bash_completions_dir}/vit
 
 # generate man pages
 for binary in "vit"
@@ -63,11 +66,29 @@ done
 %check
 LC_ALL=C PYTHONPATH=. %{__python3} -m unittest
 
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Directory_Replacement/
+%pretrans -p <lua>
+
+path = "%{bash_completions_dir}/vit"
+st = posix.stat(path)
+if st and st.type == "directory" then
+  status = os.rename(path, path .. ".rpmmoved")
+  if not status then
+    suffix = 0
+    while not status do
+      suffix = suffix + 1
+      status = os.rename(path .. ".rpmmoved", path .. ".rpmmoved." .. suffix)
+    end
+    os.rename(path, path .. ".rpmmoved")
+  end
+end
+
 %files -f %{pyproject_files}
 %doc README.md CUSTOMIZE.md COLOR.md DEVELOPMENT.md UPGRADE.md
 %{_bindir}/%{name}
-%{_datadir}/bash-completion/completions/%{name}
+%{bash_completions_dir}/%{name}
 %{_mandir}/man1/vit*
+%ghost %{bash_completions_dir}/%{name}.rpmmoved
 
 %changelog
 %autochangelog

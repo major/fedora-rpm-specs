@@ -1,6 +1,6 @@
 Name:		qmmp
-Version:	2.2.5
-Release:	3%{?dist}
+Version:	2.2.7
+Release:	1%{?dist}
 Summary:	Qt-based multimedia player
 
 License:	GPL-2.0-or-later AND CC-BY-SA-4.0
@@ -151,6 +151,10 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}-enqueue.desk
 %{_libdir}/libqmmp*.so
 
 %changelog
+* Thu Aug 14 2025 Karel Volný <kvolny@redhat.com> 2.2.7-1
+- new version 2.2.7 (rhbz#2367635)
+- see the upstream changelog at http://qmmp.ylsoftware.com/
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

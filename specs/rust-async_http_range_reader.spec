@@ -35,6 +35,8 @@ Source10:       https://github.com/prefix-dev/async_http_range_reader/raw/v%{ver
 # Manually created patch for downstream crate metadata changes
 # * Update rstest dev-dependency from 0.23 to 0.26:
 #   https://github.com/prefix-dev/async_http_range_reader/pull/24
+# * Update async_zip dev-dependency to 0.0.18:
+#   https://github.com/prefix-dev/async_http_range_reader/pull/26
 Patch:          async_http_range_reader-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

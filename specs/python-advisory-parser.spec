@@ -22,12 +22,7 @@ Summary:        %{summary}
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-beautifulsoup4
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-pytest
-BuildRequires:  python3-pip
-BuildRequires:  python3-wheel
-BuildRequires:  pyproject-rpm-macros
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
 This library allows you to parse data from security advisories of certain
@@ -37,7 +32,6 @@ others; for a full list, see the advisory_parser/flaw.py file.
 
 %prep
 %autosetup -n %{pypi_name}-%{version}
-rm -rf %{pypi_name}.egg-info
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -49,7 +43,7 @@ rm -rf %{pypi_name}.egg-info
 %pyproject_install
 
 %check
-PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version} -v tests
+%pytest -v tests
 
 %files -n python3-%{pypi_name}
 %license LICENSE COPYRIGHT
@@ -58,10 +52,10 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version} -v tests
 %{python3_sitelib}/advisory_parser-%{version}.dist-info
 
 %changelog
-* Tue Aug 13 2025 Sandipan Roy <sandipan@fedoraproject.org> - 1.12-2
-- Migrate to pyproject macros (replacing deprecated %py3_build/%py3_install)
+* Wed Aug 13 2025 Sandipan Roy <sandipan@fedoraproject.org> - 1.12-2
+- Migrate to pyproject macros (replacing deprecated %%py3_build/%%py3_install)
 
-* Tue Aug 13 2025 Sandipan Roy <sandipan@fedoraproject.org> - 1.12-1
+* Wed Aug 13 2025 Sandipan Roy <sandipan@fedoraproject.org> - 1.12-1
 - Update to version 1.12
 
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-18
