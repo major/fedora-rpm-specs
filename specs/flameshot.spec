@@ -43,6 +43,7 @@ BuildRequires: gcc-c++
 BuildRequires: libappstream-glib
 BuildRequires: ninja-build
 
+Requires: grim
 Requires: hicolor-icon-theme
 Requires: qt6-qtsvg%{?_isa}
 

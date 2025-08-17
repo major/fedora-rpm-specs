@@ -3,7 +3,7 @@
 
 Name:           %{pypi_name}
 Version:        6.0.2
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Command line tool to send GitHub pull-request
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -44,6 +44,9 @@ rm -rf %{pypi_name}.egg-info
 
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 6.0.2-15
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.2-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

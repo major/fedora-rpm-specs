@@ -32,7 +32,7 @@ bridge to ease the transition to the new protocol.}
 %global godocs          doc README.md ChangeLog
 
 Name:           %{goname}
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        The obfourscator, a pluggable transport for Tor
 
 # Automatically converted from old format: GPLv3 and BSD - review is highly recommended.
@@ -82,6 +82,9 @@ install -m 0644 -vp %{SOURCE1}          %{buildroot}%{_sysconfdir}/tor/
 %gopkgfiles
 
 %changelog
+* Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 0.0.14-10
+- Rebuild for golang-1.25.0
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.14-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

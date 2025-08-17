@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.2.0
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Python file reader for nessus files
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -46,6 +46,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/nessus_file_reader-%{version}-py*.egg-info/
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.2.0-21
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -146,6 +146,13 @@ Patch7:         0001-only-copy-rustlib-into-stage0-sysroot.patch
 # PR #143752, fixed upstream.
 Patch8:         0001-Don-t-always-panic-if-WASI_SDK_PATH-is-not-set-when-.patch
 
+# Support optimized-compiler-builtins via linking against compiler-rt builtins.
+Patch9:         0001-Allow-linking-a-prebuilt-optimized-compiler-rt-built.patch
+
+# Fix a compiler stack overflow on ppc64le with PGO
+# https://github.com/rust-lang/rust/pull/145410
+Patch10:        0001-rustc_expand-ensure-stack-in-InvocationCollector-vis.patch
+
 ### RHEL-specific patches below ###
 
 # Simple rpm macros for rust-toolset (as opposed to full rust-packaging)
@@ -698,6 +705,8 @@ rm -rf %{wasi_libc_dir}/dlmalloc/
 %endif
 %patch -P7 -p1
 %patch -P8 -p1
+%patch -P9 -p1
+%patch -P10 -p1
 
 %if %with disabled_libssh2
 %patch -P100 -p1
@@ -851,10 +860,18 @@ end}
 %endif
 %endif
 
-# Find the compiler-rt library for the Rust profiler_builtins crate.
+# Find the compiler-rt library for the Rust profiler_builtins and optimized-builtins crates.
 %define clang_lib %{expand:%%clang%{?llvm_compat_version}_resource_dir}/lib
 %define profiler %{clang_lib}/%{_arch}-redhat-linux-gnu/libclang_rt.profile.a
 test -r "%{profiler}"
+
+# llvm < 21 does not provide a builtins library for s390x.
+%ifnarch s390x
+%define optimized_builtins %{clang_lib}/%{_arch}-redhat-linux-gnu/libclang_rt.builtins.a
+%else
+%define optimized_builtins false
+%endif
+
 
 %configure --disable-option-checking \
   --docdir=%{_pkgdocdir} \
@@ -866,6 +883,7 @@ test -r "%{profiler}"
   --set target.%{rust_triple}.ar=%{__ar} \
   --set target.%{rust_triple}.ranlib=%{__ranlib} \
   --set target.%{rust_triple}.profiler="%{profiler}" \
+  --set target.%{rust_triple}.optimized-compiler-builtins="%{optimized_builtins}" \
   %{?mingw_target_config} \
   %{?wasm_target_config} \
   --python=%{__python3} \
@@ -896,11 +914,7 @@ test -r "%{profiler}"
 
 %global __x %{__python3} ./x.py
 
-# - rustc is exibiting signs of miscompilation on pwr9+pgo (root cause TBD),
-#   so we're skipping pgo on rhel ppc64le for now. See RHEL-88598 for more.
-# - Since 1.87, Fedora started getting ppc64le segfaults, and this also seems
-#   to be avoidable by skipping pgo. See bz2367960 for examples of that.
-%if %{with rustc_pgo} && !( "%{_target_cpu}" == "ppc64le" )
+%if %{with rustc_pgo}
 # Build the compiler with profile instrumentation
 %define profraw $PWD/build/profiles
 %define profdata $PWD/build/rustc.profdata

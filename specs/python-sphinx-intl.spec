@@ -10,7 +10,7 @@ support the Transifex service for translation with Sphinx (not packaged yet).
 
 Name:           python-%{pypi_name}
 Version:        2.3.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Sphinx utility that make it easy to translate and to apply translation
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -86,6 +86,9 @@ rm tests/test_*transifex*.py
 
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.3.2-2
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Sat Aug 09 2025 Julien Enselme <jujens@jujens.eu> - 2.3.2-1
 - Update to 2.3.2
 

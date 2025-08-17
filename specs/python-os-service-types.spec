@@ -30,7 +30,7 @@ and local caching of the fetched data.
 
 Name:           python-%{pypi_name}
 Version:        1.7.0
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Python library for consuming OpenStack sevice-types-authority data
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -116,6 +116,9 @@ rm -rf doc/build/html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.7.0-23
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

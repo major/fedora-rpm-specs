@@ -1,6 +1,6 @@
 Name:           irclog2html
 Version:        4.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A script to convert IRC logs to HTML and other formats
 
 License:        GPL-2.0-or-later
@@ -45,6 +45,9 @@ install -Dpm 0644 src/%{name}/irclog.css %{buildroot}%{_datadir}/%{name}
 %{_datadir}/%{name}/
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.0.0-3
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

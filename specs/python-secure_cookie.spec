@@ -3,7 +3,7 @@
 
 Name:		python-%{pypi_name}
 Version:	0.2.0
-Release:	16%{?dist}
+Release:	17%{?dist}
 Summary:	Provides interfaces for secure cookies and sessions in WSGI applications
 License:	BSD-3-Clause
 URL:		https://pypi.org/project/%{src_name}
@@ -48,6 +48,9 @@ rm -rf %{src_name}.egg-info
 %license LICENSE.rst
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.2.0-17
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Sat Aug 02 2025 Rajeesh KV <rajeeshknambiar@fedoraproject.org> - 0.2.0-16
 - Fix License
 - Migrate to new python RPM macros

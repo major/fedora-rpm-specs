@@ -145,7 +145,8 @@ Patch15: %{name}-find_qcp_libs.patch
 
 # Allow CMake 4.0 builds
 # https://github.com/copasi/COPASI/pull/11
-Patch20: COPASI-cmake4.patch
+Patch20: %{name}-cmake4.patch
+Patch21: %{name}-bug3304.patch
 
 %description
 COPASI is a software application for simulation and analysis of biochemical
@@ -285,6 +286,7 @@ done
 %patch -P 14 -p1 -b .backup
 %patch -P 15 -p1 -b .backup
 %patch -P 20 -p1 -b .cmake4
+%patch -P 21 -p1 -b .backup
 
 %if 0%{?with_python}
 %patch -P 11 -p1 -b .porting_to_python310
@@ -319,13 +321,10 @@ sed -i.bak '/double pow_dd(doublereal *,/d' copasi/odepack++/CRadau5.cpp
 sed -i.bak '/C_FLOAT64 d_lg10(C_FLOAT64 *);/d' copasi/optimization/CPraxis.cpp
 
 %build
-%global __cmake_in_source_build 1
-pushd copasi
 export CXXFLAGS="%{build_cxxflags} -I$PWD/copasi/lapack -I$PWD/copasi/CopasiSBW -I%{_includedir}/%{blaslib} %{__global_ldflags}"
 export LDFLAGS="%{__global_ldflags} -lbz2"
 %cmake \
- -Wno-dev \
- -DCOPASI_VERSION_MAJOR:STRING=4 -DCOPASI_VERSION_MINOR:STRING=45 -DCOPASI_VERSION_BUILD:STRING=%{buildid} \
+ -Wno-dev -DCOPASI_OVERRIDE_VERSION:STRING=%{version} \
 %if 0%{?with_python}
  -DENABLE_PYTHON:BOOL=ON \
  -DPYTHON_EXECUTABLE:FILEPATH=%{__python3} \
@@ -386,7 +385,7 @@ export LDFLAGS="%{__global_ldflags} -lbz2"
  -DCROSSGUID_INCLUDE_DIR:PATH=%{_includedir}/crossguid2 \
  -DENABLE_COPASI_PARAMETERFITTING_RESIDUAL_SCALING:BOOL=ON \
  -DENABLE_WITH_MERGEMODEL:BOOL=ON -DENABLE_USE_MATH_CONTAINER:BOOL=ON \
- -DLIBSBML_INCLUDE_DIR:PATH=%{_includedir}/sbml -DLIBSBML_SHARED:BOOL=ON -DLIBSBML_LIBRARY:FILEPATH=%{_libdir}/libsbml.so \
+ -DLIBSBML_SHARED:BOOL=ON -DLIBSBML_LIBRARY:FILEPATH=%{_libdir}/libsbml.so \
  -DLIBNUML_LIBRARY:FILEPATH=%{_libdir}/libnuml.so -DEXTRA_INCLUDE_DIRS:STRING=-I%{_includedir}/numl \
  -DEXPAT_LIBRARY:FILEPATH=%{_libdir}/libexpat.so -DEXPAT_INCLUDE_DIR:PATH=%{_includedir} \
  -DF2C_INCLUDE_DIR:PATH=%{_includedir} \
@@ -399,7 +398,6 @@ export LDFLAGS="%{__global_ldflags} -lbz2"
 %cmake_build
 
 %install
-pushd copasi
 %cmake_install
 
 # Remove directory of examples

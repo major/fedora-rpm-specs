@@ -15,7 +15,7 @@ xterm. It was inspired by termbox, but includes many additional improvements.}
 %global godocs          AUTHORS README.adoc
 
 Name:           %{goname}
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Alternate terminal package
 
 # Upstream license specification: Apache-2.0
@@ -80,6 +80,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 1.4.0-17
+- Rebuild for golang-1.25.0
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

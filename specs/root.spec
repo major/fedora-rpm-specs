@@ -39,7 +39,7 @@
 Name:		root
 Version:	6.36.02
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -3581,6 +3581,9 @@ fi
 %endif
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 6.36.02-4
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Wed Aug 13 2025 Orion Poplawski <orion@nwra.com> - 6.36.02-3
 - Rebuild for libarrow 21
 

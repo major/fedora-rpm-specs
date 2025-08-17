@@ -3,7 +3,7 @@
 
 Name:               python-%{modname}
 Version:            6.0.1
-Release:            3%{?dist}
+Release:            4%{?dist}
 Summary:            Python utility / library to sort Python imports
 
 License:            MIT
@@ -56,6 +56,9 @@ ln -s %{modname}-3 %{buildroot}%{_bindir}/%{modname}
 %{_bindir}/%{modname}-identify-imports
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 6.0.1-4
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

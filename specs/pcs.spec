@@ -1,6 +1,6 @@
 Name: pcs
 Version: 0.12.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/LicensingGuidelines/
 # https://fedoraproject.org/wiki/Licensing:Main?rd=Licensing#Good_Licenses
 # GPL-2.0-only: pcs
@@ -554,6 +554,9 @@ fi
 
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.12.1-4
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Wed Jul 30 2025 Michal Pospíšil <mpospisi@redhat.com> - 0.12.1-3
 - Remove BuildRequires: python3-wheel when using setuptools 71+
 

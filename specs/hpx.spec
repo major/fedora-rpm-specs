@@ -1,6 +1,6 @@
 Name:           hpx
 Version:        1.10.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        General Purpose C++ Runtime System
 License:        BSL-1.0
 URL:            https://hpx.stellar-group.org/
@@ -17,6 +17,9 @@ BuildRequires:  fdupes
 BuildRequires:  git
 BuildRequires:  libatomic
 BuildRequires:  asio-devel
+
+# Unsupported https://github.com/STEllAR-GROUP/hpx/issues/6765
+ExcludeArch: s390x
 
 %global hpx_desc \
 HPX is a general purpose C++ runtime system for parallel and distributed \
@@ -212,10 +215,14 @@ rm %{buildroot}/%{_datadir}/%{name}/LICENSE_1_0.txt
 %fdupes %{buildroot}%{_prefix}
 
 %check
+# Some tests are unstable on ppc64le: https://github.com/STEllAR-GROUP/hpx/issues/6765
+%ifarch ppc64le
+%global testargs --exclude-regex 'tests.examples.\(1d_stencil.1d_stencil_4_parallel\|1d_stencil.1d_stencil_7\|quickstart.allow_unknown_options\|async_io.async_io_external\|1d_stencil.1d_stencil_5\|quickstart.sierpinski\)'
+%endif
 . /etc/profile.d/modules.sh
 for mpi in '' openmpi mpich ; do
   test -n "${mpi}" && module load mpi/${mpi}-%{_arch}
-  make -C %{__cmake_builddir}/ tests.examples
+  %ctest --tests-regex tests.examples %{?testargs}
   test -n "${mpi}" && module unload mpi/${mpi}-%{_arch}
 done
 
@@ -276,6 +283,11 @@ done
 %{_libdir}/lib*.so*
 
 %changelog
+* Thu Aug 14 2025 Christoph Junghans <junghans@votca.org> - 1.10.0-8
+- Fix build with Ninja
+- Drop s390x build - unsupported by upstream
+- Fixes: rhbz#2381020
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

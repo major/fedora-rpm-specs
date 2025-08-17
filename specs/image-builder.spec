@@ -17,7 +17,7 @@ OSTree commits. Uses osbuild under the hood.
 }
 
 Name:           image-builder
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An image building executable using osbuild
 ExcludeArch:    i686
 
@@ -238,6 +238,9 @@ cd $PWD/_build/src/%{goipath}
 %{_bindir}/image-builder
 
 %changelog
+* Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 30-2
+- Rebuild for golang-1.25.0
+
 * Mon Aug 11 2025 Packit <hello@packit.dev> - 30-1
 Changes with 30
 ----------------

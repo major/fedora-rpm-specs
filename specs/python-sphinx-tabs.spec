@@ -3,7 +3,7 @@
 
 Name:           python-sphinx-tabs
 Version:        3.4.7
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Tabbed views for Sphinx
 # SPDX
 License:        MIT
@@ -82,6 +82,9 @@ PYTHONPATH=$(pwd) sphinx-build -b html docs html_docs
 
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.4.7-5
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

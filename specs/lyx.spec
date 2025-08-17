@@ -11,8 +11,8 @@ BuildRequires: fontpackages-devel
 %global _changelog_trimtime %(date +%s -d "1 year ago")
 
 Name:    lyx
-Version: 2.4.3
-Release: 2%{?dist}
+Version: 2.4.4
+Release: 1%{?dist}
 Summary: WYSIWYM (What You See Is What You Mean) document processor
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -23,10 +23,6 @@ Source1: lyxrc.dist
 
 # font metainfo file
 Source20: %{fontname}.metainfo.xml
-
-# fix complilation with qt 6.9
-Patch0: 0001-Fix-compilation-with-Qt-6.9.patch
-Patch1: 0002-Fix-compilation-on-gcc-15.patch
 
 %if 0%{?autotools}
 BuildRequires: automake libtool
@@ -252,6 +248,12 @@ make -k check ||:
 
 
 %changelog
+* Fri Aug 15 2025 Gwyn Ciesla <gwync@protonmail.com> - 2.4.4-1
+- 2.4.4
+
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.4.3-3
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

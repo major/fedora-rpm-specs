@@ -1,6 +1,6 @@
 Name:           libcpuid
 Version:        0.8.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Provides CPU identification for x86 and ARM
 License:        BSD-2-Clause
 URL:            https://github.com/anrieff/libcpuid
@@ -98,6 +98,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} %pytest python/tests
 
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.8.0-5
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 0.8.0-4
 - Drop unused wheel dependency
 

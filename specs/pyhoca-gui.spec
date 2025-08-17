@@ -1,6 +1,6 @@
 Name:           pyhoca-gui
 Version:        0.6.1.1
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Graphical X2Go client written in (wx)Python
 
 License:        AGPL-3.0-or-later
@@ -73,6 +73,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.6.1.1-24
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Sun Jul 27 2025 Orion Poplawski <orion@nwra.com> - 0.6.1.1-23
 - Use pyproject macros (rhbz#2377392)
 

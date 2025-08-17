@@ -4,7 +4,7 @@
 
 Name:           python-%{upstream_name}
 Version:        0.9.2
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Python library for parsing WWW-Authenticate HTTP header values
 License:        BSD-4.3TAHOE
 URL:            https://github.com/alexsdutton/www-authenticate
@@ -80,6 +80,9 @@ cp -p %{SOURCE1} .
 %endif
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.9.2-33
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

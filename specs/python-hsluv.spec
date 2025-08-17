@@ -1,6 +1,6 @@
 Name:		python-hsluv
 Version:	5.0.4
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	A Python implementation of HSLuv (revision 4)
 License:	MIT
 URL:		https://www.hsluv.org/
@@ -52,6 +52,9 @@ Summary: %{summary}
 
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 5.0.4-7
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -58,7 +58,7 @@
 Summary: A dynamic adaptive system tuning daemon
 Name: tuned
 Version: 2.25.1
-Release: 4%{?prerel1}%{?git_suffix:.%{git_suffix}}%{?dist}
+Release: 5%{?prerel1}%{?git_suffix:.%{git_suffix}}%{?dist}
 License: GPL-2.0-or-later AND CC-BY-SA-3.0
 %if 0%{?git_commit:1}
 Source0: https://github.com/redhat-performance/%{name}/archive/%{git_commit}/%{name}-%{version}-%{git_suffix}.tar.gz
@@ -642,6 +642,9 @@ fi
 %config(noreplace) %{_sysconfdir}/tuned/ppd.conf
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.25.1-5
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.25.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

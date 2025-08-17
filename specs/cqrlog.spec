@@ -1,6 +1,6 @@
 Name:		cqrlog
 Version:	2.5.2
-Release:	19%{?dist}
+Release:	20%{?dist}
 Summary:	An amateur radio contact logging program
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -11,6 +11,9 @@ Source0:	https://github.com/ok2cqr/cqrlog/archive/v%{version}/%{name}-%{version}
 # Fixes arm builds, translation improvements, and other bug fixes.
 Patch0:         cqrlog-install.patch
 Patch1:         cqrlog-desktop.patch
+
+# Fix build failure with FPC 3.2.4 (some symbols were moved around in RTL)
+Patch2:         cqrlog-fpc-3.2.4.patch
 
 ExclusiveArch:  %{fpc_arches}
 
@@ -100,6 +103,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Fri Aug 15 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 2.5.2-20
+- Fix build with FPC 3.2.4
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.2-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

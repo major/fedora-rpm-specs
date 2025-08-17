@@ -1,5 +1,5 @@
 # Lists copied from gcc.spec
-# Current as of 15.0.1 (lines 68, 88, and 78, respectively).
+# Current as of 15.2.1 (lines 74, 94, and 84, respectively).
 # Note that asan and ubsan are available on all Fedora primary architectures;
 # tsan is missing on i686 only.
 %ifarch %{ix86} x86_64 ppc ppc64 ppc64le ppc64p7 s390 s390x %{arm} aarch64 riscv64
@@ -18,7 +18,7 @@
 %bcond tsan 0%{?arch_has_tsan:1}
 
 Name:           wlcs
-Version:        1.7.0
+Version:        1.8.1
 Release:        %autorelease
 Summary:        Wayland Conformance Test Suite
 
@@ -138,15 +138,16 @@ Wayland compositor tests that use wlcs.
 
 %prep
 %autosetup
-# -Werror makes sense for upstream CI, but is too strict for packaging
-sed -r -i 's/-Werror //' CMakeLists.txt
 
 
 %conf
+# WLCS_FATAL_COMPILE_WARNINGS: makes sense for upstream CI, but too strict for
+#                              downstream packaging
 %cmake \
     -DWLCS_BUILD_ASAN=%{?with_asan:ON}%{?!with_asan:OFF} \
     -DWLCS_BUILD_TSAN=%{?with_tsan:ON}%{?!with_tsan:OFF} \
     -DWLCS_BUILD_UBSAN=%{?with_ubsan:ON}%{?!with_ubsan:OFF} \
+    -DWLCS_FATAL_COMPILE_WARNINGS:BOOL=OFF \
     -GNinja
 
 

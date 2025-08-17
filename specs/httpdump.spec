@@ -1,6 +1,6 @@
 Name:           httpdump
 Version:        0
-Release:        0.18%{?dist}
+Release:        0.19%{?dist}
 Summary:        Capture and parse HTTP traffic
 URL:            https://github.com/hsiafan/httpdump
 VCS:            https://github.com/hsiafan/httpdump
@@ -73,6 +73,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 0-0.19
+- Rebuild for golang-1.25.0
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

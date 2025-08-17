@@ -25,7 +25,7 @@ It is compatible with composer-cli and cockpit-composer clients.
 }
 
 Name:           osbuild-composer
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An image building service based on osbuild
 
 # osbuild-composer doesn't have support for building i686 and armv7hl images
@@ -682,6 +682,9 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 147-2
+- Rebuild for golang-1.25.0
+
 * Wed Aug 06 2025 Packit <hello@packit.dev> - 147-1
 Changes with 147
 ----------------

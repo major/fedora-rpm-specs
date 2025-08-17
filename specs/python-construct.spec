@@ -1,7 +1,7 @@
 Summary:        A powerful declarative parser/builder for binary data
 Name:           python-construct
 Version:        2.10.70
-Release:        9%{?dist}
+Release:        10%{?dist}
 License:        MIT
 URL:            http://construct.readthedocs.org
 Source0:        https://pypi.python.org/packages/source/c/construct/construct-%{version}.tar.gz
@@ -44,6 +44,9 @@ Requires:       python3-six
 %doc README.rst
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.10.70-10
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Thu Aug 07 2025 Terje Røsten <terjeros@gmail.com> - 2.10.70-9
 - New macros
 

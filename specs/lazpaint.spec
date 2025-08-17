@@ -11,7 +11,7 @@ URL: https://lazpaint.github.io
 License: GPL-3.0-only AND LGPL-3.0-only
 
 Version: 7.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # Versions taken from lazpaint/lazpaint.lpi
 %global bitmap_version   11.6.6
@@ -21,6 +21,9 @@ Release: 2%{?dist}
 Source0: %{github}/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source10: %{github}/bgrabitmap/archive/v%{bitmap_version}/bgrabitmap-%{bitmap_version}.tar.gz
 Source20: %{github}/bgracontrols/archive/v%{controls_version}/bgracontrols-%{controls_version}.tar.gz
+
+# Fix build with FPC 3.2.4
+Patch0000: 0000-fpc-3.2.4.patch
 
 %global widgetset gtk2
 
@@ -71,7 +74,7 @@ rm -rf bgracontrols-%{controls_version}/
 
 # Apply patches.
 # We do it only now, and not right after %%setup, since some patches affect bgrabitmap/bgracontrols, too.
-# -- no patches currently --
+%patch -p1 -P0000
 
 # Some of the .po files have DOS line endings. Fix those.
 dos2unix lazpaint/release/bin/i18n/*.po
@@ -192,6 +195,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name_rtld}.m
 
 
 %changelog
+* Fri Aug 15 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 7.3-3
+- Fix build with FPC 3.2.4
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

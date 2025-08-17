@@ -1,6 +1,6 @@
 Name:             xdp-tools
-Version:          1.5.5
-Release:          2%{?dist}
+Version:          1.5.6
+Release:          1%{?dist}
 Summary:          Utilities and example programs for use with XDP
 %global _soversion 1.5.0
 
@@ -123,6 +123,9 @@ make install V=1
 %{_libdir}/pkgconfig/libxdp.pc
 
 %changelog
+* Fri Aug 15 2025 Toke Høiland-Jørgensen <toke@redhat.com> 1.5.6-1
+- Upstream version bump
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

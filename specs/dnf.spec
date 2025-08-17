@@ -63,7 +63,7 @@ It supports RPMs, modules and comps groups & environments.
 
 Name:           dnf
 Version:        4.23.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        %{pkg_summary}
 # For a breakdown of the licensing, see PACKAGE-LICENSING
 License:        GPL-2.0-or-later AND GPL-1.0-only
@@ -421,6 +421,9 @@ rm %{buildroot}%{_unitdir}/%{name}-makecache.timer
 # bootc subpackage does not include any files
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.23.0-5
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.23.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

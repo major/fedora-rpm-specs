@@ -25,7 +25,7 @@ ExcludeArch: %{ix86}
 
 Name:           mysql-connector-python
 Version:        8.0.33
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        MySQL Connector for Python 3
 
 # Automatically converted from old format: GPLv2 with exceptions - review is highly recommended.
@@ -151,6 +151,9 @@ rm -r docs/mysqlx
 %{_mandir}/man1/%{name}3.1.*
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 8.0.33-6
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Tue Jul 29 2025 Michal Schorm <mschorm@redhat.com> - 8.0.33-5
 - Rebuild without i686 architecture - MySQL 8.4 no longer supports it
 

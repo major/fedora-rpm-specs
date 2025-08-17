@@ -1,6 +1,6 @@
 Name:           pungi
 Version:        4.10.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Distribution compose tool
 
 License:        GPL-2.0-only
@@ -134,6 +134,9 @@ gzip _build/man/pungi.1
 %{_bindir}/%{name}-cache-cleanup
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.10.1-2
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Aug 08 2025 Lubomír Sedlář <lsedlar@redhat.com> - 4.10.1-1
 - osbuild: Handle wsl2 images (lsedlar)
 - repoclosure: Clean up cache for dnf5 (lsedlar)

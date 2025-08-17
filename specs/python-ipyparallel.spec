@@ -1,6 +1,6 @@
 Name:		python-ipyparallel
 Version:	9.0.1
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Interactive Parallel Computing with IPython
 
 License:	BSD-3-Clause
@@ -89,6 +89,9 @@ mv %{buildroot}%{_prefix}%{_sysconfdir} %{buildroot}%{_sysconfdir}
 %{python3_sitelib}/ipyparallel/tests
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 9.0.1-5
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Thu Jul 31 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 9.0.1-4
 - Generate build requires instead of hardcoding them
 

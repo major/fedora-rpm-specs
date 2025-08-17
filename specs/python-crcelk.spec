@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.3
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Python implementation of the CRC algorithm
 
 License:        MIT
@@ -44,6 +44,9 @@ sed -i -e '/^#!\//, 1d' crcelk.py
 %{python3_sitelib}/__pycache__/*
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.3-25
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

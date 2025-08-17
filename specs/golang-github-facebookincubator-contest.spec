@@ -15,7 +15,7 @@ Run continuous and on-demand system testing for real and virtual hardware.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.15%{?dist}
+Release:        0.16%{?dist}
 Summary:        Run continuous and on-demand system testing for real and virtual hardware
 
 License:        MIT
@@ -87,6 +87,9 @@ rm pkg/xcontext/metrics/{tsmetrics,simplemetrics}/metrics_test.go
 %gopkgfiles
 
 %changelog
+* Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 0-0.16
+- Rebuild for golang-1.25.0
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        6.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A wrapper around re and regex that adds additional back references
 
 License:        MIT
@@ -61,6 +61,9 @@ py.test-3
 %doc README.md
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 6.0.1-2
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Thu Jul 31 2025 Parag Nemade <pnemade AT redhat DOT com> - 6.0.1-1
 - Update to 6.0.1 version (#2384263)
 

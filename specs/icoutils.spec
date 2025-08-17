@@ -37,7 +37,7 @@ libraries.
 %patch 1 -p1
 %patch 2 -p1
 
-autoreconf -i
+autoreconf -fiv
 
 for f in AUTHORS NEWS; do
   iconv -f ISO88592 -t UTF8 < $f > $f.utf8 && \

@@ -10,7 +10,7 @@
 
 %global	tarballver	%{mainver}%{?use_git:-%{gitdate}git%{shorthash}}
 
-%global	baserelease	1
+%global	baserelease	2
 %global	alphatag		.rc6
 
 %global	ruby_vendorlib	%(ruby -rrbconfig -e "puts RbConfig::CONFIG['vendorlibdir']")
@@ -417,6 +417,9 @@ popd
 %{_datadir}/cairo-dock/plug-ins/Dbus/CDApplet.h
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.5.99^20250810git987890d-2.rc6
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Tue Aug 12 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.5.99^20250810git987890d-1.rc6
 - Update to the latest git (20250810git987890d)
 

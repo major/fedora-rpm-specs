@@ -5,7 +5,7 @@
 Name:    akonadi-server
 Summary: PIM Storage Service
 Version: 25.08.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
 URL:     https://invent.kde.org/frameworks/akonadi
@@ -19,7 +19,9 @@ Source11:       akonadiserverrc.sqlite
 
 ## upstreamable patches
 
-## upstream patches (lookaside cache)
+## upstream patches
+# Fix opening agent configuration
+Patch0:         https://invent.kde.org/pim/akonadi/-/merge_requests/270.patch
 
 ## downstream patches
 
@@ -252,6 +254,9 @@ fi
 
 
 %changelog
+* Fri Aug 15 2025 Alessandro Astone <ales.astone@gmail.com> - 25.08.0-2
+- Backport patch to fix loading the accounts UI
+
 * Fri Aug 08 2025 Steve Cossette <farchord@gmail.com> - 25.08.0-1
 - 25.08.0
 

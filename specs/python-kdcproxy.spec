@@ -2,7 +2,7 @@
 
 Name:           python-%{realname}
 Version:        1.0.0
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        MS-KKDCP (kerberos proxy) WSGI module
 
 License:        MIT
@@ -14,7 +14,7 @@ Patch1: Use-exponential-backoff-for-connection-retries.patch
 Patch2: Use-dedicated-kdcproxy-logger.patch
 
 BuildArch:      noarch
-BuildRequires:  git
+BuildRequires:  git-core
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
@@ -59,6 +59,9 @@ ls -ld %{python3_sitelib}/
 %{python3_sitelib}/%{realname}-%{version}*.dist-info
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.0.0-23
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

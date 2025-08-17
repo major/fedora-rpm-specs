@@ -18,7 +18,7 @@
 
 Name:       tracer
 Version:    1.2
-Release:    4%{?dist}
+Release:    5%{?dist}
 Summary:    Finds outdated running applications in your system
 
 BuildArch:  noarch
@@ -205,6 +205,9 @@ make DESTDIR=%{buildroot}%{_datadir} mo
 
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.2-5
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

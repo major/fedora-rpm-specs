@@ -2,7 +2,7 @@
 
 Name:             python-%{modname}
 Version:          0.36.0
-Release:          3%{?dist}
+Release:          4%{?dist}
 Summary:          Mock D-Bus objects
 
 License:          LGPL-3.0-or-later
@@ -53,6 +53,9 @@ rm -rf python-%{modname}.egg-info
 %doc README.md COPYING
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.36.0-4
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Tue Jul 29 2025 Miro Hrončok <mhroncok@redhat.com> - 0.36.0-3
 - Drop redundant manual BuildRequires
 - Drop unused BuildRequires on python3dist(wheel)

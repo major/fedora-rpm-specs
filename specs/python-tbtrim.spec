@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.3.1
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Utility to trim Python traceback information
 
 License:        MIT
@@ -57,6 +57,9 @@ done
 %{python3_sitelib}/__pycache__/*
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.3.1-21
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

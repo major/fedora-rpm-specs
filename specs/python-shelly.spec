@@ -3,7 +3,7 @@
 
 Name:           python-%{pkg_name}
 Version:        0.2.6
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Library for Shelly smart home devices
 
 License:        MIT
@@ -47,6 +47,9 @@ chmod -x README.md
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.2.6-18
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.6-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

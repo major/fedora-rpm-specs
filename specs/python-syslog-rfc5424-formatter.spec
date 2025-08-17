@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.2.3
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Logging formatter which produces well-formatted RFC5424 Syslog Protocol messages
 
 License:        ISC
@@ -45,6 +45,9 @@ RFC5424-compatible Syslog messages to a given socket.
 %doc CHANGES.md
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.2.3-13
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025  Laura Barcziova <lbarczio@redhat.com> - 1.2.3-12
 - Migrate from deprecated python macros
 

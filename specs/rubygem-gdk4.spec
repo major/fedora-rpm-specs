@@ -1,11 +1,11 @@
 %global	gem_name	gdk4
 
-%global	gem_ver	4.3.0
+%global	gem_ver	4.3.2
 %global	gem_ver_escaped %(v=%{gem_ver}; echo ${v} | sed -e 's|\\.|\\\\.|g')
 
 Name:		rubygem-%{gem_name}
-Version:	4.3.0
-Release:	2%{?dist}
+Version:	4.3.2
+Release:	1%{?dist}
 
 Summary:	Ruby/GDK4 is a Ruby binding of GDK-4.x
 # SPDX confirmed
@@ -55,6 +55,10 @@ mv ../%{gem_name}-%{version}.gemspec .
 # Allow higher version of other ruby-gnome suite pkgs
 sed -i -e 's|= %{gem_ver_escaped}|>= %{gem_ver}|' %{gem_name}-%{version}.gemspec
 
+# Remove unneeded rake runtime dependency
+sed -i %{gem_name}-%{version}.gemspec \
+	-e '\@add_runtime_dependency.*rake@d'
+
 %build
 gem build %{gem_name}-%{version}.gemspec
 %gem_install
@@ -81,6 +85,14 @@ rm -rf \
 popd
 
 %check
+# ref: https://bugzilla.redhat.com/show_bug.cgi?id=2275913
+# glycin on ppc64le is currently unusable
+%if 0%{?fedora} >= 43
+if ( arch | grep -q ppc64le ) ; then
+	exit 0
+fi
+%endif
+
 cp -a %{gem_name}/test .%{gem_instdir}
 pushd .%{gem_instdir}
 
@@ -101,6 +113,12 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Sat Aug 16 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.2-1
+- 4.3.2
+
+* Fri Aug 15 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.0-3
+- Exclude tests on glycin ppc64le for now (bug 2275913)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

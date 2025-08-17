@@ -6,8 +6,8 @@
 %global url_ver %%(echo %{version} | cut -d. -f1)
 
 Name:           gnome-connections
-Version:        48.0
-Release:        2%{?dist}
+Version:        49~beta
+Release:        1%{?dist}
 Summary:        A remote desktop client for the GNOME desktop environment
 
 License:        GPL-3.0-or-later AND CC-BY-SA-3.0 AND CC0-1.0
@@ -29,6 +29,7 @@ BuildRequires:  pkgconfig(gvncpulse-1.0)
 BuildRequires:  pkgconfig(libhandy-1)
 BuildRequires:  pkgconfig(libsecret-1)
 BuildRequires:  pkgconfig(fuse3)
+BuildRequires:  spice-gtk3-vala
 
 Requires:       hicolor-icon-theme
 
@@ -83,6 +84,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Connections
 %{_datadir}/mime/packages/org.gnome.Connections.xml
 
 %changelog
+* Fri Aug 15 2025 Marek Kasik <mkasik@redhat.com> - 49~beta-1
+- Update to 49.beta
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 48.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        4.1.4
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Simple construction, analysis and modification of binary data
 
 License:        MIT
@@ -58,6 +58,9 @@ sed -i '1{s|^#!\(/usr\)\?/bin/\(env \)\?python\d\?$||}' %{srcname}/__init__.py
 
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.1.4-9
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.4-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

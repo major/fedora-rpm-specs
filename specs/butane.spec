@@ -22,7 +22,7 @@ configs for provisioning operating systems that use Ignition.}
 %global godocs          docs README.md
 
 Name:           butane
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Butane config transpiler
 
 License:        Apache-2.0
@@ -147,6 +147,9 @@ install -p -m 0644 ./butane-x86_64-unknown-linux-gnu-static %{buildroot}%{_datad
 %{_datadir}/butane/butane-x86_64-unknown-linux-gnu-static
 
 %changelog
+* Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 0.24.0-3
+- Rebuild for golang-1.25.0
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.24.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

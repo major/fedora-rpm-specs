@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.15.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Interact with a server using the SMB 2/3 Protocol
 
 License:        MIT
@@ -60,6 +60,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/smbclient/
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.15.0-2
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Wed Jul 23 2025 Tom Rix <Tom.Rix@amd.com> - 1.15.0-1
 - Update to 1.15.0
 

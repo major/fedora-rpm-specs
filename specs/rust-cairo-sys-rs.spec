@@ -6,7 +6,7 @@
 %global crate cairo-sys-rs
 
 Name:           rust-cairo-sys-rs
-Version:        0.21.0
+Version:        0.21.1
 Release:        %autorelease
 Summary:        FFI bindings to libcairo
 

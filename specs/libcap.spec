@@ -1,6 +1,6 @@
 Name: libcap
 Version: 2.76
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Library for getting and setting POSIX.1e capabilities
 URL: https://sites.google.com/site/fullycapable/
 License: BSD-3-Clause OR GPL-2.0-only
@@ -121,6 +121,9 @@ chmod +x %{buildroot}/%{_libdir}/*.so.*
 %endif
 
 %changelog
+* Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 2.76-3
+- Rebuild for golang-1.25.0
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.76-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.16.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Generate HTML or XML in a pythonic way
 
 License:        LicenseRef-Callaway-LGPLv2
@@ -44,6 +44,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.16.0-5
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

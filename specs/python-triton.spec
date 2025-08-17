@@ -52,7 +52,7 @@
 
 Name:           python-%{pypi_name}
 Version:        %{pypi_version}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A language and compiler for custom Deep Learning operations
 
 License:        MIT AND Apache-2.0 AND BSD-3-Clause AND BSD-2-Clause
@@ -293,6 +293,9 @@ cd python
 %{python3_sitearch}/%{pypi_name}*
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.1.0-7
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Tom Rix <Tom.Rix@amd.com> - 3.1.0-6
 - Use pyproject macros
 

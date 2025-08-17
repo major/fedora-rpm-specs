@@ -16,7 +16,7 @@ binary data in a Go program.}
 %global godocs          AUTHORS CONTRIBUTING.md README.md CHANGELOG
 
 Name:           %{goname}
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        A small utility which generates Go code from any file
 
 # Upstream license specification: CC0-1.0
@@ -65,6 +65,9 @@ install -m 0644 -vp %{gobuilddir}/share/man/man1/* %{buildroot}%{_mandir}/man1/
 %gopkgfiles
 
 %changelog
+* Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 3.6.1-18
+- Rebuild for golang-1.25.0
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.1-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           babeltrace2
 Version:        2.1.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A trace manipulation toolkit
 License:        MIT AND GPL-2.0-only
 URL:            https://www.efficios.com/babeltrace
@@ -121,6 +121,9 @@ rm -f %{buildroot}/%{_pkgdocdir}/std-ext-lib.md
 
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.1.2-2
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Thu Jul 24 2025 Michael Jeanson <mjeanson@efficios.com> - 2.1.2-1
 - New upstream release
 

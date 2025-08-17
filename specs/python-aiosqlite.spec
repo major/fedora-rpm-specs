@@ -1,8 +1,8 @@
 %global pypi_name aiosqlite
 
 Name:           python-%{pypi_name}
-Version:        0.20.0
-Release:        7%{?dist}
+Version:        0.21.0
+Release:        2%{?dist}
 Summary:        Asyncio bridge to the standard SQLite3 module
 
 License:        MIT
@@ -45,6 +45,12 @@ rm -rf %{pypi_name}.egg-info
 %doc CHANGELOG.md README.rst
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.21.0-2
+- Rebuilt for Python 3.14.0rc2 bytecode
+
+* Fri Aug 15 2025 Federico Pellegrin <fede@evolware.org> - 0.21.0-1
+- Bump to 0.21.0 (rhbz#2343484)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.20.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

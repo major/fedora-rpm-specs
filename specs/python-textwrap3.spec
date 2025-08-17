@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.9.2
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Text wrap backport
 
 # Automatically converted from old format: Python - review is highly recommended.
@@ -53,6 +53,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version} -v test
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.9.2-20
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

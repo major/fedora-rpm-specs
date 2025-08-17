@@ -8,7 +8,7 @@
 Summary:        Desktop full text search tool with Qt GUI
 Name:           recoll
 Version:        1.43.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            https://www.recoll.org
@@ -213,6 +213,9 @@ echo "%{_libdir}/recoll" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/recoll-%{_arc
 %{_datadir}/applications/org.recoll.Recoll.SearchProvider.desktop
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.43.4-2
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Sun Aug 10 2025 Terje Rosten <terjeros@gmail.com> - 1.43.4-1
 - 1.43.4
 

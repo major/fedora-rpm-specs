@@ -3,7 +3,7 @@
 Name:           sword
 Epoch:          1
 Version:        1.9.0
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Free Bible Software Project
 License:        GPL-2.0-only AND LicenseRef-Fedora-Public-Domain AND Apache-2.0 AND LGPL-2.0-or-later AND Zlib AND LGPL-2.1-or-later AND (0BSD OR MIT-0 OR MIT)
 URL:            http://www.crosswire.org/sword/
@@ -164,6 +164,9 @@ make tests
 
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1:1.9.0-35
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Wed Aug 06 2025 František Zatloukal <fzatlouk@redhat.com> - 1:1.9.0-34
 - Rebuilt for icu 77.1
 

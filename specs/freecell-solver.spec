@@ -4,7 +4,7 @@
 
 Name: freecell-solver
 Version: 6.14.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: MIT
 Source0: https://fc-solve.shlomifish.org/downloads/fc-solve/%{name}-%{version}.tar.xz
 URL: https://fc-solve.shlomifish.org/
@@ -190,6 +190,9 @@ done
 find %{buildroot} -name *.a -delete
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 6.14.0-4
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Wed Jul 30 2025 Shlomi Fish <shlomif@shlomifish.org> 6.14.0-3
 - Fix the build on Rawhide. Avoid deprecated BuildRequires
 

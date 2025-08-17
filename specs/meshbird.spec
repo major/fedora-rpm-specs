@@ -14,7 +14,7 @@ Distributed private networking.}
 %global godocs          README.md CHANGELOG.md
 
 Name:           meshbird
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Distributed private networking
 
 # Upstream license specification: Apache-2.0
@@ -56,6 +56,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 2.3-18
+- Rebuild for golang-1.25.0
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

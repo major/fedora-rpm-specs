@@ -10,7 +10,7 @@
 
 Name:           python-gertty
 Version:        1.6.0
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Gertty is a console-based interface to the Gerrit Code Review system
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -89,6 +89,9 @@ sed -i 's/\r$//' LICENSE
 
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.6.0-25
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -8,7 +8,7 @@
 
 Name:           python-%{pypi_name}
 Version:        6.1.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Python Build Reasonableness
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -92,6 +92,9 @@ export PYTHONDONTWRITEBYTECODE=1
 %{_bindir}/pbr-3
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 6.1.1-5
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

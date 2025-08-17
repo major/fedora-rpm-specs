@@ -100,6 +100,7 @@ Patch: 0001-utils-Don-t-lose-log-level-when-silencing-kmsg.patch
 Patch: 0002-details-Suppress-kernel-s-own-kmsg-console-output.patch
 Patch: 0003-kmsg-reader-Seek-to-the-end-of-the-ringbuffer.patch
 
+
 BuildRequires: meson
 BuildRequires: system-logos
 BuildRequires: gcc libtool git

@@ -32,7 +32,7 @@ URL:              https://www.dogtagpki.org
 # The entire source code is GPLv2 except for 'pki-tps' which is LGPLv2
 License:          GPL-2.0-only AND LGPL-2.0-only
 Version:          %{major_version}.%{minor_version}.%{update_version}
-Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}.3
+Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}.4
 
 
 # To create a tarball from a version tag:
@@ -2075,6 +2075,9 @@ fi
 
 ################################################################################
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 11.8.0-0.4.beta4.4
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Mon Aug 11 2025 jmagne@redhat.com              - 11.8.0-0.4.beta4.3
 - Rebase to PKI v11.8.0-beta4
 

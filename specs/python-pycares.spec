@@ -4,7 +4,7 @@
 
 Name:           python-pycares
 Version:        4.10.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python interface for c-ares
 
 License:        MIT
@@ -105,6 +105,9 @@ rm -rf %{buildroot}%{_pkgdocdir}/html/.buildinfo
 
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.10.0-2
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Wed Aug 06 2025 Gwyn Ciesla <gwync@protonmail.com> - 4.10.0-1
 - 4.10.0
 

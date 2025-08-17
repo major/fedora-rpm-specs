@@ -41,7 +41,7 @@ on %{name}.
 %autosetup -p1
 
 %build
-%cmake_kf6
+%cmake_kf6 -DKDE_INSTALL_SYSTEMDUSERUNITDIR=%{_userunitdir}
 %cmake_build
 
 %install

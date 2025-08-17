@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        3.16.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Flake8 plugin that helps you write better list/set/dict comprehensions
 
 License:        MIT
@@ -73,6 +73,9 @@ BuildRequires:  python%{python3_pkgversion}-devel
 
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.16.0-2
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Tue Aug 12 2025 Scott K Logan <logans@cottsay.net> - 3.16.0-1
 - Update to 3.16.0
 - Drop pytest until flake8-path is available

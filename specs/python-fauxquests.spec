@@ -8,7 +8,7 @@
 
 Name:           python-%{modname}
 Version:        1.1
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Mock HTTP requests sent with the requests package
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -55,6 +55,9 @@ Python 3 version.
 %{python3_sitelib}/%{modname}/
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.1-34
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

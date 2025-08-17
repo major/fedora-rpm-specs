@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.17.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        DjangoQL: Advanced search language for Django
 
 License:        MIT
@@ -51,6 +51,9 @@ PYTHONPATH=$(pwd) %{__python3} test_project/manage.py test core.tests
 
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.17.1-14
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

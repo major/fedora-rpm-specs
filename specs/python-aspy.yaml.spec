@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.3.0
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Few extensions to PyYAML
 
 License:        MIT
@@ -53,6 +53,9 @@ Summary:        %{summary}
 %doc README.md
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.3.0-26
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

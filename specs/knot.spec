@@ -15,7 +15,7 @@
 Summary:	High-performance authoritative DNS server
 Name:		knot
 Version:	3.4.8
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	GPL-3.0-or-later
 URL:		https://www.knot-dns.cz
 Source0:	https://secure.nic.cz/files/knot-dns/%{name}-%{version}.tar.xz
@@ -407,6 +407,9 @@ V=1 make check
 %doc %{_pkgdocdir}/html
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.4.8-2
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Wed Jul 30 2025 Jakub Ružička <jakub.ruzicka@nic.cz> - 3.4.8-1
 - Update to 3.4.8
 

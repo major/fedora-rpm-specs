@@ -8,7 +8,7 @@
 
 Name:		python-%{pname}
 Version:	0.6.5
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	Snort and Suricata Rule and Event Utilities
 # Automatically converted from old format: BSD - review is highly recommended.
 License:	LicenseRef-Callaway-BSD
@@ -79,6 +79,9 @@ popd
 %doc README.rst
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.6.5-11
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Sun Aug 03 2025 Marcin Dulak <marcindulak@fedoraproject.org> - 0.6.5-10
 - Move away from deprecated setup.py build/install
 

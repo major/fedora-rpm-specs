@@ -20,7 +20,7 @@ ExcludeArch: %{ix86}
 
 Name:			gpaw
 Version:		25.7.0
-Release:		2%{?dist}
+Release:		3%{?dist}
 Summary:		A grid-based real-space PAW method DFT code
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -286,6 +286,9 @@ mpiexec -np ${NPROC_PARALLEL} gpaw -T test
 
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 25.7.0-3
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Tue Aug 12 2025 Marcin Dulak <marcindulak@fedoraproject.org> - 25.7.0-2
 - Don't run tests on ppc64le since they fail
 

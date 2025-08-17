@@ -3,7 +3,7 @@
 
 Name:           python-pypubsub
 Version:        4.0.3
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Python Publish-Subscribe Package
 
 License:        BSD-2-Clause
@@ -61,6 +61,9 @@ popd
 %license src/pubsub/LICENSE_BSD_Simple.txt
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.0.3-28
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.3-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

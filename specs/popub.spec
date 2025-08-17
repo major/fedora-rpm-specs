@@ -8,7 +8,7 @@
 
 Name:    %{reponame}
 Version: 0
-Release: 0.24.%{commitdate}git%{shortcommit}%{?dist}
+Release: 0.25.%{commitdate}git%{shortcommit}%{?dist}
 Summary: Publish a service from localhost onto your server
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License: GPL-3.0-or-later
@@ -99,6 +99,9 @@ sed -i '/daemon-reload/d' systemd/Makefile
 %{_unitdir}/%{name}-relay@.service
 
 %changelog
+* Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 0-0.25.20171007git6ffa11c
+- Rebuild for golang-1.25.0
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.24.20171007git6ffa11c
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

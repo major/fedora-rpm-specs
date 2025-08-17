@@ -12,7 +12,7 @@ Version:                3.0.5
 Backend to talk to YubiHSM 2}
 
 Name:           yubihsm-connector
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        YubiHSM Connector
 
 # Upstream license specification: Apache-2.0
@@ -130,6 +130,9 @@ go test -v
 %{_sysusersdir}/yubihsm-connector.conf
 
 %changelog
+* Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 3.0.5-10
+- Rebuild for golang-1.25.0
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.5-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

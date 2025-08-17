@@ -3,7 +3,7 @@
 
 Name:           koan
 Version:        3.0.1
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Kickstart over a network
 
 License:        GPL-2.0-or-later
@@ -52,6 +52,9 @@ koan python%{python3_pkgversion} module.
 %files -n python%{python3_pkgversion}-koan -f %{pyproject_files}
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.0.1-18
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Sun Jul 27 2025 Orion Poplawski <orion@nwra.com> - 3.0.1-17
 - Use pyproject macros (rhbz#2377299)
 

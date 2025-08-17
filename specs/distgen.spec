@@ -1,7 +1,7 @@
 Name:       distgen
 Summary:    Templating system/generator for distributions
 Version:    2.1
-Release:    4%{?dist}
+Release:    5%{?dist}
 License:    GPL-2.0-or-later AND Apache-2.0
 URL:        https://github.com/devexp-db/distgen
 BuildArch:  noarch
@@ -45,6 +45,9 @@ file and preexisting distribution metadata generate output file.
 
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.1-5
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

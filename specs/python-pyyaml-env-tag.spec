@@ -1,6 +1,6 @@
 Name:           python-pyyaml-env-tag
 Version:        1.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A custom YAML tag for referencing environment variables in YAML files
 BuildArch:      noarch
 
@@ -48,6 +48,9 @@ PYTHONPATH=$PWD %{python3} tests/test_yaml_env_tag.py
 
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.1-4
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

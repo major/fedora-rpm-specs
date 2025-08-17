@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.9.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Linux Distribution - a Linux OS platform information API
 
 License:        Apache-2.0
@@ -60,6 +60,9 @@ Suggests:       /usr/bin/lsb_release
 %pytest
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.9.0-9
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

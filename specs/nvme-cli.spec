@@ -5,7 +5,7 @@
 
 Name:           nvme-cli
 Version:        2.15
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        NVMe management command line interface
 
 License:        GPL-2.0-only
@@ -13,6 +13,11 @@ URL:            https://github.com/linux-nvme/nvme-cli
 Source0:        %{url}/archive/v%{version_no_tilde}/%{name}-%{version_no_tilde}.tar.gz
 Source1:        99-nvme-nbft-connect.sh
 Source2:        99-nvme-nbft-no-ignore-carrier.conf
+
+# https://github.com/linux-nvme/nvme-cli/issues/2886
+Patch0:         nvme-cli-2.16-nvme_list_JSON_regression.patch
+# https://github.com/linux-nvme/nvme-cli/pull/2880
+Patch1:         nvme-cli-2.16-rename_71-nvme-hpe.rules.patch
 
 BuildRequires:  meson >= 0.53
 BuildRequires:  gcc gcc-c++
@@ -111,7 +116,7 @@ fi
 %{_udevrulesdir}/70-nvmf-keys.rules
 %{_udevrulesdir}/71-nvmf-netapp.rules
 %{_udevrulesdir}/71-nvmf-vastdata.rules
-%{_udevrulesdir}/71-nvme-hpe.rules
+%{_udevrulesdir}/71-nvmf-hpe.rules
 # Do not install the dracut rule yet.  See rhbz 1742764
 # /usr/lib/dracut/dracut.conf.d/70-nvmf-autoconnect.conf
 %{nmlibdir}/dispatcher.d/99-nvme-nbft-connect.sh
@@ -119,6 +124,10 @@ fi
 
 
 %changelog
+* Fri Aug 15 2025 Tomas Bzatek <tbzatek@redhat.com> - 2.15-2
+- Fix nvme-list JSON output compatibility
+- Rename 71-nvme-hpe.rules to 71-nvmf-hpe.rules
+
 * Fri Jul 25 2025 Tomas Bzatek <tbzatek@redhat.com> - 2.15-1
 - Update to 2.15
 

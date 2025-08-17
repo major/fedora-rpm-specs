@@ -6,7 +6,7 @@
 
 Name:           python-%{srcname}
 Version:        5.10.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        The Jupyter Notebook format
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -75,6 +75,9 @@ sed -i "s/{VERSION}/%{version}/" pyproject.toml
 %{_bindir}/jupyter-trust
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 5.10.4-4
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.10.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

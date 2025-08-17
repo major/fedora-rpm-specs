@@ -26,7 +26,7 @@ locally.}
                         suseconnect/connectUsage.txt
 
 Name:           suseconnect-ng
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Utility to register a system with the SUSE Customer Center
 
 License:        LGPL-2.1-or-later
@@ -142,6 +142,9 @@ install -m 0644 -vp *.service *.timer     %{buildroot}%{_unitdir}/
 %gopkgfiles
 
 %changelog
+* Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 1.4.0-8
+- Rebuild for golang-1.25.0
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

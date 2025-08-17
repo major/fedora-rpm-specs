@@ -1,8 +1,8 @@
 %global pypi_name pyftdi
 
 Name:           python-%{pypi_name}
-Version:        0.56.0
-Release:        5%{?dist}
+Version:        0.57.1
+Release:        2%{?dist}
 Summary:        Python support for FTDI devices
 
 License:        BSD-3-Clause
@@ -53,6 +53,12 @@ rm -rf %{buildroot}%{python3_sitelib}/%{pypi_name}/doc %{buildroot}%{python3_sit
 %{python3_sitelib}/%{pypi_name}*.dist-info/
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.57.1-2
+- Rebuilt for Python 3.14.0rc2 bytecode
+
+* Fri Aug 15 2025 Federico Pellegrin <fede@evolware.org> - 0.57.1-1
+- Bump to 0.57.1 (rhbz#2388587)
+
 * Mon Jul 28 2025 Federico Pellegrin <fede@evolware.org> - 0.56.0-5
 - Use new Python macros in spec file (rhbz#2378036), build and package docs
 

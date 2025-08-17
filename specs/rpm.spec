@@ -24,7 +24,7 @@
 
 %global rpmver 5.99.91
 #global snapver rc1
-%global baserelease 3
+%global baserelease 4
 %global sover 10
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
@@ -624,6 +624,9 @@ fi
 %doc %{_defaultdocdir}/rpm/API/
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 5.99.91-4
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Tue Aug 05 2025 Panu Matilainen <pmatilai@redhat.com> - 5.99.91-3
 - Fix OpenPGP v6 signature verification, requires rpm-sequoia >= 1.9
 

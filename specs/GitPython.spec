@@ -2,7 +2,7 @@
 
 Name:           %{srcname}
 Version:        3.1.45
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python Git Library
 
 License:        BSD-3-Clause
@@ -60,6 +60,9 @@ Requires:       git-core
 %doc CHANGES AUTHORS
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.1.45-2
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Thu Jul 24 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 3.1.45-1
 - Update to 3.1.45 (close RHBZ#2383187)
 

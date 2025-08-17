@@ -6,8 +6,8 @@
 
 Name:          virt-v2v
 Epoch:         1
-Version:       2.9.2
-Release:       3%{?dist}
+Version:       2.9.3
+Release:       1%{?dist}
 Summary:       Convert a virtual machine to run on KVM
 
 License:       GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -46,7 +46,7 @@ BuildRequires: /usr/bin/pod2man
 BuildRequires: gcc
 BuildRequires: ocaml >= 4.08
 
-BuildRequires: libguestfs-devel >= 1:1.56
+BuildRequires: libguestfs-devel >= 1:1.57.1-1
 BuildRequires: augeas-devel
 BuildRequires: bash-completion, bash-completion-devel
 BuildRequires: file
@@ -89,7 +89,7 @@ BuildRequires: glibc-static
 BuildRequires: gnupg2
 %endif
 
-Requires:      libguestfs%{?_isa} >= 1:1.56
+Requires:      libguestfs%{?_isa} >= 1:1.57.1-1
 Requires:      guestfs-tools >= 1.54
 
 # XFS is the default filesystem in Fedora and RHEL.
@@ -313,6 +313,10 @@ done
 
 
 %changelog
+* Fri Aug 15 2025 Richard W.M. Jones <rjones@redhat.com> - 1:2.9.3-1
+- New upstream development version 2.9.3
+- Ensure minimum libguestfs is 1.57.1 (for guestfs_setfiles)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.9.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

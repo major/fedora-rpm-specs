@@ -7,7 +7,7 @@ License:        LicenseRef-Callaway-BSD
 Version:        2.13.0
 %define opae_release 3
 %define patch_level 2
-Release:        %{opae_release}.%{patch_level}%{?dist}.2
+Release:        %{opae_release}.%{patch_level}%{?dist}.3
 
 URL:            https://github.com/OPAE/%{name}-sdk
 Source0:        https://github.com/OPAE/opae-sdk/archive/refs/tags/%{version}-%{opae_release}.tar.gz
@@ -316,6 +316,9 @@ chmod a+x %{buildroot}%{_usr}/lib/opae-%{version}/modules/*.cmake
 %{python3_sitelib}/uio*
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.13.0-3.2.3
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.13.0-3.2.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

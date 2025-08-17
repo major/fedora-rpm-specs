@@ -6,7 +6,7 @@
 
 Name:           python-%{srcname}
 Version:        1.0.8
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Lightweight FreeIPA client
 
 License:        MIT
@@ -56,6 +56,9 @@ sed -e "s/version='1.0.6',/version='%{version}',/" -i setup.py
 %{python3_sitelib}/python_freeipa-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.0.8-8
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.8-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

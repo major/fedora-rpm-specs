@@ -1,6 +1,6 @@
 Name:           python-avro
 Version:        1.12.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python bindings for Apache Avro data serialization system
 
 
@@ -64,6 +64,9 @@ cd lang/py
 
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.12.0-4
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

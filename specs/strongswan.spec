@@ -16,7 +16,7 @@
 
 Name:           strongswan
 Version:        5.9.14
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        An OpenSource IPsec-based VPN and TNC solution
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -427,6 +427,9 @@ install -D -m 0644 %{SOURCE3} %{buildroot}/%{_tmpfilesdir}/strongswan-starter.co
 %endif
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 5.9.14-10
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Thu Aug 14 2025 Carlos Rodriguez-Fernandez <carlosrodrifernandez@gmail.com> - 5.9.14-9
 - Fix build issue (rhbz#2368971)
 

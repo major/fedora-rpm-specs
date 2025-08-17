@@ -63,6 +63,8 @@ License:        %{shrink:
 
 # libwayland-egl is dlopened when running on a wayland compositor
 Requires:       libwayland-egl
+# libxkbcommon-x11 is dlopened when running on X11
+Requires:       libxkbcommon-x11
 
 %description -n %{crate} %{_description}
 

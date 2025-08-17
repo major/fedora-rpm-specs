@@ -2,7 +2,7 @@
 
 Name:               python-%{modname}
 Version:            1.1.2
-Release:            37%{?dist}
+Release:            38%{?dist}
 Summary:            Easy to use mocking/stub/spy framework
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -63,6 +63,9 @@ $(find tests -type f)
 %doc README.rst
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.1.2-38
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Sat Jul 26 2025 Romain Geissler <romain.geissler@amadeus.com> - 1.1.2-37
 - Migrate to pyproject macros (rhbz#2377782).
 

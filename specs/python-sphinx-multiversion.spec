@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        %{pypi_version}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Add support for multiple versions to sphinx
 
 License:        BSD-2-Clause
@@ -52,6 +52,9 @@ sed -e '1d' -i %{buildroot}%{python3_sitelib}/sphinx_multiversion/__main__.py
 %{_bindir}/sphinx-multiversion
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.2.4-6
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

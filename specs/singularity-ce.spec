@@ -4,7 +4,7 @@
 
 Name: singularity-ce
 Version: 4.3.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Application and environment virtualization
 
 # See LICENSE.md for first party code (BSD-3-Clause and BSD-3-Clause-LBNL)
@@ -350,6 +350,9 @@ container platform designed to be simple, fast, and secure.
 %doc CONTRIBUTING.md
 
 %changelog
+* Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 4.3.2-3
+- Rebuild for golang-1.25.0
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

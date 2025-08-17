@@ -9,7 +9,7 @@ and cloud systems like Xen, KVM, VMware, EC2 and more.
 %bcond check 0
 
 Name:           kiwi
-Version:        10.2.31
+Version:        10.2.32
 Release:        1%{?dist}
 URL:            http://osinside.github.io/kiwi/
 Summary:        Flexible operating system image builder
@@ -18,6 +18,9 @@ License:        GPL-3.0-or-later
 Source0:        https://files.pythonhosted.org/packages/source/k/%{name}/%{name}-%{version}.tar.gz
 
 # Backports from upstream
+## From: https://github.com/OSInside/kiwi/commit/e3994fb0783fb4207931c9810bd635e42381c6b4
+Patch0001:      0001-Fix-exclude-list-for-live-image-builds.patch
+
 
 # Proposed upstream
 
@@ -638,6 +641,15 @@ popd
 
 
 %changelog
+* Fri Aug 15 2025 Neal Gompa <ngompa@fedoraproject.org> - 10.2.32-1
+- Update to 10.2.32
+
+* Fri Aug 15 2025 Neal Gompa <ngompa@fedoraproject.org> - 10.2.31-3
+- Backport fix for setting up live filesystems correctly
+
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 10.2.31-2
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Sat Aug 02 2025 Neal Gompa <ngompa@fedoraproject.org> - 10.2.31-1
 - Update to 10.2.31
 - Turn check section off by default

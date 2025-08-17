@@ -2,12 +2,13 @@
 %bcond_without perl_Graphics_Toolkit_Color_enables_color_names
 
 Name:           perl-Graphics-Toolkit-Color
-Version:        1.71
-Release:        6%{?dist}
+Version:        1.91
+Release:        1%{?dist}
 Summary:        Color palette constructor
 # lib/Graphics/Toolkit/Color.pm:        GPL-1.0-or-later OR Artistic-1.0-Perl
-# lib/Graphics/Toolkit/Color/Constant.pm:   GPL-1.0-or-later OR Artistic-1.0-Perl
-# lib/Graphics/Toolkit/Color/Values.pm:     GPL-1.0-or-later OR Artistic-1.0-Perl
+# lib/Graphics/Toolkit/Color/Name.pm:       GPL-1.0-or-later OR Artistic-1.0-Perl
+# lib/Graphics/Toolkit/Color/Name/Constant.pm:  GPL-1.0-or-later OR Artistic-1.0-Perl
+# lib/Graphics/Toolkit/Color/Space.pm:      GPL-1.0-or-later OR Artistic-1.0-Perl
 # lib/Graphics/Toolkit/Color/Space/Hub.pm:  GPL-1.0-or-later OR Artistic-1.0-Perl
 # LICENSE:      GPL-1.0-or-later OR Artistic-1.0-Perl
 # README:       GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -24,7 +25,7 @@ BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time:
-BuildRequires:  perl(Carp) >= 1.35
+BuildRequires:  perl(Carp)
 BuildRequires:  perl(Exporter) >= 5
 %if %{with perl_Graphics_Toolkit_Color_enables_color_names}
 # Optional run-time:
@@ -32,15 +33,13 @@ BuildRequires:  perl(Exporter) >= 5
 %endif
 # Tests:
 BuildRequires:  perl(Test::More) >= 1.3
-BuildRequires:  perl(Test::Warn) >= 0.30
-Requires:       perl(Carp) >= 1.35
 Requires:       perl(Exporter) >= 5
 %if %{with perl_Graphics_Toolkit_Color_enables_color_names}
 Recommends:     perl(Graphics::ColorNames)
 %endif
 
 # Remove underspecified dependencies
-%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((Carp|Exporter|Test::More|Test::Warn)\\)$
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((Exporter|Test::More|)\\)$
 
 %description
 Read-only, color-holding Perl objects with methods to obtain their RGB, HSL,
@@ -56,7 +55,6 @@ Summary:        Tests for %{name}
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness 
 Requires:       perl(Test::More) >= 1.3
-Requires:       perl(Test::Warn) >= 0.30
 
 %description tests
 Tests from %{name}. Execute them
@@ -98,6 +96,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Aug 15 2025 Petr Pisar <ppisar@redhat.com> - 1.91-1
+- 0.91 bump
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.71-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

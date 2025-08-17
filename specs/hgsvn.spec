@@ -1,7 +1,7 @@
 Summary:       A set of scripts to work locally on subversion checkouts using mercurial
 Name:          hgsvn
 Version:       0.6.0
-Release:       21%{?dist}
+Release:       22%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:       GPL-3.0-or-later
 URL:           http://pypi.python.org/pypi/hgsvn/
@@ -52,6 +52,9 @@ fast local operations like hg log and hg annotate.
 %{_bindir}/hgpushsvn
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.6.0-22
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Thu Aug 07 2025 Terje Røsten <terjeros@gmail.com> - 0.6.0-21
 - New macros
 

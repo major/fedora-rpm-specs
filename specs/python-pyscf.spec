@@ -16,7 +16,7 @@
 
 Name:           python-pyscf
 Version:        2.8.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Python module for quantum chemistry
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -132,6 +132,9 @@ export PYTHONPATH=$PWD
 %{python3_sitearch}/pyscf/
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.8.0-6
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Mon Aug 11 2025 Jerry James <loganjerry@gmail.com> - 2.8.0-5
 - Stop building for 32-bit x86
 

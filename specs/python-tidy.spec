@@ -3,7 +3,7 @@
 Summary:        Python wrapper for tidy, from the HTML tidy project
 Name:           python-tidy
 Version:        0.6
-Release:        22%{?dist}
+Release:        23%{?dist}
 License:        MIT
 URL:            https://cihar.com/software/utidylib/
 Source0:        http://dl.cihar.com/utidylib/uTidylib-%{version}.tar.bz2
@@ -44,6 +44,9 @@ Requires:       python3-six
 %doc README.rst
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.6-23
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Sat Aug 02 2025 Terje Rosten <terje.rosten@ntnu.no> - 0.3-22
 - Convert to modern macros
 - Remove Python 2 logic

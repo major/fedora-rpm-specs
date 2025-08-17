@@ -57,7 +57,7 @@
 Name:    qt5-qtbase
 Summary: Qt5 - QtBase components
 Version: 5.15.17
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, for exception details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -478,6 +478,7 @@ Qt5 libraries used for drawing widgets and OpenGL items.
 %patch -P101 -p1
 %patch -P102 -p1
 %patch -P103 -p1
+%patch -P104 -p1
 
 ## Qt 6 backports
 %if 0%{?fedora} > 30 || 0%{?rhel} > 8
@@ -1174,6 +1175,9 @@ fi
 
 
 %changelog
+* Thu Aug 14 2025 Sandro Mani <manisandro@gmail.com> - 5.15.17-5
+- Actually apply 0001-Update-SSL-trust-store-locations-for-modern-Red-Hat-.patch
+
 * Tue Aug 05 2025 František Zatloukal <fzatlouk@redhat.com> - 5.15.17-4
 - Rebuilt for icu 77.1
 

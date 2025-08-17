@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        4.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Pytest plugin to check import ordering using isort
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -47,6 +47,9 @@ py.test plugin to check import ordering using isort.
 %{python3_sitelib}/*.dist-info
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.0.0-2
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Tue Jul 29 2025 Federico Pellegrin <fede@evolware.org> - 4.0.0-1
 - Bump to 4.0.0
 

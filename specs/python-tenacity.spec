@@ -5,7 +5,7 @@ retry behavior to just about anything.}
 
 Name:           python-%{pypi_name}
 Version:        9.1.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Retry code until it succeeds
 License:        Apache-2.0
 URL:            https://github.com/jd/%{pypi_name}
@@ -53,6 +53,9 @@ sed -e 's/setuptools_scm\[toml\]/setuptools_scm/' -i pyproject.toml
 %doc README.rst
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 9.1.2-3
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.1.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

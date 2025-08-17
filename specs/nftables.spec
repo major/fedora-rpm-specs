@@ -1,6 +1,6 @@
 Name:           nftables
 Version:        1.1.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 # Upstream released a 0.100 version, then 0.4. Need Epoch to get back on track.
 Epoch:          1
 Summary:        Netfilter Tables userspace utilities
@@ -144,6 +144,9 @@ cd py/
 %{_unitdir}/nftables.service
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1:1.1.3-4
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.1.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

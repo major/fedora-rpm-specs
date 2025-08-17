@@ -4,7 +4,7 @@
 
 Name:		gst-editing-services
 Version:        1.26.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:	Gstreamer editing services
 
 License:	GPL-2.0-or-later and LGPL-2.0-or-later
@@ -90,6 +90,9 @@ cp data/completions/ges-launch-1.0 \
 %{_datadir}/gir-1.0/GES-1.0.gir
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.26.5-2
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Aug 08 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.26.5-1
 - 1.26.5
 

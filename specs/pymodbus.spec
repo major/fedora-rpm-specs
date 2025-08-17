@@ -22,7 +22,7 @@ Server Features \
 
 Name: pymodbus
 Version: 3.9.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: %{sum}
 
 License: BSD-3-Clause
@@ -75,6 +75,9 @@ rm -rf %{buildroot}%{python3_sitelib}/test
 %{_bindir}/pymodbus.simulator
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.9.2-3
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

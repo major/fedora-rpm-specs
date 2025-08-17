@@ -7,8 +7,8 @@
 # Planned for F-20+ only
 Summary:	Ruby/GTK3 is a Ruby binding of GTK+-3.x
 Name:		rubygem-%{gem_name}
-Version:	4.3.0
-Release:	3%{?dist}
+Version:	4.3.2
+Release:	1%{?dist}
 
 # SPDX confirmed
 # LGPL-2.1-or-later: gemspec
@@ -82,7 +82,11 @@ mv ../%{gem_name}-%{version}.gemspec .
 find . -name \*.rb -print0 | xargs --null chmod 0644
 
 # Allow ruby-gnome2 no less than ones
-sed -i -e 's|= 4\.3\.0|>= 4.3.0|' %{gem_name}-%{version}.gemspec
+sed -i -e 's|= 4\.3\.2|>= 4.3.2|' %{gem_name}-%{version}.gemspec
+
+# Remove unneeded rake runtime dependency
+sed -i %{gem_name}-%{version}.gemspec \
+	-e '\@add_runtime_dependency.*rake@d'
 
 # Add license text
 install -cpm 644 %{SOURCE1} ./COPYING.LIB
@@ -198,6 +202,9 @@ popd
 %exclude	%{gem_instdir}/test/
 
 %changelog
+* Sat Aug 16 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.2-1
+- 4.3.2
+
 * Tue Aug 12 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.0-3
 - Exclude tests on glycin ppc64le for now (bug 2275913)
 

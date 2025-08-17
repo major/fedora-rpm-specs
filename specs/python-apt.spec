@@ -3,7 +3,7 @@
 
 Name:           python-apt
 Version:        2.3.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Python bindings for APT
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -73,6 +73,9 @@ rm -rf %{buildroot}%{python3_sitelib}/apt_*-stubs*
 
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.3.0-15
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

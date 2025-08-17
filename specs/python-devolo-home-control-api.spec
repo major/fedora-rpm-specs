@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.16.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Devolo Home Control API in Python
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -57,6 +57,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/devolo_home_control_api-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.16.0-20
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

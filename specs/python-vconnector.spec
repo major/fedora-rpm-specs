@@ -5,7 +5,7 @@
 
 Name:           python-%{srcname}
 Version:        0.6.0
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        %{sum}
 
 # setup.py mentions BSD license
@@ -80,6 +80,9 @@ src/%{srcname}-cli -v
 
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.6.0-21
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

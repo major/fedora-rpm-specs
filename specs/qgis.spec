@@ -1,8 +1,8 @@
 #TODO: Run test suite (see debian/rules)
 
 Name:           qgis
-Version:        3.44.1
-Release:        5%{?dist}
+Version:        3.44.2
+Release:        1%{?dist}
 Summary:        A user friendly Open Source Geographic Information System
 
 # http://issues.qgis.org/issues/3789
@@ -305,6 +305,12 @@ rm -f %{buildroot}%{_prefix}/lib/liboauth2authmethod_static.a
 
 
 %changelog
+* Fri Aug 15 2025 Sandro Mani <manisandro@gmail.com> - 3.44.2-1
+- Update to 3.44.2
+
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.44.1-6
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Sun Aug 03 2025 Sandro Mani <manisandro@gmail.com> - 3.44.1-5
 - Rebuild (PDAL)
 

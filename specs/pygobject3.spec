@@ -5,7 +5,7 @@
 
 Name:           pygobject3
 Version:        3.52.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python bindings for GObject Introspection
 
 License:        LGPL-2.1-or-later
@@ -102,6 +102,9 @@ export PYTEST_ADDOPTS="-k 'not (ref_count or has_two_refs)'"
 %{_libdir}/pkgconfig/pygobject-3.0.pc
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.52.3-3
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.52.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

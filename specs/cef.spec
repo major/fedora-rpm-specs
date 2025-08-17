@@ -217,15 +217,15 @@
 %endif
 
 ## CEF: Package version & metadata
-%global chromium_major 138
-%global chromium_branch 7204
+%global chromium_major 139
+%global chromium_branch 7258
 # Where possible, track Chromium versions already released in Fedora.
-%global chromium_minor 157
+%global chromium_minor 127
 %global chromium_version %{chromium_major}.0.%{chromium_branch}.%{chromium_minor}
-%global cef_commit 251e1c197b14e37d3b8d8e210719c3aa59841e2e
+%global cef_commit 60bd77d686394d18da74199cda162251353a2a4e
 %global cef_branch %{chromium_branch}
 %global cef_minor 0
-%global cef_patch 25
+%global cef_patch 20
 %global cef_version %{chromium_major}.%{cef_minor}.%{cef_patch}
 %global shortcommit %(c=%{cef_commit}; echo ${c:0:7})
 
@@ -281,7 +281,7 @@ Patch131: chromium-107-proprietary-codecs.patch
 # fix tab crash with SIGTRAP error when using system ffmpeg
 Patch132: chromium-118-sigtrap_system_ffmpeg.patch
 # need for old ffmpeg 6.0/5.x on epel9 and fedora < 40
-Patch133: chromium-121-system-old-ffmpeg.patch
+Patch133: chromium-139-el9-ffmpeg-5.1.x.patch
 # revert, it causes build error: use of undeclared identifier 'AVFMT_FLAG_NOH264PARSE'
 Patch135: chromium-133-disable-H.264-video-parser-during-demuxing.patch
 # Workaround for youtube stop working
@@ -306,6 +306,9 @@ Patch307: chromium-134-el8-atk-compiler-error.patch
 # Fix build errors due to old clang18 in el8
 Patch308: chromium-136-unsupport-clang-flags.patch
 Patch309: chromium-132-el8-unsupport-rustc-flags.patch
+
+# Fix rhbz#2387446, FTBFS with rust-1.89.0
+Patch310: chromium-139-rust-FTBFS-suppress-warnings.patch
 
 # enable fstack-protector-strong
 Patch312: chromium-123-fstack-protector-strong.patch
@@ -368,6 +371,7 @@ Patch375: 0008-sandbox-fix-ppc64le-glibc234.patch
 Patch376: 0001-third_party-angle-Include-missing-header-cstddef-in-.patch
 Patch377: 0001-Add-PPC64-support-for-boringssl.patch
 Patch378: 0001-third_party-libvpx-Properly-generate-gni-on-ppc64.patch
+Patch379: 0009-sandbox-updates-138.patch
 Patch380: 0001-third_party-pffft-Include-altivec.h-on-ppc64-with-SI.patch
 Patch381: 0002-Add-PPC64-generated-files-for-boringssl.patch
 Patch382: 0002-third_party-lss-kernel-structs.patch
@@ -437,9 +441,6 @@ Patch511: 0002-Fix-Missing-OPENSSL_NO_ENGINE-Guard.patch
 %endif
 
 # upstream patches
-
-# https://github.com/chromium/chromium/commit/b0ff8c3b258a8816c05bdebf472dbba719d3c491
-Patch512: b0ff8c3b258a8816c05bdebf472dbba719d3c491.patch
 
 ## CEF: CEF-specific fix patches
 Patch900: cef-no-sysroot.patch
@@ -950,10 +951,10 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 %patch -P128 -p1 -b .el9-ffmpeg-deprecated-apis
 %patch -P129 -p1 -R -b .ffmpeg-5.x-reordered_opaque
 %patch -P130 -p1 -b .ffmpeg-5.x-duration
+%patch -P133 -p1 -b .el9-ffmpeg-5.1.x
 %endif
 %patch -P131 -p1 -b .prop-codecs
 %patch -P132 -p1 -b .sigtrap_system_ffmpeg
-%patch -P133 -p1 -b .system-old-ffmpeg
 %patch -P135 -p1 -b .disable-H.264-video-parser-during-demuxing
 %patch -P136 -p1 -b .workaround-system-ffmpeg-whitelist
 %endif
@@ -979,6 +980,7 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 %patch -P314 -p1 -b .rust-skrifa-build-error
 %endif
 
+%patch -P310 -p1 -b .rust-FTBFS-suppress-warnings
 %patch -P312 -p1 -b .fstack-protector-strong
 
 %if 0%{?rhel} && 0%{?rhel} < 10
@@ -1026,6 +1028,7 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 %patch -P376 -p1 -b .0001-third_party-angle-Include-missing-header-cstddef-in-
 %patch -P377 -p1 -b .0001-Add-PPC64-support-for-boringssl
 %patch -P378 -p1 -b .0001-third_party-libvpx-Properly-generate-gni-on-ppc64
+%patch -P379 -p1 -b .0009-sandbox-updates-138
 %patch -P380 -p1 -b .0001-third_party-pffft-Include-altivec.h-on-ppc64-with-SI
 %patch -P381 -p1 -b .002-Add-PPC64-generated-files-for-boringssl
 %patch -P382 -p1 -b .0002-third_party-lss-kernel-structs
@@ -1073,7 +1076,6 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 %endif
 
 # Upstream patches
-%patch -P512 -p1 -b .b0ff8c3b258a8816c05bdebf472dbba719d3c491
 
 ## CEF: CEF-specific fix patches & other fixup
 %patch -P900 -p1 -b .cef-no-sysroot
@@ -1254,7 +1256,7 @@ CHROMIUM_CORE_GN_DEFINES=""
 CHROMIUM_CORE_GN_DEFINES+=' custom_toolchain="//build/toolchain/linux/unbundle:default"'
 CHROMIUM_CORE_GN_DEFINES+=' host_toolchain="//build/toolchain/linux/unbundle:default"'
 CHROMIUM_CORE_GN_DEFINES+=' is_debug=false dcheck_always_on=false dcheck_is_configurable=false'
-CHROMIUM_CORE_GN_DEFINES+=' enable_nacl=false'
+CHROMIUM_CORE_GN_DEFINES+=' enable_enterprise_companion=false'
 CHROMIUM_CORE_GN_DEFINES+=' system_libdir="%{_lib}"'
 
 %if %{official_build}

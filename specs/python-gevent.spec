@@ -4,7 +4,7 @@
 
 Name:          python-%{modname}
 Version:       24.11.1
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       A coroutine-based Python networking library
 
 License:       MIT
@@ -96,6 +96,9 @@ cd src/gevent/tests && GEVENT_FILE=thread %__python3 -mgevent.tests test__*subpr
 %{python3_sitearch}/%{modname}*
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 24.11.1-5
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 24.11.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

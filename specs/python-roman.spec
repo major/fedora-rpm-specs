@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        4.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Integer to Roman numerals converter
 
 License:        ZPL-2.1
@@ -46,6 +46,9 @@ Integer to Roman numerals converter
 %{_bindir}/%{pypi_name}
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.2-5
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

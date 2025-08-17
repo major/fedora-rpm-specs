@@ -8,7 +8,7 @@
 Summary:       GNU Emacs text editor
 Name:          emacs
 Epoch:         1
-Version:       30.1
+Version:       30.2
 Release:       %autorelease
 License:       GPL-3.0-or-later AND CC0-1.0
 URL:           https://www.gnu.org/software/emacs/
@@ -56,14 +56,6 @@ Patch:         0002-Fall-back-to-the-terminal-from-pure-GTK-when-no-disp.patch
 # Wayland, and the default should be fine.
 # https://debbugs.gnu.org/cgi/bugreport.cgi?bug=49505#67
 Patch:         0001-Don-t-specify-StartupWMClass-in-emacs.desktop.patch
-
-# Ahead-of-time native compilation breaks some lisp without this patch.
-# https://debbugs.gnu.org/cgi/bugreport.cgi?bug=76523
-Patch:         0001-Fix-compilation-errors-due-to-insufficient-compiler-.patch
-
-# Restores compatibility with recent Tree-sitter parsers.
-# https://debbugs.gnu.org/cgi/bugreport.cgi?bug=78754
-Patch:         0001-Support-new-tree-sitter-grammar-filename-format-bug-.patch
 
 BuildRequires: alsa-lib-devel
 BuildRequires: atk-devel

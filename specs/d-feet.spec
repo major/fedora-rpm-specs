@@ -1,6 +1,6 @@
 Name: d-feet 
 Version: 0.3.16
-Release: 18%{?dist}
+Release: 19%{?dist}
 Summary: A powerful D-Bus Debugger
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -61,6 +61,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.dfeet.deskt
 %{_datadir}/metainfo/org.gnome.dfeet.appdata.xml
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.3.16-19
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.16-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

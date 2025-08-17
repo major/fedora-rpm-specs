@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.24.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Deal PySol FC Cards
 License:        MIT
 URL:            https://fc-solve.shlomifish.org/
@@ -45,6 +45,9 @@ sed -i '/^#! \/usr\/bin\/env python\(3\)\?$/d' pysol_cards/*.py
 %doc README.rst
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.24.0-4
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.24.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

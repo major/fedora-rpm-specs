@@ -12,7 +12,7 @@
 %endif
 
 Name:           LabPlot
-Version:        2.12.0%{?gitdate:~%{gitdate}.%{shortcommit}}
+Version:        2.12.1%{?gitdate:~%{gitdate}.%{shortcommit}}
 Release:        %autorelease
 Summary:        Data Analysis and Visualization
 License:        GPL-2.0-or-later
@@ -25,9 +25,6 @@ URL:            https://labplot.kde.org/
 Source0:        https://download.kde.org/stable/labplot/labplot-%{version}.tar.xz
 #Source0:        https://invent.kde.org/education/labplot/-/archive/%%{version}/labplot-%%{version}.tar.bz2
 #Source0:        https://invent.kde.org/education/labplot/-/archive/%%{gitcommit}/labplot-%%{gitcommit}.tar.bz2
-
-# https://invent.kde.org/education/labplot/-/merge_requests/693
-Patch0:         0001-Fix-build-with-system-Qxlsx.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -66,6 +63,7 @@ BuildRequires:  cmake(KF6Purpose)
 BuildRequires:  cmake(KF6SyntaxHighlighting)
 BuildRequires:  cmake(KF6UserFeedback)
 
+BuildRequires:  cmake(qtadvanceddocking-qt6)
 BuildRequires:  gsl-devel
 BuildRequires:  gettext-devel
 
@@ -146,7 +144,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.xml
 %{_datadir}/icons/hicolor/*/apps/%{genname}*
 %{_datadir}/icons/hicolor/*/apps/org.kde.%{genname}.*
 %{_bindir}/%{genname}
-%{_libdir}/liblabplot.so.%{version}
+%{_libdir}/liblabplot.so.*
 %{_datadir}/mime/packages/%{genname}.xml
 %{_datadir}/%{genname}/
 %{_datadir}/applications/org.kde.%{genname}.desktop

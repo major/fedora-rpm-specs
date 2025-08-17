@@ -2,7 +2,7 @@ Name:           dionaea
 Version:        0.11.0
 Summary:        Low interaction honeypot
 # Show as the RPM release number (keep same number line for tarball and git builds)
-%global         baserelease     7
+%global         baserelease     8
 
 %if 0%{?rhel}
 # Group needed for EPEL
@@ -446,6 +446,9 @@ install -m0644 -D dionaea.sysusers.conf %{buildroot}%{_sysusersdir}/dionaea.conf
 
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.11.0-8.20210228git4e459f1
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Tue Aug 05 2025 Charalampos Stratakis <cstratak@redhat.com> - 0.11.0-7.20210228git4e459f1
 - Fix compatibility with Cython >= 3.1
 - Fixes: rhbz#2377036

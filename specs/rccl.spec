@@ -49,7 +49,7 @@
 
 Name:           %{rccl_name}
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        ROCm Communication Collectives Library
 
 Url:            https://github.com/ROCm/rccl
@@ -74,7 +74,11 @@ BuildRequires:  rocm-rpm-macros
 BuildRequires:  rocm-smi-devel
 
 %if %{with test}
+%if 0%{?suse_version}
+BuildRequires:  gtest
+%else
 BuildRequires:  gtest-devel
+%endif
 %endif
 
 Requires:       %{name}-data = %{version}-%{release}
@@ -150,6 +154,11 @@ sed -i -e 's@if (ENABLE_MSCCLPP AND NOT(${HOST_OS_ID} STREQUAL "ubuntu" OR ${HOS
 # https://github.com/ROCm/rccl/issues/1749
 sed -i '/#include <map.*/a#include <iomanip>' test/common/TestBed.hpp
 
+# On Tumbleweed Q3,2025
+# /usr/include/gtest/internal/gtest-port.h:273:2: error: C++ versions less than C++17 are not supported.
+# Convert the c++14 to c++17
+sed -i -e 's@set(CMAKE_CXX_STANDARD   14)@set(CMAKE_CXX_STANDARD 17)@' CMakeLists.txt
+
 %build
 %cmake \
     -DAMDGPU_TARGETS=%{rocm_gpu_list_rccl} \
@@ -172,21 +181,13 @@ sed -i '/#include <map.*/a#include <iomanip>' test/common/TestBed.hpp
 %install
 %cmake_install
 
-echo s@%{buildroot}@@ > br.sed
-find %{buildroot}%{_libdir} -name '*.so.*.[0-9]' | sed -f br.sed >  %{name}.files
-find %{buildroot}%{_libdir} -name '*.so.[0-9]'   | sed -f br.sed >> %{name}.files
-find %{buildroot}%{_libdir} -name '*.so'         | sed -f br.sed >  %{name}.devel
-find %{buildroot}%{_libdir} -name '*.cmake'      | sed -f br.sed >> %{name}.devel
-%if %{with test}
-find %{buildroot}           -name '%{name}*'     | sed -f br.sed >  %{name}.test
-%endif
-
 if [ -f %{buildroot}%{_prefix}/share/doc/rccl/LICENSE.txt ]; then
     rm %{buildroot}%{_prefix}/share/doc/rccl/LICENSE.txt
 fi
 
-%files -f %{name}.files
+%files
 %license LICENSE.txt
+%{_libdir}/librccl.so.*
 
 %files data
 %dir %{_datadir}/rccl
@@ -195,17 +196,24 @@ fi
 %{_datadir}/rccl/msccl-algorithms/*.xml
 %{_datadir}/rccl/msccl-unit-test-algorithms/*.xml
 
-%files devel -f %{name}.devel
+%files devel
 %doc README.md
 %dir %{_includedir}/rccl
 %dir %{_libdir}/cmake/rccl
 %{_includedir}/rccl/*
+%{_libdir}/cmake/rccl/*.cmake
+%{_libdir}/librccl.so
 
 %if %{with test}
-%files test -f %{name}.test
+%files test
+%{_bindir}/rccl-UnitTests
 %endif
 
 %changelog
+* Thu Aug 14 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-4
+- build --with test on SUSE
+- Remove multibuild file generation
+
 * Tue Jul 29 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-3
 - Remove -mtls-dialect cflag
 

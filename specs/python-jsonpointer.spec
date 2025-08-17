@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.4
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Resolve JSON Pointers in Python
 
 License:        BSD-3-Clause
@@ -45,6 +45,9 @@ BuildRequires:  python3-devel
 %{_bindir}/jsonpointer
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.4-7
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

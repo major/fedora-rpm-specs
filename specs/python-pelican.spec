@@ -1,7 +1,7 @@
 %global pypi_name pelican
 Name:           python-%{pypi_name}
-Version:        4.8.0
-Release:        12%{?dist}
+Version:        4.11.0
+Release:        1%{?dist}
 Summary:        A tool to generate a static blog from reStructuredText or Markdown input files
 
 # Automatically converted from old format: AGPLv3
@@ -11,9 +11,6 @@ Source0:        https://github.com/getpelican/pelican/archive/%{version}.tar.gz#
 
 BuildArch:      noarch
 
-# https://github.com/getpelican/pelican/commit/33aca76d78601f0f0da635c8a14c89bbbc9ff8d6.patch
-# this patch was rebased on pelican-4.8.0:
-Patch0001: adjust-extlinks-sphinx5.patch
 
 %description
 Pelican is a static site generator, written in Python_.
@@ -44,6 +41,8 @@ BuildRequires:  python3-pytz
 BuildRequires:  python3-jinja2
 BuildRequires:  python3-feedgenerator
 BuildRequires:  python3-dateutil
+BuildRequires:  python3-sphinxext-opengraph
+BuildRequires:  python3-furo
 
 BuildRequires:  python3-pygments
 BuildRequires:  python3-pytest
@@ -85,8 +84,8 @@ sed -i '1d' pelican/tools/pelican_themes.py
 sed -i '1d' pelican/tools/templates/pelicanconf.py.jinja2
 sed -i '1d' pelican/tools/templates/publishconf.py.jinja2
 
-# release pytz constraints
-sed -i "s|'pytz >= 0a'|'pytz'|" setup.py
+# release pygments constraints
+sed -i 's/.*pygments.*/    "pygments",/g' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -104,7 +103,7 @@ rm -rf html/.doctrees html/.buildinfo
 
 %install
 %pyproject_install
-%pyproject_save_files -l %{pypi_name}
+%pyproject_save_files -l %{pypi_name} -L
 
 # backwards compatibility helpers
 ln -s ./pelican %{buildroot}/%{_bindir}/pelican-3
@@ -121,6 +120,7 @@ ln -s ./pelican-themes %{buildroot}/%{_bindir}/pelican-themes-3
 # pytest -s --cov=pelican pelican
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
+%license LICENSE
 %doc html README.rst
 
 %{_bindir}/pelican
@@ -137,6 +137,12 @@ ln -s ./pelican-themes %{buildroot}/%{_bindir}/pelican-themes-3
 
 
 %changelog
+* Fri Aug 15 2025 Gwyn Ciesla <gwync@protonmail.com> - 4.11.0-1
+- 4.11.0
+
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.8.0-13
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

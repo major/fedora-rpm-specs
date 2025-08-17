@@ -1,6 +1,6 @@
 Name:           python-colored
 Version:        2.2.4
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Library for color and formatting in terminal
 
 License:        MIT
@@ -50,6 +50,9 @@ sed -i '/#!\/usr\/bin\/env python/d' colored/*.py
 
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.2.4-9
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.4-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

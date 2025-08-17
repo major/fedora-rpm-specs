@@ -5,7 +5,7 @@
 %global crate glib
 
 Name:           rust-glib
-Version:        0.21.0
+Version:        0.21.1
 Release:        %autorelease
 Summary:        Rust bindings for the GLib library
 
@@ -305,9 +305,6 @@ use the "v2_86" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
-# drop compiletests that don't compile due to missing dependencies
-rm tests/regex_compiletest.rs
-rm -r tests/regex_compiletest/
 
 %generate_buildrequires
 %cargo_generate_buildrequires

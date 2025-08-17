@@ -58,7 +58,7 @@ License:        LGPL-2.1-or-later
 URL:            https://cockpit-project.org/
 
 Version:        344
-Release:        1%{?dist}
+Release:        2%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 
 %if 0%{?fedora} >= 41 || 0%{?rhel}
@@ -647,6 +647,9 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 344-2
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Wed Aug 06 2025 Packit <hello@packit.dev> - 344-1
 Bug fixes and translation updates
 

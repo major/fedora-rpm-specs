@@ -1,6 +1,6 @@
 Name:           nuspell
 Version:        5.1.6
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Fast and safe spellchecking C++ library and command-line tool
 License:        LGPL-3.0-or-later
 URL:            https://nuspell.github.io
@@ -126,6 +126,9 @@ rm -rf %{buildroot}%{mingw64_mandir}
 
 
 %changelog
+* Fri Aug 15 2025 Sandro Mani <manisandro@gmail.com> - 5.1.6-9
+- Rebuild (icu)
+
 * Wed Aug 06 2025 František Zatloukal <fzatlouk@redhat.com> - 5.1.6-8
 - Rebuilt for icu 77.1
 

@@ -7,7 +7,7 @@
 
 Name:           packit
 Version:        1.11.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A tool for integrating upstream projects with Fedora operating system
 
 License:        MIT
@@ -78,6 +78,9 @@ cp files/bash-completion/packit %{buildroot}%{bash_completions_dir}/packit
 %doc README.md
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.11.0-2
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Mon Jul 28 2025 Packit <hello@packit.dev> - 1.11.0-1
 - `packit test` now supports running and validating TMT tests locally without requiring a PR or a release, including result parsing and basic failure reporting. (#2632)
 

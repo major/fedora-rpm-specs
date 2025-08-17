@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.26.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROS System Dependency Installer
 
 License:        BSD-3-Clause
@@ -109,6 +109,9 @@ install -D -p -m 0644 /dev/null %{buildroot}%{_sysconfdir}/ros/rosdep/sources.li
 
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.26.0-2
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Mon Jul 28 2025 Scott K Logan <logans@cottsay.net> - 0.26.0-1
 - Update to 0.26.0 (rhbz#2307470)
 - Switch to pyproject build macros (rhbz#2378179)

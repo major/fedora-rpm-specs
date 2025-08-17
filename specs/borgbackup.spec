@@ -2,7 +2,7 @@
 
 Name:           %{srcname}
 Version:        1.4.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A deduplicating backup program with compression and authenticated encryption
 # zlib:         src/borg/algorithms/{crc32_clmul.c, crc32_slice_by_8.c}
 # Apache-2.0:   src/borg/cache_sync/{sysdep.h, unpack.h, unpack_template.h, unpack_define.h}
@@ -140,6 +140,9 @@ TEST_SELECTOR="not test_fuse and not test_readonly_mount and not benchmark"
 
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.4.1-5
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Thu Jul 24 2025 Felix Schwarz <fschwarz@fedoraproject.org> - 1.4.1-4
 - backport patch from borg 2.0 to fix test suite on Python 3.14
 

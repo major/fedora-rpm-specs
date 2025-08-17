@@ -5,7 +5,7 @@
 %global crate async-std
 
 Name:           rust-async-std
-Version:        1.13.1
+Version:        1.13.2
 Release:        %autorelease
 Summary:        Async version of the Rust standard library
 
@@ -35,6 +35,10 @@ Async version of the Rust standard library.}
 %package        devel
 Summary:        %{summary}
 BuildArch:      noarch
+
+# https://github.com/async-rs/async-std/releases/tag/v1.13.1
+# https://fedoraproject.org/wiki/Changes/Deprecate_async-std
+Provides:       deprecated()
 
 %description    devel %{_description}
 

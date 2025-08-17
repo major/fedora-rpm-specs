@@ -12,7 +12,7 @@ PidFile can also be used as a context manager or a decorator.}
 
 Name:           python-%{srcname}
 Version:        3.0.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        PID file management library
 
 License:        Apache-2.0
@@ -57,6 +57,9 @@ rm -rf %{srcname}.egg-info
 %doc AUTHORS CHANGELOG README.rst
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.0.4-3
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

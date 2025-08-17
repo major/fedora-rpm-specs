@@ -1,3 +1,5 @@
+%global pip_module_name argparse_manpage
+
 %if 0%{?fedora} || 0%{?rhel} >= 9
   %bcond_without   pyproject
   %bcond_with      python2
@@ -27,14 +29,14 @@ There is a limited support for (deprecated) optparse objects, too.
 
 
 Name:           argparse-manpage
-Version:        4.6
-Release:        7%{?dist}
+Version:        4.7
+Release:        2%{?dist}
 Summary:        %{sum Python}
 BuildArch:      noarch
 
 License:        Apache-2.0
 URL:            https://github.com/praiskup/%{name}
-Source0:        %pypi_source
+Source0:        %pypi_source %pip_module_name
 
 %if %{with python2}
 BuildRequires: python2-setuptools python2-devel
@@ -102,10 +104,7 @@ Requires:       python3-setuptools
 
 
 %prep
-%setup -q
-
-# https://github.com/praiskup/argparse-manpage/pull/116
-sed -i "/parser-file/s/-/_/" examples/old_format_file_name/setup.cfg
+%setup -q -n %{pip_module_name}-%{version}
 
 %if %{with pyproject}
 %generate_buildrequires
@@ -188,6 +187,12 @@ PYTHONPATH=%buildroot%python3_sitearch %__python3 -m pytest -vv
 
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.7-2
+- Rebuilt for Python 3.14.0rc2 bytecode
+
+* Fri Aug 15 2025 Pavel Raiskup <praiskup@redhat.com> - 4.7-1
+- new upstream release: https://github.com/praiskup/argparse-manpage/releases/tag/v4.7
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.6-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

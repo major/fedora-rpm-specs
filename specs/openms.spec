@@ -201,7 +201,6 @@ HTML documentation of OpenMS.
 # Remove invalid tags
 sed -e 's| <project_group></project_group>||g' -i share/OpenMS/DESKTOP/*.appdata.xml
 
-
 %build
 # Likely running out of memory during build
 %global _smp_ncpus_max 2
@@ -287,6 +286,8 @@ popd
 %if 0%{?with_pyOpenMS}
 export LD_LIBRARY_PATH=$PWD/lib:$LD_LIBRARY_PATH
 %cmake_build -- -j1 pyopenms
+pushd %_vpath_builddir/pyOpenMS
+%pyproject_wheel
 %endif
 
 %install
@@ -304,7 +305,8 @@ patchelf --set-rpath %{_libdir}/OpenMS %{buildroot}%{_libdir}/OpenMS/*.so
 
 %if 0%{?with_pyOpenMS}
 pushd %_vpath_builddir/pyOpenMS
-%py3_install
+#py3_install
+%pyproject_install
 
 ln -s -f %{_libdir}/OpenMS/libOpenMS.so %{buildroot}%{python3_sitearch}/pyopenms/libOpenMS.so
 ln -s -f %{_libdir}/OpenMS/libOpenSwathAlgo.so %{buildroot}%{python3_sitearch}/pyopenms/libOpenSwathAlgo.so
@@ -580,7 +582,7 @@ LD_PRELOAD=%{buildroot}%{_libdir}/OpenMS/libSuperHirn.so
 %license License.txt
 %doc src/pyOpenMS/README_WRAPPING_NEW_CLASSES
 %{python3_sitearch}/pyopenms/
-%{python3_sitearch}/pyopenms-*.egg-info/
+%{python3_sitearch}/pyopenms-*.dist-info/
 %endif
 
 %changelog

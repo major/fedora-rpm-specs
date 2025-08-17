@@ -1,6 +1,6 @@
 Name:           python-deprecation
 Version:        2.1.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        A library to handle automated deprecations
 
 License:        Apache-2.0
@@ -64,6 +64,9 @@ rm -rv docs/_build/
 %doc README.rst
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.1.0-20
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

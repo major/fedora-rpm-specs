@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.2.9
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Kerberos manipulation library in Python
 
 License:        MIT
@@ -55,6 +55,9 @@ sed -i -e '/^#!\//, 1d' %{pypi_name}/{*.py,*/*.py,*/*/*.py}
 %{_bindir}/*
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.2.9-18
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Aug 08 2025 Federico Pellegrin <fede@evolware.org> - 0.2.9-17
 - Use new Python macros in spec file (rhbz#2377889)
 

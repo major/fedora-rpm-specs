@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.2.2
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Module to access your Peloton workout data
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -43,6 +43,9 @@ sed -i -e '/^#!\//, 1d' pylotoncycle/*.py
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.2.2-19
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

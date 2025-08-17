@@ -35,7 +35,7 @@
 
 Name:			lxsession
 Version:		%{main_version}%{git_ver_rpm}
-Release:		2%{?dist}
+Release:		3%{?dist}
 Summary:		Lightweight X11 session manager
 Summary(de):	Leichtgewichtiger X11 Sitzungsverwalter
 
@@ -65,6 +65,10 @@ Patch2001:		lxsession-0.5.5-add-custom-xdg-config-dir.patch
 # Split out appindicator support and kill it for now:
 # libappindicator 12.10.1 kills GTK2 vapi support
 Patch2002:		lxsession-0.5.5-split-indicator-support.patch
+# Workaround for explicitly setting ally bus
+# ref: https://bugzilla.redhat.com/show_bug.cgi?id=2209584#c6
+# ref: https://forums.gentoo.org/viewtopic-t-1172784-start-75-postdays-0-postorder-asc-highlight-.html
+Patch2003:		lxsession-0.5.6-lxsession-workaround-for-setting-ally-bus.patch
 
 BuildRequires:	pkgconfig(gtk+-2.0)
 #BuildRequires:	pkgconfig(indicator-0.4)
@@ -182,6 +186,7 @@ git commit -m "base" -q
 %patch -P1005 -p1 -b .nullcheck
 %patch -P2001 -p1 -b .custom
 %patch -P2002 -p1 -b .indicator
+%patch -P2003 -p1 -b .ally
 %if 0%{?use_gitbare}
 git commit -m "Apply Fedora specific configulation" -a
 %endif
@@ -307,6 +312,9 @@ cd ..
 %{_datadir}/%{name}/ui/lxpolkit.ui
 
 %changelog
+* Fri Aug 15 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.6-3
+- Add workaround for setting a11y bus explicitly
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

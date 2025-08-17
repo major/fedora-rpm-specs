@@ -9,7 +9,7 @@ to help with reporting results that conform to the conventions.
 
 Name:           resultsdb_conventions
 Version:        %{pagure_version}
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        %{sum}
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -72,6 +72,9 @@ sed -i -e 's., "setuptools-scm"..g' pyproject.toml
 %pycached %{python3_sitelib}/resultsdb_conventions/fedoracoreos.py
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.0.2-10
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

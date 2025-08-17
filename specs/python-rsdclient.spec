@@ -7,7 +7,7 @@
 
 Name:           python-%{sname}
 Version:        1.0.2
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        OpenStack client plugin for Rack Scale Design
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -97,6 +97,9 @@ install -d -m 755 %{buildroot}%{_localstatedir}/log/%{pyname}
 %endif
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.0.2-21
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

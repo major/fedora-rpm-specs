@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A pytest plugin to create a 'tmpdir' containing predefined content
 
 License:        MIT
@@ -52,6 +52,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %pytest -v tests
 %{python3_sitelib}/*.dist-info/
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.0.0-2
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Tue Jul 29 2025 Federico Pellegrin <fede@evolware.org> - 3.0.0-1
 - Bump to 3.0.0
 

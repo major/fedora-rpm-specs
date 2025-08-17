@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.4.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Extension for colcon to process packages in parallel
 
 License:        Apache-2.0
@@ -50,6 +50,9 @@ An extension for colcon-core to process packages in parallel.
 
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.4.0-3
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Wed Aug 13 2025 Scott K Logan <logans@cottsay.net> - 0.4.0-2
 - Switch to pyproject build macros (rhbz#2377548)
 

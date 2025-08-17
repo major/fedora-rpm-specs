@@ -1,7 +1,7 @@
 Summary: Graphical system installer
 Name:    anaconda
 Version: 43.35
-Release: 1%{?dist}
+Release: 2%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -513,6 +513,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 43.35-2
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Tue Aug 12 2025 Packit <hello@packit.dev> - 43.35-1
 - storage: Fix AttributeError and protect installation media in bootloader
   partition removal (k.koukiou)

@@ -3,7 +3,7 @@
 Name:             python-%{srcname}
 Summary:          JSON RX Schema validation tool
 Version:          0.3
-Release:          26%{?dist}
+Release:          27%{?dist}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:          GPL-2.0-or-later
@@ -41,6 +41,9 @@ rm -vrf *.egg-info
 %{python3_sitelib}/%{srcname}*
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.3-27
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

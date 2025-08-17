@@ -45,7 +45,7 @@ URL: https://www.python.org/
 
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
-%global general_version %{pybasever}.6
+%global general_version %{pybasever}.7
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
@@ -1739,6 +1739,9 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Thu Aug 14 2025 Miro Hrončok <mhroncok@redhat.com> - 3.13.7-1
+- Update to 3.13.7
+
 * Thu Aug 07 2025 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.13.5-5
 - Update to 3.13.6
 

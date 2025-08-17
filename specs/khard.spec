@@ -1,6 +1,6 @@
 Name:           khard
 Version:        0.20.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        An address book for the Linux console
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -58,6 +58,9 @@ install -p -m 0644 misc/zsh/_khard %{buildroot}%{_datadir}/zsh/site-functions/_k
 
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.20.0-3
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Tue Jul 29 2025 Ben Boeckel <fedora@me.benboeckel.net> - 0.20.0-2
 - Remove unnecessary `unidecode` dependency
 

@@ -36,7 +36,7 @@
 
 Name:           go-bindata
 Version:        3.0.7
-Release:        32.git%{shortcommit}%{?dist}
+Release:        33.git%{shortcommit}%{?dist}
 Summary:        A small utility which generates Go code from any file
 License:        MIT
 URL:		https://%{provider_prefix}
@@ -78,6 +78,9 @@ install -m 755 bin/go-bindata %{buildroot}%{_bindir}/go-bindata
 %{_bindir}/go-bindata
 
 %changelog
+* Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 3.0.7-33.gita0ff256
+- Rebuild for golang-1.25.0
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.7-32.gita0ff256
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

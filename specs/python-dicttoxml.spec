@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.7.4
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Converts a Python dictionary or other native data type into a valid XML string
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -50,6 +50,9 @@ nesting for the collections.
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.7.4-21
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.4-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

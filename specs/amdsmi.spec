@@ -19,7 +19,7 @@
 
 Name:       amdsmi
 Version:    %{rocm_version}
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    AMD System Management Interface
 
 License:    NCSA AND MIT AND BSD-3-Clause
@@ -200,6 +200,9 @@ mv %{buildroot}%{_datadir}/tests %{buildroot}%{_datadir}/amdsmi/.
 %endif
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 6.4.2-4
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Wed Aug 13 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-3
 - Build -test on SUSE
 

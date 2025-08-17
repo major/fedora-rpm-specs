@@ -2,7 +2,7 @@
 
 Name:           python-click
 Version:        8.2.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple wrapper around optparse for powerful command line utilities
 
 License:        BSD-3-Clause
@@ -57,6 +57,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 8.2.2-2
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Tue Aug 05 2025 Charalampos Stratakis <cstratak@redhat.com> - 8.2.2-1
 - Update to 8.2.2
 Resolves: rhbz#2365473

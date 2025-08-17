@@ -8,7 +8,7 @@
 Summary:    Zope Exceptions
 Name:       python-zope-exceptions
 Version:    5.1
-Release:    5%{?dist}
+Release:    6%{?dist}
 VCS:        git:%{giturl}.git
 Source0:    %{giturl}/archive/%{version}/%{modname}-%{version}.tar.gz
 License:    ZPL-2.1
@@ -56,6 +56,9 @@ general purpose that they don't belong in Zope application-specific packages.
 %{python3_sitelib}/%{modname}-*-nspkg.pth
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 5.1-6
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

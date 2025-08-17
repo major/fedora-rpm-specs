@@ -128,7 +128,7 @@ Requires: openSUSE-release
 
 Name:		nfs-ganesha
 Version:	7.0
-Release:	1%{?dev:%{dev}}%{?dist}
+Release:	2%{?dev:%{dev}}%{?dist}
 Summary:	NFS-Ganesha is a NFS Server running in user space
 License:	LGPL-3.0-or-later
 Url:		https://github.com/nfs-ganesha/nfs-ganesha/wiki
@@ -965,6 +965,9 @@ killall -SIGHUP dbus-daemon >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 7.0-2
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Wed Jul 30 2025 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 7.0-1
 - NFS-Ganesha 7.0 GA
 

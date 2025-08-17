@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.9.4
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Command line tools for working with catkin
 
 License:        Apache-2.0
@@ -95,6 +95,9 @@ install -p -m0644 -D docs/_build/man/%{srcname}.1 %{buildroot}%{_mandir}/man1/%{
 
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.9.4-10
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Tue Aug 05 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.9.4-9
 - Apply upstream patch to build with sphinx 8 (bug 2329848)
 

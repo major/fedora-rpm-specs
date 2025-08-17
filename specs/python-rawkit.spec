@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.6.0
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        A ctypes-based set of LibRaw bindings for Python
 
 License:        MIT
@@ -46,6 +46,9 @@ rawkit is a ctypes-based set of LibRaw bindings for Python
 %{python3_sitelib}/rawkit/
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.6.0-24
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

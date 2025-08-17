@@ -5,7 +5,7 @@
 
 Name:           python-pymongo
 Version:        4.13.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 License:        Apache-2.0
 Summary:        Python driver for MongoDB
@@ -200,6 +200,9 @@ rm doc/_build/html/.buildinfo
 
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.13.2-2
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Tue Jul 29 2025 Gwyn Ciesla <gwync@protonmail.com> - 4.13.2-1
 - 4.13.2
 

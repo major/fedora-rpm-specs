@@ -2,7 +2,7 @@
 
 Name:          enchant2
 Version:       2.8.12
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       An Enchanting Spell Checking Library
 
 License:       LGPL-2.0-or-later
@@ -237,6 +237,9 @@ find %{buildroot} -name '*.la' -delete
 
 
 %changelog
+* Fri Aug 15 2025 Sandro Mani <manisandro@gmail.com> - 2.8.12-3
+- Rebuild (icu)
+
 * Wed Aug 06 2025 František Zatloukal <fzatlouk@redhat.com> - 2.8.12-2
 - Rebuilt for icu 77.1
 

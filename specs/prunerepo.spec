@@ -1,7 +1,7 @@
 Name:    prunerepo
 Version: 1.26
 Summary: Remove old packages from rpm-md repository
-Release: 3%{?dist}
+Release: 4%{?dist}
 Url: https://pagure.io/prunerepo
 
 
@@ -81,6 +81,9 @@ install -p -m 644 man/prunerepo.1 %{buildroot}/%{_mandir}/man1/
 %{_mandir}/man1/prunerepo.1*
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.26-4
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.26-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

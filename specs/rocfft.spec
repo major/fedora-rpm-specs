@@ -89,7 +89,7 @@
 
 Name:           %{rocfft_name}
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        ROCm Fast Fourier Transforms (FFT) library
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -112,7 +112,6 @@ BuildRequires:  rocm-rpm-macros-modules
 BuildRequires:  rocrand-devel
 BuildRequires:  fftw-devel
 BuildRequires:  boost-devel
-BuildRequires:  hipcc-libomp-devel
 BuildRequires:  hiprand-devel
 
 %if 0%{?suse_version}
@@ -241,6 +240,9 @@ fi
 %endif
 
 %changelog
+* Fri Aug 15 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-5
+- Remove buildrequires hipcc-libomp-devel
+
 * Fri Aug 8 2025 Egbert Eich <eich@suse.com> - 6.4.2-4
 - Adjust python dependency for SUSE.
 

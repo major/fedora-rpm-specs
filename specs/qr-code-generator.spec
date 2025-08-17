@@ -1,10 +1,10 @@
 %global richname QR-Code-generator
 %global cmakename qrcodegen-cmake
-%global cmakesuffix cmake2
+%global cmakesuffix cmake4
 
 Name: qr-code-generator
 Version: 1.8.0
-Release: 14%{?dist}
+Release: %autorelease
 
 License: MIT
 Summary: High-quality QR Code generator library
@@ -90,7 +90,7 @@ pushd python >&2
 # Building C and C++ versions...
 %cmake -G Ninja \
     -DCMAKE_BUILD_TYPE=Release \
-    -DBUILD_TESTS:BOOL=ON
+    -DQRCODEGEN_BUILD_TESTS:BOOL=ON
 %cmake_build
 
 # Building Python version...
@@ -137,80 +137,4 @@ ln -s qrcodegen.hpp %{buildroot}%{_includedir}/qrcodegencpp/QrCode.hpp
 %license Readme.markdown
 
 %changelog
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-14
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.8.0-13
-- Rebuilt for Python 3.14
-
-* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Fri Jun 07 2024 Python Maint <python-maint@redhat.com> - 1.8.0-10
-- Rebuilt for Python 3.13
-
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1.8.0-6
-- Rebuilt for Python 3.12
-
-* Sat Apr 22 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 1.8.0-5
-- Fixed namespaced targets detection.
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 1.8.0-2
-- Rebuilt for Python 3.11
-
-* Mon Apr 18 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 1.8.0-1
-- Updated to version 1.8.0.
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Sep 02 2021 Vitaly Zaitsev <vitaly@easycoding.org> - 1.7.0-2
-- Enabled pkgconfig and CMake configs support.
-- Enabled unit tests.
-- Added a legacy symlink for compatibility.
-
-* Mon Aug 09 2021 Vitaly Zaitsev <vitaly@easycoding.org> - 1.7.0-1
-- Updated to version 1.7.0.
-- Switched to CMake build system.
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 1.6.0-4
-- Rebuilt for Python 3.10
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue Jul 21 2020 Vitaly Zaitsev <vitaly@easycoding.org> - 1.6.0-1
-- Updated to version 1.6.0.
-
-* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 1.5.0-3.20191014git67c6246
-- Rebuilt for Python 3.9
-
-* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-2.20191014git67c6246
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Mon Jan 06 2020 Vitaly Zaitsev <vitaly@easycoding.org> - 1.5.0-1.20191014git67c6246
-- Initial SPEC release.
+%autochangelog

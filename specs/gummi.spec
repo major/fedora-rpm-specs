@@ -29,6 +29,7 @@ user in mind, but also offers features that speak to the more advanced user.
 %autosetup
 
 %build
+export CFLAGS="$CFLAGS -std=gnu17"
 %configure
 %make_build
 

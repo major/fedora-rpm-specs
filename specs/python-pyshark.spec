@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python packet parsing using wireshark dissectors
 
 License:        MIT
@@ -61,6 +61,9 @@ popd
 %{python3_sitelib}/*.dist-info
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.6-2
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Thu Jul 24 2025 Federico Pellegrin <fede@evolware.org> - 0.6-1
 - Bump to 0.6 and use new Python macros in spec file (rhbz#2378081)
 

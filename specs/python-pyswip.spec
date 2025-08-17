@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.3.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python-SWI-Prolog bridge
 
 License:        MIT
@@ -61,6 +61,9 @@ Pythonic interface.
 
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.3.3-2
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Sat Aug  2 2025 Christoph Karl <pampelmuse [AT] gmx [DOT] at> - 0.3.3-1
 - Update to version 0.3.3
 

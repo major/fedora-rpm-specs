@@ -5,7 +5,7 @@ Version:        3.6.0
 %forgemeta
 
 Name:           python-%{srcname}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A bridge from UFOs to FontTool objects
 
 # The entire source is (SPDX) MIT, except:
@@ -68,6 +68,9 @@ k="${k-}${k+ and }not (test_kern_zyyy_zinh)"
 %doc README.rst
  
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.6.0-2
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Sat Jul 26 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 3.6.0-1
 - Update to 3.6.0 (close RHBZ#2383556)
 

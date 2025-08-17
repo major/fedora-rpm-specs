@@ -9,7 +9,7 @@ BuildRequires:	javapackages-local-openjdk%2 \
 
 Name:		qdbm
 Version:	1.8.78
-Release:	71%{?dist}
+Release:	72%{?dist}
 # SPDX confirmed
 License:	LGPL-2.1-or-later
 
@@ -29,11 +29,10 @@ BuildRequires:	zlib-devel
 BuildRequires:	bzip2-devel
 BuildRequires:	lzo-devel
 %ifarch %java_arches
+%set_javaver	44	21
 %set_javaver	43	21
 %set_javaver	42	21
 %set_javaver	41	21
-%set_javaver	40	21
-%set_javaver	39	17
 %endif
 # ruby-devel requires ruby-libs but not require ruby
 BuildRequires:	ruby
@@ -388,6 +387,9 @@ popd
 
 
 %changelog
+* Fri Aug 15 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.8.78-72
+- Adjust java BuildRequires for F44
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.78-71
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

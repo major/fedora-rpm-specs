@@ -13,7 +13,7 @@ Take a list of domains and probe for working HTTP and HTTPS servers.}
 %global godocs          README.md
 
 Name:           httprobe
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Probing tool for working HTTP and HTTPS servers
 
 License:        MIT
@@ -49,6 +49,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 0.1.2-17
+- Rebuild for golang-1.25.0
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 %global with_tests 0
 Name:           python-ntplib
 Version:        0.3.3
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Python module that offers a simple interface to query NTP servers
 
 License:        MIT
@@ -58,6 +58,9 @@ Python 3 version.
 %{python3_sitelib}/__pycache__/*
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.3.3-38
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Aug 01 2025 Vratislav Podzimek <v.podzimek+fedora@mykolab.com> - 0.3.3-37
 - Changes for https://fedoraproject.org/wiki/Changes/DeprecateSetuppyMacros
 

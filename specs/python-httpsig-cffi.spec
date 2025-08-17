@@ -1,7 +1,7 @@
 Summary:        Secure HTTP request signing using the HTTP Signature draft specification
 Name:           python-httpsig-cffi
 Version:        15.0.0
-Release:        29%{?dist}
+Release:        30%{?dist}
 License:        MIT
 URL:            https://github.com/hawkowl/httpsig_cffi
 Source0:        https://files.pythonhosted.org/packages/source/h/httpsig-cffi/httpsig_cffi-%{version}.tar.gz
@@ -60,6 +60,9 @@ PyPy support.
 %doc README.rst
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 15.0.0-30
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Mon Aug 04 2025 Terje Rosten <terjeros@gmail.com> - 15.0.0-29
 - New set of rpm macros
 

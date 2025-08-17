@@ -1,6 +1,6 @@
 Name:           foomuuri
 Version:        0.28
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Multizone bidirectional nftables firewall
 License:        GPL-2.0-or-later
 URL:            https://github.com/FoobarOy/foomuuri
@@ -9,7 +9,7 @@ BuildArch:      noarch
 BuildRequires:  make
 BuildRequires:  python3-devel
 BuildRequires:  systemd-rpm-macros
-%if (%{defined fedora} || (%{defined epel} && 0%{?epel} <= 9))
+%if ((%{defined fedora} && 0%{?fedora} <= 42) || (%{defined epel} && 0%{?epel} <= 9))
 BuildRequires:  pylint
 BuildRequires:  python3-dbus
 BuildRequires:  python3-flake8
@@ -66,7 +66,7 @@ allowing dynamically assign interfaces to Foomuuri zones via NetworkManager.
 make install DESTDIR=%{buildroot} BINDIR=%{_sbindir}
 
 
-%if (%{defined fedora} || (%{defined epel} && 0%{?epel} <= 9))
+%if ((%{defined fedora} && 0%{?fedora} <= 42) || (%{defined epel} && 0%{?epel} <= 9))
 %check
 make test
 %endif
@@ -122,6 +122,10 @@ systemctl stop foomuuri-resolve.timer foomuuri-resolve.service > /dev/null 2>&1 
 
 
 %changelog
+* Fri Aug 15 2025 Kim B. Heino  <b@bbbs.net> - 0.28-3
+- Disable tests on Fedora 43 because of missing dependencies
+- Resolves: rhbz#2384597
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.28-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

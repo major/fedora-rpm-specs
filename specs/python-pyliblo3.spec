@@ -5,7 +5,7 @@ Name:           python-pyliblo3
 %global snapinfo ^%{snapdate}git%{sub %{commit} 1 7}
 #Version:        0.16.2%%{snapinfo}
 Version:        0.16.3
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Python bindings for the liblo Open Sound Control (OSC) library
 # Main code is LGPL-2.1-or-later
 License:        LGPL-2.1-or-later
@@ -89,6 +89,9 @@ cp -a scripts/dump_osc.1 scripts/send_osc.1 %{buildroot}%{_mandir}/man1/
 %doc examples/
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.16.3-6
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Tue Aug 05 2025 Charalampos Stratakis <cstratak@redhat.com> - 0.16.3-5
 - Fix compatibility with Cython >= 3.1
 - Fixes: rhbz#2377046

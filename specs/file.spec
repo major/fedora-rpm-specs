@@ -15,7 +15,7 @@
 Summary: Utility for determining file types
 Name: file
 Version: 5.46
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 # Main license is BSD-2-Clause-Darwin
 # Shipped exceptions:
@@ -241,6 +241,9 @@ make -C tests check
 %endif
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 5.46-7
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.46-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

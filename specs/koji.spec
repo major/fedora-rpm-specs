@@ -9,7 +9,7 @@
 
 Name: koji
 Version: 1.35.3
-Release: 5%{?dist}
+Release: 6%{?dist}
 # the included arch lib from yum's rpmUtils is GPLv2+
 License: LGPL-2.1-only AND GPL-2.0-or-later
 Summary: Build system tools
@@ -362,6 +362,9 @@ install -m0644 -D koji.sysusers.conf %{buildroot}%{_sysusersdir}/koji.conf
 %systemd_postun kojira.service
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.35.3-6
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Adam Williamson <awilliam@redhat.com> - 1.35.3-5
 - Also do sysusers for EL 10+
 

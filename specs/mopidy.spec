@@ -2,7 +2,7 @@
 
 Name:           mopidy
 Version:        4.0.0~a4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        An extensible music server written in Python
 
 License:        Apache-2.0
@@ -125,6 +125,9 @@ install -m0644 -D mopidy.sysusers.conf %{buildroot}%{_sysusersdir}/mopidy.conf
 
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.0.0~a4-3
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0~a4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

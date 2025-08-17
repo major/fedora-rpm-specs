@@ -3,7 +3,7 @@
 Summary:        Python module to extract EXIF information
 Name:           python-exif
 Version:        3.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
 URL:            https://github.com/ianare/exif-py
@@ -44,6 +44,9 @@ rm -rf %{buildroot}%{python3_sitelib}/tests
 %{_bindir}/EXIF.py
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.4.0-2
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Thu Aug 07 2025 Terje Rosten <terjeros@gmail.com> - 3.4.0-1
 - 3.4.0
 

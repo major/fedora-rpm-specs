@@ -2,7 +2,7 @@
 
 Name:           %{pypi_name}
 Version:        0.2.2
-Release:        17%{?dist}
+Release:        19%{?dist}
 Summary:        Tool for generating MQTT messages on various topics
 
 License:        MIT
@@ -13,7 +13,6 @@ Patch1:         0001-Add-basic-support-for-paho.mqtt-v2.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
 
 %description
 For testing application and tools which are handling MQTT messages
@@ -25,22 +24,29 @@ lists of topics to create repeatable test scenarios.
 
 %prep
 %autosetup -n %{pypi_name}-%{version} -p1
-rm -rf %{pypi_name}.egg-info
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files mqtt_randompub
 
-%files
+%files -f %{pyproject_files}
 %license LICENSE
 %doc AUTHORS ChangeLog README.rst
 %{_bindir}/mqtt-randompub
-%{python3_sitelib}/mqtt_randompub/
-%{python3_sitelib}/mqtt_randompub-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.2.2-19
+- Rebuilt for Python 3.14.0rc2 bytecode
+
+* Fri Aug 15 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 0.2.2-18
+- Update to new python macros (rhbz #2377335)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

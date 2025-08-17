@@ -11,10 +11,10 @@
 
 %if 0%{?dev_release}
 %global postrelease dev
-%global release 21
+%global release 22
 %else
 %global postrelease 0
-%global release 4
+%global release 5
 %endif
 
 %global osbs_obsolete_vr 0.14-2
@@ -125,6 +125,9 @@ py.test-3 -vv tests
 
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.15.0-5
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

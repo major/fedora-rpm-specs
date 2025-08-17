@@ -1,6 +1,6 @@
 Name:           python-repomd
 Version:        0.2.1
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Library for reading dnf/yum repositories
 License:        MIT
 URL:            https://github.com/carlwgeorge/repomd
@@ -50,6 +50,9 @@ rm setup.cfg
 
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.2.1-24
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Thu Jul 31 2025 Carl George <carlwgeorge@fedoraproject.org> - 0.2.1-23
 - Port to pyproject macros rhbz#2378160
 

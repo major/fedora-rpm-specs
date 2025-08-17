@@ -19,7 +19,7 @@ which simplifies Apache CloudStack configuration and management.}
 %global godocs          README.md CHANGES.md
 
 Name:           apache-cloudstack-cloudmonkey
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Apache Cloudstack Cloudmonkey
 
 # Upstream license specification: Apache-2.0
@@ -65,6 +65,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 6.2.0-15
+- Rebuild for golang-1.25.0
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

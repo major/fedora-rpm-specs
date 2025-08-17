@@ -26,7 +26,7 @@ Release notes: https://github.com/python-social-auth/%{module_name}/releases/tag
 
 Name:           python-%{pypi_name}
 Version:        4.5.4
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        %{summary}
 License:        BSD-3-Clause
 URL:            https://github.com/python-social-auth/social-core/
@@ -95,6 +95,9 @@ rm -r %{buildroot}%{python3_sitelib}/%{module_name}/tests/
 %{python3_sitelib}/%{egginfo_name}-%{version}-py*.egg-info
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.5.4-6
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

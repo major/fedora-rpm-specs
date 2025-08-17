@@ -2,7 +2,7 @@
 
 Name:           onionshare
 Version:        2.5
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Securely and anonymously share files of any size
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -73,6 +73,9 @@ user just needs to use Tor Browser to download a file from you.
 
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.5-14
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

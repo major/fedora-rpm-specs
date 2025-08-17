@@ -7,7 +7,7 @@ Name: binutils%{?_with_debug:-debug}
 # The variable %%{source} (see below) should be set to indicate which of these
 # origins is being used.
 Version: 2.45
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -22,7 +22,7 @@ URL: https://sourceware.org/binutils
 # --with    debug        Build without optimizations and without splitting the debuginfo into a separate file.
 # --without debuginfod   Disable support for debuginfod.
 # --without docs         Skip building documentation.  Default is with docs, except when building a cross binutils.
-# --with    gold         Enable building of the GOLD linker.
+# --without gold         Disable building of the GOLD linker.
 # --without gprofng      Do not build the GprofNG profiler.
 # --without systemzlib   Use the binutils version of zlib.  Default is to use the system version.
 # --without testsuite    Do not run the testsuite.  Default is to run it.
@@ -142,8 +142,13 @@ URL: https://sourceware.org/binutils
 # Default: Use the xxhash-devel library.
 %bcond_without xxhash
 
-# Note - do not enable for RISC-V - it does not have a port of gold.
+# Note - in the future the gold linker may become deprecated.
+%ifnarch riscv64
+%bcond_without gold
+%else
+# RISC-V does not have ld.gold thus disable by default.
 %bcond_with gold
+%endif
 
 # Allow the user to override the compiler used to build the binutils.
 # The default build compiler is gcc if %%toolchain is not clang.
@@ -1466,6 +1471,9 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Fri Aug 15 2025 Nick Clifton <nickc@redhat.com> - 2.45-3
+- Oops - the gold linker was disabled too soon, re-enabling.
+
 * Wed Aug 13 2025 Nick Clifton <nickc@redhat.com> - 2.45-2
 - Disable building of gold by default.  Ref: https://fedoraproject.org/wiki/Changes/DeprecateGoldLinker
 

@@ -14,9 +14,9 @@
 # Run the testsuite
 %global enable_tests 0
 
-%global DATE 20250521
-%global gitrev b9def1721b12cae307c1a1ebc49030fce6531dfa
-%global gcc_version 15.1.1
+%global DATE 20250808
+%global gitrev f833458d29b4fa40ffce6cf3b37ab9a30a864901
+%global gcc_version 15.2.1
 %global gcc_major 15
 
 Name:           mingw-gcc
@@ -987,6 +987,9 @@ ln -sf %{ucrt64_bindir}/libssp-0.dll %{buildroot}%{ucrt64_libdir}/libssp.dll.a
 
 
 %changelog
+* Fri Aug 15 2025 Sandro Mani <manisandro@gmail.com> - 15.2.1-1
+- Update to 15.2.1 (20250808)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 15.1.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -239,7 +239,7 @@
 #region main package
 Name:		%{pkg_name_llvm}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
-Release:	14%{?dist}
+Release:	15%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	Apache-2.0 WITH LLVM-exception OR NCSA
@@ -843,9 +843,9 @@ Shared libraries for LLD.
 %if 0%{?rhel}
 %package -n %{pkg_name_llvm}-toolset
 Summary:	Package that installs llvm-toolset
-Requires:	clang = %{version}-%{release}
-Requires:	llvm = %{version}-%{release}
-Requires:	lld = %{version}-%{release}
+Requires:	%{pkg_name_clang} = %{version}-%{release}
+Requires:	%{pkg_name_llvm} = %{version}-%{release}
+Requires:	%{pkg_name_lld} = %{version}-%{release}
 
 %description -n %{pkg_name_llvm}-toolset
 This is the main package for llvm-toolset.
@@ -3115,6 +3115,9 @@ fi
 
 #region changelog
 %changelog
+* Fri Aug 15 2025 Carl George <carlwgeorge@fedoraproject.org> - 19.1.7-15
+- Require correct package names from toolset subpackage
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 19.1.7-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

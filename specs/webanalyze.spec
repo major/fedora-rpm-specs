@@ -15,7 +15,7 @@ scanning.}
 %global godocs          README.md
 
 Name:           webanalyze
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Tool to uncovers technologies used on websites
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -57,6 +57,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 0.3.1-17
+- Rebuild for golang-1.25.0
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

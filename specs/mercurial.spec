@@ -10,7 +10,7 @@
 Summary: A fast, lightweight Source Control Management system
 Name: mercurial
 Version: 7.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # Release: 1.rc1%%{?dist}
 
@@ -273,6 +273,9 @@ rm -rf %{buildroot}%{python3_sitearch}/mercurial/locale
 
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 7.1-2
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Mon Aug 04 2025 Mads Kiilerich <mads@kiilerich.com> - 7.1-1
 - mercurial 7.1
 

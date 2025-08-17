@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.8.4
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Python dict formatted dumper
 
 License:        MPL-2.0
@@ -41,6 +41,9 @@ formatted output dumper for dict.
 %{python3_sitelib}/%{pypi_name}/
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.8.4-16
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.4-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

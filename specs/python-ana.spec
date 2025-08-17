@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.06
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Python module to provide easy distributed data storage
 
 License:        MIT
@@ -44,6 +44,9 @@ to a central location and then "pickle" the object into just its UUID.
 %{python3_sitelib}/%{pypi_name}-*-py*.egg-info
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.06-22
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

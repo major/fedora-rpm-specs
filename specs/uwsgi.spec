@@ -250,7 +250,7 @@
 
 Name:           uwsgi
 Version:        2.0.30
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Fast, self-healing, application container server
 # uwsgi is licensed under GPLv2 with a linking exception
 # docs are licensed under MIT
@@ -1962,6 +1962,9 @@ install -m0644 -D %{SOURCE8} %{buildroot}%{_sysusersdir}/uwsgi.conf
 
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.0.30-5
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Thu Jul 24 2025 Ralf Ertzinger <ralf@skytale.net> - 2.0.30-4
 - Disable perl-Coro for rawhide, as this blocks rebuilding
   for perl 5.42 (see https://bugzilla.redhat.com/show_bug.cgi?id=2379448)

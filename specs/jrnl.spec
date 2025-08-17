@@ -26,6 +26,11 @@ Patch:          0001-Downstream-only-do-not-upper-bound-the-Python-interp.patch
 # https://github.com/jrnl-org/jrnl/pull/2013#issuecomment-3146456826.
 Patch:          jrnl-4.2-rich-14.patch
 
+# For Python 3.11, use `tomllib` for tests
+# https://github.com/jrnl-org/jrnl/pull/2028
+# Rebased on v4.2.1, without changes to poetry.lock.
+Patch:          0001-For-Python-3.11-use-tomllib-for-tests.patch
+
 BuildSystem:            pyproject
 BuildOption(install):   jrnl
 BuildOption(generate_buildrequires): -t

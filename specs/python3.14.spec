@@ -46,10 +46,10 @@ URL: https://www.python.org/
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
 %global general_version %{pybasever}.0
-%global prerel rc1
+%global prerel rc2
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 2%{?dist}
+Release: 1%{?dist}
 License: Python-2.0.1
 
 
@@ -109,31 +109,30 @@ License: Python-2.0.1
 # This needs to be manually updated when we update Python.
 # Explore the sources tarball (you need the version before %%prep is executed):
 #  $ tar -tf Python-%%{upstream_version}.tar.xz | grep whl
-%global pip_version 25.1.1
+%global pip_version 25.2
 %global setuptools_version 79.0.1
 # All of those also include a list of indirect bundled libs:
 # pip
 #  $ %%{_rpmconfigdir}/pythonbundles.py <(unzip -p Lib/ensurepip/_bundled/pip-*.whl pip/_vendor/vendor.txt)
 %global pip_bundled_provides %{expand:
-Provides: bundled(python3dist(cachecontrol)) = 0.14.2
-Provides: bundled(python3dist(certifi)) = 2025.1.31
+Provides: bundled(python3dist(cachecontrol)) = 0.14.3
+Provides: bundled(python3dist(certifi)) = 2025.7.14
 Provides: bundled(python3dist(dependency-groups)) = 1.3.1
-Provides: bundled(python3dist(distlib)) = 0.3.9
+Provides: bundled(python3dist(distlib)) = 0.4
 Provides: bundled(python3dist(distro)) = 1.9
 Provides: bundled(python3dist(idna)) = 3.10
-Provides: bundled(python3dist(msgpack)) = 1.1
+Provides: bundled(python3dist(msgpack)) = 1.1.1
 Provides: bundled(python3dist(packaging)) = 25
-Provides: bundled(python3dist(platformdirs)) = 4.3.7
-Provides: bundled(python3dist(pygments)) = 2.19.1
+Provides: bundled(python3dist(platformdirs)) = 4.3.8
+Provides: bundled(python3dist(pygments)) = 2.19.2
 Provides: bundled(python3dist(pyproject-hooks)) = 1.2
-Provides: bundled(python3dist(requests)) = 2.32.3
-Provides: bundled(python3dist(resolvelib)) = 1.1
-Provides: bundled(python3dist(rich)) = 14
+Provides: bundled(python3dist(requests)) = 2.32.4
+Provides: bundled(python3dist(resolvelib)) = 1.2
+Provides: bundled(python3dist(rich)) = 14.1
 Provides: bundled(python3dist(setuptools)) = 70.3
 Provides: bundled(python3dist(tomli)) = 2.2.1
 Provides: bundled(python3dist(tomli-w)) = 1.2
 Provides: bundled(python3dist(truststore)) = 0.10.1
-Provides: bundled(python3dist(typing-extensions)) = 4.13.2
 Provides: bundled(python3dist(urllib3)) = 1.26.20
 }
 # setuptools
@@ -1736,6 +1735,10 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Thu Aug 14 2025 Miro Hrončok <mhroncok@redhat.com> - 3.14.0~rc2-1
+- Update to Python 3.14.0rc2
+- The .pyc magic number was bumped
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.14.0~rc1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:		python-Bottleneck
 Version:	1.4.2
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Collection of fast NumPy array functions written in Cython
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -101,6 +101,9 @@ rm -rf %{buildroot}%{python3_sitearch}/.pytest_cache
 
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.4.2-5
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

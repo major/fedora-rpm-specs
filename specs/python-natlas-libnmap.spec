@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.7.1
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Python library for nmap tasks, parse and compare/diff scan results
 
 # Automatically converted from old format: CC-BY - review is highly recommended.
@@ -44,6 +44,9 @@ sed -i -e '/^#!\//, 1d' libnmap/reportjson.py
 %{python3_sitelib}/natlas_libnmap-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.7.1-20
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

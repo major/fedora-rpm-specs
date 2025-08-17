@@ -2,8 +2,8 @@
 %{!?tcl_sitearch: %define tcl_sitearch %{_libdir}/tcl%{tcl_version}}
 
 Name:           itcl
-Version:        4.1.1
-Release:        14%{?dist}
+Version:        4.3.2
+Release:        1%{?dist}
 Summary:        Object oriented extensions to Tcl and Tk
 
 License:        TCL
@@ -29,8 +29,8 @@ Development headers and libraries for linking against itcl.
 
 %prep
 %setup -q -n %{name}%{version}
-%patch -P1 -p1 -b .libdir
-%patch -P2 -p1 -b .soname
+%patch -P1 -p0 -b .libdir
+%patch -P2 -p0 -b .soname
 
 %build
 %configure
@@ -50,7 +50,7 @@ make test
 %files
 %dir %{tcl_sitearch}/%{name}%{version}
 %{tcl_sitearch}/%{name}%{version}/*.tcl
-%{_libdir}/*.so
+%{tcl_sitearch}/%{name}%{version}/*.so
 %{_mandir}/mann/*.gz
 %license license.terms
 %doc README releasenotes.txt
@@ -61,6 +61,9 @@ make test
 %{_libdir}/itclConfig.sh
 
 %changelog
+* Fri Aug 15 2025 Dmitrij S. Kryzhevich <kryzhev@ispms.ru> - 4.3.2-1
+- Update to new 4.3.2.
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.1-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

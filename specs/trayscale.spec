@@ -24,7 +24,7 @@ An unofficial GUI wrapper around the Tailscale CLI client.}
 %global godocs          README.md
 
 Name:           trayscale
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An unofficial GUI wrapper around the Tailscale CLI client
 
 # main source code is MIT
@@ -232,6 +232,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/dev.deedles.Tr
 
 
 %changelog
+* Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 0.18.1-2
+- Rebuild for golang-1.25.0
+
 * Tue Jul 29 2025 Jonathan Wright <jonathan@almalinux.org> - 0.18.1-1
 - update to 0.18.1 rhbz#2384201
 - Include preference gschema rhbz#2343982

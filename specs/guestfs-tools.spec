@@ -8,15 +8,15 @@
 %global verify_tarball_signature 1
 
 # The source directory.
-%global source_directory 1.54-stable
+%global source_directory 1.55-development
 
 # Filter perl provides.
 %{?perl_default_filter}
 
 Summary:       Tools to access and modify virtual machine disk images
 Name:          guestfs-tools
-Version:       1.54.0
-Release:       3%{?dist}
+Version:       1.55.1
+Release:       1%{?dist}
 License:       GPL-2.0-or-later AND LGPL-2.0-or-later
 
 # Build only for architectures that have a kernel
@@ -43,7 +43,7 @@ BuildRequires: autoconf, automake, libtool, gettext-devel
 BuildRequires: gcc, gcc-c++
 BuildRequires: make
 BuildRequires: glibc-utils
-BuildRequires: libguestfs-devel >= 1:1.49.8-1
+BuildRequires: libguestfs-devel >= 1:1.57.1-1
 BuildRequires: libguestfs-xfs
 BuildRequires: perl(Pod::Simple)
 BuildRequires: perl(Pod::Man)
@@ -89,10 +89,8 @@ BuildRequires: perl-generators
 BuildRequires: gnupg2
 %endif
 
-# Ensure a minimum version of libguestfs is installed.  This contains
-# a workaround for openssl bug RHBZ#2133884 and the hang where we
-# called setenv between fork and exec.
-Requires:      libguestfs >= 1.49.6-1
+# Ensure a minimum version of libguestfs is installed.
+Requires:      libguestfs%{?_isa} >= 1:1.57.1-1
 
 # For virt-builder:
 Requires:      curl
@@ -390,6 +388,10 @@ end
 
 
 %changelog
+* Fri Aug 15 2025 Richard W.M. Jones <rjones@redhat.com> - 1.55.1-1
+- New upstream development version 1.55.1
+- Ensure minimum libguestfs is 1.57.1 (for guestfs_setfiles)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.54.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:             flent
 Version:          2.2.0
-Release:          5%{?dist}
+Release:          6%{?dist}
 Summary:          FLExible Network Tester for bufferbloat testing and more
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -90,6 +90,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %doc doc/_build/html
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.2.0-6
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Mon Aug 11 2025 Toke Høiland-Jørgensen <toke@toke.dk> 2.2.0-5
 - Migrate RPM spec to pyproject macros (fedora#2377258)
 

@@ -5,7 +5,7 @@
 
 Name:		shim
 Version:	15.8
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	First-stage UEFI bootloader
 License:	BSD-3-Clause
 URL:		https://github.com/rhboot/shim/
@@ -76,10 +76,9 @@ cd shim-%{version}
 rm -rf $RPM_BUILD_ROOT
 cd shim-%{version}
 install -D -d -m 0755 $RPM_BUILD_ROOT/boot/
-install -D -d -m 0700 $RPM_BUILD_ROOT%{efi_esp_root}/
-install -D -d -m 0700 $RPM_BUILD_ROOT%{efi_esp_efi}/
-install -D -d -m 0700 $RPM_BUILD_ROOT%{efi_esp_dir}/
-install -D -d -m 0700 $RPM_BUILD_ROOT%{efi_esp_boot}/
+install -D -d -m 0700 $RPM_BUILD_ROOT%{_prefix}/lib/shim/
+install -D -d -m 0700 $RPM_BUILD_ROOT%{shim_efi_dir}/
+install -D -d -m 0700 $RPM_BUILD_ROOT%{shim_boot_dir}/
 
 %do_install -a %{efi_arch} -A %{efi_arch_upper} -b %{bootcsv}
 %if %{efi_has_alt_arch}
@@ -87,7 +86,7 @@ install -D -d -m 0700 $RPM_BUILD_ROOT%{efi_esp_boot}/
 %endif
 
 %if %{provide_legacy_shim}
-install -m 0700 %{shimefi} $RPM_BUILD_ROOT%{efi_esp_dir}/shim.efi
+install -m 0700 %{shimefi} $RPM_BUILD_ROOT%{shim_efi_dir}/shim.efi
 %endif
 install -D -d -m 0755 $RPM_BUILD_ROOT%{_sysconfdir}/dnf/protected.d/
 install -m 0644 %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/dnf/protected.d/
@@ -97,7 +96,7 @@ install -m 0644 %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/dnf/protected.d/
 
 %define_files -a %{efi_arch} -A %{efi_arch_upper}
 %if %{provide_legacy_shim}
-%{efi_esp_dir}/shim.efi
+%{shim_efi_dir}/shim.efi
 %endif
 %{_sysconfdir}/dnf/protected.d/shim.conf
 
@@ -106,7 +105,20 @@ install -m 0644 %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/dnf/protected.d/
 %{_sysconfdir}/dnf/protected.d/shim.conf
 %endif
 
+%posttrans %{efi_arch}
+set -eu
+
+# On image mode, bootupd takes care of installing bootloader updates to the ESP
+if [[ ! -e "/run/ostree-booted" ]]; then
+   cp -a %{shim_efi_dir}/.  %{efi_esp_dir} || :
+   cp -a %{shim_boot_dir}/. %{efi_esp_boot} || :
+fi
+
 %changelog
+* Mon May 19 2025 Marta Lewandowska <mlewando@redhat.com> - 15.8-4
+- Phase 1 of the bootloader updates proposal implementation
+- https://fedoraproject.org/wiki/Changes/BootLoaderUpdatesPhase1
+
 * Tue Mar 19 2024 Peter Jones <pjones@redhat.com> - 15.8-3
 - Fix fbx64/mmx64 signing.
   Related: rhbz#2189197

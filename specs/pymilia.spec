@@ -1,7 +1,7 @@
 
 Name: pymilia
 Version: 1.0.0
-Release: 49%{?dist}
+Release: 50%{?dist}
 Summary: Python wrappers for milia
 License: GPL-3.0-or-later
 
@@ -46,6 +46,9 @@ Friedmann-Lemaître-Robertson-Walker metric.
 %doc README.txt 
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.0.0-50
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Wed Jul 30 2025 Sergio Pascual <sergiopr@fedoraproject.org> - 1.0.0-49
 - Use new style Python macros, fixes rhbz #2377398
 

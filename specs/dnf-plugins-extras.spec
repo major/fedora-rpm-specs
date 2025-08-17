@@ -6,7 +6,7 @@
 
 Name:           dnf-plugins-extras
 Version:        4.1.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Extras Plugins for DNF
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/%{name}
@@ -182,6 +182,9 @@ $releasever and $basearch.
 %{_mandir}/man8/dnf-showvars.*
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.1.2-8
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Petr Pisar <ppisar@redhat.com> - 4.1.2-7
 - Fix building with CMake 4 (bug #2380547)
 

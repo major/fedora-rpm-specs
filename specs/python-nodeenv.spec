@@ -1,6 +1,6 @@
 Name:           python-nodeenv
 Version:        1.9.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Node.js virtual environment builder
 
 License:        BSD-3-Clause
@@ -90,6 +90,9 @@ k="${k-}${k+ and }not test_smoke"
 
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.9.1-7
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

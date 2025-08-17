@@ -1,6 +1,6 @@
 Name:           python-aiohttp-oauthlib
 Version:        0.1.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        This library is a port of requests-oauthlib for aiohttp
 
 License:        ISC
@@ -49,6 +49,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.1.0-8
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

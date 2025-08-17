@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.4.4
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Python module for serializing and deserializing Java objects
 
 License:        Apache-2.0
@@ -53,6 +53,9 @@ sed -i -e '/^#!\//, 1d' {javaobj/*.py,javaobj/v1/*.py,javaobj/v2/*.py}
 %{python3_sitelib}/%{pypi_name}*.egg-info/
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.4.4-6
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 0.4.4-5
 - Rebuilt for java-25-openjdk as preffered jdk
 

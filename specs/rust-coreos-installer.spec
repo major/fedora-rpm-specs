@@ -12,7 +12,7 @@
 
 Name:           rust-coreos-installer
 Version:        0.24.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Installer for Fedora CoreOS and RHEL CoreOS
 
 License:        Apache-2.0
@@ -22,6 +22,9 @@ Source0:        %{crates_source}
 Source1:        https://github.com/coreos/%{crate}/releases/download/v%{version}/%{crate}-%{version}-vendor.tar.gz
 Source2:        https://github.com/coreos/coreos-installer-dracut/archive/%{dracutcommit}/coreos-installer-dracut-%{dracutshortcommit}.tar.gz
 ExcludeArch:    %{ix86}
+
+Patch0: 0001-signing-keys-add-Fedora-44-key.patch
+Patch1: 0002-signing-keys-drop-Fedora-41-key.patch
 
 %if 0%{?rhel}
 BuildRequires:  rust-toolset
@@ -180,6 +183,9 @@ mv %{buildroot}%{_bindir}/rdcore %{buildroot}%{dracutlibdir}/modules.d/50rdcore/
 %endif
 
 %changelog
+* Fri Aug 15 2025 Michael Armijo<marmijo@redhat.com> - 0.24.0-4
+- Backport patch that adds F44 signing key
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.24.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

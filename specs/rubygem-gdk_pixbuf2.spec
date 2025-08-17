@@ -9,23 +9,13 @@
 
 Summary:	Ruby binding of GdkPixbuf-2.x
 Name:		rubygem-%{gem_name}
-Version:	4.3.0
-Release:	5%{?dist}
+Version:	4.3.2
+Release:	1%{?dist}
 # SPDX confirmed
 # LGPL-2.1-or-later: gemspec
 License:	LGPL-2.1-or-later
 URL:		http://ruby-gnome2.sourceforge.jp/
 Source0:	http://rubygems.org/downloads/%{gem_name}-%{version}.gem
-# https://github.com/ruby-gnome/ruby-gnome/commit/4c36c2d13569d91588f5b415edd6c14a1245c315
-# Fix glycin backend gdk-pixbuf 2.43 load_animation test
-Patch0:	gdk_pixbuf2-4.3.0-glycin-load_animation.patch
-# ... And Fedora i686 does not use glycin
-
-# https://github.com/ruby-gnome/ruby-gnome/commit/047ffc08e97f1656055fab6c1913e43187d44ea1
-# https://github.com/ruby-gnome/ruby-gnome/commit/cf5518265bfa962f3d3b6ebb27c9e471b14f2875
-# https://github.com/ruby-gnome/ruby-gnome/commit/2935c3fac13e7b18335d2792c89c5c0f4366a86c
-# Fix glycin based gdk-pixbuf 2.43 image with alpha test
-Patch2:	gdk_pixbuf2-4.3.0-glycin-image-alpha.patch
 
 Requires:	ruby(release)
 BuildRequires:	ruby(release)
@@ -66,11 +56,13 @@ This package contains documentation for %{name}.
 %setup -q -n %{gem_name}-%{version}
 mv ../%{gem_name}-%{version}.gemspec .
 
-%patch -P0 -p2
-%patch -P2 -p2
-
 # Allow ruby-gnome2 no less than ones
-sed -i -e 's|= 4\.3\.0|>= 4.3.0|' %{gem_name}-%{version}.gemspec
+sed -i -e 's|= 4\.3\.2|>= 4.3.2|' %{gem_name}-%{version}.gemspec
+
+# Remove unneeded rake runtime dependency
+sed -i %{gem_name}-%{version}.gemspec \
+	-e '\@add_runtime_dependency.*rake@d'
+
 sed -i -e '\@s\.extensions@d'  %{gem_name}-%{version}.gemspec
 
 # Fix up Rakefile for "gnome2-raketask" requirement
@@ -154,6 +146,9 @@ popd
 %exclude	%{gem_instdir}/test/
 
 %changelog
+* Sat Aug 16 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.2-1
+- 4.3.2
+
 * Tue Aug 12 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.0-5
 - Upstream fix for tests with glycin based gdk-pixbuf2 2.43.x
 - Exclude tests on glycin ppc64le for now (bug 2275913)

@@ -3,7 +3,7 @@
 Summary:       Monitor filesystem events with Python under Linux
 Name:          python-inotify
 Version:       0.9.6
-Release:       40%{?dist}
+Release:       41%{?dist}
 License:       MIT
 URL:           https://github.com/seb-m/pyinotify
 Source0:       http://seb.dbzteam.org/pub/pyinotify/releases/pyinotify-%{version}.tar.gz
@@ -48,6 +48,9 @@ sed -i '1c#! %{__python3}' python3/pyinotify.py
 %{_bindir}/%{oname}
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.9.6-41
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Sun Aug 03 2025 Terje Rosten <terje.rosten@ntnu.no> - 0.9.4-40
 - Use correct python macros
 

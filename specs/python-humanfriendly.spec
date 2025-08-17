@@ -7,7 +7,7 @@
 
 Name:           python-%{srcname}
 Version:        10.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Human friendly output for text interfaces using Python
 
 License:        MIT
@@ -130,6 +130,9 @@ PYTHONUNBUFFERED=1 py.test-%{python3_version} %{srcname}/tests.py
 
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 10.0-18
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 10.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

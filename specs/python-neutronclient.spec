@@ -22,7 +22,7 @@ Neutron's API.
 
 Name:       python-neutronclient
 Version:    11.3.1
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    Python API and CLI for OpenStack Neutron
 
 License:    Apache-2.0
@@ -146,6 +146,9 @@ rm neutronclient/tests/unit/test_http.py
 %endif
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 11.3.1-4
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 11.3.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

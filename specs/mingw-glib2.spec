@@ -2,7 +2,7 @@
 
 Name:           mingw-glib2
 Version:        2.85.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        MinGW Windows GLib2 library
 
 License:        LGPL-2.0-or-later
@@ -297,6 +297,9 @@ find %{buildroot} -name "*.la" -delete
 
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.85.2-2
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Sun Jul 27 2025 Sandro Mani <manisandro@gmail.com> - 2.85.2-1
 - Update to 2.85.2
 

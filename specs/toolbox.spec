@@ -33,7 +33,7 @@ Version:       0.2
 %endif
 %endif
 
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Tool for interactive command line environments on Linux
 
 License:       Apache-2.0
@@ -188,6 +188,9 @@ install -m0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/containers/%{name}.conf
 
 
 %changelog
+* Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 0.2-2
+- Rebuild for golang-1.25.0
+
 * Sat Aug 09 2025 Debarshi Ray <rishi@fedoraproject.org> - 0.2-1
 - Update to 0.2
 - Fix CVE-2025-23266, CVE-2025-23267, and GHSA-fv92-fjc5-jj9h or GO-2025-3787

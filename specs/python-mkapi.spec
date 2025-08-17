@@ -48,7 +48,7 @@ Summary:        %{summary}
 
 %install
 %pyproject_install
-%pyproject_save_files -l mkapi
+%pyproject_save_files -L mkapi
 
 %check
 %if %{with tests}
@@ -59,6 +59,7 @@ Summary:        %{summary}
 %endif
 
 %files -n python3-mkapi -f %{pyproject_files}
+%license LICENSE
 %doc README.md
 
 %changelog

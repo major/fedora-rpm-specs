@@ -1,6 +1,6 @@
 Name:           R2spec
 Version:        5.0.0
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Python script to generate R spec file
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -45,6 +45,9 @@ rm -rf %{buildroot}
 %{_mandir}/man1/R2rpm.1.gz
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 5.0.0-22
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

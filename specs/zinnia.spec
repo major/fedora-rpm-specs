@@ -1,6 +1,6 @@
 Name:		zinnia
 Version:	0.07
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Online handwriting recognition system with machine learning
 
 License:	BSD-3-Clause
@@ -194,6 +194,9 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
 %{_datadir}/zinnia/model/tomoe/handwriting-zh_CN.model
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.07-6
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Peng Wu  <pwu@redhat.com> - 0.07-4
 - Update for https://fedoraproject.org/wiki/Changes/DeprecateSetuppyMacros
 - Resolves: RHBZ#2378641

@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        2.9.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python SANE interface
 
 License:        MIT
@@ -62,6 +62,9 @@ rm -f doc/_build_py3/html/.buildinfo
 
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.9.2-3
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           reposurgeon
 Version:        5.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        SCM Repository Manipulation Tool
 License:        BSD-2-Clause
 URL:            http://www.catb.org/~esr/reposurgeon/
@@ -93,6 +93,9 @@ make check
 %{_mandir}/man1/repotool.1*
 
 %changelog
+* Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 5.3-2
+- Rebuild for golang-1.25.0
+
 * Fri Jul 25 2025 Denis Fateyev <denis@fateyev.com> - 5.3-1
 - Disable go vet in tests
 - Update to 5.3

@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.18.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Python module to handle URLs
 
 License:        Apache-2.0
@@ -53,6 +53,9 @@ sed -i 's/Cython ~= 3\.0\.0/Cython >= 3.0.0/' packaging/pep517_backend/_backend.
 %doc CHANGES.rst README.rst
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.18.3-5
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.18.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -79,7 +79,7 @@
 
 Name:           %{rocsparse_name}
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        SPARSE implementation for ROCm
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
@@ -164,6 +164,11 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %prep
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
 
+# On Tumbleweed Q3,2025
+# /usr/include/gtest/internal/gtest-port.h:273:2: error: C++ versions less than C++17 are not supported.
+# Convert the c++14 to c++17
+sed -i -e 's@set(CMAKE_CXX_STANDARD 14)@set(CMAKE_CXX_STANDARD 17)@' {,clients/}CMakeLists.txt
+
 %build
 %cmake %{cmake_generator} %{cmake_config} \
     -DGPU_TARGETS=%{rocm_gpu_list_default} \
@@ -223,6 +228,9 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Fri Aug 15 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-5
+- Build --with test on SUSE
+
 * Wed Jul 30 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-4
 - Remove -mtls-dialect cflag
 

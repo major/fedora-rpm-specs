@@ -1,6 +1,6 @@
 Name:          liblc3
 Version:       1.1.3
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       Low Complexity Communication Codec (LC3)
 
 License:       Apache-2.0
@@ -70,6 +70,9 @@ the %{name} library.
 %{_bindir}/elc3
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.1.3-4
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

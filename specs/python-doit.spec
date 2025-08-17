@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.36.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Automation Tool
 
 License:        MIT
@@ -88,6 +88,9 @@ install -p -D -m 0644 bash_completion_doit %{buildroot}%{_sysconfdir}/bash_compl
 %doc TODO.txt
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.36.0-7
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.36.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

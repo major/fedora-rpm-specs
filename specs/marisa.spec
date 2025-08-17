@@ -1,6 +1,6 @@
 Name:          marisa
 Version:       0.3.0
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       Static and spece-efficient trie data structure library
 
 License:       BSD-2-Clause OR LGPL-2.1-or-later
@@ -188,6 +188,9 @@ popd
 %{ruby_vendorarchdir}/marisa.so
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.3.0-4
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Wed Aug 13 2025 Peng Wu  <pwu@redhat.com> - 0.3.0-3
 - Update for https://fedoraproject.org/wiki/Changes/CMake_drop_install_vars
 

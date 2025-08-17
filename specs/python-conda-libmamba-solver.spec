@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        25.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The libmamba based solver for conda
 
 License:        BSD-3-Clause
@@ -148,6 +148,9 @@ export CONDA_TEST_DATA_DIR=/usr/share/conda/tests/data
 %doc README.*
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 25.4.0-2
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Aug 08 2025 Orion Poplawski <orion@nwra.com> - 25.4.0-1
 - Update to 25.4.0
 - Disable tests for libmamba/conda major update bootstrap

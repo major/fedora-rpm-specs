@@ -9,7 +9,7 @@ described in the rdopkg manual.
 
 Name:             rdopkg
 Version:          1.7.0
-Release:          9%{?dist}
+Release:          10%{?dist}
 Summary:          RPM packaging automation tool CLI
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -80,6 +80,9 @@ install -p -m 644 doc/man/*.7 %{buildroot}%{_mandir}/man7/
 
 
 %changelog
+* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.7.0-10
+- Rebuilt for Python 3.14.0rc2 bytecode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
