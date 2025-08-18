@@ -19,7 +19,7 @@ BuildRequires:  libatomic
 BuildRequires:  asio-devel
 
 # Unsupported https://github.com/STEllAR-GROUP/hpx/issues/6765
-ExcludeArch: s390x
+ExcludeArch: s390x ppc64le
 
 %global hpx_desc \
 HPX is a general purpose C++ runtime system for parallel and distributed \
@@ -215,10 +215,6 @@ rm %{buildroot}/%{_datadir}/%{name}/LICENSE_1_0.txt
 %fdupes %{buildroot}%{_prefix}
 
 %check
-# Some tests are unstable on ppc64le: https://github.com/STEllAR-GROUP/hpx/issues/6765
-%ifarch ppc64le
-%global testargs --exclude-regex 'tests.examples.\(1d_stencil.1d_stencil_4_parallel\|1d_stencil.1d_stencil_7\|quickstart.allow_unknown_options\|async_io.async_io_external\|1d_stencil.1d_stencil_5\|quickstart.sierpinski\)'
-%endif
 . /etc/profile.d/modules.sh
 for mpi in '' openmpi mpich ; do
   test -n "${mpi}" && module load mpi/${mpi}-%{_arch}
@@ -285,7 +281,7 @@ done
 %changelog
 * Thu Aug 14 2025 Christoph Junghans <junghans@votca.org> - 1.10.0-8
 - Fix build with Ninja
-- Drop s390x build - unsupported by upstream
+- Drop s390x and ppc64le build - unsupported by upstream
 - Fixes: rhbz#2381020
 
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-7

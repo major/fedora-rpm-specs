@@ -119,7 +119,7 @@
 
 Name:           %{rocblas_name}
 Version:        %{rocm_version}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        BLAS implementation for ROCm
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT AND BSD-3-Clause
@@ -140,15 +140,16 @@ BuildRequires:  rocm-rpm-macros
 
 %if %{with tensile}
 %if 0%{?suse_version}
+BuildRequires:  msgpack-cxx-devel
+%global tensile_library_format msgpack
+# OBS vm times out without console output
+%global tensile_verbose 2
 %if %{suse_version} < 1699
 BuildRequires:  python3-tensile-devel
 BuildRequires:  python3-joblib
 %else
 BuildRequires:  python311-tensile-devel
 %endif # suse_version < 1699
-# OBS vm times out without console output
-%global tensile_verbose 2
-%global tensile_library_format yaml
 %else
 BuildRequires:  python3dist(tensile)
 %if 0%{?rhel}
@@ -172,7 +173,6 @@ BuildRequires:  pkgconfig(libzstd)
 %if %{with test}
 
 BuildRequires:  libomp-devel
-BuildRequires:  python3dist(pyyaml)
 BuildRequires:  rocminfo
 BuildRequires:  rocm-smi-devel
 
@@ -180,10 +180,12 @@ BuildRequires:  rocm-smi-devel
 BuildRequires:  openblas-devel
 BuildRequires:  gtest
 BuildRequires:  gcc-fortran
+BuildRequires: %{python_module PyYAML}
 %global blaslib openblas
 %else
 BuildRequires:  gcc-gfortran
 BuildRequires:  gtest-devel
+BuildRequires:  python3dist(pyyaml)
 %if 0%{?rhel}
 BuildRequires:  flexiblas-devel
 %global blaslib flexiblas
@@ -191,9 +193,7 @@ BuildRequires:  flexiblas-devel
 BuildRequires:  blas-devel
 %global blaslib cblas
 %endif
-
 %endif
-
 %endif
 
 %if %{with ninja}
@@ -232,6 +232,7 @@ Provides:       rocblas-devel = %{version}-%{release}
 %package test
 Summary:        Tests for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       diffutils
 
 %description test
 %{summary}
@@ -334,6 +335,12 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library/src:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Sat Aug 16 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-6
+- Use msgpack on SUSE
+
+* Wed Aug 13 2025 Egbert Eich <eich@suse.com> - 6.4.2-5
+- Fix build and runtime dependencies of test package.
+ 
 * Tue Aug 12 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-5
 - remove roctracer
 - Use distro appropriate blas libs

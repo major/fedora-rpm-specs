@@ -2,7 +2,7 @@
 %global libcall_ui_version 0.1.4
 
 Name:		phosh
-Version:	0.49~rc1
+Version:	0.49.0
 Release:	%autorelease
 Summary:	Graphical shell for mobile devices
 License:	GPL-3.0-or-later
@@ -165,7 +165,6 @@ SH
 %{_datadir}/icons/hicolor/symbolic/apps/mobi.phosh.Shell-symbolic.svg
 %{_datadir}/dbus-1/services/mobi.phosh.Shell.CalendarServer.service
 %{_datadir}/dbus-1/services/mobi.phosh.Shell.Search.service
-%{_libdir}/phosh/libphoshsearch.so
 %{_libdir}/phosh/plugins/caffeine-quick-setting.plugin
 %{_libdir}/phosh/plugins/calendar.plugin
 %{_libdir}/phosh/plugins/dark-mode-quick-setting.plugin

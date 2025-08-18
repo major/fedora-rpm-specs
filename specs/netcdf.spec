@@ -1,21 +1,13 @@
-%global sover 19
+%global sover 22
 
 Name:           netcdf
-Version:        4.9.2
+Version:        4.9.3
 Release:        %autorelease
 Summary:        Libraries for the Unidata network Common Data Form
 
 License:        BSD-3-Clause
 URL:            http://www.unidata.ucar.edu/software/netcdf/
 Source0:        https://github.com/Unidata/netcdf-c/archive/v%{version}/%{name}-%{version}.tar.gz
-# Remove sonames from plugins
-Patch0:         https://patch-diff.githubusercontent.com/raw/Unidata/netcdf-c/pull/2431.patch
-# Fix blosc test - https://github.com/Unidata/netcdf-c/issues/2572
-Patch1:         netcdf-tst-blosc.patch
-# Fix segfault in octave-netcdf on exit
-Patch2:         https://github.com/Unidata/netcdf-c/pull/2827.patch
-# Fix incompatible types
-Patch3:         https://github.com/Unidata/netcdf-c/pull/2850.patch
 
 BuildRequires:  libtool
 BuildRequires:  make
@@ -261,10 +253,10 @@ find $RPM_BUILD_ROOT/%{_libdir} -name \*.la -delete
 %check
 # Set to 1 to fail if tests fail
 %ifarch %{ix86} s390x
-# tst_filter fails on s390x
-# https://github.com/Unidata/netcdf-c/issues/1338
-# i686 - Testing parallel I/O with zlib compression...malloc(): invalid size (unsorted)
-# https://github.com/Unidata/netcdf-c/issues/1685
+# s390x - tst_h5_endians fails - Little_Endian Float/Int
+# https://github.com/Unidata/netcdf-c/issues/3062
+# i686 - tst_netcdf4_4 fails - var5:_Filter difference
+# https://github.com/Unidata/netcdf-c/issues/2433
 fail=0
 %else
 fail=1
@@ -321,6 +313,7 @@ done
 %{_includedir}/netcdf_json.h
 %{_includedir}/netcdf_meta.h
 %{_includedir}/netcdf_mem.h
+%{_includedir}/netcdf_proplist.h
 %{_libdir}/libnetcdf.settings
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/netcdf.pc
@@ -355,6 +348,7 @@ done
 %{_includedir}/mpich-%{_arch}/netcdf_meta.h
 %{_includedir}/mpich-%{_arch}/netcdf_mem.h
 %{_includedir}/mpich-%{_arch}/netcdf_par.h
+%{_includedir}/mpich-%{_arch}/netcdf_proplist.h
 %{_libdir}/mpich/lib/libnetcdf.settings
 %{_libdir}/mpich/lib/*.so
 %{_libdir}/mpich/lib/pkgconfig/%{name}.pc
@@ -390,6 +384,7 @@ done
 %{_includedir}/openmpi-%{_arch}/netcdf_meta.h
 %{_includedir}/openmpi-%{_arch}/netcdf_mem.h
 %{_includedir}/openmpi-%{_arch}/netcdf_par.h
+%{_includedir}/openmpi-%{_arch}/netcdf_proplist.h
 %{_libdir}/openmpi/lib/libnetcdf.settings
 %{_libdir}/openmpi/lib/*.so
 %{_libdir}/openmpi/lib/pkgconfig/%{name}.pc

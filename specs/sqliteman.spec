@@ -1,12 +1,13 @@
 Summary:       Manager for sqlite - Sqlite Databases Made Easy
 Name:          sqliteman
 Version:       1.2.2
-Release:       41%{?dist}
+Release:       42%{?dist}
 # src is GPLv2+, icons are LGPLv2+
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
 License:       GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
 URL:           http://sqliteman.yarpen.cz/
-Patch0:        sqliteman-1.2.2-desktop.patch   
+Patch:         sqliteman-1.2.2-desktop.patch
+Patch:         sqliteman-1.2.2-cmake4.patch
 Source:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 # converted from logo_design/logo-original.ai by gimp
 Source1:       sqliteman.png
@@ -52,6 +53,9 @@ rm -rf %{buildroot}%{_datadir}/icons
 %{_datadir}/%{name}
 
 %changelog
+* Sat Aug 16 2025 Terje Rosten <terje.rosten@ntnu.no> - 1.2.2-42
+- Make build compatible with cmake 4
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

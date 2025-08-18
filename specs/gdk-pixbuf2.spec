@@ -16,9 +16,6 @@ Source0:        https://download.gnome.org/sources/gdk-pixbuf/2.43/gdk-pixbuf-%{
 
 Patch:          0001-jpeg-Be-more-careful-with-chunked-icc-data.patch
 
-# https://gitlab.gnome.org/GNOME/gdk-pixbuf/-/merge_requests/224
-Patch:          sort.patch
-
 BuildRequires:  docbook-style-xsl
 BuildRequires:  gettext
 BuildRequires:  gi-docgen
@@ -95,6 +92,9 @@ the functionality of the installed %{name} package.
 %if !%{with_glycin}
        -Dglycin=disabled \
 %endif
+%ifarch %{ix86}
+       -Dthumbnailer=disabled \
+%endif
        %{nil}
 
 %global _smp_mflags -j1
@@ -131,9 +131,11 @@ gdk-pixbuf-query-loaders-%{__isa_bits} --update-cache
 %dir %{_libdir}/gdk-pixbuf-2.0/2.10.0/loaders
 %ghost %{_libdir}/gdk-pixbuf-2.0/2.10.0/loaders.cache
 %{_bindir}/gdk-pixbuf-query-loaders-%{__isa_bits}
-%{_bindir}/gdk-pixbuf-thumbnailer
 %{_mandir}/man1/gdk-pixbuf-query-loaders.1*
+%ifnarch %{ix86}
+%{_bindir}/gdk-pixbuf-thumbnailer
 %{_datadir}/thumbnailers/
+%endif
 
 %files modules
 %{_libdir}/gdk-pixbuf-2.0/2.10.0/loaders/*.so

@@ -1,9 +1,8 @@
 Name:           malaga
 Version:        7.12 
-Release:        42%{?dist}
+Release:        43%{?dist}
 Summary:        A programming language for automatic language analysis
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            http://home.arcor.de/bjoern-beutel/malaga/
 Source0:        http://home.arcor.de/bjoern-beutel/malaga/%{name}-%{version}.tgz
@@ -16,6 +15,7 @@ Patch0:         malaga-rename-map_file.diff
 # linking anymore
 Patch1:         malaga-malshow-lm.patch
 Patch2:         malaga-aarch64.patch
+Patch3:         malaga-fix-incompatible-GtkItemFactoryCallback-pointers.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -49,10 +49,7 @@ Library files for %{name}.
 
 
 %prep
-%setup -q
-%patch -P0 -p1
-%patch -P1 -p1
-%patch -P2 -p1
+%autosetup
 # Remove "@" marks so that the build process is more verbose
 sed -i.debug -e 's|^\([ \t][ \t]*\)@|\1|' Makefile.in
 # Remove "-s" so binaries won't be stripped
@@ -66,12 +63,12 @@ sed -i.silent -e 's|--silent||' Makefile.in
 # https://fedoraproject.org/wiki/Packaging/Guidelines#Removing_Rpath
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
-make %{?_smp_mflags}
+%make_build
 
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make install DESTDIR=$RPM_BUILD_ROOT INSTALL_INFO=/sbin/install-info INSTALL="install -p"
+%make_install DESTDIR=$RPM_BUILD_ROOT INSTALL_INFO=/sbin/install-info INSTALL="install -p"
 rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 # Remove static archive
@@ -98,6 +95,10 @@ chmod 0755 $RPM_BUILD_ROOT%{_libdir}/libmalaga.so*
 
 
 %changelog
+* Sat Aug 16 2025 Ville-Pekka Vainio <vpvainio@iki.fi> - 7.12-43
+- Add patch to fix failing build
+- Use the autosetup, make_build and make_install macros
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.12-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

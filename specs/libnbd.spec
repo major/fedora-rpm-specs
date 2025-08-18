@@ -20,8 +20,8 @@
 %global source_directory 1.23-development
 
 Name:           libnbd
-Version:        1.23.5
-Release:        3%{?dist}
+Version:        1.23.6
+Release:        1%{?dist}
 Summary:        NBD client library in userspace
 
 License:        LGPL-2.0-or-later AND BSD-3-Clause
@@ -350,6 +350,7 @@ make %{?_smp_mflags} check || {
 %{python3_sitearch}/__pycache__/nbd*.py*
 %{_bindir}/nbdsh
 %{_mandir}/man1/nbdsh.1*
+%{_mandir}/man3/libnbd-python.3*
 
 
 %files -n nbdfuse
@@ -377,6 +378,9 @@ make %{?_smp_mflags} check || {
 
 
 %changelog
+* Sat Aug 16 2025 Richard W.M. Jones <rjones@redhat.com> - 1.23.6-1
+- New upstream development version 1.23.6
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.23.5-3
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -1,5 +1,5 @@
 Name:           python-esbonio
-Version:        1.0.0b3
+Version:        1.0.0b12
 Release:        %autorelease
 Summary:        A Language Server for Sphinx projects
 License:        MIT
@@ -23,13 +23,11 @@ Summary:        %{summary}
 
 %description -n python3-esbonio %_description
 
-%pyproject_extras_subpkg -n python3-esbonio dev,typecheck
-
 %prep
 %autosetup -p1 -n esbonio-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires -x dev,typecheck
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel

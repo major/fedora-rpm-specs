@@ -1,5 +1,5 @@
-%global glibcsrcdir glibc-2.42-13-gc5476b7907
-%global glibcversion 2.42
+%global glibcsrcdir glibc-2.42.9000-68-g399384e0c8
+%global glibcversion 2.42.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
 #
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 3
+%global baserelease 1
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -747,6 +747,7 @@ local locales =  {
       "NZ",
       "PH",
       "SC",
+      "SE",
       "SG",
       "US",
       "ZA",
@@ -2385,6 +2386,79 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Fri Aug 15 2025 Patsy Griffin <pfrankli@redhat.com> - 2.42.9000-1
+- Auto-sync with upstream branch master,
+  commit 399384e0c8193e31aea014220ccfa24300ae5938.
+- x86-64: Add GLIBC_ABI_DT_X86_64_PLT [BZ #33212]
+- i386: Add GLIBC_ABI_GNU_TLS version [BZ #33221]
+- x86-64: Add GLIBC_ABI_GNU2_TLS version [BZ #33129]
+- LoongArch: Fix build failure for loongarch64-linux-gnusf toolchain. [BZ #32776]
+- benchtests: Avoid truncation in random memcpy/memset benchmarks
+- stdio-common: Fix macro parameter shadowing in scanf input specifier tests
+- stdio-common: Add 'f' conversion tests for . scanf input [BZ #12701]
+- stdio-common: Add 'e' conversion tests for . scanf input [BZ #12701]
+- stdio-common: Add 'a', 'g' conversion tests for 0x. scanf input [BZ #12701]
+- stdio-common: Reject significands w/o digits in scanf [BZ #12701]
+- stdio-common: Don't read real input beyond the field width in scanf
+- malloc: Fix checking for small negative values of tcache_key
+- malloc: Make sure tcache_key is odd enough
+- localedata: Add en_SE for ISO8601 dates
+- malloc: Fix MALLOC_DEBUG
+- malloc: Support THP in arenas
+- malloc: Remove use of __curbrk
+- Filter machine compiler flags into Assembler Flags
+- tst-freopen4: Remove temporary directory from warning message
+- Revert "tst-freopen4-main.c: Call support_capture_subprocess with chroot"
+- iconv: Fix iconv functions not following symlinks [BZ #32339]
+- Linux: Add test case for bug 33245
+- Use TLS initial-exec model for __libc_tsd_CTYPE_* thread variables [BZ #33234]
+- iconv: use bswap_32 instead of __builtin_bswap32
+- tst-env-setuid: Delete LD_DEBUG_OUTPUT output
+- tst-freopen4-main.c: Call support_capture_subprocess with chroot
+- tst-fopen-threaded.c: Delete temporary file
+- Delete temporary files in support_subprocess
+- Revert "Remove use of __curbrk."
+- Revert "Improve MALLOC_DEBUG"
+- Revert "Enable THP on arenas"
+- Revert "benchtests: Avoid overflow in random memcpy/memset benchmarks"
+- Revert "Use _int_free_chunk in tcache_thread_shutdown"
+- Revert "Remove dumped heap support"
+- Revert "malloc: Cleanup libc_realloc"
+- Revert "Change mmap representation"
+- Remove use of __curbrk.
+- Improve MALLOC_DEBUG
+- Enable THP on arenas
+- benchtests: Avoid overflow in random memcpy/memset benchmarks
+- Use _int_free_chunk in tcache_thread_shutdown
+- Remove dumped heap support
+- malloc: Cleanup libc_realloc
+- Change mmap representation
+- manual: Adjust documentation to standardization of select
+- manual: Use sys/select.h instead of sys/time.h for select example.
+- manual: document getsubopt standardization.
+- errlist: add missing entries for MIPS/SPARC
+- hurd: support: Fix running SGID tests
+- support: Handle COPY_FILE_RANGE events with FUSE
+- malloc: Cleanup sysmalloc_mmap
+- malloc: Improve checked_request2size
+- malloc: Cleanup madvise defines
+- benchtests: Cleanup bench-malloc-thread
+- malloc: Fix MAX_TCACHE_SMALL_SIZE
+- nptl: Fix SYSCALL_CANCEL for return values larger than INT_MAX (BZ 33245)
+- i386: Consolidate subdirectory check on elf and csu
+- x86-64: Consolidate subdirectory check on elf and csu
+- elf: Handle ld.so with LOAD segment gaps in _dl_find_object (bug 31943)
+- elf: Extract rtld_setup_phdr function from dl_main
+- stdlib: resolve a double lock init issue after fork [BZ #32994]
+- Use Linux 6.16, GCC 15, binutils 2.45 in build-many-glibcs.py
+- malloc: Enable THP always support on hugetlb tunable
+- malloc: Remove redundant NULL check
+- replace atan2-inputs with more meaningful inputs
+- inet-fortified: fix namespace violation (bug 33227)
+- tst-cond23: return EXIT_UNSUPPORTED on missing clock selection
+- NEWS: Add 2.43 section
+- Bump version to 2.42.9000
+
 * Fri Aug 08 2025 Frédéric Bérat <fberat@redhat.com> - 2.42-3
 - Auto-sync with upstream branch release/2.42/master,
   commit c5476b7907d01207ede6bf57b26cef151b601f35:

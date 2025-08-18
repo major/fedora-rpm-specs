@@ -1,5 +1,5 @@
 Name:           python-tox-uv
-Version:        1.27.0
+Version:        1.28.0
 Release:        %autorelease
 Summary:        Integration of uv with tox
 
@@ -59,7 +59,9 @@ k="${k-}${k+ and }not test_tox_version"
 # requires internet
 k="${k-}${k+ and }not test_uv_install"
 k="${k-}${k+ and }not test_uv_package_editable_legacy"
+k="${k-}${k+ and }not test_uv_package_no_pyproject"
 k="${k-}${k+ and }not test_uv_package_requirements"
+k="${k-}${k+ and }not test_uv_package_workspace"
 k="${k-}${k+ and }not test_uv_python_set"
 %endif
 

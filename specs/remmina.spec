@@ -1,8 +1,8 @@
-%global commit f1e9e8a6725de57bcbca1b4bf1b5d817123cb260
+%global commit 3792a0bedd6b807c7bc02f8055ee41389538417f
 
 Name: remmina
-Version: 1.4.40
-Release: 7%{?dist}
+Version: 1.4.41
+Release: 1%{?dist}
 Summary: Remote Desktop Client
 License: GPL-2.0-or-later and MIT
 URL: https://remmina.org

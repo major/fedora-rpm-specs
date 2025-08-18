@@ -7,11 +7,13 @@
 
 Name:     rocm-cmake
 Version:  %{rocm_version}
-Release:  2%{?dist}
+Release:  3%{?dist}
 Summary:  CMake modules for common build and development tasks for ROCm
 License:  MIT
 URL:      https://github.com/ROCm/rocm-cmake
 Source:   %{url}/archive/rocm-%{version}.tar.gz#/rocm-cmake-rocm-%{version}.tar.gz
+# https://github.com/ROCm/rocm-cmake/issues/276
+Patch0:   0001-rocm-cmake-follow-cmake-install-rules.patch
 
 BuildArch: noarch
 BuildRequires: cmake
@@ -27,7 +29,7 @@ is required for building some of the libraries that are a part of ROCm.
 
 
 %prep
-%autosetup -n rocm-cmake-rocm-%{version}
+%autosetup -p1 -n rocm-cmake-rocm-%{version}
 
 
 %build
@@ -52,6 +54,9 @@ fi
 %{_datadir}/rocmcmakebuildtools/*
 
 %changelog
+* Sat Aug 16 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-3
+- Use the default cmake rules for installing
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
