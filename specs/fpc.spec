@@ -3,13 +3,31 @@
 %global __brp_strip_lto %{nil}
 
 Name:           fpc
-Version:        3.2.2
-Release:        20%{?dist}
 Summary:        Free Pascal Compiler
-
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later WITH Independent-modules-exception
 URL:            http://www.freepascal.org/
-Source0:        ftp://ftp.freepascal.org/pub/fpc/dist/%{version}/source/fpcbuild-%{version}.tar.gz
+
+%global version_code 3.2.3
+
+%global beta 1
+%global version_beta 3.2.4
+%global version_suffix rc1
+
+%if ! 0%{?beta}
+Version:        %{version_code}
+%else
+Version:        %{version_beta}~%{version_suffix}
+%endif
+Release:        1%{?dist}
+
+%if ! 0%{?beta}
+  %global archive_type dist
+  %global archive_suffix %{version_code}
+%else
+  %global archive_type beta
+  %global archive_suffix %{version_beta}-%{version_suffix}
+%endif
+Source0:        https://downloads.freepascal.org/fpc/%{archive_type}/%{archive_suffix}/source/fpcbuild-%{archive_suffix}.tar.gz
 
 # Bootstrap the compiler for a new architecture. Set this to 0 after we've bootstrapped.
 %global bootstrap 0
@@ -45,24 +63,6 @@ Patch0:         fpc-3.2.0--dwarf-debug.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=1778875
 Patch1:         fpc-3.2.0--honor_SOURCE_DATE_EPOCH_in_date.patch
 
-# Upstream assumes /usr/lib/ for aarch64, but Fedora uses /usr/lib64/
-Patch2:         fpc-3.2.0--fix-lib-paths-on-aarch64.patch
-
-# Update for new glibc >= 2.34
-#     RHBZ bug: https://bugzilla.redhat.com/show_bug.cgi?id=2005910
-# Upstream bug: https://gitlab.com/freepascal.org/fpc/source/-/issues/39295
-Patch3:         fpc-3.2.2--glibc-2.34.patch
-
-# Fix missing TOC loads on ppc64le. A backport of upstream commits:
-# - https://gitlab.com/freepascal.org/fpc/source/-/commit/12f48c230bccd49f368be1e5a2855cb6c3a60c0f
-# - https://gitlab.com/freepascal.org/fpc/source/-/commit/9314bbbf080418827eef94a8bc392ce0497bf72b
-# - https://gitlab.com/freepascal.org/fpc/source/-/commit/2de72c854115908271912cd9b260a607c826eadb
-# - https://gitlab.com/freepascal.org/fpc/source/-/commit/83c18df69a79fe1035a0cf0bc0897c60d1af0293
-# - https://gitlab.com/freepascal.org/fpc/source/-/commit/68b5ca633ca71a83c29b78cd3669bf15477cd94f
-# Some modifications were made to make the changes apply cleanly to v3.2.2.
-# Upstream bug report: https://gitlab.com/freepascal.org/fpc/source/-/issues/39542
-Patch4:         fpc-3.2.2--ppc64le-toc-fixes.patch
-
 # The "pas2jni" util program shipped with FPC uses threads,
 # but is compiled without thread support and fails to actually do anything useful when run.
 # Submitted upstream: https://gitlab.com/freepascal.org/fpc/source/-/merge_requests/185
@@ -72,13 +72,6 @@ Patch5:         fpc-3.2.2--pas2jni-cthreads.patch
 # in the same directory as the executable (i.e. /usr/bin). This patch moves
 # the data files inside the main FPC install directory (LIBDIR/fpc/VERSION/ide).
 Patch6:         fpc-3.2.2--fix-IDE-data-files-locations.patch
-
-# Fix broken stack trace handling on aarch64,
-# which could lead to crashes when an FPC-compiled program used exceptions.
-#
-# Backport of upstream commit:
-# https://gitlab.com/freepascal.org/fpc/source/-/commit/ec9f7c84b46906c3ef153245044ed787eaf1d5bb
-Patch7:         fpc-3.2.2--arm64-stack-trace-crash.patch
 
 # "man 5 resolv.conf" states that, should the file be missing or empty,
 # then C stdlib functions dealing with name resolution should fall back
@@ -98,12 +91,6 @@ Patch8:         fpc-3.2.2--fallback-to-localhost-when-no-dns-server-specified.pa
 # https://gitlab.com/freepascal.org/fpc/source/-/commit/22ec4a20332f8208273604b46e727e481f6502eb.patch
 # https://gitlab.com/freepascal.org/fpc/source/-/commit/397293f09f7a3e116119ab629687c64aae507539.patch
 Patch9:         fpc-3.2.2--compiletime-check-is-usage.patch
-
-# FPC's LaTeX docs use the \htmladdnormallink command, which has been removed in recent TexLive versions.
-# Alias the command to \href.
-#
-# Taken from OpenSUSE: https://build.opensuse.org/package/view_file/openSUSE:Leap:15.5:Update/fpc/hyperref-2022.patch
-Patch10:         hyperref-2022.patch
 
 # FPC uses its own architecture names that do not align with the ones used by Fedora.
 %global arm_ppc ppcarm
@@ -420,7 +407,7 @@ automatical-code generation purposes.
 
 
 %prep
-%setup -n fpcbuild-%{version} -q
+%setup -n fpcbuild-%{archive_suffix} -q
 
 %if 0%{?bootstrap}
 unzip %{SOURCE100}
@@ -429,18 +416,11 @@ unzip %{SOURCE100}
 pushd fpcsrc
 %patch -P0
 %patch -P1
-%patch -P2
-%patch -P3 -p1
-%patch -P4 -p2
 %patch -P5 -p1
 %patch -P6 -p2
-%patch -P7 -p1
 %patch -P8 -p1
 %patch -P9 -p1
 popd
-
-pushd fpcdocs
-%patch -P10 -p1
 
 
 %build
@@ -461,7 +441,7 @@ rm -rf fpc_src/packages/winceunits/ # MS Windows CE
 
 
 %if 0%{?bootstrap}
-STARTPP=$(pwd)/fpc-%{version}-bin/%{native_ppc}-%{version}-bootstrap
+STARTPP=$(pwd)/fpc-%{version_code}-bin/%{native_ppc}-%{version_code}-bootstrap
 %else
 STARTPP=%{native_ppc}
 %endif
@@ -575,7 +555,7 @@ NEWFPCMAKE="$(pwd)/fpcsrc/utils/fpcm/bin/%{native_arch}-linux/fpcmake"
 INSTALLOPTS="-j1 FPC=${NEWPP} FPCMAKE=${NEWFPCMAKE} \
                 INSTALL_PREFIX=%{buildroot}%{_prefix} \
                 INSTALL_LIBDIR=%{buildroot}%{_libdir} \
-                INSTALL_BASEDIR=%{buildroot}%{_libdir}/%{name}/%{version} \
+                INSTALL_BASEDIR=%{buildroot}%{_libdir}/%{name}/%{version_code} \
                 CODPATH=%{buildroot}%{_libdir}/%{name}/lexyacc \
                 INSTALL_DOCDIR=%{buildroot}%{_defaultdocdir}/%{name} \
                 INSTALL_BINDIR=%{buildroot}%{_bindir}
@@ -591,7 +571,7 @@ function install_compiler() {
 		make compiler_distinstall CROSSINSTALL=1 CPU_TARGET="${TARGET_ARCH}" ${INSTALLOPTS}
 	fi
 
-	ln -srf "%{buildroot}/%{_libdir}/%{name}/%{version}/${TARGET_COMPILER}" "%{buildroot}%{_bindir}/${TARGET_COMPILER}"
+	ln -srf "%{buildroot}/%{_libdir}/%{name}/%{version_code}/${TARGET_COMPILER}" "%{buildroot}%{_bindir}/${TARGET_COMPILER}"
 }
 
 function install_units() {
@@ -660,8 +640,8 @@ popd
 make -C fpcdocs pdfinstall ${INSTALLOPTS}
 
 # Remove the version-number from the documentation-directory
-mv %{buildroot}%{_defaultdocdir}/%{name}-%{version}/* %{buildroot}%{_defaultdocdir}/%{name}
-rmdir %{buildroot}%{_defaultdocdir}/%{name}-%{version}
+mv %{buildroot}%{_defaultdocdir}/%{name}-%{version_code}/* %{buildroot}%{_defaultdocdir}/%{name}
+rmdir %{buildroot}%{_defaultdocdir}/%{name}-%{version_code}
 
 # Create a version independent compiler-configuration file with build-id
 # enabled by default. For this purpose some non-default templates are used.
@@ -671,8 +651,8 @@ rmdir %{buildroot}%{_defaultdocdir}/%{name}-%{version}
 	-d "sharedir=%{_datadir}" \
 	-o %{buildroot}%{_sysconfdir}/fpc.cfg
 # Create the IDE configuration files
-%{buildroot}%{_bindir}/fpcmkcfg -p -1 -d "basepath=%{_libdir}/%{name}/\$fpcversion" -o %{buildroot}%{_libdir}/%{name}/%{version}/ide/text/fp.cfg
-%{buildroot}%{_bindir}/fpcmkcfg -p -2 -o %{buildroot}%{_libdir}/%{name}/%{version}/ide/text/fp.ini
+%{buildroot}%{_bindir}/fpcmkcfg -p -1 -d "basepath=%{_libdir}/%{name}/\$fpcversion" -o %{buildroot}%{_libdir}/%{name}/%{version_code}/ide/text/fp.cfg
+%{buildroot}%{_bindir}/fpcmkcfg -p -2 -o %{buildroot}%{_libdir}/%{name}/%{version_code}/ide/text/fp.ini
 # Create the fppkg configuration files
 %{buildroot}%{_bindir}/fpcmkcfg -p -t %{SOURCE11} -d CompilerConfigDir=%{_sysconfdir}/fppkg -d arch=%{_arch} -o %{buildroot}%{_sysconfdir}/fppkg.cfg
 %{buildroot}%{_bindir}/fpcmkcfg -p -t %{SOURCE12} -d fpcbin=%{_bindir}/fpc -d GlobalPrefix=%{_exec_prefix} -d lib=%{_lib} -o %{buildroot}%{_sysconfdir}/fppkg/default_%{_arch}
@@ -698,7 +678,7 @@ rm -rf %{buildroot}/usr/lib/%{name}/lexyacc
 %exclude %{_bindir}/ppcross*
 %{_libdir}/%{name}
 %{_libdir}/libpas2jslib.so*
-%exclude %{_libdir}/%{name}/%{version}/ppcross*
+%exclude %{_libdir}/%{name}/%{version_code}/ppcross*
 %config(noreplace) %{_sysconfdir}/%{name}.cfg
 %config(noreplace) %{_sysconfdir}/fppkg.cfg
 %config(noreplace) %{_sysconfdir}/fppkg/default_%{_arch}
@@ -709,26 +689,26 @@ rm -rf %{buildroot}/usr/lib/%{name}/lexyacc
 %license %{_defaultdocdir}/%{name}/COPYING*
 %{_mandir}/*/*
 # Exclude units
-%exclude %{_libdir}/%{name}/%{version}/fpmkinst/
-%exclude %{_libdir}/%{name}/%{version}/units/
+%exclude %{_libdir}/%{name}/%{version_code}/fpmkinst/
+%exclude %{_libdir}/%{name}/%{version_code}/units/
 # Exclude IDE-specific files
 %exclude %{_bindir}/fp
 %exclude %{_bindir}/fp.rsj
-%exclude %{_libdir}/%{name}/%{version}/fpmkinst/%{native_arch}-linux/ide.fpm
-%exclude %{_libdir}/%{name}/%{version}/ide
+%exclude %{_libdir}/%{name}/%{version_code}/fpmkinst/%{native_arch}-linux/ide.fpm
+%exclude %{_libdir}/%{name}/%{version_code}/ide
 %exclude %{_mandir}/man1/fp.1*
 
 # -- Native units
 
 %files %{units_native}
 %dir %{_libdir}/%{name}/
-%dir %{_libdir}/%{name}/%{version}/
-%dir %{_libdir}/%{name}/%{version}/fpmkinst/
-%dir %{_libdir}/%{name}/%{version}/units/
-%{_libdir}/%{name}/%{version}/fpmkinst/%{native_arch}-linux/
-%{_libdir}/%{name}/%{version}/units/%{native_arch}-linux/
+%dir %{_libdir}/%{name}/%{version_code}/
+%dir %{_libdir}/%{name}/%{version_code}/fpmkinst/
+%dir %{_libdir}/%{name}/%{version_code}/units/
+%{_libdir}/%{name}/%{version_code}/fpmkinst/%{native_arch}-linux/
+%{_libdir}/%{name}/%{version_code}/units/%{native_arch}-linux/
 # Don't forget about the IDE
-%exclude %{_libdir}/%{name}/%{version}/fpmkinst/%{native_arch}-linux/ide.fpm
+%exclude %{_libdir}/%{name}/%{version_code}/fpmkinst/%{native_arch}-linux/ide.fpm
 
 # -- Cross-compilers
 
@@ -736,70 +716,70 @@ rm -rf %{buildroot}/usr/lib/%{name}/lexyacc
 %files cross-arm
 %{_bindir}/%{arm_ppcross}
 %dir %{_libdir}/%{name}/
-%dir %{_libdir}/%{name}/%{version}/
-     %{_libdir}/%{name}/%{version}/%{arm_ppcross}
+%dir %{_libdir}/%{name}/%{version_code}/
+     %{_libdir}/%{name}/%{version_code}/%{arm_ppcross}
 
 %files units-arm-linux
 %dir %{_libdir}/%{name}/
-%dir %{_libdir}/%{name}/%{version}/
-%dir %{_libdir}/%{name}/%{version}/units/
-%{_libdir}/%{name}/%{version}/units/%{arm_arch}-linux/
+%dir %{_libdir}/%{name}/%{version_code}/
+%dir %{_libdir}/%{name}/%{version_code}/units/
+%{_libdir}/%{name}/%{version_code}/units/%{arm_arch}-linux/
 %endif
 
 %if 0%{?cross_aarch64}
 %files cross-aarch64
 %{_bindir}/%{aarch64_ppcross}
 %dir %{_libdir}/%{name}/
-%dir %{_libdir}/%{name}/%{version}/
-     %{_libdir}/%{name}/%{version}/%{aarch64_ppcross}
+%dir %{_libdir}/%{name}/%{version_code}/
+     %{_libdir}/%{name}/%{version_code}/%{aarch64_ppcross}
 
 %files units-aarch64-linux
 %dir %{_libdir}/%{name}/
-%dir %{_libdir}/%{name}/%{version}/
-%dir %{_libdir}/%{name}/%{version}/units/
-%{_libdir}/%{name}/%{version}/units/%{aarch64_arch}-linux/
+%dir %{_libdir}/%{name}/%{version_code}/
+%dir %{_libdir}/%{name}/%{version_code}/units/
+%{_libdir}/%{name}/%{version_code}/units/%{aarch64_arch}-linux/
 %endif
 
 %if 0%{?cross_i386}
 %files cross-i386
 %{_bindir}/%{i386_ppcross}
 %dir %{_libdir}/%{name}/
-%dir %{_libdir}/%{name}/%{version}/
-     %{_libdir}/%{name}/%{version}/%{i386_ppcross}
+%dir %{_libdir}/%{name}/%{version_code}/
+     %{_libdir}/%{name}/%{version_code}/%{i386_ppcross}
 
 %files units-i386-linux
 %dir %{_libdir}/%{name}/
-%dir %{_libdir}/%{name}/%{version}/
-%dir %{_libdir}/%{name}/%{version}/units/
-%{_libdir}/%{name}/%{version}/units/%{i386_arch}-linux/
+%dir %{_libdir}/%{name}/%{version_code}/
+%dir %{_libdir}/%{name}/%{version_code}/units/
+%{_libdir}/%{name}/%{version_code}/units/%{i386_arch}-linux/
 %endif
 
 %if 0%{?cross_ppc64le}
 %files cross-powerpc64
 %{_bindir}/%{ppc64le_ppcross}
 %dir %{_libdir}/%{name}/
-%dir %{_libdir}/%{name}/%{version}/
-     %{_libdir}/%{name}/%{version}/%{ppc64le_ppcross}
+%dir %{_libdir}/%{name}/%{version_code}/
+     %{_libdir}/%{name}/%{version_code}/%{ppc64le_ppcross}
 
 %files units-powerpc64-linux
 %dir %{_libdir}/%{name}/
-%dir %{_libdir}/%{name}/%{version}/
-%dir %{_libdir}/%{name}/%{version}/units/
-%{_libdir}/%{name}/%{version}/units/%{ppc64le_arch}-linux/
+%dir %{_libdir}/%{name}/%{version_code}/
+%dir %{_libdir}/%{name}/%{version_code}/units/
+%{_libdir}/%{name}/%{version_code}/units/%{ppc64le_arch}-linux/
 %endif
 
 %if 0%{?cross_x86_64}
 %files cross-x86_64
 %{_bindir}/%{x86_64_ppcross}
 %dir %{_libdir}/%{name}/
-%dir %{_libdir}/%{name}/%{version}/
-     %{_libdir}/%{name}/%{version}/%{x86_64_ppcross}
+%dir %{_libdir}/%{name}/%{version_code}/
+     %{_libdir}/%{name}/%{version_code}/%{x86_64_ppcross}
 
 %files units-x86_64-linux
 %dir %{_libdir}/%{name}/
-%dir %{_libdir}/%{name}/%{version}/
-%dir %{_libdir}/%{name}/%{version}/units/
-%{_libdir}/%{name}/%{version}/units/%{x86_64_arch}-linux/
+%dir %{_libdir}/%{name}/%{version_code}/
+%dir %{_libdir}/%{name}/%{version_code}/units/
+%{_libdir}/%{name}/%{version_code}/units/%{x86_64_arch}-linux/
 %endif
 
 # -- MS Windows units
@@ -807,17 +787,17 @@ rm -rf %{buildroot}/usr/lib/%{name}/lexyacc
 %if 0%{?cross_win32}
 %files units-i386-win32
 %dir %{_libdir}/%{name}/
-%dir %{_libdir}/%{name}/%{version}/
-%dir %{_libdir}/%{name}/%{version}/units/
-%{_libdir}/%{name}/%{version}/units/%{i386_arch}-win32/
+%dir %{_libdir}/%{name}/%{version_code}/
+%dir %{_libdir}/%{name}/%{version_code}/units/
+%{_libdir}/%{name}/%{version_code}/units/%{i386_arch}-win32/
 %endif
 
 %if 0%{?cross_win64}
 %files units-x86_64-win64
 %dir %{_libdir}/%{name}/
-%dir %{_libdir}/%{name}/%{version}/
-%dir %{_libdir}/%{name}/%{version}/units/
-%{_libdir}/%{name}/%{version}/units/%{x86_64_arch}-win64/
+%dir %{_libdir}/%{name}/%{version_code}/
+%dir %{_libdir}/%{name}/%{version_code}/units/
+%{_libdir}/%{name}/%{version_code}/units/%{x86_64_arch}-win64/
 %endif
 
 # -- Others
@@ -825,8 +805,8 @@ rm -rf %{buildroot}/usr/lib/%{name}/lexyacc
 %files ide
 %{_bindir}/fp
 %{_bindir}/fp.rsj
-%{_libdir}/%{name}/%{version}/fpmkinst/%{native_arch}-linux/ide.fpm
-%{_libdir}/%{name}/%{version}/ide
+%{_libdir}/%{name}/%{version_code}/fpmkinst/%{native_arch}-linux/ide.fpm
+%{_libdir}/%{name}/%{version_code}/ide
 %{_mandir}/man1/fp.1*
 
 %files doc
@@ -839,6 +819,9 @@ rm -rf %{buildroot}/usr/lib/%{name}/lexyacc
 
 
 %changelog
+* Sun Aug 17 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.2.4~rc1-1
+- Update to v3.2.4~rc1
+
 * Sat Aug 02 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.2.2-20
 - Add cross-compilers
 - Add MS Windows units

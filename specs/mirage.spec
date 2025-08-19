@@ -1,8 +1,6 @@
-%{!?python_sitearch: %define python_sitearch %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib(1)")}
-
 Name:		mirage
 Version:	0.9.5.2
-Release:	50%{?dist}
+Release:	51%{?dist}
 Summary:	A fast and simple image viewer
 
 # SPDX confirmed
@@ -25,7 +23,6 @@ BuildRequires:	gettext
 BuildRequires:	libX11-devel
 BuildRequires:	python3-devel
 BuildRequires:	desktop-file-utils
-BuildRequires:	python3-setuptools
 Requires:	gtk3
 Requires:	python3-gobject
 Requires:	python3-cairo
@@ -45,17 +42,17 @@ keep their computers lean while still having a clean image viewer.
 %patch -P10 -p1 -b .py3 -Z
 %patch -P11 -p1 -b .pep632 -Z
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%{__python3} setup.py build
+%pyproject_wheel
 
 %install
 %{__rm} -rf $RPM_BUILD_ROOT
 
 %{__mkdir_p} $RPM_BUILD_ROOT
-%{__python3} setup.py install --skip-build \
-	--prefix %{_prefix} \
-	--root $RPM_BUILD_ROOT \
-	%{nil}
+%pyproject_install
 
 # remove document files
 %{__rm} -f $RPM_BUILD_ROOT%{_datadir}/%{name}/[A-Z]*
@@ -82,7 +79,7 @@ desktop-file-install \
 
 %{_bindir}/%{name}
 %{python3_sitearch}/%{name}.py*
-%{python3_sitearch}/*.egg-info
+%{python3_sitearch}/*%{version}.*-info
 %{python3_sitearch}/*.so
 %{python3_sitearch}/__pycache__/%{name}*
 
@@ -93,6 +90,9 @@ desktop-file-install \
 %{_datadir}/applications/*%{name}.desktop
 
 %changelog
+* Sun Aug 17 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.9.5.2-51
+- Use pyproject macros
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.9.5.2-50
 - Rebuilt for Python 3.14.0rc2 bytecode
 

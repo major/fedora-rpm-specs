@@ -17,7 +17,7 @@
 %bcond dask 0
 
 Name:           python-pint
-Version:        0.24.4
+Version:        0.25
 Release:        %autorelease
 Summary:        Physical quantities module
 
@@ -26,6 +26,9 @@ URL:            https://github.com/hgrecco/pint
 Source:         %{pypi_source pint}
 
 BuildArch:      noarch
+
+# To manipulate pyproject.toml
+BuildRequires:  tomcli
 
 %global _description %{expand:
 Pint is a Python package to define, operate and manipulate physical quantities:
@@ -61,12 +64,14 @@ Summary:        %{summary}
 %if %{with mip}
 %pyproject_extras_subpkg -n python3-pint mip
 %endif
+%pyproject_extras_subpkg -n python3-pint matplotlib
 
 %prep
 %autosetup -n pint-%{version} -p1
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-sed -r -i '/pytest-cov/d' pyproject.toml
+tomcli set pyproject.toml lists delitem project.optional-dependencies.test \
+    pytest-cov
 
 # This module is executable in the source, and it might make sense for upstream
 # to run it directly as a script during development, but this package will
@@ -96,7 +101,8 @@ sed -r -i '1{/^#!/d}' pint/pint_convert.py
 %if %{with mip}
     -x mip \
 %endif
-    -x test}
+    -x matplotlib \
+    -x test-all }
 
 %build
 %pyproject_wheel

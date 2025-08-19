@@ -1,7 +1,7 @@
 Name:           postcss-cli
 Version:        11.0.1
 Release:        %autorelease
-Summary:         CLI for postcss, which transforms CSS styles with JS plugins
+Summary:        CLI for postcss, which transforms CSS styles with JS plugins
 
 License:        Apache-2.0 AND BSD-3-Clause AND ISC AND MIT
 URL:            https://postcss.org
@@ -42,10 +42,20 @@ cp -pr package.json index.js lib/ %{buildroot}%{nodejs_sitelib}/%{name}/
 cp -pr node_modules node_modules_prod %{buildroot}%{nodejs_sitelib}/%{name}/
 
 mkdir -p %{buildroot}%{_bindir}
-ln -s ../../%{nodejs_sitelib}/%{name}/index.js %{buildroot}%{_bindir}/postcss
+# wrapper script for postcss CLI to set NODE_PATH
+cat << 'EOF' > %{buildroot}%{_bindir}/postcss
+#!/bin/sh
+# Set NODE_PATH to the system-wide node_modules directory
+export NODE_PATH="%{nodejs_sitelib}"
+# Execute the actual postcss script, passing all arguments
+exec %{nodejs_sitelib}/%{name}/index.js "$@"
+EOF
+
+# Make the wrapper script executable
+chmod +x %{buildroot}%{_bindir}/postcss
 
 %check
-%{buildroot}%{_bindir}/postcss --help
+%{buildroot}%{nodejs_sitelib}/%{name}/index.js --help
 
 %files
 %doc README.md

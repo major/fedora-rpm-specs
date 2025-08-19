@@ -3,10 +3,10 @@
 
 Name:           battray
 Version:        2.3
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Tool for displaying a laptop's battery status in the system traiy
 License:        MIT
-URL:            http://arp242.net/code/battray/
+URL:            https://github.com/arp242/battray
 Source0:        https://github.com/Carpetsmoker/battray/archive/version-%{version}/%{name}-version-%{version}.tar.bz2
 
 BuildArch:      noarch
@@ -42,6 +42,10 @@ low, dim the screen when you switch from AC to battery, etc.
 %license LICENSE
 
 %changelog
+* Sun Aug 17 2025 Ranjan Maitra <aarem AT fedoraproject DOT org> - 2.3-34
+- updated obsolete URL http://arp242.net/code/battray/ to https://github.com/arp242/battray
+- address BZ #2387778
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.3-33
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -11,7 +11,7 @@
 %bcond it %{undefined el10}
 
 Name:           uv
-Version:        0.8.9
+Version:        0.8.11
 Release:        %autorelease
 Summary:        An extremely fast Python package installer and resolver, written in Rust
 
@@ -24,6 +24,8 @@ Summary:        An extremely fast Python package installer and resolver, written
 #     crate(r-shquote); the original code was (Apache-2.0 OR
 #     LGPL-2.1-or-later), but the vendored copy cites only the Apache-2.0
 #     option.
+#   - crates/uv-build-frontend/src/pipreqs/mappings is a data file taken from
+#     https://pypi.org/project/pipreqs, https://github.com/bndr/pipreqs
 #
 # Apache-2.0 OR BSD-2-Clause:
 #   - crates/uv-pep440/ is vendored and forked from crate(pep440_rs)
@@ -350,6 +352,14 @@ Provides:       bundled(python3dist(virtualenv)) = 20.26
 # snapshot date.
 Provides:       bundled(python3dist(packaging)) = 24.1~dev0^20240310gitcc938f9
 
+# The contents of crates/uv-build-frontend/src/pipreqs/mapping are copied from
+# https://pypi.org/project/pipreqs. Since this is just a data file, since uv
+# does not take Python dependencies, and since pipreqs is not currently
+# actively maintained anyway, there is no reasonable prospect of unbundling.
+# The version number is just that of the latest pipreqs release at the time the
+# data file was vendored.
+Provides:       bundled(python3dist(pipreqs)) = 0.5.0
+
 %global common_description %{expand:
 An extremely fast Python package installer and resolver, written in Rust.
 Designed as a drop-in replacement for common pip and pip-tools workflows.
@@ -470,6 +480,8 @@ install -t LICENSE.bundled/packaging -D -p -m 0644 \
     crates/uv-python/python/packaging/LICENSE.*
 install -t LICENSE.bundled/pep440_rs -D -p -m 0644 crates/uv-pep440/License-*
 install -t LICENSE.bundled/pep508_rs -D -p -m 0644 crates/uv-pep508/License-*
+install -t LICENSE.bundled/pipreqs -D -p -m 0644 \
+    crates/uv-build-frontend/src/pipreqs/LICENSE
 install -t LICENSE.bundled/ripunzip -D -p -m 0644 \
     crates/uv-extract/src/vendor/LICENSE
 # The original license text from rattler_installs_packages is present in a
@@ -675,11 +687,11 @@ skip="${skip-} --skip keyring::tests::fetch_url_with_password"
 %if %{without it}
 # These tests require specific Python interpreter versions, which upstream
 # normally downloads, precompiled, into the build area.
-# -p uv --test it:
 skip="${skip-} --skip version::self_version"
 skip="${skip-} --skip version::self_version_json"
 skip="${skip-} --skip version::self_version_short"
-%else
+%endif
+
 %ifnarch %{x86_64} %{arm64}
 # On other architectures, the list of available downloads differs, e.g. pypy
 # and graalpy downloads may be missing.
@@ -702,8 +714,7 @@ skip="${skip-} --skip python_list::python_list"
 skip="${skip-} --skip python_list::python_list_duplicate_path_entries"
 skip="${skip-} --skip python_list::python_list_pin"
 skip="${skip-} --skip python_list::python_list_venv"
-%endif
-# -p uv-client --test it:
+
 # This requires specific Python interpreter versions (so it would be grouped
 # with the conditionalized integration tests above), but it also requires
 # network access to PyPI, so it must be skipped either way until it can be
@@ -718,6 +729,10 @@ skip="${skip-} --skip lock::tests::missing_dependency_version_dynamic"
 skip="${skip-} --skip lock::tests::missing_dependency_source_version_unambiguous"
 skip="${skip-} --skip lock::tests::missing_dependency_version_unambiguous"
 %endif
+
+# Trivial difference in snapshots: error message output differs slightly,
+# presumably due to slightly different dependency versions.
+skip="${skip-} --skip metadata::requires_dist::test::invalid_syntax"
 
 # TODO: What’s going wrong here? It doesn’t seem serious…
 # thread 'middleware::tests::test_tracing_url' panicked at

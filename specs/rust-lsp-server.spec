@@ -5,13 +5,16 @@
 %global crate lsp-server
 
 Name:           rust-lsp-server
-Version:        0.7.8
+Version:        0.7.9
 Release:        %autorelease
 Summary:        Generic LSP server scaffold
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/lsp-server
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * drop example code that relies on un-published code
+Patch:          lsp-server-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

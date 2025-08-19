@@ -1,6 +1,4 @@
-%bcond_with devel
-
-%global basever 1.29.6
+%global basever 1.30.0
 #%%global rcnum   0
 
 Name:           syncthing
@@ -55,15 +53,15 @@ Provides:       bundled(moment) = 2.19.4
 # github.com/AudriusButkevicius/recli : MPL-2.0
 Provides:       bundled(golang(github.com/AudriusButkevicius/recli)) = d000ce8
 # github.com/Azure/azure-sdk-for-go : MIT
-Provides:       bundled(golang(github.com/Azure/azure-sdk-for-go/sdk/azcore)) = 1.17.0
-Provides:       bundled(golang(github.com/Azure/azure-sdk-for-go/sdk/internal)) = 1.10.0
-Provides:       bundled(golang(github.com/Azure/azure-sdk-for-go/sdk/storage/azblob)) = 1.6.0
+Provides:       bundled(golang(github.com/Azure/azure-sdk-for-go/sdk/azcore)) = 1.18.0
+Provides:       bundled(golang(github.com/Azure/azure-sdk-for-go/sdk/internal)) = 1.11.1
+Provides:       bundled(golang(github.com/Azure/azure-sdk-for-go/sdk/storage/azblob)) = 1.6.1
 # github.com/Azure/go-ntlmssp : MIT
 Provides:       bundled(golang(github.com/Azure/go-ntlmssp)) = 754e693
 # github.com/alecthomas/kong : MIT
-Provides:       bundled(golang(github.com/alecthomas/kong)) = 1.10.0
+Provides:       bundled(golang(github.com/alecthomas/kong)) = 1.11.0
 # github.com/aws/aws-sdk-go : Apache-2.0
-Provides:       bundled(golang(github.com/aws/aws-sdk-go)) = 1.55.6
+Provides:       bundled(golang(github.com/aws/aws-sdk-go)) = 1.55.7
 # github.com/beorn7/perks : MIT
 Provides:       bundled(golang(github.com/beorn7/perks)) = 1.0.1
 # github.com/calmh/incontainer : MIT
@@ -80,6 +78,8 @@ Provides:       bundled(golang(github.com/certifi/gocertifi)) = 431795d
 Provides:       bundled(golang(github.com/cespare/xxhash/v2)) = 2.3.0
 # github.com/chmduquesne/rollinghash : MIT
 Provides:       bundled(golang(github.com/chmduquesne/rollinghash)) = 4.0.0+incompatible
+# github.com/coreos/go-semver : Apache-2.0
+Provides:       bundled(golang(github.com/coreos/go-semver)) = 0.3.1
 # github.com/cpuguy83/go-md2man : MIT
 Provides:       bundled(golang(github.com/cpuguy83/go-md2man/v2)) = 2.0.5
 # github.com/d4l3k/messagediff : MIT
@@ -87,15 +87,15 @@ Provides:       bundled(golang(github.com/d4l3k/messagediff)) = 1.2.1
 # github.com/davecgh/go-spew : ISC
 Provides:       bundled(golang(github.com/davecgh/go-spew)) = 1.1.1
 # github.com/ebitengine/purego : Apache-2.0
-Provides:       bundled(golang(github.com/ebitengine/purego)) = 0.8.2
+Provides:       bundled(golang(github.com/ebitengine/purego)) = 0.8.3
 # github.com/fsnotify/fsnotify : BSD-3-Clause
 Provides:       bundled(golang(github.com/fsnotify/fsnotify)) = 1.7.0
 # github.com/getsentry/raven-go : BSD-3-Clause
 Provides:       bundled(golang(github.com/getsentry/raven-go)) = 0.2.0
 # github.com/go-asn1-ber/asn1-ber : MIT
-Provides:       bundled(golang(github.com/go-asn1-ber/asn1-ber)) = 1.5.7
+Provides:       bundled(golang(github.com/go-asn1-ber/asn1-ber)) = 2923003
 # github.com/go-ldap/ldap : MIT
-Provides:       bundled(golang(github.com/go-ldap/ldap/v3)) = 3.4.10
+Provides:       bundled(golang(github.com/go-ldap/ldap/v3)) = 3.4.11
 # github.com/go-ole/go-ole : MIT
 Provides:       bundled(golang(github.com/go-ole/go-ole)) = 1.3.0
 # github.com/go-task/slim-sprig : MIT
@@ -107,7 +107,7 @@ Provides:       bundled(golang(github.com/gofrs/flock)) = 0.12.1
 # github.com/golang/snappy : BSD-3-Clause
 Provides:       bundled(golang(github.com/golang/snappy)) = 0.0.4
 # github.com/google/pprof : Apache-2.0
-Provides:       bundled(golang(github.com/google/pprof)) = a352233
+Provides:       bundled(golang(github.com/google/pprof)) = 337e5dd
 # github.com/google/uuid : BSD-3-Clause
 Provides:       bundled(golang(github.com/google/uuid)) = 1.6.0
 # github.com/greatroar/blobloom : Apache-2.0
@@ -128,8 +128,6 @@ Provides:       bundled(golang(github.com/jmespath/go-jmespath)) = 0.4.0
 Provides:       bundled(golang(github.com/julienschmidt/httprouter)) = 1.3.0
 # github.com/kballard/go-shellquote : MIT
 Provides:       bundled(golang(github.com/kballard/go-shellquote)) = 95032a8
-# github.com/klauspost/compress : BSD-3-Clause AND Apache-2.0
-Provides:       bundled(golang(github.com/klauspost/compress)) = 1.17.11
 # github.com/lufia/plan9stats : BSD-3-Clause
 Provides:       bundled(golang(github.com/lufia/plan9stats)) = 873cd01
 # github.com/maruel/panicparse : Apache-2.0
@@ -145,7 +143,7 @@ Provides:       bundled(golang(github.com/munnerz/goautoneg)) = a7dc8b6
 # github.com/nxadm/tail : MIT
 Provides:       bundled(golang(github.com/nxadm/tail)) = 1.4.11
 # github.com/onsi/ginkgo : MIT
-Provides:       bundled(golang(github.com/onsi/ginkgo/v2)) = 2.20.2
+Provides:       bundled(golang(github.com/onsi/ginkgo/v2)) = 2.23.4
 # github.com/oschwald/geoip2-golang : ISC
 Provides:       bundled(golang(github.com/oschwald/geoip2-golang)) = 1.11.0
 # github.com/oschwald/maxminddb-golang : ISC
@@ -161,7 +159,7 @@ Provides:       bundled(golang(github.com/posener/complete)) = 1.2.3
 # github.com/power-devops/perfstat : MIT
 Provides:       bundled(golang(github.com/power-devops/perfstat)) = 82ca368
 # github.com/prometheus/client_golang : Apache-2.0
-Provides:       bundled(golang(github.com/prometheus/client_golang)) = 1.21.1
+Provides:       bundled(golang(github.com/prometheus/client_golang)) = 1.22.0
 # github.com/prometheus/client_model : Apache-2.0
 Provides:       bundled(golang(github.com/prometheus/client_model)) = 0.6.1
 # github.com/prometheus/common : Apache-2.0
@@ -171,7 +169,7 @@ Provides:       bundled(golang(github.com/prometheus/procfs)) = 0.15.1
 # github.com/puzpuzpuz/xsync : Apache-2.0
 Provides:       bundled(golang(github.com/puzpuzpuz/xsync/v3)) = 3.5.1
 # github.com/quic-go/quic-go : MIT
-Provides:       bundled(golang(github.com/quic-go/quic-go)) = 0.50.1
+Provides:       bundled(golang(github.com/quic-go/quic-go)) = 0.52.0
 # github.com/rabbitmq/amqp091-go : BSD-2-Clause
 Provides:       bundled(golang(github.com/rabbitmq/amqp091-go)) = 1.10.0
 # github.com/rcrowley/go-metrics : BSD-2-Clause-Views
@@ -181,13 +179,13 @@ Provides:       bundled(golang(github.com/riywo/loginshell)) = 7d26008
 # github.com/russross/blackfriday : BSD-2-Clause
 Provides:       bundled(golang(github.com/russross/blackfriday/v2)) = 2.1.0
 # github.com/shirou/gopsutil : BSD-3-Clause
-Provides:       bundled(golang(github.com/shirou/gopsutil/v4)) = 4.25.3
+Provides:       bundled(golang(github.com/shirou/gopsutil/v4)) = 4.25.4
 # github.com/stretchr/objx : MIT
 Provides:       bundled(golang(github.com/stretchr/objx)) = 0.5.2
 # github.com/stretchr/testify : MIT
 Provides:       bundled(golang(github.com/stretchr/testify)) = 1.10.0
 # github.com/syncthing/notify : MIT
-Provides:       bundled(golang(github.com/syncthing/notify)) = f0fa8f9
+Provides:       bundled(golang(github.com/syncthing/notify)) = c7027d4
 # github.com/syndtr/goleveldb : BSD-2-Clause
 Provides:       bundled(golang(github.com/syndtr/goleveldb)) = 126854a
 # github.com/thejerf/suture : MIT
@@ -207,25 +205,23 @@ Provides:       bundled(golang(github.com/yusufpapurcu/wmi)) = 1.2.4
 # go.uber.org/automaxprocs : MIT
 Provides:       bundled(golang(go.uber.org/automaxprocs)) = 1.6.0
 # go.uber.org/mock : Apache-2.0
-Provides:       bundled(golang(go.uber.org/mock)) = 0.5.0
+Provides:       bundled(golang(go.uber.org/mock)) = 0.5.2
 # golang.org/x/crypto : BSD-3-Clause
-Provides:       bundled(golang(golang.org/x/crypto)) = 0.36.0
-# golang.org/x/exp : BSD-3-Clause
-Provides:       bundled(golang(golang.org/x/exp)) = f66d83c
+Provides:       bundled(golang(golang.org/x/crypto)) = 0.38.0
 # golang.org/x/mod : BSD-3-Clause
 Provides:       bundled(golang(golang.org/x/mod)) = 0.24.0
 # golang.org/x/net : BSD-3-Clause
-Provides:       bundled(golang(golang.org/x/net)) = 0.38.0
+Provides:       bundled(golang(golang.org/x/net)) = 0.40.0
 # golang.org/x/sync : BSD-3-Clause
-Provides:       bundled(golang(golang.org/x/sync)) = 0.12.0
+Provides:       bundled(golang(golang.org/x/sync)) = 0.14.0
 # golang.org/x/sys : BSD-3-Clause
-Provides:       bundled(golang(golang.org/x/sys)) = 0.31.0
+Provides:       bundled(golang(golang.org/x/sys)) = 0.33.0
 # golang.org/x/text : BSD-3-Clause
-Provides:       bundled(golang(golang.org/x/text)) = 0.23.0
+Provides:       bundled(golang(golang.org/x/text)) = 0.25.0
 # golang.org/x/time : BSD-3-Clause
 Provides:       bundled(golang(golang.org/x/time)) = 0.11.0
 # golang.org/x/tools : BSD-3-Clause
-Provides:       bundled(golang(golang.org/x/tools)) = 0.31.0
+Provides:       bundled(golang(golang.org/x/tools)) = 0.33.0
 # google.golang.org/protobuf : BSD-3-Clause
 Provides:       bundled(golang(google.golang.org/protobuf)) = 1.36.6
 # gopkg.in/yaml.v3 : MIT AND Apache-2.0
@@ -241,23 +237,6 @@ third party and how it's transmitted over the Internet. Using syncthing,
 that control is returned to you.
 
 This package contains the syncthing client binary and systemd services.
-
-
-%if %{with devel}
-%package        devel
-Summary:        Continuous File Synchronization (development files)
-BuildArch:      noarch
-
-%description    devel
-Syncthing replaces other file synchronization services with something
-open, trustworthy and decentralized. Your data is your data alone and
-you deserve to choose where it is stored, if it is shared with some
-third party and how it's transmitted over the Internet. Using syncthing,
-that control is returned to you.
-
-This package contains the syncthing sources, which are needed as
-dependency for building packages using syncthing.
-%endif
 
 
 %package        tools
@@ -369,10 +348,6 @@ for i in $(find -name "*.go" -type f -executable -print); do
     chmod a-x $i;
 done
 
-%if %{with devel}
-%goinstall
-%endif
-
 
 %check
 desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
@@ -473,13 +448,6 @@ export GO111MODULE=off
 
 %{_mandir}/man1/stdiscosrv*
 %{_mandir}/man1/strelaysrv*
-
-
-%if %{with devel}
-%files devel -f devel.file-list
-%license LICENSE
-%doc README.md AUTHORS
-%endif
 
 
 %changelog

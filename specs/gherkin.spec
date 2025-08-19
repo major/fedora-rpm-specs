@@ -11,12 +11,12 @@
 %bcond acceptance_python 1
 
 Name:           gherkin
-Version:        33.1.0
+Version:        34.0.0
 # While SONAME versions are based on the major version number, we repeat them
 # here as a reminder, hopefully reducing the chance of an unintended SONAME
 # version bump.
-%global cpp_soversion 33
-%global c_soversion 33
+%global cpp_soversion 34
+%global c_soversion 34
 Release:        %autorelease
 Summary:        A parser and compiler for the Gherkin language
 
@@ -55,6 +55,11 @@ BuildRequires:  cmake(cucumber_messages)
 
 # For Python only:
 BuildRequires:  python3-devel
+# The “dev” dependency group contains test dependencies intermixed with
+# unwanted dependencies for coverage analysis
+# (https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters),
+# pre-commit, etc., so we list test dependencies manually.
+BuildRequires:  %{py3_dist pytest}
 
 %global common_description %{expand:
 Gherkin is a parser and compiler for the Gherkin language.}
@@ -165,7 +170,7 @@ sed -r -i 's@python -m@%{python3} -m@' python/Makefile
 
 %generate_buildrequires
 pushd python >/dev/null
-%pyproject_buildrequires requirements.txt
+%pyproject_buildrequires
 popd >/dev/null
 
 
@@ -264,7 +269,12 @@ echo '==== Testing Python implementation ===='
 %pyproject_check_import
 %pytest
 %if %{with acceptance_python}
-%{py3_test_envvars} %make_build -C python acceptance
+# Override the generator script commands so that they don’t use “uv run”; we
+# don’t want a dependency on uv, and we can’t respect uv.lock or download
+# dependencies from the network.
+%{py3_test_envvars} %make_build -C python acceptance \
+    GHERKIN_GENERATE_EVENTS='%{python3} scripts/generate_events.py' \
+    GHERKIN_GENERATE_TOKENS='%{python3} scripts/generate_tokens.py'
 %endif
 
 

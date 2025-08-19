@@ -1,9 +1,13 @@
 %global base_name    plymouth-kcm
 
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
+
 Name:    plymouth-kcm
 Summary: Plymouth configuration module for systemsettings
 Version: 6.4.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: BSD-2-Clause AND CC0-1.0 AND GPL-2.0-or-later
 URL:     https://invent.kde.org/plasma/%{base_name}
@@ -65,6 +69,9 @@ plymouth splash screen.
 
 
 %changelog
+* Sat Aug 16 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.4.4-2
+- Drop i686 support (leaf package)
+
 * Wed Aug 06 2025 Steve Cossette <farchord@gmail.com> - 6.4.4-1
 - 6.4.4
 

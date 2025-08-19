@@ -4,9 +4,13 @@
 %global qt6min 6.5.0
 %global kpmcoremin 24.01
 
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
+
 Name:           kde-partitionmanager
 Version:        25.08.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        KDE Partition Manager
 
 License:        GPL-3.0-or-later AND LGPL-3.0-or-later AND MIT AND CC-BY-4.0 AND CC0-1.0 AND GFDL-1.2-or-later
@@ -86,6 +90,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/*.appdata.
 
 
 %changelog
+* Sun Aug 17 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 25.08.0-3
+- Drop i686 support (leaf package)
+
 * Sat Aug 16 2025 Neal Gompa <ngompa@fedoraproject.org> - 25.08.0-2
 - Undo RPMAutoSpec conversion
 

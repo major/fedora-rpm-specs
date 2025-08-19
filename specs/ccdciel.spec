@@ -20,6 +20,8 @@ Source0:        https://github.com/pchev/%{name}/archive/%{gittag}/%{name}-%{ver
 Source0:        https://github.com/pchev/%{name}/archive/%{commit}/%{name}-%{commit}.tar.gz
 %endif
 
+# Fix build with FPC 3.2.4
+Patch0:         ccdciel-0.9.90_fpc-3.2.4.patch
 
 # Patch to avoid stripping debuginfo from executable
 # Since this is Fedora specific we don't ask upstream to include

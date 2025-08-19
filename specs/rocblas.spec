@@ -17,7 +17,7 @@
 %if %{with debug}
 %global build_type DEBUG
 %else
-%global build_type RELEASE
+%global build_type RelWithDebInfo
 %endif
 
 %bcond_without compress
@@ -47,11 +47,6 @@
 %global build_tensile ON
 %else
 %global build_tensile OFF
-%endif
-
-%if 0%{?rhel} && 0%{?rhel} < 10
-# On CS9: /usr/bin/debugedit: Cannot handle 8-byte build ID
-%global debug_package %{nil}
 %endif
 
 # Compression type and level for source/binary package payloads.
@@ -119,7 +114,7 @@
 
 Name:           %{rocblas_name}
 Version:        %{rocm_version}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        BLAS implementation for ROCm
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT AND BSD-3-Clause
@@ -335,6 +330,9 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library/src:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Sat Aug 16 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-7
+- set default build type to RelWithDebInfo
+
 * Sat Aug 16 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-6
 - Use msgpack on SUSE
 

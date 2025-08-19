@@ -235,6 +235,7 @@ sed -i FEXCore/Source/CMakeLists.txt \
 
 %build
 %cmake -G Ninja \
+    -DCMAKE_BUILD_TYPE=release \
     -DENABLE_OFFLINE_TELEMETRY=OFF \
 %ifarch %{x86_64}
     -DENABLE_X86_HOST_DEBUG=ON \

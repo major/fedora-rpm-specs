@@ -1,8 +1,12 @@
 %global base_name elisa
 
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
+
 Name:       elisa-player
 Version:    25.08.0
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Elisa music player
 
 # Main program LGPLv3+
@@ -91,6 +95,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.el
 %{_kf6_libdir}/elisa/
 
 %changelog
+* Sun Aug 17 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 25.08.0-3
+- Drop i686 support (leaf package)
+
 * Sat Aug 16 2025 Neal Gompa <ngompa@fedoraproject.org> - 25.08.0-2
 - Undo autorelease/autochangelog conversion
 

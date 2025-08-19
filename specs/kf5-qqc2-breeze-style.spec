@@ -4,9 +4,13 @@
 # KF5Kirigami2 which can use this.
 %global component qqc2-breeze-style
 
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
+
 Name:     kf5-%{component}
 Version:  5.27.11
-Release:  4%{?dist}
+Release:  5%{?dist}
 Summary:  Qt5QuickControls2 breeze style
 
 
@@ -67,6 +71,9 @@ This is a pure Qt Quick/Kirigami Qt5 Quick Controls style.
 %{_kf5_libdir}/cmake/KF5QQC2BreezeStyle/
 
 %changelog
+* Sat Aug 16 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.11-5
+- Drop i686 support (leaf package)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.27.11-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

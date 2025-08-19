@@ -3,9 +3,13 @@
 # Cf. https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/message/GNC2UEHAE7VVSN6K24GBJYSIUNCLKJ6L/
 %bcond backend_ufw %[%{undefined rhel}]
 
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
+
 Name:    plasma-firewall
 Version: 6.4.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Control Panel for your system firewall
 
 License: BSD-3-Clause AND CC0-1.0 AND FSFAP AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only)
@@ -107,6 +111,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/kcm_firewall.desktop
 %endif
 
 %changelog
+* Sat Aug 16 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.4.4-2
+- Drop i686 support (leaf package)
+
 * Wed Aug 06 2025 Steve Cossette <farchord@gmail.com> - 6.4.4-1
 - 6.4.4
 

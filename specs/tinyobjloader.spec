@@ -1,13 +1,15 @@
+%global pre rc13
 Name:           tinyobjloader
-Version:        1.0.6
-Release:        19%{?dist}
+Version:        2.0.0
+Release:        0.1%{?pre:.%pre}%{?dist}
 Summary:        Tiny wavefront obj loader
 
 License:        MIT
 URL:            https://github.com/syoyo/tinyobjloader
-Source0:        https://github.com/syoyo/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/syoyo/%{name}/archive/v%{version}%{?pre}/%{name}-%{version}%{?pre}.tar.gz
+# Fix cmake config install dir
+Patch0:         tinyobjloader-install-cmakedir.patch
 
-BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 
@@ -16,6 +18,7 @@ Tiny but powerful single file wavefront obj loader written in C++. No
 dependency except for C++ STL. It can parse over 10M polygons with moderate
 memory and time.
 
+
 %package devel
 Summary: Development files and libraries for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
@@ -23,8 +26,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %description devel
 %summary
 
+
 %prep
-%autosetup -n %{name}-%{version}
+%autosetup -n %{name}-%{version}%{?pre}
 
 
 %build
@@ -37,20 +41,23 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %cmake_install
 rm -rf %{buildroot}/%{_docdir}
 
-%ldconfig_scriptlets
 
 %files
 %license LICENSE
 %doc README.md
-%{_libdir}/*.so.*
+%{_libdir}/lib%{name}.so.2*
 
 %files devel
 %{_includedir}/tiny_obj_loader.h
-%{_libdir}/*.so
-%{_libdir}/%{name}
-%{_libdir}/pkgconfig/*.pc
+%{_libdir}/lib%{name}.so
+%{_libdir}/cmake/%{name}
+%{_libdir}/pkgconfig/%{name}.pc
+
 
 %changelog
+* Sun Aug 17 2025 Sandro Mani <manisandro@gmail.com> - 2.0.0-0.1.rc13
+- Update to 2.0.0-rc13
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

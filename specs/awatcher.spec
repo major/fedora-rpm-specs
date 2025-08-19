@@ -6,34 +6,34 @@
 %global aw_server_rust_short_commit %(c=%{aw_server_rust_commit}; echo ${c:0:7})
 
 Name:           awatcher
-Version:        0.3.1
+Version:        0.3.2
 Release:        %autorelease
 Summary:        A window activity and idle watcher
+# (Apache-2.0 OR MIT) AND BSD-3-Clause
+# (MIT OR Apache-2.0) AND Unicode-3.0
+# (MIT OR Apache-2.0) AND Unicode-DFS-2016
 # Apache-2.0
 # Apache-2.0 OR BSL-1.0
 # Apache-2.0 OR ISC OR MIT
 # Apache-2.0 OR MIT
-# (Apache-2.0 OR MIT) AND BSD-3-Clause
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
-# ISC
 # MIT
 # MIT OR Apache-2.0
-# (MIT OR Apache-2.0) AND Unicode-DFS-2016
-# MIT OR Apache-2.0 OR Zlib
 # MPL-2.0
+# Unicode-3.0
 # Unlicense OR MIT
-# Zlib OR Apache-2.0 OR MIT
-License:        Apache-2.0 AND BSL-1.0 AND BSD-3-Clause AND (Apache-2.0 WITH LLVM-exception) AND ISC AND MIT AND Unicode-DFS-2016 AND Zlib AND MPL-2.0 AND Unlicense
+License:        Apache-2.0 AND BSL-1.0 AND BSD-3-Clause AND (Apache-2.0 WITH LLVM-exception) AND ISC AND MIT AND Unicode-DFS-2016 AND Unicode-3.0 AND MPL-2.0 AND Unlicense
 # LICENSE.dependencies contains a full license breakdown
 
 URL:            https://github.com/2e3s/awatcher
 Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz
 Source1:        https://github.com/ActivityWatch/aw-server-rust/archive/%{aw_server_rust_commit}/aw-server-rust-%{aw_server_rust_short_commit}.tar.gz
 
-Patch0:         0001-Fix-dependencies.patch
-Patch1:         0002-Remove-unneeded-dev-dependencies.patch
-# Use SPDX short identifier
-Patch2:         https://github.com/2e3s/awatcher/pull/45.patch
+Patch0:         0001-Use-locally-downloaded-aw-server-rust.patch
+Patch1:         0002-Fix-dependencies-to-the-one-used-in-Fedora.patch
+# Remove due to a missing dependency.
+Patch2:         0003-Remove-cosmic-watcher.patch
+Patch3:         0004-Remove-unneeded-dev-dependencies.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  systemd-rpm-macros

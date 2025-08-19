@@ -31,9 +31,9 @@ License: BSD-3-Clause AND GFDL-1.3-or-later AND BSD-4-Clause-UC AND Linux-man-pa
 BuildArch: noarch
 BuildRequires: make
 BuildRequires: perl(Env), perl(Encode)
-URL: http://linuxjm.osdn.jp/
+URL: http://linuxjm.sourceforge.io/
 
-Source: http://linuxjm.osdn.jp/%{name}-%{version}.tar.gz
+Source: http://linuxjm.sourceforge.io/%{name}-%{version}.tar.gz
 Source1: %{name}-rpm.pl
 Source2: %{name}-tail.1
 Source3: %{name}-echo.1

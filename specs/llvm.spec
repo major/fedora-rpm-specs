@@ -2208,7 +2208,7 @@ cd llvm
 function reset_test_opts()
 {
     # See https://llvm.org/docs/CommandGuide/lit.html#general-options
-    export LIT_OPTS="-vv --time-tests"
+    export LIT_OPTS="-vv --time-tests --timeout=600"
 
     # Set to mark tests as expected to fail.
     # See https://llvm.org/docs/CommandGuide/lit.html#cmdoption-lit-xfail

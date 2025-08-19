@@ -1,3 +1,17 @@
+%if 0%{?suse_version}
+%global hipsparselt_name libhipsparselt0
+%else
+%global hipsparselt_name hipsparselt
+%endif
+
+%if 0%{?suse_version}
+%{?sle15_python_module_pythons}
+%{?!python_module:%define python_module() python3-%{**}}
+%else
+%define python_exec python3
+%define python_expand python3
+%endif
+
 %global upstreamname hipSPARSELt
 %global rocm_release 6.4
 %global rocm_patch 2
@@ -36,7 +50,7 @@
 %global tensile_version 4.33.0
 %global tensile_verbose 1
 
-%global amdgpu_targets "gfx1100;gfx1200;gfx1201"
+%global amdgpu_targets "gfx90a:xnack+;gfx90a:xnack-;gfx1100;;gfx1101;gfx1200;gfx1201"
 
 # Compression type and level for source/binary package payloads.
 #  "w7T0.xzdio"	xz level 7 using %%{getncpus} threads
@@ -55,9 +69,9 @@
 %global cmake_generator %{nil}
 %endif
 
-Name:           hipsparselt
+Name:           %{hipsparselt_name}
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A SPARSE marshaling library
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
@@ -88,12 +102,25 @@ BuildRequires:  rocsparse-devel
 BuildRequires:  zlib-devel
 
 # For tensilelite
+%if 0%{?suse_version}
+BuildRequires:  python-rpm-macros
+BuildRequires:  %{python_module joblib}
+BuildRequires:  %{python_module msgpack}
+BuildRequires:  %{python_module PyYAML}
+BuildRequires:  %{python_module setuptools}
+BuildRequires:  msgpack-cxx-devel
+%global tensile_library_format yaml
+%global tensile_verbose 2
+%else
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(pyyaml)
 BuildRequires:  python3dist(joblib)
 BuildRequires:  python3dist(msgpack)
 BuildRequires:  msgpack-devel
+%global tensile_library_format msgpack
+%global tensile_verbose 1
+%endif
 
 %if %{with test}
 BuildRequires:  chrpath
@@ -104,6 +131,7 @@ BuildRequires:  gmock-devel
 BuildRequires:  rocm-omp-devel
 %endif
 
+Provides:       hipsparselt = %{version}-%{release}
 Provides:       bundled(python-tensile) = %{tensile_version}
 
 # Only x86_64 works right now:
@@ -121,6 +149,7 @@ hipSPARSELt supports the rocSPARSELt backend.
 %package devel
 Summary:        Libraries and headers for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Provides:       hipsparselt-devel = %{version}-%{release}
 
 %description devel
 %{summary}
@@ -158,7 +187,7 @@ sed -i -e 's@virtualenv_install@#virtualenv_install@'                          C
 # do not mess with prefix path
 sed -i -e 's@APPEND CMAKE_PREFIX_PATH@APPEND NO_CMAKE_PREFIX_PATH@'            CMakeLists.txt
 
-sed -i 's@find_package(LLVM REQUIRED CONFIG)@find_package(LLVM REQUIRED CONFIG PATHS "%{rocmllvm_cmakedir}")@' tensilelite/Tensile/Source/lib/CMakeLists.txt
+sed -i 's@find_package(LLVM REQUIRED)@find_package(LLVM REQUIRED CONFIG PATHS "%{rocmllvm_cmakedir}")@' tensilelite/Tensile/Source/lib/CMakeLists.txt
 
 # Changes different from hipBLASLt
 sed -i -e 's@/opt/rocm/bin@/usr/bin@' tensilelite/Tensile/Utilities/Toolchain.py
@@ -219,7 +248,7 @@ export Tensile_DIR=${TL}%{python3_sitelib}/Tensile
        -DHIP_PLATFORM=amd \
        -DROCM_SYMLINK_LIBS=OFF \
        -DTensile_COMPILER=clang++ \
-       -DTensile_LIBRARY_FORMAT=msgpack \
+       -DTensile_LIBRARY_FORMAT=%{tensile_library_format} \
        -DTensile_VERBOSE=%{tensile_verbose} \
        -DVIRTUALENV_BIN_DIR=%{_bindir} \
        %{nil}
@@ -273,6 +302,10 @@ chrpath -r %{rocmllvm_libdir} %{buildroot}%{_bindir}/hipsparselt-test
 %endif
 
 %changelog
+* Sun Aug 17 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-4
+- Build for SUSE
+- add gfx908 and gfx1101
+
 * Sun Aug 10 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-3
 - Build for EPEL
 

@@ -1,5 +1,5 @@
 Name:           cppcheck
-Version:        2.18.0
+Version:        2.18.1
 Release:        1%{?dist}
 Summary:        Tool for static C/C++ code analysis
 License:        GPL-3.0-or-later
@@ -112,7 +112,10 @@ grep -l "#\!/usr/bin/env python3" %{buildroot}%{_datadir}/Cppcheck/addons/*.py |
 %{_bindir}/cppcheck-htmlreport
 
 %changelog
-* Mon Jul 21 2025 Gwyn Ciesla <gwync@protonmail.com> - 2.18.0-1
+* Sun Aug 17 2025 Wolfgang Stöggl <c72578@yahoo.de> - 2.18.1-1
+- 2.18.1
+
+* Thu Jul 24 2025 Gwyn Ciesla <gwync@protonmail.com> - 2.18.0-1
 - 2.18.0
 
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.17.1-3

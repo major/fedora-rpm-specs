@@ -5,7 +5,7 @@
 %global crate tokio
 
 Name:           rust-tokio
-Version:        1.47.0
+Version:        1.47.1
 Release:        %autorelease
 Summary:        Event-driven, non-blocking I/O platform
 
@@ -22,6 +22,9 @@ Patch:          tokio-fix-metadata.diff
 Patch2:         0001-skip-one-doctest-that-pulls-in-an-additional-depende.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
+%if %{with check}
+BuildRequires:  strace
+%endif
 
 %global _description %{expand:
 An event-driven, non-blocking I/O platform for writing asynchronous I/O

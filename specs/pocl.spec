@@ -4,13 +4,8 @@
 # Use Clang for building this project
 %global toolchain clang
 
-# Sometimes releases require legacy versions of LLVM
-%if 0%{?fedora} && 0%{?fedora} > 43
-%global llvm_legacy 1
-%else
-%global llvm_legacy 0
-%endif
-%global llvm_legacy_ver 20
+# Pin to a specific llvm version
+%global llvm_ver 20
 
 Name: pocl
 Version: 7.0
@@ -29,17 +24,10 @@ Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 ExcludeArch: %{ix86}
 %endif
 
-%if %{llvm_legacy}
-BuildRequires: clang%{llvm_legacy_ver}
-BuildRequires: clang%{llvm_legacy_ver}-devel
-BuildRequires: compiler-rt%{llvm_legacy_ver}
-BuildRequires: llvm%{llvm_legacy_ver}-devel
-%else
-BuildRequires: clang
-BuildRequires: clang-devel
-BuildRequires: compiler-rt
-BuildRequires: llvm-devel
-%endif
+BuildRequires: clang(major) = %{llvm_ver}
+BuildRequires: clang-devel(major) = %{llvm_ver}
+BuildRequires: compiler-rt(major) = %{llvm_ver}
+BuildRequires: llvm-devel(major) = %{llvm_ver}
 
 BuildRequires: glew-devel
 BuildRequires: hwloc-devel
@@ -78,11 +66,7 @@ superscalar,...).
 %package devel
 Summary: Portable Computing Language development files
 Requires: %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
-%if %{llvm_legacy}
-Requires: clang%{llvm_legacy_ver}
-%else
-Requires: clang%{?_isa}
-%endif
+Requires: clang(major) = %{llvm_ver}
 Requires: ocl-icd-devel%{?_isa}
 Requires: opencl-filesystem
 Requires: uthash-devel
@@ -97,10 +81,9 @@ Portable Computing Language development files.
 find . -depth -name utlist.h -print -delete
 
 %build
-%if %{llvm_legacy}
-export CC="clang-%{llvm_legacy_ver}"
-export CXX="clang++-%{llvm_legacy_ver}"
-%endif
+%global __cc_clang clang-%{llvm_ver}
+%global __cxx_clang clang++-%{llvm_ver}
+%global __cpp_clang clang-cpp-%{llvm_ver}
 %cmake -G Ninja \
     -DCMAKE_BUILD_TYPE=Release \
     -DENABLE_ICD:BOOL=ON \
@@ -118,9 +101,7 @@ export CXX="clang++-%{llvm_legacy_ver}"
 %ifarch riscv64
     -DLLC_HOST_CPU="generic-rv64" \
 %endif
-%if %{llvm_legacy}
-    -DWITH_LLVM_CONFIG="llvm-config-%{llvm_legacy_ver}" \
-%endif
+    -DWITH_LLVM_CONFIG="llvm-config-%{llvm_ver}" \
     -DPOCL_ICD_ABSOLUTE_PATH:BOOL=OFF \
     -DENABLE_POCL_BUILDING:BOOL=ON
 %cmake_build

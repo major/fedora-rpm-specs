@@ -5,10 +5,14 @@
 %global  kross_python2 1
 %endif
 
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
+
 Name:    kf5-kross-interpreters
 Summary: Kross interpreters for KDE Frameworks 5
 Version: 22.04.3
-Release: 12%{?dist}
+Release: 13%{?dist}
 
 License: LGPL-2.1-or-later AND CC0-1.0
 URL:     https://invent.kde.org/frameworks/%{framework}
@@ -103,6 +107,9 @@ Ruby plugin for the Kross archtecture in KDE Frameworks 5.
 %endif
 
 %changelog
+* Sat Aug 16 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.04.3-13
+- Drop i686 support (leaf package)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 22.04.3-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

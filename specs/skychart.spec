@@ -56,6 +56,8 @@ Patch:      skychart-4.3-satmessage.patch
 # This feature was asked upstream specifically for Fedora
 Patch:      skychart-4.3-noupdatemenu.patch
 
+# Fix build with FPC 3.2.4
+Patch:      skychart-4.3-fpc-3.2.4.patch
 
 ExclusiveArch: %{fpc_arches}
 ExcludeArch: %{ix86}

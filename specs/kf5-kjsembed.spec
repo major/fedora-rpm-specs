@@ -1,9 +1,13 @@
 %undefine __cmake_in_source_build
 %global framework kjsembed
 
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
+
 Name:    kf5-%{framework}
 Version: 5.116.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: KDE Frameworks 5 Tier 3 addon for binding JS objects to QObjects
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -70,6 +74,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sat Aug 16 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.116.0-6
+- Drop i686 support (leaf package)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.116.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

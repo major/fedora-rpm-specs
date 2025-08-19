@@ -13,10 +13,14 @@ BuildSystem:            pyproject
 BuildOption(generate_buildrequires): -t
 BuildOption(install):   -L quart_trio
 
-# Downstream-only: patch out coverage analysis
-# 
-# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+# Downstream-only:
+#
+# - Patch out coverage analysis:
+#   https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 Patch:          0001-Downstream-only-patch-out-coverage-analysis.patch
+# - Patch out pytest-sugar. It is unnecessary; its only purpose is to make
+#   pytest output prettier.
+Patch:          0002-Downstream-only-patch-out-pytest-sugar.patch
 
 BuildArch:      noarch
 

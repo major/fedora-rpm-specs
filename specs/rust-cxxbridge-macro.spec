@@ -6,7 +6,7 @@
 %global crate cxxbridge-macro
 
 Name:           rust-cxxbridge-macro
-Version:        1.0.161
+Version:        1.0.168
 Release:        %autorelease
 Summary:        Implementation detail of the cxx crate
 
@@ -58,18 +58,6 @@ This package contains library source intended for building other packages which
 use the "clang-ast" feature of the "%{crate}" crate.
 
 %files       -n %{name}+clang-ast-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+experimental-async-fn-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+experimental-async-fn-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "experimental-async-fn" feature of the "%{crate}" crate.
-
-%files       -n %{name}+experimental-async-fn-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+flate2-devel

@@ -5,7 +5,7 @@
 %global crate const-str
 
 Name:           rust-const-str
-Version:        0.6.3
+Version:        0.6.4
 Release:        %autorelease
 Summary:        Compile-time string operations
 

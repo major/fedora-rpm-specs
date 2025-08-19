@@ -6,7 +6,7 @@
 %global has_32bit_support 0%{?rhel} < 10
 
 Name:           mold
-Version:        2.40.3
+Version:        2.40.4
 Release:        %autorelease
 Summary:        A Modern Linker
 

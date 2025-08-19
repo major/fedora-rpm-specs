@@ -6,7 +6,7 @@
 %global crate curl
 
 Name:           rust-curl
-Version:        0.4.48
+Version:        0.4.49
 Release:        %autorelease
 Summary:        Rust bindings to libcurl for making HTTP requests
 

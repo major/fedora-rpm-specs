@@ -22,13 +22,22 @@ BuildArch:      noarch
 
 BuildRequires:  python3-devel
 
+%if %{with docs}
 # For documentation
 BuildRequires:  python3dist(sphinx)
 BuildRequires:  python3dist(sphinx-rtd-theme)
 #missing for now
 #BuildRequires:  python3dist(sphinx-togglebutton)
+%endif
+
+%if %{with tests}
 # For tests
-BuildRequires:  python3dist(pytest-benchmark)
+# See testenv.deps in tox.ini, but note that it is mostly linters etc.,
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+BuildRequires:  python3dist(hypothesis)
+BuildRequires:  python3dist(pytest-subtests)
+BuildRequires:  python3dist(pytest-randomly)
+%endif
 
 %description %_description
 
@@ -48,11 +57,9 @@ Documentation for %{name}.
 %prep
 %autosetup -n %{pretty_name}-%{version}
 
-# Remove deps on code checkers/linters
-sed -i '/^    darglint\b/d' tox.ini
 
 %generate_buildrequires	
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 
 %build
@@ -71,7 +78,7 @@ rm -rf html/.{doctrees,buildinfo}
 
 %check	
 %if %{with tests}
-%pytest
+%pytest --ignore-glob='benchmarks/*' -v
 %endif
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}

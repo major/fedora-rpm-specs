@@ -3,8 +3,8 @@
 
 Summary:        World's most popular Open Source IRC bot
 Name:           eggdrop
-Version:        1.10.0
-Release:        3%{?dist}
+Version:        1.10.1
+Release:        1%{?dist}
 # Eggdrop itself is GPL-2.0-or-later but uses other source codes, breakdown:
 # GPL-2.0-only: src/mod/pbkdf2.mod/{pbkdf2,tclpbkdf2}.c
 # BSD-3-Clause: src/compat/inet_aton.c
@@ -43,10 +43,9 @@ able to form botnets, share partylines and userfiles between bots.
 touch -c -r doc/man1/%{name}.1{.langdir,}
 
 %build
-export CFLAGS="$RPM_OPT_FLAGS -std=gnu17"  # https://github.com/eggheads/eggdrop/issues/1740
 %configure
 make config
-# Parallel builds are not supported 
+# Parallel builds are not supported
 make
 
 %install
@@ -88,6 +87,9 @@ done
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sun Aug 17 2025 Robert Scheck <robert@fedoraproject.org> 1.10.1-1
+- Upgrade to 1.10.1 (#2375377)
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
@@ -176,7 +178,7 @@ done
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
 
 * Thu Jul 27 2017 Robert Scheck <robert@fedoraproject.org> 1.6.21-15
-- Added patch for build failures with "-Werror=format-security" 
+- Added patch for build failures with "-Werror=format-security"
 
 * Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.21-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild

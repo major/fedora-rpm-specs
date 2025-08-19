@@ -3,7 +3,7 @@ Summary:        Lazarus Component Library and IDE for Free Pascal
 
 Version:        4.2
 
-%global baserelease 1
+%global baserelease 2
 Release:        %{baserelease}%{?dist}
 
 # The qt5pas version is taken from lcl/interfaces/qt5/cbindings/Qt5Pas.pro
@@ -554,6 +554,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 
 
 %changelog
+* Sun Aug 17 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 4.2-2
+- Rebuilt for FPC 3.2.4-rc1
+
 * Sun Aug 03 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 4.2-1
 - Update to v4.2
 

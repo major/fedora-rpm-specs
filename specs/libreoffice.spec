@@ -911,6 +911,7 @@ Rules for auto-correcting common %{langname} typing errors. \
 %langpack -l af -n Afrikaans -F -H -Y -A -X
 %langpack -l ar -n Arabic -F -H -s ctl -T -X
 %langpack -l as -n Assamese -F -H -Y -X
+%langpack -l be -n Belarusian -F -H -X -Y
 %langpack -l bg -n Bulgarian -F -H -Y -M -A -T -X
 %langpack -l bn -n Bengali -F -H -Y -T -X
 %langpack -l br -n Breton -F -H -X
@@ -931,7 +932,6 @@ Rules for auto-correcting common %{langname} typing errors. \
 %langpack -l fy -n Frisian -F -H -X
 %langpack -l ga -n Irish -F -H -Y -M -A -X
 %langpack -l gl -n Galician -F -H -Y -T -X
-%langpack -l ka -n Georgian -F -H -T -X
 %langpack -l gu -n Gujarati -F -H -Y -s ctl -T -X
 %langpack -l he -n Hebrew -F -H -s ctl -T -X
 %langpack -l hi -n Hindi -F -H -Y -s ctl -T -X
@@ -941,6 +941,7 @@ Rules for auto-correcting common %{langname} typing errors. \
 %langpack -l id -n Indonesian -F -H -Y -T -X
 %langpack -l it -n Italian -F -H -Y -M -A -T -X
 %langpack -l ja -n Japanese -F -A -s cjk -T -X
+%langpack -l ka -n Georgian -F -H -T -X
 %langpack -l kk -n Kazakh -F -H -X
 %langpack -l kn -n Kannada -F -H -Y -X
 %langpack -l ko -n Korean -F -H -A -s cjk -T -X

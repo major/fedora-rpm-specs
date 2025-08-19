@@ -14,7 +14,7 @@
 %global	mainver	2.0.2
 #%%define	minorver	-b1
 
-%global	baserelease	37
+%global	baserelease	38
 
 %global	rpmminorver	%(echo "%minorver" | sed -e 's|^-||' | sed -e 's|\\\.||')
 %global	fedorarel	%{?minorver:0.}%{baserelease}%{?minorver:.%rpmminorver}%{?hghash:.hg%hghash}
@@ -100,7 +100,6 @@ BuildRequires:	python3-distutils-extra
 #BuildRequires:	python3-exif
 # From 1.2-b6: setup.py needs this
 BuildRequires:	python3-pyxdg
-BuildRequires:	python3-setuptools
 # Documents
 BuildRequires:	%{_bindir}/xsltproc
 BuildRequires:	%{_bindir}/xml2po
@@ -121,13 +120,7 @@ Requires:	python3-pyxdg
 
 # girepository
 Requires:	gtk3
-# https://fedoraproject.org/wiki/Changes/Remove_webkit2gtk-4.0_API_Version
-# Use webkit2gtk-4.1 for F-39+
-%if 0%{?fedora} >= 39
 Requires:		webkit2gtk4.1
-%else
-Requires:		webkit2gtk4.0
-%endif
 # Optional
 # see bug 1296817
 # Requires:	libproxy-python
@@ -202,17 +195,14 @@ grep -rlZ "/usr/bin/python$" . | xargs --null sed -i -e 's|/usr/bin/python$|/usr
 %patch -P112 -p1 -b .cgi -Z
 %patch -P113 -p1 -b .rss_loong -Z
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-# Do nothing
-#%%{__python} setup.py build
+%pyproject_wheel
 
 %install
-mkdir -p %{buildroot}
-
-%{__python3} setup.py install \
-	--root %{buildroot} \
-	--prefix %{_prefix} \
-	%{nil}
+%pyproject_install
 
 %if 0
 # And again use system-wide EXIF.py
@@ -292,7 +282,7 @@ find %{buildroot}%{_prefix} -name \*.py3 -delete
 %doc	changelog
 
 %{_bindir}/%{name}
-%{python3_sitelib}/%{name}-*.egg-info
+%{python3_sitelib}/%{name}-*.*-info
 %{python3_sitelib}/%{name}/
 
 %dir	%{_datadir}/%{name}/
@@ -313,6 +303,9 @@ find %{buildroot}%{_prefix} -name \*.py3 -delete
 %{_datadir}/appdata/%{name}.appdata.xml
 
 %changelog
+* Sun Aug 17 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.0.2-38.hg2084299dffb6
+- migrate to pyproject macros
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.0.2-37.hg2084299dffb6
 - Rebuilt for Python 3.14.0rc2 bytecode
 

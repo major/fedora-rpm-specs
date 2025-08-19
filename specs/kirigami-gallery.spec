@@ -1,6 +1,10 @@
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
+
 Name:    kirigami-gallery
 Version: 25.08.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Gallery application built using Kirigami
 License: LGPL-2.1-or-later
 URL:     https://apps.kde.org/en/kirigami2.gallery
@@ -66,6 +70,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.kirigami2.gal
 
 
 %changelog
+* Sat Aug 16 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 25.08.0-2
+- Drop i686 support (leaf package)
+
 * Fri Aug 08 2025 Steve Cossette <farchord@gmail.com> - 25.08.0-1
 - 25.08.0
 

@@ -5,7 +5,7 @@
 %global crate cargo-config2
 
 Name:           rust-cargo-config2
-Version:        0.1.34
+Version:        0.1.35
 Release:        %autorelease
 Summary:        Load and resolve Cargo configuration
 
@@ -73,7 +73,12 @@ use the "default" feature of the "%{crate}" crate.
 %if %{with check}
 %check
 # * skip tests which require cross-compile toolchains to be installed
-%cargo_test -- -- --skip resolve::tests::parse_cfg_list
+# * skip tests for targets not supported by RHEL-ish LLVM
+%{cargo_test -- -- %{shrink:
+    --skip resolve::tests::parse_cfg_list
+    --skip cfg_expr::tests::eval::complex
+    --skip cfg_expr::tests::eval::target_family
+}}
 %endif
 
 %changelog

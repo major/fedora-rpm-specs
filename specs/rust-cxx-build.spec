@@ -5,7 +5,7 @@
 %global crate cxx-build
 
 Name:           rust-cxx-build
-Version:        1.0.161
+Version:        1.0.168
 Release:        %autorelease
 Summary:        C++ code generator for integrating cxx crate into a Cargo build
 
@@ -44,18 +44,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+experimental-async-fn-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+experimental-async-fn-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "experimental-async-fn" feature of the "%{crate}" crate.
-
-%files       -n %{name}+experimental-async-fn-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+parallel-devel
