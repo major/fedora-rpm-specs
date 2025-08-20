@@ -65,7 +65,7 @@ Development files and libraries	for libjulius and libsent.
 BuildArch:	noarch
 Requires:	julius = %{version}-%{release}
 Summary:	Julius Japanese language model and acoustic models
-License:	Julius
+License:	LicenseRef-Julius-dictation-kit
 
 %description japanese-models
 A Japanese language model (20k-word trained by newspaper article) and acoustic

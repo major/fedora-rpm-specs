@@ -1,11 +1,11 @@
 Name:           perl-Mail-Box
-Version:        3.010
-Release:        7%{?dist}
+Version:        3.011
+Release:        1%{?dist}
 Summary:        Manage a mailbox, a folder with messages
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Mail-Box
 Source0:        https://cpan.metacpan.org/authors/id/M/MA/MARKOV/Mail-Box-%{version}.tar.gz
+BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-generators
@@ -54,7 +54,6 @@ BuildRequires:  perl(Sys::Hostname)
 BuildRequires:  perl(Test::More) >= 0.47
 BuildRequires:  perl(User::Identity::Collection)
 BuildRequires:  perl(User::Identity::Item)
-BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
 BuildArch:      noarch
 
@@ -70,13 +69,11 @@ although its interface is different.
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Mail::SpamAssassin[:\\)]
 
 %build
-yes y |%{__perl} Makefile.PL INSTALLDIRS=vendor
-make
+yes y |%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -delete
-find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null ';'
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 # Nuke Zero length files
 rm -f $RPM_BUILD_ROOT%{perl_vendorlib}/Mail/Box-Overview.pod
@@ -89,9 +86,14 @@ make test
 %files
 %doc README.md README.todo ChangeLog examples/
 %{perl_vendorlib}/Mail/
-%{_mandir}/man3/*.3*
+%{_mandir}/man3/Mail::Box*.3*
+%{_mandir}/man3/Mail::Message*.3*
+%{_mandir}/man3/Mail::Server*.3*
 
 %changelog
+* Mon Aug 18 2025 Jitka Plesnikova <jplesnik@redhat.com> - 3.011-1
+- 3.011 bump (rhbz#2362894)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.010-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

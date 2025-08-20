@@ -51,6 +51,9 @@ This package contains the PlatformIO command-line utilites and udev rules.
 %prep
 %autosetup -p1 -n %{srcname}-%{version}
 
+# Relax click dependency
+sed -i 's/"click.*<.*",/"click",/' platformio/dependencies.py
+
 %generate_buildrequires
 %pyproject_buildrequires -t
 

@@ -98,9 +98,7 @@ sed -i -e 's!\.\./bin/!/%{gobuilddir}/bin/!g' t/Makefile
 sed -i -e 's!^BINPATH=.\+!BINPATH="%{gobuilddir}/bin"!g' t/testenv.sh
 
 # cobra 1.7 changed some output.
-%if %{fedora} >= 39
 sed -i '/cmp/s/$/ || true/' t/t-completion.sh
-%endif
 
 
 %build
@@ -113,7 +111,9 @@ pushd docs
 %{gobuilddir}/bin/mangen
 popd
 
-LDFLAGS="-X 'github.com/git-lfs/git-lfs/config.Vendor=Fedora %{fedora}' " \
+%if 0%{?fedora}
+LDFLAGS="-X 'github.com/git-lfs/git-lfs/config.Vendor=Fedora %{?fedora}' " \
+%endif
 %gobuild -o %{gobuilddir}/bin/git-lfs %{goipath}
 
 # Generate completion files.

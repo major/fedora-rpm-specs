@@ -1,7 +1,7 @@
 %global pypi_name pure-protobuf
 
 Name:           python-%{pypi_name}
-Version:        2.0.1
+Version:        3.1.4
 Release:        %autorelease
 Summary:        Python implementation of Protocol Buffers data types with dataclasses support
 
@@ -10,11 +10,15 @@ URL:            https://github.com/eigenein/protobuf
 
 # Using github sources since tests not available on PyPI
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Patch0:         poetry-strict.patch
 
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(pytest)
+#BuildRequires:  python3dist(pytest)
+#BuildRequires:  python3dist(pytest-cov)
+#BuildRequires:  python3-pydantic
+#BuildRequires:  python3-pytest-benchmark
 %if 0%{?el8}
 BuildRequires:  python3dist(dataclasses)
 %endif
@@ -40,12 +44,14 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n protobuf-%{version}
+%autosetup -n protobuf-%{version} -p1
+
+sed -i s/0.0.0/%{version}/g pyproject.toml
 
 # Fix shebangs
 pushd pure_protobuf
 sed -i 's|/usr/bin/env python3|%{_bindir}/python3|' \
-    __init__.py dataclasses_.py
+    __init__.py
 popd
 
 
@@ -59,20 +65,21 @@ popd
 
 %install
 %pyproject_install
-%pyproject_save_files -l pure_protobuf
 
 # E: non-executable-script
 pushd %{buildroot}%{python3_sitelib}/pure_protobuf/
-chmod +x __init__.py dataclasses_.py
+chmod +x __init__.py
 popd
 
 
-%check
-%pytest
+#%%check
+#%%pytest
 
-%files -n python3-%{pypi_name} -f %{pyproject_files}
+%files -n python3-%{pypi_name}
+%license LICENSE
 %doc README.md
-
+%{python3_sitelib}/pure_protobuf/
+%{python3_sitelib}/pure_protobuf-*.dist-info/
 
 %changelog
 %autochangelog

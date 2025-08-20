@@ -5,7 +5,7 @@
 %global crate gix-date
 
 Name:           rust-gix-date
-Version:        0.10.4
+Version:        0.10.5
 Release:        %autorelease
 Summary:        Parse dates the way git does
 

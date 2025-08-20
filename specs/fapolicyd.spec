@@ -1,23 +1,38 @@
 %global selinuxtype targeted
 %global moduletype contrib
-%define semodule_version 0.7
+%define semodule_version 0.8
 
 Summary: Application Whitelisting Daemon
 Name: fapolicyd
-Version: 1.3.4
-Release: 4%{?dist}
+Version: 1.3.5
+Release: 1%{?dist}
 License: GPL-3.0-or-later
 URL: http://people.redhat.com/sgrubb/fapolicyd
-Source0: https://people.redhat.com/sgrubb/fapolicyd/%{name}-%{version}.tar.gz
+Source0: https://github.com/linux-application-whitelisting/fapolicyd/releases/download/v%{version}/fapolicyd-%{version}.tar.gz
 Source1: https://github.com/linux-application-whitelisting/%{name}-selinux/releases/download/v%{semodule_version}/%{name}-selinux-%{semodule_version}.tar.gz
-# we bundle uthash for rhel9
-Source2: https://github.com/troydhanson/uthash/archive/refs/tags/v2.3.0.tar.gz#/uthash-2.3.0.tar.gz
+Source2: https://github.com/bachradsusi.gpg
+Source10: https://github.com/linux-application-whitelisting/fapolicyd/releases/download/v%{version}/fapolicyd-%{version}.tar.gz.asc
+Source11: https://github.com/linux-application-whitelisting/%{name}-selinux/releases/download/v%{semodule_version}/%{name}-selinux-%{semodule_version}.tar.gz.asc
+
+# https://github.com/linux-application-whitelisting/fapolicyd
+# $ git format-patch -N v1.3.5
+# https://github.com/linux-application-whitelisting/fapolicyd-selinux
+# $ git format-patch -N --start-number 100 --src-prefix=a/fapolicyd-selinux-0.8/ --dst-prefix=b/fapolicyd-selinux-0.8/ v0.8
+# $ for j in [0-9]*.patch; do printf "Patch%s: %s\n" ${j/-*/} $j; done
+# Patch list start
+Patch0001: 0001-Do-not-exit-in-do_database_reload-when-stop-in-progr.patch
+Patch0100: 0100-Use-fs_rw_inherited_tmpfs_files-macro.patch
+Patch0101: 0101-Revert-Allow-daemon-to-change-dir-attributes.patch
+Patch0102: 0102-Allow-fapolicyd-to-connect-to-systemd-machined.patch
+# Patch list end
+
 BuildRequires: gcc
 BuildRequires: kernel-headers
 BuildRequires: autoconf automake make gcc libtool
 BuildRequires: systemd systemd-devel openssl-devel rpm-devel file-devel file
 BuildRequires: libcap-ng-devel libseccomp-devel lmdb-devel
 BuildRequires: python3-devel
+BuildRequires: gpgverify
 
 %if 0%{?rhel} == 0
 BuildRequires: uthash-devel
@@ -28,11 +43,6 @@ Recommends: %{name}-selinux
 Requires(post): systemd-units
 Requires(preun): systemd-units
 Requires(postun): systemd-units
-
-Patch1: selinux.patch
-
-# RHEL-specific patches
-Patch100: fapolicyd-uthash-bundle.patch
 
 %description
 Fapolicyd (File Access Policy Daemon) implements application whitelisting
@@ -54,19 +64,13 @@ BuildArch: noarch
 The %{name}-selinux package contains selinux policy for the %{name} daemon.
 
 %prep
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE10}' --data='%{SOURCE0}'
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE11}' --data='%{SOURCE1}'
 
 %setup -q
 
 # selinux
-%setup -q -D -T -a 1
-
-%patch 1 -p1 -b .selinux
-
-%if 0%{?rhel} != 0
-# uthash
-%setup -q -D -T -a 2
-%patch 100 -p1 -b .uthash
-%endif
+%autosetup -D -T -a 1 -p 1
 
 # generate rules for python
 sed -i "s/%python2_path%/`readlink -f %{__python2} | sed 's/\//\\\\\//g'`/g" rules.d/*.rules
@@ -185,6 +189,7 @@ fi
 %attr(644,root,root) %{_tmpfilesdir}/%{name}.conf
 %attr(755,root,root) %{_sbindir}/%{name}
 %attr(755,root,root) %{_sbindir}/%{name}-cli
+%attr(755,root,root) %{_sbindir}/%{name}-rpm-loader
 %attr(755,root,root) %{_sbindir}/fagenrules
 %attr(644,root,root) %{_mandir}/man8/*
 %attr(644,root,root) %{_mandir}/man5/*
@@ -214,6 +219,9 @@ fi
 %selinux_relabel_post -s %{selinuxtype}
 
 %changelog
+* Mon Aug 11 2025 Petr Lautrbach <lautrbach@redhat.com> - 1.3.5-1
+- fapolicyd-1.3.5 and fedpolicyd-selinux-0.8
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

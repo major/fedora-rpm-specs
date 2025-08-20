@@ -2,7 +2,7 @@
 
 Name:          enchant2
 Version:       2.8.12
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       An Enchanting Spell Checking Library
 
 License:       LGPL-2.0-or-later
@@ -19,6 +19,7 @@ Patch:         0001-Use-pkg-config-to-configure-Aspell.patch
 
 BuildRequires: automake autoconf libtool
 BuildRequires: gcc-c++
+BuildRequires: libicu-devel
 BuildRequires: make
 BuildRequires: glib2-devel
 BuildRequires: hunspell-devel
@@ -34,6 +35,7 @@ BuildRequires: nuspell-devel
 BuildRequires: mingw32-filesystem
 BuildRequires: mingw32-gcc-c++
 BuildRequires: mingw32-glib2
+BuildRequires: mingw32-icu
 BuildRequires: mingw32-hunspell
 %if !0%{?rhel}
 BuildRequires: mingw32-nuspell
@@ -43,6 +45,7 @@ BuildRequires: mingw32-nuspell
 BuildRequires: mingw64-filesystem
 BuildRequires: mingw64-gcc-c++
 BuildRequires: mingw64-glib2
+BuildRequires: mingw64-icu
 BuildRequires: mingw64-hunspell
 %if !0%{?rhel}
 BuildRequires: mingw64-nuspell
@@ -237,6 +240,9 @@ find %{buildroot} -name '*.la' -delete
 
 
 %changelog
+* Mon Aug 18 2025 Sandro Mani <manisandro@gmail.com> - 2.8.12-4
+- Make icu BR explicit
+
 * Fri Aug 15 2025 Sandro Mani <manisandro@gmail.com> - 2.8.12-3
 - Rebuild (icu)
 

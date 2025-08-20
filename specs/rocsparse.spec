@@ -79,7 +79,7 @@
 
 Name:           %{rocsparse_name}
 Version:        %{rocm_version}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        SPARSE implementation for ROCm
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
@@ -104,15 +104,16 @@ BuildRequires:  pkgconfig(libzstd)
 
 %if %{with test}
 BuildRequires:  libomp-devel
-BuildRequires:  python3dist(pyyaml)
 BuildRequires:  rocblas-devel
 
 %if 0%{?suse_version}
 BuildRequires:  gcc-fortran
 BuildRequires:  gtest
+BuildRequires:  %{python_module PyYAML}
 %else
 BuildRequires:  gcc-gfortran
 BuildRequires:  gtest-devel
+BuildRequires:  python3dist(pyyaml)
 %endif
 
 
@@ -228,6 +229,9 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Sat Aug 16 2025 Egbert Eich <eich@suse.com> - 6.4.2-6
+-  Fix dependency on SUSE when test is enabled.
+
 * Fri Aug 15 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-5
 - Build --with test on SUSE
 

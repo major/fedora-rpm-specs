@@ -3,7 +3,7 @@ Version:        0.9.12
 Release:        2%{?dist}
 Summary:        Benchmark that compiles a Linux kernel
 
-License:        MIT:Modern Style with sublicense
+License:        MIT
 URL:            https://gitlab.com/knurd42/kcbench
 Source0:        https://gitlab.com/knurd42/kcbench/-/archive/v%{version}/kcbench-v%{version}.tar.bz2
 

@@ -1,4 +1,3 @@
-
 # trim changelog included in binary rpms
 %global _changelog_trimtime %(date +%s -d "1 year ago")
 
@@ -7,7 +6,7 @@ Summary: Qt Widgets for Technical Applications
 Version: 5.2.2
 Release: 51%{?dist}
 
-License: LGPLv2 with exceptions
+License: LGPL-2.1-or-later WITH Qwt-exception-1.0
 URL:     http://qwt.sourceforge.net/
 Source:  http://downloads.sourceforge.net/qwt/qwt-%{version}.tar.bz2
 

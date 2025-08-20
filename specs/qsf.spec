@@ -3,15 +3,13 @@
 %bcond_with mysql
 
 Name:           qsf
-Version:        1.2.15
-Release:        12%{?dist}
+Version:        1.2.23
+Release:        1%{?dist}
 Summary:        Quick Spam Filter
 
 License:        Artistic-2.0
-URL:            http://www.ivarch.com/programs/qsf/
-Source0:        http://downloads.sourceforge.net/qsf/qsf-%{version}.tar.bz2
-# Fix build with gcc 15
-Patch1:         qsf-decl.patch
+URL:            https://ivarch.com/programs/qsf/
+Source0:        https://ivarch.com/s/qsf-%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -35,7 +33,6 @@ QSF is designed to be run by an MDA, such as procmail.
 
 %prep
 %setup -q
-%autopatch -p1
 
 %build
 %configure \
@@ -50,14 +47,18 @@ make test
 
 %install
 %make_install
+rm -rf %{buildroot}%{_docdir}
 
 %files
-%license doc/COPYING
-%doc README doc/NEWS doc/TODO doc/postfix-howto
+%license docs/COPYING
+%doc README.md docs/ACKNOWLEDGEMENTS.md docs/NEWS.md docs/postfix-howto
 %{_bindir}/qsf
 %{_mandir}/man1/qsf.1*
 
 %changelog
+* Mon Aug 18 2025 Miroslav Lichvar <mlichvar@redhat.com> 1.2.23-1
+- update to 1.2.23
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.15-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

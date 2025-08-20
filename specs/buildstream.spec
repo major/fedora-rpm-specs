@@ -8,11 +8,11 @@ ExcludeArch:   %{ix86}
 Version:       2.5.0
 Release:       %autorelease
 Source0:       https://github.com/apache/buildstream/archive/%{version}/buildstream-%{version}.tar.gz
-Patch0:        0001-Update-protobuf-to-5.29.5-and-grpcio-to-1.69.0.patch
-Patch1:        0001-requirements-Relax-protobuf-version-constraint.patch
+Patch:         0001-requirements-requirements.in-Do-not-limit-protobuf-v.patch
 
 BuildRequires: gcc
 BuildRequires: python3-devel >= 3.9
+BuildRequires: python3-grpcio-tools
 
 Requires:      buildbox
 Requires:      fuse3
@@ -42,6 +42,7 @@ platforms and chipsets.
 %pyproject_buildrequires
 
 %build
+./setup.py build_grpc
 %pyproject_wheel
 
 

@@ -4,8 +4,8 @@
 %bcond_with signed
 
 Name:      pykickstart
-Version:   3.66
-Release:   4%{?dist}
+Version:   3.67
+Release:   1%{?dist}
 License:   GPL-2.0-only
 Summary:   Python utilities for manipulating kickstart files.
 Url:       http://fedoraproject.org/wiki/pykickstart
@@ -22,6 +22,7 @@ BuildRequires: python3-pip
 BuildRequires: python3-requests
 BuildRequires: python3-setuptools
 BuildRequires: make
+BuildRequires: python3-pytest
 
 # Only required when building with runtests
 %if %{with runtests}
@@ -76,6 +77,13 @@ LC_ALL=C make PYTHON=%{__python3} test-no-coverage
 %{python3_sitelib}/pykickstart-%{version}.dist-info
 
 %changelog
+* Mon Aug 18 2025 Brian C. Lane <bcl@redhat.com> - 3.67-1
+- spec: Add python3-pytest to BuildRequires (bcl)
+- tests: Use pytest module instead of unittest (bcl)
+- workflows: Use py3.14 rc.1 (bcl)
+- Add Fedora 44 support (bcl)
+- spec: drop python3-build dependency (yselkowi)
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.66-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

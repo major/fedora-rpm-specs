@@ -49,7 +49,7 @@
 
 Name:           %{rccl_name}
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        ROCm Communication Collectives Library
 
 Url:            https://github.com/ROCm/rccl
@@ -159,6 +159,40 @@ sed -i '/#include <map.*/a#include <iomanip>' test/common/TestBed.hpp
 # Convert the c++14 to c++17
 sed -i -e 's@set(CMAKE_CXX_STANDARD   14)@set(CMAKE_CXX_STANDARD 17)@' CMakeLists.txt
 
+# RCCL uses -parallel-jobs for both compiling and linking
+# compiling is set to 12, which may be more than the cores on the build machine.
+# linking is set by reserving 16GB pre thread, can be too little.
+# Use our own heuristics here
+# Real cores, No hyperthreading
+COMPILE_JOBS=`cat /proc/cpuinfo | grep -m 1 'cpu cores' | awk '{ print $4 }'`
+if [ ${COMPILE_JOBS}x = x ]; then
+    COMPILE_JOBS=1
+fi
+# Try again..
+if [ ${COMPILE_JOBS} = 1 ]; then
+    COMPILE_JOBS=`lscpu | grep '^CPU(s)' | awk '{ print $2 }'`
+    if [ ${COMPILE_JOBS}x = x ]; then
+        COMPILE_JOBS=4
+    fi
+fi
+
+# Take into account memmory usage per core, do not thrash real memory
+# inflate this to prevent competing with normal compile jobs
+BUILD_MEM=16
+MEM_KB=0
+MEM_KB=`cat /proc/meminfo | grep MemTotal | awk '{ print $2 }'`
+MEM_MB=`eval "expr ${MEM_KB} / 1024"`
+MEM_GB=`eval "expr ${MEM_MB} / 1024"`
+COMPILE_JOBS_MEM=`eval "expr 1 + ${MEM_GB} / ${BUILD_MEM}"`
+if [ "$COMPILE_JOBS_MEM" -lt "$COMPILE_JOBS" ]; then
+    COMPILE_JOBS=$COMPILE_JOBS_MEM
+fi
+LINK_MEM=24
+LINK_JOBS=`eval "expr 1 + ${MEM_GB} / ${LINK_MEM}"`
+
+sed -i -e "s@rccl PRIVATE -parallel-jobs=12@rccl PRIVATE -parallel-jobs=${COMPILE_JOBS}@" CMakeLists.txt
+sed -i -e "s@-parallel-jobs=\${num_linker_jobs}@-parallel-jobs=${LINK_JOBS}@" CMakeLists.txt
+
 %build
 %cmake \
     -DAMDGPU_TARGETS=%{rocm_gpu_list_rccl} \
@@ -210,6 +244,9 @@ fi
 %endif
 
 %changelog
+* Mon Aug 18 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-5
+- Fine tune parallel jobs
+
 * Thu Aug 14 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-4
 - build --with test on SUSE
 - Remove multibuild file generation

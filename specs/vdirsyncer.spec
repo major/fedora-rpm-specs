@@ -10,7 +10,7 @@
 
 Name:       vdirsyncer
 Version:    0.19.3
-Release:    5%{?dist}
+Release:    6%{?dist}
 Summary:    %{sum}
 
 License:    BSD-3-Clause
@@ -18,12 +18,13 @@ URL:        https://github.com/pimutils/%{name}
 Source0:    %{pypi_source}
 
 Patch0:     aiostream-version-bump.patch
+# https://github.com/pimutils/vdirsyncer/commit/8b063c39cb3e26a2beef5b6beed7e99c9e9641ac
+Patch1:     remove-atomicwrites-dep.patch
 
 BuildArch:  noarch
 Obsoletes:  python2-%{srcname} <= 0.12.1
 
 BuildRequires:  make
-BuildRequires:  python3-atomicwrites >= 0.1.7
 BuildRequires:  python3-click >= 5.0
 BuildRequires:  python3-click-log >= 0.4
 BuildRequires:  python3-click-threading >= 0.4.0
@@ -40,7 +41,6 @@ BuildRequires:  python3-trustme
 BuildRequires:  python3-pytest-httpserver
 BuildRequires:  python3-pytest-localserver
 
-Requires:       python3-atomicwrites >= 0.1.7
 Requires:       python3-click >= 5.0
 Requires:       python3-click-log >= 0.4
 Requires:       python3-click-threading >= 0.4.0
@@ -62,7 +62,6 @@ It aims to be for CalDAV and CardDAV what OfflineIMAP is for IMAP.
 %package -n python3-%{srcname}
 Summary:        %{sum}
 
-Requires:       python3-atomicwrites >= 0.1.7
 Requires:       python3-click >= 5.0
 Requires:       python3-click-log >= 0.4
 Requires:       python3-click-threading >= 0.4.0
@@ -151,6 +150,9 @@ sh build.sh tests
 %doc docs/_build/html docs/_build/text
 
 %changelog
+* Mon Aug 18 2025 Ben Boeckel <fedora@me.benboeckel.net> - 0.19.3-6
+- Remove atomicwrites dependency (see rhbz#2385436)
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.19.3-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

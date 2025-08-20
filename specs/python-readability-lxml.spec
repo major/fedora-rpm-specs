@@ -18,7 +18,6 @@ BuildRequires:  python3dist(cssselect)
 BuildRequires:  python3dist(lxml)
 BuildRequires:  python3dist(lxml-html-clean)
 BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(timeout-decorator)
 
 %description
@@ -29,10 +28,7 @@ This is a python port of a ruby port of arc90's readability project.
 
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{pypi_name}}
 Requires:  python3dist(lxml-html-clean)
-
-%?python_enable_dependency_generator
 
 %description -n python3-%{pypi_name}
 Given a html document, it pulls out the main body text and cleans it up.
@@ -41,10 +37,8 @@ This is a python port of a ruby port of arc90's readability project.
 
 
 %prep
-%autosetup -n python-readability-%{version}
+%autosetup -n python-readability-%{version} -p1
 
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
 
 # Remove shebang from Python libraries
 for lib in readability/*.py; do
@@ -54,24 +48,24 @@ for lib in readability/*.py; do
 done
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
 
-
-%check
-%{python3} -m pytest -v
 
 
 %files -n python3-%{pypi_name}
-%license LICENSE
 %doc README.rst
-%{python3_sitelib}/readability_lxml-*-py%{python3_version}.egg-info
+%license LICENSE
 %{python3_sitelib}/readability/
-
+%{python3_sitelib}/readability_lxml-*.dist-info/
 
 %changelog
 %autochangelog

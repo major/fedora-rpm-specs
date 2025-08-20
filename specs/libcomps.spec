@@ -1,20 +1,16 @@
 %define __cmake_in_source_build 1
 
 Name:           libcomps
-Version:        0.1.21
-Release:        8%{?dist}
+Version:        0.1.22
+Release:        1%{?dist}
 Summary:        Comps XML file manipulation library
 
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/libcomps
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
-# Python: Return self from iter(iterator) to prevent a segfault
-# Fixes https://bugzilla.redhat.com/2331665
-Patch:          https://github.com/rpm-software-management/libcomps/pull/116.patch
-
 BuildRequires:  gcc-c++
-BuildRequires:  cmake
+BuildRequires:  cmake >= 3.10
 BuildRequires:  gcc
 BuildRequires:  libxml2-devel
 BuildRequires:  check-devel
@@ -72,24 +68,24 @@ mkdir build-doc
 %build
 pushd build-py3
   %cmake ../libcomps/
-  %make_build
+  %cmake_build
 popd
 
 pushd build-doc
   %cmake ../libcomps/
-  make %{?_smp_mflags} docs
-  make %{?_smp_mflags} pydocs
+  %cmake_build -t docs
+  %cmake_build -t pydocs
 popd
 
 %install
 pushd build-py3
-  %make_install
+  %cmake_install
 popd
 
 %check
 pushd build-py3
-  make test
-  make pytest
+  %cmake_build -t test
+  %cmake_build -t pytest
 popd
 
 %if %{undefined ldconfig_scriptlets}
@@ -120,6 +116,9 @@ popd
 %{python3_sitearch}/%{name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Mon Aug 18 2025 Petr Pisar <ppisar@redhat.com> - 0.1.22-1
+- 0.1.22 bump
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.1.21-8
 - Rebuilt for Python 3.14.0rc2 bytecode
 

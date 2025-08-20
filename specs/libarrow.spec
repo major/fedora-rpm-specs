@@ -31,7 +31,7 @@
 
 Name:		libarrow
 Version:	21.0.0
-Release:	1%{?dist}
+Release:	3%{?dist}
 Summary:	A toolbox for accelerated data interchange and in-memory processing
 License:	Apache-2.0
 URL:		https://arrow.apache.org/
@@ -144,6 +144,7 @@ Obsoletes:	gandiva-glib-doc < %{version}-%{release}
 %package devel
 Summary:	Libraries and header files for Apache Arrow C++
 Requires:	%{name}%{?_isa} = %{version}-%{release}
+Requires:	%{name}-compute-devel = %{version}-%{release}
 Requires:	brotli-devel
 Requires:	bzip2-devel
 Requires:	libzstd-devel
@@ -855,6 +856,12 @@ export LD_LIBRARY_PATH='%{buildroot}%{_libdir}'
 #--------------------------------------------------------------------
 
 %changelog
+* Mon Aug 18 2025 Python Maint <python-maint@redhat.com> - 21.0.0-3
+- Rebuilt for Python 3.14.0rc2 bytecode
+
+* Sat Aug 16 2025 Orion Poplawski <orion@nwra.com> - 21.0.0-2
+- arrow include files need headers from compute so add requires
+
 * Wed Aug 13 2025  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 21.0.0-1
 - Arrow 21.0.0 GA f43-build-side-110906
 

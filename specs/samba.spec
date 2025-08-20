@@ -2212,6 +2212,7 @@ fi
 %{_libdir}/samba/ldb/subtree_delete.so
 %{_libdir}/samba/ldb/subtree_rename.so
 %{_libdir}/samba/ldb/tombstone_reanimate.so
+%{_libdir}/samba/ldb/trust_notify.so
 %{_libdir}/samba/ldb/unique_object_sids.so
 %{_libdir}/samba/ldb/update_keytab.so
 %{_libdir}/samba/ldb/vlv.so
@@ -3996,7 +3997,6 @@ fi
 %{_libdir}/samba/ldb/server_sort.so
 %{_libdir}/samba/ldb/skel.so
 %{_libdir}/samba/ldb/tdb.so
-%{_libdir}/samba/ldb/trust_notify.so
 
 %files -n libldb-devel
 %{_includedir}/samba-4.0/ldb_module.h

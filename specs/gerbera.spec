@@ -1,14 +1,12 @@
 Name:           gerbera
-Version:        2.6.0
-Release:        3%{?dist}
+Version:        2.6.1
+Release:        1%{?dist}
 Summary:        UPnP Media Server
 License:        GPL-2.0-only AND MIT AND OFL-1.1
 Url:            https://gerbera.io
 Source0:        https://github.com/gerbera/gerbera/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        config.xml
 Source2:        gerbera-sysusers.conf
-
-Patch0:         3558.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -124,6 +122,9 @@ EOF
 %config(noreplace) %{_datadir}/%{name}/js/common.js
 
 %changelog
+* Mon Aug 18 2025 Gwyn Ciesla <gwync@protonmail.com> - 2.6.1-1
+- 2.6.1
+
 * Thu Aug 14 2025 Gwyn Ciesla <gwync@protonmail.com> - 2.6.0-3
 - Patch for MySQL upgrade bug.
 

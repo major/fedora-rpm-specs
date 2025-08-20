@@ -13,7 +13,7 @@
 
 Name:           arachne-pnr
 Version:        0.1
-Release:        0.23.20190729git%{shortcommit0}%{?dist}
+Release:        0.24.20190729git%{shortcommit0}%{?dist}
 Summary:        Place and route for FPGA compilation
 License:        MIT
 URL:            https://github.com/cseed/arachne-pnr
@@ -23,9 +23,16 @@ Source0:        https://github.com/cseed/%{name}/archive/%{commit0}.tar.gz#/%{na
 Patch0:         use-std-priority-queue.patch
 Patch1:         make-use-of-emplace.patch
 
+# patch the tests, which give equivalent but different results
+# (the meaning of the verilog didn't change, but the order and variable numbers did)
+Patch2:         test-fixup.patch
+
 BuildRequires:  gcc-c++
 BuildRequires:  icestorm
 BuildRequires:  make
+# shasum,yosys needed to complete simpletests
+BuildRequires:  perl(Digest::SHA)
+BuildRequires:  yosys
 
 %description
 Arachne-pnr implements the place and route step of the hardware
@@ -58,6 +65,12 @@ make install PREFIX="%{_prefix}" \
              DESTDIR="%{buildroot}" \
              ICEBOX="%{_datadir}/icestorm"
 
+%check
+make simpletest %{?_smp_mflags} \
+     CXXFLAGS="%{optflags} -Isrc/" \
+     PREFIX="%{_prefix}" \
+     ICEBOX="%{_datadir}/icestorm"
+
 %files
 %license COPYING
 %doc README.md
@@ -65,6 +78,9 @@ make install PREFIX="%{_prefix}" \
 %{_datadir}/%{name}
 
 %changelog
+* Fri Aug  1 2025 Alexander F. Lent <lx@xanderlent.com> - 0.1-0.24.20190729gitc40fb22
+- Enable the simple test suite to detect future breakage.
+
 * Fri Aug 01 2025 Alexander F. Lent <lx@xanderlent.com> - 0.1-0.23.20190729gitc40fb22
 - Fix License, upstream moved to MIT in 2017.
 

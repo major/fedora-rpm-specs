@@ -424,8 +424,11 @@ BuildRequires: CppMicroServices-devel
 BuildRequires: protobuf-compiler
 BuildRequires: protobuf-devel
 BuildRequires: boost-devel
-BuildRequires: cargo
+%if 0%{?rhel}
+BuildRequires: rust-toolset
+%else
 BuildRequires: cargo-rpm-macros
+%endif
 
 # If dpkg-architecture exists in $PATH, the Makefile
 # will change all the install paths, breaking this

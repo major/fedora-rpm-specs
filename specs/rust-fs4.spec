@@ -20,6 +20,7 @@ Patch:          fs4-fix-metadata-auto.diff
 #   https://github.com/al8n/fs4-rs/pull/35
 Patch:          fs4-fix-metadata.diff
 Patch:          0001-Port-from-tempdir-to-tempfile.patch
+Patch:          0001-Fix-build-failure-in-test-code-with-Rust-1.89.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

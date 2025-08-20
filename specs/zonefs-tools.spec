@@ -1,9 +1,8 @@
 Name:		zonefs-tools
-Version:	1.6.0
-Release:	7%{?dist}
+Version:	1.7.0
+Release:	1%{?dist}
 Summary:	Provides user utilities for the zonefs file system
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
 URL:		https://github.com/westerndigitalcorporation/%{name}
 Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -33,12 +32,16 @@ sh autogen.sh
 
 %files
 %{_sbindir}/*
+%{_mandir}/man5/*
 %{_mandir}/man8/*
 
 %license COPYING.GPL
 %doc README.md CONTRIBUTING
 
 %changelog
+* Mon Aug 18 2025 Damien Le Moal <damien.lemoal@wdc.com> 1.7.0-1
+- Version 1.7.0 initial package
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

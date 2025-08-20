@@ -3,7 +3,7 @@
 %global __provides_exclude_from ^%{_libdir}/gtkhex-4.0/.*\\.so$
 
 Name:           ghex
-Version:        48~beta2
+Version:        48.0
 Release:        %autorelease
 Summary:        Binary editor for GNOME
 
@@ -64,7 +64,7 @@ developing applications that use %{name}.
 
 %check
 desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.GHex.desktop
-appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/org.gnome.GHex.appdata.xml
+appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/org.gnome.GHex.metainfo.xml
 
 
 %files -f %{name}.lang
@@ -75,7 +75,7 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/org.gnome.G
 %{_datadir}/dbus-1/services/org.gnome.GHex.service
 %{_datadir}/glib-2.0/schemas/org.gnome.GHex.gschema.xml
 %{_datadir}/icons/hicolor/*/apps/*
-%{_metainfodir}/org.gnome.GHex.appdata.xml
+%{_metainfodir}/org.gnome.GHex.metainfo.xml
 
 %files libs
 %license COPYING

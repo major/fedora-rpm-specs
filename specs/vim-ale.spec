@@ -4,7 +4,7 @@
 
 Name:           vim-%upstream_name
 Version:        4.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Asynchronous Vim Lint Engine
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -56,7 +56,10 @@ cp -r ftplugin %buildroot"$dest"
 cp -r plugin %buildroot"$dest"
 cp -r rplugin %buildroot"$dest"
 cp -r syntax %buildroot"$dest"
+cp -r lua %buildroot"$dest"
 done
+
+# Lua files for neovim only
 
 
 %define ale_files(d:) \
@@ -66,6 +69,7 @@ done
 %{-d*}/autoload/* \
 %{-d*}/rplugin \
 %{-d*}/plugin/* \
+%{-d*}/lua/* \
 %{-d*}/ftplugin/* \
 %{-d*}/syntax/* \
 
@@ -78,6 +82,9 @@ done
 
 
 %changelog
+* Mon Aug 18 2025 Martin Jackson <mhjacks@swbell.net> - 4.0.0-3
+- Add lua files to neovim version to fix bz#2389282
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -24,6 +24,7 @@ Patch2:         0001-Make-unsafe-subinterpreter-support-available-via-cfg.patch
 # https://github.com/PyO3/pyo3/pull/5161
 Patch3:         0001-fix-FromPyObject-impl-for-uuid-Uuid-on-big-endian-ar.patch
 Patch:          0001-Fix-expected-error-message-for-one-test-for-Python-3.patch
+Patch:          0001-Drop-deny-warnings-from-doctests.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

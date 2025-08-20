@@ -22,6 +22,7 @@
 # no_mockupdb: mockupdb is not packaged. It is unmaintained: https://github.com/mongodb-labs/mongo-mockup-db.
 # no_newrelic: newrelic is not packaged.
 # no_openai: openai is not packaged.
+# no_openai_agents: openai-agents is not packaged.
 # no_openfeature: openfeature is not packaged.
 # no_opentelemetry: opentelemetry-distro is not packaged anymore.
 # no_potel: opentelemetry-experimental is not packaged.
@@ -43,7 +44,7 @@
 %bcond network_tests 0
 
 %global forgeurl https://github.com/getsentry/sentry-python
-Version:        2.28.0
+Version:        2.35.0
 %global tag %{version}
 %forgemeta
 
@@ -73,14 +74,6 @@ Patch0:         0001-Downstream-only-unpin-virtualenv.patch
 # https://github.com/django/django/blob/2d4add11fd57b05f7ea48e8b3e89e743c9871aa3/django/contrib/admin/sites.py#L605
 # The easiest option is to add it there.
 Patch1:         0002-Add-django.contrib.admin-to-INSTALLED_APPS-to-fix-te.patch
-
-# Upstream patch:
-# https://github.com/getsentry/sentry-python/pull/4388
-Patch2:         0003-test-logs-avoid-failures-when-running-with-integrati.patch
-
-# Remove pyrsistent from test dependencies
-# https://github.com/getsentry/sentry-python/pull/4588
-Patch3:         %{forgeurl}/pull/4588.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -225,6 +218,7 @@ Summary:        %{summary}
 # gql: no_gql
 # graphene: old_graphene
 # httpx: require network
+# openai_agents: no_openai_agents
 # potel: no_potel
 # pymongo: no_mockupdb
 # pyramid: new_werkzeug
@@ -252,6 +246,7 @@ Summary:        %{summary}
   %{toxenv}-gql
   %{toxenv}-graphene
   %{toxenv}-httpx
+  %{toxenv}-openai_agents
   %{toxenv}-potel
   %{toxenv}-pymongo
   %{toxenv}-pyramid
@@ -333,6 +328,7 @@ skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.launchdarkly
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.litestar"  # no_litestar
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.loguru"  # no_loguru
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.openai"  # no_openai
+skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.openai_agents*"  # no_openai_agents
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.openfeature"  # no_openfeature
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.opentelemetry*"  # no_opentelemetry
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.quart"  # no_quart
@@ -454,6 +450,9 @@ deselect="${deselect-} --deselect=tests/test_metrics.py::test_timing_decorator"
 
 # TODO: investigate, why extra information is added to `event["_meta"]`.
 deselect="${deselect-} --deselect=tests/test_basics.py::test_stacktrace_big_recursion"
+
+# Deselect `test_get_default_release_other_release_env`, as we set `SENTRY_RELEASE` environmental variable.
+deselect="${deselect-} --deselect=tests/test_utils.py::test_get_default_release_other_release_env"
 
 defined_toxenvs=$(echo "%toxenvs_excluded" "%toxenvs" | xargs -n1 | sort -u)
 tox_ini_toxenvs=$(cat tox.ini | sed -r -n 's/[[:blank:]]*(.*):[[:blank:]]*TESTPATH=.*/%{default_toxenv}-\1/p' | xargs -n1 | sort -u)

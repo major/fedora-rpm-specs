@@ -7,16 +7,13 @@
 %global srcname fsspec
 
 Name:           python-%{srcname}
-Version:        2025.5.1
-%global tag     2025.5.1
+Version:        2025.7.0
 Release:        %autorelease
 Summary:        Specification for Pythonic file system interfaces
 
 License:        BSD-3-Clause
 URL:            https://github.com/fsspec/filesystem_spec
-Source:         %{url}/archive/%{tag}/%{srcname}-%{tag}.tar.gz
-# Submitted upstream: https://github.com/fsspec/filesystem_spec/pull/1857
-Patch:          Create-an-event-loop-if-it-doesn-t-exist.patch
+Source:         %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
 
 BuildArch:      noarch
 
@@ -74,7 +71,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n filesystem_spec-%{tag} -p1
+%autosetup -n filesystem_spec-%{version} -p1
 
 %generate_buildrequires
 # Skipped extras:

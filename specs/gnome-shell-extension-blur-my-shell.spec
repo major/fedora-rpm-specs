@@ -2,14 +2,14 @@
 %global uuid        %{extension}@aunetx
 
 Name:           gnome-shell-extension-%{extension}
-Version:        68
+Version:        69
 Release:        %autorelease
 Summary:        Adds a blur look to different parts of the GNOME Shell
 License:        GPL-3.0-or-later
 URL:            https://github.com/aunetx/blur-my-shell
 BuildArch:      noarch
 
-Source:         %{url}/archive/v%{version}-2/%{extension}-%{version}.tar.gz
+Source:         %{url}/archive/v%{version}/%{extension}-%{version}.tar.gz
 # https://github.com/aunetx/blur-my-shell/pull/626
 Patch:          0001-Use-meson-build-system.patch
 
@@ -27,7 +27,7 @@ panel, dash and overview.
 
 
 %prep
-%autosetup -p 1 -n %{extension}-%{version}-2
+%autosetup -p 1 -n %{extension}-%{version}
 
 
 %conf

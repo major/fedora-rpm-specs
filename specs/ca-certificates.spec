@@ -36,7 +36,7 @@ Name: ca-certificates
 Version: 2024.2.69_v8.0.401
 # for Rawhide, please always use release >= 2
 # for Fedora release branches, please use release < 2 (1.0, 1.1, ...)
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: MIT AND GPL-2.0-or-later
 
 URL: https://fedoraproject.org/wiki/CA-Certificates
@@ -310,6 +310,7 @@ if [ $1 -gt 1 ] ; then
   rm -f %{pkidir}/tls/certs/ca-bundle.crt
   rm -f %{pkidir}/tls/certs/ca-bundle.trust.crt
   rm -f %{pkidir}/tls/certs/ca-certificates.crt
+  rm -f %{_sysconfdir}/ssl/cert.pem
 
 
   # Upgrade or Downgrade.
@@ -418,6 +419,13 @@ fi
 %ghost %{catrustdir}/extracted/edk2/cacerts.bin
 
 %changelog
+* Tue Aug 12 2025 Frantisek Krenzelok <fkrenzel@redhat.com> - 2024.2.69_v8.0.401-8
+- update-ca-trust: Added a temporary, compatibility option `--rhbz2387674` to
+  the `extract` command. This flag restores legacy certificate
+  symlinks (e.g., `/etc/ssl/cert.pem`) to address issues with older software
+  that has not yet adapted to their removal. This essentially provides a
+  temporary way to revert the "Dropping of cert.pem file".
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2024.2.69_v8.0.401-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

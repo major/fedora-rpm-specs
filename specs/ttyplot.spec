@@ -2,7 +2,7 @@ Name: ttyplot
 Summary: Real-time plotting utility for the terminal
 License: Apache-2.0
 
-Version: 1.7.3
+Version: 1.7.4
 Release: 1%{?dist}
 
 URL: https://github.com/tenox7/ttyplot/
@@ -38,6 +38,9 @@ with data input from stdin / pipe.
 
 
 %changelog
+* Mon Aug 18 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.7.4-1
+- Update to v1.7.4
+
 * Sun Aug 03 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.7.3-1
 - Update to v1.7.3
 

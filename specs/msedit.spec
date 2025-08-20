@@ -80,7 +80,7 @@ mv %{buildroot}%{_bindir}/edit %{buildroot}%{_bindir}/%{name}
 
 # Change binary and icon in .desktop file then install it
 sed -i \
-    -e "s|Icon=edit|Icon=%{_datadir}/pixmaps/%{name}.ico|g" \
+    -e "s|Icon=edit|Icon=%{name}|g" \
     -e "s|Exec=edit %%F|Exec=%{name} %%F|g" assets/com.microsoft.edit.desktop
 desktop-file-install --dir=%{buildroot}%{_datadir}/applications assets/com.microsoft.edit.desktop
 

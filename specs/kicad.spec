@@ -1,6 +1,6 @@
 Name:           kicad
-Version:        9.0.3
-Release:        4%{?dist}
+Version:        9.0.4
+Release:        1%{?dist}
 Epoch:          1
 Summary:        EDA software suite for creation of schematic diagrams and PCBs
 
@@ -223,6 +223,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
+* Mon Aug 18 2025 Steven A. Falco <stevenfalco@gmail.com> - 1:9.0.4-1
+- Update to 9.0.4
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1:9.0.3-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

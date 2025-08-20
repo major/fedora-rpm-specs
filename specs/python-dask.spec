@@ -25,6 +25,14 @@ Source0:        %{pypi_source %{srcname}}
 Patch:          0001-Remove-extra-test-dependencies.patch
 # https://github.com/dask/dask/pull/11892
 Patch:          0002-XFAIL-test-if-NotImplementedError-is-raised.patch
+# https://github.com/dask/dask/issues/12043
+Patch:          0003-TST-Fall-back-to-cloudpickle-in-more-cases.patch
+# https://github.com/dask/dask/pull/12047
+Patch:          0004-TST-Fix-test_enforce_columns-on-Python-3.14.patch
+# Allow an xfail to pass; may be due to the warning filter later.
+Patch:          0005-Mark-test_combine_first_all_nans-as-a-non-strict-xfa.patch
+# Fix compatibility with latest Pandas.
+Patch:          https://github.com/dask/dask/commit/7751beb21807fa7f206079b8f69bf887ec16a199.patch
 
 # Stop building on i686
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -151,6 +159,11 @@ rm -rf html/.{doctrees,buildinfo}
 # https://github.com/dask/dask/issues/8499
 k="${k-}${k+ and }not test_development_guidelines_matches_ci"
 
+# Fails with Python 3.14: https://github.com/dask/dask/issues/12042
+%if 0%{?fedora} >= 43
+k="${k-}${k+ and }not test_multiple_repartition_partition_size"
+%endif
+
 # Previously excluded for dask-expr. Those tests use parquet files,
 # which involves pyarrow.
 %ifarch s390x
@@ -164,6 +177,9 @@ pytest_args=(
   -n "auto"
 
   -k "${k-}"
+
+# Ignore warnings about Pandas deprecations, which should be fixed in the next release.
+  -W 'ignore::FutureWarning'
 
 # arrow tests all fail on s390x, it's not at all BE-safe
 # https://github.com/dask/dask/issues/11186

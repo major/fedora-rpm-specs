@@ -4,8 +4,10 @@
 # el9 has ursine pgsql 13 and the newer ones are modular
 %bcond pgtests %{undefined el9}
 
+%global forgeurl https://github.com/atuinsh/atuin
+
 Name:           atuin
-Version:        18.3.0
+Version:        18.6.1
 Release:        %autorelease
 Summary:        Magical shell history
 
@@ -57,32 +59,31 @@ License:        %{shrink:
     (MIT OR Apache-2.0 OR Zlib) AND
     (Unlicense OR MIT)
 }
+# LICENSE.dependencies contains a full license breakdown
+
+%forgemeta
 
 URL:            https://atuin.sh
-Source:         https://github.com/atuinsh/atuin/archive/refs/tags/v%{version}.tar.gz
-# * Switch cli-clipboard for arboard
-# * Cherry-picked from https://github.com/atuinsh/atuin/pull/2067
-Patch10:        atuin-drop-cli-clipboard.patch
-# * Update tonic and prost dependencies
-# * Cherry-picked from https://github.com/atuinsh/atuin/pull/2250 and
-#   https://github.com/atuinsh/atuin/pull/2251
-Patch11:        atuin-bump-tonic.patch
+Source:         %forgesource
+# * Relax MSRV
+# * Upstream insists on using the latest rust, but for epel we need to relax it
+Patch10:        atuin-relax-MSRV.patch
+# * Remove divan, seems like it's a benchmark-only dependency
+Patch11:        atuin-remove-divan.patch
 # * Bump metrics dependencies
 # * Cherry-picked from https://github.com/atuinsh/atuin/pull/2062
 Patch12:        atuin-fix-metrics.patch
 # * Update tiny-bip39 to 2.0.0
 # * Cherry-picked https://github.com/atuinsh/atuin/pull/2643
 Patch13:        atuin-Update-tiny-bip39.patch
-# * Update tracing-tree to 0.4.0
-# * Cherry-picked https://github.com/atuinsh/atuin/pull/2259
-Patch14:        atuin-update-tracing-tree.patch
+# * Relax config to allow 0.13
+Patch14:        atuin-relax-config.patch
 # * Update indicatif to 0.18.0
 # * Cherry-picked https://github.com/atuinsh/atuin/pull/2833
 # * Adjusted to still allow 0.17.x
 Patch15:        atuin-update-indicatif.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
-BuildRequires:  protobuf-devel
 %if %{with check}
 BuildRequires:  postgresql-test-rpm-macros
 %endif
@@ -108,7 +109,7 @@ BuildArch:      noarch
 This package contains the init script to enable atuin for all users.
 
 %prep
-%autosetup -n atuin-%{version} -p1
+%forgeautosetup -p1
 %cargo_prep
 
 %generate_buildrequires
@@ -146,7 +147,7 @@ if [ -n "\${BASH_VERSION-}" ]; then
   source %{_libexecdir}/atuin/atuin-init.bash
 
 # Check for zsh environment
-elif [ -n "\${ZSH_VERSION-}" ]; then
+elif [ -n "\$ZSH_VERSION-}" ]; then
   # Skip noninteractive shells.
   [[ \$- != *i* ]] && return
 
@@ -176,7 +177,6 @@ install -Dpm 0755 other_installs/profile.d/atuin.sh %{buildroot}%{_sysconfdir}/p
 
 %if %{with check}
 %check
-%if %{with pgtests}
 # start a postgres instance for the tests to use
 export PGTESTS_LOCALE="C.UTF-8"
 export PGTESTS_USERS="atuin:pass"
@@ -184,9 +184,6 @@ export PGTESTS_DATABASES="atuin:atuin"
 export PGTESTS_PORT=5432
 %postgresql_tests_run
 %cargo_test -a
-%else
-%cargo_test -a -- -- --skip sync --skip change_password --skip multi_user_test --skip registration
-%endif
 %endif
 
 %files

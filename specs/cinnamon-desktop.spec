@@ -11,7 +11,7 @@
 Summary: Shared code among cinnamon-session, nemo, etc
 Name:    cinnamon-desktop
 Version: 6.4.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ and MIT - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-MIT
 URL:     https://github.com/linuxmint/%{name}
@@ -32,9 +32,6 @@ Requires: redhat-menus
 %if 0%{?fedora}
 Requires: system-backgrounds-gnome
 %endif
-
-# Make sure that gnome-themes-standard gets pulled in for upgrades
-Requires: gnome-themes-standard
 
 BuildRequires: pkgconfig(accountsservice)
 BuildRequires: pkgconfig(gtk+-3.0) >= %{gtk3_version}
@@ -112,6 +109,10 @@ install -m 644 %SOURCE1 %buildroot%{_datadir}/applications/x-cinnamon-mimeapps.l
 %{_datadir}/gir-1.0/C*.gir
 
 %changelog
+* Mon Aug 18 2025 Leigh Scott <leigh123linux@gmail.com> - 6.4.1-4
+- Drop require gnome-themes-standard, gtk2 apps can handle their own theme
+  requires
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

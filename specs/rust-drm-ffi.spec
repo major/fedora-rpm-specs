@@ -15,6 +15,8 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * regenerate bindings by default
 Patch:          drm-ffi-fix-metadata.diff
+# * https://github.com/Smithay/drm-rs/commit/4a1c10f
+Patch:          0001-Backport-fix-for-kernel-header-changes.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

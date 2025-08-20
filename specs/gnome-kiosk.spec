@@ -5,7 +5,7 @@
 %global gnome_desktop_version                   44.0
 %global glib2_version                           2.68.0
 %global gtk4_version                            3.24.27
-%global mutter_version                          49~alpha
+%global mutter_version                          49~beta
 %global gsettings_desktop_schemas_version       40~rc
 %global ibus_version                            1.5.24
 %global gnome_settings_daemon_version           40~rc
@@ -17,7 +17,7 @@
 %endif
 
 Name:           gnome-kiosk
-Version:        49~alpha.0
+Version:        49~alpha.1.2
 Release:        %{autorelease}
 Summary:        Window management and application launching for GNOME
 
@@ -43,7 +43,7 @@ BuildRequires:  pkgconfig(gio-2.0) >= %{glib2_version}
 BuildRequires:  pkgconfig(gnome-desktop-4) >= %{gnome_desktop_version}
 BuildRequires:  pkgconfig(gtk4) >= %{gtk4_version}
 BuildRequires:  pkgconfig(ibus-1.0) >= %{ibus_version}
-BuildRequires:  pkgconfig(libmutter-16) >= %{mutter_version}
+BuildRequires:  pkgconfig(libmutter-17) >= %{mutter_version}
 
 Requires:       gnome-settings-daemon%{?_isa} >= %{gnome_settings_daemon_version}
 Requires:       gsettings-desktop-schemas%{?_isa} >= %{gsettings_desktop_schemas_version}

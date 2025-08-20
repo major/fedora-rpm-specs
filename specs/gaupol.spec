@@ -1,5 +1,4 @@
 %bcond tests 1
-
 %bcond gspell 1
 
 # Default preview video player on non-Windows systems. Also supported are
@@ -35,27 +34,9 @@ URL:            https://otsaloma.io/gaupol/
 Source:         %{forgeurl}/archive/%{version}/gaupol-%{version}.tar.gz
 
 BuildArch:      noarch
-
-# We cannot use dynamic BuildRequires or automatic Requires generation, as
-# setup.py does not have the relevant metadata. We must do it the old-fashioned
-# way, by perusing READMEs, plus grepping source and inspecting imports.
-BuildRequires:  python3-devel
-
-# This package still uses distutils (with heavy customization, so it cannot be
-# trivially ported to setuptools).
-#
-# In Python 3.12, distutils is removed from the standard library:
-#
-#   Remove the distutils package. It was deprecated in Python 3.10 by PEP 632
-#   “Deprecate distutils module”. For projects still using distutils and cannot
-#   be updated to something else, the setuptools project can be installed: it
-#   still provides distutils. (Contributed by Victor Stinner in gh-92584.)
-#
-# We must therefore BuildRequire python3dist(setuptools) to get distutils.
-BuildRequires:  python3dist(setuptools)
-
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
+BuildRequires:  pyproject-rpm-macros
 
 # For AppData file validation
 # Still required by guidelines for now
@@ -63,11 +44,9 @@ BuildRequires:  gettext
 BuildRequires:  libappstream-glib
 # Matches what gnome-software and others use:
 BuildRequires:  appstream
-
 BuildRequires:  iso-codes
 
 %if %{with tests}
-
 BuildRequires:  python3dist(pygobject) >= 3.12
 BuildRequires:  gtk3 >= 3.12
 # The gstreamer and mpv/vlc weak dependencies are not actually used in the tests,
@@ -146,7 +125,7 @@ Recommends:     gspell
 Requires:       (gspell >= 1.0.0 if gspell)
 %endif
 
-Requires:       python3-aeidon = %{version}-%{release}
+Requires:       python3dist(aeidon)
 
 Summary(cs):    Editor pro textově založené titulky
 Summary(de):    Editor für textbasierte Untertitel
@@ -241,49 +220,6 @@ Gaupol 是一个编辑基于文本的字幕编辑器。它支持多种字幕文�
 并提供创建字幕、编辑文本和调整字幕时间轴以匹配视频等功能。
 
 
-%package -n python3-aeidon
-Summary: Read, write, and manipulate text-based subtitle files
-
-Provides:       aeidon = %{version}-%{release}
-Obsoletes:      aeidon <= 1.4-11
-Conflicts:      aeidon <= 1.4-11
-
-Requires:       iso-codes
-Requires:       (python3dist(charset-normalizer) with python3dist(charset-normalizer) > 2)
-%if %{with gspell}
-Recommends:     gspell
-Requires:       (gspell >= 1.0.0 if gspell)
-# The aeidon library uses gobject introspection (gi) to try to find gspell;
-# otherwise, it has no use for it.
-Requires:       (python3dist(pygobject) >= 3.12 if gspell)
-%endif
-# Default preview video player on non-Windows systems. Also supported are
-# mplayer (not packaged in Fedora) and vlc.
-%if %{with mpv}
-# Default preview video player on non-Windows systems. Also supported are
-# mplayer (not packaged in Fedora) and vlc.
-Recommends:     mpv
-%elif %{with vlc}
-Recommends:     vlc
-%endif
-
-%description -n python3-aeidon
-aeidon is a Python package that provides classes and functions for dealing with
-text-based subtitle files of many different formats. Functions exist for
-reading and writing subtitle files as well as manipulating subtitle data, i.e.
-positions (times or frames) and texts.
-
-The aeidon package is part of the Gaupol subtitle editor, where the other
-package, gaupol, provides the GTK user interface.
-
-Separating a user interface independent general-purpose subtitle editing
-package from Gaupol has been an afterthought and thus not well designed to be a
-reusable component, but on the other hand is proven, working and maintained
-code.
-
-API documentation: https://otsaloma.io/gaupol/doc/api/aeidon.html
-
-
 %prep
 %autosetup -p1
 # Remove bundled iso-codes:
@@ -297,22 +233,18 @@ find data/iso-codes -type f -name '*.json' |
 cp -vrp doc using-gaupol
 
 
-%build
-%py3_build
+%generate_buildrequires
+%pyproject_buildrequires
 
+%build
+%pyproject_wheel -Csetup-args=--without-iso-codes -Csetup-args=--without-aeidon
 
 %install
-# From README.aeidon.md:
-#
-#   When packaging both aeidon and gaupol in a Linux distro, it's best to use
-#   the switches in the main `setup.py` for a consistent whole.
-#
-#       sudo python3 setup.py --without-gaupol install --prefix=/usr/local
-#       sudo python3 setup.py --without-aeidon install --prefix=/usr/local
-%global py_setup_args --without-iso-codes --without-gaupol
-%py3_install
-%global py_setup_args --without-iso-codes --without-aeidon
-%py3_install
+%pyproject_install
+
+# Remove files related to python-aeidon sub-package
+# which is moved now to new package in Fedora
+rm -rf %{buildroot}%{python3_sitelib}/aeidon*
 
 %find_lang gaupol
 desktop-file-install \
@@ -402,7 +334,7 @@ ignore="${ignore-} --ignore-glob=gaupol/dialogs/test/*"
 %{_bindir}/gaupol
 
 %{python3_sitelib}/gaupol/
-%{python3_sitelib}/gaupol-%{version}-py%{python3_version}.egg-info/
+%{python3_sitelib}/gaupol-%{version}.dist-info/
 
 %{_datadir}/gaupol/
 %{_metainfodir}/%{app_id}.appdata.xml
@@ -410,17 +342,6 @@ ignore="${ignore-} --ignore-glob=gaupol/dialogs/test/*"
 %{_datadir}/icons/hicolor/symbolic/apps/%{app_id}-symbolic.svg
 %{_datadir}/icons/hicolor/scalable/apps/%{app_id}.svg
 %{_mandir}/man1/gaupol.1*
-
-
-%files -n python3-aeidon
-%license COPYING
-%doc AUTHORS.md
-%doc README.aeidon.md
-%doc NEWS.md
-
-%{python3_sitelib}/aeidon/
-%{python3_sitelib}/aeidon-%{version}-py%{python3_version}.egg-info/
-
 
 %changelog
 %autochangelog

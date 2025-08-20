@@ -20,7 +20,7 @@
 
 Name:           mingw-qt6-qtbase
 Version:        6.9.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Qt6 for Windows - QtBase component
 # Can't make package noarch as it could lead to -DQT_HOST_PATH_CMAKE_DIR=%%{_libdir}/cmake ponting to the wrong libdir
 
@@ -582,6 +582,9 @@ rm -rf %{buildroot}/%{mingw64_libdir}/objects-RelWithDebInfo/
 
 
 %changelog
+* Mon Aug 18 2025 Sandro Mani <manisandro@gmail.com> - 6.9.1-4
+- Rebuild (icu)
+
 * Fri Aug 15 2025 Sandro Mani <manisandro@gmail.com> - 6.9.1-3
 - Rebuild (icu)
 

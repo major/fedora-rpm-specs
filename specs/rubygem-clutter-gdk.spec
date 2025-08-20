@@ -3,7 +3,7 @@
 %undefine        _changelog_trimtime
 
 Name:		rubygem-%{gem_name}
-Version:	4.3.2
+Version:	4.3.3
 Release:	1%{?dist}
 
 Summary:	Ruby binding of GDK specific API of Clutter
@@ -44,7 +44,7 @@ Documentation for %{name}.
 mv ../%{gem_name}-%{version}.gemspec .
 
 # Allow ruby-gnome2 no less than ones
-sed -i -e 's|= 4\.3\.2|>= 4.3.2|' %{gem_name}-%{version}.gemspec
+sed -i -e 's|= 4\.3\.3|>= 4.3.3|' %{gem_name}-%{version}.gemspec
 
 # Remove unneeded rake runtime dependency
 sed -i %{gem_name}-%{version}.gemspec \
@@ -83,6 +83,9 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Mon Aug 18 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.3-1
+- 4.3.3
+
 * Sat Aug 16 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.2-1
 - 4.3.2
 

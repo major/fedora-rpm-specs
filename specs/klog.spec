@@ -1,6 +1,6 @@
 Name:           klog
-Version:        2.3.4
-Release:        7%{?dist}
+Version:        2.4.2
+Release:        1%{?dist}
 Summary:        A Ham radio logging program for KDE
 
 License:        GPL-2.0-or-later
@@ -22,12 +22,12 @@ BuildRequires:  dos2unix
 BuildRequires:  gettext
 BuildRequires:  hamlib-devel
 BuildRequires:  make
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qtcharts-devel
-BuildRequires:  qt5-qtserialport-devel
-BuildRequires:  qt5-qttools-devel
-BuildRequires:  qt5-qtdeclarative-devel
-BuildRequires:  qt5-qtlocation-devel
+BuildRequires:  qt6-qtbase-devel
+BuildRequires:  qt6-qtcharts-devel
+BuildRequires:  qt6-qtserialport-devel
+BuildRequires:  qt6-qttools-devel
+BuildRequires:  qt6-qtdeclarative-devel
+BuildRequires:  qt6-qtlocation-devel
 
 %if ! 0%{?rhel} < 8
 Recommends:     trustedqsl
@@ -64,7 +64,7 @@ dos2unix TODO
 
 
 %build
-%qmake_qt5 PREFIX=%{buildroot}%{_prefix} src.pro
+%qmake_qt6 PREFIX=%{buildroot}%{_prefix} src.pro
 %make_build
 
 
@@ -108,6 +108,9 @@ install -Dm 0644 %{SOURCE106} \
 
 
 %changelog
+* Fri Aug 15 2025 Richard Shaw <hobbes1069@gmail.com> - 2.4.2-1
+- Update to 2.4.2.
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.4-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

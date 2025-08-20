@@ -4,7 +4,7 @@
 
 Name:           rocm
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm Metapackage
 License:        MIT
 
@@ -108,7 +108,6 @@ Requires: rocjpeg-devel >= %{rocm_release}
 Requires: rocm-core-devel >= %{rocm_release}
 Requires: rocm-examples >= %{rocm_release}
 Requires: rocm-omp-static >= %{rocm_release}
-Requires: rocm-opencl-devel >= %{rocm_release}
 Requires: rocm-rpp-devel >= %{rocm_release}
 Requires: rocthrust-devel >= %{rocm_release}
 Requires: roctracer-devel >= %{rocm_release}
@@ -156,6 +155,9 @@ install -pm 644 %{SOURCE0} .
 %license License.txt
 
 %changelog
+* Mon Aug 18 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.3-2
+- rocm-opencl-devel has a conflict on fedora
+
 * Thu Aug 7 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.3-1
 - Add rocm-bandwidth-test to fedora
 

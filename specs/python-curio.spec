@@ -2,7 +2,7 @@
 # mind, we'll need to stick with git snapshots going forward.
 # https://github.com/dabeaz/curio/commit/45ada857189de0e6b3b81f50e93496fc710889ca
 %global commit      148454621f9bd8dd843f591e87715415431f6979
-%global shortcommit %{lua:print(macros.commit:sub(1,7))}
+%global shortcommit %{sub %{commit} 1 7}
 
 Name:           python-curio
 Version:        1.6^1.%{shortcommit}

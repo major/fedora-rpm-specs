@@ -14,8 +14,8 @@
 %endif
 
 Name:           bzip3
-Version:        1.5.2
-Release:        2%{?dist}
+Version:        1.5.3
+Release:        1%{?dist}
 Summary:        Tools for compressing and decompressing bzip3 files
 # 3rdparty/libsais-LICENSE: Apache-2.0 text
 # bz3grep:                  BSD-2-Clause
@@ -50,18 +50,14 @@ Summary:        Tools for compressing and decompressing bzip3 files
 # Makefile.in:              FSFULLR
 License:        LGPL-3.0-or-later AND BSD-2-Clause
 SourceLicense:  GPL-3.0-or-later AND GPL-3.0-or-later WITH Autoconf-exception-macro AND GPL-3.0-or-later WITH Autoconf-exception-generic-3.0 AND GPL-2.0-or-later WITH Autoconf-exception-generic AND GPL-2.0-or-later WITH Libtool-exception AND (GPL-2.0-or-later OR MIT) AND LGPL-3.0-or-later AND BSD-2-Clause AND Apache-2.0 AND X11 AND FSFULLR AND FSFUL AND FSFAP
-URL:            https://github.com/kspalaiologos/%{name}
+URL:            https://github.com/iczelia/%{name}
 Source0:        %{url}/releases/download/%{version}/%{name}-%{version}.tar.xz
 # Do not use /usr/bin/env in shell bangs, not suitable for upstream,
 # <https://github.com/kspalaiologos/bzip3/pull/75>.
 Patch0:         bzip3-1.5.0-Do-not-use-usr-bin-env-in-shell-bangs.patch
-# Fix writing to an unallocated memory when handling a memory allocation
-# failure while parsing arguments,
-# <https://github.com/kspalaiologos/bzip3/pull/161>.
-Patch1:         bzip3-1.5.2-Fixed-OOM-handling-in-yarg_asprintf-161.patch
-# Fix writing to an unallocated memory when handling a memory allocation while
-# formatting a file name, <https://github.com/kspalaiologos/bzip3/pull/162>.
-Patch2:         bzip3-1.5.2-main.c-never-trust-malloc-162.patch
+# Fix pkg-config file, proposed upstream,
+# <https://github.com/iczelia/bzip3/pull/169>.
+Patch1:         bzip3-1.5.3-autoconf-Define-extra_cflags-variable.patch
 BuildRequires:  autoconf
 BuildRequires:  autoconf-archive
 BuildRequires:  automake
@@ -274,6 +270,9 @@ fi
 %{_mandir}/man1/%{programs}.1*
 
 %changelog
+* Mon Aug 18 2025 Petr Pisar <ppisar@redhat.com> - 1.5.3-1
+- 1.5.3 bump
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

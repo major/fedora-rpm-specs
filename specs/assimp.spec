@@ -1,8 +1,8 @@
-%define soversion 5
+%define soversion 6
 
 Name:           assimp
-Version:        5.4.3
-Release:        4%{?dist}
+Version:        6.0.2
+Release:        2%{?dist}
 Summary:        Library to import various 3D model formats into applications
 
 # Assimp is BSD
@@ -13,8 +13,7 @@ Summary:        Library to import various 3D model formats into applications
 # Bundled contrib/unzip is zlib
 # Bundled contrib/zip is unlicense
 # Bundled contrib/zlib is zlib
-# Automatically converted from old format: BSD and MIT and Boost and Unlicense and zlib - review is highly recommended.
-License:        LicenseRef-Callaway-BSD AND LicenseRef-Callaway-MIT AND BSL-1.0 AND Unlicense AND Zlib
+License:        BSD-3-Clause AND MIT AND BSL-1.0 AND Unlicense AND Zlib
 URL:            https://github.com/assimp/assimp
 
 # Github releases include nonfree models, source tarball must be re-generated
@@ -22,21 +21,23 @@ URL:            https://github.com/assimp/assimp
 Source0:        %{name}-%{version}-free.tar.xz
 Source1:        assimp_generate_tarball.sh
 
-# Un-bundle libraries that are provided by the distribution.
-Patch0:         %{name}-5.4.3-unbundle.patch
+# Un-bundle poly2tri, pugixml, utf8cpp, RapidJSON, clipper
+Patch0:         %{name}-unbundle.patch
 # Add /usr/lib64 to library lookup paths for python modules
-Patch1:         %{name}-5.1.0-pythonpath.patch
+Patch1:         %{name}-pythonpath.patch
 # Prevent export of bundled zlibstatic library
-Patch2:         %{name}-5.4.3-nozlib.patch
+Patch2:         %{name}-nozlib.patch
 # Exclude the build directory from the doxygen-generated documentation
-Patch3:         %{name}-5.1.0-doxyfile.patch
+# Fix HTML_OUTPUT dir in doxyfile
+# Fix installing images from doc/architecture
+Patch3:         %{name}-docs.patch
 # Enable ctest
-Patch4:         %{name}-5.4.3-tests.patch
+Patch4:         %{name}-tests.patch
 
 BuildRequires:  boost-devel
 BuildRequires:  cmake
-BuildRequires:  dos2unix
 BuildRequires:  doxygen
+BuildRequires:  earcut-hpp-devel
 BuildRequires:  gcc-c++
 BuildRequires:  gtest-devel
 BuildRequires:  make
@@ -44,28 +45,12 @@ BuildRequires:  pkgconfig(python3)
 BuildRequires:  poly2tri-devel
 BuildRequires:  pugixml-devel
 BuildRequires:  python3-devel
+BuildRequires:  zlib-devel
 # Need to BR -static packages for header-only libraries for tracking, per
 # guidelines
 BuildRequires:  rapidjson-devel
 BuildRequires:  rapidjson-static
-# Enforce the the minimum EVR to contain fixes for all of:
-# CVE-2021-28021
-# CVE-2021-42715
-# CVE-2021-42716
-# CVE-2022-28041
-# CVE-2023-43898
-# CVE-2023-45661
-# CVE-2023-45662
-# CVE-2023-45663
-# CVE-2023-45664
-# CVE-2023-45666
-# CVE-2023-45667
-%if 0%{?el7} || 0%{?el8}
-%global min_stb_image 2.28-0.39.20231011gitbeebb24
-%else
-%global min_stb_image 2.28^20231011gitbeebb24-12
-%endif
-BuildRequires:  stb_image-devel >= %{min_stb_image}
+BuildRequires:  stb_image-devel
 BuildRequires:  stb_image-static
 BuildRequires:  utf8cpp-devel
 BuildRequires:  utf8cpp-static
@@ -77,7 +62,7 @@ Provides: bundled(open3dgc)
 Provides: bundled(openddl-parser)
 Provides: bundled(unzip)
 Provides: bundled(minzip)
-Provides: bundled(zlib)
+
 
 %description
 Assimp, the Open Asset Import Library, is a free library to import
@@ -85,6 +70,7 @@ various well-known 3D model formats into applications.  Assimp aims
 to provide a full asset conversion pipeline for use in game
 engines and real-time rendering systems, but is not limited
 to these applications.
+
 
 %package devel
 Summary: Header files and libraries for assimp
@@ -97,18 +83,15 @@ This package contains the header files and libraries
 for assimp. If you would like to develop programs using assimp,
 you will need to install assimp-devel.
 
-%if 0%{?fedora} || 0%{?rhel} > 7
+
 %package -n python3-%{name}
 Summary: Python 3 bindings for assimp
 BuildArch: noarch
 Requires: %{name} = %{version}-%{release}
-Requires: python3
-Provides: %{name}-python3 = %{version}-%{release}
-Obsoletes: %{name}-python3 < 3.1.1
 
 %description -n python3-%{name}
 This package contains the PyAssimp3 python bindings
-%endif
+
 
 %package doc
 Summary: Assimp documentation
@@ -117,61 +100,50 @@ BuildArch: noarch
 %description doc
 %{summary}.
 
-%prep
-%setup -q
-# Get rid of bundled libs so we can't accidently build against them
-rm -r contrib/android-cmake
-rm -r contrib/draco
-rm -r contrib/poly2tri
-rm -r contrib/pugixml
-rm -r contrib/rapidjson
-rm -r contrib/stb
-rm -r contrib/utf8cpp
 
-%patch 0 -p1 -b .unbundle
-%patch 1 -p1 -b .pythonpath
-%patch 2 -p1 -b .nozlib
-%patch 3 -p1 -b .doxyfile
-%patch 4 -p0 -b .tests
+%prep
+%autosetup -p1 -n %{name}-%{version}
+# Get rid of bundled libs so we can't accidently build against them, except:
+# - clipper: Unpackaged
+# - Open3DGC: Unpackaged
+# - openddlparser: Unpackaged
+# - tinyusdz: Unpackaged
+# - unzip: Modified minizip
+# - zip: Modified minizip
+find contrib/ -maxdepth 1 -mindepth 1 \
+  | grep -Ev '(clipper|Open3DGC|openddlparser|tinyusdz|unzip|zip)' \
+  | xargs rm -r
 
 mv contrib/openddlparser/LICENSE contrib/openddlparser/LICENSE.openddlparser
 
+
 %build
-%global optflags %(echo %{optflags} -Wno-error=dangling-reference)
 %cmake \
- -DCMAKE_BUILD_TYPE=Release \
- -DASSIMP_LIB_INSTALL_DIR=%{_lib} \
- -DASSIMP_WARNINGS_AS_ERRORS=OFF \
 %ifarch s390x ppc64
  -DAI_BUILD_BIG_ENDIAN=TRUE \
 %endif
- -DASSIMP_BUILD_ASSIMP_TOOLS=TRUE \
- -DASSIMP_BUILD_DOCS=OFF \
- -DASSIMP_BUILD_DRACO=OFF \
- -DHTML_OUTPUT=%{name}-%{version} \
- -DCMAKE_INSTALL_DOCDIR=%{_docdir} \
+ -DASSIMP_WARNINGS_AS_ERRORS=OFF \
+ -DASSIMP_BUILD_ASSIMP_TOOLS=ON \
+ -DASSIMP_BUILD_DOCS=ON \
+ -DASSIMP_IGNORE_GIT_HASH=ON \
  -DHAVE_POLY2TRI=ON \
  -DPOLY2TRI_INCLUDE_PATH=%{_includedir}/poly2tri \
  -DPOLY2TRI_LIB=poly2tri \
- -DASSIMP_BUILD_ZLIB=ON
+ -DCMAKE_INSTALL_DOCDIR=%{_defaultdocdir}/%{name}
 
-# To use system polyclipping if assimp ever becomes compatible:
-# -DCLIPPER_INCLUDE_PATH=%{_includedir}/polyclipping
 %cmake_build
 
-# Fix file encoding
-dos2unix Readme.md LICENSE CREDITS port/PyAssimp/README.md
-iconv -f iso8859-1 -t utf-8 CREDITS > CREDITS.conv && mv -f CREDITS.conv CREDITS
 
 %install
 %cmake_install
 mkdir -p %{buildroot}%{python3_sitelib}/pyassimp/
 install -m0644 port/PyAssimp/pyassimp/*.py %{buildroot}%{python3_sitelib}/pyassimp/
-rm -f %{buildroot}%{_libdir}/libzlibstatic.a
 
-# Exclude tests that rely on nonbsd models
+
 %check
+# Exclude tests that rely on nonbsd models
 %ctest --exclude-regex "utMD5Importer.importBoarMan|utMD5Importer.importBob|utMD2Importer.importDolphin|utMD2Importer.importFlag|utMD2Importer.importHorse|utQ3BSPImportExport.importerTest|utBlenderImporter.importBob|utBlenderImporter.importFleurOptonl|utPMXImporter.importTest|utXImporter.importDwarf" || :
+
 
 %files
 %license LICENSE 
@@ -180,25 +152,30 @@ rm -f %{buildroot}%{_libdir}/libzlibstatic.a
 %license contrib/zip/UNLICENSE
 %doc Readme.md CREDITS
 %{_bindir}/assimp
-%{_libdir}/*.so.%{version}
-%{_libdir}/*.so.%{soversion}
+%{_libdir}/libassimp.so.%{version}
+%{_libdir}/libassimp.so.%{soversion}
 
 %files devel
-%{_includedir}/assimp
-%{_libdir}/*.so
-%{_libdir}/pkgconfig/*.pc
-%{_libdir}/cmake/*
+%{_includedir}/assimp/
+%{_libdir}/libassimp.so
+%{_libdir}/pkgconfig/assimp.pc
+%{_libdir}/cmake/assimp-*/
 
 %files doc
 %{_docdir}/*
 
-%if 0%{?fedora} || 0%{?rhel} > 7
 %files -n python3-%{name}
 %doc port/PyAssimp/README.md
-%{python3_sitelib}/pyassimp
-%endif
+%{python3_sitelib}/pyassimp/
+
 
 %changelog
+* Mon Aug 18 2025 Sandro Mani <manisandro@gmail.com> - 6.0.2-2
+- Fix pugixml::pugixml dependency ending up in link interface of assimp::assimp
+
+* Fri Aug 15 2025 Sandro Mani <manisandro@gmail.com> - 6.0.2-1
+- Update to 6.0.2
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 5.4.3-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

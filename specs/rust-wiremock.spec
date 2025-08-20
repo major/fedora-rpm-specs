@@ -18,6 +18,7 @@ Source:         %{crates_source}
 #   https://github.com/LukeMathWalker/wiremock-rs/pull/157
 # * Omit deprecated async-std dev-dependency
 # * Remove test modules for which *all* tests would require async-std.
+# * Add missing dependency on "tokio/net"
 Patch:          wiremock-fix-metadata.diff
 # * This is the source-code change from “Update deadpool to 0.12,”
 #   https://github.com/LukeMathWalker/wiremock-rs/pull/157, to accompany the

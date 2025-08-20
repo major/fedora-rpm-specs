@@ -1,5 +1,5 @@
 Name:		stalld
-Version:	1.20.3
+Version:	1.20.4
 Release:	1%{?dist}
 Summary:	Daemon that finds starving tasks and gives them a temporary boost
 
@@ -62,6 +62,10 @@ allow 10 microseconds of runtime for 1 second of clock time.
 %systemd_postun_with_restart %{name}.service
 
 %changelog
+* Mon Aug 18 2025 Clark Williams <williams@redhat.com> - 1.20.4-1
+- Makefile: version bump to v1.20.4
+- stalld.service: Fix duplicate ExecStart in service files
+
 * Tue Aug 12 2025 Clark Williams <williams@redhat.com> - 1.20.3-1
 - Makefile: bump version to v1.20.3
 - stalld.service: Fix failure to set FIFO scheduling class

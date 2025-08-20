@@ -21,6 +21,9 @@ Summary:        Fast and minimalist 3D viewer
 License:        BSD-3-Clause
 URL:            %{forgeurl}
 Source0:        %{forgesource}
+# Backport fix for building with assimp-6.x
+# https://github.com/f3d-app/f3d/commit/9bed68ef2b5425c9600c81a7245f13ed2d4079b8.patch
+Patch:          f3d-assimp6.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}

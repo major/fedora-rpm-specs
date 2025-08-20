@@ -1,7 +1,7 @@
 %bcond_without check
 
 Name:           rust-packaging
-Version:        26.3
+Version:        26.4
 Release:        %autorelease
 Summary:        RPM macros and generators for building Rust packages
 License:        MIT
@@ -14,8 +14,6 @@ Source:         %{url}/archive/%{version}/rust-packaging-%{version}.tar.gz
 # file for both Fedora and ELN would cause spec file parsing errors because
 # the -V flag is not known in Fedora.
 Patch:          0001-Temporarily-accept-cargo_prep-V-flag-for-spec-compat.patch
-
-Patch:          0001-tests-adapt-to-slightly-different-macro-expansion-in.patch
 
 BuildArch:      noarch
 

@@ -12,6 +12,9 @@ Summary:        HTTP testing facilities including a mock server
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/httptest
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * add missing dependency on "tokio/net"
+Patch:          httptest-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

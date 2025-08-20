@@ -3,7 +3,7 @@ Version: 1.6
 Release: 10%{?dist}
 Summary: JBossCache support package
 
-License: LGPL
+License: LGPL-2.1-or-later
 URL:     http://www.jboss.org/jbosscache
 # svn export http://anonsvn.jboss.org/repos/jbosscache/support/tags/1.6 jbosscache-support-1.6
 # tar cJf jbosscache-support-1.6.tar.xz jbosscache-support-1.6

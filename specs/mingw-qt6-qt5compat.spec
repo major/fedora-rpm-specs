@@ -17,7 +17,7 @@
 
 Name:           mingw-qt6-%{qt_module}
 Version:        6.9.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Qt6 for Windows - Qt5Compat component
 
 License:        LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -35,13 +35,15 @@ BuildRequires:  cmake
 BuildRequires:  ninja-build
 
 BuildRequires:  mingw32-dlfcn
-BuildRequires:  mingw32-filesystem >= 96
+BuildRequires:  mingw32-filesystem
 BuildRequires:  mingw32-gcc-c++
+BuildRequires:  mingw32-icu
 BuildRequires:  mingw32-qt6-qtbase = %{version}
 
 BuildRequires:  mingw64-dlfcn
-BuildRequires:  mingw64-filesystem >= 96
+BuildRequires:  mingw64-filesystem
 BuildRequires:  mingw64-gcc-c++
+BuildRequires:  mingw64-icu
 BuildRequires:  mingw64-qt6-qtbase = %{version}
 
 
@@ -133,6 +135,9 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 
 
 %changelog
+* Mon Aug 18 2025 Sandro Mani <manisandro@gmail.com> - 6.9.1-4
+- Make icu BR explicit
+
 * Fri Aug 15 2025 Sandro Mani <manisandro@gmail.com> - 6.9.1-3
 - Rebuild (icu)
 

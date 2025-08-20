@@ -6,7 +6,7 @@ URL:           https://buildstream.build/
 BuildArch:     noarch
 ExcludeArch:   %{ix86}
 
-Version:       2.4.0
+Version:       2.5.0
 Release:       %autorelease
 Source0:       https://github.com/apache/buildstream-plugins/archive/%{version}/buildstream-plugins-%{version}.tar.gz
 

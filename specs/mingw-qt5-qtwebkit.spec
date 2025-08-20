@@ -21,7 +21,7 @@
 
 Name:           mingw-qt5-%{qt_module}
 Version:        5.212.0
-Release:        0.40%{?pre:.%pre}%{?commit:.git%{shortcommit}}%{?dist}
+Release:        0.41%{?pre:.%pre}%{?commit:.git%{shortcommit}}%{?dist}
 Summary:        Qt5 for Windows - QtWebKit component
 
 License:        LGPL-2.1-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -264,6 +264,9 @@ rmdir %{buildroot}%{mingw64_libdir}/qt5/bin/
 
 
 %changelog
+* Mon Aug 18 2025 Sandro Mani <manisandro@gmail.com> - 5.212.0-0.41.alpha4
+- Rebuild (icu)
+
 * Fri Aug 15 2025 Sandro Mani <manisandro@gmail.com> - 5.212.0-0.40.alpha4
 - Rebuild (icu)
 

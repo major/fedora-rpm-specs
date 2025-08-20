@@ -13,6 +13,7 @@ Summary:        Parser/encoder for ASN.1 BER/DER data
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/der-parser
 Source:         %{crates_source}
+Patch:          0001-Drop-deny-warnings-from-doctests.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

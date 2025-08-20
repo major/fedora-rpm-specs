@@ -1,6 +1,6 @@
 # There is a bootstrap loop between libpysal and networkx when tests/docs are
 # enabled
-%bcond bootstrap 0
+%bcond bootstrap 1
 
 # Whether to create the extras package
 %bcond extras  %[%{without bootstrap} && !0%{?rhel}]

@@ -9,12 +9,12 @@ Summary:	Image support library for Tk
 # tiff/ is libtiff
 # gif/gif.c is HPND-Pbmplus AND URT-RLE
 # compat/libjpeg is IJG AND HPND-Pbmplus
-# compat/libpng is Libpng AND (BSD-4-Clause OR GPL-2.0-or-later) AND BSD-4-Clause AND MIT
+# compat/libpng is libpng-2.0 AND libpng-1.6.35 AND (BSD-4-Clause OR GPL-2.0-or-later) AND BSD-4-Clause AND MIT
 # compat/libtiff is libtiff AND MIT
 #   ... (yes, the SPDX MIT)
 # compat/zlib is Zlib
 #   ... the dotzlib stuff is BSL-1.0, but I know it's not used here.
-License:	TCL AND libtiff AND HPND-Pbmplus AND URT-RLE AND IJG AND Libpng AND (BSD-4-Clause OR GPL-2.0-or-later) AND BSD-4-Clause AND MIT AND Zlib
+License:	TCL AND libtiff AND HPND-Pbmplus AND URT-RLE AND IJG AND libpng-2.0 AND libpng-1.6.35 AND (BSD-4-Clause OR GPL-2.0-or-later) AND BSD-4-Clause AND MIT AND Zlib
 # Try saying that three times fast.
 URL:		http://sourceforge.net/projects/tkimg
 Source0:	https://downloads.sourceforge.net/project/tkimg/tkimg/1.4/Img-%{version}-Source.tar.gz

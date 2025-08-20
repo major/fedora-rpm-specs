@@ -1,14 +1,13 @@
 %global srcname pyopengl
 
 Name:           python-pyopengl
-Version:        3.1.9
-Release:        4%{?dist}
+Version:        3.1.10
+Release:        1%{?dist}
 Summary:        Python bindings for OpenGL
 License:        BSD-3-Clause and X11-distribute-modifications-variant
 URL:            https://github.com/mcfletch/pyopengl
 Source0:        %{pypi_source}
 Source1:        %{pypi_source pyopengl_accelerate}
-Patch0:         %{url}/pull/156/commits/5597fc91adaf7cf9d54e678e9014f5b3a8843260.patch
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel
@@ -66,7 +65,6 @@ Requires:       python3-tkinter
 
 %prep
 %setup -q -c -n %{srcname}-%{version} -T -a0 -a1
-%patch -P0 -p2 -F2 -d %{srcname}_accelerate-%{version}
 
 %generate_buildrequires
 for dir in %{srcname}-%{version} %{srcname}_accelerate-%{version} ; do
@@ -133,6 +131,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch}:%{buildroot}%{python3_sitelib} \
 
 
 %changelog
+* Mon Aug 18 2025 Scott Talbert <swt@techie.net> - 3.1.10-1
+- Update to new upstream release 3.1.10 (#2389077)
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.1.9-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

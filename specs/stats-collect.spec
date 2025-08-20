@@ -1,7 +1,7 @@
 %global debug_package %{nil}
 
 Name:		stats-collect
-Version:	1.0.45
+Version:	1.0.57
 Release:	%autorelease
 Summary:	A tool for collecting and visualising system statistics and telemetry
 
@@ -42,10 +42,11 @@ STATS_COLLECT_WEB_ASSETS_PATH=%{buildroot}%{_jsdir}/%{name} STATS_COLLECT_DATA_P
 %files -n %{name} -f %{pyproject_files}
 %license js/dist/main.js.LICENSE.txt
 %doc CHANGELOG.md CODE_OF_CONDUCT.md README.md security.md
-%{_bindir}/ipmi-helper
-%{_bindir}/proc-interrupts-helper
 %{_bindir}/stats-collect
 %{_bindir}/stc-agent
+%{_bindir}/stc-agent-ipmi-helper
+%{_bindir}/stc-agent-proc-interrupts-helper
+%{_bindir}/stc-wl-cpu-wake-walk
 %{_datadir}/%{name}
 %{_jsdir}/%{name}
 %{_mandir}/man1/*

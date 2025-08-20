@@ -1,5 +1,5 @@
 Name:           python-multidict
-Version:        6.6.3
+Version:        6.6.4
 Release:        %autorelease
 Summary:        MultiDict implementation
 
@@ -20,6 +20,7 @@ Summary:        %{summary}
 BuildRequires:  python3-devel
 BuildRequires:  python3-cython
 BuildRequires:  python3-pytest
+BuildRequires:  python3-psutil
 
 %description -n python3-multidict %_description
 

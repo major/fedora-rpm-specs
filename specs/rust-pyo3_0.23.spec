@@ -20,6 +20,7 @@ Patch:          pyo3-fix-metadata.diff
 #   https://bugzilla.redhat.com/show_bug.cgi?id=2298403
 Patch2:         0001-Make-unsafe-subinterpreter-support-available-via-cfg.patch
 Patch3:         0001-Fix-expected-error-message-for-one-test-for-Python-3.patch
+Patch4:         0001-Drop-deny-warnings-from-doctests.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

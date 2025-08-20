@@ -38,7 +38,7 @@
 
 Name:			lxde-common
 Version:		%{main_version}%{git_ver_rpm}
-Release:		4%{?dist}
+Release:		5%{?dist}
 Summary:		Default configuration files for LXDE
 
 # SPDX confirmed
@@ -151,6 +151,14 @@ sed -i.f43 pcmanfm/pcmanfm.conf.in \
 	-e '\@wallpaper=@s|default.png|default.jxl|'
 %endif
 
+# Change openbox window border theme
+# Onyx border style is hard to see...
+%if 0%{?fedora} >= 43
+sed -i openbox/rc.xml.in \
+	-e '\@<theme@{n;s|<name>.*</|<name>Clearlooks</|}'
+%endif
+
+
 # Add ACLOCAL_PATH for gettext 0.25 (ref: bug 2366708)
 export ACLOCAL_PATH=%{_datadir}/gettext/m4/
 # Calling autotools must be done before executing
@@ -229,6 +237,9 @@ install -cpm 0644 %{SOURCE11} %{buildroot}%{_sysconfdir}/xdg/lxsession/libfm/lib
 
 
 %changelog
+* Mon Aug 18 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.99.3-5
+- Change openbox window border style on F-43+
+
 * Tue Aug 12 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.99.3-4
 - Call desktop-file-install for more desktop file
 

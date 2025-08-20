@@ -2,13 +2,13 @@
 %global soversion 2
 
 Name:       fast-cdr
-Version:    2.2.6
-Release:    3%{?dist}
+Version:    2.3.0
+Release:    1%{?dist}
 Summary:    Fast Common Data Representation (CDR) Serialization Library
 
 License:    Apache-2.0
 URL:        http://www.eprosima.com
-Source0:    https://github.com/eprosima/%{project}/archive/v%{version}/%{name}-%{version}.tar.gz    
+Source0:    https://github.com/eprosima/%{project}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  gtest-devel
@@ -54,6 +54,9 @@ Development files and libraries for %{name}
 %{_libdir}/cmake/fastcdr
 
 %changelog
+* Mon Aug 18 2025 Federico Pellegrin <fede@evolware.org> - 2.3.0-1
+- Bump to 2.3.0 (rhbz#2353526)
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

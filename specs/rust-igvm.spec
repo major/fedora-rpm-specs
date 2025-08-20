@@ -5,7 +5,7 @@
 %global crate igvm
 
 Name:           rust-igvm
-Version:        0.3.4
+Version:        0.4.0
 Release:        %autorelease
 Summary:        Igvm is an implementation of a parser for the Independent Guest Virtual Machine
 
@@ -13,7 +13,7 @@ License:        MIT
 URL:            https://crates.io/crates/igvm
 Source:         %{crates_source}
 
-# Bump bitfield-struct to version 0.10. Can be safely removed when version > 0.3.4
+# Bump bitfield-struct to version 0.11.
 Patch:          igvm-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

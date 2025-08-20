@@ -1,5 +1,5 @@
 Name:       timew
-Version:    1.8.0
+Version:    1.9.0
 Release:    %autorelease
 Summary:    Timewarrior tracks and reports time
 # SPDX

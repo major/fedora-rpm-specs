@@ -5,7 +5,7 @@ Summary:    QIODevice that compresses data streams
 Name:       qtiocompressor
 Version:    2.3.1
 Release:    %autorelease
-License:    GPLv3 or LGPLv2 with exceptions
+License:    GPL-3.0-only OR LGPL-2.1-only WITH Digia-Qt-LGPL-exception-1.1
 URL:        http://qt.nokia.com/products/appdev/add-on-products/catalog/4/Utilities/qtiocompressor/
 
 Source0:    https://fale.fedorapeople.org/qtiocompressor/qtiocompressor-%{upstreamver}.tar.gz

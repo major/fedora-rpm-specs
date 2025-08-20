@@ -381,11 +381,10 @@ export HELIX_DEFAULT_RUNTIME=%{runtime_directory_path}
 install -Dpm 0755 target/release/%{binary_name} %{buildroot}%{_bindir}/%{binary_name}
 
 # Install desktop file and icon
-# Use absolute paths for binary and icon
+# Use absolute path for binary
 sed -i \
     -e "s|Exec=hx %%F|Exec=%{_bindir}/%{binary_name} %%F|g" \
-    -e "s|TryExec=hx|TryExec=%{_bindir}/%{binary_name}|g" \
-    -e "s|Icon=helix|Icon=%{_datadir}/pixmaps/helix.png|g" contrib/Helix.desktop
+    -e "s|TryExec=hx|TryExec=%{_bindir}/%{binary_name}|g" contrib/Helix.desktop
 desktop-file-install --dir=%{buildroot}%{_datadir}/applications contrib/Helix.desktop
 install -Dpm 0644 contrib/helix.png %{buildroot}%{_datadir}/pixmaps/helix.png
 # Install AppData

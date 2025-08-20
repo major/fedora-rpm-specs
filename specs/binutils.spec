@@ -6,8 +6,8 @@ Name: binutils%{?_with_debug:-debug}
 # A version number of X.XX.90 is a pre-release snapshot.
 # The variable %%{source} (see below) should be set to indicate which of these
 # origins is being used.
-Version: 2.45
-Release: 3%{?dist}
+Version: 2.45.50
+Release: 1%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -111,9 +111,9 @@ URL: https://sourceware.org/binutils
 # They are a "snapshot" of the about to be released branch sources, rather than
 # a snapshot of the mainline development sources.
 
-%define source official-release
+# %%define source official-release
 # %%define source pre-release
-# %%define source snapshot
+%define source snapshot
 # %%define source tarball
 
 # For snapshots and tarballs an extension is used to indicate the commit ID.
@@ -121,7 +121,7 @@ URL: https://sourceware.org/binutils
 # correctly.  Note %%(echo) is used because you cannot directly set a
 # spec variable to a hexadecimal string value.
 
-%define commit_id %(echo "21e608528c3")
+%define commit_id %(echo "570f4c0c119")
 
 #----End of Configure Options------------------------------------------------
 
@@ -200,8 +200,8 @@ URL: https://sourceware.org/binutils
 # sources instead - but only for GOLD, not for the rest of the binutils.
 
 # FIXME: Delete this once the gold linker is fully deprecated.
-# %%define use_separate_gold_tarball 0
-%define gold_tarball %(echo "binutils-with-gold-2.44.50-21e608528c3")
+# %%define gold_tarball %%(echo "binutils-with-gold-2.44.50-21e608528c3")
+%define gold_tarball none
 
 #----------------------------------------------------------------------------
 
@@ -221,7 +221,7 @@ Source0: binutils-%{version}-%{commit_id}.tar.xz
 
 Source1: binutils-2.19.50.0.1-output-format.sed
 
-%if "%{gold_tarball}" != ""
+%if "%{gold_tarball}" != "none"
 Source2: %{gold_tarball}.tar.xz
 %endif
 
@@ -596,30 +596,24 @@ use by developers.  It is NOT INTENDED FOR PRODUCTION use.
 
 %prep
 
-%if "%{gold_tarball}" != ""
+%if "%{gold_tarball}" != "none"
 
 %setup -q -n binutils-%{version} -a 0
 
 %if %{with gold}
-
 %setup -q -n binutils-%{version} -D -b 2 
-
 mv ../%{gold_tarball}/gold .
 mv ../%{gold_tarball}/elfcpp .
 %endif
 
 %autopatch -p1 
 
-%else
-
-%if "%{source}" == "snapshot"
+%elif "%{source}" == "snapshot"
 %autosetup -p1 -n binutils-with-gold-%{version}-%{commit_id}
 %elif "%{source}" == "official-release"
 %autosetup -p1 -n binutils-with-gold-%{version}
 %else
 %autosetup -p1 -n binutils-%{version} 
-%endif
-
 %endif
 
 # On ppc64 and aarch64, we might use 64KiB pages
@@ -1471,6 +1465,9 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Mon Aug 18 2025 Nick Clifton <nickc@redhat.com> - 2.45.50-1
+- Rebase to commit 570f4c0c119.
+
 * Fri Aug 15 2025 Nick Clifton <nickc@redhat.com> - 2.45-3
 - Oops - the gold linker was disabled too soon, re-enabling.
 

@@ -5,7 +5,7 @@
 %global crate igvm_defs
 
 Name:           rust-igvm_defs
-Version:        0.3.4
+Version:        0.4.0
 Release:        %autorelease
 Summary:        Igvm_defs crate is the specification for the Independent Guest Virtual Machine
 
@@ -13,7 +13,7 @@ License:        MIT
 URL:            https://crates.io/crates/igvm_defs
 Source:         %{crates_source}
 
-# Bump bitfield-struct to version 0.10.0. Can be dropped *after* v0.3.4
+# Bump bitfield-struct to version 0.11
 Patch:          igvm_defs-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

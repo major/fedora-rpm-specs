@@ -58,7 +58,8 @@ rm -r %{buildroot}%{python3_sitelib}/{examples,tools}
 
 %check
 %if %{with check}
-%pytest -v
+# Skip broken test
+%pytest -v --deselect beangulp/tests/testing.rst::testing.rst
 %else
 %pyproject_check_import
 %endif

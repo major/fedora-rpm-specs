@@ -29,8 +29,8 @@ a new iso-3D graphics engine and a completely redone and modern GUI.
 
 %package data
 Summary:	Data files needed to run lincity-ng
-# data bits are dual licensed GPLv2+ or CC-BY-SA
-License:	GPL-2.0-or-later OR CC-BY-SA
+# data bits are dual licensed GPL-2.0-or-later or CC-BY-SA-2.0
+License:	GPL-2.0-or-later OR CC-BY-SA-2.0
 Requires:	%{name} = %{version}-%{release}
 Requires:	dejavu-sans-fonts
 BuildArch: noarch

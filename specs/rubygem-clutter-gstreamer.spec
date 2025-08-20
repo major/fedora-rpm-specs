@@ -3,7 +3,7 @@
 %undefine        _changelog_trimtime
 
 Name:		rubygem-%{gem_name}
-Version:	4.3.2
+Version:	4.3.3
 Release:	1%{?dist}
 
 Summary:	Ruby binding of Clutter-GStreamer
@@ -56,7 +56,7 @@ mv ../%{gem_name}-%{version}.gemspec .
 find . -name \*.rb -print0 | xargs --null chmod 0644
 
 # Adjust rubygems-gnome2 requirement to be more flexible
-sed -i -e 's|= 4\.3\.2|>= 4.3.2|' %{gem_name}-%{version}.gemspec
+sed -i -e 's|= 4\.3\.3|>= 4.3.3|' %{gem_name}-%{version}.gemspec
 
 # Remove unneeded rake runtime dependency
 sed -i %{gem_name}-%{version}.gemspec \
@@ -134,6 +134,9 @@ popd
 %doc	%{gem_instdir}/sample/
 
 %changelog
+* Mon Aug 18 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.3-1
+- 4.3.3
+
 * Sat Aug 16 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.2-1
 - 4.3.2
 
