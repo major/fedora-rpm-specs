@@ -1,7 +1,7 @@
 %global octpkg image
 
 Name:           octave-%{octpkg}
-Version:        2.16.1
+Version:        2.18.0
 Release:        %autorelease
 Summary:        Image processing for Octave
 # Automatically converted from old format: GPLv2+ - review is highly recommended.

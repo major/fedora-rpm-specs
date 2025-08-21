@@ -57,8 +57,9 @@ Patch5:         0005-Fedora-remove-ttrpc-dependency.patch
 Patch6:         0006-Fedora-remove-jwt-simple-dependency.patch
 # * remove dependency testcontainers - not in Fedora
 Patch7:         0007-Fedora-remove-testcontainers-dependency.patch
-# * rstest version is 0.23
-Patch8:         0008-Fedora-rstest-0.23.patch
+# * rstest version is 0.26
+#   https://github.com/confidential-containers/guest-components/pull/1089
+Patch8:         0008-Fedora-rstest-0.26.patch
 # * kbs-type version is 0.11.0
 Patch9:         0009-Fedora-kbs-type-0.11.0.patch
 # * tempfile version is 3.20

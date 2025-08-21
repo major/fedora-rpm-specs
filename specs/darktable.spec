@@ -17,6 +17,8 @@ URL: http://www.darktable.org/
 Source0: https://github.com/darktable-org/darktable/releases/download/release-%{version}/%{name}-%{version}.tar.xz
 #Source1: https://github.com/darktable-org/darktable/releases/download/release-%%{version}/%%{name}-%%{version}.tar.xz.asc
 #Source2: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xf10f9686652b0e949fcd94c318dca123f949bd3b
+
+Patch0: 0001-Fix-build-with-clang-21.patch
  
 BuildRequires: cairo-devel
 # clang is optional (OpenCL kernel build test)

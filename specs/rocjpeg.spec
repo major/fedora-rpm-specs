@@ -38,7 +38,7 @@
 
 Name:           %{rocjpeg_name}
 Version:        %{rocm_version}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A high-performance jpeg decode library for AMD’s GPUs
 
 Url:            https://github.com/ROCm/rocJPEG
@@ -56,10 +56,17 @@ BuildRequires:  rocm-runtime-devel
 BuildRequires:  rocm-rpm-macros
 
 %if %{with check}
+%if 0%{?suse_version}
+BuildRequires:  ffmpeg
+BuildRequires:  libavcodec-devel
+BuildRequires:  libavformat-devel
+BuildRequires:  Mesa-libva
+%else 
 BuildRequires:  ffmpeg-free
 BuildRequires:  libavcodec-free-devel
 BuildRequires:  libavformat-free-devel
 BuildRequires:  mesa-va-drivers
+%endif
 %endif
 
 %if %{with ninja}
@@ -73,7 +80,11 @@ BuildRequires:  ninja
 %endif
 
 # Rocjpeg isn't useful without AMD's mesa va drivers:
+%if 0%{?suse_version}
+Requires:     Mesa-libva
+%else
 Requires:     mesa-va-drivers
+%endif
 Provides:     rocjpeg = %{version}-%{release}
 
 # Only x86_64 works right now:
@@ -174,6 +185,9 @@ fi
 %{_datadir}/rocjpeg
 
 %changelog
+ * Sat Aug 15 2025 Egbert Eich <eich@suse.com> - 6.4.0-7
+ - Fix dependencies on SUSE when 'check' is enabled.
+ 
 * Thu Aug 14 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-6
 - change --with test to --with check
 

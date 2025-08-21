@@ -3,15 +3,21 @@
 %{!?_with_bootstrap: %global bootstrap 0}
 
 Name: rubygem-%{gem_name}
-Version: 0.2.5
-Release: 21%{?dist}
+Version: 1.2.0
+Release: 1%{?dist}
 Summary: Ruby STDOUT text formatting
 License: MIT
-URL: http://github.com/geemus/formatador
+URL: https://github.com/geemus/formatador
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 %if ! 0%{?bootstrap}
+# The `reline` dependency was introduced here:
+# https://github.com/geemus/formatador/pull/60
+# and it is explicitly stated here, because `reline` is about to be removed
+# from StdLib according to:
+# https://github.com/janlelis/unicode-display_width/issues/31#issuecomment-3188132741
+BuildRequires: rubygem(reline)
 BuildRequires: rubygem(shindo)
 %endif
 BuildArch: noarch
@@ -29,10 +35,12 @@ BuildArch: noarch
 Documentation for %{name}.
 
 %prep
-%setup -q -c -T
-%gem_install -n %{SOURCE0}
+%setup -q -n %{gem_name}-%{version}
 
 %build
+gem build ../%{gem_name}-%{version}.gemspec
+%gem_install
+
 
 %install
 mkdir -p %{buildroot}%{gem_dir}
@@ -59,14 +67,19 @@ popd
 %doc %{gem_docdir}
 %doc %{gem_instdir}/CONTRIBUTING.md
 %doc %{gem_instdir}/CONTRIBUTORS.md
+%doc %{gem_instdir}/README.md
+%doc %{gem_instdir}/SECURITY.md
 %{gem_instdir}/Gemfile
-%doc %{gem_instdir}/README.rdoc
 %{gem_instdir}/Rakefile
 %doc %{gem_instdir}/changelog.txt
 %{gem_instdir}/formatador.gemspec
 %{gem_instdir}/tests
 
 %changelog
+* Sat Aug 16 2025 David Auer <dreua@posteo.de> - 1.2.0-1
+- Update to formatador 1.2.0
+  Resolves: rhbz#1973265 rhbz#2385588
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.5-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
@@ -81,6 +94,10 @@ popd
 
 * Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.5-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
+
+* Wed Nov 15 2023 Pavel Valena <pvalena@redhat.com> - 1.1.0-1
+- Update to formatador 1.1.0.
+  Resolves: rhbz#1973265
 
 * Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.5-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild

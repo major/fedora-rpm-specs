@@ -3,18 +3,12 @@ Version:        5.5.0
 Release:        %autorelease
 Summary:        Python interface and modeling environment for SCIP
 
-License:        MIT
+# The entire source is MIT, except that the following are WTFNMFPL:
+# - examples/tutorial/even.py
+# - examples/tutorial/logical.py
+License:        MIT AND WTFNMFPL
 URL:            https://github.com/scipopt/PySCIPOpt
-# Two Python sources in the tutorial are licensed WTFNMFPL. Until legal review
-# is completed, we must filter these from the source archive.
-#
-# https://gitlab.com/fedora/legal/fedora-license-data/-/issues/663
-#
-# The filtered source archive is produced using Source1:
-#   ./get_source %%{version}
-# Source:         %%{url}/archive/v%%{version}/PySCIPOpt-%%{version}.tar.gz
-Source0:        PySCIPOpt-%{version}-filtered.tar.gz
-Source1:        get_source
+Source:         %{url}/archive/v%{version}/PySCIPOpt-%{version}.tar.gz
 
 # Remove bogus execute permission and shebang line from sudoku example
 # https://github.com/scipopt/PySCIPOpt/pull/1008
@@ -40,6 +34,9 @@ This project provides an interface from Python to the SCIP Optimization Suite.}
 
 %package -n python3-pyscipopt
 Summary:        %{summary}
+
+# This subpackage does not contain the WTFNMFPL-licensed examples.
+License:        MIT
 
 %description -n python3-pyscipopt %{common_description}
 

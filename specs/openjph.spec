@@ -1,7 +1,7 @@
 %global real_name OpenJPH
 
 Name:           openjph
-Version:        0.21.3
+Version:        0.21.5
 Release:        %autorelease
 Summary:        Open-source implementation of JPEG2000 Part-15 (or JPH or HTJ2K)
 License:        BSD-2-Clause

@@ -2,7 +2,7 @@
 %global summary Astropy affiliated package for reducing optical/IR CCD data
 
 Name:           python-%{srcname}
-Version:        2.4.3
+Version:        2.5.1
 Release:        %autorelease
 Summary:        %{summary}
 

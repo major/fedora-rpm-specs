@@ -12,7 +12,7 @@
 %endif
 
 Name:           bootc
-Version:        1.4.0
+Version:        1.6.0
 Release:        %{autorelease}
 Summary:        Bootable container system
 
@@ -47,10 +47,13 @@ BuildRequires: skopeo ostree
 
 # Backing storage tooling https://github.com/containers/composefs/issues/125
 Requires: composefs
-# For OS updates
+# Keep this list in sync with workspace.metadata.binary-dependencies until we sync
+# it automatically
 Requires: ostree
 Requires: skopeo
 Requires: podman
+Requires: util-linux-core
+Requires: /usr/bin/chcon
 # For bootloader updates
 Recommends: bootupd
 

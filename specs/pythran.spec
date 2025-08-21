@@ -20,7 +20,16 @@ Provides:       bundled(python3dist(networkx)) = 2.6.1
 %py_provides    python3-%{name}
 
 URL:            https://github.com/serge-sans-paille/pythran
-Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+
+# Fix test failures:
+# - Use more generic way of checking bool value of an object
+# - Add support for numpy.frombuffer
+# - Do not test binary mode of numpy.fromstring for recent
+# - Adjust doc validation to recent python 3.13
+Patch:          https://github.com/serge-sans-paille/pythran/pull/2323.patch
+# - Provide a small workaround for gast not doing its portability job for dumping
+Patch:          https://github.com/serge-sans-paille/pythran/commit/05f6f2b24a.patch
 
 # there is no actual arched content
 # yet we want to test on all architectures

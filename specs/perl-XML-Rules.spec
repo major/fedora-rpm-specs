@@ -1,37 +1,44 @@
 Name:		perl-XML-Rules
 Version:	1.16
-Release:	37%{?dist}
+Release:	38%{?dist}
 Summary:	Parse XML and specify what and how to keep/process for individual tags
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/XML-Rules
-Source0:	https://cpan.metacpan.org/authors/id/J/JE/JENDA/XML-Rules-%{version}.tar.gz
+Source0:	https://cpan.metacpan.org/modules/by-module/XML/XML-Rules-%{version}.tar.gz
 Patch0:		XML-Rules-1.10-add-shebang.patch
 BuildArch:	noarch
 
 # build requirements
-BuildRequires:	perl(Module::Build)
-BuildRequires:	perl-interpreter
-BuildRequires:	perl-generators
-BuildRequires:	perl(strict)
-BuildRequires:	perl(warnings)
+BuildRequires:	coreutils
 BuildRequires:	findutils
+BuildRequires:	perl-generators
+BuildRequires:	perl-interpreter
+BuildRequires:	perl(Module::Build)
 BuildRequires:	sed
 
 # module requirements
 BuildRequires:	perl(Carp)
 BuildRequires:	perl(constant)
+BuildRequires:	perl(Data::Dumper)
 BuildRequires:	perl(Exporter)
 BuildRequires:	perl(Scalar::Util)
-BuildRequires:	perl(XML::Parser)
-BuildRequires:	perl(XML::Parser::Expat)
+BuildRequires:	perl(strict)
+BuildRequires:	perl(warnings)
+BuildRequires:	perl(XML::Parser) >= 2.00
+BuildRequires:	perl(XML::Parser::Expat) >= 2.00
 
 # test requirements
-BuildRequires:	perl(Data::Dump)
+BuildRequires:	perl(Encode)
+BuildRequires:	perl(File::Spec)
 BuildRequires:	perl(Test::More)
-BuildRequires:	perl(Test::Pod)
-BuildRequires:	perl(Test::Pod::Coverage)
+BuildRequires:	perl(utf8)
 
+# optional tests
+BuildRequires:	perl(Test::Pod) >= 1.14
+BuildRequires:	perl(Test::Pod::Coverage) >= 1.04
+
+# dependencies
+# (none)
 
 %description
 The XML::Rules module provides an API layer on top of XML::Parser.  It
@@ -50,13 +57,12 @@ find . -type f -exec sed -i 's/\r//' {} \;
 %patch -P0 -p1
 
 %build
-%{__perl} Build.PL --installdirs vendor
+perl Build.PL --installdirs=vendor
 ./Build
 
 %install
-./Build install destdir=%{buildroot} create_packlist=0
-
-%{_fixperms} %{buildroot}/*
+./Build install --destdir=%{buildroot} --create_packlist=0
+%{_fixperms} -c %{buildroot}
 
 %check
 ./Build test
@@ -64,12 +70,17 @@ find . -type f -exec sed -i 's/\r//' {} \;
 %files
 %doc Changes README example
 %license LICENSE
-%{perl_vendorlib}/XML/
-%{_mandir}/man3/XML::Rules.3pm*
 %{_bindir}/dtd2XMLRules.pl
 %{_bindir}/xml2XMLRules.pl
+%{perl_vendorlib}/XML/
+%{_mandir}/man3/XML::Rules.3*
 
 %changelog
+* Tue Aug 19 2025 Paul Howarth <paul@city-fan.org> - 1.16-38
+- Use author-independent source URL
+- Specify all dependencies
+- Fix permissions verbosely
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.16-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
@@ -77,7 +88,7 @@ find . -type f -exec sed -i 's/\r//' {} \;
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
 * Tue Aug 06 2024 Miroslav Suchý <msuchy@redhat.com> - 1.16-35
-- convert license to SPDX
+- Convert license to SPDX
 
 * Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.16-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild

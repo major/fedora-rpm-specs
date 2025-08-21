@@ -1,4 +1,4 @@
-#global candidate rc0
+%global candidate rc2
 %if 0%{?rhel}
 %bcond_with toolsonly
 %else
@@ -9,8 +9,8 @@
 %global opensbi opensbi
 
 Name:     uboot-tools
-Version:  2025.07
-Release:  3%{?candidate:.%{candidate}}%{?dist}
+Version:  2025.10
+Release:  0.2%{?candidate:.%{candidate}}%{?dist}
 Epoch:    1
 Summary:  U-Boot utilities
 # Automatically converted from old format: GPLv2+ BSD LGPL-2.1+ LGPL-2.0+ - review is highly recommended.
@@ -34,25 +34,15 @@ Patch6:   uefi-initial-find_fdt_location-for-finding-the-DT-on-disk.patch
 Patch7:   uefi-enable-SetVariableRT-with-volotile-storage.patch
 # Enable UEFI HTTPS boot for all Fedora firmware
 Patch8:   uefi-enable-https-boot-by-default.patch
-# Fix PPC tools build
-Patch9:   tools-termios_linux.h-Fix-build-error-on-ppc64.patch
 
 # Device improvments
 # USB-PD improvements
 Patch10:  USB-PD-TCPM-improvements.patch
 # Rockchips improvements
 Patch11:  rockchip-Enable-preboot-start-for-pci-usb.patch
-# Rockchip DT rebase for fixes
-Patch12:  Rebase-to-upstream-6.15.5-rockchip-DTs.patch
 Patch13:  Initial-MNT-Reform2-support.patch
 # Fix Jetson Nano
 Patch14:  p3450-fix-board.patch
-
-# Add EFI_PARTITION_INFO_PROTOCOL support
-Patch20:  disk-efi-Move-logic-to-get-a-GPT-entry-into-a-helper.patch
-Patch21:  disk-efi-expose-the-part_get_gpt_pte-helper-function.patch
-Patch22:  efi_loader-disk-add-EFI_PARTITION_INFO_PROTOCOL-supp.patch
-Patch23:  efi_selftest-Add-basic-partition-info-check-to-block.patch
 
 
 BuildRequires:  bc
@@ -280,6 +270,12 @@ install -p -m 0755 builds/tools/env/fw_printenv %{buildroot}%{_bindir}
 %endif
 
 %changelog
+* Tue Aug 19 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2025.10-0.2.rc2
+- Fix and re-enable Jetson Nano
+
+* Mon Aug 18 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2025.10-0.1.rc2
+- Update to 2025.10 RC2
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2025.07-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

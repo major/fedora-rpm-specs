@@ -7,11 +7,12 @@
 
 Name:           dnf5
 Version:        %{project_version_prime}.%{project_version_major}.%{project_version_minor}.%{project_version_micro}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Command-line package manager
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf5
 Source0:        %{url}/archive/%{version}/dnf5-%{version}.tar.gz
+Patch1:         0001-dnf5daemon-server-Correct-repo-confirm_key_with_opti.patch
 
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Requires:       libdnf5-cli%{?_isa} = %{version}-%{release}
@@ -1023,6 +1024,9 @@ mkdir -p %{buildroot}%{_libdir}/libdnf5/plugins
 %ldconfig_scriptlets
 
 %changelog
+* Tue Aug 19 2025 Marek Blaha <mblaha@redhat.com> - 5.2.16.0-3
+- Fix confirm_key_with_options D-Bus signature
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 5.2.16.0-2
 - Rebuilt for Python 3.14.0rc2 bytecode
 

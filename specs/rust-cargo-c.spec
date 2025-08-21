@@ -7,10 +7,10 @@
 %endif
 
 %global crate cargo-c
-%global crate_version 0.10.13+cargo-0.88.0
+%global crate_version 0.10.14+cargo-0.89.0
 
 Name:           rust-cargo-c
-Version:        0.10.13
+Version:        0.10.14
 Release:        %autorelease
 Summary:        Helper program to build and install c-like libraries
 

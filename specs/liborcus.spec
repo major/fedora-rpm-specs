@@ -16,7 +16,7 @@
 %endif
 
 Name: liborcus
-Version: 0.20.1
+Version: 0.20.2
 Release: %autorelease
 Summary: Standalone file import filter library for spreadsheet documents
 

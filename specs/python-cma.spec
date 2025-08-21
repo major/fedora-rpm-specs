@@ -1,6 +1,6 @@
 %global srcname cma
 Name:           python-cma
-Version:        4.2.0
+Version:        4.3.0
 Release:        %autorelease
 Summary:        Covariance Matrix Adaptation Evolution Strategy numerical optimizer
 
@@ -27,7 +27,7 @@ Summary:        %{summary}
 %prep
 %autosetup -n cma-%{version}
 #Fix line-endings
-sed -i 's/\r//' README.txt
+sed -i 's/\r//' README.rst
 #Remove unneeded shebang
 sed -i '1d' cma/{bbobbenchmarks.py,purecma.py,test.py}
 
@@ -43,7 +43,7 @@ sed -i '1d' cma/{bbobbenchmarks.py,purecma.py,test.py}
 %pyproject_save_files -l cma
 
 %files -n python3-cma -f %{pyproject_files}
-%doc README.txt
+%doc README.rst
 %license LICENSE
 
 %changelog

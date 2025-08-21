@@ -1,8 +1,11 @@
 %global srcname sortedcontainers
 
+%bcond tests 1
+%bcond docs 1
+
 Name:           python-%{srcname}
 Version:        2.4.0
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Pure Python sorted container types
 
 License:        Apache-2.0
@@ -12,37 +15,33 @@ Source0:        https://github.com/grantjenks/python-sortedcontainers/archive/v%
 
 BuildArch:      noarch
 
-%global _description \
-SortedContainers is an Apache2 licensed sorted collections library, written in \
-pure-Python, and fast as C-extensions.
+%global _description %{expand:
+SortedContainers is an Apache2 licensed sorted collections library, written in
+pure-Python, and fast as C-extensions.}
 
 %description %{_description}
 
-%package -n python%{python3_pkgversion}-%{srcname}
+%package -n python3-%{srcname}
 Summary:        %{summary}
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
 
-BuildRequires: make
-BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
+BuildRequires:  make
+BuildRequires:  python3-devel
 
-%bcond_without tests
 %if %{with tests}
-BuildRequires:  python%{python3_pkgversion}-pytest
-BuildRequires:  python%{python3_pkgversion}-matplotlib
-BuildRequires:  python%{python3_pkgversion}-numpy
-BuildRequires:  python%{python3_pkgversion}-scipy
+BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(matplotlib)
+BuildRequires:  python3dist(numpy)
+BuildRequires:  python3dist(scipy)
 %endif
 
-%bcond_without docs
 %if %{with docs}
-BuildRequires:  python%{python3_pkgversion}-sphinx
+BuildRequires:  python3dist(sphinx)
 BuildRequires:  dvipng
 BuildRequires:  tex(anyfontsize.sty)
 BuildRequires:  tex(bm.sty)
 %endif
 
-%description -n python%{python3_pkgversion}-%{srcname} %{_description}
+%description -n python3-%{srcname} %{_description}
 
 
 %package -n python-%{srcname}-doc
@@ -55,36 +54,33 @@ Documentation for %{srcname} package.
 %prep
 %autosetup
 
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %if %{with docs}
 pushd docs
-make SPHINXBUILD=sphinx-build-%{python3_version} html
+make html
 rm _build/html/.buildinfo
 popd
 %endif
 
-
 %install
-%py3_install
-
+%pyproject_install
+%pyproject_save_files -l %{srcname}
 
 %if %{with tests}
 %check
 pushd tests
-PYTHONPATH="%{buildroot}%{python3_sitelib}" \
-    pytest-%{python3_version}
+%{pytest}
 popd
 %endif
 
 
-%files -n python%{python3_pkgversion}-%{srcname}
-%license LICENSE
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst
-%{python3_sitelib}/%{srcname}/
-%{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info/
 
 
 %if %{with docs}
@@ -95,6 +91,9 @@ popd
 
 
 %changelog
+* Tue Aug 19 2025 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 2.4.0-24
+- Port to modern Python macros
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.4.0-23
 - Rebuilt for Python 3.14.0rc2 bytecode
 

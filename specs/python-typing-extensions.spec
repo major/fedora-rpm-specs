@@ -1,6 +1,7 @@
 Name:           python-typing-extensions
-Version:        4.14.1
-Release:        3%{?dist}
+Version:        4.15.0~rc1
+%global srcversion %(echo '%{version}' | tr -d '~')
+Release:        1%{?dist}
 Summary:        Backported and Experimental Type Hints for Python
 
 License:        PSF-2.0
@@ -36,7 +37,7 @@ Summary:       %{summary}
 
 
 %prep
-%autosetup -p1 -n typing_extensions-%{version}
+%autosetup -p1 -n typing_extensions-%{srcversion}
 
 
 %generate_buildrequires
@@ -63,6 +64,9 @@ cd src
 
 
 %changelog
+* Tue Aug 19 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 4.15.0~rc1-1
+- Update to 4.15.0~rc1 (close RHBZ#2389191; fixes RHBZ#2389399)
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.14.1-3
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -4,7 +4,7 @@
 %global crate zoxide
 
 Name:           rust-zoxide
-Version:        0.9.4
+Version:        0.9.8
 Release:        %autorelease
 Summary:        Smarter cd command for your terminal
 
@@ -14,8 +14,10 @@ Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          zoxide-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * Update rstest to 0.26 and rstest_reuse to 0.7:
+# * Update rstest from 0.25 to 0.26:
 #   https://github.com/ajeetdsouza/zoxide/pull/1099
+# * Allow dirs 5.x (wants 6.x)
+# * Unpin tempfile: https://github.com/ajeetdsouza/zoxide/pull/1105
 Patch:          zoxide-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

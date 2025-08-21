@@ -4,8 +4,8 @@
 
 %global crate object
 
-Name:           rust-object
-Version:        0.37.3
+Name:           rust-object0.36
+Version:        0.36.7
 Release:        %autorelease
 Summary:        Unified interface for reading and writing object file formats
 
@@ -323,7 +323,6 @@ use the "xcoff" feature of the "%{crate}" crate.
     --skip read::coff::coff_extended_relocations
     --skip read::elf::get_buildid_bad_elf
     --skip read::elf::get_buildid_less_bad_elf
-    --skip read::elf::zero_sized_section_works
     --skip read::macho::test_go_macho
 }}
 %endif

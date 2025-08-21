@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        0.8.1
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Py.test plugin for testing of asynchronous tornado applications
 
 License:        Apache-2.0
@@ -15,50 +15,42 @@ BuildArch:      noarch
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
 
-%global _description \
-A py.test plugin providing fixtures and markers to simplify testing of \
-asynchronous tornado applications.
+BuildRequires:  python3-devel
+
+%global _description %{expand:
+A py.test plugin providing fixtures and markers to simplify testing of
+asynchronous tornado applications.}
 
 %description %{_description}
 
-
-%package -n python3-%{srcname}
+%package -n     python3-%{srcname}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{srcname}}
-
-BuildRequires:  python3-devel
-BuildRequires:  python3-pytest >= 3.6
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-tornado >= 4.1
 
 %description -n python3-%{srcname} %{_description}
-
 
 %prep
 %autosetup -n %{srcname}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
-
+%pyproject_wheel
 
 %install
-%py3_install
-
+%pyproject_install
+%pyproject_save_files -l %{srcname_}
 
 %check
-PYTHONPATH="%{buildroot}%{python3_sitelib}" PYTHONDONTWRITEBYTECODE=1 \
-    py.test-%{python3_version}
+%{pytest}
 
-
-%files -n python3-%{srcname}
-%license LICENSE
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst
-%{python3_sitelib}/%{srcname_}
-%{python3_sitelib}/%{srcname_}-%{version}-py%{python3_version}.egg-info
-
 
 %changelog
+* Tue Aug 19 2025 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.8.1-21
+- Port to modern Python macros
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.8.1-20
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -1,15 +1,13 @@
 %global srcname tblib
 
 Name:           python-%{srcname}
-Version:        3.0.0
+Version:        3.1.0
 Release:        %autorelease
 Summary:        Traceback serialization library
 
 License:        BSD-2-Clause
 URL:            https://pypi.python.org/pypi/%{srcname}
 Source0:        %pypi_source %{srcname}
-# https://github.com/ionelmc/python-tblib/issues/74
-Patch:          0001-Strip-locations.patch
 # https://github.com/ionelmc/python-tblib/pull/78
 # Even harder location stripping for Python 3.13
 Patch:          0001-test_pickle_exception-even-harder-location-stripping.patch
@@ -31,6 +29,7 @@ Summary:        %{summary}
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(pytest-benchmark)
 BuildRequires:  python3dist(twisted)
 
 %description -n python3-%{srcname} %{_description}

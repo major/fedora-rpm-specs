@@ -50,8 +50,8 @@ Documentation for %{name}.
 # matplotlib causes some changes in test output; pyproject.toml says:
 #   Matplotlib outputs are sensitive to the matplotlib version
 sed -i 's/==\([*.[:digit:]]*\)//' pyproject.toml
-sed -e 's/9bc81205a14646a235d284d1b68223d17f30f7f1d3d8ed3e52cf47830b02e3bb/b6f3b59b4d72036753669bee524ae6c5d9ce6ce98d04df412ac75916cc55e77e/g' \
-    -e 's/a2e637020dfe58f670ba2c942d7a55e49ba48bed09312569ee15a84f5ac680cb/79f662cf270a62ef0a2ed774bbb4eea8bc8701fbd0a79121fda9016aa2d3f034/g' \
+sed -e 's/9bc81205a14646a235d284d1b68223d17f30f7f1d3d8ed3e52cf47830b02e3bb/7b3df16f93300aaa9d8c112082e4cb3eac7fab0d8ff6db4953dd007054725ba9/g' \
+    -e 's/a2e637020dfe58f670ba2c942d7a55e49ba48bed09312569ee15a84f5ac680cb/16cba4cd16990dd2051c7d78eafc4139cdbcb5ce4cc9aea85a670c7615e545fd/g' \
     -i tests/test_execute/test_complex_outputs_unrun_{auto,cache}.xml \
        tests/test_execute/test_custom_convert_{auto,cache}.xml \
        tests/test_execute/test_custom_convert_multiple_extensions_{auto,cache}.xml

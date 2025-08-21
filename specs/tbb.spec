@@ -1,21 +1,17 @@
-# If docs should point to local python3-docs rather than website.
-# python3-docs is not shipped in RHEL 9+
-%bcond py3docs %{undefined rhel}
+# Python docs can no longer be built as of version 2022.1.0 due to requiring
+# sphinx_book_theme, which is not available in Fedora or RHEL
 
 %global giturl https://github.com/uxlfoundation/oneTBB
 
 Name:    tbb
 Summary: The Threading Building Blocks library abstracts low-level threading details
-Version: 2022.0.0
-Release: 6%{?dist}
+Version: 2022.2.0
+Release: 1%{?dist}
 License: Apache-2.0 AND BSD-3-Clause
 URL:     https://uxlfoundation.github.io/oneTBB/
 VCS:     git:%{giturl}.git
 
 Source0: %{giturl}/archive/v%{version}/%{name}-%{version}.tar.gz
-# The koji builders do not have network access, and this file is not otherwise
-# available except from python3-docs (which is not in RHEL)
-Source1: https://docs.python.org/3/objects.inv
 # These two are downstream sources.
 Source7: tbbmalloc.pc
 Source8: tbbmalloc_proxy.pc
@@ -23,19 +19,21 @@ Source8: tbbmalloc_proxy.pc
 # Fix failure to link with GCC 15
 Patch:   tbb-c++-linkage.patch
 
+# Do not use -fcf-protection=full on non-x86 architectures
+Patch:   %{giturl}/pull/1768.patch
+
 BuildRequires: cmake
 BuildRequires: gcc-c++
 BuildRequires: hwloc
 BuildRequires: hwloc-devel
-BuildRequires: make
 BuildRequires: python3-devel
-%if %{with py3docs}
-BuildRequires: python3-docs
-%endif
 BuildRequires: %{py3_dist setuptools}
-BuildRequires: %{py3_dist sphinx}
-BuildRequires: %{py3_dist sphinx-rtd-theme}
 BuildRequires: swig
+
+Provides: oneTBB = %{version}-%{release}
+
+# This can be removed when F47 reaches EOL
+Obsoletes:     tbb-doc < 2022.2.0
 
 %description
 Threading Building Blocks (TBB) is a C++ runtime library that
@@ -53,6 +51,8 @@ maintenance is required as more processor cores become available.
 Summary: NUMA support library for TBB
 Requires: %{name}%{?_isa} = %{version}-%{release}
 
+Provides: oneTBB-bind = %{version}-%{release}
+
 %description bind
 NUMA support library for TBB, allowing the binding of tasks to selected
 CPU cores.
@@ -63,21 +63,11 @@ Summary: The Threading Building Blocks C++ headers and shared development librar
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: %{name}-bind%{?_isa} = %{version}-%{release}
 
+Provides: oneTBB-devel = %{version}-%{release}
+
 %description devel
 Header files and shared object symlinks for the Threading Building
 Blocks (TBB) C++ libraries.
-
-
-%package doc
-Summary: The Threading Building Blocks documentation
-%ifarch %{ix86}
-# https://bugzilla.redhat.com/show_bug.cgi?id=2174300
-Conflicts: %{name}-doc.x86_64
-%endif
-
-%description doc
-PDF documentation for the user of the Threading Building Block (TBB)
-C++ library.
 
 
 %package -n python3-%{name}
@@ -90,16 +80,6 @@ Python 3 TBB module.
 
 %prep
 %autosetup -p1 -n oneTBB-%{version}
-
-# Fix intersphinx mapping for Sphinx 8.x
-# Use local objects.inv for intersphinx
-%if %{with py3docs}
-sed -e "s|'\(https://docs\.python\.org\)/': None|'python': ('\1/3', '%{_docdir}/python3-docs/html/objects.inv')|" \
-    -i doc/conf.py doc/GSG/conf.py doc/main/conf.py
-%else
-sed -e "s|'\(https://docs\.python\.org\)/': None|'python': ('\1/3', '%{SOURCE1}')|" \
-    -i doc/conf.py doc/GSG/conf.py doc/main/conf.py
-%endif
 
 %generate_buildrequires
 cd python
@@ -121,11 +101,6 @@ export LDFLAGS="-L $LD_LIBRARY_PATH %{build_ldflags}"
 cd python
 %pyproject_wheel
 cd -
-
-# Build documentation
-export BUILD_TYPE=oneapi
-sphinx-build doc/GSG getting-started
-sphinx-build doc/main html
 
 %install
 %cmake_install
@@ -175,13 +150,15 @@ ctest --output-on-failure --force-new-ctest-process
 %{_libdir}/cmake/TBB/
 %{_libdir}/pkgconfig/*.pc
 
-%files doc
-%doc getting-started html
-
 %files -n python3-%{name} -f %{pyproject_files}
 %doc python/README.md
 
 %changelog
+* Tue Aug 19 2025 Jerry James <loganjerry@gmail.com> - 2022.2.0-1
+- Version 2022.2.0
+- Drop the doc subpackage which cannot be built due to missing deps
+- Add patch to disable -fcf-protection=full on non-x86 architectures
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2022.0.0-6
 - Rebuilt for Python 3.14.0rc2 bytecode
 

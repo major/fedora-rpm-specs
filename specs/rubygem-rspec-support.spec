@@ -1,9 +1,9 @@
 %global	gem_name	rspec-support
 
-%global	mainver	3.13.4
+%global	mainver	3.13.5
 %undefine	prever
 
-%global	baserelease	2
+%global	baserelease	1
 %global	prerpmver	%(echo "%{?prever}" | sed -e 's|\\.||g')
 
 %bcond_with bootstrap
@@ -110,6 +110,9 @@ rspec spec/ || rspec --tag ~broken
 %doc	%{gem_docdir}
 
 %changelog
+* Tue Aug 19 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.13.5-1
+- 3.13.5
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -6,20 +6,31 @@
 %global toolchain rocm
 # hipcc does not support some clang flags
 %global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host -fcf-protection/' -e 's/-mtls-dialect=gnu2//')
-# there is no debug package
-%global debug_package %{nil}
 
-# Option to test suite for testing on real HW during build
-%bcond_with check
-# Option to build test subpackage
 %bcond_with test
+# Option to build test subpackage
+# enable building of tests if check or test are enabled
+%if %{with test}
+%global build_test ON
+%else
+%global build_test OFF
+# there is no debug package, this just headers
+%global debug_package %{nil}
+%endif
 
 # For documentation
 %bcond_with doc
 
+%bcond_with debug
+%if %{with debug}
+%global build_type DEBUG
+%else
+%global build_type RelWithDebInfo
+%endif
+
 Name:           rocprim
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        ROCm parallel primatives
 
 License:        MIT AND BSD-3-Clause
@@ -46,7 +57,7 @@ BuildRequires:  doxygen
 BuildRequires:  python3dist(marshalparser)
 %endif
 
-%if %{with check} || %{with test}
+%if %{with test}
 %if 0%{?suse_version}
 BuildRequires:  gtest
 %else
@@ -84,33 +95,31 @@ tests for the rocPRIM package
 %prep
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
 
+
+# In file included from rocPRIM-rocm-6.4.2/test/rocprim/test_texture_cache_iterator.cpp:26: 
+# ../rocprim/include/rocprim/iterator/texture_cache_iterator.hpp:231:13: error:
+#   'tex1Dfetch<int, nullptr>' is unavailable: The image/texture API not supported on the device
+# Remove fail to build test
+sed -i -e 's@add_rocprim_test("rocprim.texture_cache_iterator"@#add_rocprim_test("rocprim.texture_cache_iterator"@' test/rocprim/CMakeLists.txt
+grep texture_cach test/rocprim/CMakeLists.txt
+
 %build
 
-%if %{with check}
-# Building all the gpu's does not make sense
-# Build only the first one, this only works well with rpmbuild.
-gpu=`rocm_agent_enumerator | head -n 1`
-%endif
-
 %cmake \
-	-DCMAKE_CXX_COMPILER=hipcc \
-	-DCMAKE_C_COMPILER=hipcc \
-	-DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \
+	-DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
+	-DBUILD_TEST=%{build_test} \
 	-DCMAKE_AR=%rocmllvm_bindir/llvm-ar \
+	-DCMAKE_BUILD_TYPE=%build_type \
+	-DCMAKE_C_COMPILER=hipcc \
+	-DCMAKE_CXX_COMPILER=hipcc \
+	-DCMAKE_INSTALL_LIBDIR=share \
+	-DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \
+	-DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
 	-DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \
-    -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
-%if %{with check} || %{with test}
-    -DBUILD_TEST=ON \
-%endif
-%if %{with check}
-    -DAMDGPU_TARGETS=${gpu} \
-%endif
-    -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
-    -DCMAKE_INSTALL_LIBDIR=share \
-    -DROCM_SYMLINK_LIBS=OFF
+	-DGPU_TARGETS=%{rocm_gpu_list_test} \
+	-DROCM_SYMLINK_LIBS=OFF
 
 %cmake_build
-
 
 %install
 %cmake_install
@@ -122,11 +131,6 @@ fi
 %if %{with test}
 # force the cmake test file to use absolute paths for its referenced binaries
 sed -i -e 's@\.\.@\/usr\/bin@' %{buildroot}%{_bindir}/%{name}/CTestTestfile.cmake
-%endif
-
-%if %{with check}
-%check
-%ctest
 %endif
 
 %files devel
@@ -145,6 +149,9 @@ sed -i -e 's@\.\.@\/usr\/bin@' %{buildroot}%{_bindir}/%{name}/CTestTestfile.cmak
 
 
 %changelog
+* Mon Aug 18 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-4
+- Remove check option
+
 * Tue Jul 29 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-3
 - Remove -mtls-dialect cflag
 

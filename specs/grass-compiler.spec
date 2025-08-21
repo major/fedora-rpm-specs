@@ -1,9 +1,4 @@
-# unexplained type mismatch on s390x and sometimes (?!?) ppc64le
-#     = note: expected signature `fn(&TestLogger, codemap::SpanLoc, &_)`
-#               found signature `fn(&TestLogger, SpanLoc, &_)`
-%ifarch aarch64 x86_64
 %bcond check 1
-%endif
 
 %global srcname grass
 
@@ -47,6 +42,8 @@ A Sass compiler written purely in Rust.
 tomcli set Cargo.toml str workspace.resolver 2
 # Remove unused (and unavailable) dependency
 tomcli set crates/lib/Cargo.toml del dependencies.getrandom
+# Avoid "warning: output filename collision" from the cdylib -- use default rlib only
+tomcli set crates/lib/Cargo.toml del lib.crate-type
 
 %generate_buildrequires
 %cargo_generate_buildrequires

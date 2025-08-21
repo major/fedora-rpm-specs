@@ -1,11 +1,13 @@
 Name:		pepc
-Version:	1.5.35
+Version:	1.5.41
 Release:	%autorelease
 Summary:	Power, Energy, and Performance Configurator
 
 License:	BSD-3-Clause
 Url:		https://github.com/intel/pepc
 Source0:	%url/archive/v%{version}/%{name}-%{version}.tar.gz
+
+Patch0:		pyproject.patch
 
 BuildArch:	noarch
 
@@ -26,7 +28,7 @@ Summary:	Pepc Python libraries
 Pepc Python libraries
 
 %prep
-%autosetup -n %{name}-%{version}
+%autosetup -p1 -n %{name}-%{version}
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -36,7 +38,7 @@ Pepc Python libraries
 
 %install
 %pyproject_install
-%pyproject_save_files pepclibs pepctool
+%pyproject_save_files pepclibs pepctool pepcdata
 
 %check
 # skip heavy tests for non-x86_64 archs
@@ -50,8 +52,6 @@ Pepc Python libraries
 %license LICENSE.md
 %doc README.md CHANGELOG.md
 %{_bindir}/pepc
-%{_datadir}/pepc
-%{_mandir}/man1/pepc*
 
 %files -n python3-%{name} -f %{pyproject_files}
 

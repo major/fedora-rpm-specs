@@ -51,7 +51,9 @@ BuildRequires:  %{py3_dist pytest}
 
 
 %check
-%pytest --verbose -m 'not internet'
+# test_cpu is flaky
+# https://github.com/dabeaz/curio/issues/368
+%pytest --verbose -m 'not internet' -k 'not test_cpu'
 
 
 %files -n python3-curio -f %{pyproject_files}

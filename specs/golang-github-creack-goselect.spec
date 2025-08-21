@@ -5,7 +5,7 @@
 
 # https://github.com/creack/goselect
 %global goipath         github.com/creack/goselect
-Version:                0.1.2
+Version:                0.1.3
 
 %gometa
 
@@ -22,7 +22,6 @@ Summary:        Select(2) implementation in Go
 License:        MIT
 URL:            %{gourl}
 Source0:        %{gosource}
-Patch0001:      https://github.com/creack/goselect/pull/18.patch
 
 %description
 %{common_description}

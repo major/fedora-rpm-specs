@@ -1,11 +1,11 @@
-%global forgeurl https://github.com/ming1/ubdsrv
-%global commit 58401cf5614ec3ab2a69166e7f9b596f862de105
-Version:       1.1
+%global forgeurl https://github.com/ublk-org/ublksrv
+%global commit a2f2daa9f02509a008d9304c197f6a2b0da0ad38
+Version:       1.6
 %forgemeta
 
 Summary:       Userspace block driver server and ublk tool
 Name:          ubdsrv
-Release:       1.rc1%{?dist}.5
+Release:       %autorelease
 URL:           %{forgeurl}
 Source:        %{forgesource}
 License:       LGPLv2+ or MIT
@@ -16,6 +16,7 @@ BuildRequires: make
 BuildRequires: autoconf, autoconf-archive, automake, libtool
 BuildRequires: liburing-devel >= 2.2
 BuildRequires: pkgconf
+BuildRequires: git
 
 
 %description
@@ -55,6 +56,11 @@ rm %{buildroot}%{_libdir}/*.la
 %license COPYING COPYING.LGPL LICENSE
 %doc README.rst
 %{_sbindir}/ublk
+%{_sbindir}/ublk.*
+%{_sbindir}/ublk_user_id
+%{_sbindir}/ublk_chown.sh
+%{_sbindir}/ublk_chown_docker.sh
+%{_mandir}/man1/ublk.1.gz
 %{_libdir}/libublksrv.so.0*
 
 
@@ -70,6 +76,9 @@ rm %{buildroot}%{_libdir}/*.la
 
 
 %changelog
+* Tue Aug 19 2025 Richard W.M. Jones <rjones@redhat.com> - 1.6-1
+- Move to 1.6
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-1.rc1.5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

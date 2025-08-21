@@ -4,7 +4,7 @@
 %global crate cbindgen
 
 Name:           rust-cbindgen
-Version:        0.28.0
+Version:        0.29.0
 Release:        %autorelease
 Summary:        Tool for generating C bindings to Rust code
 
@@ -12,7 +12,6 @@ License:        MPL-2.0
 URL:            https://crates.io/crates/cbindgen
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * bump heck dependency from 0.4 to 0.5
 # * bump serial_test dev-dependency from 2.0 to 3.1
 Patch:          cbindgen-fix-metadata.diff
 

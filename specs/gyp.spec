@@ -12,7 +12,7 @@
 
 Name:		gyp
 Version:	0.1
-Release:	0.58%{?revision:.%{revision}git}%{?dist}
+Release:	0.59%{?revision:.%{revision}git}%{?dist}
 Summary:	Generate Your Projects
 
 License:	BSD-3-Clause
@@ -26,6 +26,7 @@ URL:		https://gyp.gsrc.io
 # 4. revision=$(git log --oneline|head -1|cut -d' ' -f1)
 # 5. tar -a --exclude-vcs -cf /tmp/gyp-$version-git$revision.tar.xz *
 Source0:	%{archivename}.tar.xz
+Source1:	pyproject.toml
 Patch0:		gyp-rpmoptflags.patch
 Patch1:		gyp-ninja-build.patch
 Patch2:		gyp-python3.patch
@@ -46,11 +47,11 @@ BuildRequires:	python2-devel
 BuildRequires:	python2-setuptools
 Requires:	python2-setuptools
 %else
-BuildRequires:	python3-devel python3-setuptools
+BuildRequires:	python3-devel
 Requires:	python3-setuptools
 %endif
 %else
-BuildRequires:	python3-devel python3-setuptools
+BuildRequires:	python3-devel
 Requires:	python3-setuptools
 %endif
 BuildRequires:	gcc gcc-c++ ninja-build
@@ -70,27 +71,36 @@ irreconcilable differences.
 for i in $(find pylib -name '*.py'); do
 	sed -e '\,#![ \t]*/.*python,{d}' $i > $i.new && touch -r $i $i.new && mv $i.new $i
 done
+cp %{SOURCE1} .
+rm setup.py
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%{__python3} setup.py build
+%pyproject_wheel
 
 
 %install
-%{__python3} setup.py install --root $RPM_BUILD_ROOT --skip-build
+%pyproject_install
+%pyproject_save_files %{name}
 
 
 %check
 %{__python3} gyptest.py test/hello/gyptest-all.py
 
 
-%files
+%files -f %{pyproject_files}
 %license LICENSE
 %doc AUTHORS
 %{_bindir}/gyp
-%{python3_sitelib}/*
 
 
 %changelog
+* Tue Aug 19 2025 Akira TAGOH <tagoh@redhat.com> - 0.1-0.59.fcd686f1git
+- Migrate setup.py to pyproject.toml
+  Resolves: rhbz#2378546
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.1-0.58.fcd686f1git
 - Rebuilt for Python 3.14.0rc2 bytecode
 

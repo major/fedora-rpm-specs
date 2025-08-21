@@ -1,6 +1,6 @@
 Name:           mpibash
 Version:        1.4
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Parallel scripting right from the Bourne-Again Shell
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -67,6 +67,9 @@ This package contains example scripts for mpibash compiled with MPICH.
 %autosetup -p1
 
 %build
+# https://github.com/lanl/MPI-Bash/issues/20
+export CFLAGS="%{optflags} -std=gnu17"
+
 mkdir openmpi mpich
 %global _configure ../configure
 
@@ -110,6 +113,11 @@ sed -i '1s@/usr/bin/env mpibash@%{_libdir}/mpich/bin/mpibash_mpich@' %{buildroot
 %{_libdir}/mpich/lib/share/%{name}/examples
 
 %changelog
+* Tue Aug 19 2025 Christoph Junghans <junghans@votca.org> - 1.4-6
+- Fix build with gcc-15
+- Fixes: rhbz#2340885
+- Fixes: rhbz#2385197
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

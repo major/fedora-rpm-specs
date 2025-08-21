@@ -1,18 +1,32 @@
-%global srcname jenkins
+%global pypi_name python_jenkins
 
-Name:           python-%{srcname}
-Version:        1.8.2
+Name:           python-jenkins
+Version:        1.8.3
 Release:        %autorelease
 Summary:        Python bindings for the remote Jenkins API
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-3-Clause
 URL:            https://python-jenkins.readthedocs.org/en/latest
-Source0:        https://opendev.org/jjb/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source0:        %{pypi_source}
 
-BuildRequires: make
-BuildRequires:  %{_bindir}/sphinx-build
 BuildArch:      noarch
+
+BuildRequires:  make
+BuildRequires:  python%{python3_pkgversion}-devel
+# Contents of `test-requirements.txt`:
+BuildRequires:  python%{python3_pkgversion}-cmd2
+BuildRequires:  python%{python3_pkgversion}-coverage >= 3.6
+BuildRequires:  python%{python3_pkgversion}-subunit
+BuildRequires:  python%{python3_pkgversion}-requests-mock >= 1.11.0
+BuildRequires:  python%{python3_pkgversion}-requests-kerberos
+BuildRequires:  python%{python3_pkgversion}-sphinx >= 4.4.0
+BuildRequires:  python%{python3_pkgversion}-stestr >= 2.0.0
+BuildRequires:  python%{python3_pkgversion}-testscenarios
+BuildRequires:  python%{python3_pkgversion}-testtools
+BuildRequires:  pre-commit
+BuildRequires:  python%{python3_pkgversion}-multiprocess
+
+Recommends:     python%{python3_pkgversion}-requests_kerberos
 
 %description
 Python Jenkins is a library for the remote API of the Jenkins continuous
@@ -20,40 +34,8 @@ integration server. It is useful for creating and managing jobs as well as
 build nodes.
 
 
-%package -n python%{python3_pkgversion}-%{srcname}
-Summary:        %{summary}
-BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-kerberos
-BuildRequires:  python%{python3_pkgversion}-mock
-BuildRequires:  python%{python3_pkgversion}-multi_key_dict
-BuildRequires:  python%{python3_pkgversion}-multiprocess
-BuildRequires:  python%{python3_pkgversion}-pbr >= 0.8.2
-BuildRequires:  python%{python3_pkgversion}-requests
-BuildRequires:  python%{python3_pkgversion}-requests-mock
-BuildRequires:  python%{python3_pkgversion}-six >= 1.3.0
-BuildRequires:  python%{python3_pkgversion}-testscenarios
-BuildRequires:  python%{python3_pkgversion}-testtools
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
-
-%if %{undefined __pythondist_requires}
-Requires:       python%{python3_pkgversion}-multi_key_dict
-Requires:       python%{python3_pkgversion}-pbr >= 0.8.2
-Requires:       python%{python3_pkgversion}-requests
-Requires:       python%{python3_pkgversion}-six >= 1.3.0
-%endif
-
-%if 0%{?!rhel} || 0%{?rhel} >= 8
-Recommends:     python%{python3_pkgversion}-kerberos
-%endif
-
-%description -n python%{python3_pkgversion}-%{srcname}
-Python Jenkins is a library for the remote API of the Jenkins continuous
-integration server. It is useful for creating and managing jobs as well as
-build nodes.
-
-
 %prep
-%autosetup -p1 -n %{name}
+%autosetup -p1 -n %{pypi_name}-%{version}
 
 # Remove env from __init__.py
 sed -i '1{s|^#!/usr/bin/env python||}' jenkins/__init__.py
@@ -80,6 +62,7 @@ rm doc/build/html/.buildinfo
 export PBR_VERSION=%{version}
 
 %pyproject_install
+%pyproject_save_files jenkins
 
 install -D -m0644 -p doc/build/man/pythonjenkins.1 %{buildroot}%{_mandir}/man1/pythonjenkins.1
 
@@ -88,11 +71,9 @@ install -D -m0644 -p doc/build/man/pythonjenkins.1 %{buildroot}%{_mandir}/man1/p
 %{__python3} -m testtools.run discover tests
 
 
-%files -n python%{python3_pkgversion}-%{srcname}
+%files -f %{pyproject_files}
 %doc README.rst doc/build/html
 %license COPYING
-%{python3_sitelib}/%{srcname}/
-%{python3_sitelib}/python_jenkins-%{version}.dist-info/
 %{_mandir}/man1/pythonjenkins.1.*
 
 

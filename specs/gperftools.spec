@@ -3,7 +3,7 @@
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
 
 Name:		gperftools
-Version:	2.17
+Version:	2.17.2
 Release:	1%{?dist}
 License:	BSD-3-Clause
 Summary:	Very fast malloc and performance analysis tools
@@ -123,6 +123,9 @@ rm -rf %{buildroot}%{_pkgdocdir}/INSTALL
 %{_libdir}/*.so.*
 
 %changelog
+* Tue Aug 19 2025 Tom Callaway <spot@fedoraproject.org> - 2.17.2-1
+- update to 2.17.2
+
 * Tue Aug  5 2025 Tom Callaway <spot@fedoraproject.org> - 2.17-1
 - update to 2.17
 - drop pprof subpackage, code removed upstream

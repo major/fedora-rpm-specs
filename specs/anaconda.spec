@@ -1,7 +1,7 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 43.35
-Release: 2%{?dist}
+Version: 43.36
+Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -513,6 +513,15 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Aug 19 2025 Packit <hello@packit.dev> - 43.36-1
+- packit: drive jobs from supported_releases per branch; dedupe and group
+  targets (k.koukiou)
+- Fix pylint warnings caused by dynamic kickstart command imports (k.koukiou)
+- core: kickstart: implement OS-release based version detection (k.koukiou)
+- build: decouple BASE_CONTAINER from branch configuration (k.koukiou)
+- workflows: remove hardcoded CONTAINER_TAG="lorax" usage (k.koukiou)
+- dracut module requires generic initramfs (jstodola)
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 43.35-2
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -55,7 +55,7 @@ Source0:        %{url}/releases/download/%{version}/%{name}-%{version}.tar.xz
 # Do not use /usr/bin/env in shell bangs, not suitable for upstream,
 # <https://github.com/kspalaiologos/bzip3/pull/75>.
 Patch0:         bzip3-1.5.0-Do-not-use-usr-bin-env-in-shell-bangs.patch
-# Fix pkg-config file, proposed upstream,
+# Fix pkg-config file, in upstream after 1.5.3,
 # <https://github.com/iczelia/bzip3/pull/169>.
 Patch1:         bzip3-1.5.3-autoconf-Define-extra_cflags-variable.patch
 BuildRequires:  autoconf

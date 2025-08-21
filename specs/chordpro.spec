@@ -5,13 +5,12 @@
 Name: chordpro
 Summary: Print songbooks (lyrics + chords)
 License: Artistic-2.0
-Version: 6.070
+Version: 6.080
 Release: %autorelease
-Source: https://cpan.metacpan.org/authors/id/J/JV/JV/%{FullName}-%{version}.tar.gz
+Source: https://cpan.metacpan.org/authors/id/J/JV/JV/%{FullName}-%{version}.0.tar.gz
 Source1: README.ABC
 Source2: README.LilyPond
 Source3: README.WX
-Source9: config.tmpl
 Patch1: chordpro-abc.patch
 Patch2: chordpro-fonts.patch
 Obsoletes: chordpro-abc == 6.050.4
@@ -27,14 +26,14 @@ BuildArch: noarch
 
 Requires: perl(:VERSION) >= 5.26.0
 
-Requires: perl(SVGPDF)                      >= 0.088
+Requires: perl(SVGPDF)                      >= 0.091
 Requires: gnu-free-fonts-common
 Requires: gnu-free-mono-fonts
 Requires: gnu-free-sans-fonts
 Requires: gnu-free-serif-fonts
 Requires: perl(Data::Printer)               >= 1.001001
 Requires: perl(File::HomeDir)               >= 1.004
-Requires: perl(File::LoadLines)             >= 1.044
+Requires: perl(File::LoadLines)             >= 1.047
 Requires: perl(FindBin)
 Requires: perl(HarfBuzz::Shaper)	    >= 0.026
 Requires: perl(Hash::Util)
@@ -43,13 +42,14 @@ Requires: perl(JSON::PP)                    >= 2.27203
 Requires: perl(JSON::XS)                    >= 4.03
 Requires: perl(LWP::Protocol::https)
 Requires: perl(List::Util)                  >= 1.46
-Requires: perl(Object::Pad)                 >= 0.78
-Requires: perl(PDF::API2)                   >= 2.044
+Requires: perl(Object::Pad)                 >= 0.818
+Requires: perl(PDF::API2)                   >= 2.045
 Requires: perl(Ref::Util)		    >= 0.204
 Requires: perl(Scalar::Util)		    >= 1.63
 Requires: perl(Storable)                    >= 3.08
-Requires: perl(String::Interpolate::Named)  >= 1.03
-Requires: perl(Text::Layout)                >= 0.038
+Requires: perl(String::Interpolate::Named)  >= 1.06
+Requires: perl(Text::Layout)                >= 0.045
+Requires: perl(Unicode::Collate)
 
 # BuildRequires for ChordPro.
 BuildRequires: desktop-file-utils
@@ -84,7 +84,8 @@ BuildRequires: perl(Storable)                    >= 3.08
 BuildRequires: perl(String::Interpolate::Named)  >= 1.03
 BuildRequires: perl(SVGPDF)                      >= 0.088
 BuildRequires: perl(Test::More)
-BuildRequires: perl(Text::Layout)                >= 0.038
+BuildRequires: perl(Text::Layout)                >= 0.043
+BuildRequires: perl(Unicode::Collate)
 BuildRequires: perl(base)
 BuildRequires: perl(constant)
 BuildRequires: perl(lib)
@@ -135,7 +136,10 @@ Requires: lilypond
 This packages installs the requirements for LilyPond support for ChordPro.
 
 %prep
-%setup -q -n %{FullName}-%{version}
+%setup -q -n %{FullName}-%{version}.0
+
+# Fix version.
+perl -pi~ -e 's/6.080.0/6.080/' lib/ChordPro/Version.pm
 
 %patch -P 1 -p0 -b .abc
 %patch -P 2 -p0 -b .fonts
@@ -144,10 +148,6 @@ This packages installs the requirements for LilyPond support for ChordPro.
 cp -a %{SOURCE1} .
 cp -a %{SOURCE2} .
 cp -a %{SOURCE3} .
-
-# Add possible missing file.
-test -f lib/ChordPro/res/config/config.tmpl \
-     || cp -a %{SOURCE9} lib/ChordPro/res/config/config.tmpl
 
 # Remove some stuff.
 rm lib/ChordPro/res/linux/setup_desktop.sh
@@ -211,14 +211,14 @@ install -p -m 0664 \
     %{buildroot}%{_datadir}/pixmaps/
 desktop-file-install \
     --dir=%{buildroot}%{_datadir}/applications \
-    lib/ChordPro/res/linux/%{name}.desktop
+    lib/ChordPro/res/linux/org.%{name}.desktop
 
 mkdir -p %{buildroot}%{_metainfodir}
-cp -p lib/ChordPro/res/linux/%{name}.metainfo.xml \
-    %{buildroot}%{_metainfodir}/%{name}.metainfo.xml
+cp -p lib/ChordPro/res/linux/org.%{name}.metainfo.xml \
+    %{buildroot}%{_metainfodir}/org.%{name}.metainfo.xml
 
 %{_fixperms} %{buildroot}/*
-desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
+desktop-file-validate %{buildroot}/%{_datadir}/applications/org.%{name}.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 # End of install section.
@@ -242,17 +242,17 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{share}/lib/ChordPro/Wx.pm
 %{share}/lib/ChordPro/Wx
 %{_mandir}/man1/wxchordpro*
-%{_datadir}/applications/chordpro.desktop
+%{_datadir}/applications/org.chordpro.desktop
 %{_datadir}/pixmaps/chordpro.png
 %{_datadir}/pixmaps/chordpro-doc.png
-%{_metainfodir}/chordpro.metainfo.xml
+%{_metainfodir}/org.chordpro.metainfo.xml
 
 %files lilypond
 %doc README.LilyPond
 %{share}/lib/ChordPro/Delegate/Lilypond.pm
 
 %post gui
-xdg-desktop-menu install --novendor %{share}/lib/ChordPro/res/linux/chordpro.desktop
+xdg-desktop-menu install --novendor %{share}/lib/ChordPro/res/linux/org.chordpro.desktop
 xdg-icon-resource install --context mimetypes --size 256 %{share}/lib/ChordPro/res/icons/chordpro-doc.png x-chordpro-doc
 xdg-mime install --novendor %{share}/lib/ChordPro/res/linux/chordpro.xml
 update-desktop-database

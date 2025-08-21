@@ -25,7 +25,7 @@
 %endif
 
 Name:           mozjs%{major}
-Version:        140.1.0
+Version:        140.2.0
 Release:        %autorelease
 Summary:        SpiderMonkey JavaScript library
 
@@ -51,8 +51,8 @@ Patch13:        tests-Use-native-TemporaryDirectory.patch
 Patch14:        init_patch.patch
 
 # Fixes backported from upstream
-Patch15:        f585996d79745c11dd2e7f88f8d5c9c7b5020b68.patch
-Patch16:        9aa8b4b051dd539e0fbd5e08040870b3c712a846.patch
+Patch15:        9aa8b4b051dd539e0fbd5e08040870b3c712a846.patch
+Patch16:        D261512.1755672843.diff
 
 # TODO: Check with mozilla for cause of these fails and re-enable spidermonkey compile time checks if needed
 Patch20:        spidermonkey_checks_disable.patch
@@ -79,7 +79,9 @@ BuildRequires:  cbindgen
 BuildRequires:  perl-devel
 BuildRequires:  pkgconfig(libffi)
 BuildRequires:  pkgconfig(zlib)
-BuildRequires:  python3.13-devel
+BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
+BuildRequires:  python3-six
 BuildRequires:  readline-devel
 BuildRequires:  wget
 BuildRequires:  zip
@@ -122,7 +124,6 @@ chmod -x third_party/rust/bumpalo/src/lib.rs
 export M4=m4
 export AWK=awk
 export AC_MACRODIR=./build/autoconf/
-export PYTHON3="/usr/bin/python3.13"
 
 pushd js/src/
 %configure \
@@ -199,9 +200,6 @@ chmod -x %{buildroot}%{_includedir}/mozjs-%{major}/js/ProfilingCategoryList.h
 chmod -x %{buildroot}%{_includedir}/mozjs-%{major}/js-config.h
 
 %check
-# Use bundled py3 modules since we're using non-default Python (3.13)
-export PYTHONPATH="${PYTHONPATH}:../../third_party/python/"
-
 pushd js/src/
 # Run SpiderMonkey tests
 %if 0%{?require_tests}
@@ -215,13 +213,13 @@ pushd js/src/
 
 # large-arraybuffers/basic.js fails on s390x
 %ifarch s390 s390x
-/usr/bin/python3.13 jit-test/jit_test.py -s -t 2400 --no-progress -x large-arraybuffers/basic.js ../../js/src/dist/bin/js%{major} basic
+%{python3} jit-test/jit_test.py -s -t 2400 --no-progress -x large-arraybuffers/basic.js ../../js/src/dist/bin/js%{major} basic
 %else
-/usr/bin/python3.13 jit-test/jit_test.py -s -t 2400 --no-progress ../../js/src/dist/bin/js%{major} basic
+%{python3} jit-test/jit_test.py -s -t 2400 --no-progress ../../js/src/dist/bin/js%{major} basic
 %endif
 
 %else
-/usr/bin/python3.13 jit-test/jit_test.py -s -t 2400 --no-progress ../../js/src/dist/bin/js%{major} basic || :
+%{python3} jit-test/jit_test.py -s -t 2400 --no-progress ../../js/src/dist/bin/js%{major} basic || :
 %endif
 
 %files

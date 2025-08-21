@@ -1,5 +1,5 @@
 Name:		wult
-Version:	1.12.33
+Version:	1.12.48
 Release:	%autorelease
 Summary:	A tool for measuring C-state latency in Linux
 
@@ -51,8 +51,6 @@ Wult Python libraries
 
 %make_build -C helpers/ndl-helper
 %make_build -C helpers/wult-freq-helper
-%make_build -C helpers/wult-hrt-helper
-%make_build -C helpers/wult-tdt-helper
 
 %install
 %pyproject_install
@@ -60,8 +58,6 @@ Wult Python libraries
 
 install -pDm755 helpers/ndl-helper/ndl-helper %{buildroot}%{_bindir}/ndl-helper
 install -pDm755 helpers/wult-freq-helper/wult-freq-helper %{buildroot}%{_bindir}/wult-freq-helper
-install -pDm755 helpers/wult-hrt-helper/wult-hrt-helper %{buildroot}%{_bindir}/wult-hrt-helper
-install -pDm755 helpers/wult-tdt-helper/wult-tdt-helper %{buildroot}%{_bindir}/wult-tdt-helper
 
 %check
 %pytest -v
@@ -75,8 +71,6 @@ install -pDm755 helpers/wult-tdt-helper/wult-tdt-helper %{buildroot}%{_bindir}/w
 %{_bindir}/pbe
 %{_bindir}/wult
 %{_bindir}/wult-freq-helper
-%{_bindir}/wult-hrt-helper
-%{_bindir}/wult-tdt-helper
 %{_datadir}/wult
 %{_mandir}/man1/exercise-sut*.1.gz
 %{_mandir}/man1/ndl-*1.gz

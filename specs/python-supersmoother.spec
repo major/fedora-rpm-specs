@@ -13,6 +13,8 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist setuptools}
 BuildRequires:  %{py3_dist pytest}
+# Required for tests
+BuildRequires:  %{py3_dist numpy}
 
 %description
 This is an efficient implementation of Friedman’s SuperSmoother based in

@@ -1,4 +1,3 @@
-%global _with_bootstrap 1
 %global srcname dask
 
 # Requires distributed, which is a loop.

@@ -1,5 +1,5 @@
 Name:           python-gcsfs
-Version:        2025.5.1
+Version:        2025.7.0
 Release:        %autorelease
 Summary:        Convenient Filesystem interface over GCS
 
@@ -67,7 +67,7 @@ k="${k-}${k+ and }not test_credentials_from_raw_token"
 
 
 %files -n python3-gcsfs -f %{pyproject_files}
-%doc README.rst
+%doc README.md
 
 
 %changelog

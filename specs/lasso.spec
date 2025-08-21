@@ -58,32 +58,11 @@
 
 Summary: Liberty Alliance Single Sign On
 Name: lasso
-Version: 2.8.2
-Release: 21%{?dist}
+Version: 2.9.0
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL: https://lasso.entrouvert.org/
 Source0: https://dev.entrouvert.org/lasso/lasso-%{version}.tar.gz
-
-Patch01: fix-removed-xmlsec-deprecations.patch
-Patch02: fix-openssl-implicit-declarations.patch
-# GCC14 (https://listes.entrouvert.com//arc/lasso/2024-01/msg00000.html)
-Patch3: lasso-libxml2.patch
-# GCC14 (https://git.entrouvert.org/entrouvert/lasso/commit/253e8abe7b83d4d8f3d8dd5f886a54f4e173cc28)
-Patch4: 253e8abe7b83d4d8f3d8dd5f886a54f4e173cc28.patch
-# GCC14 (https://git.entrouvert.org/entrouvert/lasso/commit/625bf7d9c11ec366c45514d5ec12ab1cdd8ce094)
-Patch5: 625bf7d9c11ec366c45514d5ec12ab1cdd8ce094.patch
-# GCC14 (https://git.entrouvert.org/entrouvert/lasso/commit/3e6f9076e19368b29a932373955a5dccd2f3cc46)
-Patch6: 3e6f9076e19368b29a932373955a5dccd2f3cc46.patch
-# https://dev.entrouvert.org/issues/92106
-Patch7: lasso-2.8.2-python_313.patch
-# Fix build with automake 1.17 and 1.18
-# https://git.entrouvert.org/entrouvert/lasso/commit/199149b686e473d6af146c74e026ede9c3282d40
-# https://git.entrouvert.org/entrouvert/lasso/commit/52246bc5ba68fa445122badb37ad6a79980d7e44
-Patch8: lasso-2.8.2-automake.patch
-# GCC 15 (https://git.entrouvert.org/entrouvert/lasso/pulls/27.patch)
-Patch9: lasso-2.8.2-gcc15.patch
-# https://dev.entrouvert.org/issues/105622
-Patch10: lasso-2.8.2-python_314.patch
 
 BuildRequires: autoconf
 BuildRequires: automake
@@ -97,8 +76,6 @@ BuildRequires: libxml2-devel
 BuildRequires: make
 BuildRequires: openssl-devel
 BuildRequires: python3
-BuildRequires: python3-six
-BuildRequires: (python3-setuptools if python3 >= 3.12)
 BuildRequires: swig
 BuildRequires: xmlsec1-devel
 BuildRequires: xmlsec1-openssl-devel
@@ -190,16 +167,6 @@ library.
 
 %prep
 %setup -q
-%patch -P 01 -p1
-%patch -P 02 -p1
-%patch -P 3 -p1
-%patch -P 4 -p1
-%patch -P 5 -p1
-%patch -P 6 -p1
-%patch -P 7 -p1
-%patch -P 8 -p1
-%patch -P 9 -p1
-%patch -P 10 -p1
 
 # Remove any python script shebang lines (unless they refer to python3)
 sed -i -E -e '/^#![[:blank:]]*(\/usr\/bin\/env[[:blank:]]+python[^3]?\>)|(\/usr\/bin\/python[^3]?\>)/d' \
@@ -285,6 +252,9 @@ rm -fr %{buildroot}%{_docdir}/%{name}
 %endif
 
 %changelog
+* Tue Aug 19 2025 Xavier Bachelot <xavier@bachelot.org> - 2.9.0-1
+- Update to 2.9.0 (RHBZ#2387825)
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.8.2-21
 - Rebuilt for Python 3.14.0rc2 bytecode
 

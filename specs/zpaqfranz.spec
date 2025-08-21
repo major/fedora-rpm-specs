@@ -14,8 +14,8 @@
 
 Name:           zpaqfranz
 Epoch:          1
-Version:        62.5
-Release:        2%{?dist}
+Version:        63.1
+Release:        1%{?dist}
 Summary:        Advanced multiversioned archiver with hardware acceleration
 # LICENSE:  MIT text
 # man/LICENSE:  Unlicense text
@@ -68,10 +68,14 @@ URL:            https://github.com/fcorbelli/%{name}
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 # Unbundle curl.h and fix loading curl libary, probably not suitable for
 # the upstream.
-Patch0:         zpaqfranz-62.5-Unbundle-curl.h-and-load-curl-DSO-by-a-bare-file-nam.patch
+Patch0:         zpaqfranz-63.1-Unbundle-curl.h-and-load-curl-DSO-by-a-bare-file-nam.patch
+# Fix loading libssh.so.4, in upstream after 63.1,
+# <https://github.com/fcorbelli/zpaqfranz/pull/200>.
+Patch1:         zpaqfranz-63.1-Do-not-stat-libssh.so.4-library-name-on-Unix.patch
 BuildRequires:  coreutils
 BuildRequires:  gcc-c++
 BuildRequires:  libcurl-devel
+BuildRequires:  libssh-devel
 BuildRequires:  perl-podlators
 # rpm-build for elfdeps tool
 BuildRequires:  rpm-build
@@ -88,8 +92,13 @@ Provides:       bundled(lz4)
 # For cURL library with SFTP support. It's dlopened at run-time as an optional
 # feature.
 Recommends:     libcurl-full
-%if 0%(/usr/lib/rpm/elfdeps --provides %{_libdir}/libcurl.so.4 >/dev/null 2>&1 && echo 1)
-Recommends:     %(/usr/lib/rpm/elfdeps --provides %{_libdir}/libcurl.so.4)
+%if 0%(/usr/lib/rpm/elfdeps --provides --soname-only %{_libdir}/libcurl.so.4 >/dev/null 2>&1 && echo 1)
+Recommends:     %(/usr/lib/rpm/elfdeps --provides --soname-only %{_libdir}/libcurl.so.4)
+%endif
+# For libssh library. It's dlopened at run-time as an optional feature.
+Recommends:     libssh
+%if 0%(/usr/lib/rpm/elfdeps --provides --soname-only %{_libdir}/libssh.so.4 >/dev/null 2>&1 && echo 1)
+Recommends:     %(/usr/lib/rpm/elfdeps --provides --soname-only %{_libdir}/libssh.so.4)
 %endif
 # For "zpaq mysqldump" subcommand
 Recommends:     (mariadb or mysql)
@@ -153,6 +162,9 @@ install -m 0644 -D -t %{buildroot}%{_mandir}/man1 man/zpaqfranz.1
 %{_mandir}/man1/zpaqfranz.1*
 
 %changelog
+* Tue Aug 19 2025 Petr Pisar <ppisar@redhat.com> - 1:63.1-1
+- 63.1 bump
+
 * Thu Jul 31 2025 Petr Pisar <ppisar@redhat.com> - 1:62.5-2
 - Disable pipefail in the TMT test
 

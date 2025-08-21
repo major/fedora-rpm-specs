@@ -13,7 +13,7 @@ for all Elasticsearch-related code in Python. The client's features include:\
 - Pluggable architecture.}
 
 Name:		python-elasticsearch
-Version:	8.14.0
+Version:	9.1.0
 Release:	%autorelease
 Summary:	Client for Elasticsearch
 
@@ -25,6 +25,7 @@ Source0:	%{url}/archive/v%{version}/%{srcname}-py-%{version}.tar.gz
 BuildArch:	noarch
 
 BuildRequires:	python3-devel
+BuildRequires:	python3-pytest
 BuildRequires:	python3-sphinx_rtd_theme
 
 %description %{_desc}
@@ -43,17 +44,17 @@ Summary:    Documentation for Python Elasticsearch
 %prep
 %autosetup -n %{srcname}-py-%{version}
 
-sed -i '/addopts/d' setup.cfg
-# remove very old missing dep
-sed -i '/unasync/d' dev-requirements.txt
-# formatter used upstream to generate examples; we don't need it
-sed -i '/black/d' dev-requirements.txt
-# Test dependencies we don't have yet in Fedora
-sed -i '/mapbox-vector-tile/d' dev-requirements.txt
-sed -i '/simsimd/d' dev-requirements.txt
+# missing test dependencies
+sed -i '/unasync/d' pyproject.toml
+sed -i '/mapbox-vector-tile/d' pyproject.toml
+sed -i '/simsimd/d' pyproject.toml
+sed -i '/pyright/d' pyproject.toml
+sed -i '/sentence_transformers/d' pyproject.toml
+sed -i '/types-python-dateutil/d' pyproject.toml
+sed -i '/types-tqdm/d' pyproject.toml
 
 %generate_buildrequires
-%pyproject_buildrequires -x extras dev-requirements.txt
+%pyproject_buildrequires -r -x dev
 
 %build
 %pyproject_wheel
@@ -68,10 +69,13 @@ rm -rf html/.{doctrees,buildinfo}
 %pyproject_save_files %{srcname}
 
 %check
-%pytest -v
+%pytest -v -k 'not test_missing_required_field_raises_validation_exception and not test_boolean_doesnt_treat_false_as_empty and not test_accessing_known_fields_returns_empty_value' --ignore=test_elasticsearch/test_dsl/test_integration/test_examples/_async/test_vectors.py \
+	--ignore=test_elasticsearch/test_dsl/test_integration/test_examples/_sync/test_vectors.py \
+	--ignore=test_elasticsearch/test_dsl/_async/test_document.py \
+	--ignore=test_elasticsearch/test_dsl/_sync/test_document.py
 
 %files -n python3-%{srcname} -f %{pyproject_files}
-%doc CHANGELOG.md CONTRIBUTING.md README.rst
+%doc CHANGELOG.md CONTRIBUTING.md README.md
 
 %files -n python-%{srcname}-doc
 %license LICENSE

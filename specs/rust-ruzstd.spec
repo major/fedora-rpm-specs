@@ -9,7 +9,7 @@
 %global crate ruzstd
 
 Name:           rust-ruzstd
-Version:        0.7.3
+Version:        0.8.1
 Release:        %autorelease
 Summary:        Decoder for the zstd compression format
 
