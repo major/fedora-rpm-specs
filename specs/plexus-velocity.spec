@@ -1,6 +1,6 @@
 Name:           plexus-velocity
-Version:        2.0
-Release:        12%{?dist}
+Version:        2.2.1
+Release:        2%{?dist}
 Summary:        Plexus Velocity Component
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -13,10 +13,11 @@ Source1:        http://www.apache.org/licenses/LICENSE-2.0.txt
 
 BuildRequires:  maven-local-openjdk21
 BuildRequires:  mvn(com.google.inject:guice)
-BuildRequires:  mvn(junit:junit)
+BuildRequires:  mvn(org.junit.jupiter:junit-jupiter)
 BuildRequires:  mvn(org.apache.velocity:velocity-engine-core)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-components:pom:)
 BuildRequires:  mvn(org.eclipse.sisu:org.eclipse.sisu.plexus)
+BuildRequires:  mvn(org.eclipse.sisu:sisu-maven-plugin)
 BuildRequires:  mvn(org.slf4j:slf4j-api)
 BuildRequires:  mvn(org.slf4j:slf4j-simple)
 
@@ -38,10 +39,6 @@ find -name '*.jar' -delete
 
 cp -p %{SOURCE1} LICENSE
 
-# Make provided scope on plexus-containers
-%pom_change_dep :plexus-container-default org.eclipse.sisu:org.eclipse.sisu.plexus::provided
-%pom_add_dep com.google.inject:guice::test
-
 %build
 %mvn_build
 
@@ -55,6 +52,14 @@ cp -p %{SOURCE1} LICENSE
 %license LICENSE
 
 %changelog
+* Wed Aug 20 2025 Markku Korkeala <markku.korkeala@iki.fi> - 2.2.1-2
+- Update sources/lookaside cache
+
+* Wed Aug 20 2025 Markku Korkeala <markku.korkeala@iki.fi> - 2.2.1-1
+- Update to version 2.2.1
+- Remove pom_change_deps
+- Resolves: rhbz#2385412 , rhbz#2255773
+
 * Wed Jul 30 2025 jiri vanek <jvanek@redhat.com> - 2.0-12
 - Rrevert to jdk21
 

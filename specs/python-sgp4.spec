@@ -1,7 +1,7 @@
 %global srcname sgp4
 
 Name:           python-%{srcname}
-Version:        2.24
+Version:        2.25
 Release:        %autorelease
 Summary:        Compute position and velocity of earth-orbiting satellites
 # Python code is MIT, backend algorithms are based on SGP4 code

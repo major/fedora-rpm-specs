@@ -1,4 +1,7 @@
-%bcond_without check
+%bcond check 1
+# F43FailsToInstall: python3-pysaml2
+# https://bugzilla.redhat.com/show_bug.cgi?id=2372073
+%bcond saml2 0
 
 Name:       matrix-synapse
 Version:    1.136.0
@@ -30,6 +33,10 @@ BuildRequires:  /usr/bin/openssl
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  tomcli
 
+%if %{without saml2}
+Obsoletes:      %{name}+saml2 < 1.136.0-2
+%endif
+
 %description
 Matrix is an ambitious new ecosystem for open federated Instant Messaging and
 VoIP. Synapse is a reference "homeserver" implementation of Matrix from the
@@ -38,7 +45,7 @@ to showcase the concept of Matrix and let folks see the spec in the context of
 a coded base and let you run your own homeserver and generally help bootstrap
 the ecosystem.
 
-%pyproject_extras_subpkg -n %{name} matrix-synapse-ldap3 postgres saml2 oidc systemd url_preview sentry jwt cache_memory user-search
+%pyproject_extras_subpkg -n %{name} matrix-synapse-ldap3 postgres %{?with_saml2:saml2} oidc systemd url_preview sentry jwt cache_memory user-search
 
 
 %prep
@@ -62,7 +69,7 @@ cd rust
 cd ..
 
 # Missing: opentracing,redis
-%pyproject_buildrequires -x test,matrix-synapse-ldap3,postgres,saml2,oidc,systemd,url-preview,sentry,jwt,cache-memory,user-search
+%pyproject_buildrequires -x test,matrix-synapse-ldap3,postgres%{?with_saml2:,saml2},oidc,systemd,url-preview,sentry,jwt,cache-memory,user-search
 
 
 %build

@@ -11,7 +11,7 @@ ExcludeArch: i686
 %endif
 
 %bcond bundle_libdb 0
-%if 0%{?rhel} == 10
+%if 0%{?rhel} >= 10
 %bcond bundle_libdb 1
 %endif
 
@@ -535,6 +535,7 @@ Patch:            0022-Issue-6901-Update-changelog-trimming-logging-fix-tes.patc
 Patch:            0023-Issue-6181-RFE-Allow-system-to-manage-uid-gid-at-sta.patch
 Patch:            0024-Issue-6468-CLI-Fix-default-error-log-level.patch
 Patch:            0025-Issue-6768-ns-slapd-crashes-when-a-referral-is-added.patch
+Patch:            0026-Issue-6430-Fix-build-with-bundled-libdb.patch
 
 # For ELN
 Patch:            0001-Issue-5120-Fix-compilation-error.patch

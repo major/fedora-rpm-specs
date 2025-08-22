@@ -35,7 +35,7 @@
 Name:           seamonkey
 Summary:        Web browser, e-mail, news, IRC client, HTML editor
 Version:        2.53.21
-Release:        2%{?dist}
+Release:        3%{?dist}
 URL:            http://www.seamonkey-project.org
 License:        MPL-2.0
 
@@ -119,7 +119,6 @@ BuildRequires:  libXrender-devel
 BuildRequires:  coreutils
 BuildRequires:  alsa-lib-devel
 BuildRequires:  libnotify-devel
-BuildRequires:  yasm >= 1.1
 BuildRequires:  mesa-libGL-devel
 BuildRequires:  pulseaudio-libs-devel
 BuildRequires:  startup-notification-devel
@@ -503,6 +502,10 @@ mkdir -p $RPM_BUILD_ROOT%{_libdir}/mozilla/extensions/%{seamonkey_app_id}
 
 
 %changelog
+* Wed Aug 20 2025 Dominik Mierzejewski <dominik@greysector.net> - 2.53.21-3
+- Drop unused yasm build dependency
+  See: https://fedoraproject.org/wiki/Changes/DeprecateYASM
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.53.21-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

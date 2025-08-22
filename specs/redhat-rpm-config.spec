@@ -92,7 +92,6 @@ Requires: efi-srpm-macros
 Requires: fonts-srpm-macros
 # ↓ Provides macros.forge and forge.lua originally shipped by us
 Requires: forge-srpm-macros
-Requires: gap-srpm-macros
 Requires: go-srpm-macros
 Requires: java-srpm-macros
 # ↓ Provides kmod.attr originally shipped by us
@@ -113,6 +112,7 @@ Requires: filesystem-srpm-macros
 %if ! 0%{?rhel}
 Requires: ansible-srpm-macros
 Requires: fpc-srpm-macros
+Requires: gap-srpm-macros
 Requires: ghc-srpm-macros
 Requires: gnat-srpm-macros
 Requires: tree-sitter-srpm-macros

@@ -3,7 +3,7 @@ Summary:        The Modular Lexical Analyser Generator
 # Upstream switched away from calendar-based versioning, and the new version
 # scheme sorts older than the calendar-based one, so we cannot avoid an Epoch.
 Epoch:          1
-Version:        1.2.4
+Version:        1.2.5
 Release:        %autorelease
 
 # The entire source is BSL-1.0, except that the following are Unicode-3.0:
@@ -16,10 +16,6 @@ Release:        %autorelease
 License:        BSL-1.0 AND Unicode-3.0
 URL:            https://github.com/BenHanson/lexertl17
 Source:         %{url}/archive/%{version}/lexertl17-%{version}.tar.gz
-
-# Ensure examples include <iostream> for std::cout
-# https://github.com/BenHanson/lexertl17/pull/6
-Patch:          %{url}/pull/6.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake

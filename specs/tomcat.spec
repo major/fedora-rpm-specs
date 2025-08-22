@@ -136,11 +136,11 @@ The docs web application for Apache Tomcat.
 %package jsp-%{jspspec}-api
 Summary: Apache Tomcat JavaServer Pages v%{jspspec} API Implementation Classes
 Provides: jsp = %{jspspec}
-Obsoletes: %{name}-jsp-api < %{jspspec}
-Obsoletes: %{name}-jsp-2.3-api < %{version}
 Requires: %{name}-servlet-%{servletspec}-api = %{epoch}:%{version}-%{release}
 Requires: %{name}-el-%{elspec}-api = %{epoch}:%{version}-%{release}
-Conflicts: tomcat-jsp-2.3-api
+Obsoletes: %{name}-jsp-2.3-api < 1:9.1
+Provides:  %{name}-jsp-2.3-api = %{?epoch:%{epoch}:}%{version}-%{release}
+
 
 %description jsp-%{jspspec}-api
 Apache Tomcat JSP API Implementation Classes.
@@ -153,10 +153,6 @@ Requires: %{name}-el-%{elspec}-api = %{epoch}:%{version}-%{release}
 Requires: ecj >= 4.20
 Recommends: tomcat-jakartaee-migration
 Requires(preun): coreutils
-Conflicts: tomcat-jsp-2.3-api
-Conflicts: tomcat-servlet-4.0-api
-Conflicts: tomcat-el-3.0-api
-
 
 %description lib
 Libraries needed to run the Tomcat Web container.
@@ -164,9 +160,8 @@ Libraries needed to run the Tomcat Web container.
 %package servlet-%{servletspec}-api
 Summary: Apache Tomcat Java Servlet v%{servletspec} API Implementation Classes
 Provides: servlet = %{servletspec}
-Obsoletes: %{name}-servlet-api < %{servletspec}
-Obsoletes: %{name}-servlet-4.0-api < %{version}
-Conflicts: tomcat-servlet-4.0-api
+Obsoletes: %{name}-servlet-4.0-api < 1:9.1
+Provides:  %{name}-servlet-4.0-api = %{?epoch:%{epoch}:}%{version}-%{release}
 
 %description servlet-%{servletspec}-api
 Apache Tomcat Servlet API Implementation Classes.
@@ -174,9 +169,8 @@ Apache Tomcat Servlet API Implementation Classes.
 %package el-%{elspec}-api
 Summary: Apache Tomcat Expression Language v%{elspec} API Implementation Classes
 Provides: el_api = %{elspec}
-Obsoletes: %{name}-el-api < %{elspec}
-Obsoletes: %{name}-el-3.0-api < %{version}
-Conflicts: tomcat-el-3.0-api
+Obsoletes: %{name}-el-3.0-api < 1:9.1
+Provides:  %{name}-el-3.0-api = %{?epoch:%{epoch}:}%{version}-%{release}
 
 %description el-%{elspec}-api
 Apache Tomcat EL API Implementation Classes.
@@ -529,6 +523,12 @@ install -m0644 -D tomcat.sysusers.conf %{buildroot}%{_sysusersdir}/tomcat.conf
 %{appdir}/ROOT
 
 %changelog
+* Tue Aug 19 2025 Dimitris Soumis <dsoumis@redhat.com> - 1:10.1.43-7
+- Add virtual provides to resolve installability issues
+
+* Thu Aug 14 2025 Dimitris Soumis <dsoumis@redhat.com> - 1:10.1.43-6
+- Rebuilt for the side tag f43-build-side-116701
+
 * Tue Jul 29 2025 Dimitris Soumis <dsoumis@redhat.com> - 1:10.1.43-5
 - Rebuilt for the side tag f43-build-side-114811
 

@@ -2,14 +2,19 @@
 %bcond_without check
 
 Name:       python-distlib
-Version:    0.3.9
-Release:    5%{?dist}
+Version:    0.4.0
+Release:    1%{?dist}
 Summary:    Low-level components of distutils2/packaging, augmented with higher-level APIs
 
 # Automatically converted from old format: Python - review is highly recommended.
 License:    LicenseRef-Callaway-Python
 URL:        https://readthedocs.org/projects/distlib/
 Source0:    %pypi_source %{srcname} %{version}
+
+# Compatibility with python 3.14
+# Fixed upstream:
+# https://github.com/pypa/distlib/commit/6286442857de9f734686d08f0e59ca8048ee357a
+Patch:      fix-test-scripts.patch
 
 BuildArch:  noarch
 
@@ -69,6 +74,11 @@ export SKIP_ONLINE=1
 %doc README.rst
 
 %changelog
+* Wed Aug 20 2025 Charalampos Stratakis <cstratak@redhat.com> - 0.4.0-1
+- Update to 0.4.0
+- Fix compatibility with Python 3.14
+Resolves: rhbz#2381736, rhbz#2385457
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.3.9-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

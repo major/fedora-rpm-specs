@@ -1,5 +1,5 @@
 Name:           cockpit-image-builder
-Version:        73
+Version:        74
 Release:        1%{?dist}
 Summary:        Image builder plugin for Cockpit
 
@@ -46,6 +46,45 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Wed Aug 20 2025 Packit <hello@packit.dev> - 74-1
+Changes with 74
+----------------
+  - Launch: implement guidance for GCP (HMS-9004) (#3537)
+    - Author: Anna Vítová, Reviewers: Klara Simickova
+  - Wizard: Enable fips for OpenSCAP profile and compliance policy (HMS-8919) (#3501)
+    - Author: Michal Gold, Reviewers: Gianluca Zuccarelli
+  - Wizard: Fix lint warnings and snapshot button behaviour (HMS-9013) (#3511)
+    - Author: Klara Simickova, Reviewers: Gianluca Zuccarelli, Michal Gold
+  - Wizard: Update public cloud logo links (HMS-9009) (#3505)
+    - Author: Klara Simickova, Reviewers: Achilleas Koutsou, Gianluca Zuccarelli
+  - build(deps): bump @redhat-cloud-services/frontend-components from 6.1.1 to 7.0.3 (#3514)
+    - Author: dependabot[bot], Reviewers: Michal Gold
+  - build(deps): bump @sentry/webpack-plugin from 4.1.0 to 4.1.1 (#3544)
+    - Author: dependabot[bot], Reviewers: Klara Simickova
+  - build(deps-dev): bump @patternfly/react-icons from 6.3.0 to 6.3.1 (#3512)
+    - Author: dependabot[bot], Reviewers: Michal Gold
+  - build(deps-dev): bump eslint from 9.32.0 to 9.33.0 (#3542)
+    - Author: dependabot[bot], Reviewers: Klara Simickova
+  - build(deps-dev): bump eslint-plugin-prettier from 5.5.3 to 5.5.4 (#3543)
+    - Author: dependabot[bot], Reviewers: Klara Simickova
+  - build(deps-dev): bump sass from 1.89.2 to 1.90.0 (#3508)
+    - Author: dependabot[bot], Reviewers: Klara Simickova
+  - build(deps-dev): bump typescript-eslint from 8.38.0 to 8.40.0 (#3551)
+    - Author: dependabot[bot], Reviewers: Klara Simickova
+  - chore(deps): update konflux references (#3538)
+    - Author: red-hat-konflux[bot], Reviewers: Michal Gold
+  - devDeps: Bump stylelint deps (HMS-9069) (#3535)
+    - Author: Klara Simickova, Reviewers: Michal Gold
+  - devDeps: Bump typescript deps (HMS-9068) (#3534)
+    - Author: Klara Simickova, Reviewers: Michal Gold
+  - devDeps: fix npm vulnerabilities (HMS-9010) (#3504)
+    - Author: Gianluca Zuccarelli, Reviewers: Klara Simickova
+  - src: Fix more lint warnings (HMS-9007) (#3503)
+    - Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+
+— Somewhere on the Internet, 2025-08-20
+
+
 * Wed Aug 6 2025 Packit <hello@packit.dev> - 73-1
 Changes with 73
 ----------------

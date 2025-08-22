@@ -100,7 +100,7 @@ ExcludeArch: %{ix86} %{arm}
 
 Name:    icecat
 Epoch:   3
-Version: 128.13.0
+Version: 128.14.0
 Release: %autorelease -e %{redhat_ver}
 Summary: GNU version of Firefox browser
 
@@ -534,6 +534,13 @@ MOZ_OPT_FLAGS=$(echo "$MOZ_OPT_FLAGS" | %{__sed} -e 's/-g/-g1/')
 # overrides the -g1 from line above and breaks building on s390
 # (OOM when linking, rhbz#1238225)
 export MOZ_DEBUG_FLAGS=" "
+%endif
+
+# -mtls-dialect=gnu2 is not recognized by clang-17
+%if "%toolchain" == "clang"
+%ifarch x86_64
+MOZ_OPT_FLAGS=$(echo "$MOZ_OPT_FLAGS" | %{__sed} -e 's/-mtls-dialect=gnu2//')
+%endif
 %endif
 
 # We don't want firefox to use CK_GCM_PARAMS_V3 in nss

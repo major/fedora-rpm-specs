@@ -1,6 +1,6 @@
 Name:           libaec
 Version:        1.1.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Adaptive Entropy Coding library
 License:        LicenseRef-Callaway-BSD
 Url:            https://gitlab.dkrz.de/k202009/libaec
@@ -31,11 +31,18 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %description devel
 Devel files for libaec (Adaptive Entropy Coding library).
 
+%package static
+Summary:        Static variant of libaec (Adaptive Entropy Coding library)
+Requires:       %{name}-devel = %{version}-%{release}
+
+%description static
+Static variant of libaec (Adaptive Entropy Coding library).
+
 %prep
 %autosetup -p1 -n %{name}-v%{version}
 
 %build
-%{cmake} -DBUILD_TESTING=ON -DBUILD_STATIC_LIBS=OFF
+%{cmake} -DBUILD_TESTING=ON -DBUILD_STATIC_LIBS=ON
 %cmake_build
 
 %install
@@ -54,7 +61,14 @@ Devel files for libaec (Adaptive Entropy Coding library).
 %{_libdir}/lib*.so
 %{_libdir}/cmake/%{name}
 
+%files static
+%{_libdir}/lib*.a
+
 %changelog
+* Wed Aug 20 2025 Christoph Junghans <junghans@votca.org> - 1.1.4-3
+- Add static sub-package
+- Fixes: rhbz#2387206
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

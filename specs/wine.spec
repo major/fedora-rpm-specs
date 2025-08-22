@@ -46,8 +46,8 @@
 # 0%%{?fedora}
 
 Name:           wine
-Version:        10.12
-Release:        4%{?dist}
+Version:        10.13
+Release:        1%{?dist}
 Summary:        A compatibility layer for windows applications
 
 License:        LGPL-2.1-or-later
@@ -1685,6 +1685,7 @@ fi
 %{_libdir}/wine/%{winepedirs}/uxtheme.dll
 %{_libdir}/wine/%{winepedirs}/userenv.dll
 %{_libdir}/wine/%{winepedirs}/vbscript.dll
+%{_libdir}/wine/%{winepedirs}/vccorlib140.dll
 %{_libdir}/wine/%{winepedirs}/vcomp.dll
 %{_libdir}/wine/%{winepedirs}/vcomp90.dll
 %{_libdir}/wine/%{winepedirs}/vcomp100.dll
@@ -2234,6 +2235,9 @@ fi
 %endif
 
 %changelog
+* Wed Aug 20 2025 Michael Cronenworth <mike@cchtml.com> - 10.13-1
+- version update
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 10.12-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name: zswap-cli
-Version: 1.0.0
+Version: 1.1.0
 Release: %autorelease
 
 License: MIT
@@ -43,6 +43,7 @@ a compressed cache is much faster than reading from a swap device.
     -DCMAKE_BUILD_TYPE=Release \
     -DBUILD_DOCS:BOOL=OFF \
     -DBUILD_MANPAGE:BOOL=ON \
+    -DBUILD_SHELL_COMPLETION:BOOL=ON \
     -DSYSTEMD_INTEGRATION:BOOL=ON
 %cmake_build
 
@@ -66,6 +67,7 @@ a compressed cache is much faster than reading from a swap device.
 %{_mandir}/man1/%{name}.*
 %dir %{_sysconfdir}/%{name}
 %config(noreplace) %{_sysconfdir}/%{name}/%{name}.conf
+%{bash_completions_dir}/%{name}
 
 %changelog
 %autochangelog

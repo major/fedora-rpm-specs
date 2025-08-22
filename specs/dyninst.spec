@@ -2,7 +2,7 @@ Summary: An API for Run-time Code Generation
 License: LGPL-2.1-or-later AND GPL-3.0-or-later WITH Bison-exception-2.2 AND LicenseRef-Fedora-Public-Domain AND BSD-3-Clause
 Name: dyninst
 Group: Development/Libraries
-Release: 6%{?dist}
+Release: 7%{?dist}
 URL: https://www.paradyn.org
 Version: 13.0.0
 ExclusiveArch: x86_64 ppc64le aarch64
@@ -148,6 +148,9 @@ echo "%{_libdir}/dyninst" > %{buildroot}/etc/ld.so.conf.d/%{name}-%{_arch}.conf
 %{_libdir}/cmake/Dyninst
 
 %changelog
+* Wed Aug 20 2025 Jerry James <loganjerry@gmail.com> - 13.0.0-7
+- Rebuild for tbb 2022.2.0
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 13.0.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

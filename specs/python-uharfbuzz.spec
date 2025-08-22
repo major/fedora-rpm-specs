@@ -1,5 +1,5 @@
 Name:           python-uharfbuzz
-Version:        0.51.1
+Version:        0.51.2
 Release:        %autorelease
 Summary:        Streamlined Cython bindings for the harfbuzz shaping engine
 

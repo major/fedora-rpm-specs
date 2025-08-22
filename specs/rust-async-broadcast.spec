@@ -14,6 +14,8 @@ URL:            https://crates.io/crates/async-broadcast
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * drop unused, benchmark-only criterion dev-dependency
+# * Update futures-lite dev-dependency from 1.11.3 to 2.6.0:
+#   https://github.com/smol-rs/async-broadcast/pull/76
 Patch:          async-broadcast-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

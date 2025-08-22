@@ -78,8 +78,8 @@
 %global _package_note_file  %{_builddir}/%{name}-%{real_version}/.package_note-%{name}-%{version}-%{release}.%{_arch}.ld
 
 Name:           git
-Version:        2.50.1
-Release:        2%{?dist}
+Version:        2.51.0
+Release:        1%{?dist}
 Summary:        Fast Version Control System
 License:        BSD-3-Clause AND GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
 URL:            https://git-scm.com/
@@ -137,7 +137,7 @@ Patch5:         git-test-apache-davlockdbtype-config.patch
 # The default behaviour of Git remains unchanged.
 #
 # https://github.com/gitgitgadget/git/pull/1853
-Patch6:         git-2.49-sanitize-sideband-channel-messages.patch
+Patch6:         git-2.51-sanitize-sideband-channel-messages.patch
 
 %if %{with docs}
 # pod2man is needed to build Git.3pm
@@ -740,13 +740,6 @@ mkdir -p %{buildroot}%{_datadir}/git-core/contrib/completion
 install -pm 644 contrib/completion/git-completion.tcsh \
     %{buildroot}%{_datadir}/git-core/contrib/completion/
 
-# Move contrib/hooks out of %%docdir
-mkdir -p %{buildroot}%{_datadir}/git-core/contrib
-mv contrib/hooks %{buildroot}%{_datadir}/git-core/contrib
-pushd contrib > /dev/null
-ln -s ../../../git-core/contrib/hooks
-popd > /dev/null
-
 # Install git-prompt.sh
 mkdir -p %{buildroot}%{_datadir}/git-core/contrib/completion
 install -pm 644 contrib/completion/git-prompt.sh \
@@ -936,11 +929,6 @@ rmdir --ignore-fail-on-non-empty "$testdir"
 
 %files -f bin-man-doc-git-files
 %{_datadir}/git-core/contrib/diff-highlight
-%{_datadir}/git-core/contrib/hooks/update-paranoid
-%{_datadir}/git-core/contrib/hooks/setgitperms.perl
-%{_datadir}/git-core/templates/hooks/fsmonitor-watchman.sample
-%{_datadir}/git-core/templates/hooks/pre-rebase.sample
-%{_datadir}/git-core/templates/hooks/prepare-commit-msg.sample
 
 %files all
 # No files for you!
@@ -952,11 +940,6 @@ rmdir --ignore-fail-on-non-empty "$testdir"
 %license COPYING
 # exclude is best way here because of troubles with symlinks inside git-core/
 %exclude %{_datadir}/git-core/contrib/diff-highlight
-%exclude %{_datadir}/git-core/contrib/hooks/update-paranoid
-%exclude %{_datadir}/git-core/contrib/hooks/setgitperms.perl
-%exclude %{_datadir}/git-core/templates/hooks/fsmonitor-watchman.sample
-%exclude %{_datadir}/git-core/templates/hooks/pre-rebase.sample
-%exclude %{_datadir}/git-core/templates/hooks/prepare-commit-msg.sample
 %{bash_completions_dir}/git
 %{_datadir}/git-core/
 
@@ -966,7 +949,6 @@ rmdir --ignore-fail-on-non-empty "$testdir"
 %exclude %{_pkgdocdir}/contrib/*/*.py[co]
 %endif
 # endif rhel <= 7
-%{_pkgdocdir}/contrib/hooks
 
 %if %{with libsecret}
 %files credential-libsecret
@@ -1063,6 +1045,9 @@ rmdir --ignore-fail-on-non-empty "$testdir"
 %{?with_docs:%{_pkgdocdir}/git-svn.html}
 
 %changelog
+* Wed Aug 20 2025 Ondřej Pohořelský <opohorel@redhat.com> - 2.51.0-1
+- update to 2.51.0
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.50.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 # The default version will own /usr/bin/node and friends
 %global nodejs_pkg_major 22
 
-%if (0%{?fedora} >= 41 && 0%{?fedora} <= 43) || 0%{?rhel} == 11
+%if (0%{?fedora} >= 41 && 0%{?fedora} <= 44) || 0%{?rhel} == 11
 %global nodejs_default %{nodejs_pkg_major}
 %endif
 

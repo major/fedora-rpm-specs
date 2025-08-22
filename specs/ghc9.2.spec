@@ -55,10 +55,10 @@
 %bcond_with testsuite
 
 # ld
-%ifnarch riscv64
-%bcond ld_gold 1
-%else
+%if 0%{?fedora} >= 43 || "%{_arch}" == "aarch64" || "%{_arch}" == "riscv64"
 %bcond ld_gold 0
+%else
+%bcond ld_gold 1
 %endif
 
 # 9.2 needs llvm 9-12
@@ -77,7 +77,7 @@ Version: 9.2.8
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 29%{?dist}
+Release: 30%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -490,8 +490,15 @@ rm libffi-tarballs/libffi-*.tar.gz
 %endif
 
 %if %{with hadrian}
+( cd hadrian
+  cabal-tweak-dep-ver bytestring '< 0.12' '< 0.13'
+)
 (cd libraries/Cabal/Cabal
- cabal-tweak-dep-ver unix '< 2.8' '< 2.9')
+ cabal-tweak-dep-ver bytestring '< 0.12' '< 0.13'
+ cabal-tweak-dep-ver deepseq '< 1.5' '< 1.6'
+ cabal-tweak-dep-ver text '< 2.1' '< 2.2'
+ cabal-tweak-dep-ver unix '< 2.8' '< 2.9'
+)
 %endif
 
 %if %{with haddock} && %{without hadrian}
@@ -579,8 +586,10 @@ export LANG=C.utf8
 %endif
 
 %if %{with build_hadrian}
+%if %{with perfbuild}
 # do not disable debuginfo with ghc_bin_build
 %global ghc_debuginfo 1
+%endif
 (
 cd hadrian
 ln -s ../libraries/mtl mtl-%{mtl_ver}
@@ -1042,6 +1051,10 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 
 
 %changelog
+* Wed Aug 20 2025 Jens Petersen <petersen@redhat.com> - 9.2.8-30
+- bump hadrian dep bounds to fix build with ghc-9.8 (#2384623)
+- default to ld.bfd for aarch64 and F43+
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.2.8-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

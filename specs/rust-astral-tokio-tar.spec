@@ -5,7 +5,7 @@
 %global crate astral-tokio-tar
 
 Name:           rust-astral-tokio-tar
-Version:        0.5.2
+Version:        0.5.3
 Release:        %autorelease
 Summary:        Rust implementation of an async TAR file reader and writer
 

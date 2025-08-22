@@ -1,6 +1,6 @@
 %global major_version 3
 %global minor_version 4
-%global teeny_version 4
+%global teeny_version 5
 %global major_minor_version %{major_version}.%{minor_version}
 
 %global ruby_version %{major_minor_version}.%{teeny_version}
@@ -26,8 +26,10 @@
 # RubyGems should be share by all Ruby implementations.
 %global rubygems_dir %{_datadir}/rubygems
 
+## BUNDLED_GEMS_VERSIONS
+
 # Bundled libraries versions
-%global rubygems_version 3.6.7
+%global rubygems_version 3.6.9
 %global rubygems_molinillo_version 0.8.0
 %global rubygems_net_http_version 0.6.0
 %global rubygems_net_protocol_version 0.2.2
@@ -39,7 +41,7 @@
 %global rubygems_uri_version 1.0.3
 
 # Default gems.
-%global bundler_version 2.6.7
+%global bundler_version 2.6.9
 %global bundler_connection_pool_version 2.5.0
 %global bundler_fileutils_version 1.7.3
 %global bundler_net_http_persistent_version 4.0.4
@@ -58,21 +60,24 @@
 %global english_version 0.8.0
 %global erb_version 4.0.4
 %global error_highlight_version 0.7.0
-%global etc_version 1.4.5
+%global etc_version 1.4.6
 %global fcntl_version 1.2.0
 %global fiddle_version 1.1.6
 %global fileutils_version 1.7.3
 %global find_version 0.2.0
 %global forwardable_version 1.3.3
-%global io_nonblock_version 0.3.1
-%global io_wait_version 0.3.1
+%global io_console_version 0.8.1
+%global io_nonblock_version 0.3.2
+%global io_wait_version 0.3.2
 %global ipaddr_version 1.2.7
+%global irb_version 1.14.3
+%global json_version 2.9.1
 %global logger_version 1.6.4
 %global net_http_version 0.6.0
 %global net_protocol_version 0.2.2
+%global open_uri_version 0.5.0
 %global open3_version 0.2.1
 %global openssl_version 3.3.0
-%global open_uri_version 0.5.0
 %global optparse_version 0.6.0
 %global ostruct_version 0.6.1
 %global pathname_version 0.4.0
@@ -80,9 +85,11 @@
 %global prettyprint_version 0.2.0
 %global prism_version 1.2.0
 %global pstore_version 0.1.4
+%global psych_version 5.2.2
+%global rdoc_version 6.14.0
 %global readline_version 0.0.4
 %global reline_version 0.6.0
-%global resolv_version 0.6.0
+%global resolv_version 0.6.2
 %global ruby2_keywords_version 0.0.5
 %global securerandom_version 0.4.1
 %global set_version 1.1.1
@@ -91,7 +98,6 @@
 %global stringio_version 3.1.2
 %global strscan_version 3.1.2
 %global syntax_suggest_version 2.0.2
-%global syslog_version 0.2.0
 %global tempfile_version 0.3.1
 %global time_version 0.4.1
 %global timeout_version 0.4.3
@@ -100,34 +106,27 @@
 %global un_version 0.3.0
 %global uri_version 1.0.3
 %global weakref_version 0.1.3
-%global win32ole_version 1.9.1
 %global win32_registry_version 0.1.0
+%global win32ole_version 1.9.1
 %global yaml_version 0.4.0
 %global zlib_version 3.2.1
-
-# Gemified default gems.
-%global io_console_version 0.8.0
-%global irb_version 1.14.3
-%global json_version 2.9.1
-%global psych_version 5.2.2
-%global rdoc_version 6.10.0
 
 # Bundled gems.
 %global abbrev_version 0.1.2
 %global base64_version 0.2.0
 %global bigdecimal_version 3.1.8
 %global csv_version 3.3.2
-%global debug_version 1.10.0
+%global debug_version 1.11.0
 %global drb_version 2.2.1
 %global getoptlong_version 0.2.1
+%global matrix_version 0.4.2
+%global minitest_version 5.25.4
+%global mutex_m_version 0.3.0
 %global net_ftp_version 0.3.8
 %global net_imap_version 0.5.8
 %global net_pop_version 0.1.2
 %global net_smtp_version 0.5.1
 %global nkf_version 0.2.0
-%global matrix_version 0.4.2
-%global minitest_version 5.25.4
-%global mutex_m_version 0.3.0
 %global observer_version 0.1.2
 %global power_assert_version 2.0.5
 %global prime_version 0.1.3
@@ -143,6 +142,7 @@
 %global test_unit_version 3.6.7
 %global typeprof_version 0.30.1
 
+## END_BUNDLED_GEMS_VERSIONS
 
 # Bundled nkf version
 %global bundled_nkf_version 2.1.5
@@ -177,7 +177,7 @@
 Summary: An interpreter of object-oriented scripting language
 Name: ruby
 Version: %{ruby_version}%{?development_release}
-Release: 26%{?dist}
+Release: 27%{?dist}
 # Licenses, which are likely not included in binary RPMs:
 # Apache-2.0:
 #   benchmark/gc/redblack.rb
@@ -1879,6 +1879,10 @@ make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=" \
 
 
 %changelog
+* Mon Aug 18 2025 Jarek Prokop <jprokop@redhat.com> - 3.4.5-27
+- Upgrade to Ruby 3.4.5.
+  Resolves: rhbz#2380246
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

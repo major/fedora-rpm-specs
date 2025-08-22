@@ -2,22 +2,22 @@
 #global snapshot 0
 %global OWNER schweikert
 %global PROJECT fping
-%global commit cb832861742f4af5fcadfaf6b2dd19ee0a4b4143
-%global commitdate 20250102
-%global gittag v5.3
+%global commit 8540d42646c44951c78b731a13d128407bf47735
+%global commitdate 20250819
+%global gittag v5.4
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name: fping
-Version: 5.3%{?snapshot:^%{commitdate}git%{shortcommit}}
-Release: 4%{?dist}
+Version: 5.4%{?snapshot:^%{commitdate}git%{shortcommit}}
+Release: 1%{?dist}
 Summary: Scriptable, parallelized ping-like utility
 License: BSD-4.3TAHOE
-URL: http://www.fping.org/
+URL: https://www.fping.org/
 %if 0%{?snapshot}
 Source0: https://github.com/%{OWNER}/%{PROJECT}/archive/%{commit}/%{name}-%{commit}.tar.gz
 BuildRequires: autoconf automake
 %else
-Source0: http://fping.org/dist/%{name}-%{version}.tar.gz
+Source0: https://fping.org/dist/%{name}-%{version}.tar.gz
 %endif
 
 BuildRequires: gcc
@@ -59,6 +59,10 @@ use in scripting in mind.
 %{_mandir}/man8/*
 
 %changelog
+* Wed Aug 20 2025 Charles R. Anderson <cra@alum.wpi.edu> - 5.4-1
+- Update to 5.4
+- Use https URLs
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

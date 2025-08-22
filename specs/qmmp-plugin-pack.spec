@@ -1,6 +1,6 @@
 Name:           qmmp-plugin-pack
 Version:        2.2.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A set of extra plugins for Qmmp
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -15,7 +15,6 @@ BuildRequires:  libmodplug-devel
 BuildRequires:  libsamplerate-devel
 BuildRequires:  qt6-qttools-devel
 BuildRequires:  taglib-devel
-BuildRequires:  yasm
 
 Recommends:     yt-dlp
 
@@ -60,6 +59,10 @@ Plugin pack is a set of extra plugins for Qmmp.
 
 
 %changelog
+* Tue Jul 29 2025 Dominik Mierzejewski <dominik@greysector.net> - 2.2.2-3
+- drop unused yasm from BuildRequires:, part of:
+  https://fedoraproject.org/wiki/Changes/DeprecateYASM
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

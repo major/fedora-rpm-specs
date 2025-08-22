@@ -1,46 +1,54 @@
-Name:		perl-Class-Autouse
-Version:	2.01
-Release:	42%{?dist}
-Summary:	Run-time class loading on first method call
-License:	GPL-1.0-or-later OR Artistic-1.0-Perl
-URL:		https://metacpan.org/release/Class-Autouse
-Source0:	https://cpan.metacpan.org/authors/id/A/AD/ADAMK/Class-Autouse-%{version}.tar.gz
-# Update Makefile.PL to not use Module::Install::DSL CPAN RT#148302
-Patch0:         Class-Autouse-2.01-Remove-using-of-MI-DSL.patch
+Name:           perl-Class-Autouse
+Version:        2.02
+Release:        1%{?dist}
+Summary:        Run-time class loading on first method call
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
+URL:            https://metacpan.org/release/Class-Autouse
+Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETHER/Class-Autouse-%{version}.tar.gz
 
 # Upstream does its very best to prevent us from running them.
-%bcond_with	xt_tests
+%bcond_with     xt_tests
 
-BuildArch:	noarch
+BuildArch:      noarch
 
 BuildRequires:  %{__perl}
 BuildRequires:  %{__make}
 
 BuildRequires:  perl-generators
-BuildRequires:  perl(ExtUtils::MakeMaker)
-
-BuildRequires:	perl(Carp)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
+# Run-time
+BuildRequires:  perl(Carp)
 BuildRequires:  perl(constant)
 BuildRequires:  perl(Exporter)
-BuildRequires:	perl(File::Spec) >= 0.80
-BuildRequires:	perl(File::Temp) >= 0.17
-BuildRequires:	perl(List::Util) >= 1.18
-BuildRequires:	perl(prefork)
+BuildRequires:  perl(File::Spec) >= 0.80
+BuildRequires:  perl(List::Util) >= 1.18
+BuildRequires:  perl(prefork)
 BuildRequires:  perl(Scalar::Util)
-BuildRequires:  perl(strict)
-BuildRequires:	perl(Test::More) >= 0.47
 BuildRequires:  perl(UNIVERSAL)
 BuildRequires:  perl(vars)
-
-BuildRequires:  perl(inc::Module::Install)
+# Tests
+BuildRequires:  perl(base)
+BuildRequires:  perl(File::Spec::Functions)
+BuildRequires:  perl(File::Temp)
+BuildRequires:  perl(IO::File)
+BuildRequires:  perl(lib)
+BuildRequires:  perl(Test::More) >= 0.94
 
 # for xt tests
 %if %{with xt_tests}
-BuildRequires:	perl(Perl::MinimumVersion) >= 1.27
-BuildRequires:	perl(Pod::Simple) >= 3.14
-BuildRequires:	perl(Test::Pod) >= 1.44
-BuildRequires:	perl(Test::MinimumVersion) >= 0.101080
-BuildRequires:	perl(Test::CPAN::Meta) >= 0.17
+BuildRequires:  perl(blib)
+BuildRequires:  perl(Encode)
+BuildRequires:  perl(IO::Handle)
+BuildRequires:  perl(IPC::Open3)
+BuildRequires:  perl(Test::CleanNamespaces) >= 0.15
+BuildRequires:  perl(Test::CPAN::Meta)
+BuildRequires:  perl(Test::Kwalitee) >= 1.21
+BuildRequires:  perl(Test::MinimumVersion)
+BuildRequires:  perl(Test::Mojibake)
+BuildRequires:  perl(Test::Pod) >= 1.41
+BuildRequires:  perl(Test::Portability::Files)
 %endif
 
 %description
@@ -51,9 +59,6 @@ large amounts of memory, and decrease the script load time.
 
 %prep
 %setup -q -n Class-Autouse-%{version}
-%patch -P0 -p1
-rm -r inc/
-sed -i -e '/^inc\//d' MANIFEST
 
 %build
 AUTOMATED_TESTING=1 %{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -61,23 +66,25 @@ AUTOMATED_TESTING=1 %{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PE
 
 %install
 %{make_install}
-find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
-chmod -R u+w $RPM_BUILD_ROOT/*
+%{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
 %{__make} test
 %if %{with xt_tests}
 # Manually invoke xt-tests
-AUTOMATED_TESTING=1 PERL_DL_NONLAZY=1 %{__perl} "-MExtUtils::Command::MM" "-e" "test_harness(0, 'inc', 'blib/lib', 'blib/arch')" xt/*.t
+AUTOMATED_TESTING=1 PERL_DL_NONLAZY=1 %{__perl} "-MExtUtils::Command::MM" "-e" "test_harness(0, 'inc', 'blib/lib', 'blib/arch')" xt/*/*.t
 %endif
 
 %files
-%doc Changes
+%doc Changes CONTRIBUTING
 %license LICENSE
 %{perl_vendorlib}/Class
-%{_mandir}/man3/*
+%{_mandir}/man3/Class::Autouse*
 
 %changelog
+* Tue Aug 19 2025 Jitka Plesnikova <jplesnik@redhat.com> - 2.02-1
+- 2.02 bump (rhbz#2389107)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.01-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           wesnoth
-Version:        1.19.14
-Release:        3%{?dist}
+Version:        1.19.15
+Release:        1%{?dist}
 Summary:        Turn-based strategy game with a fantasy theme
 
 License:        GPL-2.0-or-later
@@ -193,6 +193,9 @@ install -m0644 -D wesnoth-server.sysusers.conf %{buildroot}%{_sysusersdir}/wesno
 %{_mandir}/*/man6/wesnoth*.6*
 
 %changelog
+* Tue Aug 19 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.19.15-1
+- 1.19.15
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.19.14-3
 - Rebuilt for Python 3.14.0rc2 bytecode
 

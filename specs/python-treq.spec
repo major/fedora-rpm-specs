@@ -1,10 +1,10 @@
 %global pypi_name treq
 
-%global with_doc 1
+%bcond doc 1
 
 Name:           python-%{pypi_name}
-Version:        24.9.1
-Release:        5%{?dist}
+Version:        25.5.0
+Release:        1%{?dist}
 Summary:        A requests-like API built on top of twisted.web's Agent
 
 License:        MIT
@@ -13,11 +13,6 @@ Source0:        https://files.pythonhosted.org/packages/source/t/%{pypi_name}/%{
 BuildArch:      noarch
 
 
-%if 0%{?with_doc}
-BuildRequires:  python3-twisted
-BuildRequires:  python3-sphinx
-%endif
- 
 BuildRequires:  python3-devel
 # For tests
 BuildRequires:  python3-pytest
@@ -38,7 +33,7 @@ Twisted’s Agents.
 It provides a simple, higher level API for making HTTP requests
 when using Twisted.
 
-%if 0%{?with_doc}
+%if %{with doc}
 %package -n python-%{pypi_name}-doc
 Summary:        treq documentation
 %description -n python-%{pypi_name}-doc
@@ -49,11 +44,11 @@ Documentation for treq
 %autosetup -n %{pypi_name}-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires %{?with_doc:-x docs}
 
 %build
 %pyproject_wheel
-%if 0%{?with_doc}
+%if %{with doc}
 # generate html docs
 export PYTHONPATH=%{python2_sitelib}:%{python3_sitelib}:src
 sphinx-build docs html
@@ -72,13 +67,17 @@ rm -rf html/.{doctrees,buildinfo}
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.rst
 
-%if 0%{?with_doc}
+%if %{with doc}
 %files -n python-%{pypi_name}-doc
 %license LICENSE
 %doc html
 %endif
 
 %changelog
+* Wed Aug 20 2025 Orion Poplawski <orion@nwra.com> - 25.5.0-1
+- Update to 25.5.0
+- Use standard %%bcond macro and docs extra for build requires
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 24.9.1-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

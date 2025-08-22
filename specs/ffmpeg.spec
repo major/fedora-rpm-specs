@@ -9,6 +9,17 @@
 # generation would not take it into account.
 %global pkg_suffix -free
 
+# For alternative builds (do not enable in Fedora!)
+%bcond freeworld 0
+
+%if %{with freeworld}
+# Freeworld builds enable all codecs
+%global with_all_codecs 1
+# Freeworld builds do not need a package suffix
+%global pkg_suffix %{nil}
+%global basepkg_suffix -free
+%endif
+
 # Fails due to asm issue
 %ifarch %{ix86} %{arm}
 %bcond lto 0
@@ -84,7 +95,7 @@ Name:           ffmpeg
 %global pkg_name %{name}%{?pkg_suffix}
 
 Version:        7.1.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A complete solution to record, convert and stream audio and video
 License:        GPL-3.0-or-later
 URL:            https://ffmpeg.org/
@@ -271,6 +282,8 @@ community or a corporation.
 This build of ffmpeg is limited in the number of codecs supported.
 %endif
 
+%dnl --------------------------------------------------------------------------------
+
 %if "x%{?pkg_suffix}" != "x"
 %package -n     %{pkg_name}
 Summary:        A complete solution to record, convert and stream audio and video
@@ -298,6 +311,18 @@ This build of ffmpeg is limited in the number of codecs supported.
 #/ "x%%{?pkg_suffix}" != "x"
 %endif
 
+%files -n %{pkg_name}
+%doc CREDITS README.md
+%{_bindir}/ffmpeg
+%{_bindir}/ffplay
+%{_bindir}/ffprobe
+%{_mandir}/man1/ff*.1*
+%dir %{_datadir}/%{name}
+%{_datadir}/%{name}/ffprobe.xsd
+%{_datadir}/%{name}/libvpx-*.ffpreset
+
+%dnl --------------------------------------------------------------------------------
+
 %package -n     %{pkg_name}-devel
 Summary:        Development package for %{name}
 Requires:       libavcodec%{?pkg_suffix}-devel = %{version}-%{release}
@@ -317,6 +342,12 @@ machines have created. It supports the most obscure ancient formats up to the
 cutting edge. No matter if they were designed by some standards committee, the
 community or a corporation.
 
+%files -n %{pkg_name}-devel
+%doc MAINTAINERS doc/APIchanges doc/*.txt
+%doc _doc/examples
+
+%dnl --------------------------------------------------------------------------------
+
 %package -n libavcodec%{?pkg_suffix}
 Summary:        FFmpeg codec library
 Requires:       libavutil%{?pkg_suffix}%{_isa} = %{version}-%{release}
@@ -334,6 +365,12 @@ subtitle streams, and several bitstream filters.
 This build of ffmpeg is limited in the number of codecs supported.
 %endif
 
+%files -n libavcodec%{?pkg_suffix}
+%license COPYING.GPLv2 LICENSE.md
+%{_libdir}/libavcodec.so.%{av_codec_soversion}{,.*}
+
+%dnl --------------------------------------------------------------------------------
+
 %package -n libavcodec%{?pkg_suffix}-devel
 Summary:        Development files for FFmpeg's codec library
 Requires:       libavutil%{?pkg_suffix}-devel = %{version}-%{release}
@@ -347,6 +384,43 @@ subtitle streams, and several bitstream filters.
 
 This subpackage contains the headers for FFmpeg libavcodec.
 
+%files -n libavcodec%{?pkg_suffix}-devel
+%{_includedir}/%{name}/libavcodec
+%{_libdir}/pkgconfig/libavcodec.pc
+%{_libdir}/libavcodec.so
+%{_mandir}/man3/libavcodec.3*
+
+%dnl --------------------------------------------------------------------------------
+
+%if %{with freeworld}
+%package -n libavcodec-freeworld
+Summary:        FFmpeg codec library - freeworld overlay
+Requires:       libavutil%{?basepkg_suffix}%{_isa} >= %{version}-%{release}
+Requires:       libswresample%{?basepkg_suffix}%{_isa} >= %{version}-%{release}
+Supplements:    libavcodec%{?basepkg_suffix}%{_isa} >= %{version}-%{release}
+# We require libopenh264 library, which has a dummy implementation and a real one
+# In the event that this is being installed, we want to install this version
+Requires:       openh264%{_isa}
+
+%description -n libavcodec-freeworld
+The libavcodec library provides a generic encoding/decoding framework
+and contains multiple decoders and encoders for audio, video and
+subtitle streams, and several bitstream filters.
+
+This build includes the full range of codecs offered by ffmpeg.
+
+%files -n libavcodec-freeworld
+%{_sysconfdir}/ld.so.conf.d/%{name}-%{_lib}.conf
+%{_libdir}/%{name}/libavcodec.so.%{av_codec_soversion}{,.*}
+
+# Re-enable ldconfig_scriptlets macros
+%{!?ldconfig:%global ldconfig /sbin/ldconfig}
+%ldconfig_scriptlets -n libavcodec-freeworld
+
+%endif
+
+%dnl --------------------------------------------------------------------------------
+
 %package -n libavdevice%{?pkg_suffix}
 Summary:        FFmpeg device library
 Requires:       libavcodec%{?pkg_suffix}%{_isa} = %{version}-%{release}
@@ -359,6 +433,12 @@ The libavdevice library provides a generic framework for grabbing from
 and rendering to many common multimedia input/output devices, and
 supports several input and output devices, including Video4Linux2, VfW,
 DShow, and ALSA.
+
+%files -n libavdevice%{?pkg_suffix}
+%license COPYING.GPLv2 LICENSE.md
+%{_libdir}/libavdevice.so.%{av_device_soversion}{,.*}
+
+%dnl --------------------------------------------------------------------------------
 
 %package -n libavdevice%{?pkg_suffix}-devel
 Summary:        Development files for FFmpeg's device library
@@ -380,6 +460,14 @@ DShow, and ALSA.
 
 This subpackage contains the headers for FFmpeg libavdevice.
 
+%files -n libavdevice%{?pkg_suffix}-devel
+%{_includedir}/%{name}/libavdevice
+%{_libdir}/pkgconfig/libavdevice.pc
+%{_libdir}/libavdevice.so
+%{_mandir}/man3/libavdevice.3*
+
+%dnl --------------------------------------------------------------------------------
+
 %package -n libavfilter%{?pkg_suffix}
 Summary:        FFmpeg audio and video filtering library
 Requires:       libavcodec%{?pkg_suffix}%{_isa} = %{version}-%{release}
@@ -392,6 +480,12 @@ Requires:       libswscale%{?pkg_suffix}%{_isa} = %{version}-%{release}
 %description -n libavfilter%{?pkg_suffix}
 The libavfilter library provides a generic audio/video filtering
 framework containing several filters, sources and sinks.
+
+%files -n libavfilter%{?pkg_suffix}
+%license COPYING.GPLv2 LICENSE.md
+%{_libdir}/libavfilter.so.%{av_filter_soversion}{,.*}
+
+%dnl --------------------------------------------------------------------------------
 
 %package -n libavfilter%{?pkg_suffix}-devel
 Summary:        Development files for FFmpeg's audio/video filter library
@@ -410,6 +504,14 @@ framework containing several filters, sources and sinks.
 
 This subpackage contains the headers for FFmpeg libavfilter.
 
+%files -n libavfilter%{?pkg_suffix}-devel
+%{_includedir}/%{name}/libavfilter
+%{_libdir}/pkgconfig/libavfilter.pc
+%{_libdir}/libavfilter.so
+%{_mandir}/man3/libavfilter.3*
+
+%dnl --------------------------------------------------------------------------------
+
 %package -n libavformat%{?pkg_suffix}
 Summary:        FFmpeg's stream format library
 Requires:       libavcodec%{?pkg_suffix}%{_isa} = %{version}-%{release}
@@ -424,6 +526,12 @@ container formats.
 %if %{without all_codecs}
 This build of ffmpeg is limited in the number of codecs supported.
 %endif
+
+%files -n libavformat%{?pkg_suffix}
+%license COPYING.GPLv2 LICENSE.md
+%{_libdir}/libavformat.so.%{av_format_soversion}{,.*}
+
+%dnl --------------------------------------------------------------------------------
 
 %package -n libavformat%{?pkg_suffix}-devel
 Summary:        Development files for FFmpeg's stream format library
@@ -441,6 +549,14 @@ container formats.
 
 This subpackage contains the headers for FFmpeg libavformat.
 
+%files -n libavformat%{?pkg_suffix}-devel
+%{_includedir}/%{name}/libavformat
+%{_libdir}/pkgconfig/libavformat.pc
+%{_libdir}/libavformat.so
+%{_mandir}/man3/libavformat.3*
+
+%dnl --------------------------------------------------------------------------------
+
 %package -n libavutil%{?pkg_suffix}
 Summary:        FFmpeg's utility library
 Group:          System/Libraries
@@ -451,6 +567,12 @@ programming. It contains safe portable string functions, random
 number generators, data structures, additional mathematics functions,
 cryptography and multimedia related functionality (like enumerations
 for pixel and sample formats).
+
+%files -n libavutil%{?pkg_suffix}
+%license COPYING.GPLv2 LICENSE.md
+%{_libdir}/libavutil.so.%{av_util_soversion}{,.*}
+
+%dnl --------------------------------------------------------------------------------
 
 %package -n libavutil%{?pkg_suffix}-devel
 Summary:        Development files for FFmpeg's utility library
@@ -466,6 +588,14 @@ for pixel and sample formats).
 
 This subpackage contains the headers for FFmpeg libavutil.
 
+%files -n libavutil%{?pkg_suffix}-devel
+%{_includedir}/%{name}/libavutil
+%{_libdir}/pkgconfig/libavutil.pc
+%{_libdir}/libavutil.so
+%{_mandir}/man3/libavutil.3*
+
+%dnl --------------------------------------------------------------------------------
+
 %package -n libpostproc%{?pkg_suffix}
 Summary:        FFmpeg post-processing library
 Requires:       libavutil%{?pkg_suffix}%{_isa} = %{version}-%{release}
@@ -474,6 +604,12 @@ Requires:       libavutil%{?pkg_suffix}%{_isa} = %{version}-%{release}
 A library with video postprocessing filters, such as deblocking and
 deringing filters, noise reduction, automatic contrast and brightness
 correction, linear/cubic interpolating deinterlacing.
+
+%files -n libpostproc%{?pkg_suffix}
+%license COPYING.GPLv2 LICENSE.md
+%{_libdir}/libpostproc.so.%{postproc_soversion}{,.*}
+
+%dnl --------------------------------------------------------------------------------
 
 %package -n libpostproc%{?pkg_suffix}-devel
 Summary:        Development files for the FFmpeg post-processing library
@@ -488,6 +624,13 @@ correction, linear/cubic interpolating deinterlacing.
 
 This subpackage contains the headers for FFmpeg libpostproc.
 
+%files -n libpostproc%{?pkg_suffix}-devel
+%{_includedir}/%{name}/libpostproc
+%{_libdir}/pkgconfig/libpostproc.pc
+%{_libdir}/libpostproc.so
+
+%dnl --------------------------------------------------------------------------------
+
 %package -n libswresample%{?pkg_suffix}
 Summary:        FFmpeg software resampling library
 Requires:       libavutil%{?pkg_suffix}%{_isa} = %{version}-%{release}
@@ -495,6 +638,12 @@ Requires:       libavutil%{?pkg_suffix}%{_isa} = %{version}-%{release}
 %description -n libswresample%{?pkg_suffix}
 The libswresample library performs audio conversion between different
 sample rates, channel layout and channel formats.
+
+%files -n libswresample%{?pkg_suffix}
+%license COPYING.GPLv2 LICENSE.md
+%{_libdir}/libswresample.so.%{swresample_soversion}{,.*}
+
+%dnl --------------------------------------------------------------------------------
 
 %package -n libswresample%{?pkg_suffix}-devel
 Summary:        Development files for the FFmpeg software resampling library
@@ -507,6 +656,14 @@ sample rates, channel layout and channel formats.
 
 This subpackage contains the headers for FFmpeg libswresample.
 
+%files -n libswresample%{?pkg_suffix}-devel
+%{_includedir}/%{name}/libswresample
+%{_libdir}/pkgconfig/libswresample.pc
+%{_libdir}/libswresample.so
+%{_mandir}/man3/libswresample.3*
+
+%dnl --------------------------------------------------------------------------------
+
 %package -n libswscale%{?pkg_suffix}
 Summary:        FFmpeg image scaling and colorspace/pixel conversion library
 Requires:       libavutil%{?pkg_suffix}%{_isa} = %{version}-%{release}
@@ -514,6 +671,12 @@ Requires:       libavutil%{?pkg_suffix}%{_isa} = %{version}-%{release}
 %description -n libswscale%{?pkg_suffix}
 The libswscale library performs image scaling and colorspace and
 pixel format conversion operations.
+
+%files -n libswscale%{?pkg_suffix}
+%license COPYING.GPLv2 LICENSE.md
+%{_libdir}/libswscale.so.%{swscale_soversion}{,.*}
+
+%dnl --------------------------------------------------------------------------------
 
 %package -n libswscale%{?pkg_suffix}-devel
 Summary:        Development files for FFmpeg's image scaling and colorspace library
@@ -527,6 +690,14 @@ The libswscale library performs image scaling and colorspace and
 pixel format conversion operations.
 
 This subpackage contains the headers for FFmpeg libswscale.
+
+%files -n libswscale%{?pkg_suffix}-devel
+%{_includedir}/%{name}/libswscale
+%{_libdir}/pkgconfig/libswscale.pc
+%{_libdir}/libswscale.so
+%{_mandir}/man3/libswscale.3*
+
+%dnl --------------------------------------------------------------------------------
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
@@ -752,109 +923,21 @@ done
 # We will package is as %%doc in the devel package
 rm -rf %{buildroot}%{_datadir}/%{name}/examples
 
-%ldconfig_scriptlets -n libavcodec%{?pkg_suffix}
-%ldconfig_scriptlets -n libavdevice%{?pkg_suffix}
-%ldconfig_scriptlets -n libavfilter%{?pkg_suffix}
-%ldconfig_scriptlets -n libavformat%{?pkg_suffix}
-%ldconfig_scriptlets -n libavutil%{?pkg_suffix}
-%ldconfig_scriptlets -n libpostproc%{?pkg_suffix}
-%ldconfig_scriptlets -n libswresample%{?pkg_suffix}
-%ldconfig_scriptlets -n libswscle%{?pkg_suffix}
+%if %{with freeworld}
+# Install the libavcodec freeworld counterpart
+mkdir -p %{buildroot}%{_sysconfdir}/ld.so.conf.d/
+mkdir -p %{buildroot}%{_libdir}/%{name}
+echo -e "%{_libdir}/%{name}\n" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/%{name}-%{_lib}.conf
+cp -pa %{buildroot}%{_libdir}/libavcodec.so.%{av_codec_soversion}{,.*} %{buildroot}%{_libdir}/%{name}
+%endif
 
-%files -n %{pkg_name}
-%doc CREDITS README.md
-%{_bindir}/ffmpeg
-%{_bindir}/ffplay
-%{_bindir}/ffprobe
-%{_mandir}/man1/ff*.1*
-%dir %{_datadir}/%{name}
-%{_datadir}/%{name}/ffprobe.xsd
-%{_datadir}/%{name}/libvpx-*.ffpreset
-
-%files -n %{pkg_name}-devel
-%doc MAINTAINERS doc/APIchanges doc/*.txt
-%doc _doc/examples
-
-%files -n libavcodec%{?pkg_suffix}
-%license COPYING.GPLv2 LICENSE.md
-%{_libdir}/libavcodec.so.%{av_codec_soversion}{,.*}
-
-%files -n libavcodec%{?pkg_suffix}-devel
-%{_includedir}/%{name}/libavcodec
-%{_libdir}/pkgconfig/libavcodec.pc
-%{_libdir}/libavcodec.so
-%{_mandir}/man3/libavcodec.3*
-
-%files -n libavdevice%{?pkg_suffix}
-%license COPYING.GPLv2 LICENSE.md
-%{_libdir}/libavdevice.so.%{av_device_soversion}{,.*}
-
-%files -n libavdevice%{?pkg_suffix}-devel
-%{_includedir}/%{name}/libavdevice
-%{_libdir}/pkgconfig/libavdevice.pc
-%{_libdir}/libavdevice.so
-%{_mandir}/man3/libavdevice.3*
-
-%files -n libavfilter%{?pkg_suffix}
-%license COPYING.GPLv2 LICENSE.md
-%{_libdir}/libavfilter.so.%{av_filter_soversion}{,.*}
-
-%files -n libavfilter%{?pkg_suffix}-devel
-%{_includedir}/%{name}/libavfilter
-%{_libdir}/pkgconfig/libavfilter.pc
-%{_libdir}/libavfilter.so
-%{_mandir}/man3/libavfilter.3*
-
-%files -n libavformat%{?pkg_suffix}
-%license COPYING.GPLv2 LICENSE.md
-%{_libdir}/libavformat.so.%{av_format_soversion}{,.*}
-
-%files -n libavformat%{?pkg_suffix}-devel
-%{_includedir}/%{name}/libavformat
-%{_libdir}/pkgconfig/libavformat.pc
-%{_libdir}/libavformat.so
-%{_mandir}/man3/libavformat.3*
-
-%files -n libavutil%{?pkg_suffix}
-%license COPYING.GPLv2 LICENSE.md
-%{_libdir}/libavutil.so.%{av_util_soversion}{,.*}
-
-%files -n libavutil%{?pkg_suffix}-devel
-%{_includedir}/%{name}/libavutil
-%{_libdir}/pkgconfig/libavutil.pc
-%{_libdir}/libavutil.so
-%{_mandir}/man3/libavutil.3*
-
-%files -n libpostproc%{?pkg_suffix}
-%license COPYING.GPLv2 LICENSE.md
-%{_libdir}/libpostproc.so.%{postproc_soversion}{,.*}
-
-%files -n libpostproc%{?pkg_suffix}-devel
-%{_includedir}/%{name}/libpostproc
-%{_libdir}/pkgconfig/libpostproc.pc
-%{_libdir}/libpostproc.so
-
-%files -n libswresample%{?pkg_suffix}
-%license COPYING.GPLv2 LICENSE.md
-%{_libdir}/libswresample.so.%{swresample_soversion}{,.*}
-
-%files -n libswresample%{?pkg_suffix}-devel
-%{_includedir}/%{name}/libswresample
-%{_libdir}/pkgconfig/libswresample.pc
-%{_libdir}/libswresample.so
-%{_mandir}/man3/libswresample.3*
-
-%files -n libswscale%{?pkg_suffix}
-%license COPYING.GPLv2 LICENSE.md
-%{_libdir}/libswscale.so.%{swscale_soversion}{,.*}
-
-%files -n libswscale%{?pkg_suffix}-devel
-%{_includedir}/%{name}/libswscale
-%{_libdir}/pkgconfig/libswscale.pc
-%{_libdir}/libswscale.so
-%{_mandir}/man3/libswscale.3*
 
 %changelog
+* Thu Aug 21 2025 Neal Gompa <ngompa@fedoraproject.org> - 7.1.1-8
+- Reorganize spec to group subpackage definitions together
+- Add freeworld conditional for third-party builds
+- Drop unneeded scriptlets
+
 * Fri Aug 01 2025 Neal Gompa <ngompa@fedoraproject.org> - 7.1.1-7
 - Always verify sources
 

@@ -3,7 +3,7 @@
 %global maj_ver 20
 %global min_ver 1
 %global patch_ver 8
-#global rc_ver 3
+#global rc_ver rc3
 
 %bcond_with snapshot_build
 %if %{with snapshot_build}
@@ -178,7 +178,7 @@
 %if %{with snapshot_build}
 %global src_tarball_dir llvm-project-%{llvm_snapshot_git_revision}
 %else
-%global src_tarball_dir llvm-project-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-rc%{rc_ver}}.src
+%global src_tarball_dir llvm-project-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-%{rc_ver}}.src
 %endif
 
 %global has_crtobjs 1
@@ -319,7 +319,7 @@
 #region packages
 #region main package
 Name:		%{pkg_name_llvm}
-Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
+Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~%{rc_ver}}%{?llvm_snapshot_version_suffix:~%{llvm_snapshot_version_suffix}}
 %if 0%{?rhel} == 8
 Release:	1%{?dist}
 %else
@@ -333,8 +333,8 @@ URL:		http://llvm.org
 %if %{with snapshot_build}
 Source0: https://github.com/llvm/llvm-project/archive/%{llvm_snapshot_git_revision}.tar.gz
 %else
-Source0: https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-rc%{rc_ver}}/%{src_tarball_dir}.tar.xz
-Source1: https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-rc%{rc_ver}}/%{src_tarball_dir}.tar.xz.sig
+Source0: https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-%{rc_ver}}/%{src_tarball_dir}.tar.xz
+Source1: https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-%{rc_ver}}/%{src_tarball_dir}.tar.xz.sig
 %endif
 Source6: release-keys.asc
 
@@ -423,7 +423,6 @@ Patch2008: 0001-CGP-Bail-out-if-Base-Scaled-Reg-does-not-dominate-in.patch
 # Fix Power9/Power10 crbit spilling
 # https://github.com/llvm/llvm-project/pull/146424
 Patch2007: 21-146424.patch
-Patch2102: 21-146424.patch
 
 # Fix for highway package build on ppc64le
 Patch2005: 0001-PowerPC-Fix-handling-of-undefs-in-the-PPC-isSplatShu.patch
@@ -2839,6 +2838,7 @@ fi
 %if %{maj_ver} >= 22
 %{expand_bins %{expand:
     llvm-ir2vec
+    llvm-offload-wrapper
 }}
 %endif
 

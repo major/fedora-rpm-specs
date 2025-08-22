@@ -10,7 +10,7 @@
 
 Name:           mingw-filesystem
 Version:        150
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        MinGW cross compiler base filesystem and environment
 
 License:        GPL-2.0-or-later
@@ -205,6 +205,8 @@ for target in i686-w64-mingw32 x86_64-w64-mingw32 x86_64-w64-mingw32ucrt; do
   mkdir -p %{buildroot}%{_prefix}/$target/sys-root/mingw/lib
   mkdir -p %{buildroot}%{_prefix}/$target/sys-root/mingw/lib/pkgconfig
   mkdir -p %{buildroot}%{_prefix}/$target/sys-root/mingw/lib/cmake
+  mkdir -p %{buildroot}%{_prefix}/$target/sys-root/mingw/libexec
+  mkdir -p %{buildroot}%{_prefix}/$target/sys-root/mingw/libexec/installed-tests
   mkdir -p %{buildroot}%{_prefix}/$target/sys-root/mingw/sbin
 
   # We don't normally package manual pages and info files, except
@@ -223,6 +225,7 @@ for target in i686-w64-mingw32 x86_64-w64-mingw32 x86_64-w64-mingw32ucrt; do
   mkdir -p %{buildroot}%{_prefix}/$target/sys-root/mingw/share/xml
   mkdir -p %{buildroot}%{_prefix}/$target/sys-root/mingw/share/icons
   mkdir -p %{buildroot}%{_prefix}/$target/sys-root/mingw/share/metainfo
+  mkdir -p %{buildroot}%{_prefix}/$target/sys-root/mingw/share/installed-tests
 
   mkdir -p %{buildroot}%{_prefix}/lib/debug/%{_prefix}/$target
 done
@@ -378,6 +381,9 @@ echo ".so man1/pkgconf.1" > %{buildroot}%{_mandir}/man1/x86_64-w64-mingw32ucrt-p
 %dir %{_prefix}/lib/debug/%{_prefix}/x86_64-w64-mingw32ucrt
 
 %changelog
+* Wed Aug 20 2025 Marc-André Lureau <marcandre.lureau@redhat.com> - 150-3
+- Own a few more directories.
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 150-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

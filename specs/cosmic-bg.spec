@@ -29,6 +29,9 @@ Source1:        vendor-%{version_no_tilde}.tar.gz
 # * mv vendor-config-%%{version_no_tilde}.toml ..
 Source2:        vendor-config-%{version_no_tilde}.toml
 
+Patch: 0001-chore-update-jxl-oxide-rust-version-rust-edition-dep.patch
+Patch: 0002-fix-use-image-feature-of-jxl-to-fix-image-decoding-e.patch
+
 BuildRequires:  cargo-rpm-macros >= 25
 BuildRequires:  rustc
 BuildRequires:  lld

@@ -39,7 +39,7 @@
 Name:		root
 Version:	6.36.02
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	5%{?dist}
+Release:	7%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -99,6 +99,8 @@ Patch10:	%{name}-Fix-test-for-32-bit-architectures.patch
 #		https://github.com/root-project/root/pull/19107
 Patch11:	%{name}-Python-Update-reference-refcount-values-for-Python-3.patch
 Patch12:	%{name}-Python-Update-reference-refcount-values-for-Python-3x.patch
+#		https://github.com/root-project/root/pull/19689
+Patch13:	%{name}-df-Support-libarrow-21.patch
 
 BuildRequires:	gcc-c++
 BuildRequires:	gcc-gfortran
@@ -1963,6 +1965,7 @@ This package contains utility functions for ntuples.
 %patch -P10 -p1
 %patch -P11 -p1
 %patch -P12 -p1
+%patch -P13 -p1
 
 # Remove bundled sources in order to be sure they are not used
 #  * afterimage
@@ -2395,6 +2398,7 @@ ln -s ../../files files
 ln -s ../../files/tutorials/df014_CsvDataSource_MuRun2010B.csv CsvDataSource_MuRun2010B.csv
 ln -s ../../files/usa.root usa.root
 popd
+popd
 
 # Exclude some tests that can not be run
 #
@@ -2680,7 +2684,7 @@ gtest-tree-tree-testTTreeRegressions"
 # InterpreterTest.Evaluate fails on s390x
 # TClingDataMemberInfo.Offset fails on s390x
 # https://github.com/root-project/root/issues/14512
-GTEST_FILTER=-\
+export GTEST_FILTER=-\
 %ifarch %{ix86}
 RNTuple.StdAtomic:\
 %endif
@@ -2696,15 +2700,8 @@ RSqliteDS.Davix:\
 TChainParsing.DoubleSlash:\
 TChainParsing.RemoteGlob:\
 TFile.ReadWithoutGlobalRegistrationNet:\
-TFile.ReadWithoutGlobalRegistrationWeb \
-%if ! %{pandas}
-ROOTTEST_IGNORE_PANDAS_PY3=1 \
-%endif
-ROOTTEST_IGNORE_NUMBA_PY3=1 \
-ROOTTEST_IGNORE_JUPYTER_PY3=1 \
-make test ARGS="%{?_smp_mflags} --output-on-failure -E \"${excluded}\""
-
-popd
+TFile.ReadWithoutGlobalRegistrationWeb
+%ctest -- -E "${excluded}"
 
 %pretrans net-http -p <lua>
 path = "%{_datadir}/%{name}/js"
@@ -3581,6 +3578,12 @@ fi
 %endif
 
 %changelog
+* Wed Aug 20 2025 Jerry James <loganjerry@gmail.com> - 6.36.02-7
+- Rebuild for tbb 2022.2.0
+
+* Tue Aug 19 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.36.02-6
+- Support libarrow 21
+
 * Mon Aug 18 2025 Orion Poplawski <orion@nwra.com> - 6.36.02-5
 - Rebuild for libarrow 21
 

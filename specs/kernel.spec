@@ -176,13 +176,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.17.0
 %define specversion 6.17.0
 %define patchversion 6.17
-%define pkgrelease 0.rc2.24
+%define pkgrelease 0.rc2.250820gb19a97d57c15.26
 %define kversion 6
-%define tarfile_release 6.17-rc2
+%define tarfile_release 6.17-rc2-53-gb19a97d57c15
 # This is needed to do merge window version magic
 %define patchlevel 17
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc2.24%{?buildid}%{?dist}
+%define specrelease 0.rc2.250820gb19a97d57c15.26%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.17.0
 
@@ -2143,6 +2143,7 @@ cat imaca.pem >> ../certs/rhel.pem
 
 for i in *.config; do
   sed -i 's@CONFIG_SYSTEM_TRUSTED_KEYS=""@CONFIG_SYSTEM_TRUSTED_KEYS="certs/rhel.pem"@' $i
+  sed -i 's@CONFIG_EFI_SBAT_FILE=""@CONFIG_EFI_SBAT_FILE="kernel.sbat"@' $i
 done
 %endif
 
@@ -4382,11 +4383,22 @@ fi\
 #
 #
 %changelog
-* Mon Aug 18 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc2.24]
+* Wed Aug 20 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc2.b19a97d57c15.26]
 - soc: qcom: mdt_loader: Deal with zero e_shentsize (Bjorn Andersson)
 - arm64: dts: qcom: x1e80100-lenovo-yoga-slim7x: add Bluetooth support (Jens Glathe)
 - ALSA HDA driver configuration split for 6.17 upstream (Jaroslav Kysela)
 - redhat/configs: clang_lto: disable CONFIG_FORTIFY_KUNIT_TEST (Scott Weaver)
+
+* Wed Aug 20 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc2.b19a97d57c15.25]
+- redhat/Makefile: add dist-spec (Scott Weaver)
+- redhat: Switch to implicit enablement of CONFIG_EFI_SBAT_FILE (Vitaly Kuznetsov)
+- Linux v6.17.0-0.rc2.b19a97d57c15
+
+* Tue Aug 19 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc2.be48bcf004f9.24]
+- redhat/configs: Enable early lockdown for Arm (Mark Salter) [RHEL-1927]
+- arm64: add early lockdown for secure boot (Mark Salter) [RHEL-1927]
+- efi: pass secure boot mode to kernel proper (Mark Salter) [RHEL-1927]
+- Linux v6.17.0-0.rc2.be48bcf004f9
 
 * Mon Aug 18 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc2.23]
 - Linux v6.17.0-0.rc2

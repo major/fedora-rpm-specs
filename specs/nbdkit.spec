@@ -54,7 +54,7 @@
 %global source_directory 1.45-development
 
 Name:           nbdkit
-Version:        1.45.4
+Version:        1.45.5
 Release:        1%{?dist}
 Summary:        NBD server
 
@@ -85,6 +85,9 @@ Source5:        nbdkit-find-provides
 Source6:        %{modulename}.te
 Source7:        %{modulename}.if
 Source8:        %{modulename}.fc
+
+# Upstream fix for 32-bit indexed-gzip filter.
+Patch:          0001-indexed-gzip-Fixes-for-32-bit-support.patch
 
 # For applying the patches:
 BuildRequires:  git
@@ -574,8 +577,6 @@ VMware VDDK for accessing VMware disks and servers.
 %package basic-filters
 Summary:        Basic filters for %{name}
 Requires:       %{name}-server%{?_isa} = %{version}-%{release}
-# Remove this in Fedora 43:
-Obsoletes:      nbdkit-gzip-filter < %{version}-%{release}
 
 %description basic-filters
 This package contains filters for %{name} which only depend on simple
@@ -613,6 +614,8 @@ nbdkit-extentlist-filter   Place extent list over a plugin.
 nbdkit-fua-filter          Modify flush behaviour in plugins.
 
 nbdkit-gzip-filter         Decompress a .gz file
+
+nbdkit-indexed-gzip-filter Access .gz contents efficiently.
 
 nbdkit-ip-filter           Filter clients by IP address.
 
@@ -1351,6 +1354,7 @@ fi
 %{_libdir}/%{name}/filters/nbdkit-extentlist-filter.so
 %{_libdir}/%{name}/filters/nbdkit-fua-filter.so
 %{_libdir}/%{name}/filters/nbdkit-gzip-filter.so
+%{_libdir}/%{name}/filters/nbdkit-indexed-gzip-filter.so
 %{_libdir}/%{name}/filters/nbdkit-ip-filter.so
 %{_libdir}/%{name}/filters/nbdkit-limit-filter.so
 %{_libdir}/%{name}/filters/nbdkit-log-filter.so
@@ -1398,6 +1402,7 @@ fi
 %{_mandir}/man1/nbdkit-extentlist-filter.1*
 %{_mandir}/man1/nbdkit-fua-filter.1*
 %{_mandir}/man1/nbdkit-gzip-filter.1*
+%{_mandir}/man1/nbdkit-indexed-gzip-filter.1*
 %{_mandir}/man1/nbdkit-ip-filter.1*
 %{_mandir}/man1/nbdkit-limit-filter.1*
 %{_mandir}/man1/nbdkit-log-filter.1*
@@ -1544,6 +1549,11 @@ fi
 
 
 %changelog
+* Wed Aug 20 2025 Richard W.M. Jones <rjones@redhat.com> - 1.45.5-1
+- New upstream version 1.45.5.
+- Remove obsolete Obsoletes now this is Fedora 43+.
+- Add new nbdkit-indexed-gzip-filter.
+
 * Mon Aug 11 2025 Richard W.M. Jones <rjones@redhat.com> - 1.45.4-1
 - New upstream version 1.45.4
 

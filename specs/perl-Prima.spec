@@ -12,6 +12,8 @@
 %{bcond_without perl_Prima_enables_harfbuzz}
 # Use libheif for rendering HEIF images
 %{bcond_without perl_Prima_enables_heif}
+# Use libjxl for rendering JXL images
+%{bcond_without perl_Prima_enables_jxl}
 # Use LibThai library for wrapping a Thai text
 %{bcond_without perl_Prima_enables_libthai}
 # Support colorful cursor via Xcursor
@@ -33,8 +35,8 @@
 
 
 Name:           perl-Prima
-Version:        1.76
-Release:        3%{?dist}
+Version:        1.77
+Release:        1%{?dist}
 Summary:        Perl graphic toolkit
 # Copying:              BSD-2-Clause text
 # examples/tiger.eps:   AGPL-3.0-or-later (bundled from GhostScript? CPAN RT#122271)
@@ -80,6 +82,7 @@ BuildRequires:  perl(File::Path)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(strict)
+BuildRequires:  perl(Text::ParseWords)
 BuildRequires:  perl(Tie::Hash)
 BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
@@ -101,6 +104,9 @@ BuildRequires:  pkgconfig(harfbuzz)
 %endif
 %if %{with perl_Prima_enables_heif}
 BuildRequires:  pkgconfig(libheif) >= 1.12.0
+%endif
+%if %{with perl_Prima_enables_jxl}
+BuildRequires:  pkgconfig(libjxl)
 %endif
 BuildRequires:  pkgconfig(libpng)
 %if %{with perl_Prima_enables_libthai}
@@ -238,6 +244,7 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 \
     WITH_GTK2=%{use_gtk2} \
     WITH_GTK3=%{use_gtk3} \
     WITH_HARFBUZZ=%{with perl_Prima_enables_harfbuzz} \
+    WITH_HOMEBREW=0 \
     WITH_ICONV=1 \
     WITH_LIBTHAI=%{with perl_Prima_enables_libthai} \
     WITH_OPENMP=1 \
@@ -326,6 +333,9 @@ unset DISPLAY XDG_SESSION_TYPE
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Aug 20 2025 Petr Pisar <ppisar@redhat.com> - 1.77-1
+- 1.77 bump
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.76-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

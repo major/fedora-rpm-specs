@@ -19,8 +19,6 @@ Source0007: nodejs-symlink-deps
 Source0008: nodejs.attr
 Source0009: nodejs.prov
 Source0010: nodejs.req
-Source0011: nodejs_abi.attr
-Source0012: nodejs_abi.req
 
 Source0111: nodejs-packaging-bundler
 
@@ -29,9 +27,6 @@ Source0101: test.tar.gz
 
 BuildRequires:  python3
 
-# Several of the macros require the /usr/bin/node command, so we need to
-# ensure that it is present when packaging.
-Requires:       /usr/bin/node
 Requires:       redhat-rpm-config
 
 %description
@@ -63,10 +58,8 @@ tar xvf test.tar.gz
 %install
 install -Dpm0644 macros.nodejs %{buildroot}%{macrosdir}/macros.nodejs
 install -Dpm0644 nodejs.attr %{buildroot}%{_rpmconfigdir}/fileattrs/nodejs.attr
-install -Dpm0644 nodejs_abi.attr %{buildroot}%{_rpmconfigdir}/fileattrs/nodejs_abi.attr
 install -pm0755 nodejs.prov %{buildroot}%{_rpmconfigdir}/nodejs.prov
 install -pm0755 nodejs.req %{buildroot}%{_rpmconfigdir}/nodejs.req
-install -pm0755 nodejs_abi.req %{buildroot}%{_rpmconfigdir}/nodejs_abi.req
 install -pm0755 nodejs-symlink-deps %{buildroot}%{_rpmconfigdir}/nodejs-symlink-deps
 install -pm0755 nodejs-fixdep %{buildroot}%{_rpmconfigdir}/nodejs-fixdep
 install -pm0755 nodejs-setversion %{buildroot}%{_rpmconfigdir}/nodejs-setversion

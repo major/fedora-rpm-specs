@@ -5,6 +5,7 @@ Summary:        An Embeddable Fulltext Search Engine
 License:        LGPL-2.1-only
 URL:            https://github.com/groonga/groonga
 Source0:        %{url}/releases/download/v%{version}/groonga-%{version}.tar.gz
+Patch:          0001-lib-grn_arrow.hpp.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -12,6 +13,7 @@ BuildRequires:  ninja-build
 
 %ifnarch %{ix86}
 BuildRequires:  libarrow-devel
+BuildRequires:  libarrow-compute-devel
 %endif
 BuildRequires:  zlib-devel
 BuildRequires:  simdjson-devel

@@ -2,7 +2,7 @@
 
 Name:        mdadm
 Version:     4.3
-Release:     8%{?dist}
+Release:     9%{?dist}
 Summary:     The mdadm program controls Linux md devices (software RAID arrays)
 URL:         http://www.kernel.org/pub/linux/utils/raid/mdadm/
 License:     GPL-2.0-or-later
@@ -26,6 +26,7 @@ Source11:    https://git.kernel.org/pub/scm/docs/kernel/pgpkeys.git/plain/keys/6
 # this is a reversion of the initial 'posix check' patch
 # that causes all the trouble
 Patch:       0001-Revert-mdadm-Follow-POSIX-Portable-Character-Set.patch
+Patch:       0002-dont-stop-in-assemble.patch
 
 # Fedora customization patches
 Patch:       mdadm-udev.patch
@@ -132,6 +133,10 @@ install -Dm644 raid6check.man %{buildroot}/%{_mandir}/man8/raid6check.man
 
 
 %changelog
+* Thu Aug 14 2025 Xiao Ni <xni@redhat.com> - 4.3-9
+- Don't submit stop ioctl in assemble
+- Resolves bz#2388480
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary:	Waveform Viewer
 Name:		gtkwave
-Version:	3.3.124
-Release:	2%{?dist}
+Version:	3.3.125
+Release:	1%{?dist}
 License:	GPL-2.0-or-later
 URL:		http://gtkwave.sourceforge.net/
 Source0:	http://gtkwave.sourceforge.net/gtkwave-gtk3-%{version}.tar.gz
@@ -98,6 +98,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/io.github.
 %{_bindir}/fst2vcd
 %{_bindir}/fstminer
 %{_bindir}/gtkwave
+%{_bindir}/json2stems
 %{_bindir}/lxt2miner
 %{_bindir}/lxt2vcd
 %{_bindir}/rtlbrowse
@@ -179,6 +180,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/io.github.
 %{_mandir}/man1/fst2vcd.1*
 %{_mandir}/man1/fstminer.1*
 %{_mandir}/man1/gtkwave.1*
+%{_mandir}/man1/json2stems.1*
 %{_mandir}/man1/lxt2miner.1*
 %{_mandir}/man1/lxt2vcd.1*
 %{_mandir}/man1/rtlbrowse.1*
@@ -194,6 +196,14 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/io.github.
 %{_mandir}/man5/gtkwaverc.5*
 
 %changelog
+* Wed Aug 20 2025 Paul Howarth <paul@city-fan.org> - 3.3.125-1
+- Update to 3.3.125
+  - Added json2stems to distribution to support newer versions of Verilator
+  - VCD parser fix for colon in VCD variable name
+  - Parameter size 0 fix for Vivado: backs out very old fix (for MTI) that
+    converts 0 size signals to reals
+  - Update vcd2fst so that it handles MTI 0 size conversion
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.124-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

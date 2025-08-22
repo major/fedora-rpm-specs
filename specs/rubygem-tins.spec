@@ -2,12 +2,15 @@
 %global gem_name tins
 
 Name: rubygem-%{gem_name}
-Version: 1.39.1
+Version: 1.42.0
 Release: %autorelease
 Summary: Useful tools library in Ruby
 License: MIT
 URL: https://github.com/flori/tins
+
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
+Patch:   https://github.com/flori/tins/pull/24.patch
+
 Requires: ruby(rubygems)
 BuildRequires: rubygem(irb)
 BuildRequires: ruby(release)
@@ -32,7 +35,7 @@ BuildArch: noarch
 Documentation for %{name}.
 
 %prep
-%setup -q -n %{gem_name}-%{version}
+%autosetup -p1 -n %{gem_name}-%{version}
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -59,6 +62,10 @@ popd
 %{gem_libdir}
 %exclude %{gem_cache}
 %{gem_spec}
+# Development files that should not be included in the gem, see
+# https://github.com/flori/tins/pull/23
+%exclude %{gem_instdir}/.contexts/
+%exclude %{gem_instdir}/.github/
 
 %files doc
 %doc %{gem_docdir}

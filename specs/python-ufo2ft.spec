@@ -5,7 +5,7 @@ Version:        3.6.0
 %forgemeta
 
 Name:           python-%{srcname}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A bridge from UFOs to FontTool objects
 
 # The entire source is (SPDX) MIT, except:
@@ -13,6 +13,11 @@ Summary:        A bridge from UFOs to FontTool objects
 License:        MIT AND Apache-2.0
 URL:            %forgeurl
 Source:         %{pypi_source %{srcname}}
+
+# update fonttools and fix integration tests
+# https://github.com/googlefonts/ufo2ft/pull/939
+# fixes compatibility with fonttools 4.59.1
+Patch:          %{forgeurl}/pull/939.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(pytest)
@@ -68,6 +73,9 @@ k="${k-}${k+ and }not (test_kern_zyyy_zinh)"
 %doc README.rst
  
 %changelog
+* Wed Aug 20 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 3.6.0-3
+- Patch tests for fonttools 4.59.1
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.6.0-2
 - Rebuilt for Python 3.14.0rc2 bytecode
 
