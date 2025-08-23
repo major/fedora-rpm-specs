@@ -1,14 +1,12 @@
 %global srcname %(echo %{name} | sed 's/^python-//')
 Name:           python-fqdn
 Version:        1.5.1
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Validates fully-qualified domain names against RFC 1123
 BuildArch:      noarch
 License:        MPL-2.0
 URL:            https://github.com/ypcrts/fqdn
-Source0:        %pypi_source
-# Missing in pypi tar ball release, present at github :(
-Source1:        test_fqdn.py
+Source0:        https://github.com/ypcrts/fqdn/archive/refs/tags/v%{version}/fqdn-%{version}.tar.gz
 
 %global _description %{expand:
 Validates fully-qualified domain names against RFC 1123, so that they
@@ -18,32 +16,35 @@ are acceptable to modern browsers.}
 %package -n     python3-%{srcname}
 Summary:        %{summary}
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
-BuildRequires:  python3-pytest
-BuildRequires:  python3-pytest-cov
 %description -n python3-%{srcname} %_description
 
 %prep
 %autosetup -n %{srcname}-%{version}
 
+# Remove coverage for fedora packaging.
+sed -e '/pytest-cov/d' tox.ini
+sed -e 's/--cov=[^[:blank:]]\+//' 'tox.ini'
+
+%generate_buildrequires
+%pyproject_buildrequires -t
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{srcname}
 
 %check
-mkdir tests/
-touch tests/__init__.py
-cp %{SOURCE1} tests/
 %pytest
 
-%files -n python3-%{srcname}
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst
-%{python3_sitelib}/%{srcname}-*.egg-info/
-%{python3_sitelib}/%{srcname}
 
 %changelog
+* Mon Jul 28 2025 Romain Geissler <romain.geissler@amadeus.com> - 1.5.1-19
+- Migrate to pyproject macros (rhbz#2377725)
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.5.1-18
 - Rebuilt for Python 3.14.0rc2 bytecode
 

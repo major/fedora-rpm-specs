@@ -16,13 +16,13 @@ Name:             dogtag-pki
 # Downstream release number:
 # - development/stabilization (unsupported): 0.<n> where n >= 1
 # - GA/update (supported): <n> where n >= 1
-%global           release_number 0.4
+%global           release_number 0.5
 
 # Development phase:
 # - development (unsupported): alpha<n> where n >= 1
 # - stabilization (unsupported): beta<n> where n >= 1
 # - GA/update (supported): <none>
-%global           phase beta4
+%global           phase beta5
 
 %undefine         timestamp
 %undefine         commit_id
@@ -32,7 +32,7 @@ URL:              https://www.dogtagpki.org
 # The entire source code is GPLv2 except for 'pki-tps' which is LGPLv2
 License:          GPL-2.0-only AND LGPL-2.0-only
 Version:          %{major_version}.%{minor_version}.%{update_version}
-Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}.4
+Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}
 
 
 # To create a tarball from a version tag:
@@ -150,7 +150,6 @@ ExcludeArch: i686
 %define pki_groupname pkiuser
 %define pki_gid 17
 
-
 # Create a home directory for PKI user at /home/pkiuser
 # to store rootless Podman container.
 %define pki_homedir /home/%{pki_username}
@@ -201,14 +200,14 @@ BuildRequires:    javapackages-tools
 BuildRequires:    xmlstarlet
 %endif
 
-BuildRequires:    tomcat-lib
+BuildRequires:    tomcat-lib >= 1:10.1.36
 BuildRequires:    tomcat-jakartaee-migration
 
-BuildRequires:    pki-resteasy-core                 >= 3.0.26-33
-BuildRequires:    pki-resteasy-client               >= 3.0.26-33
-BuildRequires:    pki-resteasy-servlet-initializer  >= 3.0.26-33
-BuildRequires:    pki-resteasy-jackson2-provider    >= 3.0.26-33
-BuildRequires:    pki-resteasy                      >= 3.0.26-33
+BuildRequires:    pki-resteasy-core                 >= 3.0.26
+BuildRequires:    pki-resteasy-client               >= 3.0.26
+BuildRequires:    pki-resteasy-servlet-initializer  >= 3.0.26
+BuildRequires:    pki-resteasy-jackson2-provider    >= 3.0.26
+BuildRequires:    pki-resteasy                      >= 3.0.26
 
 
 BuildRequires:    mvn(commons-cli:commons-cli)
@@ -222,7 +221,6 @@ BuildRequires:    mvn(org.slf4j:slf4j-api)
 BuildRequires:    mvn(xml-apis:xml-apis)
 BuildRequires:    mvn(xml-resolver:xml-resolver)
 BuildRequires:    mvn(org.junit.jupiter:junit-jupiter-api)
-
 
 %if %{with build_deps}
 BuildRequires:    mvn(jakarta.activation:jakarta.activation-api)
@@ -243,10 +241,6 @@ BuildRequires:    mvn(org.jboss.resteasy:resteasy-jaxrs)
 BuildRequires:    mvn(org.jboss.resteasy:resteasy-client)
 BuildRequires:    mvn(org.jboss.resteasy:resteasy-jackson2-provider)
 BuildRequires:    mvn(org.jboss.resteasy:resteasy-servlet-initializer)
-%endif
-
-%if 0%{?rhel} && 0%{?rhel} >= 10
-BuildRequires:    tomcat9-lib
 %endif
 
 BuildRequires:    mvn(org.apache.tomcat:tomcat-catalina) >= 10.1.36
@@ -1141,6 +1135,12 @@ then
     /usr/bin/javax2jakarta -logLevel=ALL -profile=EE   jakarta.annotation-api-$JAKARTA_ANNOTATION_API_VERSION.jar jakarta.annotation-api-$JAKARTA_ANNOTATION_API_VERSION.jar  
     /usr/bin/javax2jakarta -logLevel=ALL -profile=EE   jakarta.xml.bind-api-$JAXB_API_VERSION.jar jakarta.xml.bind-api-$JAXB_API_VERSION.jar 
 
+    # Now migrate the required resteasy jars, in case we are using an existing resteasy version.
+
+    /usr/bin/javax2jakarta -logLevel=ALL -profile=EE resteasy-client-$RESTEASY_VERSION.jar  resteasy-client-$RESTEASY_VERSION.jar
+    /usr/bin/javax2jakarta -logLevel=ALL -profile=EE resteasy-jackson2-provider-$RESTEASY_VERSION.jar resteasy-jackson2-provider-$RESTEASY_VERSION.jar
+    /usr/bin/javax2jakarta -logLevel=ALL -profile=EE resteasy-jaxrs-$RESTEASY_VERSION.jar  resteasy-jaxrs-$RESTEASY_VERSION.jar
+
     # Add local artifact so we can compile against the migrated jboss-jaxrs-api_2.0_spec-$JAXRS_VERSION.jar
     # We could have used the maven install plugin but it's not available with standard rpms.
 
@@ -1165,6 +1165,8 @@ then
     cp /usr/share/java/resteasy/resteasy-servlet-initializer.jar \
         resteasy-servlet-initializer-$RESTEASY_VERSION.jar
 
+    # Migrate the resteasy servlet initializer, in case we are using an existing resteasy version.
+    /usr/bin/javax2jakarta -logLevel=ALL -profile=EE resteasy-servlet-initializer-$RESTEASY_VERSION.jar resteasy-servlet-initializer-$RESTEASY_VERSION.jar
     ls -l
     popd
 fi
@@ -1260,9 +1262,6 @@ fi
 
 %if 0%{?fedora}
 # Create a sysusers.d config file
-
-# Add pkiuser to the tomcat group for now to get things working
-# while we investigate the issue.
 
 cat > %{product_id}.sysusers.conf <<EOF
 g %{pki_username} %{pki_gid}
@@ -2075,6 +2074,9 @@ fi
 
 ################################################################################
 %changelog
+* Tue Aug 19 2025 Dogtag PKI Team <devel@lists.dogtagpki.org> - 11.8.0-0.5.beta5
+- Rebase to PKI 11.8.0-beta5
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 11.8.0-0.4.beta4.4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

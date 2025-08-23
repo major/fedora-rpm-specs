@@ -4,10 +4,7 @@
 %global hipblaslt_name hipblaslt
 %endif
 
-%if 0%{?suse_version}
-%{?sle15_python_module_pythons}
-%{?!python_module:%define python_module() python3-%{**}}
-%else
+%if 0%{!?suse_version:1}
 %define python_exec python3
 %define python_expand python3
 %endif
@@ -71,7 +68,7 @@
 
 Name:           %{hipblaslt_name}
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        ROCm general matrix operations beyond BLAS
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT
@@ -112,7 +109,11 @@ BuildRequires:  %{python_module PyYAML}
 BuildRequires:  %{python_module setuptools}
 BuildRequires:  msgpack-cxx-devel
 %global tensile_verbose 2
-%else
+BuildRequires:  %{python_module dataclasses if %python-base < 3.11}
+BuildRequires:  %{python_module ujson}
+BuildRequires:  %{python_module distro}
+BuildRequires:  %{python_module simplejson}
+%else # %suse_version
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(pyyaml)
@@ -216,7 +217,8 @@ sed -i -e 's@set(CMAKE_INSTALL_LIBDIR@#set(CMAKE_INSTALL_LIBDIR@' CMakeLists.txt
 sed -i -e 's@virtualenv_install@#virtualenv_install@'                          CMakeLists.txt
 # do not mess with prefix path
 sed -i -e 's@APPEND CMAKE_PREFIX_PATH@APPEND NO_CMAKE_PREFIX_PATH@'            CMakeLists.txt
-
+# Remove orjson from requirements list as fallbacks exist
+%{?suse_version:sed -i -e '/orjson/d' tensilelite/requirements.txt}
 # For debugging
 # set threads to 1
 # sed -i -e 's@default=-1@default=1@'                                          tensilelite/Tensile/TensileCreateLibrary.py
@@ -230,13 +232,8 @@ sed -i -e 's@APPEND CMAKE_PREFIX_PATH@APPEND NO_CMAKE_PREFIX_PATH@'            C
 sed -i -e 's@-lgfortran -lflang -lflangrti@-lgfortran@'                        clients/gtest/CMakeLists.txt
 %endif
 
-%if 0%{?suse_version} >= 1600
+%if 0%{?suse_version}
 sed -i -e 's@msgpack REQUIRED@msgpack-cxx REQUIRED@' tensilelite/Tensile/Source/lib/CMakeLists.txt
-%endif
-
-%if 0%{?sle_version} == 150600
-sed -i 's@#!/usr/bin/env python3@#!/usr/bin/python3.11@' tensilelite/Tensile/bin/Tensile*
-sed -i 's@python3@python3.11@'  clients/common/hipblaslt_gentest.py cmake/virtualenv.cmake tensilelite/Tensile/Ops/gen_assembly.sh 
 %endif
 
 sed -i 's@find_package(LLVM REQUIRED CONFIG)@find_package(LLVM REQUIRED CONFIG PATHS "%{rocmllvm_cmakedir}")@' tensilelite/Tensile/Source/lib/CMakeLists.txt
@@ -323,9 +320,6 @@ export Tensile_DIR=${TL}%{python3_sitelib}/Tensile
        -DTensile_LIBRARY_FORMAT=msgpack \
        -DTensile_VERBOSE=%{tensile_verbose} \
        -DVIRTUALENV_BIN_DIR=%{_bindir} \
-%if 0%{?sle_version} == 150600
-       -DPYTHON_EXECUTABLE:FILEPATH=python3.11 \
-%endif
        %{nil}
 
 %cmake_build
@@ -360,6 +354,11 @@ fi
 %endif
 
 %changelog
+* Wed Aug 20 2025 Egbert Eich <eich@suse.com> - 6.4.3-3
+- On SLE-15 exclusively use python 3.6.
+  This is since joblib is not even available on PackageHub.
+- On SUSE check for msgpack-cxx instead of msgpack.
+
 * Wed Aug 13 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.3-2
 - Remove roctracer
 - Build on EPEL

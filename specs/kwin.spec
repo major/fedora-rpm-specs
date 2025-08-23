@@ -1,6 +1,6 @@
 Name:    kwin
 Version: 6.4.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Window manager
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -12,6 +12,9 @@ Source0: http://download.kde.org/%{stable_kf6}/plasma/%{maj_ver_kf6}.%{min_ver_k
 Source1: http://download.kde.org/%{stable_kf6}/plasma/%{maj_ver_kf6}.%{min_ver_kf6}.%{bug_ver_kf6}/%{name}-%{version}.tar.xz.sig
 
 ## upstream patches
+# backends/drm: work around amdgpu applying GAMMA_LUT in test-only commits
+# https://invent.kde.org/plasma/kwin/-/commit/7d36003cb073ed2ad48b2743883db993106c347a
+Patch0:  7d36003cb073ed2ad48b2743883db993106c347a.patch
 
 ## proposed patches
 
@@ -117,6 +120,7 @@ Requires:       kf6-kdeclarative%{?_isa}
 Requires:       libplasma%{?_isa} >= %{plasma_version}
 Requires:       qt6-qtmultimedia%{?_isa}
 Requires:       qt6-qtdeclarative%{?_isa}
+Requires:       aurorae%{?_isa}
 
 # Before kwin was split out from kde-workspace into a subpackage
 Conflicts:      kde-workspace%{?_isa} < 4.11.14-2
@@ -270,6 +274,9 @@ ln -sr %{buildroot}%{_kf6_bindir}/kwin_wayland %{buildroot}%{_bindir}/kwin
 
 
 %changelog
+* Thu Aug 21 2025 Steve Cossette <farchord@gmail.com> - 6.4.4-2
+- Workaround amdgpu applying GAMMA_LUT in test-only commits
+
 * Wed Aug 06 2025 Steve Cossette <farchord@gmail.com> - 6.4.4-1
 - 6.4.4
 

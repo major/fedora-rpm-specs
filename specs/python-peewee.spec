@@ -1,8 +1,17 @@
-%if %{defined fedora}
+%if %{defined rhel}
 # CentOS/RHEL missing mysql-connector-python3
-%bcond_without mysql_tests
+%bcond mysql_tests 0
+%else
+%ifarch %{ix86}
+# mysql-connector-python3 isn't built for i686
+# https://src.fedoraproject.org/rpms/mysql-connector-python/c/fc4b2fbfd138116c918f8ac74d6570dd27a41eb8?branch=rawhide
+%bcond mysql_tests 0
+%else
+%bcond mysql_tests 1
 %endif
-%bcond_without postgres_tests
+%endif
+
+%bcond postgres_tests 1
 
 Name:           python-peewee
 Version:        3.18.2

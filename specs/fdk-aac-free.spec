@@ -1,11 +1,11 @@
 Name:           fdk-aac-free
-Version:        2.0.0
-Release:        16%{?dist}
+Version:        2.0.3
+Release:        1%{?dist}
 Summary:        Third-Party Modified Version of the Fraunhofer FDK AAC Codec Library for Android
 
 License:        FDK-AAC
 URL:            https://cgit.freedesktop.org/~wtay/fdk-aac/log/?h=fedora
-Source0:        https://people.freedesktop.org/~wtay/fdk-aac-free-%{version}.tar.gz
+Source0:        https://wtaymans.fedorapeople.org/fdk-aac-free-%{version}.tar.gz
 
 BuildRequires:  gcc gcc-c++
 BuildRequires:  automake libtool
@@ -28,7 +28,7 @@ developing applications that use %{name}.
 
 
 %prep
-%autosetup
+%autosetup -n fdk-aac-%{version}
 autoreconf -vif
 
 %build
@@ -49,7 +49,7 @@ find %{buildroot} -name '*.la' -print -delete
 %doc ChangeLog README.fedora
 %license NOTICE
 %{_libdir}/*.so.2
-%{_libdir}/*.so.2.0.0
+%{_libdir}/*.so.2.0.3
 
 %files devel
 %doc documentation/*.pdf
@@ -60,6 +60,9 @@ find %{buildroot} -name '*.la' -print -delete
 
 
 %changelog
+* Thu Aug 21 2025 Wim Taymans <wtaymans@redhat.com> - 2.0.3-1
+- Update to 2.0.3
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

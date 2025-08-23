@@ -176,13 +176,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.17.0
 %define specversion 6.17.0
 %define patchversion 6.17
-%define pkgrelease 0.rc2.250820gb19a97d57c15.26
+%define pkgrelease 0.rc2.250821g068a56e56fa8.27
 %define kversion 6
-%define tarfile_release 6.17-rc2-53-gb19a97d57c15
+%define tarfile_release 6.17-rc2-60-g068a56e56fa8
 # This is needed to do merge window version magic
 %define patchlevel 17
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc2.250820gb19a97d57c15.26%{?buildid}%{?dist}
+%define specrelease 0.rc2.250821g068a56e56fa8.27%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.17.0
 
@@ -4383,11 +4383,15 @@ fi\
 #
 #
 %changelog
-* Wed Aug 20 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc2.b19a97d57c15.26]
+* Thu Aug 21 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc2.068a56e56fa8.27]
 - soc: qcom: mdt_loader: Deal with zero e_shentsize (Bjorn Andersson)
 - arm64: dts: qcom: x1e80100-lenovo-yoga-slim7x: add Bluetooth support (Jens Glathe)
 - ALSA HDA driver configuration split for 6.17 upstream (Jaroslav Kysela)
 - redhat/configs: clang_lto: disable CONFIG_FORTIFY_KUNIT_TEST (Scott Weaver)
+
+* Thu Aug 21 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc2.068a56e56fa8.26]
+- redhat/configs: Remove obsolete CONFIG files - part 1 (Waiman Long)
+- Linux v6.17.0-0.rc2.068a56e56fa8
 
 * Wed Aug 20 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc2.b19a97d57c15.25]
 - redhat/Makefile: add dist-spec (Scott Weaver)

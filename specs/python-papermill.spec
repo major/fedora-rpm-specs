@@ -31,6 +31,13 @@ License:        BSD-3-Clause
 URL:            https://pypi.org/pypi/papermill
 Source0:        %{pypi_source papermill}
 
+# Drop the dependency on ansicolors
+# https://github.com/nteract/papermill/pull/822
+#
+# Rebased on 2.6.0, without the diff for binder/requirements.txt since binder/
+# is not included in the PyPI sdist.
+Patch:          papermill-2.6.0-without-ansicolors.patch
+
 BuildArch:      noarch
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

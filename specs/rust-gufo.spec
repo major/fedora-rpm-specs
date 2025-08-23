@@ -4,10 +4,10 @@
 %global debug_package %{nil}
 
 %global crate gufo
-%global crate_version 0.3.0-alpha
+%global crate_version 0.3.0-beta
 
 Name:           rust-gufo
-Version:        0.3.0~alpha
+Version:        0.3.0~beta
 Release:        %autorelease
 Summary:        Gufo
 

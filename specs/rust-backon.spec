@@ -17,6 +17,7 @@ Patch:          backon-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * drop WASM-specific features
 # * relax spin dependency to allow building with both 0.9 and 0.10
+# * drop sqlx dev-dependency, only used for an example we do not build
 Patch:          backon-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

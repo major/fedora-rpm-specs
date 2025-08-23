@@ -185,7 +185,7 @@
 #################################################################################
 Name:		ceph
 Version:	19.2.3
-Release:	4%{?dist}
+Release:	8%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -229,6 +229,14 @@ Patch:		0053-src-test-neorados-common_tests.h.patch
 Patch:		0055-python314.patch
 Patch:		0056-libarrow-20.0.0.patch
 Patch:		0057-src-ceph-volume-ceph-volume-main.py.patch
+Patch:		0058-mgr-dashboard-Make-saml2-robust-against-module-load-.patch
+# Fixed in upcoming 19.2.4
+Patch:		0059-mgr-dashboard-catch-protobuf-error-due-to-mismatch-i.patch
+
+# Squid fixes from https://git.proxmox.com/?p=ceph.git;a=tree;f=patches
+# Should be fixed upstream in Ceph 20.
+Patch:		0158-pybind-mgr-restful-provide-workaround-for-PyO3-Impor.patch
+Patch:		0159-mgr-fix-module-import-by-making-NOTIFY_TYPES-in-py-m.patch
 
 # ceph 14.0.1 does not support 32-bit architectures, bugs #1727788, #1727787
 ExcludeArch:	i686 armv7hl
@@ -1697,7 +1705,7 @@ mv %{buildroot}%{_exec_prefix}/sbin/ceph-create-keys %{buildroot}%{_bindir}/
 %{_bindir}/ceph-kvstore-tool
 %{_bindir}/ceph-run
 %{_presetdir}/50-ceph.preset
-%{_bindir}/ceph-create-keys
+%{_sbindir}/ceph-create-keys
 %dir %{_libexecdir}/ceph
 %{_libexecdir}/ceph/ceph_common.sh
 %dir %{_libdir}/rados-classes
@@ -1763,7 +1771,7 @@ fi
 %systemd_postun ceph.target
 
 %files -n cephadm
-%{_bindir}/cephadm
+%{_sbindir}/cephadm
 %{_mandir}/man8/cephadm.8*
 %attr(0700,cephadm,cephadm) %dir %{_sharedstatedir}/cephadm
 %attr(0700,cephadm,cephadm) %dir %{_sharedstatedir}/cephadm/.ssh
@@ -1802,7 +1810,7 @@ fi
 %{_bindir}/rgw-gap-list-comparator
 %{_bindir}/rgw-orphan-list
 %{_bindir}/rgw-restore-bucket-index
-%{_bindir}/mount.ceph
+%{_sbindir}/mount.ceph
 %if 0%{?suse_version} && 0%{?suse_version} < 1550
 /sbin/mount.ceph
 %endif
@@ -2745,6 +2753,19 @@ exit 0
 %{python3_sitelib}/ceph_node_proxy-*
 
 %changelog
+* Thu Aug 21 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.3-8
+- ceph-19.2.3, build w/ libarrow-21, liborc-2.2.0, f44-build-side-116633
+
+* Wed Aug 20 2025 Hector Martin <marcan@marcan.st> - 2:19.2.3-7
+- Work around mgr `restful` module PyO3 failures
+- Fix NOTIFY_TYPES exceptions during module import (rhbz#2361850)
+
+* Wed Aug 20 2025 Hector Martin <marcan@marcan.st> - 2:19.2.3-6
+- Fix F41 build
+
+* Wed Aug 20 2025 Hector Martin <marcan@marcan.st> - 2:19.2.3-5
+- Fix mgr dashboard module failures due to unusable dependencies
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2:19.2.3-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

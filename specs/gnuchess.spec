@@ -1,7 +1,7 @@
 Summary: The GNU chess program
 Name: gnuchess
-Version: 6.2.11
-Release: 2%{?dist}
+Version: 6.3.0
+Release: 1%{?dist}
 License: GPL-3.0-or-later
 URL: https://www.gnu.org/software/chess/
 Source: http://ftp.gnu.org/pub/gnu/chess/%{name}-%{version}.tar.gz
@@ -30,7 +30,7 @@ gzip -dc %{SOURCE1} > book.dat
 
 %build
 %configure
-make %{?_smp_mflags}
+%make_build
 
 %install
 mkdir -p $RPM_BUILD_ROOT%{_var}/lib/games/gnuchess $RPM_BUILD_ROOT%{_bindir}
@@ -38,17 +38,32 @@ install -m 755 -p src/gnuchess $RPM_BUILD_ROOT%{_bindir}
 install -m 644 -p book.dat $RPM_BUILD_ROOT%{_var}/lib/games/gnuchess
 #Add gnuchess.ini, BZ 1075958
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/gnuchess/
-install -m 644 src/gnuchess.ini $RPM_BUILD_ROOT%{_datadir}/gnuchess/
+install -m 644 doc/gnuchess.ini $RPM_BUILD_ROOT%{_datadir}/gnuchess/
+%make_install
 
-%files
+%find_lang %{name}
+
+%files -f %{name}.lang
 %license COPYING
 %attr(2755,root,games) %{_bindir}/gnuchess
+%attr(2755,root,games) %{_bindir}/gnuchessu
+%attr(2755,root,games) %{_bindir}/gnuchessx
 %dir %{_var}/lib/games/gnuchess
 %attr(664,root,games) %{_var}/lib/games/gnuchess/book.dat
 %doc doc/* AUTHORS NEWS TODO README
 %{_datadir}/gnuchess/gnuchess.ini
+%{_infodir}/gnuchess*
+%{_infodir}/dir
+%{_datadir}/games/plugins/logos/gnuchess.png
+%{_datadir}/games/plugins/xboard/gnuchess.eng
+%{_datadir}/gnuchess/smallbook.bin
+%{_mandir}/man1/gnuchess.1.gz
+
 
 %changelog
+* Thu Aug 21 2025 Gwyn Ciesla <gwync@protonmail.com> - 6.3.0-1
+- 6.3.0
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

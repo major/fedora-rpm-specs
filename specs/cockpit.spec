@@ -57,8 +57,8 @@ Summary:        Web Console for Linux servers
 License:        LGPL-2.1-or-later
 URL:            https://cockpit-project.org/
 
-Version:        344
-Release:        2%{?dist}
+Version:        345
+Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 
 %if 0%{?fedora} >= 41 || 0%{?rhel}
@@ -332,12 +332,12 @@ Provides: cockpit-selinux = %{version}-%{release}
 Provides: cockpit-sosreport = %{version}-%{release}
 %endif
 
-Provides: bundled(npm(@patternfly/patternfly)) = 6.3.0
-Provides: bundled(npm(@patternfly/react-core)) = 6.3.0
-Provides: bundled(npm(@patternfly/react-icons)) = 6.3.0
-Provides: bundled(npm(@patternfly/react-styles)) = 6.3.0
-Provides: bundled(npm(@patternfly/react-table)) = 6.3.0
-Provides: bundled(npm(@patternfly/react-tokens)) = 6.3.0
+Provides: bundled(npm(@patternfly/patternfly)) = 6.3.1
+Provides: bundled(npm(@patternfly/react-core)) = 6.3.1
+Provides: bundled(npm(@patternfly/react-icons)) = 6.3.1
+Provides: bundled(npm(@patternfly/react-styles)) = 6.3.1
+Provides: bundled(npm(@patternfly/react-table)) = 6.3.1
+Provides: bundled(npm(@patternfly/react-tokens)) = 6.3.1
 Provides: bundled(npm(@xterm/addon-canvas)) = 0.7.0
 Provides: bundled(npm(@xterm/xterm)) = 5.5.0
 Provides: bundled(npm(argparse)) = 1.0.10
@@ -647,6 +647,11 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Aug 20 2025 Packit <hello@packit.dev> - 345-1
+- Translation and dependency updates
+- Shorter IPv6 addresses
+- IPv6 addresses for WireGuard
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 344-2
 - Rebuilt for Python 3.14.0rc2 bytecode
 

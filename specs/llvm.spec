@@ -3474,6 +3474,6 @@ fi
 
 #endregion files
 
-#region changelog
 %changelog
 %{?autochangelog}
+%{!?autochangelog:%include %{_sourcedir}/changelog}

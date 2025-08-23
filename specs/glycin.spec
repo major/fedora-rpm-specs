@@ -7,7 +7,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           glycin
-Version:        2.0~alpha.6
+Version:        2.0~beta.2
 Release:        %autorelease
 Summary:        Sandboxed image rendering
 
@@ -53,12 +53,8 @@ Source0:        https://download.gnome.org/sources/glycin/2.0/glycin-%{tarball_v
 
 # fixup for issue that makes "cargo tree" fail to parse tests/Cargo.toml
 Patch:          0001-fix-invalid-crate-manifest-for-tests-workspace-membe.patch
-# https://gitlab.gnome.org/GNOME/glycin/-/issues/101
-# https://gitlab.gnome.org/GNOME/glycin/-/merge_requests/143
-Patch:          0002-Update-glycin-jxl-to-0.11.1.patch
-Patch:          0003-loaders-relax-jpegxl-rs-dependency-from-0.11.1-to-0..patch
 # partial revert of https://gitlab.gnome.org/GNOME/glycin/-/commit/f637a7e
-Patch:          0004-Replace-serde_yaml_ng-with-equivalent-serde_yaml-dep.patch
+Patch:          0002-Replace-serde_yaml_ng-with-equivalent-serde_yaml-dep.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -162,7 +158,7 @@ rm -rf vendor
 %endif
 
 # drop glycin-raw loader (missing dependencies, not enabled by default)
-rm -r loaders/glycin-raw
+rm -r glycin-loaders/glycin-raw
 
 
 %if %{without bundled_rust_deps}

@@ -1,13 +1,11 @@
-# Support human color names
-%bcond_without perl_Graphics_Toolkit_Color_enables_color_names
-
 Name:           perl-Graphics-Toolkit-Color
-Version:        1.91
+Version:        1.92
 Release:        1%{?dist}
 Summary:        Color palette constructor
 # lib/Graphics/Toolkit/Color.pm:        GPL-1.0-or-later OR Artistic-1.0-Perl
 # lib/Graphics/Toolkit/Color/Name.pm:       GPL-1.0-or-later OR Artistic-1.0-Perl
 # lib/Graphics/Toolkit/Color/Name/Constant.pm:  GPL-1.0-or-later OR Artistic-1.0-Perl
+# lib/Graphics/Toolkit/Color/Name/Scheme.pm:    GPL-1.0-or-later OR Artistic-1.0-Perl
 # lib/Graphics/Toolkit/Color/Space.pm:      GPL-1.0-or-later OR Artistic-1.0-Perl
 # lib/Graphics/Toolkit/Color/Space/Hub.pm:  GPL-1.0-or-later OR Artistic-1.0-Perl
 # LICENSE:      GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -15,6 +13,9 @@ Summary:        Color palette constructor
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Graphics-Toolkit-Color
 Source0:        https://cpan.metacpan.org/authors/id/L/LI/LICHTKIND/Graphics-Toolkit-Color-%{version}.tar.gz
+# Remove an unused dependency, proposed upstream,
+# <https://github.com/lichtkind/Graphics-Toolkit-Color/pull/4>.
+Patch0:         Graphics-Toolkit-Color-1.92-Do-not-load-unused-Benchmark-module.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -25,18 +26,15 @@ BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time:
-BuildRequires:  perl(Carp)
 BuildRequires:  perl(Exporter) >= 5
-%if %{with perl_Graphics_Toolkit_Color_enables_color_names}
 # Optional run-time:
-# Graphics::ColorNames not used at tests
-%endif
+# Graphics::ColorNames::$schema, where $schema is a user-supplied string, is
+# loaded under eval in Graphics::Toolkit::Color::Name::try_get_scheme(). These
+# schemata are spread over many packages, we cannot and should not list all of
+# them we know of. None of them is used at tests.
 # Tests:
 BuildRequires:  perl(Test::More) >= 1.3
 Requires:       perl(Exporter) >= 5
-%if %{with perl_Graphics_Toolkit_Color_enables_color_names}
-Recommends:     perl(Graphics::ColorNames)
-%endif
 
 # Remove underspecified dependencies
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((Exporter|Test::More|)\\)$
@@ -61,7 +59,7 @@ Tests from %{name}. Execute them
 with "%{_libexecdir}/%{name}/test".
 
 %prep
-%setup -q -n Graphics-Toolkit-Color-%{version}
+%autosetup -p1 -n Graphics-Toolkit-Color-%{version}
 chmod +x t/*.t
 
 %build
@@ -96,6 +94,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Aug 21 2025 Petr Pisar <ppisar@redhat.com> - 1.92-1
+- 1.92 bump
+
 * Fri Aug 15 2025 Petr Pisar <ppisar@redhat.com> - 1.91-1
 - 0.91 bump
 

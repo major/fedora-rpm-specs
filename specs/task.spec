@@ -135,6 +135,7 @@ rm -frv $RPM_BUILD_ROOT/%{_pkgdocdir}/scripts/{bash,fish}
 %files
 %license LICENSE
 %license LICENSE.dependencies
+%license cargo-vendor.txt
 %{_bindir}/%{name}
 %{_mandir}/man1/%{name}.1*
 %{_mandir}/man5/%{name}rc.5*

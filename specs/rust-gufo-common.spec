@@ -3,10 +3,10 @@
 %global debug_package %{nil}
 
 %global crate gufo-common
-%global crate_version 0.3.0-alpha
+%global crate_version 1.0.0-beta.2
 
 Name:           rust-gufo-common
-Version:        0.3.0~alpha
+Version:        1.0.0~beta.2
 Release:        %autorelease
 Summary:        Common features used in gufo crates
 
@@ -70,6 +70,18 @@ This package contains library source intended for building other packages which
 use the "serde" feature of the "%{crate}" crate.
 
 %files       -n %{name}+serde-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+zvariant-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+zvariant-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "zvariant" feature of the "%{crate}" crate.
+
+%files       -n %{name}+zvariant-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

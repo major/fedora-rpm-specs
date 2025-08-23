@@ -253,7 +253,6 @@ BuildRequires: pkgconfig(libcurl)
 %if %{with pulseaudio}
 BuildRequires: pulseaudio-libs-devel
 %endif
-BuildRequires: yasm
 BuildRequires: llvm
 %if 0%{?fedora} >= 40 || 0%{?rhel} >= 10
 BuildRequires:  clang17

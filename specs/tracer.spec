@@ -17,8 +17,8 @@
 %endif
 
 Name:       tracer
-Version:    1.2
-Release:    5%{?dist}
+Version:    1.3
+Release:    1%{?dist}
 Summary:    Finds outdated running applications in your system
 
 BuildArch:  noarch
@@ -205,17 +205,8 @@ make DESTDIR=%{buildroot}%{_datadir} mo
 
 
 %changelog
-* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.2-5
-- Rebuilt for Python 3.14.0rc2 bytecode
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.2-3
-- Rebuilt for Python 3.14
-
-* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+* Thu Aug 21 2025 Jakub Kadlcik <frostyx@email.cz> 1.3-1
+- Add list of applications triggering reboot-required (riehecky@fnal.gov)
 
 * Tue Nov 12 2024 Jakub Kadlcik <frostyx@email.cz> 1.2-1
 - Implement support for DNF5 (frostyx@email.cz)

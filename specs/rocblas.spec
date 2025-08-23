@@ -114,7 +114,7 @@
 
 Name:           %{rocblas_name}
 Version:        %{rocm_version}
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        BLAS implementation for ROCm
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT AND BSD-3-Clause
@@ -139,12 +139,8 @@ BuildRequires:  msgpack-cxx-devel
 %global tensile_library_format msgpack
 # OBS vm times out without console output
 %global tensile_verbose 2
-%if %{suse_version} < 1699
-BuildRequires:  python3-tensile-devel
-BuildRequires:  python3-joblib
-%else
-BuildRequires:  python311-tensile-devel
-%endif # suse_version < 1699
+BuildRequires: %{python_module tensile-devel}
+BuildRequires: %{python_module joblib}
 %else
 BuildRequires:  python3dist(tensile)
 %if 0%{?rhel}
@@ -330,6 +326,9 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library/src:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Wed Aug 20 2025 Egbert Eich <eich@suse.com> - 6.4.2-8
+- Consoldiate Python module BuildRequires for SUSE.
+
 * Sat Aug 16 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-7
 - set default build type to RelWithDebInfo
 

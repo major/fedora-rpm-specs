@@ -5,7 +5,7 @@
 %global crate newtype-uuid
 
 Name:           rust-newtype-uuid
-Version:        1.2.1
+Version:        1.3.0
 Release:        %autorelease
 Summary:        Newtype wrapper around UUIDs
 
@@ -135,7 +135,8 @@ use the "v4" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-%cargo_test
+# * doctests can only be run in-tree
+%cargo_test -- --lib
 %endif
 
 %changelog

@@ -1,3 +1,7 @@
+# Without this the build time baloons from 1 hour to more than 46 on i686
+# https://bugzilla.redhat.com/show_bug.cgi?id=2390105
+%undefine _preserve_static_debuginfo
+
 %global run_tests 1
 
 %global bashcompletiondir %(pkg-config --variable=compatdir bash-completion)
@@ -47,7 +51,7 @@
 
 Name:          gdal
 Version:       3.11.3
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       GIS file format library
 License:       MIT
 URL:           http://www.gdal.org
@@ -845,6 +849,9 @@ done
 
 
 %changelog
+* Thu Aug 21 2025 Orion Poplawski <orion@nwra.com> - 3.11.3-5
+- Undefine _preserve_static_debuginfo to prevent huge build times
+
 * Mon Aug 18 2025 Python Maint <python-maint@redhat.com> - 3.11.3-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

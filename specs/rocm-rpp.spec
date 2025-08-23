@@ -22,7 +22,7 @@
 
 Name:           rocm-rpp
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        ROCm Performace Primatives for computer vision
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT AND Apache-2.0 AND LicenseRef-Fedora-Public-Domain
@@ -96,15 +96,20 @@ sed -i -e '/HALF/d' CMakeLists.txt
 sed -i -e '/COMPONENT test/d' CMakeLists.txt
 %endif
 
+# Remove third_party libs
+# https://github.com/ROCm/rpp/issues/602
+rm -rf libs/third_party
+
 %build
 
 %cmake -G Ninja \
        -DAMDGPU_TARGETS=%{all_rocm_gpus} \
-       -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
-       -DHIP_PLATFORM=amd \
        -DBACKEND=HIP \
-       -DROCM_SYMLINK_LIBS=OFF \
+       -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
        -DCMAKE_BUILD_TYPE=%{build_type} \
+       -DHIP_PLATFORM=amd \
+       -DROCM_SYMLINK_LIBS=OFF \
+       -DRPP_AUDIO_SUPPORT=OFF \
        -DROCM_PATH=%{_prefix} \
        -DHIP_PATH=%{_prefix} \
        -DCMAKE_INSTALL_LIBDIR=%{_libdir}
@@ -135,6 +140,9 @@ chrpath -r %{rocmllvm_libdir} %{buildroot}%{_libdir}/librpp.so.1.*.*
 %endif
 
 %changelog
+* Thu Aug 21 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-5
+- Remove prebuild libffts.a library
+
 * Wed Jul 30 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-4
 - Remove -mtls-dialect cflag
 - Add gfx950,gfx1150,gfx1151,gfx1152,gfx1153

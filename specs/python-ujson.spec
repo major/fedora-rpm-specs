@@ -1,6 +1,6 @@
 Name:           python-ujson
-Version:        5.10.0
-Release:        4%{?dist}
+Version:        5.11.0
+Release:        1%{?dist}
 Summary:        Ultra fast JSON encoder and decoder written in pure C
 
 # The entire source is BSD-3-Clause, except:
@@ -50,7 +50,7 @@ Summary:        %{summary}
 %prep
 %autosetup -n ujson-%{version} -p1
 # Remove bundled double-conversion
-rm -vrf deps
+rm -rv src/ujson/deps
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -63,16 +63,21 @@ export UJSON_BUILD_DC_LIBS='-ldouble-conversion'
 
 %install
 %pyproject_install
-%pyproject_save_files ujson
+%pyproject_save_files -l ujson
 
 %check
 %pytest -v
 
 %files -n python3-ujson -f %{pyproject_files}
-# pyproject_files handles LICENSE.txt; verify with “rpm -qL -p …”
 %doc README.md
 
+%dir %{python3_sitearch}/ujson-stubs
+%{python3_sitearch}/ujson-stubs/__init__.pyi
+
 %changelog
+* Thu Aug 21 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 5.11.0-1
+- Update to 5.11.0 (close RHBZ#2389730)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.10.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

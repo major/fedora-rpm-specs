@@ -4,10 +4,10 @@
 %global debug_package %{nil}
 
 %global crate gufo-exif
-%global crate_version 0.3.0-alpha
+%global crate_version 0.3.0-beta
 
 Name:           rust-gufo-exif
-Version:        0.3.0~alpha
+Version:        0.3.0~beta
 Release:        %autorelease
 Summary:        Exif loading and editing
 

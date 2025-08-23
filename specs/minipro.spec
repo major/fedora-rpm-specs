@@ -1,6 +1,6 @@
 Name:           minipro
-Version:        0.7
-Release:        5%{?dist}
+Version:        0.7.4
+Release:        1%{?dist}
 Summary:        Utility for MiniPro TL866A/TL866/CS programmer
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -11,8 +11,13 @@ Source0:        https://gitlab.com/DavidGriffith/minipro/-/archive/%{version}/mi
 BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  pkgconfig(libusb-1.0)
+BuildRequires:  pkgconfig(zlib)
 BuildRequires:  systemd-udev
 Requires:       systemd-udev
+# for dump-alg-minipro.bash
+Requires:       bsdtar
+Requires:       coreutils
+Requires:       curl
 
 %description
 Programming utility compatible with Minipro TL866CS and Minipro TL866A
@@ -27,8 +32,7 @@ PICs, GALs and EPROMs) as well as testing logic devices.
 
 
 %build
-# use -std=gnu17 until https://gitlab.com/DavidGriffith/minipro/-/issues/343 has been solved
-%{make_build} PREFIX=%{_prefix} CFLAGS="%{build_cflags} -std=gnu17" LDFLAGS="%{build_ldflags}"
+%{make_build} PREFIX=%{_prefix} CFLAGS="%{build_cflags}" LDFLAGS="%{build_ldflags}"
 
 
 %install
@@ -41,6 +45,7 @@ rm %{buildroot}%{_udevrulesdir}/61-minipro-plugdev.rules
 %license LICENSE
 %{_datadir}/bash-completion/completions
 %{_bindir}/minipro
+%{_bindir}/dump-alg-minipro.bash
 %{_udevrulesdir}/60-minipro.rules
 %{_udevrulesdir}/61-minipro-uaccess.rules
 %{_datadir}/%{name}/infoic.xml
@@ -49,6 +54,9 @@ rm %{buildroot}%{_udevrulesdir}/61-minipro-plugdev.rules
 
 
 %changelog
+* Wed Aug 13 2025 Dan Horák <dan[at]danny.cz> - 0.7.4-1
+- Update to version 0.7.4
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

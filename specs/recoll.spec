@@ -8,13 +8,13 @@
 Summary:        Desktop full text search tool with Qt GUI
 Name:           recoll
 Version:        1.43.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            https://www.recoll.org
 Source0:        https://www.recoll.org/recoll-%{version}.tar.gz
 Source1:        https://www.recoll.org/downloads/src/gssp-recoll-%{gsspver}.tar.gz
-Source10:       qmake-qt5.sh
+Source10:       qmake-qt6.sh
 Patch:          recoll-1.42.1-cmake4.patch
 BuildRequires:  aspell-devel
 BuildRequires:  bison
@@ -25,12 +25,12 @@ BuildRequires:  file-devel
 BuildRequires:  gcc-c++
 # kio
 %{?kio4:BuildRequires:  kdelibs4-devel}
-BuildRequires:  kf5-kio-devel
+BuildRequires:  kf6-kio-devel
 # krunner
-BuildRequires:  kf5-ki18n-devel
-BuildRequires:  kf5-krunner-devel
-BuildRequires:  kf5-knotifications-devel
-BuildRequires:  kf5-kpackage-devel
+BuildRequires:  kf6-ki18n-devel
+BuildRequires:  kf6-krunner-devel
+BuildRequires:  kf6-knotifications-devel
+BuildRequires:  kf6-kpackage-devel
 
 BuildRequires:  libxslt-devel
 BuildRequires:  make
@@ -38,9 +38,9 @@ BuildRequires:  meson
 BuildRequires:  python-rpm-macros
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
-BuildRequires:  qt5-linguist
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qtwebkit-devel
+BuildRequires:  qt6-linguist
+BuildRequires:  qt6-qtbase-devel
+BuildRequires:  qtwebkit-devel
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  xapian-core-devel
 BuildRequires:  zlib-devel
@@ -99,9 +99,9 @@ CXXFLAGS="%{optflags}"; export CXXFLAGS
 LDFLAGS="%{?__global_ldflags}"; export LDFLAGS
 
 # force use of custom/local qmake, to inject proper build flags (above)
-install -m755 -D %{SOURCE10} qmake-qt5.sh
-export QMAKE=$(pwd)/qmake-qt5.sh
-%meson -Drecollq=true -Dsystemd=true
+install -m755 -D %{SOURCE10} qmake-qt6.sh
+export QMAKE=$(pwd)/qmake-qt6.sh
+%meson -Drecollq=true -Dsystemd=true -Dwebkit=false
 %meson_build
 
 # gssp
@@ -124,7 +124,8 @@ export RECOLL_LIB_DIR=%{_builddir}/%{name}-%{version}/redhat-linux-build/
 
 # kio_recoll -kde5
 pushd kde/kioslave/kio_recoll
-%cmake -DRECOLL_PUBLIC_LIB=1
+cp CMakeLists-KF6.txt CMakeLists.txt
+%cmake -DRECOLL_PUBLIC_LIB=1 -DQT_MAJOR_VERSION=6
 %cmake_build
 %cmake_install
 popd
@@ -141,7 +142,8 @@ popd
 
 # krunner_recoll
 pushd kde/krunner
-%cmake -DRECOLL_PUBLIC_LIB=1
+cp CMakeLists-KF6.txt CMakeLists.txt
+%cmake -DRECOLL_PUBLIC_LIB=1 -DQT_MAJOR_VERSION=6
 %cmake_build
 %cmake_install
 popd
@@ -192,7 +194,7 @@ echo "%{_libdir}/recoll" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/recoll-%{_arc
 
 %files kio
 %license COPYING
-%{_libdir}/qt5/plugins/kf5/kio/kio_recoll.so
+%{_libdir}/qt6/plugins/kf6/kio/kio_recoll.so
 %if 0%{?kio4}
 %{_libdir}/kde4/kio_recoll.so
 %{_datadir}/kde4/apps/kio_recoll/
@@ -203,7 +205,7 @@ echo "%{_libdir}/recoll" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/recoll-%{_arc
 %{_datadir}/kio_recoll/welcome.html
 
 %files krunner
-%{_libdir}/qt5/plugins/kf5/krunner/krunner_recoll.so
+%{_libdir}/qt6/plugins/kf6/krunner/krunner_recoll.so
 
 %files gssp
 %license COPYING
@@ -213,6 +215,9 @@ echo "%{_libdir}/recoll" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/recoll-%{_arc
 %{_datadir}/applications/org.recoll.Recoll.SearchProvider.desktop
 
 %changelog
+* Thu Aug 21 2025 Terje Rosten <terjeros@gmail.com> - 1.43.4-3
+- Bump to qt6 and kf6
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.43.4-2
 - Rebuilt for Python 3.14.0rc2 bytecode
 

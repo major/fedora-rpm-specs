@@ -3,10 +3,10 @@
 %global debug_package %{nil}
 
 %global crate gufo-xmp
-%global crate_version 0.3.0-alpha
+%global crate_version 0.3.0-beta
 
 Name:           rust-gufo-xmp
-Version:        0.3.0~alpha
+Version:        0.3.0~beta
 Release:        %autorelease
 Summary:        Reading and editing for XMP data
 

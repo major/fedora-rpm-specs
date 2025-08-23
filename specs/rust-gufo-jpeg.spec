@@ -3,10 +3,10 @@
 %global debug_package %{nil}
 
 %global crate gufo-jpeg
-%global crate_version 0.3.0-alpha
+%global crate_version 0.3.0-beta.1
 
 Name:           rust-gufo-jpeg
-Version:        0.3.0~alpha
+Version:        0.3.0~beta.1
 Release:        %autorelease
 Summary:        Inspect JPEG image structure
 

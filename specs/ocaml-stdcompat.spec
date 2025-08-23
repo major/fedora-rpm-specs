@@ -1,5 +1,5 @@
 Name:           ocaml-stdcompat
-Version:        21.0
+Version:        21.1
 Release:        %autorelease
 Summary:        Compatibility module for the OCaml standard library
 

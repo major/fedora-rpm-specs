@@ -5,8 +5,8 @@ BuildRequires:	%1 \
 %{nil}
 
 Name:		rubygem-%{gem_name}
-Version:	3.0.5
-Release:	2%{?dist}
+Version:	4.0.1
+Release:	1%{?dist}
 
 Summary:	RD-document-based presentation application
 # GPL-2.0-or-later:	overall
@@ -89,11 +89,16 @@ Documentation for %{name}
 %autosetup -n %{gem_name}-%{version} -a 1 -p 1
 mv ../%{gem_name}-%{version}.gemspec .
 
+# Remove gtk4 dependency
+sed -i %{gem_name}-%{version}.gemspec \
+	-e '\@add_runtime_dependency.*gtk4@d'
+
+
 %build
 gem build %{gem_name}-%{version}.gemspec
 %gem_install
 
-cp -a %{gem_name}-%{version}/test/* ./%{gem_instdir}/test/
+cp -a %{gem_name}-%{version}/test/ ./%{gem_instdir}/
 
 %install
 mkdir -p %{buildroot}%{gem_dir}
@@ -183,6 +188,9 @@ popd
 %doc	%{gem_instdir}/sample/	
 
 %changelog
+* Thu Aug 21 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.1-1
+- 4.0.1
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

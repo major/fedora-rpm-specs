@@ -79,7 +79,7 @@
 
 Name:           git
 Version:        2.51.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fast Version Control System
 License:        BSD-3-Clause AND GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
 URL:            https://git-scm.com/
@@ -436,9 +436,7 @@ Summary:        Git repository browser
 BuildArch:      noarch
 Requires:       git = %{version}-%{release}
 Requires:       git-gui = %{version}-%{release}
-# Keep gitk on tcl/tk 8.x until its ready for 9 (also see below in config.mk)
-# https://github.com/j6t/gitk/issues/5
-Requires:       tk8 >= 8.4
+Requires:       tk
 %description -n gitk
 %{summary}.
 
@@ -596,10 +594,6 @@ gitwebdir = %{_localstatedir}/www/git
 DEFAULT_TEST_TARGET = prove
 GIT_PROVE_OPTS = --verbose --normalize %{?_smp_mflags} --formatter=TAP::Formatter::File
 GIT_TEST_OPTS = -x --verbose-log
-
-# Keep gitk on tcl/tk 8.x until its ready for 9 (see more above in gitk requires)
-TCLTK_PATH = wish8
-TCL_PATH = tclsh8
 EOF
 
 # Filter bogus perl requires
@@ -610,6 +604,9 @@ EOF
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}perl\\(Term::ReadKey\\)
 %endif
 # endif ! defined perl_bootstrap
+
+# Exclude sample hook files from automatic dependency detection
+%global __requires_exclude_from ^%{_datadir}/git-core/templates/hooks/.*sample$
 
 # Remove Git::LoadCPAN to ensure we use only system perl modules.  This also
 # allows the dependencies to be automatically processed by rpm.
@@ -1045,6 +1042,9 @@ rmdir --ignore-fail-on-non-empty "$testdir"
 %{?with_docs:%{_pkgdocdir}/git-svn.html}
 
 %changelog
+* Thu Aug 21 2025 Ondřej Pohořelský <opohorel@redhat.com> - 2.51.0-2
+- exclude sample hook files from automatic dependency detection
+
 * Wed Aug 20 2025 Ondřej Pohořelský <opohorel@redhat.com> - 2.51.0-1
 - update to 2.51.0
 

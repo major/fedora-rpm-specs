@@ -6,7 +6,7 @@
 %bcond extradeps %{undefined rhel}
 
 Name:           python-requests
-Version:        2.32.4
+Version:        2.32.5
 Release:        %autorelease
 Summary:        HTTP library, written in Python, for human beings
 
@@ -24,13 +24,6 @@ Patch:          system-certs.patch
 # Upstream PR: https://github.com/psf/requests/pull/5953
 # This change is backported also into RHEL 9.4 (via CS)
 Patch:          support_IPv6_CIDR_in_no_proxy.patch
-
-# Fix crash on import if /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem is missing
-# https://bugzilla.redhat.com/show_bug.cgi?id=2297632
-# https://github.com/psf/requests/pull/6781
-# Note: this can be replaced by https://github.com/psf/requests/pull/6767
-# when it is ready, or dropped in a release where that is merged
-Patch:          0001-Don-t-create-default-SSLContext-if-CA-bundle-isn-t-p.patch
 
 BuildArch:      noarch
 BuildRequires:  python%{python3_pkgversion}-devel

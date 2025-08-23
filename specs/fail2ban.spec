@@ -14,7 +14,7 @@
 
 Name: fail2ban
 Version: 1.1.0
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: Daemon to ban hosts that cause multiple authentication errors
 
 License: GPL-2.0-or-later
@@ -279,11 +279,15 @@ sed -i 's|^/run/|/var/run/|' %{name}.fc
 sed -i "/use_2to3/d" setup.py
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
 %if 0%{?rhel} && 0%{?rhel} < 8
 %py2_build
 %else
-%py3_build
+%pyproject_wheel
 %endif
 make -f %SOURCE6
 
@@ -294,8 +298,11 @@ make -f %SOURCE6
 # Make symbolic link relative
 ln -fs python2 %{buildroot}%{_bindir}/fail2ban-python
 %else
-%py3_install
+%pyproject_install
 ln -fs python3 %{buildroot}%{_bindir}/fail2ban-python
+mv %{buildroot}%{python3_sitelib}/etc %{buildroot}
+mv %{buildroot}%{python3_sitelib}/%{_datadir} %{buildroot}%{_datadir}
+rmdir %{buildroot}%{python3_sitelib}%{_prefix}
 %endif
 
 mkdir -p %{buildroot}%{_unitdir}
@@ -310,6 +317,7 @@ install -m 0600 /dev/null %{buildroot}/run/fail2ban/fail2ban.pid
 install -d -m 0755 %{buildroot}%{_localstatedir}/lib/fail2ban/
 mkdir -p %{buildroot}%{_tmpfilesdir}
 install -p -m 0644 files/fail2ban-tmpfiles.conf %{buildroot}%{_tmpfilesdir}/fail2ban.conf
+mkdir -p %{buildroot}%{_sysconfdir}/%{name}/jail.d
 
 # Remove non-Linux actions
 rm %{buildroot}%{_sysconfdir}/%{name}/action.d/*ipfw.conf
@@ -475,6 +483,10 @@ fi
 
 
 %changelog
+* Thu Aug 21 2025 Richard Shaw <hobbes1069@gmail.com> - 1.1.0-11
+- Move from setup.py to wheels per
+  https://fedoraproject.org/wiki/Changes/DeprecateSetuppyMacros.
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.1.0-10
 - Rebuilt for Python 3.14.0rc2 bytecode
 

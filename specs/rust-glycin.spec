@@ -3,16 +3,18 @@
 %global debug_package %{nil}
 
 %global crate glycin
-%global crate_version 3.0.0-alpha.6
+%global crate_version 3.0.0-beta.1
 
 Name:           rust-glycin
-Version:        3.0.0~alpha.6
+Version:        3.0.0~beta.1
 Release:        %autorelease
 Summary:        Sandboxed image decoding
 
 License:        MPL-2.0 OR LGPL-2.1-or-later
 URL:            https://crates.io/crates/glycin
 Source:         %{crates_source %{crate} %{crate_version}}
+
+Patch:          0001-add-exit_group-and-recv-to-list-of-allowed-syscalls.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

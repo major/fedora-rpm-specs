@@ -1,5 +1,3 @@
-%global debug_package %{nil}
-
 Name:           0xFFFF
 Version:        0.10
 Release:        %autorelease
@@ -22,7 +20,7 @@ options, packing/unpacking FIASCO firmware format and more.
 %autosetup
 
 %build
-%make_build -C src
+%make_build -C src BUILD_DATE="$(date '+%b %e %Y' -d @${SOURCE_DATE_EPOCH:?})"
 
 %install
 %make_install PREFIX=/usr
@@ -31,7 +29,7 @@ options, packing/unpacking FIASCO firmware format and more.
 %doc README INSTALL
 %license COPYING
 %{_bindir}/*
-%{_mandir}/man1/0xFFFF.1.gz
+%{_mandir}/man1/0xFFFF.1*
 
 %changelog
 %autochangelog

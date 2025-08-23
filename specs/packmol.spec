@@ -1,9 +1,9 @@
 Name:		packmol
-Version:	20.15.3
-Release:	2%{?dist}
+Version:	21.1.0
+Release:	1%{?dist}
 Summary:	Packing optimization for molecular dynamics simulations
 License:	MIT
-URL:		http://m3g.iqm.unicamp.br/packmol/
+URL:		https://m3g.github.io/packmol
 Source0:	https://github.com/m3g/packmol/archive/v%{version}/packmol-%{version}.tar.gz
 # Example files
 Source2:        https://m3g.github.io/packmol/examples/examples.tar.gz
@@ -63,6 +63,9 @@ done
 %{_bindir}/packmol_solvate
 
 %changelog
+* Thu Aug 21 2025 Susi Lehtola <jussilehtola@fedoraproject.org> - 21.1.0-1
+- Update to 21.1.0.
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20.15.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

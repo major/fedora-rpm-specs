@@ -1,5 +1,5 @@
 Name:           cockpit-image-builder
-Version:        74
+Version:        75
 Release:        1%{?dist}
 Summary:        Image builder plugin for Cockpit
 
@@ -46,6 +46,25 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Thu Aug 21 2025 Packit <hello@packit.dev> - 75-1
+Changes with 75
+----------------
+  - BlueprintCard: fix name truncation (HMS-9079) (#3556)
+    - Author: Gianluca Zuccarelli, Reviewers: Sanne Raymaekers
+  - Launch: implement guidance for Azure (HMS-9003) (#3549)
+    - Author: Anna Vítová, Reviewers: Gianluca Zuccarelli
+  - Wizard: on-prem aws region in edit (HMS-9096) (#3564)
+    - Author: Gianluca Zuccarelli, Reviewers: Sanne Raymaekers
+  - build(deps-dev): bump @types/node from 24.1.0 to 24.3.0 (#3553)
+    - Author: dependabot[bot], Reviewers: Gianluca Zuccarelli
+  - devDeps: Bump msw from 2.10.4 to 2.10.5 (HMS-9088) (#3559)
+    - Author: Gianluca Zuccarelli, Reviewers: Michal Gold
+  - plans: add gating tests (#3531)
+    - Author: Sanne Raymaekers, Reviewers: Gianluca Zuccarelli
+
+— Somewhere on the Internet, 2025-08-21
+
+
 * Wed Aug 20 2025 Packit <hello@packit.dev> - 74-1
 Changes with 74
 ----------------
