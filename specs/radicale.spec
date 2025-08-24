@@ -20,8 +20,8 @@
 
 %define radicale_major  3
 
-%define radicale_version  3.5.4
-%define radicale_release  5
+%define radicale_version  3.5.5
+%define radicale_release  1
 #define gitcommit 8e9fdf391acb79d3fb1cb6e6b8f882f8999192cf
 
 %define radicale_name  radicale
@@ -528,13 +528,16 @@ fi
 
 
 %changelog
+* Fri Aug 22 2025 Peter Bieringer <pb@bieringer.de>  - 3.5.5-1
+- Update to 3.5.5
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.5.4-5.2
 - Rebuilt for Python 3.14.0rc2 bytecode
 
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.4-5.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Sat Jun 12 2025 Peter Bieringer <pb@bieringer.de> - 3.5.4-5
+* Sat Jun 14 2025 Peter Bieringer <pb@bieringer.de> - 3.5.4-5
 - add macros generate_buildrequires, pyproject_buildrequires and remove obsoletes
 
 * Sat Jun 14 2025 Peter Bieringer <pb@bieringer.de> - 3.5.4-3

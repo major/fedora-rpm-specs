@@ -1,8 +1,8 @@
 %global _find_debuginfo_opts --keep-section .rackboot
 
 Name:           racket
-Version:        8.17
-Release:        2%{?dist}
+Version:        8.18
+Release:        1%{?dist}
 Summary:        General purpose programming language
 
 # see LICENSE.txt
@@ -10,6 +10,9 @@ License:        MIT AND Apache-2.0
 URL:            https://racket-lang.org
 Source0:        https://download.racket-lang.org/installers/%{version}/%{name}-%{version}-src.tgz
 Patch0:         racket-configure-c99.patch
+# https://github.com/racket/racket/issues/5322
+Patch1:         https://github.com/racket/racket/commit/2b503b4d46c17be4087d30e7eb3135508f489d0f.patch
+Patch2:         https://github.com/racket/racket/commit/926bc4da215a92c8313779f228c39be69638d0ee.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2339005
 ExcludeArch:    ppc64le s390x
 
@@ -226,6 +229,9 @@ chmod -x %{buildroot}%{_libdir}/racket/starter-sh
 %{_datadir}/doc/racket
 
 %changelog
+* Fri Aug 22 2025 Jens Petersen <petersen@redhat.com> - 8.18-1
+- https://blog.racket-lang.org/2025/08/racket-v8-18.html
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.17-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

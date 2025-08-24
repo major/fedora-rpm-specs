@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          1.22
-Release:          6%{?dist}
+Release:          7%{?dist}
 Summary:          Interface to Unidata netCDF (Version 4 or Earlier) Format Data Files
 
 License:          GPL-3.0-or-later
@@ -70,6 +70,9 @@ chrpath -d %{buildroot}%{rlibdir}/%{packname}/libs/%{packname}.so
 
 
 %changelog
+* Fri Aug 22 2025 Orion Poplawski <orion@nwra.com> - 1.22-7
+- Rebuild for netcdf 4.9.3 soname bump
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.22-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

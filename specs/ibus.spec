@@ -61,9 +61,9 @@
 %global dbus_python_version 0.83.0
 
 Name:           ibus
-Version:        1.5.32
+Version:        1.5.33~beta1
 # https://github.com/fedora-infra/rpmautospec/issues/101
-Release:        9%{?dist}
+Release:        1%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -72,7 +72,6 @@ Source1:        https://github.com/ibus/%name/releases/download/%{source_version
 Source2:        %{name}-xinput
 Source3:        %{name}.conf.5
 # Patch0:         %%{name}-HEAD.patch
-Patch0:         %{name}-HEAD.patch
 # Under testing #1349148 #1385349 #1350291 #1406699 #1432252 #1601577
 Patch1:         %{name}-1385349-segv-bus-proxy.patch
 
@@ -360,7 +359,6 @@ fi
 #make -C src/compose maintainer-clean-generic
 #make -C tools maintainer-clean-generic
 #make -C ui/gtk3 maintainer-clean-generic
-autoreconf -f -i -v
 %configure \
     --disable-static \
 %if %{with gtk2}
@@ -387,8 +385,6 @@ autoreconf -f -i -v
     --enable-install-tests \
     %{nil}
 # for 1385349-segv-bus-proxy.patch
-make -C bindings/vala maintainer-clean-generic
-make -C tools maintainer-clean-generic
 make -C ui/gtk3 maintainer-clean-generic
 
 %make_build
@@ -642,6 +638,10 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Fri Aug 22 2025 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.33~beta1-1
+- Implement preedit semantic APIs
+- Fix tests/ibus-keypress for Wayland
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.5.32-9
 - Rebuilt for Python 3.14.0rc2 bytecode
 

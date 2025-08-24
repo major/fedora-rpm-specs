@@ -3,7 +3,7 @@
 
 Name:		grass
 Version:	8.4.1
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	GRASS GIS - Geographic Resources Analysis Support System
 
 %if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
@@ -331,6 +331,9 @@ fi
 %{_libdir}/%{name}%{shortver}/include
 
 %changelog
+* Fri Aug 22 2025 Orion Poplawski <orion@nwra.com> - 8.4.1-6
+- Rebuild for netcdf 4.9.3 soname bump
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 8.4.1-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -6,7 +6,7 @@
 #   Possible confusion with the "ulid" package
 #   https://github.com/mdomke/python-ulid/issues/13
 Name:           python-python-ulid
-Version:        3.0.0
+Version:        3.1.0
 Release:        %autorelease
 Summary:        Universally unique lexicographically sortable identifier
 

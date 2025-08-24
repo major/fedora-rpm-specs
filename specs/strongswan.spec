@@ -16,7 +16,7 @@
 
 Name:           strongswan
 Version:        5.9.14
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        An OpenSource IPsec-based VPN and TNC solution
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -325,10 +325,10 @@ install -d -m 700 %{buildroot}%{_sysconfdir}/strongswan/ipsec.d
 for i in aacerts acerts certs cacerts crls ocspcerts private reqs; do
     install -d -m 700 %{buildroot}%{_sysconfdir}/strongswan/ipsec.d/${i}
 done
+ln -s /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem %{buildroot}%{_sysconfdir}/strongswan/ipsec.d/cacerts/tls-ca-bundle.pem
 install -d -m 0700 %{buildroot}%{_rundir}/strongswan
 install -D -m 0644 %{SOURCE3} %{buildroot}/%{_tmpfilesdir}/strongswan.conf
 install -D -m 0644 %{SOURCE3} %{buildroot}/%{_tmpfilesdir}/strongswan-starter.conf
-
 
 %check
 %if %{with check}
@@ -427,6 +427,9 @@ install -D -m 0644 %{SOURCE3} %{buildroot}/%{_tmpfilesdir}/strongswan-starter.co
 %endif
 
 %changelog
+* Fri Aug 22 2025 Carlos Rodriguez-Fernandez <carlosrodrifernandez@gmail.com> - 5.9.14-11
+- Link new system ca bundle in the ipsec.d cacerts
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 5.9.14-10
 - Rebuilt for Python 3.14.0rc2 bytecode
 

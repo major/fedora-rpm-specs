@@ -5,7 +5,7 @@
 
 Name: python-%{srcname}
 Version: 2.0.10
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: A cross-platform windowing and multimedia library for Python
 
 License: BSD-3-Clause
@@ -48,10 +48,13 @@ BuildRequires: gdk-pixbuf2-devel
 BuildRequires: libpurple
 # These tests fail in koji, likely due to missing devices
 #BuildRequires: openal-soft
+# These are not specified by upstream
+BuildRequires: python3-gobject
 # Some tests fail if this is present
 # https://github.com/pyglet/pyglet/issues/875
 #BuildRequires: python3-pytest-asyncio
 %endif
+Requires:       python3-gobject
 
 
 %global _description %{expand:
@@ -144,7 +147,7 @@ ln -s %{_datadir}/sounds/purple/*.wav tests/data/media/
     --ignore=tests/interactive \
     --ignore=tests/integration/media \
     -m 'not (requires_user_action or requires_user_validation or only_interactive)' \
-    -k 'not (test_find_font_match or test_font or test_have_font or test_freetype_face or test_push_handlers_instance)' \
+    -k 'not (test_find_font_match or test_font or test_have_font or test_freetype_face or test_openal_listener or test_push_handlers_instance)' \
     --deselect tests/integration/image/test_gdkpixbuf2.py::GdkPixBufTest::test_load_animation \
     tests
 %endif
@@ -156,6 +159,9 @@ ln -s %{_datadir}/sounds/purple/*.wav tests/data/media/
 
 
 %changelog
+* Sat Aug 23 2025 Orion Poplawski <orion@nwra.com> - 2.0.10-8
+- Add BR/R on python3-gobject, skip openal test (FTBFS rhbz#2379002)
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.0.10-7
 - Rebuilt for Python 3.14.0rc2 bytecode
 

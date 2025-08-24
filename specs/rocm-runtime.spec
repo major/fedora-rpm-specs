@@ -29,7 +29,7 @@
 
 Name:       %{runtime_name}
 Version:    %{rocm_version}
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    ROCm Runtime Library
 
 License:    NCSA
@@ -151,9 +151,6 @@ fi
 if [ -f %{buildroot}%{_libdir}/libhsakmt.so ]; then
     rm %{buildroot}%{_libdir}/libhsakmt.*
 fi
-if [ -d %{buildroot}%{_includedir}/hsakmt ]; then
-    rm -rf %{buildroot}%{_includedir}/hsakmt
-fi
 if [ -d %{buildroot}%{_libdir}/cmake/hsakmt ]; then
     rm -rf %{buildroot}%{_libdir}/cmake/hsakmt
 fi
@@ -170,6 +167,7 @@ fi
 
 %files devel
 %{_includedir}/hsa/
+%{_includedir}/hsakmt
 %{_libdir}/libhsa-runtime64.so
 %{_libdir}/cmake/hsa-runtime64/
 
@@ -183,6 +181,9 @@ fi
 %endif
 
 %changelog
+* Fri Aug 22 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-3
+- export the hsakmt headers
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

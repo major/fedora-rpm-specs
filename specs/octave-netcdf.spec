@@ -2,7 +2,7 @@
 
 Name:           octave-%{octpkg}
 Version:        1.0.18
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A MATLAB compatible NetCDF interface for Octave
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -54,6 +54,9 @@ A MATLAB compatible NetCDF interface for Octave.
 %{_metainfodir}/octave-%{octpkg}.metainfo.xml
 
 %changelog
+* Fri Aug 22 2025 Orion Poplawski <orion@nwra.com> - 1.0.18-7
+- Rebuild for netcdf 4.9.3 soname bump
+
 * Thu Aug 07 2025 Orion Poplawski <orion@nwra.com> - 1.0.18-6
 - Rebuild to fix tag
 

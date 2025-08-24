@@ -25,7 +25,7 @@ BuildRequires:  python3dist(requests)
 Requires:       hicolor-icon-theme
 Requires:       python3-requests
 Requires:       unzip
-Requires:       webkit2gtk3
+Requires:       webkit2gtk4.1
 
 Recommends:     dosbox
 Recommends:     gamemode

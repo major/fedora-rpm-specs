@@ -11,7 +11,7 @@
 Summary:	Ruby binding of GTK+-2.x
 Name:		rubygem-%{gem_name}
 Version:	3.4.3
-Release:	26%{?dist}
+Release:	27%{?dist}
 # gemspec	LGPL-2.1-or-later
 # SPDX confirmed
 License:	LGPL-2.1-or-later
@@ -46,11 +46,6 @@ BuildRequires:	rubygem-gobject-introspection-devel
 BuildRequires:	xorg-x11-server-Xvfb
 # Icon for face-cool
 BuildRequires:	gnome-icon-theme
-BuildRequires:	adwaita-icon-theme
-# gtkrc
-BuildRequires:	adwaita-gtk2-theme
-# "actions/find"
-BuildRequires:	gnome-icon-theme-legacy
 Requires:	rubygems
 Provides:	rubygem(%{gem_name}) = %{version}
 
@@ -176,8 +171,15 @@ ln -sf /bin/true make
 export PATH=$(pwd):$PATH
 popd
 
-# icon-theme is somewhat broken, skip for now
-mv test/test_gtk_icon_theme.rb{,.skip}
+# set GTK2_RC_FILES
+cat > gtkrc <<EOF
+gtk-theme-name = "gnome"
+gtk-icon-theme-name = "gnome"
+gtk-cursor-theme-name = "gnome"
+gtk-button-images = 0
+gtk-menu-images = 0
+EOF
+export GTK2_RC_FILES=$(pwd)/gtkrc
 
 sed -i test/run-test.rb \
 	-e '\@exit Test::Unit::AutoRunner@s|,[ \t]*File\.join(.*"test")||'
@@ -185,9 +187,6 @@ sed -i test/run-test.rb \
 xvfb-run \
 	ruby -Ilib:test:%{buildroot}%{gem_extdir_mri} ./test/run-test.rb \
 	|| false
-
-# back
-mv test/test_gtk_icon_theme.rb{.skip,}
 
 %files
 %dir	%{gem_instdir}
@@ -216,6 +215,10 @@ mv test/test_gtk_icon_theme.rb{.skip,}
 %{gem_instdir}/sample/
 
 %changelog
+* Fri Aug 22 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.4.3-27
+- set GTK2_RC_FILES to choose gnome theme for test, remove gnome-themes-extra
+  dep
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.3-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

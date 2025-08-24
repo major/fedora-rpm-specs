@@ -5,6 +5,9 @@
 # '_ZZNSt8__detail18__to_chars_10_implIjEEvPcjT_E8__digits@@LLVM_11'
 %global _lto_cflags %{nil}
 
+# There is a circular dep with opencascade
+%bcond bootstrap 1
+
 # OSMesa and X support are mutually exclusive.
 # TODO - buid separate OSMesa version if desired
 %bcond_with OSMesa
@@ -18,15 +21,18 @@
 %bcond_with mpich
 %bcond_with openmpi
 %else
-%bcond_without mpich
 # No openmpi on i668 with openmpi 5 in Fedora 40+
+# No mpi4py on i686
 %if 0%{?fedora} >= 40
 %ifarch %{ix86}
+%bcond_with mpich
 %bcond_with openmpi
 %else
+%bcond_without mpich
 %bcond_without openmpi
 %endif
 %else
+%bcond_without mpich
 %bcond_without openmpi
 %endif
 %endif
@@ -45,33 +51,35 @@
 %bcond_without flexiblas
 %endif
 
+# Try disabling LTO on ppc64le
+%ifarch ppc64le
+%global _lto_cflags %{nil}
+%endif
+
 # VTK currently is carrying local modifications to gl2ps
 %bcond_with gl2ps
 
-# VTK currently requires unreleased fmt 8.1.0
-%bcond_with fmt
+%bcond_without fmt
+
+#global rc rc2
 
 Summary: The Visualization Toolkit - A high level 3D visualization library
 Name: vtk
-Version: 9.2.6
+Version: 9.5.0%{?rc:~%{rc}}
 Release: %autorelease
 License: BSD-3-Clause
-Source0: https://www.vtk.org/files/release/9.2/VTK-%{version}.tar.gz
-Source1: https://www.vtk.org/files/release/9.2/VTKData-%{version}.tar.gz
+%global srcver %{lua:local ver = rpm.expand('%version');ver = ver:gsub('~','.');print(ver)}
+Source0: https://www.vtk.org/files/release/9.5/VTK-%{srcver}.tar.gz
+Source1: https://www.vtk.org/files/release/9.5/VTKData-%{srcver}.tar.gz
 Source2: xorg.conf
 # Patch required libharu version (Fedora 33+ contains the needed VTK patches)
-Patch0: vtk-libharu.patch
-# Fix issue with Mayavi
-Patch1: https://gitlab.kitware.com/vtk/vtk/-/merge_requests/9616.patch
-# Add missing includes for gcc 13
-# https://gitlab.kitware.com/vtk/vtk/-/issues/18782
-Patch2: vtk-include.patch
-# Fix segfault with Python 3.13
-# https://bugzilla.redhat.com/show_bug.cgi?id=2310520
-# Backport of https://gitlab.kitware.com/vtk/vtk/-/merge_requests/11486
-Patch3: vtk-python3.13.patch
-# Fix build
-Patch4: vtk-build.patch
+Patch: vtk-libharu.patch
+# Tk 9.0 - based on b7c22497712be6751fbefe155533ae34d5e381f5
+Patch: vtk-tk9.patch
+# always_inline fails on ppc64le
+# https://gitlab.kitware.com/vtk/vtk/-/issues/19622
+# https://bugzilla.redhat.com/show_bug.cgi?id=2386242
+Patch: vtk-ppc64-no-always-inline.patch
 
 URL: https://vtk.org/
 
@@ -86,6 +94,7 @@ BuildRequires: java-devel
 Obsoletes:     %{name}-java < %{version}-%{release}
 Obsoletes:     %{name}-java-devel < %{version}-%{release}
 %endif
+BuildRequires:  alembic-devel
 %if %{with flexiblas}
 BuildRequires:  flexiblas-devel
 %else
@@ -98,15 +107,17 @@ BuildRequires:  cli11-devel
 BuildRequires:  double-conversion-devel
 BuildRequires:  eigen3-devel
 BuildRequires:  expat-devel
+BuildRequires:  fast_float-devel
+BuildRequires:  ffmpeg-free-devel
 %if %{with fmt}
 BuildRequires:  fmt-devel >= 8.1.0
 %endif
+BuildRequires:  freeglut-devel
 BuildRequires:  freetype-devel
 BuildRequires:  gdal-devel
 %if %{with gl2ps}
 BuildRequires:  gl2ps-devel
 %endif
-BuildRequires:  glew-devel
 BuildRequires:  hdf5-devel
 BuildRequires:  json-devel
 BuildRequires:  jsoncpp-devel
@@ -115,10 +126,12 @@ BuildRequires:  libGL-devel
 BuildRequires:  libharu-devel >= 2.4.0
 BuildRequires:  libICE-devel
 BuildRequires:  libjpeg-devel
+BuildRequires:  liblas-devel
 BuildRequires:  libpng-devel
 BuildRequires:  libpq-devel
 BuildRequires:  libtheora-devel
 BuildRequires:  libtiff-devel
+BuildRequires:  libxkbcommon-devel
 BuildRequires:  libxml2-devel
 BuildRequires:  libX11-devel
 BuildRequires:  libXcursor-devel
@@ -127,23 +140,29 @@ BuildRequires:  libXt-devel
 BuildRequires:  lz4-devel
 BuildRequires:  mariadb-connector-c-devel
 %{?with_OSMesa:BuildRequires: mesa-libOSMesa-devel}
-BuildRequires:  motif-devel
 BuildRequires:  netcdf-cxx-devel
+%if %{without bootstrap}
+BuildRequires:  opencascade-devel
+%endif
 BuildRequires:  openslide-devel
+# Currently does not provide OpenVDBConfig.cmake
+#BuildRequires:  openvdb-devel
+BuildRequires:  openvr-devel
+BuildRequires:  openxr-devel
+BuildRequires:  PDAL-devel
 BuildRequires:  PEGTL-devel
 BuildRequires:  proj-devel
 BuildRequires:  pugixml-devel
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-qt5
-BuildRequires:  cmake(Qt5)
-BuildRequires:  cmake(Qt5UiPlugin)
-BuildRequires:  cmake(Qt5X11Extras)
-BuildRequires:  qt5-qtwebkit-devel
+BuildRequires:  cmake(Qt6UiPlugin)
+BuildRequires:  cmake(Qt6Quick)
 BuildRequires:  R-devel
 BuildRequires:  sqlite-devel
 BuildRequires:  tcl-devel
 BuildRequires:  tk-devel
+BuildRequires:  unixODBC-devel
 BuildRequires:  utf8cpp-devel
+BuildRequires:  zfp-devel
 BuildRequires:  zlib-devel
 BuildRequires:  chrpath
 BuildRequires:  doxygen
@@ -187,15 +206,18 @@ Requires: double-conversion-devel%{?_isa} \
 # eigen3 is noarch and header-only \
 Requires: eigen3-static \
 Requires: expat-devel%{?_isa} \
+# fast_float is noarch and header-only \
+Requires: fast_float-devel \
+Requires: ffmpeg-free-devel%{?_isa} \
 %if %{with fmt} \
 Requires: fmt-devel%{?_isa} \
 %endif \
+Requires: freeglut-devel%{?_isa} \
 Requires: freetype-devel%{?_isa} \
 Requires: gdal-devel%{?_isa} \
 %if %{with gl2ps} \
 Requires: gl2ps-devel%{?_isa} \
 %endif \
-Requires: glew-devel%{?_isa} \
 Requires: json-devel%{?_isa} \
 Requires: jsoncpp-devel%{?_isa} \
 Requires: lapack-devel%{?_isa} \
@@ -203,11 +225,13 @@ Requires: libarchive-devel%{?_isa} \
 Requires: libGL-devel%{?_isa} \
 Requires: libharu-devel%{?_isa} >= 2.3.0-9 \
 Requires: libjpeg-devel%{?_isa} \
+Requires: liblas-devel%{?_isa} \
 Requires: libogg-devel%{?_isa} \
 Requires: libpng-devel%{?_isa} \
 Requires: libpq-devel%{?_isa} \
 Requires: libtheora-devel%{?_isa} \
 Requires: libtiff-devel%{?_isa} \
+Requires: libxkbcommon-devel%{?_isa} \
 Requires: libxml2-devel%{?_isa} \
 Requires: libX11-devel%{?_isa} \
 Requires: libXcursor-devel%{?_isa} \
@@ -219,18 +243,27 @@ Requires: mariadb-connector-c-devel%{?_isa} \
 Requires: mesa-libOSMesa-devel%{?_isa} \
 %endif \
 Requires: netcdf-cxx-devel%{?_isa} \
+%if %{without bootstrap} \
+Requires: opencascade-devel%{?_isa} \
+%endif \
 Requires: openslide-devel%{?_isa} \
+#Requires: openvdb-devel%{?_isa} \
+Requires: openvr-devel%{?_isa} \
+Requires: openxr-devel%{?_isa} \
+Requires: PDAL-devel%{?_isa} \
 Requires: PEGTL-devel%{?_isa} \
 Requires: proj-devel%{?_isa} \
 Requires: pugixml-devel%{?_isa} \
 # bz #1183210 + #1183530 \
 Requires: python%{python3_pkgversion}-devel \
 Requires: sqlite-devel%{?_isa} \
-Requires: cmake(Qt5) \
-Requires: cmake(Qt5UiPlugin) \
-Requires: cmake(Qt5X11Extras) \
-Requires: qt5-qtwebkit-devel%{?_isa} \
+Requires: cmake(Qt6) \
+Requires: cmake(Qt6Core5Compat) \
+Requires: cmake(Qt6Quick) \
+Requires: cmake(Qt6UiPlugin) \
+Requires: unixODBC-devel%{?_isa} \
 Requires: utf8cpp-devel \
+Requires: zfp-devel%{?_isa} \
 Requires: zlib-devel%{?_isa} \
 
 # Bundled KWSys
@@ -255,6 +288,7 @@ Provides: bundled(kwsys-systemtools)
 Provides: bundled(diy2)
 Provides: bundled(exodusII) = 2.0.0
 Provides: bundled(exprtk) = 2.71
+Provides: bundled(fides)
 %if !%{with fmt}
 Provides: bundled(fmt) = 8.1.0
 %endif
@@ -262,10 +296,17 @@ Provides: bundled(ftgl) = 1.32
 %if !%{with gl2ps}
 Provides: bundled(gl2ps) = 1.4.0
 %endif
-Provides: bundled(ioss) = 20210512
+Provides: bundled(h5part) = 1.6.6
+Provides: bundled(ioss) = 20221014
+Provides: bundled(itlib-small-vector) = 1.0.4
 Provides: bundled(kissfft)
+Provides: bundled(loguru) = 2.1
 Provides: bundled(metaio)
+Provides: bundled(scn) = 4.0.0
+# kitware library https://gitlab.kitware.com/utils/token
+Provides: bundled(token) = 23.09
 Provides: bundled(verdict) = 1.4.0
+Provides: bundled(viskores) = 1.0.0
 Provides: bundled(vpic)
 Provides: bundled(xdmf2) = 2.1
 Provides: bundled(xdmf3)
@@ -520,18 +561,36 @@ programming languages.
 
 
 %prep
-%autosetup -p1 -b 1 -n VTK-%{version}
+%autosetup -p1 -b 1 -n VTK-%{srcver}
 # Remove included thirdparty sources just to be sure
+# ls VTK-*/ThirdParty/*/vtk* -dl | grep ^d
 # TODO - diy2 - not yet packaged
 # TODO - exodusII - not yet packaged
+# TODO - exprtk - not yet packaged
+# TODO - fides - not yet packaged
+# TODO - h5part - not yet packaged
+# TODO - ioss - not yet packaged
+# TODO - kissfft - not yet packaged
+# TODO - loguru - not yet packaged
+# TODO - scn - not yet packaged
 # TODO - verdict - not yet packaged
+# TODO - viskores - not yet packaged
 # TODO - VPIC - not yet packaged
 # TODO - xdmf2 - not yet packaged
 # TODO - xdmf3 - not yet packaged
-for x in vtk{cli11,doubleconversion,eigen,expat,%{?with_fmt:fmt,}freetype,%{?with_gl2ps:gl2ps,}glew,hdf5,jpeg,jsoncpp,libharu,libproj,libxml2,lz4,lzma,mpi4py,netcdf,ogg,pegtl,png,pugixml,sqlite,theora,tiff,utf8,zfp,zlib}
+for x in vtk{cgns,cli11,doubleconversion,eigen,expat,fast_float,%{?with_fmt:fmt,}freetype,%{?with_gl2ps:gl2ps,}hdf5,jpeg,jsoncpp,libharu,libproj,libxml2,lz4,lzma,mpi4py,netcdf,nlohmannjson,ogg,pegtl,png,pugixml,sqlite,theora,tiff,utf8,zlib}
 do
   rm -r ThirdParty/*/${x}
 done
+%ifarch %{ix86}
+rm -r ThirdParty/xdmf3
+%endif
+
+# Remove version requirements
+sed -i -e '/VERSION *"/d' ThirdParty/fast_float/CMakeLists.txt
+
+# Remove version requirements
+sed -i -e '/VERSION *"/d' ThirdParty/fast_float/CMakeLists.txt
 
 # Remove unused KWSys items
 find Utilities/KWSys/vtksys/ -name \*.[ch]\* | grep -vE '^Utilities/KWSys/vtksys/([a-z].*|Configure|SharedForward|Status|String\.hxx|Base64|CommandLineArguments|Directory|DynamicLoader|Encoding|FStream|FundamentalType|Glob|MD5|Process|RegularExpression|System|SystemInformation|SystemTools)(C|CXX|UNIX)?\.' | xargs rm
@@ -541,7 +600,11 @@ mkdir vtk-examples
 cp -a Examples vtk-examples
 find vtk-examples -type f | xargs chmod -R a-x
 
-
+# Requires OpenTURNS which is not packaged
+# -DVTK_MODULE_ENABLE_VTK_FiltersOpenTURNS:STRING=YES
+# fides and ADIOS2 require ADIOS2 which is not packaged
+# ZSpace is Windows only, but is getting enabled anyway
+# Xdmf3 fails on i686 - https://gitlab.kitware.com/vtk/vtk/-/issues/19402
 %global vtk_cmake_options \\\
  -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \\\
  -DCMAKE_INSTALL_DOCDIR=share/doc/%{name} \\\
@@ -549,7 +612,6 @@ find vtk-examples -type f | xargs chmod -R a-x
  -DCMAKE_INSTALL_LIBDIR:PATH=%{_lib} \\\
  -DCMAKE_INSTALL_JNILIBDIR:PATH=%{_lib}/%{name} \\\
  -DCMAKE_INSTALL_LICENSEDIR:PATH=share/licenses/%{name} \\\
- -DCMAKE_INSTALL_QMLDIR:PATH=%{_lib}/qt5/qml \\\
  -DVTK_CUSTOM_LIBRARY_SUFFIX="" \\\
  -DVTK_VERSIONED_INSTALL:BOOL=OFF \\\
  -DVTK_GROUP_ENABLE_Imaging:STRING=YES \\\
@@ -558,15 +620,34 @@ find vtk-examples -type f | xargs chmod -R a-x
  -DVTK_GROUP_ENABLE_StandAlone:STRING=YES \\\
  -DVTK_GROUP_ENABLE_Views:STRING=YES \\\
  -DVTK_GROUP_ENABLE_Web:STRING=YES \\\
+ -DVTK_MODULE_ENABLE_VTK_AcceleratorsVTKmFilters:STRING=YES \\\
  -DVTK_MODULE_ENABLE_VTK_CommonArchive:STRING=YES \\\
  -DVTK_MODULE_ENABLE_VTK_DomainsMicroscopy:STRING=YES \\\
  -DVTK_MODULE_ENABLE_VTK_GeovisGDAL:STRING=YES \\\
+ -DVTK_MODULE_ENABLE_VTK_FiltersParallelStatistics:STRING=YES \\\
+ -DVTK_MODULE_ENABLE_VTK_FiltersParallelVerdict:STRING=YES \\\
  -DVTK_MODULE_ENABLE_VTK_ImagingOpenGL2:STRING=YES \\\
  -DVTK_MODULE_ENABLE_VTK_InfovisBoost:STRING=YES \\\
  -DVTK_MODULE_ENABLE_VTK_InfovisBoostGraphAlgorithms:STRING=YES \\\
+%if %{with bootstrap} \
+ -DVTK_MODULE_ENABLE_VTK_IOOCCT:STRING=NO \\\
+%endif \
+ -DVTK_MODULE_ENABLE_VTK_IOFDS:STRING=YES \\\
+ -DVTK_MODULE_ENABLE_VTK_IOH5part:STRING=YES \\\
+ -DVTK_MODULE_ENABLE_VTK_IOH5Rage:STRING=YES \\\
  -DVTK_MODULE_ENABLE_VTK_IOMySQL:STRING=YES \\\
+ -DVTK_MODULE_ENABLE_VTK_IOOMF:STRING=YES \\\
+ -DVTK_MODULE_ENABLE_VTK_IOParallelLSDyna:STRING=YES \\\
+ -DVTK_MODULE_ENABLE_VTK_IOTRUCHAS:STRING=YES \\\
+ -DVTK_MODULE_ENABLE_VTK_IOVPIC:STRING=YES \\\
+ -DVTK_MODULE_ENABLE_VTK_IOXdmf2:STRING=YES \\\
+%ifarch %{ix86} \
+ -DVTK_MODULE_ENABLE_VTK_IOXdmf3:STRING=NO \\\
+%endif \
+ -DVTK_MODULE_ENABLE_VTK_RenderingAnari:STRING=NO \\\
+ -DVTK_MODULE_ENABLE_VTK_RenderingMatplotlib:STRING=YES \\\
+ -DVTK_MODULE_ENABLE_VTK_RenderingVolumeAMR:STRING=YES \\\
  -DVTK_PYTHON_OPTIONAL_LINK:BOOL=OFF \\\
- -DVTK_PYTHON_VERSION=3 \\\
 %if %{with OSMesa} \
  -DVTK_OPENGL_HAS_OSMESA:BOOL=ON \\\
 %endif \
@@ -585,6 +666,12 @@ find vtk-examples -type f | xargs chmod -R a-x
 %endif \
  -DVTK_WRAP_PYTHON:BOOL=ON \\\
  -DVTK_USE_EXTERNAL=ON \\\
+ -DVTK_BUILD_ALL_MODULES=ON \\\
+ -DVTK_ENABLE_OSPRAY:BOOL=OFF \\\
+ -DVTK_MODULE_ENABLE_VTK_fides:STRING=NO \\\
+ -DVTK_MODULE_ENABLE_VTK_FiltersOpenTURNS:STRING=NO \\\
+ -DVTK_MODULE_ENABLE_VTK_IOADIOS2:STRING=NO \\\
+ -DVTK_MODULE_ENABLE_VTK_IOOpenVDB:STRING=NO \\\
 %if !%{with fmt} \
  -DVTK_MODULE_USE_EXTERNAL_VTK_fmt:BOOL=OFF \\\
 %endif \
@@ -593,16 +680,18 @@ find vtk-examples -type f | xargs chmod -R a-x
 %endif \
  -DVTK_MODULE_USE_EXTERNAL_VTK_exprtk:BOOL=OFF \\\
  -DVTK_MODULE_USE_EXTERNAL_VTK_ioss:BOOL=OFF \\\
+ -DVTK_MODULE_USE_EXTERNAL_VTK_scn:BOOL=OFF \\\
+ -DVTK_MODULE_USE_EXTERNAL_VTK_token:BOOL=OFF \\\
  -DVTK_MODULE_USE_EXTERNAL_VTK_verdict:BOOL=OFF \\\
+ -DVTK_MODULE_USE_EXTERNAL_VTK_vtkviskores:BOOL=OFF \\\
  -DVTK_USE_TK=ON \\\
   %{?with_flexiblas:-DBLA_VENDOR=FlexiBLAS}
-# https://gitlab.kitware.com/cmake/cmake/issues/17223
-#-DVTK_MODULE_ENABLE_VTK_IOPostgreSQL:STRING=YES \\\
 
 # $mpi will be evaluated in the loops below
 %global _vpath_builddir %{_vendor}-%{_target_os}-build-${mpi:-serial}
 
-%build
+
+%conf
 export CFLAGS="%{optflags} -D_UNICODE -DHAVE_UINTPTR_T"
 export CXXFLAGS="%{optflags} -D_UNICODE -DHAVE_UINTPTR_T"
 export CPPFLAGS=-DACCEPT_USE_OF_DEPRECATED_PROJ_API_H
@@ -618,29 +707,41 @@ export JAVA_TOOL_OPTIONS=-Xmx2048m
 %endif
 %endif
 
+
 %cmake %{cmake_gen} \
  %{vtk_cmake_options} \
  -DVTK_BUILD_DOCUMENTATION:BOOL=ON \
  -DVTK_BUILD_EXAMPLES:BOOL=ON \
  -DVTK_BUILD_TESTING:BOOL=ON
-%cmake_build -- --output-sync
-%cmake_build --target DoxygenDoc
 
+
+   #-DVTK_MODULE_ENABLE_VTK_FiltersParallelStatistics:STRING=YES \
 
 export CC=mpicc
 export CXX=mpic++
 for mpi in %{mpi_list}
 do
   module load mpi/$mpi-%{_arch}
-  #CMAKE_INSTALL_LIBDIR -> ARCHIVE_DESTINATION must not be an absolute path
+  # CMAKE_INSTALL_LIBDIR -> ARCHIVE_DESTINATION must not be an absolute path
+  # VTK_MODULE_ENABLE_VTK_FiltersParallelStatistics need MPI modules at the moment
   %cmake %{cmake_gen} \
    %{vtk_cmake_options} \
    -DCMAKE_PREFIX_PATH:PATH=$MPI_HOME \
    -DCMAKE_INSTALL_PREFIX:PATH=$MPI_HOME \
    -DCMAKE_INSTALL_LIBDIR:PATH=lib \
    -DCMAKE_INSTALL_JNILIBDIR:PATH=lib/%{name} \
-   -DCMAKE_INSTALL_QMLDIR:PATH=lib/qt5/qml \
+   -DVTK_MODULE_ENABLE_VTK_IOPIO:STRING=YES \
    -DVTK_USE_MPI:BOOL=ON
+  module purge
+done
+
+
+%build
+%cmake_build -- --output-sync
+%cmake_build --target DoxygenDoc
+for mpi in %{mpi_list}
+do
+  module load mpi/$mpi-%{_arch}
   %cmake_build -- --output-sync
   module purge
 done
@@ -749,6 +850,8 @@ cat xorg.log
 %files -f %{_vendor}-%{_target_os}-build-serial/libs.list
 %license %{_defaultlicensedir}/%{name}/
 %doc README.md _docs/Wrapping
+%{_datadir}/vr_actions/
+%{_datadir}/xr_actions/
 
 %files devel
 %doc Utilities/Upgrading
@@ -756,6 +859,8 @@ cat xorg.log
 %{_bindir}/vtkProbeOpenGLVersion
 %{_bindir}/vtkWrapHierarchy
 %{_bindir}/vtkWrapJava
+%{_bindir}/vtkWrapSerDes
+
 %{_includedir}/%{name}
 %{_libdir}/*.so
 %{_libdir}/cmake/%{name}/
@@ -780,18 +885,20 @@ cat xorg.log
 %files qt
 %{_libdir}/lib*Qt*.so.*
 %exclude %{_libdir}/*Python*.so.*
-%{_libdir}/qt5/qml/*
 
 %if %{with mpich}
 %files mpich -f %{_vendor}-%{_target_os}-build-mpich/libs.list
 %license %{_defaultlicensedir}/%{name}-mpich/
 %doc README.md _docs/Wrapping
+%{_libdir}/mpich/share/vr_actions/
+%{_libdir}/mpich/share/xr_actions/
 
 %files mpich-devel
 %{_libdir}/mpich/bin/vtkParseJava
 %{_libdir}/mpich/bin/vtkProbeOpenGLVersion
 %{_libdir}/mpich/bin/vtkWrapHierarchy
 %{_libdir}/mpich/bin/vtkWrapJava
+%{_libdir}/mpich/bin/vtkWrapSerDes
 %{_libdir}/mpich/include/
 %{_libdir}/mpich/lib/*.so
 %{_libdir}/mpich/lib/cmake/
@@ -817,19 +924,21 @@ cat xorg.log
 %files mpich-qt
 %{_libdir}/mpich/lib/lib*Qt*.so.*
 %exclude %{_libdir}/mpich/lib/*Python*.so.*
-%{_libdir}/mpich/lib/qt5/
 %endif
 
 %if %{with openmpi}
 %files openmpi -f %{_vendor}-%{_target_os}-build-openmpi/libs.list
 %license %{_defaultlicensedir}/%{name}-openmpi/
 %doc README.md _docs/Wrapping
+%{_libdir}/openmpi/share/vr_actions/
+%{_libdir}/openmpi/share/xr_actions/
 
 %files openmpi-devel
 %{_libdir}/openmpi/bin/vtkParseJava
 %{_libdir}/openmpi/bin/vtkProbeOpenGLVersion
 %{_libdir}/openmpi/bin/vtkWrapHierarchy
 %{_libdir}/openmpi/bin/vtkWrapJava
+%{_libdir}/openmpi/bin/vtkWrapSerDes
 %{_libdir}/openmpi/include/
 %{_libdir}/openmpi/lib/*.so
 %{_libdir}/openmpi/lib/cmake/
@@ -855,7 +964,6 @@ cat xorg.log
 %files openmpi-qt
 %{_libdir}/openmpi/lib/lib*Qt*.so.*
 %exclude %{_libdir}/openmpi/lib/*Python*.so.*
-%{_libdir}/openmpi/lib/qt5/
 %endif
 
 %files data

@@ -189,8 +189,8 @@ mkdir -p %{buildroot}%{zsh_completions_dir}
 cp -p share/zsh/_why3 %{buildroot}%{zsh_completions_dir}
 
 # Install the LaTeX style
-mkdir -p %{buildroot}%{_texmf}/tex/latex/why3
-cp -p share/latex/why3lang.sty %{buildroot}%{_texmf}/tex/latex/why3
+mkdir -p %{buildroot}%{_texmf_main}/tex/latex/why3
+cp -p share/latex/why3lang.sty %{buildroot}%{_texmf_main}/tex/latex/why3
 
 # Move the gtksourceview language file to the right place
 mkdir -p %{buildroot}%{_datadir}/gtksourceview-3.0
@@ -249,7 +249,7 @@ chmod 0755 %{buildroot}%{_bindir}/* \
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 %{vimfiles_root}/ftdetect/%{name}.vim
 %{vimfiles_root}/syntax/%{name}.vim
-%{_texmf}/tex/latex/why3/
+%{_texmf_main}/tex/latex/why3/
 %{_libdir}/%{name}/
 %{_metainfodir}/fr.lri.%{name}.metainfo.xml
 

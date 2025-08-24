@@ -1,5 +1,5 @@
 Name:           novelwriter
-Version:        2.7.1
+Version:        2.7.4
 Release:        %autorelease
 Summary:        Plain text editor designed for writing novels
 
@@ -15,7 +15,6 @@ BuildRequires:  hunspell-en-GB
 BuildRequires:  hunspell-en-US
 BuildRequires:  enchant2-devel
 BuildRequires:  hunspell-devel
-BuildRequires:  libreoffice
 BuildRequires:  python3-enchant
 BuildRequires:  python3-zlib-ng
 BuildRequires:  qt6-qttools-devel
@@ -38,6 +37,8 @@ BuildRequires:  python3-sphinx-copybutton
 BuildRequires:  texinfo
 # Needed for directory ownership
 Requires:       hicolor-icon-theme
+# Bundles svg material design icons
+Provides:       bundled(material-design-icons)
 
 %description
 novelWriter is a plain text editor designed for writing novels assembled from

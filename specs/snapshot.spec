@@ -9,7 +9,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           snapshot
-Version:        49~alpha
+Version:        49~beta
 Release:        %autorelease
 Summary:        Take pictures and videos
 
@@ -50,7 +50,6 @@ Source:         https://download.gnome.org/sources/snapshot/49/snapshot-%{tarbal
 
 # Downstream patch to disable linting as part of self tests
 Patch:          0001-Disable-cargo-clippy-test.patch
-Patch:          0002-Drop-zvariant-5.4-version-pin.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

@@ -1,8 +1,8 @@
 %global pkg_name geographiclib
 
 Name:           python-%{pkg_name}
-Version:        2.0
-Release:        6%{?dist}
+Version:        2.1
+Release:        1%{?dist}
 Summary:        Python 3 implementation of geographiclib
 
 License:        MIT
@@ -96,6 +96,9 @@ MinGW Windows %{pkg_name} python 3 bindings.
 
 
 %changelog
+* Fri Aug 22 2025 Sandro Mani <manisandro@gmail.com> - 2.1-1
+- Update to 2.1
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.0-6
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -3,8 +3,8 @@
 
 Name:           %{archive_name}
 Epoch:          1
-Version:        25.8.1
-Release:        2%{?dist}
+Version:        25.8.2
+Release:        1%{?dist}
 Summary:        Best practices checker for Ansible
 
 # README file says its just GPLv3
@@ -66,6 +66,9 @@ ln -sr %{buildroot}%{_bindir}/%{name}{,-3}
 %{_bindir}/%{name}-3
 
 %changelog
+* Fri Aug 22 2025 Parag Nemade <pnemade AT redhat DOT com> - 1:25.8.2-1
+- Update to 25.8.2 version (#2388457)
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1:25.8.1-2
 - Rebuilt for Python 3.14.0rc2 bytecode
 

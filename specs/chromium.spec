@@ -244,7 +244,7 @@
 %endif
 
 Name:	chromium
-Version: 139.0.7258.127
+Version: 139.0.7258.138
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -749,7 +749,6 @@ BuildRequires: brotli-devel
 %endif
 
 BuildRequires: speech-dispatcher-devel
-BuildRequires: yasm
 BuildRequires: zlib-devel
 
 # remote desktop needs this
@@ -1747,6 +1746,14 @@ fi
 %endif
 
 %changelog
+* Fri Aug 22 2025 Than Ngo <than@redhat.com> - 139.0.7258.138-1
+- Updated to 139.0.7258.138
+  * CVE-2025-9132: Out of bounds write in V8
+
+* Wed Aug 20 2025 Dominik Mierzejewski <dominik@greysector.net> - 139.0.7258.127-2
+- Drop unused yasm build dependency
+  see https://fedoraproject.org/wiki/Changes/DeprecateYASM
+
 * Wed Aug 13 2025 Than Ngo <than@redhat.com> - 139.0.7258.127-1
 - Updated to 139.0.7258.127
   * CVE-2025-8879: Heap buffer overflow in libaom

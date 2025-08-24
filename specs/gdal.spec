@@ -1,6 +1,7 @@
 # Without this the build time baloons from 1 hour to more than 46 on i686
 # https://bugzilla.redhat.com/show_bug.cgi?id=2390105
 %undefine _preserve_static_debuginfo
+%define _find_debuginfo_opts --no-ar-files
 
 %global run_tests 1
 
@@ -51,7 +52,7 @@
 
 Name:          gdal
 Version:       3.11.3
-Release:       5%{?dist}
+Release:       7%{?dist}
 Summary:       GIS file format library
 License:       MIT
 URL:           http://www.gdal.org
@@ -849,6 +850,12 @@ done
 
 
 %changelog
+* Fri Aug 22 2025 Orion Poplawski <orion@nwra.com> - 3.11.3-7
+- Rebuild for netcdf 4.9.3 soname bump
+
+* Fri Aug 22 2025 Orion Poplawski <orion@nwra.com> - 3.11.3-6
+- Rebuild for netcdf 4.9.3 soname bump
+
 * Thu Aug 21 2025 Orion Poplawski <orion@nwra.com> - 3.11.3-5
 - Undefine _preserve_static_debuginfo to prevent huge build times
 

@@ -4,7 +4,7 @@
 %global crate dolby_vision
 
 Name:           rust-dolby_vision
-Version:        3.3.1
+Version:        3.3.2
 Release:        %autorelease
 Summary:        Dolby Vision metadata parsing and writing
 
@@ -15,6 +15,8 @@ Source:         %{crates_source}
 # * drop unused, benchmark-only criterion dev-dependency
 # * explicitly mark library as a "cdylib" type to fix spec generation
 Patch:          dolby_vision-fix-metadata.diff
+# bump to a8e639d snapshot to fix build with bitvec_helpers 4.0.0
+Patch:          dolby_vision-a8e639d.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  cargo-c

@@ -3,7 +3,7 @@
 
 # https://github.com/docker/buildx
 %global goipath         github.com/docker/buildx
-Version:                0.26.1
+Version:                0.27.0
 %global tag             v%{gsub %{version} ~ -}
 
 %gometa -L -f
@@ -45,10 +45,6 @@ Requires:       docker-cli
 %go_vendor_license_buildrequires -c %{S:2}
 
 %build
-# temporary fix for go 1.25 rc2
-%if 0%{?fedora} >= 43
-export GOEXPERIMENT=nodwarf5
-%endif
 GO_LDFLAGS="" GO_BUILDTAGS=""
 CGO_ENABLED=1 \
 GO_EXTRA_FLAGS="%{gocompilerflags} -a -v -x" \

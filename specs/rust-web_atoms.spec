@@ -2,21 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate rqrr
+%global crate web_atoms
 
-Name:           rust-rqrr
-Version:        0.10.0
+Name:           rust-web_atoms
+Version:        0.1.3
 Release:        %autorelease
-Summary:        Detect and read QR codes from any image source
+Summary:        Atoms for xml5ever and html5ever
 
-License:        (MIT OR Apache-2.0) AND ISC
-URL:            https://crates.io/crates/rqrr
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/web_atoms
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Detect and read QR codes from any image source.}
+Atoms for xml5ever and html5ever.}
 
 %description %{_description}
 
@@ -31,9 +31,7 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-ISC
 %license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -46,30 +44,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+image-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+image-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "image" feature of the "%{crate}" crate.
-
-%files       -n %{name}+image-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+img-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+img-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "img" feature of the "%{crate}" crate.
-
-%files       -n %{name}+img-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
@@ -87,8 +61,7 @@ use the "img" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# * data files for doctests are not included in published crates
-%cargo_test -- --lib
+%cargo_test
 %endif
 
 %changelog

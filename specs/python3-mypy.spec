@@ -1,6 +1,6 @@
 Name:           python3-mypy
 Version:        1.17.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A static type checker for Python
 %{?python_provide:%python_provide python3-mypy}
 
@@ -15,6 +15,7 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-typing-extensions
 BuildRequires:  (python3-tomli if python3 < 3.11)
+BuildRequires:  python3-pathspec
 Requires:  python3-typing-extensions
 
 # Remove for f38+
@@ -80,6 +81,9 @@ end
 %{_mandir}/man1/stubgen.1*
 
 %changelog
+* Fri Aug 22 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.17.1-3
+- BuildRequire pathspec to fix man pages.
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.17.1-2
 - Rebuilt for Python 3.14.0rc2 bytecode
 

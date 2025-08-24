@@ -56,6 +56,9 @@ Patch6:         ncl-gdal.patch
 Patch7:         ncl-hdf4.3.patch
 # Fixes for gcc15
 Patch8:         ncl-gcc15.patch
+# Drop nc_set_log_level for netcdf 4.9.3
+# https://github.com/NCAR/ncl/pull/227
+Patch9:         ncl-nc-set-log-level.patch
 # don't have the installation target depends on the build target since
 # for library it implies running ranlib and modifying the library timestamp
 Patch10:        ncl-5.0.0-no_install_dep.patch
@@ -146,6 +149,7 @@ Example programs and data using NCL.
 %patch -P6 -p1 -b .gdal
 %patch -P7 -p1 -b .hdf
 %patch -P8 -p1 -b .gcc15
+%patch -P9 -p1 -b .nc_set_log_level
 %patch -P10 -p1 -b .no_install_dep
 %patch -P11 -p1 -b .build_n_scripts
 %patch -P12 -p1 -b .netcdff

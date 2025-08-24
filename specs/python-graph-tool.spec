@@ -2,7 +2,7 @@
 %constrain_build -m 15360
 
 Name:           python-graph-tool
-Version:        2.97
+Version:        2.98
 Release:        %autorelease
 Summary:        Efficient network analysis tool written in Python
 

@@ -2,7 +2,7 @@
 
 Name:           qgis
 Version:        3.44.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A user friendly Open Source Geographic Information System
 
 # http://issues.qgis.org/issues/3789
@@ -305,6 +305,9 @@ rm -f %{buildroot}%{_prefix}/lib/liboauth2authmethod_static.a
 
 
 %changelog
+* Fri Aug 22 2025 Orion Poplawski <orion@nwra.com> - 3.44.2-2
+- Rebuild for netcdf 4.9.3 soname bump
+
 * Fri Aug 15 2025 Sandro Mani <manisandro@gmail.com> - 3.44.2-1
 - Update to 3.44.2
 

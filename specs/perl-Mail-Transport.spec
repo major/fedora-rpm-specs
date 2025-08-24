@@ -1,6 +1,6 @@
 Name:		perl-Mail-Transport
-Version:	3.005
-Release:	14%{?dist}
+Version:	3.006
+Release:	1%{?dist}
 Summary:	Email message exchange
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Mail-Transport
@@ -11,14 +11,15 @@ BuildRequires:	coreutils
 BuildRequires:	make
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
+BuildRequires:	perl(:VERSION) >= 5.16
 BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:	perl(IO::Handle)
 # Runtime
 BuildRequires:	perl(base)
 BuildRequires:	perl(Carp)
+BuildRequires:	perl(constant)
 BuildRequires:	perl(Errno)
 BuildRequires:	perl(File::Spec) >= 0.7
-BuildRequires:	perl(IO::Lines)
 BuildRequires:	perl(IO::Socket)
 BuildRequires:	perl(List::Util)
 BuildRequires:	perl(Mail::Reporter) >= 3
@@ -31,7 +32,6 @@ BuildRequires:	perl(warnings)
 # Test Suite
 BuildRequires:	perl(Test::More)
 # Dependencies
-Requires:	perl(IO::Lines)
 Requires:	perl(IO::Socket)
 Requires:	perl(List::Util)
 Requires:	perl(Net::Config)
@@ -67,6 +67,9 @@ make test
 %{_mandir}/man3/Mail::Transport::Sendmail.3*
 
 %changelog
+* Fri Aug 22 2025 Paul Howarth <paul@city-fan.org> - 3.006-1
+- Update to 3.006
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.005-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

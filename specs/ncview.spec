@@ -1,6 +1,6 @@
 Name:           ncview
 Version:        2.1.11
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A visual browser for netCDF format files
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
@@ -64,6 +64,9 @@ chrpath -l -d %{buildroot}%{_bindir}/ncview
 
 
 %changelog
+* Fri Aug 22 2025 Orion Poplawski <orion@nwra.com> - 2.1.11-3
+- Rebuild for netcdf 4.9.3 soname bump
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -6,7 +6,7 @@ Release:        2%{?dist}
 Summary:        Lightweight glue library between Coin and Qt
 
 License:        BSD-3-Clause 
-URL:            https://grey.colorado.edu/quarter/
+URL:            https://www.coin3d.org/quarter/
 Source0:        https://github.com/coin3d/%{name}/releases/download/v%{version}/%{name}-%{version}-src.tar.gz
 
 BuildRequires:  cmake gcc gcc-c++ doxygen
@@ -54,6 +54,7 @@ BuildArch:      noarch
 
 
 %build
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake -DQUARTER_BUILD_DOCUMENTATION=ON
 
 %cmake_build

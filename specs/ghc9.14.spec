@@ -68,7 +68,11 @@
 %if %{defined el9}
 %global llvm_major 12
 %else
+%if %{defined el10} || %{defined fc41}
+%global llvm_major 18
+%else
 %global llvm_major 19
+%endif
 %endif
 %global ghc_llvm_archs s390x
 %global ghc_unregisterized_arches s390 %{mips}
@@ -77,7 +81,7 @@ Name: %{ghc_name}
 Version: %{ghc_major}.%{ghc_patchlevel}.20250819
 # Since library subpackages are versioned:
 # - release can only be reset if *all* library versions get bumped simultaneously
-Release: 0.1%{?dist}
+Release: 0.2%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -424,6 +428,10 @@ Installing this package causes %{name}-*-prof packages corresponding to
 ( cd hadrian
   cabal-tweak-dep-ver Cabal '< 3.15' '< 3.17'
 )
+# allow ghc-9.6 unix
+( cd libraries/Cabal/Cabal
+  cabal-tweak-dep-ver unix '>= 2.8.6.0' '>= 2.8'
+)
 
 %patch -P1 -p1 -b .orig
 #%%patch -P2 -p1 -b .orig
@@ -633,9 +641,9 @@ sed -i -e "s|^%{buildroot}||g" %{name}-base*.files
 sed -i -e "s|%{buildroot}||g" %{buildroot}%{_bindir}/*
 
 mkdir -p %{buildroot}%{_mandir}/man1
-install -p -m 0644 %{SOURCE5} %{buildroot}%{_mandir}/man1/ghc-pkg.1
-install -p -m 0644 %{SOURCE6} %{buildroot}%{_mandir}/man1/haddock.1
-install -p -m 0644 %{SOURCE7} %{buildroot}%{_mandir}/man1/runghc.1
+install -p -m 0644 %{SOURCE5} %{buildroot}%{_mandir}/man1/ghc-pkg-%{ghc_major}.1
+install -p -m 0644 %{SOURCE6} %{buildroot}%{_mandir}/man1/haddock-%{ghc_major}.1
+install -p -m 0644 %{SOURCE7} %{buildroot}%{_mandir}/man1/runghc-%{ghc_major}.1
 
 %if %{with haddock}
 rm %{buildroot}%{_pkgdocdir}/archives/libraries.html.tar.xz
@@ -817,9 +825,9 @@ make test
 %{ghcliblib}/prelude.mjs
 %{ghcliblib}/settings
 %{ghcliblib}/template-hsc.h
-%{_mandir}/man1/ghc-pkg.1*
-%{_mandir}/man1/haddock.1*
-%{_mandir}/man1/runghc.1*
+%{_mandir}/man1/ghc-pkg-%{ghc_major}.1*
+%{_mandir}/man1/haddock-%{ghc_major}.1*
+%{_mandir}/man1/runghc-%{ghc_major}.1*
 
 %{_bindir}/haddock-ghc-%{version}
 %{ghcliblib}/html
@@ -892,8 +900,13 @@ make test
 
 
 %changelog
+* Fri Aug 22 2025 Jens Petersen <petersen@redhat.com> - 9.14.0.20250819-0.2
+- rename newer debian manpages with version suffix
+- use llvm18 for f41 and epel10
+
 * Wed Aug 20 2025 Jens Petersen <petersen@redhat.com> - 9.14.0.20250819-0.1
 - 9.14.1 alpha1
 - derived from ghc9.12 package
 - boot with ghc9.10
+- default to llvm19
 - ftbfs on s390x (#2390028)
