@@ -1,6 +1,6 @@
 Name:		isa-l
 Version:	2.31.1
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	Intel(R) Intelligent Storage Acceleration Library
 
 License:	BSD-3-Clause
@@ -13,7 +13,8 @@ Patch1:		0001-igzip-fix-header-construction-in-Big-Endian-systems.patch
 #		https://github.com/intel/isa-l/pull/313
 Patch2:		0001-Address-type-mismatch-warnings-on-aarch64.patch
 #		https://github.com/intel/isa-l/issues/316
-Patch3:		0001-Test-failures-for-python-isal-on-aarch64.patch
+#		https://github.com/intel/isa-l/pull/358
+Patch3:		0001-igzip-Fix-aarch64-registry-width-for-bfinal.patch
 
 ExcludeArch:	%{ix86}
 
@@ -97,18 +98,21 @@ rm %{buildroot}%{_libdir}/*.la
 %{_mandir}/man1/igzip.1*
 
 %changelog
+* Sat Aug 23 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.31.1-7
+- Proper fix for failing python-isal tests on aarch64
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.31.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
 * Mon Mar 17 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.31.1-5
-- Adderss compiler warnings on aarch64
+- Address compiler warnings on aarch64
 - Workaround for failing python-isal tests on aarch64
 
 * Tue Feb 04 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.31.1-4
 - Backport fix for big endian block header bug
 
 * Sat Jan 18 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.31.1-3
-- Adderss compiler warnings on ppc64le and s390x
+- Address compiler warnings on ppc64le and s390x
 
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.31.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild

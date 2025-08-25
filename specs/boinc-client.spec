@@ -59,15 +59,11 @@ Requires:         logrotate
 Requires(post):   systemd
 Requires(preun):  systemd
 Requires(postun): systemd
-%if ! (0%{?fedora} >= 42 || 0%{?rhel} >= 10)
+%if ! ((%{defined rhel} && 0%{?rhel} >= 10) || (%{defined fedora} && 0%{?fedora} >= 42))
 Requires(pre):    shadow-utils
 %endif
 
 BuildRequires: curl-devel
-%if 0%{?el7}
-BuildRequires: devtoolset-7-toolchain
-BuildRequires: devtoolset-7-libatomic-devel
-%endif
 BuildRequires: freeglut-devel
 BuildRequires: gcc-c++
 BuildRequires: gettext
@@ -77,10 +73,12 @@ BuildRequires: libXmu-devel
 BuildRequires: pkgconfig(libjpeg)
 BuildRequires: pkgconfig(libnotify)
 BuildRequires: libtool
+%if ! (%{defined rhel} && 0%{?rhel} >= 10)
 BuildRequires: libXScrnSaver-devel
+%endif
 BuildRequires: mesa-libGLU-devel
 BuildRequires: pkgconfig(openssl)
-%if 0%{?fedora} > 40
+%if %{defined fedora} && 0%{?fedora} > 40
 # https://fedoraproject.org/wiki/Changes/OpensslDeprecateEngine
 #
 # We have raised the possibility of removing OpenSSL engine support upstream:
@@ -92,7 +90,7 @@ BuildRequires: pkgconfig(openssl)
 # keep supporting engines.
 BuildRequires: openssl-devel-engine
 %endif
-%if 0%{?fedora}
+%if %{defined fedora}
 BuildRequires: pkgconfig(sqlite)
 %else
 BuildRequires: sqlite-devel
@@ -139,11 +137,8 @@ in which all information and all control elements are available.
 Summary:    Development files for %{name}
 Requires:   %{name} = %{version}-%{release}
 Requires:   openssl-devel
-%if 0%{?el7}
-Requires:   mysql-devel
-%else
 Requires:   mariadb-connector-c-devel
-%endif
+
 
 %description devel
 This package contains development files for %{name}.
@@ -183,9 +178,6 @@ u boinc - 'BOINC client account.' %{_localstatedir}/lib/boinc -
 EOF
 
 %build
-%if 0%{?el7}
-. /opt/rh/devtoolset-7/enable
-%endif
 
 %ifarch %{ix86}
 %global boinc_platform i686-pc-linux-gnu

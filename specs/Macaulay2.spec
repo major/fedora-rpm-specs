@@ -48,7 +48,7 @@
 Summary: System for algebraic geometry and commutative algebra
 Name:    Macaulay2
 Version: 1.25.06
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # GPL-2.0-only OR GPL-3.0-only:
 #   - the project as a whole
@@ -594,6 +594,9 @@ make check -C BUILD/%{_target_platform}/Macaulay2/bin
 
 
 %changelog
+* Sat Aug 23 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 1.25.06-3
+- Rebuilt for tinyxml2 11.0.0
+
 * Wed Aug 20 2025 Jerry James <loganjerry@gmail.com> - 1.25.06-2
 - Rebuild for tbb 2022.2.0
 

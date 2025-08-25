@@ -2,7 +2,7 @@
 
 Name:           dvblinkremote
 Version:        0.2.0
-Release:        0.36.%{prerelease}%{?dist}
+Release:        0.37.%{prerelease}%{?dist}
 Summary:        Tool for interacting with a DVBLink Connect! Server
 
 License:        MIT
@@ -80,6 +80,9 @@ developing applications that use libdvblinkremote.
 
 
 %changelog
+* Sat Aug 23 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 0.2.0-0.37.beta
+- Rebuilt for tinyxml2 11.0.0
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-0.36.beta
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

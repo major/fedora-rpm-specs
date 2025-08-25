@@ -33,9 +33,9 @@
 %endif
 
 Name:           kokkos
-Version:        4.6.00
+Version:        4.6.02
 %global         sover 4.6
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Kokkos C++ Performance Portability Programming
 # no support for 32-bit archs https://github.com/kokkos/kokkos/issues/2312
 ExcludeArch: i686 armv7hl
@@ -200,6 +200,9 @@ module purge
 
 
 %changelog
+* Sat Aug 2 2025 Richard Berger <richard.berger@outlook.com> - 4.6.02-1
+- Version bump to v4.6.02
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.00-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

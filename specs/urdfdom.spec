@@ -2,7 +2,7 @@
 
 Name:       urdfdom
 Version:    4.0.2
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    U-Robot Description Format Document Object Model
 
 License:    BSD-3-Clause
@@ -56,6 +56,9 @@ rm -rf %{buildroot}%{_bindir}/urdf_mem_test
 %{_includedir}/%{name}
 
 %changelog
+* Sat Aug 23 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 4.0.2-2
+- Rebuilt for tinyxml2 11.0.0
+
 * Sat Aug 16 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 4.0.2-1
 - Update to 4.0.2; fix RHBZ#2341487, fix RHBZ#2385712
 

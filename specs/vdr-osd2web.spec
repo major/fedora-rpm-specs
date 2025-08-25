@@ -15,7 +15,7 @@
 
 Name:           vdr-%{pname}
 Version:        0.3.2
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        VDR skin interface for the browser
 License:        GPL-2.0-or-later
 URL:            https://github.com/horchi/vdr-plugin-osd2web
@@ -81,6 +81,9 @@ install -Dpm 755 scripts/startBrowser.sh %{buildroot}%{vdr_plugindir}/bin/startB
 %{vdr_plugindir}/bin/startBrowser.sh
 
 %changelog
+* Sat Aug 23 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 0.3.2-19
+- Rebuilt for tinyxml2 11.0.0
+
 * Fri Jul 25 2025 Martin Gansser <martinkg@fedoraproject.org> - 0.3.2-18
 - Rebuilt for new VDR API version 2.7.7
 

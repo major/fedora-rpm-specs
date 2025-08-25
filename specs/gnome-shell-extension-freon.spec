@@ -10,6 +10,8 @@ Summary:        GNOME Shell extension to display system temperature, voltage, an
 License:        GPL-2.0-only
 URL:            %{forgeurl}/wiki
 Source:         %{forgeurl}/archive/%{srcversion}/%{name}-%{srcversion}.tar.gz
+# Mark compatible with GNOME Shell 49
+Patch:          %{forgeurl}/pull/296.patch
 
 BuildRequires:  glib2
 
@@ -41,7 +43,7 @@ and they will appear in the GNOME Shell top bar.
 %global  final_install_dir     %{buildroot}/%{gnome_extensions_dir}/%{UUID}
 
 %prep
-%autosetup -n %{name}-%{srcversion}
+%autosetup -n %{name}-%{srcversion} -p1
 
 cat > ./README-fedora.md << EOF
 **NOTE** that if you want to see GPU temperature, you will need to

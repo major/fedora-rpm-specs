@@ -1,13 +1,14 @@
 %global debug_package %{nil}
+%global __strip /bin/true
 
 # Tarfile created using git 		
 # git clone https://github.com/raspberrypi/firmware.git
 # cd firmware/boot
 # tar cJvf ../bcm283x-firmware-%{gitshort}.tar.xz *bin *dat *elf bcm2709*dtb bcm271*dtb LICENCE.broadcom COPYING.linux overlays/
-%define gitshort 040c0fd
+%define gitshort 0641c5b
 
 Name:          bcm283x-firmware
-Version:       20250813
+Version:       20250820
 Release:       1.%{gitshort}%{?dist}
 Summary:       Firmware for the Broadcom bcm283x/bcm271x used in the Raspberry Pi
 # see LICENSE.broadcom
@@ -107,6 +108,12 @@ install -p %{SOURCE10} %{SOURCE11} %{SOURCE12} %{SOURCE13} %{SOURCE14} %{buildro
 %{efi_esp_root}/start4*
 
 %changelog
+* Sat Aug 23 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 20250820-1.0641c5b
+- Update to latest firmware
+
+* Sat Aug 23 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 20250813-2.040c0fd
+- Disable strip so it doesn't break firmware
+
 * Tue Aug 19 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 20250813-1.040c0fd
 - Update to latest FW DTBs
 

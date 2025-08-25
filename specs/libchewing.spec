@@ -5,7 +5,7 @@
 %global name_zh_TW %{im_name_zh_TW}函式庫
 
 Name:           libchewing
-Version:        0.10.2
+Version:        0.10.3
 Release:        %autorelease
 Summary:        Intelligent phonetic input method library for Traditional Chinese
 Summary(zh_TW): %{name_zh_TW}
@@ -23,8 +23,6 @@ URL:            https://chewing.im
 Source0:        https://github.com/chewing/%{name}/releases/download/v%{version_no_tilde}/libchewing-%{version_no_tilde}.tar.zst
 Source1:        https://github.com/chewing/%{name}/releases/download/v%{version_no_tilde}/libchewing-%{version_no_tilde}.tar.zst.asc
 Source2:        https://chewing.im/.well-known/openpgpkey/hu/y84sdmnksfqswe7fxf5mzjg53tbdz8f5?l=release#/libchewing.pgp
-
-Patch:          0001-Delete-unused-optional-dependencies.patch
 
 BuildRequires:  gcc cmake make pkgconf texinfo
 BuildRequires:  cargo-rpm-macros >= 24
@@ -79,7 +77,7 @@ Python binding of libchewing.
 %cargo_prep
 
 %generate_buildrequires
-%cargo_generate_buildrequires
+%cargo_generate_buildrequires -f mangen
 
 %build
 %cmake --preset default

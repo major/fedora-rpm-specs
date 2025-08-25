@@ -2,7 +2,7 @@
 %bcond_with gcc
 
 Name:           ispc
-Version:        1.28.0
+Version:        1.28.1
 Release:        %autorelease
 Summary:        C-based SPMD programming language compiler
 License:        BSD-3-Clause

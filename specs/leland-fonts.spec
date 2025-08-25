@@ -1,6 +1,6 @@
 %global giturl  https://github.com/MuseScoreFonts/Leland
 
-Version:        0.78
+Version:        0.79
 Release:        %autorelease
 URL:            https://musescore.org/
 VCS:            git:%{giturl}.git

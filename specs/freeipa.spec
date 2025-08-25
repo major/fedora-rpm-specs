@@ -215,7 +215,7 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        15%{?rc_version:.%rc_version}%{?dist}.2
+Release:        16%{?rc_version:.%rc_version}%{?dist}
 Summary:        The Identity, Policy and Audit system
 
 License:        GPL-3.0-or-later
@@ -1938,6 +1938,9 @@ fi
 %endif
 
 %changelog
+* Sat Aug 23 2025 Alexander Bokovoy <abokovoy@redhat.com> - 4.12.2-16
+- Rebuild against new Samba passdb ABI (with no changes at the moment)
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.12.2-15.2
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -54,7 +54,7 @@
 %global source_directory 1.45-development
 
 Name:           nbdkit
-Version:        1.45.5
+Version:        1.45.6
 Release:        1%{?dist}
 Summary:        NBD server
 
@@ -85,9 +85,6 @@ Source5:        nbdkit-find-provides
 Source6:        %{modulename}.te
 Source7:        %{modulename}.if
 Source8:        %{modulename}.fc
-
-# Upstream fix for 32-bit indexed-gzip filter.
-Patch:          0001-indexed-gzip-Fixes-for-32-bit-support.patch
 
 # For applying the patches:
 BuildRequires:  git
@@ -1549,8 +1546,11 @@ fi
 
 
 %changelog
+* Sat Aug 23 2025 Richard W.M. Jones <rjones@redhat.com> - 1.45.6-1
+- New upstream version 1.45.6
+
 * Wed Aug 20 2025 Richard W.M. Jones <rjones@redhat.com> - 1.45.5-1
-- New upstream version 1.45.5.
+- New upstream version 1.45.5
 - Remove obsolete Obsoletes now this is Fedora 43+.
 - Add new nbdkit-indexed-gzip-filter.
 

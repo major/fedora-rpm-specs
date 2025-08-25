@@ -8,7 +8,7 @@
 
 Name:           budgie-desktop
 Version:        10.9.2
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        A feature-rich, modern desktop designed to keep out the way of the user
 
 # GPL-2.0-or-later:
@@ -33,6 +33,10 @@ Patch0:         Adapt-to-libxfce4windowing-4_19_7.patch
 # Upstream Patches
 Patch1:         46c83b1265b4230668da472d9ef6926941678418.patch
 Patch2:         c24091bb424abe99ebcdd33eedd37068f735ad2a.patch
+Patch3:         0001-Change-our-Desktop-Current-Session-ID-to-Budgie-from.patch
+Patch4:         0002-meson-Allow-custom-prefixes-for-third-party-packages.patch
+Patch5:         0003-Re-add-X11-GSD-files.patch
+Patch6:         0004-cull-all-the-things.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -199,6 +203,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-doc/html/%{name}/*
 
 %changelog
+* Sat Aug 23 2025 Joshua Strobl <joshua@buddiesofbudgie.org> - 10.9.2-10
+- Fix #2388781 crash at login due to removal of Wacom gsd
+
 * Thu Aug 07 2025 Jerry James <loganjerry@gmail.com> - 10.9.2-9
 - Stop building for 32-bit x86
 - Convert the License field to SPDX

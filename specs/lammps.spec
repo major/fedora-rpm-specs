@@ -1,5 +1,5 @@
 %global git 0
-%global commit c10219da9e366addec5aa2be8883fe9c419d91a0
+%global commit 51d6927969b3e9c06d6e9494d53e830752517dc6
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
@@ -13,9 +13,9 @@
 
 Name:           lammps
 %if %{git}
-Version:        20250612^%{shortcommit}
+Version:        20250722^%{shortcommit}
 %else
-Version:        20250612
+Version:        20250722
 %endif
 %global         uversion %(v=%{version}; \
                   patch=${v##*.}; [[ $v = $patch ]] && patch= \
@@ -25,7 +25,7 @@ Version:        20250612
                   m=${v:4:2};
                   y=${v:0:4};
                   echo $([[ -z $patch ]] && echo patch || echo stable)_${d#0}${months[${m#0}]}${y}$([[ -n $patch ]] && echo _update${patch}))
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        Molecular Dynamics Simulator
 License:        GPL-2.0-only
 Url:            https://www.lammps.org/
@@ -38,7 +38,6 @@ Source1:        https://github.com/google/googletest/archive/release-1.12.1.tar.
 Source2:        https://pyyaml.org/download/libyaml/yaml-0.2.5.tar.gz
 Source3:        https://download.lammps.org/thirdparty/opencl-loader-2024.05.09.tar.gz
 Source4:        https://github.com/spglib/spglib/archive/refs/tags/v1.11.2.1.tar.gz#/spglib-1.11.2.1.tar.gz
-Patch0:         https://github.com/lammps/lammps/commit/aecc85e3d5f9bf80934af90ad3ec8cafbd42f88b.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 # mpi is broken on s390x see, bug #2322073
@@ -235,7 +234,6 @@ for mpi in '' mpich %{?with_openmpi:openmpi} %{?el7:openmpi3} ; do
   -C cmake/presets/all_on.cmake \
   -C cmake/presets/nolib.cmake \
   %{cmake_blas_flags} \
-  -DCMAKE_TUNE_FLAGS='' \
   -DCMAKE_CUSTOM_LINKER="default" \
   -DPKG_PYTHON=ON \
   -DPKG_VORONOI=ON \
@@ -377,6 +375,9 @@ done
 %config %{_sysconfdir}/profile.d/lammps.*
 
 %changelog
+* Sat Aug 23 2025 Richard Berger <richard.berger@outlook.com> - 20250722-1
+- Version bump to 20250722
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 20250612-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

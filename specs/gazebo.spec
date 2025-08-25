@@ -3,7 +3,7 @@
 
 Name:           gazebo
 Version:        10.2.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        3D multi-robot simulator with dynamics
 
 # gazebo/gui/qgv is LGPLv3+
@@ -334,6 +334,9 @@ export GAZEBO_IP=127.0.0.1
 %{_libdir}/cmake/*
 
 %changelog
+* Sat Aug 23 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 10.2.0-15
+- Rebuilt for tinyxml2 11.0.0
+
 * Tue Aug 05 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 10.2.0-14
 - Rebuild (GDAL)
 

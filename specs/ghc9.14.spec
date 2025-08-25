@@ -54,6 +54,12 @@
 %global ghcboot_major 9.10
 %global ghcboot ghc%{?ghcboot_major}
 
+# https://bugzilla.redhat.com/show_bug.cgi?id=2390105
+# https://fedoraproject.org/wiki/Changes/StaticLibraryPreserveDebuginfo
+# debugedit-5.2 adds 1-3 hours to koji build times
+#%%undefine _preserve_static_debuginfo
+%define _find_debuginfo_opts --no-ar-files
+
 # make sure ghc libraries' ABI hashes unchanged
 %bcond abicheck 0
 
@@ -81,7 +87,7 @@ Name: %{ghc_name}
 Version: %{ghc_major}.%{ghc_patchlevel}.20250819
 # Since library subpackages are versioned:
 # - release can only be reset if *all* library versions get bumped simultaneously
-Release: 0.2%{?dist}
+Release: 0.3%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -900,6 +906,10 @@ make test
 
 
 %changelog
+* Sat Aug 23 2025 Jens Petersen <petersen@redhat.com> - 9.14.0.20250819-0.3
+- pass --no-ar-files to find-debuginfo to workaround long generation times
+  with debugedit-5.2 (#2390105)
+
 * Fri Aug 22 2025 Jens Petersen <petersen@redhat.com> - 9.14.0.20250819-0.2
 - rename newer debian manpages with version suffix
 - use llvm18 for f41 and epel10

@@ -20,7 +20,7 @@
 Name:           musescore
 Summary:        Music Composition & Notation Software
 Version:        %{musescore_ver}
-Release:        20%{?dist}
+Release:        21%{?dist}
 
 # The MuseScore project itself is GPL-3.0-only WITH Font-exception-2.0.  Other
 # licenses in play:
@@ -585,6 +585,9 @@ hardlink -t %{buildroot}%{_datadir}/mscore-%{musescore_maj}
 %fontfiles -z 9
 
 %changelog
+* Sat Aug 23 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 4.3.2-21
+- Rebuilt for tinyxml2 11.0.0
+
 * Tue Aug 12 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 4.3.2-20
 - Rebuilt with dr_flac 0.13.0, dr_mp3 0.7.0, and dr_wav 0.14.0
 

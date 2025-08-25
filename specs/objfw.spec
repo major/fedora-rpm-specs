@@ -4,7 +4,7 @@
 
 Name:          objfw
 Version:       1.4
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Portable, lightweight framework for the Objective-C language
 
 License:       LGPL-3.0-only
@@ -26,6 +26,8 @@ Requires:      libobjfwrt%{_isa} = %{version}-%{release}
 Requires:      libobjfwrt-devel%{_isa} = %{version}-%{release}
 Requires:      libobjfwtls%{_isa} = %{version}-%{release}
 Requires:      libobjfwtls-devel%{_isa} = %{version}-%{release}
+Requires:      libobjfwhid%{_isa} = %{version}-%{release}
+Requires:      libobjfwhid-devel%{_isa} = %{version}-%{release}
 Requires:      ofarc%{_isa} = %{version}-%{release}
 Requires:      ofdns%{_isa} = %{version}-%{release}
 Requires:      ofhash%{_isa} = %{version}-%{release}
@@ -57,7 +59,6 @@ The libobjfw package contains the library needed by programs using ObjFW.
 Summary:       Header files, libraries and tools for libobjfw
 Requires:      clang
 Requires:      libobjfw%{_isa} = %{version}-%{release}
-Requires:      libobjfwhid-devel%{_isa} = %{version}-%{release}
 Requires:      libobjfwrt-devel%{_isa} = %{version}-%{release}
 Requires:      lksctp-tools-devel%{_isa}
 

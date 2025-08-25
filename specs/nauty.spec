@@ -34,13 +34,15 @@ Patch:          %{name}-uninitialized.patch
 Patch:          %{name}-fall-off.patch
 # Fix SHA256 computation on big-endian architectures
 Patch:          %{name}-big-endian.patch
+# Fix buffer overruns in dreadnaut
+Patch:          %{name}-memory-overrun.patch
 
-BuildRequires:  cliquer-devel
 BuildRequires:  gcc
 BuildRequires:  gmp-devel
 BuildRequires:  help2man
 BuildRequires:  libtool
 BuildRequires:  make
+BuildRequires:  pkgconfig(libcliquer)
 BuildRequires:  pkgconfig(zlib-ng)
 
 # Some version of planarity is bundled.  I do not know which version it is,

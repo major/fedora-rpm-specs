@@ -1,6 +1,6 @@
 Name:           cppcheck
 Version:        2.18.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tool for static C/C++ code analysis
 License:        GPL-3.0-or-later
 URL:            http://cppcheck.sourceforge.io/
@@ -112,6 +112,9 @@ grep -l "#\!/usr/bin/env python3" %{buildroot}%{_datadir}/Cppcheck/addons/*.py |
 %{_bindir}/cppcheck-htmlreport
 
 %changelog
+* Sat Aug 23 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 2.18.1-2
+- Rebuilt for tinyxml2 11.0.0
+
 * Sun Aug 17 2025 Wolfgang Stöggl <c72578@yahoo.de> - 2.18.1-1
 - 2.18.1
 

@@ -1,6 +1,6 @@
 Name:           tinyxml2
-Version:        10.0.0
-%global so_version 10
+Version:        11.0.0
+%global so_version 11
 Release:        %autorelease
 Summary:        Simple, small and efficient C++ XML parser
 
@@ -24,10 +24,6 @@ License:        Zlib
 SourceLicense:  %{license} AND LicenseRef-Fedora-Public-Domain AND MIT
 URL:            https://github.com/leethomason/tinyxml2
 Source:         %{url}/archive/%{version}/tinyxml2-%{version}.tar.gz
-
-# Remove extraneous +x bit from source files
-# https://github.com/leethomason/tinyxml2/commit/3a893e5757af701cb3a79f88bd5c3f5b5c348d0b
-Patch:          %{url}/commit/3a893e5757af701cb3a79f88bd5c3f5b5c348d0b.patch
 
 # Upstream supports CMake, meson, and plain makefiles. Of these, CMake and
 # meson are reasonable choices; choosing CMake allows us to generate and
@@ -68,7 +64,9 @@ rm -rv docs/
 
 
 %conf
-%cmake
+%cmake \
+    -Dtinyxml2_BUILD_TESTING:BOOL=ON \
+    -Dtinyxml2_INSTALL_PKGCONFIG:BOOL=ON
 
 
 %build
