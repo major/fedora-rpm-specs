@@ -154,6 +154,7 @@ sed -i 's|share/java|%{_jnidir}|' java/CMakeLists.txt
 %endif
 %if %{with check}
     -DBUILD_TESTING=ON \
+    -DF3D_TESTING_ENABLE_OSMESA_TESTS=OFF \
 %endif
     -DCMAKE_SKIP_INSTALL_RPATH=ON \
 
@@ -167,7 +168,6 @@ sed -i 's|share/java|%{_jnidir}|' java/CMakeLists.txt
 %cmake_install --component configuration
 
 rm -r %{buildroot}%{_datadir}/doc/F3D
-rm %{buildroot}%{_libdir}/*.a
 
 %check
 %if %{with check}
@@ -230,8 +230,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %dir %{_includedir}/f3d
 %{_includedir}/f3d/*.h
 %{_libdir}/cmake/f3d/
-%{_libdir}/cmake/f3d_vtkext/
-%{_libdir}/vtk/hierarchy/
 
 %if %{with python}
 %files python3

@@ -65,7 +65,8 @@ sed -r -i 's/ ?--cov=fsleyes_widgets//' pyproject.toml
 %if %{with xvfb_tests}
 # From https://git.fmrib.ox.ac.uk/fsl/fsleyes/widgets/blob/master/.ci/test_template.sh
 %global __pytest xvfb-run -a -s '-screen 0 1920x1200x24' pytest
-%pytest -m 'not dodgy'
+# https://github.com/pauldmccarthy/fsleyes-widgets/issues/3
+%pytest -m 'not dodgy' -k "not test_fileToUrl"
 %else
 %pyproject_check_import
 %endif

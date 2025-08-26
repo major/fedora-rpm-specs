@@ -1,7 +1,7 @@
 Name: drbd
 Summary: DRBD user-land tools and scripts
-Version: 9.28.0
-Release: 3%{?dist}
+Version: 9.32.0
+Release: 1%{?dist}
 Source0: https://pkg.linbit.com/downloads/%{name}/utils/%{name}-utils-%{version}.tar.gz
 Patch0: drbd-utils-9.28.0-disable_xsltproc_network_read.patch
 Patch1: drbd-utils-9.15.0-make_configure-workaround.patch
@@ -19,10 +19,11 @@ BuildRequires: pkgconf
 BuildRequires: po4a
 BuildRequires: rubygem-asciidoctor
 BuildRequires: keyutils-libs-devel
-Requires: %{name}-utils = %{version}
-Requires: %{name}-udev = %{version}
 BuildRequires: udev
 BuildRequires: make
+BuildRequires: automake
+Requires: %{name}-utils = %{version}
+Requires: %{name}-udev = %{version}
 
 %description
 DRBD refers to block devices designed as a building block to form high
@@ -45,17 +46,8 @@ This is a virtual package, installing the full user-land suite.
 
 %build
 %configure \
-    --with-utils \
-    --without-km \
     --with-udev \
-%ifarch %{ix86} x86_64
-    --with-xen \
-%else
-    --without-xen \
-%endif
     --with-pacemaker \
-    --with-rgmanager \
-    --with-distro=generic \
     --with-systemdunitdir=%{_unitdir} \
     --with-selinux \
     --without-sbinsymlinks
@@ -78,6 +70,9 @@ rm -rf $RPM_BUILD_ROOT/etc/ha.d
 %package utils
 Summary: Management utilities for DRBD
 Requires: (drbd-selinux if selinux-policy-targeted)
+Obsoletes: drbd-xen <= 9.30.0
+Obsoletes: drbd-rgmanager <= 9.31.0
+Obsoletes: drbd-heartbeat <= 9.31.0
 
 %description utils
 DRBD mirrors a block device over the network to another machine.
@@ -87,13 +82,14 @@ setting up high availability (HA) clusters.
 This packages includes the DRBD administration tools.
 
 %files utils
-%defattr(755,root,root,-)
+%defattr(755,root,root,755)
 %{_sbindir}/drbdsetup
 %{_sbindir}/drbdadm
 %{_sbindir}/drbdmeta
 %{_sbindir}/drbdmon
 
 # systemd-related stuff
+%attr(0644,root,root) %{_presetdir}/50-drbd.preset
 %attr(0644,root,root) %{_unitdir}/drbd.service
 %attr(0644,root,root) %{_unitdir}/drbd-graceful-shutdown.service
 %attr(0644,root,root) %{_unitdir}/drbd-lvchange@.service
@@ -104,20 +100,19 @@ This packages includes the DRBD administration tools.
 %attr(0644,root,root) %{_unitdir}/drbd-wait-promotable@.service
 %attr(0644,root,root) %{_unitdir}/drbd@.service
 %attr(0644,root,root) %{_unitdir}/drbd@.target
-%attr(0644,root,root) %{_unitdir}/ocf.ra@.service
+%attr(0644,root,root) %{_unitdir}/drbd-configured.target
 %attr(0644,root,root) %{_tmpfilesdir}/%{name}.conf
 
 # Yes, these paths are peculiar. Upstream is peculiar.
 # Be forewarned: rpmlint hates this stuff.
 %defattr(755,root,root,-)
-/lib/drbd/scripts/drbd
-/lib/drbd/scripts/drbd-service-shim.sh
-/lib/drbd/scripts/drbd-wait-promotable.sh
-/lib/drbd/scripts/ocf.ra.wrapper.sh
-/lib/drbd/drbdadm-*
-/lib/drbd/drbdsetup-*
-/usr/lib/drbd/*.sh
-/usr/lib/drbd/rhcs_fence
+%{_prefix}/lib/drbd/scripts/drbd
+%{_prefix}/lib/drbd/scripts/drbd-service-shim.sh
+%{_prefix}/lib/drbd/scripts/drbd-wait-promotable.sh
+%{_prefix}/lib/drbd/drbdadm-*
+%{_prefix}/lib/drbd/drbdsetup-*
+%{_prefix}/lib/drbd/*.sh
+%{_sbindir}/drbd-events-log-supplier
 
 %defattr(-,root,root,-)
 %dir %{_var}/lib/%{name}
@@ -132,31 +127,17 @@ This packages includes the DRBD administration tools.
 %{_mandir}/man7/drbd*@.service.*
 %{_mandir}/man7/drbd*@.target.*
 %{_mandir}/man7/drbd.service.*
-%{_mandir}/man7/ocf.ra@.service.*
+%{_mandir}/man7/drbd-graceful-shutdown.service.*
+%{_mandir}/man7/drbd-configured.target.*
 %doc scripts/drbd.conf.example
 %license COPYING
 %doc ChangeLog
 
 
-# armv7hl/aarch64 doesn't have Xen packages
-%ifarch %{ix86} x86_64
-%package xen
-Summary: Xen block device management script for DRBD
-Requires: %{name}-utils = %{version}-%{release}
-
-%description xen
-This package contains a Xen block device helper script for DRBD, capable of
-promoting and demoting DRBD resources as necessary.
-
-%files xen
-%defattr(755,root,root,-)
-%{_sysconfdir}/xen/scripts/block-drbd
-%endif
-
-
 %package udev
 Summary: udev integration scripts for DRBD
 Requires: %{name}-utils = %{version}-%{release}, udev
+BuildArch: noarch
 
 %description udev
 This package contains udev helper scripts for DRBD, managing symlinks to
@@ -182,6 +163,7 @@ Requires: pacemaker
 %endif
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
+BuildArch: noarch
 
 %description pacemaker
 This package contains the master/slave DRBD resource agent for the
@@ -196,36 +178,18 @@ Pacemaker High Availability cluster manager.
 %{_mandir}/man7/ocf_linbit_drbd*gz
 
 
-%package rgmanager
-Summary: Red Hat Cluster Suite agent for DRBD
-Requires: %{name}-utils = %{version}-%{release}
-Conflicts: resource-agents >= 3
-
-%description rgmanager
-This package contains the DRBD resource agent for the Red Hat Cluster Suite
-resource manager.
-
-As of Red Hat Cluster Suite 3.0.1, the DRBD resource agent is included
-in the Cluster distribution.
-
-%files rgmanager
-%defattr(755,root,root,-)
-%{_datadir}/cluster/drbd.sh
-
-%defattr(-,root,root,-)
-%{_datadir}/cluster/drbd.metadata
-
-
 %package bash-completion
 Summary: Programmable bash completion support for drbdadm
 Requires: %{name}-utils = %{version}-%{release}
+Requires: bash-completion
+BuildArch: noarch
 
 %description bash-completion
 This package contains programmable bash completion support for the drbdadm
 management utility.
 
 %files bash-completion
-%config %{_sysconfdir}/bash_completion.d/drbdadm*
+%config(noreplace) %{_datadir}/bash-completion/completions/drbdadm
 
 
 %global selinuxtype             targeted
@@ -233,6 +197,7 @@ management utility.
 
 %package selinux
 Summary: SElinux policy for DRBD
+BuildArch: noarch
 BuildRequires: checkpolicy
 BuildRequires: selinux-policy-devel
 Requires: selinux-policy >= %{_selinux_policy_version}
@@ -245,7 +210,7 @@ drbd-selinux contains the SELinux policy meant to be used with this version of D
 
 %files selinux
 %attr(0644,root,root) %{_datadir}/selinux/packages/%{selinuxmodulename}.pp.bz2
-%ghost %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{selinuxmodulename}
+%ghost %attr(0644,root,root) %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{selinuxmodulename}
 
 %pre selinux
 %selinux_relabel_pre -s %{selinuxtype}
@@ -278,6 +243,10 @@ fi
 
 
 %changelog
+* Sun Aug 24 2025 Peter Hanecak <hany@hany.sk> - 9.32.0-1
+- Upstream release of 9.32.0 (#2165406)
+- Removed rgmanager and xen subpackages, now obsolete
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.28.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

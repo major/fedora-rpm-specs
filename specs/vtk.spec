@@ -828,6 +828,8 @@ rm -v %{buildroot}/%{_libdir}/openmpi/lib/cmake/%{name}/patches/99/FindHDF5.cmak
 export QA_RPATHS=18
 
 
+# Test take a very long time on s390x because many tests hit the default 25 minute timeout
+%ifnarch s390x
 %check
 cp %SOURCE2 .
 %if %{with xdummy}
@@ -844,6 +846,7 @@ export FLEXIBLAS=netlib
 %if %{with xdummy}
 kill %1 || :
 cat xorg.log
+%endif
 %endif
 
 

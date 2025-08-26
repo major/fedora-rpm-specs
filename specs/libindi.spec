@@ -7,12 +7,12 @@ ExcludeArch:    %{ix86}
 %global build_qt5_client 1
 
 # Define boolean to quickly set option and dependencies for
-# building with websocket support
-# Fedora >= 43 and RHEL 10 don't have websocketcpp
-%if (0%{?fedora} && 0%{?fedora} >= 43) || (0%{?rhel} && 0%{?rhel} >= 10)
-%bcond_with websocket
+# building with system libraries
+# RHEL < 10 doesn't have httplib and json
+%if 0%{?fedora} || (0%{?rhel} && 0%{?rhel} >= 10)
+%bcond_without system_libs
 %else
-%bcond_without websocket
+%bcond_with system_libs
 %endif
 
 # Define boolean to quickly set option and dependencies for
@@ -20,7 +20,7 @@ ExcludeArch:    %{ix86}
 %global build_tests 1
 
 Name:       libindi
-Version:    2.1.4
+Version:    2.1.5.1
 Release:    %autorelease
 Summary:    Instrument Neutral Distributed Interface
 
@@ -41,7 +41,7 @@ BuildRequires: libtheora-devel
 BuildRequires: libXISF-devel
 BuildRequires: systemd-rpm-macros
 
-%if 0%{?fedora}
+%if %{with system_libs}
 %global system_httplib ON
 BuildRequires: cpp-httplib-static
 %global system_jsonlib ON
@@ -66,14 +66,6 @@ BuildRequires: pkgconfig(Qt5Network)
 %global qt5_client OFF
 %endif
 
-%if %{with websocket}
-BuildRequires: boost-devel
-BuildRequires: websocketpp-devel
-%global websocket ON
-%else
-%global websocket OFF
-%endif
-
 %if 0%{?build_tests}
 BuildRequires: pkgconfig(gtest)
 BuildRequires: pkgconfig(gmock)
@@ -86,23 +78,16 @@ Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 
 Provides: bundled(fpack) = 1.7.0
 Provides: bundled(hidapi)
-%if !0%{?fedora}
+%if %{without system_libs}
 Provides: bundled(httplib) = 0.12.4
 Provides: bundled(json) = 3.10.5
 %endif
 
-# These drivers have been migrated here from 3rdparty
-Obsoletes:  indi-3rdparty-astrolink4 <= 2.1.0
-Provides:   indi-3rdparty-astrolink4 = %{version}
-
-Obsoletes:  indi-3rdparty-astromechfoc <= 2.1.0
-Provides:   indi-3rdparty-astromechfoc = %{version}
-
-Obsoletes:  indi-3rdparty-dreamfocuser <= 2.1.0
-Provides:   indi-3rdparty-dreamfocuser = %{version}
-
-Obsoletes:  indi-3rdparty-spectracyber <= 2.1.0
-Provides:   indi-3rdparty-spectracyber = %{version}
+# indi-3rdparty-* have been orphaned and no more provided in Fedora repos
+# because the loss of functionality due to prebuilt binary blobs that
+# need to be stripped out
+Obsoletes:  indi-3rdparty-drivers < 2.1.5
+Obsoletes:  indi-3rdparty-libraries < 2.1.5
 
 %description
 INDI is a distributed control protocol designed to operate
@@ -152,7 +137,7 @@ sed -i 's|/lib/udev/rules.d|%{_udevrulesdir}|g' CMakeLists.txt
 chmod -x drivers/telescope/pmc8driver.h
 chmod -x drivers/telescope/pmc8driver.cpp
 
-%if 0%{?fedora}
+%if %{with system_libs}
 # Remove bundled httplib-headers and license file
 rm -rf libs/httplib
 # Remove bundled json library
@@ -163,7 +148,6 @@ rm -rf libs/nlohmann
 %cmake \
     -DINDI_BUILD_QT5_CLIENT="%{qt5_client}" \
     -DINDI_BUILD_UNITTESTS="%{tests}" \
-    -DINDI_BUILD_WEBSOCKET="%{websocket}" \
     -DINDI_SYSTEM_HTTPLIB="%{system_httplib}" \
     -DINDI_SYSTEM_JSONLIB="%{system_jsonlib}"
 

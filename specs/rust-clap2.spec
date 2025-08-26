@@ -19,6 +19,7 @@ Source:         %{crates_source}
 # * bump version-sync dev-dependency from 0.8 to 0.9
 Patch:          clap-fix-metadata.diff
 Patch:          0001-Replace-atty-with-std-io-IsTerminal.patch
+Patch:          0001-Fix-dangerous_implicit_autorefs-error-in-crate_autho.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

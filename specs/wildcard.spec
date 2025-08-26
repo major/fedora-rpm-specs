@@ -1,4 +1,3 @@
-%global commit 0a58a1fa639836be5d7fc8f8178f9988856e28a0
 %global srcname Wildcard
 %global app_id com.felipekinoshita.Wildcard
 
@@ -8,11 +7,25 @@ Release:        %autorelease
 Summary:        Test your regular expressions
 
 # Wildcard itself is GPL-3.0-or-later, the rest comes from the rust
-# dependencies that end up statically linked into it
+# dependencies that end up statically linked into it:
+# (MIT OR Apache-2.0) AND Unicode-DFS-2016
+# Apache-2.0 OR MIT
+# MIT
+# MIT OR Apache-2.0
+# Unlicense OR MIT
 # See LICENSE.depndencies for the full breakdown
-License:        GPL-3.0-or-later AND ((MIT OR Apache-2.0) AND Unicode-DFS-2016) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND MIT AND (MIT OR Apache-2.0) AND (Unlicense OR MIT)
+License:        %{shrink:
+    GPL-3.0-or-later AND
+    MIT AND
+    Unicode-DFS-2016 AND
+    (Apache-2.0 OR MIT) AND
+    (Unlicense OR MIT)
+}
 URL:            https://gitlab.gnome.org/World/Wildcard
-Source:         %{url}/-/archive/v%{version}/%{srcname}-%{version}.tar.gz
+Source:         %{url}/-/archive/v%{version}/%{srcname}-v%{version}.tar.gz
+
+# https://gitlab.gnome.org/World/Wildcard/-/issues/42
+Patch:          0001-Port-to-gtk4-rs-0.9-and-libadwaita-rs-0.7.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -34,7 +47,7 @@ Wildcard gives you a nice and simple to use interface to test/practice regular
 expressions.
 
 %prep
-%autosetup -p1 -n %{srcname}-v%{version}-%{commit}
+%autosetup -p1 -n %{srcname}-v%{version}
 %cargo_prep
 
 %generate_buildrequires

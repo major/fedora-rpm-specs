@@ -74,6 +74,8 @@ use the "_doc" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
+# * temporarily ignore brittle snapshot tests
+export TRYBUILD=overwrite
 %cargo_test
 %endif
 

@@ -19,6 +19,7 @@ Patch:          fs2-fix-metadata-auto.diff
 # * port from the obsolete tempdir crate to tempfile
 Patch:          fs2-fix-metadata.diff
 Patch:          0001-Port-from-tempdir-to-tempfile.patch
+Patch:          0001-Fix-build-failure-in-test-code-with-Rust-1.89.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

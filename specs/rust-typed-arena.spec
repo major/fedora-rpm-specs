@@ -15,6 +15,7 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * drop unused, benchmark-only criterion dev-dependency to speed up builds
 Patch:          typed-arena-fix-metadata.diff
+Patch:          0001-Fix-dangerous_implicit_autorefs-error-in-crate_autho.patch
 
 BuildRequires:  rust-packaging >= 21
 

@@ -1,7 +1,11 @@
 Name:           whatweb
 Version:        0.5.5
-Release:        9%{?dist}
+Release:        %autorelease
 Summary:        Web scanner to identify what are the websites running
+License:        GPL-2.0-or-later
+URL:            http://www.morningstarsecurity.com/research/whatweb
+VCS:            https://github.com/urbanadventurer/WhatWeb
+#               https://github.com/urbanadventurer/WhatWeb/releases
 
 
 # The tests are normally disabled in the build phase as whatweb is networking
@@ -13,18 +17,15 @@ Summary:        Web scanner to identify what are the websites running
 
 %global         gituser         urbanadventurer
 %global         gitname         WhatWeb
-
+%global         gitdate         20210115
+%global         commit          1b3516975571c3f59d686f82a6d2dbf6f1011029
 
 %if 0%{?rhel}
 Group:          Applications/Internet
 %endif
 
-License:        GPL-2.0-or-later
-URL:            http://www.morningstarsecurity.com/research/whatweb
-VCS:            https://github.com/urbanadventurer/WhatWeb
-#               https://github.com/urbanadventurer/WhatWeb/releases/
 
-Source0:        https://github.com/%{gituser}/%{gitname}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source0:        %{vcs}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
 
@@ -115,76 +116,5 @@ ruby test/integration.rb
 
 
 %changelog
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.5-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+%autochangelog
 
-* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.5-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.5-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.5-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.5-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Wed Mar 01 2023 Michal Ambroz <rebus at, seznam.cz> - 0.5.5-4
-- fix license tag and reference to ruby for runtime requirements
-
-* Wed May 19 2021 Michal Ambroz <rebus at, seznam.cz> - 0.5.5-3
-- fix sed
-
-* Thu May 13 2021 Michal Ambroz <rebus at, seznam.cz> - 0.5.5-2
-- removed alias bundle - needs to be solved by
-- added conditional for the (network) tests
-- license is GPLv2+
-- empty the plugin/IpToCountry.csv with problematic 
-- move addons and plugin-development to doc folder
-
-* Sun Apr 18 2021 Michal Ambroz <rebus at, seznam.cz> - 0.5.5-1
-- bump to 0.5.5, adding mak+sed as BR
-
-* Sun May 31 2020 Michal Ambroz <rebus at, seznam.cz> - 0.5.1-1
-- bump to 0.5.1, rebuild for fedora 32
-
-* Wed Oct 30 2019 Michal Ambroz <rebus at, seznam.cz> - 0.5.0-1
-- bump to 0.5.0
-
-* Sat Dec 9 2017 Michal Ambroz <rebus at, seznam.cz> - 0.4.9-1
-- bump to 0.4.9
-
-* Wed Nov 23 2016 Michal Ambroz <rebus at, seznam.cz> - 0.4.8-0.git20161009.1
-- bump to current git snapshot of 0.4.8 - 039768f41a6cd45ec70c89b81616b669bc92ac0f
-
-* Mon Jun 20 2016 Michal Ambroz <rebus at, seznam.cz> - 0.4.8-0.git20160611.1
-- bump to current git snapshot of 0.4.8 - f467aa2f154aea83b6b58aec85107ba3fa3eb635
-
-* Mon Jun 22 2015 Michal Ambroz <rebus at, seznam.cz> - 0.4.8-0.git20150507.48b9682.1
-- bump to current git snapshot of 0.4.8 - 48b9682a0fbf1607f1d3565f9aab3442aee14d12
-
-* Sun Jul 08 2012 Michal Ambroz <rebus at, seznam.cz> - 0.4.8-0.git20120708.1
-- bump to development version 0.4.8
-
-* Wed Apr 06 2011 Michal Ambroz <rebus at, seznam.cz> - 0.4.7-1
-- bump to version 0.4.7
-
-* Sun Mar 27 2011 Michal Ambroz <rebus at, seznam.cz> - 0.4.6-1
-- bump to version 0.4.6
-- cant be used with the current unpatched version of anemone
-
-* Sat Sep 11 2010 Michal Ambroz <rebus at, seznam.cz> - 0.4.5-2
-- use system-wide rubygems anemone library insted of local anemone copy
-
-* Mon Aug 23 2010 Michal Ambroz <rebus at, seznam.cz> - 0.4.5-1
-- rebuild of new version 0.4.5
-
-* Sun May 30 2010 Michal Ambroz <rebus at, seznam.cz> - 0.4.3-1
-- rebuild of new version
-
-* Sat May 1 2010 Michal Ambroz <rebus at, seznam.cz> - 0.4.2-2
-- add explicit dependency to /usr/bin/ruby
-
-* Sat May 1 2010 Michal Ambroz <rebus at, seznam.cz> - 0.4.2-1
-- initial build for Fedora Project

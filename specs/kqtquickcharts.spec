@@ -1,7 +1,11 @@
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
+
 Name:    kqtquickcharts
 Summary: A QtQuick plugin to render beautiful and interactive charts
 Version: 25.08.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # KDE e.V. may determine that future LGPL versions are accepted
 License: LGPL-2.1-only
@@ -51,6 +55,9 @@ Provides: %{name}-devel%{?_isa} = %{version}-%{release}
 %{_kf6_libdir}/cmake/KQtQuickCharts/KQtQuickChartsConfig.cmake
 
 %changelog
+* Mon Aug 18 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 25.08.0-2
+- Drop i686 support (leaf package)
+
 * Fri Aug 08 2025 Steve Cossette <farchord@gmail.com> - 25.08.0-1
 - 25.08.0
 

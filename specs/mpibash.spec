@@ -1,13 +1,11 @@
 Name:           mpibash
-Version:        1.4
-Release:        7%{?dist}
+Version:        1.5
+Release:        1%{?dist}
 Summary:        Parallel scripting right from the Bourne-Again Shell
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 Url:            https://github.com/lanl/MPI-Bash
 Source0:        https://github.com/lanl/MPI-Bash/releases/download/v%{version}/mpibash-%{version}.tar.gz
-# Fix build with bash-5.3 https://github.com/lanl/MPI-Bash/pull/22
-Patch0:         https://github.com/lanl/MPI-Bash/pull/22.patch
 BuildRequires:  make
 BuildRequires:  bash-devel >= 4.4
 ExcludeArch:    %{ix86}
@@ -117,6 +115,10 @@ sed -i '1s@/usr/bin/env mpibash@%{_libdir}/mpich/bin/mpibash_mpich@' %{buildroot
 %{_libdir}/mpich/lib/share/%{name}/examples
 
 %changelog
+* Sun Aug 24 2025 Christoph Junghans <junghans@votca.org> - 1.5-1
+- Version bump to v1.5
+- Fixes: rhbz#2390568
+
 * Wed Aug 20 2025 Christoph Junghans <junghans@votca.org> - 1.4-7
 - Fix build with bash-5.3
 - Fixes: rhbz#2385197

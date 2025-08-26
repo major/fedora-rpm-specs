@@ -26,7 +26,6 @@ BuildRequires: mesa-libGL-devel
 BuildRequires: popt-devel
 BuildRequires: usermode
 BuildRequires: yelp-tools
-
 %if 0%{?fedora} && 0%{?fedora} >= 29
 BuildRequires: gcc-c++
 %endif

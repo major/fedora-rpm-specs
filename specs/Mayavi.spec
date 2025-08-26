@@ -3,7 +3,7 @@
 
 Name:           Mayavi
 Version:        4.8.3
-Release:        %autorelease
+Release:        %autorelease.1
 Summary:        Scientific data 3-dimensional visualizer
 # Automatically converted from old format: BSD and EPL and LGPLv2+ and LGPLv2 and LGPLv3 - review is highly recommended.
 License:        LicenseRef-Callaway-BSD AND LicenseRef-Callaway-EPL AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-LGPLv2 AND LGPL-3.0-only
@@ -159,4 +159,7 @@ install -p -m 644 ./docs/source/mayavi/images/mayavi2-48x48.png \
 
 
 %changelog
+* Sun Aug 24 2025 Orion Poplawski <orion@nwra.com> - 4.8.3-1.1
+- Rebuild for VTK 9.5
+
 %autochangelog

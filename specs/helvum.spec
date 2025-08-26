@@ -4,10 +4,12 @@
 # prevent library files from being installed
 %global cargo_install_lib 0
 
-%global crate helvum
+%global commit      980bb139e9d85d31f93045cc8a600429aa481aad
+%global shortcommit %{sub %{commit} 1 7}
+%global commitdate  20240829
 
 Name:           helvum
-Version:        0.5.1
+Version:        0.5.1^%{commitdate}.git%{shortcommit}
 Release:        %autorelease
 Summary:        GTK patchbay for pipewire
 
@@ -21,7 +23,10 @@ License:        GPL-3.0-only AND (Apache-2.0 OR MIT) AND MIT AND (Unlicense OR M
 # LICENSE.dependencies contains a full license breakdown
 
 URL:            https://gitlab.freedesktop.org/pipewire/helvum
-Source:         %{url}/-/archive/%{version}/helvum-%{version}.tar.gz
+Source:         %{url}/-/archive/%{commit}/helvum-%{commit}.tar.gz
+
+# * port to gtk-rs v0.20, gtk4-rs v0.9, and libadwaita-rs v0.7 
+Patch:          0001-port-to-gtk-rs-0.20-and-libadwaita-rs-0.7.patch
 
 BuildRequires:  cargo-rpm-macros >= 26
 BuildRequires:  meson
@@ -35,7 +40,7 @@ A GTK patchbay for pipewire.}
 %description %{_description}
 
 %prep
-%autosetup -n %{crate}-%{version} -p1
+%autosetup -n helvum-%{commit} -p1
 # build cargo project directly with cargo
 sed -i -e '/\(build_by_default\|install\)/s/true/false/' src/meson.build
 sed -i -e '/dependency/d' meson.build

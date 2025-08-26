@@ -80,7 +80,9 @@ default theme.
 Summary:        Fedora  %{relnum} default background for XFCE4
 
 Requires:       %{name}-base = %{version}-%{release}
+%if 0%{?fedora}
 Requires:       xfdesktop
+%endif 
 
 %description    xfce
 This package contains XFCE4 desktop background for the Fedora  %{relnum}

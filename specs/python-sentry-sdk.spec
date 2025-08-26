@@ -81,7 +81,6 @@ BuildRequires:  python3-devel
 BuildRequires:  postgresql-test-rpm-macros
 BuildRequires:  python3dist(botocore)
 BuildRequires:  python3dist(gevent)
-BuildRequires:  python3dist(graphene)
 BuildRequires:  python3dist(pyramid)
 BuildRequires:  python3dist(typer)
 BuildRequires:  python3dist(wheel)
@@ -321,6 +320,7 @@ skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.clickhouse_d
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.cohere"  # no_cohere
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.dramatiq"  # no_dramatiq
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.gql"  # no_gql
+skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.graphene"  # old_graphene
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.huey"  # no_huey
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.huggingface_hub"  # no_huggingface_hub
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.langchain"  # no_langchain
@@ -352,7 +352,6 @@ skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.executing"
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.falcon"
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.fastapi"
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.flask"
-skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.graphene"
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.grpc*"
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.httpx"
 skip_import_check="${skip_import_check-} -e sentry_sdk.integrations.pure_eval"

@@ -1,17 +1,17 @@
 %global	urlver		3.5
 %global	mainver		3.5.99
 
-%global	core_least_ver	3.5.99^20250812gitba992c4
+%global	core_least_ver	3.5.99^20250822gitf3de00e
 
 %global	use_git	1
-%global	gitdate	20250810
-%global	githash	987890ddac525c4a6424ec669b389492ed8fb4a4
+%global	gitdate	20250822
+%global	githash	cb4e816c84f4a631e390a1c95835765c9f16ac00
 %global	shorthash	%(c=%{githash} ; echo ${c:0:7})
 
 %global	tarballver	%{mainver}%{?use_git:-%{gitdate}git%{shorthash}}
 
-%global	baserelease	2
-%global	alphatag		.rc6
+%global	baserelease	1
+%global	alphatag		.rc7
 
 %global	ruby_vendorlib	%(ruby -rrbconfig -e "puts RbConfig::CONFIG['vendorlibdir']")
 %global	dbus_datadir	%{_datadir}/cairo-dock/plug-ins/Dbus
@@ -417,6 +417,9 @@ popd
 %{_datadir}/cairo-dock/plug-ins/Dbus/CDApplet.h
 
 %changelog
+* Sun Aug 24 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.5.99^20250822gitcb4e816-1.rc7
+- Update to the latest git (20250822gitcb4e816)
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.5.99^20250810git987890d-2.rc6
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -1,11 +1,11 @@
-%global gittag v0.9.90
+%global gittag v0.9.92
 #%%global commit b0f6c7ba092f2526481ce8340a349685e51db9a3
 #%%global shortcommit %%(c=%%{commit}; echo ${c:0:7})
 #%%global date 20220410
 
 Name:           ccdciel
 %if "%{?gittag}"
-Version:        0.9.90
+Version:        0.9.92
 %else
 Version:        0.9.79^%{date}%{shortcommit}
 %endif
@@ -19,9 +19,6 @@ Source0:        https://github.com/pchev/%{name}/archive/%{gittag}/%{name}-%{ver
 %else
 Source0:        https://github.com/pchev/%{name}/archive/%{commit}/%{name}-%{commit}.tar.gz
 %endif
-
-# Fix build with FPC 3.2.4
-Patch0:         ccdciel-0.9.90_fpc-3.2.4.patch
 
 # Patch to avoid stripping debuginfo from executable
 # Since this is Fedora specific we don't ask upstream to include

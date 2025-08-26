@@ -1,6 +1,6 @@
 Name:           xeve
 Version:        0.5.1
-Release:        3%{?dist}
+Release:        5%{?dist}
 Summary:        Reference MPEG-5 Part 1 (EVC) encoder
 
 License:        BSD-3-Clause
@@ -11,6 +11,8 @@ Source0:        %{name}-free-%{version}.tar.gz
 Source1:        %{name}_gen_free_tarball.sh
 # Fix build on non-x86
 Patch0:         %{name}-fix-build-on-non-x86.patch
+# Link correctly to libm
+Patch1:         %{name}-link-libm.patch
 
 BuildRequires:  cmake >= 3.12
 BuildRequires:  gcc
@@ -96,6 +98,13 @@ rm -rfv %{buildroot}%{_libdir}/%{name}*
 
 
 %changelog
+* Sun Aug 24 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.5.1-5
+- Add patch to link libm properly
+- Drop pc file definition patch
+
+* Sun Aug 24 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.5.1-4
+- Add patch to fix pc file definition
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

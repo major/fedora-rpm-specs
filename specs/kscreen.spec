@@ -1,7 +1,11 @@
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
+
 Name:    kscreen
 Epoch:   1
 Version: 6.4.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Display Management software
 
 License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND (GPL-2.0-only OR GPL-3.0-only)
@@ -73,6 +77,9 @@ KCM and KDED modules for managing displays in KDE.
 %{_kf6_datadir}/kscreen/graz.png
 
 %changelog
+* Mon Aug 18 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1:6.4.4-2
+- Drop i686 support (leaf package)
+
 * Wed Aug 06 2025 Steve Cossette <farchord@gmail.com> - 1:6.4.4-1
 - 6.4.4
 

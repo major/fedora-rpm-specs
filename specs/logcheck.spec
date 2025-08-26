@@ -1,16 +1,15 @@
 Name:           logcheck
-Version:        1.3.18
-Release:        21%{?dist}
+Version:        1.3.23
+Release:        1%{?dist}
 Summary:        Analyzes log files and sends noticeable events as email
 
-# Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
 URL:            http://logcheck.org/
 Source0:        http://http.debian.net/debian/pool/main/l/%{name}/%{name}_%{version}.tar.xz
 Source1:        logchk-systemd-ignore
 Source2:        logchk-NetworkManager-ignore
 Source3:        logchk-dbus-ignore
-Patch0:         logcheck-dhclient.patch
+Patch0:         logcheck-egrep.patch
 BuildArch:      noarch
 
 Requires:       lockfile-progs
@@ -33,7 +32,8 @@ Normal entries are entries which match one of the many included regular
 expression files contain in the database.
 
 %prep
-%setup -q
+%setup -q -n %{name}
+%patch -P 0
 
 # use fedora-style logfiles. (/var/log/syslog is /var/log/messages,
 #                              auth.log is named secure)
@@ -77,6 +77,12 @@ rm -f %{buildroot}%{_mandir}/man8/manpage.*
 %{__install} -pm 644 %{SOURCE1} %{buildroot}%{_sysconfdir}/%{name}/ignore.d.server/systemd
 %{__install} -pm 644 %{SOURCE2} %{buildroot}%{_sysconfdir}/%{name}/ignore.d.server/NetworkManager
 %{__install} -pm 644 %{SOURCE3} %{buildroot}%{_sysconfdir}/%{name}/ignore.d.server/dbus
+
+# mv files in /usr/sbin to /usr/bin
+for file in /usr/sbin/logcheck /usr/sbin/logtail /usr/sbin/logtail2; do
+    /usr/bin/mv %{buildroot}/${file} %{buildroot}/%{_bindir}
+done
+
 %pre
 getent group logcheck >/dev/null || groupadd -r logcheck
 getent passwd logcheck >/dev/null || \
@@ -104,8 +110,7 @@ exit 0
 %attr(0755,root,root) %dir %{_sysconfdir}/%{name}/violations.ignore.d/
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/%{name}/violations.ignore.d/*
 %config(noreplace) %{_sysconfdir}/cron.d/*
-%{_bindir}/logcheck-test
-%{_sbindir}/*
+%{_bindir}/*
 %{_datadir}/logtail/
 %{_mandir}/man?/*
 %ghost %{_localstatedir}/lock/%{name}
@@ -116,6 +121,11 @@ exit 0
 
 
 %changelog
+* Sun Aug 24 2025 Emmanuel Seyman <emmanuel@seyman.fr> - 1.3.23-1
+- Update to 1.3.23
+- Use 'grep -E' instead of egrep
+- Move all files from /usr/sbin to /usr/bin
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.18-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

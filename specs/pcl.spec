@@ -39,7 +39,7 @@ BuildRequires:  java-devel
 %endif
 
 # optional
-BuildRequires:  cjson-devel, libpcap-devel, qt5-qtbase-devel, qhull-devel, libusbx-devel, gtest-devel, qt5-qtwebkit-devel
+BuildRequires:  cjson-devel, libpcap-devel, qhull-devel, libusbx-devel, gtest-devel
 %ifarch x86_64
 BuildRequires:  openni-devel
 %endif

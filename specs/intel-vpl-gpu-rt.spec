@@ -2,7 +2,7 @@
 %global mfx_ver_minor 15
 
 Name:           intel-vpl-gpu-rt
-Version:        25.2.6
+Version:        25.3.2
 Release:        %autorelease
 Summary:        Intel Video Processing Library (Intel VPL) GPU Runtime
 License:        MIT
@@ -40,8 +40,7 @@ developing applications that use %{name}.
 %autosetup -p1 -n vpl-gpu-rt-intel-onevpl-%{version}
 
 %build
-%cmake \
--DMFX_ENABLE_AENC=ON
+%cmake -DMFX_ENABLE_AENC=ON
 %cmake_build
 
 %install

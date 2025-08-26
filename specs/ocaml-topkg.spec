@@ -1,6 +1,3 @@
-# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
-ExcludeArch: %{ix86}
-
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
@@ -10,7 +7,7 @@ ExcludeArch: %{ix86}
 %bcond care 0
 
 Name:           ocaml-topkg
-Version:        1.0.8
+Version:        1.1.0
 Release:        %autorelease
 Summary:        The transitory OCaml software packager
 
@@ -18,6 +15,9 @@ License:        ISC
 URL:            https://erratique.ch/software/topkg/
 VCS:            git:https://erratique.ch/repos/topkg.git
 Source:         https://github.com/dbuenzli/topkg/archive/v%{version}/topkg-%{version}.tar.gz
+
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch:    %{ix86}
 
 BuildRequires:  ocaml >= 4.08.0
 BuildRequires:  ocaml-compiler-libs
@@ -97,11 +97,11 @@ done
 
 %build
 # Build the library and the tests
-ocaml pkg/pkg.ml build --pkg-name topkg --tests true
+ocaml pkg/pkg.ml build --pkg-name topkg --dev-pkg false --tests true
 
 %if %{with care}
 # Build topkg-care
-ocaml pkg/pkg.ml build --pkg-name topkg-care --tests true
+ocaml pkg/pkg.ml build --pkg-name topkg-care --dev-pkg false --tests true
 %endif
 
 %install
