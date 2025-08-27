@@ -107,8 +107,8 @@
 %global alt_name ipa
 # 0.7.16: https://github.com/drkjam/netaddr/issues/71
 %global python_netaddr_version 0.7.16
-# Require 4.20.0 for libndr4
-%global samba_version 2:4.22.0
+# Require 4.23 for passdb ABI bump
+%global samba_version 2:4.23.0
 
 # 38.28 or later includes passkey-related fixes
 %global selinux_policy_version 38.28-1
@@ -215,7 +215,7 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        16%{?rc_version:.%rc_version}%{?dist}
+Release:        17%{?rc_version:.%rc_version}%{?dist}
 Summary:        The Identity, Policy and Audit system
 
 License:        GPL-3.0-or-later
@@ -1302,9 +1302,8 @@ fi
 %post server-trust-ad
 %{_sbindir}/update-alternatives --install %{_libdir}/krb5/plugins/libkrb5/winbind_krb5_locator.so \
         winbind_krb5_locator.so /dev/null 90
-/bin/systemctl reload-or-try-restart dbus
-/bin/systemctl reload-or-try-restart oddjobd
-
+/bin/systemctl reload-or-try-restart dbus >/dev/null 2>&1 || :
+/bin/systemctl reload-or-try-restart oddjobd >/dev/null 2>&1 || :
 
 %posttrans server-trust-ad
 %{__python3} -c "import sys; from ipalib import facts; sys.exit(0 if facts.is_ipa_configured() else 1);" > /dev/null 2>&1
@@ -1320,8 +1319,8 @@ if [ $1 -eq 0 ]; then
     %{_sbindir}/update-alternatives --remove winbind_krb5_locator.so /dev/null
     # Skip systemctl calls when leapp upgrade is in progress
     if [ -z "$LEAPP_IPU_IN_PROGRESS" ] ; then
-        /bin/systemctl reload-or-try-restart dbus
-        /bin/systemctl reload-or-try-restart oddjobd
+        /bin/systemctl reload-or-try-restart dbus >/dev/null 2>&1 || :
+        /bin/systemctl reload-or-try-restart oddjobd >/dev/null 2>&1 || :
     fi
 fi
 
@@ -1938,6 +1937,12 @@ fi
 %endif
 
 %changelog
+* Mon Aug 25 2025 Alexander Bokovoy <abokovoy@redhat.com> - 4.12.2-17
+- Update samba dependency
+- Resolves: rhbz#2390262
+- Protect against failures on restart of dbus/oddjob in container build environment
+- Resolves: rhbz#2379490
+
 * Sat Aug 23 2025 Alexander Bokovoy <abokovoy@redhat.com> - 4.12.2-16
 - Rebuild against new Samba passdb ABI (with no changes at the moment)
 

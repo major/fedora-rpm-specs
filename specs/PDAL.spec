@@ -11,7 +11,7 @@
 
 Summary:	Point Data Abstraction Library
 Name:		PDAL
-Version:	2.9.0
+Version:	2.9.1
 Release:	1%{?dist}
 # The code is licensed BSD except for:
 # - filters/private/csf/* and plugins/i3s/lepcc/* are ASL 2.0
@@ -231,6 +231,9 @@ sphinx-build -b html . build/html
 %endif
 
 %changelog
+* Mon Aug 25 2025 Sandro Mani <manisandro@gmail.com> - 2.9.1-1
+- Update to 2.9.1
+
 * Fri Aug 01 2025 Sandro Mani <manisandro@gmail.com> - 2.9.0-1
 - Update to 2.9.0
 

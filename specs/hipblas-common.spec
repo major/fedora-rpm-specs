@@ -5,7 +5,7 @@
 
 Name:           hipblas-common
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Common files shared by hipBLAS and hipBLASLt
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
@@ -44,9 +44,7 @@ Provides:       %{name}-static = %{version}-%{release}
 %install
 %cmake_install
 
-if [ -f %{buildroot}%{_prefix}/share/doc/hipblas-common/LICENSE.md ]; then
-    rm %{buildroot}%{_prefix}/share/doc/hipblas-common/LICENSE.md
-fi
+rm -f %{buildroot}%{_prefix}/share/doc/hipblas-common/LICENSE.md
 
 %files devel
 %license LICENSE.md
@@ -54,6 +52,9 @@ fi
 %{_datadir}/cmake/%{name}
 
 %changelog
+* Mon Aug 25 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-3
+- Simplify file removal
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

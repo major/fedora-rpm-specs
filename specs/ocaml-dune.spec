@@ -13,7 +13,7 @@
 %global giturl  https://github.com/ocaml/dune
 
 Name:           ocaml-dune
-Version:        3.20.0
+Version:        3.20.1
 Release:        1%{?dist}
 Summary:        Composable build system for OCaml and Reason
 

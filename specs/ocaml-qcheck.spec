@@ -9,7 +9,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-qcheck
 Version:        0.26
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        QuickCheck inspired property-based testing for OCaml
 
 License:        BSD-2-Clause
@@ -194,6 +194,9 @@ asciidoc README.adoc
 %files -n ocaml-ppx-deriving-qcheck-devel -f .ofiles-ppx_deriving_qcheck-devel
 
 %changelog
+* Mon Aug 25 2025 Jerry James <loganjerry@gmail.com> - 0.26-3
+- Rebuild for ocaml-fmt 0.11.0
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.26-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -8,7 +8,7 @@ BuildRequires: make
 %global fontconf 66-%{fontname}
 
 Version: 0.3
-Release: 51%{?dist}
+Release: 52%{?dist}
 License: GPL-2.0-only AND MIT AND LicenseRef-Lucida
 
 %global foundry           Bitmap
@@ -220,6 +220,10 @@ gzip *.pcf fixfont-3.5/*.pcf
 %fontfiles -a
 
 %changelog
+* Fri Aug 15 2025 Peng Wu  <pwu@redhat.com> - 0.3-52
+- Update CI tests
+- Resolves: RHBZ#2382864
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-51
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

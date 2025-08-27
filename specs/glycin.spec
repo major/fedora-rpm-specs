@@ -7,7 +7,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           glycin
-Version:        2.0~beta.2
+Version:        2.0~beta.3
 Release:        %autorelease
 Summary:        Sandboxed image rendering
 
@@ -64,6 +64,8 @@ Source1:        glycin-%{tarball_version}-vendor.tar.xz
 Patch:          0001-fix-invalid-crate-manifest-for-tests-workspace-membe.patch
 # partial revert of https://gitlab.gnome.org/GNOME/glycin/-/commit/f637a7e
 Patch:          0002-Replace-serde_yaml_ng-with-equivalent-serde_yaml-dep.patch
+# partial revert of https://gitlab.gnome.org/GNOME/glycin/-/commit/b90f91c
+Patch:          0003-Relax-zbus-dependency-to-allow-5.7.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

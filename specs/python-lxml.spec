@@ -1,5 +1,5 @@
 Name:           python-lxml
-Version:        6.0.0
+Version:        6.0.1
 Release:        %autorelease
 Summary:        XML processing library combining libxml2/libxslt with the ElementTree API
 
@@ -15,10 +15,6 @@ URL:            https://github.com/lxml/lxml
 # See: https://gitlab.com/fedora/legal/fedora-license-data/-/issues/154
 Source0:        lxml-%{version}-no-isoschematron-rng.tar.gz
 Source1:        get-lxml-source.sh
-
-# Fix for test_wrap_html
-# https://bugs.launchpad.net/lxml/+bug/2119510
-Patch:          https://github.com/lxml/lxml/pull/473.patch
 
 BuildRequires:  gcc
 BuildRequires:  libxml2-devel

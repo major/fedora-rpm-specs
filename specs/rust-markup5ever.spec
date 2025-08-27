@@ -5,7 +5,7 @@
 %global crate markup5ever
 
 Name:           rust-markup5ever
-Version:        0.14.1
+Version:        0.35.0
 Release:        %autorelease
 Summary:        Common code for xml5ever and html5ever
 
@@ -32,7 +32,6 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/local_names.txt
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

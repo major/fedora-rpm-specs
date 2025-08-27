@@ -439,7 +439,7 @@ Name: qemu
 Version: 10.1.0
 
 # Set for release candidate builds
-%global rcver rc3
+%global rcver rc4
 %if 0%{?rcver:1}
 %global rcstr -%{rcver}
 Release: %autorelease -p -e %{rcver}
@@ -469,8 +469,8 @@ URL: http://www.qemu.org/
 
 %global dlurl https://download.qemu.org
 
-Source0: %{dlurl}/%{name}-%{version}%{?rcstr}-reupload.tar.xz
-Source1: %{dlurl}/%{name}-%{version}%{?rcstr}-reupload.tar.xz.sig
+Source0: %{dlurl}/%{name}-%{version}%{?rcstr}.tar.xz
+Source1: %{dlurl}/%{name}-%{version}%{?rcstr}.tar.xz.sig
 Source2: gpgkey-CEACC9E15534EBABB82D3FA03353C9CEF108B584.gpg
 
 Source10: qemu-guest-agent.service

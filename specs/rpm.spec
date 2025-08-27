@@ -24,7 +24,7 @@
 
 %global rpmver 5.99.91
 #global snapver rc1
-%global baserelease 4
+%global baserelease 5
 %global sover 10
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
@@ -127,6 +127,7 @@ rpm-6.0-rpmformat.patch
 0001-Support-updating-individual-IDs-in-a-digest-bundle.patch
 0002-Support-OpenPGP-v6-signature-pre-salting.patch
 0001-Only-ever-call-pgpDigParamsSalt-on-signatures.patch
+0001-Fix-fingerprinting-regression-from-08a6a5e848f007c2e.patch
 
 # These are not yet upstream
 rpm-4.7.1-geode-i686.patch
@@ -624,6 +625,9 @@ fi
 %doc %{_defaultdocdir}/rpm/API/
 
 %changelog
+* Mon Aug 25 2025 Panu Matilainen <pmatilai@redhat.com> - 5.99.91-5
+- Fix fingerprinting regression causing files left behind
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 5.99.91-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

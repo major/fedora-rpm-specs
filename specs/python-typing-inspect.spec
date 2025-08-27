@@ -44,7 +44,8 @@ inspection of types defined in the standard "typing" module.
 %pyproject_save_files -l %{pypi_srcname}
 
 %check
-%pytest
+%pytest --deselect=test_typing_inspect.py::GetUtilityTestCase::test_parameters \
+  --deselect=test_typing_inspect.py::GetUtilityTestCase::test_typed_dict_mypy_extension
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.md

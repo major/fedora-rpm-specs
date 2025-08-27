@@ -1,19 +1,18 @@
 Name:		xrootd-s3-http
-Version:	0.4.1
-Release:	4%{?dist}
+Version:	0.5.0
+Release:	1%{?dist}
 Summary:	S3/HTTP filesystem plugins for XRootD
 
 License:	Apache-2.0
 URL:		https://github.com/PelicanPlatform/%{name}
 Source0:	%{url}/archive/refs/tags/v%{version}/%{name}-%{version}.tar.gz
-#		https://github.com/PelicanPlatform/xrootd-s3-http/pull/102
-Patch0:		0001-Always-assign-partial-when-returning-true.patch
 
 BuildRequires:	cmake
 BuildRequires:	gcc-c++
 BuildRequires:	make
 BuildRequires:	xrootd-server-devel
 BuildRequires:	curl-devel
+BuildRequires:	json-devel
 BuildRequires:	openssl-devel
 BuildRequires:	tinyxml2-devel
 #		For testing
@@ -31,20 +30,19 @@ and HTTP backends through an XRootD server.
 
 %prep
 %setup -q
-%patch -P0 -p1
 
 %build
 %cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo \
        -DXROOTD_EXTERNAL_TINYXML2:BOOL=ON \
        -DXROOTD_PLUGINS_EXTERNAL_GTEST:BOOL=ON \
-       -DBUILD_TESTING:BOOL=ON \
-       -DEXE_BIN:PATH=/bin/true \
-       -DGoWrk:PATH=/bin/true
+       -DENABLE_TESTS:BOOL=ON
 %cmake_build
 
 %check
-# Run only http tests. S3 tests require network and S3 client binaries.
-%ctest -- -R "HTTP|http|FileSystemGlob"
+# s3-unit tests require network (https://s3.us-east-1.amazonaws.com)
+# posc tests fail when run in parallel:
+# https://github.com/PelicanPlatform/xrootd-s3-http/issues/111
+%ctest -- -E 's3-unit|TestPosc'
 
 %install
 %cmake_install
@@ -52,13 +50,18 @@ and HTTP backends through an XRootD server.
 %files
 %{_libdir}/libXrdHTTPServer-5.so
 %{_libdir}/libXrdOssFilter-5.so
+%{_libdir}/libXrdOssGlobus-5.so
 %{_libdir}/libXrdOssHttp-5.so
 %{_libdir}/libXrdOssS3-5.so
+%{_libdir}/libXrdOssPosc-5.so
 %{_libdir}/libXrdS3-5.so
 %doc README.md
 %license LICENSE
 
 %changelog
+* Sun Aug 24 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.5.0-1
+- Update to version 0.5.0
+
 * Sat Aug 23 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 0.4.1-4
 - Rebuilt for tinyxml2 11.0.0
 

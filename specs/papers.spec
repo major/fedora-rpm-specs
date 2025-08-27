@@ -201,7 +201,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 %{_libdir}/libppsview-4.0.so.5{,.*}
 %{_libdir}/papers/
 %{_metainfodir}/org.gnome.Papers.ComicsDocument.metainfo.xml
+%if %{with djvu}
 %{_metainfodir}/org.gnome.Papers.DjvuDocument.metainfo.xml
+%endif
 %{_metainfodir}/org.gnome.Papers.PdfDocument.metainfo.xml
 %{_metainfodir}/org.gnome.Papers.TiffDocument.metainfo.xml
 

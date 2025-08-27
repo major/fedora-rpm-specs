@@ -61,14 +61,15 @@
 %bcond placebo 1
 %endif
 
+# For using an alternative build of EVC codecs
+%bcond evc_main 0
+
 %if %{with all_codecs}
-%bcond evc 1
 %bcond rtmp 1
 %bcond vvc 1
 %bcond x264 1
 %bcond x265 1
 %else
-%bcond evc 0
 %bcond rtmp 0
 %bcond vvc 0
 %bcond x264 0
@@ -95,7 +96,7 @@ Name:           ffmpeg
 %global pkg_name %{name}%{?pkg_suffix}
 
 Version:        7.1.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A complete solution to record, convert and stream audio and video
 License:        GPL-3.0-or-later
 URL:            https://ffmpeg.org/
@@ -112,6 +113,8 @@ Patch1:         ffmpeg-codec-choice.patch
 # Allow to build with fdk-aac-free
 # See https://bugzilla.redhat.com/show_bug.cgi?id=1501522#c112
 Patch2:         ffmpeg-allow-fdk-aac-free.patch
+# Support building with EVC base profile libraries
+Patch3:         https://code.ffmpeg.org/FFmpeg/FFmpeg/pulls/20329.patch#/ffmpeg-support-evc-base-libraries.patch
 
 # Backport fix for CVE-2025-22921
 Patch10:        https://git.ffmpeg.org/gitweb/ffmpeg.git/patch/7f9c7f9849a2155224711f0ff57ecdac6e4bfb57#/ffmpeg-CVE-2025-22921.patch
@@ -256,9 +259,12 @@ BuildRequires:  librtmp-devel
 %if %{with vpl}
 BuildRequires:  pkgconfig(vpl) >= 2.6
 %endif
-%if %{with evc}
-BuildRequires:  pkgconfig(libxevd)
-BuildRequires:  pkgconfig(libxeve)
+%if %{with evc_main}
+BuildRequires:  pkgconfig(xevd)
+BuildRequires:  pkgconfig(xeve)
+%else
+BuildRequires:  pkgconfig(xevdb)
+BuildRequires:  pkgconfig(xeveb)
 %endif
 %if %{with x264}
 BuildRequires:  pkgconfig(x264)
@@ -832,9 +838,12 @@ cp -a doc/examples/{*.c,Makefile,README} _doc/examples/
     --enable-libopencore-amrnb \
     --enable-libopencore-amrwb \
     --enable-libvo-amrwbenc \
-%if %{with evc}
+%if %{with evc_main}
     --enable-libxeve \
     --enable-libxevd \
+%else
+    --enable-libxeveb \
+    --enable-libxevdb \
 %endif
 %if %{with x264}
     --enable-libx264 \
@@ -857,7 +866,7 @@ cp -a doc/examples/{*.c,Makefile,README} _doc/examples/
     --enable-hwaccels \
     --disable-encoders \
     --disable-decoders \
-    --disable-decoder="h264,hevc,libxevd,vc1,vvc" \
+    --disable-decoder="h264,hevc,vc1,vvc" \
     --enable-encoder="$(perl -pe 's{^(\w*).*}{$1,}gs' <enable_encoders)" \
     --enable-decoder="$(perl -pe 's{^(\w*).*}{$1,}gs' <enable_decoders)" \
 %endif
@@ -933,6 +942,9 @@ cp -pa %{buildroot}%{_libdir}/libavcodec.so.%{av_codec_soversion}{,.*} %{buildro
 
 
 %changelog
+* Mon Aug 25 2025 Neal Gompa <ngompa@fedoraproject.org> - 7.1.1-9
+- Enable support for MPEG-5/EVC
+
 * Thu Aug 21 2025 Neal Gompa <ngompa@fedoraproject.org> - 7.1.1-8
 - Reorganize spec to group subpackage definitions together
 - Add freeworld conditional for third-party builds

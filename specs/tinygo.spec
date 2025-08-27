@@ -8,7 +8,7 @@
 
 # https://github.com/tinygo-org/tinygo
 %global goipath         github.com/tinygo-org/tinygo
-Version:                0.38.0
+Version:                0.39.0
 
 %global CMSIS_commit          9fe411cef1cef5de58e5957b89760759de44e393
 %global avr_commit            6624554c02b237b23dc17d53e992bf54033fc228
@@ -93,17 +93,10 @@ Patch:          0001-Skip-WASI-tests.patch
 Patch:          0002-Skip-tests-that-require-Go-module-mode.patch
 # Better search paths for non-default LLVM.
 Patch:          0003-Set-LLVM-search-paths-for-Fedora.patch
-# We can't include these due to poor licensing.
-# https://github.com/tinygo-org/tinygo/pull/4962
-Patch:          0004-Add-flag-to-skip-Renesas-SVD-builds.patch
 #https://github.com/tinygo-org/tinygo/pull/4677
-Patch:          0005-Normalize-expected-path-for-chdir-tests.patch
-# https://github.com/tinygo-org/tinygo/pull/4958
-Patch:          https://github.com/tinygo-org/tinygo/commit/1b5d312c689a004434cb77f161f65b9615c98036.patch
+Patch:          0004-Normalize-expected-path-for-chdir-tests.patch
 # https://github.com/tinygo-org/tinygo/issues/4969
-Patch:          0006-Skip-x86-tests-on-ARM.patch
-# Support for Go 1.25.
-Patch:          https://github.com/tinygo-org/tinygo/pull/4954.patch
+Patch:          0005-Skip-x86-tests-on-ARM.patch
 
 # Fix CVE-2025-26519 in musl.
 Patch1600:      https://www.openwall.com/lists/musl/2025/02/13/1/1#/musl-cve-2025-26519-1.patch

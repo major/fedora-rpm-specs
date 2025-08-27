@@ -4,7 +4,7 @@
 %global crate podman-sequoia
 
 Name:           rust-podman-sequoia
-Version:        0.1.0
+Version:        0.2.0
 Release:        %autorelease
 Summary:        Polyfill to use Sequoia as a signing backend for containers
 
@@ -88,7 +88,8 @@ cp -pav target/release/bindings/*.[ch] %{buildroot}/%{_datadir}/containers/podma
 
 %if %{with check}
 %check
-%cargo_test
+# * signature::tests::import_keys may fail on a machine with slow disk I/O
+%cargo_test -- -- --skip signature::tests::import_keys
 %endif
 
 %changelog

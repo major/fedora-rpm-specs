@@ -83,7 +83,7 @@
 
 Name:           %{rocrand_name}
 Version:        %{rocm_version}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        ROCm random number generator
 
 Url:            https://github.com/ROCm/rocRAND
@@ -175,9 +175,7 @@ sed -i -e 's@set(CMAKE_CXX_STANDARD 11)@set(CMAKE_CXX_STANDARD 17)@' {,test/{cpp
 %install
 %cmake_install
 
-if [ -f %{buildroot}%{_prefix}/share/doc/rocrand/LICENSE.txt ]; then
-    rm %{buildroot}%{_prefix}/share/doc/rocrand/LICENSE.txt
-fi
+rm -f %{buildroot}%{_prefix}/share/doc/rocrand/LICENSE.txt
 
 %check
 %if %{with check}
@@ -210,6 +208,9 @@ export LD_LIBRARY_PATH=$PWD/build/library:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Mon Aug 25 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-7
+- Simplify file removal
+
 * Thu Aug 14 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-6
 - Build -test on TW
 

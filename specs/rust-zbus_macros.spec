@@ -6,7 +6,7 @@
 %global crate zbus_macros
 
 Name:           rust-zbus_macros
-Version:        5.9.0
+Version:        5.10.0
 Release:        %autorelease
 Summary:        Proc-macros for zbus
 

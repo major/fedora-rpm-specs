@@ -18,19 +18,18 @@ BuildRequires: perl(Getopt::Long)
 BuildRequires: perl(XML::Parser)
 BuildRequires: gettext
 BuildRequires: make
-# http://bugzilla.gnome.org/show_bug.cgi?id=568845
-# Dropping this patch per the last comment on that thread:
-# Martin Pitt: As the reporter of the bug I close this, as the new API du jour is gsettings,
-# which has a sensible gettext integration.
-#Patch0: schemas-merge.patch
+
 # Fix intltool-update to work with perl 5.26. Patch taken from
 # Debian's intltool_0.51.0-4.debian.tar.xz
-Patch1: intltool-perl5.26-regex-fixes.patch
+Patch: intltool-perl5.26-regex-fixes.patch
 # https://bugs.launchpad.net/intltool/+bug/1505260
 # https://bugzilla.redhat.com/show_bug.cgi?id=1249051
-Patch2: intltool-merge-Create-cache-file-atomically.patch
+Patch: intltool-merge-Create-cache-file-atomically.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=1318674
-Patch3: intltool_distcheck-fix.patch
+Patch: intltool_distcheck-fix.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2268342
+# https://bugs.launchpad.net/intltool/+bug/1687644
+Patch: intltool-cache-race.patch
 
 %description
 This tool automatically extracts translatable strings from oaf, glade,
@@ -38,10 +37,7 @@ bonobo ui, nautilus theme, .desktop, and other data files and puts
 them in the po files.
 
 %prep
-%setup -q
-%patch 1 -p1
-%patch 2 -p1
-%patch 3 -p1
+%autosetup -p1
 
 %build
 %configure

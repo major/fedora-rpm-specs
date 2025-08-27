@@ -353,6 +353,9 @@ Source3001: https://github.com/llvm/llvm-project/releases/download/llvmorg-%{com
 Source1000: version.spec.inc
 %endif
 
+# Only used on RHEL-8, where rpmautospec is not available.
+Source1001: changelog
+
 # We've established the habit of numbering patches the following way:
 #
 #   0-499: All patches that are unconditionally applied
@@ -460,9 +463,15 @@ BuildRequires:	libffi-devel
 BuildRequires:	ncurses-devel
 
 %if %{with pgo}
+%if %{defined host_clang_maj_ver}
+BuildRequires:	lld(major) = %{host_clang_maj_ver}
+BuildRequires:	compiler-rt(major) = %{host_clang_maj_ver}
+BuildRequires:	llvm(major) = %{host_clang_maj_ver}
+%else
 BuildRequires:	lld
 BuildRequires:	compiler-rt
 BuildRequires:	llvm
+%endif
 
 %if 0%{run_pgo_perf_comparison}
 BuildRequires:	llvm-test-suite
@@ -1613,6 +1622,11 @@ fi
 # counters at compile time.
 %global cmake_config_args_instrumented %{cmake_config_args_instrumented} \\\
   -DLLVM_VP_COUNTERS_PER_SITE=8
+
+%if %{defined host_clang_maj_ver}
+%global cmake_config_args_instrumented %{cmake_config_args_instrumented} \\\
+  -DLLVM_PROFDATA=%{_bindir}/llvm-profdata-%{host_clang_maj_ver}
+%endif
 
 # TODO(kkleine): Should we see warnings like:
 # "function control flow change detected (hash mismatch)"

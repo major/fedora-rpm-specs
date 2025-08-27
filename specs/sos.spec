@@ -1,6 +1,6 @@
 Summary: A set of tools to gather troubleshooting information from a system
 Name: sos
-Version: 4.9.1
+Version: 4.10.0
 Release: %autorelease
 Source0: https://github.com/sosreport/sos/archive/%{version}.tar.gz
 License: GPL-2.0-only
@@ -38,13 +38,13 @@ support technicians and developers.
 %prep
 %autosetup -p1 -n %{name}-%{version}
 
-%if 0%{?fedora} >= 39
+%if 0%{?fedora} >= 39 || 0%{?rhel} >= 11
 %generate_buildrequires
 %pyproject_buildrequires
 %endif
 
 %build
-%if 0%{?fedora} >= 39
+%if 0%{?fedora} >= 39 || 0%{?rhel} >= 11
 %pyproject_wheel
 %else
 %py3_build
@@ -54,7 +54,7 @@ support technicians and developers.
 # Nothing to check
 
 %install
-%if 0%{?fedora} >= 39
+%if 0%{?fedora} >= 39 || 0%{?rhel} >= 11
 %pyproject_install
 %pyproject_save_files sos
 # files-duplicate: duplicate man pages detected
@@ -79,7 +79,7 @@ rm -rf %{buildroot}/usr/config/
 # internationalization is currently broken. Uncomment this line once fixed.
 # %%files -f %%{name}.lang
 %files
-%if 0%{?fedora} >= 39
+%if 0%{?fedora} >= 39 || 0%{?rhel} >= 11
 %{_bindir}/sos
 %else
 %{_sbindir}/sos

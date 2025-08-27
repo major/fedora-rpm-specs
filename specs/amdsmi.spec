@@ -19,7 +19,7 @@
 
 Name:       amdsmi
 Version:    %{rocm_version}
-Release:    4%{?dist}
+Release:    5%{?dist}
 Summary:    AMD System Management Interface
 
 License:    NCSA AND MIT AND BSD-3-Clause
@@ -125,36 +125,16 @@ else
 fi
 
 # Remove some things
-if [ -d %{buildroot}/usr/share/example ]; then
-    rm -rf %{buildroot}/usr/share/example
-fi
-if [ -d %{buildroot}/usr/share/amd_smi/example ]; then
-    rm -rf %{buildroot}/usr/share/amd_smi/example
-fi
-if [ -f %{buildroot}/usr/share/doc/amd_smi-asan/LICENSE.txt ]; then
-    rm %{buildroot}/usr/share/doc/amd_smi-asan/LICENSE.txt
-fi
-if [ -f %{buildroot}/usr/share/doc/amd_smi/LICENSE.txt ]; then
-    rm %{buildroot}/usr/share/doc/amd_smi/LICENSE.txt
-fi
-if [ -f %{buildroot}/usr/share/doc/amd_smi/README.md ]; then
-    rm %{buildroot}/usr/share/doc/amd_smi/README.md
-fi
-if [ -f %{buildroot}/usr/share/doc/amd_smi/copyright ]; then
-    rm %{buildroot}/usr/share/doc/amd_smi/copyright
-fi
-if [ -f %{buildroot}%{_datadir}/_version.py ]; then
-    rm %{buildroot}%{_datadir}/_version.py
-fi
-if [ -f %{buildroot}%{_datadir}/amd_smi/_version.py ]; then
-    rm %{buildroot}%{_datadir}/amd_smi/_version.py
-fi
-if [ -f %{buildroot}%{_datadir}/setup.py ]; then
-    rm %{buildroot}%{_datadir}/setup.py
-fi
-if [ -f %{buildroot}%{_datadir}/amd_smi/setup.py ]; then
-    rm %{buildroot}%{_datadir}/amd_smi/setup.py
-fi
+rm -rf %{buildroot}/usr/share/example
+rm -rf %{buildroot}/usr/share/amd_smi/example
+rm -rf %{buildroot}/usr/share/doc/amd_smi-asan/LICENSE.txt
+rm -f %{buildroot}/usr/share/doc/amd_smi/LICENSE.txt
+rm -f %{buildroot}/usr/share/doc/amd_smi/README.md
+rm -rf %{buildroot}/usr/share/doc/amd_smi/copyright
+rm -f %{buildroot}%{_datadir}/_version.py
+rm -f %{buildroot}%{_datadir}/amd_smi/_version.py
+rm -f %{buildroot}%{_datadir}/setup.py
+rm -f %{buildroot}%{_datadir}/amd_smi/setup.py
 
 # W: unstripped-binary-or-object /usr/lib/python3.13/site-packages/amdsmi/libamd_smi.so
 # Does an explict open, so can not just rm it
@@ -200,6 +180,9 @@ mv %{buildroot}%{_datadir}/tests %{buildroot}%{_datadir}/amdsmi/.
 %endif
 
 %changelog
+* Mon Aug 25 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-5
+- Simplify file removal
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 6.4.2-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

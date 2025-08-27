@@ -60,7 +60,7 @@
 
 Name:           rocclr
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        ROCm Compute Language Runtime
 Url:            https://github.com/ROCm/clr
 License:        MIT
@@ -323,19 +323,10 @@ rm %{buildroot}%{_libdir}/.hipInfo
 # Windows files:
 rm %{buildroot}%{_bindir}/*.bat
 
-if [ -f %{buildroot}%{_prefix}/share/doc/packages/rocclr/LICENSE.txt ]; then
-    rm %{buildroot}%{_prefix}/share/doc/packages/rocclr*/LICENSE.txt
-fi
-if [ -f %{buildroot}%{_prefix}/share/doc/opencl/LICENSE.txt ]; then
-    rm %{buildroot}%{_prefix}/share/doc/opencl*/LICENSE.txt
-fi
-if [ -f %{buildroot}%{_prefix}/share/doc/hip-asan/LICENSE.txt ]; then
-    rm %{buildroot}%{_prefix}/share/doc/hip-asan/LICENSE.txt
-fi
-if [ -f %{buildroot}%{_prefix}/share/doc/hip/LICENSE.txt ]; then
-    rm %{buildroot}%{_prefix}/share/doc/hip/LICENSE.txt
-fi
-
+rm -f %{buildroot}%{_prefix}/share/doc/packages/rocclr*/LICENSE.txt
+rm -f %{buildroot}%{_prefix}/share/doc/opencl*/LICENSE.txt
+rm -f %{buildroot}%{_prefix}/share/doc/hip-asan/LICENSE.txt
+rm -f %{buildroot}%{_prefix}/share/doc/hip/LICENSE.txt
 
 %if %{with ocl}
 %files -n rocm-opencl
@@ -385,6 +376,9 @@ fi
 %endif
 
 %changelog
+* Mon Aug 25 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-3
+- Simplify file removal
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

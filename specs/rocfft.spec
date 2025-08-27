@@ -89,7 +89,7 @@
 
 Name:           %{rocfft_name}
 Version:        %{rocm_version}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        ROCm Fast Fourier Transforms (FFT) library
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -206,9 +206,8 @@ find %{buildroot} -type f -name "rocfft_rtc_helper" -print0 | xargs -0 -I {} /us
 # we don't need or want the client-info file installed by rocfft
 rm -rf %{buildroot}/%{_prefix}/.info
 
-if [ -f %{buildroot}%{_prefix}/share/doc/rocfft/LICENSE.md ]; then
-    rm %{buildroot}%{_prefix}/share/doc/rocfft/LICENSE.md
-fi
+rm -f %{buildroot}%{_prefix}/share/doc/rocfft/LICENSE.md
+
 
 %check
 %if %{with test}
@@ -240,6 +239,9 @@ fi
 %endif
 
 %changelog
+* Mon Aug 25 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-6
+- Simplify file removal
+
 * Fri Aug 15 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-5
 - Remove buildrequires hipcc-libomp-devel
 

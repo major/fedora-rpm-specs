@@ -201,7 +201,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        142.0
-Release:        1%{?pre_tag}%{?dist}
+Release:        3%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 # Automatically converted from old format: MPLv1.1 or GPLv2+ or LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-MPLv1.1 OR GPL-2.0-or-later OR LicenseRef-Callaway-LGPLv2+
@@ -336,7 +336,6 @@ BuildRequires:  pkgconfig(libwebpdemux) >= %{libwebp_version}
 %endif
 BuildRequires:  autoconf213
 BuildRequires:  pkgconfig(libpulse)
-BuildRequires:  yasm
 BuildRequires:  llvm
 BuildRequires:  llvm-devel
 BuildRequires:  clang
@@ -746,11 +745,7 @@ echo "ac_add_options --with-google-safebrowsing-api-keyfile=`pwd`/google-api-key
 # https://bugzilla.redhat.com/show_bug.cgi?id=2239046
 # with clang 17 upstream's detection fails, so let's just tell it
 # where to look
-%if 0%{?fedora} >= 42
-echo "ac_add_options --with-libclang-path=`llvm-config-20 --libdir`" >> .mozconfig
-%else
 echo "ac_add_options --with-libclang-path=`llvm-config --libdir`" >> .mozconfig
-%endif
 
 %if %{enable_replace_malloc}
 echo "ac_add_options --enable-replace-malloc" >> .mozconfig
@@ -1282,6 +1277,13 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Mon Aug 25 2025 Tom Stellard <tstellar@redhat.com> - 142.0-3
+- Fix build with llvm-21
+
+* Sat Aug 23 2025 Dominik Mierzejewski <dominik@greysector.net> - 142.0-2
+- Drop unused yasm build dependency, part of:
+  https://fedoraproject.org/wiki/Changes/DeprecateYASM
+
 * Tue Aug 12 2025 Martin Stransky <stransky@redhat.com> - 142.0-1
 - Updated to 142.0
 

@@ -114,7 +114,7 @@
 
 Name:           %{rocblas_name}
 Version:        %{rocm_version}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        BLAS implementation for ROCm
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT AND BSD-3-Clause
@@ -285,9 +285,7 @@ fi
 %install
 %cmake_install
 
-if [ -f %{buildroot}%{_prefix}/share/doc/rocblas/LICENSE.md ]; then
-    rm %{buildroot}%{_prefix}/share/doc/rocblas/LICENSE.md
-fi
+rm -f %{buildroot}%{_prefix}/share/doc/rocblas/LICENSE.md
 
 %check
 %if %{with test}
@@ -326,6 +324,9 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library/src:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Mon Aug 25 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-9
+- Simplify file removal
+
 * Wed Aug 20 2025 Egbert Eich <eich@suse.com> - 6.4.2-8
 - Consoldiate Python module BuildRequires for SUSE.
 

@@ -21,7 +21,7 @@
 
 Name:           rocm-omp
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        ROCm OpenMP
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -180,12 +180,8 @@ cd openmp
 %fdupes %{buildroot}%{_prefix}
 %endif
 
-if [ -d %{buildroot}%{bundle_prefix}/lib/omptest ]; then
-    rm -rf %{buildroot}%{bundle_prefix}/lib/omptest
-fi
-if [ -d %{buildroot}%{bundle_prefix}/lib/cmake/omptest ]; then
-    rm -rf %{buildroot}%{bundle_prefix}/lib/cmake/omptest
-fi
+rm -rf %{buildroot}%{bundle_prefix}/lib/omptest
+rm -rf %{buildroot}%{bundle_prefix}/lib/cmake/omptest
 
 # 6.4 remove everything, may not need the main package
 #  bin/llvm-omp*
@@ -194,7 +190,7 @@ fi
 %files
 
 # 6.4 removed :
-#  lib/clang/%{llvm_maj_ver}/include/hostexec.h
+#  lib/clang/%%{llvm_maj_ver}/include/hostexec.h
 #  lib/disable_dynamic_devmem.ll
 #  lib/libdevice/
 #  lib/*.bc
@@ -208,6 +204,9 @@ fi
 %files static
 
 %changelog
+* Mon Aug 25 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-3
+- Simplify file removal
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

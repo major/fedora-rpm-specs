@@ -12,9 +12,9 @@
 
 # https://github.com/tdewolff/minify
 %global goipath         github.com/tdewolff/minify
-Version:                2.23.10
+Version:                2.24.0
 
-%gometa -L
+%gometa -L -f
 
 %global goaltipaths     github.com/tdewolff/minify/v2
 
@@ -43,7 +43,7 @@ License:        MIT
 URL:            %{gourl}
 Source:         %{gosource}
 
-BuildRequires:  (golang(github.com/tdewolff/parse/v2) >= 2.8.1 with golang(github.com/tdewolff/parse/v2) < 3)
+BuildRequires:  (golang(github.com/tdewolff/parse/v2) >= 2.8.3 with golang(github.com/tdewolff/parse/v2) < 3)
 
 %description %{common_description}
 

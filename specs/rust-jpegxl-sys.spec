@@ -22,7 +22,8 @@ Patch:          jpegxl-sys-fix-metadata.diff
 Patch:          0001-unconditionally-use-pkg-config-to-find-libjxl.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
-BuildRequires:  pkgconfig(libjxl) >= 0.8.2
+BuildRequires:  pkgconfig(libjxl)
+BuildRequires:  pkgconfig(libjxl_threads)
 
 %global _description %{expand:
 Rust wrapper for JPEG XL reference implementation.}
@@ -32,7 +33,8 @@ Rust wrapper for JPEG XL reference implementation.}
 %package        devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       pkgconfig(libjxl) >= 0.8.2
+Requires:       pkgconfig(libjxl)
+Requires:       pkgconfig(libjxl_threads)
 
 %description    devel %{_description}
 

@@ -3,7 +3,7 @@
 
 # https://github.com/leonelquinteros/gotext
 %global goipath         github.com/leonelquinteros/gotext
-Version:                1.7.1
+Version:                1.7.2
 
 %gometa
 
@@ -21,6 +21,8 @@ Summary:        Golang GNU gettext utilities package
 License:        MIT AND BSD-3-Clause
 URL:            %{gourl}
 Source0:        %{gosource}
+# Fix Go vet format string error on Go 1.24+.
+Patch:          https://github.com/leonelquinteros/gotext/commit/0251497c92e4b8579ba7c7dbbce02ea90600f209.patch
 
 %description
 %{common_description}
@@ -28,7 +30,8 @@ Source0:        %{gosource}
 %gopkg
 
 %prep
-%goprep
+%goprep -A
+%autopatch -p1 -q
 
 %generate_buildrequires
 %go_generate_buildrequires

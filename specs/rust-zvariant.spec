@@ -5,7 +5,7 @@
 %global crate zvariant
 
 Name:           rust-zvariant
-Version:        5.6.0
+Version:        5.7.0
 Release:        %autorelease
 Summary:        D-Bus & GVariant encoding & decoding
 
@@ -107,18 +107,6 @@ This package contains library source intended for building other packages which
 use the "gvariant" feature of the "%{crate}" crate.
 
 %files       -n %{name}+gvariant-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+heapless-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+heapless-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "heapless" feature of the "%{crate}" crate.
-
-%files       -n %{name}+heapless-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+option-as-array-devel

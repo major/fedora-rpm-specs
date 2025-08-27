@@ -14,6 +14,9 @@ URL:            https://github.com/canonical/cloud-init
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:        cloud-init-tmpfiles.conf
 
+# https://github.com/canonical/cloud-init/pull/6423
+Patch:          0001-fix-avoid-dependency-cycle-on-Fedora.patch
+
 BuildArch:      noarch
 
 BuildRequires:  systemd-rpm-macros

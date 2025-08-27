@@ -80,14 +80,14 @@ sed -i "/def __init__/s/__init__/setUp/" test/test_utils.py
 %check
 %if %{with tests}
 # %%pytest manipulates the sys.path
-# test_compiled_singature
-# - https://github.com/davidhalter/jedi/issues/1952
-# - https://github.com/python/cpython/issues/107526
+# test_string_annotation does not work with Python 3.14
+# https://github.com/davidhalter/jedi/issues/2064
 %pytest -k "\
     not test_venv_and_pths and \
-    not test_compiled_signature and \
     not test_find_system_environments and \
-    not test_import"
+    not test_import and \
+    not test_string_annotation and \
+    not test_compiled_signature_annotation_string"
 %else
 %pyproject_check_import
 %endif

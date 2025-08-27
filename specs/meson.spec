@@ -3,7 +3,7 @@
 %bcond check 1
 
 Name:           meson
-Version:        1.8.4
+Version:        1.9.0
 Release:        %autorelease
 Summary:        High productivity build system
 
@@ -123,7 +123,6 @@ install -Dpm0644 -t %{buildroot}%{_datadir}/zsh/site-functions/ data/shell-compl
 %check
 export MESON_PRINT_TEST_OUTPUT=1
 %{python3} ./run_unittests.py -v
-%{python3} ./run_meson_command_tests.py -v
 %endif
 
 %files

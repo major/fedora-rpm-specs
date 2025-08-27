@@ -30,7 +30,7 @@
 
 Name:           rocprim
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        ROCm parallel primatives
 
 License:        MIT AND BSD-3-Clause
@@ -124,9 +124,7 @@ grep texture_cach test/rocprim/CMakeLists.txt
 %install
 %cmake_install
 
-if [ -f %{buildroot}%{_prefix}/share/doc/rocprim/LICENSE.txt ]; then
-    rm %{buildroot}%{_prefix}/share/doc/rocprim/LICENSE.txt
-fi
+rm -f %{buildroot}%{_prefix}/share/doc/rocprim/LICENSE.txt
 
 %if %{with test}
 # force the cmake test file to use absolute paths for its referenced binaries
@@ -149,6 +147,9 @@ sed -i -e 's@\.\.@\/usr\/bin@' %{buildroot}%{_bindir}/%{name}/CTestTestfile.cmak
 
 
 %changelog
+* Mon Aug 25 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-5
+- Simplify file removal
+
 * Mon Aug 18 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-4
 - Remove check option
 

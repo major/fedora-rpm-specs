@@ -4,7 +4,7 @@
 %bcond tests %{without bootstrap}
 
 Name:           python-jupyter-server
-Version:        2.16.0
+Version:        2.17.0
 Release:        %autorelease
 Summary:        The backend for Jupyter web applications
 License:        BSD-3-Clause
@@ -32,10 +32,6 @@ Summary:        %{summary}
 %prep
 %autosetup -n jupyter_server-%{version}
 sed -i '/"pre-commit"/d' pyproject.toml
-# overrides is not available in Fedora
-sed -i '/"overrides.*"/d' pyproject.toml
-sed -i '/from overrides import overrides/d' jupyter_server/services/kernels/kernelmanager.py
-sed -i '/@overrides/d' jupyter_server/services/kernels/kernelmanager.py
 
 %generate_buildrequires
 %pyproject_buildrequires %{?with_tests:-x test}

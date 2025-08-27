@@ -13,7 +13,7 @@ Summary:        Color palette constructor
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Graphics-Toolkit-Color
 Source0:        https://cpan.metacpan.org/authors/id/L/LI/LICHTKIND/Graphics-Toolkit-Color-%{version}.tar.gz
-# Remove an unused dependency, proposed upstream,
+# Remove an unused dependency, in upstream after 1.92,
 # <https://github.com/lichtkind/Graphics-Toolkit-Color/pull/4>.
 Patch0:         Graphics-Toolkit-Color-1.92-Do-not-load-unused-Benchmark-module.patch
 BuildArch:      noarch

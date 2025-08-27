@@ -41,7 +41,7 @@
 
 Name:           %{hiprand_name}
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        HIP random number generator
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -138,12 +138,8 @@ sed -i -e 's@set(CMAKE_CXX_STANDARD 11)@set(CMAKE_CXX_STANDARD 14)@' {,test/pack
 %install
 %cmake_install
 
-if [ -f %{buildroot}%{_prefix}/share/doc/hiprand/LICENSE.txt ]; then
-    rm %{buildroot}%{_prefix}/share/doc/hiprand/LICENSE.txt
-fi
-if [ -f %{buildroot}%{_prefix}/bin/hipRAND/CTestTestfile.cmake ]; then
-    rm %{buildroot}%{_prefix}/bin/hipRAND/CTestTestfile.cmake
-fi
+rm -f %{buildroot}%{_prefix}/share/doc/hiprand/LICENSE.txt
+rm -f %{buildroot}%{_prefix}/bin/hipRAND/CTestTestfile.cmake
 
 %check
 %if %{with test}
@@ -174,6 +170,9 @@ export LD_LIBRARY_PATH=$PWD/build/library:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Mon Aug 25 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-5
+- Simplify file removal
+
 * Wed Jul 30 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-4
 - Remove -mtls-dialect cflag
 

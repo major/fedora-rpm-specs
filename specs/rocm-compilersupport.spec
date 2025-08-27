@@ -39,7 +39,7 @@
 
 Name:           rocm-compilersupport
 Version:        %{llvm_maj_ver}
-Release:        15.rocm%{rocm_version}%{?dist}
+Release:        16.rocm%{rocm_version}%{?dist}
 Summary:        Various AMD ROCm LLVM related services
 %if 0%{?suse_version}
 Group:          Development/Languages/Other
@@ -682,15 +682,9 @@ mkdir -p %{buildroot}%{_libdir}/rocm/bin
 mkdir -p %{buildroot}%{_libdir}/rocm/include
 
 rm -rf %{buildroot}%{_prefix}/hip
-if [ -f %{buildroot}%{_prefix}/share/doc/packages/rocm-compilersupport/LICENSE.TXT ]; then
-    rm %{buildroot}%{_prefix}/share/doc/packages/rocm-compilersupport/LICENSE.*
-fi
-if [ -f %{buildroot}%{_prefix}/share/doc/packages/rocm-compilersupport/NOTICES.txt ]; then
-    rm %{buildroot}%{_prefix}/share/doc/packages/rocm-compilersupport/NOTICES.txt
-fi
-if [ -f %{buildroot}%{_prefix}/share/doc/packages/rocm-compilersupport/README.md ]; then
-    rm %{buildroot}%{_prefix}/share/doc/packages/rocm-compilersupport/README.md
-fi
+rm -f %{buildroot}%{_prefix}/share/doc/packages/rocm-compilersupport/LICENSE.*
+rm -f %{buildroot}%{_prefix}/share/doc/packages/rocm-compilersupport/NOTICES.txt
+rm -f %{buildroot}%{_prefix}/share/doc/packages/rocm-compilersupport/README.md
 
 %if 0%{?suse_version}
 find %{buildroot}%{bundle_prefix}/bin -type f -executable -exec strip {} \;
@@ -1024,6 +1018,9 @@ rm %{buildroot}%{_bindir}/hip*.pl
 %{bundle_prefix}/lib/libc++experimental.a
 
 %changelog
+* Mon Aug 25 2025 Tom Rix <Tom.Rix@amd.com> - 19-16.rocm6.4.2
+- Simplify file removal
+
 * Tue Aug 5 2025 Tom Rix <Tom.Rix@amd.com> - 19-15.rocm6.4.2
 - Remove bootstrap logic
 - Use explicit Unix Makefiles for build-comgr step

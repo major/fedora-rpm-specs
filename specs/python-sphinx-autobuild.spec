@@ -2,7 +2,7 @@
 %global giturl  https://github.com/sphinx-doc/sphinx-autobuild
 
 Name:           python-sphinx-autobuild
-Version:        2024.10.03
+Version:        2025.08.25
 Release:        %autorelease
 Summary:        Autobuild a Sphinx directory when a change is detected
 
@@ -10,8 +10,6 @@ License:        MIT
 URL:            https://sphinx-autobuild.readthedocs.io/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/%{version}/sphinx-autobuild-%{version}.tar.gz
-# Fix --help invocations
-Patch:          %{giturl}/pull/199.patch
 
 BuildArch:      noarch
 

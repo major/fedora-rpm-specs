@@ -8,7 +8,7 @@
 
 Name:       rocm-bandwidth-test
 Version:    %{rocm_version}
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Bandwidth test for ROCm
 
 # License mismatch
@@ -51,9 +51,7 @@ cp %{SOURCE1} .
 %install
 %cmake_install
 
-if [ -f %{buildroot}%{_prefix}/share/doc/rocm-bandwidth-test/LICENSE.txt ]; then
-    rm %{buildroot}%{_prefix}/share/doc/rocm-bandwidth-test/LICENSE.txt
-fi
+rm -f %{buildroot}%{_prefix}/share/doc/rocm-bandwidth-test/LICENSE.txt
 
 %check
 %if %{with check}
@@ -75,5 +73,8 @@ fi
 %{_bindir}/rocm-bandwidth-test
 
 %changelog
+* Mon Aug 25 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-2
+- Simplify file removal
+
 * Sat Jul 26 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-1
 - Initial package

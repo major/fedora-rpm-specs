@@ -13,7 +13,7 @@
 %global simdutf_version 7.2.1
 
 Name:           vte291
-Version:        0.81.0
+Version:        0.81.90
 Release:        %autorelease
 Summary:        GTK terminal emulator library
 
@@ -87,6 +87,10 @@ Summary:        Development files for GTK+ 3 %{name}
 License:        GPL-3.0-or-later AND LGPL-3.0-or-later
 
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+# Because web fonts from upstream are not bundled in the gi-docgen package,
+# packages containing documentation generated with gi-docgen should depend on
+# this metapackage to ensure the proper system fonts are present.
+Recommends:     gi-docgen-fonts
 
 %description devel
 The %{name}-devel package contains libraries and header files for
@@ -101,6 +105,10 @@ License:        GPL-3.0-or-later AND LGPL-3.0-or-later
 
 Requires:       %{name}-gtk4%{?_isa} = %{version}-%{release}
 Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
+# Because web fonts from upstream are not bundled in the gi-docgen package,
+# packages containing documentation generated with gi-docgen should depend on
+# this metapackage to ensure the proper system fonts are present.
+Recommends:     gi-docgen-fonts
 
 %description gtk4-devel
 The %{name}-gtk4-devel package contains libraries and header files for
@@ -148,10 +156,6 @@ rm %{buildroot}/%{_datadir}/applications/org.gnome.Vte.App.Gtk4.desktop
 %{_userunitdir}/vte-spawn-.scope.d
 %{_datadir}/xdg-terminals/org.gnome.Vte.App.Gtk3.desktop
 %{_datadir}/xdg-terminals/org.gnome.Vte.App.Gtk4.desktop
-%dir %{_datadir}/vte-2.91
-%dir %{_datadir}/vte-2.91/terminfo
-%dir %{_datadir}/vte-2.91/terminfo/x
-%{_datadir}/vte-2.91/terminfo/x/xterm-256color
 
 %files gtk4
 %{_libdir}/libvte-%{apiver}-gtk4.so.0*

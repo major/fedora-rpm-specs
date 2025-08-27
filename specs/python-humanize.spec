@@ -1,7 +1,7 @@
 %bcond_without check
 
 Name:           python-humanize
-Version:        4.12.3
+Version:        4.13.0
 Release:        %autorelease
 Summary:        Turns dates in to human readable format, e.g '3 minutes ago'
 

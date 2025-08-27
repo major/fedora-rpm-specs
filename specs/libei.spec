@@ -4,8 +4,8 @@
 # Here there are packaged as libei, libeis and liboeffis plus respective subpackages.
 
 Name:           libei
-Version:        1.4.1
-Release:        2%{?dist}
+Version:        1.5.0
+Release:        1%{?dist}
 Summary:        Library for Emulated Input
 
 License:        MIT
@@ -121,7 +121,4 @@ Library for XDG RemoteDesktop Portal Setup Development Package
 %{_bindir}/ei-debug-events
 
 %changelog
-* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
 %autochangelog

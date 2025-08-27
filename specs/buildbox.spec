@@ -40,8 +40,7 @@ Remote Execution API, also supporting the Remote Worker API.
 %autosetup -p1
 
 %build
-%cmake -GNinja \
-       -DCMAKE_CXX_FLAGS="%{optflags} -Wno-format-security"
+%cmake -GNinja
 %cmake_build
 
 %install

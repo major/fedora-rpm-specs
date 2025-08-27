@@ -5,7 +5,7 @@ it.}
 %global forgeurl https://github.com/rstcheck/rstcheck-core
 
 Name:           python-rstcheck-core
-Version:        1.2.1
+Version:        1.2.2
 Release:        %{autorelease}
 Summary:        Checks syntax of reStructuredText and code blocks nested within it
 

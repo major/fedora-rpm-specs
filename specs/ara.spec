@@ -7,12 +7,12 @@
 %global _python_no_extras_requires 1
 
 Name:           ara
-Version:        1.7.2
-Release:        3%{?dist}
+Version:        1.7.3
+Release:        1%{?dist}
 Summary:        Records Ansible playbooks and makes them easier to understand and troubleshoot
 
 License:        GPL-3.0-or-later
-URL:            https://github.com/ansible-community/ara
+URL:            https://codeberg.org/ansible-community/ara
 Source0:        %{pypi_source ara}
 BuildArch:      noarch
 
@@ -65,6 +65,7 @@ Obsoletes:      python3-ara-server < 1.6.1-1
 
 Requires:       python3-ara = %{version}-%{release}
 Requires:       python3-ruamel-yaml
+Requires:       tzdata
 
 %description -n python3-ara+server
 %{summary}.
@@ -124,6 +125,9 @@ This package installs the documentation.
 
 %prep
 %autosetup -n ara-%{version} -S git
+# Remove tzdata from automatic python requirements, it's a system package added to Requires
+# See: https://codeberg.org/ansible-community/ara/commit/d08c5adbd3708e777e65889d4ab7203caf6567a6
+sed -i '/tzdata/d' setup.cfg
 
 
 %generate_buildrequires
@@ -196,6 +200,12 @@ ARA_TIME_ZONE=UTC %{__python3} manage.py test ara
 
 
 %changelog
+* Mon Aug 25 2025 David Moreau Simard <moi@dmsimard.com> - 1.7.3-1
+- Update to latest upstream release
+- Bump django from >=3.2,<4.3 to >=4.2,<5.3
+- Moved URL from github.com to codeberg.org
+- Added requirement on tzdata
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

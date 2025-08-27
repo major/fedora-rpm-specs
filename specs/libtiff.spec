@@ -1,7 +1,7 @@
 Summary:       Library of functions for manipulating TIFF format image files
 Name:          libtiff
 Version:       4.7.0
-Release:       6%{?dist}
+Release:       8%{?dist}
 License:       libtiff
 URL:           http://www.simplesystems.org/libtiff/
 
@@ -11,6 +11,10 @@ Patch1:        libsndfile-1.2.2-fixdirectorytest.patch
 #from upstream, for <=4.7.0, fix CVE-2025-8177, rhbz#2383827
 Patch2:        libtiff-4.7.0-mr737.diff
 Patch3:        libtiff-4.7.0-mr727.patch
+Patch4:        libtiff-4.6.0-CVE-2024-13978.patch
+Patch5:        libtiff-4.6.0-CVE-2025-8534.patch
+# from upstream, for <=4.7.0, fix CVE-2025-9165, rhbz#2389608
+Patch6:        libtiff-4.7.0-ed14128.patch
 
 BuildRequires: gcc, gcc-c++
 BuildRequires: zlib-devel libjpeg-devel jbigkit-devel libzstd-devel libwebp-devel liblerc-devel
@@ -66,6 +70,10 @@ image files using the libtiff library.
 %patch -P 1 -p1 -b .fixdirtest
 %patch -P 2 -p1 -b .mr737
 %patch -P 3 -p1 -b .mr727
+%patch -P 4 -p1 -b .CVE-2024-13978
+%patch -P 5 -p1 -b .CVE-2025-8534
+%patch -P 6 -p1 -b .ed14128
+
 # Use build system's libtool.m4, not the one in the package.
 rm -f libtool.m4
 
@@ -77,7 +85,7 @@ autoheader
 
 %build
 export CFLAGS="%{optflags} -fno-strict-aliasing"
-%configure --enable-ld-version-script
+%configure --enable-ld-version-script --enable-tools-unsupported
 %make_build
 
 %install
@@ -175,6 +183,13 @@ fi
 %{_mandir}/man1/*
 
 %changelog
+* Mon Aug 25 2025 Michal Hlavinka <mhlavink@redhat.com> - 4.7.0-8
+- fix  CVE-2025-9165: memory leak in tiffcmp (rhbz#2389608)
+
+* Tue Aug 12 2025 Michal Hlavinka <mhlavink@redhat.com> - 4.7.0-7
+- fix CVE-2024-13978: null pointer dereference in tiff2pdf (rhbz#2386201)
+- fix CVE-2025-8534: null pointer dereference in tiff2ps (rhbz#2386494)
+
 * Tue Jul 29 2025 Michal Hlavinka <mhlavink@redhat.com> - 4.7.0-6
 - fix CVE-2025-8176: use after free in tiffmedian (rhbz#2383821)
 

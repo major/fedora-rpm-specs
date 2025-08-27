@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-mdx
 Version:        2.5.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Executable code blocks inside markdown files
 
 License:        ISC
@@ -85,6 +85,9 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Mon Aug 25 2025 Jerry James <loganjerry@gmail.com> - 2.5.0-7
+- Rebuild for ocaml-fmt 0.11.0
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

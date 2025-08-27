@@ -21,7 +21,7 @@ BuildRequires:  qt5-qtbase-private-devel
 ExcludeArch:    %{ix86}
 %endif
 
-%global distinfo %{python3_sitearch}/PyQtChart-%{version}.dist-info
+%global distinfo %{python3_sitearch}/pyqtchart-%{version}.dist-info
 
 %description
 PyQtChart is a set of Python bindings for The Qt Company's Qt Charts library.
@@ -70,6 +70,7 @@ chmod a+rx %{buildroot}%{python3_sitearch}/PyQt5/*.so
 
 %check
 # Make sure we don't leak buildroot to dist-info
+test -d %{buildroot}%{distinfo}
 grep %{buildroot} %{buildroot}%{distinfo}/* && exit 1 || true
 
 

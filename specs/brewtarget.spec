@@ -1,5 +1,5 @@
 Name:           brewtarget
-Version:        4.1.3
+Version:        4.2.0
 Release:        %autorelease
 Summary:        An open source beer recipe creation tool 🍺
 

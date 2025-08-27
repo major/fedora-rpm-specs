@@ -3,20 +3,16 @@
 %global debug_package %{nil}
 
 %global crate glycin-common
-%global crate_version 1.0.0-beta.1
+%global crate_version 1.0.0-beta.3
 
 Name:           rust-glycin-common
-Version:        1.0.0~beta.1
+Version:        1.0.0~beta.3
 Release:        %autorelease
 Summary:        Sandboxed image decoding
 
 License:        MPL-2.0 OR LGPL-2.1-or-later
 URL:            https://crates.io/crates/glycin-common
 Source:         %{crates_source %{crate} %{crate_version}}
-# * https://gitlab.gnome.org/GNOME/glycin/-/issues/181
-Source2:        https://gitlab.gnome.org/GNOME/glycin/-/raw/2.0.beta.2/LICENSE
-Source3:        https://gitlab.gnome.org/GNOME/glycin/-/raw/2.0.beta.2/LICENSE-LGPL-2.1
-Source4:        https://gitlab.gnome.org/GNOME/glycin/-/raw/2.0.beta.2/LICENSE-MPL-2.0
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -67,7 +63,6 @@ use the "gobject" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{crate_version} -p1
 %cargo_prep
-cp -pav %{SOURCE2} %{SOURCE3} %{SOURCE4} .
 
 %generate_buildrequires
 %cargo_generate_buildrequires

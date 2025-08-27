@@ -4,9 +4,9 @@
 
 # https://github.com/tdewolff/parse
 %global goipath         github.com/tdewolff/parse
-Version:                2.8.1
+Version:                2.8.3
 
-%gometa
+%gometa -L -f
 
 %global goaltipaths     github.com/tdewolff/parse/v2
 
@@ -23,15 +23,14 @@ Summary:        Go parsers for web formats
 License:        MIT
 URL:            %{gourl}
 Source:         %{gosource}
-Patch:          https://github.com/tdewolff/parse/commit/106dd22069714d551b474155d3e8bbf589914af3.patch
 
 %description %{common_description}
 
 %gopkg
 
 %prep
-%goprep
-%autopatch -p1
+%goprep -A
+%autopatch -p1 -q
 
 %generate_buildrequires
 %go_generate_buildrequires

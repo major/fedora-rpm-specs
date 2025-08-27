@@ -9,7 +9,7 @@
 
 Name:           hipify
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Convert CUDA to HIP
 
 Url:            https://github.com/ROCm
@@ -65,9 +65,7 @@ sed -i 's|\(/usr/bin/\)env perl|\1perl|' %{buildroot}%{_bindir}//hipify-perl
 # /usr/bin/hipify-clang: error while loading shared libraries: libclang-cpp.so.19.0git
 chrpath %{buildroot}%{_bindir}/hipify-clang -r %rocmllvm_libdir
 
-if [ -d %{buildroot}%{_includedir} ]; then
-    rm -rf %{buildroot}%{_includedir}
-fi
+rm -rf %{buildroot}%{_includedir}
 
 %files
 %doc README.md
@@ -81,6 +79,9 @@ fi
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Aug 25 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.1-4
+- Simplify file removal
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

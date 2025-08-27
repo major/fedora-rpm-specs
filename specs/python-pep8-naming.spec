@@ -1,5 +1,5 @@
 %global srcname pep8-naming
-%global srcname_ pep8ext_naming
+%global srcname_ pep8_naming
 %global _description %{expand:
 Check the PEP-8 naming conventions.
 This module provides a plugin for flake8, the Python code checker.
@@ -7,13 +7,13 @@ This module provides a plugin for flake8, the Python code checker.
 
 
 Name:           python-%{srcname}
-Version:        0.14.1
+Version:        0.15.1
 Release:        %autorelease
 Summary:        Check PEP-8 naming conventions, a plugin for flake8
 
 License:        MIT
 URL:            https://pypi.python.org/pypi/%{srcname}
-Source0:        %pypi_source %{srcname}
+Source:         %pypi_source %{srcname_}
 
 BuildArch:      noarch
 
@@ -30,14 +30,14 @@ Summary:        %{summary}
 %pyproject_buildrequires
 
 %prep
-%autosetup -n %{srcname}-%{version} -p1
+%autosetup -n %{srcname_}-%{version} -p1
 
 %build
 %pyproject_wheel
 
 %install
 %pyproject_install
-%pyproject_save_files %{srcname_}
+%pyproject_save_files pep8ext_naming
 
 %check
 %{py3_test_envvars} %{python3} run_tests.py

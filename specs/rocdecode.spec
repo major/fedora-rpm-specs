@@ -38,7 +38,7 @@
 
 Name:           %{rocdecode_name}
 Version:        %{rocm_version}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        High-performance video decode SDK for AMD GPUs
 
 Url:            https://github.com/ROCm/rocDecode
@@ -98,8 +98,8 @@ rocDecode API, you can access the video decoding features available on your GPU.
 %postun -p /sbin/ldconfig
 
 %package devel
-Summary:        The rocDecode development package
-Requires: %{name}%{?_isa} = %{version}-%{release}
+Summary: The rocDecode development package
+Requires:     %{name}%{?_isa} = %{version}-%{release}
 Provides:     rocdecode-devel = %{version}-%{release}
 
 %description devel
@@ -134,18 +134,10 @@ sed -i -e 's@${LINK_LIBRARY_LIST} ${LIBVA_DRM_LIBRARY}@${LINK_LIBRARY_LIST} ${LI
 %install
 %cmake_install
 
-if [ -f %{buildroot}%{_prefix}/share/doc/rocdecode/LICENSE ]; then
-    rm %{buildroot}%{_prefix}/share/doc/rocdecode/LICENSE
-fi
-if [ -f %{buildroot}%{_prefix}/share/doc/rocdecode-asan/LICENSE ]; then
-    rm %{buildroot}%{_prefix}/share/doc/rocdecode-asan/LICENSE
-fi
-if [ -f %{buildroot}%{_prefix}/share/doc/packages/%{name}/LICENSE ]; then
-    rm %{buildroot}%{_prefix}/share/doc/packages/%{name}/LICENSE
-fi
-if [ -f %{buildroot}%{_prefix}/share/doc/packages/%{name}-asan/LICENSE ]; then
-    rm %{buildroot}%{_prefix}/share/doc/packages/%{name}-asan/LICENSE
-fi
+rm -f %{buildroot}%{_prefix}/share/doc/rocdecode/LICENSE
+rm -f %{buildroot}%{_prefix}/share/doc/rocdecode-asan/LICENSE
+rm -f %{buildroot}%{_prefix}/share/doc/packages/%{name}/LICENSE
+rm -f %{buildroot}%{_prefix}/share/doc/packages/%{name}-asan/LICENSE
 
 # Need to install the sample first
 %if %{with check}
@@ -164,8 +156,11 @@ fi
 %exclude %{_datadir}/rocdecode/samples
 
 %changelog
- * Sat Aug 16 2025 Egbert Eich <eich@suse.com> - 6.4.0-6
- - Fix dependencies on SUSE when 'check' is enabled.
+* Mon Aug 25 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-7
+- Simplify file removal
+
+* Sat Aug 16 2025 Egbert Eich <eich@suse.com> - 6.4.0-6
+- Fix dependencies on SUSE when 'check' is enabled.
  
 * Thu Aug 14 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-5
 - change --with test to --with check

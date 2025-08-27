@@ -1,14 +1,15 @@
 # -*- rpm-spec -*-
 
-%global with_guestfs               0
-%global default_hvs                "qemu,xen,lxc"
+%global default_hvs         "qemu,xen,lxc"
+%global have_spice          %{defined fedora}
+
 
 
 # End local config
 
 Name: virt-manager
-Version: 5.0.0
-Release: 4%{?dist}
+Version: 5.1.0
+Release: 1%{?dist}
 %global verrel %{version}-%{release}
 
 Summary: Desktop tool for managing virtual machines via libvirt
@@ -23,7 +24,7 @@ Requires: python3-gobject >= 3.31.3
 Requires: gtk3 >= 3.22.0
 Requires: libvirt-glib >= 0.0.9
 Requires: gtk-vnc2
-%if 0%{?fedora}
+%if %{have_spice}
 Requires: spice-gtk3
 %endif
 
@@ -111,8 +112,13 @@ machine).
 
 
 %build
+%if ! %{have_spice}
+%global _default_graphics -Ddefault-graphics=vnc
+%endif
+
 %meson \
     -Ddefault-hvs=%{default_hvs} \
+    %{?_default_graphics} \
     -Dupdate-icon-cache=false \
     -Dcompile-schemas=false \
     -Dtests=disabled
@@ -169,6 +175,9 @@ machine).
 
 
 %changelog
+* Tue Aug 26 2025 Pavel Hrdina <phrdina@redhat.com> - 5.1.0-1
+- Update to version 5.1.0
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 5.0.0-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

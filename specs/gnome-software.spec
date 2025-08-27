@@ -30,7 +30,7 @@
 
 Name:      gnome-software
 Version:   49~beta
-Release:   4%{?dist}
+Release:   5%{?dist}
 Summary:   A software center for GNOME
 
 License:   GPL-2.0-or-later

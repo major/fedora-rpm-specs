@@ -197,9 +197,22 @@ export IPYTHON_TESTING_TIMEOUT_SCALE=4
 # To prevent _pytest.pathlib.ImportPathMismatchError, we are
 # testing directly in buildroot
 pushd %{buildroot}%{python3_sitelib}/IPython
-# test_pinfo_docstring_dynamic: https://github.com/ipython/ipython/issues/14457
 # test_decorator_skip_with_breakpoint: https://github.com/ipython/ipython/issues/14458
-%pytest -k "not test_pinfo_docstring_dynamic and not test_decorator_skip_with_breakpoint"
+# The rest of the skipped tests are not compatible with Python 3.14
+# https://github.com/ipython/ipython/issues/14858
+%pytest -k "not test_decorator_skip_with_breakpoint and \
+            not test_unicode_range and \
+            not test_interruptible_core_debugger and \
+            not test_xmode_skip and \
+            not test_where_erase_value and \
+            not test_pinfo_docstring_dynamic and \
+            not test_run_cell and \
+            not test_timeit and \
+            not test_render_signature_long and \
+            not test_profile_create_ipython_dir and \
+            not test_debug_magic_passes_through_generators and \
+            not test_parse_sample and \
+            not test_eval_formatter"
 rm -rf .pytest_cache
 popd
 %endif

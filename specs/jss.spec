@@ -13,7 +13,7 @@ Name:           jss
 # Downstream release number:
 # - development/stabilization (unsupported): 0.<n> where n >= 1
 # - GA/update (supported): <n> where n >= 1
-%global         release_number 0.5
+%global         release_number 0.6
 
 # Development phase:
 # - development (unsupported): alpha<n> where n >= 1
@@ -65,7 +65,7 @@ ExcludeArch: i686
 
 # maven-local is a subpackage of javapackages-tools
 
-%if 0%{?fedora} && 0%{?fedora} >= 43
+%if 0%{?fedora} && 0%{?fedora} >= 43 || 0%{?rhel} >= 11
 
 %define java_devel java-25-openjdk-devel
 %define java_headless java-25-openjdk-headless
@@ -397,6 +397,9 @@ cp base/target/jss-tests.jar %{buildroot}%{_datadir}/jss/tests/lib
 
 ################################################################################
 %changelog
+* Fri Aug 22 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 5.8.0-0.6.beta4
+- Build with Java 25 for ELN
+
 * Mon Aug 11 2025 Dogtag PKI Team <devel@lists.dogtagpki.org> 5.8.0-0.5.beta4
 - Rebuild for Fedora 43
 

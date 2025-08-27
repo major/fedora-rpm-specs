@@ -29,7 +29,7 @@
 
 Name:       %{runtime_name}
 Version:    %{rocm_version}
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    ROCm Runtime Library
 
 License:    NCSA
@@ -139,24 +139,11 @@ cd libhsakmt/tests/kfdtest
 %cmake_install
 %endif
 
-if [ -f %{buildroot}%{_prefix}/share/doc/hsa-runtime64/LICENSE.md ]; then
-    rm %{buildroot}%{_prefix}/share/doc/hsa-runtime64/LICENSE.md
-elif [ -f %{buildroot}%{_prefix}/share/doc/packages/%{name}/LICENSE.md ]; then
-    rm %{buildroot}%{_prefix}/share/doc/packages/%{name}/LICENSE.md
-fi
-
-if [ -f %{buildroot}%{_libdir}/libhsakmt.a ]; then
-    rm %{buildroot}%{_libdir}/libhsakmt.a
-fi
-if [ -f %{buildroot}%{_libdir}/libhsakmt.so ]; then
-    rm %{buildroot}%{_libdir}/libhsakmt.*
-fi
-if [ -d %{buildroot}%{_libdir}/cmake/hsakmt ]; then
-    rm -rf %{buildroot}%{_libdir}/cmake/hsakmt
-fi
-if [ -f %{buildroot}%{_libdir}/pkgconfig/libhsakmt.pc ]; then
-    rm %{buildroot}%{_libdir}/pkgconfig/libhsakmt.pc
-fi
+rm -f %{buildroot}%{_prefix}/share/doc/hsa-runtime64/LICENSE.md
+rm -f %{buildroot}%{_prefix}/share/doc/packages/%{name}/LICENSE.md
+rm -f %{buildroot}%{_libdir}/libhsakmt.*
+rm -rf %{buildroot}%{_libdir}/cmake/hsakmt
+rm -f %{buildroot}%{_libdir}/pkgconfig/libhsakmt.pc
 
 %ldconfig_scriptlets
 
@@ -181,6 +168,9 @@ fi
 %endif
 
 %changelog
+* Mon Aug 25 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-4
+- Simiplify file removal
+
 * Fri Aug 22 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-3
 - export the hsakmt headers
 

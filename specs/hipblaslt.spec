@@ -68,7 +68,7 @@
 
 Name:           %{hipblaslt_name}
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        ROCm general matrix operations beyond BLAS
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT
@@ -233,7 +233,7 @@ sed -i -e 's@-lgfortran -lflang -lflangrti@-lgfortran@'                        c
 %endif
 
 %if 0%{?suse_version}
-sed -i -e 's@msgpack REQUIRED@msgpack-cxx REQUIRED@' tensilelite/Tensile/Source/lib/CMakeLists.txt
+sed -i -e 's@\(.*find_package(msgpack \+REQUIRED\))@\1 NAMES msgpack msgpack-cxx msgpack-c)@' tensilelite/Tensile/Source/lib/CMakeLists.txt
 %endif
 
 sed -i 's@find_package(LLVM REQUIRED CONFIG)@find_package(LLVM REQUIRED CONFIG PATHS "%{rocmllvm_cmakedir}")@' tensilelite/Tensile/Source/lib/CMakeLists.txt
@@ -354,6 +354,9 @@ fi
 %endif
 
 %changelog
+* Sun Aug 24 2025 Egbert Eich <eich@suse.com> - 6.4.3-4
+- On SUSE use code from python-tensile to check for msgpack.
+
 * Wed Aug 20 2025 Egbert Eich <eich@suse.com> - 6.4.3-3
 - On SLE-15 exclusively use python 3.6.
   This is since joblib is not even available on PackageHub.

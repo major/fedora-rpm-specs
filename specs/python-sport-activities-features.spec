@@ -3,7 +3,7 @@
 %bcond tests 1
 
 Name:           python-%{pypi_name}
-Version:        0.5.1
+Version:        0.5.2
 Release:        %autorelease
 Summary:        A minimalistic toolbox for extracting features from sports activity files
 

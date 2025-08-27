@@ -7,7 +7,7 @@
 %global real_version 1.54.0
 %global git_tag_version 1.54.0
 %global rpm_version %{real_version}
-%global release_version 1
+%global release_version 2
 %global snapshot %{nil}
 %global git_sha %{nil}
 %global bcond_default_debug 0
@@ -167,7 +167,7 @@ Name: NetworkManager
 Summary: Network connection manager and user applications
 Epoch: %{epoch_version}
 Version: %{rpm_version}
-Release: %{release_version}%{?snap}%{?dist}.1
+Release: %{release_version}%{?snap}%{?dist}
 Group: System Environment/Base
 License: GPL-2.0-or-later AND LGPL-2.1-or-later
 URL: https://networkmanager.dev/
@@ -682,7 +682,7 @@ Preferably use nmcli instead.
 	-Dsession_tracking=systemd \
 	-Dsuspend_resume=systemd \
 	-Dsystemdsystemunitdir=%{_unitdir} \
-	-Dsystem_ca_path=/etc/pki/tls/cert.pem \
+	-Dsystem_ca_path=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem \
 	-Ddbus_conf_dir=%{dbus_sys_dir} \
 	-Dtests=yes \
 	-Dvalgrind=no \
@@ -1074,7 +1074,10 @@ fi
 
 
 %changelog
-* Wed Aug 06 2025 Íñigo Huguet <ihuguet@riseup.net> - 1:1.54.0-1
+* Mon Aug 25 2025 Beniamino Galvani <bgalvani@redhat.com> - 1:1.54.0-2
+- Change the system CA path (rh #2380436)
+
+* Wed Aug 06 2025 Íñigo Huguet <ihuguet@riseup.net> - 1:1.54.0-1.1
 - Update to 1.54.0 release
 
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.53.91-1.1

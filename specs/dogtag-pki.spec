@@ -16,7 +16,7 @@ Name:             dogtag-pki
 # Downstream release number:
 # - development/stabilization (unsupported): 0.<n> where n >= 1
 # - GA/update (supported): <n> where n >= 1
-%global           release_number 0.5
+%global           release_number 0.6
 
 # Development phase:
 # - development (unsupported): alpha<n> where n >= 1
@@ -71,7 +71,7 @@ ExcludeArch: i686
 
 # maven-local is a subpackage of javapackages-tools
 
-%if 0%{?fedora} && 0%{?fedora} >= 43
+%if 0%{?fedora} && 0%{?fedora} >= 43 || 0%{?rhel} >= 11
 
 %define java_runtime java-25-openjdk
 %define java_devel java-25-openjdk-devel
@@ -1260,7 +1260,7 @@ fi
 %mvn_package org.dogtagpki.pki:pki-console        pki-console
 %endif
 
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 11
 # Create a sysusers.d config file
 
 cat > %{product_id}.sysusers.conf <<EOF
@@ -1593,7 +1593,7 @@ xmlstarlet edit --inplace \
 
 %if %{with server}
 
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 11
 
 install -m0644 -D %{product_id}.sysusers.conf %{buildroot}%{_sysusersdir}/%{product_id}.conf
 %pre -n %{product_id}-server
@@ -1880,7 +1880,7 @@ fi
 %{_mandir}/man8/pki-healthcheck.8.gz
 %{_datadir}/pki/setup/
 %{_datadir}/pki/server/
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 11
 %{_sysusersdir}/%{product_id}.conf
 %endif
 %if %{without maven}
@@ -2074,6 +2074,10 @@ fi
 
 ################################################################################
 %changelog
+* Fri Aug 22 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 11.8.0-0.6.beta5
+- Build with Java 25 for ELN
+- Enable sysusers.d for ELN
+
 * Tue Aug 19 2025 Dogtag PKI Team <devel@lists.dogtagpki.org> - 11.8.0-0.5.beta5
 - Rebase to PKI 11.8.0-beta5
 

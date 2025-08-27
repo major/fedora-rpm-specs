@@ -1,8 +1,8 @@
-%global sha da347a8f88d2e5729dd12d61ee9743f902065b55
+%global sha 96e6cb5ae90726883be095a3e467e847c06225f7
 
 Name:           evtest
-Version:        1.35
-Release:        10%{?dist}
+Version:        1.36
+Release:        1%{?dist}
 Summary:        Event device test program
 
 License:        GPL-2.0-or-later
@@ -34,6 +34,9 @@ make install DESTDIR=%{buildroot}
 %{_mandir}/man1/evtest.1*
 
 %changelog
+* Tue Aug 26 2025 Peter Hutterer <peter.hutterer@redhat.com> - 1.36-1
+- evtest 1.36
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.35-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

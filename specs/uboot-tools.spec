@@ -1,4 +1,4 @@
-%global candidate rc2
+%global candidate rc3
 %if 0%{?rhel}
 %bcond_with toolsonly
 %else
@@ -10,7 +10,7 @@
 
 Name:     uboot-tools
 Version:  2025.10
-Release:  0.2%{?candidate:.%{candidate}}%{?dist}
+Release:  0.3%{?candidate:.%{candidate}}%{?dist}
 Epoch:    1
 Summary:  U-Boot utilities
 # Automatically converted from old format: GPLv2+ BSD LGPL-2.1+ LGPL-2.0+ - review is highly recommended.
@@ -146,7 +146,7 @@ do
     echo "Board: $board using sun50i_h616"
     cp /usr/share/arm-trusted-firmware/sun50i_h616/bl31.bin builds/$(echo $board)/atf-bl31
   fi
-  rk3328=(evb-rk3328 nanopi-r2c-plus-rk3328 nanopi-r2c-rk3328 nanopi-r2s-rk3328 nanopi-r2s-plus-rk3328 orangepi-r1-plus-lts-rk3328 orangepi-r1-plus-rk3328 roc-cc-rk3328 rock64-rk3328 rock-pi-e-rk3328 rock-pi-e-v3-rk3328)
+  rk3328=(evb-rk3328 generic-rk3328 nanopi-r2c-plus-rk3328 nanopi-r2c-rk3328 nanopi-r2s-rk3328 nanopi-r2s-plus-rk3328 orangepi-r1-plus-lts-rk3328 orangepi-r1-plus-rk3328 roc-cc-rk3328 rock64-rk3328 rock-pi-e-rk3328 rock-pi-e-v3-rk3328)
   if [[ " ${rk3328[*]} " == *" $board "* ]]; then
     echo "Board: $board using rk3328"
     cp /usr/share/arm-trusted-firmware/rk3328/bl31.elf builds/$(echo $board)/atf-bl31
@@ -156,7 +156,7 @@ do
     echo "Board: $board using rk3368"
     cp /usr/share/arm-trusted-firmware/rk3368/bl31.elf builds/$(echo $board)/atf-bl31
   fi
-  rk3399=(eaidk-610-rk3399 evb-rk3399 ficus-rk3399 firefly-rk3399 khadas-edge-captain-rk3399 khadas-edge-rk3399 khadas-edge-v-rk3399 leez-rk3399 nanopc-t4-rk3399 nanopi-m4-2gb-rk3399 nanopi-m4b-rk3399 nanopi-m4-rk3399 nanopi-neo4-rk3399 nanopi-r4s-rk3399 orangepi-rk3399 pinebook-pro-rk3399 pinephone-pro-rk3399 puma-rk3399 rock-4c-plus-rk3399 rock-4se-rk3399 rock960-rk3399 rock-pi-4c-rk3399 rock-pi-4-rk3399 rock-pi-n10-rk3399pro rockpro64-rk3399 roc-pc-mezzanine-rk3399 roc-pc-rk3399)
+  rk3399=(eaidk-610-rk3399 evb-rk3399 ficus-rk3399 firefly-rk3399 generic-rk3399 khadas-edge-captain-rk3399 khadas-edge-rk3399 khadas-edge-v-rk3399 leez-rk3399 nanopc-t4-rk3399 nanopi-m4-2gb-rk3399 nanopi-m4b-rk3399 nanopi-m4-rk3399 nanopi-neo4-rk3399 nanopi-r4s-rk3399 orangepi-rk3399 pinebook-pro-rk3399 pinephone-pro-rk3399 puma-rk3399 rock-4c-plus-rk3399 rock-4se-rk3399 rock960-rk3399 rock-pi-4c-rk3399 rock-pi-4-rk3399 rock-pi-n10-rk3399pro rockpro64-rk3399 roc-pc-mezzanine-rk3399 roc-pc-rk3399)
   if [[ " ${rk3399[*]} " == *" $board "* ]]; then
     echo "Board: $board using rk3399"
     cp /usr/share/arm-trusted-firmware/rk3399/* builds/$(echo $board)/
@@ -270,6 +270,9 @@ install -p -m 0755 builds/tools/env/fw_printenv %{buildroot}%{_bindir}
 %endif
 
 %changelog
+* Mon Aug 25 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2025.10-0.3.rc3
+- Update to 2025.10 RC3
+
 * Tue Aug 19 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2025.10-0.2.rc2
 - Fix and re-enable Jetson Nano
 

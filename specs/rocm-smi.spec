@@ -14,7 +14,7 @@
 
 Name:       rocm-smi
 Version:    %{rocm_version}
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    ROCm System Management Interface Library
 
 License:    MIT AND NCSA
@@ -87,10 +87,7 @@ sed -i -e 's@env python3@python3@' python_smi_tools/rsmiBindingsInit.py.in
 # For Fedora < 38, the README is not installed if doxygen is disabled:
 install -D -m 644 README.md %{buildroot}%{_docdir}/rocm_smi/README.md
 
-F=%{buildroot}%{_datadir}/doc/rocm_smi/LICENSE.txt
-if [ -f $F ]; then
-    rm $F
-fi
+rm -f %{buildroot}%{_datadir}/doc/rocm_smi/LICENSE.txt
 
 %if 0%{?suse_version}
 %post   -p /sbin/ldconfig
@@ -118,6 +115,9 @@ fi
 %endif
 
 %changelog
+* Mon Aug 25 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.3-2
+- Simplify file removal
+
 * Thu Aug 7 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.3-1
 - Update to 6.4.3
 - remove debian dir

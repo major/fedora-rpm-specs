@@ -79,7 +79,7 @@
 
 Name:           %{rocsparse_name}
 Version:        %{rocm_version}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        SPARSE implementation for ROCm
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
@@ -183,9 +183,7 @@ sed -i -e 's@set(CMAKE_CXX_STANDARD 14)@set(CMAKE_CXX_STANDARD 17)@' {,clients/}
 %install
 %cmake_install
 
-if [ -f %{buildroot}%{_prefix}/share/doc/rocsparse/LICENSE.md ]; then
-    rm %{buildroot}%{_prefix}/share/doc/rocsparse/LICENSE.md
-fi
+rm -f %{buildroot}%{_prefix}/share/doc/rocsparse/LICENSE.md
 
 %if %{with test}
 mkdir -p %{buildroot}/%{_datadir}/rocsparse/matrices
@@ -229,8 +227,11 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Mon Aug 25 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-7
+- Simplify file removal
+
 * Sat Aug 16 2025 Egbert Eich <eich@suse.com> - 6.4.2-6
--  Fix dependency on SUSE when test is enabled.
+- Fix dependency on SUSE when test is enabled.
 
 * Fri Aug 15 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-5
 - Build --with test on SUSE

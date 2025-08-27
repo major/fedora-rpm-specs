@@ -1,6 +1,6 @@
 Name:           torcs
-Version:        1.3.7
-Release:        24%{?dist}
+Version:        1.3.8
+Release:        1%{?dist}
 Summary:        The Open Racing Car Simulator
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -9,8 +9,9 @@ URL:            http://torcs.org/
 Source0:        http://downloads.sf.net/torcs/torcs-%{version}.tar.bz2
 Source1:        torcs.png
 
-Patch0:         torcs-1.3.7-isnan.patch
-Patch1:         torcs-1.3.7-nullptr.patch
+#Patch0:         torcs-1.3.8-isnan.patch
+#Patch1:         torcs-1.3.8-nullptr.patch
+Patch1:         torcs-1.3.8-abort-crash.patch
 Patch2:         format-argument.patch
 Patch3:         torcs-freeglut.patch
 
@@ -165,6 +166,9 @@ find %{buildroot}%{_libdir}/torcs/ -name '*.so' | xargs %{__chmod} +x
 
 
 %changelog
+* Wed Aug 13 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.3.8-1
+- 1.3.8
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.7-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

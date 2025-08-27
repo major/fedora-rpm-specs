@@ -49,7 +49,7 @@
 
 Name:           %{rccl_name}
 Version:        %{rocm_version}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        ROCm Communication Collectives Library
 
 Url:            https://github.com/ROCm/rccl
@@ -215,9 +215,7 @@ sed -i -e "s@-parallel-jobs=\${num_linker_jobs}@-parallel-jobs=${LINK_JOBS}@" CM
 %install
 %cmake_install
 
-if [ -f %{buildroot}%{_prefix}/share/doc/rccl/LICENSE.txt ]; then
-    rm %{buildroot}%{_prefix}/share/doc/rccl/LICENSE.txt
-fi
+rm -f %{buildroot}%{_prefix}/share/doc/rccl/LICENSE.txt
 
 %files
 %license LICENSE.txt
@@ -244,6 +242,9 @@ fi
 %endif
 
 %changelog
+* Mon Aug 25 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-6
+- Simplify file removal
+
 * Mon Aug 18 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-5
 - Fine tune parallel jobs
 

@@ -6,7 +6,7 @@
 %global crate zbus
 
 Name:           rust-zbus
-Version:        5.9.0
+Version:        5.10.0
 Release:        %autorelease
 Summary:        API for D-Bus communication
 
@@ -184,18 +184,6 @@ This package contains library source intended for building other packages which
 use the "chrono" feature of the "%{crate}" crate.
 
 %files       -n %{name}+chrono-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+heapless-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+heapless-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "heapless" feature of the "%{crate}" crate.
-
-%files       -n %{name}+heapless-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+option-as-array-devel

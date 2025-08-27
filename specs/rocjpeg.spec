@@ -38,7 +38,7 @@
 
 Name:           %{rocjpeg_name}
 Version:        %{rocm_version}
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A high-performance jpeg decode library for AMD’s GPUs
 
 Url:            https://github.com/ROCm/rocJPEG
@@ -99,8 +99,8 @@ on your GPU.
 %postun -p /sbin/ldconfig
 
 %package devel
-Summary:        The development package for %{name}
-Requires: %{name}%{?_isa} = %{version}-%{release}
+Summary: The development package for %{name}
+Requires:     %{name}%{?_isa} = %{version}-%{release}
 Provides:     rocjpeg-devel = %{version}-%{release}
 
 %description devel
@@ -144,30 +144,14 @@ sed -i -e 's@${LINK_LIBRARY_LIST} ${LIBVA_DRM_LIBRARY}@${LINK_LIBRARY_LIST} ${LI
 %install
 %cmake_install
 
-if [ -f %{buildroot}%{_prefix}/share/doc/rocjpeg/LICENSE ]; then
-    rm %{buildroot}%{_prefix}/share/doc/rocjpeg/LICENSE
-fi
-if [ -f %{buildroot}%{_prefix}/share/doc/rocjpeg-asan/LICENSE ]; then
-    rm %{buildroot}%{_prefix}/share/doc/rocjpeg-asan/LICENSE
-fi
-if [ -f %{buildroot}%{_prefix}/share/doc/rocjpeg-dev/LICENSE ]; then
-    rm %{buildroot}%{_prefix}/share/doc/rocjpeg-dev/LICENSE
-fi
-if [ -f %{buildroot}%{_prefix}/share/doc/rocjpeg-test/LICENSE ]; then
-    rm %{buildroot}%{_prefix}/share/doc/rocjpeg-test/LICENSE
-fi
-if [ -f %{buildroot}%{_prefix}/share/doc/packages/%{name}/LICENSE ]; then
-    rm %{buildroot}%{_prefix}/share/doc/packages/%{name}/LICENSE
-fi
-if [ -f %{buildroot}%{_prefix}/share/doc/packages/%{name}-dev/LICENSE ]; then
-    rm %{buildroot}%{_prefix}/share/doc/packages/%{name}-dev/LICENSE
-fi
-if [ -f %{buildroot}%{_prefix}/share/doc/packages/%{name}-test/LICENSE ]; then
-    rm %{buildroot}%{_prefix}/share/doc/packages/%{name}-test/LICENSE
-fi
-if [ -f %{buildroot}%{_prefix}/share/doc/packages/%{name}-asan/LICENSE ]; then
-    rm %{buildroot}%{_prefix}/share/doc/packages/%{name}-asan/LICENSE
-fi
+rm -f %{buildroot}%{_prefix}/share/doc/rocjpeg/LICENSE
+rm -f %{buildroot}%{_prefix}/share/doc/rocjpeg-asan/LICENSE
+rm -f %{buildroot}%{_prefix}/share/doc/rocjpeg-dev/LICENSE
+rm -f %{buildroot}%{_prefix}/share/doc/rocjpeg-test/LICENSE
+rm -f %{buildroot}%{_prefix}/share/doc/packages/%{name}/LICENSE
+rm -f %{buildroot}%{_prefix}/share/doc/packages/%{name}-dev/LICENSE
+rm -f %{buildroot}%{_prefix}/share/doc/packages/%{name}-test/LICENSE
+rm -f %{buildroot}%{_prefix}/share/doc/packages/%{name}-asan/LICENSE
 
 # Need to install first
 %if %{with check}
@@ -185,8 +169,11 @@ fi
 %{_datadir}/rocjpeg
 
 %changelog
- * Sat Aug 15 2025 Egbert Eich <eich@suse.com> - 6.4.0-7
- - Fix dependencies on SUSE when 'check' is enabled.
+* Mon Aug 25 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-8
+- Simplify file removal
+
+* Sat Aug 16 2025 Egbert Eich <eich@suse.com> - 6.4.0-7
+- Fix dependencies on SUSE when 'check' is enabled.
  
 * Thu Aug 14 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-6
 - change --with test to --with check

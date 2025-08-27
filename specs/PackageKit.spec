@@ -100,13 +100,22 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %description cron
 Crontab and utilities for running PackageKit as a cron job.
 
+%package devel
+Summary: Libraries and headers for PackageKit
+Requires: %{name}-glib-devel%{?_isa} = %{version}-%{release}
+# Additional deps needed for multilibs computation.
+# Needed for (gtk3-module & gstreamer-plugin), see also rhbz#1901065
+Requires: %{name}-gtk3-module%{?_isa} = %{version}-%{release}
+Requires: %{name}-gstreamer-plugin%{?_isa} = %{version}-%{release}
+
+%description devel
+Headers and libraries for PackageKit.
+
 %package glib-devel
 Summary: GLib Libraries and headers for PackageKit
 Requires: %{name}-glib%{?_isa} = %{version}-%{release}
 Requires: dbus-devel%{?_isa} >= 1.1.1
 Requires: sqlite-devel%{?_isa}
-Obsoletes: PackageKit-devel < %{version}-%{release}
-Provides: PackageKit-devel = %{version}-%{release}
 Obsoletes: PackageKit-docs < %{version}-%{release}
 Provides: PackageKit-docs = %{version}-%{release}
 
@@ -238,6 +247,10 @@ systemctl disable packagekit-offline-update.service > /dev/null 2>&1 || :
 %{_sysconfdir}/profile.d/*
 %{_libexecdir}/pk-command-not-found
 %config(noreplace) %{_sysconfdir}/PackageKit/CommandNotFound.conf
+
+%files devel
+# Empty on purpose
+# helper for multilibs computation - See rhbz#1901065
 
 %files glib-devel
 %{_libdir}/libpackagekit-glib2.so

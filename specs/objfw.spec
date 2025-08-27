@@ -3,8 +3,8 @@
 %global _lto_cflags %nil
 
 Name:          objfw
-Version:       1.4
-Release:       3%{?dist}
+Version:       1.4.1
+Release:       1%{?dist}
 Summary:       Portable, lightweight framework for the Objective-C language
 
 License:       LGPL-3.0-only
@@ -271,6 +271,7 @@ make check
 %license COPYING
 %license COPYING.LESSER
 %{_bindir}/ofgctester
+%{_mandir}/man1/ofgctester.1.gz
 
 %files doc
 %license COPYING

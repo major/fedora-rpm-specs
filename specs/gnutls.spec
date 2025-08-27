@@ -20,6 +20,10 @@ Patch: gnutls-3.2.7-rpath.patch
 Patch: gnutls-3.8.8-tests-ktls-skip-tls12-chachapoly.patch
 # add tests/ktls_utils.h missing in the distribution
 Patch: gnutls-3.8.10-tests-ktls.patch
+# Enable ktls by default
+Patch: gnutls-3.8.10-ktls-enable-by-default.patch
+# Fix state transition in the KTLS code path.
+Patch: gnutls-3.8.10-ktls-fix-state-transition.patch
 # run tests/cert-test/mldsa.sh in VPATH build
 Patch: gnutls-3.8.10-tests-mldsa.patch
 

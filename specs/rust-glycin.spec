@@ -3,18 +3,19 @@
 %global debug_package %{nil}
 
 %global crate glycin
-%global crate_version 3.0.0-beta.1
+%global crate_version 3.0.0-beta.3
 
 Name:           rust-glycin
-Version:        3.0.0~beta.1
+Version:        3.0.0~beta.3
 Release:        %autorelease
 Summary:        Sandboxed image decoding
 
 License:        MPL-2.0 OR LGPL-2.1-or-later
 URL:            https://crates.io/crates/glycin
 Source:         %{crates_source %{crate} %{crate_version}}
-
-Patch:          0001-add-exit_group-and-recv-to-list-of-allowed-syscalls.patch
+# Manually created patch for downstream crate metadata changes
+# * relax zbus dependency to allow 5.7+
+Patch:          glycin-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

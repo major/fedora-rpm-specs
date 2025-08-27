@@ -42,7 +42,7 @@
 
 Name:           %{hipsparse_name}
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        ROCm SPARSE marshalling library
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT
@@ -151,9 +151,7 @@ find . -name 'hipsparse-test' -exec {} \;
 %install
 %cmake_install
 
-if [ -f %{buildroot}%{_prefix}/share/doc/hipsparse/LICENSE.md ]; then
-    rm %{buildroot}%{_prefix}/share/doc/hipsparse/LICENSE.md
-fi
+rm -f %{buildroot}%{_prefix}/share/doc/hipsparse/LICENSE.md
 
 %if %{with test}
 mkdir -p %{buildroot}/%{_datadir}/%{name}/matrices
@@ -181,6 +179,9 @@ install -pm 644 %{_builddir}/%{name}-test-matrices/* %{buildroot}/%{_datadir}/%{
 %endif
 
 %changelog
+* Mon Aug 25 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-3
+- Simplify file removal
+
 * Wed Jul 30 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-2
 - Remove -mtls-dialect cflag
 

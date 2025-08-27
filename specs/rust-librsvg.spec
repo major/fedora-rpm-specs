@@ -6,18 +6,13 @@
 %global crate librsvg
 
 Name:           rust-librsvg
-Version:        2.60.0
+Version:        2.61.0
 Release:        %autorelease
 Summary:        Library to render SVG images to Cairo surfaces
 
 License:        LGPL-2.1-or-later
 URL:            https://crates.io/crates/librsvg
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * bump markup5ever dependency from 0.12 to 0.14
-# * bump xml5ever dependency from 0.18 to 0.20
-Patch:          librsvg-fix-metadata.diff
-Patch:          0001-port-to-markup5ever-0.14-and-xml5ever-0.20.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -41,7 +36,6 @@ use the "%{crate}" crate.
 %license %{crate_instdir}/COPYING.LIB
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
-%exclude %{crate_instdir}/src/cairo_path.rs~
 
 %package     -n %{name}+default-devel
 Summary:        %{summary}

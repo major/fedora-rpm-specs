@@ -1,41 +1,20 @@
-%global forgeurl        https://github.com/wummel/patool
-Version:                4.0.0
-%global tag             4.0.0
-
-%forgemeta
-
-%global _description %{expand:
-Patool is an archive file manager.
-
-Various archive formats can be created, extracted, tested, listed, searched,
-repacked and compared with patool. The advantage of patool is its simplicity
-in handling archive files without having to remember a myriad of programs
-and options.
-
-The archive format is determined by the file(1) program and as a fallback
-by the archive file extension.
-
-patool supports 7z (.7z, .cb7), ACE (.ace, .cba), ADF (.adf), ALZIP (.alz),
-APE (.ape), AR (.a), ARC (.arc), ARJ (.arj), BZIP2 (.bz2), CAB (.cab),
-COMPRESS (.Z), CPIO (.cpio), DEB (.deb), DMS (.dms), FLAC (.flac), GZIP (.gz),
-ISO (.iso), LRZIP (.lrz), LZH (.lha, .lzh), LZIP (.lz), LZMA (.lzma),
-LZOP (.lzo), RPM (.rpm), RAR (.rar, .cbr), RZIP (.rz), SHN (.shn),
-TAR (.tar, .cbt), XZ (.xz), ZIP (.zip, .jar, .cbz) and ZOO (.zoo)
-archive formats. It relies on helper applications to handle those archive
-formats (for example bzip2 for BZIP2 archives).
-
-The archive formats TAR, ZIP, BZIP2 and GZIP are supported natively and do
-not require helper applications to be installed.}
-
 Name:           patool
+Version:        4.0.0
 Release:        %autorelease
 Summary:        Portable command line archive file manager
 
+%global forgeurl https://github.com/wummel/patool
+%global tag %{version}
+%forgemeta
+
 License:        GPL-3.0-or-later
 URL:            http://wummel.github.io/patool/
-Source:         %{forgesource}
+Source:         %forgesource
 # https://github.com/wummel/patool/pull/181
 Patch:          0001-Fix-Star-testing-parameters.patch
+# Use binary basename instead of full path
+# https://bugzilla.redhat.com/show_bug.cgi?id=2373874
+Patch:          use_binary_basename.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel >= 3.11
@@ -137,20 +116,38 @@ Recommends:     /usr/bin/unrar
 # Python 2 only
 # Recommends:     /usr/bin/archmage
 
+%global _description %{expand:
+Patool is an archive file manager.
+
+Various archive formats can be created, extracted, tested, listed, searched,
+repacked and compared with patool. The advantage of patool is its simplicity
+in handling archive files without having to remember a myriad of programs
+and options.
+
+The archive format is determined by the file(1) program and as a fallback
+by the archive file extension.
+
+patool supports 7z (.7z, .cb7), ACE (.ace, .cba), ADF (.adf), ALZIP (.alz),
+APE (.ape), AR (.a), ARC (.arc), ARJ (.arj), BZIP2 (.bz2), CAB (.cab),
+COMPRESS (.Z), CPIO (.cpio), DEB (.deb), DMS (.dms), FLAC (.flac), GZIP (.gz),
+ISO (.iso), LRZIP (.lrz), LZH (.lha, .lzh), LZIP (.lz), LZMA (.lzma),
+LZOP (.lzo), RPM (.rpm), RAR (.rar, .cbr), RZIP (.rz), SHN (.shn),
+TAR (.tar, .cbt), XZ (.xz), ZIP (.zip, .jar, .cbz) and ZOO (.zoo)
+archive formats. It relies on helper applications to handle those archive
+formats (for example bzip2 for BZIP2 archives).
+
+The archive formats TAR, ZIP, BZIP2 and GZIP are supported natively and do
+not require helper applications to be installed.}
 
 %description %{_description}
 
 %package -n python3-%{name}
 Summary:        %{summary}
 
-%description -n python3-%{name}
-%{_description}
-
-Python 3 sub-package.
+%description -n python3-%{name} %{_description}
 
 %prep
-%forgesetup
-%autopatch -p1
+%forgeautosetup -p1
 
 %generate_buildrequires
 %pyproject_buildrequires

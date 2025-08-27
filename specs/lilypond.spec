@@ -3,8 +3,8 @@
 %global _python_bytecompile_extra 0
 
 Name:		lilypond
-Version:	2.25.27
-Release:	3%{?dist}
+Version:	2.25.28
+Release:	1%{?dist}
 Summary:	A typesetting system for music notation
 
 License:	GPL-3.0-only
@@ -118,6 +118,9 @@ ln -s %{_fontdir} $RPM_BUILD_ROOT%{_datadir}/lilypond/%{version}/fonts/otf
 %doc COPYING
 
 %changelog
+* Sat Aug 23 2025 Gwyn Ciesla <gwync@protonmail.com> - 2.25.28-1
+- 2.25.28
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.25.27-3
 - Rebuilt for Python 3.14.0rc2 bytecode
 

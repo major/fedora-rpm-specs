@@ -27,7 +27,7 @@
 
 Name:           rocthrust
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        ROCm Thrust libary
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -105,11 +105,11 @@ gpu=`rocm_agent_enumerator | head -n 1`
 %endif
 
 %cmake \
-	-DCMAKE_CXX_COMPILER=hipcc \
-	-DCMAKE_C_COMPILER=hipcc \
-	-DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \
-	-DCMAKE_AR=%rocmllvm_bindir/llvm-ar \
-	-DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \
+    -DCMAKE_CXX_COMPILER=hipcc \
+    -DCMAKE_C_COMPILER=hipcc \
+    -DCMAKE_LINKER=%rocmllvm_bindir/ld.lld \
+    -DCMAKE_AR=%rocmllvm_bindir/llvm-ar \
+    -DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \
     -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
     -DBUILD_TEST=%{build_test} \
 %if %{with check}
@@ -122,9 +122,7 @@ gpu=`rocm_agent_enumerator | head -n 1`
 %install
 %cmake_install
 
-if [ -f %{buildroot}%{_prefix}/share/doc/rocthrust/LICENSE ]; then
-    rm %{buildroot}%{_prefix}/share/doc/rocthrust/LICENSE
-fi
+rm -f %{buildroot}%{_prefix}/share/doc/rocthrust/LICENSE
 
 %check
 %if %{with check}
@@ -139,6 +137,9 @@ fi
 %{_libdir}/cmake/%{name}
 
 %changelog
+* Mon Aug 25 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-4
+- Simplify file removal
+
 * Tue Jul 29 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-3
 - Remove -mtls-dialect cflag
 

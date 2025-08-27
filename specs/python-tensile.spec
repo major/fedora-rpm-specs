@@ -20,7 +20,7 @@ Name:           python-tensile-devel
 Name:           python-tensile
 %endif
 Version:        %{rocm_version}
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Tool for creating benchmark-driven backend libraries for GEMMs
 
 URL:            https://github.com/ROCmSoftwarePlatform/Tensile
@@ -40,9 +40,7 @@ BuildRequires:  python-rpm-macros
 BuildRequires:  %{python_module setuptools}
 Requires:       hipcc
 Requires:       rocminfo
-%if %{suse_version} >= 1699
 Requires:       %{python_module joblib}
-%endif
 Requires:       %{python_module msgpack}
 Requires:       %{python_module PyYAML}
 Requires:       %{python_module setuptools}
@@ -184,6 +182,9 @@ mv %{buildroot}%{_datadir}/cmake/Tensile/*.cmake %{buildroot}%{python3_sitelib}/
 %{python_sitelib}/%{upstreamname}*.egg-info/*
 
 %changelog
+* Sun Aug 24 2025 Egbert Eich <eich@suse.com> - 6.4.0-8
+- Use python-loblib everywhere on SUSE.
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 6.4.0-7
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -28,7 +28,7 @@ Summary:          LDAP SDK
 URL:              https://github.com/dogtagpki/ldap-sdk
 License:          MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.1-or-later
 Version:          %{major_version}.%{minor_version}.%{update_version}
-Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}.3
+Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}.4
 
 # To create a tarball from a version tag:
 # $ git archive \
@@ -54,9 +54,9 @@ ExclusiveArch:    %{java_arches} noarch
 # Java
 ################################################################################
 
-%define java_devel java-21-openjdk-devel
-%define java_headless java-21-openjdk-headless
-%define java_home %{_jvmdir}/jre-21-openjdk
+%define java_devel java-25-openjdk-devel
+%define java_headless java-25-openjdk-headless
+%define java_home %{_jvmdir}/jre-25-openjdk
 ################################################################################
 # Build Dependencies
 ################################################################################
@@ -160,6 +160,9 @@ ln -sf %{name}/ldaptools.pom %{buildroot}%{_mavenpomdir}/JPP-ldaptools.pom
 
 ################################################################################
 %changelog
+* Wed Jul 30 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 5.6.0-0.1.alpha1.4
+- Really rebuilt for java-25-openjdk as system jdk
+
 * Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 5.6.0-0.1.alpha1.3
 - Rebuilt for java-25-openjdk as preffered jdk
 

@@ -56,8 +56,8 @@
 
 Name: postfix
 Summary: Postfix Mail Transport Agent
-Version: 3.10.3
-Release: 3%{?dist}
+Version: 3.10.4
+Release: 1%{?dist}
 Epoch: 2
 URL: http://www.postfix.org
 License: (IPL-1.0 OR EPL-2.0) AND GPL-2.0-or-later AND BSD-4-Clause-UC
@@ -104,8 +104,6 @@ Patch4: postfix-3.8.0-large-fs.patch
 # rhbz#1931403, sent upstream
 Patch9: pflogsumm-1.1.6-syslog-name-underscore-fix.patch
 Patch11: postfix-3.4.4-chroot-example-fix.patch
-# https://fedoraproject.org/wiki/Changes/OpensslDeprecateEngine
-Patch14: postfix-3.9.0-openssl-no-engine.patch
 
 # Optional patches - set the appropriate environment variables to include
 #                    them when building the package/spec file
@@ -275,7 +273,6 @@ pushd pflogsumm-%{pflogsumm_ver}
 popd
 %endif
 %patch -P11 -p1 -b .chroot-example-fix
-%patch -P14 -p1 -b .openssl-no-engine
 
 # Backport 3.8-20221006 fix for uname -r detection
 sed -i makedefs -e '\@Linux\.@s|345|3456|'
@@ -849,6 +846,10 @@ fi
 %endif
 
 %changelog
+* Mon Aug 25 2025 Jaroslav Škarvada  <jskarvad@redhat.com> - 2:3.10.4-1
+- New version
+  Resolves: rhbz#2389310
+
 * Wed Aug 06 2025 František Zatloukal <fzatlouk@redhat.com> - 2:3.10.3-3
 - Rebuilt for icu 77.1
 

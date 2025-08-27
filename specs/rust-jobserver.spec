@@ -5,7 +5,7 @@
 %global crate jobserver
 
 Name:           rust-jobserver
-Version:        0.1.33
+Version:        0.1.34
 Release:        %autorelease
 Summary:        Implementation of the GNU Make jobserver for Rust
 

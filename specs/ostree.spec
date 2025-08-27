@@ -7,13 +7,11 @@
 
 Summary: Tool for managing bootable, immutable filesystem trees
 Name: ostree
-Version: 2025.4
+Version: 2025.5
 Release: %autorelease
 Source0: https://github.com/ostreedev/%{name}/releases/download/v%{version}/libostree-%{version}.tar.xz
 License: LGPL-2.0-or-later
 URL: https://ostreedev.github.io/ostree/
-
-Patch0: 0001-soft-reboot-also-handle-boot.patch
 
 # Conditional to ELN right now to reduce blast radius; xref
 # https://github.com/containers/composefs/pull/229#issuecomment-1838735764

@@ -22,7 +22,7 @@
 
 Name:           mivisionx
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        AMD's computer vision toolkit
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT AND Apache-2.0 AND MIT-Khronos-old AND GPL-3.0-or-later
@@ -127,12 +127,8 @@ sed -i -e 's@/opt/rocm@%{_prefix}@' CMakeLists.txt
 # ERROR   0020: file '/usr/lib64/libvx_amd_custom.so.1.0.1' contains a runpath referencing '..' of an absolute path [:/usr/lib64/rocm/llvm/bin/../lib]
 chrpath -r %{rocmllvm_libdir} %{buildroot}%{_libdir}/libvx_amd_custom.so.1.*.*
 
-if [ -f %{buildroot}%{_prefix}/share/doc/%{name}/LICENSE.txt ]; then
-    rm %{buildroot}%{_prefix}/share/doc/%{name}/LICENSE.txt
-fi
-if [ -f %{buildroot}%{_prefix}/share/doc/%{name}-asan/LICENSE.txt ]; then
-    rm %{buildroot}%{_prefix}/share/doc/%{name}-asan/LICENSE.txt
-fi
+rm -f %{buildroot}%{_prefix}/share/doc/%{name}/LICENSE.txt
+rm -f %{buildroot}%{_prefix}/share/doc/%{name}-asan/LICENSE.txt
 rm -rf %{buildroot}%{_datadir}/%{name}/apps
 rm -rf %{buildroot}%{_datadir}/%{name}/samples
 rm -rf %{buildroot}%{_datadir}/%{name}/test
@@ -158,6 +154,9 @@ rm -rf %{buildroot}%{_datadir}/%{name}/test
 %{_libdir}/libvxu.so
 
 %changelog
+* Mon Aug 25 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-5
+- Simplify file removal
+
 * Mon Aug 11 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-4
 - mesa-va-drivers are not on RHEL
 

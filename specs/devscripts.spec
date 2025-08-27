@@ -1,5 +1,5 @@
 Name:           devscripts
-Version:        2.25.18
+Version:        2.25.19
 Release:        1%{?dist}
 Summary:        Scripts for Debian Package maintainers
 BuildArch:      noarch
@@ -96,7 +96,7 @@ This package contains the devscripts checkbashisms script.
 
 
 %prep
-%autosetup -p1 -n work
+%autosetup -p1 -n %{name}-%{version}
 
 
 %build
@@ -153,6 +153,9 @@ rm -f %{buildroot}%{_datadir}/bash-completion/completions/bts
 
 
 %changelog
+* Mon Aug 25 2025 Sandro Mani <manisandro@gmail.com> - 2.25.19-1
+- Update to 2.25.19
+
 * Sat Aug 16 2025 Sandro Mani <manisandro@gmail.com> - 2.25.18-1
 - Update to 2.25.18
 

@@ -858,6 +858,7 @@ export LD_LIBRARY_PATH='%{buildroot}%{_libdir}'
 %changelog
 * Mon Aug 18 2025 Python Maint <python-maint@redhat.com> - 21.0.0-3
 - Rebuilt for Python 3.14.0rc2 bytecode
+- Plus rebuild w/ liborc-2.2.0 + orc-format-1.1.1 (i.e. liborc-2.2.0-2)
 
 * Sat Aug 16 2025 Orion Poplawski <orion@nwra.com> - 21.0.0-2
 - arrow include files need headers from compute so add requires

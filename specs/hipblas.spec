@@ -40,7 +40,7 @@
 
 Name:           %{hipblas_name}
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        ROCm BLAS marshalling library
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT
@@ -145,9 +145,7 @@ sed -i -e 's@find_package(Git REQUIRED)@#find_package(Git REQUIRED)@' library/CM
 %install
 %cmake_install
 
-if [ -f %{buildroot}%{_prefix}/share/doc/hipblas/LICENSE.md ]; then
-    rm %{buildroot}%{_prefix}/share/doc/hipblas/LICENSE.md
-fi
+rm -f %{buildroot}%{_prefix}/share/doc/hipblas/LICENSE.md
 
 %files
 %license LICENSE.md
@@ -167,6 +165,9 @@ fi
 %endif
 
 %changelog
+* Mon Aug 25 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.1-5
+- Simplify file removal
+
 * Wed Jul 30 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.1-4
 - Remove -mtls-dialect cflag
 

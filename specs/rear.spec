@@ -3,7 +3,7 @@
 
 Name: rear
 Version: 2.9
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Relax-and-Recover is a Linux disaster recovery and system migration tool
 URL: https://relax-and-recover.org
 
@@ -26,7 +26,32 @@ BuildRequires: make
 # upstream backports #
 ######################
 # Patch101 - Patch121 Reserved
-# Empty...
+# skip longhorn iscsi devices in disklayout.conf
+# https://github.com/rear/rear/commit/d765abff976a8346ce6afa432c9a09d67ed63482
+Patch122: rear-skip-longhorn-iscsi-RHEL-83551.patch
+
+# fix PPC PReP Boot detection on GPT layouts
+# https://github.com/rear/rear/commit/1ca518c2a0e675ace956ef71bc79d67e4990562b
+Patch123: rear-detect-prep-boot-on-gpt-RHEL-82098.patch
+
+# fix recovery of LUKS encrypted systems with multiple keyslots
+# https://github.com/rear/rear/commit/e9ce93f096e505968cc728a7eb5a06e25dc8d88b
+Patch124: rear-support-multi-keyslot-luks-RHEL-83776.patch
+
+# support generation of ed25519 SSH host keys in the rescue image
+# https://github.com/rear/rear/commit/62d9a744ff710de34035ce15bd1b1bf810b6934a
+Patch125: rear-rescue-ed25519-hostkey-support-RHEL-83479.patch
+
+# enhance the 300_map_disks.sh script to also print the disk sizes
+# https://github.com/rear/rear/commit/43d62fdfcac50b35be4f99d45bac3b5340525a7a
+Patch126: rear-print-disk-mapping-with-sizes-RHEL-83241.patch
+
+# add initial support for arm/aarch64 machines with UEFI
+# https://github.com/rear/rear/commit/9b28f14fad26ff00a6f90b13c3e4906d85f3ae3c
+Patch127: rear-support-aarch64-uefi-RHEL-56045.patch
+
+# Copy a sshd helper to the rescue ramdisk, necessary on EL10
+Patch128: rear-sshd-el10-RHEL-109270.patch
 
 ######################
 # downstream patches #
@@ -51,8 +76,8 @@ Patch206: rear-nbu-RHEL-17390-RHEL-17393.patch
 # Of course the rear bash scripts can be installed on any architecture just as any binaries can be installed on any architecture.
 # But the meaning of architecture dependent packages should be on what architectures they will work.
 # Therefore only those architectures that are actually supported are explicitly listed.
-# This avoids that rear can be "just installed" on architectures that are actually not supported (e.g. ARM):
-ExclusiveArch: %ix86 x86_64 ppc ppc64 ppc64le ia64 s390x
+# This avoids that rear can be "just installed" on architectures that are actually not supported:
+ExclusiveArch: %ix86 x86_64 ppc ppc64 ppc64le ia64 s390x %arm aarch64
 # Furthermore for some architectures it requires architecture dependent packages (like syslinux for x86 and x86_64)
 # so that rear must be architecture dependent because ifarch conditions never match in case of "BuildArch: noarch"
 # see the GitHub issue https://github.com/rear/rear/issues/629
@@ -82,6 +107,7 @@ Requires:   s390utils-core
 Requires: dosfstools
 # Needed for ISO image creation
 Requires: grub2-efi-%{efi_arch}-modules
+Requires: grub2-tools-extra
 %endif
 
 
@@ -172,6 +198,17 @@ install -m 0644 %{SOURCE3} %{buildroot}%{_docdir}/%{name}/
 
 #-- CHANGELOG -----------------------------------------------------------------#
 %changelog
+* Mon Aug 25 2025 Lukáš Zaoral <lzaoral@redhat.com> - 2.9-5
+- add dependency on grub2-tools-extra on EFI machines (RHEL-85421)
+- add initial support for aarch64 machines with UEFI (RHEL-84286)
+- enhance the 300_map_disks.sh script to also print the disk sizes (RHEL-106771)
+- support generation of ed25519 SSH host keys in the rescue image (RHEL-106770)
+- fix recovery of LUKS encrypted systems with multiple keyslots (RHEL-106762)
+- fix PPC PReP Boot detection on GPT layouts (RHEL-82098)
+- skip longhorn iscsi devices in disklayout.conf (RHEL-106561)
+- restore the pre-2.8 OUTPUT=IPL behaviour (RHEL-102563)
+- add a sshd helper to rescue, otherwise sshd does not start, PR 3510
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.9-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 %bcond tests 1
 
 Name:           python-%{pypi_name}
-Version:        0.7.4
+Version:        0.7.6
 Release:        %{autorelease}
 Summary:        Missing widgets and components for PyQt/PySide
 %forgemeta
@@ -15,6 +15,7 @@ Source:         %forgesource
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
+BuildRequires:  tomcli
 
 %global _description %{expand:
 This package aims to provide high-quality community-contributed Qt
@@ -37,19 +38,27 @@ Summary:        %{summary}
 %description -n python3-%{pypi_name} %_description
 
 
-%pyproject_extras_subpkg -n python3-%{pypi_name} pyqt6
+%pyproject_extras_subpkg -n python3-%{pypi_name} cmap,iconify,pyqt5,pyqt6,pyside6,quantity
 
 
 %prep
 %forgeautosetup -p1
 
-# Unpin pyqt6
-sed -r -i 's/(pyqt6)<.*"/\1"/' pyproject.toml
+# Unpin dependencies and remove linter
+tomcli-set pyproject.toml arrays replace -t regex_partial \
+    dependency-groups.test '(^[-_a-zA-Z]+)[>=]+[0-9.]+' '\1'
+tomcli-set pyproject.toml arrays delitem -t regex_partial \
+    dependency-groups.test '^pytest-cov'
 
+# pyqt5-qt5 contains the subset of a Qt installation that is required by
+# PyQt5. Since PyQt5 is also a dependency, we don't need it (and it's not
+# available in Fedora either).
+tomcli-set pyproject.toml arrays delitem -t regex_partial \
+    project.optional-dependencies.pyqt5 '^pyqt5-qt5'
 
 %generate_buildrequires
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
-%pyproject_buildrequires -x test,pyqt6
+%pyproject_buildrequires -x cmap,iconify,pyqt5,pyqt6,pyside6,quantity -g test
 
 
 %build
@@ -64,7 +73,6 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 
 %check
 %if %{with tests}
-export PYTEST_QT_API="pyqt6"
 # Fedora ships /usr/share/qt6/qtlogging.ini with debug messages disabled.
 # With QT_LOGGING_RULES we can overrule those.
 # https://discussion.fedoraproject.org/t/qt-logging-has-been-disabled-qtlogging-ini-needs-to-be-fixed/146868
@@ -73,7 +81,9 @@ export QT_LOGGING_RULES="default.debug=true"
 k="${k-}${k+ and }not test_qiconify"
 # Test fails for unknown reason
 k="${k-}${k+ and }not test_wrapped_eliding_label"
-%pytest -r fEs ${k+-k "${k-}"}
+for QT_FLAVOR in pyqt5 pyqt6 pyside6
+    do PYTEST_QT_API="${QT_FLAVOR}" %pytest -r fEs ${k+-k "${k-}"}
+done
 %else
 %pyproject_check_import
 %endif

@@ -1,12 +1,14 @@
 %global pypi_name pyroaring
-%global forgeurl https://github.com/Ezibenroc/PyRoaringBitMap
 
 Name:           python-%{pypi_name}
-Version:        1.0.1
+Version:        1.0.2
 Release:        %{autorelease}
 Summary:        Fast and lightweight set for unsigned 32 bits integers
+
+%global forgeurl https://github.com/Ezibenroc/PyRoaringBitMap
 %global tag %{version}
 %forgemeta
+
 # pyroaring/roaring.c and pyroaring/roaring.h are dual licensed
 License:        MIT or Apache-2.0
 URL:            %{forgeurl}
@@ -37,7 +39,7 @@ Summary:        %{summary}
 
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires -e cython3
 
 
 %build
@@ -50,7 +52,7 @@ Summary:        %{summary}
 
 
 %check
-%tox
+%tox -e %{toxenv}
 %pyproject_check_import
 
 
