@@ -1,8 +1,8 @@
 %global srcname copr-common
 
 Name:       python-copr-common
-Version:    1.1
-Release:    4%{?dist}
+Version:    1.2
+Release:    1%{?dist}
 Summary:    Python code used by Copr
 
 License:    GPL-2.0-or-later
@@ -15,8 +15,12 @@ Source0:    %name-%version.tar.gz
 
 BuildArch: noarch
 
+%if 0%{?rhel} > 10 || 0%{?fedora} > 42
+BuildRequires: python3-devel
+%else
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
+%endif
 BuildRequires: python3-pytest
 BuildRequires: python3-requests
 BuildRequires: python3-filelock
@@ -39,18 +43,30 @@ Summary: %{summary}
 %description -n python3-%{srcname} %_description
 
 
+%if 0%{?rhel} > 10 || 0%{?fedora} > 42
+%generate_buildrequires
+%pyproject_buildrequires
+%endif
+
+
 %prep
 %setup -q
-# Check that setup.py version matches our version
-grep '"%version"' setup.py
 
 
 %build
+%if 0%{?rhel} > 10 || 0%{?fedora} > 42
+version="%version" %pyproject_wheel
+%else
 version="%version" %py3_build
+%endif
 
 
 %install
+%if 0%{?rhel} > 10 || 0%{?fedora} > 42
+version=%version %pyproject_install
+%else
 version=%version %py3_install
+%endif
 
 %check
 %{_bindir}/python3 -m pytest -vv tests
@@ -63,14 +79,11 @@ version=%version %py3_install
 
 
 %changelog
-* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.1-4
-- Rebuilt for Python 3.14.0rc2 bytecode
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.1-2
-- Rebuilt for Python 3.14
+* Tue Aug 26 2025 Jakub Kadlcik <frostyx@email.cz> 1.2-1
+- Specify reason for running createrepo
+- Improve robustness and cooperation between backend and rpmbuild
+- Remove license classifier
+- Modernize specfile using pyproject macro
 
 * Tue Mar 25 2025 Pavel Raiskup <praiskup@redhat.com> 1.1-1
 - lock the pulp-redirect.txt file

@@ -6,7 +6,7 @@
 
 Name:           bash-completion
 Version:        2.16
-Release:        2%{?dist}
+Release:        3%{?dist}
 Epoch:          1
 Summary:        Programmable completion for Bash
 
@@ -62,6 +62,9 @@ rm %{buildroot}%{_datadir}/bash-completion/completions/prelink
 # Bug 2188865 - Remove bash completions for javaws as it's not shipped with Fedora
 rm %{buildroot}%{_datadir}/bash-completion/completions/javaws
 
+# Bug 2391218 - patchutils package contains its own completion for this
+rm %{buildroot}%{_datadir}/bash-completion/completions/interdiff
+
 %check
 # For some tests involving non-ASCII filenames
 export LANG=C.UTF-8
@@ -91,6 +94,10 @@ make -C completions check
 %{_datadir}/pkgconfig/bash-completion.pc
 
 %changelog
+* Tue Aug 26 2025 Adam Williamson <awilliam@redhat.com> - 1:2.16-3
+- Remove interdiff completion as patchutils started shipping one
+  Resolves: #2391218
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.16-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

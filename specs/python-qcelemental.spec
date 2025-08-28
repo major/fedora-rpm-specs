@@ -1,6 +1,9 @@
+# Whether to run the tests; disabled till the tests are ported to pydantic v2
+%bcond tests 0
+
 Name:           python-qcelemental
 Version:        0.29.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Periodic table, physical constants, and molecule parsing for quantum chemistry
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -62,8 +65,10 @@ rm -rf QCElemental.*-info
 %install
 %pyproject_install
 
+%if %{with tests}
 %check
 %pytest qcelemental
+%endif
 
 %files -n python3-qcelemental
 %license LICENSE
@@ -72,6 +77,9 @@ rm -rf QCElemental.*-info
 %{python3_sitelib}/qcelemental-%{version}.dist-info
 
 %changelog
+* Tue Aug 26 2025 Susi Lehtola <jussilehtola@fedoraproject.org> - 0.29.0-5
+- Disable tests due to pydantic v1 incompatibility with Python 3.14.
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.29.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

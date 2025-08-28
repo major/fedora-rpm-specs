@@ -1,7 +1,3 @@
-%if 0%{?rhel} <= 7 && 0%{?rhel} > 0
-%global _pkgdocdir %{_docdir}/%{name}-%{version}
-%endif
-
 %global prunerepo_version 1.20
 %global tests_version 5
 %global tests_tar test-data-copr-backend
@@ -9,8 +5,8 @@
 %global copr_common_version 0.25.1~~dev0
 
 Name:       copr-backend
-Version:    2.6
-Release:    2%{?dist}
+Version:    2.7
+Release:    1%{?dist}
 Summary:    Backend for Copr
 
 License:    GPL-2.0-or-later
@@ -35,7 +31,6 @@ BuildRequires: systemd
 BuildRequires: util-linux
 
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
 
 BuildRequires: python3-copr
 BuildRequires: python3-copr-common >= %copr_common_version
@@ -109,6 +104,9 @@ Requires(postun): systemd
 
 %{?fedora:Requires(pre): lighttpd-filesystem}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %description
 COPR is lightweight build system. It allows you to create new project in WebUI,
 and submit new builds and COPR will create yum repository from latest builds.
@@ -132,13 +130,13 @@ only.
 
 %build
 make -C docs %{?_smp_mflags} html
-%py3_build
+%pyproject_wheel
+
 PYTHONPATH=`pwd` argparse-manpage --pyfile run/copr-backend-resultdir-cleaner \
     --function _get_arg_parser > copr-backend-resultdir-cleaner.1
 
 %install
-%py3_install
-
+%pyproject_install
 
 install -d %{buildroot}%{_sharedstatedir}/copr/public_html/results
 install -d %{buildroot}%{_pkgdocdir}/lighttpd/
@@ -204,7 +202,8 @@ install -m0644 -D conf/copr-backend.sysusers.conf %{buildroot}%{_sysusersdir}/co
 %files
 %license LICENSE
 %python3_sitelib/copr_backend
-%python3_sitelib/copr_backend*egg-info
+%{python3_sitelib}/copr_backend-*.dist-info/
+
 
 %dir %{_sharedstatedir}/copr
 %dir %attr(0755, copr, copr) %{_sharedstatedir}/copr/public_html/
@@ -241,8 +240,24 @@ install -m0644 -D conf/copr-backend.sysusers.conf %{buildroot}%{_sysusersdir}/co
 %exclude %{_pkgdocdir}/lighttpd
 
 %changelog
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+* Tue Aug 26 2025 Jakub Kadlcik <frostyx@email.cz> 2.7-1
+- Specify reason for running createrepo
+- Implement support for Pulp manual createrepo
+- Improve robustness and cooperation with rpmbuild
+- Don't run createrepo_c for migrated projects
+- Implement Pulp forking
+- Fix Pulp builds for CoprDirs
+- Adds batching to add_content() and delete_content() in Pulp client.
+- Explicitly set home directory and shell for the user
+- Make sure every PULP api call is logged
+- Set retain_package_versions and retain_repo_versions on repositories
+- Fix race condition in BatchedCreaterepo
+- Stop using deprecated %%py3_build/%%py3_install macros
+- Remove el7 condition
+- Drop the 'Z' suffix from timestamp
+- Switch RPM upload to the synchronous API from pulp_rpm
+- Fix false-positive failures for build deletion
+- Fix ftbfs for deepcopy not able to handle itertools.count
 
 * Mon Jun 23 2025 Jakub Kadlcik <frostyx@email.cz> 2.6-1
 - Set pulp_labels at RPM upload time.

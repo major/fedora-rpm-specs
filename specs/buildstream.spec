@@ -14,6 +14,11 @@ BuildRequires: gcc
 BuildRequires: python3-devel >= 3.9
 BuildRequires: python3-grpcio-tools
 
+# Test dependencies:
+BuildRequires: python3dist(pytest)
+BuildRequires: python3dist(tox-current-env)
+BuildRequires: tox
+
 Requires:      buildbox
 Requires:      fuse3
 Requires:      fuse3-libs
@@ -45,11 +50,12 @@ platforms and chipsets.
 ./setup.py build_grpc
 %pyproject_wheel
 
-
 %install
 %pyproject_install
 %pyproject_save_files -l %{name}
 
+%check
+%tox
 
 %files -n %{name} -f %{pyproject_files}
 %doc NEWS README.rst

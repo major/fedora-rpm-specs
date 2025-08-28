@@ -8,7 +8,7 @@
 Summary:        Desktop full text search tool with Qt GUI
 Name:           recoll
 Version:        1.43.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            https://www.recoll.org
@@ -40,7 +40,6 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  qt6-linguist
 BuildRequires:  qt6-qtbase-devel
-BuildRequires:  qtwebkit-devel
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  xapian-core-devel
 BuildRequires:  zlib-devel
@@ -215,6 +214,9 @@ echo "%{_libdir}/recoll" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/recoll-%{_arc
 %{_datadir}/applications/org.recoll.Recoll.SearchProvider.desktop
 
 %changelog
+* Tue Aug 26 2025 FeRD (Frank Dana) <ferdnyc@gmail.com> - 1.43.4-4
+- Remove QtWebKit from build requirements, no longer used
+
 * Thu Aug 21 2025 Terje Rosten <terjeros@gmail.com> - 1.43.4-3
 - Bump to qt6 and kf6
 

@@ -1,11 +1,12 @@
 Name:           ucblogo
 Version:        6.2.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        An interpreter for the Logo programming language
 
 License:        GPL-3.0-or-later
 Source:         https://github.com/jrincayc/ucblogo-code/archive/version_%{version}/ucblogo-%{version}.tar.gz
 Patch1: compile-flags.patch
+Patch2: termios.patch
 
 URL:            https://people.eecs.berkeley.edu/~bh/logo.html
 BuildRequires:  make
@@ -119,6 +120,9 @@ fi
 %{_bindir}/ucblogo-x11
 
 %changelog
+* Mon Aug 25 2025 Joshua Cogliati <jrincayc@yahoo.com> - 6.2.5-3
+- Fix failure to build errors
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -72,7 +72,7 @@
 
 Name:           %{rocsolver_name}
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Next generation LAPACK implementation for ROCm platform
 Url:            https://github.com/ROCm/rocSOLVER
 
@@ -270,9 +270,7 @@ fi
 %install
 %cmake_install
 
-if [ -f %{buildroot}%{_prefix}/share/doc/rocsolver/LICENSE.md ]; then
-    rm %{buildroot}%{_prefix}/share/doc/rocsolver/LICENSE.md
-fi
+rm -f %{buildroot}%{_prefix}/share/doc/rocsolver/LICENSE.md
 
 %files
 %license LICENSE.md
@@ -294,6 +292,9 @@ fi
 %endif
 
 %changelog
+* Mon Aug 25 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-4
+- Simplify removal of files
+
 * Wed Aug 6 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-3
 - Default build type RelWithDebInfo
 

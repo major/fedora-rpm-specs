@@ -7,7 +7,7 @@
 Summary:   NetworkManager VPN plugin for L2TP and L2TP/IPsec
 Name:      NetworkManager-l2tp
 Version:   1.20.20
-Release:   3%{?dist}
+Release:   4%{?dist}
 License:   GPL-2.0-or-later
 URL:       https://github.com/nm-l2tp/NetworkManager-l2tp
 Source:    https://github.com/nm-l2tp/NetworkManager-l2tp/releases/download/%{version}/%{name}-%{version}.tar.xz
@@ -34,7 +34,12 @@ BuildRequires: libnma-gtk4-devel
 Requires: dbus-common
 Requires: NetworkManager >= 1:1.20.0
 Requires: ppp = %{ppp_version}
-Requires: xl2tpd
+%if 0%{?fedora} > 42
+# Note: go-l2tp is a package alias of golang-github-katalix-l2tp
+Requires: go-l2tp
+%else
+Requires: (xl2tpd or go-l2tp)
+%endif
 Recommends: (libreswan or strongswan)
 Recommends: (%{name}-gnome  if gnome-shell)
 Recommends: (plasma-nm-l2tp if plasma-desktop)
@@ -118,6 +123,9 @@ exit 0
 %endif
 
 %changelog
+* Tue Aug 26 2025 Douglas Kosovic <doug@uq.edu.au> - 1.20.20-2
+- Fix orphaned xl2tpd dependency issue, switch to go-l2tp (rhbz#2390669,rhbz#2390688)
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.20.20-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

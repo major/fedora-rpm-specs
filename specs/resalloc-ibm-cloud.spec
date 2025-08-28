@@ -4,8 +4,8 @@ for maintaining VMs in IBM Cloud (starting, stopping, cleaning orphans, etc.).
 }
 
 Name:           resalloc-ibm-cloud
-Version:        3.0
-Release:        5%{?dist}
+Version:        3.2
+Release:        1%{?dist}
 Summary:        Resource allocator scripts for IBM cloud
 
 License:        GPL-2.0-or-later
@@ -49,20 +49,18 @@ BuildRequires:  pyproject-rpm-macros
 %{_bindir}/resalloc-ibm-cloud-list-deleting-volumes
 %{_bindir}/resalloc-ibm-cloud-list-vms
 %{_bindir}/resalloc-ibm-cloud-vm
+%{_bindir}/resalloc-ibm-cloud-powervs-list-deleting-vms
+%{_bindir}/resalloc-ibm-cloud-powervs-list-vms
+%{_bindir}/resalloc-ibm-cloud-powervs-vm
 
 
 %changelog
-* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.0-5
-- Rebuilt for Python 3.14.0rc2 bytecode
+* Tue Aug 26 2025 Jiri Kyjovsky <j1.kyjovsky@gmail.com> 3.2-1
+- powervs: better resources cleanup on error
+- fix: name was too long (47 characters maximum)
 
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 3.0-3
-- Rebuilt for Python 3.14
-
-* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
+* Tue Aug 26 2025 Jiri Kyjovsky <j1.kyjovsky@gmail.com> 3.1-1
+- Add support for IBM Cloud Power Virtual Server
 
 * Sat Jan 11 2025 Pavel Raiskup <praiskup@redhat.com> 3.0-1
 - Log the instance create request content

@@ -1,5 +1,3 @@
-%{?python_enable_dependency_generator}
-
 %if 0%{?el8}
   # jaraco.collections not yet available in epel8
   %bcond_with tests
@@ -10,7 +8,7 @@
 Name:           python-cherrypy
 %global         camelname CherryPy
 Version:        18.10.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Pythonic, object-oriented web development framework
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -20,7 +18,6 @@ Source0:        https://files.pythonhosted.org/packages/source/C/%{camelname}/ch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(setuptools-scm)
 %if %{with tests}
 # Test dependencies
@@ -44,7 +41,6 @@ results in smaller source code developed in less time.
 
 %package -n python3-cherrypy
 Summary: %summary
-%{?python_provide:%python_provide python3-cherrypy}
 
 %package -n python3-cherrypy-devel
 Summary: Test and Tutorial files excluded from main package
@@ -63,11 +59,14 @@ rm cherrypy/test/test_session.py
 sed -i '/pytest_cov/d' setup.py
 sed -i '/cov/d' pytest.ini
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
 %if %{with tests}
 %check
@@ -92,6 +91,9 @@ export WEBTEST_INTERACTIVE=false
 %{python3_sitelib}/cherrypy/tutorial
 
 %changelog
+* Tue Aug 26 2025 Gwyn Ciesla <gwync@protonmail.com> - 18.10.0-9
+- Move to new macros.
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 18.10.0-8
 - Rebuilt for Python 3.14.0rc2 bytecode
 

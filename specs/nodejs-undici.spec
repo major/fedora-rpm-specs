@@ -9,12 +9,12 @@
 %bcond      wasm_opt %[0%{?fedora} > 39]
 
 %global     llhttp_version_major    9
-%global     llhttp_version_minor    2
+%global     llhttp_version_minor    3
 %global     llhttp_version_patch    0
 
 Name:       nodejs-%{npm_name}
 Summary:    An HTTP/1.1 client, written from scratch for Node.js
-Version:    7.14.0
+Version:    7.15.0
 Release:    %autorelease
 
 License:    MIT

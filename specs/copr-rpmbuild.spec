@@ -4,7 +4,7 @@
 %global rpm_python      python3-rpm
 %global sitelib         %python3_sitelib
 
-%global copr_common_version 0.21.1.dev
+%global copr_common_version 1.1.1dev
 
 # do not build debuginfo sub-packages
 %define debug_package %nil
@@ -14,9 +14,9 @@ Requires: %1 \
 %{expand: %%global latest_requires_packages %1 %%{?latest_requires_packages}}
 
 Name:    copr-rpmbuild
-Version: 1.3
+Version: 1.4
 Summary: Run COPR build tasks
-Release: 5%{?dist}
+Release: 1%{?dist}
 URL: https://github.com/fedora-copr/copr
 License: GPL-2.0-or-later
 
@@ -31,6 +31,7 @@ ExcludeArch:   %{ix86}
 %endif
 
 BuildRequires: %{python}-copr-common >= %copr_common_version
+BuildRequires: %{python}-daemon
 BuildRequires: %{python}-devel
 BuildRequires: %{python}-distro
 BuildRequires: %{python}-httmock
@@ -67,6 +68,7 @@ Requires: %{python_pfx}-munch
 Requires: %{python}-requests
 Requires: %{python_pfx}-specfile >= 0.21.0
 Requires: python3-backoff >= 1.9.0
+Requires: python3-daemon
 Requires: python3-pyyaml
 
 Requires: mock >= 5.0
@@ -101,7 +103,6 @@ build build-id 12345 for chroot epel-7-x86_64.
 %package -n copr-builder
 Summary: copr-rpmbuild with all weak dependencies
 Requires: %{name} = %{version}-%{release}
-Requires: dist-git-client
 
 %if 0%{?fedora} && 0%{?fedora} < 41
 # replacement for yum/yum-utils, to be able to work with el* chroots
@@ -148,6 +149,7 @@ Requires: yum-utils
 %endif
 
 %latest_requires python3-dnf
+%latest_requires dist-git-client
 %latest_requires dnf-plugins-core
 %latest_requires libdnf
 %latest_requires librepo
@@ -303,17 +305,10 @@ EOF
 
 
 %changelog
-* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.3-5
-- Rebuilt for Python 3.14.0rc2 bytecode
-
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.3-3
-- Rebuilt for Python 3.14
-
-* Thu Apr 10 2025 David Cantrell <dcantrell@redhat.com> 1.3-2
-- Rebuild
+* Tue Aug 26 2025 Jakub Kadlcik <frostyx@email.cz> 1.4-1
+- Improve robustness and cooperation with backend
+- Pipe errors/warning out to builder-live.log
+- Make sure we use the latest dist-git-client
 
 * Tue Mar 25 2025 Pavel Raiskup <praiskup@redhat.com> 1.3-1
 - ignore unicode errors some commands' output

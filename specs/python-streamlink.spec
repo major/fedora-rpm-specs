@@ -8,7 +8,7 @@ Livestreamer, which is no longer maintained.}
 
 Name:           python-%{srcname}
 Version:        7.5.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python library for extracting streams from various websites
 
 # src/streamlink/packages/requests_file.py is Apache-2.0
@@ -68,19 +68,8 @@ Zsh command line completion support for %{srcname}.
 # Fix dependency on pycryptodomex
 tomcli set pyproject.toml arrays replace "project.dependencies" "(pycryptodome)(\s*[><=]+.*)" "\1x\2"
 
-%if 0%{?fedora} < 43
-# Drop version constraint on setuptools
-tomcli set pyproject.toml arrays replace "build-system.requires" "(setuptools)\s*[><=]+.*" "\1"
-tomcli set pyproject.toml arrays replace "dependency-groups.dev" "(setuptools)\s*[><=]+.*" "\1"
-# setuptools < 77.0.3 doesn't support PEP 639
-tomcli set pyproject.toml del "project.license" "project.license-files"
-%endif
-%if 0%{?fedora} <= 41
-# Drop version constraint on freezegun
-tomcli set pyproject.toml arrays replace "dependency-groups.test" "(freezegun)\s*[><=]+.*" "\1"
-# Drop version constraint on trio
-tomcli set pyproject.toml arrays replace "project.dependencies" "(trio)\s*[><=].*\s;\s*python_version>='3\.13'" "\1"
-%endif
+# Drop useless dependencies
+tomcli set pyproject.toml arrays delitem "dependency-groups.docs" "furo\s*[><=]+.*"
 
 
 %generate_buildrequires
@@ -131,6 +120,9 @@ export PYTEST_ADDOPTS="--deselect tests/test_logger.py::TestLogging::test_datefm
 
 
 %changelog
+* Tue Aug 26 2025 Mohamed El Morabity <melmorabity@fedoraproject.org> - 7.5.0-4
+- Fix RHBZ #2389750
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 7.5.0-3
 - Rebuilt for Python 3.14.0rc2 bytecode
 

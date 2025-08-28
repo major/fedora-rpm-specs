@@ -1,14 +1,8 @@
 %global srcname copr
 
-%if 0%{?rhel} && 0%{?rhel} <= 7
-%global with_python2 1
-%else
-%global with_python3 1
-%endif
-
 Name:       python-copr
-Version:    2.1
-Release:    4%{?dist}
+Version:    2.2
+Release:    1%{?dist}
 Summary:    Python interface for Copr
 
 License:    GPL-2.0-or-later
@@ -24,36 +18,6 @@ BuildArch:  noarch
 BuildRequires: libxslt
 BuildRequires: util-linux
 
-%if %{with python2}
-%if 0%{?rhel} && 0%{?rhel} <= 7
-BuildRequires: python-setuptools
-BuildRequires: python-requests
-BuildRequires: python-requests-toolbelt
-BuildRequires: python-mock
-BuildRequires: python-munch
-BuildRequires: python-filelock
-BuildRequires: python-configparser
-BuildRequires: pytest
-BuildRequires: python2-devel
-BuildRequires: python2-requests-gssapi
-# for doc package
-BuildRequires: python-sphinx
-BuildRequires: python-docutils
-%else
-BuildRequires: python2-setuptools
-BuildRequires: python2-requests
-BuildRequires: python2-requests-toolbelt
-BuildRequires: python2-pytest
-BuildRequires: python2-devel
-BuildRequires: python-munch
-BuildRequires: python2-filelock
-BuildRequires: python2-configparser
-BuildRequires: python2-requests-gssapi
-# for doc package
-BuildRequires: python2-sphinx
-BuildRequires: python2-docutils
-%endif
-%endif
 #doc
 BuildRequires: make
 
@@ -67,35 +31,6 @@ for developers only.\
 
 %description %_description
 
-%if %{with python2}
-%package -n python2-copr
-Summary: %summary
-
-%if 0%{?rhel} == 7
-Requires: python-configparser
-Requires: python-munch
-Requires: python-filelock
-Requires: python-requests
-Requires: python-requests-toolbelt
-Requires: python-requests-gssapi
-Requires: python-setuptools
-%else
-Requires: python2-configparser
-Requires: python2-munch
-Requires: python2-filelock
-Requires: python2-requests
-Requires: python2-requests-toolbelt
-Requires: python2-setuptools
-Requires: python2-requests-gssapi
-%endif
-
-%{?python_provide:%python_provide python2-copr}
-
-%description -n python2-copr %_description
-%endif
-# with python2
-
-%if %{with python3}
 %package -n python3-copr
 Summary:        Python interface for Copr
 
@@ -144,9 +79,6 @@ and submit new builds and COPR will create yum repository from latest builds.
 This package contains python interface to access Copr service. Mostly useful
 for developers only.
 
-%endif
-# with python3
-
 
 %package -n python-copr-doc
 Summary:    Code documentation for python-copr package
@@ -164,13 +96,12 @@ developers only.
 
 
 %build
-%if %{with python3}
+%if 0%{?rhel} && 0%{?rhel} <= 8
 version=%version %py3_build
+%else
+version=%version %pyproject_wheel
 %endif
 
-%if %{with python2}
-version=%version %py2_build
-%endif
 
 mv copr/README.rst ./
 
@@ -179,12 +110,10 @@ make -C docs %{?_smp_mflags} html %{?sphinxbuild}
 
 
 %install
-%if %{with python3}
+%if 0%{?rhel} && 0%{?rhel} <= 8
 version=%version %py3_install
-%endif
-
-%if %{with python2}
-version=%version %py2_install
+%else
+version=%version %pyproject_install
 %endif
 
 find %{buildroot} -name '*.exe' -delete
@@ -193,44 +122,23 @@ install -d %{buildroot}%{_pkgdocdir}
 cp -a docs/_build/html %{buildroot}%{_pkgdocdir}/
 
 %check
-%if %{with python3}
 %{__python3} -m pytest -vv copr/test
-%endif
-
-%if %{with python2}
-%{__python2} -m pytest -vv copr/test
-%endif
 
 
-%if %{with python3}
 %files -n python3-copr
 %license LICENSE
 %doc README.rst
 %{python3_sitelib}/*
-%endif
-# with python3
 
-%if %{with python2}
-%files -n python2-copr
-%license LICENSE
-%doc README.rst
-%{python2_sitelib}/*
-%endif
-# with python2
 
 %files -n python-copr-doc
 %license LICENSE
 %doc %{_pkgdocdir}
 
 %changelog
-* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.1-4
-- Rebuilt for Python 3.14.0rc2 bytecode
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2.1-2
-- Rebuilt for Python 3.14
+* Tue Aug 26 2025 Jakub Kadlcik <frostyx@email.cz> 2.2-1
+- Stop using deprecated %%py3_build/%%py3_install macros
+- Remove rhel7 conditions and remove python2 support
 
 * Tue Mar 25 2025 Pavel Raiskup <praiskup@redhat.com> 2.1-1
 - doc: remove a non existent parameter from docstring

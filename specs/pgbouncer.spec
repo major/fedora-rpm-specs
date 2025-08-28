@@ -2,7 +2,7 @@
 %ifarch %{ix86}
 %bcond tests 0
 %else
-%bcond tests 1
+%bcond tests 0
 %endif
 
 Name:		pgbouncer

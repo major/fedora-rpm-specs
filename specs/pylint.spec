@@ -23,6 +23,7 @@ BuildRequires:  python3-devel
 # For tests
 BuildRequires:  python3-GitPython
 BuildRequires:  python3-pytest-benchmark
+BuildRequires:  python3-pytest-xdist
 BuildRequires:  python3-typing-extensions
 BuildRequires:  graphviz
 
@@ -71,16 +72,48 @@ for NAME in pylint pyreverse symilar; do
 done
 
 %check
-#export PYTHONPATH=%{buildroot}%{python3_sitelib}
-# astroid gets confused if pylint is importable both from buildroot/sitelib
-# (see above) and the location we're running the tests from, so we'll
-# move it out of the way here
-#mkdir src
-#mv pylint src
 # Skip benchmarks
-# It's not immediately clear why the delected tests fail
-#%%{__python3} -m pytest -v --ignore=benchmark \
-#  --deselect=tests/test_functional.py::test_functional[missing_timeout]
+# Deselect all tests failing with Python 3.14
+%pytest -v --ignore=benchmark \
+  -n auto \
+  --deselect=tests/test_functional.py::test_functional[missing_timeout] \
+  --deselect=tests/config/pylint_config/test_pylint_config_help.py::test_pylint_config_main_messages \
+  --deselect=tests/pyreverse/test_writer.py::test_dot_files[packages_No_Name.dot] \
+  --deselect=tests/pyreverse/test_writer.py::test_dot_files[classes_No_Name.dot] \
+  --deselect=tests/pyreverse/test_writer.py::test_colorized_dot_files[packages_colorized.dot] \
+  --deselect=tests/pyreverse/test_writer.py::test_colorized_dot_files[classes_colorized.dot] \
+  --deselect=tests/pyreverse/test_writer.py::test_no_standalone_dot_files[classes_no_standalone.dot] \
+  --deselect=tests/pyreverse/test_writer.py::test_no_standalone_dot_files[packages_no_standalone.dot] \
+  --deselect=tests/pyreverse/test_writer.py::test_type_check_imports_dot_files[packages_type_check_imports.dot] \
+  --deselect=tests/pyreverse/test_writer.py::test_type_check_imports_dot_files[classes_type_check_imports.dot] \
+  --deselect=tests/pyreverse/test_writer.py::test_puml_files[packages_No_Name.puml] \
+  --deselect=tests/pyreverse/test_writer.py::test_puml_files[classes_No_Name.puml] \
+  --deselect=tests/pyreverse/test_writer.py::test_mmd_files[packages_No_Name.mmd] \
+  --deselect=tests/pyreverse/test_writer.py::test_mmd_files[classes_No_Name.mmd] \
+  --deselect=tests/pyreverse/test_writer.py::test_html_files[packages_No_Name.html] \
+  --deselect=tests/pyreverse/test_writer.py::test_html_files[classes_No_Name.html] \
+  --deselect=tests/pyreverse/test_writer.py::test_colorized_puml_files[packages_colorized.puml] \
+  --deselect=tests/pyreverse/test_writer.py::test_colorized_puml_files[classes_colorized.puml] \
+  --deselect=tests/test_functional.py::test_functional[continue_in_finally] \
+  --deselect=tests/test_functional.py::test_functional[consider_using_with] \
+  --deselect=tests/test_functional.py::test_functional[typing_broken_callable] \
+  --deselect=tests/test_functional.py::test_functional[typing_broken_callable_future_import] \
+  --deselect=tests/test_functional.py::test_functional[typing_consider_using_union] \
+  --deselect=tests/test_functional.py::test_functional[typing_consider_using_union_py310] \
+  --deselect=tests/test_functional.py::test_functional[typing_consider_using_union_without_future] \
+  --deselect=tests/test_functional.py::test_functional[function_redefined_2540] \
+  --deselect=tests/test_functional.py::test_functional[generic_alias_collections] \
+  --deselect=tests/test_functional.py::test_functional[generic_alias_mixed_py39] \
+  --deselect=tests/test_functional.py::test_functional[generic_alias_typing] \
+  --deselect=tests/test_functional.py::test_functional[lost_exception] \
+  --deselect=tests/test_functional.py::test_functional[return_in_finally] \
+  --deselect=tests/test_functional.py::test_functional[wrong_import_order] \
+  --deselect=tests/test_import_graph.py::test_dependencies_graph[foo.dot] \
+  --deselect=tests/test_import_graph.py::test_dependencies_graph[foo.gv] \
+  --deselect=tests/test_import_graph.py::test_dependencies_graph[tests/regrtest_data/foo.dot] \
+  --deselect=tests/test_import_graph.py::test_checker_dep_graphs \
+  --deselect=tests/test_self.py::TestRunTC::test_do_not_import_files_from_local_directory[args0] \
+  --deselect=tests/test_self.py::TestRunTC::test_do_not_import_files_from_local_directory[args1]
 
 %files
 %doc CONTRIBUTORS.txt

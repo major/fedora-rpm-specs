@@ -11,6 +11,9 @@ Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 # Taken from https://github.com/libsixel/libsixel/pull/89
 Patch:          libsixel-fix-bash-completions.patch
 
+# https://github.com/saitoha/libsixel/issues/200
+Patch:          libsixel-fix-cve-2025-9300.patch
+
 BuildRequires:  gcc
 BuildRequires:  meson
 BuildRequires:  pkgconfig(gdlib)

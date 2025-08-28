@@ -104,7 +104,7 @@ ExcludeArch: %{ix86}
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          2%{?with_debug:.debug}%{?dist}
+Release:          3%{?with_debug:.debug}%{?dist}
 Summary:          MySQL client programs and shared libraries
 URL:              http://www.mysql.com
 
@@ -1116,6 +1116,9 @@ popd
 %endif
 
 %changelog
+* Tue Aug 26 2025 Pavol Sloboda <psloboda@redhat.com> - 8.4.6-3
+- Bump release for package rebuild
+
 * Wed Aug 06 2025 František Zatloukal <fzatlouk@redhat.com> - 8.4.6-2
 - Rebuilt for icu 77.1
 

@@ -6,6 +6,9 @@
 %bcond lto 1
 %endif
 
+# Use ccache
+%bcond ccache 0
+
 # Debug build with extra compile time checks
 %bcond debug 0
 
@@ -17,16 +20,16 @@
 %global miral_sover 7
 %global mircommon_sover 11
 %global mircore_sover 2
-%global miroil_sover 7
-%global mirplatform_sover 31
-%global mirserver_sover 64
+%global miroil_sover 8
+%global mirplatform_sover 32
+%global mirserver_sover 65
 %global mirwayland_sover 5
 %global mirplatformgraphics_sover 23
 %global mirplatforminput_sover 10
 
 Name:           mir
-Version:        2.21.1
-Release:        2%{?dist}
+Version:        2.22.0
+Release:        1%{?dist}
 Summary:        Next generation Wayland display server toolkit
 
 # mircommon is LGPL-2.1-only/LGPL-3.0-only, everything else is GPL-2.0-only/GPL-3.0-only
@@ -34,6 +37,9 @@ License:        (GPL-2.0-only or GPL-3.0-only) and (LGPL-2.1-only or LGPL-3.0-on
 URL:            https://mir-server.io/
 Source0:        https://github.com/canonical/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.xz
 
+%if %{with ccache}
+BuildRequires:  ccache
+%endif
 BuildRequires:  git-core
 BuildRequires:  gcc-c++
 BuildRequires:  cmake, ninja-build, doxygen, graphviz, lcov, gcovr
@@ -56,6 +62,7 @@ BuildRequires:  pkgconfig(gmock) >= 1.8.0
 BuildRequires:  pkgconfig(gio-2.0)
 BuildRequires:  pkgconfig(gio-unix-2.0)
 BuildRequires:  pkgconfig(gtest) >= 1.8.0
+BuildRequires:  pkgconfig(libdisplay-info)
 BuildRequires:  pkgconfig(libdrm)
 BuildRequires:  pkgconfig(libevdev)
 BuildRequires:  pkgconfig(libinput)
@@ -87,6 +94,9 @@ BuildRequires:  gnu-free-sans-fonts
 
 # For validating the desktop file for mir-demos
 BuildRequires:  %{_bindir}/desktop-file-validate
+
+# For the dbus-based tests
+BuildRequires:  dbus-daemon
 
 # Add architectures as verified to work
 %ifarch %{ix86} x86_64 %{arm} aarch64
@@ -202,6 +212,7 @@ Mir unit and integration tests.
 
 %conf
 %cmake	-GNinja %{?with_lto:-DMIR_LINK_TIME_OPTIMIZATION=ON} \
+	%{?with_ccache:-DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache} \
 	%{?with_debug:-DCMAKE_BUILD_TYPE=Debug} \
 	%{!?with_debug:-DMIR_FATAL_COMPILE_WARNINGS=OFF} \
 	-DMIR_USE_PRECOMPILED_HEADERS=OFF \
@@ -246,7 +257,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/miral-shell.desktop
 %{_libdir}/libmircore.so.%{mircore_sover}
 %{_libdir}/libmircommon.so.%{mircommon_sover}
 %{_libdir}/libmirplatform.so.%{mirplatform_sover}
-%dir %{_libdir}/mir
+%dir %{_libdir}/%{name}
 
 %files lomiri-libs
 %license COPYING.GPL*
@@ -259,13 +270,13 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/miral-shell.desktop
 %{_libdir}/libmiral.so.%{miral_sover}
 %{_libdir}/libmirserver.so.%{mirserver_sover}
 %{_libdir}/libmirwayland.so.%{mirwayland_sover}
-%dir %{_libdir}/mir/server-platform
-%{_libdir}/mir/server-platform/graphics-gbm-kms.so.%{mirplatformgraphics_sover}
-%{_libdir}/mir/server-platform/graphics-wayland.so.%{mirplatformgraphics_sover}
-%{_libdir}/mir/server-platform/input-evdev.so.%{mirplatforminput_sover}
-%{_libdir}/mir/server-platform/renderer-egl-generic.so.%{mirplatformgraphics_sover}
-%{_libdir}/mir/server-platform/server-virtual.so.%{mirplatformgraphics_sover}
-%{_libdir}/mir/server-platform/server-x11.so.%{mirplatformgraphics_sover}
+%dir %{_libdir}/%{name}/server-platform
+%{_libdir}/%{name}/server-platform/graphics-gbm-kms.so.%{mirplatformgraphics_sover}
+%{_libdir}/%{name}/server-platform/graphics-wayland.so.%{mirplatformgraphics_sover}
+%{_libdir}/%{name}/server-platform/input-evdev.so.%{mirplatforminput_sover}
+%{_libdir}/%{name}/server-platform/renderer-egl-generic.so.%{mirplatformgraphics_sover}
+%{_libdir}/%{name}/server-platform/server-virtual.so.%{mirplatformgraphics_sover}
+%{_libdir}/%{name}/server-platform/server-x11.so.%{mirplatformgraphics_sover}
 
 %files test-tools
 %license COPYING.GPL*
@@ -276,8 +287,8 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/miral-shell.desktop
 %dir %{_libdir}/%{name}
 %{_libdir}/%{name}/miral_wlcs_integration.so
 %dir %{_libdir}/%{name}/server-platform
-%{_libdir}/%{name}/server-platform/graphics-dummy.so
-%{_libdir}/%{name}/server-platform/input-stub.so
+%{_libdir}/%{name}/server-platform/graphics-dummy.so.%{mirplatformgraphics_sover}
+%{_libdir}/%{name}/server-platform/input-stub.so.%{mirplatforminput_sover}
 %{_datadir}/%{name}/expected_wlcs_failures.list
 
 %files test-libs-static
@@ -296,6 +307,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/miral-shell.desktop
 
 
 %changelog
+* Tue Aug 26 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.22.0-1
+- Update to 2.22.0
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.21.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -10,9 +10,9 @@
 %global pkg_suffix -free
 
 # For alternative builds (do not enable in Fedora!)
-%bcond freeworld 0
+%bcond freeworld_lavc 0
 
-%if %{with freeworld}
+%if %{with freeworld_lavc}
 # Freeworld builds enable all codecs
 %global with_all_codecs 1
 # Freeworld builds do not need a package suffix
@@ -96,7 +96,7 @@ Name:           ffmpeg
 %global pkg_name %{name}%{?pkg_suffix}
 
 Version:        7.1.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        A complete solution to record, convert and stream audio and video
 License:        GPL-3.0-or-later
 URL:            https://ffmpeg.org/
@@ -290,6 +290,8 @@ This build of ffmpeg is limited in the number of codecs supported.
 
 %dnl --------------------------------------------------------------------------------
 
+%if ! %{with freeworld_lavc}
+
 %if "x%{?pkg_suffix}" != "x"
 %package -n     %{pkg_name}
 Summary:        A complete solution to record, convert and stream audio and video
@@ -395,35 +397,6 @@ This subpackage contains the headers for FFmpeg libavcodec.
 %{_libdir}/pkgconfig/libavcodec.pc
 %{_libdir}/libavcodec.so
 %{_mandir}/man3/libavcodec.3*
-
-%dnl --------------------------------------------------------------------------------
-
-%if %{with freeworld}
-%package -n libavcodec-freeworld
-Summary:        FFmpeg codec library - freeworld overlay
-Requires:       libavutil%{?basepkg_suffix}%{_isa} >= %{version}-%{release}
-Requires:       libswresample%{?basepkg_suffix}%{_isa} >= %{version}-%{release}
-Supplements:    libavcodec%{?basepkg_suffix}%{_isa} >= %{version}-%{release}
-# We require libopenh264 library, which has a dummy implementation and a real one
-# In the event that this is being installed, we want to install this version
-Requires:       openh264%{_isa}
-
-%description -n libavcodec-freeworld
-The libavcodec library provides a generic encoding/decoding framework
-and contains multiple decoders and encoders for audio, video and
-subtitle streams, and several bitstream filters.
-
-This build includes the full range of codecs offered by ffmpeg.
-
-%files -n libavcodec-freeworld
-%{_sysconfdir}/ld.so.conf.d/%{name}-%{_lib}.conf
-%{_libdir}/%{name}/libavcodec.so.%{av_codec_soversion}{,.*}
-
-# Re-enable ldconfig_scriptlets macros
-%{!?ldconfig:%global ldconfig /sbin/ldconfig}
-%ldconfig_scriptlets -n libavcodec-freeworld
-
-%endif
 
 %dnl --------------------------------------------------------------------------------
 
@@ -703,6 +676,38 @@ This subpackage contains the headers for FFmpeg libswscale.
 %{_libdir}/libswscale.so
 %{_mandir}/man3/libswscale.3*
 
+%endif
+# freeworld_lavc bcond
+
+%dnl --------------------------------------------------------------------------------
+
+%if %{with freeworld_lavc}
+%package -n libavcodec-freeworld
+Summary:        FFmpeg codec library - freeworld overlay
+Requires:       libavutil%{?basepkg_suffix}%{_isa} >= %{version}-%{release}
+Requires:       libswresample%{?basepkg_suffix}%{_isa} >= %{version}-%{release}
+Supplements:    libavcodec%{?basepkg_suffix}%{_isa} >= %{version}-%{release}
+# We require libopenh264 library, which has a dummy implementation and a real one
+# In the event that this is being installed, we want to install this version
+Requires:       openh264%{_isa}
+
+%description -n libavcodec-freeworld
+The libavcodec library provides a generic encoding/decoding framework
+and contains multiple decoders and encoders for audio, video and
+subtitle streams, and several bitstream filters.
+
+This build includes the full range of codecs offered by ffmpeg.
+
+%files -n libavcodec-freeworld
+%{_sysconfdir}/ld.so.conf.d/%{name}-%{_lib}.conf
+%{_libdir}/%{name}/libavcodec.so.%{av_codec_soversion}{,.*}
+
+# Re-enable ldconfig_scriptlets macros
+%{!?ldconfig:%global ldconfig /sbin/ldconfig}
+%ldconfig_scriptlets -n libavcodec-freeworld
+
+%endif
+
 %dnl --------------------------------------------------------------------------------
 
 %prep
@@ -932,16 +937,25 @@ done
 # We will package is as %%doc in the devel package
 rm -rf %{buildroot}%{_datadir}/%{name}/examples
 
-%if %{with freeworld}
+%if %{with freeworld_lavc}
 # Install the libavcodec freeworld counterpart
 mkdir -p %{buildroot}%{_sysconfdir}/ld.so.conf.d/
 mkdir -p %{buildroot}%{_libdir}/%{name}
 echo -e "%{_libdir}/%{name}\n" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/%{name}-%{_lib}.conf
 cp -pa %{buildroot}%{_libdir}/libavcodec.so.%{av_codec_soversion}{,.*} %{buildroot}%{_libdir}/%{name}
+# Drop unneeded stuff
+rm -f %{buildroot}%{_libdir}/*.*
+rm -rf %{buildroot}%{_libdir}/pkgconfig
+rm -rf %{buildroot}%{_includedir}
+rm -rf %{buildroot}%{_bindir}
+rm -rf %{buildroot}%{_datadir}
 %endif
 
 
 %changelog
+* Tue Aug 26 2025 Neal Gompa <ngompa@fedoraproject.org> - 7.1.1-10
+- Disable all subpackages except libavcodec-freeworld with the freeworld bcond
+
 * Mon Aug 25 2025 Neal Gompa <ngompa@fedoraproject.org> - 7.1.1-9
 - Enable support for MPEG-5/EVC
 

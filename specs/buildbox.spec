@@ -1,5 +1,5 @@
 Name:    buildbox
-Version: 1.3.28
+Version: 1.3.31
 Release: %autorelease
 Summary: Building blocks to execute actions conforming to the Remote Execution API
 
@@ -61,6 +61,7 @@ Remote Execution API, also supporting the Remote Worker API.
 %{_bindir}/buildbox-worker
 %{_bindir}/casdownload
 %{_bindir}/casupload
+%{_bindir}/casupload-oci
 %{_bindir}/logstreamreceiver
 %{_bindir}/logstreamtail
 %{_bindir}/outputstreamer

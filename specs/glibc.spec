@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.42.9000-68-g399384e0c8
+%global glibcsrcdir glibc-2.42.9000-122-g027505a07b
 %global glibcversion 2.42.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 1
+%global baserelease 3
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -631,6 +631,9 @@ call_ldconfig()
 Summary: The sources for the locales
 Requires: %{name} = %{version}-%{release}
 Requires: %{name}-common = %{version}-%{release}
+
+# This subpackage contains gzip compressed charmaps
+Requires: gzip
 
 %description locale-source
 The sources for all locales provided in the language packs.
@@ -2386,6 +2389,67 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Mon Aug 25 2025 DJ Delorie <dj@redhat.com> - 2.42.9000-3
+- Auto-sync with upstream branch master,
+  commit 027505a07b2fdef09749300b531623b12f4d5afe.
+- Don't pass -c to LIBC_TRY_TEST_CC_OPTION
+- Remove test-have-mamx-tile from Makefile.in
+- Don't use -Wfree-labels/-Wmissing-parameter-name if unsupported
+- Undef __INT64_C/__UINT64_C for glibc build and test
+- Revert "Don't use -Wfree-labels/-Wmissing-parameter-name if unsupported"
+- Don't use -Wfree-labels/-Wmissing-parameter-name if unsupported
+- x86: Set have-protected-data to no if unsupported
+- stdio-common: Convert macros across scanf input specifier tests
+- stdio-common: Adjust header inclusion in scanf input specifier tests
+- stdio-common: Include correct skeleton in scanf input specifier tests
+- stdio-common: Fix NaN input data for scanf input specifier tests [BZ #32857]
+- stdio-common: Fix bad NaN crash in scanf input specifier tests [BZ #32857]
+- stdio-common: Fix a crash in scanf input specifier tests [BZ #32857]
+- stdio-common: Fix error reporting in scanf input specifier tests
+- stdio-common: Reject insufficient character data in scanf [BZ #12701]
+- Disable -Wimplicit-fallthrough when clang is in use
+- libio: Properly link in libio functions in static binaries
+- x86_64: Use __seg_fs qualifiers in NPTL accessors
+- x86: Remove an extra space before THREAD_SELF
+- x86_64: Remove stalled __GNUC_PREREQ (6, 0) test in THREAD_SELF()
+- i386: Use __seg_gs qualifiers in NPTL accessors
+- i386: Remove stalled __GNUC_PREREQ (6, 0) test in THREAD_SELF()
+- i386: Use TESTB instead of TESTL in ____longjmp_chk()
+- x86_64: Use TESTB instead of TESTL in CHECK_INVALID_LONGJMP
+- AArch64: Fix SVE powf routine [BZ #33299]
+- support: Handle FUSE_GETXATTR during FUSE FS mount
+- malloc: Fix tst bug in malloc/tst-free-errno-malloc-hugetlb1.
+- i386: Also add GLIBC_ABI_GNU2_TLS version [BZ #33129]
+- htl: move sem_unlink into libc.
+- htl: move sem_{clockwait, timedwait, wait, trywait} into libc.
+- htl: move sem_post into libc.
+- htl: move sem_open, sem_close into libc.
+- htl: move sem_init into libc.
+- htl: move sem_getvalue into libc.
+- htl: move sem_destroy into libc.
+- htl: move __pthread_startup into libc.
+- htl: move __pthread_setup into libc.
+- htl: move pthread_{join, clockjoin_np, timedjoin_np, tryjoin_np} into libc.
+- htl: move pthread_exit into libc.
+- htl: move pthread_detach into libc.
+- htl: move __pthread_sigstate_init into libc.
+- htl: move pthread_mutex_transfer_np into libc.
+- htl: move pthread_getattr_np into libc.
+- htl: move pthread_testcancel into libc.
+- htl: move pthread_kill into libc.
+- htl: move pthread_cancel, __pthread_do_cancel into libc.
+- htl: move __thread_set_pcsptp into libc.
+- htl: move pthread_yield into libc.
+- htl: move pthread_getcpuclockid into libc.
+- htl: move __pthread_thread_{alloc, start, terminate} into libc.
+- htl: move __pthread_stack_alloc into libc.
+- htl: move __pthread_init_{specific, static_tls}, __pthread_{alloc}, dealloc} into libc.
+- htl: move pthread_get/setconcurrency into libc.
+- htl: move pthread_setschedprio into libc.
+
+* Tue Aug 26 2025 Arjun Shankar <arjun@redhat.com> - 2.42.9000-2
+- glibc-locale-source: Require gzip to handle compressed charmaps
+
 * Fri Aug 15 2025 Patsy Griffin <pfrankli@redhat.com> - 2.42.9000-1
 - Auto-sync with upstream branch master,
   commit 399384e0c8193e31aea014220ccfa24300ae5938.

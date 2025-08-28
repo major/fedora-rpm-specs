@@ -139,6 +139,8 @@ Source002:      https://github.com/unicode-org/icu/releases/download/release-%{i
 Source003:      nodejs.pc.in
 Source004:      v8.pc.in
 Source005:      npmrc.in
+Source006:      nodejs_abi.attr.in
+Source007:      nodejs_abi.req.in
 # - Check section tests
 Source010:      test-runner.sh
 Source011:      test-should-pass.txt
@@ -376,6 +378,13 @@ mkconfig -e 's;@PKGCONFNAME@;nodejs-%{node_version_major};g' \
 mkconfig -e 's;@PKGCONFNAME@;v8-%{v8_version_major}.%{v8_version_minor};g' \
     <%{SOURCE4} >"${PKGCONFDIR}/v8-%{v8_version_major}.%{v8_version_minor}.pc"
 
+# Create automatic RPM requires generator for this stream
+mkdir -p "${RPM_BUILD_ROOT}%{_rpmconfigdir}/fileattrs"
+sed -e 's;@NODEJS_VERSION_MAJOR@;%{node_version_major};g' \
+    <%{SOURCE6} >"${RPM_BUILD_ROOT}%{_rpmconfigdir}/fileattrs/nodejs%{node_version_major}_abi.attr"
+sed -e 's;@NODEJS_VERSION_MAJOR@;%{node_version_major};g' \
+    <%{SOURCE7} >"${RPM_BUILD_ROOT}%{_rpmconfigdir}/nodejs%{node_version_major}_abi.req"
+
 # Install documentation
 mkdir -p "${RPM_BUILD_ROOT}%{_pkgdocdir}/html"
 cp -pr doc/* "${RPM_BUILD_ROOT}%{_pkgdocdir}/html"
@@ -554,6 +563,8 @@ bash '%{SOURCE10}' "${RPM_BUILD_ROOT}%{_bindir}/node-%{node_version_major}" test
 %{_libdir}/pkgconfig/nodejs-%{node_version_major}.pc
 %{_pkgdocdir}/gdbinit
 %{_pkgdocdir}/lldb_commands.py
+%{_rpmconfigdir}/fileattrs/nodejs%{node_version_major}_abi.attr
+%{_rpmconfigdir}/nodejs%{node_version_major}_abi.req
 %{nodejs_datadir}/common.gypi
 
 %files -n   v8-%{v8_version_major}.%{v8_version_minor}-devel

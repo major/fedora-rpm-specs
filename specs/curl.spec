@@ -6,8 +6,8 @@
 
 Summary: A utility for getting files from remote servers (FTP, HTTP, and others)
 Name: curl
-Version: 8.15.0
-Release: 2%{?dist}
+Version: 8.16.0~rc2
+Release: 1%{?dist}
 License: curl
 Source0: https://curl.se/download/%{name}-%{version_no_tilde}.tar.xz
 Source1: https://curl.se/download/%{name}-%{version_no_tilde}.tar.xz.asc
@@ -407,6 +407,9 @@ rm -f ${RPM_BUILD_ROOT}%{_libdir}/libcurl.la
 %{_libdir}/libcurl.so.4.[0-9].[0-9].minimal
 
 %changelog
+* Tue Aug 26 2025 Jan Macku <jamacku@redhat.com> - 8.16.0~rc2-1
+- new upstream release candidate
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.15.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

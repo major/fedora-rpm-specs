@@ -176,13 +176,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.17.0
 %define specversion 6.17.0
 %define patchversion 6.17
-%define pkgrelease 0.rc3.31
+%define pkgrelease 0.rc3.250826gfab1beda7597.32
 %define kversion 6
-%define tarfile_release 6.17-rc3
+%define tarfile_release 6.17-rc3-11-gfab1beda7597
 # This is needed to do merge window version magic
 %define patchlevel 17
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc3.31%{?buildid}%{?dist}
+%define specrelease 0.rc3.250826gfab1beda7597.32%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.17.0
 
@@ -4383,11 +4383,14 @@ fi\
 #
 #
 %changelog
-* Mon Aug 25 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc3.31]
+* Tue Aug 26 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc3.fab1beda7597.32]
 - soc: qcom: mdt_loader: Deal with zero e_shentsize (Bjorn Andersson)
 - arm64: dts: qcom: x1e80100-lenovo-yoga-slim7x: add Bluetooth support (Jens Glathe)
 - ALSA HDA driver configuration split for 6.17 upstream (Jaroslav Kysela)
 - redhat/configs: clang_lto: disable CONFIG_FORTIFY_KUNIT_TEST (Scott Weaver)
+
+* Tue Aug 26 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc3.fab1beda7597.31]
+- Linux v6.17.0-0.rc3.fab1beda7597
 
 * Mon Aug 25 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc3.30]
 - Linux v6.17.0-0.rc3

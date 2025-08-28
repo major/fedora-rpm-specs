@@ -153,6 +153,8 @@ Source2: btest402.js
 # The binary data that icu-small can use to get icu-full capability
 Source3: https://github.com/unicode-org/icu/releases/download/release-%{icu_major}-%{icu_minor}/icu4c-%{icu_major}_%{icu_minor}-data-bin-b.zip
 Source4: https://github.com/unicode-org/icu/releases/download/release-%{icu_major}-%{icu_minor}/icu4c-%{icu_major}_%{icu_minor}-data-bin-l.zip
+Source5: nodejs_abi.attr.in
+Source6: nodejs_abi.req.in
 Source200: nodejs-sources.sh
 Source201: npmrc.builtin.in
 Source202: nodejs.pc.in
@@ -681,6 +683,13 @@ for soname in libv8 libv8_libbase libv8_libplatform; do
   %endif
 done
 
+# Create automatic RPM requires generator for this stream
+mkdir -p "${RPM_BUILD_ROOT}%{_rpmconfigdir}/fileattrs"
+sed -e 's;@NODEJS_VERSION_MAJOR@;%{node_version_major};g' \
+    <%{SOURCE5} >"${RPM_BUILD_ROOT}%{_rpmconfigdir}/fileattrs/nodejs%{node_version_major}_abi.attr"
+sed -e 's;@NODEJS_VERSION_MAJOR@;%{node_version_major};g' \
+    <%{SOURCE6} >"${RPM_BUILD_ROOT}%{_rpmconfigdir}/nodejs%{node_version_major}_abi.req"
+
 # install documentation
 mkdir -p %{buildroot}%{_pkgdocdir}/html
 cp -pr doc/* %{buildroot}%{_pkgdocdir}/html
@@ -841,7 +850,8 @@ end
 %{nodejs_datadir}/common.gypi
 %{_pkgdocdir}/gdbinit
 %{_libdir}/pkgconfig/nodejs-%{nodejs_pkg_major}.pc
-
+%{_rpmconfigdir}/fileattrs/nodejs%{node_version_major}_abi.attr
+%{_rpmconfigdir}/nodejs%{node_version_major}_abi.req
 
 %files -n %{pkgname}-full-i18n
 %dir %{icudatadir}

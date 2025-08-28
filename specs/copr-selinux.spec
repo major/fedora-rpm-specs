@@ -1,7 +1,3 @@
-%if 0%{?rhel} < 7 && 0%{?rhel} > 0
-%global _pkgdocdir %{_docdir}/%{name}-%{version}
-%endif
-
 %global moduletype apps
 %global modulename copr
 %global selinuxbooleans httpd_enable_cgi=1 httpd_can_network_connect=1 httpd_can_sendmail=1 nis_enabled=1
@@ -10,8 +6,8 @@
 %global selinuxvariants targeted
 
 Name:       copr-selinux
-Version:    1.56
-Release:    2%{?dist}
+Version:    1.57
+Release:    1%{?dist}
 Summary:    SELinux module for COPR
 
 License:    GPL-2.0-or-later
@@ -110,8 +106,8 @@ done
 %{_mandir}/man8/%{name}-relabel.8*
 
 %changelog
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.56-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+* Tue Aug 26 2025 Jakub Kadlcik <frostyx@email.cz> 1.57-1
+- Modernize spec file and drop old stuff
 
 * Tue Mar 25 2025 Pavel Raiskup <praiskup@redhat.com> 1.56-1
 - unify bindir and sbindir

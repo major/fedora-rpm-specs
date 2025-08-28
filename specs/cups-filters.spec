@@ -17,7 +17,7 @@ Summary: OpenPrinting CUPS filters for CUPS 2.X
 Name:    cups-filters
 Epoch:   1
 Version: 2.0.1
-Release: 8%{?dist}
+Release: 9%{?dist}
 
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
@@ -36,6 +36,12 @@ Patch001: 0001-Fix-build-failure-with-GCC-15-and-std-c23.patch
 # introducing foomatic-hash, but without rejecting values in foomatic-rip
 # https://github.com/OpenPrinting/cups-filters/pull/648
 Patch002: 0001-Introduce-foomatic-hash-and-reject-unauthorized-valu.patch
+# make sure errors from foomatic-rip are propagated
+# https://github.com/OpenPrinting/cups-filters/pull/649
+Patch003: foomatic-ripdie-error.patch
+# rejecting the unknown values in foomatic-rip
+# https://github.com/OpenPrinting/cups-filters/pull/648
+Patch004: foomaticrip-reject-unknown-values.patch
 
 
 # driverless backend/driver was moved into a separate package to
@@ -68,6 +74,8 @@ BuildRequires: pkgconfig(libcupsfilters) >= 2.0b3
 BuildRequires: pkgconfig(libppd) >= 2.0b3
 # Make sure we get postscriptdriver tags.
 BuildRequires: python3-cups
+# for systemd unit for upgrade
+BuildRequires: systemd-rpm-macros
 
 %if %{with braille}
 Recommends: braille-printer-app
@@ -82,6 +90,7 @@ once part of the core CUPS distribution but is no longer maintained by
 Apple Inc. In addition it contains additional filters developed
 independently of Apple, especially filters for the PDF-centric printing
 workflow introduced by OpenPrinting.
+
 
 %package driverless
 Summary: OpenPrinting driverless backends and drivers for CUPS 2.X
@@ -107,6 +116,7 @@ Recommends: nss-mdns
 # needs cups dirs
 Requires: cups-filesystem
 
+
 %description driverless
 Contains backends and drivers for driverless implementation for cups-filters,
 which makes driverless printers to be seen when listing printers nearby and gives
@@ -114,8 +124,16 @@ a specific generated driver for driverless printer in the local network. They ar
 tools for backward compatibility with applications which don't handle CUPS temporary
 queues.
 
+
 %prep
-%autosetup -S git
+%autosetup -S git -N
+
+%if 0%{?fedora} >= 43 || 0%{?rhel} >=9
+%autopatch
+%else
+%autopatch -M 3
+%endif
+
 
 %build
 # work-around Rpath
@@ -131,12 +149,63 @@ queues.
 
 %make_build
 
+
 %install
 %make_install
 
 # 2229776 - Add textonly driver back, but as lftocrlf
 install -p -m 0755 %{SOURCE2} %{buildroot}%{_cups_serverbin}/filter/lftocrlf
 install -p -m 0644 %{SOURCE1} %{buildroot}%{_datadir}/ppd/cupsfilters/lftocrlf.ppd
+
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+
+cat > %{buildroot}%{_libexecdir}/%{name}/posttrans.sh << EOF
+#!/usr/bin/bash
+
+if \$(grep -q -R 'FoomaticRIPCommandLine\|FoomaticRipOptionSetting' %{_sysconfdir}/cups/ppd)
+then
+  tmpfile=\$(mktemp -p /var/tmp foomatic-scan.XXXXXXXX)
+
+  for ppd in %{_sysconfdir}/cups/ppd/*.ppd
+  do
+    foomatic-hash --ppd \$ppd \$tmpfile %{_sysconfdir}/foomatic/hashes.d/hashes.upgrade || :
+  done
+
+  if test -f %{_sysconfdir}/foomatic/hashes.d/hashes.upgrade
+  then
+    echo "Foomatic-rip values which can inject code found - review findings in \$tmpfile. Read release notes for instructions." || :
+  fi
+else
+  touch %{_sysconfdir}/foomatic/hashes.d/hashes.new
+fi
+
+exit 0
+EOF
+
+mkdir -p %{buildroot}%{_unitdir}
+
+cat > %{buildroot}%{_unitdir}/foomaticrip-upgrade.service << EOF
+[Unit]
+Description=Allowing already installed printers for foomatic-rip
+ConditionPathIsDirectory=%{_sysconfdir}/foomatic/hashes.d
+ConditionDirectoryNotEmpty=!%{_sysconfdir}/foomatic/hashes.d
+
+[Service]
+Type=oneshot
+ExecStart=bash -c %{_libexecdir}/%{name}/posttrans.sh
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+mkdir -p %{buildroot}%{_unitdir}/cups.service.d
+
+cat > %{buildroot}%{_unitdir}/cups.service.d/10-foomaticrip-upgrade.conf << EOF
+[Unit]
+After=foomaticrip-upgrade.service
+Wants=foomaticrip-upgrade.service
+EOF
+
 
 # LSB3.2 requires /usr/bin/foomatic-rip,
 # create it temporarily as a relative symlink
@@ -171,8 +240,19 @@ if [ $1 -gt 1 ]
 then
   rm -f /var/cache/cups/ppds.dat || :
 fi
+%systemd_post foomaticrip-upgrade.service
+
+
+%preun
+%systemd_preun foomaticrip-upgrade.service
+
+
+%postun
+%systemd_postun foomaticrip-upgrade.service
+
 
 %posttrans
+%systemd_posttrans_with_reload foomaticrip-upgrade.service
 if [ $1 -gt 1 ]
 then
   # since we moved to individual filters, we have to restart cups
@@ -182,6 +262,8 @@ then
   then
     systemctl restart cups || :
   fi
+
+  systemctl start foomaticrip-upgrade.service || :
 fi
 
 
@@ -240,9 +322,15 @@ fi
 %{_datadir}/ppdc/escp.h
 %{_datadir}/ppdc/pcl.h
 %endif
+%dir %{_libexecdir}/%{name}
+%attr(0744,root,root) %{_libexecdir}/%{name}/posttrans.sh
 %{_mandir}/man1/foomatic-hash.1.gz
 %{_mandir}/man1/foomatic-rip.1.gz
 %config(noreplace) %{_sysconfdir}/foomatic
+%ghost %{_sysconfdir}/foomatic/hashes.d/hashes.new
+%dir %{_unitdir}/cups.service.d
+%{_unitdir}/cups.service.d/10-foomaticrip-upgrade.conf
+%{_unitdir}/foomaticrip-upgrade.service
 
 %files driverless
 %license COPYING LICENSE NOTICE
@@ -256,6 +344,9 @@ fi
 
 
 %changelog
+* Thu Jul 31 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0.1-9
+- Reject unknown values in foomatic-rip in F43+
+
 * Wed Jul 30 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0.1-8
 - Introduce foomatic-hash, but not rejecting values in foomatic-rip
 

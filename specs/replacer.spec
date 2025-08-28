@@ -26,6 +26,9 @@ BuildRequires:  mvn(org.mockito:mockito-all)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(xerces:xercesImpl)
 
+# TODO Remove in Fedora 47
+Obsoletes:      %{name}-javadoc < 1.6-43
+
 %description
 Maven plugin to replace tokens in a given file with a value.
 
@@ -39,7 +42,7 @@ Summary:       Javadoc for %{name}
 This package contains javadoc for %{name}.
 
 %prep
-%autosetup -p1 -n maven-replacer-plugin-%{version}
+%autosetup -p1 -C
 
 # remove unnecessary dependency on parent POM
 %pom_remove_parent
@@ -59,16 +62,13 @@ This package contains javadoc for %{name}.
 %mvn_alias :%{name} com.google.code.maven-replacer-plugin:maven-replacer-plugin
 
 %build
-%mvn_build -- -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8
+%mvn_build -j -- -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8
 
 %install
 %mvn_install
 
 %files -f .mfiles
 %doc README.md
-%license LICENSE
-
-%files javadoc -f .mfiles-javadoc
 %license LICENSE
 
 %changelog

@@ -5,7 +5,7 @@
 
 Name:           lorax
 Version:        43.10
-Release:        2%{?dist}
+Release:        5%{?dist}
 Summary:        Tool for creating the anaconda install images
 License:        GPL-2.0-or-later
 
@@ -13,6 +13,10 @@ License:        GPL-2.0-or-later
 %forgemeta
 Url:            %{forgeurl}
 Source0:        %{forgesource}
+
+# https://github.com/weldr/lorax/pull/1489
+# Drop install of shim-ia32 as it no longer exists
+Patch:          0001-Drop-all-installs-of-shim-ia32-it-no-longer-exists.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-pip
@@ -140,7 +144,7 @@ Lorax templates for creating the boot.iso and live isos are placed in
 /usr/share/lorax/templates.d/99-generic
 
 %prep
-%forgeautosetup
+%forgeautosetup -p1
 
 %build
 
@@ -184,6 +188,15 @@ make DESTDIR=$RPM_BUILD_ROOT mandir=%{_mandir} install
 %{_datadir}/lorax/templates.d/*
 
 %changelog
+* Tue Aug 26 2025 Adam Williamson <awilliam@redhat.com> - 43.10-5
+- Update PR #1489 patch again (fix lmc lives)
+
+* Tue Aug 26 2025 Adam Williamson <awilliam@redhat.com> - 43.10-4
+- Update PR #1489 patch to a better-working version
+
+* Tue Aug 26 2025 Adam Williamson <awilliam@redhat.com> - 43.10-3
+- Backport PR #1489 to drop install of shim-ia32
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 43.10-2
 - Rebuilt for Python 3.14.0rc2 bytecode
 

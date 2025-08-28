@@ -1,5 +1,5 @@
 Name:           udiskie
-Version:        2.5.3
+Version:        2.5.8
 Release:        %{autorelease}
 Summary:        Removable disk auto-mounter
 

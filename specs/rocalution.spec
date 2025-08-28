@@ -48,7 +48,7 @@
 
 Name:           %{rocalution_name}
 Version:        %{rocm_version}
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Next generation library for iterative sparse solvers for ROCm platform
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
@@ -165,9 +165,7 @@ sed -i -e 's@set(CMAKE_CXX_STANDARD 14)@set(CMAKE_CXX_STANDARD 17)@' clients/CMa
 %install
 %cmake_install
 
-if [ -f %{buildroot}%{_prefix}/share/doc/rocalution/LICENSE.md ]; then
-    rm %{buildroot}%{_prefix}/share/doc/rocalution/LICENSE.md
-fi
+rm -f %{buildroot}%{_prefix}/share/doc/rocalution/LICENSE.md
 
 %files
 %license LICENSE.md
@@ -189,6 +187,9 @@ fi
 %endif
 
 %changelog
+* Mon Aug 25 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.1-8
+- Simplify removal of files
+
 * Thu Aug 14 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.1-7
 - Build -with test on SUSE
 

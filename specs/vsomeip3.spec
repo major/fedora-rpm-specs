@@ -1,5 +1,7 @@
+%global _lto_cflags %{nil}
+
 Name:    vsomeip3
-Version: 3.5.6
+Version: 3.5.7
 Release: 1%{?dist}
 Summary: COVESA implementation of SOME/IP protocol
 
@@ -14,16 +16,10 @@ Source5: vsomeip.fc
 Source6: vsomeip.if
 Source7: vsomeip.te
 
-# Use -fPIC, not -fPIE see https://github.com/COVESA/vsomeip/issues/873
-Patch0: vsomeip-compiler-flags.patch
-# Install libs, etc into /usr
-Patch1: vsomeip-install-dirs.patch
 # Build/Install tools and examples
-Patch2: vsomeip-build-extra.patch
-# Fix items gcc-14 finds
-Patch3: vsomeip-fix-gcc_errors.patch
-# Fix items with /usr/lib/cmake
-Patch4: vsomeip-fix-cmake_libdir.patch
+Patch1: 01-vsomeip-build-extra.patch
+# Do various conversions of /usr/lib -> /usr/lib64
+Patch2: 02-vsomeip-fix-cmake_libdir.patch
 
 BuildRequires: boost-devel
 BuildRequires: cmake
@@ -121,12 +117,14 @@ EOF
 
 %build
 %cmake \
-       -DENABLE_SIGNAL_HANDLING=OFF  \
-       -DENABLE_CONFIGURATION_OVERLAYS=ON \
-       -DENABLE_COMPAT=ON \
-       -DVSOMEIP_INSTALL_ROUTINGMANAGERD=ON \
-       -DBASE_PATH=/run/vsomeip \
-       --trace-expand --log-level=TRACE
+    -DENABLE_SIGNAL_HANDLING=OFF  \
+    -DENABLE_CONFIGURATION_OVERLAYS=ON \
+    -DENABLE_COMPAT=ON \
+    -DVSOMEIP_INSTALL_ROUTINGMANAGERD=ON \
+    -DBASE_PATH=/run/vsomeip \
+    -Wno-dev
+#    -Wno-dev \
+#    --trace-expand --log-level=TRACE
 %cmake_build --target all --target vsomeip_ctrl --target examples --target hello_world_client --target hello_world_service
 
 (cd vsomeip-selinux &&

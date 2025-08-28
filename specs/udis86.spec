@@ -2,7 +2,7 @@
 
 Name:           udis86
 Version:        1.7.2
-Release:        27.%{gitrev}%{?dist}
+Release:        28.%{gitrev}%{?dist}
 Summary:        A disassembler library for x86 and x86-64
 
 License:        BSD-2-Clause
@@ -16,7 +16,7 @@ Patch3:         udis86-docs_manual_Makefile.am.patch
 BuildRequires:  make
 BuildRequires:  libtool
 BuildRequires:  python
-BuildRequires:  yasm
+BuildRequires:  nasm
 BuildRequires:  python3-sphinx
 
 %description
@@ -46,7 +46,7 @@ find '(' -name '*.c' -or -name '*.h' ')' -exec chmod 644 {} \;
            --enable-shared \
            --disable-silent-rules \
            --with-python=%{_bindir}/python3 \
-           --with-yasm=%{_bindir}/yasm \
+           --with-yasm=%{_bindir}/nasm \
            --with-sphinx-build=%{_bindir}/sphinx-build-3
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
@@ -75,6 +75,9 @@ rm -rf %{buildroot}%{_docdir}
 
 
 %changelog
+* Tue Aug 26 2025 David Cantrell <dcantrell@redhat.com> - 1.7.2-28.56ff6c8
+- Drop yasm build requirement and replace with nasm (#2390545)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.2-27.56ff6c8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

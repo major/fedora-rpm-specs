@@ -12,6 +12,10 @@ Source:         %{url}/archive/v%{version}/aiohappyeyeballs-%{version}.tar.gz
 # Downstream-only: remove pytest options for coverage analysis
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 Patch:          0001-Downstream-only-remove-pytest-options-for-coverage-a.patch
+# chore(deps-dev): bump pytest-asyncio from 0.26.0 to 1.1.0
+# https://github.com/aio-libs/aiohappyeyeballs/pull/181
+# Cherry-picked to v2.6.1, without changes to poetry.lock.
+Patch:          0001-chore-deps-dev-bump-pytest-asyncio-from-0.26.0-to-1..patch
 
 BuildSystem:            pyproject
 BuildOption(install):   -L aiohappyeyeballs

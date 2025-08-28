@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 43.36
+Version: 43.37
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -513,6 +513,15 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Aug 25 2025 Packit <hello@packit.dev> - 43.37-1
+- Log correct boot option for iSCSI boot without iBFT (jstodola)
+- Get full nevra string from dnf instead of composing it (pkratoch)
+- Add release notes for RDP kickstart support (adamkankovsky)
+- test: Enable kickstart RDP command in Anaconda (adamkankovsky)
+- Enable kickstart RDP command in Anaconda (adamkankovsky)
+- storage: devicetree: read VERSION or VERSION_CODENAME for identifying OS from
+  os-release (k.koukiou)
+
 * Tue Aug 19 2025 Packit <hello@packit.dev> - 43.36-1
 - packit: drive jobs from supported_releases per branch; dedupe and group
   targets (k.koukiou)

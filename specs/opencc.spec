@@ -1,6 +1,6 @@
 Name:       opencc
 Version:    1.1.9
-Release:    4%{?dist}
+Release:    5%{?dist}
 Summary:    Libraries for Simplified-Traditional Chinese Conversion
 License:    Apache-2.0
 URL:        https://github.com/BYVoid/OpenCC
@@ -82,6 +82,10 @@ developing applications that use %{name}.
 %{_libdir}/cmake/opencc/OpenCC*.cmake
 
 %changelog
+* Thu Aug 21 2025 Peng Wu  <pwu@redhat.com> - 1.1.9-5
+- Update CI tests
+- Resolves: RHBZ#2382996
+
 * Tue Aug 12 2025 Peng Wu  <pwu@redhat.com> - 1.1.9-4
 - Update for https://fedoraproject.org/wiki/Changes/CMake_drop_install_vars
 - Resolves: RHBZ#2381327

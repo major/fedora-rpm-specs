@@ -68,8 +68,8 @@ BuildRequires:  mvn(org.junit.jupiter:junit-jupiter-api)
 BuildRequires:  mvn(se.jiderhamn:classloader-leak-test-framework)
 
 %if %runselftest
-BuildRequires:  postgresql17-contrib
-BuildRequires:  postgresql17-test-rpm-macros
+BuildRequires:  postgresql-contrib
+BuildRequires:  postgresql-test-rpm-macros
 %endif
 
 # TODO Remove in Fedora 46

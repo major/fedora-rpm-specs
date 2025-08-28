@@ -30,7 +30,46 @@ Version:        4.19.4
 Release:        %autorelease
 Summary:        GTK graphical user interface library
 
-License:        LGPL-2.0-or-later
+# Most files are either LGPL-2.0-or-later or LGPL-2.1-or-later.
+# gtk/roaring/ and gtk/timsort/ are Apache-2.0
+# .editorconfig is CC0-1.0
+# po/kg.po is LGPL-2.0-or-later
+# po/po2tbl.sed.in is GPL-2.0-or-later
+# tests/testscrolledge.c is GPL-3.0-or-later
+# gdk/macos/gdkmacoskeymap.c and testsuite/gsk/shader.c are (LGPL-2.1-or-later AND MIT)
+# .gitlab-ci/pages/fonts.css is LGPL-2.1-or-later AND OFL-1.0-RFN but omitted here because it's not part of the binary RPM
+# gdk/x11/gdkxftdefaults.c LGPL-2.1-or-later AND HPND-sell-variant
+# gdk/x11/gdkasync.c is LGPL-2.1-or-later AND MIT-open-group
+# gdk/win32/winpointer.h is LGPL-2.0-or-later AND ZPL-2.1
+# The following files are HPND-sell-variant:
+#  gdk/x11/xsettings-client.c
+#  gdk/x11/xsettings-client.h
+#  gtk/gtk-text-input.xml
+#  gtk/text-input-unstable-v3.xml
+# The following files are MIT:
+#  demos/gtk-demo/css_multiplebgs.css
+#  demos/gtk-demo/gtkgears.c
+#  gdk/win32/gdkkeys-win32-impl-wow64.c
+#  gdk/win32/gdkkeys-win32-impl.c
+#  gdk/win32/gdkkeys-win32.h
+#  gtk/inspector/css-editor.c
+#  gtk/inspector/css-editor.h
+#  gtk/inspector/css-node-tree.h
+#  gtk/inspector/init.c
+#  gtk/inspector/inspect-button.c
+#  gtk/inspector/logs.c
+#  gtk/inspector/logs.h
+#  gtk/inspector/object-tree.c
+#  gtk/inspector/object-tree.h
+#  gtk/inspector/prop-list.c
+#  gtk/inspector/prop-list.h
+#  gtk/inspector/window.c
+#  gtk/inspector/window.h
+#  tests/gtkgears.c
+# testsuite/gsk/fonts/Cantarell-VF.otf is OFL-1.1-no-RFN
+#
+# The license was last checked for GTK 4.19.3.
+License:        LGPL-2.0-or-later AND LGPL-2.1-or-later AND Apache-2.0 AND CC0-1.0 AND MIT AND MIT-open-group AND HPND-sell-variant AND GPL-2.0-or-later AND GPL-3.0-or-later AND OFL-1.1-no-RFN
 URL:            https://www.gtk.org
 Source0:        https://download.gnome.org/sources/gtk/4.19/gtk-%{version}.tar.xz
 

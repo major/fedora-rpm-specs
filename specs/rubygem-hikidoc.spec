@@ -3,16 +3,18 @@
 
 Name:		rubygem-%{gem_name}
 Version:	0.1.0
-Release:	23%{?dist}
+Release:	24%{?dist}
 
 Summary:	Text-to-HTML conversion tool for web writers
-License:	MIT
+License:	BSD-3-Clause
 URL:		https://github.com/hiki/hikidoc
 Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
+# https://github.com/hiki/hikidoc/pull/13
+Patch0:	hikidoc-pr13-suppress-literal-string-warning.patch
 
 BuildRequires:	ruby(release)
 BuildRequires:	rubygems-devel
-BuildRequires:	rubygem(minitest)
+BuildRequires:	rubygem(test-unit)
 Requires:	ruby(release)
 Requires:	ruby(rubygems)
 BuildArch:	noarch
@@ -33,9 +35,10 @@ BuildArch:	noarch
 Documentation for %{name}
 
 %prep
-gem unpack %{SOURCE0}
-%setup -q -D -T -n  %{gem_name}-%{version}
-gem spec %{SOURCE0} -l --ruby > %{gem_name}.gemspec
+%setup -q -n %{gem_name}-%{version}
+%patch -P0 -p1
+
+mv ../%{gem_name}-%{version}.gemspec .
 
 # Encoding
 for f in  \
@@ -49,7 +52,7 @@ do
 done
 
 %build
-gem build %{gem_name}.gemspec
+gem build %{gem_name}-%{version}.gemspec
 %gem_install
 
 %install
@@ -64,27 +67,20 @@ cp -pa .%{_bindir}/* \
 find %{buildroot}%{gem_instdir}/bin -type f | xargs chmod a+x
 
 # Cleanup
+rm -f %{buildroot}%{gem_cache}
 pushd %{buildroot}%{gem_instdir}
 rm -rf \
-	.gitignore Gemfile Rakefile \
+	.gitignore \
+	.travis.yml \
+	Gemfile \
+	Rakefile \
 	%{gem_name}.gemspec \
 	setup.rb \
-	.travis.yml \
 	test/
 popd
 
 %check
 pushd .%{gem_instdir}
-
-%if 0%{?fedora} >= 21
-sed -i.minitest \
-	-e 's|Test::Unit::TestCase|Minitest::Test|' \
-	test/*.rb
-cat > test/unit.rb << EOF
-gem "minitest"
-require "minitest/unit"
-EOF
-%endif
 
 for f in test/*_test.rb
 do
@@ -94,19 +90,25 @@ popd
 
 %files
 %dir	%{gem_instdir}
-%doc	%{gem_instdir}/[A-Z]*
+%license	%{gem_instdir}/COPYING
+%doc	%{gem_instdir}/[N-Z]*
 
 %{_bindir}/hikidoc
 %{gem_instdir}/bin
 
 %{gem_libdir}/
-%exclude %{gem_cache}
 %{gem_spec}
 
 %files doc
 %doc	%{gem_docdir}/
 
 %changelog
+* Tue Aug 26 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.1.0-24
+- Use recent gem packaging style
+- Modify License tag
+- Use test-unit for testsuite
+- Upstream PR to suppress warnings for literal string
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

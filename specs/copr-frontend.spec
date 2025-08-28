@@ -4,7 +4,7 @@
 # https://fedoraproject.org/wiki/Packaging:Guidelines#Packaging_of_Additional_RPM_Macros
 %global macrosdir       %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 
-%global copr_common_version 0.24.1~~dev0
+%global copr_common_version 1.1.2
 
 # Please bump the %%flavor_guard version every-time some incompatible change
 # happens (since the last release) in %%flavor_files set of files.  Those files
@@ -47,8 +47,8 @@
 }
 
 Name:       copr-frontend
-Version:    2.2
-Release:    2%{?dist}
+Version:    2.3
+Release:    1%{?dist}
 Summary:    Frontend for Copr
 
 License:    GPL-2.0-or-later
@@ -85,7 +85,6 @@ BuildRequires: python3dist(decorator)
 BuildRequires: python3dist(flask)
 BuildRequires: python3dist(templated-dictionary)
 BuildRequires: python3dist(flask-caching)
-BuildRequires: python3dist(flask-openid)
 BuildRequires: python3dist(flask-sqlalchemy)
 BuildRequires: python3dist(flask-session)
 BuildRequires: python3dist(flask-whooshee)
@@ -100,7 +99,6 @@ BuildRequires: python3dist(markdown)
 BuildRequires: python3dist(markupsafe)
 BuildRequires: python3dist(munch)
 BuildRequires: python3dist(netaddr)
-BuildRequires: python3dist(python-openid-teams)
 BuildRequires: python3dist(pygments)
 BuildRequires: python3dist(pylibravatar)
 BuildRequires: python3dist(pytest)
@@ -142,7 +140,6 @@ Requires: python3dist(python-dateutil)
 Requires: python3dist(email-validator)
 Requires: python3dist(flask)
 Requires: python3dist(flask-caching)
-Requires: python3dist(flask-openid)
 Requires: python3dist(flask-sqlalchemy)
 Requires: python3dist(flask-session)
 Requires: python3dist(flask-whooshee)
@@ -158,7 +155,6 @@ Requires: python3dist(markupsafe)
 Requires: python3dist(mod-wsgi)
 Requires: python3dist(munch)
 Requires: python3dist(netaddr)
-Requires: python3dist(python-openid-teams)
 Requires: python3dist(psycopg2)
 Requires: python3dist(pygments)
 Requires: python3dist(pylibravatar)
@@ -379,8 +375,28 @@ install -m0644 -D conf/copr-frontend.sysusers.conf %{buildroot}%{_sysusersdir}/c
 
 
 %changelog
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+* Tue Aug 26 2025 Jakub Kadlcik <frostyx@email.cz> 2.3-1
+- Specify reason for running createrepo
+- Implement support for Pulp manual createrepo
+- Show coprdirs in the builds table
+- Implement Pulp forking
+- Redirect to the current URL after OIDC login
+- Drop support for OID auth
+- Add symlink to alma family logo from almalinux
+- Fix AI button visibility
+- After edit, redirect to the package
+- Disable network when crearing a new fedora review project
+- Hide excessive CoprDirs under a details tag
+- Fix local builds in Pulp projects
+- Add AlmaLinux logo
+- Update centos logo
+- Fix one pagure-events' traceback
+- Use the new BeautifulSoup find_all() method
+- Drop the duplicit session.commit() call
+- Fix SAWarnings about autoflush
+- pagure-events fail for "dots" in copr.name
+- Treat malformed task_id in backend_general
+- Log the user who removes a project
 
 * Tue Mar 25 2025 Pavel Raiskup <praiskup@redhat.com> 2.2-1
 - fix FTBFS when using python below 3.12

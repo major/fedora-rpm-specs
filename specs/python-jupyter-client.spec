@@ -7,8 +7,7 @@ Version:        8.6.1
 Release:        %autorelease
 Summary:        Jupyter protocol implementation and client libraries
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-3-Clause
 URL:            https://jupyter.org
 Source0:        %{pypi_source jupyter_client}
 
@@ -56,6 +55,9 @@ for use with Jupyter frontends.
 %autosetup -p1 -n jupyter_client-%{version}
 # Drop dependencies on coverage, linters etc.
 sed -Ei '/"\b(codecov|coverage|mypy|pre-commit|pytest-cov)\b",/d' pyproject.toml
+# Increase test timeout -- Koji builds can be slower
+# Fixes https://bugzilla.redhat.com/2389378
+sed -i 's/TIMEOUT = 30/TIMEOUT = 300/' tests/test_client.py
 
 
 %generate_buildrequires

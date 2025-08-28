@@ -2,19 +2,28 @@
 %global gem_name ethon
 
 Name: rubygem-%{gem_name}
-Version: 0.15.0
-Release: 10%{?dist}
+Version: 0.17.0
+Release: 1%{?dist}
 Summary: Libcurl wrapper
 License: MIT
 URL: https://github.com/typhoeus/ethon
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
+# git clone https://github.com/typhoeus/ethon.git && cd ethon
+# git archive -v -o ethon-0.17.0-spec.tar.gz v0.17.0 spec/
+Source1: %{gem_name}-%{version}-spec.tar.gz
+# This prevents test errors in Typhoeus:
+# https://github.com/typhoeus/typhoeus/issues/710
+# https://github.com/felipedmesquita/ethon/pull/13
+Patch0: rubygem-ethon-0.17.0-fix-on-headers-regression.patch
+Patch1: rubygem-ethon-0.17.0-fix-on-headers-regression-test.patch
 BuildRequires: ruby(release)
-BuildRequires: rubygems-devel >= 1.3.6
+BuildRequires: rubygems-devel
 BuildRequires: ruby
 BuildRequires: rubygem(ffi) => 1.3.0
 # https://github.com/typhoeus/ethon/blob/453c6f0ba37a7d42978c90f2399f5c2cd66b32a6/spec/ethon/easy/queryable_spec.rb#L164
 BuildRequires: rubygem(mime-types) => 1.18
 BuildRequires: rubygem(rack)
+BuildRequires: rubygem(rackup)
 BuildRequires: rubygem(rspec)
 BuildRequires: rubygem(sinatra)
 BuildRequires: rubygem(webrick)
@@ -33,7 +42,13 @@ BuildArch: noarch
 Documentation for %{name}.
 
 %prep
-%setup -q -n %{gem_name}-%{version}
+%setup -q -n %{gem_name}-%{version} -b 1
+
+%patch 0 -p1
+
+( cd %{builddir}
+%patch 1 -p1
+)
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -48,21 +63,23 @@ mkdir -p %{buildroot}%{gem_dir}
 cp -a .%{gem_dir}/* \
         %{buildroot}%{gem_dir}/
 
-sed -i "/#!\/usr\/bin\/env/d" %{buildroot}/%{gem_instdir}/spec/support/server.rb
 
 %check
-pushd .%{gem_instdir}
+( cd .%{gem_instdir}
+ln -s %{builddir}/spec spec
+
 # Don't use Bundler.
 sed -i -e "/require 'bundler'/ s/^/#/" \
        -e "/Bundler.setup/ s/^/#/" \
        spec/spec_helper.rb
 
-rspec spec
-popd
+# `rackup` is preloaded by Bundler in upstream test suite. Load it explicitly
+# here.
+rspec -r rackup spec
+)
 
 %files
 %dir %{gem_instdir}
-%exclude %{gem_instdir}/.*
 %license %{gem_instdir}/LICENSE
 %{gem_libdir}
 %exclude %{gem_cache}
@@ -71,15 +88,15 @@ popd
 %files doc
 %doc %{gem_docdir}
 %doc %{gem_instdir}/CHANGELOG.md
-%{gem_instdir}/Gemfile
-%{gem_instdir}/Guardfile
 %doc %{gem_instdir}/README.md
-%{gem_instdir}/Rakefile
 %{gem_instdir}/ethon.gemspec
-%{gem_instdir}/profile
-%{gem_instdir}/spec
 
 %changelog
+* Thu Aug 21 2025 Vít Ondruch <vondruch@redhat.com> - 0.17.0-1
+- Update to Ethon 0.17.0.
+  Resolves: rhbz#2140240
+  Resolves: rhbz#2385585
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

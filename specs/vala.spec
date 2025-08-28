@@ -30,6 +30,7 @@ Requires: libvala%{?_isa} = %{version}-%{release}
 Requires: gobject-introspection-devel
 
 Provides: vala(api) = %{api_ver}
+Provides: valac = %{version}-%{release}
 
 %description
 Vala is a new programming language that aims to bring modern programming

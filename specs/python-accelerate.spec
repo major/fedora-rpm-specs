@@ -1,5 +1,5 @@
 Name:           python-accelerate
-Version:        1.10.0
+Version:        1.10.1
 Release:        %autorelease
 Summary:        Accelerate PyTorch with distributed training and inference
 
@@ -8,6 +8,8 @@ URL:            https://github.com/huggingface/accelerate
 Source:         %{pypi_source accelerate}
 
 BuildArch:      noarch
+# accelerate depends on PyTorch, which is x86_64/arm64 only
+ExclusiveArch:  %{x86_64} %{arm64} noarch
 BuildRequires:  python3-devel
 # For passing the import test
 # For passing the test suites
@@ -16,6 +18,9 @@ BuildRequires:  python3dist(pytest)
 #BuildRequires:  python3dist(pytest-order) # Not packaged
 BuildRequires:  python3dist(pytest-subtests)
 BuildRequires:  python3dist(pytest-xdist)
+# Upstream has an undeclared dep on the torch extra
+BuildRequires:  python3dist(safetensors[torch])
+Requires:       python3dist(safetensors[torch])
 
 %global _description %{expand:
 Accelerate is a library that enables the same PyTorch code to be run across any

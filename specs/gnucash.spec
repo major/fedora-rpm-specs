@@ -6,7 +6,7 @@ Name: gnucash
 Summary: Finance management application
 Version: 5.12
 URL: https://gnucash.org/
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPL-2.0-or-later
 Source: https://downloads.sourceforge.net/sourceforge/gnucash/gnucash-%{version}.tar.bz2
 
@@ -71,11 +71,7 @@ balanced books.
 
 %build
 # thanks gcc8
-%if 0%{?rhel} >= 9
 %global optflags %{optflags} -Wno-parentheses -Wno-error
-%else
-%global optflags %{optflags} -Wno-parentheses
-%endif
 sed -i s/3.8/%{python3_version}/g CMakeLists.txt
 %cmake -D WITH_PYTHON=ON -D COMPILE_GSCHEMAS=OFF
 %cmake_build
@@ -124,6 +120,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/gnucas
 %config(noreplace) %{_sysconfdir}/gnucash/*
 
 %changelog
+* Tue Aug 26 2025 Gwyn Ciesla <gwync@protonmail.com> - 5.12-5
+- Fix FTBFS
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 5.12-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

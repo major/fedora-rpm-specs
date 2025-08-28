@@ -1,6 +1,6 @@
 Name:		  lxcfs
-Version:	  6.0.4
-Release:	  2%{?dist}
+Version:	  6.0.5
+Release:	  1%{?dist}
 Summary:	  FUSE based filesystem for LXC
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:	  Apache-2.0
@@ -76,6 +76,9 @@ mkdir -p %{buildroot}%{_sharedstatedir}/%{name}
 
 
 %changelog
+* Tue Aug 26 2025 Thomas Moschny <thomas.moschny@gmx.de> - 6.0.5-1
+- Update to 6.0.5.
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

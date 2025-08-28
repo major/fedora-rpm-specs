@@ -7,7 +7,7 @@
 Name:           python-domdf-python-tools
 Version:        3.9.0
 %forgemeta
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Helpful functions for Python
 
 # Primary license: MIT
@@ -30,6 +30,9 @@ License:        MIT AND PSF-2.0 AND BSD-2-Clause
 URL:            %{forgeurl}
 Source:         %{forgesource}
 Patch:          Don-t-remove-egg-info-directory-in-setup.py.patch
+# https://github.com/domdfcoding/domdf_python_tools/pull/137
+Patch:          0001-tests-fix-pathlib.PurePosixPath-repr-on-py3.14.patch
+Patch:          0002-words-fix-alphabet_sort-exception-handling-for-py3.1.patch
 
 BuildArch:      noarch
 
@@ -58,7 +61,11 @@ Summary:        %{summary}
 %prep
 %autosetup -p1 %{forgesetupargs}
 # pytest-timeout is not needed to run tests in the RPM build environment
-sed -i '/^timeout =/d' tox.ini
+# Also disable filterwarnings=error
+sed -i \
+    -e '/^timeout =/d' \
+    -e '/    error/d' \
+tox.ini
 # Remove unnecessary shebangs
 find domdf_python_tools/ -type f ! -executable -name '*.py' -print \
     -exec sed -i -e '1{\@^#!.*@d}' '{}' +
@@ -100,6 +107,9 @@ and not test_repr_deep
 
 
 %changelog
+* Tue Aug 26 2025 Maxwell G <maxwell@gtmx.me> - 3.9.0-7
+- Fix Python 3.14 test failures (rhbz#2345519)
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.9.0-6
 - Rebuilt for Python 3.14.0rc2 bytecode
 

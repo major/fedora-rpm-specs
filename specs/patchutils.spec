@@ -1,7 +1,7 @@
 Summary: A collection of programs for manipulating patch files
 Name: patchutils
-Version: 0.4.2
-Release: 16%{?dist}
+Version: 0.4.3
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL: http://cyberelk.net/tim/patchutils/
 Source0: http://cyberelk.net/tim/data/patchutils/stable/%{name}-%{version}.tar.xz
@@ -37,12 +37,16 @@ make check
 
 %files
 %{!?_licensedir:%global license %doc}
-%doc AUTHORS ChangeLog README BUGS NEWS
+%doc AUTHORS ChangeLog README.md BUGS NEWS
 %license COPYING
 %{_bindir}/*
+%{_datadir}/bash-completion/completions/*
 %{_mandir}/*/*
 
 %changelog
+* Tue Aug 26 2025 Tim Waugh <twaugh@redhat.com>
+- 0.4.3.
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

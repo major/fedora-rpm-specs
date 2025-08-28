@@ -3,7 +3,7 @@
 Name:           cheese
 Epoch:          2
 Version:        44.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Application for taking pictures and movies from a webcam
 
 License:        GPL-2.0-or-later
@@ -15,6 +15,9 @@ Patch0: cheese-c99.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2315884
 # Fix crash on startup due to invalid JSON
 Patch1: 73.patch
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc
 BuildRequires:  meson
@@ -120,6 +123,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Cheese.desk
 
 
 %changelog
+* Mon Aug 11 2025 Jerry James <loganjerry@gmail.com> - 2:44.1-11
+- Stop building for 32-bit x86
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:44.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
