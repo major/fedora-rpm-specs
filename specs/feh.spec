@@ -1,6 +1,6 @@
 Name:           feh
-Version:        3.10.3
-Release:        3%{?dist}
+Version:        3.11
+Release:        1%{?dist}
 Summary:        Fast command line image viewer using Imlib2
 License:        MIT
 URL:            https://feh.finalrewind.org
@@ -62,6 +62,9 @@ make test
 %{_datarootdir}/icons/hicolor/scalable/apps/feh.svg
 
 %changelog
+* Wed Aug 27 2025 Ben Boeckel <fedora@me.benboeckel.net> - 3.11-1
+- Update to 3.11
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

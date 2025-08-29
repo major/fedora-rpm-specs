@@ -13,10 +13,12 @@ Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
 BuildArch:	noarch
 
 BuildRequires:	make
-BuildRequires:	python3-setuptools
 BuildRequires:	python3-devel
+%if 0%{?rhel} && 0%{?rhel} < 11
+BuildRequires:	python3-setuptools
 BuildRequires:  python3-pip
 BuildRequires:  python3-wheel
+%endif
 BuildRequires:  python3-pytest
 %if 0%{?sphinx_docs}
 BuildRequires:	python3-dbus
@@ -83,6 +85,11 @@ This package provides configuration files for boom.
 %prep
 %autosetup -p1 -n %{name}-%{version}
 
+%if 0%{?fedora} || 0%{?rhel} >= 11
+%generate_buildrequires
+%pyproject_buildrequires
+%endif
+
 %build
 %if 0%{?sphinx_docs}
 make %{?_smp_mflags} -C doc html
@@ -91,14 +98,14 @@ mv doc/_build/html doc/html
 rm -r doc/_build
 %endif
 
-%if 0%{?centos} || 0%{?rhel}
+%if 0%{?rhel} && 0%{?rhel} < 11
 %py3_build
 %else
 %pyproject_wheel
 %endif
 
 %install
-%if 0%{?centos} || 0%{?rhel}
+%if 0%{?rhel} && 0%{?rhel} < 11
 %py3_install
 %else
 %pyproject_install
@@ -133,7 +140,7 @@ pytest-3 --log-level=debug -v
 %license COPYING
 %doc README.md
 %{python3_sitelib}/boom/*
-%if 0%{?centos} || 0%{?rhel}
+%if 0%{?rhel} && 0%{?rhel} < 11
 %{python3_sitelib}/boom*.egg-info/
 %else
 %{python3_sitelib}/boom*.dist-info/

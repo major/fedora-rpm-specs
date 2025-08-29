@@ -2,10 +2,11 @@
 %global apacheconfdir /etc/httpd
 %global svnrev 632
 %global revdate 20140318
+%global ver 0.1.7
 
 Name:           yawn
 Version:        0
-Release:        0.53.%{revdate}svn%{svnrev}%{?dist}
+Release:        0.54.%{revdate}svn%{svnrev}%{?dist}
 Summary:        Yet Another WBEM Navigator
 
 
@@ -21,7 +22,7 @@ Patch0: fix-shebang-lines.patch
 Patch1: python-3-support.patch
 Patch2: fix-requires.patch
 
-BuildRequires:  httpd, python3-devel, python3-setuptools
+BuildRequires:  httpd, python3-devel
 Requires:       python3-mod_wsgi, python3-pywbem, httpd, python3-werkzeug, python3-mako
 BuildArch:      noarch
 
@@ -39,11 +40,14 @@ Script to run yawn without Apache web server.
 %setup -q -n %{name}-%{revdate}
 %autopatch -p1
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%{__python3} setup.py build
+%pyproject_wheel
 
 %install
-%{__python3} setup.py install --skip-build --root ${RPM_BUILD_ROOT}
+%pyproject_install
 mkdir -p $RPM_BUILD_ROOT%{htmldir}
 install ./scripts/yawn.wsgi $RPM_BUILD_ROOT%{htmldir}/index.wsgi
 install -d $RPM_BUILD_ROOT%{apacheconfdir}/conf.d/
@@ -54,7 +58,8 @@ install -m 0644 ./apache/yawn.conf ${RPM_BUILD_ROOT}/%{apacheconfdir}/conf.d/yaw
 
 %files
 %{htmldir}
-%{python3_sitelib}/*
+%{python3_sitelib}/pywbem_yawn/
+%{python3_sitelib}/yawn-%{ver}.dist-info/
 %config(noreplace) %{apacheconfdir}/conf.d/yawn.conf
 %doc README Changelog
 
@@ -62,6 +67,10 @@ install -m 0644 ./apache/yawn.conf ${RPM_BUILD_ROOT}/%{apacheconfdir}/conf.d/yaw
 %{_bindir}/yawn.py
 
 %changelog
+* Wed Aug 27 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 0-0.54.20140318svn632
+- Stop using deprecated python setup.py build/install command in the spec
+  Resolves: #2378639
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0-0.53.20140318svn632
 - Rebuilt for Python 3.14.0rc2 bytecode
 

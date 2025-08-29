@@ -1,3 +1,25 @@
+#
+# Copyright Fedora Project Authors.
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to
+# deal in the Software without restriction, including without limitation the
+# rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+# sell copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+# THE SOFTWARE.
+#
+
 %if 0%{?suse_version}
 # 15.6
 # rocm-runtime.x86_64: E: shlib-policy-name-error (Badness: 10000) libhsa-runtime64-1
@@ -29,7 +51,7 @@
 
 Name:       %{runtime_name}
 Version:    %{rocm_version}
-Release:    4%{?dist}
+Release:    5%{?dist}
 Summary:    ROCm Runtime Library
 
 License:    NCSA
@@ -168,6 +190,9 @@ rm -f %{buildroot}%{_libdir}/pkgconfig/libhsakmt.pc
 %endif
 
 %changelog
+* Wed Aug 25 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-5
+- Add Fedora copyright
+
 * Mon Aug 25 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-4
 - Simiplify file removal
 

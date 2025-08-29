@@ -57,10 +57,13 @@ support technicians and developers.
 %if 0%{?fedora} >= 39 || 0%{?rhel} >= 11
 %pyproject_install
 %pyproject_save_files sos
-# files-duplicate: duplicate man pages detected
-%fdupes %{buildroot}%{_mandir}
 %else
 %py3_install '--install-scripts=%{_sbindir}'
+%endif
+
+%if 0%{?fedora}
+# files-duplicate: duplicate man pages detected
+%fdupes %{buildroot}%{_mandir}
 %endif
 
 install -d -m 755 %{buildroot}%{_sysconfdir}/%{name}

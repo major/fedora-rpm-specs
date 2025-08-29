@@ -5,7 +5,7 @@
 %global crate tinyvec
 
 Name:           rust-tinyvec
-Version:        1.9.0
+Version:        1.10.0
 Release:        %autorelease
 Summary:        100% safe vec-like data structures
 

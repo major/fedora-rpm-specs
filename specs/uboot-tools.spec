@@ -10,7 +10,7 @@
 
 Name:     uboot-tools
 Version:  2025.10
-Release:  0.3%{?candidate:.%{candidate}}%{?dist}
+Release:  0.4%{?candidate:.%{candidate}}%{?dist}
 Epoch:    1
 Summary:  U-Boot utilities
 # Automatically converted from old format: GPLv2+ BSD LGPL-2.1+ LGPL-2.0+ - review is highly recommended.
@@ -43,6 +43,8 @@ Patch11:  rockchip-Enable-preboot-start-for-pci-usb.patch
 Patch13:  Initial-MNT-Reform2-support.patch
 # Fix Jetson Nano
 Patch14:  p3450-fix-board.patch
+# Fix AllWinner
+Patch15:  Allwinner-fix-booting-on-a-number-of-devices.patch
 
 
 BuildRequires:  bc
@@ -270,6 +272,9 @@ install -p -m 0755 builds/tools/env/fw_printenv %{buildroot}%{_bindir}
 %endif
 
 %changelog
+* Wed Aug 27 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2025.10-0.4.rc3
+- Fix booting on some Allwinner devices
+
 * Mon Aug 25 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2025.10-0.3.rc3
 - Update to 2025.10 RC3
 

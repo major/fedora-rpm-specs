@@ -1,8 +1,8 @@
 #region globals
 #region version
-%global maj_ver 21
+%global maj_ver 20
 %global min_ver 1
-%global patch_ver 0
+%global patch_ver 8
 #global rc_ver rc3
 
 %bcond_with snapshot_build
@@ -21,7 +21,7 @@
 
 # Build compat packages llvmN instead of main package for the current LLVM
 # version. Used on Fedora.
-%bcond_with compat_build
+%bcond_without compat_build
 # Bundle compat libraries for a previous LLVM version, as part of llvm-libs and
 # clang-libs. Used on RHEL.
 %bcond_with bundle_compat_lib

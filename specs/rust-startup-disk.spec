@@ -12,6 +12,9 @@ Summary:        Interface to choose the startup volume on Apple Silicon systems
 License:        MIT
 URL:            https://crates.io/crates/startup-disk
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * bump glib-build-tools dependency to 0.20 to match libadwaita dependency
+Patch:          startup-disk-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  make

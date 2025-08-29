@@ -11,6 +11,9 @@ Source1:	https://github.com/quodlibet/quodlibet/releases/download/release-%{vers
 Source2:	https://keys.openpgp.org/vks/v1/by-fingerprint/E0AA0F031DBD80FFBA57B06D5A62D0CAB6264964
 Source3:	README.fedora
 
+# https://github.com/quodlibet/quodlibet/pull/4741
+Patch:		https://github.com/quodlibet/quodlibet/commit/93d2de93663245bd3b2aadc2ea6085991cd7da35.patch
+
 BuildArch:	noarch
 
 BuildRequires:	gettext

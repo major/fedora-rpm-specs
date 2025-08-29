@@ -5,7 +5,7 @@
 %global crate bytemuck
 
 Name:           rust-bytemuck
-Version:        1.23.1
+Version:        1.23.2
 Release:        %autorelease
 Summary:        Muck around with piles of bytes
 

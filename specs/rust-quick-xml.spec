@@ -5,7 +5,7 @@
 %global crate quick-xml
 
 Name:           rust-quick-xml
-Version:        0.38.1
+Version:        0.38.3
 Release:        %autorelease
 Summary:        High performance xml reader and writer
 
@@ -15,8 +15,6 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * drop unused, benchmark-only criterion dev-dependency
 Patch:          quick-xml-fix-metadata.diff
-# * fix compilation with Rust versions msrv..1.87
-Patch:          https://github.com/tafia/quick-xml/pull/891.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  dos2unix
@@ -185,10 +183,9 @@ use the "tokio" feature of the "%{crate}" crate.
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
-%autosetup -n %{crate}-%{version} -N
-find -type f -exec dos2unix --keepdate {} +
-%autopatch -p1
+%autosetup -n %{crate}-%{version} -p1
 %cargo_prep
+find -type f -exec dos2unix --keepdate {} +
 
 %generate_buildrequires
 %cargo_generate_buildrequires

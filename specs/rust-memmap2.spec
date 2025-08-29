@@ -5,7 +5,7 @@
 %global crate memmap2
 
 Name:           rust-memmap2
-Version:        0.9.7
+Version:        0.9.8
 Release:        %autorelease
 Summary:        Cross-platform Rust API for memory-mapped file IO
 

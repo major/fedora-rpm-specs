@@ -305,7 +305,7 @@ MPI-independent files for BOUT++, namely localisation files.
 
 %package -n python%{python3_pkgversion}-%{name}
 Summary: BOUT++ python library
-Requires: netcdf4-python%{python3_pkgversion}
+Requires: python%{python3_pkgversion}-netcdf4
 Requires: python%{python3_pkgversion}-numpy
 Recommends: python%{python3_pkgversion}-scipy
 Recommends: python%{python3_pkgversion}-matplotlib

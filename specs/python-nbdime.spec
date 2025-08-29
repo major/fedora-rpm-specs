@@ -6,7 +6,6 @@ Release:        %autorelease
 Summary:        Diff and merge of Jupyter notebooks
 
 License:        BSD-3-Clause
-BuildArch:      noarch
 URL:            https://nbdime.readthedocs.io/
 VCS:            git:%{giturl}.git
 Source0:        %{giturl}/archive/v%{version}/nbdime-%{version}.tar.gz
@@ -22,7 +21,12 @@ Patch:          %{name}-unbundle-fontawesome.patch
 # components for x86_64 and aarch64 only.  Check later releases to see if
 # the nx version has rolled forward to a version that supports more
 # architectures
-ExclusiveArch:  x86_64 aarch64
+ExclusiveArch:  noarch x86_64 aarch64
+
+BuildArch:      noarch
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): -x docs,test
+BuildOption(install): -l nbdime
 
 BuildRequires:  fdupes
 BuildRequires:  fontawesome-fonts-web
@@ -32,7 +36,6 @@ BuildRequires:  help2man
 BuildRequires:  make
 BuildRequires:  nodejs-devel
 BuildRequires:  nodejs-npm
-BuildRequires:  python3-devel
 BuildRequires:  python3-docs
 BuildRequires:  yarnpkg
 
@@ -222,6 +225,7 @@ Documentation for %{name}.
 %autosetup -n nbdime-%{version} -a1 -p1
 cp -p %{SOURCE2} .
 
+%conf
 # Remove useless shebangs
 sed -i '\,#!/usr/bin/env,d' \
   nbdime/diffing/directorydiff.py \
@@ -236,30 +240,24 @@ sed -i '\,#!/usr/bin/env,d' \
 sed -e "s|\('https://docs\.python\.org/3\.5', \)None|\1'%{_docdir}/python3-docs/html/objects.inv'|" \
     -i docs/source/conf.py
 
+%generate_buildrequires -p
 # Do not depend on jupyter_server_mathjax; it doesn't work in jupyterlab 4.10+
 # https://github.com/jupyter-server/jupyter_server_mathjax/issues/20
 sed -i '/jupyter_server_mathjax/d' pyproject.toml
 
-%generate_buildrequires
-%pyproject_buildrequires -x docs,test
-
-%build
+%build -p
 export YARN_CACHE_FOLDER="$PWD/.package-cache"
 export npm_config_nodedir=%{_includedir}/node
 export CFLAGS='%{build_cflags} -I%{_includedir}/node'
 export CXXFLAGS='%{build_cxxflags} -I%{_includedir}/node'
 yarn install --offline
 
-%pyproject_wheel
-
+%build -a
 # Build the documentation
 PYTHONPATH=$PWD make -C docs html
 rm docs/build/html/.buildinfo
 
-%install
-%pyproject_install
-%pyproject_save_files -l nbdime
-
+%install -a
 # Move the configuration files to the standard Jupyter directories
 mv %{buildroot}%{_prefix}%{_sysconfdir} %{buildroot}%{_sysconfdir}
 

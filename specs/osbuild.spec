@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        158
+Version:        159
 
 %forgemeta
 
@@ -9,7 +9,7 @@ Version:        158
 %global         pkgdir %{_prefix}/lib/%{pypi_name}
 
 Name:           %{pypi_name}
-Release:        2%{?dist}
+Release:        1%{?dist}
 License:        Apache-2.0
 
 URL:            %{forgeurl}
@@ -21,6 +21,7 @@ Summary:        A build system for OS images
 BuildRequires:  make
 BuildRequires:  python3-devel
 BuildRequires:  python3-docutils
+BuildRequires:  python3-setuptools
 BuildRequires:  systemd
 
 Requires:       bash
@@ -329,6 +330,29 @@ fi
 %{pkgdir}/solver.json
 
 %changelog
+* Wed Aug 27 2025 Packit <hello@packit.dev> - 159-1
+Changes with 159
+----------------
+  - Update images dependency ref to latest (#2166)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - Update snapshots to 20250815 (#2165)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - osbuild/solver/dnf.py: Add support for DNF variables for osbuild repos (#2064)
+    - Author: Josue David Hernandez, Reviewers: Nobody
+  - readme/monitor: add development info / fix monitor and add duration (#2154)
+    - Author: Lukáš Zapletal, Reviewers: Brian C. Lane, Simon de Vlieger
+  - spec: explicitly buildrequire python-setuptools (#2171)
+    - Author: Simon de Vlieger, Reviewers: Brian C. Lane, Michael Vogt
+  - stages/bootc.install-to-filesystem: add more knobs (#2152)
+    - Author: Jean-Baptiste Trystram, Reviewers: Simon de Vlieger, Tomáš Hozza
+  - stages/coreos.live-artifacts: rework volume ID handling (#2169)
+    - Author: Jonathan Lebon, Reviewers: Michael Vogt, Simon de Vlieger
+  - stages: extend test_bootc_install_to_fs test for new options (#2167)
+    - Author: Michael Vogt, Reviewers: Achilleas Koutsou, Brian C. Lane
+
+— Somewhere on the Internet, 2025-08-27
+
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 158-2
 - Rebuilt for Python 3.14.0rc2 bytecode
 

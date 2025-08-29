@@ -1,6 +1,6 @@
 Name:           mjpegtools
 Version:        2.2.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Tools to manipulate MPEG data
 # Most sources are GPLv2+ except the following which don't mention "or later":
 # mplex/*
@@ -26,7 +26,7 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 # mencoder for lav2avi.sh
 #Requires:       mencoder%%{?_isa}
 # ffmpeg main package, y4mscaler and which for anytovcd.sh
-Requires:       ffmpeg-free%{?_isa}
+Requires:       /usr/bin/ffmpeg
 Requires:       which
 
 %description
@@ -192,6 +192,9 @@ rm -f %{buildroot}%{_bindir}/lav2avi.sh
 
 
 %changelog
+* Wed Aug 27 2025 Vitaly <vitaly@easycoding.org> - 2.2.1-11
+- Fixed installation with alternative versions of ffmpeg package.
+
 * Mon Aug 11 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 2.2.1-10
 - Import to Fedora (rhbz#2387676)
 

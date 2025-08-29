@@ -7,7 +7,6 @@ Release:        %autorelease
 Summary:        Save Jupyter notebooks as text documents or scripts
 
 License:        MIT
-BuildArch:      noarch
 URL:            https://jupytext.readthedocs.io/
 VCS:            git:%{giturl}.git
 Source0:        %{giturl}/archive/v%{version}/jupytext-%{version}%{?vsuffix}.tar.gz
@@ -19,7 +18,12 @@ Source3:        prepare_vendor.sh
 # s390x builds fail due to a bug in jupyterlab
 # https://bugzilla.redhat.com/show_bug.cgi?id=2278011
 # ppc64le build fails due to lack of a binary builder
-ExcludeArch:    %{power64} s390x
+ExclusiveArch:  %{x86_64} %{arm64} noarch
+
+BuildArch:      noarch
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): -x docs,test,test-functional,test-integration
+BuildOption(install): -l jupytext jupytext_config
 
 BuildRequires:  gcc-c++
 BuildRequires:  help2man
@@ -27,8 +31,6 @@ BuildRequires:  make
 BuildRequires:  nodejs-devel
 BuildRequires:  nodejs-npm
 BuildRequires:  pandoc
-BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist setuptools}
 
 # Temporary workaround for https://bugzilla.redhat.com/show_bug.cgi?id=2275382
 BuildRequires:  nodejs-full-i18n
@@ -119,28 +121,25 @@ sed -i '/jupytext/d' docs/doc-requirements.txt
 # Take this package out of the test requirements
 sed -ri '/jupytext\[test(-functional)?\]/d' pyproject.toml
 
-%generate_buildrequires
+%generate_buildrequires -p
 export HATCH_BUILD_HOOKS_ENABLE=true
-%pyproject_buildrequires -x docs,test,test-functional,test-integration
 
-%build
+%build -p
 export HATCH_BUILD_HOOKS_ENABLE=true
 export YARN_CACHE_FOLDER="$PWD/jupyterlab/.package-cache"
 export npm_config_nodedir=%{_includedir}/node
 export CFLAGS='%{build_cflags} -I%{_includedir}/node'
 export CXXFLAGS='%{build_cxxflags} -I%{_includedir}/node'
 
-%pyproject_wheel
-
+%build -a
 # Build the documentation
 PYTHONPATH=$PWD %make_build -C docs html
 rm docs/_build/html/.buildinfo
 
-%install
+%install -p
 export HATCH_BUILD_HOOKS_ENABLE=true
-%pyproject_install
-%pyproject_save_files -l jupytext jupytext_config
 
+%install -a
 # Cleanup backup files
 find %{buildroot}%{_prefix} -name \*.orig -delete
 

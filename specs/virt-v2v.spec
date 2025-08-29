@@ -6,7 +6,7 @@
 
 Name:          virt-v2v
 Epoch:         1
-Version:       2.9.3
+Version:       2.9.4
 Release:       1%{?dist}
 Summary:       Convert a virtual machine to run on KVM
 
@@ -313,6 +313,9 @@ done
 
 
 %changelog
+* Wed Aug 27 2025 Richard W.M. Jones <rjones@redhat.com> - 1:2.9.4-1
+- New upstream development version 2.9.4
+
 * Fri Aug 15 2025 Richard W.M. Jones <rjones@redhat.com> - 1:2.9.3-1
 - New upstream development version 2.9.3
 - Ensure minimum libguestfs is 1.57.1 (for guestfs_setfiles)

@@ -8,6 +8,7 @@ Source101:      macros.python
 Source102:      macros.python-srpm
 Source104:      macros.python3
 Source105:      macros.pybytecompile
+Source106:      macros.python-wheel-sbom
 
 # Lua files
 Source201:      python.lua
@@ -55,7 +56,7 @@ elseif posix.stat('macros.python-srpm') then
 end
 }
 Version:        %{__default_python3_version}
-Release:        5%{?dist}
+Release:        6%{?dist}
 
 BuildArch:      noarch
 
@@ -149,6 +150,7 @@ grep -E '^#[^%%]*%%[^%%]' %{buildroot}%{rpmmacrodir}/macros.* && exit 1 || true
 %files
 %{rpmmacrodir}/macros.python
 %{rpmmacrodir}/macros.pybytecompile
+%{rpmmacrodir}/macros.python-wheel-sbom
 %{_rpmconfigdir}/redhat/import_all_modules.py
 %{_rpmconfigdir}/redhat/pathfix.py
 
@@ -167,6 +169,9 @@ grep -E '^#[^%%]*%%[^%%]' %{buildroot}%{rpmmacrodir}/macros.* && exit 1 || true
 
 
 %changelog
+* Wed Aug 13 2025 Miro Hrončok <mhroncok@redhat.com> - 3.14-6
+- Introduce %%python_wheel_inject_sbom
+
 * Mon Aug 11 2025 Lumír Balhar <lbalhar@redhat.com> - 3.14-5
 - import_all_modules: Add error handling for import failures
 

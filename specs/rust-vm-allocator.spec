@@ -5,7 +5,7 @@
 %global crate vm-allocator
 
 Name:           rust-vm-allocator
-Version:        0.1.2
+Version:        0.1.3
 Release:        %autorelease
 Summary:        Helpers for allocating resources needed during the lifetime of a VM
 

@@ -2,8 +2,10 @@
 
 Name:    vsomeip3
 Version: 3.5.7
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: COVESA implementation of SOME/IP protocol
+# remove from i686 as not needed.
+ExcludeArch: %{ix86}
 
 License: MPL-2.0
 URL:     https://github.com/COVESA/vsomeip
@@ -241,6 +243,13 @@ fi
 %{_libdir}/pkgconfig/vsomeip3.pc
 
 %changelog
+* Wed Aug 27 2025 Stephen Smoogen <smooge@fedoraproject.org> - 3.5.7-2
+- Remove i686 as it no longer builds and is not needed.
+
+* Tue Aug 26 2025 Stephen Smoogen <smooge@fedoraproject.org> - 3.5.7-1
+- Update to 3.5.7
+- Clean up patches to just two as others are now upstream
+
 * Mon Mar 31 2025 Stephen Smoogen <smooge@fedoraproject.org> - 3.5.5-2
 - Updated 3.5.4 to 3.5.5.
 - Try to make the Cmake pic vs pie patch upstreamable

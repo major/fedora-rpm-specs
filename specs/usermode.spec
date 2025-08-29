@@ -9,7 +9,7 @@
 Summary: Tools for certain user account management tasks
 Name: usermode
 Version: 1.114
-Release: 13%{?dist}
+Release: 15%{?dist}
 License: GPL-2.0-or-later
 URL: https://pagure.io/%{name}/
 Source: https://releases.pagure.org/%{name}/%{name}-%{version}.tar.xz
@@ -93,6 +93,7 @@ done
 %{_bindir}/consolehelper
 %{_mandir}/man8/userhelper.8*
 %{_mandir}/man8/consolehelper.8*
+%dir /etc/security/console.apps
 %config(noreplace) /etc/security/console.apps/config-util
 
 %if %{with gtk}
@@ -115,6 +116,13 @@ done
 %endif
 
 %changelog
+* Wed Aug 27 2025 Michal Hlavinka <mhlavink@redhat.com> - 1.114-15
+- revert back and take ownership of console.apps as usermode still needs it
+
+* Wed Aug 27 2025 Michal Hlavinka <mhlavink@redhat.com> - 1.114-14
+- drop console.apps files as pam no longer uses those and pam_console
+  was dropped https://fedoraproject.org/wiki/Changes/RemovePamConsole
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.114-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -16,6 +16,7 @@ Source:         %{crates_source}
 Patch:          rfd-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * Temporarily downgrade pollster to 0.3
+# * Drop unused support for GTK3
 Patch:          rfd-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -98,54 +99,6 @@ This package contains library source intended for building other packages which
 use the "file-handle-inner" feature of the "%{crate}" crate.
 
 %files       -n %{name}+file-handle-inner-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+glib-sys-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+glib-sys-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "glib-sys" feature of the "%{crate}" crate.
-
-%files       -n %{name}+glib-sys-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+gobject-sys-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+gobject-sys-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "gobject-sys" feature of the "%{crate}" crate.
-
-%files       -n %{name}+gobject-sys-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+gtk-sys-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+gtk-sys-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "gtk-sys" feature of the "%{crate}" crate.
-
-%files       -n %{name}+gtk-sys-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+gtk3-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+gtk3-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "gtk3" feature of the "%{crate}" crate.
-
-%files       -n %{name}+gtk3-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+pollster-devel

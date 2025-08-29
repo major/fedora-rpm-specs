@@ -1,6 +1,6 @@
 Name:		perl-Crypt-Argon2
-Version:	0.022
-Release:	6%{?dist}
+Version:	0.030
+Release:	1%{?dist}
 Summary:	Perl interface to the Argon2 key derivation functions
 License:	Apache-2.0
 
@@ -8,12 +8,14 @@ URL:		https://metacpan.org/release/Crypt-Argon2
 Source0:	https://www.cpan.org/authors/id/L/LE/LEONT/Crypt-Argon2-%{version}.tar.gz
 
 BuildRequires:	coreutils
+BuildRequires:	gcc
+BuildRequires:	perl-devel
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
 BuildRequires:	perl(:VERSION) >= 5.006
-BuildRequires:	perl(Module::Build)
-BuildRequires:	perl(ExtUtils::CBuilder)
-BuildRequires:	perl(File::Spec)
+BuildRequires:	perl(Dist::Build)
+#BuildRequires:	perl(ExtUtils::CBuilder)
+#BuildRequires:	perl(File::Spec)
 BuildRequires:	perl(strict)
 BuildRequires:	perl(warnings)
 # Run-time:
@@ -38,7 +40,8 @@ costs as well as output size.
 
 
 %build
-%{__perl} Build.PL --installdirs=vendor --optimize="$RPM_OPT_FLAGS"
+%{__perl} Build.PL --installdirs=vendor
+#--optimize="$RPM_OPT_FLAGS"
 ./Build
 
 
@@ -64,6 +67,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 
 
 %changelog
+* Tue Aug 26 2025 Charles R. Anderson <cra@alum.wpi.edu> - 0.030-1
+- Update to 0.030
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.022-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

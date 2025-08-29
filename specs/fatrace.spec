@@ -1,13 +1,11 @@
 Name:		fatrace
-Version:	0.18.0
+Version:	0.19.1
 Release:	%autorelease
 Summary:	Reports file access events from all running processes
 
-# Automatically converted from old format: GPLv3 - review is highly recommended.
-License:	GPL-3.0-only
+License:	GPL-3.0-or-later
 URL:		https://github.com/martinpitt/fatrace
 Source0:        https://github.com/martinpitt/fatrace/archive/refs/tags/%{version}.tar.gz
-Patch:          fatrace-0.18.0-sbin-to-bin.patch
 BuildRequires:  gcc
 BuildRequires: make
 
@@ -27,9 +25,11 @@ make %{?_smp_mflags}
 %install
 export PREFIX=%{_prefix}
 make install DESTDIR=%{buildroot}
+# move /sbin to /bin
+mv %{buildroot}%{_prefix}/sbin %{buildroot}%{_bindir}
 
 %files
-%doc COPYING NEWS
+%doc COPYING
 %{_bindir}/fatrace
 %{_bindir}/power-usage-report
 %{_mandir}/man*/*

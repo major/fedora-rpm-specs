@@ -34,7 +34,7 @@ print(string.sub(hash, 0, 16))
 Summary: Utilities from the general purpose cryptography library with TLS implementation
 Name: openssl
 Version: 3.5.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Epoch: 1
 Source0: openssl-%{version}.tar.gz
 Source1: fips-hmacify.sh
@@ -98,6 +98,7 @@ Patch0052: 0052-Red-Hat-9-FIPS-indicator-defines.patch
 %if ( %{defined rhel} && (! %{defined centos}) && (! %{defined eln}) )
 Patch0053: 0053-Allow-hybrid-MLKEM-in-FIPS-mode.patch
 %endif
+Patch0054: 0054-Speed-test-signatures-without-errors.patch
 
 
 License: Apache-2.0
@@ -467,6 +468,9 @@ ln -s /etc/crypto-policies/back-ends/openssl_fips.config $RPM_BUILD_ROOT%{_sysco
 %ldconfig_scriptlets libs
 
 %changelog
+* Tue Aug 26 2025 Pavol Žáčik <pzacik@redhat.com> - 1:3.5.1-3
+- Make openssl speed test signatures without errors
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.5.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

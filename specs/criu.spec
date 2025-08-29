@@ -12,7 +12,7 @@
 
 Name: criu
 Version: 4.1.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Tool for Checkpoint/Restore in User-space
 License: GPL-2.0-only AND LGPL-2.1-only AND MIT
 URL: http://criu.org/
@@ -33,7 +33,7 @@ BuildRequires: libnet-devel
 BuildRequires: protobuf-devel protobuf-c-devel %{py_prefix}-devel libnl3-devel libcap-devel
 BuildRequires: %{py_prefix}-pip
 BuildRequires: %{py_prefix}-setuptools
-BuildRequires: %{py_prefix}-wheel
+BuildRequires: (%{py_prefix}-wheel if %{py_prefix}-setuptools < 71)
 BuildRequires: %{py_prefix}-protobuf
 BuildRequires: asciidoctor
 BuildRequires: perl-interpreter
@@ -188,6 +188,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libcriu.a
 %tmpfiles_create %{name}.conf
 
 %changelog
+* Wed Aug 27 2025 Miro Hrončok <mhroncok@redhat.com> - 4.1.1-3
+- Drop unused BuildRequires on python3-wheel
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.1.1-2
 - Rebuilt for Python 3.14.0rc2 bytecode
 

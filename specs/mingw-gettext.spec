@@ -1,7 +1,7 @@
 %{?mingw_package_header}
 
 Name:      mingw-gettext
-Version:   0.25.1
+Version:   0.26
 Release:   1%{?dist}
 Summary:   GNU libraries and utilities for producing multi-lingual messages
 
@@ -130,13 +130,15 @@ rm %{buildroot}%{mingw64_datadir}/gettext/javaversion.class
 %{mingw32_bindir}/gettext.sh
 %{mingw32_bindir}/gettextize
 %{mingw32_bindir}/libasprintf-0.dll
-%{mingw32_bindir}/libgettextlib-0-25-1.dll
+%{mingw32_bindir}/libgettextlib-0-26.dll
 %{mingw32_bindir}/libgettextpo-0.dll
-%{mingw32_bindir}/libgettextsrc-0-25-1.dll
+%{mingw32_bindir}/libgettextsrc-0-26.dll
 %{mingw32_bindir}/libintl-8.dll
 %{mingw32_bindir}/libtextstyle-0.dll
 %{mingw32_bindir}/msg*.exe
 %{mingw32_bindir}/ngettext.exe
+%{mingw32_bindir}/printf_gettext.exe
+%{mingw32_bindir}/printf_ngettext.exe
 %{mingw32_bindir}/recode-sr-latin.exe
 %{mingw32_bindir}/xgettext.exe
 %{mingw32_includedir}/autosprintf.h
@@ -177,13 +179,15 @@ rm %{buildroot}%{mingw64_datadir}/gettext/javaversion.class
 %{mingw64_bindir}/gettext.sh
 %{mingw64_bindir}/gettextize
 %{mingw64_bindir}/libasprintf-0.dll
-%{mingw64_bindir}/libgettextlib-0-25-1.dll
+%{mingw64_bindir}/libgettextlib-0-26.dll
 %{mingw64_bindir}/libgettextpo-0.dll
-%{mingw64_bindir}/libgettextsrc-0-25-1.dll
+%{mingw64_bindir}/libgettextsrc-0-26.dll
 %{mingw64_bindir}/libintl-8.dll
 %{mingw64_bindir}/libtextstyle-0.dll
 %{mingw64_bindir}/msg*.exe
 %{mingw64_bindir}/ngettext.exe
+%{mingw64_bindir}/printf_gettext.exe
+%{mingw64_bindir}/printf_ngettext.exe
 %{mingw64_bindir}/recode-sr-latin.exe
 %{mingw64_bindir}/xgettext.exe
 %{mingw64_includedir}/autosprintf.h
@@ -217,6 +221,9 @@ rm %{buildroot}%{mingw64_datadir}/gettext/javaversion.class
 
 
 %changelog
+* Wed Aug 27 2025 Sandro Mani <manisandro@gmail.com> - 0.26-1
+- Update to 0.26
+
 * Sun Jul 27 2025 Sandro Mani <manisandro@gmail.com> - 0.25.1-1
 - Update to 0.25.1
 

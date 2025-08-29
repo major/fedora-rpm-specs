@@ -5,7 +5,7 @@
 
 Name:		shim
 Version:	15.8
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	First-stage UEFI bootloader
 License:	BSD-3-Clause
 URL:		https://github.com/rhboot/shim/
@@ -115,6 +115,9 @@ if [[ ! -e "/run/ostree-booted" ]]; then
 fi
 
 %changelog
+* Wed Aug 27 2025 Leo Sandoval <lsandova@redhat.com> - 15.8-5
+- Remove efi_esp_dir|boot hard coded architecture
+
 * Mon May 19 2025 Marta Lewandowska <mlewando@redhat.com> - 15.8-4
 - Phase 1 of the bootloader updates proposal implementation
 - https://fedoraproject.org/wiki/Changes/BootLoaderUpdatesPhase1

@@ -8,6 +8,9 @@ License:        MIT
 URL:            https://github.com/yaml/pyyaml
 Source:         https://github.com/yaml/pyyaml/archive/%{version}.tar.gz
 
+# Drop unneeded build dependency on python3-wheel
+Patch:          https://github.com/yaml/pyyaml/pull/823.patch
+
 BuildRequires:  gcc
 BuildRequires:  libyaml-devel
 BuildRequires:  python3-devel

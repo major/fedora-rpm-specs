@@ -1,5 +1,5 @@
 %bcond_without mpich
-%if 0%{?fedora} >= 40
+%if 0%{?fedora}
 %ifarch %{ix86}
 %bcond_with openmpi
 %else
@@ -11,7 +11,7 @@
 
 Name:           netcdf-cxx4
 Version:        4.3.1
-Release:        16%{?dist}
+Release:        %autorelease
 Summary:        NetCDF-4 C++ library
 
 # Automatically converted from old format: NetCDF - review is highly recommended.
@@ -31,13 +31,6 @@ BuildRequires:  netcdf-devel
 #mpiexec segfaults if ssh is not present
 #https://trac.mcs.anl.gov/projects/mpich2/ticket/1576
 BuildRequires:  openssh-clients
-
-%if 0%{?rhel} <= 6
-%ifarch ppc64
-# No mpich on ppc64 in EL6
-%global with_mpich 0
-%endif
-%endif
 
 %if %{with mpich}
 %global mpi_list mpich
@@ -252,152 +245,4 @@ done
 
 
 %changelog
-* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.1-16
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.1-15
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Wed Aug 07 2024 Miroslav Suchý <msuchy@redhat.com> - 4.3.1-14
-- convert license to SPDX
-
-* Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.1-13
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.1-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.1-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sun Oct 29 2023 Orion Poplawski <orion@nwra.com> - 4.3.1-10
-- Rebuild for openmpi 5.0.0, drops i686 and C++ API
-
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.1-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.1-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.1-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.1-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Fri Sep 13 2019 Orion Poplawski <orion@nwra.com> - 4.3.1-1
-- Update to 4.3.1
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.0-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Mon Mar 18 2019 Orion Poplawski <orion@nwra.com> - 4.3.0-10
-- Rebuild for netcdf 4.6.3
-
-* Thu Feb 14 2019 Orion Poplawski <orion@nwra.com> - 4.3.0-9
-- Rebuild for openmpi 3.1.3
-
-* Fri Feb 01 2019 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.0-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.0-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Thu Feb 08 2018 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Thu Aug 03 2017 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
-
-* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Tue Feb 14 2017 Orion Poplawski <orion@cora.nwra.com> - 4.3.0-3
-- Fix test on big-endian (ppc64)
-
-* Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Sat Oct 22 2016 Orion Poplawski <orion@cora.nwra.com> - 4.3.0-2
-- Rebuild for openmpi 2.0
-
-* Wed May 18 2016 Orion Poplawski <orion@cora.nwra.com> - 4.3.0-1
-- Update to 4.3.0
-
-* Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.1-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
-
-* Fri Jan 22 2016 Orion Poplawski <orion@cora.nwra.com> - 4.2.1-11
-- Rebuild for netcdf 4.4.0
-
-* Thu Sep 17 2015 Orion Poplawski <orion@cora.nwra.com> - 4.2.1-10
-- Rebuild for openmpi 1.10.0
-
-* Sun Aug 16 2015 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 4.2.1-9
-- Rebuild for MPI provides
-
-* Sun Jul 26 2015 Sandro Mani <manisandro@gmail.com> - 4.2.1-8
-- Rebuild for RPM MPI Requires Provides Change
-
-* Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 4.2.1-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
-
-* Sat May 02 2015 Kalev Lember <kalevlember@gmail.com> - 4.2.1-6
-- Rebuilt for GCC 5 C++11 ABI change
-
-* Sun Apr 5 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 4.2.1-5
-- Rebuild for mpich soname change
-
-* Sun Aug 17 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 4.2.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
-
-* Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 4.2.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
-
-* Mon Feb 24 2014 Orion Poplawski <orion@cora.nwra.com> - 4.2.1-2
-- Rebuild for mpich-3.1
-
-* Thu Feb 6 2014 Orion Poplawski <orion@cora.nwra.com> - 4.2.1-1
-- Update to 4.2.1
-
-* Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 4.2-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
-
-* Mon Jul 22 2013 Deji Akingunola <dakingun@gmail.com> - 4.2-8
-- Rename mpich2 sub-packages to mpich and rebuild for mpich-3.0
-
-* Thu Feb 14 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 4.2-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
-
-* Fri Nov 2 2012 Orion Poplawski <orion@cora.nwra.com> - 4.2-6
-- Rebuild for mpich2 1.5
-- Use new mpi module location
-
-* Fri Jul 20 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 4.2-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
-
-* Wed Mar 7 2012 Orion Poplawski <orion@cora.nwra.com> - 4.2-4
-- Fix line endings
-
-* Wed Mar 7 2012 Orion Poplawski <orion@cora.nwra.com> - 4.2-3
-- Build parallel versions
-- Ship examples with -devel
-
-* Mon Oct 3 2011 Orion Poplawski <orion@cora.nwra.com> - 4.2-2
-- Use %%{?_isa} in Requires
-- Make -static sub-package require the -devel package
-
-* Fri Sep 30 2011 Orion Poplawski <orion@cora.nwra.com> - 4.2-1
-- Initial package
+%autochangelog

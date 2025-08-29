@@ -1154,7 +1154,7 @@ sed -i -e /CppunitTest_sc_solverobj/d sc/Module_sc.mk
 
 # testStatusBarPageNumber it is said to "fail from time to time"...
 # started to fail in 25.2.0.0
-# works in 25.8.0.0
+# works in 25.8.0.0 / 25.8.1.1
 #sed -i -e /CppunitTest_sw_tiledrendering2/d sw/Module_sw.mk
 
 # fails testInsertSignatureLineExternal
@@ -1167,7 +1167,8 @@ sed -i -e /CppunitTest_sd_tiledrendering2/d sd/Module_sd.mk
 # fails testTdf154311
 # cppunittester: xls_xml_auto_filter_context.cpp:196: void orcus::xls_xml_auto_filter_context::end_auto_filter(): Assertion `m_filter_node_stack.size() == 1u' failed.
 # Started to fail in 25.8.0.0
-sed -i -e /CppunitTest_sc_subsequent_filters_test2/d sc/Module_sc.mk
+# Works in 25.8.1.1
+#sed -i -e /CppunitTest_sc_subsequent_filters_test2/d sc/Module_sc.mk
 
 # fails testTdf129810
 # equality assertion failed
@@ -1177,6 +1178,10 @@ sed -i -e /CppunitTest_sc_subsequent_filters_test2/d sc/Module_sc.mk
 sed -i -e /CppunitTest_sw_core_text/d sw/Module_sw.mk
 
 # starts to fail with 25.8.0.1
+# Test name: testTdf154104::TestBody
+# equality assertion failed
+# - Expected: 4
+# - Actual  : 5
 sed -i -e /CppunitTest_vcl_text/d vcl/Module_vcl.mk
 
 %build

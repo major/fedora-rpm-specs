@@ -1,6 +1,6 @@
 Name:           davfs2
-Version:        1.7.1
-Release:        5%{?dist}
+Version:        1.7.2
+Release:        1%{?dist}
 Summary:        A filesystem driver for WebDAV
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -12,9 +12,6 @@ Source1:        https://download.savannah.gnu.org/releases/davfs2/%{name}-%{vers
 # Using the URL above directly as "Source2" does not work as spectool/mock do
 # no not like the query string.
 Source2:        davfs2-memberlist-gpgkeys.asc
-
-Patch0:         davfs2-configure.ac-neon-35.patch
-Patch1:         davfs2-configure-neon-35.patch
 
 Conflicts:      filesystem < 3
 BuildRequires:  gcc
@@ -35,13 +32,6 @@ as a disk drive.
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %setup -q
-
-# Add support for building with neon 35
-%patch -P 0 -p1
-touch aclocal.m4
-touch Makefile.in
-%patch -P 1 -p1
-touch config.h.in
 
 # Create a sysusers.d config file
 cat >davfs2.sysusers.conf <<EOF
@@ -105,6 +95,14 @@ install -m0644 -D davfs2.sysusers.conf %{buildroot}%{_sysusersdir}/davfs2.conf
 %{_sysusersdir}/davfs2.conf
 
 %changelog
+* Tue Aug 26 2025 Paul Howarth <paul@city-fan.org> - 1.7.2-1
+- Update to 1.7.2 (rhbz#2391098)
+  - Add support for libneon 34, 35
+  - Increase buf read size to 64 (fixes read issue on linux 6.16)
+  - Allow setting a mount password via DAVFS_PASSWORD
+  - Introduce sync_on_lookup option (off by default)
+  - Don't compress man pages
+
 * Thu Jul 31 2025 Paul Howarth <paul@city-fan.org> - 1.7.1-5
 - Add support for building with neon version 0.35 (rhbz#2384528)
 

@@ -14,7 +14,7 @@ Source0:          https://github.com/intel/%{name}/archive/%{version}/%{name}-%{
 BuildRequires:    systemd gcc make autoconf autoconf-archive automake libtool systemd-devel openssl-devel zlib-devel nasm numactl-devel
 Recommends:       qatlib-service
 # https://bugzilla.redhat.com/show_bug.cgi?id=1897661
-ExcludeArch:      %{arm} aarch64 %{power64} s390x i686
+ExcludeArch:      %{arm} aarch64 %{power64} s390x i686 riscv64
 
 %description
 Intel QuickAssist Technology (Intel QAT) provides hardware acceleration

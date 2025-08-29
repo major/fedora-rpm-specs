@@ -1,6 +1,6 @@
 Name:           libcpuid
 Version:        0.8.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Provides CPU identification for x86 and ARM
 License:        BSD-2-Clause
 URL:            https://github.com/anrieff/libcpuid
@@ -14,12 +14,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  git
 BuildRequires:  libtool
 BuildRequires:  make
-BuildRequires:  pyproject-rpm-macros
 BuildRequires:  python3-devel
-BuildRequires:  python3-cffi
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-wheel
-BuildRequires:  python3-pip
 BuildRequires:  python3-pytest
 
 %description
@@ -52,6 +47,14 @@ The python3-%{name} package contains Python bindings for the libcpuid library.
 
 %prep
 %autosetup -p1 -n %{name}-%{version}
+
+%generate_buildrequires
+cd python
+# CFFI tries to compile the bindings when get_requires_for_build_wheel is called
+# https://github.com/python-cffi/cffi/issues/190
+mv setup.py{,.ignore}
+%pyproject_buildrequires
+mv setup.py{.ignore,}
 
 %build
 autoreconf -vfi
@@ -98,6 +101,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} %pytest python/tests
 
 
 %changelog
+* Tue Aug 26 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 0.8.1-2
+- Use pyproject macros for dependencies
+
 * Wed Aug 20 2025 Martin Gansser <martinkg@fedoraproject.org> - 0.8.1-1
 - Update to 0.8.1
 
