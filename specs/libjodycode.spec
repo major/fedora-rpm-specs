@@ -1,11 +1,11 @@
 Name:           libjodycode
-Version:        3.1.1
-Release:        3%{?dist}
+Version:        4.0.1
+Release:        1%{?dist}
 Summary:        General purpose utility functions
 
 License:        MIT
 URL:            https://codeberg.org/jbruchon/libjodycode/
-Source0:        https://codeberg.org/jbruchon/%{name}/archive/v%{version}.tar.gz
+Source0:        https://codeberg.org/jbruchon/%{name}/archive/%{name}-v%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -61,6 +61,9 @@ rm -rf %{buildroot}%{_mandir}/man7
 
 
 %changelog
+* Thu Aug 28 2025 David Cantrell <dcantrell@redhat.com> - 4.0.1-1
+- Upgrade to libjodycode-4.0.1
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

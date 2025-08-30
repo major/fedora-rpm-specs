@@ -10,11 +10,11 @@
 # disabled until phpunit11 available
 %bcond_without       tests
 
-%global gh_commit    24b8fbc2c8e201bb1308e7b05148d6ab393b6959
+%global gh_commit    85c77556683e6eee4323e4c5468641ca0237e2e8
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   comparator
-%global gh_date      2025-03-07
+%global gh_date      2025-08-10
 # Packagist
 %global pk_vendor    sebastian
 %global pk_project   %{gh_project}
@@ -25,8 +25,8 @@
 %global ns_project   Comparator
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        6.3.1
-Release:        2%{?dist}
+Version:        6.3.2
+Release:        1%{?dist}
 Summary:        Compare PHP values for equality, version %{major}
 
 License:        BSD-3-Clause
@@ -106,7 +106,7 @@ mkdir vendor
 
 : Run upstream test suite
 ret=0
-for cmd in php php82 php83 php84; do
+for cmd in php php82 php83 php84 php85; do
   if which $cmd; then
     $cmd -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php \
       %{_bindir}/phpunit11 --bootstrap vendor/autoload.php --no-coverage || ret=1
@@ -125,6 +125,9 @@ exit $ret
 
 
 %changelog
+* Mon Aug 11 2025 Remi Collet <remi@remirepo.net> - 6.3.2-1
+- update to 6.3.2
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -9,8 +9,8 @@
 
 Summary: The Qt Graphs module enables you to visualize data in 3D
 Name:    qt6-%{qt_module}
-Version: 6.9.1
-Release: 2%{?dist}
+Version: 6.9.2
+Release: 1%{?dist}
 
 License: BSD-3-Clause AND GFDL-1.3-no-invariants-only AND GPL-3.0-only
 URL:     https://doc.qt.io/qt-6/qtgraphs-index.html
@@ -125,6 +125,9 @@ popd
 %endif
 
 %changelog
+* Thu Aug 28 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.2-1
+- 6.9.2
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.9.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

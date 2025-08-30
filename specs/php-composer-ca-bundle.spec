@@ -9,15 +9,15 @@
 
 %bcond_without       tests
 
-%global gh_commit    d665d22c417056996c59019579f1967dfe5c1e82
+%global gh_commit    719026bb30813accb68271fee7e39552a58e9f65
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     composer
 %global gh_project   ca-bundle
 %global php_home     %{_datadir}/php
 
 Name:           php-composer-ca-bundle
-Version:        1.5.7
-Release:        4%{?dist}
+Version:        1.5.8
+Release:        1%{?dist}
 Summary:        Lets you find a path to the system CA
 
 License:        MIT
@@ -127,6 +127,9 @@ exit $ret
 
 
 %changelog
+* Thu Aug 28 2025 Remi Collet <remi@remirepo.net> - 1.5.8-1
+- update to 1.5.8
+
 * Mon Jul 28 2025 Remi Collet <remi@remirepo.net> - 1.5.7-4
 - fix system certificates path rhbz#2383719
 

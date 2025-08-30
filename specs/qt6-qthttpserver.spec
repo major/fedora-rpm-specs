@@ -9,8 +9,8 @@
 
 Summary: Library to facilitate the creation of an http server with Qt
 Name:    qt6-qthttpserver
-Version: 6.9.1
-Release: 2%{?dist}
+Version: 6.9.2
+Release: 1%{?dist}
 
 License:    BSD-3-Clause AND GFDL-1.3-no-invariants-only AND GPL-3.0-only WITH Qt-GPL-exception-1.0
 URL:        http://qt-project.org/
@@ -97,6 +97,9 @@ to the usage of %{name}.
 %endif
 
 %changelog
+* Thu Aug 28 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.2-1
+- 6.9.2
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.9.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

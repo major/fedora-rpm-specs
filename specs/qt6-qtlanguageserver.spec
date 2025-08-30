@@ -10,8 +10,8 @@
 
 Summary: Qt6 - LanguageServer component
 Name:    qt6-%{qt_module}
-Version: 6.9.1
-Release: 2%{?dist}
+Version: 6.9.2
+Release: 1%{?dist}
 
 License: GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://qt.io
@@ -82,6 +82,9 @@ Requires: qt6-qtbase-devel%{?_isa}
 
 
 %changelog
+* Thu Aug 28 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.2-1
+- 6.9.2
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.9.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

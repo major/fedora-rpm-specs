@@ -5,9 +5,9 @@
 Name: chordpro
 Summary: Print songbooks (lyrics + chords)
 License: Artistic-2.0
-Version: 6.080
+Version: 6.080.1
 Release: %autorelease
-Source: https://cpan.metacpan.org/authors/id/J/JV/JV/%{FullName}-%{version}.0.tar.gz
+Source: https://cpan.metacpan.org/authors/id/J/JV/JV/%{FullName}-%{version}.tar.gz
 Source1: README.ABC
 Source2: README.LilyPond
 Source3: README.WX
@@ -50,6 +50,7 @@ Requires: perl(Storable)                    >= 3.08
 Requires: perl(String::Interpolate::Named)  >= 1.06
 Requires: perl(Text::Layout)                >= 0.045
 Requires: perl(Unicode::Collate)
+Requires: perl(Unicode::Normalize)
 
 # BuildRequires for ChordPro.
 BuildRequires: desktop-file-utils
@@ -86,6 +87,7 @@ BuildRequires: perl(SVGPDF)                      >= 0.088
 BuildRequires: perl(Test::More)
 BuildRequires: perl(Text::Layout)                >= 0.043
 BuildRequires: perl(Unicode::Collate)
+Requires: perl(Unicode::Normalize)
 BuildRequires: perl(base)
 BuildRequires: perl(constant)
 BuildRequires: perl(lib)
@@ -136,10 +138,10 @@ Requires: lilypond
 This packages installs the requirements for LilyPond support for ChordPro.
 
 %prep
-%setup -q -n %{FullName}-%{version}.0
+%setup -q -n %{FullName}-%{version}
 
 # Fix version.
-perl -pi~ -e 's/6.080.0/6.080/' lib/ChordPro/Version.pm
+# perl -pi~ -e 's/6.080.0/6.080/' lib/ChordPro/Version.pm
 
 %patch -P 1 -p0 -b .abc
 %patch -P 2 -p0 -b .fonts

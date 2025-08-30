@@ -6,17 +6,17 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    c7b6789056dfc3c45389cabbe9930dc33aeb2bf0
+%global gh_commit    e134d210e4707c29724ebc7fe50d220123f0fdd9
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
-%global gh_date      2025-02-28
+%global gh_date      2025-08-18
 %global gh_owner     php-mock
 %global gh_project   php-mock
 %global with_tests   0%{!?_without_tests:1}
 %global major        2
 
 Name:           php-mock%{major}
-Version:        2.6.1
-Release:        2%{?dist}
+Version:        2.6.2
+Release:        1%{?dist}
 Summary:        PHP-Mock can mock built-in PHP functions
 
 License:        WTFPL
@@ -137,7 +137,7 @@ ret=0
 # testDefiningAfterCallingUnqualified and testEnable may fail locally (ok in mock)
 
 if [ -x %{_bindir}/phpunit8 ]; then
-	for cmd in php php80 php81 php82;do
+	for cmd in php php80 php81 php82 php83 php84 php85;do
 	  if which $cmd; then
 		$cmd %{_bindir}/phpunit8 \
 		  --filter '^((?!(testDefiningAfterCallingUnqualified|testEnable)).)*$' \
@@ -147,7 +147,7 @@ if [ -x %{_bindir}/phpunit8 ]; then
 fi
 
 if [ -x %{_bindir}/phpunit9 ]; then
-	for cmd in php php80 php81 php82 php83 php84;do
+	for cmd in php php80 php81 php82 php83 php84 php85;do
 	  if which $cmd; then
 		$cmd %{_bindir}/phpunit9 \
 		  --filter '^((?!(testDefiningAfterCallingUnqualified|testEnable)).)*$' \
@@ -157,7 +157,7 @@ if [ -x %{_bindir}/phpunit9 ]; then
 fi
 
 if [ -x %{_bindir}/phpunit10 ]; then
-	for cmd in php php81 php82 php83 php84;do
+	for cmd in php php81 php82 php83 php84 php85;do
 	  if which $cmd; then
 		$cmd %{_bindir}/phpunit10 \
 		  --filter '^((?!(testDefiningAfterCallingUnqualified|testEnable)).)*$' \
@@ -167,7 +167,7 @@ if [ -x %{_bindir}/phpunit10 ]; then
 fi
 
 if [ -x %{_bindir}/phpunit11 ]; then
-	for cmd in php  php82 php83 php84;do
+	for cmd in php  php82 php83 php84 php85;do
 	  if which $cmd; then
 		$cmd %{_bindir}/phpunit11 \
 		  --filter '^((?!(testDefiningAfterCallingUnqualified|testEnable)).)*$' \
@@ -177,7 +177,7 @@ if [ -x %{_bindir}/phpunit11 ]; then
 fi
 
 if [ -x %{_bindir}/phpunit12 ]; then
-	for cmd in php php83 php84;do
+	for cmd in php php83 php84 php85;do
 	  if which $cmd; then
 		$cmd %{_bindir}/phpunit11 \
 		  --filter '^((?!(testDefiningAfterCallingUnqualified|testEnable)).)*$' \
@@ -200,6 +200,9 @@ exit $ret
 
 
 %changelog
+* Wed Aug 20 2025 Remi Collet <remi@remirepo.net> - 2.6.2-1
+- update to 2.6.2
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

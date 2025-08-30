@@ -15,8 +15,8 @@
 
 Summary: Qt6 - Quick3D Libraries and utilities
 Name:    qt6-%{qt_module}
-Version: 6.9.1
-Release: 4%{?dist}
+Version: 6.9.2
+Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -299,6 +299,9 @@ popd
 %endif
 
 %changelog
+* Thu Aug 28 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.2-1
+- 6.9.2
+
 * Mon Aug 18 2025 Sandro Mani <manisandro@gmail.com> - 6.9.1-4
 - Add patch to fix build with assimp 6.x
 

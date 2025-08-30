@@ -14,7 +14,7 @@
 %bcond_with    tests
 %endif
 
-%global gh_commit    ae59794362fe85e051a58ad36b289443f57be7a9
+%global gh_commit    f103601b29efebd7ff4a1ca7b3eeea9e3336a2a2
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     nikic
 %global gh_project   PHP-Parser
@@ -23,12 +23,12 @@
 %global ns_project   PhpParser
 %global major        5
 
-%global upstream_version 5.5.0
+%global upstream_version 5.6.1
 #global upstream_prever  rc1
 
 Name:           php-%{gh_owner}-%{pk_project}%{major}
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        A PHP parser written in PHP - version %{major}
 
 License:        BSD-3-Clause
@@ -123,7 +123,7 @@ AUTOLOAD
 
 : Upstream test suite
 ret=0
-for cmdarg in "php %{phpunit}" php81 php82 php83 php84; do
+for cmdarg in "php %{phpunit}" php81 php82 php83 php84 php85; do
   if which $cmdarg; then
     set $cmdarg
     $1 -d include_path=%{php_home} \
@@ -146,6 +146,9 @@ exit $ret
 
 
 %changelog
+* Thu Aug 14 2025 Remi Collet <remi@remirepo.net> - 5.6.1-1
+- update to 5.6.1
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.5.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

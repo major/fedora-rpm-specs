@@ -1,6 +1,6 @@
 Name:           teampulls
-Version:        0.2.2
-Release:        20%{?dist}
+Version:        0.2.7
+Release:        1%{?dist}
 Summary:        CLI tool that lists pull requests from GitHub
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -8,8 +8,16 @@ License:        GPL-3.0-only
 URL:            https://github.com/brejoc/teampulls
 Source0:        https://files.pythonhosted.org/packages/source/t/%{name}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
+
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
+BuildRequires:  python3dist(poetry-core)
+BuildRequires:  python3dist(pip)
+BuildRequires:  pyproject-rpm-macros
+
+# Runtime dependencies
+#BuildRequires:  python3dist(requests)
+#BuildRequires:  python3dist(toml)
+#BuildRequires:  python3dist(docopt)
 
 %description
 teampulls lists all of the pull requests for a list of users and repositories.
@@ -18,26 +26,29 @@ printed in red.
 
 
 %prep
-%autosetup
-# Remove bundled egg-info
-rm -rf %{name}.egg-info
+%autosetup -n %{name}-%{version}
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%{pyproject_install}
 install -Dpm 0644 teampulls.toml %{buildroot}%{_sysconfdir}/teampulls.toml
 
 %files
 %doc README.md
 %license LICENSE
 %{_bindir}/teampulls
-
 %config(noreplace) %{_sysconfdir}/teampulls.toml
-%{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info
+%{python3_sitelib}/teampulls
+%{python3_sitelib}/teampulls-0.2.6.dist-info/
 
 %changelog
+* Thu Aug 28 2025 Jochen Breuer <brejoc@gmail.com> - 0.2.7-1
+- Update to version 0.2.7
+  - Switch to poetry with gh#22 and some more security updates: gh#23 gh#24
+  - Fixes for gh#9 gh#10
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

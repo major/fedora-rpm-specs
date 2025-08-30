@@ -10,7 +10,7 @@
 %bcond doc 0
 
 Name:             R-%{packname}
-Version:          2.2.0
+Version:          2.3.3
 Release:          %autorelease
 Summary:          Toolkit for Encryption, Signatures and Certificates Based on OpenSSL
 

@@ -11,11 +11,11 @@
 %bcond_without       tests
 
 # Github
-%global gh_commit    1a800a7446add2d79cc6b3c01c45381810367d76
+%global gh_commit    4f7722aa9a7b76aa775e2d9d4e95d1ea16eeeef4
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner    sebastianbergmann
 %global gh_project   php-code-coverage
-%global gh_date      2025-06-18
+%global gh_date      2025-08-27
 # Packagist
 %global pk_vendor    phpunit
 %global pk_project   php-code-coverage
@@ -26,8 +26,8 @@
 %global ver_major    11
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
-Version:        11.0.10
-Release:        2%{?dist}
+Version:        11.0.11
+Release:        1%{?dist}
 Summary:        PHP code coverage information, version %{ver_major}
 
 # SPDX: Main license is BSD-3-Clause
@@ -193,6 +193,9 @@ exit $ret
 
 
 %changelog
+* Thu Aug 28 2025 Remi Collet <remi@remirepo.net> - 11.0.11-1
+- update to 11.0.11
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 11.0.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

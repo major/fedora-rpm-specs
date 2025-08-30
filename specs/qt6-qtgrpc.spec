@@ -10,8 +10,8 @@
 
 Summary: Qt6 - Support for using gRPC and Protobuf
 Name:    qt6-%{qt_module}
-Version: 6.9.1
-Release: 3%{?dist}
+Version: 6.9.2
+Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -169,6 +169,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %endif
 
 %changelog
+* Thu Aug 28 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.2-1
+- 6.9.2
+
 * Mon Aug 04 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.1-3
 - Add the missing linking of CorePrivate to GrpcQuick module
 

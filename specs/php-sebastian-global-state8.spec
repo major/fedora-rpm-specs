@@ -9,11 +9,11 @@
 
 %bcond_without       tests
 
-%global gh_commit    570a2aeb26d40f057af686d63c4e99b075fb6cbc
+%global gh_commit    912dd568677a6e13c67c08321710ad6ac81e6dca
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   global-state
-%global gh_date      2025-02-07
+%global gh_date      2025-08-28
 # Packagist
 %global pk_vendor    sebastian
 %global pk_project   %{gh_project}
@@ -24,8 +24,8 @@
 %global php_home     %{_datadir}/php
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        8.0.0
-Release:        3%{?dist}
+Version:        8.0.1
+Release:        1%{?dist}
 Summary:        Snapshotting of global state, version %{major}
 
 License:        BSD-3-Clause
@@ -105,7 +105,7 @@ EOF
 
 : Run upstream test suite
 ret=0
-for cmd in php php83 php84; do
+for cmd in php php83 php84 php85; do
   if which $cmd; then
    $cmd -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php \
      %{_bindir}/phpunit12 --bootstrap vendor/autoload.php \
@@ -127,6 +127,9 @@ exit $ret
 
 
 %changelog
+* Thu Aug 28 2025 Remi Collet <remi@remirepo.net> - 8.0.1-1
+- update to 8.0.1
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

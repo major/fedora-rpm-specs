@@ -4,7 +4,7 @@
 %global rlibdir %{_datadir}/R/library
 
 Name:           R-%{packname}
-Version:        0.4.1
+Version:        0.4.4
 Release:        %autorelease
 Summary:        Uncertainty Propagation for R Vectors
 
@@ -15,7 +15,7 @@ Source0:        %{url}&version=%{version}#/%{packname}_%{version}.tar.gz
 BuildRequires:  R-devel >= 3.0.0
 %if %{with check}
 # BuildRequires:  R-dplyr >= 1.0.0, R-vctrs >= 0.5.0, R-pillar
-# BuildRequires:  R-ggplot2 > 3.2.1, R-vdiffr
+# BuildRequires:  R-ggplot2 > 3.5.0, R-vdiffr
 BuildRequires:  R-testthat
 BuildRequires:  R-knitr, R-rmarkdown
 %endif

@@ -1,7 +1,7 @@
 Name:    ofono
 Summary: Open Source Telephony
-Version: 2.17
-Release: 2%{?dist}
+Version: 2.18
+Release: 1%{?dist}
 
 # oFono is GPL. This covers most of the source files.
 # ProvisionDB is LGPL. This covers src/provisiondb.{c,h}
@@ -10,7 +10,7 @@ URL:     http://www.ofono.org/
 Source0: https://git.kernel.org/pub/scm/network/ofono/ofono.git/snapshot/ofono-%{version}.tar.gz
 
 BuildRequires: make
-BuildRequires: libell-devel >= 0.72
+BuildRequires: libell-devel >= 0.79
 BuildRequires: automake libtool
 BuildRequires: pkgconfig(glib-2.0)
 BuildRequires: pkgconfig(dbus-1)
@@ -89,6 +89,9 @@ make check
 
 
 %changelog
+* Thu Aug 28 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 2.18-1
+- Update to v2.18 (rhbz#2383377)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.17-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

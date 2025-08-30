@@ -1,7 +1,7 @@
 %global pypi_name eth_utils
 
 Name:          python-eth-utils
-Version:       5.3.0
+Version:       5.3.1
 Release:       %autorelease
 BuildArch:     noarch
 Summary:       Utility functions for working with Ethereum related codebases
@@ -14,7 +14,6 @@ BuildRequires: python3-hypothesis
 BuildRequires: python3-mypy
 BuildRequires: python3-pytest
 BuildSystem:   pyproject
-BuildOption(prep):    -n %{pypi_name}-%{version}
 BuildOption(install): -l %{pypi_name}
 
 %description

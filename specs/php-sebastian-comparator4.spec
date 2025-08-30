@@ -1,13 +1,13 @@
 # remirepo/fedora spec file for php-sebastian-comparator4
 #
-# Copyright (c) 2014-2023 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2014-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    fa0f136dd2334583309d32b62544682ee972b51a
+%global gh_commit    67a2df3a62639eab2cc5906065e9805d4fd5dfc5
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   comparator
@@ -26,8 +26,8 @@
 %endif
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        4.0.8
-Release:        9%{?dist}
+Version:        4.0.9
+Release:        1%{?dist}
 Summary:        Compare PHP values for equality, version %{major}
 
 License:        BSD-3-Clause
@@ -55,9 +55,7 @@ Requires:       php(language) >= 7.3
 Requires:       (php-composer(%{pk_vendor}/diff)     >= 4.0   with php-composer(%{pk_vendor}/diff)     <  5)
 Requires:       (php-composer(%{pk_vendor}/exporter) >= 4.0   with php-composer(%{pk_vendor}/exporter) <  5)
 # from phpcompatinfo report for version 4.0.0
-Requires:       php-date
 Requires:       php-dom
-Requires:       php-spl
 # Autoloader
 Requires:       php-composer(fedora/autoloader)
 
@@ -102,7 +100,7 @@ mkdir vendor
 
 : Run upstream test suite
 ret=0
-for cmd in php php80 php81 php82; do
+for cmd in php php81 php82 php83 php84 php85; do
   if which $cmd; then
     $cmd -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php \
       %{_bindir}/phpunit9 --no-coverage --verbose || ret=1
@@ -121,6 +119,9 @@ exit $ret
 
 
 %changelog
+* Mon Aug 11 2025 Remi Collet <remi@remirepo.net> - 4.0.9-1
+- update to 4.0.9
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.8-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

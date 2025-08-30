@@ -1,5 +1,5 @@
 Name:           python-jupyter-lsp
-Version:        2.2.6
+Version:        2.3.0
 Release:        %autorelease
 Summary:        Multi-Language Server WebSocket proxy for Jupyter Notebook/Lab server
 # SPDX

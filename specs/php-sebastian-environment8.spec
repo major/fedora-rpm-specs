@@ -10,11 +10,11 @@
 %bcond_without       tests
 
 # Sources
-%global gh_commit    d364b9e5d0d3b18a2573351a1786fbf96b7e0792
+%global gh_commit    24a711b5c916efc6d6e62aa65aa2ec98fef77f68
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   environment
-%global gh_date      2025-05-21
+%global gh_date      2025-08-12
 # Packagist
 %global pk_vendor    sebastian
 %global pk_project   %{gh_project}
@@ -25,8 +25,8 @@
 %global ns_project   Environment
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        8.0.2
-Release:        2%{?dist}
+Version:        8.0.3
+Release:        1%{?dist}
 Summary:        Handle HHVM/PHP environments, version %{major}
 
 License:        BSD-3-Clause
@@ -91,7 +91,7 @@ touch vendor/autoload.php
 
 : Run tests
 ret=0
-for cmd in php php83 php84; do
+for cmd in php php83 php84 php85; do
   if which $cmd; then
    $cmd -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php \
      -d pcov.enabled=1 \
@@ -110,6 +110,9 @@ exit $ret
 
 
 %changelog
+* Wed Aug 13 2025 Remi Collet <remi@remirepo.net> - 8.0.3-1
+- update to 8.0.3
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

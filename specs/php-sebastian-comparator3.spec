@@ -1,13 +1,13 @@
 # remirepo/fedora spec file for php-sebastian-comparator3
 #
-# Copyright (c) 2014-2023 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2014-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    1dc7ceb4a24aede938c7af2a9ed1de09609ca770
+%global gh_commit    4b3c947888c81708b20fb081bb653a2ba68f989a
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   comparator
@@ -24,8 +24,8 @@
 %endif
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        3.0.5
-Release:        9%{?dist}
+Version:        3.0.6
+Release:        1%{?dist}
 Summary:        Compare PHP values for equality, version %{major}
 
 License:        BSD-3-Clause
@@ -52,9 +52,7 @@ Requires:       php(language) >= 7.1
 Requires:       (php-composer(%{pk_vendor}/diff) >= 3.0     with php-composer(%{pk_vendor}/diff) <  4)
 Requires:       (php-composer(%{pk_vendor}/exporter) >= 3.1 with php-composer(%{pk_vendor}/exporter) <  4)
 # from phpcompatinfo report for version 3.0.0
-Requires:       php-date
 Requires:       php-dom
-Requires:       php-spl
 # Autoloader
 Requires:       php-composer(fedora/autoloader)
 
@@ -99,7 +97,7 @@ mkdir vendor
 
 : Run upstream test suite
 ret=0
-for cmd in php php80 php81 php82; do
+for cmd in php php81 php82 php83 php84 php85; do
   if which $cmd; then
     $cmd -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php \
       %{_bindir}/phpunit8 --no-coverage --verbose || ret=1
@@ -120,6 +118,9 @@ exit $ret
 
 
 %changelog
+* Mon Aug 11 2025 Remi Collet <remi@remirepo.net> - 3.0.6-1
+- update to 3.0.6
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.5-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

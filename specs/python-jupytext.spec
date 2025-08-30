@@ -2,7 +2,7 @@
 #global vsuffix d
 
 Name:           python-jupytext
-Version:        1.17.2
+Version:        1.17.3
 Release:        %autorelease
 Summary:        Save Jupyter notebooks as text documents or scripts
 
@@ -17,7 +17,7 @@ Source3:        prepare_vendor.sh
 
 # s390x builds fail due to a bug in jupyterlab
 # https://bugzilla.redhat.com/show_bug.cgi?id=2278011
-# ppc64le build fails due to lack of a binary builder
+# ppc64le builds fail due to lack of a binary builder
 ExclusiveArch:  %{x86_64} %{arm64} noarch
 
 BuildArch:      noarch

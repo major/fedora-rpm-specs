@@ -9,17 +9,13 @@
 %global _docdir_fmt %{name}
 
 Name:       vdirsyncer
-Version:    0.19.3
-Release:    6%{?dist}
+Version:    0.20.0
+Release:    1%{?dist}
 Summary:    %{sum}
 
 License:    BSD-3-Clause
 URL:        https://github.com/pimutils/%{name}
 Source0:    %{pypi_source}
-
-Patch0:     aiostream-version-bump.patch
-# https://github.com/pimutils/vdirsyncer/commit/8b063c39cb3e26a2beef5b6beed7e99c9e9641ac
-Patch1:     remove-atomicwrites-dep.patch
 
 BuildArch:  noarch
 Obsoletes:  python2-%{srcname} <= 0.12.1
@@ -150,6 +146,9 @@ sh build.sh tests
 %doc docs/_build/html docs/_build/text
 
 %changelog
+* Thu Aug 28 2025 Ben Boeckel <fedora@me.benboeckel.net> - 0.20.0-1
+- Update to 0.20.0
+
 * Mon Aug 18 2025 Ben Boeckel <fedora@me.benboeckel.net> - 0.19.3-6
 - Remove atomicwrites dependency (see rhbz#2385436)
 

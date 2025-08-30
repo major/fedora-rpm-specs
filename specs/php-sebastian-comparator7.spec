@@ -9,11 +9,11 @@
 
 %bcond_without       tests
 
-%global gh_commit    03d905327dccc0851c9a08d6a979dfc683826b6f
+%global gh_commit    dc904b4bb3ab070865fa4068cd84f3da8b945148
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   comparator
-%global gh_date      2025-06-13
+%global gh_date      2025-08-20
 # Packagist
 %global pk_vendor    sebastian
 %global pk_project   %{gh_project}
@@ -24,8 +24,8 @@
 %global ns_project   Comparator
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        7.1.0
-Release:        2%{?dist}
+Version:        7.1.3
+Release:        1%{?dist}
 Summary:        Compare PHP values for equality, version %{major}
 
 License:        BSD-3-Clause
@@ -105,7 +105,7 @@ mkdir vendor
 
 : Run upstream test suite
 ret=0
-for cmd in php php83 php84; do
+for cmd in php php83 php84 php85; do
   if which $cmd; then
     $cmd -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php \
       %{_bindir}/phpunit12 --bootstrap vendor/autoload.php --no-coverage || ret=1
@@ -124,6 +124,9 @@ exit $ret
 
 
 %changelog
+* Wed Aug 20 2025 Remi Collet <remi@remirepo.net> - 7.1.3-1
+- update to 7.1.3
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

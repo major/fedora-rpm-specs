@@ -6,7 +6,7 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    92dde6a5919e34835c506ac8c523ef095a95ed62
+%global gh_commit    94f8051919d1b0369a6bcc7931d679a511c03fe9
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     phpDocumentor
 %global gh_project   ReflectionDocBlock
@@ -14,8 +14,8 @@
 %bcond_without       tests
 
 Name:           php-phpdocumentor-reflection-docblock%{major}
-Version:        5.6.2
-Release:        2%{?dist}
+Version:        5.6.3
+Release:        1%{?dist}
 Summary:        DocBlock parser
 
 License:        MIT
@@ -140,7 +140,7 @@ cat <<BOOTSTRAP | tee -a bootstrap.php
 BOOTSTRAP
 
 RETURN_CODE=0
-for PHP_EXEC in "php %{phpunit}" php81 php82 php83 php84; do
+for PHP_EXEC in "php %{phpunit}" php81 php82 php83 php84 php85; do
     if which $PHP_EXEC; then
         set $PHP_EXEC
         $1 -d auto_prepend_file=$PWD/bootstrap.php \
@@ -165,6 +165,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Thu Aug 28 2025 Remi Collet <remi@remirepo.net> - 5.6.3-1
+- update to 5.6.3
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

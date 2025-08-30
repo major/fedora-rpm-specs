@@ -10,8 +10,8 @@
 
 Summary: Qt6 - Qt 5 Compatibility Libraries
 Name:    qt6-%{qt_module}
-Version: 6.9.1
-Release: 3%{?dist}
+Version: 6.9.2
+Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -119,6 +119,9 @@ popd
 %endif
 
 %changelog
+* Thu Aug 28 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.2-1
+- 6.9.2
+
 * Wed Aug 06 2025 František Zatloukal <fzatlouk@redhat.com> - 6.9.1-3
 - Rebuilt for icu 77.1
 

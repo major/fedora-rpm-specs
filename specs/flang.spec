@@ -1,6 +1,6 @@
-%global maj_ver 20
+%global maj_ver 21
 %global min_ver 1
-%global patch_ver 8
+%global patch_ver 0
 #global rc_ver 3
 %global flang_version %{maj_ver}.%{min_ver}.%{patch_ver}
 %global srcdir llvm-project-%{flang_version}%{?rc_ver:-rc%{rc_ver}}.src
@@ -12,7 +12,7 @@
 
 Name: flang
 Version: %{flang_version}%{?rc_ver:~rc%{rc_ver}}
-Release: 2%{?dist}
+Release: 1%{?dist}
 Summary: a Fortran language front-end designed for integration with LLVM
 
 License: Apache-2.0 WITH LLVM-exception
@@ -23,12 +23,6 @@ Source2: release-keys.asc
 
 Source8: omp_lib.h
 Source9: omp_lib.F90
-
-# The Bye plugin is not distributed on Fedora.
-Patch3: 0001-flang-Remove-the-dependency-on-Bye.patch
-
-# Fedora uses CLANG_DEFAULT_PIE_ON_LINUX=OFF.
-Patch5: 0001-Match-Fedora-s-value-for-CLANG_DEFAULT_PIE_ON_LINUX.patch
 
 # Fix for standalone builds. Avoid running on non-x86 targets.
 Patch6: 0001-Fix-fastmath-test.patch
@@ -186,6 +180,20 @@ export LD_LIBRARY_PATH=%{_builddir}/%{srcdir}/flang/%{_build}/lib
 %cmake_build
 %cmake_build --target docs-flang-html
 
+# Build Runtimes
+%global llvm_triple %{_target_platform}
+cd ../runtimes
+%cmake -GNinja \
+       -DLLVM_ENABLE_RUNTIMES=flang-rt \
+       -DCMAKE_Fortran_COMPILER=%{_builddir}/%{srcdir}/flang/%{_vpath_builddir}/bin/flang \
+       -DCMAKE_Fortran_COMPILER_WORKS=ON \
+       -DCMAKE_Fortran_FLAGS="" \
+       -DBUILD_SHARED_LIBS:BOOL=ON \
+       -DFLANG_RT_ENABLE_SHARED=ON \
+       -DLLVM_DEFAULT_TARGET_TRIPLE=%{llvm_triple}
+
+%cmake_build
+
 
 %install
 cd flang
@@ -196,9 +204,11 @@ rm -rf %{buildroot}/%{_libdir}/cmake/
 rm -f %{buildroot}/%{_libdir}/libFIRAnalysis.so \
       %{buildroot}/%{_libdir}/libFIRBuilder.so \
       %{buildroot}/%{_libdir}/libFIRCodeGen.so \
+      %{buildroot}/%{_libdir}/libFIRCodeGenDialect.so \
       %{buildroot}/%{_libdir}/libFIRDialect.so \
       %{buildroot}/%{_libdir}/libFIRDialectSupport.so \
       %{buildroot}/%{_libdir}/libFIROpenACCSupport.so \
+      %{buildroot}/%{_libdir}/libFIROpenMPSupport.so \
       %{buildroot}/%{_libdir}/libFIRSupport.so \
       %{buildroot}/%{_libdir}/libFIRTestAnalysis.so \
       %{buildroot}/%{_libdir}/libFIRTestOpenACCInterfaces.so \
@@ -207,7 +217,6 @@ rm -f %{buildroot}/%{_libdir}/libFIRAnalysis.so \
       %{buildroot}/%{_libdir}/libflangFrontendTool.so \
       %{buildroot}/%{_libdir}/libflangPasses.so \
       %{buildroot}/%{_libdir}/libFlangOpenMPTransforms.so \
-      %{buildroot}/%{_libdir}/libFortranCommon.so \
       %{buildroot}/%{_libdir}/libFortranEvaluate.so \
       %{buildroot}/%{_libdir}/libFortranLower.so \
       %{buildroot}/%{_libdir}/libFortranParser.so \
@@ -222,6 +231,10 @@ rm -f %{buildroot}%{_bindir}/f18-parse-demo
 
 install -d %{buildroot}%{_pkgdocdir}/html
 cp -r %{_vpath_builddir}/docs/html/* %{buildroot}%{_pkgdocdir}/html/
+
+# Install runtimes
+cd ../runtimes
+%cmake_install
 
 %check
 
@@ -270,6 +283,7 @@ export LD_LIBRARY_PATH=%{_builddir}/%{srcdir}/flang/%{_vpath_builddir}/lib
 %{_includedir}/flang/__fortran_type_info.mod
 %{_includedir}/flang/__ppc_intrinsics.mod
 %{_includedir}/flang/__ppc_types.mod
+%{_includedir}/flang/cooperative_groups.mod
 %{_includedir}/flang/ieee_arithmetic.mod
 %{_includedir}/flang/ieee_exceptions.mod
 %{_includedir}/flang/ieee_features.mod
@@ -286,9 +300,11 @@ export LD_LIBRARY_PATH=%{_builddir}/%{srcdir}/flang/%{_vpath_builddir}/lib
 %{_libdir}/libFIRAnalysis.so.%{maj_ver}.%{min_ver}
 %{_libdir}/libFIRBuilder.so.%{maj_ver}.%{min_ver}
 %{_libdir}/libFIRCodeGen.so.%{maj_ver}.%{min_ver}
+%{_libdir}/libFIRCodeGenDialect.so.%{maj_ver}.%{min_ver}
 %{_libdir}/libFIRDialect.so.%{maj_ver}.%{min_ver}
 %{_libdir}/libFIRDialectSupport.so.%{maj_ver}.%{min_ver}
 %{_libdir}/libFIROpenACCSupport.so.%{maj_ver}.%{min_ver}
+%{_libdir}/libFIROpenMPSupport.so.%{maj_ver}.%{min_ver}
 %{_libdir}/libFIRSupport.so.%{maj_ver}.%{min_ver}
 %{_libdir}/libFIRTestAnalysis.so.%{maj_ver}.%{min_ver}
 %{_libdir}/libFIRTestOpenACCInterfaces.so.%{maj_ver}.%{min_ver}
@@ -297,12 +313,10 @@ export LD_LIBRARY_PATH=%{_builddir}/%{srcdir}/flang/%{_vpath_builddir}/lib
 %{_libdir}/libflangFrontendTool.so.%{maj_ver}.%{min_ver}*
 %{_libdir}/libflangPasses.so.%{maj_ver}.%{min_ver}*
 %{_libdir}/libFlangOpenMPTransforms.so.%{maj_ver}.%{min_ver}*
-%{_libdir}/libFortranCommon.so.%{maj_ver}.%{min_ver}*
 %{_libdir}/libFortranDecimal.so
 %{_libdir}/libFortranEvaluate.so.%{maj_ver}.%{min_ver}*
 %{_libdir}/libFortranLower.so.%{maj_ver}.%{min_ver}*
 %{_libdir}/libFortranParser.so.%{maj_ver}.%{min_ver}*
-%{_libdir}/libFortranRuntime.so
 %{_libdir}/libFortranSemantics.so.%{maj_ver}.%{min_ver}*
 %{_libdir}/libFortranSupport.so.%{maj_ver}.%{min_ver}*
 %{_libdir}/libHLFIRDialect.so.%{maj_ver}.%{min_ver}
@@ -320,9 +334,13 @@ export LD_LIBRARY_PATH=%{_builddir}/%{srcdir}/flang/%{_vpath_builddir}/lib
 
 %files runtime
 %{_libdir}/libFortranDecimal.so.%{maj_ver}.%{min_ver}*
-%{_libdir}/libFortranRuntime.so.%{maj_ver}.%{min_ver}*
+%{clang_resource_dir}/lib/%{llvm_triple}/libflang_rt.runtime.so
+%{clang_resource_dir}/lib/%{llvm_triple}/libflang_rt.runtime.a
 
 %changelog
+* Tue Aug 05 2025 Tom Stellard <tstellar@redhat.com> - 21.1.0-1
+- Update to LLVM 21.1.0
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20.1.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

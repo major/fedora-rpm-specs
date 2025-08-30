@@ -1,6 +1,6 @@
 %global packname  units
 %global packvers  0.8
-%global packrel   5
+%global packrel   7
 %global rlibdir   %{_libdir}/R/library
 
 Name:           R-%{packname}
@@ -12,12 +12,12 @@ License:        GPL-2.0-or-later
 URL:            https://cran.r-project.org/package=%{packname}
 Source0:        %{url}&version=%{packvers}-%{packrel}#/%{packname}_%{packvers}-%{packrel}.tar.gz
 
-BuildRequires:  R-devel >= 3.0.0
+BuildRequires:  R-devel >= 3.0.2
 BuildRequires:  udunits2-devel
 BuildRequires:  R-Rcpp-devel >= 0.12.10
 # BuildRequires:  R-NISTunits, R-measurements
 # BuildRequires:  R-magrittr, R-pillar >= 1.3.0, R-dplyr >= 1.0.0, R-vctrs >= 0.3.1
-# BuildRequires:  R-ggplot2 > 3.2.1, R-vdiffr
+# BuildRequires:  R-ggplot2 > 3.2.1, R-vdiffr, R-rvest
 BuildRequires:  R-testthat >= 3.0.0
 # BuildRequires:  R-knitr, R-rmarkdown
 Recommends:     R-xml2

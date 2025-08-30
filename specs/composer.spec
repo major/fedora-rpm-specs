@@ -8,7 +8,7 @@
 #
 
 
-%global gh_commit    53834f587d7ab2527eb237459d7b94d1fb9d4c5a
+%global gh_commit    00e1a3396eea67033775c4a49c772376f45acd73
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_branch    2.0-dev
 %global gh_owner     composer
@@ -16,7 +16,7 @@
 %global api_version  2.6.0
 %global run_version  2.2.2
 
-%global upstream_version 2.8.10
+%global upstream_version 2.8.11
 #global upstream_prever  RC1
 #global upstream_lower   rc1
 
@@ -27,7 +27,7 @@
 
 Name:           composer
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_lower}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Dependency Manager for PHP
 
 # SPDX: composer and all dependencies are MIT
@@ -76,7 +76,7 @@ BuildRequires:  composer-generators
 Requires:       php(language)                           >= 7.2.5
 Requires:       php-cli
 # System certificates
-Requires:       ca-certificates
+Requires:       /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
 
 # From composer.json, suggest
 #        "ext-openssl": "Enabling the openssl extension allows you to access https URLs for repositories and packages",
@@ -205,6 +205,9 @@ php -r '
 
 
 %changelog
+* Wed Aug 27 2025 Remi Collet <remi@remirepo.net> - 2.8.11-1
+- update to 2.8.11
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

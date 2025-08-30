@@ -11,7 +11,7 @@
 
 Name:              valkey
 Version:           8.1.3
-Release:           2%{?dist}
+Release:           3%{?dist}
 Summary:           A persistent key-value database
 # valkey: BSD-3-Clause
 # hiredis: BSD-3-Clause
@@ -26,9 +26,11 @@ Source2:           %{name}-sentinel.service
 Source3:           %{name}.service
 Source4:           %{name}.sysusers
 Source5:           %{name}.tmpfiles
-Source8:           macros.%{name}
 Source9:           migrate_redis_to_valkey.sh
 Source50:          https://github.com/valkey-io/%{name}-doc/archive/%{doc_version}/%{name}-doc-%{doc_version}.tar.gz
+
+# Fix default paths in configuration files for RPM layout
+Patch0:            %{name}-conf.patch
 
 BuildRequires:     make
 BuildRequires:     gcc
@@ -64,6 +66,7 @@ Provides:          bundled(fpconv)
 
 %global valkey_modules_abi 1
 %global valkey_modules_dir %{_libdir}/%{name}/modules
+%global valkey_modules_cfg %{_sysconfdir}/%{name}/modules
 Provides:          valkey(modules_abi)%{?_isa} = %{valkey_modules_abi}
 
 ExcludeArch:       %{ix86}
@@ -158,6 +161,7 @@ Provides:          redis-doc = %{version}-%{release}
 %prep
 # no autosetup due to no support for multiple source extraction
 %setup -n %{name}-%{version} -a50
+%patch -P0 -p1 -b.rpm
 
 mv deps/lua/COPYRIGHT             COPYRIGHT-lua
 mv deps/jemalloc/COPYING          COPYING-jemalloc
@@ -179,19 +183,17 @@ sed -e 's/--with-lg-quantum/--with-lg-page=16 --with-lg-quantum/' -i deps/Makefi
 api=`sed -n -e 's/#define VALKEYMODULE_APIVER_[0-9][0-9]* //p' src/valkeymodule.h`
 if test "$api" != "%{valkey_modules_abi}"; then
    : Error: Upstream API version is now ${api}, expecting %%{valkey_modules_abi}.
-   : Update the valkey_modules_abi macro, the rpmmacros file, and rebuild.
+   : Update the valkey_modules_abi macro, and rebuild.
    exit 1
 fi
 
-
-sed -i -e 's|^logfile .*$|logfile /var/log/valkey/valkey.log|g' \
-  -e 's|^# unixsocket .*$|unixsocket /run/valkey/valkey.sock|g' \
-  -e 's|^pidfile .*$|pidfile /run/valkey/valkey.pid|g' \
-  valkey.conf
-
-sed -i -e 's|^logfile .*$|logfile /var/log/valkey/sentinel.log|g' \
-  -e 's|^pidfile .*$|pidfile /run/valkey/sentinel.pid|g' \
-  sentinel.conf
+# Generates macro file
+cat << 'EOF' | tee macros.%{name}
+%%valkey_version     %version
+%%valkey_modules_abi %valkey_modules_abi
+%%valkey_modules_dir %valkey_modules_dir
+%%valkey_modules_cfg %valkey_modules_cfg
+EOF
 
 %if (%{defined fedora} && 0%{?fedora} < 42) || (%{defined rhel} && 0%{?rhel} < 10)
 # these lines are for conditionals around sysconfig to valkey.conf porting scriptlets to avoid re-runs
@@ -253,6 +255,7 @@ install -pDm644 %{S:1} %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
 # Install configuration files.
 install -pDm640 %{name}.conf  %{buildroot}%{_sysconfdir}/%{name}/%{name}.conf
 install -pDm640 sentinel.conf %{buildroot}%{_sysconfdir}/%{name}/sentinel.conf
+install -dm750  %{buildroot}%{valkey_modules_cfg}
 
 # Install systemd unit files.
 mkdir -p %{buildroot}%{_unitdir}
@@ -267,7 +270,7 @@ install -pDm644 src/%{name}module.h %{buildroot}%{_includedir}/%{name}module.h
 
 # Install rpm macros for valkey modules
 #mkdir -p %{buildroot}%{_rpmmacrodir}
-install -pDm644 %{S:8} %{buildroot}%{_rpmmacrodir}/macros.%{name}
+install -pDm644 macros.%{name} %{buildroot}%{_rpmmacrodir}/macros.%{name}
 
 # compat script
 install -Dpm 755 %{S:9} %{buildroot}%{_libexecdir}/migrate_redis_to_valkey.sh
@@ -360,6 +363,7 @@ fi
 %license COPYING-hiredis-BSD-3-Clause
 %config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
 %attr(0750, valkey, root) %dir %{_sysconfdir}/%{name}
+%attr(0750, valkey, root) %dir %{valkey_modules_cfg}
 %attr(0640, valkey, root) %config(noreplace) %{_sysconfdir}/%{name}/%{name}.conf
 %attr(0640, valkey, root) %config(noreplace) %{_sysconfdir}/%{name}/sentinel.conf
 %dir %{_libdir}/%{name}
@@ -404,6 +408,11 @@ fi
 
 
 %changelog
+* Thu Aug 28 2025 Remi Collet <remi@fedoraproject.org> - 8.1.3-3
+- use patch for configuration changes
+- add /etc/valkey/modules drop-in directory for module configuration files
+- add %%valkey_version and %%valkey_modules_cfg macros
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.1.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

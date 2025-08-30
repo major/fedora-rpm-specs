@@ -5,8 +5,8 @@
 %global _python_bytecompile_errors_terminate_build 0
 
 Name:           qt-creator
-Version:        17.0.0
-Release:        2%{?dist}
+Version:        17.0.1
+Release:        1%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 License:        GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -211,7 +211,10 @@ diff -u %{SOURCE1} $outfile
 
 
 %changelog
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org>
+* Thu Aug 28 2025 Sandro Mani <manisandro@gmail.com> - 17.0.1-1
+- Update to 17.0.1
+
+* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 17.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
 * Thu Jun 19 2025 Marie Loise Nolden <loise@kde.org> 17.0.0-1

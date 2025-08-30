@@ -20,7 +20,7 @@
 
 Name:           flexiblas
 Version:        %{major_version}.%{minor_version}.%{patch_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A BLAS/LAPACK wrapper library with runtime exchangeable backends
 
 # LGPL-3.0-or-later
@@ -448,6 +448,9 @@ make -C build64 test
 %endif
 
 %changelog
+* Thu Aug 28 2025 Iñaki Úcar <iucar@fedoraproject.org> - 3.4.5-5
+- Rebuild for lapack 3.12.0-10
+
 * Wed Jul 30 2025 Iñaki Úcar <iucar@fedoraproject.org> - 3.4.5-4
 - Rebuild for blis 2.0 (rhbz#2384773)
 

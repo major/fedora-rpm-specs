@@ -11,11 +11,11 @@
 %bcond_without       tests
 
 # github
-%global gh_commit    a8a7e30534b0eb0c77cd9d07e82de1a114389f5e
+%global gh_commit    f77d2d4e78738c98d9a68d2596fe5e8fa380f449
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   type
-%global gh_date      2025-03-18
+%global gh_date      2025-08-09
 # packagist
 %global pk_vendor    sebastian
 %global pk_project   %{gh_project}
@@ -26,8 +26,8 @@
 %global ns_project   Type
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        5.1.2
-Release:        2%{?dist}
+Version:        5.1.3
+Release:        1%{?dist}
 Summary:        Collection of value objects that represent the types of the PHP type system, v%{major}
 
 License:        BSD-3-Clause
@@ -93,7 +93,7 @@ EOF
 
 : Run upstream test suite
 ret=0
-for cmd in php php82 php83 php84; do
+for cmd in php php82 php83 php84 php85; do
   if which $cmd; then
    $cmd -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php \
      %{_bindir}/phpunit11 --bootstrap vendor/autoload.php --no-coverage || ret=1
@@ -114,6 +114,9 @@ exit $ret
 
 
 %changelog
+* Sun Aug 10 2025 Remi Collet <remi@remirepo.net> - 5.1.3-1
+- update to 5.1.3 (no change)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -9,15 +9,15 @@
 %define _legacy_common_support 1
 
 Name:           tcpreplay
-Version:        4.5.1
-Release:        7%{?dist}
+Version:        4.5.2
+Release:        1%{?dist}
 Summary:        Replay captured network traffic
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
 URL:            http://tcpreplay.appneta.com/
 Source:         https://github.com/appneta/tcpreplay/releases/download/v%{version}/tcpreplay-%{version}.tar.xz
-Patch0:         tcpreplay-4.5.1-txring_h.patch
+Patch0:         tcpreplay-4.5.2-txring_h.patch
 Patch1:         tcpreplay-4.5.1-configure_ac.patch
 
 BuildRequires:  make
@@ -68,6 +68,9 @@ autoreconf -vif
 %{_bindir}/*
 
 %changelog
+* Fri Aug 29 2025 Bojan Smojver <bojan@rexursive com> - 4.5.2-1
+- Update to 4.5.2
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

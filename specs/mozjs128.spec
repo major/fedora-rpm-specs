@@ -56,11 +56,14 @@ Patch15:        remove-sloppy-m4-detection-from-bundled-autoconf.patch
 # https://bugzilla.mozilla.org/show_bug.cgi?id=1474486
 Patch16:        firefox-112.0-commasplit.patch
 
-# Python 3.13 fixup
-Patch17:        six-is-always-PY3-don-t-ask-for-it.patch
-
 # TODO: Check with mozilla for cause of these fails and re-enable spidermonkey compile time checks if needed
 Patch20:        spidermonkey_checks_disable.patch
+
+# Python 3.14 compatibility
+# Change uses of ast.Str with ast.Constant
+# https://phabricator.services.mozilla.com/D261512
+# Rebased slightly
+Patch21:        D261512.1755672843.diff
 
 BuildRequires:  cargo
 %if "%{toolchain}" == "clang"
@@ -84,7 +87,9 @@ BuildRequires:  cbindgen
 BuildRequires:  perl-devel
 BuildRequires:  pkgconfig(libffi)
 BuildRequires:  pkgconfig(zlib)
-BuildRequires:  python3.13-devel
+BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
+BuildRequires:  python3-six
 BuildRequires:  readline-devel
 BuildRequires:  wget
 BuildRequires:  zip
@@ -132,7 +137,6 @@ sed -i 's/icu-i18n/icu-uc &/' js/moz.configure
 export M4=m4
 export AWK=awk
 export AC_MACRODIR=./build/autoconf/
-export PYTHON3="/usr/bin/python3.13"
 
 pushd js/src/
 %configure \
@@ -209,15 +213,12 @@ chmod -x %{buildroot}%{_includedir}/mozjs-%{major}/js/ProfilingCategoryList.h
 chmod -x %{buildroot}%{_includedir}/mozjs-%{major}/js-config.h
 
 %check
-# Use bundled py3 modules since we're using non-default Python (3.13)
-export PYTHONPATH="${PYTHONPATH}:../../third_party/python/"
-
 pushd js/src/
 # Run SpiderMonkey tests
 %if 0%{?require_tests}
-/usr/bin/python3.13 tests/jstests.py -d -s -t 2400 --exclude-file=known_failures.txt --no-progress --wpt=disabled ../../js/src/dist/bin/js%{major}
+%{python3} tests/jstests.py -d -s -t 2400 --exclude-file=known_failures.txt --no-progress --wpt=disabled ../../js/src/dist/bin/js%{major}
 %else
-/usr/bin/python3.13 tests/jstests.py -d -s -t 2400 --exclude-file=known_failures.txt --no-progress --wpt=disabled ../../js/src/dist/bin/js%{major} || :
+%{python3} tests/jstests.py -d -s -t 2400 --exclude-file=known_failures.txt --no-progress --wpt=disabled ../../js/src/dist/bin/js%{major} || :
 %endif
 
 # Run basic JIT tests
@@ -225,13 +226,13 @@ pushd js/src/
 
 # large-arraybuffers/basic.js fails on s390x
 %ifarch s390 s390x
-/usr/bin/python3.13 jit-test/jit_test.py -s -t 2400 --no-progress -x large-arraybuffers/basic.js ../../js/src/dist/bin/js%{major} basic
+%{python3} jit-test/jit_test.py -s -t 2400 --no-progress -x large-arraybuffers/basic.js ../../js/src/dist/bin/js%{major} basic
 %else
-/usr/bin/python3.13 jit-test/jit_test.py -s -t 2400 --no-progress ../../js/src/dist/bin/js%{major} basic
+%{python3} jit-test/jit_test.py -s -t 2400 --no-progress ../../js/src/dist/bin/js%{major} basic
 %endif
 
 %else
-/usr/bin/python3.13 jit-test/jit_test.py -s -t 2400 --no-progress ../../js/src/dist/bin/js%{major} basic || :
+%{python3} jit-test/jit_test.py -s -t 2400 --no-progress ../../js/src/dist/bin/js%{major} basic || :
 %endif
 
 %files

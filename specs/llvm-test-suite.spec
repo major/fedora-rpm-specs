@@ -1,12 +1,12 @@
 %global _binaries_in_noarch_packages_terminate_build %{nil}
 
-%global llvm_test_suite_version 20.1.8
+%global llvm_test_suite_version 21.1.0
 #global rc_ver 3
 %global test_suite_srcdir test-suite-%{llvm_test_suite_version}%{?rc_ver:-rc%{rc_ver}}.src.fedora
 
 Name:		llvm-test-suite
 Version:	%{llvm_test_suite_version}%{?rc_ver:~rc%{rc_ver}}
-Release:	2%{?dist}
+Release:	1%{?dist}
 Summary:	C/C++ Compiler Test Suite
 
 License:	NCSA AND BSD-3-Clause-LBNL AND BSD-4.3TAHOE AND dtoa AND GPL-1.0-only AND GPL-2.0-or-later AND GPL-2.0-only AND MIT AND PSF-2.0 AND LicenseRef-Fedora-Public-Domain AND LicenseRef-Fedora-UltraPermissive AND AML AND Rdisc AND Apache-2.0 AND LGPL-3.0-only
@@ -80,6 +80,9 @@ cp -R %{_builddir}/%{test_suite_srcdir}/* %{buildroot}%{_datadir}/llvm-test-suit
 
 
 %changelog
+* Thu Aug 28 2025 Tom Stellard <tstellar@redhat.com> - 21.1.0-1
+- Update to LLVM 21.1.0
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20.1.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

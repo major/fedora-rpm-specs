@@ -15,8 +15,8 @@
 
 Summary: Qt6 - QtDeclarative component
 Name:    qt6-%{qt_module}
-Version: 6.9.1
-Release: 4%{?dist}
+Version: 6.9.2
+Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -39,7 +39,6 @@ Source5: qv4global_p-multilib.h
 # https://bugreports.qt.io/browse/QTBUG-87776
 # https://bugzilla.redhat.com/show_bug.cgi?id=2330219
 Patch0: qtdeclarative-cmake-do-not-automatically-link-against-qmlprivate.patch
-Patch1: qtdeclarative-qmlcachegen-fix-crash-on-unresolved-type-with-required-property.patch
 
 ## upstreamable patches
 
@@ -718,6 +717,9 @@ make check -k -C tests ||:
 %endif
 
 %changelog
+* Thu Aug 28 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.2-1
+- 6.9.2
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.9.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

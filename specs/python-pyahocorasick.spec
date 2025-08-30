@@ -1,13 +1,13 @@
 %global pypi_name pyahocorasick
 
 Name:           python-%{pypi_name}
-Version:        2.1.0
+Version:        2.2.0
 Release:        %autorelease
 Summary:        Python module (C extension and plain Python) implementing Aho-Corasick algorithm
 
 License:        BSD-3-Clause AND LicenseRef-Fedora-Public-Domain
 URL:            https://github.com/WojciechMula/pyahocorasick
-Source:         %url/archive/%{version}/%{pypi_name}-%{version}.tar.gz
+Source:         %url/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
 # Fix big-endian results.
 Patch:          https://github.com/WojciechMula/pyahocorasick/pull/193.patch
 

@@ -9,11 +9,11 @@
 
 %bcond_without       tests
 
-%global gh_commit    c405ae3a63e01b32eb71577f8ec1604e39858a7c
+%global gh_commit    0b01998a7d5b1f122911a66bebcb8d46f0c82d8c
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   recursion-context
-%global gh_date      2025-02-07
+%global gh_date      2025-08-13
 # Packagist
 %global pk_vendor    sebastian
 %global pk_project   %{gh_project}
@@ -24,8 +24,8 @@
 %global php_home     %{_datadir}/php
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        7.0.0
-Release:        4%{?dist}
+Version:        7.0.1
+Release:        1%{?dist}
 Summary:        Recursively process PHP variables, version %{major}
 
 License:        BSD-3-Clause
@@ -33,8 +33,6 @@ URL:            https://github.com/%{gh_owner}/%{gh_project}
 # run makesrc.sh to create a git snapshot with test suite
 Source0:        %{name}-%{version}-%{gh_short}.tgz
 Source1:        makesrc.sh
-
-Patch0:         https://github.com/sebastianbergmann/recursion-context/commit/31933c1e9e455d4c039cbbc4daf0bee85691729b.patch
 
 BuildArch:      noarch
 BuildRequires:  php(language) >= 8.3
@@ -65,7 +63,6 @@ Autoloader: %{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php
 
 %prep
 %setup -q -n %{gh_project}-%{gh_commit}
-%patch -P0 -p1
 
 
 %build
@@ -85,7 +82,7 @@ touch vendor/autoload.php
 
 : Run upstream test suite
 ret=0
-for cmd in php php83 php84; do
+for cmd in php php83 php84 php85; do
   if which $cmd; then
     $cmd -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php \
       %{_bindir}/phpunit12 || ret=1
@@ -105,6 +102,9 @@ exit $ret
 
 
 %changelog
+* Wed Aug 13 2025 Remi Collet <remi@remirepo.net> - 7.0.1-1
+- update to 7.0.1
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

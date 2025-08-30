@@ -45,8 +45,8 @@ BuildRequires: pkgconfig(libsystemd)
 
 Name:    qt6-qtbase
 Summary: Qt6 - QtBase components
-Version: 6.9.1
-Release: 4%{?dist}
+Version: 6.9.2
+Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://qt-project.org/
@@ -432,7 +432,7 @@ translationdir=%{_qt6_translationdir}
 
 Name: Qt6
 Description: Qt6 Configuration
-Version: 6.9.1
+Version: 6.9.2
 EOF
 
 # rpm macros
@@ -932,6 +932,9 @@ make check -k ||:
 
 
 %changelog
+* Thu Aug 28 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.2-1
+- 6.9.2
+
 * Tue Aug 05 2025 František Zatloukal <fzatlouk@redhat.com> - 6.9.1-4
 - Rebuilt for icu 77.1
 

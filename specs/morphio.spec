@@ -86,6 +86,11 @@ Patch:          %{forgeurl}/pull/3.patch
 # skip locale check if std::locale fails
 Patch:          https://github.com/BlueBrain/MorphIO/pull/512.patch
 
+# use updated lexertl14
+# https://github.com/openbraininstitute/MorphIO/pull/16
+# (only the MorphIO source change, not the submodule change)
+Patch:          morphio-16.4.0-lexertl.patch
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 

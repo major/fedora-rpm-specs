@@ -4,14 +4,12 @@
 %bcond check 1
 
 Name:           python-%{srcname}
-Version:        5.5.1
+Version:        5.6.0
 Release:        %autorelease
 Summary:        Scan, analyze, enhance, and provide insights for your playbooks using Spotter
 License:        Apache-2.0
 URL:            https://spotter.steampunk.si/
 Source0:        https://gitlab.com/xlab-steampunk/steampunk-spotter-client/spotter-cli/-/archive/%{version}/spotter-cli-%{version}.tar.bz2
-# https://gitlab.com/xlab-steampunk/steampunk-spotter-client/spotter-cli/-/issues/405
-Patch0:         https://gitlab.com/xlab-steampunk/steampunk-spotter-client/spotter-cli/-/merge_requests/415.patch
 BuildArch:      noarch
 
 BuildRequires:  python%{python3_pkgversion}-devel

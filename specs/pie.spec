@@ -7,24 +7,23 @@
 # Please, preserve the changelog entries
 #
 
-%global gh_commit        6b7bbdd405cbc31d81dd94ef4140343ae2062f1e
+%global gh_commit        28b3e0d324f29034e6c80eed3f63773ca78038dc
 %global gh_short         %(c=%{gh_commit}; echo ${c:0:7})
 #global gh_date		     20241003
 %global gh_branch        main
 %global gh_owner         php
 %global gh_project       pie
 
-%global upstream_version 1.0.0
-#global upstream_prever  dev
-#global upstream_lower   DEV
+%global upstream_version 1.1.0
+#global upstream_prever  RC1
 
 %global bashcompdir      %(pkg-config --variable=completionsdir bash-completion 2>/dev/null)
 %global bashcomproot     %(dirname %{bashcompdir} 2>/dev/null)
 
 
 Name:           pie
-Version:        %{upstream_version}%{?upstream_prever:~%{upstream_lower}}
-Release:        2%{?dist}
+Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
+Release:        1%{?dist}
 Summary:        PHP Installer for Extensions
 
 # SPDX: pie is BSD-3-Clause, all dependencies are MIT
@@ -60,7 +59,7 @@ Requires:       php(language) >= 8.1
 Requires:       php-cli
 Requires:       php-zip
 # System certificates
-Requires:       ca-certificates
+Requires:       /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
 # From phpcompatinfo
 # Ignored: core, date, filter, hash, pcre, random, reflection, spl, standard
 Requires:       php-ctype
@@ -136,6 +135,9 @@ done
 
 
 %changelog
+* Fri Aug  8 2025 Remi Collet <remi@remirepo.net> - 1.1.0-1
+- update to 1.1.0
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

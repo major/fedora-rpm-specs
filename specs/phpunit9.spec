@@ -8,8 +8,8 @@
 #
 
 
-%global gh_commit    43d2cb18d0675c38bd44982a5d1d88f6d53d8d95
-%global gh_date      2025-05-02
+%global gh_commit    049c011e01be805202d8eebedef49f769a8ec7b7
+%global gh_date      2025-08-20
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   phpunit
@@ -22,12 +22,12 @@
 %global ver_major    9
 %global ver_minor    6
 
-%global upstream_version 9.6.23
+%global upstream_version 9.6.25
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        The PHP Unit Testing framework version %{ver_major}
 
 License:        BSD-3-Clause
@@ -41,7 +41,7 @@ Patch0:         %{name}-rpm.patch
 BuildArch:      noarch
 BuildRequires:  php(language) >= 7.3
 BuildRequires:  (php-composer(doctrine/instantiator) >= 1.5.0         with php-composer(doctrine/instantiator) <  3)
-BuildRequires:  (php-composer(myclabs/deep-copy) >= 1.13.1            with php-composer(myclabs/deep-copy) <  2)
+BuildRequires:  (php-composer(myclabs/deep-copy) >= 1.13.4            with php-composer(myclabs/deep-copy) <  2)
 BuildRequires:  (php-composer(phar-io/manifest) >= 2.0.4              with php-composer(phar-io/manifest) < 3)
 BuildRequires:  (php-composer(phar-io/version) >= 3.2.1               with php-composer(phar-io/version) <  4)
 BuildRequires:  (php-composer(phpspec/prophecy) >= 1.12.1             with php-composer(phpspec/prophecy) <  2)
@@ -52,11 +52,11 @@ BuildRequires:  (php-composer(phpunit/php-text-template) >= 2.0.4     with php-c
 BuildRequires:  (php-composer(phpunit/php-timer) >= 5.0.3             with php-composer(phpunit/php-timer) < 6)
 BuildRequires:  (php-composer(sebastian/cli-parser) >= 1.0.2          with php-composer(sebastian/cli-parser) < 2)
 BuildRequires:  (php-composer(sebastian/code-unit) >= 1.0.8           with php-composer(sebastian/code-unit) < 2)
-BuildRequires:  (php-composer(sebastian/comparator) >= 4.0.8          with php-composer(sebastian/comparator) <  5)
+BuildRequires:  (php-composer(sebastian/comparator) >= 4.0.9          with php-composer(sebastian/comparator) <  5)
 BuildRequires:  (php-composer(sebastian/diff) >= 4.0.6                with php-composer(sebastian/diff) <  5)
 BuildRequires:  (php-composer(sebastian/environment) >= 5.1.5         with php-composer(sebastian/environment) <  6)
 BuildRequires:  (php-composer(sebastian/exporter) >= 4.0.6            with php-composer(sebastian/exporter) <  5)
-BuildRequires:  (php-composer(sebastian/global-state) >= 5.0.7        with php-composer(sebastian/global-state) <  6)
+BuildRequires:  (php-composer(sebastian/global-state) >= 5.0.8        with php-composer(sebastian/global-state) <  6)
 BuildRequires:  (php-composer(sebastian/object-enumerator) >= 4.0.4   with php-composer(sebastian/object-enumerator) <  5)
 BuildRequires:  (php-composer(sebastian/resource-operations) >= 3.0.4 with php-composer(sebastian/resource-operations) < 4)
 BuildRequires:  (php-composer(sebastian/type) >= 3.2.1                with php-composer(sebastian/type) < 4)
@@ -79,7 +79,7 @@ BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 #        "ext-xml": "*",
 #        "ext-xmlwriter": "*",
 #        "doctrine/instantiator": "^1.5.0 || ^2",
-#        "myclabs/deep-copy": "^1.13.1",
+#        "myclabs/deep-copy": "^1.13.4",
 #        "phar-io/manifest": "^2.0.4",
 #        "phar-io/version": "^3.2.1",
 #        "phpunit/php-code-coverage": "^9.2.31",
@@ -89,11 +89,11 @@ BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 #        "phpunit/php-timer": "^5.0.3",
 #        "sebastian/cli-parser": "^1.0.2",
 #        "sebastian/code-unit": "^1.0.8",
-#        "sebastian/comparator": "^4.0.8",
+#        "sebastian/comparator": "^4.0.9",
 #        "sebastian/diff": "^4.0.6",
 #        "sebastian/environment": "^5.1.5",
 #        "sebastian/exporter": "^4.0.6",
-#        "sebastian/global-state": "^5.0.7",
+#        "sebastian/global-state": "^5.0.8",
 #        "sebastian/object-enumerator": "^4.0.4",
 #        "sebastian/resource-operations": "^3.0.4",
 #        "sebastian/type": "^3.2.1",
@@ -107,7 +107,7 @@ Requires:       php-mbstring
 Requires:       php-xml
 Requires:       php-xmlwriter
 Requires:       (php-composer(doctrine/instantiator) >= 1.5.0         with php-composer(doctrine/instantiator) <  3)
-Requires:       (php-composer(myclabs/deep-copy) >= 1.13.1            with php-composer(myclabs/deep-copy) <  2)
+Requires:       (php-composer(myclabs/deep-copy) >= 1.13.4            with php-composer(myclabs/deep-copy) <  2)
 Requires:       (php-composer(phar-io/manifest) >= 2.0.4              with php-composer(phar-io/manifest) < 3)
 Requires:       (php-composer(phar-io/version) >= 3.2.1               with php-composer(phar-io/version) < 4)
 Requires:       (php-composer(phpspec/prophecy) >= 1.12.1             with php-composer(phpspec/prophecy) <  2)
@@ -118,11 +118,11 @@ Requires:       (php-composer(phpunit/php-text-template) >= 2.0.4     with php-c
 Requires:       (php-composer(phpunit/php-timer) >= 5.0.3             with php-composer(phpunit/php-timer) < 6)
 Requires:       (php-composer(sebastian/cli-parser) >= 1.0.2          with php-composer(sebastian/cli-parser) < 2)
 Requires:       (php-composer(sebastian/code-unit) >= 1.0.8           with php-composer(sebastian/code-unit) < 2)
-Requires:       (php-composer(sebastian/comparator) >= 4.0.8          with php-composer(sebastian/comparator) <  5)
+Requires:       (php-composer(sebastian/comparator) >= 4.0.9          with php-composer(sebastian/comparator) <  5)
 Requires:       (php-composer(sebastian/diff) >= 4.0.6                with php-composer(sebastian/diff) <  5)
 Requires:       (php-composer(sebastian/environment) >= 5.1.5         with php-composer(sebastian/environment) <  6)
 Requires:       (php-composer(sebastian/exporter) >= 4.0.6            with php-composer(sebastian/exporter) <  5)
-Requires:       (php-composer(sebastian/global-state) >= 5.0.7        with php-composer(sebastian/global-state) <  6)
+Requires:       (php-composer(sebastian/global-state) >= 5.0.8        with php-composer(sebastian/global-state) <  6)
 Requires:       (php-composer(sebastian/object-enumerator) >= 4.0.4   with php-composer(sebastian/object-enumerator) <  5)
 Requires:       (php-composer(sebastian/resource-operations) >= 3.0.4 with php-composer(sebastian/resource-operations) <  4)
 Requires:       (php-composer(sebastian/type) >= 3.2.1                with php-composer(sebastian/type) < 4)
@@ -134,10 +134,8 @@ Suggests:       php-soap
 Suggests:       php-xdebug
 # recommends latest versions
 Recommends:     phpunit10
-# Fedora 38+ only until 8.1 EOL
-%if 0%{?fedora} >= 38
 Recommends:     phpunit11
-%endif
+Recommends:     phpunit12
 # Autoloader
 Requires:       php-composer(fedora/autoloader)
 # From phpcompatinfo report for version 8.0.0
@@ -241,7 +239,7 @@ sed -e 's:@PATH@:%{buildroot}%{php_home}/%{ns_vendor}:' -i tests/bootstrap.php
 sed -e 's:%{php_home}/%{ns_vendor}:%{buildroot}%{php_home}/%{ns_vendor}:' -i phpunit
 
 ret=0
-for cmd in php php81 php82 php83 php84; do
+for cmd in php php81 php82 php83 php84 php85; do
   if which $cmd; then
      $cmd ./phpunit $OPT --verbose || ret=1
   fi
@@ -258,6 +256,9 @@ exit $ret
 
 
 %changelog
+* Wed Aug 20 2025 Remi Collet <remi@remirepo.net> - 9.6.25-1
+- update to 9.6.25
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.6.23-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

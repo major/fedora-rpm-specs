@@ -2,12 +2,13 @@
 
 Name:           python-%{pypi_name}
 Version:        1.25
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Add PKCS12 support to the requests library
 
 License:        ISC
 URL:            https://github.com/m-click/requests_pkcs12
 Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
+Source1:        test_integration.py
 BuildArch:      noarch
 
 %description
@@ -19,8 +20,11 @@ TransportAdapter, which provides a custom SSLContext.
 Summary:        %{summary}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-%{?python_provide:%python_provide python3-%{pypi_name}}
+
+# For tests
+BuildRequires:  python3-requests
+BuildRequires:  python3-pytest
+BuildRequires:  openssl
 
 %description -n python3-%{pypi_name}
 This library adds PKCS12 support to the Python requests library. It is
@@ -29,22 +33,39 @@ TransportAdapter, which provides a custom SSLContext.
 
 %prep
 %autosetup -n requests_pkcs12-%{version}
-rm -rf %{pypi_name}.egg-info
+cp %{SOURCE1} .
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l requests_pkcs12
 
-%files -n python3-%{pypi_name}
-%license LICENSE
+%check
+%pyproject_check_import
+%{pytest} -v
+
+# embeded test with connection to example.com
+# skip it with unavailable network (in koji)
+if getent hosts example.com; then
+    PYTHONDONTWRITEBYTECODE=1 \
+    PATH="%{buildroot}%{_bindir}:$PATH" \
+    PYTHONPATH="${PYTHONPATH:-%{buildroot}%{python3_sitearch}:%{buildroot}%{python3_sitelib}}" \
+    %{__python3} -c 'import requests_pkcs12; requests_pkcs12.test()'
+fi
+
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.rst
-%{python3_sitelib}/__pycache__/*
-%{python3_sitelib}/requests_pkcs12.py
-%{python3_sitelib}/requests_pkcs12-%{version}-py*.egg-info/
 
 %changelog
+* Wed Aug 27 2025 Lukas Slebodnik <lslebodn@redhat.com> - 1.25-6
+- rhbz#2378169 Migrating to pyproject macros
+- https://fedoraproject.org/wiki/Changes/DeprecateSetuppyMacros
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.25-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

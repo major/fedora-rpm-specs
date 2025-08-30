@@ -7,7 +7,7 @@
 # Please preserve changelog entries
 #
 # Github
-%global gh_commit    e6faedf5e34cea4438e341f660e2f719760c531d
+%global gh_commit    41aaac462fbd80feb8dd129e489f4bbc53fe26b0
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     Yoast
 %global gh_project   PHPUnit-Polyfills
@@ -23,8 +23,8 @@
 %global php_home     %{_datadir}/php
 
 Name:           php-%{pk_vendor}-%{pk_project}1
-Version:        1.1.4
-Release:        2%{?dist}
+Version:        1.1.5
+Release:        1%{?dist}
 Summary:        Set of polyfills for changed PHPUnit functionality, version 1
 
 License:        BSD-3-Clause
@@ -91,18 +91,15 @@ EOF
 
 : Run upstream test suite
 ret=0
-if [ -x %{_bindir}/phpunit7 ]; then
-    %{_bindir}/phpunit7 --no-coverage || ret=1
-fi
 if [ -x %{_bindir}/phpunit8 ]; then
-  for cmd in php php81 php82 php83; do
+  for cmd in php php81 php82 php83 php84 php85; do
     if which $cmd; then
       $cmd %{_bindir}/phpunit8 --no-coverage || ret=1
     fi
   done
 fi
 if [ -x %{_bindir}/phpunit9 ]; then
-  for cmd in php php81 php82 php83 php84; do
+  for cmd in php php81 php82 php83 php84 php85; do
     if which $cmd; then
       $cmd %{_bindir}/phpunit9 --no-coverage || ret=1
     fi
@@ -121,6 +118,9 @@ exit $ret
 
 
 %changelog
+* Tue Aug 12 2025 Remi Collet <remi@remirepo.net> - 1.1.5-1
+- update to 1.1.5
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

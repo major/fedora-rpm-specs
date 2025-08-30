@@ -7,7 +7,7 @@
 # Please preserve changelog entries
 #
 # Github
-%global gh_commit    a0e3e9adecaa352697786cb29bb0f2fcc25f43f5
+%global gh_commit    1a6aecc9ebe4a9cea4e1047d0e6c496e52314c27
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     Yoast
 %global gh_project   PHPUnit-Polyfills
@@ -23,8 +23,8 @@
 %global php_home     %{_datadir}/php
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        2.0.4
-Release:        2%{?dist}
+Version:        2.0.5
+Release:        1%{?dist}
 Summary:        Set of polyfills for changed PHPUnit functionality, version %{major}
 
 License:        BSD-3-Clause
@@ -92,21 +92,21 @@ EOF
 : Run upstream test suite
 ret=0
 if [ -x %{_bindir}/phpunit8 ]; then
-  for cmd in php php81 php82 php83; do
+  for cmd in php php81 php82 php83 php84 php85; do
     if which $cmd; then
       $cmd %{_bindir}/phpunit8 --no-coverage || ret=1
     fi
   done
 fi
 if [ -x %{_bindir}/phpunit9 ]; then
-  for cmd in php php81 php82 php83 php84; do
+  for cmd in php php81 php82 php83 php84 php85; do
     if which $cmd; then
       $cmd %{_bindir}/phpunit9 --no-coverage || ret=1
     fi
   done
 fi
 if [ -x %{_bindir}/phpunit10 ]; then
-  for cmd in php  php82 php83 php84; do
+  for cmd in php  php82 php83 php84 php85; do
     if which $cmd; then
       $cmd %{_bindir}/phpunit10 --no-coverage || ret=1
     fi
@@ -125,6 +125,9 @@ exit $ret
 
 
 %changelog
+* Tue Aug 12 2025 Remi Collet <remi@remirepo.net> - 2.0.5-1
+- update to 2.0.5
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

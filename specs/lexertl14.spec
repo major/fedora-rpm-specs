@@ -1,5 +1,5 @@
-%global commit bca1359f3e168707ec663921925a1034ac8d90c8
-%global snapdate 20240506
+%global commit c8c6f64cc242e860c55cf708029fa68c5623ed31
+%global snapdate 20250828
 
 Name:           lexertl14
 Summary:        The Modular Lexical Analyser Generator
@@ -33,7 +33,6 @@ Provides:       lexertl14-static = %{epoch}:%{version}-%{release}
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Conflicts/#_compat_package_conflicts
 Conflicts:      lexertl17-devel
 
-Provides:       lexertl14-examples = %{epoch}:%{version}%{release}
 Obsoletes:      lexertl14-examples < 0.1.0^20240216git7a365a2-5
 
 %description devel %{common_description}
@@ -56,12 +55,6 @@ find . -type f -exec file '{}' '+' |
 %build
 %cmake_build
 
-# Make a copy of the examples directory without CMakeLists.txt files, which are
-# not useful without the top-level CMakeLists.txt for the project.
-mkdir _cleaned
-cp -rvp examples _cleaned
-find _cleaned/examples -type f -name CMakeLists.txt -print -delete
-
 
 %install
 %cmake_install
@@ -74,7 +67,6 @@ find _cleaned/examples -type f -name CMakeLists.txt -print -delete
 %files devel
 %license include/lexertl/licence_1_0.txt
 %doc README.md
-%doc _cleaned/examples/
 
 %{_includedir}/lexertl/
 

@@ -8,7 +8,7 @@
 
 Name:           qpid-proton
 Version:        0.40.0
-Release:        9%{?dist}
+Release:        11%{?dist}
 Summary:        A high performance, lightweight messaging library
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -236,8 +236,9 @@ cd BLD
 # so that we rebuild from scratch
 rm -rf build
 %global whl_tags cp%{python3_version_nodots}-cp%{python3_version_nodots}-%(echo %{python3_platform} | tr -- - _)
+%global _pyproject_wheeldir %{buildroot}/../qpid-proton-%{version}/BLD/python/dist
 cd ..
-%py3_install_wheel python_qpid_proton-%{version}-%{whl_tags}.whl
+%pyproject_install
 # We seem to need to strip the build extension otherwise it seems to embed a reference to
 # the buildroot in the debug info which fails the rpmbuild - probably because we massaged
 # the pkgconfig path above
@@ -310,6 +311,12 @@ rm -f  %{buildroot}%{proton_datadir}/CMakeLists.txt
 %check
 
 %changelog
+* Thu Aug 28 2025 Hirotaka Wakabayashi <hiwkby@yahoo.com> - 0.40.0-11
+- Migrated the old macro
+
+* Thu Aug 28 2025 Hirotaka Wakabayashi <hiwkby@yahoo.com> - 0.40.0-10
+- Migrated the old macro
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.40.0-9
 - Rebuilt for Python 3.14.0rc2 bytecode
 

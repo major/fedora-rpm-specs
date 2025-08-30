@@ -99,6 +99,7 @@ Patch0052: 0052-Red-Hat-9-FIPS-indicator-defines.patch
 Patch0053: 0053-Allow-hybrid-MLKEM-in-FIPS-mode.patch
 %endif
 Patch0054: 0054-Speed-test-signatures-without-errors.patch
+Patch0055: 0055-Targets-to-skip-build-of-non-installable-programs.patch
 
 
 License: Apache-2.0
@@ -272,7 +273,7 @@ export HASHBANGPERL=/usr/bin/perl
 # Do not run this in a production package the FIPS symbols must be patched-in
 #util/mkdef.pl crypto update
 
-make -s %{?_smp_mflags} all
+make -s %{?_smp_mflags} build_inst_sw
 
 # Clean up the .pc files
 for i in libcrypto.pc libssl.pc openssl.pc ; do
@@ -305,7 +306,10 @@ export OPENSSL_SYSTEM_CIPHERS_OVERRIDE
 #objcopy --update-section .rodata1=providers/fips.so.hmac providers/fips.so providers/fips.so.mac
 #mv providers/fips.so.mac providers/fips.so
 %{SOURCE1} providers/fips.so
-#run tests itself
+
+# Disable LTO, build tests, and run them
+%define _lto_cflags %{nil}
+make -s %{?_smp_mflags} build_programs
 make test HARNESS_JOBS=8
 
 # Add generation of HMAC checksum of the final stripped library
@@ -470,6 +474,7 @@ ln -s /etc/crypto-policies/back-ends/openssl_fips.config $RPM_BUILD_ROOT%{_sysco
 %changelog
 * Tue Aug 26 2025 Pavol Žáčik <pzacik@redhat.com> - 1:3.5.1-3
 - Make openssl speed test signatures without errors
+- Build tests in check and without LTO
 
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.5.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild

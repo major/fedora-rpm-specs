@@ -10,11 +10,11 @@
 # disabled until phpunit11 available
 %bcond_without       tests
 
-%global gh_commit    694d156164372abbd149a4b85ccda2e4670c0e16
+%global gh_commit    f6458abbf32a6c8174f8f26261475dc133b3d9dc
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   recursion-context
-%global gh_date      2024-07-03
+%global gh_date      2025-08-13
 # Packagist
 %global pk_vendor    sebastian
 %global pk_project   %{gh_project}
@@ -25,8 +25,8 @@
 %global php_home     %{_datadir}/php
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        6.0.2
-Release:        5%{?dist}
+Version:        6.0.3
+Release:        1%{?dist}
 Summary:        Recursively process PHP variables, version %{major}
 
 License:        BSD-3-Clause
@@ -40,15 +40,14 @@ BuildRequires:  php(language) >= 8.2
 BuildRequires:  php-fedora-autoloader-devel
 %if %{with tests}
 # from composer.json, "require-dev": {
-#        "phpunit/phpunit": "^11.0"
-BuildRequires:  phpunit11
+#        "phpunit/phpunit": "^11.3"
+BuildRequires:  phpunit11 >= 11.3
 %endif
 
 # from composer.json
 #        "php": ">=8.2"
 Requires:       php(language) >= 8.2
 # from phpcompatinfo report for version 5.0.0
-Requires:       php-spl
 # Autoloader
 Requires:       php-composer(fedora/autoloader)
 
@@ -84,7 +83,7 @@ touch vendor/autoload.php
 
 : Run upstream test suite
 ret=0
-for cmd in php php82 php83 php84; do
+for cmd in php php82 php83 php84 php85; do
   if which $cmd; then
     $cmd -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php \
       %{_bindir}/phpunit11 || ret=1
@@ -104,6 +103,9 @@ exit $ret
 
 
 %changelog
+* Wed Aug 13 2025 Remi Collet <remi@remirepo.net> - 6.0.3-1
+- update to 6.0.3
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

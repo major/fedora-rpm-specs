@@ -133,6 +133,8 @@ mv $RPM_BUILD_ROOT%{_libexecdir}/upower $RPM_BUILD_ROOT%{_libexecdir}/installed-
 
 %files tests
 %{_libexecdir}/installed-tests/upower
+%dir %{_datadir}/installed-tests/
+%dir %{_datadir}/installed-tests/upower/
 %{_datadir}/installed-tests/upower/upower-integration.test
 
 %changelog

@@ -7,8 +7,8 @@
 
 Summary: Qt6 - QtTranslations module
 Name:    qt6-%{qt_module}
-Version: 6.9.1
-Release: 2%{?dist}
+Version: 6.9.2
+Release: 1%{?dist}
 
 License: GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -51,6 +51,7 @@ Provides: %{_qt6}-it = %{version}-%{release}
 Provides: %{_qt6}-ja = %{version}-%{release}
 Provides: %{_qt6}-ka = %{version}-%{release}
 Provides: %{_qt6}-ko = %{version}-%{release}
+Provides: %{_qt6}-lg = %{version}-%{release}
 Provides: %{_qt6}-lt = %{version}-%{release}
 Provides: %{_qt6}-lv = %{version}-%{release}
 Provides: %{_qt6}-nl = %{version}-%{release}
@@ -111,6 +112,7 @@ Provides: %{_qt6}-zh_TW = %{version}-%{release}
 %lang(ja) %{_qt6_translationdir}/*_ja.qm
 %lang(ka) %{_qt6_translationdir}/*_ka.qm
 %lang(ko) %{_qt6_translationdir}/*_ko.qm
+%lang(lg) %{_qt6_translationdir}/*_lg.qm
 %lang(lt) %{_qt6_translationdir}/*_lt.qm
 %lang(lv) %{_qt6_translationdir}/*_lv.qm
 %lang(nl) %{_qt6_translationdir}/*_nl.qm
@@ -129,6 +131,9 @@ Provides: %{_qt6}-zh_TW = %{version}-%{release}
 
 
 %changelog
+* Thu Aug 28 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.2-1
+- 6.9.2
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.9.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

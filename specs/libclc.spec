@@ -2,13 +2,13 @@
 %global debug_package %{nil}
 
 %global shortname clc
-%global libclc_version 20.1.8
+%global libclc_version 21.1.0
 #global rc_ver 3
 %global libclc_srcdir libclc-%{libclc_version}%{?rc_ver:-rc%{rc_ver}}.src
 
 Name:           libclc
 Version:        %{libclc_version}%{?rc_ver:~rc%{rc_ver}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        An open source implementation of the OpenCL 1.1 library requirements
 
 License:        Apache-2.0 WITH LLVM-exception OR NCSA OR MIT
@@ -103,9 +103,11 @@ export CFLAGS="%{build_cflags} -D__extern_always_inline=inline"
 
 %files devel
 %{_libdir}/pkgconfig/%{name}.pc
-%{_includedir}/%{shortname}
 
 %changelog
+* Sat Aug 09 2025 Tom Stellard <tstellar@redhat.com> - 21.1.0-1
+- Update to LLVM 21.1.0
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20.1.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

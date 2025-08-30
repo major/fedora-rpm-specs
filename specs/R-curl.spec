@@ -5,7 +5,7 @@
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
-Version:          5.2.1
+Version:          7.0.0
 Release:          %autorelease
 Summary:          A Modern and Flexible Web Client for R
 

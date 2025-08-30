@@ -22,9 +22,9 @@
 
 %define rpmhome /usr/lib/rpm
 
-%global rpmver 5.99.91
+%global rpmver 5.99.92
 #global snapver rc1
-%global baserelease 5
+%global baserelease 1
 %global sover 10
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
@@ -124,10 +124,6 @@ rpm-6.0-rpmformat.patch
 0001-Revert-Add-a-deprecation-warning-for-clamp_mtime_to_.patch
 
 # Patches already upstream:
-0001-Support-updating-individual-IDs-in-a-digest-bundle.patch
-0002-Support-OpenPGP-v6-signature-pre-salting.patch
-0001-Only-ever-call-pgpDigParamsSalt-on-signatures.patch
-0001-Fix-fingerprinting-regression-from-08a6a5e848f007c2e.patch
 
 # These are not yet upstream
 rpm-4.7.1-geode-i686.patch
@@ -462,6 +458,7 @@ fi
 %{_mandir}/man1/rpmsort.1*
 %{_mandir}/man5/rpm-config.5*
 %{_mandir}/man5/rpm-macrofile.5*
+%{_mandir}/man5/rpm-manifest.5*
 %{_mandir}/man5/rpm-rpmrc.5*
 %{_mandir}/man7/rpm-lua.7*
 %{_mandir}/man7/rpm-macros.7*
@@ -625,6 +622,9 @@ fi
 %doc %{_defaultdocdir}/rpm/API/
 
 %changelog
+* Wed Aug 27 2025 Panu Matilainen <pmatilai@redhat.com> - 5.99.92-1
+- Rebase to 6.0 beta2 (https://rpm.org/releases/5.99.92)
+
 * Mon Aug 25 2025 Panu Matilainen <pmatilai@redhat.com> - 5.99.91-5
 - Fix fingerprinting regression causing files left behind
 

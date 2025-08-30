@@ -4,7 +4,7 @@
 %global rlibdir %{_libdir}/R/library
 
 Name:           R-%{packname}
-Version:        0.2.1
+Version:        0.2.3
 Release:        %autorelease
 Summary:        Quantity Calculus for R Vectors
 

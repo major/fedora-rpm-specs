@@ -1,5 +1,5 @@
 Name:           mpop
-Version:        1.4.19
+Version:        1.4.21
 Release:        %autorelease
 Summary:        Client for receiving mail from POP3 mailboxes
 

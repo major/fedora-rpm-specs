@@ -3,7 +3,7 @@
 # This is the last (fourth) digit of LO version
 %global libo_min_version 1
 # Set this to 1 if this is a prerelease build
-%global prerelease 1
+%global prerelease %{nil}
 # Should contain .alphaX / .betaX, if this is pre-release (actually
 # pre-RC) version. The pre-release string is part of tarball file names,
 # so we need a way to define it easily at one place.

@@ -37,7 +37,7 @@ Summary:        GTK graphical user interface library
 # po/po2tbl.sed.in is GPL-2.0-or-later
 # tests/testscrolledge.c is GPL-3.0-or-later
 # gdk/macos/gdkmacoskeymap.c and testsuite/gsk/shader.c are (LGPL-2.1-or-later AND MIT)
-# .gitlab-ci/pages/fonts.css is LGPL-2.1-or-later AND OFL-1.0-RFN but omitted here because it's not part of the binary RPM
+# .gitlab-ci/pages/fonts.css is LGPL-2.1-or-later AND OFL-1.0 but omitted here because it's not part of the binary RPM
 # gdk/x11/gdkxftdefaults.c LGPL-2.1-or-later AND HPND-sell-variant
 # gdk/x11/gdkasync.c is LGPL-2.1-or-later AND MIT-open-group
 # gdk/win32/winpointer.h is LGPL-2.0-or-later AND ZPL-2.1
@@ -66,10 +66,10 @@ Summary:        GTK graphical user interface library
 #  gtk/inspector/window.c
 #  gtk/inspector/window.h
 #  tests/gtkgears.c
-# testsuite/gsk/fonts/Cantarell-VF.otf is OFL-1.1-no-RFN
+# testsuite/gsk/fonts/Cantarell-VF.otf is OFL-1.1
 #
 # The license was last checked for GTK 4.19.3.
-License:        LGPL-2.0-or-later AND LGPL-2.1-or-later AND Apache-2.0 AND CC0-1.0 AND MIT AND MIT-open-group AND HPND-sell-variant AND GPL-2.0-or-later AND GPL-3.0-or-later AND OFL-1.1-no-RFN
+License:        LGPL-2.0-or-later AND LGPL-2.1-or-later AND Apache-2.0 AND CC0-1.0 AND MIT AND MIT-open-group AND HPND-sell-variant AND GPL-2.0-or-later AND GPL-3.0-or-later AND OFL-1.1
 URL:            https://www.gtk.org
 Source0:        https://download.gnome.org/sources/gtk/4.19/gtk-%{version}.tar.xz
 

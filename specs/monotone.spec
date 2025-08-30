@@ -1,6 +1,6 @@
 Name:            monotone
 Version:         1.1
-Release:         52%{?dist}
+Release:         53%{?dist}
 Summary:         A free, distributed version control system
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:         GPL-2.0-or-later
@@ -14,6 +14,7 @@ Source5:         monotone-server-initdb
 Source6:         monotone-server-migratedb
 Source7:         monotone-server-genkey
 Source8:         monotone-server-import
+Source9:         monotone-server-sysusers.conf
 Patch0:          monotone-1.0-stacktrace-on-crash.patch
 Patch1:          monotone-1.1-iostream.patch
 Patch2:          monotone-1.1-lua-integer.patch
@@ -34,6 +35,8 @@ BuildRequires:   sqlite-devel >= 3.3.8
 BuildRequires:   lua-devel >= 5.1
 BuildRequires:   libidn-devel
 BuildRequires:   systemd
+BuildRequires:   systemd-rpm-macros
+%{?sysusers_requires_compat}
 
 # Required by the test suite:
 BuildRequires:   cvs
@@ -142,6 +145,8 @@ mkdir -p %{buildroot}%{_datadir}/bash-completion/completions
 mv %{buildroot}%{_sysconfdir}/bash_completion.d/monotone.bash_completion \
              %{buildroot}%{_datadir}/bash-completion/completions/%{name}.bash_completion
 
+install -p -D -m 0644 %{SOURCE9} %{buildroot}%{_sysusersdir}/monotone-server.conf
+
 
 %files -f %{name}.lang
 %doc AUTHORS NEWS README UPGRADE
@@ -184,15 +189,11 @@ mv %{buildroot}%{_sysconfdir}/bash_completion.d/monotone.bash_completion \
 %attr(0640,root,monotone) %verify(not md5 size mtime) %ghost %config(missingok,noreplace) %{_sysconfdir}/monotone/write-permissions
 %dir %attr(0770,monotone,monotone) %{_localstatedir}/lib/monotone
 %attr(0660,monotone,monotone) %verify(not md5 size mtime) %ghost %config(missingok,noreplace) %{_localstatedir}/lib/monotone/server.mtn
+%{_sysusersdir}/monotone-server.conf
 
 
 %pre server
-# Add "monotone" user per http://fedoraproject.org/wiki/Packaging/UsersAndGroups
-getent group monotone > /dev/null || groupadd -r monotone
-getent passwd monotone > /dev/null ||
-useradd -r -g monotone -r -d %{_localstatedir}/lib/monotone -s /sbin/nologin \
-        -c "Monotone Netsync Server" monotone
-exit 0
+%sysusers_create_compat %{SOURCE9}
 
 
 %post server
@@ -208,6 +209,9 @@ exit 0
 
 
 %changelog
+* Thu Aug 28 2025 Thomas Moschny <thomas.moschny@gmx.de> - 1.1-53
+- Update for current users and groups guidelines.
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-52
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

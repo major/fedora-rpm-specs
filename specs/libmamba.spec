@@ -2,7 +2,7 @@
 %bcond micromamba 0
 
 Name:           libmamba
-Version:        2.3.1
+Version:        2.3.2
 Release:        %autorelease
 Summary:        C++ API for mamba depsolving library
 
@@ -14,9 +14,6 @@ Source0:        https://github.com/mamba-org/mamba/archive/%{version}/%{name}-%{
 Patch:          libmamba-fedora.patch
 # Use scikit-build-core https://github.com/mamba-org/mamba/pull/3802
 Patch:          https://github.com/mamba-org/mamba/pull/3802.patch
-# Fix abort in MatchSpec.parse()
-# https://github.com/mamba-org/mamba/issues/3809
-Patch:          https://github.com/mamba-org/mamba/pull/4040.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++

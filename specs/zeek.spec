@@ -136,8 +136,6 @@ BuildArch:     noarch
 This package contains test data in the form of pcaps that can he helpful when
 writing btests.
 
-%pre -n zeek-core
-%sysusers_create_compat %{SOURCE1}
 
 %prep
 %autosetup -p1
