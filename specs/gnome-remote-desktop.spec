@@ -13,7 +13,7 @@
 
 Name:           gnome-remote-desktop
 Version:        49~alpha
-Release:        2%{?dist}
+Release:        %autorelease
 Summary:        GNOME Remote Desktop screen share service
 
 License:        GPL-2.0-or-later
@@ -151,7 +151,4 @@ GNOME desktop environment.
 
 
 %changelog
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 49~alpha-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
 %autochangelog

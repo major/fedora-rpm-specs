@@ -4,9 +4,47 @@
 # The source directory.
 %global source_directory 2.9-development
 
+%if !0%{?rhel}
+# Optional features enabled in this build for Fedora.
+%global with_block_driver     1
+%global with_glance           1
+%global with_ovirt            1
+%global with_xen              1
+
+# libguestfs hasn't been built on i686 for a while since there is no
+# kernel built for this architecture any longer and libguestfs rather
+# fundamentally depends on the kernel.  Therefore we must exclude this
+# arch.  Note there is no bug filed for this because we do not ever
+# expect that libguestfs or virt-v2v will be available on i686 so
+# there is nothing that needs fixing.
+ExcludeArch:   %{ix86}
+
+# Version extra string for Fedora.
+%global version_extra         fedora=%{fedora},release=%{release}
+
+%else
+
+# Optional features enabled in this build for RHEL.
+%global with_block_driver     0
+%global with_glance           0
+%global with_ovirt            0
+%global with_xen              0
+
+# Architectures where virt-v2v is shipped on RHEL:
+#
+# not on aarch64 because it is not useful there
+# not on %%{power64} because of RHBZ#1287826
+# not on s390x because it is not useful there
+ExclusiveArch: x86_64
+
+# Version extra string for RHEL.
+%global version_extra         rhel=%{rhel},release=%{release}
+
+%endif
+
 Name:          virt-v2v
 Epoch:         1
-Version:       2.9.4
+Version:       2.9.5
 Release:       1%{?dist}
 Summary:       Convert a virtual machine to run on KVM
 
@@ -23,32 +61,21 @@ Source2:       libguestfs.keyring
 # Maintainer script which helps with handling patches.
 Source3:       copy-patches.sh
 
-%if !0%{?rhel}
-# libguestfs hasn't been built on i686 for a while since there is no
-# kernel built for this architecture any longer and libguestfs rather
-# fundamentally depends on the kernel.  Therefore we must exclude this
-# arch.  Note there is no bug filed for this because we do not ever
-# expect that libguestfs or virt-v2v will be available on i686 so
-# there is nothing that needs fixing.
-ExcludeArch:   %{ix86}
-%else
-# Architectures where virt-v2v is shipped on RHEL:
-#
-# not on aarch64 because it is not useful there
-# not on %%{power64} because of RHBZ#1287826
-# not on s390x because it is not useful there
-ExclusiveArch: x86_64
-%endif
-
 BuildRequires: autoconf, automake, libtool
 BuildRequires: make
 BuildRequires: /usr/bin/pod2man
+BuildRequires: perl(Pod::Usage)
+BuildRequires: perl(Getopt::Long)
+BuildRequires: perl(IPC::Run3)
 BuildRequires: gcc
 BuildRequires: ocaml >= 4.08
 
 BuildRequires: libguestfs-devel >= 1:1.57.1-1
 BuildRequires: augeas-devel
-BuildRequires: bash-completion, bash-completion-devel
+BuildRequires: bash-completion
+%if !0%{?rhel}
+BuildRequires: bash-completion-devel
+%endif
 BuildRequires: file
 BuildRequires: gettext-devel
 BuildRequires: json-c-devel
@@ -116,13 +143,8 @@ Requires:      edk2-ovmf
 Requires:      edk2-aarch64
 %endif
 
-%if !0%{?rhel}
+%if !%{with_ovirt}
 Requires:      /usr/bin/python3
-%else
-%if 0%{?rhel} == 9
-Requires:      platform-python
-# Python is not needed by RHEL 10.
-%endif
 %endif
 Requires:      libnbd >= 1.22
 Requires:      %{_bindir}/qemu-nbd
@@ -133,7 +155,7 @@ Requires:      nbdkit-curl-plugin
 Requires:      nbdkit-file-plugin
 Requires:      nbdkit-nbd-plugin
 Requires:      nbdkit-null-plugin
-%if !0%{?rhel}
+%if !%{with_ovirt}
 Requires:      nbdkit-python-plugin
 %endif
 Requires:      nbdkit-ssh-plugin
@@ -212,11 +234,27 @@ autoreconf -fiv
 
 %build
 %configure \
-%if !0%{?rhel}
-  --with-extra="fedora=%{fedora},release=%{release}" \
+%if %{with_block_driver}
+  --enable-block-driver \
 %else
-  --with-extra="rhel=%{rhel},release=%{release}" \
+  --disable-block-driver \
 %endif
+%if %{with_glance}
+  --enable-glance \
+%else
+  --disable-glance \
+%endif
+%if %{with_ovirt}
+  --enable-ovirt \
+%else
+  --disable-ovirt \
+%endif
+%if %{with_xen}
+  --enable-xen \
+%else
+  --disable-xen \
+%endif
+  --with-extra="%{version_extra}"
 
 make V=1 %{?_smp_mflags}
 
@@ -243,6 +281,23 @@ rm -f $RPM_BUILD_ROOT%{_mandir}/man1/virt-v2v-output-ovirt.1*
 
 
 %check
+# Check that the binary runs and the features match those configured.
+./run virt-v2v --version
+./run virt-v2v --machine-readable | tee machine-readable.out
+grep "virt-v2v-2.0" machine-readable.out
+grep "input:disk" machine-readable.out
+%if %{with_block_driver}
+grep "block-driver-option" machine-readable.out
+%endif
+%if %{with_glance}
+grep "output:glance" machine-readable.out
+%endif
+%if %{with_ovirt}
+grep "output:ovirt$" machine-readable.out
+grep "output:ovirt-upload" machine-readable.out
+grep "output:vdsm" machine-readable.out
+%endif
+
 %ifarch x86_64
 # Only run the tests with non-debug (ie. non-Rawhide) kernels.
 # XXX This tests for any debug kernel installed.
@@ -281,15 +336,17 @@ done
 %{_mandir}/man1/virt-v2v.1*
 %{_mandir}/man1/virt-v2v-hacking.1*
 %{_mandir}/man1/virt-v2v-input-vmware.1*
-%if !0%{?rhel}
+%if %{with_xen}
 %{_mandir}/man1/virt-v2v-input-xen.1*
+%endif
+%if !0%{?rhel}
 %{_mandir}/man1/virt-v2v-in-place.1*
 %endif
 %{_mandir}/man1/virt-v2v-inspector.1*
 %{_mandir}/man1/virt-v2v-open.1*
 %{_mandir}/man1/virt-v2v-output-local.1*
 %{_mandir}/man1/virt-v2v-output-openstack.1*
-%if !0%{?rhel}
+%if %{with_ovirt}
 %{_mandir}/man1/virt-v2v-output-ovirt.1*
 %endif
 %{_mandir}/man1/virt-v2v-release-notes-1.42.1*
@@ -313,6 +370,10 @@ done
 
 
 %changelog
+* Fri Aug 29 2025 Richard W.M. Jones <rjones@redhat.com> - 1:2.9.5-1
+- New upstream development version 2.9.5
+- Use new ./configure --disable/--enable flags for excluding RHEL features
+
 * Wed Aug 27 2025 Richard W.M. Jones <rjones@redhat.com> - 1:2.9.4-1
 - New upstream development version 2.9.4
 

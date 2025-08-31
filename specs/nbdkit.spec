@@ -126,7 +126,10 @@ BuildRequires:  pkgconfig(libtorrent-rasterbar)
 %if 0%{?have_blkio}
 BuildRequires:  pkgconfig(blkio)
 %endif
-BuildRequires:  bash-completion, bash-completion-devel
+BuildRequires:  bash-completion
+%if !0%{?rhel}
+BuildRequires:  bash-completion-devel
+%endif
 BuildRequires:  perl-devel
 BuildRequires:  perl(ExtUtils::Embed)
 %if 0%{?rhel} == 8
@@ -1513,8 +1516,13 @@ fi
 
 %files bash-completion
 %license LICENSE
+%if !0%{?rhel}
 %dir %{bash_completions_dir}
 %{bash_completions_dir}/nbdkit
+%else
+%dir %{_datadir}/bash-completion/completions
+%{_datadir}/bash-completion/completions/nbdkit
+%endif
 
 
 %if 0%{?with_selinux}

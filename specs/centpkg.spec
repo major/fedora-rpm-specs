@@ -4,16 +4,13 @@
 %endif
 
 Name:           centpkg
-Version:        0.10.0
-Release:        7%{?dist}
+Version:        0.10.1
+Release:        1%{?dist}
 Summary:        CentOS utility for working with dist-git
 License:        GPL-2.0-or-later
-URL:            https://git.centos.org/centos/centpkg
-Source0:        %{url}/archive/%{version}/centpkg-%{version}.tar.gz
+URL:            https://gitlab.com/CentOS/common/centpkg
+Source0:        %{url}/-/archive/%{version}/centpkg-%{version}.tar.gz
 BuildArch:      noarch
-
-# https://git.centos.org/centos/centpkg/pull-request/125
-Patch: 0001-Use-the-authenticated-session-for-PP-API.patch
 
 BuildRequires:  python3-devel
 # runtime requirements for test suite
@@ -84,6 +81,10 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{python3} -m unittest discover --verb
 
 
 %changelog
+* Fri Aug 29 2025 Troy Dawson <tdawson@redhat.com> - 0.10.1-1
+- Determining if package is synced solely on distrobaker config (sgajdosi)
+- Use the authenticated session for PP API (sgallagh)
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.10.0-7
 - Rebuilt for Python 3.14.0rc2 bytecode
 

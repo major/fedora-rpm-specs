@@ -1,6 +1,6 @@
 Name:       libigloo
-Version:    0.9.2
-Release:    10%{?dist}
+Version:    0.9.4
+Release:    1%{?dist}
 Summary:    C framework from Icecast
 # COPYING:                  LGPL-2.0 text
 # include/igloo/config.h:   LGPL-2.0-or-later
@@ -36,7 +36,7 @@ Summary:    C framework from Icecast
 # tests/error.c:        LGPL-2.0-or-later
 # tests/feature.c:      LGPL-2.0-or-later
 # tests/init_igloo_test.c:  LGPL-2.0-or-later
-# tests/prng.c:         GPL-2.0-only                !
+# tests/prng.c:         LGPL-2.0-or-later
 # tests/ro.c:           LGPL-2.0-or-later
 # tests/tap_suite.c:    LGPL-2.0-or-later
 # tests/time.c:         LGPL-2.0-or-later
@@ -44,25 +44,23 @@ Summary:    C framework from Icecast
 ## Used at build, but not in any binary package
 # m4/ax_gcc_type_attribute.m4:  FSFAP
 ## Unbundled
-# aclocal.m4:   FSFULLR AND GPL-2.0-or-later WITH Libtool-exception
-#               <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/68>
-# build-aux/ar-lib:         GPL-2.0-or-later WITH Libtool-exception
-# build-aux/compile:        GPL-2.0-or-later WITH Libtool-exception
-# build-aux/config.guess:   GPL-3.0-or-later WITH Libtool-exception
-# build-aux/config.sub:     GPL-3.0-or-later WITH Libtool-exception
-# build-aux/depcomp:        GPL-2.0-or-later WITH Libtool-exception
+# aclocal.m4:   FSFULLR AND GPL-2.0-or-later WITH Autoconf-exception-generic
+# build-aux/ar-lib:         GPL-2.0-or-later WITH Autoconf-exception-generic
+# build-aux/compile:        GPL-2.0-or-later WITH Autoconf-exception-generic
+# build-aux/config.guess:   GPL-3.0-or-later WITH Autoconf-exception-generic-3.0
+# build-aux/config.sub:     GPL-3.0-or-later WITH Autoconf-exception-generic-3.0
+# build-aux/depcomp:        GPL-2.0-or-later WITH Autoconf-exception-generic
 # build-aux/install-sh:     X11 AND LicenseRef-Fedora-Public-Domain
 # build-aux/ltmain.sh:      GPL-2.0-or-later WITH Libtool-exception AND
-#                           GPL-3.0-or-later WITH Libtool-exception AND
-#                           GPL-3.0-or-later
-# build-aux/missing:        GPL-2.0-or-later WITH Libtool-exception
-# build-aux/tap-driver.sh:  GPL-2.0-or-later WITH Libtool-exception
+#                           (GPL-2.0-or-later OR MIT)
+# build-aux/missing:        GPL-2.0-or-later WITH Autoconf-exception-generic
+# build-aux/tap-driver.sh:  GPL-2.0-or-later WITH Autoconf-exception-generic
 # configure:                FSFUL AND GPL-2.0-or-later WITH Libtool-exception
 # Makefile.in:      FSFULLR
-# m4/ax_check_compile_flag.m4:  GPL-3.0-or-later WITH Autoconf-exception-2.0
+# m4/ax_check_compile_flag.m4:  GPL-3.0-or-later WITH Autoconf-exception-macro
 # m4/ax_require_defined.m4:     FSFAP
-# m4/ax_append_compile_flags.m4:    GPL-3.0-or-later WITH Autoconf-exception-2.0
-# m4/ax_append_flag.m4:         GPL-3.0-or-later WITH Autoconf-exception-2.0
+# m4/ax_append_compile_flags.m4:    GPL-3.0-or-later WITH Autoconf-exception-macro
+# m4/ax_append_flag.m4:         GPL-3.0-or-later WITH Autoconf-exception-macro
 # m4/libtool.m4:                FSFULLR AND
 #                               GPL-2.0-or-later WITH Libtool-exception
 # m4/lt~obsolete.m4:            FSFULLR
@@ -70,14 +68,12 @@ Summary:    C framework from Icecast
 # m4/ltsugar.m4:                FSFULLR
 # m4/ltversion.m4:              FSFULLR
 License:    LGPL-2.0-or-later
+SourceLicense:  %{license} AND FSFAP AND FSFULLR AND GPL-2.0-or-later WITH Autoconf-exception-generic AND GPL-3.0-or-later WITH Autoconf-exception-generic-3.0 AND X11 AND LicenseRef-Fedora-Public-Domain AND GPL-2.0-or-later WITH Libtool-exception AND (GPL-2.0-or-later OR MIT) AND GPL-3.0-or-later WITH Autoconf-exception-macro
 URL:        https://icecast.org/
 Source0:    https://downloads.xiph.org/releases/igloo/%{name}-%{version}.tar.gz
 # Make time test robusts against CPU scheduler whims, proposed to the
 # upstream, <https://gitlab.xiph.org/xiph/icecast-libigloo/-/issues/9>.
 Patch0:     libigloo-0.9.2-Fix-Make-now-r-now-time-test-tolerant-to-CPU-schedul.patch
-# Adapt to GCC 15, proposed to the upstream, bug #2340740,
-# <https://gitlab.xiph.org/xiph/icecast-libigloo/-/issues/10>
-Patch1:     libigloo-0.9.2-Adapt-to-ISO-C23.patch
 BuildRequires:  autoconf >= 2.67
 # autoconf-archive for ACX_PTHREAD macro
 BuildRequires:  autoconf-archive
@@ -112,7 +108,7 @@ Libraries and header files for developing applications that use %{name}.
 
 %package tests
 Summary:    Tests for %{name}
-License:    LGPL-2.0-or-later AND GPL-2.0-only
+License:    LGPL-2.0-or-later
 BuildArch:  noarch
 Requires:   %{name}-devel = %{version}-%{release}
 Requires:   autoconf >= 2.67
@@ -206,6 +202,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Aug 29 2025 Petr Pisar <ppisar@redhat.com> - 0.9.4-1
+- 0.9.4 bump (libigloo-tests license changed to "LGPL-2.0-or-later")
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

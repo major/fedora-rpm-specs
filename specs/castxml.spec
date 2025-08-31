@@ -1,15 +1,13 @@
 %undefine __cmake_in_source_build
 
 Name:		castxml
-Version:	0.6.11
-Release:	4%{?dist}
+Version:	0.6.13
+Release:	1%{?dist}
 Summary:	C-family abstract syntax tree XML output tool
 
 License:	Apache-2.0
 URL:		https://github.com/CastXML/CastXML
 Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-#		https://github.com/CastXML/CastXML/pull/278
-Patch0:		0001-Adjust-expected-test-output-for-clang-20-ppc64le.patch
 
 BuildRequires:	cmake
 BuildRequires:	make
@@ -31,7 +29,6 @@ may support alternative output formats.
 
 %prep
 %setup -q -n CastXML-%{version}
-%patch -P0 -p1
 
 %build
 %cmake -DCastXML_INSTALL_DOC_DIR:STRING=share/doc/%{name} \
@@ -63,6 +60,9 @@ rm %{buildroot}%{_pkgdocdir}/NOTICE
 %license LICENSE NOTICE
 
 %changelog
+* Fri Aug 29 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.6.13-1
+- Update to version 0.6.13
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.11-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

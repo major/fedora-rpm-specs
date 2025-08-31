@@ -1,20 +1,14 @@
 # Force out of source build
 %undefine __cmake_in_source_build
 
-%ifnarch ppc64
-# Enable LTO on non-ppc64 (c.f. rhbz#1515934)
-%bcond lto 1
-%endif
-
 # Use ccache
 %bcond ccache 0
 
 # Debug build with extra compile time checks
 %bcond debug 0
 
-# Disable ctest run by default
-# The tests hang in the build environment
-%bcond run_tests 0
+# Run tests by default
+%bcond run_tests 1
 
 # Track various library soversions
 %global miral_sover 7
@@ -34,8 +28,12 @@ Summary:        Next generation Wayland display server toolkit
 
 # mircommon is LGPL-2.1-only/LGPL-3.0-only, everything else is GPL-2.0-only/GPL-3.0-only
 License:        (GPL-2.0-only or GPL-3.0-only) and (LGPL-2.1-only or LGPL-3.0-only)
-URL:            https://mir-server.io/
+URL:            https://canonical.com/mir
 Source0:        https://github.com/canonical/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.xz
+
+# Proposed upstream
+## Fixes Mir on NVIDIA hardware
+Patch101:       https://github.com/canonical/mir/pull/4155.patch
 
 %if %{with ccache}
 BuildRequires:  ccache
@@ -95,11 +93,13 @@ BuildRequires:  gnu-free-sans-fonts
 # For validating the desktop file for mir-demos
 BuildRequires:  %{_bindir}/desktop-file-validate
 
-# For the dbus-based tests
+# For the tests
 BuildRequires:  dbus-daemon
+BuildRequires:  python3-dbusmock
+BuildRequires:  xorg-x11-server-Xwayland
 
 # Add architectures as verified to work
-%ifarch %{ix86} x86_64 %{arm} aarch64
+%ifarch %{ix86} %{x86_64} %{arm32} %{arm64} riscv64
 BuildRequires:  valgrind
 %endif
 
@@ -211,13 +211,13 @@ Mir unit and integration tests.
 
 
 %conf
-%cmake	-GNinja %{?with_lto:-DMIR_LINK_TIME_OPTIMIZATION=ON} \
+%cmake	-GNinja \
 	%{?with_ccache:-DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache} \
 	%{?with_debug:-DCMAKE_BUILD_TYPE=Debug} \
 	%{!?with_debug:-DMIR_FATAL_COMPILE_WARNINGS=OFF} \
 	-DMIR_USE_PRECOMPILED_HEADERS=OFF \
 	-DCMAKE_INSTALL_LIBEXECDIR="usr/libexec/mir" \
-	-DMIR_PLATFORM="gbm-kms;wayland;x11"
+	-DMIR_PLATFORM="atomic-kms;gbm-kms;wayland;x11"
 
 
 %build
@@ -271,6 +271,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/miral-shell.desktop
 %{_libdir}/libmirserver.so.%{mirserver_sover}
 %{_libdir}/libmirwayland.so.%{mirwayland_sover}
 %dir %{_libdir}/%{name}/server-platform
+%{_libdir}/%{name}/server-platform/graphics-atomic-kms.so.%{mirplatformgraphics_sover}
 %{_libdir}/%{name}/server-platform/graphics-gbm-kms.so.%{mirplatformgraphics_sover}
 %{_libdir}/%{name}/server-platform/graphics-wayland.so.%{mirplatformgraphics_sover}
 %{_libdir}/%{name}/server-platform/input-evdev.so.%{mirplatforminput_sover}
@@ -307,8 +308,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/miral-shell.desktop
 
 
 %changelog
-* Tue Aug 26 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.22.0-1
+* Fri Aug 29 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.22.0-1
 - Update to 2.22.0
+- Add patch to fix running on NVIDIA hardware without EGLStreams support
 
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.21.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild

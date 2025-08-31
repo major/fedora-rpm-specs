@@ -10,7 +10,7 @@
 Summary:	Ruby binding of GObjectIntrospection
 Name:		rubygem-%{gem_name}
 Version:	4.3.3
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 # SPDX confirmed
 # LGPL-2.1-or-later: gemspec
@@ -69,6 +69,13 @@ sed -i -e 's|= 4\.3\.3|>= 4.3.3|' %{gem_name}-%{version}.gemspec
 # Remove unneeded rake runtime dependency
 sed -i %{gem_name}-%{version}.gemspec \
 	-e '\@add_runtime_dependency.*rake@d'
+
+# https://github.com/ruby-gnome/ruby-gnome/issues/1685
+# GLib 2.84 deprecates g_type_class_ref
+%if 0%{?fedora} >= 43
+sed -i test/test-type-info.rb \
+	-e '\@GObject@s|type_class_ref|type_class_get|'
+%endif
 
 %build
 export CONFIGURE_ARGS="--with-cflags='%{optflags} -Werror-implicit-function-declaration'"
@@ -146,6 +153,9 @@ popd
 %exclude	%{gem_instdir}/test/
 
 %changelog
+* Fri Aug 29 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.3-2
+- F-43+ replace deprecated g_type_class_ref to g_type_class_get in testsuite
+
 * Mon Aug 18 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.3-1
 - 4.3.3
 

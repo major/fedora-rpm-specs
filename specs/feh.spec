@@ -1,5 +1,5 @@
 Name:           feh
-Version:        3.11
+Version:        3.11.1
 Release:        1%{?dist}
 Summary:        Fast command line image viewer using Imlib2
 License:        MIT
@@ -62,6 +62,9 @@ make test
 %{_datarootdir}/icons/hicolor/scalable/apps/feh.svg
 
 %changelog
+* Fri Aug 29 2025 Ben Boeckel <fedora@me.benboeckel.net> - 3.11.1-1
+- Update to 3.11.1
+
 * Wed Aug 27 2025 Ben Boeckel <fedora@me.benboeckel.net> - 3.11-1
 - Update to 3.11
 

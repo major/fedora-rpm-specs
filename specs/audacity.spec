@@ -12,8 +12,8 @@
 
 Name: audacity
 
-Version: 3.7.4
-Release: 2%{?dist}
+Version: 3.7.5
+Release: 1%{?dist}
 Summary: Multitrack audio editor
 License: GPL-2.0-or-later AND GPL-3.0-only AND CC-BY-3.0
 URL:     https://www.audacityteam.org/
@@ -21,10 +21,8 @@ URL:     https://www.audacityteam.org/
 Source0: https://github.com/audacity/audacity/releases/download/Audacity-%{version}/%{name}-sources-%{version}.tar.gz
 Source1: https://github.com/audacity/audacity/releases/download/Audacity-%{version}/%{name}-manual-%{version}.tar.gz
 
-# Use the X11 backend in GTK to make the waveform viewer work properly (RHBZ: 2024019)
-Patch0: gdk_x11_backend.patch
-
-Patch2: fix_data_path.patch
+Patch0: fix_data_path.patch
+Patch1: rapidjson.patch
 
 BuildRequires: cmake
 BuildRequires: gettext-devel
@@ -131,8 +129,8 @@ For the most up to date manual content, use the on-line manual.
 %prep
 %setup -q -n %{name}-sources-%{version}
 
-#%%patch -P 0 -p0
-%patch -P 2 -p1
+%patch -P 0 -p1
+%patch -P 1 -p1
 
 # fix building translations with gettext-0.22 (#2225711), fixed in 3.4
 sed -i -e 's|%hs|%s|g' locale/*.po
@@ -293,6 +291,9 @@ rm %{buildroot}%{_datadir}/doc/%{name}/LICENSE.txt
 %{_datadir}/%{name}/m/
 
 %changelog
+* Fri Aug 29 2025 Gwyn Ciesla <gwync@protonmail.com> - 3.7.5-1
+- 3.7.5
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

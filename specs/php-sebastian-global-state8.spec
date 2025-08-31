@@ -9,11 +9,11 @@
 
 %bcond_without       tests
 
-%global gh_commit    912dd568677a6e13c67c08321710ad6ac81e6dca
+%global gh_commit    ef1377171613d09edd25b7816f05be8313f9115d
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   global-state
-%global gh_date      2025-08-28
+%global gh_date      2025-08-29
 # Packagist
 %global pk_vendor    sebastian
 %global pk_project   %{gh_project}
@@ -24,7 +24,7 @@
 %global php_home     %{_datadir}/php
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        8.0.1
+Version:        8.0.2
 Release:        1%{?dist}
 Summary:        Snapshotting of global state, version %{major}
 
@@ -103,6 +103,9 @@ require_once 'tests/autoload.php';
 require_once 'tests/_fixture/SnapshotFunctions.php';
 EOF
 
+# process Isolation breaks auto_prepend_file
+sed -e '/processIsolation/d' -i phpunit.xml
+
 : Run upstream test suite
 ret=0
 for cmd in php php83 php84 php85; do
@@ -127,6 +130,9 @@ exit $ret
 
 
 %changelog
+* Fri Aug 29 2025 Remi Collet <remi@remirepo.net> - 8.0.2-1
+- update to 8.0.2
+
 * Thu Aug 28 2025 Remi Collet <remi@remirepo.net> - 8.0.1-1
 - update to 8.0.1
 

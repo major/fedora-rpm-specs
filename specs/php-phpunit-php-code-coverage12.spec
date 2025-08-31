@@ -10,11 +10,11 @@
 %bcond_without       tests
 
 # Github
-%global gh_commit    733025d94635a001f67db71a2ed1bab4e7e4a9dc
+%global gh_commit    7ad0e9bdc72b147600badccd694a2e57ffc9297a
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner    sebastianbergmann
 %global gh_project   php-code-coverage
-%global gh_date      2025-08-27
+%global gh_date      2025-08-29
 # Packagist
 %global pk_vendor    phpunit
 %global pk_project   php-code-coverage
@@ -25,7 +25,7 @@
 %global ver_major    12
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
-Version:        12.3.3
+Version:        12.3.4
 Release:        1%{?dist}
 Summary:        PHP code coverage information, version %{ver_major}
 
@@ -187,6 +187,9 @@ exit $ret
 
 
 %changelog
+* Fri Aug 29 2025 Remi Collet <remi@remirepo.net> - 12.3.4-1
+- update to 12.3.4
+
 * Thu Aug 28 2025 Remi Collet <remi@remirepo.net> - 12.3.3-1
 - update to 12.3.3
 

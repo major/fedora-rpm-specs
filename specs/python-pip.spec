@@ -6,7 +6,7 @@
 %bcond man 1
 
 %global srcname pip
-%global base_version 25.1.1
+%global base_version 25.2
 %global upstream_version %{base_version}%{?prerel}
 %global python_wheel_name %{srcname}-%{upstream_version}-py3-none-any.whl
 
@@ -36,7 +36,6 @@ Summary:        A tool for installing and managing Python packages
 # truststore: MIT
 # tomli: MIT
 # tomli-w: MIT
-# typing-extensions: Python-2.0.1
 # urllib3: MIT
 
 License:        MIT AND Python-2.0.1 AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC AND MPL-2.0 AND (Apache-2.0 OR BSD-2-Clause)
@@ -94,18 +93,14 @@ Patch:          remove-existing-dist-only-if-path-conflicts.patch
 # The same patch is a part of the RPM-packaged python-certifi
 Patch:          dummy-certifi.patch
 
-# Don't warn the user about pip._internal.main() entrypoint
-# In Fedora, we use that in ensurepip and users cannot do anything about it,
-# this warning is juts moot. Also, the warning breaks CPython test suite.
-Patch:          nowarn-pip._internal.main.patch
-
-# Adjust path_to_url et al. to produce the same results on Python 3.14+
-# https://github.com/pypa/pip/pull/13423
-Patch:          python3.14-file-urls.patch
-
 # https://fedoraproject.org/wiki/Changes/dropingOfCertPemFile
 # https://github.com/sethmlarson/truststore/pull/183
 Patch:          truststore-pem-path.patch
+
+# pytest-subket has been introduced to intercept network calls
+# https://github.com/pypa/pip/commit/a4b40f62332ccb3228b12cc5ae1493c75177247a
+# We don't need a layer to check that, as we're by default in an offline environment
+Patch:          downstream-remove-pytest-subket.patch
 
 # Remove -s from Python shebang - ensure that packages installed with pip
 # to user locations are seen by pip itself
@@ -123,25 +118,24 @@ Packages" or "Pip Installs Python".
 # You can generate it with:
 # %%{_rpmconfigdir}/pythonbundles.py --namespace 'python%%{1}dist' src/pip/_vendor/vendor.txt
 %global bundled() %{expand:
-Provides: bundled(python%{1}dist(cachecontrol)) = 0.14.2
-Provides: bundled(python%{1}dist(certifi)) = 2025.1.31
+Provides: bundled(python%{1}dist(cachecontrol)) = 0.14.3
+Provides: bundled(python%{1}dist(certifi)) = 2025.7.14
 Provides: bundled(python%{1}dist(dependency-groups)) = 1.3.1
-Provides: bundled(python%{1}dist(distlib)) = 0.3.9
+Provides: bundled(python%{1}dist(distlib)) = 0.4
 Provides: bundled(python%{1}dist(distro)) = 1.9
 Provides: bundled(python%{1}dist(idna)) = 3.10
-Provides: bundled(python%{1}dist(msgpack)) = 1.1
+Provides: bundled(python%{1}dist(msgpack)) = 1.1.1
 Provides: bundled(python%{1}dist(packaging)) = 25
-Provides: bundled(python%{1}dist(platformdirs)) = 4.3.7
-Provides: bundled(python%{1}dist(pygments)) = 2.19.1
+Provides: bundled(python%{1}dist(platformdirs)) = 4.3.8
+Provides: bundled(python%{1}dist(pygments)) = 2.19.2
 Provides: bundled(python%{1}dist(pyproject-hooks)) = 1.2
-Provides: bundled(python%{1}dist(requests)) = 2.32.3
-Provides: bundled(python%{1}dist(resolvelib)) = 1.1
-Provides: bundled(python%{1}dist(rich)) = 14
+Provides: bundled(python%{1}dist(requests)) = 2.32.4
+Provides: bundled(python%{1}dist(resolvelib)) = 1.2
+Provides: bundled(python%{1}dist(rich)) = 14.1
 Provides: bundled(python%{1}dist(setuptools)) = 70.3
 Provides: bundled(python%{1}dist(tomli)) = 2.2.1
 Provides: bundled(python%{1}dist(tomli-w)) = 1.2
 Provides: bundled(python%{1}dist(truststore)) = 0.10.1
-Provides: bundled(python%{1}dist(typing-extensions)) = 4.13.2
 Provides: bundled(python%{1}dist(urllib3)) = 1.26.20
 }
 
@@ -222,7 +216,10 @@ rm -v src/pip/_vendor/distlib/*.exe
 sed -i '/\.exe/d' pyproject.toml
 
 # Remove unused test requirements
-sed -Ei '/(pytest-(cov|xdist|rerunfailures)|proxy\.py)/d' tests/requirements.txt
+sed -Ei '/(pytest-(cov|xdist|rerunfailures|subket)|proxy\.py)/d' pyproject.toml
+
+# Remove unused pytest-subket options
+sed -Ei '/(--disable-socket|--allow-unix-socket|--allow-hosts=localhost)/d' pyproject.toml
 
 %if %{with tests}
 # tests expect wheels in here
@@ -235,7 +232,7 @@ cp -a %{SOURCE1} %{SOURCE2} %{SOURCE3} tests/data/common_wheels
 %generate_buildrequires
 # we only use this to generate test requires
 # the "pyproject" part is explicitly disabled as it generates a requirement on pip
-%pyproject_buildrequires -N tests/requirements.txt
+%pyproject_buildrequires -N -g test
 %endif
 
 
@@ -290,8 +287,10 @@ sed -i -e "s/^\\(complete.*\\) pip%{python3_version}\$/\\1 pip%{python3_version}
     -e s/_pip_completion/_pip%{python3_version_nodots}_completion/ \
     %{buildroot}%{bash_completions_dir}/pip%{python3_version}
 
+# Install the built wheel and inject SBOM into it (if the macro is available)
 mkdir -p %{buildroot}%{python_wheel_dir}
 install -p %{_pyproject_wheeldir}/%{python_wheel_name} -t %{buildroot}%{python_wheel_dir}
+%{?python_wheel_inject_sbom:%python_wheel_inject_sbom %{buildroot}%{python_wheel_dir}/%{python_wheel_name}}
 
 
 %check

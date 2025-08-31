@@ -85,8 +85,8 @@
 
 Summary: Qt6 - QtWebEngine components
 Name:    qt6-qtwebengine
-Version: 6.9.1
-Release: 3%{?dist}
+Version: 6.9.2
+Release: 1%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 # See also http://qt-project.org/doc/qt-5.0/qtdoc/licensing.html
@@ -842,6 +842,9 @@ done
 %endif
 
 %changelog
+* Fri Aug 29 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.2-1
+- 6.9.2
+
 * Wed Aug 06 2025 František Zatloukal <fzatlouk@redhat.com> - 6.9.1-3
 - Rebuilt for icu 77.1
 

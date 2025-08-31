@@ -1,15 +1,19 @@
+%global forgeurl https://github.com/elParaguayo/qtile-extras
+%global commit 7a54fbf1f5d867c33f4b7f73daa58bfab2863c4e
+%forgemeta
+
 Name: qtile-extras
-Version: 0.32.0
-Release: 2%{?dist}
+Version: 0.33.0
+Release: 1%{?dist}
 Summary: A collection of mods for Qtile
 
 License: MIT
 URL: https://github.com/elParaguayo/qtile-extras
-Source0: %{URL}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0: %{forgesource}
 
-# Upstream uses the newer metadata labels to specify the project license.
-# However, they aren't supported in the Fedora build environment yet.
-Patch: 0001-Update-pyproject.toml-license-metadata.patch
+# Upstream is not ready for Python 3.14 yet, so we need to apply PR #5466
+# https://github.com/elParaguayo/qtile-extras/pull/449
+Patch: PR-449.patch
 
 BuildArch: noarch
 
@@ -63,7 +67,9 @@ Qtile. For more, please read https://qtile-extras.readthedocs.io
 
 
 %prep
-%autosetup -n %{name}-%{version}
+%forgesetup
+%patch -P0 -p1
+
 git init
 
 # The stravalib isn't packaged for Fedora yet
@@ -114,8 +120,13 @@ rm -rf %{buildroot}%{python3_sitelib}/test
 pytest_expressions="not test_footballmatch_module_kickoff_time"
 pytest_expressions+=" and not test_githubnotifications_reload_token"
 pytest_expressions+=" and not test_syncthing_http_error"
-%pytest -vv -k "$pytest_expressions"
 
+%pytest -vv -k "$pytest_expressions" \
+    --deselect test/widget/test_alsawidget.py::test_alsawidget_defaults[1-x11] \
+    --deselect test/widget/test_alsawidget.py::test_controls[1-x11] \
+    --deselect test/widget/test_alsawidget.py::test_step[1-x11-alsa_manager0] \
+    --deselect test/widget/test_alsawidget.py::test_no_icons[1-x11-alsa_manager0] \
+    --deselect test/widget/test_alsawidget.py::test_icons[1-x11-alsa_manager0]
 
 %files -n qtile-extras -f %{pyproject_files}
 %license LICENSE
@@ -123,6 +134,9 @@ pytest_expressions+=" and not test_syncthing_http_error"
 
 
 %changelog
+* Fri Aug 29 2025 Jakub Kadlcik <frostyx@email.cz> - 0.33.0-1
+- New upstream version
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.32.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

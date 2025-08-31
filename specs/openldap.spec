@@ -17,7 +17,7 @@
 
 Name: openldap
 Version: 2.6.10
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: LDAP support libraries
 License: OLDAP-2.8
 URL: http://www.openldap.org/
@@ -50,6 +50,7 @@ Patch6: openldap-switch-to-lt_dlopenadvise-to-get-RTLD_GLOBAL-set.patch
 Patch7: openldap-openssl-manpage-defaultCA.patch
 Patch8: openldap-add-export-symbols-LDAP_CONNECTIONLESS.patch
 Patch9: openldap-libldap-avoid-SSL-context-cleanup-during-library-des.patch
+Patch10: openldap-ITS-10297-Defer-hostname-resolution-til-first-use.patch
 
 # check-password module specific patches
 Patch90: check-password-makefile.patch
@@ -170,6 +171,7 @@ pushd openldap-%{version}
 %patch -P7 -p1
 %patch -P8 -p1
 %patch -P9 -p1
+%patch -P10 -p1
 
 # build smbk5pwd with other overlays
 ln -s ../../../contrib/slapd-modules/smbk5pwd/smbk5pwd.c servers/slapd/overlays
@@ -549,6 +551,10 @@ exit 0
 %endif
 
 %changelog
+* Fri Aug 29 2025 Simon Pichugin <spichugi@redhat.com> - 2.6.10-4
+- Fix LDAP initialization does unnecessary resolution of hostname (rhbz#2331728)
+- Convert STI tests to FMF (rhbz#2382998)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.10-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

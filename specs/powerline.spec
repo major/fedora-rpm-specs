@@ -107,13 +107,13 @@ find -type f -exec sed -i '1s=^#!/usr/bin/\(python\|env python\)[23]\?=#!%{__pyt
 %pyproject_buildrequires
 
 %build
+sed -i -e "/DEFAULT_SYSTEM_CONFIG_DIR/ s@None@'%{_sysconfdir}/xdg'@" powerline/config.py
+sed -i -e "/TMUX_CONFIG_DIRECTORY/ s@BINDINGS_DIRECTORY@'/usr/share'@" powerline/config.py
 # `setup.py` uses `CFLAGS` for both compiler and linker flags
 CFLAGS="%{build_cflags} %{build_ldflags}" \
 %pyproject_wheel
 
 %install
-sed -i -e "/DEFAULT_SYSTEM_CONFIG_DIR/ s@None@'%{_sysconfdir}/xdg'@" powerline/config.py
-sed -i -e "/TMUX_CONFIG_DIRECTORY/ s@BINDINGS_DIRECTORY@'/usr/share'@" powerline/config.py
 %pyproject_install
 
 # Check that the powerline client is an ELF executable

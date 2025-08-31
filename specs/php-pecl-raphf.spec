@@ -1,8 +1,9 @@
 # Fedora spec file for php-pecl-raphf
 #
-# Copyright (c) 2013-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2013-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
+
 #
 # Please, preserve the changelog entries
 #
@@ -12,19 +13,19 @@
 %bcond_with       tests
 
 %global pecl_name  raphf
+%global pie_vend   m6w6
+%global pie_proj   ext-raphf
 %global ini_name   40-%{pecl_name}.ini
 %global sources    %{pecl_name}-%{version}
 %global _configure ../%{sources}/configure
 
 Summary:        Resource and persistent handles factory
 Name:           php-pecl-%{pecl_name}
-Version:        2.0.1
-Release:        21%{?dist}
+Version:        2.0.2
+Release:        1%{?dist}
 License:        BSD-2-Clause
 URL:            http://pecl.php.net/package/%{pecl_name}
 Source0:        http://pecl.php.net/get/%{sources}.tgz
-
-Patch0:         https://patch-diff.githubusercontent.com/raw/m6w6/ext-raphf/pull/9.patch
 
 ExcludeArch:    %{ix86}
 
@@ -37,10 +38,12 @@ BuildRequires:  php-pecl-http >= 2.0.0
 Requires:       php(zend-abi) = %{php_zend_api}
 Requires:       php(api) = %{php_core_api}
 
-Provides:       php-%{pecl_name} = %{version}
-Provides:       php-%{pecl_name}%{?_isa} = %{version}
-Provides:       php-pecl(%{pecl_name}) = %{version}
-Provides:       php-pecl(%{pecl_name})%{?_isa} = %{version}
+Provides:       php-%{pecl_name}                 = %{version}
+Provides:       php-%{pecl_name}%{?_isa}         = %{version}
+Provides:       php-pecl(%{pecl_name})           = %{version}
+Provides:       php-pecl(%{pecl_name})%{?_isa}   = %{version}
+Provides:       php-pie(%{pie_vend}/%{pie_proj}) = %{version}
+Provides:       php-%{pie_vend}-%{pie_proj}      = %{version}
 
 
 %description
@@ -63,8 +66,6 @@ These are the files needed to compile programs using %{name}.
 sed -e '/LICENSE/s/role="doc"/role="src"/' -i package.xml
 
 cd %{sources}
-%patch -P0 -p1 -b .pr9
-
 # Sanity check, really often broken
 extver=$(sed -n '/#define PHP_RAPHF_VERSION/{s/.* "//;s/".*$//;p}' php_raphf.h)
 if test "x${extver}" != "x%{version}%{?prever:-%{prever}}"; then
@@ -152,6 +153,12 @@ REPORT_EXIT_STATUS=1 \
 
 
 %changelog
+* Fri Aug 29 2025 Remi Collet <remi@remirepo.net> - 2.0.2-1
+- update to 2.0.2
+- re-license spec file to CECILL-2.1
+- add pie virtualprovides (m6w6/ext-raphf)
+- drop patch merged upstream
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

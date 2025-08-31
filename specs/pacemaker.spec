@@ -762,6 +762,9 @@ fi
 %{_datadir}/pkgconfig/pacemaker-schemas.pc
 
 %changelog
+* Mon Aug 25 2025 Cristian Le <git@lecris.dev>
+- Convert STI tests to TMT (rhbz#2383013)
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.0.1-0.4.rc2.1
 - Rebuilt for Python 3.14.0rc2 bytecode
 

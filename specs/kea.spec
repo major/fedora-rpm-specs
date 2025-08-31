@@ -1,5 +1,5 @@
 Name:           kea
-Version:        3.0.0
+Version:        3.0.1
 Release:        %autorelease
 Summary:        DHCPv4, DHCPv6 and DDNS server from ISC
 License:        MPL-2.0 AND BSL-1.0
@@ -396,20 +396,20 @@ fi
 # older: find `rpm --eval %%{_topdir}`/BUILDROOT/kea-*/usr/lib64/ -type f | grep /usr/lib64/libkea | sed -e 's#.*/usr/lib64\(.*\.so\.[0-9]\+\)\.[0-9]\+\.[0-9]\+#%%{_libdir}\1*#' | sort
 # >=f41: find `rpm --eval %%{_topdir}`/BUILD/kea-*/BUILDROOT/usr/lib64/ -type f | grep /usr/lib64/libkea | sed -e 's#.*/usr/lib64\(.*\.so\.[0-9]\+\)\.[0-9]\+\.[0-9]\+#%%{_libdir}\1*#' | sort
 %{_libdir}/libkea-asiodns.so.62*
-%{_libdir}/libkea-asiolink.so.87*
+%{_libdir}/libkea-asiolink.so.88*
 %{_libdir}/libkea-cc.so.82*
 %{_libdir}/libkea-cfgrpt.so.3*
 %{_libdir}/libkea-config.so.83*
-%{_libdir}/libkea-cryptolink.so.63*
+%{_libdir}/libkea-cryptolink.so.64*
 %{_libdir}/libkea-d2srv.so.63*
 %{_libdir}/libkea-database.so.76*
 %{_libdir}/libkea-dhcp_ddns.so.68*
 %{_libdir}/libkea-dhcp.so.109*
-%{_libdir}/libkea-dhcpsrv.so.129*
+%{_libdir}/libkea-dhcpsrv.so.130*
 %{_libdir}/libkea-dns.so.71*
 %{_libdir}/libkea-eval.so.84*
 %{_libdir}/libkea-exceptions.so.45*
-%{_libdir}/libkea-hooks.so.118*
+%{_libdir}/libkea-hooks.so.119*
 %{_libdir}/libkea-http.so.87*
 %{_libdir}/libkea-log-interprocess.so.3*
 %{_libdir}/libkea-log.so.75*

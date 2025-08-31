@@ -13,17 +13,10 @@ ExcludeArch: %{ix86}
 # we only do a sanity check that kernel/qemu/libvirt/appliance is not
 # broken.  To perform the full test suite, see instructions here:
 # https://www.redhat.com/archives/libguestfs/2015-September/msg00078.html
-%if !0%{?rhel}
 #%%global test_arches aarch64 %%{power64} s390x x86_64
 # aarch64 broken in Rawhide:
 # https://gitlab.com/libvirt/libvirt/-/issues/762
 %global test_arches %{power64} s390x x86_64
-%else
-# RHEL 9 only:
-# x86-64:  "/lib64/libc.so.6: CPU ISA level is lower than required"
-#          (RHBZ#1919389)
-%global test_arches NONE
-%endif
 
 # Trim older changelog entries.
 # https://lists.fedoraproject.org/pipermail/devel/2013-April/thread.html#181627
@@ -127,7 +120,10 @@ BuildRequires: libldm-devel
 %endif
 BuildRequires: json-c-devel
 BuildRequires: systemd-devel
+BuildRequires: bash-completion
+%if !0%{?rhel}
 BuildRequires: bash-completion-devel
+%endif
 BuildRequires: /usr/bin/ping
 BuildRequires: curl
 BuildRequires: xz
@@ -951,6 +947,7 @@ rm ocaml/html/.gitignore
 
 
 %files bash-completion
+%if !0%{?rhel}
 %dir %{bash_completions_dir}
 %{bash_completions_dir}/guestfish
 %{bash_completions_dir}/guestmount
@@ -961,6 +958,18 @@ rm ocaml/html/.gitignore
 %{bash_completions_dir}/virt-rescue
 %{bash_completions_dir}/virt-tar-in
 %{bash_completions_dir}/virt-tar-out
+%else
+%dir %{_datadir}/bash-completion/completions
+%{_datadir}/bash-completion/completions/guestfish
+%{_datadir}/bash-completion/completions/guestmount
+%{_datadir}/bash-completion/completions/guestunmount
+%{_datadir}/bash-completion/completions/libguestfs-test-tool
+%{_datadir}/bash-completion/completions/virt-copy-in
+%{_datadir}/bash-completion/completions/virt-copy-out
+%{_datadir}/bash-completion/completions/virt-rescue
+%{_datadir}/bash-completion/completions/virt-tar-in
+%{_datadir}/bash-completion/completions/virt-tar-out
+%endif
 
 
 %files -n ocaml-%{name}

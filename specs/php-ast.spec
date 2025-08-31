@@ -3,22 +3,24 @@
 #
 # remirepo spec file for php-ast
 #
-# Copyright (c) 2015-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2015-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
 
 %global pecl_name   ast
+%global pie_vend    nikic
+%global pie_proj    php-ast
 # After 20-tokenizer.ini
 %global ini_name    40-%{pecl_name}.ini
 %global sources     %{pecl_name}-%{version}
 
 Summary:       Abstract Syntax Tree
 Name:          php-ast
-Version:       1.1.2
-Release:       5%{?dist}
+Version:       1.1.3
+Release:       1%{?dist}
 License:       BSD-3-Clause
 URL:           https://pecl.php.net/package/ast
 Source0:       httpd://pecl.php.net/get/%{sources}.tgz
@@ -31,11 +33,13 @@ BuildRequires: php-devel >= 7.2
 BuildRequires: php-pear
 BuildRequires: php-tokenizer
 
-# PECL
-Provides:      php-pecl-%{pecl_name}          = %{version}-%{release}
-Provides:      php-pecl-%{pecl_name}%{?_isa}  = %{version}-%{release}
-Provides:      php-pecl(%{pecl_name})         = %{version}
-Provides:      php-pecl(%{pecl_name})%{?_isa} = %{version}
+# PECL/PIE
+Provides:      php-pecl-%{pecl_name}            = %{version}-%{release}
+Provides:      php-pecl-%{pecl_name}%{?_isa}    = %{version}-%{release}
+Provides:      php-pecl(%{pecl_name})           = %{version}
+Provides:      php-pecl(%{pecl_name})%{?_isa}   = %{version}
+Provides:      php-pie(%{pie_vend}/%{pie_proj}) = %{version}
+Provides:      php-%{pie_vend}-%{pie_proj}      = %{version}
 
 Requires:      php(zend-abi) = %{php_zend_api}
 Requires:      php(api) = %{php_core_api}
@@ -123,6 +127,11 @@ TEST_PHP_ARGS="-n -d extension=tokenizer.so -d extension=%{buildroot}%{php_extdi
 
 
 %changelog
+* Fri Aug 29 2025 Remi Collet <remi@remirepo.net> - 1.1.3-1
+- update to 1.1.3
+- re-license spec file to CECILL-2.1
+- add pie virtual provides (nikic/php-ast)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

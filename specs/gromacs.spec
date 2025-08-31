@@ -30,7 +30,7 @@ ExcludeArch:    i686 armv7hl s390x
 %endif
 
 Name:		gromacs
-Version:	2025.2
+Version:	2025.3
 Release:	1%{?dist}
 Summary:	Fast, Free and Flexible Molecular Dynamics
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -376,6 +376,10 @@ done
 %{_libdir}/mpich/bin/gmx_mpich*
 
 %changelog
+* Fri Aug 29 2025 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 2025.3-1
+- Update to 2025.3
+- Fixes: rhbz#2391793
+
 * Wed Aug 13 2025 Christoph Junghans <junghans@votca.org> - 2025.2-1
 - Version bump to v2025.2
 - Fixes: rhbz#2344854

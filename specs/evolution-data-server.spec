@@ -53,8 +53,8 @@
 ### Abstract ###
 
 Name: evolution-data-server
-Version: 3.57.2
-Release: 2%{?dist}
+Version: 3.57.3
+Release: 1%{?dist}
 Summary: Backend data server for Evolution
 License: LGPL-2.0-or-later
 URL: https://gitlab.gnome.org/GNOME/evolution/-/wikis/home
@@ -393,6 +393,7 @@ find $RPM_BUILD_ROOT -name '*.so.*' -exec chmod +x {} \;
 %{_userunitdir}/evolution-calendar-factory.service
 %{_userunitdir}/evolution-source-registry.service
 %{_userunitdir}/evolution-user-prompter.service
+%{_userunitdir}/evolution-alarm-notify.service
 
 %dir %{_libdir}/evolution-data-server
 %dir %{credential_modules_dir}
@@ -519,7 +520,4 @@ find $RPM_BUILD_ROOT -name '*.so.*' -exec chmod +x {} \;
 %{_datadir}/installed-tests
 
 %changelog
-* Wed Aug 06 2025 František Zatloukal <fzatlouk@redhat.com> - 3.57.2-2
-- Rebuilt for icu 77.1
-
 %autochangelog

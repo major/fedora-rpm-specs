@@ -6,7 +6,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.14.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: High-level wrapper for processing images for the web with ImageMagick or libvips
 License: MIT
 URL: https://github.com/janko/image_processing
@@ -15,6 +15,10 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone --no-checkout https://github.com/janko/image_processing
 # git archive -v -o image_processing-1.14.0-tests.tar.gz v1.14.0 test/
 Source1: %{gem_name}-%{version}-tests.tar.gz
+# Disable some test broken by mini_magick 5+.
+# https://github.com/janko/image_processing/issues/139
+# https://github.com/janko/image_processing/commit/89a162926841733c0df53e7aee95aadf5d28f4c3
+Patch0: rubygem-image_processing-1.14.0-Remove-tests-failing-on-newer-IM-versions.patch
 
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
@@ -47,6 +51,10 @@ Documentation for %{name}.
 %if %{without dhash-vips}
 %gemspec_remove_dep -d -g dhash-vips
 %endif
+
+( cd %{builddir}
+%patch 0 -p1
+)
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -90,6 +98,9 @@ ruby -Ilib:test -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
 %{gem_instdir}/image_processing.gemspec
 
 %changelog
+* Fri Aug 29 2025 Vít Ondruch <vondruch@redhat.com> - 1.14.0-2
+- Disable some test broken by mini_magick 5+
+
 * Tue Aug 12 2025 Vít Ondruch <vondruch@redhat.com> - 1.14.0-1
 - Update to ImageProcessing 1.14.0.
 

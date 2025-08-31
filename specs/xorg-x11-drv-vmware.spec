@@ -7,7 +7,7 @@
 Summary:    Xorg X11 vmware video driver
 Name:       xorg-x11-drv-vmware
 Version:    13.4.0
-Release:    9%{?dist}
+Release:    11%{?dist}
 URL:        http://www.x.org
 License:    MIT AND X11
 
@@ -20,17 +20,17 @@ BuildRequires:  automake
 BuildRequires:  libtool
 BuildRequires:  gcc
 BuildRequires:  make
+BuildRequires:  mesa-compat-libxatracker-devel
 BuildRequires:  pkgconfig(libdrm) >= 2.4.96
 BuildRequires:  pkgconfig(libudev)
 BuildRequires:  pkgconfig(pciaccess) >= 0.8.0
 BuildRequires:  pkgconfig(x11)
-BuildRequires:  pkgconfig(xatracker) >= 0.4.0
 BuildRequires:  pkgconfig(xext)
 BuildRequires:  pkgconfig(xorg-server) >= 1.12
 
 Requires: Xorg %(xserver-sdk-abi-requires ansic)
 Requires: Xorg %(xserver-sdk-abi-requires videodrv)
-Requires: libxatracker >= 8.0.1-4
+Requires: mesa-compat-libxatracker
 
 %description
 X.Org X11 vmware video driver.
@@ -52,6 +52,12 @@ find %{buildroot} -name "*.la" -delete
 %{_mandir}/man4/vmware.4*
 
 %changelog
+* Fri Aug 29 2025 José Expósito <jexposit@redhat.com> - 13.4.0-11
+- Add explicit dependency to mesa-compat
+
+* Fri Aug 29 2025 José Expósito <jexposit@redhat.com> - 13.4.0-10
+- Rebuilt using libxatracker from mesa-compat
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 13.4.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

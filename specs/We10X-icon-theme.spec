@@ -2,12 +2,12 @@ Name:    We10X-icon-theme
 Summary: Colorful icon theme inspired by Microsoft Windows 10 aesthetic
 License: GPL-3.0-only
 
-%global git_date    20250627
-%global git_commit  4423fb96e4779d69070b6d2de456f9a93847268f
+%global git_date    20250826
+%global git_commit  46487020da48ff8da702a2597b7b76143cffd9b0
 %global git_commit_short  %(c="%{git_commit}"; echo ${c:0:7})
 
-Version: 0^%{git_date}git%{git_commit_short}
-Release: 2%{?dist}
+Version: 0^%{git_date}.git%{git_commit_short}
+Release: 1%{?dist}
 
 URL: https://github.com/yeyushengfan258/%{name}
 Source0: %{url}/archive/%{git_commit}/%{name}-%{git_commit}.tar.gz
@@ -157,6 +157,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/We10X-dark &>/dev/null || :
 
 
 %changelog
+* Fri Aug 29 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0^20250826.git4648702-1
+- Update to latest git snapshot (2025-08-26)
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0^20250627git4423fb9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

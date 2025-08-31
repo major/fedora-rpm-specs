@@ -286,6 +286,9 @@ VERBOSE=1 make check
 %{_usr}/lib/ocf/resource.d/booth/sharedrsc
 
 %changelog
+* Thu Aug 21 2025 Cristian Le <git@lecris.dev>
+- Convert STI tests to TMT (rhbz#2382867)
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.2-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

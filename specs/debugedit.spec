@@ -1,6 +1,6 @@
 Name: debugedit
 Version: 5.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Tools and scripts for creating debuginfo and source file distributions, collect build-ids and rewrite source paths in DWARF data for debugging, tracing and profiling.
 License: GPL-3.0-or-later AND GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/debugedit/
@@ -46,6 +46,8 @@ Requires: grep
 
 %global _hardened_build 1
 
+Patch1: 0001-Add-debugedit-classify-ar-and-use-it-before-running-.patch
+
 %description
 The debugedit project provides programs and scripts for creating
 debuginfo and source file distributions, collect build-ids and rewrite
@@ -79,13 +81,19 @@ make check %{?_smp_mflags}
 %doc README
 %{_bindir}/debugedit
 %{_bindir}/sepdebugcrcfix
+%{_bindir}/debugedit-classify-ar
 %{_bindir}/find-debuginfo
 %{_bindir}/find-debuginfo.sh
 %{_mandir}/man1/debugedit.1*
 %{_mandir}/man1/sepdebugcrcfix.1*
+%{_mandir}/man1/debugedit-classify-ar.1*
 %{_mandir}/man1/find-debuginfo.1*
 
 %changelog
+* Fri Aug 29 2025 Mark Wielaard <mjw@fedoraproject.org> - 5.2-3
+- Add 0001-Add-debugedit-classify-ar-and-use-it-before-running-.patch
+- Install debugedit-classify-ar and man page
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

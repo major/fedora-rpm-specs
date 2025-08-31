@@ -1,5 +1,5 @@
 Name:           python-dbus-fast
-Version:        2.44.1
+Version:        2.44.3
 Release:        %autorelease
 Summary:        A faster version of dbus-next
 License:        MIT
@@ -35,6 +35,9 @@ Summary:        %{summary}
 
 %prep
 %autosetup -n dbus-fast-%{version}
+
+# Relax poetry dependencies
+sed -i 's/Cython>=3,<3.1.0/Cython>=3/' pyproject.toml
 
 
 %generate_buildrequires

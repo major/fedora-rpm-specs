@@ -1,5 +1,5 @@
 Name:           exiv2
-Version:        0.28.5
+Version:        0.28.6
 Release:        %autorelease
 Summary:        Exif, IPTC and XMP metadata manipulation library
 

@@ -1,6 +1,6 @@
 %global         srcname         ufo2ft
 %global         forgeurl        https://github.com/googlefonts/ufo2ft
-Version:        3.6.0
+Version:        3.6.2
 %global         tag             v%{version}
 %forgemeta
 
@@ -13,11 +13,6 @@ Summary:        A bridge from UFOs to FontTool objects
 License:        MIT AND Apache-2.0
 URL:            %forgeurl
 Source:         %{pypi_source %{srcname}}
-
-# update fonttools and fix integration tests
-# https://github.com/googlefonts/ufo2ft/pull/939
-# fixes compatibility with fonttools 4.59.1
-Patch:          %{forgeurl}/pull/939.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(pytest)

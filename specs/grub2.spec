@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.12
-Release:	42%{?dist}
+Release:	43%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPL-3.0-or-later
 URL:		http://www.gnu.org/software/grub/
@@ -609,6 +609,9 @@ fi
 %endif
 
 %changelog
+* Tue Aug 19 2025 Nicolas Frayer <nfrayer@redhat.com> - 2.12-43
+- gen_grub_cfgstub: Removed output messages
+
 * Wed Aug 20 2025 Jan Stancek <jstancek@redhat.com> - 2.12-42
 - move 55-set-boot-entry.install to 95
 - Related: #2389020

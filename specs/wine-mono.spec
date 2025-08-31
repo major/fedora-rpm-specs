@@ -3,8 +3,8 @@
 %{?mingw_package_header}
 
 Name:           wine-mono
-Version:        10.1.0
-Release:        2%{?dist}
+Version:        10.2.0
+Release:        1%{?dist}
 Summary:        Mono library required for Wine
 
 License:        GPL-2.0-or-later AND LGPL-2.1-only AND MIT AND BSD-4-Clause-UC AND MS-PL AND MPL-1.1
@@ -98,29 +98,15 @@ mkdir -p %{buildroot}%{_datadir}/wine/mono/wine-mono-%{version}/
 cp -rp image/* \
     %{buildroot}%{_datadir}/wine/mono/wine-mono-%{version}/
 
-# prep licenses
-cp mono/LICENSE mono-LICENSE
-cp mono/COPYING.LIB mono-COPYING.LIB
-cp mono/mcs/COPYING mono-mcs-COPYING
-
-pushd mono/mcs
-
-for l in `ls LICENSE*`; do
-echo $l
-cp $l ../../mono-mcs-$l
-done
-
-popd
-
-cp mono-basic/README mono-basic-README
-cp mono-basic/LICENSE mono-basic-LICENSE
-
 %files
-%license COPYING mono-LICENSE mono-COPYING.LIB mono-basic-LICENSE mono-mcs*
-%doc README mono-basic-README
+%license mono/LICENSE
+%doc README
 %{_datadir}/wine/mono/wine-mono-%{version}/
 
 %changelog
+* Fri Aug 29 2025 Michael Cronenworth <mike@cchtml.com> - 10.2.0-1
+- version upgrade
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 10.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

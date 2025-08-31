@@ -12,7 +12,7 @@
 %endif
 
 
-%define patchlevel 1623
+%define patchlevel 1706
 %define withnetbeans 1
 
 %define withhunspell 0
@@ -988,6 +988,9 @@ mkdir -p %{buildroot}/%{_datadir}/fish/vendor_functions.d/
 
 
 %changelog
+* Fri Aug 29 2025 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.1.1706-1
+- patchlevel 1706
+
 * Mon Aug 11 2025 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.1.1623-1
 - patchlevel 1623
 

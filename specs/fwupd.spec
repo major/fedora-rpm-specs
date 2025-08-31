@@ -1,4 +1,4 @@
-%global glib2_version 2.45.8
+%global glib2_version 2.68.0
 %global libxmlb_version 0.1.3
 %global libusb_version 1.0.9
 %global libcurl_version 7.62.0
@@ -47,13 +47,14 @@
 
 Summary:   Firmware update daemon
 Name:      fwupd
-Version:   2.0.13
+Version:   2.0.14
 Release:   %autorelease
 License:   LGPL-2.1-or-later
 URL:       https://github.com/fwupd/fwupd
 Source0:   http://people.freedesktop.org/~hughsient/releases/%{name}-%{version}.tar.xz
 
 BuildRequires: gettext
+BuildRequires: hwdata
 BuildRequires: glib2-devel >= %{glib2_version}
 BuildRequires: libxmlb-devel >= %{libxmlb_version}
 BuildRequires: libusb1-devel >= %{libusb_version}

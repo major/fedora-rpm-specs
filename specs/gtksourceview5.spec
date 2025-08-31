@@ -5,7 +5,7 @@
 
 Name:           gtksourceview5
 Version:        5.17.0
-Release:        2%{?dist}
+Release:        %autorelease
 Summary:        Source code editing widget
 
 License:        LGPL-2.1-or-later
@@ -95,7 +95,4 @@ the functionality of the installed %{name} package.
 %{_datadir}/installed-tests
 
 %changelog
-* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.17.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
 %autochangelog

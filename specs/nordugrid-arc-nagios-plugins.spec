@@ -9,8 +9,8 @@
 %global pkg_sysconfdir %{_sysconfdir}/arc/nagios
 
 Name:		nordugrid-arc-nagios-plugins
-Version:	3.2.1
-Release:	3%{?dist}
+Version:	3.2.2
+Release:	1%{?dist}
 Summary:	Nagios plugins for ARC
 
 License:	Apache-2.0
@@ -108,6 +108,9 @@ install -m755 -d %{buildroot}%{pkg_spooldir}
 %config(noreplace) %{pkg_sysconfdir}/60-egi.d/arcce_igtf.py
 
 %changelog
+* Wed Aug 27 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.2.2-1
+- Version 3.2.2
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.2.1-3
 - Rebuilt for Python 3.14.0rc2 bytecode
 

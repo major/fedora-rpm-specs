@@ -23,7 +23,7 @@
 %else
 # No openmpi on i668 with openmpi 5 in Fedora 40+
 # No mpi4py on i686
-%if 0%{?fedora} >= 40
+%if 0%{?fedora}
 %ifarch %{ix86}
 %bcond_with mpich
 %bcond_with openmpi
@@ -47,7 +47,7 @@
 %bcond_without xdummy
 %endif
 
-%if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
+%if 0%{?fedora} || 0%{?rhel} >= 9
 %bcond_without flexiblas
 %endif
 
@@ -65,7 +65,7 @@
 
 Summary: The Visualization Toolkit - A high level 3D visualization library
 Name: vtk
-Version: 9.5.0%{?rc:~%{rc}}
+Version: 9.5.1%{?rc:~%{rc}}
 Release: %autorelease
 License: BSD-3-Clause
 %global srcver %{lua:local ver = rpm.expand('%version');ver = ver:gsub('~','.');print(ver)}

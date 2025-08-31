@@ -74,7 +74,10 @@ BuildRequires:  ocaml-ocamldoc
 BuildRequires:  glib2-devel
 
 # For bash-completion.
-BuildRequires:  bash-completion, bash-completion-devel
+BuildRequires:  bash-completion
+%if !0%{?rhel}
+BuildRequires:  bash-completion-devel
+%endif
 
 # Only for running the test suite.
 BuildRequires:  coreutils
@@ -366,6 +369,7 @@ make %{?_smp_mflags} check || {
 
 
 %files bash-completion
+%if !0%{?rhel}
 %dir %{bash_completions_dir}
 %{bash_completions_dir}/nbdcopy
 %{bash_completions_dir}/nbddump
@@ -374,6 +378,17 @@ make %{?_smp_mflags} check || {
 %{bash_completions_dir}/nbdsh
 %if 0%{?have_ublk}
 %{bash_completions_dir}/nbdublk
+%endif
+%else
+%dir %{_datadir}/bash-completion/completions
+%{_datadir}/bash-completion/completions/nbdcopy
+%{_datadir}/bash-completion/completions/nbddump
+%{_datadir}/bash-completion/completions/nbdfuse
+%{_datadir}/bash-completion/completions/nbdinfo
+%{_datadir}/bash-completion/completions/nbdsh
+%if 0%{?have_ublk}
+%{_datadir}/bash-completion/completions/nbdublk
+%endif
 %endif
 
 
