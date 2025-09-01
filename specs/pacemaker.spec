@@ -37,14 +37,14 @@
 ## What to use as the OCF resource agent root directory
 %global ocf_root %{_prefix}/lib/ocf
 
-## Upstream pacemaker version, and its package version (specversion
+## Upstream pacemaker version, and its package version (baserelease
 ## can be incremented to build packages reliably considered "newer"
 ## than previously built packages with the same pcmkversion)
 %global pcmkversion 3.0.1
-%global specversion 4.rc2
+%global baserelease 5
 
 ## Upstream commit (full commit ID, abbreviated commit ID, or tag) to build
-%global commit 1244f61942219375c8ea4fb460f510333fa2b993
+%global commit 16e74fc4da93a08514e1ec320fa9530b6c3d9fd5
 
 ## Since git v2.11, the extent of abbreviation is autoscaled by default
 ## (used to be constant of 7), so we need to convey it for non-tags, too.
@@ -88,7 +88,7 @@
 
 ## Add option to prefix package version with "0."
 ## (so later "official" packages will be considered updates)
-%bcond_without pre_release
+%bcond_with pre_release
 
 ## NOTE: skip --with upstart_job
 
@@ -101,9 +101,9 @@
 %define archive_version %(c=%{commit}; echo ${c:0:%{commit_abbrev}})
 %define archive_github_url %{archive_version}#/%{name}-%{archive_version}.tar.gz
 %if %{with pre_release}
-%define pcmk_release 0.%{specversion}
+%define pcmk_release 0.%{baserelease}
 %else
-%define pcmk_release %{specversion}
+%define pcmk_release %{baserelease}
 %endif
 
 ## Base GnuTLS cipher priorities (presumably only the initial, required keyword)
@@ -176,7 +176,7 @@
 Name:          pacemaker
 Summary:       Scalable High-Availability cluster resource manager
 Version:       %{pcmkversion}
-Release:       %{pcmk_release}%{?dist}.1
+Release:       %{pcmk_release}%{?dist}
 
 License:       GPL-2.0-or-later AND LGPL-2.1-or-later
 Url:           https://www.clusterlabs.org/
@@ -762,6 +762,12 @@ fi
 %{_datadir}/pkgconfig/pacemaker-schemas.pc
 
 %changelog
+* Fri Aug 29 2025 Klaus Wenninger <kwenning@redhat.com> - 3.0.1-5
+- Update for new upstream release tarball: Pacemaker-3.0.1,
+  for full details, see included ChangeLog.md file or
+  https://github.com/ClusterLabs/pacemaker/releases/tag/Pacemaker-3.0.1
+- replace specversion with baserelease to make rpmdev-bumpspec happy
+
 * Mon Aug 25 2025 Cristian Le <git@lecris.dev>
 - Convert STI tests to TMT (rhbz#2383013)
 

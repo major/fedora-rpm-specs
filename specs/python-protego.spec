@@ -5,8 +5,8 @@ Protego is a pure-Python `robots.txt` parser with support for modern
 conventions.}
 
 Name:		python-protego
-Version:	0.4.0
-Release:	4%{?dist}
+Version:	0.5.0
+Release:	1%{?dist}
 Summary:	Pure-Python robots.txt parser with support for modern conventions
 
 License:	BSD-3-Clause
@@ -14,6 +14,7 @@ URL:		https://github.com/scrapy/protego
 Source0:	%{pypi_source}
 
 BuildArch:	noarch
+BuildRequires:	python3dist(pytest)
 
 
 %description
@@ -22,9 +23,6 @@ BuildArch:	noarch
 %package -n python3-%{pkg_name}
 Summary:	%{summary}
 
-BuildRequires:	python3-devel
-BuildRequires:	python3-setuptools
-BuildRequires:	python3-pytest
 
 
 %description -n python3-%{pkg_name}
@@ -32,13 +30,14 @@ BuildRequires:	python3-pytest
 
 %prep
 %autosetup -n %{pypi_name}-%{version}
+%generate_buildrequires
+%pyproject_buildrequires -r
 
 %build
-%py3_build
-
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
 %check
 %pytest
@@ -46,10 +45,13 @@ BuildRequires:	python3-pytest
 %files -n python3-%{pkg_name}
 %license LICENSE
 %doc README.rst
-%pycached %{python3_sitelib}/protego.py
-%{python3_sitelib}/Protego-*.egg-info
+%{python3_sitelib}/protego
+%{python3_sitelib}/protego-*.dist-info
 
 %changelog
+* Sat Aug 30 2025 Eduardo Echeverria <echevemaster@gmail.com> - 0.5.0-1
+- Update to 0.5.0
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.4.0-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

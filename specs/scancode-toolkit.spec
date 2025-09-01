@@ -3,8 +3,10 @@
 # on s390x). Still, this needs does not produce any debug data.
 %global debug_package %{nil}
 
+%bcond tests 1
+
 Name:           scancode-toolkit
-Version:        32.3.3
+Version:        32.4.1
 Release:        %autorelease
 Summary:        Scan code and detect licenses, copyrights, and more
 
@@ -15,16 +17,25 @@ URL:            https://scancode-toolkit.readthedocs.io/
 VCS:            https://github.com/nexB/scancode-toolkit
 Source:         %vcs/archive/v%{version}/%{name}-%{version}.tar.gz
 
+# TODO: Is this upstreamable?
 Patch:          0001-tests-fix-pytest-traceback.patch
+# See note in https://github.com/aboutcode-org/scancode-toolkit/issues/4541
+# about why pkginfo2 was removed.
 Patch:          0002-Replace-pkginfo2-with-pkginfo.patch
+# Based on https://github.com/aboutcode-org/scancode-toolkit/pull/4539
 Patch:          0003-packagedcode-don-t-use-removed-ast-module-attributes.patch
+# Based on https://github.com/aboutcode-org/scancode-toolkit/pull/4532
+Patch:          0004-packagedcode-replace-unmaintained-toml-with-tomllib-.patch
 
 # scancode has dependencies that are not compatible with ix86
 ExcludeArch:    %{ix86}
 
 BuildRequires:  python3-devel
+%if %{with tests}
 BuildRequires:  python3dist(pytest)
+%endif
 BuildRequires:  python3dist(sphinx)
+BuildRequires:  python3dist(sphinx-copybutton)
 BuildRequires:  python3dist(sphinx-reredirects)
 BuildRequires:  python3dist(sphinx-rtd-theme)
 BuildRequires:  tomcli
@@ -56,6 +67,7 @@ sed -i \
     -e '/sphinx-autobuild/d' \
 setup.cfg
 sed -i '/"sphinx_rtd_dark_mode"/d' docs/source/conf.py
+sed -i 's/JSON data/JSON text data/' tests/summarycode/data/todo/ignore_issue/invariant-2.2.4-expected.json
 
 %generate_buildrequires
 %pyproject_buildrequires -x docs
@@ -80,9 +92,9 @@ rm -rf html/.{doctrees,buildinfo}
 
 %install
 %pyproject_install
-%pyproject_save_files scancode_config
 
 %check
+%if %{with tests}
 # https://github.com/nexB/scancode-toolkit/issues/3496
 mkdir -p venv/bin
 ln -s %{buildroot}%{_bindir}/scancode venv/bin/regen-package-docs
@@ -150,23 +162,33 @@ export PYTHONPATH="$(pwd)/src"
         %dnl and don't seem particularly important. Disable them for now
         test_scan_keep_temp_files_is_false_by_default and not
         test_scan_keep_temp_files_keeps_files and not
+        %dnl https://github.com/aboutcode-org/scancode-toolkit/issues/4540
+        test_license_reference_to_file_beside_package_manifest and not
         %dnl Add new entries above this line.
         placeholder}'
+%endif
 
-
-%files -f %{pyproject_files}
+%files
 %doc AUTHORS.rst CHANGELOG.rst CODE_OF_CONDUCT.rst
 %doc CONTRIBUTING.rst README.rst ROADMAP.rst
 %license NOTICE apache-2.0.LICENSE cc-by-4.0.LICENSE
-%{_bindir}/regen-package-docs
 %{_bindir}/scancode
 %{_bindir}/scancode-license-data
 %{_bindir}/scancode-reindex-licenses
+# TODO: Should these extra utility binaries be included in the package?
+# They are installed as console_scripts but may not be meant for end-user
+# consumption.
+%{_bindir}/add-required-phrases
+%{_bindir}/gen-new-required-phrases-rules
+%{_bindir}/regen-package-docs
+
+%{python3_sitelib}/scancode_toolkit-*.dist-info/
 %{python3_sitelib}/cluecode
 %{python3_sitelib}/formattedcode
 %{python3_sitelib}/licensedcode
 %{python3_sitelib}/packagedcode
 %{python3_sitelib}/scancode
+%pycached %{python3_sitelib}/scancode_config.py
 %{python3_sitelib}/summarycode
 %{python3_sitelib}/textcode
 

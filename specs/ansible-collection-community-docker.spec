@@ -8,8 +8,8 @@
 
 
 Name:           ansible-collection-community-docker
-Version:        4.1.0
-Release:        3%{?dist}
+Version:        4.7.0
+Release:        1%{?dist}
 Summary:        Ansible modules and plugins for working with Docker
 
 # All files are GPL-3.0-or-later, except the following files, which are originally
@@ -72,6 +72,7 @@ BuildRequires:  ansible-packaging
 %if %{with tests}
 BuildRequires:  ansible-packaging-tests
 BuildRequires:  ansible-collection(community.library_inventory_filtering_v1)
+BuildRequires:  ansible-collection(community.internal_test_tools)
 BuildRequires:  %{py3_dist requests}
 %endif
 
@@ -100,16 +101,19 @@ find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{
 
 %check
 %if %{with tests}
-%ansible_test_unit -c community.library_inventory_filtering_v1
+%ansible_test_unit -c community.library_inventory_filtering_v1 -c community.internal_test_tools
 %endif
 
 
 %files -f %{ansible_collection_filelist}
-%license COPYING LICENSES .reuse/dep5
+%license COPYING LICENSES REUSE.toml
 %doc README.md CHANGELOG.rst*
 
 
 %changelog
+* Sat Aug 30 2025 Maxwell G <maxwell@gtmx.me> - 4.7.0-1
+- Update to 4.7.0. Fixes rhbz#2332649.
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

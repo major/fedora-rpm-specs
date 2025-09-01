@@ -1,13 +1,12 @@
 Name:           switcheroo-control
-Version:        2.6
-Release:        9%{?dist}
+Version:        3.0
+Release:        1%{?dist}
 Summary:        D-Bus service to check the availability of dual-GPU
 
-# Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
 URL:            https://gitlab.freedesktop.org/hadess/switcheroo-control/
 # URL from https://gitlab.freedesktop.org/hadess/switcheroo-control/-/releases
-Source0:        https://gitlab.freedesktop.org/hadess/switcheroo-control/uploads/86ea54ac7ddb901b6bf6e915209151f8/switcheroo-control-2.6.tar.xz
+Source0:        https://gitlab.freedesktop.org/hadess/switcheroo-control/-/releases/3.0/downloads/switcheroo-control-3.0.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  pkgconfig(gudev-1.0)
@@ -15,6 +14,8 @@ BuildRequires:  pkgconfig(gio-2.0)
 BuildRequires:  gtk-doc
 BuildRequires:  meson
 BuildRequires:  systemd
+BuildRequires:  libdrm-devel
+BuildRequires:  kernel-headers
 BuildRequires:  python3-dbusmock
 BuildRequires:  umockdev
 
@@ -49,6 +50,7 @@ if [ $1 -eq 2 ] && [ -x /usr/bin/systemctl ] ; then
 fi
 %systemd_post switcheroo-control.service
 %udev_hwdb_update
+%udev_rules_update
 
 %preun
 %systemd_preun switcheroo-control.service
@@ -56,6 +58,7 @@ fi
 %postun
 %systemd_postun_with_restart switcheroo-control.service
 %udev_hwdb_update
+%udev_rules_update
 
 %files
 %license COPYING
@@ -64,7 +67,11 @@ fi
 %{_datadir}/dbus-1/system.d/net.hadess.SwitcherooControl.conf
 %{_unitdir}/switcheroo-control.service
 %{_libexecdir}/switcheroo-control
+%{_libexecdir}/switcheroo-control-check-discrete-amdgpu
+%{_libexecdir}/switcheroo-control-check-discrete-nouveau
+%{_libexecdir}/switcheroo-control-check-discrete-xe
 %{_udevhwdbdir}/30-pci-intel-gpu.hwdb
+%{_udevrulesdir}/30-discrete-gpu.rules
 %{_mandir}/man1/switcherooctl.1*
 
 %files docs
@@ -73,6 +80,9 @@ fi
 %{_datadir}/gtk-doc/html/%{name}/
 
 %changelog
+* Sat Aug 30 2025 Jan200101 <sentrycraft123@gmail.com> - 3.0-1
+- Update to 3.0
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

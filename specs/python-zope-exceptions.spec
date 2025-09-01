@@ -7,17 +7,13 @@
 
 Summary:    Zope Exceptions
 Name:       python-zope-exceptions
-Version:    5.1
-Release:    6%{?dist}
+Version:    5.2
+Release:    1%{?dist}
 VCS:        git:%{giturl}.git
 Source0:    %{giturl}/archive/%{version}/%{modname}-%{version}.tar.gz
 License:    ZPL-2.1
 BuildArch:  noarch
 URL:        https://zopeexceptions.readthedocs.io/
-
-# Fix FTBFS with python3.13
-# https://github.com/zopefoundation/zope.exceptions/pull/35
-Patch:      0001-Fix-test_format_exception_as_html-on-python-3.13.patch
 
 %description
 This package contains exception interfaces and implementations which are so
@@ -33,6 +29,9 @@ general purpose that they don't belong in Zope application-specific packages.
 
 %prep
 %autosetup -n %{modname}-%{version} -p1
+# we don't have specific versions of setuptools available
+sed -i -r 's/    setuptools [<>=]+ [0-9\.]+/    setuptools/g' tox.ini
+
 
 %generate_buildrequires
 %pyproject_buildrequires %{?with_tests:-t}
@@ -56,6 +55,11 @@ general purpose that they don't belong in Zope application-specific packages.
 %{python3_sitelib}/%{modname}-*-nspkg.pth
 
 %changelog
+* Sat Aug 30 2025 David Auer <dreua@posteo.de> - 5.2-1
+- Version 5.2 (rhbz#2322672, rhbz#2329901)
+- Remove patch
+- Remove setuptools version requirement in tox.ini
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 5.1-6
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -1,7 +1,7 @@
 %global pypi_name pygmars
 
 Name:           python-%{pypi_name}
-Version:        0.9.0
+Version:        1.0.0
 Release:        %autorelease
 Summary:        Craft simple regex-based small language lexers and parser
 
@@ -12,6 +12,12 @@ Source:         %url/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(pytest)
+# The docs extra was removed, so specify this manually
+# based on the dependencies in the dev extra.
+BuildRequires:  %{py3_dist Sphinx} >= 5.0.2
+BuildRequires:  %{py3_dist sphinx-rtd-theme} >= 1
+BuildRequires:  %{py3_dist sphinx-reredirects} >= 0.1.2
+BuildRequires:  %{py3_dist sphinx-copybutton}
 
 %global common_description %{expand:
 pygmars is a simple lexing and parsing library designed to craft lightweight
@@ -67,9 +73,10 @@ This package is providing the documentation for %{pypi_name}.
 %autosetup -p1 -n %{pypi_name}-%{version}
 sed -i 's|\(fallback_version = "\)[^"]*|\1%{version}|' pyproject.toml
 sed -i '/doc8/d' setup.cfg
+sed -i '/"sphinx_rtd_dark_mode"/d' docs/source/conf.py
 
 %generate_buildrequires
-%pyproject_buildrequires -x docs
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel

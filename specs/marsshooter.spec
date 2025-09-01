@@ -1,21 +1,25 @@
+%global commit 84664cda094efe6e49d9b1550e4f4f98c33eefa2
+%global commitdate 20211017
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+
 %global __cmake_in_source_build 1
 
 Summary:        M.A.R.S. - A Ridiculous Shooter
 Name:           marsshooter
 Version:        0.7.6
-Release:        33%{?dist}
+Release:        34%{?dist}
 # Engine is GPLv3+, the libs under ext_libs_for_windows are LGPLv2+ / MPLv1.1
 # but those are unused, so the resulting binary is pure GPLv3+
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
-URL:            http://www.marsshooter.org/
-Source0:        https://github.com/jwrdegoede/M.A.R.S./archive/%{name}-%{version}/%{name}-%{version}.tar.gz
-Patch0:         %{name}-crash-fix.patch
-Patch1:         %{name}-crash-fix2.patch
-Patch2:         %{name}-waree-type.patch
-Patch3:         %{name}-gcc11-fix.patch
-# https://sources.debian.org/patches/marsshooter/0.7.6-4/avoid-crash-because-of-missing-return-statement.patch/
-Patch4:         avoid-crash-because-of-missing-return-statement.patch
+URL:            https://mars-game.sourceforge.net/
+Source0:        https://github.com/thelaui/M.A.R.S./archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+# Submitted upstream: https://github.com/thelaui/M.A.R.S./pull/41
+Patch1:         0001-Fix-BotController-toCover_-NULL-pointer-deref-crash.patch
+Patch2:         0002-Replace-all-occurences-of-www.marsshooter.org-with-m.patch
+Patch3:         0003-Add-a-NEWS.md-with-changes-since-0.7.5.patch
+# Fedora specific patch
+Patch4:         %{name}-waree-type.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -63,20 +67,12 @@ This package contains audio, icons and XML files for %{name}.
 
 
 %prep
-%autosetup -n M.A.R.S.-%{name}-%{version} -p1
-rm -fr cmake data_src ext_libs_for_windows
-for i in data/locales/Polish.txt \
-         include/Interface/ComboBox.hpp src/Interface/ComboBox.cpp \
-         include/Interface/DropDownWindow.hpp src/Interface/DropDownWindow.cpp \
-         include/Items/PUSleep.hpp src/Items/PUSleep.cpp; do
-  chmod -x $i;
-done
-dos2unix credits.txt license.txt
+%autosetup -n M.A.R.S.-%{commit} -p1
+rm -fr data_src ext_libs_for_windows
 
 
 %build
 %cmake -Dmars_DATA_DEST_DIR=%{_datadir}/%{name} -Dmars_EXE_DEST_DIR=%{_bindir} .
-#make %%{?_smp_mflags}
 %cmake_build
 
 
@@ -84,8 +80,6 @@ dos2unix credits.txt license.txt
 %cmake_install
 # This includes license files, remove it and pick up with %%license in %%files
 rm -r %{buildroot}%{_docdir}
-# Remove obsolete pixmap
-rm %{buildroot}%{_datadir}/pixmaps/%{name}.xpm
 
 # Replace bundled fonts with symlink to system fonts
 ln -f -s $(fc-match -f "%{file}" "comfortaa") \
@@ -106,7 +100,7 @@ appstream-util validate-relax --nonet \
   %{buildroot}%{_datadir}/appdata/%{name}.appdata.xml
 
 %files
-%doc README.md NEWS
+%doc README.md NEWS.md
 %license license.txt
 %{_bindir}/%{name}
 %{_datadir}/appdata/%{name}.appdata.xml
@@ -119,6 +113,12 @@ appstream-util validate-relax --nonet \
 %{_datadir}/%{name}/
 
 %changelog
+* Sat Aug 30 2025 Hans de Goede <hans@hansg.org> - 0.7.6-34
+- Switch back to https://github.com/thelaui/M.A.R.S. upstream which has
+  merged all the patches to remove non-free data files
+- Remove all references to dead marsshooter<dot>org domain which is now
+  filled with spam
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.6-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

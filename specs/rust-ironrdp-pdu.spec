@@ -5,7 +5,7 @@
 %global crate ironrdp-pdu
 
 Name:           rust-ironrdp-pdu
-Version:        0.5.0
+Version:        0.6.0
 Release:        %autorelease
 Summary:        RDP PDU encoding and decoding
 
@@ -58,6 +58,30 @@ This package contains library source intended for building other packages which
 use the "alloc" feature of the "%{crate}" crate.
 
 %files       -n %{name}+alloc-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+qoi-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+qoi-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "qoi" feature of the "%{crate}" crate.
+
+%files       -n %{name}+qoi-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+qoiz-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+qoiz-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "qoiz" feature of the "%{crate}" crate.
+
+%files       -n %{name}+qoiz-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+std-devel

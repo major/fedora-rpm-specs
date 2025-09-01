@@ -5,15 +5,17 @@
 %endif
 
 #global pre rc1
+%global podofo_resources_commit a5d78b823e9b902d89b06b2d4d81a2e801cd96c4
 
 Name:           podofo
-Version:        1.0.1
+Version:        1.0.2
 Release:        1%{?dist}
 Summary:        Tools and libraries to work with the PDF file format
 
 License:        LGPL-2.0-or-later
 URL:            https://github.com/podofo/podofo
 Source0:        https://github.com/podofo/podofo/archive/%{version}%{?pre:-%pre}/%{name}-%{version}%{?pre:-%pre}.tar.gz
+Source1:        https://github.com/podofo/podofo-resources/archive/%{podofo_resources_commit}/podofo-resources-%{podofo_resources_commit}.tar.gz
 
 # Downstream patch for CVE-2019-20093
 # https://sourceforge.net/p/podofo/tickets/75/
@@ -36,6 +38,8 @@ BuildRequires:  lua-devel
 BuildRequires:  openssl-devel
 BuildRequires:  texlive-epstopdf-bin
 BuildRequires:  zlib-devel
+# For tests
+BuildRequires:  google-noto-sans-fonts
 
 %if %{with mingw}
 BuildRequires: mingw32-filesystem >= 95
@@ -135,6 +139,7 @@ Tools for the MinGW Windows %{name} library.
 
 %prep
 %autosetup -p1 -n %{name}-%{version}%{?pre:-%pre}
+tar xf %{SOURCE1} -C extern/resources --strip-components=1
 
 # disable timestamps in docs
 echo "HTML_TIMESTAMP = NO" >> Doxyfile
@@ -170,13 +175,17 @@ rm -rf %{buildroot}%{mingw64_datadir}
 
 
 %check
+%ifarch i686
+%ctest -E TestMaxObjectCount
+%else
 %ctest
+%endif
 
 
 %files
 %doc AUTHORS.md CHANGELOG.md README.md TODO.md
 %license COPYING
-%{_libdir}/*.so.1.0.1
+%{_libdir}/*.so.1.0.2
 %{_libdir}/*.so.3
 
 %files devel
@@ -206,6 +215,9 @@ rm -rf %{buildroot}%{mingw64_datadir}
 
 
 %changelog
+* Sat Aug 30 2025 Sandro Mani <manisandro@gmail.com> - 1.0.2-1
+- Update to 1.0.2
+
 * Sat Aug 02 2025 Sandro Mani <manisandro@gmail.com> - 1.0.1-1
 - Update to 1.0.1
 

@@ -2,7 +2,7 @@
 %bcond tests 1
 
 Name:           ansible-collection-community-internal_test_tools
-Version:        0.11.0
+Version:        0.18.0
 %global tag     %{version}
 %forgemeta
 Release:        %autorelease
@@ -13,8 +13,6 @@ URL:            %{ansible_collection_url community internal_test_tools}
 Source:         %{forgesource}
 # Not upstreamable. See Ansible Collection Packaging Guidelines.
 Patch:          build_ignore.patch
-# https://github.com/ansible-collections/community.internal_test_tools/pull/130
-Patch:          remove-python-mock.patch
 
 BuildArch:      noarch
 
@@ -49,7 +47,7 @@ sed -i 's|^#!/usr/bin/env python|#!%{python3}|' \
 
 
 %files -f %{ansible_collection_filelist}
-%license .reuse
+%license REUSE.toml
 %license CHANGELOG.rst.license
 %license COPYING
 %license LICENSES

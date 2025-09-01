@@ -15,7 +15,7 @@
 
 Name:          scotch
 Summary:       Graph, mesh and hypergraph partitioning library
-Version:       7.0.8
+Version:       7.0.9
 Release:       1%{?dist}
 
 License:       CeCILL-C
@@ -325,6 +325,7 @@ rm -rf %{buildroot}%{_mandir}/*
 %if %{with mpich}
 %files -n ptscotch-mpich
 %license doc/CeCILL-C_V1-en.txt
+%{_libdir}/mpich/lib/adm2dgr
 %{_libdir}/mpich/lib/libesmumps.so.7*
 %{_libdir}/mpich/lib/libscotch.so.7*
 %{_libdir}/mpich/lib/libscotcherr.so.7*
@@ -389,6 +390,7 @@ rm -rf %{buildroot}%{_mandir}/*
 %if %{with openmpi}
 %files -n ptscotch-openmpi
 %license doc/CeCILL-C_V1-en.txt
+%{_libdir}/openmpi/lib/adm2dgr
 %{_libdir}/openmpi/lib/libesmumps.so.7*
 %{_libdir}/openmpi/lib/libscotch.so.7*
 %{_libdir}/openmpi/lib/libscotcherr.so.7*
@@ -451,6 +453,9 @@ rm -rf %{buildroot}%{_mandir}/*
 
 
 %changelog
+* Sat Aug 30 2025 Sandro Mani <manisandro@gmail.com> - 7.0.9-1
+- Update to 7.0.9
+
 * Sun Jul 27 2025 Sandro Mani <manisandro@gmail.com> - 7.0.8-1
 - Update to 7.0.8
 

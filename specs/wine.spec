@@ -11,7 +11,7 @@
 
 %global no64bit   0
 %global winegecko 2.47.4
-%global winemono  10.1.0
+%global winemono  10.2.0
 %if 0%{?fedora}
 %global opencl    1
 %endif
@@ -46,7 +46,7 @@
 # 0%%{?fedora}
 
 Name:           wine
-Version:        10.13
+Version:        10.14
 Release:        1%{?dist}
 Summary:        A compatibility layer for windows applications
 
@@ -1256,6 +1256,7 @@ fi
 %{_libdir}/wine/%{winepedirs}/cryptowinrt.dll
 %{_libdir}/wine/%{winepedirs}/cryptsp.dll
 %{_libdir}/wine/%{winepedirs}/cryptui.dll
+%{_libdir}/wine/%{winepedirs}/cryptxml.dll
 %{_libdir}/wine/%{winepedirs}/ctapi32.dll
 %{_libdir}/wine/%{winesodir}/ctapi32.so
 %{_libdir}/wine/%{winepedirs}/ctl3d32.dll
@@ -1348,6 +1349,7 @@ fi
 %{_libdir}/wine/%{winepedirs}/fontsub.dll
 %{_libdir}/wine/%{winepedirs}/fusion.dll
 %{_libdir}/wine/%{winepedirs}/fwpuclnt.dll
+%{_libdir}/wine/%{winepedirs}/gameinput.dll
 %{_libdir}/wine/%{winepedirs}/gameux.dll
 %{_libdir}/wine/%{winepedirs}/gamingtcui.dll
 %{_libdir}/wine/%{winepedirs}/gdi32.dll
@@ -1716,6 +1718,7 @@ fi
 %{_libdir}/wine/%{winepedirs}/win32k.sys
 %endif
 %{_libdir}/wine/%{winepedirs}/win32u.dll
+%{_libdir}/wine/%{winepedirs}/winbio.dll
 %{_libdir}/wine/%{winepedirs}/windows.applicationmodel.dll
 %{_libdir}/wine/%{winepedirs}/windows.devices.bluetooth.dll
 %{_libdir}/wine/%{winepedirs}/windows.devices.enumeration.dll
@@ -2235,6 +2238,9 @@ fi
 %endif
 
 %changelog
+* Fri Aug 29 2025 Michael Cronenworth <mike@cchtml.com> - 10.14-1
+- version update
+
 * Wed Aug 20 2025 Michael Cronenworth <mike@cchtml.com> - 10.13-1
 - version update
 

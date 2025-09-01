@@ -26,7 +26,7 @@
 
 Name:	 sbcl
 Summary: Steel Bank Common Lisp
-Version: 2.5.7
+Version: 2.5.8
 Release: %autorelease
 
 # See COPYING for a license breakdown
@@ -34,7 +34,7 @@ Release: %autorelease
 # Xerox license
 License: LicenseRef-Fedora-Public-Domain AND LOOP AND BSD-3-Clause
 URL:	 https://sbcl.sourceforge.io/
-Source0: https://downloads.sourceforge.net/sourceforge/sbcl/sbcl-%{version}-source.tar.bz2
+Source0: https://downloads.sourceforge.net/sourceforge/%{name}/%{name}-%{version}-source.tar.bz2
 
 # Upstream has riscv32 and riscv64 support, but you need a Common Lisp binary
 # to bootstrap with, and none seem to be available for RISC-V.  It might be
@@ -48,7 +48,7 @@ Source0: https://downloads.sourceforge.net/sourceforge/sbcl/sbcl-%{version}-sour
 ExclusiveArch: %{ix86} x86_64 aarch64 %{power64}
 
 # Pre-generated html docs
-Source1: https://downloads.sourceforge.net/sourceforge/sbcl/sbcl-%{version}-documentation-html.tar.bz2
+Source1: https://downloads.sourceforge.net/sourceforge/%{name}/%{name}-%{version}-documentation-html.tar.bz2
 
 %if %{with bootstrap}
 BuildRequires: clisp

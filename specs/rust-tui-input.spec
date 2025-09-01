@@ -5,7 +5,7 @@
 %global crate tui-input
 
 Name:           rust-tui-input
-Version:        0.8.0
+Version:        0.14.0
 Release:        %autorelease
 Summary:        TUI input library supporting multiple backends
 
@@ -46,40 +46,28 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+crossterm-devel
+%package     -n %{name}+ratatui-crossterm-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+crossterm-devel %{_description}
+%description -n %{name}+ratatui-crossterm-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "crossterm" feature of the "%{crate}" crate.
+use the "ratatui-crossterm" feature of the "%{crate}" crate.
 
-%files       -n %{name}+crossterm-devel
+%files       -n %{name}+ratatui-crossterm-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+serde-devel
+%package     -n %{name}+ratatui-termion-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+serde-devel %{_description}
+%description -n %{name}+ratatui-termion-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "serde" feature of the "%{crate}" crate.
+use the "ratatui-termion" feature of the "%{crate}" crate.
 
-%files       -n %{name}+serde-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+termion-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+termion-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "termion" feature of the "%{crate}" crate.
-
-%files       -n %{name}+termion-devel
+%files       -n %{name}+ratatui-termion-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

@@ -20,6 +20,11 @@ Source:         %{vcs}/archive/v%{version}-%{beta}/%{name}-%{version}-%{beta}.ta
 Source:         %{vcs}/archive/v%{version}/%{name}-%{version}.tar.gz
 %endif
 
+# Make methods non-virtual
+# https://github.com/Exiv2/exiv2/pull/3378
+# Will be fixed in 0.28.7.
+Patch0:         3378.patch
+
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  gettext

@@ -5,12 +5,13 @@
 %global cargo_install_lib 0
 
 Name:           bpftop
-Version:        0.5.1
+Version:        0.5.2
 Release:        %autorelease
 Summary:        Dynamic real-time view of running eBPF programs
 
 SourceLicense:  Apache-2.0
 # 0BSD OR MIT OR Apache-2.0
+# Apache-2.0
 # Apache-2.0 OR BSL-1.0
 # Apache-2.0 OR MIT
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
@@ -21,7 +22,19 @@ SourceLicense:  Apache-2.0
 # MIT OR Apache-2.0
 # MIT OR Zlib OR Apache-2.0
 # Zlib
-License:        Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND MIT AND Zlib AND (0BSD OR MIT OR Apache-2.0) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (LGPL-2.1-only OR BSD-2-Clause) AND (MIT OR Zlib OR Apache-2.0)
+License:        %{shrink:
+    Apache-2.0 AND
+    BSD-2-Clause AND
+    BSD-3-Clause AND
+    MIT AND
+    Zlib AND
+    (0BSD OR MIT OR Apache-2.0) AND
+    (Apache-2.0 OR BSL-1.0) AND
+    (Apache-2.0 OR MIT) AND
+    (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
+    (LGPL-2.1-only OR BSD-2-Clause) AND
+    (MIT OR Zlib OR Apache-2.0)
+    }
 # LICENSE.dependencies contains a full license breakdown
 
 URL:            https://github.com/Netflix/%{name}
@@ -30,7 +43,14 @@ Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 # * Allow procfs 0.17; see upstream commit
 #   285b29d0f791a48faaf190df9622ae098ce04fbf, released in 0.5.2
 # * Allow circular-buffer 1.0.0: https://github.com/Netflix/bpftop/pull/115
+# * Allow ratatui 0.29.0: see upstream commit
+#   5ef4e94c0fa32dfe4e8be1557022f0a8a7344cb6, released in 0.7.0
+# * Allow older tui-input 0.8.0 for now
 Patch:          bpftop-fix-metadata.diff
+# * Update ratatui to 0.28.0
+# * https://github.com/Netflix/bpftop/commit/8f7f3bab7d60196fe7341749f95f3a10c2bd035d
+# * This patch contains only the necessary code changes.
+Patch10:        0001-Update-ratatui-to-0.28.0.patch
 
 ExcludeArch: %{ix86}
 

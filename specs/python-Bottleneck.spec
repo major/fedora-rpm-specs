@@ -1,24 +1,37 @@
 %global upname bottleneck
 
+%bcond docs %[!0%{?rhel}]
+
 Name:		python-Bottleneck
-Version:	1.4.2
-Release:	5%{?dist}
+Version:	1.5.0
+Release:	1%{?dist}
 Summary:	Collection of fast NumPy array functions written in Cython
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:	LicenseRef-Callaway-BSD
+License:	BSD-2-Clause
 URL:		https://pypi.org/project/Bottleneck/
-Source0:	https://files.pythonhosted.org/packages/source/b/%{upname}/%{upname}-%{version}.tar.gz
+Source0:	%pypi_source %{upname}
 # https://github.com/pydata/bottleneck/pull/432
 Patch0001:	0001-Fix-doc-build-with-Sphinx-6.patch
 
 BuildRequires:	gcc
+BuildRequires:	python3-devel
+BuildRequires:	python3-pytest
+
+BuildSystem:	pyproject
+BuildOption(install):	-l bottleneck
+%if %{with docs}
+BuildOption(generate_buildrequires):	-x doc
+%endif
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:	%{ix86}
 
 %description
 %{name} is a collection of fast NumPy array functions
 written in Cython.
 
 
+%if %{with docs}
 %package doc
 Summary:	Documentation files for %{name}
 
@@ -26,21 +39,11 @@ BuildArch:	noarch
 
 %description doc
 This package contains the HTML-docs for %{name}.
+%endif
 
 
 %package -n python3-Bottleneck
 Summary:	Collection of fast NumPy array functions written in Cython
-
-BuildRequires:	python3-devel
-BuildRequires:	python3-pytest
-BuildRequires:	python3-numpy
-BuildRequires:	python3-numpydoc
-BuildRequires:	python3-scipy
-BuildRequires:	python3-setuptools
-BuildRequires:	python3-sphinx
-
-Requires:	python3-numpy%{?_isa}
-Requires:	python3-scipy%{?_isa}
 
 %description -n python3-Bottleneck
 python3-Bottleneck is a collection of fast NumPy array functions
@@ -49,58 +52,48 @@ written in Cython.
 
 %prep
 %autosetup -n %{upname}-%{version} -p 1
-rm -fr .egg* *.egg*
-
-# use numpydoc from the package instead
-rm -f doc/sphinxext/numpydoc.py*
-
-# Python 2 remark
-sed -i 's/fid = file(/fid = open(/' doc/source/conf.py
 
 # Remove the contributors extensions which can't work because we don't
 # have a repo anyway.
 sed -i /contributors/d doc/source/conf.py
 
-%build
-%py3_build
-
-
-%install
-%py3_install
-
-# clean unneeded stuff
-rm -rf %{buildroot}%{python3_sitearch}/bottleneck/LICENSE
-
-%{_fixperms} %{buildroot}/*
-
+%if %{with docs}
+%install -a
 # Build the autodocs.
 export PYTHONPATH="%{buildroot}%{python3_sitearch}"
 export READTHEDOCS=1
 sphinx-build -b html doc/source doc/html
 
 # Clean unneeded stuff from docs.
-rm -rf doc/html/{.buildinfo,.doctrees}
+rm -rf doc/html/{.buildinfo,.doctrees,.nojekyll}
+%endif
 
 
 %check
-pushd %{buildroot}%{python3_sitearch}
-pytest-%{python3_version} bottleneck -v
-popd
-rm -rf %{buildroot}%{python3_sitearch}/.pytest_cache
+cd build/lib.linux-*
+%pytest bottleneck
+cd -
 
+
+%if %{with docs}
 %files doc
 %license LICENSE
 %doc README* RELEASE* doc/html
+%endif
 
 
-%files -n python3-Bottleneck
-%license LICENSE
+%files -n python3-Bottleneck -f %{pyproject_files}
 %doc README* RELEASE*
-%{python3_sitearch}/bottleneck
-%{python3_sitearch}/Bottleneck-%{version}-py%{python3_version}.egg-info
 
 
 %changelog
+* Tue Aug 26 2025 Jerry James <loganjerry@gmail.com> - 1.5.0-1
+- Version 1.5.0
+- Stop building for 32-bit x86
+- Update the License field to BSD-2-Clause
+- Use the pyproject declarative buildsystem
+- Do not build documentation for RHEL
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.4.2-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

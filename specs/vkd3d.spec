@@ -1,6 +1,6 @@
 Name:		vkd3d
-Version:	1.14
-Release:	3%{?dist}
+Version:	1.17
+Release:	1%{?dist}
 Summary:	D3D12 to Vulkan translation library
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -17,6 +17,8 @@ BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:	gcc
 BuildRequires:	libxcb-devel
+BuildRequires:	perl-JSON
+BuildRequires:	perl-open
 BuildRequires:	spirv-headers-devel
 BuildRequires:	spirv-tools-devel
 BuildRequires:	vulkan-loader-devel
@@ -250,6 +252,9 @@ find %{buildroot} -regextype egrep -regex '.*\.a$|.*\.la$' ! -iname '*.dll.a' -d
 
 
 %changelog
+* Fri Aug 29 2025 - Michael Cronenworth <mike@cchtml.com> - 1.17-1
+- version update
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.14-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

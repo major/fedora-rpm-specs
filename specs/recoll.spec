@@ -5,10 +5,14 @@
 %global         kio4 1
 %endif
 
+%ifnarch %{ix86} s390x
+%global         qtweb 1
+%endif
+
 Summary:        Desktop full text search tool with Qt GUI
 Name:           recoll
-Version:        1.43.4
-Release:        4%{?dist}
+Version:        1.43.5
+Release:        1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            https://www.recoll.org
@@ -40,6 +44,7 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  qt6-linguist
 BuildRequires:  qt6-qtbase-devel
+%{?qtweb:BuildRequires:  qt6-qtwebengine-devel}
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  xapian-core-devel
 BuildRequires:  zlib-devel
@@ -100,7 +105,7 @@ LDFLAGS="%{?__global_ldflags}"; export LDFLAGS
 # force use of custom/local qmake, to inject proper build flags (above)
 install -m755 -D %{SOURCE10} qmake-qt6.sh
 export QMAKE=$(pwd)/qmake-qt6.sh
-%meson -Drecollq=true -Dsystemd=true -Dwebkit=false
+%meson -Drecollq=true -Dsystemd=true %{?qtweb:-Dwebengine=true} -Dwebkit=false
 %meson_build
 
 # gssp
@@ -214,6 +219,9 @@ echo "%{_libdir}/recoll" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/recoll-%{_arc
 %{_datadir}/applications/org.recoll.Recoll.SearchProvider.desktop
 
 %changelog
+* Sat Aug 30 2025 Terje Rosten <terjeros@gmail.com> - 1.43.5-1
+- 1.43.5
+
 * Tue Aug 26 2025 FeRD (Frank Dana) <ferdnyc@gmail.com> - 1.43.4-4
 - Remove QtWebKit from build requirements, no longer used
 

@@ -1,5 +1,5 @@
 Name:           fuzzel
-Version:        1.12.0
+Version:        1.13.1
 Release:        %autorelease
 Summary:        Application launcher for wlroots based Wayland compositors
 
@@ -16,15 +16,15 @@ BuildRequires:  nanosvg-devel
 BuildRequires:  tllist-static
 
 BuildRequires:  pkgconfig(cairo)
-BuildRequires:  pkgconfig(fcft) >= 3.0.0
+BuildRequires:  pkgconfig(fcft) >= 3.3.1
 BuildRequires:  pkgconfig(fontconfig)
 BuildRequires:  pkgconfig(libpng)
-BuildRequires:  pkgconfig(pixman-1)
+BuildRequires:  pkgconfig(pixman-1) >= 0.46.0
 BuildRequires:  pkgconfig(scdoc)
 BuildRequires:  pkgconfig(tllist) >= 1.0.1
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-cursor)
-BuildRequires:  pkgconfig(wayland-protocols) >= 1.32
+BuildRequires:  pkgconfig(wayland-protocols) >= 1.41
 BuildRequires:  pkgconfig(wayland-scanner)
 BuildRequires:  pkgconfig(xkbcommon)
 
@@ -41,7 +41,7 @@ Features:
 
 
 %prep
-%autosetup -n %{name} -p1
+%autosetup -p1
 
 
 %build
