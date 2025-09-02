@@ -1,5 +1,5 @@
 Name:           duply
-Version:        2.5.5
+Version:        2.5.6
 Release:        %autorelease
 Summary:        Wrapper for duplicity
 # Automatically converted from old format: GPLv2 - review is highly recommended.

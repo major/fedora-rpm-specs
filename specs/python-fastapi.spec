@@ -61,6 +61,14 @@ License:        MIT
 URL:            https://github.com/fastapi/fastapi
 Source:         %{url}/archive/%{version}/fastapi-%{version}.tar.gz
 
+# Written for Fedora in groff_man(7) format based on --help output
+Source10:       fastapi.1
+Source11:       fastapi-dev.1
+Source12:       fastapi-run.1
+Source13:       fastapi-deploy.1
+Source14:       fastapi-login.1
+Source15:       fastapi-logout.1
+
 BuildArch:      noarch
 
 # Downstream-only: run test_fastapi_cli without coverage
@@ -990,30 +998,22 @@ export TIANGOLO_BUILD_PACKAGE='fastapi'
 %install
 %pyproject_install
 
-# Chaotically, both fastapi and fastapi-cli now provide a fastapi command. The
-# difference is
-#   from fastapi.cli import main
-# versus
-#   from fastapi_cli.cli import main
-#
-# If we try pip-installing fastapi into a virtualenv and running
-#   fastapi --help
-# we get:
-#   To use the fastapi command, please install "fastapi[standard]":
-#           pip install "fastapi[standard]"
-#   Traceback (most recent call last):
-#     […]
-#
-# Then, if we pip-install fastapi[standard], that brings in fastapi-cli, so we
-# get the fastapi-cli version of the command. The same applies for fastapi-slim
-# and fastapi-slim[standard].
-#
-# The only thing we can’t do in the RPM package, then, is to provide the “stub”
-# fastapi command that complains about the need to install fastapi[standard]
-# (because it would conflict with the command from the fastapi-cli package).
-# Otherwise, we should have the same behavior by only shipping a fastapi
-# command via the fastapi-cli package.
-rm '%{buildroot}%{_bindir}/fastapi'
+install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
+    '%{SOURCE10}' '%{SOURCE11}' '%{SOURCE12}' '%{SOURCE13}' '%{SOURCE14}' \
+    '%{SOURCE15}'
+
+install -d \
+    '%{buildroot}%{bash_completions_dir}' \
+    '%{buildroot}%{zsh_completions_dir}' \
+    '%{buildroot}%{fish_completions_dir}'
+export PYTHONPATH='%{buildroot}%{python3_sitelib}'
+export _TYPER_COMPLETE_TEST_DISABLE_SHELL_DETECTION=1
+'%{buildroot}%{_bindir}/fastapi' --show-completion bash \
+    > '%{buildroot}%{bash_completions_dir}/fastapi'
+'%{buildroot}%{_bindir}/fastapi' --show-completion zsh \
+    > '%{buildroot}%{zsh_completions_dir}/_fastapi'
+'%{buildroot}%{_bindir}/fastapi' --show-completion fish \
+    > '%{buildroot}%{fish_completions_dir}/fastapi.fish'
 
 
 %check
@@ -1079,6 +1079,23 @@ k="${k-}${k+ and }not test_openapi_schema"
 
 %{python3_sitelib}/fastapi/
 %{python3_sitelib}/fastapi_slim-%{version}.dist-info/
+
+# Based on testing in a virtualenv, the upstream behavior is that the fastapi
+# CLI tool is installed with all “flavors” of fastapi, including fastapi-slim;
+# it relies on the “standard” extra to be useful, and prints the following if
+# the requisite extra is not installed:
+#   To use the fastapi command, please install "fastapi[standard]":
+#           pip install "fastapi[standard]"
+#   Traceback (most recent call last):
+#     […]
+# By installing the entry point with the fastapi-slim package, we imitate the
+# upstream behavior.
+%{_bindir}/fastapi
+%{_mandir}/man1/fastapi.1*
+%{_mandir}/man1/fastapi-*.1*
+%{bash_completions_dir}/fastapi
+%{zsh_completions_dir}/_fastapi
+%{fish_completions_dir}/fastapi.fish
 
 
 %changelog

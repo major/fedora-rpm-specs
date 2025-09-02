@@ -1,12 +1,15 @@
 Name:           gqrx
 Version:        2.17.7
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Software defined radio receiver powered by GNU Radio and Qt
 
 # Automatically converted from old format: GPLv3+ and GPLv2+ and BSD - review is highly recommended.
 License:        GPL-3.0-or-later AND GPL-2.0-or-later AND LicenseRef-Callaway-BSD
 URL:            https://gqrx.dk/
 Source0:        https://github.com/gqrx-sdr/gqrx/archive/v%{version}/%{name}-%{version}.tar.gz
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc-c++
 BuildRequires:  gnuradio-devel
@@ -81,6 +84,9 @@ appstream-util validate-relax --nonet \
 %doc COPYING README.md
 
 %changelog
+* Wed Aug 27 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 2.17.7-4
+- Drop x86 support (leaf package)
+
 * Thu Aug 14 2025 Jaroslav Škarvada  <jskarvad@redhat.com> - 2.17.7-3
 - Fixed FTBFS
   Resolves: rhbz#2385036

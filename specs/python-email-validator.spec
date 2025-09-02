@@ -1,5 +1,5 @@
 Name:           python-email-validator
-Version:        2.2.0
+Version:        2.3.0
 Release:        %autorelease
 Summary:        A robust email syntax and deliverability validation library
 
@@ -13,10 +13,6 @@ Source0:        %{url}/archive/v%{version}/python-email-validator-%{version}.tar
 # Interest in a man page?
 # https://github.com/JoshData/python-email-validator/issues/146
 Source1:        email_validator.1
-
-# Fix a few minor typos
-# https://github.com/JoshData/python-email-validator/pull/143
-Patch:          %{url}/pull/143.patch
 
 BuildSystem:            pyproject
 BuildOption(install):   -l email_validator

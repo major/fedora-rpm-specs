@@ -1,6 +1,6 @@
 Name:    kwin
 Version: 6.4.4
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: KDE Window manager
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -15,6 +15,10 @@ Source1: http://download.kde.org/%{stable_kf6}/plasma/%{maj_ver_kf6}.%{min_ver_k
 # backends/drm: work around amdgpu applying GAMMA_LUT in test-only commits
 # https://invent.kde.org/plasma/kwin/-/commit/7d36003cb073ed2ad48b2743883db993106c347a
 Patch0:  7d36003cb073ed2ad48b2743883db993106c347a.patch
+
+# Patch https://invent.kde.org/plasma/kwin/-/commit/598438b9bcb9487c9dc85e4eb5f84e3b73a71051
+# fixes of https://bugs.kde.org/show_bug.cgi?id=504959
+Patch1:  598438b9bcb9487c9dc85e4eb5f84e3b73a71051.patch
 
 ## proposed patches
 
@@ -274,6 +278,9 @@ ln -sr %{buildroot}%{_kf6_bindir}/kwin_wayland %{buildroot}%{_bindir}/kwin
 
 
 %changelog
+* Tue Aug 26 2025 Alberto Maiaron <alberto_bugzilla@protonmail.ch> - 6.4.4-3
+- Patch for issue 504959, Patch1: 598438b9bcb9487c9dc85e4eb5f84e3b73a71051.patch
+
 * Thu Aug 21 2025 Steve Cossette <farchord@gmail.com> - 6.4.4-2
 - Workaround amdgpu applying GAMMA_LUT in test-only commits
 

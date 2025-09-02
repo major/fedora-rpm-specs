@@ -13,6 +13,10 @@ Source1:        openapi-python-client.man1
 # Fixes test failure due to breaking change in click 8.2.0+
 # https://github.com/openapi-generators/openapi-python-client/pull/1309
 Patch:          fix-test-cli-1309.patch
+# chore(deps): update dependency typer to >0.6,<0.18
+# https://github.com/openapi-generators/openapi-python-client/pull/1310
+# (without changes to pdm.lock, which is not used in packaging)
+Patch:          allow-typer-0.17.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-hatchling

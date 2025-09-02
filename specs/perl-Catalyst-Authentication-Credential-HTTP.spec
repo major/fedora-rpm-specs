@@ -1,36 +1,49 @@
 Name:           perl-Catalyst-Authentication-Credential-HTTP
-Version:        1.018
-Release:        25%{?dist}
+Version:        1.019
+Release:        1%{?dist}
 Summary:        HTTP Basic and Digest authentication for Catalyst
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Catalyst-Authentication-Credential-HTTP
 Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETHER/Catalyst-Authentication-Credential-HTTP-%{version}.tar.gz
 BuildArch:      noarch
+# build requirements
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
+BuildRequires:  perl(Module::Build::Tiny)
+# runtime requirements
+BuildRequires:  perl(Catalyst)
+BuildRequires:  perl(Crypt::SysRandom) >= 0.007
+BuildRequires:  perl(Catalyst)
+BuildRequires:  perl(Class::Accessor::Fast)
+BuildRequires:  perl(Digest::MD5)
+BuildRequires:  perl(String::Escape)
+BuildRequires:  perl(base)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
+# testing requirements
 BuildRequires:  perl(Cache::FileCache)
+BuildRequires:  perl(Catalyst::Controller)
 BuildRequires:  perl(Catalyst::Plugin::Authentication) >= 0.10005
 BuildRequires:  perl(Catalyst::Plugin::Cache)
-BuildRequires:  perl(Catalyst::Runtime)
-BuildRequires:  perl(Class::Accessor::Fast)
-BuildRequires:  perl(Data::UUID) >= 0.11
-BuildRequires:  perl(Module::Build::Tiny)
-BuildRequires:  perl(String::Escape)
+BuildRequires:  perl(File::Spec)
+BuildRequires:  perl(FindBin)
+BuildRequires:  perl(HTTP::Headers)
+BuildRequires:  perl(HTTP::Request)
+BuildRequires:  perl(Module::Metadata)
 BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::MockObject)
+BuildRequires:  perl(Test::MockObject::Extends)
 BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(Test::Needs)
-BuildRequires:  perl(Test::Pod) >= 1.14
-BuildRequires:  perl(Test::Pod::Coverage) >= 1.04
-BuildRequires:  perl(Test::Spelling) >= 0.11
 BuildRequires:  perl(Test::WWW::Mechanize::Catalyst)
 BuildRequires:  perl(URI::Escape)
+BuildRequires:  perl(lib)
 BuildRequires:  sed
 Requires:       perl(Catalyst::Plugin::Authentication) >= 0.10005
 Requires:       perl(Class::Accessor::Fast)
-Requires:       perl(Data::UUID) >= 0.11
+Requires:       perl(Crypt::SysRandom) >= 0.007
 
 %{?perl_default_filter}
 
@@ -43,25 +56,28 @@ currently supported.
 %setup -q -n Catalyst-Authentication-Credential-HTTP-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor --skipdeps
-make %{?_smp_mflags}
+/usr/bin/perl Build.PL --installdirs=vendor
+./Build
 
 %install
-make pure_install DESTDIR=%{buildroot}
-
-find %{buildroot} -type f -name .packlist -delete
-
+./Build install --destdir=$RPM_BUILD_ROOT --create_packlist=0
 %{_fixperms} %{buildroot}/*
 
 %check
-make test
+./Build test
+
 
 %files
-%doc Changes README Todo
+%doc Changes CONTRIBUTING README Todo
 %{perl_vendorlib}/*
 %{_mandir}/man3/*
 
 %changelog
+* Sun Aug 31 2025 Emmanuel Seyman <emmanuel@seyman.fr> - 1.019-1
+- Update to 1.019
+- Rework dependencies
+- Switch build system
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.018-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

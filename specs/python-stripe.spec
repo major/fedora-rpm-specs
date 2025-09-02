@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/stripe/stripe-python
-Version:        12.0.0
+Version:        12.5.0
 %forgemeta
 
 Name:           python-stripe
@@ -53,14 +53,8 @@ Summary:        %{summary}
 #
 # To run tests manually, install:
 # 1. The package
-# 2. go
-# 3. python3-aiohttp
-# 4. python3-anyio
-# 5. python3-httpx
-# 6. python3-pytest
-# 7. python3-pytest-mock
-# 8. python3-trio
-# 9. python3-xdist
+# 2. The dependencies:
+#    sudo dnf install go python3-aiohttp python3-anyio python3-httpx python3-pytest python3-pytest-mock python3-pytest-xdist python3-trio
 #
 # Then execute:
 # In first shell:

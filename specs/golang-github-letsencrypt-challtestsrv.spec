@@ -9,7 +9,7 @@
 
 # https://github.com/letsencrypt/challtestsrv
 %global goipath         github.com/letsencrypt/challtestsrv
-Version:                1.3.2
+Version:                1.3.3
 
 %gometa -L -f
 
@@ -34,7 +34,6 @@ Source:         %{gosource}
 
 %prep
 %goprep -A
-%autopatch -p1
 
 %if %{without bootstrap}
 %generate_buildrequires

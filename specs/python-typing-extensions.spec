@@ -1,6 +1,5 @@
 Name:           python-typing-extensions
-Version:        4.15.0~rc1
-%global srcversion %(echo '%{version}' | tr -d '~')
+Version:        4.15.0
 Release:        1%{?dist}
 Summary:        Backported and Experimental Type Hints for Python
 
@@ -37,7 +36,7 @@ Summary:       %{summary}
 
 
 %prep
-%autosetup -p1 -n typing_extensions-%{srcversion}
+%autosetup -p1 -n typing_extensions-%{version}
 
 
 %generate_buildrequires
@@ -64,6 +63,9 @@ cd src
 
 
 %changelog
+* Mon Sep 01 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 4.15.0-1
+- Update to 4.15.0 (close RHBZ#2390801)
+
 * Tue Aug 19 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 4.15.0~rc1-1
 - Update to 4.15.0~rc1 (close RHBZ#2389191; fixes RHBZ#2389399)
 

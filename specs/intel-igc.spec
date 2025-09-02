@@ -9,7 +9,7 @@
 %endif
 
 Name: intel-igc
-Version: 2.14.4
+Version: 2.16.0
 Release: %autorelease
 Summary: Intel Graphics Compiler for OpenCL
 
@@ -120,8 +120,11 @@ tar -xf %{SOURCE1}
 
 %files devel
 %{_libdir}/libiga{32,64}.so.2
+%{_libdir}/libiga{32,64}.so
 %{_libdir}/libigc.so.2
+%{_libdir}/libigc.so
 %{_libdir}/libigdfcl.so.2
+%{_libdir}/libigdfcl.so
 %{_includedir}/igc
 %{_includedir}/iga
 %{_includedir}/visa

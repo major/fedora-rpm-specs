@@ -8,6 +8,12 @@ URL:            https://github.com/huggingface/datasets
 Source:         %{pypi_source datasets}
 
 BuildArch:      noarch
+# Extras that depend on PyTorch should only exist on arches with PyTorch
+%ifarch %{x86_64} %{arm64}
+%bcond torch 1
+%else
+%bcond torch 0
+%endif
 BuildRequires:  python3-devel
 # Test requires
 BuildRequires:  python3dist(pytest)
@@ -36,7 +42,7 @@ Summary:        %{summary}
 # - tensorflow_gpu: Missing tensorflow package.
 # - benchmarks, dev, docs, quality, tests, tests-numpy2:
 #     Development tools, no need to package.
-%pyproject_extras_subpkg -n python3-datasets torch,vision
+%pyproject_extras_subpkg -n python3-datasets %{?with_torch:torch,}vision
 
 
 %prep
@@ -83,7 +89,7 @@ rm tests/test_upstream_hub.py
 
 
 %generate_buildrequires
-%pyproject_buildrequires -x torch,vision
+%pyproject_buildrequires -x %{?with_torch:torch,}vision
 
 
 %build

@@ -1,51 +1,47 @@
 Name:           perl-Catalyst-Plugin-Session
 Summary:        Catalyst generic session plugin
-Version:        0.43
-Release:        11%{?dist}
-# Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
+Version:        0.44
+Release:        1%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
 Source0:        https://cpan.metacpan.org/authors/id/H/HA/HAARG/Catalyst-Plugin-Session-%{version}.tar.gz 
 URL:            https://metacpan.org/release/Catalyst-Plugin-Session
 BuildArch:      noarch
 
-BuildRequires:  findutils
+# build requirements
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
-BuildRequires:  perl(base)
+BuildRequires:  perl(ExtUtils::MakeMaker)
+# runtime requirements
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Catalyst)
 BuildRequires:  perl(Catalyst::Runtime) >= 5.71001
+BuildRequires:  perl(Catalyst::Controller)
 BuildRequires:  perl(Catalyst::Exception)
-BuildRequires:  perl(Class::MOP)
-BuildRequires:  perl(Data::Dumper)
-BuildRequires:  perl(Digest)
-BuildRequires:  perl(File::Spec)
-BuildRequires:  perl(File::Temp)
-BuildRequires:  perl(FindBin)
-BuildRequires:  perl(inc::Module::Install) >= 0.87
-BuildRequires:  perl(lib)
+BuildRequires:  perl(Crypt::SysRandom) >= 0.007
+BuildRequires:  perl(HTML::Entities)
 BuildRequires:  perl(List::Util)
-BuildRequires:  perl(Module::Install::AuthorTests)
-BuildRequires:  perl(Module::Install::Metadata)
-BuildRequires:  perl(Module::Install::WriteAll)
+BuildRequires:  perl(MRO::Compat)
 BuildRequires:  perl(Moose) >= 0.76
 BuildRequires:  perl(MooseX::Emulate::Class::Accessor::Fast) >= 0.00801
-BuildRequires:  perl(MRO::Compat)
-BuildRequires:  perl(namespace::clean) >= 0.10
 BuildRequires:  perl(Object::Signature)
+BuildRequires:  perl(base)
+BuildRequires:  perl(namespace::clean) >= 0.10
 BuildRequires:  perl(overload)
 BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
+# test requirements
+BuildRequires:  perl(Class::MOP)
+BuildRequires:  perl(Data::Dumper)
+BuildRequires:  perl(File::Spec)
+BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(Test::Deep)
-BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(Test::Needs)
-BuildRequires:  perl(Test::Pod)
-BuildRequires:  perl(Tie::RefHash) >= 1.34
+BuildRequires:  perl(lib)
 BuildRequires:  perl(utf8)
-BuildRequires:  perl(warnings)
-BuildRequires:  sed
 %if !0%{?perl_bootstrap}
 # these cause circular builddeps
 BuildRequires:  perl(Catalyst::Plugin::Authentication)
@@ -96,6 +92,9 @@ This plugin links the two pieces together.
 %{_mandir}/man3/*
 
 %changelog
+* Sun Aug 31 2025 Emmanuel Seyman <emmanuel@seyman.fr> - 0.44-1
+- Update to 0.44
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.43-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,7 +1,8 @@
 # Work around a series of circular test dependencies:
 #
-#    python-snakemake-interface-report-plugins
-#    ￬￪   ⬐───╮
+# python-snakemake-interface-scheduler-plugins
+# │￪ python-snakemake-interface-report-plugins
+# ￬│ ￬￪   ⬐───╮
 # snakemake → python-snakemake-interface-executor-plugins⬎
 #   ￪￪￪ │ ⬑────────────────────python-snakemake-executor-plugin-cluster-generic
 #   │││ ↳python-snakemake-interface-storage-plugins─────────────────╮
@@ -24,6 +25,7 @@
 #   4. snakemake, python-snakemake-interface-executor-plugins,
 #      python-snakemake-interface-storage-plugins,
 #      python-snakemake-interface-report-plugins
+#      python-snakemake-interface-scheduler-plugins
 %bcond bootstrap 0
 %bcond tests %{without bootstrap}
 # Run tests that require network access? This only makes sense for local mock
@@ -35,7 +37,7 @@
 %bcond gcs_tests 1
 
 Name:           snakemake
-Version:        9.9.0
+Version:        9.10.0
 %global srcversion %(echo '%{version}' | cut -d '^' -f 1)
 Release:        %autorelease
 Summary:        Workflow management system to create reproducible and scalable data analyses

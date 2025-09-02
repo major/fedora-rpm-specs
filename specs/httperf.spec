@@ -4,12 +4,15 @@
 
 Name:           httperf
 Version:        0.9.1
-Release:        0.14%{?dist}
+Release:        0.15%{?dist}
 Summary:        Tool for measuring web server performance
 # Automatically converted from old format: GPLv2+ with exceptions - review is highly recommended.
 License:        LicenseRef-Callaway-GPLv2+-with-exceptions
 URL:            %{forgeurl}
 Source0:        %{forgesource}
+Patch0:         httperf-signal.patch
+Patch1:         httperf-autoconf.patch
+Patch2:         httperf-compiler-warning.patch
 BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  openssl-devel
@@ -30,7 +33,7 @@ performance measurements.
 
 
 %prep
-%forgesetup
+%forgeautosetup -p1
 
 
 %build
@@ -56,6 +59,9 @@ chmod -x AUTHORS ChangeLog NEWS README.md TODO COPYRIGHT
 
 
 %changelog
+* Sun Aug 31 2025 Thomas Moschny <thomas.moschny@gmx.de> - 0.9.1-0.15
+- Add patches to fix FTBFS.
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-0.14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

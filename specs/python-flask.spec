@@ -4,7 +4,7 @@
 %bcond doc %{undefined el10}
 
 Name:           python-%{modname}
-Version:        3.1.1
+Version:        3.1.2
 Release:        %autorelease
 Epoch:          1
 Summary:        A micro-framework for Python based on Werkzeug, Jinja 2 and good intentions
@@ -53,6 +53,9 @@ Documentation and examples for %{name}.
 %autosetup -n %{srcname}-%{version}
 rm -rf examples/flaskr/
 rm -rf examples/minitwit/
+# Do some shuffling to work on f42 and epel10
+sed -i 's|license = "BSD-3-Clause"|license = {file = "LICENSE.txt"}|' pyproject.toml
+sed -i '/^license-files = \["LICENSE.txt"\]/d' pyproject.toml
 
 %build
 %pyproject_wheel

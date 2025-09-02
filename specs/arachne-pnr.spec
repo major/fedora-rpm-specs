@@ -27,6 +27,11 @@ Patch1:         make-use-of-emplace.patch
 # (the meaning of the verilog didn't change, but the order and variable numbers did)
 Patch2:         test-fixup.patch
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+# Yosys does not support s390x (see Yosys specfile for BZ)
+ExcludeArch:    s390x
+
 BuildRequires:  gcc-c++
 BuildRequires:  icestorm
 BuildRequires:  make

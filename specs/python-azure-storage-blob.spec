@@ -1,12 +1,12 @@
 %global srcname azure-storage-blob
 
 Name:           python-%{srcname}
-Version:        12.20.0
+Version:        12.26.0
 Release:        %autorelease
 Summary:        Azure Storage Blobs client library for Python
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
-Source:         %{pypi_source %{srcname}}
+Source:         %{pypi_source azure_storage_blob}
 
 BuildArch:      noarch
 
@@ -27,7 +27,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n azure_storage_blob-%{version}
 
 
 %generate_buildrequires

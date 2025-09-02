@@ -49,6 +49,7 @@ mv cmd/pebble-challtestsrv/README.md challtestsrv-README.md
 
 %if %{without bootstrap}
 %build
+export GO_LDFLAGS="-X 'main.version=%{version}'"
 for cmd in cmd/p* ; do
   %gobuild -o %{gobuilddir}/bin/$(basename $cmd) %{goipath}/$cmd
 done

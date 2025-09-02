@@ -1,5 +1,5 @@
 Name:           python-pyscipopt
-Version:        5.5.0
+Version:        5.6.0
 Release:        %autorelease
 Summary:        Python interface and modeling environment for SCIP
 
@@ -9,10 +9,6 @@ Summary:        Python interface and modeling environment for SCIP
 License:        MIT AND WTFNMFPL
 URL:            https://github.com/scipopt/PySCIPOpt
 Source:         %{url}/archive/v%{version}/PySCIPOpt-%{version}.tar.gz
-
-# Remove bogus execute permission and shebang line from sudoku example
-# https://github.com/scipopt/PySCIPOpt/pull/1008
-Patch:          %{url}/pull/1008.patch
 
 BuildSystem:            pyproject
 BuildOption(install):   -l pyscipopt

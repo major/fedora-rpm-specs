@@ -1,6 +1,12 @@
 # Universal build flags
 %bcond longtests 0
+
+# Only enable extended warnings on supported platforms
+%ifarch x86_64 aarch64
 %bcond ccwarn 1
+%else
+%bcond ccwarn 0
+%endif
 
 # tcmalloc and z3 are not available on EL
 %if 0%{?rhel}%{?centos}
@@ -16,7 +22,7 @@
 %bcond mold 0
 
 Name:           verilator
-Version:        5.036
+Version:        5.040
 Release:        %autorelease
 Summary:        A fast simulator for synthesizable Verilog
 License:        LGPL-3.0-only OR Artistic-2.0

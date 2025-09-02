@@ -3,7 +3,7 @@
 %global reshade_shortcommit %(c=%{reshade_commit}; echo ${c:0:7})
 
 Name:           gamescope
-Version:        3.16.11
+Version:        3.16.15
 Release:        %autorelease
 Summary:        Micro-compositor for video games on Wayland
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -28,6 +28,10 @@ Patch:          Switch-wlroots-to-the-new-pc-filename.patch
 Patch:          Add-pixman-udev-deps.patch
 Patch:          Use-system-stb-glm.patch
 
+# Fixup GNOME/mutter support
+# https://github.com/ValveSoftware/gamescope/pull/1867
+Patch:          1867.patch
+
 BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -49,7 +53,7 @@ BuildRequires:  (pkgconfig(libliftoff) >= %{libliftoff_minver} with pkgconfig(li
 BuildRequires:  pkgconfig(libpipewire-0.3)
 BuildRequires:  pkgconfig(libudev)
 BuildRequires:  pkgconfig(luajit)
-BuildRequires:  pkgconfig(openvr) >= 2.7
+#BuildRequires:  pkgconfig(openvr) >= 2.12
 BuildRequires:  pkgconfig(sdl2)
 BuildRequires:  pkgconfig(vulkan)
 BuildRequires:  pkgconfig(wayland-protocols) >= 1.17
@@ -112,7 +116,7 @@ export PKG_CONFIG_PATH=pkgconfig
     -Ddrm_backend=enabled \
     -Denable_gamescope=true \
     -Denable_gamescope_wsi_layer=true \
-    -Denable_openvr_support=true \
+    -Denable_openvr_support=false \
     -Dforce_fallback_for=[] \
     -Dinput_emulation=enabled \
     -Dpipewire=enabled \

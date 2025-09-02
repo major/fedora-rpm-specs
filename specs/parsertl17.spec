@@ -3,7 +3,7 @@ Summary:        The Modular Parser Generator
 # Upstream switched away from calendar-based versioning, and the new version
 # scheme sorts older than the calendar-based one, so we cannot avoid an Epoch.
 Epoch:          1
-Version:        1.2.0
+Version:        1.2.1
 Release:        %autorelease
 
 License:        BSL-1.0

@@ -91,7 +91,6 @@ Conflicts: %{name} < 48~rc-5
 Recommends:     gnome-bluetooth%{?_isa} >= %{gnome_bluetooth_version}
 %endif
 Requires:       %{name}-common = %{version}-%{release}
-Requires:       gnome-desktop3%{?_isa} >= %{gnome_desktop_version}
 Requires:       gcr%{?_isa}
 Requires:       gobject-introspection%{?_isa} >= %{gobject_introspection_version}
 Requires:       gjs%{?_isa} >= %{gjs_version}

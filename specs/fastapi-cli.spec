@@ -12,7 +12,7 @@
 %bcond cloudcli 0
 
 Name:           fastapi-cli
-Version:        0.0.8
+Version:        0.0.10
 Release:        %autorelease
 Summary:        Run and manage FastAPI apps from the command line with FastAPI CLI
 
@@ -21,11 +21,6 @@ URL:            https://github.com/fastapi/fastapi-cli
 # The GitHub archive contains a few useful files that the PyPI sdist does not,
 # such as the release notes.
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-
-# Written for Fedora in groff_man(7) format based on --help output
-Source10:       fastapi.1
-Source11:       fastapi-dev.1
-Source12:       fastapi-run.1
 
 # Downstream-only: run test_script without coverage
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
@@ -106,22 +101,6 @@ export TIANGOLO_BUILD_PACKAGE='fastapi-cli'
 %install
 %pyproject_install
 
-install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
-    '%{SOURCE10}' '%{SOURCE11}' '%{SOURCE12}'
-
-install -d \
-    '%{buildroot}%{bash_completions_dir}' \
-    '%{buildroot}%{zsh_completions_dir}' \
-    '%{buildroot}%{fish_completions_dir}'
-export PYTHONPATH='%{buildroot}%{python3_sitelib}'
-export _TYPER_COMPLETE_TEST_DISABLE_SHELL_DETECTION=1
-'%{buildroot}%{_bindir}/fastapi' --show-completion bash \
-    > '%{buildroot}%{bash_completions_dir}/fastapi'
-'%{buildroot}%{_bindir}/fastapi' --show-completion zsh \
-    > '%{buildroot}%{zsh_completions_dir}/_fastapi'
-'%{buildroot}%{_bindir}/fastapi' --show-completion fish \
-    > '%{buildroot}%{fish_completions_dir}/fastapi.fish'
-
 
 %check
 %pytest -k "${k-}" ${ignore-} -v
@@ -136,13 +115,6 @@ export _TYPER_COMPLETE_TEST_DISABLE_SHELL_DETECTION=1
 %doc CITATION.cff
 %doc README.md
 %doc release-notes.md
-
-%{_bindir}/fastapi
-%{_mandir}/man1/fastapi.1*
-%{_mandir}/man1/fastapi-*.1*
-%{bash_completions_dir}/fastapi
-%{zsh_completions_dir}/_fastapi
-%{fish_completions_dir}/fastapi.fish
 
 %{python3_sitelib}/fastapi_cli/
 %{python3_sitelib}/fastapi_cli_slim-%{version}.dist-info/

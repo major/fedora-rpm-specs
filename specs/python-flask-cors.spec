@@ -1,7 +1,7 @@
 %global srcname flask-cors
 
 Name:           python-%{srcname}
-Version:        5.0.0
+Version:        6.0.1
 Release:        %autorelease
 Summary:        Cross Origin Resource Sharing (CORS) support for Flask
 License:        MIT
@@ -16,14 +16,8 @@ making cross-origin AJAX possible.
 %package -n python3-%{srcname}
 Summary:        Cross Origin Resource Sharing (CORS) support for Flask
 
-%{?python_provide:%python_provide python3-%{srcname}}
-
 BuildRequires:  python3-devel
-BuildRequires:  python3-flask
 BuildRequires:  python3-pytest
-BuildRequires:  python3-packaging
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-six
 
 %description -n python3-%{srcname}
 Python3 flask_cors package.
@@ -31,20 +25,23 @@ Python3 flask_cors package.
 %prep
 %autosetup -n %{srcname}-%{version} -p1
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%{py3_build}
+%{pyproject_wheel}
 
 %install
-%{py3_install}
+%{pyproject_install}
+%pyproject_save_files -l flask_cors -L
 
 %check
+%pyproject_check_import
 %pytest
 
-%files -n python3-%{srcname}
+%files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE
 %doc CHANGELOG.md README.rst
-%{python3_sitelib}/flask_cors/
-%{python3_sitelib}/Flask_Cors*.egg-info/
 
 %changelog
 %autochangelog
