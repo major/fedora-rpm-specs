@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.42.9000-122-g027505a07b
+%global glibcsrcdir glibc-2.42.9000-135-g0c6cb5285b
 %global glibcversion 2.42.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 3
+%global baserelease 4
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2389,7 +2389,24 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
-* Mon Aug 25 2025 DJ Delorie <dj@redhat.com> - 2.42.9000-3
+* Mon Sep 01 2025 Florian Weimer <fweimer@redhat.com> - 2.42.9000-4
+- Auto-sync with upstream branch master,
+  commit 0c6cb5285bc90b35dfdb476f47fe9bad721abf8b:
+- nptl: Provide __pthread_rwlock_unlock compat symbol for versions before 2.43
+- nptl: Drop IS_IN (libpthread) around hidden_proto (__pthread_rwlock_unlock)
+- login: fix ut_line comparison logic
+- malloc: add tst-mxfast to hugetlb exclusion list
+- x86: Use flag output operands for inline asm in atomic-machine.h
+- x32: Fix, optimize and cleanup RSEQ_* accessors
+- x86/configure: Improve portability of isa level check
+- elf: early conversion of elf p_flags to mprotect flags
+- malloc: Support hugepages in mremap_chunk
+- malloc: Change mmap chunk layout
+- added benchmark inputs for rsqrtf and rsqrt
+- add missing benchmark files for several C23 binary64 functions
+- manual: Refer to libc-alpha instead of a dead mailing list.
+
+* Tue Aug 26 2025 DJ Delorie <dj@redhat.com> - 2.42.9000-3
 - Auto-sync with upstream branch master,
   commit 027505a07b2fdef09749300b531623b12f4d5afe.
 - Don't pass -c to LIBC_TRY_TEST_CC_OPTION

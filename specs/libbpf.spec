@@ -1,11 +1,11 @@
 %global githubname   libbpf
-%global githubver    1.6.1
+%global githubver    1.6.2
 %global githubfull   %{githubname}-%{githubver}
-%global libver       1.6.1
+%global libver       1.6.2
 
 Name:           %{githubname}
 Version:        %{githubver}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Libbpf library
 
 License:        LGPL-2.1-only OR BSD-2-Clause
@@ -72,6 +72,9 @@ developing applications that use %{name}
 %{_libdir}/libbpf.a
 
 %changelog
+* Mon Sep 01 2025 Viktor Malik <vmalik@redhat.com> - 2:1.6.2-1
+- release 1.6.2-1
+
 * Tue Aug 12 2025 Viktor Malik <vmalik@redhat.com> - 2:1.6.1-3
 - Backport patch to fix latest perf builds
 

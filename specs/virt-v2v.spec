@@ -271,9 +271,6 @@ find $RPM_BUILD_ROOT -name '*.la' -delete
 mkdir -p $RPM_BUILD_ROOT%{_libexecdir}
 mv $RPM_BUILD_ROOT%{_bindir}/virt-v2v-in-place $RPM_BUILD_ROOT%{_libexecdir}/
 rm $RPM_BUILD_ROOT%{_mandir}/man1/virt-v2v-in-place.1*
-# these are also not supported on RHEL
-rm -f $RPM_BUILD_ROOT%{_mandir}/man1/virt-v2v-input-xen.1*
-rm -f $RPM_BUILD_ROOT%{_mandir}/man1/virt-v2v-output-ovirt.1*
 %endif
 
 # Find locale files.

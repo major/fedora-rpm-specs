@@ -16,7 +16,7 @@
 %global import_path %{provider_prefix}
 %global git0 https://github.com/checkpoint-restore/checkpointctl
 
-%global built_tag v1.3.0
+%global built_tag v1.4.0
 %global built_tag_strip %(b=%{built_tag}; echo ${b:1})
 %global gen_version %(b=%{built_tag_strip}; echo ${b/-/"~"})
 

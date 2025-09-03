@@ -20,6 +20,10 @@ Source0:        %{pypi_source awscrt}
 Patch0:         skip-tests-requiring-network.patch
 # skip SHA1 in test_crypto
 Patch1:         skip-SHA1-in-test_crypto.patch
+# https://github.com/awslabs/aws-c-cal/pull/225
+Patch2:         der-c.patch
+# websockets test fail fix
+Patch3:         websockets.patch
 
 BuildRequires:  python%{python3_pkgversion}-devel
 
@@ -30,8 +34,7 @@ BuildRequires:  openssl-devel
 
 BuildRequires:  python%{python3_pkgversion}-websockets
 
-# s390x: https://bugzilla.redhat.com/show_bug.cgi?id=2180988
-ExcludeArch:    %{ix86} s390x
+ExcludeArch:    %{ix86}
 
 
 %description

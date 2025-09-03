@@ -9,7 +9,7 @@
 
 %bcond_without       tests
 
-%global gh_commit    b9e61a61e39e02dd90944e9115241c7f7e76bfd8
+%global gh_commit    1e0cd5370df5dd2e556a36b9c62f62e555870495
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     phpstan
 %global gh_project   phpdoc-parser
@@ -19,8 +19,8 @@
 %global major        %nil
 
 Name:           php-%{gh_owner}-%{gh_project}%{major}
-Version:        2.2.0
-Release:        2%{?dist}
+Version:        2.3.0
+Release:        1%{?dist}
 Summary:        PHPDoc parser with support for nullable, intersection and generic types
 
 License:        MIT
@@ -127,6 +127,9 @@ exit $ret
 
 
 %changelog
+* Mon Sep  1 2025 Remi Collet <remi@remirepo.net> - 2.3.0-1
+- update to 2.3.0
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

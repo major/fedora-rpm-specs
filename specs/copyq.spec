@@ -1,8 +1,8 @@
 %global forgeurl https://github.com/hluk/CopyQ/
-%global commit f25a022e6e3f47353c46923de48a36e2d466c5c3
+%global commit 35b5bbb103669ce610e6367cbd7fcfdb9c300cfb
 
 Name:    copyq
-Version: 10.0.0
+Version: 11.0.0
 Release: %autorelease
 Summary: Advanced clipboard manager
 License: GPL-3.0-or-later
@@ -12,11 +12,6 @@ License: GPL-3.0-or-later
 Url:     %{forgeurl}
 Source0: %{forgesource}
 Source1: %{name}.rpmlintrc
-
-# Define Patch0 ONLY for Fedora 43
-%if 0%{?fedora} >= 43
-Patch0:         rhbz-2357454.patch
-%endif
 
 BuildRequires: cmake, extra-cmake-modules, gcc-c++
 BuildRequires: libappstream-glib

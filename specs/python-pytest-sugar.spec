@@ -3,7 +3,7 @@ pytest-sugar is a plugin for pytest that shows failures and errors instantly
 and shows a progress bar.}
 
 Name:           python-pytest-sugar
-Version:        1.1.0
+Version:        1.1.1
 Release:        %autorelease
 Summary:        Change the default look and feel of pytest
 

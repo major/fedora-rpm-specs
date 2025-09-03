@@ -180,8 +180,10 @@ sed -Ei '/\/tests\b/d' %{pyproject_files}
 find %{buildroot}%{python3_sitelib} -name tests -print0 | xargs -0 rm -r
 
 # Install the wheel for the python-setuptools-wheel package
+# and inject SBOM into it (if the macro is available)
 mkdir -p %{buildroot}%{python_wheel_dir}
 install -p %{_pyproject_wheeldir}/%{python_wheel_name} -t %{buildroot}%{python_wheel_dir}
+%{?python_wheel_inject_sbom:%python_wheel_inject_sbom %{buildroot}%{python_wheel_dir}/%{python_wheel_name}}
 
 
 %check

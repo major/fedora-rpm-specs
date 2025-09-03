@@ -1,22 +1,20 @@
 %global pypi_name backcall
 
 Name:           python-%{pypi_name}
-Version:        0.1.0
+Version:        0.2.0
 Release:        %autorelease
 Summary:        Specifications for callback functions passed in to an API
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-3-Clause
 URL:            https://github.com/takluyver/backcall
-Source0:        https://files.pythonhosted.org/packages/source/b/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
-Source1:        https://raw.githubusercontent.com/takluyver/backcall/8eb45a77a40edad74b33086d05fd4d99d43d80b0/LICENSE
+Source:         %{url}/archive/%{version}/backall-%{version}.tar.gz
 BuildArch:      noarch
  
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(setuptools)
-
-%?python_enable_dependency_generator
+# docs
+BuildRequires:  python3dist(sphinx)
+BuildRequires:  texinfo
 
 %description
 Specifications for callback functions passed in to an API.
@@ -28,7 +26,6 @@ you're careful. Backcall helps with that.
 
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
 Specifications for callback functions passed in to an API.
@@ -38,25 +35,48 @@ specify the function signature you expect, and check that functions support
 that. Adding extra parameters later would break other peoples code unless
 you're careful. Backcall helps with that.
 
+%package doc
+Summary:        Documentation for backcall
+BuildArch:      noarch
+
+%description doc
+This package contains documentation in docbook format.
 
 %prep
 %autosetup -n %{pypi_name}-%{version}
-cp -p %{SOURCE1} .
+
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
+# Build sphinx documentation
+pushd docs/
+sphinx-build -b texinfo . texinfo
+pushd texinfo
+makeinfo --docbook backcall.texi
+popd # texinfo
+popd # docs
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l backcall
+# Install docbook docs
+install -pDm0644 docs/texinfo/backcall.xml \
+ %{buildroot}%{_datadir}/help/en/python-backcall/backcall.xml
 
 %check
-%{__python3} -m pytest -vv tests
+%pyproject_check_import
+%pytest tests
 
-%files -n python3-%{pypi_name}
+%files -n python3-%{pypi_name} -f %{pyproject_files}
+
+
+%files doc
 %license LICENSE
-%doc README.rst
-%{python3_sitelib}/%{pypi_name}
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
+%dir  %{_datadir}/help/en/
+%lang(en) %{_datadir}/help/en/python-backcall/
 
 %changelog
 %autochangelog

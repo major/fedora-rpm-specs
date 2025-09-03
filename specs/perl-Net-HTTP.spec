@@ -6,8 +6,8 @@
 %{bcond_without perl_Net_HTTP_enables_ssl}
 
 Name:           perl-Net-HTTP
-Version:        6.23
-Release:        7%{?dist}
+Version:        6.24
+Release:        1%{?dist}
 Summary:        Low-level HTTP connection (client)
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-HTTP
@@ -124,6 +124,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Sep 01 2025 Michal Josef Špaček <mspacek@redhat.com> - 6.24-1
+- 0.24 bump
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.23-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

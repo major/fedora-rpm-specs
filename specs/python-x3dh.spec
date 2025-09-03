@@ -1,35 +1,39 @@
 Name:           python-x3dh
-Version:        1.0.4
-Release:        5%{?dist}
+Version:        1.2.0
+Release:        1%{?dist}
 Summary:        Python implementation of the X3DH key agreement protocol
 
 License:        MIT
 URL:            https://github.com/Syndace/%{name}
-Source0:        https://github.com/Syndace/%{name}/archive/v%{version}.tar.gz
+Source:         https://github.com/Syndace/%{name}/archive/v%{version}/python-x3dh-%{version}.tar.gz
+# https://github.com/Syndace/python-x3dh/commit/7e90648971262d2ce8335052bd046434d5d99580
+Patch:          python-dirs.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-cryptography
-BuildRequires:  python3-xeddsa
 # For tests
-# "nacl" is also a runtime requirement
-BuildRequires:  python3-pynacl
-#BuildRequires:  python3-pytest
+BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(pytest-asyncio)
 
-%description
+# for docs
+BuildRequires:  python3-sphinx
+BuildRequires:  python3-sphinx-autodoc-typehints
+BuildRequires:  python3-sphinx_rtd_theme
+BuildRequires:  texinfo
+
+%global _description %{expand:
 This python library offers an implementation of the Extended Triple
 Diffie-Hellman key agreement protocol (X3DH).
 
 X3DH establishes a shared secret key between two parties who mutually
 authenticate each other based on public keys. X3DH provides forward
-secrecy and cryptographic deniability.
+secrecy and cryptographic deniability.}
 
+%description %_description
 
 
 %package     -n python3-x3dh
 Summary:        Python implementation of the X3DH key agreement protocol
-Requires:       python3-pynacl
 
 %description -n python3-x3dh
 This python library offers an implementation of the Extended Triple
@@ -39,31 +43,50 @@ X3DH establishes a shared secret key between two parties who mutually
 authenticate each other based on public keys. X3DH provides forward
 secrecy and cryptographic deniability.
 
+%package docs
+Summary: Documentation for python-twomemo
+BuildArch: noarch
+
+%description docs %_description
 
 
 %prep
 %autosetup -n %{name}-%{version}
 
+ 
+%generate_buildrequires
+%pyproject_buildrequires -x docs
 
 %build
-%py3_build
-
+%pyproject_wheel
+pushd docs
+sphinx-build -b texinfo . texinfo
+pushd texinfo
+makeinfo --docbook x3dh.texi
+popd # texinfo
+popd # docs
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l x3dh
+# Install docbook docs
+install -pDm0644 docs/texinfo/x3dh.xml \
+ %{buildroot}%{_datadir}/help/en/python-x3dh/x3dh.xml
 
+%files -n python3-x3dh -f %{pyproject_files}
 
-
-%files -n python3-x3dh
+%files docs
 %license LICENSE
-%doc README.md
-# For noarch packages: sitelib
-%{python3_sitelib}/x3dh/
-%{python3_sitelib}/X3DH-%{version}-py%{python3_version}.egg-info/
-
+%dir  %{_datadir}/help/en/
+%lang(en) %{_datadir}/help/en/python-x3dh/
 
 
 %changelog
+* Mon Sep 01 2025 Benson Muite <fed500@fedoraproject.org> - 1.2.0-1
+- Update to release 1.2.0
+- Use newer packaging macros
+- Package documentation
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.0.4-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

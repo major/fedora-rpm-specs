@@ -1,6 +1,6 @@
 Name:    kwin
 Version: 6.4.4
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: KDE Window manager
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -19,6 +19,10 @@ Patch0:  7d36003cb073ed2ad48b2743883db993106c347a.patch
 # Patch https://invent.kde.org/plasma/kwin/-/commit/598438b9bcb9487c9dc85e4eb5f84e3b73a71051
 # fixes of https://bugs.kde.org/show_bug.cgi?id=504959
 Patch1:  598438b9bcb9487c9dc85e4eb5f84e3b73a71051.patch
+
+# Patch https://invent.kde.org/plasma/kwin/-/commit/172f8f2e71d93a27f23586587d9cf86cbfee8615
+# fixes https://bugs.kde.org/show_bug.cgi?id=509004
+Patch2:  172f8f2e71d93a27f23586587d9cf86cbfee8615.patch
 
 ## proposed patches
 
@@ -278,6 +282,9 @@ ln -sr %{buildroot}%{_kf6_bindir}/kwin_wayland %{buildroot}%{_bindir}/kwin
 
 
 %changelog
+* Mon Sep 01 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.4.4-4
+- Backport upstream patch
+
 * Tue Aug 26 2025 Alberto Maiaron <alberto_bugzilla@protonmail.ch> - 6.4.4-3
 - Patch for issue 504959, Patch1: 598438b9bcb9487c9dc85e4eb5f84e3b73a71051.patch
 

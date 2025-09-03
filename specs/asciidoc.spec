@@ -1,6 +1,6 @@
 Name:           asciidoc
 Version:        10.2.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Text based document generation
 
 License:        GPL-2.0-or-later
@@ -14,7 +14,7 @@ Patch1:         asciidoc-table-separator.patch
 BuildRequires:  python3-devel
 BuildRequires:  python3-pip
 BuildRequires:  python3-setuptools
-BuildRequires:  python3-wheel
+BuildRequires:  (python3-wheel if python3-setuptools < 71)
 BuildRequires:  dblatex
 BuildRequires:  docbook-style-xsl
 BuildRequires:  graphviz
@@ -65,7 +65,7 @@ autoreconf -v
 %make_build
 
 %install
-make install docs manpages DESTDIR=%{buildroot}
+make install docs manpages DESTDIR=%{buildroot} PIP_NO_BUILD_ISOLATION=0
 mkdir -p %{buildroot}%{_mandir}/man1
 mv %{buildroot}/share/doc/doc/{asciidoc.1,a2x.1,testasciidoc.1} %{buildroot}%{_mandir}/man1/
 mkdir -p %{buildroot}/%{_pkgdocdir}/doc
@@ -101,6 +101,9 @@ rm  %{buildroot}/share/doc/{BUGS.adoc,CHANGELOG.adoc,INSTALL.adoc,README.md,dbla
 %dir %{python3_sitelib}/asciidoc/resources/filters/latex
 
 %changelog
+* Wed Aug 27 2025 Miro Hrončok <mhroncok@redhat.com> - 10.2.0-16
+- Drop unnecessary BuildRequires for python3-wheel when python3-setuptools is new enough
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 10.2.0-15
 - Rebuilt for Python 3.14.0rc2 bytecode
 

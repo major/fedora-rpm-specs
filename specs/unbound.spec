@@ -420,6 +420,13 @@ fi
 %postun anchor
 %systemd_postun_with_restart unbound-anchor.service unbound-anchor.timer
 
+%triggerun -- unbound < 1.23.1-4
+if [ "$(stat -c '%%a %%G' %{_sysconfdir}/%{name}/unbound_control.key 2>/dev/null)" = '600 unbound' ]; then
+   # change permissions of existing key just once, where it were generated with wrong perms
+   %{_bindir}/chmod g+r "%{_sysconfdir}/%{name}/unbound_control.key" || :
+fi
+
+
 %check
 export OPENSSL_CONF="%{buildroot}%{_sysconfdir}/unbound/openssl-sha1.conf"
 make check
@@ -495,10 +502,10 @@ popd
 %{_sysusersdir}/%{name}.conf
 %{_libdir}/libunbound.so.8*
 %dir %attr(0755,unbound,unbound) %{_sharedstatedir}/%{name}
-%config(noreplace) %verify(not link user group) %{_sharedstatedir}/%{name}/root.key
+%config %verify(not link owner group size mtime mode md5) %{_sharedstatedir}/%{name}/root.key
 # just left for backwards compat with user changed unbound.conf files - format is different!
-%attr(0644,root,root) %config %{_sysconfdir}/%{name}/root.key
-%attr(0644,root,root) %config %{_sysconfdir}/%{name}/dnssec-root.key
+%attr(0644,root,root) %config(noreplace) %{_sysconfdir}/%{name}/root.key
+%attr(0644,root,root) %config(noreplace) %{_sysconfdir}/%{name}/dnssec-root.key
 
 %files anchor
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/sysconfig/%{name}

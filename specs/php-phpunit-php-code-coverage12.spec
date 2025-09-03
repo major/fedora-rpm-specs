@@ -10,11 +10,11 @@
 %bcond_without       tests
 
 # Github
-%global gh_commit    7ad0e9bdc72b147600badccd694a2e57ffc9297a
+%global gh_commit    96dc0466673e215bf5536301039017f03cd45c6b
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner    sebastianbergmann
 %global gh_project   php-code-coverage
-%global gh_date      2025-08-29
+%global gh_date      2025-09-01
 # Packagist
 %global pk_vendor    phpunit
 %global pk_project   php-code-coverage
@@ -25,7 +25,7 @@
 %global ver_major    12
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
-Version:        12.3.4
+Version:        12.3.5
 Release:        1%{?dist}
 Summary:        PHP code coverage information, version %{ver_major}
 
@@ -43,11 +43,11 @@ BuildArch:      noarch
 BuildRequires:  php(language) >= 8.3
 BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 %if %{with tests}
-BuildRequires:  (php-composer(nikic/php-parser)                   >= 5.4    with php-composer(nikic/php-parser)                   < 6)
+BuildRequires:  (php-composer(nikic/php-parser)                   >= 5.6.1  with php-composer(nikic/php-parser)                   < 6)
 BuildRequires:  (php-composer(phpunit/php-file-iterator)          >= 6.0    with php-composer(phpunit/php-file-iterator)          < 7)
 BuildRequires:  (php-composer(phpunit/php-text-template)          >= 5.0    with php-composer(phpunit/php-text-template)          < 6)
 BuildRequires:  (php-composer(sebastian/complexity)               >= 5.0    with php-composer(sebastian/complexity)               < 6)
-BuildRequires:  (php-composer(sebastian/environment)              >= 8.0    with php-composer(sebastian/environment)              < 9)
+BuildRequires:  (php-composer(sebastian/environment)              >= 8.0.3  with php-composer(sebastian/environment)              < 9)
 BuildRequires:  (php-composer(sebastian/lines-of-code)            >= 4.0    with php-composer(sebastian/lines-of-code)            < 5)
 BuildRequires:  (php-composer(sebastian/version)                  >= 6.0    with php-composer(sebastian/version)                  < 7)
 BuildRequires:  (php-composer(theseer/tokenizer)                  >= 1.2.3  with php-composer(theseer/tokenizer)                  < 2)
@@ -57,8 +57,8 @@ BuildRequires:  php-libxml
 BuildRequires:  php-tokenizer
 BuildRequires:  php-xmlwriter
 # From composer.json, "require-dev": {
-#        "phpunit/phpunit": "^12.0"
-BuildRequires:  phpunit12
+#        "phpunit/phpunit": "^12.3.7"
+BuildRequires:  phpunit12 >= 12.3.7
 BuildRequires:  php-xdebug
 %endif
 
@@ -67,11 +67,11 @@ BuildRequires:  php-xdebug
 #        "ext-dom": "*",
 #        "ext-libxml": "*",
 #        "ext-xmlwriter": "*",
-#        "nikic/php-parser": "^5.4.0",
+#        "nikic/php-parser": "^5.6.1",
 #        "phpunit/php-file-iterator": "^6.0",
 #        "phpunit/php-text-template": "^5.0",
 #        "sebastian/complexity": "^5.0",
-#        "sebastian/environment": "^8.0",
+#        "sebastian/environment": "^8.0.3",
 #        "sebastian/lines-of-code": "^4.0",
 #        "sebastian/version": "^6.0",
 #        "theseer/tokenizer": "^1.2.3"
@@ -79,11 +79,11 @@ Requires:       php(language) >= 8.3
 Requires:       php-dom
 Requires:       php-libxml
 Requires:       php-xmlwriter
-Requires:       (php-composer(nikic/php-parser)                   >= 5.4.0  with php-composer(nikic/php-parser)                   < 6)
+Requires:       (php-composer(nikic/php-parser)                   >= 5.6.1  with php-composer(nikic/php-parser)                   < 6)
 Requires:       (php-composer(phpunit/php-file-iterator)          >= 6.0    with php-composer(phpunit/php-file-iterator)          < 7)
 Requires:       (php-composer(phpunit/php-text-template)          >= 5.0    with php-composer(phpunit/php-text-template)          < 6)
 Requires:       (php-composer(sebastian/complexity)               >= 5.0    with php-composer(sebastian/complexity)               < 6)
-Requires:       (php-composer(sebastian/environment)              >= 8.0    with php-composer(sebastian/environment)              < 9)
+Requires:       (php-composer(sebastian/environment)              >= 8.0.3  with php-composer(sebastian/environment)              < 9)
 Requires:       (php-composer(sebastian/lines-of-code)            >= 4.0    with php-composer(sebastian/lines-of-code)            < 5)
 Requires:       (php-composer(sebastian/version)                  >= 6.0    with php-composer(sebastian/version)                  < 7)
 Requires:       (php-composer(theseer/tokenizer)                  >= 1.2.3  with php-composer(theseer/tokenizer)                  < 2)
@@ -187,6 +187,11 @@ exit $ret
 
 
 %changelog
+* Mon Sep  1 2025 Remi Collet <remi@remirepo.net> - 12.3.5-1
+- update to 12.3.5
+- raise dependency on nikic/php-parser 5.6.1
+- raise dependency on sebastian/environment 8.0
+
 * Fri Aug 29 2025 Remi Collet <remi@remirepo.net> - 12.3.4-1
 - update to 12.3.4
 

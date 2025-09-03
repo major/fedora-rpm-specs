@@ -113,7 +113,7 @@ export LDFLAGS="-pie"
 %endif
 
 autoreconf --verbose --force --install
-export CFLAGS="$CFLAGS -D_FILE_OFFSET_BITS=64 -D_LARGEFILE64_SOURCE"
+export CFLAGS="$CFLAGS -D_FILE_OFFSET_BITS=64 -D_LARGEFILE64_SOURCE -std=gnu17"
 %configure --with-newconfigdir=%{_newconfigdir} --with-oldconfigdir=%{_oldconfigdir}
 make %{?_smp_mflags}
 

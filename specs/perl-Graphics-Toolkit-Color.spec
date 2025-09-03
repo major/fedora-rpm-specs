@@ -1,5 +1,5 @@
 Name:           perl-Graphics-Toolkit-Color
-Version:        1.92
+Version:        1.972
 Release:        1%{?dist}
 Summary:        Color palette constructor
 # lib/Graphics/Toolkit/Color.pm:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -13,9 +13,6 @@ Summary:        Color palette constructor
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Graphics-Toolkit-Color
 Source0:        https://cpan.metacpan.org/authors/id/L/LI/LICHTKIND/Graphics-Toolkit-Color-%{version}.tar.gz
-# Remove an unused dependency, in upstream after 1.92,
-# <https://github.com/lichtkind/Graphics-Toolkit-Color/pull/4>.
-Patch0:         Graphics-Toolkit-Color-1.92-Do-not-load-unused-Benchmark-module.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -94,6 +91,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Sep 01 2025 Petr Pisar <ppisar@redhat.com> - 1.972-1
+- 1.972 bump
+
 * Thu Aug 21 2025 Petr Pisar <ppisar@redhat.com> - 1.92-1
 - 1.92 bump
 

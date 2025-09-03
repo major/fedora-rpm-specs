@@ -1,8 +1,8 @@
-%global commit fe74b68f500d8523c78f9ffadc5a71adb5906aa5
+%global commit 3e21584b0524a7998dcc20424329d1886ceb0a12
 %global shortcommit %(c=%{commit}; echo ${c:0:8})
 Name:           kolorfill
-Version:        0^20231224fe74b68f
-Release:        5%{?dist}
+Version:        0^20250825.%{shortcommit}
+Release:        1%{?dist}
 Summary:        Simple flood fill game
 
 License:        MIT
@@ -12,17 +12,17 @@ Source:         https://invent.kde.org/games/%{name}/-/archive/%{commit}/%{name}
 BuildRequires: desktop-file-utils
 BuildRequires: extra-cmake-modules
 BuildRequires: gettext
-BuildRequires: kf5-rpm-macros
-BuildRequires: qt5-rpm-macros
+BuildRequires: kf6-rpm-macros
+BuildRequires: qt6-rpm-macros
 BuildRequires: libappstream-glib
 BuildRequires: gcc-c++
-BuildRequires: cmake(Qt5Gui)
-BuildRequires: cmake(Qt5Qml)
-BuildRequires: cmake(Qt5Test)
-BuildRequires: cmake(Qt5QuickTest)
-BuildRequires: cmake(Qt5LinguistTools)
+BuildRequires: cmake(Qt6Gui)
+BuildRequires: cmake(Qt6Qml)
+BuildRequires: cmake(Qt6Test)
+BuildRequires: cmake(Qt6QuickTest)
+BuildRequires: cmake(Qt6LinguistTools)
 
-Requires:      kf5-kirigami2%{?_isa}
+Requires:      kf6-kirigami%{?_isa}
 
 %description
 Given a board initially filled with randomly colored blocks,
@@ -35,7 +35,7 @@ with one color.
 
 
 %build
-%cmake_kf5
+%cmake_kf6
 %cmake_build
 
 
@@ -48,20 +48,23 @@ with one color.
 %check
 # Test fails in Fedora CI, needs investigation
 #ctest --verbose --output-on-failure
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.desktop
 	
  
 %files -f %{name}.lang
 %license COPYING
 %doc README
-%{_kf5_bindir}/%{name}
-%{_kf5_datadir}/applications/org.kde.%{name}.desktop
-%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
+%{_kf6_bindir}/%{name}
+%{_kf6_datadir}/applications/org.kde.%{name}.desktop
+%{_kf6_metainfodir}/org.kde.%{name}.appdata.xml
 
 
 
 %changelog
+* Mon Sep 01 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 0^20250825.3e21584b-1
+- Update snapshot, build with Qt6
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0^20231224fe74b68f-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

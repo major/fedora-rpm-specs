@@ -1,13 +1,11 @@
 Name:           thorvg
-Version:        0.15.13
+Version:        0.15.14
 Release:        %{autorelease}
 Summary:        Lightweight vector-based scenes and animation drawing library
 
 License:        MIT
 URL:            https://www.thorvg.org/
 Source:         https://github.com/thorvg/thorvg/archive/v%{version}/thorvg-%{version}.tar.gz
-# Give binaries names that are not generic to prevent conflicts
-# https://github.com/thorvg/thorvg/issues/3367
 Patch:          binarynameconflicts.patch
 
 BuildRequires:  gcc

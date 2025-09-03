@@ -1,5 +1,5 @@
 Name:           tree-sitter-go
-Version:        0.23.4
+Version:        0.25.0
 Release:        %{autorelease}
 License:        MIT
 URL:            https://github.com/tree-sitter/%{name}

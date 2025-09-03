@@ -1,20 +1,19 @@
 Name:           python-omemo
-Version:        1.0.4
-Release:        5%{?dist}
+Version:        2.0.0
+Release:        1%{?dist}
 Summary:        Python implementation of the OMEMO Encryption protocol
 
 License:        MIT
 URL:            https://github.com/Syndace/%{name}
-Source0:        https://github.com/Syndace/%{name}/archive/v%{version}.tar.gz
+Source:         https://github.com/Syndace/%{name}/archive/v%{version}/python-omemo-%{version}.tar.gz
+# Do not package examples and docs in python directories
+# https://github.com/Syndace/python-omemo/pull/38
+Patch:          do-not-put-examples-docs-in-python-path.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-cryptography
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-x3dh
-#BuildRequires:  python3-pytest
 # For tests
-#BuildRequires:  python3-pynacl
+#BuildRequires:  python3-pytest
 
 %description
 This python library offers an open implementation of the OMEMO
@@ -29,7 +28,6 @@ are offline.
 
 %package     -n python3-omemo
 Summary:        Python implementation of the OMEMO Encryption protocol
-Requires:       python3-doubleratchet
 
 %description -n  python3-omemo
 This python library offers an open implementation of the OMEMO
@@ -45,31 +43,33 @@ are offline.
 %prep
 %autosetup -n %{name}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l omemo
 
 
 %check
-# tests requires python-omemo-backend-signal, that introduce cyclic
+%pyproject_check_import
+# tests requires python-oldmemo-backend-signal, that introduce cyclic
 # dependancy: Disabling.
 
 
 
-%files -n python3-omemo
-%license LICENSE
-%doc README.md
-# For noarch packages: sitelib
-%{python3_sitelib}/omemo/
-%{python3_sitelib}/OMEMO-%{version}-py%{python3_version}.egg-info/
-
+%files -n python3-omemo -f %{pyproject_files}
 
 
 %changelog
+* Mon Sep 01 2025 Benson Muite <fed500@fedoraproject.org> - 2.0.0-1
+- Use newer build macros
+- Update to 2.0.0
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.0.4-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

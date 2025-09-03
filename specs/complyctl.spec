@@ -7,7 +7,7 @@
 %global debug_package %{nil}
 
 Name:           complyctl
-Version:        0.0.9
+Version:        0.0.10
 Release:        %autorelease
 Summary:        Tool to perform compliance assessment activities, scaled by plugins
 License:        Apache-2.0
@@ -120,6 +120,9 @@ go test -mod=vendor -race -v ./...
 %ghost %{_datadir}/%{app_dir}/plugins/c2p-openscap-manifest.json
 
 %changelog
+* Thu Aug 21 2025 Packit <hello@packit.dev> - 0.0.10-1
+- Update to version 0.0.10
+
 * Fri Jul 25 2025 Packit <hello@packit.dev> - 0.0.9-1
 - Update to version 0.0.9
 

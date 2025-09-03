@@ -54,7 +54,7 @@
 # than a Fedora release lifecycle.
 %global nodejs_epoch 1
 %global nodejs_major 22
-%global nodejs_minor 18
+%global nodejs_minor 19
 %global nodejs_patch 0
 # nodejs_soversion - from NODE_MODULE_VERSION in src/node_version.h
 %global nodejs_soversion 127
@@ -139,7 +139,7 @@
 %global histogram_version 0.9.7
 
 # sqlite – from deps/sqlite/sqlite3.h
-%global sqlite_version 3.50.2
+%global sqlite_version 3.50.4
 
 
 Name: nodejs%{nodejs_pkg_major}
@@ -708,7 +708,7 @@ for soname in libv8 libv8_libbase libv8_libplatform; do
     ln -srf %{buildroot}%{_libdir}/libnode.so.%{nodejs_soversion} %{buildroot}%{_libdir}/${soname}.so.%{v8_major}
   %endif
 done
-	
+
 # Create automatic RPM requires generator for this stream
 mkdir -p "${RPM_BUILD_ROOT}%{_rpmconfigdir}/fileattrs"
 sed -e 's;@NODEJS_VERSION_MAJOR@;%{node_version_major};g' \

@@ -1,7 +1,7 @@
 Summary:	Mail filter for Sender Policy Framework verification
 Name:		smf-spf
 Version:	2.5.1^20220423g061e937
-Release:	7%{?dist}
+Release:	8%{?dist}
 License:	GPL-2.0-or-later
 URL:		https://github.com/jcbf/smf-spf/
 Source0:	https://github.com/jcbf/smf-spf/archive/061e9371f761f70afd40af349f4037fe0460725c.zip
@@ -54,6 +54,8 @@ install -Dp -m 644 smf-spf.conf %{buildroot}%{_sysconfdir}/mail/smfs/smf-spf.con
 # Install systemd unit file and tmpfiles.d configuration for /run/smfs
 install -Dp -m 644 %{SOURCE1} %{buildroot}%{_unitdir}/smf-spf.service
 install -Dp -m 644 %{SOURCE4} %{buildroot}%{_tmpfilesdir}/smfs.conf
+install -m0644 -D %{SOURCE3} %{buildroot}%{_sysusersdir}/smfs.conf
+
 
 # Create dummy socket for %%ghost-ing
 : > %{buildroot}/run/smfs/smf-spf.sock
@@ -80,8 +82,12 @@ install -Dp -m 644 %{SOURCE4} %{buildroot}%{_tmpfilesdir}/smfs.conf
 %ghost %attr(0600,smfs,smfs) /run/smfs/smf-spf.sock
 %{_unitdir}/smf-spf.service
 %{_tmpfilesdir}/smfs.conf
+%{_sysusersdir}/smfs.conf
 
 %changelog
+* Mon Sep 01 2025 Jordi Sanfeliu <jordi@fibranet.cat> 2.5.1^20220423g061e937-8
+- Added the line '%{_sysusersdir}/smf-spf.conf' in %files.
+
 * Thu Jul 31 2025 Jordi Sanfeliu <jordi@fibranet.cat> 2.5.1^20220423g061e937-7
 - Added -DSM_CONF_STDBOOL_H in %make_build to fix BZ#2385632.
 

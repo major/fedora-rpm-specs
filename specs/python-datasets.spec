@@ -7,13 +7,20 @@ License:        Apache-2.0
 URL:            https://github.com/huggingface/datasets
 Source:         %{pypi_source datasets}
 
-BuildArch:      noarch
 # Extras that depend on PyTorch should only exist on arches with PyTorch
 %ifarch %{x86_64} %{arm64}
 %bcond torch 1
 %else
 %bcond torch 0
 %endif
+
+# The base package is arched not because it contains arch-specific code, but
+# because it depends on packages only built on some arches. (PyTorch, mainly.)
+# Disable debug package generation because it fails; there is no complied code!
+%global debug_package %{nil}
+# Builds fail on i686, which isn't a main arch anymore. Just drop it.
+ExcludeArch:    %{ix86}
+
 BuildRequires:  python3-devel
 # Test requires
 BuildRequires:  python3dist(pytest)
@@ -31,6 +38,8 @@ Datasets is a lightweight library providing two main features:
 %package -n     python3-datasets
 Summary:        %{summary}
 
+BuildArch:      noarch
+
 %description -n python3-datasets %_description
 
 # Extras not packaged
@@ -42,24 +51,29 @@ Summary:        %{summary}
 # - tensorflow_gpu: Missing tensorflow package.
 # - benchmarks, dev, docs, quality, tests, tests-numpy2:
 #     Development tools, no need to package.
-%pyproject_extras_subpkg -n python3-datasets %{?with_torch:torch,}vision
+# The following line is for all noarch extras
+%pyproject_extras_subpkg -n python3-datasets -a vision
+# The following line is for arched extras (currently those that require Torch)
+%if %{with torch}
+%pyproject_extras_subpkg -n python3-datasets -A torch
+%endif
 
 
 %prep
 %autosetup -p1 -n datasets-%{version}
 # The project pins dill and multiprocess due to concerns about determinism.
-# Relax dill version bound to allow latest upstream
+# Relax dill version bound to allow Fedora's packaged version
 sed -i "s/dill>=0.3.0,<0.3.9/dill>=0.3.0/" setup.py
-# Relax multiprocess version bound to allow the latest version
+# Relax multiprocess version bound to allow Fedora's packaged version
 sed -i "s/multiprocess<0.70.17/multiprocess/" setup.py
-# Relax fsspec version because Fedora ships a newer version
+# Relax fsspec version bound to allow Fedora's packaged version
 sed -i "s/fsspec\[http\]>=2023.1.0,<=2025.3.0/fsspec\[http\]>=2023.1.0/" setup.py
 # Drop shebangs from files that are not executable
 # TODO: report this issue upstream
 sed -i "1d" src/datasets/commands/datasets_cli.py
 sed -i "1d" src/datasets/utils/_filelock.py
 # Remove modules that use unpackaged dependencies
-# This file relies on pyspark
+# This file relies on pyspark (Apache Spark has been orphaned for years)
 rm src/datasets/io/spark.py
 # Remove tests with unmet deps
 # test_arrow_dataset.py needs python3dist(absl), which is not packaged

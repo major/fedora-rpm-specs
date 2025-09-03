@@ -41,7 +41,7 @@
 ## can be incremented to build packages reliably considered "newer"
 ## than previously built packages with the same pcmkversion)
 %global pcmkversion 3.0.1
-%global baserelease 5
+%global baserelease 6
 
 ## Upstream commit (full commit ID, abbreviated commit ID, or tag) to build
 %global commit 16e74fc4da93a08514e1ec320fa9530b6c3d9fd5
@@ -762,6 +762,13 @@ fi
 %{_datadir}/pkgconfig/pacemaker-schemas.pc
 
 %changelog
+* Mon Sep 01 2025 Klaus Wenninger <kwenning@redhat.com> - 3.0.1-6
+- simplify tmt config and name test tier0
+- now you can add a new revision
+  rpmdev-bumpspec -c "test" pacemaker.spec
+- or run tests locally
+  tmt run discover provision prepare execute --how tmt --verbose -v -v --debug
+
 * Fri Aug 29 2025 Klaus Wenninger <kwenning@redhat.com> - 3.0.1-5
 - Update for new upstream release tarball: Pacemaker-3.0.1,
   for full details, see included ChangeLog.md file or

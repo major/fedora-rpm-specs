@@ -113,10 +113,6 @@ cat >>%{buildroot}%{_sysconfdir}/pacman.conf <<EOF
 SigLevel = Required DatabaseOptional
 Include = %{_sysconfdir}/pacman.d/mirrorlist
 
-[community]
-SigLevel = Required DatabaseOptional
-Include = %{_sysconfdir}/pacman.d/mirrorlist
-
 [extra]
 SigLevel = Required DatabaseOptional
 Include = %{_sysconfdir}/pacman.d/mirrorlist

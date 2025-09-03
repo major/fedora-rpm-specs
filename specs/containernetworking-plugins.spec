@@ -3,7 +3,7 @@
 
 # https://github.com/containernetworking/plugins
 %global goipath         github.com/containernetworking/plugins
-Version:                1.7.1
+Version:                1.8.0
 
 %gometa -L -f
 

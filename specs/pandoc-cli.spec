@@ -28,8 +28,8 @@
 Name:           pandoc-cli
 Version:        3.6.4
 # can only be reset when all subpkgs bumped
-Release:        37%{?dist}
-Summary:        Conversion between documentation formats
+Release:        38%{?dist}
+Summary:        Markup conversion between documentation formats
 
 License:        GPL-2.0-or-later
 URL:            https://hackage.haskell.org/package/pandoc-cli
@@ -266,22 +266,13 @@ BuildRequires:  ghc-wai-prof
 BuildRequires:  ghc-wai-cors-prof
 %endif
 # End cabal-rpm deps
+Obsoletes:      pandoc < %{version}-%{release}
+Provides:       pandoc = %{version}-%{release}
+Requires:       pandoc-common = %{version}
 
 %description
 Pandoc-cli provides a command-line executable that uses the pandoc library to
 convert between markup formats.
-
-
-%package -n pandoc
-Summary:        Markup conversion tool
-Obsoletes:      pandoc-cli < %{version}-%{release}
-Provides:       pandoc-cli = %{version}-%{release}
-Requires:       pandoc-common = %{version}
-
-
-%description -n pandoc
-This package provides a command-line executable that uses
-the pandoc library to convert between markup formats.
 
 For pdf output please also install pandoc-pdf or weasyprint.
 
@@ -367,8 +358,6 @@ ln -s pandoc %{buildroot}%{_bindir}/pandoc-lua
 mkdir -p %{buildroot}%{_datadir}/bash-completion/completions/
 %{buildroot}%{_bindir}/pandoc --bash-completion > %{buildroot}%{_datadir}/bash-completion/completions/pandoc
 
-mv %{buildroot}%{_licensedir}/{%{name},pandoc}
-
 
 %check
 %{buildroot}%{_bindir}/pandoc -v
@@ -378,7 +367,7 @@ echo | %{buildroot}%{_bindir}/pandoc --data-dir=%{buildroot}%{_datadir}/%{pandoc
 %endif
 
 
-%files -n pandoc
+%files
 # Begin cabal-rpm files:
 %license COPYING.md
 %{_bindir}/pandoc
@@ -400,6 +389,9 @@ echo | %{buildroot}%{_bindir}/pandoc --data-dir=%{buildroot}%{_datadir}/%{pandoc
 
 
 %changelog
+* Mon Sep 01 2025 Jens Petersen <petersen@redhat.com> - 3.6.4-38
+- rename binary package to pandoc-cli which provides pandoc
+
 * Tue Aug 12 2025 Jens Petersen <petersen@redhat.com> - 3.6.4-37
 - enable pandoc server (semantically safe) with pandoc-server-0.1.0.11
 - hslua-module-doclayout-1.2.0.1

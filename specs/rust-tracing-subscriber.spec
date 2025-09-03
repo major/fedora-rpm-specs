@@ -6,7 +6,7 @@
 %global crate tracing-subscriber
 
 Name:           rust-tracing-subscriber
-Version:        0.3.19
+Version:        0.3.20
 Release:        %autorelease
 Summary:        Utilities for implementing and composing tracing subscribers
 
@@ -16,7 +16,6 @@ Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          tracing-subscriber-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * relax nu-ansi-term dependency from ^0.46 to >=0.46,<0.51
 # * drop unstable-only valuable feature
 Patch:          tracing-subscriber-fix-metadata.diff
 

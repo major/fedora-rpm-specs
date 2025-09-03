@@ -5,9 +5,9 @@ Summary:        Ogg Opus tags editor
 License:        BSD-3-Clause
 URL:            https://github.com/fmang/opustags
 
-Source:         %{url}/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source0:        %{url}/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
-Patch0:         0001-Fix-out-of-bounds-access.patch
+Patch:          0001-Fix-out-of-bounds-access.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -35,7 +35,7 @@ following features:
 * tags exporting and importing through text files.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -C
 
 %build
 %cmake

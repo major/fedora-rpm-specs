@@ -176,13 +176,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.17.0
 %define specversion 6.17.0
 %define patchversion 6.17
-%define pkgrelease 0.rc3.250826gfab1beda7597.32
+%define pkgrelease 0.rc4.36
 %define kversion 6
-%define tarfile_release 6.17-rc3-11-gfab1beda7597
+%define tarfile_release 6.17-rc4
 # This is needed to do merge window version magic
 %define patchlevel 17
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc3.250826gfab1beda7597.32%{?buildid}%{?dist}
+%define specrelease 0.rc4.36%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.17.0
 
@@ -808,6 +808,11 @@ BuildRequires: libbpf-devel
 BuildRequires: bpftool
 BuildRequires: clang
 
+%ifarch %{cpupowerarchs}
+# For libcpupower bindings
+BuildRequires: swig
+%endif
+
 %ifnarch s390x
 BuildRequires: pciutils-devel
 %endif
@@ -1050,6 +1055,8 @@ Source77: partial-clang_lto-aarch64-debug-snip.config
 Source80: generate_all_configs.sh
 Source81: process_configs.sh
 
+Source83: uki.sbat.template
+Source84: uki-addons.sbat.template
 Source85: kernel.sbat.template
 
 Source86: dracut-virt.conf
@@ -2042,6 +2049,8 @@ rm -f localversion-next localversion-rt
 	scripts/clang-tools 2> /dev/null
 
 # SBAT data
+sed -e s,@KVER,%{KVERREL}, -e s,@SBAT_SUFFIX,%{sbat_suffix}, %{SOURCE83} > uki.sbat
+sed -e s,@KVER,%{KVERREL}, -e s,@SBAT_SUFFIX,%{sbat_suffix}, %{SOURCE84} > uki-addons.sbat
 sed -e s,@KVER,%{KVERREL}, -e s,@SBAT_SUFFIX,%{sbat_suffix}, %{SOURCE85} > kernel.sbat
 
 # only deal with configs if we are going to build for the arch
@@ -2794,38 +2803,30 @@ BuildKernel() {
     else
 %if %{with_efiuki}
         %{log_msg "Setup the EFI UKI kernel"}
-
-        SBAT=$(cat <<- EOF
-	kernel-uki-virt.%{sbat_suffix},1,Red Hat,kernel-uki-virt,$KernelVer,mailto:secalert@redhat.com
-	EOF
-	)
-
-        ADDONS_SBAT=$(cat <<- EOF
-	sbat,1,SBAT Version,sbat,1,https://github.com/rhboot/shim/blob/main/SBAT.md
-	kernel-uki-virt-addons.$SBATsuffix,1,Red Hat,kernel-uki-virt-addons,$KernelVer,mailto:secalert@redhat.com
-	EOF
-	)
-
 	KernelUnifiedImageDir="$RPM_BUILD_ROOT/lib/modules/$KernelVer"
     	KernelUnifiedImage="$KernelUnifiedImageDir/$InstallName-virt.efi"
+	KernelUnifiedInitrd="$KernelUnifiedImageDir/$InstallName-virt.img"
 
     	mkdir -p $KernelUnifiedImageDir
 
     	dracut --conf=%{SOURCE86} \
            --confdir=$(mktemp -d) \
+           --no-hostonly \
            --verbose \
            --kver "$KernelVer" \
            --kmoddir "$RPM_BUILD_ROOT/lib/modules/$KernelVer/" \
            --logfile=$(mktemp) \
-           --uefi \
-           --sbat "$SBAT" \
-           --kernel-image $(realpath $KernelImage) \
-           --kernel-cmdline 'console=tty0 console=ttyS0' \
-	   $KernelUnifiedImage
+	   $KernelUnifiedInitrd
+
+	ukify build --linux $(realpath $KernelImage) --initrd $KernelUnifiedInitrd \
+	   --sbat @uki.sbat --os-release @/etc/os-release --uname $KernelVer \
+	   --cmdline 'console=tty0 console=ttyS0' --output $KernelUnifiedImage
+
+	rm -f $KernelUnifiedInitrd
 
   KernelAddonsDirOut="$KernelUnifiedImage.extra.d"
   mkdir -p $KernelAddonsDirOut
-  python3 %{SOURCE151} %{SOURCE152} $KernelAddonsDirOut virt %{primary_target} %{_target_cpu} "$ADDONS_SBAT"
+  python3 %{SOURCE151} %{SOURCE152} $KernelAddonsDirOut virt %{primary_target} %{_target_cpu} @uki-addons.sbat
 
 %if %{signkernel}
 	%{log_msg "Sign the EFI UKI kernel"}
@@ -3163,6 +3164,8 @@ chmod +x tools/perf/check-headers.sh
 %ifarch %{cpupowerarchs}
     # link against in-tree libcpupower for idle state support
     %global rtla_make %{tools_make} LDFLAGS="%{__global_ldflags} -L../../power/cpupower" INCLUDES="-I../../power/cpupower/lib"
+    # Build libcpupower Python bindings
+    %global libcpupower_python_bindings_make %{tools_make} LDFLAGS="-L%{buildroot}%{_libdir} -lcpupower"
 %else
     %global rtla_make %{tools_make}
 %endif
@@ -3538,6 +3541,12 @@ mv cpupower.lang ../
     popd
 %endif
 chmod 0755 %{buildroot}%{_libdir}/libcpupower.so*
+%{log_msg "Build libcpupower Python bindings"}
+pushd tools/power/cpupower/bindings/python
+%{libcpupower_python_bindings_make}
+%{log_msg "Install libcpupower Python bindings"}
+%{make} INSTALL_DIR=$RPM_BUILD_ROOT%{python3_sitearch} install
+popd
 %endif
 %ifarch x86_64
    mkdir -p %{buildroot}%{_mandir}/man8
@@ -4175,6 +4184,9 @@ fi\
 %{_includedir}/cpufreq.h
 %{_includedir}/cpuidle.h
 %{_includedir}/powercap.h
+# libcpupower Python bindings
+%{python3_sitearch}/_raw_pylibcpupower.so
+%{python3_sitearch}/raw_pylibcpupower.py
 %endif
 %if %{with_ynl}
 %{_libdir}/libynl*
@@ -4383,11 +4395,32 @@ fi\
 #
 #
 %changelog
-* Tue Aug 26 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc3.fab1beda7597.32]
+* Mon Sep 01 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc4.36]
 - soc: qcom: mdt_loader: Deal with zero e_shentsize (Bjorn Andersson)
 - arm64: dts: qcom: x1e80100-lenovo-yoga-slim7x: add Bluetooth support (Jens Glathe)
 - ALSA HDA driver configuration split for 6.17 upstream (Jaroslav Kysela)
 - redhat/configs: clang_lto: disable CONFIG_FORTIFY_KUNIT_TEST (Scott Weaver)
+
+* Mon Sep 01 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc4.35]
+- redhat: export only selected variables (Jan Stancek)
+- Linux v6.17.0-0.rc4
+
+* Sun Aug 31 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc3.c8bc81a52d5a.34]
+- Linux v6.17.0-0.rc3.c8bc81a52d5a
+
+* Sat Aug 30 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc3.11e7861d680c.33]
+- Linux v6.17.0-0.rc3.11e7861d680c
+
+* Fri Aug 29 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc3.07d9df80082b.32]
+- gitlab-ci: set HOME in maintenance jobs (Tales da Aparecida)
+- gitlab-ci: remove fetch of linux-rt-devel (Scott Weaver)
+- redhat/Makefile: auto select -z-test-pesign target for z-stream (Jan Stancek)
+- redhat/configs: Move RHEL/Fedora lockdown configs to common (Jeremy Cline)
+- Enable building libcpupower bindings for ELN/Rawhide (John B. Wyatt IV)
+- redhat: Explicitly disable 'hostonly' mode on the dracut cmdline (Vitaly Kuznetsov)
+- redhat: Directly use 'ukify' for building the UKI (Vitaly Kuznetsov)
+- redhat: Temporary stop adding 'kernel' component to SBAT (Vitaly Kuznetsov)
+- Linux v6.17.0-0.rc3.07d9df80082b
 
 * Tue Aug 26 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc3.fab1beda7597.31]
 - Linux v6.17.0-0.rc3.fab1beda7597

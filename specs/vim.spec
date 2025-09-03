@@ -12,7 +12,7 @@
 %endif
 
 
-%define patchlevel 1706
+%define patchlevel 1723
 %define withnetbeans 1
 
 %define withhunspell 0
@@ -180,6 +180,8 @@ multiple windows, multi-level undo, block highlighting and more.
 
 %package common
 Summary: The common files needed by any version of the VIM editor
+# move evim manpage to common - remove the conflict after C11S is branched
+Conflicts: %{name}-X11 < 2:9.1.1706-2
 # shared files between common and minimal
 Requires: %{name}-data = %{epoch}:%{version}-%{release}
 Requires: %{name}-filesystem
@@ -301,6 +303,8 @@ This subpackage contains files needed to set Vim as the default editor.
 %if %{with gui}
 %package X11
 Summary: The VIM version of the vi editor for the X Window System - GVim
+# move evim manpage to common - remove the conflict after C11S is branched
+Conflicts: %{name}-common < 2:9.1.1706-2
 # devel of libICE, gtk3, libSM, libX11, libXpm and libXt are needed in buildroot
 # so configure script can have correct macros enabled for GUI (#1603272)
 # generic gnome toolkit for graphical support
@@ -674,10 +678,12 @@ EOF
 
 appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.appdata.xml
 
-for i in gvim.1 gex.1 gview.1 vimx.1 eview.1 rgvim.1 rgview.1; do
+# do not put gvim.1, gview.1, eview.1, rgvim and rgview here - they already contains the link,
+# and changing it here will rewrite original vim.1 - bz#2392178
+for i in gex.1 vimx.1 evim.1; do
   echo ".so man1/vim.1" > %{buildroot}/%{_mandir}/man1/$i
 done
-echo ".so man1/vimdiff.1" > %{buildroot}/%{_mandir}/man1/gvimdiff.1
+
 echo ".so man1/vimtutor.1" > %{buildroot}/%{_mandir}/man1/gvimtutor.1
 %else
 # Remove files included in X11 subpackage, but built by default:
@@ -687,9 +693,9 @@ rm %{buildroot}/%{_datadir}/icons/{hicolor,locolor}/*/apps/gvim.png
 %endif
 
 ( cd %{buildroot}
-  ln -sf .%{_libexecdir}/vi .%{_bindir}/rvi
-  ln -sf .%{_libexecdir}/vi .%{_bindir}/rview
-  ln -sf .%{_libexecdir}/vi .%{_bindir}/ex
+  ln -sf ../..%{_libexecdir}/vi .%{_bindir}/rvi
+  ln -sf ../..%{_libexecdir}/vi .%{_bindir}/rview
+  ln -sf ../..%{_libexecdir}/vi .%{_bindir}/ex
   ln -sf vim .%{_bindir}/rvim
   ln -sf vim .%{_bindir}/vimdiff
   perl -pi -e "s,%{buildroot},," .%{_mandir}/man1/vim.1 .%{_mandir}/man1/vimtutor.1
@@ -875,6 +881,7 @@ mkdir -p %{buildroot}/%{_datadir}/fish/vendor_functions.d/
 
 %if %{with gui}
 %{_mandir}/man1/eview.*
+%{_mandir}/man1/evim.*
 %{_mandir}/man1/gex.*
 %{_mandir}/man1/gview.*
 %{_mandir}/man1/gvim*
@@ -955,7 +962,6 @@ mkdir -p %{buildroot}/%{_datadir}/fish/vendor_functions.d/
 %{_bindir}/eview
 %{_bindir}/rgvim
 %{_bindir}/rgview
-%{_mandir}/man1/evim.*
 %dir %{_datadir}/icons/hicolor
 %dir %{_datadir}/icons/hicolor/*
 %dir %{_datadir}/icons/hicolor/*/apps
@@ -988,6 +994,13 @@ mkdir -p %{buildroot}/%{_datadir}/fish/vendor_functions.d/
 
 
 %changelog
+* Mon Sep 01 2025 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.1.1723-1
+- patchlevel 1723
+
+* Mon Sep 01 2025 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.1.1706-2
+- broken /usr/bin/ex symlink in vim-9.1.1706-1.fc42 (fedora#2392249)
+- vim-common has broken manpages (fedora#2392178)
+
 * Fri Aug 29 2025 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.1.1706-1
 - patchlevel 1706
 
