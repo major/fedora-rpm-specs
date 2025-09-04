@@ -5,15 +5,13 @@
 %bcond slow_tests 1
 
 %global forgeurl https://github.com/alexmojaki/executing
-# Python 3.14 support is not yet published in a release
-%global commit 5ed2ba36c2df94c91fefabd919880ffe061dc0f2
-
-%forgemeta
 
 Name:           python-executing
-Version:        2.2.0^5ed2ba3
+Version:        2.2.1
 Release:        %autorelease
 Summary:        Python library for inspecting the current frame run footprint
+
+%forgemeta
 
 License:        MIT
 URL:            %{forgeurl}
@@ -36,7 +34,7 @@ Summary:        %{summary}
 
 %prep
 %dnl %autosetup -p1 -n executing-%{version}
-%autosetup -p1 -n executing-%{commit}
+%autosetup -p1 -n executing-%{version}
 # Remove coverage and coverage-enable-subprocess
 # from testing deps.
 sed -Ei "/coverage-?/d" setup.cfg

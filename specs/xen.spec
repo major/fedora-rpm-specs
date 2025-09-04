@@ -51,7 +51,7 @@
 Summary: Xen is a virtual machine monitor
 Name:    xen
 Version: 4.20.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ and BSD - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-BSD
 URL:     http://xen.org/
@@ -78,6 +78,7 @@ Patch43: xen.gcc11.fixes.patch
 Patch45: xen.gcc12.fixes.patch
 Patch46: xen.efi.build.patch
 Patch49: xen.python3.12.patch
+Patch50: xen.git-7cda6b65098f790e6573f555c5ef170d3f373c6e.patch
 
 
 # build using Fedora seabios and ipxe packages for roms
@@ -257,6 +258,7 @@ manage Xen virtual machines.
 %patch 45 -p1
 %patch 46 -p1
 %patch 49 -p1
+%patch 50 -p1
 
 # stubdom sources
 cp -v %{SOURCE10} %{SOURCE11} %{SOURCE12} %{SOURCE13} %{SOURCE14} %{SOURCE15} stubdom
@@ -806,6 +808,9 @@ fi
 %endif
 
 %changelog
+* Tue Sep 02 2025 <m.a.young@durham.ac.uk> - 4.20.1-4
+- tools/xl: don't crash on NULL command line
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.20.1-3
 - Rebuilt for Python 3.14.0rc2 bytecode
 

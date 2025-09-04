@@ -5,7 +5,7 @@
 %global cargo_install_lib 0
 
 Name:           bpftop
-Version:        0.5.2
+Version:        0.7.1
 Release:        %autorelease
 Summary:        Dynamic real-time view of running eBPF programs
 
@@ -39,18 +39,6 @@ License:        %{shrink:
 
 URL:            https://github.com/Netflix/%{name}
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-# Manually created patch for downstream crate metadata changes
-# * Allow procfs 0.17; see upstream commit
-#   285b29d0f791a48faaf190df9622ae098ce04fbf, released in 0.5.2
-# * Allow circular-buffer 1.0.0: https://github.com/Netflix/bpftop/pull/115
-# * Allow ratatui 0.29.0: see upstream commit
-#   5ef4e94c0fa32dfe4e8be1557022f0a8a7344cb6, released in 0.7.0
-# * Allow older tui-input 0.8.0 for now
-Patch:          bpftop-fix-metadata.diff
-# * Update ratatui to 0.28.0
-# * https://github.com/Netflix/bpftop/commit/8f7f3bab7d60196fe7341749f95f3a10c2bd035d
-# * This patch contains only the necessary code changes.
-Patch10:        0001-Update-ratatui-to-0.28.0.patch
 
 ExcludeArch: %{ix86}
 
@@ -62,7 +50,7 @@ BuildRequires:  cargo-rpm-macros >= 26
 %description %{_description}
 
 %prep
-%autosetup -n bpftop-%{version} -p1
+%autosetup -n bpftop-%{version}
 %cargo_prep
 
 %generate_buildrequires

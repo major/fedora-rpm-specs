@@ -711,10 +711,10 @@ done
 
 # Create automatic RPM requires generator for this stream
 mkdir -p "${RPM_BUILD_ROOT}%{_rpmconfigdir}/fileattrs"
-sed -e 's;@NODEJS_VERSION_MAJOR@;%{node_version_major};g' \
-    <%{SOURCE5} >"${RPM_BUILD_ROOT}%{_rpmconfigdir}/fileattrs/nodejs%{node_version_major}_abi.attr"
-sed -e 's;@NODEJS_VERSION_MAJOR@;%{node_version_major};g' \
-    <%{SOURCE6} >"${RPM_BUILD_ROOT}%{_rpmconfigdir}/nodejs%{node_version_major}_abi.req"
+sed -e 's;@NODEJS_VERSION_MAJOR@;%{nodejs_pkg_major};g' \
+    <%{SOURCE5} >"${RPM_BUILD_ROOT}%{_rpmconfigdir}/fileattrs/nodejs%{nodejs_pkg_major}_abi.attr"
+sed -e 's;@NODEJS_VERSION_MAJOR@;%{nodejs_pkg_major};g' \
+    <%{SOURCE6} >"${RPM_BUILD_ROOT}%{_rpmconfigdir}/nodejs%{nodejs_pkg_major}_abi.req"
 
 # install documentation
 mkdir -p %{buildroot}%{_pkgdocdir}/html
@@ -850,7 +850,7 @@ NODE_PATH=%{buildroot}%{_prefix}/lib/node_modules:%{buildroot}%{nodejs_private_s
 %if 0%{?nodejs_default}
 LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{buildroot}/%{_bindir}/node-%{nodejs_pkg_major} %{buildroot}%{_bindir}/npm-%{nodejs_pkg_major} --globalconfig=%{buildroot}%{_sysconfdir}/npmrc config list --json | jq -e '.["update-notifier"] == false'
 %endif
- 
+
 %pretrans -n %{pkgname} -p <lua>
 path = "/usr/lib/node_modules"
 st = posix.stat(path)
@@ -881,8 +881,8 @@ end
 %{nodejs_datadir}/common.gypi
 %{_pkgdocdir}/gdbinit
 %{_libdir}/pkgconfig/nodejs-%{nodejs_pkg_major}.pc
-%{_rpmconfigdir}/fileattrs/nodejs%{node_version_major}_abi.attr
-%{_rpmconfigdir}/nodejs%{node_version_major}_abi.req
+%{_rpmconfigdir}/fileattrs/nodejs%{nodejs_pkg_major}_abi.attr
+%{_rpmconfigdir}/nodejs%{nodejs_pkg_major}_abi.req
 
 %files -n %{pkgname}-full-i18n
 %dir %{icudatadir}

@@ -1,12 +1,13 @@
 Summary: A text file browser similar to more, but better
 Name: less
 Version: 679
-Release: 2%{?dist}
+Release: 4%{?dist}
 License: GPL-3.0-only and BSD-2-Clause
 Source0: https://www.greenwoodsoftware.com/less/%{name}-%{version}.tar.gz
 Source1: lesspipe.sh
 Source2: less.sh
 Source3: less.csh
+Source4: lesspipe.sh.1
 Patch4: less-394-time.patch
 Patch5: less-475-fsync.patch
 Patch6: less-436-manpage-add-old-bot-option.patch
@@ -54,6 +55,7 @@ mkdir -p $RPM_BUILD_ROOT/etc/profile.d
 install -p        %{SOURCE1} $RPM_BUILD_ROOT%{_bindir}
 install -p -m 644 %{SOURCE2} $RPM_BUILD_ROOT/etc/profile.d
 install -p -m 644 %{SOURCE3} $RPM_BUILD_ROOT/etc/profile.d
+install -p -m 644 %{SOURCE4} $RPM_BUILD_ROOT/%{_mandir}/man1/lesspipe.sh.1
 
 %files
 %doc README NEWS INSTALL
@@ -63,6 +65,9 @@ install -p -m 644 %{SOURCE3} $RPM_BUILD_ROOT/etc/profile.d
 %{_mandir}/man1/*
 
 %changelog
+* Tue Sep 02 2025 Michal Hlavinka <mhlavink@redhat.com> - 679-4
+- add man page for lesspipe.sh (rhbz#2376159)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 679-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

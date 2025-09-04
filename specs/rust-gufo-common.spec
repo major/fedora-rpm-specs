@@ -3,16 +3,15 @@
 %global debug_package %{nil}
 
 %global crate gufo-common
-%global crate_version 1.0.0-beta.2
 
 Name:           rust-gufo-common
-Version:        1.0.0~beta.2
+Version:        1.0.1
 Release:        %autorelease
 Summary:        Common features used in gufo crates
 
 License:        MPL-2.0 OR LGPL-2.1-or-later
 URL:            https://crates.io/crates/gufo-common
-Source:         %{crates_source %{crate} %{crate_version}}
+Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -85,7 +84,7 @@ use the "zvariant" feature of the "%{crate}" crate.
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
-%autosetup -n %{crate}-%{crate_version} -p1
+%autosetup -n %{crate}-%{version} -p1
 %cargo_prep
 
 %generate_buildrequires

@@ -19,8 +19,8 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.9.1
-Release:        2%{?dist}
+Version:        6.9.2
+Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtDeclarative component
 
 License:        LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -166,6 +166,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_bindir}/qmleasing-qt6.exe
 %{mingw32_bindir}/qmlpreview-qt6.exe
 %{mingw32_bindir}/qmlscene-qt6.exe
+%{mingw32_bindir}/qmltestrunner.exe
 %{mingw32_includedir}/qt6/QtLabsAnimation/
 %{mingw32_includedir}/qt6/QtLabsFolderListModel/
 %{mingw32_includedir}/qt6/QtLabsQmlModels/
@@ -703,6 +704,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_bindir}/qmleasing-qt6.exe
 %{mingw64_bindir}/qmlpreview-qt6.exe
 %{mingw64_bindir}/qmlscene-qt6.exe
+%{mingw64_bindir}/qmltestrunner.exe
 %{mingw64_includedir}/qt6/QtLabsAnimation/
 %{mingw64_includedir}/qt6/QtLabsFolderListModel/
 %{mingw64_includedir}/qt6/QtLabsQmlModels/
@@ -1191,6 +1193,9 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 
 
 %changelog
+* Tue Sep 02 2025 Sandro Mani <manisandro@gmail.com> - 6.9.2-1
+- Update to 6.9.2
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.9.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

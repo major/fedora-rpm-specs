@@ -16,8 +16,8 @@
 %global release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.9.1
-Release:        2%{?dist}
+Version:        6.9.2
+Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtMultimedia component
 
 License:        LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -28,8 +28,6 @@ Source0:        https://github.com/qt/%{qt_module}/archive/%{commit}/%{qt_module
 %else
 Source0:        http://download.qt.io/%{?pre:development}%{?!pre:official}_releases/qt/%{release_version}/%{version}%{?pre:-%pre}/submodules/%{qt_module}-everywhere-src-%{version}%{?pre:-%pre}.tar.xz
 %endif
-# Fix header case
-Patch0:         qtmultimedia-header-case.patch
 
 BuildArch:      noarch
 
@@ -107,7 +105,6 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %{mingw32_includedir}/qt6/QtMultimediaTestLib/
 %{mingw32_includedir}/qt6/QtMultimediaWidgets/
 %{mingw32_includedir}/qt6/QtSpatialAudio/
-%{mingw32_libdir}/cmake/Qt6/FindAVFoundation.cmake
 %{mingw32_libdir}/cmake/Qt6/FindFFmpeg.cmake
 %{mingw32_libdir}/cmake/Qt6/FindPipeWire.cmake
 %{mingw32_libdir}/cmake/Qt6/FindGObject.cmake
@@ -170,7 +167,6 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %{mingw64_includedir}/qt6/QtMultimediaTestLib/
 %{mingw64_includedir}/qt6/QtMultimediaWidgets/
 %{mingw64_includedir}/qt6/QtSpatialAudio/
-%{mingw64_libdir}/cmake/Qt6/FindAVFoundation.cmake
 %{mingw64_libdir}/cmake/Qt6/FindFFmpeg.cmake
 %{mingw64_libdir}/cmake/Qt6/FindPipeWire.cmake
 %{mingw64_libdir}/cmake/Qt6/FindGObject.cmake
@@ -224,6 +220,9 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 
 
 %changelog
+* Tue Sep 02 2025 Sandro Mani <manisandro@gmail.com> - 6.9.2-1
+- Update to 6.9.2
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.9.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

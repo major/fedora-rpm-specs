@@ -10,6 +10,7 @@
 %bcond_with nvidia
 %bcond_without portmon
 %bcond_without rss
+%bcond_without wayland
 %bcond_without weather
 %bcond_without weather_xoap
 %if 0%{?fedora} >= 36 || 0%{?rhel} >= 8
@@ -21,15 +22,13 @@
 %bcond_without xinerama
 
 Name:           conky
-Version:        1.22.0
-Release:        2%{?dist}
+Version:        1.22.2
+Release:        1%{?dist}
 Summary:        A system monitor for X
 
 License:        GPL-3.0-or-later AND LGPL-2.1-or-later AND MIT-open-group AND BSD-3-Clause
 URL:            https://github.com/brndnmtthws/conky
 Source0:        https://github.com/brndnmtthws/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
-# Fix build failure with gcc 15
-Patch0:         conky-cstdint.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -47,6 +46,7 @@ BuildRequires:  lua-devel
 %{?with_ncurses:BuildRequires: ncurses-devel}
 %{?with_nvidia:BuildRequires: libXNVCtrl-devel}
 %{?with_rss:BuildRequires: curl-devel libxml2-devel}
+%{?with_wayland:BuildRequires: pango-devel wayland-devel wayland-protocols-devel}
 %{?with_weather:BuildRequires: curl-devel}
 %{?with_weather_xoap:BuildRequires: libxml2-devel}
 %{?with_wlan:BuildRequires: wireless-tools-devel}
@@ -62,7 +62,6 @@ It just keeps on given'er. Yeah.
 
 %prep
 %setup -q
-%autopatch -p1
 
 # remove executable bits from files included in %{_docdir}
 chmod a-x extras/convert.lua
@@ -88,6 +87,7 @@ done
     %{?with_nvidia:         -DBUILD_NVIDIA=ON} \
     %{!?with_portmon:       -DBUILD_PORT_MONITORS=OFF} \
     %{?with_rss:            -DBUILD_RSS=ON} \
+    %{?with_wayland:        -DBUILD_WAYLAND=ON} \
     %{?with_weather:        -DBUILD_WEATHER_METAR=ON} \
     %{?with_weather_xoap:   -DBUILD_WEATHER_XOAP=ON} \
     %{?with_wlan:           -DBUILD_WLAN=ON} \
@@ -125,6 +125,10 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/conky.desktop
 
 
 %changelog
+* Tue Sep 02 2025 Miroslav Lichvar <mlichvar@redhat.com> - 1.22.2-1
+- update to 1.22.2
+- enable Wayland support (#2369338)
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

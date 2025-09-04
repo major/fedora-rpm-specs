@@ -1,13 +1,14 @@
 Name:           perl-Sys-Info-Base
-Version:        0.7807
-Release:        20%{?dist}
+Version:        0.7808
+Release:        1%{?dist}
 Summary:        Provides various system information
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Sys-Info-Base
 Source0:        https://cpan.metacpan.org/authors/id/B/BU/BURAK/Sys-Info-Base-%{version}.tar.gz
 BuildArch:      noarch
 # Build
-BuildRequires: make
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(:VERSION) >= 5.10.0
@@ -15,7 +16,6 @@ BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Runtime
-BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(constant)
 BuildRequires:  perl(Cwd)
@@ -26,11 +26,11 @@ BuildRequires:  perl(File::Path)
 BuildRequires:  perl(File::Spec)
 # XXX: BuildRequires:  perl(File::Spec::Functions)
 BuildRequires:  perl(IO::File)
+BuildRequires:  perl(parent)
 BuildRequires:  perl(POSIX)
-# XXX: BuildRequires:  perl(Socket)
 BuildRequires:  perl(subs)
-# XXX: BuildRequires:  perl(Sys::Hostname)
-# XXX: BuildRequires:  perl(Text::Template::Simple)
+BuildRequires:  perl(Sys::HostIP)
+BuildRequires:  perl(Text::Template::Simple)
 BuildRequires:  perl(vars)
 # Tests only
 BuildRequires:  perl(lib)
@@ -42,19 +42,46 @@ Requires:       perl(Sys::Hostname)
 # Remove bogus requirement
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(TARGET_CLASS\\)
 
+# Filter modules bundled for tests
+%global __provides_exclude_from %{?__provides_exclude_from:%__provides_exclude_from|}^%{_libexecdir}
+%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Utils\\)
+
 %description
 %{summary}.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Sys-Info-Base-%{version}
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{make_install}
+%{_fixperms} %{buildroot}
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+rm %{buildroot}%{_libexecdir}/%{name}/t/author*
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -r -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
 make test
@@ -62,10 +89,18 @@ make test
 %files
 %license LICENSE
 %doc Changes
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/Sys
+%{perl_vendorlib}/Sys/Info
+%{_mandir}/man3/Sys::Info*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Mon Sep 01 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.7808-1
+- 0.7808 bump (rhbz#2392368)
+- Package tests
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7807-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

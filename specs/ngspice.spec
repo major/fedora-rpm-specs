@@ -13,22 +13,22 @@
 %global	userelease	1
 %endif
 
-%global	majorver	44
-%global	minorver	2
-%global	docver	44
+%global	majorver	45
+%dnl	%global	minorver	2
+%global	docver	45
 %undefine	prever
 %global	prerpmver	%(echo "%{?prever}" | sed -e 's|-||g')
 
-%global	baserelease	4
+%global	baserelease	1
 
 %if 0%{?usegitbare} >= 1
-# pre-master-42
-%global	gitcommit	c87df54f24969de0c9d503c349258d9953ae208a
-%global	gitdate	20231111
+# pre-master-45
+%global	gitcommit	1d0beb5e266420b1dd756913356a295ddb60fdce
+%global	gitdate	20250830
 %global	shortcommit	%(c=%{gitcommit}; echo ${c:0:7})
 
-%global	tarballdate	20231112
-%global	tarballtime	1636
+%global	tarballdate	20250831
+%global	tarballtime	2034
 %endif
 
 %if	0%{?userelease} >= 1
@@ -330,7 +330,7 @@ export CPPFLAGS=-DUSE_INTERP_RESULT
 	--libdir=%{_libdir}/tclspice \
 	%{nil}
 
-%{__make} -k
+%make_build -k
 # Once install to the temp dir
 rm -rf $(pwd)/../INST-TCLSPICE
 %{__make} INSTALL="install -p" install DESTDIR=$(pwd)/../INST-TCLSPICE
@@ -372,8 +372,7 @@ do
 	%{nil}
 
 %{__make} clean
-# No parallel make
-%{__make} -k
+%make_build -k
 # Once install to the temp dir
 rm -rf $(pwd)/INST-NGSPICE-${opt}
 %{__make} INSTALL="install -p" install DESTDIR=$(pwd)/INST-NGSPICE-${opt}
@@ -501,6 +500,9 @@ popd
 %{_includedir}/ngspice/
 
 %changelog
+* Tue Sep 02 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 45-1
+- Update to 45
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 44.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

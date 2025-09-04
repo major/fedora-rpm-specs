@@ -28,7 +28,6 @@ enable end-to-end encryption (E2EE).}
 %package -n python3-matrix-nio
 Summary:        %{summary}
 BuildRequires:  python3-devel
-BuildRequires:  python3-toml
 BuildRequires:  python3-logbook
 
 %description -n python3-matrix-nio %_description

@@ -9,10 +9,12 @@ License:        MPL-1.1 OR LGPL-2.1-or-later OR Apache-2.0
 URL:            https://www.javassist.org/
 Source0:        https://github.com/jboss-%{name}/%{name}/archive/refs/tags/%{upstream_version}.tar.gz
 
+Patch:          0001-Remove-test-requiring-older-Java.patch
+
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-BuildRequires:  maven-local-openjdk21
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.hamcrest:hamcrest-all)

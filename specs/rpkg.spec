@@ -1,6 +1,6 @@
 Name:           rpkg
 Version:        1.68
-Release:        5%{?dist}
+Release:        6%{?dist}
 
 Summary:        Python library for interacting with rpm+git
 # Automatically converted from old format: GPLv2+ and LGPLv2 - review is highly recommended.
@@ -25,10 +25,12 @@ Source0:        https://pagure.io/releases/rpkg/%{name}-%{version}.tar.gz
 
 # No support for setup.py since Python 3.12 (RHEL 10)
 # hatchling is supported in >Python 3.6 releases (RHEL 8)
-%if 0%{?rhel} >= 9 || 0%{?fedora} >= 41
-%global with_hatchling 1
-%else
+%if 0%{?rhel} && 0%{?rhel} <= 8
 %global with_hatchling 0
+%{echo:--> with_hatchling unset, 0%{?rhel} %{?fedora}}
+%else
+%global with_hatchling 1
+%{echo:--> with_hatchling set, 0%{?rhel} %{?fedora}}
 %endif
 
 
@@ -46,7 +48,12 @@ Patch0:         remove-koji-and-rpm-py-installer-from-requires.patch
 %if 0%{?with_python2}
 Patch1:         0001-Remove-Environment-Markers-syntax.patch
 %endif
-
+Patch2:         0002-pre-push-check-bogus-error-file-wasn-t-listed.patch
+Patch3:         0003-Fix-mockbuild-srpm-mock-specfile_path.patch
+Patch4:         0004-patch-Execute-subprocess-in-text-mode.patch
+Patch5:         0005-type-fix-typo-in-requirements-README.patch
+Patch6:         0006-install-add-rpmbuild-arguments-with-and-without.patch
+Patch7:         0007-srpm-man-page-generation-fixed.patch
 
 %description
 Python library for interacting with rpm+git
@@ -277,6 +284,14 @@ example_cli_dir=$RPM_BUILD_ROOT%{_datadir}/%{name}/examples/cli
 
 
 %changelog
+* Tue Sep 02 2025 Ondřej Nosek <onosek@redhat.com> - 1.68-6
+- Patch: `pre-push-check`: bogus error - file wasn't listed
+- Patch: Fix mockbuild --srpm-mock specfile_path
+- Patch: `patch`: Execute subprocess in text mode
+- Patch: type: fix typo in requirements README.
+- Patch: `install`: add rpmbuild arguments `--with` and `--without`
+- Patch: `srpm`: man page generation fixed
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.68-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

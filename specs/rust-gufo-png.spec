@@ -4,16 +4,15 @@
 %global debug_package %{nil}
 
 %global crate gufo-png
-%global crate_version 0.3.0-beta
 
 Name:           rust-gufo-png
-Version:        0.3.0~beta
+Version:        0.3.0
 Release:        %autorelease
 Summary:        Data structure for PNG images
 
 License:        MPL-2.0 OR LGPL-2.1-or-later
 URL:            https://crates.io/crates/gufo-png
-Source:         %{crates_source %{crate} %{crate_version}}
+Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -51,7 +50,7 @@ use the "default" feature of the "%{crate}" crate.
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
-%autosetup -n %{crate}-%{crate_version} -p1
+%autosetup -n %{crate}-%{version} -p1
 %cargo_prep
 
 %generate_buildrequires

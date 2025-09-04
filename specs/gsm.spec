@@ -1,16 +1,16 @@
 # on update also change soname in the gsm-makefile.patch
 %global ver_major 1
 %global ver_minor 0
-%global ver_patch 22
+%global ver_patch 23
 
 Name:           gsm
 Version:        %{ver_major}.%{ver_minor}.%{ver_patch}
-Release:        9%{?dist}
+Release:        1%{?dist}
 Summary:        Shared libraries for GSM speech compressor
 
 License:        tu-berlin-2.0
-URL:            http://www.quut.com/gsm/
-Source:         http://www.quut.com/gsm/%{name}-%{version}.tar.gz
+URL:            https://www.quut.com/gsm/
+Source:         https://www.quut.com/gsm/%{name}-%{version}.tar.gz
 Patch0:         %{name}-makefile.patch
 Patch1:         %{name}-warnings.patch
 BuildRequires:  gcc
@@ -87,12 +87,10 @@ echo ".so toast.1" > %{buildroot}%{_mandir}/man1/untoast.1
 export LDFLAGS="%{?__global_ldflags}"
 %{__make} addtst
 
-%ldconfig_scriptlets
-
 %files
 %license COPYRIGHT
 %doc ChangeLog MACHINES README
-%{_libdir}/libgsm.so.*
+%{_libdir}/libgsm.so.%{ver_major}{,.*}
 
 %files tools
 %{_bindir}/tcat
@@ -113,6 +111,9 @@ export LDFLAGS="%{?__global_ldflags}"
 %{_mandir}/man3/gsm_print.3*
 
 %changelog
+* Tue Sep 02 2025 Dominik Mierzejewski <dominik@greysector.net> - 1.0.23-1
+- update to 1.0.23 (resolves rhbz#2392252)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.22-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

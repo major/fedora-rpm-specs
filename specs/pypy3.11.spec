@@ -81,11 +81,6 @@ ExcludeArch:    %{ix86}
 %bcond_with main_pypy3
 %endif
 
-%ifarch %{ix86} x86_64 %{arm}
-%global _package_note_linker gold
-BuildRequires:  binutils-gold
-%endif
-
 # Source and patches:
 Source0: https://downloads.python.org/pypy/pypy%{pyversion}-v%{version_}-src.tar.bz2
 
@@ -345,10 +340,6 @@ find lib-python/3 lib_pypy -name "*.py" -exec \
 
 # Not needed on Linux
 rm lib-python/3/idlelib/idle.bat
-
-%ifarch %{ix86} x86_64 %{arm}
-  sed -i -r 's/\$\(LDFLAGSEXTRA\)/& -fuse-ld=gold/' ./rpython/translator/platform/posix.py
-%endif
 
 %if %{without build_using_pypy2}
   # use the pycparser from PyPy even on CPython

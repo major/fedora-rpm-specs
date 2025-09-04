@@ -3,7 +3,7 @@
 %global pkgname exiv2
 
 Name:          mingw-%{pkgname}
-Version:       0.28.6
+Version:       0.28.7
 Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 License:       GPL-2.0-or-later
@@ -106,6 +106,9 @@ rm -f %{buildroot}%{mingw64_datadir}/man/man1/exiv2.1
 
 
 %changelog
+* Tue Sep 02 2025 Sandro Mani <manisandro@gmail.com> - 0.28.7-1
+- Update to 0.28.7
+
 * Fri Aug 29 2025 Sandro Mani <manisandro@gmail.com> - 0.28.6-1
 - Update to 0.28.6
 

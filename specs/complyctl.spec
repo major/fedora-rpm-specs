@@ -126,28 +126,28 @@ go test -mod=vendor -race -v ./...
 * Fri Jul 25 2025 Packit <hello@packit.dev> - 0.0.9-1
 - Update to version 0.0.9
 
-* Wed Jul 9 2025 Marcus Burghardt <maburgha@redhat.com>
+* Wed Jul 9 2025 Marcus Burghardt <maburgha@redhat.com> - 0.0.8-1
 - Bump to upstream version v0.0.8
 
-* Tue Jul 8 2025 Marcus Burghardt <maburgha@redhat.com>
+* Tue Jul 8 2025 Marcus Burghardt <maburgha@redhat.com> - 0.0.7-1
 - Bump to upstream version v0.0.7
 - Include manifest file for openscap-plugin
 
-* Mon Jun 16 2025 George Vauter <gvauter@redhat.com>
+* Mon Jun 16 2025 George Vauter <gvauter@redhat.com> - 0.0.6-2
 - Update package name to complyctl
 
-* Wed Jun 11 2025 Marcus Burghardt <maburgha@redhat.com>
+* Wed Jun 11 2025 Marcus Burghardt <maburgha@redhat.com> - 0.0.6-1
 - Bump to upstream version v0.0.6
 - Align with Fedora Package Guidelines
 
-* Tue May 6 2025 Qingmin Duanmu <qduanmu@redhat.com>
+* Tue May 6 2025 Qingmin Duanmu <qduanmu@redhat.com> - 0.0.3-2
 - Add complytime and openscap plugin man pages
 
-* Wed Apr 30 2025 Qingmin Duanmu <qduanmu@redhat.com>
+* Wed Apr 30 2025 Qingmin Duanmu <qduanmu@redhat.com> - 0.0.3-1
 - Separate plugin binary from manifest
 
-* Fri Apr 11 2025 Qingmin Duanmu <qduanmu@redhat.com>
+* Fri Apr 11 2025 Qingmin Duanmu <qduanmu@redhat.com> - 0.0.2-1
 - Separate package for openscap-plugin
 
-* Tue Apr 08 2025 Marcus Burghardt <maburgha@redhat.com>
+* Tue Apr 08 2025 Marcus Burghardt <maburgha@redhat.com> - 0.0.2-1
 - Initial RPM

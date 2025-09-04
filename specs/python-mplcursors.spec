@@ -1,19 +1,16 @@
 %global srcname mplcursors
-%bcond_without doc
+%bcond doc 1
 
 Name:           python-%{srcname}
-Version:        0.6
+Version:        0.7
 Release:        %autorelease
 Summary:        Interactive data selection cursors for Matplotlib
 
 License:        MIT
 URL:            https://github.com/anntzer/mplcursors
-Source0:        %pypi_source mplcursors
+Source:         %pypi_source %{srcname}
 
 BuildArch:      noarch
-
-# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch: %{ix86}
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(pytest)
@@ -61,7 +58,6 @@ rm -rf html/.{doctrees,buildinfo}
 %files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE.txt
 %doc README.rst examples/README.txt
-%{python3_sitelib}/%{srcname}.pth
 
 %if %{with doc}
 %files -n python-%{srcname}-doc

@@ -19,7 +19,6 @@ BuildRequires:  python3dist(jschema-to-python)
 BuildRequires:  python3dist(sarif-om)
 BuildRequires:  python3dist(testscenarios)
 BuildRequires:  python3dist(testtools)
-BuildRequires:  python3dist(toml)
 
 %description
 Bandit provides a framework for performing security analysis of Python source

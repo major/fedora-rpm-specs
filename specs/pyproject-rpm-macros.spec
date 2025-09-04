@@ -14,8 +14,8 @@ License:        MIT
 #   Increment Y and reset Z when new macros or features are added
 #   Increment Z when this is a bugfix or a cosmetic change
 # Dropping support for EOL Fedoras is *not* considered a breaking change
-Version:        1.18.3
-Release:        2%{?dist}
+Version:        1.18.4
+Release:        1%{?dist}
 
 # Macro files
 Source001:      macros.pyproject
@@ -167,6 +167,13 @@ export HOSTNAME="rpmbuild"  # to speedup tox in network-less mock, see rhbz#1856
 
 
 %changelog
+* Mon Sep 01 2025 Miro Hrončok <mhroncok@redhat.com> - 1.18.4-1
+- Don't exit from pyproject-srpm-macros implementation of %%pyproject_buildrequires
+- Fixes: rhbz#2391290
+- On RPM 4.20+ don't put pyproject-macros-specific files in %%buildsubdir
+- Works around https://github.com/rpm-software-management/rpm/issues/3890
+- Speed %%pyproject_save_files up significantly
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.18.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -2,32 +2,36 @@
 %global gem_name rdoc
 
 Name: rubygem-%{gem_name}
-Version: 6.4.0
-Release: 208%{?dist}
+Version: 6.14.2
+Release: 201%{?dist}
 Summary: RDoc produces HTML and command-line documentation for Ruby projects
 # BSD-3-Clause: lib/rdoc/generator/darkfish.rb
 # CC-BY-2.5: lib/rdoc/generator/template/darkfish/images/loadingAnimation.gif
 # OFL-1.1-RFN: lib/rdoc/generator/template/darkfish/css/fonts.css
-License: GPL-2.0 AND Ruby AND BSD-3-Clause AND CC-BY-2.5 AND OFL-1.1-RFN
+# Note that RDoc now embeds Racc parser:
+# https://github.com/ruby/rdoc/pull/1019
+# Luckily, this should have no license impact:
+# https://github.com/ruby/racc/blob/5eb07b28bfb3e193a1cac07798fe7be7e1e246c4/lib/racc/parser.rb#L8-L10
+# Please also note that there are uncertainties about the license:
+# https://github.com/ruby/rdoc/issues/401
+# https://github.com/ruby/rdoc/issues/924
+License: GPL-2.0-only AND Ruby AND BSD-3-Clause AND CC-BY-2.5 AND OFL-1.1-RFN
 URL: https://ruby.github.io/rdoc
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
-# git clone https://github.com/ruby/rdoc.git --no-checkout
-# cd rdoc && git archive -v -o rdoc-6.4.0-tests.tar.gz v6.4.0 test/
+# git clone https://github.com/ruby/rdoc.git --no-checkout && cd rdoc
+# git archive -v -o rdoc-6.14.2-tests.tar.gz v6.14.2 test/
 Source1: %{gem_name}-%{version}-tests.tar.gz
 # Fix ruby_version abuse. Keep this in sinc with ruby-2.3.0-ruby_version.patch
 # applied in ruby package.
 # https://bugs.ruby-lang.org/issues/11002
 Patch0: rubygem-rdoc-5.1.0-ruby_version.patch
-# https://github.com/ruby/rdoc/pull/927
-# Fix test failure with upcoming ruby 3.2
-Patch1: rubygem-rdoc-6.4.0-test_parse_method_bracket.patch
 Requires: rubygem(irb)
 Requires: rubygem(io-console)
 Requires: rubygem(json)
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
-BuildRequires: rubygem(test-unit)
+BuildRequires: rubygem(test-unit-ruby-core)
 # test/rdoc/test_rdoc_i18n_locale.rb
 BuildRequires: rubygem(gettext)
 # Execute Rake integration test cases.
@@ -56,9 +60,6 @@ Documentation for %{name}.
 %setup -q -n %{gem_name}-%{version} -b 1
 
 %patch 0 -p1
-( cd %{_builddir}/test
-%patch 1 -p2
-)
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -85,16 +86,16 @@ for n in 1; do
 done
 
 %check
-pushd .%{gem_instdir}
-cp -a %{_builddir}/test .
+( cd .%{gem_instdir}
+cp -a %{builddir}/test .
 
 sed -i '/^\s*require..bundler/ s/^/#/g' test/rdoc/support/test_case.rb
 
 # Give `lib` precedence over system location, otherwise strange timestamp
 # failures might happen.
 RUBYOPT=-Ilib \
-  ruby -e 'Dir.glob "./test/**/test_*.rb", &method(:require)' -- -v
-popd
+  ruby -e 'Dir.glob "./test/**/*_test.rb", &method(:require)' -- -v
+)
 
 %files
 %dir %{gem_instdir}
@@ -106,6 +107,7 @@ popd
 %{gem_libdir}
 %exclude %{gem_instdir}/man
 %exclude %{gem_cache}
+%{gem_plugin}
 %{gem_spec}
 %doc %{_mandir}/man1/*
 
@@ -114,16 +116,18 @@ popd
 %doc %{gem_instdir}/CONTRIBUTING.rdoc
 %doc %{gem_instdir}/CVE-2013-0256.rdoc
 %doc %{gem_instdir}/Example*
-%{gem_instdir}/Gemfile
 %doc %{gem_instdir}/History.rdoc
 %doc %{gem_instdir}/README.rdoc
-%doc %{gem_instdir}/RI.rdoc
-%{gem_instdir}/Rakefile
+%doc %{gem_instdir}/RI.md
 %doc %{gem_instdir}/TODO.rdoc
-%{gem_instdir}/bin
 %{gem_instdir}/rdoc.gemspec
 
 %changelog
+* Tue Sep 02 2025 Vít Ondruch <vondruch@redhat.com> - 6.14.2-201
+- Update to RDoc 6.14.2.
+  Resolves: rhbz#2150709
+  Resolves: rhbz#2385595
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.0-208
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

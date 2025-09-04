@@ -93,9 +93,6 @@ Provides:       bundled(js-alpine)
 # For forked pcre2 crate that includes https://github.com/BurntSushi/rust-pcre2/pull/38
 Provides:       bundled(crate(pcre2)) = %{rust_pcre2_fish_tag}
 
-# fish does not currently build on 32-bit architectures
-ExcludeArch:    %{ix86} %{arm32}
-
 %description
 fish is a fully-equipped command line shell (like bash or zsh) that is
 smart and user-friendly. fish supports powerful features like syntax

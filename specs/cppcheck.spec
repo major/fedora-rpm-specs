@@ -1,6 +1,12 @@
+%if 0%{?fedora} >= 44 || 0%{?rhel} >= 10
+%global with_rules 0
+%else
+%global with_rules 1
+%endif
+
 Name:           cppcheck
 Version:        2.18.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Tool for static C/C++ code analysis
 License:        GPL-3.0-or-later
 URL:            http://cppcheck.sourceforge.io/
@@ -14,7 +20,9 @@ Patch0:         cppcheck-2.11-translations.patch
 Patch1:         cppcheck-2.18-TestCondition.patch
 
 BuildRequires:  gcc-c++
+%if %{with_rules}
 BuildRequires:  pcre-devel
+%endif
 BuildRequires:  docbook-style-xsl
 BuildRequires:  libxslt
 BuildRequires:  pandoc
@@ -71,7 +79,22 @@ pandoc man/reference-cfg-format.md -o man/reference-cfg-format.html -s --number-
 
 # Binaries
 # Upstream doesn't support shared libraries (unversioned solib)
-%cmake -DCMAKE_BUILD_TYPE=Release -DUSE_MATCHCOMPILER=ON -DHAVE_RULES=yes -DBUILD_GUI=1 -DUSE_QT6=1 -DBUILD_SHARED_LIBS:BOOL=OFF -DBUILD_TESTS=yes -DFILESDIR=%{_datadir}/Cppcheck -DUSE_BUNDLED_TINYXML2=OFF -DENABLE_OSS_FUZZ=OFF -DUSE_BOOST=1
+%cmake \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DUSE_MATCHCOMPILER=ON \
+%if %{with_rules}
+  -DHAVE_RULES=yes \
+%else
+  -DHAVE_RULES=no \
+%endif
+  -DBUILD_GUI=1 \
+  -DUSE_QT6=1 \
+  -DBUILD_SHARED_LIBS:BOOL=OFF \
+  -DBUILD_TESTS=yes \
+  -DFILESDIR=%{_datadir}/Cppcheck \
+  -DUSE_BUNDLED_TINYXML2=OFF \
+  -DENABLE_OSS_FUZZ=OFF \
+  -DUSE_BOOST=1
 %ifarch i686
 export RPM_BUILD_NCPUS=1
 %endif
@@ -115,6 +138,9 @@ grep -l "#\!/usr/bin/env python3" %{buildroot}%{_datadir}/Cppcheck/addons/*.py |
 %{_bindir}/cppcheck-htmlreport
 
 %changelog
+* Mon Sep 01 2025 Xavier Bachelot <xavier@bachelot.org> - 2.18.2-3
+- Disable rules support for Fedora 44+ and EL 10+
+
 * Sat Aug 30 2025 Wolfgang Stöggl <c72578@yahoo.de> - 2.18.2-2
 - Add cppcheck-2.18-TestCondition.patch
 

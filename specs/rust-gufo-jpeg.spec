@@ -3,16 +3,15 @@
 %global debug_package %{nil}
 
 %global crate gufo-jpeg
-%global crate_version 0.3.0-beta.1
 
 Name:           rust-gufo-jpeg
-Version:        0.3.0~beta.1
+Version:        0.3.0
 Release:        %autorelease
 Summary:        Inspect JPEG image structure
 
 License:        MPL-2.0 OR LGPL-2.1-or-later
 URL:            https://crates.io/crates/gufo-jpeg
-Source:         %{crates_source %{crate} %{crate_version}}
+Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -62,7 +61,7 @@ use the "encoder" feature of the "%{crate}" crate.
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
-%autosetup -n %{crate}-%{crate_version} -p1
+%autosetup -n %{crate}-%{version} -p1
 %cargo_prep
 
 %generate_buildrequires

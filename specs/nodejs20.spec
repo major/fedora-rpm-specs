@@ -686,10 +686,10 @@ done
 
 # Create automatic RPM requires generator for this stream
 mkdir -p "${RPM_BUILD_ROOT}%{_rpmconfigdir}/fileattrs"
-sed -e 's;@NODEJS_VERSION_MAJOR@;%{node_version_major};g' \
-    <%{SOURCE5} >"${RPM_BUILD_ROOT}%{_rpmconfigdir}/fileattrs/nodejs%{node_version_major}_abi.attr"
-sed -e 's;@NODEJS_VERSION_MAJOR@;%{node_version_major};g' \
-    <%{SOURCE6} >"${RPM_BUILD_ROOT}%{_rpmconfigdir}/nodejs%{node_version_major}_abi.req"
+sed -e 's;@NODEJS_VERSION_MAJOR@;%{nodejs_pkg_major};g' \
+    <%{SOURCE5} >"${RPM_BUILD_ROOT}%{_rpmconfigdir}/fileattrs/nodejs%{nodejs_pkg_major}_abi.attr"
+sed -e 's;@NODEJS_VERSION_MAJOR@;%{nodejs_pkg_major};g' \
+    <%{SOURCE6} >"${RPM_BUILD_ROOT}%{_rpmconfigdir}/nodejs%{nodejs_pkg_major}_abi.req"
 
 # install documentation
 mkdir -p %{buildroot}%{_pkgdocdir}/html
@@ -851,8 +851,8 @@ end
 %{nodejs_datadir}/common.gypi
 %{_pkgdocdir}/gdbinit
 %{_libdir}/pkgconfig/nodejs-%{nodejs_pkg_major}.pc
-%{_rpmconfigdir}/fileattrs/nodejs%{node_version_major}_abi.attr
-%{_rpmconfigdir}/nodejs%{node_version_major}_abi.req
+%{_rpmconfigdir}/fileattrs/nodejs%{nodejs_pkg_major}_abi.attr
+%{_rpmconfigdir}/nodejs%{nodejs_pkg_major}_abi.req
 
 %files -n %{pkgname}-full-i18n
 %dir %{icudatadir}

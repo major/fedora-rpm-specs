@@ -17,7 +17,7 @@
 
 Name:           %{prefix}-healthcheck
 Version:        0.18
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Health check tool for %{productname}
 BuildArch:      noarch
 License:        GPL-3.0-or-later
@@ -32,12 +32,14 @@ Requires:       %{prefix}-server
 Requires:       python3-ipalib
 Requires:       python3-ipaserver
 Requires:       python3-lib389 >= 1.4.2.14-1
+Requires:       python3-setuptools
 # cronie-anacron provides anacron
 Requires:       anacron
 Requires:       logrotate
 Requires(post): systemd-units
 Requires:       %{name}-core = %{version}-%{release}
 BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
 BuildRequires:  systemd-devel
 %{?systemd_requires}
 # packages for make check
@@ -158,6 +160,10 @@ PYTHONPATH=src PATH=$PATH:$RPM_BUILD_ROOT/usr/bin pytest-3 tests/test_*
 
 
 %changelog
+* Tue Sep 02 2025 Rob Crittenden <rcritten@redhat.com> - 0.18-7
+- Add a dependency on python3-setuptools to fix the broken package while we
+  work on replacing it.
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.18-6
 - Rebuilt for Python 3.14.0rc2 bytecode
 

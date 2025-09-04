@@ -1,8 +1,8 @@
 
 Summary: User space tools for kernel auditing
 Name: audit
-Version: 4.1.1
-Release: 2%{?dist}
+Version: 4.1.2
+Release: 1%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: https://github.com/linux-audit/audit-userspace/
 Source0: audit-userspace-%{version}.tar.gz
@@ -252,7 +252,7 @@ fi
 %attr(750,root,root) %{_libexecdir}/initscripts/legacy-actions/auditd/state
 %attr(750,root,root) %{_libexecdir}/initscripts/legacy-actions/auditd/stop
 %attr(644,root,root) %{_sysconfdir}/bash_completion.d/audit.bash_completion
-%ghost %{_localstatedir}/run/auditd.state
+%ghost %{_runstatedir}/run/auditd.state
 %attr(-,root,-) %dir %{_var}/log/audit
 %attr(750,root,root) %dir /etc/audit/plugins.d
 %config(noreplace) %attr(640,root,root) /etc/audit/auditd.conf
@@ -302,6 +302,9 @@ fi
 %attr(750,root,root) %{_sbindir}/audispd-zos-remote
 
 %changelog
+* Mon Sep 01 2025 Steve Grubb <sgrubb@redhat.com> 4.1.2-1
+- New upstream release
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.1.1-2
 - Rebuilt for Python 3.14.0rc2 bytecode
 

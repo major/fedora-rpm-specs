@@ -5,7 +5,7 @@
 %bcond doc_pdf 1
 
 Name:           python-ncclient
-Version:        0.6.19
+Version:        0.7.0
 Release:        %autorelease
 Summary:        Python library for the NETCONF protocol
 
@@ -19,16 +19,16 @@ License:        Apache-2.0 AND Unlicense
 URL:            https://github.com/ncclient/ncclient
 Source:         %{url}/archive/v%{version}/ncclient-%{version}.tar.gz
 
-# Update tox.ini for test-requirements.txt → requirements-test.txt
-# https://github.com/ncclient/ncclient/pull/625
-Patch:          %{url}/pull/625.patch
-
 BuildSystem:            pyproject
 BuildOption(install):   -l ncclient
-BuildOption(generate_buildrequires): -t %{?with_doc_pdf:docs/requirements.txt}
+BuildOption(generate_buildrequires): %{shrink:
+    -t
+    -x libssh
+    %{?with_doc_pdf:docs/requirements.txt}
+}
 
 # For %%py3_shebang_fix in %%prep, before dynamic BR’s from the BuildSystem:
-BuildRequires:  pyproject-rpm-macros
+BuildRequires:  python3-devel
 
 BuildArch:      noarch
 
@@ -49,6 +49,9 @@ PyPI: https://pypi.python.org/pypi/ncclient}
 Summary:        %{summary}
 
 %description -n python3-ncclient %{common_description}
+
+
+%pyproject_extras_subpkg -n python3-ncclient libssh
 
 
 %package doc

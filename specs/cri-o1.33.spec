@@ -8,11 +8,11 @@
 # **** release metadata ****
 # populated by envsubst in newrelease
 %global crio_spec_name  cri-o1.33
-%global crio_spec_ver   1.33.2
+%global crio_spec_ver   1.33.4
 # Uncomment if needed for commit based release
 # %%global crio_commit     
-%global crio_tag        v1.33.2
-%global golangver       1.24.2
+%global crio_tag        v1.33.4
+%global golangver       1.24.3
 
 # Related: github.com/cri-o/cri-o/issues/3684
 %global build_timestamp %(date -u +'%Y-%m-%dT%H:%M:%SZ')_Release:%{release}

@@ -1,5 +1,5 @@
 Name:		xrootd-s3-http
-Version:	0.5.0
+Version:	0.5.1
 Release:	1%{?dist}
 Summary:	S3/HTTP filesystem plugins for XRootD
 
@@ -35,14 +35,15 @@ and HTTP backends through an XRootD server.
 %cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo \
        -DXROOTD_EXTERNAL_TINYXML2:BOOL=ON \
        -DXROOTD_PLUGINS_EXTERNAL_GTEST:BOOL=ON \
-       -DENABLE_TESTS:BOOL=ON
+       -DENABLE_TESTS:BOOL=ON \
+       -DEXE_BIN:PATH=/bin/true
 %cmake_build
 
 %check
-# s3-unit tests require network (https://s3.us-east-1.amazonaws.com)
+# s3 tests require network (https://s3.us-east-1.amazonaws.com)
 # posc tests fail when run in parallel:
 # https://github.com/PelicanPlatform/xrootd-s3-http/issues/111
-%ctest -- -E 's3-unit|TestPosc'
+%ctest -- -E 'S3|s3|TestPosc'
 
 %install
 %cmake_install
@@ -59,6 +60,9 @@ and HTTP backends through an XRootD server.
 %license LICENSE
 
 %changelog
+* Tue Sep 02 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.5.1-1
+- Update to version 0.5.1
+
 * Sun Aug 24 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.5.0-1
 - Update to version 0.5.0
 

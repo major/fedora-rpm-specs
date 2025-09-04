@@ -25,9 +25,6 @@ BuildRequires:  python3-devel
 # for tests
 BuildRequires:  python3-pytest
 BuildRequires:  python3-pytest-mock
-BuildRequires:  python3-sphinx
-BuildRequires:  python3-tomli
-BuildRequires:  python3-toml
 BuildRequires:  gcc gcc-c++
 
 %description -n python3-rstcheck-core %_description

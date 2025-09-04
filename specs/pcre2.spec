@@ -8,8 +8,8 @@
 # This is stable release:
 #%%global rcversion RC1
 Name:       pcre2
-Version:    10.45
-Release:    %{?rcversion:0.}1%{?rcversion:.%rcversion}%{?dist}.1
+Version:    10.46
+Release:    %{?rcversion:0.}1%{?rcversion:.%rcversion}%{?dist}
 %global     myversion %{version}%{?rcversion:-%rcversion}
 Summary:    Perl-compatible regular expression library
 # the library:                          BSD with exceptions
@@ -49,7 +49,8 @@ URL:        https://www.pcre.org/
 Source0:    https://github.com/PCRE2Project/pcre2/releases/download/pcre2-%{version}/pcre2-%{myversion}.tar.bz2
 Source1:    https://github.com/PCRE2Project/pcre2/releases/download/pcre2-%{version}/pcre2-%{myversion}.tar.bz2.sig
 # This New-Public-Key was retrieved using
-# gpg2 --export --export-options export-minimal A95536204A3BB489715231282A98E77EB6F24CA8 > New-Public-Key
+# gpg --keyserver keyserver.ubuntu.com --recv-keys A95536204A3BB489715231282A98E77EB6F24CA8
+# gpg --export --armor A95536204A3BB489715231282A98E77EB6F24CA8 > New-Public-Key
 # The GPG key changed with the new upstream maintainer
 # More in https://github.com/PCRE2Project/pcre2/blob/master/SECURITY.md
 Source2:    https://ftp.pcre.org/pub/pcre/New-Public-Key
@@ -261,6 +262,9 @@ make %{?_smp_mflags} check VERBOSE=yes
 %{_mandir}/man1/pcre2test.*
 
 %changelog
+* Mon Sep 01 2025 Lukas Javorsky <ljavorsk@redhat.com> - 10.46-1
+- Rebase to version 10.46
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 10.45-1.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

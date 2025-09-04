@@ -19,7 +19,7 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
 BuildRequires:  python3-pytest-asyncio
 BuildRequires:  python3-pytest-cov
-%if 0%{?rhel} < 10
+%if 0%{?rhel} && 0%{?rhel} < 10
 BuildRequires:  python3-toml
 %endif
 %endif

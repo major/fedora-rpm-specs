@@ -1,6 +1,6 @@
 Name: expected
-Version: 1.2.0
-Release: 1%{?dist}
+Version: 1.3.1
+Release: %autorelease
 
 License: CC0-1.0
 Summary: C++11/14/17 std::expected with functional-style extensions
@@ -51,50 +51,4 @@ coding with expected cleaner.
 %{_datadir}/cmake/tl-%{name}
 
 %changelog
-* Mon Aug 11 2025 Orion Poplawski <orion@nwra.com> - 1.2.0-1
-- Update to 1.2.0
-
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Mar 16 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 1.1.0-1
-- Updated to version 1.1.0.
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Mon Jan 06 2020 Vitaly Zaitsev <vitaly@easycoding.org> - 1.0.0-1
-- Initial SPEC release.
+%autochangelog

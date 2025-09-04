@@ -1,6 +1,6 @@
 Name:           ogr2osm
 Version:        1.2.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Convert ogr-readable files like shapefiles into .pbf or .osm data
 
 License:        MIT
@@ -10,9 +10,6 @@ Source0:        https://github.com/roelderickx/ogr2osm/archive/v%{version}.tar.g
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-Requires:       python3-gdal
-Requires:       python3-lxml
 Requires:       python3-protobuf
 
 %description
@@ -24,26 +21,36 @@ source to the .pbf or .osm output.
 
 
 %prep
-%autosetup -p1
+%autosetup
+
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install 
+%pyproject_install
+%pyproject_save_files -L %{name}
 
 
-%files
+%check
+%pyproject_check_import -t
+
+
+%files -f %{pyproject_files}
 %{_bindir}/%{name}
-%{python3_sitelib}/%{name}
-%{python3_sitelib}/%{name}-*.egg-info
 %doc README.md
 %license LICENSE
 
 
 %changelog
+* Tue Sep 02 2025 Andrea Musuruane <musuruan@gmail.com> - 1.2.0-10
+- Removed deprecated RPM macros for setup.py-based Python builds (BZ #2377356)
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.2.0-9
 - Rebuilt for Python 3.14.0rc2 bytecode
 

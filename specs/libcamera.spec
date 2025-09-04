@@ -1,6 +1,6 @@
 Name:    libcamera
-Version: 0.5.1
-Release: 4%{?dist}
+Version: 0.5.2
+Release: 1%{?dist}
 Summary: A library to support complex camera ISPs
 # see .reuse/dep5 and COPYING for details
 License: LGPL-2.1-or-later
@@ -45,6 +45,7 @@ BuildRequires: python3-jinja2
 BuildRequires: python3-ply
 BuildRequires: python3-pyyaml
 BuildRequires: python3-sphinx
+BuildRequires: python3-sphinxcontrib-doxylink
 BuildRequires: SDL2-devel
 BuildRequires: systemd-devel
 # libcamera is not really usable without its IPA plugins
@@ -206,6 +207,11 @@ rm -rf ${RPM_BUILD_ROOT}/%{_docdir}/%{name}-*/html/.doctrees
 %{python3_sitearch}/*
 
 %changelog
+* Tue Sep 02 2025 Milan Zamazal <mzamazal@redhat.com> - 0.5.2-1
+- Update to version 0.5.2
+- Build require python3-sphinxcontrib-doxylink
+- Resolves: rhbz#2387180
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.5.1-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

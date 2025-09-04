@@ -6,7 +6,7 @@
 %{!?runselftest:%global runselftest 1}
 %{!?llvmjit:%global llvmjit 0}
 
-%global        majorversion 3.5
+%global        majorversion 3.6
 %global        soversion 3
 %global        prevmajorversion 2.5
 %global        prevversion %{prevmajorversion}.5
@@ -16,8 +16,8 @@
 %global        __provides_exclude_from %{_libdir}/pgsql
 
 Name:          postgis
-Version:       3.5.3
-Release:       3%{?dist}
+Version:       3.6.0
+Release:       1%{?dist}
 Summary:       Geographic Information Systems Extensions to PostgreSQL
 License:       GPL-2.0-or-later
 
@@ -460,6 +460,9 @@ fi
 
 
 %changelog
+* Tue Sep 02 2025 Sandro Mani <manisandro@gmail.com> - 3.6.0-1
+- Update to 3.6.0
+
 * Tue Jul 29 2025 Sandro Mani <manisandro@gmail.com> - 3.5.3-3
 - Rebuild (gdal)
 

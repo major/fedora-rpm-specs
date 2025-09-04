@@ -18,7 +18,7 @@
 
 Summary:       Zstandard extension
 Name:          php-%{pecl_name}
-Version:       0.15.1
+Version:       0.15.2
 Release:       1%{?dist}
 License:       MIT
 URL:           https://pecl.php.net/package/%{pecl_name}
@@ -165,6 +165,9 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Tue Sep  2 2025 Remi Collet <remi@remirepo.net> - 0.15.2-1
+- update to 0.15.2
+
 * Fri Aug 29 2025 Remi Collet <remi@remirepo.net> - 0.15.1-1
 - update to 0.15.1
 - re-license spec file to CECILL-2.1

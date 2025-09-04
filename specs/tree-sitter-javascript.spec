@@ -1,5 +1,5 @@
 Name:           tree-sitter-javascript
-Version:        0.23.1
+Version:        0.25.0
 Release:        %{autorelease}
 License:        MIT
 URL:            https://github.com/tree-sitter/%{name}

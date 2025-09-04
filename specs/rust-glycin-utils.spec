@@ -3,19 +3,16 @@
 %global debug_package %{nil}
 
 %global crate glycin-utils
-%global crate_version 4.0.0-beta.3
+%global crate_version 4.0.0-rc
 
 Name:           rust-glycin-utils
-Version:        4.0.0~beta.3
+Version:        4.0.0~rc
 Release:        %autorelease
 Summary:        Sandboxed image decoding
 
 License:        MPL-2.0 OR LGPL-2.1-or-later
 URL:            https://crates.io/crates/glycin-utils
 Source:         %{crates_source %{crate} %{crate_version}}
-# Manually created patch for downstream crate metadata changes
-# * relax zbus dependency to allow 5.7+
-Patch:          glycin-utils-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

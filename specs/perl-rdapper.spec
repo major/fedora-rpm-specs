@@ -1,5 +1,5 @@
 Name:           perl-rdapper
-Version:        1.18
+Version:        1.19
 Release:        1%{?dist}
 Summary:        Simple console-based RDAP client
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -8,6 +8,9 @@ URL:            https://metacpan.org/dist/App-rdapper
 # from <https://github.com/jodrell/rdapper> that was announced by the author
 # at <https://www.ietf.org/mail-archive/web/weirds/current/msg01981.html>.
 Source0:        https://cpan.metacpan.org/authors/id/G/GB/GBROWN/App-rdapper-%{version}.tar.gz
+# Fix skipping tests, in upstream after 1.19,
+# <https://github.com/gbxyz/rdapper/pull/22>
+Patch0:         App-rdapper-1.19-t-01-l10n.t-Skip-tests-properly.patch
 BuildArch:      noarch
 BuildRequires:  bash
 BuildRequires:  coreutils
@@ -38,17 +41,22 @@ BuildRequires:  perl(Net::RDAP) >= 0.35
 BuildRequires:  perl(Net::RDAP::EPPStatusMap)
 BuildRequires:  perl(Pod::Usage)
 BuildRequires:  perl(POSIX)
-BuildRequires:  perl(PPI)
 BuildRequires:  perl(Term::ANSIColor)
 BuildRequires:  perl(Term::Size)
 BuildRequires:  perl(Text::Wrap)
 BuildRequires:  perl(URI)
 BuildRequires:  perl(vars)
+# Optional run-time:
+# PPI not used at tests
 # Tests:
+BuildRequires:  perl(common::sense)
+BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Test::More)
+BuildRequires:  perl(utf8)
 Requires:       perl(List::Util) >= 1.33
 # To support HTTPS
 Requires:       perl(LWP::Protocol::https)
+Recommends:     perl(PPI)
 
 # Filter under-specfied dependencies
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(List::Util\\)$
@@ -109,6 +117,7 @@ make test
 %dir %{perl_vendorlib}/auto/share/module/App-rdapper
 %{l10n_dir de}
 %{l10n_dir en}
+%{l10n_dir es}
 %{l10n_dir fr}
 %{l10n_dir pt}
 %{_mandir}/man3/App::rdapper{::,.}*
@@ -117,6 +126,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Sep 02 2025 Petr Pisar <ppisar@redhat.com> - 1.19-1
+- 1.19 bump
+
 * Thu Aug 14 2025 Petr Pisar <ppisar@redhat.com> - 1.18-1
 - 1.18 bump
 

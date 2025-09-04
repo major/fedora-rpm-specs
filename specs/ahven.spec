@@ -1,6 +1,6 @@
 Name:           ahven
-Version:        2.8
-Release:        15%{?dist}
+Version:        2.9
+Release:        1%{?dist}
 Summary:        A unit testing framework for Ada 95
 Summary(sv):    Ett enhetstestramverk för ada 95
 
@@ -92,10 +92,6 @@ cp --preserve=timestamps README.md ROADMAP NEWS.txt %{buildroot}%{_pkgdocdir}
 # https://bugzilla.redhat.com/show_bug.cgi?id=1197501
 %undefine _hardened_build
 
-# Append -shared to override ahven_tests.gpr's -static.
-# https://bugzilla.redhat.com/show_bug.cgi?id=2225696
-export GNATBINDFLAGS=-shared
-
 %{Comfignat_make} check GNAT_BUILDER=gprbuild OS_VERSION=unix
 
 
@@ -112,6 +108,11 @@ export GNATBINDFLAGS=-shared
 
 
 %changelog
+* Tue Sep 02 2025 Björn Persson <Bjorn@Rombobjörn.se> - 2.9-1
+- Upgraded to 2.9.
+- Set_Up and Tear_Down procedures are now called for testsuites derived from
+  Ahven.Framework.Test_Suite.
+
 * Sun Aug 10 2025 Björn Persson <Bjorn@Rombobjörn.se> - 2.8-15
 - Rebuilt because the ALI of System.OS_Constants changed.
 

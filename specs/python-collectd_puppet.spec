@@ -4,7 +4,7 @@
 %global forgeurl https://github.com/cernops/collectd-puppet
 
 Name:           python-%{module_name}
-Version:        2.0.1
+Version:        2.1.1
 Release:        %autorelease
 Summary:        Collectd plugin to monitor puppet agents
 %global tag %{version}
@@ -16,41 +16,48 @@ URL:            %{forgeurl}
 Source0:        %{forgesource}
 BuildArch:      noarch
 
-Requires:       collectd-python
-
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
 BuildRequires:  systemd-rpm-macros
 
+Requires:       collectd-python
 
 %description
 Collectd plugin for puppet run status.
 
+
 %package -n     python3-%{module_name}
 Summary:        %{summary}
 
-Requires:       python3dist(pyyaml)
+
 %description -n python3-%{module_name}
 Collectd plugin for puppet run status.
+
 
 %prep
 %forgesetup
 
+
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
+
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l collectd_puppet
+
 
 %postun
 %systemd_postun_with_restart collectd.service
 
-%files -n python3-%{module_name}
-%license LICENSE
+
+%files -n python3-%{module_name} -f %{pyproject_files}
 %doc README.rst NEWS.rst
 %{_datadir}/collectd/puppet_types.db
-%{python3_sitelib}/%{module_name}
-%{python3_sitelib}/%{module_name}-%{version}-py%{python3_version}.egg-info
+
 
 %changelog
 %autochangelog

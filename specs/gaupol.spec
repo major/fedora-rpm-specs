@@ -125,7 +125,7 @@ Recommends:     gspell
 Requires:       (gspell >= 1.0.0 if gspell)
 %endif
 
-Requires:       python3dist(aeidon)
+Requires:       python3-aeidon
 
 Summary(cs):    Editor pro textově založené titulky
 Summary(de):    Editor für textbasierte Untertitel
@@ -344,4 +344,9 @@ ignore="${ignore-} --ignore-glob=gaupol/dialogs/test/*"
 %{_mandir}/man1/gaupol.1*
 
 %changelog
-%autochangelog
+* Tue Sep 02 2025 Sudip Shil <sshil@redhat.com> - 1.15-25
+- Switch dependency from python3dist(aeidon) to python3-aeidon to fix installability
+  after package split (rhbz#2386523)
+
+* Tue Sep 02 2025 Sudip Shil <sshil@redhat.com> - 1.15-24
+- Rebuild against python3-aeidon split (rhbz#2386523)

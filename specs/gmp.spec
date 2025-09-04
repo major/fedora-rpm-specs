@@ -19,7 +19,7 @@ Patch4: gmp-6.3.0-c23.patch
 # https://gmplib.org/list-archives/gmp-devel/2023-August/006198.html
 # https://gmplib.org/repo/gmp/rev/372acfd0c33e
 Patch5: gmp-6.3.0-s390x-popcount.patch
-
+Patch6: gmp-devel-arm64-pac-bti.patch
 # * Main sources are dual licensed under LGPL-3.0-or-later and GPL-2.0-or-later
 #   Either only one may be active or both simultaneously.
 # * Some docs are under GFDL-1.3-invariants-or-later.

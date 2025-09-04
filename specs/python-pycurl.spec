@@ -9,7 +9,7 @@
 
 Name:           python-%{modname}
 Version:        7.45.6
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A Python interface to libcurl
 
 License:        curl OR LGPL-2.1-or-later
@@ -64,12 +64,16 @@ Requires:       libcurl%{?_isa} >= %{libcurl_ver}
 sed -e 's|python |%{python3} |' -i tests/ext/test-suite.sh
 %py3_shebang_fix tests/*.py setup.py
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build -- --with-openssl
+export PYCURL_SSL_LIBRARY=openssl
+%pyproject_wheel
 
 %install
-export PYCURL_SSL_LIBRARY=openssl
-%py3_install
+%pyproject_install
+%pyproject_save_files -l curl pycurl
 rm -rf %{buildroot}%{_datadir}/doc/pycurl
 
 %if %{with tests}
@@ -82,20 +86,17 @@ export PYTHONPATH=%{buildroot}%{python3_sitearch}
 export PYCURL_SSL_LIBRARY=openssl
 export PYCURL_VSFTPD_PATH=vsftpd
 
-# disable test_http_version_3 since curl in Fedora does not support it (#2175216)
-# disable tests incompatible with curl 8.4.0 and newer
 export PYTEST_ADDOPTS="--ignore examples -m 'not online'"
-%py3_test_envvars make test PYTHON='%{python3}' PYTEST="%{__pytest}" PYFLAKES=true
+%py3_test_envvars make do-test PYTHON='%{python3}' PYTEST="%{__pytest}" PYFLAKES=true
 %endif
 
-%files -n python3-%{modname}
-%license COPYING-LGPL COPYING-MIT
+%files -n python3-%{modname} -f %{pyproject_files}
 %doc ChangeLog README.rst examples doc
-%{python3_sitearch}/curl/
-%{python3_sitearch}/%{modname}.*.so
-%{python3_sitearch}/%{modname}-%{version}-*.egg-info
 
 %changelog
+* Sat Aug 23 2025 Scott Talbert <swt@techie.net> - 7.45.6-5
+- Migrate to pyproject macros (#2378027)
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 7.45.6-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

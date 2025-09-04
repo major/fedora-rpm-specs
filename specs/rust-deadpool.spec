@@ -5,7 +5,7 @@
 %global crate deadpool
 
 Name:           rust-deadpool
-Version:        0.12.2
+Version:        0.12.3
 Release:        %autorelease
 Summary:        Dead simple async pool
 

@@ -1,5 +1,5 @@
 Name:           cdbs
-Version:        0.4.175
+Version:        0.4.177
 Release:        1%{?dist}
 Summary:        Common build system for Debian packages
 BuildArch:      noarch
@@ -19,7 +19,7 @@ In other words, CDBS provides a sane set of default rules upon which packages
 can build; any or all rules may be overridden as needed.
 
 %prep
-%autosetup -p1 -n %{name}
+%autosetup -p1 -n work
 
 
 %build
@@ -44,6 +44,9 @@ can build; any or all rules may be overridden as needed.
 %{_datadir}/%{name}
 
 %changelog
+* Tue Sep 02 2025 Sandro Mani <manisandro@gmail.com> - 0.4.177-1
+- Update to 0.4.177
+
 * Mon Aug 18 2025 Sandro Mani <manisandro@gmail.com> - 0.4.175-1
 - Update to 0.4.175
 

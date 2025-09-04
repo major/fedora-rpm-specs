@@ -3,8 +3,8 @@
 %global pkgname pcre2
 
 Name:          mingw-%{pkgname}
-Version:       10.45
-Release:       2%{?dist}
+Version:       10.46
+Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
 License:       BSD-3-Clause
@@ -177,6 +177,9 @@ chmod 0644 %{buildroot}%{mingw64_libdir}/*.dll.a
 
 
 %changelog
+* Tue Sep 02 2025 Sandro Mani <manisandro@gmail.com> - 10.46-1
+- Update to 10.46
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 10.45-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

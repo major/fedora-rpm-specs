@@ -12,7 +12,7 @@
 %endif
 
 Name:           bootc
-Version:        1.6.0
+Version:        1.7.1
 Release:        %{autorelease}
 Summary:        Bootable container system
 

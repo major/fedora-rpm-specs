@@ -1,18 +1,17 @@
 %global project_version_prime 5
 %global project_version_major 2
-%global project_version_minor 16
+%global project_version_minor 17
 %global project_version_micro 0
 
 %bcond dnf5_obsoletes_dnf %[0%{?fedora} > 40 || 0%{?rhel} > 10]
 
 Name:           dnf5
 Version:        %{project_version_prime}.%{project_version_major}.%{project_version_minor}.%{project_version_micro}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Command-line package manager
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf5
 Source0:        %{url}/archive/%{version}/dnf5-%{version}.tar.gz
-Patch1:         0001-dnf5daemon-server-Correct-repo-confirm_key_with_opti.patch
 
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Requires:       libdnf5-cli%{?_isa} = %{version}-%{release}
@@ -323,6 +322,7 @@ It supports RPM packages, modulemd modules, and comps groups & environments.
 %{_mandir}/man8/dnf*-check-upgrade.8.*
 %{_mandir}/man8/dnf*-clean.8.*
 %{_mandir}/man8/dnf*-distro-sync.8.*
+%{_mandir}/man8/dnf*-do.8.*
 %{_mandir}/man8/dnf*-downgrade.8.*
 %{_mandir}/man8/dnf*-download.8.*
 %{_mandir}/man8/dnf*-environment.8.*
@@ -815,10 +815,11 @@ Provides:       dnf5-command(copr)
 Provides:       dnf5-command(needs-restarting)
 Provides:       dnf5-command(repoclosure)
 Provides:       dnf5-command(reposync)
+Provides:       dnf5-command(repomanage)
 
 %description -n dnf5-plugins
 Core DNF5 plugins that enhance dnf5 with builddep, changelog,
-config-manager, copr, repoclosure, and reposync commands.
+config-manager, copr, repoclosure, repomanage and reposync commands.
 
 %files -n dnf5-plugins -f dnf5-plugin-builddep.lang -f dnf5-plugin-changelog.lang -f dnf5-plugin-config-manager.lang -f dnf5-plugin-copr.lang -f dnf5-plugin-needs-restarting.lang -f dnf5-plugin-repoclosure.lang -f dnf5-plugin-reposync.lang
 %{_libdir}/dnf5/plugins/builddep_cmd_plugin.so
@@ -828,6 +829,7 @@ config-manager, copr, repoclosure, and reposync commands.
 %{_libdir}/dnf5/plugins/needs_restarting_cmd_plugin.so
 %{_libdir}/dnf5/plugins/repoclosure_cmd_plugin.so
 %{_libdir}/dnf5/plugins/reposync_cmd_plugin.so
+%{_libdir}/dnf5/plugins/repomanage_cmd_plugin.so
 %if %{with man}
 %{_mandir}/man8/dnf*-builddep.8.*
 %{_mandir}/man8/dnf*-changelog.8.*
@@ -836,6 +838,7 @@ config-manager, copr, repoclosure, and reposync commands.
 %{_mandir}/man8/dnf*-needs-restarting.8.*
 %{_mandir}/man8/dnf*-repoclosure.8.*
 %{_mandir}/man8/dnf*-reposync.8.*
+%{_mandir}/man8/dnf*-repomanage.8.*
 %endif
 %{_datadir}/dnf5/aliases.d/compatibility-plugins.conf
 %{_datadir}/dnf5/aliases.d/compatibility-reposync.conf
@@ -1024,6 +1027,9 @@ mkdir -p %{buildroot}%{_libdir}/libdnf5/plugins
 %ldconfig_scriptlets
 
 %changelog
+* Tue Sep 02 2025 Packit <hello@packit.dev> - 5.2.17.0-1
+- Update to version 5.2.17.0
+
 * Tue Aug 19 2025 Marek Blaha <mblaha@redhat.com> - 5.2.16.0-3
 - Fix confirm_key_with_options D-Bus signature
 

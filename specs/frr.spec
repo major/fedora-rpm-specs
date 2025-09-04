@@ -8,18 +8,20 @@
 %bcond selinux 1
 
 Name:           frr
-Version:        10.4.0
-Release:        2%{?dist}
+Version:        10.4.1
+Release:        1%{?dist}
 Summary:        Routing daemon
 License:        GPL-2.0-or-later AND ISC AND LGPL-2.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND (GPL-2.0-or-later  OR ISC) AND MIT
 URL:            http://www.frrouting.org
-Source0:        https://github.com/FRRouting/frr/releases/download/%{name}-%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/FRRouting/frr/archive/refs/tags/%{name}-%{version}.tar.gz
 Source1:        %{name}-tmpfiles.conf
 Source2:        %{name}-sysusers.conf
 #Decentralized SELinux policy
 Source3:        frr.fc
 Source4:        frr.te
 Source5:        frr.if
+
+Source6:        remove-babeld-ldpd.sh
 
 Patch0000:      0000-remove-babeld-and-ldpd.patch
 Patch0002:      0002-enable-openssl.patch
@@ -283,6 +285,9 @@ rm tests/lib/*grpc*
 %endif
 
 %changelog
+* Mon Sep 01 2025 Michal Ruprich <mruprich@redhat.com> - 10.4.1-1
+- New version 10.4.1
+
 * Tue Jul 29 2025 Michal Ruprich <mruprich@redhat.com> - 10.4.0-2
 - Improving the %post scriptlet in frr-selinux
 

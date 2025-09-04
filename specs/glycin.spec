@@ -2,12 +2,12 @@
 %bcond heif     %{undefined rhel}
 %bcond jpegxl   %{undefined rhel}
 
-%bcond bundled_rust_deps %{defined:rhel}
+%bcond bundled_rust_deps %{defined rhel}
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           glycin
-Version:        2.0~beta.3
+Version:        2.0~rc
 Release:        %autorelease
 Summary:        Sandboxed image rendering
 
@@ -64,8 +64,6 @@ Source1:        glycin-%{tarball_version}-vendor.tar.xz
 Patch:          0001-fix-invalid-crate-manifest-for-tests-workspace-membe.patch
 # partial revert of https://gitlab.gnome.org/GNOME/glycin/-/commit/f637a7e
 Patch:          0002-Replace-serde_yaml_ng-with-equivalent-serde_yaml-dep.patch
-# partial revert of https://gitlab.gnome.org/GNOME/glycin/-/commit/b90f91c
-Patch:          0003-Relax-zbus-dependency-to-allow-5.7.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -170,6 +168,8 @@ rm -rf vendor
 
 # drop glycin-raw loader (missing dependencies, not enabled by default)
 rm -r glycin-loaders/glycin-raw
+# drop glycin-jpeg2000 loader (missing dependencies, not enabled by default)
+rm -r glycin-loaders/glycin-jpeg2000
 
 
 %if %{without bundled_rust_deps}

@@ -10,7 +10,7 @@
 
 # Not ready for Python-3.14
 %if %{with python}
-%bcond_with pycheck
+%bcond_without pycheck
 %endif
 
 # PETSc fails yet on s390x
@@ -291,7 +291,7 @@
 
 Name:    petsc
 Summary: Portable Extensible Toolkit for Scientific Computation
-Version: %{releasever}.5
+Version: %{releasever}.6
 Release: %autorelease
 License: BSD-2-Clause
 URL:     https://petsc.org/
@@ -312,6 +312,9 @@ Patch3:  %{name}-3.19.4-fix_mumps_includes.patch
 Patch4:  %{name}-3.21.1-fix_metis64.patch
 Patch6:  %{name}-3.14.1-fix_pkgconfig_file.patch
 Patch7:  %{name}-3.22.2-avoid_fake_MKL_detection.patch
+
+## Fix tests for Python-3.14+
+Patch8:  https://gitlab.com/%{name}/%{name}/-/merge_requests/8680.patch
 
 %if %{with superlu}
 BuildRequires: SuperLU-devel >= 5.2.0
@@ -585,6 +588,9 @@ done
 
 pushd %{name}-%{version}
 %patch -P 7 -p1 -b .backup
+%if 0%{?fedora} > 42
+%patch -P 8 -p1 -b .backup
+%endif
 popd
 
 # Remove pregenerated Cython C sources
@@ -997,8 +1003,8 @@ export PETSC_DIR=./
 export PYTHONPATH=%{buildroot}$MPI_PYTHON3_SITEARCH
 export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB
 export MPIEXEC=$MPI_BIN/mpiexec
-#xvfb-run -a make V=0 petsc4pytest PETSC4PY_NP=4
-%pytest
+xvfb-run -a make V=0 petsc4pytest PETSC4PY_NP=4
+#pytest
 unset PETSC_ARCH
 unset PETSC_DIR
 %{_openmpi_unload}

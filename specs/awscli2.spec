@@ -46,8 +46,7 @@ Obsoletes:          awscli < 2
 Provides:           awscli-2 = %{version}-%{release}
 Obsoletes:          awscli-2 < %{version}-%{release}
 
-# python-awscrt does not build on i686 nor s390x
-ExcludeArch:        %{ix86} s390x
+ExcludeArch:        %{ix86}
 
 
 %description

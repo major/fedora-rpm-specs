@@ -10,8 +10,8 @@
 Name:           qbs
 # qbs was previously packaged as part of qt-creator, using the qt-creator version, hence the epoch bump
 Epoch:          1
-Version:        2.6.1
-Release:        2%{?dist}
+Version:        3.0.3
+Release:        1%{?dist}
 Summary:        Cross platform build tool
 # Fails to build on i686
 ExcludeArch:    i686
@@ -26,9 +26,6 @@ Source0:        https://code.qt.io/cgit/qbs/qbs.git/snapshot/qbs-%{commit}.tar.x
 %else
 Source0:        https://download.qt.io/official_releases/%{name}/%{version}/%{name}-src-%{version}.tar.gz
 %endif
-
-# Fix qmake detection
-Patch1:         qbs_qmake.patch
 
 
 BuildRequires:  cmake
@@ -139,7 +136,7 @@ rm %{buildroot}%{_bindir}/clang-format-test
 %doc README.md
 %{_bindir}/%{name}*
 %{_libdir}/%{name}/
-%{_libdir}/libqbs*.so.2.6*
+%{_libdir}/libqbs*.so.3.0*
 %{_libexecdir}/qbs/
 %{_datadir}/%{name}/
 %{_mandir}/man1/%{name}.1*
@@ -157,6 +154,9 @@ rm %{buildroot}%{_bindir}/clang-format-test
 
 
 %changelog
+* Tue Sep 02 2025 Sandro Mani <manisandro@gmail.com> - 1:3.0.3-1
+- Update to 3.0.3
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.6.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

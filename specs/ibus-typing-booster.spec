@@ -1,5 +1,5 @@
 Name:       ibus-typing-booster
-Version:    2.27.72
+Version:    2.27.73
 Release:    %autorelease
 Summary:    A completion input method
 License:    GPL-3.0-or-later AND Apache-2.0
@@ -27,11 +27,14 @@ Recommends: gdouros-symbola-fonts
 # and not just locale codes:
 Recommends: python3-langtable
 # To play a sound on error:
-Recommends: python3-simpleaudio
+Recommends: python3-pyaudio
 # Use better regexpressions if available:
 Recommends: python3-regex
 # To get the currently active window in a Gnome Wayland session:
 Recommends: python3-pyatspi
+# To get the primary selection on Wayland when getting it using
+# surrounding text fails:
+Recommends: wl-clipboard
 %endif
 %if 0%{?fedora} >= 26 || 0%{?rhel} > 7
 # Save some space in the binary rpm by requiring the Fedora

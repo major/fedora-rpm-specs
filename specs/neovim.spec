@@ -45,7 +45,7 @@
 %endif
 
 Name:           neovim
-Version:        0.11.3
+Version:        0.11.4
 Release:        %autorelease
 
 License:        Apache-2.0 AND Vim AND MIT
@@ -278,6 +278,9 @@ find %{buildroot}%{_datadir} \( -name "*.bat" -o -name "*.awk" \) \
 %dir %{_datadir}/nvim/runtime/lua
 %{_datadir}/nvim/runtime/lua/*.lua
 
+%dir %{_datadir}/nvim/runtime/lua/nvim
+%{_datadir}/nvim/runtime/lua/nvim/*.lua
+
 %dir %{_datadir}/nvim/runtime/lua/vim
 %{_datadir}/nvim/runtime/lua/vim/*.lua
 
@@ -439,6 +442,10 @@ find %{buildroot}%{_datadir} \( -name "*.bat" -o -name "*.awk" \) \
 %dir %{_datadir}/nvim/runtime/tutor/ja
 %{_datadir}/nvim/runtime/tutor/ja/*.tutor
 %{_datadir}/nvim/runtime/tutor/ja/*.tutor.json
+
+%dir %{_datadir}/nvim/runtime/tutor/zh
+%{_datadir}/nvim/runtime/tutor/zh/*.tutor
+%{_datadir}/nvim/runtime/tutor/zh/*.tutor.json
 
 %changelog
 %autochangelog

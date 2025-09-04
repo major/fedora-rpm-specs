@@ -5,7 +5,7 @@
 %global libsoup_version 3.0
 
 Name:		gnome-online-accounts
-Version:	3.55.1
+Version:	3.55.2
 Release:	%autorelease
 Summary:	Single sign-on framework for GNOME
 

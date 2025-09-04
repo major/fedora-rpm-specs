@@ -137,9 +137,6 @@ Requires: libwayland-client%{?_isa} >= %{wayland_version}
 Requires: libwayland-cursor%{?_isa} >= %{wayland_version}
 Requires: pango%{?_isa} >= %{pango_version}
 
-# required to support all the different image formats
-Requires: gdk-pixbuf2-modules%{?_isa}
-
 # make sure we have a reasonable gsettings backend
 Recommends: dconf%{?_isa}
 
