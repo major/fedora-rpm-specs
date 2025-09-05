@@ -1,15 +1,11 @@
 %bcond_without check
 
-%if 0%{?rhel}
-%global bundled_rust_deps 1
-%else
-%global bundled_rust_deps 0
-%endif
+%bcond bundled_rust_deps %{defined rhel}
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           snapshot
-Version:        49~beta
+Version:        49~rc
 Release:        %autorelease
 Summary:        Take pictures and videos
 
@@ -88,7 +84,7 @@ Take pictures and videos on your computer, tablet, or phone.
 %prep
 %autosetup -p1 -n snapshot-%{tarball_version}
 
-%if 0%{?bundled_rust_deps}
+%if %{with bundled_rust_deps}
 %cargo_prep -v vendor
 %else
 rm -rf vendor
@@ -96,7 +92,7 @@ rm -rf vendor
 %endif
 
 
-%if ! 0%{?bundled_rust_deps}
+%if %{without bundled_rust_deps}
 %generate_buildrequires
 %cargo_generate_buildrequires -a
 cd aperture
@@ -111,7 +107,7 @@ cd ~-
 
 %cargo_license_summary
 %{cargo_license} > LICENSE.dependencies
-%if 0%{?bundled_rust_deps}
+%if %{with bundled_rust_deps}
 %cargo_vendor_manifest
 %endif
 
@@ -138,12 +134,13 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Snapshot
 %files -f snapshot.lang
 %license LICENSE
 %license LICENSE.dependencies
-%if 0%{?bundled_rust_deps}
+%if %{with bundled_rust_deps}
 %license cargo-vendor.txt
 %endif
 %doc README.md
 %{_bindir}/snapshot
 %{_datadir}/applications/org.gnome.Snapshot.desktop
+%{_datadir}/dbus-1/services/org.gnome.Snapshot.service
 %{_datadir}/glib-2.0/schemas/org.gnome.Snapshot.gschema.xml
 %{_datadir}/icons/hicolor/scalable/apps/org.gnome.Snapshot*.svg
 %{_datadir}/icons/hicolor/symbolic/apps/org.gnome.Snapshot-symbolic.svg

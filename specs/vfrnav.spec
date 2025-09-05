@@ -1,6 +1,6 @@
 Name:           vfrnav
 Version:        20230429
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        VFR/IFR Navigation
 
 License:        GPL-2.0-or-later
@@ -478,6 +478,9 @@ fi
 %endif
 
 %changelog
+* Wed Sep 03 2025 Sandro Mani <manisandro@gmail.com> - 20230429-26
+- Rebuild (geos)
+
 * Thu Aug 07 2025 Orion Poplawski <orion@nwra.com> - 20230429-25
 - Rebuild for Octave 10.2
 

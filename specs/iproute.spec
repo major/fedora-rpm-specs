@@ -1,10 +1,13 @@
 Summary:            Advanced IP routing and network device configuration tools
 Name:               iproute
-Version:            6.14.0
+Version:            6.16.0
 Release:            %autorelease
 URL:                https://kernel.org/pub/linux/utils/net/%{name}2/
 Source0:            https://kernel.org/pub/linux/utils/net/%{name}2/%{name}2-%{version}.tar.xz
+%if 0%{?rhel}
 Source1:            rt_dsfield.deprecated
+Source2:            README.etc
+%endif
 
 License:            GPL-2.0-or-later AND NIST-PD
 BuildRequires:      bison
@@ -93,9 +96,25 @@ rm -rf '%{buildroot}%{_docdir}'
 # append deprecated values to rt_dsfield for compatibility reasons
 %if 0%{?rhel}
 cat %{SOURCE1} >>%{buildroot}%{_datadir}/iproute2/rt_dsfield
+mkdir -p %{buildroot}%{_sysconfdir}/iproute2
+cp %{SOURCE2} %{buildroot}%{_sysconfdir}/iproute2/README
+cp %{SOURCE2} %{buildroot}%{_datadir}/iproute2/README
+
+# RHEL-94662: restore /etc/iproute2 conf files, if modified
+# this is safe because we don't have conf files in /etc/iproute2 anymore, so
+# every *.rpmsave file over there is a leftover from a failed conf upgrade
+%posttrans
+if [ -f /etc/iproute2/*rpmsave ]; then
+  for conffile in /etc/iproute2/*rpmsave; do
+    mv $conffile ${conffile%.rpmsave}
+  done
+fi
 %endif
 
 %files
+%if 0%{?rhel}
+%dir %{_sysconfdir}/iproute2
+%endif
 %dir %{_datadir}/iproute2
 %license COPYING
 %doc README README.devel
@@ -105,8 +124,11 @@ cat %{SOURCE1} >>%{buildroot}%{_datadir}/iproute2/rt_dsfield
 %exclude %{_mandir}/man8/tc*
 %exclude %{_mandir}/man8/cbq*
 %exclude %{_mandir}/man8/arpd*
-%attr(644,root,root) %config(noreplace) %{_datadir}/iproute2/*
+%attr(644,root,root) %config %{_datadir}/iproute2/*
 %{_sbindir}/*
+%if 0%{?rhel}
+%attr(644,root,root) %{_sysconfdir}/iproute2/*
+%endif
 %exclude %{_sbindir}/tc
 %exclude %{_sbindir}/routel
 %{_datadir}/bash-completion/completions/devlink

@@ -148,10 +148,10 @@ python3 -m pytest tests/unittests
 %{_unitdir}/cloud-init-network.service
 %{_unitdir}/cloud-config.target
 %{_unitdir}/cloud-init.target
-/usr/lib/systemd/system-generators/cloud-init-generator
 %{_unitdir}/cloud-init-hotplugd.service
 %{_unitdir}/cloud-init-hotplugd.socket
 %{_unitdir}/sshd-keygen@.service.d/disable-sshd-keygen-if-cloud-init-active.conf
+%{_systemdgeneratordir}/cloud-init-generator
 %{_tmpfilesdir}/%{name}.conf
 %{python3_sitelib}/*
 %{_libexecdir}/%{name}

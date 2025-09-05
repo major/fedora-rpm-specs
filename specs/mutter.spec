@@ -92,6 +92,7 @@ BuildRequires: pkgconfig(libeis-1.0) >= %{libei_version}
 
 BuildRequires: pkgconfig(libinput) >= %{libinput_version}
 BuildRequires: pkgconfig(xwayland)
+BuildRequires: pkgconfig(bash-completion)
 
 BuildRequires: python3-dbusmock
 
@@ -188,18 +189,19 @@ install -p %{SOURCE1} %{buildroot}%{_datadir}/glib-2.0/schemas
 %{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/*/*/*
 %{_datadir}/polkit-1/actions/org.gnome.mutter.*.policy
+%{_bindir}/gdctl
+%{_datadir}/bash-completion/completions/gdctl
 %{_libdir}/lib*.so.*
 %{_libdir}/mutter-%{mutter_api_version}/
 %if %{with x11}
+%exclude %{_libdir}/mutter-%{mutter_api_version}/*.gir
 %{_libexecdir}/mutter-restart-helper
 %endif
 %{_libexecdir}/mutter-backlight-helper
 %{_libexecdir}/mutter-devkit
 %{_libexecdir}/mutter-x11-frames
 %{_mandir}/man1/mutter.1*
-%{_bindir}/gdctl
 %{_mandir}/man1/gdctl.1*
-%{_sysconfdir}/bash_completion.d/gdctl
 
 %files common
 %{_datadir}/GConf/gsettings/mutter-schemas.convert
@@ -212,6 +214,7 @@ install -p %{SOURCE1} %{buildroot}%{_datadir}/glib-2.0/schemas
 %files devel
 %{_includedir}/*
 %{_libdir}/lib*.so
+%{_libdir}/mutter-%{mutter_api_version}/*.gir
 %{_libdir}/pkgconfig/*
 
 %files tests

@@ -6,7 +6,7 @@
 
 Summary: A utility for getting files from remote servers (FTP, HTTP, and others)
 Name: curl
-Version: 8.16.0~rc2
+Version: 8.16.0~rc3
 Release: 1%{?dist}
 License: curl
 Source0: https://curl.se/download/%{name}-%{version_no_tilde}.tar.xz
@@ -407,6 +407,9 @@ rm -f ${RPM_BUILD_ROOT}%{_libdir}/libcurl.la
 %{_libdir}/libcurl.so.4.[0-9].[0-9].minimal
 
 %changelog
+* Wed Sep 03 2025 Jan Macku <jamacku@redhat.com> - 8.16.0~rc3-1
+- new upstream release candidate
+
 * Tue Aug 26 2025 Jan Macku <jamacku@redhat.com> - 8.16.0~rc2-1
 - new upstream release candidate
 

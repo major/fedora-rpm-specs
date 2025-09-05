@@ -6,7 +6,7 @@
 %global crate secret-service
 
 Name:           rust-secret-service
-Version:        5.0.0
+Version:        5.1.0
 Release:        %autorelease
 Summary:        Library to interface with Secret Service API
 

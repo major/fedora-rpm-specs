@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:    kleopatra
 Version: 25.08.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: KDE certificate manager and unified crypto GUI
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -57,6 +57,12 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 BuildRequires:  hicolor-icon-theme
 
+Requires:       gnupg2
+Requires:       gnupg2-smime
+%if 0%{?rhel} >= 11 || 0%{?fedora} >= 43
+Requires:       gnupg2-scdaemon
+%endif
+
 # The -libs subpackage no longer contained anything
 Obsoletes:      %{name}-libs < 25.03.80
 
@@ -104,6 +110,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_kf6_metainfodir}/org.kde.kleopatra.appdata.xml
 
 %changelog
+* Wed Sep 03 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 25.08.0-3
+- Add missing runtime dependencies (#2392841)
+
 * Sat Aug 16 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 25.08.0-2
 - Drop i686 support (leaf package)
 

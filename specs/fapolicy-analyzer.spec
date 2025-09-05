@@ -5,7 +5,7 @@
 Summary:       File Access Policy Analyzer
 Name:          fapolicy-analyzer
 Version:       1.5.0
-Release:       5%{?dist}
+Release:       6%{?dist}
 
 SourceLicense: GPL-3.0-or-later
 # Apache-2.0
@@ -28,6 +28,10 @@ Source0:       %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Source1:       %{url}/releases/download/v%{version}/vendor-docs-%{version}.tar.gz
 
 Patch:         0001-pyo3-0.23-support.patch
+
+# Drop python-toml dependency
+# Cherry-picked from https://github.com/ctc-oss/fapolicy-analyzer/pull/1070
+Patch:         Drop_python-toml.patch
 
 BuildRequires: python3-devel
 BuildRequires: python3dist(setuptools)
@@ -67,7 +71,7 @@ Requires:      python3-configargparse
 Requires:      python3-more-itertools
 Requires:      python3-rx
 Requires:      python3-importlib-metadata
-Requires:      python3-toml
+Requires:      python3-tomli
 Requires:      python3-matplotlib-gtk3
 
 Requires:      gtk3
@@ -188,6 +192,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %license LICENSE.dependencies
 
 %changelog
+* Tue Sep 02 2025 Cristian Le <git@lecris.dev> - 1.5.0-6
+- Drop python-toml dependency (rhbz#2392560)
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.5.0-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

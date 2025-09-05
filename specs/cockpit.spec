@@ -57,7 +57,7 @@ Summary:        Web Console for Linux servers
 License:        LGPL-2.1-or-later
 URL:            https://cockpit-project.org/
 
-Version:        345
+Version:        346
 Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 
@@ -132,7 +132,7 @@ Recommends: (cockpit-ostree if rpm-ostree)
 Suggests: cockpit-selinux
 %endif
 %if 0%{?rhel} && 0%{?centos} == 0
-Requires: subscription-manager-cockpit
+Recommends: subscription-manager-cockpit
 %endif
 
 BuildRequires:  python3-devel
@@ -647,6 +647,10 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Sep 03 2025 Packit <hello@packit.dev> - 346-1
+- Support branding Cockpit pages
+- Storage: Support for Stratis "V2" pools
+
 * Wed Aug 20 2025 Packit <hello@packit.dev> - 345-1
 - Translation and dependency updates
 - Shorter IPv6 addresses

@@ -1,6 +1,6 @@
 Name:           binwalk
 Version:        2.3.4
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Firmware analysis tool
 License:        MIT
 URL:            https://github.com/ReFirmLabs/binwalk
@@ -11,6 +11,7 @@ Patch1:         %{url}/pull/559/commits/6e7736869d998edb6384728c03a348cd9ab1f9ca
 Patch2:         version-oops.patch
 # https://github.com/ReFirmLabs/binwalk/issues/507
 Patch3:         requires-zombie-imp.patch
+Patch4:         0001-Migrate-from-ast.Num-to-ast.Constant.patch
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -57,6 +58,9 @@ cd testing/tests
 %{python3_sitelib}/%{name}-%{version}*.egg-info
 
 %changelog
+* Wed Sep 03 2025 LuK1337 <priv.luk@gmail.com> - 2.3.4-14
+- Add support for Python 3.14
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.4-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

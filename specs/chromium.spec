@@ -244,7 +244,7 @@
 %endif
 
 Name:	chromium
-Version: 139.0.7258.154
+Version: 140.0.7339.80
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -357,27 +357,11 @@ Patch358: chromium-135-rust-clanglib.patch
 # Timothy Pearson's patchset
 # https://gitlab.raptorengineering.com/raptor-engineering-public/chromium/openpower-patches
 Patch359: add-ppc64-architecture-string.patch
-Patch360: 0001-linux-seccomp-bpf-ppc64-glibc-workaround-in-SIGSYS-h.patch
 Patch361: 0001-sandbox-Enable-seccomp_bpf-for-ppc64.patch
-Patch362: 0001-services-service_manager-sandbox-linux-Fix-TCGETS-de.patch
-Patch363: 0001-sandbox-linux-bpf_dsl-Update-syscall-ranges-for-ppc6.patch
-Patch364: 0001-sandbox-linux-Implement-partial-support-for-ppc64-sy.patch
-Patch365: 0001-sandbox-linux-Update-IsSyscallAllowed-in-broker_proc.patch
-Patch366: 0001-sandbox-linux-Update-syscall-helpers-lists-for-ppc64.patch
-Patch367: 0002-sandbox-linux-bpf_dsl-Modify-seccomp_macros-to-add-s.patch
-Patch368: 0003-sandbox-linux-system_headers-Update-linux-seccomp-he.patch
-Patch369: 0004-sandbox-linux-system_headers-Update-linux-signal-hea.patch
-Patch370: 0005-sandbox-linux-seccomp-bpf-Add-ppc64-syscall-stub.patch
-Patch371: 0005-sandbox-linux-update-unit-test-for-ppc64.patch
-Patch372: 0006-sandbox-linux-disable-timedwait-time64-ppc64.patch
-Patch373: 0007-sandbox-linux-add-ppc64-stat.patch
-Patch374: Sandbox-linux-services-credentials.cc-PPC.patch
-Patch375: 0008-sandbox-fix-ppc64le-glibc234.patch
 
 Patch376: 0001-third_party-angle-Include-missing-header-cstddef-in-.patch
 Patch377: 0001-Add-PPC64-support-for-boringssl.patch
 Patch378: 0001-third_party-libvpx-Properly-generate-gni-on-ppc64.patch
-Patch379: 0009-sandbox-updates-138.patch
 Patch380: 0001-third_party-pffft-Include-altivec.h-on-ppc64-with-SI.patch
 Patch381: 0002-Add-PPC64-generated-files-for-boringssl.patch
 Patch382: 0002-third_party-lss-kernel-structs.patch
@@ -393,32 +377,31 @@ Patch386: 0004-third_party-crashpad-port-curl-transport-ppc64.patch
 Patch387: HACK-third_party-libvpx-use-generic-gnu.patch
 Patch388: 0001-third-party-hwy-wrong-include.patch
 Patch389: HACK-debian-clang-disable-base-musttail.patch
+Patch390: HACK-debian-clang-disable-pa-musttail.patch
+Patch391: 0001-Add-ppc64-target-to-libaom.patch
+Patch392: 0001-Add-pregenerated-config-for-libaom-on-ppc64.patch
 
-Patch390: 0001-Add-ppc64-target-to-libaom.patch
-Patch391: 0001-Add-pregenerated-config-for-libaom-on-ppc64.patch
-
-Patch392: 0002-third_party-libvpx-Remove-bad-ppc64-config.patch
-Patch393: 0003-third_party-libvpx-Add-ppc64-generated-config.patch
+Patch393: 0002-third_party-libvpx-Remove-bad-ppc64-config.patch
+Patch394: 0003-third_party-libvpx-Add-ppc64-generated-config.patch
 # Enabling VSX causes artifacts to appear in VP9 videos
-Patch394: 0004-third_party-libvpx-work-around-ambiguous-vsx.patch
+Patch395: 0004-third_party-libvpx-work-around-ambiguous-vsx.patch
 
 # Enable VSX acceleration in Skia.  Requires POWER8 or higher.
-Patch395: skia-vsx-instructions.patch
+Patch396: skia-vsx-instructions.patch
 
-Patch396: 0001-Implement-support-for-ppc64-on-Linux.patch
-Patch397: 0001-Implement-support-for-PPC64-on-Linux.patch
-Patch398: 0001-Force-baseline-POWER8-AltiVec-VSX-CPU-features-when-.patch
-Patch399: fix-clang-selection.patch
-Patch400: fix-rustc.patch
-Patch401: fix-rust-linking.patch
-Patch402: fix-breakpad-compile.patch
-Patch403: fix-partition-alloc-compile.patch
-Patch404: fix-study-crash.patch
-Patch405: memory-allocator-dcheck-assert-fix.patch
-Patch406: fix-different-data-layouts.patch
-Patch407: 0002-Add-ppc64-trap-instructions.patch
+Patch397: 0001-Implement-support-for-ppc64-on-Linux.patch
+Patch398: 0001-Implement-support-for-PPC64-on-Linux.patch
+Patch399: 0001-Force-baseline-POWER8-AltiVec-VSX-CPU-features-when-.patch
+Patch400: fix-clang-selection.patch
+Patch401: fix-rustc.patch
+Patch402: fix-rust-linking.patch
+Patch403: fix-breakpad-compile.patch
+Patch404: fix-partition-alloc-compile.patch
+Patch405: fix-study-crash.patch
+Patch406: memory-allocator-dcheck-assert-fix.patch
+Patch407: fix-different-data-layouts.patch
+Patch408: 0002-Add-ppc64-trap-instructions.patch
 
-Patch408: fix-ppc64-linux-syscalls-headers.patch
 Patch409: fix-page-allocator-overflow.patch
 Patch410: 0001-Enable-ppc64-pointer-compression.patch
 
@@ -1043,26 +1026,10 @@ Qt6 UI for chromium.
 
 %ifarch ppc64le
 %patch -P359 -p1 -b .add-ppc64-architecture-string
-%patch -P360 -p1 -b .0001-linux-seccomp-bpf-ppc64-glibc-workaround-in-SIGSYS-h
 %patch -P361 -p1 -b .0001-sandbox-Enable-seccomp_bpf-for-ppc64
-%patch -P362 -p1 -b .0001-services-service_manager-sandbox-linux-Fix-TCGETS-de
-%patch -P363 -p1 -b .0001-sandbox-linux-bpf_dsl-Update-syscall-ranges-for-ppc6
-%patch -P364 -p1 -b .0001-sandbox-linux-Implement-partial-support-for-ppc64-sy
-%patch -P365 -p1 -b .0001-sandbox-linux-Update-IsSyscallAllowed-in-broker_proc
-%patch -P366 -p1 -b .0001-sandbox-linux-Update-syscall-helpers-lists-for-ppc64
-%patch -P367 -p1 -b .0002-sandbox-linux-bpf_dsl-Modify-seccomp_macros-to-add-s
-%patch -P368 -p1 -b .0003-sandbox-linux-system_headers-Update-linux-seccomp-he
-%patch -P369 -p1 -b .0004-sandbox-linux-system_headers-Update-linux-signal-hea
-%patch -P370 -p1 -b .0005-sandbox-linux-seccomp-bpf-Add-ppc64-syscall-stub
-%patch -P371 -p1 -b .0005-sandbox-linux-update-unit-test-for-ppc64
-%patch -P372 -p1 -b .0006-sandbox-linux-disable-timedwait-time64-ppc64
-%patch -P373 -p1 -b .0007-sandbox-linux-add-ppc64-stat
-%patch -P374 -p1 -b .Sandbox-linux-services-credentials.cc-PPC
-%patch -P375 -p1 -b .0008-sandbox-fix-ppc64le-glibc234
 %patch -P376 -p1 -b .0001-third_party-angle-Include-missing-header-cstddef-in-
 %patch -P377 -p1 -b .0001-Add-PPC64-support-for-boringssl
 %patch -P378 -p1 -b .0001-third_party-libvpx-Properly-generate-gni-on-ppc64
-%patch -P379 -p1 -b .0009-sandbox-updates-138
 %patch -P380 -p1 -b .0001-third_party-pffft-Include-altivec.h-on-ppc64-with-SI
 %patch -P381 -p1 -b .002-Add-PPC64-generated-files-for-boringssl
 %patch -P382 -p1 -b .0002-third_party-lss-kernel-structs
@@ -1073,26 +1040,26 @@ Qt6 UI for chromium.
 %patch -P387 -p1 -b .HACK-third_party-libvpx-use-generic-gnu
 %patch -P388 -p1 -b .0001-third-party-hwy-wrong-include.patch
 %patch -P389 -p1 -b .HACK-debian-clang-disable-base-musttail
-%patch -P390 -p1 -b .0001-Add-ppc64-target-to-libaom
-%patch -P391 -p1 -b .0001-Add-pregenerated-config-for-libaom-on-ppc64
-%patch -P392 -p1 -b .0002-third_party-libvpx-Remove-bad-ppc64-config
-%patch -P393 -p1 -b .0003-third_party-libvpx-Add-ppc64-generated-config
-%patch -P394 -p1 -b .0004-third_party-libvpx-work-around-ambiguous-vsx
-%patch -P395 -p1 -b .skia-vsx-instructions
-%patch -P396 -p1 -b .0001-Implement-support-for-ppc64-on-Linux
-%patch -P397 -p1 -b .0001-Implement-support-for-PPC64-on-Linux
-%patch -P398 -p1 -b .0001-Force-baseline-POWER8-AltiVec-VSX-CPU-features-when-
-%patch -P399 -p1 -b .fix-clang-selection
-%patch -P400 -p1 -b .fix-rustc
-%patch -P401 -p1 -b .fix-rust-linking
-%patch -P402 -p1 -b .fix-breakpad-compile
-%patch -P403 -p1 -b .fix-partition-alloc-compile
-%patch -P404 -p1 -b .fix-study-crash
-%patch -P405 -p1 -b .memory-allocator-dcheck-assert-fix
-%patch -P406 -p1 -b .fix-different-data-layouts
-%patch -P407 -p1 -b .0002-Add-ppc64-trap-instructions
-%patch -P408 -p1 -b .fix-ppc64-linux-syscalls-headers
-%patch -P409 -p1 -b .use-sysconf-page-size-on-ppc64
+%patch -P390 -p1 -b .HACK-debian-clang-disable-pa-musttail
+%patch -P391 -p1 -b .0001-Add-ppc64-target-to-libaom
+%patch -P392 -p1 -b .0001-Add-pregenerated-config-for-libaom-on-ppc64
+%patch -P393 -p1 -b .0002-third_party-libvpx-Remove-bad-ppc64-config
+%patch -P394 -p1 -b .0003-third_party-libvpx-Add-ppc64-generated-config
+%patch -P395 -p1 -b .0004-third_party-libvpx-work-around-ambiguous-vsx
+%patch -P396 -p1 -b .skia-vsx-instructions
+%patch -P397 -p1 -b .0001-Implement-support-for-ppc64-on-Linux
+%patch -P398 -p1 -b .0001-Implement-support-for-PPC64-on-Linux
+%patch -P399 -p1 -b .0001-Force-baseline-POWER8-AltiVec-VSX-CPU-features-when-
+%patch -P400 -p1 -b .fix-clang-selection
+%patch -P401 -p1 -b .fix-rustc
+%patch -P402 -p1 -b .fix-rust-linking
+%patch -P403 -p1 -b .fix-breakpad-compile
+%patch -P404 -p1 -b .fix-partition-alloc-compile
+%patch -P405 -p1 -b .fix-study-crash
+%patch -P406 -p1 -b .memory-allocator-dcheck-assert-fix
+%patch -P407 -p1 -b .fix-different-data-layouts
+%patch -P408 -p1 -b .0002-Add-ppc64-trap-instructions
+%patch -P409 -p1 -b .fix-page-allocator-overflow
 %patch -P410 -p1 -b .0001-Enable-ppc64-pointer-compression
 %patch -P411 -p1 -b .dawn-fix-ppc64le-detection
 %patch -P412 -p1 -b .add-ppc64-architecture-to-extensions
@@ -1125,12 +1092,6 @@ find -type f \( -iname "*.py" \) -exec sed -i '1s=^#! */usr/bin/\(python\|env py
 
 # Get rid of the prebuilt esbuild binary
 rm -rf third_party/devtools-frontend/src/third_party/esbuild
-
-# Get rid of the pre-built eu-strip binary, it is x86_64 and of mysterious origin
-rm -rf buildtools/third_party/eu-strip/bin/eu-strip
-  
-# Replace it with a symlink to the Fedora copy
-ln -s $(which eu-strip) buildtools/third_party/eu-strip/bin/eu-strip
 
 # Remove bundle gn and replace it with a system gn or bootstrap gn as it is x86_64 and causes
 # FTBFS on other arch like aarch64/ppc64le
@@ -1746,6 +1707,13 @@ fi
 %endif
 
 %changelog
+* Wed Sep 03 2025 Than Ngo <than@redhat.com> - 140.0.7339.80-1
+- Update to 140.0.7339.80
+  * CVE-2025-9864: Use after free in V8
+  * CVE-2025-9865: Inappropriate implementation in Toolbar
+  * CVE-2025-9866: Inappropriate implementation in Extensions
+    CVE-2025-9867: Inappropriate implementation in Downloads
+
 * Thu Aug 28 2025 Than Ngo <than@redhat.com> - 139.0.7258.154-1
 - Update to 139.0.7258.154
   * CVE-2025-9478: Use after free in ANGLE

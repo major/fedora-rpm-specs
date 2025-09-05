@@ -6,8 +6,8 @@
 Name:           pgadmin4
 # NOTE: Also regenerate requires as indicated below when updating!
 # Verify Patch4 on next update
-Version:        9.6
-Release:        4%{?dist}
+Version:        9.7
+Release:        1%{?dist}
 Summary:        Administration tool for PostgreSQL
 
 # i686, armv7hl: The webpack terser plugin aborts with JS heap memory exhaustion on these arches
@@ -64,8 +64,8 @@ Requires: python3dist(azure-identity) >= 1.17
 Requires: python3dist(azure-mgmt-rdbms) >= 10.1
 Requires: python3dist(azure-mgmt-resource) >= 23.1
 Requires: python3dist(azure-mgmt-subscription) >= 3
-Requires: python3dist(bcrypt) >= 4.2
-Requires: python3dist(boto3) >= 1.38
+Requires: (python3dist(bcrypt) >= 4.3 with python3dist(bcrypt) < 4.4)
+Requires: (python3dist(boto3) >= 1.40 with python3dist(boto3) < 1.41)
 Requires: (python3dist(cryptography) >= 45 with python3dist(cryptography) < 45.1)
 Requires: (python3dist(flask-babel) >= 4 with python3dist(flask-babel) < 4.1)
 Requires: (python3dist(flask-compress) >= 1 with python3dist(flask-compress) < 2)
@@ -79,15 +79,15 @@ Requires: python3dist(flask-sqlalchemy) >= 3
 Requires: (python3dist(flask-wtf) >= 1.2 with python3dist(flask-wtf) < 1.3)
 Requires: (python3dist(flask) >= 3.1 with python3dist(flask) < 3.2)
 Requires: (python3dist(google-api-python-client) >= 2 with python3dist(google-api-python-client) < 3)
-Requires: python3dist(google-auth-oauthlib) >= 1.2
+Requires: python3dist(google-auth-oauthlib) = 1.2.2
 Requires: python3dist(gssapi) >= 1.7
 Requires: (python3dist(jsonformatter) >= 0.3.4 with python3dist(jsonformatter) < 0.4)
 Requires: (python3dist(keyring) >= 25 with python3dist(keyring) < 26)
 Requires: (python3dist(ldap3) >= 2 with python3dist(ldap3) < 3)
 Requires: (python3dist(libgravatar) >= 1 with python3dist(libgravatar) < 1.1)
 Requires: (python3dist(passlib) >= 1 with python3dist(passlib) < 2)
-Requires: python3dist(psutil) >= 6
-Requires: python3dist(psycopg) >= 3.2.9
+Requires: (python3dist(psutil) >= 7 with python3dist(psutil) < 7.1)
+Requires: (python3dist(psycopg) >= 3.2 with python3dist(psycopg) < 3.3)
 Requires: (python3dist(pyotp) >= 2 with python3dist(pyotp) < 3)
 Requires: (python3dist(python-dateutil) >= 2 with python3dist(python-dateutil) < 3)
 Requires: (python3dist(pytz) >= 2025 with python3dist(pytz) < 2026)
@@ -96,8 +96,8 @@ Requires: python3dist(setuptools) >= 78
 Requires: (python3dist(sqlalchemy) >= 2 with python3dist(sqlalchemy) < 3)
 Requires: (python3dist(sqlparse) >= 0 with python3dist(sqlparse) < 1)
 Requires: (python3dist(sshtunnel) >= 0 with python3dist(sshtunnel) < 1)
-Requires: python3dist(typer) >= 0.15
-Requires: python3dist(urllib3) >= 2.4
+Requires: python3dist(typer) >= 0.16
+Requires: (python3dist(urllib3) >= 2.5 with python3dist(urllib3) < 2.6)
 Requires: python3dist(user-agents) = 2.2
 Requires: (python3dist(werkzeug) >= 3.1 with python3dist(werkzeug) < 3.2)
 Requires: python3dist(wtforms) >= 3
@@ -258,6 +258,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Wed Sep 03 2025 Sandro Mani <manisandro@gmail.com> - 9.7-1
+- Update to 9.7
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 9.6-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

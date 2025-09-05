@@ -24,7 +24,17 @@ URL:            https://wiki.gnome.org/Apps/Terminal/VTE
 Source0:        https://download.gnome.org/sources/vte/0.81/vte-%{version}.tar.xz
 
 # https://gitlab.gnome.org/GNOME/vte/-/merge_requests/2
-Patch0:         0001-Only-use-fast_float-when-std-from_chars-is-insuffici.patch
+Patch:          0001-Only-use-fast_float-when-std-from_chars-is-insuffici.patch
+
+# https://gitlab.gnome.org/GNOME/vte/-/merge_requests/4
+Patch:          a11y-line-counting.patch
+# https://gitlab.gnome.org/GNOME/vte/-/merge_requests/6
+Patch:          a11y-range-per-text-attribute.patch
+# https://gitlab.gnome.org/GNOME/vte/-/merge_requests/7
+Patch:          a11y-granular-scroll-notifications.patch
+
+# https://gitlab.gnome.org/GNOME/vte/-/issues/2897
+Patch:          fix-backspace.patch
 
 BuildRequires:  pkgconfig(fmt) >= %{fmt_version}
 BuildRequires:  pkgconfig(fribidi) >= %{fribidi_version}

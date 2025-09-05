@@ -51,15 +51,21 @@ export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 #     eval "$(register-python-argcomplete pipx)"
 #
 # zsh:
-#     To activate completions for zsh you need to have
-#     bashcompinit enabled in zsh:
+#     To activate completions in zsh, first make sure compinit is marked for
+#     autoload and run autoload:
+#
+#     autoload -U compinit && compinit
+#
+#     Afterwards you can enable completions for pipx:
+#
+#     eval "$(register-python-argcomplete pipx)"
+#
+#     NOTE: If your version of argcomplete is earlier than v3, you may need to
+#     have bashcompinit enabled in zsh by running:
 #
 #     autoload -U bashcompinit
 #     bashcompinit
 #
-#     Afterwards you can enable completion for pipx:
-#
-#     eval "$(register-python-argcomplete pipx)"
 #
 # tcsh:
 #     eval `register-python-argcomplete --shell tcsh pipx`
@@ -87,9 +93,8 @@ install -p -m 0644 -D -t '%{buildroot}%{fish_completions_dir}' pipx.fish
 # users.
 install -p -m 0644 -D pipx.tcsh \
     '%{buildroot}%{_datadir}/pipx/pipx-completion.tcsh'
-# Note that there are no “native” zsh completions, so we do not attempt to
-# install anything. This could change if an actual zsh user recommends a
-# different plan.
+# Install the same generated bash completion for zsh
+install -p -m 0644 -D pipx.bash '%{buildroot}%{zsh_completions_dir}/_pipx'
 
 
 %check -a
@@ -118,6 +123,7 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} \
 
 %{bash_completions_dir}/pipx.bash
 %{fish_completions_dir}/pipx.fish
+%{zsh_completions_dir}/_pipx
 
 %{_datadir}/pipx/
 

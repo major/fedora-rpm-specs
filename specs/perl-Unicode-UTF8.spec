@@ -1,14 +1,16 @@
 # Run optional test
 %if ! (0%{?rhel})
 %bcond_without perl_Unicode_UTF8_enables_optional_test
+%bcond_without perl_Unicode_UTF8_enables_system_Module_Install
 %else
 %bcond_with perl_Unicode_UTF8_enables_optional_test
+%bcond_with perl_Unicode_UTF8_enables_system_Module_Install
 %endif
 
 Summary:	Encoding and decoding of UTF-8 encoding form
 Name:		perl-Unicode-UTF8
 Version:	0.62
-Release:	29%{?dist}
+Release:	31%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Unicode-UTF8
 Source0:	https://cpan.metacpan.org/modules/by-module/Unicode/Unicode-UTF8-%{version}.tar.gz
@@ -20,8 +22,22 @@ BuildRequires:	make
 BuildRequires:	perl-devel
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
+BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
+%if %{with perl_Unicode_UTF8_enables_system_Module_Install}
 BuildRequires:	perl(inc::Module::Install)
 BuildRequires:	perl(Module::Install::ReadmeFromPod)
+%else
+BuildRequires:	perl(base)
+BuildRequires:	perl(Config)
+BuildRequires:	perl(Cwd)
+BuildRequires:	perl(Fcntl)
+BuildRequires:	perl(File::Basename)
+BuildRequires:	perl(File::Find)
+BuildRequires:	perl(File::Path)
+BuildRequires:	perl(FindBin)
+BuildRequires:	perl(Pod::Text)
+BuildRequires:	perl(vars)
+%endif
 # Module Runtime
 BuildRequires:	perl(Carp)
 BuildRequires:	perl(Exporter)
@@ -57,17 +73,18 @@ specified by Unicode and ISO/IEC 10646:2011.
 %prep
 %setup -q -n Unicode-UTF8-%{version}
 
+%if %{with perl_Unicode_UTF8_enables_system_Module_Install}
 # Unbundle inc::Module::Install, we'll use system version instead
 rm -rvf inc/
 perl -i -ne 'print $_ unless m{^inc/}' MANIFEST
+%endif
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}"
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="%{optflags}"
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 find %{buildroot} -type f -name '*.bs' -empty -delete
 %{_fixperms} -c %{buildroot}
 
@@ -81,6 +98,12 @@ make test
 %{_mandir}/man3/Unicode::UTF8.3*
 
 %changelog
+* Wed Sep  3 2025 Paul Howarth <paul@city-fan.org> - 0.62-31
+- Use %%{make_build} and %%{make_install}
+
+* Wed Sep 03 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 0.62-30
+- Use bundled Module::Install in RHEL builds
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.62-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

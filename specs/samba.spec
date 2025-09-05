@@ -94,7 +94,9 @@
 # pcp is no longer supported
 %if 0%{?fedora}
 %ifnarch i686
+%if 0%{?fedora} < 43
 %bcond pcp_pmda 1
+%endif
 %endif
 %else
 %bcond pcp_pmda 0
@@ -222,6 +224,8 @@ Source18:       samba-winbind-systemd-sysusers.conf
 
 Source201:      README.downgrade
 Source202:      samba.abignore
+Patch0:         samba-bz15902.patch
+Patch1:         samba-pcp-7.0.0.patch
 
 Requires(pre): %{name}-common = %{samba_depver}
 Requires: %{name}-common = %{samba_depver}

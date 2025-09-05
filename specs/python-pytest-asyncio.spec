@@ -1,7 +1,7 @@
 %bcond_without  tests
 
 Name:           python-pytest-asyncio
-Version:        0.26.0
+Version:        1.1.0
 Release:        %autorelease
 Summary:        Pytest support for asyncio
 License:        Apache-2.0
@@ -60,6 +60,7 @@ sed -e '/setuptools_scm/ s/>=6.2//' -i pyproject.toml
 # emitted.  This can cause failures for us in rawhide with the latest versions
 # of pytest and pre-release versions of python, so we'll skip those tests.
 export PYTEST_ADDOPTS="-k 'not test_can_use_explicit_event_loop_fixture and \
+not test_closing_event_loop_in_sync_fixture_teardown_raises_warning and \
 not test_event_loop_fixture_finalizer_raises_warning_when_fixture_leaves_loop_unclosed and \
 not test_event_loop_fixture_finalizer_raises_warning_when_test_leaves_loop_unclosed and \
 not test_event_loop_fixture_asyncgen_error and \

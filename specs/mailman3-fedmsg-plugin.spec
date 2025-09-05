@@ -3,8 +3,8 @@
 %{!?python3_pkgversion: %global python3_pkgversion 3}
 
 Name:               mailman3-fedmsg-plugin
-Version:            1.0.0
-Release:            5%{?dist}
+Version:            1.0.1
+Release:            1%{?dist}
 Summary:            Emit fedora messaging messages from mailman3
 
 License:            LGPL-3.0-or-later
@@ -69,6 +69,9 @@ rm -rf %{modname}.egg-info
 %doc README.md
 
 %changelog
+* Wed Sep 03 2025 Kevin Fenzi <kevin@scrye.com> - 1.0.1-1
+- Update to 1.0.1. Fixes rhbz#2304216
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

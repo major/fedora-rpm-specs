@@ -21,6 +21,8 @@ Source4:        p11-kit-client.service
 
 # https://github.com/p11-glue/p11-kit/pull/667
 Patch0:         p11-kit-0.25.6-thread-local-var.patch
+# https://github.com/p11-glue/p11-kit/pull/704
+Patch1:         p11-kit-0.25.5-rpc-empty.patch
 
 BuildRequires:  gcc
 BuildRequires:  libtasn1-devel >= 2.3

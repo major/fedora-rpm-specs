@@ -9,7 +9,7 @@ between multiple scripts. Noto family supports almost all scripts available\
 in Unicode.\
 %{nil}
 
-%global srcver	2025.08.01
+%global srcver	2025.09.01
 %global majorver	%{lua: v, _ = string.gsub(rpm.expand("%{srcver}"), "(%d+)%.%d+%.%d+", "%1"); print(v)}
 %global minorver	%{lua: v, _ = string.gsub(rpm.expand("%{srcver}"), "%d+%.(%d+)%.%d+", "%1"); print(v)}
 %global patchver	%{lua: v, _ = string.gsub(rpm.expand("%{srcver}"), "%d+%.%d+%.(%d+)", "%1"); print(v)}
@@ -33,7 +33,7 @@ in Unicode.\
 
 Name:           %{fontname}-fonts
 Version:        %{rpmver}
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        Hinted and Non Hinted OpenType fonts for Unicode scripts
 License:        OFL-1.1
 URL:            https://notofonts.github.io/
@@ -1220,6 +1220,9 @@ done
 
 
 %changelog
+* Wed Sep  3 2025 Akira TAGOH <tagoh@redhat.com> - 20250901-1
+- Updates to monthly release of 2025.09.01.
+
 * Mon Aug  4 2025 Akira TAGOH <tagoh@redhat.com> - 20250801-1
 - Updates to monthly release of 2025.08.01.
 

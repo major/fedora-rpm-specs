@@ -8,13 +8,17 @@ yml and toml formats.
 
 Name:           python-%{pypi_name}
 Version:        0.8.2
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        %sum
 
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
 URL:            https://pypi.python.org/pypi/%{pypi_name}
 Source0:        https://github.com/mattrobenolt/jinja2-cli/archive/0.8.2/jinja2-cli-0.8.2.tar.gz
+
+# Drop python-toml dependency
+# Cherry-picked from: https://github.com/mattrobenolt/jinja2-cli/pull/138
+Patch:          138.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -30,7 +34,6 @@ Summary:        %sum
 BuildArch:      noarch
 Requires:       python3-jinja2
 Requires:       python3-PyYAML
-Requires:       python3-toml
 
 %description -n python3-%{pypi_name}
 %desc
@@ -38,6 +41,7 @@ Requires:       python3-toml
 
 %prep
 %setup -qn %{pypi_name}-%{version}
+%autopatch -p1
 
 
 %generate_buildrequires
@@ -70,6 +74,9 @@ py.test-%{python3_version}
 
 
 %changelog
+* Tue Sep 02 2025 Cristian Le <git@lecris.dev> - 0.8.2-17
+- Drop python-toml dependency (rhbz#2392563)
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.8.2-16
 - Rebuilt for Python 3.14.0rc2 bytecode
 

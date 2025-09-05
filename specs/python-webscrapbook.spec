@@ -1,12 +1,9 @@
 # Initially created by pyp2rpm-3.3.2
 %global pypi_name webscrapbook
 
-# Temporarily using `devel` branch sources to pick up fixes for
-# broken tests
-# See: https://github.com/danny0838/PyWebScrapBook/issues/79
 #%%global gitdate 20240526
 #%%global gitref 48ad89d28e811fe4fc633e5071bd874c76caddee
-#%%global shortref %(echo %{gitref} |cut -c1-8)
+#%%global shortref %%(echo %%{gitref} |cut -c1-8)
 
 %if 0%{?shortref:1}
 %global buildref .%{gitdate}git%{shortref}
@@ -24,8 +21,8 @@
 
 
 Name:           python-%{pypi_name}
-Version:        2.5.1
-Release:        4%{?dist}
+Version:        2.7.1
+Release:        1%{?dist}
 Summary:        A backend toolkit for management of WebScrapBook collection
 
 License:        MIT
@@ -33,7 +30,7 @@ URL:            https://github.com/danny0838/PyWebScrapBook
 Source0:        %{url}/%{dlpath}#/%{archivename}
 
 # Downstream Fedora patch to comply with packaging guidelines
-Patch100:       python-webscrapbook-2.3.2-disable-linters.patch
+Patch100:       python-webscrapbook-2.7.1-test-requirements.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -75,7 +72,7 @@ Recommends:     python3-%{pypi_name}+adhoc_ssl
 %pyproject_save_files webscrapbook
 
 %check
-#%%tox
+%tox
 
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
@@ -85,6 +82,13 @@ Recommends:     python3-%{pypi_name}+adhoc_ssl
 %{_bindir}/wsbview
 
 %changelog
+* Wed Sep 03 2025 FeRD (Frank Dana) <ferdnyc@gmail.com> - 2.7.1-1
+- Even newer upstream release, made just for us to clean up testing
+
+* Thu Aug 28 2025 FeRD (Frank Dana) <ferdnyc@gmail.com> - 2.7.0-1
+- New upstream release
+- Reenable test suite
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.5.1-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

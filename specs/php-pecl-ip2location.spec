@@ -3,9 +3,9 @@
 #
 # remirepo spec file for php-pecl-ip2location
 #
-# Copyright (c) 2017-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2017-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
@@ -13,17 +13,20 @@
 %global ini_name   40-%{pecl_name}.ini
 %global sources    %{pecl_name}-%{upstream_version}%{?upstream_prever}
 
-%global upstream_version 8.2.0
+%global upstream_version 8.3.0
 #global upstream_prever  RC1
-%global libversion       8.6
+# For 8.7 for new features
+%global libversion       8.7
 
 Summary:        Get geo location information of an IP address
 Name:           php-pecl-%{pecl_name}
 License:        PHP-3.01
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        11%{?dist}
+Release:        1%{?dist}
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{sources}.tgz
+
+Patch0:         https://patch-diff.githubusercontent.com/raw/chrislim2888/IP2Location-PECL-Extension/pull/25.patch
 
 ExcludeArch:    %{ix86}
 
@@ -63,6 +66,8 @@ sed -e 's/role="test"/role="src"/' \
     -i package.xml
 
 cd %{sources}
+%patch -P0 -p1 -b .pr25
+
 sed -e "s/\r//" -i LICENSE CREDITS *.md *.c *.h
 
 # Check version
@@ -124,6 +129,12 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Wed Sep  3 2025 Remi Collet <remi@remirepo.net> - 8.3.0-1
+- update to 8.3.0
+- re-license spec file to CECILL-2.1
+- fix build with old libip2location using patch from
+  https://github.com/chrislim2888/IP2Location-PECL-Extension/pull/25
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.2.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

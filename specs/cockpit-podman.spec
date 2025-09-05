@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-podman
-Version:        112
+Version:        113
 Release:        1%{?dist}
 Summary:        Cockpit component for Podman containers
 License:        LGPL-2.1-or-later
@@ -92,6 +92,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Wed Sep 03 2025 Packit <hello@packit.dev> - 113-1
+- Sortable Images table
+
 * Wed Aug 20 2025 Packit <hello@packit.dev> - 112-1
 - Translation and dependency updates
 

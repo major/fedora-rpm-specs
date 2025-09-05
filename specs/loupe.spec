@@ -1,11 +1,11 @@
 %bcond_without check
 
-%bcond bundled_rust_deps %{defined:rhel}
+%bcond bundled_rust_deps %{defined rhel}
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           loupe
-Version:        49~beta
+Version:        49~rc
 Release:        %autorelease
 Summary:        Image viewer
 

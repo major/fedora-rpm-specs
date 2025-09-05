@@ -1,11 +1,11 @@
 Name:           python-PyMySQL
-Version:        1.1.1
-Release:        6%{?dist}
+Version:        1.1.2
+Release:        1%{?dist}
 Summary:        Pure-Python MySQL client library
 
 License:        MIT
 URL:            https://pypi.org/project/pymysql/
-Source:         %{pypi_source PyMySQL}
+Source:         %{pypi_source pymysql}
 
 BuildArch:      noarch
 
@@ -56,6 +56,9 @@ and Jython.
 
 
 %changelog
+* Wed Sep 03 2025 Julien Enselme <jujens@jujens.eu> - 1.1.2-1
+- Update to 1.1.2
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.1.1-6
 - Rebuilt for Python 3.14.0rc2 bytecode
 

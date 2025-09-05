@@ -1,8 +1,6 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
-%if 0%{?rhel}
-%global bundled_rust_deps 1
-%endif
+%bcond bundled_rust_deps %{defined rhel}
 
 # djvulibre is not available in RHEL 10+
 %bcond djvu %{undefined rhel}
@@ -11,7 +9,7 @@
 %global __provides_exclude_from ^(%{_libdir}/papers/.*\\.so|%{_libdir}/nautilus/extensions-4/.*\\.so)$
 
 Name:           papers
-Version:        49~beta
+Version:        49~rc
 Release:        %autorelease
 Summary:        View multipage documents
 
@@ -20,6 +18,7 @@ SourceLicense:  GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND 
 # ... and its crate dependencies are:
 # (MIT OR Apache-2.0) AND Unicode-3.0
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
+# 0BSD OR MIT OR Apache-2.0
 # Apache-2.0 OR MIT
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
 # BSD-2-Clause
@@ -28,15 +27,38 @@ SourceLicense:  GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND 
 # GPL-2.0-or-later
 # MIT
 # MIT OR Apache-2.0
+# MIT OR Zlib OR Apache-2.0
 # Unicode-3.0
 # Unlicense OR MIT
 # Zlib
-License:        GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND MIT AND Zlib AND libtiff AND (MIT OR Apache-2.0) AND Unicode-3.0 AND Unicode-DFS-2016 AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND BSD-2-Clause AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND BSD-3-Clause AND (Unlicense OR MIT)
+# Zlib OR Apache-2.0 OR MIT
+License:        %{shrink:
+    GPL-2.0-or-later AND
+    GPL-3.0-or-later AND
+    LGPL-2.0-or-later AND
+    LGPL-2.1-or-later AND
+    MIT AND
+    libtiff AND
+    BSD-2-Clause AND
+    BSD-3-Clause AND
+    Unicode-3.0 AND
+    Unicode-DFS-2016 AND
+    Zlib AND
+    (0BSD OR MIT OR Apache-2.0) AND
+    (Apache-2.0 OR MIT) AND
+    (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
+    (BSD-2-Clause OR Apache-2.0 OR MIT) AND
+    (MIT OR Zlib OR Apache-2.0) AND
+    (Unlicense OR MIT)
+}
 URL:            https://gitlab.gnome.org/GNOME/Incubator/papers
 Source:         https://download.gnome.org/sources/papers/49/papers-%{tarball_version}.tar.xz
 # To generate vendored cargo sources:
-#   tar xf papers-%%{tarball_version}.tar.xz ; pushd papers-%%{tarball_version} ; \
-#   cargo vendor && tar Jcvf ../papers-%%{tarball_version}-vendor.tar.xz vendor/ ; popd
+#   tar xf papers-%%{tarball_version}.tar.xz
+#   pushd papers-%%{tarball_version}
+#   cargo vendor --versioned-dirs
+#   tar Jcvf ../papers-%%{tarball_version}-vendor.tar.xz vendor/
+#   popd
 Source1:        papers-%{tarball_version}-vendor.tar.xz
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -137,16 +159,15 @@ This package brings the Papers thumbnailer independently from Papers.
 
 
 %prep
-%autosetup -p1 -n papers-%{tarball_version} %{?bundled_rust_deps:-a1}
-
-%if 0%{?bundled_rust_deps}
-%cargo_prep -v vendor
-%else
+%if %{without bundled_rust_deps}
+%autosetup -p1 -n papers-%{tarball_version}
 %cargo_prep
+%else
+%autosetup -p1 -n papers-%{tarball_version} -a1
+%cargo_prep -v vendor
 %endif
 
-
-%if !0%{?bundled_rust_deps}
+%if %{without bundled_rust_deps}
 %generate_buildrequires
 %cargo_generate_buildrequires -a -t
 %endif
@@ -163,7 +184,7 @@ This package brings the Papers thumbnailer independently from Papers.
 
 %cargo_license_summary -a
 %{cargo_license -a} > LICENSE.dependencies
-%if 0%{?bundled_rust_deps}
+%if %{with bundled_rust_deps}
 %cargo_vendor_manifest
 %endif
 
@@ -184,7 +205,7 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 %doc README.md
 %license COPYING
 %license LICENSE.dependencies
-%if 0%{?bundled_rust_deps}
+%if %{with bundled_rust_deps}
 %license cargo-vendor.txt
 %endif
 %{_bindir}/papers

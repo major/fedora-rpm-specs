@@ -1,7 +1,7 @@
 %global _hardened_build 1
 Summary: Fast and lean authoritative DNS Name Server
 Name: nsd
-Version: 4.12.0
+Version: 4.13.0
 Release: %autorelease
 License: BSD-3-Clause
 Url: http://www.nlnetlabs.nl/nsd/
@@ -10,11 +10,14 @@ Source1: nsd.conf
 Source2: nsd.service
 Source3: tmpfiles-nsd.conf
 Source4: nsd.sysusers.conf
-BuildRequires: make
 BuildRequires: gcc
 BuildRequires: flex
-BuildRequires: openssl-devel
+BuildRequires: fstrm-devel
 BuildRequires: libevent-devel
+BuildRequires: make
+BuildRequires: openssl-devel
+BuildRequires: protobuf-c-compiler
+BuildRequires: protobuf-c-devel
 BuildRequires: systemd-devel
 BuildRequires: systemd-rpm-macros
 

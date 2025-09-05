@@ -1,18 +1,17 @@
 %global pypi_name txaio
 
 Name:           python-%{pypi_name}
-Version:        23.1.1
-Release:        12%{?dist}
+Version:        25.6.1
+Release:        2%{?dist}
 Summary:        Compatibility API between asyncio/Twisted/Trollius
 
 License:        MIT
 URL:            https://txaio.readthedocs.io/
 Source0:        https://files.pythonhosted.org/packages/source/t/txaio/txaio-%{version}.tar.gz
-# The test_utils module can no longer be imported from asyncio
-# and is undocumented intentionaly because it's private.
-# This is a hack that calls stop on the loop soon after calling run_forever().
-Patch2:         run_once.patch
-Patch3:         fix-build-sphinx8.patch
+Patch0:         remove-unpackaged-sphinx-ext.patch
+# From https://github.com/Jenselme/txaio/commit/2502a42349c515f6014eb9986aac90d407fb9a4b
+# Temporary fix until https://github.com/crossbario/txaio/issues/193 is fixed properly.
+Patch1:         python314.patch
 BuildArch:      noarch
 
 %description
@@ -23,13 +22,11 @@ asyncio.
 Summary:        %{summary}
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-pytest
-BuildRequires:  python3-pytest-cov
-BuildRequires:  python3-six
 BuildRequires:  python3-test
-BuildRequires:  python3-enchant >= 1.6.6
-Requires:       python3-six
+BuildRequires:  python3dist(setuptools)
+BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(pytest-cov)
+BuildRequires:  python3dist(pyenchant) >= 1.6.6
 %{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
@@ -49,17 +46,18 @@ Helper library for writing code that runs unmodified on both Twisted and
 asyncio. Documentation in html format.
 
 %prep
-%setup -qn %{pypi_name}-%{version}
-%patch -P2 -p1
-%patch -P3 -p1
+%autosetup -n %{pypi_name}-%{version} -p 1
 # Remove upstream's egg-info
 rm -rf %{pypi_name}.egg-info
 # README is just a symlink to index.rst. Using this file as README
 rm docs/index.rst
 cp -a README.rst docs/index.rst
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 # Build documentation
 cd docs && make html
 # Remove buildinfo
@@ -69,22 +67,31 @@ rm -f  _build/html/_static/jquery.js
 ln -s /usr/share/javascript/jquery/latest/jquery.min.js _build/html/_static/jquery.js
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{pypi_name}
 
 %check
 %pytest -v test
+# Checking import of twisted related code will fail because by testing imports of
+# asyncio code, txaio gets configured for asyncio and fails to start with twisted.
+%pyproject_check_import -e txaio.tx -e txaio.with_twisted
 
-%files -n python3-%{pypi_name}
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE
 %doc README.rst
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
-%{python3_sitelib}/%{pypi_name}/
 
 %files doc
 %license LICENSE
 %doc docs/_build/html
 
 %changelog
+* Wed Sep 03 2025 Julien Enselme <jujens@jujens.eu> - 25.6.1-2
+- Bump version.
+
+* Wed Sep 03 2025 Julien Enselme <jujens@jujens.eu> - 25.6.1-1
+- Update to 25.6.1
+- Python 3.14 compatibility.
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 23.1.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
@@ -128,7 +135,7 @@ ln -s /usr/share/javascript/jquery/latest/jquery.min.js _build/html/_static/jque
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 22.2.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 22.2.1-2
+* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 22.ê2.1-2
 - Rebuilt for Python 3.11
 
 * Fri Mar 04 2022 Fabian Affolter <mail@fabian-affolter.ch> - 22.2.1-1

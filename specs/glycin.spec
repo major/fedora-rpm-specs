@@ -65,9 +65,6 @@ Patch:          0001-fix-invalid-crate-manifest-for-tests-workspace-membe.patch
 # partial revert of https://gitlab.gnome.org/GNOME/glycin/-/commit/f637a7e
 Patch:          0002-Replace-serde_yaml_ng-with-equivalent-serde_yaml-dep.patch
 
-# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch:    %{ix86}
-
 %if 0%{?rhel}
 BuildRequires:  rust-toolset
 %else

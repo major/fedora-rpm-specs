@@ -1,5 +1,5 @@
 Name: rdma-core
-Version: 58.0
+Version: 59.0
 Release: %autorelease
 Summary: RDMA core userspace libraries and daemons
 
@@ -57,6 +57,7 @@ BuildRequires: python-docutils
 BuildRequires: perl-generators
 %endif
 
+Requires: %{name}-common = %{version}-%{release}
 Requires: pciutils
 # Red Hat/Fedora previously shipped redhat/ as a stand-alone
 # package called 'rdma', which we're supplanting here.
@@ -99,8 +100,16 @@ RDMA core userspace infrastructure and documentation, including initialization
 scripts, kernel driver-specific modprobe override configs, IPoIB network
 scripts, dracut rules, and the rdma-ndd utility.
 
+%package common
+Summary: Common files for all subpackages of %{name}
+BuildArch: noarch
+
+%description common
+Common files for all subpackages of %{name}.
+
 %package devel
 Summary: RDMA core development libraries and headers
+Requires: %{name}-common = %{version}-%{release}
 Requires: libibverbs%{?_isa} = %{version}-%{release}
 Provides: libibverbs-devel = %{version}-%{release}
 Obsoletes: libibverbs-devel < %{version}-%{release}
@@ -130,6 +139,7 @@ RDMA core development libraries and headers.
 
 %package -n infiniband-diags
 Summary: InfiniBand Diagnostic Tools
+Requires: %{name}-common = %{version}-%{release}
 Requires: libibumad%{?_isa} = %{version}-%{release}
 Provides: perl(IBswcountlimits)
 Provides: libibmad = %{version}-%{release}
@@ -144,6 +154,7 @@ programs. These include MAD, SA, SMP, and other basic IB functions.
 
 %package -n infiniband-diags-compat
 Summary: OpenFabrics Alliance InfiniBand Diagnostic Tools
+Requires: %{name}-common = %{version}-%{release}
 
 %description -n infiniband-diags-compat
 Deprecated scripts and utilities which provide duplicated functionality, most
@@ -152,6 +163,7 @@ compatibility reasons.
 
 %package -n libibverbs
 Summary: A library and drivers for direct userspace use of RDMA (InfiniBand/iWARP/RoCE) hardware
+Requires: %{name}-common = %{version}-%{release}
 Provides: libcxgb4 = %{version}-%{release}
 Obsoletes: libcxgb4 < %{version}-%{release}
 Provides: libefa = %{version}-%{release}
@@ -203,6 +215,7 @@ Device-specific plug-in ibverbs userspace drivers are included:
 
 %package -n libibverbs-utils
 Summary: Examples for the libibverbs library
+Requires: %{name}-common = %{version}-%{release}
 Requires: libibverbs%{?_isa} = %{version}-%{release}
 
 %description -n libibverbs-utils
@@ -211,6 +224,7 @@ displays information about RDMA devices.
 
 %package -n ibacm
 Summary: InfiniBand Communication Manager Assistant
+Requires: %{name}-common = %{version}-%{release}
 %{?systemd_requires}
 Requires: libibumad%{?_isa} = %{version}-%{release}
 Requires: libibverbs%{?_isa} = %{version}-%{release}
@@ -227,6 +241,7 @@ library knows how to talk directly to the ibacm daemon to retrieve data.
 
 %package -n iwpmd
 Summary: iWarp Port Mapper userspace daemon
+Requires: %{name}-common = %{version}-%{release}
 %{?systemd_requires}
 
 %description -n iwpmd
@@ -235,6 +250,7 @@ tcp ports through the standard socket interface.
 
 %package -n libibumad
 Summary: OpenFabrics Alliance InfiniBand umad (userspace management datagram) library
+Requires: %{name}-common = %{version}-%{release}
 
 %description -n libibumad
 libibumad provides the userspace management datagram (umad) library
@@ -243,6 +259,7 @@ are used by the IB diagnostic and management tools, including OpenSM.
 
 %package -n librdmacm
 Summary: Userspace RDMA Connection Manager
+Requires: %{name}-common = %{version}-%{release}
 Requires: libibverbs%{?_isa} = %{version}-%{release}
 
 %description -n librdmacm
@@ -250,6 +267,7 @@ librdmacm provides a userspace RDMA Communication Management API.
 
 %package -n librdmacm-utils
 Summary: Examples for the librdmacm library
+Requires: %{name}-common = %{version}-%{release}
 Requires: librdmacm%{?_isa} = %{version}-%{release}
 Requires: libibverbs%{?_isa} = %{version}-%{release}
 
@@ -258,6 +276,7 @@ Example test programs for the librdmacm library.
 
 %package -n srp_daemon
 Summary: Tools for using the InfiniBand SRP protocol devices
+Requires: %{name}-common = %{version}-%{release}
 Obsoletes: srptools <= 1.0.3
 Provides: srptools = %{version}-%{release}
 Obsoletes: openib-srptools <= 0.0.6
@@ -272,6 +291,7 @@ discover and use SCSI devices via the SCSI RDMA Protocol over InfiniBand.
 %if %{with_pyverbs}
 %package -n python3-pyverbs
 Summary: Python3 API over IB verbs
+Requires: %{name}-common = %{version}-%{release}
 %{?python_provide:%python_provide python3-pyverbs}
 Requires: librdmacm%{?_isa} = %{version}-%{release}
 Requires: libibverbs%{?_isa} = %{version}-%{release}
@@ -316,7 +336,7 @@ easy, object-oriented access to IB verbs.
          -DCMAKE_INSTALL_SYSTEMD_SERVICEDIR:PATH=%{_unitdir} \
          -DCMAKE_INSTALL_INITDDIR:PATH=%{_initrddir} \
          -DCMAKE_INSTALL_RUNDIR:PATH=%{_rundir} \
-         -DCMAKE_INSTALL_DOCDIR:PATH=%{_docdir}/%{name} \
+         -DCMAKE_INSTALL_DOCDIR:PATH=%{_pkgdocdir} \
          -DCMAKE_INSTALL_UDEV_RULESDIR:PATH=%{_udevrulesdir} \
          -DCMAKE_INSTALL_PERLDIR:PATH=%{perl_vendorlib} \
          -DENABLE_IBDIAGS_COMPAT:BOOL=True \
@@ -410,13 +430,11 @@ fi
 %systemd_postun_with_restart iwpmd.service
 
 %files
-%dir %{_sysconfdir}/rdma
-%dir %{_docdir}/%{name}
-%doc %{_docdir}/%{name}/70-persistent-ipoib.rules
-%doc %{_docdir}/%{name}/README.md
-%doc %{_docdir}/%{name}/rxe.md
-%doc %{_docdir}/%{name}/udev.md
-%doc %{_docdir}/%{name}/tag_matching.md
+%doc %{_pkgdocdir}/70-persistent-ipoib.rules
+%doc %{_pkgdocdir}/README.md
+%doc %{_pkgdocdir}/rxe.md
+%doc %{_pkgdocdir}/udev.md
+%doc %{_pkgdocdir}/tag_matching.md
 %config(noreplace) %{_sysconfdir}/rdma/mlx4.conf
 %config(noreplace) %{_sysconfdir}/rdma/modules/infiniband.conf
 %config(noreplace) %{_sysconfdir}/rdma/modules/iwarp.conf
@@ -448,10 +466,15 @@ fi
 %{_unitdir}/rdma-ndd.service
 %{_mandir}/man7/rxe*
 %{_mandir}/man8/rdma-ndd.*
+
+%files common
+%dir %{_sysconfdir}/rdma
+%dir %{_sysconfdir}/rdma/modules
+%dir %{_pkgdocdir}
 %license COPYING.*
 
 %files devel
-%doc %{_docdir}/%{name}/MAINTAINERS
+%doc %{_pkgdocdir}/MAINTAINERS
 %dir %{_includedir}/infiniband
 %dir %{_includedir}/rdma
 %{_includedir}/infiniband/*
@@ -584,6 +607,7 @@ fi
 %{_libdir}/libibmad*.so.*
 %{_libdir}/libibnetdisc*.so.*
 %{perl_vendorlib}/IBswcountlimits.pm
+%dir %{_sysconfdir}/infiniband-diags
 %config(noreplace) %{_sysconfdir}/infiniband-diags/error_thresholds
 %config(noreplace) %{_sysconfdir}/infiniband-diags/ibdiag.conf
 
@@ -598,7 +622,7 @@ fi
 %{_libdir}/libmlx5.so.*
 %{_libdir}/libmlx4.so.*
 %config(noreplace) %{_sysconfdir}/libibverbs.d/*.driver
-%doc %{_docdir}/%{name}/libibverbs.md
+%doc %{_pkgdocdir}/libibverbs.md
 
 %files -n libibverbs-utils
 %{_bindir}/ibv_*
@@ -616,7 +640,7 @@ fi
 %{_unitdir}/ibacm.socket
 %dir %{_libdir}/ibacm
 %{_libdir}/ibacm/*
-%doc %{_docdir}/%{name}/ibacm.md
+%doc %{_pkgdocdir}/ibacm.md
 
 %files -n iwpmd
 %{_sbindir}/iwpmd
@@ -634,7 +658,7 @@ fi
 %{_libdir}/librdmacm*.so.*
 %dir %{_libdir}/rsocket
 %{_libdir}/rsocket/*.so*
-%doc %{_docdir}/%{name}/librdmacm.md
+%doc %{_pkgdocdir}/librdmacm.md
 %{_mandir}/man7/rsocket.*
 
 %files -n librdmacm-utils
@@ -668,6 +692,7 @@ fi
 %files -n srp_daemon
 %config(noreplace) %{_sysconfdir}/srp_daemon.conf
 %config(noreplace) %{_sysconfdir}/rdma/modules/srp_daemon.conf
+%dir %{_libexecdir}/srp_daemon
 %{_libexecdir}/srp_daemon/start_on_all_ports
 %{_unitdir}/srp_daemon.service
 %{_unitdir}/srp_daemon_port@.service
@@ -679,12 +704,13 @@ fi
 %{_mandir}/man5/srp_daemon_port@.service.5*
 %{_mandir}/man8/ibsrpdm.8*
 %{_mandir}/man8/srp_daemon.8*
-%doc %{_docdir}/%{name}/ibsrpdm.md
+%doc %{_pkgdocdir}/ibsrpdm.md
 
 %if %{with_pyverbs}
 %files -n python3-pyverbs
 %{python3_sitearch}/pyverbs
-%{_docdir}/%{name}/tests/*.py
+%dir %{_pkgdocdir}/tests
+%{_pkgdocdir}/tests/*.py
 %endif
 
 %changelog

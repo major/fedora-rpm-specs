@@ -56,12 +56,15 @@ sed -i 's/assets: deps/assets:/' Makefile
 make assets
 
 export GO_LDFLAGS="-X 'github.com/TecharoHQ/anubis.Version=%{version}-%{release}'"
-%gobuild -o %{gobuilddir}/bin/%{name} %{goipath}/cmd/%{name}
+# Deviating from %%gobuild as it produces a non-functional binary missing componencs
+# for the challenge UI. The upstream's `make prebaked-build` target
+# creates a working, self-contained binary.
+make prebaked-build
 
 %install
 %go_vendor_license_install -c %{S:2}
 install -m 0755 -vd                     %{buildroot}%{_bindir}
-install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
+install -m 0755 -vp var/anubis %{buildroot}%{_bindir}/%{name}
 
 install -Dpm0644 -t %{buildroot}%{_unitdir}/ run/anubis@.service
 install -Dpm0644 -t %{buildroot}%{_sysconfdir}/%{name}/ run/default.env

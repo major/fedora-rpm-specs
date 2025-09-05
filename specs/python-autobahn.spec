@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        24.4.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python networking library for WebSocket and WAMP
 
 License:        MIT
@@ -39,7 +39,6 @@ BuildRequires:  %py3_dist cbor2
 %endif
 BuildRequires:  %py3_dist cryptography
 BuildRequires:  %py3_dist hyperlink
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
 Autobahn a networking library that is part of the Autobahn project and provides
@@ -57,11 +56,10 @@ BuildRequires:  %py3_dist sphinx-rtd-theme
 %description -n python-%{pypi_name}-doc
 Documentation for %{name}.
 
-%{?python_extras_subpkg:%python_extras_subpkg -n python3-%{pypi_name} -i %{python3_sitelib}/%{pypi_name}-%{version}*-py%{python3_version}.egg-info twisted}
+%pyproject_extras_subpkg -n python3-%{pypi_name} twisted
 
 %prep
 %autosetup -n %{pypi_name}-python-%{version} -p1
-rm -rf %{pypi_name}.egg-info
 # There is a requirement for pytest 6.2+ in pytest.ini and we don't have that yet
 # it works with 6.0 just fine and the config file is not needed
 rm pytest.ini
@@ -75,16 +73,25 @@ sed -i '\@recursive-include autobahn/xbr/test/catalog/schema@d' MANIFEST.in
 sed -i '\@autobahn/xbr/test/profile@d' MANIFEST.in
 %endif
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
 # Disable in case local builder support NVX
-AUTOBAHN_USE_NVX=false %py3_build
+export AUTOBAHN_USE_NVX=false
+%pyproject_wheel
 #PYTHONPATH=${PWD} sphinx-build-3 docs html
 #rm -rf html/.{doctrees,buildinfo}
 
 %install
-AUTOBAHN_USE_NVX=false %py3_install
+%pyproject_install
+%pyproject_save_files -l %{pypi_name} twisted
 
 %check
+# Don't check imports: importing some files starts to configure autobahn and then trying to
+# import other will fails. There are too many modules with issues to be worth it.
+#%%pyproject_check_import
+
 # Ignore tests that rely on optional and not packaged deps.
 k="${k-}${k+ and }not test_no_memory_arg"
 k="${k-}${k+ and }not test_basic"
@@ -99,6 +106,8 @@ k="${k-}${k+ and }not test_valid"
 k="${k-}${k+ and }not test_auto_ping"
 k="${k-}${k+ and }not test_interpolate_server_status_template"
 k="${k-}${k+ and }not test_sendClose"
+k="${k-}${k+ and }not test_conflict_SSLContext_with_ws_url"
+k="${k-}${k+ and }not test_conflict_SSL_True_with_ws_url"
 %if 0%{?fedora}
 USE_ASYNCIO=1 %pytest --pyargs autobahn ${k+ -k} "${k-}"
 %else
@@ -106,24 +115,20 @@ k="${k-}${k+ and }not TestDecimalSerializer"
 USE_ASYNCIO=1 %pytest --ignore=xbr/test --pyargs autobahn ${k+ -k} "${k-}"
 %endif
 
-%files -n python3-%{pypi_name}
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE
 %doc docs README.rst
 %{_bindir}/wamp
 %{_bindir}/xbrnetwork
 %{_bindir}/xbrnetwork-ui
-%{python3_sitelib}/%{pypi_name}-%{version}*-py%{python3_version}.egg-info/
-%{python3_sitelib}/%{pypi_name}/
-%dir %{python3_sitelib}/twisted
-%dir %{python3_sitelib}/twisted/plugins
-%dir %{python3_sitelib}/twisted/plugins/__pycache__
-%{python3_sitelib}/twisted/plugins/autobahn*.py
-%{python3_sitelib}/twisted/plugins/__pycache__/autobahn*.py*
 
 %files -n python-%{pypi_name}-doc
 %license LICENSE
 
 %changelog
+* Wed Sep 03 2025 Julien Enselme <jujens@jujens.eu> - 24.4.2-3
+- Remove deprecated macros (#2377467)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 24.4.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

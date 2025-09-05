@@ -1,5 +1,5 @@
 Name:           cockpit-image-builder
-Version:        75
+Version:        76
 Release:        1%{?dist}
 Summary:        Image builder plugin for Cockpit
 
@@ -46,6 +46,63 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Wed Sep 3 2025 Packit <hello@packit.dev> - 76-1
+Changes with 76
+----------------
+  - Hooks: extract auth.getUser to its own hook (HMS-9085) (#3557)
+    - Author: Gianluca Zuccarelli, Reviewers: Michal Gold, Sanne Raymaekers
+  - Remove MSW browser (HMS-9225) (#3590)
+    - Author: Klara Simickova, Reviewers: Katarína Sieklová
+  - Wizard: Fix tenant/subscription ID population after source clear (HMS-9167) (#3570)
+    - Author: Michal Gold, Reviewers: Klara Simickova
+  - Wizard: Show package recommendations for RHEL 10 (#3566)
+    - Author: Klara Simickova, Reviewers: Lukáš Zapletal
+  - Wizard: add support for shared EPEL repos (HMS-5986) (#3548)
+    - Author: Bryttanie, Reviewers: Klara Simickova
+  - Wizard: give language and timezone default values (HMS-9182) (#3571)
+    - Author: Katarína Sieklová, Reviewers: Klara Simickova, Michal Gold
+  - Wizard: hide azure sources integration (HMS-9092) (#3579)
+    - Author: Anna Vítová, Reviewers: Klara Simickova
+  - build(deps): bump @redhat-cloud-services/frontend-components-utilities from 7.0.3 to 7.0.4 (#3586)
+    - Author: dependabot[bot], Reviewers: Klara Simickova
+  - build(deps): bump @redhat-cloud-services/types from 3.0.1 to 3.1.0 (#3600)
+    - Author: dependabot[bot], Reviewers: Klara Simickova
+  - build(deps): bump @sentry/webpack-plugin from 4.1.1 to 4.2.0 (#3597)
+    - Author: dependabot[bot], Reviewers: Klara Simickova
+  - build(deps-dev): bump @babel/core from 7.28.0 to 7.28.3 (#3583)
+    - Author: dependabot[bot], Reviewers: Klara Simickova
+  - build(deps-dev): bump @babel/preset-env from 7.28.0 to 7.28.3 (#3581)
+    - Author: dependabot[bot], Reviewers: Klara Simickova
+  - build(deps-dev): bump @currents/playwright from 1.15.3 to 1.16.0 (#3561)
+    - Author: dependabot[bot], Reviewers: Gianluca Zuccarelli
+  - build(deps-dev): bump @testing-library/jest-dom from 6.6.4 to 6.8.0 (#3588)
+    - Author: dependabot[bot], Reviewers: Klara Simickova
+  - build(deps-dev): bump @vitejs/plugin-react from 4.7.0 to 5.0.1 (#3560)
+    - Author: dependabot[bot], Reviewers: Gianluca Zuccarelli
+  - build(deps-dev): bump copy-webpack-plugin from 13.0.0 to 13.0.1 (#3601)
+    - Author: dependabot[bot], Reviewers: Klara Simickova
+  - build(deps-dev): bump mini-css-extract-plugin from 2.9.2 to 2.9.4 (#3576)
+    - Author: dependabot[bot], Reviewers: Klara Simickova
+  - build(deps-dev): bump msw from 2.10.5 to 2.11.1 (#3606)
+    - Author: dependabot[bot], Reviewers: Klara Simickova
+  - build(deps-dev): bump sass from 1.90.0 to 1.91.0 (#3585)
+    - Author: dependabot[bot], Reviewers: Klara Simickova
+  - chore(deps): update build-tools digest to 967d954 (#3603)
+    - Author: red-hat-konflux[bot], Reviewers: Klara Simickova
+  - chore(deps): update konflux references (#3594)
+    - Author: red-hat-konflux[bot], Reviewers: Klara Simickova
+  - schutzbot/playwright_tests: halve workers on schutzbot (#3569)
+    - Author: Sanne Raymaekers, Reviewers: Klara Simickova
+  - tests/playwright: Add nightly action for Boot tests with Slack notification (#3582)
+    - Author: Tomáš Koscielniak, Reviewers: Katarína Sieklová, Klara Simickova
+  - tests/playwright: qcow2 boot test (HMS-8985) (#3525)
+    - Author: Tomáš Koscielniak, Reviewers: Gianluca Zuccarelli, Sanne Raymaekers
+  - tsconfig: Enable strict mode (HMS-9075) (#3546)
+    - Author: Klara Simickova, Reviewers: Katarína Sieklová
+
+— Somewhere on the Internet, 2025-09-03
+
+
 * Thu Aug 21 2025 Packit <hello@packit.dev> - 75-1
 Changes with 75
 ----------------

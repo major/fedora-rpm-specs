@@ -4,11 +4,12 @@
 Name:           civetweb
 Summary:        Embedded C/C++ web server
 Version:        1.16
-Release:        8%{?dev:%{dev}}%{?dist}
+Release:        9%{?dev:%{dev}}%{?dist}
 License:        MIT
 Url:            https://github.com/civetweb/civetweb
 Source:         https://github.com/%{name}/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch:		0001-CMakeLists.txt.patch
+Patch:		0002-src-civetweb.c.patch
 BuildRequires:  cmake make gcc-c++
 
 %description
@@ -28,7 +29,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Civetweb shared libs and associated header files
 
 %prep
-%setup -q -n %{name}-%{version}
+%autosetup -p1
 
 %build
 %{cmake} . \
@@ -62,6 +63,9 @@ mkdir -p %{buildroot}%{_docdir}/civetweb
 %{_datadir}/pkgconfig/*
 
 %changelog
+* Wed Sep 3 2025 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 1.16-9
+- civetweb 1.16
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.16-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %global pypi_name pure-protobuf
 
 Name:           python-%{pypi_name}
-Version:        3.1.4
+Version:        3.1.5
 Release:        %autorelease
 Summary:        Python implementation of Protocol Buffers data types with dataclasses support
 

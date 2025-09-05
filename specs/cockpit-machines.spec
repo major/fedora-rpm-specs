@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-machines
-Version:        338
+Version:        339
 Release:        1%{?dist}
 Summary:        Cockpit user interface for virtual machines
 License:        LGPL-2.1-or-later AND MIT
@@ -119,6 +119,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Sep 03 2025 Packit <hello@packit.dev> - 339-1
+- Serial consoles now keep their content and stay alive
+- No longer copies qemu.conf values into VM definitions
+
 * Wed Aug 20 2025 Packit <hello@packit.dev> - 338-1
 - Translation and dependency updates
 - Detachable VNC console

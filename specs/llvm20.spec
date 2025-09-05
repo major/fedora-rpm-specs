@@ -621,6 +621,9 @@ lit is a tool used by the LLVM project for executing its test suites.
 Summary: Filesystem package that owns the versioned llvm prefix
 # Was renamed immediately after introduction.
 Obsoletes: %{pkg_name_llvm}-resource-filesystem < 20
+%if %{with compat_build}
+Conflicts: llvm-filesystem < %{maj_ver}.99
+%endif
 
 %description -n %{pkg_name_llvm}-filesystem
 This packages owns the versioned llvm prefix directory: $libdir/llvm$version
@@ -787,6 +790,9 @@ Development header files for clang.
 %package -n %{pkg_name_clang}-resource-filesystem
 Summary: Filesystem package that owns the clang resource directory
 Provides: clang-resource-filesystem(major) = %{maj_ver}
+%if %{with compat_build}
+Conflicts: clang-resource-filesystem < %{maj_ver}.99
+%endif
 
 %description -n %{pkg_name_clang}-resource-filesystem
 This package owns the clang resouce directory: $libdir/clang/$version/

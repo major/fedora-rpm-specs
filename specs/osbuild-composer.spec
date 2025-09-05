@@ -12,7 +12,7 @@
 
 %global goipath         github.com/osbuild/osbuild-composer
 
-Version:        149
+Version:        150
 
 %gometa
 
@@ -659,6 +659,19 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Wed Sep 03 2025 Packit <hello@packit.dev> - 150-1
+Changes with 150
+----------------
+  - Test/regression-old-worker-new-composer: make the test case more robust (#4839)
+    - Author: Tomáš Hozza, Reviewers: Lukáš Zapletal, Sanne Raymaekers
+  - Update snapshots to 20250825 (#4840)
+    - Author: SchutzBot, Reviewers: Sanne Raymaekers, Tomáš Hozza
+  - test/cases/rhel-upgrade: increase virt-install memory (#4843)
+    - Author: Sanne Raymaekers, Reviewers: Michael Vogt, Simon de Vlieger
+
+— Somewhere on the Internet, 2025-09-03
+
+
 * Thu Aug 21 2025 Packit <hello@packit.dev> - 149-1
 Changes with 149
 ----------------

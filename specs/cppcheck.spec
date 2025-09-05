@@ -5,8 +5,8 @@
 %endif
 
 Name:           cppcheck
-Version:        2.18.2
-Release:        3%{?dist}
+Version:        2.18.3
+Release:        1%{?dist}
 Summary:        Tool for static C/C++ code analysis
 License:        GPL-3.0-or-later
 URL:            http://cppcheck.sourceforge.io/
@@ -138,6 +138,9 @@ grep -l "#\!/usr/bin/env python3" %{buildroot}%{_datadir}/Cppcheck/addons/*.py |
 %{_bindir}/cppcheck-htmlreport
 
 %changelog
+* Wed Sep 03 2025 Gwyn Ciesla <gwync@protonmail.com> - 2.18.3-1
+- 2.18.3
+
 * Mon Sep 01 2025 Xavier Bachelot <xavier@bachelot.org> - 2.18.2-3
 - Disable rules support for Fedora 44+ and EL 10+
 

@@ -9,7 +9,7 @@
 
 Name:           python-%{modname}
 Version:        7.45.6
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A Python interface to libcurl
 
 License:        curl OR LGPL-2.1-or-later
@@ -18,6 +18,8 @@ Source0:        %{pypi_source pycurl}
 
 # drop link-time vs. run-time TLS backend check (#1446850)
 Patch1:         0001-python-pycurl-7.45.1-tls-backend.patch
+# Fix debug test due to changed output in curl 8.16.0
+Patch2:         https://github.com/pycurl/pycurl/commit/eb7f52eeef85feb6c117678d52803050bbdd7bc8.patch
 
 BuildRequires:  gcc
 BuildRequires:  libcurl-devel
@@ -94,6 +96,9 @@ export PYTEST_ADDOPTS="--ignore examples -m 'not online'"
 %doc ChangeLog README.rst examples doc
 
 %changelog
+* Tue Sep 02 2025 Scott Talbert <swt@techie.net> - 7.45.6-6
+- Fix FTBFS with curl 8.16.0
+
 * Sat Aug 23 2025 Scott Talbert <swt@techie.net> - 7.45.6-5
 - Migrate to pyproject macros (#2378027)
 
