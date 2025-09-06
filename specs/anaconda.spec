@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 43.37
+Version: 43.38
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -513,6 +513,14 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Sep 02 2025 Packit <hello@packit.dev> - 43.38-1
+- Use slots (and a dataclass) to enforce Flag names (a.badger)
+- Reset comps queries when resetting the dnf base (pkratoch)
+- i18n: fix embedded URLs in SMT warning messages (k.koukiou)
+- docs: remove submodule link added by mistake (k.koukiou)
+- docs: tests: we use 'latest' tag - not 'main' for containers (k.koukiou)
+- build: makefile: remove noope CI_TAG self assignment (k.koukiou)
+
 * Mon Aug 25 2025 Packit <hello@packit.dev> - 43.37-1
 - Log correct boot option for iSCSI boot without iBFT (jstodola)
 - Get full nevra string from dnf instead of composing it (pkratoch)

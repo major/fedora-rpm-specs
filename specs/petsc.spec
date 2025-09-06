@@ -8,7 +8,6 @@
 # Python binding and its testing
 %bcond_without python
 
-# Not ready for Python-3.14
 %if %{with python}
 %bcond_without pycheck
 %endif
@@ -1003,7 +1002,8 @@ export PETSC_DIR=./
 export PYTHONPATH=%{buildroot}$MPI_PYTHON3_SITEARCH
 export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB
 export MPIEXEC=$MPI_BIN/mpiexec
-xvfb-run -a make V=0 petsc4pytest PETSC4PY_NP=4
+export PMIX_MCA_gds=hash
+make V=0 petsc4pytest PETSC4PY_NP=4
 #pytest
 unset PETSC_ARCH
 unset PETSC_DIR
@@ -1054,7 +1054,8 @@ export PETSC_DIR=./
 export PYTHONPATH=%{buildroot}$MPI_PYTHON3_SITEARCH
 export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB
 export MPIEXEC=$MPI_BIN/mpiexec
-xvfb-run -a make V=0 petsc4pytest PETSC4PY_NP=4
+export PMIX_MCA_gds=hash
+make V=0 petsc4pytest PETSC4PY_NP=4
 unset PETSC_ARCH
 unset PETSC_DIR
 %{_mpich_unload}

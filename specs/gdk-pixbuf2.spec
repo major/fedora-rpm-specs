@@ -1,12 +1,12 @@
 %global glib2_version 2.56.0
-%ifarch i686
-%global with_glycin 0
-%else
-%global with_glycin 1
-%endif
+
+# Normally we want auto features enabled to ensure no important feature gets
+# disabled by mistake. But in this package, the auto features are mostly legacy
+# or unwanted, and we should manually enable only what we want.
+%global __meson_auto_features disabled
 
 Name:           gdk-pixbuf2
-Version:        2.43.3
+Version:        2.43.5
 Release:        %autorelease
 Summary:        An image loading library
 
@@ -14,18 +14,11 @@ License:        LGPL-2.1-or-later
 URL:            https://gitlab.gnome.org/GNOME/gdk-pixbuf
 Source0:        https://download.gnome.org/sources/gdk-pixbuf/2.43/gdk-pixbuf-%{version}.tar.xz
 
-Patch:          0001-jpeg-Be-more-careful-with-chunked-icc-data.patch
-
 BuildRequires:  docbook-style-xsl
 BuildRequires:  gettext
 BuildRequires:  gi-docgen
 BuildRequires:  pkgconfig(gio-2.0) >= %{glib2_version}
-%if %{with_glycin}
 BuildRequires:  pkgconfig(glycin-2)
-%endif
-BuildRequires:  libpng-devel
-BuildRequires:  libjpeg-devel
-BuildRequires:  libtiff-devel
 BuildRequires:  libxslt
 BuildRequires:  meson
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
@@ -38,27 +31,20 @@ Requires: glib2%{?_isa} >= %{glib2_version}
 # We also need MIME information at runtime
 Requires: shared-mime-info
 
+# All modules previously provided by gdk-pixbuf itself are obsoleted by Glycin.
+Obsoletes: %{name}-modules < %{version}-%{release}
+
+# Most third-party pixbuf loaders are also obsolete. If Glycin supports the
+# format, then it will take precedence and the third-party loader won't be used.
+Obsoletes: avif-pixbuf-loader <= 1.1.1-4
+Obsoletes: jxl-pixbuf-loader <= 0.11.1-4
+Obsoletes: rsvg-pixbuf-loader <= 2.61.0-1
+Obsoletes: webp-pixbuf-loader <= 0.2.7-4
+
 %description
 gdk-pixbuf is an image loading library that can be extended by loadable
 modules for new image formats. It is used by toolkits such as GTK+ or
 clutter.
-
-%package modules
-Summary: GIF and TIFF modules for gdk-pixbuf2
-Requires: %{name}%{?_isa} = %{version}-%{release}
-# Recommend external pixbuf loaders for popular image formats only.
-# Please do not recommend obscure image formats here.
-%if ! 0%{?rhel}
-# these are not shipped in RHEL
-Recommends: avif-pixbuf-loader
-Recommends: jxl-pixbuf-loader
-Recommends: webp-pixbuf-loader
-%endif
-Recommends: rsvg-pixbuf-loader
-
-%description modules
-This package contains the additional modules that are needed to load GIF and
-TIFF images.
 
 %package devel
 Summary: Development files for gdk-pixbuf2
@@ -87,22 +73,15 @@ the functionality of the installed %{name} package.
 %build
 %meson \
        -Ddocumentation=true \
-       -Dman=true \
-       -Dandroid=disabled \
-%if !%{with_glycin}
-       -Dglycin=disabled \
-%endif
-%ifarch %{ix86}
-       -Dthumbnailer=disabled \
-%endif
+       -Dintrospection=enabled \
+       -Dglycin=enabled \
        %{nil}
-
-%global _smp_mflags -j1
 %meson_build
 
 %install
 %meson_install
 
+mkdir -p $RPM_BUILD_ROOT%{_libdir}/gdk-pixbuf-2.0/2.10.0/loaders
 touch $RPM_BUILD_ROOT%{_libdir}/gdk-pixbuf-2.0/2.10.0/loaders.cache
 
 # Rename gdk-pixbuf-query-loaders
@@ -124,7 +103,7 @@ gdk-pixbuf-query-loaders-%{__isa_bits} --update-cache
 %files -f gdk-pixbuf.lang
 %license COPYING
 %doc NEWS README.md
-%{_libdir}/libgdk_pixbuf-2.0.so.*
+%{_libdir}/libgdk_pixbuf-2.0.so.0{,.*}
 %{_libdir}/girepository-1.0
 %dir %{_libdir}/gdk-pixbuf-2.0
 %dir %{_libdir}/gdk-pixbuf-2.0/2.10.0
@@ -132,13 +111,6 @@ gdk-pixbuf-query-loaders-%{__isa_bits} --update-cache
 %ghost %{_libdir}/gdk-pixbuf-2.0/2.10.0/loaders.cache
 %{_bindir}/gdk-pixbuf-query-loaders-%{__isa_bits}
 %{_mandir}/man1/gdk-pixbuf-query-loaders.1*
-%ifnarch %{ix86}
-%{_bindir}/gdk-pixbuf-thumbnailer
-%{_datadir}/thumbnailers/
-%endif
-
-%files modules
-%{_libdir}/gdk-pixbuf-2.0/2.10.0/loaders/*.so
 
 %files devel
 %dir %{_includedir}/gdk-pixbuf-2.0

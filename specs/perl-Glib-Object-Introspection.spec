@@ -1,16 +1,14 @@
 Name:           perl-Glib-Object-Introspection
-Version:        0.051
-Release:        7%{?dist}
+Version:        0.052
+Release:        1%{?dist}
 Summary:        Dynamically create Perl language bindings
 License:        LGPL-2.1-or-later
 URL:            https://metacpan.org/release/Glib-Object-Introspection
 Source0:        https://cpan.metacpan.org/authors/id/X/XA/XAOC/Glib-Object-Introspection-%{version}.tar.gz
 Patch1:         perl-Glib-Object-Introspection_lib_pattern.patch
-# Use system-wide compiler flags when building test libraries. It's silents
+# Use system-wide compiler flags when building test libraries. It silents
 # annocheck gating tests, CPAN RT#147466, proposed to the upstream.
-Patch4:         Glib-Object-Introspection-0.050-Use-CFLAGS-and-LDFLAGS-from-the-envirnoment-for-buil.patch
-# https://gitlab.gnome.org/GNOME/perl-glib-object-introspection/-/issues/7
-Patch5:         Glib-Object-Introspection-0.051-Handle-pointer-types.patch
+Patch2:         Glib-Object-Introspection-0.050-Use-CFLAGS-and-LDFLAGS-from-the-envirnoment-for-buil.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  make
@@ -33,7 +31,10 @@ BuildRequires:  pkgconfig(libffi) >= 3.0.0
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Glib) >= 1.320
 BuildRequires:  perl(overload)
+# Text::Wrap not used at tests
 BuildRequires:  perl(XSLoader)
+# Optional run-time
+# Gtk3 not used at tests
 # Tests
 BuildRequires:  perl(Glib::Object::Subclass)
 BuildRequires:  perl(POSIX)
@@ -89,8 +90,8 @@ for F in t/*.t t/inc/setup.pl; do
 done
 
 %build
-# If LANG is not set to UTF8, then when later running the test
-# suite, you will see multiple failures handling UTF8 data
+# If LANG is not set to UTF-8, then when later running the test
+# suite, you will see multiple failures handling UTF-8 data
 export LANG=C.UTF-8
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="$RPM_OPT_FLAGS"
 %{make_build}
@@ -133,6 +134,9 @@ LANG=C.UTF-8 make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Sep 04 2025 Petr Pisar <ppisar@redhat.com> - 0.052-1
+- 0.052 bump
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.051-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

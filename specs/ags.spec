@@ -6,9 +6,9 @@
 
 Name: ags
 Summary: Engine for creating and running videogames of adventure (quest) genre
-Version: 3.6.2.12
+Version: 3.6.2.13
 URL:     http://www.adventuregamestudio.co.uk/site/ags/
-Release: 4%{?dist}
+Release: 1%{?dist}
 Source0: https://github.com/adventuregamestudio/ags/archive/%{fver}/ags-%{fver}.tar.gz
 Patch0: ags-use-system-libraries.patch
 # Most code is under Artistic-2.0, except:
@@ -121,10 +121,13 @@ mv Changes.txt.utf-8 Changes.txt
 %{_bindir}/ags
 
 %changelog
+* Thu Sep 04 2025 Dominik Mierzejewski <dominik@greysector.net> - 3.6.2.13-1
+- update to 3.6.2.13 (resolves rhbz#2393079)
+
 * Sat Aug 23 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 3.6.2.12-4
 - Rebuilt for tinyxml2 11.0.0
 
-* Sun Jul 20 2025 Dominik Mierzejewski <dominik@greysector.net> - 3.6.2.12-3
+* Sun Aug 03 2025 Dominik Mierzejewski <dominik@greysector.net> - 3.6.2.12-3
 - follow upstream convention in option naming
 - drop custom miniz detection and require a fixed build instead
 

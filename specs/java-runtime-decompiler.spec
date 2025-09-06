@@ -137,8 +137,8 @@ popd
 %pom_remove_plugin :formatter-maven-plugin
 %pom_remove_dep :spotbugs-annotations
 xmvn --version
-echo $JAVA_HOME
-export JAVA_HOME=/usr/lib/jvm/java-21-openjdk #why?
+#echo $JAVA_HOME
+#export JAVA_HOME=/usr/lib/jvm/java-25-openjdk #why?
 xmvn --version
 %mvn_build -f --xmvn-javadoc -- -Plegacy
 CPLC=/usr/share/java/classpathless-compiler

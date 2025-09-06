@@ -1,9 +1,8 @@
 Name:           perl-Math-Polygon
-Version:        1.11
-Release:        2%{?dist}
+Version:        2.00
+Release:        1%{?dist}
 Summary:        Maintaining polygon data
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
-Group:          Development/Libraries
 URL:            https://metacpan.org/release/Math-Polygon
 Source0:        https://cpan.metacpan.org/authors/id/M/MA/MARKOV/Math-Polygon-%{version}.tar.gz
 BuildArch:      noarch
@@ -11,27 +10,26 @@ BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(:VERSION) >= 5.10
+BuildRequires:  perl(:VERSION) >= 5.16
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Run-time:
-BuildRequires:  perl(base)
-BuildRequires:  perl(Carp)
 BuildRequires:  perl(Exporter)
-# List::Util version from Scalar::Util in META
-BuildRequires:  perl(List::Util) >= 1.13
+BuildRequires:  perl(List::Util)
+BuildRequires:  perl(Log::Report)
 BuildRequires:  perl(Math::Trig)
+BuildRequires:  perl(parent)
 BuildRequires:  perl(POSIX)
+BuildRequires:  perl(Scalar::Util) >= 1.13
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Tests
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More) >= 0.47
-# List::Util version from Scalar::Util in META
-Requires:       perl(List::Util) >= 1.13
+Requires:       perl(Scalar::Util) >= 1.13
 
 # Remove under-specified dependencies
-%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((List::Util|Test::More)\\)$
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((Test::More)\\)$
 
 %description
 These Perl modules provide basic transformations on two-dimensional polygons
@@ -81,6 +79,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Sep 04 2025 Petr Pisar <ppisar@redhat.com> - 2.00-1
+- 2.00 bump
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:       callaudiod
-Version:    0.1.10
-Release:    4%{?dist}
+Version:    0.1.99
+Release:    1%{?dist}
 Summary:    Daemon for dealing with audio routing during phone calls
 
 License:        GPL-3.0-or-later
@@ -10,13 +10,13 @@ Source0:        https://gitlab.com/mobian1/callaudiod/-/archive/%{version}/%{nam
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  meson
+BuildRequires:  appstream-devel
 
 BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(gobject-2.0)
 BuildRequires:  pkgconfig(gio-unix-2.0)
 BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  pkgconfig(libpulse-mainloop-glib)
-
 
 %description
 callaudiod is a daemon for dealing with audio routing during phone calls.
@@ -45,7 +45,6 @@ developing applications that use %{name}.
 %install
 %meson_install
 
-
 %files
 %{_bindir}/%{name}
 %{_bindir}/callaudiocli
@@ -64,13 +63,4 @@ developing applications that use %{name}.
 %license COPYING
 
 %changelog
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.10-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.10-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.10-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
 %autochangelog

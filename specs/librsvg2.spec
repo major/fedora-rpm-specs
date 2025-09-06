@@ -68,7 +68,8 @@ BuildRequires:  cargo-rpm-macros
 
 Requires:       cairo%{?_isa} >= %{cairo_version}
 Requires:       cairo-gobject%{?_isa} >= %{cairo_version}
-Requires:       rsvg-pixbuf-loader
+
+Obsoletes:      rsvg-pixbuf-loader < %{version}-%{release}
 
 %description
 An SVG library based on cairo.
@@ -80,14 +81,6 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %description devel
 This package provides the necessary development libraries and include
 files to allow you to develop with librsvg.
-
-%package     -n rsvg-pixbuf-loader
-Summary:        SVG image loader for gdk-pixbuf
-Requires:       gdk-pixbuf2%{?_isa}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-
-%description -n rsvg-pixbuf-loader
-This package provides a gdk-pixbuf plugin for loading SVG images in GTK apps.
 
 %package tools
 Summary:        Extra tools for librsvg
@@ -119,7 +112,7 @@ sed -i 's/, "--locked"//g' meson/cargo_wrapper.py
 %endif
 
 %build
-%meson %{?rhel:-Davif=disabled}
+%meson %{?rhel:-Davif=disabled} -Dpixbuf-loader=disabled
 %meson_build
 
 %cargo_license_summary
@@ -161,11 +154,6 @@ rm -f %{buildroot}%{_pkgdocdir}/COMPILING.md
 %{_datadir}/vala/vapi/librsvg-2.0.vapi
 %{_datadir}/vala/vapi/librsvg-2.0.deps
 %{_docdir}/Rsvg-2.0
-
-%files -n rsvg-pixbuf-loader
-%{_libdir}/gdk-pixbuf-2.0/*/loaders/libpixbufloader_svg.so
-%dir %{_datadir}/thumbnailers
-%{_datadir}/thumbnailers/librsvg.thumbnailer
 
 %files tools
 %{_bindir}/rsvg-convert

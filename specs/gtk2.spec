@@ -20,7 +20,7 @@
 Summary: GTK+ graphical user interface library
 Name: gtk2
 Version: 2.24.33
-Release: 22%{?dist}
+Release: 23%{?dist}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2+
 URL: http://www.gtk.org
@@ -83,9 +83,6 @@ Obsoletes: gail < 2.13.0-1
 Requires: hicolor-icon-theme
 # built as a subpackage of gtk3
 Requires: gtk-update-icon-cache
-
-# required to support all the different image formats
-Requires: gdk-pixbuf2-modules%{?_isa}
 
 Requires: glib2 >= %{glib2_version}
 Requires: atk >= %{atk_version}
@@ -342,6 +339,9 @@ gtk-query-immodules-2.0-%{__isa_bits} --update-cache
 %doc tmpdocs/examples
 
 %changelog
+* Thu Sep 04 2025 Adam Williamson <awilliam@redhat.com> - 2.24.33-23
+- Drop explicit dependency on obsolete gdk-pixbuf2-modules
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.24.33-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

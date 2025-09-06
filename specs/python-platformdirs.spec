@@ -1,13 +1,15 @@
-%bcond_without tests
+%bcond tests 1
 
 Name:           python-platformdirs
-Version:        4.2.2
+Version:        4.4.0
 Release:        %autorelease
 Summary:        A small Python package for determining appropriate platform-specific dirs
 License:        MIT
 URL:            https://github.com/platformdirs/platformdirs
 Source:         %{pypi_source platformdirs}
 BuildArch:      noarch
+
+BuildRequires:  tomcli
 
 %global common_description %{expand:
 When writing desktop application, finding the right location to store user data
@@ -22,8 +24,6 @@ thing is what the platformdirs package is for.}
 %package -n python3-platformdirs
 Summary:        %{summary}
 BuildRequires:  python3-devel
-# RHBZ#1712140, RHBZ#2076994
-BuildRequires:  pyproject-rpm-macros >= 1.2.0
 
 
 %description -n python3-platformdirs %{common_description}
@@ -33,8 +33,8 @@ BuildRequires:  pyproject-rpm-macros >= 1.2.0
 %autosetup -n platformdirs-%{version}
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-sed -r -i '/^[[:blank:]]*"pytest-cov\b/d' pyproject.toml
-sed -r -i '/^[[:blank:]]*"covdefaults\b/d' pyproject.toml
+tomcli set pyproject.toml lists delitem project.optional-dependencies.test 'pytest-cov\b.*'
+tomcli set pyproject.toml lists delitem project.optional-dependencies.test 'covdefaults\b.*'
 
 
 %generate_buildrequires

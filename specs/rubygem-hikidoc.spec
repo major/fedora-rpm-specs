@@ -2,15 +2,13 @@
 %global	gem_name	hikidoc
 
 Name:		rubygem-%{gem_name}
-Version:	0.1.0
-Release:	24%{?dist}
+Version:	0.1.1
+Release:	1%{?dist}
 
 Summary:	Text-to-HTML conversion tool for web writers
 License:	BSD-3-Clause
 URL:		https://github.com/hiki/hikidoc
 Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
-# https://github.com/hiki/hikidoc/pull/13
-Patch0:	hikidoc-pr13-suppress-literal-string-warning.patch
 
 BuildRequires:	ruby(release)
 BuildRequires:	rubygems-devel
@@ -18,8 +16,6 @@ BuildRequires:	rubygem(test-unit)
 Requires:	ruby(release)
 Requires:	ruby(rubygems)
 BuildArch:	noarch
-
-Provides:	rubygem(%{gem_name}) = %{version}-%{release}
 
 %description
 'HikiDoc' is a text-to-HTML conversion tool for web writers. 
@@ -36,20 +32,7 @@ Documentation for %{name}
 
 %prep
 %setup -q -n %{gem_name}-%{version}
-%patch -P0 -p1
-
 mv ../%{gem_name}-%{version}.gemspec .
-
-# Encoding
-for f in  \
-	NEWS.ja \
-	README.ja \
-	TextFormattingRules.ja
-do
-	iconv -f EUC-JP -t UTF-8 -o $f{.utf,}
-	touch -r $f{,.utf}
-	mv $f{.utf,}
-done
 
 %build
 gem build %{gem_name}-%{version}.gemspec
@@ -70,12 +53,12 @@ find %{buildroot}%{gem_instdir}/bin -type f | xargs chmod a+x
 rm -f %{buildroot}%{gem_cache}
 pushd %{buildroot}%{gem_instdir}
 rm -rf \
+	.github/ \
 	.gitignore \
 	.travis.yml \
 	Gemfile \
 	Rakefile \
 	%{gem_name}.gemspec \
-	setup.rb \
 	test/
 popd
 
@@ -103,6 +86,9 @@ popd
 %doc	%{gem_docdir}/
 
 %changelog
+* Thu Sep 04 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.1.1-1
+- 0.1.1
+
 * Tue Aug 26 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.1.0-24
 - Use recent gem packaging style
 - Modify License tag

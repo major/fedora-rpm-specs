@@ -1,5 +1,3 @@
-%undefine __cmake_in_source_build
-
 %global kbanking 1
 
 # uncomment to enable bootstrap mode
@@ -11,20 +9,24 @@
 
 Summary: Personal finance
 Name:    kmymoney
-Version: 5.1.3
-Release: 15%{?dist}
+Version: 5.2.1
+Release: 1%{?dist}
 
 # kmm itself is GPLv2+
 # bundled kdchart is GPLv2 or GPLv3, but currently not using it
 License: GPL-2.0-or-later
-Url:     http://kmymoney.org/
-Source0: http://download.kde.org/stable/kmymoney/%{version}/src/kmymoney-%{version}.tar.xz
+Url:     https://kmymoney.org/
+Source0: https://download.kde.org/stable/kmymoney/%{version}/kmymoney-%{version}.tar.xz
 
 ## backports from upstream
 
 ## upstreamable patches
+# enable using KIdentityManagement with PIM version >= 6.0.0
+# https://invent.kde.org/office/kmymoney/-/merge_requests/290
+Patch100: kmymoney-5.2.1-kidentitymanagementcore.patch
 
-ExclusiveArch: %{qt5_qtwebengine_arches}
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
 
 BuildRequires: make
 BuildRequires: boost-devel
@@ -35,82 +37,76 @@ BuildRequires: gettext
 
 BuildRequires: libappstream-glib
 BuildRequires: perl-generators
-%if 0%{?kbanking}
-BuildRequires: pkgconfig(aqbanking) >= 5.99
-BuildRequires: cmake(gwengui-qt5) >= 4.99
-%endif
 
-# kf5
+# kf6
 BuildRequires: extra-cmake-modules
-BuildRequires: kf5-rpm-macros
-BuildRequires: cmake(KF5Archive)
-BuildRequires: cmake(KF5CoreAddons)
-BuildRequires: cmake(KF5Config)
-BuildRequires: cmake(KF5ConfigWidgets)
-BuildRequires: cmake(KF5I18n)
-BuildRequires: cmake(KF5Completion)
-BuildRequires: cmake(KF5KCMUtils)
-BuildRequires: cmake(KF5ItemModels)
-BuildRequires: cmake(KF5ItemViews)
-BuildRequires: cmake(KF5Service)
-BuildRequires: cmake(KF5Wallet)
-BuildRequires: cmake(KF5IconThemes)
-BuildRequires: cmake(KF5XmlGui)
-BuildRequires: cmake(KF5TextWidgets)
-BuildRequires: cmake(KF5TextEditTextToSpeech)
-BuildRequires: cmake(KF5Notifications)
-BuildRequires: cmake(KF5KIO)
+BuildRequires: kf6-rpm-macros
 
-BuildRequires: cmake(KF5DocTools)
-BuildRequires: cmake(KF5Holidays)
-BuildRequires: cmake(KF5Contacts)
-BuildRequires: cmake(KF5Akonadi)
-BuildRequires: cmake(KF5IdentityManagement)
-BuildRequires: cmake(KF5Activities)
+BuildRequires: cmake(QGpgmeQt6)
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6DBus)
+BuildRequires: cmake(Qt6Widgets)
+BuildRequires: cmake(Qt6Svg)
+BuildRequires: cmake(Qt6Xml)
+BuildRequires: cmake(Qt6Test)
+BuildRequires: cmake(Qt6PrintSupport)
+BuildRequires: cmake(Qt6Sql)
+BuildRequires: cmake(Qt6Concurrent)
+BuildRequires: cmake(Qt6QuickWidgets)
+BuildRequires: cmake(Qt6Core5Compat)
 
-BuildRequires: cmake(Gpgmepp)
-BuildRequires: cmake(QGpgme)
-BuildRequires: cmake(KChart)
+BuildRequires: cmake(KF6Archive)
+BuildRequires: cmake(KF6CoreAddons)
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6ConfigWidgets)
+BuildRequires: cmake(KF6Crash)
+BuildRequires: cmake(KF6I18n)
+BuildRequires: cmake(KF6Completion)
+BuildRequires: cmake(KF6KCMUtils)
+BuildRequires: cmake(KF6ItemModels)
+BuildRequires: cmake(KF6ItemViews)
+BuildRequires: cmake(KF6Service)
+BuildRequires: cmake(KF6XmlGui)
+BuildRequires: cmake(KF6TextWidgets)
+BuildRequires: cmake(KF6Notifications)
+BuildRequires: cmake(KF6KIO)
+BuildRequires: cmake(KF6DocTools)
+BuildRequires: cmake(KF6Holidays)
+BuildRequires: cmake(KF6Contacts)
+BuildRequires: cmake(PlasmaActivities)
 
-BuildRequires: cmake(Qt5DBus)
-BuildRequires: cmake(Qt5Widgets)
-BuildRequires: cmake(Qt5Svg)
-BuildRequires: cmake(Qt5Sql)
-BuildRequires: cmake(Qt5Xml)
-BuildRequires: cmake(Qt5Test)
-BuildRequires: cmake(Qt5PrintSupport)
-BuildRequires: cmake(Qt5WebEngineWidgets)
+BuildRequires: cmake(KPim6Akonadi)
+BuildRequires: cmake(KPim6IdentityManagementCore)
 
-BuildRequires: pkgconfig(libalkimia5) >= 8.0
-BuildRequires: pkgconfig(libical-glib)
+BuildRequires: cmake(Qt6Keychain)
+BuildRequires: cmake(LibAlkimia6)
+BuildRequires: cmake(KChart6)
+
 BuildRequires: pkgconfig(libofx)
-BuildRequires: pkgconfig(libxml-2.0)
-BuildRequires: pkgconfig(libxml++-2.6)
-BuildRequires: pkgconfig(glibmm-2.4)
+BuildRequires: opensp-devel
+
 ## NEEDSWORK?
 %global sqlcipher 1
-BuildRequires: qt5-qtbase-private-devel
+BuildRequires: qt6-qtbase-private-devel
 BuildRequires: pkgconfig(sqlcipher)
-BuildRequires: pkgconfig(sqlite3)
+%if 0%{?kbanking}
+BuildRequires: pkgconfig(aqbanking) >= 6.5.0
+BuildRequires: cmake(gwengui-qt6) >= 5.10.1
+%endif
+BuildRequires: python3-devel
+BuildRequires: pkgconfig(libical-glib)
 
 ## FIXME/TODO:
 # kmymoney/payeeidentifier/ibanandbic/ibanbic.cpp includes gmpxx.h
 BuildRequires: gmp-devel
 
 %if 0%{?tests}
-BuildRequires: dbus-x11
+BuildRequires: libEGL
 BuildRequires: time
-BuildRequires: xorg-x11-server-Xvfb
+BuildRequires: xwayland-run
 %endif
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
-
-Obsoletes: kmymoney2 < 2
-Provides:  kmymoney2 = %{version}-%{release}
-
-Obsoletes: kmymoney2-aqbanking < 2
-Provides:  kmymoney2-aqbanking = %{version}-%{release} 
-
 
 %description
 KMyMoney strives to be the best personal finance manager.
@@ -125,21 +121,18 @@ The ultimate objectives of KMyMoney are...
 %package libs
 Summary: Run-time libraries for %{name}
 Requires: %{name} = %{version}-%{release}
-Obsoletes: kmymoney2-libs < 2
 %description libs
 %{summary}.
 
 %package devel
 Summary: Development files for %{name}
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
-Obsoletes: kmymoney2-devel < 2
 %description devel
 %{summary}.
 
 %package doc
 Summary: Application handbook, documentation, translations
 # for upgrade path
-Obsoletes: kmymoney < 4.6.3
 Requires:  %{name} = %{version}-%{release}
 BuildArch: noarch
 %description doc
@@ -149,14 +142,10 @@ BuildArch: noarch
 %prep
 %autosetup -p1
 
-# Fix up Patch1 to work as a backport to 5.1.2:
-sed -r -i 's/K(MYMONEY_DEPRECATED)/KMM_\1/g' \
-    kmymoney/plugins/kbanking/kbanking.h
-
 
 %build
-%cmake_kf5 \
-  -DENABLE_WEBENGINE:BOOL=ON \
+%cmake_kf6 \
+  -DBUILD_WITH_QT6:BOOL=ON \
   %{?tests:-DBUILD_TESTING:BOOL=ON}
 
 %cmake_build
@@ -170,62 +159,50 @@ sed -r -i 's/K(MYMONEY_DEPRECATED)/KMM_\1/g' \
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.kmymoney.appdata.xml
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.kmymoney.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.kmymoney.appdata.xml
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.kmymoney.desktop
 %if 0%{?tests}
-export CTEST_OUTPUT_ON_FAILURE=1
-xvfb-run -a \
-make test -C %{_target_platform} ARGS="--output-on-failure --timeout 300" ||:
+%global __ctest xwfb-run -- %{__ctest}
+%ctest
 %endif
 
 
 %files -f kmymoney.lang
 %doc README.md
 %license LICENSES/GPL-2.0-or-later.txt
-%{_kf5_bindir}/kmymoney
-%{_kf5_metainfodir}/org.kde.kmymoney.appdata.xml
-%{_kf5_datadir}/applications/org.kde.kmymoney.desktop
-%{_kf5_datadir}/checkprinting/
-%{_kf5_datadir}/config.kcfg/k*.kcfg
-%{_kf5_datadir}/kconf_update/kmymoney.upd
-%{_kf5_datadir}/kmymoney/
-%{_kf5_datadir}/kservices5/k*.desktop
-# %{_kf5_datadir}/kservicetypes5/*.desktop
-%{_kf5_datadir}/kxmlgui5/*
-%{_kf5_datadir}/icons/hicolor/*/*/*
-%{_kf5_datadir}/mime/packages/x-kmymoney.xml
+%{_kf6_bindir}/kmymoney
+%{_kf6_metainfodir}/org.kde.kmymoney.appdata.xml
+%{_kf6_datadir}/applications/org.kde.kmymoney.desktop
+%{_kf6_datadir}/checkprinting/
+%{_kf6_datadir}/config.kcfg/k*.kcfg
+%{_kf6_datadir}/kconf_update/kmymoney.upd
+%{_kf6_datadir}/kmymoney/
+%{_kf6_datadir}/icons/hicolor/*/*/*
+%{_kf6_datadir}/mime/packages/x-kmymoney.xml
 %{_mandir}/man1/kmymoney.1*
-%if 0%{?kbanking}
-%{_kf5_datadir}/kbanking/
-%endif
-
-%ldconfig_scriptlets libs
 
 %files libs
-%{_kf5_qtplugindir}/kmymoney/
+%{_kf6_qtplugindir}/kmymoney_plugins/
 %if 0%{?sqlcipher}
-# adds dep on qt5 private api
-%{_kf5_qtplugindir}/sqldrivers/qsqlcipher.so
+# adds dep on qt6 private api
+%{_kf6_qtplugindir}/sqldrivers/qsqlcipher.so
 %endif
-%{_kf5_libdir}/libkmm_csvimportercore.so.5*
-%{_kf5_libdir}/libkmm_icons.so.5*
-%{_kf5_libdir}/libkmm_menus.so.5*
-%{_kf5_libdir}/libkmm_models.so.5*
-%{_kf5_libdir}/libkmm_mymoney.so.5*
-%{_kf5_libdir}/libkmm_payeeidentifier.so.5*
-%{_kf5_libdir}/libkmm_plugin.so.5*
-%{_kf5_libdir}/libkmm_printer.so.5*
-%{_kf5_libdir}/libkmm_settings.so.5*
-%{_kf5_libdir}/libkmm_widgets.so.5*
+%{_kf6_libdir}/libkmm_*.so.5{,.*}
+%{_kf6_libdir}/libonlinetask_interfaces.so.5{,.*}
 
 %files devel
 %{_includedir}/kmymoney/
-%{_kf5_libdir}/lib*.so
+%{_kf6_libdir}/libkmm_*.so
+%{_kf6_libdir}/libonlinetask_interfaces.so
 
 %files doc -f kmymoney-doc.lang
 
 
 %changelog
+* Sun Aug 31 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 5.2.1-1
+- 5.2.1
+- Build for Qt6
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.3-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

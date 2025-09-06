@@ -5,8 +5,8 @@
 %global build_programs 0
 
 Name:           mingw-libjpeg-turbo
-Version:        3.1.1
-Release:        2%{?dist}
+Version:        3.1.2
+Release:        1%{?dist}
 Summary:        MinGW Windows Libjpeg-turbo library
 
 License:        Zlib AND BSD-3-Clause AND MIT AND IJG
@@ -198,6 +198,9 @@ chmod -x README.md
 
 
 %changelog
+* Thu Sep 04 2025 Sandro Mani <manisandro@gmail.com> - 3.1.2-1
+- Update to 3.1.2
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

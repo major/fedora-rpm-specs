@@ -2,7 +2,7 @@
 %global shell_version %%(cut -d "." -f 1 <<<%{version})
 
 Name:           gnome-shell-extension-background-logo
-Version:        48.0
+Version:        49.0
 Release:        %autorelease
 Summary:        Background logo extension for GNOME Shell
 
@@ -15,7 +15,7 @@ BuildRequires:  meson
 BuildRequires:  glib2-devel
 BuildRequires:  git
 
-Requires:       gnome-shell >= %{shell_version}
+Requires:       gnome-shell(api) = %{shell_version}
 Requires:       system-logos
 
 %description

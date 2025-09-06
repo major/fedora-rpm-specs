@@ -12,14 +12,8 @@
 %global major_version %%(echo %{version} | cut -d '.' -f1 | cut -d '~' -f 1)
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
-%if 0%{?fedora} && 0%{?fedora} < 43
-%bcond x11 1
-%else
-%bcond x11 0
-%endif
-
 Name:          mutter
-Version:       49~beta
+Version:       49~rc
 Release:       %autorelease
 Summary:       Window and compositing manager based on Clutter
 
@@ -32,28 +26,14 @@ Source1:       org.gnome.mutter.fedora.gschema.override
 # https://bugzilla.redhat.com/show_bug.cgi?id=1936991
 Patch:         mutter-42.alpha-disable-tegra.patch
 
-# https://gitlab.gnome.org/GNOME/mutter/-/issues/4206
-# https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/4550
-# Fix crash when locking screen on VMs
-Patch:         0001-clutter-Skip-null-actors-in-create_event_emission_ch.patch
+# First 4 commits from https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/4607
+Patch:         window-drag-bug.patch
 
 BuildRequires: pkgconfig(gobject-introspection-1.0) >= 1.41.0
 BuildRequires: pkgconfig(sm)
+BuildRequires: pkgconfig(libadwaita-1)
 BuildRequires: pkgconfig(libwacom)
-BuildRequires: pkgconfig(x11)
-BuildRequires: pkgconfig(xdamage)
-BuildRequires: pkgconfig(xext)
-BuildRequires: pkgconfig(xfixes)
-BuildRequires: pkgconfig(xi)
-BuildRequires: pkgconfig(xrandr)
-BuildRequires: pkgconfig(xrender)
-BuildRequires: pkgconfig(xcursor)
-BuildRequires: pkgconfig(xcomposite)
-BuildRequires: pkgconfig(x11-xcb)
 BuildRequires: pkgconfig(xkbcommon)
-BuildRequires: pkgconfig(xkbcommon-x11)
-BuildRequires: pkgconfig(xkbfile)
-BuildRequires: pkgconfig(xtst)
 BuildRequires: mesa-libEGL-devel
 BuildRequires: mesa-libGLES-devel
 BuildRequires: mesa-libGL-devel
@@ -66,7 +46,6 @@ BuildRequires: pkgconfig(libpipewire-0.3) >= %{pipewire_version}
 BuildRequires: pkgconfig(sysprof-capture-4)
 BuildRequires: sysprof-devel
 BuildRequires: pkgconfig(libsystemd)
-BuildRequires: pkgconfig(xkeyboard-config)
 BuildRequires: pkgconfig(umockdev-1.0)
 BuildRequires: desktop-file-utils
 BuildRequires: cvt
@@ -79,6 +58,7 @@ BuildRequires: pkgconfig(gsettings-desktop-schemas) >= %{gsettings_desktop_schem
 BuildRequires: pkgconfig(gnome-settings-daemon)
 BuildRequires: meson
 BuildRequires: pkgconfig(gbm)
+BuildRequires: pkgconfig(glycin-2)
 BuildRequires: pkgconfig(gnome-desktop-4)
 BuildRequires: pkgconfig(gudev-1.0)
 BuildRequires: pkgconfig(libdrm)
@@ -168,12 +148,7 @@ the functionality of the installed %{name} package.
 %autosetup -S git -n %{name}-%{tarball_version}
 
 %build
-%meson -Degl_device=true \
-%if %{without x11}
-  -Dx11=false \
-%endif
-%{nil}
-
+%meson -Degl_device=true
 %meson_build
 
 %install
@@ -186,22 +161,17 @@ install -p %{SOURCE1} %{buildroot}%{_datadir}/glib-2.0/schemas
 %license COPYING
 %doc NEWS
 %{_bindir}/mutter
-%{_datadir}/applications/*.desktop
-%{_datadir}/icons/hicolor/*/*/*
 %{_datadir}/polkit-1/actions/org.gnome.mutter.*.policy
 %{_bindir}/gdctl
+%{_bindir}/gnome-service-client
 %{_datadir}/bash-completion/completions/gdctl
 %{_libdir}/lib*.so.*
 %{_libdir}/mutter-%{mutter_api_version}/
-%if %{with x11}
-%exclude %{_libdir}/mutter-%{mutter_api_version}/*.gir
-%{_libexecdir}/mutter-restart-helper
-%endif
 %{_libexecdir}/mutter-backlight-helper
-%{_libexecdir}/mutter-devkit
 %{_libexecdir}/mutter-x11-frames
 %{_mandir}/man1/mutter.1*
 %{_mandir}/man1/gdctl.1*
+%{_mandir}/man1/gnome-service-client.1*
 
 %files common
 %{_datadir}/GConf/gsettings/mutter-schemas.convert
@@ -212,10 +182,14 @@ install -p %{SOURCE1} %{buildroot}%{_datadir}/glib-2.0/schemas
 %{_udevrulesdir}/61-mutter.rules
 
 %files devel
+%{_datadir}/applications/org.gnome.Mutter.Mdk.desktop
+%{_datadir}/glib-2.0/schemas/org.gnome.mutter.devkit.gschema.xml
+%{_datadir}/icons/hicolor/*/apps/org.gnome.Mutter.Mdk*
 %{_includedir}/*
 %{_libdir}/lib*.so
 %{_libdir}/mutter-%{mutter_api_version}/*.gir
 %{_libdir}/pkgconfig/*
+%{_libexecdir}/mutter-devkit
 
 %files tests
 %{_libexecdir}/installed-tests/mutter-%{mutter_api_version}

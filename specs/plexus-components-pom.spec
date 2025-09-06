@@ -2,7 +2,7 @@
 
 Name:           plexus-components-pom
 Version:        14.2
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Plexus Components POM
 License:        Apache-2.0
 URL:            https://github.com/codehaus-plexus/plexus-components
@@ -38,6 +38,9 @@ cp -p %{SOURCE1} LICENSE
 %doc LICENSE
 
 %changelog
+* Thu Sep 04 2025 jiri vanek <jvanek@redhat.com> - 14.2-10
+- manual bodhi update for jdk25 needed on selected pkgs
+
 * Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 14.2-9
 - Rebuilt for java-25-openjdk as preffered jdk
 

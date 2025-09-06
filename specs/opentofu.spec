@@ -3,7 +3,7 @@
 
 # https://github.com/opentofu/opentofu
 %global goipath         github.com/opentofu/opentofu
-Version:                1.10.3
+Version:                1.10.6
 
 %gometa -L -f
 
@@ -54,7 +54,7 @@ for test in "TestResourceProvider_ApplyCustomWorkingDirectory" "TestGet_cancel" 
 ; do
 awk -i inplace '/^func.*'"$test"'\(/ { print; print "\tt.Skip(\"disabled failing test\")"; next}1' $(grep -rl $test)
 done
-%gocheck
+%gotest ./...
 %endif
 
 %files -f %{go_vendor_license_filelist}

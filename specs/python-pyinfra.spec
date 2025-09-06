@@ -61,7 +61,14 @@ rm -r %{buildroot}%{python3_sitelib}/tests
 %pyproject_check_import
 # Do not run test that depend on network access
 k="${k-}${k+ and }not (test_put_file_sudo)"
-%pytest -k "${k-}"
+# Temporarily deselect tests that need click 8.2+
+deselect="${deselect-} --deselect=tests/test_cli/test_cli.py::TestFactCli::test_get_fact"
+deselect="${deselect-} --deselect=tests/test_cli/test_cli.py::TestFactCli::test_get_fact_with_kwargs"
+deselect="${deselect-} --deselect=tests/test_cli/test_cli_inventory.py::TestCliInventory::test_host_groups_may_only_contain_strings_or_tuples"
+deselect="${deselect-} --deselect=tests/test_cli/test_cli_inventory.py::TestCliInventory::test_ignores_variables_with_leading_underscore"
+deselect="${deselect-} --deselect=tests/test_cli/test_cli_inventory.py::TestCliInventory::test_only_supports_list_and_tuples"
+%pytest -k "${k-}" ${deselect-}
+
 
 %files -n python3-pyinfra -f %{pyproject_files}
 %{_bindir}/pyinfra

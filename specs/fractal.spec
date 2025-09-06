@@ -6,8 +6,8 @@
 %global rustflags_debuginfo 1
 
 Name:           fractal
-Version:        11.2
-Release:        3%{?dist}
+Version:        12.1
+Release:        1%{?dist}
 Summary:        Matrix group messaging app
 
 # fractal itself is GPL-3.0-or-later. The rest are statically linked rust libraries based on cargo_license_summary output.
@@ -71,6 +71,8 @@ sed -i -e '/\(gtk_update_icon_cache\|glib_compile_schemas\|update_desktop_databa
 %{cargo_license} > LICENSE.dependencies
 %cargo_vendor_manifest
 
+# replace un-parseable git snapshot dependency information
+sed 's/\(.*\) (.*#\(.*\))/\1+git\2/' -i cargo-vendor.txt
 
 %install
 %meson_install
@@ -97,6 +99,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Tue Aug 26 2025 Gwyn Ciesla <gwync@protonmail.com> - 12.1-1
+- 12.1
+
 * Fri Aug 01 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 11.2-3
 - Fix UI styling by using supported Sass compiler (rhbz#2373009)
 

@@ -1,9 +1,10 @@
 %bcond  gnome           1
 %bcond  gnome40         1
 %bcond  gnome45         %[0%{?fedora} || 0%{?rhel} >= 10]
-%bcond  gnome_flashback %{undefined flatpak}
-%bcond  mate            %{undefined flatpak}
-%bcond  xfce            %{undefined flatpak}
+# Disabled due to missing dependencies.
+%bcond  gnome_flashback %[0%{?fedora} || 0%{?rhel} <= 9]
+%bcond  mate            %[0%{?fedora} || 0%{?rhel} <= 9]
+%bcond  xfce            %[0%{?fedora} || 0%{?rhel} <= 9]
 
 %global app_id org.workrave.Workrave
 

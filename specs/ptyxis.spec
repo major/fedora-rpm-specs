@@ -8,7 +8,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:		ptyxis
-Version:	49~alpha
+Version:	49~rc
 Release:	%autorelease
 Summary:	A container oriented terminal for GNOME
 

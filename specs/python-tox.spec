@@ -20,7 +20,7 @@
 %undefine _py3_shebang_s
 
 Name:           python-tox
-Version:        4.26.0
+Version:        4.30.1
 Release:        %autorelease
 Summary:        Virtualenv-based automation of test activities
 
@@ -33,6 +33,7 @@ Source:         %{pypi_source tox}
 # Remove coverage-related dependencies.
 # Adjust virtualenv environment variables to make it work with our patched virtualenv.
 # Adjust setuptools-version specific ifs to check for setuptools version rather than Python version.
+# Ignore ResourceWarning: subprocess ... is still running (happens arbitrarily, possibly due to pytest-xdist usage)
 Patch:          fix-tests.patch
 
 BuildArch:      noarch
@@ -101,11 +102,20 @@ Recommends:     python3-devel
 
 # Upstream updates dependencies too aggressively
 # see https://github.com/tox-dev/tox/pull/2843#discussion_r1065028356
-sed -ri -e 's/"(packaging|filelock|platformdirs|psutil|pyproject-api|pytest|pytest-mock|pytest-xdist|wheel|pluggy|distlib|cachetools|build\[virtualenv\]|setuptools|flaky)>=.*/"\1",/g' \
+sed -ri -e 's/"(packaging|filelock|platformdirs|psutil|pyproject-api|pytest|pytest-mock|pytest-xdist|wheel|distlib|cachetools|build\[virtualenv\]|setuptools|flaky|hatch-vcs)>=.*/"\1",/g' \
         -e 's/"(time-machine)>=[^;"]+/"\1/' \
         -e 's/"(virtualenv)>=.*/"\1>=20.29",/g' \
         -e 's/"(hatchling)>=.*/"\1>=1.13",/g' \
+        -e 's/"(pluggy)>=.*/"\1>=1.5",/g' \
     pyproject.toml
+
+%if 0%{?rhel}
+# There is no build[virtualenv] packaged in ELN
+# https://github.com/fedora-eln/eln/issues/309
+# We flatten the test depndency to build and virtualenv (already listed in runtime deps)
+sed -i 's/"build\[virtualenv\]"/"build"/' pyproject.toml
+%endif
+
 
 %generate_buildrequires
 export SETUPTOOLS_SCM_PRETEND_VERSION="%{version}"
@@ -162,6 +172,7 @@ k="${k-}${k+ and }not keyboard_interrupt"
 k="${k-}${k+ and }not test_call_as_module"
 k="${k-}${k+ and }not test_call_as_exe"
 k="${k-}${k+ and }not test_run_installpkg_targz"
+k="${k-}${k+ and }not test_pyproject_installpkg_pep517_envs"
 test -z $VIRTUALENV_WHEEL && k="${k-}${k+ and }not test_result_json_sequential"
 %endif
 

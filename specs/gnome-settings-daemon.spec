@@ -13,7 +13,7 @@
 %global major_version %%(echo %{version} | cut -f 1 -d '~' | cut -f 1 -d '.')
 
 Name:           gnome-settings-daemon
-Version:        49~beta
+Version:        49~rc
 Release:        %autorelease
 Summary:        The daemon sharing settings from GNOME to GTK+/KDE applications
 
@@ -126,62 +126,46 @@ cp %{SOURCE1} $RPM_BUILD_ROOT%{_datadir}/glib-2.0/schemas
 # list daemons explicitly, so we notice if one goes missing
 # some of these don't have a separate gschema
 %{_libexecdir}/gsd-datetime
-%{_sysconfdir}/xdg/autostart/org.gnome.SettingsDaemon.Datetime.desktop
 
 %{_libexecdir}/gsd-housekeeping
-%{_sysconfdir}/xdg/autostart/org.gnome.SettingsDaemon.Housekeeping.desktop
 %{_datadir}/glib-2.0/schemas/org.gnome.settings-daemon.plugins.housekeeping.gschema.xml
 
 %{_libexecdir}/gsd-keyboard
-%{_sysconfdir}/xdg/autostart/org.gnome.SettingsDaemon.Keyboard.desktop
 
 %{_libexecdir}/gsd-media-keys
-%{_sysconfdir}/xdg/autostart/org.gnome.SettingsDaemon.MediaKeys.desktop
 %{_datadir}/glib-2.0/schemas/org.gnome.settings-daemon.plugins.media-keys.gschema.xml
 
 %{_libexecdir}/gsd-power
-%{_sysconfdir}/xdg/autostart/org.gnome.SettingsDaemon.Power.desktop
 %{_datadir}/glib-2.0/schemas/org.gnome.settings-daemon.plugins.power.gschema.xml
 
 %{_libexecdir}/gsd-print-notifications
-%{_sysconfdir}/xdg/autostart/org.gnome.SettingsDaemon.PrintNotifications.desktop
 %{_libexecdir}/gsd-printer
 
 %{_libexecdir}/gsd-rfkill
-%{_sysconfdir}/xdg/autostart/org.gnome.SettingsDaemon.Rfkill.desktop
 
 %{_libexecdir}/gsd-screensaver-proxy
-%{_sysconfdir}/xdg/autostart/org.gnome.SettingsDaemon.ScreensaverProxy.desktop
 
 %{_libexecdir}/gsd-smartcard
-%{_sysconfdir}/xdg/autostart/org.gnome.SettingsDaemon.Smartcard.desktop
 
 %{_libexecdir}/gsd-sound
-%{_sysconfdir}/xdg/autostart/org.gnome.SettingsDaemon.Sound.desktop
 
 %{_libexecdir}/gsd-usb-protection
-%{_sysconfdir}/xdg/autostart/org.gnome.SettingsDaemon.UsbProtection.desktop
 
 %{_datadir}/glib-2.0/schemas/org.gnome.settings-daemon.peripherals.gschema.xml
 %{_datadir}/glib-2.0/schemas/org.gnome.settings-daemon.peripherals.wacom.gschema.xml
 %{_datadir}/glib-2.0/schemas/org.gnome.settings-daemon.global-shortcuts.gschema.xml
 
 %{_libexecdir}/gsd-xsettings
-%{_sysconfdir}/xdg/autostart/org.gnome.SettingsDaemon.XSettings.desktop
 %{_datadir}/glib-2.0/schemas/org.gnome.settings-daemon.plugins.xsettings.gschema.xml
 
 %{_libexecdir}/gsd-a11y-settings
-%{_sysconfdir}/xdg/autostart/org.gnome.SettingsDaemon.A11ySettings.desktop
 
 %{_libexecdir}/gsd-color
-%{_sysconfdir}/xdg/autostart/org.gnome.SettingsDaemon.Color.desktop
 %{_datadir}/glib-2.0/schemas/org.gnome.settings-daemon.plugins.color.gschema.xml
 
 %{_libexecdir}/gsd-sharing
-%{_sysconfdir}/xdg/autostart/org.gnome.SettingsDaemon.Sharing.desktop
 %{_datadir}/glib-2.0/schemas/org.gnome.settings-daemon.plugins.sharing.gschema.xml
 
-%{_sysconfdir}/xdg/autostart/org.gnome.SettingsDaemon.Wwan.desktop
 %{_libexecdir}/gsd-wwan
 %{_datadir}/glib-2.0/schemas/org.gnome.settings-daemon.plugins.wwan.gschema.xml
 

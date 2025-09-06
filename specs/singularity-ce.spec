@@ -4,7 +4,7 @@
 
 Name: singularity-ce
 Version: 4.3.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Application and environment virtualization
 
 # See LICENSE.md for first party code (BSD-3-Clause and BSD-3-Clause-LBNL)
@@ -377,6 +377,10 @@ container platform designed to be simple, fast, and secure.
 %doc CONTRIBUTING.md
 
 %changelog
+* Thu Sep 4 2025 David Trudgian <dtrudg@sylabs.io> - 4.3.3-2
+- Use source tarball without squashfuse build artefacts.
+  rhbz#2392889
+
 * Thu Aug 21 2025 David Trudgian <dtrudg@sylabs.io> - 4.3.3-1
 - Upgrade to 4.3.3 upstream version.
 

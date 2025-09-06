@@ -32,6 +32,7 @@ BuildRequires:  /usr/bin/desktop-file-validate
 
 Requires:       libwnck3
 Requires:       python3-brlapi
+Requires:       python3-dasbus
 Requires:       python3-louis
 Requires:       python3-pyatspi
 Requires:       python3-speechd

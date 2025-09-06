@@ -34,7 +34,7 @@ print(string.sub(hash, 0, 16))
 Summary: Utilities from the general purpose cryptography library with TLS implementation
 Name: openssl
 Version: 3.5.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 Epoch: 1
 Source0: openssl-%{version}.tar.gz
 Source1: fips-hmacify.sh
@@ -307,9 +307,10 @@ export OPENSSL_SYSTEM_CIPHERS_OVERRIDE
 #mv providers/fips.so.mac providers/fips.so
 %{SOURCE1} providers/fips.so
 
-# Disable LTO, build tests, and run them
-%define _lto_cflags %{nil}
-make -s %{?_smp_mflags} build_programs
+# Build tests with LTO disabled and run them
+make -s %{?_smp_mflags} build_programs \
+    CFLAGS="%{build_cflags} -fno-lto" \
+    CXXFLAGS="%{build_cxxflags} -fno-lto"
 make test HARNESS_JOBS=8
 
 # Add generation of HMAC checksum of the final stripped library
@@ -472,6 +473,9 @@ ln -s /etc/crypto-policies/back-ends/openssl_fips.config $RPM_BUILD_ROOT%{_sysco
 %ldconfig_scriptlets libs
 
 %changelog
+* Thu Sep 04 2025 Pavol Žáčik <pzacik@redhat.com> - 1:3.5.1-4
+- Fix globally disabled LTO
+
 * Tue Aug 26 2025 Pavol Žáčik <pzacik@redhat.com> - 1:3.5.1-3
 - Make openssl speed test signatures without errors
 - Build tests in check and without LTO

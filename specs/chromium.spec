@@ -280,7 +280,7 @@ Patch92: chromium-138-checkversion-nodejs.patch
 # system ffmpeg
 # need for old ffmpeg 5.x on epel9
 Patch128: chromium-138-el9-ffmpeg-deprecated-apis.patch
-Patch129: chromium-125-ffmpeg-5.x-reordered_opaque.patch
+Patch129: chromium-el9-ffmpeg-AV_CODEC_FLAG_COPY_OPAQUE.patch
 Patch130: chromium-107-ffmpeg-5.x-duration.patch
 # disable the check
 Patch131: chromium-107-proprietary-codecs.patch
@@ -315,6 +315,9 @@ Patch309: chromium-132-el8-unsupport-rustc-flags.patch
 
 # Fix rhbz#2387446, FTBFS with rust-1.89.0
 Patch310: chromium-139-rust-FTBFS-suppress-warnings.patch
+
+# Fix FTBFS: undefined symbol: __rust_no_alloc_shim_is_unstable
+Patch311: chromium-rust-no-alloc-shim-is-unstable.patch
 
 # enable fstack-protector-strong
 Patch312: chromium-123-fstack-protector-strong.patch
@@ -371,7 +374,6 @@ Patch383: 0001-swiftshader-fix-build.patch
 
 Patch384: Rtc_base-system-arch.h-PPC.patch
 
-Patch385: 0002-Include-cstddef-to-fix-build.patch
 Patch386: 0004-third_party-crashpad-port-curl-transport-ppc64.patch
 
 Patch387: HACK-third_party-libvpx-use-generic-gnu.patch
@@ -411,8 +413,6 @@ Patch412: add-ppc64-architecture-to-extensions.diff
 # Suppress harmless compiler warning messages that appear on ppc64 due to arch-specific warning flags being passed
 Patch413: fix-unknown-warning-option-messages.diff
 Patch415: add-ppc64-pthread-stack-size.patch
-# Fix build error on el10
-Patch416: fix-ppc64-rust_png-build-error.patch
 
 Patch417: 0001-add-xnn-ppc64el-support.patch
 Patch418: 0002-regenerate-xnn-buildgn.patch
@@ -966,7 +966,7 @@ Qt6 UI for chromium.
 %if ! %{bundleffmpegfree}
 %if 0%{?rhel} == 9
 %patch -P128 -p1 -b .el9-ffmpeg-deprecated-apis
-%patch -P129 -p1 -R -b .ffmpeg-5.x-reordered_opaque
+%patch -P129 -p1 -b .el9-ffmpeg-AV_CODEC_FLAG_COPY_OPAQUE
 %patch -P130 -p1 -b .ffmpeg-5.x-duration
 %patch -P133 -p1 -b .el9-ffmpeg-5.1.x
 %endif
@@ -998,6 +998,9 @@ Qt6 UI for chromium.
 %endif
 
 %patch -P310 -p1 -b .rust-FTBFS-suppress-warnings
+%if 0%{?rhel}
+%patch -P311 -p1 -b .rust-no-alloc-shim-is-unstable
+%endif
 %patch -P312 -p1 -b .fstack-protector-strong
 
 %if 0%{?rhel} && 0%{?rhel} < 10
@@ -1031,11 +1034,10 @@ Qt6 UI for chromium.
 %patch -P377 -p1 -b .0001-Add-PPC64-support-for-boringssl
 %patch -P378 -p1 -b .0001-third_party-libvpx-Properly-generate-gni-on-ppc64
 %patch -P380 -p1 -b .0001-third_party-pffft-Include-altivec.h-on-ppc64-with-SI
-%patch -P381 -p1 -b .002-Add-PPC64-generated-files-for-boringssl
+%patch -P381 -p1 -b .0002-Add-PPC64-generated-files-for-boringssl
 %patch -P382 -p1 -b .0002-third_party-lss-kernel-structs
 %patch -P383 -p1 -b .0001-swiftshader-fix-build
 %patch -P384 -p1 -b .Rtc_base-system-arch.h-PPC
-%patch -P385 -p1 -b .0002-Include-cstddef-to-fix-build
 %patch -P386 -p1 -b .0004-third_party-crashpad-port-curl-transport-ppc64
 %patch -P387 -p1 -b .HACK-third_party-libvpx-use-generic-gnu
 %patch -P388 -p1 -b .0001-third-party-hwy-wrong-include.patch
@@ -1065,7 +1067,6 @@ Qt6 UI for chromium.
 %patch -P412 -p1 -b .add-ppc64-architecture-to-extensions
 %patch -P413 -p1 -b .fix-unknown-warning-option-messages
 %patch -P415 -p1 -b .add-ppc64-pthread-stack-size
-%patch -P416 -p1 -b .ppc64-rust_png-build-error
 %patch -P417 -p1 -b .0001-add-xnn-ppc64el-support
 %patch -P418 -p1 -b .0002-regenerate-xnn-buildgn
 %endif
@@ -1627,64 +1628,63 @@ fi
 %endif
 %dir %{chromium_path}/
 %dir %{chromium_path}/locales/
-%lang(af) %{chromium_path}/locales/af.pak
-%lang(am) %{chromium_path}/locales/am.pak
-%lang(ar) %{chromium_path}/locales/ar.pak
-%lang(bg) %{chromium_path}/locales/bg.pak
-%lang(bn) %{chromium_path}/locales/bn.pak
-%lang(ca) %{chromium_path}/locales/ca.pak
-%lang(cs) %{chromium_path}/locales/cs.pak
-%lang(da) %{chromium_path}/locales/da.pak
-%lang(de) %{chromium_path}/locales/de.pak
-%lang(el) %{chromium_path}/locales/el.pak
-%lang(en_GB) %{chromium_path}/locales/en-GB.pak
+%lang(af) %{chromium_path}/locales/af*.pak
+%lang(am) %{chromium_path}/locales/am*.pak
+%lang(ar) %{chromium_path}/locales/ar*.pak
+%lang(bg) %{chromium_path}/locales/bg*.pak
+%lang(bn) %{chromium_path}/locales/bn*.pak
+%lang(ca) %{chromium_path}/locales/ca*.pak
+%lang(cs) %{chromium_path}/locales/cs*.pak
+%lang(da) %{chromium_path}/locales/da*.pak
+%lang(de) %{chromium_path}/locales/de*.pak
+%lang(el) %{chromium_path}/locales/el*.pak
+%lang(en_GB) %{chromium_path}/locales/en-GB*.pak
 # Chromium _ALWAYS_ needs en-US.pak as a fallback
 # This means we cannot apply the lang code here.
 # Otherwise, it is filtered out on install.
-%{chromium_path}/locales/en-US.pak
-%lang(es) %{chromium_path}/locales/es.pak
-%lang(es) %{chromium_path}/locales/es-419.pak
-%lang(et) %{chromium_path}/locales/et.pak
-%lang(fa) %{chromium_path}/locales/fa.pak
-%lang(fi) %{chromium_path}/locales/fi.pak
-%lang(fil) %{chromium_path}/locales/fil.pak
-%lang(fr) %{chromium_path}/locales/fr.pak
-%lang(gu) %{chromium_path}/locales/gu.pak
-%lang(he) %{chromium_path}/locales/he.pak
-%lang(hi) %{chromium_path}/locales/hi.pak
-%lang(hr) %{chromium_path}/locales/hr.pak
-%lang(hu) %{chromium_path}/locales/hu.pak
-%lang(id) %{chromium_path}/locales/id.pak
-%lang(it) %{chromium_path}/locales/it.pak
-%lang(ja) %{chromium_path}/locales/ja.pak
-%lang(kn) %{chromium_path}/locales/kn.pak
-%lang(ko) %{chromium_path}/locales/ko.pak
-%lang(lt) %{chromium_path}/locales/lt.pak
-%lang(lv) %{chromium_path}/locales/lv.pak
-%lang(ml) %{chromium_path}/locales/ml.pak
-%lang(mr) %{chromium_path}/locales/mr.pak
-%lang(ms) %{chromium_path}/locales/ms.pak
-%lang(nb) %{chromium_path}/locales/nb.pak
-%lang(nl) %{chromium_path}/locales/nl.pak
-%lang(pl) %{chromium_path}/locales/pl.pak
-%lang(pt_BR) %{chromium_path}/locales/pt-BR.pak
-%lang(pt_PT) %{chromium_path}/locales/pt-PT.pak
-%lang(ro) %{chromium_path}/locales/ro.pak
-%lang(ru) %{chromium_path}/locales/ru.pak
-%lang(sk) %{chromium_path}/locales/sk.pak
-%lang(sl) %{chromium_path}/locales/sl.pak
-%lang(sr) %{chromium_path}/locales/sr.pak
-%lang(sv) %{chromium_path}/locales/sv.pak
-%lang(sw) %{chromium_path}/locales/sw.pak
-%lang(ta) %{chromium_path}/locales/ta.pak
-%lang(te) %{chromium_path}/locales/te.pak
-%lang(th) %{chromium_path}/locales/th.pak
-%lang(tr) %{chromium_path}/locales/tr.pak
-%lang(uk) %{chromium_path}/locales/uk.pak
-%lang(ur) %{chromium_path}/locales/ur.pak
-%lang(vi) %{chromium_path}/locales/vi.pak
-%lang(zh_CN) %{chromium_path}/locales/zh-CN.pak
-%lang(zh_TW) %{chromium_path}/locales/zh-TW.pak
+%{chromium_path}/locales/en-US*.pak
+%lang(es) %{chromium_path}/locales/es*.pak
+%lang(et) %{chromium_path}/locales/et*.pak
+%lang(fa) %{chromium_path}/locales/fa*.pak
+%lang(fi) %{chromium_path}/locales/fi{.pak,_*.pak}
+%lang(fil) %{chromium_path}/locales/fil*.pak
+%lang(fr) %{chromium_path}/locales/fr*.pak
+%lang(gu) %{chromium_path}/locales/gu*.pak
+%lang(he) %{chromium_path}/locales/he*.pak
+%lang(hi) %{chromium_path}/locales/hi*.pak
+%lang(hr) %{chromium_path}/locales/hr*.pak
+%lang(hu) %{chromium_path}/locales/hu*.pak
+%lang(id) %{chromium_path}/locales/id*.pak
+%lang(it) %{chromium_path}/locales/it*.pak
+%lang(ja) %{chromium_path}/locales/ja*.pak
+%lang(kn) %{chromium_path}/locales/kn*.pak
+%lang(ko) %{chromium_path}/locales/ko*.pak
+%lang(lt) %{chromium_path}/locales/lt*.pak
+%lang(lv) %{chromium_path}/locales/lv*.pak
+%lang(ml) %{chromium_path}/locales/ml*.pak
+%lang(mr) %{chromium_path}/locales/mr*.pak
+%lang(ms) %{chromium_path}/locales/ms*.pak
+%lang(nb) %{chromium_path}/locales/nb*.pak
+%lang(nl) %{chromium_path}/locales/nl*.pak
+%lang(pl) %{chromium_path}/locales/pl*.pak
+%lang(pt_BR) %{chromium_path}/locales/pt-BR*.pak
+%lang(pt_PT) %{chromium_path}/locales/pt-PT*.pak
+%lang(ro) %{chromium_path}/locales/ro*.pak
+%lang(ru) %{chromium_path}/locales/ru*.pak
+%lang(sk) %{chromium_path}/locales/sk*.pak
+%lang(sl) %{chromium_path}/locales/sl*.pak
+%lang(sr) %{chromium_path}/locales/sr*.pak
+%lang(sv) %{chromium_path}/locales/sv*.pak
+%lang(sw) %{chromium_path}/locales/sw*.pak
+%lang(ta) %{chromium_path}/locales/ta*.pak
+%lang(te) %{chromium_path}/locales/te*.pak
+%lang(th) %{chromium_path}/locales/th*.pak
+%lang(tr) %{chromium_path}/locales/tr*.pak
+%lang(uk) %{chromium_path}/locales/uk*.pak
+%lang(ur) %{chromium_path}/locales/ur*.pak
+%lang(vi) %{chromium_path}/locales/vi*.pak
+%lang(zh_CN) %{chromium_path}/locales/zh-CN*.pak
+%lang(zh_TW) %{chromium_path}/locales/zh-TW*.pak
 # These are psuedolocales, not real ones.
 # They only get generated when is_official_build=false
 %if ! %{official_build}

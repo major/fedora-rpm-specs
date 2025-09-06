@@ -1,6 +1,6 @@
 Name:           python-fastjsonschema
-Version:        2.21.1
-Release:        5%{?dist}
+Version:        2.21.2
+Release:        1%{?dist}
 Summary:        Fastest Python implementation of JSON schema
 
 License:        BSD-3-Clause
@@ -45,6 +45,10 @@ Summary:        %{summary}
 %doc README.rst
 
 %changelog
+* Wed Sep 03 2025 Packit <hello@packit.dev> - 2.21.2-1
+- Update to 2.21.2
+- Resolves rhbz#2388669
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.21.1-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

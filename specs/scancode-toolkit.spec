@@ -59,12 +59,14 @@ This package is providing the documentation for %{name}.
 %prep
 %autosetup -p1
 sed -i 's|\(fallback_version = "\)[^"]*|\1%{version}|' pyproject.toml
-sed -i \
+sed -Ei \
     -e '/doc8/d' \
     -e '/sphinx-rtd-dark-mode/d' \
     -e 's/Sphinx ==/Sphinx>=/' \
     -e 's|Beautifulsoup4\[chardet\]|Beautifulsoup4|' \
     -e '/sphinx-autobuild/d' \
+    -e "s/^( *)(click .*);python_version<'3\.10'/\1\2/" \
+    -e "/^ *click .*;python_version>='3\.10'/d" \
 setup.cfg
 sed -i '/"sphinx_rtd_dark_mode"/d' docs/source/conf.py
 sed -i 's/JSON data/JSON text data/' tests/summarycode/data/todo/ignore_issue/invariant-2.2.4-expected.json

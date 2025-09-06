@@ -3,13 +3,13 @@
 %global vte_version 0.77.0
 
 Name:           gnome-console
-Version:        48.0.1
+Version:        49~rc
 Release:        %autorelease
 Summary:        Simple user-friendly terminal emulator for the GNOME desktop
 
 License:        GPL-3.0-or-later
 URL:            https://gitlab.gnome.org/GNOME/console
-Source:         https://download.gnome.org/sources/gnome-console/48/gnome-console-%{version_no_tilde .}.tar.xz
+Source:         https://download.gnome.org/sources/gnome-console/49/gnome-console-%{version_no_tilde .}.tar.xz
 
 BuildRequires:  meson >= 0.59.0
 BuildRequires:  gcc

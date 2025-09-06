@@ -1,13 +1,13 @@
 %global selinuxtype targeted
 %global moduletype contrib
-%define semodule_version 0.8
+%define semodule_version 0.9
 
 Summary: Application Whitelisting Daemon
 Name: fapolicyd
-Version: 1.3.5
+Version: 1.3.6
 Release: 1%{?dist}
 License: GPL-3.0-or-later
-URL: http://people.redhat.com/sgrubb/fapolicyd
+URL: https://github.com/linux-application-whitelisting/fapolicyd
 Source0: https://github.com/linux-application-whitelisting/fapolicyd/releases/download/v%{version}/fapolicyd-%{version}.tar.gz
 Source1: https://github.com/linux-application-whitelisting/%{name}-selinux/releases/download/v%{semodule_version}/%{name}-selinux-%{semodule_version}.tar.gz
 Source2: https://github.com/bachradsusi.gpg
@@ -15,15 +15,11 @@ Source10: https://github.com/linux-application-whitelisting/fapolicyd/releases/d
 Source11: https://github.com/linux-application-whitelisting/%{name}-selinux/releases/download/v%{semodule_version}/%{name}-selinux-%{semodule_version}.tar.gz.asc
 
 # https://github.com/linux-application-whitelisting/fapolicyd
-# $ git format-patch -N v1.3.5
+# $ git format-patch -N v1.3.6
 # https://github.com/linux-application-whitelisting/fapolicyd-selinux
 # $ git format-patch -N --start-number 100 --src-prefix=a/fapolicyd-selinux-0.8/ --dst-prefix=b/fapolicyd-selinux-0.8/ v0.8
 # $ for j in [0-9]*.patch; do printf "Patch%s: %s\n" ${j/-*/} $j; done
 # Patch list start
-Patch0001: 0001-Do-not-exit-in-do_database_reload-when-stop-in-progr.patch
-Patch0100: 0100-Use-fs_rw_inherited_tmpfs_files-macro.patch
-Patch0101: 0101-Revert-Allow-daemon-to-change-dir-attributes.patch
-Patch0102: 0102-Allow-fapolicyd-to-connect-to-systemd-machined.patch
 # Patch list end
 
 BuildRequires: gcc
@@ -171,10 +167,10 @@ fi
 %doc README.md
 %{!?_licensedir:%global license %%doc}
 %license COPYING
-%attr(755,root,%{name}) %dir %{_datadir}/%{name}
-%attr(755,root,%{name}) %dir %{_datadir}/%{name}/sample-rules
-%attr(644,root,%{name}) %{_datadir}/%{name}/sample-rules/*
-%attr(644,root,%{name}) %{_datadir}/%{name}/fapolicyd-magic.mgc
+%attr(755,root,root) %dir %{_datadir}/%{name}
+%attr(755,root,root) %dir %{_datadir}/%{name}/sample-rules
+%attr(644,root,root) %{_datadir}/%{name}/sample-rules/*
+%attr(644,root,root) %{_datadir}/%{name}/fapolicyd-magic.mgc
 %attr(750,root,%{name}) %dir %{_sysconfdir}/%{name}
 %attr(750,root,%{name}) %dir %{_sysconfdir}/%{name}/trust.d
 %attr(750,root,%{name}) %dir %{_sysconfdir}/%{name}/rules.d
@@ -187,9 +183,9 @@ fi
 %ghost %attr(644,root,%{name}) %{_sysconfdir}/%{name}/compiled.rules
 %attr(644,root,root) %{_unitdir}/%{name}.service
 %attr(644,root,root) %{_tmpfilesdir}/%{name}.conf
+%attr(755,root,root) %{_bindir}/%{name}-rpm-loader
 %attr(755,root,root) %{_sbindir}/%{name}
 %attr(755,root,root) %{_sbindir}/%{name}-cli
-%attr(755,root,root) %{_sbindir}/%{name}-rpm-loader
 %attr(755,root,root) %{_sbindir}/fagenrules
 %attr(644,root,root) %{_mandir}/man8/*
 %attr(644,root,root) %{_mandir}/man5/*
@@ -219,8 +215,19 @@ fi
 %selinux_relabel_post -s %{selinuxtype}
 
 %changelog
+* Wed Sep 03 2025 Petr Lautrbach <lautrbach@redhat.com> - 1.3.6-1
+- fapolicyd-1.3.6 and fapolicyd-selinux-0.9
+
+* Tue Aug 26 2025 Petr Lautrbach <lautrbach@redhat.com> - 1.3.5-2
+- Modify queue to use ring buffer
+- Fix memory leaks in the AVL tests
+- Do not exit in do_database_reload when stop in progress
+- Add /var/lib/fapolicyd to tmpfiles
+- Fix owner:group of /etc/fapolicyd on boot
+- Change /usr/share/fapolicyd to root:root
+
 * Mon Aug 11 2025 Petr Lautrbach <lautrbach@redhat.com> - 1.3.5-1
-- fapolicyd-1.3.5 and fedpolicyd-selinux-0.8
+- fapolicyd-1.3.5 and fapolicyd-selinux-0.8
 
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild

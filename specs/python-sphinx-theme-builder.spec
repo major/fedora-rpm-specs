@@ -10,7 +10,7 @@
 
 Name:           python-sphinx-theme-builder
 Version:        0.2.0
-Release:        0.23.%{prerel}%{?dist}
+Release:        0.24.%{prerel}%{?dist}
 Summary:        Streamline the Sphinx theme development workflow
 
 # Most of the code is MIT.  However,
@@ -22,8 +22,6 @@ Source:         %{giturl}/archive/%{version}%{prerel}/sphinx-theme-builder-%{ver
 # Compatibility fix for python 3.14
 # https://github.com/pradyunsg/sphinx-theme-builder/pull/51
 Patch:          0001-Avoid-ast.Str-for-python-3.14-compatibility.patch
-# Compatibility fix for click 8.2
-Patch:          click-8.2-compatibility.patch
 
 BuildArch:      noarch
 
@@ -89,6 +87,10 @@ rm %{buildroot}%{_bindir}/stb
 %license LICENSE
 
 %changelog
+* Thu Sep 04 2025 Miro Hrončok <mhroncok@redhat.com> - 0.2.0-0.24.b2
+- Remove patch for compatibility with click 8.2
+- Due to numerous regressions, we are going to revert back to click 8.1.7
+
 * Fri Aug 22 2025 Jerry James <loganjerry@gmail.com> - 0.2.0-0.23.b2
 - Add patch for compatibility with click 8.2
 

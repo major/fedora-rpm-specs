@@ -3,7 +3,7 @@
 %undefine _strict_symbol_defs_build
 
 Name:           qmplay2
-Version:        25.06.27
+Version:        25.09.03
 Release:        %autorelease
 Summary:        A Qt based media player, streamer and downloader
 # LGPL-3.0-or-later: QMPlay2
@@ -82,12 +82,6 @@ It's a development package for %{name}.
 %autosetup -p1 -n %{pname}-src-%{version}
 # unbundle vulkan headers
 find src/qmplay2/vulkan/headers -delete
-%if 0%{?fedora} >= 41 || 0%{?rhel} >= 11
-# fix for vulkan-headers >= 1.3.301
-# https://github.com/KhronosGroup/Vulkan-Headers/pull/512
-sed -i -r 's/vk::(DispatchLoaderDynamic|DynamicLoader)/vk::detail::\1/g' \
-    src/qmvk/*.[ch]pp src/qmplay2/vulkan/VulkanInstance.cpp
-%endif
 # subproject and bundled license files
 cp src/qmvk/LICENSE LICENSE.qmvk
 cp src/modules/Modplug/libmodplug/COPYING COPYING.libmodplug

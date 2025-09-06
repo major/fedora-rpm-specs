@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        48
+Version:        49
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -99,6 +99,7 @@ exit 0
 %{_datadir}/cockpit/anaconda-webui/index.css.map
 %{_datadir}/cockpit/anaconda-webui/manifest.json
 %{_datadir}/cockpit/anaconda-webui/po.*.js.gz
+%{_datadir}/cockpit/anaconda-webui/VERSION.txt
 %{_libexecdir}/anaconda/cockpit-coproc-wrapper.sh
 %dir %{_datadir}/anaconda/firefox-theme
 %dir %{_datadir}/anaconda/firefox-theme/default
@@ -120,6 +121,11 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Sep 03 2025 Packit <hello@packit.dev> - 49-1
+- Add os-release PRETTY_NAME, Anaconda and Anaconda Web UI version to BZ template
+- users: disallow proceeding from users page when neither root or user
+  is configured (rhbz#2392205)
+
 * Mon Aug 25 2025 Packit <hello@packit.dev> - 48-1
 - Infra and test improvements
 

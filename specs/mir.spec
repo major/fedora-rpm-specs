@@ -7,8 +7,10 @@
 # Debug build with extra compile time checks
 %bcond debug 0
 
-# Run tests by default
+# Run tests by default on non-s390x
+%ifnarch s390x
 %bcond run_tests 1
+%endif
 
 # Track various library soversions
 %global miral_sover 7

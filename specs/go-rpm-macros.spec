@@ -1,6 +1,6 @@
 %bcond tests 1
 %global forgeurl  https://gitlab.com/fedora/sigs/go/go-rpm-macros
-Version:   3.7.0
+Version:   3.8.0
 %forgemeta
 
 %global debug_package %{nil}

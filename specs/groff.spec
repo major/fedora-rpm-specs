@@ -3,7 +3,7 @@
 Summary: A document formatting system
 Name: groff
 Version: 1.23.0
-Release: 9%{?dist}
+Release: 10%{?dist}
 # Everything is under GPL-3.0-or-later, except for the following files:
 # MIT license
 #  -- tmac/hyphen.den
@@ -71,7 +71,7 @@ Requires(preun): /usr/sbin/update-alternatives
 
 BuildRequires: gcc, gcc-c++
 BuildRequires: bison, texinfo
-BuildRequires: git, netpbm-progs, perl-generators, psutils, ghostscript
+BuildRequires: git, netpbm-progs, perl-generators, ghostscript
 
 Provides: nroff-i18n = %{version}-%{release}
 Provides: bundled(gnulib)
@@ -500,6 +500,9 @@ fi
 %doc %{_pkgdocdir}/pdf/
 
 %changelog
+* Tue Sep 02 2025 Lukas Javorsky <ljavorsk@redhat.com> - 1.23.0-10
+- Remove psutils from BuildRequires as it's not needed
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.23.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           python-memcached
-Version:        1.59
-Release:        20%{?dist}
+Version:        1.62
+Release:        1%{?dist}
 Summary:        A Python memcached client library
 
 # Automatically converted from old format: Python - review is highly recommended.
@@ -35,21 +35,14 @@ Summary: %summary
 %prep
 %autosetup -n %{name}-%{version}
 
-# Fix version information
-sed -i 's/1\.58/1\.59/' memcache.py
-
-# Use the standard library mock instead of the external one
-sed -i -e 's/^import mock/from unittest import mock/' \
-    tests/test_memcache.py
-
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
-
+%pyproject_wheel
 
 %install
-%py3_install
-
+%pyproject_install
 
 %check
 pidfile=$(mktemp)
@@ -61,14 +54,18 @@ kill $(cat $pidfile)
 
 
 %files -n python3-memcached
-%doc ChangeLog README.md
+%doc ChangeLog README.md SECURITY.md
 %attr(755,root,root) %{python3_sitelib}/memcache.py
+%license PSF.LICENSE
 %{python3_sitelib}/memcache.py
 %{python3_sitelib}/__pycache__/memcache.*
-%{python3_sitelib}/python_memcached-%{version}-py*.egg-info/
+%{python3_sitelib}/*.dist-info
 
 
 %changelog
+* Thu Sep 04 2025 Federico Pellegrin <fede@evolware.org> - 1.61-1
+- Bump to 1.61. Use new Python macros in spec file (rhbz#2377880)
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.59-20
 - Rebuilt for Python 3.14.0rc2 bytecode
 

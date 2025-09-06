@@ -1,6 +1,6 @@
 Name:           miriway
-Version:        25.02.1
-Release:        2%{?dist}
+Version:        25.10
+Release:        1%{?dist}
 Summary:        Simple Wayland compositor built on Mir
 
 License:        GPL-3.0-only
@@ -10,11 +10,12 @@ Source1:        anaconda-initial-setup-run-gui-backend
 
 # Backports from upstream
 
+BuildRequires:  boost-devel
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  git-core
 BuildRequires:  ninja-build
-BuildRequires:  pkgconfig(miral) >= 5.1
+BuildRequires:  pkgconfig(miral) >= 5.5
 BuildRequires:  pkgconfig(xkbcommon)
 BuildRequires:  pkgconfig(yaml-cpp)
 BuildRequires:  systemd-rpm-macros
@@ -123,6 +124,9 @@ install -pm 0755 %{S:1} %{buildroot}%{_libexecdir}/initial-setup/run-gui-backend
 
 
 %changelog
+* Thu Sep 04 2025 Neal Gompa <ngompa@fedoraproject.org> - 25.10-1
+- Update to 25.10
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 25.02.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

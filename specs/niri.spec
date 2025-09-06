@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           niri
-Version:        25.05.1
+Version:        25.08
 Release:        %autorelease
 Summary:        Scrollable-tiling Wayland compositor
 
@@ -10,6 +10,7 @@ SourceLicense:  GPL-3.0-or-later
 # (MIT OR Apache-2.0) AND Unicode-3.0
 # 0BSD OR MIT OR Apache-2.0
 # Apache-2.0
+# Apache-2.0 AND MIT
 # Apache-2.0 OR BSL-1.0
 # Apache-2.0 OR MIT
 # Apache-2.0 OR MIT OR Unlicense
@@ -27,6 +28,7 @@ SourceLicense:  GPL-3.0-or-later
 # MPL-2.0
 # Unicode-3.0
 # Unlicense OR MIT
+# Zlib
 # Zlib OR Apache-2.0 OR MIT
 License:        %{shrink:
     GPL-3.0-or-later AND
@@ -37,6 +39,7 @@ License:        %{shrink:
     MIT AND
     MPL-2.0 AND
     Unicode-3.0 AND
+    Zlib AND
     (0BSD OR MIT OR Apache-2.0) AND
     (Apache-2.0 OR BSL-1.0) AND
     (Apache-2.0 OR MIT) AND
@@ -88,13 +91,13 @@ BuildRequires:  pkgconfig(wayland-cursor)
 BuildRequires:  pkgconfig(wayland-server)
 BuildRequires:  pkgconfig(xkbcommon)
 
+# required for xwayland support
+Requires:       xwayland-satellite >= 0.7
+
 # required for portal support 
 Recommends:     gnome-keyring
 Recommends:     xdg-desktop-portal-gnome
 Recommends:     xdg-desktop-portal-gtk
-
-# required for xwayland support
-Recommends:     xwayland-satellite
 
 # applications bound by keyboard shortcuts in default configuration 
 Recommends:     alacritty
@@ -169,7 +172,7 @@ export RAYON_NUM_THREADS=2
 
 %doc README.md
 %doc resources/default-config.kdl
-%doc wiki
+%doc docs/wiki
 
 %{_bindir}/niri
 %{_bindir}/niri-session

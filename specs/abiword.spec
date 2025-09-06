@@ -1,16 +1,19 @@
 %define bigversion 3.0
-%define docsversion 3.0.1
+
+%global forgeurl https://gitlab.gnome.org/World/AbiWord
 
 Name: abiword
-Version: 3.0.5
-Release: 21%{?dist}
+Version: 3.0.7
+Release: 1%{?dist}
+%global tag release-%{version}
+%forgemeta
+
 Epoch: 1
 Summary: Word processing program
 License: GPL-2.0-or-later
-URL: http://www.abisource.com/
+URL: %{forgeurl}
 
-Source0: http://abisource.com/downloads/abiword/%{version}/source/abiword-%{version}.tar.gz
-Source1: http://abisource.com/downloads/abiword/%{version}/source/abiword-docs-%{docsversion}.tar.gz
+Source0: %{forgesource}
 Source11: abiword.mime
 Source12: abiword.keys
 Source13: abiword.xml
@@ -23,13 +26,12 @@ Patch2: abiword-2.6.0-boolean.patch
 Patch3: abiword-3.0.0-librevenge.patch
 Patch4: abiword-3.0.2-explicit-python.patch
 Patch5: abiword-3.0.4-pygobject.patch
-Patch6: xml-inc.patch
 
 BuildRequires: aiksaurus-devel
 BuildRequires: aiksaurus-gtk-devel
 BuildRequires: asio-devel
 # Needed while explicit-python.patch touches gi-overrides/Makefile.am
-BuildRequires: automake
+BuildRequires: automake autoconf libtool autoconf-archive
 BuildRequires: bison
 BuildRequires: boost-devel
 BuildRequires: bzip2-devel
@@ -107,7 +109,7 @@ Python bindings for developing with libabiword
 
 %prep
 # setup abiword
-%setup -q -a 1
+%setup -qn AbiWord-release-%{version}
 
 # patch abiword
 %patch -P 1 -p1 -b .desktop
@@ -115,39 +117,20 @@ Python bindings for developing with libabiword
 %patch -P 3 -p0 -b .librevenge
 %patch -P 4 -p1 -b .explicit_python
 %patch -P 5 -p1 -b .pygo
-%patch -P 6 -p0 -b .xml
-
-# setup abiword documentation
-pushd abiword-docs-%{docsversion}
-%patch -P 0 -p1 -b .windowshelppaths
-# some of the help dirs have bad perms (#109261)
-find . -type d -exec chmod -c o+rx {} \;
-popd
 
 %build
 # Needed while explicit-python.patch touches gi-overrides/Makefile.am
-aclocal
-automake
+./autogen.sh
 
 export CXXFLAGS="-std=c++14 $RPM_OPT_FLAGS -DASIO_ENABLE_BOOST"
 %configure \
   --enable-plugins --enable-clipart --enable-templates --enable-introspection \
-  --with-gir-dir=%{_datadir}/gir-1.0 --with-typelib-dir=%{_libdir}/girepository-1.0
+  --with-gir-dir=%{_datadir}/gir-1.0 --with-typelib-dir=%{_libdir}/girepository-1.0 \
+  --enable-maintainer-mode
 %{make_build} V=1
-
-# build the documentation
-pushd abiword-docs-%{docsversion}
-ABI_DOC_PROG=$(pwd)/../%{name}-%{version}/src/abiword ./make-html.sh
-popd
 
 %install
 %{make_install} overridesdir=%{python3_sitelib}/gi/overrides
-
-# install the documentation
-pushd abiword-docs-%{docsversion}
-mkdir -p $RPM_BUILD_ROOT/%{_datadir}/%{name}-%{bigversion}/AbiWord/help
-cp -rp help/* $RPM_BUILD_ROOT/%{_datadir}/%{name}-%{bigversion}/AbiWord/help/
-popd
 
 install -p -m 0644 -D %{SOURCE11} $RPM_BUILD_ROOT%{_datadir}/mime-info/abiword.mime
 install -p -m 0644 -D %{SOURCE12} $RPM_BUILD_ROOT%{_datadir}/mime-info/abiword.keys
@@ -174,8 +157,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/abiword.appdat
 %{_datadir}/mime/packages/abiword.xml
 %{_datadir}/icons/hicolor/*/apps/abiword.png
 %{_datadir}/icons/hicolor/scalable/apps/abiword.svg
-# Abiword help
-%{_datadir}/%{name}-%{bigversion}/AbiWord
 %{_mandir}/man1/abiword.1*
 
 %files -n libabiword
@@ -187,8 +168,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/abiword.appdat
 %{_datadir}/%{name}-%{bigversion}
 %{_datadir}/dbus-1/services/org.freedesktop.Telepathy.Client.AbiCollab.service
 %{_datadir}/telepathy/clients/AbiCollab.client
-# Abiword help - included in GUI app
-%exclude %{_datadir}/%{name}-%{bigversion}/AbiWord
 
 %files -n libabiword-devel
 %{_includedir}/%{name}-%{bigversion}
@@ -199,6 +178,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/abiword.appdat
 %pycached %{python3_sitelib}/gi/overrides/Abi.py
 
 %changelog
+* Wed Sep 03 2025 Gwyn Ciesla <gwync@protonmail.com> - 1:3.0.7-1
+- 3.0.7
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1:3.0.5-21
 - Rebuilt for Python 3.14.0rc2 bytecode
 

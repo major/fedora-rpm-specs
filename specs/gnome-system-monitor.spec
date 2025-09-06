@@ -5,13 +5,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-system-monitor
-Version:        48.1
-Release:        2%{?dist}
+Version:        49~rc
+Release:        1%{?dist}
 Summary:        Process and resource monitor
 
 License:        GPL-2.0-or-later AND CC-BY-SA-3.0 AND CC0-1.0
 URL:            https://wiki.gnome.org/Apps/SystemMonitor
-Source0:        https://download.gnome.org/sources/%{name}/48/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/49/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -73,6 +73,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/gnome-system-monit
 %{_libexecdir}/gnome-system-monitor/
 
 %changelog
+* Thu Sep 04 2025 Michael Catanzaro <mcatanzaro@gnome.org> - 49~rc-1
+- Update to 49.rc
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 48.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

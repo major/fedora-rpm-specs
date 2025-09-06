@@ -143,6 +143,10 @@ Patch:          0001-Revert-units-use-PrivateTmp-disconnected-instead-of-.patch
 Patch:          https://github.com/systemd/systemd/pull/30846.patch
 
 Patch:          https://github.com/systemd/systemd/pull/38724.patch
+
+# userdb: create userdb root directory with correct label
+# We can drop this after SELinux policy is updated to handle the transition.
+Patch:          https://github.com/systemd/systemd/pull/38769.patch
 %endif
 
 %ifarch %{ix86} x86_64 aarch64 riscv64
@@ -1240,8 +1244,8 @@ systemctl --no-reload preset systemd-journald-audit.socket &>/dev/null || :
                         sleep.target
                         suspend-then-hibernate.target
                         suspend.target
-                        system-systemd\x2dcryptsetup.slice
-                        system-systemd\x2dveritysetup.slice
+                        system-systemd\\x2dcryptsetup.slice
+                        system-systemd\\x2dveritysetup.slice
                         systemd-backlight@.service
                         systemd-binfmt.service
                         systemd-bless-boot.service

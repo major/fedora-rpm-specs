@@ -1,11 +1,7 @@
-
-## toggle qt4 support, default off
-#global qt4 1
-
 Summary: A multi-platform helper library for other libraries
 Name: gwenhywfar
 Version: 5.12.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 URL: http://www.aquamaniac.de/sites/download/packages.php?package=01&showall=1
 # Download is PHP form at http://www.aquamaniac.de/sites/download/packages.php
@@ -15,7 +11,7 @@ License: LGPL-2.1-or-later
 BuildRequires: cmake gcc gcc-c++
 BuildRequires: gnutls-devel gettext libgcrypt-devel openssl-devel
 BuildRequires: gtk3-devel >= 3.14.0
-BuildRequires: qt5-qtbase-devel
+BuildRequires: cmake(Qt6Core)
 
 Requires: ca-certificates
 
@@ -48,51 +44,29 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %package gui-cpp
 Summary: Gwenhywfar GUI framework for cpp
 Requires: %{name}%{?_isa} = %{version}-%{release}
-%if ! 0%{?qt4}
-Obsoletes: %{name}-gui-qt4 < %{version}-%{release}
-%endif
 %description gui-cpp
 This package contains the cpp gwenhywfar GUI backend.
 
 %package gui-cpp-devel
 Summary: Development files for %{name}-gui-cpp
-%if ! 0%{?qt4}
-Obsoletes: %{name}-gui-qt4-devel < %{version}-%{release}
-%endif
 Requires: %{name}-gui-cpp%{?_isa} = %{version}-%{release}
 %description gui-cpp-devel
 %{summary}.
 
-%if 0%{?qt4}
-%package gui-qt4
-Summary: Gwenhywfar GUI framework for Qt4
-BuildRequires: qt4-devel >= 4.3.0
-BuildRequires: make
+%package gui-qt6
+Summary: Gwenhywfar GUI framework for Qt6
 Requires: %{name}-gui-cpp%{?_isa} = %{version}-%{release}
-%description gui-qt4
-This package contains the qt4 gwenhywfar GUI backend.
+Obsoletes: %{name}-gui-qt5 <= %{version}-%{release}
+%description gui-qt6
+This package contains the qt6 gwenhywfar GUI backend.
 
-%package gui-qt4-devel
-Summary: Development files for %{name}-qt4-cpp
-Requires: %{name}-gui-qt4%{?_isa} = %{version}-%{release}
+%package gui-qt6-devel
+Summary: Development files for %{name}-qt6-cpp
+Requires: %{name}-gui-qt6%{?_isa} = %{version}-%{release}
 Requires: %{name}-gui-cpp-devel%{?_isa} = %{version}-%{release}
-%description gui-qt4-devel
+Obsoletes: %{name}-gui-qt5-devel <= %{version}-%{release}
+%description gui-qt6-devel
 %{summary}.
-%endif
-
-%package gui-qt5
-Summary: Gwenhywfar GUI framework for Qt5
-Requires: %{name}-gui-cpp%{?_isa} = %{version}-%{release}
-%description gui-qt5
-This package contains the qt5 gwenhywfar GUI backend.
-
-%package gui-qt5-devel
-Summary: Development files for %{name}-qt4-cpp
-Requires: %{name}-gui-qt5%{?_isa} = %{version}-%{release}
-Requires: %{name}-gui-cpp-devel%{?_isa} = %{version}-%{release}
-%description gui-qt5-devel
-%{summary}.
-
 
 %prep
 %autosetup -n %{name}-%{version}
@@ -104,22 +78,17 @@ export CXXFLAGS="$CXXFLAGS -std=gnu++17"
 # avoid detection/use of stuff like x86_64-redhat-linux-gnu-pkg-config -- rdieter
 export PKG_CONFIG=/usr/bin/pkg-config
 # help configure find qt5 lrelease/lupdate
-export QT5_HOST_BINS=$($PKG_CONFIG --variable=host_bins Qt5Core)
-export PATH=$PATH:$QT5_HOST_BINS
+export QT6_HOST_BINS=$($PKG_CONFIG --variable=host_bins Qt6Core)
+export PATH=$PATH:$QT6_HOST_BINS
 
 %configure \
   --disable-static\
   --enable-system-certs \
-  --with-guis="gtk3 %{?qt4:qt4} qt5" \
+  --with-guis="gtk3 qt5" \
   --with-openssl-libs=%{_libdir} \
-%if 0%{?qt4}
-  --with-qt4-libs=%{_qt4_libdir} --with-qt4-includes=%{_qt4_headerdir} \
-  --with-qt4-moc=%{_bindir}/moc-qt4 \
-  --with-qt4-uic=%{_bindir}/uic-qt4 \
-%endif
-  --with-qt5-qmake=$QT5_HOST_BINS/qmake \
-  --with-qt5-moc=$QT5_HOST_BINS/moc \
-  --with-qt5-uic=$QT5_HOST_BINS/uic \
+  --with-qt6-qmake=$QT6_HOST_BINS/qmake \
+  --with-qt6-moc=$QT6_HOST_BINS/moc \
+  --with-qt6-uic=$QT6_HOST_BINS/uic \
 
 
 # kill rpath
@@ -136,13 +105,9 @@ sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 rm -f  %{buildroot}%{_datadir}/%{name}/ca-bundle.crt
 ln -sf %{_sysconfdir}/pki/tls/certs/ca-bundle.crt \
        %{buildroot}%{_datadir}/%{name}/ca-bundle.crt
-
 rm -fv %{buildroot}%{_libdir}/lib*.la
 
 %find_lang %{name}
-
-
-%ldconfig_scriptlets
 
 %files -f %{name}.lang
 %doc AUTHORS README ChangeLog
@@ -171,7 +136,6 @@ rm -fv %{buildroot}%{_libdir}/lib*.la
 %{_libdir}/pkgconfig/gwenhywfar.pc
 %{_datadir}/gwenbuild/templates
 %{_datadir}/%{name}/gwenbuild
-%ldconfig_scriptlets gui-gtk3
 
 %files gui-gtk3
 %{_libdir}/libgwengui-gtk3.so.79*
@@ -181,8 +145,6 @@ rm -fv %{buildroot}%{_libdir}/lib*.la
 %{_libdir}/pkgconfig/gwengui-gtk3.pc
 %{_includedir}/gwenhywfar5/gwen-gui-gtk3/
 
-%ldconfig_scriptlets gui-cpp
-
 %files gui-cpp
 %{_libdir}/libgwengui-cpp.so.79*
 %{_includedir}/gwenhywfar5/gwen-gui-cpp/
@@ -191,32 +153,19 @@ rm -fv %{buildroot}%{_libdir}/lib*.la
 %{_libdir}/libgwengui-cpp.so
 %{_libdir}/cmake/gwengui-cpp-*/
 
-%if 0%{?qt4}
-%ldconfig_scriptlets gui-qt4
+%files gui-qt6
+%{_libdir}/libgwengui-qt6.so.79*
 
-%files gui-qt4
-%{_libdir}/libgwengui-qt4.so.*
-
-%files gui-qt4-devel
-%{_libdir}/libgwengui-qt4.so
-%{_libdir}/cmake/gwengui-qt4-*/
-%{_libdir}/pkgconfig/gwengui-qt4.pc
-%{_includedir}/gwenhywfar5/gwen-gui-qt4/
-%endif
-
-%ldconfig_scriptlets gui-qt5
-
-%files gui-qt5
-%{_libdir}/libgwengui-qt5.so.79*
-
-%files gui-qt5-devel
-%{_libdir}/libgwengui-qt5.so
-%{_libdir}/cmake/gwengui-qt5-*/
-%{_libdir}/pkgconfig/gwengui-qt5.pc
+%files gui-qt6-devel
+%{_libdir}/libgwengui-qt6.so
+%{_libdir}/cmake/gwengui-qt6-*/
+%{_libdir}/pkgconfig/gwengui-qt6.pc
 %{_includedir}/gwenhywfar5/gwen-gui-qt5/
 
-
 %changelog
+* Sun Aug 31 2025 Steve Cossette <farchord@gmail.com> - 5.12.1-3
+- Upgraded the qt5 package to qt6, general spec cleanup, removal of qt5 and qt4
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.12.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
-%global major_version %%(cut -d "." -f 1 <<<%{tarball_version})
+%define major_version %(c=%{version}; echo $c | cut -d. -f1 | cut -d~ -f1)
 
 %if 0%{?rhel}
 %global portal_helper 0
@@ -7,14 +7,8 @@
 %global portal_helper 1
 %endif
 
-%if 0%{?fedora} && 0%{?fedora} < 43
-%bcond x11 1
-%else
-%bcond x11 0
-%endif
-
 Name:           gnome-shell
-Version:        49~beta.1
+Version:        49~rc
 Release:        %autorelease
 Summary:        Window management and application launching for GNOME
 
@@ -44,8 +38,6 @@ Patch: 0001-gdm-Work-around-failing-fingerprint-auth.patch
 %define gstreamer_version 1.4.5
 %define pipewire_version 0.3.49
 %define gnome_settings_daemon_version 3.37.1
-
-%define major_version %(c=%{version}; echo $c | cut -d. -f1 | cut -d~ -f1)
 
 BuildRequires:  pkgconfig(bash-completion)
 BuildRequires:  gcc
@@ -254,9 +246,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Shell.Porta
 %{_userunitdir}/org.gnome.Shell-disable-extensions.service
 %{_userunitdir}/org.gnome.Shell.target
 %{_userunitdir}/org.gnome.Shell@wayland.service
-%if %{with x11}
-%{_userunitdir}/org.gnome.Shell@x11.service
-%endif
 %{_libdir}/gnome-shell/
 %{_libexecdir}/gnome-shell-calendar-server
 %{_libexecdir}/gnome-shell-perf-helper

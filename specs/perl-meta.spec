@@ -2,8 +2,8 @@
 %bcond_without perl_meta_enables_optional_test
 
 Name:           perl-meta
-Version:        0.013
-Release:        3%{?dist}
+Version:        0.014
+Release:        1%{?dist}
 Summary:        Meta-programming API
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/meta
@@ -92,6 +92,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Sep 04 2025 Petr Pisar <ppisar@redhat.com> - 0.014-1
+- 0.014 bump
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.013-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

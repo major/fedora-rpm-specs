@@ -1,6 +1,9 @@
+# RHEL does not include all documentation dependencies (e.g. sphinxcontrib-doxylink)
+%bcond docs %{undefined rhel}
+
 Name:    libcamera
 Version: 0.5.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A library to support complex camera ISPs
 # see .reuse/dep5 and COPYING for details
 License: LGPL-2.1-or-later
@@ -16,7 +19,6 @@ Patch1: 0001-disable-rpi-pisp.patch
 # libcamera does not currently build on these architectures
 ExcludeArch: s390x ppc64le
 
-BuildRequires: doxygen
 BuildRequires: gcc-c++
 BuildRequires: gtest-devel
 BuildRequires: desktop-file-utils
@@ -44,10 +46,13 @@ BuildRequires: python3-devel
 BuildRequires: python3-jinja2
 BuildRequires: python3-ply
 BuildRequires: python3-pyyaml
-BuildRequires: python3-sphinx
-BuildRequires: python3-sphinxcontrib-doxylink
 BuildRequires: SDL2-devel
 BuildRequires: systemd-devel
+%if %{with docs}
+BuildRequires: doxygen
+BuildRequires: python3-sphinx
+BuildRequires: python3-sphinxcontrib-doxylink
+%endif
 # libcamera is not really usable without its IPA plugins
 Recommends: %{name}-ipa%{?_isa}
 
@@ -67,12 +72,14 @@ Requires:    %{name}%{?_isa} = %{version}-%{release}
 %description devel
 Files for development with %{name}.
 
+%if %{with docs}
 %package     doc
 Summary:     Documentation for %{name}
 License:     LGPL-2.1-or-later AND CC-BY-4.0
 
 %description doc
 HTML based documentation for %{name} including getting started and API.
+%endif
 
 %package     ipa
 Summary:     ISP Image Processing Algorithm Plugins for %{name}
@@ -131,7 +138,7 @@ export CXXFLAGS="%{optflags} -Wno-deprecated-declarations"
 
 # Build and include the virtual and vimc pipelines. This also builds tests but
 # those do not get included in any packages.
-%meson -Dtest=true
+%meson -Dtest=true %{!?with_docs:-Ddocumentation=disabled}
 
 %meson -Dv4l2=enabled
 %meson_build
@@ -177,8 +184,10 @@ rm -rf ${RPM_BUILD_ROOT}/%{_docdir}/%{name}-*/html/.doctrees
 %{_libdir}/pkgconfig/libcamera-base.pc
 %{_libdir}/pkgconfig/libcamera.pc
 
+%if %{with docs}
 %files doc
 %doc %{_docdir}/%{name}-*/
+%endif
 
 %files ipa
 %{_datadir}/libcamera/
@@ -207,6 +216,9 @@ rm -rf ${RPM_BUILD_ROOT}/%{_docdir}/%{name}-*/html/.doctrees
 %{python3_sitearch}/*
 
 %changelog
+* Wed Sep 03 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 0.5.2-2
+- Disable docs in RHEL builds
+
 * Tue Sep 02 2025 Milan Zamazal <mzamazal@redhat.com> - 0.5.2-1
 - Update to version 0.5.2
 - Build require python3-sphinxcontrib-doxylink

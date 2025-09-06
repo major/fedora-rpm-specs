@@ -1,11 +1,13 @@
 %global pypi_name sgqlc
-%global forgeurl https://github.com/profusion/sgqlc
-
 Name:           python-%{pypi_name}
-Version:        16.5
+Version:        17
 Release:        %{autorelease}
 Summary:        Simple GraphQL Client
+
+%global forgeurl https://github.com/profusion/sgqlc
+%global tag v%{version}
 %forgemeta
+
 License:        ISC
 URL:            %forgeurl
 Source:         %forgesource
@@ -13,7 +15,9 @@ Source:         %forgesource
 BuildArch:      noarch
 BuildRequires:  python3-devel
 # For tests
-BuildRequires:  python3-pytest
+BuildRequires:  %{py3_dist pytest}
+BuildRequires:  %{py3_dist pytest-asyncio}
+BuildRequires:  %{py3_dist respx}
 
 %global _description %{expand:
 This package offers an easy to use GraphQL client.}
@@ -27,18 +31,22 @@ Summary:        %{summary}
 %description -n python3-%{pypi_name} %_description
 
 
+%pyproject_extras_subpkg -n python3-%{pypi_name} websocket,requests,httpx
+
+
 %prep
 %forgeautosetup -p1
 
-# Allow building with Python 3.13+
-sed -i 's/,<3.13//' pyproject.toml
-
 # Disable coverage and doctest
-sed -i -e "s/--cov.* //g" -e "s/ --cov.*'/'/" -e "s/ --doctest.*'/'/" pyproject.toml
+sed -r \
+    -e "s/--cov.* //g" \
+    -e "s/ --cov.*'/'/" \
+    -e "s/ --doctest.*'/'/" \
+    -i pyproject.toml
 
 
 %generate_buildrequires
-%pyproject_buildrequires -x  websocket,requests
+%pyproject_buildrequires -x  websocket,requests,httpx
 
 
 %build
@@ -51,7 +59,7 @@ sed -i -e "s/--cov.* //g" -e "s/ --cov.*'/'/" -e "s/ --doctest.*'/'/" pyproject.
 
 
 %check
-%pytest -v
+%pytest -r fEs
 
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}

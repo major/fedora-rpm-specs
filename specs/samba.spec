@@ -94,9 +94,7 @@
 # pcp is no longer supported
 %if 0%{?fedora}
 %ifnarch i686
-%if 0%{?fedora} < 43
 %bcond pcp_pmda 1
-%endif
 %endif
 %else
 %bcond pcp_pmda 0

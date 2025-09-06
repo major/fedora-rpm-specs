@@ -4,7 +4,7 @@
 %global api_ver 5
 
 Name:           gtksourceview5
-Version:        5.17.0
+Version:        5.17.1
 Release:        %autorelease
 Summary:        Source code editing widget
 

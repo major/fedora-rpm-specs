@@ -1,13 +1,8 @@
-%if %{defined fedora} && 0%{?fedora} < 43
-# nose not available in epel9 and retired in Fedora >= 43
-%bcond_without  tests
-%else
-%bcond_with     tests
-%endif
+%bcond tests 1
 
 Name:           python-blessings
 Version:        1.7
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Thin, practical wrapper around terminal coloring, styling, and positioning
 License:        MIT
 URL:            https://github.com/erikrose/blessings
@@ -15,6 +10,8 @@ Source:         %{pypi_source blessings}
 # https://github.com/erikrose/blessings/issues/25
 Patch:          0001-fix-tests-when-run-without-a-tty-fixes-25.patch
 Patch:          0002-more-fixes-for-tests-without-a-tty.patch
+# https://github.com/erikrose/blessings/pull/167
+Patch:          0003-chore-replace-nose-with-pytest.patch
 BuildArch:      noarch
 
 %global _description %{expand:
@@ -62,6 +59,9 @@ BuildRequires:  python3-devel
 %doc README.rst
 
 %changelog
+* Fri Aug 29 2025 Carl George <carlwgeorge@fedoraproject.org> - 1.7-31
+- Re-enable tests via upstream patch
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.7-30
 - Rebuilt for Python 3.14.0rc2 bytecode
 

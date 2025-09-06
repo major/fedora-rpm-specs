@@ -1,5 +1,3 @@
-%bcond mingw %[0%{?fedora} && !0%{?flatpak}]
-
 %global apiver  1
 %global gtk_version 4.17.5
 %global glib_version 2.80.0
@@ -7,7 +5,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           libadwaita
-Version:        1.8~beta
+Version:        1.8~rc
 Release:        %autorelease
 Summary:        Building blocks for modern GNOME applications
 
@@ -31,18 +29,6 @@ BuildRequires:  pkgconfig(gobject-introspection-1.0)
 BuildRequires:  pkgconfig(gtk4) >= %{gtk_version}
 
 Requires:       gtk4%{?_isa} >= %{gtk_version}
-
-%if %{with mingw}
-BuildRequires:  mingw32-filesystem >= 95
-BuildRequires:  mingw32-gcc-c++
-BuildRequires:  mingw32-gtk4 >= %{gtk_version}
-BuildRequires:  mingw32-appstream
-
-BuildRequires:  mingw64-filesystem >= 95
-BuildRequires:  mingw64-gcc-c++
-BuildRequires:  mingw64-gtk4 >= %{gtk_version}
-BuildRequires:  mingw64-appstream
-%endif
 
 %description
 Building blocks for modern GNOME applications.
@@ -85,21 +71,6 @@ Suggests:       %{name}-devel = %{version}-%{release}
 Demo files for %{name}.
 
 
-%if %{with mingw}
-%package -n mingw32-%{name}
-Summary:       MinGW Windows %{name} library
-
-%description -n mingw32-%{name}
-MinGW Windows %{name} library.
-
-%package -n mingw64-%{name}
-Summary:       MinGW Windows %{name} library
-
-%description -n mingw64-%{name}
-MinGW Windows %{name} library.
-%endif
-
-
 %prep
 %autosetup -p1 -n %{name}-%{tarball_version}
 
@@ -110,17 +81,9 @@ MinGW Windows %{name} library.
     %{nil}
 %meson_build
 
-%if %{with mingw}
-%mingw_meson -Dintrospection=disabled -Dtests=false -Ddocumentation=false -Dexamples=true
-%mingw_ninja
-%endif
 
 %install
 %meson_install
-%if %{with mingw}
-%mingw_ninja_install
-%endif
-
 %find_lang %{name}
 
 
@@ -152,32 +115,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/*/apps/*.svg
 %{_metainfodir}/*.metainfo.xml
 
-
-%if %{with mingw}
-%files -n mingw32-libadwaita
-%license COPYING
-%doc README.md AUTHORS NEWS
-%{mingw32_bindir}/%{name}-%{apiver}-0.dll
-%{mingw32_bindir}/adwaita-%{apiver}-demo.exe
-%{mingw32_libdir}/%{name}-%{apiver}.dll.a
-%{mingw32_libdir}/pkgconfig/*-%{apiver}.pc
-%{mingw32_includedir}/%{name}-%{apiver}/
-%{mingw32_datadir}/applications/*.desktop
-%{mingw32_datadir}/icons/hicolor/*/apps/*.svg
-%{mingw32_datadir}/metainfo/*.metainfo.xml
-
-%files -n mingw64-libadwaita
-%license COPYING
-%doc README.md AUTHORS NEWS
-%{mingw64_bindir}/%{name}-%{apiver}-0.dll
-%{mingw64_bindir}/adwaita-%{apiver}-demo.exe
-%{mingw64_libdir}/%{name}-%{apiver}.dll.a
-%{mingw64_libdir}/pkgconfig/*-%{apiver}.pc
-%{mingw64_includedir}/%{name}-%{apiver}/
-%{mingw64_datadir}/applications/*.desktop
-%{mingw64_datadir}/icons/hicolor/*/apps/*.svg
-%{mingw64_datadir}/metainfo/*.metainfo.xml
-%endif
 
 %changelog
 %autochangelog

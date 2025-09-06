@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           xwayland-satellite
-Version:        0.6
+Version:        0.7
 Release:        %autorelease
 Summary:        Rootless Xwayland integration for Wayland compositors
 
@@ -9,18 +9,18 @@ SourceLicense:  MPL-2.0
 # (MIT OR Apache-2.0) AND Unicode-3.0
 # Apache-2.0 OR MIT
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
+# BSD-2-Clause OR Apache-2.0 OR MIT
 # MIT
 # MIT OR Apache-2.0
 # MIT OR Apache-2.0 OR Zlib
 # Unlicense OR MIT
-# Zlib
 License:        %{shrink:
     MPL-2.0 AND
     MIT AND
     Unicode-3.0 AND
-    Zlib AND
     (Apache-2.0 OR MIT) AND
     (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
+    (BSD-2-Clause OR Apache-2.0 OR MIT) AND
     (MIT OR Apache-2.0 OR Zlib) AND
     (Unlicense OR MIT)
 }
