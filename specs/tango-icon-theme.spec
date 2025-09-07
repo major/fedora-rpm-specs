@@ -1,14 +1,13 @@
 Name:           tango-icon-theme
 Version:        0.8.90
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Icon theme from Tango Project
 Summary(de):    Symbolthema vom Tango Projekt
 Summary(es):    Iconos del Proyecto Tango
 Summary(pl):    Ikony Projektu Tango
 
 
-# Automatically converted from old format: Public Domain - needs further work
-License:        LicenseRef-Callaway-Public-Domain
+License:        CC0-1.0
 URL:            http://tango.freedesktop.org/Tango_Desktop_Project
 
 Source0:        http://tango.freedesktop.org/releases/%{name}-%{version}.tar.bz2
@@ -21,13 +20,13 @@ Patch2:         tango-icon-theme-0.8.90-rsvg-convert-configure.patch
 
 BuildArch:      noarch
 
-BuildRequires: make
 BuildRequires:  gcc
 BuildRequires:  icon-naming-utils >= 0.8.90
 BuildRequires:  ImageMagick-devel >= 5.5.7
 BuildRequires:  intltool
 BuildRequires:  librsvg2-devel >= 2.35.2
 BuildRequires:  librsvg2-tools
+BuildRequires:  make
 BuildRequires:  pkgconfig >= 0.19
 
 %description
@@ -49,15 +48,17 @@ Zawiera ikony Projektu Tango.
 %patch -P1 -p1
 %patch -P2 -p1
 
+
 %build
 %configure --enable-png-creation
 make
+
+chmod +x svg2png.sh
 
 
 %install
 rm -rf %{buildroot}
 make install DESTDIR=%{buildroot} INSTALL='install -p'
-
 
 
 %post
@@ -74,11 +75,17 @@ gtk-update-icon-cache -q %{_datadir}/icons/Tango &>/dev/null || :
 
 
 %files
+%license COPYING
+%doc AUTHORS ChangeLog README
 %{_datadir}/icons/Tango
-%doc AUTHORS ChangeLog COPYING README 
 
 
 %changelog
+* Fri Sep 05 2025 Scott K Logan <logans@cottsay.net> - 0.8.90-32
+- Fix svg2png.sh permissions after build
+- Review SPDX license identifier
+- Switch to %%license macro
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.90-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

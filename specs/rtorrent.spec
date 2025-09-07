@@ -2,7 +2,7 @@ Name:          rtorrent
 # OpenSSL exception, see README
 # Automatically converted from old format: GPLv2+ with exceptions - review is highly recommended.
 License:       LicenseRef-Callaway-GPLv2+-with-exceptions
-Version:       0.15.6
+Version:       0.15.7
 Release:       1%{?dist}
 Summary:       BitTorrent client based on libtorrent 
 URL:           https://github.com/rakshasa/rtorrent
@@ -14,7 +14,7 @@ BuildRequires: curl-devel
 BuildRequires: gcc-c++
 BuildRequires: libstdc++-devel
 BuildRequires: libsigc++20-devel
-BuildRequires: libtorrent-devel >= 0.15.1
+BuildRequires: libtorrent-devel >= 0.15.7
 BuildRequires: ncurses-devel
 BuildRequires: pkgconfig
 BuildRequires: xmlrpc-c-devel
@@ -28,7 +28,7 @@ of directories for torrent files to seed and/or download.
 
 %prep
 %autosetup -p0
-for file in AUTHORS README doc/rtorrent.rc COPYING
+for file in AUTHORS README.md doc/rtorrent.rc COPYING
 do
     chmod -x "$file"
 done
@@ -45,12 +45,15 @@ touch -r aclocal.m4 scripts/common.m4
 install -Dpm 0644 %SOURCE1 %{buildroot}/%{_mandir}/man1/rtorrent.1
 
 %files
-%doc AUTHORS README doc/rtorrent.rc
+%doc AUTHORS README.md doc/rtorrent.rc
 %license COPYING
 %{_bindir}/%{name}
 %{_mandir}/man1/rtorrent.1.gz
 
 %changelog
+* Fri Sep 05 2025 Conrad Meyer <cse.cem@gmail.com> - 0.15.7-1
+- Update to 0.15.7
+
 * Sun Aug 24 2025 Conrad Meyer <cse.cem@gmail.com> - 0.15.6-1
 - Update to 0.15.6
 

@@ -13,7 +13,7 @@ ExcludeArch: %{ix86}
 
 Name:		alt-ergo
 Version:	%{minorver}.%{patchrel}
-Release:	26%{?dist}
+Release:	27%{?dist}
 Summary:	Automated theorem prover including linear arithmetic
 
 # The top-level license files apply to the non-free main distribution of
@@ -203,6 +203,18 @@ cd -
 mkdir -p %{buildroot}%{_datadir}/icons
 cp -a icons %{buildroot}%{_datadir}/icons/hicolor
 
+# Put something interesting into the META files
+cat > %{buildroot}%{ocamldir}/alt-ergo/META << EOF
+version = "%{version}"
+description = "Automated theorem prover including linear arithmetic"
+requires = ""
+EOF
+rm %{buildroot}%{ocamldir}/{alt-ergo-free,altgr-ergo}/META
+ln %{buildroot}%{ocamldir}/alt-ergo/META \
+   %{buildroot}%{ocamldir}/alt-ergo-free/META
+ln %{buildroot}%{ocamldir}/alt-ergo/META \
+   %{buildroot}%{ocamldir}/altgr-ergo/META
+
 %check
 cd sources
 %dune_check
@@ -271,10 +283,13 @@ cd sources
 %{ocamldir}/%{name}-lib/*.cmti
 
 %changelog
+* Fri Sep 05 2025 Jerry James <loganjerry@gmail.com> - 2.3.3-27
+- Rebuild for ocaml-menhir 20250903
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 2.3.3-25
+* Fri Jul 11 2025 Jerry James <loganjerry@gmail.com> - 2.3.3-25
 - Rebuild to fix OCaml dependencies
 
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-24

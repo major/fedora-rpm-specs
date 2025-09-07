@@ -1,7 +1,7 @@
 Summary: Text mode Mail Client
 Name: neomutt
-Version: 20250510
-Release: 2%{?dist}
+Version: 20250905
+Release: 1%{?dist}
 Epoch: 6
 Url: https://neomutt.org/
 
@@ -81,6 +81,38 @@ cat %{SOURCE1} >> %{buildroot}%{_sysconfdir}/neomuttrc
 %{_datadir}/neomutt
 
 %changelog
+* Fri Sep 05 2025 Richard Russon <rich@flatcap.org> - 20250905-1
+- Security
+  - #4623 ncrypt/crypt.c: Protect Message-ID
+- Features
+  - #4644 Provide an option to confirm on an empty To
+- Contrib
+  - #4645 Add ayu-dark-256 colorscheme
+- Bug Fixes
+  - #4635 Handle a non-existing message_cache_dir
+  - #4642 Decouple `$crypt_encryption_info` and `$crypt_protected_headers_weed` from `$devel_security`
+  - #4650 Return success after querying for config
+- Changed Config
+  - Add: `confirm_empty_to = no`
+  Confirm when sending an e-mail with an empty To:
+- Translations
+  - 100% German
+  - 100% Turkish
+  - 99% Hungarian
+  - 98% Lithuanian
+  - 89% French
+- Build
+  - #4636 Update FreeBSD CI and workaround `pkg` bug
+  - actions: use checkout v5
+- Code
+  - #4023 tweak observer event types
+  - #4628 Use the standard countof instead of our mutt_array_size()
+  - #4637 Update types in test dummy code
+  - #4638 remove useless const qualifier from log_queue_get()
+  - #4655 Make sure ctype(3) function arguments are valid
+  - #4657 Fix warning about unused function and data
+  - #4659 Include term.h and [n]curses.h consistently
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6:20250510-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

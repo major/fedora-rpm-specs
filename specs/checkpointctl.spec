@@ -7,6 +7,7 @@ Version:                1.4.0
 %gometa -L -f
 
 Name:           checkpointctl
+Epoch:          1
 Release:        %autorelease
 Summary:        A command-line tool for in-depth analysis of container checkpoints
 

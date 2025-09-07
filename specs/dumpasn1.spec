@@ -1,12 +1,12 @@
 Name:           dumpasn1
-Version:        20170309
-Release:        19%{?dist}
+Version:        20250606
+Release:        2%{?dist}
 Summary:        ASN.1 object dump utility
 
-License:        Gutmann
-URL:            https://www.cs.auckland.ac.nz/~pgut001/
-Source0:        https://www.cs.auckland.ac.nz/~pgut001/dumpasn1.c
-Source1:        https://www.cs.auckland.ac.nz/~pgut001/dumpasn1.cfg
+License:        MIT
+URL:            https://github.com/cryptlib/dumpasn1/
+Source0:        https://raw.githubusercontent.com/cryptlib/dumpasn1/1b6f9687b4d66e651aad86cf7b4f720ad6de701c/dumpasn1.c
+Source1:        https://raw.githubusercontent.com/cryptlib/dumpasn1/1b6f9687b4d66e651aad86cf7b4f720ad6de701c/dumpasn1.cfg
 # man page extracted from http://ftp.debian.org/debian/pool/main/d/dumpasn1/dumpasn1_20030222-1.diff.gz
 Source2:        dumpasn1.1
 
@@ -47,6 +47,12 @@ install -Dpm 644 dumpasn1.1 $RPM_BUILD_ROOT%{_mandir}/man1/dumpasn1.1
 
 
 %changelog
+* Fri Sep 05 2025 François Kooman <fkooman@tuxed.net> - 20250606-2
+- point to exact commit for source files
+
+* Thu Sep 04 2025 Ralf Senderek <innovation@senderek.ie> - 20250606-1
+- Update to version 6 June 2025
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20170309-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

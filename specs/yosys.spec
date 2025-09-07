@@ -1,11 +1,11 @@
-%global commit0 8c71226d0050b3ff71e9bc44297480811a21bb56
+%global commit0 cec48c6abdb4493515330e17c97625675fc1583c
 %global shortcommit0 %%(c=%%{commit0}; echo ${c:0:7})
 
-%global snapdate 20250810
+%global snapdate 20250904
 
 Name:           yosys
-Version:        0.56
-Release:        2.%{snapdate}git%{shortcommit0}%{?dist}
+Version:        0.57
+Release:        1.%{snapdate}git%{shortcommit0}%{?dist}
 Summary:        Yosys Open SYnthesis Suite, including Verilog synthesizer
 License:        ISC and MIT
 URL:            http://www.clifford.at/yosys/
@@ -14,7 +14,7 @@ Source0:        https://github.com/YosysHQ/%{name}/archive/%{commit0}/%{name}-%{
 Source1:        https://github.com/mdaines/viz.js/releases/download/0.0.3/viz.js
 
 # man pages written for Debian:
-Source2:        http://http.debian.net/debian/pool/main/y/yosys/yosys_0.52-1.debian.tar.xz
+Source2:        http://http.debian.net/debian/pool/main/y/yosys/yosys_0.52-2.debian.tar.xz
 # requested that upstream include those man pages:
 #   https://github.com/YosysHQ/yosys/issues/278
 
@@ -39,7 +39,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  cxxopts-devel
 BuildRequires:  bison flex readline-devel pkgconfig
 BuildRequires:  tcl-devel libffi-devel
-BuildRequires:  yosyshq-abc >= 0.56
+BuildRequires:  yosyshq-abc >= 0.57
 BuildRequires:  iverilog >= 12.0
 BuildRequires:  python%{python3_pkgversion}
 BuildRequires:  python3-devel
@@ -62,7 +62,7 @@ BuildRequires: rsync
 
 Requires:       %{name}-share = %{version}-%{release}
 Requires:       graphviz python-click python-xdot
-Requires:       yosyshq-abc >= 0.56
+Requires:       yosyshq-abc >= 0.57
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval :
 ExcludeArch: %{ix86}
@@ -173,6 +173,10 @@ make test ABCEXTERNAL=%{_bindir}/abc SEED=314159265359
 
 
 %changelog
+* Thu Sep 04 2025 Gabriel Somlo <gsomlo@gmail.com> - 0.57.1.20250904gitcec48c6
+- update to 0.57 snapshot
+- update man pages from Debian
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.56-2.20250810git8c71226
 - Rebuilt for Python 3.14.0rc2 bytecode
 

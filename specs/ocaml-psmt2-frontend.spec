@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-psmt2-frontend
 Version:        0.4.0
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Parser and typechecker for an extension of SMT-LIB 2
 
 License:        Apache-2.0
@@ -55,6 +55,13 @@ make sphinx
 %install
 %dune_install
 
+# Put something interesting into the binary package META file
+cat > %{buildroot}%{ocamldir}/psmt2-frontend_bin/META << EOF
+version = "%{version}"
+description = "PSMT2 command line tool"
+requires = ""
+EOF
+
 %check
 %dune_check
 
@@ -68,10 +75,13 @@ make sphinx
 %doc docs/sphinx
 
 %changelog
+* Fri Sep 05 2025 Jerry James <loganjerry@gmail.com> - 0.4.0-25
+- Rebuild for ocaml-menhir 20250903
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 0.4.0-23
+* Fri Jul 11 2025 Jerry James <loganjerry@gmail.com> - 0.4.0-23
 - Rebuild to fix OCaml dependencies
 
 * Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-22

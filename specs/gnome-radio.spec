@@ -1,11 +1,11 @@
 Name:           gnome-radio
-Version:        50.1
+Version:        52.0
 Release:        %autorelease
 Summary:        GNOME Radio
  
 License:        GPL-3.0-or-later
 URL:            http://gnomeradio.org
-Source0:        http://www.gnomeradio.org/src/gnome-radio-50.1.tar.xz
+Source0:        http://www.gnomeradio.org/src/gnome-radio-52.0.tar.xz
 
 BuildRequires:  autoconf
 BuildRequires:  automake

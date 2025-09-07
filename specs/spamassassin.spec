@@ -10,19 +10,19 @@
 %define real_name Mail-SpamAssassin
 %{!?perl_vendorlib: %define perl_vendorlib %(eval "`%{__perl} -V:installvendorlib`"; echo $installvendorlib)}
 
-%global saversion 4.000001
+%global saversion 4.000002
 #%%global prerev rc2
 
 Summary: Spam filter for email which can be invoked from mail delivery agents
 Name: spamassassin
-Version: 4.0.1
+Version: 4.0.2
 #Release: 0.8.%%{prerev}%%{?dist}
-Release: 7%{?dist}
+Release: 1%{?dist}
 License: Apache-2.0
 URL: https://spamassassin.apache.org/
 Source0: https://www.apache.org/dist/%{name}/source/%{real_name}-%{version}.tar.bz2
 #Source0: %%{real_name}-%%{version}-%%{prerev}.tar.bz2
-Source1: https://www.apache.org/dist/%{name}/source/%{real_name}-rules-%{version}.r1916528.tgz
+Source1: https://downloads.apache.org/%{name}/source/%{real_name}-rules-%{version}.r1928015.tgz
 #Source1: %%{real_name}-rules-%%{version}.%%{prerev}.tgz
 Source2: redhat_local.cf
 Source3: spamassassin-default.rc
@@ -42,7 +42,7 @@ Source17: sa-update.timer
 
 # GPG Keys and source signatures
 Source100: https://www.apache.org/dist/%{name}/source/%{real_name}-%{version}.tar.bz2.asc
-Source101: https://www.apache.org/dist/%{name}/source/%{real_name}-rules-%{version}.r1916528.tgz.asc
+Source101: https://www.apache.org/dist/%{name}/source/%{real_name}-rules-%{version}.r1928015.tgz.asc
 Source102: https://www.apache.org/dist/spamassassin/KEYS
 
 # Patches 0-99 are RH specific
@@ -284,6 +284,9 @@ rm -f %{_sharedstatedir}/razor/*
 %systemd_preun sa-update.timer
 
 %changelog
+* Thu Sep 04 2025 Kevin Fenzi <kevin@scrye.com> - 4.0.2-1
+- Update to 4.0.2. Fixes rhbz#2392141
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 %global crate vhost-user-backend
 
 Name:           rust-vhost-user-backend
-Version:        0.17.0
+Version:        0.20.0
 Release:        %autorelease
 Summary:        Framework to build vhost-user backend service daemon
 

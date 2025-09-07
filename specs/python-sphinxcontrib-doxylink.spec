@@ -1,6 +1,6 @@
-Name:      python3-sphinxcontrib-doxylink
+Name:      python-sphinxcontrib-doxylink
 Version:   1.13.0
-Release:   4%{?dist}
+Release:   5%{?dist}
 Summary:   A Sphinx extension to link to external Doxygen API documentation
 License:   BSD-2-Clause
 URL:       https://github.com/sphinx-contrib/doxylink
@@ -14,13 +14,17 @@ BuildRequires: python3-pytest
 BuildRequires: python3-sphinx
 BuildRequires: python3-testfixtures
 
-Requires: python3-pyparsing
-Requires: python3-sphinx
-
-%description
+%global _description %{expand:
 This package contains a Sphinx extension to link to external Doxygen API
 documentation. It allows you to specify C++ symbols and it will convert
-them into links to the HTML page of their Doxygen documentation.
+them into links to the HTML page of their Doxygen documentation.}
+
+%description %_description
+
+%package -n python3-sphinxcontrib-doxylink
+Summary: %{summary}
+
+%description -n python3-sphinxcontrib-doxylink %_description
 
 %prep
 %autosetup -n doxylink-%{version} -p1
@@ -39,11 +43,15 @@ them into links to the HTML page of their Doxygen documentation.
 %pyproject_check_import
 %{pytest}
 
-%files -n %{name} -f %{pyproject_files}
+%files -n python3-sphinxcontrib-doxylink -f %{pyproject_files}
 %license LICENSE
 %doc README.rst
 
 %changelog
+* Thu Sep 04 2025 Milan Zamazal <mzamazal@redhat.com> - 1.13.0-5
+- Name changed to python-sphinxcontrib-doxylink.
+- Redundant Requires removed.
+
 * Wed Aug 27 2025 Milan Zamazal <mzamazal@redhat.com> - 1.13.0-4
 - Build-require python3-devel to fix directory owners
 

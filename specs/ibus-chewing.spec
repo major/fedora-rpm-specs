@@ -1,17 +1,17 @@
 %global public_key RWRzJFnXiLZleAyCIv1talBjyRewelcy9gzYQq9pd3SKSFBPoy57sf5s
 
 Name:           ibus-chewing
-Version:        2.1.6
+Version:        2.1.7
 Release:        %autorelease
 Summary:        The Chewing engine for IBus input platform
 Summary(zh_TW): IBus新酷音輸入法
 License:        GPL-2.0-or-later
 URL:            https://github.com/chewing/ibus-chewing
-Source0:        %{url}/releases/download/v%{version}/%{name}-%{version_no_tilde}-Source.tar.xz
-Source1:        %{url}/releases/download/v%{version}/%{name}-%{version_no_tilde}-Source.tar.xz.asc
+Source0:        %{url}/releases/download/v%{version}/%{name}-%{version_no_tilde}.tar.xz
+Source1:        %{url}/releases/download/v%{version}/%{name}-%{version_no_tilde}.tar.xz.asc
 Source2:        https://chewing.im/.well-known/openpgpkey/hu/y84sdmnksfqswe7fxf5mzjg53tbdz8f5?l=release#/libchewing.pgp
 
-BuildRequires:  cmake >= 3.21.0
+BuildRequires:  meson >= 0.57.0
 BuildRequires:  gcc
 BuildRequires:  pkgconf
 BuildRequires:  gnupg2
@@ -43,14 +43,14 @@ IBus-chewing 是新酷音輸入法的IBus前端。
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%autosetup -n %{name}-%{version_no_tilde}-Source
+%autosetup -n %{name}-%{version_no_tilde}
 
 %build
-%cmake --preset default
-%cmake_build
+%meson
+%meson_build
 
 %install
-%cmake_install
+%meson_install
 
 # We install document using doc
 rm -fr %{buildroot}%{_docdir}/*

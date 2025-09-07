@@ -1,5 +1,5 @@
 Name:           perl-Sys-Info-Base
-Version:        0.7808
+Version:        0.7810
 Release:        1%{?dist}
 Summary:        Provides various system information
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -97,6 +97,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Sep 05 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.7810-1
+- 0.7810 bump (rhbz#2393363)
+
 * Mon Sep 01 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.7808-1
 - 0.7808 bump (rhbz#2392368)
 - Package tests

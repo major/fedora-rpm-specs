@@ -4,9 +4,15 @@
 
 %global tracker_obsoletes_version 3.8
 
+%if 0%{?rhel}           
+%bcond libstemmer 0           
+%else            
+%bcond libstemmer 1
+%endif
+
 Name:           tinysparql
-Version:        3.10~beta
-Release:        2%{?dist}
+Version:        3.10~rc
+Release:        %autorelease
 Summary:        Desktop-neutral metadata database and search tool
 
 License:        GPL-2.0-or-later
@@ -17,8 +23,7 @@ BuildRequires:  asciidoc
 BuildRequires:	gcc
 BuildRequires:  gettext
 BuildRequires:  gi-docgen
-%if ! 0%{?rhel} || 0%{?rhel} < 10
-# libstemmer is not part of RHEL 10
+%if %{with libstemmer}
 BuildRequires:  libstemmer-devel
 %endif
 BuildRequires:  meson
@@ -104,7 +109,7 @@ This package contains the documentation for %{name}.
 %meson \
   -Dunicode_support=icu \
   -Dsystemd_user_services_dir=%{_userunitdir} \
-%if ! 0%{?rhel} || 0%{?rhel} >= 10
+%if %{without libstemmer}
   -Dstemmer=disabled \
 %endif
   %{nil}
@@ -167,13 +172,4 @@ This package contains the documentation for %{name}.
 
 
 %changelog
-* Wed Aug 06 2025 František Zatloukal <fzatlouk@redhat.com> - 3.10~beta-2
-- Rebuilt for icu 77.1
-
-* Tue Aug 05 2025 nmontero <nmontero@redhat.com> - 3.10~beta-1
-- Update to 3.10.beta
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.10~alpha-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
 %autochangelog

@@ -3,9 +3,10 @@
 %global multilib_arches %{ix86} x86_64
 
 Name:		libffi
-Version:	3.5.1
-Release:	2%{?dist}
+Version:	3.5.2
+Release:	1%{?dist}
 Summary:	A portable foreign function interface library
+# No license change for 3.5.2
 # No license change for 3.5.1
 # No license change for 3.4.8
 # No license change for 3.4.7
@@ -142,6 +143,9 @@ install -m644 %{SOURCE2} $RPM_BUILD_ROOT%{_includedir}/ffitarget.h
 %{_infodir}/libffi.info.*
 
 %changelog
+* Fri Sep  5 2025 DJ Delorie <dj@redhat.com> - 3.5.2-1
+- Rebase to libffi 3.5.1.
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

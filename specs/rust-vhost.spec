@@ -5,7 +5,7 @@
 %global crate vhost
 
 Name:           rust-vhost
-Version:        0.13.0
+Version:        0.14.0
 Release:        %autorelease
 Summary:        Pure rust library for vdpa, vhost and vhost-user
 
@@ -14,9 +14,6 @@ URL:            https://crates.io/crates/vhost
 Source0:        %{crates_source}
 Source1:        https://raw.githubusercontent.com/rust-vmm/vhost/main/LICENSE
 Source2:        https://raw.githubusercontent.com/rust-vmm/vhost/main/LICENSE-BSD-3-Clause
-# Bump uuid crate dependency version to 1.11.0
-# Upstream PR: https://github.com/rust-vmm/vhost/pull/278
-Patch:          vhost-bump-uuid-version.diff
 
 # We depend on vm-memory which does not support 32 bit targets
 ExcludeArch:    %{ix86}

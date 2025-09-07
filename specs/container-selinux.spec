@@ -20,14 +20,14 @@
 %define no_user_namespace 1
 %endif
 
-# copr_build is more intuitive than copr_username
-%if %{defined copr_username}
-%define copr_build 1
+# set copr_build is more intuitive than copr_username
+%if %{defined copr_username} && "%{copr_username}" == "rhcontainerbot" && "%{copr_projectname}" == "podman-next"
+%define next_build 1
 %endif
 
 Name: container-selinux
-# Set different Epochs for copr and koji
-%if %{defined copr_build}
+# Set different Epoch for rhcontainerbot/podman-next copr build
+%if %{defined next_build}
 Epoch: 102
 %else
 Epoch: 4
@@ -35,7 +35,7 @@ Epoch: 4
 # Keep Version in upstream specfile at 0. It will be automatically set
 # to the correct value by Packit for copr and koji builds.
 # IGNORE this comment if you're looking at it in dist-git.
-Version: 2.241.0
+Version: 2.242.0
 Release: %autorelease
 License: GPL-2.0-only
 URL: https://github.com/containers/%{name}

@@ -6,13 +6,14 @@
 
 Name:		zbar
 Version:	0.23.93
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Bar code reader
 
 License:	LGPL-2.1-or-later
 URL:		http://zbar.sourceforge.net/
 Source0:	https://linuxtv.org/downloads/%{name}/%{name}-%{version}.tar.bz2
 Patch0:		use_python3_on_python_script.patch
+Patch1:		fix_qt_overlinking.patch
 
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -118,8 +119,10 @@ on Java Native Interface (JNI) applications using ZBar.
 %prep
 %setup -q
 %patch 0 -p1
+%patch 1 -p1
 
 %build
+autoreconf -fiv
 %configure --with-python=python3 --with-gtk=auto --with-dbusconfdir=%{_sysconfdir} --docdir=%{_docdir}/%{name}-%{version} --with-graphicsmagick --without-xshm --without-xv --enable-codes=ean,databar,code128,code93,code39,codabar,i25,qrcode,sqcode,pdf417
 
 # rpath
@@ -213,6 +216,9 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}/
 %{_docdir}/test_python.py
 
 %changelog
+* Fri Sep 05 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 0.23.93-9
+- Fix Qt overlinking
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.23.93-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

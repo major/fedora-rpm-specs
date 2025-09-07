@@ -7,7 +7,7 @@ Main focus is on modifying existing spec files, any change should result
 in a minimal diff.}
 
 
-%global base_version 0.36.0
+%global base_version 0.37.0
 #global prerelease   rc1
 
 %global package_version %{base_version}%{?prerelease:~%{prerelease}}
@@ -16,7 +16,7 @@ in a minimal diff.}
 
 Name:           python-specfile
 Version:        %{package_version}
-Release:        5%{?dist}
+Release:        1%{?dist}
 
 Summary:        A library for parsing and manipulating RPM spec files
 License:        MIT
@@ -77,6 +77,9 @@ sed -i 's/setuptools_scm\[toml\]>=7/setuptools_scm[toml]/' pyproject.toml
 
 
 %changelog
+* Fri Sep 05 2025 Packit <hello@packit.dev> - 0.37.0-1
+- Added support for Elbrus E2K CPU architectures. (#484)
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.36.0-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

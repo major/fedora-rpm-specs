@@ -3,7 +3,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           sysprof
-Version:        49~alpha
+Version:        49~rc
 Release:        %autorelease
 Summary:        A system-wide Linux profiler
 
@@ -106,7 +106,7 @@ developing applications that use %{name}.
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainfo.xml
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
@@ -117,7 +117,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/applications/org.gnome.Sysprof.desktop
 %{_datadir}/dbus-1/services/org.gnome.Sysprof.service
 %{_datadir}/icons/hicolor/*/*/*
-%{_metainfodir}/org.gnome.Sysprof.appdata.xml
+%{_metainfodir}/org.gnome.Sysprof.metainfo.xml
 %{_datadir}/mime/packages/sysprof-mime.xml
 
 %files agent

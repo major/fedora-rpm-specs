@@ -1,12 +1,11 @@
 Summary:       PPD file compressor and generator for CUPS
 Name:          pyppd
 Version:       1.0.2
-Release:       34%{?dist}
+Release:       35%{?dist}
 URL:           http://pypi.python.org/pypi/pyppd
 Source:        http://pypi.python.org/packages/source/p/pyppd/pyppd-%{version}.tar.gz
 License:       MIT
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
 BuildArch:     noarch
 
 %description
@@ -17,11 +16,14 @@ Description files.  It can generate the PPD files on the fly for CUPS.
 %setup -q
 sed -i -e '1s,^#!/usr/bin/env python,#!/usr/bin/python3,' pyppd/pyppd-ppdfile.in
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%{__python3} setup.py build
+%pyproject_wheel
 
 %install
-%{__python3} setup.py install --skip-build --root %{buildroot}
+%pyproject_install
 
 %files
 %license LICENSE.txt
@@ -29,10 +31,13 @@ sed -i -e '1s,^#!/usr/bin/env python,#!/usr/bin/python3,' pyppd/pyppd-ppdfile.in
 # This directory includes pyppd-ppdfile.in which looks like a script
 # but is only a template.  For that reason it is *not* executable.
 %{python3_sitelib}/%{name}
-%{python3_sitelib}/%{name}*.egg-info
+%{python3_sitelib}/%{name}*.dist-info
 %{_bindir}/%{name}
 
 %changelog
+* Fri Sep  5 2025 Tim Waugh <twaugh@redhat.com> - 1.0.2-35
+- Stop using deprecated python setup.py build/install command in the spec (bug #2378571)
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.0.2-34
 - Rebuilt for Python 3.14.0rc2 bytecode
 

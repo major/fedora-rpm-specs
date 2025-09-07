@@ -1,7 +1,7 @@
 %bcond_without build_lib
 
 Name:       ddcutil
-Version:    2.1.4
+Version:    2.2.1
 Release:    %autorelease
 Summary:    Query and update monitor settings
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -43,7 +43,7 @@ Query and change monitor settings
 ddcutil communicates with monitors implementing MCCS (Monitor Control Command
 Set), using either the DDC/CI protocol on the I2C bus or as a Human Interface
 Device on USB.  In general, anything that can be controlled using a monitor's
-on-screen display can be controlled by this program.  Examples include 
+on-screen display can be controlled by this program.  Examples include
 changing a monitor's input source and adjusting its brightness.
 
 # libddcutil can be installed separately
@@ -88,7 +88,6 @@ NOCONFIGURE=1 ./autogen.sh
 %{_datadir}/%{name}
 %{_mandir}/man1/%{name}.1.*
 %{_udevrulesdir}/60-ddcutil-i2c.rules
-%{_udevrulesdir}/60-ddcutil-usb.rules
 %{_modulesloaddir}/ddcutil.conf
 
 %if %{with build_lib}

@@ -1,5 +1,5 @@
 %global _hardened_build 1
-%global _version        2023-07-R2
+%global _version        2025-09-R1
 
 ## {Local macros...
 %global cfgdir          %_sysconfdir/%name
@@ -19,8 +19,6 @@ Source0:        http://www.kismetwireless.net/code/%{name}-%_version.tar.xz
 
 Patch0:         kismet-include.patch
 Patch1:         kismet-install.patch
-Patch2:         hak5-types.patch
-Patch3:         2340697.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -31,7 +29,10 @@ BuildRequires:  bluez-libs-devel
 BuildRequires:  libmicrohttpd-devel protobuf-devel protobuf-c-devel
 BuildRequires:  NetworkManager-libnm-devel libusb1-devel
 BuildRequires:  sqlite-devel libwebsockets-devel
-BuildRequires: make
+BuildRequires:  rtl-sdr-devel
+BuildRequires:  mosquitto-devel
+BuildRequires:  lm_sensors-devel
+BuildRequires:  make
 
 %description
 Kismet is an 802.11 layer2 wireless network detector, sniffer, and
@@ -49,10 +50,6 @@ traffic.
 
 %patch -P 0 -p0
 %patch -P 1 -p0
-%patch -P 2 -p0
-%ifnarch ppc64le
-%patch -P 3 -p1
-%endif
 
 sed -i 's!\$(prefix)/lib/!%{_libdir}/!g' plugin-*/Makefile
 
@@ -76,6 +73,7 @@ EOF
 export ac_cv_lib_uClibcpp_main=no # we do not want to build against uClibc++, even when available
 export LDFLAGS='-Wl,--as-needed'
 %configure \
+           --enable-wifi-coconut \
            --sysconfdir=%cfgdir \
            CXXFLAGS="$RPM_OPT_FLAGS -D__STDC_FORMAT_MACROS" \
            --disable-python-tools
@@ -106,6 +104,13 @@ install -m0644 -D kismet.sysusers.conf %{buildroot}%{_sysusersdir}/kismet.conf
 %{_bindir}/kismetdb_to_kml
 %{_bindir}/kismetdb_to_pcap
 %{_bindir}/kismetdb_to_wiglecsv
+%{_bindir}/kismet_cap_antsdr_droneid
+%{_bindir}/kismet_cap_freaklabs_zigbee
+%{_bindir}/kismet_cap_radiacode_usb
+%{_bindir}/kismet_cap_sdr_rtl433
+%{_bindir}/kismet_cap_sdr_rtladsb
+%{_bindir}/kismet_cap_serial_radview
+
 %attr(4755,root,root) %{_bindir}/kismet_cap_hak5_wifi_coconut
 %attr(4755,root,root) %{_bindir}/kismet_cap_linux_bluetooth
 %attr(4755,root,root) %{_bindir}/kismet_cap_linux_wifi
@@ -121,6 +126,9 @@ install -m0644 -D kismet.sysusers.conf %{buildroot}%{_sysusersdir}/kismet.conf
 %{_sysusersdir}/kismet.conf
 
 %changelog
+* Thu Sep 04 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.0.2025.09.R1-1
+- 2025-09.R1
+
 * Thu Jul 24 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.0.2023.07.R2-1
 - 2023.07.R2
 

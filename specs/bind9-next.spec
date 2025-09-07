@@ -53,9 +53,9 @@ Conflicts: %1 \
 
 Summary:  The Berkeley Internet Name Domain (BIND) DNS (Domain Name System) server
 Name:     bind9-next
-License:  MPL-2.0 AND ISC AND BSD-3-clause AND Expat AND BSD-2-clause
+License:  MPL-2.0 AND ISC AND BSD-3-clause AND MIT AND BSD-2-clause
 #
-Version:  9.21.8
+Version:  9.21.11
 Release:  %autorelease
 Epoch:    32
 Url:      https://www.isc.org/downloads/bind/
@@ -96,6 +96,8 @@ Patch3: bind-9.21-unittest-isc_rwlock-s390x.patch
 # https://gitlab.isc.org/isc-projects/bind9/-/issues/5328
 # avoid often fails on i386, unsupported upstream
 Patch4: bind-9.21-unittest-qpdb-i386.patch
+# Downstream patch to include version in libraries
+Patch5: meson-libs.patch
 
 %{?systemd_ordering}
 Requires:       coreutils
@@ -108,14 +110,23 @@ Recommends:     %{name}-utils %{name}-dnssec-utils
 Obsoletes:      %{name}-pkcs11 < 32:9.18.4-2
 Conflicts:      bind-dyndb-ldap
 
-BuildRequires:  gcc, make
-BuildRequires:  openssl-devel, libtool, autoconf, pkgconfig, libcap-devel
-BuildRequires:  libidn2-devel, libxml2-devel
+BuildRequires:  gcc
+BuildRequires:  make
+BuildRequires:  openssl-devel
+BuildRequires:  libtool
+BuildRequires:  meson
+BuildRequires:  ninja-build
+BuildRequires:  pkgconfig
+BuildRequires:  libcap-devel
+BuildRequires:  libidn2-devel
+BuildRequires:  libxml2-devel
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  selinux-policy
-BuildRequires:  findutils sed
+BuildRequires:  findutils
+BuildRequires:  sed
 BuildRequires:  libnghttp2-devel
 BuildRequires:  userspace-rcu-devel
+BuildRequires:  pkgconfig(libedit)
 # Compress the changelog
 BuildRequires:  gzip
 %if 0%{?fedora}
@@ -175,7 +186,9 @@ BuildRequires: libtsan
 %endif
 %if %{with DTRACE}
 # https://gitlab.isc.org/isc-projects/bind9/-/issues/4041
-BuildRequires: systemtap-sdt-devel
+BuildRequires:  systemtap
+BuildRequires:  systemtap-sdt-devel
+BuildRequires:  systemtap-sdt-dtrace
 %endif
 
 %description
@@ -306,18 +319,6 @@ in HTML and PDF format.
 %endif
 %autosetup -n %{upname}-%{version} -p1
 
-# Sparc and s390 arches need to use -fPIE
-%ifarch sparcv9 sparc64 s390 s390x
-for i in bin/named/Makefile.am; do
-  sed -i 's|fpie|fPIE|g' $i
-done
-%endif
-
-%ifarch %{ix86}
-# f40 FTBFS on quota_test, bug #2261010
-  sed -e '/^\s*quota_test/ d' -i tests/isc/Makefile.am
-%endif
-
 :;
 
 # Create a sysusers.d config file
@@ -326,10 +327,11 @@ g named %{bind_gid}
 u named %{bind_uid} 'Named' /var/named -
 EOF
 
+# get rid of rpath issues
+sed -e '/install_rpath:/ d' -i meson.build
+
 
 %build
-## We use out of tree configure/build for export libs
-%define _configure "../configure"
 
 # normal and pkcs11 unit tests
 %define unit_prepare_build() \
@@ -351,48 +353,43 @@ CPPFLAGS="$CPPFLAGS -DOPENSSL_NO_ENGINE=1"
 export CFLAGS CPPFLAGS
 export STD_CDEFINES="$CPPFLAGS"
 
-sed -i -e \
-'s/([bind_VERSION_EXTRA],\s*\([^)]*\))/([bind_VERSION_EXTRA], \1-RH)/' \
-configure.ac
+#sed -i -e \
+#'s/([bind_VERSION_EXTRA],\s*\([^)]*\))/([bind_VERSION_EXTRA], \1-RH)/' \
+#configure.ac
 
-%if 0%{?rhel} && 0%{?rhel} < 9
-# disable Sphinx warnings as errors, epel8 does not pass cleanly
-sed -e 's/-W\s//' -i Makefile.docs
-%endif
 
-autoreconf --force --install
-
-mkdir build
-
-pushd build
 LIBDIR_SUFFIX=
 export LIBDIR_SUFFIX
-%configure \
-  --with-pic \
-  --disable-static \
+
+%meson \
   --includedir=%{_includedir}/bind9 \
-  --with-libidn2 \
+  -Didn=enabled \
+%if %{without DTRACE}
+  -Dtracing=disabled \
+%endif
 %if %{with GEOIP2}
-  --with-maxminddb \
+  -Dgeoip=enabled \
 %endif
 %if %{with GSSTSIG}
-  --with-gssapi=yes \
+  -Dgssapi=enabled \
 %endif
 %if %{with LMDB}
-  --with-lmdb=yes \
+  -Dlmdb=enabled \
 %else
-  --with-lmdb=no \
+  -Dlmdb=disabled \
 %endif
 %if %{with JSON}
-  --with-json-c \
+  -Dstats-json=enabled \
 %endif
 %if %{with DNSTAP}
-  --enable-dnstap \
+  -Ddnstap=enabled \
 %endif
 %if %{with UNITTEST}
-  --with-cmocka \
+  -Dcmocka=enabled \
 %endif
-  --enable-full-report \
+%if %{with DOC}
+  -Ddoc=enabled \
+%endif
 ;
 %if %{with DNSTAP}
   pushd lib
@@ -401,19 +398,17 @@ export LIBDIR_SUFFIX
   popd
 %endif
 
-%make_build SPHINX_W=''
+%meson_build
 
 %if %{with DOC}
-  %make_build doc SPHINX_W=''
+  %meson_build man arm arm-epub
 %endif
-
-popd # build
 
 # Compress changelog by default
 gzip doc/changelog/changelog-*.rst
 
-%unit_prepare_build build
-%systemtest_prepare_build build
+#unit_prepare_build build
+#systemtest_prepare_build build
 
 %check
 %if %{with UNITTEST} || %{with SYSTEMTEST}
@@ -426,7 +421,6 @@ export TSAN_OPTIONS="log_exe_name=true log_path=ThreadSanitizer exitcode=0"
 %endif
 
 %if %{with UNITTEST}
-  pushd build
   CPUS=$(lscpu -p=cpu,core | grep -v '^#' | wc -l)
   THREADS="$CPUS"
   COREPATTERN="$(cat /proc/sys/kernel/core_pattern)"
@@ -440,28 +434,14 @@ export TSAN_OPTIONS="log_exe_name=true log_path=ThreadSanitizer exitcode=0"
     export ISC_TASK_WORKERS="$THREADS"
     ulimit -n 8092 || : # Requires on some machines with many cores
   fi
-  echo "core.%%P" > /proc/sys/kernel/core_pattern || :
   e=0
-  %make_build unit -j${THREADS} || e=$?
-  # Display details of failure
-  cat tests/*/test-suite.log
+  %meson_test --num-processes ${THREADS} || e=$?
 
-  echo "$COREPATTERN" > /proc/sys/kernel/core_pattern || :
   if [ "$e" -ne 0 ]; then
-    echo "ERROR: this build of BIND failed 'make unit'. Aborting."
-    for CORE in $(find -name 'core.*'); do
-      echo "# Found core: $CORE"
-      gdb --batch -ex 'bt full' -c "$CORE"
-      echo
-      xz -k "$CORE"
-      echo "# core base64 begin: $CORE"
-      base64 "$CORE.xz"
-      echo "# core base64 end: $CORE"
-    done
+    echo "ERROR: test failed. Aborting."
     exit $e;
   fi;
   [ "$CPUS" -gt 16 ] && ulimit -n $ORIGFILES || :
-  popd
 ## End of UNITTEST
 %endif
 
@@ -469,7 +449,7 @@ export TSAN_OPTIONS="log_exe_name=true log_path=ThreadSanitizer exitcode=0"
 # Runs system test if ip addresses are already configured
 # or it is able to configure them
   SUDO=
-  pushd build/bin/tests/system/
+  pushd bin/tests/system/
   if perl ./testsock.pl
   then
     CONFIGURED=already
@@ -490,10 +470,10 @@ export TSAN_OPTIONS="log_exe_name=true log_path=ThreadSanitizer exitcode=0"
   if [ -n "$CONFIGURED" ]
   then
     set -e
-    pushd build/bin/tests
+    pushd bin/tests
     export CI_SYSTEM=yes # allow running tests as root
     chown -R ${USER} . # Can be unknown user
-    %make_build test 2>&1 | tee test.log
+    %meson_build test 2>&1 | tee test.log
     e=$?
     [ "$CONFIGURED" = build ] && $SUDO sh ./ifconfig.sh down
     popd
@@ -531,9 +511,7 @@ popd
 touch ${RPM_BUILD_ROOT}/%{chroot_prefix}%{_sysconfdir}/named.conf
 #end chroot
 
-pushd build
-%make_install
-popd
+%meson_install
 
 # Remove unwanted files
 rm -f ${RPM_BUILD_ROOT}/etc/bind.keys
@@ -580,8 +558,9 @@ popd
 
 %if %{with DOC}
 mkdir -p ${RPM_BUILD_ROOT}%{_pkgdocdir}
-cp -a build/doc/arm/_build/html ${RPM_BUILD_ROOT}%{_pkgdocdir}
-rm -rf ${RPM_BUILD_ROOT}%{_pkgdocdir}/html/.{buildinfo,doctrees}
+pushd %{_vpath_builddir}
+cp -a arm/ ${RPM_BUILD_ROOT}%{_pkgdocdir}/html/
+#rm -rf ${RPM_BUILD_ROOT}%{_pkgdocdir}/html/.{buildinfo,doctrees}
 # Backward compatible link to 9.11 documentation
 (cd ${RPM_BUILD_ROOT}%{_pkgdocdir} && ln -s html/index.html Bv9ARM.html)
 # Share static data from original sphinx package
@@ -594,7 +573,10 @@ do
     ln -sr "${RPM_BUILD_ROOT}${DIR}" "$BINDTHEMEDIR"
   fi
 done
-cp -p build/doc/arm/_build/epub/Bv9ARM.epub ${RPM_BUILD_ROOT}%{_pkgdocdir}
+cp -p arm-epub/Bv9ARM.epub ${RPM_BUILD_ROOT}%{_pkgdocdir}
+popd
+cp -p doc/changelog/changelog-history.rst* doc/notes/notes-*.rst* \
+      ${RPM_BUILD_ROOT}%{_pkgdocdir}
 %endif
 
 # Ghost config files:
@@ -740,6 +722,7 @@ fi;
 %{_bindir}/named-journalprint
 %{_bindir}/named-checkconf
 %{_bindir}/named-rrchecker
+%{_bindir}/named-makejournal
 %{_bindir}/mdig
 %{_sbindir}/named
 %{_sbindir}/rndc*
@@ -757,7 +740,8 @@ fi;
 %{_mandir}/man1/named-checkconf.1*
 %{_mandir}/man8/rndc-confgen.8*
 %{_mandir}/man1/named-journalprint.1*
-%{_mandir}/man8/filter-*.8.gz
+%{_mandir}/man1/named-makejournal.1*
+%{_mandir}/man8/filter-*.8*
 %doc README.md named.conf.default
 %doc doc/changelog/changelog-9.*.rst*
 %doc sample/
@@ -839,6 +823,8 @@ fi;
 %{_bindir}/dnssec*
 %{_mandir}/man1/dnssec*.1*
 
+%if 0
+# TODO: remove devel subpackage or create custom installation part
 %files devel
 %{_libdir}/libisccc.so
 %{_libdir}/libns.so
@@ -853,6 +839,7 @@ fi;
 %{_includedir}/bind9/irs
 %{_includedir}/bind9/isc
 %{_includedir}/bind9/isccfg
+%endif
 
 %files chroot
 %config(noreplace) %{_sysconfdir}/named-chroot.files
@@ -899,8 +886,8 @@ fi;
 %doc %{_pkgdocdir}/html
 %doc %{_pkgdocdir}/Bv9ARM.html
 %doc %{_pkgdocdir}/Bv9ARM.epub
-%doc doc/changelog/changelog-history.rst*
-%doc doc/notes/notes-*.rst*
+%doc %{_pkgdocdir}/changelog-history.rst*
+%doc %{_pkgdocdir}/notes-*.rst*
 %endif
 
 %changelog

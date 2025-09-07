@@ -1,5 +1,5 @@
 Name:           python-nbclassic
-Version:        1.3.1
+Version:        1.3.2
 Release:        %autorelease
 Summary:        Jupyter Notebook as a Jupyter Server Extension
 
@@ -47,17 +47,16 @@ Summary:        Jupyter Notebook as a Jupyter Server Extension
 #
 # ]]]
 # Licenses found:
+#  - (OFL-1.1 AND MIT)
 #  - Apache 2.0
 #  - Apache-2.0
+#  - ISC
 #  - MIT
-#  - MIT AND OFL-1.1
 #
 # License not found for:
 #  - create-react-class
-#  - es6-promise
-#  - react
-#  - requirejs-plugins
 #  - sanitizer
+#  - text-encoding
 #  - xterm.js
 #  - xterm.js-css
 #  - xterm.js-fit
@@ -67,7 +66,7 @@ Summary:        Jupyter Notebook as a Jupyter Server Extension
 # - Apache-2.0 - sanitizer
 # - MIT - create-react-class, es6-promise, react, requirejs-plugins, xterm
 
-License:        BSD-3-Clause AND Apache-2.0 AND MIT AND (MIT AND OFL-1.1)
+License:        BSD-3-Clause AND Apache-2.0 AND MIT AND (MIT AND OFL-1.1) AND ISC
 URL:            https://jupyter.org
 Source:         %{pypi_source nbclassic}
 # Patch to use the TeX fonts from the MathJax package rather than STIXWeb
@@ -117,29 +116,30 @@ Requires:       fontawesome-fonts-web
 # ]]]
 # Version not found for:
 #  - create-react-class
-#  - react
 #  - sanitizer
 #  - xterm.js
 #  - xterm.js-css
 #  - xterm.js-fit
 Provides:        bundled(npm(MathJax)) = 2.7.9
-Provides:        bundled(npm(backbone)) = 1.6.0
+Provides:        bundled(npm(backbone)) = 1.6.1
 Provides:        bundled(npm(bootstrap)) = 3.4.1
 Provides:        bundled(npm(bootstrap-tour)) = 0.12.0
-Provides:        bundled(npm(codemirror)) = 5.58.2
+Provides:        bundled(npm(codemirror)) = 5.58.3
 Provides:        bundled(npm(es6-promise)) = 1.0.0
 Provides:        bundled(npm(font-awesome)) = 4.7.0
-Provides:        bundled(npm(google-caja)) = 5669.0.0
+Provides:        bundled(npm(google-caja-sanitizer)) = 1.0.4
 Provides:        bundled(npm(jed)) = 1.1.1
 Provides:        bundled(npm(jquery)) = 3.7.1
 Provides:        bundled(npm(jquery-typeahead)) = 2.10.7
 Provides:        bundled(npm(jquery-ui)) = 1.13.3
 Provides:        bundled(npm(marked)) = 4.0.19
 Provides:        bundled(npm(moment)) = 2.29.4
-Provides:        bundled(npm(requirejs)) = 2.2.0
-Provides:        bundled(npm(requirejs-plugins)) = 1.0.3
+Provides:        bundled(npm(react)) = 16.0.0
+Provides:        bundled(npm(react-dom)) = 16.0.1
+Provides:        bundled(npm(requirejs)) = 2.3.7
+Provides:        bundled(npm(requirejs-plugins)) = 1.0.2
 Provides:        bundled(npm(requirejs-text)) = 2.0.16
-Provides:        bundled(npm(text-encoding)) = 0.0.0
+Provides:        bundled(npm(text-encoding)) = 0.1.0
 Provides:        bundled(npm(underscore)) = 1.13.7
 # [[[end]]]
 

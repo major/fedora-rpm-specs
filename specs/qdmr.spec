@@ -13,8 +13,8 @@
 # published by the Open Source Initiative.
 
 Name:		qdmr
-Version:	0.12.1
-Release:	6%{?dist}
+Version:	0.12.3
+Release:	1%{?dist}
 Summary:	A GUI application for configuring and programming DMR radios
 License:	GPL-3.0-or-later
 URL:		https://dm3mat.darc.de/qdmr/
@@ -46,10 +46,6 @@ BuildRequires:	desktop-file-utils
 # for appdata metainfo validation with appstream-util
 BuildRequires:	libappstream-glib
 Patch:		qdmr-0.12.1-fix-docbook-xsl-path.patch
-# https://github.com/hmatuschek/qdmr/pull/587
-Patch:		qdmr-0.12.1-metainfo-fix.patch
-# https://github.com/hmatuschek/qdmr/pull/594
-Patch:		qdmr-0.12.1-icons-path-fix.patch
 
 %description
 A Qt5 application to program DMR radios. DMR is a digital modulation
@@ -136,6 +132,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_libdir}/libdmrconf.so
 
 %changelog
+* Fri Sep 05 2025 Jaroslav Škarvada  <jskarvad@redhat.com> - 0.12.3-1
+- New version
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

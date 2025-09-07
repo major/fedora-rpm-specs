@@ -3,7 +3,7 @@
 
 Name:		python-%{srcname}
 Version:	1.1.8
-Release:	16%{?dist}
+Release:	17%{?dist}
 Summary:	%{sum}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -15,8 +15,6 @@ BuildArch:	noarch
 # en_US.UTF-8 locale required for tests
 BuildRequires:	glibc-langpack-en
 BuildRequires:	python3-devel
-BuildRequires:	python3-PyYAML
-BuildRequires:	python3-setuptools
 %if 0%{?with_check}
 BuildRequires:	python3-pytest python3-flexmock
 %endif # with_check
@@ -51,13 +49,14 @@ journal entries.
 %prep
 %autosetup -n %{srcname}-%{version}
 
-%build
-%py3_build
+%generate_buildrequires
+%pyproject_buildrequires
 
+%build
+%pyproject_wheel
 
 %install
-%py3_install
-
+%pyproject_install
 
 %if 0%{?with_check}
 %check
@@ -76,6 +75,9 @@ journal entries.
 
 
 %changelog
+* Fri Sep  5 2025 Tim Waugh <twaugh@redhat.com> - 1.1.8-17
+- Stop using deprecated %py3_build/%py3_install macros (bug #2377825)
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.1.8-16
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -15,7 +15,7 @@ Source:         nginx.conf.modsecurity
 BuildRequires:  gcc
 BuildRequires:  libmodsecurity-devel
 BuildRequires:  nginx-mod-devel
-BuildRequires:  pcre-devel
+BuildRequires:  pcre2-devel
 Requires:       nginx-filesystem
 
 %description

@@ -73,17 +73,11 @@ BuildRequires:  rust-toolset
 BuildRequires:  rust-packaging >= 21-2
 %endif
 
-%description
-The Keylime agent
-
-# The keylime-base package provides the keylime user creation. It is available
-# from Fedora 36
-%if 0%{?fedora} >= 36 || 0%{?rhel} >= 9
-Requires:       keylime-base
-%endif
-
 # The default agent is for the pull model deployment
 Requires: keylime-agent-rust-pull
+
+%description
+The Keylime agent
 
 # The meta-package has no files
 %files
@@ -103,7 +97,9 @@ Requires:       keylime-base
 
 # Virtual Provides to support swapping between pull and push model agents
 Provides:       keylime-agent
+# The pull agent should not be installed together with the push agent
 Conflicts:      keylime-agent-rust-push
+# The pull agent is the natural upgrade path from the previous pull-only agent
 Obsoletes:      keylime-agent-rust < %{version}-%{release}
 
 %description pull
@@ -124,8 +120,10 @@ Requires:       keylime-base
 
 # Virtual Provides to support swapping between pull and push model agents
 Provides:       keylime-agent
+# The push agent should not be installed together with the pull-mode agent
 Conflicts:      keylime-agent-rust-pull
-Obsoletes:      keylime-agent-rust < %{version}-%{release}
+# The push agent should not be installed together with the old pull-mode agent
+Conflicts:      keylime-agent-rust < %{version}-%{release}
 
 %description push
 The Keylime agent for push model deployment

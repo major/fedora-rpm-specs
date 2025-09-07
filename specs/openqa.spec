@@ -107,7 +107,7 @@
 
 Name:           openqa
 Version:        %{github_version}%{?github_date:^%{github_date}git%{shortcommit}}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        OS-level automated testing framework
 # openQA is mostly GPLv2+. some scripts and bundled Node modules are
 # MIT, ace-builds is BSD-3-Clause
@@ -134,6 +134,11 @@ Source4:        23-fedora-messaging.t
 # but we need to change the groups so we have our own versions here
 Source5:        geekotest.conf
 Source6:        openQA-worker.conf
+
+# https://bugzilla.redhat.com/show_bug.cgi?id=2393053
+# https://github.com/os-autoinst/openQA/pull/6719
+# Include list of failed modules in job.done messages
+Patch:          0001-AMQP-include-list-of-failed-modules-in-job.done-mess.patch
 
 BuildRequires: make
 BuildRequires:  %{python_scripts_requires}
@@ -795,6 +800,9 @@ fi
 %{_datadir}/openqa/lib/OpenQA/WebAPI/Plugin/FedoraUpdateRestart.pm
 
 %changelog
+* Fri Sep 05 2025 Adam Williamson <awilliam@redhat.com> - 5^20250711git28a0214-3
+- Backport PR #6719 to include failed modules in job.done messages
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5^20250711git28a0214-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

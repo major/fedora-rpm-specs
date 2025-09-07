@@ -1,7 +1,7 @@
 %define rsyslog_statedir %{_sharedstatedir}/rsyslog
 %define rsyslog_pkidir %{_sysconfdir}/pki/rsyslog
 %define rsyslog_docdir %{_docdir}/rsyslog
-%define qpid_proton_v 0.39.0
+%define qpid_proton_v 0.40.0
 # The following packages are not enabled on rhel:
 #   hiredis, libdbi, mongodb, rabbitmq
 # The omamqp1 plugin is built differently as qpid-proton is not available on rhel
@@ -36,19 +36,18 @@
 
 Summary: Enhanced system logging and kernel message trapping daemon
 Name: rsyslog
-Version: 8.2506.0
-Release: 2%{?dist}
+Version: 8.2508.0
+Release: 1%{?dist}
 License: GPL-3.0-or-later AND Apache-2.0
 URL: http://www.rsyslog.com/
 Source0: http://www.rsyslog.com/files/download/rsyslog/%{name}-%{version}.tar.gz
-Source1: http://www.rsyslog.com/files/download/rsyslog/%{name}-doc-%{version}.tar.gz
-Source2: rsyslog.conf
-Source3: rsyslog.sysconfig
-Source4: rsyslog.log
-Source5: rsyslog.service
+Source1: rsyslog.conf
+Source2: rsyslog.sysconfig
+Source3: rsyslog.log
+Source4: rsyslog.service
 # Add qpid-proton as another source, enable omamqp1 module in a
 # separatae sub-package with it statically linked(see rhbz#1713427)
-Source6: https://archive.apache.org/dist/qpid/proton/%{qpid_proton_v}/qpid-proton-%{qpid_proton_v}.tar.gz
+Source5: https://archive.apache.org/dist/qpid/proton/%{qpid_proton_v}/qpid-proton-%{qpid_proton_v}.tar.gz
 
 BuildRequires: make
 BuildRequires: gcc
@@ -68,8 +67,6 @@ BuildRequires: systemd-devel >= 204-8
 BuildRequires: systemd-rpm-macros
 BuildRequires: zlib-devel
 BuildRequires: libcap-ng-devel
-
-Patch0: openssl-engines-disable.patch
 
 Recommends: logrotate
 Obsoletes: rsyslog-logrotate < 8.2310.0-2
@@ -375,17 +372,12 @@ This module allows rsyslog to send messages to a RabbitMQ server.
 %endif
 
 %prep
-# set up rsyslog-doc sources
-%setup -q -a 1 -T -c
-rm -r LICENSE README.md source build/objects.inv
-mv build doc
 # set up rsyslog sources
 %setup -q -D
-%patch -P 0 -p1
 
 %if %{with omamqp1}
 # Unpack qpid-proton
-%setup -q -D -T -b 6
+%setup -q -D -T -b 5
 %endif
 
 %build
@@ -541,10 +533,10 @@ install -d -m 700 %{buildroot}%{rsyslog_statedir}
 install -d -m 700 %{buildroot}%{rsyslog_pkidir}
 install -d -m 755 %{buildroot}%{rsyslog_docdir}/html
 
-install -p -m 644 %{SOURCE2} %{buildroot}%{_sysconfdir}/rsyslog.conf
-install -p -m 644 %{SOURCE3} %{buildroot}%{_sysconfdir}/sysconfig/rsyslog
-install -p -m 644 %{SOURCE4} %{buildroot}%{_sysconfdir}/logrotate.d/rsyslog
-install -p -m 644 %{SOURCE5} %{buildroot}%{_unitdir}/rsyslog.service
+install -p -m 644 %{SOURCE1} %{buildroot}%{_sysconfdir}/rsyslog.conf
+install -p -m 644 %{SOURCE2} %{buildroot}%{_sysconfdir}/sysconfig/rsyslog
+install -p -m 644 %{SOURCE3} %{buildroot}%{_sysconfdir}/logrotate.d/rsyslog
+install -p -m 644 %{SOURCE4} %{buildroot}%{_unitdir}/rsyslog.service
 
 %if %{with mysql}
 install -p -m 644 plugins/ommysql/createDB.sql %{buildroot}%{rsyslog_docdir}/mysql-createDB.sql
@@ -583,8 +575,8 @@ done
 %{!?_licensedir:%global license %%doc}
 %license COPYING*
 %doc AUTHORS ChangeLog README.md
-%{rsyslog_docdir}
 %exclude %{rsyslog_docdir}/html
+%exclude %{rsyslog_docdir}/recover_qi.pl
 %if %{with mysql}
 %exclude %{rsyslog_docdir}/mysql-createDB.sql
 %endif
@@ -652,7 +644,8 @@ done
 %{_libdir}/rsyslog/lmcry_ossl.so
 
 %files doc
-%doc %{rsyslog_docdir}/html
+%{rsyslog_docdir}/html
+%{rsyslog_docdir}/recover_qi.pl
 
 %files elasticsearch
 %{_libdir}/rsyslog/omelasticsearch.so
@@ -761,6 +754,10 @@ done
 
 
 %changelog
+* Fri Sep 05 2025 Attila Lakatos <alakatos@redhat.com> - 8.2508.0-1
+- Rebase to 8.2508.0
+  Resolves: rhbz#2392918
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.2506.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

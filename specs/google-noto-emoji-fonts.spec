@@ -25,7 +25,7 @@ BuildRequires:  cairo-devel
 BuildRequires:  make
 
 Version: 20250623
-Release: 2%{?dist}
+Release: 3%{?dist}
 URL:     https://github.com/googlefonts/noto-emoji
 
 %global foundry           Google
@@ -57,6 +57,13 @@ Provides:       google-noto-emoji-color-fonts = %{version}-%{release}
 %global fonts1            Noto-COLRv1.ttf
 %global fontdescription1  %{expand:
 This package provides the Google “Noto Color Emoji” colored emoji font.
+}
+
+%global fontfamily2       Noto Emoji VF
+%global fontsummary2      Google “Noto Emoji” Black-and-White emoji variable font
+%global fonts2            NotoEmoji-VariableFont_wght.ttf
+%global fontdescription2  %{expand:
+This package provides the Google “Noto Emoji” Black-and-White emoji variable font.
 }
 
 Source0:        https://github.com/googlefonts/noto-emoji/archive/%{commit0}.tar.gz#/noto-emoji-%{shortcommit0}.tar.gz
@@ -96,6 +103,9 @@ cp -p fonts/Noto-COLRv1.ttf .
 
 
 %changelog
+* Fri Sep 05 2025 Peng Wu <pwu@redhat.com> - 20250623-3
+- Add google-noto-emoji-vf-fonts sub package
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20250623-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

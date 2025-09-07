@@ -6,10 +6,11 @@
 %global tracker_sparql_version 2.99.3
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
+%define major_version %(c=%{version}; echo $c | cut -d. -f1 | cut -d~ -f1)
 
 Name:          gnome-music
 Summary:       Music player and management application for GNOME
-Version:       48.1
+Version:       49~rc
 Release:       %autorelease
 
 # The sources are under the GPLv2+ license, except for:
@@ -19,7 +20,7 @@ Release:       %autorelease
 # Automatically converted from old format: (GPLv2+ with exceptions) - review is highly recommended.
 License:       (LicenseRef-Callaway-GPLv2+-with-exceptions) AND CC-BY-SA-3.0
 URL:           https://wiki.gnome.org/Apps/Music
-Source0:       https://download.gnome.org/sources/%{name}/48/%{name}-%{tarball_version}.tar.xz
+Source0:       https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
 
 BuildArch:     noarch
 BuildRequires: /usr/bin/appstream-util
@@ -84,6 +85,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Music.deskt
 %doc NEWS README.md
 %{_bindir}/gnome-music
 %{_datadir}/applications/org.gnome.Music.desktop
+%{_datadir}/dbus-1/services/org.gnome.Music.service
 %{_datadir}/glib-2.0/schemas/org.gnome.Music.gschema.xml
 %{_datadir}/org.gnome.Music/
 %{_datadir}/icons/hicolor/scalable/apps/org.gnome.Music.svg

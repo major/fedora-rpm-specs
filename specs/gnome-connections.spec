@@ -6,7 +6,7 @@
 %global url_ver %%(echo %{version} | cut -d. -f1)
 
 Name:           gnome-connections
-Version:        49~beta
+Version:        49~rc
 Release:        1%{?dist}
 Summary:        A remote desktop client for the GNOME desktop environment
 
@@ -29,7 +29,9 @@ BuildRequires:  pkgconfig(gvncpulse-1.0)
 BuildRequires:  pkgconfig(libhandy-1)
 BuildRequires:  pkgconfig(libsecret-1)
 BuildRequires:  pkgconfig(fuse3)
+%if 0%{?fedora} >= 43 || 0%{?rhel} <= 9
 BuildRequires:  spice-gtk3-vala
+%endif
 
 Requires:       hicolor-icon-theme
 
@@ -84,6 +86,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Connections
 %{_datadir}/mime/packages/org.gnome.Connections.xml
 
 %changelog
+* Fri Sep 05 2025 Marek Kasik <mkasik@redhat.com> - 49~rc-1
+- Update to 49.rc
+
 * Fri Aug 15 2025 Marek Kasik <mkasik@redhat.com> - 49~beta-1
 - Update to 49.beta
 

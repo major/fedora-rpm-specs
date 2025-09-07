@@ -1,5 +1,9 @@
+# Removable test dependency, not yet packaged:
+# https://pypi.org/project/check-jsonschema
+%bcond check_jsonschema 0
+
 Name:           bids-schema
-Version:        1.0.14
+Version:        1.1.0
 Release:        %autorelease
 Summary:        BIDS schema description
 
@@ -47,7 +51,7 @@ Source0:        %{url}/archive/schema-%{srcversion}/bids-specification-schema-%{
 # tools/schemacode/src/bidsschematools/conftest.py, which contains code to download
 # these if they are not present.
 %global examples_url https://github.com/bids-standard/bids-examples
-%global examples_commit ce064b0868cf5ccd0098850be12e5205bedfa671
+%global examples_commit 546cb454ca33327fb27474edb508ead17c4053ac
 %global error_examples_url https://github.com/bids-standard/bids-error-examples
 %global error_examples_commit ac0a2f58f34ce284847dde5bd3b90d7ea048c141
 #
@@ -80,6 +84,9 @@ BuildRequires:  python3-devel
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters,
 # it is easier to enumerate test dependencies by hand.
 BuildRequires:  %{py3_dist pytest}
+%if %{with check_jsonschema}
+BuildRequires:  %{py3_dist check-jsonschema}
+%endif
 
 %description
 Portions of the BIDS specification are defined using YAML files in order to
@@ -228,6 +235,10 @@ ln -s "${PWD}/bids-error-examples-%{error_examples_commit}" \
     tools/schemacode/tests/data/bids-error-examples
 # All of this manipulation is OK here in %%check because we already built the
 # wheel and installed the library to the buildroot.
+
+%if %{without check_jsonschema}
+k="${k-}${k+ and }not test_valid_schema_with_check_jsonschema"
+%endif
 
 %pytest ${ignore-} -k "${k-}" -v
 

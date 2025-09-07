@@ -2,7 +2,7 @@ Summary: NFS utilities and supporting clients and daemons for the kernel NFS ser
 Name: nfs-utils
 URL: http://linux-nfs.org/
 Version: 2.8.3
-Release: 3.rc3%{?dist}
+Release: 4.rc3%{?dist}
 Epoch: 1
 
 # group all 32bit related archs
@@ -300,8 +300,8 @@ fi
 %systemd_post nfs-client.target
 
 %post -n nfs-client-utils
-rm -f %{_datadir}/nfs-utils/nfsmount.conf.d/10-nfsv4.conf
-rm -f %{_datadir}/nfs-utils/nfsmount.conf.d/10-nfsv3.conf
+rm -f %{_sysconfdir}/nfsmount.conf.d/10-nfsv4.conf
+rm -f %{_sysconfdir}/nfsmount.conf.d/10-nfsv3.conf
 
 %preun
 %systemd_preun nfs-client.target nfs-server.service
@@ -478,6 +478,9 @@ rm -f %{_sysconfdir}/nfsmount.conf.d/10-nfsv4.conf
 %{_mandir}/*/rpcctl.8.gz
 
 %changelog
+* Wed Sep  3 2025 Bipin B Narayan <bbnaraya@redhat.com> 2.8.3-4.rc3
+- nfs-client-utils: Remove symlink from sysconfdir instead of datadir
+
 * Wed Aug 20 2025 Scott Mayhew <smayhew@redhat.com> 2.8.3-3.rc3
 - Adaptation of changes originally from Christian Glombek <cglombek@redhat.com>:
 - Reorder package structure and deduplicate contents

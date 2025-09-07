@@ -7,7 +7,7 @@
 
 Summary: Tool for managing bootable, immutable filesystem trees
 Name: ostree
-Version: 2025.5
+Version: 2025.6
 Release: %autorelease
 Source0: https://github.com/ostreedev/%{name}/releases/download/v%{version}/libostree-%{version}.tar.xz
 License: LGPL-2.0-or-later
@@ -143,9 +143,9 @@ find %{buildroot} -name '*.la' -delete
 %{_bindir}/rofiles-fuse
 %{_datadir}/ostree
 %{_datadir}/bash-completion/completions/*
-%dir %{_prefix}/lib/dracut/modules.d/98ostree
+%dir %{_prefix}/lib/dracut/modules.d/50ostree
 %{_prefix}/lib/systemd/system/ostree*.*
-%{_prefix}/lib/dracut/modules.d/98ostree/*
+%{_prefix}/lib/dracut/modules.d/50ostree/*
 %{_mandir}/man*/*.gz
 %{_prefix}/lib/systemd/system-generators/ostree-system-generator
 %exclude %{_sysconfdir}/grub.d/*ostree

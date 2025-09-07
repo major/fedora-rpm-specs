@@ -17,7 +17,7 @@
 %endif
 
 Name:           gnome-kiosk
-Version:        49~alpha.1.2
+Version:        49~rc
 Release:        %{autorelease}
 Summary:        Window management and application launching for GNOME
 

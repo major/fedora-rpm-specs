@@ -24,6 +24,9 @@ Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{na
 # gsetting overrides for the "Server with GUI" installation
 Source1:    	org.gnome.settings-daemon.plugins.power.gschema.override
 
+# https://gitlab.gnome.org/GNOME/gnome-settings-daemon/-/merge_requests/440
+Patch:          delay-donate-notification.patch
+
 BuildRequires:  gcc
 BuildRequires:  gettext
 BuildRequires:  meson >= 0.64.0

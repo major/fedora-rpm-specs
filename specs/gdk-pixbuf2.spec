@@ -36,10 +36,17 @@ Obsoletes: %{name}-modules < %{version}-%{release}
 
 # Most third-party pixbuf loaders are also obsolete. If Glycin supports the
 # format, then it will take precedence and the third-party loader won't be used.
+# The Provides can be removed when nothing in Fedora depends on them anymore.
 Obsoletes: avif-pixbuf-loader <= 1.1.1-4
+Provides:  avif-pixbuf-loader
+Obsoletes: heif-pixbuf-loader <= 1.20.1-2
+Provides:  heif-pixbuf-loader
 Obsoletes: jxl-pixbuf-loader <= 0.11.1-4
+Provides:  jxl-pixbuf-loader
 Obsoletes: rsvg-pixbuf-loader <= 2.61.0-1
+Provides:  rsvg-pixbuf-loader
 Obsoletes: webp-pixbuf-loader <= 0.2.7-4
+Provides:  webp-pixbuf-loader
 
 %description
 gdk-pixbuf is an image loading library that can be extended by loadable

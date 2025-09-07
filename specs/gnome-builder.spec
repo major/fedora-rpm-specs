@@ -17,7 +17,7 @@
 %global template_glib_version 3.36.1
 
 Name:           gnome-builder
-Version:        49~alpha
+Version:        49~rc
 Release:        %autorelease
 Summary:        IDE for writing GNOME-based software
 
@@ -41,6 +41,9 @@ Summary:        IDE for writing GNOME-based software
 License:        GPL-3.0-or-later AND GPL-2.0-or-later AND LGPL-3.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-MIT AND LicenseRef-Callaway-CC-BY-SA AND CC0-1.0
 URL:            https://wiki.gnome.org/Apps/Builder
 Source0:        https://download.gnome.org/sources/%{name}/49/%{name}-%{tarball_version}.tar.xz
+
+#
+Patch:          i686-build.patch
 
 BuildRequires:  clang-devel
 BuildRequires:  ctags
@@ -125,7 +128,7 @@ developing applications that use %{name}.
 %find_lang %{name}
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.gnome.Builder.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.gnome.Builder.metainfo.xml
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Builder.desktop
 
 %files -f gnome-builder.lang
@@ -142,7 +145,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Builder.des
 %exclude %{_datadir}/gnome-builder/gir-1.0/
 %{_datadir}/gnome-builder/
 %{_datadir}/icons/hicolor/*/apps/org.gnome.Builder*.svg
-%{_metainfodir}/org.gnome.Builder.appdata.xml
+%{_metainfodir}/org.gnome.Builder.metainfo.xml
 %lang(en) %{_datadir}/doc/gnome-builder/en/
 
 %files devel

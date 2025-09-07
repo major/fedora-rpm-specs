@@ -5,7 +5,7 @@
 %global crate virtio-queue
 
 Name:           rust-virtio-queue
-Version:        0.14.0
+Version:        0.16.0
 Release:        %autorelease
 Summary:        Virtio queue implementation
 
