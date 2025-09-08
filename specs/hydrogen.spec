@@ -19,10 +19,13 @@ BuildRequires: ladspa-devel
 BuildRequires: libsndfile-devel
 BuildRequires: libarchive-devel
 BuildRequires: liblo-devel
-BuildRequires: qt5-qtbase-devel
-BuildRequires: qt5-qtxmlpatterns-devel
-BuildRequires: qt5-linguist
-BuildRequires: qt5-qtsvg-devel
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6Widgets)
+BuildRequires: cmake(Qt6Test)
+BuildRequires: cmake(Qt6Svg)
+BuildRequires: cmake(Qt6Xml)
+BuildRequires: cmake(Qt6Network)
+BuildRequires: cmake(Qt6LinguistTools)
 BuildRequires: cmake
 BuildRequires: cppunit-devel
 BuildRequires: make
@@ -47,7 +50,12 @@ Header files for the hydrogen drum machine.
 %autosetup -p1
 
 %build
-%cmake -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DWANT_DEBUG=OFF -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_SKIP_INSTALL_RPATH=ON
+%cmake \
+  -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+  -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
+  -DCMAKE_SKIP_INSTALL_RPATH=ON \
+  -DWANT_DEBUG=OFF \
+  -DWANT_QT6=ON
 %cmake_build
 
 %install

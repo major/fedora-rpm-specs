@@ -1,14 +1,13 @@
 %global pypi_name gql
 
 Name:           python-%{pypi_name}
-Version:        3.5.3
+Version:        4.0.0
 Release:        %autorelease
 Summary:        GraphQL client for Python
 
 License:        MIT
 URL:            https://github.com/graphql-python/gql
 Source0:        %{pypi_source}
-Patch0:         https://github.com/graphql-python/gql/commit/b066e8944b0da0a4bbac6c31f43e5c3c7772cd51.patch
 
 
 BuildArch:      noarch
@@ -42,11 +41,6 @@ GQL architecture is inspired by React-Relay and Apollo-Client.
 %prep
 %autosetup -p1 -n %{pypi_name}-%{version}
 
-# Remove deprecated mock
-# https://github.com/graphql-python/gql/commit/7090972280820e14772cca74fdc3e067bf89e7b1.patch
-# Should be in 3.6 release
-sed -i 's/"mock==.*",//' setup.py
-sed -i 's/import mock/from unittest import mock/' tests/test_client.py
 
 # Remove the deps expansion from tox.ini
 # and reply on the -x tests
@@ -56,13 +50,11 @@ sed -i 's/^deps = .*$/deps =/' tox.ini
 sed -i 's/pip install -U setuptools//' tox.ini
 
 # Relax some versioniong
-sed -i 's/"websockets>=.*",/"websockets",/' setup.py
-sed -i 's/"pytest==.*",/"pytest",/' setup.py
-sed -i 's/"pytest-asyncio==.*",/"pytest-asyncio",/' setup.py
-sed -i 's/"pytest-console-scripts==.*",/"pytest-console-scripts",/' setup.py
-sed -i 's/"pytest-cov==.*",/"pytest-cov",/' setup.py
-sed -i 's/"parse==.*",/"parse",/' setup.py
-sed -i 's/"vcrpy==.*",/"vcrpy",/' setup.py
+sed -i -E '/tests_requires\s*=\s*\[/,/]/ {
+  s/"pytest==[^"]*"/"pytest"/
+  s/"pytest-asyncio==[^"]*"/"pytest-asyncio"/
+  s/"pytest-cov==[^"]*"/"pytest-cov"/
+}' setup.py
 
 %generate_buildrequires
 %pyproject_buildrequires -t -x test

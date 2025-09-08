@@ -38,15 +38,16 @@ Summary:        %{summary}
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l crc32c
 
 
 %check
-%py3_check_import crc32c
+%pyproject_check_import
 
 %if %{with tests}
 %pytest
@@ -54,15 +55,12 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} %{python3} run-tests.py
 %endif
 
 
-%files -n python3-crc32c
+%files -n python3-crc32c -f %{pyproject_files}
 %doc CHANGELOG.md
 %license LICENSE
 %license LICENSE.google-crc32c
 %license LICENSE.slice-by-8
 %doc README.rst
-
-%{python3_sitearch}/crc32c/
-%{python3_sitearch}/crc32c-%{version}-*.egg-info
 
 %changelog
 %autochangelog

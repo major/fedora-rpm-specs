@@ -4,7 +4,7 @@
 
 Name:           linenoise
 Version:        1.0
-Release:        12.20200312git%{shortcommit}%{?dist}
+Release:        13.20200312git%{shortcommit}%{?dist}
 Summary:        Minimal replacement for readline
 License:        BSD-2-Clause
 URL:            https://github.com/antirez/linenoise
@@ -12,6 +12,7 @@ Source0:        https://github.com/antirez/linenoise/archive/%{commit}/%{name}-%
 Patch0:         %{name}-build-shared-lib.patch
 Patch1:         %{name}-symbol-visibility.patch
 Patch2:         %{name}-add-linenoiseWasInterrupted-symbol.patch
+Patch3:         %{name}-CVE-2025-9810.patch
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires: make
@@ -33,6 +34,7 @@ This package contains files needed for developing software that uses
 %patch -P0 -p1
 %patch -P1 -p1
 %patch -P2 -p1
+%patch -P3 -p1
 
 %build
 LIBDIR="%{_libdir}" INCLUDEDIR="%{_includedir}" CFLAGS="%{optflags}" make %{?_smp_mflags}
@@ -53,6 +55,9 @@ LIBDIR="%{_libdir}" INCLUDEDIR="%{_includedir}" CFLAGS="%{optflags}" make %{?_sm
 %ldconfig_scriptlets
 
 %changelog
+* Fri Sep 05 2025 Garry T. Williams <gtwilliams@gmail.com> - 1.0-13.20200312git97d2850
+- Fix CVE-2025-9810
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-12.20200312git97d2850
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

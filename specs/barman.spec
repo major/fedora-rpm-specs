@@ -1,5 +1,5 @@
 Name:       barman
-Version:    3.14.1
+Version:    3.15.0
 Release:    %autorelease
 Summary:    Backup and Recovery Manager for PostgreSQL
 License:    GPL-3.0-only

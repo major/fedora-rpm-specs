@@ -8,8 +8,9 @@
 # Python binding and its testing
 %bcond_without python
 
+# petsc4py test fails with MPICH for "No PMIx server was reachable, but a PMI1/2 was detected"
 %if %{with python}
-%bcond_without pycheck
+%bcond_with pycheck
 %endif
 
 # PETSc fails yet on s390x
@@ -35,16 +36,12 @@
 %global epoch 0
 %endif
 
-%bcond_without mpich
-%if 0%{?fedora} >= 40
 %ifarch %{ix86}
 %bcond_with openmpi
 %else
 %bcond_without openmpi
 %endif
-%else
-%bcond_without openmpi
-%endif
+%bcond_without mpich
 
 %if %{?__isa_bits:%{__isa_bits}}%{!?__isa_bits:32} == 64
 %bcond_without arch64
@@ -1003,6 +1000,7 @@ export PYTHONPATH=%{buildroot}$MPI_PYTHON3_SITEARCH
 export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB
 export MPIEXEC=$MPI_BIN/mpiexec
 export PMIX_MCA_gds=hash
+export PMIX_MCA_psec=native
 make V=0 petsc4pytest PETSC4PY_NP=4
 #pytest
 unset PETSC_ARCH
@@ -1055,6 +1053,7 @@ export PYTHONPATH=%{buildroot}$MPI_PYTHON3_SITEARCH
 export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB
 export MPIEXEC=$MPI_BIN/mpiexec
 export PMIX_MCA_gds=hash
+export PMIX_MCA_psec=native
 make V=0 petsc4pytest PETSC4PY_NP=4
 unset PETSC_ARCH
 unset PETSC_DIR

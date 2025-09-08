@@ -3,8 +3,8 @@
 
 
 Name:		xed
-Version:	3.8.2
-Release:	3%{?dist}
+Version:	3.8.4
+Release:	1%{?dist}
 Summary:	X-Apps [Text] Editor (Cross-DE, backward-compatible, GTK3, traditional UI)
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -87,6 +87,11 @@ This package contains the documentation files for %{name}.
 %{__sed} -i -e '/.*<project_group>.*/d'				\
 	%{buildroot}%{_metainfodir}/org.x.editor.metainfo.xml
 
+%if 0%{?fedora} > 42
+# libpeas is broken
+rm -rf %{buildroot}%{_libdir}/%{name}/plugins/{bracket-complete,joinlines*,open-uri-context-menu,textsize*}
+%endif
+
 %find_lang %{name} --with-gnome 
 
 
@@ -129,6 +134,9 @@ This package contains the documentation files for %{name}.
 
 
 %changelog
+* Sat Sep 06 2025 Leigh Scott <leigh123linux@gmail.com> - 3.8.4-1
+- Update to 3.8.4
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

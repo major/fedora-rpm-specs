@@ -37,7 +37,13 @@ Summary:        %{summary}
 A simple, correct PEP517 package builder.
 
 
-%if %{with extras}
+# Even --without extras, we still build the extras in ELN
+# to make it available in ELN Extras (e.g. tox).
+# Note that due to technical limitations,
+# we must *not* generate their runtime deps as BuildRequires
+# or else they are pulled into ELN proper (not ELN Extras).
+# https://github.com/fedora-eln/eln/issues/309
+%if %{with extras} || %{defined eln}
 %pyproject_extras_subpkg -n python3-%{pypi_name} virtualenv uv
 %endif
 

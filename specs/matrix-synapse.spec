@@ -1,10 +1,10 @@
-%bcond check 1
+%bcond check 0
 # F43FailsToInstall: python3-pysaml2
 # https://bugzilla.redhat.com/show_bug.cgi?id=2372073
 %bcond saml2 0
 
 Name:       matrix-synapse
-Version:    1.136.0
+Version:    1.137.0
 Release:    %autorelease
 Summary:    A Matrix reference homeserver written in Python using Twisted
 License:    AGPL-3.0-or-later
@@ -32,6 +32,9 @@ BuildRequires:  rust-packaging >= 21
 BuildRequires:  /usr/bin/openssl
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  tomcli
+%if %{with saml2}
+BuildRequires:  python3-pysaml2
+%endif
 
 %if %{without saml2}
 Obsoletes:      %{name}+saml2 < 1.136.0-2

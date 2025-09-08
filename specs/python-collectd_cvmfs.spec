@@ -1,7 +1,7 @@
 %global forgeurl https://github.com/cvmfs/collectd-cvmfs
 
 Name:           python-collectd_cvmfs
-Version:        1.3.4
+Version:        1.4.0
 %global tag     %{version}
 %forgemeta
 Release:        %autorelease
@@ -43,9 +43,6 @@ Requires:       collectd-python
 
 %install
 %pyproject_install
-
-mkdir -p %{buildroot}%{_datadir}/collectd
-mv %{buildroot}%{python3_sitelib}%{_datadir}/collectd/collectd_cvmfs.db %{buildroot}%{_datadir}/collectd/collectd_cvmfs.db
 
 %pyproject_save_files collectd_cvmfs
 

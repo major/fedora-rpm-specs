@@ -1,11 +1,12 @@
 Name:           python-oracledb
-Version:        3.2.0
+Version:        3.3.0
 Release:        %{autorelease}
 Summary:        OracleDB Driver
 
 License:        Apache-2.0 OR UPL-1.0
 URL:            https://oracle.github.io/python-oracledb/
 Source:         %{pypi_source oracledb}
+Patch0:         https://github.com/oracle/python-oracledb/commit/47208ff39046b9dccc248bb6a4325cd448381db3.patch
 
 BuildRequires:  python3-devel
 # https://github.com/oracle/python-oracledb/issues/512

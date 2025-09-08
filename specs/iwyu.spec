@@ -1,7 +1,11 @@
 %global appname include-what-you-use
 %global toolchain clang
 
+%if 0%{?fedora} && 0%{?fedora} >= 43
+%global llvm_legacy 1
+%else
 %global llvm_legacy 0
+%endif
 %global llvm_ver 20
 
 # Opt out of https://fedoraproject.org/wiki/Changes/fno-omit-frame-pointer
@@ -74,7 +78,7 @@ export CXX="clang++-%{llvm_ver}"
 %cmake -G Ninja \
     -DCMAKE_BUILD_TYPE=Release \
 %if %{llvm_legacy}
-    -DCMAKE_PREFIX_PATH='%{_libdir}/llvm%{llvm_ver}/lib/cmake/clang;%{_libdir}/llvm%{llvm_ver}/lib/cmake/llvm' \
+    -DCMAKE_PREFIX_PATH='%{_libdir}/llvm%{llvm_ver}/%{_lib}/cmake/clang;%{_libdir}/llvm%{llvm_ver}/%{_lib}/cmake/llvm' \
 %endif
     -DCMAKE_SKIP_INSTALL_RPATH:BOOL=ON
 %cmake_build

@@ -5,7 +5,7 @@
 %global crate yuv
 
 Name:           rust-yuv
-Version:        0.8.6
+Version:        0.8.7
 Release:        %autorelease
 Summary:        High performance utilities for YUV format handling and conversion
 

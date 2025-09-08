@@ -1,6 +1,6 @@
 Name:           electrum
-Version:        4.6.2
-Release:        1%{?dist}
+Version:        4.5.8
+Release:        7%{?dist}
 Summary:        A lightweight Bitcoin Client
 
 License:        MIT
@@ -99,9 +99,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_metainfodir}/%{name}.metainfo.xml
 
 %changelog
-* Sun Aug 31 2025 Jonathan Schleifer <js@nil.im> - 4.6.2-1
-- Updated to version 4.6.2
-
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.5.8-7
 - Rebuilt for Python 3.14.0rc2 bytecode
 

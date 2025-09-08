@@ -1,22 +1,29 @@
-%global with_mate 0
+%if 0%{?rhel} && 0%{?rhel} >= 7
+%bcond_with gnome
+%else
+%bcond_without gnome
+%endif
+%bcond_with mate
 
 Name:           verbiste
 Version:        0.1.49
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        French conjugation system
 License:        GPL-2.0-or-later
 URL:            http://sarrazip.com/dev/verbiste.html
 Source:         http://perso.b2b2c.ca/~sarrazip/dev/%{name}-%{version}.tar.gz
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
+%if %{with gnome}
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
 BuildRequires:  libgnomeui-devel
+%endif
 BuildRequires:  libxml2-devel
 BuildRequires:  libtool
 BuildRequires:  automake
-%if 0%{?with_mate}
+%if %{with mate}
 BuildRequires:  mate-panel-devel
 %endif
 BuildRequires:  perl(XML::Parser)
@@ -36,6 +43,7 @@ Requires:       libxml2-devel%{?_isa}
 This package contains libraries and header files for
 developing applications that use %{name}.
 
+%if %{with gnome}
 %package        gnome
 Summary:        GNOME Panel applet for Verbiste
 Requires:       %{name}%{?_isa} = %{version}-%{release}
@@ -43,8 +51,9 @@ Requires:       hicolor-icon-theme
 
 %description    gnome
 GNOME Panel applet and application based on Verbiste.
+%endif
 
-%if 0%{?with_mate}
+%if %{with mate}
 %package        mate
 Summary:        MATE Desktop Panel applet for Verbiste
 Requires:       %{name}%{?_isa} = %{version}-%{release}
@@ -64,10 +73,13 @@ done
 %build
 autoreconf -ivf
 %configure \
-%if 0%{?with_mate}
+%if %{with mate}
            --with-mate-applet \
 %endif
+%if %{with gnome}
            --with-gnome-app \
+%endif
+           --without-gtk-app \
            --disable-maintainer-mode \
            --without-examples \
            --disable-rpath
@@ -78,6 +90,7 @@ autoreconf -ivf
 
 find %{buildroot} -name '*.la' -delete -print
 
+%if %{with gnome}
 # This file gets created on x86_64 for no apparent reason.
 # It's owned by glibc-common.
 #rm -f %%{buildroot}%%{_datadir}/locale/locale.alias
@@ -91,6 +104,16 @@ rm -frv %{buildroot}%{_docdir}
 %find_lang %{name} --with-man
 %find_lang french-conjugator --with-man
 %find_lang french-deconjugator --with-man
+%else
+rm -rf %{buildroot}%{_mandir}/man3
+rm -rf %{buildroot}%{_mandir}/*/man3
+%endif
+
+rm -frv %{buildroot}%{_docdir}
+# This file gets created on x86_64 for no apparent reason.
+# It's owned by glibc-common.
+rm -f %{buildroot}%{_datadir}/locale/locale.alias
+
 
 %ldconfig_scriptlets
 
@@ -100,12 +123,14 @@ rm -frv %{buildroot}%{_docdir}
 %{_datadir}/verbiste*
 %{_libdir}/*.so.*
 %{_mandir}/man1/french-*.1*
+%{_mandir}/*/man1/french-*.1*
 
 %files devel
 %{_includedir}/verbiste-0.1/
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*
 
+%if %{with gnome}
 %files gnome -f %{name}.lang -f french-conjugator.lang -f french-deconjugator.lang
 %{_bindir}/verbiste
 %{_bindir}/verbiste-gtk
@@ -113,8 +138,13 @@ rm -frv %{buildroot}%{_docdir}
 %{_datadir}/icons/hicolor/*/apps/%{name}.*
 %{_datadir}/texmf/tex/latex/verbiste
 %{_mandir}/man3/verbiste.3*
+%{_mandir}/*/man3/verbiste.3*
+%endif
 
 %changelog
+* Sat Sep 06 2025 Didier Fabert <didier.fabert@gmail.com> - 0.1.49-4
+- Fix epel builds
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.49-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

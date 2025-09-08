@@ -1,36 +1,27 @@
-%{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}}
-
-# trim changelog included in binary rpms
-%global _changelog_trimtime %(date +%s -d "1 year ago")
-
-Name:    xforms
-Summary: XForms toolkit library
-Version: 1.2.4
-Release: 28%{?dist}
-
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License: LicenseRef-Callaway-LGPLv2+
-URL:     http://xforms-toolkit.org/
-Source0: https://download.savannah.gnu.org/releases-noredirect/xforms/xforms-%{version}%{?pre}.tar.gz
-Source1: https://download.savannah.gnu.org/releases-noredirect/xforms/xforms-%{version}%{?pre}.tar.gz.sig
-Source2: gpgkey-B5049F22184B56AF7C3AFBDBEB9474E50D5C15EB.gpg
-Patch0:  xforms-1.2.4-gcc10.patch
-
-BuildRequires: gnupg2
-BuildRequires: gcc
-BuildRequires: make
-BuildRequires: libjpeg-devel
-BuildRequires: libXpm-devel
-BuildRequires: libGL-devel
-BuildRequires: libX11-devel
-
+Summary:        GUI toolkit based on Xlib for X Window Systems
+Name:           xforms
+Version:        1.2.4
+Release:        28%{?dist}
+License:        LGPL-2.1-or-later
+URL:            http://xforms-toolkit.org/
+Source0:        https://download.savannah.nongnu.org/releases/%{name}/%{name}-%{version}%{?pre}.tar.gz
+Source1:        https://download.savannah.nongnu.org/releases/%{name}/%{name}-%{version}%{?pre}.tar.gz.sig
+Source2:        gpgkey-B5049F22184B56AF7C3AFBDBEB9474E50D5C15EB.gpg
+Patch0:         xforms-1.2.4-gcc10.patch
+BuildRequires:  gnupg2
+BuildRequires:  gcc
+BuildRequires:  make
+BuildRequires:  libjpeg-devel
+BuildRequires:  libXpm-devel
+BuildRequires:  libGL-devel
+BuildRequires:  libX11-devel
 # import/export: png, sgi (optional?)
-Requires: netpbm-progs
+Requires:       netpbm-progs
 # import eps,ps (optional?)
-#Requires: ghostscript
+#Requires:       ghostscript
 # eww, http://lists.nongnu.org/archive/html/xforms-development/2010-05/msg00000.html
-Requires: xorg-x11-fonts-ISO8859-1-75dpi
-Requires: xorg-x11-fonts-ISO8859-1-100dpi
+Requires:       xorg-x11-fonts-ISO8859-1-75dpi
+Requires:       xorg-x11-fonts-ISO8859-1-100dpi
 
 %description
 XForms is a GUI toolkit based on Xlib for X Window Systems. It features a
@@ -41,38 +32,34 @@ library is extensible and new objects can easily be created and added to
 the library.
 
 %package devel
-Summary: Development files for the XForms toolkit library
-Requires: %{name}%{?_isa} = %{version}-%{release}
-Requires: libGL-devel
-Requires: libX11-devel
+Summary:        Development files for the XForms toolkit library
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       libGL-devel
+Requires:       libX11-devel
 
 %description devel
-%{summary}.
+The xforms-devel package includes header files and libraries necessary for
+developing programs which use the XForms toolkit library.
 
 %package doc
-Summary: XForms documentation
-%if 0%{?rhel} && 0%{?rhel} <= 7
-Requires(post):  /sbin/install-info
-Requires(preun): /sbin/install-info
-%endif
-BuildRequires:   texi2html
-BuildRequires:   texinfo
-BuildRequires:   texinfo-tex
-BuildRequires:   ImageMagick
-BuildArch:       noarch
+Summary:        Documentation files for the XForms toolkit library
+BuildRequires:  texi2html
+BuildRequires:  texinfo
+BuildRequires:  texinfo-tex
+BuildRequires:  ImageMagick
+BuildArch:      noarch
 
 %description doc
-%{summary}.
-
+XForms is a GUI toolkit based on Xlib for X Window Systems. This package
+contains the documentation for developing applications that use the XForms
+toolkit library.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%setup -q -n %{name}-%{version}%{?pre}
-%patch -P0 -p1 -b .gcc10
+%autosetup -n %{name}-%{version}%{?pre} -p1
 
 # rpath hack
 sed -i -e 's|"/lib /usr/lib|"/%{_lib} %{_libdir}|' configure
-
 
 %build
 %configure \
@@ -83,19 +70,15 @@ sed -i -e 's|"/lib /usr/lib|"/%{_lib} %{_libdir}|' configure
 
 %make_build X_PRE_LIBS=""
 
-
 %install
 %make_install INSTALL='install -p'
 
 rm -rfv demos/.deps
 cp -r demos/ $RPM_BUILD_ROOT%{_pkgdocdir}/
 
-
 ## Unpackaged files
 rm -fv  $RPM_BUILD_ROOT%{_libdir}/lib*.la
 rm -rfv $RPM_BUILD_ROOT%{_infodir}/{dir,xforms_images}
-
-
 
 %ldconfig_scriptlets
 
@@ -117,22 +100,11 @@ rm -rfv $RPM_BUILD_ROOT%{_infodir}/{dir,xforms_images}
 %{_mandir}/man1/*
 %{_mandir}/man5/*
 
-%if 0%{?rhel} && 0%{?rhel} <= 7
-%post doc
-/sbin/install-info %{_infodir}/xforms.info %{_infodir}/dir ||:
-
-%preun doc
-if [ $1 -eq 0 ]; then
-/sbin/install-info --delete %{_infodir}/xforms.info %{_infodir}/dir ||:
-fi
-%endif
-
 %files doc
 %{_infodir}/xforms.info*
 %{_pkgdocdir}/demos/
 %{_pkgdocdir}/html/
 %{_pkgdocdir}/xforms.pdf
-
 
 %changelog
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-28
@@ -320,7 +292,7 @@ fi
 * Tue Aug 08 2006 Rex Dieter <rexdieter[AT]users.sf.net> 1.0.90-7
 - cleanup
 
-* Wed Mar 01 2006 Rex Dieter <rexdieter[AT]users.sf.net> 
+* Wed Mar 01 2006 Rex Dieter <rexdieter[AT]users.sf.net>
 - fc5: gcc/glibc respin
 
 * Fri Jan 20 2006 Rex Dieter <rexdieter[AT]users.sf.net> 1.0.90-6
@@ -331,14 +303,14 @@ fi
 
 * Mon Dec 19 2005 Rex Dieter <rexdieter[AT]users.sf.net> 1.0.90-4
 - BR: libXpm-devel
-- -devel: Req: libX11-devel 
+- -devel: Req: libX11-devel
 
 * Mon Oct 17 2005 Rex Dieter <rexdieter[AT]users.sf.net> 1.0.90-3
 - BR: libGL-devel
 - #BR: libXpm-devel (coming soon)
 
 * Mon Oct 17 2005 Rex Dieter <rexdieter[AT]users.sf.net> 1.0.90-2
-- BR: libGL.so.1 -> BR: %%x_pkg-Mesa-libGL 
+- BR: libGL.so.1 -> BR: %%x_pkg-Mesa-libGL
 - remove legacy crud
 
 * Mon Oct 17 2005 Rex Dieter <rexdieter[AT]users.sf.net> 1.0.90-1
@@ -348,7 +320,7 @@ fi
 * Sun May 22 2005 Jeremy Katz <katzj@redhat.com> - 1.0-4
 - rebuild on all arches
 
-* Fri Apr  7 2005 Michael Schwendt <mschwendt[AT]users.sf.net>
+* Thu Apr  7 2005 Michael Schwendt <mschwendt[AT]users.sf.net>
 - rebuilt
 
 * Sun Nov 23 2003 Rex Dieter <rexdieter at sf.net> 0:1.0-0.fdr.2
@@ -359,7 +331,7 @@ fi
 - BuildRequires: libtiff-devel
 - add few more %%doc files.
 
-* Fri Apr 02 2003 Rex Dieter <rexdieter at sf.net> 0:1.0-0.fdr.0
+* Wed Apr 02 2003 Rex Dieter <rexdieter at sf.net> 0:1.0-0.fdr.0
 - fedora-ize package.
 
 * Mon Jan 20 2003 Rex Dieter <rexdieter at sf.net> 1.0-0

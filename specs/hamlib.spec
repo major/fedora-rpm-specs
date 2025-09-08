@@ -8,8 +8,8 @@
 %global shorthash %(c=%{githash}; echo ${c:0:10})
 
 Name:           hamlib
-Version:        4.6.4
-Release:        3%{?dist}
+Version:        4.6.5
+Release:        1%{?dist}
 Summary:        Run-time library to control radio transceivers and receivers
 
 License:        GPL-2.0-or-later and LGPL-2.0-or-later
@@ -243,6 +243,9 @@ make V=1 check
 
 
 %changelog
+* Sat Sep 06 2025 Richard Shaw <hobbes1069@gmail.com> - 4.6.5-1
+- Update to 4.6.5.
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.6.4-3
 - Rebuilt for Python 3.14.0rc2 bytecode
 

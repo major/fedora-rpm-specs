@@ -1,10 +1,11 @@
 %global qt6_minver 6.6.0
 %global kf6_minver 6.5.0
 
-%global commit ade79620520979709869b72cb9c03fd942963398
+%global commit 69c6007b5ad8d045c93c15ab56ca6bd25dac9c77
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date 20250524
+%global date 20250906
 
+%global fullname kde-initial-system-setup
 %global orgname org.kde.initialsystemsetup
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/#_compiler_flags
@@ -12,7 +13,7 @@
 
 Name:           kiss
 Version:        0.1.0~%{date}git%{shortcommit}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Initial setup for systems using KDE Plasma
 License:        GPL-2.0-or-later
 URL:            https://invent.kde.org/system/%{name}
@@ -26,15 +27,20 @@ BuildRequires:  cmake(Qt6Widgets) >= %{qt6_minver}
 BuildRequires:  cmake(Qt6DBus) >= %{qt6_minver}
 BuildRequires:  cmake(KF6I18n) >= %{kf6_minver}
 BuildRequires:  cmake(KF6Package) >= %{kf6_minver}
+BuildRequires:  cmake(KF6Auth) >= %{kf6_minver}
 BuildRequires:  cmake(KF6CoreAddons) >= %{kf6_minver}
 BuildRequires:  cmake(KF6Config) >= %{kf6_minver}
 BuildRequires:  cmake(KF6Screen)
+BuildRequires:  cmake(LibKWorkspace)
 BuildRequires:  cracklib-devel
 BuildRequires:  extra-cmake-modules >= %{kf6_minver}
 BuildRequires:  gcc-c++
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  kf6-rpm-macros
 BuildRequires:  libappstream-glib
+BuildRequires:  qt6qml(org.kde.plasma.private.kcm_keyboard)
+
+Requires:       qt6qml(org.kde.plasma.private.kcm_keyboard)
 
 # Do not check .so files in an application-specific library directory
 %global __provides_exclude_from ^%{_kf6_qmldir}/org/kde/initialsystemsetup/.*\\.so.*$
@@ -56,6 +62,7 @@ BuildRequires:  libappstream-glib
 %install
 %cmake_install
 
+%find_lang %{orgname}
 rm -fv %{buildroot}%{_kf6_libdir}/libcomponentspluginplugin.a
 
 
@@ -63,16 +70,28 @@ rm -fv %{buildroot}%{_kf6_libdir}/libcomponentspluginplugin.a
 appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/%{orgname}.*.xml
 
 
-%files
+%files -f %{orgname}.lang
 %license LICENSES/*
-%{_kf6_bindir}/kde-initial-system-setup
+%{_libexecdir}/%{fullname}*
+%{_kf6_libexecdir}/kauth/%{fullname}*
 %{_kf6_qmldir}/org/kde/initialsystemsetup/
 %{_kf6_plugindir}/packagestructure/kde_initialsystemsetup.so
 %{_kf6_metainfodir}/%{orgname}.*.xml
 %{_kf6_datadir}/plasma/packages/org.kde.initialsystemsetup.*/
+%{_unitdir}/%{fullname}*
+%{_sysusersdir}/%{fullname}*
+%{_tmpfilesdir}/%{fullname}*
+%{_datadir}/dbus-1/*/%{orgname}.*
+%{_datadir}/polkit-1/actions/%{orgname}.*
+%{_datadir}/polkit-1/rules.d/%{fullname}*
+%{_datadir}/qlogging-categories6/initialsystemsetup.categories
+%{_datadir}/%{fullname}/
 
 
 %changelog
+* Sat Sep 06 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.1.0~20250906git69c6007-1
+- Bump to new git snapshot
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0~20250524gitade7962-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
