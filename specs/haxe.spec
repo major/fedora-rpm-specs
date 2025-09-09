@@ -1,12 +1,12 @@
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch: %{ix86}
 
-%global commit_haxelib f17fffa97554b1bdba37750e3418051f017a5bc2
+%global commit_haxelib 4000137b822989eacb1e1c370470ee1c9ecdf4b8
 %global commit_hx3compat f1f18201e5c0479cb5adf5f6028788b37f37b730
 
 Name:           haxe
-Version:        4.3.6
-Release:        4%{?dist}
+Version:        4.3.7
+Release:        1%{?dist}
 Summary:        Multi-target universal programming language
 
 # As described in https://haxe.org/foundation/open-source.html:
@@ -27,9 +27,6 @@ URL:            https://haxe.org/
 Source0:        https://github.com/HaxeFoundation/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Source1:        https://github.com/HaxeFoundation/haxelib/archive/%{commit_haxelib}.tar.gz#/haxelib-%{commit_haxelib}.tar.gz
 Source2:        https://github.com/HaxeFoundation/hx3compat/archive/%{commit_hx3compat}.tar.gz#/hx3compat-%{commit_hx3compat}.tar.gz
-# Updates needed for OCaml 5.3.0
-Patch:          %{name}-ocaml5.3.patch
-Patch:          %{name}-ghpr11646-supportmbedtls3.patch
 
 BuildRequires:  make
 BuildRequires:  nekovm-devel >= 2.3.0
@@ -71,7 +68,6 @@ by the Haxe compiler.
 %setup -q
 pushd extra/haxelib_src && tar -xf %{SOURCE1} --strip-components=1 && popd
 pushd extra/haxelib_src/hx3compat && tar -xf %{SOURCE2} --strip-components=1 && popd
-%autopatch -p1
 
 %build
 # note that the Makefile does not support parallel building
@@ -128,6 +124,11 @@ popd
 %{_datadir}/%{name}/
 
 %changelog
+* Sun Sep 07 2025 Andy Li <andy@onthewings.net> - 4.3.7-1
+- New upstream version 4.3.7. (RHBZ#2365379)
+- Remove haxe-ocaml5.3.patch and haxe-ghpr11646-supportmbedtls3.patch
+- Update haxelib source to match the upstream submodule commit.
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

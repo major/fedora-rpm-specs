@@ -13,6 +13,14 @@ Source0:        https://github.com/rasterio/rasterio/archive/%{version}/%{srcnam
 Patch:          0001-Loosen-up-build-requirements.patch
 # https://github.com/rasterio/rasterio/pull/3360
 Patch:          0002-TST-Fix-test-fixture-for-test_reproject_error_propag.patch
+# https://github.com/rasterio/rasterio/pull/3389
+Patch:          0003-Set-INIT_DEST-to-0-instead-of-NO_DATA-if-it-s-unset.patch
+# https://github.com/rasterio/rasterio/pull/3330
+Patch:          0004-Change-nearest-neighbor-warp-expectations-at-GDAL-3..patch
+# https://github.com/rasterio/rasterio/pull/3293
+Patch:          0005-test_reproject_resampling-Add-another-value-for-mode.patch
+# https://github.com/rasterio/rasterio/pull/3394
+Patch:          0006-Update-warp-test-results-for-GDAL-3.11.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  gdal >= 3.5

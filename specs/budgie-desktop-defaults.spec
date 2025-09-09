@@ -1,5 +1,5 @@
 Name:           budgie-desktop-defaults
-Version:        0.5.2
+Version:        0.5.3
 Release:        2%{?dist}
 Summary:        Budgie Desktop Defaults for Fedora
 
@@ -39,6 +39,12 @@ Budgie Desktop Defaults for Fedora.
 %{_datadir}/glib-2.0/schemas/10_budgie_*.gschema.override
 
 %changelog
+* Sun Sep 07 2025 Joshua Strobl <joshua@buddiesofbudgie.org> - 0.5.3-2
+- Add missing pubkey.gpg file
+
+* Sun Sep 07 2025 Joshua Strobl <joshua@buddiesofbudgie.org> - 0.5.3-1
+- Turn off GNOME donation in gnome-settings-daemon housekeeping plugin as no desktop check is performed in gsd-housekeeping
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

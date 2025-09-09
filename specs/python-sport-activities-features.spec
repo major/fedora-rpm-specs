@@ -18,7 +18,7 @@ Source:         %forgesource
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist toml-adapt}
+BuildRequires:  tomcli
 %if %{with tests}
 BuildRequires:  %{py3_dist pytest}
 %endif
@@ -62,8 +62,11 @@ Requires:       python3-%{pypi_name} = %{version}-%{release}
 %forgeautosetup -p1
 rm -fv poetry.lock
 
-#make dependencies consistent with Fedora versions
-toml-adapt -path pyproject.toml -a change -dep ALL -ver X
+# Drop version pinning (we use the versions available in Fedora)
+for DEP in $(tomcli get -F newline-keys pyproject.toml tool.poetry.dependencies)
+do
+    tomcli set pyproject.toml replace tool.poetry.dependencies.${DEP} ".*" "*"
+done
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -81,7 +84,7 @@ toml-adapt -path pyproject.toml -a change -dep ALL -ver X
 k="${k-}${k+ and }not test_overpy_node_manipulation"
 k="${k-}${k+ and }not test_weather"
 k="${k-}${k+ and }not test_data_analysis"
-%pytest ${k:+-k "$k"}
+%pytest -r fEs ${k:+-k "$k"}
 %else
 %pyproject_check_import
 %endif

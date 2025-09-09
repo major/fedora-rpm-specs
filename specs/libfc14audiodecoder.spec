@@ -1,8 +1,8 @@
 Name: libfc14audiodecoder
-Version: 1.0.6
+Version: 2.0.0
 Release: 2%{?dist}
 
-Summary: C wrapper library for Future Composer audio decoding
+Summary: C wrapper library for FC & Hippel TFMX music
 License: GPL-2.0-or-later
 URL: https://github.com/mschwendt/libfc14audiodecoder
 Source0: https://github.com/mschwendt/%{name}/releases/download/%{name}-%{version}/%{name}-%{version}.tar.bz2
@@ -11,9 +11,9 @@ BuildRequires: gcc-c++
 BuildRequires: make
 
 %description
-This library provides a C API for a Future Composer audio decoder, which
-has been used in several plug-ins for versatile audio players like XMMS,
-BMP, Audacious and GStreamer.
+This library provides a C API for a Future Composer & Hippel TFMX audio
+decoder, which has been used in several plug-ins for versatile audio
+players like XMMS, BMP, Audacious and GStreamer.
 
 
 %package devel
@@ -30,7 +30,7 @@ software that uses %{name}.
 
 
 %build
-%configure
+%configure --disable-static
 make %{?_smp_mflags}
 
 
@@ -49,10 +49,17 @@ make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
 %files devel
 %{_libdir}/%{name}.so
 #exclude %%{_libdir}/*.la
+%{_libdir}/pkgconfig/*.pc
 %{_includedir}/fc14audiodecoder.h
 
 
 %changelog
+* Sun Sep 07 2025 Michael Schwendt <mschwendt@fedoraproject.org> - 2.0.0-2
+- update summary and description
+
+* Sun Sep 07 2025 Michael Schwendt <mschwendt@fedoraproject.org> - 2.0.0-1
+- upgrade to 2.0.0
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

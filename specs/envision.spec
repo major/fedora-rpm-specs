@@ -96,6 +96,10 @@ License:        AGPL-3.0-only AND (Apache-2.0 OR MIT OR BSD-3-Clause OR GPL-2.0-
 URL:            %{forgeurl}
 Source0:        %{forgesource}
 
+# Patch for clippy, can be removed after the next release
+# https://gitlab.com/gabmus/envision/-/issues/231
+Patch1:         https://gitlab.com/gabmus/envision/-/commit/0402e2cdab9a2be643b801494ff78c1f4f3b21e4.patch
+
 BuildRequires:  cargo
 BuildRequires:  cargo-rpm-macros >= 26
 BuildRequires:  clippy
@@ -129,6 +133,10 @@ BuildRequires:  vulkan-loader-devel
 Requires:       hicolor-icon-theme
 Requires:       patch
 Suggests:       android-tools
+
+# xrizer
+Suggests:       cargo
+Suggests:       clang-devel
 
 
 %description
@@ -178,6 +186,7 @@ Requires:       pkgconfig(gstreamer-1.0)
 Requires:       pkgconfig(gstreamer-app-1.0)
 Requires:       pkgconfig(gstreamer-video-1.0)
 Requires:       pkgconfig(hidapi-libusb)
+Requires:       pkgconfig(libarchive)
 Requires:       pkgconfig(libavcodec)
 Requires:       pkgconfig(libavfilter)
 Requires:       pkgconfig(libavutil)
@@ -191,6 +200,7 @@ Requires:       pkgconfig(libpipewire-0.3)
 Requires:       pkgconfig(libudev)
 Requires:       pkgconfig(libusb-1.0)
 Requires:       pkgconfig(libuvc)
+Requires:       pkgconfig(librsvg-2.0)
 Requires:       pkgconfig(libswscale)
 Requires:       pkgconfig(libva)
 Requires:       pkgconfig(nlohmann_json)
@@ -214,7 +224,7 @@ Requires:       qt6qml(org.kde.desktop)
 Requires:       android-tools
 Requires:       firewalld-filesystem
 Requires:       hicolor-icon-theme
-Requires:       qt6qml(org.kde.desktop)
+
 
 %description wivrn
 Build dependencies for WiVRn. Install this to automatically

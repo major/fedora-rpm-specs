@@ -1,5 +1,5 @@
 Name:           git-cola
-Version:        4.14.0
+Version:        4.15.0
 Release:        %autorelease
 Summary:        A sleek and powerful git GUI
 
@@ -34,6 +34,8 @@ Recommends:     python%{python3_pkgversion}dist(send2trash) >= 1.7.1
 %ifarch %{qt6_qtwebengine_arches}
 Recommends:     python%{python3_pkgversion}-pyqt6-webengine
 %endif
+
+Suggests:       aspell
 
 %description
 git-cola is a powerful git GUI with a slick and intuitive user interface.

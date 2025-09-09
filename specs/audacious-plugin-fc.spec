@@ -6,10 +6,10 @@
 
 %global plugindir %(%___build_pre; pkg-config audacious --variable=plugin_dir 2>/dev/null)
 
-Summary: Future Composer input plugin for Audacious
+Summary: FC & Hippel TFMX input plugin for Audacious
 Name: audacious-plugin-fc
-Version: 0.8.6
-Release: 2%{?dist}
+Version: 0.9
+Release: 1%{?dist}
 Provides: audacious-plugins-fc = %{version}-%{release}
 URL: https://github.com/mschwendt/audacious-plugins-fc
 License: GPL-2.0-or-later
@@ -26,8 +26,9 @@ BuildRequires: libappstream-glib
 
 
 %description
-This is an input plugin for Audacious which can play back Future Composer
-music files from AMIGA. Song-length detection and seek are implemented, too.
+This is an input plugin for Audacious which can play FC & Hippel TFMX
+chiptune music from AMIGA. Song-length detection and seek are
+implemented, too.
 
 
 %prep
@@ -37,11 +38,11 @@ music files from AMIGA. Song-length detection and seek are implemented, too.
 # just a guard
 pkg-config --print-variables audacious | grep ^plugin_dir
 
-%setup -q -n audacious-plugins-fc-%{version}
+%autosetup -p1 -n audacious-plugins-fc-%{version}
 
 
 %build
-%configure
+%configure --disable-static
 make %{?_smp_mflags}
 
 
@@ -52,13 +53,17 @@ appstream-util validate-relax --nonet ${RPM_BUILD_ROOT}%{_datadir}/appdata/*.xml
 
 %files
 %license COPYING
-%doc README
+%doc README.md
 %{plugindir}/Input/fcdecoder.so
 #exclude %%{plugindir}/Input/fcdecoder.la
 %{_datadir}/appdata/*.xml
 
 
 %changelog
+* Sun Sep 07 2025 Michael Schwendt  <mschwendt@fedoraproject.org> - 0.9-1
+- update summary and description
+- upgrade to 0.9
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

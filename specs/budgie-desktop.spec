@@ -7,8 +7,8 @@
 %global vala_version 0.52.5
 
 Name:           budgie-desktop
-Version:        10.9.2
-Release:        10%{?dist}
+Version:        10.9.3
+Release:        1%{?dist}
 Summary:        A feature-rich, modern desktop designed to keep out the way of the user
 
 # GPL-2.0-or-later:
@@ -28,15 +28,6 @@ URL:            https://github.com/BuddiesOfBudgie/budgie-desktop
 Source0:        %{url}/releases/download/v%{version}/%{name}-v%{version}.tar.xz
 Source1:        %{url}/releases/download/v%{version}/%{name}-v%{version}.tar.xz.asc
 Source2:        https://joshuastrobl.com/pubkey.gpg
-Patch0:         Adapt-to-libxfce4windowing-4_19_7.patch
-
-# Upstream Patches
-Patch1:         46c83b1265b4230668da472d9ef6926941678418.patch
-Patch2:         c24091bb424abe99ebcdd33eedd37068f735ad2a.patch
-Patch3:         0001-Change-our-Desktop-Current-Session-ID-to-Budgie-from.patch
-Patch4:         0002-meson-Allow-custom-prefixes-for-third-party-packages.patch
-Patch5:         0003-Re-add-X11-GSD-files.patch
-Patch6:         0004-cull-all-the-things.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -47,11 +38,13 @@ BuildRequires:  pkgconfig(gee-0.8) >= 0.20.0
 BuildRequires:  pkgconfig(gnome-desktop-3.0) >= %{gnome_desktop_version}
 BuildRequires:  pkgconfig(gnome-settings-daemon) >= %{gnome_settings_daemon_version}
 BuildRequires:  pkgconfig(gstreamer-1.0) >= 1.20.0
+BuildRequires:  pkgconfig(gudev-1.0)
 BuildRequires:  pkgconfig(ibus-1.0) >= 1.5.10
 BuildRequires:  pkgconfig(libcanberra) >= 0.30
 BuildRequires:  pkgconfig(libnotify) >= 0.7
 BuildRequires:  pkgconfig(libpeas-1.0) >= 1.26.0
 BuildRequires:  pkgconfig(libpulse)
+BuildRequires:  pkgconfig(libwacom)
 BuildRequires:  pkgconfig(libwnck-3.0) >= 3.36.0
 BuildRequires:  pkgconfig(libxfce4windowing-0)
 BuildRequires:  pkgconfig(polkit-agent-1) >= %{polkit_version}
@@ -151,10 +144,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/glib-2.0/schemas/com.solus-project.*.gschema.xml
 %{_datadir}/glib-2.0/schemas/org.buddiesofbudgie.%{name}.raven.widget.*.gschema.xml
 %{_datadir}/glib-2.0/schemas/org.buddiesofbudgie.%{name}.screenshot.gschema.xml
+%{_datadir}/glib-2.0/schemas/org.buddiesofbudgie.settings-daemon.plugins.media-keys.gschema.xml
 %{_datadir}/gnome-session/sessions/org.buddiesofbudgie.BudgieDesktop.session
 %{_datadir}/icons/hicolor/scalable/actions/*.svg
 %{_datadir}/icons/hicolor/scalable/apps/*.svg
 %{_datadir}/icons/hicolor/scalable/status/*.svg
+%{_datadir}/polkit-1/actions/org.buddiesofbudgie.settings-daemon.plugins.*.policy
 %{_datadir}/xdg-desktop-portal/budgie-portals.conf
 %{_datadir}/xsessions/%{name}.desktop
 %{_libdir}/girepository-1.0/Budgie-1.0.typelib
@@ -164,8 +159,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_libdir}/%{name}/plugins/*/*.so*
 %{_libdir}/%{name}/raven-plugins/*/*.plugin
 %{_libdir}/%{name}/raven-plugins/*/*.so*
+%{_libexecdir}/bsd-*
 %{_libexecdir}/%{name}/budgie-polkit-dialog
 %{_libexecdir}/%{name}/budgie-power-dialog
+%{_libdir}/%{name}/libbsd.so
 %{_libdir}/libbudgie-appindexer.so.0{,.*}
 %{_libdir}/libbudgie-plugin.so.0{,.*}
 %{_libdir}/libbudgie-private.so.0{,.*}
@@ -186,6 +183,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gir-1.0/BudgieRaven-1.0.gir
 %{_datadir}/vala/vapi/budgie-*.deps
 %{_datadir}/vala/vapi/budgie-*.vapi
+%{_includedir}/budgie-settings-daemon-48/budgie-settings-daemon/*.h
 %{_includedir}/%{name}/*.h
 %{_libdir}/libbudgie-appindexer.so
 %{_libdir}/libbudgie-plugin.so
@@ -195,6 +193,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_libdir}/libraven.so
 %{_libdir}/pkgconfig/budgie-1.0.pc
 %{_libdir}/pkgconfig/budgie-raven-plugin-1.0.pc
+%{_libdir}/pkgconfig/budgie-settings-daemon.pc
 %{_libdir}/pkgconfig/budgie-theme-1.0.pc
 
 %files docs
@@ -203,6 +202,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-doc/html/%{name}/*
 
 %changelog
+* Sun Sep 07 2025 Joshua Strobl <joshua@buddiesofbudgie.org> - 10.9.3-1
+- Update to 10.9.3 for GNOME 49.x compatibility
+- Patch cleanup
+
 * Sat Aug 23 2025 Joshua Strobl <joshua@buddiesofbudgie.org> - 10.9.2-10
 - Fix #2388781 crash at login due to removal of Wacom gsd
 

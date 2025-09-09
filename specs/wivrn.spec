@@ -110,6 +110,9 @@ Patch0012:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/
 # downstream-only - WiVRn specific Monado patches
 Patch0013:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0013-c-util-Request-video_maintenance_1-feature.patch
 
+
+# If BuildRequires change, be sure to update envision-wivrn Requires
+# https://src.fedoraproject.org/rpms/envision/blob/rawhide/f/envision.spec
 BuildRequires:  boost-devel
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils

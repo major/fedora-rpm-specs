@@ -13,7 +13,7 @@
 
 Name:           kiss
 Version:        0.1.0~%{date}git%{shortcommit}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Initial setup for systems using KDE Plasma
 License:        GPL-2.0-or-later
 URL:            https://invent.kde.org/system/%{name}
@@ -41,6 +41,9 @@ BuildRequires:  libappstream-glib
 BuildRequires:  qt6qml(org.kde.plasma.private.kcm_keyboard)
 
 Requires:       qt6qml(org.kde.plasma.private.kcm_keyboard)
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 # Do not check .so files in an application-specific library directory
 %global __provides_exclude_from ^%{_kf6_qmldir}/org/kde/initialsystemsetup/.*\\.so.*$
@@ -89,6 +92,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/%{orgname}
 
 
 %changelog
+* Sun Sep 07 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.1.0~20250906git69c6007-2
+- Drop i686 support as required dependencies are no longer available
+
 * Sat Sep 06 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.1.0~20250906git69c6007-1
 - Bump to new git snapshot
 

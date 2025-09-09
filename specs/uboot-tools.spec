@@ -10,7 +10,7 @@
 
 Name:     uboot-tools
 Version:  2025.10
-Release:  0.4%{?candidate:.%{candidate}}%{?dist}
+Release:  0.5%{?candidate:.%{candidate}}%{?dist}
 Epoch:    1
 Summary:  U-Boot utilities
 # Automatically converted from old format: GPLv2+ BSD LGPL-2.1+ LGPL-2.0+ - review is highly recommended.
@@ -28,6 +28,8 @@ Patch2:   enable-bootmenu-by-default.patch
 Patch3:   uefi-distro-load-FDT-from-any-partition-on-boot-device.patch
 # Identify VFAT partitions as ESP, allows EFI setvar on our images
 Patch4:   uefi-Add-all-options-for-EFI-System-Partitions.patch
+# Upstream revert for rpi boot fix
+Patch5:   0001-Revert-efi_loader-install-device-tree-on-configurati.patch
 # New function to find fdt for loading from disk
 Patch6:   uefi-initial-find_fdt_location-for-finding-the-DT-on-disk.patch
 # Enable UEFI SetVariable for devices without backed storage
@@ -272,6 +274,9 @@ install -p -m 0755 builds/tools/env/fw_printenv %{buildroot}%{_bindir}
 %endif
 
 %changelog
+* Sun Sep 07 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2025.10-0.5.rc3
+- Boot fixes for some Raspberry Pi variants
+
 * Wed Aug 27 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2025.10-0.4.rc3
 - Fix booting on some Allwinner devices
 

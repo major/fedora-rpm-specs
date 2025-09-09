@@ -1,6 +1,6 @@
 Name:    rofi
-Version: 1.7.9
-Release: 2%{?dist}
+Version: 2.0.0
+Release: 1%{?dist}
 Summary: A window switcher, application launcher and dmenu replacement
 
 # lexer/theme-parser.[ch]:
@@ -10,11 +10,15 @@ Summary: A window switcher, application launcher and dmenu replacement
 # the shipped files are considered to be MIT-licensed.
 # See also
 # https://lists.fedoraproject.org/archives/list/legal@lists.fedoraproject.org/message/C4VVT54Z4WFGJPPD5X54ILKRF6X2IFLZ/
+#
+# protocols/wlr-layer-shell-unstable-v1.xml,
+# protocols/wlr-foreign-toplevel-management-unstable-v1.xml:
+# These files are licensed under HPND-sell-variant. The files are processed to
+# C-compilable files by the `wayland-scanner` binary during build and don't
+# alter the main license of the binaries.
 License: MIT
 URL:     https://github.com/davatorium/%{name}
 Source:  %{URL}/releases/download/%{version}/%{name}-%{version}.tar.gz
-
-Patch:   rofi-1.7.9-missing-rofi-actions-manpage.patch
 
 BuildRequires: pkgconfig
 BuildRequires: gcc
@@ -33,6 +37,9 @@ BuildRequires: pkgconfig(gdk-pixbuf-2.0)
 BuildRequires: pkgconfig(libstartup-notification-1.0)
 BuildRequires: pkgconfig(pango)
 BuildRequires: pkgconfig(pangocairo)
+BuildRequires: pkgconfig(wayland-client)
+BuildRequires: pkgconfig(wayland-protocols)
+BuildRequires: pkgconfig(wayland-scanner)
 BuildRequires: pkgconfig(xcb)
 BuildRequires: pkgconfig(xcb-aux)
 BuildRequires: pkgconfig(xcb-cursor)
@@ -50,6 +57,9 @@ BuildRequires: pkgconfig(xkbcommon-x11)
 Provides: bundled(libgwater)
 # https://github.com/sardemff7/libnkutils
 Provides: bundled(libnkutils)
+
+Obsoletes:     rofi-wayland < 2
+Provides:      rofi-wayland = %{version}-%{release}
 
 Requires:      %{name}-themes = %{version}-%{release}
 Requires:      hicolor-icon-theme
@@ -134,6 +144,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/rofi*.desktop
 
 
 %changelog
+* Mon Sep 01 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 2.0.0-1
+- Update to 2.0.0 (#2367246)
+- Enable Wayland backend and replace rofi-wayland
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

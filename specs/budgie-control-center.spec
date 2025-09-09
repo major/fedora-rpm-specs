@@ -8,8 +8,8 @@
 %global vala_version 0.52.5
 
 Name:          budgie-control-center
-Version:       1.4.0
-Release:       8%{?dist}
+Version:       1.4.1
+Release:       2%{?dist}
 Summary:       A fork of GNOME Control Center for the Budgie 10 Series
 
 # GPL-2.0-or-later: the entire project
@@ -40,7 +40,7 @@ Summary:       A fork of GNOME Control Center for the Budgie 10 Series
 License:       GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later AND LicenseRef-Fedora-Public-Domain
 URL:           https://github.com/BuddiesOfBudgie/budgie-control-center
 Source0:       %{url}/releases/download/v%{version}/budgie-control-center-%{version}.tar.xz
-Patch0:        0001-fix-FTBFS-with-incompatible-pointer-types.patch
+Patch0:        0001-Reduce-gsd-dep-to-49.alpha.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:   %{ix86}
@@ -230,6 +230,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.a
 %{_datadir}/sounds/budgie/default/alerts/*.ogg
 
 %changelog
+* Sun Sep 07 2025 Joshua Strobl <joshua@buddiesofbudgie.org> - 1.4.1-2
+- Reduce gsd dep down to 49.alpha
+
+* Sun Sep 07 2025 Joshua Strobl <joshua@buddiesofbudgie.org> - 1.4.1-1
+- Update to 1.4.1 for Budgie Desktop 10.9.3 compatibility for media-keys changes
+
 * Fri Aug 08 2025 Jerry James <loganjerry@gmail.com> - 1.4.0-8
 - Stop building for 32-bit x86
 - Add additional licenses found on review of the code

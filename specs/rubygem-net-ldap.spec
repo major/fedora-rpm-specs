@@ -2,15 +2,13 @@
 %global gem_name net-ldap
 
 Name: rubygem-%{gem_name}
-Version: 0.19.0
+Version: 0.20.0
 Release: %autorelease
 Summary: Net::LDAP for Ruby implements client access LDAP protocol
 License: MIT
 URL: http://github.com/ruby-ldap/ruby-net-ldap
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
-# git clone https://github.com/ruby-ldap/ruby-net-ldap.git && cd ruby-net-ldap
-# git archive -v -o ruby-net-ldap-0.17.1-test.tar.gz v0.17.1 test/
-Source1: ruby-%{gem_name}-%{version}-test.tar.gz
+Source1: https://github.com/ruby-ldap/ruby-net-ldap/archive/v%{version}/ruby-net-ldap-%{version}.tar.gz
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: rubygem(flexmock) 
@@ -39,7 +37,8 @@ BuildArch: noarch
 Documentation for %{name}.
 
 %prep
-%setup -q -n %{gem_name}-%{version} -b 1
+%setup -q -n %{gem_name}-%{version}
+tar zxf %{SOURCE1} ruby-net-ldap-%{version}/test --strip-components 1
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -52,9 +51,7 @@ cp -a .%{gem_dir}/* \
         %{buildroot}%{gem_dir}/
 
 %check
-pushd .%{gem_instdir}
-cp -a %{_builddir}/test .
-popd
+ruby -Itest -Ilib -e 'Dir.glob "./test/**/*.rb", &method(:require)'
 
 %files
 %dir %{gem_instdir}

@@ -14,7 +14,7 @@
 %endif
 
 %global	majorver	45
-%dnl	%global	minorver	2
+%global	minorver	2
 %global	docver	45
 %undefine	prever
 %global	prerpmver	%(echo "%{?prever}" | sed -e 's|-||g')
@@ -500,6 +500,9 @@ popd
 %{_includedir}/ngspice/
 
 %changelog
+* Sun Sep 07 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 45.2-1
+- Update to 45.2
+
 * Tue Sep 02 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 45-1
 - Update to 45
 

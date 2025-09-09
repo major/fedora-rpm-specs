@@ -107,6 +107,9 @@ This package contains the different image loading backends.
 Summary:        Sandboxed image rendering (thumbnailer)
 Requires:       glycin-loaders%{_isa} = %{version}-%{release}
 
+# Ensure glycin-thumbnailer replaces the old gdk-pixbuf-thumbnailer.
+Obsoletes:      gdk-pixbuf2 < 2.43.5-1
+
 %description    thumbnailer
 Sandboxed and extendable image decoding.
 

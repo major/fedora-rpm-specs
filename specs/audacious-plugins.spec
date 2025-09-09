@@ -10,8 +10,8 @@
 %{?aud_plugin_dep}
 
 Name: audacious-plugins
-Version: 4.5
-Release: 3%{?dist}
+Version: 4.5.1
+Release: 1%{?dist}
 
 %global tar_ver %{version}
 
@@ -394,6 +394,9 @@ install -p -m0644 %{SOURCE103} ${RPM_BUILD_ROOT}%{_datadir}/appdata
 
 
 %changelog
+* Sun Sep 07 2025 Michael Schwendt <mschwendt@fedoraproject.org> - 4.5.1-1
+- update to 4.5.1
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

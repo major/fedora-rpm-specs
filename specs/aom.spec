@@ -1,5 +1,5 @@
 %global sover           3
-%global aom_version     v3.12.0
+%global aom_version     v3.13.1
 
 %if 0%{?fedora} || 0%{?rhel} >= 9
 %ifarch x86_64
@@ -13,7 +13,7 @@
 %endif
 
 Name:       aom
-Version:    3.12.0
+Version:    3.13.1
 Release:    %autorelease
 Summary:    Royalty-free next-generation video format
 
@@ -71,6 +71,14 @@ Requires:       libaom%{?_isa} = %{version}-%{release}
 Development files for aom, the royalty-free next-generation
 video format.
 
+%package -n libaom-devel-docs
+Summary:        Documentation for libaom
+Requires:       libaom-devel%{?_isa} = %{version}-%{release}
+
+%description -n libaom-devel-docs
+Documentation for libaom, the royalty-free next-generation
+video format.
+
 %prep
 %autosetup -p1 -c %{name}-%{version}
 # Set GIT revision in version
@@ -79,10 +87,6 @@ sed -i 's@set(aom_version "")@set(aom_version "%{aom_version}")@' build/cmake/ve
 sed -i "s@GENERATE_LATEX         = YES@GENERATE_LATEX         = NO@" libs.doxy_template
 
 %build
-%ifarch %{arm}
-%global optflags %{__global_compiler_flags} -march=armv7-a -mfpu=neon -mtune=cortex-a8 -mabi=aapcs-linux -mfloat-abi=hard
-%endif
-
 %cmake3 -DENABLE_CCACHE=1 \
         -DCMAKE_SKIP_RPATH=1 \
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \
@@ -115,10 +119,13 @@ rm -rvf %{buildroot}%{_libdir}/libaom.a
 %{_libdir}/libaom.so.%{sover}*
 
 %files -n libaom-devel
-%doc %{_vpath_builddir}/docs/html/
 %{_includedir}/%{name}
 %{_libdir}/libaom.so
+%{_libdir}/cmake/AOM/
 %{_libdir}/pkgconfig/%{name}.pc
+
+%files -n libaom-devel-docs
+%doc %{_vpath_builddir}/docs/html/
 
 %changelog
 %autochangelog

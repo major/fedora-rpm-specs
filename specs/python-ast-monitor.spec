@@ -1,5 +1,7 @@
 %global pypi_name ast-monitor
 
+%bcond tests 1
+
 Name:           python-%{pypi_name}
 Version:        0.5.5
 Release:        %autorelease
@@ -21,9 +23,10 @@ ExclusiveArch: %{qt6_qtwebengine_arches} noarch
 BuildRequires:  python3-devel
 # For qt6_qtwebengine_arches macro:
 BuildRequires:  qt6-srpm-macros
-BuildRequires:  %{py3_dist toml-adapt}
+BuildRequires:  tomcli
 %if %{with tests}
 BuildRequires:  %{py3_dist pytest}
+BuildRequires:  %{py3_dist pytest-qt}
 %endif
 
 %global _description %{expand:
@@ -44,8 +47,11 @@ Obsoletes:      python-ast-monitor-doc < 0.5.2-2
 %forgeautosetup -p1
 rm -fv poetry.lock
 
-# Make deps consistent with Fedora deps
-toml-adapt -path pyproject.toml -a change -dep ALL -ver X
+# Drop version pinning (we use the versions available in Fedora)
+for DEP in $(tomcli get -F newline-keys pyproject.toml tool.poetry.dependencies)
+do
+    tomcli set pyproject.toml replace tool.poetry.dependencies.${DEP} ".*" "*"
+done
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -59,7 +65,8 @@ toml-adapt -path pyproject.toml -a change -dep ALL -ver X
 
 %check
 %if %{with tests}
-%pytest -v
+# test_gui.py segfaults with PyQt 3.9.0 (F42+)
+%pytest -r fEs --ignore tests/test_gui.py
 %else
 %pyproject_check_import
 %endif
