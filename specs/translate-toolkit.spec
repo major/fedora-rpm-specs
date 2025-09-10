@@ -1,7 +1,7 @@
 %global upstream_name translate_toolkit
 Name:           translate-toolkit
-Version:        3.15.6
-Release:        3%{?dist}
+Version:        3.16.0
+Release:        1%{?dist}
 Summary:        Tools to assist with translation and software localization
 License:        GPL-2.0-or-later
 URL:            http://toolkit.translatehouse.org/
@@ -127,12 +127,15 @@ for prog in %{buildroot}%{_bindir}/*; do
 done
 
 %files
-%doc docs/license.rst
+%doc COPYING
 %{_bindir}/*
 %{_mandir}/man1/*
 %{python3_sitelib}/translate*
 
 %changelog
+* Mon Sep 08 2025 Sudip Shil <sshil@redhat.com> - 3.16.0-1
+- update to 3.16.0 (rhbz#2376129)
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.15.6-3
 - Rebuilt for Python 3.14.0rc2 bytecode
 

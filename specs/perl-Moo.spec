@@ -1,6 +1,8 @@
+%bcond perl_Moo_enables_optional_test %{undefined rhel}
+
 Name:           perl-Moo
 Version:        2.005005
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Minimalist Object Orientation (with Moose compatibility)
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -20,7 +22,6 @@ BuildRequires:  perl(Carp)
 BuildRequires:  perl(Class::Method::Modifiers) >= 1.10
 BuildRequires:  perl(Config)
 BuildRequires:  perl(constant)
-BuildRequires:  perl(Devel::GlobalDestruction) >= 0.11
 BuildRequires:  perl(Exporter)
 # Filter::Simple not used at test-time
 BuildRequires:  perl(Import::Into) >= 1.002
@@ -30,12 +31,13 @@ BuildRequires:  perl(mro)
 BuildRequires:  perl(overload)
 BuildRequires:  perl(Role::Tiny) >= 2.002004
 BuildRequires:  perl(Scalar::Util) >= 1.00
-BuildRequires:  perl(strictures) >= 1.004003
 BuildRequires:  perl(Sub::Defer) >= 2.006006
 BuildRequires:  perl(Sub::Quote) >= 2.006006
 # Text::Balanced not used at test-time
 # Optional run-time:
+%if %{with perl_Moo_enables_optional_test}
 BuildRequires:  perl(Class::XSAccessor) >= 1.18
+%endif
 BuildRequires:  perl(Sub::Util)
 # lib/Moo/HandleMoose.pm requires Moose modules. Moo::HandleMoose is used only
 # if Moose has been loaded. So this is circular optional dependency definitly
@@ -46,7 +48,9 @@ BuildRequires:  perl(Sub::Util)
 #   Moose::Util::TypeConstraints
 # Tests:
 BuildRequires:  perl(B::Deparse)
+%if %{with perl_Moo_enables_optional_test}
 BuildRequires:  perl(Class::XSAccessor::Array)
+%endif
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(FindBin)
 BuildRequires:  perl(lib)
@@ -57,7 +61,6 @@ BuildRequires:  perl(threads)
 BuildRequires:  perl(CPAN::Meta::Requirements)
 Requires:       perl(Carp)
 Requires:       perl(Class::Method::Modifiers) >= 1.10
-Requires:       perl(Devel::GlobalDestruction) >= 0.11
 Requires:       perl(Import::Into) >= 1.002
 Requires:       perl(Module::Runtime) >= 0.012
 Requires:       perl(mro)
@@ -95,6 +98,9 @@ not quite- two thirds of Moose.
 %{_mandir}/man3/*
 
 %changelog
+* Mon Sep 01 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 2.005005-10
+- Update dependencies
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.005005-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

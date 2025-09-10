@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.42.9000-135-g0c6cb5285b
+%global glibcsrcdir glibc-2.42.9000-144-gb173557da9
 %global glibcversion 2.42.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 4
+%global baserelease 5
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2389,6 +2389,20 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Mon Sep 08 2025 Frédéric Bérat <fberat@redhat.com> - 2.42.9000-5
+- Auto-sync with upstream branch master,
+  commit b173557da978a04ac3bdfc0bd3b0e7ac583b44d5:
+- libio: Define AT_RENAME_* with the same tokens as Linux
+- testsuite: Update tests for 'xfclose' use
+- testsuite: Update tests for 'xfmemopen' use
+- support: Implement 'xfmemopen' for seamless 'fmemopen' use
+- x86_64: Unconditionally run test elf/check-dt-x86-64-plt
+- Fix sysdeps/mips/dl-machine-reject-phdr.h build with GCC 16
+- AArch64: Implement exp2m1 and exp10m1 routines
+- Tests: Create files with mode 0666, not 0777 (bug 33171)
+- nptl: Fix "Arch-sepecific" typo in comment
+
+
 * Mon Sep 01 2025 Florian Weimer <fweimer@redhat.com> - 2.42.9000-4
 - Auto-sync with upstream branch master,
   commit 0c6cb5285bc90b35dfdb476f47fe9bad721abf8b:

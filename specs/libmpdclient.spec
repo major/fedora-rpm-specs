@@ -1,7 +1,7 @@
 Summary:       Library for interfacing Music Player Daemon
 Name:          libmpdclient
-Version:       2.22
-Release:       4%{?dist}
+Version:       2.23
+Release:       1%{?dist}
 License:       BSD-2-Clause OR BSD-3-Clause
 URL:           https://www.musicpd.org/
 Source0:       %{url}download/libmpdclient/2/libmpdclient-%{version}.tar.xz
@@ -48,6 +48,9 @@ rm %{buildroot}%{_defaultdocdir}/%{name}/BSD-[23]-Clause.txt
 %{_includedir}/mpd/
 
 %changelog
+* Mon Sep 08 2025 Vasiliy N. Glazov <vascom2@gmail.com> - 2.23-1
+- Update to 2.23
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.22-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

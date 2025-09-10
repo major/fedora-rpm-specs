@@ -1,6 +1,8 @@
+%bcond perl_HTTP_Message_enables_IO_Compress_Brotli %{undefined rhel}
+
 Name:           perl-HTTP-Message
 Version:        7.00
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        HTTP style message
 # CONTRIBUTING.md:  CC0-1.0
 # other files:      GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -26,7 +28,9 @@ BuildRequires:  perl(Encode::Locale) >= 1
 BuildRequires:  perl(Exporter) >= 5.57
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(HTTP::Date) >= 6
+%if %{with perl_HTTP_Message_enables_IO_Compress_Brotli}
 BuildRequires:  perl(IO::Compress::Brotli)
+%endif
 BuildRequires:  perl(IO::Compress::Bzip2) >= 2.021
 BuildRequires:  perl(IO::Compress::Deflate)
 BuildRequires:  perl(IO::Compress::Gzip)
@@ -47,7 +51,9 @@ BuildRequires:  perl(Test::Needs)
 # Time::Local only used on MacOS
 BuildRequires:  perl(Try::Tiny)
 BuildRequires:  perl(URI::URL)
+%if %{with perl_HTTP_Message_enables_IO_Compress_Brotli}
 Recommends:     perl(IO::Compress::Brotli)
+%endif
 Requires:       perl(Clone) => 0.46
 Requires:       perl(Compress::Raw::Zlib) >= 2.062
 Requires:       perl(Encode) >= 3.01
@@ -82,7 +88,9 @@ Summary:        Tests for %{name}
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
 Requires:       perl(URI::URL)
+%if %{with perl_HTTP_Message_enables_IO_Compress_Brotli}
 Requires:       perl(IO::Compress::Brotli)
+%endif
 
 %description tests
 Tests from %{name}. Execute them
@@ -126,6 +134,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Sep 01 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 7.00-4
+- Avoid IO::Compress::Brotli dependency in RHEL builds
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.00-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

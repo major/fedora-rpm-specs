@@ -1,24 +1,27 @@
 Name:           clazy
 Summary:        Qt oriented code checker based on clang framework
-Version:        1.15
-Release:        2%{?dist}
+Version:        1.16
+Release:        1%{?dist}
 License:        LGPL-2.0-or-later
 URL:            https://invent.kde.org/sdk/%{name}
 
 %if 0%{?commitdate}
 Source0:        %{url}/-/archive/%{commit}/%{name}-%{commit}.tar.gz
 %else
-Source0:        https://download.kde.org/stable/%{name}/%{version}/src/%{name}-%{version}.tar.xz
+Source0:        https://download.kde.org/stable/%{name}/%{version}/src/%{name}-v%{version}.tar.xz
 %endif
 
 Patch0:         clazy-no-rpath.patch
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
-BuildRequires: clang-devel llvm-devel
+BuildRequires: clang-devel
+BuildRequires: clang-tools-extra-devel
+BuildRequires: llvm-devel
 BuildRequires: perl-podlators
 
 Requires: clang(major) = %{clang_major_version}
+Requires: clang-tools-extra
 
 %description
 clazy is a compiler plugin which allows clang to understand Qt semantics.
@@ -28,7 +31,7 @@ refactoring.
 
 
 %prep
-%autosetup -p1 %{?commitdate:-n %{name}-%{commit}}
+%autosetup -p1 -n %{name}-%{?commitdate:%{commit}}%{!?commitdate:v%{version}}
 
 %build
 %cmake
@@ -48,10 +51,14 @@ refactoring.
 %{_docdir}/clazy/*
 %{_mandir}/man1/clazy.1.gz
 %{_libdir}/ClazyPlugin.so
+%{_libdir}/ClazyClangTidy.so
 %{_datadir}/metainfo/org.kde.clazy.metainfo.xml
 
 
 %changelog
+* Mon Sep 08 2025 Jan Grulich <jgrulich@redhat.com> - 1.16-1
+- 1.16
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.15-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

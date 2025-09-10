@@ -6,11 +6,6 @@
 # pyproject.toml files: they have different names, and some of the dependencies
 # for fastapi-cli-slim belong to an optional extra.
 
-# We have not packaged fastapi-cloud-cli, which is now required by the
-# "standard" extra. It would require at least one new dependency,
-# python-rignore.
-%bcond cloudcli 0
-
 Name:           fastapi-cli
 Version:        0.0.10
 Release:        %autorelease
@@ -35,12 +30,6 @@ BuildRequires:  python3-devel
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/#_requiring_base_package
 Requires:       fastapi-cli-slim = %{version}-%{release}
 
-%if %{without cloudcli}
-# We can only continue to package the standard extra if we package
-# fastapi-cloud-cli.
-Obsoletes:      fastapi-cli+standard < 0.0.8-1
-%endif
-
 # Since requirements-tests.txt contains overly-strict version bounds and many
 # unwanted linting/coverage/typechecking/formatting dependencies
 # (https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters),
@@ -58,7 +47,7 @@ FastAPI app, manage your FastAPI project, and more.}
 %description %{common_description}
 
 
-%pyproject_extras_subpkg -n fastapi-cli -i %{python3_sitelib}/fastapi_cli-%{version}.dist-info %{?with_cloudcli:standard} standard-no-fastapi-cloud-cli
+%pyproject_extras_subpkg -n fastapi-cli -i %{python3_sitelib}/fastapi_cli-%{version}.dist-info standard standard-no-fastapi-cloud-cli
 
 
 %package slim
@@ -66,16 +55,10 @@ Summary:        %{summary}
 
 %py_provides python3-fastapi-cli-slim
 
-%if %{without cloudcli}
-# We can only continue to package the standard extra if we package
-# fastapi-cloud-cli.
-Obsoletes:      fastapi-cli-slim+standard < 0.0.8-1
-%endif
-
 %description slim %{common_description}
 
 
-%pyproject_extras_subpkg -n fastapi-cli-slim -i %{python3_sitelib}/fastapi_cli_slim-%{version}.dist-info %{?with_cloudcli:standard} standard-no-fastapi-cloud-cli
+%pyproject_extras_subpkg -n fastapi-cli-slim -i %{python3_sitelib}/fastapi_cli_slim-%{version}.dist-info standard standard-no-fastapi-cloud-cli
 
 
 %prep
@@ -84,7 +67,7 @@ Obsoletes:      fastapi-cli-slim+standard < 0.0.8-1
 
 %generate_buildrequires
 export TIANGOLO_BUILD_PACKAGE='fastapi-cli-slim'
-%pyproject_buildrequires %{?with_cloudcli:-x standard} -x standard-no-fastapi-cloud-cli
+%pyproject_buildrequires -x standard,standard-no-fastapi-cloud-cli
 (
   export TIANGOLO_BUILD_PACKAGE='fastapi-cli'
   %pyproject_buildrequires

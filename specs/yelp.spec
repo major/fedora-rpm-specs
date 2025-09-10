@@ -28,7 +28,6 @@ BuildRequires: gcc
 BuildRequires: gettext-devel
 BuildRequires: itstool
 BuildRequires: meson
-Requires:      libhandy%{?_isa} >= %{libhandy_version}
 Requires:      yelp-libs%{?_isa} = %{epoch}:%{version}-%{release}
 Requires:      yelp-xsl
 
@@ -60,8 +59,6 @@ This package contains header files for the libraries in the yelp-libs package.
 
 %install
 %meson_install
-
-find $RPM_BUILD_ROOT%{_libdir} -name '*.la' -delete
 
 %find_lang %{name}
 

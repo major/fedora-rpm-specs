@@ -4,7 +4,7 @@
 %global release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-gdk-pixbuf
-Version:        2.43.3
+Version:        2.43.5
 Release:        1%{?dist}
 Summary:        MinGW Windows GDK Pixbuf library
 
@@ -15,8 +15,8 @@ Source0:        http://download.gnome.org/sources/gdk-pixbuf/%{release_version}/
 # If you want to rebuild this, do:
 # wine /usr/i686-w64-mingw32/sys-root/mingw/bin/gdk-pixbuf-query-loaders.exe | sed s@'Z:/usr/i686-w64-mingw32/sys-root/mingw'@'..'@ > gdk-pixbuf.loaders
 Source1:        gdk-pixbuf.loaders
-# Backport fix for CVE-2025-7345
-Patch1:         https://gitlab.gnome.org/GNOME/gdk-pixbuf/-/commit/4af78023ce7d3b5e3cec422a59bb4f48fa4f5886.patch
+# Fix meson build
+Patch0:         gdk-pixbuf-fix-meson.patch
 
 BuildArch:      noarch
 
@@ -61,11 +61,11 @@ Summary:        MinGW Windows GDK Pixbuf library
 MinGW Windows GDK Pixbuf library.
 
 
-%?mingw_debug_package
+%{?mingw_debug_package}
 
 
 %prep
-%setup -q -n gdk-pixbuf-%{version}
+%autosetup -p1 -n gdk-pixbuf-%{version}
 
 
 %build
@@ -142,6 +142,9 @@ install -m 0644 %{SOURCE1} %{buildroot}%{mingw64_libdir}/gdk-pixbuf-2.0/2.10.0/l
 
 
 %changelog
+* Mon Sep 08 2025 Sandro Mani <manisandro@gmail.com> - 2.43.5-1
+- Update to 2.43.5
+
 * Sun Jul 27 2025 Sandro Mani <manisandro@gmail.com> - 2.43.3-1
 - Update to 2.43.3
 

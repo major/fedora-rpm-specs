@@ -5,7 +5,7 @@
 %global crate link-cplusplus
 
 Name:           rust-link-cplusplus
-Version:        1.0.10
+Version:        1.0.12
 Release:        %autorelease
 Summary:        Link libstdc++ or libc++ automatically or manually
 

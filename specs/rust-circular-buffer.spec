@@ -5,16 +5,18 @@
 %global crate circular-buffer
 
 Name:           rust-circular-buffer
-Version:        1.1.0
+Version:        1.2.0
 Release:        %autorelease
 Summary:        Efficient, fixed-size, overwriting circular buffer
 
 License:        BSD-3-Clause
 URL:            https://crates.io/crates/circular-buffer
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * Do not depend on criterion; it is needed only for benchmarks.
+Patch:          circular-buffer-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
-BuildRequires:  tomcli
 
 %global _description %{expand:
 Efficient, fixed-size, overwriting circular buffer.}
@@ -87,8 +89,6 @@ use the "use_std" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
-# Do not depend on criterion; it is needed only for benchmarks.
-tomcli set Cargo.toml del dev-dependencies.criterion
 
 %generate_buildrequires
 %cargo_generate_buildrequires

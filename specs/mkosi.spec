@@ -105,13 +105,21 @@ bin/mkosi completion zsh >mkosi.zsh
 %pyproject_save_files mkosi
 %endif
 {
+  # for the main package
   bin/mkosi dependencies | sed -e 's/^/Recommends: /'
+
+  # useful for 'summary' and 'help' verbs
+  echo "Recommends:    less"
+
+  # the mkosi-system-deps subpackage
   echo "%package system-deps"
   echo "Summary:       Pull in additional dependencies needed to build images"
   bin/mkosi dependencies | sed -e 's/^/Requires: /'
+  echo "Requires:      efitools"
+  echo "Requires:      jq"
   echo "Requires:      pesign"
   echo "%description system-deps"
-  echo "This package pulls in all the dependencies needed to build images"
+  echo "This package pulls in all the dependencies needed to build images."
   echo "%files system-deps"
 } >%{specpartsdir}/mkosi.specpart
 %if %{defined suse_version}

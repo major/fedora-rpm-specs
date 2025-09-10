@@ -9,14 +9,12 @@ License:        BSD-3-Clause
 URL:            https://pysal.org
 Source0:        %pypi_source %{srcname}
 # Test example datasets.
-Source1:        https://geodacenter.github.io/data-and-lab//data/ncovr.zip
+Source1:        https://geodacenter.github.io/data-and-lab/data/ncovr.zip
 Source2:        https://github.com/sjsrey/newHaven/archive/master/newHaven.zip
 Source3:        https://github.com/sjsrey/rio_grande_do_sul/archive/master/rio_grande_do_sul.zip
 Source4:        https://github.com/sjsrey/taz/archive/master/taz.zip
-# Hard-code the list of datasets to not use the network.
-Patch:          0001-Hard-code-list-of-example-datasets.patch
 # The real pandoc is installed, no need for the Python package.
-Patch:          0002-Remove-unused-build-requirements.patch
+Patch:          0001-Remove-unused-build-requirements.patch
 
 BuildArch:      noarch
 

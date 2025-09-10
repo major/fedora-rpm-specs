@@ -123,11 +123,7 @@ BuildRequires:  gcc-go >= 5
 %else
 BuildRequires:  golang > 1.4
 %endif
-%if 0%{?rhel} > 6 || 0%{?fedora} > 0
 BuildRequires:  hostname
-%else
-BuildRequires:  net-tools
-%endif
 
 # for tests
 BuildRequires:  pcre2-devel, glibc-static, perl-interpreter, procps-ng
@@ -256,11 +252,8 @@ Requires(preun): %{_sbindir}/update-alternatives
 # This is an odd issue, still looking for a better fix.
 Requires:       glibc
 Requires:       gcc
-%if 0%{?rhel} && 0%{?rhel} < 8
-Requires:       git, subversion, mercurial
-%else
-Recommends:     git, subversion, mercurial
-%endif
+Recommends:     git-core, subversion, mercurial
+
 %description    bin
 %{summary}
 

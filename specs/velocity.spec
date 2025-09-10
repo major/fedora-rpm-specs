@@ -21,9 +21,7 @@ BuildRequires:  mvn(commons-io:commons-io)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.commons:commons-lang3)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
-BuildRequires:  mvn(org.apache.maven.plugins:maven-enforcer-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-source-plugin)
-BuildRequires:  mvn(org.codehaus.mojo:extra-enforcer-rules)
 BuildRequires:  mvn(org.codehaus.mojo:javacc-maven-plugin)
 BuildRequires:  mvn(org.slf4j:slf4j-api)
 %endif
@@ -74,6 +72,7 @@ sed 's/${project.version}/%{version}/' \
 
 %pom_remove_plugin com.google.code.maven-replacer-plugin:replacer velocity-engine-core
 %pom_remove_plugin :maven-shade-plugin velocity-engine-core
+%pom_remove_plugin :maven-enforcer-plugin
 
 %pom_xpath_remove "pom:dependency[pom:scope='test']" velocity-engine-core
 

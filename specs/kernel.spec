@@ -176,13 +176,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.17.0
 %define specversion 6.17.0
 %define patchversion 6.17
-%define pkgrelease 0.rc4.250905gd69eb204c255c.39
+%define pkgrelease 0.rc5.42
 %define kversion 6
-%define tarfile_release 6.17-rc4-201-gd69eb204c255c
+%define tarfile_release 6.17-rc5
 # This is needed to do merge window version magic
 %define patchlevel 17
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc4.250905gd69eb204c255c.39%{?buildid}%{?dist}
+%define specrelease 0.rc5.42%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.17.0
 
@@ -4395,14 +4395,22 @@ fi\
 #
 #
 %changelog
-* Fri Sep 05 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.17.0-0.rc4.250905gd69eb204c255c.39]
-- Linux v6.17.0-0.rc4.250905gd69eb204c255c
-
-* Fri Sep 05 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc4.d69eb204c255.39]
+* Mon Sep 08 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc5.42]
 - cpufreq/amd-pstate: Fix a regression leading to EPP 0 after resume (Mario Limonciello (AMD))
 - arm64: dts: qcom: x1e80100-lenovo-yoga-slim7x: add Bluetooth support (Jens Glathe)
 - ALSA HDA driver configuration split for 6.17 upstream (Jaroslav Kysela)
 - redhat/configs: clang_lto: disable CONFIG_FORTIFY_KUNIT_TEST (Scott Weaver)
+
+* Mon Sep 08 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc5.41]
+- redhat: scripts: ignore incorrect shellcheck 2329 in trap function (Simone Tollardo)
+- Linux v6.17.0-0.rc5
+
+* Sun Sep 07 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc4.b236920731dd.40]
+- Linux v6.17.0-0.rc4.b236920731dd
+
+* Sat Sep 06 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc4.d1d10cea0895.39]
+- Turn on PHY_ROCKCHIP_SAMSUNG_DCPHY for Fedora (Justin M. Forbes)
+- Linux v6.17.0-0.rc4.d1d10cea0895
 
 * Fri Sep 05 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc4.d69eb204c255.38]
 - Linux v6.17.0-0.rc4.d69eb204c255

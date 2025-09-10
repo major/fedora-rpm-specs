@@ -10,7 +10,7 @@
 # https://github.com/coreos/butane
 %global goipath         github.com/coreos/butane
 %global gomodulesmode   GO111MODULE=on
-Version:                0.24.0
+Version:                0.25.0
 
 %gometa -f
 
@@ -22,7 +22,7 @@ configs for provisioning operating systems that use Ignition.}
 %global godocs          docs README.md
 
 Name:           butane
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Butane config transpiler
 
 License:        Apache-2.0
@@ -147,6 +147,9 @@ install -p -m 0644 ./butane-x86_64-unknown-linux-gnu-static %{buildroot}%{_datad
 %{_datadir}/butane/butane-x86_64-unknown-linux-gnu-static
 
 %changelog
+* Mon Sep 08 2025 Tiago Bueno <tiago.bueno@gmail.com> - 0.25.0-1
+- New release
+
 * Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 0.24.0-3
 - Rebuild for golang-1.25.0
 
@@ -168,7 +171,7 @@ install -p -m 0644 ./butane-x86_64-unknown-linux-gnu-static %{buildroot}%{_datad
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.21.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
 
-* Tue Jun 6 2024 Yasmin de Souza <ydesouza@redhat.com> - 0.21.0-1
+* Thu Jun 6 2024 Yasmin de Souza <ydesouza@redhat.com> - 0.21.0-1
 - New release
 
 * Wed Apr 24 2024 Timothée Ravier <tim@siosm.fr> - 0.20.0-2

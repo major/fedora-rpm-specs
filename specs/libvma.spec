@@ -1,7 +1,7 @@
 %{!?configure_options: %global configure_options %{nil}}
 
 Name: libvma
-Version: 9.8.72
+Version: 9.8.80
 Release: %autorelease
 Summary: A library for boosting TCP and UDP traffic (over RDMA hardware)
 

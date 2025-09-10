@@ -17,6 +17,12 @@ License:        MIT AND BSD-3-Clause AND (MIT OR LGPL-2.0-or-later) AND (MPL-1.1
 URL:            https://wiki.gnome.org/Projects/Gjs
 Source0:        https://download.gnome.org/sources/%{name}/1.85/%{name}-%{version}.tar.xz
 
+# https://gitlab.gnome.org/GNOME/gjs/-/merge_requests/1024
+Patch:          interface-properties.patch
+
+# https://gitlab.gnome.org/GNOME/gjs/-/merge_requests/1025
+Patch:          gsk-renderer.patch
+
 BuildRequires:  gcc-c++
 BuildRequires:  meson
 BuildRequires:  gettext

@@ -9,7 +9,7 @@
 
 # https://github.com/alecthomas/repr
 %global goipath         github.com/alecthomas/repr
-Version:                0.5.1
+Version:                0.5.2
 
 %gometa
 

@@ -7,7 +7,7 @@
 
 Name:           pcsc-lite
 Version:        2.3.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        PC/SC Lite smart card framework and applications
 
 License:        BSD-3-Clause AND BSD-2-Clause AND GPL-3.0-or-later
@@ -158,7 +158,6 @@ fi
 %{_datadir}/polkit-1/actions/org.debian.pcsc-lite.policy
 %endif
 %{_metainfodir}/fr.apdu.pcsclite.metainfo.xml
-%dir %{_sysconfdir}
 %{_sysconfdir}/default/pcscd
 
 %files libs
@@ -181,6 +180,9 @@ fi
 
 
 %changelog
+* Sat Sep 06 2025 Paul Bolle <pebolle@tiscali.nl> - 2.3.3-3
+- Remove unneeded %{_sysconfdir} directory from %files
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

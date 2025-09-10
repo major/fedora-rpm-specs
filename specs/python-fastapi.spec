@@ -7,10 +7,6 @@
 # “standard”, “standard-no-fastapi-cloud-cli”, and “all” extras.
 %bcond bootstrap 0
 
-# The "standard" extra now requires fastapi-cloud-cli, which awaits review:
-# https://bugzilla.redhat.com/show_bug.cgi?id=2379742
-%bcond cloudcli 0
-
 %bcond inline_snapshot 1
 %bcond orjson 1
 %bcond passlib 1
@@ -116,15 +112,6 @@ BuildRequires:  %{py3_dist inline-snapshot} >= 0.21.1
 # This is still needed in the tests even if we do not have sqlmodel to bring it
 # in as an indirect dependency.
 BuildRequires:  %{py3_dist sqlalchemy}
-%if %{without cloudcli}
-# These would be generated from the “all” extra; we still want them for testing.
-BuildRequires:  %{py3_dist ujson}
-%if %{with orjson}
-BuildRequires:  %{py3_dist orjson} >= 3.2.1
-%endif
-BuildRequires:  %{py3_dist pydantic-settings} >= 2
-BuildRequires:  %{py3_dist pydantic-extra-types} >= 2
-%endif
 
 Summary(az):    %{sum_az}
 Summary(bn):    %{sum_bn}
@@ -858,9 +845,7 @@ Requires:       python3-fastapi-slim = %{version}-%{release}
 %description -n python3-fastapi -l zh %{common_description_zh}
 
 
-%if %{with cloudcli}
 %pyproject_extras_subpkg -n python3-fastapi -i %{python3_sitelib}/fastapi-%{version}.dist-info all
-%endif
 
 
 %package -n     python3-fastapi-slim
@@ -889,12 +874,6 @@ Summary(vi):    %{sum_vi}
 Summary(yo):    %{sum_yo}
 Summary(zh-Hant):    %{sum_zh_hant}
 Summary(zh):    %{sum_zh}
-
-%if %{without cloudcli}
-# We can only continue to package the standard extra if we package
-# fastapi-cloud-cli.
-Obsoletes:      python3-fastapi-slim+standard < 0.116.1-1
-%endif
 
 %description -n python3-fastapi-slim %{common_description_en}
 
@@ -945,7 +924,7 @@ Obsoletes:      python3-fastapi-slim+standard < 0.116.1-1
 %description -n python3-fastapi-slim -l zh %{common_description_zh}
 
 
-%pyproject_extras_subpkg -n python3-fastapi-slim -i %{python3_sitelib}/fastapi_slim-%{version}.dist-info %{?with_cloudcli:standard all} standard-no-fastapi-cloud-cli
+%pyproject_extras_subpkg -n python3-fastapi-slim -i %{python3_sitelib}/fastapi_slim-%{version}.dist-info standard all standard-no-fastapi-cloud-cli
 
 
 %prep
@@ -981,10 +960,10 @@ rm -rvf docs/*/docs/js docs/*/docs/css
 
 %generate_buildrequires
 export TIANGOLO_BUILD_PACKAGE='fastapi-slim'
-%pyproject_buildrequires -x %{?with_cloudcli:standard,all,}standard-no-fastapi-cloud-cli
+%pyproject_buildrequires -x standard,all,standard-no-fastapi-cloud-cli
 (
   export TIANGOLO_BUILD_PACKAGE='fastapi'
-  %pyproject_buildrequires %{?with_cloudcli:-x all}
+  %pyproject_buildrequires -x all
 ) | grep -vE '\bfastapi-slim\b'
 
 

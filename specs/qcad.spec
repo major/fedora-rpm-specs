@@ -1,7 +1,14 @@
-%bcond_with cmake
+%bcond_with qt6
 
 %global _QCAD_DIR %{_libdir}/%{name}
+
+%if %{with qt6}
+%global _QT_PLUGINS %{_qt6_plugindir}
+%bcond_without cmake
+%else
 %global _QT_PLUGINS %{_qt5_plugindir}
+%bcond_with cmake
+%endif
 
 # Filter private libraries
 %global __provides_exclude ^(%%(find %{buildroot}%{_libdir}/qcad -name '*.so' | xargs -n1 basename | sort -u | paste -s -d '|' -))
@@ -9,7 +16,7 @@
 #
 
 Name:    qcad
-Version: 3.32.0.0
+Version: 3.32.4.0
 Release: %autorelease
 Epoch:   1
 Summary: Powerful 2D CAD system
@@ -35,6 +42,17 @@ Source1: %{name}.desktop
 Source2: %{name}.appdata.xml
 URL: https://www.qcad.org/
 
+%if %{with qt6}
+BuildRequires: qt6-qtbase-devel
+BuildRequires: qt6-rpm-macros
+BuildRequires: qt6-qttools-devel
+BuildRequires: qt6-qttools-static
+BuildRequires: qt6-qtwebengine
+BuildRequires: qt6-qtsvg-devel
+BuildRequires: qt6-qtscxml-devel
+BuildRequires: qt6-qtdeclarative-devel
+BuildRequires: glslang-devel
+%else
 BuildRequires: qt5-qtbase-devel >= 5.9.0
 BuildRequires: qt5-rpm-macros >= 5.9.0
 BuildRequires: qt5-qttools-devel >= 5.9.0
@@ -45,7 +63,8 @@ BuildRequires: qt5-qtxmlpatterns-devel >= 5.9.0
 BuildRequires: qt5-qtdeclarative-devel >= 5.9.0
 Requires:      qt5-qtsvg%{?_isa}
 Requires:      qt5-qtscript%{?_isa}
-Provides:      bundled(qtscriptgenerator) = 5.15.11
+Provides:      bundled(qtscriptgenerator)
+%endif
 BuildRequires: gcc-c++, chrpath
 %if %{with cmake}
 BuildRequires: cmake
@@ -96,9 +115,11 @@ You dont need any CAD experience to get started with QCAD immediately.
 rm -rf ../*-SPECPARTS
 
 # Use Fedora Qt5 scripts
+%if %{without qt6}
 cp -a src/3rdparty/qt-labs-qtscriptgenerator-5.15.8 src/3rdparty/qt-labs-qtscriptgenerator-5.15.17
 mv src/3rdparty/qt-labs-qtscriptgenerator-5.15.17/qt-labs-qtscriptgenerator-5.15.8.pro \
  src/3rdparty/qt-labs-qtscriptgenerator-5.15.17/qt-labs-qtscriptgenerator-5.15.17.pro
+%endif
 
 
 %build
@@ -109,13 +130,12 @@ mv src/3rdparty/qt-labs-qtscriptgenerator-5.15.17/qt-labs-qtscriptgenerator-5.15
 %define _lto_cflags %{nil}
 
 %if %{with cmake}
-%define _vpath_srcdir ./
-%define _vpath_builddir ./
 export LDFLAGS="%{__global_ldflags} -Wl,-rpath -Wl,%{_QCAD_DIR}"
-%cmake -DBUILD_QT6:BOOL=OFF -DCMAKE_BUILD_TYPE:STRING=Release \
-       -DCMAKE_CFLAGS_RELEASE="%{build_cflags} %(pkg-config --cflags Qt5UiTools)" \
-       -DCMAKE_CXXFLAGS_RELEASE="%{build_cxxflags} %(pkg-config --cflags Qt5UiTools)" \
-       -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE
+%cmake -DBUILD_QT6:BOOL=ON -DCMAKE_BUILD_TYPE:STRING=Release \
+       -DCMAKE_CFLAGS_RELEASE="%{build_cflags} %(pkg-config --cflags Qt6UiTools)" \
+       -DCMAKE_CXXFLAGS_RELEASE="%{build_cxxflags} %(pkg-config --cflags Qt6UiTools)" \
+       -DVulkan_GLSLC_EXECUTABLE:FILEPATH=%{_bindir}/glslang -DVulkan_GLSLANG_VALIDATOR_EXECUTABLE:FILEPATH=%{_bindir}/glslangValidator \
+       -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE -DBUILD_SHARED_LIBS:BOOL=OFF
 %cmake_build
 %else
 %{_qt5_qmake} -makefile CONFIG+=release %{name}.pro \
@@ -127,7 +147,9 @@ export LDFLAGS="%{__global_ldflags} -Wl,-rpath -Wl,%{_QCAD_DIR}"
 %endif
 
 %install
-
+%if %{with cmake}
+%cmake_install
+%else
 mkdir -p %{buildroot}%{_QCAD_DIR}/ts
 mkdir -p %{buildroot}%{_datadir}/pixmaps
 mkdir -p %{buildroot}%{_bindir}
@@ -200,6 +222,7 @@ for i in `find . -type f \( -name "*.so*" -o -name "qcad-bin" \)`; do
   chrpath -r %{_QCAD_DIR} $i
 done
 popd
+%endif
 
 cat > %{buildroot}%{_bindir}/%{name} <<EOF
 #!/bin/sh
@@ -231,7 +254,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %license src/3rdparty/dxflib/gpl-2.0greater.txt
 %license src/3rdparty/spatialindexnavel/COPYING
 %license src/3rdparty/stemmer/bsd-2.txt
-%license src/3rdparty/opennurbs/readme.txt
 %{_bindir}/%{name}
 %{_QCAD_DIR}/
 %{_datadir}/applications/%{name}.desktop

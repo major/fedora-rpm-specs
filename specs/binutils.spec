@@ -7,7 +7,7 @@ Name: binutils%{?_with_debug:-debug}
 # The variable %%{source} (see below) should be set to indicate which of these
 # origins is being used.
 Version: 2.45.50
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -121,7 +121,7 @@ URL: https://sourceware.org/binutils
 # correctly.  Note %%(echo) is used because you cannot directly set a
 # spec variable to a hexadecimal string value.
 
-%define commit_id %(echo "7e432e93f8a")
+%define commit_id %(echo "79b2b564fec")
 
 #----End of Configure Options------------------------------------------------
 
@@ -1465,6 +1465,9 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Mon Sep 08 2025 Nick Clifton <nickc@redhat.com> - 2.45.50-3
+- Rebase to commit 79b2b564fec
+
 * Tue Aug 19 2025 Nick Clifton <nickc@redhat.com> - 2.45.50-2
 - Rebase to commit 7e432e93f8a (previous rebase appears to be broken)
 

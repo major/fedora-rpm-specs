@@ -4,16 +4,16 @@
 %define python3_version                3.8
 
 Name:           pygobject3
-Version:        3.53.0
+Version:        3.54.0
 Release:        %autorelease
 Summary:        Python bindings for GObject Introspection
 
 License:        LGPL-2.1-or-later
 URL:            https://wiki.gnome.org/Projects/PyGObject
-Source0:        https://download.gnome.org/sources/pygobject/3.53/pygobject-%{version}.tar.gz
+Source0:        https://download.gnome.org/sources/pygobject/3.54/pygobject-%{version}.tar.gz
 
-# https://gitlab.gnome.org/GNOME/pygobject/-/merge_requests/445
-Patch:          gdesktopappinfo-compat.patch
+# https://gitlab.gnome.org/GNOME/pygobject/-/merge_requests/450
+Patch:          gio-platform.patch
 
 BuildRequires:  pkgconfig(cairo-gobject)
 BuildRequires:  pkgconfig(glib-2.0) >= %{glib2_version}

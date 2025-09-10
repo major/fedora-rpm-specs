@@ -6,7 +6,7 @@
 }
 
 Name:           python-%{srcname}
-Version:        1.26
+Version:        1.27
 Release:        1%{?dist}
 Summary:        Font Querying tool for Fedora
 License:        MIT
@@ -83,6 +83,9 @@ This package contains the image build tools for %{srcname}.
 %{_bindir}/fontquery-build
 
 %changelog
+* Mon Sep  8 2025 Akira TAGOH <tagoh@redhat.com> - 1.27-1
+- New upstream release.
+
 * Fri Sep  5 2025 Akira TAGOH <tagoh@redhat.com> - 1.26-1
 - New upstream release.
 

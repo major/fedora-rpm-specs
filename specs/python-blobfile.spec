@@ -1,5 +1,5 @@
 Name:           python-blobfile
-Version:        3.0.0
+Version:        3.1.0
 Release:        %autorelease
 Summary:        Read GCS, ABS and local paths with the same interface
 
@@ -9,8 +9,6 @@ Source:         %{pypi_source blobfile}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-# BuildRequires to convert README.md
-BuildRequires:  dos2unix
 # BuildRequires for testing
 #BuildRequires:  python3dist(xmltodict)
 #BuildRequires:  python3dist(lxml)
@@ -43,7 +41,6 @@ Summary:        %{summary}
 
 %prep
 %autosetup -p1 -n blobfile-%{version}
-/usr/bin/dos2unix -k README.md
 # Remove the test files, not needed for normal operation.
 # We cannot use them, (see below,) so remove them.
 # See: https://github.com/blobfile/blobfile/issues/226

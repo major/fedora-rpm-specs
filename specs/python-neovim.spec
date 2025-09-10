@@ -9,13 +9,12 @@ connecting to and scripting Nvim processes through its msgpack-rpc API.
 %bcond sphinx 1
 
 Name:           python-neovim
-Version:        0.5.2
+Version:        0.6.0
 Release:        %autorelease
 License:        Apache-2.0
 Summary:        Python client to Neovim
 URL:            https://github.com/neovim/pynvim
 Source0:        https://github.com/neovim/pynvim/archive/%{version}/pynvim-%{version}.tar.gz
-Patch0:         https://github.com/neovim/pynvim/pull/584.patch#/pynvim-fix-asyncio.patch
 
 BuildArch:      noarch
 BuildRequires:  make
@@ -88,6 +87,7 @@ popd
 %files -n python%{python3_pkgversion}-neovim
 %license LICENSE
 %doc README.md
+%{_bindir}/pynvim-python
 %{python3_sitelib}/*
 
 %if %{with sphinx}

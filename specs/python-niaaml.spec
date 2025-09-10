@@ -44,7 +44,7 @@ BuildArch:      noarch
 Summary:        %{summary}
 
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist toml-adapt}
+BuildRequires:  tomcli
 
 %if %{with tests}
 BuildRequires:  %{py3_dist pytest}
@@ -73,8 +73,11 @@ Documentation for %{name}.
 %autosetup -n %{pretty_name}-%{version}
 rm -fv poetry.lock
 
-# Make deps consistent with Fedora deps
-toml-adapt -path pyproject.toml -a change -dep ALL -ver X
+# Drop version pinning (we use the versions available in Fedora)
+for DEP in $(tomcli get -F newline-keys pyproject.toml tool.poetry.dependencies)
+do
+    tomcli set pyproject.toml replace tool.poetry.dependencies.${DEP} ".*" "*"
+done
 
 # Ensure the Python interpreter path is correct in the example runner script:
 sed -r -i 's|\bpython3\b|%{python3}|' examples/run_all.sh

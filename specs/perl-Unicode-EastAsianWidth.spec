@@ -1,8 +1,8 @@
-%bcond perl_Unicode_EastAsianWidth_enables_system_Module_Package %{undefined rhel}
+%bcond perl_Unicode_EastAsianWidth_enables_Module_Package %{undefined rhel}
 
 Name:		perl-Unicode-EastAsianWidth
 Version:	12.0
-Release:	18%{?dist}
+Release:	19%{?dist}
 Summary:	East Asian Width properties
 License:	CC0-1.0
 URL:		https://metacpan.org/release/Unicode-EastAsianWidth
@@ -16,12 +16,11 @@ BuildRequires:	perl(base)
 BuildRequires:	perl(Exporter)
 BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:	perl(lib)
-%if %{with perl_Unicode_EastAsianWidth_enables_system_Module_Package}
+%if %{with perl_Unicode_EastAsianWidth_enables_Module_Package}
 BuildRequires:	perl(Module::Package)
 BuildRequires:	perl(Module::Package::Au)
 %else
-# bundled Module::Install dependencies
-BuildRequires:	perl(FindBin)
+BuildRequires:	perl(inc::Module::Install)
 %endif
 BuildRequires:	perl(strict)
 BuildRequires:	perl(Test)
@@ -38,9 +37,15 @@ status of East Asian characters, as specified in
 
 %prep
 %setup -q -n Unicode-EastAsianWidth-%{version}
-%if %{with perl_Unicode_EastAsianWidth_enables_system_Module_Package}
 rm -rf inc
 perl -i -ne 'print $_ unless m{^inc/}' MANIFEST
+%if %{without perl_Unicode_EastAsianWidth_enables_Module_Package}
+perl -i -ne 'print m{Au:dry} ? "use inc::Module::Install;" : $_' Makefile.PL
+cat >> Makefile.PL <<_EOF
+name 'Unicode-EastAsianWidth';
+all_from 'lib/Unicode/EastAsianWidth.pm';
+WriteAll;
+_EOF
 %endif
 
 %build
@@ -61,6 +66,9 @@ make test
 %{_mandir}/man3/Unicode::EastAsianWidth.3pm*
 
 %changelog
+* Thu Sep 04 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 12.0-19
+- Use system Module::Install but skip Module::Package on RHEL
+
 * Tue Sep 02 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 12.0-18
 - Use bundled Module::Package in RHEL builds
 

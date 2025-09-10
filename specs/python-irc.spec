@@ -55,7 +55,7 @@ tomcli set pyproject.toml lists str "tool.hatch.build.targets.wheel.packages" %{
 
 %generate_buildrequires
 %if %{with tests}
-%pyproject_buildrequires -t
+%pyproject_buildrequires -x test
 %else
 %pyproject_buildrequires
 %endif
@@ -69,7 +69,7 @@ tomcli set pyproject.toml lists str "tool.hatch.build.targets.wheel.packages" %{
 
 %check
 %if %{with tests}
-%tox
+%pytest
 %else
 %pyproject_check_import -e irc.tests*
 %endif

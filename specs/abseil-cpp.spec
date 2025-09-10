@@ -1,8 +1,8 @@
 # Installed library version
-%global lib_version 2505.0.0
+%global lib_version 2508.0.0
 
 Name:           abseil-cpp
-Version:        20250512.1
+Version:        20250814.0
 Release:        %autorelease
 Summary:        C++ Common Libraries
 
@@ -23,18 +23,6 @@ Summary:        C++ Common Libraries
 License:        Apache-2.0 AND LicenseRef-Fedora-Public-Domain
 URL:            https://abseil.io
 Source:         https://github.com/abseil/abseil-cpp/archive/%{version}/%{name}-%{version}.tar.gz
-
-# Adjust Table.GrowExtremelyLargeTable to avoid OOM on i386
-# https://github.com/abseil/abseil-cpp/pull/1888
-# Partial fix for:
-# [Bug]: Test regressions in 20250512.0 on i686
-# https://github.com/abseil/abseil-cpp/issues/1887
-Patch:          https://github.com/abseil/abseil-cpp/pull/1888.patch
-
-# Skip StackTrace.FixupNoFixupEquivalence on i386
-# Downstream-only, because it does not address the root cause:
-# https://github.com/abseil/abseil-cpp/issues/1887
-Patch:          0001-Skip-StackTrace.FixupNoFixupEquivalence-on-i386.patch
 
 BuildRequires:  cmake
 # The default make backend would work just as well; ninja is observably faster
@@ -128,6 +116,10 @@ skips='^($.'
 # Fedora
 # https://github.com/abseil/abseil-cpp/issues/1804
 skips="${skips}|absl_failure_signal_handler_test"
+# [Bug]: StackTrace.NestedSignal in absl_stacktrace_test fails on ppc64le since
+# 20250184.0
+# https://github.com/abseil/abseil-cpp/issues/1925
+skips="${skips}|absl_stacktrace_test"
 %endif
 skips="${skips})$"
 
@@ -173,9 +165,11 @@ skips="${skips})$"
 %{_libdir}/libabsl_graphcycles_internal.so.%{lib_version}
 %{_libdir}/libabsl_hash.so.%{lib_version}
 %{_libdir}/libabsl_hashtablez_sampler.so.%{lib_version}
+%{_libdir}/libabsl_hashtable_profiler.so.%{lib_version}
 %{_libdir}/libabsl_int128.so.%{lib_version}
 %{_libdir}/libabsl_kernel_timeout_internal.so.%{lib_version}
 %{_libdir}/libabsl_leak_check.so.%{lib_version}
+%{_libdir}/libabsl_log_entry.so.%{lib_version}
 %{_libdir}/libabsl_log_flags.so.%{lib_version}
 %{_libdir}/libabsl_log_globals.so.%{lib_version}
 %{_libdir}/libabsl_log_initialize.so.%{lib_version}
@@ -191,10 +185,10 @@ skips="${skips})$"
 %{_libdir}/libabsl_log_internal_structured_proto.so.%{lib_version}
 %{_libdir}/libabsl_log_severity.so.%{lib_version}
 %{_libdir}/libabsl_log_sink.so.%{lib_version}
-%{_libdir}/libabsl_low_level_hash.so.%{lib_version}
 %{_libdir}/libabsl_malloc_internal.so.%{lib_version}
 %{_libdir}/libabsl_periodic_sampler.so.%{lib_version}
 %{_libdir}/libabsl_poison.so.%{lib_version}
+%{_libdir}/libabsl_profile_builder.so.%{lib_version}
 %{_libdir}/libabsl_random_distributions.so.%{lib_version}
 %{_libdir}/libabsl_random_internal_distribution_test_util.so.%{lib_version}
 %{_libdir}/libabsl_random_internal_entropy_pool.so.%{lib_version}

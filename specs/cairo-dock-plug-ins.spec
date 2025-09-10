@@ -1,17 +1,17 @@
 %global	urlver		3.5
 %global	mainver		3.5.99
 
-%global	core_least_ver	3.5.99^20250822gitf3de00e
+%global	core_least_ver	3.5.99^20250907git2cd4d36
 
 %global	use_git	1
-%global	gitdate	20250822
-%global	githash	cb4e816c84f4a631e390a1c95835765c9f16ac00
+%global	gitdate	20250908
+%global	githash	ac4c5fc5921a152c8d8d6c62859bf77f5efee25e
 %global	shorthash	%(c=%{githash} ; echo ${c:0:7})
 
 %global	tarballver	%{mainver}%{?use_git:-%{gitdate}git%{shorthash}}
 
 %global	baserelease	1
-%global	alphatag		.rc7
+%global	alphatag		.rc9
 
 %global	ruby_vendorlib	%(ruby -rrbconfig -e "puts RbConfig::CONFIG['vendorlibdir']")
 %global	dbus_datadir	%{_datadir}/cairo-dock/plug-ins/Dbus
@@ -417,6 +417,9 @@ popd
 %{_datadir}/cairo-dock/plug-ins/Dbus/CDApplet.h
 
 %changelog
+* Mon Sep 08 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.5.99^20250908gitac4c5fc-1.rc9
+- Update to the latest git (20250908gitac4c5fc)
+
 * Sun Aug 24 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.5.99^20250822gitcb4e816-1.rc7
 - Update to the latest git (20250822gitcb4e816)
 

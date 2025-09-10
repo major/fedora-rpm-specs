@@ -1,11 +1,10 @@
 Name:           perl-Convert-Binary-C
-Version:        0.85
-Release:        5%{?dist}
+Version:        0.86
+Release:        1%{?dist}
 Summary:        Binary data conversion using C types
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Convert-Binary-C
 Source0:        https://cpan.metacpan.org/modules/by-module/Convert/Convert-Binary-C-%{version}.tar.gz
-Patch1:         Convert-Binary-C-0.85-c23.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -63,7 +62,6 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n Convert-Binary-C-%{version}
-%patch -P1 -p0
 
 # Help generators to recognize Perl scripts
 for F in tests/*.t; do
@@ -116,6 +114,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Sep 08 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.86-1
+- 0.86 bump (rhbz#2393710)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.85-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

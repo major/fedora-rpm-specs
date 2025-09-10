@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.2.5
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        PHP parser written in Python using PLY 
 
 License:        BSD-3-Clause
@@ -36,9 +36,10 @@ phply is a parser for the PHP programming language written using PLY
 %install
 %pyproject_install
 rm -rf %{buildroot}/%{python3_sitelib}/tests
+%pyproject_save_files %{pypi_name}
 
 %check
-%py3_check_import %{pypi_name}
+%pyproject_check_import
 
 %files -n python3-%{pypi_name}
 %doc README.md
@@ -50,6 +51,9 @@ rm -rf %{buildroot}/%{python3_sitelib}/tests
 %{python3_sitelib}/%{pypi_name}*.pth
 
 %changelog
+* Mon Sep 08 2025 Parag Nemade <pnemade AT redhat DOT com> - 1.2.5-16
+- Update %%check section to use pyproject macros
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.2.5-15
 - Rebuilt for Python 3.14.0rc2 bytecode
 

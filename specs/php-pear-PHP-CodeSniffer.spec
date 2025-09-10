@@ -13,9 +13,9 @@
 
 %bcond_without       tests
 
-%global gh_commit    5b5e3821314f947dd040c70f7992a64eac89025c
+%global gh_commit    ad545ea9c1b7d270ce0fc9cbfb884161cd706119
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
-%global gh_date      2025-06-17
+%global gh_date      2025-09-05
 %global gh_owner     PHPCSStandards
 %global gh_project   PHP_CodeSniffer
 # keep in old PEAR tree
@@ -23,8 +23,8 @@
 
 
 Name:           php-pear-PHP-CodeSniffer
-Version:        3.13.2
-Release:        2%{?dist}
+Version:        3.13.4
+Release:        1%{?dist}
 Summary:        PHP coding standards enforcement tool
 
 License:        BSD-3-Clause
@@ -145,6 +145,9 @@ fi
 
 
 %changelog
+* Mon Sep  8 2025 Remi Collet <remi@remirepo.net> - 3.13.4-1
+- update to 3.13.4
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

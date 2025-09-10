@@ -2,23 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate lebe
+%global crate icu_locale_data
 
-Name:           rust-lebe
-Version:        0.5.3
+Name:           rust-icu_locale_data
+Version:        2.0.0
 Release:        %autorelease
-Summary:        Tiny, dead simple, high performance endianness conversions with a generic API
+Summary:        Data for the icu_locale crate
 
-License:        BSD-3-Clause
-URL:            https://crates.io/crates/lebe
+License:        Unicode-3.0
+URL:            https://crates.io/crates/icu_locale_data
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
-BuildRequires:  tomcli
 
 %global _description %{expand:
-Tiny, dead simple, high performance endianness conversions with a
-generic API.}
+Data for the icu_locale crate.}
 
 %description %{_description}
 
@@ -32,7 +30,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-BSD-3-Clause
+%license %{crate_instdir}/LICENSE
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -51,8 +49,6 @@ use the "default" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
-# Do not depend on bencher; it is needed only for benchmarks.
-tomcli set Cargo.toml del dev-dependencies.bencher
 
 %generate_buildrequires
 %cargo_generate_buildrequires

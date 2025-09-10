@@ -28,8 +28,8 @@
 %bcond_without check
 
 %if %{with bundle_compat_lib}
-%global compat_maj_ver 19
-%global compat_ver %{compat_maj_ver}.1.7
+%global compat_maj_ver 20
+%global compat_ver %{compat_maj_ver}.1.8
 %endif
 
 # Compat builds do not include python-lit
@@ -42,7 +42,7 @@
 %bcond_without lldb
 
 %ifarch ppc64le
-%if %{defined rhel} && 0%{?rhel} < 10 && %{maj_ver} >= 21
+%if %{defined rhel} && 0%{?rhel} < 10
 # RHEL <= 9 use the IBM long double format, which is not supported by libc.
 # Since LLVM 21, parts of libc are required in order to build offload.
 %bcond_with offload
@@ -98,7 +98,7 @@
 %ifarch %{ix86}
 %bcond_with pgo
 %else
-%if 0%{?fedora} >= 43 || (0%{?rhel} >= 9 && %{maj_ver} >= 21)
+%if 0%{?fedora} >= 43 || 0%{?rhel} >= 9
 %bcond_without pgo
 %else
 %bcond_with pgo
@@ -184,13 +184,6 @@
 %global src_tarball_dir llvm-project-%{llvm_snapshot_git_revision}
 %else
 %global src_tarball_dir llvm-project-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-%{rc_ver}}.src
-%endif
-
-%global has_crtobjs 1
-%if %{maj_ver} < 21
-%ifarch s390x
-%global has_crtobjs 0
-%endif
 %endif
 
 # LLD uses "fast" as the algortithm for generating build-id
@@ -402,7 +395,6 @@ Patch104: 0001-Driver-Give-devtoolset-path-precedence-over-Installe.patch
 
 # Fix LLVMConfig.cmake when symlinks are used.
 # (https://github.com/llvm/llvm-project/pull/124743 landed in LLVM 21)
-Patch1902: 0001-cmake-Resolve-symlink-when-finding-install-prefix.patch
 Patch2003: 0001-cmake-Resolve-symlink-when-finding-install-prefix.patch
 
 #region LLD patches
@@ -417,10 +409,6 @@ Patch107: 0001-20-polly-shared-libs.patch
 # RHEL 8 only
 Patch501: 0001-Fix-page-size-constant-on-aarch64-and-ppc64le.patch
 #endregion RHEL patches
-
-# Fix an isel error triggered by Rust 1.85 on s390x
-# https://github.com/llvm/llvm-project/issues/124001
-Patch1901: 0001-SystemZ-Fix-ICE-with-i128-i64-uaddo-carry-chain.patch
 
 # Fix a pgo miscompilation triggered by building Rust 1.87 with pgo on ppc64le.
 # https://github.com/llvm/llvm-project/issues/138208
@@ -1835,11 +1823,7 @@ cd ..
     -DLLVM_ENABLE_PROJECTS="clang;lldb" \
     -DLLVM_INCLUDE_BENCHMARKS=OFF \
     -DLLVM_INCLUDE_TESTS=OFF \
-    %{cmake_common_args} \
-%if %{compat_maj_ver} <= 19
-    -DLLVM_TARGETS_TO_BUILD="$(echo %{targets_to_build});Mips;ARM" \
-%endif
-    %{nil}
+    %{cmake_common_args}
 
 %ninja_build -C ../llvm-compat-libs LLVM
 %ninja_build -C ../llvm-compat-libs libclang.so
@@ -2401,30 +2385,9 @@ test_list_filter_out+=("libomp :: worksharing/for/omp_collapse_many_GTGEGT_int.c
 test_list_filter_out+=("libomp :: worksharing/for/omp_collapse_many_LTLEGE_int.c")
 test_list_filter_out+=("libomp :: worksharing/for/omp_collapse_one_int.c")
 
-%if %{maj_ver} < 21
-# The following test is flaky and we'll filter it out
-test_list_filter_out+=("libomp :: parallel/bug63197.c")
-test_list_filter_out+=("libomp :: tasking/issue-69733.c")
-test_list_filter_out+=("libarcher :: races/task-taskgroup-unrelated.c")
-
-# The following tests have been failing intermittently.
-# Issue upstream: https://github.com/llvm/llvm-project/issues/127796
-test_list_filter_out+=("libarcher :: races/task-two.c")
-test_list_filter_out+=("libarcher :: races/lock-nested-unrelated.c")
-%endif
-
 %ifarch s390x
 test_list_filter_out+=("libomp :: flush/omp_flush.c")
 test_list_filter_out+=("libomp :: worksharing/for/omp_for_schedule_guided.c")
-%endif
-
-%if %{maj_ver} < 21
-%ifarch aarch64 s390x
-# The following test has been failing intermittently on aarch64 and s390x.
-# Re-enable it after https://github.com/llvm/llvm-project/issues/117773
-# gets fixed.
-test_list_filter_out+=("libarcher :: races/taskwait-depend.c")
-%endif
 %endif
 
 # The following tests seem pass on ppc64le and x86_64 and aarch64 only:
@@ -2528,7 +2491,6 @@ export LIT_XFAIL="$LIT_XFAIL;offloading/thread_state_2.c"
 
 adjust_lit_filter_out test_list_filter_out
 
-%if %{maj_ver} >= 21
 # This allows openmp tests to be re-run 4 times. Once they pass
 # after being re-run, they are marked as FLAKYPASS.
 # See https://github.com/llvm/llvm-project/pull/141851 for the
@@ -2539,7 +2501,6 @@ adjust_lit_filter_out test_list_filter_out
 # we can see the exact number of attempts the tests needed
 # to pass. And then we can adapt this number.
 export LIT_OPTS="$LIT_OPTS --max-retries-per-test=4"
-%endif
 
 %if 0%{?rhel}
 # libomp tests are often very slow on s390x brew builders
@@ -2829,6 +2790,7 @@ fi
     llvm-mc
     llvm-mca
     llvm-ml
+    llvm-ml64
     llvm-modextract
     llvm-mt
     llvm-nm
@@ -2870,12 +2832,6 @@ fi
     verify-uselistorder
     yaml2obj
 }}
-
-%if %{maj_ver} >= 21
-%{expand_bins %{expand:
-    llvm-ml64
-}}
-%endif
 
 %if %{maj_ver} >= 22
 %{expand_bins %{expand:
@@ -3015,15 +2971,11 @@ fi
     lli-child-target
     llvm-isel-fuzzer
     llvm-opt-fuzzer
-}}
-%if %{maj_ver} >= 21
-%{expand_bins %{expand:
     llvm-test-mustache-spec
 }}
 %{expand_mans %{expand:
     llvm-test-mustache-spec
 }}
-%endif
 
 %files -n %{pkg_name_llvm}-googletest
 %license llvm/LICENSE.TXT
@@ -3172,12 +3124,8 @@ fi
     modularize
     clang-format-diff
     run-clang-tidy
-}}
-%if %{maj_ver} >= 21
-%{expand_bins %{expand:
     offload-arch
 }}
-%endif
 
 %if %{without compat_build}
 %{_emacs_sitestartdir}/clang-format.el
@@ -3225,11 +3173,8 @@ fi
 
 # Files that appear on all targets
 %{_prefix}/lib/clang/%{maj_ver}/lib/%{compiler_rt_triple}/libclang_rt.*
-
-%if %{has_crtobjs}
 %{_prefix}/lib/clang/%{maj_ver}/lib/%{compiler_rt_triple}/clang_rt.crtbegin.o
 %{_prefix}/lib/clang/%{maj_ver}/lib/%{compiler_rt_triple}/clang_rt.crtend.o
-%endif
 
 %ifnarch %{ix86} s390x riscv64
 %{_prefix}/lib/clang/%{maj_ver}/lib/%{compiler_rt_triple}/liborc_rt.a
@@ -3270,20 +3215,12 @@ fi
     libLLVMOffload.so
 }}
 
-%if %{maj_ver} < 21
-%{expand_libs %{expand:
-    libomptarget.devicertl.a
-    libomptarget-amdgpu*.bc
-    libomptarget-nvptx*.bc
-}}
-%else
 %{expand_libs %{expand:
     amdgcn-amd-amdhsa/libompdevice.a
     amdgcn-amd-amdhsa/libomptarget-amdgpu.bc
     nvptx64-nvidia-cuda/libompdevice.a
     nvptx64-nvidia-cuda/libomptarget-nvptx.bc
 }}
-%endif
 
 %expand_includes offload
 %endif
@@ -3366,6 +3303,11 @@ fi
 
 %files -n %{pkg_name_lldb}-devel
 %expand_includes lldb
+%if %{maj_ver} >= 22
+%{expand_bins %{expand:
+    yaml2macho-core
+}}
+%endif
 
 %if %{without compat_build}
 %files -n python%{python3_pkgversion}-lldb

@@ -1,15 +1,13 @@
 Name:           dumpasn1
 Version:        20250606
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        ASN.1 object dump utility
 
 License:        MIT
 URL:            https://github.com/cryptlib/dumpasn1/
-Source0:        https://raw.githubusercontent.com/cryptlib/dumpasn1/1b6f9687b4d66e651aad86cf7b4f720ad6de701c/dumpasn1.c
-Source1:        https://raw.githubusercontent.com/cryptlib/dumpasn1/1b6f9687b4d66e651aad86cf7b4f720ad6de701c/dumpasn1.cfg
-# man page extracted from http://ftp.debian.org/debian/pool/main/d/dumpasn1/dumpasn1_20030222-1.diff.gz
-Source2:        dumpasn1.1
-
+Source0:        https://raw.githubusercontent.com/cryptlib/dumpasn1/6667e5725c92505427c30ab054f8a5659ff972e1/dumpasn1.c
+Source1:        https://raw.githubusercontent.com/cryptlib/dumpasn1/6667e5725c92505427c30ab054f8a5659ff972e1/dumpasn1.cfg
+Source2:        https://raw.githubusercontent.com/cryptlib/dumpasn1/6667e5725c92505427c30ab054f8a5659ff972e1/dumpasn1.1
 
 BuildRequires:  gcc
 BuildRequires:  sed >= 3.95
@@ -47,6 +45,11 @@ install -Dpm 644 dumpasn1.1 $RPM_BUILD_ROOT%{_mandir}/man1/dumpasn1.1
 
 
 %changelog
+* Mon Sep 08 2025 François Kooman <fkooman@tuxed.net> - 20250606-3
+- update `dumpasn1.cfg`
+- use manpage directly from official repository
+- confirmed with author upstream moved to GitHub
+
 * Fri Sep 05 2025 François Kooman <fkooman@tuxed.net> - 20250606-2
 - point to exact commit for source files
 

@@ -5,7 +5,7 @@
 %global crate minreq
 
 Name:           rust-minreq
-Version:        2.14.0
+Version:        2.14.1
 Release:        %autorelease
 Summary:        Simple, minimal-dependency HTTP client
 
@@ -120,6 +120,18 @@ This package contains library source intended for building other packages which
 use the "json-using-serde" feature of the "%{crate}" crate.
 
 %files       -n %{name}+json-using-serde-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+log-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+log-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "log" feature of the "%{crate}" crate.
+
+%files       -n %{name}+log-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+native-tls-devel

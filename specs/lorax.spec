@@ -4,8 +4,8 @@
 %global forgeurl https://github.com/weldr/lorax
 
 Name:           lorax
-Version:        43.10
-Release:        5%{?dist}
+Version:        44.0
+Release:        1%{?dist}
 Summary:        Tool for creating the anaconda install images
 License:        GPL-2.0-or-later
 
@@ -13,10 +13,6 @@ License:        GPL-2.0-or-later
 %forgemeta
 Url:            %{forgeurl}
 Source0:        %{forgesource}
-
-# https://github.com/weldr/lorax/pull/1489
-# Drop install of shim-ia32 as it no longer exists
-Patch:          0001-Drop-all-installs-of-shim-ia32-it-no-longer-exists.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-pip
@@ -144,7 +140,7 @@ Lorax templates for creating the boot.iso and live isos are placed in
 /usr/share/lorax/templates.d/99-generic
 
 %prep
-%forgeautosetup -p1
+%forgeautosetup
 
 %build
 
@@ -188,17 +184,11 @@ make DESTDIR=$RPM_BUILD_ROOT mandir=%{_mandir} install
 %{_datadir}/lorax/templates.d/*
 
 %changelog
-* Tue Aug 26 2025 Adam Williamson <awilliam@redhat.com> - 43.10-5
-- Update PR #1489 patch again (fix lmc lives)
-
-* Tue Aug 26 2025 Adam Williamson <awilliam@redhat.com> - 43.10-4
-- Update PR #1489 patch to a better-working version
-
-* Tue Aug 26 2025 Adam Williamson <awilliam@redhat.com> - 43.10-3
-- Backport PR #1489 to drop install of shim-ia32
-
-* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 43.10-2
-- Rebuilt for Python 3.14.0rc2 bytecode
+* Mon Sep 08 2025 Brian C. Lane <bcl@redhat.com> 44.0-1
+- maint: Switch default platform to F44 (bcl@redhat.com)
+- Drop all installs of shim-ia32 (it no longer exists) (awilliam@redhat.com)
+- templates: Support product version to contain blank character in
+  templates.d/99-generic (songmingliang@uniontech.com)
 
 * Thu Aug 14 2025 Brian C. Lane <bcl@redhat.com> 43.10-1
 - executils: Remove binary_output flag (bcl@redhat.com)

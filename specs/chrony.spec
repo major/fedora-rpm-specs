@@ -9,7 +9,7 @@
 
 Name:           chrony
 Version:        4.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An NTP client/server
 
 License:        GPL-2.0-only
@@ -105,6 +105,7 @@ mv clknetsim-*-%{clknetsim_ver}* test/simulation/clknetsim
         --chronyrundir=/run/chrony \
         --docdir=%{_docdir} \
         --with-ntp-era=$(date -d '1970-01-01 00:00:00+00:00' +'%s') \
+        --with-chronyc-user=chrony \
         --with-user=chrony \
         --with-hwclockfile=%{_sysconfdir}/adjtime \
         --with-pidfile=/run/chrony/chronyd.pid \
@@ -205,6 +206,9 @@ fi
 %ghost %dir %attr(750,chrony,chrony) %{_localstatedir}/log/chrony
 
 %changelog
+* Mon Sep 08 2025 Miroslav Lichvar <mlichvar@redhat.com> 4.8-2
+- drop root privileges in chronyc by default
+
 * Wed Aug 27 2025 Miroslav Lichvar <mlichvar@redhat.com> 4.8-1
 - update to 4.8
 

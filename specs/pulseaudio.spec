@@ -92,7 +92,6 @@ BuildRequires:  pkgconfig(check)
 BuildRequires:  libtool-ltdl-devel
 BuildRequires:  alsa-lib-devel
 BuildRequires:  avahi-devel
-BuildRequires:  libatomic_ops-static, libatomic_ops-devel
 BuildRequires:  pkgconfig(bluez) >= 5.0
 BuildRequires:  sbc-devel
 BuildRequires:  libXt-devel
@@ -666,6 +665,9 @@ systemctl --no-reload preset --global pulseaudio.socket >/dev/null 2>&1 || :
 
 
 %changelog
+* Mon Sep 08 2025 Dan Horák <dan[at]danny.cz> - 17.0-8
+- drop unused BR: libatomic_ops
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 17.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

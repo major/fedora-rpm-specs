@@ -29,8 +29,10 @@ Source0: https://download.qt.io/development_releases/qt/%{majmin}/%{qt_version}/
 Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submodules/%{qt_module}-everywhere-src-%{version}.tar.xz
 %endif
 Patch0:  qtquick3d-fix-build-with-gcc11.patch
+%if 0%{?fedora} >= 43
 # From https://gitlab.archlinux.org/archlinux/packaging/packages/qt6-quick3d
 Patch1:  qtquick3d-fix-build-with-assimp6.patch
+%endif
 
 BuildRequires: cmake
 BuildRequires: gcc-c++

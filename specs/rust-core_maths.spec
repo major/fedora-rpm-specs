@@ -2,23 +2,22 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate lebe
+%global crate core_maths
 
-Name:           rust-lebe
-Version:        0.5.3
+Name:           rust-core_maths
+Version:        0.1.1
 Release:        %autorelease
-Summary:        Tiny, dead simple, high performance endianness conversions with a generic API
+Summary:        Extension trait for full float functionality in #[no_std] backed by libm
 
-License:        BSD-3-Clause
-URL:            https://crates.io/crates/lebe
+License:        MIT
+URL:            https://crates.io/crates/core_maths
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
-BuildRequires:  tomcli
 
 %global _description %{expand:
-Tiny, dead simple, high performance endianness conversions with a
-generic API.}
+Extension trait for full float functionality in `#[no_std]` backed by
+`libm`.}
 
 %description %{_description}
 
@@ -32,7 +31,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-BSD-3-Clause
+%license %{crate_instdir}/LICENSE
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -51,8 +50,6 @@ use the "default" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
-# Do not depend on bencher; it is needed only for benchmarks.
-tomcli set Cargo.toml del dev-dependencies.bencher
 
 %generate_buildrequires
 %cargo_generate_buildrequires

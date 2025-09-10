@@ -17,11 +17,6 @@ Source0:        %forgesource
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist toml-adapt}
-%if %{with tests}
-BuildRequires:  %{py3_dist pytest}
-BuildRequires:  %{py3_dist pytest-qt}
-%endif
 # The python3dist(pyqt6) dependency generated from PyQt6 in
 # pyproject.toml is satisfied by python3-pyqt6-base, but this project
 # uses PyQt6.QtSvg, which is packaged along with other “non-core” modules
@@ -29,6 +24,11 @@ BuildRequires:  %{py3_dist pytest-qt}
 # be represented) in the Python metadata, we need explicit BuildRequires
 # *and* Requires on the full python3-pyqt6.
 BuildRequires:  python3-pyqt6
+BuildRequires:  tomcli
+%if %{with tests}
+BuildRequires:  %{py3_dist pytest}
+BuildRequires:  %{py3_dist pytest-qt}
+%endif
 
 %global _description %{expand:
 This software allows us to show flowing notifications in the realm
@@ -49,9 +49,13 @@ Requires:       python3-pyqt6
 %forgeautosetup -p1
 rm -rf %{pypi_name}.egg-info
 
-toml-adapt -path pyproject.toml -a change -dep python -ver X
-toml-adapt -path pyproject.toml -a change -dep emoji -ver X
-toml-adapt -path pyproject.toml -a change -dep PyQt6 -ver X
+# Drop version pinning (we use the versions available in Fedora)
+# Sphinx dependencies are optional deps not defined as strings
+for DEP in $(tomcli get -F newline-keys pyproject.toml \
+    tool.poetry.dependencies | grep -vi "sphinx")
+do
+    tomcli set pyproject.toml replace tool.poetry.dependencies.${DEP} ".*" "*"
+done
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -66,15 +70,15 @@ toml-adapt -path pyproject.toml -a change -dep PyQt6 -ver X
 
 %check
 %if %{with tests}
-%pytest -v
-%else
-%pyproject_check_import
+%pytest -r fEs
 %endif
+# Package only has three tests. Let's run the smoke test as well.
+%pyproject_check_import
+
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE
-%doc README.md CHANGELOG.md CODE_OF_CONDUCT.md CONTRIBUTING.md
-%doc CITATION.cff
+%doc CITATION.cff CHANGELOG.md CONTRIBUTING.md README.md
 
 %changelog
 %autochangelog

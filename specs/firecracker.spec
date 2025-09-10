@@ -11,8 +11,8 @@
 %bcond jailer   %{lua:print(rpm.expand("%{?cargo_target}"):find("musl") or 0)}
 
 Name:           firecracker
-Version:        1.12.1
-Release:        2%{?dist}
+Version:        1.13.1
+Release:        1%{?dist}
 
 Summary:        Secure and fast microVMs for serverless computing
 SourceLicense:  Apache-2.0
@@ -22,13 +22,13 @@ URL:            https://firecracker-microvm.github.io/
 Source0:        https://github.com/firecracker-microvm/firecracker/archive/v%{version}/%{name}-%{version}.tar.gz
 
 # Bundle forked versions of existing crates to avoid conflicts with upstreams.
-Source1:        https://github.com/firecracker-microvm/micro-http/archive/e854e50bc06a7e7bc0e5f5835d8f3f951e21f05f/micro_http-e854e50.tar.gz
-Provides:       bundled(crate(micro_http)) = 0.1.0^gite854e50
+Source1:        https://github.com/firecracker-microvm/micro-http/archive/98d85677ba603d16c40103c09059b54c38d71825/micro_http-98d8567.tar.gz
+Provides:       bundled(crate(micro_http)) = 0.1.0^git98d8567
 
 # Edit crate dependencies to track what is packaged in Fedora.
-Patch:          %{name}-1.12.0-remove-aws-lc-rs.patch
-Patch:          %{name}-1.12.0-remove-criterion.patch
-Patch:          %{name}-1.12.0-remove-device_tree.patch
+Patch:          %{name}-1.13.1-remove-aws-lc-rs.patch
+Patch:          %{name}-1.13.0-remove-criterion.patch
+Patch:          %{name}-1.13.0-remove-device_tree.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  libseccomp-devel
@@ -97,6 +97,9 @@ done
 
 
 %changelog
+* Tue Sep 02 2025 David Michael <fedora.dm0@gmail.com> - 1.13.1-1
+- Update to the 1.13.1 release.
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

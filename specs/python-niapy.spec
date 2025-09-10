@@ -36,7 +36,7 @@ use without spending time implementing algorithms from scratch.}
 %package -n python3-niapy
 Summary:        %{summary}
 BuildRequires:  python3-devel
-BuildRequires:  python3-toml-adapt
+BuildRequires:  tomcli
 
 %if %{with tests}
 # setup.py: tests_require
@@ -101,12 +101,11 @@ echo "latex_engine = 'xelatex'" >> docs/source/conf.py
 #
 #   ! LaTeX Error: \begin{list} on input line 21785 ended by \end{itemize}.
 
-# optional step but let's ensure that there is no problems with dependency versions
-toml-adapt -path pyproject.toml -a change -dep python -ver X
-toml-adapt -path pyproject.toml -a change -dep numpy -ver X
-toml-adapt -path pyproject.toml -a change -dep pandas -ver X
-toml-adapt -path pyproject.toml -a change -dep matplotlib -ver X
-toml-adapt -path pyproject.toml -a change -dep openpyxl -ver X
+# Drop version pinning (we use the versions available in Fedora)
+for DEP in $(tomcli get -F newline-keys pyproject.toml tool.poetry.dependencies)
+do
+    tomcli set pyproject.toml replace tool.poetry.dependencies.${DEP} ".*" "*"
+done
 
 %generate_buildrequires
 %pyproject_buildrequires -r %{?with_pdf_doc:docs/requirements.txt}

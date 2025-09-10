@@ -41,7 +41,7 @@
 ## can be incremented to build packages reliably considered "newer"
 ## than previously built packages with the same pcmkversion)
 %global pcmkversion 3.0.1
-%global baserelease 9
+%global baserelease 11
 
 ## Upstream commit (full commit ID, abbreviated commit ID, or tag) to build
 %global commit 16e74fc4da93a08514e1ec320fa9530b6c3d9fd5
@@ -762,6 +762,13 @@ fi
 %{_datadir}/pkgconfig/pacemaker-schemas.pc
 
 %changelog
+* Mon Sep 08 2025 Klaus Wenninger <kwenning@redhat.com> - 3.0.1-11
+- Removed tier1 test again as it was just for investigation of a CI issue
+
+* Mon Sep 08 2025 Klaus Wenninger <kwenning@redhat.com> - 3.0.1-10
+- Tests shouldn't see build-dependencies and source
+- Add another test tier
+
 * Tue Sep 02 2025 Klaus Wenninger <kwenning@redhat.com> - 3.0.1-9
 - move plans.fmf to plan-gating.fmf
 
