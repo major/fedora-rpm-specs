@@ -20,8 +20,38 @@
 # please read this for explanation of bcond syntax:
 # https://rpm-software-management.github.io/rpm/manual/conditionalbuilds.html
 #################################################################################
-%bcond_without system_boost
+%bcond_with server
+
+%if %{without server}
+
 %bcond_with make_check
+%bcond_with cmake_verbose_logging
+%bcond_with ceph_test_package
+%bcond_with tcmalloc
+%bcond_with radosgw
+%bcond_with rbd_ssd_cache
+%bcond_with rbd_rwl_cache
+%bcond_with system_pmdk
+%bcond_with selinux
+%bcond_with amqp_endpoint
+%bcond_with kafka_endpoint
+%bcond_with lttng
+%bcond_without libradosstriper
+%bcond_with ocf
+%global luarocks_package_name luarocks
+%bcond_with lua_packages
+%global _remote_tarball_prefix https://download.ceph.com/tarballs/
+%bcond_with seastar
+%bcond_with jaeger
+%bcond_with cephfs_java
+%bcond_with cephfs_shell
+%bcond_with system_arrow
+%bcond_with system_utf8proc
+
+%else
+
+%bcond_with make_check
+%bcond_with zbd
 %bcond_with cmake_verbose_logging
 %bcond_without ceph_test_package
 %ifarch s390
@@ -29,6 +59,7 @@
 %else
 %bcond_without tcmalloc
 %endif
+%bcond_without radosgw
 %bcond_without rbd_ssd_cache
 %ifarch x86_64
 %bcond_without rbd_rwl_cache
@@ -36,14 +67,10 @@
 %bcond_with rbd_rwl_cache
 %endif
 %if 0%{?fedora} || 0%{?rhel}
-%if 0%{?rhel} < 9
-%bcond_with system_pmdk
-%else
 %ifarch s390x %{arm64} riscv64
 %bcond_with system_pmdk
 %else
 %bcond_without system_pmdk
-%endif
 %endif
 %bcond_without selinux
 %bcond_without amqp_endpoint
@@ -92,20 +119,20 @@
 %bcond_with lua_packages
 %endif
 %endif
-%bcond_with seastar
+%bcond_with crimson
 %if 0%{?suse_version}
 %bcond_with jaeger
 %else
 %bcond_without jaeger
 %endif
-%if 0%{?fedora} || 0%{?suse_version} >= 1500 || 0%{?rhel} >= 10
+%if 0%{?fedora} || 0%{?suse_version} >= 1500 || 0%{?rhel}
 # distros that ship cmd2 and/or colorama
 %bcond_without cephfs_shell
 %else
 # distros that do _not_ ship cmd2/colorama
 %bcond_with cephfs_shell
 %endif
-%if 0%{?fedora} || 0%{?rhel} >= 9
+%if 0%{?fedora} || 0%{?rhel}
 %bcond_without system_arrow
 %bcond_without system_utf8proc
 %else
@@ -116,16 +143,19 @@
 %endif
 # qat only supported for intel devices
 %ifarch x86_64
-%if 0%{?fedora} || 0%{?rhel} >= 9
+%if 0%{?fedora} || 0%{?rhel}
 %bcond_without system_qat
 %else
+# not fedora/rhel
 %bcond_with system_qat
 %endif
 %else
+# not x86_64
 %bcond_with system_qat
 %endif
-%if 0%{?fedora} || 0%{?suse_version} || 0%{?rhel} >= 8
+%if 0%{?fedora} || 0%{?suse_version} || 0%{?rhel}
 %global weak_deps 1
+%endif
 %endif
 %if %{with selinux}
 # get selinux policy version
@@ -138,13 +168,23 @@
 %endif
 %bcond_with cephadm_bundling
 %bcond_without cephadm_pip_deps
+%bcond_without dwz
+%if %{with dwz}
+%else
+# disable dwz for 50% speedup at the cost of ~33% space
+%global _find_debuginfo_dwz_opts %{nil}
+%endif
+%bcond_with sccache
 
 %{!?_udevrulesdir: %global _udevrulesdir /lib/udev/rules.d}
 %{!?tmpfiles_create: %global tmpfiles_create systemd-tmpfiles --create}
 %{!?python3_pkgversion: %global python3_pkgversion 3}
 %{!?python3_version_nodots: %global python3_version_nodots 3}
 %{!?python3_version: %global python3_version 3}
-%{!?gts_prefix: %global gts_prefix gcc-toolset-11}
+%if 0%{with crimson}
+%{!?gts_version: %global gts_version 13}
+%else
+%endif
 %define _lto_cflags %{nil}
 
 %if ! 0%{?suse_version}
@@ -178,14 +218,15 @@
 # redhat-rpm-config still passes -fplugin=gcc-annobin to the compiler.
 %undefine _annotated_build
 %if 0%{?rhel} == 8 && 0%{?enable_devtoolset11:1}
+%enable_devtoolset11
 %endif
 
 #################################################################################
 # main package definition
 #################################################################################
 Name:		ceph
-Version:	19.2.3
-Release:	8%{?dist}
+Version:	20.1.0
+Release:	1%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -195,7 +236,7 @@ Epoch:		2
 %global _epoch_prefix %{?epoch:%{epoch}:}
 
 Summary:	User space components of the Ceph file system
-License:        LGPL-2.1-or-later AND LGPL-3.0-only AND CC-BY-SA-3.0 AND GPL-2.0-only AND BSL-1.0 AND BSD-2-Clause AND BSD-3-Clause AND MIT
+License:	LGPL-2.1-or-later AND LGPL-3.0-only AND CC-BY-SA-3.0 AND GPL-2.0-only AND BSL-1.0 AND BSD-2-Clause AND BSD-3-Clause AND MIT
 %if 0%{?suse_version}
 Group:		System/Filesystems
 %endif
@@ -209,34 +250,14 @@ Patch:		0012-spdk-isa-l-CET-Add-CET-marker-to-x86-64-crc32-assemb.patch
 Patch:		0016-src-tracing-patch
 Patch:		0018-src-rgw-store-dbstore-CMakeLists.txt.patch
 Patch:		0024-gcc-13.patch
-Patch:		0029-src-rgw-rgw_amqp.cc.patch
 Patch:		0032-cmake-modules-BuildBoost.cmake.patch
 Patch:		0033-boost-asm.patch
 Patch:		0034-src-pybind-rbd-rbd.pyx.patch
-Patch:		0035-src-CMakeLists.txt.patch
-Patch:		0040-gcc-14.patch
 Patch:		0041-src-mgr-PyModule.cc.patch
 Patch:		0043_src_common_crc32c_ppc_asm.S.patch
-Patch:		0044_src_cpp_redis_CMakeLists.txt.patch
-Patch:		0045_src-commom-crc32c_ppc_fast_zero_asm.S.patch
 Patch:		0047-openssl-no-engine.patch
-Patch:		0048-src-mds-CMakeLists.txt.patch
 Patch:		0049-src-rocksdb-db-blob-blob_file_meta.h.patch
-Patch:		0050-src-rgw-driver-posix-zpp_bits.h.patch
-Patch:		0051-src-googletest-nosharedlibs.patch
-Patch:		0052-src-tracing.patch
-Patch:		0053-src-test-neorados-common_tests.h.patch
-Patch:		0055-python314.patch
 Patch:		0056-libarrow-20.0.0.patch
-Patch:		0057-src-ceph-volume-ceph-volume-main.py.patch
-Patch:		0058-mgr-dashboard-Make-saml2-robust-against-module-load-.patch
-# Fixed in upcoming 19.2.4
-Patch:		0059-mgr-dashboard-catch-protobuf-error-due-to-mismatch-i.patch
-
-# Squid fixes from https://git.proxmox.com/?p=ceph.git;a=tree;f=patches
-# Should be fixed upstream in Ceph 20.
-Patch:		0158-pybind-mgr-restful-provide-workaround-for-PyO3-Impor.patch
-Patch:		0159-mgr-fix-module-import-by-making-NOTIFY_TYPES-in-py-m.patch
 
 # ceph 14.0.1 does not support 32-bit architectures, bugs #1727788, #1727787
 ExcludeArch:	i686 armv7hl
@@ -252,11 +273,6 @@ Requires:	ceph-mds = %{_epoch_prefix}%{version}-%{release}
 Requires:	ceph-mgr = %{_epoch_prefix}%{version}-%{release}
 Requires:	ceph-mon = %{_epoch_prefix}%{version}-%{release}
 Requires(post):	binutils
-%if 0%{?suse_version}
-Requires(pre):	/usr/sbin/useradd
-Requires(pre):	/usr/sbin/groupadd
-%endif
-
 %if 0%{with cephfs_java}
 BuildRequires:	java-devel
 BuildRequires:	jpackage-utils
@@ -269,41 +285,28 @@ BuildRequires:	selinux-policy-devel
 BuildRequires:	gperf
 BuildRequires:	cmake > 3.5
 BuildRequires:	fuse3-devel
-%if 0%{?fedora} || 0%{?suse_version} > 1500 || 0%{?rhel} >= 9
+BuildRequires:	grpc-devel
+%if 0%{?fedora} || 0%{?suse_version} > 1500 || 0%{?rhel}
 BuildRequires: gcc-c++ >= 11
 %endif
 %if 0%{?suse_version} == 1500
 BuildRequires:	gcc11-c++
 %endif
-%if 0%{?rhel} == 8
-BuildRequires:	%{gts_prefix}-gcc-c++
-BuildRequires:	%{gts_prefix}-build
-BuildRequires:	%{gts_prefix}-libatomic-devel
-%endif
-%if 0%{?fedora} || 0%{?rhel} >= 9
+%if 0%{?fedora} || 0%{?rhel}
 BuildRequires:	libatomic
-BuildRequires:	gcc-c++
 %endif
-%if 0%{?rhel}
-%bcond_with ld_mold
-%else
 %ifarch x86_64 aarch64
-%bcond_without ld_mold
+%bcond_with ld_mold
 %else
 %bcond_with ld_mold
-%endif
 %endif
 %if 0%{with ld_mold}
 BuildRequires:	mold
 %endif
 %if 0%{with tcmalloc}
 # libprofiler did not build on ppc64le until 2.7.90
-%if 0%{?fedora} || 0%{?rhel} >= 8
+%if 0%{?fedora} || 0%{?rhel}
 BuildRequires:	gperftools-devel >= 2.7.90
-BuildRequires:	libunwind-devel
-%endif
-%if 0%{?rhel} && 0%{?rhel} < 8
-BuildRequires:	gperftools-devel >= 2.6.1
 %endif
 %if 0%{?suse_version}
 BuildRequires:	gperftools-devel >= 2.4
@@ -317,19 +320,20 @@ BuildRequires:	libcurl-devel
 BuildRequires:	libcap-devel
 BuildRequires:	libcap-ng-devel
 #BuildRequires:	fmt-devel >= 6.2.1
-#%if ( 0%%{?fedora} || 0%%{?rhel} >= 10 )
-#BuildRequires:	rocksdb-devel
-#Requires:	rocksdb
-#%endif
+%if ! (0%{?fedora} || 0%{?rhel} >= 10)
+BuildRequires:	rocksdb-devel
+Requires:	rocksdb
+%endif
 BuildRequires:	liburing-devel
 BuildRequires:	pkgconfig(libudev)
 BuildRequires:	libnl3-devel
+%if 0%{?with radosgw}
 BuildRequires:	liboath-devel
+%endif
 BuildRequires:	libtool
 BuildRequires:	libxml2-devel
-BuildRequires:	libzstd-devel
-BuildRequires:	ninja-build
 BuildRequires:	ncurses-devel
+BuildRequires:	make
 BuildRequires:	libicu-devel
 BuildRequires:	patch
 BuildRequires:	perl
@@ -339,7 +343,6 @@ BuildRequires:	python%{python3_pkgversion}
 BuildRequires:	python%{python3_pkgversion}-devel
 BuildRequires:	python%{python3_pkgversion}-setuptools
 BuildRequires:	python%{python3_pkgversion}-Cython
-BuildRequires:	python%{python3_pkgversion}-markupsafe
 BuildRequires:	snappy-devel
 BuildRequires:	sqlite-devel
 BuildRequires:	sudo
@@ -353,7 +356,7 @@ BuildRequires:	xmlstarlet
 BuildRequires:	nasm
 BuildRequires:	lua-devel
 BuildRequires:	lmdb-devel
-%if 0%{with seastar} || 0%{with jaeger}
+%if 0%{with crimson} || 0%{with jaeger}
 BuildRequires:	yaml-cpp-devel >= 0.6
 %endif
 %if 0%{with amqp_endpoint}
@@ -363,7 +366,7 @@ BuildRequires:	librabbitmq-devel
 BuildRequires:	librdkafka-devel
 %endif
 %if 0%{with lua_packages}
-BuildRequires:	lua-devel
+Requires:	lua-devel
 Requires:	%{luarocks_package_name}
 %endif
 %if 0%{with make_check}
@@ -371,7 +374,6 @@ BuildRequires:	hostname
 BuildRequires:	jq
 BuildRequires:	libuuid-devel
 BuildRequires:	python%{python3_pkgversion}-bcrypt
-BuildRequires:	python%{python3_pkgversion}-pecan
 BuildRequires:	python%{python3_pkgversion}-requests
 BuildRequires:	python%{python3_pkgversion}-dateutil
 BuildRequires:	python%{python3_pkgversion}-coverage
@@ -380,12 +382,13 @@ BuildRequires:	socat
 BuildRequires:	python%{python3_pkgversion}-asyncssh
 BuildRequires:	python%{python3_pkgversion}-natsort
 %endif
+%if 0%{with jaeger} || 0%{with radosgw}
 %if 0%{?suse_version}
 BuildRequires:	libthrift-devel >= 0.13.0
 %else
 BuildRequires:	thrift-devel >= 0.13.0
 %endif
-BuildRequires:	re2-devel
+%endif
 %if 0%{with jaeger}
 BuildRequires:	bison
 BuildRequires:	flex
@@ -420,7 +423,7 @@ BuildRequires:	utf8proc-devel
 BuildRequires:  qatlib-devel
 BuildRequires:  qatzip-devel
 %endif
-%if 0%{with seastar}
+%if 0%{with crimson}
 BuildRequires:	c-ares-devel
 BuildRequires:	gnutls-devel
 BuildRequires:	hwloc-devel
@@ -430,15 +433,19 @@ BuildRequires:	ragel
 BuildRequires:	systemtap-sdt-devel
 BuildRequires:	libubsan
 BuildRequires:	libasan
+%if 0%{?gts_version} > 0
+%if 0%{?gts_version} >= 12
+BuildRequires:  gcc-toolset-%{gts_version}-gcc-plugin-annobin
+%else
+BuildRequires:  gcc-toolset-%{gts_version}-annobin
+BuildRequires:  gcc-toolset-%{gts_version}-annobin-plugin-gcc
+%endif
+BuildRequires:  gcc-toolset-%{gts_version}-libubsan-devel
+BuildRequires:  gcc-toolset-%{gts_version}-libasan-devel
+%endif
+%endif
 BuildRequires:	protobuf-devel
 BuildRequires:	protobuf-compiler
-%if 0%{?rhel} == 8
-BuildRequires:  %{gts_prefix}-annobin
-BuildRequires:  %{gts_prefix}-annobin-plugin-gcc
-BuildRequires:  %{gts_prefix}-libubsan-devel
-BuildRequires:  %{gts_prefix}-libasan-devel
-%endif
-%endif
 #################################################################################
 # distro-conditional dependencies
 #################################################################################
@@ -470,17 +477,15 @@ BuildRequires:	jsonnet
 %endif
 %if 0%{?fedora} || 0%{?rhel}
 Requires:	systemd
-%if 0%{with system_boost}
-BuildRequires:	boost-devel
 BuildRequires:	boost-random
-BuildRequires:	boost-url
-%endif
 BuildRequires:	nss-devel
 BuildRequires:	keyutils-libs-devel
 BuildRequires:	libatomic
 BuildRequires:	libibverbs-devel
 BuildRequires:	librdmacm-devel
+BuildRequires:	ninja-build
 BuildRequires:	openldap-devel
+BuildRequires:	numactl-devel
 #BuildRequires:	krb5-devel
 BuildRequires:	openssl-devel
 BuildRequires:	CUnit-devel
@@ -506,7 +511,6 @@ BuildRequires:	xmlsec1-openssl-devel
 BuildRequires:	python%{python3_pkgversion}-cherrypy
 BuildRequires:	python%{python3_pkgversion}-routes
 BuildRequires:	python%{python3_pkgversion}-scipy
-BuildRequires:	python%{python3_pkgversion}-werkzeug
 BuildRequires:	python%{python3_pkgversion}-pyOpenSSL
 %endif
 BuildRequires:	jsonnet
@@ -517,7 +521,6 @@ BuildRequires:	libxmlsec1-nss1
 BuildRequires:	libxmlsec1-openssl1
 BuildRequires:	python%{python3_pkgversion}-CherryPy
 BuildRequires:	python%{python3_pkgversion}-Routes
-BuildRequires:	python%{python3_pkgversion}-Werkzeug
 BuildRequires:	python%{python3_pkgversion}-numpy-devel
 BuildRequires:	xmlsec1-devel
 BuildRequires:	xmlsec1-openssl-devel
@@ -537,17 +540,16 @@ BuildRequires:	babeltrace-devel
 %if 0%{?suse_version}
 BuildRequires:	libexpat-devel
 %endif
-%if 0%{?rhel} || 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel}
 BuildRequires:	expat-devel
 %endif
 #hardened-cc1
 %if 0%{?fedora} || 0%{?rhel}
 BuildRequires:	redhat-rpm-config
 %endif
-%if 0%{with seastar}
+%if 0%{with crimson}
 %if 0%{?fedora} || 0%{?rhel}
 BuildRequires:	cryptopp-devel
-BuildRequires:	numactl-devel
 %endif
 %if 0%{?suse_version}
 BuildRequires:	libcryptopp-devel
@@ -563,6 +565,8 @@ on commodity hardware and delivers object, block and file system storage.
 #################################################################################
 # subpackages
 #################################################################################
+%if %{with server}
+
 %package base
 Summary:	Ceph Base Package
 %if 0%{?suse_version}
@@ -624,7 +628,9 @@ Requires:	python%{python3_pkgversion}-pyyaml
 Utility to bootstrap a Ceph cluster and manage Ceph daemons deployed
 with systemd and podman.
 
-%package common
+%endif
+
+%package -n ceph-common
 Summary:	Ceph Common
 %if 0%{?suse_version}
 Group:		System/Filesystems
@@ -651,11 +657,11 @@ Requires:	libradosstriper1 = %{_epoch_prefix}%{version}-%{release}
 %if 0%{?suse_version}
 Requires(pre):	pwdutils
 %endif
-Provides:	group(ceph)
-Provides:	user(ceph)
-%description common
+%description -n ceph-common
 Common utilities to mount and interact with a ceph storage cluster.
 Comprised of files that are common to Ceph clients and servers.
+
+%if %{with server}
 
 %package mds
 Summary:	Ceph Metadata Server Daemon
@@ -680,6 +686,17 @@ ceph-mon is the cluster monitor daemon for the Ceph distributed file
 system. One or more instances of ceph-mon form a Paxos part-time
 parliament cluster that provides extremely reliable and durable storage
 of cluster membership, configuration, and state.
+
+%package mon-client-nvmeof
+Summary:	Ceph NVMeoF Gateway Monitor Client
+%if 0%{?suse_version}
+Group:		System/Filesystems
+%endif
+Provides:	ceph-test:/usr/bin/ceph-nvmeof-monitor-client
+Requires:	librados2 = %{_epoch_prefix}%{version}-%{release}
+%description mon-client-nvmeof
+Ceph NVMeoF Gateway Monitor Client distributes Paxos ANA info
+to NVMeoF Gateway and provides beacons to the monitor daemon
 
 %package mgr
 Summary:	Ceph Manager Daemon
@@ -711,19 +728,18 @@ Group:		System/Filesystems
 Requires:	ceph-mgr = %{_epoch_prefix}%{version}-%{release}
 Requires:	ceph-grafana-dashboards = %{_epoch_prefix}%{version}-%{release}
 Requires:	ceph-prometheus-alerts = %{_epoch_prefix}%{version}-%{release}
-Requires:	python%{python3_pkgversion}-setuptools
-%if 0%{?fedora} || 0%{?rhel} >= 9
+%if 0%{?fedora} || 0%{?rhel}
 Requires:	python%{python3_pkgversion}-grpcio
 Requires:	python%{python3_pkgversion}-grpcio-tools
+Requires:	python%{python3_pkgversion}-jmespath
 Requires:	python%{python3_pkgversion}-xmltodict
 %endif
 %if 0%{?fedora} || 0%{?rhel}
 Requires:	python%{python3_pkgversion}-cherrypy
 Requires:	python%{python3_pkgversion}-routes
-Requires:	python%{python3_pkgversion}-werkzeug
 %if 0%{?weak_deps}
 Recommends:	python%{python3_pkgversion}-saml
-%if 0%{?fedora} || 0%{?rhel} <= 8
+%if 0%{?fedora}
 Recommends:	python%{python3_pkgversion}-grpcio
 Recommends:	python%{python3_pkgversion}-grpcio-tools
 %endif
@@ -732,7 +748,6 @@ Recommends:	python%{python3_pkgversion}-grpcio-tools
 %if 0%{?suse_version}
 Requires:	python%{python3_pkgversion}-CherryPy
 Requires:	python%{python3_pkgversion}-Routes
-Requires:	python%{python3_pkgversion}-Werkzeug
 Recommends:	python%{python3_pkgversion}-python3-saml
 %endif
 %description mgr-dashboard
@@ -765,20 +780,17 @@ Group:		System/Filesystems
 %endif
 Requires:	python%{python3_pkgversion}-bcrypt
 Requires:	python%{python3_pkgversion}-packaging
-Requires:	python%{python3_pkgversion}-pecan
 Requires:	python%{python3_pkgversion}-pyOpenSSL
 Requires:	python%{python3_pkgversion}-requests
 Requires:	python%{python3_pkgversion}-dateutil
 Requires:	python%{python3_pkgversion}-setuptools
-%if 0%{?fedora} || 0%{?rhel} >= 8
+%if 0%{?fedora} || 0%{?rhel}
 Requires:	python%{python3_pkgversion}-cherrypy
 Requires:	python%{python3_pkgversion}-pyyaml
-Requires:	python%{python3_pkgversion}-werkzeug
 %endif
 %if 0%{?suse_version}
 Requires:	python%{python3_pkgversion}-CherryPy
 Requires:	python%{python3_pkgversion}-PyYAML
-Requires:	python%{python3_pkgversion}-Werkzeug
 %endif
 %if 0%{?weak_deps}
 Recommends:	ceph-mgr-rook = %{_epoch_prefix}%{version}-%{release}
@@ -959,11 +971,10 @@ Summary:	Ceph Object Storage Daemon
 %if 0%{?suse_version}
 Group:		System/Filesystems
 %endif
-Provides:	ceph-test:/usr/bin/ceph-osdomap-tool
 Requires:	ceph-base = %{_epoch_prefix}%{version}-%{release}
 Requires:	sudo
 Requires:	libstoragemgmt
-%if 0%{with seastar}
+%if 0%{with crimson}
 Requires:	protobuf
 %endif
 %if 0%{?weak_deps}
@@ -974,7 +985,7 @@ ceph-osd is the object storage daemon for the Ceph distributed file
 system.  It is responsible for storing objects on a local file system
 and providing access to them over the network.
 
-%if 0%{with seastar}
+%if 0%{with crimson}
 %package crimson-osd
 Summary:	Ceph Object Storage Daemon (crimson)
 %if 0%{?suse_version}
@@ -1002,11 +1013,14 @@ Requires:	parted
 Requires:	util-linux
 Requires:	xfsprogs
 Requires:	python%{python3_pkgversion}-setuptools
+Requires:	python%{python3_pkgversion}-packaging
 Requires:	python%{python3_pkgversion}-ceph-common = %{_epoch_prefix}%{version}-%{release}
 %description volume
 This package contains a tool to deploy OSD with different devices like
 lvm or physical disks, and trying to follow a predictable, and robust
 way of preparing, activating, and starting the deployed OSD.
+
+%endif
 
 %package -n librados2
 Summary:	RADOS distributed object store client library
@@ -1046,6 +1060,8 @@ Requires:	librados-devel = %{_epoch_prefix}%{version}-%{release}
 This package contains C++ libraries and headers needed to develop programs
 that use RADOS object store.
 
+%if %{with radosgw}
+
 %package -n librgw2
 Summary:	RADOS gateway client library
 %if 0%{?suse_version}
@@ -1082,6 +1098,8 @@ Obsoletes:	python-rgw < %{_epoch_prefix}%{version}-%{release}
 %description -n python%{python3_pkgversion}-rgw
 This package contains Python 3 libraries for interacting with Ceph RADOS
 gateway.
+
+%endif
 
 %package -n python%{python3_pkgversion}-rados
 Summary:	Python 3 libraries for the RADOS object store
@@ -1208,11 +1226,32 @@ Obsoletes:	libcephfs1 < %{_epoch_prefix}%{version}-%{release}
 Obsoletes:	ceph-libs < %{_epoch_prefix}%{version}-%{release}
 Obsoletes:	ceph-libcephfs < %{_epoch_prefix}%{version}-%{release}
 %endif
+Recommends:	libcephfs-proxy2 = %{_epoch_prefix}%{version}-%{release}
 %description -n libcephfs2
 Ceph is a distributed network file system designed to provide excellent
 performance, reliability, and scalability. This is a shared library
 allowing applications to access a Ceph distributed file system via a
 POSIX-like interface.
+
+%package -n libcephfs-proxy2
+Summary:	Proxy for libcephfs
+%if 0%{?suse_version}
+Group:		System/Libraries
+%endif
+Recommends:	libcephfs-daemon = %{_epoch_prefix}%{version}-%{release}
+%description -n libcephfs-proxy2
+This package contains the libcephfs_proxy.so library that allow applications
+to share cephfs mounts to reduce resource consumption.
+
+%package -n libcephfs-daemon
+Summary:	Deamon for the libcephfs proxy
+%if 0%{?suse_version}
+Group:		System/Filesystems
+%endif
+Requires:	libcephfs2 = %{_epoch_prefix}%{version}-%{release}
+%description -n libcephfs-daemon
+This package contains the libcephfsd daemon that allows applications to share
+cephfs mounts to reduce resource consumption.
 
 %package -n libcephfs-devel
 Summary:	Ceph distributed file system headers
@@ -1220,6 +1259,7 @@ Summary:	Ceph distributed file system headers
 Group:		Development/Libraries/C and C++
 %endif
 Requires:	libcephfs2 = %{_epoch_prefix}%{version}-%{release}
+Requires:	libcephfs-proxy2 = %{_epoch_prefix}%{version}-%{release}
 Requires:	librados-devel = %{_epoch_prefix}%{version}-%{release}
 Obsoletes:	ceph-devel < %{_epoch_prefix}%{version}-%{release}
 Provides:	libcephfs2-devel = %{_epoch_prefix}%{version}-%{release}
@@ -1257,7 +1297,7 @@ descriptions, and submitting the command to the appropriate daemon.
 
 %package -n python%{python3_pkgversion}-ceph-common
 Summary:	Python 3 utility libraries for Ceph
-%if 0%{?fedora} || 0%{?rhel} >= 8
+%if 0%{?fedora} || 0%{?rhel}
 Requires:	python%{python3_pkgversion}-pyyaml
 %endif
 %if 0%{?suse_version}
@@ -1293,8 +1333,6 @@ Requires:	ceph-common = %{_epoch_prefix}%{version}-%{release}
 Requires:	xmlstarlet
 Requires:	jq
 Requires:	socat
-BuildRequires:	gtest-devel
-BuildRequires:	gmock-devel
 %description -n ceph-test
 This package contains Ceph benchmarks and test tools.
 %endif
@@ -1369,6 +1407,8 @@ populated file-systems.
 
 %endif
 
+%if %{with server}
+
 %package grafana-dashboards
 Summary:	The set of Grafana dashboards for monitoring purposes
 BuildArch:	noarch
@@ -1406,21 +1446,13 @@ Group:		System/Monitoring
 %endif
 %description node-proxy
 This package provides a Ceph hardware monitoring agent.
+%endif
 
 #################################################################################
 # common
 #################################################################################
 %prep
 %autosetup -p1
-
-# Create two sysusers.d config files
-cat >ceph.sysusers.conf <<EOF
-g ceph 167
-u ceph 167 'Ceph storage service' %{_localstatedir}/lib/ceph -
-EOF
-cat >cephadm.sysusers.conf <<EOF
-u cephadm - 'cephadm user for mgr/cephadm' %{_sharedstatedir}/cephadm /bin/bash
-EOF
 
 %build
 
@@ -1440,7 +1472,7 @@ export CFLAGS="$RPM_OPT_FLAGS"
 export CXXFLAGS="$RPM_OPT_FLAGS"
 export LDFLAGS="$RPM_LD_FLAGS"
 
-%if 0%{with seastar}
+%if 0%{with crimson}
 # seastar uses longjmp() to implement coroutine. and this annoys longjmp_chk()
 export CXXFLAGS=$(echo $RPM_OPT_FLAGS | sed -e 's/-Wp,-D_FORTIFY_SOURCE=2//g')
 # remove from CFLAGS too because it causes the arrow submodule to fail with:
@@ -1491,11 +1523,7 @@ env | sort
     -DWITH_SYSTEM_ROCKSDB:BOOL=OFF \
 %endif
     -DWITH_SYSTEM_LIBURING:BOOL=ON \
-%if 0%{with system_boost}
-    -DWITH_SYSTEM_BOOST:BOOL=ON \
-%else
     -DWITH_SYSTEM_BOOST:BOOL=OFF \
-%endif
 %if 0%{with cephfs_shell}
     -DWITH_CEPHFS_SHELL:BOOL=ON \
 %endif
@@ -1503,6 +1531,9 @@ env | sort
     -DWITH_LIBRADOSSTRIPER:BOOL=ON \
 %else
     -DWITH_LIBRADOSSTRIPER:BOOL=OFF \
+%endif
+%if 0%{without radosgw}
+    -DWITH_RADOSGW:BOOL=OFF \
 %endif
 %if 0%{with amqp_endpoint}
     -DWITH_RADOSGW_AMQP_ENDPOINT:BOOL=ON \
@@ -1532,15 +1563,6 @@ env | sort
 %if 0%{without jaeger}
     -DWITH_JAEGER:BOOL=OFF \
 %endif
-%if 0%{?suse_version}
-    -DBOOST_J:STRING=%{jobs} \
-%else
-    -DBOOST_J:STRING=%{_smp_build_ncpus} \
-%endif
-%if 0%{with ceph_test_package}
-    -DWITH_SYSTEM_GTEST:BOOL=ON \
-%endif
-    -DWITH_SYSTEM_ZSTD:BOOL=ON \
 %if 0%{?fedora} || 0%{?rhel}
     -DWITH_FMT_HEADER_ONLY:BOOL=ON \
 %endif
@@ -1565,19 +1587,42 @@ env | sort
 %if 0%{with ld_mold}
     -DCMAKE_LINKER=%{_bindir}/ld.mold \
 %endif
-%if 0%{with seastar}
-    -DWITH_SEASTAR:BOOL=ON \
+%if 0%{with crimson}
+    -DWITH_CRIMSON:BOOL=ON \
     -DWITH_JAEGER:BOOL=OFF \
 %endif
     -DWITH_GRAFANA:BOOL=ON \
+%if %{with sccache}
+    -DWITH_SCCACHE=ON \
+%endif
+%ifarch aarch64
+    -DWITH_UADK:BOOL=OFF \
+%endif
 %if 0%{with cephadm_bundling}
 %if 0%{with cephadm_pip_deps}
-    -DCEPHADM_BUNDLED_DEPENDENCIES=pip
+    -DCEPHADM_BUNDLED_DEPENDENCIES=pip \
 %else
-    -DCEPHADM_BUNDLED_DEPENDENCIES=rpm
+    -DCEPHADM_BUNDLED_DEPENDENCIES=rpm \
 %endif
 %else
-    -DCEPHADM_BUNDLED_DEPENDENCIES=none
+    -DCEPHADM_BUNDLED_DEPENDENCIES=none \
+%endif
+%if 0%{?suse_version}
+    -DBOOST_J:STRING=%{jobs} \
+%else
+    -DBOOST_J:STRING=%{_smp_build_ncpus} \
+%endif
+%if 0%{with server}
+    -DWITH_GRAFANA:BOOL=ON
+%else
+    -DWITH_MGR:BOOL=OFF \
+    -DWITH_EMBEDDED:BOOL=OFF \
+    -DWITH_SYSTEMD:BOOL=ON \
+    -DWITH_SPDK:BOOL=OFF \
+    -DWITH_PMEM:BOOL=OFF \
+    -DWITH_BOOST_CONTEXT:BOOL=OFF \
+    -DWITH_LEVELDB:BOOL=OFF \
+    -DWITH_GRAFANA:BOOL=OFF
 %endif
 
 %if %{with cmake_verbose_logging}
@@ -1602,29 +1647,29 @@ export GCC_COLORS=
 # we have dropped sysvinit bits
 rm -f %{buildroot}/%{_sysconfdir}/init.d/ceph
 
-%if 0%{with seastar}
+%if 0%{with crimson}
 # package crimson-osd with the name of ceph-osd
 install -m 0755 %{buildroot}%{_bindir}/crimson-osd %{buildroot}%{_bindir}/ceph-osd
 %endif
 
 install -m 0644 -D src/etc-rbdmap %{buildroot}%{_sysconfdir}/ceph/rbdmap
+install -m 0644 -D systemd/ceph.tmpfiles.d %{buildroot}%{_tmpfilesdir}/ceph-common.conf
+chmod 0644 %{buildroot}%{_docdir}/ceph/sample.ceph.conf
+install -m 0644 -D COPYING %{buildroot}%{_docdir}/ceph/COPYING
+
+%if %{with server}
+
 %if 0%{?fedora} || 0%{?rhel}
 install -m 0644 -D etc/sysconfig/ceph %{buildroot}%{_sysconfdir}/sysconfig/ceph
 %endif
 %if 0%{?suse_version}
 install -m 0644 -D etc/sysconfig/ceph %{buildroot}%{_fillupdir}/sysconfig.%{name}
 %endif
-install -m 0644 -D systemd/ceph.tmpfiles.d %{buildroot}%{_tmpfilesdir}/ceph-common.conf
 install -m 0644 -D systemd/50-ceph.preset %{buildroot}%{_presetdir}/50-ceph.preset
 mkdir -p %{buildroot}%{_sbindir}
 install -m 0644 -D src/logrotate.conf %{buildroot}%{_sysconfdir}/logrotate.d/ceph
-chmod 0644 %{buildroot}%{_docdir}/ceph/sample.ceph.conf
-install -m 0644 -D COPYING %{buildroot}%{_docdir}/ceph/COPYING
 install -m 0644 -D etc/sysctl/90-ceph-osd.conf %{buildroot}%{_sysctldir}/90-ceph-osd.conf
 install -m 0755 -D src/tools/rbd_nbd/rbd-nbd_quiesce %{buildroot}%{_libexecdir}/rbd-nbd/rbd-nbd_quiesce
-
-install -m 0644 -D ceph.sysusers.conf %{buildroot}%{_sysusersdir}/ceph.conf
-install -m 0644 -D cephadm.sysusers.conf %{buildroot}%{_sysusersdir}/cephadm.conf
 
 mkdir -p %{buildroot}%{_sharedstatedir}/cephadm
 chmod 0700 %{buildroot}%{_sharedstatedir}/cephadm
@@ -1632,6 +1677,8 @@ mkdir -p %{buildroot}%{_sharedstatedir}/cephadm/.ssh
 chmod 0700 %{buildroot}%{_sharedstatedir}/cephadm/.ssh
 touch %{buildroot}%{_sharedstatedir}/cephadm/.ssh/authorized_keys
 chmod 0600 %{buildroot}%{_sharedstatedir}/cephadm/.ssh/authorized_keys
+
+%endif
 
 # firewall templates and /sbin/mount.ceph symlink
 %if 0%{?suse_version} && 0%{?suse_version} < 1550
@@ -1642,8 +1689,10 @@ ln -sf %{_sbindir}/mount.ceph %{buildroot}/sbin/mount.ceph
 # udev rules
 install -m 0644 -D udev/50-rbd.rules %{buildroot}%{_udevrulesdir}/50-rbd.rules
 
+%if 0%{with server}
 # sudoers.d
 install -m 0440 -D sudoers.d/ceph-smartctl %{buildroot}%{_sysconfdir}/sudoers.d/ceph-smartctl
+%endif
 
 %if 0%{?rhel} >= 8
 %py3_shebang_fix %{buildroot}%{_bindir}/* %{buildroot}%{_sbindir}/*
@@ -1653,6 +1702,10 @@ install -m 0440 -D sudoers.d/ceph-smartctl %{buildroot}%{_sysconfdir}/sudoers.d/
 mkdir -p %{buildroot}%{_sysconfdir}/ceph
 mkdir -p %{buildroot}%{_localstatedir}/run/ceph
 mkdir -p %{buildroot}%{_localstatedir}/log/ceph
+mkdir -p %{buildroot}%{_localstatedir}/lib/ceph
+
+%if 0%{with server}
+
 mkdir -p %{buildroot}%{_localstatedir}/lib/ceph/tmp
 mkdir -p %{buildroot}%{_localstatedir}/lib/ceph/mon
 mkdir -p %{buildroot}%{_localstatedir}/lib/ceph/osd
@@ -1677,8 +1730,125 @@ install -m 644 -D monitoring/ceph-mixin/dashboards_out/* %{buildroot}/etc/grafan
 # SNMP MIB
 install -m 644 -D -t %{buildroot}%{_datadir}/snmp/mibs monitoring/snmp/CEPH-MIB.txt
 
-%if "%{_sbindir}" == "%{_bindir}"
-mv %{buildroot}%{_exec_prefix}/sbin/ceph-create-keys %{buildroot}%{_bindir}/
+%else
+
+# Remove the rbd/fuse bits
+rm -f %{buildroot}%{_bindir}/ceph-fuse
+rm -f %{buildroot}%{_mandir}/man8/ceph-fuse.8*
+rm -f %{buildroot}%{_sbindir}/mount.fuse.ceph
+rm -f %{buildroot}%{_mandir}/man8/mount.fuse.ceph.8*
+rm -f %{buildroot}%{_unitdir}/ceph-fuse@.service
+rm -f %{buildroot}%{_unitdir}/ceph-fuse.target
+rm -f %{buildroot}%{_bindir}/rbd-fuse
+rm -f %{buildroot}%{_mandir}/man8/rbd-fuse.8*
+
+# Remove the ceph-base package
+rm -f %{buildroot}%{_bindir}/ceph-crash
+rm -f %{buildroot}%{_bindir}/crushtool
+rm -f %{buildroot}%{_bindir}/monmaptool
+rm -f %{buildroot}%{_bindir}/osdmaptool
+rm -f %{buildroot}%{_bindir}/ceph-kvstore-tool
+rm -f %{buildroot}%{_bindir}/ceph-run
+rm -f %{buildroot}%{_exec_prefix}/sbin/ceph-create-keys
+rm -f %{buildroot}%{_sbindir}/ceph-volume
+rm -f %{buildroot}%{_sbindir}/ceph-volume-systemd
+rm -f %{buildroot}%{_libexecdir}/ceph/ceph_common.sh
+rm -rf %{buildroot}%{_libdir}/rados-classes
+rm -rf %{buildroot}%{_libdir}/ceph/erasure-code
+rm -rf %{buildroot}%{_libdir}/ceph/extblkdev
+rm -rf %{buildroot}%{_libdir}/ceph/compressor
+rm -rf %{buildroot}%{_libdir}/ceph/crypto
+rm -f %{buildroot}%{_unitdir}/ceph-crash.service
+rm -f %{buildroot}%{_unitdir}/ceph-volume@.service
+rm -f %{buildroot}%{_unitdir}/ceph.target
+rm -rf %{buildroot}%{python3_sitelib}/ceph_volume/*
+rm -rf %{buildroot}%{python3_sitelib}/ceph_volume-*
+rm -f %{buildroot}%{_mandir}/man8/ceph-deploy.8*
+rm -f %{buildroot}%{_mandir}/man8/ceph-create-keys.8*
+rm -f %{buildroot}%{_mandir}/man8/ceph-volume.8*
+rm -f %{buildroot}%{_mandir}/man8/ceph-volume-systemd.8*
+rm -f %{buildroot}%{_mandir}/man8/ceph-run.8*
+rm -f %{buildroot}%{_mandir}/man8/crushtool.8*
+rm -f %{buildroot}%{_mandir}/man8/osdmaptool.8*
+rm -f %{buildroot}%{_mandir}/man8/monmaptool.8*
+rm -f %{buildroot}%{_mandir}/man8/ceph-kvstore-tool.8*
+
+# Remove the ceph-mds package
+rm -f %{buildroot}%{_bindir}/ceph-mds
+rm -f %{buildroot}%{_mandir}/man8/ceph-mds.8*
+rm -f %{buildroot}%{_unitdir}/ceph-mds@.service
+rm -f %{buildroot}%{_unitdir}/ceph-mds.target
+
+# Remove the ceph-mgr package
+rm -f %{buildroot}%{_unitdir}/ceph-mgr@.service
+rm -f %{buildroot}%{_unitdir}/ceph-mgr.target
+
+# Remove the ceph-mon package
+rm -f %{buildroot}%{_bindir}/ceph-mon
+rm -f %{buildroot}%{_bindir}/ceph-monstore-tool
+rm -f %{buildroot}%{_mandir}/man8/ceph-mon.8*
+rm -f %{buildroot}%{_unitdir}/ceph-mon@.service
+rm -f %{buildroot}%{_unitdir}/ceph-mon.target
+
+# Remove the ceph-mon-client-nvmeof package
+rm -f %{buildroot}%{_bindir}/ceph-nvmeof-monitor-client
+
+# Remove the ceph-radosgw package
+rm -f %{buildroot}%{_unitdir}/ceph-radosgw@.service
+rm -f %{buildroot}%{_unitdir}/ceph-radosgw.target
+
+# Remove the ceph-osd package
+rm -f %{buildroot}%{_bindir}/ceph-clsinfo
+rm -f %{buildroot}%{_bindir}/ceph-bluestore-tool
+rm -f %{buildroot}%{_bindir}/ceph-erasure-code-tool
+rm -f %{buildroot}%{_bindir}/ceph-objectstore-tool
+rm -f %{buildroot}%{_bindir}/ceph-osdomap-tool
+rm -f %{buildroot}%{_bindir}/ceph-osd
+rm -f %{buildroot}%{_libexecdir}/ceph/ceph-osd-prestart.sh
+rm -f %{buildroot}%{_mandir}/man8/ceph-clsinfo.8*
+rm -f %{buildroot}%{_mandir}/man8/ceph-osd.8*
+rm -f %{buildroot}%{_mandir}/man8/ceph-bluestore-tool.8*
+rm -f %{buildroot}%{_unitdir}/ceph-osd@.service
+rm -f %{buildroot}%{_unitdir}/ceph-osd.target
+
+# Remove rbd-mirror
+rm -f %{buildroot}%{_bindir}/rbd-mirror
+rm -f %{buildroot}%{_mandir}/man8/rbd-mirror.8*
+rm -f %{buildroot}%{_unitdir}/ceph-rbd-mirror@.service
+rm -f %{buildroot}%{_unitdir}/ceph-rbd-mirror.target
+
+# Remove rbd-nbd
+rm -f %{buildroot}%{_bindir}/rbd-nbd
+rm -f %{buildroot}%{_mandir}/man8/rbd-nbd.8*
+
+# Remove cephfs-top
+rm -rf %{buildroot}%{python3_sitelib}/cephfs_top-*.egg-info
+rm -f %{buildroot}%{_bindir}/cephfs-top
+rm -f %{buildroot}%{_mandir}/man8/cephfs-top.8*
+
+# Remove additional files
+rm -f %{buildroot}%{_bindir}/ceph-diff-sorted
+rm -f %{buildroot}%{_mandir}/man8/ceph-diff-sorted.8*
+
+# Remove immutable-object-cache
+rm -f %{buildroot}%{_bindir}/ceph-immutable-object-cache
+rm -f %{buildroot}%{_mandir}/man8/ceph-immutable-object-cache.8*
+rm -f %{buildroot}%{_unitdir}/ceph-immutable-object-cache@.service
+rm -f %{buildroot}%{_unitdir}/ceph-immutable-object-cache.target
+
+# Remove cephfs-mirror
+rm -f %{buildroot}%{_bindir}/cephfs-mirror
+rm -f %{buildroot}%{_mandir}/man8/cephfs-mirror.8*
+rm -f %{buildroot}%{_unitdir}/cephfs-mirror@.service
+rm -f %{buildroot}%{_unitdir}/cephfs-mirror.target
+
+# Remove ceph-exporter
+rm -rf %{buildroot}%{_unitdir}/ceph-exporter.service
+
+# Remove cephadm
+rm -f %{buildroot}%{_sbindir}/cephadm
+rm -f %{buildroot}%{_mandir}/man8/cephadm.8*
+
 %endif
 
 %if 0%{?suse_version}
@@ -1688,14 +1858,12 @@ mv %{buildroot}%{_exec_prefix}/sbin/ceph-create-keys %{buildroot}%{_bindir}/
 %fdupes %{buildroot}%{_prefix}
 %endif
 
-%if 0%{?rhel} == 8 || 0%{?fedora} >= 33
-%py_byte_compile %{__python3} %{buildroot}%{python3_sitelib}
-%endif
-
 #################################################################################
 # files and systemd scriptlets
 #################################################################################
 %files
+
+%if 0%{with server}
 
 %files base
 %{_bindir}/ceph-crash
@@ -1705,7 +1873,8 @@ mv %{buildroot}%{_exec_prefix}/sbin/ceph-create-keys %{buildroot}%{_bindir}/
 %{_bindir}/ceph-kvstore-tool
 %{_bindir}/ceph-run
 %{_presetdir}/50-ceph.preset
-%{_sbindir}/ceph-create-keys
+%{_sbindir}/cephadm
+%{_exec_prefix}/sbin/ceph-create-keys
 %dir %{_libexecdir}/ceph
 %{_libexecdir}/ceph/ceph_common.sh
 %dir %{_libdir}/rados-classes
@@ -1766,9 +1935,35 @@ if [ $1 -eq 1 ] ; then
 /usr/bin/systemctl start ceph.target ceph-crash.service >/dev/null 2>&1 || :
 fi
 
+%preun base
+%if 0%{?suse_version}
+%service_del_preun ceph.target ceph-crash.service
+%endif
+%if 0%{?fedora} || 0%{?rhel}
+%systemd_preun ceph.target ceph-crash.service
+%endif
+
 %postun base
 %{?ldconfig}
 %systemd_postun ceph.target
+
+%else
+%exclude %{_sbindir}/ceph-node-proxy
+%exclude %{python3_sitelib}/ceph_node_proxy/*
+%exclude %{python3_sitelib}/ceph_node_proxy-*
+%endif
+
+%if 0%{with server}
+
+%pre -n cephadm
+getent group cephadm >/dev/null || groupadd -r cephadm
+getent passwd cephadm >/dev/null || useradd -r -g cephadm -s /bin/bash -c "cephadm user for mgr/cephadm" -d %{_sharedstatedir}/cephadm cephadm
+exit 0
+
+%if ! 0%{?suse_version}
+%postun -n cephadm
+[ $1 -ne 0 ] || userdel cephadm || :
+%endif
 
 %files -n cephadm
 %{_sbindir}/cephadm
@@ -1776,14 +1971,7 @@ fi
 %attr(0700,cephadm,cephadm) %dir %{_sharedstatedir}/cephadm
 %attr(0700,cephadm,cephadm) %dir %{_sharedstatedir}/cephadm/.ssh
 %config(noreplace) %attr(0600,cephadm,cephadm) %{_sharedstatedir}/cephadm/.ssh/authorized_keys
-%{_sysusersdir}/ceph.conf
 
-%preun common
-%if 0%{?suse_version}
-%service_del_preun ceph.target ceph-crash.service
-%endif
-%if 0%{?fedora} || 0%{?rhel}
-%systemd_preun ceph.target ceph-crash.service
 %endif
 
 %files common
@@ -1801,15 +1989,19 @@ fi
 %{_bindir}/cephfs-table-tool
 %{_bindir}/crushdiff
 %{_bindir}/rados
+%if 0%{with radosgw}
 %{_bindir}/radosgw-admin
+%endif
 %{_bindir}/rbd
 %{_bindir}/rbd-replay
 %{_bindir}/rbd-replay-many
 %{_bindir}/rbdmap
+%if 0%{with radosgw}
 %{_bindir}/rgw-gap-list
 %{_bindir}/rgw-gap-list-comparator
 %{_bindir}/rgw-orphan-list
 %{_bindir}/rgw-restore-bucket-index
+%endif
 %{_sbindir}/mount.ceph
 %if 0%{?suse_version} && 0%{?suse_version} < 1550
 /sbin/mount.ceph
@@ -1824,7 +2016,6 @@ fi
 %{_mandir}/man8/ceph-authtool.8*
 %{_mandir}/man8/ceph-conf.8*
 %{_mandir}/man8/ceph-dencoder.8*
-%{_mandir}/man8/ceph-diff-sorted.8*
 %{_mandir}/man8/ceph-rbdnamer.8*
 %{_mandir}/man8/ceph-syn.8*
 %{_mandir}/man8/ceph-post-file.8*
@@ -1832,15 +2023,19 @@ fi
 %{_mandir}/man8/crushdiff.8*
 %{_mandir}/man8/mount.ceph.8*
 %{_mandir}/man8/rados.8*
+%if 0%{with radosgw}
 %{_mandir}/man8/radosgw-admin.8*
+%endif
 %{_mandir}/man8/rbd.8*
 %{_mandir}/man8/rbdmap.8*
 %{_mandir}/man8/rbd-replay.8*
 %{_mandir}/man8/rbd-replay-many.8*
 %{_mandir}/man8/rbd-replay-prep.8*
+%if 0%{with radosgw}
 %{_mandir}/man8/rgw-orphan-list.8*
 %{_mandir}/man8/rgw-gap-list.8*
 %{_mandir}/man8/rgw-restore-bucket-index.8*
+%endif
 %dir %{_datadir}/ceph/
 %{_datadir}/ceph/known_hosts_drop.ceph.com
 %{_datadir}/ceph/id_rsa_drop.ceph.com
@@ -1849,18 +2044,23 @@ fi
 %config %{_sysconfdir}/bash_completion.d/ceph
 %config %{_sysconfdir}/bash_completion.d/rados
 %config %{_sysconfdir}/bash_completion.d/rbd
+%if 0%{with radosgw}
 %config %{_sysconfdir}/bash_completion.d/radosgw-admin
+%endif
 %config(noreplace) %{_sysconfdir}/ceph/rbdmap
 %{_unitdir}/rbdmap.service
 %dir %{_udevrulesdir}
 %{_udevrulesdir}/50-rbd.rules
 %attr(3770,ceph,ceph) %dir %{_localstatedir}/log/ceph/
 %attr(750,ceph,ceph) %dir %{_localstatedir}/lib/ceph/
-%{_sysusersdir}/cephadm.conf
 
 %pre common
 CEPH_GROUP_ID=167
 CEPH_USER_ID=167
+%if 0%{?rhel} || 0%{?fedora}
+/usr/sbin/groupadd ceph -g $CEPH_GROUP_ID -o -r 2>/dev/null || :
+/usr/sbin/useradd ceph -u $CEPH_USER_ID -o -r -g ceph -s /sbin/nologin -c "Ceph daemons" -d %{_localstatedir}/lib/ceph 2>/dev/null || :
+%endif
 %if 0%{?suse_version}
 if ! getent group ceph >/dev/null ; then
     CEPH_GROUP_ID_OPTION=""
@@ -1889,6 +2089,8 @@ if [ "$1" -eq "0" ] ; then
     rm -rf %{_localstatedir}/log/ceph
     rm -rf %{_sysconfdir}/ceph
 fi
+
+%if 0%{with server}
 
 %files mds
 %{_bindir}/ceph-mds
@@ -2023,9 +2225,9 @@ fi
 %{_datadir}/ceph/mgr/progress
 %{_datadir}/ceph/mgr/prometheus
 %{_datadir}/ceph/mgr/rbd_support
-%{_datadir}/ceph/mgr/restful
 %{_datadir}/ceph/mgr/rgw
 %{_datadir}/ceph/mgr/selftest
+%{_datadir}/ceph/mgr/smb
 %{_datadir}/ceph/mgr/snap_schedule
 %{_datadir}/ceph/mgr/stats
 %{_datadir}/ceph/mgr/status
@@ -2033,7 +2235,6 @@ fi
 %{_datadir}/ceph/mgr/telemetry
 %{_datadir}/ceph/mgr/test_orchestrator
 %{_datadir}/ceph/mgr/volumes
-%{_datadir}/ceph/mgr/zabbix
 
 %files mgr-rook
 %{_datadir}/ceph/mgr/rook
@@ -2116,6 +2317,9 @@ if [ $1 -ge 1 ] ; then
     /usr/bin/systemctl try-restart ceph-mon@\*.service > /dev/null 2>&1 || :
   fi
 fi
+
+%files mon-client-nvmeof
+%{_bindir}/ceph-nvmeof-monitor-client
 
 %files fuse
 %{_bindir}/ceph-fuse
@@ -2262,6 +2466,7 @@ fi
 %dir %{_libexecdir}/rbd-nbd
 %{_libexecdir}/rbd-nbd/rbd-nbd_quiesce
 
+%if %{with radosgw}
 %files radosgw
 %{_bindir}/ceph-diff-sorted
 %{_bindir}/radosgw
@@ -2269,6 +2474,7 @@ fi
 %{_bindir}/radosgw-es
 %{_bindir}/radosgw-object-expirer
 %{_bindir}/rgw-policy-check
+%{_mandir}/man8/ceph-diff-sorted.8*
 %{_mandir}/man8/radosgw.8*
 %{_mandir}/man8/rgw-policy-check.8*
 %dir %{_localstatedir}/lib/ceph/radosgw
@@ -2309,13 +2515,13 @@ if [ $1 -ge 1 ] ; then
     /usr/bin/systemctl try-restart ceph-radosgw@\*.service > /dev/null 2>&1 || :
   fi
 fi
+%endif
 
 %files osd
 %{_bindir}/ceph-clsinfo
 %{_bindir}/ceph-bluestore-tool
 %{_bindir}/ceph-erasure-code-tool
 %{_bindir}/ceph-objectstore-tool
-%{_bindir}/ceph-osdomap-tool
 %{_bindir}/ceph-osd
 %{_libexecdir}/ceph/ceph-osd-prestart.sh
 %{_mandir}/man8/ceph-clsinfo.8*
@@ -2333,16 +2539,12 @@ if [ $1 -eq 1 ] ; then
 fi
 %endif
 %if 0%{?fedora} || 0%{?rhel}
-%systemd_post ceph-osd@\*.service ceph-volume@\*.service ceph-osd.target
+%systemd_post ceph-osd@\*.service ceph-osd.target
 %endif
 if [ $1 -eq 1 ] ; then
 /usr/bin/systemctl start ceph-osd.target >/dev/null 2>&1 || :
 fi
-%if 0%{?sysctl_apply}
-    %sysctl_apply 90-ceph-osd.conf
-%else
-    /usr/lib/systemd/systemd-sysctl %{_sysctldir}/90-ceph-osd.conf > /dev/null 2>&1 || :
-%endif
+%sysctl_apply 90-ceph-osd.conf
 
 %preun osd
 %if 0%{?suse_version}
@@ -2366,7 +2568,7 @@ if [ $1 -ge 1 ] ; then
   fi
 fi
 
-%if 0%{with seastar}
+%if 0%{with crimson}
 %files crimson-osd
 %{_bindir}/crimson-osd
 %endif
@@ -2423,13 +2625,12 @@ fi
 
 %endif
 
+%endif
+
 %files -n librados2
-%doc %{_docdir}/ceph/COPYING
 %{_libdir}/librados.so.*
 %dir %{_libdir}/ceph
 %{_libdir}/ceph/libceph-common.so.*
-%{_libdir}/ceph/libcpp_redis.so*
-%{_libdir}/ceph/libtacopie.so*
 %if %{with lttng}
 %{_libdir}/librados_tp.so.*
 %endif
@@ -2485,7 +2686,6 @@ fi
 %endif
 
 %files -n librbd1
-%doc %{_docdir}/ceph/COPYING
 %{_libdir}/librbd.so.*
 %if %{with lttng}
 %{_libdir}/librbd_tp.so.*
@@ -2504,6 +2704,8 @@ fi
 %if %{with lttng}
 %{_libdir}/librbd_tp.so
 %endif
+
+%if 0%{with radosgw}
 
 %files -n librgw2
 %{_libdir}/librgw.so.*
@@ -2528,6 +2730,8 @@ fi
 %{python3_sitearch}/rgw.cpython*.so
 %{python3_sitearch}/rgw-*.egg-info
 
+%endif
+
 %files -n python%{python3_pkgversion}-rbd
 %{python3_sitearch}/rbd.cpython*.so
 %{python3_sitearch}/rbd-*.egg-info
@@ -2538,6 +2742,16 @@ fi
 
 %ldconfig_scriptlets libcephfs2
 
+%files -n libcephfs-proxy2
+%{_libdir}/libcephfs_proxy.so.*
+
+%post -n libcephfs-proxy2 -p /sbin/ldconfig
+
+%postun -n libcephfs-proxy2 -p /sbin/ldconfig
+
+%files -n libcephfs-daemon
+%{_sbindir}/libcephfsd
+
 %files -n libcephfs-devel
 %dir %{_includedir}/cephfs
 %{_includedir}/cephfs/libcephfs.h
@@ -2546,6 +2760,8 @@ fi
 %dir %{_includedir}/cephfs/metrics
 %{_includedir}/cephfs/metrics/Types.h
 %{_libdir}/libcephfs.so
+%{_libdir}/libcephfs_proxy.so
+%{_libdir}/pkgconfig/cephfs.pc
 
 %files -n python%{python3_pkgversion}-cephfs
 %{python3_sitearch}/cephfs.cpython*.so
@@ -2568,10 +2784,12 @@ fi
 %{_mandir}/man8/cephfs-shell.8*
 %endif
 
+%if 0%{with server}
 %files -n cephfs-top
 %{python3_sitelib}/cephfs_top-*.egg-info
 %{_bindir}/cephfs-top
 %{_mandir}/man8/cephfs-top.8*
+%endif
 
 %if 0%{with ceph_test_package}
 %files -n ceph-test
@@ -2595,7 +2813,8 @@ fi
 %{_bindir}/ceph-coverage
 %{_bindir}/ceph-debugpack
 %{_bindir}/ceph-dedup-tool
-%if 0%{with seastar}
+%{_bindir}/ceph-dedup-daemon
+%if 0%{with crimson}
 %{_bindir}/crimson-store-nbd
 %endif
 %{_mandir}/man8/ceph-debugpack.8*
@@ -2727,6 +2946,8 @@ fi
 exit 0
 %endif
 
+%if 0%{with server}
+
 %files grafana-dashboards
 %if 0%{?suse_version}
 %attr(0755,root,root) %dir %{_sysconfdir}/grafana
@@ -2751,262 +2972,29 @@ exit 0
 %dir %{python3_sitelib}/ceph_node_proxy
 %{python3_sitelib}/ceph_node_proxy/*
 %{python3_sitelib}/ceph_node_proxy-*
+%endif
 
 %changelog
-* Thu Aug 21 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.3-8
-- ceph-19.2.3, build w/ libarrow-21, liborc-2.2.0, f44-build-side-116633
+* Tue Sep 9 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:20.1.0-1
+- ceph-20.1.0 RC0
 
-* Wed Aug 20 2025 Hector Martin <marcan@marcan.st> - 2:19.2.3-7
-- Work around mgr `restful` module PyO3 failures
-- Fix NOTIFY_TYPES exceptions during module import (rhbz#2361850)
-
-* Wed Aug 20 2025 Hector Martin <marcan@marcan.st> - 2:19.2.3-6
-- Fix F41 build
-
-* Wed Aug 20 2025 Hector Martin <marcan@marcan.st> - 2:19.2.3-5
-- Fix mgr dashboard module failures due to unusable dependencies
-
-* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2:19.2.3-4
-- Rebuilt for Python 3.14.0rc2 bytecode
-
-* Wed Aug 13 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.3-3
-- ceph-19.2.3, rhbz#2310236
-
-* Wed Aug 06 2025 František Zatloukal <fzatlouk@redhat.com> - 2:19.2.3-2
-- Rebuilt for icu 77.1
-
-* Mon Jul 28 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.3-1
-- ceph-19.2.3 GA
-
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:19.2.2-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Wed Jul 9 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.2-8
-- w/ libarrow-20 in f43-build-side-114791 w/ Python 3.14
-
-* Mon Jul 7 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.2-7
-- w/ libarrow-20 in f43-build-side-113972
-
-* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 2:19.2.2-6
-- Rebuilt for Python 3.14
-
-* Mon Apr 28 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.2-5
-- ceph-19.2.2, rhgz#2336913, ready for python-3.14
-- also AFAIK has correct SPDX license (and has had for some time)
-
-* Wed Apr 16 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2:19.2.2-4
-- Add sysusers.d config file to allow rpm to create users/groups automatically
-
-* Mon Apr 14 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.2-3
-- ceph-19.2.2, rhbz#2359214 again
-
-* Sat Apr 12 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.2-2
-- ceph-19.2.2, rhbz#2359214
-
-* Thu Apr 10 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.2-1
+* Fri Apr 11 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.2-1
 - ceph-19.2.2 GA
 
-* Thu Mar 13 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.1-7
-- rebuild with libarrow-19.0.1 (and liborc-2.1.1)
+* Sat Mar 8 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com>
+- cephadm dependencies (keep in sync w/ rawhide, f42, etc.)
 
-* Fri Mar 7 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.1-6
-- cephadm dependencies
+* Sat Mar 1 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.1-3
+- rebuild with cmake-4
 
-* Sat Mar 1 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.1-5
-- rebuild w/ cmake-4
+* Tue Feb 18 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.1-2
+- ceph-19.2.1, rebuild with liborc-2.1.0, libarrow-19.0.0
 
-* Mon Feb 17 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.1-4
-- ceph-19.2.1, rebuild w/ libarrow 19, liborc 2.1, f43-build-side-105129
-
-* Sat Feb  8 2025 Zbigniew Jedrzejewski-Szmek <zbyszek@in.waw.pl> - 2:19.2.1-3
-- Add sysusers.d config file to allow rpm to create users/groups automatically
-
-* Fri Feb 7 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.1-2
-- ceph-19.2.1, rebuild w/ libarrow 19, liborc 2.1, f43-build-side-105129
-
-* Thu Feb 6 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.1-1
+* Fri Feb 7 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.1-1
 - ceph-19.2.1 GA
 
-* Fri Jan 24 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.0-10
-- hack around cmake -std=gnu99 w/ userspace-rcu
-- use system version of gmock and gtest to avoid bundled brain damage
-  that creates but does not install gmock and gtest shlibs rhbz#2341687
-
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:19.2.0-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Fri Dec 20 2024 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.0-8
-- remove openssl-engine
-
-* Sun Dec 08 2024 Pete Walter <pwalter@fedoraproject.org> - 2:19.2.0-7
-- Rebuild for ICU 76
-
-* Tue Nov 26 2024 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.0-6
-- build in f42-build-side-100844 again
-
-* Fri Nov 22 2024 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.0-5
-- build in f42-build-side-100844
-
-* Mon Nov 18 2024 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.0-4
-- and back; ceph-19.2.0 scikit_learn -> scikit-learn  rhbz#2327036
-
-* Wed Nov 13 2024 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.0-3
-- ceph-19.2.0 scikit-learn -> scikit_learn  rhbz#2325990
-
-* Fri Oct 25 2024 Orion Poplawski <orion@nwra.com> - 2:19.2.0-2
-- Rebuild for yaml-cpp 0.8
+* Thu Nov 14 2024 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.0-2
+- ceph-19.2.0, python-scikit-learn -> python-scikit_learn, license
 
 * Fri Sep 20 2024 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.2.0-1
 - ceph-19.2.0 GA
-
-* Fri Aug 23 2024 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.1.1-0.1
-- ceph-19.1.1 RC
-
-* Fri Jul 26 2024 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.1.0-0.5
-- possible fix for ppc64le build, see rhbz 2297744
-
-* Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2:19.1.0-0.4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Fri Jul 12 2024 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.1.0-0.3
-- install libtacopie.so
-
-* Thu Jul 11 2024 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.1.0-0.2
-- install libcpp_redis.so
-
-* Tue Jul 9 2024 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:19.1.0-0.1
-- ceph-19.1.0 RC
-
-* Tue Jul 9 2024 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:18.2.3-7
-- Rebuild with OpenSSL-3.2.2, w/ openssl-devel-engine
-
-* Mon Jul 8 2024 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:18.2.3-6
-- Rebuild with OpenSSL-3.2.2
-
-* Sat Jun 08 2024 Python Maint <python-maint@redhat.com> - 2:18.2.3-5
-- Rebuilt for Python 3.13
-
-* Fri Jun 7 2024 Kaleb S. KEITHLEY <kkeithle[at]redhat.com>
-- python 3.13 fixes
-
-* Sun Jun 02 2024 Orion Poplawski <orion@nwra.com> - 2:18.2.3-4
-- Rebuild with thrift 0.20
-
-* Tue May 21 2024 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:18.2.3-3
-- ceph-18.2.3, enable system boost
-
-* Tue May 21 2024 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:18.2.3-3
-- ceph-18.2.3, enable system boost
-
-* Tue May 14 2024 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:18.2.3-2
-- ceph-18.2.3, rebuild with libarrow-16.1.0, 
-- disable LTO w/ gcc-4.1.1
-
-* Mon Apr 29 2024 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:18.2.3-1
-- ceph-18.2.3 GA
-
-* Mon Apr 22 2024 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:18.2.2-4
-- rebuild with libarrow-16.0.0
-
-* Tue Mar 19 2024 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:18.2.2-3
-- rebuild with libarrow-15.0.2
-
-* Fri Mar 15 2024 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:18.2.2-2
-- rebuild with libarrow-15.0.1. (And liborc-2.0.0)
-
-* Thu Mar 7 2024 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:18.2.2-1
-- ceph-18.2.2 GA
-
-* Wed Mar 06 2024 David Abdurachmanov <davidlt@rivosinc.com> - 2:18.2.1-11
-- Add support for riscv64
-
-* Tue Feb 27 2024 Jiri Vanek <jvanek@redhat.com> - 2:18.2.1-10
-- Rebuilt for java-21-openjdk as system jdk
-
-* Wed Jan 31 2024 Pete Walter <pwalter@fedoraproject.org> - 2:18.2.1-9
-- Rebuild for ICU 74
-
-* Fri Jan 26 2024 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:18.2.1-8
-- rebuild for libarrow-15.0.0, rhbz#2260552
-
-* Wed Jan 24 2024 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:18.2.1-7
-- rebuild for Fedora_40_Mass_Rebuild, gcc-14, and rocksdb-8.10.0,
-  libarrow-14.0.2
-
-* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2:18.2.1-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2:18.2.1-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 15 2024 Florian Weimer <fweimer@redhat.com> - 2:18.2.1-5
-- Backport upstream patches to fix C compatibility issues
-
-* Sat Jan 13 2024 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:18.2.1-4
-- rebuild with rocksdb-8.10.0
-
-* Tue Dec 19 2023 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:18.2.1-3
-- ceph-18.2.1, incorporate changes from *final* 18.2.1 release from
-  https://download.ceph.com/rpm-18.2.1/el9/SRPMS/ceph-18.2.1-0.el9.src.rpm
-
-* Wed Nov 15 2023 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:18.2.1-2
-- ceph-18.2.1, rebuild for f40-build-side-76708, w/ libarrow-14.0.1,
-  and liborc-1.9.2
-
-* Wed Nov 15 2023 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:18.2.1-1
-- ceph-18.2.1 GA
-
-* Wed Nov 1 2023 Terje Rosten <terje.rosten@ntnu.no> - 2:18.2.0-4
-- Rebuild for gtest 1.14.0 and libarrow 14.0.0
-
-* Wed Nov 1 2023 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:18.2.0-3
-- Rebuild for Apache Arrow (libarrow) 14.0.0
-
-* Thu Oct 5 2023 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:18.2.0-2
-- ceph-18.2.0, rebuild in side tag (f40-build-side-74974)
-
-* Fri Aug 4 2023 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:18.2.0-1
-- ceph-18.2.0 GA
-
-* Tue Aug 1 2023 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:18.1.3-0.2
-- ceph-18.1.3 RC4, rebuild with libarrow-13.0.0
-
-* Wed Jul 26 2023 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:18.1.3-0.1
-- ceph-18.1.3 RC4
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:18.1.2-0.5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-- revert python3-Cython -> python3dist(cython) < 3~~
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:18.1.2-0.4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-- with python3-Cython -> python3dist(cython) < 3~~
-
-* Tue Jul 11 2023 František Zatloukal <fzatlouk@redhat.com> - 2:18.1.2-0.3
-- Rebuilt for ICU 73.2
-
-* Fri Jun 30 2023 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:18.1.2-0.2
-- Rebuilt for Python 3.12
-
-* Fri Jun 30 2023 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:18.1.2-0.1
-- ceph-18.1.2 RC3
-
-* Sun Jun 18 2023 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:18.1.1-0.2
-- Rebuilt for Python 3.12
-
-* Sun Jun 18 2023 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:18.1.1-0.1
-- ceph-18.1.1 RC2
-
-* Thu Jun 15 2023 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:18.1.0-0.4
-- Rebuilt for Python 3.12
-
-* Thu Jun 15 2023 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:18.1.0-0.3
-- remove requires for nonexistant libjaeger, rhbz#2215320
-- sync w/ upstream ceph.spec(.in), sanity check
-
-* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 2:18.1.0-0.2
-- Rebuilt for Python 3.12
-
-* Tue Jun 13 2023 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:18.1.0-0.1
-- ceph-18.1.0 RC1
-

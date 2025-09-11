@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.1.7
-Release: 14%{?dist}
+Release: 15%{?dist}
 Summary: EventMachine based, async HTTP Request client
 License: MIT
 URL: http://github.com/igrigorik/em-http-request
@@ -12,6 +12,9 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # PR: https://github.com/igrigorik/em-http-request/pull/344
 Patch0: %{name}-%{version}-explicit-keyword-argument.patch
 Patch1: em-http-request-1.1.7-Also-stop-the-HTTP-parser-in-addition-to-resetting.patch
+# Fix compatibility with Rack 3
+# https://github.com/igrigorik/em-http-request/pull/370
+Patch2: rubygem-em-http-request-1.1.7-Compatibility-with-Rack-3.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -22,6 +25,7 @@ BuildRequires: rubygem(addressable)
 BuildRequires: rubygem(cookiejar)
 BuildRequires: rubygem(http_parser.rb)
 BuildRequires: rubygem(rack)
+BuildRequires: rubygem(rackup)
 BuildRequires: rubygem(webrick)
 BuildRequires: %{_bindir}/ping
 BuildRequires: rubygem(rspec)
@@ -45,6 +49,7 @@ Documentation for %{name}.
 
 %patch 0 -p1
 %patch 1 -p1
+%patch 2 -p1
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -65,8 +70,6 @@ cp -a .%{gem_dir}/* \
 pushd .%{gem_instdir}
 # We are trying not to use bundler when not needed
 sed -i "/require 'bundler\/setup'/ s/^/#/" spec/helper.rb
-# Mongrel is deprecated so we are using WEBrick server
-sed -i 's/Mongrel/WEBrick/' spec/stallion.rb
 # Missing require on pathname in client spec
 sed -i "/^require 'helper'/i require 'pathname'" spec/client_spec.rb
 
@@ -75,7 +78,6 @@ sed -i '/it "should report error if connection was closed by server on client ke
 
 # These tests fail on WEBrick but on Puma the tests are passing.
 sed -i '/it "should set content-length to 0 on posts with empty bodies" do/ ,/^  end$/ s/^/#/' spec/client_spec.rb
-sed -i '/it "should fail GET on invalid host" do/ ,/^  end$/ s/^/#/' spec/dns_spec.rb
 sed -i '/it "should keep default https port in redirect url that include it"/ ,/^  end$/ s/^/#/' spec/redirect_spec.rb
 sed -i '/it "should keep default http port in redirect url that include it"/ ,/^  end$/ s/^/#/' spec/redirect_spec.rb
 # Got a different message than expected with WEBrick, works on Puma
@@ -104,6 +106,10 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Fri Sep 05 2025 Jarek Prokop <jprokop@redhat.com> - 1.1.7-15
+- Fix compatibility with Rack 3+
+  Resolves: rhbz#2385584
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.7-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

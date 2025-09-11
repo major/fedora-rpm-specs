@@ -1,11 +1,11 @@
 Name:           gdk-pixbuf2-modules-extra
-Version:        2.43.5
+Version:        2.44.0
 Release:        %autorelease
 Summary:        Extra image loaders for gdk-pixbuf2
 
 License:        LGPL-2.1-or-later
 URL:            https://gitlab.gnome.org/GNOME/gdk-pixbuf
-Source0:        https://download.gnome.org/sources/gdk-pixbuf/2.43/gdk-pixbuf-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/gdk-pixbuf/2.44/gdk-pixbuf-%{version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  gettext
@@ -17,13 +17,18 @@ BuildRequires:  shared-mime-info
 
 Requires:       gdk-pixbuf2%{?_isa} > 2.43.0
 
+%if 0%{?fedora} >= 44
+%global contents a module for loading XPM images
+%else
+%global contents modules for loading ANI, ICNS, QTIF, XBM, and XPM images
+%endif
+
 %description
 gdk-pixbuf is an image loading library that can be extended by loadable
 modules for new image formats. It is used by toolkits such as GTK+ or
 clutter.
 
-This package contains modules for loading ANI, ICNS, QTIF, XBM, and XPM
-images.
+This package contains %{contents}.
 
 %prep
 %autosetup -n gdk-pixbuf-%{version} -p1
@@ -58,6 +63,9 @@ rm -r $RPM_BUILD_ROOT%{_bindir}
 rm -r $RPM_BUILD_ROOT%{_datadir}/locale
 rm -r $RPM_BUILD_ROOT%{_includedir}
 rm    $RPM_BUILD_ROOT%{_libdir}/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-{bmp,ico,pnm,tga}.so
+%if 0%{?fedora} >= 44
+rm    $RPM_BUILD_ROOT%{_libdir}/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-{ani,icns,qtif,xbm}.so
+%endif
 rm    $RPM_BUILD_ROOT%{_libdir}/libgdk_pixbuf-2.0*
 rm -r $RPM_BUILD_ROOT%{_libdir}/pkgconfig
 

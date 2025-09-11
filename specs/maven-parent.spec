@@ -16,7 +16,6 @@ BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(org.apache.maven.plugin-tools:maven-plugin-annotations)
-BuildRequires:  mvn(org.apache.maven.plugins:maven-enforcer-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-plugin-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-remote-resources-plugin)
 BuildRequires:  mvn(org.apache:apache:pom:)
@@ -28,7 +27,7 @@ Apache Maven parent POM file used by other Maven projects.
 
 %prep
 %autosetup -p1 -C
-%pom_remove_plugin :maven-enforcer-plugin
+%pom_remove_plugin -r :maven-enforcer-plugin
 %pom_remove_plugin :maven-checkstyle-plugin
 %pom_remove_plugin :apache-rat-plugin
 %pom_remove_plugin :spotless-maven-plugin

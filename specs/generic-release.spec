@@ -3,13 +3,13 @@
 %if 0%{?fedora}
 %global dist_version %{fedora}
 %else
-%global dist_version 43
+%global dist_version 44
 %endif
 
 Summary:	Generic release files
 Name:		generic-release
 Version:	%{dist_version}
-Release:	0.1
+Release:	0.2
 License:	MIT
 Source0:	LICENSE
 Source1:	README.developers
@@ -190,6 +190,13 @@ install -Dm0644 %{SOURCE9} -t $RPM_BUILD_ROOT%{_prefix}/lib/systemd/user-preset/
 
 
 %changelog
+* Tue Sep 09 2025 Zbigniew Jędrzejewski-Szmek  <zbyszek@in.waw.pl> - %{fedora}-0.2
+- 44. I don't see anyone here (rhbz#2388040)
+
+* Tue Apr 22 2025 Dan Streetman <ddstreet@ieee.org> - 43-0.2
+- Change dbus-daemon.service to dbus-broker.service in preset files (rhbz#2373032)
+- I see you, Tom. I see you.
+
 * Mon Feb 10 2025 Tom Callaway <spot@fedoraproject.org> - 43-0.1
 - bump to 43. no one sees me here.
 

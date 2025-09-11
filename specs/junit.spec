@@ -21,7 +21,6 @@ Patch:          0002-Port-to-OpenJDK-21.patch
 BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  maven-local-openjdk25
-BuildRequires:  mvn(org.apache.maven.plugins:maven-enforcer-plugin)
 BuildRequires:  mvn(org.hamcrest:hamcrest-core)
 %endif
 %if %{without bootstrap}
@@ -56,6 +55,7 @@ sed -i /InaccessibleBaseClassTest/d src/test/java/org/junit/tests/AllTests.java
 sed s/@version@/%{version}/ src/main/java/junit/runner/Version.java.template >src/main/java/junit/runner/Version.java
 
 %pom_remove_plugin :animal-sniffer-maven-plugin
+%pom_remove_plugin :maven-enforcer-plugin
 
 # Removing hamcrest source jar references (not available and/or necessary)
 %pom_remove_plugin :maven-javadoc-plugin

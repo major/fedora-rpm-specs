@@ -1,11 +1,15 @@
 Name:		voms-api-java
 Version:	3.3.6
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Virtual Organization Membership Service Java API
 
 License:	Apache-2.0
 URL:		https://github.com/italiangrid/%{name}
 Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+#		Helper scripts for generating test certificates
+Source1:	https://baltig.infn.it/mw-devel/helper-scripts/-/archive/master/helper-scripts-master.tar.gz
+#		Disable tests requiring non-local network
+Patch0:		%{name}-test.patch
 
 BuildArch:	noarch
 ExclusiveArch:	%{java_arches} noarch
@@ -16,6 +20,11 @@ BuildRequires:	maven-local-openjdk25
 BuildRequires:	maven-local
 %endif
 BuildRequires:	mvn(eu.eu-emi.security:canl) >= 2.8.3
+BuildRequires:	mvn(junit:junit)
+BuildRequires:	mvn(org.hamcrest:hamcrest-library)
+BuildRequires:	mvn(org.mockito:mockito-core)
+BuildRequires:	faketime
+BuildRequires:	openssl
 Requires:	mvn(eu.eu-emi.security:canl) >= 2.8.3
 
 %description
@@ -35,7 +44,8 @@ Summary:	Virtual Organization Membership Service Java API Documentation
 Virtual Organization Membership Service (VOMS) Java API Documentation.
 
 %prep
-%setup -q
+%setup -q -a 1
+%patch -P0 -p1
 
 # Remove unused dependency
 %pom_remove_dep net.jcip:jcip-annotations
@@ -47,17 +57,20 @@ Virtual Organization Membership Service (VOMS) Java API Documentation.
 # Do not create source jars
 %pom_remove_plugin org.apache.maven.plugins:maven-source-plugin
 
-# Do not enforce requirements
-%pom_remove_plugin org.apache.maven.plugins:maven-enforcer-plugin
-
 %if %{?rhel}%{!?rhel:0} == 9
 # Modify bouncycastle dependencies for RHEL 9
 %pom_change_dep org.bouncycastle:bcprov-jdk18on org.bouncycastle:bcprov-jdk15on
 %pom_change_dep org.bouncycastle:bcpkix-jdk18on org.bouncycastle:bcpkix-jdk15on
 %endif
 
+# Generate test certificates
+export PATH=$PWD/helper-scripts-master/x509-scripts/scripts:$PATH
+pushd src/test/resources
+./setup.sh
+popd
+
 %build
-%mvn_build -f
+%mvn_build
 
 %install
 %mvn_install
@@ -70,6 +83,10 @@ Virtual Organization Membership Service (VOMS) Java API Documentation.
 %license LICENSE
 
 %changelog
+* Mon Sep 08 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.3.6-2
+- Include upstream's scripts for generating test certificates
+- Enable tests again
+
 * Tue Aug 05 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 3.3.6-1
 - Update to version 3.3.6
 

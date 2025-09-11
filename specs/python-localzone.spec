@@ -12,6 +12,9 @@ URL:            %{forgeurl}
 # pypi releases don't contain necessary data to run the tests
 Source0:        %{forgesource}
 
+# Compatibility with dnspython 2.8.0
+Patch:          https://github.com/ags-slc/localzone/pull/6.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -33,7 +36,7 @@ Summary:        %{summary}
 %description -n python3-%{pypi_name} %_description
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n %{pypi_name}-%{version} -p1
 
 %generate_buildrequires
 %pyproject_buildrequires -t
@@ -53,6 +56,9 @@ Summary:        %{summary}
 %doc README.rst
 
 %changelog
+* Tue Sep 09 2025 Lumír Balhar <lbalhar@redhat.com> - 0.9.8-13
+- Fix compatibility with dnspython 2.8.0
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.9.8-12
 - Rebuilt for Python 3.14.0rc2 bytecode
 

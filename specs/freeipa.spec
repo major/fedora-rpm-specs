@@ -215,7 +215,7 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        17%{?rc_version:.%rc_version}%{?dist}
+Release:        18%{?rc_version:.%rc_version}%{?dist}
 Summary:        The Identity, Policy and Audit system
 
 License:        GPL-3.0-or-later
@@ -240,6 +240,7 @@ Patch0001:      freeipa-4-12-2-post-updates-1.patch
 Patch0002:      freeipa-4-12-2-post-updates-edns.patch
 # This one includes CVE-2025-4404 fixes as well
 Patch0003:      freeipa-4-12-2-post-updates-2.patch
+Patch0004:      freeipa-issue-9852.patch
 
 # RHEL spec file only: START: Change branding to IPA and Identity Management
 # Moved branding logos and background to redhat-logos-ipa-80.4:
@@ -1937,6 +1938,10 @@ fi
 %endif
 
 %changelog
+* Tue Sep 09 2025 Alexander Bokovoy <abokovoy@redhat.com> - 4.12.2-18
+- Fix forest trust information handling to support Samba 4.23
+- resolves: rhbz#2393890
+
 * Mon Aug 25 2025 Alexander Bokovoy <abokovoy@redhat.com> - 4.12.2-17
 - Update samba dependency
 - Resolves: rhbz#2390262

@@ -1,11 +1,11 @@
 %global         srcname         ufo2ft
 %global         forgeurl        https://github.com/googlefonts/ufo2ft
-Version:        3.6.2
+Version:        3.6.3
 %global         tag             v%{version}
 %forgemeta
 
 Name:           python-%{srcname}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        A bridge from UFOs to FontTool objects
 
 # The entire source is (SPDX) MIT, except:
@@ -68,6 +68,9 @@ k="${k-}${k+ and }not (test_kern_zyyy_zinh)"
 %doc README.rst
  
 %changelog
+* Tue Sep 09 2025 Benson Muite <fed500@fedoraproject.org> - 3.6.3-1
+- Update to 3.6.3 (close RHBZ#2394037)
+
 * Wed Aug 20 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 3.6.0-3
 - Patch tests for fonttools 4.59.1
 

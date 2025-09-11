@@ -5,7 +5,7 @@
 %global crate spin_sleep
 
 Name:           rust-spin_sleep
-Version:        1.3.2
+Version:        1.3.3
 Release:        %autorelease
 Summary:        Accurate sleeping
 

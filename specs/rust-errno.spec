@@ -5,7 +5,7 @@
 %global crate errno
 
 Name:           rust-errno
-Version:        0.3.13
+Version:        0.3.14
 Release:        %autorelease
 Summary:        Cross-platform interface to the errno variable
 

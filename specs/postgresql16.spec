@@ -48,7 +48,7 @@
 Summary: PostgreSQL client programs
 Name: %{majorname}%{majorversion}
 Version: %{majorversion}.10
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # The PostgreSQL license is very similar to other MIT licenses, but the OSI
 # recognizes it as an independent license, so we do as well.
@@ -748,6 +748,9 @@ upgrade_configure ()
        --enable-dtrace \
 %endif
 %if %selinux
+%if %ssl
+       --with-openssl \
+%endif
        --with-selinux \
 %endif
 %if %plpython3
@@ -1342,6 +1345,11 @@ make -C postgresql-setup-%{setup_version} check
 
 
 %changelog
+* Tue Sep 09 2025 Filip Janus <fjanus@redhat.com> - 16.10-2
+- Add OpenSSL support to upgrade_configure function
+- This ensures upgrade server is compiled with OpenSSL support
+- Required for SSL/TLS connections during database upgrades
+
 * Thu Aug 14 2025 Packit <hello@packit.dev> - 16.10-1
 - Update to version 16.10
 - Resolves: rhbz#2388580

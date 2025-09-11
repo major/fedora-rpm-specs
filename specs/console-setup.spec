@@ -1,6 +1,6 @@
 
 Name:		console-setup
-Version:	1.240
+Version:	1.242
 Release:	1%{?dist}
 Summary:	Tools for configuring the console using X Window System key maps
 
@@ -46,7 +46,7 @@ not wasted but used for another symbol.
 
 
 %prep
-%setup -q -n %{name}
+%setup -q
 %autopatch -p1
 
 cp -a --remove-destination debian/copyright COPYRIGHT
@@ -94,6 +94,9 @@ cp -a Fonts/fontsets Fonts/*.equivalents Fonts/*.set \
 
 
 %changelog
+* Fri Aug 29 2025 Packit <hello@packit.dev> - 1.242-1
+- Update to latest upstream version
+
 * Thu Aug 21 2025 Packit <hello@packit.dev> - 1.240-1
 - Update to latest upstream version
 

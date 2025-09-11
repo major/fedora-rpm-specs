@@ -1,8 +1,8 @@
 # remirepo/fedora spec file for php-sabre-http5
 #
-# Copyright (c) 2013-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2013-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
@@ -10,7 +10,7 @@
 %bcond_without      tests
 
 # Github
-%global gh_commit    dedff73f3995578bc942fa4c8484190cac14f139
+%global gh_commit    7c2a14097d1a0de2347dcbdc91a02f38e338f4db
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sabre-io
 %global gh_project   http
@@ -24,8 +24,8 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Summary:        Library for dealing with http requests and responses
-Version:        5.1.12
-Release:        3%{?dist}
+Version:        5.1.13
+Release:        1%{?dist}
 
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 License:        BSD-3-Clause
@@ -39,7 +39,7 @@ BuildRequires:  php-ctype
 BuildRequires: (php-composer(sabre/event) >= 4.0   with php-composer(sabre/event) < 6)
 BuildRequires: (php-composer(sabre/uri)   >= 2.0   with php-composer(sabre/uri)   < 3)
 # From composer.json, "require-dev" : {
-#        "friendsofphp/php-cs-fixer": "~2.17.1||^3.63",
+#        "friendsofphp/php-cs-fixer": "~2.17.1||3.63.2",
 #        "phpstan/phpstan": "^0.12",
 #        "phpunit/phpunit" : "^7.5 || ^8.5 || ^9.6"
 BuildRequires:  phpunit9 >= 9.6
@@ -158,7 +158,7 @@ PHPPID=$!
 
 : Run upstream test suite against installed library
 ret=0
-for cmdarg in "php %{phpunit}" php81 php82 php83 php84; do
+for cmdarg in "php %{phpunit}" php81 php82 php83 php84 php85; do
   if which $cmdarg; then
     set $cmdarg
     $1 ${2:-%{_bindir}/phpunit9} --verbose || ret=1
@@ -181,6 +181,10 @@ exit $ret
 
 
 %changelog
+* Tue Sep  9 2025 Remi Collet <remi@remirepo.net> - 5.1.13-1
+- update to 5.1.13
+- re-license spec file to CECILL-2.1
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.12-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

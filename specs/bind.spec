@@ -86,7 +86,7 @@ License:  MPL-2.0 AND ISC AND MIT AND BSD-3-Clause AND BSD-2-Clause
 # Before rebasing bind, ensure bind-dyndb-ldap is ready to be rebuild and use side-tag with it.
 # Updating just bind will cause freeipa-dns-server package to be uninstallable.
 Version:  9.18.39
-Release:  2%{?dist}
+Release:  3%{?dist}
 Epoch:    32
 Url:      https://www.isc.org/downloads/bind/
 #
@@ -137,6 +137,9 @@ Patch30: bind-9.20-nsupdate-tls-test.patch
 Patch31: bind-9.18-pkcs11-provider.patch
 # https://gitlab.isc.org/isc-projects/bind9/-/merge_requests/10611
 Patch32: bind-9.18-partial-additional-records.patch
+# https://gitlab.isc.org/isc-projects/bind9/-/merge_requests/9723
+# downstream only
+Patch33: bind-9.18-dig-idn-input-always.patch
 
 %{?systemd_ordering}
 # https://fedoraproject.org/wiki/Changes/RPMSuportForSystemdSysusers
@@ -924,6 +927,9 @@ fi;
 %endif
 
 %changelog
+* Wed Sep 03 2025 Petr Menšík <pemensik@redhat.com> - 32:9.18.39-3
+- Decode IDN names on input in all situations in utilities (rhbz#2324186)
+
 * Mon Sep 01 2025 Petr Menšík <pemensik@redhat.com> - 32:9.18.39-2
 - Offer up to 13 additional servers records if there are more servers
 

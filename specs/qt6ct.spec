@@ -14,18 +14,26 @@ URL:     %{forgeurl}
 
 Source0: %{forgesource}
 # https://www.opencode.net/trialuser/qt6ct/-/merge_requests/9
-Patch:   https://www.opencode.net/trialuser/qt6ct/-/merge_requests/9.patch
+Patch0:  qt6ct-kde.patch
+Patch1:  0001-build-refactor-CMake-build-rules.patch
+Patch2:  0002-Wrap-forward-declaration-within-QT_NAMESPACE.patch
+Patch3:  0003-Revert-Use-KDE-s-QtQuick-QtWidgets-style-bridge.patch
 
 BuildRequires: cmake
-BuildRequires: gcc-c++
-BuildRequires: qt6-rpm-macros >= %{version}
-BuildRequires: qt6-qtbase-devel
-BuildRequires: qt6-qtbase-private-devel
-BuildRequires: qt6-qtdeclarative-devel
-BuildRequires: qt6-linguist
-BuildRequires: kf6-kiconthemes-devel
-BuildRequires: kf6-kconfig-devel
+BuildRequires: extra-cmake-modules
+
 BuildRequires: desktop-file-utils
+BuildRequires: gcc-c++
+BuildRequires: cmake(Qt6Core)
+BuildRequires: cmake(Qt6Widgets)
+BuildRequires: cmake(Qt6QuickControls2)
+BuildRequires: cmake(Qt6LinguistTools)
+BuildRequires: qt6-qtbase-private-devel
+BuildRequires: cmake(KF6Config)
+BuildRequires: cmake(KF6ColorScheme)
+BuildRequires: cmake(KF6IconThemes)
+
+%{?_qt6:Requires: %{_qt6}%{?_isa} = %{_qt6_version}}
 
 %description
 This program allows users to configure Qt6 settings (theme, font, icons, etc.)
@@ -36,29 +44,30 @@ under DE/WM without Qt integration.
 
 
 %build
-%cmake
+%cmake -DQT6CT_IN_TREE=ON
 %cmake_build
 
 %install
 %cmake_install
+%find_lang %{name} --with-qt
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
-%files
+%files -f %{name}.lang
 %doc AUTHORS README.md ChangeLog
 %license COPYING
 %{_bindir}/%{name}
-%{_qt6_plugindir}/platformthemes/libqt6ct.so
-%{_qt6_plugindir}/styles/libqt6ct-style.so
 %{_datadir}/applications/%{name}.desktop
 %dir %{_datadir}/%{name}/
 %dir %{_datadir}/%{name}/colors/
 %{_datadir}/%{name}/colors/*.conf
 %dir %{_datadir}/%{name}/qss/
 %{_datadir}/%{name}/qss/*.qss
-%{_libdir}/libqt6ct-common.so
-%{_libdir}/libqt6ct-common.so.%{version}*
+%exclude %{_libdir}/libqt6ct-common.so
+%{_libdir}/libqt6ct-common.so.%{version}
+%{_qt6_plugindir}/platformthemes/libqt6ct.so
+%{_qt6_plugindir}/styles/libqt6ct-style.so
 
 %changelog
 %autochangelog

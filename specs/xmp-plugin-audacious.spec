@@ -1,5 +1,5 @@
-# 2025-03-25
-%global commit 0320cfd7e2784322af7075115cfdcc548ceebaeb
+# 2025-09-09
+%global commit a5fbde82fd5ac017c9ef3c1a0bfdab46fe338d4c
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %global plugin_dir %(%___build_pre; pkg-config --variable=plugin_dir audacious)
@@ -12,7 +12,7 @@
 
 Name: xmp-plugin-audacious
 Version: 4.0.0.3.8
-Release: 0.5.20250325git%{shortcommit}%{?dist}
+Release: 0.6.20250909git%{shortcommit}%{?dist}
 Summary: Multi-format module playback plugin for Audacious using libxmp
 Source: https://github.com/mschwendt/xmp-plugin-audacious/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 License: GPL-2.0-or-later
@@ -21,8 +21,6 @@ BuildRequires: make
 BuildRequires: libtool automake autoconf gcc-c++
 BuildRequires: audacious-devel >= 3.8
 BuildRequires: libxmp-devel
-
-Patch0: xmp-plugin-audacious-strip_vfs.patch
 
 %description
 .
@@ -35,9 +33,6 @@ Summary: Multi-format module playback plugin for Audacious using libxmp
 %else
 Requires: audacious
 %endif
-# added 2024-07-24
-Provides: xmp-plugin-audacious = %{version}-%{release}
-Obsoletes: xmp-plugin-audacious < 4.0.0.3.8
 
 %description -n audacious-plugins-xmp
 Audacious input plugin based on Extended Module Player (xmp) library.
@@ -75,6 +70,10 @@ make install DESTDIR=%{buildroot}
 #exclude %%{plugin_dir}/Input/*.la
 
 %changelog
+* Tue Sep 09 2025 Michael Schwendt <mschwendt@fedoraproject.org> - 4.0.0.3.8-0.6.20250909gita5fbde8
+- Merge loop_count based fix for some files (e.g. XM) not ending anymore.
+- Drop aging Obsoletes/Provides pair.
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0.3.8-0.5.20250325git0320cfd
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -37,7 +37,7 @@
 %bcond gcs_tests 1
 
 Name:           snakemake
-Version:        9.11.0
+Version:        9.11.2
 %global srcversion %(echo '%{version}' | cut -d '^' -f 1)
 Release:        %autorelease
 Summary:        Workflow management system to create reproducible and scalable data analyses
@@ -150,10 +150,6 @@ Source2:        get_assets
 # original assets in order to then modify them. The signal for this behavior is
 # the substring "modified-assets" in the patch name.
 Patch:          snakemake-9.1.1-modified-assets.patch
-
-# fix: invalid escape sequences in a doc string
-# https://github.com/snakemake/snakemake/pull/3728
-Patch:          %{forgeurl}/pull/3728.patch
 
 BuildSystem:            pyproject
 # Generate BR’s for all supported extras to ensure they do not FTI

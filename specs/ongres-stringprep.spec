@@ -9,7 +9,6 @@ BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
 BuildRequires:  maven-local-openjdk25
-BuildRequires:  mvn(org.apache.maven.plugins:maven-enforcer-plugin)
 BuildRequires:  mvn(org.junit.jupiter:junit-jupiter)
 
 # TODO Remove in Fedora 46
@@ -25,6 +24,7 @@ find \( -name '*.jar' -o -name '*.class' \) -delete
 
 %pom_remove_dep org.junit:junit-bom parent
 
+%pom_remove_plugin -r :maven-enforcer-plugin
 %pom_remove_plugin -r :maven-javadoc-plugin
 
 # codegenerator is only needed at build time, and has extra dependencies

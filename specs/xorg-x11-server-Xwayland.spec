@@ -9,7 +9,7 @@
 Summary:   Xwayland
 Name:      xorg-x11-server-Xwayland
 Version:   24.1.8
-Release:   2%{?gitdate:.%{gitdate}git%{shortcommit}}%{?dist}
+Release:   3%{?gitdate:.%{gitdate}git%{shortcommit}}%{?dist}
 
 URL:       http://www.x.org
 %if 0%{?gitdate}
@@ -17,6 +17,9 @@ Source0:   https://gitlab.freedesktop.org/xorg/%{pkgname}/-/archive/%{commit}/%{
 %else
 Source0:   https://www.x.org/pub/individual/xserver/%{pkgname}-%{version}.tar.xz
 %endif
+
+# https://gitlab.freedesktop.org/xorg/xserver/-/merge_requests/2060
+Patch:     0001-xwayland-Don-t-run-key-behaviors-and-actions.patch
 
 License:   MIT
 
@@ -133,6 +136,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_libdir}/pkgconfig/xwayland.pc
 
 %changelog
+* Tue Sep  9 2025 Fedora Release Engineering <releng@fedoraproject.org> - 24.1.8-3
+- Add fix for keyboard modifiers from upstream
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 24.1.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:          openapv
 Release:       %autorelease
-Version:       0.2.0.1
+Version:       0.2.0.3
 Summary:       Open Advanced Professional Video Codec
 License:       BSD-3-Clause
 URL:           https://github.com/AcademySoftwareFoundation/openapv
@@ -61,7 +61,7 @@ rm -v %{buildroot}%{_libdir}/oapv/liboapv.a
 %license LICENSE
 %doc README.md
 %{_libdir}/liboapv.so.2
-%{_libdir}/liboapv.so.2.0.1
+%{_libdir}/liboapv.so.2.0.3
 
 %changelog
 %autochangelog

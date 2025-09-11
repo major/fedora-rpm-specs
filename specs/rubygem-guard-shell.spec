@@ -2,15 +2,15 @@
 %global gem_name guard-shell
 
 Name: rubygem-%{gem_name}
-Version: 0.7.1
-Release: 18%{?dist}
+Version: 0.7.2
+Release: 1%{?dist}
 Summary: Guard gem for running shell commands
 License: MIT
-URL: http://github.com/hawx/guard-shell
+URL: https://github.com/sdwolfz/guard-shell
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
-# git clone https://github.com/guard/guard-shell.git && cd guard-shell
-# git checkout v0.7.1
-# tar -czvf rubygem-shell-0.7.1-spec.tar.gz spec/
+# git clone https://github.com/sdwolfz/guard-shell.git && cd guard-shell
+# git checkout v0.7.2
+# tar -czvf rubygem-guard-shell-0.7.2-spec.tar.gz spec/
 Source1: %{name}-%{version}-spec.tar.gz
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
@@ -34,15 +34,11 @@ BuildArch: noarch
 Documentation for %{name}.
 
 %prep
-gem unpack %{SOURCE0}
-
-%setup -q -D -T -n  %{gem_name}-%{version} -b 1
-
-gem spec %{SOURCE0} -l --ruby > %{gem_name}.gemspec
+%setup -q -n  %{gem_name}-%{version} -b 1
 
 %build
 # Create the gem as gem install only works on a gem file
-gem build %{gem_name}.gemspec
+gem build ../%{gem_name}-%{version}.gemspec
 
 # %%gem_install compiles any C extensions and installs the gem into ./%%gem_dir
 # by default, so that we can move it into the buildroot in %%install
@@ -73,6 +69,10 @@ popd
 %doc %{gem_instdir}/Readme.md
 
 %changelog
+* Tue Sep 09 2025 Jarek Prokop <jprokop@redhat.com> - 0.7.2-1
+- Upgrade to guard-shell 0.7.2
+  Resolves: rhbz#1948286
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

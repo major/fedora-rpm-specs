@@ -1,6 +1,6 @@
 Name:		virglrenderer
-Version:	1.1.1
-Release:	2%{?dist}
+Version:	1.2.0
+Release:	1%{?dist}
 
 Summary:	Virgl Rendering library.
 License:	MIT
@@ -66,6 +66,9 @@ driver to test virgl rendering without GL.
 %{_bindir}/virgl_test_server
 
 %changelog
+* Tue Sep 09 2025 Marc-André Lureau <marcandre.lureau@redhat.com> - 1.2.0-1
+- Update to v1.2.0, fixes rhbz#2393984
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -26,7 +26,6 @@ BuildRequires:  mvn(javax.inject:javax.inject)
 BuildRequires:  mvn(org.apache.httpcomponents:httpclient)
 BuildRequires:  mvn(org.apache.httpcomponents:httpcore)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-dependency-plugin)
-BuildRequires:  mvn(org.apache.maven.plugins:maven-enforcer-plugin)
 BuildRequires:  mvn(org.apache.maven.wagon:wagon-provider-api)
 BuildRequires:  mvn(org.apache.maven:maven-model-builder:4.0.0-rc-4)
 BuildRequires:  mvn(org.apache.maven:maven-parent:pom:)
@@ -77,7 +76,7 @@ artifact transports and artifact resolution.
 %pom_remove_plugin :bnd-maven-plugin
 %pom_remove_plugin :maven-jar-plugin
 
-%pom_remove_plugin :maven-enforcer-plugin
+%pom_remove_plugin -r :maven-enforcer-plugin
 %pom_remove_plugin -r :japicmp-maven-plugin
 
 %mvn_compat_version : 2.0.9

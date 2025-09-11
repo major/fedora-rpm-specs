@@ -15,7 +15,6 @@ Source0:        https://repo1.maven.org/maven2/org/apache/apache/%{version}/apac
 BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  maven-local-openjdk25
-BuildRequires:  mvn(org.apache.maven.plugins:maven-enforcer-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-remote-resources-plugin)
 %endif
 %if %{without bootstrap}
@@ -30,6 +29,7 @@ This package contains the parent pom file for apache projects.
 %prep
 %autosetup -p1 -C
 
+%pom_remove_plugin :maven-enforcer-plugin
 %pom_remove_plugin :maven-site-plugin
 %pom_remove_plugin :maven-site-plugin docs
 %pom_remove_plugin :maven-scm-publish-plugin docs

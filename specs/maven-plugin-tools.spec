@@ -20,7 +20,6 @@ BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(com.thoughtworks.qdox:qdox)
-BuildRequires:  mvn(org.apache.maven.plugins:maven-enforcer-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-plugin-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-source-plugin)
 BuildRequires:  mvn(org.apache.maven:maven-artifact)
@@ -113,6 +112,7 @@ rm -r maven-plugin-tools-api/src/test/resources/javadoc
 %pom_remove_dep -r :velocity
 %pom_remove_dep -r :jtidy
 %pom_remove_plugin -r :spotless-maven-plugin
+%pom_remove_plugin -r :maven-enforcer-plugin
 
 %pom_remove_dep org.junit:junit-bom
 %pom_remove_dep :maven-plugin-tools-ant maven-plugin-plugin

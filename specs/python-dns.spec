@@ -12,8 +12,8 @@
 %endif
 
 Name:           python-dns
-Version:        2.7.0
-Release:        6%{?dist}
+Version:        2.8.0
+Release:        1%{?dist}
 Summary:        DNS toolkit for Python
 
 # The entire package is licensed with both licenses, see LICENSE file
@@ -100,6 +100,9 @@ export OPENSSL_ENABLE_SHA1_SIGNATURES=yes
 %endif
 
 %changelog
+* Mon Sep 08 2025 Lumír Balhar <lbalhar@redhat.com> - 2.8.0-1
+- Update to 2.8.0 (rhbz#2392475)
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.7.0-6
 - Rebuilt for Python 3.14.0rc2 bytecode
 

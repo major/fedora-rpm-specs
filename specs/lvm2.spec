@@ -1,4 +1,4 @@
-%global device_mapper_version 1.02.208
+%global device_mapper_version 1.02.209
 
 %global enable_cache 1
 %global enable_lvmdbusd 1
@@ -49,7 +49,7 @@ Name: lvm2
 %if 0%{?rhel}
 Epoch: %{rhel}
 %endif
-Version: 2.03.34
+Version: 2.03.35
 Release: %autorelease
 License: GPL-2.0-only
 URL: https://sourceware.org/lvm2
@@ -189,6 +189,8 @@ V=1 make install_tmpfiles_configuration DESTDIR=$RPM_BUILD_ROOT
 %if %{enable_testsuite}
 %make_install -C test
 %endif
+# TODO: The path is hardcoded in source. Is it good idea e.g. for testing purposes?
+install -m 700 -d ${RPM_BUILD_ROOT}%{_sharedstatedir}/lvm
 
 %post
 %systemd_post blk-availability.service lvm2-monitor.service
@@ -388,6 +390,7 @@ systemctl start lvm2-lvmpolld.socket >/dev/null 2>&1 || :
 %endif
 %{_unitdir}/lvm-devices-import.service
 %{_unitdir}/lvm-devices-import.path
+%dir %{_sharedstatedir}/lvm
 
 ##############################################################################
 # Library and Development subpackages

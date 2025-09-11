@@ -6,7 +6,7 @@
 
 
 Name:           rust-vhost-device-scmi
-Version:        0.3.0
+Version:        0.4.0
 Release:        %autorelease
 Summary:        Vhost-user SCMI backend device
 
@@ -32,9 +32,6 @@ Source0:        %{crates_source}
 #       -Jcf rust-vhost-device-scmi-%%{version}-vendor.tar.xz vendor
 #
 Source1: rust-vhost-device-scmi-%{version}-vendor.tar.xz
-%else
-# When building without bundled deps, align with rust deps included in the distribution.
-Patch1:         rust-vhost-device-scmi-update-deps.patch
 %endif
 
 # Upstream doesn't provide man pages

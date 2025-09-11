@@ -2,7 +2,7 @@
 %bcond gevent 1
 
 Name:           python-zmq
-Version:        27.0.2
+Version:        27.1.0
 Release:        %autorelease
 Summary:        Python bindings for zeromq
 

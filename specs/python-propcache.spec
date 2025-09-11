@@ -15,6 +15,8 @@ BuildRequires:  python3dist(cython)
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pytest-xdist)
 
+%global debug_package %{nil}
+
 %global _description %{expand:
 Module for fast property caching.}
 

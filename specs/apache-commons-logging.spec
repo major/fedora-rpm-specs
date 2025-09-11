@@ -21,7 +21,6 @@ BuildRequires:  mvn(org.apache.logging.log4j:log4j-1.2-api)
 BuildRequires:  mvn(org.apache.logging.log4j:log4j-api)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-antrun-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-dependency-plugin)
-BuildRequires:  mvn(org.apache.maven.plugins:maven-enforcer-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-failsafe-plugin)
 BuildRequires:  mvn(org.moditect:moditect-maven-plugin)
 BuildRequires:  mvn(org.slf4j:slf4j-api)
@@ -54,6 +53,7 @@ rm src/test/java/org/apache/commons/logging/pathable/{Parent,Child}FirstTestCase
 %pom_xpath_set "pom:properties/pom:commons.osgi.import" '*;resolution:=optional'
 
 %pom_remove_plugin :maven-scm-publish-plugin
+%pom_remove_plugin :maven-enforcer-plugin
 
 sed -i 's/\r//' RELEASE-NOTES.txt LICENSE.txt NOTICE.txt
 

@@ -11,6 +11,12 @@ Summary:        Plug-ins implementation convenience library, API version 1
 License:        LGPL-2.1-or-later
 URL:            https://wiki.gnome.org/Projects/Libpeas
 Source0:        https://download.gnome.org/sources/%{tarball_name}/1.36/%{tarball_name}-%{version}.tar.xz
+# girepository: port libpeas ABI to girepository
+# https://gitlab.gnome.org/GNOME/libpeas/-/commit/73e25b6059d2fdc090a3feb8341ff902c3ec0d16
+Patch0:         73e25b6059d2fdc090a3feb8341ff902c3ec0d16.patch
+# build: handle depending on development releases of GLib
+# https://gitlab.gnome.org/GNOME/libpeas/-/commit/4613accc2e22395bb77bdf612fcdf90bf65f230f
+Patch1:         4613accc2e22395bb77bdf612fcdf90bf65f230f.patch
 
 BuildRequires:  gcc
 BuildRequires:  gettext
@@ -23,7 +29,6 @@ BuildRequires:  pkgconfig(gladeui-2.0)
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(gmodule-2.0)
 BuildRequires:  pkgconfig(gobject-2.0)
-BuildRequires:  pkgconfig(gobject-introspection-1.0)
 BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:  pkgconfig(pygobject-3.0)
 BuildRequires:  python3-devel

@@ -13,7 +13,7 @@
 %global launchersPath %{_libexecdir}/%{name}
 
 Name:           javapackages-bootstrap
-Version:        1.24.0
+Version:        1.25.0
 Release:        %autorelease
 Summary:        A means of bootstrapping Java Packages Tools
 # For detailed info see the file javapackages-bootstrap-PACKAGE-LICENSING
@@ -61,7 +61,6 @@ Source:         dola-gleaner.tar.zst
 Source:         dola-transformer.tar.zst
 Source:         dola.tar.zst
 Source:         easymock.tar.zst
-Source:         extra-enforcer-rules.tar.zst
 Source:         felix-parent-pom.tar.zst
 Source:         felix-utils.tar.zst
 Source:         fusesource-pom.tar.zst
@@ -103,7 +102,6 @@ Source:         maven-compiler-plugin.tar.zst
 Source:         maven-dependency-analyzer.tar.zst
 Source:         maven-dependency-plugin.tar.zst
 Source:         maven-dependency-tree.tar.zst
-Source:         maven-enforcer.tar.zst
 Source:         maven-file-management.tar.zst
 Source:         maven-filtering.tar.zst
 Source:         maven-jar-plugin.tar.zst
@@ -166,9 +164,6 @@ Source:         woodstox.tar.zst
 Source:         xmlunit.tar.zst
 Source:         xmvn.tar.zst
 Source:         xz-java.tar.zst
-
-# https://github.com/fedora-java/javapackages-bootstrap/pull/194
-Patch:          0001-Fix-permissions-of-mvnup-executable.patch
 
 BuildRequires:  byaccj
 BuildRequires:  java-25-openjdk-devel

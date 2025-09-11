@@ -17,8 +17,8 @@
 
 
 Name:           certbot
-Version:        4.1.1
-Release:        3%{?dist}
+Version:        5.0.0
+Release:        1%{?dist}
 Summary:        A free, automated certificate authority client
 
 License:        Apache-2.0
@@ -377,6 +377,12 @@ fi
 
 
 %changelog
+* Tue Sep 09 2025 Jonathan Wright <jonathan@almalinux.org> - 5.0.0-1
+- update to 5.0.0 rhbz#2386582
+
+* Tue Sep 09 2025 Jonathan Wright <jonathan@almalinux.org> - 4.2.0-1
+- update to 4.2.0
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.1.1-3
 - Rebuilt for Python 3.14.0rc2 bytecode
 

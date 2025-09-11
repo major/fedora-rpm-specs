@@ -40,7 +40,6 @@ Summary:        %{summary}
 BuildRequires:  gcc-c++
 BuildRequires:  make
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist toml-adapt}
 BuildRequires:  %{py3_dist pytest}
 
 %description -n python3-pyedflib %_description

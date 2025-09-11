@@ -37,8 +37,8 @@ ExcludeArch: %{ix86}
 Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
-Version:       1.57.2
-Release:       2%{?dist}
+Version:       1.57.3
+Release:       1%{?dist}
 License:       LGPL-2.1-or-later
 
 # Build only for architectures that have a kernel
@@ -1076,6 +1076,9 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Tue Sep 09 2025 Richard W.M. Jones <rjones@redhat.com> - 1:1.57.3-1
+- New upstream development version 1.57.3
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1:1.57.2-2
 - Rebuilt for Python 3.14.0rc2 bytecode
 

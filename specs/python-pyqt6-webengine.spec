@@ -52,6 +52,7 @@ sip-build \
   --no-make \
   --qmake=%{_qt6_qmake} \
   --api-dir=%{_qt6_datadir}/qsci/api/python \
+  --target-dir=%{python3_sitearch} \
   --verbose \
   --qmake-setting 'QMAKE_CFLAGS_RELEASE="%{build_cflags}"' \
   --qmake-setting 'QMAKE_CXXFLAGS_RELEASE="%{build_cxxflags}"' \

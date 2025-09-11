@@ -1,5 +1,5 @@
 Name:       ibus-typing-booster
-Version:    2.27.73
+Version:    2.27.74
 Release:    %autorelease
 Summary:    A completion input method
 License:    GPL-3.0-or-later AND Apache-2.0
@@ -21,6 +21,7 @@ Requires:     python3-rapidfuzz
 %if 0%{?fedora} >= 24 || 0%{?rhel} > 7
 # Recommend reasonably good fonts which have most of the emoji:
 Recommends: google-noto-emoji-color-fonts
+Recommends: google-noto-emoji-fonts
 Recommends: gdouros-symbola-fonts
 # For better description of the dictionaries in the setup tool
 # makes it possible to search for full language and territory names

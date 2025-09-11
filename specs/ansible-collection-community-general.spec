@@ -1,5 +1,5 @@
 Name:           ansible-collection-community-general
-Version:        11.2.1
+Version:        11.3.0
 Release:        1%{?dist}
 Summary:        Modules and plugins supported by Ansible community
 
@@ -86,6 +86,10 @@ find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{
 %doc README.md CHANGELOG.rst CHANGELOG.md
 
 %changelog
+* Mon Sep 08 2025 Packit <hello@packit.dev> - 11.3.0-1
+- Update to version 11.3.0
+- Resolves: rhbz#2393919
+
 * Tue Aug 19 2025 Packit <hello@packit.dev> - 11.2.1-1
 - Update to version 11.2.1
 - Resolves: rhbz#2386368

@@ -48,7 +48,7 @@
 Summary: PostgreSQL client programs
 Name: %{majorname}%{majorversion}
 Version: %{majorversion}beta1
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 # The PostgreSQL license is very similar to other MIT licenses, but the OSI
 # recognizes it as an independent license, so we do as well.
@@ -749,6 +749,9 @@ upgrade_configure ()
        --enable-dtrace \
 %endif
 %if %selinux
+%if %ssl
+       --with-openssl \
+%endif
        --with-selinux \
 %endif
 %if %plpython3
@@ -1355,6 +1358,11 @@ make -C postgresql-setup-%{setup_version} check
 
 
 %changelog
+* Tue Sep 09 2025 Filip Janus <fjanus@redhat.com> - 18beta1-5
+- Add OpenSSL support to upgrade_configure function
+- This ensures upgrade server is compiled with OpenSSL support
+- Required for SSL/TLS connections during database upgrades
+
 * Wed Aug 06 2025 František Zatloukal <fzatlouk@redhat.com> - 18beta1-4
 - Rebuilt for icu 77.1
 

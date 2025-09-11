@@ -21,7 +21,6 @@ BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(com.google.code.findbugs:jsr305)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
-BuildRequires:  mvn(org.apache.maven.plugins:maven-enforcer-plugin)
 %endif
 # TODO Remove in Fedora 46
 Obsoletes:      %{name}-javadoc < 33.3.0-8
@@ -55,6 +54,7 @@ find . -name '*.jar' -delete
 %pom_xpath_set pom:parent/pom:version %{version}-jre futures/failureaccess
 
 %pom_remove_plugin -r :animal-sniffer-maven-plugin
+%pom_remove_plugin -r :maven-enforcer-plugin
 %pom_remove_plugin -r :maven-source-plugin
 
 %pom_remove_plugin -r :toolchains-maven-plugin

@@ -200,7 +200,8 @@ tools for verifying that the DNS server is operating properly.
 
 %package libs
 Summary: Libraries used by the BIND DNS packages
-Requires: %{name}-license = %{epoch}:%{version}-%{release}
+Provides: %{name}-license = %{epoch}:%{version}-%{release}
+Obsoletes: %{name}-license < 32:9.21.11-5
 Provides: %{name}-libs-lite = %{epoch}:%{version}-%{release}
 Obsoletes: %{name}-libs-lite < 32:9.16.13
 Obsoletes: %{name}-pkcs11-libs < 32:9.18.4-2
@@ -208,13 +209,6 @@ Obsoletes: %{name}-pkcs11-libs < 32:9.18.4-2
 %description libs
 Contains heavyweight version of BIND suite libraries used by both named DNS
 server and utilities in %{name}-utils package.
-
-%package license
-Summary:  License of the BIND DNS suite
-BuildArch:noarch
-
-%description license
-Contains license of the BIND DNS suite.
 
 %package utils
 Summary: Utilities for querying DNS name servers
@@ -295,7 +289,6 @@ Based on the code from Jan "Yenya" Kasprzak <kas@fi.muni.cz>
 %if %{with DOC}
 %package doc
 Summary:   BIND 9 Administrator Reference Manual
-Requires:  %{name}-license = %{epoch}:%{version}-%{release}
 Requires:  python3-sphinx_rtd_theme
 BuildArch: noarch
 
@@ -777,8 +770,6 @@ fi;
 %{_libdir}/libdns-%{version}*.so
 %{_libdir}/libisc-%{version}*.so
 %{_libdir}/libisccfg-%{version}*.so
-
-%files license
 %{!?_licensedir:%global license %%doc}
 %license COPYRIGHT
 
@@ -888,6 +879,7 @@ fi;
 %doc %{_pkgdocdir}/Bv9ARM.epub
 %doc %{_pkgdocdir}/changelog-history.rst*
 %doc %{_pkgdocdir}/notes-*.rst*
+%license COPYRIGHT
 %endif
 
 %changelog

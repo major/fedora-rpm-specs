@@ -4,7 +4,7 @@
 %bcond network_tests 0
 
 Name:           python-snakemake-storage-plugin-s3
-Version:        0.3.4
+Version:        0.3.5
 Release:        %autorelease
 Summary:        A Snakemake storage plugin for S3 API storage (AWS S3, MinIO, etc.)
 

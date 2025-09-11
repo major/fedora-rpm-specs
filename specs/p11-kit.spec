@@ -6,7 +6,7 @@
 %endif
 
 
-Version:        0.25.5
+Version:        0.25.6
 Release:        %{?autorelease}%{!?autorelease:1%{?dist}}
 Name:           p11-kit
 Summary:        Library for loading and sharing PKCS#11 modules
@@ -19,10 +19,7 @@ Source2:        https://p11-glue.github.io/p11-glue/p11-kit/p11-kit-release-keyr
 Source3:        trust-extract-compat
 Source4:        p11-kit-client.service
 
-# https://github.com/p11-glue/p11-kit/pull/667
-Patch0:         p11-kit-0.25.6-thread-local-var.patch
-# https://github.com/p11-glue/p11-kit/pull/704
-Patch1:         p11-kit-0.25.5-rpc-empty.patch
+Patch:          p11-kit-0.25.6-packaging.patch
 
 BuildRequires:  gcc
 BuildRequires:  libtasn1-devel >= 2.3

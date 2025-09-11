@@ -73,6 +73,7 @@ rm maven-resolver-transport-http/src/test/java/org/eclipse/aether/transport/http
 %pom_remove_plugin -r :bnd-maven-plugin
 %pom_remove_plugin -r org.codehaus.mojo:animal-sniffer-maven-plugin
 %pom_remove_plugin -r :japicmp-maven-plugin
+%pom_remove_plugin -r :maven-enforcer-plugin
 
 %pom_disable_module maven-resolver-demos
 %pom_disable_module maven-resolver-named-locks-hazelcast

@@ -1,13 +1,16 @@
 %global apiver 2
 
 Name:           libpeas
-Version:        2.0.7
+Version:        2.1.0
 Release:        %autorelease
 Summary:        Plug-ins implementation convenience library
 
 License:        LGPL-2.1-or-later
 URL:            https://wiki.gnome.org/Projects/Libpeas
 Source0:        https://download.gnome.org/sources/%{name}/2.0/%{name}-%{version}.tar.xz
+
+# https://gitlab.gnome.org/GNOME/libpeas/-/issues/62#note_2544082
+Patch:          disable-lua-tests.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++

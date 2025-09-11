@@ -10,7 +10,7 @@
 
 Name:           perl-Module-Install-ReadmeFromPod
 Version:        0.30
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Module::Install extension to automatically convert POD to a README
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Install-ReadmeFromPod
@@ -19,6 +19,8 @@ Source0:        https://cpan.metacpan.org/authors/id/B/BI/BINGOS/Module-Install-
 Patch0:         Module-Install-ReadmeFromPod-0.26-Regenerate-README-in-UTF-8.patch
 # Remove a bogus test that fails on PDF binary files randomly, CPAN RT#130221
 Patch1:         Module-Install-ReadmeFromPod-0.30-Do-not-test-PDF-file-for-new-lines.patch
+# Avoid an unnecessary development dependency
+Patch2:         Module-Install-ReadmeFromPod-0.30-Test-InDistDir.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -52,7 +54,6 @@ BuildRequires:  perl(App::pod2pdf)
 # Tests:
 BuildRequires:  perl(File::Path)
 BuildRequires:  perl(File::Temp)
-BuildRequires:  perl(Test::InDistDir)
 BuildRequires:  perl(Test::More) >= 0.47
 %if %{with perl_Module_Install_ReadmeFromPod_enables_optional_test}
 # Optional tests:
@@ -84,6 +85,7 @@ supported: plain-text, HTML, PDF or manual page.
 %setup -q -n Module-Install-ReadmeFromPod-%{version}
 %patch -P0 -p1
 %patch -P1 -p1
+%patch -P2 -p1
 # Remove bundled modules
 rm -r inc
 perl -i -ne 'print $_ unless m{^inc/}' MANIFEST
@@ -108,6 +110,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Mon Sep 01 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 0.30-29
+- Avoid unnecessary Test::InDistDir dependency
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.30-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

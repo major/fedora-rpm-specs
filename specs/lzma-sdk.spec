@@ -1,10 +1,10 @@
 %global ver_maj 25
-%global ver_min 00
+%global ver_min 01
 %global ver_rel 0
 
 Name:           lzma-sdk
 Version:        %{ver_maj}.%{ver_min}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        SDK for lzma compression
 
 License:        LGPL-2.1-or-later
@@ -107,6 +107,9 @@ rm -rv %{buildroot}/usr/include/lzma-sdk/CPP/Windows
 %{_libdir}/liblzmasdk.so
 
 %changelog
+* Tue Sep 09 2025 Dominik Mierzejewski <dominik@greysector.net> - 25.01-1
+- Update to 25.01 (resolves rhbz#2386184)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 25.00-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

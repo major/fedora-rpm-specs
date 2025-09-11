@@ -11,7 +11,7 @@
 
 Name:              valkey
 Version:           8.1.3
-Release:           3%{?dist}
+Release:           4%{?dist}
 Summary:           A persistent key-value database
 # valkey: BSD-3-Clause
 # hiredis: BSD-3-Clause
@@ -408,6 +408,9 @@ fi
 
 
 %changelog
+* Tue Sep  9 2025 Remi Collet <remi@redhat.com> - 8.1.3-4
+- fix for ImageMode: ensure ownership of /etc/valkey
+
 * Thu Aug 28 2025 Remi Collet <remi@fedoraproject.org> - 8.1.3-3
 - use patch for configuration changes
 - add /etc/valkey/modules drop-in directory for module configuration files
