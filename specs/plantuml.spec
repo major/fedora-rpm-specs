@@ -1,5 +1,5 @@
 Name:           plantuml
-Version:        1.2025.4
+Version:        1.2025.7
 Release:        %autorelease
 Epoch:          1
 Summary:        Program to generate UML diagram from a text description
@@ -11,7 +11,7 @@ Source:         https://github.com/%{name}/%{name}/archive/v%{version}/%{name}-%
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-BuildRequires:  ant-openjdk25 
+BuildRequires:  ant-openjdk25
 BuildRequires:  help2man
 BuildRequires:  javapackages-local-openjdk25
 

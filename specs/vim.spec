@@ -54,7 +54,7 @@ Summary: The VIM editor
 URL:     https://www.vim.org/
 Name: vim
 Version: %{baseversion}.%{patchlevel}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 2
 # swift.vim contains Apache 2.0 with runtime library exception:
 # which is taken as Apache-2.0 WITH Swift-exception - reported to legal as https://gitlab.com/fedora/legal/fedora-license-data/-/issues/188
@@ -570,6 +570,7 @@ cp vim enhanced-vim
   --enable-fail-if-missing \
   --with-wayland \
   --enable-year2038 \
+  --enable-socketserver \
   --enable-canberra
 
 %make_build
@@ -994,6 +995,9 @@ mkdir -p %{buildroot}/%{_datadir}/fish/vendor_functions.d/
 
 
 %changelog
+* Wed Sep 10 2025 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.1.1723-2
+- Restore lost --remote-tab... functionality on wayland (fedora#2393716)
+
 * Mon Sep 01 2025 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.1.1723-1
 - patchlevel 1723
 

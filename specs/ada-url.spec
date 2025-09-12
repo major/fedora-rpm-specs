@@ -1,5 +1,11 @@
+# WARNING: do not enable testing for release builds!
+# with ADA_TESTING, std_regex_provider will be enabled for testing purposes
+# It is not recommended to enable this flag and use std::regex under
+# production environments due to several security issues.
+%bcond_with check
+
 Name:		ada-url
-Version:	2.9.2
+Version:	3.2.7
 
 %global forgeurl https://github.com/%{name}/ada
 %forgemeta
@@ -19,9 +25,11 @@ BuildRequires:	gcc-c++
 BuildRequires:	cmake(fmt)
 BuildRequires:	cmake(cxxopts)
 
+%if %{with check}
 BuildRequires:	cmake(GTest)
-BuildRequires:	cmake(benchmark)
+%endif
 BuildRequires:	cmake(simdjson)
+BuildRequires:	cmake(simdutf)
 
 BuildRequires:	doxygen
 
@@ -62,9 +70,11 @@ the %{name} package.
 
 %build
 %cmake \
-%if 0%{?fedora} <= 39
-  -DBUILD_TESTING:BOOL=OFF
+  -DADA_TOOLS:BOOL=ON \
+%if %{with check}
+  -DADA_TESTING:BOOL=ON \
 %endif
+  -DADA_USE_SIMDUTF:BOOL=ON
 %cmake_build
 
 doxygen ./doxygen
@@ -79,7 +89,7 @@ doxygen ./doxygen
 %files
 %license LICENSE-MIT LICENSE-APACHE
 %doc README.md docs/cli.md
-%{_libdir}/libada.so.2*
+%{_libdir}/libada.so.3*
 
 %files tools
 %{_bindir}/adaparse
@@ -87,6 +97,7 @@ doxygen ./doxygen
 %files devel
 %{_libdir}/libada.so
 %{_libdir}/cmake/ada/
+%{_libdir}/pkgconfig/ada.pc
 %{_includedir}/ada/
 %{_includedir}/ada.h
 %{_includedir}/ada_c.h

@@ -1,5 +1,6 @@
 %global glib2_version 2.68.0
 %global libgit2_glib_version 1.2.0
+%global libpeas1_version 1.36.0-11
 %global commit f7501bc827f1d4476336b0db0791335cf8a613c4
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 %global gitdate 20250512
@@ -7,7 +8,7 @@
 
 Name:           gitg
 Version:        45~%{gitdate}git%{shortcommit}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        GTK+ graphical interface for the git revision control system
 
 # most code is under GPL-2.0-or-later, except:
@@ -20,6 +21,8 @@ URL:            https://wiki.gnome.org/Apps/Gitg
 %if 0%{?git}
 Source0:        https://gitlab.gnome.org/GNOME/gitg/-/archive/%{commit}/gitg-%{commit}.tar.bz2
 Patch0:         gitg-norpath.patch
+# fixes build with libpeas1-1.36.0-11 (gir-2.0 port)
+Patch1:         gitg-gir-2.0.patch
 %else
 Source0:        https://download.gnome.org/sources/%{name}/44/%{name}-%{version}.tar.xz
 %endif
@@ -47,13 +50,14 @@ BuildRequires:  pkgconfig(json-glib-1.0)
 BuildRequires:  pkgconfig(libgit2-glib-1.0) >= %{libgit2_glib_version}
 BuildRequires:  pkgconfig(libhandy-1)
 BuildRequires:  pkgconfig(libpeas-1.0)
+BuildRequires:  libpeas1-devel >= %{libpeas1_version}
 BuildRequires:  pkgconfig(libsecret-1)
 BuildRequires:  python3-devel
 BuildRequires:  vala
 
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 # PeasGtk typelib required by the plugins engine
-Requires:       libpeas-gtk%{?_isa}
+Requires:       libpeas-gtk%{?_isa} >= %{libpeas1_version}
 
 %global __provides_exclude_from ^%{_libdir}/gitg/plugins/.*\\.so$
 
@@ -145,6 +149,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Wed Sep 10 2025 Dominik Mierzejewski <dominik@greysector.net> - 45~20250512gitf7501bc-4
+- fix build with libpeas1-1.36.0-11 (gir-2.0 port)
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 45~20250512gitf7501bc-3
 - Rebuilt for Python 3.14.0rc2 bytecode
 

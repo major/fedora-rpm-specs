@@ -3,7 +3,7 @@
 Summary:	Reference implementation of the iCalendar data type and serialization format
 Name:		libical
 Version:	3.0.20
-Release:	4%{?dist}
+Release:	%{autorelease}
 License:	LGPL-2.1-only OR MPL-2.0
 URL:		https://libical.github.io/libical/
 Source:		https://github.com/%{name}/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -82,6 +82,8 @@ Development files needed for building things which link against %{name}-glib.
 
 # This is just a private build tool, not meant to be installed
 rm %{buildroot}/%{_libexecdir}/libical/ical-glib-src-generator
+rm %{buildroot}/%{_libdir}/cmake/LibIcal/IcalGlibSrcGenerator.cmake
+rm %{buildroot}/%{_libdir}/cmake/LibIcal/IcalGlibSrcGenerator-noconfig.cmake
 
 %check
 %ctest
@@ -133,10 +135,4 @@ rm %{buildroot}/%{_libexecdir}/libical/ical-glib-src-generator
 %{_datadir}/gtk-doc/html/%{name}-glib
 
 %changelog
-* Wed Aug 06 2025 František Zatloukal <fzatlouk@redhat.com> - 3.0.20-4
-- Rebuilt for icu 77.1
-
-* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.20-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
 %autochangelog

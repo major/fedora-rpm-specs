@@ -10,7 +10,6 @@ BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  perl
 BuildRequires:  libffi-devel
-BuildRequires:  libatomic_ops-devel
 BuildRequires:  libtommath-devel
 BuildRequires:  libuv-devel
 BuildRequires:  libzstd-devel
@@ -45,7 +44,7 @@ rm -rf 3rdparty/{libuv,libatomicops,dyncall,libtommath,mimalloc}/
 %{__perl} Configure.pl --prefix=%{_prefix} --libdir=%{_libdir} \
   --has-libuv \
   --has-libffi \
-  --has-libatomic_ops \
+  --c11-atomics \
   --has-libtommath \
   --has-mimalloc
 

@@ -1,6 +1,6 @@
 Name:           perl-MCE
-Version:        1.901
-Release:        3%{?dist}
+Version:        1.902
+Release:        1%{?dist}
 Summary:        Many-core Engine for Perl providing parallel processing capabilities
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MCE
@@ -170,6 +170,10 @@ make test
 %{_bindir}/mce_zfgrep
 
 %changelog
+* Wed Sep 10 2025 Paul Howarth <paul@city-fan.org> - 1.902-1
+- Update to 1.902 (rhbz#2394255)
+  - Add support for Iterator:: classes
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.901-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

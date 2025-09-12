@@ -181,7 +181,7 @@ Source5: setuptools-CVE-2025-47273.patch
 # Upstream fix: https://github.com/psf/requests/pull/6965
 Source6: pip-requests-CVE-2024-47081.patch
 
-# Patch for the bundled urrlib3 within the bundled pip for CVE-2025-50181
+# Patch for the bundled urllib3 within the bundled pip for CVE-2025-50181
 # Redirects are not disabled when retries are disabled on PoolManager instantiation
 # Tracking bug: https://bugzilla.redhat.com/show_bug.cgi?id=2373799
 # Upstream fix: https://github.com/urllib3/urllib3/commit/f05b1329126d5be6de501f9d1e3e36738bc08857

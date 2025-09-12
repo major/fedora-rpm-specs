@@ -6,13 +6,20 @@
 %global fontconfnf 60-%{fontname}-code-nf-fonts.conf
 %global fontconfpl 60-%{fontname}-code-pl-fonts.conf
 
-# We cannot build this from source until fontmake arrives in Fedora.
-%global fromsource 0
+# We have, or will soon have, fontmake in Fedora
+# (https://bugzilla.redhat.com/show_bug.cgi?id=2331684), but there are still
+# several missing dependencies for building this font from source:
+# - python3dist(gftools)
+# - python3dist(psautohint)
+# - python3dist(skia-pathops)
+# - python3dist(vttlib)
+# - python3dist(vttmisc)
+%bcond fromsource 0
 
 Name:		%{fontname}-code-fonts
 Summary:	A mono-spaced font designed for programming and terminal emulation
-Version:	2404.23
-Release:	4%{?dist}
+Version:	2407.24
+Release:	1%{?dist}
 License:	OFL-1.1-RFN
 URL:		https://github.com/microsoft/cascadia-code/
 Source0:	https://github.com/microsoft/cascadia-code/archive/v%{version}.tar.gz
@@ -28,8 +35,8 @@ Source9:	%{fontconfnf}
 Source10:	%{fontname}-code-nf.metainfo.xml
 Source11:	%{fontconfmononf}
 Source12:	%{fontname}-mono-nf.metainfo.xml
-%if 0%{?fromsource}
-BuildRequires:	python3-fontmake
+%if %{with fromsource}
+BuildRequires:	python3-devel
 %else
 Source20:	https://github.com/microsoft/cascadia-code/releases/download/v%{version}/CascadiaCode-%{version}.zip
 %endif
@@ -98,10 +105,15 @@ for i in OFL-FAQ.txt FONTLOG.txt README.md; do
 	sed -i 's/\r//' $i
 done
 
+%if %{with fromsource}
+%generate_buildrequires
+%pyproject_buildrequires -N requirements.in
+%endif
+
 %build
 
-%if 0%{?fromsource}
-python3 build.py
+%if %{with fromsource}
+%{python3} build.py
 %else
 unzip %{SOURCE20}
 %endif
@@ -205,6 +217,9 @@ install -Dm 0644 -p %{SOURCE12} %{buildroot}%{_datadir}/appdata/%{fontname}-code
 %files -n %{fontname}-fonts-all
 
 %changelog
+* Wed Sep 10 2025 Tom Callaway <spot@fedoraproject.org> - 2407.24-1
+- update to 2407.24
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2404.23-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

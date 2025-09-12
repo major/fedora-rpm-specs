@@ -1,13 +1,13 @@
 %global srcname catkin_pkg
 
 Name:           python-%{srcname}
-Version:        1.0.0
-Release:        9%{?dist}
+Version:        1.1.0
+Release:        1%{?dist}
 Summary:        Library for retrieving information about catkin packages
 
 License:        BSD-3-Clause
-URL:            https://github.com/ros-infrastructure/%{srcname}
-Source0:        https://github.com/ros-infrastructure/%{srcname}/archive/%{version}/%{srcname}-%{version}.tar.gz
+URL:            https://github.com/ros-infrastructure/catkin_pkg
+Source0:        https://github.com/ros-infrastructure/catkin_pkg/archive/%{version}/%{srcname}-%{version}.tar.gz
 
 BuildArch:      noarch
 
@@ -15,20 +15,12 @@ BuildArch:      noarch
 %{summary}
 
 
-%package doc
-Summary:        HTML documentation for %{name}
-BuildRequires:  make
-BuildRequires:  python%{python3_pkgversion}-sphinx
-
-%description doc
-HTML API documentation for the Python module '%{srcname}'
-
-
 %package -n python%{python3_pkgversion}-%{srcname}
 Summary:        %{summary}
 BuildRequires:  python%{python3_pkgversion}-dateutil
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-docutils
+BuildRequires:  python%{python3_pkgversion}-packaging
 BuildRequires:  python%{python3_pkgversion}-pyparsing
 BuildRequires:  python%{python3_pkgversion}-pytest
 BuildRequires:  python%{python3_pkgversion}-setuptools
@@ -37,6 +29,7 @@ BuildRequires:  python%{python3_pkgversion}-setuptools
 %if %{undefined __pythondist_requires}
 Requires:       python%{python3_pkgversion}-dateutil
 Requires:       python%{python3_pkgversion}-docutils
+Requires:       python%{python3_pkgversion}-packaging
 Requires:       python%{python3_pkgversion}-pyparsing
 Requires:       python%{python3_pkgversion}-setuptools
 %endif
@@ -47,6 +40,15 @@ Suggests:       %{name}-doc = %{version}-%{release}
 
 %description -n python%{python3_pkgversion}-%{srcname}
 %{summary}
+
+
+%package doc
+Summary:        HTML documentation for %{name}
+BuildRequires:  make
+BuildRequires:  python%{python3_pkgversion}-sphinx
+
+%description doc
+HTML API documentation for the Python module '%{srcname}'
 
 
 %prep
@@ -74,9 +76,7 @@ popd
 
 
 %check
-%{__python3} -m pytest \
-  --ignore=test/test_flake8.py \
-  test
+%pytest test -k 'not linter'
 
 
 %files doc
@@ -105,6 +105,11 @@ popd
 
 
 %changelog
+* Wed Sep 10 2025 Scott K Logan <logans@cottsay.net> - 1.1.0-1
+- Update to 1.1.0 (rhbz#2394423)
+- Replace macro use in URL/Source0 fields for spec legibility
+- Move doc subpackage after python3 so %%{summary} resolves correctly
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.0.0-9
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -13,6 +13,7 @@ Summary: Music Management Application
 License: LicenseRef-Callaway-GPLv2+-with-exceptions AND GFDL-1.1-no-invariants-or-later
 URL:     https://wiki.gnome.org/Apps/Rhythmbox
 Source0: https://download.gnome.org/sources/rhythmbox/3.4/%{name}-%{version}.tar.xz
+Patch0:  libpeas1_pygobject352.patch
 
 BuildRequires: pkgconfig(gobject-introspection-1.0) >= 0.10.0
 BuildRequires: pkgconfig(grilo-0.3) >= 0.3.1

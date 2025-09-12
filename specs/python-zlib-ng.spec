@@ -1,5 +1,5 @@
 Name:           python-zlib-ng
-Version:        0.5.1
+Version:        1.0.0
 Release:        %autorelease
 Summary:        Drop-in replacement for zlib and gzip modules using zlib-ng
 
@@ -11,14 +11,10 @@ URL:            https://github.com/pycompression/python-zlib-ng
 Source:         %{url}/archive/v%{version}/python-zlib-ng-%{version}.tar.gz
 
 BuildSystem:            pyproject
-BuildOption(prep):      -S git
 BuildOption(install):   -l zlib_ng
 
 BuildRequires:  gcc
 BuildRequires:  pkgconfig(zlib-ng)
-
-# For convincing versioningit to do the right thing with a GitHub archive:
-BuildRequires:  git-core
 
 # List test dependencies manually because this is easier than patching coverage
 # out of tox.ini
@@ -67,28 +63,19 @@ Summary:        %{summary}
 # is a git submodule, so this is just an extra precaution).
 rm -rvf src/zlib_ng/zlib-ng
 
-# For versioningit:
-git tag v%{version}
+
+%generate_buildrequires -p
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 
 
 %build -p
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 export CFLAGS="${CFLAGS} $(pkgconf --cflags zlib-ng)"
 export LDFLAGS="${LDFLAGS} $(pkgconf --libs zlib-ng)"
 export PYTHON_ZLIB_NG_LINK_DYNAMIC='1'
 
 
 %check -a
-# It is difficult for us to run the CLI tests in this environment. We get:
-#
-#   ModuleNotFoundError: No module named 'zlib_ng'
-#
-# … or similar, because test.support.script_helper from python3-test does not
-# respect the PYTHONPATH set by the %%pytest macro.
-#
-# We choose to skip these few tests rather than putting a lot of effort into
-# perhaps making it possible to run them.
-k="${k-}${k+ and }not TestCommandLine"
-
 # Note that it is *not* safe to run tests in parallel (pytest-xdist, -n auto)
 # due to filesystem race conditions.
 %pytest -v -k "${k-}" tests/

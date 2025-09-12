@@ -1,8 +1,8 @@
 %global pypi_name feedparser
 
 Name:           python-feedparser
-Version:        6.0.11
-Release:        9%{?dist}
+Version:        6.0.12
+Release:        1%{?dist}
 Summary:        Parse RSS and Atom feeds in Python
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -97,6 +97,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} tests/runtests.py || :
 
 
 %changelog
+* Wed Sep 10 2025 Christiano Anderson <chris@christiano.dev> - 6.0.12-1
+- New upstream version, closes RHBZ#2394388
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 6.0.11-9
 - Rebuilt for Python 3.14.0rc2 bytecode
 

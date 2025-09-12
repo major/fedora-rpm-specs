@@ -1,7 +1,8 @@
-%bcond  gnome           1
-%bcond  gnome40         1
-%bcond  gnome45         %[0%{?fedora} || 0%{?rhel} >= 10]
+%bcond  gnome           %[0%{?fedora} || 0%{?rhel} <= 9]
+%bcond  gnome40         %[0%{?fedora} || 0%{?rhel} <= 9]
+%bcond  gnome45         %[0%{?fedora} || 0%{?rhel} <= 9]
 # Disabled due to missing dependencies.
+%bcond  cinnamon        %[0%{?fedora} || 0%{?rhel} <= 9]
 %bcond  gnome_flashback %[0%{?fedora} || 0%{?rhel} <= 9]
 %bcond  mate            %[0%{?fedora} || 0%{?rhel} <= 9]
 %bcond  xfce            %[0%{?fedora} || 0%{?rhel} <= 9]
@@ -203,6 +204,16 @@ rm -f %{buildroot}%{_datadir}/gnome-shell/extensions/workrave@workrave.org/style
 ln -sf %{_datadir}/workrave/images/workrave-icon-medium.png %{buildroot}%{_datadir}/icons/hicolor/24x24/apps/workrave.png
 %fdupes %{buildroot}%{_datadir}
 
+%if %{without cinnamon}
+# avoid Installed (but unpackaged) file(s) found:
+rm -rf %{buildroot}%{_datadir}/cinnamon
+%endif
+
+%if %{without gnome}
+# avoid Installed (but unpackaged) file(s) found:
+rm -rf %{buildroot}%{_datadir}/gnome-shell
+%endif
+
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{app_id}.desktop
 desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/%{app_id}.desktop
@@ -229,8 +240,11 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{app_id}.meta
 %{_sysconfdir}/xdg/autostart/%{app_id}.desktop
 %{_metainfodir}/%{app_id}.metainfo.xml
 
+%if %{with cinnamon}
 %files cinnamon
 %{_datadir}/cinnamon/applets/workrave@workrave.org/
+%else
+%endif
 
 %if %{with gnome}
 %files gnome

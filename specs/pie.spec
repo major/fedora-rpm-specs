@@ -7,14 +7,14 @@
 # Please, preserve the changelog entries
 #
 
-%global gh_commit        4b20e778e116a3e77ece8ad26d4a44dd64bbeaf6
+%global gh_commit        8288fd6ed643c9fa8422a7a9b49cecd60bf444be
 %global gh_short         %(c=%{gh_commit}; echo ${c:0:7})
 #global gh_date		     20241003
 %global gh_branch        main
 %global gh_owner         php
 %global gh_project       pie
 
-%global upstream_version 1.2.0
+%global upstream_version 1.2.1
 #global upstream_prever  RC1
 
 %global bashcompdir      %(pkg-config --variable=completionsdir bash-completion 2>/dev/null)
@@ -70,6 +70,9 @@ Requires:       php-json
 Requires:       php-mbstring
 Requires:       php-posix
 Requires:       php-phar
+# PECL is now deprecated
+# PIE is designed to replace it
+Supplements:    php-pear
 
 
 %description
@@ -135,6 +138,10 @@ done
 
 
 %changelog
+* Wed Sep 10 2025 Remi Collet <remi@remirepo.net> - 1.2.1-1
+- update to 1.2.1
+- supplements php-pear
+
 * Wed Sep  3 2025 Remi Collet <remi@remirepo.net> - 1.2.0-1
 - update to 1.2.0
 

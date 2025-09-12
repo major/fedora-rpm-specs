@@ -12,10 +12,13 @@ Source0:       http://pub.mate-desktop.org/releases/%{branch}/%{name}-%{version}
 Patch1:        pluma_0001-Show-the-default-in-the-filechooser-s-Character-Enco.patch
 Patch2:        pluma_0002-Do-not-use-the-window-allocation-to-save-the-window-.patch
 Patch3:        pluma_0003-Fix-window-size-saving-when-maximized.patch
+Patch4:        libpeas1_pygobject352.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: enchant-devel
 BuildRequires: libpeas1-devel
+# Required for autotools to generate typelib
+BuildRequires: gobject-introspection-devel
 BuildRequires: gtk3-devel
 BuildRequires: gtksourceview4-devel
 BuildRequires: iso-codes-devel

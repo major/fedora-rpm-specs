@@ -4,6 +4,13 @@
 # Use ccache
 %bcond ccache 0
 
+# Use clang
+%bcond clang 0
+
+%if %{with clang}
+%global toolchain clang
+%endif
+
 # Debug build with extra compile time checks
 %bcond debug 0
 
@@ -40,8 +47,12 @@ Patch101:       https://github.com/canonical/mir/pull/4155.patch
 %if %{with ccache}
 BuildRequires:  ccache
 %endif
-BuildRequires:  git-core
+%if %{with clang}
+BuildRequires:  clang
+%else
 BuildRequires:  gcc-c++
+%endif
+BuildRequires:  git-core
 BuildRequires:  cmake, ninja-build, doxygen, graphviz, lcov, gcovr
 BuildRequires:  /usr/bin/xsltproc
 BuildRequires:  boost-devel

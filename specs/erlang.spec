@@ -68,8 +68,8 @@
 
 
 Name:		erlang
-Version:	26.2.5.14
-Release:	2%{?dist}
+Version:	26.2.5.15
+Release:	1%{?dist}
 Summary:	General-purpose programming language and runtime environment
 
 License:	Apache-2.0
@@ -362,6 +362,8 @@ Provides: erlang(erl_drv_version) = 3.3
 #Provides: erlang(erl_nif_version) = %%(%%{buildroot}/bin/erl -noshell -eval 'io:format(erlang:system_info(nif_version)).' -s erlang halt)
 Provides: erlang(erl_nif_version) = 2.17
 Provides: bundled(pcre) = 8.44
+# git commit 965d19506ff2aed72e039b8c650b6ef5e9446b8c
+Provides: bundled(asmjit)
 Obsoletes: erlang-appmon
 Obsoletes: erlang-docbuilder
 Obsoletes: erlang-gs
@@ -1990,6 +1992,9 @@ ERL_TOP=${ERL_TOP} make TARGET=${TARGET} release_tests
 
 
 %changelog
+* Wed Sep 10 2025 Peter Lemenkov <lemenkov@gmail.com> - 26.2.5.15-1
+- Ver. 26.2.5.15
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 26.2.5.14-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

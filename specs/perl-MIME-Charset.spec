@@ -1,6 +1,8 @@
+%bcond perl_MIME_Charset_enables_optional_test %{undefined rhel}
+
 Name:           perl-MIME-Charset
 Version:        1.013.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Charset Informations for MIME
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MIME-Charset
@@ -24,8 +26,10 @@ BuildRequires:  perl(Exporter)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(vars)
 # Optional run-time:
+%if %{with perl_MIME_Charset_enables_optional_test}
 # Encode::DIN66003 0.01 not needed at tests
 BuildRequires:  perl(Encode::EUCJPASCII) >= 0.02
+%endif
 # Encode::HanExtra 0.20 not needed at tests
 # Encode::JISX0213 0.03 not yet packaged
 # Tests:
@@ -68,6 +72,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Tue Sep 02 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 1.013.1-9
+- Avoid optional dependencies in RHEL builds
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.013.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

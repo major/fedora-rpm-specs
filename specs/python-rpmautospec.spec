@@ -51,7 +51,7 @@
 %global srcname rpmautospec
 
 Name: python-%{srcname}
-Version: 0.8.2
+Version: 0.8.3
 
 %if %{with bootstrap}
 Release: 0%{?dist}

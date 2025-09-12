@@ -74,7 +74,7 @@ BuildArch:  noarch
 %cmake_install
 %check
 
-%ctest --timeout 3000
+%ctest --timeout 7200
 
 
 %files devel

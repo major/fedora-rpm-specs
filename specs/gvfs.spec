@@ -21,14 +21,14 @@
 %global udisks2_version 1.97
 
 Name:    gvfs
-Version: 1.57.2
-Release: 3%{?dist}
+Version: 1.58.0
+Release: 1%{?dist}
 Summary: Backends for the gio framework in GLib
 
 License: LGPL-2.0-or-later AND GPL-3.0-only AND MPL-2.0 AND BSD-3-Clause-Sun
 
 URL:     https://wiki.gnome.org/Projects/gvfs
-Source0: https://download.gnome.org/sources/gvfs/1.57/gvfs-%{version}.tar.xz
+Source0: https://download.gnome.org/sources/gvfs/1.58/gvfs-%{version}.tar.xz
 
 BuildRequires: meson
 BuildRequires: gcc
@@ -430,6 +430,9 @@ killall -USR1 gvfsd >&/dev/null || :
 
 
 %changelog
+* Wed Sep 10 2025 Michael Catanzaro <mcatanzaro@gnome.org> - 1.58.0-1
+- Update to 1.58.0
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.57.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

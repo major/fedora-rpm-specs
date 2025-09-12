@@ -9,8 +9,8 @@ Available features:\
 - Remove test_ and underscores for every test.
 
 Name:           python-%{pypi_name}
-Version:        5.0.0
-Release:        2%{?dist}
+Version:        5.1.0
+Release:        1%{?dist}
 Summary:        Pytest plugin to display test execution output like a SPECIFICATION
 
 License:        GPL-2.0-or-later
@@ -55,6 +55,9 @@ rm -rf setup.cfg
 %license LICENSE.txt
 
 %changelog
+* Wed Sep 10 2025 Federico Pellegrin <fede@evolware.org> - 5.1.0-1
+- Bump to 5.1.0 (rhbz#2393911)
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 5.0.0-2
 - Rebuilt for Python 3.14.0rc2 bytecode
 

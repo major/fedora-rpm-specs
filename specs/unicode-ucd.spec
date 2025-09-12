@@ -3,8 +3,8 @@
 %global ucddir %{unicodedir}/ucd
 
 Name:           unicode-ucd
-Version:        16.0.0
-Release:        3%{?dist}
+Version:        17.0.0
+Release:        1%{?dist}
 Summary:        Unicode Character Database
 
 # http://www.unicode.org/terms_of_use.html in ReadMe.txt redirects to:
@@ -13,9 +13,9 @@ Summary:        Unicode Character Database
 # https://github.com/spdx/license-list-XML/issues/2105
 License:        Unicode-3.0
 URL:            http://www.unicode.org/ucd/
-# update with fbrnch update-version -f
-Source0:        http://www.unicode.org/Public/zipped/%{version}/UCD.zip
-Source1:        http://www.unicode.org/Public/zipped/%{version}/Unihan.zip
+# update with "fbrnch update-sources -f"
+Source0:        https://www.unicode.org/Public/%{version}/ucd/UCD.zip
+Source1:        https://www.unicode.org/Public/%{version}/ucd/Unihan.zip
 Source2:        https://www.unicode.org/license.txt
 BuildArch:      noarch
 
@@ -63,6 +63,10 @@ cp %{SOURCE2} .
 
 
 %changelog
+* Wed Sep 10 2025 Jens Petersen <petersen@redhat.com> - 17.0.0-1
+- https://www.unicode.org/versions/Unicode17.0.0/
+- https://blog.unicode.org/2025/09/unicode-170-release-announcement.html
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 16.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

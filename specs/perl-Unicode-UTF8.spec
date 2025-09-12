@@ -1,16 +1,16 @@
 # Run optional test
 %if ! (0%{?rhel})
 %bcond_without perl_Unicode_UTF8_enables_optional_test
-%bcond_without perl_Unicode_UTF8_enables_system_Module_Install
+%bcond_without perl_Unicode_UTF8_enables_ReadmeFromPod
 %else
 %bcond_with perl_Unicode_UTF8_enables_optional_test
-%bcond_with perl_Unicode_UTF8_enables_system_Module_Install
+%bcond_with perl_Unicode_UTF8_enables_ReadmeFromPod
 %endif
 
 Summary:	Encoding and decoding of UTF-8 encoding form
 Name:		perl-Unicode-UTF8
 Version:	0.62
-Release:	31%{?dist}
+Release:	32%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Unicode-UTF8
 Source0:	https://cpan.metacpan.org/modules/by-module/Unicode/Unicode-UTF8-%{version}.tar.gz
@@ -23,20 +23,9 @@ BuildRequires:	perl-devel
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
 BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
-%if %{with perl_Unicode_UTF8_enables_system_Module_Install}
 BuildRequires:	perl(inc::Module::Install)
+%if %{with perl_Unicode_UTF8_enables_ReadmeFromPod}
 BuildRequires:	perl(Module::Install::ReadmeFromPod)
-%else
-BuildRequires:	perl(base)
-BuildRequires:	perl(Config)
-BuildRequires:	perl(Cwd)
-BuildRequires:	perl(Fcntl)
-BuildRequires:	perl(File::Basename)
-BuildRequires:	perl(File::Find)
-BuildRequires:	perl(File::Path)
-BuildRequires:	perl(FindBin)
-BuildRequires:	perl(Pod::Text)
-BuildRequires:	perl(vars)
 %endif
 # Module Runtime
 BuildRequires:	perl(Carp)
@@ -73,10 +62,13 @@ specified by Unicode and ISO/IEC 10646:2011.
 %prep
 %setup -q -n Unicode-UTF8-%{version}
 
-%if %{with perl_Unicode_UTF8_enables_system_Module_Install}
 # Unbundle inc::Module::Install, we'll use system version instead
 rm -rvf inc/
 perl -i -ne 'print $_ unless m{^inc/}' MANIFEST
+%if %{without perl_Unicode_UTF8_enables_ReadmeFromPod}
+# ReadmeFromPod is primarily needed when building from the upstream sources,
+# the distribution tarball already includes the generated README
+perl -i -ne 'print $_ unless m{::ReadmeFromPod|^readme_from}' Makefile.PL
 %endif
 
 %build
@@ -98,6 +90,9 @@ make test
 %{_mandir}/man3/Unicode::UTF8.3*
 
 %changelog
+* Thu Sep 04 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 0.62-32
+- Use system Module::Install but skip ReadmeFromPod on RHEL
+
 * Wed Sep  3 2025 Paul Howarth <paul@city-fan.org> - 0.62-31
 - Use %%{make_build} and %%{make_install}
 

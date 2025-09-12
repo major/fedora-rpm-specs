@@ -136,7 +136,7 @@
 #                    default is 1).
 %global samba_release %autorelease
 
-%global pre_release rc3
+%global pre_release rc4
 %if "x%{?pre_release}" != "x"
 %global samba_release %autorelease -p -e %pre_release
 %endif
@@ -222,8 +222,7 @@ Source18:       samba-winbind-systemd-sysusers.conf
 
 Source201:      README.downgrade
 Source202:      samba.abignore
-Patch0:         samba-bz15902.patch
-Patch1:         samba-pcp-7.0.0.patch
+Patch0:         samba-pcp-7.0.0.patch
 
 Requires(pre): %{name}-common = %{samba_depver}
 Requires: %{name}-common = %{samba_depver}

@@ -1,5 +1,5 @@
 %global basever 7.3
-%global micro 19
+%global micro 20
 #global pre ...
 %global pyversion 3.11
 Name:           pypy%{pyversion}
@@ -263,7 +263,7 @@ Provides: bundled(python3dist(ply)) = 3.9
 Provides: bundled(python3dist(cryptography)) = 2.7
 
 # Find the version in lib_pypy/hpy-XXX.dist-info/METADATA
-Provides: bundled(python3dist(hpy)) = 0.9.0
+Provides: bundled(python3dist(hpy)) = 0.9.1
 
 %description libs
 Libraries required by the various PyPy implementations of Python %{pyversion}.

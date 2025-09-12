@@ -23,11 +23,11 @@
     %ifarch x86_64 aarch64
     %bcond embree 1   # Intel Embree ray tracing
     %bcond hidapi 1   # HIDAPI support
-    
+
     # x86_64 exclusive features
     %ifarch x86_64
     %bcond hip   1    # AMD HIP support
-    %bcond hiprt 1    # HIP ray tracing (requires Fedora 43+)
+    %bcond hiprt 1    # HIP ray tracing (requires Fedora 42+)
     %bcond oidn  1    # OpenImageDenoise
     %bcond oneapi 0   # Intel OneAPI support
     %bcond opgl  1    # OpenPGL
@@ -47,7 +47,7 @@
 
 Name:           blender
 Epoch:          1
-Version:        4.5.2
+Version:        4.5.3
 Release:        %autorelease
 
 Summary:        3D modeling, animation, rendering and post-production
@@ -316,8 +316,11 @@ BuildRequires:  rocm-hip-devel
 BuildRequires:  rocm-runtime-devel
 %endif
 
-# OneAPU stuff
+# OneAPI stuff
 %if %{with oneapi}
+BuildRequires:	intel-compute-runtime
+BuildRequires:	intel-level-zero-devel
+BuildRequires:	intel-level-zero-gpu-raytracing
 BuildRequires:  pkgconfig(level-zero)
 %endif
 

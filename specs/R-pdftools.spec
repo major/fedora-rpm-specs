@@ -4,7 +4,7 @@
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
-Version:          3.5.0
+Version:          3.6.0
 Release:          %autorelease
 Summary:          Text Extraction, Rendering and Converting of PDF Documents
 

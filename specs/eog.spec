@@ -8,12 +8,13 @@
 
 Name:    eog
 Version: 47.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Eye of GNOME image viewer
 
 License: GPL-2.0-or-later AND CC-BY-SA-3.0 AND CC0-1.0
 URL:     https://wiki.gnome.org/Apps/EyeOfGnome
 Source0: https://download.gnome.org/sources/%{name}/47/%{name}-%{tarball_version}.tar.xz
+Patch0:  libpeas1_pygobject352.patch
 
 BuildRequires: pkgconfig(exempi-2.0)
 BuildRequires: pkgconfig(gdk-pixbuf-2.0)
@@ -137,6 +138,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.gnome.eog.deskto
 %endif
 
 %changelog
+* Wed Sep 10 2025 Leigh Scott <leigh123linux@gmail.com> - 47.0-4
+- Rebuild for libpeas1 changes
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 47.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

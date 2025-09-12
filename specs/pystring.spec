@@ -2,6 +2,7 @@ Name:           pystring
 Version:        1.1.4
 
 %global forgeurl https://github.com/imageworks/%{name}
+%global commit e2c8d8f5a1cac71f32726fa0ea137893e8e2ba24
 
 %forgemeta
 
@@ -10,9 +11,8 @@ Summary:        Collection of C++ functions emulating Python's string class meth
 License:        BSD-3-Clause
 URL:            %{forgeurl}
 Source0:        %{forgesource}
-Patch0:         cmake-project-version.patch
 
-BuildRequires:  cmake
+BuildRequires:  meson
 BuildRequires:  gcc-c++
 
 %description
@@ -42,24 +42,25 @@ for %{name}.
 %forgeautosetup -p1
 
 %build
-%cmake
-%cmake_build
+%meson
+%meson_build
 
 
 %install
-%cmake_install
+%meson_install
 
 %check
-%ctest
+%meson_test
 
 %files
 %license LICENSE
 %doc README.md
-%{_libdir}/libpystring.so.*
+%{_libdir}/lib%{name}.so.1*
 
 %files devel
-%{_includedir}/pystring.h
-%{_libdir}/libpystring.so
+%{_includedir}/%{name}.h
+%{_libdir}/lib%{name}.so
+%{_libdir}/pkgconfig/%{name}.pc
 
 
 %changelog

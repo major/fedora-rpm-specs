@@ -4,13 +4,14 @@
 
 Name:		xed
 Version:	3.8.4
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	X-Apps [Text] Editor (Cross-DE, backward-compatible, GTK3, traditional UI)
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
 URL:		https://github.com/linuxmint/%{name}
 Source0:	%url/archive/%{version}/%{name}-%{version}.tar.gz
+Patch0:     libpeas_libgirepository2.patch
 
 ExcludeArch:   %{ix86}
 
@@ -18,6 +19,8 @@ BuildRequires:	meson
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext
 BuildRequires:	gnome-common
+# Required for meson's gnome.generate_gir
+BuildRequires:	gobject-introspection-devel
 BuildRequires:	gtk-doc
 BuildRequires:	intltool
 BuildRequires:	libappstream-glib
@@ -34,6 +37,7 @@ BuildRequires:	pkgconfig(xapp) >= 1.4.0
 BuildRequires:	python%{python3_pkgversion}-devel
 
 Requires:	iso-codes
+Requires:	libpeas1-loader-python3%{?_isa}
 Requires:	python%{python3_pkgversion}-gobject%{?_isa}
 Requires:	xapps%{?_isa}
 Suggests:	hunspell-en
@@ -66,7 +70,10 @@ This package contains the documentation files for %{name}.
 
 
 %prep
-%autosetup -p 1
+%setup -q
+%if 0%{?fedora} > 42
+%patch -P0 -p1
+%endif
 
 # Use 'classic'-theme by default.
 %{__sed} -i -e 's!xed!classic!g' data/org.x.editor.gschema.xml.in
@@ -89,7 +96,7 @@ This package contains the documentation files for %{name}.
 
 %if 0%{?fedora} > 42
 # libpeas is broken
-rm -rf %{buildroot}%{_libdir}/%{name}/plugins/{bracket-complete,joinlines*,open-uri-context-menu,textsize*}
+#rm -rf %{buildroot}%{_libdir}/%{name}/plugins/{bracket-complete,joinlines*,open-uri-context-menu,textsize*}
 %endif
 
 %find_lang %{name} --with-gnome 
@@ -134,6 +141,9 @@ rm -rf %{buildroot}%{_libdir}/%{name}/plugins/{bracket-complete,joinlines*,open-
 
 
 %changelog
+* Wed Sep 10 2025 Leigh Scott <leigh123linux@gmail.com> - 3.8.4-2
+- Rebuild for libpeas1 changes
+
 * Sat Sep 06 2025 Leigh Scott <leigh123linux@gmail.com> - 3.8.4-1
 - Update to 3.8.4
 

@@ -1,5 +1,5 @@
 Name:           python-cffi
-Version:        1.17.1
+Version:        2.0.0
 Release:        %autorelease
 Summary:        Foreign Function Interface for Python to call C code
 # cffi is MIT

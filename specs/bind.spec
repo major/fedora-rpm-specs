@@ -86,7 +86,7 @@ License:  MPL-2.0 AND ISC AND MIT AND BSD-3-Clause AND BSD-2-Clause
 # Before rebasing bind, ensure bind-dyndb-ldap is ready to be rebuild and use side-tag with it.
 # Updating just bind will cause freeipa-dns-server package to be uninstallable.
 Version:  9.18.39
-Release:  3%{?dist}
+Release:  4%{?dist}
 Epoch:    32
 Url:      https://www.isc.org/downloads/bind/
 #
@@ -927,6 +927,9 @@ fi;
 %endif
 
 %changelog
+* Wed Sep 10 2025 Adam Williamson <awilliam@redhat.com> - 32:9.18.39-4
+- No-change rebuild to fix F43 update
+
 * Wed Sep 03 2025 Petr Menšík <pemensik@redhat.com> - 32:9.18.39-3
 - Decode IDN names on input in all situations in utilities (rhbz#2324186)
 

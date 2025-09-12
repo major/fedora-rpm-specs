@@ -8,6 +8,7 @@ Summary:       Eye of MATE image viewer
 License:       GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+ 
 URL:           http://mate-desktop.org 
 Source0:       http://pub.mate-desktop.org/releases/%{branch}/%{name}-%{version}.tar.xz
+Patch0:        libpeas1_pygobject352.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: exempi-devel
