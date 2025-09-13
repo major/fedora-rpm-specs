@@ -176,13 +176,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.17.0
 %define specversion 6.17.0
 %define patchversion 6.17
-%define pkgrelease 0.rc5.250910g9dd1835ecda5b.44
+%define pkgrelease 0.rc5.250911g7aac71907bdea.45
 %define kversion 6
-%define tarfile_release 6.17-rc5-18-g9dd1835ecda5b
+%define tarfile_release 6.17-rc5-44-g7aac71907bdea
 # This is needed to do merge window version magic
 %define patchlevel 17
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc5.250910g9dd1835ecda5b.44%{?buildid}%{?dist}
+%define specrelease 0.rc5.250911g7aac71907bdea.45%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.17.0
 
@@ -4395,14 +4395,17 @@ fi\
 #
 #
 %changelog
-* Wed Sep 10 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.17.0-0.rc5.250910g9dd1835ecda5b.44]
-- Linux v6.17.0-0.rc5.250910g9dd1835ecda5b
+* Thu Sep 11 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.17.0-0.rc5.250911g7aac71907bdea.45]
+- Linux v6.17.0-0.rc5.250911g7aac71907bdea
 
-* Wed Sep 10 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc5.9dd1835ecda5.44]
+* Thu Sep 11 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc5.7aac71907bde.45]
 - cpufreq/amd-pstate: Fix a regression leading to EPP 0 after resume (Mario Limonciello (AMD))
 - arm64: dts: qcom: x1e80100-lenovo-yoga-slim7x: add Bluetooth support (Jens Glathe)
 - ALSA HDA driver configuration split for 6.17 upstream (Jaroslav Kysela)
 - redhat/configs: clang_lto: disable CONFIG_FORTIFY_KUNIT_TEST (Scott Weaver)
+
+* Thu Sep 11 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc5.7aac71907bde.44]
+- Linux v6.17.0-0.rc5.7aac71907bde
 
 * Wed Sep 10 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc5.9dd1835ecda5.43]
 - gitlab-ci: add kcidb_tree_name to trees (Tales da Aparecida)

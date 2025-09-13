@@ -25,7 +25,7 @@
 
 Name:           rocm
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        ROCm Metapackage
 License:        MIT
 
@@ -69,6 +69,7 @@ Requires: rocm-core >= %{rocm_release}
 Requires: rocm-omp >= %{rocm_release}
 Requires: rocm-opencl >= %{rocm_release}
 Requires: rocm-rpp >= %{rocm_release}
+Requires: rocprofiler-register >= %{rocm_release}
 Requires: roctracer >= %{rocm_release}
 %endif
 
@@ -130,6 +131,7 @@ Requires: rocm-core-devel >= %{rocm_release}
 Requires: rocm-examples >= %{rocm_release}
 Requires: rocm-omp-static >= %{rocm_release}
 Requires: rocm-rpp-devel >= %{rocm_release}
+Requires: rocprofiler-register-devel >= %{rocm_release}
 Requires: rocthrust-devel >= %{rocm_release}
 Requires: roctracer-devel >= %{rocm_release}
 Requires: rocwmma-devel >= %{rocm_release}
@@ -153,6 +155,7 @@ Summary:        Tests for ROCm
 Requires: kfdtest             >= %{rocm_release}
 %if 0%{?fedora}
 Requires: rocm-bandwidth-test >= %{rocm_release}
+Requires: rocm-validation-suite >= %{rocm_release}
 %endif
 
 %description test
@@ -176,6 +179,9 @@ install -pm 644 %{SOURCE0} .
 %license License.txt
 
 %changelog
+* Thu Sep 11 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.3-4
+- Add rocprofiler-register, rocm-validation-suite
+
 * Thu Aug 28 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.3-3
 - Add Fedora copyright
 

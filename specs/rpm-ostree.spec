@@ -3,14 +3,13 @@
 
 Summary: Hybrid image/package system
 Name: rpm-ostree
-Version: 2025.10
+Version: 2025.11
 Release: %{autorelease}
 License: LGPL-2.0-or-later
 URL: https://github.com/coreos/rpm-ostree
 # This tarball is generated via "cd packaging && make -f Makefile.dist-packaging dist-snapshot"
 # in the upstream git.  It also contains vendored Rust sources.
 Source0: https://github.com/coreos/rpm-ostree/releases/download/v%{version}/rpm-ostree-%{version}.tar.xz
-Patch0: 0001-compose-Add-lockfile-to-rpm-ostree-compose-rootfs.patch
 
 # See https://github.com/coreos/fedora-coreos-tracker/issues/1716
 # ostree not on i686 for RHEL 10

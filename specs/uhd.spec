@@ -29,9 +29,9 @@
 
 Name:           uhd
 URL:            http://github.com/EttusResearch/uhd
-Version:        4.8.0.0
+Version:        4.9.0.0
 %global images_ver %{version}
-Release:        4%{?dist}
+Release:        1%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 BuildRequires:  make
@@ -72,8 +72,6 @@ Source2:        %{url}/releases/download/v%{images_ver}/uhd-images_%{images_ver}
 # dirty workaround for the https://github.com/EttusResearch/uhd/issues/551
 # until the better fix is available
 Patch:          uhd-4.8.0.0-imagepath-fix.patch
-# https://github.com/EttusResearch/uhd/issues/844
-Patch:          uhd-4.8.0.0-gcc-15-fix.patch
 
 %description
 The UHD is the universal hardware driver for Ettus Research products.
@@ -164,11 +162,6 @@ pushd host
 %cmake_build
 popd
 
-# tools
-pushd tools/uhd_dump
-make %{?_smp_mflags} CFLAGS="%{build_cflags}" LDFLAGS="%{build_ldflags}"
-popd
-
 %if %{with wireshark}
 # wireshark dissectors
 pushd tools/dissectors
@@ -225,7 +218,6 @@ popd
 
 # tools
 install -Dpm 0755 tools/usrp_x3xx_fpga_jtag_programmer.sh %{buildroot}%{_bindir}/usrp_x3xx_fpga_jtag_programmer.sh
-install -Dpm 0755 tools/uhd_dump/chdr_log %{buildroot}%{_bindir}/chdr_log
 
 %if %{with wireshark}
 # wireshark dissectors
@@ -281,7 +273,6 @@ install -m0644 -D uhd.sysusers.conf %{buildroot}%{_sysusersdir}/uhd.conf
 %files tools
 %doc tools/README.md
 %{_bindir}/usrp_x3xx_fpga_jtag_programmer.sh
-%{_bindir}/chdr_log
 
 %if %{with wireshark}
 %files wireshark
@@ -289,6 +280,10 @@ install -m0644 -D uhd.sysusers.conf %{buildroot}%{_sysusersdir}/uhd.conf
 %endif
 
 %changelog
+* Thu Sep 11 2025 Jaroslav Škarvada  <jskarvad@redhat.com> - 4.9.0.0-1
+- New version
+  Resolves: rhbz#2387862
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.8.0.0-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -3,7 +3,7 @@
 
 Name:		urh
 Version:	2.9.8
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Universal Radio Hacker: investigate wireless protocols like a boss
 # Automatically converted from old format: ASL 2.0 and GPLv2 - review is highly recommended.
 License:	Apache-2.0 AND GPL-2.0-only
@@ -104,6 +104,9 @@ install -Dpm 0644 %{SOURCE1} \
 %{python3_sitearch}/urh-%{version}-*.egg-info
 
 %changelog
+* Thu Sep 11 2025 Jaroslav Škarvada  <jskarvad@redhat.com> - 2.9.8-9
+- Rebuilt for new uhd
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.9.8-8
 - Rebuilt for Python 3.14.0rc2 bytecode
 

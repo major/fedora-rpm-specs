@@ -7,7 +7,7 @@ Name: binutils%{?_with_debug:-debug}
 # The variable %%{source} (see below) should be set to indicate which of these
 # origins is being used.
 Version: 2.45.50
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -1465,6 +1465,9 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Tue Sep 09 2025 Nick Clifton <nickc@redhat.com> - 2.45.50-4
+- Enhance the riscv-64 zicfilp-unlabeled-plt test to cope with larger offsets.
+
 * Mon Sep 08 2025 Nick Clifton <nickc@redhat.com> - 2.45.50-3
 - Rebase to commit 79b2b564fec
 

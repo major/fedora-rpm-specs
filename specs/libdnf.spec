@@ -56,12 +56,18 @@
 
 Name:           libdnf
 Version:        %{libdnf_major_version}.%{libdnf_minor_version}.%{libdnf_micro_version}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Library providing simplified C and Python API to libsolv
 License:        LGPL-2.1-or-later
 URL:            https://github.com/rpm-software-management/libdnf
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Patch1:         0001-spec-Consistently-use-CMake-RPM-macros.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2354865
+# compatibility with dnf5 repo overrides
+# https://github.com/rpm-software-management/libdnf/pull/1704
+Patch2:         1704.patch
+# https://github.com/rpm-software-management/libdnf/pull/1710
+Patch3:         1710.patch
 
 BuildRequires:  cmake >= 3.5.0
 BuildRequires:  gcc
@@ -305,6 +311,9 @@ popd
 %endif
 
 %changelog
+Tue Sep 09 2025 Adam Williamson <awilliam@redhat.com> 0.74.0-6
+- Backport PRs #1704 and #1710 for dnf5 repo override compat (#2354865)
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.74.0-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 43.38
+Version: 43.39
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -513,6 +513,12 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Sep 09 2025 Packit <hello@packit.dev> - 43.39-1
+- Fix setting of kernel console logging level for anaconda (rvykydal)
+- Use new more suitable API for Gtk UI required space check (rvykydal)
+- Add GetFreeSpaceForSystem API (rvykydal)
+- docs: update CONTRIBUTING.rst with new branching approach (k.koukiou)
+
 * Tue Sep 02 2025 Packit <hello@packit.dev> - 43.38-1
 - Use slots (and a dataclass) to enforce Flag names (a.badger)
 - Reset comps queries when resetting the dnf base (pkratoch)

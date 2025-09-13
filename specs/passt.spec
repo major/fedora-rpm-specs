@@ -7,13 +7,13 @@
 # Copyright (c) 2022 Red Hat GmbH
 # Author: Stefano Brivio <sbrivio@redhat.com>
 
-%global git_hash 309eefd6af5ba20f760b92b6131a9ea7f2e161d4
+%global git_hash 6cbcccc26a504447d26af65b59fd5738e95c6449
 %global selinuxtype targeted
 %global selinux_policy_version 41.41
 
 Name:		passt
-Version:	0^20250805.g309eefd
-Release:	2%{?dist}
+Version:	0^20250911.g6cbcccc
+Release:	1%{?dist}
 Summary:	User-mode networking daemons for virtual machines and namespaces
 License:	GPL-2.0-or-later AND BSD-3-Clause
 Group:		System Environment/Daemons
@@ -142,6 +142,9 @@ restorecon -R /run/user 2>/dev/null
 %{_datadir}/selinux/packages/%{selinuxtype}/passt-repair.pp
 
 %changelog
+* Thu Sep 11 2025 Stefano Brivio <sbrivio@redhat.com> - 0^20250911.g6cbcccc-1
+- Upstream changes: https://passt.top/passt/log/?qt=range&q=2025_08_05.309eefd..2025_09_11.6cbcccc
+
 * Tue Aug  5 2025 Stefano Brivio <sbrivio@redhat.com> - 0^20250805.g309eefd-1
 - Upstream changes: https://passt.top/passt/log/?qt=range&q=2025_06_11.0293c6f..2025_08_05.309eefd
 

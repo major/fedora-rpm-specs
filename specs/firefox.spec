@@ -156,7 +156,7 @@ ExcludeArch: i686
 %if %{?system_nss}
 %global nspr_version 4.37
 %global nspr_build_version %{nspr_version}
-%global nss_version 3.114
+%global nss_version 3.115
 %global nss_build_version %{nss_version}
 %endif
 

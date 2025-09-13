@@ -2,8 +2,8 @@
 %bcond_without perl_Log_Report_enables_optional_test
 
 Name:           perl-Log-Report
-Version:        1.40
-Release:        2%{?dist}
+Version:        1.41
+Release:        1%{?dist}
 Summary:        Report a problem with exceptions and translation support
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Log-Report
@@ -13,7 +13,10 @@ BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(:VERSION) >= 5.16
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
 # Run-time:
 BuildRequires:  perl(base)
 BuildRequires:  perl(Devel::GlobalDestruction) >= 0.09
@@ -27,7 +30,6 @@ BuildRequires:  perl(Encode) >= 2.00
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(Fcntl)
 BuildRequires:  perl(File::Basename)
-BuildRequires:  perl(IO::File)
 BuildRequires:  perl(List::Util)
 BuildRequires:  perl(Log::Dispatch) >= 2.00
 BuildRequires:  perl(Log::Log4perl)
@@ -45,11 +47,9 @@ BuildRequires:  perl(parent)
 BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Scalar::Util)
 # String::Print 0.91 is not used
-BuildRequires:  perl(strict)
 BuildRequires:  perl(Sys::Syslog) >= 0.27
 # Time::HiRes not used at tests
 BuildRequires:  perl(version)
-BuildRequires:  perl(warnings)
 # Tests:
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(constant)
@@ -271,6 +271,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Sep 11 2025 Petr Pisar <ppisar@redhat.com> - 1.41-1
+- 1.41 bump
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.40-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

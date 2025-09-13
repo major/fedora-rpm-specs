@@ -4,14 +4,12 @@
 %global _python_bytecompile_extra 0
 
 Name:           octave-%{octpkg}
-Version:        3.2.1
+Version:        3.2.2
 Release:        %autorelease
 Summary:        Symbolic computations for Octave
 License:        GPL-3.0-or-later AND FSFAP
 URL:            https://gnu-octave.github.io/packages/%{octpkg}
 Source0:        https://downloads.sourceforge.net/octave/%{octpkg}-%{version}.tar.gz
-# Fix tests with sympy 1.13.3
-Patch:          https://github.com/gnu-octave/symbolic/pull/1311.patch
 
 BuildArch:      noarch
 BuildRequires:  octave-devel

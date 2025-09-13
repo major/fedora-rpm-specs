@@ -4,6 +4,8 @@
 %bcond perfbuild 1
 %bcond build_hadrian 1
 %bcond manual 1
+# disabled by default
+%bcond debug_flavor 0
 # End: prod settings
 
 # not for production builds
@@ -15,10 +17,10 @@
 %endif
 
 %global ghc_major 9.10
-%global ghc_patchlevel 2
+%global ghc_patchlevel 3
 %global ghc_name ghc%{ghc_major}
 
-%global base_ver 4.20.1.0
+%global base_ver 4.20.2.0
 %global Cabal_ver 3.12.1.0
 %global ghc_bignum_ver 1.3
 %global ghc_compact_ver 0.1.0.0
@@ -38,8 +40,16 @@
 %endif
 %global ghcboot ghc%{?ghcboot_major}
 
+# https://bugzilla.redhat.com/show_bug.cgi?id=2390105
+# https://fedoraproject.org/wiki/Changes/StaticLibraryPreserveDebuginfo
+# debugedit-5.2 adds 1-3 hours to koji build times
+#%%undefine _preserve_static_debuginfo
+%define _find_debuginfo_opts --no-ar-files
+
 # make sure ghc libraries' ABI hashes unchanged
-%bcond abicheck 0
+%if %{with perfbuild} && %{without debug_flavor}
+%bcond abicheck 1
+%endif
 
 # no longer build testsuite (takes time and not really being used)
 %bcond testsuite 0
@@ -66,7 +76,7 @@ Version: %{ghc_major}.%{ghc_patchlevel}
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -78,15 +88,11 @@ Source1: https://downloads.haskell.org/ghc/%{version}/ghc-%{version}-testsuite.t
 Source5: ghc-pkg.man
 Source6: haddock.man
 Source7: runghc.man
-Source10: https://hackage.haskell.org/package/Cabal-syntax-%{hadrian_Cabal_ver}/Cabal-syntax-%{hadrian_Cabal_ver}.tar.gz
-Source11: https://hackage.haskell.org/package/Cabal-%{hadrian_Cabal_ver}/Cabal-%{hadrian_Cabal_ver}.tar.gz
 
 # absolute haddock path (was for html/libraries -> libraries)
 Patch1: ghc-gen_contents_index-haddock-path.patch
 Patch2: ghc-Cabal-install-PATH-warning.patch
 Patch3: ghc-gen_contents_index-nodocs.patch
-# https://gitlab.haskell.org/ghc/ghc/-/issues/25662
-Patch5: hp2ps-C-gnu17.patch
 
 Patch10: ghc-9.8.4-ix86-disables-Unique-Word64.patch
 
@@ -355,19 +361,19 @@ This provides the hadrian tool which can be used to build ghc.
 %ghc_lib_subpackage -d -x -l BSD-3-Clause hpc-%{hpc_ver}
 # see below for integer-gmp
 %ghc_lib_subpackage -d -l BSD-3-Clause mtl-2.3.1
-%ghc_lib_subpackage -d -l BSD-3-Clause os-string-2.0.4
+%ghc_lib_subpackage -d -l BSD-3-Clause os-string-2.0.7
 %ghc_lib_subpackage -d -l BSD-3-Clause parsec-3.1.18.0
 %ghc_lib_subpackage -d -l BSD-3-Clause pretty-1.1.3.6
-%ghc_lib_subpackage -d -l %BSDHaskellReport process-1.6.25.0
+%ghc_lib_subpackage -d -l %BSDHaskellReport process-1.6.26.1
 # see below for rts
 %ghc_lib_subpackage -d -l BSD-3-Clause semaphore-compat-1.0.0
 %ghc_lib_subpackage -d -l BSD-3-Clause stm-2.5.3.1
 %ghc_lib_subpackage -d -l BSD-3-Clause template-haskell-2.22.0.0
 %ghc_lib_subpackage -d -l BSD-3-Clause -c ncurses-devel%{?_isa} terminfo-0.4.1.7
-%ghc_lib_subpackage -d -l BSD-3-Clause text-2.1.2
+%ghc_lib_subpackage -d -l BSD-3-Clause text-2.1.3
 %ghc_lib_subpackage -d -l BSD-3-Clause time-1.12.2
 %ghc_lib_subpackage -d -l BSD-3-Clause transformers-0.6.1.1
-%ghc_lib_subpackage -d -l BSD-3-Clause unix-2.8.6.0
+%ghc_lib_subpackage -d -l BSD-3-Clause unix-2.8.7.0
 %ghc_lib_subpackage -d -l BSD-3-Clause xhtml-%{xhtml_ver}
 %endif
 
@@ -399,7 +405,7 @@ Installing this package causes %{name}-*-prof packages corresponding to
 
 
 %prep
-%setup -q -n ghc-%{version} %{?with_testsuite:-b1} -a10 -a11
+%setup -q -n ghc-%{version} %{?with_testsuite:-b1}
 ( cd hadrian
   cabal-tweak-flag selftest False
 )
@@ -407,7 +413,6 @@ Installing this package causes %{name}-*-prof packages corresponding to
 %patch -P1 -p1 -b .orig
 #%%patch -P2 -p1 -b .orig
 %patch -P3 -p1 -b .orig
-%patch -P5 -p1 -b .orig
 
 rm libffi-tarballs/libffi-*.tar.gz
 
@@ -478,14 +483,15 @@ export LANG=C.utf8
 
 %if %{with build_hadrian}
 # do not disable debuginfo with ghc_bin_build
+%if %{with perfbuild}
 %global ghc_debuginfo 1
+%endif
 (
 cd hadrian
 ln -sf ../libraries/ghc-platform ghc-platform-%{ghc_platform_ver}
 ln -sf ../utils/ghc-toolchain ghc-toolchain-%{ghc_toolchain_ver}
-ln -sf ../Cabal-syntax-%{hadrian_Cabal_ver} Cabal-syntax-%{hadrian_Cabal_ver}
-ln -sf ../Cabal-%{hadrian_Cabal_ver} Cabal-%{hadrian_Cabal_ver}
-%ghc_libs_build -P -W ghc-platform-%{ghc_platform_ver} ghc-toolchain-%{ghc_toolchain_ver} Cabal-syntax-%{hadrian_Cabal_ver} Cabal-%{hadrian_Cabal_ver}
+%ghc_libs_build -P -W ghc-platform-%{ghc_platform_ver} ghc-toolchain-%{ghc_toolchain_ver}
+# Cabal-syntax-%%{hadrian_Cabal_ver} Cabal-%%{hadrian_Cabal_ver}
 
 %ghc_bin_build -W
 )
@@ -498,6 +504,9 @@ ln -sf ../Cabal-%{hadrian_Cabal_ver} Cabal-%{hadrian_Cabal_ver}
 %global hadrian_llvm +llvm
 %endif
 %define hadrian_docs %{!?with_haddock:--docs=no-haddocks} --docs=%[%{?with_manual} ? "no-sphinx-pdfs" : "no-sphinx"]
+%if %{defined debug_flavor}
+%define hadrian_debug +debug_info
+%endif
 # + hadrian/dist/build/hadrian/hadrian -j224 --flavour=perf --docs=no-sphinx-pdfs binary-dist-dir --hash-unit-ids
 # # cabal-read (for OracleQ (PackageDataKey (Package {pkgType = Library, pkgName = "rts", pkgPath = "rts"})))
 # rts/include/rts/Messages.h: withFile: resource exhausted (Too many open files)
@@ -857,6 +866,9 @@ make test
 
 
 %changelog
+* Thu Sep 11 2025 Jens Petersen <petersen@redhat.com> - 9.10.3-11
+- https://downloads.haskell.org/~ghc/9.10.3/docs/users_guide/9.10.3-notes.html
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.10.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

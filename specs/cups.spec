@@ -21,8 +21,8 @@
 Summary: CUPS printing system
 Name: cups
 Epoch: 1
-Version: 2.4.12
-Release: 4%{?dist}
+Version: 2.4.14
+Release: 1%{?dist}
 # backend/failover.c - BSD-3-Clause
 # cups/md5* - Zlib
 # scheduler/colorman.c - Apache-2.0 WITH LLVM-exception AND BSD-2-Clause
@@ -81,9 +81,6 @@ Patch100: cups-lspp.patch
 %endif
 
 #### UPSTREAM PATCHES (starts with 1000) ####
-# Fixed memory leak in cupsdAcceptClient
-# https://github.com/OpenPrinting/cups/commit/5910c99b9
-Patch1000: 0001-Fix-memory-leak-in-httpClose-Issue-1223.patch
 
 
 ##### Patches removed because IMHO they aren't no longer needed
@@ -320,8 +317,6 @@ to CUPS daemon. This solution will substitute printer drivers and raw queues in 
 %endif
 
 # UPSTREAM PATCHES
-# Fixed memory leak in cupsdAcceptClient
-%patch -P 1000 -p1 -b .field-leak
 
 
 # Log to the system journal by default (bug #1078781, bug #1519331).
@@ -832,6 +827,9 @@ rm -f %{cups_serverbin}/backend/smb
 %{_mandir}/man7/ippeveps.7.gz
 
 %changelog
+* Thu Sep 11 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.14-1
+- 2.4.14 (fixes CVE-2025-58060 and CVE-2025-58364) 
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.4.12-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

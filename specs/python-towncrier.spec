@@ -9,7 +9,7 @@ all write to and produce merge conflicts, towncrier reads “news fragments” w
 contain information useful to end users.}
 
 Name:           python-%{srcname}
-Version:        25.8.0~rc2
+Version:        25.8.0
 %global plain_version %{lua:
     local plain_version = (string.gsub(macros.version, '^([^%^~]+)[%^~]+.*$', '%1'))
     if plain_version ~= macros.version then

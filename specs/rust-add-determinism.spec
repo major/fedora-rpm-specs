@@ -7,9 +7,9 @@
 %global crate add-determinism
 
 Name:           rust-add-determinism
-Version:        0.6.0
+Version:        0.7.1
 Release:        %autorelease
-Summary:        RPM buildroot helper to strip nondeterministic bits in files
+Summary:        RPM buildroot helper to make builds reproducible and hardlink identical files
 
 License:        GPL-3.0-or-later
 URL:            https://crates.io/crates/add-determinism
@@ -23,7 +23,7 @@ RPM buildroot helper to strip nondeterministic bits in files.}
 %description %{_description}
 
 %package     -n %{crate}
-Summary:        %{summary}
+Summary:        RPM buildroot helper to strip nondeterministic bits in files
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
 # 0BSD OR MIT OR Apache-2.0
 # Apache-2.0 OR MIT
@@ -42,12 +42,28 @@ License:        GPL-3.0-or-later AND MIT AND Unicode-DFS-2016 AND (0BSD OR MIT O
 %license LICENSE.GPL3
 %license LICENSE.dependencies
 %doc README.md
+%{_bindir}/add-det
 %{_bindir}/add-determinism
+
+%package     -n linkdupes
+Summary:      RPM buildroot helper to hardlink identical files
+License:      GPL-3.0-or-later AND MIT AND Unicode-DFS-2016 AND (0BSD OR MIT OR Apache-2.0) AND (Apache-2.0 OR MIT) AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND (MIT OR Zlib OR Apache-2.0) AND (Unlicense OR MIT)
+
+%description -n linkdupes %{_description}
+
+%files       -n linkdupes
+%license LICENSE.GPL3
+%license LICENSE.dependencies
+%doc README.md
+%{_bindir}/linkdupes
 
 %package     -n build-reproducibility-srpm-macros
 Summary:     Configuration to integrate add-determinism in package builds
 BuildArch:   noarch
 Requires:    add-determinism = %{version}-%{release}
+Requires:    linkdupes = %{version}-%{release}
+Requires:    selinux-policy-any
+Suggests:    selinux-policy-targeted
 
 %description -n build-reproducibility-srpm-macros
 %{summary}.
@@ -71,6 +87,7 @@ This package is intended to be pulled in by redhat-rpm-config.
 
 %install
 %cargo_install
+ln -s add-det %{buildroot}%{_bindir}/add-determinism
 install -m0644 -Dt %{buildroot}%{rpmmacrodir} rpm/macros.build-reproducibility
 
 %if %{with check}

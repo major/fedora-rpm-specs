@@ -48,6 +48,12 @@ Langpack meta-package to provide individual langpacks packages.
 # Adding fedora_ prefix to inputmethod and meta.requires/meta.recommends will be available for Fedora only.
 #
 # See defcorepkg, deffontpkg, and defmetapkg for package template
+
+# Note: Adding new ll_cc code (not ll) may needs extra work in gnome-software
+#       to pick them up properly.
+#       See https://gitlab.gnome.org/GNOME/gnome-software/-/blob/main/plugins/fedora-langpacks/gs-plugin-fedora-langpacks.c?ref_type=heads#L48
+#
+
 %{lua:
 local core_font_package_list
 if tonumber(rpm.expand("0%{?rhel}")) ~= 0 and tonumber(rpm.expand("0%{?rhel}")) > 9 then

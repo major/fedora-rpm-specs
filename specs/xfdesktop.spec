@@ -33,7 +33,7 @@ Requires:       xfwm4 >= %{xfceversion}
 Requires:       xfce4-panel >= %{xfceversion}
 Requires:       redhat-menus
 Requires:       desktop-backgrounds-compat
-%if 0%{?fedora}>= 37
+%if 0%{?fedora} >= 37 && 0%{?fedora} < 43
 Requires:       webp-pixbuf-loader%{?_isa}
 %endif
 

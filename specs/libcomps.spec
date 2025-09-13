@@ -1,7 +1,7 @@
 %define __cmake_in_source_build 1
 
 Name:           libcomps
-Version:        0.1.22
+Version:        0.1.23
 Release:        1%{?dist}
 Summary:        Comps XML file manipulation library
 
@@ -116,6 +116,9 @@ popd
 %{python3_sitearch}/%{name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Thu Sep 11 2025 Marek Blaha <mblaha@redhat.com> - 0.1.23-1
+- Update to 0.1.23
+
 * Mon Aug 18 2025 Petr Pisar <ppisar@redhat.com> - 0.1.22-1
 - 0.1.22 bump
 

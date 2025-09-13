@@ -1,13 +1,13 @@
 Name:		python-isal
-Version:	1.7.2
-Release:	4%{?dist}
+Version:	1.8.0
+Release:	1%{?dist}
 Summary:	Faster zlib and gzip compatible (de)compression using the ISA-L library
 #		src/isal/crc32_combine.h is Zlib
 License:	PSF-2.0 AND Zlib
 URL:		https://github.com/pycompression/python-isal
 Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-#		https://github.com/pycompression/python-isal/pull/227
-Patch0:		0001-Add-a-dummy-non-empty-environment-when-using-assert_.patch
+#		Tweaks for building on EPEL 9
+Patch0:		%{name}-old-setuptools-epel9.patch
 
 ExcludeArch:	%{ix86}
 
@@ -17,6 +17,7 @@ BuildRequires:	pyproject-rpm-macros
 BuildRequires:	python3-devel
 BuildRequires:	python3-pip
 BuildRequires:	python3-setuptools
+BuildRequires:	python3-setuptools_scm
 BuildRequires:	python3-wheel
 BuildRequires:	python3-pytest
 BuildRequires:	python3-pytest-timeout
@@ -46,24 +47,20 @@ compression and decompression.
 
 %prep
 %setup -q
+%if %{?rhel}%{!?rhel:0} == 9
 %patch -P0 -p1
+%endif
 
-# The versioningit module extracts the version from the "version in git".
-# We are building from a source archive that doesn't have the git version
-# information.
-# Make a fake versioningit module that hardcodes the version.
-mkdir -p deps/versioningit
-cat > deps/versioningit/__init__.py <<EOF
-def get_version() -> str:
-    return '%{version}'
-EOF
-
-# Create the _version.py file otherwise created by the versioningit module.
-echo "__version__ = '%{version}'" > src/isal/_version.py
+# setuptools versions < 77 don't support PEP 639
+# convert license key in pyproject.toml to old format for older versions
+setuptoolsver=$(python3 -c "import setuptools; print(setuptools.__version__.split('.')[0])")
+if [ $setuptoolsver -lt 77 ] ; then
+    sed 's!^\(license\)\s*=\s*\(.*\)$!\1 = { text = \2 }!' -i pyproject.toml
+fi
 
 %build
 export PYTHON_ISAL_LINK_DYNAMIC=1
-export PYTHONPATH=deps
+export SETUPTOOLS_SCM_PRETEND_VERSION_FOR_ISAL=%{version}
 %pyproject_wheel
 
 %install
@@ -78,6 +75,10 @@ export PYTHONPATH=deps
 %license LICENSE
 
 %changelog
+* Thu Sep 11 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 1.8.0-1
+- Update to version 1.8.0
+- Drop patch accepted upstream
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.7.2-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

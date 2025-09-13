@@ -1,6 +1,6 @@
 Name:           OpenColorIO
 Version:        2.4.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Enables color transforms and image display across graphics apps
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -105,7 +105,7 @@ sed -i "s/minizip-ng/minizip/g" src/OpenColorIO/OCIOZArchive.cpp src/apps/ocioar
 
 
 %build
-%cmake -DCMAKE_CXX_STANDARD=14 \
+%cmake -DCMAKE_CXX_STANDARD=17 \
        -DOCIO_BUILD_DOCS=%{?docs:ON}%{?!docs:OFF} \
        -DOCIO_BUILD_TESTS=%{?tests:ON}%{?!tests:OFF} \
 	   -DOCIO_USE_HEADLESS=ON \
@@ -171,6 +171,9 @@ find %{buildroot} -type f -name "*.a" -exec rm -f {} \;
 
 
 %changelog
+* Thu Sep 11 2025 Richard Shaw <hobbes1069@gmail.com> - 2.4.2-5
+- Rebuild for pystring.
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.4.2-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

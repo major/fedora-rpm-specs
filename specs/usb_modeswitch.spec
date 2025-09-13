@@ -2,7 +2,7 @@
 
 Name:       usb_modeswitch
 Version:    2.6.2
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    USB Modeswitch gets mobile broadband cards in operational mode
 Summary(de):    USB Modeswitch aktiviert UMTS-Karten
 License:    GPL-2.0-or-later
@@ -13,8 +13,10 @@ Source1:    http://www.draisberghof.de/usb_modeswitch/device_reference.txt
 
 # Submitted upstream (2014-11-24)
 Patch0: device_reference-utf8.patch
+# Not submitted upstream due to lack of courage
+Patch1: usb_modeswitch-2.6.2-SIGTERM.patch
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  libusbx-devel
 # "tcl" or "jimsh"), use the light-weight installation:
@@ -42,6 +44,7 @@ Vodafone, Option, ZTE und Novatell werden unterstützt.
 cp -f %{SOURCE1} device_reference.txt
 
 %patch 0 -p0
+%patch 1 -p1
 
 
 %build
@@ -72,6 +75,9 @@ mkdir -p %{buildroot}%{_unitdir}
 
 
 %changelog
+* Thu Aug 14 2025 Lubomir Rintel <lkundrak@v3.sk> - 2.6.2-4
+- Do not let the unit send SIGTERM to usb_modeswitch mid-switch.
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

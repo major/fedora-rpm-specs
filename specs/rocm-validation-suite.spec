@@ -18,7 +18,7 @@
 
 Name:           rocm-validation-suite
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm Validation Suite (rvs)
 
 Url:            https://github.com/ROCm/ROCmValidationSuite
@@ -98,23 +98,7 @@ sed -i -e 's@DRVS_LIB_PATH="${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}/rvs"
 sed -i -e 's@DESTINATION ${CPACK_PACKAGING_INSTALL_PREFIX}/@DESTINATION @g' CMakeLists.txt
 sed -i -e 's@INSTALL_DESTINATION ${CPACK_PACKAGING_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}/cmake/rvs@INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/rvs@' CMakeLists.txt
 sed -i -e 's@${CPACK_PACKAGING_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}/cmake/rvs@${CMAKE_INSTALL_LIBDIR}/cmake/rvs@' CMakeLists.txt
-sed -i -e 's@DESTINATION ${CPACK_PACKAGING_INSTALL_PREFIX}/@DESTINATION @g' babel.so/CMakeLists.txt
-sed -i -e 's@DESTINATION ${CPACK_PACKAGING_INSTALL_PREFIX}/@DESTINATION @g' edp.so/CMakeLists.txt
-sed -i -e 's@DESTINATION ${CPACK_PACKAGING_INSTALL_PREFIX}/@DESTINATION @g' gm.so/CMakeLists.txt
-sed -i -e 's@DESTINATION ${CPACK_PACKAGING_INSTALL_PREFIX}/@DESTINATION @g' gpup.so/CMakeLists.txt
-sed -i -e 's@DESTINATION ${CPACK_PACKAGING_INSTALL_PREFIX}/@DESTINATION @g' gst.so/CMakeLists.txt
-sed -i -e 's@DESTINATION ${CPACK_PACKAGING_INSTALL_PREFIX}/@DESTINATION @g' iet.so/CMakeLists.txt
-sed -i -e 's@DESTINATION ${CPACK_PACKAGING_INSTALL_PREFIX}/@DESTINATION @g' mem.so/CMakeLists.txt
-sed -i -e 's@DESTINATION ${CPACK_PACKAGING_INSTALL_PREFIX}/@DESTINATION @g' pbqt.so/CMakeLists.txt
-sed -i -e 's@DESTINATION ${CPACK_PACKAGING_INSTALL_PREFIX}/@DESTINATION @g' pebb.so/CMakeLists.txt
-sed -i -e 's@DESTINATION ${CPACK_PACKAGING_INSTALL_PREFIX}/@DESTINATION @g' peqt.so/CMakeLists.txt
-sed -i -e 's@DESTINATION ${CPACK_PACKAGING_INSTALL_PREFIX}/@DESTINATION @g' perf.so/CMakeLists.txt
-sed -i -e 's@DESTINATION ${CPACK_PACKAGING_INSTALL_PREFIX}/@DESTINATION @g' pesm.so/CMakeLists.txt
-sed -i -e 's@DESTINATION ${CPACK_PACKAGING_INSTALL_PREFIX}/@DESTINATION @g' rcqt.so/CMakeLists.txt
-sed -i -e 's@DESTINATION ${CPACK_PACKAGING_INSTALL_PREFIX}/@DESTINATION @g' rvs/CMakeLists.txt
-sed -i -e 's@DESTINATION ${CPACK_PACKAGING_INSTALL_PREFIX}/@DESTINATION @g' rvslib/CMakeLists.txt
-sed -i -e 's@DESTINATION ${CPACK_PACKAGING_INSTALL_PREFIX}/@DESTINATION @g' smqt.so/CMakeLists.txt
-sed -i -e 's@DESTINATION ${CPACK_PACKAGING_INSTALL_PREFIX}/@DESTINATION @g' tst.so/CMakeLists.txt
+find -type f -name CMakeLists.txt -print0 | xargs -0 sed -i -e 's@DESTINATION ${CPACK_PACKAGING_INSTALL_PREFIX}/@DESTINATION @g'
 
 # Hardcoded gpus
 # https://github.com/ROCm/ROCmValidationSuite/issues/983
@@ -199,5 +183,8 @@ done
 %{_libdir}/rvs/libtst.so
 
 %changelog
+* Wed Sep 10 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-2
+- Simplify cpack install change
+
 * Sat Jul 26 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-1
 - Initial package

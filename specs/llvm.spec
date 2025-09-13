@@ -2,7 +2,7 @@
 #region version
 %global maj_ver 21
 %global min_ver 1
-%global patch_ver 0
+%global patch_ver 1
 #global rc_ver rc3
 
 %bcond_with snapshot_build
@@ -429,6 +429,9 @@ Patch2006: 0001-Add-REQUIRES-asserts-to-test-added-in-145149-because.patch
 # to ignore it for these targets.
 Patch2101: 0001-clang-Add-a-hack-to-fix-the-offload-build-with-the-m.patch
 Patch2201: 0001-clang-Add-a-hack-to-fix-the-offload-build-with-the-m.patch
+
+# Fix for i686 builds. I expect this will be backported to 21.1.2
+Patch2102: 0001-Generalize-test-over-32-and-64bit-targets.patch
 
 %if 0%{?rhel} == 8
 %global python3_pkgversion 3.12

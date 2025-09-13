@@ -13,8 +13,8 @@
 # GNU General Public License for more details.
 
 Name: sfp-master
-Version: 1.0.6
-Release: 2%dist
+Version: 1.0.7
+Release: 1%dist
 
 Summary: Reading, writing SFP modules data
 Summary(ru_RU.UTF-8): Чтение, запись данных SFP-модулей
@@ -32,9 +32,9 @@ Url: https://github.com/bigbigmdm/SFP-Master
 Source: https://github.com/bigbigmdm/SFP-Master/archive/refs/tags/v%{version}.tar.gz
 
 BuildRequires: gcc-c++
-BuildRequires: pkgconfig(Qt5Core)
-BuildRequires: pkgconfig(Qt5Widgets)
-BuildRequires: cmake(Qt5LinguistTools)
+BuildRequires: pkgconfig(Qt6Core)
+BuildRequires: pkgconfig(Qt6Widgets)
+BuildRequires: cmake(Qt6LinguistTools)
 BuildRequires: pkgconfig(libusb-1.0)
 BuildRequires: cmake
 BuildRequires: desktop-file-utils
@@ -109,7 +109,7 @@ SFP-Master 是用于 CH341a 设备的光学 SFP 模块的免费编程软件。
 
 %build
 # update translations
-lrelease-qt5 language/*.ts
+lrelease-qt6 language/*.ts
 
 %cmake -DCMAKE_INSTALL_SYSCONFDIR=%_sysconfdir
 %cmake_build
@@ -134,6 +134,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.xml
 %license LICENSE
 
 %changelog
+* Thu Sep 11 2025 Mikhail Medvedev 1.0.7-1
+- Ported from QT5 to QT6
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

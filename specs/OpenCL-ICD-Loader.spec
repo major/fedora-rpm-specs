@@ -22,7 +22,7 @@ Conflicts: ocl-icd
 
 %package devel
 Summary:        Development files for Khronos official OpenCL ICD Loader
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 Conflicts: ocl-icd-devel
 

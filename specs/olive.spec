@@ -18,7 +18,7 @@ Version:        0.2.0^%{gitdate}git%{shortcommit}
 %else
 Version:        0.2.0
 %endif
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A free non-linear video editor
 # app/widget/flowlayout/flowlayout.*: BSD-3-Clause
 # ext/KDDockWidgets/LICENSE.txt: GPL-2.0-only OR GPL-3.0-only
@@ -35,6 +35,9 @@ Patch1:         %{name}-ocio-2.3.patch
 # fix build with FFmpeg 7.0+
 # https://github.com/olive-editor/olive/issues/2325
 Patch2:         %{name}-ffmpeg-7.patch
+# fix build with OpenImageIO 3.0+
+# https://github.com/olive-editor/olive/issues/2392
+Patch3:         %{name}-oiio-3.0.patch
 %else
 Source0:        https://github.com/olive-editor/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 %endif
@@ -139,6 +142,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{unique_name
 %{_datadir}/mime/packages/%{unique_name}.xml
 
 %changelog
+* Thu Sep 11 2025 Dominik Mierzejewski <dominik@greysector.net> - 0.2.0^20240825git617ff87-8
+- Fix build with OpenImageIO 3.0
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0^20240825git617ff87-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

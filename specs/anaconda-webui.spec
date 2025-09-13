@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        49
+Version:        50
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -52,7 +52,7 @@ Provides: bundled(npm(focus-trap)) = 7.6.4
 Provides: bundled(npm(js-tokens)) = 4.0.0
 Provides: bundled(npm(lodash)) = 4.17.21
 Provides: bundled(npm(loose-envify)) = 1.4.0
-Provides: bundled(npm(luxon)) = 3.7.1
+Provides: bundled(npm(luxon)) = 3.7.2
 Provides: bundled(npm(memoize-one)) = 5.2.1
 Provides: bundled(npm(object-assign)) = 4.1.1
 Provides: bundled(npm(prop-types)) = 15.8.1
@@ -121,6 +121,13 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Sep 10 2025 Packit <hello@packit.dev> - 50-1
+- fix(timezone): correctly parse timezones with multiple slashes
+- fix(timezone): when reading timezone from backend read value from dbus object
+- datetime:: dissallow proceeding custom NTP modal with empty values
+- storage: Add mountpoints size check to storage review screen
+- storage: Make size check on review screen a blocking error
+
 * Wed Sep 03 2025 Packit <hello@packit.dev> - 49-1
 - Add os-release PRETTY_NAME, Anaconda and Anaconda Web UI version to BZ template
 - users: disallow proceeding from users page when neither root or user
