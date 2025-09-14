@@ -1,6 +1,6 @@
 Name:           rpkg
 Version:        1.68
-Release:        6%{?dist}
+Release:        7%{?dist}
 
 Summary:        Python library for interacting with rpm+git
 # Automatically converted from old format: GPLv2+ and LGPLv2 - review is highly recommended.
@@ -27,10 +27,8 @@ Source0:        https://pagure.io/releases/rpkg/%{name}-%{version}.tar.gz
 # hatchling is supported in >Python 3.6 releases (RHEL 8)
 %if 0%{?rhel} && 0%{?rhel} <= 8
 %global with_hatchling 0
-%{echo:--> with_hatchling unset, 0%{?rhel} %{?fedora}}
 %else
 %global with_hatchling 1
-%{echo:--> with_hatchling set, 0%{?rhel} %{?fedora}}
 %endif
 
 
@@ -54,6 +52,7 @@ Patch4:         0004-patch-Execute-subprocess-in-text-mode.patch
 Patch5:         0005-type-fix-typo-in-requirements-README.patch
 Patch6:         0006-install-add-rpmbuild-arguments-with-and-without.patch
 Patch7:         0007-srpm-man-page-generation-fixed.patch
+Patch8:         0008-Add-mock-configuration-option-to-build-and-srpm.patch
 
 %description
 Python library for interacting with rpm+git
@@ -284,6 +283,9 @@ example_cli_dir=$RPM_BUILD_ROOT%{_datadir}/%{name}/examples/cli
 
 
 %changelog
+* Thu Sep 11 2025 Ondřej Nosek <onosek@redhat.com> - 1.68-7
+- Patch: Add mock configuration option to build and srpm
+
 * Tue Sep 02 2025 Ondřej Nosek <onosek@redhat.com> - 1.68-6
 - Patch: `pre-push-check`: bogus error - file wasn't listed
 - Patch: Fix mockbuild --srpm-mock specfile_path
@@ -615,14 +617,14 @@ example_cli_dir=$RPM_BUILD_ROOT%{_datadir}/%{name}/examples/cli
 - Add --offline cli argument for new-sources (oturpe)
 - Tests: Fix setting branch name with old git (nils)
 - Add and augment tests for rpmautospec (nils)
-- Reflect %autorelease when parsing spec files (nils)
+- Reflect %%autorelease when parsing spec files (nils)
 - Preprocess spec files using rpmautospec features (nils)
 - Detect generic use of rpmautospec features (nils)
 - Fix remaining Python3 SafeConfigParser warnings (nils)
 - Tests: specify branch name on `git init` (nils)
 - Remove leftover deprecated arguments (abisoi)
 - Remove deprecated arguments --dist and --module-name (abisoi)
-- Skip NVR check if the %autorelease macro is used - 109 (nils)
+- Skip NVR check if the %%autorelease macro is used - 109 (nils)
 - Don't access unset variable (nils)
 - Improve help in fedpkg clone command - #367 (abisoi)
 - Fix rpkg container-build ignoring values when same argument is specified

@@ -1,5 +1,5 @@
 Name:           python-blosc2
-Version:        3.2.0
+Version:        3.8.0
 Release:        %autorelease
 Summary:        Python wrapper for the Blosc2 compression library
 License:        BSD-3-Clause
@@ -8,7 +8,7 @@ Source:         https://github.com/Blosc/python-blosc2/archive/v%{version}/pytho
 
 BuildRequires:  python3-devel
 BuildRequires:  gcc-g++
-BuildRequires:  blosc2-devel >= 2.17.0
+BuildRequires:  blosc2-devel >= 2.21.0
 BuildRequires:  tomcli
 
 ExcludeArch:    %{ix86}
@@ -44,6 +44,7 @@ tomcli set pyproject.toml lists delitem "project.optional-dependencies.test" "to
 %build
 export USE_SYSTEM_BLOSC2=ON
 export SKBUILD_CMAKE_BUILD_TYPE=RelWithDebInfo
+export SKBUILD_BUILD_DIR=python-build
 %pyproject_wheel
 
 %install
@@ -52,6 +53,7 @@ export SKBUILD_CMAKE_BUILD_TYPE=RelWithDebInfo
 
 %check
 OPTIONS=(
+    --deselect=tests/test_embed_store.py::test_with_remote
 )
 
 %pytest tests/ "${OPTIONS[@]}" -v \

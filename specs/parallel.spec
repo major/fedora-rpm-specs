@@ -1,19 +1,23 @@
 Name:           parallel
 Summary:        Shell tool for executing jobs in parallel
-Version:        20241222
+Version:        20250822
 Release:        %autorelease
 # Automatically converted from old format: GFDL and GPLv3+ - review is highly recommended.
 License:        LicenseRef-Callaway-GFDL AND GPL-3.0-or-later
 URL:            https://www.gnu.org/software/parallel/
 Source0:        https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.bz2
+Source1:        https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.bz2.sig
+Source2:        cda01a4208c4f74506107e7bd1ab451688888888.asc
 BuildArch:      noarch
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-podlators
-BuildRequires:  perl-FileHandle
+BuildRequires:  perl(FileHandle)
 BuildRequires:  sed
+# for gpg verification
+BuildRequires: gnupg2
 
 %define __requires_exclude sh$
 
@@ -42,6 +46,7 @@ GNU Parallel is command-line-compatible with moreutils' parallel, but offers
 additional features.
 
 %prep
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup
 # Replace shebang by replacing "env" by removing "env ".
 # FIXME: this is quite a hack
@@ -76,8 +81,8 @@ rm -vrf %{buildroot}%{_pkgdocdir}
 %{_mandir}/man1/sql.1*
 %{_bindir}/niceload
 %{_mandir}/man1/niceload.1*
-%{_datadir}/bash-completion/completions/parallel
-%{_datadir}/zsh/site-functions/_parallel
+%{bash_completions_dir}/parallel
+%{zsh_completions_dir}/_parallel
 
 %changelog
 %autochangelog

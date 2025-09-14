@@ -1,17 +1,18 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
+%define major_version %(c=%{version}; echo $c | cut -d. -f1 | cut -d~ -f1)
 
 Name:           gnome-mines
-Version:        48.1
+Version:        49~rc
 Release:        %autorelease
 Summary:        GNOME Mines Sweeper game
 
 License:        GPL-3.0-or-later AND CC-BY-SA-3.0
 URL:            https://wiki.gnome.org/Apps/Mines
-Source0:        https://download.gnome.org/sources/gnome-mines/48/gnome-mines-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
 
+BuildRequires:  pkgconfig(gee-0.8)
 BuildRequires:  pkgconfig(gtk4)
 BuildRequires:  pkgconfig(libadwaita-1)
-BuildRequires:  pkgconfig(libgnome-games-support-2)
 BuildRequires:  pkgconfig(librsvg-2.0)
 
 BuildRequires:  desktop-file-utils
@@ -19,6 +20,9 @@ BuildRequires:  gettext-devel
 BuildRequires:  itstool
 BuildRequires:  meson
 BuildRequires:  vala
+
+# https://gitlab.gnome.org/GNOME/libgnome-games-support/-/merge_requests/32
+Patch:          lggs-installation.patch
 
 %description
 The popular logic puzzle minesweeper. Find mines on a grid 
@@ -38,13 +42,14 @@ using hints from squares you have already cleared.
 %meson_install
 
 %find_lang %{name} --with-gnome
+%find_lang %{name}_libgnome-games-support --with-gnome
 
 
 %check
 desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Mines.desktop
 
 
-%files -f %{name}.lang
+%files -f %{name}.lang -f %{name}_libgnome-games-support.lang
 %license COPYING
 %{_bindir}/gnome-mines
 %{_datadir}/applications/org.gnome.Mines.desktop

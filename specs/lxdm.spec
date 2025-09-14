@@ -26,7 +26,7 @@
 
 Name:           lxdm
 Version:        %{main_version}%{?git_version:^%{?git_version}}
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Lightweight X11 Display Manager
 
 # src/*.c	GPL-3.0-or-later
@@ -85,7 +85,11 @@ Requires:       desktop-backgrounds-compat
 Requires:		%{_bindir}/ssh-agent
 # Loading jpegxl format img requires the below
 %if 0%{?fedora} >= 42
+%if 0%{?fedora} >= 43
+Requires:       gdk-pixbuf2%{?_isa} >= 2.44
+%else
 Requires:       jxl-pixbuf-loader%{?_isa}
+%endif
 %endif
 # needed for anaconda to boot into runlevel 5 after install
 Provides:       service(graphical-login) = lxdm
@@ -243,6 +247,9 @@ exit 0
 
 
 %changelog
+* Fri Sep 12 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.3^20220831git2d4ba970-13
+- F-43+: update loader dependency for gdk-pixbuf2 changes
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3^20220831git2d4ba970-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

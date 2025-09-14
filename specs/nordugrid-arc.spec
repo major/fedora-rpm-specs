@@ -22,20 +22,14 @@
 %global _bashcompdir %(pkg-config --variable=completionsdir bash-completion 2>/dev/null || echo %{_sysconfdir}/bash_completion.d)
 
 Name:		nordugrid-arc
-Version:	7.0.0
-Release:	6%{?dist}
+Version:	7.1.0
+Release:	1%{?dist}
 Summary:	Advanced Resource Connector Middleware
 #		Apache-2.0: most files
 #		MIT: src/external/cJSON/cJSON.c src/external/cJSON/cJSON.h
 License:	Apache-2.0 AND MIT
-URL:		http://www.nordugrid.org/
-Source:		http://download.nordugrid.org/packages/%{name}/releases/%{version}/src/%{name}-%{version}.tar.gz
-#		https://source.coderefinery.org/nordugrid/arc/-/merge_requests/1903
-Patch0:		0001-Update-the-VOMS-attribute-certificate-signing-hash-a.patch
-#		https://source.coderefinery.org/nordugrid/arc/-/merge_requests/1892
-Patch1:		0001-Fix-shell-syntax-errors-reported-by-lintian.patch
-#		https://source.coderefinery.org/nordugrid/arc/-/merge_requests/1926
-Patch2:		0001-ValueError-action-store_true-is-not-valid-for-positi.patch
+URL:		https://www.nordugrid.org/
+Source:		https://download.nordugrid.org/packages/%{name}/releases/%{version}/src/%{name}-%{version}.tar.gz
 
 #		Packages dropped without replacements
 Obsoletes:	%{name}-arcproxyalt < 6.0.0
@@ -79,8 +73,11 @@ BuildRequires:	python%{python3_pkgversion}-wheel
 %if %{with_pylint}
 BuildRequires:	pylint
 %endif
+%if %{?fedora}%{!?fedora:0} || %{?rhel}%{!?rhel:0} >= 10
+BuildRequires:	glibmm2.68-devel
+%else
 BuildRequires:	glibmm24-devel
-BuildRequires:	glib2-devel
+%endif
 BuildRequires:	libxml2-devel
 BuildRequires:	openssl
 BuildRequires:	openssl-devel
@@ -460,8 +457,11 @@ ARC plugins dependent on Python.
 %package devel
 Summary:	ARC development files
 Requires:	%{name} = %{version}-%{release}
+%if %{?fedora}%{!?fedora:0} || %{?rhel}%{!?rhel:0} >= 10
+Requires:	glibmm2.68-devel
+%else
 Requires:	glibmm24-devel
-Requires:	glib2-devel
+%endif
 Requires:	libxml2-devel
 Requires:	openssl-devel
 
@@ -551,9 +551,6 @@ publishes metrics about jobs and datastaging on the ARC-CE.
 
 %prep
 %setup -q
-%patch -P0 -p1
-%patch -P1 -p1
-%patch -P2 -p1
 
 %build
 autoreconf -v -f -i
@@ -618,7 +615,7 @@ mkdir -p %{buildroot}%{_localstatedir}/spool/arc/ssm
 mkdir -p %{buildroot}%{_localstatedir}/spool/arc/urs
 
 # create config directory
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/arc.conf.d
+mkdir -p %{buildroot}%{_sysconfdir}/arc.conf.d
 
 %find_lang %{name}
 
@@ -936,6 +933,7 @@ semanage fcontext -a -t slapd_var_run_t "/var/run/arc/bdii/db(/.*)?" 2>/dev/null
 %{_datadir}/%{pkgdir}/scan_common.sh
 %{_datadir}/%{pkgdir}/lrms_common.sh
 %{_datadir}/%{pkgdir}/perferator
+%{_datadir}/%{pkgdir}/update-controldir
 %{_datadir}/%{pkgdir}/PerfData.pl
 %{_datadir}/%{pkgdir}/arc-arex-start
 %{_datadir}/%{pkgdir}/arc-arex-ws-start
@@ -1136,6 +1134,9 @@ semanage fcontext -a -t slapd_var_run_t "/var/run/arc/bdii/db(/.*)?" 2>/dev/null
 %{_sbindir}/arc-exporter
 
 %changelog
+* Thu Sep 11 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 7.1.0-1
+- Update to version 7.1.0
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 7.0.0-6
 - Rebuilt for Python 3.14.0rc2 bytecode
 

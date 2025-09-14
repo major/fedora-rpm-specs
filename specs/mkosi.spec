@@ -214,6 +214,15 @@ install -m0644 -D mkosi.zsh %{buildroot}%{zsh_completions_dir}/_mkosi
 %endif
 %endif
 
+%clean
+rm -rf \
+    $RPM_BUILD_ROOT \
+    mkosi.bash \
+    mkosi.zsh \
+    mkosi.fish \
+    mkosi/resources/man/*.1 \
+    mkosi/resources/man/*.7
+
 %changelog
 %if %{without obs}
 %autochangelog

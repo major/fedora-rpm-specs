@@ -5,8 +5,8 @@ of images based on fast booting VM images.
 %global srcname kiwi_boxed_plugin
 
 Name:           kiwi-boxed-plugin
-Version:        0.2.55
-Release:        2%{?dist}
+Version:        0.2.56
+Release:        1%{?dist}
 URL:            https://github.com/OSInside/kiwi-boxed-plugin
 Summary:        KIWI - Boxed Build Plugin
 License:        GPL-3.0-or-later
@@ -76,6 +76,9 @@ rm -f %{buildroot}%{_defaultdocdir}/python-%{srcname}/README
 %{python3_sitelib}/%{srcname}*
 
 %changelog
+* Fri Sep 12 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.2.56-1
+- Update to 0.2.56
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.2.55-2
 - Rebuilt for Python 3.14.0rc2 bytecode
 

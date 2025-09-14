@@ -1,6 +1,6 @@
 Name:           python-zope-sqlalchemy
-Version:        3.1
-Release:        11%{?dist}
+Version:        4.0
+Release:        1%{?dist}
 BuildArch:      noarch
 
 License:        ZPL-2.1
@@ -59,11 +59,13 @@ configure engines.
 %doc src/zope/sqlalchemy/README.rst
 %doc CHANGES.rst CREDITS.rst
 %license COPYRIGHT.txt LICENSE.txt
-%{python3_sitelib}/zope.sqlalchemy-%{version}-py%{python3_version}-nspkg.pth
 %exclude %{python3_sitelib}/zope/sqlalchemy/*.rst
 
 
 %changelog
+* Fri Sep 12 2025 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 4.0-1
+- Update to upstream.
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.1-11
 - Rebuilt for Python 3.14.0rc2 bytecode
 

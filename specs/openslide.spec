@@ -23,12 +23,14 @@ BuildRequires:	gcc
 BuildRequires:	meson
 
 # Required for gdk-pixbuf2 to be able to load BMP images, including in tests
-%if 0%{?fedora} >= 41 || 0%{?rhel} >= 10
+%if (0%{?fedora} && 0%{?fedora} < 43) || 0%{?rhel} == 10
 BuildRequires:	gdk-pixbuf2-modules-extra
 Requires:	gdk-pixbuf2-modules-extra%{?_isa}
 %else
+%if 0%{?rhel}
 BuildRequires:	gdk-pixbuf2-modules
 Requires:	gdk-pixbuf2-modules%{?_isa}
+%endif
 %endif
 
 

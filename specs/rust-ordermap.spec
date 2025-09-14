@@ -5,7 +5,7 @@
 %global crate ordermap
 
 Name:           rust-ordermap
-Version:        0.5.8
+Version:        0.5.10
 Release:        %autorelease
 Summary:        Hash table with consistent order and fast iteration
 
@@ -15,6 +15,7 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * drop unused benchmark definitions
 # * drop unused optional support for borsh
+# * drop unused optional support for sval
 Patch:          ordermap-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

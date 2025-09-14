@@ -1,13 +1,10 @@
 Summary:        Fast numerical array expression evaluator for Python and NumPy
 Name:           python-numexpr
-Version:        2.10.2
+Version:        2.12.1
 Release:        %autorelease
 URL:            https://github.com/pydata/numexpr
 License:        MIT
 Source:         https://github.com/pydata/numexpr/archive/v%{version}/numexpr-%{version}.tar.gz
-# Support for Python 3.14
-# Reported: https://github.com/pydata/numexpr/issues/511
-Patch:          Skip-refcounting-test-for-now.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  python%{python3_pkgversion}-devel

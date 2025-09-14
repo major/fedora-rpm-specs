@@ -1,10 +1,10 @@
-%bcond check 0
+%bcond check 1
 # F43FailsToInstall: python3-pysaml2
 # https://bugzilla.redhat.com/show_bug.cgi?id=2372073
 %bcond saml2 0
 
 Name:       matrix-synapse
-Version:    1.137.0
+Version:    1.138.0
 Release:    %autorelease
 Summary:    A Matrix reference homeserver written in Python using Twisted
 License:    AGPL-3.0-or-later
@@ -32,9 +32,6 @@ BuildRequires:  rust-packaging >= 21
 BuildRequires:  /usr/bin/openssl
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  tomcli
-%if %{with saml2}
-BuildRequires:  python3-pysaml2
-%endif
 
 %if %{without saml2}
 Obsoletes:      %{name}+saml2 < 1.136.0-2
@@ -97,9 +94,11 @@ set -o pipefail
 PYTHONPATH=%{buildroot}%{python3_sitearch}:%{buildroot}%{python3_sitelib}:$PWD trial-3 %{!?fc41:%_smp_mflags} tests | tee trial.stdout
 
 # Guard against new types of tests being skipped.
-WHITELIST="Requires hiredis
+ALLOWLIST="Requires hiredis
 Requires jaeger_client
 Requires Postgres
+Requires SAML2 and OIDC
+Requires pysaml2
 Test only applies when postgres is used as the database
 not supported
 not supported yet
@@ -108,7 +107,7 @@ Synapse does not correctly handle this case
 Once we remove ops from the Sliding Sync response, this test should pass
 Test is not possible because when everyone leaves the room, the server is \`no_longer_in_room\` and we don't have any \`current_state_events\` to query"
 REASONS=$(cat trial.stdout | sed -n '/^\[SKIPPED\]$/{n;p;}')
-SKIPPED=$(comm -23 <(echo "$REASONS" | sort | uniq) <(echo "$WHITELIST" | sort | uniq))
+SKIPPED=$(comm -23 <(echo "$REASONS" | sort | uniq) <(echo "$ALLOWLIST" | sort | uniq))
 if [ ! -z "$SKIPPED" ]; then
   echo -e "Failing, because tests were skipped:\n$SKIPPED"
   exit 1

@@ -29,17 +29,19 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/plugins-%{gs_plugin_version}/.*\\.so.*$
 
 Name:      gnome-software
-Version:   49~rc
-Release:   2%{?dist}
+Version:   49.0
+Release:   1%{?dist}
 Summary:   A software center for GNOME
 
 License:   GPL-2.0-or-later
 URL:       https://apps.gnome.org/Software
 Source0:   https://download.gnome.org/sources/gnome-software/49/%{name}-%{tarball_version}.tar.xz
 
+%if %{with dnf5}
 # to update the patch enter the ./dnf5-plugin/ directory and run from
 # it the ./update-patch.sh script
 Patch:     0001-dnf5-plugin.patch
+%endif
 
 # ostree and flatpak not on i686 for Fedora and RHEL 10
 # https://github.com/containers/composefs/pull/229#issuecomment-1838735764
@@ -177,8 +179,6 @@ This package includes the rpm-ostree backend.
 %endif
 %if %{with dnf5}
     -Ddnf5=true \
-%else
-    -Ddnf5=false \
 %endif
     -Dexternal_appstream=false \
 %if %{with rpmostree}

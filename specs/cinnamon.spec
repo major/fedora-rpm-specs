@@ -16,7 +16,7 @@
 
 Name:           cinnamon
 Version:        6.4.9
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Window management and application launching for GNOME
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
@@ -351,6 +351,9 @@ EOF
 %endif
 
 %changelog
+* Fri Sep 12 2025 Leigh Scott <leigh123linux@gmail.com> - 6.4.9-4
+- Rebuild for glib2-2.86 changes
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 6.4.9-3
 - Rebuilt for Python 3.14.0rc2 bytecode
 

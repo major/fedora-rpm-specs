@@ -16,6 +16,8 @@ Source:         %{crates_source %{crate} %{crate_version}}
 
 # include upstream fix for compiling on 32-bit architectures
 Patch:          https://gitlab.gnome.org/GNOME/glycin/-/commit/14336e3.patch
+# include upstream fix for seccomp filter on aarch64 with SVE
+Patch:          https://gitlab.gnome.org/GNOME/glycin/-/commit/5977f6d.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

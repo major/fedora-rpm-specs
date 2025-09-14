@@ -6,7 +6,7 @@
 
 Name:           tog-pegasus
 Version:        %{major_ver}.1
-Release:        86%{?dist}
+Release:        87%{?dist}
 Epoch:          2
 Summary:        OpenPegasus WBEM Services for Linux
 
@@ -511,6 +511,8 @@ if [ $1 -ge 1 ]; then
       fi;
       /bin/systemctl try-restart tog-pegasus.service >/dev/null 2>&1 || :;
    fi;
+   # copy content of /var/lib/Pegasus to temporary place for Image Mode
+   (mkdir -p /usr/share/factory/var/lib && cp -a /var/lib/Pegasus /usr/share/factory/var/lib/Pegasus) >/dev/null 2>&1 || :;
 fi
 :;
 
@@ -519,6 +521,7 @@ fi
 if [ $1 -eq 0 ]; then                  
    # Package removal, not upgrade     
    rm -rf /var/run/tog-pegasus
+   rm -rf /usr/share/factory/var/lib/Pegasus
 fi
 :;
 
@@ -574,6 +577,9 @@ fi
 
 
 %changelog
+* Fri Sep 12 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 2:2.14.1-87
+- Add support for Image Mode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:2.14.1-86
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

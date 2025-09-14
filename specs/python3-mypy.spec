@@ -1,6 +1,6 @@
 Name:           python3-mypy
-Version:        1.17.1
-Release:        3%{?dist}
+Version:        1.18.1
+Release:        1%{?dist}
 Summary:        A static type checker for Python
 %{?python_provide:%python_provide python3-mypy}
 
@@ -81,6 +81,9 @@ end
 %{_mandir}/man1/stubgen.1*
 
 %changelog
+* Fri Sep 12 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.18.1-1
+- 1.18.1
+
 * Fri Aug 22 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.17.1-3
 - BuildRequire pathspec to fix man pages.
 

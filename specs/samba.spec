@@ -136,7 +136,7 @@
 #                    default is 1).
 %global samba_release %autorelease
 
-%global pre_release rc4
+%global pre_release %nil
 %if "x%{?pre_release}" != "x"
 %global samba_release %autorelease -p -e %pre_release
 %endif
@@ -222,7 +222,8 @@ Source18:       samba-winbind-systemd-sysusers.conf
 
 Source201:      README.downgrade
 Source202:      samba.abignore
-Patch0:         samba-pcp-7.0.0.patch
+
+Patch0:         samba-fix-ctdb-pcp-7-support.patch
 
 Requires(pre): %{name}-common = %{samba_depver}
 Requires: %{name}-common = %{samba_depver}
@@ -323,6 +324,11 @@ BuildRequires: xz
 BuildRequires: zlib-devel >= 1.2.3
 
 BuildRequires: pkgconfig(libsystemd)
+# TODO FIXME This is not in RHEL yet
+%if 0%{?fedora} >= 43
+BuildRequires: pkgconfig(libngtcp2)
+BuildRequires: pkgconfig(libngtcp2_crypto_gnutls)
+%endif
 
 %ifnarch i686
 %if 0%{?fedora} >= 37
@@ -2022,8 +2028,10 @@ fi
 %{_libdir}/samba/libndr-samba4-private-samba.so
 %{_libdir}/samba/libnet-keytab-private-samba.so
 %{_libdir}/samba/libnetif-private-samba.so
+%if 0%{?rhel}
 %{_libdir}/samba/libngtcp2-crypto-gnutls-private-samba.so
 %{_libdir}/samba/libngtcp2-private-samba.so
+%endif
 %{_libdir}/samba/libnpa-tstream-private-samba.so
 %{_libdir}/samba/libposix-eadb-private-samba.so
 %{_libdir}/samba/libprinter-driver-private-samba.so

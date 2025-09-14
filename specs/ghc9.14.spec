@@ -54,10 +54,10 @@
 %global ghcboot_major 9.10
 %global ghcboot ghc%{?ghcboot_major}
 
-%if 0%{?fedora} >= 43
 # https://bugzilla.redhat.com/show_bug.cgi?id=2390105
 # https://fedoraproject.org/wiki/Changes/StaticLibraryPreserveDebuginfo
 # debugedit-5.2 adds 1-3 hours to koji build times
+%if 0%{?fedora} >= 43
 #%%undefine _preserve_static_debuginfo
 %define _find_debuginfo_opts --no-ar-files
 %endif
@@ -86,10 +86,10 @@
 %global ghc_unregisterized_arches s390 %{mips}
 
 Name: %{ghc_name}
-Version: %{ghc_major}.%{ghc_patchlevel}.20250819
+Version: %{ghc_major}.%{ghc_patchlevel}.20250908
 # Since library subpackages are versioned:
 # - release can only be reset if *all* library versions get bumped simultaneously
-Release: 0.3%{?dist}
+Release: 0.4%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -433,9 +433,6 @@ Installing this package causes %{name}-*-prof packages corresponding to
 
 %prep
 %setup -q -n ghc-%{version} %{?with_testsuite:-b1}
-( cd hadrian
-  cabal-tweak-dep-ver Cabal '< 3.15' '< 3.17'
-)
 # allow ghc-9.6 unix
 ( cd libraries/Cabal/Cabal
   cabal-tweak-dep-ver unix '>= 2.8.6.0' '>= 2.8'
@@ -908,6 +905,10 @@ make test
 
 
 %changelog
+* Fri Sep 12 2025 Jens Petersen <petersen@redhat.com> - 9.14.0.20250908-0.4
+- 9.14.1 alpha2
+- https://downloads.haskell.org/ghc/9.14.1-alpha2/docs/users_guide/9.14.1-notes.html
+
 * Sat Aug 23 2025 Jens Petersen <petersen@redhat.com> - 9.14.0.20250819-0.3
 - pass --no-ar-files to find-debuginfo to workaround long generation times
   with debugedit-5.2 (#2390105)

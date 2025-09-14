@@ -5,7 +5,7 @@
 %global crate target-lexicon
 
 Name:           rust-target-lexicon
-Version:        0.13.2
+Version:        0.13.3
 Release:        %autorelease
 Summary:        LLVM target triple types
 
@@ -44,6 +44,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+arch_z80-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+arch_z80-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "arch_z80" feature of the "%{crate}" crate.
+
+%files       -n %{name}+arch_z80-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+arch_zkasm-devel

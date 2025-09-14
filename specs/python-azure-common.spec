@@ -12,17 +12,14 @@ License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
 Source0:        %{pypi_source %{srcname} %{version} zip}
 
+# https://github.com/Azure/azure-sdk-for-python/issues/41648
+Patch:          0001-Make-msrestazure-and-msrest-optional-dependencies.patch
+
 Epoch:          1
 
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-
-# Upstream imports adal/msrestazure, but it doesn't include adal/msrestazure in its
-# required packages list.
-# Bug: https://github.com/Azure/azure-sdk-for-python/issues/24948
-Requires:       python3dist(msrestazure)
-BuildRequires:  python3dist(msrestazure)
 
 %if %{with tests}
 BuildRequires:  python3dist(azure-devtools)
@@ -46,7 +43,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -p4 -n %{srcname}-%{version}
 
 
 %generate_buildrequires

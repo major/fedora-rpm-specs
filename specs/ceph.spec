@@ -191,7 +191,7 @@
 #################################################################################
 Name:		ceph
 Version:	20.1.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -1297,6 +1297,8 @@ Requires:	ceph-common = %{_epoch_prefix}%{version}-%{release}
 Requires:	xmlstarlet
 Requires:	jq
 Requires:	socat
+BuildRequires:	gtest-devel
+BuildRequires:	gmock-devel
 %description -n ceph-test
 This package contains Ceph benchmarks and test tools.
 %endif
@@ -2765,6 +2767,9 @@ exit 0
 %{python3_sitelib}/ceph_node_proxy-*
 
 %changelog
+* Fri Sep 12 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:20.1.0-3
+- ceph-20.1.0 RC, rhbz#2394758
+
 * Tue Sep 9 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:20.1.0-2
 - ceph-20.1.0 RC, rhbz#2394363
 

@@ -3,7 +3,7 @@
 
 Name:           shotwell
 Version:        0.32.13
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A photo organizer for the GNOME desktop
 
 # LGPLv2+ for the code
@@ -11,6 +11,8 @@ Summary:        A photo organizer for the GNOME desktop
 License:        LGPL-2.1-or-later AND CC-BY-SA-3.0
 URL:            https://wiki.gnome.org/Apps/Shotwell
 Source0:        https://download.gnome.org/sources/shotwell/0.32/shotwell-%{version}.tar.xz
+# data: fix duplicate versions in appdata
+Patch0:         https://gitlab.gnome.org/GNOME/shotwell/-/merge_requests/97.patch
 
 BuildRequires:  vala
 BuildRequires:  desktop-file-utils
@@ -102,6 +104,7 @@ popd
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Shotwell.desktop
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Shotwell-Viewer.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.gnome.Shotwell.appdata.xml
 
 
 %files -f %{name}.lang
@@ -132,6 +135,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Shotwell-Vi
 
 
 %changelog
+* Fri Sep 12 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 0.32.13-3
+- Fix and verify appdata
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.32.13-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

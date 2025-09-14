@@ -6,22 +6,37 @@
 
 Summary:        HDF5 support in Python
 Name:           python-tables
-Version:        3.10.1
+Version:        3.10.2
 Release:        %autorelease
 #Source0:        https://github.com/PyTables/PyTables/archive/%{commit}/PyTables-%{commit}.tar.gz
 Source0:        https://github.com/PyTables/PyTables/archive/v%{version}/python-tables-%{version}.tar.gz
+
+# This was split out, but after some attempts to build it standalone,
+# I have no idea how to do that. PyTables upstream builds it as a
+# module, so let's do the same for now.
+%global hdf5_blosc_version 1.0.1
+Source1:        https://github.com/Blosc/hdf5-blosc/archive/v%{hdf5_blosc_version}/hdf5-blosc-%{hdf5_blosc_version}.tar.gz
 
 # sometimes it doesn't get updated
 %global manual_version 3.3.0
 
 %bcond tests 1
 
-Source1:        https://github.com/PyTables/PyTables/releases/download/v%{manual_version}/pytablesmanual-%{manual_version}.pdf
+Source2:        https://github.com/PyTables/PyTables/releases/download/v%{manual_version}/pytablesmanual-%{manual_version}.pdf
 
 # https://github.com/PyTables/PyTables/issues/735
 Patch1:         0001-Skip-tests-that-fail-on-s390x.patch
 
-Patch3:         0001-Skip-failing-test.patch
+# The test fails with:
+# ======================================================================
+# FAIL: None (tables.tests.test_direct_chunk.EArrayDirectChunkingTestCase.None)
+# ----------------------------------------------------------------------
+# Traceback (most recent call last):
+#   File ".../usr/lib64/python3.14/site-packages/tables/tests/test_direct_chunk.py", line 212, in test_write_chunk_filtermask
+#     self.assertEqual(chunk_info.filter_mask, no_shuffle_mask)
+#     ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#     AssertionError: 0 != 4
+Patch2:         0001-Skip-failing-test.patch
 
 License:        BSD-3-Clause
 URL:            https://www.pytables.org
@@ -66,25 +81,22 @@ BuildArch:      noarch
 The %{name}-doc package contains the documentation for %{name}.
 
 %prep
-%autosetup -p1 -n PyTables-%{version}
-cp -a %{SOURCE1} pytablesmanual.pdf
+%autosetup -p1 -n PyTables-%{version} -a 1
+rmdir hdf5-blosc
+mv hdf5-blosc-%{hdf5_blosc_version} hdf5-blosc
 
-# Make sure we are not using anything from the bundled blosc by mistake
-find c-blosc -mindepth 1 -maxdepth 1 -name hdf5 -prune -o -exec rm -r {} +
-
-# circumvent the broken attempt to detect library location
-sed -r -i \
-  '/def get_blosc2_directories\(\):/a \ \ \ \ return Path("%{_includedir}"),Path("%{_libdir}"),None' \
-  setup.py
+cp -a %{SOURCE2} pytablesmanual.pdf
 
 %build
-%py3_build
+%pyproject_wheel
 
-%install
 chmod -x examples/check_examples.sh
 sed -i 's|bin/env |bin/|' utils/*
 
-%py3_install
+%install
+%pyproject_install
+
+%pyproject_save_files -l tables
 
 %check
 %if %{with tests}
@@ -98,14 +110,12 @@ cd /
 PYTHONPATH=%{buildroot}%{python3_sitearch} %{python3} -m tables.tests.test_all -v || $skip
 %endif
 
-%files -n python%{python3_pkgversion}-tables
+%files -n python%{python3_pkgversion}-tables -f %{pyproject_files}
 %license LICENSE.txt LICENSES
 %{_bindir}/ptdump
 %{_bindir}/ptrepack
 %{_bindir}/pt2to3
 %{_bindir}/pttree
-%{python3_sitearch}/tables/
-%{python3_sitearch}/tables-%{version}*.egg-info/
 
 %files doc
 %license LICENSE.txt LICENSES

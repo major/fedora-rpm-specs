@@ -1,5 +1,5 @@
 Name:		stalld
-Version:	1.20.4
+Version:	1.21.1
 Release:	1%{?dist}
 Summary:	Daemon that finds starving tasks and gives them a temporary boost
 
@@ -62,6 +62,47 @@ allow 10 microseconds of runtime for 1 second of clock time.
 %systemd_postun_with_restart %{name}.service
 
 %changelog
+* Fri Sep 12 2025 Clark Williams <williams@redhat.com> - 1.21.1-1
+- refactor: Remove unused 'exiting' variable
+- bpf: Introduce task_is_rt() helper
+- bpf: Correctly update nr_rt_running on sched_switch
+- Simplify __die() function to use abort()
+- Refactor: Use path length macros in check_dl_server_dir_exists
+- Refactor: Remove duplicated find_debugfs function
+- utils: Remove unused find_mount() function
+- bpf: Reorder functions to prepare for future changes
+- bpf: Pass stalld_cpu_data pointer to queuing functions
+- bpf: Make update_or_add_task() return void
+- bpf: Reuse enqueue_task() in update_or_add_task()
+- bpf: Use tracepoints to avoid fentry startup stall
+- bpf: Centralize monitoring check in get_cpu_data()
+- bpf: Remove unused 'task' variable
+- bpf: Use task_cpu() to get the correct CPU data
+- bpf: Handle wakeup of new tasks with sched_wakeup_new
+- daemon: Refactor cleanup logic into a helper function
+- daemon: Clean up stale tasks during the boost phase
+- bpf: Document and enhance dequeue_task return value
+- bpf: Handle task migrations with sched_migrate_task
+- bpf: a task is dequeued just by setting its pid to 0
+- bpf: Improve logging in stalld.bpf.c
+- bpf: Use BPF CO-RE for task CPU field access
+- bpf: Add const qualifier to task_struct pointers
+- bpf: Add task iterator for initial state snapshot
+- bpf: Simplify task queue management by removing redundant rt parameter
+- bpf: Add cpu to log_task_prefix
+- stalld: Refactor tgid_field handling to use sizeof
+- refactor: Move helper functions to utils.c
+- stalld: Simplify get_cpu_idle_time() function using sscanf
+- refactor: Simplify update_cpu_starving_vector()
+- refactor: Remove unused headers from stalld.c
+- stalld: Extract repeated buffer reallocation pattern
+- stalld: Flatten nested conditionals using early returns
+- refactor: Extract common idle detection pattern into helper function
+- refactor: Standardize memory allocation with calloc-compatible helper
+- bpf: Use CO-RE to check for running tasks
+- systemd:  change systemd service startup to use RuntimeDirectory
+- Makefile: version bump to v1.21.1
+
 * Mon Aug 18 2025 Clark Williams <williams@redhat.com> - 1.20.4-1
 - Makefile: version bump to v1.20.4
 - stalld.service: Fix duplicate ExecStart in service files

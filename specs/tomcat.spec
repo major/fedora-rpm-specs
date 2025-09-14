@@ -31,7 +31,7 @@
 %global jspspec 3.1
 %global major_version 10
 %global minor_version 1
-%global micro_version 43
+%global micro_version 46
 %global packdname apache-tomcat-%{version}-src
 %global servletspec 6.0
 %global elspec 5.0
@@ -523,6 +523,9 @@ install -m0644 -D tomcat.sysusers.conf %{buildroot}%{_sysusersdir}/tomcat.conf
 %{appdir}/ROOT
 
 %changelog
+* Fri Sep 12 2025 Dimitris Soumis <dsoumis@redhat.com> - 1:10.1.46-1
+- Update to version 10.1.46
+
 * Tue Aug 19 2025 Dimitris Soumis <dsoumis@redhat.com> - 1:10.1.43-7
 - Add virtual provides to resolve installability issues
 

@@ -8,7 +8,7 @@
 
 Name:    syslog-ng
 Version: %{syslog_ng_ver}
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Next-generation syslog server
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -18,6 +18,10 @@ Source0: https://github.com/balabit/syslog-ng/releases/download/syslog-ng-%{vers
 Source1: syslog-ng.conf
 Source2: syslog-ng.logrotate
 Source3: syslog-ng.service
+Patch0:  0001-Merge-pull-request-5437-from-HofiOne-fix-ack-tracker.patch
+Patch1:  0002-Merge-pull-request-5441-from-HofiOne-fix-mem-leaks.patch
+Patch2:  0003-Merge-pull-request-5445-from-beni-atlnz-log-writer-c.patch
+Patch3:  0004-Merge-pull-request-5447-from-therandomstring-s3-fix-.patch
 
 BuildRequires: make
 BuildRequires: bison
@@ -644,6 +648,13 @@ fi
 
 
 %changelog
+* Fri Sep 12 2025 Peter Czanik <peter@czanik.hu> - 4.9.0-5
+- add a couple of bug fixes for various crash and message loss problems:
+  0001-Merge-pull-request-5437-from-HofiOne-fix-ack-tracker.patch
+  0002-Merge-pull-request-5441-from-HofiOne-fix-mem-leaks.patch
+  0003-Merge-pull-request-5445-from-beni-atlnz-log-writer-c.patch
+  0004-Merge-pull-request-5447-from-therandomstring-s3-fix-.patch
+
 * Mon Sep 08 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 4.9.0-4
 - Rebuilt for abseil-cpp 20250814.0
 

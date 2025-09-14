@@ -1,5 +1,5 @@
 Name:           papirus-icon-theme
-Version:        20250201
+Version:        20250501
 Release:        %autorelease
 Summary:        Free and open source SVG icon theme based on Paper Icon Set
 
@@ -22,7 +22,7 @@ Recommends:     papirus-icon-theme-light = %{?epoch:%{epoch}:}%{version}-%{relea
 %description
 Papirus is a free and open source SVG icon theme for Linux, based on Paper
 Icon Set with a lot of new icons and a few extras, like Hardcode-Tray support,
-KDE colorscheme support, Folder Color support, and others.
+KDE color scheme support, Folder Color support, and others.
 
 This package contains the following variants:
 
@@ -36,7 +36,7 @@ Obsoletes:      papirus-icon-theme < 20240501-2
 %description    dark
 Papirus is a free and open source SVG icon theme for Linux, based on Paper
 Icon Set with a lot of new icons and a few extras, like Hardcode-Tray support,
-KDE colorscheme support, Folder Color support, and others.
+KDE color scheme support, Folder Color support, and others.
 
 This package contains the following variants:
 
@@ -50,26 +50,12 @@ Obsoletes:      papirus-icon-theme < 20240501-2
 %description    light
 Papirus is a free and open source SVG icon theme for Linux, based on Paper
 Icon Set with a lot of new icons and a few extras, like Hardcode-Tray support,
-KDE colorscheme support, Folder Color support, and others.
+KDE color scheme support, Folder Color support, and others.
 
 This package contains the following variants:
 
  - Papirus Light (light theme with Breeze colors)
 
-
-%package -n epapirus-icon-theme
-Summary:        Papirus icon theme for elementaryOS and Pantheon Desktop
-Requires:       papirus-icon-theme = %{?epoch:%{epoch}:}%{version}-%{release}
-
-%description -n epapirus-icon-theme
-Papirus is a free and open source SVG icon theme for Linux, based on Paper
-Icon Set with a lot of new icons and a few extras, like Hardcode-Tray support,
-KDE colorscheme support, Folder Color support, and others.
-
-This package contains the following variants:
-
- - ePapirus (for elementary OS and Pantheon Desktop)
- - ePapirus-Dark (for elementary OS and Pantheon Desktop)
 
 %prep
 %autosetup
@@ -80,19 +66,13 @@ This package contains the following variants:
 %install
 %make_install
 
-export THEMES="ePapirus ePapirus-Dark Papirus Papirus-Dark Papirus-Light"
+export THEMES="Papirus Papirus-Dark Papirus-Light"
 for t in $THEMES; do
     /bin/touch %{buildroot}/%{_datadir}/icons/$t/icon-theme.cache
 done
 
 %post
 export THEMES="Papirus Papirus-Dark Papirus-Light"
-for t in $THEMES; do
-    /bin/touch --no-create %{_datadir}/icons/$t &>/dev/null || :
-done
-
-%post -n epapirus-icon-theme
-export THEMES="ePapirus ePapirus-Dark"
 for t in $THEMES; do
     /bin/touch --no-create %{_datadir}/icons/$t &>/dev/null || :
 done
@@ -106,23 +86,8 @@ if [ $1 -eq 0 ] ; then
     done
 fi
 
-%postun -n epapirus-icon-theme
-if [ $1 -eq 0 ] ; then
-    export THEMES="ePapirus ePapirus-Dark"
-    for t in $THEMES; do
-        /bin/touch --no-create %{_datadir}/icons/$t &>/dev/null
-        /usr/bin/gtk-update-icon-cache %{_datadir}/icons/$t &>/dev/null || :
-    done
-fi
-
 %posttrans
 export THEMES="Papirus Papirus-Dark Papirus-Light"
-for t in $THEMES; do
-    /usr/bin/gtk-update-icon-cache %{_datadir}/icons/$t &>/dev/null || :
-done
-
-%posttrans -n epapirus-icon-theme
-export THEMES="ePapirus ePapirus-Dark"
 for t in $THEMES; do
     /usr/bin/gtk-update-icon-cache %{_datadir}/icons/$t &>/dev/null || :
 done
@@ -132,34 +97,19 @@ done
 %doc AUTHORS README.md
 %dir %{_datadir}/icons/Papirus
 %{_datadir}/icons/Papirus/*x*
-%{_datadir}/icons/Papirus/symbolic
 %ghost %{_datadir}/icons/Papirus/icon-theme.cache
 
 %files dark
 %license LICENSE
 %dir %{_datadir}/icons/Papirus-Dark
 %{_datadir}/icons/Papirus-Dark/*x*
-%{_datadir}/icons/Papirus-Dark/symbolic
 %ghost %{_datadir}/icons/Papirus-Dark/icon-theme.cache
 
 %files light
 %license LICENSE
 %dir %{_datadir}/icons/Papirus-Light
 %{_datadir}/icons/Papirus-Light/*x*
-%{_datadir}/icons/Papirus-Light/symbolic
 %ghost %{_datadir}/icons/Papirus-Light/icon-theme.cache
-
-
-%files -n epapirus-icon-theme
-%license LICENSE
-%dir %{_datadir}/icons/ePapirus-Dark
-%dir %{_datadir}/icons/ePapirus
-%ghost %{_datadir}/icons/ePapirus-Dark/icon-theme.cache
-%ghost %{_datadir}/icons/ePapirus/icon-theme.cache
-%{_datadir}/icons/ePapirus-Dark/*x*
-%{_datadir}/icons/ePapirus-Dark/symbolic
-%{_datadir}/icons/ePapirus/*x*
-%{_datadir}/icons/ePapirus/symbolic
 
 %changelog
 %autochangelog

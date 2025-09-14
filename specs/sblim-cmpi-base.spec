@@ -2,7 +2,7 @@
 
 Name:           sblim-cmpi-base
 Version:        1.6.4
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        SBLIM CMPI Base Providers
 
 License:        EPL-1.0
@@ -28,6 +28,8 @@ Patch8:         sblim-cmpi-base-1.6.4-fix-get-os-install-date.patch
 Patch9:         sblim-cmpi-base-1.6.4-fix-possible-null-dereference.patch
 # Patch10: fixes issues that causes FTBFS with GCC15
 Patch10:        sblim-cmpi-base-1.6.4-gcc15-fixes.patch
+# Patch11: adds support for Image Mode
+Patch11:        sblim-cmpi-base-1.6.4-image-mode.patch
 Requires:       cim-server sblim-indication_helper
 BuildRequires: make
 BuildRequires:  perl-generators
@@ -75,6 +77,7 @@ autoreconf --install --force
 %patch -P8 -p1 -b .fix-get-os-install-date
 %patch -P9 -p1 -b .fix-possible-null-dereference
 %patch -P10 -p1 -b .gcc15-fixes
+%patch -P11 -p1 -b .image-mode
 
 %build
 %configure \
@@ -133,6 +136,9 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/cmpi/*a
 %postun -p /sbin/ldconfig
 
 %changelog
+* Fri Sep 12 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 1.6.4-31
+- Add support for Image Mode
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.4-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

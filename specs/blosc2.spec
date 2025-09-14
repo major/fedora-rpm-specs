@@ -1,11 +1,13 @@
 Name:           blosc2
-Version:        2.19.0
+Version:        2.21.2
 Release:        %autorelease
 Summary:        High performance compressor optimized for binary data
 
 License:        BSD-3-Clause
 URL:            https://www.blosc.org/
 Source:         https://github.com/Blosc/c-blosc2/archive/v%{version}/c-blosc2-%{version}.tar.gz
+
+%define soversion 5
 
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -68,7 +70,7 @@ OPTIONS=(
 %cmake_install
 
 # Record the actual library SONAME in the build log
-objdump -p %{buildroot}%{_libdir}/libblosc2.so.4 | grep SONAME
+objdump -p %{buildroot}%{_libdir}/libblosc2.so.%{soversion} | grep SONAME
 
 %check
 # Tests fail on s390x: https://github.com/Blosc/c-blosc2/issues/467
@@ -82,7 +84,7 @@ objdump -p %{buildroot}%{_libdir}/libblosc2.so.4 | grep SONAME
 
 %files
 # API versioning hard. With CMake even harder.
-%{_libdir}/libblosc2.so.4
+%{_libdir}/libblosc2.so.%{soversion}
 %{_libdir}/libblosc2.so.%{version}
 %license LICENSE.txt
 %doc ROADMAP.rst

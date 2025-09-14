@@ -10,7 +10,7 @@
 Summary:	Ruby binding of GdkPixbuf-2.x
 Name:		rubygem-%{gem_name}
 Version:	4.3.3
-Release:	1%{?dist}
+Release:	2%{?dist}
 # SPDX confirmed
 # LGPL-2.1-or-later: gemspec
 License:	LGPL-2.1-or-later
@@ -26,7 +26,11 @@ BuildRequires:	rubygem-glib2-devel >= %{glibminver}
 BuildRequires:	rubygem(gio2) >= %{glibminver}
 BuildRequires:	ruby-devel
 BuildRequires:	gdk-pixbuf2-devel
+%if 0%{?fedora} >= 43
+BuildRequires:	gdk-pixbuf2 >= 2.44
+%else
 BuildRequires:	gdk-pixbuf2-modules
+%endif
 BuildRequires:	rubygem(test-unit)
 Requires:	rubygems
 Provides:	rubygem(%{gem_name}) = %{version}
@@ -97,20 +101,11 @@ popd
 %check
 pushd .%{gem_instdir}
 
-# ref: https://bugzilla.redhat.com/show_bug.cgi?id=2275913
-# glycin on ppc64le is currently unusable
-%if 0%{?fedora} >= 43
-if ( arch | grep -q ppc64le ) ; then
-	exit 0
-fi
-%endif
-
 # ref: https://github.com/ruby-gnome/ruby-gnome/commit/4c36c2d13569d91588f5b415edd6c14a1245c315
 # Fedora 43 i686 gdk-pixbuf does NOT use glycin
-if (arch | grep -q i686 ) ; then
-	sed -i test/test-animation.rb \
-		-e '\@test.*on_currently_loading_frame@s|$| omit("skip on i686")|'
-fi
+# And looks like gdk-pixbuf 2.44 restored the previous behavior
+sed -i test/test-animation.rb \
+	-e 's@if GdkPixbuf.*@if false@'
 
 # Kill unneeded make process
 mkdir -p TMPBINDIR
@@ -146,6 +141,9 @@ popd
 %exclude	%{gem_instdir}/test/
 
 %changelog
+* Fri Sep 12 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.3-2
+- F-43+: update dependency with gdk-pixbuf2 changes
+
 * Mon Aug 18 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.3-1
 - 4.3.3
 

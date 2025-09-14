@@ -1,5 +1,5 @@
 %global glib2_version 2.68.0
-%global libxmlb_version 0.1.3
+%global libxmlb_version 0.3.24
 %global libusb_version 1.0.9
 %global libcurl_version 7.62.0
 %global libjcat_version 0.1.0
@@ -47,7 +47,7 @@
 
 Summary:   Firmware update daemon
 Name:      fwupd
-Version:   2.0.15
+Version:   2.0.16
 Release:   %autorelease
 License:   LGPL-2.1-or-later
 URL:       https://github.com/fwupd/fwupd

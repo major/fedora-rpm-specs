@@ -8,7 +8,7 @@
 %bcond barcode %[ %{defined fedora} && %["%copr_projectname" == "mupdf-git"] ] 
 
 Name:		python-%{pypi_name}
-Version:	1.26.3
+Version:	1.26.4
 Release:	%autorelease
 Summary:	Python binding for MuPDF - a lightweight PDF and XPS viewer
 
@@ -18,9 +18,9 @@ Source0:	%{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
 
 Patch:		0001-fix-test_-font.patch
 Patch:		0001-test_pixmap-adjust-to-turbojpeg.patch
-Patch:		0001-adjust-tesseract-tessdata-path-to-Fedora-default.patch
 Patch:		0001-setup.py-do-not-require-libclang-and-swig.patch
 Patch:		0001-tests-adjust-to-verbose-font-warning.patch
+Patch:		0001-adjust-tests-to-tesseract-5.5.1.patch
 
 # test dependencies not picked up by generator
 BuildRequires:	python3dist(pillow)
@@ -73,6 +73,8 @@ python-%{pypi_name}-doc contains documentation and examples for PyMuPDF
 %autosetup -n %{pypi_name}-%{version} -p 1
 # disable google analytics for installed doc
 sed -i -e "s/,'sphinxcontrib.googleanalytics'//" docs/conf.py
+# swig < 4.3 (RHEL 9, Fedora 41) needs this
+sed -i -e 's/{swig} --version/{swig} -version/' setup.py
 
 %generate_buildrequires
 %pyproject_buildrequires -R
@@ -122,7 +124,9 @@ SKIP="$SKIP and not test_spikes"
 # these compare renderings with system fonts or missing fonts
 SKIP="$SKIP and not test_1645 and not test_4180"
 # test downloads data from the internet
-SKIP="$SKIP and not test_4445 and not test_4457"
+SKIP="$SKIP and not test_4445 and not test_4457 and not test_4533"
+# Fedora's swig returns different results
+SKIP="$SKIP and not test_4392"
 %if %{without barcode}
 # we build mupdf without barcode support
 SKIP="$SKIP and not test_barcode"

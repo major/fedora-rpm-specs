@@ -1,5 +1,5 @@
 # what it's called on pypi
-%global srcname PyJWT
+%global srcname pyjwt
 # what it's imported as
 %global libname jwt
 # package name fragment
@@ -13,8 +13,8 @@ encrypted JSON objects.}
 
 
 Name:           python-%{pkgname}
-Version:        2.8.0
-Release:        6%{?dist}
+Version:        2.10.1
+Release:        1%{?dist}
 Summary:        JSON Web Token implementation in Python
 License:        MIT
 URL:            https://github.com/jpadilla/pyjwt
@@ -40,9 +40,9 @@ Recommends:     python3-%{pkgname}+crypto
 %prep
 %autosetup -n %{srcname}-%{version}
 # remove coverage buildreq and relax pytest req
-sed -e '/coverage/d' \
+sed -e '/coverage\[toml\]/d' \
     -e '/pytest/ s/,<7.0.0//' \
-    -i setup.cfg
+    -i pyproject.toml
 
 
 %generate_buildrequires
@@ -67,6 +67,9 @@ sed -e '/coverage/d' \
 
 
 %changelog
+* Fri Sep 12 2025 Jeremy Cline <jeremycline@linux.microsoft.com> - 2.10.1-1
+- Update to 2.10.1 (#2302282)
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.8.0-6
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -10,17 +10,13 @@
 compression library. A C extension and CFFI interface are provided.
 
 Name: python-%{pypi_name}
-Version: 0.23.0
-Release: 6%{?dist}
+Version: 0.24.0
+Release: 1%{?dist}
 Summary: Zstandard bindings for Python
 License: (BSD-3-Clause OR GPL-2.0-only) AND MIT
 URL: https://github.com/indygreg/python-zstandard
 Source0: %{pypi_source}
 Patch0: %{name}-py313.patch
-# relax dependencies so that auto BR generation works
-Patch1: %{name}-deps.patch
-# https://github.com/indygreg/python-zstandard/issues/238
-Patch2: %{name}-py314.patch
 
 %description
 %{desc}
@@ -35,7 +31,7 @@ BuildRequires: python3dist(pytest)
 BuildRequires: python3dist(pytest-xdist)
 %endif
 # https://github.com/indygreg/python-zstandard/issues/48
-Provides: bundled(zstd) = 1.5.6
+Provides: bundled(zstd) = 1.5.7
 
 %description -n python3-%{pypi_name}
 %{desc}
@@ -54,7 +50,7 @@ rm -r %{pypi_name}.egg-info
 
 %install
 %pyproject_install
-%pyproject_save_files -l %{pypi_name}
+%pyproject_save_files -L %{pypi_name}
 
 %check
 %pyproject_check_import
@@ -71,6 +67,10 @@ mv zstandard{.src,}
 %doc README.rst
 
 %changelog
+* Fri Sep 12 2025 Dominik Mierzejewski <dominik@greysector.net> - 0.24.0-1
+- update to 0.24.0 (resolves rhbz#2389036)
+- drop obsolete patches
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.23.0-6
 - Rebuilt for Python 3.14.0rc2 bytecode
 

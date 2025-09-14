@@ -1,5 +1,5 @@
 Name:           tmt
-Version:        1.56.0
+Version:        1.57.0
 Release:        %autorelease
 Summary:        Test Management Tool
 
@@ -9,6 +9,9 @@ Source0:        %{pypi_source tmt}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
+
+# For rst2man
+BuildRequires:  python3-docutils
 
 Requires:       git-core rsync sshpass
 
@@ -140,6 +143,13 @@ package to have all available plugins ready for testing.
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_wheel
 
+# Build the man files
+cp docs/header.txt man.rst
+tail -n+8 docs/overview.rst >> man.rst
+# TODO rst2man cannot process this directive, removed for now
+sed '/versionadded::/d' -i man.rst
+rst2man man.rst > tmt.1
+
 %install
 %pyproject_install
 %pyproject_save_files tmt
@@ -169,6 +179,9 @@ install -pm 644 %{name}/steps/provision/mrack/mrack* %{buildroot}/etc/%{name}/
 %files -n tmt+all -f %{_pyproject_ghost_distinfo}
 
 %changelog
+* Thu Sep 11 2025 Packit <hello@packit.dev> - 1.57.0-1
+- Update to version 1.57.0
+
 * Thu Aug 28 2025 Packit <hello@packit.dev> - 1.56.0-1
 - Update to version 1.56.0
 

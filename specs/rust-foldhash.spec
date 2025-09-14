@@ -5,7 +5,7 @@
 %global crate foldhash
 
 Name:           rust-foldhash
-Version:        0.1.5
+Version:        0.2.0
 Release:        %autorelease
 Summary:        Fast, non-cryptographic, minimally DoS-resistant hashing algorithm
 
@@ -13,7 +13,7 @@ License:        Zlib
 URL:            https://crates.io/crates/foldhash
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * drop unused, benchmark-only criterion dev-dependency
+# * drop unused, benchmark-only dev-dependencies
 Patch:          foldhash-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

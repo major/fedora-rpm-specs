@@ -17,11 +17,11 @@
 %endif
 
 # edk2-stable202505
-%define GITDATE        20250523
-%define GITCOMMIT      6951dfe7d59d
+%define GITDATE        20250812
+%define GITCOMMIT      d46aa46c8361
 %define TOOLCHAIN      GCC
 
-%define PLATFORMS_COMMIT b715b3c400ac
+%define PLATFORMS_COMMIT 09876ff4b365
 
 %define OPENSSL_VER    3.5.0
 %define OPENSSL_COMMIT 63b528e6476ff36efcf2cda5c083f3f3d7cf9210
@@ -91,10 +91,6 @@ Source11: 51-edk2-aarch64-raw.json
 Source12: 52-edk2-aarch64-verbose-qcow2.json
 Source13: 53-edk2-aarch64-verbose-raw.json
 
-Source30: 30-edk2-ovmf-ia32-sb-enrolled.json
-Source31: 40-edk2-ovmf-ia32-sb.json
-Source32: 50-edk2-ovmf-ia32-nosb.json
-
 Source40: 30-edk2-ovmf-4m-qcow2-x64-sb-enrolled.json
 Source41: 31-edk2-ovmf-2m-raw-x64-sb-enrolled.json
 Source42: 40-edk2-ovmf-4m-qcow2-x64-sb.json
@@ -118,7 +114,6 @@ Source83: edk2-build.rhel-9
 Source84: edk2-build.rhel-10
 
 Source90: DBXUpdate-%{DBXDATE}.x64.bin
-Source91: DBXUpdate-%{DBXDATE}.ia32.bin
 Source92: DBXUpdate-%{DBXDATE}.aa64.bin
 
 Patch0001: 0001-BaseTools-do-not-build-BrotliCompress-RH-only.patch
@@ -141,12 +136,7 @@ Patch0016: 0016-silence-.-has-a-LOAD-segment-with-RWX-permissions-wa.patch
 %endif
 Patch0017: 0017-OvmfPkg-X64-add-opt-org.tianocore-UninstallMemAttrPr.patch
 Patch0018: 0018-openssl-silence-unused-variable-warning.patch
-Patch0019: 0019-CryptoPkg-openssl-add-ossl_bio_print_labeled_buf-stu.patch
-Patch0020: 0020-CryptoPkg-CrtLib-add-strpbrk-implementation.patch
-Patch0021: 0021-CryptoPkg-CrtLib-explicitly-define-INT32-constants.patch
-Patch0022: 0022-CryptoPkg-openssl-disable-some-features-support.patch
-Patch0023: 0023-OvmfPkg-PlatformDxe-register-page-fault-handler-for-.patch
-Patch0024: 0024-tdx-debug-load-PlatformDxe-in-TDX-mode-for-custom-PF.patch
+Patch0019: 0019-OvmfPkg-PlatformDxe-register-page-fault-handler-for-.patch
 
 
 # needed by %prep
@@ -290,23 +280,6 @@ build EFI executables and ROMs using the GNU tools.
 
 
 %if %{defined fedora}
-%package ovmf-ia32
-Summary:        Open Virtual Machine Firmware
-License:        Apache-2.0 AND BSD-2-Clause-Patent AND BSD-4-Clause AND ISC AND LicenseRef-Fedora-Public-Domain
-Provides:       bundled(openssl)
-Recommends:     shell-ia32
-BuildArch:      noarch
-%description ovmf-ia32
-EFI Development Kit II
-Open Virtual Machine Firmware (ia32)
-
-%package shell-ia32
-Summary:        EFI Shell for ia32
-BuildArch:      noarch
-
-%description shell-ia32
-EFI Shell for ia32
-
 %package ovmf-xen
 Summary:        Open Virtual Machine Firmware, Xen build
 License:        Apache-2.0 AND BSD-2-Clause-Patent AND BSD-4-Clause AND ISC AND LicenseRef-Fedora-Public-Domain
@@ -417,13 +390,12 @@ chmod -Rf a+rX,u+w,g-w,o-w .
 cp -a -- \
    %{SOURCE9} \
    %{SOURCE10} %{SOURCE11} %{SOURCE12} %{SOURCE13} \
-   %{SOURCE30} %{SOURCE31} %{SOURCE32} \
    %{SOURCE40} %{SOURCE41} %{SOURCE42} %{SOURCE43} %{SOURCE44} \
    %{SOURCE45} %{SOURCE46} %{SOURCE47} %{SOURCE48} %{SOURCE49} \
    %{SOURCE50} \
    %{SOURCE60} \
    %{SOURCE80} %{SOURCE81} %{SOURCE82} %{SOURCE83} %{SOURCE84} \
-   %{SOURCE90} %{SOURCE91} %{SOURCE92} \
+   %{SOURCE90} %{SOURCE92} \
    .
 
 %build
@@ -501,14 +473,8 @@ virt-fw-vars --input   Fedora/ovmf/OVMF.inteltdx.fd \
              --output  Fedora/ovmf/OVMF.inteltdx.secboot.fd \
              --set-dbx DBXUpdate-%{DBXDATE}.x64.bin \
              --enroll-redhat --secure-boot
-virt-fw-vars --input   Fedora/ovmf-ia32/OVMF_VARS.fd \
-             --output  Fedora/ovmf-ia32/OVMF_VARS.secboot.fd \
-             --set-dbx DBXUpdate-%{DBXDATE}.ia32.bin \
-             --enroll-redhat --secure-boot
 build_iso Fedora/ovmf
-build_iso Fedora/ovmf-ia32
 cp DBXUpdate-%{DBXDATE}.x64.bin Fedora/ovmf
-cp DBXUpdate-%{DBXDATE}.ia32.bin Fedora/ovmf-ia32
 
 igvm-wrap --input Fedora/ovmf/OVMF_CODE_4M.fd \
           --vars Fedora/ovmf/OVMF_VARS_4M.fd \
@@ -641,9 +607,6 @@ install -m 0644 \
 %if %{defined fedora}
 install -m 0644 \
         50-edk2-ovmf-x64-microvm.json \
-        30-edk2-ovmf-ia32-sb-enrolled.json \
-        40-edk2-ovmf-ia32-sb.json \
-        50-edk2-ovmf-ia32-nosb.json \
         %{buildroot}%{_datadir}/qemu/firmware
 %endif
 
@@ -831,23 +794,6 @@ done
 
 %if %{defined fedora}
 %if %{build_ovmf}
-%files ovmf-ia32
-%common_files
-%dir %{_datadir}/%{name}/ovmf-ia32
-%{_datadir}/%{name}/ovmf-ia32/EnrollDefaultKeys.efi
-%{_datadir}/%{name}/ovmf-ia32/OVMF_CODE.fd
-%{_datadir}/%{name}/ovmf-ia32/OVMF_CODE.secboot.fd
-%{_datadir}/%{name}/ovmf-ia32/OVMF_VARS.fd
-%{_datadir}/%{name}/ovmf-ia32/OVMF_VARS.secboot.fd
-%{_datadir}/%{name}/ovmf-ia32/UefiShell.iso
-%{_datadir}/%{name}/ovmf-ia32/DBXUpdate*.bin
-%{_datadir}/qemu/firmware/30-edk2-ovmf-ia32-sb-enrolled.json
-%{_datadir}/qemu/firmware/40-edk2-ovmf-ia32-sb.json
-%{_datadir}/qemu/firmware/50-edk2-ovmf-ia32-nosb.json
-
-%files shell-ia32
-%{_datadir}/%{name}/ovmf-ia32/Shell.efi
-
 %files experimental
 %common_files
 %doc README.experimental

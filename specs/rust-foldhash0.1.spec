@@ -2,28 +2,24 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate cargo-config2
+%global crate foldhash
 
-Name:           rust-cargo-config2
-Version:        0.1.36
+Name:           rust-foldhash0.1
+Version:        0.1.5
 Release:        %autorelease
-Summary:        Load and resolve Cargo configuration
+Summary:        Fast, non-cryptographic, minimally DoS-resistant hashing algorithm
 
-License:        Apache-2.0 OR MIT
-URL:            https://crates.io/crates/cargo-config2
+License:        Zlib
+URL:            https://crates.io/crates/foldhash
 Source:         %{crates_source}
-# Automatically generated patch to strip dependencies and normalize metadata
-Patch:          cargo-config2-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * drop integration tests which can only be compiled in-tree
-Patch:          cargo-config2-fix-metadata.diff
-# * skip test that requires un-published test-helper crate
-Patch2:         0001-Skip-test-that-requires-un-published-test-helper-cra.patch
+# * drop unused, benchmark-only dev-dependencies
+Patch:          foldhash-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Load and resolve Cargo configuration.}
+A fast, non-cryptographic, minimally DoS-resistant hashing algorithm.}
 
 %description %{_description}
 
@@ -37,11 +33,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
-%license %{crate_instdir}/src/cfg_expr/LICENSE-APACHE
-%license %{crate_instdir}/src/cfg_expr/LICENSE-MIT
-%doc %{crate_instdir}/CHANGELOG.md
+%license %{crate_instdir}/LICENSE
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -55,6 +47,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+std-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+std-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "std" feature of the "%{crate}" crate.
+
+%files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
@@ -72,13 +76,7 @@ use the "default" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# * skip tests which require cross-compile toolchains to be installed
-# * skip tests for targets not supported by RHEL-ish LLVM
-%{cargo_test -- -- %{shrink:
-    --skip resolve::tests::parse_cfg_list
-    --skip cfg_expr::tests::eval::complex
-    --skip cfg_expr::tests::eval::target_family
-}}
+%cargo_test
 %endif
 
 %changelog

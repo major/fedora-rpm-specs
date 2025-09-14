@@ -5,7 +5,7 @@
 %global crate simba
 
 Name:           rust-simba
-Version:        0.9.0
+Version:        0.9.1
 Release:        %autorelease
 Summary:        SIMD algebra for Rust
 

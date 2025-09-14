@@ -5,7 +5,7 @@
 %global crate linux-raw-sys
 
 Name:           rust-linux-raw-sys
-Version:        0.9.4
+Version:        0.11.0
 Release:        %autorelease
 Summary:        Generated bindings for Linux's userspace API
 
@@ -49,6 +49,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+auxvec-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+auxvec-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "auxvec" feature of the "%{crate}" crate.
+
+%files       -n %{name}+auxvec-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+bootparam-devel

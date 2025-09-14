@@ -43,8 +43,10 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2390105
 # https://fedoraproject.org/wiki/Changes/StaticLibraryPreserveDebuginfo
 # debugedit-5.2 adds 1-3 hours to koji build times
+%if 0%{?fedora} >= 43
 #%%undefine _preserve_static_debuginfo
 %define _find_debuginfo_opts --no-ar-files
+%endif
 
 # make sure ghc libraries' ABI hashes unchanged
 %if %{with perfbuild} && %{without debug_flavor}

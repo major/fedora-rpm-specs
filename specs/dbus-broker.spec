@@ -15,9 +15,11 @@ BuildRequires:        pkgconfig(libselinux)
 BuildRequires:        pkgconfig(libsystemd)
 BuildRequires:        pkgconfig(systemd)
 BuildRequires:        bindgen-cli
+BuildRequires:        cargo
 BuildRequires:        clang
 BuildRequires:        gcc
 BuildRequires:        glibc-devel
+BuildRequires:        jq
 BuildRequires:        meson
 BuildRequires:        python3-docutils
 BuildRequires:        rust

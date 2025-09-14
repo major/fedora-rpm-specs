@@ -7,7 +7,7 @@
 
 Summary:    Zope Exceptions
 Name:       python-zope-exceptions
-Version:    5.2
+Version:    6.0
 Release:    1%{?dist}
 VCS:        git:%{giturl}.git
 Source0:    %{giturl}/archive/%{version}/%{modname}-%{version}.tar.gz
@@ -52,9 +52,11 @@ sed -i -r 's/    setuptools [<>=]+ [0-9\.]+/    setuptools/g' tox.ini
 %files -n python3-zope-exceptions -f %{pyproject_files}
 %doc CHANGES.rst README.rst
 %license COPYRIGHT.txt LICENSE.txt
-%{python3_sitelib}/%{modname}-*-nspkg.pth
 
 %changelog
+* Fri Sep 12 2025 David Auer <dreua@posteo.de> - 6.0-1
+- Version 6.0 (rhbz#2394776)
+
 * Sat Aug 30 2025 David Auer <dreua@posteo.de> - 5.2-1
 - Version 5.2 (rhbz#2322672, rhbz#2329901)
 - Remove patch

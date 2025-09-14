@@ -1,9 +1,8 @@
 Name:           ldapvi
 Version:        1.7
-Release:        52%{?dist}
+Release:        53%{?dist}
 Summary:        An interactive LDAP client
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            http://www.lichteblau.com/ldapvi/
 Source0:        http://www.lichteblau.com/download/ldapvi-%{version}.tar.gz
@@ -25,24 +24,26 @@ Patch6:         ldapvi-c99-1.patch
 Patch7:         ldapvi-c99-2.patch
 Patch8:         ldapvi-c99-3.patch
 Patch9:         ldapvi-c99-4.patch
-Patch10: ldapvi-c99-5.patch
+Patch10:        ldapvi-c99-5.patch
 
-
-BuildRequires: make
-BuildRequires: libxcrypt-devel
 BuildRequires:  gcc
-BuildRequires:  openldap-devel, ncurses-devel, readline-devel, pkgconfig
-BuildRequires:  libxslt, glib2-devel, openssl-devel
-%if 0%{?rhel} && 0%{?rhel} < 7
-BuildRequires: popt
-%else
-BuildRequires: popt-devel
-%endif
+BuildRequires:  glib2-devel
+BuildRequires:  libxcrypt-devel
+BuildRequires:  libxslt
+BuildRequires:  make
+BuildRequires:  ncurses-devel
+BuildRequires:  openldap-devel
+BuildRequires:  openssl-devel
+BuildRequires:  pkgconfig
+BuildRequires:  popt-devel
+BuildRequires:  readline-devel
+
 
 %description
 ldapvi is an interactive LDAP client for Unix terminals. Using it, you can
 update LDAP entries with a text editor, which is the same as vi. Think of
 it as vipw(1) for LDAP.
+
 
 %prep
 %setup -q
@@ -58,30 +59,32 @@ it as vipw(1) for LDAP.
 %patch -P9 -p1
 %patch -P 10 -p1
 
+
 %build
 %set_build_flags
 # Declare additional historic OpenLDAP functions in header files.
 CFLAGS="$CFLAGS -DLDAP_DEPRECATED"
 %configure
-make %{?_smp_mflags}
+%make_build
 cd manual
 make manual.html
 
 
 %install
-rm -rf %{buildroot}
-make DESTDIR=%{buildroot} install
-
+%make_install
 
 
 %files
-%doc NEWS COPYING manual/bg.png
-%doc manual/manual.html manual/manual.css
-%{_mandir}/man1/ldapvi.1.gz
+%license COPYING
+%doc NEWS manual/bg.png manual/manual.html manual/manual.css
+%{_mandir}/man1/ldapvi.1*
 %{_bindir}/ldapvi
 
 
 %changelog
+* Fri Sep 12 2025 Xavier Bachelot <xavier@bachelot.org> - 1.7-53
+- Tidy up specfile
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-52
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

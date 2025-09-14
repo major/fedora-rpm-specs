@@ -6,16 +6,16 @@
 #
 # Please preserve changelog entries
 #
-%global gh_commit    a567b8ab9b6145a23e6a9ec2b6b74f56d52f7ad1
+%global gh_commit    76cccb1b2c5dcaf44f304c925ab30c0f48643992
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     simplepie
 %global gh_project   simplepie
-%global gh_version   1.8.1
+%global gh_version   1.9.0
 %bcond_with       tests
 
 Name:       php-%{gh_project}
-Version:    1.8.1
-Release:    3%{?dist}
+Version:    1.9.0
+Release:    1%{?dist}
 Summary:    A simple Atom/RSS parsing library for PHP
 
 Group:      Development/Libraries
@@ -120,13 +120,16 @@ exit $ret
 
 
 %files
-%license LICENSE.txt
+%license LICENSES/
 %doc composer.json
 %doc README.markdown
 %{_datadir}/php/%{name}
 
 
 %changelog
+* Fri Sep 12 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.9.0-1
+- 1.9.0
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -2,28 +2,24 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate cargo-config2
+%global crate tiff
 
-Name:           rust-cargo-config2
-Version:        0.1.36
+Name:           rust-tiff0.9
+Version:        0.9.1
 Release:        %autorelease
-Summary:        Load and resolve Cargo configuration
+Summary:        Decoding and encoding library in pure Rust
 
-License:        Apache-2.0 OR MIT
-URL:            https://crates.io/crates/cargo-config2
+License:        MIT
+URL:            https://crates.io/crates/tiff
 Source:         %{crates_source}
-# Automatically generated patch to strip dependencies and normalize metadata
-Patch:          cargo-config2-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * drop integration tests which can only be compiled in-tree
-Patch:          cargo-config2-fix-metadata.diff
-# * skip test that requires un-published test-helper crate
-Patch2:         0001-Skip-test-that-requires-un-published-test-helper-cra.patch
+# * drop unused, benchmark-only criterion dev-dependency
+Patch:          tiff-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Load and resolve Cargo configuration.}
+TIFF decoding and encoding library in pure Rust.}
 
 %description %{_description}
 
@@ -37,11 +33,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
-%license %{crate_instdir}/src/cfg_expr/LICENSE-APACHE
-%license %{crate_instdir}/src/cfg_expr/LICENSE-MIT
-%doc %{crate_instdir}/CHANGELOG.md
+%license %{crate_instdir}/LICENSE
+%doc %{crate_instdir}/CHANGES.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -72,13 +65,8 @@ use the "default" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# * skip tests which require cross-compile toolchains to be installed
-# * skip tests for targets not supported by RHEL-ish LLVM
-%{cargo_test -- -- %{shrink:
-    --skip resolve::tests::parse_cfg_list
-    --skip cfg_expr::tests::eval::complex
-    --skip cfg_expr::tests::eval::target_family
-}}
+# * files for unit / integration tests are not included in published crates
+%cargo_test -- --doc
 %endif
 
 %changelog

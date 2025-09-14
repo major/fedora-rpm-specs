@@ -9,10 +9,13 @@ URL:            https://pygraphviz.github.io/
 VCS:            https://github.com/pygraphviz/pygraphviz
 Source0:        %{vcs}/archive/pygraphviz-%{version}.tar.gz
 
+# Adapted from proposed fix pygraphviz/pygraphviz#566
+Patch0:         graphviz-13.patch
+
 BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  python3-devel
-BuildRequires:  graphviz-devel
+BuildRequires:  graphviz-devel >= 13
 BuildRequires:  swig
 
 %global _description %{expand:

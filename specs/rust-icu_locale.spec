@@ -2,24 +2,26 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate tiff
+%global crate icu_locale
 
-Name:           rust-tiff
-Version:        0.10.2
+Name:           rust-icu_locale
+Version:        2.0.0
 Release:        %autorelease
-Summary:        Decoding and encoding library in pure Rust
+Summary:        API for Unicode Language and Locale Identifiers canonicalization
 
-License:        MIT
-URL:            https://crates.io/crates/tiff
+License:        Unicode-3.0
+URL:            https://crates.io/crates/icu_locale
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * drop unused, benchmark-only criterion dev-dependency
-Patch:          tiff-fix-metadata.diff
+# * Omit benchmark-only dev-dependency `criterion`.
+# * Restore dev-dependency `writeable` (version 0.6), which is path-based and
+#   was therefore removed by Cargo.toml normalization.
+Patch:          icu_locale-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-TIFF decoding and encoding library in pure Rust.}
+API for Unicode Language and Locale Identifiers canonicalization.}
 
 %description %{_description}
 
@@ -34,7 +36,6 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
-%doc %{crate_instdir}/CHANGES.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -50,52 +51,40 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+deflate-devel
+%package     -n %{name}+compiled_data-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+deflate-devel %{_description}
+%description -n %{name}+compiled_data-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "deflate" feature of the "%{crate}" crate.
+use the "compiled_data" feature of the "%{crate}" crate.
 
-%files       -n %{name}+deflate-devel
+%files       -n %{name}+compiled_data-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+jpeg-devel
+%package     -n %{name}+datagen-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+jpeg-devel %{_description}
+%description -n %{name}+datagen-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "jpeg" feature of the "%{crate}" crate.
+use the "datagen" feature of the "%{crate}" crate.
 
-%files       -n %{name}+jpeg-devel
+%files       -n %{name}+datagen-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+lzw-devel
+%package     -n %{name}+serde-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+lzw-devel %{_description}
+%description -n %{name}+serde-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "lzw" feature of the "%{crate}" crate.
+use the "serde" feature of the "%{crate}" crate.
 
-%files       -n %{name}+lzw-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+zstd-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+zstd-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "zstd" feature of the "%{crate}" crate.
-
-%files       -n %{name}+zstd-devel
+%files       -n %{name}+serde-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
@@ -113,9 +102,10 @@ use the "zstd" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# * data files for integration tests are not included in published crates
+# * Very many doctests have circular dependencies on the top-level icu crate,
+#   enough that it would be very tedious to patch them all out.
 %cargo_test -- --lib
-%cargo_test -- --doc
+%cargo_test -- --tests
 %endif
 
 %changelog

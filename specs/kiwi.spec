@@ -9,7 +9,7 @@ and cloud systems like Xen, KVM, VMware, EC2 and more.
 %bcond check 0
 
 Name:           kiwi
-Version:        10.2.32
+Version:        10.2.33
 Release:        1%{?dist}
 URL:            http://osinside.github.io/kiwi/
 Summary:        Flexible operating system image builder
@@ -18,9 +18,6 @@ License:        GPL-3.0-or-later
 Source0:        https://files.pythonhosted.org/packages/source/k/%{name}/%{name}-%{version}.tar.gz
 
 # Backports from upstream
-## From: https://github.com/OSInside/kiwi/commit/e3994fb0783fb4207931c9810bd635e42381c6b4
-Patch0001:      0001-Fix-exclude-list-for-live-image-builds.patch
-
 
 # Proposed upstream
 
@@ -580,27 +577,27 @@ popd
 
 %files -n dracut-kiwi-lib
 %license LICENSE
-%{_prefix}/lib/dracut/modules.d/99kiwi-lib/
+%{_prefix}/lib/dracut/modules.d/59kiwi-lib/
 
 %files -n dracut-kiwi-oem-repart
 %license LICENSE
-%{_prefix}/lib/dracut/modules.d/90kiwi-repart/
+%{_prefix}/lib/dracut/modules.d/55kiwi-repart/
 
 %files -n dracut-kiwi-oem-dump
 %license LICENSE
-%{_prefix}/lib/dracut/modules.d/90kiwi-dump/
-%{_prefix}/lib/dracut/modules.d/99kiwi-dump-reboot/
+%{_prefix}/lib/dracut/modules.d/55kiwi-dump/
+%{_prefix}/lib/dracut/modules.d/59kiwi-dump-reboot/
 
 %files -n dracut-kiwi-live
 %license LICENSE
-%{_prefix}/lib/dracut/modules.d/90kiwi-live/
+%{_prefix}/lib/dracut/modules.d/55kiwi-live/
 
 %files -n dracut-kiwi-overlay
 %license LICENSE
-%{_prefix}/lib/dracut/modules.d/90kiwi-overlay/
+%{_prefix}/lib/dracut/modules.d/55kiwi-overlay/
 
 %files -n dracut-kiwi-verity
-%{_usr}/lib/dracut/modules.d/80kiwi-verity
+%{_usr}/lib/dracut/modules.d/50kiwi-verity
 %{_bindir}/kiwi-parse-verity
 
 %files systemdeps-core
@@ -641,6 +638,9 @@ popd
 
 
 %changelog
+* Fri Sep 12 2025 Neal Gompa <ngompa@fedoraproject.org> - 10.2.33-1
+- Update to 10.2.33
+
 * Fri Aug 15 2025 Neal Gompa <ngompa@fedoraproject.org> - 10.2.32-1
 - Update to 10.2.32
 

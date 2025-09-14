@@ -6,7 +6,7 @@
 %endif
 
 
-Version:        0.25.6
+Version:        0.25.8
 Release:        %{?autorelease}%{!?autorelease:1%{?dist}}
 Name:           p11-kit
 Summary:        Library for loading and sharing PKCS#11 modules
@@ -18,8 +18,6 @@ Source1:        https://github.com/p11-glue/p11-kit/releases/download/%{version}
 Source2:        https://p11-glue.github.io/p11-glue/p11-kit/p11-kit-release-keyring.gpg
 Source3:        trust-extract-compat
 Source4:        p11-kit-client.service
-
-Patch:          p11-kit-0.25.6-packaging.patch
 
 BuildRequires:  gcc
 BuildRequires:  libtasn1-devel >= 2.3
@@ -150,7 +148,7 @@ gpgv2 --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
 %meson_build
 
 %if %{with mingw}
-%mingw_meson -Dgtk_doc=false -Dman=false -Dnls=false -Dtrust_paths=%{_sysconfdir}/pki/ca-trust/source:%{_datadir}/pki/ca-trust-source
+%mingw_meson -Dgtk_doc=false -Dman=false -Dnls=false -Dtrust_paths=%{_sysconfdir}/pki/ca-trust/source:%{_datadir}/pki/ca-trust-source -Dzsh_completion=disabled
 %mingw_ninja
 %endif
 
@@ -204,6 +202,7 @@ fi
 %{_mandir}/man8/p11-kit.8.gz
 %{_mandir}/man5/pkcs11.conf.5.gz
 %{_datadir}/bash-completion/completions/p11-kit
+%{_datadir}/zsh/site-functions/_p11-kit
 
 %files client
 %{_libdir}/pkcs11/p11-kit-client.so
@@ -222,6 +221,7 @@ fi
 %{_datadir}/p11-kit/modules/p11-kit-trust.module
 %{_libexecdir}/p11-kit/trust-extract-compat
 %{_datadir}/bash-completion/completions/trust
+%{_datadir}/zsh/site-functions/_trust
 
 %files server
 %{_libexecdir}/p11-kit/p11-kit-server

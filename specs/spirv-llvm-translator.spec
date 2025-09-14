@@ -1,9 +1,8 @@
-
-%global commit 781d0790ea4dc6238eabe44fc39e49b6b27fbcbe
+%global commit acb023b63a4bafd53d0ba6a1a452b1f0e5671458
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           spirv-llvm-translator
-Version:        20.1.0
+Version:        21.1.0
 Release:        %autorelease
 Summary:        LLVM to SPIRV Translator
 
@@ -11,12 +10,13 @@ License:        NCSA
 URL:            https://github.com/KhronosGroup/SPIRV-LLVM-Translator
 Source0:        %{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 
+BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  cmake
-BuildRequires:  ninja-build
+BuildRequires:  libxml2-devel
 BuildRequires:  llvm-devel
 BuildRequires:  llvm-static
+BuildRequires:  ninja-build
 BuildRequires:  spirv-headers-devel
 BuildRequires:  spirv-tools-devel
 BuildRequires:  zlib-devel
