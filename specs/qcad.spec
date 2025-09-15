@@ -171,14 +171,14 @@ mkdir -p %{buildroot}%{_QCAD_DIR}/plugins/printsupport
 cp -a fonts %{buildroot}%{_QCAD_DIR}
 
 # Unbundle vlgothic-fonts
-ln -sf %{_fontbasedir}/vl-gothic-fonts/VL-Gothic-Regular.ttf %{buildroot}%{_QCAD_DIR}/fonts/VL-Gothic-Regular.ttf
+ln -srf %{_fontbasedir}/vl-gothic-fonts/VL-Gothic-Regular.ttf %{buildroot}%{_QCAD_DIR}/fonts/VL-Gothic-Regular.ttf
 
 # Unbundle dejavu-sans-fonts
 for i in `ls %{buildroot}%{_QCAD_DIR}/fonts/qt | grep DejaVuSans`; do
- ln -sf %{_fontbasedir}/dejavu-sans-fonts/$i %{buildroot}%{_QCAD_DIR}/fonts/qt/$i
+ ln -srf %{_fontbasedir}/dejavu-sans-fonts/$i %{buildroot}%{_QCAD_DIR}/fonts/qt/$i
 done
 for i in `ls %{buildroot}%{_QCAD_DIR}/fonts/qt | grep DejaVuSansMono`; do
- ln -sf %{_fontbasedir}/dejavu-sans-mono-fonts/$i %{buildroot}%{_QCAD_DIR}/fonts/qt/$i
+ ln -srf %{_fontbasedir}/dejavu-sans-mono-fonts/$i %{buildroot}%{_QCAD_DIR}/fonts/qt/$i
 done
 ##
 
@@ -190,30 +190,28 @@ cp -a plugins %{buildroot}%{_QCAD_DIR}
 cp -a linetypes %{buildroot}%{_QCAD_DIR}
 
 # This file is required for Help's "Show Readme" menu choice
-cp -p readme.txt %{buildroot}%{_QCAD_DIR}
+ln -rs %{_datadir}/doc/qcad/readme.txt %{buildroot}%{_QCAD_DIR}/readme.txt
 
 install -pm 644 ts/qcad*.qm %{buildroot}%{_QCAD_DIR}/ts
 
-ln -sf %{_QT_PLUGINS}/imageformats/libqgif.so %{buildroot}%{_QCAD_DIR}/plugins/imageformats/libqgif.so
-ln -sf %{_QT_PLUGINS}/imageformats/libqico.so %{buildroot}%{_QCAD_DIR}/plugins/imageformats/libqico.so
-ln -sf %{_QT_PLUGINS}/imageformats/libqjpeg.so %{buildroot}%{_QCAD_DIR}/plugins/imageformats/libqjpeg.so
-ln -sf %{_QT_PLUGINS}/imageformats/libqsvg.so %{buildroot}%{_QCAD_DIR}/plugins/imageformats/libqsvg.so
-ln -sf %{_QT_PLUGINS}/imageformats/libqtga.so %{buildroot}%{_QCAD_DIR}/plugins/imageformats/libqtga.so
-ln -sf %{_QT_PLUGINS}/imageformats/libqtiff.so %{buildroot}%{_QCAD_DIR}/plugins/imageformats/libqtiff.so
+ln -srf %{_QT_PLUGINS}/imageformats/libqgif.so %{buildroot}%{_QCAD_DIR}/plugins/imageformats/libqgif.so
+ln -srf %{_QT_PLUGINS}/imageformats/libqico.so %{buildroot}%{_QCAD_DIR}/plugins/imageformats/libqico.so
+ln -srf %{_QT_PLUGINS}/imageformats/libqjpeg.so %{buildroot}%{_QCAD_DIR}/plugins/imageformats/libqjpeg.so
+ln -srf %{_QT_PLUGINS}/imageformats/libqsvg.so %{buildroot}%{_QCAD_DIR}/plugins/imageformats/libqsvg.so
+ln -srf %{_QT_PLUGINS}/imageformats/libqtga.so %{buildroot}%{_QCAD_DIR}/plugins/imageformats/libqtga.so
+ln -srf %{_QT_PLUGINS}/imageformats/libqtiff.so %{buildroot}%{_QCAD_DIR}/plugins/imageformats/libqtiff.so
 
-ln -sf %{_QT_PLUGINS}/sqldrivers/libqsqlite.so %{buildroot}%{_QCAD_DIR}/plugins/sqldrivers/libqsqlite.so
-ln -sf %{_QT_PLUGINS}/printsupport/libcupsprintersupport.so %{buildroot}%{_QCAD_DIR}/plugins/printsupport/libcupsprintersupport.so
+ln -srf %{_QT_PLUGINS}/sqldrivers/libqsqlite.so %{buildroot}%{_QCAD_DIR}/plugins/sqldrivers/libqsqlite.so
+ln -srf %{_QT_PLUGINS}/printsupport/libcupsprintersupport.so %{buildroot}%{_QCAD_DIR}/plugins/printsupport/libcupsprintersupport.so
 
 install -pm 644 scripts/qcad_icon.png %{buildroot}%{_datadir}/pixmaps/%{name}.png
 install -pm 755 release/*.so %{buildroot}%{_QCAD_DIR}
 install -pm 755 release/%{name}-bin %{buildroot}%{_QCAD_DIR}
-install -pm 644 readme.txt %{buildroot}%{_QCAD_DIR}
 
 install -pm 644 qcad.1 %{buildroot}%{_mandir}/man1
 install -pm 644 scripts/%{name}_icon.svg %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 
 find %{buildroot}%{_QCAD_DIR} -name ".gitignore" -delete
-find %{buildroot}%{_QCAD_DIR} -name "readme.txt" -delete
 find %{buildroot}%{_QCAD_DIR} -name "Makefile" -delete
 
 pushd %{buildroot}%{_QCAD_DIR}

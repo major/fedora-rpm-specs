@@ -1,61 +1,27 @@
 Name:           beets
-Version:        2.3.1
+Version:        2.4.0
 Release:        %autorelease
 Summary:        Music library manager and MusicBrainz tagger
 License:        MIT and ISC
 URL:            http://pypi.org/project/beets/
 Source0:        %{pypi_source beets}
 
-BuildRequires:  poetry
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-sphinx
 BuildRequires:  python3-pydata-sphinx-theme
-BuildRequires:  python3-PyYAML
-BuildRequires:  python3-mediafile
-BuildRequires:  python3-musicbrainzngs >= 0.4
-BuildRequires:  python3-munkres
-BuildRequires:  python3-mutagen >= 1.23
-BuildRequires:  python3-unidecode
-BuildRequires:  python3-rarfile
-BuildRequires:  python3-pip
-
 
 # Tests
-BuildRequires:  python-jellyfish
+BuildRequires:  python3-jellyfish
 BuildRequires:  gstreamer1-plugins-good
-BuildRequires:  python-responses
-BuildRequires:  python-mock
+BuildRequires:  python3-responses
+BuildRequires:  python3-mock
 BuildRequires:  pytest
-BuildRequires:  python-pytest-timeout
+BuildRequires:  python3-pytest-timeout
 
 BuildRequires:  make
 BuildArch:      noarch
 
-Requires:       python3 >= 3.8
-Requires:       python3-confuse
-Requires:       python3-jellyfish
-Requires:       python3-mediafile >= 0.12.0
-Requires:       python3-munkres >= 1.0.0
-Requires:       python3-musicbrainzngs >= 0.4
-Requires:       python3-mutagen >= 1.23
-Requires:       python3-unidecode
-Requires:       python3-rarfile
-Requires:       python3-PyYAML
-Requires:       python3-gstreamer1
-Requires:       python3-acoustid
-Requires:       python3-requests
-Requires:       python3-pylast
-Requires:       python3-musicbrainzngs >= 0.4
-Requires:       python3-mpd2
-Requires:       python3-gobject >= 3.0
-Requires:       gstreamer1
-Requires:       js-jquery
-Requires:       js-backbone
-Requires:       js-underscore
-Requires:       python3-flask
-Requires:       python3-lap
-
+Provides:       beets-plugins = %{version}-%{release}
 Obsoletes:      beets-plugins < %{version}
 
 BuildSystem: pyproject
@@ -92,23 +58,39 @@ both text and html formats.
 
 %build
 %pyproject_wheel
+
 pushd docs
-# Not using {smp_flags} as sphinx fails with it from time to time
-make SPHINXBUILD=sphinx-build-3 man html text
+env PYTHONPATH=.. sphinx-build-3 -b man  -d _build/doctrees . _build/man
+env PYTHONPATH=.. sphinx-build-3 -b html -d _build/doctrees . _build/html
+env PYTHONPATH=.. sphinx-build-3 -b text -d _build/doctrees . _build/text
 popd
 
 %check
-%pytest
+%pytest \
+  --deselect test/test_importer.py::ImportDuplicateAlbumTest::test_merge_duplicate_album
 
 %install
 %pyproject_install
-%pyproject_save_files -l beets -L
+%pyproject_save_files -l beets beetsplug -L
+install -Dm0644 docs/_build/man/beet.1 \
+  %{buildroot}%{_mandir}/man1/beet.1
+install -Dm0644 docs/_build/man/beetsconfig.5 \
+  %{buildroot}%{_mandir}/man5/beetsconfig.5
+# Copy only HTML docs
+mkdir -p %{buildroot}%{_docdir}/%{name}
+cp -a docs/_build/html %{buildroot}%{_docdir}/%{name}/html
+rm -f %{buildroot}%{_docdir}/%{name}/html/.buildinfo
+
 
 %files -n beets -f %{pyproject_files}
 %{_bindir}/beet
-%{python3_sitelib}/beetsplug/
+%{_mandir}/man1/beet.1*
+%{_mandir}/man5/beetsconfig.5*
 %license LICENSE
 %doc README.rst
 
-%changelog
+%files doc
+%doc %{_docdir}/%{name}/html
+%license LICENSE
+
 %autochangelog

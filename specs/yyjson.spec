@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/ibireme/yyjson
-Version:        0.11.1
+Version:        0.12.0
 %global tag %{version}
 %forgemeta
 

@@ -10,7 +10,6 @@ Source1:        macros.raku
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  perl
-BuildRequires:  libatomic_ops-devel
 BuildRequires:  libuv-devel
 BuildRequires:  libtommath-devel
 BuildRequires:  libffi-devel

@@ -8,7 +8,10 @@
 %bcond clang 0
 
 %if %{with clang}
+# Force clang toolchain
 %global toolchain clang
+# Disable LTO with clang
+%global _lto_cflags %{nil}
 %endif
 
 # Debug build with extra compile time checks

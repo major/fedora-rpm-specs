@@ -48,12 +48,14 @@ BuildRequires:  blosc-devel
 BuildRequires:  blosc2-devel
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
+BuildRequires:  python%{python3_pkgversion}-pip
 BuildRequires:  python%{python3_pkgversion}-blosc2
 BuildRequires:  python%{python3_pkgversion}-Cython >= 0.13
 BuildRequires:  python%{python3_pkgversion}-numpy
 BuildRequires:  python%{python3_pkgversion}-numexpr >= 2.4
 BuildRequires:  python%{python3_pkgversion}-six
 BuildRequires:  python%{python3_pkgversion}-typing-extensions
+BuildRequires:  python-pip-wheel
 
 ExcludeArch:    %{ix86}
 

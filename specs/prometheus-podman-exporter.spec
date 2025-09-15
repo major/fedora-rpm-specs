@@ -14,7 +14,7 @@
 
 # https://github.com/containers/prometheus-podman-exporter
 %global goipath         github.com/containers/prometheus-podman-exporter
-Version:                1.17.2
+Version:                1.18.1
 
 %gometa -f
 
@@ -114,9 +114,9 @@ install -m 0644 -vp ./contrib/systemd/user/%{name}.service %{buildroot}%{_userun
 %license LICENSE
 %doc CODE_OF_CONDUCT.md CONTRIBUTING.md MAINTAINERS.md README.md SECURITY.md
 %{_bindir}/%{name}
-%{_sysconfdir}/sysconfig/%{name}
 %{_unitdir}/%{name}.service
 %{_userunitdir}/%{name}.service
+%config(noreplace) %{_sysconfdir}/sysconfig/%{name}
 
 %changelog
 %autochangelog

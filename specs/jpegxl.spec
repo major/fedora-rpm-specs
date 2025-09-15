@@ -7,8 +7,6 @@
 %global sover_old 0.10
 %global sover 0.11
 
-%global gdk_pixbuf_moduledir $(pkgconf gdk-pixbuf-2.0 --variable=gdk_pixbuf_moduledir)
-
 %bcond_with gimp_plugin
 %if 0%{?fedora}
 %bcond_without tcmalloc
@@ -77,12 +75,13 @@ Provides:       bundled(sjpeg) = 0-0.1.20230608gite5ab130
 # Build system is Bazel, which is not packaged by Fedora
 Provides:       bundled(skcms) = 0-0.1.20240122git51b7f2a
 
+Obsoletes:      jxl-pixbuf-loader < %{epoch}:%{version}-%{release}
+
 %description
 %common_description
 
 %package     -n libjxl-utils
 Summary:        Utilities for manipulating JPEG XL images
-Recommends:     jxl-pixbuf-loader = %{epoch}:%{version}-%{release}
 Recommends:     gimp-jxl-plugin   = %{epoch}:%{version}-%{release}
 Provides:       jpegxl-utils = %{epoch}:%{version}-%{release}
 Obsoletes:      jpegxl-utils < 0.3.7-5
@@ -111,7 +110,6 @@ Documentation for JPEG-XL.
 %package     -n libjxl
 Summary:        Library files for JPEG-XL
 Requires:       shared-mime-info
-Recommends:     jxl-pixbuf-loader = %{epoch}:%{version}-%{release}
 Provides:       jpegxl-libs = %{epoch}:%{version}-%{release}
 Obsoletes:      jpegxl-libs < 0.3.7-5
 %if %{without gimp_plugin}
@@ -134,14 +132,6 @@ Obsoletes:      jpegxl-devel < 0.3.7-5
 
 Development files for JPEG-XL.
 
-%package     -n jxl-pixbuf-loader
-Summary:        JPEG-XL image loader for GTK+ applications
-BuildRequires:  pkgconfig(gdk-pixbuf-2.0)
-Requires:       gdk-pixbuf2
-
-%description -n jxl-pixbuf-loader
-Jxl-pixbuf-loader contains a plugin to load JPEG-XL images in GTK+ applications.
-
 %if %{with gimp_plugin}
 %package     -n gimp-jxl-plugin
 Summary:        A plugin for loading and saving JPEG-XL images
@@ -162,6 +152,7 @@ rm -rf testdata/ third_party/
         -DINSTALL_GTEST:BOOL=OFF \
         -DJPEGXL_ENABLE_BENCHMARK:BOOL=OFF \
         -DJPEGXL_ENABLE_PLUGINS:BOOL=ON \
+        -DJPEGXL_ENABLE_PLUGIN_GDKPIXBUF:BOOL=OFF \
         -DJPEGXL_FORCE_SYSTEM_BROTLI:BOOL=ON \
         -DJPEGXL_FORCE_SYSTEM_GTEST:BOOL=ON \
         -DJPEGXL_FORCE_SYSTEM_HWY:BOOL=ON \
@@ -232,8 +223,6 @@ cp -p %{_libdir}/libjxl.so.%{sover_old}*     \
 %{_libdir}/libjxl_threads.so.%{sover_old}*
 %{_libdir}/libjxl_cms.so.%{sover_old}*
 %endif
-%dir %{_datadir}/thumbnailers
-%{_datadir}/thumbnailers/jxl.thumbnailer
 %{_datadir}/mime/packages/image-jxl.xml
 
 %files -n libjxl-devel
@@ -246,10 +235,6 @@ cp -p %{_libdir}/libjxl.so.%{sover_old}*     \
 %{_libdir}/pkgconfig/libjxl.pc
 %{_libdir}/pkgconfig/libjxl_threads.pc
 %{_libdir}/pkgconfig/libjxl_cms.pc
-
-%files -n jxl-pixbuf-loader
-%license LICENSE
-%{_libdir}/gdk-pixbuf-2.0/*/loaders/libpixbufloader-jxl.so
 
 %if %{with gimp_plugin}
 %files -n gimp-jxl-plugin

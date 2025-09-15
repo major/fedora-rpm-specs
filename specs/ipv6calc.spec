@@ -26,7 +26,7 @@
 Summary:	IPv6/IPv4 address information, format change, filter and calculation utility
 Name:		ipv6calc
 Version:	4.3.3
-Release:	2%{?gittag}%{?dist}
+Release:	3%{?gittag}%{?dist}
 URL:		https://www.deepspace6.net/projects/%{name}.html
 License:	GPL-2.0-only
 %if 0%{?gitcommit:1}
@@ -380,7 +380,10 @@ fi
 
 
 %changelog
-* Sun Aug 24 2025 Peter Bieringer <pb@bieringer.de> - 4.3.3-1
+* Sat Sep 13 2025 Peter Bieringer <pb@bieringer.de> - 4.3.3-3
+- Rebuild to use IP2Location 8.7.0
+
+* Sun Aug 24 2025 Peter Bieringer <pb@bieringer.de> - 4.3.3-2
 - Final release 4.3.3
 
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.2-2

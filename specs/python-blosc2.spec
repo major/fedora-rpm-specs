@@ -53,7 +53,9 @@ export SKBUILD_BUILD_DIR=python-build
 
 %check
 OPTIONS=(
-    --deselect=tests/test_embed_store.py::test_with_remote
+    --deselect="tests/test_embed_store.py::test_with_remote"
+    # One of those tests seems to hang in x86_64 builds in koji.
+    --deselect="tests/ndarray/test_lazyexpr.py::test_lazyexpr[float32"
 )
 
 %pytest tests/ "${OPTIONS[@]}" -v \
