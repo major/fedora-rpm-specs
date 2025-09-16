@@ -3,16 +3,13 @@
 %bcond_without tests
 
 Name:           python-deepdiff
-Version:        8.5.0
-Release:        7%{?dist}
+Version:        8.6.1
+Release:        1%{?dist}
 Summary:        Deep Difference and search of any Python object/data
 
 License:        MIT
 URL:            https://github.com/seperman/deepdiff/
 Source:         https://github.com/seperman/deepdiff/archive/%{version}/%{name}-v%{version}.tar.gz
-
-# Fix tests with python 3.14: https://github.com/seperman/deepdiff/pull/556
-Patch1:         fix-test-python-3.14.patch
 
 BuildArch:      noarch
 BuildRequires:  make
@@ -101,8 +98,8 @@ rm -rf docs/_build/html/.{doctrees,buildinfo}
 
 %check
 %if %{with tests}
-# polar package is not available on Fedora at the moment, so remove its tests
-%pytest -k 'not test_polars' tests/
+# uuid6 package is not available on Fedora at the moment, so remove test_hash.py
+%pytest --ignore=tests/test_hash.py tests/
 %endif
 %pyproject_check_import
 
@@ -118,6 +115,9 @@ rm -rf docs/_build/html/.{doctrees,buildinfo}
 
 
 %changelog
+* Sun Sep 14 2025 Romain Geissler <romain.geissler@amadeus.com> - 8.6.1-1
+- Update to 8.6.1 (rhbz#2393085).
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 8.5.0-7
 - Rebuilt for Python 3.14.0rc2 bytecode
 

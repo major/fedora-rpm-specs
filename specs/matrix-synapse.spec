@@ -19,12 +19,10 @@ Source2:    synapse.service
 Source3:    matrix-synapse.sysusers
 Patch1:     0001-pyo3-Disable-abi3-feature.patch
 Patch2:     0002-Build-RustExtension-with-debug-symbols.patch
-Patch3:     0003-Remove-icu_segmenter.patch
 ExclusiveArch:  %{rust_arches}
 
 Recommends:     %{name}+postgres
 Recommends:     %{name}+systemd
-Recommends:     %{name}+user-search
 
 BuildRequires:  jq
 BuildRequires:  python3-devel
@@ -33,6 +31,8 @@ BuildRequires:  /usr/bin/openssl
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  tomcli
 
+# Handles obsolete extra `user_search`. Keep this line until F42 EOL.
+Obsoletes:      %{name}+user-search < 1.138.0-2
 %if %{without saml2}
 Obsoletes:      %{name}+saml2 < 1.136.0-2
 %endif
@@ -45,7 +45,7 @@ to showcase the concept of Matrix and let folks see the spec in the context of
 a coded base and let you run your own homeserver and generally help bootstrap
 the ecosystem.
 
-%pyproject_extras_subpkg -n %{name} matrix-synapse-ldap3 postgres %{?with_saml2:saml2} oidc systemd url_preview sentry jwt cache_memory user-search
+%pyproject_extras_subpkg -n %{name} matrix-synapse-ldap3 postgres %{?with_saml2:saml2} oidc systemd url_preview sentry jwt cache_memory
 
 
 %prep
@@ -69,7 +69,7 @@ cd rust
 cd ..
 
 # Missing: opentracing,redis
-%pyproject_buildrequires -x test,matrix-synapse-ldap3,postgres%{?with_saml2:,saml2},oidc,systemd,url-preview,sentry,jwt,cache-memory,user-search
+%pyproject_buildrequires -x test,matrix-synapse-ldap3,postgres%{?with_saml2:,saml2},oidc,systemd,url-preview,sentry,jwt,cache-memory
 
 
 %build

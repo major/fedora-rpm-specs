@@ -1,7 +1,7 @@
 %global pypi_name normality
 
 Name:           python-%{pypi_name}
-Version:        2.5.0
+Version:        3.0.2
 Release:        %autorelease
 Summary:        Tiny library for Python text normalisation
 
@@ -12,7 +12,6 @@ Source:         %url/archive/%{version}/%{pypi_name}-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(pyicu)
 
 %global common_description %{expand:
 Normality is a Python micro-package that contains a small set of text
@@ -43,8 +42,7 @@ sed -i '/\[tool\.setuptools_scm\]/a fallback_version = "%{version}"' pyproject.t
 %pyproject_save_files %{pypi_name}
 
 %check
-# https://github.com/pudo/normality/issues/20
-%pytest -k "not test_guess_encoding and not test_petro_iso_encoded and not test_predict_encoding"
+%pytest
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.md

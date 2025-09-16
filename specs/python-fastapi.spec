@@ -76,6 +76,10 @@ Patch:          0001-Downstream-only-run-test_fastapi_cli-without-coverag.patch
 # Rebased on 0.115.12.
 Patch:          0001-Allow-httpx-0.28.x-relax-pins.patch
 
+# ⬆️ Upgrade Starlette supported version range to >=0.48.0,<0.49.0
+# https://github.com/fastapi/fastapi/pull/14077
+Patch:          %{url}/pull/14077.patch
+
 BuildRequires:  python3-devel
 
 # Since requirements-tests.txt and requirements-docs-tests.txt contain

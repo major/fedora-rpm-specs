@@ -1,13 +1,8 @@
-
-# set this until when/if we port to new cmake macros
-%global __cmake_in_source_build 1
-
 Summary: Multimedia framework api for Qt4
 Name:    phonon-qt4
 Version: 4.10.3
-Release: 27%{?dist}
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License: LicenseRef-Callaway-LGPLv2+
+Release: 28%{?dist}
+License: LGPL-2.0-or-later
 URL:     https://community.kde.org/Phonon
 
 %global revision %(echo %{version} | cut -d. -f3)
@@ -16,7 +11,7 @@ URL:     https://community.kde.org/Phonon
 %else
 %global stable stable
 %endif
-Source0: http://download.kde.org/%{stable}/phonon/%{version}/phonon-%{version}.tar.xz
+Source0: https://download.kde.org/%{stable}/phonon/%{version}/phonon-%{version}.tar.xz
 
 ## upstream patches
 
@@ -26,12 +21,14 @@ Patch10: phonon-rpath_use_link_path.patch
 # avoid gcc errors/warnings about use of deprecated _BSD_SOURCE (use _DEFAULT_SOURCE instead) 
 Patch11: phonon-DEFAULT_SOURCE.patch
 
+Patch12: phonon-qt4-fix_cmake.patch
+
 # filter plugins
 %global __provides_exclude_from ^(%{_qt4_plugindir}/.*\\.so)$
 
 BuildRequires: make
 BuildRequires: automoc4 >= 0.9.86
-BuildRequires: cmake >= 2.8.9
+BuildRequires: cmake
 BuildRequires: extra-cmake-modules
 BuildRequires: kde4-macros(api)
 BuildRequires: pkgconfig
@@ -71,12 +68,11 @@ Provides:  phonon-devel%{?_isa} = %{version}-%{release}
 
 %patch -P10 -p1 -b .10
 %patch -P11 -p1 -b .11
+%patch -P12 -p1 -b .12
 
 
 %build
-mkdir %{_target_platform}
-pushd %{_target_platform}
-%{cmake} .. \
+%cmake \
   -DCMAKE_BUILD_TYPE:STRING="Release" \
   -DCMAKE_DISABLE_FIND_PACKAGE_QZeitgeist:BOOL=ON \
   -DPHONON_BUILD_DECLARATIVE_PLUGIN:BOOL=OFF \
@@ -84,13 +80,12 @@ pushd %{_target_platform}
   -DPHONON_QT_IMPORTS_INSTALL_DIR=%{_qt4_importdir} \
   -DPHONON_QT_MKSPECS_INSTALL_DIR=%{_qt4_datadir}/mkspecs/modules \
   -DPHONON_QT_PLUGIN_INSTALL_DIR=%{_qt4_plugindir}/designer
-popd
 
-%make_build -C %{_target_platform}
+%cmake_build
 
 
 %install
-make install/fast DESTDIR=%{buildroot} -C %{_target_platform}
+%cmake_install
 
 # own these dirs
 mkdir -p %{buildroot}%{_kde4_libdir}/kde4/plugins/phonon_backend/
@@ -101,9 +96,6 @@ mkdir -p %{buildroot}%{_qt5_plugindir}/phonon4qt5_backend
 %check
 export PKG_CONFIG_PATH="%{buildroot}%{_datadir}/pkgconfig:%{buildroot}%{_libdir}/pkgconfig${PKG_CONFIG_PATH:+:}${PKG_CONFIG_PATH}"
 test "$(pkg-config --modversion phonon)" = "%{version}"
-
-
-%ldconfig_scriptlets
 
 %files
 %license COPYING.LIB
@@ -136,8 +128,10 @@ end
 %{_libdir}/libphononexperimental.so
 %{_qt4_datadir}/mkspecs/modules/qt_phonon.pri
 
-
 %changelog
+* Sun Sep 14 2025 Antonio Trande <sagitter@fedoraproject.org> - 4.10.3-28
+- Fix rhbz#2381097 rhbz#2381360
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.10.3-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

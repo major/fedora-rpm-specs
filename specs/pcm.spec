@@ -1,6 +1,6 @@
 Name:           pcm
-Version:        202502
-Release:        1%{?dist}
+Version:        202509
+Release:        0%{?dist}
 Summary:        Intel(r) Performance Counter Monitor
 License:        BSD-3-Clause
 Url:            https://github.com/intel/pcm
@@ -40,11 +40,10 @@ rm -rf %{buildroot}/usr/share/doc/PCM/*.txt
 
 %files
 %license LICENSE
-%doc doc/LINUX_HOWTO.txt README.md doc/FAQ.md doc/CUSTOM-COMPILE-OPTIONS.md doc/ENVVAR_README.md doc/PCM-EXPORTER.md doc/PCM-SENSOR-SERVER-README.md doc/PCM_RAW_README.md doc/DOCKER_README.md doc/license.txt doc/LATENCY-OPTIMIZED-MODE.md
+%doc doc/LINUX_HOWTO.txt README.md doc/FAQ.md doc/CUSTOM-COMPILE-OPTIONS.md doc/ENVVAR_README.md doc/PCM-EXPORTER.md doc/PCM-SENSOR-SERVER-README.md doc/PCM_RAW_README.md doc/DOCKER_README.md doc/license.txt doc/LATENCY-OPTIMIZED-MODE.md doc/PCM_IIO_README.md
 %{_sbindir}/%{name}-core
 %{_sbindir}/%{name}-iio
 %{_sbindir}/%{name}-latency
-%{_sbindir}/%{name}-lspci
 %{_sbindir}/%{name}-memory
 %{_sbindir}/%{name}-msr
 %{_sbindir}/%{name}-mmio

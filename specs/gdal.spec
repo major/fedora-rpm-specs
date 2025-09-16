@@ -51,8 +51,8 @@
 
 
 Name:          gdal
-Version:       3.11.3
-Release:       7%{?dist}
+Version:       3.11.4
+Release:       1%{?dist}
 Summary:       GIS file format library
 License:       MIT
 URL:           http://www.gdal.org
@@ -633,21 +633,21 @@ done
 %{_bindir}/rgb2pct.py
 %{_datadir}/bash-completion/completions/gdal2tiles.py
 %{_datadir}/bash-completion/completions/gdal2xyz.py
-%{_datadir}/bash-completion/completions/gdalchksum.py
 %{_datadir}/bash-completion/completions/gdalcompare.py
-%{_datadir}/bash-completion/completions/gdalident.py
-%{_datadir}/bash-completion/completions/gdalimport.py
 %{_datadir}/bash-completion/completions/gdalmove.py
 %{_datadir}/bash-completion/completions/gdal_calc.py
 %{_datadir}/bash-completion/completions/gdal-config
 %{_datadir}/bash-completion/completions/gdal_edit.py
 %{_datadir}/bash-completion/completions/gdal_fillnodata.py
+%{_datadir}/bash-completion/completions/gdal_footprint
 %{_datadir}/bash-completion/completions/gdal_merge.py
 %{_datadir}/bash-completion/completions/gdal_polygonize.py
 %{_datadir}/bash-completion/completions/gdal_proximity.py
 %{_datadir}/bash-completion/completions/gdal_retile.py
 %{_datadir}/bash-completion/completions/gdal_sieve.py
 %{_datadir}/bash-completion/completions/ogrmerge.py
+%{_datadir}/bash-completion/completions/ogr_layer_algebra.py
+%{_datadir}/bash-completion/completions/sozip
 %{_mandir}/man1/gdal2tiles.1*
 %{_mandir}/man1/gdal_calc.1*
 %{_mandir}/man1/gdalcompare.1*
@@ -850,6 +850,9 @@ done
 
 
 %changelog
+* Sun Sep 14 2025 Sandro Mani <manisandro@gmail.com> - 3.11.4-1
+- Update to 3.11.4
+
 * Fri Aug 22 2025 Orion Poplawski <orion@nwra.com> - 3.11.3-7
 - Rebuild for netcdf 4.9.3 soname bump
 

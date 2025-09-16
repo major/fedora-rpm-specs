@@ -5,7 +5,7 @@
 %global crate trybuild
 
 Name:           rust-trybuild
-Version:        1.0.110
+Version:        1.0.111
 Release:        %autorelease
 Summary:        Test harness for ui tests of compiler diagnostics
 

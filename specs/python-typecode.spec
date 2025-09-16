@@ -1,7 +1,7 @@
 %global pypi_name typecode
 
 Name:           python-%{pypi_name}
-Version:        30.0.1
+Version:        30.0.2
 Release:        %autorelease
 Summary:        Comprehensive filetype and mimetype detection
 
@@ -23,7 +23,7 @@ Summary:        Comprehensive filetype and mimetype detection
 #   - src/typecode/mimetypes.py
 #   - src/typecode/python.LICENSE
 License:        Apache-2.0 AND (Apache-2.0 AND MIT) AND (BSD-2-Clause-Views AND MIT) AND (Apache-2.0 AND BSD-2-Clause) AND MIT AND Python-2.0
-URL:            https://github.com/nexB/typecode
+URL:            https://github.com/aboutcode-org/typecode
 Source:         %url/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
 Patch:          0001-Unbundle-pygments.patch
 
@@ -70,10 +70,10 @@ This package is providing the documentation for %{pypi_name}.
 
 %prep
 %autosetup -p1 -n %{pypi_name}-%{version}
+# remove bundled pygments
+rm -rfv src/typecode/_vendor
 # We change fallback_version to our actual version
 sed -i 's|\(fallback_version = "\)[^"]*|\1%{version}|' pyproject.toml
-# We replace the bundled dependency by the system wide one.
-sed -i 's|typecode_libmagic >= 5.39.210223|typecode_libmagic-system-provided|' setup.cfg
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -92,7 +92,7 @@ rm -rf html/.{doctrees,buildinfo}
 
 %check
 # Most tests based on libmagic fail
-# https://github.com/nexB/typecode/issues/36
+# https://github.com/aboutcode-org/typecode/issues/36
 %pytest -k 'not TestContentTypeComplex and not TestFileTypesDataDriven and not TestEntropy'
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}

@@ -72,6 +72,8 @@ Requires:       python%{python3_pkgversion}-numpy
 Requires:       python%{python3_pkgversion}-six
 Requires:       python%{python3_pkgversion}-numexpr >= 2.4
 %{?python_provide:%python_provide python%{python3_pkgversion}-tables}
+Recommends:     python%{python3_pkgversion}-doc
+Conflicts:      python%{python3_pkgversion}-doc < %{version}-%{release}
 
 %description -n python%{python3_pkgversion}-tables %_description
 

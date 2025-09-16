@@ -1,12 +1,12 @@
 %global pypi_name saneyaml
 
 Name:           python-%{pypi_name}
-Version:        0.6.0
+Version:        0.6.1
 Release:        %autorelease
 Summary:        Cleaner, simpler, safer and saner YAML parsing/serialization in Python
 
 License:        Apache-2.0
-URL:            https://github.com/nexB/saneyaml
+URL:            https://github.com/aboutcode-org/saneyaml
 Source:         %url/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
 
 BuildArch:      noarch

@@ -2,6 +2,9 @@
 # Related: https://github.com/rust-lang/rust/issues/118018
 %bcond rust_vendorized 1
 
+# For non-Fedora builds
+%bcond dkms 0
+
 # Fails to compile at the moment and is totally broken
 %bcond fuse 0
 
@@ -12,8 +15,8 @@
 %global make_opts VERSION="%{version}" %{?with_fuse:BCACHEFS_FUSE=1} %{!?with_rust:NO_RUST=1} BUILD_VERBOSE=1 PREFIX=%{_prefix} ROOT_SBINDIR=%{_sbindir}
 
 Name:           bcachefs-tools
-Version:        1.25.2
-Release:        2%{?dist}
+Version:        1.31.0
+Release:        1%{?dist}
 Summary:        Userspace tools for bcachefs
 
 # --- rust ---
@@ -71,6 +74,10 @@ BuildRequires:  clang-devel
 BuildRequires:  llvm-devel
 %endif
 
+%if %{with dkms}
+Requires:       (dkms-bcachefs = %{version}-%{release} if kernel-core%{?_isa})
+%endif
+
 # Rust parts FTBFS on 32-bit arches
 ExcludeArch:    %{ix86} %{arm32}
 
@@ -100,21 +107,64 @@ check, modify and correct any inconsistencies in the bcachefs filesystem.
 %if %{with fuse}
 %dnl ----------------------------------------------------------------------------
 
-%package fuse
+%package -n fuse-bcachefs
 Summary:        FUSE implementation of bcachefs
 BuildRequires:  pkgconfig(fuse3) >= 3.7
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Obsoletes:      %{name}-fuse < %{version}-%{release}
+Provides:       %{name}-fuse = %{version}-%{release}
+Provides:       %{name}-fuse%{?_isa} = %{version}-%{release}
 
-%description fuse
-The bcachefs-tools-fuse package is an experimental implementation of bcachefs-tools
-leveraging FUSE to mount, create, check, modify and correct any inconsistencies in
-the bcachefs filesystem.
+%description -n fuse-bcachefs
+This package is an experimental implementation of bcachefs leveraging FUSE to
+mount, create, check, modify and correct any inconsistencies in the bcachefs filesystem.
 
-%files fuse
+%files -n fuse-bcachefs
 %license COPYING
 %{_sbindir}/mount.fuse.bcachefs
 %{_sbindir}/fsck.fuse.bcachefs
 %{_sbindir}/mkfs.fuse.bcachefs
+
+%dnl ----------------------------------------------------------------------------
+%endif
+
+%if %{with dkms}
+%dnl ----------------------------------------------------------------------------
+
+%package -n dkms-bcachefs
+Summary:        Bcachefs kernel module managed by DKMS
+Requires:       diffutils
+Requires:       dkms >= 3.2.1
+Requires:       gcc
+Requires:       make
+Requires:       perl
+Requires:       python3
+
+Requires:       %{name} = %{version}-%{release}
+
+BuildArch:      noarch
+
+%description -n dkms-bcachefs
+This package is an implementation of bcachefs built using DKMS to offer the kernel
+module to mount, create, check, modify and correct any inconsistencies in the bcachefs
+filesystem.
+
+%preun -n dkms-bcachefs
+if [  "$(dkms status -m bcachefs -v %{version})" ]; then
+   dkms remove -m bcachefs -v %{version} --all --rpm_safe_upgrade
+fi
+
+%post -n dkms-bcachefs
+if [ "$1" -ge "1" ]; then
+   if [ -f /usr/lib/dkms/common.postinst ]; then
+      /usr/lib/dkms/common.postinst bcachefs %{version}
+      exit $?
+   fi
+fi
+
+%files -n dkms-bcachefs
+%license COPYING
+%{_usrsrc}/bcachefs-%{version}/
 
 %dnl ----------------------------------------------------------------------------
 %endif
@@ -161,8 +211,15 @@ rm -rfv %{buildroot}/%{_datadir}/initramfs-tools
 rm -rf %{buildroot}%{_sbindir}/*.fuse.bcachefs
 %endif
 
+%if %{with dkms}
+make install_dkms DESTDIR=%{buildroot} %{make_opts}
+%endif
+
 
 %changelog
+* Sun Sep 14 2025 Neal Gompa <ngompa@fedoraproject.org> - 1.31.0-1
+- Update to 1.31.0
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.25.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

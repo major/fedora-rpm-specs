@@ -5,7 +5,7 @@
 %global crate async-fs
 
 Name:           rust-async-fs
-Version:        2.1.3
+Version:        2.2.0
 Release:        %autorelease
 Summary:        Async filesystem primitives
 

@@ -2,7 +2,7 @@
 %global github_name tools-python
 
 Name:           python-%{pypi_name}
-Version:        0.8.2
+Version:        0.8.3
 Release:        %autorelease
 Summary:        Python library to parse, validate and create SPDX documents
 

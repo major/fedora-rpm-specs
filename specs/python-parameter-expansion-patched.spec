@@ -6,8 +6,11 @@ Release:        %autorelease
 Summary:        POSIX Parameter Expansion in Python
 
 License:        Apache-2.0
-URL:            https://github.com/nexB/parameter_expansion_patched
+URL:            https://github.com/aboutcode-org/parameter_expansion_patched
 Source:         %{pypi_source}
+# Update project references
+# https://github.com/aboutcode-org/parameter_expansion_patched/commit/3f6a1ddfc25d199c8be9699d4edbbce3787c6699
+Patch:          0001-Update_link_references_of_ownership_from_nexB_to_aboutcode-org.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

@@ -8,6 +8,8 @@ License:          GPL-2.0-or-later
 URL:              https://www.ginac.de/
 Source0:          https://www.ginac.de/%{name}-%{version}.tar.bz2
 
+Patch:            cmake-minimum-version.diff
+
 BuildRequires:    gcc-c++
 BuildRequires:    bison
 BuildRequires:    cln-devel

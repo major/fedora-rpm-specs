@@ -1,5 +1,5 @@
 %global pypi_name   pymaven-patch
-%global forgeurl    https://github.com/nexB/pymaven
+%global forgeurl    https://github.com/aboutcode-org/pymaven
 Version:            0.3.2
 %global tag         0.3.2
 
@@ -12,6 +12,9 @@ Summary:        Library for working with Maven repositories via Python
 License:        Apache-2.0
 URL:            %forgeurl
 Source:         %forgesource
+# Update project references
+# https://github.com/aboutcode-org/pymaven/commit/b92cd5f3f1ed7967bc0c0b9ad57af6827e17b612
+Patch:          0001-Update_link_references_of_ownership_from_nexB_to_aboutcode-org.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

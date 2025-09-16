@@ -1,9 +1,11 @@
+# https://bugzilla.redhat.com/show_bug.cgi?id=2394765
+%global _lto_cflags %nil
 %undefine __cmake_in_source_build
 %define major 2
 %define minor 10
 Name:           cpprest
 Version:        2.10.19
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        C++ REST library
 License:        MIT
 Url:            https://github.com/Microsoft/cpprestsdk
@@ -95,6 +97,10 @@ cd Release/%{_vpath_builddir}/Binaries
 
 
 %changelog
+* Sun Sep 14 2025 Wolfgang Stöggl <c72578@yahoo.de> - 2.10.19-8
+- Disable link time optimization (LTO)
+- Fixes: #2394765
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.19-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

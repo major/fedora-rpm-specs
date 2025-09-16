@@ -2,7 +2,7 @@
 %global gem_name rchardet
 
 Name: rubygem-%{gem_name}
-Version: 1.9.0
+Version: 1.10.0
 Release: %autorelease
 Summary: Character encoding auto-detection in Ruby
 # Automatically converted from old format: LGPLv2 - review is highly recommended.

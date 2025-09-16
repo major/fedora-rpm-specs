@@ -12,7 +12,7 @@
 %global debug_package %{nil}
 
 Name:           python-%{srcname}
-Version:        2025.4.1
+Version:        2025.9.0
 %global tag     %{version}
 Release:        %autorelease
 Summary:        Parallel PyData with Task Scheduling
@@ -26,12 +26,10 @@ Patch:          0001-Remove-extra-test-dependencies.patch
 Patch:          0002-XFAIL-test-if-NotImplementedError-is-raised.patch
 # https://github.com/dask/dask/issues/12043
 Patch:          0003-TST-Fall-back-to-cloudpickle-in-more-cases.patch
-# https://github.com/dask/dask/pull/12047
-Patch:          0004-TST-Fix-test_enforce_columns-on-Python-3.14.patch
 # Allow an xfail to pass; may be due to the warning filter later.
-Patch:          0005-Mark-test_combine_first_all_nans-as-a-non-strict-xfa.patch
-# Fix compatibility with latest Pandas.
-Patch:          https://github.com/dask/dask/commit/7751beb21807fa7f206079b8f69bf887ec16a199.patch
+Patch:          0004-Mark-test_combine_first_all_nans-as-a-non-strict-xfa.patch
+# Partially revert https://github.com/dask/dask/pull/11977 by re-enabling an xfail.
+Patch:          0005-Restore-xfail-on-test_to_hdf_scheduler_distributed.patch
 
 # Stop building on i686
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval

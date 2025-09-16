@@ -13,6 +13,7 @@ BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: rubygem(flexmock) 
 BuildRequires: rubygem(test-unit)
+BuildRequires: rubygem(base64)
 BuildArch: noarch
 
 %description

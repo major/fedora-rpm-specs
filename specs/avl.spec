@@ -1,21 +1,20 @@
 Name:           avl
-Version:        3.36
-Release:        21%{?dist}
+Version:        3.52
+Release:        1%{?dist}
 Summary:        Aerodynamic and flight-dynamic analysis of rigid aircrafts
 
 # Plotlib is LGPLv2+, the rest is GPLv2+
-# Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
-License:        GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
+License:        GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:            http://web.mit.edu/drela/Public/web/avl/
 Source0:        http://web.mit.edu/drela/Public/web/avl/avl%{version}.tgz
 # The package does not ship a license file
 Source1:        LICENSE.GPL
 Source2:        LICENSE.LGPL
-# Makefile variables and flags
-Patch0:         avl3.36-makefile.patch
 
 BuildRequires:  gcc-gfortran
+BuildRequires:  libharu-devel
 BuildRequires:  libX11-devel
+BuildRequires:  openblas-devel
 BuildRequires:  make
 Requires:       xorg-x11-fonts-misc
 
@@ -29,31 +28,31 @@ together with specified mass properties.
 
 
 %prep
-%autosetup -p1 -n Avl
+%autosetup -p1 -n AVL3.52rel09032025
 cp %{SOURCE1} .
 cp %{SOURCE2} .
 
 
 %build
-export FFLAGS="%{optflags}"
-export CFLAGS="%{optflags}"
-
-%make_build -C plotlib
-%make_build -C eispack
-%make_build -C bin
+%make_build -C plotlib gfortranDP CFLAGS="%{optflags} -DUNDERSCORE -DDBL_ARGS" FFLAGS="%{optflags}"
+%make_build -C eispack -f Makefile.gfortran FLG="%{optflags}"
+%make_build -C bin FFLAGS="%{optflags}"
 
 
 %install
-%make_install -C bin BINDIR=%{_bindir}
+install -Dpm 0755 bin/avl %{buildroot}%{_bindir}/avl
 
 
 %files
-%doc version_notes.txt avl_doc.txt session1.txt session2.txt
+%doc version_notes.txt avl_doc*.txt session1.txt session2.txt
 %license LICENSE.GPL LICENSE.LGPL
 %{_bindir}/avl
 
 
 %changelog
+* Thu Sep 04 2025 Sandro Mani <manisandro@gmail.com> - 3.52-1
+- Update to 3.52
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.36-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

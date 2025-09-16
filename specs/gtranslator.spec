@@ -1,17 +1,20 @@
+%global app_id	org.gnome.Gtranslator
+
 Name:		gtranslator
-Version:	48.0
-Release:	2%{?dist}
+Version:	49.0
+Release:	1%{?dist}
 Summary:	Gettext po file editor for GNOME
 
 # Sources are GPL-2.0-or-later and GPL-3.0-or-later, help is CC-BY-SA-3.0 and
 # AppData is CC0-1.0.
 License:	GPL-2.0-or-later AND GPL-3.0-or-later AND CC-BY-SA-3.0 AND CC0-1.0
 URL:		https://wiki.gnome.org/Apps/Gtranslator
-Source0:	https://download.gnome.org/sources/%{name}/48/%{name}-%{version}.tar.xz
+Source0:	https://download.gnome.org/sources/%{name}/49/%{name}-%{version}.tar.xz
 
 BuildRequires:	desktop-file-utils
 BuildRequires:	gettext-devel
 BuildRequires:	itstool
+BuildRequires:	libappstream-glib
 BuildRequires:	meson
 BuildRequires:	pkgconfig(gio-2.0)
 BuildRequires:	pkgconfig(glib-2.0)
@@ -20,15 +23,14 @@ BuildRequires:	pkgconfig(gthread-2.0)
 BuildRequires:	pkgconfig(gtk4) >= 4.12.0
 BuildRequires:	pkgconfig(gtksourceview-5)
 BuildRequires:	pkgconfig(json-glib-1.0)
-BuildRequires:	pkgconfig(libadwaita-1) >= 1.5.99
-BuildRequires:	pkgconfig(libgda-6.0)
+BuildRequires:	pkgconfig(libadwaita-1) >= 1.7.99
 BuildRequires:	pkgconfig(libsoup-3.0)
 BuildRequires:	pkgconfig(libspelling-1)
 BuildRequires:	pkgconfig(libxml-2.0)
+BuildRequires:	pkgconfig(sqlite3)
 
 Requires:	hicolor-icon-theme
 Requires:	gsettings-desktop-schemas
-Requires:	libgda-sqlite%{?_isa}
 
 %description
 gtranslator is an enhanced gettext po file editor for the GNOME
@@ -48,20 +50,28 @@ replace functions, auto translation, and translation learning,
 
 %find_lang %{name} --with-gnome
 
+%check
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{app_id}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{app_id}.appdata.xml
+
 %files -f %{name}.lang
 %license COPYING
 %doc AUTHORS NEWS README.md THANKS
 %{_bindir}/gtranslator
-%{_datadir}/applications/org.gnome.Gtranslator*.desktop
-%{_datadir}/icons/hicolor/*/apps/org.gnome.Gtranslator*.svg
-%{_datadir}/glib-2.0/schemas/org.gnome.Gtranslator.gschema.xml
+%{_datadir}/applications/%{app_id}.desktop
+%{_datadir}/dbus-1/services/%{app_id}.service
+%{_datadir}/icons/hicolor/*/apps/%{app_id}*.svg
+%{_datadir}/glib-2.0/schemas/%{app_id}.gschema.xml
 %{_datadir}/glib-2.0/schemas/org.gnome.gtranslator.plugins.translation-memory.gschema.xml
 %{_datadir}/gtksourceview-5/language-specs/gtranslator.lang
 %{_datadir}/gtranslator/
-%{_metainfodir}/org.gnome.Gtranslator.appdata.xml
+%{_metainfodir}/%{app_id}.appdata.xml
 %{_mandir}/man1/gtranslator.1*
 
 %changelog
+* Sun Sep 14 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 49.0-1
+- Update to 49.0
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 48.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

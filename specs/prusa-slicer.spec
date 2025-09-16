@@ -7,7 +7,7 @@
 %endif
 
 Name:           prusa-slicer
-Version:        2.9.2
+Version:        2.9.3
 Release:        %autorelease
 Summary:        3D printing slicer optimized for Prusa printers
 

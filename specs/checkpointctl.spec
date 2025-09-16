@@ -85,4 +85,10 @@ install -Dpm 0644 ./docs/%{name}*.1 -t %{buildroot}%{_mandir}/man1/
 %{zsh_completions_dir}/_%{name}
 
 %changelog
+* Sun Sep 14 2025 Radostin Stoyanov <rstoyanov@fedoraproject.org> - 1.4.0-3
+- Rebuilding
+
+* Sun Sep 14 2025 Radostin Stoyanov <rstoyanov@fedoraproject.org> - 1.4.0-2
+- Bump epoch to 1 to fix the upgrade path.
+
 %autochangelog

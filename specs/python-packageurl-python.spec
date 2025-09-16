@@ -1,7 +1,7 @@
 %global pypi_name packageurl-python
 
 Name:           python-%{pypi_name}
-Version:        0.16.0
+Version:        0.17.5
 Release:        %autorelease
 Summary:        Python implementation of the package url spec
 
@@ -26,6 +26,7 @@ Summary:        %{summary}
 
 %prep
 %autosetup -p1 -n %{pypi_name}-%{version}
+rm -rfv thirdparty/
 
 %generate_buildrequires
 %pyproject_buildrequires

@@ -6,7 +6,7 @@ Release:        %autorelease
 Summary:        Craft simple regex-based small language lexers and parser
 
 License:        Apache-2.0
-URL:            https://github.com/nexB/pygmars
+URL:            https://github.com/aboutcode-org/pygmars
 Source:         %url/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
 
 BuildArch:      noarch

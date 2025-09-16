@@ -5,7 +5,7 @@
 
 # https://github.com/charlievieth/fastwalk
 %global goipath         github.com/charlievieth/fastwalk
-Version:                1.0.12
+Version:                1.0.14
 
 %gometa -L -f
 
@@ -39,11 +39,6 @@ Source:         %{gosource}
 
 %if %{with check}
 %check
-%ifarch s390x
-# Remove buggy test.
-# https://github.com/charlievieth/fastwalk/issues/61#issuecomment-3017638504
-rm internal/dirent/endian_test.go
-%endif
 %gocheck
 %endif
 

@@ -1,7 +1,7 @@
 %bcond_without mingw
 
 Name:     inih
-Version:  61
+Version:  62
 Release:  1%{?dist}
 Summary:  Simple INI file parser library
 
@@ -133,6 +133,9 @@ MinGW Windows %{name} library.
 
 
 %changelog
+* Sun Sep 14 2025 Sandro Mani <manisandro@gmail.com> - 62-1
+- Update to 62
+
 * Sun Jul 27 2025 Sandro Mani <manisandro@gmail.com> - 61-1
 - Update to 61
 
