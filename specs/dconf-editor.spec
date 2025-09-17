@@ -5,7 +5,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           dconf-editor
-Version:        49~rc
+Version:        49.0
 Release:        %autorelease
 Summary:        Configuration editor for dconf
 

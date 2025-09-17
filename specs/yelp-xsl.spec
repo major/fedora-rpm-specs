@@ -1,7 +1,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           yelp-xsl
-Version:        49~beta
+Version:        49.0
 Release:        1%{?dist}
 Summary:        XSL stylesheets for the yelp help browser
 
@@ -55,6 +55,9 @@ XSL stylesheets in yelp-xsl.
 
 
 %changelog
+* Mon Sep 15 2025 Michael Catanzaro <mcatanzaro@gnome.org> - 49.0-1
+- Update to 49.0
+
 * Tue Aug 05 2025 Marek Kasik <mkasik@redhat.com> - 49~beta-1
 - Update to 49.beta
 

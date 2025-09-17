@@ -1,5 +1,5 @@
 Name:           tldr
-Version:        3.4.1
+Version:        3.4.2
 Release:        %autorelease
 Summary:        Simplified and community-driven man pages
 

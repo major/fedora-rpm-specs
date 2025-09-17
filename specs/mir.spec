@@ -35,7 +35,7 @@
 
 Name:           mir
 Version:        2.22.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Next generation Wayland display server toolkit
 
 # mircommon is LGPL-2.1-only/LGPL-3.0-only, everything else is GPL-2.0-only/GPL-3.0-only
@@ -46,6 +46,8 @@ Source0:        https://github.com/canonical/%{name}/releases/download/v%{versio
 # Proposed upstream
 ## Fixes Mir on NVIDIA hardware
 Patch101:       https://github.com/canonical/mir/pull/4155.patch
+## Fixes crashes with fractional cursor scaling
+Patch102:       https://github.com/canonical/mir/pull/4161.patch
 
 %if %{with ccache}
 BuildRequires:  ccache
@@ -324,6 +326,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/miral-shell.desktop
 
 
 %changelog
+* Mon Sep 15 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.22.0-2
+- Backport fix for Mir crashing with cursor scaling
+
 * Fri Aug 29 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.22.0-1
 - Update to 2.22.0
 - Add patch to fix running on NVIDIA hardware without EGLStreams support

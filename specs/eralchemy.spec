@@ -2,27 +2,20 @@
 %global desc \
 ERAlchemy generates Entity Relation (ER) diagram (like the one below) from \
 databases or from SQLAlchemy models.
-%global srcname ERAlchemy
 
 Name:           eralchemy
-Version:        1.2.10
-Release:        27%{?dist}
+Version:        1.5.0
+Release:        1%{?dist}
 Summary:        %{sum}
 
-# Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
-URL:            https://github.com/Alexis-benoist/eralchemy
+URL:            https://github.com/eralchemy/eralchemy
 Source0:        %pypi_source
 
-BuildArch:      noarch
-
 Requires:       python3-%name = %version-%release
-
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 
-Patch:          ERAlchemy-1.2.10-compat-with-sqlalchemy-1.4.patch
-Patch1:         ERAlchemy-1.2.10-setup-py-version.patch
+BuildArch:      noarch
 
 %description
 %desc
@@ -35,33 +28,47 @@ Summary:        %sum
 %desc
 
 
+%generate_buildrequires
+#%%pyproject_buildrequires -x test
+# -x test
+%pyproject_buildrequires
+
+
 %prep
-%autosetup -p1 -n %srcname-%version
+%setup -q
+
+sed -i 's/graphviz >= 0.20.3/graphviz/' pyproject.toml
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l eralchemy
 
 
 %check
+# https://github.com/eralchemy/eralchemy/issues/154
+#%%pyproject_check_import
+#%%pytest
 
 
 %files
-%doc readme.md
+%license LICENSE
+%doc README.md
 %_bindir/eralchemy
 
 
-%files -n python3-%name
-%python3_sitelib/ERAlchemy-%version-*.egg-info
-%python3_sitelib/eralchemy/*.py
-%python3_sitelib/eralchemy/__pycache__
+%files -n python3-%name -f %pyproject_files
+%license LICENSE
 
 
 %changelog
+* Mon Sep 15 2025 Pavel Raiskup <praiskup@redhat.com> - 1.5.0-1
+- new upstream source, resolves: rhbz#2313288
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.2.10-27
 - Rebuilt for Python 3.14.0rc2 bytecode
 

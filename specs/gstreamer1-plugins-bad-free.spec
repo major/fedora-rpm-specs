@@ -28,8 +28,8 @@
 #global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
 
 Name:           gstreamer1-plugins-bad-free
-Version:        1.26.5
-Release:        4%{?dist}
+Version:        1.26.6
+Release:        1%{?dist}
 Summary:        GStreamer streaming media framework "bad" plugins
 
 # Automatically converted from old format: LGPLv2+ and LGPLv2 - review is highly recommended.
@@ -890,6 +890,9 @@ EOF
 
 
 %changelog
+* Mon Sep 15 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.26.6-1
+- 1.26.6
+
 * Wed Aug 13 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 1.26.5-4
 - Move sbc to main package
 

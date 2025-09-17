@@ -2,14 +2,15 @@
 %global libzen_version          0.4.41
 
 Name:           mediaconch
-Version:        23.10
-Release:        7%{?dist}
+Version:        25.04
+Release:        1%{?dist}
 Summary:        Most relevant technical and tag data for video and audio files (CLI)
 
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
 URL:            https://mediaarea.net/MediaConch/
 Source0:        https://mediaarea.net/download/source/%{name}/%{version}/%{name}_%{version}.tar.xz
+Patch0:         https://github.com/MediaArea/MediaConch_SourceCode/pull/803.patch
 
 BuildRequires: make
 BuildRequires:  gcc-c++
@@ -24,14 +25,14 @@ BuildRequires:  pkgconfig(libxslt)
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(sqlite3)
 BuildRequires:  pkgconfig(libevent)
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qtwebengine-devel
+BuildRequires:  qt6-qtbase-devel
+BuildRequires:  qt6-qtwebengine-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  pkgconfig(jansson)
 BuildRequires:  systemd
 BuildRequires:  libappstream-glib
 
-ExclusiveArch:  %{qt5_qtwebengine_arches}
+ExclusiveArch:  %{qt6_qtwebengine_arches}
 
 
 %description
@@ -73,7 +74,7 @@ This project is maintained by MediaArea and funded by PREFORMA.
 This package includes the server.
 
 %prep
-%autosetup -n MediaConch
+%autosetup -n MediaConch -p1
 rm -rf Source/ThirdParty/sqlite
 sed -i 's/.$//' *.txt *.html Release/*.txt
 
@@ -104,7 +105,7 @@ popd
 
 # now build GUI
 pushd Project/Qt
-    %{qmake_qt5}
+    %{qmake_qt6}
     %make_build
 popd
 
@@ -180,6 +181,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/*.appdata
 
 
 %changelog
+* Sun Sep 14 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 25.04-1
+- Update to 25.04
+- Build with Qt6
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 23.10-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -71,6 +71,9 @@ find %{buildroot}/%{_libdir}/ -name  '*.a' -delete
 
 
 %changelog
+* Mon Sep 15 2025 Ingvar Hagelund <ingvar@redpill-linpro.com> - 1.10-25
+- Rebuild for varnish-7.7.3
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

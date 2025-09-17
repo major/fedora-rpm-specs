@@ -2,7 +2,7 @@
 %global major_version %%(echo %%{tarball_version} | awk -F. '{print $1}')
 
 Name:           gnome-font-viewer
-Version:        49~rc
+Version:        49.0
 Release:        1%{?dist}
 Summary:        Utility for previewing fonts for GNOME
 
@@ -57,6 +57,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.gnome.font
 %{_metainfodir}/org.gnome.font-viewer.appdata.xml
 
 %changelog
+* Mon Sep 15 2025 Michael Catanzaro <mcatanzaro@gnome.org> - 49.0-1
+- Update to 49.0
+
 * Thu Sep 04 2025 Michael Catanzaro <mcatanzaro@gnome.org> - 49~rc-1
 - Update to 49.rc
 

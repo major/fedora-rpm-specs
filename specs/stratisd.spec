@@ -4,7 +4,7 @@
 %global dracutdir %(pkg-config --variable=dracutdir dracut)
 
 Name:           stratisd
-Version:        3.8.4
+Version:        3.8.5
 Release:        %autorelease
 Summary:        Daemon that manages block devices to create filesystems
 
@@ -151,12 +151,12 @@ a2x -f manpage docs/stratis-dumpmetadata.txt
 
 %files dracut
 %license LICENSE
-%{dracutdir}/modules.d/90stratis-clevis/module-setup.sh
-%{dracutdir}/modules.d/90stratis-clevis/stratis-clevis-rootfs-setup
-%{dracutdir}/modules.d/90stratis/61-stratisd.rules
-%{dracutdir}/modules.d/90stratis/module-setup.sh
-%{dracutdir}/modules.d/90stratis/stratis-rootfs-setup
-%{dracutdir}/modules.d/90stratis/stratisd-min.service
+%{dracutdir}/modules.d/50stratis-clevis/module-setup.sh
+%{dracutdir}/modules.d/50stratis-clevis/stratis-clevis-rootfs-setup
+%{dracutdir}/modules.d/50stratis/61-stratisd.rules
+%{dracutdir}/modules.d/50stratis/module-setup.sh
+%{dracutdir}/modules.d/50stratis/stratis-rootfs-setup
+%{dracutdir}/modules.d/50stratis/stratisd-min.service
 %{_systemd_util_dir}/system-generators/stratis-clevis-setup-generator
 %{_systemd_util_dir}/system-generators/stratis-setup-generator
 

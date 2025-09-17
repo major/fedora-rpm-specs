@@ -13,7 +13,6 @@ License:        BSD-2-Clause
 URL:            https://github.com/aboutcode-org/scancode-plugins
 Source:         %{pypi_source %{pypi_name_with_underscore}}
 Patch:          remove-unused-licenses.patch
-Patch:          name-fix.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -27,7 +26,7 @@ locations.}
 
 %package -n python3-%{wheel_name}
 Summary:        %{summary}
-Requires:       file-devel
+Requires:       file-libs
 
 %description -n python3-%{wheel_name} %{common_description}
 

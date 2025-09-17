@@ -14,13 +14,13 @@
 
 # upstream can produce releases with a different tag than the SDK version
 #%%global upstream_tag v%%{runtime_version}
-%global upstream_tag v9.0.109
+%global upstream_tag v9.0.110
 %global upstream_tag_without_v %(echo %{upstream_tag} | sed -e 's|^v||')
 
 %global hostfxr_version %{runtime_version}
-%global runtime_version 9.0.8
-%global aspnetcore_runtime_version 9.0.8
-%global sdk_version 9.0.109
+%global runtime_version 9.0.9
+%global aspnetcore_runtime_version 9.0.9
+%global sdk_version 9.0.110
 %global sdk_feature_band_version %(echo %{sdk_version} | cut -d '-' -f 1 | sed -e 's|[[:digit:]][[:digit:]]$|00|')
 %global templates_version %{aspnetcore_runtime_version}
 #%%global templates_version %%(echo %%{runtime_version} | awk 'BEGIN { FS="."; OFS="." } {print $1, $2, $3+1 }')
@@ -126,6 +126,8 @@ Patch1:         runtime-openssl-sha1.patch
 Patch2:         runtime-disable-fortify-on-ilasm-parser.patch
 # Fix parsing a test project on ppc64le
 Patch3:         roslyn-analyzers-ppc64le-apphost.patch
+# https://github.com/dotnet/runtime/issues/119706
+Patch4:         runtime-119706-clang-21.patch
 
 
 ExclusiveArch:  aarch64 ppc64le s390x x86_64
@@ -897,6 +899,9 @@ export COMPlus_LTTng=0
 
 
 %changelog
+* Wed Sep 10 2025 Omair Majid <omajid@redhat.com> - 9.0.110-1
+- Update to .NET SDK 9.0.110 and Runtime 9.0.9
+
 * Wed Aug 06 2025 Omair Majid <omajid@redhat.com> - 9.0.109-1
 - Update to .NET SDK 9.0.109 and Runtime 9.0.8
 

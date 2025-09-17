@@ -5,7 +5,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           snapshot
-Version:        49~rc
+Version:        49.0
 Release:        %autorelease
 Summary:        Take pictures and videos
 
@@ -75,7 +75,7 @@ Requires:       glycin-loaders >= 1.1
 # For hicolor icon theme directories
 Requires:       hicolor-icon-theme
 
-Provides:       bundled(crate(aperture)) = 0.7.0
+Provides:       bundled(crate(aperture)) = 0.11.0
 
 %description
 Take pictures and videos on your computer, tablet, or phone.

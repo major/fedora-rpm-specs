@@ -8,8 +8,8 @@
 #
 
 
-%global gh_commit    a0139ea157533454f611038326f3020b3051f129
-%global gh_date      2025-09-11
+%global gh_commit    0a9aa4440b6a9528cf360071502628d717af3e0a
+%global gh_date      2025-09-14
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   phpunit
@@ -22,7 +22,7 @@
 %global ver_major    9
 %global ver_minor    6
 
-%global upstream_version 9.6.26
+%global upstream_version 9.6.27
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
@@ -256,6 +256,9 @@ exit $ret
 
 
 %changelog
+* Mon Sep 15 2025 Remi Collet <remi@remirepo.net> - 9.6.27-1
+- update to 9.6.27
+
 * Thu Sep 11 2025 Remi Collet <remi@remirepo.net> - 9.6.26-1
 - update to 9.6.26
 

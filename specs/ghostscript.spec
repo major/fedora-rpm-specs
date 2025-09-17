@@ -46,8 +46,8 @@
 
 Name:             ghostscript
 Summary:          Interpreter for PostScript language & PDF
-Version:          10.05.1
-Release:          5%{?dist}
+Version:          10.06.0
+Release:          1%{?dist}
 
 License:          AGPL-3.0-or-later
 
@@ -119,6 +119,8 @@ BuildRequires:    make
 #Patch000: example000.patch
 # put pdf2dsc back for gv
 Patch001: 0001-Reinstate-pdf2dsc.patch
+# https://cgit.ghostscript.com/cgi-bin/cgit.cgi/ghostpdl.git/commit/?id=3c0be6e4fcffa6
+Patch002: 0001-Fix-32-bit-build.patch
 
 
 # Downstream patches -- these should be always included when doing rebase:
@@ -257,7 +259,9 @@ git add --all --force .
 git commit --all --amend --no-edit > /dev/null
 
 %if %{with pdf2dsc}
-%patch -p1 1
+%autopatch
+%else
+%autopatch -m 2
 %endif
 # ---------------
 
@@ -484,6 +488,9 @@ done
 # =============================================================================
 
 %changelog
+* Mon Sep 15 2025 Zdenek Dohnal <zdohnal@redhat.com> - 10.06.0-1
+- ghostscript-10.06.0 is available (fedora#2394134)
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 10.05.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

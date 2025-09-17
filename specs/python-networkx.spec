@@ -1,6 +1,6 @@
 # There is a bootstrap loop between libpysal and networkx when tests/docs are
 # enabled
-%bcond bootstrap 1
+%bcond bootstrap 0
 
 # Whether to create the extras package
 %bcond extras  %[%{without bootstrap} && !0%{?rhel}]
@@ -40,9 +40,11 @@ Patch:          %{name}-doc.patch
 Patch:          %{name}-intersphinx.patch
 
 BuildArch:      noarch
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): %{?with_doctest:-x doc,example,extra,test}
+BuildOption(install): -l networkx
 
 BuildRequires:  make
-BuildRequires:  python3-devel
 
 %if %{with doctest}
 # Tests
@@ -137,22 +139,14 @@ sed -i 's,https://networkx.org/documentation/latest/,,' doc/conf.py
 # Use a free font instead of a proprietary font
 sed -i 's/Helvetica/sans-serif/' examples/drawing/plot_chess_masters.py
 
-%generate_buildrequires
-%pyproject_buildrequires %{?with_doctest:-x doc,example,extra,test}
-
-%build
-%pyproject_wheel
-
+%build -a
 %if %{with doctest}
 # Build the documentation
 PYTHONPATH=$PWD/build/lib make -C doc html
 rst2html --no-datestamp README.rst README.html
 %endif
 
-%install
-%pyproject_install
-%pyproject_save_files -l networkx
-
+%install -a
 %if %{with doctest}
 # Repack uncompressed zip archives
 for fil in $(find doc/build -name \*.zip); do

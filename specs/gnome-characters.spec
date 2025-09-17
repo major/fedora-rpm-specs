@@ -7,7 +7,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:		gnome-characters
-Version:	49~rc
+Version:	49.0
 Release:	1%{?dist}
 Summary:	Character map application for GNOME
 # Files from gtk-js-app are licensed under 3-clause BSD.
@@ -70,6 +70,9 @@ desktop-file-validate $RPM_BUILD_ROOT/%{_datadir}/applications/%{appname}.deskto
 
 
 %changelog
+* Mon Sep 15 2025 Michael Catanzaro <mcatanzaro@gnome.org> - 49.0-1
+- Update to 49.0
+
 * Thu Sep 04 2025 Michael Catanzaro <mcatanzaro@gnome.org> - 49~rc-1
 - Update to 49.rc
 

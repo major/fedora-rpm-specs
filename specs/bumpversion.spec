@@ -7,7 +7,7 @@
 
 Name:           bumpversion
 Version:        1.0.1
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Version-bump your software with a single command
 
 License:        MIT
@@ -37,8 +37,11 @@ commits and tags:
 %autosetup -n bump2version-%{version}
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %if %{with tests}
@@ -48,7 +51,7 @@ commits and tags:
 
 
 %install
-%py3_install
+%pyproject_install
 
 
 %files
@@ -56,10 +59,13 @@ commits and tags:
 %license LICENSE.rst
 %attr(0755,root,root) %{_bindir}/{bumpversion,bump2version}
 %{python3_sitelib}/bumpversion/
-%{python3_sitelib}/bump2version-%{version}*egg-info/
+%{python3_sitelib}/bump2version-%{version}.dist-info/
 
 
 %changelog
+* Wed Sep 10 2025 Federico Pellegrin <fede@evolware.org> - 1.0.1-15
+- Use new Python macros in spec file (rhbz#2377217)
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.0.1-14
 - Rebuilt for Python 3.14.0rc2 bytecode
 

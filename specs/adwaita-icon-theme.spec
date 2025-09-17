@@ -3,7 +3,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           adwaita-icon-theme
-Version:        49~rc
+Version:        49.0
 Release:        1%{?dist}
 Summary:        Adwaita icon theme
 
@@ -79,6 +79,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %{_datadir}/pkgconfig/adwaita-icon-theme.pc
 
 %changelog
+* Mon Sep 15 2025 Michael Catanzaro <mcatanzaro@gnome.org> - 49.0-1
+- Update to 49.0
+
 * Thu Sep 04 2025 Michael Catanzaro <mcatanzaro@gnome.org> - 49~rc-1
 - Update to 49.rc
 

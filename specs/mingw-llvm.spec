@@ -10,10 +10,10 @@
 
 
 %global pkgname llvm
-%global libver 20
+%global libver 21
 
 Name:          mingw-%{pkgname}
-Version:       21.1.0
+Version:       21.1.1
 Release:       1%{?dist}
 Summary:       LLVM for MinGW
 # Only on i686: ld: out of memory allocating 1174616688 bytes after a total of 1517842432 bytes
@@ -21,10 +21,12 @@ ExcludeArch:   i686
 
 License:       NCSA
 URL:           http://llvm.org
-Source0:       https://github.com/llvm/llvm-project/releases/download/llvmorg-%{version}/llvm-%{version}.src.tar.xz
-Source1:       https://github.com/llvm/llvm-project/releases/download/llvmorg-%{version}/cmake-%{version}.src.tar.xz
+Source0: https://github.com/llvm/llvm-project/releases/download/llvmorg-%{version}/llvm-project-%{version}.src.tar.xz
 # Set LLVM_INCLUDE_BENCHMARKS=OFF by default
 Patch0:        llvm-no-benchmarks.patch
+# Don't export all symbols
+# Avoid ld: error: export ordinal too large
+Patch1:        llvm-shlib-syms.patch
 
 BuildRequires: chrpath
 BuildRequires: make
@@ -99,14 +101,12 @@ LLVM for MinGW Windows - Runtime tools.
 
 
 %prep
-# Setup cmake support files
-%setup -T -q -b 1 -n cmake-%{version}.src
-mv ../cmake-%{version}.src ../cmake
-# Setup llvm itself
-%autosetup -p1 -n %{pkgname}-%{version}.src
+%autosetup -p1 -n llvm-project-%{version}.src
 
 
 %build
+pushd llvm
+
 # Decrease debuginfo verbosity to reduce memory consumption during final library linking
 # Technically only necessary on %%{arm}, but effectively needed everywhere to avoid the build failing due to
 #   The following noarch package built differently on different architectures: [...]
@@ -175,8 +175,12 @@ popd
 
 %mingw_make_build
 
+popd
+
 
 %install
+pushd llvm
+
 %mingw_make_install
 
 # Unversioned symlink
@@ -194,6 +198,8 @@ install -Dpm 0755 %{_vpath_builddir}/bin/llvm-tblgen %{buildroot}%{_prefix}/%{mi
 # Kill rpaths
 chrpath --delete %{buildroot}%{_prefix}/%{mingw32_target}/bin/llvm-tblgen
 chrpath --delete %{buildroot}%{_prefix}/%{mingw64_target}/bin/llvm-tblgen
+
+popd
 
 
 %files -n mingw32-%{pkgname}
@@ -244,6 +250,9 @@ chrpath --delete %{buildroot}%{_prefix}/%{mingw64_target}/bin/llvm-tblgen
 
 
 %changelog
+* Sun Sep 14 2025 Sandro Mani <manisandro@gmail.com> - 21.1.1-1
+- Update to 21.1.1
+
 * Mon Sep 08 2025 Sandro Mani <manisandro@gmail.com> - 21.1.0-1
 - Update to 21.1.0
 

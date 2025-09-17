@@ -5,15 +5,15 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-clocks
-Version:        48.0
-Release:        2%{?dist}
+Version:        49.0
+Release:        1%{?dist}
 Summary:        Clock application designed for GNOME 3
 
 # Sources are under GPL-2.0-or-later, Appdata is under CC0-1.0 and help is
 # under CC-BY-SA-3.0.
 License:        GPL-2.0-or-later AND CC-BY-SA-3.0 AND CC0-1.0
 URL:            https://wiki.gnome.org/Apps/Clocks
-Source0:        https://download.gnome.org/sources/gnome-clocks/48/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/gnome-clocks/49/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  meson
 BuildRequires:  desktop-file-utils
@@ -68,6 +68,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.clocks.d
 %{_metainfodir}/org.gnome.clocks.metainfo.xml
 
 %changelog
+* Mon Sep 15 2025 Michael Catanzaro <mcatanzaro@gnome.org> - 49.0-1
+- Update to 49.0
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 48.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

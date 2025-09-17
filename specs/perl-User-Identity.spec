@@ -1,6 +1,6 @@
 Name:           perl-User-Identity
-Version:        1.02
-Release:        8%{?dist}
+Version:        1.03
+Release:        1%{?dist}
 Summary:        Maintains info about a physical person
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/User-Identity
@@ -11,6 +11,7 @@ BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(:VERSION) >= 5.16
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Runtime
 BuildRequires:  perl(base)
@@ -20,10 +21,9 @@ BuildRequires:  perl(List::Util)
 BuildRequires:  perl(overload)
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(strict)
-BuildRequires:  perl(vars)
 # Test Suite
 BuildRequires:  perl(lib)
-BuildRequires:  perl(Test::More)
+BuildRequires:  perl(Test::More) >= 1
 BuildRequires:  perl(warnings)
 BuildRequires:  perl(Hash::Ordered)
 # Dependencies
@@ -65,6 +65,9 @@ make test
 %{_mandir}/man3/User::Identity::System.3*
 
 %changelog
+* Mon Sep 15 2025 Paul Howarth <paul@city-fan.org> - 1.03-1
+- Update perl-User-Identity to 1.03 (#2395190)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

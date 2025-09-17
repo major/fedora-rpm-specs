@@ -13,8 +13,8 @@
 %endif
 
 Name:           perl-MIME-Types
-Version:        2.28
-Release:        2%{?dist}
+Version:        2.29
+Release:        1%{?dist}
 Summary:        MIME types module for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MIME-Types
@@ -25,6 +25,7 @@ BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(:VERSION) >= 5.16
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Module Runtime
 BuildRequires:  perl(base)
@@ -40,11 +41,10 @@ BuildRequires:  perl(overload)
 BuildRequires:  perl(strict)
 # Test Suite
 BuildRequires:  perl(lib)
-BuildRequires:  perl(Test::More) >= 0.88
+BuildRequires:  perl(Test::More) >= 1
 BuildRequires:  perl(warnings)
 %if %{with perl_MIME_Types_enables_extra_test}
 # Extra Tests
-BuildRequires:  perl(Test::MinimumVersion)
 BuildRequires:  perl(Test::Pod) >= 1.00
 %endif
 # Dependencies
@@ -93,7 +93,7 @@ make test TEST_FILES="xt/*.t"
 %endif
 
 %files
-%doc ChangeLog README README.md
+%doc ChangeLog README.md
 %{perl_vendorlib}/MIME/
 %{_mandir}/man3/MIME::Type.3*
 %{_mandir}/man3/MIME::Types.3*
@@ -108,6 +108,14 @@ make test TEST_FILES="xt/*.t"
 %endif
 
 %changelog
+* Mon Sep 15 2025 Paul Howarth <paul@city-fan.org> - 2.29-1
+- Update to 2.29
+  - Require 5.16 (2012)
+  - Remove xt/98perl.t
+  - ::Type->defaultCharset()
+  - Remove use of bareword filehandle
+  - IANA updates
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.28-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

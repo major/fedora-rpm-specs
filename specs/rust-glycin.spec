@@ -3,21 +3,15 @@
 %global debug_package %{nil}
 
 %global crate glycin
-%global crate_version 3.0.0-rc
 
 Name:           rust-glycin
-Version:        3.0.0~rc
+Version:        3.0.0
 Release:        %autorelease
 Summary:        Sandboxed image decoding
 
 License:        MPL-2.0 OR LGPL-2.1-or-later
 URL:            https://crates.io/crates/glycin
-Source:         %{crates_source %{crate} %{crate_version}}
-
-# include upstream fix for compiling on 32-bit architectures
-Patch:          https://gitlab.gnome.org/GNOME/glycin/-/commit/14336e3.patch
-# include upstream fix for seccomp filter on aarch64 with SVE
-Patch:          https://gitlab.gnome.org/GNOME/glycin/-/commit/5977f6d.patch
+Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -102,8 +96,20 @@ use the "tokio" feature of the "%{crate}" crate.
 %files       -n %{name}+tokio-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+unstable-config-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+unstable-config-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "unstable-config" feature of the "%{crate}" crate.
+
+%files       -n %{name}+unstable-config-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %prep
-%autosetup -n %{crate}-%{crate_version} -p2
+%autosetup -n %{crate}-%{version} -p1
 %cargo_prep
 
 %generate_buildrequires

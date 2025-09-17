@@ -1,7 +1,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-logs
-Version:        49~rc
+Version:        49.0
 Release:        1%{?dist}
 Summary:        Log viewer for the systemd journal
 
@@ -59,6 +59,9 @@ A log viewer for the systemd journal.
 
 
 %changelog
+* Mon Sep 15 2025 Michael Catanzaro <mcatanzaro@gnome.org> - 49.0-1
+- Update to 49.0
+
 * Thu Sep 04 2025 Michael Catanzaro <mcatanzaro@gnome.org> - 49~rc-1
 - Update to 49.rc
 

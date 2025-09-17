@@ -16,8 +16,8 @@
 %endif
 
 Name:           gstreamer1
-Version:        1.26.5
-Release:        2%{?dist}
+Version:        1.26.6
+Release:        1%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 License:        LGPL-2.1-or-later
@@ -31,7 +31,6 @@ Source0:        http://gstreamer.freedesktop.org/src/gstreamer/gstreamer-%{versi
 %endif
 ## For GStreamer RPM provides
 Patch0:         0001-gst-inspect-add-mode-to-output-RPM-requires-format.patch
-Patch1:         9518.patch
 Source1:        gstreamer1.prov
 Source2:        gstreamer1.attr
 
@@ -95,7 +94,6 @@ GStreamer streaming media framework.
 %prep
 %setup -q -n gstreamer-%{version}
 %patch -P 0 -p3 -b .rpm-provides
-%patch -P 1 -p3 -b .gir
 
 %build
 %meson	\
@@ -211,6 +209,9 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 
 %changelog
+* Mon Sep 15 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.26.6-1
+- 1.26.6
+
 * Fri Aug 08 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.26.5-2
 - Introspection patch
 

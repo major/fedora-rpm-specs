@@ -2,14 +2,14 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           decibels
-Version:        48.0
+Version:        49.0
 Release:        %autorelease
 Summary:        Audio player for the GNOME desktop
 
 # one source file is GPLv2+ the rest are GPLv3
 License:        GPL-2.0-or-later and GPL-3.0-only
 URL:            https://www.gnome.org
-Source0:        https://download.gnome.org/sources/%{name}/48/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/49/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  meson
 BuildRequires:  libappstream-glib

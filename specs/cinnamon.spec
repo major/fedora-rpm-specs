@@ -15,8 +15,8 @@
 %global __python %{__python3}
 
 Name:           cinnamon
-Version:        6.4.9
-Release:        4%{?dist}
+Version:        6.4.12
+Release:        1%{?dist}
 Summary:        Window management and application launching for GNOME
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
@@ -35,7 +35,7 @@ Patch0:         set_wheel.patch
 Patch2:         default_panal_launcher.patch
 Patch3:         remove_crap_from_menu.patch
 Patch4:         Add_nightlight_applet.patch
-Patch5:         %url/pull/12849.patch#/root_fallback_polkit.patch
+Patch5:         %url/pull/13091.patch#/Use_DesktopAppInfo_from_GioUnix.patch
 
 ExcludeArch:    %{ix86}
 
@@ -351,6 +351,9 @@ EOF
 %endif
 
 %changelog
+* Mon Sep 15 2025 Leigh Scott <leigh123linux@gmail.com> - 6.4.12-1
+- Update to 6.4.12
+
 * Fri Sep 12 2025 Leigh Scott <leigh123linux@gmail.com> - 6.4.9-4
 - Rebuild for glib2-2.86 changes
 

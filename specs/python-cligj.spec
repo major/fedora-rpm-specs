@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.7.2
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Click params for GeoJSON CLI
 
 License:        BSD-3-Clause
@@ -12,8 +12,6 @@ Source0:        %{pypi_source}
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
-BuildRequires:  python3dist(click) >= 4
 BuildRequires:  python3dist(pytest)
 
 %description
@@ -33,27 +31,27 @@ Common arguments and options for GeoJSON processing commands, using Click.
 # README is executable
 chmod -x README.rst
 
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
-
+%pyproject_wheel
 
 %install
-%py3_install
-
+%pyproject_install
+%pyproject_save_files %{srcname}
 
 %check
 %{pytest}
 
-
-%files -n python3-%{srcname}
+%files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE
 %doc README.rst
-%{python3_sitelib}/%{srcname}/
-%{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info/
-
 
 %changelog
+* Sun Sep 14 2025 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.7.2-19
+- Switch to latest Python macros
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.7.2-18
 - Rebuilt for Python 3.14.0rc2 bytecode
 

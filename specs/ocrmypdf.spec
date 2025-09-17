@@ -1,7 +1,7 @@
 %global srcname ocrmypdf
 
 Name:           %{srcname}
-Version:        16.7.0
+Version:        16.11.0
 Release:        %autorelease
 Summary:        Add an OCR text layer to scanned PDF files
 
@@ -13,6 +13,8 @@ Source:         %pypi_source %{srcname}
 # Fedora specific.
 # We drop pi-heif for now, as it is optional.
 Patch:          0001-Remove-unnecessary-dependencies.patch
+# Fix test_semfree for Python 3.14.
+Patch:          https://github.com/ocrmypdf/OCRmyPDF/commit/599fb1a1f6c74918c56c2fac7aa73434fca8d731.patch
 
 BuildArch:      noarch
 
@@ -33,6 +35,9 @@ Recommends:     pngquant >= 2.0.0
 Requires:       tesseract >= 4.1.1
 Recommends:     unpaper >= 6.1
 
+# Dropped because we don't have streamlit.
+Obsoletes:      ocrmypdf+webservice < 16.7.0-3
+
 %description
 OCRmyPDF adds an OCR text layer to scanned PDF files, allowing them to be
 searched or copy-pasted.
@@ -49,13 +54,6 @@ Documentation for ocrmypdf
 %pyproject_extras_subpkg -n %{srcname} watcher
 %{_bindir}/%{srcname}-watcher
 
-%pyproject_extras_subpkg -n %{srcname} webservice
-%{_bindir}/%{srcname}-webservice
-
-
-%generate_buildrequires
-%pyproject_buildrequires -x docs -x test
-
 
 %prep
 %autosetup -n %{srcname}-%{version} -p1
@@ -67,6 +65,10 @@ for f in src/%{srcname}/*.py src/%{srcname}/*/*.py; do
     mv $f.new $f
     chmod -x $f
 done
+
+
+%generate_buildrequires
+%pyproject_buildrequires -x docs -x test -x watcher
 
 
 %build
@@ -88,7 +90,6 @@ install -Dpm 0644 misc/completion/ocrmypdf.fish %{buildroot}%{_datadir}/fish/ven
 
 # Install optional programs.
 install -Dpm 0755 misc/watcher.py %{buildroot}%{_bindir}/%{srcname}-watcher
-install -Dpm 0755 misc/webservice.py %{buildroot}%{_bindir}/%{srcname}-webservice
 
 
 %check

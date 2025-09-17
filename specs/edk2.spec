@@ -137,6 +137,7 @@ Patch0016: 0016-silence-.-has-a-LOAD-segment-with-RWX-permissions-wa.patch
 Patch0017: 0017-OvmfPkg-X64-add-opt-org.tianocore-UninstallMemAttrPr.patch
 Patch0018: 0018-openssl-silence-unused-variable-warning.patch
 Patch0019: 0019-OvmfPkg-PlatformDxe-register-page-fault-handler-for-.patch
+Patch0020: 0020-SecurityPkg-Tpm2DeviceLibDTpm-Remove-global-variable.patch
 
 
 # needed by %prep

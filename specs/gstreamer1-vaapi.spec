@@ -1,5 +1,5 @@
 Name:           gstreamer1-vaapi
-Version:        1.26.5
+Version:        1.26.6
 Release:        1%{?dist}
 Summary:        GStreamer plugins to use VA API video acceleration
 
@@ -102,6 +102,9 @@ for the GStreamer VA API video acceleration plugins
 %endif
 
 %changelog
+* Mon Sep 15 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.26.6-1
+- 1.26.6
+
 * Fri Aug 08 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.26.5-1
 - 1.26.5
 

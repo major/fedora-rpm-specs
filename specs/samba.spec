@@ -121,6 +121,12 @@
 %bcond lmdb 0
 %endif
 
+%if 0%{?fedora} >= 43
+%bcond varlink 1
+%else
+%bcond varlink 0
+%endif
+
 %global samba_version 4.23.0
 
 # The release field is extended:
@@ -328,6 +334,10 @@ BuildRequires: pkgconfig(libsystemd)
 %if 0%{?fedora} >= 43
 BuildRequires: pkgconfig(libngtcp2)
 BuildRequires: pkgconfig(libngtcp2_crypto_gnutls)
+%endif
+
+%if %{with varlink}
+BuildRequires: pkgconfig(libvarlink) >= 24
 %endif
 
 %ifnarch i686
@@ -1429,6 +1439,9 @@ export PYTHONARCHDIR=%{python3_sitearch}
 %endif
 %if %{with prometheus}
         --with-prometheus-exporter \
+%endif
+%if %{with varlink}
+        --with-systemd-userdb \
 %endif
         --with-profiling-data \
         --with-systemd \

@@ -5,7 +5,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-system-monitor
-Version:        49~rc
+Version:        49.0
 Release:        1%{?dist}
 Summary:        Process and resource monitor
 
@@ -73,6 +73,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/gnome-system-monit
 %{_libexecdir}/gnome-system-monitor/
 
 %changelog
+* Mon Sep 15 2025 Michael Catanzaro <mcatanzaro@gnome.org> - 49.0-1
+- Update to 49.0
+
 * Thu Sep 04 2025 Michael Catanzaro <mcatanzaro@gnome.org> - 49~rc-1
 - Update to 49.rc
 

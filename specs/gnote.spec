@@ -3,7 +3,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnote
-Version:        49~alpha
+Version:        49~beta
 Release:        1%{?dist}
 Summary:        Note-taking application
 
@@ -70,6 +70,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.gnome.Gnot
 %{_metainfodir}/org.gnome.Gnote.appdata.xml
 
 %changelog
+* Mon Sep 15 2025 Michael Catanzaro <mcatanzaro@gnome.org> - 49~beta-1
+- Update to 49.beta
+
 * Thu Sep 04 2025 Michael Catanzaro <mcatanzaro@gnome.org> - 49~alpha-1
 - Update to 49.alpha
 

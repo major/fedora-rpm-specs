@@ -2,13 +2,13 @@
 %global pypi_name xvfbwrapper
 
 Name:           python-%{pypi_name}
-Version:        0.2.13
+Version:        0.2.14
 Release:        %autorelease
 Summary:        run headless display inside X virtual framebuffer (Xvfb)
 
 License:        MIT
 URL:            https://github.com/cgoldberg/xvfbwrapper
-Source0:        https://files.pythonhosted.org/packages/source/x/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
+Source0:        %{pypi_source}
 BuildArch:      noarch
 
 %global _description\

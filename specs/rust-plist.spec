@@ -5,7 +5,7 @@
 %global crate plist
 
 Name:           rust-plist
-Version:        1.7.4
+Version:        1.8.0
 Release:        %autorelease
 Summary:        Rusty plist parser
 
@@ -86,7 +86,28 @@ use the "serde" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-%cargo_test
+# * data files for many tests are not included in published crates
+%{cargo_test -- --lib -- %{shrink:
+    --skip serde_tests::deserialize_dictionary_binary
+    --skip serde_tests::deserialize_dictionary_binary_nskeyedarchiver
+    --skip serde_tests::deserialize_dictionary_xml
+    --skip stream::ascii_reader::tests::netnewswire_pbxproj
+    --skip stream::ascii_reader::tests::streaming_sample
+    --skip stream::binary_reader::tests::nskeyedarchiver_plist
+    --skip stream::binary_reader::tests::streaming_parser
+    --skip stream::binary_reader::tests::three_byte_integer_object_offset_plist
+    --skip stream::binary_reader::tests::utf16_plist
+    --skip stream::binary_writer::tests::bplist_roundtrip
+    --skip stream::binary_writer::tests::nskeyedarchiver_roundtrip
+    --skip stream::binary_writer::tests::utf16_roundtrip
+    --skip stream::tests::autodetect_ascii
+    --skip stream::tests::autodetect_binary
+    --skip stream::tests::autodetect_xml
+    --skip stream::xml_reader::tests::bad_data
+    --skip stream::xml_reader::tests::entity_error
+    --skip stream::xml_reader::tests::streaming_parser
+}}
+%cargo_test -- --doc -- --skip 'src/lib.rs'
 %endif
 
 %changelog

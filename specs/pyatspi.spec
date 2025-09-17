@@ -1,13 +1,13 @@
 %global debug_package %{nil}
 
 Name:           pyatspi
-Version:        2.57.0
+Version:        2.58.0
 Release:        %autorelease
 Summary:        Python bindings for at-spi
 
 License:        LGPL-2.0-or-later AND GPL-2.0-or-later
 URL:            http://www.linuxfoundation.org/en/AT-SPI_on_D-Bus
-Source0:        https://download.gnome.org/sources/pyatspi/2.57/%{name}-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/pyatspi/2.58/%{name}-%{version}.tar.xz
 
 BuildRequires:  meson
 BuildRequires:  pkgconfig(atk) >= 2.11.2

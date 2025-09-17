@@ -1,16 +1,15 @@
 %global srcname xarray
 
 Name:           python-%{srcname}
-Version:        2025.4.0
+Version:        2025.9.0
 Release:        %autorelease
 Summary:        N-D labeled arrays and datasets in Python
 
 License:        Apache-2.0
 URL:            https://github.com/pydata/xarray
 Source:         %pypi_source %{srcname}
-
-# https://github.com/pydata/xarray/pull/9964
-Patch:          0001-Avoid-unsafe-casts-from-float-to-unsigned-int.patch
+# Fedora specific.
+Patch:          0001-Drop-pydap-from-dependencies.patch
 
 BuildArch:      noarch
 

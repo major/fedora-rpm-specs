@@ -13,7 +13,7 @@
 
 Name:           xtb
 Version:        6.7.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Semiempirical Extended Tight-Binding Program Package
 License:        LGPL-3.0-or-later
 URL:            https://github.com/grimme-lab/xtb/
@@ -87,6 +87,8 @@ character(len=*),parameter :: version = "%{version}-%{release}%{dist}"
 character(len=*),parameter :: date = "$date"
 character(len=*),parameter :: author = "Fedora project"
 EOF
+# Meson dependency workaround from BZ #2390464
+ninja -C %{_vpath_builddir} -j %{_smp_build_ncpus} %{?__meson_verbose:--verbose} libxtb.a
 %meson_build
 
 %install
@@ -137,6 +139,10 @@ export OMP_NUM_THREADS=1
 %{_libdir}/pkgconfig/xtb.pc
 
 %changelog
+* Mon Sep 15 2025 Susi Lehtola <jussilehtola@fedoraproject.org> - 6.7.1-4
+- Fix FTBFS caused by lack of dependency tracking in meson (BZ #2390464)
+
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.7.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

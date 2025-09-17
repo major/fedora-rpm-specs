@@ -6,7 +6,7 @@
 %global url_ver %%(echo %{version} | cut -d. -f1)
 
 Name:           gnome-connections
-Version:        49~rc
+Version:        49.0
 Release:        1%{?dist}
 Summary:        A remote desktop client for the GNOME desktop environment
 
@@ -86,6 +86,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Connections
 %{_datadir}/mime/packages/org.gnome.Connections.xml
 
 %changelog
+* Mon Sep 15 2025 Felipe Borges <felipeborges@gnome.org> - 49.0-1
+- Update to 49.0
+
 * Fri Sep 05 2025 Marek Kasik <mkasik@redhat.com> - 49~rc-1
 - Update to 49.rc
 

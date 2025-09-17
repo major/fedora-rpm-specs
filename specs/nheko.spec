@@ -7,6 +7,11 @@ Summary: Desktop client for the Matrix protocol
 URL: https://github.com/Nheko-Reborn/%{name}
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
+# https://github.com/Nheko-Reborn/nheko/commit/af2ca72030deb14a920a888e807dc732d93e3714
+Patch100: %{name}-0.12.1-search-for-qt-6.10.0-private-modules.patch
+# https://github.com/Nheko-Reborn/nheko/commit/2769642d3c7bd3c0d830b2f18ef6b3bf6a710bf4
+Patch101: %{name}-0.12.1-fix-most-reply-rendering-issues-with-qt-6.9.2.patch
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 %if 0%{?fedora} && 0%{?fedora} >= 42
 ExcludeArch: %{ix86}

@@ -4,7 +4,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-calculator
-Version:        49~rc
+Version:        49.0
 Release:        %autorelease
 Summary:        A desktop calculator
 

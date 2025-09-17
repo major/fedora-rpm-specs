@@ -6,7 +6,7 @@
 %global major_version %%(cut -d '.' -f 1 <<<%{tarball_version})
 
 Name:		gnome-weather
-Version:	49~rc
+Version:	49.0
 Release:	%autorelease
 Summary:	A weather application for GNOME
 

@@ -20,7 +20,7 @@
 
 %define radicale_major  3
 
-%define radicale_version  3.5.5
+%define radicale_version  3.5.6
 %define radicale_release  1
 #define gitcommit 8e9fdf391acb79d3fb1cb6e6b8f882f8999192cf
 
@@ -528,6 +528,9 @@ fi
 
 
 %changelog
+* Mon Sep 15 2025 Peter Bieringer <pb@bieringer.de>  - 3.5.6-1
+- Update to 3.5.6
+
 * Fri Aug 22 2025 Peter Bieringer <pb@bieringer.de>  - 3.5.5-1
 - Update to 3.5.5
 

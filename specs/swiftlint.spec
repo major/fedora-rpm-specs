@@ -9,23 +9,11 @@
 # Whether to do release or debug builds
 %global config release
 
-%global swift_version 6.0.3
-
-# Normally we would fail the build because:
-#   ERROR   0008: file '/usr/bin/swiftlint' contains the $ORIGIN runpath
-#   specifier at the wrong position in
-#   [/usr/libexec/swift/5.8.1/lib/swift/linux:$ORIGIN]
-# but in this case rpath is necessary because of
-#   swiftlint: error while loading shared libraries: libswiftGlibc.so: cannot
-#   open shared object file: No such file or directory
-# As this in an internal library, this is allowed by policy per
-# https://docs.fedoraproject.org/en-US/packaging-guidelines/#_rpath_for_internal_libraries
-# so neuter the check instead
-%global __brp_check_rpaths %{nil}
+%global swift_version 6.1.3
 
 Name:           swiftlint
 # To update: bump this Version, then run swiftlint-get-bundled-deps.sh
-Version:        0.57.1
+Version:        0.61.0
 Release:        %autorelease
 Summary:        Tool to enforce Swift style and conventions
 
@@ -104,6 +92,17 @@ echo '-Xcc -gdwarf-4 -Xcxx -gdwarf-4' >> build.sh
 sh -x build.sh
 
 %install
+# Normally we would fail the build because:
+#   ERROR   0008: file '/usr/bin/swiftlint' contains the $ORIGIN runpath
+#   specifier at the wrong position in
+#   [/usr/libexec/swift/5.8.1/lib/swift/linux:$ORIGIN]
+# but in this case rpath is necessary because of
+#   swiftlint: error while loading shared libraries: libswiftGlibc.so: cannot
+#   open shared object file: No such file or directory
+# As this in an internal library, this is allowed by policy per
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/#_rpath_for_internal_libraries
+# so neuter the check instead
+export QA_RPATHS=$(( 0x0008 ))
 install -Dpm0755 -t %{buildroot}%{_bindir} .build/%{config}/%{name}
 
 %if %{with tests}

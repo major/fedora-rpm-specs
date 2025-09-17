@@ -17,7 +17,7 @@
 %global template_glib_version 3.36.1
 
 Name:           gnome-builder
-Version:        49~rc
+Version:        49.0
 Release:        %autorelease
 Summary:        IDE for writing GNOME-based software
 
@@ -41,9 +41,6 @@ Summary:        IDE for writing GNOME-based software
 License:        GPL-3.0-or-later AND GPL-2.0-or-later AND LGPL-3.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-MIT AND LicenseRef-Callaway-CC-BY-SA AND CC0-1.0
 URL:            https://wiki.gnome.org/Apps/Builder
 Source0:        https://download.gnome.org/sources/%{name}/49/%{name}-%{tarball_version}.tar.xz
-
-#
-Patch:          i686-build.patch
 
 BuildRequires:  clang-devel
 BuildRequires:  ctags

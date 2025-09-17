@@ -5,7 +5,7 @@
 %global crate image
 
 Name:           rust-image
-Version:        0.25.6
+Version:        0.25.8
 Release:        %autorelease
 Summary:        Imaging library
 
@@ -15,7 +15,9 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * drop unused, benchmark-only criterion dev-dependency
 # * relax dav1d dependency to allow building with both v0.10 and v0.11
+# * relax tiff dependency to allow building with version 0.10.2
 Patch:          image-fix-metadata.diff
+Patch2:         0001-Skip-compiling-test-that-embeds-unavailable-test-dat.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -332,8 +334,9 @@ use the "webp" feature of the "%{crate}" crate.
     --skip codecs::png::tests::underlying_error
     --skip codecs::qoi::tests::decode_test_image
     --skip codecs::tga::encoder::tests::compressed::round_trip_bw
-    --skip dynimage::test::image_dimensions
-    --skip dynimage::test::open_16bpc_png
+    --skip images::dynimage::test::color_space_independent_imageops
+    --skip images::dynimage::test::image_dimensions
+    --skip images::dynimage::test::open_16bpc_png
     --skip imageops::sample::tests::resize_transparent_image
     --skip imageops::sample::tests::test_resize_same_size
     --skip imageops::sample::tests::test_sample_bilinear

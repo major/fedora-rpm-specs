@@ -1,19 +1,16 @@
 %global         pypi_name       pygmtools
 %global         forgeurl        https://github.com/Thinklab-SJTU/pygmtools
-Version:        0.5.3
+Version:        0.5.5
 %global         tag             %{version}
 %forgemeta
 
 Name:           python-%{pypi_name}
-Release:        7%{?dist}
+Release:        1%{?dist}
 Summary:        A library of Python graph matching solvers
 
 License:        MulanPSL-2.0
 URL:            https://pygmtools.readthedocs.io/en/latest/
 Source:         %{forgesource}
-# bdist_wheel has moved into setuptools
-# https://github.com/Thinklab-SJTU/pygmtools/pull/105
-Patch:          bdist_wheel.patch
 
 BuildRequires:  python3-devel
 # Documentation
@@ -82,6 +79,9 @@ rm -f %{pypi_name}/astar/priority_queue.hpp
 %doc examples
 
 %changelog
+* Mon Sep 15 2025 Benson Muite <fed500@fedoraproject.org> - 0.5.5-1
+- Update to 0.5.5 RHBZ # 2394314
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.5.3-7
 - Rebuilt for Python 3.14.0rc2 bytecode
 

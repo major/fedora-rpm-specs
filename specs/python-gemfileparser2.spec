@@ -25,7 +25,7 @@ Summary:        Library to parse Rubygem gemspec
 # - tests/data/gemspecs/arel.gemspec
 # - tests/data/gemspecs/arel2.gemspec
 License:        (GPL-3.0-or-later OR MIT) AND Apache-2.0 AND MIT
-URL:            https://github.com/nexB/gemfileparser2
+URL:            https://github.com/aboutcode-org/gemfileparser2
 Source:         %url/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
 
 BuildArch:      noarch

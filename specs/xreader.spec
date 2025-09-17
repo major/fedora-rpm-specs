@@ -2,8 +2,8 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/.*$
 
 Name:		xreader
-Version:	4.2.6
-Release:	2%{?dist}
+Version:	4.4.0
+Release:	1%{?dist}
 Summary:	Simple document viewer
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -50,6 +50,7 @@ Requires:	xapps%{?_isa}
 Requires:	%{name}-libs%{?_isa} = %{version}-%{release}
 
 Recommends:	yelp%{?_isa}
+Recommends: %{name}-thumbnailer%{?_isa} = %{version}-%{release}
 
 %description
 X-Apps Document Reader is a document viewer capable of displaying
@@ -169,6 +170,10 @@ This package adds configuration to use %{name} as a thumbnailer.
 %doc %{_datadir}/doc/%{name}*
 
 %changelog
+* Mon Sep 15 2025 Leigh Scott <leigh123linux@gmail.com> - 4.4.0-1
+- Update to 4.4.0
+- Add recommends xreader-thumbnailer to main package
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

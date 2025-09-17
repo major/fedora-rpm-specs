@@ -1,7 +1,7 @@
 %global pypi_name fingerprints
 
 Name:           python-%{pypi_name}
-Version:        1.2.3
+Version:        1.3.1
 Release:        %autorelease
 Summary:        Compare the names of companies and people by applying strong normalization
 

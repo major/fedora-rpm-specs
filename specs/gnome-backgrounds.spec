@@ -1,7 +1,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-backgrounds
-Version:        49~rc
+Version:        49.0
 Release:        %autorelease
 Summary:        Desktop backgrounds packaged with the GNOME desktop
 

@@ -1,27 +1,17 @@
-%global pypi_name extractcode-libarchive
+%global pypi_name extractcode-libarchive-system-provided
 %global pypi_name_with_underscore %(echo "%{pypi_name}" | sed "s/-/_/g")
+%global wheel_name extractcode-libarchive
+%global wheel_name_with_underscore %(echo "%{wheel_name}" | sed "s/-/_/g")
 
-Name:           python-%{pypi_name}
-Version:        21.5.31
+Name:           python-%{wheel_name}
+Version:        33.0.0
 Release:        %autorelease
 Summary:        ScanCode Toolkit plugin to use pre-installed libarchive library
 
 # LICENSE.txt is only if we bundle
 License:        Apache-2.0
-URL:            https://github.com/nexB/scancode-plugins
-# wget https://github.com/nexB/scancode-plugins/archive/v21.5.31/scancode-plugins-21.5.31.tar.gz
-# tar xvf scancode-plugins-21.5.31.tar.gz
-# pushd scancode-plugins-21.5.31
-# find . ! \( -name builtins -o -name extractcode_libarchive_system_provided \) -maxdepth 1 -exec rm -rvf {} \;
-# mv builtins/extractcode_libarchive_system_provided/* ./
-# rm -rfv builtins/
-# popd
-# mv scancode-plugins-21.5.31 extractcode-libarchive-21.5.31
-# tar czf extractcode-libarchive-21.5.31.tar.gz extractcode-libarchive-21.5.31
-# rm -rfv extractcode-libarchive-21.5.31
-# rm -rfv scancode-plugins-21.5.31.tar.gz
-Source:         %{pypi_name}-%{version}.tar.gz
-Patch:          0001-Fix-Linux-distribution-detection.patch
+URL:            https://github.com/aboutcode-org/scancode-plugins
+Source:         %{pypi_source %{pypi_name_with_underscore}}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -33,15 +23,15 @@ taken from EXTRACTCODE_LIBARCHIVE_PATH environment variable.}
 
 %description %{common_description}
 
-%package -n python3-%{pypi_name}
+%package -n python3-%{wheel_name}
 Summary:        %{summary}
-Requires:       libarchive-devel
+Requires:       libarchive
 
-%description -n python3-%{pypi_name} %{common_description}
+%description -n python3-%{wheel_name} %{common_description}
 
 
 %prep
-%autosetup -p1 -n %{pypi_name}-%{version}
+%autosetup -p1 -n %{pypi_name_with_underscore}-%{version}
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -51,12 +41,12 @@ Requires:       libarchive-devel
 
 %install
 %pyproject_install
-%pyproject_save_files %{pypi_name_with_underscore}
+%pyproject_save_files %{wheel_name_with_underscore}
 
 %check
 %pyproject_check_import
 
-%files -n python3-%{pypi_name} -f %{pyproject_files}
+%files -n python3-%{wheel_name} -f %{pyproject_files}
 %doc README.rst
 
 %changelog

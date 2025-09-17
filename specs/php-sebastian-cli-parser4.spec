@@ -10,11 +10,11 @@
 %bcond_without       tests
 
 # github
-%global gh_commit    6d584c727d9114bcdc14c86711cd1cad51778e7c
+%global gh_commit    90f41072d220e5c40df6e8635f5dafba2d9d4d04
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   cli-parser
-%global gh_date      2025-02-07
+%global gh_date      2025-09-14
 # packagist
 %global pk_vendor    sebastian
 %global pk_project   %{gh_project}
@@ -25,8 +25,8 @@
 %global ns_project   CliParser
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        4.0.0
-Release:        3%{?dist}
+Version:        4.2.0
+Release:        1%{?dist}
 Summary:        Library for parsing CLI options, version %{major}
 
 License:        BSD-3-Clause
@@ -84,7 +84,7 @@ touch vendor/autoload.php
 
 : Run upstream test suite
 ret=0
-for cmd in php php83 php84; do
+for cmd in php php83 php84 php85; do
   if which $cmd; then
    $cmd -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php \
      %{_bindir}/phpunit12 || ret=1
@@ -105,6 +105,9 @@ exit $ret
 
 
 %changelog
+* Mon Sep 15 2025 Remi Collet <remi@remirepo.net> - 4.2.0-1
+- update to 4.2.0
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

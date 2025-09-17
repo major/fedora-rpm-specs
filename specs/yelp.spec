@@ -4,7 +4,7 @@
 
 Name:          yelp
 Epoch:         2
-Version:       49~rc
+Version:       49.0
 Release:       %autorelease
 Summary:       Help browser for the GNOME desktop
 

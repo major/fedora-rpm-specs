@@ -1,7 +1,7 @@
-%global	mainver		1.18.9
+%global	mainver		1.18.10
 #%%global	prever		.rc4
 
-%global	baserelease		2
+%global	baserelease		1
 %global	prerpmver		%(echo "%{?prever}" | sed -e 's|\\.||g')
 
 %global	gem_name	nokogiri
@@ -275,6 +275,9 @@ popd
 %doc	%{gem_dir}/doc/%{gem_name}-%{mainver}%{?prever}/
 
 %changelog
+* Mon Sep 15 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.18.10-1
+- 1.18.10
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.18.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

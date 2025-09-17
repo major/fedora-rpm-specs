@@ -1,5 +1,5 @@
 Name:           perl-Business-ISBN-Data
-Version:        20250912.001
+Version:        20250915.001
 Release:        1%{?dist}
 Summary:        The data pack for Business::ISBN
 License:        Artistic-2.0
@@ -50,11 +50,15 @@ make test
 
 %files
 %license LICENSE
-%doc Changes README.pod examples/ t/
+%doc Changes examples/ README.pod SECURITY.md t/
 %{perl_vendorlib}/Business/
 %{_mandir}/man3/Business::ISBN::Data.3*
 
 %changelog
+* Mon Sep 15 2025 Paul Howarth <paul@city-fan.org> - 20250915.001-1
+- 20250915.001 bump (rhbz#2395113)
+- Package SECURITY.md file
+
 * Sat Sep 13 2025 Paul Howarth <paul@city-fan.org> - 20250912.001-1
 - 20250912.001 bump (rhbz#2394921)
 

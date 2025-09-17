@@ -40,6 +40,7 @@ BuildRequires:  python3-pyyaml
 %package libxatracker
 Summary:        Mesa XA state tracker
 Provides:       libxatracker%{?_isa}
+Provides:       mesa-libxatracker%{?_isa}
 
 %description libxatracker
 %{summary}.

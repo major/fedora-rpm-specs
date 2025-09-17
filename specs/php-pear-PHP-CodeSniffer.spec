@@ -13,31 +13,34 @@
 
 %bcond_without       tests
 
-%global gh_commit    ad545ea9c1b7d270ce0fc9cbfb884161cd706119
+%global gh_commit    06113cfdaf117fc2165f9cd040bd0f17fcd5242d
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
-%global gh_date      2025-09-05
+%global gh_date      2025-06-17
 %global gh_owner     PHPCSStandards
 %global gh_project   PHP_CodeSniffer
 # keep in old PEAR tree
 %global pear_phpdir  %{_datadir}/pear
 
+%global upstream_version 4.0.0
+#global upstream_prever  rc1
 
 Name:           php-pear-PHP-CodeSniffer
-Version:        3.13.4
+Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
 Release:        1%{?dist}
 Summary:        PHP coding standards enforcement tool
 
 License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 # git snapshot to retrieve test suite
-Source0:        %{gh_commit}/%{name}-%{version}-%{gh_short}.tgz
+Source0:        %{name}-%{upstream_version}%{?upstream_prever}-%{gh_short}.tgz
 Source1:        makesrc.sh
 
 # RPM installation path
 Patch0:         %{name}-rpm.patch
 
 BuildArch:      noarch
-BuildRequires:  php(language) >= 5.4
+# 8.1 because of phpunit10
+BuildRequires:  php(language) >= 8.1
 BuildRequires:  php-tokenizer
 BuildRequires:  php-xmlwriter
 BuildRequires:  php-simplexml
@@ -47,17 +50,17 @@ BuildRequires:  php-intl
 %if %{with tests}
 BuildRequires:  php-bcmath
 # to run test suite, from composer.json "require-dev"
-#        "phpunit/phpunit": "^4.0 || ^5.0 || ^6.0 || ^7.0 || ^8.0 || ^9.3.4"
-%global phpunit %{_bindir}/phpunit9
-BuildRequires:  phpunit9 >= 9.3.4
+#        "phpunit/phpunit": "^8.0 || ^9.3.4 || ^10.5.32 || ^11.3.3"
+%global phpunit %{_bindir}/phpunit10
+BuildRequires:  phpunit10 >= 10.5.32
 %endif
 
 # from composer.json "require": {
-#        "php": ">=5.4.0",
+#        "php": ">=7.2.0",
 #        "ext-tokenizer": "*",
 #        "ext-xmlwriter": "*",
 #        "ext-simplexml": "*"
-Requires:       php(language) >= 5.4
+Requires:       php(language) >= 7.2
 Requires:       php-tokenizer
 Requires:       php-xmlwriter
 Requires:       php-simplexml
@@ -88,11 +91,12 @@ certain standards, such as PEAR, or user-defined.
 
 %install
 : Install the library
-mkdir -p               %{buildroot}%{pear_phpdir}/PHP/CodeSniffer
-cp -pr src             %{buildroot}%{pear_phpdir}/PHP/CodeSniffer/src/
-cp -pr autoload.php    %{buildroot}%{pear_phpdir}/PHP/CodeSniffer/
-cp -p  phpcs.xml.dist  %{buildroot}%{pear_phpdir}/PHP/CodeSniffer/
-cp -p  phpcs.xsd       %{buildroot}%{pear_phpdir}/PHP/CodeSniffer/
+mkdir -p                %{buildroot}%{pear_phpdir}/PHP/CodeSniffer
+cp -pr src              %{buildroot}%{pear_phpdir}/PHP/CodeSniffer/src/
+cp -pr autoload.php     %{buildroot}%{pear_phpdir}/PHP/CodeSniffer/
+cp -pr requirements.php %{buildroot}%{pear_phpdir}/PHP/CodeSniffer/
+cp -p  phpcs.xml.dist   %{buildroot}%{pear_phpdir}/PHP/CodeSniffer/
+cp -p  phpcs.xsd        %{buildroot}%{pear_phpdir}/PHP/CodeSniffer/
 
 : Cleanup
 find %{buildroot}%{pear_phpdir}/PHP/CodeSniffer -depth -type d -name Tests -exec rm -r {} \; -print
@@ -104,39 +108,34 @@ install -Dpm 755 bin/phpcbf %{buildroot}%{_bindir}/phpcbf
 
 %if %{with tests}
 %check
-# fails with js: Couldn't read source file
-rm src/Standards/Generic/Tests/Debug/JSHintUnitTest.*
-
 # Fix current date
 YEAR=$(date +%Y)
 PREV=$(expr $YEAR - 1)
 sed -e "/@copyright/s/${PREV}/${YEAR}/" \
     -i src/Standards/Squiz/Tests/Commenting/FileCommentUnitTest.1.*.fixed
 
-# Version 3.11.2: Tests: 3174, Assertions: 18639, Warnings: 3, Skipped: 19.
+# Version 4.0.0beta1: Tests: 3871, Assertions: 23018, PHPUnit Deprecations: 777, Skipped: 16.
 # testBrokenRulesetMultiError failing reported as https://github.com/PHPCSStandards/PHP_CodeSniffer/issues/767
 ret=0
-for cmdarg in "php %{phpunit}" php81 php82 php83 php84; do
-  if which $cmdarg; then
+for cmdarg in \
+    "php   %{phpunit}" \
+    "php81 %{_bindir}/phpunit10" \
+    "php82 %{_bindir}/phpunit11" \
+    "php83 %{_bindir}/phpunit11" \
+    "php84 %{_bindir}/phpunit11" \
+    "php85 %{_bindir}/phpunit11"
+  do if which $cmdarg; then
     set $cmdarg
-    $1 -d memory_limit=-1 ${2:-%{_bindir}/phpunit9} \
+    $1 -d memory_limit=-1 $2 \
        --filter '^((?!(testBrokenRulesetMultiError)).)*$' \
-       || ret=1
+       --no-coverage || ret=1
   fi
 done
 exit $ret
 %endif
 
 
-%post
-# no more from pear channel
-if [ -x %{_bindir}/pear ]; then
-  %{_bindir}/pear uninstall --nodeps --ignore-errors --register-only %{gh_project} >/dev/null || :
-fi
-
-
 %files
-%{!?_licensedir:%global license %%doc}
 %license licence.txt
 %doc *.md
 %{pear_phpdir}/PHP
@@ -145,6 +144,11 @@ fi
 
 
 %changelog
+* Mon Sep 15 2025 Remi Collet <remi@remirepo.net> - 4.0.0-1
+- update to 4.0.0
+- raise dependency on PHP 7.2
+- switch to phpunit10
+
 * Mon Sep  8 2025 Remi Collet <remi@remirepo.net> - 3.13.4-1
 - update to 3.13.4
 
