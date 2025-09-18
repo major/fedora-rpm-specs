@@ -12,8 +12,14 @@
 %global pcre2_version 10.21
 %global simdutf_version 7.2.1
 
+%if 0%{?rhel}
+%bcond bundled_fast_float 1
+%else
+%bcond bundled_fast_float 0
+%endif
+
 Name:           vte291
-Version:        0.81.90
+Version:        0.82.0
 Release:        %autorelease
 Summary:        GTK terminal emulator library
 
@@ -21,20 +27,7 @@ Summary:        GTK terminal emulator library
 License:        GPL-3.0-or-later AND LGPL-3.0-or-later AND MIT AND X11 AND CC-BY-4.0
 
 URL:            https://wiki.gnome.org/Apps/Terminal/VTE
-Source0:        https://download.gnome.org/sources/vte/0.81/vte-%{version}.tar.xz
-
-# https://gitlab.gnome.org/GNOME/vte/-/merge_requests/2
-Patch:          0001-Only-use-fast_float-when-std-from_chars-is-insuffici.patch
-
-# https://gitlab.gnome.org/GNOME/vte/-/merge_requests/4
-Patch:          a11y-line-counting.patch
-# https://gitlab.gnome.org/GNOME/vte/-/merge_requests/6
-Patch:          a11y-range-per-text-attribute.patch
-# https://gitlab.gnome.org/GNOME/vte/-/merge_requests/7
-Patch:          a11y-granular-scroll-notifications.patch
-
-# https://gitlab.gnome.org/GNOME/vte/-/issues/2897
-Patch:          fix-backspace.patch
+Source0:        https://download.gnome.org/sources/vte/0.82/vte-%{version}.tar.xz
 
 BuildRequires:  pkgconfig(fmt) >= %{fmt_version}
 BuildRequires:  pkgconfig(fribidi) >= %{fribidi_version}
@@ -59,6 +52,10 @@ BuildRequires:  meson
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  vala
 
+%if %{without bundled_fast_float}
+BuildRequires:  fast_float-devel
+%endif
+
 Requires:       fribidi >= %{fribidi_version}
 Requires:       glib2 >= %{glib2_version}
 Requires:       gnutls%{?_isa} >= %{gnutls_version}
@@ -69,7 +66,9 @@ Requires:       pcre2%{?_isa} >= %{pcre2_version}
 Requires:       systemd-libs%{?_isa} >= %{libsystemd_version}
 Requires:       vte-profile
 
-Conflicts:      gnome-terminal < 3.20.1-2
+%if %{with bundled_fast_float}
+Provides:       bundled(fast_float)
+%endif
 
 %description
 VTE is a library implementing a terminal emulator widget for GTK+. VTE
@@ -143,6 +142,14 @@ emulator library.
 %if 0%{?flatpak}
 # Install user units where systemd macros expect them
 sed -i -e "/^vte_systemduserunitdir =/s|vte_prefix|'/usr'|" meson.build
+%endif
+
+# Guarantee we don't accidentally use subprojects if a new subproject is added.
+%if %{with bundled_fast_float}
+rm -rf subprojects/fmt/
+rm -rf subprojects/simdutf/
+%else
+rm -rf subprojects/
 %endif
 
 %build

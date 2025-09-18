@@ -21,6 +21,8 @@ Patch:   CVE-2025-4969.patch
 Patch:   CVE-2025-4945.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2366513
 Patch:   CVE-2025-4476.patch
+Patch:   475.patch
+Patch:   0c8c8795f08abb95161c610a0a6dff22d45742d4.patch
 
 BuildRequires: gcc
 BuildRequires: gettext

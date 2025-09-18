@@ -1,7 +1,7 @@
 %global copr_common_version 0.25.1~~dev0
 
 Name:       copr-dist-git
-Version:    1.2
+Version:    1.3
 Release:    1%{?dist}
 Summary:    Copr services for Dist Git server
 
@@ -61,12 +61,16 @@ This package contains Copr services for Dist Git server.
 %setup -q
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
 
 install -d %{buildroot}%{_datadir}/copr/dist_git
 install -d %{buildroot}%{_sysconfdir}/copr
@@ -106,8 +110,8 @@ install -m0644 -D conf/copr-dist-git.sysusers.conf %{buildroot}%{_sysusersdir}/c
 
 %files
 %license LICENSE
-%python3_sitelib/copr_dist_git
-%python3_sitelib/copr_dist_git*egg-info
+%{python3_sitelib}/copr_dist_git
+%{python3_sitelib}/copr_dist_git-*.dist-info/
 
 %{_bindir}/*
 %dir %{_datadir}/copr
@@ -130,6 +134,9 @@ install -m0644 -D conf/copr-dist-git.sysusers.conf %{buildroot}%{_sysusersdir}/c
 
 
 %changelog
+* Tue Sep 16 2025 Jakub Kadlcik <frostyx@email.cz> 1.3-1
+- Stop using deprecated %%py3_build/%%py3_install macros
+
 * Tue Aug 26 2025 Jakub Kadlcik <frostyx@email.cz> 1.2-1
 - Explicitly set home directory and shell for the user
 

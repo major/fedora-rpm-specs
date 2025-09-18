@@ -1,16 +1,16 @@
 Name:           template-glib
-Version:        3.37.1
-Release:        1%{?dist}
+Version:        3.38.0
+Release:        %autorelease
 Summary:        A templating library for GLib
 
 License:        LGPL-2.1-or-later
 URL:            https://gitlab.gnome.org/GNOME/template-glib/
-Source0:        https://download.gnome.org/sources/%{name}/3.37/%{name}-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/3.38/%{name}-%{version}.tar.xz
 
 BuildRequires:  bison
 BuildRequires:  flex
 BuildRequires:  gettext
-BuildRequires:  gtk-doc
+BuildRequires:  gi-docgen
 BuildRequires:  meson
 BuildRequires:  vala
 
@@ -40,7 +40,7 @@ developing applications that use %{name}.
 
 
 %build
-%meson -Dgtk_doc=true
+%meson -Ddocs=true
 %meson_build
 
 
@@ -51,18 +51,17 @@ developing applications that use %{name}.
 
 %files -f template-glib.lang
 %license COPYING
-%doc AUTHORS NEWS README.md
+%doc NEWS README.md
 %{_libdir}/libtemplate_glib-1.0.so.0*
 %dir %{_libdir}/girepository-1.0
 %{_libdir}/girepository-1.0/Template-1.0.typelib
 
 %files devel
 %doc CONTRIBUTING.md examples
+%dir %{_datadir}/doc/template-glib-1.0
+%{_datadir}/doc/template-glib-1.0/*
 %dir %{_datadir}/gir-1.0
 %{_datadir}/gir-1.0/Template-1.0.gir
-%dir %{_datadir}/gtk-doc
-%dir %{_datadir}/gtk-doc/html
-%{_datadir}/gtk-doc/html/template-glib
 %dir %{_datadir}/vala
 %dir %{_datadir}/vala/vapi
 %{_datadir}/vala/vapi/template-glib-1.0.*
@@ -72,10 +71,4 @@ developing applications that use %{name}.
 
 
 %changelog
-* Wed Aug 13 2025 nmontero <nmontero@redhat.com> - 3.37.1-1
-- Update to 3.37.1
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.37.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
 %autochangelog

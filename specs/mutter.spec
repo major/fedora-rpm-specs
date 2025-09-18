@@ -13,7 +13,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:          mutter
-Version:       49~rc
+Version:       49.0
 Release:       %autorelease
 Summary:       Window and compositing manager based on Clutter
 
@@ -26,7 +26,7 @@ Source1:       org.gnome.mutter.fedora.gschema.override
 # https://bugzilla.redhat.com/show_bug.cgi?id=1936991
 Patch:         mutter-42.alpha-disable-tegra.patch
 
-# First 4 commits from https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/4607
+# https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/4607
 Patch:         window-drag-bug.patch
 
 BuildRequires: pkgconfig(gobject-introspection-1.0) >= 1.41.0

@@ -1502,6 +1502,15 @@ popd
 %global cmake_config_args %{cmake_config_args} \\\
 	-DOPENMP_INSTALL_LIBDIR=%{unprefixed_libdir} \\\
 	-DLIBOMP_INSTALL_ALIASES=OFF
+
+%if %{maj_ver} >= 22 && %{with offload}
+%global cmake_config_args %{cmake_config_args} \\\
+	-DLLVM_RUNTIME_TARGETS='default;amdgcn-amd-amdhsa;nvptx64-nvidia-cuda' \\\
+	-DRUNTIMES_nvptx64-nvidia-cuda_LLVM_ENABLE_RUNTIMES=openmp \\\
+	-DRUNTIMES_amdgcn-amd-amdhsa_LLVM_ENABLE_RUNTIMES=openmp \\\
+	-DRUNTIMES_amdgcn-amd-amdhsa_CMAKE_CXX_FLAGS="%{__global_compiler_flags}" \\\
+	-DRUNTIMES_nvptx64-nvidia-cuda_CMAKE_CXX_FLAGS="%{__global_compiler_flags}"
+%endif
 #endregion openmp options
 
 #region polly options

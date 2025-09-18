@@ -6,7 +6,7 @@
 %bcond          extras 0
 
 Name:           %{bgname}-backgrounds
-Version:        %{relnum}.0.1
+Version:        %{relnum}.0.2
 Release:        %autorelease
 Summary:        Fedora %{relnum} default desktop background
 
@@ -132,7 +132,7 @@ This package contains  supplemental wallpapers for XFCE
 %endif
 
 %prep
-%autosetup -n %{name}
+%autosetup -n %{name}-%{version}
 
 
 %build

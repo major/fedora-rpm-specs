@@ -30,7 +30,6 @@ Summary:        %sum
 
 %generate_buildrequires
 #%%pyproject_buildrequires -x test
-# -x test
 %pyproject_buildrequires
 
 
@@ -50,7 +49,7 @@ sed -i 's/graphviz >= 0.20.3/graphviz/' pyproject.toml
 
 
 %check
-# https://github.com/eralchemy/eralchemy/issues/154
+# Testsuite in progress: https://src.fedoraproject.org/rpms/eralchemy/pull-request/4
 #%%pyproject_check_import
 #%%pytest
 

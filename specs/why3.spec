@@ -7,7 +7,7 @@ ExclusiveArch: %{ocaml_native_compiler}
 # release.
 
 Name:           why3
-Version:        1.8.1
+Version:        1.8.2
 Release:        %autorelease
 Summary:        Software verification platform
 

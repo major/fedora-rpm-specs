@@ -4,12 +4,13 @@
 
 Name:           nemo-extensions
 Version:        6.4.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Extensions for Nemo
 
 License:        GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            https://github.com/linuxmint/%{name}
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Patch1:         %{url}/pull/553.patch#/fix-building-w-gpgme2.patch
 
 ExcludeArch:    %{ix86}
 
@@ -340,6 +341,9 @@ rm -rf %{buildroot}/%{_datadir}/doc/nemo-python/
 %{_mandir}/man1/nemo-seahorse-tool.1.* 
 
 %changelog
+* Tue Sep 16 2025 Michal Hlavinka <mhlavink@redhat.com> - 6.4.0-7
+- fix building with gpgme 2.0
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 6.4.0-6
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -7,7 +7,7 @@ Release:        %autorelease
 Summary:        Library to parse Debian deb822-style control and copyright files
 
 License:        Apache-2.0 AND BSD-3-Clause AND MIT
-URL:            https://github.com/nexB/debian-inspector
+URL:            https://github.com/aboutcode-org/debian-inspector
 Source:         %url/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
 # Disable Sphinx extra theme
 Patch:          0001-Revert-Added-docs-server-script-dark-mode-copybutton.patch

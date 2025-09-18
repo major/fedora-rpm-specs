@@ -7,7 +7,7 @@
 %global crate add-determinism
 
 Name:           rust-add-determinism
-Version:        0.7.1
+Version:        0.7.2
 Release:        %autorelease
 Summary:        RPM buildroot helper to make builds reproducible and hardlink identical files
 
@@ -16,6 +16,7 @@ URL:            https://crates.io/crates/add-determinism
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 26
+BuildRequires:  selinux-policy-targeted
 
 %global _description %{expand:
 RPM buildroot helper to strip nondeterministic bits in files.}
@@ -27,13 +28,14 @@ Summary:        RPM buildroot helper to strip nondeterministic bits in files
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
 # 0BSD OR MIT OR Apache-2.0
 # Apache-2.0 OR MIT
+# Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
 # BSD-2-Clause OR Apache-2.0 OR MIT
 # GPL-3.0-or-later
 # MIT
 # MIT OR Apache-2.0
 # MIT OR Zlib OR Apache-2.0
 # Unlicense OR MIT
-License:        GPL-3.0-or-later AND MIT AND Unicode-DFS-2016 AND (0BSD OR MIT OR Apache-2.0) AND (Apache-2.0 OR MIT) AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND (MIT OR Zlib OR Apache-2.0) AND (Unlicense OR MIT)
+License:        GPL-3.0-or-later AND MIT AND Unicode-DFS-2016 AND (0BSD OR MIT OR Apache-2.0) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND (MIT OR Zlib OR Apache-2.0) AND (Unlicense OR MIT)
 # LICENSE.dependencies contains a full license breakdown
 
 %description -n %{crate} %{_description}
@@ -78,21 +80,23 @@ This package is intended to be pulled in by redhat-rpm-config.
 %cargo_prep
 
 %generate_buildrequires
-%cargo_generate_buildrequires
+%cargo_generate_buildrequires -a
 
 %build
-%cargo_build
-%{cargo_license_summary}
-%{cargo_license} >LICENSE.dependencies
+%cargo_build -a
+%{cargo_license_summary -a}
+%{cargo_license -a} >LICENSE.dependencies
 
 %install
-%cargo_install
+%cargo_install -a
 ln -s add-det %{buildroot}%{_bindir}/add-determinism
 install -m0644 -Dt %{buildroot}%{rpmmacrodir} rpm/macros.build-reproducibility
 
 %if %{with check}
 %check
-%cargo_test
+%cargo_test -a
+
+test "$(target/release/linkdupes --print-selinux-contexts /)" = "/ → system_u:object_r:root_t:s0"
 %endif
 
 %changelog

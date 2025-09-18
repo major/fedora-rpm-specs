@@ -191,7 +191,7 @@
 #################################################################################
 Name:		ceph
 Version:	20.1.0
-Release:	3%{?dist}
+Release:	4%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -223,7 +223,9 @@ Patch:		0041-src-mgr-PyModule.cc.patch
 Patch:		0043_src_common_crc32c_ppc_asm.S.patch
 Patch:		0047-openssl-no-engine.patch
 Patch:		0049-src-rocksdb-db-blob-blob_file_meta.h.patch
+Patch:		0051-src-googletest-nosharedlibs.patch
 Patch:		0052-src-tracing.patch
+Patch:		0053-src-test-neorados-common_tests.h.patch
 Patch:		0056-libarrow-20.0.0.patch
 Patch:		0057-src-json_spirit-json_spirit_reader_template.h.patch
 Patch:		0058-src-CMakeLists.txt.patch
@@ -2767,8 +2769,11 @@ exit 0
 %{python3_sitelib}/ceph_node_proxy-*
 
 %changelog
+* Tue Sep 16 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:20.1.0-4
+- ceph-20.1.0 RC, rhbz#2395703 (gmock, gtest again)
+
 * Fri Sep 12 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:20.1.0-3
-- ceph-20.1.0 RC, rhbz#2394758
+- ceph-20.1.0 RC, rhbz#2394758 (gmock, gtest)
 
 * Tue Sep 9 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:20.1.0-2
 - ceph-20.1.0 RC, rhbz#2394363

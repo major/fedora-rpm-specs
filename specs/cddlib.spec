@@ -2,15 +2,13 @@
 
 Name:           cddlib
 Epoch:          1
-Version:        0.94m
+Version:        0.94n
 Release:        %autorelease
 Summary:        A library for generating all vertices in convex polyhedrons
 License:        GPL-2.0-or-later
 URL:            https://people.inf.ethz.ch/fukudak/cdd_home/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/releases/download/%{version}/%{name}-%{version}.tar.gz
-# Fix a segfault in blockelimination
-Patch:          %{giturl}/commit/f83bdbc.patch
 
 BuildRequires:  gcc
 BuildRequires:  gmp-devel
@@ -103,7 +101,6 @@ popd
 
 %install
 %make_install
-rm -f %{buildroot}%{_libdir}/*.la
 
 # Do not prematurely install documentation
 rm -fr %{buildroot}%{_pkgdocdir}
@@ -122,6 +119,7 @@ rm -fr %{buildroot}%{_pkgdocdir}
 %{_libdir}/libcdd.so
 %{_libdir}/libcddgmp.so
 %{_libdir}/pkgconfig/%{name}.pc
+%{_libdir}/pkgconfig/cddgmp.pc
 
 
 %files static

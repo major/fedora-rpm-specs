@@ -10,6 +10,7 @@ Source0: http://download.gnome.org/sources/libcryptui/3.12/%{name}-%{version}.ta
 Patch0:  libcryptui-3.12.2-gpg22.patch
 Patch1:  libcryptui-3.12.2-use-gcr.patch
 Patch2:  libcryptui-gpg_version_fix.patch
+Patch3:  libcryptui-3.12.2-gpgme2fix.patch
 
 BuildRequires: autoconf automake
 BuildRequires: gnupg1

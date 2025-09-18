@@ -34,20 +34,14 @@
 %global mirplatforminput_sover 10
 
 Name:           mir
-Version:        2.22.0
-Release:        2%{?dist}
+Version:        2.22.1
+Release:        1%{?dist}
 Summary:        Next generation Wayland display server toolkit
 
 # mircommon is LGPL-2.1-only/LGPL-3.0-only, everything else is GPL-2.0-only/GPL-3.0-only
 License:        (GPL-2.0-only or GPL-3.0-only) and (LGPL-2.1-only or LGPL-3.0-only)
 URL:            https://canonical.com/mir
 Source0:        https://github.com/canonical/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.xz
-
-# Proposed upstream
-## Fixes Mir on NVIDIA hardware
-Patch101:       https://github.com/canonical/mir/pull/4155.patch
-## Fixes crashes with fractional cursor scaling
-Patch102:       https://github.com/canonical/mir/pull/4161.patch
 
 %if %{with ccache}
 BuildRequires:  ccache
@@ -326,6 +320,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/miral-shell.desktop
 
 
 %changelog
+* Tue Sep 16 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.22.1-1
+- Update to 2.22.1
+
 * Mon Sep 15 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.22.0-2
 - Backport fix for Mir crashing with cursor scaling
 

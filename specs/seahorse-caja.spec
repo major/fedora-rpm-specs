@@ -3,9 +3,10 @@ Name:           seahorse-caja
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 Version:        1.18.5
-Release:        8%{?dist}
+Release:        9%{?dist}
 URL:            https://github.com/darkshram/%{name}
 Source0:        https://github.com/darkshram/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz
+Patch1:         seahorse-fix-building-w-gpgme2.patch
 
 BuildRequires: make
 BuildRequires: mate-common
@@ -31,8 +32,10 @@ and decryption of OpenPGP files using GnuPG.
 
 %prep
 %setup -q
+%patch -P 1 -p1 -b .fix-building-w-gpgme2
 
 %build
+autoreconf -fiv
 %configure \
     --disable-silent-rules \
     --disable-gpg-check
@@ -65,6 +68,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/mate-seahorse-pgp-sig
 
 
 %changelog
+* Tue Sep 16 2025 Michal Hlavinka <mhlavink@redhat.com> - 1.18.5-9
+- fix building with gpgme 2.0
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.18.5-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

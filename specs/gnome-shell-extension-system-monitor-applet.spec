@@ -8,15 +8,15 @@
 
 %if 0%{?git_post_release_enabled}
   # Git commit is needed for post-release version.
-  %global gitcommit 184bc3458b6b192175c34f247c8d15c8c356928c
+  %global gitcommit 278b27e5986a1ba51a10a566792cdadc4884adc7
   %global gitshortcommit %(c=%{gitcommit}; echo ${c:0:7})
-  %global gitsnapinfo .20250319git%{gitshortcommit}
+  %global gitsnapinfo .20250916git%{gitshortcommit}
 %endif
 
 Name:           gnome-shell-extension-system-monitor-applet
 Epoch:          1
 Version:        38
-Release:        37%{?gitsnapinfo}%{?dist}
+Release:        38%{?gitsnapinfo}%{?dist}
 Summary:        A Gnome shell system monitor extension
 
 # The entire source code is GPLv3+ except convenience.js, which is BSD
@@ -48,18 +48,15 @@ CPU usage, and network rate...
 
 
 %build
-%make_build BUILD_FOR_RPM=1
+# Not needed as build target is a dependency of install target in
+# upstream Makefile
 
 
 %install
-%make_install VERSION=%{version} DESTDIR=%{buildroot} BUILD_FOR_RPM=1
+%make_install VERSION=%{version} PREFIX=%{buildroot}%{_prefix}
 
 # Cleanup unused files.
 %{__rm} -fr %{buildroot}%{extdir}/{COPYING*,README*,locale,schemas}
-
-# Install schema.
-%{__mkdir} -p %{buildroot}%{gschemadir}
-%{__cp} -pr %{extuuid}/schemas/*gschema.xml %{buildroot}%{gschemadir}
 
 # Install i18n.
 %{_bindir}/find %{extuuid} -name '*.po' -print -delete
@@ -89,6 +86,23 @@ fi
 
 
 %changelog
+* Tue Sep 16 2025 Nicolas Viéville <nicolas.vieville@uphf.fr> - 1:38-38.20250916git278b27e
+- Updated to last upstream commits
+- extension: Add setting for graph scale reset cooldown period
+- metadata.json: Add gnome-shell 49 support - RHBZ#2395840
+- Makefile: Don't use git rev for version
+- Makefile: Allow user override of VERSION
+- Makefile: Drop gschemas.{clean,uninstall}
+- Makefile: Simplify and clean up
+- Makefile: Don't remove when installing
+- Makefile: Drop all use of sudo
+- Makefile: Add gschemas-install target
+- Makefile: Make build explicitly depend on gschemas
+- Makefile: Add some messages about where build output is going
+- Makefile: Rename the extension rule
+- extension: Drop the old schema file and migration code - RHBZ#2268400
+- Adapt SPEC file to new Makefile
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:38-37.20250319git184bc34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

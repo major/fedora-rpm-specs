@@ -2,7 +2,7 @@
 %define major_version %(c=%{version}; echo $c | cut -d. -f1 | cut -d~ -f1)
 
 Name:           quadrapassel
-Version:        49~rc.4
+Version:        49.0
 Release:        %autorelease
 Summary:        GNOME Quadrapassel game
 
@@ -10,9 +10,6 @@ Summary:        GNOME Quadrapassel game
 License:        GPL-2.0-or-later AND LicenseRef-Callaway-CC-BY-SA
 URL:            https://wiki.gnome.org/Apps/Quadrapassel
 Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
-
-# https://gitlab.gnome.org/GNOME/quadrapassel/-/merge_requests/52
-Patch:          sounds.patch
 
 BuildRequires:  blueprint-compiler
 BuildRequires:  clutter-gtk-devel

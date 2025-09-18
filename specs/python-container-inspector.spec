@@ -7,7 +7,7 @@ Release:        %autorelease
 Summary:        Suite of analysis utilities and command line tools for Docker container images
 
 License:        Apache-2.0
-URL:            https://github.com/nexB/container-inspector
+URL:            https://github.com/aboutcode-org/container-inspector
 Source:         %url/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
 # Disable Sphinx extra theme
 Patch:          0001-Revert-Added-docs-server-script-dark-mode-copybutton.patch

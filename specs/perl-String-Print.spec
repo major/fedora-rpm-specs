@@ -1,5 +1,5 @@
 Name:           perl-String-Print
-Version:        0.95
+Version:        0.96
 Release:        1%{?dist}
 Summary:        Alternative for Perl printf
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -86,6 +86,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Sep 16 2025 Petr Pisar <ppisar@redhat.com> - 0.96-1
+- 0.96 bump
+
 * Thu Sep 11 2025 Petr Pisar <ppisar@redhat.com> - 0.95-1
 - 0.95 bump
 - Package the tests

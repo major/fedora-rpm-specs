@@ -5,7 +5,7 @@
 %global crate priority-queue
 
 Name:           rust-priority-queue
-Version:        2.5.0
+Version:        2.6.0
 Release:        %autorelease
 Summary:        Priority Queue implemented as a heap
 

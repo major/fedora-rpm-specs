@@ -9,6 +9,9 @@ License:       GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
 URL:           http://mate-desktop.org
 Source0:       http://pub.mate-desktop.org/releases/%{branch}/%{name}-%{version}.tar.xz
 
+Patch1:        mate-utils_0001-mate-screenshot-Toggle-shutter-sound.patch
+Patch2:        mate-utils_0002-mate-screenshot-Replace-fork-save-with-sync-save.patch  
+
 BuildRequires: desktop-file-utils
 BuildRequires: e2fsprogs-devel
 BuildRequires: gtk-layer-shell-devel

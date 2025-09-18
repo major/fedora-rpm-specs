@@ -19,8 +19,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-%global rocm_release 6.4
-%global rocm_patch 2
+%global rocm_release 7.0
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 %global upstreamname amdsmi
 
@@ -40,21 +40,19 @@
 
 Name:       amdsmi
 Version:    %{rocm_version}
-Release:    6%{?dist}
+Release:    1%{?dist}
 Summary:    AMD System Management Interface
 
 License:    NCSA AND MIT AND BSD-3-Clause
-URL:        https://github.com/RadeonOpenCompute/%{upstreamname}
+URL:        https://github.com/ROCm/%{upstreamname}
 Source0:    %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 # esmi_ib_library is not suitable for packaging
 # https://github.com/amd/esmi_ib_library/issues/13
 # This tag was choosen by the amdsmi project because 4.0+ introduced variables not
 # found in the upstream kernel.
-%global esmi_ver 4.1.2
+%global esmi_ver 4.2
 Source1:    https://github.com/amd/esmi_ib_library/archive/refs/tags/esmi_pkg_ver-%{esmi_ver}.tar.gz
-Patch2:     0001-Include-cstdint-for-gcc-15.patch
-Patch3:     0002-option-use-system-gtest.patch
-Patch4:     0003-test-client-includes-for-gcc-15.patch
+Patch1:     0002-option-use-system-gtest.patch
 
 ExclusiveArch: x86_64
 
@@ -122,6 +120,14 @@ sed -i -e 's@env python3@python3@' amdsmi_cli/*.py
 # Install local gtests in same dir as tests
 sed -i -e 's@${CPACK_PACKAGING_INSTALL_PREFIX}/lib@${SHARE_INSTALL_PREFIX}/tests@' tests/amd_smi_test/CMakeLists.txt
 
+# fix cstdint include
+# https://github.com/ROCm/amdsmi/issues/123
+sed -i '/#include <unordered_set.*/a#include <cstdint>' rocm_smi/include/rocm_smi/rocm_smi_common.h
+
+# fix iomanip include
+# https://github.com/ROCm/amdsmi/issues/124
+sed -i '/#include <string.*/a#include <iomanip>' tests/amd_smi_test/test_common.h
+
 %build
 %cmake \
     -DBUILD_KERNEL_ASM_DIR=/usr/include/asm \
@@ -149,9 +155,9 @@ fi
 rm -rf %{buildroot}/usr/share/example
 rm -rf %{buildroot}/usr/share/amd_smi/example
 rm -rf %{buildroot}/usr/share/doc/amd_smi-asan/LICENSE.txt
-rm -f %{buildroot}/usr/share/doc/amd_smi/LICENSE.txt
-rm -f %{buildroot}/usr/share/doc/amd_smi/README.md
-rm -rf %{buildroot}/usr/share/doc/amd_smi/copyright
+rm -f %{buildroot}/usr/share/doc/amd-smi-lib/LICENSE.txt
+rm -f %{buildroot}/usr/share/doc/amd-smi-lib/README.md
+rm -rf %{buildroot}/usr/share/doc/amd-smi-lib/copyright
 rm -f %{buildroot}%{_datadir}/_version.py
 rm -f %{buildroot}%{_datadir}/amd_smi/_version.py
 rm -f %{buildroot}%{_datadir}/setup.py
@@ -201,6 +207,9 @@ mv %{buildroot}%{_datadir}/tests %{buildroot}%{_datadir}/amdsmi/.
 %endif
 
 %changelog
+* Tue Sep 16 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.0-1
+- Update to 7.0.0
+
 * Wed Aug 27 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-6
 - Add Fedora copyright
 

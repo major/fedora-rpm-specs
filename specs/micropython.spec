@@ -9,7 +9,7 @@
 %global _warning_options %_warning_options -Wformat
 
 Name:           micropython
-Version:        1.26.0
+Version:        1.26.1
 Release:        1%{?dist}
 Summary:        Implementation of Python 3 with very low memory footprint
 
@@ -116,6 +116,10 @@ install -pm 755 ports/unix/build-standard/micropython %{buildroot}%{_bindir}
 %{_bindir}/micropython
 
 %changelog
+* Tue Sep 16 2025 Charalampos Stratakis <cstratak@redhat.com> - 1.26.1-1
+- Update to 1.26.1
+Resolves: rhbz#2394487
+
 * Tue Aug 12 2025 Charalampos Stratakis <cstratak@redhat.com> - 1.26.0-1
 - Update to 1.26.0
 Resolves: rhbz#2387402

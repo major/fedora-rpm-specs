@@ -176,13 +176,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.17.0
 %define specversion 6.17.0
 %define patchversion 6.17
-%define pkgrelease 0.rc6.49
+%define pkgrelease 0.rc6.250916g46a51f4f5edad.50
 %define kversion 6
-%define tarfile_release 6.17-rc6
+%define tarfile_release 6.17-rc6-3-g46a51f4f5edad
 # This is needed to do merge window version magic
 %define patchlevel 17
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc6.49%{?buildid}%{?dist}
+%define specrelease 0.rc6.250916g46a51f4f5edad.50%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.17.0
 
@@ -4395,10 +4395,18 @@ fi\
 #
 #
 %changelog
-* Mon Sep 15 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc6.49]
+* Tue Sep 16 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.17.0-0.rc6.250916g46a51f4f5edad.50]
+- Linux v6.17.0-0.rc6.250916g46a51f4f5edad
+
+* Tue Sep 16 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc6.46a51f4f5eda.50]
 - arm64: dts: qcom: x1e80100-lenovo-yoga-slim7x: add Bluetooth support (Jens Glathe)
 - ALSA HDA driver configuration split for 6.17 upstream (Jaroslav Kysela)
 - redhat/configs: clang_lto: disable CONFIG_FORTIFY_KUNIT_TEST (Scott Weaver)
+
+* Tue Sep 16 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc6.46a51f4f5eda.49]
+- redhat: configs: drop TI_K3_UDMA & TI_K3_UDMA_GLUE_LAYER from RHEL (Eric Chanudet)
+- redhat: configs: move TI_SCI_PROTOCOL and TI_MESSAGE_MANAGER to common (Eric Chanudet)
+- Linux v6.17.0-0.rc6.46a51f4f5eda
 
 * Mon Sep 15 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc6.48]
 - Linux v6.17.0-0.rc6

@@ -8,7 +8,7 @@
 
 Name:    syslog-ng
 Version: %{syslog_ng_ver}
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Next-generation syslog server
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -648,6 +648,9 @@ fi
 
 
 %changelog
+* Tue Sep 16 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 4.9.0-6
+- Rebuilt for abseil-cpp 20250814.0 (again, for F43)
+
 * Fri Sep 12 2025 Peter Czanik <peter@czanik.hu> - 4.9.0-5
 - add a couple of bug fixes for various crash and message loss problems:
   0001-Merge-pull-request-5437-from-HofiOne-fix-ack-tracker.patch

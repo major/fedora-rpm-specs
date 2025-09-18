@@ -1,15 +1,16 @@
 Name:           perl-Math-Base-Convert
-Version:        0.11
-Release:        28%{?dist}
+Version:        0.13
+Release:        1%{?dist}
 Summary:        Very fast base to base conversion
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Math-Base-Convert
 Source0:        https://cpan.metacpan.org/authors/id/M/MI/MIKER/Math-Base-Convert-%{version}.tar.gz
 BuildArch:      noarch
 # Build
+BuildRequires:  coreutils
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Runtime
@@ -27,27 +28,57 @@ BuildRequires:  perl(Math::BigInt)
 This module provides fast functions and methods to convert between
 arbitrary number bases from 2 (binary) thru 65535.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Math-Base-Convert-%{version}
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
+%{make_install}
 %{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cp recurse2txt %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
 make test
 
 %files
-
 %doc bitmaps Changes README recurse2txt
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/Math
+%{perl_vendorlib}/Math/Base
+%{_mandir}/man3/Math::Base::Convert*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Tue Sep 16 2025 Jitka Plesnikova <jplesnik@redhat.com> - 0.13-1
+- 0.13 bump (rhbz#2395620)
+- Package tests
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

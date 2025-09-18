@@ -32,7 +32,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           localsearch
-Version:        3.10~rc
+Version:        3.10.0
 Release:        %autorelease
 Summary:        Localsearch and metadata extractors
 
@@ -86,6 +86,7 @@ BuildRequires:  pkgconfig(libosinfo-1.0)
 BuildRequires:  pkgconfig(libnm)
 BuildRequires:  pkgconfig(upower-glib)
 %endif
+BuildRequires:  python3-dbusmock
 
 # renamed in F42
 Obsoletes:      tracker-miners < 3.8
@@ -135,6 +136,11 @@ This package contains various miners and metadata extractors for tinysparql.
 %if 0%{?flatpak}
 install -D -m 0755 %{SOURCE1} %{buildroot}%{_bindir}/%{name}-flatpak-fixup.sh
 %endif
+
+# Avoid RPM build warning:
+#  absolute symlink: /usr/share/localsearch3/miners/org.freedesktop.Tracker3.Miner.Files.service -> /usr/share/dbus-1/services/org.freedesktop.Tracker3.Miner.Files.service
+rm %{buildroot}%{_datadir}/localsearch3/miners/org.freedesktop.Tracker3.Miner.Files.service
+ln -sr %{buildroot}%{_datadir}/dbus-1/services/org.freedesktop.Tracker3.Miner.Files.service %{buildroot}%{_datadir}/localsearch3/miners/org.freedesktop.Tracker3.Miner.Files.service
 
 %find_lang localsearch3
 

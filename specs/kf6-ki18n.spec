@@ -1,7 +1,7 @@
 %global		framework ki18n
 
 Name:		kf6-%{framework}
-Version:	6.17.0
+Version:	6.18.0
 Release:	1%{?dist}
 Summary:	KDE Frameworks 6 Tier 1 addon for localization
 License:	BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only) AND ODbl-1.0
@@ -107,6 +107,9 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Tue Sep 16 2025 farchord@gmail.com - 6.18.0-1
+- 6.18.0
+
 * Fri Aug 01 2025 Steve Cossette <farchord@gmail.com> - 6.17.0-1
 - 6.17.0
 

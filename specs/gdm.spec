@@ -7,7 +7,7 @@
 
 Name:           gdm
 Epoch:          1
-Version:        49~rc
+Version:        49.0.1
 Release:        %autorelease
 Summary:        The GNOME Display Manager
 

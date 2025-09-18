@@ -4,7 +4,7 @@
 %global blueprint_compiler_version 0.18
 
 Name:           showtime
-Version:        49~rc
+Version:        49.0
 
 Release:        %autorelease
 Summary:        Modern video player built using GTK4
@@ -12,8 +12,7 @@ Summary:        Modern video player built using GTK4
 License:        GPL-3.0-or-later
 URL:            https://apps.gnome.org/Showtime/
 
-# Altered this macro a bit. We added a '.0' to the version. That needed to be removed from the download url.
-%global tarball_version %(echo %{version} | tr '~' '.' | sed 's/\.0//')
+%global tarball_version %%(echo %{version} | tr '~' '.')
 %global major_version %(cut -d "." -f 1 <<<%{tarball_version})
 
 Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz

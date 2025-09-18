@@ -74,7 +74,7 @@ BuildRequires:  pkgconfig(libtiff-4)
 BuildRequires:  cmake(OpenEXR)
 BuildRequires:  cmake(Imath)
 BuildRequires:  cmake(OpenColorIO)
-BuildRequires:  cmake(OpenImageIO)
+BuildRequires:  cmake(OpenImageIO) < 3.0
 # Disable pyside2 due to incompatibility with python 3.12
 %if 0%{?fedora} < 39
 BuildRequires:  pkgconfig(pyside2)

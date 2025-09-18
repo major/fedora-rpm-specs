@@ -3,8 +3,8 @@
 # - release build (disable for quick build)
 %ifarch s390x
 # https://bugzilla.redhat.com/show_bug.cgi?id=2329744
-# https://gitlab.haskell.org/ghc/ghc/-/issues/25536
 # https://gitlab.haskell.org/ghc/ghc/-/issues/25541
+# https://gitlab.haskell.org/ghc/ghc/-/issues/25536
 %bcond releasebuild 0
 %else
 %bcond releasebuild 1
@@ -89,7 +89,7 @@ Name: %{ghc_name}
 Version: %{ghc_major}.%{ghc_patchlevel}.20250908
 # Since library subpackages are versioned:
 # - release can only be reset if *all* library versions get bumped simultaneously
-Release: 0.4%{?dist}
+Release: 0.5%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -98,9 +98,6 @@ Source0: https://downloads.haskell.org/ghc/%{version}/ghc-%{version}-src.tar.xz
 %if %{with testsuite}
 Source1: https://downloads.haskell.org/ghc/%{version}/ghc-%{version}-testsuite.tar.xz
 %endif
-# https://gitlab.haskell.org/ghc/ghc/-/issues/26334 (s390x FTBFS)
-# https://bugzilla.redhat.com/show_bug.cgi?id=2390028
-ExcludeArch: s390x
 Source5: ghc-pkg.man
 Source6: haddock.man
 Source7: runghc.man
@@ -117,6 +114,11 @@ Patch3: ghc-gen_contents_index-nodocs.patch
 
 # unregisterised
 Patch16: ghc-hadrian-C-backend-rts--qg.patch
+
+# https://gitlab.haskell.org/ghc/ghc/-/issues/26334 (s390x rts FTBFS)
+# https://bugzilla.redhat.com/show_bug.cgi?id=2390028
+# https://gitlab.haskell.org/ghc/ghc/-/merge_requests/14834
+Patch20: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/14834.patch
 
 # Debian patches:
 # bad according to upstream: https://gitlab.haskell.org/ghc/ghc/-/issues/10424
@@ -464,6 +466,8 @@ rm libffi-tarballs/libffi-*.tar.gz
 %patch -P16 -p1 -b .orig
 %endif
 %endif
+
+%patch -P20 -p1 -b .orig
 
 #debian
 #%%patch -P24 -p1 -b .orig
@@ -905,6 +909,9 @@ make test
 
 
 %changelog
+* Tue Sep 16 2025 Jens Petersen <petersen@redhat.com> - 9.14.0.20250908-0.5
+- reenable s390x with patch from stefansf to fix rts build (#2390028)
+
 * Fri Sep 12 2025 Jens Petersen <petersen@redhat.com> - 9.14.0.20250908-0.4
 - 9.14.1 alpha2
 - https://downloads.haskell.org/ghc/9.14.1-alpha2/docs/users_guide/9.14.1-notes.html

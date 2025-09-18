@@ -14,7 +14,7 @@
 %endif
 
 Name:           gnome-initial-setup
-Version:        49~beta.1
+Version:        49.0
 Release:        %autorelease
 Summary:        Bootstrapping your OS
 
@@ -106,6 +106,7 @@ useradd -rM -d /run/gnome-initial-setup/ -s /sbin/nologin %{name} &>/dev/null ||
 %doc NEWS README.md
 %{_libexecdir}/gnome-initial-setup
 %{_libexecdir}/gnome-initial-setup-copy-worker
+%{_datadir}/applications/gnome-initial-setup.desktop
 %{_datadir}/dconf/profile/gnome-initial-setup
 %dir %{_datadir}/gnome-initial-setup
 %{_datadir}/gnome-initial-setup/initial-setup-dconf-defaults

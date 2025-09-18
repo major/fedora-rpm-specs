@@ -35,7 +35,7 @@ ExclusiveArch: x86_64
 %global major_version %%(echo %%{tarball_version} | cut -d. -f1)
 
 Name:		gnome-boxes
-Version:	49~rc.1
+Version:	49.0
 Release:	1%{?dist}
 Summary:	A simple GNOME 3 application to access remote or virtual systems
 
@@ -157,6 +157,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.gnome.Boxe
 %{_metainfodir}/org.gnome.Boxes.metainfo.xml
 
 %changelog
+* Tue Sep 16 2025 Packit <hello@packit.dev> - 49.0-1
+- Update to version 49.0
+- Resolves: rhbz#2391731
+
 * Thu Sep 04 2025 Michael Catanzaro <mcatanzaro@gnome.org> - 49~rc.1-1
 - Update to 49.rc.1
 

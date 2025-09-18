@@ -1,13 +1,14 @@
 #global prerel rc
 
 Name:           pugixml
-Version:        1.14
-Release:        3%{?dist}
+Version:        1.15
+Release:        1%{?dist}
 Summary:        A light-weight C++ XML processing library
 License:        MIT
-URL:            http://pugixml.org
+URL:            https://pugixml.org/
+VCS:            git:https://github.com/zeux/%{name}.git
 
-Source0:        https://github.com/zeux/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
+Source:         https://github.com/zeux/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  cmake gcc-c++
 
@@ -32,6 +33,7 @@ Development files for package %{name}
 %package doc
 Summary:        Documentation for %{name}
 Requires:       %{name} = %{version}-%{release}
+BuildArch:      noarch
 
 %description doc
 Documentation for %{name}
@@ -42,7 +44,7 @@ Documentation for %{name}
 
 
 %build
-%cmake
+%cmake -DPUGIXML_BUILD_TESTS:BOOL=ON
 %cmake_build
 
 
@@ -50,16 +52,17 @@ Documentation for %{name}
 %cmake_install
 
 
-%ldconfig_scriptlets
+%check
+%ctest
 
 
 %files
 %doc readme.txt
 %license LICENSE.md
-%{_libdir}/*.so.*
+%{_libdir}/libpugixml.so.1*
 
 %files devel
-%{_libdir}/*.so
+%{_libdir}/libpugixml.so
 %{_libdir}/cmake/pugixml/
 %{_libdir}/pkgconfig/pugixml.pc
 %{_includedir}/*.hpp
@@ -69,6 +72,14 @@ Documentation for %{name}
 
 
 %changelog
+* Fri Aug 29 2025 Jerry James <loganjerry@gmail.com> - 1.15-1
+- Update to 1.15 (rhbz#2241663)
+- Change doc subpackage architecture to noarch
+- Change Source URL to tarball with the tests included
+- Add a %%check script
+- Do not glob the library name
+- Minor spec file cleanups
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.14-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

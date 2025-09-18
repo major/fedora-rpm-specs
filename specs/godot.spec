@@ -15,8 +15,8 @@
 %define rdnsname org.godotengine.Godot
 
 Name:           godot
-Version:        4.4.1
-Release:        5%{?dist}
+Version:        4.5
+Release:        1%{?dist}
 Summary:        Multi-platform 2D and 3D game engine with a feature-rich editor
 %if 0%{?mageia}
 Group:          Development/Tools
@@ -29,6 +29,8 @@ Source1:        https://github.com/godotengine/godot-builds/releases/download/%{
 
 # Preconfigure Blender and oidnDenoise paths to use system-installed versions.
 Patch0:         preconfigure-blender-oidn-paths.patch
+# https://github.com/godotengine/godot/pull/110540
+Patch1:         0001-Linux-Allow-unbundling-libjpeg-turbo-to-use-system-p.patch
 
 # Upstream does not support this arch (for now)
 ExcludeArch:    s390x
@@ -53,12 +55,14 @@ BuildRequires:  pkgconfig(libdecor-0)
 BuildRequires:  pkgconfig(libpcre2-32)
 BuildRequires:  pkgconfig(libpng)
 BuildRequires:  pkgconfig(libpulse)
+BuildRequires:  pkgconfig(libturbojpeg)
 BuildRequires:  pkgconfig(libudev)
 BuildRequires:  pkgconfig(libwebp)
 BuildRequires:  pkgconfig(libwslay)
 BuildRequires:  pkgconfig(libzstd)
 BuildRequires:  pkgconfig(ogg)
 BuildRequires:  pkgconfig(openxr)
+BuildRequires:  pkgconfig(sdl3)
 BuildRequires:  pkgconfig(speech-dispatcher)
 BuildRequires:  pkgconfig(theora)
 BuildRequires:  pkgconfig(theoradec)
@@ -211,7 +215,7 @@ end}
 %build
 # Needs to be in %%build so that system_libs stays in scope
 # We don't unbundle enet and minizip as they have necessary custom changes
-to_unbundle="brotli embree freetype graphite harfbuzz icu4c libogg libpng libtheora libvorbis libwebp mbedtls miniupnpc openxr pcre2 squish wslay zlib zstd"
+to_unbundle="brotli embree freetype graphite harfbuzz icu4c libjpeg_turbo libogg libpng libtheora libvorbis libwebp mbedtls miniupnpc openxr pcre2 sdl wslay zlib zstd"
 
 %if %{system_glslang}
 to_unbundle+=" glslang"
@@ -272,6 +276,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{rdnsname}.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{rdnsname}.appdata.xml
 
 %changelog
+* Mon Sep 15 2025 Rémi Verschelde <akien@fedoraproject.org> - 4.5-1
+- Version 4.5-stable
+- Adds SDL3 and libturbojpeg dependencies (unbundled)
+
 * Wed Aug 06 2025 František Zatloukal <fzatlouk@redhat.com> - 4.4.1-5
 - Rebuilt for icu 77.1
 

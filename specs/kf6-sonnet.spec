@@ -1,7 +1,7 @@
 %global		framework sonnet
 
 Name:		kf6-%{framework}
-Version:	6.17.0
+Version:	6.18.0
 Release:	1%{?dist}
 Summary:	KDE Frameworks 6 Tier 1 solution for spell checking
 License:	BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-or-later
@@ -151,6 +151,9 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Tue Sep 16 2025 farchord@gmail.com - 6.18.0-1
+- 6.18.0
+
 * Fri Aug 01 2025 Steve Cossette <farchord@gmail.com> - 6.17.0-1
 - 6.17.0
 

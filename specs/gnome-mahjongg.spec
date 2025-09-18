@@ -2,7 +2,7 @@
 %define major_version %(c=%{version}; echo $c | cut -d. -f1 | cut -d~ -f1)
 
 Name:           gnome-mahjongg
-Version:        49~rc
+Version:        49.0
 Release:        %autorelease
 Summary:        GNOME Mahjongg game
 

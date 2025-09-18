@@ -1,9 +1,9 @@
 %undefine __cmake_in_source_build
-%global sover 2.5
+%global sover 3.0
 
 Name:           OpenImageIO
-Version:        2.5.19.0
-Release:        3%{?dist}
+Version:        3.0.10.0
+Release:        1%{?dist}
 Epoch:          1
 Summary:        Library for reading and writing images
 
@@ -117,11 +117,7 @@ Requires:       %{name}%{?_isa} = %{epoch}:%{version}-%{release}
 Requires:       %{name}-iv%{?_isa} = %{epoch}:%{version}-%{release}
 Requires:       %{name}-utils%{?_isa} = %{epoch}:%{version}-%{release}
 Requires:       opencv-devel
-%if 0%{?fedora} > 34
 Requires:       cmake(OpenEXR)
-%else
-Requires:       OpenEXR-devel ilmbase-devel
-%endif
 
 %description devel
 Development files for package %{name}
@@ -148,7 +144,7 @@ rm -rf src/include/tbb
 # CMAKE_SKIP_RPATH is OK here because it is set to FALSE internally and causes
 # CMAKE_INSTALL_RPATH to be cleared, which is the desiered result.
 mkdir build/linux && pushd build/linux
-%cmake --debug-output -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+%cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo \
        -DCMAKE_CXX_STANDARD=17 \
        -DCMAKE_SKIP_RPATH:BOOL=TRUE \
        -DPYTHON_VERSION=%{python3_version} \
@@ -208,6 +204,9 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Sat Sep 06 2025 Richard Shaw <hobbes1069@gmail.com> - 1:3.0.10.0-1
+- Update to 3.0.10.0.
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1:2.5.19.0-3
 - Rebuilt for Python 3.14.0rc2 bytecode
 

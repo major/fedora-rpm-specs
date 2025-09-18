@@ -7,7 +7,7 @@
 
 %global goipath         github.com/osbuild/image-builder-cli
 
-Version:        33
+Version:        34
 
 %gometa
 
@@ -48,26 +48,26 @@ Provides: bundled(golang(github.com/Microsoft/go-winio)) = 0.6.2
 Provides: bundled(golang(github.com/Microsoft/hcsshim)) = 0.13.0
 Provides: bundled(golang(github.com/VividCortex/ewma)) = 1.2.0
 Provides: bundled(golang(github.com/acarl005/stripansi)) = 5a71ef0
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2)) = 1.38.1
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream)) = 1.7.0
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/config)) = 1.31.2
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/credentials)) = 1.18.6
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/feature/ec2/imds)) = 1.18.4
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/feature/s3/manager)) = 1.19.0
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/configsources)) = 1.4.4
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/endpoints/v2)) = 2.7.4
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2)) = 1.38.3
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream)) = 1.7.1
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/config)) = 1.31.6
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/credentials)) = 1.18.10
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/feature/ec2/imds)) = 1.18.6
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/feature/s3/manager)) = 1.19.4
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/configsources)) = 1.4.6
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/endpoints/v2)) = 2.7.6
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/ini)) = 1.8.3
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/v4a)) = 1.4.4
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/ec2)) = 1.245.2
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding)) = 1.13.0
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/checksum)) = 1.8.4
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/presigned-url)) = 1.13.4
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/s3shared)) = 1.19.4
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/s3)) = 1.87.1
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/sso)) = 1.28.2
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/ssooidc)) = 1.33.2
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/sts)) = 1.38.0
-Provides: bundled(golang(github.com/aws/smithy-go)) = 1.22.5
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/v4a)) = 1.4.6
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/ec2)) = 1.249.0
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding)) = 1.13.1
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/checksum)) = 1.8.6
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/presigned-url)) = 1.13.6
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/s3shared)) = 1.19.6
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/s3)) = 1.87.3
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/sso)) = 1.29.1
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/ssooidc)) = 1.34.2
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/sts)) = 1.38.2
+Provides: bundled(golang(github.com/aws/smithy-go)) = 1.23.0
 Provides: bundled(golang(github.com/cheggaaa/pb/v3)) = 3.1.7
 Provides: bundled(golang(github.com/containerd/cgroups/v3)) = 3.0.5
 Provides: bundled(golang(github.com/containerd/errdefs)) = 1.0.0
@@ -127,7 +127,7 @@ Provides: bundled(golang(github.com/opencontainers/image-spec)) = 1.1.1
 Provides: bundled(golang(github.com/opencontainers/runtime-spec)) = 1.2.1
 Provides: bundled(golang(github.com/opencontainers/selinux)) = 1.12.0
 Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.13.0
-Provides: bundled(golang(github.com/osbuild/images)) = 0.182.0
+Provides: bundled(golang(github.com/osbuild/images)) = 0.191.0
 Provides: bundled(golang(github.com/pkg/errors)) = 0.9.1
 Provides: bundled(golang(github.com/pmezard/go-difflib)) = 5d4384e
 Provides: bundled(golang(github.com/proglottis/gpgme)) = 0.1.4
@@ -142,7 +142,7 @@ Provides: bundled(golang(github.com/smallstep/pkcs7)) = 0.1.1
 Provides: bundled(golang(github.com/spf13/cobra)) = 1.9.1
 Provides: bundled(golang(github.com/spf13/pflag)) = 1.0.7
 Provides: bundled(golang(github.com/stefanberger/go-pkcs11uri)) = 7828495
-Provides: bundled(golang(github.com/stretchr/testify)) = 1.10.0
+Provides: bundled(golang(github.com/stretchr/testify)) = 1.11.1
 Provides: bundled(golang(github.com/sylabs/sif/v2)) = 2.21.1
 Provides: bundled(golang(github.com/tchap/go-patricia/v2)) = 2.3.3
 Provides: bundled(golang(github.com/titanous/rocacheck)) = afe7314
@@ -238,6 +238,29 @@ cd $PWD/_build/src/%{goipath}
 %{_bindir}/image-builder
 
 %changelog
+* Tue Sep 16 2025 Packit <hello@packit.dev> - 34-1
+Changes with 34
+----------------
+  - Install openssl in cli container (#292)
+    - Author: Justin Sherrill, Reviewers: Brian C. Lane, Michael Vogt
+  - build(deps): bump actions/setup-python from 5 to 6 (#296)
+    - Author: dependabot[bot], Reviewers: Achilleas Koutsou, Tomáš Hozza
+  - deps: update to images 0.191.0 (#302)
+    - Author: Simon de Vlieger, Reviewers: Michael Vogt, Tomáš Hozza
+  - github: add CODEOWNERS (#291)
+    - Author: Achilleas Koutsou, Reviewers: Lukáš Zapletal, Tomáš Hozza
+  - go.mod: update osbuild/images to 0.190.0 (dnfjson -> depsolvednf rename) (HMS-9366) (#301)
+    - Author: Tomáš Hozza, Reviewers: Lukáš Zapletal, Simon de Vlieger
+  - go.mod: update to images v0.186.0 (#294)
+    - Author: Michael Vogt, Reviewers: Ondřej Budai, Tomáš Hozza
+  - image-builder: use `manifesttest` from `images` (#293)
+    - Author: Michael Vogt, Reviewers: Lukáš Zapletal, Ondřej Budai
+  - main: add support disk based bootc images via --bootc-ref  (HMS-8845) (#245)
+    - Author: Michael Vogt, Reviewers: Lukáš Zapletal, Ondřej Budai, Simon de Vlieger
+
+— Somewhere on the Internet, 2025-09-16
+
+
 * Thu Aug 28 2025 Packit <hello@packit.dev> - 33-1
 Changes with 33
 ----------------

@@ -19,8 +19,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-%global rocm_release 6.4
-%global rocm_patch 3
+%global rocm_release 7.0
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 %global upstreamname rocm_smi_lib
 
@@ -35,13 +35,13 @@
 
 Name:       rocm-smi
 Version:    %{rocm_version}
-Release:    3%{?dist}
+Release:    1%{?dist}
 Summary:    ROCm System Management Interface Library
 
 License:    MIT AND NCSA
 URL:        https://github.com/ROCm/%{upstreamname}
 Source0:    %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
-Patch0:     0001-rocm-smi-fix-empty-return.patch
+# Patch0:     0001-rocm-smi-fix-empty-return.patch
 
 %if 0%{?rhel} || 0%{?suse_version}
 ExclusiveArch:  x86_64
@@ -60,6 +60,10 @@ BuildRequires:  doxygen-latex >= 1.9.7
 %endif
 BuildRequires:  gcc-c++
 BuildRequires:  libdrm-devel
+
+%if %{with test}
+BuildRequires:  gtest-devel
+%endif
 
 %description
 The ROCm System Management Interface Library, or ROCm SMI library, is part of
@@ -95,6 +99,16 @@ sed -i '/CMAKE_C.*_FLAGS/d' CMakeLists.txt
 sed -i -e 's@env python3@python3@' python_smi_tools/*.py
 sed -i -e 's@env python3@python3@' python_smi_tools/rsmiBindingsInit.py.in
 
+# do not download gtest and install
+# https://github.com/ROCm/rocm-systems/issues/1022
+sed -i -e 's@FetchContent_MakeAvailable(googletest)@#FetchContent_MakeAvailable(googletest)@' tests/rocm_smi_test/CMakeLists.txt
+sed -i -e 's@PUBLIC GTest::gtest_main@PUBLIC gtest_main gtest@' tests/rocm_smi_test/CMakeLists.txt
+sed -i -e '/TARGETS gtest gtest_main/,+3d' tests/rocm_smi_test/CMakeLists.txt
+
+# fix iomanip include
+# https://github.com/ROCm/rocm-systems/issues/1021
+sed -i '/#include <string.*/a#include <iomanip>' tests/rocm_smi_test/test_base.h
+
 %build
 %cmake -DFILE_REORG_BACKWARD_COMPATIBILITY=OFF -DCMAKE_INSTALL_LIBDIR=%{_lib} \
        -DCMAKE_SKIP_INSTALL_RPATH=TRUE \
@@ -108,7 +122,7 @@ sed -i -e 's@env python3@python3@' python_smi_tools/rsmiBindingsInit.py.in
 # For Fedora < 38, the README is not installed if doxygen is disabled:
 install -D -m 644 README.md %{buildroot}%{_docdir}/rocm_smi/README.md
 
-rm -f %{buildroot}%{_datadir}/doc/rocm_smi/LICENSE.txt
+rm -f %{buildroot}%{_datadir}/doc/rocm-smi-lib/LICENSE.txt
 
 %if 0%{?suse_version}
 %post   -p /sbin/ldconfig
@@ -136,6 +150,9 @@ rm -f %{buildroot}%{_datadir}/doc/rocm_smi/LICENSE.txt
 %endif
 
 %changelog
+* Tue Sep 16 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.0-1
+- Update to 7.0.0
+
 * Wed Aug 27 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.3-3
 - Add Fedora copyright
 

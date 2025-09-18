@@ -8,7 +8,11 @@ Summary:        Parser for Python dependency files
 License:        MIT
 URL:            https://github.com/nexB/dparse2
 Source:         %url/archive/%{version}/%{pypi_name}-%{version}.tar.gz
+# https://github.com/aboutcode-org/dparse2/pull/7
 Patch:          0001-Depends-on-tomllib-instead-of-deprecated-toml.patch
+# Update project references
+# https://github.com/aboutcode-org/dparse2/commit/9b6bd1c223ca5a874c6dcf96cad8fe4c47b0bf2a
+Patch:          0001-Update_link_references_of_ownership_from_nexB_to_aboutcode-org.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

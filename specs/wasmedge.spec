@@ -1,4 +1,4 @@
-%global version 0.14.1
+%global version 0.15.0
 %global reponame WasmEdge
 %global capi_soname 0
 %global capi_version 0.1.0
@@ -12,8 +12,6 @@ Summary: High performance WebAssembly Virtual Machine
 License: Apache-2.0 AND CC0-1.0
 URL:     https://github.com/%{reponame}/%{reponame}
 Source0: %{url}/releases/download/%{version}/%{reponame}-%{version}-src.tar.gz
-# Patch from https://github.com/WasmEdge/WasmEdge/commit/05c0693bb02e83f342af08ed27747be3bc761668
-Patch0: 0001-LLVM-Ignore-c-17-deprecated-warning-in-ciso646-heade.patch
 BuildRequires: cmake
 BuildRequires: gcc-c++
 BuildRequires: git
@@ -57,7 +55,7 @@ Provides: %{reponame}-devel = %{version}-%{release}
 This package contains necessary header files for %{reponame} development.
 
 %prep
-%autosetup -n %{name} -p1
+%autosetup -n %{name}
 [ -f VERSION ] || echo -n %{version} > VERSION
 
 %build

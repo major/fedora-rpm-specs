@@ -2,7 +2,7 @@
 %define major_version %(c=%{version}; echo $c | cut -d. -f1 | cut -d~ -f1)
 
 Name:           gnome-mines
-Version:        49~rc
+Version:        49.0.1
 Release:        %autorelease
 Summary:        GNOME Mines Sweeper game
 
@@ -20,9 +20,6 @@ BuildRequires:  gettext-devel
 BuildRequires:  itstool
 BuildRequires:  meson
 BuildRequires:  vala
-
-# https://gitlab.gnome.org/GNOME/libgnome-games-support/-/merge_requests/32
-Patch:          lggs-installation.patch
 
 %description
 The popular logic puzzle minesweeper. Find mines on a grid 

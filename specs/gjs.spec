@@ -23,6 +23,9 @@ Patch:          interface-properties.patch
 # https://gitlab.gnome.org/GNOME/gjs/-/merge_requests/1025
 Patch:          gsk-renderer.patch
 
+# https://gitlab.gnome.org/GNOME/gjs/-/merge_requests/1027
+Patch:          gio-platform-symbols.patch
+
 BuildRequires:  gcc-c++
 BuildRequires:  meson
 BuildRequires:  gettext

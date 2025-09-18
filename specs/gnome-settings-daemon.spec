@@ -13,7 +13,7 @@
 %global major_version %%(echo %{version} | cut -f 1 -d '~' | cut -f 1 -d '.')
 
 Name:           gnome-settings-daemon
-Version:        49~rc
+Version:        49.0
 Release:        %autorelease
 Summary:        The daemon sharing settings from GNOME to GTK+/KDE applications
 
@@ -23,9 +23,6 @@ Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{na
 
 # gsetting overrides for the "Server with GUI" installation
 Source1:    	org.gnome.settings-daemon.plugins.power.gschema.override
-
-# https://gitlab.gnome.org/GNOME/gnome-settings-daemon/-/merge_requests/440
-Patch:          delay-donate-notification.patch
 
 BuildRequires:  gcc
 BuildRequires:  gettext

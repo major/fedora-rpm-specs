@@ -102,6 +102,11 @@ Patch:          truststore-pem-path.patch
 # We don't need a layer to check that, as we're by default in an offline environment
 Patch:          downstream-remove-pytest-subket.patch
 
+# Patch for the bundled urllib3 for CVE-2025-50181
+# Redirects are not disabled when retries are disabled on PoolManager instantiation
+# Upstream fix: https://github.com/urllib3/urllib3/commit/f05b1329126d5be6de501f9d1e3e36738bc08857
+Patch:          urllib3-CVE-2025-50181.patch
+
 # Remove -s from Python shebang - ensure that packages installed with pip
 # to user locations are seen by pip itself
 %undefine _py3_shebang_s

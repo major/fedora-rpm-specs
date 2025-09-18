@@ -13,7 +13,7 @@
 %global giturl  https://github.com/ocaml/dune
 
 Name:           ocaml-dune
-Version:        3.20.1
+Version:        3.20.2
 Release:        1%{?dist}
 Summary:        Composable build system for OCaml and Reason
 
@@ -604,16 +604,25 @@ cd -
 %files -n ocaml-xdg-devel -f .ofiles-xdg-devel
 
 %changelog
+* Tue Sep 16 2025 Jerry James <loganjerry@gmail.com> - 3.20.2-1
+- Version 3.20.2
+
+* Mon Aug 25 2025 Jerry James <loganjerry@gmail.com> - 3.20.1-1
+- Version 3.20.1
+
+* Fri Aug 22 2025 Jerry James <loganjerry@gmail.com> - 3.20.0-1
+- Version 3.20.0
+
 * Wed Jul 23 2025 Jerry James <loganjerry@gmail.com> - 3.19.1-2
 - Migrate tests from STI to TMT (rhbz#2382985)
 
-* Wed Jun 11 2025 Jerry James  <loganjerry@gmail.com> - 3.19.1-1
+* Wed Jun 11 2025 Jerry James <loganjerry@gmail.com> - 3.19.1-1
 - Version 3.19.1
 
-* Fri May 23 2025 Jerry James  <loganjerry@gmail.com> - 3.19.0-1
+* Fri May 23 2025 Jerry James <loganjerry@gmail.com> - 3.19.0-1
 - Version 3.19.0
 
-* Fri May 02 2025 Jerry James  <loganjerry@gmail.com> - 3.18.2-1
+* Fri May 02 2025 Jerry James <loganjerry@gmail.com> - 3.18.2-1
 - Version 3.18.2
 
 * Fri Apr 18 2025 Jerry James <loganjerry@gmail.com> - 3.18.1-1

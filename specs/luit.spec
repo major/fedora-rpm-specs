@@ -1,6 +1,6 @@
 Summary: Locale and ISO 2022 support for Unicode terminals
 
-%global AppVersion 20240910
+%global AppVersion 20250912
 
 Name: luit
 Version: 2.0.%{AppVersion}
@@ -41,6 +41,9 @@ the fontenc package.
 %{_mandir}/man1/*
 
 %changelog
+* Tue Sep 16 2025 Thomas E. Dickey <dickey@his.com> - 2.0.20250912-1
+- update to 2.0.20250912 (RHBZ #2394922)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.20240910-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

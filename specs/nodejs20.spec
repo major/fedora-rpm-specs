@@ -48,7 +48,7 @@
 %global nodejs_epoch 1
 %global nodejs_major 20
 %global nodejs_minor 19
-%global nodejs_patch 4
+%global nodejs_patch 5
 # nodejs_soversion - from NODE_MODULE_VERSION in src/node_version.h
 %global nodejs_soversion 115
 %global nodejs_abi %{nodejs_soversion}
@@ -71,14 +71,14 @@
 %global v8_release %{nodejs_epoch}.%{nodejs_major}.%{nodejs_minor}.%{nodejs_patch}.%{nodejs_release}
 
 # zlib - from deps/zlib/zlib.h
-%global zlib_version 1.3.0.1-motley
+%global zlib_version 1.3.1
 
 # c-ares - from deps/cares/include/ares_version.h
 # https://github.com/nodejs/node/pull/9332
 %global c_ares_version 1.34.5
 
 # llhttp - from deps/llhttp/include/llhttp.h
-%global llhttp_version 9.2.1
+%global llhttp_version 9.3.0
 
 # libuv - from deps/uv/include/uv/version.h
 %global libuv_version 1.46.0
@@ -163,9 +163,9 @@ Source300: test-runner.sh
 Source301: test-should-pass.txt
 
 Patch: 0001-Remove-unused-OpenSSL-config.patch
+Patch: 0001-fips-disable-options.patch
 Patch: 0001-missing-cstdint-fix.patch
 Patch: 0003-tools-make-nodedownload-module-compatible-with-Pytho.patch
-Patch: 0001-fips-disable-options.patch
 
 %if 0%{?nodejs_default}
 %global pkgname nodejs
@@ -336,7 +336,7 @@ Provides: bundled(ada) = 2.9.2
 
 # undici and cjs-module-lexer ship with pre-built WASM binaries.
 %if %{with bundled_cjs_module_lexer}
-Provides: bundled(nodejs-cjs-module-lexer) = 1.4.1
+Provides: bundled(nodejs-cjs-module-lexer) = 2.1.0
 %else
 BuildRequires: nodejs-cjs-module-lexer
 Requires: nodejs-cjs-module-lexer

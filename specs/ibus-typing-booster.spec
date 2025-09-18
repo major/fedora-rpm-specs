@@ -1,5 +1,5 @@
 Name:       ibus-typing-booster
-Version:    2.27.74
+Version:    2.27.75
 Release:    %autorelease
 Summary:    A completion input method
 License:    GPL-3.0-or-later AND Apache-2.0
@@ -14,6 +14,7 @@ Requires:   python3-distro
 Requires:   python3-packaging
 Requires:   python3-enchant
 Requires:   python3-pyxdg
+Requires:   python3-httpx
 %if 0%{?fedora}
 # To make emoji and Unicode symbol matching faster:
 Requires:     python3-rapidfuzz
@@ -76,6 +77,7 @@ BuildRequires:  libappstream-glib
 BuildRequires:  desktop-file-utils
 BuildRequires:  python3-gobject
 BuildRequires:  python3-gobject-base
+BuildRequires:  python3-httpx
 BuildRequires:  hunspell-cs
 BuildRequires:  hunspell-de
 BuildRequires:  hunspell-en

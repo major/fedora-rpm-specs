@@ -4,7 +4,7 @@
 %global giturl  https://gitlab.inria.fr/fpottier/menhir
 
 Name:           ocaml-menhir
-Version:        20250903
+Version:        20250912
 Release:        %autorelease
 Summary:        LR(1) parser generator for OCaml
 
