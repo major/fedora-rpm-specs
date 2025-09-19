@@ -32,7 +32,7 @@ checks for dimensional consistency and automatic unit conversion.
 Read the documentation at http://neo.readthedocs.io/}
 
 Name:       python-neo
-Version:    0.14.1
+Version:    0.14.2
 Release:    %autorelease
 Summary:    Represent electrophysiology data in Python
 

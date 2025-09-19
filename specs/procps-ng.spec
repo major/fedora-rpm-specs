@@ -4,7 +4,7 @@
 Summary: System and process monitoring utilities
 Name: procps-ng
 Version: 4.0.4
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
 URL: https://sourceforge.net/projects/procps-ng/
 
@@ -122,6 +122,9 @@ make check
 # these are created by make, yet empty. This causes rpmbuild errors.
 rm -rf %{buildroot}%{_mandir}/pl/man5
 rm -rf %{buildroot}%{_mandir}/{fr,de,pt_BR}/man3
+# kill is delivered with util-linux pkg along with i18n manpage
+rm -rf %{buildroot}%{_mandir}/{fr,de,pt_BR,ro,sv,uk}/man1/kill.1
+
 
 %find_lang %{name} --all-name --with-man
 
@@ -156,6 +159,10 @@ ln -s %{_bindir}/pidof %{buildroot}%{_sbindir}/pidof
 %files i18n -f %{name}.lang
 
 %changelog
+* Wed Sep 17 2025 Jan Rybar <jrybar@redhat.com> - 4.0.4-8
+- conflict of 'kill' i18n manpage with util-linux-i18n
+- Resolves: bz#2393949
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.4-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

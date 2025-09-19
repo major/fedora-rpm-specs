@@ -1,6 +1,6 @@
 Name:           transmission
 Version:        4.0.6
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        A lightweight GTK+ BitTorrent client
 # See COPYING. This licensing situation is... special.
 License:        MIT and GPL-2.0-only
@@ -15,7 +15,7 @@ Patch0:         0001-gtk-use-com.transmissionbt.Transmission.-D-Bus-names.patch
 Patch1:         %{name}-miniupnp228.patch
 # Proposed upstream: https://github.com/transmission/transmission/issues/7567
 Patch2:         0002-Make-compatible-with-CMake-4.0.patch
-
+Patch3:         7669.patch
 
 BuildRequires:  make
 BuildRequires:  cmake
@@ -199,6 +199,9 @@ install -m0644 -D transmission.sysusers.conf %{buildroot}%{_sysusersdir}/transmi
 %doc %{_mandir}/man1/transmission-qt.*
 
 %changelog
+* Wed Sep 17 2025 Gwyn Ciesla <gwync@protonmail.com> - 4.0.6-12
+- Patch for duplicate icon problem.
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.6-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

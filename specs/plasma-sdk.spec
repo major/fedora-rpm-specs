@@ -3,8 +3,8 @@
 ExcludeArch: %{ix86}
 
 Name:    plasma-sdk
-Version: 6.4.4
-Release: 2%{?dist}
+Version: 6.4.5
+Release: 1%{?dist}
 Summary: Development tools for Plasma 6
 
 License: BSD-2-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later
@@ -106,15 +106,16 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.plasma.lookan
 %{_kf6_datadir}/metainfo/org.kde.plasmoidviewer.appdata.xml
 %{_kf6_datadir}/zsh/site-functions/_plasmoidviewer
 %{_kf6_datadir}/zsh/site-functions/_kqml
-%{_kf6_metainfodir}/org.kde.plasma.themeexplorer.appdata.xml
 %{_kf6_metainfodir}/org.kde.plasma.iconexplorer.appdata.xml
-%{_kf6_metainfodir}/org.kde.plasma.plasmoidviewershell.appdata.xml
 %{_mandir}/man1/plasmaengineexplorer.1*
 %{_mandir}/man1/plasmoidviewer.1*
 %{_mandir}/man1/kqml.1.gz
 %{_datadir}/icons/hicolor/scalable/apps/org.kde.iconexplorer.svg
 
 %changelog
+* Tue Sep 16 2025 farchord@gmail.com - 6.4.5-1
+- 6.4.5
+
 * Sat Aug 16 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.4.4-2
 - Drop i686 support (leaf package)
 

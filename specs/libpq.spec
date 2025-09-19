@@ -5,7 +5,7 @@
 Summary: PostgreSQL client library
 Name: libpq
 Version: %{majorversion}.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: PostgreSQL
 Url: http://www.postgresql.org/
@@ -112,7 +112,8 @@ rm -r $RPM_BUILD_ROOT%_includedir/pgsql/server
 mkdir -p $RPM_BUILD_ROOT%{_includedir}/pgsql/server/utils
 mv $RPM_BUILD_ROOT%{_includedir}/pgsql/errcodes.h \
    $RPM_BUILD_ROOT%{_includedir}/pgsql/server/utils
-
+rm $RPM_BUILD_ROOT%_datadir/pgsql/postgres.bki
+rm $RPM_BUILD_ROOT%_datadir/pgsql/system_constraints.sql
 
 %multilib_fix_c_header --file "%_includedir/pg_config.h"
 
@@ -135,8 +136,6 @@ find_lang_bins %name-devel.lst  pg_config
 %_libdir/libpq.so.5*
 %dir %_datadir/pgsql
 %doc %_datadir/pgsql/pg_service.conf.sample
-%_datadir/pgsql/postgres.bki
-%_datadir/pgsql/system_constraints.sql
 
 
 %files devel -f %name-devel.lst
@@ -146,6 +145,9 @@ find_lang_bins %name-devel.lst  pg_config
 %_libdir/pkgconfig/libpq.pc
 
 %changelog
+* Wed Sep 17 2025 Filip Janus <fjanus@redhat.com> - 18.0-3
+- Removes server based files
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 18.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

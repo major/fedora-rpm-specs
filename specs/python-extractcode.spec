@@ -6,12 +6,17 @@ Release:        %autorelease
 Summary:        File extraction library and CLI tool to extract almost any archive
 
 License:        Apache-2.0 AND MIT
-URL:            https://github.com/nexB/extractcode
+URL:            https://github.com/aboutcode-org/extractcode
 Source:         %url/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
 # setup.cfg: fix invalid version spec
-Patch:          %url/commit/6270a8805c7fb964e545a56ca8a92829d240a96a.patch
-Patch:          %url/pull/55.patch
-Patch:          %url/pull/56.patch
+Patch:          %url/commit/6270a8805c7fb964e545a56ca8a92829d240a96a.patch#/0001-Add-COC-to-redistributed-license-like-files.patch
+# Replace unmaintained patch by patch-ng
+# https://github.com/aboutcode-org/extractcode/pull/56
+Patch:          %url/pull/55.patch#/0001-Use-patch-ng-fork-instead-of-unmaintained-patch.patch
+# Usage of dash-separated 'console-scripts' is deprecated
+# Use the underscore name 'console_scripts' instead.
+# https://github.com/aboutcode-org/extractcode/pull/56
+Patch:          %url/pull/56.patch#/0001-Usage-of-dash-separated-console-scripts-is-deprecate.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -84,7 +89,7 @@ rm -rf html/.{doctrees,buildinfo}
 
 %check
 # TestExtractVmImage needs access to kernel
-# Then https://github.com/nexB/extractcode/issues/53
+# Then https://github.com/aboutcode-org/extractcode/issues/53
 %pytest -k %{shescape:%{shrink:
         not estExtractVmImage
     and not test_get_extractor_qcow2

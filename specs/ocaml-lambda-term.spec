@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-lambda-term
 Version:        3.3.2
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Terminal manipulation library for OCaml
 
 License:        BSD-3-Clause
@@ -72,10 +72,13 @@ sed -e 's,%{_datadir}/lambda-termrc,%{_datadir}/lambda-term,' \
 %license LICENSE
 
 %changelog
+* Wed Sep 17 2025 Jerry James <loganjerry@gmail.com> - 3.3.2-19
+- Rebuild for ocaml-uucp 17.0.0
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.2-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Sat Jul 12 2025 Jerry James  <loganjerry@gmail.com> - 3.3.2-17
+* Sat Jul 12 2025 Jerry James <loganjerry@gmail.com> - 3.3.2-17
 - Rebuild to fix OCaml dependencies
 
 * Tue Mar 18 2025 Jerry James <loganjerry@gmail.com> - 3.3.2-16

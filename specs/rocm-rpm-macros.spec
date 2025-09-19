@@ -20,8 +20,8 @@
 # THE SOFTWARE.
 #
 Name:           rocm-rpm-macros
-Version:        6.4.2
-Release:        2%{?dist}
+Version:        7.0.0
+Release:        1%{?dist}
 Summary:        ROCm RPM macros
 License:        GPL-2.0-or-later
 
@@ -131,6 +131,9 @@ cp -p modules/* %{buildroot}%{_datadir}/modulefiles/rocm/
 %endif
 
 %changelog
+* Tue Sep 16 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.0-1
+- Update to 7.0.0
+
 * Wed Aug 27 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-2
 - Add Fedora copyright
 

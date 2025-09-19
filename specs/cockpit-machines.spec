@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-machines
-Version:        339
+Version:        340
 Release:        1%{?dist}
 Summary:        Cockpit user interface for virtual machines
 License:        LGPL-2.1-or-later AND MIT
@@ -69,12 +69,12 @@ Recommends: python3-gobject-base
 Suggests: (qemu-virtiofsd or virtiofsd)
 
 Provides: bundled(npm(@novnc/novnc)) = 1.5.0
-Provides: bundled(npm(@patternfly/patternfly)) = 6.3.0
-Provides: bundled(npm(@patternfly/react-core)) = 6.3.0
-Provides: bundled(npm(@patternfly/react-icons)) = 6.3.0
-Provides: bundled(npm(@patternfly/react-styles)) = 6.3.0
-Provides: bundled(npm(@patternfly/react-table)) = 6.3.0
-Provides: bundled(npm(@patternfly/react-tokens)) = 6.3.0
+Provides: bundled(npm(@patternfly/patternfly)) = 6.3.1
+Provides: bundled(npm(@patternfly/react-core)) = 6.3.1
+Provides: bundled(npm(@patternfly/react-icons)) = 6.3.1
+Provides: bundled(npm(@patternfly/react-styles)) = 6.3.1
+Provides: bundled(npm(@patternfly/react-table)) = 6.3.1
+Provides: bundled(npm(@patternfly/react-tokens)) = 6.3.1
 Provides: bundled(npm(@xterm/addon-canvas)) = 0.7.0
 Provides: bundled(npm(@xterm/xterm)) = 5.5.0
 Provides: bundled(npm(attr-accept)) = 2.2.5
@@ -119,6 +119,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Sep 17 2025 Packit <hello@packit.dev> - 340-1
+- Use exclusive VNC connections with "Remote resizing"
+
 * Wed Sep 03 2025 Packit <hello@packit.dev> - 339-1
 - Serial consoles now keep their content and stay alive
 - No longer copies qemu.conf values into VM definitions

@@ -2,12 +2,12 @@
 # Upstream is currently using SVN
 # SVN path: http://svn.sourceforge.jp/svnroot/yash/yash/trunk
 
-%global		mainver		2.59
+%global		mainver		2.60
 %global		docver		%{mainver}
 
 %global		yashdocdir		%{_datadir}/doc/%{name}-doc
 
-%global		baserelease	2
+%global		baserelease	1
 %undefine		minorver
 %undefine       _changelog_trimtime
 
@@ -134,6 +134,9 @@ exit 0
 %lang(ja)	%{yashdocdir}/ja/
 
 %changelog
+* Wed Sep 17 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.60-1
+- 2.60
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.59-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

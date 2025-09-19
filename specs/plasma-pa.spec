@@ -3,8 +3,8 @@
 ExcludeArch: %{ix86}
 
 Name:    plasma-pa
-Version: 6.4.4
-Release: 2%{?dist}
+Version: 6.4.5
+Release: 1%{?dist}
 Summary: Plasma applet for audio volume management using PulseAudio
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -81,6 +81,9 @@ rm -fv %{buildroot}%{_kf6_libdir}/libplasma-volume.so
 %{_kf6_datadir}/qlogging-categories6/plasmapa.categories
 
 %changelog
+* Tue Sep 16 2025 farchord@gmail.com - 6.4.5-1
+- 6.4.5
+
 * Mon Aug 18 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.4.4-2
 - Drop i686 support (leaf package)
 

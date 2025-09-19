@@ -16,6 +16,7 @@ Source0:        %{crates_source}
 %if %{without bundled_rust_deps}
 # allow mockall 0.11.4 and tempfile <= 3.16.0 for now
 Patch:          vhost-device-gpu-fix-metadata.diff
+Patch:          vhost-device-gpu-code-fix.diff
 %endif
 
 %if %{with bundled_rust_deps}
@@ -58,6 +59,7 @@ BuildRequires:  cargo-rpm-macros >= 24
 %endif
 BuildRequires:  virglrenderer-devel
 BuildRequires:  gfxstream-devel
+BuildRequires:  gcc-c++
 
 %global _description %{expand:
 A virtio-gpu device using the vhost-user protocol.}

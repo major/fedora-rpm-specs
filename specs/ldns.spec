@@ -40,7 +40,7 @@
 Summary: Low-level DNS(SEC) library with API
 Name: ldns
 Version: 1.8.4
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 License: BSD-3-Clause
 Url: https://www.nlnetlabs.nl/%{name}/
@@ -163,9 +163,6 @@ cp -p %{_datadir}/aclocal/{ax_python_devel,ax_pkg_swig}.m4 .
 aclocal
 libtoolize -c --install
 autoreconf --install
-
-# fixup .pc file
-sed -i "s/@includedir@/@includedir@\/ldns/" packaging/libldns.pc.in
 
 # copy common doc files - after here, since it may be patched
 cp -pr doc LICENSE README* Changelog ../
@@ -365,6 +362,9 @@ rm -rf doc/man
 %doc doc/*.dox
 
 %changelog
+* Tue Sep 16 2025 Petr Menšík <pemensik@redhat.com> - 1.8.4-7
+- Correct include path in libldns.pc (rhbz#2338878)
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.8.4-6
 - Rebuilt for Python 3.14.0rc2 bytecode
 

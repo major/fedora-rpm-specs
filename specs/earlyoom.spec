@@ -1,7 +1,7 @@
 %global makeflags VERSION=%{version} PREFIX=%{_prefix} SYSCONFDIR=%{_sysconfdir} SYSTEMDUNITDIR=%{_unitdir}
 
 Name: earlyoom
-Version: 1.8.2
+Version: 1.9.0
 Release: %autorelease
 
 License: MIT

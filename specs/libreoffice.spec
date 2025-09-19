@@ -270,7 +270,7 @@ BuildRequires: pkgconfig(harfbuzz)
 BuildRequires: pkgconfig(libeot)
 BuildRequires: pkgconfig(libepubgen-0.1)
 BuildRequires: pkgconfig(libqxp-0.0)
-BuildRequires: pkgconfig(liborcus-0.20)
+BuildRequires: pkgconfig(liborcus-0.21)
 BuildRequires: pkgconfig(mdds-3.0)
 BuildRequires: pkgconfig(zxing)
 BuildRequires: libnumbertext-devel
@@ -324,6 +324,7 @@ Patch12: cflags.patch
 Patch13: fix_or_exclude-tests-with-missing-glyphs.patch
 # https://lists.freedesktop.org/archives/libreoffice/2023-September/090948.html
 Patch501: kahansum_test_fix_for_aarc64_s390x.patch
+Patch502: orcus.patch
 
 %global instdir %{_libdir}
 %global baseinstdir %{instdir}/libreoffice
@@ -1093,6 +1094,7 @@ mv -f redhat.soc extras/source/palettes/standard.soc
 %ifarch aarch64 s390x ppc64le
 %patch -P 501 -p1
 %endif
+%patch -P 502 -p0
 
 # Temporarily disable failing tests
 %ifarch ppc64le

@@ -5,13 +5,19 @@
 %bcond_with internet
 
 Name:           python-%{srcname}
-Version:        6.1.0
-Release:        4%{?dist}
+Version:        6.2.0
+Release:        1%{?dist}
 Summary:        Collection of utilities for interacting with PyPI
 
 License:        Apache-2.0
 URL:            https://github.com/pypa/%{srcname}
 Source0:        %{pypi_source}
+
+# Revert upstream commit https://github.com/pypa/twine/commit/d94a4750883dc7cc92b2cbbb3970895303af216d
+# That was a fix for an interaction between docutils 0.22
+# and readme-renderer which does not seem to manifest in Fedora.
+Patch:          fix-test-rst-syntax-error.patch
+
 BuildArch:      noarch
 
 %description
@@ -104,6 +110,10 @@ install -p -D -T -m 0644 docs/build/man/%{srcname}.1 %{buildroot}%{_mandir}/man1
 %{_bindir}/twine
 
 %changelog
+* Tue Sep 16 2025 Charalampos Stratakis <cstratak@redhat.com> - 6.2.0-1
+- Update to 6.2.0
+- Fixes: rhbz#2393218
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 6.1.0-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

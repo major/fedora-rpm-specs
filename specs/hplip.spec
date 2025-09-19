@@ -6,8 +6,8 @@
 
 Summary: HP Linux Imaging and Printing Project
 Name: hplip
-Version: 3.25.2
-Release: 8%{?dist}
+Version: 3.25.6
+Release: 1%{?dist}
 # most files (base/*, *, ui*/...) - GPL2+
 # prnt/hpijs/ jpeg related files - IJG
 # prnt/* - BSD-3-Clause-HP - it is modified a little, asked here https://gitlab.com/fedora/legal/fedora-license-data/-/issues/267
@@ -199,60 +199,60 @@ Patch57: hplip-plugin-udevissues.patch
 #   removed
 # - /lib64/libm.so is not symlink but ld script, which cannot be used in dlopen()
 Patch58: hplip-no-libhpmud-libm-warnings.patch
-Patch60: hplip-plugin-script.patch
+Patch59: hplip-plugin-script.patch
 # C99 compatibility fixes by fweimer - use explicit int
 # Submitted upstream: <https://bugs.launchpad.net/hplip/+bug/1997875>
-Patch61: hplip-pserror-c99.patch
+Patch60: hplip-pserror-c99.patch
 # C99 compatibility patch by fweimer - several undefined functions in hpaio
 # backend are declared in orblite.h
 # Submitted upstream: <https://bugs.launchpad.net/hplip/+bug/1997875>
-Patch62: hplip-scan-hpaio-include.patch
+Patch61: hplip-scan-hpaio-include.patch
 # C99 compatibility patch by fweimer - undefined _DBG() and dynamic linking funcs in orblite.c
 # - _DBG() looks like typo and new header is added for funcs
 # Submitted upstream: <https://bugs.launchpad.net/hplip/+bug/1997875>
-Patch63: hplip-scan-orblite-c99.patch
+Patch62: hplip-scan-orblite-c99.patch
 # C99 compatibility patch by fweimer:
 # PyString_AsStringAndSize is removed in Python3, remove its compilation for now
 # in case there is a request for compiling it again, there is a possible solution
 # for the function py3 alternative https://opendev.org/openstack/pyeclib/commit/19c8313986
 # - disabling removes hp-unload and /usr/share/hplip/pcard as well
 # Submitted upstream: <https://bugs.launchpad.net/hplip/+bug/1997875>
-Patch64: hplip-pcardext-disable.patch
+Patch63: hplip-pcardext-disable.patch
 # undefined strcasestr() in sclpml.c - build with _GNU_SOURCE
 # Submitted upstream: <https://bugs.launchpad.net/hplip/+bug/1997875>
-Patch65: hplip-sclpml-strcasestr.patch
+Patch64: hplip-sclpml-strcasestr.patch
 # 2192131 - parseQueues() doesn't get device uri from 'lpstat -v', because parsing pattern changed
 # https://bugs.launchpad.net/hplip/+bug/2027972
-Patch67: hplip-fix-parsing-lpstat.patch
+Patch65: hplip-fix-parsing-lpstat.patch
 # switch to curl by downstream patch from wget to workaround openstack dropping IPv6
 # which causes great delays...
 # Remove this once internal openstack handles IPv6 better - test by pinging IPv6 in OpenStack,
 # it should not hang.
-Patch68: hplip-plugin-curl.patch
+Patch66: hplip-plugin-curl.patch
 # fix SyntaxWarning from python3.12
 # https://bugs.launchpad.net/hplip/+bug/2029480
-Patch69: hplip-use-raw-strings.patch
+Patch67: hplip-use-raw-strings.patch
 # FTBFS GCC 14
 # https://bugs.launchpad.net/hplip/+bug/2048780
-Patch70: hplip-hpaio-gcc14.patch
+Patch68: hplip-hpaio-gcc14.patch
 # format is no longer method in locale module
 # https://bugs.launchpad.net/hplip/+bug/2045507
-Patch71: hplip-locale-format.patch
+Patch69: hplip-locale-format.patch
 # function prototype did not specify argument's data types
 # https://bugs.launchpad.net/hplip/+bug/2096650
-Patch72: hplip-gcc15-stdc23.patch
+Patch70: hplip-gcc15-stdc23.patch
 # status history table shows unformatted QDateTime values
 # https://bugs.launchpad.net/hplip/+bug/1956547
-Patch73: hplip-format-qdatetime.patch
-# make sure we see prompts when installing plugin...
-# https://bugs.launchpad.net/hplip/+bug/2110101
-Patch75: hplip-plugin-stdout.patch
-# toolbox shows traceback when button 'close' is clicked on at first dialog
-# https://bugs.launchpad.net/hplip/+bug/2111722
-Patch76: hplip-gui-close-trace.patch
+Patch71: hplip-format-qdatetime.patch
 # Python 3.14 removed urlopener
 # https://bugs.launchpad.net/hplip/+bug/2115046
-Patch77: hplip-no-urlopener.patch
+Patch72: hplip-no-urlopener.patch
+# hp-scan command failed to run and gives an error (fedora#2395809)
+# https://bugs.launchpad.net/hplip/+bug/2124268
+Patch73: hplip-scan-size.patch
+# HP uses new GPG key, but hplip code does not use it
+# https://developers.hp.com/hp-linux-imaging-and-printing/hplipDigitalCertificate.html
+Patch74: hplip-new-gpg-key.patch
 
 %if 0%{?fedora} || 0%{?rhel} <= 8
 # mention hplip-gui if you want to have GUI
@@ -577,48 +577,48 @@ done
 %patch -P 57 -p1 -b .hpplugin-udevperms
 # 2080235 - Misleading errors about missing shared libraries when scanning
 %patch -P 58 -p1 -b .no-libm-libhpmud-warn
-%patch -P 60 -p1 -b .plugin-patch
+%patch -P 59 -p1 -b .plugin-patch
 # C99 compatibility fixes by fweimer - use explicit int
 # Submitted upstream: <https://bugs.launchpad.net/hplip/+bug/1997875>
-%patch -P 61 -p1 -b .pserror-int
+%patch -P 60 -p1 -b .pserror-int
 # C99 compatibility patch by fweimer - several undefined functions in hpaio
 # backend are declared in orblite.h
 # Submitted upstream: <https://bugs.launchpad.net/hplip/+bug/1997875>
-%patch -P 62 -p1 -b .hpaio-orblite-defs
+%patch -P 61 -p1 -b .hpaio-orblite-defs
 # C99 compatibility patch by fweimer - undefined _DBG() and dynamic linking funcs in orblite.c
 # - _DBG() looks like typo and new header is added for funcs
 # Submitted upstream: <https://bugs.launchpad.net/hplip/+bug/1997875>
-%patch -P 63 -p1 -b .orblite-undefs
+%patch -P 62 -p1 -b .orblite-undefs
 # C99 compatibility patch by fweimer - python2 PyString_AsStringAndSize in python3 code
 # gives undefined reference - removed for now with dependent hp-unload
-%patch -P 64 -p1 -b .pcardext-disable
+%patch -P 63 -p1 -b .pcardext-disable
 # C99 compatibility patch by fweimer - undefined strcasestr() in sclpml.c - build with _GNU_SOURCE
-%patch -P 65 -p1 -b .sclpml-strcasestr
+%patch -P 64 -p1 -b .sclpml-strcasestr
 # 2192131 - parseQueues() doesn't get device uri from 'lpstat -v', because parsing pattern changed
 # https://bugs.launchpad.net/hplip/+bug/2027972
-%patch -P 67 -p1 -b .lpstat-parse
+%patch -P 65 -p1 -b .lpstat-parse
 # switch to curl by downstream patch from wget to workaround openstack dropping IPv6
 # which causes great delays...
-%patch -P 68 -p1 -b .curl-switch
+%patch -P 66 -p1 -b .curl-switch
 # fix warnings
 # upstream https://bugs.launchpad.net/hplip/+bug/2029480
-%patch -P 69 -p1 -b .raw-strings
+%patch -P 67 -p1 -b .raw-strings
 # FTBFS GCC 14
 # https://bugs.launchpad.net/hplip/+bug/2048780
-%patch -P 70 -p1 -b .hpaio-gcc14
+%patch -P 68 -p1 -b .hpaio-gcc14
 # format is no longer method in locale module
 # https://bugs.launchpad.net/hplip/+bug/2045507
-%patch -P 71 -p1 -b .locale-format
+%patch -P 69 -p1 -b .locale-format
 # https://bugs.launchpad.net/hplip/+bug/2096650
-%patch -P 72 -p1 -b .gcc-strc23
+%patch -P 70 -p1 -b .gcc-strc23
 # https://bugs.launchpad.net/hplip/+bug/1956547
-%patch -P 73 -p1 -b .format-qdatetime
-# https://bugs.launchpad.net/hplip/+bug/2110101
-%patch -P 75 -p1 -b .stdout
-# https://bugs.launchpad.net/hplip/+bug/2111722
-%patch -P 76 -p1 -b .gui-close-trace
+%patch -P 71 -p1 -b .format-qdatetime
 # https://bugs.launchpad.net/hplip/+bug/2115046
-%patch -P 77 -p1 -b .no-urlopener
+%patch -P 72 -p1 -b .no-urlopener
+# https://bugs.launchpad.net/hplip/+bug/2124268
+%patch -P 73 -p1 -b .scan-size
+# Use new GPG key from Ubuntu keyserver
+%patch -P 74 -p1 -b .new-gpg-key
 
 # Fedora specific patches now, don't put a generic patches under it
 %if 0%{?fedora} || 0%{?rhel} <= 8
@@ -990,6 +990,13 @@ find doc/images -type f -exec chmod 644 {} \;
 %config(noreplace) %{_sysconfdir}/sane.d/dll.d/hpaio
 
 %changelog
+* Wed Sep 17 2025 Zdenek Dohnal <zdohnal@redhat.com> - 3.25.6-1
+- hp-scan command failed to run and gives an error (fedora#2395809)
+- use new GPG key from HP - new key was used as fix for CVE-2025-43023
+
+* Tue Aug 12 2025 Zdenek Dohnal <zdohnal@redhat.com> - 3.25.6-1
+- hplip-3.25.6 is available (fedora#2386814)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.25.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

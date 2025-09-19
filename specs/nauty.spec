@@ -1,5 +1,5 @@
 Name:           nauty
-Version:        2.9.0
+Version:        2.9.1
 Release:        %autorelease
 Summary:        Graph canonical labeling and automorphism group computation
 
@@ -30,12 +30,6 @@ Patch:          %{name}-popcnt.patch
 Patch:          %{name}-unbundle-cliquer.patch
 # Fix uninitialized variable warnings
 Patch:          %{name}-uninitialized.patch
-# Fix a function that can fall off the end
-Patch:          %{name}-fall-off.patch
-# Fix SHA256 computation on big-endian architectures
-Patch:          %{name}-big-endian.patch
-# Fix buffer overruns in dreadnaut
-Patch:          %{name}-memory-overrun.patch
 
 BuildRequires:  gcc
 BuildRequires:  gmp-devel
@@ -166,17 +160,17 @@ LD_LIBRARY_PATH=$PWD/.libs PATH=$PWD:$PATH make check
 %files -n libnauty
 %doc changes24-29.txt formats.txt
 %license COPYRIGHT LICENSE-2.0.txt
-%{_libdir}/libnauty-2.9.0.so
-%{_libdir}/libnautyS-2.9.0.so
-%{_libdir}/libnautyW-2.9.0.so
-%{_libdir}/libnautyL-2.9.0.so
-%{_libdir}/libnauty1-2.9.0.so
-%{_libdir}/libnautyS1-2.9.0.so
-%{_libdir}/libnautyW1-2.9.0.so
-%{_libdir}/libnautyL1-2.9.0.so
+%{_libdir}/libnauty-2.9.1.so
+%{_libdir}/libnautyS-2.9.1.so
+%{_libdir}/libnautyW-2.9.1.so
+%{_libdir}/libnautyL-2.9.1.so
+%{_libdir}/libnauty1-2.9.1.so
+%{_libdir}/libnautyS1-2.9.1.so
+%{_libdir}/libnautyW1-2.9.1.so
+%{_libdir}/libnautyL1-2.9.1.so
 %if 0%{?__isa_bits} == 64
-%{_libdir}/libnautyQ-2.9.0.so
-%{_libdir}/libnautyQ1-2.9.0.so
+%{_libdir}/libnautyQ-2.9.1.so
+%{_libdir}/libnautyQ1-2.9.1.so
 %endif
 
 %files -n libnauty-devel

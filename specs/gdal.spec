@@ -52,7 +52,7 @@
 
 Name:          gdal
 Version:       3.11.4
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       GIS file format library
 License:       MIT
 URL:           http://www.gdal.org
@@ -126,6 +126,7 @@ BuildRequires: libzstd-devel
 %if 0%{?with_mysql}
 BuildRequires: mariadb-connector-c-devel
 %endif
+BuildRequires: muParser-devel
 BuildRequires: netcdf-devel
 BuildRequires: openexr-devel
 BuildRequires: openssl-devel-engine
@@ -850,6 +851,9 @@ done
 
 
 %changelog
+* Wed Sep 17 2025 Sandro Mani <manisandro@gmail.com> - 3.11.4-2
+- BR: muparser-devel
+
 * Sun Sep 14 2025 Sandro Mani <manisandro@gmail.com> - 3.11.4-1
 - Update to 3.11.4
 

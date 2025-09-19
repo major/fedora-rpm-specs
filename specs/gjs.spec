@@ -3,7 +3,7 @@
 %global mozjs140_version 140.1.0
 
 Name:           gjs
-Version:        1.85.90
+Version:        1.86.0
 Release:        %autorelease
 Summary:        Javascript Bindings for GNOME
 
@@ -15,16 +15,7 @@ Summary:        Javascript Bindings for GNOME
 # modules/script/tweener/equations.js is BSD-3-Clause
 License:        MIT AND BSD-3-Clause AND (MIT OR LGPL-2.0-or-later) AND (MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.1-or-later)
 URL:            https://wiki.gnome.org/Projects/Gjs
-Source0:        https://download.gnome.org/sources/%{name}/1.85/%{name}-%{version}.tar.xz
-
-# https://gitlab.gnome.org/GNOME/gjs/-/merge_requests/1024
-Patch:          interface-properties.patch
-
-# https://gitlab.gnome.org/GNOME/gjs/-/merge_requests/1025
-Patch:          gsk-renderer.patch
-
-# https://gitlab.gnome.org/GNOME/gjs/-/merge_requests/1027
-Patch:          gio-platform-symbols.patch
+Source0:        https://download.gnome.org/sources/%{name}/1.86/%{name}-%{version}.tar.xz
 
 BuildRequires:  gcc-c++
 BuildRequires:  meson

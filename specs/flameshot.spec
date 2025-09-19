@@ -5,7 +5,7 @@
 %global qtcolor_url https://gitlab.com/mattbas/Qt-Color-Widgets
 
 Name: flameshot
-Version: 13.0.1
+Version: 13.1.0
 Release: %autorelease
 
 # Main code: GPL-3.0-or-later
@@ -20,9 +20,6 @@ Summary: Powerful and simple to use screenshot software
 URL: https://github.com/flameshot-org/%{name}
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1: %{qtcolor_url}/-/archive/%{qtcolor_commit}/Qt-Color-Widgets-%{qtcolor_commit}.tar.gz
-
-# https://github.com/flameshot-org/flameshot/commit/5c12dc5513aa283649dceddd8875094744199083
-Patch1: %{name}-13.0.1-packaged-kdsingleapplication.patch
 
 BuildRequires: cmake(KDSingleApplication-qt6)
 BuildRequires: cmake(KF6GuiAddons)

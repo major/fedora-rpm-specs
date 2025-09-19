@@ -3,21 +3,22 @@
 %bcond check 0
 %global debug_package %{nil}
 
-%global crate serde
+%global crate serde_core
 
-Name:           rust-serde
+Name:           rust-serde_core
 Version:        1.0.225
 Release:        %autorelease
-Summary:        Generic serialization/deserialization framework
+Summary:        Serde traits
 
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/serde
+URL:            https://crates.io/crates/serde_core
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-A generic serialization/deserialization framework.}
+Serde traits only, with no support for derive -- use the `serde` crate
+instead.}
 
 %description %{_description}
 
@@ -34,7 +35,6 @@ use the "%{crate}" crate.
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/README.md
-%doc %{crate_instdir}/crates-io.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -61,18 +61,6 @@ use the "alloc" feature of the "%{crate}" crate.
 %files       -n %{name}+alloc-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+derive-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+derive-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "derive" feature of the "%{crate}" crate.
-
-%files       -n %{name}+derive-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+rc-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -85,16 +73,16 @@ use the "rc" feature of the "%{crate}" crate.
 %files       -n %{name}+rc-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+serde_derive-devel
+%package     -n %{name}+result-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+serde_derive-devel %{_description}
+%description -n %{name}+result-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "serde_derive" feature of the "%{crate}" crate.
+use the "result" feature of the "%{crate}" crate.
 
-%files       -n %{name}+serde_derive-devel
+%files       -n %{name}+result-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+std-devel

@@ -9,7 +9,7 @@
 %global ms_version   0.4.2
 
 # For rpmdev-bumpspec and releng automation
-%global baserelease 1
+%global baserelease 2
 
 #global snapdate   20210107
 #global gitcommit  b17db2cebc1a5ab2c01851d29c05f79cd2f262bb
@@ -76,6 +76,10 @@ Source0:        https://gitlab.freedesktop.org/pipewire/pipewire/-/archive/%{ver
 Source1:        pipewire.sysusers
 
 ## upstream patches
+Patch0001:      0001-Revert-impl-node-improve-the-node-unprepare-function.patch
+Patch0002:      0002-impl-node-only-do-unprepare-once.patch
+Patch0003:      0003-control-fix-event-compare-function.patch
+Patch0004:      0004-systemd-remove-RestrictNamespaces-from-service-file.patch
 
 ## upstreamable patches
 
@@ -900,6 +904,11 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_datadir}/pipewire/pipewire.conf.d/50-raop.conf
 
 %changelog
+* Wed Sep 17 2025 Wim Taymans <wtaymans@redhat.com> - 1.4.8-2
+- Add patch for xrun regression when stopping nodes.
+- Add patch for libcamera IPA spawn problem.
+- Add patch to fix UMP event sorting.
+
 * Thu Sep 11 2025 Wim Taymans <wtaymans@redhat.com> - 1.4.8-1
 - Update version to 1.4.8
 

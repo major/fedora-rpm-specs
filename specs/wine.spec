@@ -46,7 +46,7 @@
 # 0%%{?fedora}
 
 Name:           wine
-Version:        10.14
+Version:        10.15
 Release:        1%{?dist}
 Summary:        A compatibility layer for windows applications
 
@@ -1729,6 +1729,8 @@ fi
 %{_libdir}/wine/%{winepedirs}/windows.media.dll
 %{_libdir}/wine/%{winepedirs}/windows.media.devices.dll
 %{_libdir}/wine/%{winepedirs}/windows.media.mediacontrol.dll
+%{_libdir}/wine/%{winepedirs}/windows.media.playback.backgroundmediaplayer.dll
+%{_libdir}/wine/%{winepedirs}/windows.media.playback.mediaplayer.dll
 %{_libdir}/wine/%{winepedirs}/windows.media.speech.dll
 %if 0%{?wine_staging}
 %{_libdir}/wine/%{winepedirs}/windows.networking.connectivity.dll
@@ -2238,6 +2240,9 @@ fi
 %endif
 
 %changelog
+* Wed Sep 17 2025 Michael Cronenworth <mike@cchtml.com> - 10.15-1
+- version update
+
 * Fri Aug 29 2025 Michael Cronenworth <mike@cchtml.com> - 10.14-1
 - version update
 

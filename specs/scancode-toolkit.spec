@@ -14,8 +14,7 @@ Summary:        Scan code and detect licenses, copyrights, and more
 # CC-BY-4.0: ScanCode datasets for license detection
 License:        Apache-2.0 AND CC-BY-4.0
 URL:            https://scancode-toolkit.readthedocs.io/
-VCS:            https://github.com/nexB/scancode-toolkit
-Source:         %vcs/archive/v%{version}/%{name}-%{version}.tar.gz
+Source:         https://github.com/aboutcode-org/scancode-toolkit/archive/v%{version}/%{name}-%{version}.tar.gz
 
 # TODO: Is this upstreamable?
 Patch:          0001-tests-fix-pytest-traceback.patch
@@ -67,6 +66,7 @@ sed -Ei \
     -e '/sphinx-autobuild/d' \
     -e "s/^( *)(click .*);python_version<'3\.10'/\1\2/" \
     -e "/^ *click .*;python_version>='3\.10'/d" \
+    -e 's/spdx_tools ==/spdx_tools ~=/' \
 setup.cfg
 sed -i '/"sphinx_rtd_dark_mode"/d' docs/source/conf.py
 sed -i 's/JSON data/JSON text data/' tests/summarycode/data/todo/ignore_issue/invariant-2.2.4-expected.json
@@ -97,7 +97,7 @@ rm -rf html/.{doctrees,buildinfo}
 
 %check
 %if %{with tests}
-# https://github.com/nexB/scancode-toolkit/issues/3496
+# https://github.com/aboutcode-org/scancode-toolkit/issues/3496
 mkdir -p venv/bin
 ln -s %{buildroot}%{_bindir}/scancode venv/bin/regen-package-docs
 ln -s %{buildroot}%{_bindir}/scancode venv/bin/scancode

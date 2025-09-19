@@ -5,8 +5,8 @@
 ExcludeArch: %{ix86}
 
 Name:    plasma-%{base_name}
-Version: 6.4.4
-Release: 2%{?dist}
+Version: 6.4.5
+Release: 1%{?dist}
 Summary: A dedicated KDE search application built on top of Baloo
 
 License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -58,10 +58,12 @@ Provides:       kde-plasma-milou = %{version}-%{release}
 %license LICENSES/*
 %{_kf6_qmldir}/org/kde/milou/
 %{_kf6_datadir}/plasma/plasmoids/org.kde.milou/
-%{_kf6_metainfodir}/org.kde.milou.appdata.xml
 
 
 %changelog
+* Tue Sep 16 2025 farchord@gmail.com - 6.4.5-1
+- 6.4.5
+
 * Mon Aug 18 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.4.4-2
 - Drop i686 support (leaf package)
 

@@ -4,8 +4,8 @@ ExcludeArch: %{ix86}
 
 Name:    bluedevil
 Summary: Bluetooth stack for KDE
-Version: 6.4.4
-Release: 2%{?dist}
+Version: 6.4.5
+Release: 1%{?dist}
 
 License: GPL-2.0-or-later
 URL:     https://cgit.kde.org/%{name}.git
@@ -93,7 +93,6 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.bluedevil
 %{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.bluetooth
 %{_kf6_datadir}/qlogging-categories6/bluedevil.categories
 %{_kf6_datadir}/remoteview/bluetooth-network.desktop
-%{_kf6_metainfodir}/org.kde.plasma.bluetooth.appdata.xml
 %{_kf6_plugindir}/kded/*.so
 %{_kf6_plugindir}/kio/*.so
 %{_kf6_qmldir}/org/kde/plasma/private/bluetooth/
@@ -101,6 +100,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.bluedevil
 
 
 %changelog
+* Tue Sep 16 2025 farchord@gmail.com - 6.4.5-1
+- 6.4.5
+
 * Sat Aug 16 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.4.4-2
 - Drop i686 support (leaf package)
 

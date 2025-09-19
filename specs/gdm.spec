@@ -5,6 +5,14 @@
 %global major_version %%(echo %{version} | cut -d '.' -f1)
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
+# This controls support for launching X11 desktops.
+# gdm itself will always use Wayland.
+%if 0%{?rhel}
+%bcond x11 0
+%else
+%bcond x11 1
+%endif
+
 Name:           gdm
 Epoch:          1
 Version:        49.0.1
@@ -15,11 +23,7 @@ License:        GPL-2.0-or-later
 URL:            https://wiki.gnome.org/Projects/GDM
 Source0:        https://download.gnome.org/sources/gdm/%{major_version}/gdm-%{tarball_version}.tar.xz
 Source1:        org.gnome.login-screen.gschema.override
-
-# moved here from pulseaudio-gdm-hooks-11.1-16
-Source5:        default.pa-for-gdm
-
-Source6:        gdm.sysusers
+Source2:        gdm.sysusers
 
 # Downstream patches
 Patch:          0001-Honor-initial-setup-being-disabled-by-distro-install.patch
@@ -46,11 +50,14 @@ BuildRequires:  pkgconfig(libselinux)
 BuildRequires:  pkgconfig(libsystemd)
 BuildRequires:  pkgconfig(ply-boot-client)
 BuildRequires:  pkgconfig(systemd)
-BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xau)
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  which
 BuildRequires:  yelp-tools
+
+%if %{with x11}
+BuildRequires:  pkgconfig(x11)
+%endif
 
 Provides: service(graphical-login) = %{name}
 
@@ -76,7 +83,6 @@ Requires: python3-pam
 # use a user bus
 Requires: /usr/bin/dbus-run-session
 
-%{?sysusers_requires_compat}
 
 Provides: gdm-libs%{?_isa} = %{epoch}:%{version}-%{release}
 
@@ -110,100 +116,35 @@ GDM specific authentication features.
 %autosetup -S git -p1 -n gdm-%{tarball_version}
 
 %build
-%meson -Dpam-prefix=%{_sysconfdir} \
-       -Drun-dir=/run/gdm \
-       -Ddbus-sys=%{_datadir}/dbus-1/system.d \
-       -Ddefault-path=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin \
+%meson -Ddbus-sys=%{_datadir}/dbus-1/system.d \
+       -Ddefault-path=/usr/local/bin:/usr/bin \
        -Ddefault-pam-config=redhat \
        -Ddistro=redhat \
-       -Dprofiling=true \
-       -Dplymouth=enabled \
-       -Dselinux=enabled\
-       -Dwayland-support=true \
+%if %{with x11}
+       -Dx11-support=true \
+%else
        -Dx11-support=false \
+%endif
        -Dxdmcp=disabled
 
 %meson_build
 
-
 %install
-mkdir -p %{buildroot}%{_sysconfdir}/gdm/Init
-mkdir -p %{buildroot}%{_sysconfdir}/gdm/PreSession
-mkdir -p %{buildroot}%{_sysconfdir}/gdm/PostSession
-
 %meson_install
 
-install -p -m644 -D %{SOURCE5} %{buildroot}%{_localstatedir}/lib/gdm/.config/pulse/default.pa
-install -p -m644 -D %{SOURCE6} %{buildroot}%{_sysusersdir}/%{name}.conf
-
-# add logo to shell greeter
 cp -a %{SOURCE1} %{buildroot}%{_datadir}/glib-2.0/schemas
 
-# docs go elsewhere
-rm -rf %{buildroot}/%{_prefix}/doc
-
-# create log dir
-mkdir -p %{buildroot}/var/log/gdm
-
-mkdir -p %{buildroot}%{_datadir}/gdm/autostart/LoginWindow
-
-mkdir -p %{buildroot}/run/gdm
+install -p -m644 -D %{SOURCE2} %{buildroot}%{_sysusersdir}/%{name}.conf
 
 mkdir -p %{buildroot}%{_sysconfdir}/dconf/db/gdm.d/locks
 
+%if %{with x11}
+ln -sf ../X11/xinit/Xsession %{buildroot}%{_sysconfdir}/gdm/
+%endif
+
 %find_lang gdm --with-gnome
 
-%pre
-%sysusers_create_compat %{SOURCE6}
-
 %post
-# if the user already has a config file, then migrate it to the new
-# location; rpm will ensure that old file will be renamed
-
-custom=/etc/gdm/custom.conf
-
-if [ $1 -ge 2 ] ; then
-    if [ -f /usr/share/gdm/config/gdm.conf-custom ]; then
-        oldconffile=/usr/share/gdm/config/gdm.conf-custom
-    elif [ -f /etc/X11/gdm/gdm.conf ]; then
-        oldconffile=/etc/X11/gdm/gdm.conf
-    fi
-
-    # Comment out some entries from the custom config file that may
-    # have changed locations in the update.  Also move various
-    # elements to their new locations.
-
-    [ -n "$oldconffile" ] && sed \
-    -e 's@^command=/usr/X11R6/bin/X@#command=/usr/bin/Xorg@' \
-    -e 's@^Xnest=/usr/X11R6/bin/Xnest@#Xnest=/usr/X11R6/bin/Xnest@' \
-    -e 's@^BaseXsession=/etc/X11/xdm/Xsession@#BaseXsession=/etc/X11/xinit/Xsession@' \
-    -e 's@^BaseXsession=/etc/X11/gdm/Xsession@#&@' \
-    -e 's@^BaseXsession=/etc/gdm/Xsession@#&@' \
-    -e 's@^Greeter=/usr/bin/gdmgreeter@#Greeter=/usr/libexec/gdmgreeter@' \
-    -e 's@^RemoteGreeter=/usr/bin/gdmlogin@#RemoteGreeter=/usr/libexec/gdmlogin@' \
-    -e 's@^GraphicalTheme=Bluecurve@#&@' \
-    -e 's@^BackgroundColor=#20305a@#&@' \
-    -e 's@^DefaultPath=/usr/local/bin:/usr/bin:/bin:/usr/X11R6/bin@#&@' \
-    -e 's@^RootPath=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/usr/X11R6/bin@#&@' \
-    -e 's@^HostImageDir=/usr/share/hosts/@#HostImageDir=/usr/share/pixmaps/faces/@' \
-    -e 's@^LogDir=/var/log/gdm@#&@' \
-    -e 's@^PostLoginScriptDir=/etc/X11/gdm/PostLogin@#&@' \
-    -e 's@^PreLoginScriptDir=/etc/X11/gdm/PreLogin@#&@' \
-    -e 's@^PreSessionScriptDir=/etc/X11/gdm/PreSession@#&@' \
-    -e 's@^PostSessionScriptDir=/etc/X11/gdm/PostSession@#&@' \
-    -e 's@^DisplayInitDir=/var/run/gdm.pid@#&@' \
-    -e 's@^RebootCommand=/sbin/reboot;/sbin/shutdown -r now;/usr/sbin/shutdown -r now;/usr/bin/reboot@#&@' \
-    -e 's@^HaltCommand=/sbin/poweroff;/sbin/shutdown -h now;/usr/sbin/shutdown -h now;/usr/bin/poweroff@#&@' \
-    -e 's@^ServAuthDir=/var/gdm@#&@' \
-    -e 's@^Greeter=/usr/bin/gdmlogin@Greeter=/usr/libexec/gdmlogin@' \
-    -e 's@^RemoteGreeter=/usr/bin/gdmgreeter@RemoteGreeter=/usr/libexec/gdmgreeter@' \
-    $oldconffile > $custom
-fi
-
-if [ $1 -ge 2 -a -f $custom ] && grep -q /etc/X11/gdm $custom ; then
-   sed -i -e 's@/etc/X11/gdm@/etc/gdm@g' $custom
-fi
-
 %systemd_post gdm.service
 
 %preun
@@ -224,6 +165,9 @@ fi
 %config %{_sysconfdir}/pam.d/gdm-autologin
 %config %{_sysconfdir}/pam.d/gdm-password
 # not config files
+%if %{with x11}
+%{_sysconfdir}/gdm/Xsession
+%endif
 %{_datadir}/gdm/gdm.schemas
 %{_datadir}/dbus-1/system.d/gdm.conf
 %dir %{_sysconfdir}/gdm/Init
@@ -237,6 +181,9 @@ fi
 %{_libexecdir}/gdm-runtime-config
 %{_libexecdir}/gdm-session-worker
 %{_libexecdir}/gdm-wayland-session
+%if %{with x11}
+%{_libexecdir}/gdm-x-session
+%endif
 %{_libexecdir}/gdm-headless-login-session
 %{_sbindir}/gdm
 %{_bindir}/gdmflexiserver
@@ -254,14 +201,11 @@ fi
 %{_datadir}/polkit-1/rules.d/20-gdm.rules
 %{_libdir}/girepository-1.0/Gdm-1.0.typelib
 %{_libdir}/security/pam_gdm.so
-%{_libdir}/libgdm*.so*
+%{_libdir}/libgdm.so.1{,.*}
 %{_libexecdir}/gdm-auth-config-redhat
-%attr(0711, root, gdm) %dir %{_localstatedir}/log/gdm
-%attr(1770, gdm, gdm) %dir %{_localstatedir}/lib/gdm
-%attr(0700, gdm, gdm) %dir %{_localstatedir}/lib/gdm/.config
-%attr(0700, gdm, gdm) %dir %{_localstatedir}/lib/gdm/.config/pulse
-%attr(0600, gdm, gdm) %{_localstatedir}/lib/gdm/.config/pulse/default.pa
-%attr(0711, root, gdm) %dir /run/gdm
+%ghost %dir %{_localstatedir}/log/gdm
+%ghost %dir %{_localstatedir}/lib/gdm
+%ghost %dir %{_rundir}/gdm
 %config %{_sysconfdir}/pam.d/gdm-smartcard
 %config %{_sysconfdir}/pam.d/gdm-fingerprint
 %{_sysconfdir}/pam.d/gdm-launch-environment
@@ -280,6 +224,7 @@ fi
 %exclude %{_includedir}/gdm/gdm-pam-extensions-common.h
 %dir %{_datadir}/gir-1.0
 %{_datadir}/gir-1.0/Gdm-1.0.gir
+%{_libdir}/libgdm.so
 %{_libdir}/pkgconfig/gdm.pc
 
 %files pam-extensions-devel

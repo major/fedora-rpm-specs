@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 7.3.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Net::SSH: a pure-Ruby implementation of the SSH2 client protocol
 License: MIT
 URL: https://github.com/net-ssh/net-ssh
@@ -67,7 +67,11 @@ sed -i 's;\[false, :standard\].each do |compress|;[false].each do |compress|;g' 
 # a plan to remove outdated ciphers (see "To remove") which might make this
 # unnecessary.
 # https://github.com/net-ssh/net-ssh/issues/705
-OPENSSL_CONF="$PWD/test/openssl3.conf" ruby -Ilib:test test/test_all.rb
+# Use OPENSSL_ENABLE_SHA1_SIGNATURES to enable SHA1 test cases to pass.
+# https://github.com/net-ssh/net-ssh/issues/975#issuecomment-3270436202
+OPENSSL_CONF="$PWD/test/openssl3.conf" \
+OPENSSL_ENABLE_SHA1_SIGNATURES=1 \
+  ruby -Ilib:test test/test_all.rb
 popd
 
 %files
@@ -97,6 +101,10 @@ popd
 %exclude %{gem_instdir}/net-ssh-public_cert.pem
 
 %changelog
+* Wed Sep 17 2025 Vít Ondruch <vondruch@redhat.com> - 7.3.0-4
+- Enable SHA1 signatures to pass the test suite.
+  Resolves: rhbz#2385592
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.3.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

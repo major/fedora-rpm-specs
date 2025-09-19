@@ -15,7 +15,7 @@ FSLeyes, the FSL image viewer
 %global forgeurl https://github.com/pauldmccarthy/fsleyes
 
 Name:           python-fsleyes
-Version:        1.15.0
+Version:        1.16.1
 Release:        %autorelease
 Summary:        FSLeyes, the FSL image viewer
 
@@ -75,13 +75,16 @@ sed -i -e '/"file-tree"/ d' \
 find . -name "*py" -exec sed -i '/#!\/usr\/bin\/env python/ d' '{}' \;
 
 %generate_buildrequires
+export SETUPTOOLS_SCM_PRETEND_VERSION="%{version}"
 %pyproject_buildrequires -x extra -x test
 
 %build
+export SETUPTOOLS_SCM_PRETEND_VERSION="%{version}"
 %pyproject_wheel
 
 
 %install
+export SETUPTOOLS_SCM_PRETEND_VERSION="%{version}"
 %pyproject_install
 %pyproject_save_files -l fsleyes
 
@@ -110,6 +113,7 @@ install -p -m 0755 -D -t %{buildroot}%{_datadir}/icons/hicolor/48x48/apps/ fsley
 
 
 %check
+export SETUPTOOLS_SCM_PRETEND_VERSION="%{version}"
 export MPLBACKEND=wxagg
 %if %{with xvfb_tests}
 # https://github.com/pauldmccarthy/fsleyes/blob/master/.ci/test_template.sh

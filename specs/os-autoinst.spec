@@ -31,7 +31,7 @@
 
 Name:           os-autoinst
 Version:        %{github_version}%{?github_date:^%{github_date}git%{shortcommit}}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        OS-level test automation
 # there are some files under other licenses in the tarball, but we
 # do not distribute any of them in the binary packages
@@ -47,6 +47,12 @@ Patch:          0001-setup-multi-machine-extend-network-service-detection.patch
 # Fix tests without Inline::Lua
 Patch:          0001-t-make-autotest-tests-pass-if-lua-and-or-python-are-.patch
 Patch:          0002-t-use-mock-not-redefine-for-lua_set.patch
+# https://github.com/os-autoinst/os-autoinst/pull/2750
+# Allow slow typing (assert_)script_run
+Patch:          0001-testapi-allow-passing-max_interval-through-assert_-s.patch
+# https://github.com/os-autoinst/os-autoinst/pull/2751
+# Fix tests with IPC::Run 20250809.0
+Patch:          0001-t-consoles-s3270.t-fix-with-IPC-Run-20250809.0.patch
 
 # on SUSE this is conditional, for us it doesn't have to be but we
 # still use a macro just to keep build_requires similar for ease of
@@ -269,6 +275,10 @@ fi
 %files devel
 
 %changelog
+* Tue Sep 16 2025 Adam Williamson <awilliam@redhat.com> - 5^20250707gitd55ec72-3
+- Backport PR #2750 to allow slow typing with (assert_)script_run
+- Backport PR #2751 to fix tests with IPC::Run 20250809.0
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5^20250707gitd55ec72-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

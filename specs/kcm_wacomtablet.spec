@@ -4,8 +4,8 @@ ExcludeArch: %{ix86}
 
 Name:    kcm_wacomtablet
 Summary: KDE Control module for Wacom Graphictablets
-Version: 6.4.4
-Release: 2%{?dist}
+Version: 6.4.5
+Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -82,7 +82,6 @@ with profile support to handle different button/pen layouts per profile.
 %{_kf6_datadir}/plasma5support/services/wacomtablet.operations
 %{_kf6_datadir}/wacomtablet/
 %{_kf6_datadir}/qlogging-categories6/wacomtablet.categories
-%{_kf6_metainfodir}/org.kde.plasma.wacomtablet.appdata.xml
 %{_kf6_metainfodir}/org.kde.wacomtablet.metainfo.xml
 %{_qt6_plugindir}/plasma/kcms/systemsettings_qwidgets/kcm_wacomtablet.so
 %{_kf6_plugindir}/kded/wacomtablet.so
@@ -90,6 +89,9 @@ with profile support to handle different button/pen layouts per profile.
 
 
 %changelog
+* Tue Sep 16 2025 farchord@gmail.com - 6.4.5-1
+- 6.4.5
+
 * Sat Aug 16 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.4.4-2
 - Drop i686 support (leaf package)
 

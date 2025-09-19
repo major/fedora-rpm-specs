@@ -8,7 +8,7 @@ httpx-socks packages.
 }
 
 Name:           python-socks
-Version:        2.7.1
+Version:        2.7.2
 Release:        %autorelease
 Summary:        Core proxy (SOCKS4, SOCKS5, HTTP tunneling) functionality for Python
 

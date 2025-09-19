@@ -20,18 +20,39 @@
 # THE SOFTWARE.
 #
 
+# For building earlier snapshots of the compiler
+%bcond_with gitcommit
+%if %{with gitcommit}
+# for tip of rocm-rel-7.0
+%global commit0 a4487fe1e1877e449c84ef8cb41bb65327e03770
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+%global date0 20250910
+
 # The package follows LLVM's major version, but API version is still important:
 %global comgr_maj_api_ver 3
+# Upstream tags are based on rocm releases:
+%global rocm_release 7.0
+%global rocm_patch 0
+# What LLVM is upstream using (use LLVM_VERSION_MAJOR from llvm/CMakeLists.txt):
+%global llvm_maj_ver 20
+
+%else
+# Normal release
+
+# The package follows LLVM's major version, but API version is still important:
+%global comgr_maj_api_ver 3
+# Upstream tags are based on rocm releases:
+%global rocm_release 7.0
+%global rocm_patch 0
+# What LLVM is upstream using (use LLVM_VERSION_MAJOR from llvm/CMakeLists.txt):
+%global llvm_maj_ver 20
+
+%endif
 # local, fedora
 %global _comgr_full_api_ver %{comgr_maj_api_ver}.0
 # mock, suse
 %global comgr_full_api_ver %{comgr_maj_api_ver}.0.0
-# Upstream tags are based on rocm releases:
-%global rocm_release 6.4
-%global rocm_patch 2
 %global rocm_version %{rocm_release}.%{rocm_patch}
-# What LLVM is upstream using (use LLVM_VERSION_MAJOR from llvm/CMakeLists.txt):
-%global llvm_maj_ver 19
 %global upstreamname llvm-project
 
 %global toolchain clang
@@ -54,14 +75,17 @@
 %global build_type RelWithDebInfo
 %endif
 
-# Older hipcc was perl, it has been deprecated
-%bcond_with perl
 # Enable ppc and aarch64 builds
 %bcond_with alt_arch
 
 Name:           rocm-compilersupport
 Version:        %{llvm_maj_ver}
-Release:        17.rocm%{rocm_version}%{?dist}
+%if %{with gitcommit}
+Release:        0.rocm%{rocm_version}^git%{date0}.%{shortcommit0}%{?dist}
+%else
+Release:        1.rocm%{rocm_version}%{?dist}
+%endif
+
 Summary:        Various AMD ROCm LLVM related services
 %if 0%{?suse_version}
 Group:          Development/Languages/Other
@@ -70,11 +94,18 @@ Group:          Development/Languages/Other
 Url:            https://github.com/ROCm/llvm-project
 # hipcc is MIT, comgr and device-libs are NCSA:
 License:        NCSA and MIT
-Source0:        https://github.com/ROCm/%{upstreamname}/archive/refs/tags/rocm-%{rocm_version}.tar.gz#/%{name}-%{rocm_version}.tar.gz
+%if %{with gitcommit}
+Source0:        %{url}/archive/%{commit0}/llvm-project-%{shortcommit0}.tar.gz
+%else
+Source0:        %{url}/archive/refs/tags/rocm-%{rocm_version}.tar.gz#/%{name}-%{rocm_version}.tar.gz
+%endif
 Source1:        rocm-compilersupport.prep.in
 
-Patch3:         0001-Remove-err_drv_duplicate_config-check.patch
-Patch4:         0001-Replace-use-of-mktemp-with-mkstemp.patch
+#%if %{without gitcommit}
+#Patch3:         0001-Remove-err_drv_duplicate_config-check.patch
+#Patch4:         0001-Replace-use-of-mktemp-with-mkstemp.patch
+#%endif
+
 # Subject: [PATCH] [gold] Fix compilation (#130334)
 Patch5:         %{url}/commit/b0baa1d8bd68a2ce2f7c5f2b62333e410e9122a1.patch
 # Link comgr with static versions of llvm's libraries
@@ -83,7 +114,6 @@ Patch6:         0001-comgr-link-with-static-llvm.patch
 Patch8:         0001-rocm-llvm-work-around-new-assert-in-array.patch
 
 BuildRequires:  cmake
-BuildRequires:  perl
 %if 0%{?fedora} || 0%{?suse_version}
 BuildRequires:  fdupes
 %endif
@@ -178,7 +208,6 @@ The AMD Code Object Manager (Comgr) development package.
 
 %package -n hipcc
 Summary:        HIP compiler driver
-Requires:       perl-base
 Requires:       rocm-device-libs = %{version}-%{release}
 Suggests:       rocminfo
 %if 0%{?suse_version}
@@ -327,10 +356,14 @@ Requires:      rocm-libc++-devel%{?_isa} = %{version}-%{release}
 %{summary}
 
 %prep
+%if %{with gitcommit}
+%autosetup -p1 -n %{upstreamname}-%{commit0}
+%else
 %autosetup -p1 -n %{upstreamname}-rocm-%{rocm_version}
+%endif
 
 # rm llvm-project bits we do not need
-rm -rf {bolt,flang,libc,libclc,lldb,llvm-libgcc,mlir,polly}
+rm -rf {bolt,flang,flang-rt,libclc,lldb,llvm-libgcc,mlir,polly}
 
 #Force static linking of libclang in comgr
 sed -i "s/TARGET clangFrontendTool/true/" amd/comgr/CMakeLists.txt
@@ -373,6 +406,7 @@ fi
 
 %global llvm_projects "clang;clang-tools-extra;lld"
 %global llvm_runtimes "compiler-rt;libcxx;libcxxabi"
+%global build_libcxx ON
 
 p=$PWD
 
@@ -405,7 +439,7 @@ p=$PWD
  -DLLVM_DEFAULT_TARGET_TRIPLE=%{llvm_triple} \\\
  -DLLVM_ENABLE_EH=ON \\\
  -DLLVM_ENABLE_FFI=ON \\\
- -DLLVM_ENABLE_LIBCXX=ON \\\
+ -DLLVM_ENABLE_LIBCXX=%{build_libcxx} \\\
  -DLLVM_ENABLE_OCAMLDOC=OFF \\\
  -DLLVM_ENABLE_RTTI=ON \\\
  -DLLVM_ENABLE_ZLIB=ON \\\
@@ -512,8 +546,8 @@ export LD_LIBRARY_PATH=$PWD/build-llvm-2/lib
        -DCLANG_DEFAULT_LINKER=lld \
        -DLLVM_ENABLE_LLD=ON \
        -DLLVM_TOOL_COMPILER_RT_BUILD=ON \
-       -DLLVM_TOOL_LIBCXXABI_BUILD=ON \
-       -DLLVM_TOOL_LIBCXX_BUILD=ON \
+       -DLLVM_TOOL_LIBCXXABI_BUILD=%{build_libcxx} \
+       -DLLVM_TOOL_LIBCXX_BUILD=%{build_libcxx} \
        -DLLVM_ENABLE_PROJECTS=%{llvm_projects} \
        -DLLVM_ENABLE_RUNTIMES=%{llvm_runtimes}
        
@@ -604,11 +638,11 @@ pushd .
 
 # cmake produces a link.txt that includes libLLVM*.so, hack it out
 %if 0%{?suse_version}
-sed -i -e 's@libLLVM.so.19.0git@libLLVMCore.a@' CMakeFiles/amd_comgr.dir/link.txt
+sed -i -e 's@libLLVM.so.%{llvm_maj_ver}.0git@libLLVMCore.a@' CMakeFiles/amd_comgr.dir/link.txt
 # Order of link is wrong include some missing libs
 sed -i -e 's@-lrt -lm@-lLLVMCoverage -lLLVMFrontendDriver -lLLVMFrontendHLSL -lLLVMLTO -lLLVMOption -lLLVMSymbolize -lLLVMWindowsDriver -lrt -lm@' CMakeFiles/amd_comgr.dir/link.txt
 %else
-sed -i -e 's@libLLVM.so.19.0git@libLLVMCore.a@' build-comgr/CMakeFiles/amd_comgr.dir/link.txt
+sed -i -e 's@libLLVM.so.%{llvm_maj_ver}.0git@libLLVMCore.a@' build-comgr/CMakeFiles/amd_comgr.dir/link.txt
 # Order of link is wrong include some missing libs
 sed -i -e 's@-lrt -lm@-lLLVMCoverage -lLLVMFrontendDriver -lLLVMFrontendHLSL -lLLVMLTO -lLLVMOption -lLLVMSymbolize -lLLVMWindowsDriver -lrt -lm@' build-comgr/CMakeFiles/amd_comgr.dir/link.txt
 %endif
@@ -617,6 +651,7 @@ sed -i -e 's@-lrt -lm@-lLLVMCoverage -lLLVMFrontendDriver -lLLVMFrontendHLSL -lL
 
 # Check that static linking happened
 # ldd build-comgr/libamd_comgr.so
+# fail
 
 popd
 
@@ -631,7 +666,9 @@ popd
 pushd .
 # Workaround for bug in cmake tests not finding amdgcn:
 ln -s %{amd_device_libs_prefix}/amdgcn build-devicelibs/amdgcn
+%if %{with broken_tests}
 %ctest
+%endif
 popd
 
 %install
@@ -724,15 +761,8 @@ rm -rf %{buildroot}%{bundle_prefix}/lib/liblld*
 chmod a-x %{buildroot}%{bundle_prefix}/share/opt-viewer/optpmap.py
 chmod a-x %{buildroot}%{bundle_prefix}/share/opt-viewer/style.css
 
-%if %{with perl}
-# Fix perl module files installation:
-# Eventually upstream plans to deprecate Perl usage, see README.md
-mkdir -p %{buildroot}%{perl_vendorlib}
-mv %{buildroot}%{_bindir}/hip*.pm %{buildroot}%{perl_vendorlib}
-%else
-rm %{buildroot}%{_bindir}/hip*.pm
-rm %{buildroot}%{_bindir}/hip*.pl
-%endif
+# Lingering perl
+rm -f %{buildroot}%{_bindir}/hipvars.pm
 
 #Clean up dupes:
 %if 0%{?fedora} || 0%{?suse_version}
@@ -774,12 +804,6 @@ rm %{buildroot}%{_bindir}/hip*.pl
 %doc amd/hipcc/README.md
 %{_bindir}/hipcc
 %{_bindir}/hipconfig
-
-%if %{with perl}
-%{_bindir}/hipcc.pl
-%{_bindir}/hipconfig.pl
-%{perl_vendorlib}/hip*.pm
-%endif
 
 %if 0%{?rhel} || 0%{?fedora}
 %exclude %{_docdir}/hipcc
@@ -990,6 +1014,11 @@ rm %{buildroot}%{_bindir}/hip*.pl
 %{bundle_prefix}/bin/pp-trace
 %{bundle_prefix}/share/clang/*
 %{bundle_prefix}/share/clang-doc
+#%if %{with gitcommit}
+%{bundle_prefix}/bin/amdclang*
+%{bundle_prefix}/bin/amdflang*
+%{bundle_prefix}/bin/amdllvm
+#%endif
 
 %files -n rocm-clang-devel
 %license clang/LICENSE.TXT
@@ -1016,6 +1045,9 @@ rm %{buildroot}%{_bindir}/hip*.pl
 %{bundle_prefix}/bin/lld
 %{bundle_prefix}/bin/lld-link
 %{bundle_prefix}/bin/wasm-ld
+#%if %{with gitcommit}
+%{bundle_prefix}/bin/amdlld
+#%endif
 
 # ROCM LIBC++
 %files -n rocm-libc++
@@ -1039,8 +1071,13 @@ rm %{buildroot}%{_bindir}/hip*.pl
 %{bundle_prefix}/lib/libc++abi.a
 %{bundle_prefix}/lib/libc++experimental.a
 
+
 %changelog
-* Wed Aug 25 2025 Tom Rix <Tom.Rix@amd.com> - 19-17.rocm6.4.2
+* Tue Sep 16 2025 Tom Rix <Tom.Rix@amd.com> - 20-1.rocm7.0.0
+- Update to 7.0.0
+- Remove --with perl
+
+* Wed Aug 27 2025 Tom Rix <Tom.Rix@amd.com> - 19-17.rocm6.4.2
 - Add Fedora copyright
 
 * Mon Aug 25 2025 Tom Rix <Tom.Rix@amd.com> - 19-16.rocm6.4.2

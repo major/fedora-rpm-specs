@@ -1,8 +1,8 @@
 %global basever 3.0.0
-%global prerel rc4
-%global commit 3abcd400bdbfc61a2f53f7cf7b240130169154b2
+%global prerel rc5
+%global commit 225e3ebd25c4bcd821b49369fd7c328a8ed09b43
 %global shortcommit %{sub %{commit} 1 7}
-%global snapdate 20250324
+%global snapdate 20250830
 
 %global somajor 3.0
 
@@ -13,7 +13,7 @@
 
 Name:           apk-tools
 Version:        %{basever}%{?prerel:~%{prerel}}%{?snapdate:^git%{snapdate}.%{shortcommit}}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Fast and lightweight package manager originally for Alpine
 # libapk AND netbsd-libfetch
 SourceLicense:  GPL-2.0-only AND BSD-3-Clause
@@ -21,12 +21,6 @@ License:        GPL-2.0-only
 URL:            https://gitlab.alpinelinux.org/alpine/apk-tools
 %dnl Source0:        %{url}/-/archive/v%{version}/%{name}-v%{version}.tar.gz
 Source0:        %{url}/-/archive/%{commit}/%{name}-%{commit}.tar.gz
-
-# From: https://gitlab.alpinelinux.org/alpine/apk-tools/-/merge_requests/302
-## Fix how meson builds and installs the Python module
-Patch0001:      0001-meson-Build-Python-module-using-standard-Meson-pytho.patch
-## Fix how meson finds Lua
-Patch0002:      0001-meson-Allow-overriding-the-names-of-the-Lua-binary-a.patch
 
 BuildRequires:  gcc
 BuildRequires:  git-core
@@ -157,10 +151,17 @@ mkdir -p %{buildroot}%{_localstatedir}/cache/apk
 
 
 %check
+# Enable SHA1 signature support since Alpine requires it for now
+# Cf. https://gitlab.alpinelinux.org/alpine/apk-tools/-/issues/11139
+OPENSSL_ENABLE_SHA1_SIGNATURES=1
+export OPENSSL_ENABLE_SHA1_SIGNATURES
 %meson_test
 
 
 %changelog
+* Tue Sep 09 2025 Neal Gompa <ngompa@fedoraproject.org> - 3.0.0~rc5^git20250830.225e3eb-1
+- Update to post-release git snapshot on 3.0.0~rc5
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0~rc4^git20250324.3abcd40-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

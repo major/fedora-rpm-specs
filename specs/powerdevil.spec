@@ -1,5 +1,5 @@
 Name:    powerdevil
-Version: 6.4.4
+Version: 6.4.5
 Release: 1%{?dist}
 Summary: Manages the power consumption settings of a Plasma Shell
 
@@ -133,8 +133,6 @@ rm -fv %{buildroot}/%{_libdir}/libpowerdevil{configcommonprivate,core,ui}.so
 %{_kf6_qmldir}/org/kde/plasma/private/brightnesscontrolplugin/kde-qmlmodule.version
 %{_kf6_qmldir}/org/kde/plasma/private/brightnesscontrolplugin/libbrightnesscontrolplugin.so
 %{_kf6_qmldir}/org/kde/plasma/private/brightnesscontrolplugin/qmldir
-%{_kf6_metainfodir}/org.kde.plasma.battery.appdata.xml
-%{_kf6_metainfodir}/org.kde.plasma.brightness.appdata.xml
 %{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.battery/contents/config/main.xml
 %{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.battery/contents/ui/BatteryItem.qml
 %{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.battery/contents/ui/CompactRepresentation.qml
@@ -156,6 +154,9 @@ rm -fv %{buildroot}/%{_libdir}/libpowerdevil{configcommonprivate,core,ui}.so
 
 
 %changelog
+* Tue Sep 16 2025 farchord@gmail.com - 6.4.5-1
+- 6.4.5
+
 * Wed Aug 06 2025 Steve Cossette <farchord@gmail.com> - 6.4.4-1
 - 6.4.4
 

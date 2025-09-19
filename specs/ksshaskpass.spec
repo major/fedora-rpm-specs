@@ -3,8 +3,8 @@
 ExcludeArch: %{ix86}
 
 Name:    ksshaskpass
-Version: 6.4.4
-Release: 2%{?dist}
+Version: 6.4.5
+Release: 1%{?dist}
 Summary: A ssh-add helper that uses kwallet and kpassworddialog
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -60,6 +60,9 @@ EOF
 
 
 %changelog
+* Tue Sep 16 2025 farchord@gmail.com - 6.4.5-1
+- 6.4.5
+
 * Sat Aug 16 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.4.4-2
 - Drop i686 support (leaf package)
 

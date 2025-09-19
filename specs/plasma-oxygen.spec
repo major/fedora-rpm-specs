@@ -10,8 +10,8 @@
 ExcludeArch: %{ix86}
 
 Name:    plasma-%{base_name}
-Version: 6.4.4
-Release: 2%{?dist}
+Version: 6.4.5
+Release: 1%{?dist}
 Summary: Plasma and Qt widget style and window decorations for Plasma
 
 License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -148,7 +148,6 @@ popd
 %{_kf6_datadir}/kstyle/themes/oxygen.themerc
 %{_kf6_datadir}/plasma/look-and-feel/org.kde.oxygen/
 %{_kf6_datadir}/plasma/desktoptheme/oxygen/
-%{_kf6_metainfodir}/org.kde.oxygen.appdata.xml
 %{_kf6_qtplugindir}/kstyle_config/kstyle_oxygen_config.so
 %{_kf6_qtplugindir}/org.kde.kdecoration3.kcm/kcm_oxygendecoration.so
 %{_kf6_qtplugindir}/org.kde.kdecoration3/org.kde.oxygen.so
@@ -177,6 +176,9 @@ popd
 
 
 %changelog
+* Tue Sep 16 2025 farchord@gmail.com - 6.4.5-1
+- 6.4.5
+
 * Sat Aug 16 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.4.4-2
 - Drop i686 support (leaf package)
 

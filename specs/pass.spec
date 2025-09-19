@@ -1,13 +1,14 @@
 Name:           pass
 Summary:        A password manager using standard Unix tools
 Version:        1.7.4
-Release:        17%{?dist}
+Release:        18%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 Url:            http://zx2c4.com/projects/password-store/
 BuildArch:      noarch
 Source:         http://git.zx2c4.com/password-store/snapshot/password-store-%{version}.tar.xz
 Patch:          0001-Default-to-xclip-if-wl-clip-is-not-found.patch
+Patch:          0002-Check-if-required-dependencies-are-available.patch
 
 BuildRequires: make
 BuildRequires:       git-core
@@ -29,8 +30,9 @@ and git.
 Summary:        A dmenu based interface to pass.
 Requires:       pass
 Recommends:     (dmenu-wayland if libwayland-client)
+Recommends:     (ydotool if libwayland-client)
 Recommends:     (dmenu if xorg-x11-server-Xorg)
-Requires:       xdotool
+Recommends:     (xdotool if xorg-x11-server-Xorg)
 
 %description -n passmenu
 A dmenu based interface to pass, the standard Unix password manager. This
@@ -72,6 +74,9 @@ make test
 %{_bindir}/passmenu
 
 %changelog
+* Wed Sep 17 2025 Peter Georg <peter.georg@physik.uni-regensburg.de> - 1.7.4-18
+- Recommend xdotool/ydotool depending on environment
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.4-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

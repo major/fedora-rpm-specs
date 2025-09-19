@@ -6,8 +6,8 @@ ExcludeArch: %{ix86}
 
 Name:    plasma-print-manager
 Summary: Printer management for KDE
-Version: 6.4.4
-Release: 2%{?dist}
+Version: 6.4.5
+Release: 1%{?dist}
 
 License: BSD-3-Clause AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://invent.kde.org/plasma/%{base_name}
@@ -107,7 +107,6 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.PrintQueu
 %{_kf6_datadir}/applications/kcm_printer_manager.desktop
 %{_kf6_datadir}/applications/org.kde.ConfigurePrinter.desktop
 %{_kf6_datadir}/applications/org.kde.PrintQueue.desktop
-%{_kf6_metainfodir}/org.kde.plasma.printmanager.appdata.xml
 %{_kf6_metainfodir}/org.kde.print-manager.metainfo.xml
 %{_kf6_qtplugindir}/plasma/kcms/systemsettings/kcm_printer_manager.so
 
@@ -118,6 +117,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.PrintQueu
 
 
 %changelog
+* Tue Sep 16 2025 farchord@gmail.com - 6.4.5-1
+- 6.4.5
+
 * Sat Aug 16 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.4.4-2
 - Drop i686 support (leaf package)
 

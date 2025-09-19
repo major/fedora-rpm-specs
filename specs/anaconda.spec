@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 43.39
+Version: 43.40
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -513,6 +513,12 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Sep 16 2025 Packit <hello@packit.dev> - 43.40-1
+- Do not catch blivet.safe_dbus exceptions in iSCSI module (vtrefny)
+- Fixing unittests (a.badger)
+- ostree needs to have /boot be bindmounted into sysroot. (a.badger)
+- gui: Fix GTK warnings when removing non-existent accelerators (k.koukiou)
+
 * Tue Sep 09 2025 Packit <hello@packit.dev> - 43.39-1
 - Fix setting of kernel console logging level for anaconda (rvykydal)
 - Use new more suitable API for Gtk UI required space check (rvykydal)

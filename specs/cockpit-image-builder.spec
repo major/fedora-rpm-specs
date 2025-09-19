@@ -1,5 +1,5 @@
 Name:           cockpit-image-builder
-Version:        76
+Version:        77
 Release:        1%{?dist}
 Summary:        Image builder plugin for Cockpit
 
@@ -46,6 +46,33 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Wed Sep 17 2025 Packit <hello@packit.dev> - 77-1
+Changes with 77
+----------------
+  - Fix filesystem and languages errors not renderring properly (#3623)
+    - Author: Anna Vítová, Reviewers: Michal Gold
+  - Wizard: clean up analytics to track image creation failure or success (HMS-9219) (#3604)
+    - Author: Katarína Sieklová, Reviewers: Gianluca Zuccarelli, Sanne Raymaekers
+  - build(deps): bump @redhat-cloud-services/frontend-components-utilities from 7.0.4 to 7.0.6 (#3645)
+    - Author: dependabot[bot], Reviewers: Klara Simickova, Michal Gold
+  - build(deps): bump @sentry/webpack-plugin from 4.2.0 to 4.3.0 (#3625)
+    - Author: dependabot[bot], Reviewers: Klara Simickova
+  - build(deps-dev): bump @eslint/js from 9.32.0 to 9.35.0 (#3644)
+    - Author: dependabot[bot], Reviewers: Klara Simickova
+  - build(deps-dev): bump @types/node from 24.3.0 to 24.5.0 (#3648)
+    - Author: dependabot[bot], Reviewers: Gianluca Zuccarelli
+  - build(deps-dev): bump globals from 16.3.0 to 16.4.0 (#3643)
+    - Author: dependabot[bot], Reviewers: Klara Simickova
+  - chore(deps): update konflux references (#3642)
+    - Author: red-hat-konflux[bot], Reviewers: Klara Simickova
+  - npm: check for vulnerable packages on each PR (#3639)
+    - Author: Florian Schüller, Reviewers: Klara Simickova
+  - src: Advanced partitioning scaffolding, import, edit (HMS-8963) (#3580)
+    - Author: Klara Simickova, Reviewers: Katarína Sieklová
+
+— Somewhere on the Internet, 2025-09-17
+
+
 * Wed Sep 3 2025 Packit <hello@packit.dev> - 76-1
 Changes with 76
 ----------------

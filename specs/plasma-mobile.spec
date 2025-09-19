@@ -3,8 +3,8 @@
 ExcludeArch: %{ix86}
 
 Name:           plasma-mobile
-Version:        6.4.4
-Release:        2%{?dist}
+Version:        6.4.5
+Release:        1%{?dist}
 License:        CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-only AND MIT
 Summary:        General UI components for Plasma Phone including shell, containment and applets
 Url:            https://invent.kde.org/plasma/plasma-mobile
@@ -19,7 +19,6 @@ BuildRequires: gcc-c++
 BuildRequires: kf6-kdbusaddons-devel
 BuildRequires: kwin-devel
 BuildRequires: qt6-qtdeclarative-devel
-BuildRequires: libappstream-glib
 BuildRequires: desktop-file-utils
 BuildRequires: pkgconfig(libudev)
 BuildRequires: pkgconfig(libdrm)
@@ -101,8 +100,6 @@ Obsoletes: plasma-nm-mobile < 5.27.81
 %find_lang plasma_applet_org.kde.phone.homescreen --all-name
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/*.appdata.xml ||:
-#desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_{cellular_network,mobile_hotspot,mobile_info,mobile_onscreenkeyboard,mobile_power,mobile_time,mobile_wifi}.desktop
 desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_{mobile_info,mobile_onscreenkeyboard,mobile_time}.desktop
 
 %files -f plasma_applet_org.kde.phone.homescreen.lang
@@ -115,8 +112,6 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_{mobile_info,mob
 %{_kf6_datadir}/wayland-sessions/plasma-mobile.desktop
 %{_kf6_datadir}/plasma/shells/org.kde.plasma.mobileshell
 %{_kf6_datadir}/plasma-mobile-apn-info/apns-full-conf.xml
-%{_kf6_metainfodir}/org.kde.plasma.*
-%{_kf6_metainfodir}/org.kde.breeze.*
 %{_kf6_datadir}/plasma/look-and-feel/org.kde.breeze.mobile
 %{_kf6_datadir}/plasma/mobileinitialstart
 %{_kf6_datadir}/applications/*.desktop
@@ -147,6 +142,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_{mobile_info,mob
 %{_kf6_qtplugindir}/kf6/kded/kded_plasma_mobile_autodetect_apn.so
 
 %changelog
+* Tue Sep 16 2025 farchord@gmail.com - 6.4.5-1
+- 6.4.5
+
 * Sat Aug 16 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 6.4.4-2
 - Drop i686 support (leaf package)
 

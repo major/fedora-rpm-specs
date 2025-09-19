@@ -2,12 +2,11 @@
 # a compatibility matrix is also provided in docs/installation.rst
 %global minimal_needed_proj_version 9.4.0
 
-# Several dependencies are not yet rebuilt for Python 3.14:
-%bcond xarray 0
+%bcond xarray 1
 
 Name:           pyproj
 Version:        3.7.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Cython wrapper to provide python interfaces to Proj
 # this software uses the "MIT:Modern Style with sublicense" license
 License:        MIT
@@ -182,6 +181,9 @@ cp ../pyproj-%{version}/pytest.ini .
 
 
 %changelog
+* Mon Sep 15 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 3.7.2-2
+- Re-enable xarray integration tests
+
 * Fri Sep 12 2025 Jos de Kloe <josdekloe@gmail.com> 3.7.2
 - Update to 3.7.2; 2 tests are still disabled due to a regression in proj 9.6.2
 - Introduce new style pyproject macros

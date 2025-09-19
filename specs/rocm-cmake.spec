@@ -23,13 +23,13 @@
 # there is no debug package - this is just cmake modules
 %global debug_package %{nil}
 
-%global rocm_release 6.4
+%global rocm_release 7.0
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 Name:     rocm-cmake
 Version:  %{rocm_version}
-Release:  5%{?dist}
+Release:  1%{?dist}
 Summary:  CMake modules for common build and development tasks for ROCm
 License:  MIT
 URL:      https://github.com/ROCm/rocm-cmake
@@ -71,6 +71,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/rocm-cmake/LICENSE
 %{_datadir}/rocmcmakebuildtools/*
 
 %changelog
+* Tue Sep 16 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.0-1
+- Update to 7.0.0
+
 * Wed Aug 27 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-5
 - Add Fedora copyright
 

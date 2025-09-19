@@ -37,8 +37,7 @@ Source1: rust-vhost-device-sound-%{version}-vendor.tar.xz
 # * update rstest to 0.26:
 #   https://github.com/rust-vmm/vhost-device/commit/5e74f370be3d9c5092b88208586e12347573b68c
 Patch:          vhost-device-sound-fix-metadata.diff
-# Update rust-vmm dependencies.
-Patch:          vhost-device-sound-update-deps.patch
+Patch:          vhost-device-sound-code-fix.diff
 %endif
 
 # Upstream doesn't provide man pages

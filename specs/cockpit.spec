@@ -57,7 +57,7 @@ Summary:        Web Console for Linux servers
 License:        LGPL-2.1-or-later
 URL:            https://cockpit-project.org/
 
-Version:        346
+Version:        347
 Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 
@@ -346,6 +346,7 @@ Provides: bundled(npm(autolinker)) = 3.16.2
 Provides: bundled(npm(dequal)) = 2.0.3
 Provides: bundled(npm(file-selector)) = 2.1.2
 Provides: bundled(npm(focus-trap)) = 7.6.4
+Provides: bundled(npm(ipaddr.js)) = 2.2.0
 Provides: bundled(npm(js-tokens)) = 4.0.0
 Provides: bundled(npm(json-stable-stringify-without-jsonify)) = 1.0.1
 Provides: bundled(npm(lodash)) = 4.17.21
@@ -362,7 +363,7 @@ Provides: bundled(npm(sprintf-js)) = 1.0.3
 Provides: bundled(npm(tabbable)) = 6.2.0
 Provides: bundled(npm(throttle-debounce)) = 5.0.2
 Provides: bundled(npm(tslib)) = 2.8.1
-Provides: bundled(npm(uuid)) = 11.1.0
+Provides: bundled(npm(uuid)) = 13.0.0
 
 %description system
 This package contains the Cockpit shell and system configuration interfaces.
@@ -603,7 +604,7 @@ Requires: udisks2 >= 2.9
 Recommends: udisks2-lvm2 >= 2.9
 Recommends: udisks2-iscsi >= 2.9
 %if ! 0%{?rhel}
-Recommends: udisks2-btrfs >= 2.9
+Recommends: (udisks2-btrfs >= 2.9 if btrfs-progs)
 %endif
 Recommends: device-mapper-multipath
 Recommends: clevis-luks
@@ -647,6 +648,9 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Sep 17 2025 Packit <hello@packit.dev> - 347-1
+- Site-specific branding support
+
 * Wed Sep 03 2025 Packit <hello@packit.dev> - 346-1
 - Support branding Cockpit pages
 - Storage: Support for Stratis "V2" pools

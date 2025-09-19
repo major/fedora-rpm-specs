@@ -10,7 +10,7 @@ proxy functionality.}
 %global forgeurl https://github.com/romis2012/httpx-socks
 
 Name:           python-httpx-socks
-Version:        0.10.0
+Version:        0.10.1
 Release:        %{autorelease}
 Summary:        Proxy (HTTP, SOCKS) transports for httpx
 License:        Apache-2.0

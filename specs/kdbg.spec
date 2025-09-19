@@ -1,7 +1,7 @@
 Name: kdbg
 Summary: A GUI for gdb, the GNU debugger, and KDE
-Version: 3.1.0
-Release: 6%{?dist}
+Version: 3.2.0
+Release: 1%{?dist}
 Epoch: 1
 Source: http://download.sourceforge.net/kdbg/%{name}-%{version}.tar.gz
 # No version specified.
@@ -36,7 +36,7 @@ requires X and KDE to be installed in order to run.
 # don't install icons, which are included in oxygen-icon-theme
 rm -f kdbg/pics/*action-debug-run*
 
-%cmake_kf5
+%cmake_kf6 -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_FOR_KDE_VERSION=6
 
 %cmake_build
 
@@ -58,6 +58,9 @@ rm -f kdbg/pics/*action-debug-run*
 %lang(ru) %{_docdir}/HTML/ru/%{name}
 
 %changelog
+* Wed Sep 17 2025 Than Ngo <than@redhat.com> - 1:3.2.0-1
+- Fix rhbz#2389024, update to 3.2.0
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.1.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

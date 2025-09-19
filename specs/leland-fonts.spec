@@ -1,6 +1,6 @@
 %global giturl  https://github.com/MuseScoreFonts/Leland
 
-Version:        0.79
+Version:        0.80
 Release:        %autorelease
 URL:            https://musescore.org/
 VCS:            git:%{giturl}.git
@@ -48,9 +48,6 @@ This package contains the text font.}
 Source0:        %{giturl}/archive/v%{version}/Leland-%{version}.tar.gz
 Source1:        65-%{fontpkgname0}.conf
 Source2:        65-%{fontpkgname1}.conf
-
-# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch:    %{ix86}
 
 BuildRequires:  fonts-rpm-macros
 

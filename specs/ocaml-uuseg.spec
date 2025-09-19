@@ -1,12 +1,9 @@
-# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
-ExcludeArch: %{ix86}
-
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
 
 Name:           ocaml-uuseg
-Version:        16.0.0
+Version:        17.0.0
 Release:        %autorelease
 Summary:        Unicode text segmentation for OCaml
 
@@ -15,14 +12,17 @@ URL:            https://erratique.ch/software/uuseg
 VCS:            git:https://erratique.ch/repos/uuseg.git
 Source:         %{url}/releases/uuseg-%{version}.tbz
 
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch:    %{ix86}
+
 BuildRequires:  ocaml >= 4.14.0
 BuildRequires:  ocaml-cmdliner-devel >= 1.1.0
 BuildRequires:  ocaml-compiler-libs
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-ocamlbuild
 BuildRequires:  ocaml-rpm-macros
-BuildRequires:  ocaml-topkg-devel >= 1.0.3
-BuildRequires:  ocaml-uucp-devel >= 16.0.0
+BuildRequires:  ocaml-topkg-devel >= 1.1.0
+BuildRequires:  ocaml-uucp-devel >= 17.0.0
 BuildRequires:  ocaml-uutf-devel >= 1.0.0
 BuildRequires:  unicode-ucd
 

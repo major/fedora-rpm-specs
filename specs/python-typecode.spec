@@ -74,6 +74,7 @@ This package is providing the documentation for %{pypi_name}.
 rm -rfv src/typecode/_vendor
 # We change fallback_version to our actual version
 sed -i 's|\(fallback_version = "\)[^"]*|\1%{version}|' pyproject.toml
+sed -i 's|typecode_libmagic >= 5.39.210223|typecode-libmagic-system-provided|' setup.cfg
 
 %generate_buildrequires
 %pyproject_buildrequires

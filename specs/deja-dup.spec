@@ -1,5 +1,5 @@
 Name:           deja-dup
-Version:        48.3
+Version:        49.0
 Release:        1%{?dist}
 Summary:        Simple backup tool and frontend for duplicity
 
@@ -23,6 +23,8 @@ BuildRequires:  dbus-daemon
 BuildRequires:  json-glib-devel libsoup3-devel
 BuildRequires:  libhandy1-devel
 BuildRequires:  libadwaita-devel
+BuildRequires:  PackageKit-glib-devel
+BuildRequires:  blueprint-compiler
 Requires:       duplicity >= 0.6.23
 Requires:       python3-gobject-base
 Requires:       rclone
@@ -75,6 +77,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.metain
 %{_datadir}/help/*
 
 %changelog
+* Wed Sep 17 2025 Gwyn Ciesla <gwync@protonmail.com> - 49.0-1
+- 49.0
+
 * Mon Jul 28 2025 Gwyn Ciesla <gwync@protonmail.com> - 48.3-1
 - 48.3
 

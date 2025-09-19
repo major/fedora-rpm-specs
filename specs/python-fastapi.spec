@@ -48,7 +48,7 @@
 %global sum_zh FastAPI 框架
 
 Name:           python-fastapi
-Version:        0.116.1
+Version:        0.116.2
 Release:        %autorelease
 Summary:        %{sum_en}
 
@@ -70,15 +70,6 @@ BuildArch:      noarch
 # Downstream-only: run test_fastapi_cli without coverage
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 Patch:          0001-Downstream-only-run-test_fastapi_cli-without-coverag.patch
-
-# Allow httpx 0.28.x, relax pins
-# https://github.com/fastapi/fastapi/pull/13114
-# Rebased on 0.115.12.
-Patch:          0001-Allow-httpx-0.28.x-relax-pins.patch
-
-# ⬆️ Upgrade Starlette supported version range to >=0.48.0,<0.49.0
-# https://github.com/fastapi/fastapi/pull/14077
-Patch:          %{url}/pull/14077.patch
 
 BuildRequires:  python3-devel
 
@@ -104,7 +95,7 @@ BuildRequires:  %{py3_dist anyio[trio]} >= 3.2.1
 # Omit PyJWT, https://pypi.org/project/PyJWT/, because it is not packaged and
 # only has very limited use in the tests.
 %if %{with pyjwt}
-BuildRequires:  %{py3_dist PyJWT} >= 2.8
+BuildRequires:  %{py3_dist PyJWT} >= 2.9
 %endif
 BuildRequires:  %{py3_dist pyyaml} >= 5.3.1
 %if %{with passlib}

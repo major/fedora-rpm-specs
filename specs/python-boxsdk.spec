@@ -3,8 +3,8 @@
 %bcond_with tests
 
 Name:               python-boxsdk
-Version:            3.14.0
-Release:            4%{?dist}
+Version:            10.0.0
+Release:            1%{?dist}
 Summary:            Python wrapper for the Box API
 
 
@@ -54,7 +54,7 @@ Python %{python3_version} version.
 
 %install
 %pyproject_install
-%pyproject_save_files -l boxsdk
+%pyproject_save_files -l box_sdk_gen
 
 %if %{with tests}
 %check
@@ -67,6 +67,9 @@ pytest-3
 %doc *.md
 
 %changelog
+* Wed Sep 17 2025 Gwyn Ciesla <gwync@protonmail.com> - 10.0.0-1
+- 10.0.0
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.14.0-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -311,7 +311,7 @@ popd
 %endif
 
 %changelog
-Tue Sep 09 2025 Adam Williamson <awilliam@redhat.com> 0.74.0-6
+* Tue Sep 09 2025 Adam Williamson <awilliam@redhat.com> - 0.74.0-6
 - Backport PRs #1704 and #1710 for dnf5 repo override compat (#2354865)
 
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.74.0-5

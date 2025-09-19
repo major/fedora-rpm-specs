@@ -1,7 +1,7 @@
 Name:    kdeplasma-addons
 Summary: Additional Plasmoids for Plasma 6
-Version: 6.4.4
-Release: 2%{?dist}
+Version: 6.4.5
+Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
 URL:     https://invent.kde.org/plasma/%{name}
@@ -46,7 +46,6 @@ BuildRequires:  cmake(Qt6Core5Compat)
 BuildRequires:  xcb-util-image-devel
 BuildRequires:  xcb-util-keysyms-devel
 BuildRequires:  cmake(KF6Declarative)
-BuildRequires:  libappstream-glib
 BuildRequires:  plasma-workspace-devel
 BuildRequires:  libksysguard-devel
 BuildRequires:  cmake(KF6XmlGui)
@@ -99,9 +98,6 @@ developing applications that use %{name}.
 %cmake_install
 %find_lang kdeplasmaaddons5_qt --with-qt --all-name
 
-%check
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml ||:
-
 %files -f kdeplasmaaddons5_qt.lang
 %license LICENSES/*.txt
 %{_kf6_datadir}/kwin/effects/cube/
@@ -134,7 +130,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml 
 %endif
 %{_datadir}/knsrcfiles/comic.knsrc
 %{_kf6_libdir}/libplasmapotdprovidercore.so.*
-%{_kf6_metainfodir}/*.appdata.xml
 %{_libdir}/qt6/qml/org/kde/plasmacalendar/astronomicaleventsconfig/*
 %{_kf6_plugindir}/kded/kameleon.so
 %{_kf6_plugindir}/krunner/krunner_colors.so
@@ -154,6 +149,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml 
 
 
 %changelog
+* Tue Sep 16 2025 farchord@gmail.com - 6.4.5-1
+- 6.4.5
+
 * Thu Aug 07 2025 František Zatloukal <fzatlouk@redhat.com> - 6.4.4-2
 - Rebuilt for icu 77.1
 

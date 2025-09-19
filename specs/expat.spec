@@ -1,4 +1,4 @@
-%global unversion 2_7_1
+%global unversion 2_7_2
 
 Summary: An XML parser library
 Name: expat

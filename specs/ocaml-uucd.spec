@@ -1,12 +1,9 @@
-# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
-ExcludeArch: %{ix86}
-
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
 
 Name:           ocaml-uucd
-Version:        16.0.0
+Version:        17.0.0
 Release:        %autorelease
 Summary:        Unicode character database decoder for OCaml
 
@@ -15,12 +12,15 @@ URL:            https://erratique.ch/software/uucd
 VCS:            git:https://erratique.ch/repos/uucd.git
 Source:         %{url}/releases/uucd-%{version}.tbz
 
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch:    %{ix86}
+
 BuildRequires:  ocaml >= 4.08.0
 BuildRequires:  ocaml-compiler-libs
 BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-ocamlbuild
 BuildRequires:  ocaml-rpm-macros
-BuildRequires:  ocaml-topkg-devel >= 1.0.3
+BuildRequires:  ocaml-topkg-devel >= 1.1.0
 BuildRequires:  ocaml-xmlm-devel
 
 %description

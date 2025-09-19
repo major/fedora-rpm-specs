@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.15
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Subtitle file manipulation library
 
 License:        GPL-3.0-or-later
@@ -27,13 +27,17 @@ text-based subtitle files.
 
 %prep
 %autosetup -n %{pypi_name}-%{version}
+
+# FIXME in upstream
+sed -i '14i shutil.copytree("data/ui", "aeidon/data/ui")' setup-aeidon.py
+
 # we want to package aeidon, not gaupol
 # the setup.py file is for gaupol
 mv setup.py setup_gaupol.py
 sed 's/from setup import/from setup_gaupol import/' setup-aeidon.py > setup.py
 
 %generate_buildrequires
-rm -rf aeidon/data/{headers,patterns}  # setup.py fails if this was already created
+rm -rf aeidon/data/{headers,patterns,ui}  # setup.py fails if this was already created
 %pyproject_buildrequires
 
 %build
@@ -50,6 +54,9 @@ rm -rf aeidon/data/{headers,patterns}  # setup.py fails if this was already crea
 %doc README.md
 
 %changelog
+* Tue Sep 16 2025 Parag Nemade <pnemade AT redhat DOT com> - 1.15-26
+- Fix gaupol binary start (rhbz#2395486)
+
 * Mon Sep 08 2025 Miro Hrončok <mhroncok@redhat.com> - 1.15-25
 - Package the aeidon package, not gaupol
 - Fixes: rhbz#2391739
