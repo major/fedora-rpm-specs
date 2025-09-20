@@ -1,5 +1,5 @@
 Name:           ocl-icd
-Version:        2.3.3
+Version:        2.3.4
 Release:        %autorelease
 Summary:        OpenCL Library (Installable Client Library) Bindings
 License:        BSD-2-Clause

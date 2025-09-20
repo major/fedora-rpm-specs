@@ -36,7 +36,7 @@ requires X and KDE to be installed in order to run.
 # don't install icons, which are included in oxygen-icon-theme
 rm -f kdbg/pics/*action-debug-run*
 
-%cmake_kf6 -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_FOR_KDE_VERSION=6
+%cmake_kf5
 
 %cmake_build
 

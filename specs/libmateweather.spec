@@ -9,6 +9,8 @@ License:       GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
 URL:           http://mate-desktop.org
 Source0:       http://pub.mate-desktop.org/releases/%{branch}/%{name}-%{version}.tar.xz
 
+Patch0:        libmateweather_0001-Update-AviationWeather-URL_1.28.patch
+
 BuildRequires: glib2-devel
 BuildRequires: gtk3-devel
 BuildRequires: libsoup-devel

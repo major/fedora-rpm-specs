@@ -75,7 +75,7 @@ BuildRequires:  glib2-devel
 
 # For bash-completion.
 BuildRequires:  bash-completion
-%if !0%{?rhel}
+%if 0%{?fedora} || 0%{?rhel} >= 11
 BuildRequires:  bash-completion-devel
 %endif
 
@@ -369,7 +369,7 @@ make %{?_smp_mflags} check || {
 
 
 %files bash-completion
-%if !0%{?rhel}
+%if 0%{?fedora} || 0%{?rhel} >= 11
 %dir %{bash_completions_dir}
 %{bash_completions_dir}/nbdcopy
 %{bash_completions_dir}/nbddump

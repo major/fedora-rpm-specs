@@ -1,5 +1,5 @@
 Name:           fastapi-cloud-cli
-Version:        0.1.5
+Version:        0.2.0
 Release:        %autorelease
 Summary:        Deploy and manage FastAPI Cloud apps from the command line
 
@@ -40,34 +40,7 @@ BuildRequires:  %{py3_dist respx} >= 0.22
 
 
 %check
-# Difficulties running the tests?
-# https://github.com/fastapilabs/fastapi-cloud-cli/discussions/76
-k="${k-}${k+ and }not test_asks_for_app_name_after_team"
-k="${k-}${k+ and }not test_asks_for_name_and_value"
-k="${k-}${k+ and }not test_can_skip_waiting"
-k="${k-}${k+ and }not test_creates_app_on_backend"
-k="${k-}${k+ and }not test_creates_config_folder_and_creates_git_ignore"
-k="${k-}${k+ and }not test_creates_environment_variables_during_app_setup"
-k="${k-}${k+ and }not test_does_not_duplicate_entry_in_git_ignore"
-k="${k-}${k+ and }not test_exits_successfully_when_deployment_is_done"
-k="${k-}${k+ and }not test_handles_invalid_auth"
-k="${k-}${k+ and }not test_rejects_invalid_environment_variable_names"
-k="${k-}${k+ and }not test_shows_error_for_invalid_waitlist_form_data"
-k="${k-}${k+ and }not test_shows_error_when_trying_to_get_teams"
-k="${k-}${k+ and }not test_shows_no_apps_found_message_when_team_has_no_apps"
-k="${k-}${k+ and }not test_shows_selector_for_environment_variables"
-k="${k-}${k+ and }not test_shows_teams"
-k="${k-}${k+ and }not test_shows_waitlist_form_when_not_logged_in"
-k="${k-}${k+ and }not test_shows_waitlist_form_when_not_logged_in_longer_flow"
-k="${k-}${k+ and }not test_uses_existing_app"
-# Unlike those listed above, this doesn’t fail in a git checkout, but the way
-# in which it fails is similar to the above tests:
-#   >           assert result.exit_code == 0
-#   E           AssertionError: assert 1 == 0
-#   E            +  where 1 = <Result OSError(6, 'No such device or address')>.exit_code
-k="${k-}${k+ and }not test_asks_to_setup_the_app"
-
-%pytest -k "${k-}" -v
+%pytest -v
 
 
 %files -f %{pyproject_files}

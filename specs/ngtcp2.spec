@@ -20,7 +20,6 @@ BuildRequires:  autoconf
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  libtool
-BuildRequires:  gnutls-devel >= 3.7.5
 BuildRequires:  libev-devel
 BuildRequires:  python3-sphinx
 BuildRequires:  python3-sphinx_rtd_theme
@@ -34,6 +33,8 @@ ngtcp2 project is an effort to implement RFC9000 QUIC protocol.
 %package devel
 Summary:        The ngtcp2 development files
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Recommends:     %{name}-crypto-gnutls%{?_isa} = %{version}-%{release}
+Recommends:     %{name}-crypto-ossl%{?_isa} = %{version}-%{release}
 
 %description devel
 "Call it TCP/2. One More Time."
@@ -42,15 +43,55 @@ ngtcp2 project is an effort to implement RFC9000 QUIC protocol.
 
 Development headers and libraries.
 
+%package crypto-gnutls
+Summary:        The ngtcp2 GnuTLS crypto provider
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description crypto-gnutls
+"Call it TCP/2. One More Time." RFC9000 QUIC protocol.
+
+GnuTLS library provider.
+
+%package crypto-gnutls-devel
+Summary:        The ngtcp2 GnuTLS crypto provider headers
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}-crypto-gnutls%{?_isa} = %{version}-%{release}
+BuildRequires:  gnutls-devel >= 3.7.5
+Requires:       gnutls-devel >= 3.7.5
+
+%description crypto-gnutls-devel
+"Call it TCP/2. One More Time." RFC9000 QUIC protocol.
+
+GnuTLS library provider headers.
+
+%package crypto-ossl
+Summary:        The ngtcp2 dependency for OpenSSL
+Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
+
+%description crypto-ossl
+"Call it TCP/2. One More Time." RFC9000 QUIC protocol.
+
+OpenSSL library provider.
+
+%package crypto-ossl-devel
+Summary:        The ngtcp2 dependency for OpenSSL headers
+Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
+Requires:       %{name}-crypto-ossl%{?_isa} = %{version}-%{release}
+BuildRequires:  openssl-devel >= 3.5.0
+Requires:       openssl-devel >= 3.5.0
+
+%description crypto-ossl-devel
+"Call it TCP/2. One More Time." RFC9000 QUIC protocol.
+
+OpenSSL library provider headers.
+
 %package doc
 Summary:        The ngtcp2 API documentation
 Requires:       %{name} = %{version}-%{release}
 BuildArch:      noarch
 
 %description doc
-"Call it TCP/2. One More Time."
-
-ngtcp2 project is an effort to implement RFC9000 QUIC protocol.
+"Call it TCP/2. One More Time." RFC9000 QUIC protocol.
 
 Development API documentation.
 
@@ -64,7 +105,7 @@ install -p -m 644 %{SOURCE5} doc/source/
 
 %build
 autoreconf -fsi
-%configure --with-gnutls --with-libev --disable-static --enable-werror
+%configure --with-gnutls --with-openssl --with-libev --disable-static --enable-werror
 %make_build
 %make_build html
 
@@ -88,16 +129,35 @@ rm -f ${RPM_BUILD_ROOT}%{_libdir}/lib%{name}*.la
 #doc SECURITY.md
 %doc AUTHORS
 %{_libdir}/libngtcp2.so.16*
+
+
+%files crypto-gnutls
 %{_libdir}/libngtcp2_crypto_gnutls.so.8*
+
+
+%files crypto-ossl
+%{_libdir}/libngtcp2_crypto_ossl.so.0*
 
 
 %files devel
 %doc ChangeLog
 %{_libdir}/libngtcp2.so
-%{_libdir}/libngtcp2_crypto_gnutls.so
+%{_libdir}/libngtcp2_crypto_ossl.so
 %{_libdir}/pkgconfig/libngtcp2.pc
-%{_libdir}/pkgconfig/libngtcp2_crypto_gnutls.pc
 %{_includedir}/%{name}/
+%exclude %{_includedir}/%{name}/ngtcp2_crypto_*.h
+
+
+%files crypto-gnutls-devel
+%{_libdir}/libngtcp2_crypto_gnutls.so
+%{_libdir}/pkgconfig/libngtcp2_crypto_gnutls.pc
+%{_includedir}/%{name}/ngtcp2_crypto_gnutls.h
+
+
+%files crypto-ossl-devel
+%{_libdir}/libngtcp2_crypto_ossl.so
+%{_libdir}/pkgconfig/libngtcp2_crypto_ossl.pc
+%{_includedir}/%{name}/ngtcp2_crypto_ossl.h
 
 
 %files doc

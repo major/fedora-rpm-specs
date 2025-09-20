@@ -2,7 +2,7 @@
 %define libname libnmstate
 
 Name:           nmstate
-Version:        2.2.50
+Version:        2.2.52
 Release:        %autorelease
 Summary:        Declarative network manager API
 License:        Apache-2.0 AND LGPL-2.1-or-later
@@ -28,7 +28,7 @@ BuildRequires:  (crate(chrono/default) >= 0.4 with crate(chrono/default) < 0.5)
 BuildRequires:  (crate(env_logger/default) >= 0.11 with crate(env_logger/default) < 0.12)
 BuildRequires:  (crate(libc/default) >= 0.2 with crate(libc/default) < 0.3)
 BuildRequires:  (crate(log/default) >= 0.4 with crate(log/default) < 0.5)
-BuildRequires:  (crate(nispor/default) >= 1.2.24 with crate(nispor/default) < 2.0)
+BuildRequires:  (crate(nispor/default) >= 1.2.27 with crate(nispor/default) < 2.0)
 BuildRequires:  (crate(serde/default) >= 1.0 with crate(serde/default) < 2.0)
 BuildRequires:  (crate(serde/derive) >= 1.0 with crate(serde/derive) < 2.0)
 BuildRequires:  (crate(serde_json/default) >= 1.0 with crate(serde_json/default) < 2.0)
@@ -43,6 +43,7 @@ BuildRequires:  (crate(tokio/default) >= 1.3 with crate(tokio/default) < 2.0)
 BuildRequires:  (crate(tokio/net) >= 1.3 with crate(tokio/net) < 2.0)
 BuildRequires:  (crate(tokio/rt) >= 1.3 with crate(tokio/rt) < 2.0)
 BuildRequires:  (crate(tokio/signal) >= 1.3 with crate(tokio/signal) < 2.0)
+BuildRequires:  (crate(tokio/time) >= 1.3 with crate(tokio/time) < 2.0)
 BuildRequires:  (crate(once_cell/default) >= 1.12 with crate(once_cell/default) < 2.0)
 %endif
 

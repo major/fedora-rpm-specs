@@ -127,7 +127,7 @@ BuildRequires:  pkgconfig(libtorrent-rasterbar)
 BuildRequires:  pkgconfig(blkio)
 %endif
 BuildRequires:  bash-completion
-%if !0%{?rhel}
+%if 0%{?fedora} || 0%{?rhel} >= 11
 BuildRequires:  bash-completion-devel
 %endif
 BuildRequires:  perl-devel
@@ -1516,7 +1516,7 @@ fi
 
 %files bash-completion
 %license LICENSE
-%if !0%{?rhel}
+%if 0%{?fedora} || 0%{?rhel} >= 11
 %dir %{bash_completions_dir}
 %{bash_completions_dir}/nbdkit
 %else

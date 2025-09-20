@@ -14,7 +14,6 @@ Requires:   python3-distro
 Requires:   python3-packaging
 Requires:   python3-enchant
 Requires:   python3-pyxdg
-Requires:   python3-httpx
 %if 0%{?fedora}
 # To make emoji and Unicode symbol matching faster:
 Requires:     python3-rapidfuzz
@@ -37,6 +36,8 @@ Recommends: python3-pyatspi
 # To get the primary selection on Wayland when getting it using
 # surrounding text fails:
 Recommends: wl-clipboard
+# For ollama support
+Recommends: python3-httpx
 %endif
 %if 0%{?fedora} >= 26 || 0%{?rhel} > 7
 # Save some space in the binary rpm by requiring the Fedora
@@ -77,7 +78,6 @@ BuildRequires:  libappstream-glib
 BuildRequires:  desktop-file-utils
 BuildRequires:  python3-gobject
 BuildRequires:  python3-gobject-base
-BuildRequires:  python3-httpx
 BuildRequires:  hunspell-cs
 BuildRequires:  hunspell-de
 BuildRequires:  hunspell-en

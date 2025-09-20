@@ -1,8 +1,9 @@
 Name:           python-datasets
-Version:        4.0.0
+Version:        4.1.0
 Release:        %autorelease
 Summary:        HuggingFace community-driven open-source library of datasets
 
+# TODO: Investigate code origin of src/datasets/packaged_modules/
 License:        Apache-2.0
 URL:            https://github.com/huggingface/datasets
 Source:         %{pypi_source datasets}
@@ -19,6 +20,7 @@ Source:         %{pypi_source datasets}
 # Disable debug package generation because it fails; there is no complied code!
 %global debug_package %{nil}
 # Builds fail on i686, which isn't a main arch anymore. Just drop it.
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
 BuildRequires:  python3-devel
@@ -62,12 +64,12 @@ BuildArch:      noarch
 %prep
 %autosetup -p1 -n datasets-%{version}
 # The project pins dill and multiprocess due to concerns about determinism.
-# Relax dill version bound to allow Fedora's packaged version
-sed -i "s/dill>=0.3.0,<0.3.9/dill>=0.3.0/" setup.py
-# Relax multiprocess version bound to allow Fedora's packaged version
+# Relax dill version bound for distro purposes
+sed -i "s/dill>=0.4.1,<0.3.9/dill>=0.3.0/" setup.py
+# Relax multiprocess version bound for distro purposes
 sed -i "s/multiprocess<0.70.17/multiprocess/" setup.py
-# Relax fsspec version bound to allow Fedora's packaged version
-sed -i "s/fsspec\[http\]>=2023.1.0,<=2025.3.0/fsspec\[http\]>=2023.1.0/" setup.py
+# Relax fsspec version bound for distro purposes
+sed -i "s/fsspec\[http\]>=2023.1.0,<=2025.9.0/fsspec\[http\]>=2023.1.0/" setup.py
 # Drop shebangs from files that are not executable
 # TODO: report this issue upstream
 sed -i "1d" src/datasets/commands/datasets_cli.py

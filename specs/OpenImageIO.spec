@@ -2,7 +2,7 @@
 %global sover 3.0
 
 Name:           OpenImageIO
-Version:        3.0.10.0
+Version:        3.0.10.1
 Release:        1%{?dist}
 Epoch:          1
 Summary:        Library for reading and writing images
@@ -47,6 +47,7 @@ BuildRequires:  jasper-devel
 # Only available on RPM Fusion
 BuildRequires:  libheif-devel
 BuildRequires:  turbojpeg-devel
+BuildRequires:  libjxl-devel
 BuildRequires:  libpng-devel
 BuildRequires:  LibRaw-devel
 BuildRequires:  libsquish-devel
@@ -204,6 +205,9 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Thu Sep 18 2025 Richard Shaw <hobbes1069@gmail.com> - 1:3.0.10.1-1
+- Update to 3.0.10.1.
+
 * Sat Sep 06 2025 Richard Shaw <hobbes1069@gmail.com> - 1:3.0.10.0-1
 - Update to 3.0.10.0.
 

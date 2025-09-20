@@ -9,8 +9,8 @@
 
 Name:           %{target}-gcc-cs
 Epoch:          1
-Version:        15.1.0
-Release:        3%{?dist}
+Version:        15.2.0
+Release:        1%{?dist}
 Summary:        GNU GCC for cross-compilation for %{target} target
 License:        GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND MIT AND BSD-2-Clause
 URL:            https://gcc.gnu.org/
@@ -287,6 +287,9 @@ popd
 %endif
 
 %changelog
+* Thu Sep 18 2025 Michal Hlavinka <mhlavink@redhat.com> - 1:15.2.0-1
+- updated to 15.2.0
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:15.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

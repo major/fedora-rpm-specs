@@ -13,7 +13,9 @@ URL:            https://crates.io/crates/redlib
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Bump cached to 0.53
-# * Update brotli from 6.0 to 7.0: https://github.com/redlib-org/redlib/pull/277
+# * Update brotli from 6.0 to 7.0,
+#   https://github.com/redlib-org/redlib/pull/277, then allow 8.0,
+#   https://github.com/redlib-org/redlib/pull/476
 # * Fix license tag: https://github.com/redlib-org/redlib/pull/200
 # * Bump askama to 0.14: https://github.com/redlib-org/redlib/pull/464
 Patch:          redlib-fix-metadata.diff

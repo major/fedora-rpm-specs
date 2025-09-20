@@ -1,7 +1,7 @@
 %global __brp_check_rpaths %{nil}
 
 Name:          toolbox
-Version:       0.2
+Version:       0.3
 
 %global goipath github.com/containers/%{name}
 
@@ -20,7 +20,7 @@ Version:       0.2
 %global toolbx_go 1.22
 
 %if 0%{?fedora}
-%global toolbx_go 1.23.9
+%global toolbx_go 1.24.7
 %endif
 
 %if 0%{?rhel}
@@ -29,11 +29,11 @@ Version:       0.2
 %elif 0%{?rhel} == 10
 %global toolbx_go 1.22.5
 %elif 0%{?rhel} > 10
-%global toolbx_go 1.24.3
+%global toolbx_go 1.24.4
 %endif
 %endif
 
-Release:       2%{?dist}
+Release:       1%{?dist}
 Summary:       Tool for interactive command line environments on Linux
 
 License:       Apache-2.0
@@ -188,6 +188,9 @@ install -m0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/containers/%{name}.conf
 
 
 %changelog
+* Wed Sep 17 2025 Debarshi Ray <rishi@fedoraproject.org> - 0.3-1
+- Update to 0.3
+
 * Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 0.2-2
 - Rebuild for golang-1.25.0
 

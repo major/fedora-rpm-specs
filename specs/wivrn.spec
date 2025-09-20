@@ -2,14 +2,14 @@
 %bcond_with x264
 
 %global forgeurl0      https://github.com/WiVRn/WiVRn
-%global wivrn_version  25.8
+%global wivrn_version  25.9
 %global tag0           v%{wivrn_version}
-%global date           20250810
+%global date           20250917
 
 # WiVRn is based on Monado, we need the full source
 # Monado base source (find in monado-rev file)
 %global forgeurl1      https://gitlab.freedesktop.org/monado/monado
-%global commit1        5c137fe28b232fe460f9b03defa7749adc32ee48
+%global commit1        7a4018e2d89151e60e562fac79eba90ca7a328d8
 %global monado_version 25.0.0
 
 %forgemeta
@@ -90,25 +90,15 @@ Patch0002:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/
 # downstream-only - WiVRn specific Monado patches
 Patch0003:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0003-Use-extern-socket-fd.patch
 # downstream-only - WiVRn specific Monado patches
-Patch0004:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0004-c-render-Add-storage-usage-to-distortion-mesh.patch
+Patch0004:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0004-change-environment-blend-mode-selection-logic.patch
 # downstream-only - WiVRn specific Monado patches
-Patch0005:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0005-change-environment-blend-mode-selection-logic.patch
+Patch0005:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0005-c-main-allow-custom-pacing-app-factory.patch
 # downstream-only - WiVRn specific Monado patches
-Patch0006:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0006-Convert-to-YCbCr-in-Monado.patch
+Patch0006:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0006-st-oxr-forward-0-refresh-rate.patch
 # downstream-only - WiVRn specific Monado patches
-Patch0007:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0007-store-alpha-channel-in-layer-1.patch
+Patch0007:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0007-Replace-distortion-with-foveation.patch
 # downstream-only - WiVRn specific Monado patches
-Patch0008:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0008-c-main-allow-custom-pacing-app-factory.patch
-# downstream-only - WiVRn specific Monado patches
-Patch0009:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0009-st-oxr-forward-0-refresh-rate.patch
-# downstream-only - WiVRn specific Monado patches
-Patch0010:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0010-Replace-distortion-with-pixel-aligned-foveation.patch
-# downstream-only - WiVRn specific Monado patches
-Patch0011:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0011-a-vk-Track-VK_KHR_video_maintenance1.patch
-# downstream-only - WiVRn specific Monado patches
-Patch0012:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0012-a-vk-Expose-video_maintenance_1-device-feature.patch
-# downstream-only - WiVRn specific Monado patches
-Patch0013:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0013-c-util-Request-video_maintenance_1-feature.patch
+Patch0008:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0008-Limit-foveation-samples-per-pixel.patch
 
 
 # If BuildRequires change, be sure to update envision-wivrn Requires
@@ -240,11 +230,6 @@ pushd _deps/monado-src
 %patch -P0006 -p1
 %patch -P0007 -p1
 %patch -P0008 -p1
-%patch -P0009 -p1
-%patch -P0010 -p1
-%patch -P0011 -p1
-%patch -P0012 -p1
-%patch -P0013 -p1
 popd
 
 

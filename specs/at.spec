@@ -3,7 +3,7 @@
 Summary:    Job spooling tools
 Name:       at
 Version:    3.2.5
-Release:    18%{?dist}
+Release:    19%{?dist}
 # http://packages.debian.org/changelogs/pool/main/a/at/current/copyright
 # + install-sh is MIT license with changes under Public Domain
 License:    GPL-3.0-or-later AND GPL-2.0-or-later AND ISC
@@ -161,6 +161,8 @@ make test
 %attr(0644,root,root)       %config(noreplace) %{_sysconfdir}/at.deny
 %attr(0644,root,root)       %config(noreplace) %{_sysconfdir}/sysconfig/atd
 %attr(0644,root,root)       %config(noreplace) %{_sysconfdir}/pam.d/atd
+%attr(0700,root,root)       %dir %{_localstatedir}/spool/at
+%attr(0700,root,root)       %dir %{_localstatedir}/spool/at/spool
 %{_tmpfilesdir}/at.conf
 %{_bindir}/atrun
 %attr(0755,root,root)       %{_bindir}/atd
@@ -173,6 +175,13 @@ make test
 %attr(0644,root,root)       /%{_unitdir}/atd.service
 
 %changelog
+* Thu Sep 18 2025 Ondřej Pohořelský <opohorel@redhat.com> - 3.2.5-19
+- Add /var/spool/at and /var/spool/at/spool directories into %%files section
+- Resolves: rhbz#2396330
+
+* Wed Aug 27 2025 Ondřej Pohořelský <opohorel@redhat.com> - 3.2.5-18
+- Use systemd-tmpfiles for /var/spool/at directories
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.5-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 %global crate wiremock
 
 Name:           rust-wiremock
-Version:        0.6.4
+Version:        0.6.5
 Release:        %autorelease
 Summary:        HTTP mocking to test Rust applications
 
@@ -14,17 +14,9 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/wiremock
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * Update deadpool to 0.12 and remove async-trait dependency:
-#   https://github.com/LukeMathWalker/wiremock-rs/pull/157
 # * Omit deprecated async-std dev-dependency
 # * Remove test modules for which *all* tests would require async-std.
-# * Add missing dependency on "tokio/net"
 Patch:          wiremock-fix-metadata.diff
-# * This is the source-code change from “Update deadpool to 0.12,”
-#   https://github.com/LukeMathWalker/wiremock-rs/pull/157, to accompany the
-#   Cargo.toml patch that updates deadpool to 0.12 and removes the async-trait
-#   dependency.
-Patch10:        wiremock-0.6.3-no-async-trait.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

@@ -6,7 +6,7 @@
 %global crate netlink-packet-core
 
 Name:           rust-netlink-packet-core
-Version:        0.8.0
+Version:        0.8.1
 Release:        %autorelease
 Summary:        Netlink packet types
 

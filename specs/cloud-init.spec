@@ -15,9 +15,16 @@ Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:        cloud-init-tmpfiles.conf
 
 # https://github.com/canonical/cloud-init/pull/6448
+# Removes auditd.service dependency to prevent systemd ordering issues
 Patch:          6448.patch
 # https://github.com/canonical/cloud-init/pull/6423
+# Fixes systemd dependency cycle on Fedora by adding DefaultDependencies=no
+# and including Fedora in distribution-specific conditional blocks
 Patch:          0001-fix-avoid-dependency-cycle-on-Fedora.patch
+# https://github.com/canonical/cloud-init/pull/6339
+# Switches socket protocol from DGRAM to STREAM and removes ncat's -s flag
+# for proper systemd service coordination
+Patch:          6339.patch
 
 BuildArch:      noarch
 
@@ -44,7 +51,6 @@ Requires:       dhcpcd
 Requires:       hostname
 Requires:       e2fsprogs
 Requires:       iproute
-Requires:       netcat
 Requires:       python3-libselinux
 Requires:       policycoreutils-python3
 Requires:       procps
@@ -52,6 +58,7 @@ Requires:       shadow-utils
 Requires:       util-linux
 Requires:       xfsprogs
 Requires:       openssl
+Requires:       /usr/bin/nc
 
 %{?systemd_requires}
 

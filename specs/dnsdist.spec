@@ -6,17 +6,18 @@
 %endif
 
 Name: dnsdist
-Version: 1.9.10
+Version: 2.0.1
 Release: %autorelease
 Summary: Highly DNS-, DoS- and abuse-aware loadbalancer
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
 URL: https://dnsdist.org
-Source0: https://downloads.powerdns.com/releases/%{name}-%{version}.tar.bz2
+Source0: https://downloads.powerdns.com/releases/%{name}-%{version}.tar.xz
 
 ExcludeArch: %{ix86} #1994125
 ExcludeArch: armv7hl #1994125
 BuildRequires: boost-devel
+BuildRequires: cargo-rpm-macros
 BuildRequires: fstrm-devel
 BuildRequires: gcc-c++
 #ppc64 buildroot doesn't have libatomic, so require it
@@ -34,6 +35,7 @@ BuildRequires: lua-devel
 %endif
 BuildRequires: openssl-devel
 BuildRequires: protobuf-devel
+BuildRequires: python3-pyyaml
 BuildRequires: re2-devel
 BuildRequires: readline-devel
 BuildRequires: systemd-devel
@@ -64,6 +66,13 @@ sed -i '/^ExecStart/ s/dnsdist/dnsdist -u dnsdist -g dnsdist/' dnsdist.service.i
 cat >dnsdist.sysusers.conf <<EOF
 u dnsdist - 'dnsdist user' - -
 EOF
+cd dnsdist-rust-lib/rust
+%cargo_prep
+
+%generate_buildrequires
+cd dnsdist-rust-lib/rust
+%cargo_generate_buildrequires
+
 
 %build
 %configure \
@@ -78,6 +87,7 @@ EOF
     --enable-tls-providers \
 %endif
     --enable-unit-tests \
+    --enable-yaml \
     --with-cdb \
     --with-lmdb \
     --with-nghttp2 \
@@ -90,6 +100,10 @@ make min_js
 cp src_js/*.js html/js
 rename .js .min.js html/js/*.js
 %endif
+
+pushd dnsdist-rust-lib/rust
+cargo generate-lockfile --offline
+popd
 
 make %{?_smp_mflags}
 %{__cp} dnsdist.conf-dist dnsdist.conf.sample

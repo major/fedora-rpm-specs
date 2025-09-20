@@ -5,7 +5,7 @@
 %global crate reqwest
 
 Name:           rust-reqwest
-Version:        0.12.22
+Version:        0.12.23
 Release:        %autorelease
 Summary:        Higher level HTTP client library
 
@@ -38,7 +38,6 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -429,13 +428,7 @@ use the "zstd" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# * skip tests which require internet access
-%{cargo_test -- -- --exact %{shrink:
-    --skip test_allowed_methods
-    --skip test_badssl_modern
-    --skip test_badssl_self_signed
-    --skip test_tls_info
-}}
+%cargo_test
 %endif
 
 %changelog

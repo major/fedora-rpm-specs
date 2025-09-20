@@ -2,7 +2,7 @@
 %bcond tests 1
 
 Name:           python-pulp
-Version:        3.2.2
+Version:        3.3.0
 Release:        %autorelease
 Summary:        Linear and mixed integer programming modeler
 
@@ -31,8 +31,49 @@ Patch:          0003-Skip-HiGHS_CMDTest.test_time_limit_no_solution.patch
 # scip 9.2.2 or later.
 Patch:          0004-Expect-SCIP_PY-to-report-unbounded-problems-the-same.patch
 
+# These alternative solvers appear to be free software, but are not packaged.
+# - CHOCO_CMD (https://github.com/chocoteam/choco-solver)
+# - COINMP_DLL (previously packaged as coin-or-CoinMP, but orphaned and retired
+#   for Fedora 42)
+# - CUOPT (https://www.nvidia.com/en-us/ai-data-science/products/cuopt/):
+#   currently in the process of being open-sourced,
+#   https://blogs.nvidia.com/blog/cuopt-open-source/?ncid=no-ncid, but may
+#   still have non-free dependencies (CUDA SDK?)
+# - CYLP (https://github.com/coin-or/CyLP, would be coin-or-CyLP if packaged)
+# - FSCIP_CMD (https://ug.zib.de/index.php): According to the link, this is now
+#   part of SCIP, but it is not remotely clear how we could build an fscip
+#   binary in our scip package.
+# - MIPCL_CMD
+#   (https://github.com/tingyingwu2010/MIPCL)
+# - PYGLPK (https://github.com/bradfordboyle/pyglpk)
+# BuildRequires:  %%{py3_dist glpk}
+# Recommends:     %%{py3_dist glpk}
+# - YAPOSIB (https://github.com/coin-or/yaposib)
+# BuildRequires:  %%{py3_dist yaposib}
+# Recommends:     %%{py3_dist yaposib}
+
+# These supported solvers are not free software:
+# - COPT
+# - COPT_CMD
+# - COPT_DLL
+# - CPLEX_CMD
+# - CPLEX_PY
+# - GUROBI
+# - GUROBI_CMD
+# - MOSEK
+# - SAS94
+# - SASCAS
+# - XPRESS
+# - XPRESS_CMD
+# - XPRESS_PY
+
 BuildSystem:            pyproject
 BuildOption(install):   -L pulp
+# Omitted extras for non-free solvers: copt, cplex, gurobi, mosek, xpress
+BuildOption(generate_buildrequires): %{shrink:
+  -x highs
+  -x scip
+}
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -75,8 +116,8 @@ Requires:       coin-or-Cbc
 BuildRequires:  glpk-utils
 Recommends:     glpk-utils
 # - HiGHS
-BuildRequires:  %{py3_dist highspy}
-Recommends:     %{py3_dist highspy}
+# BuildRequires is covered by the highs extra.
+Recommends:     python3-pulp+highs = %{version}-%{release}
 # - HiGHS_CMD
 BuildRequires:  coin-or-HiGHS
 Recommends:     coin-or-HiGHS
@@ -84,46 +125,13 @@ Recommends:     coin-or-HiGHS
 BuildRequires:  scip
 Recommends:     scip
 # - SCIP_PY
-BuildRequires:  %{py3_dist PySCIPOpt}
-Recommends:     %{py3_dist PySCIPOpt}
-
-# These alternative solvers appear to be free software, but are not packaged.
-# - CHOCO_CMD (https://github.com/chocoteam/choco-solver)
-# - COINMP_DLL (previously packaged as coin-or-CoinMP, but orphaned and retired
-#   for Fedora 42)
-# - CUOPT (https://www.nvidia.com/en-us/ai-data-science/products/cuopt/):
-#   currently in the process of being open-sourced,
-#   https://blogs.nvidia.com/blog/cuopt-open-source/?ncid=no-ncid, but may
-#   still have non-free dependencies (CUDA SDK?)
-# - CYLP (https://github.com/coin-or/CyLP, would be coin-or-CyLP if packaged)
-# - FSCIP_CMD (https://ug.zib.de/index.php): According to the link, this is now
-#   part of SCIP, but it is not remotely clear how we could build an fscip
-#   binary in our scip package.
-# - MIPCL_CMD
-#   (https://github.com/tingyingwu2010/MIPCL)
-# - PYGLPK (https://github.com/bradfordboyle/pyglpk)
-# BuildRequires:  %%{py3_dist glpk}
-# Recommends:     %%{py3_dist glpk}
-# - YAPOSIB (https://github.com/coin-or/yaposib)
-# BuildRequires:  %%{py3_dist yaposib}
-# Recommends:     %%{py3_dist yaposib}
-
-# These supported solvers are not free software:
-# - COPT
-# - COPT_CMD
-# - COPT_DLL
-# - CPLEX_CMD
-# - CPLEX_PY
-# - GUROBI
-# - GUROBI_CMD
-# - MOSEK
-# - SAS94
-# - SASCAS
-# - XPRESS
-# - XPRESS_CMD
-# - XPRESS_PY
+# BuildRequires is covered by the scip extra.
+Recommends:     python3-pulp+scip = %{version}-%{release}
 
 %description -n python3-pulp %_description
+
+
+%pyproject_extras_subpkg -n python3-pulp highs scip
 
 
 %prep -a

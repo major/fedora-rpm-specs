@@ -19,7 +19,7 @@
 %global shortcommit %(echo %{longcommit}|cut -c1-8)
 %global modified %(echo %{longcommit}-|cut -f2 -d-)
 %global github_owner Clusterlabs
-%global buildnum 1
+%global baserelease 2
 
 %ifarch s390x s390
 # minimum timeout on LPAR diag288 watchdog is 15s
@@ -49,12 +49,13 @@ Name:           sbd
 Summary:        Storage-based death
 License:        GPL-2.0-or-later
 Version:        1.5.2
-Release:        %{buildnum}%{?dist}.7
+Release:        %{baserelease}%{?dist}
 Url:            https://github.com/%{github_owner}/%{name}
 Source0:        https://github.com/%{github_owner}/%{name}/archive/%{longcommit}/%{name}-%{longcommit}.tar.gz
 Patch0:         0001-Fix-query-watchdog-avoid-issues-on-heap-allocation-f.patch
 Patch1:         0002-Refactor-sbd-md-alloc-de-alloc-reverse-order.patch
 Patch2:         0003-spec-convert-license-naming-to-SPDX.patch
+Patch3:         0004-Fix-sbd-cluster-cleanly-include-crm-crm.h-for-crm_sy.patch
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  libuuid-devel
@@ -175,6 +176,11 @@ fi
 %{_libdir}/libsbdtestbed*
 
 %changelog
+* Thu Sep 18 2025 Klaus Wenninger <kwenning@redhat.com> - 1.5.2-2
+- Convert STI tests to TMT (rhbz#2383068)
+- use baserelease as that rpmdev-bumpspec can be used
+- cleanly include <crm/crm.h> for crm_system_name and others
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-1.7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

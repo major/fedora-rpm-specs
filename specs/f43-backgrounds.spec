@@ -6,7 +6,7 @@
 %bcond          extras 0
 
 Name:           %{bgname}-backgrounds
-Version:        %{relnum}.0.2
+Version:        %{relnum}.0.3
 Release:        %autorelease
 Summary:        Fedora %{relnum} default desktop background
 

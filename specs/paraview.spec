@@ -5,9 +5,9 @@
 %define _legacy_common_support 1
 %endif
 
-%global pv_maj 5
-%global pv_min 12
-%global pv_patch 1
+%global pv_maj 6
+%global pv_min 0
+%global pv_patch 0
 %global pv_majmin %{pv_maj}.%{pv_min}
 #global rcsuf RC3
 %{?rcsuf:%global relsuf .%{rcsuf}}
@@ -83,17 +83,14 @@ Source2:        FindPEGTL.cmake
 # https://gitlab.kitware.com/paraview/paraview/issues/19724
 Patch0:         paraview-cmakedir.patch
 # Fix doc build with Sphinx 6
-Patch1:         paraview-sphinx6.patch
-# Fix build with gcc 15
-# https://gitlab.kitware.com/vtk/vtk-m/-/merge_requests/3271
-# https://gitlab.kitware.com/vtk/vtk-m/-/merge_requests/3272
-# FTBFS https://bugzilla.redhat.com/show_bug.cgi?id=2341002
-Patch2:         paraview-gcc15.patch
+#Patch1:         paraview-sphinx6.patch
+# always_inline fails on ppc64le
+# https://gitlab.kitware.com/vtk/vtk/-/issues/19622
+# https://bugzilla.redhat.com/show_bug.cgi?id=2386242
+Patch2:         vtk-ppc64-no-always-inline.patch
 # Fix build with newer freetype
 # https://gitlab.kitware.com/vtk/vtk/-/issues/18033
 Patch3:         paraview-freetype.patch
-# Fix build with cli11 >= 2.5.0
-Patch4:         paraview-cli11.patch
 
 BuildRequires:  cmake >= 3.12
 BuildRequires:  make
@@ -104,7 +101,6 @@ BuildRequires:  cmake(Qt5UiPlugin)
 BuildRequires:  cmake(Qt5X11Extras)
 BuildRequires:  qt5-qtwebkit-devel
 BuildRequires:  /usr/bin/xmlpatterns-qt5
-BuildRequires:  mesa-libOSMesa-devel
 BuildRequires:  python3-devel
 BuildRequires:  python3-netcdf4
 BuildRequires:  python3-qt5
@@ -121,7 +117,6 @@ BuildRequires:  tk-devel
 BuildRequires:  fast_float-devel
 BuildRequires:  freetype-devel, libtiff-devel, zlib-devel
 BuildRequires:  expat-devel
-BuildRequires:  glew-devel
 BuildRequires:  readline-devel
 BuildRequires:  openssl-devel
 BuildRequires:  gnuplot
@@ -226,6 +221,7 @@ Provides: bundled(libharu)
 Provides: bundled(libproj4)
 Provides: bundled(qttesting)
 Provides: bundled(verdict) = 1.4.0
+Provides: bundled(viskores) = 1.0.0
 Provides: bundled(xdmf2)
 
 # Do not provide anything in paraview's library directory
@@ -276,6 +272,7 @@ ExcludeArch: %{ix86}
         %{?vtk_use_system_pugixml} \\\
         %{?vtk_use_system_token} \\\
         -DVTK_MODULE_USE_EXTERNAL_VTK_verdict:BOOL=OFF \\\
+        -DVTK_MODULE_USE_EXTERNAL_VTK_vtkviskores:BOOL=OFF \\\
         -DBUILD_EXAMPLES:BOOL=ON \\\
         -DBUILD_TESTING:BOOL=OFF \\\
         -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON
@@ -468,7 +465,7 @@ rm -r VTK/ThirdParty/pugixml/vtkpugixml
 %endif
 # TODO - loguru
 # TODO - verdict - This is a kitware library so low priority
-for x in vtk{cli11,doubleconversion,eigen,expat,fast_float,%{?with_fmt:fmt,}freetype,%{?_with_gl2ps:gl2ps,}glew,hdf5,jpeg,libproj,libxml2,lz4,lzma,mpi4py,netcdf,nlohmannjson,ogg,pegtl,png,sqlite,theora,tiff,utf8,zfp,zlib}
+for x in vtk{cli11,doubleconversion,eigen,expat,fast_float,%{?with_fmt:fmt,}freetype,%{?_with_gl2ps:gl2ps,}hdf5,jpeg,libproj,libxml2,lz4,lzma,mpi4py,netcdf,nlohmannjson,ogg,pegtl,png,sqlite,theora,tiff,utf8,zlib}
 do
   rm -r VTK/ThirdParty/*/${x}
 done
@@ -606,6 +603,7 @@ fi
 %files devel
 %{_bindir}/paraview-config
 %{_bindir}/vtkWrapClientServer
+%{_bindir}/vtkWrapSerDes
 %{_bindir}/vtkProcessXML
 %{_includedir}/%{name}/
 %{_libdir}/cmake/

@@ -5,8 +5,8 @@
 # For non-Fedora builds
 %bcond dkms 0
 
-# Fails to compile at the moment and is totally broken
-%bcond fuse 0
+# For FUSE fallback
+%bcond fuse 1
 
 # While there are no observable issues with LTO, Kent thinks it's bad,
 # so disable for now until more testing can be done.
@@ -15,7 +15,7 @@
 %global make_opts VERSION="%{version}" %{?with_fuse:BCACHEFS_FUSE=1} %{!?with_rust:NO_RUST=1} BUILD_VERBOSE=1 PREFIX=%{_prefix} ROOT_SBINDIR=%{_sbindir}
 
 Name:           bcachefs-tools
-Version:        1.31.0
+Version:        1.31.1
 Release:        1%{?dist}
 Summary:        Userspace tools for bcachefs
 
@@ -99,9 +99,6 @@ check, modify and correct any inconsistencies in the bcachefs filesystem.
 %{_sbindir}/fsck.bcachefs
 %{_sbindir}/mkfs.bcachefs
 %{_mandir}/man8/bcachefs.8*
-%{_libexecdir}/bcachefsck*
-%{_unitdir}/bcachefsck*
-%{_unitdir}/system-bcachefsck.slice
 %{_udevrulesdir}/64-bcachefs.rules
 
 %if %{with fuse}
@@ -211,12 +208,16 @@ rm -rfv %{buildroot}/%{_datadir}/initramfs-tools
 rm -rf %{buildroot}%{_sbindir}/*.fuse.bcachefs
 %endif
 
-%if %{with dkms}
-make install_dkms DESTDIR=%{buildroot} %{make_opts}
+%if ! %{with dkms}
+# Purge dkms files
+rm -rf %{buildroot}%{_usrsrc}
 %endif
 
 
 %changelog
+* Thu Sep 18 2025 Neal Gompa <ngompa@fedoraproject.org> - 1.31.1-1
+- Update to 1.31.1
+
 * Sun Sep 14 2025 Neal Gompa <ngompa@fedoraproject.org> - 1.31.0-1
 - Update to 1.31.0
 

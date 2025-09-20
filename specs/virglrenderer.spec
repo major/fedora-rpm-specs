@@ -1,6 +1,10 @@
+%ifarch aarch64
+%global drm_renderers asahi,msm
+%endif
+
 Name:		virglrenderer
 Version:	1.2.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 Summary:	Virgl Rendering library.
 License:	MIT
@@ -45,7 +49,10 @@ driver to test virgl rendering without GL.
 %autosetup -p1
 
 %build
-%meson -Dvideo=true -Dvenus=true
+%meson \
+  %{?drm_renderers:-Ddrm-renderers=%drm_renderers} \
+  -Dvideo=true \
+  -Dvenus=true
 %meson_build
 
 %install
@@ -66,6 +73,9 @@ driver to test virgl rendering without GL.
 %{_bindir}/virgl_test_server
 
 %changelog
+* Wed Sep 17 2025 Janne Grunau >janne-fdr@jannau.net> - 1.2.0-2
+- Enable asahi,msm DRM native context support on aarch64
+
 * Tue Sep 09 2025 Marc-André Lureau <marcandre.lureau@redhat.com> - 1.2.0-1
 - Update to v1.2.0, fixes rhbz#2393984
 

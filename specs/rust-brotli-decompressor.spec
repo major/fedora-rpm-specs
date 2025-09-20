@@ -13,7 +13,7 @@
 %global crate brotli-decompressor
 
 Name:           rust-brotli-decompressor
-Version:        4.0.3
+Version:        5.0.0
 Release:        %autorelease
 Summary:        Brotli decompressor with no_std support
 
@@ -25,11 +25,7 @@ Source:         %{crates_source}
 #   https://github.com/dropbox/rust-brotli-decompressor/issues/9,
 #   https://github.com/dropbox/rust-brotli-decompressor/pull/32, and Patch10.See
 #   also the similar PR https://github.com/dropbox/rust-brotli/pull/218, which
-#   was merged, but note https://github.com/dropbox/rust-brotli/pull/218: we
-#   should be attentive to future improvements or corrections to the license
-#   texts.
-# * Loosen the version bound on alloc-no-stdlib (stricter than necessary):
-#   https://github.com/dropbox/rust-brotli-decompressor/pull/34
+#   was merged.
 Patch:          brotli-decompressor-fix-metadata.diff
 # * Adjust license to reflect a MIT-only source, and add a MIT license file
 #   (https://github.com/dropbox/rust-brotli-decompressor/pull/32), without the

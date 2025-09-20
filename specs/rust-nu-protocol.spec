@@ -15,7 +15,10 @@ Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          nu-protocol-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * Update brotli from 5.0 to 7.0: https://github.com/nushell/nushell/pull/13960
+# * Update brotli from 5.0 to 7.0,
+#   https://github.com/nushell/nushell/pull/13960, then allow 8.0
+#   (downstream-only because upstream will want to wait for dependencies to
+#   adopt brotli 8.0 first)
 # * Update to rstest 0.26: https://github.com/nushell/nushell/pull/16359
 Patch:          nu-protocol-fix-metadata.diff
 

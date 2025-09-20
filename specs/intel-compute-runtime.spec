@@ -1,6 +1,7 @@
 %global neo_major 25
 %global neo_minor 31
-%global neo_build 34666.3
+%global neo_build 34666
+%global neo_hotfix 3
 
 %if 0%{?rhel}
 %global use_system_headers  0
@@ -9,7 +10,7 @@
 %endif
 
 Name: intel-compute-runtime
-Version: %{neo_major}.%{neo_minor}.%{neo_build}
+Version: %{neo_major}.%{neo_minor}.%{neo_build}.%{neo_hotfix}
 Release: %autorelease
 Summary: Intel Graphics Compute Runtime for oneAPI Level Zero and OpenCL
 
@@ -119,6 +120,7 @@ rm -rv third_party/sse2neon
     -DNEO_OCL_VERSION_MAJOR=%{neo_major} \
     -DNEO_OCL_VERSION_MINOR=%{neo_minor} \
     -DNEO_VERSION_BUILD=%{neo_build} \
+    -DNEO_VERSION_HOTFIX=%{neo_hotfix} \
     -DSKIP_UNIT_TESTS=1 \
 %if 0%{?use_system_headers}
     -DKHRONOS_GL_HEADERS_DIR="/usr/include/GL/" \
@@ -140,7 +142,7 @@ rm -rv third_party/sse2neon
 # Compute-runtime only creates a specific /usr/bin/ocloc-version binary, due to
 # the possibility of mutiple versions installed on the system. i.e. legacy pkg
 %post -n intel-ocloc
-update-alternatives --install /usr/bin/ocloc ocloc /usr/bin/ocloc-%{neo_major}.%{neo_minor}.1 %{neo_major}%{neo_minor}$(echo %{neo_build} | cut -d '.' -f 1)
+update-alternatives --install /usr/bin/ocloc ocloc /usr/bin/ocloc-%{neo_major}.%{neo_minor}.1 %{neo_major}%{neo_minor}%{neo_build}
 
 %preun -n intel-ocloc
 if [ $1 == "0" ]; then

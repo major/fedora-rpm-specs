@@ -1,7 +1,7 @@
 %global srcname numcodecs
 
 Name:           python-%{srcname}
-Version:        0.16.2
+Version:        0.16.3
 Release:        %autorelease
 Summary:        Buffer compression and transformation for data storage and communication
 

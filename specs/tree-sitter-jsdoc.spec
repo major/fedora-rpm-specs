@@ -1,5 +1,5 @@
 Name:           tree-sitter-jsdoc
-Version:        0.23.2
+Version:        0.25.0
 Release:        %{autorelease}
 License:        MIT
 URL:            https://github.com/tree-sitter/%{name}

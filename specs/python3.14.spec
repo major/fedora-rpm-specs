@@ -46,7 +46,7 @@ URL: https://www.python.org/
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
 %global general_version %{pybasever}.0
-%global prerel rc2
+%global prerel rc3
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
 Release: 1%{?dist}
@@ -1735,6 +1735,10 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Thu Sep 18 2025 Karolina Surma <ksurma@redhat.com> - 3.14.0~rc3-1
+- Update to Python 3.14.0rc3
+- The .pyc magic number was bumped again
+
 * Thu Aug 14 2025 Miro Hrončok <mhroncok@redhat.com> - 3.14.0~rc2-1
 - Update to Python 3.14.0rc2
 - The .pyc magic number was bumped

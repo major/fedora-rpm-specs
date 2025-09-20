@@ -1,16 +1,11 @@
-%global snapshot 0
-
 Name:           libpinyin
-Version:        2.10.2
-Release:        2%{?dist}
+Version:        2.10.3
+Release:        1%{?dist}
 Summary:        Library to deal with pinyin
 
 License:        GPL-3.0-or-later
 URL:            https://github.com/libpinyin/libpinyin
 Source0:        http://downloads.sourceforge.net/libpinyin/libpinyin/%{name}-%{version}.tar.gz
-%if %snapshot
-Patch0:         libpinyin-2.10.x-head.patch
-%endif
 
 BuildRequires:  gcc-c++
 BuildRequires:  kyotocabinet-devel, glib2-devel
@@ -59,10 +54,6 @@ The libzhuyin package contains libzhuyin compatibility library.
 %prep
 %setup -q
 
-%if %snapshot
-%patch -P0 -p1 -b .head
-%endif
-
 %build
 %configure --disable-static \
            --with-dbm=KyotoCabinet \
@@ -75,9 +66,6 @@ make check
 %install
 %make_install
 find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
-
-
-%ldconfig_scriptlets
 
 
 %files
@@ -108,10 +96,14 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/libzhuyin*.so.*
 
 %changelog
+* Thu Sep 18 2025 Peng Wu <pwu@redhat.com> - 2.10.3-1
+- Update to 2.10.3
+- bug fixes
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Fri May 16 2025 Peng Wu  <pwu@redhat.com> - 2.10.2-1
+* Fri May 16 2025 Peng Wu <pwu@redhat.com> - 2.10.2-1
 - Update to 2.10.2
 - fix memory leaks
 

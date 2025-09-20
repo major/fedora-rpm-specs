@@ -6,7 +6,7 @@
 %global crate ethtool
 
 Name:           rust-ethtool
-Version:        0.2.8
+Version:        0.2.9
 Release:        %autorelease
 Summary:        Linux Ethtool Communication Library
 

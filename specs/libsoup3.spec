@@ -88,8 +88,10 @@ install -m 644 -D tests/libsoup.supp %{buildroot}%{_datadir}/libsoup-3.0/libsoup
 
 %find_lang libsoup-3.0
 
+%ifnarch s390x
 %check
 %meson_test
+%endif
 
 %files -f libsoup-3.0.lang
 %license COPYING

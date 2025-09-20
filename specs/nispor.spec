@@ -2,7 +2,7 @@
 %bcond_with check
 
 Name:           nispor
-Version:        1.2.25
+Version:        1.2.27
 Release:        %autorelease
 Summary:        Unified interface for Linux network state querying
 License:        Apache-2.0
@@ -12,7 +12,6 @@ Source1:        https://github.com/nispor/nispor/releases/download/v%{version}/n
 BuildRequires:  make
 BuildRequires:  pkg-config
 BuildRequires:  python3-devel
-BuildRequires:  python-setuptools
 BuildRequires:  systemd-devel
 BuildRequires:  systemd-rpm-macros
 %if 0%{?rhel}
@@ -22,19 +21,20 @@ BuildRequires:  rust-packaging
 BuildRequires:  (crate(clap/cargo) >= 4.2.0 with crate(clap/cargo) < 5.0)
 BuildRequires:  (crate(clap/default) >= 4.2.0 with crate(clap/default) < 5.0)
 BuildRequires:  (crate(env_logger/default) >= 0.11 with crate(env_logger/default) < 0.12)
-BuildRequires:  (crate(ethtool/default) >= 0.2.5 with crate(ethtool/default) < 0.3)
+BuildRequires:  (crate(ethtool/default) >= 0.2.8 with crate(ethtool/default) < 0.3)
 BuildRequires:  (crate(futures/default) >= 0.3 with crate(futures/default) < 0.4)
 BuildRequires:  (crate(libc/default) >= 0.2.126 with crate(libc/default) < 0.3)
 BuildRequires:  (crate(log/default) >= 0.4 with crate(log/default) < 0.5)
-BuildRequires:  (crate(mptcp-pm/default) >= 0.1.3 with crate(mptcp-pm/default) < 0.2)
-BuildRequires:  (crate(rtnetlink/default) >= 0.16.0 with crate(rtnetlink/default) < 0.17)
+BuildRequires:  (crate(mptcp-pm/default) >= 0.1.4 with crate(mptcp-pm/default) < 0.2)
+BuildRequires:  (crate(rtnetlink/default) >= 0.18.0 with crate(rtnetlink/default) < 0.19)
 BuildRequires:  (crate(serde/default) >= 1.0 with crate(serde/default) < 2.0)
 BuildRequires:  (crate(serde/derive) >= 1.0 with crate(serde/derive) < 2.0)
 BuildRequires:  (crate(serde_json/default) >= 1.0 with crate(serde_json/default) < 2.0)
 BuildRequires:  (crate(serde_yaml/default) >= 0.9 with crate(serde_yaml/default) < 0.10)
-BuildRequires:  (crate(tokio/macros) >= 1.18 with crate(tokio/macros) < 2.0)
-BuildRequires:  (crate(tokio/rt) >= 1.18 with crate(tokio/rt) < 2.0)
-BuildRequires:  (crate(wl-nl80211/default) >= 0.2 with crate(wl-nl80211/default) < 0.3)
+BuildRequires:  (crate(tokio/macros) >= 1.19 with crate(tokio/macros) < 2.0)
+BuildRequires:  (crate(tokio/rt) >= 1.19 with crate(tokio/rt) < 2.0)
+BuildRequires:  (crate(wl-nl80211/default) >= 0.3 with crate(wl-nl80211/default) < 0.4)
+BuildRequires:  (crate(pretty_assertions/default) >= 1.2 with crate(pretty_assertions/default) < 2)
 %endif
 
 %description
@@ -86,6 +86,11 @@ This package contains C binding of %{name}.
 %cargo_prep
 %endif
 
+%generate_buildrequires
+pushd src/python >/dev/null
+%pyproject_buildrequires
+popd >/dev/null
+
 %build
 %cargo_build
 %cargo_license_summary
@@ -95,16 +100,20 @@ This package contains C binding of %{name}.
 %endif
 
 pushd src/python
-%py3_build
+%pyproject_wheel
 popd
 
 %install
 %if ! 0%{?rhel}
-# cargo_install has problem on detecting library when running in workspace
-# due to bug https://pagure.io/fedora-rust/cargo2rpm/issue/5
-# Removing the workspace Cargo.toml will workaround this problem.
-rm Cargo.toml
 pushd src/lib
+# The cargo_isntall does not support workspace:
+#   https://pagure.io/fedora-rust/cargo2rpm/issue/5
+cargo package --frozen --no-verify --target-dir %{_tmppath}
+tar xf %{_tmppath}/package/nispor-%{version}.crate \
+  nispor-%{version}/Cargo.toml
+mv nispor-%{version}/Cargo.toml ./Cargo.toml
+# Remove worksapce Cargo.toml
+rm ../../Cargo.toml
 %cargo_install
 popd
 %endif
@@ -112,7 +121,7 @@ popd
 env SKIP_PYTHON_INSTALL=1 PREFIX=%{_prefix} LIBDIR=%{_libdir} %make_install
 
 pushd src/python
-%py3_install
+%pyproject_install
 popd
 
 %if %{with check}

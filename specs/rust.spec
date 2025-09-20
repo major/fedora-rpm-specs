@@ -1,5 +1,5 @@
 Name:           rust
-Version:        1.89.0
+Version:        1.90.0
 Release:        %autorelease
 Summary:        The Rust Programming Language
 License:        (Apache-2.0 OR MIT) AND (Artistic-2.0 AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0 AND Unicode-3.0)
@@ -14,9 +14,9 @@ ExclusiveArch:  %{rust_arches}
 # To bootstrap from scratch, set the channel and date from src/stage0
 # e.g. 1.89.0 wants rustc: 1.88.0-2025-06-26
 # or nightly wants some beta-YYYY-MM-DD
-%global bootstrap_version 1.88.0
-%global bootstrap_channel 1.88.0
-%global bootstrap_date 2025-06-26
+%global bootstrap_version 1.89.0
+%global bootstrap_channel 1.89.0
+%global bootstrap_date 2025-08-07
 
 # Only the specified arches will use bootstrap binaries.
 # NOTE: Those binaries used to be uploaded with every new release, but that was
@@ -45,7 +45,7 @@ ExclusiveArch:  %{rust_arches}
 # is insufficient. Rust currently requires LLVM 19.0+.
 # See src/bootstrap/src/core/build_steps/llvm.rs, fn check_llvm_version
 %global min_llvm_version 19.0.0
-%global bundled_llvm_version 20.1.7
+%global bundled_llvm_version 20.1.8
 #global llvm_compat_version 19
 %global llvm llvm%{?llvm_compat_version}
 %bcond_with bundled_llvm
@@ -54,7 +54,7 @@ ExclusiveArch:  %{rust_arches}
 # This needs to be consistent with the bindings in vendor/libgit2-sys.
 %global min_libgit2_version 1.9.0
 %global next_libgit2_version 1.10.0~
-%global bundled_libgit2_version 1.9.0
+%global bundled_libgit2_version 1.9.1
 %if 0%{?fedora} >= 41
 %bcond_with bundled_libgit2
 %else
@@ -72,7 +72,7 @@ ExclusiveArch:  %{rust_arches}
 
 # Cargo uses UPSERTs with omitted conflict targets
 %global min_sqlite3_version 3.35
-%global bundled_sqlite3_version 3.49.1
+%global bundled_sqlite3_version 3.49.2
 %if 0%{?rhel} && 0%{?rhel} < 10
 %bcond_without bundled_sqlite3
 %else
@@ -138,20 +138,18 @@ Patch4:         0001-bootstrap-allow-disabling-target-self-contained.patch
 Patch5:         0002-set-an-external-library-path-for-wasm32-wasi.patch
 
 # We don't want to use the bundled library in libsqlite3-sys
-Patch6:         rustc-1.88.0-unbundle-sqlite.patch
+Patch6:         rustc-1.90.0-unbundle-sqlite.patch
 
 # stage0 tries to copy all of /usr/lib, sometimes unsuccessfully, see #143735
 Patch7:         0001-only-copy-rustlib-into-stage0-sysroot.patch
 
-# PR #143752, fixed upstream.
-Patch8:         0001-Don-t-always-panic-if-WASI_SDK_PATH-is-not-set-when-.patch
-
 # Support optimized-compiler-builtins via linking against compiler-rt builtins.
-Patch9:         0001-Allow-linking-a-prebuilt-optimized-compiler-rt-built.patch
+# https://github.com/rust-lang/rust/pull/143689
+Patch8:         0001-Allow-linking-a-prebuilt-optimized-compiler-rt-built.patch
 
 # Fix a compiler stack overflow on ppc64le with PGO
 # https://github.com/rust-lang/rust/pull/145410
-Patch10:        0001-rustc_expand-ensure-stack-in-InvocationCollector-vis.patch
+Patch9:        0001-rustc_expand-ensure-stack-in-InvocationCollector-vis.patch
 
 ### RHEL-specific patches below ###
 
@@ -162,7 +160,7 @@ Source102:      cargo_vendor.attr
 Source103:      cargo_vendor.prov
 
 # Disable cargo->libgit2->libssh2 on RHEL, as it's not approved for FIPS (rhbz1732949)
-Patch100:       rustc-1.89.0-disable-libssh2.patch
+Patch100:       rustc-1.90.0-disable-libssh2.patch
 
 # Get the Rust triple for any architecture and ABI.
 %{lua: function rust_triple(arch, abi)
@@ -706,7 +704,6 @@ rm -rf %{wasi_libc_dir}/dlmalloc/
 %patch -P7 -p1
 %patch -P8 -p1
 %patch -P9 -p1
-%patch -P10 -p1
 
 %if %with disabled_libssh2
 %patch -P100 -p1
@@ -866,8 +863,9 @@ end}
 test -r "%{profiler}"
 
 # llvm < 21 does not provide a builtins library for s390x.
-%ifnarch s390x
+%if "%{_arch}" != "s390x" || 0%{?clang_major_version} >= 21
 %define optimized_builtins %{clang_lib}/%{_arch}-redhat-linux-gnu/libclang_rt.builtins.a
+test -r "%{optimized_builtins}"
 %else
 %define optimized_builtins false
 %endif

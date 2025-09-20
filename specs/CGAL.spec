@@ -7,12 +7,12 @@
 %global cmake_version 3.22
 
 #global fullversion %{version}
-%global fullversion 6.1-beta1
+%global fullversion 6.1-beta2
 
 
 Name:           CGAL
 Version:        6.1
-Release:        0.1.beta1%{?dist}
+Release:        0.2.beta2%{?dist}
 Summary:        Computational Geometry Algorithms Library
 
 # Automatically converted from old format: LGPLv3+ and GPLv3+ and Boost - review is highly recommended.

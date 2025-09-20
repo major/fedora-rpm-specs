@@ -12,6 +12,10 @@ Summary:        Tower middleware and utilities for HTTP clients and servers
 License:        MIT
 URL:            https://crates.io/crates/tower-http
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * Allow brotli 8 (“Update to brotli 8”,
+#   https://github.com/tower-rs/tower-http/pull/603)
+Patch:          tower-http-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
