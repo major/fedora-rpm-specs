@@ -7,7 +7,7 @@ Documentation is available on Read the Docs: http://recommonmark.readthedocs.org
 
 Name:           python-recommonmark
 Version:        0.7.1
-Release:        15.git%{?dist}
+Release:        16.git%{?dist}
 Summary:        %{sum}
 
 License:        MIT
@@ -75,6 +75,9 @@ popd  # Leave buildroot bindir
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.7.1-16.git
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.7.1-15.git
 - Rebuilt for Python 3.14.0rc2 bytecode
 

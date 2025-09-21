@@ -19,7 +19,7 @@ de débrancher l'appareil après l'installation.}
 
 Name:          python-radexreader
 Version:       1.3.0
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       %{common_summary_en}
 Summary(fr):   %{common_summary_fr}
 License:       GPL-2.0-or-later
@@ -85,6 +85,9 @@ install -Dpm 644 ../scripts/debian/python3-radexreader.udev %{buildroot}/lib/ude
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.3.0-3
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.3.0-2
 - Rebuilt for Python 3.14.0rc2 bytecode
 

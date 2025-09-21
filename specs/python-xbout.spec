@@ -1,7 +1,7 @@
 %global pypi_name xbout
 
 Name:           python-%{pypi_name}
-Version:        0.3.6
+Version:        0.3.8
 Release:        %autorelease
 Summary:        Collects BOUT++ data from parallelized simulations into xarray
 
@@ -10,9 +10,10 @@ URL:            https://github.com/boutproject/xBOUT
 Source0:        %{pypi_source}
 BuildArch:      noarch
 
-Patch:          xarray-version.patch
+# The upstream theme is not packaged
 Patch:          sphinx-theme.patch
-Patch:          fix-dirs.patch
+# switch to h5netcdf due to RHBZ#2395128 RHBZ#2372202 , Upstream PR: #317
+Patch:          engine-h5netcdf.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}

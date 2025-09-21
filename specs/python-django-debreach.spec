@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.1.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Basic/extra mitigation against the BREACH attack for Django projects
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -57,6 +57,9 @@ PYTHONPATH=. %{__python3} runtests.py
 %doc README.rst
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.1.0-15
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.1.0-14
 - Rebuilt for Python 3.14.0rc2 bytecode
 

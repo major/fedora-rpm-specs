@@ -1,6 +1,6 @@
 Name:          intelhex
 Version:       2.3.0
-Release:       20%{?dist}
+Release:       21%{?dist}
 Summary:       Utilities for manipulating Intel HEX file format
 # Automatically converted from old format: BSD - review is highly recommended.
 License:       LicenseRef-Callaway-BSD
@@ -79,6 +79,9 @@ popd
 %doc docs/manual/.build/html/searchindex.js
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.3.0-21
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.3.0-20
 - Rebuilt for Python 3.14.0rc2 bytecode
 

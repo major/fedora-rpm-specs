@@ -1,7 +1,7 @@
 %global shortname mozilla-django-oidc
 Name:          python-%{shortname}
 Version:       4.0.1
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       A django OpenID Connect library
 
 License:       MPL-2.0
@@ -39,6 +39,9 @@ A django OpenID Connect library.
 %license LICENSE
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.0.1-4
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.0.1-3
 - Rebuilt for Python 3.14.0rc2 bytecode
 

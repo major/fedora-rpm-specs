@@ -2,7 +2,7 @@
 
 Name:           ufw-kde
 Version:        0.5.0
-Release:        0.29.%{snapdate}git%{?dist}
+Release:        0.30.%{snapdate}git%{?dist}
 Summary:        UFW control module for KDE
 
 # Some files GPLv3 only, some files GPLv2+
@@ -75,6 +75,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE3}
 %{_datadir}/applications/ufw-kde.desktop
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.5.0-0.30.20161006git
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.5.0-0.29.20161006git
 - Rebuilt for Python 3.14.0rc2 bytecode
 

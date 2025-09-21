@@ -6,7 +6,7 @@
 %global crate arboard
 
 Name:           rust-arboard
-Version:        3.6.0
+Version:        3.6.1
 Release:        %autorelease
 Summary:        Image and text handling for the OS clipboard
 
@@ -38,7 +38,6 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE.txt
 %license %{crate_instdir}/LICENSE-MIT.txt
-%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

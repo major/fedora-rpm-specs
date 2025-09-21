@@ -10,7 +10,7 @@
 Summary: Web page with summary of ABRT services
 Name: abrt-server-info-page
 Version: 1.8
-Release: 22%{?dist}
+Release: 23%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License: GPL-3.0-or-later
 URL: https://github.com/marusak/abrt-server-info-page
@@ -70,6 +70,9 @@ cp -a static/* %{buildroot}/%{PYTHONDIR}/abrt-server-info-page/static
 systemctl condrestart httpd
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.8-23
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.8-22
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.6.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python connector for WiZ light devices
 
 License:        MIT
@@ -42,6 +42,9 @@ A Python connector for WiZ light devices.
 %{_bindir}/wizlight
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.6.3-4
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.6.3-3
 - Rebuilt for Python 3.14.0rc2 bytecode
 

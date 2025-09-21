@@ -5,7 +5,7 @@
 
 Name: python-%{srcname}
 Version: 0.14.5
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Statistics in Python
 
 # Package is licensed under BSD (3 clauses)
@@ -115,6 +115,9 @@ popd
 ## %doc build/sphinx/html
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.14.5-3
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.14.5-2
 - Rebuilt for Python 3.14.0rc2 bytecode
 

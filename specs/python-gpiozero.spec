@@ -1,6 +1,6 @@
 Name:           python-gpiozero
 Version:        2.0.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Interface to GPIO on Raspberry Pi
 
 License:        BSD-3-Clause
@@ -46,6 +46,9 @@ A simple interface to GPIO devices with Raspberry Pi.
 %{_bindir}/pintest
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.0.1-8
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.0.1-7
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -2,7 +2,7 @@
 
 Name:       python-%{pypi_name}
 Version:    0.3.3
-Release:    35%{?dist}
+Release:    36%{?dist}
 Summary:    Draws ASCII trees
 
 License:    MIT
@@ -46,6 +46,9 @@ Read the documentation at https://pythonhosted.org/asciitree
 %doc README.rst
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.3.3-36
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Sun Aug 24 2025 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.3.3-35
 - Switch to modern Python macros (#2377459)
 - Re-enable testing

@@ -4,7 +4,7 @@
 
 Name:               python-flask-mako
 Version:            0.4
-Release:            35%{?dist}
+Release:            36%{?dist}
 Summary:            Mako templating support for Flask applications
 # Automatically converted from old format: BSD - review is highly recommended.
 License:            LicenseRef-Callaway-BSD
@@ -51,6 +51,9 @@ to use Mako Templates instead of the default Jinja2 templating engine.
 %{python3_sitelib}/__pycache__/flask_mako*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.4-36
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.4-35
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -8,7 +8,7 @@
 
 Name:               python-%{modname}
 Version:            1.7.1
-Release:            30%{?dist}
+Release:            31%{?dist}
 Summary:            %{sum}
 
 License:            BSD-3-Clause
@@ -115,6 +115,9 @@ rm -rfv test/bin
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.7.1-31
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.7.1-30
 - Rebuilt for Python 3.14.0rc2 bytecode
 

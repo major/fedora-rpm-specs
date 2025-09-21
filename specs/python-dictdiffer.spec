@@ -10,7 +10,7 @@
 
 Name:       python-%{library}
 Version:    0.9.0
-Release:    16%{?dist}
+Release:    17%{?dist}
 Summary:    Dictdiffer is a module that helps you to diff and patch dictionaries
 License:    MIT
 URL:        https://github.com/inveniosoftware/dictdiffer
@@ -184,6 +184,9 @@ PYTHONPATH=%{buildroot}/%{python3_sitelib} sphinx-build docs/ html
 %endif
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.9.0-17
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.9.0-16
 - Rebuilt for Python 3.14.0rc2 bytecode
 

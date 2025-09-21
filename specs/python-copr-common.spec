@@ -2,7 +2,7 @@
 
 Name:       python-copr-common
 Version:    1.3
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Python code used by Copr
 
 License:    GPL-2.0-or-later
@@ -79,6 +79,9 @@ version=%version %py3_install
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.3-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Tue Sep 16 2025 Jakub Kadlcik <frostyx@email.cz> 1.3-1
 - SafeRequest to retry upon error 408
 - Handle unsuccessful Pulp requests

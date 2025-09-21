@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.4.1
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Python module to manipulate and filter os.walk() style iteration
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -57,6 +57,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.4.1-34
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.4.1-33
 - Rebuilt for Python 3.14.0rc2 bytecode
 

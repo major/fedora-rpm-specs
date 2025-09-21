@@ -9,7 +9,7 @@
 
 Name:           subunit
 Version:        1.4.4
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        C bindings for subunit
 
 %global majver  %(cut -d. -f-2 <<< %{version})
@@ -253,6 +253,9 @@ make check
 %{_bindir}/tap2subunit
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.4.4-9
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.4.4-8
 - Rebuilt for Python 3.14.0rc2 bytecode
 

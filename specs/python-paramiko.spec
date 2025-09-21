@@ -1,6 +1,6 @@
 Name:          python-paramiko
 Version:       3.5.1
-Release:       5%{?dist}
+Release:       6%{?dist}
 Summary:       SSH2 protocol library for python
 
 # No version specified
@@ -89,6 +89,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version}
 %doc html/ demos/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.5.1-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.5.1-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

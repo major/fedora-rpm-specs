@@ -1,6 +1,6 @@
 Name:           mopidy-mpd
 Version:        4.0.0~a1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Mopidy extension for controlling Mopidy from MPD clients
 
 License:        Apache-2.0
@@ -47,6 +47,9 @@ available from MPD clients.
 %doc README.md
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.0.0~a1-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.0.0~a1-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

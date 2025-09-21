@@ -8,7 +8,7 @@
 Name:           python-cherrypy
 %global         camelname CherryPy
 Version:        18.10.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Pythonic, object-oriented web development framework
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -91,6 +91,9 @@ export WEBTEST_INTERACTIVE=false
 %{python3_sitelib}/cherrypy/tutorial
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 18.10.0-10
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Tue Aug 26 2025 Gwyn Ciesla <gwync@protonmail.com> - 18.10.0-9
 - Move to new macros.
 

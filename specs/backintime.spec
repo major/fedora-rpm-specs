@@ -1,6 +1,6 @@
 Name:             backintime
 Version:          1.5.5
-Release:          3%{?dist}
+Release:          4%{?dist}
 Summary:          Simple backup tool inspired from the Flyback project and TimeVault
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:          GPL-2.0-or-later
@@ -191,6 +191,9 @@ make -C common test-v
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.5.5-4
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.5.5-3
 - Rebuilt for Python 3.14.0rc2 bytecode
 

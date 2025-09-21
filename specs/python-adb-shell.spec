@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.4.4
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Python implementation for ADB shell and file sync
 
 License:        Apache-2.0
@@ -43,6 +43,9 @@ sed -i -e 's/pycryptodome/pycryptodomex/g' setup.py
 %{python3_sitelib}/*.dist-info
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.4.4-7
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.4.4-6
 - Rebuilt for Python 3.14.0rc2 bytecode
 

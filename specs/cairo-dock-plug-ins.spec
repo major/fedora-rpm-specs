@@ -10,7 +10,7 @@
 
 %global	tarballver	%{mainver}%{?use_git:-%{gitdate}git%{shorthash}}
 
-%global	baserelease	1
+%global	baserelease	2
 %global	alphatag		.rc9
 
 %global	ruby_vendorlib	%(ruby -rrbconfig -e "puts RbConfig::CONFIG['vendorlibdir']")
@@ -417,6 +417,9 @@ popd
 %{_datadir}/cairo-dock/plug-ins/Dbus/CDApplet.h
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.5.99^20250909git097b119-2.rc9
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Wed Sep 17 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.5.99^20250909git097b119-1.rc9
 - Update to the latest git (20250909git097b119)
 

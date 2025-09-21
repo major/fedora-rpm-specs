@@ -1,6 +1,6 @@
 Name:           python-retry
 Version:        0.9.4
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Easy to use retry decorator
 
 License:        Apache-2.0
@@ -53,6 +53,9 @@ export PBR_VERSION="%{version}"
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.9.4-13
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.9.4-12
 - Rebuilt for Python 3.14.0rc2 bytecode
 

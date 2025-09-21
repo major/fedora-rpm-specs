@@ -6,7 +6,7 @@
 
 %define	name	s3cmd
 %define	version	2.4.0
-%define	release	9
+%define	release	10
 
 Name:           %{name}
 Version:        %{version}
@@ -84,6 +84,9 @@ install -D -p -m 0644 -t %{buildroot}%{_mandir}/man1 %{name}.1
 %endif
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.4.0-10
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.4.0-9
 - Rebuilt for Python 3.14.0rc2 bytecode
 

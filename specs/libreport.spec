@@ -15,7 +15,7 @@
 Summary: Generic library for reporting various problems
 Name: libreport
 Version: 2.17.15
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: GPL-2.0-or-later
 URL: https://abrt.readthedocs.org/
 Source: https://github.com/abrt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -669,6 +669,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %endif
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.17.15-9
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.17.15-8
 - Rebuilt for Python 3.14.0rc2 bytecode
 

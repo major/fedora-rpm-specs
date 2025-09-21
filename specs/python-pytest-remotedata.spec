@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        0.4.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        %{sum}
 
 License:        BSD-3-Clause
@@ -57,6 +57,9 @@ Summary:        %{sum}
 %doc CHANGES.rst README.rst
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.4.1-10
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.4.1-9
 - Rebuilt for Python 3.14.0rc2 bytecode
 

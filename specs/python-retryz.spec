@@ -9,7 +9,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.1.9
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Retry decorator with a bunch of configuration parameters
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -105,6 +105,9 @@ PYTHONPATH=. py.test-3
 %endif
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.1.9-33
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.1.9-32
 - Rebuilt for Python 3.14.0rc2 bytecode
 

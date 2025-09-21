@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.2.6
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Freecell Solver Python bindings
 
 License:        MIT
@@ -63,6 +63,9 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.2.6-21
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.2.6-20
 - Rebuilt for Python 3.14.0rc2 bytecode
 

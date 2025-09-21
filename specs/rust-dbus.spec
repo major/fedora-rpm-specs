@@ -6,7 +6,7 @@
 %global crate dbus
 
 Name:           rust-dbus
-Version:        0.9.8
+Version:        0.9.9
 Release:        %autorelease
 Summary:        Bindings to D-Bus
 

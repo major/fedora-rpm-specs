@@ -3,7 +3,7 @@ Name:           python-jsonpickle
 # to use a Python-compatible version number if you need to set an "uncommon"
 # version for this RPM.
 Version:        4.0.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A module that allows any object to be serialized into JSON
 
 License:        BSD-3-Clause
@@ -75,6 +75,9 @@ sed -r -i -e 's/^([[:blank:]]*)(pandas|scikit-learn)/\1# \2/' setup.cfg
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.0.2-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.0.2-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

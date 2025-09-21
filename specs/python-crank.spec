@@ -2,7 +2,7 @@
 
 Name:               python-crank
 Version:            0.8.1
-Release:            32%{?dist}
+Release:            33%{?dist}
 Summary:            Generalization of dispatch mechanism for use across frameworks
 
 License:            MIT
@@ -57,6 +57,9 @@ This package provides the python3 version of this module
 %files -n python3-%{modname} -f %{pyproject_files}
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.8.1-33
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.8.1-32
 - Rebuilt for Python 3.14.0rc2 bytecode
 

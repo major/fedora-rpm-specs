@@ -2,7 +2,7 @@
 
 Name:           %{pypi_name}
 Version:        0.7.1
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        library which makes it easy to write tests for your containers
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -98,6 +98,9 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.7.1-29
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.7.1-28
 - Rebuilt for Python 3.14.0rc2 bytecode
 

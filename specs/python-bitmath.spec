@@ -1,6 +1,6 @@
 Name: python-bitmath
 Version: 1.3.3.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Aids representing and manipulating file sizes in various prefix notations
 
 License: MIT
@@ -89,6 +89,9 @@ rm -f $RPM_BUILD_ROOT/%{_docdir}/%{name}/docs/NEWS.rst
 
 ######################################################################
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.3.3.1-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.3.3.1-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

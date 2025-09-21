@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.0.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        JSON Matching Expressions
 
 License:        MIT
@@ -56,6 +56,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0.1-13
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.0.1-12
 - Rebuilt for Python 3.14.0rc2 bytecode
 

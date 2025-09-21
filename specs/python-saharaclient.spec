@@ -9,7 +9,7 @@
 
 Name:             python-saharaclient
 Version:          4.2.0
-Release:          8%{?dist}
+Release:          9%{?dist}
 Summary:          Client library for OpenStack Sahara API
 License:          Apache-2.0
 URL:              https://launchpad.net/sahara
@@ -90,6 +90,9 @@ rm saharaclient/tests/unit/test_hacking.py
 %{python3_sitelib}/*.dist-info
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.2.0-9
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.2.0-8
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.0.3
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Parse and generate co_linetable attributes in code objects
 License:        MIT
 URL:            https://github.com/amol-/linetable
@@ -51,6 +51,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.0.3-12
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.0.3-11
 - Rebuilt for Python 3.14.0rc2 bytecode
 

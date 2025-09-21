@@ -1,6 +1,6 @@
 Name:		congruity
 Version:	21
-Release:	13%{?dist}
+Release:	14%{?dist}
 Summary:	Applications to program Logitech Harmony universal remote controls
 
 # Code is GPLv3+, icons are the other two licenses
@@ -55,6 +55,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/mhgui.desktop
 %{_mandir}/*/*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 21-14
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 21-13
 - Rebuilt for Python 3.14.0rc2 bytecode
 

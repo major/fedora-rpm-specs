@@ -5,7 +5,7 @@
 %global crate dary_heap
 
 Name:           rust-dary_heap
-Version:        0.3.7
+Version:        0.3.8
 Release:        %autorelease
 Summary:        D-ary heap
 

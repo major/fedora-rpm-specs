@@ -9,7 +9,7 @@
 Name:			python-oauth2
 Summary:		Python support for improved oauth
 Version:		1.9.0
-Release:		37.%{reltag}%{?dist}
+Release:		38.%{reltag}%{?dist}
 License:		MIT
 Source0:		http://pypi.python.org/packages/source/o/oauth2/oauth2-%{version}.%{reltag}.tar.gz
 # https://github.com/pmakowski/python-oauth2/commit/7002422bb39bc137713933bc2e55251853830fcc
@@ -129,6 +129,9 @@ rm -rf %{buildroot}%{python3_sitelib}/tests/
 %{python3_sitelib}/*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.9.0-38.post1
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.9.0-37.post1
 - Rebuilt for Python 3.14.0rc2 bytecode
 

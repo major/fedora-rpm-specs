@@ -6,8 +6,8 @@
 %endif
 
 Name:           packit
-Version:        1.11.0
-Release:        2%{?dist}
+Version:        1.12.0
+Release:        1%{?dist}
 Summary:        A tool for integrating upstream projects with Fedora operating system
 
 License:        MIT
@@ -78,6 +78,22 @@ cp files/bash-completion/packit %{buildroot}%{bash_completions_dir}/packit
 %doc README.md
 
 %changelog
+* Fri Sep 19 2025 Packit <hello@packit.dev> - 1.12.0-1
+- Packit now automatically invokes an rpm build in mock when no rpm test is passed using `--rpm_paths` before running local tests with `packit test`. (#2636)
+- Fixed an issue where the upstream spec file was synchronized without applying packit's patches. (#2637)
+  This happened when syncing a folder that contains the specfile, e.g.:
+```yaml
+files_to_sync:
+  - src: distro/
+    dest: ./
+specfile_path: distro/my_pkg.spec
+```
+- `packit init` now automatically adds a packit-specific pre-commit hook to user's pre-commit configuration file if present. Two new flags were added, which modify this behavior. (#2641)
+- Resolves: rhbz#2396659
+
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.11.0-3
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.11.0-2
 - Rebuilt for Python 3.14.0rc2 bytecode
 

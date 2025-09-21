@@ -1,6 +1,6 @@
 Name:		domoticz
 Version:	2025.1
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Open source Home Automation System
 
 License:	GPL-3.0-or-later AND Apache-2.0 AND BSL-1.0 AND LicenseRef-Callaway-BSD AND LicenseRef-Callaway-MIT
@@ -247,6 +247,9 @@ usermod -G domoticz,dialout domoticz
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2025.1-4
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2025.1-3
 - Rebuilt for Python 3.14.0rc2 bytecode
 

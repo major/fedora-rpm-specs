@@ -8,7 +8,7 @@ See: http://agate-excel.rtfd.org
 
 Name:           python-%{pypi_name}
 Version:        0.4.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Adds read support for Excel files to agate
 
 License:        MIT
@@ -90,6 +90,9 @@ popd
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.4.1-9
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.4.1-8
 - Rebuilt for Python 3.14.0rc2 bytecode
 

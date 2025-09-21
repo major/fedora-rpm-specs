@@ -16,7 +16,7 @@ in a minimal diff.}
 
 Name:           python-specfile
 Version:        %{package_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        A library for parsing and manipulating RPM spec files
 License:        MIT
@@ -77,6 +77,9 @@ sed -i 's/setuptools_scm\[toml\]>=7/setuptools_scm[toml]/' pyproject.toml
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.37.0-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Sep 05 2025 Packit <hello@packit.dev> - 0.37.0-1
 - Added support for Elbrus E2K CPU architectures. (#484)
 

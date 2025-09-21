@@ -1,7 +1,7 @@
 Summary:       The gerrit client tools
 Name:          gerrymander
 Version:       1.5
-Release:       37%{?dist}
+Release:       38%{?dist}
 Source0:       https://pypi.python.org/packages/source/g/%{name}/%{name}-%{version}.tar.gz
 URL:           https://pypi.python.org/pypi/gerrymander
 License:       Apache-2.0
@@ -54,6 +54,9 @@ rm -rf *.egg-info
 %{python3_sitelib}/%{name}-%{version}-py3.*.egg-info
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.5-38
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.5-37
 - Rebuilt for Python 3.14.0rc2 bytecode
 

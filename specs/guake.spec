@@ -1,6 +1,6 @@
 Name:           guake
 Version:        3.7.0
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Drop-down terminal for GNOME
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -73,6 +73,9 @@ rm %{buildroot}%{_datadir}/glib-2.0/schemas/gschemas.compiled
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.7.0-25
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.7.0-24
 - Rebuilt for Python 3.14.0rc2 bytecode
 

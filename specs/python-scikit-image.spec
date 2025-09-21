@@ -4,7 +4,7 @@
 
 Name: python-scikit-image
 Version: 0.25.2
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: Image processing in Python
 # The following files are BSD 2 clauses, the rest BSD 3 clauses
 # skimage/graph/_mcp.pyx
@@ -136,6 +136,9 @@ popd
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.25.2-8
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Tue Aug 18 2025 Sergio Pascual <sergiopr@fedoraproject.org> - 0.25.2-7
 - Fix FTBS rhbz#2385534
 

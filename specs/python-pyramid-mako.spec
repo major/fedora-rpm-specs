@@ -6,7 +6,7 @@
 
 Name:               python-%{srcname}
 Version:            1.1.0^%{date}%{shortcommit}
-Release:            12%{?dist}
+Release:            13%{?dist}
 Summary:            Mako template bindings for the Pyramid web framework
 
 License:            BSD-4-Clause
@@ -70,6 +70,9 @@ sed -i 's|pytest-cover|pytest-cov|g' setup.cfg
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.1.0^2023011250a2322-13
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.1.0^2023011250a2322-12
 - Rebuilt for Python 3.14.0rc2 bytecode
 

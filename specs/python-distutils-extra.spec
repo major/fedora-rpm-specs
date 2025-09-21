@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        2.39
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        %{sum}
 
 License:        GPL-2.0-or-later
@@ -45,6 +45,9 @@ scrollkeeper based documentation into Python's distutils.
 %{python3_sitelib}/python_distutils_extra*.dist-info
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.39-38
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.39-37
 - Rebuilt for Python 3.14.0rc2 bytecode
 

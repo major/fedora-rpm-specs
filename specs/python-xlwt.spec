@@ -5,7 +5,7 @@
 
 Name:           python-xlwt
 Version:        1.3.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        %{sum}
 
                 # Utils.py is LPGL2.0+
@@ -70,6 +70,9 @@ cp -ar examples docs tmp_docs
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.3.0-18
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.3.0-17
 - Rebuilt for Python 3.14.0rc2 bytecode
 

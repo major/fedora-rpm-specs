@@ -2,7 +2,7 @@
 
 Name:		python-%{module}
 Version:	4.0
-Release:	19%{?dist}
+Release:	20%{?dist}
 Summary:	Python Gettext po to mo file compiler
 # Automatically converted from old format: BSD - review is highly recommended.
 License:	LicenseRef-Callaway-BSD
@@ -46,6 +46,9 @@ rm -rf python_gettext.egg-info
 %{python3_sitelib}/python_gettext-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.0-20
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.0-19
 - Rebuilt for Python 3.14.0rc2 bytecode
 

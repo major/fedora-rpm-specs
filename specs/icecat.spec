@@ -99,8 +99,8 @@ ExcludeArch: %{ix86} %{arm}
 %global __requires_exclude ^(%%(find %{buildroot}%{icecatappdir} -name '*.so' | xargs -n1 basename | sort -u | paste -s -d '|' -))
 
 Name:    icecat
-Epoch:   3
-Version: 128.14.0
+Epoch:   4
+Version: 140.3.0
 Release: %autorelease -e %{redhat_ver}
 Summary: GNU version of Firefox browser
 
@@ -109,7 +109,7 @@ License: (MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.1-or-later) AND GPL-3.0-or-later
 URL:   http://www.gnu.org/software/gnuzilla/
 
 ## Source archive created by scripts based on Gnuzilla files.
-## Modified files are hosted in a dedicated fork repository:
+## All modified files are hosted in a dedicated fork repository:
 ## https://gitlab.com/anto.trande/icecat
 Source0: %{name}-%{version}-%{redhat_ver}.tar.bz2
 
@@ -140,10 +140,6 @@ Source18: node-stdout-nonblocking-wrapper
 
 Source19: run-wayland-compositor
 
-# Build patches
-# Fixes installation of those addons which don't have ID on IceCat ("Cannot find id for addon" error).
-Patch2: %{name}-commasplit.patch
-
 # With clang LLVM 16 rust-bindgen 0.56.0 is too old, combined
 # https://github.com/rust-lang/rust-bindgen/pull/2319
 # https://github.com/rust-lang/rust-bindgen/pull/2339
@@ -157,7 +153,6 @@ Patch40: build-aarch64-skia.patch
 Patch44: build-arm-libopus.patch
 
 # Fedora specific patches
-Patch219: rhbz-1173156.patch
 Patch220: firefox-nss-version.patch
 Patch221: firefox-nss-addon-hack.patch
 Patch223: %{name}-glibc-dynstack.patch
@@ -168,13 +163,10 @@ Patch226: rhbz-1354671.patch
 
 # Upstream patches
 Patch401: icecat-1742849.patch
-Patch402: mozilla-1196777.patch
 Patch403: icecat-python3.11-open-U.patch
 Patch404: icecat-python3.11-regex-inline-flags.patch
 Patch412: mozilla-1337988.patch
 Patch422: mozilla-1580174-webrtc-popup.patch
-# Patch for GCC-15
-Patch426: icecat-115.19.0-fix_mz1917964.patch
 
 # Fix crash on ppc64le (mozilla#1512162)
 Patch423: mozilla-1512162.patch
@@ -255,10 +247,10 @@ BuildRequires: pulseaudio-libs-devel
 %endif
 BuildRequires: llvm
 %if 0%{?fedora} >= 40 || 0%{?rhel} >= 10
-BuildRequires:  clang17
-BuildRequires:  clang17-libs
-BuildRequires:  llvm17-devel
-%global llvm_suffix -17
+BuildRequires:  clang
+BuildRequires:  clang-libs
+BuildRequires:  llvm-devel
+%global llvm_suffix -20
 %else
 BuildRequires:  clang
 BuildRequires:  clang-libs
@@ -301,11 +293,6 @@ Requires: fedora-bookmarks
 Suggests: mozilla-ublock-origin
 Provides: webclient
 
-%if 0%{?fedora} >= 40
-Obsoletes:  icecat-wayland < 3:128.12.0-1
-Obsoletes:  icecat-x11 < 3:128.12.0-1
-%endif
-
 %description
 GNU IceCat is the GNU version of the Firefox ESR browser.
 Extensions included to this version of IceCat:
@@ -334,7 +321,7 @@ Extensions included to this version of IceCat:
 %if %{with langpacks_subpkg}
 %package langpacks
 Summary: IceCat langpacks
-Requires: %{name} = 3:%{version}-%{release}
+Requires: %{name} = 4:%{version}-%{release}
 %description langpacks
 The icecat-langpacks package contains all the localization
 and translations langpack add-ons.
@@ -348,10 +335,7 @@ and translations langpack add-ons.
 # Copy license files
 tar -xf %{SOURCE5}
 
-%patch -P 2 -p 1 -b .commasplit
-
 # Fedora patches
-%patch -P 219 -p 1 -b .rhbz-1173156
 %if 0%{?fedora}
 %patch -P 221 -p 1 -b .firefox-nss-addon-hack
 %endif
@@ -359,15 +343,12 @@ tar -xf %{SOURCE5}
 
 # ARM64
 %ifarch %{arm64}
-%patch -P 40 -p 1 -b .aarch64-skia
 %patch -P 226 -p 1 -b .1354671
 %endif
 
-%patch -P 402 -p 1 -b .1196777
 %ifarch %{power64}
 %patch -P 423 -p 1 -b .1512162
 %endif
-%patch -P 426 -p 1 -b .1917964
 %patch -P 603 -p1 -b .inline
 
 # Remove default configuration and copy the customized one
@@ -451,7 +432,6 @@ echo "ac_add_options --with-l10n-base=$PWD/l10n" >> .mozconfig
 
 %if "%toolchain" == "clang"
 echo "ac_add_options --with-libclang-path=`llvm-config%{?llvm_suffix} --libdir`" >> .mozconfig
-#echo "ac_add_options --with-clang-path=%%{_bindir}/clang%%{?llvm_suffix}" >> .mozconfig
 %endif
 
 %ifarch s390x %{arm64}
@@ -535,10 +515,10 @@ MOZ_OPT_FLAGS=$(echo "$MOZ_OPT_FLAGS" | %{__sed} -e 's/-g/-g1/')
 export MOZ_DEBUG_FLAGS=" "
 %endif
 
-# -mtls-dialect=gnu2 is not recognized by clang-17
+# -mtls-dialect=gnu2 is not recognized by clang-20
 %if "%toolchain" == "clang"
 %ifarch x86_64
-MOZ_OPT_FLAGS=$(echo "$MOZ_OPT_FLAGS" | %{__sed} -e 's/-mtls-dialect=gnu2//')
+#MOZ_OPT_FLAGS=$(echo "$MOZ_OPT_FLAGS" | %%{__sed} -e 's/-mtls-dialect=gnu2//')
 %endif
 %endif
 

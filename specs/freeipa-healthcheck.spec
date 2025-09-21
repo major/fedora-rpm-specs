@@ -17,7 +17,7 @@
 
 Name:           %{prefix}-healthcheck
 Version:        0.18
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Health check tool for %{productname}
 BuildArch:      noarch
 License:        GPL-3.0-or-later
@@ -160,6 +160,9 @@ PYTHONPATH=src PATH=$PATH:$RPM_BUILD_ROOT/usr/bin pytest-3 tests/test_*
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.18-8
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Tue Sep 02 2025 Rob Crittenden <rcritten@redhat.com> - 0.18-7
 - Add a dependency on python3-setuptools to fix the broken package while we
   work on replacing it.

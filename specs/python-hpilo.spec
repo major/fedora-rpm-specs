@@ -7,7 +7,7 @@ management interface of your HP hardware. It supports RILOE II, iLO, iLO 2, iLO
 
 Name:           python-%{srcname}
 Version:        4.4.3
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Accessing the HP iLO XML interface from python
 
 # Automatically converted from old format: ASL 2.0 or GPLv3+ - review is highly recommended.
@@ -69,6 +69,9 @@ rm examples/elasticsearch/.gitignore
 %doc html
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.4.3-16
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.4.3-15
 - Rebuilt for Python 3.14.0rc2 bytecode
 

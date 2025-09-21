@@ -28,7 +28,7 @@ glanceclient module), and a command-line script (glance). Each implements \
 Name:             python-glanceclient
 Epoch:            1
 Version:          4.7.0
-Release:          4%{?dist}
+Release:          5%{?dist}
 Summary:          Python API and CLI for OpenStack Glance
 
 License:          Apache-2.0
@@ -158,6 +158,9 @@ unset https_proxy
 %endif
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1:4.7.0-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1:4.7.0-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

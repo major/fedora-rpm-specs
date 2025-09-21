@@ -7,7 +7,7 @@ Office Open XML format.
 
 Name:           python-%{pypi_name}
 Version:        3.1.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        %{sum}
 
 # Automatically converted from old format: MIT and Python - review is highly recommended.
@@ -59,6 +59,9 @@ Requires:       python3dist(numpy)
 %license LICENCE.rst
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.1.5-4
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.1.5-3
 - Rebuilt for Python 3.14.0rc2 bytecode
 

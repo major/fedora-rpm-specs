@@ -1,6 +1,6 @@
 Name: solarwolf
 Version:  1.6.0
-Release:  24%{?dist}.a4
+Release:  25%{?dist}.a4
 Summary: A Python port of SolarFox
 
 License: LGPL-2.0-or-later
@@ -50,6 +50,9 @@ install -p -m 644 dist/solarwolf.png \
 %{_datadir}/icons/hicolor/64x64/apps/solarwolf.png
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.6.0-25.a4
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.6.0-24.a4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

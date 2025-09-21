@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library for retrieving information about catkin packages
 
 License:        BSD-3-Clause
@@ -105,6 +105,9 @@ popd
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.1.0-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Wed Sep 10 2025 Scott K Logan <logans@cottsay.net> - 1.1.0-1
 - Update to 1.1.0 (rhbz#2394423)
 - Replace macro use in URL/Source0 fields for spec legibility

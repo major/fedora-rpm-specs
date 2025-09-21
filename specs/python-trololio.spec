@@ -20,7 +20,7 @@ It addresses the differences listed in Trollius and Tulip: \
 
 Name:           python-%{pypi_name}
 Version:        1.0
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        %{sum}
 
 License:        MIT
@@ -102,6 +102,9 @@ cp %{SOURCE1} LICENSE
 %{python3_sitelib}/%{mod_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0-27
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.0-26
 - Rebuilt for Python 3.14.0rc2 bytecode
 

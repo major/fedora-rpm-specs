@@ -3,7 +3,7 @@
 Name:           scanmem
 Summary:        Memory scanner
 Version:        0.17
-Release:        21%{?dist}.1
+Release:        22%{?dist}.1
 # Automatically converted from old format: GPLv3+ and LGPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later AND LGPL-3.0-or-later
 VCS:            https://github.com/scanmem/scanmem.git
@@ -109,6 +109,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/GameConque
 %{_datadir}/appdata/GameConqueror.appdata.xml
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.17-22.1
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.17-21.1
 - Rebuilt for Python 3.14.0rc2 bytecode
 

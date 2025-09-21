@@ -5,7 +5,7 @@ supports formatted output with SI (decimal) and IEC (binary) prefixes.}
 
 Name:           python-%{pypi_name}
 Version:        0.7.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Prefixed alternative numeric library
 
 License:        MPL-2.0
@@ -41,6 +41,9 @@ Summary:        %{summary}
 %{python3_sitelib}/prefixed*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.7.1-8
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.7.1-7
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -1,6 +1,6 @@
 Name:           xwayland-run
 Version:        0.0.4
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Set of utilities to run headless X/Wayland clients
 
 License:        GPL-2.0-or-later
@@ -63,6 +63,9 @@ Xwayland and various Wayland compositor headless.
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.0.4-12
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.0.4-11
 - Rebuilt for Python 3.14.0rc2 bytecode
 

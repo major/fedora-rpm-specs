@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.7.2
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Click params for GeoJSON CLI
 
 License:        BSD-3-Clause
@@ -49,6 +49,9 @@ chmod -x README.rst
 %doc README.rst
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.7.2-20
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Sun Sep 14 2025 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.7.2-19
 - Switch to latest Python macros
 

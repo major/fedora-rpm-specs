@@ -11,7 +11,7 @@
 
 %if 0%{?dev_release}
 %global postrelease dev
-%global release 22
+%global release 23
 %else
 %global postrelease 0
 %global release 5
@@ -125,6 +125,9 @@ py.test-3 -vv tests
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.15.0-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.15.0-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

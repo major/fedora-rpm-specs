@@ -6,7 +6,7 @@
 %global pypi_name MultipartPostHandler2
 Name:           python-%{pypi_name}
 Version:        0.1.5
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        A handler for urllib2 to enable multipart form uploading
 # License note in MultipartPostHandler.py
 License:        LGPL-2.1-or-later
@@ -67,6 +67,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} examples/MultipartPostHan
 %doc README.txt examples/MultipartPostHandler-example.py
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.1.5-41
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.1.5-40
 - Rebuilt for Python 3.14.0rc2 bytecode
 

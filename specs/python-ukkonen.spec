@@ -1,6 +1,6 @@
 Name:           python-ukkonen
 Version:        1.0.1
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Implementation of bounded Levenshtein distance (Ukkonen)
 
 License:        MIT
@@ -46,6 +46,9 @@ cp -p licenses/LICENSE LICENSE-upstream
 %{python3_sitearch}/_ukkonen.abi3.so
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0.1-20
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.0.1-19
 - Rebuilt for Python 3.14.0rc2 bytecode
 

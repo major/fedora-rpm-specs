@@ -4,7 +4,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.2.1
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Kenneth Reitz's krTheme for Sphinx
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -64,6 +64,9 @@ export PYTHONPATH=%{buildroot}%{python3_sitelib}
 %{python3_sitelib}/sphinx_kr_theme-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.2.1-22
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.2.1-21
 - Rebuilt for Python 3.14.0rc2 bytecode
 

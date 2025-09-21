@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        0.2.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Signing and verification tools for conda
 
 License:        BSD-3-Clause
@@ -65,6 +65,9 @@ sed -i -E '/--(no-)?cov/d' setup.cfg
 %{_bindir}/conda-content-trust
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.2.0-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.2.0-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

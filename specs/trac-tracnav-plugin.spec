@@ -2,7 +2,7 @@
 
 Name:           trac-tracnav-plugin
 Version:        4.3
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Navigation Bar for Trac
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -43,6 +43,9 @@ that was originally supplied with Trac.
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.3-20
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.3-19
 - Rebuilt for Python 3.14.0rc2 bytecode
 

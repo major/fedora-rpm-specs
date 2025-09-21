@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.2.1
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Web Mercator XYZ tile utilities
 
 License:        BSD-3-Clause
@@ -63,6 +63,9 @@ rm -rf html/.{buildinfo,doctrees}
 %{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.2.1-19
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.2.1-18
 - Rebuilt for Python 3.14.0rc2 bytecode
 

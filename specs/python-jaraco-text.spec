@@ -16,7 +16,7 @@
 
 Name:           python-%{pkg_name}
 Version:        4.0.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Module for text manipulation
 
 License:        MIT
@@ -106,6 +106,9 @@ install -pm 0644 jaraco/text/Lorem\ ipsum.txt \
 %endif
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.0.0-7
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.0.0-6
 - Rebuilt for Python 3.14.0rc2 bytecode
 

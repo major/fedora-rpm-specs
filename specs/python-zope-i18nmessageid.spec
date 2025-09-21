@@ -1,6 +1,6 @@
 Name:           python-zope-i18nmessageid
 Version:        7.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Message Identifiers for internationalization
 
 # Check if the automatically generated License and its spelling is correct for Fedora
@@ -62,6 +62,9 @@ sed -i -e '/setuptools/s/<[0-9]\+//' pyproject.toml tox.ini
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 7.0-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 7.0-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

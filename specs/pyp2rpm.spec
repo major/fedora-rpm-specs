@@ -1,6 +1,6 @@
 Name:           pyp2rpm
 Version:        3.3.10
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Convert Python packages to RPM SPECFILES
 
 License:        MIT
@@ -68,6 +68,9 @@ PYTHONPATH="." py.test-3 -vv -m "not webtest" -k "not TestMetadataExtractor"
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.3.10-11
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.3.10-10
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -6,7 +6,7 @@ SFTP, SCP, forwarding, session multiplexing over a connection and more.
 
 Name:           python-%{srcname}
 Version:        2.21.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Asynchronous SSH for Python
 
 # Automatically converted from old format: EPL-2.0 or GPLv2+ - review is highly recommended.
@@ -76,6 +76,9 @@ sed -i '1,1s@^#!.*$@#!%{__python3}@' examples/*.py
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.21.0-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.21.0-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

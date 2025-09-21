@@ -7,7 +7,7 @@ License:        LicenseRef-Callaway-BSD
 Version:        2.13.0
 %define opae_release 3
 %define patch_level 3
-Release:        %{opae_release}.%{patch_level}%{?dist}
+Release:        %{opae_release}.%{patch_level}%{?dist}.1
 
 URL:            https://github.com/OPAE/%{name}-sdk
 Source0:        https://github.com/OPAE/opae-sdk/archive/refs/tags/%{version}-%{opae_release}.tar.gz
@@ -316,6 +316,9 @@ chmod a+x %{buildroot}%{_usr}/lib/opae-%{version}/modules/*.cmake
 %{python3_sitelib}/uio*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.13.0-3.3.1
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Wed Aug 20 2025 Jerry James <loganjerry@gmail.com> - 2.13.0-3.3
 - Rebuild for tbb 2022.2.0
 

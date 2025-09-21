@@ -1,6 +1,6 @@
 Name: pulp-cli
 Version: 0.36.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Command line interface to talk to the Pulp 3 REST API
 
 License: GPL-2.0-or-later
@@ -83,6 +83,9 @@ done
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.36.0-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Thu Sep 04 2025 Matthias Dellweg <x9c4@redhat.com> - 0.36.0-1
 - new version
 

@@ -1,6 +1,6 @@
 Name:           python-kgb
 Version:        7.1.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Intercept and record calls to functions
 License:        MIT
 URL:            https://github.com/beanbaginc/kgb
@@ -94,6 +94,9 @@ Unit tests for python3-kgb
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 7.1.1-13
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 7.1.1-12
 - Rebuilt for Python 3.14.0rc2 bytecode
 

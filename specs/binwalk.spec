@@ -1,6 +1,6 @@
 Name:           binwalk
 Version:        2.3.4
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Firmware analysis tool
 License:        MIT
 URL:            https://github.com/ReFirmLabs/binwalk
@@ -58,6 +58,9 @@ cd testing/tests
 %{python3_sitelib}/%{name}-%{version}*.egg-info
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.3.4-15
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Wed Sep 03 2025 LuK1337 <priv.luk@gmail.com> - 2.3.4-14
 - Add support for Python 3.14
 

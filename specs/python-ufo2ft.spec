@@ -1,11 +1,11 @@
 %global         srcname         ufo2ft
 %global         forgeurl        https://github.com/googlefonts/ufo2ft
-Version:        3.6.4
+Version:        3.6.5
 %global         tag             v%{version}
 %forgemeta
 
 Name:           python-%{srcname}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        A bridge from UFOs to FontTool objects
 
 # The entire source is (SPDX) MIT, except:
@@ -68,6 +68,12 @@ k="${k-}${k+ and }not (test_kern_zyyy_zinh)"
 %doc README.rst
  
 %changelog
+* Fri Sep 19 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 3.6.5-1
+- Update to 3.6.5 (close RHBZ#2396951)
+
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.6.4-3
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Thu Sep 18 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 3.6.4-2
 - Update to 3.6.4 (close RHBZ#2396163)
 

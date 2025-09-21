@@ -2,7 +2,7 @@
 Name:       python-igraph
 Version:    0.11.9
 %global igraph_version 0.9
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    Python bindings for igraph
 
 License:    GPL-2.0-or-later
@@ -84,6 +84,9 @@ documentation needed to develop application with %{name}.
 %{python3_includedir}/igraph
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.11.9-4
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.11.9-3
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -1,6 +1,6 @@
 Name:           python-b2sdk
 Version:        1.21.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Backblaze B2 SDK
 
 License:        MIT
@@ -52,6 +52,9 @@ rm -rf %{buildroot}%{python3_sitelib}/test
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.21.0-12
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.21.0-11
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -2,7 +2,7 @@
 
 Name:           rabbitvcs
 Version:        0.19
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        %{sum}
 
 License:        GPL-2.0-or-later
@@ -130,6 +130,9 @@ install -p -m0644 clients/nemo/RabbitVCS.py -D %{buildroot}%{_datadir}/nemo-pyth
 %{_datadir}/nemo-python/extensions/*.py*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.19-11
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.19-10
 - Rebuilt for Python 3.14.0rc2 bytecode
 

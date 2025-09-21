@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.3.1
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Measure the readability of a given text using surface characteristics
 
 License:        Apache-2.0 
@@ -50,6 +50,9 @@ number of words, syllables, and sentences.
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.3.1-20
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.3.1-19
 - Rebuilt for Python 3.14.0rc2 bytecode
 

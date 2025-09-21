@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.17
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Fancy and practical functional tools
 
 License:        BSD-3-Clause
@@ -43,6 +43,9 @@ Summary:        %{summary}
 %doc README.rst CHANGELOG
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.17-13
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.17-12
 - Rebuilt for Python 3.14.0rc2 bytecode
 

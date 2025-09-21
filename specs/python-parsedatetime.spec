@@ -5,7 +5,7 @@
 
 Name:           python-%{realname}
 Version:        2.6
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Parse human-readable date/time strings in Python
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -59,6 +59,9 @@ py.test-3 -x tests/*.py
 %{python3_sitelib}/%{realname}*.egg-info
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.6-20
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.6-19
 - Rebuilt for Python 3.14.0rc2 bytecode
 

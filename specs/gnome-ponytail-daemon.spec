@@ -3,7 +3,7 @@
 
 Name:           gnome-ponytail-daemon
 Version:        0.0.11
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Sort of a bridge for dogtail for GNOME on Wayland
 
 License:        GPL-2.0-or-later
@@ -73,6 +73,9 @@ Python module for D-BUS interactions with gnome-ponytail-daemon interfaces.
 %{python3_sitelib}/%{libname}/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.0.11-8
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.0.11-7
 - Rebuilt for Python 3.14.0rc2 bytecode
 

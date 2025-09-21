@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.09
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Module that multiplexes interactions with lists of Python objects
 
 License:        BSD-2-Clause
@@ -41,6 +41,9 @@ python objects.
 %{python3_sitelib}/%{pypi_name}-*-py*.egg-info
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.09-21
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.09-20
 - Rebuilt for Python 3.14.0rc2 bytecode
 

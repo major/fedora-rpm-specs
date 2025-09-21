@@ -1,6 +1,6 @@
 Name:           ansible-collection-mdellweg-filters
 Version:        0.0.6
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        An Ansible collection of random filters I missed at some point
 
 License:        GPL-3.0-or-later
@@ -44,6 +44,9 @@ ansible-playbook $(find tests/playbooks/*.yaml -not -name 'jq.yaml')
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.0.6-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.0.6-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

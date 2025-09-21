@@ -1,6 +1,6 @@
 Name:           terminator
 Version:        2.1.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Store and run multiple GNOME terminals in one window
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -79,6 +79,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/terminator.desktop
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.1.5-3
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.1.5-2
 - Rebuilt for Python 3.14.0rc2 bytecode
 

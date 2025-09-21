@@ -79,7 +79,7 @@ notification services. It supports sending alerts to platforms such as: \
 
 Name:           python-%{pypi_name}
 Version:        1.9.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A simple wrapper to many popular notification services used today
 License:        BSD-2-Clause
 URL:            https://github.com/caronc/%{pypi_name}
@@ -205,6 +205,9 @@ LANG=C.UTF-8 PYTHONPATH=%{buildroot}%{python3_sitelib}:%{_builddir}/%{name}-%{ve
 %{python3_sitelib}/%{pypi_name}/__pycache__/cli*.py?
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.9.4-4
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Sat Aug 16 2025 Chris Caron <lead2gold@gmail.com> - 1.9.4-3
 - Spec file modernization BZ2377453
 - Translation files patch added to allow v1.9.4 to build corectly

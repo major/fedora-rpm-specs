@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.0.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        JavaScript minifier
 
 License:        MIT
@@ -49,6 +49,9 @@ Summary:        %{summary}
 %doc README.rst CHANGELOG.txt
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.0.1-14
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.0.1-13
 - Rebuilt for Python 3.14.0rc2 bytecode
 

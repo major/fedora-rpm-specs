@@ -15,7 +15,7 @@ See docs/changes.rst for a full list of changes in each version.
 
 Name:           python-%{pypi_name}
 Version:        2.0.7
-Release:        34.git%{shortcommit}%{?dist}
+Release:        35.git%{shortcommit}%{?dist}
 Summary:        Read DBF Files with Python
 
 License:        MIT
@@ -96,6 +96,9 @@ pytest-%{python3_version}
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.0.7-35.git300b2d7
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.0.7-34.git300b2d7
 - Rebuilt for Python 3.14.0rc2 bytecode
 

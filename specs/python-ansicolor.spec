@@ -23,7 +23,7 @@ and diffing.
 
 Name:           python-%{srcname}
 Version:        0.2.4
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        A library to produce ANSI color output
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -119,6 +119,9 @@ rm -f docs/_build/html/.buildinfo
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.2.4-36
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.2.4-35
 - Rebuilt for Python 3.14.0rc2 bytecode
 

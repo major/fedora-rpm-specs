@@ -8,7 +8,7 @@
 
 Name:           gitg
 Version:        45~%{gitdate}git%{shortcommit}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        GTK+ graphical interface for the git revision control system
 
 # most code is under GPL-2.0-or-later, except:
@@ -149,6 +149,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 45~20250512gitf7501bc-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Wed Sep 10 2025 Dominik Mierzejewski <dominik@greysector.net> - 45~20250512gitf7501bc-4
 - fix build with libpeas1-1.36.0-11 (gir-2.0 port)
 

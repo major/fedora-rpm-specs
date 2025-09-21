@@ -6,7 +6,7 @@ ExcludeArch:   %{ix86}
 Name:           libCombine
 Summary:        C++ library for working with the COMBINE Archive format
 Version:        0.2.20
-Release:        12%{?dist}
+Release:        13%{?dist}
 URL:            https://github.com/sbmlteam/libCombine
 Source0:        %{url}/archive/%{version}/libCombine-%{version}.tar.gz
 
@@ -123,6 +123,9 @@ rm -rf %{buildroot}%{_datadir}
 %endif
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.2.20-13
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.2.20-12
 - Rebuilt for Python 3.14.0rc2 bytecode
 

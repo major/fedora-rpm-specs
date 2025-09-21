@@ -7,7 +7,7 @@
 
 Name:		dnfdragora
 Version:	2.99.0^git%{commitdate}.1.%{shortcommit}
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	DNF package-manager based on libYui abstraction
 
 License:	GPL-3.0-or-later
@@ -134,6 +134,9 @@ appstream-util validate-relax --nonet		\
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.99.0^git20250421.1.2f707ee-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.99.0^git20250421.1.2f707ee-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

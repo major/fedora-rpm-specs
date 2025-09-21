@@ -4,7 +4,7 @@
 
 Name: qtile
 Version: 0.33.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A pure-Python tiling window manager
 Source: %{forgesource}
 # Upstream is not ready for Python 3.14 yet, so we need to apply PR #5466
@@ -174,6 +174,9 @@ desktop-file-install \
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.33.0-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Thu Aug 28 2025 Jakub Kadlcik <frostyx@email.cz> - 0.33.0-1
 - New upstream version
 

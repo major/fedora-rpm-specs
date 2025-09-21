@@ -1,6 +1,6 @@
 Name:           python-pybtex-docutils
 Version:        1.0.3
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Docutils backend for pybtex
 
 # The content is MIT.  Other licenses are due to files copied in by Sphinx.
@@ -76,6 +76,9 @@ rst2html --no-datestamp README.rst README.html
 %doc README.html doc/_build/html/*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0.3-10
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.0.3-9
 - Rebuilt for Python 3.14.0rc2 bytecode
 

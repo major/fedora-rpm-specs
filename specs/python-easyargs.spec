@@ -12,7 +12,7 @@ line.}
 
 Name:           python-%{srcname}
 Version:        0.9.4
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Making argument parsing easy
 License:        MIT
 URL:            https://github.com/stedmeister/easyargs
@@ -69,6 +69,9 @@ find -name \*.py | xargs sed -i -e '1 {/^#!/d}'
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.9.4-32
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.9.4-31
 - Rebuilt for Python 3.14.0rc2 bytecode
 

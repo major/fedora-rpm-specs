@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.4.6
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        WSGI Proxy that supports several HTTP backends
 
 License:        MIT
@@ -48,6 +48,9 @@ Python 3 version.
 %doc README_fixt.py README.rst
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.4.6-24
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.4.6-23
 - Rebuilt for Python 3.14.0rc2 bytecode
 

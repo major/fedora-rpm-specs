@@ -14,7 +14,7 @@
 
 Name: fail2ban
 Version: 1.1.0
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: Daemon to ban hosts that cause multiple authentication errors
 
 License: GPL-2.0-or-later
@@ -483,6 +483,9 @@ fi
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.1.0-12
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Thu Aug 21 2025 Richard Shaw <hobbes1069@gmail.com> - 1.1.0-11
 - Move from setup.py to wheels per
   https://fedoraproject.org/wiki/Changes/DeprecateSetuppyMacros.

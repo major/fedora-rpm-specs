@@ -1,6 +1,6 @@
 Name:           python-pydiffx
 Version:        1.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Python implementation of the DiffX specification
 License:        MIT
 URL:            https://diffx.org/pydiffx/
@@ -61,6 +61,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.1-14
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.1-13
 - Rebuilt for Python 3.14.0rc2 bytecode
 

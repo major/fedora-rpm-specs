@@ -1,6 +1,6 @@
 Name:           python-xkbcommon
 Version:        0.8
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Bindings for libxkbcommon using cffi
 
 License:        MIT
@@ -55,6 +55,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.8-12
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.8-11
 - Rebuilt for Python 3.14.0rc2 bytecode
 

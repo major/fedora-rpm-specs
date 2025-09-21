@@ -2,7 +2,7 @@
 
 Name:           python-%{modname}
 Version:        1.1.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Docker layer squashing tool
 License:        MIT
 URL:            https://github.com/goldmann/docker-squash
@@ -55,6 +55,9 @@ py.test-%{python3_version} -v tests/test_unit*.py
 %{python3_sitelib}/docker_squash-*.egg-info/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.1.0-12
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.1.0-11
 - Rebuilt for Python 3.14.0rc2 bytecode
 

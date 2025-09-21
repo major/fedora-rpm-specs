@@ -2,7 +2,7 @@
 
 Name:           python-flask-sqlalchemy-lite
 Version:        0.1.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Adds SQLAlchemy support to Flask application
 
 License:        MIT
@@ -71,6 +71,9 @@ Python 3 version.
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.1.0-7
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.1.0-6
 - Rebuilt for Python 3.14.0rc2 bytecode
 

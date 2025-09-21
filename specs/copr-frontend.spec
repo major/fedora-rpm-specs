@@ -48,7 +48,7 @@
 
 Name:       copr-frontend
 Version:    2.4
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Frontend for Copr
 
 License:    GPL-2.0-or-later
@@ -375,6 +375,9 @@ install -m0644 -D conf/copr-frontend.sysusers.conf %{buildroot}%{_sysusersdir}/c
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.4-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Tue Sep 16 2025 Jakub Kadlcik <frostyx@email.cz> 2.4-1
 - Use beginning of the build as reference for timestamp
 - Support both POST and DELETE for deleting a build

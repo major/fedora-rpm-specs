@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.1.3
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Python module for parsing semi-structured text into python tables
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -65,6 +65,9 @@ rm -rf %{pypi_name}.egg-info
 %{_bindir}/textfsm
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.1.3-10
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.1.3-9
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -1,6 +1,6 @@
 Name:       vimiv
 Version:    0.9.1
-Release:    32%{?dist}
+Release:    33%{?dist}
 Summary:    An image viewer with vim-like keybindings
 
 License:    MIT
@@ -71,6 +71,9 @@ install -p -Dm644 icons/%{name}.svg $RPM_BUILD_ROOT/%{_datadir}/icons/hicolor/sc
 %doc readme.md
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.9.1-33
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.9.1-32
 - Rebuilt for Python 3.14.0rc2 bytecode
 

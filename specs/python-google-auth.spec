@@ -10,7 +10,7 @@
 
 Name:       python-%{library}
 Version:    2.40.3
-Release:    5%{?dist}
+Release:    6%{?dist}
 Epoch:      1
 Summary:    Google Auth Python Library
 License:    Apache-2.0
@@ -64,6 +64,9 @@ Python client for the kubernetes API.
 %{python3_sitelib}/google_auth-%{version}*.egg-info
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1:2.40.3-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Sat Aug 30 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 1:2.40.3-5
 - Patch to allow cachetools 6; fixes RHBZ#2390999, fixes RHBZ#2391729
 

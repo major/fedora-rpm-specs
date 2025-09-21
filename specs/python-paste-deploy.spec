@@ -7,7 +7,7 @@ this configuration file.
 
 Name:           python-paste-deploy
 Version:        3.1.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        %{sum}
 License:        MIT
 URL:            https://github.com/Pylons/pastedeploy
@@ -67,6 +67,9 @@ rm -rf %{buildroot}%{python3_sitelib}/test
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.1.0-12
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.1.0-11
 - Rebuilt for Python 3.14.0rc2 bytecode
 

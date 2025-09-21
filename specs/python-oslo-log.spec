@@ -27,7 +27,7 @@ Tests for the Oslo Log handling library.
 
 Name:           python-oslo-log
 Version:        6.1.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        OpenStack Oslo Log library
 
 License:        Apache-2.0
@@ -176,6 +176,9 @@ rm -f oslo_log/tests/unit/test_rate_limit.py
 %license LICENSE
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 6.1.2-8
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 6.1.2-7
 - Rebuilt for Python 3.14.0rc2 bytecode
 

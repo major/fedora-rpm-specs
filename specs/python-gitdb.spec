@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        4.0.11
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Git Object Database
 
 License:        BSD-3-Clause
@@ -60,6 +60,9 @@ export GITDB_TEST_GIT_REPO_BASE=testrepo/.git
 %doc AUTHORS
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.0.11-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.0.11-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

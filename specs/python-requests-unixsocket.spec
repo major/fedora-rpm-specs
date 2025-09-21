@@ -8,7 +8,7 @@
 
 Name:           python-%{package_name}
 Version:        0.4.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Use requests to talk HTTP via a UNIX domain socket
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -55,6 +55,9 @@ sed -i 's/unixsocket2/unixsocket/g' %{buildroot}%{python3_sitelib}/requests_unix
 %{python3_sitelib}/requests_unixsocket-%{version}.dist-info
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.4.0-13
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.4.0-12
 - Rebuilt for Python 3.14.0rc2 bytecode
 

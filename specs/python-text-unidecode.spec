@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.3
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        A Python module for handling non-Roman text data
 
 # Automatically converted from old format: GPL+ or Artistic - review is highly recommended.
@@ -42,6 +42,9 @@ text-unidecode is the most basic port of the Text::Unidecode Perl library.
 %{python3_sitelib}/*.dist-info
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.3-24
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.3-23
 - Rebuilt for Python 3.14.0rc2 bytecode
 

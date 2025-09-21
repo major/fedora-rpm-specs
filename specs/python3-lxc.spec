@@ -1,6 +1,6 @@
 Name:           python3-lxc
 Version:        5.0.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Python binding for LXC
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -67,6 +67,9 @@ sed -i -e '1 s@^#!.*@#!%{__python3}@' examples/*.py
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 5.0.0-15
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 5.0.0-14
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -1,6 +1,6 @@
 Name:       ydiff
 Version:    1.4.2
-Release:    5%{?dist}
+Release:    6%{?dist}
 Summary:    View colored, incremental diff
 URL:        https://github.com/ymattw/ydiff
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -50,6 +50,9 @@ tests/regression.sh
 %{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.4.2-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.4.2-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

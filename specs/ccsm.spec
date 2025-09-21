@@ -2,7 +2,7 @@
 
 Name:           ccsm
 Version:        0.8.18
-Release:        20%{?dist}
+Release:        21%{?dist}
 Epoch:          1
 Summary:        Plugin and configuration tool - Compiz Reloaded Project
 
@@ -71,6 +71,9 @@ desktop-file-validate $RPM_BUILD_ROOT/%{_datadir}/applications/ccsm.desktop
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1:0.8.18-21
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1:0.8.18-20
 - Rebuilt for Python 3.14.0rc2 bytecode
 

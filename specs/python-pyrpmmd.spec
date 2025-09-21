@@ -10,7 +10,7 @@ the repomd parsing code from Yum.
 
 Name:           python-%{srcname}
 Version:        0.1.1
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        %{sum}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -56,6 +56,9 @@ This package provides the Python 3 version.
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.1.1-32
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.1.1-31
 - Rebuilt for Python 3.14.0rc2 bytecode
 

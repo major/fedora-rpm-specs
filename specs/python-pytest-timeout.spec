@@ -2,7 +2,7 @@
 
 Name:           python-pytest-timeout
 Version:        2.4.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        py.test plugin to abort hanging tests
 
 # SPDX
@@ -50,6 +50,9 @@ sed -i -e '/\s*ipdb$/d' tox.ini
 %doc README.rst
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.4.0-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.4.0-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

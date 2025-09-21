@@ -1,6 +1,6 @@
 Name:           python-pyxlsb2
 Version:        0.0.9
-%global         baserelease     0.7
+%global         baserelease     0.8
 Summary:        Excel 2007+ Binary Workbook (xlsb) parser
 
 
@@ -112,6 +112,9 @@ FAILING="$FAILING and not formula_test and not worksheet_test"
 %{python3_sitelib}/pyxlsb2-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.0.9-0.8.20220509git0a1ff1b
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.0.9-0.7.20220509git0a1ff1b
 - Rebuilt for Python 3.14.0rc2 bytecode
 

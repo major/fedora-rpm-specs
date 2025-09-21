@@ -1,6 +1,6 @@
 Name:           python-PyMySQL
 Version:        1.1.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Pure-Python MySQL client library
 
 License:        MIT
@@ -56,6 +56,9 @@ and Jython.
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.1.2-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Wed Sep 03 2025 Julien Enselme <jujens@jujens.eu> - 1.1.2-1
 - Update to 1.1.2
 

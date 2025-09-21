@@ -2,7 +2,7 @@ Summary:       Python module for GNU parted
 Name:          pyparted
 Epoch:         1
 Version:       3.13.0
-Release:       12%{?dist}
+Release:       13%{?dist}
 License:       GPL-2.0-or-later
 URL:           https://github.com/dcantrell/pyparted
 
@@ -54,6 +54,9 @@ make test
 %{python3_sitearch}/%{name}-%{version}-*.egg-info
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1:3.13.0-13
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1:3.13.0-12
 - Rebuilt for Python 3.14.0rc2 bytecode
 

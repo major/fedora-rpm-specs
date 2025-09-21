@@ -13,7 +13,7 @@
 
 Name:           python-pandas
 Version:        2.2.3
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Python library providing high-performance data analysis tools
 
 # Drop support for i686 in preparation for `libarrow`
@@ -699,6 +699,9 @@ export PYTHONHASHSEED="$(
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.2.3-8
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.2.3-7
 - Rebuilt for Python 3.14.0rc2 bytecode
 

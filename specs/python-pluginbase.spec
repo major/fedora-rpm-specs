@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.0.1
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Support library for building plugins systems
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -52,6 +52,9 @@ popd
 %{python3_sitelib}/__pycache__/%{srcname}.*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0.1-17
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.0.1-16
 - Rebuilt for Python 3.14.0rc2 bytecode
 

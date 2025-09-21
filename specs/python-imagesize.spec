@@ -5,7 +5,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.4.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        %{sum}
 
 License:        MIT
@@ -66,6 +66,9 @@ py.test-3 -k 'not test_get_filelike'
 %{python3_sitelib}/*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.4.1-14
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.4.1-13
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -7,7 +7,7 @@ permessage-deflate extension from RFC 7692.}
 
 Name:               python-websocket-client
 Version:            1.8.0
-Release:            6%{?dist}
+Release:            7%{?dist}
 Summary:            WebSocket client for python
 License:            Apache-2.0
 URL:                https://github.com/websocket-client/websocket-client
@@ -56,6 +56,9 @@ BuildRequires:      python3-devel
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.8.0-7
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.8.0-6
 - Rebuilt for Python 3.14.0rc2 bytecode
 

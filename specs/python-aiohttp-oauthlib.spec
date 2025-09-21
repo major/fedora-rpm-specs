@@ -1,6 +1,6 @@
 Name:           python-aiohttp-oauthlib
 Version:        0.1.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        This library is a port of requests-oauthlib for aiohttp
 
 License:        ISC
@@ -49,6 +49,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.1.0-9
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.1.0-8
 - Rebuilt for Python 3.14.0rc2 bytecode
 

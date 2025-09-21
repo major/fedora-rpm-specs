@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.1.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Print ASCII tables for terminals
 
 License:        MIT
@@ -67,6 +67,9 @@ Features included but not limited to:
 %license LICENSE.txt
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.1.0-15
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.1.0-14
 - Rebuilt for Python 3.14.0rc2 bytecode
 

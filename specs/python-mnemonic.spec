@@ -1,6 +1,6 @@
 Name:          python-mnemonic
 Version:       0.20
-Release:       16%{?dist}
+Release:       17%{?dist}
 Summary:       Implementation of Bitcoin BIP-0039
 
 License:       MIT
@@ -65,6 +65,9 @@ rm -rf mnemonic.egg-info
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.20-17
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.20-16
 - Rebuilt for Python 3.14.0rc2 bytecode
 

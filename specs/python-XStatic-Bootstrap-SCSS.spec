@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.3.7.1
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Bootstrap-SCSS (XStatic packaging standard)
 
 License:        MIT
@@ -89,6 +89,9 @@ chmod 644 %{buildroot}%{_jsdir}/bootstrap_scss/js/bootstrap/*.js
 %{_jsdir}/bootstrap_scss
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.3.7.1-31
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.3.7.1-30
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -4,7 +4,7 @@
 Name:           python-coincidence
 Version:        0.6.6
 %forgemeta
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Helper functions for pytest
 
 License:        MIT
@@ -67,6 +67,9 @@ find coincidence/ -type f ! -executable -name '*.py' -print \
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.6.6-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.6.6-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -1,7 +1,7 @@
 Summary: A libgpiod compatibility layer for the RPi.GPIO API
 Name: python-rpi-gpio2
 Version: 0.4.0
-Release: 12%{?dist}
+Release: 13%{?dist}
 
 License: GPL-3.0-or-later
 URL: https://github.com/underground-software/RPi.GPIO2
@@ -70,6 +70,9 @@ rm -rf %{buildroot}%{python3_sitelib}/examples
 %doc examples
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.4.0-13
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.4.0-12
 - Rebuilt for Python 3.14.0rc2 bytecode
 

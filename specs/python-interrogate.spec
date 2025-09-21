@@ -12,7 +12,7 @@ HTML, LaTeX, PDFs, etc.}
 
 Name:           python-%{pypi_name}
 Version:        1.7.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Interrogate a codebase for docstring coverage
 
 License:        MIT
@@ -76,6 +76,9 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.7.0-7
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.7.0-6
 - Rebuilt for Python 3.14.0rc2 bytecode
 

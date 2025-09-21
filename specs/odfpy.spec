@@ -1,6 +1,6 @@
 Name:           odfpy
 Version:        1.4.1
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Python library for manipulating OpenDocument files
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -99,6 +99,9 @@ PYTHONPATH=%{_builddir}/%{name}-release-%{version} pytest
 %doc doc examples contrib
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.4.1-17
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.4.1-16
 - Rebuilt for Python 3.14.0rc2 bytecode
 

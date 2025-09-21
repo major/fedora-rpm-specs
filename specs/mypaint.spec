@@ -1,6 +1,6 @@
 Name:           mypaint
 Version:        2.0.1
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        A fast and easy graphics application for digital painters
 
 # MyPaint is GPLv2+, brush library LGPLv2+
@@ -108,6 +108,9 @@ find %{buildroot} -name '*.a' -exec rm -f {} ';'
 %{_datadir}/%{name}/pixmaps
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.0.1-16
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.0.1-15
 - Rebuilt for Python 3.14.0rc2 bytecode
 

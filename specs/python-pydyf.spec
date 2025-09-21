@@ -3,7 +3,7 @@
 
 Name:           python-pydyf
 Version:        0.11.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Low-level PDF creator
 # The test suite is released under the AGPL but we are not shipping any test
 # code in the "binary" (noarch) RPM so we can just use the 3-clause BSD.
@@ -65,6 +65,9 @@ specification 1.7.
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.11.0-7
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.11.0-6
 - Rebuilt for Python 3.14.0rc2 bytecode
 

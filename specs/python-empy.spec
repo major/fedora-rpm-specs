@@ -3,7 +3,7 @@
 
 Name:           python-empy
 Version:        4.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        %{sum}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -45,6 +45,9 @@ text; it takes an EmPy source file, processes it, and produces output.
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.2-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.2-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

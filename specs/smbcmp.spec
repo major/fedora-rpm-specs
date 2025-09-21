@@ -4,7 +4,7 @@
 
 Name:		smbcmp
 Version:	0.1
-Release:	23%{?dist}
+Release:	24%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:	GPL-3.0-or-later
 Summary:	Small curses utility to diff, compare and debug SMB network traces
@@ -52,6 +52,9 @@ sed -i 's|curses||' setup.py
 %{_bindir}/%{name}-gui
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.1-24
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.1-23
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.2.5.1
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Magic-Search (XStatic packaging standard)
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -65,6 +65,9 @@ mv %{buildroot}/%{python3_sitelib}/xstatic/pkg/magic_search/data/magic_search.* 
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.2.5.1-34
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.2.5.1-33
 - Rebuilt for Python 3.14.0rc2 bytecode
 

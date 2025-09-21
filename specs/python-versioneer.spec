@@ -5,7 +5,7 @@ version-control system about the current tree.}
 
 Name:           python-versioneer
 Version:        0.29
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Easy VCS-based management of project version strings
 
 License:        Unlicense
@@ -57,6 +57,9 @@ sed -r -i '1{/^#!/d}' %{buildroot}%{python3_sitelib}/versioneer.py
 %{_bindir}/versioneer
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.29-7
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.29-6
 - Rebuilt for Python 3.14.0rc2 bytecode
 

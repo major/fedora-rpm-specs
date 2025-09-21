@@ -1,6 +1,6 @@
 Name:          libcec
 Version:       7.1.1
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       Library and utilities for HDMI-CEC device control
 License:       GPL-2.0-or-later
 URL:           http://libcec.pulse-eight.com/
@@ -112,6 +112,9 @@ mv %{buildroot}%{_bindir}/cecc-client-%{version} %{buildroot}%{_bindir}/cecc-cli
 %{python3_sitearch}/cec/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 7.1.1-4
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 7.1.1-3
 - Rebuilt for Python 3.14.0rc2 bytecode
 

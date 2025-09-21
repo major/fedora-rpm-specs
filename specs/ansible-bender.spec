@@ -7,7 +7,7 @@
 
 Name:           ansible-bender
 Version:        0.10.1
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Build container images using Ansible playbooks
 
 License:        MIT
@@ -83,6 +83,9 @@ tl;dr Ansible is the frontend, buildah is the backend.
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.10.1-12
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.10.1-11
 - Rebuilt for Python 3.14.0rc2 bytecode
 

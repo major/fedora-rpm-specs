@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.16.5
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Checks for various conditions and provides reports
 
 License:        MIT
@@ -65,6 +65,9 @@ Documentation for django-health-check
 %license LICENSE
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.16.5-15
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.16.5-14
 - Rebuilt for Python 3.14.0rc2 bytecode
 

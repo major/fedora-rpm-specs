@@ -11,7 +11,7 @@
 
 Name:           python-%{sname}
 Version:        0.8.0
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Python implementation of the Key Management Interoperability Protocol
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -128,6 +128,9 @@ Structured InformationStandards`_ (OASIS).
 %endif
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.8.0-27
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.8.0-26
 - Rebuilt for Python 3.14.0rc2 bytecode
 

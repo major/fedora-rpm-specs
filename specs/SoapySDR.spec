@@ -1,6 +1,6 @@
 Name:           SoapySDR
 Version:        0.8.1
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        A Vendor Neutral and Platform Independent SDR Support Library
 
 # Automatically converted from old format: Boost - review is highly recommended.
@@ -98,6 +98,9 @@ ctest -V %{?_smp_mflags}
 %{_pkgdocdir}/*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.8.1-20
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.8.1-19
 - Rebuilt for Python 3.14.0rc2 bytecode
 

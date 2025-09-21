@@ -3,7 +3,7 @@
 Summary: Python Integration with Gamerzilla Library
 Name: pylibgamerzilla
 Version: 0.0.1
-Release: 21%{?dist}
+Release: 22%{?dist}
 License: MIT
 URL: https://github.com/dulsi/pylibgamerzilla
 Source0: http://www.identicalsoftware.com/gamerzilla/%{name}-%{version}.tgz
@@ -38,6 +38,9 @@ cp %{_builddir}/%{name}-%{version}/gamerzilla.py %{buildroot}/%{python3_sitelib}
 %{python3_sitelib}/__pycache__/gamerzilla.cpython-%{python3_version_nodots}{,.opt-?}.pyc
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.0.1-22
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.0.1-21
 - Rebuilt for Python 3.14.0rc2 bytecode
 

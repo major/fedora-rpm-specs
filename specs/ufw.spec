@@ -1,6 +1,6 @@
 Name:           ufw
 Version:        0.35
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Uncomplicated Firewall
 
 License:        GPL-3.0-only
@@ -130,6 +130,9 @@ install -D -p -m 644 %{SOURCE1} %{buildroot}%{_unitdir}/ufw.service
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.35-38
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.35-37
 - Rebuilt for Python 3.14.0rc2 bytecode
 

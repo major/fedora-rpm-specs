@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.2.3
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Extension for colcon to read CLI mixins from files
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -63,6 +63,9 @@ For an example repository containing mixins see colcon-mixin-repository.
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.2.3-13
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.2.3-12
 - Rebuilt for Python 3.14.0rc2 bytecode
 

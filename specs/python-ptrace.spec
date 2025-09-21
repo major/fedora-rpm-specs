@@ -1,7 +1,7 @@
 Summary:       Debugger using ptrace written in Python
 Name:          python-ptrace
 Version:       0.9.9
-Release:       9%{?dist}
+Release:       10%{?dist}
 License:       GPL-2.0-only
 URL:           https://github.com/vstinner/python-ptrace
 Source0:       https://files.pythonhosted.org/packages/source/p/%{name}/%{name}-%{version}.tar.gz
@@ -60,6 +60,9 @@ rm -f %{buildroot}%{_bindir}/{gdb,strace}.{pyo,pyc}
 %{python3_sitearch}/cptrace-*-py*.egg-info
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.9.9-10
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.9.9-9
 - Rebuilt for Python 3.14.0rc2 bytecode
 

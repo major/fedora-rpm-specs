@@ -10,7 +10,7 @@
 
 Name:           %{pypi_name}
 Version:        0.5.3
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Tool to check generic rules/best-practices for containers/images/dockerfiles.
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -78,6 +78,9 @@ rm -rf html/.{doctrees,buildinfo}
 %doc html
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.5.3-16
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.5.3-15
 - Rebuilt for Python 3.14.0rc2 bytecode
 

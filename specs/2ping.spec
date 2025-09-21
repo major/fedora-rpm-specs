@@ -1,6 +1,6 @@
 Name:           2ping
 Version:        4.5.1
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Bi-directional ping utility
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -52,6 +52,9 @@ install -Dp -m 0644 doc/2ping.1 %{buildroot}/%{_mandir}/man1/2ping6.1
 %{_unitdir}/2ping.service
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.5.1-20
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.5.1-19
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -2,7 +2,7 @@
 
 Name:           python-enchant
 Version:        3.2.2
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Python bindings for Enchant spellchecking library
 
 License:        LGPL-2.1-or-later
@@ -73,6 +73,9 @@ rm -rf $RPM_BUILD_ROOT/%{python3_sitelib}/%{srcname}/share
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.2.2-19
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.2.2-18
 - Rebuilt for Python 3.14.0rc2 bytecode
 

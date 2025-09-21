@@ -125,7 +125,7 @@ m     stapdev  stapdev
 Name: systemtap
 # PRERELEASE
 Version: 5.3
-Release: 4%{?release_override}%{?dist}
+Release: 5%{?release_override}%{?dist}
 # for version, see also configure.ac
 
 
@@ -1349,6 +1349,9 @@ exit 0
 
 # PRERELEASE
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 5.3-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 5.3-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

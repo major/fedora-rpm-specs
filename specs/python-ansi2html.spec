@@ -5,7 +5,7 @@
 
 Name:       python-%{srcname}
 Version:    1.9.2
-Release:    6%{?dist}
+Release:    7%{?dist}
 Summary:    Python module that converts text with ANSI color to HTML
 # While the project was previously licensed as GPLv3+, it is now LGPLv3.
 # See https://github.com/pycontribs/ansi2html/issues/72 and also
@@ -72,6 +72,9 @@ install -Dpm 644 man/%{srcname}.1 %{buildroot}%{_mandir}/man1/%{srcname}.1
 %{_mandir}/man1/%{srcname}.1*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.9.2-7
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.9.2-6
 - Rebuilt for Python 3.14.0rc2 bytecode
 

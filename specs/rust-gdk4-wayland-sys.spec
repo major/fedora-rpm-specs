@@ -6,7 +6,7 @@
 %global crate gdk4-wayland-sys
 
 Name:           rust-gdk4-wayland-sys
-Version:        0.10.0
+Version:        0.10.1
 Release:        %autorelease
 Summary:        FFI bindings of GDK4 Wayland
 

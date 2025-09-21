@@ -24,7 +24,7 @@
 
 %global rpmver 5.99.92
 #global snapver rc1
-%global baserelease 1
+%global baserelease 2
 %global sover 10
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
@@ -622,6 +622,9 @@ fi
 %doc %{_defaultdocdir}/rpm/API/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 5.99.92-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Wed Aug 27 2025 Panu Matilainen <pmatilai@redhat.com> - 5.99.92-1
 - Rebase to 6.0 beta2 (https://rpm.org/releases/5.99.92)
 

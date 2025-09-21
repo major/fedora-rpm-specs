@@ -86,6 +86,7 @@ Source16:          nginxmods.attr
 Source17:          nginx-ssl-pass-dialog
 Source18:          nginx@.service
 Source19:          nginx.sysusers
+Source20:          nginx.tmpfiles
 Source102:         nginx-logo.png
 Source200:         README.dynamic
 Source210:         UPGRADE-NOTES-1.6-to-1.10
@@ -487,6 +488,9 @@ install -m755 $RPM_SOURCE_DIR/nginx-ssl-pass-dialog \
 # install sysusers file
 install -p -D -m 0644 %{SOURCE19} %{buildroot}%{_sysusersdir}/nginx.conf
 
+# tmpfiles.d configuration
+mkdir -p %{buildroot}%{_tmpfilesdir}
+install -m 644 -p %{SOURCE20} %{buildroot}%{_tmpfilesdir}/nginx.conf
 
 %pre filesystem
 %sysusers_create_compat %{SOURCE19}
@@ -577,6 +581,7 @@ fi
 %attr(770,%{nginx_user},root) %dir %{_localstatedir}/lib/nginx
 %attr(770,%{nginx_user},root) %dir %{_localstatedir}/lib/nginx/tmp
 %attr(711,root,root) %dir %{_localstatedir}/log/nginx
+%{_tmpfilesdir}/nginx.conf
 %ghost %attr(640,%{nginx_user},root) %{_localstatedir}/log/nginx/access.log
 %ghost %attr(640,%{nginx_user},root) %{_localstatedir}/log/nginx/error.log
 %dir %{nginx_moduledir}

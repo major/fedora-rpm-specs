@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.0.0.2
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Hogan (XStatic packaging standard)
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -84,6 +84,9 @@ chmod 644 %{buildroot}%{_jsdir}/hogan/hogan.js
 %{_jsdir}/hogan
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.0.0.2-39
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.0.0.2-38
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -5,7 +5,7 @@
 
 Name:           python-sqlalchemy-helpers
 Version:        1.0.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Set of helpers to integrate SQLAlchemy and Alembic in a project
 License:        LGPL-3.0-or-later
 URL:            https://github.com/fedora-infra/sqlalchemy-helpers
@@ -73,6 +73,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0.1-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.0.1-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

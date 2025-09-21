@@ -2,7 +2,7 @@
 
 Name:           python-extras
 Version:        1.0.0
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        Useful extra bits for Python
 
 License:        MIT
@@ -63,6 +63,9 @@ sed -e '/extras\.tests/d' -i setup.py
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0.0-42
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.0.0-41
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{modname}
 Version:        1.1.3
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Pure Python library to simplify exif manipulations with python
 
 License:        MIT
@@ -61,6 +61,9 @@ sed -i 's|unittest.makeSuite|unittest.defaultTestLoader.loadTestsFromTestCase|' 
 %doc README.rst
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.1.3-27
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.1.3-26
 - Rebuilt for Python 3.14.0rc2 bytecode
 

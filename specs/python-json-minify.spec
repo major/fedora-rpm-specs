@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        0.3.0
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Python port of the JSON-minify utility
 
 License:        MIT
@@ -57,6 +57,9 @@ transmitting them over-the-wire.
 %doc README.rst
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.3.0-28
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.3.0-27
 - Rebuilt for Python 3.14.0rc2 bytecode
 

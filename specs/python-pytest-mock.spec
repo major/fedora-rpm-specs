@@ -4,7 +4,7 @@
 
 Name:           python-%{package_name}
 Version:        3.14.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Thin-wrapper around the mock package for easier use with py.test
 
 License:        MIT
@@ -64,6 +64,9 @@ sed -i 's/\r$//' README.rst
 %license LICENSE
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.14.1-4
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.14.1-3
 - Rebuilt for Python 3.14.0rc2 bytecode
 

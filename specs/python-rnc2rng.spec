@@ -7,7 +7,7 @@ RELAX NG syntax.}
 
 Name:           python-rnc2rng
 Version:        2.7.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        RELAX NG Compact to regular syntax conversion library
 
 License:        MIT
@@ -49,6 +49,9 @@ BuildRequires:  python3-devel
 %{_bindir}/rnc2rng
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.7.0-9
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.7.0-8
 - Rebuilt for Python 3.14.0rc2 bytecode
 

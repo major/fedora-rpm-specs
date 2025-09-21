@@ -4,7 +4,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.2.1
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        A python library to interact with the Youtube Chromecast api
 
 License:        MIT
@@ -52,6 +52,9 @@ rm -f %{buildroot}%{_prefix}/LICENSE
 %license LICENSE
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.2.1-20
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.2.1-19
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -5,7 +5,7 @@ Version:        5.6.3
 %forgemeta
 
 Name:           python-%{srcname}
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Python disk-backed cache
 
 License:        Apache-2.0
@@ -54,6 +54,9 @@ sed -i 's/==4.2.*//g' tox.ini
 %doc README.rst
  
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 5.6.3-10
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 5.6.3-9
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -30,7 +30,7 @@ and local caching of the fetched data.
 
 Name:           python-%{pypi_name}
 Version:        1.7.0
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Python library for consuming OpenStack sevice-types-authority data
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -116,6 +116,9 @@ rm -rf doc/build/html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.7.0-24
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.7.0-23
 - Rebuilt for Python 3.14.0rc2 bytecode
 

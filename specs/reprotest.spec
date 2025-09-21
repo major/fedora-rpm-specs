@@ -1,6 +1,6 @@
 Name:           reprotest
 Version:        0.7.30
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Build packages and check them for reproducibility
 URL:            https://salsa.debian.org/reproducible-builds/%{name}
 
@@ -55,6 +55,9 @@ rm -rf %{name}.egg-info
 %{python3_sitelib}/%{name}-%{version}.dist-info
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.7.30-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Sun Aug 31 2025 Frédéric Pierret (fepitre) <frederic@invisiblethingslab.com> - 0.7.30-1
 - version 0.7.30
 - Closes rhbz#2378433

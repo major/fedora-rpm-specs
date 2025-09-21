@@ -7,7 +7,7 @@
 
 Name:           python-%{srcname}
 Version:        0.9.2
-Release:        34.%{snapdate}git%{shortcommit0}%{?dist}
+Release:        35.%{snapdate}git%{shortcommit0}%{?dist}
 Summary:        A Python toolbox for building complex digital hardware
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -64,6 +64,9 @@ install -Dpm644 -t %{buildroot}%{_mandir}/man1 _build/man/%{srcname}.1
 %{_mandir}/man1/%{srcname}.1*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.9.2-35.20250211git2828df5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.9.2-34.20250211git2828df5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

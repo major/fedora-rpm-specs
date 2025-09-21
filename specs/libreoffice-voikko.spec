@@ -11,7 +11,7 @@
 
 Name:           libreoffice-voikko
 Version:        5.0
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Finnish spellchecker and hyphenator extension for LibreOffice
 
 License:        GPL-3.0-or-later
@@ -52,6 +52,9 @@ make install-unpacked DESTDIR=$RPM_BUILD_ROOT%{voikkoext}
 %doc ChangeLog COPYING README
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 5.0-22
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 5.0-21
 - Rebuilt for Python 3.14.0rc2 bytecode
 

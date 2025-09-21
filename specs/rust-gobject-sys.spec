@@ -6,7 +6,7 @@
 %global crate gobject-sys
 
 Name:           rust-gobject-sys
-Version:        0.21.1
+Version:        0.21.2
 Release:        %autorelease
 Summary:        FFI bindings to libgobject-2.0
 

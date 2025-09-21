@@ -11,7 +11,7 @@
 
 Name:           airnef
 Version:        1.1
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Wireless download from your Nikon/Canon Camera
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -95,6 +95,9 @@ install -m 755 wrapper %buildroot%_bindir/airnefcmd
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.1-34
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.1-33
 - Rebuilt for Python 3.14.0rc2 bytecode
 

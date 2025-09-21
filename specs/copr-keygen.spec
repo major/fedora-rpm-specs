@@ -3,7 +3,7 @@
 
 Name:       copr-keygen
 Version:    2.2
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Part of Copr build system. Aux service that generate keys for signd
 
 License:    GPL-2.0-or-later
@@ -171,6 +171,9 @@ systemctl condrestart httpd &>/dev/null || :
 %endif
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.2-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Tue Sep 16 2025 Jakub Kadlcik <frostyx@email.cz> 2.2-1
 - Stop using deprecated %%py3_build/%%py3_install macros
 

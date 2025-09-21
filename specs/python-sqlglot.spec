@@ -2,7 +2,7 @@
 
 Name:           python-sqlglot
 Version:        5.2.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        SQL Parser and Transpiler
 
 License:        MIT
@@ -66,6 +66,9 @@ Summary: %{summary}
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 5.2.0-13
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 5.2.0-12
 - Rebuilt for Python 3.14.0rc2 bytecode
 

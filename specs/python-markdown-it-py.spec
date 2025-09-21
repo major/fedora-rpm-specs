@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.0.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Python port of markdown-it
 
 # SPDX
@@ -65,6 +65,9 @@ sed -i '/"pytest-cov",/d' pyproject.toml
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.0.0-13
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.0.0-12
 - Rebuilt for Python 3.14.0rc2 bytecode
 

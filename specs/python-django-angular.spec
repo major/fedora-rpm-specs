@@ -20,7 +20,7 @@
 
 Name:			python-%{pypi_name}
 Version:		2.0.3
-Release:		26%{?gitrel}%{?dist}
+Release:		27%{?gitrel}%{?dist}
 Summary:		Classes and utility functions to integrate AngularJS with Django
 
 License:		MIT
@@ -140,6 +140,9 @@ popd
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.0.3-27
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.0.3-26
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -9,7 +9,7 @@
 
 Name:           python-pdf2image
 Version:        1.16.3
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Convert PDF to PIL Image object
 
 License:        MIT
@@ -93,6 +93,9 @@ PYTHONPATH="${PWD}" %make_build -C docs latex SPHINXOPTS='-j%{?_smp_build_ncpus}
 %endif
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.16.3-12
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.16.3-11
 - Rebuilt for Python 3.14.0rc2 bytecode
 

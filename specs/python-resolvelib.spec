@@ -6,7 +6,7 @@ Name:           python-%{pypi_name}
 Version:        1.0.1
 %global tag %{version}
 %forgemeta
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Resolve abstract dependencies into concrete ones
 
 License:        ISC
@@ -62,6 +62,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0.1-11
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.0.1-10
 - Rebuilt for Python 3.14.0rc2 bytecode
 

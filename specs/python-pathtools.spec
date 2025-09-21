@@ -2,7 +2,7 @@
 
 Name:		python-%{upname}
 Version:	0.1.2
-Release:	41%{?dist}
+Release:	42%{?dist}
 Summary:	Pattern matching and various utilities for file systems paths
 
 License:	MIT
@@ -72,6 +72,9 @@ popd
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.1.2-42
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.1.2-41
 - Rebuilt for Python 3.14.0rc2 bytecode
 

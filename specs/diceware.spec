@@ -1,6 +1,6 @@
 Name:		diceware
 Version:	1.0.1
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Create passphrases which one can remember
 
 # Code is GPL-3.0-or-later but then there are the wordlists:
@@ -73,6 +73,9 @@ rm -rf docs/_build/.doctrees
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0.1-4
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.0.1-3
 - Rebuilt for Python 3.14.0rc2 bytecode
 

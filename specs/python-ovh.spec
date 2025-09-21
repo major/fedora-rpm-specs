@@ -1,6 +1,6 @@
 Name:           python-ovh
 Version:        1.1.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Lightweight wrapper around OVHcloud's APIs
 
 License:        BSD
@@ -59,6 +59,9 @@ install -m 0644 docs/_build/man/python-ovh.1* %{buildroot}/%{_mandir}/man1/
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.1.2-7
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.1.2-6
 - Rebuilt for Python 3.14.0rc2 bytecode
 

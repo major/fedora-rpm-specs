@@ -1,6 +1,6 @@
 Name:           python-pdir2
 Version:        1.1.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Pretty dir() printing with joy
 
 License:        MIT
@@ -53,6 +53,9 @@ sed -r -i 's/=(=[[:digit:]\.]+)\.\*/>\1/' pyproject.toml
 %doc README.md
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.1.0-7
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.1.0-6
 - Rebuilt for Python 3.14.0rc2 bytecode
 

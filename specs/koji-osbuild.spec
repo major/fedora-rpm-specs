@@ -6,7 +6,7 @@
 
 Name:           koji-osbuild
 Version:        12
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Koji integration for osbuild composer
 
 %forgemeta
@@ -160,6 +160,9 @@ Integration tests for koji-osbuild. To be run on a dedicated system.
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 12-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 12-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

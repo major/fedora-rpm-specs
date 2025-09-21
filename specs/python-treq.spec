@@ -4,7 +4,7 @@
 
 Name:           python-%{pypi_name}
 Version:        25.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A requests-like API built on top of twisted.web's Agent
 
 License:        MIT
@@ -74,6 +74,9 @@ rm -rf html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 25.5.0-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Wed Aug 20 2025 Orion Poplawski <orion@nwra.com> - 25.5.0-1
 - Update to 25.5.0
 - Use standard %%bcond macro and docs extra for build requires

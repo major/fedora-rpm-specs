@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.5.8.0
-Release:        31%{?dist}
+Release:        32%{?dist}
 Epoch:          1
 Summary:        Angular (XStatic packaging standard)
 
@@ -91,6 +91,9 @@ mv %{buildroot}/%{python3_sitelib}/xstatic/pkg/angular/data/angular* %{buildroot
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1:1.5.8.0-32
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1:1.5.8.0-31
 - Rebuilt for Python 3.14.0rc2 bytecode
 

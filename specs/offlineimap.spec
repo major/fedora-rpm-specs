@@ -1,4 +1,4 @@
-%global baserelease 21
+%global baserelease 22
 
 #%%global commit 1e7ef9e7e6952f5d29ef0f5c25fd062798de55f3
 #%%global shortcommit %(c=%{commit}; echo ${c:0:7})
@@ -109,6 +109,9 @@ install -p docs/offlineimapui.7.gz %{buildroot}/%{_mandir}/man7/
 %{_mandir}/man7/%{name}ui.7*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 8.0.0-22
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 8.0.0-21
 - Rebuilt for Python 3.14.0rc2 bytecode
 

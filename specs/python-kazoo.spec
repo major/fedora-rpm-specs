@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.8.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Higher level Python Zookeeper client
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -74,6 +74,9 @@ rm -fr %{buildroot}%{python3_sitelib}/%{pypi_name}/tests/
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.8.0-20
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.8.0-19
 - Rebuilt for Python 3.14.0rc2 bytecode
 

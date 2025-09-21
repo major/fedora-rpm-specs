@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.6.0
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        RESTful HTTP Content Negotiation for Flask, Bottle, etc.
 
 License:        MIT
@@ -75,6 +75,9 @@ cp %{SOURCE1} ./LICENSE
 %license LICENSE
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.6.0-27
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.6.0-26
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -1,7 +1,7 @@
 %global srcname modules-gui
 Name:           mogui
 Version:        0.2.2
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Graphical User Interface for Environment Modules
 
 # icon files are licensed under CC-BY-SA-3.0 terms
@@ -68,6 +68,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 %{_metainfodir}/%{name}.metainfo.xml
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.2.2-10
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.2.2-9
 - Rebuilt for Python 3.14.0rc2 bytecode
 

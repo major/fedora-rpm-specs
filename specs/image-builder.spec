@@ -7,7 +7,7 @@
 
 %global goipath         github.com/osbuild/image-builder-cli
 
-Version:        34
+Version:        35
 
 %gometa
 
@@ -127,7 +127,7 @@ Provides: bundled(golang(github.com/opencontainers/image-spec)) = 1.1.1
 Provides: bundled(golang(github.com/opencontainers/runtime-spec)) = 1.2.1
 Provides: bundled(golang(github.com/opencontainers/selinux)) = 1.12.0
 Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.13.0
-Provides: bundled(golang(github.com/osbuild/images)) = 0.191.0
+Provides: bundled(golang(github.com/osbuild/images)) = 0.193.0
 Provides: bundled(golang(github.com/pkg/errors)) = 0.9.1
 Provides: bundled(golang(github.com/pmezard/go-difflib)) = 5d4384e
 Provides: bundled(golang(github.com/proglottis/gpgme)) = 0.1.4
@@ -238,6 +238,19 @@ cd $PWD/_build/src/%{goipath}
 %{_bindir}/image-builder
 
 %changelog
+* Fri Sep 19 2025 Packit <hello@packit.dev> - 35-1
+Changes with 35
+----------------
+  - cmd/upload: add fedora ami to aws upload (HMS-9388) (#307)
+    - Author: Gianluca Zuccarelli, Reviewers: Lukáš Zapletal, Michael Vogt
+  - deps: update to images 0.193.0 (#308)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Michael Vogt
+  - main: update to latest images API changes in imgfilter (#295)
+    - Author: Michael Vogt, Reviewers: Simon de Vlieger, Tomáš Hozza
+
+— Somewhere on the Internet, 2025-09-19
+
+
 * Tue Sep 16 2025 Packit <hello@packit.dev> - 34-1
 Changes with 34
 ----------------

@@ -16,7 +16,7 @@ Initiative (NIfTI).}
 
 Name:           python-%{srcname}
 Version:        1.0.4
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Python bindings for Gifti
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -87,6 +87,9 @@ install -D -m 0644 %{srcname}.py -t %{buildroot}/%{python2_sitelib}/
 %{python3_sitelib}/__pycache__/%{srcname}.cpython-3*.pyc
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0.4-28
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.0.4-27
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -2,7 +2,7 @@ Name:       lector
 Summary:    Ebook reader and collection manager
 URL:        https://github.com/BasioMeusPuga/Lector
 Version:    0.5.1
-Release:    21%{?dist}
+Release:    22%{?dist}
 BuildArch:  noarch
 
 # Lector uses GPLv3, the bundled Rarfile library uses the MIT license.
@@ -117,6 +117,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/io.github.Bas
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.5.1-22
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.5.1-21
 - Rebuilt for Python 3.14.0rc2 bytecode
 

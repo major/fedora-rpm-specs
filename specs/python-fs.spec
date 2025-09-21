@@ -5,7 +5,7 @@
 
 Name:           python-%{srcname}
 Version:        2.4.16
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Python's Filesystem abstraction layer
 
 # https://spdx.org/licenses/MIT.html
@@ -76,6 +76,9 @@ k="${k-}${k+ and }not (test_geturl_for_fs and not binary)"
 %doc README.md examples
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.4.16-16
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.4.16-15
 - Rebuilt for Python 3.14.0rc2 bytecode
 

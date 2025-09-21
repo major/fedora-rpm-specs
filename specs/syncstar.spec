@@ -2,7 +2,7 @@
 
 Name:           %{pack}
 Version:        0.2.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Service for creating bootable USB storage devices at community conference kiosks
 
 # The syncstar project is licensed under AGPL-3.0-or-later license, except for the following files
@@ -51,6 +51,9 @@ visitors can avail its services.
 %{_bindir}/%{name}
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.2.2-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.2.2-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

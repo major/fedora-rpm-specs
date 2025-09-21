@@ -8,7 +8,7 @@ Livestreamer, which is no longer maintained.}
 
 Name:           python-%{srcname}
 Version:        7.5.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Python library for extracting streams from various websites
 
 # src/streamlink/packages/requests_file.py is Apache-2.0
@@ -120,6 +120,9 @@ export PYTEST_ADDOPTS="--deselect tests/test_logger.py::TestLogging::test_datefm
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 7.5.0-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Tue Aug 26 2025 Mohamed El Morabity <melmorabity@fedoraproject.org> - 7.5.0-4
 - Fix RHBZ #2389750
 

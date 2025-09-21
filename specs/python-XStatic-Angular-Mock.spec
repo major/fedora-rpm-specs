@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.2.1.1
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Angular-Mock (XStatic packaging standard)
 
 License:        MIT
@@ -88,6 +88,9 @@ chmod 644 %{buildroot}%{_jsdir}/angular_mock/angular-mock.js
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.2.1.1-38
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.2.1.1-37
 - Rebuilt for Python 3.14.0rc2 bytecode
 

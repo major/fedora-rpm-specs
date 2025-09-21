@@ -2,7 +2,7 @@
 
 Name:           python-%{modname}
 Version:        0.2
-Release:        46%{?dist}
+Release:        47%{?dist}
 Summary:        A key-value store supporting multiple backends
 License:        MIT
 URL:            http://pypi.python.org/pypi/%{modname}
@@ -63,6 +63,9 @@ rm -rf %{modname}/tests/integration/tests.py
 %{python3_sitelib}/%{modname}-%{version}*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.2-47
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.2-46
 - Rebuilt for Python 3.14.0rc2 bytecode
 

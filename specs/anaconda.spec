@@ -1,7 +1,7 @@
 Summary: Graphical system installer
 Name:    anaconda
 Version: 43.40
-Release: 1%{?dist}
+Release: 2%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -513,6 +513,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 43.40-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Tue Sep 16 2025 Packit <hello@packit.dev> - 43.40-1
 - Do not catch blivet.safe_dbus exceptions in iSCSI module (vtrefny)
 - Fixing unittests (a.badger)

@@ -1,6 +1,6 @@
 Name:           python-olefile
 Version:        0.47
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Python package to parse, read and write Microsoft OLE2 files
 
 %global         srcname         olefile
@@ -80,6 +80,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} tests/test_olefile.py
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.47-11
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.47-10
 - Rebuilt for Python 3.14.0rc2 bytecode
 

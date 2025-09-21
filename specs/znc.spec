@@ -13,7 +13,7 @@
 
 Name:           znc
 Version:        1.9.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        An advanced IRC bouncer
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -231,6 +231,9 @@ install -m0644 -D znc.sysusers.conf %{buildroot}%{_sysusersdir}/znc.conf
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.9.1-13
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.9.1-12
 - Rebuilt for Python 3.14.0rc2 bytecode
 

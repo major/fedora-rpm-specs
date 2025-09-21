@@ -19,7 +19,7 @@ or library.
 
 Name:           python-oslo-i18n
 Version:        6.4.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        OpenStack i18n library
 License:        Apache-2.0
 URL:            https://github.com/openstack/%{pypi_name}
@@ -142,6 +142,9 @@ mv %{buildroot}%{python3_sitelib}/oslo_i18n/locale %{buildroot}%{_datadir}/local
 %license LICENSE
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 6.4.0-7
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 6.4.0-6
 - Rebuilt for Python 3.14.0rc2 bytecode
 

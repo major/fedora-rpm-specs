@@ -5,7 +5,7 @@ encoding or decoding functionality.}
 
 Name:           python-mujson
 Version:        1.4
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Use the fastest JSON functions available at import time
 License:        MIT
 URL:            https://github.com/mattgiles/mujson
@@ -52,6 +52,9 @@ BuildRequires:  python3-devel
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.4-19
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.4-18
 - Rebuilt for Python 3.14.0rc2 bytecode
 

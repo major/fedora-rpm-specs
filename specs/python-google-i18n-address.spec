@@ -3,7 +3,7 @@ Name:           python-google-i18n-address
 %global pypi_name %(echo %{srcname} | sed 's/-/_/g')
 
 Version:        3.1.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Address validation helpers for Google's i18n address database
 
 # Automatically converted from old format: BSD with advertising - review is highly recommended.
@@ -62,6 +62,9 @@ rm -rf %{buildroot}/%{_bindir}/update-validation-files
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.1.0-11
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.1.0-10
 - Rebuilt for Python 3.14.0rc2 bytecode
 

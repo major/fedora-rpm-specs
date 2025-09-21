@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        3.2.1
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Configurable set of panels that display various debug information
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -62,6 +62,9 @@ rm -vr *.egg-info/
 %{python3_sitelib}/django_debug_toolbar-*.egg-info/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.2.1-19
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.2.1-18
 - Rebuilt for Python 3.14.0rc2 bytecode
 

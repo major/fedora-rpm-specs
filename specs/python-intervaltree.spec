@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        3.1.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        A mutable, self-balancing interval tree for Python
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -42,6 +42,9 @@ be by point, by range overlap, or by range envelopment.
 %doc README.md CHANGELOG.md
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.1.0-20
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.1.0-19
 - Rebuilt for Python 3.14.0rc2 bytecode
 

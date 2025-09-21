@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.2.2
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Script tag with additional attributes for django.forms.Media
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -46,6 +46,9 @@ rm -vr *.egg-info
 %{python3_sitelib}/js_asset/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.2.2-23
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.2.2-22
 - Rebuilt for Python 3.14.0rc2 bytecode
 

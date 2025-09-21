@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.7
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        DBus library in Python 3
 
 License:        LGPL-2.1-or-later
@@ -57,6 +57,9 @@ Requires:       python3-gobject-base
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.7-13
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.7-12
 - Rebuilt for Python 3.14.0rc2 bytecode
 

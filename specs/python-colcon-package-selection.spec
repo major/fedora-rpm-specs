@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.2.10
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Extension for colcon to select the packages to process
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -58,6 +58,9 @@ An extension for colcon-core to select a subset of packages for processing.
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.2.10-20
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.2.10-19
 - Rebuilt for Python 3.14.0rc2 bytecode
 

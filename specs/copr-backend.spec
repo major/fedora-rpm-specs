@@ -6,7 +6,7 @@
 
 Name:       copr-backend
 Version:    2.8
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Backend for Copr
 
 License:    GPL-2.0-or-later
@@ -240,6 +240,9 @@ install -m0644 -D conf/copr-backend.sysusers.conf %{buildroot}%{_sysusersdir}/co
 %exclude %{_pkgdocdir}/lighttpd
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.8-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Tue Sep 16 2025 Jakub Kadlcik <frostyx@email.cz> 2.8-1
 - Don't traceback when trying to run branch action for second time
 - Implement branch-fedora support for Pulp projects

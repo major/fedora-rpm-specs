@@ -2,7 +2,7 @@
 
 Name:           python-%{modname}
 Version:        4.2.0
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Flavors of Python dictionaries
 
 License:        MIT
@@ -45,6 +45,9 @@ py.test-%{python3_version} -v
 %{python3_sitelib}/%{modname}/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.2.0-31
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.2.0-30
 - Rebuilt for Python 3.14.0rc2 bytecode
 

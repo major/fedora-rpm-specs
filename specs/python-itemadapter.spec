@@ -5,7 +5,7 @@ providing a common interface to handle objects of different
 types in an uniform manner, regardless of their underlying implementation.}
 Name:		python-itemadapter
 Version:	0.10.0
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	The ItemAdapter class is a wrapper for data container object
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -49,6 +49,9 @@ Requires:	python3-attrs
 %{python3_sitelib}/itemadapter-*.egg-info
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.10.0-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.10.0-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

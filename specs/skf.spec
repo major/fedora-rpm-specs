@@ -13,7 +13,7 @@
 %undefine	betaver
 %define	betarel	%(echo %betaver | sed -e 's|-|_|' | sed -e 's|^_||')
 
-%global	baserelease	15
+%global	baserelease	16
 
 %undefine        _changelog_trimtime
 
@@ -359,6 +359,9 @@ sh %{SOURCE1}
 %{perl_vendorarch}/auto/skf/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.10.16-16
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.10.16-15
 - Rebuilt for Python 3.14.0rc2 bytecode
 

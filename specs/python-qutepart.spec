@@ -18,7 +18,7 @@ Qutepart is a code editor widget for PyQt. Features: \
 
 Name:           python-%{srcname}
 Version:        3.3.3
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        %{sum}
 
 # LGPL 2.1 >> 2.0 (explicitly allows dynamic linking)
@@ -105,6 +105,9 @@ xvfb-run -s '-screen :0 1024x768x16'\
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.3.3-16
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.3.3-15
 - Rebuilt for Python 3.14.0rc2 bytecode
 

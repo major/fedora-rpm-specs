@@ -1,6 +1,6 @@
 Name:           wordxtr
 Version:        2.0.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Create hunspell dictionary from given plain text input data files
 
 License:        GPL-2.0-or-later
@@ -42,6 +42,9 @@ input language and plain text unicode data files.
 %{_bindir}/wordxtr
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.0.0-9
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.0.0-8
 - Rebuilt for Python 3.14.0rc2 bytecode
 

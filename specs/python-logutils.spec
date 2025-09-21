@@ -2,7 +2,7 @@
 
 Name:               python-%{modname}
 Version:            0.3.5
-Release:            34%{?dist}
+Release:            35%{?dist}
 Summary:            Logging utilities
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -73,6 +73,9 @@ rm -rf %{modname}.egg-info
 %{python3_sitelib}/%{modname}-%{version}.dist-info/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.3.5-35
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.3.5-34
 - Rebuilt for Python 3.14.0rc2 bytecode
 

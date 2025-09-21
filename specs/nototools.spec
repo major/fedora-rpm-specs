@@ -9,7 +9,7 @@ including the google.com/get/noto website.
 
 Name:		nototools
 Version:	0.2.20
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Noto fonts support tools and scripts plus web site generation
 
 # In nototools source
@@ -114,6 +114,9 @@ popd
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.2.20-3
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.2.20-2
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -4,7 +4,7 @@
 
 Name:           python-%{modname}
 Version:        2.1.0
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Encode and decode Base64 without "=" padding
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -58,6 +58,9 @@ Python 3 version.
 %doc README.rst
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.1.0-17
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.1.0-16
 - Rebuilt for Python 3.14.0rc2 bytecode
 

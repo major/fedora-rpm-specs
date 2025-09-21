@@ -3,7 +3,7 @@
 
 Name:               python-stuf
 Version:            0.9.16
-Release:            42%{?dist}
+Release:            43%{?dist}
 Summary:            Fancy python dictionary types
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -54,6 +54,9 @@ rm -rf %{buildroot}%{python3_sitelib}/tests/
 %{python3_sitelib}/%{modname}-%{version}-*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.9.16-43
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.9.16-42
 - Rebuilt for Python 3.14.0rc2 bytecode
 

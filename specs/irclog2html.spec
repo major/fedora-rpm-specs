@@ -1,6 +1,6 @@
 Name:           irclog2html
 Version:        4.0.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A script to convert IRC logs to HTML and other formats
 
 License:        GPL-2.0-or-later
@@ -45,6 +45,9 @@ install -Dpm 0644 src/%{name}/irclog.css %{buildroot}%{_datadir}/%{name}
 %{_datadir}/%{name}/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.0.0-4
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.0.0-3
 - Rebuilt for Python 3.14.0rc2 bytecode
 

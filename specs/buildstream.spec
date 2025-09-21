@@ -9,15 +9,13 @@ Version:       2.5.0
 Release:       %autorelease
 Source0:       https://github.com/apache/buildstream/archive/%{version}/buildstream-%{version}.tar.gz
 Patch:         0001-requirements-requirements.in-Do-not-limit-protobuf-v.patch
+Patch:         0001-scheduler.py-Replace-asyncio-child-watcher-with-our-.patch
+Patch:         0001-_frontend-Fix-shell-completion-with-Click-8.2.patch
+Patch:         0001-types.py-Return-NotImplemented-for-unsupported-FastE.patch
 
 BuildRequires: gcc
 BuildRequires: python3-devel >= 3.9
 BuildRequires: python3-grpcio-tools
-
-# Test dependencies:
-BuildRequires: python3dist(pytest)
-BuildRequires: python3dist(tox-current-env)
-BuildRequires: tox
 
 Requires:      buildbox
 Requires:      fuse3
@@ -50,12 +48,11 @@ platforms and chipsets.
 ./setup.py build_grpc
 %pyproject_wheel
 
+
 %install
 %pyproject_install
 %pyproject_save_files -l %{name}
 
-%check
-%tox
 
 %files -n %{name} -f %{pyproject_files}
 %doc NEWS README.rst

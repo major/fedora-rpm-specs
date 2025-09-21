@@ -3,7 +3,7 @@
 
 Name:           pytz
 Version:        2025.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        World Timezone Definitions for Python
 
 License:        MIT
@@ -69,6 +69,9 @@ rm -r %{buildroot}%{python3_sitelib}/pytz/zoneinfo
 %{python3_sitelib}/pytz-%{version}.dist-info
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2025.2-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2025.2-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

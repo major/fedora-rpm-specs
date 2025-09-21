@@ -2,7 +2,7 @@
 
 Name: concordance
 Version: 1.5
-Release: 16%{?dist}
+Release: 17%{?dist}
 Summary: Software to program the Logitech Harmony remote control
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -131,6 +131,9 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.5-17
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.5-16
 - Rebuilt for Python 3.14.0rc2 bytecode
 

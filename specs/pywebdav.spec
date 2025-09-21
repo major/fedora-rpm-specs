@@ -3,7 +3,7 @@
 
 Name:           pywebdav
 Version:        0.9.12
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        WebDAV library
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -64,6 +64,9 @@ mv doc/LICENSE .
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.9.12-27
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.9.12-26
 - Rebuilt for Python 3.14.0rc2 bytecode
 

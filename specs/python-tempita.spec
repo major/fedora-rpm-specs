@@ -1,7 +1,7 @@
 
 Name:           python-tempita
 Version:        0.5.2
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        A very small text templating language
 
 License:        MIT
@@ -56,6 +56,9 @@ sed -i '/use_2to3/d' setup.py
 %{python3_sitelib}/*.egg-info/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.5.2-19
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.5.2-18
 - Rebuilt for Python 3.14.0rc2 bytecode
 

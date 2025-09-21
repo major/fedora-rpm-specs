@@ -1,6 +1,6 @@
 Name:		mftrace
 Version:	1.2.20
-Release:	17%{?dist}
+Release:	18%{?dist}
 Summary:	Utility for converting TeX bitmap fonts to Type 1 or TrueType fonts
 
 License:	GPL-2.0-only
@@ -52,6 +52,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.2.20-18
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.2.20-17
 - Rebuilt for Python 3.14.0rc2 bytecode
 

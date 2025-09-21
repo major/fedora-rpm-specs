@@ -5,7 +5,7 @@
 Name:           python-coverage
 Summary:        Code coverage testing module for Python
 Version:        7.10.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 # There is a jquery file in tests/ that is MIT OR GPL-2.0-only
 # but it does not end up in the binary package
 License:        Apache-2.0
@@ -116,6 +116,9 @@ popd
 %{python3_sitearch}/coverage*.egg-info/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 7.10.2-3
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 7.10.2-2
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        0.6.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        %{sum}
 
 # Note, this package is not actively developed
@@ -58,6 +58,9 @@ no longer needed.
 %doc CHANGES.rst README.rst
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.6.0-10
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.6.0-9
 - Rebuilt for Python 3.14.0rc2 bytecode
 

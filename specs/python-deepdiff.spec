@@ -4,7 +4,7 @@
 
 Name:           python-deepdiff
 Version:        8.6.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Deep Difference and search of any Python object/data
 
 License:        MIT
@@ -115,6 +115,9 @@ rm -rf docs/_build/html/.{doctrees,buildinfo}
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 8.6.1-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Sun Sep 14 2025 Romain Geissler <romain.geissler@amadeus.com> - 8.6.1-1
 - Update to 8.6.1 (rhbz#2393085).
 

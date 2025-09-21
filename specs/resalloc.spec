@@ -51,7 +51,7 @@ the purposes of CI/CD tasks.
 Name:       %srcname
 Summary:    %sum - client tooling
 Version:    5.11
-Release:    3%{?dist}
+Release:    4%{?dist}
 License:    GPL-2.0-or-later
 URL:        https://github.com/praiskup/resalloc
 BuildArch:  noarch
@@ -407,6 +407,9 @@ ln -s "%{default_sitelib}/%{name}server" %buildroot%_homedir/project
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 5.11-4
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 5.11-3
 - Rebuilt for Python 3.14.0rc2 bytecode
 

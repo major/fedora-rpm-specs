@@ -3,7 +3,7 @@
 
 Name:               python-pygal
 Version:            3.0.0
-Release:            16%{?dist}
+Release:            17%{?dist}
 Summary:            A python svg graph plotting library
 
 License:            LGPL-3.0-or-later
@@ -66,6 +66,9 @@ rm -rf %{modname}.egg-info
 %{python3_sitelib}/%{modname}-%{version}-*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.0.0-17
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.0.0-16
 - Rebuilt for Python 3.14.0rc2 bytecode
 

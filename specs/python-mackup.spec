@@ -5,7 +5,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.8.32
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Keep your application settings in sync
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -70,6 +70,9 @@ rm -rf %{pypi_name}.egg-info
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.8.32-19
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.8.32-18
 - Rebuilt for Python 3.14.0rc2 bytecode
 

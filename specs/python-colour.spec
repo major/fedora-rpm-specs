@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.1.5
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Python module to convert and manipulate color representations
 
 License:        BSD-2-Clause
@@ -58,6 +58,9 @@ Converts and manipulates common color representation (RGB, HSL, web, etc.)
 %license LICENSE
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.1.5-28
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.1.5-27
 - Rebuilt for Python 3.14.0rc2 bytecode
 

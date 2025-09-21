@@ -6,7 +6,7 @@
 
 Name:           python-%{pkgname}
 Version:        0.2.1
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        %{sum}
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -132,6 +132,9 @@ install -m0644 -D python-onionbalance.sysusers.conf %{buildroot}%{_sysusersdir}/
 %{_sysusersdir}/python-onionbalance.conf
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.2.1-20
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.2.1-19
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -1,6 +1,6 @@
 Name:           python-mdurl
 Version:        0.1.2
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Markdown URL utilities
 
 # SPDX
@@ -54,6 +54,9 @@ sed -i "s/pytest-cov//" tests/requirements.txt
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.1.2-13
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.1.2-12
 - Rebuilt for Python 3.14.0rc2 bytecode
 

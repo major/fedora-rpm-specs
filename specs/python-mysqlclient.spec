@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.2.5
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        MySQL/mariaDB database connector for Python
 
 License:        GPL-2.0-only
@@ -69,6 +69,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version} -v tests
 %license LICENSE
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.2.5-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.2.5-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

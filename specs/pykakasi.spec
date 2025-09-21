@@ -1,7 +1,7 @@
 %global __python /usr/bin/python3
 Name:           pykakasi
 Version:        2.3.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Lightweight converter from Japanese Kana-kanji sentences into Kana-Roman
 
 License:        GPL-3.0-or-later AND BSD-3-Clause
@@ -48,6 +48,9 @@ cp -a build/docs/pykakasi.1 %{buildroot}/%{_mandir}/man1/
 %doc docs/*rst.inc
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.3.0-7
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.3.0-6
 - Rebuilt for Python 3.14.0rc2 bytecode
 

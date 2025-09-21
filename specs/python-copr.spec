@@ -2,7 +2,7 @@
 
 Name:       python-copr
 Version:    2.3
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Python interface for Copr
 
 License:    GPL-2.0-or-later
@@ -136,6 +136,9 @@ cp -a docs/_build/html %{buildroot}%{_pkgdocdir}/
 %doc %{_pkgdocdir}
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.3-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Tue Sep 16 2025 Jakub Kadlcik <frostyx@email.cz> 2.3-1
 - Use correct used HTTP methods for delete and update requests
 - Introduce v3.requests.DELETE method

@@ -1,6 +1,6 @@
 Name:           python-datanommer-commands
 Version:        1.4.4
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Console commands for datanommer
 
 License:        GPL-3.0-or-later
@@ -59,6 +59,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.4.4-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.4.4-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

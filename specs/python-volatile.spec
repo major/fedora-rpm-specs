@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        2.1.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        A small extension for the tempfile module
 License:        MIT
 URL:            https://github.com/mbr/volatile
@@ -61,6 +61,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.1.0-20
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.1.0-19
 - Rebuilt for Python 3.14.0rc2 bytecode
 

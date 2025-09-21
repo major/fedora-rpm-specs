@@ -1,6 +1,6 @@
 Name:           python-xdot
 Version:        1.1
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Interactive viewer for Graphviz dot files
 
 # The file declares itself to be LGPLv3 or later at the top, but
@@ -64,6 +64,9 @@ rm -rf xdot.egg-info
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.1-23
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.1-22
 - Rebuilt for Python 3.14.0rc2 bytecode
 

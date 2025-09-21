@@ -7,7 +7,7 @@
 
 Name:           bindep
 Version:        2.11.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Binary dependency utility
 
 License:        Apache-2.0
@@ -65,6 +65,9 @@ find -type f -name '*.py' | xargs -d'\n' sed -i \
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.11.0-10
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.11.0-9
 - Rebuilt for Python 3.14.0rc2 bytecode
 

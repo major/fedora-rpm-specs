@@ -11,7 +11,7 @@ The key feature is exactly what you want: dot-access.}
 
 Name:           python-%{pypi_name}
 Version:        1.3.30
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Dot access dictionary with dynamic hierarchy creation and ordered iteration
 
 License:        MIT
@@ -57,6 +57,9 @@ python3 -m unittest
 %doc README.md
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.3.30-15
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.3.30-14
 - Rebuilt for Python 3.14.0rc2 bytecode
 

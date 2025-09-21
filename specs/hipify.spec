@@ -21,7 +21,7 @@
 #
 %global upstreamname HIPIFY
 
-%global rocm_release 6.4
+%global rocm_release 7.0
 %global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -30,7 +30,7 @@
 
 Name:           hipify
 Version:        %{rocm_version}
-Release:        5%{?dist}
+Release:        1%{?dist}
 Summary:        Convert CUDA to HIP
 
 Url:            https://github.com/ROCm
@@ -91,16 +91,15 @@ rm -rf %{buildroot}%{_includedir}
 %files
 %doc README.md
 %license LICENSE.txt
-%{_bindir}/hipconvertinplace-perl.sh
-%{_bindir}/hipconvertinplace.sh
-%{_bindir}/hipexamine-perl.sh
-%{_bindir}/hipexamine.sh
 %{_bindir}/hipify-clang
 %{_bindir}/hipify-perl
 %{_libexecdir}/%{name}
 
 %changelog
-* Thu Aug 25 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.1-5
+* Fri Sep 19 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-1
+- Update to 7.0.1
+
+* Thu Aug 28 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.1-5
 - Add Fedora copyright
 
 * Mon Aug 25 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.1-4

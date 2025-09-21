@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.7.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Unicode to 8-bit charset transliteration codec
 
 License:        MIT
@@ -47,6 +47,9 @@ Best-effort representations using smaller coded character sets
 %{python3_sitelib}/%{pypi_name}-*.egg-info/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.7.0-16
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.7.0-15
 - Rebuilt for Python 3.14.0rc2 bytecode
 

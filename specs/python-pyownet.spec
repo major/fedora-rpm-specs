@@ -1,6 +1,6 @@
 Name:		python-pyownet
 Version:	0.10.0.post1
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Pure python client library for accessing OWFS via owserver protocol
 
 License:	LGPL-3.0-or-later
@@ -54,6 +54,9 @@ Summary:	Pure python client library for accessing OWFS via owserver protocol
 %{python3_sitelib}/pyownet-%{version}.dist-info/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.10.0.post1-9
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.10.0.post1-8
 - Rebuilt for Python 3.14.0rc2 bytecode
 

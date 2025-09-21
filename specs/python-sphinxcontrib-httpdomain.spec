@@ -3,7 +3,7 @@
 
 Name:           python-%{upstream_name}
 Version:        1.8.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Sphinx domain for documenting HTTP APIs
 License:        BSD-2-Clause
 URL:            http://packages.python.org/sphinxcontrib-httpdomain/
@@ -46,6 +46,9 @@ rm -r *.egg-info
 %{python3_sitelib}/sphinxcontrib*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.8.1-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.8.1-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

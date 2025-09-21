@@ -4,7 +4,7 @@
 
 Name:           nemo-extensions
 Version:        6.4.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Extensions for Nemo
 
 License:        GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
@@ -341,6 +341,9 @@ rm -rf %{buildroot}/%{_datadir}/doc/nemo-python/
 %{_mandir}/man1/nemo-seahorse-tool.1.* 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 6.4.0-8
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Tue Sep 16 2025 Michal Hlavinka <mhlavink@redhat.com> - 6.4.0-7
 - fix building with gpgme 2.0
 

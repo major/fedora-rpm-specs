@@ -6,7 +6,7 @@ an OpenID consumer for the Fedora Account System.
 
 Name:               python-pyramid-fas-openid
 Version:            0.4.0
-Release:            20%{?dist}
+Release:            21%{?dist}
 Summary:            A view for pyramid that functions as an OpenID consumer for FAS
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -61,6 +61,9 @@ rm -rf %{modname}.egg-info
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.4.0-21
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.4.0-20
 - Rebuilt for Python 3.14.0rc2 bytecode
 

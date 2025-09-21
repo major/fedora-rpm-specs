@@ -14,7 +14,7 @@ openQA web API, using the requests HTTP request library.
 
 Name:           python-openqa_client
 Version:        %{github_version}
-Release:        1%{?github_date:.%{github_date}git%{shortcommit}}%{?dist}
+Release:        2%{?github_date:.%{github_date}git%{shortcommit}}%{?dist}
 Summary:        %{sum}
 
 License:        GPL-2.0-or-later
@@ -62,6 +62,9 @@ sed -i -e 's., "setuptools-scm"..g' pyproject.toml
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.3.1-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Sep 05 2025 Adam Williamson <awilliam@redhat.com> - 4.3.1-1
 - New release 4.3.1 (JSON endpoint fixes)
 

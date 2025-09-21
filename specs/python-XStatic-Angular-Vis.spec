@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        4.16.0.0
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Angular-Vis (XStatic packaging standard)
 
 License:        MIT
@@ -89,6 +89,9 @@ rmdir %{buildroot}%{python3_sitelib}/xstatic/pkg/angular_vis/data/
 %{python3_sitelib}/XStatic_Angular_Vis-%{version}-py3.*-nspkg.pth
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.16.0.0-27
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.16.0.0-26
 - Rebuilt for Python 3.14.0rc2 bytecode
 

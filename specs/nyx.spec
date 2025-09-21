@@ -5,7 +5,7 @@ connections, logs, and much more.
 
 Name: nyx
 Version: 2.1.0
-Release: 27%{?dist}
+Release: 28%{?dist}
 Summary: Command-line monitor for Tor
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License: GPL-3.0-only
@@ -54,6 +54,9 @@ install -D -m 0644 nyx.1 %{buildroot}%{_mandir}/man1/nyx.1
 %{_mandir}/man1/nyx.1*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.1.0-28
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.1.0-27
 - Rebuilt for Python 3.14.0rc2 bytecode
 

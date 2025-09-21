@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        0.11
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        %{sum}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -51,6 +51,9 @@ find -name '*.txt' | xargs chmod -x
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.11-22
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.11-21
 - Rebuilt for Python 3.14.0rc2 bytecode
 

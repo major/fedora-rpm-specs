@@ -4,7 +4,7 @@
 
 Name:           eog-plugins
 Version:        44.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A collection of plugins for the eog image viewer
 
 License:        GPL-2.0-or-later AND CC0-1.0
@@ -234,6 +234,9 @@ The eog slideshowshuffle plugin.
 %{_metainfodir}/eog-slideshowshuffle.appdata.xml
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 44.1-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 44.1-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

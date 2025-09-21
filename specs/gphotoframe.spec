@@ -14,7 +14,7 @@
 %global	mainver	2.0.2
 #%%define	minorver	-b1
 
-%global	baserelease	38
+%global	baserelease	39
 
 %global	rpmminorver	%(echo "%minorver" | sed -e 's|^-||' | sed -e 's|\\\.||')
 %global	fedorarel	%{?minorver:0.}%{baserelease}%{?minorver:.%rpmminorver}%{?hghash:.hg%hghash}
@@ -303,6 +303,9 @@ find %{buildroot}%{_prefix} -name \*.py3 -delete
 %{_datadir}/appdata/%{name}.appdata.xml
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.0.2-39.hg2084299dffb6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Sun Aug 17 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.0.2-38.hg2084299dffb6
 - migrate to pyproject macros
 

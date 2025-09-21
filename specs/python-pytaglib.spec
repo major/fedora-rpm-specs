@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        2.1.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Python audio metadata ("tagging") library based on TagLib
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -65,6 +65,9 @@ sed -i 's/cython==3\.0\.\*/cython==3.*/' pyproject.toml
 %{python3_sitearch}/__pycache__/pyprinttags.*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.1.0-7
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.1.0-6
 - Rebuilt for Python 3.14.0rc2 bytecode
 

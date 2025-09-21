@@ -1,5 +1,5 @@
 Name:          lnav
-Version:       0.13.1
+Version:       0.13.2
 Release:       1%{?dist}
 Summary:       Curses-based tool for viewing and analyzing log files
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -51,6 +51,10 @@ quickly and efficiently zero in on problems.
 
 
 %changelog
+* Fri Sep 19 2025 Peter Schiffer <peter+fedora@pschiffer.eu> - 0.13.2-1
+- resolves: #2395628
+  updated to 0.13.2
+
 * Wed Sep 10 2025 Peter Schiffer <peter+fedora@pschiffer.eu> - 0.13.1-1
 - resolves: #2354227
   updated to 0.13.1

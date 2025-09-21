@@ -4,7 +4,7 @@ Version:        0.7.0
 %forgemeta
 
 Name:           python-%{pypi_name}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        You like pytorch? You like micrograd? You love tinygrad! 
 
 License:        MIT
@@ -75,6 +75,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.7.0-9
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.7.0-8
 - Rebuilt for Python 3.14.0rc2 bytecode
 

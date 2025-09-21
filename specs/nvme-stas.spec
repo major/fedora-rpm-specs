@@ -1,7 +1,7 @@
 Name:    nvme-stas
 Summary: NVMe STorage Appliance Services
 Version: 2.4.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: Apache-2.0
 URL:     https://github.com/linux-nvme/nvme-stas
 Source0: %{url}/archive/v%{version_no_tilde}/%{name}-%{version_no_tilde}.tar.gz
@@ -89,6 +89,9 @@ mv %{buildroot}/%{_sysconfdir}/stas/sys.conf.doc %{buildroot}/%{_sysconfdir}/sta
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.4.1-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.4.1-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

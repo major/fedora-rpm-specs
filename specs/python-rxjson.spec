@@ -3,7 +3,7 @@
 Name:             python-%{srcname}
 Summary:          JSON RX Schema validation tool
 Version:          0.3
-Release:          27%{?dist}
+Release:          28%{?dist}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:          GPL-2.0-or-later
@@ -41,6 +41,9 @@ rm -vrf *.egg-info
 %{python3_sitelib}/%{srcname}*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.3-28
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.3-27
 - Rebuilt for Python 3.14.0rc2 bytecode
 

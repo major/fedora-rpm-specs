@@ -1,6 +1,6 @@
 Name:           python-cram
 Version:        0.7
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Simple testing framework for command line applications
 License:        GPL-2.0-or-later
 URL:            https://bitheap.org/cram/
@@ -46,6 +46,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} PYTHON=%python3 scripts/cram -v tests
 %{_bindir}/cram
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.7-26
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.7-25
 - Rebuilt for Python 3.14.0rc2 bytecode
 

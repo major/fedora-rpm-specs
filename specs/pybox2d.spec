@@ -1,6 +1,6 @@
 Name:           pybox2d
 Version:        2.3.2
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        A 2D rigid body simulation library for Python
 
 License:        zlib
@@ -51,6 +51,9 @@ This package provides the Python 3 build of %{name}.
 %doc README.md examples/*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.3.2-33
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.3.2-32
 - Rebuilt for Python 3.14.0rc2 bytecode
 

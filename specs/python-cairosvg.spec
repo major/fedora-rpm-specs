@@ -4,7 +4,7 @@
 
 Name:               python-cairosvg
 Version:            2.7.1
-Release:            4%{?dist}
+Release:            5%{?dist}
 Summary:            A Simple SVG Converter for Cairo
 
 License:            LGPL-3.0-or-later
@@ -77,6 +77,9 @@ rm -f %{buildroot}%{python3_sitelib}/%{modname}/test_api.py
 %{_bindir}/cairosvg
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.7.1-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.7.1-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

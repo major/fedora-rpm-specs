@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        20.11.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Operations with ISO 8601 durations
 
 License:        ISC
@@ -47,6 +47,9 @@ durations. They have a shape similar to this: P3Y6M4DT12H30M5S
 %doc README.md
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 20.11.0-15
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 20.11.0-14
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.3.2.0
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        FilseSaver (XStatic packaging standard)
 
 License:        MIT
@@ -91,6 +91,9 @@ rmdir %{buildroot}%{python3_sitelib}/xstatic/pkg/filesaver/data/
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.3.2.0-27
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.3.2.0-26
 - Rebuilt for Python 3.14.0rc2 bytecode
 

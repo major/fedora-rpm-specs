@@ -10,7 +10,7 @@ or docs/index.rst in this distribution for detailed documentation.
 
 Name:           python-pyramid-tm
 Version:        2.6
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        %{sum}
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -84,6 +84,9 @@ or docs/index.rst in this distribution for detailed documentation.
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.6-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.6-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -1,6 +1,6 @@
 Name:           python-pwntools
 Version:        4.14.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A CTF framework and exploit development library
 URL:            https://github.com/Gallopsled/pwntools/
 VCS:            https://github.com/Gallopsled/pwntools/
@@ -156,6 +156,9 @@ export PYTHONPATH="${PYTHONPATH:-%{buildroot}%{python3_sitearch}:%{buildroot}%{p
 # %%license LICENSE-pwntools.txt
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.14.1-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.14.1-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

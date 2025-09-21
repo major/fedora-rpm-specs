@@ -2,7 +2,7 @@
 Name:           python-dtopt
 Summary:        Add options to doctest examples while they are running
 Version:        0.1
-Release:        54%{?dist}
+Release:        55%{?dist}
 License:        MIT
 
 URL:            http://pypi.python.org/pypi/dtopt/
@@ -60,6 +60,9 @@ rm dtopt/tests.py*
 %{python3_sitelib}/dtopt*.egg-info/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.1-55
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.1-54
 - Rebuilt for Python 3.14.0rc2 bytecode
 

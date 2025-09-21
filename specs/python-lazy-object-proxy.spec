@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        1.11.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        %{sum}
 
 License:        BSD-2-Clause
@@ -50,6 +50,9 @@ sed -Ei '/\b(objproxies|hunter)\b/d' tox.ini
 %exclude %{python3_sitearch}/lazy_object_proxy/cext.c
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.11.0-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.11.0-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

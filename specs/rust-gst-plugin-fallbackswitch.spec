@@ -4,7 +4,7 @@
 %global crate gst-plugin-fallbackswitch
 
 Name:           rust-gst-plugin-fallbackswitch
-Version:        0.14.0
+Version:        0.14.2
 Release:        %autorelease
 Summary:        GStreamer Fallback Switcher and Source Plugin
 

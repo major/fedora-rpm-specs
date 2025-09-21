@@ -1,6 +1,6 @@
 Name:           fedora-distro-aliases
 Version:        1.7
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Aliases for active Fedora releases
 
 License:        GPL-2.0-or-later
@@ -56,6 +56,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.7-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.7-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

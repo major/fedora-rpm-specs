@@ -22,7 +22,7 @@ Neutron's API.
 
 Name:       python-neutronclient
 Version:    11.3.1
-Release:    4%{?dist}
+Release:    5%{?dist}
 Summary:    Python API and CLI for OpenStack Neutron
 
 License:    Apache-2.0
@@ -146,6 +146,9 @@ rm neutronclient/tests/unit/test_http.py
 %endif
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 11.3.1-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 11.3.1-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

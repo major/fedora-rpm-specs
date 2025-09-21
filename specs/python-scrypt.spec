@@ -1,6 +1,6 @@
 Name:           python-scrypt
 Version:        0.8.27
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Python bindings for the scrypt key derivation function
 
 License:        BSD-2-Clause
@@ -59,6 +59,9 @@ sed -i '1d' scrypt/scrypt.py
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.8.27-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.8.27-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

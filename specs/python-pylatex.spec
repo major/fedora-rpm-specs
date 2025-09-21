@@ -20,7 +20,7 @@ Python and LaTeX.}
 
 Name:           python-pylatex
 Version:        1.4.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Library for creating LaTeX files and snippets
 
 %forgemeta
@@ -157,6 +157,9 @@ popd
 %doc README.rst
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.4.2-8
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.4.2-7
 - Rebuilt for Python 3.14.0rc2 bytecode
 

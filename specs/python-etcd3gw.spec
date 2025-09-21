@@ -15,7 +15,7 @@
 
 Name:           python-%{srcname}
 Version:        2.4.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        An etcd3 gateway Python client
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -126,6 +126,9 @@ py.test-3
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.4.1-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.4.1-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

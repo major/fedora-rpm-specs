@@ -1,6 +1,6 @@
 Name: python-btrfs
 Version: 15
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Python module to inspect btrfs filesystems
 # Automatically converted from old format: LGPLv3+ and MIT - review is highly recommended.
 License: LGPL-3.0-or-later AND LicenseRef-Callaway-MIT
@@ -72,6 +72,9 @@ install -m 0644 man/* %{buildroot}%{_mandir}/man1
 %license COPYING.LESSER
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 15-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 15-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

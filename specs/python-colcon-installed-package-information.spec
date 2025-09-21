@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.2.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Extensions for colcon to inspect packages which have already been installed
 
 License:        Apache-2.0
@@ -65,6 +65,9 @@ extensions provided by colcon_core.
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.2.1-8
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.2.1-7
 - Rebuilt for Python 3.14.0rc2 bytecode
 

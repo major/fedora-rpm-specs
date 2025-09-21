@@ -8,7 +8,7 @@ check on style.}
 Name:           pyflakes
 # WARNING: When updating pyflakes, check not to break flake8!
 Version:        3.1.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A simple program which checks Python source files for errors
 
 License:        MIT
@@ -70,6 +70,9 @@ ln -s pyflakes-3.1 %{buildroot}%{_mandir}/man1/pyflakes.1
 %exclude %{python3_sitelib}/pyflakes/test
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.1.0-8
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.1.0-7
 - Rebuilt for Python 3.14.0rc2 bytecode
 

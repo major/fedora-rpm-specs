@@ -13,7 +13,7 @@ and data applications.}
 
 Name:           python-%{pypi_name}
 Version:        2.3.0
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Interactive plots and applications in the browser from Python
 
 # License breakdown: licensecheck -r . | sed '/UNKNOWN/ d' | sort -t ':' -k 2
@@ -232,6 +232,9 @@ rm -f %{buildroot}/%{python3_sitelib}/bokeh/server/static/.keep
 %{python3_sitelib}/%{pypi_name}
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.3.0-22
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.3.0-21
 - Rebuilt for Python 3.14.0rc2 bytecode
 

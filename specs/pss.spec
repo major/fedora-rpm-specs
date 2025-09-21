@@ -1,6 +1,6 @@
 Name:           pss
 Version:        1.40
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        A power-tool for searching inside source code files
 
 # psslib/colorama is BSD-3-Clause
@@ -39,6 +39,9 @@ colors its output in a helpful way, and does much more.
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.40-38
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.40-37
 - Rebuilt for Python 3.14.0rc2 bytecode
 

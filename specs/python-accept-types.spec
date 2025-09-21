@@ -6,7 +6,7 @@
 
 Name:           python-%{pypi_name}
 Version:        %{pypi_version}
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Use the correct accept type for an HTTP request
 License:        MIT
 URL:            https://bitbucket.org/%{owner}/%{name}
@@ -53,6 +53,9 @@ Summary:        %{summary}
 %doc README.rst
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.4.1-17
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.4.1-16
 - Rebuilt for Python 3.14.0rc2 bytecode
 

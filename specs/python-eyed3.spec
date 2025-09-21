@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.9.7
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Python audio data toolkit (ID3 and MP3)
 License:        GPL-3.0-or-later
 URL:            https://github.com/nicfit/eyeD3
@@ -61,6 +61,9 @@ py.test-%{python3_version} --ignore=tests/{test_classic_plugin.py,test_core.py,i
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.9.7-14
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.9.7-13
 - Rebuilt for Python 3.14.0rc2 bytecode
 

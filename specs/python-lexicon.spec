@@ -2,7 +2,7 @@
 
 Name:		python-lexicon
 Version:	3.0.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Powerful dict subclass(es) with aliasing and attribute access
 License:	BSD-2-Clause
 URL:		https://github.com/bitprophet/lexicon
@@ -49,6 +49,9 @@ Lexicon is a simple collection of dict sub-classes providing extra power.
 %{python3_sitelib}/lexicon-%{version}.dist-info/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.0.0-3
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.0.0-2
 - Rebuilt for Python 3.14.0rc2 bytecode
 

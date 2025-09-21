@@ -1,6 +1,6 @@
 Name: python-routes
 Version: 2.5.1
-Release: 15%{?dist}
+Release: 16%{?dist}
 Summary: Routing Recognition and Generation Tools
 
 # tests/test_functional/test_recognition.py is BSD, not shipped in main RPM.
@@ -57,6 +57,9 @@ PYTHONPATH=$(pwd) python3 -m pytest
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.5.1-16
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.5.1-15
 - Rebuilt for Python 3.14.0rc2 bytecode
 

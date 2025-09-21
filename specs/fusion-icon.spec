@@ -1,7 +1,7 @@
 
 Name:           fusion-icon
 Version:        0.2.4
-Release:        34%{?dist}
+Release:        35%{?dist}
 Epoch:          1
 Summary:        Compiz Fusion panel applet
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -69,6 +69,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/fusion-icon.desktop
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1:0.2.4-35
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1:0.2.4-34
 - Rebuilt for Python 3.14.0rc2 bytecode
 

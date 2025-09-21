@@ -23,7 +23,7 @@
 
 Name: tito
 Version: 0.6.27
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: A tool for managing rpm based git projects
 
 License: GPL-2.0-only
@@ -133,6 +133,9 @@ git config --global user.name "Your Name"
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.6.27-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.6.27-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

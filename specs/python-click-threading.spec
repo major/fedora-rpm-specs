@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        0.5.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        %{sum}
 
 License:        MIT
@@ -44,6 +44,9 @@ Multithreaded support for python 3 click (CLI creation kit) applications.
 %{python3_sitelib}/%{pyname}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.5.0-16
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.5.0-15
 - Rebuilt for Python 3.14.0rc2 bytecode
 

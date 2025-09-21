@@ -4,7 +4,7 @@ Name: python-%{srcname}
 Summary: A Python library for creating text UI
 Url: https://github.com/rhinstaller/python-%{srcname}
 Version: 1.9.0
-Release: 16%{?dist}
+Release: 17%{?dist}
 # This tarball was created from upstream git:
 #   git clone https://github.com/rhinstaller/python-simpleline
 #   cd python-simpleline && make archive
@@ -60,6 +60,9 @@ make test
 %{python3_sitelib}/*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.9.0-17
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.9.0-16
 - Rebuilt for Python 3.14.0rc2 bytecode
 

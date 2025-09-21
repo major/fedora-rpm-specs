@@ -2,7 +2,7 @@
 
 Name:           adb-enhanced
 Version:        2.5.24
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Tool for Android testing and development
 
 License:        Apache-2.0
@@ -44,6 +44,9 @@ battery saver mode, data saver mode, doze mode, permission grant/revocation.
 %{python3_sitelib}/adb_enhanced*.egg-info/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.5.24-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.5.24-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

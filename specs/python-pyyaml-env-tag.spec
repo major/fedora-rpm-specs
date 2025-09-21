@@ -1,6 +1,6 @@
 Name:           python-pyyaml-env-tag
 Version:        1.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A custom YAML tag for referencing environment variables in YAML files
 BuildArch:      noarch
 
@@ -48,6 +48,9 @@ PYTHONPATH=$PWD %{python3} tests/test_yaml_env_tag.py
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.1-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.1-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

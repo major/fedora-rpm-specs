@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        4.1.4
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Simple construction, analysis and modification of binary data
 
 License:        MIT
@@ -58,6 +58,9 @@ sed -i '1{s|^#!\(/usr\)\?/bin/\(env \)\?python\d\?$||}' %{srcname}/__init__.py
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.1.4-10
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.1.4-9
 - Rebuilt for Python 3.14.0rc2 bytecode
 

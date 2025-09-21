@@ -5,7 +5,7 @@
 
 Name:           python-%{srcname}
 Version:        2.10.1
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        A Meta CLI toolkit
 
 License:        MIT
@@ -66,6 +66,9 @@ BuildRequires:  python3dist(terminaltables)
 %{_bindir}/%{srcname}
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.10.1-17
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.10.1-16
 - Rebuilt for Python 3.14.0rc2 bytecode
 

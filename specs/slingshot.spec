@@ -1,6 +1,6 @@
 Name: slingshot
 Version:  0.9
-Release:  29%{?dist}
+Release:  30%{?dist}
 Summary: A Newtonian strategy game
 
 License: GPL-2.0-or-later        
@@ -72,6 +72,9 @@ ln -s %{_datadir}/fonts/gnu-free/FreeSansBold.ttf $RPM_BUILD_ROOT%{python3_sitel
 %{_metainfodir}/slingshot.appdata.xml
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.9-30
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.9-29
 - Rebuilt for Python 3.14.0rc2 bytecode
 

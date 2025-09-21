@@ -4,7 +4,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.6.1
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Wkhtmltopdf python wrapper
 
 License:        MIT
@@ -68,6 +68,9 @@ cd tests
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.6.1-22
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.6.1-21
 - Rebuilt for Python 3.14.0rc2 bytecode
 

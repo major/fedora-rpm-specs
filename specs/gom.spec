@@ -1,6 +1,6 @@
 Name:           gom
 Version:        0.5.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GObject to SQLite object mapper library
 
 # documentation is GFDL-1.1-or-later
@@ -60,6 +60,9 @@ developing applications that use %{name}.
 %doc %{_docdir}/gom-1.0/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.5.4-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Thu Sep 04 2025 Michael Catanzaro <mcatanzaro@gnome.org> - 0.5.4-1
 - Update to 0.5.4
 

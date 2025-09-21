@@ -7,7 +7,7 @@
 
 Name:           python-invoke
 Version:        2.2.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        A Python task execution tool and library
 
 License:        BSD-2-Clause
@@ -71,6 +71,9 @@ ln -s invoke %{buildroot}%{_bindir}/invoke3
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.2.0-12
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.2.0-11
 - Rebuilt for Python 3.14.0rc2 bytecode
 

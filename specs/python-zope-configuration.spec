@@ -2,7 +2,7 @@
 
 Name:           python-zope-configuration
 Version:        5.0.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Zope Configuration Markup Language (ZCML)
 
 License:        ZPL-2.1
@@ -59,6 +59,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 5.0.1-8
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 5.0.1-7
 - Rebuilt for Python 3.14.0rc2 bytecode
 

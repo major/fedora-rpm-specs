@@ -2,7 +2,7 @@
 
 Name:       python-%{pypi_name}
 Version:    3.2.0
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Encoder/decoder for simple GIS features
 
 License:    LicenseRef-Callaway-BSD
@@ -50,6 +50,9 @@ Summary:        %{summary}
 %license LICENSE.rst
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.2.0-3
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.2.0-2
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.9.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Linux Distribution - a Linux OS platform information API
 
 License:        Apache-2.0
@@ -60,6 +60,9 @@ Suggests:       /usr/bin/lsb_release
 %pytest
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.9.0-10
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.9.0-9
 - Rebuilt for Python 3.14.0rc2 bytecode
 

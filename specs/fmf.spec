@@ -1,6 +1,6 @@
 Name:          fmf
 Version:       1.7.0
-Release:       4%{?dist}
+Release:       5%{?dist}
 
 Summary:       Flexible Metadata Format
 License:       GPL-2.0-or-later
@@ -60,6 +60,9 @@ install -pm 644 fmf.1* %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.7.0-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.7.0-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

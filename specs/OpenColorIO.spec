@@ -1,6 +1,6 @@
 Name:           OpenColorIO
 Version:        2.4.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Enables color transforms and image display across graphics apps
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -171,6 +171,9 @@ find %{buildroot} -type f -name "*.a" -exec rm -f {} \;
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.4.2-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Thu Sep 11 2025 Richard Shaw <hobbes1069@gmail.com> - 2.4.2-5
 - Rebuild for pystring.
 

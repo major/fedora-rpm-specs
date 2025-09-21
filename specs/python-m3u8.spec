@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        6.0.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Python module %srcname parser
 License:        MIT
 Url:            https://github.com/globocom/m3u8
@@ -57,6 +57,9 @@ Python module %srcname parser
 %doc README.md
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 6.0.0-7
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 6.0.0-6
 - Rebuilt for Python 3.14.0rc2 bytecode
 

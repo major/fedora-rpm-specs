@@ -7,7 +7,7 @@
 
 Name: python-%{srcname}
 Version: %{srcversion}
-Release: 30%{?dist}
+Release: 31%{?dist}
 Summary: Utility for writing multi-host tests for pytest
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -58,6 +58,9 @@ specify how many machines they need and commands/checks to run on them.
 %{python3_sitelib}/%{modulename}/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.0-31
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.0-30
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -12,7 +12,7 @@ Version:        2.1.1
 
 %forgemeta
 
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A Python implementation of the DICOM networking protocol
 
 License:        MIT
@@ -177,6 +177,9 @@ k="${k-}${k+ and }not (TestPrettyDataset and test_sequence_multi)"
 %{_bindir}/storescu
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.1.1-9
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.1.1-8
 - Rebuilt for Python 3.14.0rc2 bytecode
 

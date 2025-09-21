@@ -7,7 +7,7 @@ commands on each passing and failing test run.
 
 Name:           python-%{pypi_name}
 Version:        4.2.0
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Local continuous test runner with pytest and watchdog
 
 License:        MIT
@@ -78,6 +78,9 @@ popd
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.2.0-27
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.2.0-26
 - Rebuilt for Python 3.14.0rc2 bytecode
 

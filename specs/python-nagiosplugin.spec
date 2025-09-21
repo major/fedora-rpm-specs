@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.3.3
-Release:        13%{?dist}
+Release:        14%{?dist}
 License:        ZPL-2.1
 Summary:        Library for writing Nagios (Icinga) plugins
 
@@ -57,6 +57,9 @@ Summary:        %{summary}
 %{python3_sitelib}/nagiosplugin/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.3.3-14
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.3.3-13
 - Rebuilt for Python 3.14.0rc2 bytecode
 

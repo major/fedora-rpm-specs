@@ -1,6 +1,6 @@
 Name: NFStest		
 Version: 3.2
-Release: 13%{?dist}
+Release: 14%{?dist}
 Summary: NFS Testing Tool
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -52,6 +52,9 @@ most of the functionality is focused mainly on testing the client.
 %doc COPYING README
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.2-14
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.2-13
 - Rebuilt for Python 3.14.0rc2 bytecode
 

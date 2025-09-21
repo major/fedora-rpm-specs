@@ -2,7 +2,7 @@
 
 Name:           onionshare
 Version:        2.5
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Securely and anonymously share files of any size
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -73,6 +73,9 @@ user just needs to use Tor Browser to download a file from you.
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.5-15
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.5-14
 - Rebuilt for Python 3.14.0rc2 bytecode
 

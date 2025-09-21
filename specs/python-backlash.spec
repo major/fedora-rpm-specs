@@ -3,7 +3,7 @@
 
 Name:               python-backlash
 Version:            0.4.0
-Release:            4%{?dist}
+Release:            5%{?dist}
 Summary:            Standalone WebOb port of the Werkzeug Debugger
 
 License:            MIT
@@ -63,6 +63,9 @@ ln -sfv /usr/share/fonts/open-sans/OpenSans-Regular.ttf %{buildroot}/%{python3_s
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.4.0-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.4.0-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

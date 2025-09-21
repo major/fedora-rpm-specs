@@ -5,7 +5,7 @@
 
 Name:		%{srcname}
 Version:	6.1.0
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Python client library for PostgreSQL
 
 URL:		http://www.pygresql.org/
@@ -100,6 +100,9 @@ EOF
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 6.1.0-4
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 6.1.0-3
 - Rebuilt for Python 3.14.0rc2 bytecode
 

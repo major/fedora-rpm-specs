@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.0.1
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        A comprehensive Markdown editor built for Django
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -65,6 +65,9 @@ chmod 0644 README.rst
 %{python3_sitelib}/django_markdownx-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.0.1-23
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.0.1-22
 - Rebuilt for Python 3.14.0rc2 bytecode
 

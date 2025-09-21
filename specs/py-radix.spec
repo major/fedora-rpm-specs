@@ -1,7 +1,7 @@
 Name: py-radix
 Summary: Radix tree data structure for Python
 Version: 0.10.0
-Release: 17%{?dist}
+Release: 18%{?dist}
 
 URL: https://github.com/mjschultz/py-radix
 Source0: https://github.com/mjschultz/py-radix/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -96,6 +96,9 @@ touch inet_ntop.c strlcpy.c
 %doc README.rst
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.10.0-18
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.10.0-17
 - Rebuilt for Python 3.14.0rc2 bytecode
 

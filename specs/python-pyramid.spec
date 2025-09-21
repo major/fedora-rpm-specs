@@ -6,7 +6,7 @@ fun, more predictable, and more productive.
 
 Name:           python-%{modname}
 Version:        2.0.2
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        %{sum}
 
 License:        BSD-4-Clause
@@ -90,6 +90,9 @@ done;
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.0.2-10
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.0.2-9
 - Rebuilt for Python 3.14.0rc2 bytecode
 

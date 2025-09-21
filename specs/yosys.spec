@@ -5,7 +5,7 @@
 
 Name:           yosys
 Version:        0.57
-Release:        1.%{snapdate}git%{shortcommit0}%{?dist}
+Release:        2.%{snapdate}git%{shortcommit0}%{?dist}
 Summary:        Yosys Open SYnthesis Suite, including Verilog synthesizer
 License:        ISC and MIT
 URL:            http://www.clifford.at/yosys/
@@ -173,6 +173,9 @@ make test ABCEXTERNAL=%{_bindir}/abc SEED=314159265359
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.57-2.20250904gitcec48c6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Thu Sep 04 2025 Gabriel Somlo <gsomlo@gmail.com> - 0.57.1.20250904gitcec48c6
 - update to 0.57 snapshot
 - update man pages from Debian

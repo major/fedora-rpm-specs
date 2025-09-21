@@ -65,7 +65,7 @@
 
 Summary: The Visualization Toolkit - A high level 3D visualization library
 Name: vtk
-Version: 9.5.1%{?rc:~%{rc}}
+Version: 9.5.2%{?rc:~%{rc}}
 Release: %autorelease
 License: BSD-3-Clause
 %global srcver %{lua:local ver = rpm.expand('%version');ver = ver:gsub('~','.');print(ver)}
@@ -162,7 +162,6 @@ BuildRequires:  tcl-devel
 BuildRequires:  tk-devel
 BuildRequires:  unixODBC-devel
 BuildRequires:  utf8cpp-devel
-BuildRequires:  zfp-devel
 BuildRequires:  zlib-devel
 BuildRequires:  chrpath
 BuildRequires:  doxygen
@@ -263,7 +262,6 @@ Requires: cmake(Qt6Quick) \
 Requires: cmake(Qt6UiPlugin) \
 Requires: unixODBC-devel%{?_isa} \
 Requires: utf8cpp-devel \
-Requires: zfp-devel%{?_isa} \
 Requires: zlib-devel%{?_isa} \
 
 # Bundled KWSys

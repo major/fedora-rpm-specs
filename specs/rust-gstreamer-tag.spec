@@ -5,7 +5,7 @@
 %global crate gstreamer-tag
 
 Name:           rust-gstreamer-tag
-Version:        0.24.0
+Version:        0.24.2
 Release:        %autorelease
 Summary:        Rust bindings for GStreamer Tag Support library
 

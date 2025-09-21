@@ -1,6 +1,6 @@
 Name:    dput-ng
 Version: 1.21
-Release: 26%{?dist}
+Release: 27%{?dist}
 
 Summary: Next generation Debian package upload tool
 # Automatically converted from old format: GPLv2+ and MIT - review is highly recommended.
@@ -93,6 +93,9 @@ python3 setup.py install --root=%{buildroot}
 %{python3_sitelib}/dput*.egg-info
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.21-27
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.21-26
 - Rebuilt for Python 3.14.0rc2 bytecode
 

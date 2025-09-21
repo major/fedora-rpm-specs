@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.25
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Add PKCS12 support to the requests library
 
 License:        ISC
@@ -62,6 +62,9 @@ fi
 %doc README.rst
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.25-7
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Wed Aug 27 2025 Lukas Slebodnik <lslebodn@redhat.com> - 1.25-6
 - rhbz#2378169 Migrating to pyproject macros
 - https://fedoraproject.org/wiki/Changes/DeprecateSetuppyMacros

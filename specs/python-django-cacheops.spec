@@ -16,7 +16,7 @@ And there is more to it:
 
 Name:           python-%{srcname}
 Version:        7.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ORM cache with automatic granular event-driven invalidation for Django
 
 License:        BSD-3-Clause
@@ -77,6 +77,9 @@ cat $PWD/redis.log
 %doc README.rst CHANGELOG
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 7.2-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Tue Aug 19 2025 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 7.2-1
 - Update to 7.2 (RHBZ #2371864,#2385459 and #2172411)
 

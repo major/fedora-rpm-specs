@@ -1,7 +1,7 @@
 %global module pamqp
 Name:		python-%{module}
 Version:	3.3.0
-Release:	5%{?dist}
+Release:	6%{?dist}
 License:	BSD-3-Clause
 Summary:	AMQP 0-9-1 library
 URL:		https://github.com/gmr/%{module}
@@ -54,6 +54,9 @@ used by client libraries for marshaling and unmarshaling AMQP frames.
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.3.0-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.3.0-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

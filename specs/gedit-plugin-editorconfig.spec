@@ -5,7 +5,7 @@
 
 Name:           gedit-plugin-editorconfig
 Version:        0.5.3
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        EditorConfig plugin for Gedit
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -65,6 +65,9 @@ cp editorconfig_gedit3.py %{buildroot}%{_libdir}/gedit/plugins/
 %{_libdir}/gedit/plugins/editorconfig_plugin/__pycache__/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.5.3-21
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.5.3-20
 - Rebuilt for Python 3.14.0rc2 bytecode
 

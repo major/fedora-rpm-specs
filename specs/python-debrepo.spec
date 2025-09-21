@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.0.3
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Inspect and compare Debian repositories
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -58,6 +58,9 @@ sed -i -e 's|#!/usr/bin/env python|#!%{__python3}|' \
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.0.3-37
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.0.3-36
 - Rebuilt for Python 3.14.0rc2 bytecode
 

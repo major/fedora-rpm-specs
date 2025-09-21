@@ -1,6 +1,6 @@
 Name:           podman-compose
 Version:        1.5.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Run docker-compose.yml using podman
 License:        GPL-2.0-only
 URL:            https://github.com/containers/podman-compose
@@ -44,6 +44,9 @@ install -Dpm 0644 completion/bash/podman-compose -t %{buildroot}%{bash_completio
 %{bash_completions_dir}/podman-compose
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.5.0-4
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.5.0-3
 - Rebuilt for Python 3.14.0rc2 bytecode
 

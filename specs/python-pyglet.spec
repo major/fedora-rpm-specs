@@ -5,7 +5,7 @@
 
 Name: python-%{srcname}
 Version: 2.0.10
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: A cross-platform windowing and multimedia library for Python
 
 License: BSD-3-Clause
@@ -159,6 +159,9 @@ ln -s %{_datadir}/sounds/purple/*.wav tests/data/media/
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.0.10-9
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Sat Aug 23 2025 Orion Poplawski <orion@nwra.com> - 2.0.10-8
 - Add BR/R on python3-gobject, skip openal test (FTBFS rhbz#2379002)
 

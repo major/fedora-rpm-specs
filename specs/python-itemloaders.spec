@@ -11,7 +11,7 @@ single place.}
 
 Name:		python-itemloaders
 Version:	1.3.2
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Library that helps you collect data from HTML and XML sources.
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -57,6 +57,9 @@ BuildRequires:	python3-w3lib
 %{python3_sitelib}/itemloaders-*.egg-info
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.3.2-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.3.2-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

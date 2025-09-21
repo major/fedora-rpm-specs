@@ -7,7 +7,7 @@
 
 Name:           python-%{srcname}
 Version:        2.0.3
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Multi-key dictionary implementation in Python
 
 License:        MIT
@@ -113,6 +113,9 @@ is extended to support multiple keys referring to the same element.
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.0.3-34
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.0.3-33
 - Rebuilt for Python 3.14.0rc2 bytecode
 

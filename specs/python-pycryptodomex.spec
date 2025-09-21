@@ -29,7 +29,7 @@ with the PyCrypto library.}
 
 Name:           python-%{srcname}
 Version:        3.23.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A self-contained cryptographic library for Python
 
 # PyCrypto-based code is public domain, further PyCryptodome contributions are
@@ -121,6 +121,9 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python3_sitearch}/ %{__python3} %{py_setup} test
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.23.0-4
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.23.0-3
 - Rebuilt for Python 3.14.0rc2 bytecode
 

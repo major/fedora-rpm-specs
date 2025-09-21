@@ -5,7 +5,7 @@
 
 Name:           krop
 Version:        0.5.1
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Tool to crop PDF files with an eye towards eReaders
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -109,6 +109,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.appdata.
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.5.1-28
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.5.1-27
 - Rebuilt for Python 3.14.0rc2 bytecode
 

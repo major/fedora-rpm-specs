@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        5.0.0
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Container class boilerplate killer
 
 License:        BSD-2-Clause
@@ -82,6 +82,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} py.test-%{python3_version} \
 %{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 5.0.0-27
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 5.0.0-26
 - Rebuilt for Python 3.14.0rc2 bytecode
 

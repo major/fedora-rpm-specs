@@ -9,7 +9,7 @@
 
 Name:           fedpkg
 Version:        1.46
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Fedora utility for working with dist-git
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -140,6 +140,9 @@ mv %{buildroot}/usr/etc/* %{buildroot}%{_sysconfdir}
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.46-7
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.46-6
 - Rebuilt for Python 3.14.0rc2 bytecode
 

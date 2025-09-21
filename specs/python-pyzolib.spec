@@ -1,6 +1,6 @@
 Name:           python-pyzolib
 Version:        0.3.3
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Utilities for the Pyzo environment
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -45,6 +45,9 @@ BuildRequires:  python%{python3_pkgversion}-setuptools
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.3.3-39
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.3.3-38
 - Rebuilt for Python 3.14.0rc2 bytecode
 

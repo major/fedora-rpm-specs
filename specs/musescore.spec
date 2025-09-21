@@ -20,7 +20,7 @@
 Name:           musescore
 Summary:        Music Composition & Notation Software
 Version:        %{musescore_ver}
-Release:        21%{?dist}
+Release:        22%{?dist}
 
 # The MuseScore project itself is GPL-3.0-only WITH Font-exception-2.0.  Other
 # licenses in play:
@@ -585,6 +585,9 @@ hardlink -t %{buildroot}%{_datadir}/mscore-%{musescore_maj}
 %fontfiles -z 9
 
 %changelog
+* Fri Sep 19 2025 Jerry James <loganjerry@gmail.com> - 4.3.2-22
+- Rebuild to fix ABI issues
+
 * Sat Aug 23 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 4.3.2-21
 - Rebuilt for tinyxml2 11.0.0
 

@@ -16,7 +16,7 @@ avoids unnecessarily invalidating builds.
 
 Name:           python-%{shortname}
 Version:        0.7.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Efficiently update, split, and rearrange git commits
 
 License:        MIT
@@ -92,6 +92,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} -m pytest
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.7.0-16
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.7.0-15
 - Rebuilt for Python 3.14.0rc2 bytecode
 

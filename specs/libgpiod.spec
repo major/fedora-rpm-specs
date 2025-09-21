@@ -3,7 +3,7 @@
 
 Name:          libgpiod
 Version:       2.2.2
-Release:       4%{?candidate:.%{candidate}}%{?dist}
+Release:       5%{?candidate:.%{candidate}}%{?dist}
 Summary:       C library and tools for interacting with linux GPIO char device
 
 License:       LGPL-2.1-or-later
@@ -193,6 +193,9 @@ find %{buildroot} -name '*.la' -delete
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.2.2-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Wed Aug 27 2025 Miro Hrončok <mhroncok@redhat.com> - 2.2.2-4
 - Drop unused BuildRequires on python3-wheel
 

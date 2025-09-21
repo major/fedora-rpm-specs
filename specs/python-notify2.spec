@@ -7,7 +7,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.3.1
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Python interface to DBus notifications
 
 License:        BSD-2-Clause
@@ -73,6 +73,9 @@ rm -rf html/.{doctrees,buildinfo}
 %license docs/license.rst LICENSE
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.3.1-29
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.3.1-28
 - Rebuilt for Python 3.14.0rc2 bytecode
 

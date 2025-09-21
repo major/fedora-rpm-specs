@@ -2,7 +2,7 @@ Name:           nvmetcli
 License:        Apache-2.0
 Summary:        An adminstration shell for NVMe storage targets
 Version:        0.8
-Release:        4%{?dist}
+Release:        5%{?dist}
 URL:            ftp://ftp.infradead.org/pub/nvmetcli/
 Source:         ftp://ftp.infradead.org/pub/nvmetcli/%{name}-%{version}.tar.gz
 BuildArch:      noarch
@@ -56,6 +56,9 @@ install -m 644 Documentation/nvmetcli.8.gz %{buildroot}%{_mandir}/man8/
 %{_mandir}/man8/nvmetcli.8.gz
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.8-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.8-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

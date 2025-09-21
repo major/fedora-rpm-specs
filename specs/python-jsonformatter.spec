@@ -2,7 +2,7 @@
 
 Name:           python-%{pkg_name}
 Version:        0.3.4
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Formatter to output json logs
 
 License:        BSD-2-Clause
@@ -54,6 +54,9 @@ jsonformatter is a formatter for python to output json logs.
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.3.4-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.3.4-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

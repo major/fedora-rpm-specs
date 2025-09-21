@@ -12,7 +12,7 @@ any of the services that it supports.}
 
 Name:           python-%{shortname}
 Version:        3.6.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        A Python library to address multiple cloud provider APIs
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -75,6 +75,9 @@ chmod -x demos/gce_demo.py demos/compute_demo.py
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.6.0-16
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.6.0-15
 - Rebuilt for Python 3.14.0rc2 bytecode
 

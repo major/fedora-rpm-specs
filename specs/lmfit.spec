@@ -1,6 +1,6 @@
 Name:           lmfit
-Version:        9.0
-%global         sover 9
+Version:        10.0
+%global         sover 10
 Release:        %autorelease
 Summary:        Levenberg-Marquardt least-squares minimization and curve fitting
 # software is BSD, documentation is CC-BY
@@ -30,7 +30,7 @@ Development files for %{name}.
 cp -ra demo _demo
 
 # install to libdir
-sed -i 's@${destination}/lib@${destination}/%{_lib}@' lib/CMakeLists.txt CMakeLists.txt
+sed -i 's@DESTINATION lib@DESTINATION %{_lib}@' lib/CMakeLists.txt CMakeLists.txt
 
 %build
 %{cmake}
@@ -56,6 +56,7 @@ mv -f _demo demo
 %{_includedir}/*
 %{_libdir}/lib%{name}.so
 %{_libdir}/pkgconfig/*
+%{_libdir}/cmake/*
 %{_mandir}/man3/*
 %{_mandir}/man7/*
 

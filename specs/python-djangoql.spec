@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.17.1
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        DjangoQL: Advanced search language for Django
 
 License:        MIT
@@ -51,6 +51,9 @@ PYTHONPATH=$(pwd) %{__python3} test_project/manage.py test core.tests
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.17.1-15
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.17.1-14
 - Rebuilt for Python 3.14.0rc2 bytecode
 

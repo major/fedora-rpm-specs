@@ -4,7 +4,7 @@
 Name:           python-hatch-requirements-txt
 Version:        0.4.1
 %forgemeta
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Hatchling plugin to read project dependencies from requirements.txt
 
 License:        MIT
@@ -73,6 +73,9 @@ find hatch_requirements_txt/ -type f ! -executable -name '*.py' -print \
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.4.1-8
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.4.1-7
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -16,7 +16,7 @@
 
 Name:           python-%{pkgname}
 Version:        0.4.1
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Python library to use the pseudo-tty of a docker container
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -85,6 +85,9 @@ Requires:       python%{python3_pkgversion}-six
 %endif
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.4.1-39
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.4.1-38
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -5,7 +5,7 @@ Version:        0.18.0
 %forgemeta
 
 Name:           python-%{srcname}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Extract embedded metadata from HTML markup
 
 License:        BSD-3-Clause
@@ -63,6 +63,9 @@ Summary:        %{summary}
 %{_bindir}/extruct
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.18.0-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.18.0-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

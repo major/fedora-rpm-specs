@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.1.7
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Django Taggit serializer for Django REST Framework
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -44,6 +44,9 @@ rm -vr *.egg-info
 %{python3_sitelib}/taggit_serializer/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.1.7-23
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.1.7-22
 - Rebuilt for Python 3.14.0rc2 bytecode
 

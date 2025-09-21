@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.24.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Deal PySol FC Cards
 License:        MIT
 URL:            https://fc-solve.shlomifish.org/
@@ -45,6 +45,9 @@ sed -i '/^#! \/usr\/bin\/env python\(3\)\?$/d' pysol_cards/*.py
 %doc README.rst
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.24.0-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.24.0-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -3,7 +3,7 @@
 
 Name:           rpmlint
 Version:        2.7.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Tool for checking common errors in RPM packages
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/rpmlint
@@ -98,6 +98,9 @@ cp -a %{SOURCE1} %{SOURCE3} %{SOURCE4} %{SOURCE5} %{buildroot}%{_sysconfdir}/xdg
 %{_bindir}/rpmlint
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.7.0-8
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.7.0-7
 - Rebuilt for Python 3.14.0rc2 bytecode
 

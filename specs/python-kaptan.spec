@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.6.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Configuration parser
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -49,6 +49,9 @@ sed -i -e 's/PyYAML>=3.13,<6/PyYAML/' requirements/base.txt
 %{_bindir}/%{srcname}
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.6.0-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.6.0-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

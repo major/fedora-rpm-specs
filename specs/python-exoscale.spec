@@ -1,6 +1,6 @@
 Name:           python-exoscale
 Version:        0.14.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python bindings for Exoscale API
 
 License:        ISC
@@ -56,6 +56,9 @@ BuildRequires:  python3dist(setuptools)
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.14.0-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Thu Aug 28 2025 Packit <hello@packit.dev> - 0.14.0-1
 - Update to version 0.14.0
 - Resolves: rhbz#2387784

@@ -3,7 +3,7 @@
 Summary:    Utilities for implementing Modified Preorder Tree Traversal
 Name:       python-%{srcname}
 Version:    0.12.0
-Release:    17%{?dist}
+Release:    18%{?dist}
 License:    MIT
 URL:        https://github.com/django-mptt/django-mptt
 Source:     %{pypi_source}
@@ -57,6 +57,9 @@ rm mptt/locale/*/LC_MESSAGES/django.po
 %{python3_sitelib}/mptt/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.12.0-18
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.12.0-17
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -3,7 +3,7 @@
 
 Name:           python-%{upstream_name}
 Version:        0.11
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Add-on for Python aiohttp library to support Negotiate authentication
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -82,6 +82,9 @@ cp -p %{SOURCE1} .
 %endif
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.11-31
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.11-30
 - Rebuilt for Python 3.14.0rc2 bytecode
 

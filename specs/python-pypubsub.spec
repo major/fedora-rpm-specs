@@ -3,7 +3,7 @@
 
 Name:           python-pypubsub
 Version:        4.0.3
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Python Publish-Subscribe Package
 
 License:        BSD-2-Clause
@@ -61,6 +61,9 @@ popd
 %license src/pubsub/LICENSE_BSD_Simple.txt
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.0.3-29
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.0.3-28
 - Rebuilt for Python 3.14.0rc2 bytecode
 

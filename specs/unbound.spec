@@ -4,6 +4,9 @@
 %bcond_without dnstap
 %bcond_without systemd
 %bcond_without doh
+%if 0%{?rhel} >= 10 || 0%{?fedora} >= 43
+%bcond_without ngtcp2
+%endif
 %if 0%{?rhel} && ! 0%{?epel}
 %bcond_with redis
 %else
@@ -36,7 +39,7 @@
 
 Summary: Validating, recursive, and caching DNS(SEC) resolver
 Name: unbound
-Version: 1.23.1
+Version: 1.24.0
 Release: %autorelease %{?extra_version:-e %{extra_version}}
 License: BSD-3-Clause
 Url: https://nlnetlabs.nl/projects/unbound/
@@ -110,6 +113,9 @@ BuildRequires: hiredis-devel
 BuildRequires: systemd-rpm-macros
 %else
 BuildRequires: systemd
+%endif
+%if %{with ngtcp2}
+BuildRequires: ngtcp2-crypto-ossl-devel
 %endif
 
 # Needed because /usr/sbin/unbound links unbound libs staticly
@@ -282,6 +288,9 @@ autoreconf -fiv
             --with-libhiredis \
             --enable-cachedb \
 %endif
+%if %{with ngtcp2}
+            --with-libngtcp2 \
+%endif
             %{configure_args}
 
 %make_build
@@ -296,6 +305,9 @@ pushd %{dir_secondary}
 %endif
 %if %{with systemd}
             --enable-systemd \
+%endif
+%if %{with ngtcp2}
+            --with-libngtcp2 \
 %endif
             %{configure_args}
 

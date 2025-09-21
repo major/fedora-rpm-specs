@@ -1,6 +1,6 @@
 Name:           python-x3dh
 Version:        1.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python implementation of the X3DH key agreement protocol
 
 License:        MIT
@@ -82,6 +82,9 @@ install -pDm0644 docs/texinfo/x3dh.xml \
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.2.0-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Mon Sep 01 2025 Benson Muite <fed500@fedoraproject.org> - 1.2.0-1
 - Update to release 1.2.0
 - Use newer packaging macros

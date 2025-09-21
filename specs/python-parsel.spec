@@ -2,7 +2,7 @@
 
 Name:           python-%{modname}
 Version:        1.10.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Library to extract data from HTML and XML using XPath and CSS selectors
 
 License:        BSD-3-Clause
@@ -48,6 +48,9 @@ sed -e '/psutil/ s/==/>=/' -i tests/requirements.txt
 %doc README.rst NEWS
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.10.0-7
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.10.0-6
 - Rebuilt for Python 3.14.0rc2 bytecode
 

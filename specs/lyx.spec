@@ -12,7 +12,7 @@ BuildRequires: fontpackages-devel
 
 Name:    lyx
 Version: 2.4.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: WYSIWYM (What You See Is What You Mean) document processor
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -248,6 +248,9 @@ make -k check ||:
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.4.4-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Gwyn Ciesla <gwync@protonmail.com> - 2.4.4-1
 - 2.4.4
 

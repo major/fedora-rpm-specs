@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        1.0.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Auto-generate Sphinx API docs from Zope interfaces
 
 License:        BSD-3-Clause-Modification
@@ -60,6 +60,9 @@ zope-testrunner --test-path=$PWD/build/lib
 %{python3_sitelib}/repoze*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0.0-11
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.0.0-10
 - Rebuilt for Python 3.14.0rc2 bytecode
 

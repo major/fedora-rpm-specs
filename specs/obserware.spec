@@ -2,7 +2,7 @@
 
 Name:           obserware
 Version:        0.2.10
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        An advanced system monitor utility written in Python and Qt
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -48,6 +48,9 @@ appstream-util validate-relax --nonet %{buildroot}%{python3_sitelib}/%{name}/app
 %{_datadir}/pixmaps/%{uuid}.png
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.2.10-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.2.10-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

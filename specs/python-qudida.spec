@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.0.4
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        QuDiDA (QUick and DIrty Domain Adaptation)
 
 License:        MIT
@@ -55,6 +55,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.0.4-10
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.0.4-9
 - Rebuilt for Python 3.14.0rc2 bytecode
 

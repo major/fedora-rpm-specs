@@ -4,7 +4,7 @@
 
 Summary: Application Whitelisting Daemon
 Name: fapolicyd
-Version: 1.3.6
+Version: 1.3.7
 Release: 1%{?dist}
 License: GPL-3.0-or-later
 URL: https://github.com/linux-application-whitelisting/fapolicyd
@@ -13,6 +13,8 @@ Source1: https://github.com/linux-application-whitelisting/%{name}-selinux/relea
 Source2: https://github.com/bachradsusi.gpg
 Source10: https://github.com/linux-application-whitelisting/fapolicyd/releases/download/v%{version}/fapolicyd-%{version}.tar.gz.asc
 Source11: https://github.com/linux-application-whitelisting/%{name}-selinux/releases/download/v%{semodule_version}/%{name}-selinux-%{semodule_version}.tar.gz.asc
+# we bundle uthash for eln
+Source20: https://github.com/troydhanson/uthash/archive/refs/tags/v2.3.0.tar.gz#/uthash-2.3.0.tar.gz
 
 # https://github.com/linux-application-whitelisting/fapolicyd
 # $ git format-patch -N v1.3.6
@@ -28,7 +30,9 @@ BuildRequires: autoconf automake make gcc libtool
 BuildRequires: systemd systemd-devel openssl-devel rpm-devel file-devel file
 BuildRequires: libcap-ng-devel libseccomp-devel lmdb-devel
 BuildRequires: python3-devel
+%if 0%{?fedora} || 0%{?rhel} > 10
 BuildRequires: gpgverify
+%endif
 
 %if 0%{?rhel} == 0
 BuildRequires: uthash-devel
@@ -68,6 +72,10 @@ The %{name}-selinux package contains selinux policy for the %{name} daemon.
 # selinux
 %autosetup -D -T -a 1 -p 1
 
+%if 0%{?rhel} != 0
+%setup -q -D -T -b 20
+%endif
+
 # generate rules for python
 sed -i "s/%python2_path%/`readlink -f %{__python2} | sed 's/\//\\\\\//g'`/g" rules.d/*.rules
 sed -i "s/%python3_path%/`readlink -f %{__python3} | sed 's/\//\\\\\//g'`/g" rules.d/*.rules
@@ -88,6 +96,14 @@ EOF
 
 %build
 cp INSTALL INSTALL.tmp
+
+# necessary for updating CFLAGS below
+%set_build_flags
+
+%if 0%{?rhel} != 0
+export CFLAGS="$CFLAGS -I%{_builddir}/uthash-2.3.0/include"
+%endif
+
 ./autogen.sh
 %configure \
     --with-audit \
@@ -215,6 +231,9 @@ fi
 %selinux_relabel_post -s %{selinuxtype}
 
 %changelog
+* Fri Sep 19 2025 Petr Lautrbach <lautrbach@redhat.com> - 1.3.7-1
+- fapolicyd-1.3.7
+
 * Wed Sep 03 2025 Petr Lautrbach <lautrbach@redhat.com> - 1.3.6-1
 - fapolicyd-1.3.6 and fapolicyd-selinux-0.9
 

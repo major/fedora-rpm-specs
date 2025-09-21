@@ -9,7 +9,7 @@
 
 Name:           libsecret
 Version:        0.21.7
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Library for storing and retrieving passwords and other secrets
 
 # libsecret/mock/aes.py is Apache-2.0
@@ -133,6 +133,9 @@ cp -a libsecret/mock-service*.py %{buildroot}%{_datadir}/libsecret/
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.21.7-4
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.21.7-3
 - Rebuilt for Python 3.14.0rc2 bytecode
 

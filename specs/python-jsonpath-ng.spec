@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.7.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Implementation of JSONPath for Python
 
 # Main library: ASL 2.0
@@ -49,6 +49,9 @@ sed -i -e '/^#!\//, 1d' jsonpath_ng/bin/jsonpath.py
 %{_bindir}/jsonpath_ng
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.7.0-7
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.7.0-6
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        3.0.2
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        A Python namespace control and lazy-import mechanism
 
 License:        MIT
@@ -51,6 +51,9 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %license LICENSE
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.0.2-10
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.0.2-9
 - Rebuilt for Python 3.14.0rc2 bytecode
 

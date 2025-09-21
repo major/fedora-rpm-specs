@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.11.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Library with cross-python path, ini-parsing, io, code, log facilities
 # Automatically converted from old format: MIT and Public Domain - review is highly recommended.
 License:        LicenseRef-Callaway-MIT AND LicenseRef-Callaway-Public-Domain
@@ -81,6 +81,9 @@ sed -i -r -e '/\/py\/_vendored_packages\/.*(dist|egg)-info/d' %{pyproject_files}
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.11.0-19
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.11.0-18
 - Rebuilt for Python 3.14.0rc2 bytecode
 

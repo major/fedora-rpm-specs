@@ -4,7 +4,7 @@ License:	GPL-2.0-or-later
 
 Epoch:		1
 Version:	2.4.6
-Release:	3%{?dist}
+Release:	4%{?dist}
 
 URL:		https://github.com/blueman-project/blueman
 Source0:	%{URL}/archive/refs/tags/%{version}/blueman-%{version}.tar.gz
@@ -250,6 +250,9 @@ desktop-file-validate %{buildroot}%{_datadir}/Thunar/sendto/*blueman*.desktop
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1:2.4.6-4
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1:2.4.6-3
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -1,7 +1,7 @@
 Summary:        In memory VT-compatible terminal emulator
 Name:           python-pyte
 Version:        0.8.2
-Release:        12%{?dist}
+Release:        13%{?dist}
 # Automatically converted from old format: LGPLv3 - review is highly recommended.
 License:        LGPL-3.0-only
 URL:            https://github.com/selectel/pyte
@@ -59,6 +59,9 @@ export PYTHONPATH=%{buildroot}%{python3_sitelib}
 %doc docs/_build/html
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.8.2-13
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.8.2-12
 - Rebuilt for Python 3.14.0rc2 bytecode
 

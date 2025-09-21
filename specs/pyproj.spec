@@ -6,7 +6,7 @@
 
 Name:           pyproj
 Version:        3.7.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Cython wrapper to provide python interfaces to Proj
 # this software uses the "MIT:Modern Style with sublicense" license
 License:        MIT
@@ -181,6 +181,9 @@ cp ../pyproj-%{version}/pytest.ini .
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.7.2-3
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Mon Sep 15 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 3.7.2-2
 - Re-enable xarray integration tests
 

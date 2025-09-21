@@ -6,7 +6,7 @@
 
 Name:           python-%{srcname}
 Version:        6.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Collection of utilities for interacting with PyPI
 
 License:        Apache-2.0
@@ -110,6 +110,9 @@ install -p -D -T -m 0644 docs/build/man/%{srcname}.1 %{buildroot}%{_mandir}/man1
 %{_bindir}/twine
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 6.2.0-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Tue Sep 16 2025 Charalampos Stratakis <cstratak@redhat.com> - 6.2.0-1
 - Update to 6.2.0
 - Fixes: rhbz#2393218

@@ -1,6 +1,6 @@
 Name:           oct2spec
 Version:        1.1
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Python script to generate Octave package spec file
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -43,6 +43,9 @@ oct2spec API.
 %{_mandir}/man1/oct2rpm.1.gz
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.1-25
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.1-24
 - Rebuilt for Python 3.14.0rc2 bytecode
 

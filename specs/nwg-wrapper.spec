@@ -14,7 +14,7 @@ Version:  0.1.3
 
 Name:    nwg-wrapper
 Summary: A GTK3 wrapper to display text on the desktop for wlroots
-Release: 13%{?dist}
+Release: 14%{?dist}
 
 License: MIT
 URL:      %{forgeurl}
@@ -59,6 +59,9 @@ done
 %{python3_sitelib}/%{sys_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.1.3-14
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.1.3-13
 - Rebuilt for Python 3.14.0rc2 bytecode
 

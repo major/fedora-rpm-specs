@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.19.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Command line tool to build sets of software packages
 
 License:        Apache-2.0
@@ -82,6 +82,9 @@ and sets up the environment to use the packages.
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.19.0-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.19.0-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

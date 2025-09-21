@@ -2,7 +2,7 @@
 
 Name:           python-%{pkg_name}
 Version:        0.3.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Flask Simple user session protection
 License:        MIT
 
@@ -53,6 +53,9 @@ sed -r -i 's/01-Jan-1970/01 Jan 1970/' tests/test_paranoid.py
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.3.0-16
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.3.0-15
 - Rebuilt for Python 3.14.0rc2 bytecode
 

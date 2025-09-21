@@ -8,7 +8,7 @@
 Summary:    Zope Exceptions
 Name:       python-zope-exceptions
 Version:    6.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 VCS:        git:%{giturl}.git
 Source0:    %{giturl}/archive/%{version}/%{modname}-%{version}.tar.gz
 License:    ZPL-2.1
@@ -54,6 +54,9 @@ sed -i -r 's/    setuptools [<>=]+ [0-9\.]+/    setuptools/g' tox.ini
 %license COPYRIGHT.txt LICENSE.txt
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 6.0-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Sep 12 2025 David Auer <dreua@posteo.de> - 6.0-1
 - Version 6.0 (rhbz#2394776)
 

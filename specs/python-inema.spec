@@ -8,7 +8,7 @@ classes and service classes (normal, registered, ...).
 
 Name:           python-%{srcname}
 Version:        0.8.12
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A Python interface to the Deutsche Post Internetmarke Online Franking
 
 License:        LGPL-3.0-or-later
@@ -57,6 +57,9 @@ sed -i '1,1s@^#!.*$@@' inema/frank.py inema/inema.py
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.8.12-3
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.8.12-2
 - Rebuilt for Python 3.14.0rc2 bytecode
 

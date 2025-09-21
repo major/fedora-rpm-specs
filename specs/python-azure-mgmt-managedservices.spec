@@ -9,7 +9,7 @@
 
 Name:           python-%{srcname}
 Version:        1.0.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Microsoft Azure Managed Services Client Library for Python
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
@@ -73,6 +73,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1:1.0.0-19
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1:1.0.0-18
 - Rebuilt for Python 3.14.0rc2 bytecode
 

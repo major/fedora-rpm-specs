@@ -3,7 +3,7 @@
 
 Name:           koji-flatpak
 Version:        %{project_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Koji plugins for building Flatpaks
 
 License:        LGPL-2.1-only
@@ -97,6 +97,9 @@ install -p -m 0644 koji_flatpak/plugins/flatpak_cli_plugin.py %{buildroot}%{pyth
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.7-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.7-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -1,7 +1,7 @@
 %global pypi_name stone
 Name:           python-%{pypi_name}
 Version:        3.2.1
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        The Official Api Spec Language for Dropbox
 License:        MIT
 
@@ -45,6 +45,9 @@ Summary:        %{summary}
 %{_bindir}/stone
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.2.1-21
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.2.1-20
 - Rebuilt for Python 3.14.0rc2 bytecode
 

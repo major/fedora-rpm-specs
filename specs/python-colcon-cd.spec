@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.2.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Extension for colcon to change the current working directory
 
 License:        Apache-2.0
@@ -64,6 +64,9 @@ install -p -D function/colcon_cd.sh %{buildroot}%{_datadir}/colcon_cd/function/c
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.2.1-8
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.2.1-7
 - Rebuilt for Python 3.14.0rc2 bytecode
 

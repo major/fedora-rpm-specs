@@ -7,7 +7,7 @@ Express devices and their topology.}
 
 Name:           python-%{pypi_name}
 Version:        1.0.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Display/filter/export information about PCI or PCI Express devices
 
 License:        MIT
@@ -53,6 +53,9 @@ sed -e '\|#!/usr/bin/env python|d' -i */*.py
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0.0-18
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.0.0-17
 - Rebuilt for Python 3.14.0rc2 bytecode
 

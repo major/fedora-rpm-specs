@@ -2,7 +2,7 @@
 
 Name:           assimp
 Version:        6.0.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Library to import various 3D model formats into applications
 
 # Assimp is BSD
@@ -170,6 +170,9 @@ install -m0644 port/PyAssimp/pyassimp/*.py %{buildroot}%{python3_sitelib}/pyassi
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 6.0.2-3
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Mon Aug 18 2025 Sandro Mani <manisandro@gmail.com> - 6.0.2-2
 - Fix pugixml::pugixml dependency ending up in link interface of assimp::assimp
 

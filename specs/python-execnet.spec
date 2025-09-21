@@ -7,7 +7,7 @@
 
 Name:           python-%{srcname}
 Version:        2.1.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Distributed Python deployment and communication
 License:        MIT
 URL:            https://github.com/pytest-dev/execnet
@@ -88,6 +88,9 @@ py.test-%{python3_version} -r s \
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.1.1-10
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.1.1-9
 - Rebuilt for Python 3.14.0rc2 bytecode
 

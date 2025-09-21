@@ -19,7 +19,7 @@
 Summary: Builds packages inside chroots
 Name: mock
 Version: 6.3
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPL-2.0-or-later
 # Source is created by
 # git clone https://github.com/rpm-software-management/mock.git
@@ -329,6 +329,9 @@ pylint-3 py/mockbuild/ py/*.py py/mockbuild/plugins/* || :
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 6.3-4
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 6.3-3
 - Rebuilt for Python 3.14.0rc2 bytecode
 

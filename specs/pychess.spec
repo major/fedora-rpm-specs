@@ -3,7 +3,7 @@
 
 Name:           pychess
 Version:        1.0.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Chess game for GNOME
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -167,6 +167,9 @@ PYCHESS_UNITTEST=true PYTHONPATH=../lib xvfb-run -a %{python3} ./run_tests.py
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0.5-3
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.0.5-2
 - Rebuilt for Python 3.14.0rc2 bytecode
 

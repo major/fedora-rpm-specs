@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        0.9.4
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A set of objects for performing math operations on font data
 
 License:        MIT 
@@ -47,6 +47,9 @@ export LC_ALL=C.UTF-8
 %files -n python3-%{srcname} -f %{pyproject_files}
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.9.4-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.9.4-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

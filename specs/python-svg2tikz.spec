@@ -5,7 +5,7 @@ Version:        3.3.0
 %forgemeta
 
 Name:           python-%{srcname}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Convert SVG to TikZ/PGF code
 
 License:        GPL-2.0-or-later
@@ -91,6 +91,9 @@ ln -s %{python3_sitelib}/%{srcname}/tikz_export_output.inx \
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.3.0-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.3.0-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

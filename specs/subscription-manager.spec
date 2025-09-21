@@ -96,7 +96,7 @@
 
 Name: subscription-manager
 Version: 1.30.5
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Tools and libraries for subscription and repository management
 %if 0%{?suse_version}
 Group:   Productivity/Networking/System
@@ -736,6 +736,9 @@ rm -f /var/lib/rhsm/cache/rhsm_icon.json
 rm -f /var/lib/rhsm/cache/content_access_mode.json
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.30.5-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.30.5-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

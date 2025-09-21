@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.7.4
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Parse C++ header files and generate a data structure
 
 License:        BSD-3-Clause
@@ -48,6 +48,9 @@ sed -i -e '/^#!\//, 1d' CppHeaderParser/CppHeaderParser.py
 %doc README.txt README.html
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.7.4-21
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.7.4-20
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -9,7 +9,7 @@
 
 Name:           python-zope-event
 Version:        5.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Zope Event Publication
 License:        ZPL-2.1
 URL:            https://pypi.python.org/pypi/zope.event/
@@ -95,6 +95,9 @@ rm -f docs/_build/html/.buildinfo
 %endif
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 5.1-4
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 5.1-3
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -40,7 +40,7 @@
 
 Name:           booth
 Version:        1.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Ticket Manager for Multi-site Clusters
 License:        GPL-2.0-or-later
 Url:            https://github.com/%{github_owner}/%{name}
@@ -286,6 +286,9 @@ VERBOSE=1 make check
 %{_usr}/lib/ocf/resource.d/booth/sharedrsc
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.2-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Thu Aug 21 2025 Cristian Le <git@lecris.dev>
 - Convert STI tests to TMT (rhbz#2382867)
 

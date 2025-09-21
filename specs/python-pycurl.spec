@@ -9,7 +9,7 @@
 
 Name:           python-%{modname}
 Version:        7.45.6
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A Python interface to libcurl
 
 License:        curl OR LGPL-2.1-or-later
@@ -96,6 +96,9 @@ export PYTEST_ADDOPTS="--ignore examples -m 'not online'"
 %doc ChangeLog README.rst examples doc
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 7.45.6-7
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Tue Sep 02 2025 Scott Talbert <swt@techie.net> - 7.45.6-6
 - Fix FTBFS with curl 8.16.0
 

@@ -1,6 +1,6 @@
 Name: nfsometer		
 Version: 1.9
-Release: 27%{?dist}
+Release: 28%{?dist}
 Summary: NFS Performance Framework Tool
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -47,6 +47,9 @@ python3 setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.9-28
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.9-27
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -1,6 +1,6 @@
 Name:           pychromecast
 Version:        13.1.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Python library to communicate with the Google Chromecast
 
 License:        MIT
@@ -64,6 +64,9 @@ currently supports:
 %license LICENSE
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 13.1.0-10
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 13.1.0-9
 - Rebuilt for Python 3.14.0rc2 bytecode
 

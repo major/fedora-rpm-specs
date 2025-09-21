@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        23
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Python library for communicating with Unifi Controller API
 
 License:        MIT
@@ -49,6 +49,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 23-20
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 23-19
 - Rebuilt for Python 3.14.0rc2 bytecode
 

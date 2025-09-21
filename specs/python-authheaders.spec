@@ -6,7 +6,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.16.3
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A library wrapping email authentication header verification and generation
 
 # Licensing described in LICENSE file
@@ -73,6 +73,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} help2man --no-info \
 %{_mandir}/man1/dmarc-policy-find.1*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.16.3-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.16.3-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

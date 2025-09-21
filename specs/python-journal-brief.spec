@@ -3,7 +3,7 @@
 
 Name:		python-%{srcname}
 Version:	1.1.8
-Release:	17%{?dist}
+Release:	18%{?dist}
 Summary:	%{sum}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -75,6 +75,9 @@ journal entries.
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.1.8-18
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Sep  5 2025 Tim Waugh <twaugh@redhat.com> - 1.1.8-17
 - Stop using deprecated %py3_build/%py3_install macros (bug #2377825)
 

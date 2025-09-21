@@ -10,7 +10,7 @@
 
 Name:       totpcgi
 Version:    0.6.0
-Release:    0.26.20190713git%{?dist}
+Release:    0.27.20190713git%{?dist}
 Summary:    A centralized totp solution based on google-authenticator
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -213,6 +213,9 @@ fi
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.6.0-0.27.20190713git
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.6.0-0.26.20190713git
 - Rebuilt for Python 3.14.0rc2 bytecode
 

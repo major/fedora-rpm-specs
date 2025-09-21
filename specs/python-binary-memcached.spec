@@ -4,7 +4,7 @@
 
 Name:           %{module}
 Version:        0.31.2
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Python module python-binary-memcached
 
 License:        MIT
@@ -55,6 +55,9 @@ Requires:  memcached
 %doc README.rst
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.31.2-11
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.31.2-10
 - Rebuilt for Python 3.14.0rc2 bytecode
 

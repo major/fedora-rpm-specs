@@ -6,7 +6,7 @@
 
 Name:          speech-dispatcher
 Version:       0.12.1
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       To provide a high-level device independent layer for speech synthesis
 
 # Almost all files are under GPL-2.0-or-later, however
@@ -280,6 +280,9 @@ rm %{buildroot}%{_libdir}/speech-dispatcher-modules/sd_festival
 %{python3_sitearch}/speechd*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.12.1-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.12.1-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

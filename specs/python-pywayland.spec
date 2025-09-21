@@ -1,6 +1,6 @@
 Name:           python-pywayland
 Version:        0.4.17
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Python bindings for the libwayland library written in pure Python
 
 # The python-pywayland project is licensed under the Apache-2.0 license,
@@ -71,6 +71,9 @@ export XDG_RUNTIME_DIR="$PWD/tmp"
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.4.17-8
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.4.17-7
 - Rebuilt for Python 3.14.0rc2 bytecode
 

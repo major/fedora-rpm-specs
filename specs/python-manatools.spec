@@ -2,7 +2,7 @@
 
 Name:           python-%{module}
 Version:        0.0.4
-Release:        15%{?dist}
+Release:        16%{?dist}
 
 Summary:        A Python framework to build ManaTools applications
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -54,6 +54,9 @@ sed -i 's|0.0.1|%{version}|' manatools/version.py
 %{python3_sitelib}/python_manatools-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.0.4-16
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.0.4-15
 - Rebuilt for Python 3.14.0rc2 bytecode
 

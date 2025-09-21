@@ -2,7 +2,7 @@
 
 Name:           python-path
 Version:        17.1.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Python module wrapper for os.path
 
 License:        MIT
@@ -53,6 +53,9 @@ operations on files to be invoked on those path objects directly.
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 17.1.0-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 17.1.0-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

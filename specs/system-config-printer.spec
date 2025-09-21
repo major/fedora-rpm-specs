@@ -6,7 +6,7 @@
 Summary: A printer administration tool
 Name: system-config-printer
 Version: 1.5.18
-Release: 15%{?dist}
+Release: 16%{?dist}
 License: GPL-2.0-or-later
 URL: https://github.com/%{username}/%{name}
 Source0: %{url}/releases/download/%{version}/%{name}-%{version}.tar.xz
@@ -291,6 +291,9 @@ exit 0
 %endif
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.5.18-16
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.5.18-15
 - Rebuilt for Python 3.14.0rc2 bytecode
 

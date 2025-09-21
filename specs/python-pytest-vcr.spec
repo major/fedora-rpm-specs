@@ -5,7 +5,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.0.2
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        %{desc}
 
 License:        MIT
@@ -56,6 +56,9 @@ rm -rf *.egg-info
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0.2-27
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.0.2-26
 - Rebuilt for Python 3.14.0rc2 bytecode
 

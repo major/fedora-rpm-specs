@@ -14,7 +14,7 @@
 Name:           go-vendor-tools
 Version:        0.8.0
 %forgemeta
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Tools for handling Go library vendoring in Fedora [SEE NOTE IN DESCRIPTION]
 
 # BSD-3-Clause: src/go_vendor_tools/archive.py
@@ -140,6 +140,9 @@ export MACRO_DIR=%{buildroot}%{_rpmmacrodir}
 %pyproject_extras_subpkg -n go-vendor-tools all %{?with_scancode:scancode}
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.8.0-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Tue Aug 19 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 0.8.0-4
 - Re-enable scancode on Python 3.14
 

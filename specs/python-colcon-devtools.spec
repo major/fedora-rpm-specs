@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.3.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Extension for information about colcon extensibility
 
 License:        Apache-2.0
@@ -57,6 +57,9 @@ An extension for colcon-core to provide information about the plugin system.
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.3.0-8
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.3.0-7
 - Rebuilt for Python 3.14.0rc2 bytecode
 

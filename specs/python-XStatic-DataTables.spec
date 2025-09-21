@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.10.15.1
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        DataTables jquery javascript framework (XStatic packaging standard)
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -84,6 +84,9 @@ chmod 644 %{buildroot}%{_jsdir}/datatables/js/*.js
 %{_jsdir}/datatables
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.10.15.1-33
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.10.15.1-32
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -2,7 +2,7 @@
 Summary:        Python module for handling IPv4 and IPv6 Addresses and Networks
 Name:           python-%{oname}
 Version:        1.01
-Release:        17%{?dist}
+Release:        18%{?dist}
 URL:            https://github.com/haypo/python-ipy
 Source0:        https://files.pythonhosted.org/packages/source/I/IPy/IPy-%{version}.tar.gz
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -57,6 +57,9 @@ PYTHONPATH=$PWD %{__python3} test/test_IPy.py
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.01-18
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.01-17
 - Rebuilt for Python 3.14.0rc2 bytecode
 

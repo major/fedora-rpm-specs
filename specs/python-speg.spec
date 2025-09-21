@@ -6,7 +6,7 @@
 
 Name:           python-%{srcname}
 Version:        0.3
-Release:        27.git%{shortcommit}%{?dist}
+Release:        28.git%{shortcommit}%{?dist}
 Summary:        A PEG-based parser interpreter with memoization (in time)
 License:        MIT
 URL:            https://github.com/avakar/speg
@@ -67,6 +67,9 @@ A PEG-based parser interpreter with memoization.
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.3-28.git877acdd
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.3-27.git877acdd
 - Rebuilt for Python 3.14.0rc2 bytecode
 

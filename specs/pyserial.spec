@@ -1,7 +1,7 @@
 Summary: Python serial port access library
 Name: pyserial
 Version: 3.5
-Release: 14%{?dist}
+Release: 15%{?dist}
 Source0: %pypi_source
 License: BSD-3-Clause
 URL: http://pypi.python.org/pypi/pyserial
@@ -53,6 +53,9 @@ PYTHONPATH=%{buildroot}/%{python3_sitelib} %{python3} test/run_all_tests.py
 %{_bindir}/pyserial-ports
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.5-15
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.5-14
 - Rebuilt for Python 3.14.0rc2 bytecode
 

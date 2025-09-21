@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.3.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Implementation of bencode with optional fast C extensions
 
 License:        GPL-2.0-or-later AND MIT
@@ -54,6 +54,9 @@ Summary:        %{summary}
 %{python3_sitearch}/%{pypi_name}-%{version}.dist-info/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.3.2-4
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.3.2-3
 - Rebuilt for Python 3.14.0rc2 bytecode
 

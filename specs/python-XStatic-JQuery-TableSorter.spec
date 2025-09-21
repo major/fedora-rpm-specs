@@ -3,7 +3,7 @@
 
 Name:           python-%{pkgname}
 Version:        2.14.5.1
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        JQuery.TableSorter (XStatic packaging standard)
 
 License:        MIT
@@ -84,6 +84,9 @@ chmod 644 %{buildroot}%{_jsdir}/jquery_tablesorter/jquery.tablesorter.js
 %{_jsdir}/jquery_tablesorter
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.14.5.1-38
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.14.5.1-37
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -1,6 +1,6 @@
 name:           pysysbot
 Version:        0.3.0
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        A simple python jabber bot for getting system information
 
 License:        LicenseRef-Callaway-BSD
@@ -60,6 +60,9 @@ rm -rf %{buildroot}%{_defaultdocdir}
 %{_unitdir}/%{name}.service
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.3.0-28
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.3.0-27
 - Rebuilt for Python 3.14.0rc2 bytecode
 

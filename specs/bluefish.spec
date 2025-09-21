@@ -1,6 +1,6 @@
 %global pkgver 2.2.17
 #global prerel rc1
-%global baserelease 4
+%global baserelease 5
 
 Name:		bluefish
 Version:	%{pkgver}
@@ -158,6 +158,9 @@ fi
 %{_mandir}/man1/bluefish.1*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.2.17-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.2.17-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

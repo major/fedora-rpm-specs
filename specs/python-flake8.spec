@@ -1,6 +1,6 @@
 Name:             python-flake8
 Version:          6.1.0
-Release:          8%{?dist}
+Release:          9%{?dist}
 Summary:          Python code checking using pyflakes, pycodestyle, and mccabe
 
 License:          MIT
@@ -83,6 +83,9 @@ ln -s flake8 %{buildroot}%{_bindir}/python3-flake8
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 6.1.0-9
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 6.1.0-8
 - Rebuilt for Python 3.14.0rc2 bytecode
 

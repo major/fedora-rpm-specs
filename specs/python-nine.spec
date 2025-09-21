@@ -2,7 +2,7 @@
 
 Name:               python-nine
 Version:            1.2.0
-Release:            4%{?dist}
+Release:            5%{?dist}
 Summary:            Python 2 / 3 compatibility, like six, but favouring Python 3
 
 License:            LicenseRef-Fedora-Public-Domain
@@ -66,6 +66,9 @@ rm -rf %{modname}.egg-info
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.2.0-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.2.0-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

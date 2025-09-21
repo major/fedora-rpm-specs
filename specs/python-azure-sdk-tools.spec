@@ -7,7 +7,7 @@
 
 Name:           python-%{srcname}
 Version:        %{short_version}~git.4.%{shortcommit}
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Specific tools for Azure SDK for Python testing
 License:        MIT and Apache-2.0
 URL:            https://github.com/Azure/azure-sdk-for-python/
@@ -72,6 +72,9 @@ rm -f %{buildroot}/%{_bindir}/{auto_codegen,auto_package,generate_package,genera
 %{python3_sitelib}/testutils
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.0.0~git.4.67d46b9-16
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.0.0~git.4.67d46b9-15
 - Rebuilt for Python 3.14.0rc2 bytecode
 

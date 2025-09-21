@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.3.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        A tiny test runner that outputs TAP results to standard output
 
 License:        MIT
@@ -50,6 +50,9 @@ find %{buildroot}/%{python3_sitelib} -name '*.py' | xargs sed -i '/^#!/d'
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.3.1-10
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.3.1-9
 - Rebuilt for Python 3.14.0rc2 bytecode
 

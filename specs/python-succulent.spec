@@ -18,7 +18,7 @@ via POST requests. }
 
 Name:           python-%{pypi_name}
 Version:        0.4.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Collect POST requests
 
 License:        MIT
@@ -96,6 +96,9 @@ toml-adapt -path pyproject.toml -a change -dep numpy -ver X
 %endif
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.4.1-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.4.1-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

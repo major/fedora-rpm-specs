@@ -2,7 +2,7 @@
 
 Name:           frescobaldi
 Version:        4.0.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Edit LilyPond sheet music with ease!
 
 # hyphenator.py is LGPL-2.0-or-later
@@ -99,6 +99,9 @@ cp frescobaldi/icons/org.frescobaldi.Frescobaldi.svg %{buildroot}%{_datadir}/ico
 %{_metainfodir}/*.metainfo.xml
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.0.4-3
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.0.4-2
 - Rebuilt for Python 3.14.0rc2 bytecode
 

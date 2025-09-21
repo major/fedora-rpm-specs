@@ -8,7 +8,7 @@ one project at a time without introducing conflicts in their dependencies.
 
 Name:             python-%{modname}
 Version:          4.8.4
-Release:          14%{?dist}
+Release:          15%{?dist}
 Summary:          %{sum}
 
 License:          MIT
@@ -86,6 +86,9 @@ ln -s %{_bindir}/virtualenvwrapper.sh %{buildroot}/%{_bindir}/virtualenvwrapper-
 %config(noreplace) %{_sysconfdir}/profile.d/virtualenvwrapper.sh
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.8.4-15
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.8.4-14
 - Rebuilt for Python 3.14.0rc2 bytecode
 

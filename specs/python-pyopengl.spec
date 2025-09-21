@@ -2,7 +2,7 @@
 
 Name:           python-pyopengl
 Version:        3.1.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python bindings for OpenGL
 License:        BSD-3-Clause and X11-distribute-modifications-variant
 URL:            https://github.com/mcfletch/pyopengl
@@ -131,6 +131,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch}:%{buildroot}%{python3_sitelib} \
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.1.10-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Mon Aug 18 2025 Scott Talbert <swt@techie.net> - 3.1.10-1
 - Update to new upstream release 3.1.10 (#2389077)
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.0.7
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Filters to enhance web typography, with support for Django & Jinja templates
 
 # typogrify/packages/titlecase/__init__.py is MIT
@@ -53,6 +53,9 @@ done
 %doc README.rst
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.0.7-27
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.0.7-26
 - Rebuilt for Python 3.14.0rc2 bytecode
 

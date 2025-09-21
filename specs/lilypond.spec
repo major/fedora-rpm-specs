@@ -4,7 +4,7 @@
 
 Name:		lilypond
 Version:	2.25.28
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A typesetting system for music notation
 
 License:	GPL-3.0-only
@@ -118,6 +118,9 @@ ln -s %{_fontdir} $RPM_BUILD_ROOT%{_datadir}/lilypond/%{version}/fonts/otf
 %doc COPYING
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.25.28-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Sat Aug 23 2025 Gwyn Ciesla <gwync@protonmail.com> - 2.25.28-1
 - 2.25.28
 

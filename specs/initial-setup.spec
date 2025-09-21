@@ -6,7 +6,7 @@ Summary: Initial system configuration utility
 URL: https://fedoraproject.org/wiki/InitialSetup
 License: GPL-2.0-or-later
 Version: 0.3.101
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 # This is a Red Hat maintained package which is specific to
 # our distribution.
@@ -156,6 +156,9 @@ rm -v %{buildroot}%{_libexecdir}/%{name}/firstboot-windowmanager
 %find_lang %{name}
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.3.101-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.3.101-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

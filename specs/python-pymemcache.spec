@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        4.0.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        A comprehensive, fast, pure Python memcached client
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -66,6 +66,9 @@ py.test-3 ./pymemcache/test/
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.0.0-12
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.0.0-11
 - Rebuilt for Python 3.14.0rc2 bytecode
 

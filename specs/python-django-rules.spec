@@ -1,7 +1,7 @@
 %global shortname django-rules
 Name:          python-%{shortname}
 Version:       3.5.0
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       Awesome Django authorization, without the database
 
 License:       MIT
@@ -39,6 +39,9 @@ Awesome Django authorization, without the database.
 %license LICENSE
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.5.0-4
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.5.0-3
 - Rebuilt for Python 3.14.0rc2 bytecode
 

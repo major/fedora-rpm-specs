@@ -12,7 +12,7 @@
 
 Name:		openssh-ldap-authkeys
 Version:	0.2.0%{?commit:%{snapshotversuffix}}
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	Python script to generate SSH authorized_keys files using an LDAP directory
 
 License:	MIT
@@ -153,6 +153,9 @@ install -m 644 selinux/olak_selinux.8 %{buildroot}%{_mandir}/man8/
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.2.0^git20230224.62ece4b-12
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.2.0^git20230224.62ece4b-11
 - Rebuilt for Python 3.14.0rc2 bytecode
 

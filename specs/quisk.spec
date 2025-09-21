@@ -1,6 +1,6 @@
 Name:           quisk
 Version:        4.2.43
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Software Defined Radio (SDR) software
 
 # Automatically converted from old format: GPLv2 and BSD - review is highly recommended.
@@ -86,6 +86,9 @@ install -Dpm 0644 %{SOURCE3} \
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.2.43-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Tue Sep 09 2025 Jaroslav Škarvada  <jskarvad@redhat.com> - 4.2.43-1
 - New version
   Resolves: rhbz#2393893

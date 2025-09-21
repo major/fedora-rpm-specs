@@ -57,7 +57,7 @@
 Summary: Automatic bug detection and reporting tool
 Name: abrt
 Version: 2.17.6
-Release: 9%{?dist}
+Release: 10%{?dist}
 License: GPL-2.0-or-later
 URL: https://abrt.readthedocs.org/
 Source: https://github.com/abrt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -994,6 +994,9 @@ killall abrt-dbus >/dev/null 2>&1 || :
 %config(noreplace) %{_sysconfdir}/profile.d/abrt-console-notification.sh
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.17.6-10
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.17.6-9
 - Rebuilt for Python 3.14.0rc2 bytecode
 

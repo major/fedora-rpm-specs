@@ -14,7 +14,7 @@
 
 Name:           %{project}
 Version:        1.0.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Koji support for building layered container images
 
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
@@ -103,6 +103,9 @@ build layered container images.
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0.1-14
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.0.1-13
 - Rebuilt for Python 3.14.0rc2 bytecode
 

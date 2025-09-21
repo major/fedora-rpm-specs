@@ -6,7 +6,7 @@
 
 Name:           python-pyperclip
 Version:        1.8.2
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        A cross-platform clipboard module for Python
 
 License:        BSD-3-Clause
@@ -155,6 +155,9 @@ k="${k-}${k+ and }not TestXSel"
 %endif
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.8.2-15
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.8.2-14
 - Rebuilt for Python 3.14.0rc2 bytecode
 

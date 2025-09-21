@@ -4,7 +4,7 @@
 
 Name: python-%{srcname}
 Version: 0.5.1
-Release: 31%{?dist}
+Release: 32%{?dist}
 BuildArch: noarch
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -78,6 +78,9 @@ py.test-3
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.5.1-32
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.5.1-31
 - Rebuilt for Python 3.14.0rc2 bytecode
 

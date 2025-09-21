@@ -1,6 +1,6 @@
 Name:           python-ghp-import
 Version:        2.1.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        GitHub Pages Import
 BuildArch:      noarch
 
@@ -56,6 +56,9 @@ sed -i '1{/^#!/d}' %{buildroot}%{python3_sitelib}/ghp_import.py
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.1.0-15
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.1.0-14
 - Rebuilt for Python 3.14.0rc2 bytecode
 

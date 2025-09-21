@@ -4,7 +4,7 @@
 
 Name:           python-%{modname}
 Version:        2.0.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        W3C Provenance Data Model supporting PROV-JSON and PROV-XML import/export
 
 License:        MIT
@@ -45,6 +45,9 @@ Python 3 version.
 %{python3_sitelib}/%{modname}*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.0.0-13
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.0.0-12
 - Rebuilt for Python 3.14.0rc2 bytecode
 

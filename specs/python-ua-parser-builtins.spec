@@ -2,7 +2,7 @@
 
 Name:           python-%{pkg_name}
 Version:        0.18.0.post1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Precompiled rules for User Agent Parser
 
 License:        Apache-2.0
@@ -58,6 +58,9 @@ Precompiled rules for User Agent Parser.
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.18.0.post1-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.18.0.post1-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

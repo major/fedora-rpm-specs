@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        9.1.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Automated testing for the examples in your documentation
 
 License:        MIT
@@ -54,6 +54,9 @@ sed -i "/seeddir/d" setup.py
 %{python3_sitelib}/%{pypi_name}/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 9.1.0-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 9.1.0-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

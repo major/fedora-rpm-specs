@@ -4,7 +4,7 @@
 
 Name:           pyowm
 Version:        2.6.1
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        A Python wrapper around the OpenWeatherMap web API
 
 License:        MIT
@@ -58,6 +58,9 @@ sed -i -e '1{\@^#!/usr/bin/env python@d}' %{buildroot}%{python3_sitelib}/%{pypi_
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.6.1-31
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.6.1-30
 - Rebuilt for Python 3.14.0rc2 bytecode
 

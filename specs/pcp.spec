@@ -1,6 +1,6 @@
 Name:    pcp
 Version: 7.0.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: System-level performance monitoring and performance management
 License: GPL-2.0-or-later AND LGPL-2.1-or-later AND CC-BY-3.0
 URL:     https://pcp.io
@@ -3409,6 +3409,9 @@ fi
 %files zeroconf -f pcp-zeroconf-files.rpm
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 7.0.0-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Mon Sep 01 2025 Nathan Scott <nathans@redhat.com> - 7.0.0-1
 - Fix openmetrics PMDA handling of epoch timestamps (BZ 2373868)
 - Add selinux policy for pmsignal with pmie scripts (BZ 2375937)

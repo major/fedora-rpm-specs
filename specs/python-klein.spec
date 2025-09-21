@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        23.5.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Python microframework built on werkzeug + twisted.web
 
 License:        MIT
@@ -66,6 +66,9 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 23.5.0-11
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 23.5.0-10
 - Rebuilt for Python 3.14.0rc2 bytecode
 

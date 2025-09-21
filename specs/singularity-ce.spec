@@ -4,14 +4,13 @@
 
 Name: singularity-ce
 Version: 4.3.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Application and environment virtualization
 
-# See LICENSE.md for first party code (BSD-3-Clause and BSD-3-Clause-LBNL)
-# See LICENSE_THIRD_PARTY.md for incorporated code (Apache-2.0)
-# See LICENSE_DEPENDENCIES.md for bundled dependencies
-# License identifiers taken from: https://fedoraproject.org/wiki/Licensing
-License: BSD-3-Clause AND BSD-3-Clause-LBNL AND Apache-2.0
+# From 'go_vendor_license report' output.
+# Note that 'github.com/therootcompany/xz' is a fork of 'github.com/xi2/xz',
+# which is included in fedora-license-data/public-domain-text.txt.
+License: Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND LicenseRef-Fedora-Public-Domain AND ISC AND MIT AND MPL-2.0 AND Unlicense
 
 URL: https://www.sylabs.io/singularity/
 Source: https://github.com/sylabs/singularity/releases/download/v%{version}/singularity-ce-%{version}.tar.gz
@@ -377,6 +376,9 @@ container platform designed to be simple, fast, and secure.
 %doc CONTRIBUTING.md
 
 %changelog
+* Fri Sep 19 2025 David Trudgian <dtrudg@sylabs.io> - 4.3.3-3
+- Update License with go_vendor_license report output.
+
 * Thu Sep 4 2025 David Trudgian <dtrudg@sylabs.io> - 4.3.3-2
 - Use source tarball without squashfuse build artefacts.
   rhbz#2392889

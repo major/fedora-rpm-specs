@@ -1,6 +1,6 @@
 Name:           python-jaconv
 Version:        0.3.4
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Pure-Python Japanese character interconverter for Hiragana, Katakana, Hankaku, Zenkaku and more
 
 License:        MIT-0
@@ -51,6 +51,9 @@ rm -f %{buildroot}/usr/CHANGES.rst %{buildroot}/usr/README.rst
 %doc CHANGES.rst README.rst
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.3.4-7
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.3.4-6
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -8,7 +8,7 @@ Summary: Simple, asynchronous audio playback module for Python 3
 License: MIT
 
 Version: 1.0.4
-Release: 19%{?dist}
+Release: 20%{?dist}
 
 URL: https://github.com/hamiltron/py-simple-audio
 Source0: %pypi_source
@@ -48,6 +48,9 @@ Summary: %{summary}
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0.4-20
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.0.4-19
 - Rebuilt for Python 3.14.0rc2 bytecode
 

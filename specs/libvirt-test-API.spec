@@ -25,7 +25,7 @@
 Summary: Python based regression tests for libvirt API
 Name: libvirt-test-API
 Version: 1.1
-Release: 20%{?dist}
+Release: 21%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
 URL: https://github.com/libvirt/libvirt-test-API
@@ -111,6 +111,9 @@ This package installs the detailed documentation of libvirt-test-API
 %doc docs/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.1-21
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.1-20
 - Rebuilt for Python 3.14.0rc2 bytecode
 

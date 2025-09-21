@@ -1,7 +1,7 @@
 Summary:	Should assertions in Python in as clear and readable a way as possible
 Name:		python-should_dsl
 Version:	2.1.2
-Release:	22%{?dist}
+Release:	23%{?dist}
 License:	MIT
 URL:		https://github.com/nsi-iff/should-dsl
 Source0:	https://files.pythonhosted.org/packages/source/s/should_dsl/should_dsl-%{version}.tar.gz
@@ -42,6 +42,9 @@ Summary:	Should assertions in Python in as clear and readable a way as possible
 %doc CONTRIBUTORS README.rst
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.1.2-23
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.1.2-22
 - Rebuilt for Python 3.14.0rc2 bytecode
 

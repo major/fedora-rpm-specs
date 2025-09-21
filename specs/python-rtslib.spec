@@ -7,7 +7,7 @@ Name:             python-rtslib
 License:          Apache-2.0
 Summary:          API for Linux kernel LIO SCSI target
 Version:          2.2.3
-Release:          3%{?dist}
+Release:          4%{?dist}
 URL:              https://github.com/open-iscsi/%{oname}
 Source:           %{url}/archive/v%{version}/%{oname}-%{version}.tar.gz
 Patch0:           0001-disable-xen_pvscsi.patch
@@ -128,6 +128,9 @@ install -m 644 doc/saveconfig.json.5 %{buildroot}%{_mandir}/man5/
 %endif
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.2.3-4
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.2.3-3
 - Rebuilt for Python 3.14.0rc2 bytecode
 

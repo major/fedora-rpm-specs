@@ -1,7 +1,7 @@
 %global shortname django-ipware
 Name:          python-%{shortname}
 Version:       4.0.2
-Release:       15%{?dist}
+Release:       16%{?dist}
 Summary:       A Django application to retrieve client's IP address
 
 License:       MIT
@@ -44,6 +44,9 @@ A Django application to retrieve client's IP address.
 %{python3_sitelib}/django_ipware*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.0.2-16
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.0.2-15
 - Rebuilt for Python 3.14.0rc2 bytecode
 

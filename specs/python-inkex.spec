@@ -9,7 +9,7 @@ Version:        1.4.0^%{commitdate}git%{shortcommit}
 %forgemeta
 
 Name:           python-%{srcname}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Python extensions for Inkscape core
 
 License:        GPL-2.0-or-later
@@ -122,6 +122,9 @@ sed -i /env\ python/d %{buildroot}%{python3_sitelib}/inkex/tester/inx.py
 %license LICENSE.txt
  
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.4.0^20250307git89726a33-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.4.0^20250307git89726a33-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

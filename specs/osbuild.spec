@@ -9,7 +9,7 @@ Version:        159
 %global         pkgdir %{_prefix}/lib/%{pypi_name}
 
 Name:           %{pypi_name}
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        Apache-2.0
 
 URL:            %{forgeurl}
@@ -330,6 +330,9 @@ fi
 %{pkgdir}/solver.json
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 159-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Wed Aug 27 2025 Packit <hello@packit.dev> - 159-1
 Changes with 159
 ----------------

@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.21
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Python library for working with the OFX (Open Financial Exchange) file format
 License:        MIT
 URL:            https://pypi.org/project/ofxparse/
@@ -52,6 +52,9 @@ accounts also provide account statements in OFX files.
 %doc README.rst AUTHORS
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.21-14
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.21-13
 - Rebuilt for Python 3.14.0rc2 bytecode
 

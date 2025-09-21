@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        24.4.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python networking library for WebSocket and WAMP
 
 License:        MIT
@@ -126,6 +126,9 @@ USE_ASYNCIO=1 %pytest --ignore=xbr/test --pyargs autobahn ${k+ -k} "${k-}"
 %license LICENSE
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 24.4.2-4
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Wed Sep 03 2025 Julien Enselme <jujens@jujens.eu> - 24.4.2-3
 - Remove deprecated macros (#2377467)
 

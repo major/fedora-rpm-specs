@@ -17,7 +17,7 @@ ase-3.23 requires pyproject.toml setuptools support
 
 Name:			python-ase
 Version:		3.25.0
-Release:		3%{?dist}
+Release:		4%{?dist}
 Summary:		Atomic Simulation Environment
 
 
@@ -149,6 +149,9 @@ cd -
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.25.0-4
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.25.0-3
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -9,7 +9,7 @@ Goals:
 
 Name:           python-strict-rfc3339
 Version:        0.7
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Strict, simple, lightweight RFC3339 functions
 
 License:        GPL-3.0-only
@@ -56,6 +56,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.7-20
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.7-19
 - Rebuilt for Python 3.14.0rc2 bytecode
 

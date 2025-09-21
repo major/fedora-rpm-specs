@@ -8,7 +8,7 @@
 
 Name:           ara
 Version:        1.7.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Records Ansible playbooks and makes them easier to understand and troubleshoot
 
 License:        GPL-3.0-or-later
@@ -200,6 +200,9 @@ ARA_TIME_ZONE=UTC %{__python3} manage.py test ara
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.7.3-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Mon Aug 25 2025 David Moreau Simard <moi@dmsimard.com> - 1.7.3-1
 - Update to latest upstream release
 - Bump django from >=3.2,<4.3 to >=4.2,<5.3

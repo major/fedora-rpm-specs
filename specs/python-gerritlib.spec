@@ -9,7 +9,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.11.0
-Release:        6%{?pre:}%{?gitrelease:}%{?dist}
+Release:        7%{?pre:}%{?gitrelease:}%{?dist}
 Summary:        Client library for accessing Gerrit
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -79,6 +79,9 @@ cp %{SOURCE2} ChangeLog
 %{python3_sitelib}/%{pypi_name}
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.11.0-7
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.11.0-6
 - Rebuilt for Python 3.14.0rc2 bytecode
 

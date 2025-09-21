@@ -5,7 +5,7 @@
 
 Name:           python-%{pkgname}
 Version:        1.17.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Easy access to Digital Ocean APIs to deploy droplets, images and more
 
 # Automatically converted from old format: LGPLv3 - review is highly recommended.
@@ -56,6 +56,9 @@ This is the Python 3 version of the package.
 %doc README.md
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.17.0-19
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.17.0-18
 - Rebuilt for Python 3.14.0rc2 bytecode
 

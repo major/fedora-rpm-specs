@@ -6,7 +6,7 @@ conventions.}
 
 Name:		python-protego
 Version:	0.5.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Pure-Python robots.txt parser with support for modern conventions
 
 License:	BSD-3-Clause
@@ -49,6 +49,9 @@ Summary:	%{summary}
 %{python3_sitelib}/protego-*.dist-info
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.5.0-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Sat Aug 30 2025 Eduardo Echeverria <echevemaster@gmail.com> - 0.5.0-1
 - Update to 0.5.0
 

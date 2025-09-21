@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.4.5
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Wikipedia API for Python
 
 License:        MIT
@@ -50,6 +50,9 @@ from a page, and more.
 %doc README.rst
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.4.5-37
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.4.5-36
 - Rebuilt for Python 3.14.0rc2 bytecode
 

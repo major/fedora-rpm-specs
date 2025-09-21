@@ -2,7 +2,7 @@
 
 Name:               python-http-ece
 Version:            1.2.1
-Release:            5%{?dist}
+Release:            6%{?dist}
 Summary:            A simple implementation of the encrypted content-encoding
 
 License:            MIT
@@ -52,6 +52,9 @@ cd python
 %doc python/README.rst python/*.md
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.2.1-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.2.1-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

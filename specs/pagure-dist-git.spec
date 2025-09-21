@@ -6,7 +6,7 @@
 
 Name:               pagure-dist-git
 Version:            1.15
-Release:            5%{?dist}
+Release:            6%{?dist}
 Summary:            Pagure Git auth backend for Dist-Git setups
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -67,6 +67,9 @@ install -p -m 644 scripts/*.py $RPM_BUILD_ROOT/%{_libexecdir}/pagure-dist-git/
 %{_libexecdir}/pagure-dist-git/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.15-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.15-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

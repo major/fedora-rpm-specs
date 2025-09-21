@@ -2,7 +2,7 @@
 
 Name:       lightdm-gtk-greeter-settings
 Version:    %{relver}.2
-Release:    30%{?dist}
+Release:    31%{?dist}
 Summary:    Settings editor for LightDM GTK+ Greeter
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -71,6 +71,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.2.2-31
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.2.2-30
 - Rebuilt for Python 3.14.0rc2 bytecode
 

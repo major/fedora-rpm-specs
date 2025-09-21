@@ -1,6 +1,6 @@
 Name: piper
 Version: 0.8
-Release: 12%{?dist}
+Release: 13%{?dist}
 
 License: GPL-2.0-or-later AND LGPL-2.1-or-later
 URL: https://github.com/libratbag/%{name}
@@ -73,6 +73,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_mandir}/man1/*.1*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.8-13
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.8-12
 - Rebuilt for Python 3.14.0rc2 bytecode
 

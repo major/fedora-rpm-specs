@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.4.2
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Python module to retrieve battery information
 
 License:        LGPL-3.0-or-later
@@ -45,6 +45,9 @@ rm -rf %{buildroot}%{_defaultdocdir}/%{pypi_name}/
 %license LICENSE
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.4.2-37
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.4.2-36
 - Rebuilt for Python 3.14.0rc2 bytecode
 

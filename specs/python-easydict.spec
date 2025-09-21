@@ -5,7 +5,7 @@ Version:        1.10
 %forgemeta
 
 Name:           python-%{pypi_name}
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Access dict values as attributes (works recursively) 
 
 License:        LGPL-3.0-only
@@ -52,6 +52,9 @@ Summary:        %{summary}
 %doc CHANGES
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.10-10
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.10-9
 - Rebuilt for Python 3.14.0rc2 bytecode
 

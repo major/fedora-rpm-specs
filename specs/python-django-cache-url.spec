@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.1.2
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Use Cache URLs in your Django application
 
 License:        MIT
@@ -43,6 +43,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/django_cache_url-%{version}-py*.egg-info
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.1.2-20
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.1.2-19
 - Rebuilt for Python 3.14.0rc2 bytecode
 

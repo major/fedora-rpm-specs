@@ -8,7 +8,7 @@
 %global snaprel %%{?snapdate:.git%%{snapdate}.%%{shortcommit}}
 
 # for rpmdev-bumpspec
-%global baserelease 0.7
+%global baserelease 0.8
 
 Name:       ipsilon
 Version:    3.0.5
@@ -469,6 +469,9 @@ install -m0644 -D ipsilon.sysusers.conf %{buildroot}%{_sysusersdir}/ipsilon.conf
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.0.5-0.8.git20241202.01109c1
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.0.5-0.7.git20241202.01109c1
 - Rebuilt for Python 3.14.0rc2 bytecode
 

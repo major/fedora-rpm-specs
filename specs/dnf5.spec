@@ -7,7 +7,7 @@
 
 Name:           dnf5
 Version:        %{project_version_prime}.%{project_version_major}.%{project_version_minor}.%{project_version_micro}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Command-line package manager
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf5
@@ -1027,6 +1027,9 @@ mkdir -p %{buildroot}%{_libdir}/libdnf5/plugins
 %ldconfig_scriptlets
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 5.2.17.0-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Tue Sep 02 2025 Packit <hello@packit.dev> - 5.2.17.0-1
 - Update to version 5.2.17.0
 

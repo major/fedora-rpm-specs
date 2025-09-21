@@ -4,7 +4,7 @@
 
 Name:           python-%{upstream_name}
 Version:        0.9.2
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Python library for parsing WWW-Authenticate HTTP header values
 License:        BSD-4.3TAHOE
 URL:            https://github.com/alexsdutton/www-authenticate
@@ -80,6 +80,9 @@ cp -p %{SOURCE1} .
 %endif
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.9.2-34
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.9.2-33
 - Rebuilt for Python 3.14.0rc2 bytecode
 

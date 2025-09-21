@@ -1,6 +1,6 @@
 Name:           python-pypresence
 Version:        4.3.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        A Discord Rich Presence Client in Python 
 License:        MIT
 URL:            https://qwertyquerty.github.io/pypresence/html/index.html
@@ -53,6 +53,9 @@ rm -rf %{buildroot}/docs
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.3.0-12
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.3.0-11
 - Rebuilt for Python 3.14.0rc2 bytecode
 

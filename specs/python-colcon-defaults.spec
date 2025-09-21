@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.2.9
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Extension for colcon to read defaults from a config file
 
 License:        Apache-2.0
@@ -60,6 +60,9 @@ line arguments from a configuration file.
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.2.9-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.2.9-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

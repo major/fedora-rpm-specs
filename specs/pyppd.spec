@@ -1,7 +1,7 @@
 Summary:       PPD file compressor and generator for CUPS
 Name:          pyppd
 Version:       1.0.2
-Release:       35%{?dist}
+Release:       36%{?dist}
 URL:           http://pypi.python.org/pypi/pyppd
 Source:        http://pypi.python.org/packages/source/p/pyppd/pyppd-%{version}.tar.gz
 License:       MIT
@@ -35,6 +35,9 @@ sed -i -e '1s,^#!/usr/bin/env python,#!/usr/bin/python3,' pyppd/pyppd-ppdfile.in
 %{_bindir}/%{name}
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0.2-36
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Sep  5 2025 Tim Waugh <twaugh@redhat.com> - 1.0.2-35
 - Stop using deprecated python setup.py build/install command in the spec (bug #2378571)
 

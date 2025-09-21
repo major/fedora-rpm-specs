@@ -39,7 +39,7 @@
 Name:		root
 Version:	6.36.04
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPL-2.1-or-later
@@ -3575,6 +3575,9 @@ fi
 %endif
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 6.36.04-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Mon Aug 25 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.36.04-1
 - Update to 6.36.04
 

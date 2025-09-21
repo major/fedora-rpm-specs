@@ -7,7 +7,7 @@ applications.}
 
 Name:           python-%{pypi_name}
 Version:        3.1.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Generate random strings in Python
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -49,6 +49,9 @@ rm -rf %{pypi_name}.egg-info
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.1.0-16
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.1.0-15
 - Rebuilt for Python 3.14.0rc2 bytecode
 

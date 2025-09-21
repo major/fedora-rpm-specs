@@ -1,6 +1,6 @@
 Name:           slowloris
 Version:        0.2.1
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Low bandwidth DoS tool
 
 License:        MIT
@@ -49,6 +49,9 @@ sed -i -e '/^#!\//, 1d' %{name}.py
 %{python3_sitelib}/Slowloris-%{version}-py*.egg-info
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.2.1-20
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.2.1-19
 - Rebuilt for Python 3.14.0rc2 bytecode
 

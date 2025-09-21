@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        6.0.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Microsoft Azure Support Management Client Library for Python
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
@@ -47,6 +47,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 6.0.0-13
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 6.0.0-12
 - Rebuilt for Python 3.14.0rc2 bytecode
 

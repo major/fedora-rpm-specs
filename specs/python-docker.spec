@@ -13,7 +13,7 @@
 
 Name:           python-%{srcname}
 Version:        7.1.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A Python library for the Docker Engine API
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -95,6 +95,9 @@ rm -fr docker.egg-info
 %endif # with_python3
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 7.1.0-9
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 7.1.0-8
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -7,7 +7,7 @@
 
 Name:           bumpversion
 Version:        1.0.1
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Version-bump your software with a single command
 
 License:        MIT
@@ -63,6 +63,9 @@ commits and tags:
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0.1-16
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Wed Sep 10 2025 Federico Pellegrin <fede@evolware.org> - 1.0.1-15
 - Use new Python macros in spec file (rhbz#2377217)
 

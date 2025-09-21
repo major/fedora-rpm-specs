@@ -1,6 +1,6 @@
 Name: virt-bootstrap
 Version: 1.1.1
-Release: 28%{?dist}
+Release: 29%{?dist}
 Summary: System container rootfs creation tool
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -65,6 +65,9 @@ done
 %{_mandir}/man1/virt-bootstrap*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.1.1-29
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.1.1-28
 - Rebuilt for Python 3.14.0rc2 bytecode
 

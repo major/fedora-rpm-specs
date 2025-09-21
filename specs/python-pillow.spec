@@ -18,7 +18,7 @@
 
 Name:           python-%{srcname}
 Version:        11.3.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Python image processing library
 
 # License: see http://www.pythonware.com/products/pil/license.htm
@@ -306,6 +306,9 @@ popd
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 11.3.0-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Tue Sep 09 2025 Sandro Mani <manisandro@gmail.com> - 11.3.0-5
 - Rebuild (libimagequant)
 

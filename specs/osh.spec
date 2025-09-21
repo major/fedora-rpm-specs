@@ -9,7 +9,7 @@
 
 Name:           osh
 Version:        %{version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 License:        GPL-3.0-or-later
 Summary:        Static and Dynamic Analysis as a Service
 URL:            https://github.com/openscanhub/openscanhub/
@@ -338,6 +338,9 @@ fi
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.1.1-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.1.1-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

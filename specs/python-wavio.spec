@@ -8,7 +8,7 @@ Summary: Read and write WAV files as numpy arrays
 License: BSD-2-Clause
 
 Version: 0.0.9
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 URL: https://github.com/WarrenWeckesser/wavio
 Source0: %{URL}/archive/v%{version}/%{pypi_name}-v%{version}.tar.gz
@@ -73,6 +73,9 @@ awk 'BEGIN { start_print=0 }
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.0.9-7
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.0.9-6
 - Rebuilt for Python 3.14.0rc2 bytecode
 

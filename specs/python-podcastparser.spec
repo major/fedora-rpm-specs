@@ -3,7 +3,7 @@
 
 Name:               python-%{modname}
 Version:            0.6.10
-Release:            11%{?dist}
+Release:            12%{?dist}
 Summary:            %{sum}
 
 License:            ISC
@@ -54,6 +54,9 @@ find . -type f -name '*.py' -exec sed -i /env\ python/d {} ';'
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.6.10-12
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.6.10-11
 - Rebuilt for Python 3.14.0rc2 bytecode
 

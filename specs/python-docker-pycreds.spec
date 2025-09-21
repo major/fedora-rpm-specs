@@ -17,7 +17,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.4.0
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Python bindings for the docker credentials store API
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -131,6 +131,9 @@ PYTHONPATH="${PWD}" py.test-%{python3_version} -vv tests/
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.4.0-27
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.4.0-26
 - Rebuilt for Python 3.14.0rc2 bytecode
 

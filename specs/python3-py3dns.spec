@@ -3,7 +3,7 @@
 
 Name:               python3-py3dns
 Version:            4.0.0
-Release:            11%{?dist}
+Release:            12%{?dist}
 Summary:            Python3 DNS library
 
 # Automatically converted from old format: Python - review is highly recommended.
@@ -62,6 +62,9 @@ done
 %{python3_sitelib}/%{distname}-%{version}*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.0.0-12
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.0.0-11
 - Rebuilt for Python 3.14.0rc2 bytecode
 

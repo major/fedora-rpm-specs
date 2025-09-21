@@ -5,7 +5,7 @@
 
 Name:           centpkg
 Version:        0.10.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        CentOS utility for working with dist-git
 License:        GPL-2.0-or-later
 URL:            https://gitlab.com/CentOS/common/centpkg
@@ -81,6 +81,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{python3} -m unittest discover --verb
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.10.1-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 29 2025 Troy Dawson <tdawson@redhat.com> - 0.10.1-1
 - Determining if package is synced solely on distrobaker config (sgajdosi)
 - Use the authenticated session for PP API (sgallagh)

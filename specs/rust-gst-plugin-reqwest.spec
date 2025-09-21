@@ -4,7 +4,7 @@
 %global crate gst-plugin-reqwest
 
 Name:           rust-gst-plugin-reqwest
-Version:        0.14.0
+Version:        0.14.2
 Release:        %autorelease
 Summary:        GStreamer reqwest HTTP Source Plugin
 
@@ -25,8 +25,13 @@ Summary:        %{summary}
 # (Apache-2.0 OR MIT) AND BSD-3-Clause
 # 0BSD OR MIT OR Apache-2.0
 # Apache-2.0
+# Apache-2.0 AND ISC AND (MIT OR Apache-2.0)
 # Apache-2.0 OR BSL-1.0
+# Apache-2.0 OR ISC OR MIT
 # Apache-2.0 OR MIT
+# BSD-3-Clause
+# CDLA-Permissive-2.0
+# ISC
 # MIT
 # MIT OR Apache-2.0
 # MIT OR Zlib OR Apache-2.0
@@ -35,10 +40,13 @@ Summary:        %{summary}
 License:        %{shrink:
     Apache-2.0 AND
     BSD-3-Clause AND
+    CDLA-Permissive-2.0 AND
+    ISC AND
     MIT AND
     Unicode-3.0 AND
     (0BSD OR MIT OR Apache-2.0) AND
     (Apache-2.0 OR BSL-1.0) AND
+    (Apache-2.0 OR ISC OR MIT) AND
     (Apache-2.0 OR MIT) AND
     (MIT OR Zlib OR Apache-2.0) AND
     (Unlicense OR MIT)

@@ -6,7 +6,7 @@ ESX, ESXi, and vCenter.}
 
 Name:           python-%{srcname}
 Version:        8.0.3.0.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        vSphere Python SDK
 License:        Apache-2.0
 URL:            https://github.com/vmware/%{srcname}
@@ -63,6 +63,9 @@ find . -name '*.py' -exec sed -i 's@/usr/bin/env python@@' {} \;
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 8.0.3.0.1-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 8.0.3.0.1-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

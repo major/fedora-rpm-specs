@@ -1,6 +1,6 @@
 Name:           urlwatch
 Version:        2.29
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A tool for monitoring webpages for updates
 
 License:        LicenseRef-Callaway-BSD
@@ -72,6 +72,9 @@ popd
 %{python3_sitelib}/%{name}*.dist-info
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.29-3
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.29-2
 - Rebuilt for Python 3.14.0rc2 bytecode
 

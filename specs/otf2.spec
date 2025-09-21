@@ -6,7 +6,7 @@
 
 Name:           otf2
 Version:        3.1.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Open Trace Format 2 library
 
 License:        BSD-3-Clause
@@ -136,6 +136,9 @@ make check
 %{_datadir}/%{name}/python
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.1.1-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.1.1-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -1,6 +1,6 @@
 Name:               python-slackclient
 Version:            3.36.0
-Release:            3%{?dist}
+Release:            4%{?dist}
 Summary:            Slack Developer Kit for Python
 
 # SPDX
@@ -65,6 +65,9 @@ k="${k-}${k+ and }not test_start_raises_an_error_if_rtm_ws_url_is_not_returned"
 %doc README.md
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.36.0-4
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.36.0-3
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -1,6 +1,6 @@
 Name:           python-logfury
 Version:        1.0.1
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Library for logging of method calls for Python
 
 License:        BSD-3-Clause
@@ -51,6 +51,9 @@ Summary: %{summary}
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0.1-19
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.0.1-18
 - Rebuilt for Python 3.14.0rc2 bytecode
 

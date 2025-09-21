@@ -11,7 +11,7 @@
 Name: apbs
 Summary: Adaptive Poisson Boltzmann Solver
 Version: 3.0.0
-Release: 30%{datecommit}%{shortcommit}%{?dist}
+Release: 31%{datecommit}%{shortcommit}%{?dist}
 # iAPBS looks licensed with a LGPLv2+, APBS is released under BSD license.
 License: LGPL-2.0-or-later AND BSD-3-Clause
 URL: https://www.poissonboltzmann.org/
@@ -212,6 +212,9 @@ export PATH=%{buildroot}%{_bindir}
 %doc %_vpath_builddir/doc
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.0.0-31
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.0.0-30
 - Rebuilt for Python 3.14.0rc2 bytecode
 

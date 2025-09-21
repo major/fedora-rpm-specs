@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.7
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Verbose logging level for Python's logging module
 
 License:        MIT
@@ -96,6 +96,9 @@ PYTHONUNBUFFERED=1 py.test-%{python3_version} %{srcname}/tests.py \
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.7-31
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.7-30
 - Rebuilt for Python 3.14.0rc2 bytecode
 

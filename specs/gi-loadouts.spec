@@ -4,7 +4,7 @@
 
 Name:           %{hyphen}
 Version:        0.1.9
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Loadouts for Genshin Impact
 
 License:        GPL-3.0-or-later
@@ -61,6 +61,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{identity}.me
 %{_datadir}/icons/hicolor/scalable/apps/%{identity}.svg
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.1.9-3
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.1.9-2
 - Rebuilt for Python 3.14.0rc2 bytecode
 

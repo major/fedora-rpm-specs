@@ -3,7 +3,7 @@
 
 Name:           python-%{modname}_2
 Version:        3.4.4
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Python implementation of Markdown
 
 License:        BSD-3-Clause
@@ -55,6 +55,9 @@ sed -i -e '/unittest/d' tests/test_syntax/extensions/test_md_in_html.py
 %{_bindir}/markdown_py
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.4.4-10
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.4.4-9
 - Rebuilt for Python 3.14.0rc2 bytecode
 

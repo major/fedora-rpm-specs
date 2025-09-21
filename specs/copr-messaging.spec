@@ -8,7 +8,7 @@ copr messages.
 
 Name:       copr-messaging
 Version:    1.2
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Abstraction for Copr messaging listeners/publishers
 
 License:    GPL-2.0-or-later
@@ -107,6 +107,9 @@ rm -rf html/.{doctrees,buildinfo}
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.2-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Tue Aug 26 2025 Jakub Kadlcik <frostyx@email.cz> 1.2-1
 - Stop using deprecated %%py3_build/%%py3_install macros
 

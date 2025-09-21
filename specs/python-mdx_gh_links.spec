@@ -1,6 +1,6 @@
 Name:           python-mdx_gh_links
 Version:        0.4
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Python-Markdown Github-Links Extension
 
 License:        BSD-3-Clause
@@ -52,6 +52,9 @@ shorthand links to GitHub users, repositories, issues and commits.
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.4-10
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.4-9
 - Rebuilt for Python 3.14.0rc2 bytecode
 

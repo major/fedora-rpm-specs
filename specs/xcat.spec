@@ -1,6 +1,6 @@
 Name:           xcat
 Version:        1.0.4
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        A command line tool to explore blind XPath injection vulnerabilities
 
 License:        MIT
@@ -43,6 +43,9 @@ sed -i -e "/cchardet/d" setup.py
 %{python3_sitelib}/%{name}-*.egg-info/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0.4-21
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.0.4-20
 - Rebuilt for Python 3.14.0rc2 bytecode
 

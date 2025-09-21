@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.3.8
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Extension for colcon to provide information about the test results
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -58,6 +58,9 @@ An extension for colcon-core to provide information about the test results.
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.3.8-23
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.3.8-22
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -1,6 +1,6 @@
 Name:		python-fluidity-sm
 Version:	0.2.0
-Release:	40%{?dist}
+Release:	41%{?dist}
 Summary:	State machine implementation for Python objects
 License:	MIT
 URL:		https://github.com/nsi-iff/fluidity
@@ -41,6 +41,9 @@ State machine implementation for Python objects.
 %{python3_sitelib}/fluidity_sm-%{version}.dist-info/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.2.0-41
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.2.0-40
 - Rebuilt for Python 3.14.0rc2 bytecode
 

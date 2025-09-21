@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.4.7
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Snuggs are S-expressions for Numpy
 
 License:        MIT
@@ -61,6 +61,9 @@ pytest-3 -v
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.4.7-24
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.4.7-23
 - Rebuilt for Python 3.14.0rc2 bytecode
 

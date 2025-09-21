@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.5.1
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        A Sphinx-doc theme based on Vuepress
 
 # Automatically converted from old format: MIT and BSD - review is highly recommended.
@@ -46,6 +46,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/sphinx_press_theme-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.5.1-25
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.5.1-24
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.1.23
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Generates rosinstall files
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -69,6 +69,9 @@ ln -s %{srcname}-%{python3_version} %{buildroot}%{_bindir}/%{srcname}
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.1.23-13
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.1.23-12
 - Rebuilt for Python 3.14.0rc2 bytecode
 

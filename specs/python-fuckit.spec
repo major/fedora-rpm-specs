@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        4.8.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        The Python Error Steamroller
 
 License:        WTFPL
@@ -53,6 +53,9 @@ find -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python3}|'
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.8.1-13
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.8.1-12
 - Rebuilt for Python 3.14.0rc2 bytecode
 

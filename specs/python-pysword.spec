@@ -12,7 +12,7 @@ Supports both python 2 and 3 (tested with 2.7 and 3.5) }
 Summary: %{sum}
 Name: python-%{srcname}
 Version: 0.2.8
-Release: 14%{?dist}
+Release: 15%{?dist}
 Source0: https://gitlab.com/tgc-dk/%{srcname}/repository/archive.tar.gz?ref=%{version}#/%{srcname}-%{version}.tar.gz
 Source1: testdata-0.2.8.tar.gz
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -53,6 +53,9 @@ Obsoletes:      python-%{srcname} < 0.2.7-7
 %{python3_sitelib}/pysword-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.2.8-15
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.2.8-14
 - Rebuilt for Python 3.14.0rc2 bytecode
 

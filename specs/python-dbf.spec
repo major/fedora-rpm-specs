@@ -9,7 +9,7 @@ fields are supported.
 
 Name:           python-%{pypi_name}
 Version:        0.99.3
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        %{sum}
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -66,6 +66,9 @@ sed -i "s|\r||g" dbf/README.md
 %license dbf/LICENSE
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.99.3-12
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.99.3-11
 - Rebuilt for Python 3.14.0rc2 bytecode
 

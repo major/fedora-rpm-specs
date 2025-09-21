@@ -5,7 +5,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.2.3
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Zero-dependency DBus library for Python with asyncio support
 
 License:        MIT
@@ -89,6 +89,9 @@ PYTHONPATH="${PWD}" %pytest -k 'not test_tcp_connection_with_forwarding'
 %{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.2.3-16
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.2.3-15
 - Rebuilt for Python 3.14.0rc2 bytecode
 

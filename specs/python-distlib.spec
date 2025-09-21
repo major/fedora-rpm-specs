@@ -3,7 +3,7 @@
 
 Name:       python-distlib
 Version:    0.4.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Low-level components of distutils2/packaging, augmented with higher-level APIs
 
 # Automatically converted from old format: Python - review is highly recommended.
@@ -74,6 +74,9 @@ export SKIP_ONLINE=1
 %doc README.rst
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.4.0-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Wed Aug 20 2025 Charalampos Stratakis <cstratak@redhat.com> - 0.4.0-1
 - Update to 0.4.0
 - Fix compatibility with Python 3.14

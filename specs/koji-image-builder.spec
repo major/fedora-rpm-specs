@@ -5,7 +5,7 @@ Version:        8
 %forgemeta
 
 Name:           koji-image-builder
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        Apache-2.0
 
 URL:            %{forgeurl}
@@ -84,6 +84,9 @@ install -p -m 0644 plugin/cli/image_builder.py %{buildroot}%{python3_sitelib}/ko
 %pycached %{python3_sitelib}/koji_cli_plugins/image_builder.py
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 8-3
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 8-2
 - Rebuilt for Python 3.14.0rc2 bytecode
 

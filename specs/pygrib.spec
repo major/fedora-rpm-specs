@@ -3,7 +3,7 @@
 
 Name:       pygrib
 Version:    2.1.6
-Release:    7%{?dist}
+Release:    8%{?dist}
 Summary:    Python module for reading and modifying GRIB files
 
 # this software uses the "MIT:Modern Style with sublicense" license
@@ -171,6 +171,9 @@ cd  $TESTROOT/test
 %{_mandir}/man1/grib_*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.1.6-8
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.1.6-7
 - Rebuilt for Python 3.14.0rc2 bytecode
 

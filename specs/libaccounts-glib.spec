@@ -1,6 +1,6 @@
 Name:           libaccounts-glib
 Version:        1.25
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Accounts framework for Linux and POSIX based platforms
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2
@@ -126,6 +126,9 @@ mkdir -p %{buildroot}%{_datadir}/accounts/{applications,providers,services,servi
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.25-23
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.25-22
 - Rebuilt for Python 3.14.0rc2 bytecode
 

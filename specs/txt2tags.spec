@@ -1,7 +1,7 @@
 Name:    txt2tags
 Summary: Summary: Converts text files to HTML, XHTML, LaTeX, and other formats
 Version: 3.3
-Release: 22%{?dist}
+Release: 23%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
 URL:     http://txt2tags.sourceforge.net/
@@ -53,6 +53,9 @@ Txt2tags is a document generator. It reads a text file with minimal markup as
 %{_bindir}/txt2tags
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.3-23
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.3-22
 - Rebuilt for Python 3.14.0rc2 bytecode
 

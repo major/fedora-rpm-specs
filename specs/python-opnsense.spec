@@ -3,7 +3,7 @@
 
 Name:           python-%{pkg_name}
 Version:        0.3.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Python API client for OPNsense
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -67,6 +67,9 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.3.0-20
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.3.0-19
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.4.1.1
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Jasmine (XStatic packaging standard)
 
 License:        MIT
@@ -83,6 +83,9 @@ chmod 644 %{buildroot}%{_jsdir}/jasmine/*.js
 %{_jsdir}/jasmine
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.4.1.1-30
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.4.1.1-29
 - Rebuilt for Python 3.14.0rc2 bytecode
 

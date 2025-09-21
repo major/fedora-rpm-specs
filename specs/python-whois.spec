@@ -9,7 +9,7 @@ Summary: Python module for retrieving WHOIS information of domains
 License: MIT
 
 Version: 0.9.27
-Release: 11%{?dist}
+Release: 12%{?dist}
 
 URL: https://github.com/DannyCork/python-whois/
 Source0: %{URL}archive/%{version}/%{name}-%{version}.tar.gz
@@ -55,6 +55,9 @@ Summary: %{summary}
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.9.27-12
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.9.27-11
 - Rebuilt for Python 3.14.0rc2 bytecode
 

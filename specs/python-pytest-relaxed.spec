@@ -1,6 +1,6 @@
 Name:           python-pytest-relaxed
 Version:        2.0.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Relaxed test discovery/organization for pytest
 
 License:        BSD-2-Clause
@@ -53,6 +53,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.0.2-8
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.0.2-7
 - Rebuilt for Python 3.14.0rc2 bytecode
 

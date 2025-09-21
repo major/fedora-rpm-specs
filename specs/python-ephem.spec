@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        4.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Compute positions of the planets and stars
 
 License:        MIT
@@ -81,6 +81,9 @@ rm -rf %{buildroot}%{python3_sitearch}/%{pypi_name}/{.benchmarks,.hypothesis,.py
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.2-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.2-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -3,7 +3,7 @@
 
 Name:          python-%{srcname}
 Version:       1.1.4
-Release:       15%{?dist}
+Release:       16%{?dist}
 Summary:       Show in File Manager is a Python package to open the system file manager and optionally select files in it.
 
 License:       MIT
@@ -42,6 +42,9 @@ BuildRequires: python3-setuptools
 %{python3_sitelib}/show_in_file_manager-*.egg-info/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.1.4-16
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.1.4-15
 - Rebuilt for Python 3.14.0rc2 bytecode
 

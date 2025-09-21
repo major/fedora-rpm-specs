@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.8.2
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Mock SSH server for testing purposes
 
 License:        MIT
@@ -49,6 +49,9 @@ rm -rf *.egg-info
 %{python3_sitelib}/mock_ssh_server-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.8.2-19
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.8.2-18
 - Rebuilt for Python 3.14.0rc2 bytecode
 

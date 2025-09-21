@@ -2,7 +2,7 @@
 
 Name:           python-phyghtmap
 Version:        2.23
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Generate OSM contour lines from NASA SRTM data
 License:        GPL-2.0-or-later
 URL:            http://katze.tfiu.de/projects/phyghtmap/
@@ -58,6 +58,9 @@ install -Dpm 644 docs/%{modname}.1 %{buildroot}%{_mandir}/man1/%{modname}.1
 %{_mandir}/man1/%{modname}.1*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.23-16
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.23-15
 - Rebuilt for Python 3.14.0rc2 bytecode
 

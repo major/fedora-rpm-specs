@@ -11,7 +11,7 @@
 
 Name:               python-twiggy
 Version:            0.5.1
-Release:            18%{?dist}
+Release:            19%{?dist}
 Summary:            A Pythonic logger
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -68,6 +68,9 @@ rm -rf %{distname}.egg-info
 %{python3_sitelib}/%{distname}-%{version}-*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.5.1-19
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.5.1-18
 - Rebuilt for Python 3.14.0rc2 bytecode
 

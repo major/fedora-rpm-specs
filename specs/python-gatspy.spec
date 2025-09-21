@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        0.3
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        %{sum}
 
 License:        BSD-2-Clause
@@ -57,6 +57,9 @@ periodogram, the Supersmoother method, and others.
 %doc CHANGES.md README.md
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.3-38
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.3-37
 - Rebuilt for Python 3.14.0rc2 bytecode
 

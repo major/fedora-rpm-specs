@@ -1,6 +1,6 @@
 Name:		python-isal
 Version:	1.8.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Faster zlib and gzip compatible (de)compression using the ISA-L library
 #		src/isal/crc32_combine.h is Zlib
 License:	PSF-2.0 AND Zlib
@@ -75,6 +75,9 @@ export SETUPTOOLS_SCM_PRETEND_VERSION_FOR_ISAL=%{version}
 %license LICENSE
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.8.0-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Thu Sep 11 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 1.8.0-1
 - Update to version 1.8.0
 - Drop patch accepted upstream

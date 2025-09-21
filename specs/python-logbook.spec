@@ -1,6 +1,6 @@
 Name:		python-logbook
 Version:	1.8.2
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	A logging replacement for Python
 
 License:	BSD-3-Clause
@@ -53,6 +53,9 @@ Logbook can do that.
 %doc CHANGES README.md
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.8.2-4
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.8.2-3
 - Rebuilt for Python 3.14.0rc2 bytecode
 

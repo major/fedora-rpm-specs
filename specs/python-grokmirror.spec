@@ -1,6 +1,6 @@
 Name:           python-grokmirror
 Version:        2.0.12
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Framework to smartly mirror git repositories
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -57,6 +57,9 @@ install -pm 0644 man/*.1 %{buildroot}/%{_mandir}/man1/
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.0.12-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.0.12-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

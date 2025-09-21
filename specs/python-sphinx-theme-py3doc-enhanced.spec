@@ -6,7 +6,7 @@ enhancements.
 
 Name:           python-%{pkgname}
 Version:        2.4.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Theme based on the theme of https://docs.python.org/3/
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -57,6 +57,9 @@ Provides:       python%{python3_pkgversion}-%{pypi_name} = %{version}-%{release}
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.4.0-18
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.4.0-17
 - Rebuilt for Python 3.14.0rc2 bytecode
 

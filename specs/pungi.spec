@@ -1,6 +1,6 @@
 Name:           pungi
 Version:        4.10.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Distribution compose tool
 
 License:        GPL-2.0-only
@@ -134,6 +134,9 @@ gzip _build/man/pungi.1
 %{_bindir}/%{name}-cache-cleanup
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.10.1-3
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.10.1-2
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -1,6 +1,6 @@
 Name:           python-oauth
 Version:        1.0.1
-Release:        42%{?dist}
+Release:        43%{?dist}
 Summary:        Library for OAuth version 1.0a
 
 License:        MIT
@@ -53,6 +53,9 @@ Summary: %summary
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0.1-43
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.0.1-42
 - Rebuilt for Python 3.14.0rc2 bytecode
 

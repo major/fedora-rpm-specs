@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        8.3.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A modular, fast, simple, static website and blog generator
 
 # Automatically converted from old format: MIT and CC0 and BSD - review is highly recommended.
@@ -115,6 +115,9 @@ rm -rf html/.{doctrees,buildinfo}
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 8.3.3-4
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 8.3.3-3
 - Rebuilt for Python 3.14.0rc2 bytecode
 

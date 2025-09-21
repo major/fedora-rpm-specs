@@ -4,7 +4,7 @@
 
 Name:           python-%{realname}
 Version:        0.9.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        A python library for doing approximate and phonetic matching of strings
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -66,6 +66,9 @@ PYTHONPATH=. pytest-3 jellyfish/test.py
 %{python3_sitelib}/%{realname}*.egg-info
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.9.1-14
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.9.1-13
 - Rebuilt for Python 3.14.0rc2 bytecode
 

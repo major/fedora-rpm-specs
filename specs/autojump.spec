@@ -2,7 +2,7 @@
 
 Name:           autojump
 Version:        22.5.3
-Release:        22%{?dist}
+Release:        23%{?dist}
 
 Summary:        A fast way to navigate your filesystem from the command line
 
@@ -91,6 +91,9 @@ mv %{buildroot}%{_bindir}/%{name}_*.py %{buildroot}%{python3_sitelib}/
 %config(noreplace) %{_datadir}/%{name}/%{name}.fish
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 22.5.3-23
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 22.5.3-22
 - Rebuilt for Python 3.14.0rc2 bytecode
 

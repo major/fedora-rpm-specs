@@ -8,7 +8,7 @@
 
 Name:    syslog-ng
 Version: %{syslog_ng_ver}
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Next-generation syslog server
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -648,6 +648,9 @@ fi
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.9.0-7
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Tue Sep 16 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 4.9.0-6
 - Rebuilt for abseil-cpp 20250814.0 (again, for F43)
 

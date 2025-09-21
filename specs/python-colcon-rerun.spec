@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.1.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Extension for colcon to quickly re-run a recently executed verb
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -60,6 +60,9 @@ An extension for colcon-core to quickly re-run a recently executed verb.
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.1.1-9
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.1.1-8
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -3,7 +3,7 @@
 
 Name:             klatexformula
 Version:          4.1.0
-Release:          13%{?dist}
+Release:          14%{?dist}
 Summary:          Application for easy image creating from a LaTeX equation
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:          GPL-2.0-or-later
@@ -140,6 +140,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.1.0-14
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.1.0-13
 - Rebuilt for Python 3.14.0rc2 bytecode
 

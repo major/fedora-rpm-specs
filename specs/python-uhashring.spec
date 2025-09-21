@@ -2,7 +2,7 @@
 
 Name:           python-%{module}
 Version:        2.3
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Python module uhashring
 
 License:        BSD-3-Clause
@@ -51,6 +51,9 @@ sed -i 's/ *"flake8",//g' pyproject.toml
 %license LICENSE
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.3-13
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.3-12
 - Rebuilt for Python 3.14.0rc2 bytecode
 

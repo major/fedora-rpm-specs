@@ -9,7 +9,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.2.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Friendly state machines for python
 
 License:        Apache-2.0
@@ -108,6 +108,9 @@ rm -rf doc/build/html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.2.0-10
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.2.0-9
 - Rebuilt for Python 3.14.0rc2 bytecode
 

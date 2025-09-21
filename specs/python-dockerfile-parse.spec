@@ -5,7 +5,7 @@
 
 Name:           python-%{srcname}
 Version:        2.0.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 
 Summary:        Python library for Dockerfile manipulation
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -56,6 +56,9 @@ py.test-%{python3_version} -v tests
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.0.1-11
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.0.1-10
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -1,6 +1,6 @@
 Name:           python-pickleshare
 Version:        0.7.5
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Tiny 'shelve'-like database with concurrency support
 
 License:        MIT
@@ -61,6 +61,9 @@ sed -i 's/\/usr\/bin\/env python/\/usr\/bin\/python/' pickleshare.py
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.7.5-23
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.7.5-22
 - Rebuilt for Python 3.14.0rc2 bytecode
 

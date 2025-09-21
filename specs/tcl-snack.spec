@@ -11,7 +11,7 @@
 
 Name:		tcl-%{realname}
 Version:	2.2.10
-Release:	66%{?dist}
+Release:	67%{?dist}
 Summary:	Sound toolkit
 # generic/snackDecls.h, generic/snackStubInit.c and generic/snackStubLib.c 
 # are under the TCL "license.terms", a copy of which can be found in the tcl package.
@@ -152,6 +152,9 @@ install -p unix/snackConfig.sh %{buildroot}%{_libdir}
 %{python3_sitelib}/__pycache__/tkSnack*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.2.10-67
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.2.10-66
 - Rebuilt for Python 3.14.0rc2 bytecode
 

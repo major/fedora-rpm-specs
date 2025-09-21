@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.6.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python SPI data flash device drivers
 
 License:        MIT
@@ -46,6 +46,9 @@ products, to store firmware, microcode or configuration parameters.
 %license LICENSE
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.6.5-4
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.6.5-3
 - Rebuilt for Python 3.14.0rc2 bytecode
 

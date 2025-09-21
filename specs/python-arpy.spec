@@ -7,7 +7,7 @@ License:       LicenseRef-Callaway-BSD
 URL:           https://github.com/viraptor/arpy
 
 Version:       2.3.0
-Release:       13%{?dist}
+Release:       14%{?dist}
 Source0:       %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
 
 BuildArch:     noarch
@@ -57,6 +57,9 @@ This package allows using arpy in Python 3 applications.
 %doc README.md
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.3.0-14
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.3.0-13
 - Rebuilt for Python 3.14.0rc2 bytecode
 

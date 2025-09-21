@@ -1,6 +1,6 @@
 Name:           python-moddb
 Version:        0.12.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A Python scraper/parser for ModDB
 License:        MIT
 URL:            https://github.com/ClementJ18/moddb
@@ -53,6 +53,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.12.0-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Sun Sep 14 2025 Steve Cossette <farchord@gmail.com> - 0.12.0-4
 - Revert back to 0.12.0
 

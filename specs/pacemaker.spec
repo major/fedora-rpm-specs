@@ -41,7 +41,7 @@
 ## can be incremented to build packages reliably considered "newer"
 ## than previously built packages with the same pcmkversion)
 %global pcmkversion 3.0.1
-%global baserelease 11
+%global baserelease 12
 
 ## Upstream commit (full commit ID, abbreviated commit ID, or tag) to build
 %global commit 16e74fc4da93a08514e1ec320fa9530b6c3d9fd5
@@ -762,6 +762,9 @@ fi
 %{_datadir}/pkgconfig/pacemaker-schemas.pc
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.0.1-12
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Mon Sep 08 2025 Klaus Wenninger <kwenning@redhat.com> - 3.0.1-11
 - Removed tier1 test again as it was just for investigation of a CI issue
 

@@ -6,7 +6,7 @@ interfaces.
 
 Name:           python-paste
 Version:        3.10.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 BuildArch:      noarch
 
 # Most of the code is MIT
@@ -91,6 +91,9 @@ py.test-3 -k "not test_paste_website and not test_proxy_to_website and not test_
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.10.1-11
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.10.1-10
 - Rebuilt for Python 3.14.0rc2 bytecode
 

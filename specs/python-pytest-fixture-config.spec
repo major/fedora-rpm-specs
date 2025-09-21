@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        1.8.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        %{sum}
 
 License:        MIT
@@ -47,6 +47,9 @@ Allows you to skip tests when their required config variables aren't set.
 %doc README.md CHANGES.md
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.8.0-7
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.8.0-6
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.6
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Easy to use progress bars
 
 License:        ISC
@@ -75,6 +75,9 @@ Summary:        Easy to use progress bars
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.6-19
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.6-18
 - Rebuilt for Python 3.14.0rc2 bytecode
 

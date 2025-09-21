@@ -18,7 +18,7 @@
 
 Name:           python-%{sname}
 Version:        1.2.0
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Python library for interfacing with Intel Rack Scale Design enabled hardware.
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -125,6 +125,9 @@ export PYTHON=%{pyver_bin}
 %endif
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.2.0-24
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.2.0-23
 - Rebuilt for Python 3.14.0rc2 bytecode
 

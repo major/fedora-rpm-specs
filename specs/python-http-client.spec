@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        3.3.7
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        HTTP REST client, simplified for Python
 License:        MIT
 URL:            https://github.com/sendgrid/%{name}
@@ -57,6 +57,9 @@ This is a Python 3 version of the package.
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.3.7-15
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.3.7-14
 - Rebuilt for Python 3.14.0rc2 bytecode
 

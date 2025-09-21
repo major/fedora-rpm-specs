@@ -2,7 +2,7 @@
 
 Name:           python-slugify
 Version:        8.0.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python module to deal with unicode slugs
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -49,6 +49,9 @@ A Python slugify application that handles Unicode.
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 8.0.4-3
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 8.0.4-2
 - Rebuilt for Python 3.14.0rc2 bytecode
 

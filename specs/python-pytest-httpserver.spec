@@ -8,7 +8,7 @@ http requests and their responses.}
 
 Name:		python-%{srcname}
 Version:	1.0.8
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	HTTP server for pytest
 
 License:	MIT
@@ -64,6 +64,9 @@ sed -i '/types-requests/d' pyproject.toml
 %doc README.md CHANGES.rst CONTRIBUTION.md
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0.8-11
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.0.8-10
 - Rebuilt for Python 3.14.0rc2 bytecode
 

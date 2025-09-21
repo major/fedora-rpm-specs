@@ -4,7 +4,7 @@
 
 Name:           python-%{modname}
 Version:        1.1
-Release:        0.35.git%{shortcommit}%{?dist}
+Release:        0.36.git%{shortcommit}%{?dist}
 Summary:        Python library for interfacing with Cedrus XID and StimTracker devices
 
 # Automatically converted from old format: BSD with advertising - review is highly recommended.
@@ -52,6 +52,9 @@ Python 3 version.
 %{python3_sitelib}/%{modname}*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.1-0.36.gitc84afe9
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.1-0.35.gitc84afe9
 - Rebuilt for Python 3.14.0rc2 bytecode
 

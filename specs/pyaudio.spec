@@ -3,7 +3,7 @@
 
 Name:		%{srcname}
 Version:	0.2.13
-Release:	9%{?dist}
+Release:	10%{?dist}
 License:	MIT
 Url:		http://people.csail.mit.edu/hubert/pyaudio/
 Source0:	https://files.pythonhosted.org/packages/91/a0/f439da954d78a987298cb8d1ca1b141c53b1d1d1c7a50e17198ed061b9ac/PyAudio-0.2.13.tar.gz
@@ -49,6 +49,9 @@ sed -i 's/setuptools<=65.1.1/setuptools/' pyproject.toml
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.2.13-10
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.2.13-9
 - Rebuilt for Python 3.14.0rc2 bytecode
 

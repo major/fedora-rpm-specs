@@ -5,7 +5,7 @@
 
 Name:           lorax
 Version:        44.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tool for creating the anaconda install images
 License:        GPL-2.0-or-later
 
@@ -184,6 +184,9 @@ make DESTDIR=$RPM_BUILD_ROOT mandir=%{_mandir} install
 %{_datadir}/lorax/templates.d/*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 44.0-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Mon Sep 08 2025 Brian C. Lane <bcl@redhat.com> 44.0-1
 - maint: Switch default platform to F44 (bcl@redhat.com)
 - Drop all installs of shim-ia32 (it no longer exists) (awilliam@redhat.com)

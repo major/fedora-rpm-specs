@@ -6,7 +6,7 @@ License:        Apache-2.0
 Summary:        A framework to implement simple but nice CLIs
 Epoch:          1
 Version:        2.0.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 URL:            https://github.com/open-iscsi/configshell-fb
 Source:         %{url}/archive/v%{version}/%{oname}-%{version}.tar.gz
 BuildArch:      noarch
@@ -46,6 +46,9 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %doc COPYING README.md
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1:2.0.2-4
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1:2.0.2-3
 - Rebuilt for Python 3.14.0rc2 bytecode
 

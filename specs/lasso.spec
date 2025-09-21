@@ -59,7 +59,7 @@
 Summary: Liberty Alliance Single Sign On
 Name: lasso
 Version: 2.9.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later
 URL: https://lasso.entrouvert.org/
 Source0: https://dev.entrouvert.org/lasso/lasso-%{version}.tar.gz
@@ -252,6 +252,9 @@ rm -fr %{buildroot}%{_docdir}/%{name}
 %endif
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.9.0-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Tue Aug 19 2025 Xavier Bachelot <xavier@bachelot.org> - 2.9.0-1
 - Update to 2.9.0 (RHBZ#2387825)
 

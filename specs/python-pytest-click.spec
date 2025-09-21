@@ -1,6 +1,6 @@
 Name:           python-pytest-click
 Version:        1.1.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Pytest plugin for Click
 
 License:        MIT
@@ -43,6 +43,9 @@ isolated_cli_runner.
 %{python3_sitelib}/pytest_click-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.1.0-13
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.1.0-12
 - Rebuilt for Python 3.14.0rc2 bytecode
 

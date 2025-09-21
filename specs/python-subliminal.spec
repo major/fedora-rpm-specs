@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        2.1.0
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Python library to search and download subtitles
 License:        MIT
 URL:            https://github.com/Diaoul/subliminal
@@ -115,6 +115,9 @@ install -D -m 0644 docs/_build/man/%{srcname}.1 %{buildroot}%{_mandir}/man1/%{sr
 %{_mandir}/man1/%{srcname}.1*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.1.0-22
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.1.0-21
 - Rebuilt for Python 3.14.0rc2 bytecode
 

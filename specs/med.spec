@@ -1,6 +1,6 @@
 Name:           med
 Version:        5.0.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Library to exchange meshed data
 
 License:        LGPL-3.0-or-later
@@ -134,6 +134,9 @@ rm -rf %{buildroot}%{_bindir}/testpy
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 5.0.0-8
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 5.0.0-7
 - Rebuilt for Python 3.14.0rc2 bytecode
 

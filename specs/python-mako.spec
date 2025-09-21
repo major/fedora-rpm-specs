@@ -1,6 +1,6 @@
 Name:    python-mako
 Version: 1.2.3
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: Mako template library for Python
 
 # Mostly MIT, but _ast_util.py is Python-2.0.1 licensed
@@ -79,6 +79,9 @@ pytest-3
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.2.3-13
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.2.3-12
 - Rebuilt for Python 3.14.0rc2 bytecode
 

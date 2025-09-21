@@ -3,7 +3,7 @@
 
 Name:               python-sanction
 Version:            0.4.1
-Release:            14%{?dist}
+Release:            15%{?dist}
 Summary:            A simple, lightweight OAuth2 client
 License:            MIT
 URL:                http://pypi.python.org/pypi/sanction
@@ -107,6 +107,9 @@ rm -rf %{modname}.egg-info
 %{python3_sitelib}/%{modname}-%{version}*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.4.1-15
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.4.1-14
 - Rebuilt for Python 3.14.0rc2 bytecode
 

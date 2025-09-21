@@ -3,7 +3,7 @@
 
 Name:           python-jinja2-time
 Version:        0.2.0
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Jinja2 Extension for Dates and Times
 
 License:        MIT
@@ -52,6 +52,9 @@ Jinja2 Extension for Dates and Times.
 %doc *.rst
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.2.0-33
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.2.0-32
 - Rebuilt for Python 3.14.0rc2 bytecode
 

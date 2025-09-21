@@ -30,7 +30,7 @@
 
 Name:      gnome-software
 Version:   49.0
-Release:   1%{?dist}
+Release:   2%{?dist}
 Summary:   A software center for GNOME
 
 License:   GPL-2.0-or-later
@@ -42,6 +42,8 @@ Source0:   https://download.gnome.org/sources/gnome-software/49/%{name}-%{tarbal
 # it the ./update-patch.sh script
 Patch:     0001-dnf5-plugin.patch
 %endif
+
+Patch:     0002-gs-extras-page-Packages-not-found-for-what-provides-.patch
 
 # ostree and flatpak not on i686 for Fedora and RHEL 10
 # https://github.com/containers/composefs/pull/229#issuecomment-1838735764

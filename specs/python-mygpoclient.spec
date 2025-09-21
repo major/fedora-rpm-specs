@@ -1,6 +1,6 @@
 Name:       python-mygpoclient
 Version:    1.10
-Release:    5%{?dist}
+Release:    6%{?dist}
 Summary:    Python module to connect to the my.gpodder.org webservice
 
 License:    GPL-3.0-or-later
@@ -53,6 +53,9 @@ rm mygpoclient/http_test.py
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.10-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.10-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

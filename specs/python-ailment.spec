@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        9.2.158
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        The angr intermediate language
 
 License:        LicenseRef-Callaway-BSD
@@ -41,6 +41,9 @@ AIL is the angr intermediate language.
 %license LICENSE
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 9.2.158-4
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 9.2.158-3
 - Rebuilt for Python 3.14.0rc2 bytecode
 

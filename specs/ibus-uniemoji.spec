@@ -6,7 +6,7 @@
 Summary:  Input method for entering unicode symbols and emoji by name
 Name: ibus-uniemoji
 Version: 0.7.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 # emojione.json is in MIT
 # UnicodeData.txt is in Unicode
 # uniemoji is in GPLv3+
@@ -42,6 +42,9 @@ make install DESTDIR=%{buildroot}
 %config(noreplace) %{_sysconfdir}/xdg/uniemoji/custom.json
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.7.0-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.7.0-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

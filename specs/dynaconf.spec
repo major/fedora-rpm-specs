@@ -5,7 +5,7 @@ support for 12-factor applications and extensions for Flask and Django
 
 Name:           %{srcname}
 Version:        3.1.2
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        A dynamic configurator for python projects
 
 License:        MIT
@@ -47,6 +47,9 @@ BuildRequires:  python3-devel
 %{_bindir}/%{srcname}
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.1.2-19
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.1.2-18
 - Rebuilt for Python 3.14.0rc2 bytecode
 

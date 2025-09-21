@@ -2,7 +2,7 @@
 Summary:        Interactive CLI for MySQL Database with auto-completion and syntax highlighting
 Name:           mycli
 Version:        1.37.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
 URL:            https://mycli.net
@@ -63,6 +63,9 @@ syntax highlighting.
 %{_bindir}/%{pypi_name}
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.37.1-3
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.37.1-2
 - Rebuilt for Python 3.14.0rc2 bytecode
 

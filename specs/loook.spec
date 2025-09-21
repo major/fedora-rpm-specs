@@ -1,6 +1,6 @@
 Name:       loook
 Version:    0.9.0
-Release:    5%{?dist}
+Release:    6%{?dist}
 Summary:    OpenOffice.org document search tool
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -51,6 +51,9 @@ desktop-file-install --dir $RPM_BUILD_ROOT%{_datadir}/applications %{name}.deskt
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.9.0-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.9.0-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

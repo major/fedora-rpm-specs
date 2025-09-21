@@ -191,7 +191,7 @@
 #################################################################################
 Name:		ceph
 Version:	20.1.0
-Release:	4%{?dist}
+Release:	5%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -2769,6 +2769,9 @@ exit 0
 %{python3_sitelib}/ceph_node_proxy-*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2:20.1.0-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Tue Sep 16 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:20.1.0-4
 - ceph-20.1.0 RC, rhbz#2395703 (gmock, gtest again)
 

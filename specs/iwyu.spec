@@ -1,6 +1,6 @@
 %global appname include-what-you-use
 %global toolchain clang
-%global llvm_ver 20
+%global llvm_ver 21
 
 %global __cc_clang clang-%{llvm_ver}
 %global __cxx_clang clang++-%{llvm_ver}
@@ -12,7 +12,7 @@
 %undefine _include_frame_pointers
 
 Name: iwyu
-Version: 0.24
+Version: 0.25
 Release: %autorelease
 
 License: NCSA

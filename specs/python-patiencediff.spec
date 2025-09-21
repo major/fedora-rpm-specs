@@ -1,7 +1,7 @@
 %global pypi_name patiencediff
 Name:           python-patiencediff
 Version:        0.2.15
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Python implementation of the patiencediff algorithm
 
 License:        GPL-2.0-or-later
@@ -49,6 +49,9 @@ Summary:        %{summary}
 %{_bindir}/patiencediff
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.2.15-7
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.2.15-6
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -4,7 +4,7 @@
 
 Name:           enki
 Version:        22.08.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Text editor for programmers
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -149,6 +149,9 @@ xvfb-run -s '-screen :0 1024x768x16' %{__python3} run_all.py
 %doc html/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 22.08.0-14
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 22.08.0-13
 - Rebuilt for Python 3.14.0rc2 bytecode
 

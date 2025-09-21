@@ -10,7 +10,7 @@
 
 Name:           python-glyphsLib
 Version:        6.11.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A bridge from Glyphs source files to UFOs
 
 # The entire package is Apache-2.0, except:
@@ -127,6 +127,9 @@ ignore="${ignore-} --ignore=tests/builder/interpolation_test.py"
 %{_mandir}/man1/ufo2glyphs.1*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 6.11.6-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Tue Aug 19 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 6.11.6-1
 - Update to 6.11.6 (close RHBZ#2389296)
 

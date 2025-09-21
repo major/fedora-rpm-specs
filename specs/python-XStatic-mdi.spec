@@ -10,7 +10,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.6.50.2
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        mdi (XStatic packaging standard)
 
 # mdi is licensed under SIL 1.1.
@@ -163,6 +163,9 @@ popd
 %endif
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.6.50.2-22
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.6.50.2-21
 - Rebuilt for Python 3.14.0rc2 bytecode
 

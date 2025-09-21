@@ -1,6 +1,6 @@
 Name: python-beaker
 Version: 1.12.1
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: WSGI middleware layer to provide sessions
 # Automatically converted from old format: BSD and MIT - review is highly recommended.
 License: LicenseRef-Callaway-BSD AND LicenseRef-Callaway-MIT
@@ -79,6 +79,9 @@ redis-server &
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.12.1-13
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.12.1-12
 - Rebuilt for Python 3.14.0rc2 bytecode
 

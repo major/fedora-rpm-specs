@@ -2,7 +2,7 @@
 
 Name:           python-%{modname}
 Version:        0.1.4
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        ISO639-2 support for Python
 
 License:        MIT
@@ -41,6 +41,9 @@ Python 3 version.
 %{python3_sitelib}/%{modname}/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.1.4-32
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.1.4-31
 - Rebuilt for Python 3.14.0rc2 bytecode
 

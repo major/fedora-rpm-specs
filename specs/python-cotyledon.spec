@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.0.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Cotyledon provides a framework for defining long-running services
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -59,6 +59,9 @@ rm -rf html/.doctrees html/.buildinfo
 %doc html
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.0.0-4
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.0.0-3
 - Rebuilt for Python 3.14.0rc2 bytecode
 

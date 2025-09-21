@@ -3,7 +3,7 @@
 
 Name:           python-pluggy
 Version:        1.6.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        The plugin manager stripped of pytest specific details
 
 # SPDX
@@ -59,6 +59,9 @@ Summary:  %summary
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.6.0-4
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.6.0-3
 - Rebuilt for Python 3.14.0rc2 bytecode
 

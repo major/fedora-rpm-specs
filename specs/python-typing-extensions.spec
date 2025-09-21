@@ -1,6 +1,6 @@
 Name:           python-typing-extensions
 Version:        4.15.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Backported and Experimental Type Hints for Python
 
 License:        PSF-2.0
@@ -63,6 +63,9 @@ cd src
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.15.0-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Mon Sep 01 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 4.15.0-1
 - Update to 4.15.0 (close RHBZ#2390801)
 

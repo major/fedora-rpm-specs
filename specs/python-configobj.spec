@@ -1,6 +1,6 @@
 Name:           python-configobj
 Version:        5.0.9
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Config file reading, writing, and validation
 License:        BSD-3-Clause
 URL:            http://configobj.readthedocs.org/
@@ -43,6 +43,9 @@ export PYTHONPATH=$(pwd)/build/lib
 %{python3_sitelib}/configobj-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 5.0.9-7
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 5.0.9-6
 - Rebuilt for Python 3.14.0rc2 bytecode
 

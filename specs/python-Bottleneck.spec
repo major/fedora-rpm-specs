@@ -4,7 +4,7 @@
 
 Name:		python-Bottleneck
 Version:	1.5.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Collection of fast NumPy array functions written in Cython
 
 License:	BSD-2-Clause
@@ -87,6 +87,9 @@ cd -
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.5.0-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Tue Aug 26 2025 Jerry James <loganjerry@gmail.com> - 1.5.0-1
 - Version 1.5.0
 - Stop building for 32-bit x86

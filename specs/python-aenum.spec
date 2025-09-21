@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.1.15
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Advanced Enumerations, NamedTuples and NamedConstants for Python
 
 License:        BSD-3-Clause
@@ -74,6 +74,9 @@ rm %{pypi_name}/_py2.py
 %{python3_sitelib}/%{pypi_name}-%{version}.dist-info/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.1.15-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.1.15-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

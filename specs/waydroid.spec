@@ -6,7 +6,7 @@ Version:        1.5.4
 
 %forgemeta
 Name:           waydroid
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Container-based approach to boot a full Android system on GNU/Linux
 License:        GPL-3.0-only
 URL:            %{forgeurl}
@@ -149,6 +149,9 @@ fi
 %{_datadir}/selinux/%{selinuxtype}/%{name}.pp
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.5.4-4
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.5.4-3
 - Rebuilt for Python 3.14.0rc2 bytecode
 

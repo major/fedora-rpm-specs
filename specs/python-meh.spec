@@ -4,7 +4,7 @@ Summary:  A python library for handling exceptions
 Name: python-meh
 Url: https://github.com/rhinstaller/python-meh
 Version: 0.52
-Release: 7%{?dist}
+Release: 8%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
 # within this srpm.
@@ -90,6 +90,9 @@ make DESTDIR=%{buildroot} install
 %{_datadir}/python-meh
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.52-8
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.52-7
 - Rebuilt for Python 3.14.0rc2 bytecode
 

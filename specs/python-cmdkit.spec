@@ -1,6 +1,6 @@
 Name:           python-cmdkit
 Version:        2.7.7
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A library for developing command-line applications in Python
 License:        Apache-2.0
 URL:            https://cmdkit.readthedocs.io/
@@ -58,6 +58,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.7.7-9
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.7.7-8
 - Rebuilt for Python 3.14.0rc2 bytecode
 

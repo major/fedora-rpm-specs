@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        1.0.0
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Dictionaries sorted by key or by comparison function
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -60,6 +60,9 @@ rm -f docs/_build/html/.buildinfo
 %doc docs/_build/html
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0.0-36
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.0.0-35
 - Rebuilt for Python 3.14.0rc2 bytecode
 

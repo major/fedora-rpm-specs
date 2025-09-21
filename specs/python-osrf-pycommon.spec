@@ -3,7 +3,7 @@
 
 Name:           python-%{pkgname}
 Version:        2.1.5
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Commonly needed Python modules used by software developed at OSRF
 
 # The entire source code is ASL 2.0 except parts of osrf_pycommon/terminal_color/windows.py which is BSD
@@ -104,6 +104,9 @@ install -p -m0644 -D docs/_build/man/%{srcname}.1 %{buildroot}%{_mandir}/man1/%{
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.1.5-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.1.5-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

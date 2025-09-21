@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        0.3.0
-Release:        39%{?dist}
+Release:        40%{?dist}
 BuildArch:      noarch
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -59,6 +59,9 @@ Requires:       python3-inflect
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.3.0-40
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.3.0-39
 - Rebuilt for Python 3.14.0rc2 bytecode
 

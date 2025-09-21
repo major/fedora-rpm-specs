@@ -12,7 +12,7 @@
 
 Name:		gyp
 Version:	0.1
-Release:	0.59%{?revision:.%{revision}git}%{?dist}
+Release:	0.60%{?revision:.%{revision}git}%{?dist}
 Summary:	Generate Your Projects
 
 License:	BSD-3-Clause
@@ -97,6 +97,9 @@ rm setup.py
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.1-0.60.fcd686f1git
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Tue Aug 19 2025 Akira TAGOH <tagoh@redhat.com> - 0.1-0.59.fcd686f1git
 - Migrate setup.py to pyproject.toml
   Resolves: rhbz#2378546

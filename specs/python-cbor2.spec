@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        5.6.5
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Python CBOR (de)serializer with extensive tag support
 
 License:        MIT
@@ -61,6 +61,9 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE.txt
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 5.6.5-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 5.6.5-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

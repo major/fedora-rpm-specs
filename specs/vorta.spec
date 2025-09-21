@@ -1,6 +1,6 @@
 Name:           vorta
 Version:        0.10.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A GUI for Borg Backup
 License:        GPL-3.0-only AND BSD-2-Clause AND OFL-1.1
 # src/vorta/qt_single_application.py if BSD-2-Clause
@@ -67,6 +67,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.10.2-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.10.2-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -7,7 +7,7 @@
 Name:           python-domdf-python-tools
 Version:        3.9.0
 %forgemeta
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Helpful functions for Python
 
 # Primary license: MIT
@@ -107,6 +107,9 @@ and not test_repr_deep
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.9.0-8
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Tue Aug 26 2025 Maxwell G <maxwell@gtmx.me> - 3.9.0-7
 - Fix Python 3.14 test failures (rhbz#2345519)
 

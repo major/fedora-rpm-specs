@@ -17,7 +17,7 @@
 
 Name:        libbytesize
 Version:     2.11
-Release:     103%{?dist}
+Release:     104%{?dist}
 Summary:     A library for working with sizes in bytes
 License:     LGPL-2.1-or-later
 URL:         https://github.com/storaged-project/libbytesize
@@ -114,6 +114,9 @@ find %{buildroot} -type f -name "*.la" | xargs %{__rm}
 %endif
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.11-104
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.11-103
 - Rebuilt for Python 3.14.0rc2 bytecode
 

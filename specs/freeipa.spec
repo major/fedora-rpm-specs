@@ -215,7 +215,7 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        18%{?rc_version:.%rc_version}%{?dist}
+Release:        18%{?rc_version:.%rc_version}%{?dist}.1
 Summary:        The Identity, Policy and Audit system
 
 License:        GPL-3.0-or-later
@@ -1938,6 +1938,9 @@ fi
 %endif
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.12.2-18.1
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Tue Sep 09 2025 Alexander Bokovoy <abokovoy@redhat.com> - 4.12.2-18
 - Fix forest trust information handling to support Samba 4.23
 - resolves: rhbz#2393890

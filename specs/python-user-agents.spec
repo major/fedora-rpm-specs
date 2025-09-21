@@ -2,7 +2,7 @@
 
 Name:           python-%{pkg_name}
 Version:        2.2.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        A library to identify devices
 
 License:        MIT
@@ -54,6 +54,9 @@ parsing browser user agent strings.
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.2.0-16
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.2.0-15
 - Rebuilt for Python 3.14.0rc2 bytecode
 

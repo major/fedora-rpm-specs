@@ -1,6 +1,6 @@
 Name:           teampulls
 Version:        0.2.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        CLI tool that lists pull requests from GitHub
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -44,6 +44,9 @@ install -Dpm 0644 teampulls.toml %{buildroot}%{_sysconfdir}/teampulls.toml
 %{python3_sitelib}/teampulls-0.2.6.dist-info/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.2.7-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Thu Aug 28 2025 Jochen Breuer <brejoc@gmail.com> - 0.2.7-1
 - Update to version 0.2.7
   - Switch to poetry with gh#22 and some more security updates: gh#23 gh#24

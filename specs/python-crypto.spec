@@ -1,7 +1,7 @@
 Summary:	Unmaintained cryptography library for Python
 Name:		python-crypto
 Version:	2.6.1
-Release:	58%{?dist}
+Release:	59%{?dist}
 # Mostly LicenseRef-Fedora-Public-Domain apart from parts of HMAC.py and setup.py, which are PSF-2.0
 License:	LicenseRef-Fedora-Public-Domain AND PSF-2.0
 URL:		http://www.pycrypto.org/
@@ -137,6 +137,9 @@ find %{buildroot}%{python3_sitearch} -name '*.so' -exec chmod -c g-w {} \;
 %{python3_sitearch}/pycrypto-%{version}.dist-info/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.6.1-59
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.6.1-58
 - Rebuilt for Python 3.14.0rc2 bytecode
 

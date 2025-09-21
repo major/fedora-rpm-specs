@@ -64,7 +64,7 @@
 
 Name:           plplot
 Version:        5.15.0
-Release:        84%{?dist}
+Release:        85%{?dist}
 Summary:        Library of functions for making scientific plots
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -788,6 +788,9 @@ export LD_LIBRARY_PATH=$PWD/%{_vpath_builddir}/bindings/ocaml:$RPM_BUILD_ROOT%{_
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 5.15.0-85
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 5.15.0-84
 - Rebuilt for Python 3.14.0rc2 bytecode
 

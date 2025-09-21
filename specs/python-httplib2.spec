@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.22.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Comprehensive HTTP client library
 License:        MIT
 URL:            https://pypi.python.org/pypi/httplib2
@@ -69,6 +69,9 @@ sed -i '/--cov/d' setup.cfg
 %doc README.md
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.22.0-7
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Thu Aug 28 2025 Kevin Fenzi <kevin@scrye.com> - 0.22.0-6
 - Rework patch for system wide ca to use new location in f44+
 

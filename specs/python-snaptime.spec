@@ -10,7 +10,7 @@ The snaptime package is about transforming timestamps simply.}
 
 Name:           python-%{pretty_name}
 Version:        0.2.4
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Transforming timestamps simply
 
 License:        MIT
@@ -61,6 +61,9 @@ k="${k-}${k+ and }not test_unit_error"
 %pycached %{python3_sitelib}/%{pretty_name}/__init__.py
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.2.4-23
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.2.4-22
 - Rebuilt for Python 3.14.0rc2 bytecode
 

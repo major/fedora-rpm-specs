@@ -1,6 +1,6 @@
 Name:           python-precis_i18n
 Version:        1.1.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Python library for internationalized usernames and passwords
 
 License:        MIT
@@ -58,6 +58,9 @@ Summary:        %{summary}
 %doc README.md CHANGELOG.md
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.1.1-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.1.1-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

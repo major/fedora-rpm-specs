@@ -5,7 +5,7 @@
 
 Name:           python-%{srcname}
 Version:        4.1.3
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        %{sum}
 
 License:        Apache-2.0
@@ -89,6 +89,9 @@ rm -r $(find %{_buildrootdir} -type d -name 'tests') || /bin/true
 %{python3_sitelib}/%{srcname}*.egg-info
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.1.3-32
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.1.3-31
 - Rebuilt for Python 3.14.0rc2 bytecode
 

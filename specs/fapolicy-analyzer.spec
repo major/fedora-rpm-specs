@@ -5,7 +5,7 @@
 Summary:       File Access Policy Analyzer
 Name:          fapolicy-analyzer
 Version:       1.5.0
-Release:       6%{?dist}
+Release:       7%{?dist}
 
 SourceLicense: GPL-3.0-or-later
 # Apache-2.0
@@ -192,6 +192,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %license LICENSE.dependencies
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.5.0-7
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Tue Sep 02 2025 Cristian Le <git@lecris.dev> - 1.5.0-6
 - Drop python-toml dependency (rhbz#2392560)
 

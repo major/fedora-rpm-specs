@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        0.5.3
-Release:        9%{?dist}
+Release:        10%{?dist}
 License:        BSD
 Summary:        Doxygen to document your QML classes
 Url:            https://invent.kde.org/sdk/%{srcname}
@@ -44,6 +44,9 @@ Recommends:     python3-%{srcname}
 %{_bindir}/%{srcname}
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.5.3-10
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.5.3-9
 - Rebuilt for Python 3.14.0rc2 bytecode
 

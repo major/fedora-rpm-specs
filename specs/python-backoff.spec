@@ -8,7 +8,7 @@ polling resources for externally generated content.
 
 Name:      python-%{srcname}
 Version:   2.2.1
-Release:   12%{?dist}
+Release:   13%{?dist}
 BuildArch: noarch
 
 License: MIT
@@ -47,6 +47,9 @@ Summary: %{summary}
 %{python3_sitelib}/%{srcname}-*.dist-info/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.2.1-13
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.2.1-12
 - Rebuilt for Python 3.14.0rc2 bytecode
 

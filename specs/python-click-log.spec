@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        0.4.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        %{sum}
 
 License:        MIT
@@ -47,6 +47,9 @@ applications.
 %{python3_sitelib}/%{pyname}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.4.0-15
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.4.0-14
 - Rebuilt for Python 3.14.0rc2 bytecode
 

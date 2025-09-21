@@ -1,6 +1,6 @@
 Name:           needrestart
 Version:        3.8
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Restart daemons after library updates
 
 License:        GPL-2.0-or-later
@@ -116,6 +116,9 @@ echo "IUCODE_TOOL_EXTRA_OPTIONS=--ignore-broken" >%{buildroot}/%{_sysconfdir}/de
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.8-7
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.8-6
 - Rebuilt for Python 3.14.0rc2 bytecode
 

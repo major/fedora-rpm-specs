@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        0.5.5
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Pure python IPMI library
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -51,6 +51,9 @@ export PYTHONPATH=$RPM_BUILD_ROOT/%{python3_sitelib}
 %{python3_sitelib}/*-py%{python3_version}.egg-info
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.5.5-7
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.5.5-6
 - Rebuilt for Python 3.14.0rc2 bytecode
 

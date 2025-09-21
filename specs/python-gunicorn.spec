@@ -8,7 +8,7 @@ speedy.}
 
 Name:           python-%{srcname}
 Version:        23.0.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Python WSGI HTTP Server
 License:        MIT
 URL:            https://gunicorn.org/
@@ -79,6 +79,9 @@ ln -s %{_bindir}/gunicorn %{buildroot}%{_bindir}/gunicorn-%{python3_version}
 %doc docs/build/html/*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 23.0.0-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 23.0.0-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

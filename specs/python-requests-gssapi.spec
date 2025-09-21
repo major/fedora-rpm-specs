@@ -3,7 +3,7 @@
 
 Name:           python-%{sname}
 Version:        1.2.3
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        A GSSAPI/SPNEGO authentication handler for python-requests
 
 License:        ISC
@@ -54,6 +54,9 @@ Requires:       python3-requests
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.2.3-18
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.2.3-17
 - Rebuilt for Python 3.14.0rc2 bytecode
 

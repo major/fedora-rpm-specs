@@ -1,6 +1,6 @@
 Name:		zinnia
 Version:	0.07
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	Online handwriting recognition system with machine learning
 
 License:	BSD-3-Clause
@@ -194,6 +194,9 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
 %{_datadir}/zinnia/model/tomoe/handwriting-zh_CN.model
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.07-7
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.07-6
 - Rebuilt for Python 3.14.0rc2 bytecode
 

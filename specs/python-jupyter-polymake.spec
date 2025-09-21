@@ -6,7 +6,7 @@
 
 Name:           python-jupyter-polymake
 Version:        0.16
-Release:        33.%{gitdate}.%{shortcommit}%{?dist}
+Release:        34.%{gitdate}.%{shortcommit}%{?dist}
 Summary:        Jupyter kernel for polymake
 
 # The code is WTFPL.  The JavaScript and image files are MIT.
@@ -70,6 +70,9 @@ rmdir %{buildroot}%{python3_sitelib}/jupyter_kernel_polymake/resources
 %{python3_sitelib}/jupyter_kernel_polymake*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.16-34.20180129.7049940
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.16-33.20180129.7049940
 - Rebuilt for Python 3.14.0rc2 bytecode
 

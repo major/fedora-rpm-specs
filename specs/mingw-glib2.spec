@@ -2,7 +2,7 @@
 
 Name:           mingw-glib2
 Version:        2.86.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        MinGW Windows GLib2 library
 
 License:        LGPL-2.0-or-later
@@ -297,6 +297,9 @@ find %{buildroot} -name "*.la" -delete
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.86.0-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Thu Sep 18 2025 Sandro Mani <manisandro@gmail.com> - 2.86.0-1
 - Update to 2.86.0
 

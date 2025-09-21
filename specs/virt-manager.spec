@@ -9,7 +9,7 @@
 
 Name: virt-manager
 Version: 5.1.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 %global verrel %{version}-%{release}
 
 Summary: Desktop tool for managing virtual machines via libvirt
@@ -175,6 +175,9 @@ machine).
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 5.1.0-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Tue Aug 26 2025 Pavel Hrdina <phrdina@redhat.com> - 5.1.0-1
 - Update to version 5.1.0
 

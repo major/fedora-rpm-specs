@@ -3,7 +3,7 @@
 
 Name:		python3-%{pkgname}
 Version:	5.2
-Release:	34%{?dist}
+Release:	35%{?dist}
 Summary:	An XML based template processor for TAL, TALES and METAL specifications
 # Automatically converted from old format: BSD - review is highly recommended.
 License:	LicenseRef-Callaway-BSD
@@ -48,6 +48,9 @@ find examples -name '*.py' -exec chmod -x {} \;
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 5.2-35
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 5.2-34
 - Rebuilt for Python 3.14.0rc2 bytecode
 

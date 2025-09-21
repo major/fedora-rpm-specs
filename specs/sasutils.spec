@@ -1,6 +1,6 @@
 Name:           sasutils
 Version:        0.6.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Serial Attached SCSI (SAS) utilities
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -53,6 +53,9 @@ install -p -m 0644 doc/man/man1/ses_report.1 %{buildroot}/%{_mandir}/man1/
 %license LICENSE.txt
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.6.1-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.6.1-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

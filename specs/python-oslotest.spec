@@ -19,7 +19,7 @@
 
 Name:           python-%{pypi_name}
 Version:        5.0.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        OpenStack test framework
 
 License:        Apache-2.0
@@ -125,6 +125,9 @@ rm -rf doc/build/html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 5.0.0-11
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 5.0.0-10
 - Rebuilt for Python 3.14.0rc2 bytecode
 

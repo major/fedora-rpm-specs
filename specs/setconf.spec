@@ -1,6 +1,6 @@
 Name:           setconf
 Version:        0.7.7 
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Utility for changing settings in configuration text files 
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -46,6 +46,9 @@ cd testcases/ && ./py3_test.sh
 %{_bindir}/%{name}
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.7.7-21
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.7.7-20
 - Rebuilt for Python 3.14.0rc2 bytecode
 

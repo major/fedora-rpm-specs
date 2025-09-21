@@ -10,7 +10,7 @@
 
 Name:       vdirsyncer
 Version:    0.20.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    %{sum}
 
 License:    BSD-3-Clause
@@ -146,6 +146,9 @@ sh build.sh tests
 %doc docs/_build/html docs/_build/text
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.20.0-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Thu Aug 28 2025 Ben Boeckel <fedora@me.benboeckel.net> - 0.20.0-1
 - Update to 0.20.0
 

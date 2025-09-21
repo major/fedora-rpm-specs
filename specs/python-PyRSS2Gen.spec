@@ -1,6 +1,6 @@
 Name:		python-PyRSS2Gen
 Version:	1.1
-Release:	45%{?dist}
+Release:	46%{?dist}
 Summary:	A Python library for generating RSS 2.0 feeds
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -42,6 +42,9 @@ A Python3 library for generating RSS 2.0 feeds.
 %doc README LICENSE
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.1-46
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.1-45
 - Rebuilt for Python 3.14.0rc2 bytecode
 

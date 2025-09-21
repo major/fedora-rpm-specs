@@ -1,6 +1,6 @@
 Name:           python-genshi
 Version:        0.7.9
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Toolkit for stream-based generation of output for the web
 
 License:        BSD-3-Clause
@@ -66,6 +66,9 @@ sed -i -e '/_speedups.c/d' %{pyproject_files}
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.7.9-9
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.7.9-8
 - Rebuilt for Python 3.14.0rc2 bytecode
 

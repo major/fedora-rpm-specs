@@ -1,6 +1,6 @@
 Name:           python-requests-exoscale-auth
 Version:        1.1.2
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Exoscale APIs support for Python-Requests
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -52,6 +52,9 @@ BuildRequires:  python3dist(pytest)
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.1.2-18
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.1.2-17
 - Rebuilt for Python 3.14.0rc2 bytecode
 

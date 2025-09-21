@@ -4,7 +4,7 @@
 
 Name:           poezio-omemo
 Version:        0.7.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        OMEMO plugin for the Poezio XMPP client
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -56,6 +56,9 @@ find ./%{srcname}/ -type f '(' -name __init__.py -o -name version.py ')' -ls -ex
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.7.0-8
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.7.0-7
 - Rebuilt for Python 3.14.0rc2 bytecode
 

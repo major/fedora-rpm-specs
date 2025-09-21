@@ -17,7 +17,7 @@ Share API.
 
 Name:       python-manilaclient
 Version:    5.0.0
-Release:    4%{?dist}
+Release:    5%{?dist}
 Summary:    Client Library for OpenStack Share API
 License:    Apache-2.0
 URL:        https://pypi.io/pypi/%{name}
@@ -125,6 +125,9 @@ install -pm 644 tools/manila.bash_completion \
 %endif
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 5.0.0-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 5.0.0-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

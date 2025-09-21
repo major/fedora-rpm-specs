@@ -9,7 +9,7 @@ extensions, and UDF.
 Summary:        A pure python ISO9660 read and write library
 Name:           python-%{srcname}
 Version:        1.15.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 License:        LGPL-2.0-only
 URL:            https://github.com/clalancette/%{srcname}
 Source0:        %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
@@ -79,6 +79,9 @@ PYCDLIB_TRACK_WRITES=1 py.test-%{python3_version} \
 %{_mandir}/man1/*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.15.0-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.15.0-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

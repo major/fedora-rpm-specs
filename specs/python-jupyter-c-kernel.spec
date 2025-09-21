@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        1.2.2
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Minimalistic C kernel for Jupyter
 
 License:        MIT
@@ -69,6 +69,9 @@ rm %{buildroot}%{_bindir}/install_c_kernel
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.2.2-29
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.2.2-28
 - Rebuilt for Python 3.14.0rc2 bytecode
 

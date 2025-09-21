@@ -11,7 +11,7 @@ features offered by PostgreSQL.
 Summary:	%{sum}
 Name:		python-%{srcname}
 Version:	2.9.10
-Release:	3%{?dist}
+Release:	4%{?dist}
 # The exceptions allow linking to OpenSSL and PostgreSQL's libpq
 License:	LGPL-3.0-or-later WITH openvpn-openssl-exception
 Url:		https://www.psycopg.org/
@@ -135,6 +135,9 @@ cp -r tests/ %{buildroot}%{python3_sitearch}/%{srcname}/tests/
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.9.10-4
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.9.10-3
 - Rebuilt for Python 3.14.0rc2 bytecode
 

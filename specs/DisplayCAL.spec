@@ -3,7 +3,7 @@
 
 Name:		DisplayCAL
 Version:	3.9.16
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Display calibration and profiling tool focusing on accuracy and versatility
 License:	GPL-3.0-or-later
 URL:		https://github.com/eoyilmaz/displaycal-py3
@@ -97,6 +97,9 @@ rm -rfv %{buildroot}%{_datadir}/doc-base
 %{_mandir}/man1/%{lc_name}*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.9.16-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.9.16-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

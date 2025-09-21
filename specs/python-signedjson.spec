@@ -9,7 +9,7 @@ Features:
 
 Name:           python-%{srcname}
 Version:        1.1.4
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Sign JSON with Ed25519 signatures
 
 License:        Apache-2.0
@@ -48,6 +48,9 @@ Summary:        %{summary}
 %doc README.rst CHANGELOG.md
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.1.4-10
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.1.4-9
 - Rebuilt for Python 3.14.0rc2 bytecode
 

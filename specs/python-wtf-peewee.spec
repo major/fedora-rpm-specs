@@ -2,7 +2,7 @@
 
 Name:		python-wtf-peewee
 Version:	3.0.5
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	WTForms integration for peewee models
 
 License:	MIT
@@ -52,6 +52,9 @@ sed -i '1d' runtests.py
 %license LICENSE
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.0.5-10
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.0.5-9
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -5,7 +5,7 @@
 
 Name:           python-%{pkgname}
 Version:        1.0.0
-Release:        46%{?dist}
+Release:        47%{?dist}
 Summary:        Backport of the linecache module
 
 # Automatically converted from old format: Python - review is highly recommended.
@@ -66,6 +66,9 @@ mv %{pkgname}/tests .
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0.0-47
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.0.0-46
 - Rebuilt for Python 3.14.0rc2 bytecode
 

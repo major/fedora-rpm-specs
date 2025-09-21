@@ -9,7 +9,7 @@
 
 Name:           lttng-tools
 Version:        2.14.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        GPL-2.0-only AND LGPL-2.1-only
 URL:            http://lttng.org
 Summary:        LTTng control and utility programs
@@ -195,6 +195,9 @@ install -m0644 -D %SOURCE4 %{buildroot}%{_sysusersdir}/lttng-tools.conf
 %endif
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.14.0-4
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.14.0-3
 - Rebuilt for Python 3.14.0rc2 bytecode
 

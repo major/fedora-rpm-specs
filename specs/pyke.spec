@@ -1,7 +1,7 @@
 Name:			pyke
 Summary:		Knowledge-based inference engine
 Version:		1.1.1
-Release:		53%{?dist}
+Release:		54%{?dist}
 License:		MIT
 URL:			http://pyke.sourceforge.net/
 Source0:		http://download.sourceforge.net/%{name}/%{name}3-%{version}.zip
@@ -64,6 +64,9 @@ rm -rf doc/source/
 %doc examples/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.1.1-54
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.1.1-53
 - Rebuilt for Python 3.14.0rc2 bytecode
 

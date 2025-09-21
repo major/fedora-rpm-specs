@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.5.17.0
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        D3 (XStatic packaging standard)
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -84,6 +84,9 @@ chmod 644 %{buildroot}%{_jsdir}/d3/d3.js
 %{_jsdir}/d3
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.5.17.0-32
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.5.17.0-31
 - Rebuilt for Python 3.14.0rc2 bytecode
 

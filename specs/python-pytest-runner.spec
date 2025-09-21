@@ -6,7 +6,7 @@
 
 Name:           python-%{modulename}
 Version:        4.0
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Invoke py.test as distutils command with dependency resolution
 
 License:        MIT
@@ -68,6 +68,9 @@ Python 3 version.
 %{python3_sitelib}/__pycache__/ptr.*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.0-31
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.0-30
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -2,7 +2,7 @@
 
 Name:           python-easygui
 Version:        0.96
-Release:        49%{?dist}
+Release:        50%{?dist}
 Summary:        Very simple, very easy GUI programming in Python
 
 #License file, says CC 2.0 upstream website says with this version they moved to BSD.
@@ -84,6 +84,9 @@ install -m 644 %{SOURCE1} .
 %{python3_sitelib}/__pycache__/easygui.cpython-3*.py*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.96-50
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.96-49
 - Rebuilt for Python 3.14.0rc2 bytecode
 

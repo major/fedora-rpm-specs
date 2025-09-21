@@ -1,6 +1,6 @@
 Name:           caribou
 Version:        0.4.21
-Release:        47%{?dist}
+Release:        48%{?dist}
 Summary:        A simplified in-place on-screen keyboard
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -160,6 +160,9 @@ desktop-file-validate %{buildroot}%{_libdir}/gnome-settings-daemon-3.0/gtk-modul
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.4.21-48
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.4.21-47
 - Rebuilt for Python 3.14.0rc2 bytecode
 

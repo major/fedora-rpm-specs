@@ -2,7 +2,7 @@
 
 Name:       copr-dist-git
 Version:    1.3
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Copr services for Dist Git server
 
 License:    GPL-2.0-or-later
@@ -134,6 +134,9 @@ install -m0644 -D conf/copr-dist-git.sysusers.conf %{buildroot}%{_sysusersdir}/c
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.3-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Tue Sep 16 2025 Jakub Kadlcik <frostyx@email.cz> 1.3-1
 - Stop using deprecated %%py3_build/%%py3_install macros
 

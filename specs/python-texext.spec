@@ -1,6 +1,6 @@
 Name:           python-texext
 Version:        0.6.7
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Sphinx extensions for working with LaTeX math
 
 # BSD-2-Clause: the project as a whole
@@ -61,6 +61,9 @@ rst2html --no-datestamp README.rst README.html
 %doc README.html
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.6.7-17
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.6.7-16
 - Rebuilt for Python 3.14.0rc2 bytecode
 

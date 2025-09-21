@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        8.4.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Python library that sorts lists using the "natural order" sort
 
 License:        MIT
@@ -59,6 +59,9 @@ Summary:	%{summary}
 %{_bindir}/%{srcname}
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 8.4.0-8
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 8.4.0-7
 - Rebuilt for Python 3.14.0rc2 bytecode
 

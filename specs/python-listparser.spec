@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.18
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Parse OPML, FOAF, and iGoogle subscription lists
 
 License:        LGPL-3.0-or-later
@@ -68,6 +68,9 @@ rm -rf html/.{doctrees,buildinfo}
 %doc html
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.18-28
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.18-27
 - Rebuilt for Python 3.14.0rc2 bytecode
 

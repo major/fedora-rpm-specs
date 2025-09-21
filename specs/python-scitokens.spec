@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.8.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        SciToken reference implementation library
 
 License:        Apache-2.0
@@ -67,6 +67,9 @@ export PYTHONPATH="%{buildroot}%{python3_sitelib}"
 %{_bindir}/scitokens-verify-token
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.8.1-10
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.8.1-9
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -1,6 +1,6 @@
 Name:           showcert
 Version:        0.2.12
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        inspect TLS certificates presented by remote servers
 
 License:        MIT
@@ -53,6 +53,9 @@ gencert --help
 %{_bindir}/gencert
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.2.12-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.2.12-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

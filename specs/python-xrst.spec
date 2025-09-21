@@ -5,7 +5,7 @@
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Versioning/
 Name:           python-xrst
 Version:        2025.0.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Extract Sphinx RST Files
 
 License:        GPL-3.0-or-later
@@ -106,6 +106,9 @@ mkdir -p %{buildroot}/%{_mandir}/man1
 %{_mandir}/man1/xrst.1*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2025.0.2-8
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2025.0.2-7
 - Rebuilt for Python 3.14.0rc2 bytecode
 

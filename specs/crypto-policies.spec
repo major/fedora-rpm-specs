@@ -11,7 +11,7 @@
 
 Name:           crypto-policies
 Version:        %{git_date}
-Release:        4.git%{git_commit_hash}%{?dist}
+Release:        5.git%{git_commit_hash}%{?dist}
 Summary:        System-wide crypto policies
 
 License:        LGPL-2.1-or-later
@@ -289,6 +289,9 @@ exit 0
 %{_datarootdir}/crypto-policies/python
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 20250714-5.gitcd6043a
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 20250714-4.gitcd6043a
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -5,7 +5,7 @@
 
 Name:           libopenshot
 Version:        0.4.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Library for creating and editing videos
 
 # See .reuse/dep5 for details
@@ -111,6 +111,9 @@ rm -rf third_party/jsoncpp
 %{ruby_vendorarchdir}/openshot.so
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.4.0-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.4.0-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

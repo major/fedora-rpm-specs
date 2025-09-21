@@ -5,7 +5,7 @@ databases or from SQLAlchemy models.
 
 Name:           eralchemy
 Version:        1.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{sum}
 
 License:        Apache-2.0
@@ -65,6 +65,9 @@ sed -i 's/graphviz >= 0.20.3/graphviz/' pyproject.toml
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.5.0-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Mon Sep 15 2025 Pavel Raiskup <praiskup@redhat.com> - 1.5.0-1
 - new upstream source, resolves: rhbz#2313288
 

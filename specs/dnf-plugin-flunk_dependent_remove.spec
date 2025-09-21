@@ -8,7 +8,7 @@ Fail the request instead. This is implemented via a DNF plugin.}
 
 Name:           dnf-plugin-%{srcname}
 Version:        1.0
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        DNF plugin to prevent removing packages recursively via automation
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
@@ -39,6 +39,9 @@ install -D -m0644 %{SOURCE0} \
 %{python3_sitelib}/dnf-plugins/__pycache__/*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0-21
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.0-20
 - Rebuilt for Python 3.14.0rc2 bytecode
 

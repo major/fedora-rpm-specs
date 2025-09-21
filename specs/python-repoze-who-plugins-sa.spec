@@ -1,6 +1,6 @@
 Name:           python-repoze-who-plugins-sa
 Version:        1.0.1
-Release:        50.20160106gite1a36c5%{?dist}
+Release:        51.20160106gite1a36c5%{?dist}
 Summary:        repoze.who SQLAlchemy plugin
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -75,6 +75,9 @@ based models on python3
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0.1-51.20160106gite1a36c5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.0.1-50.20160106gite1a36c5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

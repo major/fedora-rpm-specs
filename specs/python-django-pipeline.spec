@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.6.8
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        An asset packaging library for Django
 
 License:        MIT
@@ -51,6 +51,9 @@ rm -rf %{buildroot}%{python3_sitelib}/tests
 %{python3_sitelib}/pipeline/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.6.8-33
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.6.8-32
 - Rebuilt for Python 3.14.0rc2 bytecode
 

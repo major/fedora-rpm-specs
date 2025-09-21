@@ -1,6 +1,6 @@
 Name:           python-aiostream
 Version:        0.6.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Generator-based operators for asynchronous iteration
 
 License:        GPL-3.0-only
@@ -63,6 +63,9 @@ sed -r \
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.6.1-8
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.6.1-7
 - Rebuilt for Python 3.14.0rc2 bytecode
 

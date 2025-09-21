@@ -2,7 +2,7 @@
 
 Name: python-%{pname}
 Version: 3.2
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: Fortran preprocessor
 License: BSD-2-Clause
 URL: https://github.com/aradi/fypp
@@ -50,6 +50,9 @@ test/runtests.sh %{__python3}
 %{_bindir}/%{pname}
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.2-11
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.2-10
 - Rebuilt for Python 3.14.0rc2 bytecode
 

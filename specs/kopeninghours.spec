@@ -1,6 +1,6 @@
 Name:    kopeninghours
 Version: 25.08.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Library for parsing and evaluating OSM opening hours expressions
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later
@@ -72,6 +72,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 25.08.0-3
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 25.08.0-2
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -2,7 +2,7 @@
 
 Name:           python-rencode
 Version:        1.0.8
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Web safe object pickling/unpickling
 # Automatically converted from old format: GPLv3+ and BSD - review is highly recommended.
 License:        GPL-3.0-or-later AND LicenseRef-Callaway-BSD
@@ -69,6 +69,9 @@ popd
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0.8-3
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.0.8-2
 - Rebuilt for Python 3.14.0rc2 bytecode
 

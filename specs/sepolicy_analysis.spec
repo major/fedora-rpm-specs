@@ -1,6 +1,6 @@
 Name:           sepolicy_analysis
 Version:        0.1
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        SELinux policy analysis tool
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -53,6 +53,9 @@ providing policy visualization.
 %doc %{_mandir}/man1/se*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.1-32
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.1-31
 - Rebuilt for Python 3.14.0rc2 bytecode
 

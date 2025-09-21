@@ -1,6 +1,6 @@
 Name:           python-wcag-contrast-ratio
 Version:        0.9
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        A library for computing contrast ratios, as required by WCAG 2.0
 # SPDX
 License:        MIT
@@ -54,6 +54,9 @@ sed -i 's/{envbindir}\/py.test/py.test/g' tox.ini
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.9-16
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.9-15
 - Rebuilt for Python 3.14.0rc2 bytecode
 

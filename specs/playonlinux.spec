@@ -1,7 +1,7 @@
 Summary:       Graphical front-end for Wine
 Name:          playonlinux
 Version:       4.4
-Release:       16%{?dist}
+Release:       17%{?dist}
 # playonlinux itself is GPL-3.0-only but uses other source codes, breakdown:
 # GPL-2.0-or-later: python/{configurewindow/ConfigureWindow,debug,mainwindow,options,wrapper}.py
 # GPL-2.0-or-later: python/{install/InstallWindow,setupwindow/{POL_SetupFrame,gui_server}}.py
@@ -100,6 +100,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/PlayOnLinu
 %{_mandir}/man1/%{name}-pkg.1*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.4-17
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.4-16
 - Rebuilt for Python 3.14.0rc2 bytecode
 

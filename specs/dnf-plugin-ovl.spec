@@ -1,6 +1,6 @@
 Name:    dnf-plugin-ovl
 Version: 0.0.3
-Release: 20%{?dist}
+Release: 21%{?dist}
 Summary: DNF plugin to work around overlayfs issues
 URL:     https://github.com/FlorianLudwig/dnf-plugin-ovl
 License: GPL-2.0-only
@@ -31,6 +31,9 @@ install -D -p ovl.py %{buildroot}/%{python3_sitelib}/dnf-plugins/ovl.py
 %{python3_sitelib}/dnf-plugins/__pycache__/ovl.*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.0.3-21
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.0.3-20
 - Rebuilt for Python 3.14.0rc2 bytecode
 

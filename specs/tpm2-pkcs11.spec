@@ -2,7 +2,7 @@
 
 Name:		tpm2-pkcs11
 Version:	1.9.1
-Release:	5%{?candidate:.%{candidate}}%{?dist}
+Release:	6%{?candidate:.%{candidate}}%{?dist}
 Summary:	PKCS#11 interface for TPM 2.0 hardware
 
 License:	BSD-2-Clause
@@ -111,6 +111,9 @@ make check
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.9.1-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.9.1-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

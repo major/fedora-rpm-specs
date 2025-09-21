@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.2.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        A library to parse and manage gettext catalogs
 
 License:        MIT
@@ -55,6 +55,9 @@ POFile, MOFile, POEntry and MOEntry for creating new files/entries.
 %{python3_sitelib}/*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.2.0-13
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.2.0-12
 - Rebuilt for Python 3.14.0rc2 bytecode
 

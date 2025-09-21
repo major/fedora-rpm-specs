@@ -2,7 +2,7 @@
 
 Name:       ibus-libzhuyin
 Version:    1.10.3
-Release:    5%{?dist}
+Release:    6%{?dist}
 Summary:    New Zhuyin engine based on libzhuyin for IBus
 License:    GPL-2.0-or-later
 URL:        https://github.com/libzhuyin/ibus-libzhuyin
@@ -71,6 +71,9 @@ based on libzhuyin for IBus.
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.10.3-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.10.3-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

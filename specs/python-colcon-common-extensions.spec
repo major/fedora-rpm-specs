@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.3.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Meta package aggregating colcon-core and common extensions
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -73,6 +73,9 @@ A meta package aggregating colcon-core as well as a set of common extensions.
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.3.0-16
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.3.0-15
 - Rebuilt for Python 3.14.0rc2 bytecode
 

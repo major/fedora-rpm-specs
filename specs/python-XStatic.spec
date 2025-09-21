@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.0.1
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        XStatic base package with minimal support code
 
 License:        MIT
@@ -56,6 +56,9 @@ mkdir %{buildroot}/%{python3_sitelib}/xstatic/pkg
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0.1-40
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.0.1-39
 - Rebuilt for Python 3.14.0rc2 bytecode
 

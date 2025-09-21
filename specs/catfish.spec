@@ -9,7 +9,7 @@ BuildRequires:	%1 \
 %define		mainver		4.20.1
 %undefine		betaver		
 
-%define		baserelease		4
+%define		baserelease		5
 
 Name:		catfish
 Version:	%{mainver}
@@ -148,6 +148,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.20.1-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.20.1-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

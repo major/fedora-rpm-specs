@@ -14,7 +14,7 @@
 
 Name: rpkg-util
 Version: 3.3
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: RPM packaging utility
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -131,6 +131,9 @@ cp -a rpkg.bash %{buildroot}%{_datarootdir}/bash-completion/completions/
 %{_mandir}/*/*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.3-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.3-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

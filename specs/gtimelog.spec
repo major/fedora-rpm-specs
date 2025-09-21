@@ -1,6 +1,6 @@
 Name:           gtimelog
 Version:        0.12.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Unobtrusively keep track of your time
 
 License:        GPL-2.0-or-later
@@ -68,6 +68,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/%{name}.a
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.12.0-8
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.12.0-7
 - Rebuilt for Python 3.14.0rc2 bytecode
 

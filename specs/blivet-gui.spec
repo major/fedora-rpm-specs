@@ -1,7 +1,7 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
 Version: 2.6.0
-Release: 8%{?dist}
+Release: 9%{?dist}
 Source0: http://github.com/storaged-project/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 Source1: blivet-gui_event.conf
 License: GPL-2.0-or-later
@@ -79,6 +79,9 @@ mkdir -p %{buildroot}/%{_localstatedir}/log/blivet-gui
 %{_sysconfdir}/libreport/events.d/blivet-gui_event.conf
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.6.0-9
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Wed Sep 03 2025 Vojtech Trefny <vtrefny@redhat.com> - 2.6.0-8
 - Fix displaying whole-disk MD arrays in installer mode (#2389105)
 

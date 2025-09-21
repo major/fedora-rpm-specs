@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.57.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python support for FTDI devices
 
 License:        BSD-3-Clause
@@ -53,6 +53,9 @@ rm -rf %{buildroot}%{python3_sitelib}/%{pypi_name}/doc %{buildroot}%{python3_sit
 %{python3_sitelib}/%{pypi_name}*.dist-info/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.57.1-3
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.57.1-2
 - Rebuilt for Python 3.14.0rc2 bytecode
 

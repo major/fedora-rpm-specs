@@ -5,7 +5,7 @@
 Name:           python-%{modname}
 Summary:        Python Lex-Yacc
 Version:        3.11
-Release:        29%{?dist}
+Release:        30%{?dist}
 License:        BSD-3-Clause
 URL:            http://www.dabeaz.com/ply/
 Source0:        http://www.dabeaz.com/ply/%{modname}-%{version}.tar.gz
@@ -83,6 +83,9 @@ popd
 %{python3_sitelib}/%{modname}-%{version}-*.egg-info/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.11-30
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.11-29
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        6.0.2
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Python Bindings for OpenNebula XML-RPC API
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -64,6 +64,9 @@ install -pm 0644 %{SOURCE1} LICENSE
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 6.0.2-17
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 6.0.2-16
 - Rebuilt for Python 3.14.0rc2 bytecode
 

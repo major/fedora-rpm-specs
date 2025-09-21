@@ -3,7 +3,7 @@
 
 Name:           gnome-tweaks
 Version:        46.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Customize advanced GNOME 3 options
 
 # Software is GPL-3.0+, Appdata file is CC0-1.0
@@ -81,6 +81,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/*.appdata.x
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 46.1-8
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 46.1-7
 - Rebuilt for Python 3.14.0rc2 bytecode
 

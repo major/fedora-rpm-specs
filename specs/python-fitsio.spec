@@ -3,15 +3,13 @@
 
 
 Name:           python-%{srcname}
-Version:        1.2.6
+Version:        1.2.8
 Release:        %autorelease
 Summary:        %{sum}
 
 License:        GPL-2.0-only
 URL:            https://github.com/esheldon/fitsio
 Source0:        %{pypi_source}
-# Fixes https://bugzilla.redhat.com/show_bug.cgi?id=2385469
-Patch: https://github.com/esheldon/fitsio/commit/b3b1af26b1c23a3e3e1b185b1e80bd7f55771fe7.patch
 
 # General
 BuildRequires:  cfitsio-devel

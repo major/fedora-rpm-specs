@@ -10,7 +10,7 @@
 %global soname libkryoptic_pkcs11
 
 Name:           kryoptic
-Version:        1.2.0
+Version:        1.3.1
 Release:        %autorelease
 Summary:        PKCS #11 software token written in Rust
 
@@ -18,14 +18,15 @@ SourceLicense:  GPL-3.0-or-later
 # Apache-2.0
 # Apache-2.0 OR BSL-1.0
 # Apache-2.0 OR MIT
-# BSD-2-Clause OR Apache-2.0 OR MIT
 # BSD-3-Clause
 # GPL-3.0-or-later
+# ISC
 # MIT
 # MIT OR Apache-2.0
 # MIT-0 OR Apache-2.0
 # Unlicense OR MIT
-License: Apache-2.0 AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND (BSD-3-Clause) AND (GPL-3.0-or-later) AND (MIT) AND (MIT OR Apache-2.0) AND (MIT-0 OR Apache-2.0) AND (Unlicense OR MIT)
+# Zlib
+License: Apache-2.0 AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (BSD-3-Clause) AND (GPL-3.0-or-later) AND (ISC) AND (MIT) AND (MIT OR Apache-2.0) AND (MIT-0 OR Apache-2.0) AND (Unlicense OR MIT) AND (Zlib)
 # LICENSE.dependencies contains a full license breakdown
 
 URL:            https://github.com/latchset/kryoptic
@@ -34,11 +35,8 @@ Source0:        https://github.com/latchset/kryoptic/releases/download/v%{versio
 Source1:        https://github.com/latchset/kryoptic/releases/download/v%{version}/%{name}-%{version}.tar.gz.asc
 Source2:        https://people.redhat.com/~ssorce/simo_redhat.asc
 %endif
-# Relax cryptoki and asn1 requirement versions
+# Relax asn1 requirement versions
 Patch:          kryoptic-fix-metadata.diff
-# Fix the NSS DB search query
-# https://github.com/latchset/kryoptic/pull/306
-Patch:          kryoptic-fix-nssdb.diff
 
 BuildRequires:  cargo-rpm-macros >= 26
 BuildRequires:  openssl-devel
@@ -71,14 +69,19 @@ Most notably a migration tool for the SoftHSM database.
 
 %build
 export CONFDIR=%{_sysconfdir}
-%cargo_build -f nssdb,pqc
+%cargo_build -f nssdb,pqc -- --all
 %{cargo_license_summary -f nssdb,pqc}
 %{cargo_license -f nssdb,pqc} > LICENSE.dependencies
 
 %install
-%cargo_install -f nssdb,pqc
+# Have to cd because the macro already defines --path . and cargo install
+# in workspaces does not take a --all, requires to install each package
+# explicitly, and we care only for the tools, as install does not install
+# cdylib package outputs.
+pushd tools
+%cargo_install -f kryoptic-lib/nssdb,kryoptic-lib/pqc,kryoptic-lib/standard,kryoptic-lib/dynamic -- --bin softhsm_migrate
+popd
 install -Dp target/rpm/%{soname}.so $RPM_BUILD_ROOT%{_libdir}/pkcs11/%{soname}.so
-rm -f $RPM_BUILD_ROOT%{_bindir}/{kryoptic_init,test_signature}
 
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/p11-kit/modules/
 echo "module: %{soname}.so" > $RPM_BUILD_ROOT%{_datadir}/p11-kit/modules/kryoptic.module

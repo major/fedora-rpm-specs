@@ -21,7 +21,7 @@
 
 Name:           virt-who
 Version:        1.31.26
-Release:        %{release_number}%{?dist}.9
+Release:        %{release_number}%{?dist}.10
 
 Summary:        Agent for reporting virtual guest IDs to subscription-manager
 
@@ -163,6 +163,9 @@ fi
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.31.26-1.10
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.31.26-1.9
 - Rebuilt for Python 3.14.0rc2 bytecode
 

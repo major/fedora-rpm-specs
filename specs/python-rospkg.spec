@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.6.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Utilities for ROS package, stack, and distribution information
 
 License:        BSD-3-Clause
@@ -101,6 +101,9 @@ export LANG=en_US.UTF-8
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.6.0-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.6.0-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

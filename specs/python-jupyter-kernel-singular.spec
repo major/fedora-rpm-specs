@@ -1,6 +1,6 @@
 Name:           python-jupyter-kernel-singular
 Version:        0.9.9
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Jupyter kernel for Singular
 
 License:        GPL-2.0-or-later
@@ -60,6 +60,9 @@ mv %{buildroot}%{_prefix}%{_sysconfdir} %{buildroot}%{_sysconfdir}
 %config(noreplace) %{_sysconfdir}/jupyter/nbconfig/notebook.d/singular-mode.json
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.9.9-23
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.9.9-22
 - Rebuilt for Python 3.14.0rc2 bytecode
 

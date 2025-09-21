@@ -8,7 +8,7 @@
 
 Name: dracut
 Version: 108
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 Summary: Initramfs generator using udev
 
@@ -49,6 +49,9 @@ Patch8:  0008-Revert-feat-fips-include-openssl-s-fips.so-and-opens.patch
 # Revert "feat(systemd-sysusers): run systemd-sysusers as part
 # Author: Adam Williamson <awilliam@redhat.com>
 Patch9:  0009-Revert-feat-systemd-sysusers-run-systemd-sysusers-as.patch
+# fix(systemd-sysusers): reapply "feat(systemd-sysusers): run systemd-sysusers
+# Author: Pavel Valena <pvalena@redhat.com>
+Patch10: 0010-fix-systemd-sysusers-reapply-feat-systemd-sysusers-r.patch
 
 # Please use source-git to work with this spec file:
 # HowTo: https://packit.dev/source-git/work-with-source-git
@@ -320,7 +323,7 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %{dracutlibdir}/modules.d/11systemd-resolved
 %{dracutlibdir}/modules.d/11systemd-sysext
 %{dracutlibdir}/modules.d/11systemd-sysctl
-%{dracutlibdir}/modules.d/01systemd-sysusers
+%{dracutlibdir}/modules.d/68systemd-sysusers
 %{dracutlibdir}/modules.d/11systemd-timedated
 %{dracutlibdir}/modules.d/11systemd-timesyncd
 %{dracutlibdir}/modules.d/11systemd-tmpfiles
@@ -481,6 +484,9 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %{_prefix}/lib/kernel/install.d/51-dracut-rescue.install
 
 %changelog
+* Wed Sep 10 2025 Pavel Valena <pvalena@redhat.com> - 108-2
+- Reapply "feat(systemd-sysusers): run systemd-sysusers as part
+
 * Tue Aug 26 2025 Pavel Valena <pvalena@redhat.com> - 108-1
 - build: upgrade to dracut 108
 

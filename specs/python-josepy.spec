@@ -6,7 +6,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.0.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        JOSE protocol implementation in Python
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -104,6 +104,9 @@ install -Dpm0644 -t %{buildroot}%{_mandir}/man1 docs/_build/man/*.1*
 %endif
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.0.0-7
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.0.0-6
 - Rebuilt for Python 3.14.0rc2 bytecode
 

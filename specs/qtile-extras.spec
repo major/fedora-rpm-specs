@@ -4,7 +4,7 @@
 
 Name: qtile-extras
 Version: 0.33.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A collection of mods for Qtile
 
 License: MIT
@@ -134,6 +134,9 @@ pytest_expressions+=" and not test_syncthing_http_error"
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.33.0-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 29 2025 Jakub Kadlcik <frostyx@email.cz> - 0.33.0-1
 - New upstream version
 

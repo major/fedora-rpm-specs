@@ -176,13 +176,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.17.0
 %define specversion 6.17.0
 %define patchversion 6.17
-%define pkgrelease 0.rc6.250918g8b789f2b7602a.52
+%define pkgrelease 0.rc6.250919g097a6c336d008.53
 %define kversion 6
-%define tarfile_release 6.17-rc6-43-g8b789f2b7602a
+%define tarfile_release 6.17-rc6-143-g097a6c336d008
 # This is needed to do merge window version magic
 %define patchlevel 17
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc6.250918g8b789f2b7602a.52%{?buildid}%{?dist}
+%define specrelease 0.rc6.250919g097a6c336d008.53%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.17.0
 
@@ -4395,13 +4395,17 @@ fi\
 #
 #
 %changelog
-* Thu Sep 18 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.17.0-0.rc6.250918g8b789f2b7602a.52]
-- Linux v6.17.0-0.rc6.250918g8b789f2b7602a
+* Fri Sep 19 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.17.0-0.rc6.250919g097a6c336d008.53]
+- Linux v6.17.0-0.rc6.250919g097a6c336d008
 
-* Thu Sep 18 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc6.8b789f2b7602.52]
-- wifi: iwlwifi: pcie: fix byte count table for some devices (Johannes Berg)
+* Fri Sep 19 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc6.097a6c336d00.53]
 - arm64: dts: qcom: x1e80100-lenovo-yoga-slim7x: add Bluetooth support (Jens Glathe)
 - redhat/configs: clang_lto: disable CONFIG_FORTIFY_KUNIT_TEST (Scott Weaver)
+
+* Fri Sep 19 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc6.097a6c336d00.52]
+- os-build: Remove dead CONFIG_SCHED_DEBUG files (Phil Auld)
+- redhat/configs: automotive: Disable COMPAT_32BIT_TIME SGETMASK_SYSCALL and IA32_EMULATION configs (Dorinda Bassey)
+- Linux v6.17.0-0.rc6.097a6c336d00
 
 * Thu Sep 18 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc6.8b789f2b7602.51]
 - Revert "redhat/configs: automotive: Disable NetLabel subsystem support" (Dorinda Bassey)

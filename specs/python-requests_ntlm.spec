@@ -9,7 +9,7 @@
 
 Name:           python-%{srcname}
 Version:        1.3.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        NTLM module for python requests (requires md4, thus legacy OpenSSL settings)
 
 License:        ISC
@@ -82,6 +82,9 @@ export OPENSSL_CONF=${PWD}/openssl.cnf
 %doc CONTRIBUTORS.rst README.rst
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.3.0-7
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.3.0-6
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -1,6 +1,6 @@
 Name:           python-gitapi
 Version:        1.1.0
-Release:        0.a3%{?dist}.36
+Release:        0.a3%{?dist}.37
 Summary:        Pure-Python API to git, which uses the command-line interface
 
 License:        MIT
@@ -60,6 +60,9 @@ sed -i 's/\r$//' README.rst
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.1.0-0.a3.37
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.1.0-0.a3.36
 - Rebuilt for Python 3.14.0rc2 bytecode
 

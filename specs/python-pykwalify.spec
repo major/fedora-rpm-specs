@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.8.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Python lib/cli for JSON/YAML schema validation
 
 License:        MIT
@@ -53,6 +53,9 @@ found at: http://www.kuwata-lab.com/kwalify/
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.8.0-16
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.8.0-15
 - Rebuilt for Python 3.14.0rc2 bytecode
 

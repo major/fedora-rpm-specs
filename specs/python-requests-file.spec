@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        2.0.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Transport adapter for using file:// URLs with python-requests
 
 License:        Apache-2.0
@@ -45,6 +45,9 @@ Summary:        %{summary}
 %doc README.rst
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.0.0-9
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.0.0-8
 - Rebuilt for Python 3.14.0rc2 bytecode
 

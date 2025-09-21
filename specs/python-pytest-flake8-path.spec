@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.5.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        A pytest fixture for testing flake8 plugins
 
 License:        MIT
@@ -54,6 +54,9 @@ BuildRequires:  python%{python3_pkgversion}-devel
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.5.0-10
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.5.0-9
 - Rebuilt for Python 3.14.0rc2 bytecode
 

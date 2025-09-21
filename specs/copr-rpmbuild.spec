@@ -16,7 +16,7 @@ Requires: %1 \
 Name:    copr-rpmbuild
 Version: 1.5
 Summary: Run COPR build tasks
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: https://github.com/fedora-copr/copr
 License: GPL-2.0-or-later
 
@@ -305,6 +305,9 @@ EOF
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.5-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Tue Sep 16 2025 Jakub Kadlcik <frostyx@email.cz> 1.5-1
 - Read the specfile that is produced by specfile generator
 

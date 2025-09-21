@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.36.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Automation Tool
 
 License:        MIT
@@ -88,6 +88,9 @@ install -p -D -m 0644 bash_completion_doit %{buildroot}%{_sysconfdir}/bash_compl
 %doc TODO.txt
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.36.0-8
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.36.0-7
 - Rebuilt for Python 3.14.0rc2 bytecode
 

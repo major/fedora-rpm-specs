@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        1.2
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        %{sum}
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -66,6 +66,9 @@ sed -i 's/self.assert_/assert /g' vatnumber/tests.py
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.2-38
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.2-37
 - Rebuilt for Python 3.14.0rc2 bytecode
 

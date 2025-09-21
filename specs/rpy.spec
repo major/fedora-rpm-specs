@@ -17,7 +17,7 @@
 
 Name:          rpy
 Version:       3.5.16
-Release:       9%{?dist}
+Release:       10%{?dist}
 Summary:       %{sum}
 License:       GPL-2.0-or-later
 Url:           https://pypi.python.org/pypi/rpy2
@@ -82,6 +82,9 @@ Requires:      %add_rver R-core
 %license gpl-2.0.txt
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.5.16-10
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.5.16-9
 - Rebuilt for Python 3.14.0rc2 bytecode
 

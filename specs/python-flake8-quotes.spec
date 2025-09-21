@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        3.4.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Flake8 extension for checking quotes in python
 
 License:        MIT
@@ -56,6 +56,9 @@ BuildRequires:  python%{python3_pkgversion}-pytest
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.4.0-7
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.4.0-6
 - Rebuilt for Python 3.14.0rc2 bytecode
 

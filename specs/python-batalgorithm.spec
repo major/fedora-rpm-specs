@@ -7,7 +7,7 @@ Implementation of Bat Algorithm in Python.}
 
 Name:           python-%{new_name}
 Version:        0.3.1
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Bat Algorithm for optimization
 
 License:        MIT
@@ -41,6 +41,9 @@ BuildRequires:  python3-setuptools
 %pycached %{python3_sitelib}/%{pretty_name}.py
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.3.1-18
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.3.1-17
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        3.7.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Django application for handling the server headers required for CORS
 
 License:        MIT
@@ -45,6 +45,9 @@ rm -vrf *.egg-info
 %{python3_sitelib}/corsheaders/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.7.0-18
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.7.0-17
 - Rebuilt for Python 3.14.0rc2 bytecode
 

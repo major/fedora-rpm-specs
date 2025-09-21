@@ -10,10 +10,10 @@
 Name:           flowblade
 %if 0%{?usesnapshot}
 Version:        2.14.0.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 %else
 Version:        2.22.1.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 %endif
 License:        GPL-3.0-only
 Summary:        Multitrack non-linear video editor for Linux
@@ -124,6 +124,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 %{python3_sitelib}/%{name}*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.22.1.1-3
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.22.1.1-2
 - Rebuilt for Python 3.14.0rc2 bytecode
 

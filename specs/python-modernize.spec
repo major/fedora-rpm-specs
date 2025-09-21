@@ -2,7 +2,7 @@
 
 Name:           python-modernize
 Version:        0.8.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Modernizes Python code for eventual Python 3 migration
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -57,6 +57,9 @@ dependency on python-six.
 %{_bindir}/modernize
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.8.0-20
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.8.0-19
 - Rebuilt for Python 3.14.0rc2 bytecode
 

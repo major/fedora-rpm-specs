@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        0.8.8.6
-Release:        13%{?dist}
+Release:        14%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
 Summary:        A more Pythonic version of doxypy, a Doxygen filter for Python
@@ -48,6 +48,9 @@ find . -name \*.py -exec sed -i '/#!\/usr\/bin\/python/d' '{}' \;
 %{_bindir}/%{srcname}
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.8.8.6-14
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.8.8.6-13
 - Rebuilt for Python 3.14.0rc2 bytecode
 

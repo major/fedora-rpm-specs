@@ -2,7 +2,7 @@
 
 Name:           python-blessings
 Version:        1.7
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Thin, practical wrapper around terminal coloring, styling, and positioning
 License:        MIT
 URL:            https://github.com/erikrose/blessings
@@ -59,6 +59,9 @@ BuildRequires:  python3-devel
 %doc README.rst
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.7-32
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 29 2025 Carl George <carlwgeorge@fedoraproject.org> - 1.7-31
 - Re-enable tests via upstream patch
 

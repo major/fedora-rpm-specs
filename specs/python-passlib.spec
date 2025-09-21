@@ -1,6 +1,6 @@
 Name:           python-passlib
 Version:        1.7.4
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Comprehensive password hashing framework supporting over 20 schemes
 
 # license breakdown is described in LICENSE file
@@ -74,6 +74,9 @@ export PASSLIB_SETUP_TAG_RELEASE="no"
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.7.4-25
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.7.4-24
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -3,7 +3,7 @@
 
 Name:           python-%{modname}
 Version:        0.7.5
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Python library to parse and interact with unified diffs (patches)
 License:        MIT
 URL:            http://github.com/matiasb/python-unidiff
@@ -49,6 +49,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} -m unittest discover -s t
 %{_bindir}/%{modname}
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.7.5-11
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.7.5-10
 - Rebuilt for Python 3.14.0rc2 bytecode
 

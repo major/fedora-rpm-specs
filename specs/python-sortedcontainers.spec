@@ -5,7 +5,7 @@
 
 Name:           python-%{srcname}
 Version:        2.4.0
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Pure Python sorted container types
 
 License:        Apache-2.0
@@ -91,6 +91,9 @@ popd
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.4.0-25
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Tue Aug 19 2025 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 2.4.0-24
 - Port to modern Python macros
 

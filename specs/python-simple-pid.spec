@@ -1,6 +1,6 @@
 Name:		python-simple-pid
 Version:	2.0.0
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	A PID (proportional–integral–derivative) controller in Python
 
 License:	MIT
@@ -45,6 +45,9 @@ Summary:	A PID (proportional–integral–derivative) controller in Python
 %{python3_sitelib}/simple_pid-%{version}.dist-info/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.0.0-8
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.0.0-7
 - Rebuilt for Python 3.14.0rc2 bytecode
 

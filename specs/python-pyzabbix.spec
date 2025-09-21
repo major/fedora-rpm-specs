@@ -3,7 +3,7 @@
 
 Name:           python-pyzabbix
 Version:        1.3.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        PyZabbix is a Python module for working with the Zabbix API
 
 # license is in README.md
@@ -54,6 +54,9 @@ sed -i 's/"httpretty<0.8.7",/"httpretty",/' setup.py
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.3.1-7
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.3.1-6
 - Rebuilt for Python 3.14.0rc2 bytecode
 

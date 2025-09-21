@@ -13,7 +13,7 @@ any length.}
 
 Name:           python-%{srcname}
 Version:        6.2.9
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Python 3 bindings for Berkeley DB
 
 License:        BSD-3-Clause
@@ -124,6 +124,9 @@ rm -f %{buildroot}%{_includedir}/python3.*/%{srcname}/bsddb.h
 %endif
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 6.2.9-23
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 6.2.9-22
 - Rebuilt for Python 3.14.0rc2 bytecode
 

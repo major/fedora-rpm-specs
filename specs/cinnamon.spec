@@ -16,7 +16,7 @@
 
 Name:           cinnamon
 Version:        6.4.12
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Window management and application launching for GNOME
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
@@ -351,6 +351,9 @@ EOF
 %endif
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 6.4.12-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Mon Sep 15 2025 Leigh Scott <leigh123linux@gmail.com> - 6.4.12-1
 - Update to 6.4.12
 

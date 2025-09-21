@@ -1,7 +1,7 @@
 %global srcname %(echo %{name} | sed 's/^python-//')
 Name:           python-fqdn
 Version:        1.5.1
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Validates fully-qualified domain names against RFC 1123
 BuildArch:      noarch
 License:        MPL-2.0
@@ -42,6 +42,9 @@ sed -e 's/--cov=[^[:blank:]]\+//' 'tox.ini'
 %doc README.rst
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.5.1-20
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Mon Jul 28 2025 Romain Geissler <romain.geissler@amadeus.com> - 1.5.1-19
 - Migrate to pyproject macros (rhbz#2377725)
 

@@ -1,6 +1,6 @@
 Name:           python-libgravatar
 Version:        1.0.4
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Python interface for the Gravatar APIs
 
 License:        GPL-3.0-or-later
@@ -51,6 +51,9 @@ Python 3 interface for the Gravatar API.
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0.4-8
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.0.4-7
 - Rebuilt for Python 3.14.0rc2 bytecode
 

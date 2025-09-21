@@ -3,7 +3,7 @@
 
 Name:           pitivi
 Version:        2023.03
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Non-linear video editor
 
 License:        LGPL-2.0-or-later
@@ -116,6 +116,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.pitivi.Pitivi.des
 %{python3_sitearch}/pitivi/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2023.03-19
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2023.03-18
 - Rebuilt for Python 3.14.0rc2 bytecode
 

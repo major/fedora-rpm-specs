@@ -1,6 +1,6 @@
 Name:           mailnag
 Version:        2.2.0
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Mail notification daemon
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -63,6 +63,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT/%{_datadir}/metainfo/*.app
 %{_datadir}/icons/hicolor/*/apps/%{name}*png
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.2.0-23
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.2.0-22
 - Rebuilt for Python 3.14.0rc2 bytecode
 

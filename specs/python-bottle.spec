@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.13.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Fast and simple WSGI-framework for small web-applications
 
 License:        MIT
@@ -57,6 +57,9 @@ rm %{buildroot}%{_bindir}/bottle %{buildroot}%{_bindir}/bottle.py
 %{python3_sitelib}/*.py
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.13.4-4
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.13.4-3
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -11,7 +11,7 @@ watts, TPX_speed (extension). It also works well with missing data!}
 
 Name:           python-%{pypi_name}
 Version:        %{?fullversion}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        tcxreader is a parser/reader for Garmin's TCX file format
 
 # SPDX
@@ -56,6 +56,9 @@ BuildRequires:  python3-pytest-cov
 %doc examples/ example_data/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.4.11-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.4.11-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

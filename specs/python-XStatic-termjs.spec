@@ -3,7 +3,7 @@
 
 Name:           python-%{pkgname}
 Version:        0.0.7.0
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        term.js (XStatic packaging standard)
 
 License:        MIT
@@ -83,6 +83,9 @@ chmod 644 %{buildroot}%{_jsdir}/termjs/term.js
 %{_jsdir}/termjs
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.0.7.0-30
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.0.7.0-29
 - Rebuilt for Python 3.14.0rc2 bytecode
 

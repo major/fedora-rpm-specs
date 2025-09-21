@@ -3,7 +3,7 @@
 
 Name:           python-qcelemental
 Version:        0.29.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Periodic table, physical constants, and molecule parsing for quantum chemistry
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -77,6 +77,9 @@ rm -rf QCElemental.*-info
 %{python3_sitelib}/qcelemental-%{version}.dist-info
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.29.0-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Tue Aug 26 2025 Susi Lehtola <jussilehtola@fedoraproject.org> - 0.29.0-5
 - Disable tests due to pydantic v1 incompatibility with Python 3.14.
 

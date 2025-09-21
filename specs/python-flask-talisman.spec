@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.0.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        HTTP security headers for Flask
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -46,6 +46,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/flask_talisman-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0.0-16
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.0.0-15
 - Rebuilt for Python 3.14.0rc2 bytecode
 

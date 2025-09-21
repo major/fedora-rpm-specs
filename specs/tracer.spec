@@ -18,7 +18,7 @@
 
 Name:       tracer
 Version:    1.3
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Finds outdated running applications in your system
 
 BuildArch:  noarch
@@ -205,6 +205,9 @@ make DESTDIR=%{buildroot}%{_datadir} mo
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.3-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Thu Aug 21 2025 Jakub Kadlcik <frostyx@email.cz> 1.3-1
 - Add list of applications triggering reboot-required (riehecky@fnal.gov)
 

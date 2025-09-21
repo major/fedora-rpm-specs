@@ -2,7 +2,7 @@
 
 Name:           python-tw2-forms
 Version:        2.2.6
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Forms for ToscaWidgets2
 
 License:        MIT
@@ -75,6 +75,9 @@ This package contains the basic form widgets build for python3.
 %{python3_sitelib}/%{modname}-%{version}*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.2.6-28
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.2.6-27
 - Rebuilt for Python 3.14.0rc2 bytecode
 

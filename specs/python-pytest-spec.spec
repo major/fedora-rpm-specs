@@ -10,7 +10,7 @@ Available features:\
 
 Name:           python-%{pypi_name}
 Version:        5.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Pytest plugin to display test execution output like a SPECIFICATION
 
 License:        GPL-2.0-or-later
@@ -55,6 +55,9 @@ rm -rf setup.cfg
 %license LICENSE.txt
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 5.1.0-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Wed Sep 10 2025 Federico Pellegrin <fede@evolware.org> - 5.1.0-1
 - Bump to 5.1.0 (rhbz#2393911)
 

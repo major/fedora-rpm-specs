@@ -1,6 +1,6 @@
 Name:           python-cffsubr
 Version:        0.3.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Standalone CFF subroutinizer based on the AFDKO tx tool
 
 # The entire source is Apache-2.0, except:
@@ -86,6 +86,9 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 '%{SOURCE1}'
 %{_mandir}/man1/cffsubr.1*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.3.0-8
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.3.0-7
 - Rebuilt for Python 3.14.0rc2 bytecode
 

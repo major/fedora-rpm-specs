@@ -6,7 +6,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.14.0
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Lesscss compiler
 
 License:        MIT
@@ -69,6 +69,9 @@ ln -s ./lesscpy %{buildroot}/%{_bindir}/py3-lesscpy
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.14.0-22
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.14.0-21
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -8,7 +8,7 @@
 
 Name:           aubio
 Version:        0.4.9
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        An audio labeling tool
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -133,6 +133,9 @@ sed -i -e '/^#![[:blank:]]*\//, 1d' %{buildroot}%{python3_sitearch}/%{name}/*.py
 %{python3_sitearch}/%{name}*.egg-info
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.4.9-30
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.4.9-29
 - Rebuilt for Python 3.14.0rc2 bytecode
 

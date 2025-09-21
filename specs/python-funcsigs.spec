@@ -5,7 +5,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.0.2
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Python function signatures from PEP362 for Python 2.6, 2.7 and 3.2+
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -87,6 +87,9 @@ rm -rf html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0.2-41
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.0.2-40
 - Rebuilt for Python 3.14.0rc2 bytecode
 

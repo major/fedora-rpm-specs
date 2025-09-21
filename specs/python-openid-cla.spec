@@ -1,6 +1,6 @@
 Name:           python-openid-cla
 Version:        1.2
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        CLA extension for python-openid
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -48,6 +48,9 @@ This package includes the python 3 version of the module.
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.2-36
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.2-35
 - Rebuilt for Python 3.14.0rc2 bytecode
 

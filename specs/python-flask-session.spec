@@ -1,6 +1,6 @@
 Name:           python-flask-session
 Version:        0.5.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Server side session extension for Flask
 
 License:        BSD-3-Clause
@@ -64,6 +64,9 @@ kill %1
 %license LICENSE.rst
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.5.0-11
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.5.0-10
 - Rebuilt for Python 3.14.0rc2 bytecode
 

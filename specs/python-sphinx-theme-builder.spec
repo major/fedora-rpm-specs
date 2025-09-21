@@ -10,7 +10,7 @@
 
 Name:           python-sphinx-theme-builder
 Version:        0.2.0
-Release:        0.24.%{prerel}%{?dist}
+Release:        0.25.%{prerel}%{?dist}
 Summary:        Streamline the Sphinx theme development workflow
 
 # Most of the code is MIT.  However,
@@ -87,6 +87,9 @@ rm %{buildroot}%{_bindir}/stb
 %license LICENSE
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.2.0-0.25.b2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Thu Sep 04 2025 Miro Hrončok <mhroncok@redhat.com> - 0.2.0-0.24.b2
 - Remove patch for compatibility with click 8.2
 - Due to numerous regressions, we are going to revert back to click 8.1.7

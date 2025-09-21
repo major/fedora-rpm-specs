@@ -3,7 +3,7 @@
 
 Name:           python-pyasn1
 Version:        0.6.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        ASN.1 tools for Python
 License:        BSD-2-Clause
 Source0:        https://github.com/pyasn1/pyasn1/archive/v%{version}.tar.gz
@@ -83,6 +83,9 @@ popd
 %doc docs/build/html/*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.6.1-7
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.6.1-6
 - Rebuilt for Python 3.14.0rc2 bytecode
 

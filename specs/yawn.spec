@@ -6,7 +6,7 @@
 
 Name:           yawn
 Version:        0
-Release:        0.54.%{revdate}svn%{svnrev}%{?dist}
+Release:        0.55.%{revdate}svn%{svnrev}%{?dist}
 Summary:        Yet Another WBEM Navigator
 
 
@@ -67,6 +67,9 @@ install -m 0644 ./apache/yawn.conf ${RPM_BUILD_ROOT}/%{apacheconfdir}/conf.d/yaw
 %{_bindir}/yawn.py
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0-0.55.20140318svn632
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Wed Aug 27 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 0-0.54.20140318svn632
 - Stop using deprecated python setup.py build/install command in the spec
   Resolves: #2378639

@@ -8,7 +8,7 @@
 
 Name:          dtc
 Version:       1.7.2
-Release:       6%{?dist}
+Release:       7%{?dist}
 Summary:       Device Tree Compiler
 License:       GPL-2.0-or-later
 URL:           https://devicetree.org/
@@ -180,6 +180,9 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %endif
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.7.2-7
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.7.2-6
 - Rebuilt for Python 3.14.0rc2 bytecode
 

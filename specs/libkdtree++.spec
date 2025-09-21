@@ -1,6 +1,6 @@
 Name:           libkdtree++
 Version:        0.7.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        C++ template container implementation of kd-tree sorting
 URL:            https://github.com/nvmd/libkdtree
 License:        Artistic-2.0
@@ -98,6 +98,9 @@ popd
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.7.4-3
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.7.4-2
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -33,7 +33,7 @@ from these programs and contained in output files, specifically:
 
 Name:           python-%{pname}
 Version:        1.8.1
-Release:        6%{date}%{shortcommit}%{?dist}
+Release:        7%{date}%{shortcommit}%{?dist}
 Summary:        Parsers for output files of computational chemistry packages
 License:        BSD-3-Clause AND LGPL-2.0-or-later
 URL:            https://cclib.github.io/
@@ -102,6 +102,9 @@ done
 %{_bindir}/cda
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.8.1-7
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.8.1-6
 - Rebuilt for Python 3.14.0rc2 bytecode
 

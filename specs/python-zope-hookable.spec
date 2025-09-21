@@ -2,7 +2,7 @@
 
 Name:           python-zope-hookable
 Version:        5.1.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Efficient creation of hookable objects
 
 License:        ZPL-2.1
@@ -75,6 +75,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 5.1.0-15
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 5.1.0-14
 - Rebuilt for Python 3.14.0rc2 bytecode
 

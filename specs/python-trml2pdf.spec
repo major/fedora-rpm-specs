@@ -2,7 +2,7 @@
 
 Name:		python-%{module}
 Version:	0.6
-Release:	19%{?dist}
+Release:	20%{?dist}
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
 License:	LicenseRef-Callaway-LGPLv2
 Summary:	Easy creating PDF using ReportLab's RML
@@ -57,6 +57,9 @@ Open source implementation of RML (Report Markup Language) from ReportLab
 %{_mandir}/man1/trml2pdf.1.*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.6-20
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.6-19
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -17,7 +17,7 @@ helps automate the hard parts.
 
 Name:           python-%{pypi_name}
 Version:        4.1.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Release NOtes manager
 
 License:        Apache-2.0
@@ -109,6 +109,9 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.1.0-8
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.1.0-7
 - Rebuilt for Python 3.14.0rc2 bytecode
 

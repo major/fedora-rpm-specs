@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        0.8.1
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Py.test plugin for testing of asynchronous tornado applications
 
 License:        Apache-2.0
@@ -48,6 +48,9 @@ Summary:        %{summary}
 %doc README.rst
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.8.1-22
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Tue Aug 19 2025 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.8.1-21
 - Port to modern Python macros
 

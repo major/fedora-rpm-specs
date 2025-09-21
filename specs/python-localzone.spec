@@ -4,7 +4,7 @@ Version:           0.9.8
 %forgemeta
 
 Name:           python-%{pypi_name}
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        A simple library for managing DNS zones
 
 License:        BSD
@@ -56,6 +56,9 @@ Summary:        %{summary}
 %doc README.rst
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.9.8-13
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Tue Sep 09 2025 Lumír Balhar <lbalhar@redhat.com> - 0.9.8-13
 - Fix compatibility with dnspython 2.8.0
 

@@ -8,7 +8,7 @@
 
 Name:           python-%{srcname}
 Version:        1.0
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Pytest plugin with mechanisms for caching across test runs
 
 License:        MIT
@@ -93,6 +93,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} py.test-%{python3_version} -v || :
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0-41
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.0-40
 - Rebuilt for Python 3.14.0rc2 bytecode
 

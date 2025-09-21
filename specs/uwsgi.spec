@@ -262,7 +262,7 @@
 
 Name:           uwsgi
 Version:        2.0.30
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Fast, self-healing, application container server
 # uwsgi is licensed under GPLv2 with a linking exception
 # docs are licensed under MIT
@@ -2032,6 +2032,9 @@ install -m0644 -D %{SOURCE8} %{buildroot}%{_sysusersdir}/uwsgi.conf
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.0.30-7
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Tue Aug 19 2025 Ralf Ertzinger <ralf@skytale.net> - 2.0.30-6
 - Add python3.13 module for EL9
 

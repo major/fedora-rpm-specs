@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        4.0.3
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A Humane Web Text Generator
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -62,6 +62,9 @@ done
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.0.3-7
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.0.3-6
 - Rebuilt for Python 3.14.0rc2 bytecode
 

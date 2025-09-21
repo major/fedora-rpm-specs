@@ -63,7 +63,7 @@ It supports RPMs, modules and comps groups & environments.
 
 Name:           dnf
 Version:        4.23.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        %{pkg_summary}
 # For a breakdown of the licensing, see PACKAGE-LICENSING
 License:        GPL-2.0-or-later AND GPL-1.0-only
@@ -421,6 +421,9 @@ rm %{buildroot}%{_unitdir}/%{name}-makecache.timer
 # bootc subpackage does not include any files
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.23.0-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.23.0-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

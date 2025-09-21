@@ -4,7 +4,7 @@
 
 Name: libsmbios
 Version: 2.4.3
-Release: 20%{?dist}
+Release: 21%{?dist}
 Summary: Libsmbios C/C++ shared libraries
 
 License: GPL-2.0-or-later or OSL-2.1
@@ -192,6 +192,9 @@ rename %{pot_file}.mo %{lang_dom}.mo $(find %{buildroot}/%{_datadir} -name %{pot
 %{_datadir}/smbios-utils
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.4.3-21
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.4.3-20
 - Rebuilt for Python 3.14.0rc2 bytecode
 

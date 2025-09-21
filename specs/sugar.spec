@@ -1,6 +1,6 @@
 Name:    sugar
 Version: 0.121
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: Constructionist learning platform
 URL:     http://sugarlabs.org/
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -245,6 +245,9 @@ install -p %{SOURCE1} %{buildroot}%{_datadir}/sugar/data/activities.defaults
 %{_datadir}/sugar/extensions/cpsection/webaccount
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.121-9
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.121-8
 - Rebuilt for Python 3.14.0rc2 bytecode
 

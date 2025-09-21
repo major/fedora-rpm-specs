@@ -5,7 +5,7 @@ wildcards.
 
 Name:           python-%{pkg_name}
 Version:        0.7
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Glob module recursive wildcards support
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -59,6 +59,9 @@ sed -i "s/teardown(/teardown_method(/" test.py
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.7-29
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.7-28
 - Rebuilt for Python 3.14.0rc2 bytecode
 

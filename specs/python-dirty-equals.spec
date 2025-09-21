@@ -2,7 +2,7 @@
 %bcond bootstrap 0
 
 Name:           python-dirty-equals
-Version:        0.9.0
+Version:        0.10.0
 Release:        %autorelease
 Summary:        Doing dirty (but extremely useful) things with equals
 
@@ -12,13 +12,23 @@ URL:            https://github.com/samuelcolvin/dirty-equals
 Source:         %{pypi_source dirty_equals}
 
 BuildSystem:            pyproject
-BuildOption(generate_buildrequires): %{shrink:
-  %{?!with_bootstrap:-x pydantic}
-  requirements/tests-filtered.txt
-}
+%if %{without bootstrap}
+BuildOption(generate_buildrequires): -x pydantic
+%endif
 BuildOption(install):   -l dirty_equals
 
 BuildArch:      noarch
+
+# See dependency-groups.dev in pyproject.toml, but there are coverage analysis
+# tools, linters, and other unwanted dependencies
+# (https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters)
+# mixed in, so we list the real test dependencies manually.
+BuildRequires:  %{py3_dist packaging} >= 25
+BuildRequires:  %{py3_dist pydantic} >= 2.10.6
+BuildRequires:  %{py3_dist pytest} >= 8.3.5
+# Not packaged: python-pytest-examples; would enable tests/test_docs.py
+# BuildRequires:  %%{py3_dist pytest-examples} >= 0.0.18
+# pytest-pretty is purely cosmetic
 
 %global common_description %{expand:
 The dirty-equals Python library (mis)uses the __eq__ method to make python code
@@ -43,16 +53,6 @@ Summary:        %{summary}
 
 
 %prep -a
-# Patch out coverage analysis dependencies
-# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-#
-# Patch out pytest-pretty, which is purely cosmetic
-#
-# Patch out pytest-examples, which would enable tests in tests/test_docs.py,
-# but is not yet packaged.
-sed -r 's/^(coverage|pytest-(pretty|examples))/# \1/' requirements/tests.in |
-  tee requirements/tests-filtered.txt
-
 # Erroring on DeprecationWarnings makes sense upstream, but is probably too
 # strict for distribution packaging.
 #

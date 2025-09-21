@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        1.7.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        %{sum}
 
 License:        MIT
@@ -41,6 +41,9 @@ Robust and effective logging for Python 3.
 %{python3_sitelib}/*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.7.0-19
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.7.0-18
 - Rebuilt for Python 3.14.0rc2 bytecode
 

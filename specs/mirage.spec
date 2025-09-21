@@ -1,6 +1,6 @@
 Name:		mirage
 Version:	0.9.5.2
-Release:	51%{?dist}
+Release:	52%{?dist}
 Summary:	A fast and simple image viewer
 
 # SPDX confirmed
@@ -90,6 +90,9 @@ desktop-file-install \
 %{_datadir}/applications/*%{name}.desktop
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.9.5.2-52
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Sun Aug 17 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.9.5.2-51
 - Use pyproject macros
 

@@ -1,6 +1,6 @@
 Name:           python-nbxmpp
 Version:        4.5.4
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Python library for non-blocking use of Jabber/XMPP
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
@@ -45,6 +45,9 @@ Obsoletes:      python-nbxmpp-doc < 1.0.0
 %doc README.md ChangeLog
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.5.4-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.5.4-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

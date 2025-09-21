@@ -1510,6 +1510,15 @@ popd
 	-DRUNTIMES_amdgcn-amd-amdhsa_LLVM_ENABLE_RUNTIMES=openmp \\\
 	-DRUNTIMES_amdgcn-amd-amdhsa_CMAKE_CXX_FLAGS="%{__global_compiler_flags}" \\\
 	-DRUNTIMES_nvptx64-nvidia-cuda_CMAKE_CXX_FLAGS="%{__global_compiler_flags}"
+
+%if 0%{?__isa_bits} == 64
+# The following shouldn't be required, but due to a bug, we have to be
+# explicit about LLVM_LIBDIR_SUFFIX for nvptx64-nvidia-cuda.
+# TODO: Remove this after fixing
+# https://github.com/llvm/llvm-project/issues/159762
+%global cmake_config_args %{cmake_config_args} \\\
+	-DRUNTIMES_nvptx64-nvidia-cuda_LLVM_LIBDIR_SUFFIX=64
+%endif
 %endif
 #endregion openmp options
 

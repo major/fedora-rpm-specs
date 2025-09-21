@@ -5,7 +5,7 @@
 
 Name:           python-%{srcname}
 Version:        1.0.3
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Sphinx eager ".. only::" directive and other selective rendition extensions
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -67,6 +67,9 @@ Requires:       python3-sphinx
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0.3-20
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.0.3-19
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -7,7 +7,7 @@
 
 Name:             python-%{mod_name}
 Version:          2.2.15
-Release:          3%{?dist}
+Release:          4%{?dist}
 Summary:          Pure Python client for Apache Kafka
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -122,6 +122,9 @@ It makes sure the dependencies are installed.
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.2.15-4
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.2.15-3
 - Rebuilt for Python 3.14.0rc2 bytecode
 

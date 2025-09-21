@@ -10,7 +10,7 @@
 
 Name:           python-%{pypi_name}
 Version:        12.0.4.0
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Angular-FileUpload JavaScript library (XStatic packaging standard)
 
 License:        MIT
@@ -131,6 +131,9 @@ rmdir %{buildroot}/%{python3_sitelib}/xstatic/pkg/angular_fileupload/data/
 %endif
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 12.0.4.0-35
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 12.0.4.0-34
 - Rebuilt for Python 3.14.0rc2 bytecode
 

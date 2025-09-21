@@ -2,7 +2,7 @@
 
 Name:             python-%{modname}
 Version:          0.37.0
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Mock D-Bus objects
 
 License:          LGPL-3.0-or-later
@@ -53,6 +53,9 @@ rm -rf python-%{modname}.egg-info
 %doc README.md COPYING
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.37.0-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Sun Sep 14 2025 Packit <hello@packit.dev> - 0.37.0-1
 - templates: Drop iio-sensors-proxy (See #241)
 - DBusTestCase: Drop obsolete {start,stop}_dbus() methods

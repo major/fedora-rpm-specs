@@ -3,7 +3,7 @@
 
 Name:		python-%{srcname}
 Version:	0.26
-Release:	33%{?dist}
+Release:	34%{?dist}
 Summary:	Adds network extension support to python-novaclient
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -41,6 +41,9 @@ Requires:	python3-novaclient
 %{python3_sitelib}/*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.26-34
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.26-33
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -3,7 +3,7 @@
 
 Name:       ibus-hangul
 Version:    1.5.5
-Release:    10%{?dist}
+Release:    11%{?dist}
 Summary:    The Hangul engine for IBus input platform
 License:    GPL-2.0-or-later
 URL:        https://github.com/libhangul/ibus-hangul
@@ -88,6 +88,9 @@ make check \
 %{_datadir}/installed-tests/ibus-hangul
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.5.5-11
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.5.5-10
 - Rebuilt for Python 3.14.0rc2 bytecode
 

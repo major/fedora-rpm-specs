@@ -1,6 +1,6 @@
 Name:           trac
 Version:        1.6
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Enhanced wiki and issue tracking system
 License:        BSD-3-Clause
 URL:            http://trac.edgewall.com/
@@ -89,6 +89,9 @@ install -dm 755 $RPM_BUILD_ROOT%{_sbindir}
 %config(noreplace) /etc/trac/*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.6-10
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.6-9
 - Rebuilt for Python 3.14.0rc2 bytecode
 

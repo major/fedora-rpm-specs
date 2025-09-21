@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        15.0.1
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Colored terminal output for Python's logging module
 
 License:        MIT
@@ -103,6 +103,9 @@ PATH=%{buildroot}%{_bindir}:$PATH \
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 15.0.1-16
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 15.0.1-15
 - Rebuilt for Python 3.14.0rc2 bytecode
 

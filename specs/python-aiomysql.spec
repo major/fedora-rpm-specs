@@ -1,6 +1,6 @@
 Name:           python-aiomysql
 Version:        0.2.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        MySQL driver for asyncio
 
 License:        MIT
@@ -55,6 +55,9 @@ sed -r -i '/"setuptools_scm_git_archive/d' pyproject.toml
 %doc README.rst
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.2.0-10
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.2.0-9
 - Rebuilt for Python 3.14.0rc2 bytecode
 

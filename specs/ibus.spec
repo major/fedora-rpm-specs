@@ -36,7 +36,7 @@
 %global pcd1 budgie-desktop or cinnamon or deepin-desktop or i3
 %global pcd2 lxqt-session or lxsession or mate-panel or phosh
 %global pcd3 plasma-workspace or sugar or xfce4-session
-%global pcd4 cosmic-panel or hyprland or sway
+%global pcd4 cosmic-panel or hyprland or sway or waybar
 
 %if %with_pkg_config
 %if %{with gtk2}
@@ -61,7 +61,7 @@
 %global dbus_python_version 0.83.0
 
 Name:           ibus
-Version:        1.5.33~beta1
+Version:        1.5.33~rc1
 # https://github.com/fedora-infra/rpmautospec/issues/101
 Release:        2%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
@@ -72,7 +72,6 @@ Source1:        https://github.com/ibus/%name/releases/download/%{source_version
 Source2:        %{name}-xinput
 Source3:        %{name}.conf.5
 # Patch0:         %%{name}-HEAD.patch
-Patch0:         %{name}-HEAD.patch
 # Under testing #1349148 #1385349 #1350291 #1406699 #1432252 #1601577
 Patch1:         %{name}-1385349-segv-bus-proxy.patch
 
@@ -639,6 +638,13 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.5.33~rc1-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
+* Fri Sep 19 2025 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.33~rc1-1
+- Fix memory leaks
+- Fix GTK_IM_MODULE=ibus w/ GTK3, GTK4 in Wayland
+
 * Sun Sep 07 2025 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.33~beta1-2
 - Resolves: #2365138 Fix to realloc Xi18nAtomOffsetPair in i18nOffsetCache.c
 

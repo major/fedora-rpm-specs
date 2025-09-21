@@ -9,7 +9,7 @@
 
 Name:		python-%{upname}
 Version:	0.17.3
-Release:	18%{?dist}
+Release:	19%{?dist}
 Summary:	%{common_sum}
 
 License:	LGPL-3.0-or-later
@@ -89,6 +89,9 @@ done
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.17.3-19
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.17.3-18
 - Rebuilt for Python 3.14.0rc2 bytecode
 

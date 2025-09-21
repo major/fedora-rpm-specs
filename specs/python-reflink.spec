@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        %{pypi_version}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Python wrapper around the reflink system calls
 License:        MIT
 URL:            https://gitlab.com/rubdos/pyreflink
@@ -75,6 +75,9 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.2.2-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.2.2-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

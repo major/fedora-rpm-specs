@@ -1,7 +1,7 @@
 %global srcname visvis
 Name:             python-%{srcname}
 Version:          1.14.0
-Release:          14%{?dist}
+Release:          15%{?dist}
 Summary:          Python library for visualization of 1D to 4D data in an object oriented way
 # Automatically converted from old format: BSD - review is highly recommended.
 License:          LicenseRef-Callaway-BSD
@@ -55,6 +55,9 @@ popd
 %{python3_sitelib}/%{srcname}-%{version}-*.egg-info
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.14.0-15
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.14.0-14
 - Rebuilt for Python 3.14.0rc2 bytecode
 

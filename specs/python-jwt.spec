@@ -14,7 +14,7 @@ encrypted JSON objects.}
 
 Name:           python-%{pkgname}
 Version:        2.10.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        JSON Web Token implementation in Python
 License:        MIT
 URL:            https://github.com/jpadilla/pyjwt
@@ -67,6 +67,9 @@ sed -e '/coverage\[toml\]/d' \
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.10.1-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Sep 12 2025 Jeremy Cline <jeremycline@linux.microsoft.com> - 2.10.1-1
 - Update to 2.10.1 (#2302282)
 

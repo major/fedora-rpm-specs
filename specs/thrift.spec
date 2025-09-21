@@ -71,7 +71,7 @@
 # change is a SONAME change and dependencies need to be rebuilt
 Name:    thrift
 Version: 0.20.0
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: Software framework for cross-language services development
 
 # Parts of the source are used under the BSD and zlib licenses, but
@@ -449,6 +449,9 @@ find %{buildroot} -name \*.py -exec grep -q /usr/bin/env {} \; -print | xargs -r
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.20.0-8
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.20.0-7
 - Rebuilt for Python 3.14.0rc2 bytecode
 

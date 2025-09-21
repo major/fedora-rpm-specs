@@ -2,7 +2,7 @@
 
 Name:           python-netdisco
 Version:        3.0.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Python library to scan local network for services and devices
 
 License:        MIT
@@ -68,6 +68,9 @@ Current methods of scanning:
 %license LICENSE.md
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.0.0-16
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Thu Sep 4 2025 Daniel Milnes <daniel@daniel-milnes.uk> - 3.0.0-15
 - Migrate to pyproject macros (rhbz#2377926)
 

@@ -2,7 +2,7 @@
 
 Name: python-%{srcname}
 Version: 0.2.12
-Release: 39.post1%{?dist}
+Release: 40.post1%{?dist}
 Summary: Allows using distutils2-like setup.cfg files with setup.py
 License: BSD-3-Clause
 
@@ -51,6 +51,9 @@ find . -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python3}|'
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.2.12-40.post1
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.2.12-39.post1
 - Rebuilt for Python 3.14.0rc2 bytecode
 

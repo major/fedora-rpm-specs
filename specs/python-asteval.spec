@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.0.6
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Evaluator of Python expression using ast module
 
 License:        MIT
@@ -70,6 +70,9 @@ rm -rf html/.{doctrees,buildinfo} html/_static/empty
 %license LICENSE
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0.6-4
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.0.6-3
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -5,7 +5,7 @@ Summary: Modern audiobook player
 License: GPL-3.0-or-later
 
 Version: 1.3.0
-Release: 9%{?dist}
+Release: 10%{?dist}
 
 URL: https://cozy.geigi.de
 Source0: https://github.com/geigi/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -146,6 +146,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{rtld_name}.desktop
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.3.0-10
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.3.0-9
 - Rebuilt for Python 3.14.0rc2 bytecode
 

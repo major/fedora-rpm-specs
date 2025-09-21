@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.2.5
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        PHP parser written in Python using PLY 
 
 License:        BSD-3-Clause
@@ -51,6 +51,9 @@ rm -rf %{buildroot}/%{python3_sitelib}/tests
 %{python3_sitelib}/%{pypi_name}*.pth
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.2.5-17
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Mon Sep 08 2025 Parag Nemade <pnemade AT redhat DOT com> - 1.2.5-16
 - Update %%check section to use pyproject macros
 

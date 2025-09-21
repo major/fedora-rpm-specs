@@ -2,7 +2,7 @@
 
 Name:           pycolumnize
 Version:        0.3.10
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Python module to align in columns a simple list
 
 License:        MIT
@@ -50,6 +50,9 @@ sed -i /nose/d setup.py
 %{python3_sitelib}/%{pypi_name}.py*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.3.10-19
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.3.10-18
 - Rebuilt for Python 3.14.0rc2 bytecode
 

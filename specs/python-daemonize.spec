@@ -2,7 +2,7 @@
 
 Name:           python-%{modname}
 Version:        2.5.0
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Library for writing system daemons in Python
 
 License:        MIT
@@ -43,6 +43,9 @@ Python 3 version.
 %{python3_sitelib}/__pycache__/%{modname}.*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.5.0-26
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.5.0-25
 - Rebuilt for Python 3.14.0rc2 bytecode
 

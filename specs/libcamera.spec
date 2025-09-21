@@ -3,7 +3,7 @@
 
 Name:    libcamera
 Version: 0.5.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A library to support complex camera ISPs
 # see .reuse/dep5 and COPYING for details
 License: LGPL-2.1-or-later
@@ -216,6 +216,9 @@ rm -rf ${RPM_BUILD_ROOT}/%{_docdir}/%{name}-*/html/.doctrees
 %{python3_sitearch}/*
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.5.2-3
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Wed Sep 03 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 0.5.2-2
 - Disable docs in RHEL builds
 

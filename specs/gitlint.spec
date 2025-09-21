@@ -1,7 +1,7 @@
 Summary: Git commit message linting tool
 Name: gitlint
 Version: 0.15.0
-Release: 18%{?dist}
+Release: 19%{?dist}
 License: MIT
 Source: %pypi_source
 Patch0: strict-dependencies.patch
@@ -43,6 +43,9 @@ rm -rf %{buildroot}%{python3_sitelib}/qa
 %{_bindir}/gitlint
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.15.0-19
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.15.0-18
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -1,6 +1,6 @@
 Name:      python-aiorpcx
 Version:   0.24.0
-Release:   4%{?dist}
+Release:   5%{?dist}
 Summary:   Generic async RPC implementation
 
 # https://github.com/kyuupichan/aiorpcX/issues/11
@@ -42,6 +42,9 @@ rm -vrf *.egg-info
 %{python3_sitelib}/aiorpcX-*.egg-info/
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.24.0-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.24.0-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

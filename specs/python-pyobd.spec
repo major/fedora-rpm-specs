@@ -6,7 +6,7 @@
 
 Name:           python-%{srcname}
 Version:        %{ver}
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        OBD-II (SAE-J1979) compliant scan tool software
 # CC-BY-SA for icon, see README.Fedora for details
 # Automatically converted from old format: GPLv2+ and CC-BY-SA - review is highly recommended.
@@ -103,6 +103,9 @@ desktop-file-install --add-category="Utility" \
 %{_bindir}/pyobd
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.9.3-40
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.9.3-39
 - Rebuilt for Python 3.14.0rc2 bytecode
 

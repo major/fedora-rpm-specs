@@ -58,7 +58,7 @@
 Summary: A dynamic adaptive system tuning daemon
 Name: tuned
 Version: 2.26.0
-Release: 1%{?prerel1}%{?git_suffix:.%{git_suffix}}%{?dist}
+Release: 2%{?prerel1}%{?git_suffix:.%{git_suffix}}%{?dist}
 License: GPL-2.0-or-later AND CC-BY-SA-3.0
 %if 0%{?git_commit:1}
 Source0: https://github.com/redhat-performance/%{name}/archive/%{git_commit}/%{name}-%{version}-%{git_suffix}.tar.gz
@@ -648,6 +648,9 @@ fi
 %config(noreplace) %{_sysconfdir}/tuned/ppd.conf
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.26.0-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Sun Aug 24 2025 Jaroslav Škarvada  <jskarvad@redhat.com> - 2.26.0-1
 - new release
 

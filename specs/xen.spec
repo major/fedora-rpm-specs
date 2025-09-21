@@ -51,7 +51,7 @@
 Summary: Xen is a virtual machine monitor
 Name:    xen
 Version: 4.20.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ and BSD - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-BSD
 URL:     http://xen.org/
@@ -818,6 +818,9 @@ fi
 %endif
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.20.1-6
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Wed Sep 10 2025 Michael Young <m.a.young@durham.ac.uk> - 4.20.1-5
 - Mutiple vulnerabilities in the Viridian interface [XSA-472,
 	CVE-2025-27466, CVE-2025-58142, CVE-2025-58143]

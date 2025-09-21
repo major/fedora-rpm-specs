@@ -1,6 +1,6 @@
 Name:           python-crochet
 Version:        2.1.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        A library that makes it easier to use Twisted from blocking code
 
 # Patches needed for compatibility with Python 3.12
@@ -79,6 +79,9 @@ rm docs/_build/html/.buildinfo
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.1.1-11
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.1.1-10
 - Rebuilt for Python 3.14.0rc2 bytecode
 

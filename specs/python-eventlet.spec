@@ -9,7 +9,7 @@ io operations appear blocking at the source code level.}
 
 Name:           python-%{srcname}
 Version:        0.40.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Highly concurrent networking library
 License:        MIT
 
@@ -68,6 +68,9 @@ export EVENTLET_NO_GREENDNS=yes
 %doc doc/build/html
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.40.3-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Tue Sep 9 2025 Peter Stensmyr <peter.stensmyr@aiven.io> - 0.40.3-1
 - Update to 0.40.3
 

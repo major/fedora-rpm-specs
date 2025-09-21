@@ -12,7 +12,7 @@ Python 3.4 is the minimum supported version.
 
 Name:           python-%{pkgname}
 Version:        0.8
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        %{summary}
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -82,6 +82,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.8-23
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.8-22
 - Rebuilt for Python 3.14.0rc2 bytecode
 

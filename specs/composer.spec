@@ -8,7 +8,7 @@
 #
 
 
-%global gh_commit    00e1a3396eea67033775c4a49c772376f45acd73
+%global gh_commit    3e38919bc9a2c3c026f2151b5e56d04084ce8f0b
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_branch    2.0-dev
 %global gh_owner     composer
@@ -16,7 +16,7 @@
 %global api_version  2.6.0
 %global run_version  2.2.2
 
-%global upstream_version 2.8.11
+%global upstream_version 2.8.12
 #global upstream_prever  RC1
 #global upstream_lower   rc1
 
@@ -110,6 +110,10 @@ Requires:       php-zlib
 # Special internal for Plugin API
 Provides:       php-composer(composer-plugin-api) = %{api_version}
 Provides:       php-composer(composer-runtime-api) = %{run_version}
+
+# PEAR is now deprecated
+# composer is designed to replace it
+Supplements:    php-pear
 
 
 %description
@@ -205,6 +209,9 @@ php -r '
 
 
 %changelog
+* Fri Sep 19 2025 Remi Collet <remi@remirepo.net> - 2.8.12-1
+- update to 2.8.12
+
 * Wed Aug 27 2025 Remi Collet <remi@remirepo.net> - 2.8.11-1
 - update to 2.8.11
 

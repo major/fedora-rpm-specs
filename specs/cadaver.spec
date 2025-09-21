@@ -1,6 +1,6 @@
 Name: cadaver
-Version: 0.27
-Release: 2%{?dist}
+Version: 0.28
+Release: 1%{?dist}
 Summary: Command-line WebDAV client
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -25,7 +25,6 @@ make %{?_smp_mflags}
 %install
 make install DESTDIR=$RPM_BUILD_ROOT
 
-# broken in 0.24
 %find_lang %{name}
 
 %files -f %{name}.lang
@@ -34,6 +33,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_mandir}/*/*
 
 %changelog
+* Fri Sep 19 2025 Joe Orton  <jorton@redhat.com> - 0.28-1
+- update to 0.28
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.27-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

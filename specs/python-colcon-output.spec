@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.2.13
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Extension for colcon to customize the output in various ways
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -58,6 +58,9 @@ An extension for colcon-core to customize the output in various ways.
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.2.13-13
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.2.13-12
 - Rebuilt for Python 3.14.0rc2 bytecode
 

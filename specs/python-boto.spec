@@ -1,7 +1,7 @@
 Summary:        A simple, lightweight interface to Amazon Web Services
 Name:           python-boto
 Version:        2.49.0
-Release:        28%{?dist}
+Release:        29%{?dist}
 License:        MIT
 URL:            https://github.com/boto/boto
 Source0:        https://pypi.io/packages/source/b/boto/boto-%{version}.tar.gz
@@ -125,6 +125,9 @@ rm -f $RPM_BUILD_ROOT/%{_bindir}/*
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.49.0-29
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 2.49.0-28
 - Rebuilt for Python 3.14.0rc2 bytecode
 

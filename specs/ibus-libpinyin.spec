@@ -1,15 +1,10 @@
-%global snapshot 0
-
 Name:       ibus-libpinyin
-Version:    1.16.4
-Release:    3%{?dist}
+Version:    1.16.5
+Release:    2%{?dist}
 Summary:    Intelligent Pinyin engine based on libpinyin for IBus
 License:    GPL-3.0-or-later
 URL:        https://github.com/libpinyin/ibus-libpinyin
 Source0:    http://downloads.sourceforge.net/libpinyin/ibus-libpinyin/%{name}-%{version}.tar.gz
-%if %snapshot
-Patch0:     ibus-libpinyin-1.16.x-head.patch
-%endif
 
 Requires:       python3-gobject
 Requires:       ibus >= 1.5.11
@@ -39,9 +34,6 @@ input method based on libpinyin for IBus.
 
 %prep
 %setup -q
-%if %snapshot
-%patch -P0 -p1 -b .head
-%endif
 
 %build
 %configure --disable-static \
@@ -83,17 +75,24 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/ibus-setup-libbopo
 %{_datadir}/ibus-libpinyin/default.xml
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.16.5-2
+- Rebuilt for Python 3.14.0rc3 bytecode
+
+* Fri Sep 19 2025 Peng Wu <pwu@redhat.com> - 1.16.5-1
+- Update to 1.16.5
+- bug fixes
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.16.4-3
 - Rebuilt for Python 3.14.0rc2 bytecode
 
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Tue Jun 24 2025 Peng Wu  <pwu@redhat.com> - 1.16.4-1
+* Tue Jun 24 2025 Peng Wu <pwu@redhat.com> - 1.16.4-1
 - Update to 1.16.4
 - bug fixes
 
-* Fri May 16 2025 Peng Wu  <pwu@redhat.com> - 1.16.3-1
+* Fri May 16 2025 Peng Wu <pwu@redhat.com> - 1.16.3-1
 - Update to 1.16.3
 - fix cloud input
 

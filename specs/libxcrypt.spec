@@ -7,7 +7,7 @@
 
 
 # Build the compat package?
-%if 0%{?fedora} >= 999 || 0%{?rhel} >= 10 || %{without new_api}
+%if 0%{?fedora} >= 999 || (0%{?rhel} >= 11 && !0%{?eln}) || %{without new_api}
 %bcond_with    compat_pkg
 %else
 %bcond_without compat_pkg
@@ -176,7 +176,7 @@ fi                                          \
 
 Name:           libxcrypt
 Version:        4.4.38
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Extended crypt library for descrypt, md5crypt, bcrypt, and others
 
 # For explicit license breakdown, see the
@@ -554,6 +554,9 @@ done
 
 
 %changelog
+* Fri Sep 19 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 4.4.38-9
+- Re-enable compat package for ELN
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.38-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
