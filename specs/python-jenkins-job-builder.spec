@@ -1,7 +1,7 @@
-%global srcname jenkins-job-builder
+%global pypi_name jenkins_job_builder
 
-Name:           python-%{srcname}
-Version:        6.4.2
+Name:           python-jenkins-job-builder
+Version:        6.4.3
 Release:        %autorelease
 # Someone thought that 2.0.0.0b3 < 2.0.0
 Epoch:          1
@@ -12,16 +12,6 @@ Source:         %{pypi_source}
 
 BuildArch:      noarch
 
-%description
-Jenkins Job Builder takes simple descriptions of Jenkins jobs in YAML format
-and uses them to configure Jenkins. You can keep your job descriptions in
-human readable text format in a version control system to make changes and
-auditing easier. It also has a flexible template system, so creating many
-similarly configured jobs is easy.
-
-%package -n python3-%{srcname}
-Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{srcname}}
 BuildRequires:  python3-devel
 # test-requirements.txt
 BuildRequires:  python3dist(pytest)
@@ -32,7 +22,7 @@ BuildRequires:  python3dist(testtools) >= 1.4
 # https://src.fedoraproject.org/rpms/python-jenkins/pull-request/1
 Requires:       python3dist(python-jenkins) >= 1.8
 
-%description -n python3-%{srcname}
+%description
 Jenkins Job Builder takes simple descriptions of Jenkins jobs in YAML format
 and uses them to configure Jenkins. You can keep your job descriptions in
 human readable text format in a version control system to make changes and
@@ -40,7 +30,7 @@ auditing easier. It also has a flexible template system, so creating many
 similarly configured jobs is easy.
 
 %prep
-%autosetup -n %{srcname}-%{version}%{?pre} -p1
+%autosetup -n %{pypi_name}-%{version}%{?pre} -p1
 rm -vr *.egg-info/
 
 %generate_buildrequires
@@ -57,7 +47,7 @@ export PBR_VERSION=%{version}
 %check
 %pytest
 
-%files -n python3-%{srcname} -f %{pyproject_files}
+%files -f %{pyproject_files}
 %license LICENSE
 %{_bindir}/jenkins-jobs
 

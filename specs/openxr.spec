@@ -2,7 +2,7 @@
 %global         libmajor 1
 
 Name:           openxr
-Version:        1.1.51
+Version:        1.1.52
 Release:        %autorelease
 Summary:        Cross-platform VR/AR runtime and API
 License:        Apache-2.0
@@ -26,7 +26,7 @@ BuildRequires:  pkgconfig(xcb)
 BuildRequires:  pkgconfig(xcb-glx)
 BuildRequires:  pkgconfig(xcb-randr)
 BuildRequires:  pkgconfig(xcb-dri2)
-BuildRequires:  pkgconfig(xrandr) 
+BuildRequires:  pkgconfig(xrandr)
 BuildRequires:  python3dist(jinja2)
 
 %description

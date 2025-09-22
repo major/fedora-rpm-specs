@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        25.6.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Compatibility API between asyncio/Twisted/Trollius
 
 License:        MIT
@@ -85,6 +85,9 @@ ln -s /usr/share/javascript/jquery/latest/jquery.min.js _build/html/_static/jque
 %doc docs/_build/html
 
 %changelog
+* Sat Sep 20 2025 Julien Enselme <jujens@jujens.eu> - 25.6.1-4
+- Version bump for rebuild.
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 25.6.1-3
 - Rebuilt for Python 3.14.0rc3 bytecode
 

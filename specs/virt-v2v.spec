@@ -44,7 +44,7 @@ ExclusiveArch: x86_64
 
 Name:          virt-v2v
 Epoch:         1
-Version:       2.9.6
+Version:       2.9.7
 Release:       1%{?dist}
 Summary:       Convert a virtual machine to run on KVM
 
@@ -60,6 +60,10 @@ Source2:       libguestfs.keyring
 
 # Maintainer script which helps with handling patches.
 Source3:       copy-patches.sh
+
+# Improve Windows conversions.  Not upstream yet.
+# https://github.com/libguestfs/libguestfs-common/pull/17
+Patch:         0001-Update-common-submodule.patch
 
 BuildRequires: autoconf, automake, libtool
 BuildRequires: make
@@ -367,6 +371,10 @@ done
 
 
 %changelog
+* Sat Sep 20 2025 Richard W.M. Jones <rjones@redhat.com> - 1:2.9.7-1
+- New upstream development version 2.9.7
+- Backport non-upstream patch to improve Windows conversions
+
 * Tue Sep  9 2025 Richard W.M. Jones <rjones@redhat.com> - 1:2.9.6-1
 - New upstream development version 2.9.6
 

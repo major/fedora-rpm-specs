@@ -1,5 +1,12 @@
+%if 0%{?fedora} >= 43
+ExcludeArch: %{ix86}
+%endif
+
+# it is a misdtected config file in lib/Ravada/Domain.pm:2239
+%global __requires_exclude ^perl\\((redirection)
+
 Name:           ravada
-Version:        2.0.3
+Version:        2.4.1
 Release:        %autorelease
 Summary:        Remote Virtual Desktops Manager
 # AGPL-3.0-only: main program
@@ -23,6 +30,7 @@ BuildRequires:  perl(Cwd)
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(DateTime::Format::DateParse)
 BuildRequires:  perl(DateTime)
+BuildRequires:  perl(DBD::mysql)
 BuildRequires:  perl(DBD::SQLite)
 BuildRequires:  perl(DBIx::Connector)
 BuildRequires:  perl(Digest::MD5)
@@ -109,11 +117,14 @@ BuildRequires:  wget
 Requires:       iptables
 Requires:       libvirt
 Requires:       mariadb-common
+Requires:       perl(DBD::mysql)
 Requires:       perl(Mojolicious::Plugin::Config)
 Requires:       perl(Mojolicious::Plugin::I18N)
 Requires:       perl(Mojolicious) >= 7.01
 Requires:       qemu-img
 Recommends:     virt-viewer
+Recommends:     httpd
+Recommends:     mariadb-server
 
 %description
 Ravada is a software that allows the user to connect to a remote virtual
@@ -158,9 +169,6 @@ find %{buildroot} -size 0 -delete
 
 # Sysusers file
 install -Dpm 0644 %{SOURCE10} %{buildroot}%{_sysusersdir}/%{name}.conf
-
-%pre
-%sysusers_create_compat %{SOURCE10}
 
 %post
 %systemd_post rvd_back.service

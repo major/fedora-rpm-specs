@@ -8,7 +8,7 @@ yml and toml formats.
 
 Name:           python-%{pypi_name}
 Version:        0.8.2
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        %sum
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -74,6 +74,9 @@ py.test-%{python3_version}
 
 
 %changelog
+* Sat Sep 20 2025 Julien Enselme <jujens@jujens.eu> - 0.8.2-19
+- Version bump for rebuild.
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.8.2-18
 - Rebuilt for Python 3.14.0rc3 bytecode
 

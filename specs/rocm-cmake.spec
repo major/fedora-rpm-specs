@@ -24,7 +24,7 @@
 %global debug_package %{nil}
 
 %global rocm_release 7.0
-%global rocm_patch 0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 Name:     rocm-cmake
@@ -52,6 +52,10 @@ is required for building some of the libraries that are a part of ROCm.
 %prep
 %autosetup -p1 -n rocm-cmake-rocm-%{version}
 
+# Another hardcoding of the libdir
+sed -i -e 's@set(CMAKE_INSTALL_LIBDIR@#set(CMAKE_INSTALL_LIBDIR@' share/rocmcmakebuildtools/cmake/ROCMCreatePackage.cmake
+sed -i -e 's@set(CMAKE_INSTALL_LIBDIR@#set(CMAKE_INSTALL_LIBDIR@' share/rocmcmakebuildtools/cmake/ROCMInstallTargets.cmake
+    
 %build
 %cmake
 %cmake_build
@@ -71,6 +75,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/rocm-cmake/LICENSE
 %{_datadir}/rocmcmakebuildtools/*
 
 %changelog
+* Sat Sep 20 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-1
+- Update to 7.0.1
+
 * Tue Sep 16 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.0-1
 - Update to 7.0.0
 

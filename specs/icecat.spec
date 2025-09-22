@@ -20,25 +20,19 @@ ExcludeArch: %{ix86} %{arm}
 # Downgrade optimization
 %global less_optbuild 0
 
-# Build PGO+LTO on x86_64 and aarch64 only due to build issues
-# on other arches.
-%ifarch x86_64
+# Build PGO+LTO on x86_64 and aarch64 only
+%ifarch x86_64 %{arm64}
 %if 0%{?release_build}
-%global build_with_pgo 0
-%global pgo_wayland    0
+%global build_with_pgo 1
+%global pgo_wayland    1
+%global launch_wayland_compositor 1
 %else
 %global build_with_pgo 0
 %global pgo_wayland    0
-%endif
-%endif
-
 %global launch_wayland_compositor 0
-%if 0%{?build_with_pgo}
-%global launch_wayland_compositor 1
+%endif
 %endif
 
-# Disable LTO to work around rhbz#1883904
-%define _lto_cflags %{nil}
 ####################
 
 # Active/Deactive language files handling
@@ -140,33 +134,16 @@ Source18: node-stdout-nonblocking-wrapper
 
 Source19: run-wayland-compositor
 
-# With clang LLVM 16 rust-bindgen 0.56.0 is too old, combined
-# https://github.com/rust-lang/rust-bindgen/pull/2319
-# https://github.com/rust-lang/rust-bindgen/pull/2339
-Patch7:  rust-bindgen-2319-2339.patch
-
-# Needed with rust 1.70
-# https://github.com/mozilla/mp4parse-rust/commit/8b5b652d38e007e736bb442ccd5aa5ed699db100
-Patch8:  mp4parse-rust-8b5b652d38e007e736bb442ccd5aa5ed699db100.patch 
-
-Patch40: build-aarch64-skia.patch
-Patch44: build-arm-libopus.patch
+# Gnuzilla patch:
+# https://lists.gnu.org/archive/html/help-gnuzilla/2025-09/msg00002.html
+Patch7:  icecat-140.3.0-remove_frozen_cargo_flag.patch
 
 # Fedora specific patches
-Patch220: firefox-nss-version.patch
 Patch221: firefox-nss-addon-hack.patch
-Patch223: %{name}-glibc-dynstack.patch
 Patch224: %{name}-GLIBCXX-fix-for-GCC-12.patch
 
 # ARM run-time patch
 Patch226: rhbz-1354671.patch
-
-# Upstream patches
-Patch401: icecat-1742849.patch
-Patch403: icecat-python3.11-open-U.patch
-Patch404: icecat-python3.11-regex-inline-flags.patch
-Patch412: mozilla-1337988.patch
-Patch422: mozilla-1580174-webrtc-popup.patch
 
 # Fix crash on ppc64le (mozilla#1512162)
 Patch423: mozilla-1512162.patch
@@ -246,30 +223,34 @@ BuildRequires: pkgconfig(libcurl)
 BuildRequires: pulseaudio-libs-devel
 %endif
 BuildRequires: llvm
-%if 0%{?fedora} >= 40 || 0%{?rhel} >= 10
-BuildRequires:  clang
-BuildRequires:  clang-libs
-BuildRequires:  llvm-devel
-%global llvm_suffix -20
+%if 0%{?fedora} >= 42 || 0%{?rhel} >= 10
+BuildRequires:  clang19
+BuildRequires:  clang19-libs
+BuildRequires:  llvm19-devel
+BuildRequires:  compiler-rt19
+%global llvm_suffix -19
 %else
-BuildRequires:  clang
-BuildRequires:  clang-libs
-BuildRequires:  llvm-devel
+BuildRequires:  clang17
+BuildRequires:  clang17-libs
+BuildRequires:  llvm17-devel
+BuildRequires:  compiler-rt17
+%global llvm_suffix -17
 %endif
 %if "%toolchain" == "clang"
 BuildRequires:  lld
 %endif
 BuildRequires: rust
 BuildRequires: rustfmt
+
 %if 0%{?pgo_wayland}
+BuildRequires:  xorg-x11-server-Xvfb
 BuildRequires:  mutter
 BuildRequires:  gsettings-desktop-schemas
 BuildRequires:  gnome-settings-daemon
 BuildRequires:  mesa-dri-drivers
 BuildRequires:  xorg-x11-server-Xwayland
-%endif
-%if 0%{?build_with_pgo}
-BuildRequires:  xorg-x11-server-Xvfb
+BuildRequires:  dbus-x11
+BuildRequires:  gnome-keyring
 %endif
 
 %if 0%{?big_endian}
@@ -334,6 +315,8 @@ and translations langpack add-ons.
 
 # Copy license files
 tar -xf %{SOURCE5}
+
+%patch -P 7 -p 1 -b .frozen
 
 # Fedora patches
 %if 0%{?fedora}
@@ -410,9 +393,6 @@ echo "ac_add_options --disable-optimize" >> .mozconfig
 echo "ac_add_options --enable-rust-debug" >> .mozconfig
 %else
 %global optimize_flags "none"
-%ifarch s390x
-%define optimize_flags " -fno-schedule-insns"
-%endif
 %if %{?optimize_flags} != "none"
 echo 'ac_add_options --enable-optimize=%{?optimize_flags}' >> .mozconfig
 %else
@@ -515,13 +495,6 @@ MOZ_OPT_FLAGS=$(echo "$MOZ_OPT_FLAGS" | %{__sed} -e 's/-g/-g1/')
 export MOZ_DEBUG_FLAGS=" "
 %endif
 
-# -mtls-dialect=gnu2 is not recognized by clang-20
-%if "%toolchain" == "clang"
-%ifarch x86_64
-#MOZ_OPT_FLAGS=$(echo "$MOZ_OPT_FLAGS" | %%{__sed} -e 's/-mtls-dialect=gnu2//')
-%endif
-%endif
-
 # We don't want firefox to use CK_GCM_PARAMS_V3 in nss
 MOZ_OPT_FLAGS="$MOZ_OPT_FLAGS -DNSS_PKCS11_3_0_STRICT"
 
@@ -615,10 +588,14 @@ sed -i -e 's|#!/usr/bin/env python3|#!/usr/bin/env python3.11|' mach
 env | grep "WAYLAND"
 MOZ_ENABLE_WAYLAND=1 ./mach build -v 2>&1 | cat - && exit 1
 %else
-xvfb-run ./mach build  2>&1 | cat - || exit 1
+xvfb-run ./mach build -v 2>&1 | cat - || exit 1
 %endif
 %else
 ./mach build -v 2>&1 | cat - || exit 1
+%endif
+
+%if 0%{?build_with_pgo}
+kill $MUTTER_PID	
 %endif
 
 %install

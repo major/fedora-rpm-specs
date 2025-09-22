@@ -94,13 +94,9 @@ BuildRequires:  systemd-rpm-macros
 BuildRequires:  rsync
 
 # additonal kubelet requirements
-Requires:       conntrack-tools
+Requires:       kubernetes-cni
 Requires:       iptables >= 1.4.21
-Requires:       iproute
-Requires:       iproute-tc
 Requires:       util-linux
-Requires:       ethtool
-Requires:       conntrack
 
 # used to be Requires containerd or cri-0; other choices now available
 Recommends:     (containerd or cri-o)
@@ -138,7 +134,7 @@ control plane machines.
 Summary:  Kubernetes tool for standing up clusters
 Requires:       %{name} = %{version}-%{release}
 
-Requires:       containernetworking-plugins
+Requires:       kubernetes-cni
 Recommends:     cri-tools
 Conflicts:      cri-tools < %{k8s_minver}
 Conflicts:      cri-tools >= %{k8s_nextver}

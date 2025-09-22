@@ -15,8 +15,12 @@ Source1:        openapi-python-client.man1
 Patch:          fix-test-cli-1309.patch
 # chore(deps): update dependency typer to >0.6,<0.18
 # https://github.com/openapi-generators/openapi-python-client/pull/1310
+# chore(deps): update dependency typer to >0.6,<0.19
+# https://github.com/openapi-generators/openapi-python-client/pull/1323
+# chore(deps): update dependency typer to >0.6,<0.20
+# https://github.com/openapi-generators/openapi-python-client/pull/1324
 # (without changes to pdm.lock, which is not used in packaging)
-Patch:          allow-typer-0.17.patch
+Patch:          allow-typer-0.19.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-hatchling

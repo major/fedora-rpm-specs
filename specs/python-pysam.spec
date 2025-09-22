@@ -2,19 +2,13 @@
 %global pypi_name pysam
 
 Name:           python-%{pypi_name}
-Version:        0.22.1
+Version:        0.23.3
 Release:        %autorelease
 Summary:        pysam
 
 License:        MIT AND BSD-1-Clause AND BSD-2-Clause AND BSD-3-Clause
 URL:            https://github.com/pysam-developers/pysam
 Source0:        %{pypi_source}
-Patch:          python-pysam-configure-c99.patch
-
-# Fix compatibility with Cython >= 3.1
-# Backported from upstream:
-# https://github.com/pysam-developers/pysam/pull/1340
-Patch:          fix-cython-3.1-build.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(setuptools)
@@ -36,9 +30,9 @@ The module supports compression and random access through indexing.
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
 %{?python_provide:%python_provide python3-%{pypi_name}}
-Provides:  bundled(samtools) = 1.18
-Provides:  bundled(htslib) = 1.18
-Provides:  bundled(bcftools) = 1.18
+Provides:  bundled(samtools) = 1.31
+Provides:  bundled(htslib) = 1.31
+Provides:  bundled(bcftools) = 1.31
 
 %description -n python3-%{pypi_name}
 pysam - a python module for reading, manipulating and writing genomic data

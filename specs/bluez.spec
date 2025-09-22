@@ -5,15 +5,13 @@
 %endif
 
 Name:    bluez
-Version: 5.83
-Release: 3%{?dist}
+Version: 5.84
+Release: 1%{?dist}
 Summary: Bluetooth utilities
 License: GPL-2.0-or-later
 URL:     http://www.bluez.org/
 
 Source0: https://www.kernel.org/pub/linux/bluetooth/%{name}-%{version}.tar.xz
-Patch1:  0001-shared-shell-Fix-not-calling-pre_run-for-main-menu.patch
-Patch2:  0001-shared-shell-Fix-not-running-pre_run-on-MODE_NON_INT.patch
 
 BuildRequires: dbus-devel >= 1.6
 BuildRequires: glib2-devel
@@ -69,7 +67,7 @@ Obsoletes: bluez < 5.55-2
 
 %description deprecated
 Bluetooth applications that have bee deprecated by upstream. They have been
-replaced by funcationality in the core bluetoothctl and will eventually
+replaced by functionality in the core bluetoothctl and will eventually
 be dropped by upstream. Utilities include:
 	- ciptool
 	- gatttool
@@ -230,7 +228,7 @@ install emulator/btvirt ${RPM_BUILD_ROOT}/%{_libexecdir}/bluetooth/
 %files
 %license COPYING
 %doc AUTHORS ChangeLog
-# bluetooth.service expects configuraton directory to be read only
+# bluetooth.service expects configuration directory to be read only
 # https://github.com/bluez/bluez/issues/329#issuecomment-1102459104
 %attr(0555, root, root) %dir %{_sysconfdir}/bluetooth
 %config(noreplace) %{_sysconfdir}/bluetooth/main.conf
@@ -298,6 +296,7 @@ install emulator/btvirt ${RPM_BUILD_ROOT}/%{_libexecdir}/bluetooth/
 %{_mandir}/man1/rctest.1.*
 %{_mandir}/man5/org.bluez.*.5.*
 %{_mandir}/man7/hci.7.*
+%{_mandir}/man7/iso.7.*
 %{_mandir}/man7/l2cap.7.*
 %{_mandir}/man7/mgmt.7.*
 %{_mandir}/man7/rfcomm.7.*
@@ -335,6 +334,9 @@ install emulator/btvirt ${RPM_BUILD_ROOT}/%{_libexecdir}/bluetooth/
 %{_userunitdir}/obex.service
 
 %changelog
+* Fri Sep 19 2025 Bastien Nocera <bnocera@redhat.com> - 5.84-1
+- Update to 5.84
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.83-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
