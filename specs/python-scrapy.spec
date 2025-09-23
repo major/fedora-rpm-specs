@@ -1,8 +1,8 @@
 %global pypi_name Scrapy
 %global pkg_name scrapy
 Name:		python-scrapy
-Version:	2.13.0
-Release:	5%{?dist}
+Version:	2.13.3
+Release:	1%{?dist}
 Summary:	A high-level Python Screen Scraping framework
 # Automatically converted from old format: BSD - review is highly recommended.
 License:	LicenseRef-Callaway-BSD
@@ -84,6 +84,9 @@ popd
 
 
 %changelog
+* Sun Sep 21 2025 Eduardo Echeverria <echevemaster@gmail.com> - 2.13.3-1
+- Update to 2.13.3
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.13.0-5
 - Rebuilt for Python 3.14.0rc3 bytecode
 

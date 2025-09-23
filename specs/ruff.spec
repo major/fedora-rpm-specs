@@ -1,24 +1,106 @@
-%bcond_without check
-
-# reduce peak memory usage
-%constrain_build -m 4096
-
-# replacements for git snapshot dependencies
-%global lsp_types_commit    3512a9f33eadc5402cfab1b8f7340824c8ca1439
-%global salsa_commit        87bf6b6c2d5f6479741271da73bd9d30c2580c26
+%bcond check 1
 
 Name:           ruff
-Version:        0.11.5
+Version:        0.11.13
 Release:        %autorelease
 Summary:        Extremely fast Python linter and code formatter
 
-# ruff:                             MIT
-# bundled typeshed snapshot:        (Apache-2.0 AND MIT)
-# bundled lsp-types fork:           MIT
-# bundled salsa snapshot:           (Apache-2.0 OR MIT)
-# bundled annotate-snippets fork:   (MIT OR Apache-2.0)
-SourceLicense:  MIT AND Apache-2.0 AND (Apache-2.0 OR MIT)
+# The license of the ruff project is MIT, except:
+#
+# Parts of ruff are derived from the following projects (details in LICENSE).
+# These are not really cases of bundling or vendoring, and they cannot be
+# unbundled, since they have been effectively reimplemented. We therefore do
+# not document these as bundled dependencies via virtual Provides. We also make
+# no attempt to ascertain precisely which source files are derived from each of
+# these upstream projects.
+#
+# 0BSD:
+#   - flake8-gettext
+# Apache-2.0
+#   - flake8-logging-format
+# BSD-3-Clause:
+#   - flake8-todos
+#   - flake8-type-checking
+# GPL-3.0-or-later:
+#   - flake8-django
+# MIT (same as ruff itself):
+#   - Pyright
+#   - RustPython
+#   - autoflake
+#   - autotyping
+#   - flake8
+#   - flake8-2020
+#   - flake8-annotations
+#   - flake8-async
+#   - flake8-bandit
+#   - flake8-blind-except
+#   - flake8-bugbear
+#   - flake8-commas
+#   - flake8-comprehensions
+#   - flake8-debugger
+#   - flake8-eradicate
+#   - flake8-implicit-str-concat
+#   - flake8-import-conventions
+#   - flake8-logging
+#   - flake8-no-pep420
+#   - flake8-print
+#   - flake8-pyi
+#   - flake8-quotes
+#   - flake8-raise
+#   - flake8-return
+#   - flake8-self
+#   - flake8-simplify
+#   - flake8-slots
+#   - flake8-tidy-imports
+#   - flake8-trio
+#   - flake8-unused-arguments
+#   - flake8-use-pathlib
+#   - flynt
+#   - isort
+#   - pep8-naming
+#   - perflint
+#   - pycodestyle
+#   - pydoclint
+#   - pydocstyle
+#   - pyflakes
+#   - pygrep-hooks
+#   - pyupgrade
+#   - rome/tools
+#   - rust-analyzer/text-size
+#
+# Besides the above projects mentioned in LICENSE, the following vendored,
+# forked, or derived code is present:
+#
+# Apache-2.0 AND MIT:
+#   - crates/ty_vendored/vendor/typeshed/ is a bundled snapshot of
+#     https://github.com/python/typeshed at a commit hash listed in
+#     ruff/crates/ty_vendored/vendor/typeshed/source_commit.txt; license text
+#     is in crates/ty_vendored/vendor/typeshed/LICENSE.
+#
+# Apache-2.0 OR MIT:
+#   - crates/ruff_annotate_snippets/ is a fork of the annotate-snippets crate
+#
+# MIT:
+#   - book/mermaid.min.js in the vendored salsa snapshot (removed in %%prep)
+#
+# Finally, the following are bundled as additional sources corresponding to git
+# dependencies.
+#   - lsp-types, Source100, is MIT.
+#   - salsa/salsa-macros/salsa-macros-rules, Source200, is (Apache-2.0 OR MIT)
+SourceLicense:  %{shrink:
+    MIT AND
+    0BSD AND
+    Apache-2.0 AND
+    (Apache-2.0 OR MIT) AND
+    BSD-3-Clause AND
+    GPL-3.0-or-later
+    }
 
+# Rust crates compiled into the executable contribute additional license terms.
+# To obtain the following list of licenses, build the package and note the
+# output of %%{cargo_license_summary}. This should automatically include the
+# licenses of the crates that were bundled as additional Sources.
+#
 # (MIT OR Apache-2.0) AND Unicode-3.0
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
 # Apache-2.0
@@ -42,139 +124,346 @@ SourceLicense:  MIT AND Apache-2.0 AND (Apache-2.0 OR MIT)
 # WTFPL
 # Zlib
 # Zlib OR Apache-2.0 OR MIT
-
 License:        %{shrink:
     MIT AND
+    0BSD AND
     Apache-2.0 AND
+    (Apache-2.0 OR BSD-2-Clause) AND
+    (Apache-2.0 OR BSD-2-Clause OR MIT) AND
+    (Apache-2.0 OR BSL-1.0) AND
+    (Apache-2.0 OR MIT) AND
+    (Apache-2.0 OR MIT OR Zlib) AND
+    (Apache-2.0 OR MIT-0) AND
+    (Apache-2.0 OR Apache-2.0 WITH LLVM-exception OR MIT) AND
     BSD-3-Clause AND
+    (BSD-3-Clause OR MIT) AND
     CC0-1.0 AND
+    GPL-3.0-or-later AND
     ISC AND
+    (MIT OR Unlicense)
     MPL-2.0 AND
     PSF-2.0 AND
     Unicode-3.0 AND
     Unicode-DFS-2016 AND
     WTFPL AND
-    Zlib AND
-    (Apache-2.0 OR BSD-2-Clause) AND
-    (Apache-2.0 OR BSL-1.0) AND
-    (Apache-2.0 OR MIT) AND
-    (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
-    (BSD-2-Clause OR Apache-2.0 OR MIT) AND
-    (MIT OR Apache-2.0 OR Zlib) AND
-    (MIT OR BSD-3-Clause) AND
-    (MIT-0 OR Apache-2.0) AND
-    (Unlicense OR MIT)
-}
+    Zlib
+    }
 
 URL:            https://github.com/astral-sh/ruff
 Source:         %{url}/archive/%{version}/ruff-%{version}.tar.gz
 
-Source1:        https://github.com/astral-sh/lsp-types/archive/%{lsp_types_commit}/lsp-types-%{lsp_types_commit}.tar.gz
-Source2:        https://github.com/salsa-rs/salsa/archive/%{salsa_commit}/salsa-%{salsa_commit}.tar.gz
+# Currently, ruff must use a fork of lsp-types
+# (https://github.com/gluon-lang/lsp-types), as explained in:
+#   Add README disclaimer
+#   https://github.com/gluon-lang/lsp-types/commit/ddc7dc8
+# which says,
+#   This fork is a temporary solution for supporting Jupyter Notebooks for our
+#   new LSP server, `ruff server`.
+#   This fork is not actively maintained by Astral.
+# We asked for a status update in:
+#   Path to not forking lsp-types?
+#   https://github.com/astral-sh/ruff/issues/20449
+# Upstream has not ruled out “unforking,” but indicates they are in no
+# particular hurry to do so. We therefore bundle the fork as prescribed in:
+#   https://docs.fedoraproject.org/en-US/packaging-guidelines/Rust/#_replacing_git_dependencies
+%global lsp_types_git https://github.com/astral-sh/lsp-types
+%global lsp_types_rev 3512a9f33eadc5402cfab1b8f7340824c8ca1439
+%global lsp_types_baseversion 0.95.1
+%global lsp_types_snapdate 20240429
+Source100:      %{lsp_types_git}/archive/%{lsp_types_rev}/lsp-types-%{lsp_types_rev}.tar.gz
 
-# downstream-only patches for the vendored salsa snapshot:
-# * drop unnecessary dependencies and duplicate workspace definitions
-# * temporarily downgrade hashlink / hashbrown dependencies to 0.9 / 0.14
-# * remove pin on half versions, done only for MSRV versions
-# * update compact_str from 0.8 to 0.9: https://github.com/salsa-rs/salsa/pull/794
-Source3:        avoid-duplicate-workspace-definitions.patch
+# For now, ruff still needs to use a git snapshot of salsa because it
+# frequently needs bug fixes faster than the salsa release cycle delivers them;
+# see https://github.com/astral-sh/ruff/pull/17566#issuecomment-2823146473. We
+# therefore bundle the fork as prescribed in
+#   https://docs.fedoraproject.org/en-US/packaging-guidelines/Rust/#_replacing_git_dependencies
+#
+# Check https://github.com/carljm/salsa/blob/%%{salsa_rev}/Cargo.toml to
+# observe the version and https://github.com/carljm/commit/%%{salsa_rev} to
+# observe the date.
+%global salsa_git https://github.com/carljm/salsa
+%global salsa_rev 0f6d406f6c309964279baef71588746b8c67b4a3
+%global salsa_baseversion 0.22.0
+%global salsa_snapdate 20250604
+Source200:      %{salsa_git}/archive/%{salsa_rev}/salsa-%{salsa_rev}.tar.gz
 
-# * drop non-Linux dependencies (non-upstreamable), generated with:
-#   "for i in $(find -name Cargo.toml) ; do rust2rpm-helper strip-foreign $i -o $i ; done"
-Patch:          0001-drop-Windows-and-macOS-specific-dependencies.patch
-# * replace git snapshot dependencies with path-based dependencies from
-#   unpacked additional sources (non-upstreamable)
-Patch:          0002-replace-git-snapshot-dependencies-with-path-dependen.patch
-# * drop unavailable custom memory allocators (non-upstreamable)
-Patch:          0003-remove-unavailable-custom-allocators.patch
-# * do not strip debuginfo from the built executable (non-upstreamable)
-Patch:          0004-do-not-strip-debuginfo-from-built-binary-executable.patch
+# Get this from ruff/crates/ty_vendored/vendor/typeshed/source_commit.txt.
+%global typeshed_rev 5a3c495d2f6fa9b68cd99f39feba4426e4d17ea9
+# The typeshed project as a whole has never been versioned.
+%global typeshed_baseversion 0
+# Inspect https://github.com/python/typeshed/commit/%%{typeshed_rev}.
+%global typeshed_snapdate 20250601
+
 # * drop unavailable compile-time diagnostics feature for UUIDs (non-upstreamable)
-Patch:          0005-drop-unavailable-features-from-uuid-dependency.patch
+Patch:          0001-drop-unavailable-features-from-uuid-dependency.patch
 # * ignore tests in vendored annotate-snippets that hang indefinitely:
-Patch:          0006-ignore-vendored-annotate-snippets-tests-that-hang-in.patch
+Patch:          0002-ignore-vendored-annotate-snippets-tests-that-hang-in.patch
 # * update indicatif to 0.18: https://github.com/astral-sh/ruff/pull/19165
-Patch:          0007-Update-Rust-crate-indicatif-to-0.18.0-19165.patch
+Patch:          0003-Update-Rust-crate-indicatif-to-0.18.0-19165.patch
 
+# Downstream-only or backported patches for the vendored salsa snapshot:
+# * remove pin on half versions, done only for MSRV versions
+Patch200:       0200-remove-pin-on-half-versions-done-only-for-MSRV-purpo.patch
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:	%{ix86}
 
+# Memory exhaustion can occur on builders with very many CPUs. Increase as
+# needed.
+%constrain_build -m 4096
+
 BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  rust2rpm-helper
+BuildRequires:  tomcli
 BuildRequires:  python3-devel
 
-# git snapshot of the python/typeshed project at commit 9e506eb:
-# https://github.com/python/typeshed
-Provides:       bundled(typeshed)
+# This is a fork of lsp-types; see the notes about Source100.
+%global lsp_types_snapinfo %{lsp_types_snapdate}git%{sub %{lsp_types_rev} 1 7}
+%global lsp_types_version %{lsp_types_baseversion}^%{lsp_types_snapinfo}
+Provides:       bundled(crate(lsp-types)) = %{lsp_types_version}
 
-# forked from annotate-snippets upstream at some point after v0.11.5:
+# This is a snapshot of salsa; see the notes about Source200.
+%global salsa_snapinfo %{salsa_snapdate}git%{sub %{salsa_rev} 1 7}
+%global salsa_version %{salsa_baseversion}^%{salsa_snapinfo}
+Provides:       bundled(crate(salsa)) = %{salsa_version}
+Provides:       bundled(crate(salsa-macros)) = %{salsa_version}
+Provides:       bundled(crate(salsa-macro-rules)) = %{salsa_version}
+
+# This is not versioned or released as a whole, and it is normal for
+# type-checkers to vendor it. See
+# https://typing.python.org/en/latest/spec/distributing.html#the-typeshed-project.
+%global typeshed_snapinfo %{typeshed_snapdate}git%{sub %{typeshed_rev} 1 7}
+%global typeshed_version %{typeshed_baseversion}^%{typeshed_snapinfo}
+Provides:       bundled(typeshed) = %{typeshed_version}
+
+# Forked from annotate-snippets upstream at some point after v0.11.5:
 # https://github.com/astral-sh/ruff/pull/15359
+#
+# In crates/ruff_annotate_snippets/README.md, upstream writes:
+#
+#   This is a fork of the [`annotate-snippets` crate]. The principle motivation
+#   for this fork, at the time of writing, is [issue #167]. Specifically, we
+#   wanted to upgrade our version of `annotate-snippets`, but do so _without_
+#   changing our diagnostic message format.
+#
+#   This copy of `annotate-snippets` is basically identical to upstream, but
+#   with an extra `Level::None` variant that permits skipping over a new
+#   non-optional header emitted by `annotate-snippets`.
+#
+#   More generally, it seems plausible that we may want to tweak other aspects
+#   of the output format in the future, so it might make sense to stick with
+#   our own copy so that we can be masters of our own destiny.
+#
+#   [issue #167]: https://github.com/rust-lang/annotate-snippets-rs/issues/167
+#   [`annotate-snippets` crate]: https://github.com/rust-lang/annotate-snippets-rs
 Provides:       bundled(crate(annotate-snippets)) = 0.11.5
 
 # forked from lsp-types upstream: https://github.com/gluon-lang/lsp-types
 # with changes applied:           https://github.com/astral-sh/lsp-types/tree/notebook-support
 Provides:       bundled(crate(lsp-types)) = 0.95.1
 
-# git snapshot of unreleased upstream at some point after v0.19.0:
-# https://github.com/salsa-rs/salsa/commit/095d8b2
-Provides:       bundled(crate(salsa)) = 0.19.0
-Provides:       bundled(crate(salsa-macros)) = 0.19.0
-Provides:       bundled(crate(salsa-macro-rules)) = 0.19.0
-
-%description
+%global common_description %{expand:
 An extremely fast Python linter and code formatter, written in Rust.
 
 Ruff aims to be orders of magnitude faster than alternative tools while
 integrating more functionality behind a single, common interface.
 
-Ruff can be used to replace Flake8 (plus dozens of plugins), Black,
-isort, pydocstyle, pyupgrade, autoflake, and more, all while executing
-tens or hundreds of times faster than any individual tool.
+Ruff can be used to replace Flake8 (plus dozens of plugins), Black, isort,
+pydocstyle, pyupgrade, autoflake, and more, all while executing tens or
+hundreds of times faster than any individual tool.}
+
+%description %{common_description}
+
+
+%package -n python3-ruff
+Summary:        Importable Python module for ruff
+
+BuildArch:      noarch
+
+Requires:       ruff = %{version}-%{release}
+
+%description -n python3-ruff %{common_description}
+
+This package provides an importable Python module for ruff.
+
 
 %prep
-%autosetup -n ruff-%{version} -p1
+%autosetup -N
+%autopatch -p1 -M99
+
+# Usage: git2path SELECTOR PATH
+# Replace a git dependency with a path dependency in Cargo.toml
+git2path() {
+  tomcli set Cargo.toml del "${1}.git"
+  tomcli set Cargo.toml del "${1}.rev"
+  tomcli set Cargo.toml str "${1}.path" "${2}"
+}
+
+# See comments above Source100:
+%setup -q -T -D -b 100 -n ruff-%{version}
+# Adding the crate to the workspace (in this case implicitly, by linking it
+# under crates/) means %%cargo_generate_buildrequires can handle it correctly.
+ln -s '../../lsp-types-%{lsp_types_rev}' crates/lsp-types
+git2path workspace.dependencies.lsp-types crates/lsp-types
+pushd crates/lsp-types
+%autopatch -p1 -m100 -M199
+popd
+install -t LICENSE.bundled/lsp-types -D -p -m 0644 crates/lsp-types/LICENSE
+
+# See comments above Source200:
+%setup -q -T -D -b 200 -n ruff-%{version}
+ln -s '../../salsa-%{salsa_rev}' crates/salsa
+ln -s '../../salsa-%{salsa_rev}/components/salsa-macro-rules' \
+    crates/salsa-macro-rules
+ln -s '../../salsa-%{salsa_rev}/components/salsa-macros' \
+    crates/salsa-macros
+git2path workspace.dependencies.salsa crates/salsa
+pushd crates/salsa
+%autopatch -p1 -m200 -M299
+popd
+install -t LICENSE.bundled/salsa -D -p -m 0644 crates/salsa/LICENSE-*
+# These were taken from salsa’s workspace, but we have added the salsa crates
+# to ruff’s workspace, and we cannot have more than one workspace.
+value="$(tomcli get crates/salsa/Cargo.toml "workspace.package.${field}")"
+tomcli set crates/salsa/Cargo.toml del 'workspace.package.authors'
+tomcli set crates/salsa/Cargo.toml list package.authors 'Salsa developers'
+for field in edition license repository rust-version
+do
+  value="$(tomcli get crates/salsa/Cargo.toml "workspace.package.${field}")"
+  tomcli set crates/salsa/Cargo.toml del "workspace.package.${field}"
+  tomcli set crates/salsa/Cargo.toml str "package.${field}" "${value}"
+done
+# Now remove salsa’s workspace entirely.
+tomcli set crates/salsa/Cargo.toml del workspace
+# Fix up paths to ancillary salsa crates since we have linked them into the
+# workspace.
+tomcli set crates/salsa/Cargo.toml str dependencies.salsa-macro-rules.path \
+    '../salsa-macro-rules'
+tomcli set crates/salsa/Cargo.toml str dependencies.salsa-macros.path \
+    '../salsa-macros'
+tomcli set crates/salsa/Cargo.toml str \
+    "target.'cfg(any())'.dependencies.salsa-macros.path" \
+    '../salsa-macros'
+# Remove examples, and omit dev-dependencies that are only for examples:
+rm -rv crates/salsa/examples/
+for crate in crossbeam-channel eyre notify-debouncer-mini ordered-float
+do
+  tomcli set crates/salsa/Cargo.toml del "dev-dependencies.${crate}"
+done
+# Remove benchmark-only dev-dependencies
+for crate in annotate-snippets codspeed-criterion-compat
+do
+  tomcli set crates/salsa/Cargo.toml del "dev-dependencies.${crate}"
+done
+# Remove the shuttle feature since rust-shuttle is not packaged
+tomcli set crates/salsa/Cargo.toml del features.shuttle
+tomcli set crates/salsa/Cargo.toml del dependencies.shuttle
+# Remove bundled, pre-compiled mermaid JavaScript to prove it is not used.
+rm crates/salsa/book/mermaid.min.js
+
+# Loosen some version bounds. We retain this comment and the following example
+# even when there are currently no dependencies that need to be adjusted.
+#
+# # foocrate
+# #   wanted: 0.2.0
+# #   currently packaged: 0.1.2
+# #   https://bugzilla.redhat.com/show_bug.cgi?id=1234567
+# tomcli set Cargo.toml str workspace.dependencies.foocrate.version 0.1.2
+
 %cargo_prep
 
-# move git snapshot replacements into place
-tar -xzvf %{SOURCE1}
-tar -xzvf %{SOURCE2}
-mv lsp-types-%{lsp_types_commit} crates/lsp-types
-mv salsa-%{salsa_commit} crates/salsa
+# Collect license files of vendored dependencies in the main source archive
+install -t LICENSE.bundled/typeshed -D -p -m 0644 \
+    crates/ty_vendored/vendor/typeshed/LICENSE
+install -t LICENSE.bundled/annotate_snippets -D -p -m 0644 \
+    crates/ruff_annotate_snippets/LICENSE-*
 
-pushd crates/salsa
-# avoid duplicate workspace definitions
-patch -p1 < %{SOURCE3}
-mv components/* ../
-# Drop example code that pulls in additional / unnecessary dev-dependencies
-rm -rv examples
-popd
+# Patch out foreign (e.g. Windows-only) dependencies. Follow symbolic links so
+# that we also patch the bundled crates we just finished setting up.
+find -L . -type f -name Cargo.toml -print \
+    -execdir rust2rpm-helper strip-foreign -o '{}' '{}' ';'
 
-# prepare license files under distinct names
-cp -pav crates/ruff_annotate_snippets/LICENSE-APACHE LICENSE-APACHE.annotate-snippets
-cp -pav crates/ruff_annotate_snippets/LICENSE-MIT LICENSE-MIT.annotate-snippets
-cp -pav crates/lsp-types/LICENSE LICENSE.lsp-types
-cp -pav crates/salsa/LICENSE-APACHE LICENSE-APACHE.salsa
-cp -pav crates/salsa/LICENSE-MIT LICENSE-MIT.salsa
-cp -pav crates/red_knot_vendored/vendor/typeshed/LICENSE LICENSE.typeshed
-
-# drop unused subprojects
-rm -rv crates/red_knot_wasm
+# Drop unused subproject crates.
+# binary crate for running micro-benchmarks.
 rm -rv crates/ruff_benchmark
-rm -rv crates/ruff_wasm
+# binary crate containing utilities used in the development of Ruff itself
+rm -rv crates/ruff_dev
+# library crate for exposing Ruff as a WebAssembly module. Powers the
+# [Ruff Playground](https://play.ruff.rs/).
+rm -rv crates/ruff_wasm crates/ty_wasm
+
+# Do not strip the compiled executable; we need useful debuginfo. Upstream set
+# this intentionally, so this change makes sense to keep downstream-only.
+tomcli set pyproject.toml false tool.maturin.strip
+
+# Verify we have the correct snapshot hash for typeshed
+typeshed_rev_file='crates/ty_vendored/vendor/typeshed/source_commit.txt'
+typeshed_rev_in_source="$(cat "${typeshed_rev_file}")"
+if [[ '%{typeshed_rev}' != "${typeshed_rev_in_source}" ]]
+then
+  cat 1>&2 <<EOF
+Mismatch between %%{typeshed_rev}:
+  %{typeshed_rev}
+and ${typeshed_rev_file}:
+  ${typeshed_rev_in_source}
+Please update %%{typeshed_rev} in the spec file!
+EOF
+  exit 1
+fi
+
+# Verify we have the correct base version for salsa
+salsa_version_in_source="$(tomcli get crates/salsa/Cargo.toml package.version)"
+if [[ '%{salsa_baseversion}' != "${salsa_version_in_source}" ]]
+then
+  cat 1>&2 <<EOF
+Mismatch between %%{salsa_baseversion}:
+  %{salsa_baseversion}
+and version in crates/salsa/Cargo.toml:
+  ${salsa_version_in_source}
+Please update %%{salsa_baseversion} in the spec file!
+EOF
+  exit 1
+fi
+
+
 
 %generate_buildrequires
+# For unclear reasons, maturin checks for all crate dependencies when it is
+# invoked as part of %%pyproject_buildrequires – including those corresponding
+# to optional features.
+#
+# Furthermore, if we do not supply -a to %%cargo_generate_buildrequires, then
+# maturin will fail looking for crates like pyo3 (and will still look for
+# optional crate dependencies).
+#
+# Since maturin always checks for dev-dependencies, we need -t so that they are
+# generated even when the “check” bcond is disabled.
+%cargo_generate_buildrequires -a -t
 %pyproject_buildrequires
-%cargo_generate_buildrequires -a
+
 
 %build
-export RUSTFLAGS="%{build_rustflags}"
 %pyproject_wheel
 
-# write license summary and breakdown
 %{cargo_license_summary}
 %{cargo_license} > LICENSE.dependencies
+
 
 %install
 %pyproject_install
 %pyproject_save_files ruff
+
+if [ '%{python3_sitearch}' != '%{python3_sitelib}' ]
+then
+  # Maturin is really designed to build compiled Python extensions, but (when
+  # the ruff executable is not bundled in the Python package) the ruff Python
+  # library is actually pure-Python, and the python3-ruff subpackage can be
+  # noarch. We can’t tell maturin to install to the appropriate site-packages
+  # directory, but we can fix the installation path manually.
+  install -d %{buildroot}%{python3_sitelib}
+  mv %{buildroot}%{python3_sitearch}/ruff* %{buildroot}%{python3_sitelib}
+  sed -r -i 's@%{python3_sitearch}@%{python3_sitelib}@' %{pyproject_files}
+fi
 
 # generate and install shell completions
 target/rpm/ruff generate-shell-completion bash > ruff.bash
@@ -185,36 +474,65 @@ install -Dpm 0644 ruff.bash -t %{buildroot}/%{bash_completions_dir}
 install -Dpm 0644 ruff.fish -t %{buildroot}/%{fish_completions_dir}
 install -Dpm 0644 _ruff -t %{buildroot}/%{zsh_completions_dir}
 
-%if %{with check}
+
 %check
-# ignore false positive snapshot test failures
-export INSTA_UPDATE=always
-export TRYBUILD=overwrite
-# Fails due to minor formatting differences in help output
-skip="${skip-} --skip generate_cli_help::tests::test_generate_json_schema"
-# reduce peak memory usage
-%cargo_test -- -- --test-threads 2 ${skip-}
+%if %{with check}
+# Ignore false positive snapshot test failures.
+#export INSTA_UPDATE=always
+
+# We may need this if rustc diagnostics change from what upstream expects.
+#export TRYBUILD=overwrite
+
+# In the bundled salsa, this fails because the source paths are different than
+# expected, i.e. crates/salsa/tests/backtrace.rs instead of tests/backtrace.rs.
+# We skip the test because it is unnecessary and potentially brittle, but the
+# error message notes that exporting UPDATE_EXPECT=1 would also be a way to
+# ignore this kind of discrepancy.
+skip="${skip-} --skip backtrace_works"
+# These also fail due to similar path issues.
+#   color/ann_{eof,insertion,multiline,multiline2,removed_nl}.toml
+#   color/ensure-emoji-highlight-width.toml
+#   color/fold_{ann_multiline,bad_origin_line,leading,trailing}.toml
+#   color/issue_9.toml
+#   color/multiple_annotations.toml
+#   color/simple.toml
+#   color/strip_line{,_char,_non_ws}.toml
+# We could export SNAPSHOTS=overwrite, but that would ignore many other
+# possible discrepancies. Skipping the affected tests is better.
+skip="${skip-} --skip color/"
+
+# Fails cryptically: requires network, perhaps?
+#   error: no matching package named `boxcar` found
+#   location searched: crates.io index
+skip="${skip-} --skip compile_fail"
+%ifarch s390x
+# These tests (in the bundled salsa) are flaky on s390x
+skip="${skip-} --skip parallel_join::execute_cancellation"
+skip="${skip-} --skip parallel_map::execute_cancellation"
+skip="${skip-} --skip parallel_scope::execute_cancellation"
 %endif
 
-%files -f %{pyproject_files}
-%license LICENSE
-%license LICENSE-APACHE.annotate-snippets
-%license LICENSE-MIT.annotate-snippets
-%license LICENSE.lsp-types
-%license LICENSE-APACHE.salsa
-%license LICENSE-MIT.salsa
-%license LICENSE.typeshed
-%license LICENSE.dependencies
-%doc README.md
+%cargo_test -- -- ${skip-}
+%endif
+
+%pyproject_check_import
+
+
+%files
+%license LICENSE LICENSE.dependencies LICENSE.bundled/
 %doc BREAKING_CHANGES.md
-%doc CODE_OF_CONDUCT.md
-%doc CONTRIBUTING.md
+%doc CHANGELOG.md
+%doc README.md
 
 %{_bindir}/ruff
 
 %{bash_completions_dir}/ruff.bash
 %{fish_completions_dir}/ruff.fish
 %{zsh_completions_dir}/_ruff
+
+
+%files -n python3-ruff -f %{pyproject_files}
+
 
 %changelog
 %autochangelog

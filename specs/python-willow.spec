@@ -1,5 +1,5 @@
 Name:           python-willow
-Version:        1.7.0
+Version:        1.11.0
 Release:        %autorelease
 Summary:        A single API for multiple Python image libraries
 

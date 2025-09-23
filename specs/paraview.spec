@@ -19,7 +19,16 @@
 %bcond_with openmpi
 %else
 %bcond_without mpich
+# No openmpi on i668 with openmpi 5 in Fedora 40+
+%if 0%{?fedora} >= 40
+%ifarch %{ix86}
+%bcond_with openmpi
+%else
 %bcond_without openmpi
+%endif
+%else
+%bcond_without openmpi
+%endif
 %endif
 
 # cgnslib is too old on EL8
@@ -95,18 +104,13 @@ Patch3:         paraview-freetype.patch
 BuildRequires:  cmake >= 3.12
 BuildRequires:  make
 BuildRequires:  lz4-devel
-BuildRequires:  cmake(Qt5)
-BuildRequires:  cmake(Qt5Svg)
-BuildRequires:  cmake(Qt5UiPlugin)
-BuildRequires:  cmake(Qt5X11Extras)
-BuildRequires:  qt5-qtwebkit-devel
-BuildRequires:  /usr/bin/xmlpatterns-qt5
+BuildRequires:  cmake(Qt6)
+BUildRequires:  cmake(Qt6Core5Compat)
+BuildRequires:  cmake(Qt6Svg)
+BuildRequires:  cmake(Qt6UiPlugin)
+BuildRequires:  /usr/bin/xsltproc
 BuildRequires:  python3-devel
 BuildRequires:  python3-netcdf4
-BuildRequires:  python3-qt5
-# Fails looking for PythonQt_QtBindings.h
-# https://gitlab.kitware.com/paraview/paraview/issues/17365
-#BuildRequires:  pythonqt-devel
 %if %{with cgnslib}
 BuildRequires:  cgnslib-devel
 %endif
@@ -168,8 +172,8 @@ Requires: python3-numpy
 Requires: python3-twisted
 Requires: python3-autobahn
 # ParaView requires svg support via icon plugins, so no direct linking involved
-Requires: qt5-qtsvg%{?_isa}
-Requires: qt5-qtx11extras%{?_isa}
+Requires: qt6-qtsvg%{?_isa}
+Requires: qt6-qtx11extras%{?_isa}
 
 # Bundled KWSys
 # https://fedorahosted.org/fpc/ticket/555
@@ -378,8 +382,8 @@ Requires:       python3-pygments
 Requires:       python3-six
 Requires:       python3-twisted
 # ParaView requires svg support via icon plugins, so no direct linking involved
-Requires:       qt5-qtsvg%{?_isa}
-Requires:       qt5-qtx11extras%{?_isa}
+Requires:       qt6-qtsvg%{?_isa}
+Requires:       qt6-qtx11extras%{?_isa}
 
 %description    openmpi
 This package contains copies of the ParaView server binaries compiled with
@@ -419,8 +423,8 @@ Requires:       python3-pygments
 Requires:       python3-six
 Requires:       python3-twisted
 # ParaView requires svg support via icon plugins, so no direct linking involved
-Requires:       qt5-qtsvg%{?_isa}
-Requires:       qt5-qtx11extras%{?_isa}
+Requires:       qt6-qtsvg%{?_isa}
+Requires:       qt6-qtx11extras%{?_isa}
 
 %description    mpich
 This package contains copies of the ParaView server binaries compiled with

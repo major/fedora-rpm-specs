@@ -3,7 +3,7 @@
 
 # https://github.com/gopasspw/gopass-jsonapi
 %global goipath         github.com/gopasspw/gopass-jsonapi
-Version:                1.15.16
+Version:                1.15.18
 
 %gometa -L -f
 
@@ -31,7 +31,6 @@ BuildRequires:  gnupg2
 %prep
 %goprep -A
 %setup -q -T -D -a1 %{forgesetupargs}
-%autopatch -p1
 
 %generate_buildrequires
 %go_vendor_license_buildrequires -c %{S:2}

@@ -5,7 +5,7 @@
 %bcond tests_jose %{undefined rhel}
 
 Name:           python-authlib
-Version:        1.4.0
+Version:        1.5.2
 Release:        %autorelease
 Summary:        Build OAuth and OpenID Connect servers in Python
 
@@ -40,7 +40,6 @@ rm -rf \
   tests/clients/test_httpx/test_oauth1_client.py
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
-sed -i '/coverage/d' tests/requirements-base.txt
 sed -i 's/coverage run --source=authlib -p -m pytest/python3 -m pytest/' tox.ini
 
 

@@ -30,7 +30,7 @@
 
 %global upstreamname Tensile
 
-%global rocm_release 6.4
+%global rocm_release 7.0
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -40,7 +40,7 @@ Name:           python-tensile-devel
 Name:           python-tensile
 %endif
 Version:        %{rocm_version}
-Release:        10%{?dist}
+Release:        1%{?dist}
 Summary:        Tool for creating benchmark-driven backend libraries for GEMMs
 
 URL:            https://github.com/ROCmSoftwarePlatform/Tensile
@@ -48,8 +48,9 @@ License:        MIT
 Source0:        %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
 Patch1:         0001-tensile-fedora-gpus.patch
-Patch2:         0001-tensile-gfx950.patch
-Patch3:         0001-tensile-gfx1153.patch
+Patch2:         0001-tensile-gfx1153.patch
+Patch3:         0001-tensile-set-default-paths.patch
+Patch4:         0001-tensile-ignore-cache-check.patch
 
 %if 0%{?fedora} || 0%{?suse_version}
 BuildRequires:  fdupes
@@ -202,6 +203,9 @@ mv %{buildroot}%{_datadir}/cmake/Tensile/*.cmake %{buildroot}%{python3_sitelib}/
 %{python_sitelib}/%{upstreamname}*.egg-info/*
 
 %changelog
+* Sun Sep 21 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.0-1
+- Update to 7.0.0
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 6.4.0-10
 - Rebuilt for Python 3.14.0rc3 bytecode
 

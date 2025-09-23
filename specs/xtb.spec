@@ -13,7 +13,7 @@
 
 Name:           xtb
 Version:        6.7.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Semiempirical Extended Tight-Binding Program Package
 License:        LGPL-3.0-or-later
 URL:            https://github.com/grimme-lab/xtb/
@@ -23,6 +23,8 @@ Source0:        https://github.com/grimme-lab/xtb/archive/v%{version}/xtb-%{vers
 Patch0:         xtb-6.5.1-fedora.patch
 # Add sanity checks to environment variables, https://github.com/grimme-lab/xtb/pull/317
 Patch4:         xtb-6.3.2-environment.patch
+# Fix fortran formatting, issue was fixed upstream in #1278
+Patch5:         xtb-6.7.1-formatting.patch
 
 BuildRequires:  gcc-gfortran
 BuildRequires:  meson
@@ -74,6 +76,7 @@ This package contains development headers for xtb.
 %setup -q
 %patch 0 -p1 -b .fedoraver
 %patch 4 -p1 -b .env
+%patch 5 -p1 -b .formatting
 
 %build
 export FFLAGS="$FFLAGS -fPIC"
@@ -139,9 +142,11 @@ export OMP_NUM_THREADS=1
 %{_libdir}/pkgconfig/xtb.pc
 
 %changelog
+* Sun Sep 21 2025 Susi Lehtola <jussilehtola@fedoraproject.org> - 6.7.1-5
+- Patch out formatting issue in code that causes a crash.
+
 * Mon Sep 15 2025 Susi Lehtola <jussilehtola@fedoraproject.org> - 6.7.1-4
 - Fix FTBFS caused by lack of dependency tracking in meson (BZ #2390464)
-
 
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.7.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild

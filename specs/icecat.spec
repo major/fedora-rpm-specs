@@ -214,6 +214,7 @@ BuildRequires: pipewire-devel
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
 BuildRequires: python3.11-devel
+BuildRequires: python3-orjson
 BuildRequires: perl-interpreter
 BuildRequires: pkgconfig(xrender)
 BuildRequires: pkgconfig(libstartup-notification-1.0)
@@ -542,57 +543,30 @@ echo "ac_add_options MOZ_PGO=1" >> .mozconfig
 export CCACHE_DISABLE=1
 %endif
 
+# Require 4 GB of RAM per CPU core
+%constrain_build -m 4096
 %if %{?less_optbuild}
-MOZ_SMP_FLAGS=-j1
+echo "mk_add_options MOZ_MAKE_FLAGS=\"-j1\"" >> .mozconfig
 %else
-MOZ_SMP_FLAGS=-j1
-# On x86_64 architectures, Mozilla can build up to 4 jobs at once in parallel,
-# however builds tend to fail on other arches when building in parallel.
-%ifarch s390x %{arm64}
-[ -z "$RPM_BUILD_NCPUS" ] && \
-     RPM_BUILD_NCPUS="`/usr/bin/getconf _NPROCESSORS_ONLN`"
-[ "$RPM_BUILD_NCPUS" -ge 2 ] && MOZ_SMP_FLAGS=-j2
-%endif
-%ifarch x86_64 %{power64}
-[ -z "$RPM_BUILD_NCPUS" ] && \
-     RPM_BUILD_NCPUS="`/usr/bin/getconf _NPROCESSORS_ONLN`"
-[ "$RPM_BUILD_NCPUS" -ge 2 ] && MOZ_SMP_FLAGS=-j2
-[ "$RPM_BUILD_NCPUS" -ge 4 ] && MOZ_SMP_FLAGS=-j4
-[ "$RPM_BUILD_NCPUS" -ge 8 ] && MOZ_SMP_FLAGS=-j8
-[ "$RPM_BUILD_NCPUS" -ge 16 ] && MOZ_SMP_FLAGS=-j16
-[ "$RPM_BUILD_NCPUS" -ge 24 ] && MOZ_SMP_FLAGS=-j24
-[ "$RPM_BUILD_NCPUS" -ge 32 ] && MOZ_SMP_FLAGS=-j32
-[ "$RPM_BUILD_NCPUS" -ge 64 ] && MOZ_SMP_FLAGS=-j64
-%endif
+echo "mk_add_options MOZ_MAKE_FLAGS=\"-j%{_smp_build_ncpus}\"" >> .mozconfig
 %endif
 
-echo "mk_add_options MOZ_MAKE_FLAGS=\"$MOZ_SMP_FLAGS\"" >> .mozconfig
 echo "mk_add_options MOZ_SERVICES_SYNC=1" >> .mozconfig
 echo "export STRIP=/bin/true" >> .mozconfig
 
 %if 0%{?launch_wayland_compositor}
 cp -p %{SOURCE19} .
-. ./run-wayland-compositor	
+. ./run-wayland-compositor
 %endif
 
 %if %{?debug_build}
 export CARGO_PROFILE_RELEASE_BUILD_OVERRIDE_DEBUG=true
 %endif
 
-	
-export MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE=system
 #Use python 3.11 for mach
 sed -i -e 's|#!/usr/bin/env python3|#!/usr/bin/env python3.11|' mach
-%if 0%{?build_with_pgo}
-%if 0%{?pgo_wayland}
-env | grep "WAYLAND"
-MOZ_ENABLE_WAYLAND=1 ./mach build -v 2>&1 | cat - && exit 1
-%else
-xvfb-run ./mach build -v 2>&1 | cat - || exit 1
-%endif
-%else
+
 ./mach build -v 2>&1 | cat - || exit 1
-%endif
 
 %if 0%{?build_with_pgo}
 kill $MUTTER_PID	

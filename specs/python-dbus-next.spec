@@ -5,17 +5,20 @@
 
 Name:           python-%{pypi_name}
 Version:        0.2.3
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Zero-dependency DBus library for Python with asyncio support
 
 License:        MIT
 URL:            https://github.com/altdesktop/python-dbus-next
 # pypi_source archive does not include test data
-Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Patch:          0001-glib-destroy-the-_AuthLineSource-explicitly.patch
+Patch:          0002-Address-Python-3.15-and-3.16-deprecations.patch
+Patch:          0003-Fix-compatibility-with-pytest-asyncio-1.x.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
 %if %{with tests}
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pytest-asyncio)
@@ -54,41 +57,44 @@ the following ways:
 
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name} %{_description}
 
 
 %prep
-%autosetup
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
+%autosetup -p1
 # Fix permissions for examples
 chmod -x examples/*.py
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{srcname}
 
-%if %{with tests}
 %check
+%pyproject_check_import
+%if %{with tests}
 # tests require dbus daemon to be running
 %global __pytest  /usr/bin/dbus-run-session -- %{__pytest}
 # test_tcp_connection_with_forwarding is broken by dbus 1.14.4
 # altdesktop/python-dbus-next#135
 PYTHONPATH="${PWD}" %pytest -k 'not test_tcp_connection_with_forwarding'
-
 %endif
 
-%files -n python3-%{pypi_name}
-%license LICENSE
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc CHANGELOG.md README.md examples/
-%{python3_sitelib}/%{srcname}
-%{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Sun Sep 21 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.2.3-17
+- Fix build with pytest-asyncio 1.x
+- Address future deprecations
+- Convert to pyproject macros (rhbz#2377610)
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.2.3-16
 - Rebuilt for Python 3.14.0rc3 bytecode
 

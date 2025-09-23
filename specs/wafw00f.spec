@@ -1,6 +1,6 @@
 Name:           wafw00f
-Version:        2.3.1
-Release:        3%{?dist}
+Version:        2.3.2
+Release:        1%{?dist}
 Summary:        Tool to identifies and fingerprints Web Application Firewall (WAF)
 
 
@@ -36,6 +36,9 @@ sed -i -e '/^#!\//, 1d' {wafw00f/*.py,wafw00f/*/*.py}
 %{python3_sitelib}/%{name}/
 
 %changelog
+* Sun Sep 21 2025 Federico Pellegrin <fede@evolware.org> - 2.3.2-1
+- Bump to 2.3.2
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.3.1-3
 - Rebuilt for Python 3.14.0rc3 bytecode
 

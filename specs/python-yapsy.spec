@@ -35,6 +35,7 @@ Summary:        %{summary}
 %{?python_provide:%python_provide python3-%{srcname}}
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
+BuildRequires:  python3-pytest
 
 %description -n python3-%{modname} %{_description}
 
@@ -42,19 +43,22 @@ BuildRequires:  python3-setuptools
 %autosetup -n %{srcname}-%{version} -p2
 rm -vrf *.egg-info
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
 %check
-%{__python3} setup.py test || :
+pytest test
 
 %files -n python3-%{modname}
 %license LICENSE.txt
 %doc CHANGELOG.txt README.txt
-%{python3_sitelib}/%{srcname}-*.egg-info/
+%{python3_sitelib}/*.dist-info/
 %{python3_sitelib}/%{modname}/
 
 %changelog

@@ -16,15 +16,15 @@
 
 Name:           cinnamon
 Version:        6.4.12
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Window management and application launching for GNOME
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
 URL:            https://github.com/linuxmint/%{name}
 %if 0%{?tag:1}
-Source0:        %url/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 %else
-Source0:        %url/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
+Source0:        %{url}/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
 %endif
 Source1:        10_cinnamon-common.gschema.override
 Source2:        10_cinnamon-apps.gschema.override.in
@@ -35,7 +35,8 @@ Patch0:         set_wheel.patch
 Patch2:         default_panal_launcher.patch
 Patch3:         remove_crap_from_menu.patch
 Patch4:         Add_nightlight_applet.patch
-Patch5:         %url/pull/13091.patch#/Use_DesktopAppInfo_from_GioUnix.patch
+Patch5:         %{url}/pull/13091.patch#/Use_DesktopAppInfo_from_GioUnix.patch
+Patch6:         %{url}/commit/9ed70641a1f63d2b2b44e08a84033cbf912e0c2b.patch#/fix_mount_applet.patch
 
 ExcludeArch:    %{ix86}
 
@@ -351,6 +352,9 @@ EOF
 %endif
 
 %changelog
+* Sun Sep 21 2025 Leigh Scott <leigh123linux@gmail.com> - 6.4.12-3
+- Fix mount applet
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 6.4.12-2
 - Rebuilt for Python 3.14.0rc3 bytecode
 

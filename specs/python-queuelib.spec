@@ -2,7 +2,7 @@
 
 Name:           python-queuelib
 Version:        1.8.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Collection of persistent (disk-based) queues
 
 License:        LicenseRef-Callaway-BSD
@@ -46,6 +46,9 @@ Python. Queuelib goals are speed and simplicity.
 %license LICENSE
 
 %changelog
+* Sun Sep 21 2025 Eduardo Echeverria <echevemaster@gmail.com> - 1.8.0-5
+- Unorphan package
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.8.0-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

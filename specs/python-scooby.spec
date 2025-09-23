@@ -1,7 +1,7 @@
 %bcond tests 1
 
 Name:           python-scooby
-Version:        0.10.1
+Version:        0.10.2
 Release:        %autorelease
 Summary:        A Great Dane turned Python environment detective
 
@@ -85,7 +85,7 @@ k="${k-}${k+ and }not test_import_os_error"
 # Import performance test may fail flakily or on slower hardware
 k="${k-}${k+ and }not test_import_time"
 
-%pytest -k "${k-}"
+%pytest -k "${k-}" -v
 %endif
 
 

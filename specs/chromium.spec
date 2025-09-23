@@ -998,9 +998,7 @@ Qt6 UI for chromium.
 %endif
 
 %patch -P310 -p1 -b .rust-FTBFS-suppress-warnings
-%if 0%{?rhel}
 %patch -P311 -p1 -b .rust-no-alloc-shim-is-unstable
-%endif
 %patch -P312 -p1 -b .fstack-protector-strong
 
 %if 0%{?rhel} && 0%{?rhel} < 10

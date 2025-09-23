@@ -83,7 +83,7 @@ Version:        %{llvm_maj_ver}
 %if %{with gitcommit}
 Release:        0.rocm%{rocm_version}^git%{date0}.%{shortcommit0}%{?dist}
 %else
-Release:        1.rocm%{rocm_version}%{?dist}
+Release:        2.rocm%{rocm_version}%{?dist}
 %endif
 
 Summary:        Various AMD ROCm LLVM related services
@@ -92,8 +92,9 @@ Group:          Development/Languages/Other
 %endif
 
 Url:            https://github.com/ROCm/llvm-project
+# llvm is Apache-2.0 WITH LLVM-exception OR NCSA
 # hipcc is MIT, comgr and device-libs are NCSA:
-License:        NCSA and MIT
+License:        (Apache-2.0 WITH LLVM-exception OR NCSA) AND NCSA AND MIT
 %if %{with gitcommit}
 Source0:        %{url}/archive/%{commit0}/llvm-project-%{shortcommit0}.tar.gz
 %else
@@ -101,17 +102,15 @@ Source0:        %{url}/archive/refs/tags/rocm-%{rocm_version}.tar.gz#/%{name}-%{
 %endif
 Source1:        rocm-compilersupport.prep.in
 
-#%if %{without gitcommit}
-#Patch3:         0001-Remove-err_drv_duplicate_config-check.patch
-#Patch4:         0001-Replace-use-of-mktemp-with-mkstemp.patch
-#%endif
-
 # Subject: [PATCH] [gold] Fix compilation (#130334)
-Patch5:         %{url}/commit/b0baa1d8bd68a2ce2f7c5f2b62333e410e9122a1.patch
+Patch1:         %{url}/commit/b0baa1d8bd68a2ce2f7c5f2b62333e410e9122a1.patch
 # Link comgr with static versions of llvm's libraries
-Patch6:         0001-comgr-link-with-static-llvm.patch
-
-Patch8:         0001-rocm-llvm-work-around-new-assert-in-array.patch
+Patch2:         0001-comgr-link-with-static-llvm.patch
+Patch3:         0001-rocm-llvm-work-around-new-assert-in-array.patch
+# https://github.com/ROCm/llvm-project/issues/301
+Patch4:         0001-rocm-compilersupport-force-hip-runtime-detection.patch
+# Patch5:         0001-rocm-compilersupport-define-max.patch
+Patch6:         0001-rocm-compilersupport-simplify-use-runtime-wrapper-ch.patch
 
 BuildRequires:  cmake
 %if 0%{?fedora} || 0%{?suse_version}
@@ -1073,6 +1072,10 @@ rm -f %{buildroot}%{_bindir}/hipvars.pm
 
 
 %changelog
+* Thu Sep 18 2025 Tom Rix <Tom.Rix@amd.com> - 20-2.rocm7.0.0
+- Add base llvm license
+- Force hip runtime detection
+
 * Tue Sep 16 2025 Tom Rix <Tom.Rix@amd.com> - 20-1.rocm7.0.0
 - Update to 7.0.0
 - Remove --with perl

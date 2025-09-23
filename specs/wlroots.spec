@@ -2,11 +2,11 @@
 %global abi_ver 0.19
 # libliftoff does not bump soname on API changes
 %global liftoff_ver 0.5.0
-%global tag     0.19.0
+%global tag     0.19.1
 
 Name:           wlroots
-Version:        0.19.0
-Release:        2%{?dist}
+Version:        0.19.1
+Release:        1%{?dist}
 Summary:        A modular Wayland compositor library
 
 # Source files/overall project licensed as MIT, but
@@ -47,13 +47,13 @@ BuildRequires:  glslang
 BuildRequires:  gnupg2
 BuildRequires:  meson >= 1.3
 
-BuildRequires:  (pkgconfig(libdisplay-info) >= 0.1.1 with pkgconfig(libdisplay-info) < 0.3)
 BuildRequires:  (pkgconfig(libliftoff) >= %{liftoff_ver} with pkgconfig(libliftoff) < 0.6)
 BuildRequires:  pkgconfig(egl)
 BuildRequires:  pkgconfig(gbm) >= 17.1.0
 BuildRequires:  pkgconfig(glesv2)
 BuildRequires:  pkgconfig(hwdata)
 BuildRequires:  pkgconfig(lcms2)
+BuildRequires:  pkgconfig(libdisplay-info)
 BuildRequires:  pkgconfig(libdrm) >= 2.4.122
 BuildRequires:  pkgconfig(libinput) >= 1.21.0
 BuildRequires:  pkgconfig(libseat)
@@ -141,6 +141,9 @@ install -pm0644 -D '%{SOURCE3}' '%{buildroot}/%{_pkgdocdir}/examples/meson.build
 
 
 %changelog
+* Sun Sep 21 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.19.1-1
+- Update to 0.19.1 (#2397203)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.19.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

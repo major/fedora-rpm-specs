@@ -1,15 +1,13 @@
 %global srcname visidata
 
 Name:           %{srcname}
-Version:        3.2
+Version:        3.3
 Release:        %autorelease
 Summary:        Terminal interface for exploring and arranging tabular data
 
 License:        GPL-3.0-only
 URL:            https://visidata.org
 Source0:        %pypi_source %{srcname}
-# https://github.com/saulpw/visidata/issues/2842
-Source1:        https://github.com/saulpw/visidata/raw/refs/tags/v3.2/requirements.txt
 # Fedora specific:
 Patch:          0001-Remove-extra-copy-of-man-page.patch
 # https://github.com/saulpw/visidata/issues/2773
@@ -70,7 +68,6 @@ a lightweight utility which can handle millions of rows with ease.
 
 %prep
 %autosetup -n %{srcname}-%{version} -p1
-cp %SOURCE1 .
 
 %generate_buildrequires
 %pyproject_buildrequires

@@ -1,8 +1,8 @@
-%global commit 47f8ccf50c0933742847e657c4be9f5ba796c1a4
+%global commit 9781ff1b3327cff25070a26a95f93992d13a3ffd
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:          openvpn-otp
-Version:       1.0^20230731git%{shortcommit}
+Version:       1.0^20241013git%{shortcommit}
 Release:       6%{?dist}
 Summary:       OpenVPN OTP authentication support
 License:       GPL-1.0-or-later AND Apache-2.0 AND Apache-1.0 AND APSL-2.0
@@ -50,6 +50,9 @@ rm -f %{buildroot}/%{_libdir}/openvpn/plugins/*.la
 %{_libdir}/openvpn/plugins/openvpn-otp.so
 
 %changelog
+* Sun Sep 21 2025 Christian Schuermann <spike@fedoraproject.org> 1.0^20241013git9781ff1-1
+- Updated to lastest git commit
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0^20230731git47f8ccf-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
