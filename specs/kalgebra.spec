@@ -1,7 +1,7 @@
 
 Name:    kalgebra
 Summary: 2D and 3D Graph Calculator
-Version: 25.08.0
+Version: 25.08.1
 Release: 1%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later
@@ -91,11 +91,13 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.kalgebram
 %{_kf6_datadir}/katepart5/syntax/kalgebra.xml
 
 %files plasma-applet
-%{_kf6_metainfodir}/org.kde.graphsplasmoid.appdata.xml
 %{_kf6_datadir}/plasma/plasmoids/org.kde.graphsplasmoid/
 
 
 %changelog
+* Sun Sep 21 2025 Steve Cossette <farchord@gmail.com> - 25.08.1-1
+- 25.08.1
+
 * Fri Aug 08 2025 Steve Cossette <farchord@gmail.com> - 25.08.0-1
 - 25.08.0
 

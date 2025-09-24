@@ -12,7 +12,6 @@ BuildArch:      noarch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(setuptools)
 
 %description
 A small python library to consume SOAP services. It can process
@@ -33,22 +32,26 @@ document.
 
 %prep
 %autosetup -n %{pypi_name}-%{version}
-# Remove bundled egg-info
-rm -rf *.egg-info
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{pypi_name}
 
 
-%files -n python3-%{pypi_name}
+%check
+%pyproject_check_import
+
+
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 # No License, see https://github.com/baserge/osa/issues/1
 %doc README
-%{python3_sitelib}/%{pypi_name}
-%{python3_sitelib}/osa-%{version}-py?.*.egg-info
 
 
 %changelog

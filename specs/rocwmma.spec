@@ -20,8 +20,8 @@
 # THE SOFTWARE.
 #
 %global upstreamname rocWMMA
-%global rocm_release 6.4
-%global rocm_patch 0
+%global rocm_release 7.0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -35,7 +35,7 @@
 
 Name:           rocwmma
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm Matrix Multiple and Accumulate library
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
@@ -95,6 +95,9 @@ Provides:       %{name}-static = %{version}-%{release}
 %{_includedir}/%{name}/*
 
 %changelog
+* Sun Sep 21 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-1
+- Update to 7.0.1
+
 * Thu Aug 28 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-4
 - Add Fedora copyright
 

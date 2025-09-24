@@ -1,5 +1,5 @@
 Name:    kosmindoormap
-Version: 25.08.0
+Version: 25.08.1
 Release: 1%{?dist}
 Summary: OSM multi-floor indoor map renderer
 
@@ -91,6 +91,9 @@ developing applications that use %{name}.
 %{_kf6_libdir}/libKOSMIndoorRouting.so
 
 %changelog
+* Sun Sep 21 2025 Steve Cossette <farchord@gmail.com> - 25.08.1-1
+- 25.08.1
+
 * Fri Aug 08 2025 Steve Cossette <farchord@gmail.com> - 25.08.0-1
 - 25.08.0
 

@@ -1,16 +1,8 @@
 %global srcname cvss
 
-%if 0%{?rhel} && 0%{?rhel} <= 7
-%bcond_without python2
-%bcond_with python3
-%else
-%bcond_with python2
-%bcond_without python3
-%endif
-
 Name:           python-%{srcname}
 Version:        3.3
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        CVSS2/3 library with interactive calculator
 
 # The entire source code is LGPL-3.0+ except cvss/cvss4.py which is BSD-2-Clause
@@ -26,83 +18,39 @@ interactive calculator.
 
 %description %{_description}
 
-# Python 2 Package
-# (RHEL Only)
-%if %{with python2}
-%package -n python2-%{srcname}
-Summary:        %{summary}
-%{?python_provide:%python_provide python2-%{srcname}}
-BuildRequires:  python2-devel
-%if 0%{?rhel} && 0%{?rhel} <= 7
-BuildRequires:  python-setuptools
-%if 0%{?rhel} == 6
-Requires:       python-ordereddict
-%endif
-%else
-BuildRequires:  python2-setuptools
-%endif
-
-%description -n python2-%{srcname} %{_description}
-
-Python 2 version.
-%endif
-# end with python2
-
-# Python 3 Package
-%if %{with python3}
 %package -n python3-%{srcname}
 Summary:        %{summary}
 %{?python_provide:%python_provide python3-%{srcname}}
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
+%generate_buildrequires
+%pyproject_buildrequires
 
 %description -n python3-%{srcname} %{_description}
-
-Python 3 version.
-%endif
-# end with python3
 
 %prep
 %autosetup -n %{srcname}-%{version}
 
 %build
-%if %{with python2}
-%py2_build
-%endif
-%if %{with python3}
-%py3_build
-%endif
+%pyproject_wheel
 
 %install
-%if %{with python2}
-%py2_install
-%endif
-%if %{with python3}
-%py3_install
-%endif
+%pyproject_install
 
 # Tests are not ran (have to patch code and use nose/pytest)
 #check
 
-%if %{with python2}
-%files -n python2-%{srcname}
-%doc README.rst
-%license LICENSE
-%{python2_sitelib}/%{srcname}-*.egg-info/
-%{python2_sitelib}/%{srcname}/
-%endif
-
-%if %{with python3}
 %files -n python3-%{srcname}
 %doc README.rst
 %license LICENSE
-%{python3_sitelib}/%{srcname}-*.egg-info/
+%{python3_sitelib}/%{srcname}-*.dist-info/
 %{python3_sitelib}/%{srcname}/
-%endif
-
 %{_bindir}/cvss_calculator
 
 %changelog
+* Mon Sep 22 2025 Viliam Krizan <vkrizan@redhat.com> - 3.3-6
+- Drop Python2 package support
+- Migration to %pyproject macros
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.3-5
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -5,7 +5,7 @@
 %global crate ammonia
 
 Name:           rust-ammonia
-Version:        4.1.1
+Version:        4.1.2
 Release:        %autorelease
 Summary:        HTML Sanitization
 

@@ -3,8 +3,8 @@
 ExcludeArch: %{ix86}
 
 Name:           isoimagewriter
-Version:        25.08.0
-Release:        2%{?dist}
+Version:        25.08.1
+Release:        1%{?dist}
 Summary:        KDE ISO Image Writer, a tool to write a .iso file to a USB disk
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -75,6 +75,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Sun Sep 21 2025 Steve Cossette <farchord@gmail.com> - 25.08.1-1
+- 25.08.1
+
 * Sat Aug 16 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 25.08.0-2
 - Drop i686 support (leaf package)
 

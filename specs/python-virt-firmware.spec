@@ -1,5 +1,5 @@
 Name:           python-virt-firmware
-Version:        25.7.3
+Version:        25.9
 Release:        %autorelease
 Summary:        Tools for virtual machine firmware volumes
 
@@ -103,11 +103,13 @@ done
 %doc README.md experimental
 %{_bindir}/host-efi-vars
 %{_bindir}/virt-fw-dump
+%{_bindir}/virt-fw-measure
 %{_bindir}/virt-fw-vars
 %{_bindir}/virt-fw-sigdb
 %{_bindir}/kernel-bootcfg
 %{_bindir}/uefi-boot-menu
 %{_bindir}/migrate-vars
+%{_bindir}/uki-addons
 %{_bindir}/pe-dumpinfo
 %{_bindir}/pe-listsigs
 %{_bindir}/pe-addsigs

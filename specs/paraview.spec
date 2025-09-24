@@ -173,7 +173,6 @@ Requires: python3-twisted
 Requires: python3-autobahn
 # ParaView requires svg support via icon plugins, so no direct linking involved
 Requires: qt6-qtsvg%{?_isa}
-Requires: qt6-qtx11extras%{?_isa}
 
 # Bundled KWSys
 # https://fedorahosted.org/fpc/ticket/555
@@ -383,7 +382,6 @@ Requires:       python3-six
 Requires:       python3-twisted
 # ParaView requires svg support via icon plugins, so no direct linking involved
 Requires:       qt6-qtsvg%{?_isa}
-Requires:       qt6-qtx11extras%{?_isa}
 
 %description    openmpi
 This package contains copies of the ParaView server binaries compiled with
@@ -424,7 +422,6 @@ Requires:       python3-six
 Requires:       python3-twisted
 # ParaView requires svg support via icon plugins, so no direct linking involved
 Requires:       qt6-qtsvg%{?_isa}
-Requires:       qt6-qtx11extras%{?_isa}
 
 %description    mpich
 This package contains copies of the ParaView server binaries compiled with

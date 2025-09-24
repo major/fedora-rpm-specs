@@ -20,8 +20,8 @@
 # THE SOFTWARE.
 #
 %global upstreamname hip-tests
-%global rocm_release 6.4
-%global rocm_patch 3
+%global rocm_release 7.0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -52,7 +52,7 @@
 
 Name:       hip-tests
 Version:    %{rocm_version}
-Release:    2%{?dist}
+Release:    1%{?dist}
 Summary:    HIP tests
 
 License:    MIT AND BSL-1.0 AND Apache-2.0
@@ -111,6 +111,11 @@ sed -i -e 's@${ROCM_PATH}/llvm/bin/clang-cpp@%{rocmllvm_bindir}/clang-cpp@' catc
 # Change install to libexec
 sed -i -e 's@INSTALL_DIR ${CMAKE_INSTALL_DATADIR}/hip@INSTALL_DIR libexec/hip-tests@' catch/packaging/CMakeLists.txt
 
+# Some tests need to include stdlib.h to find malloc/free
+sed -i '/hip\/hip_runtime/a#include <stdlib.h>' catch/unit/deviceLib/kerDevAlloc*.cc
+sed -i '/hip\/hip_runtime/a#include <stdlib.h>' catch/unit/deviceLib/kerDevFree*.cc
+
+
 %if 0%{?fedora}
 # Remove local copy of picojson, use the system version
 rm -rf catch/external/picojson
@@ -127,6 +132,7 @@ cd catch
     -DCMAKE_CXX_COMPILER=%{rocmllvm_bindir}/clang++ \
     -DCMAKE_CXX_FLAGS="-O2" \
     -DCMAKE_AR=%{rocmllvm_bindir}/llvm-ar \
+    -DCMAKE_EXE_LINKER_FLAGS="-lamdhip64" \
     -DCMAKE_RANLIB=%{rocmllvm_bindir}/llvm-ranlib \
     -DHIP_PLATFORM=amd \
     -DOFFLOAD_ARCH_STR=%{gpu_offload_list} \
@@ -172,6 +178,9 @@ rm -rf %{buildroot}%{_libexecdir}/hip-tests/catch_tests/saxpy.h
 %{_libexecdir}/hip-tests/
 
 %changelog
+* Thu Sep 18 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.0-1
+- Update to 7.0.0
+
 * Mon Sep 15 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.3-2
 - Build on RHEL
 - Add Fedora license

@@ -178,6 +178,11 @@ DESELECT=(
 
   # Started failing in rawhide now
   --deselect=tests/comparators/test_text.py::test_ending_differences
+
+  # Formatting difference, probably llvm-version dependent
+  # -  define i64 @__rust_reallocate_inplace(ptr nocapture readnone %0, i64 %1, i64 %2, i64 %3) unnamed_addr #1 {
+  # +  define i64 @__rust_reallocate_inplace(ptr readnone captures(none) %0, i64 %1, i64 %2, i64 %3) unnamed_addr #1 {
+  --deselect=tests/comparators/test_rlib.py::test_item3_deflate_llvm_bitcode
 )
 
 LC_CTYPE=C.utf8 \

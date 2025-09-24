@@ -1,5 +1,5 @@
 Name:    akonadi-mime
-Version: 25.08.0
+Version: 25.08.1
 Release: 1%{?dist}
 Summary: The Akonadi Mime Library
 
@@ -73,6 +73,7 @@ find ./po -type f -name libakonadi-kmime5-serializer.po -execdir mv {} libakonad
 %{_kf6_datadir}/qlogging-categories6/*%{name}.*
 %{_kf6_libdir}/libKPim6AkonadiMime.so.*
 %{_kf6_qtplugindir}/akonadi_serializer_mail.so
+%{_kf6_qmldir}/org/kde/akonadi/mime/
 
 %files devel
 %{_includedir}/KPim6/AkonadiMime/
@@ -84,6 +85,9 @@ find ./po -type f -name libakonadi-kmime5-serializer.po -execdir mv {} libakonad
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Sun Sep 21 2025 Steve Cossette <farchord@gmail.com> - 25.08.1-1
+- 25.08.1
+
 * Fri Aug 08 2025 Steve Cossette <farchord@gmail.com> - 25.08.0-1
 - 25.08.0
 

@@ -1,5 +1,5 @@
 Name:           python-lxml
-Version:        6.0.1
+Version:        6.0.2
 Release:        %autorelease
 Summary:        XML processing library combining libxml2/libxslt with the ElementTree API
 

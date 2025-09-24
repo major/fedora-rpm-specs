@@ -4,8 +4,8 @@ ExcludeArch: %{ix86}
 
 Name:    audiocd-kio
 Summary: KF6 Audiocd kio slave
-Version: 25.08.0
-Release: 2%{?dist}
+Version: 25.08.1
+Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-3.0-or-later
 URL:     https://invent.kde.org/multimedia/audiocd-kio
@@ -140,6 +140,9 @@ Documentation for %{name}.
 
 
 %changelog
+* Sun Sep 21 2025 Steve Cossette <farchord@gmail.com> - 25.08.1-1
+- 25.08.1
+
 * Sat Aug 16 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 25.08.0-2
 - Drop i686 support (leaf package)
 

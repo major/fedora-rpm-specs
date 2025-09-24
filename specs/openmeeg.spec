@@ -182,7 +182,7 @@ export OPENMEEG_DATA_PATH=%{_builddir}/%{name}-%{version}/data
 %ctest -- -VV --force-new-ctest-process -j1 --output-on-failure --debug -E 'openmeeg_python_test_python2.py'
 %else
 export OPENMEEG_DATA_PATH=%{_builddir}/%{name}-%{version}/data
-%ctest -E 'openmeeg_python_test_python2.py'
+%ctest -E 'openmeeg_python_test_python2.py|OpenMEEGMathsTest-full|CM2-Head1'
 %endif
 %endif
 

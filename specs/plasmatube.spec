@@ -3,8 +3,8 @@
 ExcludeArch: %{ix86}
 
 Name:           plasmatube
-Version:        25.08.0
-Release:        2%{?dist}
+Version:        25.08.1
+Release:        1%{?dist}
 License:        GPL-3.0-or-later AND GPL-2.0-or-later AND CC0-1.0 AND CC-BY-SA-4.0
 Summary:        YouTube video player based on QtMultimedia and youtube-dl
 Url:            https://apps.kde.org/plasmatube/
@@ -78,6 +78,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/org.kde.%{nam
 %{_kf6_datadir}/qlogging-categories6/plasmatube.categories
 
 %changelog
+* Sun Sep 21 2025 Steve Cossette <farchord@gmail.com> - 25.08.1-1
+- 25.08.1
+
 * Sat Aug 16 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 25.08.0-2
 - Drop i686 support (leaf package)
 

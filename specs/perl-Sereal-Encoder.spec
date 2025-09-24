@@ -7,7 +7,7 @@
 
 Name:           perl-Sereal-Encoder
 Version:        5.004
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Perl serialization into Sereal format
 # lib/Sereal/Encoder.pm:    GPL+ or Artistic
 # qsort.h:                  LGPLv2+ (borrowed from glibc)
@@ -19,6 +19,7 @@ Summary:        Perl serialization into Sereal format
 License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND LGPL-2.1-or-later
 URL:            https://metacpan.org/release/Sereal-Encoder
 Source0:        https://cpan.metacpan.org/authors/id/Y/YV/YVES/Sereal-Encoder-%{version}.tar.gz
+Patch0:         Sereal-Encoder-5.004-external-miniz.patch
 # Build:
 BuildRequires:  coreutils
 BuildRequires:  csnappy-devel
@@ -85,6 +86,10 @@ serializer using a binary protocol called Sereal.
 
 %prep
 %setup -q -n Sereal-Encoder-%{version}
+
+# Fix detection of miniz 3.1.0
+%patch -P0
+
 # Remove bundled Perl modules
 rm -r ./inc/Devel
 perl -i -ne 'print $_ unless m{^inc/Devel/}' MANIFEST
@@ -119,6 +124,9 @@ make test
 %{_mandir}/man3/Sereal::Encoder.3*
 
 %changelog
+* Mon Sep 22 2025 Paul Howarth <paul@city-fan.org> - 5.004-12
+- Fix detection of miniz 3.1.0
+
 * Sat Aug 02 2025 Dominik Mierzejewski <dominik@greysector.net> - 5.004-11
 - Rebuilt for miniz SONAME bump (and fixed include path)
 

@@ -3,7 +3,7 @@
 Name:           FlightGear-Atlas
 Summary:        Flightgear map tools
 Version:        0.5.0
-Release:        0.92%{snapshot}%{?dist}
+Release:        0.93%{snapshot}%{?dist}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -68,6 +68,9 @@ install -m 0644 src/data/airplane_image.png \
 %{_datadir}/flightgear/Atlas
 
 %changelog
+* Sun Sep 21 2025 Fabrice Bellet <fabrice@bellet.info> - 0.5.0-0.93.cvs20141002
+- rebuild with newer SimGear
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-0.92.cvs20141002
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

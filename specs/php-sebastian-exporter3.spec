@@ -1,13 +1,13 @@
 # remirepo/fedora spec file for php-sebastian-exporter3
 #
-# Copyright (c) 2013-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2013-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    1939bc8fd1d39adcfa88c5b35335910869214c56
+%global gh_commit    8c86ae3e84f69acff53b9d4b96614a68e3572901
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   exporter
@@ -28,8 +28,8 @@
 # NOTICE: used by phpunit 6, 7 and 8
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        3.1.6
-Release:        4%{?dist}
+Version:        3.1.7
+Release:        1%{?dist}
 Summary:        Export PHP variables for visualization, version %{major}
 
 License:        BSD-3-Clause
@@ -56,8 +56,6 @@ Requires:       php(language) >= 7.2
 Requires:       (php-composer(%{pk_vendor}/recursion-context) >= 3.0 with php-composer(%{pk_vendor}/recursion-context) < 4)
 # from phpcompatinfo report for version 3.0.0
 Requires:       php-mbstring
-Requires:       php-pcre
-Requires:       php-spl
 # Autoloader
 Requires:       php-composer(fedora/autoloader)
 
@@ -99,7 +97,7 @@ touch vendor/autoload.php
 
 : Run upstream test suite
 ret=0
-for cmd in php php81 php82 php83; do
+for cmd in php php81 php82 php83 php84 php85; do
   if which $cmd; then
     %{_bindir}/php -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php \
     %{_bindir}/phpunit8	  --verbose || ret=1
@@ -117,6 +115,9 @@ exit $ret
 
 
 %changelog
+* Mon Sep 22 2025 Remi Collet <remi@remirepo.net> - 3.1.7-1
+- update to 3.1.7
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

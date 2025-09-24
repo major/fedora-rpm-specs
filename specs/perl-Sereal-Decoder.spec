@@ -3,7 +3,7 @@
 
 Name:           perl-Sereal-Decoder
 Version:        5.004
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Perl deserialization for Sereal format
 # lib/Sereal/Decoder.pm:    GPL+ or Artistic
 ## Unbundled:
@@ -13,6 +13,7 @@ Summary:        Perl deserialization for Sereal format
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Sereal-Decoder
 Source0:        https://cpan.metacpan.org/authors/id/Y/YV/YVES/Sereal-Decoder-%{version}.tar.gz
+Patch0:         Sereal-Decoder-5.004-external-miniz.patch
 # Build
 BuildRequires:  coreutils
 BuildRequires:  csnappy-devel
@@ -77,6 +78,10 @@ and feature-rich binary protocol called Sereal.
 
 %prep
 %setup -q -n Sereal-Decoder-%{version}
+
+# Fix detection of miniz 3.1.0
+%patch -P0
+
 # Remove bundled Perl modules
 rm -r ./inc/Devel
 perl -i -ne 'print $_ unless m{^inc/Devel/}' MANIFEST
@@ -112,6 +117,9 @@ make test
 %{_mandir}/man3/Sereal::Performance.3*
 
 %changelog
+* Mon Sep 22 2025 Paul Howarth <paul@city-fan.org> - 5.004-16
+- Fix detection of miniz 3.1.0
+
 * Sun Aug 03 2025 Dominik Mierzejewski <dominik@greysector.net> - 5.004-15
 - Rebuild after bootstrapping
 

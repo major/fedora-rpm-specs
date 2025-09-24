@@ -1,6 +1,6 @@
 Name:           python-pyclip
 Version:        0.7.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Cross-platform Clipboard module for Python with binary support
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -40,6 +40,9 @@ Summary:        %{summary}
 %{_bindir}/pyclip
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.7.0-14
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.7.0-13
 - Rebuilt for Python 3.14.0rc2 bytecode
 

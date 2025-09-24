@@ -57,6 +57,11 @@ EOF
 
 install -m0644 -D dbus-broker.sysusers.conf %{buildroot}%{_sysusersdir}/dbus-broker.conf
 
+# NB: Until part of an official release, drop dbus-broker-session.
+rm -f %{buildroot}%{_bindir}/dbus-broker-session
+rm -f %{buildroot}%{_journalcatalogdir}/dbus-broker-session.catalog
+rm -f %{buildroot}%{_mandir}/man1/dbus-broker-session.1*
+
 %check
 %meson_test
 

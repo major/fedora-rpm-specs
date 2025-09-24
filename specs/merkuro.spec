@@ -1,5 +1,5 @@
 Name: merkuro
-Version: 25.08.0
+Version: 25.08.1
 Release: 1%{?dist}
 Summary: A calendar application using Akonadi to sync with external services (Nextcloud, GMail, ...)
 
@@ -101,7 +101,6 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.kde.%{name}.cont
 desktop-file-validate %{buildroot}/%{_datadir}/applications/org.kde.%{name}.calendar.desktop
 desktop-file-validate %{buildroot}/%{_datadir}/applications/org.kde.%{name}.mail.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{name}.contact.metainfo.xml
-appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.merkuro.contact.applet.appdata.xml ||:
 appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{name}.calendar.metainfo.xml
 appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{name}.mail.metainfo.xml
 appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.merkuro.metainfo.xml
@@ -125,7 +124,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.me
 %{_kf6_datadir}/icons/hicolor/24x24/apps/org.kde.merkuro*.png
 %{_kf6_datadir}/icons/hicolor/32x32/apps/org.kde.merkuro*.png
 %{_kf6_metainfodir}/org.kde.merkuro.*.metainfo.xml
-%{_kf6_metainfodir}/org.kde.merkuro.contact.applet.appdata.xml
 %{_kf6_datadir}/qlogging-categories6/merkuro.categories
 %{_kf6_datadir}/qlogging-categories6/merkuro.contact.categories
 %{_kf6_libdir}/libMerkuroComponents.so
@@ -136,6 +134,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.me
 %{_kf6_metainfodir}/org.kde.merkuro.metainfo.xml
 
 %changelog
+* Sun Sep 21 2025 Steve Cossette <farchord@gmail.com> - 25.08.1-1
+- 25.08.1
+
 * Fri Aug 08 2025 Steve Cossette <farchord@gmail.com> - 25.08.0-1
 - 25.08.0
 

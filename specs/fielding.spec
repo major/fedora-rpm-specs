@@ -65,7 +65,6 @@ BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
 
 BuildRequires: cmake(Qt6Core)
-BuildRequires: qt6-qtbase-private-devel
 BuildRequires: cmake(Qt6Gui)
 BuildRequires: cmake(Qt6Qml)
 BuildRequires: cmake(Qt6QuickControls2)

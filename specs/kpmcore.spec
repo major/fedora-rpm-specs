@@ -3,8 +3,8 @@
 %global sover 13
 
 Name:           kpmcore
-Version:        25.08.0
-Release:        2%{?dist}
+Version:        25.08.1
+Release:        1%{?dist}
 Summary:        Library for managing partitions by KDE programs
 License:        GPL-3.0-or-later AND MIT AND CC-BY-4.0 AND CC0-1.0
 URL:            https://github.com/KDE/kpmcore
@@ -91,6 +91,9 @@ developing applications that use %{name}
 
 
 %changelog
+* Sun Sep 21 2025 Steve Cossette <farchord@gmail.com> - 25.08.1-1
+- 25.08.1
+
 * Sat Aug 16 2025 Neal Gompa <ngompa@fedoraproject.org> - 25.08.0-2
 - Undo RPMAutoSpec conversion
 

@@ -23,15 +23,19 @@ Patch:          %{name}-dsdp-refcount.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
+BuildSystem:    pyproject
+BuildOption(install): -l cvxopt
 
 BuildRequires:  DSDP-devel
 BuildRequires:  gcc
 BuildRequires:  glpk-devel
 BuildRequires:  flexiblas-devel
+%ifarch %{power64}
+BuildRequires:  flexiblas-atlas
+%endif
 BuildRequires:  make
 BuildRequires:  pkgconfig(fftw3)
 BuildRequires:  pkgconfig(gsl)
-BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist pytest}
 BuildRequires:  %{py3_dist sphinx}
 BuildRequires:  %{py3_dist sphinx-rtd-theme}
@@ -109,26 +113,26 @@ sed -i 's,bin/env python,bin/python3,' examples/filterdemo/filterdemo_{cli,gui}
 # Remove useless executable bits
 find examples -name \*.py -perm /0111 -exec chmod a-x {} +
 
-%generate_buildrequires
+%generate_buildrequires -p
 export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
-%pyproject_buildrequires
 
-%build
+%build -p
 export LDSHARED='gcc -shared %{build_ldflags}'
 export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
-%pyproject_wheel
 
+%build -a
 # Rebuild the documentation
 make -C doc clean
 make -C doc -B html
 rm -f doc/build/html/.buildinfo
 
-%install
-%pyproject_install
-%pyproject_save_files -l cvxopt
-
 %check
+%ifarch %{power64}
+# FIXME: segfault if NETLIB is used
+export FLEXIBLAS=atlas
+%else
 export FLEXIBLAS=netlib
+%endif
 %pytest -v
 
 %files -n python3-cvxopt -f %{pyproject_files}
@@ -142,6 +146,10 @@ export FLEXIBLAS=netlib
 %doc examples/
 
 %changelog
+* Mon Sep 22 2025 Jerry James <loganjerry@gmail.com> - 1.3.2-14
+- Work around ppc64le FTBFS with netlib
+- Use the pyproject declarative buildsystem
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.3.2-14
 - Rebuilt for Python 3.14.0rc3 bytecode
 
@@ -154,7 +162,7 @@ export FLEXIBLAS=netlib
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.3.2-11
 - Rebuilt for Python 3.14
 
-* Fri May 23 2025 Jerry James  <loganjerry@gmail.com> - 1.3.2-10
+* Fri May 23 2025 Jerry James <loganjerry@gmail.com> - 1.3.2-10
 - Add patch to fix refcount bug
 
 * Sun Feb 02 2025 Orion Poplawski <orion@nwra.com> - 1.3.2-9

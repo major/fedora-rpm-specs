@@ -5,8 +5,8 @@ ExcludeArch: %{ix86}
 Name:    filelight
 Summary: Graphical disk usage statistics
 Epoch:   1
-Version: 25.08.0
-Release: 2%{?dist}
+Version: 25.08.1
+Release: 1%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
 License: GPL-2.0-only OR GPL-3.0-only
@@ -78,6 +78,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 %{_kf6_datadir}/kio/servicemenus/filelight.desktop
 
 %changelog
+* Sun Sep 21 2025 Steve Cossette <farchord@gmail.com> - 1:25.08.1-1
+- 25.08.1
+
 * Sat Aug 16 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1:25.08.0-2
 - Drop i686 support (leaf package)
 

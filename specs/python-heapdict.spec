@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        1.0.1
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        A heap with decrease-key and increase-key operations
 
 License:        BSD-3-Clause
@@ -52,6 +52,9 @@ BuildRequires:  python3-test
 %doc README.rst
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0.1-25
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.0.1-24
 - Rebuilt for Python 3.14.0rc2 bytecode
 

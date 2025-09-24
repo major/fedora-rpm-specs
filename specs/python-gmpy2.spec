@@ -13,13 +13,18 @@ License:        LGPL-3.0-or-later
 URL:            https://gmpy2.readthedocs.io/
 VCS:            git:https://github.com/aleaxit/gmpy.git
 Source:         %pypi_source gmpy2
+# Adapt to changes in to_bytes
+Patch:          https://github.com/aleaxit/gmpy/pull/593.patch
+
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): -x docs%{?with_tests:,tests}
+BuildOption(install): -l gmpy2
 
 BuildRequires:  gcc
 BuildRequires:  gmp-devel
 BuildRequires:  libmpc-devel
 BuildRequires:  make
 BuildRequires:  pkgconfig(mpfr)
-BuildRequires:  python3-devel
 %if %{with py3docs}
 BuildRequires:  python3-docs
 %endif
@@ -73,19 +78,12 @@ sed -e "s|\('https://docs\.python\.org/3/', \)None|\1'%{_docdir}/python3-docs/ht
     -i docs/conf.py
 %endif
 
-%generate_buildrequires
-%pyproject_buildrequires -x docs%{?with_tests:,tests}
-
-%build
+%build -p
 # Do not pass -pthread to the compiler or linker
 export LDSHARED="gcc -shared"
 
-%pyproject_wheel
+%build -a
 PYTHONPATH=$PWD/$(ls -1d build/lib.linux*) make -C docs html
-
-%install
-%pyproject_install
-%pyproject_save_files -l gmpy2
 
 %check
 %if %{with tests}

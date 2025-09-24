@@ -9,11 +9,11 @@
 
 %bcond_without       tests
 
-%global gh_commit    76432aafc58d50691a00d86d0632f1217a47b688
+%global gh_commit    b759164a8e02263784b662889cc6cbb686077af6
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   exporter
-%global gh_date      2025-02-07
+%global gh_date      2025-09-22
 # Packagist
 %global pk_vendor    sebastian
 %global pk_project   %{gh_project}
@@ -26,8 +26,8 @@
 %global pear_channel pear.phpunit.de
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        7.0.0
-Release:        3%{?dist}
+Version:        7.0.1
+Release:        1%{?dist}
 Summary:        Export PHP variables for visualization, version %{major}
 
 License:        BSD-3-Clause
@@ -95,7 +95,7 @@ phpab --template fedora --output vendor/autoload.php tests/_fixture/
 
 : Run upstream test suite
 ret=0
-for cmd in php php83 php84; do
+for cmd in php php83 php84 php85; do
   if which $cmd; then
     $cmd -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php \
       %{_bindir}/phpunit12 --bootstrap vendor/autoload.php || ret=1
@@ -113,6 +113,9 @@ exit $ret
 
 
 %changelog
+* Mon Sep 22 2025 Remi Collet <remi@remirepo.net> - 7.0.1-1
+- update to 7.0.1
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

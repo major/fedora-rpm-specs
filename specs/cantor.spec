@@ -24,7 +24,7 @@
 
 Name:    cantor
 Summary: KDE Frontend to Mathematical Software
-Version: 25.08.0
+Version: 25.08.1
 Release: 1%{?dist}
 
 License: GPL-2.0-or-later
@@ -264,6 +264,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Sun Sep 21 2025 Steve Cossette <farchord@gmail.com> - 25.08.1-1
+- 25.08.1
+
 * Fri Aug 08 2025 Steve Cossette <farchord@gmail.com> - 25.08.0-1
 - 25.08.0
 

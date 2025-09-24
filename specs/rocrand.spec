@@ -27,8 +27,8 @@
 
 %global upstreamname rocRAND
 
-%global rocm_release 6.4
-%global rocm_patch 2
+%global rocm_release 7.0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -83,6 +83,7 @@
   -DCMAKE_AR=%rocmllvm_bindir/llvm-ar \\\
   -DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \\\
   -DCMAKE_BUILD_TYPE=%build_type \\\
+  -DCMAKE_EXPORT_COMPILE_COMMANDS=%{build_compile_db} \\\
   -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \\\
   -DCMAKE_SKIP_RPATH=ON \\\
   -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \\\
@@ -102,9 +103,18 @@
 %global gpu_list %{rocm_gpu_list_default}
 %endif
 
+# export an llvm compilation database
+# Useful for input for other llvm tools
+%bcond_with export
+%if %{with export}
+%global build_compile_db ON
+%else
+%global build_compile_db OFF
+%endif
+
 Name:           %{rocrand_name}
 Version:        %{rocm_version}
-Release:        8%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm random number generator
 
 Url:            https://github.com/ROCm/rocRAND
@@ -229,6 +239,12 @@ export LD_LIBRARY_PATH=$PWD/build/library:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Mon Sep 22 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-2
+- Rebuild
+
+* Thu Sep 18 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.0-1
+- Update to 7.0.1
+
 * Wed Aug 27 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-8
 - Add Fedora copyright
 

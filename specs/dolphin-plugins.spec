@@ -4,8 +4,8 @@ ExcludeArch: %{ix86}
 
 Name:    dolphin-plugins
 Summary: Dolphin plugins
-Version: 25.08.0
-Release: 2%{?dist}
+Version: 25.08.1
+Release: 1%{?dist}
 
 License: GPL-2.0-or-later
 URL:     https://invent.kde.org/sdk/%{name}
@@ -69,6 +69,9 @@ Dolphin integration for revision control systems, Dropbox, and disk images.
 
 
 %changelog
+* Sun Sep 21 2025 Steve Cossette <farchord@gmail.com> - 25.08.1-1
+- 25.08.1
+
 * Sat Aug 16 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 25.08.0-2
 - Drop i686 support (leaf package)
 

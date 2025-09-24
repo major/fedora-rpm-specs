@@ -3,8 +3,8 @@
 ExcludeArch: %{ix86}
 
 Name:           kbackup
-Version:        25.08.0
-Release:        2%{?dist}
+Version:        25.08.1
+Release:        1%{?dist}
 Summary:        Back up your data in a simple, user friendly way
 Summary(fr):    Sauvegarder vos données de manière simple et conviviale
 Summary(ru):    Простое, дружественное к пользователю резервное копирование
@@ -91,6 +91,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sun Sep 21 2025 Steve Cossette <farchord@gmail.com> - 25.08.1-1
+- 25.08.1
+
 * Sat Aug 16 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 25.08.0-2
 - Drop i686 support (leaf package)
 

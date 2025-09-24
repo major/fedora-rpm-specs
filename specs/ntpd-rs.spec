@@ -2,7 +2,7 @@
 %bcond_without check
 
 Name:           ntpd-rs
-Version:        1.5.0
+Version:        1.6.2
 Release:        %autorelease
 Summary:        Full-featured implementation of NTP with NTS support
 
@@ -45,6 +45,8 @@ Patch:          0002-Fix-names-of-conflicting-systemd-services.patch
 
 # temporarily disable the new PPS feature
 Patch:          0003-Temporarily-disable-PPS-feature.patch
+# https://github.com/pendulum-project/ntpd-rs/pull/1968
+Patch:          0004-Fix-compiler-failure-with-pps-feature-disabled.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  systemd-rpm-macros

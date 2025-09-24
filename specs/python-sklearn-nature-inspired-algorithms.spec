@@ -18,7 +18,7 @@ Source:         %{url}/archive/v%{version}/Sklearn-Nature-Inspired-Algorithms-%{
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist toml-adapt}
+BuildRequires:  tomcli
 
 %description %_description
 
@@ -31,8 +31,13 @@ Summary:        %{summary}
 %autosetup -p1 -n Sklearn-Nature-Inspired-Algorithms-%{version}
 rm -fv poetry.lock
 
-# Make deps consistent with Fedora deps
-toml-adapt -path pyproject.toml -a change -dep ALL -ver X
+# Drop version pinning (we use the versions available in Fedora)
+for DEP in $(tomcli get -F newline-keys pyproject.toml tool.poetry.dependencies)
+do
+    tomcli set pyproject.toml replace tool.poetry.dependencies.${DEP} ".*" "*"
+done
+# Remove 'toml' dependency. It's deprecated and not needed by the package.
+tomcli set pyproject.toml del tool.poetry.dependencies.toml
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -46,6 +51,7 @@ toml-adapt -path pyproject.toml -a change -dep ALL -ver X
 
 %check
 %{py3_test_envvars} %{python3} -m unittest tests
+%pyproject_check_import
 
 %files -n python3-sklearn-nature-inspired-algorithms -f %{pyproject_files}
 %license LICENSE

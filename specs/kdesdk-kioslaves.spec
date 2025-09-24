@@ -6,8 +6,8 @@ ExcludeArch: %{ix86}
 
 Name:    kdesdk-kioslaves
 Summary: KDESDK KIOslaves
-Version: 25.08.0
-Release: 2%{?dist}
+Version: 25.08.1
+Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv2 and GPLv2+ - review is highly recommended.
 License: GPL-2.0-only AND GPL-2.0-or-later
@@ -64,6 +64,9 @@ KDE SDK kioslaves:
 
 
 %changelog	
+* Sun Sep 21 2025 Steve Cossette <farchord@gmail.com> - 25.08.1-1
+- 25.08.1
+
 * Sat Aug 16 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 25.08.0-2
 - Drop i686 support (leaf package)
 

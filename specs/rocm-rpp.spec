@@ -20,8 +20,8 @@
 # THE SOFTWARE.
 #
 %global upstreamname rpp
-%global rocm_release 6.4
-%global rocm_patch 0
+%global rocm_release 7.0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -43,7 +43,7 @@
 
 Name:           rocm-rpp
 Version:        %{rocm_version}
-Release:        6%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm Performace Primatives for computer vision
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT AND Apache-2.0 AND LicenseRef-Fedora-Public-Domain
@@ -140,13 +140,17 @@ rm -rf libs/third_party
 %cmake_install
 
 # ERROR   0020: file '/usr/lib64/librpp.so.1.9.1' contains a runpath referencing '..' of an absolute path [/usr/lib64/rocm/llvm/bin/../lib]
-chrpath -r %{rocmllvm_libdir} %{buildroot}%{_libdir}/librpp.so.1.*.*
+chrpath -r %{rocmllvm_libdir} %{buildroot}%{_libdir}/librpp.so.2.*.*
 
 %files
 %license LICENSE
+%{_libdir}/librpp.so.2{,.*}
 %exclude %{_docdir}/rpp/LICENSE
 %exclude %{_docdir}/rpp-asan/LICENSE
-%{_libdir}/librpp.so.1{,.*}
+# For the third parth ffts source we removed
+%exclude %{_docdir}/rpp/FFTS_LICENSE
+%exclude %{_docdir}/rpp-asan/FFTS_LICENSE
+
 
 %files devel
 %doc README.md
@@ -161,6 +165,9 @@ chrpath -r %{rocmllvm_libdir} %{buildroot}%{_libdir}/librpp.so.1.*.*
 %endif
 
 %changelog
+* Sun Sep 21 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-1
+- Update to 7.0.1
+
 * Thu Aug 28 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-6
 - Add Fedora copyright
 

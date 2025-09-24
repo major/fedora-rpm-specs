@@ -26,8 +26,8 @@
 %endif
 
 %global upstreamname RCCL
-%global rocm_release 6.4
-%global rocm_patch 2
+%global rocm_release 7.0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -70,7 +70,7 @@
 
 Name:           %{rccl_name}
 Version:        %{rocm_version}
-Release:        7%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm Communication Collectives Library
 
 Url:            https://github.com/ROCm/rccl
@@ -86,6 +86,7 @@ Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{ro
 BuildRequires:  cmake
 BuildRequires:  hipify
 BuildRequires:  gcc-c++
+BuildRequires:  fmt-devel
 BuildRequires:  rocm-cmake
 BuildRequires:  rocm-comgr-devel
 BuildRequires:  rocm-core-devel
@@ -180,6 +181,9 @@ sed -i '/#include <map.*/a#include <iomanip>' test/common/TestBed.hpp
 # Convert the c++14 to c++17
 sed -i -e 's@set(CMAKE_CXX_STANDARD   14)@set(CMAKE_CXX_STANDARD 17)@' CMakeLists.txt
 
+# Do not force install
+sed -i -e 's@set(CMAKE_INSTALL_LIBDIR@#set(CMAKE_INSTALL_LIBDIR@' cmake/Dependencies.cmake
+
 # RCCL uses -parallel-jobs for both compiling and linking
 # compiling is set to 12, which may be more than the cores on the build machine.
 # linking is set by reserving 16GB pre thread, can be too little.
@@ -226,6 +230,7 @@ sed -i -e "s@-parallel-jobs=\${num_linker_jobs}@-parallel-jobs=${LINK_JOBS}@" CM
     -DCMAKE_INSTALL_LIBDIR=%{_libdir} \
     -DCMAKE_SKIP_RPATH=ON \
     -DENABLE_MSCCLPP=OFF \
+    -DEXPLICIT_ROCM_VERSION=%{rocm_version} \
     -DHIP_PLATFORM=amd \
     -DRCCL_ROCPROFILER_REGISTER=OFF \
     -DROCM_PATH=%{_prefix} \
@@ -241,6 +246,7 @@ rm -f %{buildroot}%{_prefix}/share/doc/rccl/LICENSE.txt
 %files
 %license LICENSE.txt
 %{_libdir}/librccl.so.*
+%{_bindir}/rcclras
 
 %files data
 %dir %{_datadir}/rccl
@@ -263,6 +269,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/rccl/LICENSE.txt
 %endif
 
 %changelog
+* Sat Sep 20 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-1
+- Update to 7.0.1
+
 * Wed Aug 27 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-7
 - Add Fedora copyright
 

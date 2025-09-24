@@ -3,8 +3,8 @@
 ExcludeArch: %{ix86}
 
 Name:           kweather
-Version:        25.08.0
-Release:        2%{?dist}
+Version:        25.08.1
+Release:        1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 Summary:        Convergent KDE weather application
@@ -89,7 +89,6 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 %{_kf6_datadir}/dbus-1/services/org.kde.%{name}.service
 
 %files plasma-applet
-%{_kf6_metainfodir}/org.kde.plasma.%{name}_1x4.appdata.xml
 %{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.%{name}_1x4/contents/ui/LocationSelector.qml
 %{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.%{name}_1x4/contents/ui/WeatherContainer.qml
 %{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.%{name}_1x4/contents/ui/main.qml
@@ -98,6 +97,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 %{_kf6_qtplugindir}/plasma/applets/plasma_applet_%{name}_1x4.so
 
 %changelog
+* Sun Sep 21 2025 Steve Cossette <farchord@gmail.com> - 25.08.1-1
+- 25.08.1
+
 * Sat Aug 16 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 25.08.0-2
 - Drop i686 support (leaf package)
 

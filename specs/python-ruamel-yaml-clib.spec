@@ -1,21 +1,14 @@
-%global commit 2402f9b7fb7c15d01398cdd5f58f124a920517b2
-
 Name:           python-ruamel-yaml-clib
-Version:        0.2.12
+Version:        0.2.13
 Release:        %autorelease
 Summary:        C version of reader, parser and emitter for ruamel.yaml derived from libyaml
 
 # SPDX
 License:        MIT
 URL:            https://sourceforge.net/projects/ruamel-yaml-clib
-Source0:        https://sourceforge.net/code-snapshots/hg/r/ru/ruamel-yaml-clib/code/ruamel-yaml-clib-code-%{commit}.zip
+Source:         https://yaml.dev/ruamel-dl-tagged-releases/ruamel.yaml.clib-%{version}.tar.xz
 
 Patch:          unbundle-libyaml.patch
-
-# Adjust setup.py for the removal of deprecated ast classes
-# Fixes build with Python 3.14
-# https://sourceforge.net/p/ruamel-yaml/code/merge-requests/9/
-Patch:          9.patch
 
 BuildRequires:  gcc
 
@@ -42,7 +35,7 @@ Requires:       python3-ruamel-yaml
 %description -n python3-ruamel-yaml-clib %{_description}
 
 %prep
-%autosetup -p1 -n ruamel-yaml-clib-code-%{commit}
+%autosetup -p1 -n ruamel.yaml.clib-%{version}
 
 # Fix wrong return type for strlen()
 sed -i 's/int strlen/size_t strlen/' _ruamel_yaml.pxd

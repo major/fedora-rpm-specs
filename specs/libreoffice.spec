@@ -1,5 +1,5 @@
 # download path contains version without the last (fourth) digit
-%global libo_version 25.8.1
+%global libo_version 25.8.2
 # This is the last (fourth) digit of LO version
 %global libo_min_version 1
 # Set this to 1 if this is a prerelease build

@@ -1,11 +1,11 @@
 Name:           SimGear
-Version:        2024.1.1
-Release:        2%{?dist}
+Version:        2024.1.2
+Release:        1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 Summary:        Simulation library components
 URL:            https://gitlab.com/flightgear/simgear
-Source0:        https://gitlab.com/flightgear/simgear/-/archive/v%{version}/simgear-v%{version}.tar.bz2
+Source0:        https://gitlab.com/flightgear/fgmeta/-/jobs/11398677078/artifacts/raw/sgbuild/simgear-%{version}.tar.bz2
 Patch:          0001-check-to-be-sure-that-n-is-not-being-set-as-format-t.patch
 Patch:          0002-fix-support-for-aarch64.patch
 BuildRequires:  gcc-c++
@@ -17,6 +17,7 @@ BuildRequires:  libXi-devel, libXmu-devel
 BuildRequires:  zlib-devel, libjpeg-devel
 BuildRequires:  expat-devel, xz-devel
 BuildRequires:  cmake, mesa-libGLU-devel, mesa-libEGL-devel, libcurl-devel
+BuildRequires:	c-ares-devel
 
 %description
 SimGear is a set of open-source libraries designed to be used as building
@@ -34,7 +35,7 @@ Development headers and libraries for building applications against
 SimGear.
 
 %prep
-%autosetup -p1 -n simgear-v%{version}
+%autosetup -p1 -n simgear-%{version}
 
 # makes rpmlint happy
 find -name \*.cxx -o -name \*.hxx | xargs chmod -x
@@ -69,6 +70,9 @@ rm -rf simgear/xml/*.h simgear/xml/*.c
 %{_libdir}/cmake/SimGear
 
 %changelog
+* Sun Sep 21 2025 Fabrice Bellet <fabrice@bellet.info> - 2024.1.2-1
+- new upstream release
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2024.1.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

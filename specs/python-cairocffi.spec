@@ -14,7 +14,6 @@ BuildRequires:  python3-devel
 # required to run the test suite
 BuildRequires:  cairo
 BuildRequires:  gdk-pixbuf2
-BuildRequires:  gdk-pixbuf2-modules
 BuildRequires:  xwayland-run
 # Both weston and mutter appear to work. We pick weston explicitly, here and in
 # the xwfb-run invocation, to accommodate different defaults in Fedora and EL.

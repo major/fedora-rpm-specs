@@ -2,7 +2,7 @@
 %bcond adblock 1
 
 Name:           angelfish
-Version:        25.08.0
+Version:        25.08.1
 Release:        1%{?dist}
 Summary:        Plasma Mobile minimal web browser
 
@@ -56,7 +56,6 @@ BuildRequires:  cmake(Qt6Test)
 BuildRequires:  cmake(Qt6WebEngineCore)
 BuildRequires:  cmake(Qt6WebEngineQuick)
 BuildRequires:  cmake(Qt6Widgets)
-BuildRequires:  qt6-qtbase-private-devel
 
 %if %{with adblock}
 BuildRequires:  cmake(Corrosion)
@@ -123,6 +122,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.%{
 %{_kf6_metainfodir}/org.kde.%{name}.metainfo.xml
 
 %changelog
+* Sun Sep 21 2025 Steve Cossette <farchord@gmail.com> - 25.08.1-1
+- 25.08.1
+
 * Fri Aug 08 2025 Steve Cossette <farchord@gmail.com> - 25.08.0-1
 - 25.08.0
 

@@ -26,7 +26,7 @@
 %endif
 
 %global upstreamname rocALUTION
-%global rocm_release 6.4
+%global rocm_release 7.0
 %global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -69,7 +69,7 @@
 
 Name:           %{rocalution_name}
 Version:        %{rocm_version}
-Release:        9%{?dist}
+Release:        1%{?dist}
 Summary:        Next generation library for iterative sparse solvers for ROCm platform
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
@@ -208,6 +208,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/rocalution/LICENSE.md
 %endif
 
 %changelog
+* Sat Sep 20 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-1
+- Update to 7.0.1
+
 * Wed Aug 27 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.1-9
 - Add Fedora copyright
 

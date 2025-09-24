@@ -10,17 +10,19 @@ Release:        %autorelease
 Summary:        Jupyter Notebook Sphinx reader
 
 License:        BSD-3-Clause
-BuildArch:      noarch
 URL:            https://myst-nb.readthedocs.io/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  help2man
-BuildRequires:  python3-devel
-
 %if %{with doc}
 BuildRequires:  make
 %endif
+
+BuildArch:      noarch
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): -x testing%{?with_doc:,rtd}
+BuildOption(install): -L myst_nb
 
 %py_provides python3-%{name}
 %py_provides python3-MyST-NB
@@ -45,31 +47,25 @@ Documentation for %{name}.
 %prep
 %autosetup -n MyST-NB-%{version} -p1
 
-%generate_buildrequires
+%generate_buildrequires -p
 # Permit newer versions of matplotlib for testing only.  The newer version of
 # matplotlib causes some changes in test output; pyproject.toml says:
 #   Matplotlib outputs are sensitive to the matplotlib version
 sed -i 's/==\([*.[:digit:]]*\)//' pyproject.toml
-sed -e 's/9bc81205a14646a235d284d1b68223d17f30f7f1d3d8ed3e52cf47830b02e3bb/7b3df16f93300aaa9d8c112082e4cb3eac7fab0d8ff6db4953dd007054725ba9/g' \
-    -e 's/a2e637020dfe58f670ba2c942d7a55e49ba48bed09312569ee15a84f5ac680cb/16cba4cd16990dd2051c7d78eafc4139cdbcb5ce4cc9aea85a670c7615e545fd/g' \
+sed -e 's/9bc81205a14646a235d284d1b68223d17f30f7f1d3d8ed3e52cf47830b02e3bb/3b06a18a786d1888794629467f345d30b029019a51c227c604d24d93f69905b0/g' \
+    -e 's/a2e637020dfe58f670ba2c942d7a55e49ba48bed09312569ee15a84f5ac680cb/9e6de7e0450a9587b128e95dbe0c6deb944b8e5e8ce7644bef25b90c6619cb7d/g' \
     -i tests/test_execute/test_complex_outputs_unrun_{auto,cache}.xml \
        tests/test_execute/test_custom_convert_{auto,cache}.xml \
        tests/test_execute/test_custom_convert_multiple_extensions_{auto,cache}.xml
-%pyproject_buildrequires -x testing%{?with_doc:,rtd}
 
-%build
-%pyproject_wheel
-
+%build -a
 %if %{with doc}
 # Build the documentation
 PYTHONPATH=$PWD make -C docs html
 rm docs/_build/html/.buildinfo
 %endif
 
-%install
-%pyproject_install
-%pyproject_save_files -L myst_nb
-
+%install -a
 export PYTHONPATH=%{buildroot}%{python3_sitelib}
 mkdir -p %{buildroot}%{_mandir}/man1
 makeman() {

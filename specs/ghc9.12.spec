@@ -35,8 +35,8 @@
 %global ghc_patchlevel 2
 %global ghc_name ghc%{ghc_major}
 
-%global Cabal_ver 3.14.1.0
-%global base_ver 4.21.0.0
+%global Cabal_ver 3.14.2.0
+%global base_ver 4.21.1.0
 %global directory_ver 1.3.9.0
 %global file_io_ver 0.1.5
 %global ghc_bignum_ver 1.3
@@ -50,20 +50,22 @@
 %global xhtml_ver 3000.2.2.1
 
 # bootstrap needs 9.6+
-# better would be to test ghc version
-%if 0%{?fedora} < 43
-%global ghcboot_major 9.8
-%endif
+%global ghcboot_major 9.10
 %global ghcboot ghc%{?ghcboot_major}
+
+# https://bugzilla.redhat.com/show_bug.cgi?id=2390105
+# https://fedoraproject.org/wiki/Changes/StaticLibraryPreserveDebuginfo
+# debugedit-5.2 adds 1-3 hours to koji build times
+%if 0%{?fedora} >= 43
+#%%undefine _preserve_static_debuginfo
+%define _find_debuginfo_opts --no-ar-files
+%endif
 
 # make sure ghc libraries' ABI hashes unchanged
 %bcond abicheck 0
 
 # no longer build testsuite (takes time and not really being used)
 %bcond testsuite 0
-
-# use system default ld.bfd
-%bcond ld_gold 0
 
 # 9.12 needs llvm 13-19
 # note the llvm backend is unsupported for ppc64le
@@ -79,10 +81,10 @@
 %global ghc_unregisterized_arches s390 %{mips}
 
 Name: %{ghc_name}
-Version: %{ghc_major}.%{ghc_patchlevel}
+Version: %{ghc_major}.%{ghc_patchlevel}.20250919
 # Since library subpackages are versioned:
 # - release can only be reset if *all* library versions get bumped simultaneously
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -99,10 +101,6 @@ Source7: runghc.man
 Patch1: ghc-gen_contents_index-haddock-path.patch
 Patch2: ghc-Cabal-install-PATH-warning.patch
 Patch3: ghc-gen_contents_index-nodocs.patch
-# https://gitlab.haskell.org/ghc/ghc/-/issues/25662
-Patch5: hp2ps-C-gnu17.patch
-# https://gitlab.haskell.org/ghc/ghc/-/issues/25963 for 64bit 9.8.4 boot
-Patch6: https://gitlab.haskell.org/ghc/ghc/-/commit/0dabd3c132f6b15548944d8d479d7d0415be813e.patch
 # https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9604
 # should be in 9.14 and enabled by default for release flavor
 #Patch9: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9604.patch
@@ -150,7 +148,7 @@ BuildRequires: %{ghcboot}-time-devel
 BuildRequires: %{ghcboot}-transformers-devel
 BuildRequires: %{ghcboot}-unix-devel
 BuildRequires: alex
-BuildRequires: binutils%{?with_ld_gold:-gold}
+BuildRequires: binutils
 BuildRequires: gcc-c++
 BuildRequires: gmp-devel
 BuildRequires: libdwarf-devel
@@ -255,7 +253,7 @@ Obsoletes: %{name}-ghc-internal-prof < 9.1202.0-6
 %if %{without manual}
 Obsoletes: %{name}-manual < %{version}-%{release}
 %endif
-Requires: binutils%{?with_ld_gold:-gold}
+Requires: binutils
 %ifarch %{ghc_llvm_archs}
 Requires: llvm%{llvm_major}
 Requires: clang%{llvm_major}
@@ -359,7 +357,7 @@ This provides the hadrian tool which can be used to build ghc.
 %ghc_lib_subpackage -d -l %BSDHaskellReport containers-0.7
 %ghc_lib_subpackage -d -l %BSDHaskellReport deepseq-1.5.1.0
 %ghc_lib_subpackage -d -l %BSDHaskellReport directory-%{directory_ver}
-%ghc_lib_subpackage -d -l %BSDHaskellReport exceptions-0.10.9
+%ghc_lib_subpackage -d -l %BSDHaskellReport exceptions-0.10.10
 %ghc_lib_subpackage -d -l BSD-3-Clause file-io-%{file_io_ver}
 %ghc_lib_subpackage -d -l BSD-3-Clause filepath-1.5.4.0
 # in ghc not ghc-libraries:
@@ -380,19 +378,19 @@ This provides the hadrian tool which can be used to build ghc.
 %ghc_lib_subpackage -d -x -l BSD-3-Clause hpc-%{hpc_ver}
 # see below for integer-gmp
 %ghc_lib_subpackage -d -l BSD-3-Clause mtl-2.3.1
-%ghc_lib_subpackage -d -l BSD-3-Clause os-string-2.0.7
+%ghc_lib_subpackage -d -l BSD-3-Clause os-string-2.0.8
 %ghc_lib_subpackage -d -l BSD-3-Clause parsec-3.1.18.0
 %ghc_lib_subpackage -d -l BSD-3-Clause pretty-1.1.3.6
-%ghc_lib_subpackage -d -l %BSDHaskellReport process-1.6.25.0
+%ghc_lib_subpackage -d -l %BSDHaskellReport process-1.6.26.1
 # see below for rts
 %ghc_lib_subpackage -d -l BSD-3-Clause semaphore-compat-1.0.0
 %ghc_lib_subpackage -d -l BSD-3-Clause stm-2.5.3.1
 %ghc_lib_subpackage -d -l BSD-3-Clause template-haskell-2.23.0.0
 %ghc_lib_subpackage -d -l BSD-3-Clause -c ncurses-devel%{?_isa} terminfo-0.4.1.7
-%ghc_lib_subpackage -d -l BSD-3-Clause text-2.1.2
+%ghc_lib_subpackage -d -l BSD-3-Clause text-2.1.3
 %ghc_lib_subpackage -d -l BSD-3-Clause time-1.14
 %ghc_lib_subpackage -d -l BSD-3-Clause transformers-0.6.1.2
-%ghc_lib_subpackage -d -l BSD-3-Clause unix-2.8.6.0
+%ghc_lib_subpackage -d -l BSD-3-Clause unix-2.8.7.0
 %ghc_lib_subpackage -d -l BSD-3-Clause xhtml-%{xhtml_ver}
 %endif
 
@@ -432,7 +430,6 @@ Installing this package causes %{name}-*-prof packages corresponding to
 %patch -P1 -p1 -b .orig
 #%%patch -P2 -p1 -b .orig
 %patch -P3 -p1 -b .orig
-%patch -P5 -p1 -b .orig
 #%%patch -P9 -p1 -b .orig
 
 rm libffi-tarballs/libffi-*.tar.gz
@@ -441,7 +438,7 @@ rm libffi-tarballs/libffi-*.tar.gz
 # remove for ghc-9.10
 %if 0%{?fedora} >= 43
 %ifnarch %{ix86}
-%patch -P6 -p1 -b .orig
+#%%patch -P6 -p1 -b .orig
 %endif
 %else
 %patch -P6 -p1 -b .orig
@@ -466,9 +463,6 @@ rm libffi-tarballs/libffi-*.tar.gz
 %build
 %ghc_set_gcc_flags
 export CC=%{_bindir}/gcc
-%if %{with ld_gold}
-export LD=%{_bindir}/ld.gold
-%endif
 export LLC=%{_bindir}/llc-%{llvm_major}
 export OPT=%{_bindir}/opt-%{llvm_major}
 
@@ -485,11 +479,7 @@ export GHC=%{_bindir}/ghc%{?ghcboot_major:-%{ghcboot_major}}
   --datadir=%{_datadir} --includedir=%{_includedir} --libdir=%{_libdir} \
   --libexecdir=%{_libexecdir} --localstatedir=%{_localstatedir} \
   --sharedstatedir=%{_sharedstatedir} --mandir=%{_mandir} \
-  --docdir=%{_docdir}/%{name} \
-  --with-system-libffi \
-%if %{without ld_gold}
-  --disable-ld-override \
-%endif
+  --docdir=%{_docdir}/%{name} --with-system-libffi --disable-ld-override \
 %ifarch %{ghc_unregisterized_arches}
   --enable-unregisterised \
 %endif
@@ -554,11 +544,7 @@ export LLC=%{_bindir}/llc-%{llvm_major}
 export OPT=%{_bindir}/opt-%{llvm_major}
 (
 cd _build/bindist/ghc-%{version}-*
-./configure --prefix=%{buildroot}%{ghclibdir} --bindir=%{buildroot}%{_bindir} --libdir=%{buildroot}%{_libdir} --mandir=%{buildroot}%{_mandir} --docdir=%{buildroot}%{_docdir}/%{name} \
-%if %{without ld_gold}
-  --disable-ld-override
-%endif
-%{nil}
+./configure --prefix=%{buildroot}%{ghclibdir} --bindir=%{buildroot}%{_bindir} --libdir=%{buildroot}%{_libdir} --mandir=%{buildroot}%{_mandir} --docdir=%{buildroot}%{_docdir}/%{name} --disable-ld-override
 make install
 )
 
@@ -649,9 +635,9 @@ sed -i -e "s|^%{buildroot}||g" %{name}-base*.files
 sed -i -e "s|%{buildroot}||g" %{buildroot}%{_bindir}/*
 
 mkdir -p %{buildroot}%{_mandir}/man1
-install -p -m 0644 %{SOURCE5} %{buildroot}%{_mandir}/man1/ghc-pkg.1
-install -p -m 0644 %{SOURCE6} %{buildroot}%{_mandir}/man1/haddock.1
-install -p -m 0644 %{SOURCE7} %{buildroot}%{_mandir}/man1/runghc.1
+install -p -m 0644 %{SOURCE5} %{buildroot}%{_mandir}/man1/ghc-pkg-%{ghc_major}.1
+install -p -m 0644 %{SOURCE6} %{buildroot}%{_mandir}/man1/haddock-%{ghc_major}.1
+install -p -m 0644 %{SOURCE7} %{buildroot}%{_mandir}/man1/runghc-%{ghc_major}.1
 
 %if %{with haddock}
 rm %{buildroot}%{_pkgdocdir}/archives/libraries.html.tar.xz
@@ -833,9 +819,9 @@ make test
 %{ghcliblib}/prelude.mjs
 %{ghcliblib}/settings
 %{ghcliblib}/template-hsc.h
-%{_mandir}/man1/ghc-pkg.1*
-%{_mandir}/man1/haddock.1*
-%{_mandir}/man1/runghc.1*
+%{_mandir}/man1/ghc-pkg-%{ghc_major}.1*
+%{_mandir}/man1/haddock-%{ghc_major}.1*
+%{_mandir}/man1/runghc-%{ghc_major}.1*
 
 %{_bindir}/haddock-ghc-%{version}
 %{ghcliblib}/html
@@ -908,6 +894,11 @@ make test
 
 
 %changelog
+* Mon Sep 22 2025 Jens Petersen <petersen@redhat.com> - 9.12.2.20250919-9
+- update to 9.10.3 RC1
+- https://downloads.haskell.org/ghc/9.12.3-rc1/docs/users_guide/9.12.3-notes.html
+- boot with ghc9.10
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.12.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

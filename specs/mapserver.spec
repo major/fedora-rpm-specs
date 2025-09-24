@@ -23,8 +23,8 @@
 
 
 Name:           mapserver
-Version:        8.4.0
-Release:        5%{?dist}
+Version:        8.4.1
+Release:        1%{?dist}
 Summary:        Environment for building spatially-enabled internet applications
 %global dashver %(echo %version | sed 's|\\.|-|g')
 
@@ -337,6 +337,9 @@ rm %{buildroot}%{_usr}/%{_sysconfdir}/mapserver-sample.conf
 %{ruby_sitearchdir}/mapscript.so
 
 %changelog
+* Mon Sep 22 2025 Sandro Mani <manisandro@gmail.com> - 8.4.1-1
+- Update to 8.4.1
+
 * Tue Jul 29 2025 Sandro Mani <manisandro@gmail.com> - 8.4.0-5
 - Rebuild (gdal)
 

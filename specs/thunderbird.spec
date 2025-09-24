@@ -92,7 +92,7 @@ ExcludeArch: armv7hl
 Summary:        Mozilla Thunderbird mail/newsgroup client
 Name:           thunderbird
 Version:        140.2.1
-Release:        1
+Release:        1%{?dist}
 URL:            http://www.mozilla.org/projects/thunderbird/
 License:        MPL-2.0 OR GPL-2.0-or-later OR LGPL-2.0-or-later
 Source0:        https://archive.mozilla.org/pub/thunderbird/releases/%{version}%{?pre_version}/source/thunderbird-%{version}%{?pre_version}.source.tar.xz
@@ -132,6 +132,7 @@ Patch78:        firefox-i686-build.patch
 Patch79:        firefox-gcc-13-build.patch
 # PROTOBUF_MUSTTAIL return ...  error: cannot tail-call: target is not able to optimize the call into a sibling call
 Patch82:        build-s390x-protobuf-musttail.patch
+Patch83:        build-allocator-failure.patch
 
 # PPC fix
 
@@ -317,6 +318,7 @@ debug %{name}, you want to install %{name}-debuginfo instead.
 %patch -P78 -p1 -b .firefox-i686
 %patch -P79 -p1 -b .firefox-gcc-13-build
 %patch -P82 -p1 -b .build-s390x-protobuf-musttail
+%patch -P83 -p1 -b .build-allocator-failure
 
 #patch -P 1200 -p1 -b .rustflags-commasplit
 

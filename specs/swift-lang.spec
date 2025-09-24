@@ -6,205 +6,212 @@
 %global debug_package %{nil}
 %undefine _auto_set_build_flags
 
-Version: 6.1.3
+Version: 6.2
 
 # Main swift source and version
 %global forgeurl0  https://github.com/swiftlang/swift
-%global version0   6.1.3
+%global version0   %{version}
 %global tag0       swift-%{version0}-RELEASE
 %global subdir0    swift
 
-%global forgeurl1  https://github.com/swiftlang/llvm-project
-%global tag1       swift-%{version0}-RELEASE
-%global subdir1    llvm-project
+# Begin forge sources
+%global forgeurl1  https://github.com/apple/swift-atomics
+%global tag1       1.2.0
+%global subdir1    swift-atomics
 
-%global forgeurl2  https://github.com/swiftlang/swift-llvm-bindings
+%global forgeurl2  https://github.com/swiftlang/sourcekit-lsp
 %global tag2       swift-%{version0}-RELEASE
-%global subdir2    swift-llvm-bindings
+%global subdir2    sourcekit-lsp
 
-%global forgeurl3  https://github.com/swiftlang/swift-cmark
+%global forgeurl3  https://github.com/swiftlang/swift-corelibs-xctest
 %global tag3       swift-%{version0}-RELEASE
-%global subdir3    cmark   
+%global subdir3    swift-corelibs-xctest
 
-%global forgeurl4  https://github.com/swiftlang/swift-llbuild
-%global tag4       swift-%{version0}-RELEASE
-%global subdir4    llbuild
+%global forgeurl4  https://github.com/apple/swift-log
+%global tag4       1.5.4
+%global subdir4    swift-log
 
-%global forgeurl5  https://github.com/swiftlang/swift-toolchain-sqlite
-%global tag5       1.0.1
-%global subdir5    swift-toolchain-sqlite
+%global forgeurl5  https://github.com/swiftlang/swift-llbuild
+%global tag5       swift-%{version0}-RELEASE
+%global subdir5    llbuild
 
-%global forgeurl6  https://github.com/swiftlang/swift-tools-support-core
+%global forgeurl6  https://github.com/swiftlang/swift-corelibs-foundation
 %global tag6       swift-%{version0}-RELEASE
-%global subdir6    swift-tools-support-core
+%global subdir6    swift-corelibs-foundation
 
 %global forgeurl7  https://github.com/swiftlang/swift-package-manager
 %global tag7       swift-%{version0}-RELEASE
 %global subdir7    swiftpm
 
-%global forgeurl8  https://github.com/apple/swift-argument-parser
-%global tag8       1.4.0
-%global subdir8    swift-argument-parser
+%global forgeurl8  https://github.com/swiftlang/swift-lmdb
+%global tag8       swift-%{version0}-RELEASE
+%global subdir8    swift-lmdb
 
-%global forgeurl9  https://github.com/apple/swift-atomics
-%global tag9       1.2.0
-%global subdir9    swift-atomics
+%global forgeurl9  https://github.com/KitWare/CMake
+%global tag9       v3.30.2
+%global subdir9    cmake
 
-%global forgeurl10 https://github.com/apple/swift-collections
-%global tag10      1.1.3
-%global subdir10   swift-collections
+%global forgeurl10  https://github.com/apple/swift-collections
+%global tag10       1.1.3
+%global subdir10    swift-collections
 
-%global forgeurl11 https://github.com/apple/swift-crypto
-%global tag11      3.0.0
-%global subdir11   swift-crypto
+%global forgeurl11  https://github.com/swiftlang/swift-driver
+%global tag11       swift-%{version0}-RELEASE
+%global subdir11    swift-driver
 
-%global forgeurl12 https://github.com/apple/swift-certificates
-%global tag12      1.0.1
-%global subdir12   swift-certificates
+%global forgeurl12  https://github.com/swiftlang/swift-docc-symbolkit
+%global tag12       swift-%{version0}-RELEASE
+%global subdir12    swift-docc-symbolkit
 
-%global forgeurl13 https://github.com/apple/swift-asn1
-%global tag13      1.0.0
-%global subdir13   swift-asn1
+%global forgeurl13  https://github.com/swiftlang/swift-foundation
+%global tag13       swift-%{version0}-RELEASE
+%global subdir13    swift-foundation
 
-%global forgeurl14 https://github.com/apple/swift-async-algorithms
-%global tag14      1.0.1
-%global subdir14   swift-async-algorithms
+%global forgeurl14  https://github.com/microsoft/mimalloc
+%global tag14       v3.0.1
+%global subdir14    mimalloc
 
-%global forgeurl15 https://github.com/swiftlang/swift-driver
-%global tag15      swift-%{version0}-RELEASE
-%global subdir15   swift-driver
+%global forgeurl15  https://github.com/swiftlang/swift-cmark
+%global tag15       gfm
+%global subdir15    cmark
 
-%global forgeurl16 https://github.com/apple/swift-log
-%global tag16      1.5.4
-%global subdir16   swift-log
+%global forgeurl16  https://github.com/gnome/libxml2
+%global tag16       v2.11.5
+%global subdir16    libxml2
 
-%global forgeurl17 https://github.com/apple/swift-numerics
-%global tag17      1.0.2
-%global subdir17   swift-numerics
+%global forgeurl17  https://github.com/swiftlang/swift-toolchain-sqlite
+%global tag17       1.0.1
+%global subdir17    swift-toolchain-sqlite
 
-%global forgeurl18 https://github.com/swiftlang/swift-syntax
-%global tag18      swift-%{version0}-RELEASE
-%global subdir18   swift-syntax
+%global forgeurl18  https://github.com/WebAssembly/wasi-libc
+%global tag18       wasi-sdk-24
+%global subdir18    wasi-libc
 
-%global forgeurl19 https://github.com/apple/swift-system
-%global tag19      1.3.0
-%global subdir19   swift-system
+%global forgeurl19  https://github.com/swiftlang/swift-format
+%global tag19       swift-%{version0}-RELEASE
+%global subdir19    swift-format
 
-%global forgeurl20 https://github.com/swiftlang/swift-stress-tester
-%global tag20      swift-%{version0}-RELEASE
-%global subdir20   swift-stres-tester
+%global forgeurl20  https://github.com/apple/swift-argument-parser
+%global tag20       1.4.0
+%global subdir20    swift-argument-parser
 
-%global forgeurl21 https://github.com/swiftlang/swift-testing
-%global tag21      swift-%{version0}-RELEASE
-%global subdir21   swift-testing
+%global forgeurl21  https://github.com/swiftlang/swift-llvm-bindings
+%global tag21       swift-%{version0}-RELEASE
+%global subdir21    swift-llvm-bindings
 
-%global forgeurl22 https://github.com/swiftlang/swift-corelibs-xctest
-%global tag22      swift-%{version0}-RELEASE
-%global subdir22   swift-corelibs-xctest
+%global forgeurl22  https://github.com/swiftwasm/WasmKit
+%global tag22       0.1.2
+%global subdir22    wasmkit
 
-%global forgeurl23 https://github.com/swiftlang/swift-corelibs-foundation
-%global tag23      swift-%{version0}-RELEASE
-%global subdir23   swift-corelibs-foundation
+%global forgeurl23  https://github.com/swiftlang/swift-syntax
+%global tag23       swift-%{version0}-RELEASE
+%global subdir23    swift-syntax
 
-%global forgeurl24 https://github.com/swiftlang/swift-foundation-icu
-%global tag24      swift-%{version0}-RELEASE
-%global subdir24   swift-foundation-icu
+%global forgeurl24  https://github.com/ninja-build/ninja
+%global tag24       v1.11.1
+%global subdir24    ninja
 
-%global forgeurl25 https://github.com/swiftlang/swift-foundation
-%global tag25      swift-%{version0}-RELEASE
-%global subdir25   swift-foundation
+%global forgeurl25  https://github.com/swiftlang/swift-corelibs-libdispatch
+%global tag25       swift-%{version0}-RELEASE
+%global subdir25    swift-corelibs-libdispatch
 
-%global forgeurl26 https://github.com/swiftlang/swift-corelibs-libdispatch
-%global tag26      swift-%{version0}-RELEASE
-%global subdir26   swift-corelibs-libdispatch
+%global forgeurl26  https://github.com/swiftlang/swift-markdown
+%global tag26       swift-%{version0}-RELEASE
+%global subdir26    swift-markdown
 
-%global forgeurl27 https://github.com/swiftlang/swift-integration-tests
-%global tag27      swift-%{version0}-RELEASE
-%global subdir27   swift-integration-tests
+%global forgeurl27  https://github.com/swiftlang/swift-foundation-icu
+%global tag27       swift-%{version0}-RELEASE
+%global subdir27    swift-foundation-icu
 
-%global forgeurl28 https://github.com/apple/swift-xcode-playground-support
-%global tag28      swift-%{version0}-RELEASE
-%global subdir28   swift-xcode-playground-support
+%global forgeurl28  https://github.com/madler/zlib
+%global tag28       v1.3.1
+%global subdir28    zlib
 
-%global forgeurl29 https://github.com/ninja-build/ninja
-%global tag29      v1.11.1
-%global subdir29   ninja
+%global forgeurl29  https://github.com/apple/swift-system
+%global tag29       1.5.0
+%global subdir29    swift-system
 
-%global forgeurl30 https://github.com/jpsim/Yams
-%global tag30      5.0.6
-%global subdir30   yams
+%global forgeurl30  https://github.com/apple/swift-asn1
+%global tag30       1.0.0
+%global subdir30    swift-asn1
 
-%global forgeurl31 https://github.com/KitWare/CMake
-%global tag31      v3.30.2
-%global subdir31   cmake
+%global forgeurl31  https://github.com/swiftlang/swift-tools-support-core
+%global tag31       swift-%{version0}-RELEASE
+%global subdir31    swift-tools-support-core
 
-%global forgeurl32 https://github.com/swiftlang/indexstore-db
-%global tag32      swift-%{version0}-RELEASE
-%global subdir32   indexstore-db
+%global forgeurl32  https://github.com/swiftlang/swift-stress-tester
+%global tag32       swift-%{version0}-RELEASE
+%global subdir32    swift-stress-tester
 
-%global forgeurl33 https://github.com/swiftlang/sourcekit-lsp
-%global tag33      swift-%{version0}-RELEASE
-%global subdir33   sourcekit-lsp
+%global forgeurl33  https://github.com/apple/swift-nio
+%global tag33       2.65.0
+%global subdir33    swift-nio
 
-%global forgeurl34 https://github.com/swiftlang/swift-format
-%global tag34      swift-%{version0}-RELEASE
-%global subdir34   swift-format
+%global forgeurl34  https://github.com/swiftlang/indexstore-db
+%global tag34       swift-%{version0}-RELEASE
+%global subdir34    indexstore-db
 
-%global forgeurl35 https://github.com/swiftlang/swift-installer-scripts
-%global tag35      swift-%{version0}-RELEASE
-%global subdir35   swift-installer-scripts
+%global forgeurl35  https://github.com/swiftlang/swift-build
+%global tag35       swift-%{version0}-RELEASE
+%global subdir35    swift-build
 
-%global forgeurl36 https://github.com/swiftlang/swift-docc
-%global tag36      swift-%{version0}-RELEASE
-%global subdir36   swift-docc
+%global forgeurl36  https://github.com/apple/swift-certificates
+%global tag36       1.0.1
+%global subdir36    swift-certificates
 
-%global forgeurl37 https://github.com/swiftlang/swift-lmdb
-%global tag37      swift-%{version0}-RELEASE
-%global subdir37   swift-lmdb
-   
-%global forgeurl38 https://github.com/swiftlang/swift-docc-render-artifact
-%global tag38      swift-%{version0}-RELEASE
-%global subdir38   swift-docc-render-artifact
+%global forgeurl37  https://github.com/swiftlang/swift-installer-scripts
+%global tag37       swift-%{version0}-RELEASE
+%global subdir37    swift-installer-scripts
 
-%global forgeurl39 https://github.com/swiftlang/swift-docc-symbolkit
-%global tag39      swift-%{version0}-RELEASE
-%global subdir39   swift-docc-symbolkit
+%global forgeurl38  https://github.com/swiftlang/swift-testing
+%global tag38       swift-%{version0}-RELEASE
+%global subdir38    swift-testing
 
-%global forgeurl40 https://github.com/swiftlang/swift-markdown
-%global tag40      swift-%{version0}-RELEASE
-%global subdir40   swift-markdown
+%global forgeurl39  https://github.com/swiftlang/swift-docc-render-artifact
+%global tag39       swift-%{version0}-RELEASE
+%global subdir39    swift-docc-render-artifact
 
-%global forgeurl41 https://github.com/apple/swift-nio
-%global tag41      2.65.0
-%global subdir41   swift-nio
+%global forgeurl40  https://github.com/apple/swift-async-algorithms
+%global tag40       1.0.1
+%global subdir40    swift-async-algorithms
 
-%global forgeurl42 https://github.com/swiftlang/swift-experimental-string-processing
-%global tag42      swift-%{version0}-RELEASE
-%global subdir42   swift-experimental-string-processing
+%global forgeurl41  https://github.com/swiftlang/swift-integration-tests
+%global tag41       swift-%{version0}-RELEASE
+%global subdir41    swift-integration-tests
 
-%global forgeurl43 https://github.com/swiftlang/swift-sdk-generator
-%global tag43      swift-%{version0}-RELEASE
-%global subdir43   swift-sdk-generator
+%global forgeurl42  https://github.com/apple/swift-crypto
+%global tag42       3.0.0
+%global subdir42    swift-crypto
 
-%global forgeurl44 https://github.com/WebAssembly/wasi-libc
-%global tag44      wasi-sdk-22
-%global subdir44   wasi-libc
+%global forgeurl43  https://github.com/swiftlang/swift-sdk-generator
+%global tag43       swift-%{version0}-RELEASE
+%global subdir43    swift-sdk-generator
 
-%global forgeurl45 https://github.com/swiftwasm/WasmKit
-%global tag45      0.1.2
-%global subdir45   wasmkit
+%global forgeurl44  https://github.com/swiftlang/llvm-project
+%global tag44       swift-%{version0}-RELEASE
+%global subdir44    llvm-project
 
-%global forgeurl46 https://github.com/curl/curl
-%global tag46      curl-8_9_1
-%global subdir46   curl
+%global forgeurl45  https://github.com/curl/curl
+%global tag45       curl-8_9_1
+%global subdir45    curl
 
-%global forgeurl47 https://github.com/gnome/libxml2
-%global tag47      v2.11.5
-%global subdir47   libxml2
+%global forgeurl46  https://github.com/apple/swift-xcode-playground-support
+%global tag46       swift-%{version0}-RELEASE
+%global subdir46    swift-xcode-playground-support
 
-%global forgeurl48 https://github.com/madler/zlib
-%global tag48      v1.3.1
-%global subdir48   zlib
+%global forgeurl47  https://github.com/swiftlang/swift-experimental-string-processing
+%global tag47       swift-%{version0}-RELEASE
+%global subdir47    swift-experimental-string-processing
+
+%global forgeurl48  https://github.com/apple/swift-numerics
+%global tag48       1.0.2
+%global subdir48    swift-numerics
+
+%global forgeurl49  https://github.com/swiftlang/swift-docc
+%global tag49       swift-%{version0}-RELEASE
+%global subdir49    swift-docc
+
+# End forge sources
 
 Name:           swift-lang
 Release:        %autorelease
@@ -215,7 +222,7 @@ License:        Apache-2.0
 URL:            https://www.swift.org
 
 %{lua:
-for i = 0, 48 do
+for i = 0, 49 do
   local forgesource = rpm.expand("%{?forgesource" .. i .. "}")
   if forgesource ~= "" then
     print("Source" .. i .. ":    " .. forgesource .. "\n")
@@ -227,14 +234,14 @@ Source99:       swiftlang.conf
 # NOTE: The patch number corresponds to the source it's packaging. For example,
 # Patch25 is patching Source25, swift-foundation.
 Patch0:         swift.patch
-Patch1:         llvm-project.patch
-Patch3:         cmark.patch
-Patch4:         llbuild.patch
+Patch44:        llvm-project.patch
+Patch15:        cmark.patch
+Patch5:         llbuild.patch
 Patch7:         swiftpm.patch
-Patch25:        swift-foundation.patch
-Patch26:        swift-corelibs-libdispatch.patch
-Patch29:        ninja.patch
-Patch31:        cmake.patch
+Patch13:        swift-foundation.patch
+Patch25:        swift-corelibs-libdispatch.patch
+Patch24:        ninja.patch
+Patch9:         cmake.patch
 
 BuildRequires:  clang
 BuildRequires:  swig
@@ -296,7 +303,7 @@ correct programs easier for the developer.
 %forgesetup -a
 cd %{builddir}
 %{lua:
-for i = 0, 48 do
+for i = 0, 49 do
   local subdir = rpm.expand("%{?subdir" .. i .. "}")
   if subdir ~= "" then
     print(rpm.expand("mv %{archivename" .. i .. "} " .. subdir .. "\n"))
@@ -305,14 +312,14 @@ end
 }
 
 %patch 0
-%patch 1
-%patch 3 
-%patch 4
+%patch 44
+%patch 15
+%patch 5
 %patch 7 
+%patch 13
 %patch 25
-%patch 26
-%patch 29
-%patch 31
+%patch 24
+%patch 9
 
 # Fix python to python3 
 %py3_shebang_fix swift/utils/api_checker/swift-api-checker.py

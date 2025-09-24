@@ -26,9 +26,9 @@
 # See the file "rocclr/device/comgrctx.cpp" for reference:
 # https://github.com/ROCm-Developer-Tools/ROCclr/blob/develop/device/comgrctx.cpp#L62
 
-%global rocm_major 6
-%global rocm_minor 4
-%global rocm_patch 2
+%global rocm_major 7
+%global rocm_minor 0
+%global rocm_patch 1
 %global rocm_release %{rocm_major}.%{rocm_minor}
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -81,7 +81,7 @@
 
 Name:           rocclr
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm Compute Language Runtime
 Url:            https://github.com/ROCm/clr
 License:        MIT
@@ -397,6 +397,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/hip/LICENSE.txt
 %endif
 
 %changelog
+* Mon Sep 22 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-1
+- Update to 7.0.1
+
 * Wed Aug 27 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-4
 - Add Fedora copyright
 

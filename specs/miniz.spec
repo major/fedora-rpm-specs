@@ -1,6 +1,6 @@
 Name:       miniz
-Version:    3.0.2
-Release:    9%{?dist}
+Version:    3.1.0
+Release:    1%{?dist}
 Summary:    Compression library implementing the zlib and Deflate
 # examples/example1.c:  Unlicense (refers to "unlicense" statement at the end
 #                       of tinfl.c from miniz-1.15)
@@ -19,14 +19,13 @@ Source0:    %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 # Adjust examples for building against a system miniz library,
 # not suitable for upstream that prefers a copy-lib approach.
 Patch0:     miniz-2.2.0-Examples-to-include-system-miniz.h.patch
-# Fix build with CMake 4.0
-Patch1:     miniz-cmake4.patch
 BuildRequires:  cmake
 BuildRequires:  coreutils
 # diffutils for cmp
 BuildRequires:  diffutils
 %if "%{toolchain}" == "gcc"
 BuildRequires:  gcc
+BuildRequires:  gcc-g++
 %else
 %if "%{toolchain}" == "clang"
 BuildRequires:  clang
@@ -60,7 +59,6 @@ Header files for developing applications that use the %{name} library.
 %prep
 %setup -q -n %{name}-%{version}
 %patch -P0 -p1
-%patch -P1 -p1
 
 # Normalize end-of-lines
 dos2unix -k ChangeLog.md LICENSE
@@ -110,6 +108,10 @@ done
 
 
 %changelog
+* Mon Sep 22 2025 Paul Howarth <paul@city-fan.org> - 3.1.0-1
+- Update to 3.1.0 (rhbz#2397198)
+- C++ compiler needed for tests
+
 * Tue Jul 29 2025 Dominik Mierzejewski <dominik@greysector.net> - 3.0.2-9
 - switch to tar.gz source to avoid manual build
 - build using CMake (use upstream SONAME)

@@ -1,8 +1,8 @@
 %global pypi_name requests-pkcs12
 
 Name:           python-%{pypi_name}
-Version:        1.25
-Release:        7%{?dist}
+Version:        1.27
+Release:        1%{?dist}
 Summary:        Add PKCS12 support to the requests library
 
 License:        ISC
@@ -62,6 +62,10 @@ fi
 %doc README.rst
 
 %changelog
+* Mon Sep 22 2025 Lukas Slebodnik <lslebodn@fedoraproject.org> - 1.27-1
+- New upstream version 1.27
+- Fix serialisation on FIPS enabled system
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.25-7
 - Rebuilt for Python 3.14.0rc3 bytecode
 

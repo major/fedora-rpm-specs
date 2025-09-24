@@ -18,7 +18,7 @@ BuildRequires:  rust-std-static-x86_64-unknown-uefi
 %endif
 
 Name:           virt-firmware-rs
-Version:        25.8
+Version:        25.9
 Release:        %autorelease
 Summary:        Tools for EFI and virtual machine firmware
 
@@ -38,6 +38,7 @@ License:        %{shrink:
 URL:            https://gitlab.com/kraxel/virt-firmware-rs
 Source:         https://gitlab.com/kraxel/%{name}/-/archive/v%{version}/%{name}-v%{version}.tar.gz
 
+ExclusiveArch:  x86_64 aarch64 riscv64
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  pkgconfig(libudev)
 
@@ -61,7 +62,6 @@ firmware.  This package has EFI applications for %{efiarch}.
 %autosetup -n %{name}-v%{version} -p1
 %cargo_prep
 # drop unused packages from workspace to reduce dependencies.
-sed -i Cargo.toml -e '/varstore/d'
 %if %{without efi_apps}
 sed -i Cargo.toml -e '/efi-apps/d'
 %endif
@@ -73,6 +73,7 @@ sed -i Cargo.toml -e '/efi-apps/d'
 %cargo_build -- --package virtfw-efi-tools --features udev
 %cargo_build -- --package virtfw-efi-tools
 %cargo_build -- --package virtfw-igvm-tools
+%cargo_build -- --package virtfw-varstore --features std,json,pem
 %if %{with efi_apps}
 %cargo_build -- --package virtfw-efi-apps --target $(uname -m)-unknown-uefi
 %endif
@@ -85,6 +86,7 @@ install -d %{buildroot}%{_bindir}
 install -v -m 755 target/rpm/generate-boot-csv %{buildroot}%{_bindir}
 install -v -m 755 target/rpm/list-sb-vars %{buildroot}%{_bindir}
 install -v -m 755 target/rpm/mini-bootcfg %{buildroot}%{_bindir}
+install -v -m 755 target/rpm/setup-efi-vars %{buildroot}%{_bindir}
 install -v -m 755 target/rpm/uefi-boot-menu %{buildroot}%{_bindir}/uefi-boot-menu-rs
 install -v -m 755 target/rpm/igvm-inspect %{buildroot}%{_bindir}
 install -v -m 755 target/rpm/igvm-wrap %{buildroot}%{_bindir}
@@ -99,13 +101,10 @@ for dir in efi-apps efi-tools igvm-tools; do
 done
 
 %check
-%ifarch s390x
-echo "skip tests on bigendian"
-%else
 %cargo_test -- --package virtfw-libefi
 %cargo_test -- --package virtfw-efi-tools --features udev
 %cargo_test -- --package virtfw-igvm-tools
-%endif
+%cargo_test -- --package virtfw-varstore
 
 %files
 %license LICENSE LICENSE.dependencies
@@ -115,6 +114,7 @@ echo "skip tests on bigendian"
 %{_bindir}/generate-boot-csv
 %{_bindir}/list-sb-vars
 %{_bindir}/mini-bootcfg
+%{_bindir}/setup-efi-vars
 %{_bindir}/uefi-boot-menu-rs
 %{_bindir}/igvm-inspect
 %{_bindir}/igvm-wrap

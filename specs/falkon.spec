@@ -2,7 +2,7 @@
 %bcond python 0
 
 Name:           falkon
-Version:        25.08.0
+Version:        25.08.1
 Release:        1%{?dist}
 Summary:        Modern web browser
 
@@ -181,6 +181,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.fa
 
 
 %changelog
+* Sun Sep 21 2025 Steve Cossette <farchord@gmail.com> - 25.08.1-1
+- 25.08.1
+
 * Fri Aug 08 2025 Steve Cossette <farchord@gmail.com> - 25.08.0-1
 - 25.08.0
 

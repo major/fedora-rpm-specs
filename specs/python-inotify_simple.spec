@@ -24,7 +24,7 @@ whistles, just a literal wrapper with ctypes. Only 122 lines of code!
 
 Name:           python-%sname
 Version:        1.3.5
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        %{sum Python}
 BuildArch:      noarch
 
@@ -98,6 +98,9 @@ Summary:        %{sum Python 3}
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.3.5-16
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.3.5-15
 - Rebuilt for Python 3.14.0rc2 bytecode
 

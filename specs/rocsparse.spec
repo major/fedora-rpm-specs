@@ -26,8 +26,8 @@
 %endif
 
 %global upstreamname rocSPARSE
-%global rocm_release 6.4
-%global rocm_patch 2
+%global rocm_release 7.0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -92,7 +92,7 @@
   -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \\\
   -DROCM_SYMLINK_LIBS=OFF \\\
   -DHIP_PLATFORM=amd \\\
-  -DBUILD_OFFLOAD_COMPRESS=%{build_compress} \\\
+  -DBUILD_WITH_OFFLOAD_COMPRESS=%{build_compress} \\\
   -DBUILD_CLIENTS_BENCHMARKS=%{build_test} \\\
   -DBUILD_CLIENTS_TESTS=%{build_test} \\\
   -DBUILD_CLIENTS_TESTS_OPENMP=OFF \\\
@@ -100,13 +100,13 @@
 
 Name:           %{rocsparse_name}
 Version:        %{rocm_version}
-Release:        8%{?dist}
+Release:        1%{?dist}
 Summary:        SPARSE implementation for ROCm
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
 
 Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
-Patch0:         0001-rocsparse-offload-compress.patch
+# Patch0:         0001-rocsparse-offload-compress.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -248,6 +248,9 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Sat Sep 20 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-1
+- Update to 7.0.1
+
 * Wed Aug 27 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-8
 - Add Fedora copyright
 

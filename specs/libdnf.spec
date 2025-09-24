@@ -56,7 +56,7 @@
 
 Name:           libdnf
 Version:        %{libdnf_major_version}.%{libdnf_minor_version}.%{libdnf_micro_version}
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Library providing simplified C and Python API to libsolv
 License:        LGPL-2.1-or-later
 URL:            https://github.com/rpm-software-management/libdnf
@@ -68,6 +68,8 @@ Patch1:         0001-spec-Consistently-use-CMake-RPM-macros.patch
 Patch2:         1704.patch
 # https://github.com/rpm-software-management/libdnf/pull/1710
 Patch3:         1710.patch
+# https://github.com/rpm-software-management/libdnf/pull/1710
+Patch4:         0001-Stop-importing-subkeys-to-RPM-5.99.90.patch
 
 BuildRequires:  cmake >= 3.5.0
 BuildRequires:  gcc
@@ -311,6 +313,9 @@ popd
 %endif
 
 %changelog
+* Mon Sep 22 2025 Adam Williamson <awilliam@redhat.com> - 0.74.0-8
+- Backport PR #1724 to fix subkey import issue (#2372978)
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.74.0-7
 - Rebuilt for Python 3.14.0rc3 bytecode
 

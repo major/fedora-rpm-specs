@@ -8,15 +8,13 @@ Python 3.6.
 
 
 Name:           python-atpublic
-Version:        4.1.0
-Release:        8%{?dist}
+Version:        6.0.1
+Release:        1%{?dist}
 Summary:        Decorator for populating a Python module's __all__
 
 License:        Apache-2.0
 URL:            https://gitlab.com/warsaw/public
 Source:         %pypi_source atpublic
-
-Patch:          disable_cov.patch
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel
@@ -35,7 +33,7 @@ Requires:       python3-setuptools
 
 
 %prep
-%autosetup -n atpublic-%{version}
+%autosetup -n public-%{version}
 
 
 %generate_buildrequires
@@ -63,6 +61,9 @@ export ATPUBLIC_BUILD_EXTENSION=1
 
 
 %changelog
+* Mon Sep 22 2025 Federico Pellegrin <fede@evolware.org> - 6.0.1-1
+- Bump to 6.0.1
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.1.0-8
 - Rebuilt for Python 3.14.0rc3 bytecode
 

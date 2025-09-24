@@ -4,11 +4,11 @@
 %bcond_with mingw
 %endif
 
-%global data_version 1.22
+%global data_version 1.23
 Name:           proj
 # Also check whether there is a new proj-data release when upgrading!
-Version:        9.6.2
-Release:        2%{?dist}
+Version:        9.7.0
+Release:        1%{?dist}
 Summary:        Cartographic projection software (PROJ)
 
 License:        MIT
@@ -364,6 +364,9 @@ rm -rf %{buildroot}%{mingw64_datadir}/bash-completion
 
 
 %changelog
+* Mon Sep 22 2025 Sandro Mani <manisandro@gmail.com> - 9.7.0-1
+- Update to 9.7.0
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.6.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

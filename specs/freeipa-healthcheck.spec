@@ -16,8 +16,8 @@
 %bcond_without tests
 
 Name:           %{prefix}-healthcheck
-Version:        0.18
-Release:        8%{?dist}
+Version:        0.19
+Release:        1%{?dist}
 Summary:        Health check tool for %{productname}
 BuildArch:      noarch
 License:        GPL-3.0-or-later
@@ -160,6 +160,9 @@ PYTHONPATH=src PATH=$PATH:$RPM_BUILD_ROOT/usr/bin pytest-3 tests/test_*
 
 
 %changelog
+* Mon Sep 22 2025 Rob Crittenden <rcritten@redhat.com> - 0.19-1
+- Update to 0.19 release
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.18-8
 - Rebuilt for Python 3.14.0rc3 bytecode
 

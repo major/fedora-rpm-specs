@@ -1,6 +1,6 @@
 Name:           salt-lint
 Version:        0.9.2
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Salt State file (SLS) lint tool
 
 License:        MIT
@@ -49,6 +49,9 @@ install -Dpm 0644 docs/man/salt-lint.1 %{buildroot}%{_mandir}/man1/salt-lint.1
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.9.2-11
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.9.2-10
 - Rebuilt for Python 3.14.0rc2 bytecode
 

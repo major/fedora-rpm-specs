@@ -21,8 +21,8 @@
 #
 %global upstreamname hipCUB
 
-%global rocm_release 6.4
-%global rocm_patch 2
+%global rocm_release 7.0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 # Compiler is hipcc, which is clang based:
@@ -51,7 +51,7 @@
 
 Name:           hipcub
 Version:        %{rocm_version}
-Release:        5%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm port of CUDA CUB library
 
 Url:            https://github.com/ROCm
@@ -160,6 +160,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/hipcub/LICENSE.txt
 %endif
 
 %changelog
+* Sat Sep 20 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-1
+- Update to 7.0.1
+
 * Wed Aug 27 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-5
 - Add Fedora copyright
 

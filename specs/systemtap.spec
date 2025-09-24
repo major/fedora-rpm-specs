@@ -121,11 +121,17 @@ m     stapsys  stapsys\
 m     stapdev  stapusr\
 m     stapdev  stapdev
 
+%define _systemtap_server_preinstall_tmpfiles \
+# See systemd-tmpfiles(8) tmpfiles.d(5)\
+d /var/lib/stap-server 0750 stap-server stap-server -\
+d /var/lib/stap-server/.systemtap 0700 stap-server stap-server -\
+d /var/log/stap-server 0755 stap-server stap-server -\
+f /var/log/stap-server/log 0644 stap-server stap-server -
 
 Name: systemtap
 # PRERELEASE
-Version: 5.3
-Release: 5%{?release_override}%{?dist}
+Version: 5.4~pre17585496g86ab88eb
+Release: 1%{?release_override}%{?dist}
 # for version, see also configure.ac
 
 
@@ -161,7 +167,7 @@ Release: 5%{?release_override}%{?dist}
 Summary: Programmable system-wide instrumentation system
 License: GPL-2.0-or-later
 URL: https://sourceware.org/systemtap/
-Source: ftp://sourceware.org/pub/systemtap/releases/systemtap-%{version}.tar.gz
+Source: %{name}-%{version}.tar.gz
 
 # Build*
 BuildRequires: make
@@ -389,6 +395,10 @@ boot-time probing if supported.
 Summary: Static probe support header files
 License: GPL-2.0-or-later AND CC0-1.0
 URL: https://sourceware.org/systemtap/
+%if 0%{?rhel} && 0%{?rhel} <= 10
+# for RHEL buildability compatibility, pull in sdt-dtrace at all times
+Requires: systemtap-sdt-dtrace = %{version}-%{release}
+%endif
 
 %description sdt-devel
 This package includes the <sys/sdt.h> header file used for static
@@ -730,6 +740,8 @@ mkdir -p %{buildroot}%{_sysusersdir}
 echo '%_systemtap_runtime_preinstall' > %{buildroot}%{_sysusersdir}/systemtap-runtime.conf
 echo '%_systemtap_server_preinstall' > %{buildroot}%{_sysusersdir}/systemtap-server.conf
 echo '%_systemtap_testsuite_preinstall' > %{buildroot}%{_sysusersdir}/systemtap-testsuite.conf
+mkdir -p %{buildroot}%{_tmpfilesdir}
+echo '%_systemtap_server_preinstall_tmpfiles' > %{buildroot}%{_tmpfilesdir}/systemtap-server.conf
 %endif
 
 
@@ -863,7 +875,7 @@ make check RUNTESTFLAGS=environment_sanity.exp
 
 %pre runtime
 %if %{with_sysusers}
-%if 0%{?fedora} && 0%{?fedora} < 42
+%if (0%{?fedora} && 0%{?fedora} < 42) || (0%{?rhel} && 0%{?rhel} < 11)
 echo '%_systemtap_runtime_preinstall' | systemd-sysusers --replace=%{_sysusersdir}/systemtap-runtime.conf -
 exit 0
 %endif
@@ -879,8 +891,9 @@ exit 0
 
 %pre server
 %if %{with_sysusers}
-%if 0%{?fedora} && 0%{?fedora} < 42
+%if (0%{?fedora} && 0%{?fedora} < 42) || (0%{?rhel} && 0%{?rhel} < 11)
 echo '%_systemtap_server_preinstall' | systemd-sysusers --replace=%{_sysusersdir}/systemtap-server.conf -
+echo '%_systemtap_server_preinstall_tmpfiles' | systemd-tmpfiles --replace=%{_tmpfilesdir}/systemtap-server.conf -
 exit 0
 %endif
 %else
@@ -893,7 +906,7 @@ exit 0
 
 %pre testsuite
 %if %{with_sysusers}
-%if 0%{?fedora} && 0%{?fedora} < 42
+%if (0%{?fedora} && 0%{?fedora} < 42) || (0%{?rhel} && 0%{?rhel} < 11)
 echo '%_systemtap_testsuite_preinstall' | systemd-sysusers --replace=%{_sysusersdir}/systemtap-testsuite.conf -
 exit 0
 %endif
@@ -1113,6 +1126,7 @@ exit 0
 %if %{with_systemd}
 %{_unitdir}/stap-server.service
 %{_tmpfilesdir}/stap-server.conf
+%{_tmpfilesdir}/systemtap-server.conf
 %else
 %{initdir}/stap-server
 %dir %{_sysconfdir}/stap-server/conf.d
@@ -1349,6 +1363,14 @@ exit 0
 
 # PRERELEASE
 %changelog
+* Mon Sep 22 2025 Frank Ch. Eigler <fche@redhat.com> - 5.4-17585496g86ab88eb
+- Automated weekly rawhide release
+- Applied spec changes from upstream git
+
+* Mon Sep 22 2025 Frank Ch. Eigler <fche@redhat.com> - 5.4-17585473g1fe4178d
+- Automated weekly rawhide release
+- Applied spec changes from upstream git
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 5.3-5
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -176,13 +176,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.17.0
 %define specversion 6.17.0
 %define patchversion 6.17
-%define pkgrelease 0.rc6.250919g097a6c336d008.53
+%define pkgrelease 0.rc7.56
 %define kversion 6
-%define tarfile_release 6.17-rc6-143-g097a6c336d008
+%define tarfile_release 6.17-rc7
 # This is needed to do merge window version magic
 %define patchlevel 17
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc6.250919g097a6c336d008.53%{?buildid}%{?dist}
+%define specrelease 0.rc7.56%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.17.0
 
@@ -4395,12 +4395,18 @@ fi\
 #
 #
 %changelog
-* Fri Sep 19 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.17.0-0.rc6.250919g097a6c336d008.53]
-- Linux v6.17.0-0.rc6.250919g097a6c336d008
-
-* Fri Sep 19 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc6.097a6c336d00.53]
+* Mon Sep 22 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc7.56]
 - arm64: dts: qcom: x1e80100-lenovo-yoga-slim7x: add Bluetooth support (Jens Glathe)
 - redhat/configs: clang_lto: disable CONFIG_FORTIFY_KUNIT_TEST (Scott Weaver)
+
+* Mon Sep 22 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc7.55]
+- Linux v6.17.0-0.rc7
+
+* Sun Sep 21 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc6.f975f08c2e89.54]
+- Linux v6.17.0-0.rc6.f975f08c2e89
+
+* Sat Sep 20 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc6.cd89d487374c.53]
+- Linux v6.17.0-0.rc6.cd89d487374c
 
 * Fri Sep 19 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc6.097a6c336d00.52]
 - os-build: Remove dead CONFIG_SCHED_DEBUG files (Phil Auld)

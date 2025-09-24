@@ -1,6 +1,6 @@
 Name:    kmix
 Summary: KDE volume control
-Version: 25.08.0
+Version: 25.08.1
 Release: 1%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later
@@ -98,6 +98,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.kmix.desktop
 
 
 %changelog
+* Sun Sep 21 2025 Steve Cossette <farchord@gmail.com> - 25.08.1-1
+- 25.08.1
+
 * Fri Aug 08 2025 Steve Cossette <farchord@gmail.com> - 25.08.0-1
 - 25.08.0
 

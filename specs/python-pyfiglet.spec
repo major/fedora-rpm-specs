@@ -1,7 +1,7 @@
 %global pypi_name   pyfiglet
 
 Name:           python-%{pypi_name}
-Version:        1.0.2
+Version:        1.0.4
 Release:        %autorelease
 Summary:        Pure-python FIGlet implementation
 
@@ -87,9 +87,6 @@ Source0:        pyfiglet-%{version}-no-contrib-font.tar.gz
 # USAGE:
 #   ./generate-pyfiglet-tarball.sh VERSION
 Source1:        generate-pyfiglet-tarball.sh
-
-# https://github.com/pwaller/pyfiglet/pull/137
-Patch0:         0001-Use-slant-instead-of-doh-to-use-only-fonts-contrib.patch
 
 BuildArch:      noarch
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval

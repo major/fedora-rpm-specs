@@ -1,11 +1,11 @@
 Name:           FlightGear-data
 Summary:        FlightGear base scenery and data files
-Version:        2024.1.1
-Release:        2%{?dist}
+Version:        2024.1.2
+Release:        1%{?dist}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
-Source0:        https://gitlab.com/flightgear/fgdata/-/archive/v%{version}/fgdata-v%{version}.tar.bz2
+Source0:        https://mirrors.ibiblio.org/flightgear/ftp/release-2024.1/FlightGear-%{version}-data.txz
 URL:            https://gitlab.com/flightgear/fgdata
 BuildArch:      noarch
 Obsoletes:      fgfs-base < 1.9.0-1
@@ -15,7 +15,7 @@ This package contains the base scenery for FlightGear and must be
 installed
 
 %prep
-%autosetup -p1 -n fgdata-v%{version}
+%autosetup -p1 -n fgdata_2024_1
 
 %build
 
@@ -62,6 +62,9 @@ done
 %{_datadir}/flightgear
 
 %changelog
+* Sun Sep 21 2025 Fabrice Bellet <fabrice@bellet.info> - 2024.1.2-1
+- new upstream release
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2024.1.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

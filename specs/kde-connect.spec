@@ -1,7 +1,7 @@
 %global base_name kdeconnect-kde
 
 Name:    kde-connect
-Version: 25.08.0
+Version: 25.08.1
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 Summary: KDE Connect client for communication with smartphones
@@ -150,7 +150,7 @@ desktop-file-edit --remove-key=OnlyShowIn %{buildroot}%{_sysconfdir}/xdg/autosta
 rm -fv %{buildroot}%{_kf6_libdir}/libkdeconnectinterfaces.a
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.kdeconnect.appdata.xml ||:
+appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.kdeconnect.metainfo.xml
 for i in %{buildroot}%{_kf6_datadir}/applications/org.kde.kdeconnect*.desktop ; do
 desktop-file-validate $i
 done
@@ -171,7 +171,6 @@ done
 %{_kf6_datadir}/knotifications6/*
 %{_kf6_datadir}/plasma/plasmoids/org.kde.kdeconnect/
 %{_kf6_datadir}/qlogging-categories6/kdeconnect*
-%{_kf6_metainfodir}/org.kde.kdeconnect.appdata.xml
 %{_kf6_metainfodir}/org.kde.kdeconnect.metainfo.xml
 %{_kf6_plugindir}/kfileitemaction/kdeconnectfileitemaction.so
 %{_kf6_plugindir}/kio/kdeconnect.so
@@ -192,6 +191,9 @@ done
 
 
 %changelog
+* Sun Sep 21 2025 Steve Cossette <farchord@gmail.com> - 25.08.1-1
+- 25.08.1
+
 * Fri Aug 08 2025 Steve Cossette <farchord@gmail.com> - 25.08.0-1
 - 25.08.0
 

@@ -6,8 +6,8 @@
 ExcludeArch: %{ix86}
 
 Name:    ktorrent
-Version: 25.08.0
-Release: 2%{?dist}
+Version: 25.08.1
+Release: 1%{?dist}
 Summary: A BitTorrent program
 
 License: GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND (GPL-2.0-only OR GPL-3.0-only)
@@ -131,6 +131,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.ktorrent.
 
 
 %changelog
+* Sun Sep 21 2025 Steve Cossette <farchord@gmail.com> - 25.08.1-1
+- 25.08.1
+
 * Sat Aug 16 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 25.08.0-2
 - Drop i686 support (leaf package)
 

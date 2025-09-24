@@ -12,7 +12,7 @@
 Summary:        Desktop full text search tool with Qt GUI
 Name:           recoll
 Version:        1.43.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            https://www.recoll.org
@@ -35,7 +35,6 @@ BuildRequires:  kf6-ki18n-devel
 BuildRequires:  kf6-krunner-devel
 BuildRequires:  kf6-knotifications-devel
 BuildRequires:  kf6-kpackage-devel
-
 BuildRequires:  libxslt-devel
 BuildRequires:  make
 BuildRequires:  meson
@@ -49,7 +48,8 @@ BuildRequires:  systemd-rpm-macros
 BuildRequires:  xapian-core-devel
 BuildRequires:  zlib-devel
 Requires:       xdg-utils
-
+Recommends:     (recoll-krunner if kf6-krunner)
+Suggests:       %{name}-helpers = %{version}-%{release}
 %description
 Recoll is a personal full text search package for Linux, FreeBSD and
 other Unix systems. It is based on a very strong back end (Xapian), for
@@ -68,6 +68,23 @@ Requires:      %{name}-libs = %{version}-%{release}
 Libraries and header files required to develop Recoll enabled
 applications.
 
+%package       helpers
+Summary:       External helpers to make recoll understand more document formats
+Requires:      %{name} = %{version}-%{release}
+Requires:      %{name} = %{version}-%{release}
+Recommends:    djvulibre
+Recommends:    ghostscript
+Recommends:    info
+Recommends:    libwpd-tools
+Recommends:    python-chardet
+Recommends:    python-rarfile
+Recommends:    python3-mutagen
+Suggests:      chmlib
+Suggests:      texlive-detex
+%description   helpers
+Package will bring in a set of external helpers to make recoll able to parse and extract
+information from various data formats
+
 %package       kio
 Summary:       KIO support for recoll
 Requires:      %{name} = %{version}-%{release}
@@ -80,7 +97,7 @@ displayed in Konqueror.
 %package       krunner
 Summary:       KRunner support for recoll
 Requires:      %{name} = %{version}-%{release}
-
+Supplements:   (kf6-krunner and recoll)
 %description   krunner
 The recoll KRunner plugin adds Recoll search results to KRunner output.
 
@@ -196,6 +213,9 @@ echo "%{_libdir}/recoll" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/recoll-%{_arc
 %{_libdir}/librecoll.so
 %{_includedir}/recoll
 
+%files helpers
+%license COPYING
+
 %files kio
 %license COPYING
 %{_libdir}/qt6/plugins/kf6/kio/kio_recoll.so
@@ -219,6 +239,11 @@ echo "%{_libdir}/recoll" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/recoll-%{_arc
 %{_datadir}/applications/org.recoll.Recoll.SearchProvider.desktop
 
 %changelog
+* Mon Sep 22 2025 Terje Rosten <terjeros@gmail.com> - 1.43.5-3
+- Add helpers subpackage
+- Add wek deps: conditional recommends on recoll-krunner if
+  kf6-krunner is present and corresponding backwards conditional supplements
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.43.5-2
 - Rebuilt for Python 3.14.0rc3 bytecode
 

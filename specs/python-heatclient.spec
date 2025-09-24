@@ -18,7 +18,7 @@ the OpenStack Heat API.
 
 Name:    python-heatclient
 Version: 4.0.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Python API and CLI for OpenStack Heat
 
 License: Apache-2.0
@@ -135,6 +135,9 @@ install -p -D -m 644 doc/build/man/heat.1 %{buildroot}%{_mandir}/man1/heat.1
 %endif
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.0.0-5
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.0.0-4
 - Rebuilt for Python 3.14.0rc2 bytecode
 

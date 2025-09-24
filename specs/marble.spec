@@ -1,7 +1,7 @@
 Name:    marble
 Summary: Virtual globe and world atlas
 Epoch:   1
-Version: 25.08.0
+Version: 25.08.1
 Release: 1%{?dist}
 
 License: Apache-2.0 AND BSD-3-Clause AND CC0-1.0 AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND MIT AND (LGPL-2.1-only WITH Qt-LGPL-exception-1.1)
@@ -167,7 +167,8 @@ mv src/3rdparty/zlib src/3rdparty/zlib.UNUSED ||:
   -DBUILD_QT_AND_KDE:BOOL=ON \
   -DMARBLE_DATA_PATH:PATH="%{_datadir}/marble/data" \
   -DMARBLE_PRI_INSTALL_DIR:PATH="%{_qt6_archdatadir}/mkspecs/modules" \
-  -DWITH_DESIGNER_PLUGIN:BOOL=OFF
+  -DWITH_DESIGNER_PLUGIN:BOOL=OFF \
+  -DBUILD_MARBLE_TOOLS=ON
 
 %cmake_build
 
@@ -224,8 +225,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.marble-qt.des
 
 %files plasma
 %{_kf6_plugindir}/krunner/plasma_runner_marble.so
-%{_kf6_metainfodir}/org.kde.plasma.worldclock.appdata.xml
-%{_kf6_metainfodir}/org.kde.plasma.worldmap.appdata.xml
 %{_datadir}/plasma/plasmoids/org.kde.plasma.worldclock/
 %{_datadir}/plasma/wallpapers/org.kde.plasma.worldmap/
 
@@ -263,6 +262,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.marble-qt.des
 
 
 %changelog
+* Sun Sep 21 2025 Steve Cossette <farchord@gmail.com> - 1:25.08.1-1
+- 25.08.1
+
 * Fri Aug 08 2025 Steve Cossette <farchord@gmail.com> - 1:25.08.0-1
 - 25.08.0
 

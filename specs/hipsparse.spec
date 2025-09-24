@@ -5,8 +5,8 @@
 %endif
 
 %global upstreamname hipSPARSE
-%global rocm_release 6.4
-%global rocm_patch 2
+%global rocm_release 7.0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -42,7 +42,7 @@
 
 Name:           %{hipsparse_name}
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm SPARSE marshalling library
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT
@@ -160,7 +160,7 @@ install -pm 644 %{_builddir}/%{name}-test-matrices/* %{buildroot}/%{_datadir}/%{
 
 %files
 %license LICENSE.md
-%{_libdir}/libhipsparse.so.1{,.*}
+%{_libdir}/libhipsparse.so.4{,.*}
 
 %files devel
 %doc README.md
@@ -179,6 +179,9 @@ install -pm 644 %{_builddir}/%{name}-test-matrices/* %{buildroot}/%{_datadir}/%{
 %endif
 
 %changelog
+* Sat Sep 20 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.0-1
+- Update to 7.0.1
+
 * Mon Aug 25 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-3
 - Simplify file removal
 

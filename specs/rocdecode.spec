@@ -27,8 +27,8 @@
 
 %global upstreamname rocDecode
 
-%global rocm_release 6.4
-%global rocm_patch 0
+%global rocm_release 7.0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -59,7 +59,7 @@
 
 Name:           %{rocdecode_name}
 Version:        %{rocm_version}
-Release:        8%{?dist}
+Release:        1%{?dist}
 Summary:        High-performance video decode SDK for AMD GPUs
 
 Url:            https://github.com/ROCm/rocDecode
@@ -168,15 +168,20 @@ rm -f %{buildroot}%{_prefix}/share/doc/packages/%{name}-asan/LICENSE
 
 %files
 %license LICENSE
-%{_libdir}/librocdecode.so.0{,.*}
+%{_libdir}/librocdecode.so.1{,.*}
 
 %files devel
+%dir %{_libdir}/cmake/rocdecode
 %{_libdir}/librocdecode.so
+%{_libdir}/cmake/rocdecode/*.cmake
 %{_includedir}/rocdecode
 %{_datadir}/rocdecode
 %exclude %{_datadir}/rocdecode/samples
 
 %changelog
+* Sun Sep 21 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-1
+- Update to 7.0.1
+
 * Wed Aug 27 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-8
 - Add Fedora copyright
 

@@ -4,8 +4,8 @@ ExcludeArch: %{ix86}
 
 Name:    kdegraphics-thumbnailers
 Summary: Thumbnailers for various graphic types
-Version: 25.08.0
-Release: 2%{?dist}
+Version: 25.08.1
+Release: 1%{?dist}
 
 # most sources GPLv2+, dscparse.* GPL, gscreator.* LGPLv2+,
 License: GPL-2.0-or-later
@@ -50,6 +50,9 @@ BuildRequires: cmake(KDcrawQt6)
 
 
 %changelog
+* Sun Sep 21 2025 Steve Cossette <farchord@gmail.com> - 25.08.1-1
+- 25.08.1
+
 * Sat Aug 16 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 25.08.0-2
 - Drop i686 support (leaf package)
 

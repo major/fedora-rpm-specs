@@ -27,8 +27,8 @@
 
 %global upstreamname rocJPEG
 
-%global rocm_release 6.4
-%global rocm_patch 0
+%global rocm_release 7.0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -59,7 +59,7 @@
 
 Name:           %{rocjpeg_name}
 Version:        %{rocm_version}
-Release:        9%{?dist}
+Release:        1%{?dist}
 Summary:        A high-performance jpeg decode library for AMD’s GPUs
 
 Url:            https://github.com/ROCm/rocJPEG
@@ -182,14 +182,19 @@ rm -f %{buildroot}%{_prefix}/share/doc/packages/%{name}-asan/LICENSE
 
 %files
 %license LICENSE
-%{_libdir}/librocjpeg.so.0{,.*}
+%{_libdir}/librocjpeg.so.1{,.*}
 
 %files devel
+%dir %{_libdir}/cmake/rocjpeg
 %{_libdir}/librocjpeg.so
+%{_libdir}/cmake/rocjpeg/*.cmake
 %{_includedir}/rocjpeg
 %{_datadir}/rocjpeg
 
 %changelog
+* Sun Sep 21 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-1
+- Update to 7.0.1
+
 * Wed Aug 27 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-9
 - Add Fedora copyright
 

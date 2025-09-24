@@ -1,13 +1,11 @@
 Name:           python-freeqdsk
-Version:        0.5.0
+Version:        0.5.2
 Release:        %{autorelease}
 Summary:        Read and write G-EQDSK, A-EQDSK, and P-EQDSK file formats
 
 License:        MIT
 URL:            https://github.com/freegs-plasma/FreeQDSK
 Source:         %pypi_source freeqdsk
-
-Patch:          https://github.com/freegs-plasma/FreeQDSK/pull/25.patch#./setuptools.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

@@ -56,7 +56,9 @@
 %bcond_without offload
 %endif
 
-%if %{without compat_build} && 0%{?fedora} >= 41
+# MLIR version 22 started to require nanobind >= 2.9, which is only available
+# on Fedora >= 44.
+%if %{without compat_build} && ((%{maj_ver} >= 22 && 0%{?fedora} >= 44) || (%{maj_ver} < 22 && 0%{?fedora} >= 41))
 %ifarch %{ix86}
 %bcond_with mlir
 %else
@@ -3326,6 +3328,7 @@ fi
 %expand_includes lldb
 %if %{maj_ver} >= 22
 %{expand_bins %{expand:
+    lldb-tblgen
     yaml2macho-core
 }}
 %endif

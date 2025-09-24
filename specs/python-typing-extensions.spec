@@ -7,6 +7,10 @@ License:        PSF-2.0
 URL:            https://pypi.org/project/typing-extensions/
 Source:         %{pypi_source typing_extensions}
 
+# fix test on 3.14
+# https://github.com/python/typing_extensions/pull/683
+Patch:          https://github.com/python/typing_extensions/pull/683.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

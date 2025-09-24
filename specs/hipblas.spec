@@ -26,7 +26,7 @@
 %endif
 
 %global upstreamname hipBLAS
-%global rocm_release 6.4
+%global rocm_release 7.0
 %global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -61,7 +61,7 @@
 
 Name:           %{hipblas_name}
 Version:        %{rocm_version}
-Release:        6%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm BLAS marshalling library
 Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 License:        MIT
@@ -170,7 +170,7 @@ rm -f %{buildroot}%{_prefix}/share/doc/hipblas/LICENSE.md
 
 %files
 %license LICENSE.md
-%{_libdir}/libhipblas.so.2{,.*}
+%{_libdir}/libhipblas.so.3{,.*}
 
 %files devel
 %doc README.md
@@ -186,6 +186,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/hipblas/LICENSE.md
 %endif
 
 %changelog
+* Sat Sep 20 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-1
+- Update to 7.0.1
+
 * Wed Aug 27 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.1-6
 - Add Fedora copyright
 

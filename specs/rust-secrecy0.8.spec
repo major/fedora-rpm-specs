@@ -2,21 +2,24 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate kbs-types
+%global crate secrecy
 
-Name:           rust-kbs-types
-Version:        0.13.0
+Name:           rust-secrecy0.8
+Version:        0.8.0
 Release:        %autorelease
-Summary:        Rust (de)serializable types for KBS
+Summary:        Wrapper types and traits for secret management
 
-License:        Apache-2.0
-URL:            https://crates.io/crates/kbs-types
+License:        Apache-2.0 OR MIT
+URL:            https://crates.io/crates/secrecy
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Rust (de)serializable types for KBS.}
+Wrapper types and traits for secret management which help ensure they
+aren't accidentally copied, logged, or otherwise exposed (as much as
+possible), and also ensure secrets are securely wiped from memory when
+dropped.}
 
 %description %{_description}
 
@@ -30,7 +33,9 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -58,16 +63,28 @@ use the "alloc" feature of the "%{crate}" crate.
 %files       -n %{name}+alloc-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+std-devel
+%package     -n %{name}+bytes-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+std-devel %{_description}
+%description -n %{name}+bytes-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "std" feature of the "%{crate}" crate.
+use the "bytes" feature of the "%{crate}" crate.
 
-%files       -n %{name}+std-devel
+%files       -n %{name}+bytes-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+serde-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+serde-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "serde" feature of the "%{crate}" crate.
+
+%files       -n %{name}+serde-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

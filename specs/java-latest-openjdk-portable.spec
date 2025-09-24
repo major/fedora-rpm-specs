@@ -334,9 +334,9 @@
 %endif
 
 # New Version-String scheme-style defines
-%global featurever 24
+%global featurever 25
 %global interimver 0
-%global updatever 2
+%global updatever 0
 %global patchver 0
 # buildjdkver is usually same as %%{featurever},
 # but in time of bootstrap of next jdk, it is featurever-1,
@@ -386,7 +386,6 @@
 # Define IcedTea version used for SystemTap tapsets and desktop file
 %global icedteaver      6.0.0pre00-c848b93a8598
 # Define current Git revision for the FIPS support patches
-%global fipsver 9203d50836c
 # Define JDK versions
 %global newjavaver %{featurever}.%{interimver}.%{updatever}.%{patchver}
 %global javaver         %{featurever}
@@ -400,8 +399,8 @@
 %global origin_nice     OpenJDK
 %global top_level_dir_name   %{vcstag}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
-%global buildver        12
-%global rpmrelease      1
+%global buildver        36
+%global rpmrelease      2
 #%%global tagsuffix     %%{nil}
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
@@ -568,7 +567,7 @@ Version: %{newjavaver}.%{buildver}
 # This package needs `.rolling` as part of Release so as to not conflict on install with
 # java-X-openjdk. I.e. when latest rolling release is also an LTS release packaged as
 # java-X-openjdk. See: https://bugzilla.redhat.com/show_bug.cgi?id=1647298
-Release: %{?eaprefix}%{rpmrelease}%{?extraver}.rolling%{?dist}.1
+Release: %{?eaprefix}%{rpmrelease}%{?extraver}.rolling%{?dist}
 # java-1.5.0-ibm from jpackage.org set Epoch to 1 for unknown reasons
 # and this change was brought into RHEL-4. java-1.5.0-ibm packages
 # also included the epoch in their virtual provides. This created a
@@ -684,15 +683,14 @@ Source18: TestTranslations.java
 # test/jdk/sun/security/pkcs11/fips/VerifyMissingAttributes.java: fixed jtreg main class
 # RH1940064: Enable XML Signature provider in FIPS mode
 # RH2173781: Avoid calling C_GetInfo() too early, before cryptoki is initialized [now part of JDK-8301553 upstream]
-#Patch1001: fips-%{featurever}u-%{fipsver}.patch
 
 #############################################
 #
 # OpenJDK patches in need of upstreaming
 #
 #############################################
-# Fix rawhide build failure with GCC 15
-Patch1100: 0001-Fix-name-class-of-uabs-with-GCC-15.patch
+
+# Currently empty
 
 #############################################
 #
@@ -707,8 +705,8 @@ Patch1100: 0001-Fix-name-class-of-uabs-with-GCC-15.patch
 # Portable build specific patches
 #
 #############################################
-Patch1101: revert8350202.patch
 
+# Currently empty
 
 BuildRequires: autoconf
 BuildRequires: automake
@@ -999,8 +997,6 @@ pushd %{top_level_dir_name}
 # Add crypto policy and FIPS support
 # Skipping fips patch whil eit is not ready for jdk22 %%patch -P1001 -p1
 # Patches in need of upstreaming
-%patch -P1100 -p1
-%patch -P1101 -p1
 popd # openjdk
 
 
@@ -1732,9 +1728,5 @@ done
 %{_jvmdir}/%{miscportablearchive}
 %{_jvmdir}/%{miscportablearchive}.sha256sum
 %endif
-
-%changelog
-* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:24.0.2.0.12-1.rolling.1
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
 %autochangelog

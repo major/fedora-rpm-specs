@@ -21,12 +21,12 @@
 #
 
 # Upstream tags are based on rocm releases:
-%global rocm_release 6.4
-%global rocm_patch 2
+%global rocm_release 7.0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 # What LLVM is upstream using (use LLVM_VERSION_MAJOR from llvm/CMakeLists.txt):
-%global llvm_maj_ver 19
+%global llvm_maj_ver 20
 %global upstreamname llvm-project
 
 %global toolchain clang
@@ -43,14 +43,14 @@
 
 Name:           rocm-omp
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm OpenMP
 
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        Apache-2.0 WITH LLVM-exception OR NCSA AND MIT
 Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{name}-%{rocm_version}.tar.gz
 
-Patch3:         0001-Remove-err_drv_duplicate_config-check.patch
+# Patch3:         0001-Remove-err_drv_duplicate_config-check.patch
 
 BuildRequires:  binutils-devel
 BuildRequires:  cmake
@@ -98,7 +98,7 @@ Requires:       rocm-omp-devel%{?_isa} = %{version}-%{release}
 rm -rf {bolt,clang,compiler-rt,flang,libc,libclc,libcxx,libcxxabi,libunwind,lld,lldb,llvm-libgcc,mlir,polly,pst,runtimes,utils}
 
 # cmake changed
-sed -i -e 's@cmake_minimum_required(VERSION 3.0 FATAL_ERROR)@cmake_minimum_required(VERSION 3.5 FATAL_ERROR)'@ openmp/libomptarget/*/CMakeLists.txt
+# sed -i -e 's@cmake_minimum_required(VERSION 3.0 FATAL_ERROR)@cmake_minimum_required(VERSION 3.5 FATAL_ERROR)'@ openmp/libomptarget/*/CMakeLists.txt
 
 %build
 
@@ -226,6 +226,9 @@ rm -rf %{buildroot}%{bundle_prefix}/lib/cmake/omptest
 %files static
 
 %changelog
+* Sun Sep 21 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-1
+- Update to 7.0.1
+
 * Thu Aug 28 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-4
 - Add Fedora copyright
 

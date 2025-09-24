@@ -34,24 +34,15 @@
 %ifarch x86_64
 %global enableimage 1
 %endif
-%global rocm_release 6.4
-%global rocm_patch 2
+%global rocm_release 7.0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_without kfdtest
 
-%bcond_with compat_gcc
-%if %{with compat_gcc}
-%global compat_gcc_major 13
-%global gcc_major_str -13
-%else
-%global compat_gcc_major %{nil}
-%global gcc_major_str %{nil}
-%endif
-
 Name:       %{runtime_name}
 Version:    %{rocm_version}
-Release:    5%{?dist}
+Release:    1%{?dist}
 Summary:    ROCm Runtime Library
 
 License:    NCSA
@@ -61,7 +52,7 @@ Source0:    %{url}/archive/rocm-%{version}.tar.gz#/%{forge_name}-%{version}.tar.
 ExclusiveArch:  x86_64
 
 BuildRequires:  cmake
-BuildRequires:  gcc%{compat_gcc_major}-c++
+BuildRequires:  gcc-c++
 BuildRequires:  libdrm-devel
 BuildRequires:  libffi-devel
 BuildRequires:  rocm-llvm-static
@@ -128,9 +119,6 @@ sed -i '/#include <memory>.*/a#include <cstdint>' runtime/hsa-runtime/core/inc/a
 
 export PATH=%{rocmllvm_bindir}:$PATH
 
-export CC=/usr/bin/gcc%{gcc_major_str}
-export CXX=/usr/bin/g++%{gcc_major_str}
-
 %cmake \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \
@@ -190,7 +178,11 @@ rm -f %{buildroot}%{_libdir}/pkgconfig/libhsakmt.pc
 %endif
 
 %changelog
-* Wed Aug 25 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-5
+* Thu Sep 18 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-1
+- Update to 7.0.1
+- Remove compat gcc
+
+* Wed Aug 27 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-5
 - Add Fedora copyright
 
 * Mon Aug 25 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-4

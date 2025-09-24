@@ -6,9 +6,9 @@
 # https://github.com/bits-and-blooms/bitset
 %global goipath         github.com/bits-and-blooms/bitset
 %global goaltipaths     github.com/willf/bitset
-Version:                1.2.0
+Version:                1.24.0
 
-%gometa
+%gometa -L -f
 
 %global common_description %{expand:
 Go package implementing bitsets.}
@@ -21,8 +21,7 @@ Release:        %autorelease
 Summary:        Go package implementing bitsets
 
 # Upstream license specification: BSD-3-Clause
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-3-Clause
 URL:            %{gourl}
 Source0:        %{gosource}
 

@@ -6,8 +6,8 @@
 ExcludeArch: %{ix86}
 
 Name:           accessibility-inspector
-Version:        25.08.0
-Release:        2%{?dist}
+Version:        25.08.1
+Release:        1%{?dist}
 Summary:        KDE Accessbility Inspector
 # LGPL: code
 # CC0: metadata
@@ -72,6 +72,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{app_id}.meta
 
 
 %changelog
+* Sun Sep 21 2025 Steve Cossette <farchord@gmail.com> - 25.08.1-1
+- 25.08.1
+
 * Sat Aug 16 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 25.08.0-2
 - Drop i686 support (leaf package)
 

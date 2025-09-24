@@ -1,6 +1,6 @@
 Name:    akonadi-calendar-tools
 Summary: Akonadi Calendar Tools
-Version: 25.08.0
+Version: 25.08.1
 Release: 1%{?dist}
 
 # code (generally) GPLv2, docs GFDL
@@ -65,6 +65,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/konsolekalendar.d
 
 
 %changelog
+* Sun Sep 21 2025 Steve Cossette <farchord@gmail.com> - 25.08.1-1
+- 25.08.1
+
 * Fri Aug 08 2025 Steve Cossette <farchord@gmail.com> - 25.08.0-1
 - 25.08.0
 

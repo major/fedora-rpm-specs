@@ -11,8 +11,8 @@
 %endif
 
 Name:          leptonica
-Version:       1.85.0
-Release:       4%{?dist}
+Version:       1.86.0
+Release:       2%{?dist}
 Summary:       C library for efficient image processing and image analysis operations
 
 License:       Leptonica
@@ -22,6 +22,8 @@ Source0:       https://github.com/DanBloomberg/leptonica/archive/%{version}/%{na
 # Fix library name on win32
 # Don't add _<CONFIG> suffix to pkgconfig filename
 Patch0:        leptonica_cmake.patch
+# Backport fix for broken pkgconfig file
+Patch1:        https://github.com/DanBloomberg/leptonica/commit/e0936377f9094b72f7f2ea6bc34311ccc69b2f71.patch
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -40,7 +42,7 @@ BuildRequires: gnuplot
 %endif
 
 %if %{with mingw}
-BuildRequires: mingw32-filesystem >= 95
+BuildRequires: mingw32-filesystem
 BuildRequires: mingw32-gcc-c++
 BuildRequires: mingw32-libjpeg-turbo
 BuildRequires: mingw32-libtiff
@@ -49,7 +51,7 @@ BuildRequires: mingw32-zlib
 BuildRequires: mingw32-giflib
 BuildRequires: mingw32-libwebp
 
-BuildRequires: mingw64-filesystem >= 95
+BuildRequires: mingw64-filesystem
 BuildRequires: mingw64-gcc-c++
 BuildRequires: mingw64-libjpeg-turbo
 BuildRequires: mingw64-libtiff
@@ -125,12 +127,12 @@ MinGW Windows Leptonica library.
 
 %build
 # Native build
-%cmake -DBUILD_PROG=ON
+%cmake -DSYM_LINK=ON -DBUILD_PROG=ON
 %cmake_build
 
 %if %{with mingw}
 # MinGW build
-%mingw_cmake -DBUILD_PROG=ON -DSW_BUILD=OFF
+%mingw_cmake -DSYM_LINK=ON -DBUILD_PROG=ON -DSW_BUILD=OFF
 %mingw_make_build
 %endif
 
@@ -139,13 +141,6 @@ MinGW Windows Leptonica library.
 %cmake_install
 %if %{with mingw}
 %mingw_make_install
-%endif
-
-# Compat symlinks
-ln -s %{_libdir}/libleptonica.so %{buildroot}%{_libdir}/liblept.so
-%if %{with mingw}
-ln -s %{mingw32_libdir}/libleptonica.dll.a %{buildroot}%{mingw32_libdir}/liblept.dll.a
-ln -s %{mingw64_libdir}/libleptonica.dll.a %{buildroot}%{mingw64_libdir}/liblept.dll.a
 %endif
 
 
@@ -163,8 +158,8 @@ ln -s %{mingw64_libdir}/libleptonica.dll.a %{buildroot}%{mingw64_libdir}/liblept
 
 %files devel
 %{_includedir}/%{name}
-%{_libdir}/liblept.so
 %{_libdir}/libleptonica.so
+%{_libdir}/liblept.so
 %{_libdir}/pkgconfig/lept.pc
 %{_libdir}/cmake/leptonica/
 
@@ -177,7 +172,6 @@ ln -s %{mingw64_libdir}/libleptonica.dll.a %{buildroot}%{mingw64_libdir}/liblept
 %{mingw32_bindir}/*.exe
 %{mingw32_bindir}/libleptonica-6.dll
 %{mingw32_includedir}/leptonica/
-%{mingw32_libdir}/liblept.dll.a
 %{mingw32_libdir}/libleptonica.dll.a
 %{mingw32_libdir}/pkgconfig/lept.pc
 %{mingw32_libdir}/cmake/leptonica/
@@ -188,7 +182,6 @@ ln -s %{mingw64_libdir}/libleptonica.dll.a %{buildroot}%{mingw64_libdir}/liblept
 %{mingw64_bindir}/*.exe
 %{mingw64_bindir}/libleptonica-6.dll
 %{mingw64_includedir}/leptonica/
-%{mingw64_libdir}/liblept.dll.a
 %{mingw64_libdir}/libleptonica.dll.a
 %{mingw64_libdir}/pkgconfig/lept.pc
 %{mingw64_libdir}/cmake/leptonica/
@@ -196,6 +189,12 @@ ln -s %{mingw64_libdir}/libleptonica.dll.a %{buildroot}%{mingw64_libdir}/liblept
 
 
 %changelog
+* Mon Sep 22 2025 Sandro Mani <manisandro@gmail.com> - 1.86.0-2
+- Backport fix for broken pkgconfig file
+
+* Thu Sep 18 2025 Sandro Mani <manisandro@gmail.com> - 1.86.0-1
+- Update to 1.86.0
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.85.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

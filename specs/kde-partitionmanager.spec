@@ -9,8 +9,8 @@
 ExcludeArch: %{ix86}
 
 Name:           kde-partitionmanager
-Version:        25.08.0
-Release:        3%{?dist}
+Version:        25.08.1
+Release:        1%{?dist}
 Summary:        KDE Partition Manager
 
 License:        GPL-3.0-or-later AND LGPL-3.0-or-later AND MIT AND CC-BY-4.0 AND CC0-1.0 AND GFDL-1.2-or-later
@@ -90,6 +90,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/*.appdata.
 
 
 %changelog
+* Sun Sep 21 2025 Steve Cossette <farchord@gmail.com> - 25.08.1-1
+- 25.08.1
+
 * Sun Aug 17 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 25.08.0-3
 - Drop i686 support (leaf package)
 

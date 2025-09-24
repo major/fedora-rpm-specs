@@ -3,11 +3,11 @@
 
 Name:           FlightGear
 Summary:        The FlightGear Flight Simulator
-Version:        2024.1.1
-Release:        2%{?dist}
+Version:        2024.1.2
+Release:        1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
-Source0:        https://gitlab.com/flightgear/flightgear/-/archive/v%{version}/flightgear-v%{version}.tar.bz2
+Source0:        https://gitlab.com/flightgear/fgmeta/-/jobs/11398677078/artifacts/raw/fgbuild/flightgear-%{version}.tar.bz2
 Patch:          0001-check-to-be-sure-that-n-is-not-being-set-as-format-t.patch
 Patch:          0002-Use-system-iaxclient-instead-of-bundled-one.patch
 Patch:          0003-make-fglauncher-a-static-library.patch
@@ -35,7 +35,7 @@ flight simulator ideas. We are developing a solid basic sim that can be
 expanded and improved upon by anyone interested in contributing
 
 %prep
-%autosetup -p1 -n flightgear-v%{version}
+%autosetup -p1 -n flightgear-%{version}
 rm -rf 3rdparty/iaxclient
 
 # make rpmlint happy
@@ -68,6 +68,7 @@ export CXXFLAGS="-fPIC $RPM_OPT_FLAGS"
 %install
 %cmake_install
 ln -s opengl-game-wrapper.sh $RPM_BUILD_ROOT%{_bindir}/fgfs-wrapper
+rm -rf $RPM_BUILD_ROOT/usr/appdir
 
 %files
 %doc AUTHORS NEWS README Thanks docs-mini/*
@@ -81,6 +82,9 @@ ln -s opengl-game-wrapper.sh $RPM_BUILD_ROOT%{_bindir}/fgfs-wrapper
 %{_datadir}/metainfo/*.metainfo.xml
 
 %changelog
+* Sun Sep 21 2025 Fabrice Bellet <fabrice@bellet.info> - 2024.1.2-1
+- new upstream release
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2024.1.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           python-pywlroots
 Version:        0.17.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Python binding to the wlroots library using cffi
 License:        NCSA
 
@@ -56,6 +56,9 @@ python3 wlroots/ffi_build.py
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.17.0-8
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.17.0-7
 - Rebuilt for Python 3.14.0rc2 bytecode
 

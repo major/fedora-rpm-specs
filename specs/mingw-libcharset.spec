@@ -3,13 +3,12 @@
 %global pkgname libcharset
 
 Name:          mingw-%{pkgname}
-Version:       1.17
+Version:       1.18
 Summary:       MinGW Windows libcharset library
-Release:       10%{?dist}
+Release:       1%{?dist}
 
 BuildArch:     noarch
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:       LicenseRef-Callaway-LGPLv2+
+License:       LGPL-2.0-or-later
 URL:           http://www.haible.de/bruno/packages-libcharset.html
 Source0:       https://ftp.gnu.org/pub/gnu/libiconv/libiconv-%{version}.tar.gz
 
@@ -79,6 +78,9 @@ find %{buildroot} -name *.la -delete
 
 
 %changelog
+* Mon Sep 22 2025 Sandro Mani <manisandro@gmail.com> - 1.18-1
+- Update to 1.18
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.17-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name:           akmods
-Version:        0.6.0
+Version:        0.6.1
 Release:        %autorelease
 Summary:        Automatic kmods build and install tool
 
@@ -26,15 +26,13 @@ Source17:       akmods-kmodgenca
 Source18:       akmods-keygen.target
 Source19:       akmods-keygen@.service
 Source20:       %{name}-tmpfiles.conf
+Source21:       akmods.sysusers.conf
 
 BuildArch:      noarch
 
 BuildRequires:  help2man
 
 # not picked up automatically
-%if 0%{?rhel} == 6
-Requires:       %{_bindir}/nohup
-%endif
 Requires:       %{_bindir}/flock
 Requires:       %{_bindir}/time
 
@@ -93,11 +91,6 @@ after they were installed.
 %setup -q -c -T
 cp -p %{SOURCE9} %{SOURCE10} %{SOURCE15} .
 
-# Create a sysusers.d config file
-cat >akmods.sysusers.conf <<EOF
-u akmods - 'User is used by akmods to build akmod packages' /var/cache/akmods/ -
-EOF
-
 
 %build
 # Nothing to build
@@ -147,7 +140,7 @@ help2man -N -i %{SOURCE3} -s 1 \
     -o %{buildroot}%{_mandir}/man1/akmodsbuild.1 \
        %{buildroot}%{_sbindir}/akmodsbuild
 
-install -m0644 -D akmods.sysusers.conf %{buildroot}%{_sysusersdir}/akmods.conf
+install -m0644 -D %{SOURCE21} %{buildroot}%{_sysusersdir}/akmods.conf
 
 
 

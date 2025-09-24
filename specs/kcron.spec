@@ -4,8 +4,8 @@ ExcludeArch: %{ix86}
 
 Name:    kcron
 Summary: Cron KDE configuration module
-Version: 25.08.0
-Release: 2%{?dist}
+Version: 25.08.1
+Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
@@ -63,6 +63,9 @@ Systemsettings module for the cron task scheduler.
 %{_kf6_qtplugindir}/plasma/kcms/systemsettings/kcm_cron.so
 
 %changelog
+* Sun Sep 21 2025 Steve Cossette <farchord@gmail.com> - 25.08.1-1
+- 25.08.1
+
 * Sat Aug 16 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 25.08.0-2
 - Drop i686 support (leaf package)
 

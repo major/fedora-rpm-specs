@@ -3,8 +3,8 @@
 ExcludeArch: %{ix86}
 
 Name:           krecorder
-Version:        25.08.0
-Release:        2%{?dist}
+Version:        25.08.1
+Release:        1%{?dist}
 License:        BSD-3-Clause AND CC-BY-4.0 AND CC0-1.0 AND GPL-3.0-or-later
 Summary:        Convergent KDE audio recording application
 Url:            https://invent.kde.org/utilities/krecorder
@@ -66,6 +66,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 %{_kf6_datadir}/icons/hicolor/scalable/apps/org.kde.%{name}.svg
 
 %changelog
+* Sun Sep 21 2025 Steve Cossette <farchord@gmail.com> - 25.08.1-1
+- 25.08.1
+
 * Sat Aug 16 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 25.08.0-2
 - Drop i686 support (leaf package)
 

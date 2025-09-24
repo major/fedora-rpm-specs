@@ -3,8 +3,8 @@
 ExcludeArch: %{ix86}
 
 Name:          kontrast
-Version:       25.08.0
-Release:       2%{?dist}
+Version:       25.08.1
+Release:       1%{?dist}
 Summary:       Color contrast checker
 # BSD, CC0 are only for build files
 License:       GPL-3.0-only AND GPL-3.0-or-later AND CC-BY-SA-4.0
@@ -75,6 +75,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Sun Sep 21 2025 Steve Cossette <farchord@gmail.com> - 25.08.1-1
+- 25.08.1
+
 * Sat Aug 16 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 25.08.0-2
 - Drop i686 support (leaf package)
 

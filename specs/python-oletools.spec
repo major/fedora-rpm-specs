@@ -1,6 +1,6 @@
 Name:           python-oletools
 Version:        0.56.2
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Tools to analyze Microsoft OLE2 files
 
 # oletools/*.py: BSD
@@ -223,6 +223,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{buildroot}%{_bindir}/mraptor-3 cheat
 
 
 %changelog
+* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.56.2-25
+- Rebuilt for Python 3.14.0rc3 bytecode
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.56.2-24
 - Rebuilt for Python 3.14.0rc2 bytecode
 

@@ -3,9 +3,9 @@
 
 # https://github.com/godoctor/godoctor
 %global goipath         github.com/godoctor/godoctor
-Version:                0.7
+Version:                0.8
 
-%gometa
+%gometa -L -f
 
 %global common_description %{expand:
 Go Doctor - The Golang Refactoring Engine.}
@@ -21,26 +21,14 @@ Summary:        A golang refactoring tool
 License:        BSD-3-Clause
 URL:            %{gourl}
 Source0:        %{gosource}
-# https://github.com/godoctor/godoctor/pull/61
-Patch:          0001-Add-missing-error-handlers-to-tests.patch
-# https://github.com/godoctor/godoctor/pull/62
-Patch:          0002-Normalize-paths-in-TestFindOccurrences.patch
-# https://github.com/godoctor/godoctor/pull/63
-Patch:          0003-Merge-pull-request-63-from-godoctor-fix-tests-1-20.patch
 # Fedora specific
-Patch:          0004-Skip-occurrence-test-that-uses-modules.patch
+Patch:          0001-Skip-names-tests-that-use-modules.patch
 # https://github.com/godoctor/godoctor/issues/60#issuecomment-1450973808
-Patch:          0005-Skip-tests-that-appear-to-be-broken.patch
-# https://github.com/godoctor/godoctor/pull/64
-Patch:          0006-Copy-existing-environment-when-loading-packages.patch
-# https://github.com/godoctor/godoctor/pull/66
-Patch:          0007-Fix-AST-test-on-Go-1.21.patch
-# https://github.com/godoctor/godoctor/pull/67
-Patch:          0008-Fix-some-non-constant-format-strings.patch
+Patch:          0002-Skip-tests-that-appear-to-be-broken.patch
 
-BuildRequires:  golang(github.com/willf/bitset)
-BuildRequires:  golang(golang.org/x/tools/go/ast/astutil)
-BuildRequires:  golang(golang.org/x/tools/go/loader)
+BuildRequires:  golang(github.com/bits-and-blooms/bitset) >= 1.5
+BuildRequires:  golang(golang.org/x/tools/go/ast/astutil) >= 0.7
+BuildRequires:  golang(golang.org/x/tools/go/loader) >= 0.7
 
 %description
 %{common_description}
@@ -61,7 +49,6 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 
 %if %{with check}
 %check
-#export GOCACHE="${PWD}/$(mktemp -d godoctor.XXXXXX)"
 %global gotestflags %{gotestflags} -timeout 60m
 %gocheck
 %endif

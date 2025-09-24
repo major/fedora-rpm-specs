@@ -1,5 +1,5 @@
 Name:    libkcddb 
-Version: 25.08.0
+Version: 25.08.1
 Release: 1%{?dist}
 Summary: CDDB retrieval library
 
@@ -97,6 +97,9 @@ Documentation for %{name}.
 
 
 %changelog
+* Sun Sep 21 2025 Steve Cossette <farchord@gmail.com> - 25.08.1-1
+- 25.08.1
+
 * Fri Aug 08 2025 Steve Cossette <farchord@gmail.com> - 25.08.0-1
 - 25.08.0
 

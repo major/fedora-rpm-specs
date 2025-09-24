@@ -20,8 +20,8 @@
 # THE SOFTWARE.
 #
 %global upstreamname roctracer
-%global rocm_release 6.4
-%global rocm_patch 0
+%global rocm_release 7.0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain clang
@@ -207,10 +207,13 @@ rm -rf rm %{buildroot}%{_datadir}/html
 %endif
 
 %changelog
+* Sat Sep 20 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-1
+- Update to 7.0.1
+
 * Wed Aug 27 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-6
 - Add Fedora copyright
 
-* Tue Aug 7 2025 Egbert Eich <eich@suse.com> - 6.4.0-5
+* Thu Aug 7 2025 Egbert Eich <eich@suse.com> - 6.4.0-5
 - Fix python dependencies for SUSE.
 
 * Thu Aug 7 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-4

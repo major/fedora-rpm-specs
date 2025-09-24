@@ -1,7 +1,7 @@
 %global dracut_modname 97walinuxagent
 
 Name:           WALinuxAgent
-Version:        2.13.1.1
+Version:        2.14.0.1
 Release:        %autorelease
 Summary:        The Microsoft Azure Linux Agent
 
@@ -11,7 +11,6 @@ Source0:        https://github.com/Azure/%{name}/archive/v%{version}.tar.gz
 Source1:        module-setup.sh
 
 Patch1:         0001-waagent.service-set-ConditionVirtualization-microsof.patch
-Patch2:         0001-Fedora-do-not-require-legacycrypt.patch
 
 BuildArch:      noarch
 

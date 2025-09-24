@@ -1,7 +1,7 @@
 Name:       beakerlib
 Summary:    A shell-level integration testing library
-Version:    1.31.4
-Release:    2%{?dist}
+Version:    1.31.5
+Release:    1%{?dist}
 License:    GPL-2.0-only
 BuildArch:  noarch
 URL:        https://github.com/%{name}
@@ -129,41 +129,35 @@ Files for syntax highlighting BeakerLib tests in VIM editor
 %{_datadir}/vim/vimfiles/after/syntax/beakerlib.vim
 
 %changelog
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.31.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+* Fri Sep 12 2025 Dalibor Pospisil <dapospis@redhat.com> - 1.31.5-1
+- fixed documentation of rlWaitForCmd
+- fixed writing to RO variables
+- fixed the test suite
 
-* Wed Jan 29 2025 Packit <hello@packit.dev> - 1.31.4-1
+* Wed Jan 29 2025 Dalibor Pospisil <dapospis@redhat.com> - 1.31.4-1
 - fixed getting base arch on Fedora and c10s
 - rlReport support SKIP result, by chuhu
 - fixed rlIsRHELLike on systems without /etc/os-release, e.g. RHEL-6
 - some minor updates
 
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.31.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Wed Nov 06 2024 Packit <hello@packit.dev> - 1.31.3-1
+* Wed Nov 11 2024 Dalibor Pospisil <dapospis@redhat.com> - 1.31.3-1
 - Ensure the dashes are removed from the test name prefix, by seberm
 
-* Wed Jul 17 2024 Packit <hello@packit.dev> - 1.31.2-1
+* Wed Jul 17 2024 Dalibor Pospisil <dapospis@redhat.com> - 1.31.2-1
 - do not block rlJournalPrint on journal.xml creation failure
 
-* Mon Jul 08 2024 Packit <hello@packit.dev> - 1.31.1-1
+* Mon Jul 8 2024 Dalibor Pospisil <dapospis@redhat.com> - 1.31.1-1
 - fixed variable dereference causing the rlFileSubmit to stick in endless loop
 
-* Wed Jul 03 2024 Packit <hello@packit.dev> - 1.31-1
+* Wed Jul 3 2024 Dalibor Pospisil <dapospis@redhat.com> - 1.31-1
 - dnf5: use --srpm for srpm downloads instead of --source
 
-* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.29.3-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.29.3-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.29.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.29.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+* Thu Mar 7 2024 Dalibor Pospisil <dapospis@redhat.com> - 1.30-1
+- prefer yum over direct download mechanism for the rpm downloads
+- a few code cleanups
+- fixed some typos
+- improved full fmf_id processing
+- changed installation prefix from / to /usr
 
 * Thu Oct 20 2022 Dalibor Pospisil <dapospis@redhat.com> - 1.29.3-1
 - support for fmf_id nick attribute
@@ -171,23 +165,19 @@ Files for syntax highlighting BeakerLib tests in VIM editor
 * Thu Aug 25 2022 Dalibor Pospisil <dapospis@redhat.com> - 1.29.2-1
 - improved performance and memory consumption of the fingerprint feature
 
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.29.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
 * Tue Jul 19 2022 Dalibor Pospisil <dapospis@redhat.com> - 1.29.1-1
+- fixed a check for os-release file existence
+
+* Wed Jun 29 2022 Dalibor Pospisil <dapospis@redhat.com> - 1.29-1
 - rlImport: upwards traversal start in the current directory
 - rlImport: support '.' to import lib.sh from the current directory
 - rlImport: can handle libraries required by the fmf_id in different forms than (url, name)
   also name-only. Also the path attribute is considered
 - fingerprint: an asserts fingerprint and phases fingerprint is computed
   it is printed as a message and it is also available in the TestResults file
-- fixed a check for os-release file existence
 - fixed LOG_LEVEL usage
 - removed dependency on selinuxenabled
 - fixed a few typos, thanks to jwakely@fedoraproject.org
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.28-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
 
 * Tue Nov 9 2021 Dalibor Pospisil <dapospis@redhat.com> - 1.28-1
 - cleanup rlRun_LOG files at rlJournalEnd
@@ -195,9 +185,6 @@ Files for syntax highlighting BeakerLib tests in VIM editor
 - implemented functions rlIsOS, rlIsOSLike, rlIsOSVersion, and rlIsRHELLike
 - rlAssertRequired can now handle versioned dependencies
 - new functions rlCheckRerquired, rlCheckRecommended, and rlCheckDependencies
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.27-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
 
 * Thu Mar 25 2021 Dalibor Pospisil <dapospis@redhat.com> - 1.27-1
 - rlCheckRequirements is now able to check also versions requirements
@@ -248,19 +235,10 @@ Files for syntax highlighting BeakerLib tests in VIM editor
 - silence status of service in rlService{Start,Stop,Restore} functions (#…
 - TESTPACKAGE variable to force package name (#54)
 
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.18-13
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
 * Tue Jun 9 2020 Dalibor Pospisil <dapospis@redhat.com> - 1.18-12
 - optiomized CPU info gathering
 - enhanced library search
 - added missing dependencies on /usr/bin/bc and /usr/bin/time
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.18-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Wed Jul 24 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.18-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
 
 * Mon Jun 3 2019 Dalibor Pospisil <dapospis@redhat.com> - 1.18-6
 - fixed correct python checking, bz1715479
@@ -287,26 +265,6 @@ Files for syntax highlighting BeakerLib tests in VIM editor
 - <prefix>LibraryDir variable pointing to the library directory for all imported libraries
 - fallback to curl if wget is not available
 - updated documentation
-
-* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.17-20
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Thu Oct 25 2018 Dalibor Pospisil <dapospis@redhat.com> - 1.17-19
-- fixed meta file generation
-- follow url redirection when using curl
-- fixed checking for python interpreter
-- weak dependency on python3
-- handling of missing python
-- fixed srpm fetching
-- fallback to curl if wget is not available
-- changed requirements structure
-
-* Thu Jul 12 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.17-16
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Mon Jun 25 2018 Dalibor Pospisil <dapospis@redhat.com> - 1.17-15
-- migrated to python3
-- weak dependency of python3-lxml - without this the journal.xml just will not be generated
 
 * Sat Feb 24 2018 Dalibor Pospisil <dapospis@redhat.com> - 1.17-13
 - rlRun -s now waits for output logs to be flushed, bz1361246 + bz1416796

@@ -20,20 +20,19 @@
 # THE SOFTWARE.
 #
 %global upstreamname rocminfo
-%global rocm_release 6.4
-%global rocm_patch 0
+%global rocm_release 7.0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 Name:       rocminfo
 Version:    %{rocm_version}
-Release:    3%{?dist}
+Release:    1%{?dist}
 Summary:    ROCm system info utility
 
 License:    NCSA
 URL:        https://github.com/ROCm/rocminfo
 Source0:    %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
 Patch0:     0001-adjust-CMAKE_CXX_FLAGS.patch
-Patch1:     0002-fix-buildtype-detection.patch
 
 ExclusiveArch:  x86_64
 
@@ -54,10 +53,16 @@ ROCm system info utility
 
 %if 0%{?fedora} || 0%{?rhel}
 %{__python3} %{_rpmconfigdir}/redhat/pathfix.py -i %{__python3} rocm_agent_enumerator
+%else
+# suse
+sed -i -e 's@/usr/bin/env python3@/usr/bin/python3@' rocm_agent_enumerator
 %endif
 
 %build
-%cmake -DROCM_DIR=/usr
+%cmake \
+    -DROCM_DIR=/usr \
+    -DCMAKE_BUILD_TYPE=RelWithDebInfo
+
 %cmake_build
 
 %install
@@ -75,6 +80,10 @@ chmod 755 %{buildroot}%{_bindir}/*
 %exclude %{_docdir}/*/License.txt
 
 %changelog
+* Thu Sep 18 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-1
+- Update to 7.0.1
+- Fix python path on SUSE
+
 * Wed Aug 27 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-3
 - Add Fedora copyright
 

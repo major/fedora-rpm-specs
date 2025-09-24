@@ -4,8 +4,8 @@ ExcludeArch: %{ix86}
 
 Name:    kolourpaint
 Summary: An easy-to-use paint program 
-Version: 25.08.0
-Release: 2%{?dist}
+Version: 25.08.1
+Release: 1%{?dist}
 
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD 
@@ -78,14 +78,15 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 %{_metainfodir}/org.kde.%{name}.appdata.xml
 %{_datadir}/applications/org.kde.%{name}.desktop
 %{_datadir}/icons/hicolor/*/*/*
-%{_qt6_settingsdir}/colors/*.colors
-%dnl %{_kf6_datadir}/kxmlgui5/%{name}/
 
 %files libs
 %{_libdir}/libkolourpaint_lgpl.so.5
 
 
 %changelog
+* Sun Sep 21 2025 Steve Cossette <farchord@gmail.com> - 25.08.1-1
+- 25.08.1
+
 * Sat Aug 16 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 25.08.0-2
 - Drop i686 support (leaf package)
 

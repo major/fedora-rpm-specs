@@ -1,6 +1,6 @@
 # Created by pyp2rpm-3.3.4
 Name:           python-zoidberg
-Version:        0.2.1
+Version:        0.2.2
 Release:        %{autorelease}
 Summary:        A Flux-Coordinate Independent (FCI) Grid Generator for BOUT++
 
@@ -8,8 +8,6 @@ License:        LGPL-3.0-or-later
 URL:            http://boutproject.github.io
 Source0:        %{pypi_source zoidberg}
 BuildArch:      noarch
-
-Patch:          https://github.com/boutproject/zoidberg/pull/38.patch#./version.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  pyproject-rpm-macros

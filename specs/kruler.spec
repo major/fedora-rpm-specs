@@ -4,8 +4,8 @@ ExcludeArch: %{ix86}
 
 Name:    kruler
 Summary: A screen ruler and color measurement tool 
-Version: 25.08.0
-Release: 2%{?dist}
+Version: 25.08.1
+Release: 1%{?dist}
 
 License: GFDL-1.2-or-later AND GPL-2.0-or-later
 URL:     https://www.kde.org/applications/graphics/kruler/
@@ -70,6 +70,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Sun Sep 21 2025 Steve Cossette <farchord@gmail.com> - 25.08.1-1
+- 25.08.1
+
 * Sat Aug 16 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 25.08.0-2
 - Drop i686 support (leaf package)
 

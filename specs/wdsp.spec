@@ -1,26 +1,23 @@
-# git ls-remote git://github.com/g0orx/wdsp.git
-%global git_commit c55342c5b15354a9ac2b8b16eb8748d5518f723c
-%global git_date 20210705
+# git ls-remote git://github.com/jimahlstrom/wdsp
+%global git_commit 18782be8d7e75bf7e41e1f23e912640de8d6ce58
+%global git_date 20250922
 
 %global git_short_commit %(echo %{git_commit} | cut -c -8)
 %global git_suffix %{git_date}git%{git_short_commit}
 
 Name:		wdsp
 Version:	0
-Release:	0.11.%{git_suffix}%{?dist}
+Release:	0.12.%{git_suffix}%{?dist}
 Summary:	DSP library for LinHPSDR
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
-URL:		https://github.com/g0orx/%{name}
+URL:		https://github.com/jimahlstrom/%{name}
 Source0:	%{url}/archive/%{git_commit}/%{name}-%{git_suffix}.tar.gz
 BuildRequires:	make
 BuildRequires:	gcc
 BuildRequires:	fftw-devel
 BuildRequires:	pkgconfig(gtk+-3.0)
-# https://github.com/g0orx/wdsp/pull/15
-Patch0:		wdsp-0-distro-makefile.patch
-# Encouraged upstream to add SONAME (https://github.com/g0orx/wdsp/pull/15)
-Patch1:		wdsp-0-soname-add.patch
+Patch0:		wdsp-0-soname-add.patch
 
 %description
 DSP library for LinHPSDR.
@@ -32,29 +29,43 @@ Requires:	%{name}%{?_isa} = %{version}-%{release}
 %description devel
 Development files for wdsp.
 
+%package doc
+Summary:	Documentation files for wdsp
+Requires:	%{name} = %{version}-%{release}
+BuildArch:	noarch
+
+%description doc
+Documentation files for wdsp.
+
 %prep
 %autosetup -n %{name}-%{git_commit} -p1
 
-# unbundle fftw
-rm -f fftw/*
-rmdir fftw
-
 %build
-%make_build OPTIONS="-fPIC -D _GNU_SOURCE" CFLAGS="%{build_cflags}" LDFLAGS="%{build_ldflags}" GTK_INCLUDE=GTK
+cd build_shared
+%make_build CFLAGS="%{build_cflags} -fPIC -D _GNU_SOURCE" LDFLAGS="%{build_ldflags}"
 
 %install
-%make_install LIBDIR="%{buildroot}%{_libdir}" INCLUDEDIR="%{buildroot}%{_includedir}"
+install -Dpm 0775 -t %{buildroot}%{_libdir} ./libwdsp.so.0.*
+cp ./libwdsp.so "%{buildroot}%{_libdir}/libwdsp.so"
+install -Dpm 0664 src/wdsp.h "%{buildroot}%{_includedir}/wdsp.h"
+install -Dpm 0664 "WDSP Guide, Rev 1.25.pdf" %{buildroot}/%{_docdir}/%{name}/"WDSP Guide, Rev 1.25.pdf"
 
 %files
 %doc README.md
-%license COPYING
+%license GNU_GENERAL_PUBLIC_LICENSE.txt
 %{_libdir}/libwdsp.so.0*
 
 %files devel
 %{_includedir}/wdsp.h
 %{_libdir}/libwdsp.so
 
+%files doc
+%{_docdir}/%{name}/WDSP\ Guide\,\ Rev\ 1.25.pdf
+
 %changelog
+* Mon Sep 22 2025 Jaroslav Škarvada  <jskarvad@redhat.com> - 0-0.12.20250922git18782be8
+- Switched to new upstream
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.11.20210705gitc55342c5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -5,8 +5,8 @@ ExcludeArch: %{ix86}
 
 Name:    bovo
 Summary: Five in a row game
-Version: 25.08.0
-Release: 2%{?dist}
+Version: 25.08.1
+Release: 1%{?dist}
 
 # code GPLv2+, docs GFDL
 License: GPL-2.0-or-later AND GFDL-1.2-or-later
@@ -78,6 +78,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Sun Sep 21 2025 Steve Cossette <farchord@gmail.com> - 25.08.1-1
+- 25.08.1
+
 * Sat Aug 16 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 25.08.0-2
 - Drop i686 support (leaf package)
 

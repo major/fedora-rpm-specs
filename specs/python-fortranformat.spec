@@ -7,16 +7,13 @@
 %bcond full_tests 0
 
 Name:           python-fortranformat
-Version:        2.0.0
+Version:        2.0.3
 Release:        %{autorelease}
 Summary:        FORTRAN format interpreter for Python
 
 License:        MIT
 URL:            https://github.com/brendanarnold/py-fortranformat
 Source:         %{url}/archive/refs/tags/v%{version}.tar.gz#./python-fortranformat-%{version}.tar.gz
-
-# https://github.com/brendanarnold/py-fortranformat/pull/34
-Patch:          https://github.com/brendanarnold/py-fortranformat/pull/34.patch#./remove-nose.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -67,7 +64,7 @@ sed -r -i 's@\bpython\b@%{python3}@' Makefile
 
 %install
 %pyproject_install
-%pyproject_save_files -l fortranformat
+%pyproject_save_files -l fortranformat -L
 
 
 %check
@@ -89,6 +86,7 @@ sed -r -i 's@\bpython\b@%{python3}@' Makefile
 %files -n python3-fortranformat -f %{pyproject_files}
 %doc README.*
 %doc CHANGELOG.md
+%license LICENSE
 
 %changelog
 %autochangelog

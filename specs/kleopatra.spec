@@ -3,8 +3,8 @@
 ExcludeArch: %{ix86}
 
 Name:    kleopatra
-Version: 25.08.0
-Release: 3%{?dist}
+Version: 25.08.1
+Release: 1%{?dist}
 Summary: KDE certificate manager and unified crypto GUI
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -110,6 +110,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_kf6_metainfodir}/org.kde.kleopatra.appdata.xml
 
 %changelog
+* Sun Sep 21 2025 Steve Cossette <farchord@gmail.com> - 25.08.1-1
+- 25.08.1
+
 * Wed Sep 03 2025 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 25.08.0-3
 - Add missing runtime dependencies (#2392841)
 

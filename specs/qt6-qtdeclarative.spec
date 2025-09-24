@@ -16,7 +16,7 @@
 Summary: Qt6 - QtDeclarative component
 Name:    qt6-%{qt_module}
 Version: 6.9.2
-Release: 1%{?dist}
+Release: 3%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -79,10 +79,6 @@ Requires:  %{name}%{?_isa} = %{version}-%{release}
 Requires:  qt6-qtbase-devel%{?_isa}
 Obsoletes: qt6-qtquickcontrols2-devel < 6.2.0~beta3-1
 Provides:  qt6-qtquickcontrols2-devel = %{version}-%{release}
-# rhbz#2330219
-# Require qt6-qtbase-private-devel until this is fixed upstream or a better
-# workaround is found.
-Requires: (qt6-qtbase-private-devel if cmake >= 3.31.0)
 %description devel
 %{summary}.
 
@@ -717,6 +713,12 @@ make check -k -C tests ||:
 %endif
 
 %changelog
+* Mon Sep 22 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.2-3
+- This time really drop "Requires: qt6-qtbase-private-devel"
+
+* Mon Sep 22 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.2-2
+- Drop "Requires: qt6-qtbase-private-devel"
+
 * Thu Aug 28 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.2-1
 - 6.9.2
 

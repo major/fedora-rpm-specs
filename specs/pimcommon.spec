@@ -1,5 +1,5 @@
 Name:    pimcommon
-Version: 25.08.0
+Version: 25.08.1
 Release: 1%{?dist}
 Summary: PIM common libraries
 
@@ -110,6 +110,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Sun Sep 21 2025 Steve Cossette <farchord@gmail.com> - 25.08.1-1
+- 25.08.1
+
 * Fri Aug 08 2025 Steve Cossette <farchord@gmail.com> - 25.08.0-1
 - 25.08.0
 

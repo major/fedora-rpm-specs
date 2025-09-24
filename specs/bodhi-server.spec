@@ -10,6 +10,8 @@ Summary:        Bodhi server
 License:        GPL-2.0-or-later
 URL:            https://github.com/fedora-infra/bodhi
 Source:         %{pypi_source bodhi_server}
+# Upstream commits 7fab645 and cbd503a
+Patch:          %{name}-bump-zstandard-dep.patch
 
 BuildArch:      noarch
 

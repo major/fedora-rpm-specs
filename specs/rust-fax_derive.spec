@@ -2,21 +2,23 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate kbs-types
+%global crate fax_derive
 
-Name:           rust-kbs-types
-Version:        0.13.0
+Name:           rust-fax_derive
+Version:        0.2.0
 Release:        %autorelease
-Summary:        Rust (de)serializable types for KBS
+Summary:        Bitstream matcher for the fax crate
 
-License:        Apache-2.0
-URL:            https://crates.io/crates/kbs-types
+License:        MIT
+URL:            https://crates.io/crates/fax_derive
 Source:         %{crates_source}
+# * Add a LICENSE file: https://github.com/pdf-rs/fax/pull/12
+Source10:       https://github.com/pdf-rs/fax/raw/5d70a161e33b62305f8bce7af3f7fbd011cfaf5d/LICENSE
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Rust (de)serializable types for KBS.}
+Bitstream matcher for the fax crate.}
 
 %description %{_description}
 
@@ -31,7 +33,6 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
-%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -46,32 +47,9 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+alloc-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+alloc-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "alloc" feature of the "%{crate}" crate.
-
-%files       -n %{name}+alloc-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+std-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+std-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "std" feature of the "%{crate}" crate.
-
-%files       -n %{name}+std-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %prep
 %autosetup -n %{crate}-%{version} -p1
+cp -p '%{SOURCE10}' .
 %cargo_prep
 
 %generate_buildrequires

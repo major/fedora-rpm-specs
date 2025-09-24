@@ -1,8 +1,8 @@
 %global forgeurl https://github.com/ytdl-org/youtube-dl/
-%global commit c5098961b04ce83f4615f2a846c84f803b072639
+%global commit a084c80f7bac9ae343075a97cc0fb2c1c96ade89
 
 Name:           youtube-dl
-Version:        2024.08.06.git%(c=%{commit}; echo ${c:0:7})
+Version:        2025.05.04.git%(c=%{commit}; echo ${c:0:7})
 Release:        %{autorelease}
 Summary:        A small command-line program to download online videos
 License:        Unlicense
@@ -10,7 +10,6 @@ URL:	        %{forgeurl}
 Source:         %{forgeurl}/archive/%{commit}/youtube-dl-%{commit}.tar.gz
 Source3:        %{name}.conf
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
 Requires:       python%{python3_pkgversion}-setuptools
 # Tests failed because of no connection in Koji.
 BuildArch:      noarch
@@ -40,21 +39,28 @@ sed -i '/README.txt/d' setup.py
 # Remove interpreter shebang from module files.
 find youtube_dl -type f -exec sed -i -e '1{/^\#!\/usr\/bin\/env python$/d;};' {} +
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
-make PYTHON=python3
+%pyproject_wheel
+%make_build PYTHON=python3
 
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l youtube_dl
 
 install -Dpm644 %{S:3} -t %{buildroot}%{_sysconfdir}
+install -Dpm644 youtube-dl.1 %{buildroot}%{_mandir}/man1/youtube-dl.1
 install -Dpm644 youtube-dl.bash-completion %{buildroot}%{_datadir}/bash-completion/completions/youtube-dl
 install -Dpm644 youtube-dl.zsh %{buildroot}%{_datadir}/zsh/site-functions/_youtube-dl
 install -Dpm644 youtube-dl.fish %{buildroot}%{_datadir}/fish/vendor_functions.d/youtube-dl.fish
 
 %check
+%pyproject_check_import
+
 # This basically cannot work without massive .flake8rc
 # starts with flake8 and of course no contributors bothered to make
 # their code truly PEP8 compliant.
@@ -62,11 +68,8 @@ install -Dpm644 youtube-dl.fish %{buildroot}%{_datadir}/fish/vendor_functions.d/
 # make offlinetest
 
 
-%files
+%files -f %{pyproject_files}
 %doc AUTHORS ChangeLog README.md
-%{python3_sitelib}/youtube_dl/
-%{python3_sitelib}/youtube_dl*.egg-info
-%license LICENSE
 %{_bindir}/%{name}
 %{_mandir}/man1/%{name}.1*
 %config(noreplace) %{_sysconfdir}/%{name}.conf

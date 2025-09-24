@@ -26,8 +26,8 @@
 %endif
 
 %global upstreamname rocBLAS
-%global rocm_release 6.4
-%global rocm_patch 2
+%global rocm_release 7.0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -48,7 +48,11 @@
 %global build_compress OFF
 %endif
 
+%if 0%{?fedora}
+%bcond_without test
+%else
 %bcond_with test
+%endif
 %if %{with test}
 %global build_test ON
 %global __brp_check_rpaths %{nil}
@@ -118,7 +122,6 @@
   -DBUILD_FORTRAN_CLIENTS=OFF \\\
   -DBUILD_OFFLOAD_COMPRESS=%{build_compress} \\\
   -DBUILD_WITH_HIPBLASLT=OFF \\\
-  -DTensile_COMPILER=hipcc \\\
   -DTensile_CPU_THREADS=${CORES} \\\
   -DTensile_LIBRARY_FORMAT=%{tensile_library_format} \\\
   -DTensile_VERBOSE=%{tensile_verbose} \\\
@@ -135,15 +138,15 @@
 
 Name:           %{rocblas_name}
 Version:        %{rocm_version}
-Release:        10%{?dist}
+Release:        1%{?dist}
 Summary:        BLAS implementation for ROCm
-Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
+Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT AND BSD-3-Clause
 
-Source0:        %{url}/archive/refs/tags/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
+Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
 Patch2:         0001-fixup-install-of-tensile-output.patch
-Patch4:         0001-offload-compress-option.patch
-Patch6:         0001-rocblas-remove-roctracer.patch
+# Patch4:         0001-offload-compress-option.patch
+# Patch6:         0001-rocblas-remove-roctracer.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -323,7 +326,7 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library/src:$LD_LIBRARY_PATH
 
 %files
 %license LICENSE.md
-%{_libdir}/librocblas.so.4{,.*}
+%{_libdir}/librocblas.so.5{,.*}
 %if %{with tensile}
 %dir %{_libdir}/rocblas
 %dir %{_libdir}/rocblas/library
@@ -345,6 +348,10 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library/src:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Sat Sep 20 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-1
+- Update to 7.0.1
+- Build -test on fedora
+
 * Wed Aug 27 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-10
 - Add Fedora copyright
 

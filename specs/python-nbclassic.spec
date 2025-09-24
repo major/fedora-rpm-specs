@@ -1,5 +1,5 @@
 Name:           python-nbclassic
-Version:        1.3.2
+Version:        1.3.3
 Release:        %autorelease
 Summary:        Jupyter Notebook as a Jupyter Server Extension
 
@@ -42,7 +42,7 @@ Summary:        Jupyter Notebook as a Jupyter Server Extension
 #    for license in sorted(set(licenses.values())):
 #        cog.outl(f"#  - {license}")
 #    cog.outl("#\n# License not found for:")
-#    for component in not_found_licenses:
+#    for component in sorted(set(not_found_licenses)):
 #        cog.outl(f"#  - {component}")
 #
 # ]]]
@@ -109,7 +109,7 @@ Requires:       fontawesome-fonts-web
 #
 # [[[cog
 #    cog.outl("# Version not found for:")
-#    for name in not_found_versions:
+#    for name in sorted(set(not_found_versions)):
 #        cog.outl(f"#  - {name}")
 #    for name, version in versions.items():
 #        cog.outl(f"Provides:        bundled(npm({name})) = {version}")
