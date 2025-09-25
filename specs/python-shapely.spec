@@ -15,6 +15,14 @@ License:        BSD-3-Clause AND Unlicense AND MIT
 URL:            https://github.com/shapely/shapely
 Source:         %{pypi_source shapely}
 
+# TST: update frechet_distance densify test for latest GEOS main
+# (densify>0.001)
+# https://github.com/shapely/shapely/pull/2311
+Patch:          %{url}/pull/2311.patch
+# TST: update test_coverage_union_overlapping_inputs for upstream GEOS change
+# https://github.com/shapely/shapely/pull/2318
+Patch:          %{url}/pull/2318.patch
+
 BuildRequires:  tomcli
 BuildRequires:  gcc
 BuildRequires:  geos-devel
@@ -89,9 +97,34 @@ ln -s ../shapely/tests/
 %pytest -v
 
 %if %{with doctests}
+# TODO: Why does this fail? We cannot reproduce it in a git checkout.
+#
+# The expected and actual results do at least describe equivalent circles, so
+# the library is not giving the wrong answer.
+#
+# ___________ [doctest] shapely.constructive.maximum_inscribed_circle ____________
+# 1473 **kwargs
+# 1474     For other keyword-only arguments, see the
+# 1475     `NumPy ufunc docs <https://numpy.org/doc/stable/reference/ufuncs.html#ufuncs-kwargs>`_.
+# 1476
+# 1477 Examples
+# 1478 --------
+# 1479 >>> import shapely
+# 1480 >>> from shapely import Polygon
+# 1481 >>> poly = Polygon([(0, 0), (0, 10), (10, 10), (10, 0), (0, 0)])
+# 1482 >>> shapely.maximum_inscribed_circle(poly)
+# Expected:
+#     <LINESTRING (5 5, 0 5)>
+# Got:
+#     <LINESTRING (5 5, 10 5)>
+#
+# /[…]/shapely/constructive.py:1482: DocTestFailure
+dtk="${dtk-}${dtk+ and }not shapely.constructive.maximum_inscribed_circle"
+
 %pytest --doctest-modules --doctest-only-doctests=true \
     '%{buildroot}%{python3_sitearch}/shapely' \
-    --ignore='%{buildroot}%{python3_sitearch}/shapely/tests' -v
+    --ignore='%{buildroot}%{python3_sitearch}/shapely/tests' \
+    -k="${dtk-}" -v
 %endif
 
 

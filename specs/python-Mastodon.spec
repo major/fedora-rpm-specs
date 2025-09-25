@@ -1,6 +1,6 @@
 Name:               python-Mastodon
-Version:            2.1.3
-Release:            2%{?dist}
+Version:            2.1.4
+Release:            1%{?dist}
 Summary:            Python wrapper for the Mastodon API
 
 
@@ -54,6 +54,9 @@ tomcli set pyproject.toml lists delitem project.dependencies 'python-magic ; pla
 %doc README.rst
 
 %changelog
+* Tue Sep 23 2025 Gwyn Ciesla <gwync@protonmail.com> - 2.1.4-1
+- 2.1.4
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.1.3-2
 - Rebuilt for Python 3.14.0rc3 bytecode
 

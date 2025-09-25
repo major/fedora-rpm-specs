@@ -8,15 +8,15 @@
 
 %if 0%{?git_post_release_enabled}
   # Git commit is needed for post-release version.
-  %global gitcommit 278b27e5986a1ba51a10a566792cdadc4884adc7
+  %global gitcommit 7958f01e5caf457326e2d9cdda8069d48232fbe9
   %global gitshortcommit %(c=%{gitcommit}; echo ${c:0:7})
-  %global gitsnapinfo .20250916git%{gitshortcommit}
+  %global gitsnapinfo .20250923git%{gitshortcommit}
 %endif
 
 Name:           gnome-shell-extension-system-monitor-applet
 Epoch:          1
 Version:        38
-Release:        38%{?gitsnapinfo}%{?dist}
+Release:        39%{?gitsnapinfo}%{?dist}
 Summary:        A Gnome shell system monitor extension
 
 # The entire source code is GPLv3+ except convenience.js, which is BSD
@@ -86,6 +86,10 @@ fi
 
 
 %changelog
+* Tue Sep 23 2025 Nicolas Viéville <nicolas.vieville@uphf.fr> - 1:38-39.20250923git7958f01
+- Updated to last upstream commits
+- Fix gnome-shell 49 support - RHBZ#2397683
+
 * Tue Sep 16 2025 Nicolas Viéville <nicolas.vieville@uphf.fr> - 1:38-38.20250916git278b27e
 - Updated to last upstream commits
 - extension: Add setting for graph scale reset cooldown period

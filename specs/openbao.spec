@@ -1807,8 +1807,7 @@ credentials, and more.
 %package %{oldname}-compat
 Summary: Vault-compatible command and service
 Requires: %{name} = %{version}-%{release}
-Provides: %{oldname} = %{version}-%{release}
-Obsoletes: %{oldname} < 2.0
+Conflicts: %{oldname}
 
 %description %{oldname}-compat
 Provides a compatibility layer on top of OpenBao to emulate a Hashicorp

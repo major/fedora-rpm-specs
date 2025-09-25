@@ -61,7 +61,6 @@ BuildRequires:  pkgconfig(libtirpc)
 BuildRequires:  pkgconfig(shared-mime-info)
 BuildRequires:  pkgconfig(xcursor)
 BuildRequires:  taglib-devel > 1.11
-BuildRequires:  qt6-qtbase-private-devel
 
 # This package provides plugins for KIO
 Supplements:    kf6-kio-core

@@ -26,8 +26,8 @@
 %endif
 
 %global upstreamname hipSOLVER
-%global rocm_release 6.4
-%global rocm_patch 2
+%global rocm_release 7.0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -61,12 +61,13 @@
 
 Name:           %{hipsolver_name}
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm SOLVER marshalling library
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
 
 Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
+Patch1:         0001-hipsolver-so-version-fortran-bindings.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -165,7 +166,8 @@ rm -f %{buildroot}%{_prefix}/share/doc/hipsolver/LICENSE.md
 
 %files
 %license LICENSE.md
-%{_libdir}/libhipsolver.so.0{,.*}
+%{_libdir}/libhipsolver.so.1{,.*}
+%{_libdir}/libhipsolver_fortran.so.1{,.*}
 
 %files devel
 %doc README.md
@@ -173,6 +175,7 @@ rm -f %{buildroot}%{_prefix}/share/doc/hipsolver/LICENSE.md
 %dir %{_includedir}/hipsolver
 %{_includedir}/hipsolver/*
 %{_libdir}/libhipsolver.so
+%{_libdir}/libhipsolver_fortran.so
 %{_libdir}/cmake/hipsolver/*.cmake
 
 %if %{with test}
@@ -183,6 +186,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/hipsolver/LICENSE.md
 %endif
 
 %changelog
+* Sun Sep 21 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-1
+- Update to 7.0.1
+
 * Wed Aug 27 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-4
 - Add Fedora copyright
 

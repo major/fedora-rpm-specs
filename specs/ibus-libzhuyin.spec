@@ -1,15 +1,10 @@
-%global snapshot 0
-
 Name:       ibus-libzhuyin
-Version:    1.10.3
-Release:    6%{?dist}
+Version:    1.10.4
+Release:    1%{?dist}
 Summary:    New Zhuyin engine based on libzhuyin for IBus
 License:    GPL-2.0-or-later
 URL:        https://github.com/libzhuyin/ibus-libzhuyin
 Source0:    http://downloads.sourceforge.net/libzhuyin/ibus-libzhuyin/%{name}-%{version}.tar.gz
-%if %snapshot
-Patch0:     ibus-libzhuyin-1.10.x-HEAD.patch
-%endif
 
 BuildRequires:  gcc-c++
 BuildRequires:  gettext-devel
@@ -21,7 +16,7 @@ BuildRequires:  ibus-devel >= 1.3
 BuildRequires:  libpinyin-devel >= 2.0.91
 BuildRequires:  python3-devel
 BuildRequires:  libpinyin-tools
-BuildRequires: make
+BuildRequires:  make
 
 # Requires(post): sqlite
 
@@ -35,10 +30,6 @@ based on libzhuyin for IBus.
 
 %prep
 %setup -q
-%if %snapshot
-%patch -P0 -p1 -b .head
-%endif
-
 
 %build
 %configure --disable-static \
@@ -71,6 +62,10 @@ based on libzhuyin for IBus.
 
 
 %changelog
+* Tue Sep 23 2025 Peng Wu <pwu@redhat.com> - 1.10.4-1
+- Update to 1.10.4
+- bug fixes
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.10.3-6
 - Rebuilt for Python 3.14.0rc3 bytecode
 

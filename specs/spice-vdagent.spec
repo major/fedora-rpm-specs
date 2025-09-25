@@ -1,13 +1,12 @@
 Name:           spice-vdagent
-Version:        0.22.1
-Release:        9%{?dist}
+Version:        0.23.0
+Release:        1%{?dist}
 Summary:        Agent for Spice guests
 License:        GPL-3.0-or-later
 URL:            https://spice-space.org/
 Source0:        https://spice-space.org/download/releases/%{name}-%{version}.tar.bz2
-Source1:        https://spice-space.org/download/releases/%{name}-%{version}.tar.bz2.sig
-Source2:        victortoso-E37A484F.keyring
-Patch0000:      0001-vdagent-Remove-watch-event-on-vdagent_display_destro.patch
+#Source1:        https://spice-space.org/download/releases/%{name}-%{version}.tar.bz2.sig
+#Source2:        victortoso-E37A484F.keyring
 
 BuildRequires: make
 BuildRequires:  systemd-devel
@@ -18,7 +17,7 @@ BuildRequires:  libXfixes-devel systemd desktop-file-utils libtool
 BuildRequires:  alsa-lib-devel dbus-devel libdrm-devel
 # For autoreconf, needed after clipboard patch series
 BuildRequires:  automake autoconf
-BuildRequires:  gnupg2
+#BuildRequires:  gnupg2
 %{?systemd_requires}
 
 %description
@@ -35,7 +34,7 @@ Features:
 
 
 %prep
-gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
+#gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
 %autosetup -p1
 autoreconf -fi
 
@@ -66,17 +65,17 @@ autoreconf -fi
 %{_unitdir}/spice-vdagentd.socket
 %{_prefix}/lib/tmpfiles.d/spice-vdagentd.conf
 %{_userunitdir}/spice-vdagent.service
+%{_userunitdir}/graphical-session.target.wants/spice-vdagent.service
 %{_bindir}/spice-vdagent
 %{_sbindir}/spice-vdagentd
-%{_var}/run/spice-vdagentd
 %{_sysconfdir}/xdg/autostart/spice-vdagent.desktop
-# For /usr/share/gdm/autostart/LoginWindow/spice-vdagent.desktop
-# We own the dir too, otherwise we must Require gdm
-%{_datadir}/gdm
 %{_mandir}/man1/%{name}*.1*
 
 
 %changelog
+* Tue Sep 23 2025 Marc-André Lureau <marcandre.lureau@redhat.com> - 0.23.0-1
+- new version, fixes rhbz#2394505
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.22.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

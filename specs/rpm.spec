@@ -22,9 +22,9 @@
 
 %define rpmhome /usr/lib/rpm
 
-%global rpmver 5.99.92
+%global rpmver 6.0.0
 #global snapver rc1
-%global baserelease 2
+%global baserelease 1
 %global sover 10
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
@@ -464,6 +464,7 @@ fi
 %{_mandir}/man7/rpm-macros.7*
 %{_mandir}/man7/rpm-payloadflags.7*
 %{_mandir}/man7/rpm-queryformat.7*
+%{_mandir}/man7/rpm-version.7*
 %{_mandir}/man8/rpm.8*
 %{_mandir}/man8/rpmdb.8*
 %{_mandir}/man8/rpmkeys.8*
@@ -574,6 +575,7 @@ fi
 %{_mandir}/man1/rpmspec.1*
 %{_mandir}/man1/rpmlua.1*
 %{_mandir}/man1/rpm-setup-autosign.1*
+%{_mandir}/man1/rpmuncompress.1*
 %{_mandir}/man5/rpmbuild-config.5.*
 
 %{rpmhome}/brp-*
@@ -622,6 +624,9 @@ fi
 %doc %{_defaultdocdir}/rpm/API/
 
 %changelog
+* Mon Sep 22 2025 Panu Matilainen <pmatilai@redhat.com> - 6.0.0-1
+- Rebase to 6.0 final  (https://rpm.org/releases/6.0.0)
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 5.99.92-2
 - Rebuilt for Python 3.14.0rc3 bytecode
 

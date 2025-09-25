@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        50
+Version:        51
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -89,7 +89,6 @@ exit 0
 %dir %{_datadir}/cockpit/anaconda-webui
 %doc README.rst
 %license LICENSE dist/index.js.LEGAL.txt
-%{_datadir}/cockpit/anaconda-webui/logo.svg
 %{_datadir}/cockpit/anaconda-webui/qr-code-feedback.svg
 %{_datadir}/cockpit/anaconda-webui/index.js.LEGAL.txt
 %{_datadir}/cockpit/anaconda-webui/index.html
@@ -121,6 +120,11 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Tue Sep 23 2025 Packit <hello@packit.dev> - 51-1
+- storage: detect locked LUKS on selected disks including whole-disk LUKS (rhbz#2396646)
+- Consume branding for Fedora from cockpit/static/branding.css
+- webui-desktop: fix env variables scope for firefox to fix displayed icon
+
 * Wed Sep 10 2025 Packit <hello@packit.dev> - 50-1
 - fix(timezone): correctly parse timezones with multiple slashes
 - fix(timezone): when reading timezone from backend read value from dbus object

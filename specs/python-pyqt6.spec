@@ -22,8 +22,6 @@ BuildRequires: pkgconfig(dbus-1)
 BuildRequires: pkgconfig(dbus-python)
 BuildRequires: pkgconfig(libpulse-mainloop-glib)
 
-BuildRequires: qt6-qtbase-private-devel
-
 BuildRequires: cmake(Qt6Core)
 BuildRequires: cmake(Qt6Bluetooth)
 BuildRequires: cmake(Qt6DBus)

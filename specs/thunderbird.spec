@@ -182,16 +182,9 @@ BuildRequires:  libXt-devel
 BuildRequires:  libXrender-devel
 BuildRequires:  hunspell-devel
 BuildRequires:  llvm
-%if 0%{?fedora} >= 40 || 0%{?rhel} >= 10
+BuildRequires:  llvm-devel
 BuildRequires:  clang
 BuildRequires:  clang-libs
-BuildRequires:  llvm-devel
-%global llvm_suffix -20
-%else
-BuildRequires:  clang
-BuildRequires:  clang-libs
-BuildRequires:  llvm-devel
-%endif
 %if "%toolchain" == "clang"
 BuildRequires:  lld
 %endif
@@ -423,11 +416,7 @@ echo 'export MOZ_APP_REMOTINGNAME=thunderbird' >> .mozconfig
 # https://bugzilla.redhat.com/show_bug.cgi?id=2239046
 # with clang 17 upstream's detection fails, so let's just tell it
 # where to look
-%if 0%{?fedora} >= 42
-echo "ac_add_options --with-libclang-path=`llvm-config-20 --libdir`" >> .mozconfig
-%else
 echo "ac_add_options --with-libclang-path=`llvm-config --libdir`" >> .mozconfig
-%endif
 
 # Remove executable bit to make brp-mangle-shebangs happy.
 find third_party -type f  -iname "*.rs"|xargs chmod a-x

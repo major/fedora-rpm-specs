@@ -69,7 +69,7 @@ Requires:       %{pkg_prefix}-launch-new-instance = %{version}-%{release}
 Requires:       %{pkg_prefix}-places-menu = %{version}-%{release}
 Requires:       %{pkg_prefix}-window-list = %{version}-%{release}
 Requires:       nautilus
-%if %{with x11}
+%if ! %{with x11}
 Obsoletes:      gnome-classic-session-xsession < %{version}-%{release}
 %endif
 

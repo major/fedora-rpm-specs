@@ -54,6 +54,8 @@ BuildRequires:  pkgconfig(rav1e)
 BuildRequires:  pkgconfig(SvtAv1Enc)
 %endif
 
+Obsoletes:      heif-pixbuf-loader < %{version}-%{release}
+
 %description
 libheif is an ISO/IEC 23008-12:2017 HEIF and AVIF (AV1 Image File Format)
 file format decoder and encoder.
@@ -63,22 +65,6 @@ file format decoder and encoder.
 %doc README.md
 %{_libdir}/%{name}.so.%{somajor}{,.*}
 %dir %{_libdir}/%{name}
-
-# ----------------------------------------------------------------------
-
-%if !%{with bootstrap}
-%package -n     heif-pixbuf-loader
-Summary:        HEIF image loader for GTK+ applications
-BuildRequires:  pkgconfig(gdk-pixbuf-2.0)
-Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:       gdk-pixbuf2%{?_isa}
-
-%description -n heif-pixbuf-loader
-This package provides a plugin to load HEIF files in GTK+ applications.
-
-%files -n heif-pixbuf-loader
-%{_libdir}/gdk-pixbuf-2.0/*/loaders/libpixbufloader-heif.so
-%endif
 
 # ----------------------------------------------------------------------
 
@@ -152,6 +138,7 @@ rm -rf third-party/
  -DWITH_EXAMPLE_HEIF_VIEW=OFF \
 %endif
  -DWITH_UNCOMPRESSED_CODEC=ON \
+ -DWITH_GDK_PIXBUF=OFF \
  -Wno-dev
 
 %cmake_build

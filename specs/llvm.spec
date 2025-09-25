@@ -1661,6 +1661,9 @@ fi
 %if %{defined host_clang_maj_ver}
 %global cmake_config_args_instrumented %{cmake_config_args_instrumented} \\\
   -DLLVM_PROFDATA=%{_bindir}/llvm-profdata-%{host_clang_maj_ver}
+%else
+%global cmake_config_args_instrumented %{cmake_config_args_instrumented} \\\
+  -DLLVM_PROFDATA=%{_bindir}/llvm-profdata
 %endif
 
 # TODO(kkleine): Should we see warnings like:
@@ -1672,26 +1675,15 @@ fi
 %cmake_build --target libclang-cpp.so
 %cmake_build --target clang
 %cmake_build --target lld
-%cmake_build --target llvm-profdata
 %cmake_build --target llvm-ar
 %cmake_build --target llvm-ranlib
-%cmake_build --target llvm-cxxfilt
 #endregion Instrument LLVM
 
 #region Perf training
-# Without these exports the function count is ~160 and with them it is ~200,000.
-export LD_LIBRARY_PATH="%{builddir_instrumented}/%{_lib}:%{builddir_instrumented}/lib:$OLD_LD_LIBRARY_PATH"
-export PATH="%{builddir_instrumented}/bin:$OLD_PATH"
-
 %cmake_build --target generate-profdata
 
-# Use the newly compiled llvm-profdata to avoid profile version mismatches like:
-# "raw profile version mismatch: Profile uses raw profile format version = 10; expected version = 9"
-%global llvm_profdata_bin %{builddir_instrumented}/bin/llvm-profdata
-%global llvm_cxxfilt_bin %{builddir_instrumented}/bin/llvm-cxxfilt
-
 # Show top 10 functions in the profile
-%llvm_profdata_bin show --topn=10 %{builddir_instrumented}/tools/clang/utils/perf-training/clang.profdata | %llvm_cxxfilt_bin
+llvm-profdata show --topn=10 %{builddir_instrumented}/tools/clang/utils/perf-training/clang.profdata | llvm-cxxfilt
 
 cp %{builddir_instrumented}/tools/clang/utils/perf-training/clang.profdata $RPM_BUILD_DIR/result.profdata
 

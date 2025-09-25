@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 Name:           byte-buddy
-Version:        1.14.2
+Version:        1.17.7
 Release:        %autorelease
 Summary:        Runtime code generation for the Java virtual machine
 License:        Apache-2.0
@@ -14,7 +14,6 @@ Source0:        https://github.com/raphw/byte-buddy/archive/refs/tags/byte-buddy
 # Patch the build to avoid bundling inside shaded jars
 Patch:          0001-Avoid-bundling-asm.patch
 Patch:          0002-Remove-dependencies.patch
-Patch:          0003-Fix-broken-modular-jars.patch
 
 BuildRequires:  jurand
 %if %{with bootstrap}
@@ -91,7 +90,7 @@ rm byte-buddy-agent/src/test/java/net/bytebuddy/agent/VirtualMachineAttachmentTe
 %pom_remove_plugin :spotbugs-maven-plugin
 %pom_remove_plugin :jitwatch-jarscan-maven-plugin
 %pom_remove_plugin :maven-release-plugin
-%pom_remove_plugin :nexus-staging-maven-plugin
+%pom_remove_plugin :central-publishing-maven-plugin
 
 # Avoid circural dependency
 %pom_remove_plugin :byte-buddy-maven-plugin byte-buddy-dep
@@ -108,6 +107,7 @@ rm byte-buddy-agent/src/test/java/net/bytebuddy/agent/VirtualMachineAttachmentTe
 %pom_remove_plugin -r :maven-shade-plugin
 %pom_remove_dep -r net.java.dev.jna:jna
 %pom_remove_dep -r net.java.dev.jna:jna-platform
+%pom_remove_dep -r codes.rafael.asmjdkbridge:asm-jdk-bridge
 
 %mvn_package :byte-buddy-parent __noinstall
 

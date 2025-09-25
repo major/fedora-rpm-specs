@@ -15,9 +15,6 @@ BuildSystem:    maven
 BuildOption:    usesJavapackagesBootstrap
 BuildOption:    xmvnToolchain "openjdk25"
 BuildOption:    buildRequireVersion "org.apache.maven:" "4.0.0-rc-4"
-# TODO enable tests once EasyMock is updated to version >= 5.
-# Tests require EasyMock 5, but we only have EasyMock 4 packaged.
-BuildOption:    skipTests
 
 %description
 Dola Transformer is an extension for Apache Maven 4 that enables

@@ -14,7 +14,6 @@ BuildRequires:  kf6-rpm-macros
 BuildRequires:  extra-cmake-modules >= %{version}
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
-BuildRequires:  qt6-qtbase-private-devel
 BuildRequires:  cmake(Qt6Widgets)
 BuildRequires:  cmake(Qt6DBus)
 BuildRequires:  cmake(KF6WindowSystem)

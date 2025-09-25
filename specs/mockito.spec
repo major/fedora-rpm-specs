@@ -62,11 +62,6 @@ cp %{SOURCE4} subprojects/junit-jupiter/pom.xml
 # TODO check status: https://github.com/mockito/mockito/issues/2162
 sed -i '/add_listeners_concurrently_sanity_check/i @org.junit.Ignore' src/test/java/org/mockitousage/debugging/StubbingLookupListenerCallbackTest.java
 
-# Workaround easymock incompatibility with Java 17 that should be fixed
-# in easymock 4.4: https://github.com/easymock/easymock/issues/274
-%pom_add_plugin :maven-surefire-plugin . "<configuration>
-    <argLine>--add-opens=java.base/sun.reflect.generics.reflectiveObjects=ALL-UNNAMED</argLine></configuration>"
-
 # Compatibility alias
 %mvn_alias org.%{name}:%{name}-core org.%{name}:%{name}-all
 
@@ -84,11 +79,7 @@ echo 'member-accessor-module' > src/main/resources/mockito-extensions/org.mockit
 echo 'mock-maker-subclass' > src/main/resources/mockito-extensions/org.mockito.plugins.MockMaker
 
 # see gradle/mockito-core/inline-mock.gradle
-%pom_xpath_inject 'pom:project/pom:build/pom:plugins' '
-<plugin>
-  <groupId>org.apache.maven.plugins</groupId>
-  <artifactId>maven-antrun-plugin</artifactId>
-  <version>any</version>
+%pom_add_plugin org.apache.maven.plugins:maven-antrun-plugin '
   <executions>
     <execution>
       <phase>process-classes</phase>
@@ -103,17 +94,13 @@ echo 'mock-maker-subclass' > src/main/resources/mockito-extensions/org.mockito.p
       </goals>
     </execution>
   </executions>
-</plugin>
-<plugin>
-  <groupId>org.apache.maven.plugins</groupId>
-  <artifactId>maven-jar-plugin</artifactId>
-  <version>any</version>
+'
+%pom_add_plugin org.apache.maven.plugins:maven-jar-plugin '
   <configuration>
     <excludes>
       <exclude>org/mockito/internal/creation/bytebuddy/inject/*.class</exclude>
     </excludes>
   </configuration>
-</plugin>
 '
 
 %mvn_package :aggregator __noinstall

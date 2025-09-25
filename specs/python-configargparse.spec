@@ -3,6 +3,7 @@ Version:        1.7.1
 Release:        %autorelease
 Summary:        Replacement for argparse that allows options to be set via config files
 
+# SPDX
 License:        MIT
 URL:            https://github.com/bw2/ConfigArgParse
 Source:         %{url}/archive/%{version}/ConfigArgParse-%{version}.tar.gz

@@ -1,14 +1,6 @@
-# Location for bash completions.  define, not global, is for lazy expansion.
-# On el6, which doesn't have pkg-config for bash-completion,
-# /etc/bash_completion.d seems to be the correct location, with a
-# lot of entries symlinked from /usr/share/bash-completion.
-%define compdir %(pkg-config --exists bash-completion &&
-pkg-config --variable=completionsdir bash-completion ||
-echo %_sysconfdir/bash_completion.d)
-
 Name:           datamash
 Version:        1.8
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        A statistical, numerical and textual operations tool
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -46,10 +38,10 @@ rm lib/error.*
 %make_install
 %{__rm} -f %{buildroot}/%{_infodir}/dir
 %find_lang %{name}
-%{__mkdir_p} %{buildroot}%{compdir}
-%{__mv} %{buildroot}%{_datadir}/datamash/bash-completion.d/datamash %{buildroot}%{compdir}
+%{__mkdir_p} %{buildroot}%{bash_completions_dir}
+%{__mv} %{buildroot}%{_datadir}/datamash/bash-completion.d/datamash %{buildroot}%{bash_completions_dir}
 # E: non-executable-script /usr/share/bash-completion/completions/datamash 644 /bin/bash
-%{__sed} -i '/^#!/,1d' %{buildroot}%{compdir}/datamash
+%{__sed} -i '/^#!/,1d' %{buildroot}%{bash_completions_dir}/datamash
 
 %check
 %{__make} check
@@ -58,15 +50,16 @@ rm lib/error.*
 %{_bindir}/*
 %{_datadir}/datamash/
 %{_infodir}/datamash.info.*
-%dir %{compdir}/..
-%dir %{compdir}
-%{compdir}/datamash
+%{bash_completions_dir}/datamash
 
 %license COPYING
 %doc README NEWS THANKS AUTHORS ChangeLog
 %{_mandir}/man1/*
 
 %changelog
+* Sat Sep 06 2025 Paul Bolle <pebolle@tiscali.nl> - 1.8-11
+- Use %{bash_completions_dir} instead of custom macro
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

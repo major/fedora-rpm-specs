@@ -1,12 +1,12 @@
-%global miral_ver 5.5
-%global miroil_ver 8.0
-%global mirversion 2.22
+%global miral_ver 5.1
+%global miroil_ver 5.0
+%global mirversion 2.18
 
 %global miracle_configlib_somajor 0
 
 
 Name:           miracle-wm
-Version:        0.7.0
+Version:        0.7.1
 Release:        1%{?dist}
 Summary:        A tiling Wayland compositor based on Mir
 
@@ -109,6 +109,9 @@ libraries for manipulating the configuration of %{name}.
 
 
 %changelog
+* Tue Sep 23 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.7.1-1
+- Update to 0.7.1
+
 * Thu Sep 04 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.7.0-1
 - Update to 0.7.0
 

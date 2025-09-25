@@ -40,7 +40,6 @@ BuildRequires: flex
 %package        console
 Summary:        Analytics and administration tool for UserFeedback servers
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-BuildRequires:  qt6-qtbase-private-devel
 Requires:       qt6-qtcharts%{?_isa}
 # Obsolete the qt5 version
 Obsoletes:      kuserfeedback-console < %{version}-%{release}

@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 Name:           easymock
-Version:        4.3
+Version:        5.6.0
 Release:        %autorelease
 Summary:        Easy mock objects
 License:        Apache-2.0
@@ -15,16 +15,15 @@ Source0:        %{name}-%{version}.tar.gz
 Source1:        generate-tarball.sh
 
 Patch:          0001-Disable-android-support.patch
-Patch:          0002-Unshade-cglib-and-asm.patch
-Patch:          0003-Fix-OSGi-manifest.patch
-Patch:          0004-Port-to-hamcrest-2.1.patch
+# Forwarded: https://github.com/easymock/easymock/pull/807
+Patch:          0002-Migrate-from-deprecated-Hamcrest-is-to-isA.patch
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  maven-local-openjdk25
-BuildRequires:  mvn(cglib:cglib)
 BuildRequires:  mvn(junit:junit)
+BuildRequires:  mvn(net.bytebuddy:byte-buddy)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-remote-resources-plugin)
 BuildRequires:  mvn(org.apache.maven.surefire:surefire-junit-platform)
@@ -54,6 +53,8 @@ So EasyMock is a perfect fit for Test-Driven Development.
 %autosetup -p1 -C
 
 
+%pom_remove_plugin -r :maven-javadoc-plugin
+%pom_remove_plugin -r :maven-source-plugin
 %pom_remove_plugin :license-maven-plugin
 %pom_remove_plugin :maven-enforcer-plugin
 %pom_remove_plugin :animal-sniffer-maven-plugin
@@ -71,7 +72,6 @@ rm core/src/test/java/org/easymock/tests2/ClassExtensionHelperTest.java
 
 # unbundle asm and cglib
 %pom_disable_module test-nodeps
-%pom_remove_plugin :maven-shade-plugin core
 
 # missing test deps
 %pom_disable_module test-integration
@@ -79,9 +79,6 @@ rm core/src/test/java/org/easymock/tests2/ClassExtensionHelperTest.java
 
 # remove some warning caused by unavailable plugin
 %pom_remove_plugin org.codehaus.mojo:versions-maven-plugin
-
-# retired
-%pom_remove_plugin :maven-timestamp-plugin
 
 # For compatibility reasons
 %mvn_file ":easymock{*}" easymock@1 easymock3@1

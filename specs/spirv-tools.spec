@@ -12,6 +12,8 @@ URL:            https://github.com/KhronosGroup/SPIRV-Tools
 Source0:        %url/archive/vulkan-sdk-%{sdkver}.tar.gz#/SPIRV-Tools-sdk-%{sdkver}.tar.gz
 
 Patch0: fix-gcc12-build.patch
+# SPV_INTEL_function_variants: basic asm, dis support
+Patch1: https://github.com/KhronosGroup/SPIRV-Tools/pull/6195.patch
 
 BuildRequires:  cmake3
 BuildRequires:  gcc-c++

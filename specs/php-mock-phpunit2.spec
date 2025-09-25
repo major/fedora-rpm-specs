@@ -6,17 +6,17 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    498e5e25ee7824570332581304c2bb7e37d75e80
+%global gh_commit    29f90fe44a04105959d6ae835b10c9e0da2fcaa7
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
-%global gh_date      2025-03-19
+%global gh_date      2025-09-23
 %global gh_owner     php-mock
 %global gh_project   php-mock-phpunit
 %global with_tests   0%{!?_without_tests:1}
 %global major        2
 
 Name:           php-mock-phpunit%{major}
-Version:        2.13.0
-Release:        2%{?dist}
+Version:        2.13.1
+Release:        1%{?dist}
 Summary:        Mock built-in PHP functions with PHPUnit.
 
 License:        WTFPL
@@ -109,7 +109,7 @@ ret=0
 
 if [ -x %{_bindir}/phpunit8 ]; then
 : Run upstream test suite with phpunit8
-for cmd in php php81 php82 php82 php84; do
+for cmd in php php81 php82 php82 php84 php85; do
   if which $cmd; then
     $cmd %{_bindir}/phpunit8 --verbose || ret=1
   fi
@@ -118,7 +118,7 @@ fi
 
 if [ -x %{_bindir}/phpunit9 ]; then
 : Run upstream test suite with phpunit9
-for cmd in php php81 php82 php83 php84; do
+for cmd in php php81 php82 php83 php84 php85; do
   if which $cmd; then
     $cmd %{_bindir}/phpunit9 --verbose || ret=1
   fi
@@ -127,7 +127,7 @@ fi
 
 if [ -x %{_bindir}/phpunit10 ]; then
 : Run upstream test suite with phpunit10
-for cmd in php php81 php82 php83 php84; do
+for cmd in php php81 php82 php83 php84 php85; do
   if which $cmd; then
     $cmd %{_bindir}/phpunit10 \
        --filter '^((?!(testPreserveArgumentDefaultValue)).)*$' \
@@ -138,7 +138,7 @@ fi
 
 if [ -x %{_bindir}/phpunit11 ]; then
 : Run upstream test suite with phpunit11
-for cmd in php php82 php83 php84; do
+for cmd in php php82 php83 php84 php85; do
   if which $cmd; then
     $cmd %{_bindir}/phpunit11 \
        --filter '^((?!(testPreserveArgumentDefaultValue)).)*$' \
@@ -149,7 +149,7 @@ fi
 
 if [ -x %{_bindir}/phpunit12 ]; then
 : Run upstream test suite with phpunit11
-for cmd in php php83 php84; do
+for cmd in php php83 php84 php85; do
   if which $cmd; then
     $cmd %{_bindir}/phpunit12 \
        --filter '^((?!(testPreserveArgumentDefaultValue)).)*$' \
@@ -171,6 +171,9 @@ exit $ret
 
 
 %changelog
+* Tue Sep 23 2025 Remi Collet <remi@remirepo.net> - 2.13.1-1
+- update to 2.13.1
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.13.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -29,9 +29,6 @@ BuildRequires:  cmake(QGpgmeQt6)
 BuildRequires:  cmake(Qt6Quick)
 BuildRequires:  cmake(Qt6Widgets)
 
-# Qt6 Missing dirs build errors
-BuildRequires:  qt6-qtbase-private-devel
-
 %description
 %{summary}.
 

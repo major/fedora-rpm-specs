@@ -3,9 +3,9 @@
 Name:		mupdf
 %global libname libmupdf
 %global pypiname mupdf
-Version:	1.26.3
+Version:	1.26.9
 %global somajor 26
-%global sominor 3
+%global sominor 9
 %global soname %{somajor}.%{sominor}
 # upstream prerelease versions tags need to be translated to Fedorian
 %global upversion %{version}
@@ -21,6 +21,8 @@ Source2:	%{name}-gl.desktop
 # Deal with multiple clang versions
 Patch:		0001-scripts-wrap-parse.py-get_args-improve-caching-of-re.patch
 Patch:		0001-scripts-wrap-parse.py-get_args-fix-for-libclang-20.patch
+# rhbz#2391345
+Patch:		0001-Bug-708838-Do-not-resolve-Last-object-in-outline-nod.patch
 # Fedora specific patches:
 # Do not bug me if Artifex relies on local fork
 Patch:		0001-Do-not-complain-to-your-friendly-local-distribution-.patch
@@ -120,6 +122,8 @@ for d in $(ls thirdparty | grep -v -e extract -e lcms2 -e mujs)
 do
 	rm -rf thirdparty/$d
 done
+# avoid overwriting the proper README by the doc build instructions
+rm -f docs/README
 
 echo > user.make "\
 	USE_SYSTEM_LIBS := yes

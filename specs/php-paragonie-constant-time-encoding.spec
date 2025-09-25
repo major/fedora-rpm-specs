@@ -5,13 +5,13 @@
 %global github_owner            paragonie
 %global github_name             constant_time_encoding
 
-%global commit0 58c3f47f650c94ec05a151692652a868995d2938
+%global commit0 ce27936c8dfb73e3ab9c94469130428af9752c96
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 
 Name:       php-%{composer_vendor}-constant-time-encoding
-Version:    2.6.3
-Release:    9%{?dist}
+Version:    2.8.0
+Release:    1%{?dist}
 Summary:    Constant-time Implementations of RFC 4648 Encoding
 
 License:    MIT
@@ -27,20 +27,15 @@ BuildRequires:  php(language) >= 7
 BuildRequires:  php-mbstring
 BuildRequires:  php-spl
 # "phpunit/phpunit": "^6|^7|^8|^9"
-%if 0%{?fedora} >= 32 || 0%{?rhel} >= 9
 BuildRequires:  phpunit9
-%global phpunit %{_bindir}/phpunit9
-%else
-BuildRequires:  phpunit8
-%global phpunit %{_bindir}/phpunit8
-%endif
-
 BuildRequires:  php-fedora-autoloader-devel
 
 # "php": "^7|^8"
 Requires:   php(language) >= 7
 Requires:   php-mbstring
 Requires:   php-spl
+
+Suggests:   php-sodium
 
 Provides:   php-composer(%{composer_vendor}/%{composer_project}) = %{version}
 
@@ -62,7 +57,7 @@ cp -pr src/* %{buildroot}%{_datadir}/php/%{composer_namespace}
 
 %check
 %{_bindir}/phpab -t fedora -o tests/autoload.php src tests
-%{phpunit} tests --verbose --bootstrap=tests/autoload.php
+%{_bindir}/phpunit9 tests --verbose --bootstrap=tests/autoload.php
 
 %files
 %dir %{_datadir}/php/ParagonIE
@@ -71,6 +66,11 @@ cp -pr src/* %{buildroot}%{_datadir}/php/%{composer_namespace}
 %license LICENSE.txt
 
 %changelog
+* Tue Sep 23 2025 François Kooman <fkooman@tuxed.net> - 2.8.0-1
+- update to 2.8.0
+- hard build dependency on PHPUnit 9 now
+- add php-sodium extension as a suggestion
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.3-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

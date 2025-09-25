@@ -7,8 +7,8 @@
 %endif
 
 Name:          shapelib
-Version:       1.6.1
-Release:       3%{?dist}
+Version:       1.6.2
+Release:       1%{?dist}
 Summary:       C library for handling ESRI Shapefiles
 # The core library is dual-licensed LGPLv2 or MIT.
 # Some contributed files have different licenses:
@@ -24,21 +24,24 @@ Source0:       http://download.osgeo.org/shapelib/%{name}-%{version}%{?pre:%pre}
 # tar -czf shapelib-man.tar.gz man/
 # rm -r man
 Source1:       %{name}-man.tar.gz
+# Don't use bool as variable name as it is a reserved keyword in C23
+Patch0:        shapelib_bool.patch
+# Add library version suffix for mingw dlls
+Patch1:        shapelib_libver.patch
 
-BuildRequires: automake autoconf libtool
+BuildRequires: cmake
 BuildRequires: gcc-c++
-BuildRequires: make
 BuildRequires: proj-devel >= 4.4.1
 # For man pages
 BuildRequires: rubygem-ronn
 
 %if %{with mingw}
-BuildRequires: mingw32-filesystem >= 95
+BuildRequires: mingw32-filesystem
 BuildRequires: mingw32-gcc-c++
 BuildRequires: mingw32-binutils
 BuildRequires: mingw32-proj
 
-BuildRequires: mingw64-filesystem >= 95
+BuildRequires: mingw64-filesystem
 BuildRequires: mingw64-gcc-c++
 BuildRequires: mingw64-binutils
 BuildRequires: mingw64-proj
@@ -72,17 +75,10 @@ This package contains various utility programs distributed with shapelib.
 %package -n mingw32-%{name}
 Summary:       MinGW Windows %{name} library
 BuildArch:     noarch
+Obsoletes:     mingw32-%{name}-static < 1.6.2-1
+Provides:      mingw32-%{name}-static = %{version}-%{release}
 
 %description -n mingw32-%{name}
-%{summary}.
-
-
-%package -n mingw32-%{name}-static
-Summary:       Static version of the  MinGW Windows %{name} library
-Requires:      mingw32-%{name} = %{version}-%{release}
-BuildArch:     noarch
-
-%description -n mingw32-%{name}-static
 %{summary}.
 
 
@@ -98,17 +94,10 @@ BuildArch:     noarch
 %package -n mingw64-%{name}
 Summary:       MinGW Windows %{name} library
 BuildArch:     noarch
+Obsoletes:     mingw64-%{name}-static < 1.6.2-1
+Provides:      mingw64-%{name}-static = %{version}-%{release}
 
 %description -n mingw64-%{name}
-%{summary}.
-
-
-%package -n mingw64-%{name}-static
-Summary:       Static version of the  MinGW Windows %{name} library
-Requires:      mingw64-%{name} = %{version}-%{release}
-BuildArch:     noarch
-
-%description -n mingw64-%{name}-static
 %{summary}.
 
 
@@ -130,32 +119,24 @@ BuildArch:     noarch
 
 
 %build
-# Kill rpath
-autoreconf -ifv
-
 # Native build
-mkdir build_native
-pushd build_native
-%define _configure ../configure
-%configure --disable-static
-%make_build
-popd
+%cmake -DBUILD_TESTING=OFF -DUSE_RPATH=OFF -DCMAKE_INSTALL_LIBDIR=%{_libdir} -DCMAKE_INSTALL_CMAKEDIR=%{_libdir}/cmake/%{name}
+%cmake_build
 
 %if %{with mingw}
 # MinGW build
-%mingw_configure
+MINGW32_CMAKE_ARGS="-DCMAKE_INSTALL_CMAKEDIR=%{mingw32_libdir}/cmake/%{name}" \
+MINGW64_CMAKE_ARGS="-DCMAKE_INSTALL_CMAKEDIR=%{mingw64_libdir}/cmake/%{name}" \
+%mingw_cmake -DBUILD_TESTING=OFF
 %mingw_make_build
 %endif
 
 
 %install
-%make_install -C build_native
+%cmake_install
 %if %{with mingw}
 %mingw_make_install
 %endif
-
-# Remove static libraries
-find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 # Build man pages
 ronn -r --date="$(LC_ALL=C date -u "+%Y-%m-%d")" --manual=%{name} man/*.md
@@ -169,12 +150,14 @@ install -pm 0644 man/*.1 %{buildroot}%{_mandir}/man1/
 %files
 %doc README README.tree ChangeLog web/*.html
 %license LICENSE*
+%{_libdir}/libshp.so.%{version}
 %{_libdir}/libshp.so.4*
 
 %files devel
 %{_includedir}/shapefil.h
 %{_libdir}/libshp.so
 %{_libdir}/pkgconfig/%{name}.pc
+%{_libdir}/cmake/%{name}/
 
 %files tools
 %doc contrib/doc/
@@ -188,9 +171,7 @@ install -pm 0644 man/*.1 %{buildroot}%{_mandir}/man1/
 %{mingw32_includedir}/shapefil.h
 %{mingw32_libdir}/libshp.dll.a
 %{mingw32_libdir}/pkgconfig/shapelib.pc
-
-%files -n mingw32-%{name}-static
-%{mingw32_libdir}/libshp.a
+%{mingw32_libdir}/cmake/%{name}/
 
 %files -n mingw32-%{name}-tools
 %{mingw32_bindir}/*.exe
@@ -201,9 +182,7 @@ install -pm 0644 man/*.1 %{buildroot}%{_mandir}/man1/
 %{mingw64_includedir}/shapefil.h
 %{mingw64_libdir}/libshp.dll.a
 %{mingw64_libdir}/pkgconfig/shapelib.pc
-
-%files -n mingw64-%{name}-static
-%{mingw64_libdir}/libshp.a
+%{mingw64_libdir}/cmake/%{name}/
 
 %files -n mingw64-%{name}-tools
 %{mingw64_bindir}/*.exe
@@ -211,6 +190,9 @@ install -pm 0644 man/*.1 %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Tue Sep 23 2025 Sandro Mani <manisandro@gmail.com> - 1.6.2-1
+- Update to 1.6.2
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

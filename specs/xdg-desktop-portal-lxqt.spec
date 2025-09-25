@@ -10,7 +10,6 @@ BuildRequires: gcc-c++
 BuildRequires: pkgconfig(Qt6Core)
 BuildRequires: pkgconfig(Qt6DBus)
 BuildRequires: pkgconfig(Qt6Widgets)
-BuildRequires: qt6-qtbase-private-devel
 BuildRequires: pkgconfig(libfm-qt6)
 BuildRequires: cmake(KF6WindowSystem)
 

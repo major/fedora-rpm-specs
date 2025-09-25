@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.12
-Release:	43%{?dist}
+Release:	44%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPL-3.0-or-later
 URL:		http://www.gnu.org/software/grub/
@@ -609,7 +609,10 @@ fi
 %endif
 
 %changelog
-* Tue Aug 19 2025 Nicolas Frayer <nfrayer@redhat.com> - 2.12-43
+* Mon Sep 15 2025 Leo Sandoval <lsandova@redhat.com> - 2.12-44
+- Include function name on debug print function
+
+* Fri Aug 29 2025 Nicolas Frayer <nfrayer@redhat.com> - 2.12-43
 - gen_grub_cfgstub: Removed output messages
 
 * Wed Aug 20 2025 Jan Stancek <jstancek@redhat.com> - 2.12-42

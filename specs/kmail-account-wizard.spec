@@ -26,7 +26,6 @@ BuildRequires: cmake(Qt6Widgets)
 BuildRequires: cmake(Qt6Quick)
 BuildRequires: cmake(Qt6QuickControls2)
 BuildRequires: cmake(Qt6Keychain)
-BuildRequires: qt6-qtbase-private-devel
 
 BuildRequires: extra-cmake-modules
 BuildRequires: kf6-rpm-macros

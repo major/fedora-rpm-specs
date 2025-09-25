@@ -11,7 +11,6 @@ BuildRequires: gcc-c++
 BuildRequires: cmake(Qt6Widgets)
 BuildRequires: cmake(Qt6LinguistTools)
 BuildRequires: cmake(lxqt2-build-tools)
-BuildRequires: qt6-qtbase-private-devel
 BuildRequires: pkgconfig(x11)
 BuildRequires: pkgconfig(xcb)
 BuildRequires: pkgconfig(glib-2.0)
@@ -24,6 +23,8 @@ BuildRequires: pkgconfig(libexif)
 BuildRequires: lxqt-menu-data
 BuildRequires: perl
 
+BuildRequires: qt6-qtbase-private-devel
+
 BuildRequires: menu-cache-devel
 
 %description
@@ -34,6 +35,7 @@ desktop file managers.
 Summary: Development files for libfm-qt
 Requires: libfm-qt%{?_isa} = %{version}-%{release}
 Requires: menu-cache-devel
+Requires: qt6-qtbase-private-devel
 
 %description devel
 libfm-qt-devel package contains libraries and header files for

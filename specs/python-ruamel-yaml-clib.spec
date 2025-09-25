@@ -1,5 +1,5 @@
 Name:           python-ruamel-yaml-clib
-Version:        0.2.13
+Version:        0.2.14
 Release:        %autorelease
 Summary:        C version of reader, parser and emitter for ruamel.yaml derived from libyaml
 

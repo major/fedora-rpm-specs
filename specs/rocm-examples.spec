@@ -20,8 +20,8 @@
 # THE SOFTWARE.
 #
 %global upstreamname rocm-examples
-%global rocm_release 6.4
-%global rocm_patch 2
+%global rocm_release 7.0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -46,7 +46,7 @@
 
 Name:           rocm-examples
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        A collection of examples for the ROCm software stack
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT AND Apache-2.0
@@ -115,7 +115,9 @@ The examples are structured in several categories:
 
 # No External, not going to bundle things outside of this project.
 # Not having glfw-devel turns off building examples that use External/glad
-rm -rf External/
+#
+# Need to keep CmdParser
+rm -rf External/{glad,KHR}
 
 # https://github.com/ROCm/rocm-examples/issues/217
 for f in `find . -name 'CMakeLists.txt'`; do
@@ -154,6 +156,9 @@ sed -i -e 's@add_subdirectory(module_api)@message("no module_api")@'    HIP-Basi
 %{_bindir}/*
 
 %changelog
+* Sun Sep 21 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-1
+- Update to 7.0.1
+
 * Thu Aug 28 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-3
 - Add Fedora copyright
 

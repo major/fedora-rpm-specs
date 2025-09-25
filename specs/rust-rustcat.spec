@@ -12,7 +12,7 @@ License:        MIT
 URL:            https://crates.io/crates/rustcat
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * bump rustyline dependency from 9.0 to 13.0
+# * bump rustyline dependency from 9.0 to 14.0
 Patch:          rustcat-fix-metadata.diff
 Patch:          0001-port-to-rustyline-v12.patch
 

@@ -8,7 +8,7 @@
 
 Name: oddjob
 Version: 0.34.7
-Release: 16%{?dist}
+Release: 17%{?dist}
 Source0: https://releases.pagure.org/oddjob/oddjob-%{version}.tar.gz
 Source1: https://releases.pagure.org/oddjob/oddjob-%{version}.tar.gz.asc
 Patch1: oddjob-override-mask-fix.patch
@@ -107,7 +107,6 @@ touch -r src/oddjob-mkhomedir.conf.in	$RPM_BUILD_ROOT/%{_sysconfdir}/dbus-1/syst
 %endif
 %{_unitdir}/oddjobd.service
 %{_bindir}/*
-%{_sbindir}/*
 %config(noreplace) %{_sysconfdir}/dbus-*/system.d/oddjob.conf
 %config(noreplace) %{_sysconfdir}/oddjobd.conf
 %dir %{_sysconfdir}/oddjobd.conf.d
@@ -139,9 +138,6 @@ touch -r src/oddjob-mkhomedir.conf.in	$RPM_BUILD_ROOT/%{_sysconfdir}/dbus-1/syst
 %endif
 
 %post
-if test $1 -eq 1 ; then
-	killall -HUP dbus-daemon 2>&1 > /dev/null
-fi
 %systemd_post oddjobd.service
 
 %postun
@@ -159,9 +155,6 @@ cfg=%{_sysconfdir}/oddjobd.conf.d/oddjobd-mkhomedir.conf
 if grep -q %{_libdir}/%{name}/mkhomedir $cfg ; then
 	sed -i 's^%{_libdir}/%{name}/mkhomedir^%{_libexecdir}/%{name}/mkhomedir^g' $cfg
 fi
-if test $1 -eq 1 ; then
-	killall -HUP dbus-daemon 2>&1 > /dev/null
-fi
 systemctl --quiet is-active oddjobd
 isactive=$?
 if test $isactive -eq 0 ; then
@@ -170,6 +163,10 @@ fi
 exit 0
 
 %changelog
+* Tue Sep 23 2025 Alexander Bokovoy <abokovoy@redhat.com> - 0.34.7-17
+- Remove dbus-daemon restarts as dbus-broker auto-loads changed files
+- Resolves: rhbz#2391493
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.34.7-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

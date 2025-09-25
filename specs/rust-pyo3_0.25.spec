@@ -4,8 +4,8 @@
 
 %global crate pyo3
 
-Name:           rust-pyo3
-Version:        0.26.0
+Name:           rust-pyo3_0.25
+Version:        0.25.1
 Release:        %autorelease
 Summary:        Bindings to Python interpreter
 
@@ -217,18 +217,6 @@ This package contains library source intended for building other packages which
 use the "bigdecimal" feature of the "%{crate}" crate.
 
 %files       -n %{name}+bigdecimal-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+bytes-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+bytes-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "bytes" feature of the "%{crate}" crate.
-
-%files       -n %{name}+bytes-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+chrono-devel
@@ -624,9 +612,8 @@ rm -r emscripten/ newsfragments/
 # * unit tests require an UTF-8 locale
 # * unit tests require the "auto-initialize" feature
 # * run tests for all third-party crate integrations
-# * skip a doctest that appears to be out of date and fails to compile
 export LANG=C.utf8
-%cargo_test -f auto-initialize,full -- -- --skip doc_test::guide_class_md
+%cargo_test -f auto-initialize,full
 %endif
 
 %changelog

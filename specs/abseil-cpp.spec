@@ -2,7 +2,7 @@
 %global lib_version 2508.0.0
 
 Name:           abseil-cpp
-Version:        20250814.0
+Version:        20250814.1
 Release:        %autorelease
 Summary:        C++ Common Libraries
 

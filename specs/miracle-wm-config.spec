@@ -1,5 +1,5 @@
-%global commit 6b042aa2540118a70e9d07ca88d888841da5bfb5
-%global commitdate 20250919
+%global commit ed44d894beb7784ce9b767399d593d02b0916321
+%global commitdate 20250922
 %global shortcommit %{sub %{commit} 1 7}
 
 Name:           miracle-wm-config
@@ -13,7 +13,7 @@ Source0:        %{url}/archive/%{commit}/%{name}-%{commit}.tar.gz
 
 Requires:       desktop-backgrounds-compat
 Requires:       jxl-pixbuf-loader
-Requires:       miracle-wm >= 0.6.0
+Requires:       miracle-wm >= 0.7.1
 Requires:       swaybg
 Requires:       swaylock
 Requires:       swaync
@@ -99,6 +99,9 @@ install -pm 0644 sddm/miracle-wm.conf %{buildroot}%{_prefix}/lib/sddm/sddm.conf.
 
 
 %changelog
+* Tue Sep 23 2025 Neal Gompa <ngompa@fedoraproject.org> - 0~git.20250922.1.ed44d89-1
+- Bump to new git snapshot
+
 * Sat Sep 20 2025 Neal Gompa <ngompa@fedoraproject.org> - 0~git.20250919.1.6b042aa-1
 - Bump to new git snapshot
 

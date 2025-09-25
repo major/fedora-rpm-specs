@@ -3,6 +3,7 @@ Version:        2.2.0
 Release:        %autorelease
 Summary:        Filesystem-like pathing and searching for dictionaries
 
+# SPDX
 License:        MIT
 URL:            https://github.com/akesterson/dpath-python
 Source:         %{url}/archive/v%{version}/dpath-python-%{version}.tar.gz

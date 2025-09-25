@@ -1,7 +1,7 @@
 %global antlr_version 3.5.3
 %global c_runtime_version 3.4
 %global javascript_runtime_version 3.1
-%global baserelease 14
+%global baserelease 15
 
 # This package needs itself to build.  Use this to bootstrap on a new system.
 %bcond bootstrap 0
@@ -74,7 +74,6 @@ BuildRequires:  mvn(org.antlr:ST4)
 BuildRequires:  mvn(org.antlr:stringtemplate)
 %endif
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
-BuildRequires:  mvn(org.apache.maven.plugins:maven-enforcer-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-plugin-plugin)
 BuildRequires:  mvn(org.apache.maven:maven-plugin-api)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-compiler-api)
@@ -218,6 +217,7 @@ find -type f -a -name *.class -delete
 %pom_disable_module antlr-complete
 
 %pom_remove_plugin :maven-source-plugin
+%pom_remove_plugin :maven-enforcer-plugin
 %pom_remove_plugin -r :maven-javadoc-plugin
 
 # workarounds bug in filtering (Mark invalid)
@@ -358,6 +358,9 @@ install -pm 644 runtime/Cpp/include/* $RPM_BUILD_ROOT/%{_includedir}/
 %doc tool/LICENSE.txt
 
 %changelog
+* Tue Sep 23 2025 Jerry James <loganjerry@gmail.com> - 1:3.5.3-15
+- Remove build dependency on maven-enforcer-plugin
+
 * Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 1:3.5.3-14
 - Rebuilt for java-25-openjdk as preffered jdk
 

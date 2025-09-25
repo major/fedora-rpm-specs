@@ -17,9 +17,6 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  qt6-qtbase-devel
 BuildRequires:  qt6-linguist
 
-# This project is using private headers
-BuildRequires:  qt6-qtbase-private-devel
-
 %description
 QStarDict is a StarDict clone written using Qt. The user interface
 is similar to StarDict.

@@ -20,8 +20,8 @@
 # THE SOFTWARE.
 #
 %global upstreamname hipfort
-%global rocm_release 6.4
-%global rocm_patch 2
+%global rocm_release 7.0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_with debug
@@ -36,7 +36,7 @@
 
 Name:           hipfort
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Fortran interfaces for ROCm libraries
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -44,6 +44,8 @@ License:        MIT
 Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
 Patch0:         0001-Handle-cmake-DBUILD_SHARED_LIBS-ON.patch
 Patch1:         0001-Generalize-hipfc-to-other-linux-distros.patch
+# https://github.com/ROCm/hipfort/issues/261
+Patch2:         0001-hipfort-remove-build-type-check.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -139,6 +141,9 @@ rm %{buildroot}%{_libdir}/cmake/%{name}/%{name}-config.cmake
 %{_libdir}/cmake/%{name}
 
 %changelog
+* Sun Sep 21 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-1
+- Update to 7.0.1
+
 * Thu Aug 28 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-2
 - Add Fedora copyright
 

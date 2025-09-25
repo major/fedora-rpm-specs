@@ -4,7 +4,7 @@
 %bcond network_tests 0
 
 Name:           python-msal
-Version:        1.33.0
+Version:        1.34.0
 Release:        %autorelease
 Summary:        Microsoft Authentication Library (MSAL) for Python
 

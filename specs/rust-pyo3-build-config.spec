@@ -5,7 +5,7 @@
 %global crate pyo3-build-config
 
 Name:           rust-pyo3-build-config
-Version:        0.25.1
+Version:        0.26.0
 Release:        %autorelease
 Summary:        Build configuration for the PyO3 ecosystem
 

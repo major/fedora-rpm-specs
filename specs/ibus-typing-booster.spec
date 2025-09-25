@@ -10,8 +10,6 @@ Requires:   m17n-lib
 %{?__python3:Requires: %{__python3}}
 Requires:   python3-dbus
 Requires:   python3-distro
-# because of “from packing import version”:
-Requires:   python3-packaging
 Requires:   python3-enchant
 Requires:   python3-pyxdg
 %if 0%{?fedora}
@@ -63,8 +61,6 @@ BuildRequires:  hunspell-en
 %if 0%{?fedora}
 BuildRequires:  python3-rapidfuzz
 %endif
-# because of “from packing import version”:
-BuildRequires:   python3-packaging
 %if 0%{?fedora} >= 35
 # to make the python3-enchant test work for hunspell dictionaries which are not yet UTF-8:
 BuildRequires:   glibc-gconv-extra

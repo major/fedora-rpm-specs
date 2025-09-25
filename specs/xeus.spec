@@ -1,5 +1,5 @@
 Name:           xeus
-Version:        5.1.1
+Version:        5.2.4
 Release:        %autorelease
 Summary:        C++ implementation of the Jupyter kernel protocol
 
@@ -61,7 +61,7 @@ rm docs/build/html/.buildinfo
 %files
 %doc README.md docs/build/html
 %license LICENSE
-%{_libdir}/libxeus.so.11*
+%{_libdir}/libxeus.so.13{,.*}
 
 %files devel
 %{_includedir}/xeus/

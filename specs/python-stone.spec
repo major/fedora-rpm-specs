@@ -8,10 +8,14 @@ License:        MIT
 URL:            https://github.com/dropbox/stone
 Source0:        %pypi_source
 
+# Remove pytest-runner / setup.py test support
+# https://github.com/dropbox/stone/pull/354
+# Rebased on v3.2.1, without changes to CONTRIBUTING.md (not in the sdist)
+Patch:          0001-Remove-pytest-runner-setup.py-test-support.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-pytest-runner
 
 %description
 %{summary}
@@ -23,7 +27,7 @@ Summary:        %{summary}
 %{summary}
 
 %prep
-%setup -q -n %{pypi_name}-%{version}
+%autosetup -n %{pypi_name}-%{version} -p1
 
 
 %generate_buildrequires

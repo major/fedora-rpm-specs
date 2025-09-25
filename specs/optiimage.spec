@@ -31,7 +31,6 @@ BuildRequires: cmake(QCoro6Core)
 BuildRequires: cmake(QCoro6Qml)
 BuildRequires: cmake(KF6Crash)
 BuildRequires: cmake(KF6KirigamiAddons)
-BuildRequires: qt6-qtbase-private-devel
 BuildRequires: python3-devel
 
 # QML Imports

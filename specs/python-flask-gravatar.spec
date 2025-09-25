@@ -2,7 +2,7 @@
 
 Name:           python-%{pkg_name}
 Version:        0.5.0
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Small extension for Flask to make usage of Gravatar service easy
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -17,6 +17,18 @@ Patch0:         python-flask-gravatar_tests.patch
 # Compatibility with Flask 2.3
 # https://github.com/zzzsochi/Flask-Gravatar/pull/29
 Patch1:         flask-3-support.patch
+# Downstream-only: remove pytest-runner dependency
+#
+# pytest-runner not required
+# https://github.com/zzzsochi/Flask-Gravatar/issues/27
+#
+# This patch was not offered upstream because it does not fully migrate away
+# from pytest-runner; tox.ini, README.rst, and run-tests.sh are still based on
+# "setup.py test". The patch only changes what is needed downstream.
+#
+# Furthermore, upstream appears to be inactive (last release in 2018, with only
+# one commit since then), so a more complete PR probably would not be reviewed.
+Patch2:         0001-Downstream-only-remove-pytest-runner-dependency.patch
 
 BuildRequires:  python3-devel
 
@@ -58,6 +70,9 @@ Small extension for Flask to make usage of Gravatar service easy.
 
 
 %changelog
+* Tue Sep 23 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 0.5.0-3
+- Patch out the pytest-runner dependency
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.5.0-30
 - Rebuilt for Python 3.14.0rc3 bytecode
 

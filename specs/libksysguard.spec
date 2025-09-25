@@ -39,8 +39,6 @@ BuildRequires:  cmake(Qt6WebEngineWidgets)
 BuildRequires:  cmake(Qt6WebChannel)
 %endif
 
-BuildRequires:  qt6-qtbase-private-devel
-
 BuildRequires:  pkgconfig(libdrm)
 BuildRequires:  pkgconfig(libpcap)
 BuildRequires:  pkgconfig(libnl-3.0) pkgconfig(libnl-route-3.0)

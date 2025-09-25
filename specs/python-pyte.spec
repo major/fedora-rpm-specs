@@ -1,17 +1,19 @@
 Summary:        In memory VT-compatible terminal emulator
 Name:           python-pyte
 Version:        0.8.2
-Release:        13%{?dist}
+Release:        14%{?dist}
 # Automatically converted from old format: LGPLv3 - review is highly recommended.
 License:        LGPL-3.0-only
 URL:            https://github.com/selectel/pyte
 Source0:        https://github.com/selectel/pyte/archive/%{version}/pyte-%{version}.tar.gz
 Patch0:         python-pyte-0.8.0-docs.patch
+# Remove reference to unused and deprecated pytest-runner
+# https://github.com/selectel/pyte/pull/177
+Patch1:         %{url}/pull/177.patch
 BuildArch:      noarch
 BuildRequires:  make
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
-BuildRequires:  python3-pytest-runner
 BuildRequires:  python3-sphinx
 BuildRequires:  python3-wcwidth
 %description
@@ -59,6 +61,9 @@ export PYTHONPATH=%{buildroot}%{python3_sitelib}
 %doc docs/_build/html
 
 %changelog
+* Tue Sep 23 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 0.8.2-14
+- Remove pytest-runner dependency
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.8.2-13
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -11,7 +11,7 @@
 Summary: Qt6 - Location Libraries
 Name:    qt6-%{qt_module}
 Version: 6.9.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # Rest of the licenses are for Qt code in src/location and src/plugins
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -24,6 +24,9 @@ Source0: https://download.qt.io/development_releases/qt/%{majmin}/%{qt_version}/
 %else
 Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submodules/%{qt_module}-everywhere-src-%{version}.tar.xz
 %endif
+
+# Remove with Qt 6.10
+Patch0:  qtlocation-cmake-dont-publicly-propagate-private-qt-modules-for-public-modules.patch
 
 # filter plugin/qml provides
 %global __provides_exclude_from ^(%{_qt6_archdatadir}/qml/.*\\.so|%{_qt6_plugindir}/.*\\.so)$
@@ -126,6 +129,9 @@ popd
 %endif
 
 %changelog
+* Tue Sep 23 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.2-2
+- CMake: Don't publicly propagate private Qt modules for public modules
+
 * Thu Aug 28 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.2-1
 - 6.9.2
 

@@ -93,7 +93,7 @@ install -Dpm 0644 dnscrypt-proxy/example-blocked-names.txt  %{buildroot}%{_sysco
 install -Dpm 0644 dnscrypt-proxy/example-captive-portals.txt  %{buildroot}%{_sysconfdir}/%{name}/captive-portals.txt
 install -Dpm 0644 dnscrypt-proxy/example-cloaking-rules.txt  %{buildroot}%{_sysconfdir}/%{name}/cloaking-rules.txt
 install -Dpm 0644 dnscrypt-proxy/example-forwarding-rules.txt  %{buildroot}%{_sysconfdir}/%{name}/forwarding-rules.txt
-install -Dpm 0644 %{S:1} %{buildroot}%{_unitdir}/dnscrypt-proxy.service
+install -Dpm 0644 %{S:3} %{buildroot}%{_unitdir}/dnscrypt-proxy.service
 install -m 0755 -vd %{buildroot}%{_localstatedir}/cache/%{name}
 
 %check

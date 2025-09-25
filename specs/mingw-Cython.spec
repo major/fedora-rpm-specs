@@ -8,7 +8,7 @@
 
 Name:          mingw-%{mod_name}
 Summary:       MinGW Windows Python %{mod_name} library
-Version:       3.1.3
+Version:       3.1.4
 Release:       1%{?dist}
 
 License:       Apache-2.0
@@ -109,6 +109,9 @@ MinGW Windows Python3 %{mod_name} library.
 
 
 %changelog
+* Tue Sep 23 2025 Sandro Mani <manisandro@gmail.com> - 3.1.4-1
+- Update to 3.1.4
+
 * Fri Aug 15 2025 Sandro Mani <manisandro@gmail.com> - 3.1.3-1
 - Update to 3.1.3
 

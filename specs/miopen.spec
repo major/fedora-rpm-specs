@@ -26,8 +26,8 @@
 %endif
 
 %global upstreamname MIOpen
-%global rocm_release 6.4
-%global rocm_patch 0
+%global rocm_release 7.0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -89,7 +89,7 @@
 
 Name:           %{miopen_name}
 Version:        %{rocm_version}
-Release:        10%{?dist}
+Release:        1%{?dist}
 Summary:        AMD's Machine Intelligence Library
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT AND BSD-2-Clause AND Apache-2.0 AND %{?fedora:LicenseRef-Fedora-Public-Domain}%{?suse_version:SUSE-Public-Domain}
@@ -106,7 +106,7 @@ License:        MIT AND BSD-2-Clause AND Apache-2.0 AND %{?fedora:LicenseRef-Fed
 Source0:        %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
 # So we do not thrash memory
-Patch2:         0001-add-link-and-compile-pools-for-miopen.patch
+Patch1:         0001-miopen-add-link-and-compile-pools.patch
 
 BuildRequires:  cmake
 BuildRequires:  pkgconfig(eigen3)
@@ -348,6 +348,9 @@ fi
 %endif
 
 %changelog
+* Sun Sep 21 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-1
+- Update to 7.0.1
+
 * Thu Aug 28 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-10
 - Add Fedora copyright
 

@@ -2,35 +2,31 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate pyo3-ffi
+%global crate pyo3-build-config
 
-Name:           rust-pyo3-ffi
-Version:        0.26.0
+Name:           rust-pyo3-build-config0.25
+Version:        0.25.1
 Release:        %autorelease
-Summary:        Python-API bindings for the PyO3 ecosystem
+Summary:        Build configuration for the PyO3 ecosystem
 
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/pyo3-ffi
+URL:            https://crates.io/crates/pyo3-build-config
 Source:         %{crates_source}
-# * Downstream-only patch: always allow unsupported versions of Python.
-#   We constantly attempt to integrate alpha and beta releases of Python
-#   and need to rebuild all dependent packages in Copr, also those that
-#   use pyo3-ffi without patching each and every one of them, hence we
-#   explicitly allow to skip version check when building RPMs.
-Patch2:         Allow-unsupported-Python-versions-in-RPM-builds.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
-BuildRequires:  python3-devel >= 3.7
+%if %{with check}
+BuildRequires:  python3
+%endif
 
 %global _description %{expand:
-Python-API bindings for the PyO3 ecosystem.}
+Build configuration for the PyO3 ecosystem.}
 
 %description %{_description}
 
 %package        devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       python3-devel >= 3.7
+Requires:       python3
 
 %description    devel %{_description}
 
@@ -40,7 +36,6 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -173,6 +168,18 @@ This package contains library source intended for building other packages which
 use the "extension-module" feature of the "%{crate}" crate.
 
 %files       -n %{name}+extension-module-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+resolve-config-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+resolve-config-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "resolve-config" feature of the "%{crate}" crate.
+
+%files       -n %{name}+resolve-config-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

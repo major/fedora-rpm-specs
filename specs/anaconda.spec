@@ -1,7 +1,7 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 43.40
-Release: 2%{?dist}
+Version: 43.41
+Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -16,13 +16,10 @@ Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{vers
 # Versions of required components (done so we make sure the buildrequires
 # match the requires versions of things).
 
+%bcond glade %{undefined rhel}
+%bcond live %[%{defined fedora} || %{defined eln}]
 %if ! 0%{?rhel}
-%bcond_without glade
-%bcond_without live
 %define blivetguiver 2.4.2-3
-%else
-%bcond_with glade
-%bcond_with live
 %endif
 %define dasbusver 1.3
 %define dbusver 1.2.3
@@ -513,6 +510,20 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Sep 23 2025 Packit <hello@packit.dev> - 43.41-1
+- data: profiles: enable geolocation on Fedora Workstation live image
+  (matiwari)
+- storage: fix mount point assignment of non-formatted swap partitions
+  (rvykydal)
+- storage: include only fstab devices in fsset swap devices property (rvykydal)
+- ui: tui: installation_source: show error message in the TUI screen
+  (k.koukiou)
+- pyanaconda: dnf: clarify is_ready boolean return (k.koukiou)
+- tui: make SoftwareSpoke ready once installation source succeeds or fails
+  (k.koukiou)
+- spec: enable live in ELN (yselkowi)
+- Mark unused variables with a leading underscore (a.badger)
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 43.40-2
 - Rebuilt for Python 3.14.0rc3 bytecode
 

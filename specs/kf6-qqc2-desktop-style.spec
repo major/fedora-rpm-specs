@@ -22,7 +22,6 @@ BuildRequires: pkgconfig(Qt6Quick)
 BuildRequires: pkgconfig(Qt6Widgets)
 BuildRequires: cmake(KF6Sonnet)
 BuildRequires: pkgconfig(xkbcommon)
-BuildRequires: qt6-qtbase-private-devel
 
 Requires:      kf6-sonnet
 

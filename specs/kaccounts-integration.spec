@@ -34,7 +34,6 @@ BuildRequires:  cmake(QCoro6)
 
 BuildRequires:  pkgconfig(Qt6Gui)
 BuildRequires:  pkgconfig(Qt6Qml)
-BuildRequires:  qt6-qtbase-private-devel
 
 BuildRequires:  pkgconfig(accounts-qt6)
 BuildRequires:  pkgconfig(libaccounts-glib) >= 1.21

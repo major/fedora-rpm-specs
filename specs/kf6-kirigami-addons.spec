@@ -19,7 +19,6 @@ BuildRequires:  cmake(KF6GlobalAccel)
 BuildRequires:  cmake(KF6GuiAddons)
 BuildRequires:  cmake(KF6Kirigami2)
 BuildRequires:  cmake(KF6Svg)
-BuildRequires:  qt6-qtbase-private-devel
 BuildRequires:  cmake(Qt6)
 BuildRequires:  cmake(Qt6Core)
 BuildRequires:  cmake(Qt6Quick)

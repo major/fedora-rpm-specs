@@ -290,9 +290,9 @@
 %endif
 
 # New Version-String scheme-style defines
-%global featurever 24
+%global featurever 25
 %global interimver 0
-%global updatever 2
+%global updatever 0
 %global patchver 0
 
 # We don't add any LTS designator for STS packages (Fedora and EPEL).
@@ -341,8 +341,8 @@
 %global origin_nice     OpenJDK
 %global top_level_dir_name   %{vcstag}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
-%global buildver        12
-%global rpmrelease      3
+%global buildver        36
+%global rpmrelease      2
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -703,6 +703,8 @@ fi
 }
 
 %define files_jre_headless() %{expand:
+%dir %{_jvmdir}/%{sdkdir -- %{?1}}/
+%dir %{_jvmdir}/%{sdkdir -- %{?1}}/lib/
 %doc %{_defaultdocdir}/%{uniquejavadocdir --   %{?1}}/%{fullversion -- %{nil}}.specfile
 %license %{_jvmdir}/%{sdkdir -- %{?1}}/legal
 %doc %{_jvmdir}/%{sdkdir -- %{?1}}/NEWS	
@@ -979,6 +981,7 @@ fi
 %dir %{_jvmdir}/%{sdkdir -- %{?1}}/%{static_libs_install_dir}
 %{_jvmdir}/%{sdkdir -- %{?1}}/%{static_libs_install_dir}/lib*.a
 %{_jvmdir}/%{sdkdir -- %{?1}}/%{static_libs_install_dir}/server/lib*.a
+%dir %{_jvmdir}/%{sdkdir -- %{?1}}/%{static_libs_install_dir}/server
 }
 
 %define files_javadoc() %{expand:

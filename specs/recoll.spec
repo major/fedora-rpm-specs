@@ -12,7 +12,7 @@
 Summary:        Desktop full text search tool with Qt GUI
 Name:           recoll
 Version:        1.43.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            https://www.recoll.org
@@ -72,13 +72,18 @@ applications.
 Summary:       External helpers to make recoll understand more document formats
 Requires:      %{name} = %{version}-%{release}
 Requires:      %{name} = %{version}-%{release}
+Recommends:    antiword
 Recommends:    djvulibre
 Recommends:    ghostscript
 Recommends:    info
 Recommends:    libwpd-tools
+Recommends:    perl-Image-ExifTool
+Recommends:    poppler-utils
 Recommends:    python-chardet
 Recommends:    python-rarfile
 Recommends:    python3-mutagen
+Recommends:    unrtf
+Recommends:    wv
 Suggests:      chmlib
 Suggests:      texlive-detex
 %description   helpers
@@ -97,6 +102,7 @@ displayed in Konqueror.
 %package       krunner
 Summary:       KRunner support for recoll
 Requires:      %{name} = %{version}-%{release}
+Requires:      %{name}-kio = %{version}-%{release}
 Supplements:   (kf6-krunner and recoll)
 %description   krunner
 The recoll KRunner plugin adds Recoll search results to KRunner output.
@@ -239,6 +245,10 @@ echo "%{_libdir}/recoll" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/recoll-%{_arc
 %{_datadir}/applications/org.recoll.Recoll.SearchProvider.desktop
 
 %changelog
+* Tue Sep 23 2025 Terje Rosten <terjeros@gmail.com> - 1.43.5-4
+- Add more helpers
+- Add dep on kio in krunner
+
 * Mon Sep 22 2025 Terje Rosten <terjeros@gmail.com> - 1.43.5-3
 - Add helpers subpackage
 - Add wek deps: conditional recommends on recoll-krunner if

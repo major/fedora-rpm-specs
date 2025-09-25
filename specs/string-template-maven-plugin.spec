@@ -2,7 +2,7 @@
 
 Name:           string-template-maven-plugin
 Version:        1.1
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Execute StringTemplate files during a maven build
 
 License:        MIT
@@ -23,7 +23,6 @@ Patch:          %{name}-descriptor.patch
 
 BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(org.antlr:ST4)
-BuildRequires:  mvn(org.apache.maven.plugins:maven-enforcer-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-plugin-plugin)
 BuildRequires:  mvn(org.apache.maven.plugin-tools:maven-plugin-annotations)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-component-metadata)
@@ -60,6 +59,9 @@ cp -p %{SOURCE1} .
 # We use xmvn-javadoc instead of maven-javadoc-plugin
 %pom_remove_plugin :maven-javadoc-plugin
 
+# This only enforces use of ancient maven and java versions
+%pom_remove_plugin :maven-enforcer-plugin
+
 # sonatype-oss-parent is deprecated in Fedora
 %pom_remove_parent
 
@@ -80,6 +82,9 @@ sed -i 's/1\.6/1.8/g' pom.xml tests/pom.xml \
 %files javadoc -f .mfiles-javadoc
 
 %changelog
+* Tue Sep 23 2025 Jerry James <loganjerry@gmail.com> - 1.1-19
+- Remove build dependency on maven-enforcer-plugin
+
 * Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 1.1-18
 - Rebuilt for java-25-openjdk as preffered jdk
 

@@ -16,6 +16,10 @@ License:	AGPL-3.0-or-later
 URL:		https://github.com/pymupdf/PyMuPDF
 Source0:	%{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
 
+# Upstream patches from main branch:
+Patch:		0001-Adapt-pymupf-test-suite-to-text-extraction-behaviour.patch
+Patch:		0002-tests-update-expectations-after-recent-changes-to-mu.patch
+# Fedora specific patches:
 Patch:		0001-fix-test_-font.patch
 Patch:		0001-test_pixmap-adjust-to-turbojpeg.patch
 Patch:		0001-setup.py-do-not-require-libclang-and-swig.patch
@@ -122,7 +126,7 @@ SKIP="$SKIP and not test_fit_springer"
 # test_spikes uses a binary diff on rendered images
 SKIP="$SKIP and not test_spikes"
 # these compare renderings with system fonts or missing fonts
-SKIP="$SKIP and not test_1645 and not test_4180"
+SKIP="$SKIP and not test_1645 and not test_4180 and not test_4613 and not test_htmlbox1"
 # test downloads data from the internet
 SKIP="$SKIP and not test_4445 and not test_4457 and not test_4533"
 # Fedora's swig returns different results

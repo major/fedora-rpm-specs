@@ -13,7 +13,7 @@
 %global launchersPath %{_libexecdir}/%{name}
 
 Name:           javapackages-bootstrap
-Version:        1.25.0
+Version:        1.26.0
 Release:        %autorelease
 Summary:        A means of bootstrapping Java Packages Tools
 # For detailed info see the file javapackages-bootstrap-PACKAGE-LICENSING
@@ -42,7 +42,6 @@ Source:         bnd.tar.zst
 Source:         build-helper-maven-plugin.tar.zst
 Source:         byte-buddy.tar.zst
 Source:         cdi.tar.zst
-Source:         cglib.tar.zst
 Source:         chhorz-javadoc-parser.tar.zst
 Source:         common-annotations-api.tar.zst
 Source:         commons-beanutils.tar.zst

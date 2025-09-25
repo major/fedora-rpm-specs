@@ -139,13 +139,6 @@ mver=$(sed -n '/<mavenVersion>/{s/.*>\(.*\)<.*/\1/;p}' \
 mkdir -p target/dependency/
 cp -a "${maven_home}" target/dependency/apache-maven-$mver
 
-# Workaround easymock incompatibility with Java 17 that should be fixed
-# in easymock 4.4: https://github.com/easymock/easymock/issues/274
-%pom_add_plugin :maven-surefire-plugin xmvn-connector "<configuration>
-    <argLine>--add-opens=java.base/java.lang=ALL-UNNAMED</argLine></configuration>"
-%pom_add_plugin :maven-surefire-plugin xmvn-tools/xmvn-install "<configuration>
-    <argLine>--add-opens=java.base/java.lang=ALL-UNNAMED</argLine></configuration>"
-
 %build
 %{?jpb_env}
 # Work around a conflict between XMvn 4 and XMvn 5 that prevents the

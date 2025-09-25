@@ -9,7 +9,7 @@
 # Whether to do release or debug builds
 %global config release
 
-%global swift_version 6.1.3
+%global swift_version 6.2
 
 Name:           swiftlint
 # To update: bump this Version, then run swiftlint-get-bundled-deps.sh

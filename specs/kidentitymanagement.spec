@@ -23,7 +23,6 @@ BuildRequires:  cmake(KF6Codecs)
 BuildRequires:  cmake(Qt6Core)
 BuildRequires:  cmake(Qt6Qml)
 BuildRequires:  cmake(KF6KirigamiAddons)
-BuildRequires:  qt6-qtbase-private-devel
 
 %description
 %{summary}.

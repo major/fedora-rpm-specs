@@ -427,6 +427,7 @@ Summary:        Xrizer Build Dependencies for Envision
 Requires:       %{name} = %{version}-%{release}
 # Sync with https://gitlab.com/gabmus/envision/-/blob/main/src/depcheck/xrizer_deps.rs
 # until we have xrizer as a package
+Recommends:     cargo
 Requires:       clang19-devel
 Requires:       libxcb-devel
 Requires:       wayland-devel

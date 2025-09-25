@@ -1,4 +1,4 @@
-%bcond levmar %{defined fedora} || %{defined el8}
+%bcond levmar %{defined fedora}
 
 Name:           teem
 Version:        1.11.0
@@ -13,7 +13,9 @@ Summary:        Libraries for processing and visualizing scientific raster data
 # review:
 #   License/exception review: Simple Library Usage License
 #   https://gitlab.com/fedora/legal/fedora-license-data/-/issues/658
-License:        LGPL-2.1-or-later
+License:        %{shrink:
+    LGPL-2.1-or-later WITH LicenseRef-Fedora-Temporary-Simple-Library-exception
+    }
 # Additionally, the following are removed in %%prep to assert that they do not
 # contribute to the built package:
 #
@@ -241,13 +243,18 @@ applications that use Teem.
 
 %package examples
 Summary:        Examples for developing with for teem
-# The entire contents of this subpackage are LGPL-2.1-or-later, except:
+# The entire contents of this subpackage are LGPL-2.1-or-later WITH
+# LicenseRef-Fedora-Temporary-Simple-Library-exception, except:
 #
 # Zlib:
 #   UseTeemCMakeDemo/sanity.c
 # BSD-3-Clause:
 #   Examples/sanity/sanity.c
-License:        LGPL-2.1-or-later AND Zlib AND BSD-3-Clause
+License:        %{shrink:
+    LGPL-2.1-or-later WITH LicenseRef-Fedora-Temporary-Simple-Library-exception AND
+    Zlib AND
+    BSD-3-Clause
+    }
 BuildArch:      noarch
 
 %description examples %{common_description}
