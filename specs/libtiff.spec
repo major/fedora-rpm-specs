@@ -1,7 +1,7 @@
 Summary:       Library of functions for manipulating TIFF format image files
 Name:          libtiff
 Version:       4.7.0
-Release:       8%{?dist}
+Release:       9%{?dist}
 License:       libtiff
 URL:           http://www.simplesystems.org/libtiff/
 
@@ -15,6 +15,8 @@ Patch4:        libtiff-4.6.0-CVE-2024-13978.patch
 Patch5:        libtiff-4.6.0-CVE-2025-8534.patch
 # from upstream, for <=4.7.0, fix CVE-2025-9165, rhbz#2389608
 Patch6:        libtiff-4.7.0-ed14128.patch
+# from upstream, for <=4.7.0, fix CVE-2025-8961, rhbz#2388596
+Patch7:        libtiff-4.7.0-CVE-2025-8961.patch
 
 BuildRequires: gcc, gcc-c++
 BuildRequires: zlib-devel libjpeg-devel jbigkit-devel libzstd-devel libwebp-devel liblerc-devel
@@ -73,6 +75,7 @@ image files using the libtiff library.
 %patch -P 4 -p1 -b .CVE-2024-13978
 %patch -P 5 -p1 -b .CVE-2025-8534
 %patch -P 6 -p1 -b .ed14128
+%patch -P 7 -p2 -b .CVE-2025-8961
 
 # Use build system's libtool.m4, not the one in the package.
 rm -f libtool.m4
@@ -183,6 +186,9 @@ fi
 %{_mandir}/man1/*
 
 %changelog
+* Wed Sep 24 2025 Michal Hlavinka <mhlavink@redhat.com> - 4.7.0-9
+- fix CVE-2025-8961 memory corruption in tiffcrop(rhbz#2388596)
+
 * Mon Aug 25 2025 Michal Hlavinka <mhlavink@redhat.com> - 4.7.0-8
 - fix  CVE-2025-9165: memory leak in tiffcmp (rhbz#2389608)
 

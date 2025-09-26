@@ -78,6 +78,8 @@ URL:            %{forgeurl0}
 Source0:        %{forgesource0}
 # License: GPL-3.0-or-later
 Source1:        %{forgeurl1}/-/archive/%{commit1}/monado-src-%{commit1}.tar.bz2
+# https://github.com/WiVRn/WiVRn/issues/505 - Fix APK download
+Patch99:        https://github.com/WiVRn/WiVRn/commit/66ca73981d0c6c079b34566fa53a7a415c403611.patch
 
 # Check for new/removed patches when updating: https://github.com/WiVRn/WiVRn/tree/master/patches/monado/ (check the tag)
 # Make sure to re-pull the patches every release. They are rebased and need to be updated!
@@ -216,6 +218,9 @@ and to assist in pairing the headset with the server.
 
 %prep
 %forgesetup
+
+# Fix APK download
+%patch -P99 -p1
 
 # Extract libraries that are bundled
 mkdir -p _deps/monado-src

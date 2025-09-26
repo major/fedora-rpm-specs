@@ -1,17 +1,21 @@
-%global pkgname ace
-%global giturl  https://github.com/gap-packages/ace
+%global gap_pkgname ace
+%global giturl      https://github.com/gap-packages/ace
 
-Name:           gap-pkg-%{pkgname}
+Name:           gap-pkg-%{gap_pkgname}
 Version:        5.7.0
 Release:        %autorelease
 Summary:        Advanced Coset Enumerator
 
 License:        MIT
-# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch:    %{ix86}
 URL:            https://gap-packages.github.io/ace/
 VCS:            git:%{giturl}.git
-Source:         %{giturl}/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
+Source:         %{giturl}/releases/download/v%{version}/%{gap_upname}-%{version}.tar.gz
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+BuildSystem:    gap
+BuildOption(install): bin examples gap htm res-examples tst VERSION
+BuildOption(check): tst/testall.g
 
 BuildRequires:  gap-devel
 BuildRequires:  gcc
@@ -23,12 +27,12 @@ BuildRequires:  tth
 Requires:       gap-core%{?_isa}
 
 %description
-The ACE package provides a mechanism to replace GAP's usual Todd-Coxeter
-coset enumerator by ACE, so that functions that behind the scenes use
-coset enumeration will use the ACE enumerator.  The ACE enumerator may
-also be used explicitly; both non-interactively and interactively.
-However the package is used, a plethora of options and strategies are
-available to assist the user in avoiding incomplete coset enumerations.
+The ACE package provides a mechanism to replace GAP's usual Todd-Coxeter coset
+enumerator by ACE, so that functions that behind the scenes use coset
+enumeration will use the ACE enumerator.  The ACE enumerator may also be used
+explicitly; both non-interactively and interactively.  However the package is
+used, a plethora of options and strategies are available to assist the user in
+avoiding incomplete coset enumerations.
 
 %package doc
 # The content is MIT.  The remaining licenses cover the various fonts embedded
@@ -44,10 +48,10 @@ Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
 
 %description doc
-This package contains documentation for gap-pkg-%{pkgname}.
+This package contains documentation for gap-pkg-%{gap_pkgname}.
 
 %prep
-%autosetup -p1 -n %{pkgname}-%{version}
+%autosetup -p1 -n %{gap_upname}-%{version}
 
 %build
 # This is NOT an autoconf-generated script.  Do not use %%configure.
@@ -65,36 +69,29 @@ pushd standalone-doc
 ps2pdf ace3001.ps ace3001.pdf
 popd
 
-%install
-mkdir -p %{buildroot}%{gap_archdir}/pkg/%{pkgname}/doc
-cp -a *.g bin examples gap htm res-examples tst VERSION \
-   %{buildroot}%{gap_archdir}/pkg/%{pkgname}
-rm %{buildroot}%{gap_archdir}/pkg/%{pkgname}/gap/CHANGES
-%gap_copy_docs
-
-%check
-gap -l '%{buildroot}%{gap_archdir};' tst/testall.g
+%install -a
+rm %{buildroot}%{gap_archdir}/pkg/%{gap_upname}/gap/CHANGES
 
 %files
 %doc CHANGES.md README.md
 %license LICENSE
-%dir %{gap_archdir}/pkg/%{pkgname}/
-%{gap_archdir}/pkg/%{pkgname}/*.g
-%{gap_archdir}/pkg/%{pkgname}/bin/
-%{gap_archdir}/pkg/%{pkgname}/gap/
-%{gap_archdir}/pkg/%{pkgname}/tst/
-%{gap_archdir}/pkg/%{pkgname}/VERSION
+%dir %{gap_archdir}/pkg/%{gap_upname}/
+%{gap_archdir}/pkg/%{gap_upname}/*.g
+%{gap_archdir}/pkg/%{gap_upname}/bin/
+%{gap_archdir}/pkg/%{gap_upname}/gap/
+%{gap_archdir}/pkg/%{gap_upname}/tst/
+%{gap_archdir}/pkg/%{gap_upname}/VERSION
 
 %files doc
 %doc standalone-doc/ace3001.pdf
-%docdir %{gap_archdir}/pkg/%{pkgname}/doc/
-%docdir %{gap_archdir}/pkg/%{pkgname}/examples/
-%docdir %{gap_archdir}/pkg/%{pkgname}/htm/
-%docdir %{gap_archdir}/pkg/%{pkgname}/res-examples/
-%{gap_archdir}/pkg/%{pkgname}/doc/
-%{gap_archdir}/pkg/%{pkgname}/examples/
-%{gap_archdir}/pkg/%{pkgname}/htm/
-%{gap_archdir}/pkg/%{pkgname}/res-examples/
+%docdir %{gap_archdir}/pkg/%{gap_upname}/doc/
+%docdir %{gap_archdir}/pkg/%{gap_upname}/examples/
+%docdir %{gap_archdir}/pkg/%{gap_upname}/htm/
+%docdir %{gap_archdir}/pkg/%{gap_upname}/res-examples/
+%{gap_archdir}/pkg/%{gap_upname}/doc/
+%{gap_archdir}/pkg/%{gap_upname}/examples/
+%{gap_archdir}/pkg/%{gap_upname}/htm/
+%{gap_archdir}/pkg/%{gap_upname}/res-examples/
 
 %changelog
 %autochangelog

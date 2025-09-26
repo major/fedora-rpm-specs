@@ -194,12 +194,19 @@ Source200:      %{salsa_git}/archive/%{salsa_rev}/salsa-%{salsa_rev}.tar.gz
 # Inspect https://github.com/python/typeshed/commit/%%{typeshed_rev}.
 %global typeshed_snapdate 20250601
 
+# Downstream patch: always find the system-wide ruff executable
+#
+# The following issue is for uv, but the situation is exactly the same.
+#
+# “Should uv.find_uv_bin() be able to find /usr/bin/uv?”
+#  https://github.com/astral-sh/uv/issues/4451
+Patch:          0001-Downstream-patch-always-find-the-system-wide-ruff-ex.patch
 # * drop unavailable compile-time diagnostics feature for UUIDs (non-upstreamable)
-Patch:          0001-drop-unavailable-features-from-uuid-dependency.patch
+Patch:          0002-drop-unavailable-features-from-uuid-dependency.patch
 # * ignore tests in vendored annotate-snippets that hang indefinitely:
-Patch:          0002-ignore-vendored-annotate-snippets-tests-that-hang-in.patch
+Patch:          0003-ignore-vendored-annotate-snippets-tests-that-hang-in.patch
 # * update indicatif to 0.18: https://github.com/astral-sh/ruff/pull/19165
-Patch:          0003-Update-Rust-crate-indicatif-to-0.18.0-19165.patch
+Patch:          0004-Update-Rust-crate-indicatif-to-0.18.0-19165.patch
 
 # Downstream-only or backported patches for the vendored salsa snapshot:
 # * remove pin on half versions, done only for MSRV versions
@@ -505,8 +512,8 @@ skip="${skip-} --skip color/"
 #   error: no matching package named `boxcar` found
 #   location searched: crates.io index
 skip="${skip-} --skip compile_fail"
-%ifarch s390x
-# These tests (in the bundled salsa) are flaky on s390x
+%ifarch s390x %{power64}
+# These tests (in the bundled salsa) are flaky on s390x and (rarely) ppc64le.
 skip="${skip-} --skip parallel_join::execute_cancellation"
 skip="${skip-} --skip parallel_map::execute_cancellation"
 skip="${skip-} --skip parallel_scope::execute_cancellation"

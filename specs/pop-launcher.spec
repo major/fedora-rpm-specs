@@ -5,15 +5,15 @@ ExcludeArch: %{ix86}
 
 
 # cosmic-packaging: Nightly build processed from tagged version at https://src.fedoraproject.org/rpms/pop-launcher
-%global commit 58a8f2db649098463b183c09cfa5897db217e2cf
-%global shortcommit %{sub %{commit} 1 7}
-%global commitdatestring 2025-03-24 13:11:27 -0600
-%global commitdate 20250324
-%global builddate 202504242006
-%global cosmic_minver 1.0.0~alpha.7
+# While our version corresponds to an upstream tag, we still need to define
+# these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
+# environment variables in multiple sections of the spec file.
+%global commit 8d9da92dbae520b37ab93fc2364a01d7adbd2f29
+%global commitdatestring 2025-05-01 14:24:41 +0200
+%global cosmic_minver 1.0.0~beta.1
 
 Name:           pop-launcher
-Version: 1.2.4~alpha.7^git%{commitdate}.%{shortcommit}
+Version: 1.0.0~beta.1
 Release:        %autorelease
 Summary:        Modular IPC-based desktop launcher service
 
@@ -21,14 +21,14 @@ License:        (0BSD OR Apache-2.0 OR MIT) AND Apache-2.0 AND (Apache-2.0 OR Ap
 
 URL:            https://github.com/pop-os/launcher
 
-Source0:        https://github.com/pop-os/launcher/archive/%{commit}/launcher-%{shortcommit}.tar.gz
+Source0:        https://github.com/pop-os/launcher/archive/epoch-%{version_no_tilde}/launcher-%{version_no_tilde}.tar.gz
 # To create the below sources:
 # * git clone https://github.com/pop-os/launcher at the specified commit
-# * cargo vendor > vendor-config-%%{shortcommit}.toml
-# * tar -pczf vendor-%%{shortcommit}.tar.gz vendor
-Source1:        vendor-%{shortcommit}.tar.gz
-# * mv vendor-config-%%{shortcommit}.toml ..
-Source2:        vendor-config-%{shortcommit}.toml
+# * cargo vendor > vendor-config-%%{version_no_tilde}.toml
+# * tar -pczf vendor-%%{version_no_tilde}.tar.gz vendor
+Source1:        vendor-%{version_no_tilde}.tar.gz
+# * mv vendor-config-%%{version_no_tilde}.toml ..
+Source2:        vendor-config-%{version_no_tilde}.toml
 
 # See: https://github.com/pop-os/launcher/pull/242
 Patch0: https://patch-diff.githubusercontent.com/raw/pop-os/launcher/pull/242.patch
@@ -50,7 +50,7 @@ Requires:       fd-find
 %description %{_description}
 
 %prep
-%autosetup -n launcher-%{commit} -p1 -a1
+%autosetup -n launcher-epoch-%{version_no_tilde} -p1 -a1
 %cargo_prep -N
 # Check if .cargo/config.toml exists
 if [ -f .cargo/config.toml ]; then
@@ -73,6 +73,7 @@ just build-release --offline --frozen
 %{cargo_license} > LICENSE.dependencies
 %{cargo_vendor_manifest}
 sed 's/\(.*\) (.*#\(.*\))/\1+git\2/' -i cargo-vendor.txt
+sed 's/^\([^+]*\)+.*+\([^+]*\)$/\1+\2/' -i cargo-vendor.txt
 
 %install
 # Set vergen environment variables

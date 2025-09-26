@@ -23,8 +23,11 @@ Source2:        https://download.strongswan.org/STRONGSWAN-RELEASE-PGP-KEY
 Source3:        tmpfiles-strongswan.conf
 # https://github.com/strongswan/strongswan/issues/1198  (also pinged upstream via email)
 Patch1:         strongswan-5.9.7-error-no-format.patch
-# this patch doesn't seem to help unfortunately
+# Use isolation to prevent pip attempting to download during build
 Patch2:         strongswan-6.0.2-no-isolation.patch
+# Remove MD2, which causes test case failures due to fedora crypto policies
+# https://github.com/strongswan/strongswan/commit/b3011e8e87a1fad1bfb026448fc37b80b7cfc007
+Patch3:         strongswan-6.0.2-no-md5-b3011e8e.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake

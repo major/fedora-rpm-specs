@@ -2,7 +2,7 @@ Name:		libgxim
 Version:	0.5.0
 Release:	31%{?dist}
 License:	LGPL-2.1-or-later
-URL:		http://tagoh.bitbucket.org/libgxim/
+URL:		https://gitlab.com/tagoh/libgxim/
 BuildRequires:	intltool gettext ruby rubygems
 BuildRequires:	glib2-devel >= 2.26, gtk2-devel
 BuildRequires:	gcc

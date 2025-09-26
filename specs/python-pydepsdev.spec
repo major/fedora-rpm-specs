@@ -1,9 +1,9 @@
 %global pypi_name pydepsdev
 
 Name:           python-%{pypi_name}
-Version:        0.1.2
+Version:        0.2.1
 Release:        %autorelease
-Summary:        Python library for interacting with the Deps.dev API
+Summary:        Python library for interacting with Open Source Insights API (deps.dev)
 
 License:        Apache-2.0
 URL:            https://github.com/eclipseo/pydepsdev
@@ -13,8 +13,8 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 
 %global common_description %{expand:
-A Python library for interacting with the Deps.dev API. Easily fetch package,
-version, and project data from the API.}
+A Python library for interacting with Open Source Insights API (deps.dev).
+Easily fetch package, version, and project data from the API.}
 
 %description %{common_description}
 

@@ -23,6 +23,8 @@ Patch:		0001-scripts-wrap-parse.py-get_args-improve-caching-of-re.patch
 Patch:		0001-scripts-wrap-parse.py-get_args-fix-for-libclang-20.patch
 # rhbz#2391345
 Patch:		0001-Bug-708838-Do-not-resolve-Last-object-in-outline-nod.patch
+# rhbz#2397703 and siblings
+Patch:		0001-Bug-708720-Fix-NULL-dereference-in-HTML-layout.patch
 # Fedora specific patches:
 # Do not bug me if Artifex relies on local fork
 Patch:		0001-Do-not-complain-to-your-friendly-local-distribution-.patch

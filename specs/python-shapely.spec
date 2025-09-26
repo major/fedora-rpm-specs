@@ -3,7 +3,7 @@
 %bcond doctests %{without bootstrap}
 
 Name:           python-shapely
-Version:        2.1.1
+Version:        2.1.2
 Release:        %autorelease
 Summary:        Manipulation and analysis of geometric objects in the Cartesian plane
 
@@ -14,14 +14,6 @@ Summary:        Manipulation and analysis of geometric objects in the Cartesian 
 License:        BSD-3-Clause AND Unlicense AND MIT
 URL:            https://github.com/shapely/shapely
 Source:         %{pypi_source shapely}
-
-# TST: update frechet_distance densify test for latest GEOS main
-# (densify>0.001)
-# https://github.com/shapely/shapely/pull/2311
-Patch:          %{url}/pull/2311.patch
-# TST: update test_coverage_union_overlapping_inputs for upstream GEOS change
-# https://github.com/shapely/shapely/pull/2318
-Patch:          %{url}/pull/2318.patch
 
 BuildRequires:  tomcli
 BuildRequires:  gcc

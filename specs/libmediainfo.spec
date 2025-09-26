@@ -1,8 +1,8 @@
 %global libzen_version  0.4.41
 
 Name:           libmediainfo
-Version:        25.04
-Release:        3%{?dist}
+Version:        25.07
+Release:        1%{?dist}
 Summary:        Library for supplies technical and tag information about a video or audio file
 
 License:        BSD-2-Clause
@@ -103,6 +103,9 @@ rm -f %{buildroot}%{_libdir}/%{name}.la
 %{_libdir}/cmake/mediainfolib/
 
 %changelog
+* Wed Sep 24 2025 Vasiliy Glazov <vascom2@gmail.com> - 25.07-1
+- Update to 25.07
+
 * Sat Aug 23 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 25.04-3
 - Rebuilt for tinyxml2 11.0.0
 

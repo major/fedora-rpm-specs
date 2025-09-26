@@ -24,8 +24,8 @@
 ExclusiveArch: x86_64
 
 Name:           hiprt
-Version:        2.5
-%global xver    a21e075
+Version:        3.0
+%global xver    4fea77f
 Release:        %autorelease -e %{xver}
 
 License:        Apache-2.0 AND BSD-3-Clause AND MIT AND NCSA
@@ -34,8 +34,6 @@ URL:            https://github.com/GPUOpen-LibrariesAndSDKs/%{upstreamname}
 Source0:        %{url}/archive/refs/tags/%{version}.%{xver}.tar.gz
 # https://github.com/GPUOpen-LibrariesAndSDKs/HIPRT/issues/22
 Patch0:         0001-hiprt-soversion.patch
-# Not upstreamable, nvidia is not an option for fedora but is for upstream.
-Patch2:         0001-disable-cuda-test.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -70,12 +68,20 @@ rm -rf contrib/Orochi/contrib/bin
 sed -i -e 's@HIPRT_SO_VERSION@%{version}@' CMakeLists.txt
 # bin?? 
 sed -i -e 's@install(TARGETS ${HIPRT_NAME} DESTINATION bin)@install(TARGETS ${HIPRT_NAME} DESTINATION %{_lib})@' CMakeLists.txt
-# No building nvidia things
-sed -i -e 's@compile.py --nvidia@compile.py @' CMakeLists.txt
-sed -i -e 's@precompile_bitcode.py --nvidia@precompile_bitcode.py @' CMakeLists.txt
 
 # Tutorial uses Orochi symbols, which are hidden on linux but not windows, unhide
 sed -i -e 's@-fvisibility=hidden@-fvisibility=default@' CMakeLists.txt
+
+# For this problem
+# https://github.com/GPUOpen-LibrariesAndSDKs/HIPRT/issues/47
+# CMake Error at cmake_install.cmake:136 (file):
+#  file INSTALL cannot find
+#  "/builddir/build/BUILD/hiprt-3.0-build/HIPRT-3.0.4fea77f/dist/bin/RelWithDebInfo/hiprt03000_7.0_amd.hipfb":
+#
+# scripts assume only Debug and Release build types
+sed -i -e 's@dist/bin/Release/@dist/bin/RelWithDebInfo/@g' scripts/bitcodes/precompile_bitcode.py
+sed -i -e 's@dist/bin/Release/@dist/bin/RelWithDebInfo/@g' scripts/bitcodes/compile.py
+
 %build
 
 %cmake -G Ninja $src \
@@ -84,6 +90,7 @@ sed -i -e 's@-fvisibility=hidden@-fvisibility=default@' CMakeLists.txt
        -DCMAKE_C_COMPILER=%rocmllvm_bindir/clang \
       -DBAKE_KERNEL=OFF \
       -DBITCODE=ON \
+      -DFORCE_DISABLE_CUDA=ON \
       -DPRECOMPILE=ON \
       -DNO_ENCRYPT=ON \
       -DNO_UNITTEST=%{build_no_test} \
@@ -107,6 +114,8 @@ cd dist
 # Bitcode install needs help
 install --mode=644 scripts/bitcodes/*.bc %{buildroot}%{_libdir}
 install --mode=644 scripts/bitcodes/*.hipfb %{buildroot}%{_libdir}
+rm -rf %{buildroot}%{_bindir}/*.bc
+rm -rf %{buildroot}%{_bindir}/*.hipfb
 
 # Orochi needs some help
 rm -rf %{buildroot}%{_includedir}/contrib/Orochi

@@ -7,7 +7,7 @@
 
 Name:           ansible-bender
 Version:        0.10.1
-Release:        12%{?dist}
+Release:        %autorelease
 Summary:        Build container images using Ansible playbooks
 
 License:        MIT
@@ -17,6 +17,7 @@ Source0:        %{pypi_source}
 BuildArch:      noarch
 
 BuildRequires:  python%{python3_pkgversion}-devel
+BuildRequires:  python%{python3_pkgversion}-pip
 BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  python%{python3_pkgversion}-setuptools_scm
 %if %{with check}
@@ -52,11 +53,11 @@ tl;dr Ansible is the frontend, buildah is the backend.
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
 
 
 %if %{with check}
@@ -74,7 +75,7 @@ tl;dr Ansible is the frontend, buildah is the backend.
 
 
 %files
-%{python3_sitelib}/ansible_bender-*.egg-info/
+%{python3_sitelib}/ansible_bender-*.dist-info/
 %{python3_sitelib}/ansible_bender/
 %{_bindir}/ansible-bender
 %license LICENSE
@@ -83,100 +84,4 @@ tl;dr Ansible is the frontend, buildah is the backend.
 
 
 %changelog
-* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.10.1-12
-- Rebuilt for Python 3.14.0rc3 bytecode
-
-* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.10.1-11
-- Rebuilt for Python 3.14.0rc2 bytecode
-
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 0.10.1-9
-- Rebuilt for Python 3.14
-
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Fri Jun 07 2024 Python Maint <python-maint@redhat.com> - 0.10.1-6
-- Rebuilt for Python 3.13
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 0.10.1-2
-- Rebuilt for Python 3.12
-
-* Mon Feb 06 2023 Tomas Tomecek <ttomecek@redhat.com> - 0.10.1-1
-- 0.10.1 upstream release
-
-* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 0.9.0-7
-- Rebuilt for Python 3.11
-
-* Sun Apr 24 2022 Gordon Messmer <gordon.messmer@gmail.com> - 0.9.0-6
-- Suggest ansible-core
-- Use %pytest macro
-
-* Tue Feb 22 2022 Maxwell G <gotmax@e.email> - 0.9.0-5
-- Allow users to choose between ansible and ansible-core.
-- Switch BR to ansible-core.
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 0.9.0-2
-- Rebuilt for Python 3.10
-
-* Sat Jan 30 2021 Gordon Messmer <gordon.messmer@gmail.com> - 0.9.0-1
-- Build 0.9.0
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 0.8.1-3
-- Rebuilt for Python 3.9
-
-* Mon May 18 2020 Gordon Messmer <gordon.messmer@gmail.com> - 0.8.1-2
-- Rebuild with fix for missing python modules.
-
-* Mon Apr 27 2020 Gordon Messmer <gordon.messmer@gmail.com> - 0.8.1-1
-- Build 0.8.1
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Oct 03 2019 Miro Hrončok <mhroncok@redhat.com> - 0.7.0-4
-- Rebuilt for Python 3.8.0rc1 (#1748018)
-
-* Mon Aug 19 2019 Miro Hrončok <mhroncok@redhat.com> - 0.7.0-3
-- Rebuilt for Python 3.8
-
-* Wed Jul 24 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Wed Jul 03 2019 Gordon Messmer <gordon.messmer@gmail.com> - 0.7.0-1
-- Build 0.7.0
-
-* Tue Jul 02 2019 Gordon Messmer <gordon.messmer@gmail.com> - 0.6.1-6
-- First build for Fedora
+%autochangelog

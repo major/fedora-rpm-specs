@@ -7,7 +7,7 @@
 
 %global goipath         github.com/osbuild/image-builder-cli
 
-Version:        35
+Version:        36
 
 %gometa
 
@@ -127,7 +127,7 @@ Provides: bundled(golang(github.com/opencontainers/image-spec)) = 1.1.1
 Provides: bundled(golang(github.com/opencontainers/runtime-spec)) = 1.2.1
 Provides: bundled(golang(github.com/opencontainers/selinux)) = 1.12.0
 Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.13.0
-Provides: bundled(golang(github.com/osbuild/images)) = 0.193.0
+Provides: bundled(golang(github.com/osbuild/images)) = 0.195.0
 Provides: bundled(golang(github.com/pkg/errors)) = 0.9.1
 Provides: bundled(golang(github.com/pmezard/go-difflib)) = 5d4384e
 Provides: bundled(golang(github.com/proglottis/gpgme)) = 0.1.4
@@ -238,6 +238,21 @@ cd $PWD/_build/src/%{goipath}
 %{_bindir}/image-builder
 
 %changelog
+* Wed Sep 24 2025 Packit <hello@packit.dev> - 36-1
+Changes with 36
+----------------
+  - deps: update to images 0.195.0 (#318)
+    - Author: Simon de Vlieger, Reviewers: Brian C. Lane, Tomáš Hozza
+  - deps: upgrade images to v0.194 (#314)
+    - Author: Lukáš Zapletal, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - gitignore: add common image formats (#312)
+    - Author: Lukáš Zapletal, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - progress: split progress.go into command.go (#313)
+    - Author: Lukáš Zapletal, Reviewers: Michael Vogt, Simon de Vlieger
+
+— Somewhere on the Internet, 2025-09-24
+
+
 * Fri Sep 19 2025 Packit <hello@packit.dev> - 35-1
 Changes with 35
 ----------------

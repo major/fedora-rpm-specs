@@ -7,12 +7,12 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit b44439fcd5ba85fec1a5d35cc163877160d31d0d
-%global commitdatestring 2025-04-16 17:29:22 +0200
-%global cosmic_minver 1.0.0~alpha.7
+%global commit 40254a7101b52b482f06d35a4d2eba8245814b2c
+%global commitdatestring 2025-09-19 11:20:26 -0600
+%global cosmic_minver 1.0.0~beta.1
 
 Name:           cosmic-bg
-Version: 1.0.0~alpha.7
+Version: 1.0.0~beta.1
 Release:        %autorelease
 Summary:        Background manager for the COSMIC Desktop Environment
 
@@ -28,9 +28,6 @@ Source0:        https://github.com/pop-os/cosmic-bg/archive/epoch-%{version_no_t
 Source1:        vendor-%{version_no_tilde}.tar.gz
 # * mv vendor-config-%%{version_no_tilde}.toml ..
 Source2:        vendor-config-%{version_no_tilde}.toml
-
-Patch: 0001-chore-update-jxl-oxide-rust-version-rust-edition-dep.patch
-Patch: 0002-fix-use-image-feature-of-jxl-to-fix-image-decoding-e.patch
 
 BuildRequires:  cargo-rpm-macros >= 25
 BuildRequires:  rustc
@@ -73,6 +70,7 @@ export VERGEN_GIT_SHA="%{commit}"
 %{cargo_license} > LICENSE.dependencies
 %{cargo_vendor_manifest}
 sed 's/\(.*\) (.*#\(.*\))/\1+git\2/' -i cargo-vendor.txt
+sed 's/^\([^+]*\)+.*+\([^+]*\)$/\1+\2/' -i cargo-vendor.txt
 
 %install
 # Set vergen environment variables
@@ -89,16 +87,6 @@ fi
 
 # Set default setting for backgrounds on all displays
 echo "true" > %{buildroot}%{_datadir}/cosmic/com.system76.CosmicBackground/v1/same-on-all
-
-# COSMIC is not a valid category pre-fedora 41
-%if %{defined fedora} && 0%{?fedora} < 41
-desktop-file-install \
---remove-category COSMIC \
---add-category X-COSMIC \
---delete-original \
---dir %{buildroot}%{_datadir}/applications \
-%{buildroot}%{_datadir}/applications/com.system76.CosmicBackground.desktop
-%endif
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/com.system76.CosmicBackground.desktop

@@ -14,8 +14,7 @@ ExcludeArch:     %{ix86}
 BuildRequires:   calceph-devel%{_isa} >= 4.0.0
 BuildRequires:   gcc
 BuildRequires:   sed
-BuildRequires:   doxygen >= 1.9.0
-Suggests:        %{name}-cio-data = %{version}-%{release}
+BuildRequires:   doxygen >= 1.13.0
 Suggests:        %{name}-solsys-calceph = %{version}-%{release}
 
 %description
@@ -39,7 +38,13 @@ calculations.
 
 %package solsys1
 Summary: Legacy solar-system plugin for JPL DE200 through DE421
-Requires:        %{name}%{?_isa} = %{version}-%{release}
+Requires:        %{name}%{?_isa} >= %{version}-%{release}
+# This legacy module for ephemeris support is outdated, providing limited
+# support to obsoleted planetary ephemerides DE421 or earlier only. The 
+# source code of is available in the documentation of the devel sub-package,
+# so anyone can still build and link against these even in the absence of
+# the shared library that is provided by this sub-package.
+Provides:        deprecated()
 
 %description solsys1
 Optional SuperNOVAS plugin library that provides legacy solar-system routines 
@@ -47,7 +52,13 @@ for accessing older JPL planetary data (DE200 through DE421).
  
 %package solsys2
 Summary: Legacy solar-system plugin for the JPL PLEPH routines
-Requires:        %{name}%{?_isa} = %{version}-%{release}
+Requires:        %{name}%{?_isa} >= %{version}-%{release}
+# This legacy module for ephemeris support is half-baked, and requires 
+# additional code by the user to become functional. It is also outdated and 
+# unsupported. The source code is available in the documentation of the devel 
+# sub-package, so anyone can still build and link against these even in the 
+# absence of the shared library that is provided by this sub-package.
+Provides:        deprecated()
 
 %description solsys2
 Optional SuperNOVAS plugin library that provides legacy solar-system routines 
@@ -72,13 +83,18 @@ development, which requires use of precise Solar-system data.
 %package cio-data
 Summary:         CIO location data for the SuperNOVAS C/C++ astronomy library
 BuildArch:       noarch
+# Future versions of SuperNOVAS will no longer need or use such 
+# data in any way. The data themselves are quite specific to this library
+# anb are not expected to be useful for other packages.
+Provides:        deprecated()
 
 %description cio-data
 Optional CIO location vs GCRS lookup table. This file is not normally required
 for the operation of the library. It is needed only if the user explicitly needs
 to know the location of the CIO vs GCRS, rather than w.r.t. the equinox of date.
 Applications that require CIO location w.r.t. the GCRS should depend on this
-sub-package
+sub-package. Future versions of SuperNOVAS will no longer need or use such 
+data in any way. Therefore this sub-package is now deprecated.
 
 %package devel
 Summary:         C development files for the SuperNOVAS C/C++ astronomy library

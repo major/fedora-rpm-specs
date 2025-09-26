@@ -1,5 +1,5 @@
 Name:           unicorn
-Version:        2.1.3
+Version:        2.1.4
 Release:        %autorelease
 Summary:        Lightweight multi-platform, multi-architecture CPU emulator framework
 

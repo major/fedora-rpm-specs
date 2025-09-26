@@ -5,13 +5,12 @@
 %global ftest_shortcommit %(c=%{ftest_commit}; echo ${c:0:7})
 
 Name:       utf8cpp
-Version:    4.0.6
-Release:    3%{?dist}
+Version:    4.0.8
+Release:    1%{?dist}
 Summary:    A simple, portable and lightweight library for handling UTF-8 encoded strings
 License:    BSL-1.0
 URL:        https://github.com/nemtrif/utfcpp
 Source0:    https://github.com/nemtrif/utfcpp/archive/v%{version}/utfcpp-%{version}.tar.gz
-Source1:    https://github.com/nemtrif/ftest/archive/%{ftest_commit}/ftest-%{ftest_shortcommit}.tar.gz
 # put cmake import file in correct directory
 Patch0:     %{name}-cmake.patch
 BuildRequires: cmake
@@ -46,8 +45,7 @@ This project currently only contains header files, which can be found in the
 %{name}-devel package.
 
 %prep
-%autosetup -n utfcpp-%{version} -a1 -p1
-rmdir extern/ftest && mv ftest-%{ftest_commit} extern/ftest
+%autosetup -n utfcpp-%{version} -p1
 
 %build
 %cmake \
@@ -88,6 +86,9 @@ popd
 %{_datadir}/cmake/utf8cpp
 
 %changelog
+* Sat Sep 20 2025 Dominik Mierzejewski <dominik@greysector.net> - 4.0.8-1
+- update to 4.0.8 (resolves rhbz#2395010)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

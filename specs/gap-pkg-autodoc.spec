@@ -1,6 +1,3 @@
-%global pkgname AutoDoc
-%global giturl  https://github.com/gap-packages/AutoDoc
-
 # When bootstrapping a new architecture, there is no gap-pkg-io package yet,
 # since it requires this package to build.  We only need it for testing this
 # package, not for building it, so use the following procedure:
@@ -9,18 +6,26 @@
 # 3. Do a normal build of this packages, which includes running the tests.
 %bcond bootstrap 0
 
-Name:           gap-pkg-autodoc
+%global gap_pkgname    autodoc
+%global gap_upname     AutoDoc
+%global gap_skip_check %{?with_bootstrap}
+%global giturl         https://github.com/gap-packages/AutoDoc
+
+Name:           gap-pkg-%{gap_pkgname}
 Version:        2025.05.09
 Release:        %autorelease
 Summary:        Generate documentation from GAP source code
 
 License:        GPL-2.0-or-later
-BuildArch:      noarch
-# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch:    %{ix86}
 URL:            https://gap-packages.github.io/AutoDoc/
 VCS:            git:%{giturl}.git
-Source:         %{giturl}/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
+Source:         %{giturl}/releases/download/v%{version}/%{gap_upname}-%{version}.tar.gz
+
+BuildArch:      noarch
+BuildSystem:    gap
+BuildOption(build): --packagedirs .. --bare -c 'LoadPackage("GAPDoc");'
+BuildOption(install): gap makefile tst
+BuildOption(check): --bare -c 'LoadPackage("GAPDoc");' tst/testall.g
 
 BuildRequires:  gap-devel
 BuildRequires:  GAPDoc-doc
@@ -36,8 +41,8 @@ Requires:       gap-core
 Requires:       GAPDoc-latex
 
 %description
-This package is an add-on to GAPDoc that enables generating
-documentation from GAP source code.
+This package is an add-on to GAPDoc that enables generating documentation from
+GAP source code.
 
 %package doc
 # The content is GPL-2.0-or-later.  The remaining licenses cover the various
@@ -53,40 +58,26 @@ Requires:       %{name} = %{version}-%{release}
 Requires:       GAPDoc-doc
 
 %description doc
-This package contains documentation for gap-pkg-%{pkgname}.
+This package contains documentation for gap-pkg-%{gap_pkgname}.
 
 %prep
-%autosetup -n %{pkgname}-%{version}
+%autosetup -n %{gap_upname}-%{version}
 
-%build
-mkdir ../pkg
-ln -s ../AutoDoc-%{version} ../pkg
-gap -l "$PWD/..;" --bare -c 'LoadPackage("GAPDoc");' makedoc.g
-rm -fr ../pkg
-
-%install
-mkdir -p %{buildroot}%{gap_libdir}/pkg/%{pkgname}/doc
-cp -a *.g gap makefile tst %{buildroot}%{gap_libdir}/pkg/%{pkgname}
-%gap_copy_docs
-cp -p doc/*.xml %{buildroot}%{gap_libdir}/pkg/%{pkgname}/doc
-
-%if %{without bootstrap}
-%check
-gap -l '%{buildroot}%{gap_libdir};' --bare -c 'LoadPackage("GAPDoc");' tst/testall.g
-%endif
+%install -a
+cp -p doc/*.xml %{buildroot}%{gap_libdir}/pkg/%{gap_upname}/doc
 
 %files
 %doc CHANGES.md README.md
 %license COPYRIGHT LICENSE
-%dir %{gap_libdir}/pkg/%{pkgname}/
-%{gap_libdir}/pkg/%{pkgname}/*.g
-%{gap_libdir}/pkg/%{pkgname}/makefile
-%{gap_libdir}/pkg/%{pkgname}/gap/
-%{gap_libdir}/pkg/%{pkgname}/tst/
+%dir %{gap_libdir}/pkg/%{gap_upname}/
+%{gap_libdir}/pkg/%{gap_upname}/*.g
+%{gap_libdir}/pkg/%{gap_upname}/makefile
+%{gap_libdir}/pkg/%{gap_upname}/gap/
+%{gap_libdir}/pkg/%{gap_upname}/tst/
 
 %files doc
-%docdir %{gap_libdir}/pkg/%{pkgname}/doc/
-%{gap_libdir}/pkg/%{pkgname}/doc/
+%docdir %{gap_libdir}/pkg/%{gap_upname}/doc/
+%{gap_libdir}/pkg/%{gap_upname}/doc/
 
 %changelog
 %autochangelog

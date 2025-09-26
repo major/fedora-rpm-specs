@@ -1,6 +1,6 @@
 %global         srcname         ufo2ft
 %global         forgeurl        https://github.com/googlefonts/ufo2ft
-Version:        3.6.5
+Version:        3.6.6
 %global         tag             v%{version}
 %forgemeta
 

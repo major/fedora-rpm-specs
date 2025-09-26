@@ -1,6 +1,6 @@
-Version:        0.56.0
+Version:        0.57.0
 Name:           lfortran
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        A modern Fortran compiler
 
 # Main code is BSD-3-Clause
@@ -9,8 +9,6 @@ Summary:        A modern Fortran compiler
 License:        BSD-3-Clause AND Apache-2.0 WITH LLVM-exception
 URL:            https://lfortran.org/
 Source0:        https://github.com/lfortran/lfortran/releases/download/v%{version}/lfortran-%{version}.tar.gz
-# Add support for LLVM 21
-Patch:          https://github.com/lfortran/lfortran/pull/8611.patch
 
 # https://github.com/lfortran/lfortran/issues/2981
 ExclusiveArch: x86_64
@@ -158,6 +156,10 @@ This package contains the jupyter kernel for %{name}.
 %endif
 
 %changelog
+* Wed Sep 24 2025 Packit <hello@packit.dev> - 0.57.0-1
+- Update to version 0.57.0
+- Resolves: rhbz#2397837
+
 * Mon Sep 22 2025 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.56.0-2
 - Add support for LLVM 21
 - Rebuild for xeus SONAME bump

@@ -1,18 +1,20 @@
-%global pkgname automata
-%global giturl  https://github.com/gap-packages/automata
+%global gap_pkgname automata
+%global giturl      https://github.com/gap-packages/automata
 
-Name:           gap-pkg-%{pkgname}
+Name:           gap-pkg-%{gap_pkgname}
 Version:        1.16
 Release:        %autorelease
 Summary:        Finite automata algorithms
 
 License:        GPL-2.0-or-later
-BuildArch:      noarch
-# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch:    %{ix86}
 URL:            https://gap-packages.github.io/automata/
 VCS:            git:%{giturl}.git
-Source:         %{giturl}/releases/download/v%{version}/%{pkgname}-%{version}.tar.bz2
+Source:         %{giturl}/releases/download/v%{version}/%{gap_upname}-%{version}.tar.bz2
+
+BuildArch:      noarch
+BuildSystem:    gap
+BuildOption(install): gap tst version
+BuildOption(check): tst/testall.g
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-autodoc
@@ -25,8 +27,8 @@ Recommends:     graphviz
 Recommends:     xdg-utils
 
 %description
-This package contains algorithms for working with finite automata in
-GAP.  It can do the following:
+This package contains algorithms for working with finite automata in GAP.  It
+can do the following:
 - compute a rational expression for the language recognized by a finite
   automaton;
 - compute an automaton for the language given by a rational expression;
@@ -46,34 +48,23 @@ Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
 
 %description doc
-This package contains documentation for gap-pkg-%{pkgname}.
+This package contains documentation for gap-pkg-%{gap_pkgname}.
 
 %prep
-%autosetup -n %{pkgname}-%{version}
-
-%build
-gap makedoc.g
-
-%install
-mkdir -p %{buildroot}%{gap_libdir}/pkg/%{pkgname}/doc
-cp -a *.g gap tst version %{buildroot}%{gap_libdir}/pkg/%{pkgname}
-%gap_copy_docs
-
-%check
-gap -l '%{buildroot}%{gap_libdir};' tst/testall.g
+%autosetup -n %{gap_upname}-%{version}
 
 %files
 %doc CHANGES EXAMPLES README.md
 %license GPL LICENSE
-%dir %{gap_libdir}/pkg/%{pkgname}/
-%{gap_libdir}/pkg/%{pkgname}/*.g
-%{gap_libdir}/pkg/%{pkgname}/gap/
-%{gap_libdir}/pkg/%{pkgname}/tst/
-%{gap_libdir}/pkg/%{pkgname}/version
+%dir %{gap_libdir}/pkg/%{gap_upname}/
+%{gap_libdir}/pkg/%{gap_upname}/*.g
+%{gap_libdir}/pkg/%{gap_upname}/gap/
+%{gap_libdir}/pkg/%{gap_upname}/tst/
+%{gap_libdir}/pkg/%{gap_upname}/version
 
 %files doc
-%docdir %{gap_libdir}/pkg/%{pkgname}/doc/
-%{gap_libdir}/pkg/%{pkgname}/doc/
+%docdir %{gap_libdir}/pkg/%{gap_upname}/doc/
+%{gap_libdir}/pkg/%{gap_upname}/doc/
 
 %changelog
 %autochangelog

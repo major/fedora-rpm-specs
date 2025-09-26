@@ -1,22 +1,24 @@
-%global pkgname 4ti2interface
-%global upname  4ti2Interface
-%global upver   2024.11-01
-%global giturl  https://github.com/homalg-project/homalg_project
+%global gap_pkgname 4ti2interface
+%global gap_upname  4ti2Interface
+%global upver       2024.11-01
+%global giturl      https://github.com/homalg-project/homalg_project
 
-Name:           gap-pkg-%{pkgname}
+Name:           gap-pkg-%{gap_pkgname}
 Version:        %(tr - . <<< %{upver})
 Release:        %autorelease
 Summary:        GAP interface to 4ti2
 
 License:        GPL-2.0-or-later
-BuildArch:      noarch
-# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch:    %{ix86}
 URL:            https://homalg-project.github.io/
 VCS:            git:%{giturl}.git
-Source:         %{giturl}/archive/%{upname}-%{upver}.tar.gz
+Source:         %{giturl}/archive/%{gap_upname}-%{upver}.tar.gz
 # Adapt to the Fedora 4ti2 package use of environment modules
 Patch:          %{name}-binaries.patch
+
+BuildArch:      noarch
+BuildSystem:    gap
+BuildOption(install): examples gap tst
+BuildOption(check): tst/testall.g
 
 BuildRequires:  4ti2
 BuildRequires:  gap-devel
@@ -40,35 +42,24 @@ Summary:        Documentation for the GAP 4ti2Interface package
 Requires:       %{name} = %{version}-%{release}
 
 %description doc
-This package contains documentation for gap-pkg-%{pkgname}.
+This package contains documentation for gap-pkg-%{gap_pkgname}.
 
 %prep
-%autosetup -n homalg_project-%{upname}-%{upver}/%{upname} -p1
-
-%build
-gap makedoc.g
-
-%install
-mkdir -p %{buildroot}%{gap_libdir}/pkg/%{upname}/doc
-cp -a examples gap tst *.g  %{buildroot}%{gap_libdir}/pkg/%{upname}
-%gap_copy_docs -n %{upname}
-
-%check
-gap -l '%{buildroot}%{gap_libdir};' tst/testall.g
+%autosetup -n homalg_project-%{gap_upname}-%{upver}/%{gap_upname} -p1
 
 %files
 %doc README.md
 %license LICENSE
-%dir %{gap_libdir}/pkg/%{upname}/
-%{gap_libdir}/pkg/%{upname}/*.g
-%{gap_libdir}/pkg/%{upname}/gap/
-%{gap_libdir}/pkg/%{upname}/tst/
+%dir %{gap_libdir}/pkg/%{gap_upname}/
+%{gap_libdir}/pkg/%{gap_upname}/*.g
+%{gap_libdir}/pkg/%{gap_upname}/gap/
+%{gap_libdir}/pkg/%{gap_upname}/tst/
 
 %files doc
-%docdir %{gap_libdir}/pkg/%{upname}/doc/
-%docdir %{gap_libdir}/pkg/%{upname}/examples/
-%{gap_libdir}/pkg/%{upname}/doc/
-%{gap_libdir}/pkg/%{upname}/examples/
+%docdir %{gap_libdir}/pkg/%{gap_upname}/doc/
+%docdir %{gap_libdir}/pkg/%{gap_upname}/examples/
+%{gap_libdir}/pkg/%{gap_upname}/doc/
+%{gap_libdir}/pkg/%{gap_upname}/examples/
 
 %changelog
 %autochangelog

@@ -2,6 +2,7 @@
 %global gaplibdir %{_datadir}/gap
 %global icondir %{_datadir}/icons/hicolor
 %global giturl  https://github.com/gap-system/gap
+%global prerel beta3
 
 # Files installed in nearly every package by GAPDoc
 %global GAPDoc_files chooser.html lefttoc.css manual.css manual.js nocolorprompt.css ragged.css rainbow.js times.css toggless.css toggless.js
@@ -21,16 +22,17 @@
 %bcond bootstrap 0
 
 Name:           gap
-Version:        4.14.0
+Version:        4.15.0%{?prerel:~%{prerel}}
 Release:        %autorelease
 Summary:        Computational discrete algebra
 
 %global majver %(cut -d. -f1-2 <<< %{version})
+%global urlver %(tr '~' - <<< %{version})
 
 License:        GPL-2.0-or-later
 URL:            https://www.gap-system.org/
 VCS:            git:%{giturl}.git
-Source0:        %{giturl}/releases/download/v%{version}/%{name}-%{version}.tar.gz
+Source0:        %{giturl}/releases/download/v%{urlver}/%{name}-%{urlver}.tar.gz
 Source1:        gap-README.fedora
 Source2:        update-gap-workspace
 Source3:        gap.xml
@@ -41,16 +43,12 @@ Source7:        gac.1.in
 Source8:        update-gap-workspace.1
 Source9:        gap.vim
 Source10:       gapicon.bmp
-# This patch applies a change from Debian to allow help files to be in gzip
-# compressed DVI files, and also adds support for viewing with xdg-open.
+# Support viewing help files with xdg-open.  Patch courtesy of Debian.
 Patch:          %{name}-help.patch
 # Avoid the popcount instruction on systems that do not support it
 Patch:          %{name}-popcount.patch
 # Use zlib-ng directly instead of via the compatibility layer
 Patch:          %{name}-zlib-ng.patch
-# Work around for build errors with C23
-# https://github.com/gap-system/gap/issues/5857
-Patch:          %{name}-c23.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -83,19 +81,19 @@ BuildRequires:  tex-latex-bin
 BuildRequires:  tex-rsfs
 BuildRequires:  tex-symbol
 BuildRequires:  tex-times
+BuildRequires:  vim-filesystem
 
 Requires:       %{name}-core%{?_isa} = %{version}-%{release}
 Requires:       %{name}-online-help = %{version}-%{release}
 Requires:       hicolor-icon-theme
 
 %description
-GAP is a system for computational discrete algebra, with particular
-emphasis on Computational Group Theory.  GAP provides a programming
-language, a library of thousands of functions implementing algebraic
-algorithms written in the GAP language as well as large data libraries
-of algebraic objects.  GAP is used in research and teaching for studying
-groups and their representations, rings, vector spaces, algebras,
-combinatorial structures, and more.
+GAP is a system for computational discrete algebra, with particular emphasis
+on Computational Group Theory.  GAP provides a programming language, a library
+of thousands of functions implementing algebraic algorithms written in the GAP
+language as well as large data libraries of algebraic objects.  GAP is used in
+research and teaching for studying groups and their representations, rings,
+vector spaces, algebras, combinatorial structures, and more.
 
 This package contains the command line application.
 
@@ -136,8 +134,8 @@ Requires:       %{name}-core = %{version}-%{release}
 BuildArch:      noarch
 
 %description online-help
-This package contains the documentation in TeX format needed for GAP's
-online help system.
+This package contains the documentation in TeX format needed for GAP's online
+help system.
 
 %package rpm-macros
 Summary:        RPM macros for GAP packages
@@ -162,8 +160,8 @@ Requires:       vim-filesystem
 BuildArch:      noarch
 
 %description vim
-This package provides VIM add-on files to support editing GAP sources.
-Both syntax highlighting and indentation are supported.
+This package provides VIM add-on files to support editing GAP sources.  Both
+syntax highlighting and indentation are supported.
 
 # We used to have a separate libgap-devel package.  That has been removed
 # because:
@@ -186,6 +184,7 @@ Recommends:     gap-pkg-factint
 Recommends:     gap-pkg-fga
 Recommends:     gap-pkg-irredsol
 Recommends:     gap-pkg-laguna
+Recommends:     gap-pkg-packagemanager
 Recommends:     gap-pkg-polenta
 Recommends:     gap-pkg-polycyclic
 Recommends:     gap-pkg-resclasses
@@ -196,7 +195,7 @@ Recommends:     gap-pkg-tomlib
 Library containing core GAP logic
 
 %prep
-%autosetup -p0
+%autosetup -p0 -n %{name}-%{urlver}
 
 %conf
 # Get the README
@@ -213,9 +212,10 @@ export STRIP=%{_bindir}/true
 
 %make_build V=1
 
+%if %{without bootstrap}
 # Rebuild the manuals from source
-export GAP_DIR=$PWD
 make doc
+%endif
 
 # Build gapmacrodoc.pdf
 cd doc
@@ -243,13 +243,12 @@ cat > macros.%{name} << EOF
 # linked instead of copied.
 # -d DIR: Copy files to directory DIR under the package directory (instead of
 #         "doc", which is the default)
-# -n NAME: name of the package, defaults to %%%%{pkgname}
 %%gap_copy_docs(d:n:) \\
   subdir=%%{-d:%%{-d*}}%%{!-d:doc} \\
   if [ "%%_target_cpu" = "noarch" ]; then \\
-    path=%%{buildroot}%%{gap_libdir}/pkg/%%{-n:%%{-n*}}%%{!-n:%%{pkgname}}/\$subdir \\
+    path=%%{buildroot}%%{gap_libdir}/pkg/%%{gap_upname}/\$subdir \\
   else \\
-    path=%%{buildroot}%%{gap_archdir}/pkg/%%{-n:%%{-n*}}%%{!-n:%%{pkgname}}/\$subdir \\
+    path=%%{buildroot}%%{gap_archdir}/pkg/%%{gap_upname}/\$subdir \\
   fi \\
   for ext in bib css gif html jpeg jpg js lab pdf png six txt; do \\
     cp -p \$subdir/*.\$ext \$path 2>/dev/null || : \\
@@ -271,10 +270,6 @@ EOF
 
 # Add executable bits to the library
 chmod 0755 %{buildroot}%{_libdir}/libgap.so.*
-
-# Link, rather than copy, identical binaries
-rm %{buildroot}%{gaparchdir}/gap
-ln %{buildroot}%{_bindir}/gap %{buildroot}%{gaparchdir}/gap
 
 # Remove files we do not want or install elsewhere
 rm %{buildroot}%{gaplibdir}/{*.md,COPYRIGHT,LICENSE}
@@ -299,12 +294,12 @@ for book in hpc ref tut; do
 done
 
 # Install VIM support where the rest of the system expects to find it
-mkdir -p %{buildroot}%{_datadir}/vim/vimfiles/indent
-cp -p etc/vim/gap_indent.vim %{buildroot}%{_datadir}/vim/vimfiles/indent
-mkdir -p %{buildroot}%{_datadir}/vim/vimfiles/syntax
-cp -p etc/vim/gap.vim %{buildroot}%{_datadir}/vim/vimfiles/syntax
-mkdir -p %{buildroot}%{_datadir}/vim/vimfiles/ftdetect
-cp -p %{SOURCE9} %{buildroot}%{_datadir}/vim/vimfiles/ftdetect
+mkdir -p %{buildroot}%{vimfiles_root}/indent
+cp -p etc/vim/gap_indent.vim %{buildroot}%{vimfiles_root}/indent
+mkdir -p %{buildroot}%{vimfiles_root}/syntax
+cp -p etc/vim/gap.vim %{buildroot}%{vimfiles_root}/syntax
+mkdir -p %{buildroot}%{vimfiles_root}/ftdetect
+cp -p %{SOURCE9} %{buildroot}%{vimfiles_root}/ftdetect
 
 # Create the system workspace, initially empty
 mkdir -p %{buildroot}%{_localstatedir}/lib/%{name}
@@ -362,7 +357,6 @@ make check
 %files
 %doc README.md README.fedora
 %{_bindir}/gap
-%{gaparchdir}/gap
 %{_mandir}/man1/gap.1*
 %{_metainfodir}/org.gap-system.gap.metainfo.xml
 %{_datadir}/applications/org.gap-system.gap.desktop
@@ -391,9 +385,7 @@ make check
 
 %files core
 %{_bindir}/update-gap-workspace
-%dir %{gaparchdir}
-%{gaparchdir}/sysinfo.gap
-%{gaparchdir}/pkg/
+%{gaparchdir}/
 %{gaplibdir}/pkg/
 %{_mandir}/man1/update-gap-workspace.1*
 %dir %{_localstatedir}/lib/%{name}/
@@ -413,12 +405,12 @@ make check
 
 %files vim
 %doc etc/vim/debug.vim etc/vim/debugvim.txt etc/vim/README.vim-utils
-%{_datadir}/vim/vimfiles/ftdetect/gap.vim
-%{_datadir}/vim/vimfiles/indent/gap_indent.vim
-%{_datadir}/vim/vimfiles/syntax/gap.vim
+%{vimfiles_root}/ftdetect/gap.vim
+%{vimfiles_root}/indent/gap_indent.vim
+%{vimfiles_root}/syntax/gap.vim
 
 %files -n libgap
-%{_libdir}/libgap.so.9
+%{_libdir}/libgap.so.10
 %{_libdir}/libgap.so
 %{_libdir}/pkgconfig/libgap.pc
 

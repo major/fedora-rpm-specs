@@ -1,5 +1,5 @@
 Name:           gap-srpm-macros
-Version:        1
+Version:        2
 Release:        %autorelease
 Summary:        Macros for building GAP source RPMs
 

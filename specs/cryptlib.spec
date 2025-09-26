@@ -4,13 +4,13 @@
 
 Name:       cryptlib
 Version:    3.4.8  
-Release:    14%{?dist}
+Release:    15%{?dist}
 Summary:    Security library and toolkit for encryption and authentication services    
 
 License:    Sleepycat and OpenSSL and BSD-3-Clause   
 URL:        https://github.com/cryptlib/cryptlib      
-Source0:    https://senderek.ie/fedora/cl348_fedora.zip      
-Source1:    https://senderek.ie/fedora/cl348_fedora.zip.sig
+Source0:    https://senderek.ie/fedora/cryptlib-fedora-3.4.8.tar.gz
+Source1:    https://senderek.ie/fedora/cryptlib-fedora-3.4.8.tar.gz.sig
 # for security reasons a public signing key should always be stored in distgit
 # and never be used with a URL to make impersonation attacks harder
 # (verified: https://senderek.ie/keys/codesigningkey)
@@ -19,8 +19,8 @@ Source3:    https://senderek.ie/fedora/README-manual
 Source4:    https://senderek.ie/fedora/cryptlib-tests.tar.gz
 Source5:    https://senderek.ie/fedora/cryptlib-perlfiles.tar.gz
 Source6:    https://senderek.ie/fedora/cryptlib-tools.tar.gz
-Source7:    https://senderek.ie/fedora/claes
-Source8:    https://senderek.ie/fedora/claes.sig
+Source7:    https://senderek.ie/fedora/cryptlib-3.4.8-update.tar.gz
+Source8:    https://senderek.ie/fedora/cryptlib-3.4.8-update.tar.gz.sig
 
 # soname is now libcl.so.3.4
 Patch0:     m64patch
@@ -117,6 +117,7 @@ Summary:  Collection of stand-alone programs that use Cryptlib
 Requires: python3 >= 3.5
 Requires: man
 Requires: %{name}%-python3
+Requires: dumpasn1
 
 %description tools
 Collection of stand-alone programs that use Cryptlib
@@ -134,7 +135,8 @@ gpg2 --homedir .gnupg --no-default-keyring --keyring $KEYRING --verify %{SOURCE8
 rm -rf %{name}-%{version}
 mkdir %{name}-%{version}
 cd %{name}-%{version}
-/usr/bin/unzip -a %{SOURCE0}
+/usr/bin/tar xvpzf %{SOURCE0}
+/usr/bin/tar xvpzf %{SOURCE7}
 
 %patch 0 -p1
 %patch 1 -p1
@@ -269,9 +271,9 @@ cd %{buildroot}%{cryptlibdir}/tools
 tar xpzf %{SOURCE6} 
 mkdir -p %{buildroot}%{_mandir}/man1
 mkdir -p %{buildroot}%{_bindir}
-cp %{SOURCE7} %{buildroot}%{_bindir}
 cp /%{buildroot}%{cryptlibdir}/tools/clsha1 %{buildroot}%{_bindir}
 cp /%{buildroot}%{cryptlibdir}/tools/clsha2 %{buildroot}%{_bindir}
+cp /%{buildroot}%{cryptlibdir}/tools/claes %{buildroot}%{_bindir}
 cp /%{buildroot}%{cryptlibdir}/tools/clkeys %{buildroot}%{_bindir}
 cp /%{buildroot}%{cryptlibdir}/tools/clsmime %{buildroot}%{_bindir}
 cp /%{buildroot}%{cryptlibdir}/tools/man/clsha1.1 %{buildroot}%{_mandir}/man1
@@ -344,6 +346,10 @@ cp /%{buildroot}%{cryptlibdir}/tools/man/clsmime.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Tue Sep 23 2025 Ralf Senderek <innovation@senderek.ie> 3.4.8-15
+- Update cryptlib-3.4.8 with source code https://github.com/cryptlib/cryptlib
+- Update all files in the cryptlib tools package to version 1.1
+
 * Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 3.4.8-14
 - Rebuilt for java-25-openjdk as preffered jdk
 

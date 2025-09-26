@@ -1,6 +1,6 @@
-%global commit 0c0c3ad76400f05414b5e6c96f85e73831000d17
+%global commit 3ccaa1acbd1e092787fa488d046bdcb3762e51ee
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global commitdate 20250502
+%global commitdate 20250530
 
 Name:       unzboot
 Version:    0.1~git.%{commitdate}.%{shortcommit}
@@ -43,6 +43,21 @@ compressed form.
 %{_bindir}/unzboot
 
 %changelog
+* Wed Sep 24 2025 Enric Balletbo i Serra <eballetbo@redhat.com> - 0.1~git.20250530.3ccaa1a-1
+- Check for g_malloc failure in unpack_efi_zboot_image
+- EFI zboot payload offset and size validation
+- Correct and simplify output file writing logic in main
+- Direct gunzip error messages to stderr
+- Improve ZSTD decompression error handling and reporting
+- Suppress unused parameter warnings in zalloc/zfree
+- Initialize z_stream in gunzip to prevent uninitialized use
+- Prevent memory leak in gunzip on inflateInit2 failure
+- Allow output to stdout to provide greater flexibility
+- Refactor output file writing in unzboot
+- Add SPDX license identifier and simplify license header
+- Add EFI application with zstd compression example
+- Append to the name the type of compression
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1~git.20250502.0c0c3ad-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

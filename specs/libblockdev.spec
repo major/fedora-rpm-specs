@@ -85,16 +85,12 @@
 %define configure_opts %{?python3_copts} %{?lvm_dbus_copts} %{?btrfs_copts} %{?crypto_copts} %{?dm_copts} %{?loop_copts} %{?lvm_copts} %{?lvm_dbus_copts} %{?mdraid_copts} %{?mpath_copts} %{?swap_copts} %{?part_copts} %{?fs_copts} %{?nvdimm_copts} %{?tools_copts} %{?gi_copts} %{?nvme_copts} %{?smart_copts} %{?smartmontools_copts}
 
 Name:        libblockdev
-Version:     3.3.1
-Release:     5%{?dist}
+Version:     3.4.0
+Release:     1%{?dist}
 Summary:     A library for low-level manipulation with block devices
 License:     LGPL-2.1-or-later
 URL:         https://github.com/storaged-project/libblockdev
 Source0:     https://github.com/storaged-project/libblockdev/releases/download/%{version}/%{name}-%{version}.tar.gz
-
-Patch0:      0001-Add-function-to-set-persistent-flags-for-LUKS.patch
-# https://issues.redhat.com/browse/RHEL-80620
-Patch1:      libatasmart-overall_drive_self-assessment.patch
 
 BuildRequires: make
 BuildRequires: glib2-devel
@@ -962,6 +958,9 @@ find %{buildroot} -type f -name "*.la" | xargs %{__rm}
 %files plugins-all
 
 %changelog
+* Wed Sep 24 2025 Packit <hello@packit.dev> - 3.4.0-1
+- Update to version 3.4.0
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.3.1-5
 - Rebuilt for Python 3.14.0rc3 bytecode
 

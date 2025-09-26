@@ -176,13 +176,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.17.0
 %define specversion 6.17.0
 %define patchversion 6.17
-%define pkgrelease 0.rc7.250923gcec1e6e5d1ab3.57
+%define pkgrelease 0.rc7.250924gcec1e6e5d1ab3.58
 %define kversion 6
 %define tarfile_release 6.17-rc7-20-gcec1e6e5d1ab3
 # This is needed to do merge window version magic
 %define patchlevel 17
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc7.250923gcec1e6e5d1ab3.57%{?buildid}%{?dist}
+%define specrelease 0.rc7.250924gcec1e6e5d1ab3.58%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.17.0
 
@@ -4395,12 +4395,24 @@ fi\
 #
 #
 %changelog
-* Tue Sep 23 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.17.0-0.rc7.250923gcec1e6e5d1ab3.57]
-- Linux v6.17.0-0.rc7.250923gcec1e6e5d1ab3
+* Wed Sep 24 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.17.0-0.rc7.250924gcec1e6e5d1ab3.58]
+- Linux v6.17.0-0.rc7.250924gcec1e6e5d1ab3
 
-* Tue Sep 23 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc7.cec1e6e5d1ab.57]
+* Wed Sep 24 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc7.cec1e6e5d1ab.58]
+- powerpc/tools: drop `-o pipefail` in gcc check scripts (Jan Stancek)
+- redhat/configs: enable CONFIG_KVM_INTEL_TDX for Fedora x86 (Daniel P. Berrangé)
+- KVM/TDX: Explicitly do WBINVD when no more TDX SEAMCALLs (Kai Huang)
+- x86/virt/tdx: Update the kexec section in the TDX documentation (Kai Huang)
+- x86/virt/tdx: Remove the !KEXEC_CORE dependency (Kai Huang)
+- x86/kexec: Disable kexec/kdump on platforms with TDX partial write erratum (Kai Huang)
+- x86/virt/tdx: Mark memory cache state incoherent when making SEAMCALL (Kai Huang)
+- x86/sme: Use percpu boolean to control WBINVD during kexec (Kai Huang)
+- x86/kexec: Consolidate relocate_kernel() function parameters (Kai Huang)
 - arm64: dts: qcom: x1e80100-lenovo-yoga-slim7x: add Bluetooth support (Jens Glathe)
 - redhat/configs: clang_lto: disable CONFIG_FORTIFY_KUNIT_TEST (Scott Weaver)
+
+* Wed Sep 24 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc7.cec1e6e5d1ab.57]
+- Consolidate configs to common for 6.17 (Justin M. Forbes)
 
 * Tue Sep 23 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc7.cec1e6e5d1ab.56]
 - Add 1010-config-newlines-test.bats self test. (Alexandra Hájková)

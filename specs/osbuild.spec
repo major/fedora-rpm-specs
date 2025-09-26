@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        159
+Version:        161
 
 %forgemeta
 
@@ -9,7 +9,7 @@ Version:        159
 %global         pkgdir %{_prefix}/lib/%{pypi_name}
 
 Name:           %{pypi_name}
-Release:        2%{?dist}
+Release:        1%{?dist}
 License:        Apache-2.0
 
 URL:            %{forgeurl}
@@ -330,6 +330,25 @@ fi
 %{pkgdir}/solver.json
 
 %changelog
+* Wed Sep 24 2025 Packit <hello@packit.dev> - 161-1
+Changes with 161
+----------------
+  - Update images dependency ref to latest (#2194)
+    - Author: SchutzBot, Reviewers: Lukáš Zapletal, Tomáš Hozza
+  - Update images dependency ref to latest (#2199)
+    - Author: SchutzBot, Reviewers: Sanne Raymaekers, Simon de Vlieger
+  - Update snapshots to 20250915 (#2193)
+    - Author: SchutzBot, Reviewers: Lukáš Zapletal, Simon de Vlieger, Tomáš Hozza
+  - osbuild: add/use new `api.get_exception_from_msg()` helper (#2201)
+    - Author: Michael Vogt, Reviewers: Brian C. Lane, Simon de Vlieger
+  - osbuild: handle exception from the _message() in BaseAPI() (#2197)
+    - Author: Michael Vogt, Reviewers: Brian C. Lane, Simon de Vlieger
+  - stages/systemd-repart: introduce systemd-repart (#2189)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Lukáš Zapletal, Michael Vogt
+
+— Somewhere on the Internet, 2025-09-24
+
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 159-2
 - Rebuilt for Python 3.14.0rc3 bytecode
 

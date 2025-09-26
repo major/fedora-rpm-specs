@@ -3,7 +3,7 @@
 
 Name:     squid
 Version:  7.1
-Release:  2%{?dist}
+Release:  3%{?dist}
 Summary:  The Squid proxy caching server
 Epoch:    7
 # See CREDITS for breakdown of non GPLv2+ code
@@ -307,7 +307,7 @@ fi
 
 
 %changelog
-* Thu Sep 11 2025 Luboš Uhliarik <luhliari@redhat.com> - 7:7.1-2
+* Thu Sep 11 2025 Luboš Uhliarik <luhliari@redhat.com> - 7:7.1-3
 - Support provider keys that require NULL digest
 
 * Thu Aug 14 2025 Luboš Uhliarik <luhliari@redhat.com> - 7:7.1-1

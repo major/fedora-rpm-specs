@@ -1,10 +1,10 @@
-%global DATE 20250808
-%global gitrev f833458d29b4fa40ffce6cf3b37ab9a30a864901
+%global DATE 20250924
+%global gitrev 720a9e91dc822477b5e5417a2134c2a1668da177
 %global gcc_version 15.2.1
 %global gcc_major 15
 # Note, gcc_release must be integer, if you want to add suffixes to
 # %%{release}, append them after %%{gcc_release} on Release: line.
-%global gcc_release 1
+%global gcc_release 2
 %global nvptx_tools_gitrev a0c1fff6534a4df9fb17937c3c4a4b1071212029
 %global newlib_cygwin_gitrev d35cc82b5ec15bb8a5fe0fe11e183d1887992e99
 %global _unpackaged_files_terminate_build 0
@@ -149,7 +149,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}%{?dist}.2
+Release: %{gcc_release}%{?dist}
 # License notes for some of the less obvious ones:
 #   gcc/doc/cppinternals.texi: Linux-man-pages-copyleft-2-para
 #   isl: MIT, BSD-2-Clause
@@ -3765,11 +3765,29 @@ end
 %endif
 
 %changelog
-* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 15.2.1-1.2
-- Rebuilt for Python 3.14.0rc3 bytecode
-
-* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 15.2.1-1.1
-- Rebuilt for Python 3.14.0rc2 bytecode
+* Wed Sep 24 2025 Jakub Jelinek <jakub@redhat.com> 15.2.1-2
+- update from releases/gcc-15 branch
+  - PRs ada/121968, bootstrap/118009, bootstrap/119089, c++/97740, c++/119859,
+	c++/120499, c++/120620, c++/121351, c++/121396, c++/121524,
+	c++/121724, c++/121795, c++/121801, c++/121977, c++/122015,
+	c++/122019, fortran/89092, fortran/121263, libfortran/121234,
+	libgcc/117600, libstdc++/110853, libstdc++/117276, libstdc++/119861,
+	libstdc++/120390, libstdc++/120698, libstdc++/121097,
+	libstdc++/121313, libstdc++/121374, libstdc++/121496,
+	libstdc++/121745, libstdc++/121827, middle-end/121453,
+	middle-end/121828, middle-end/121831, rtl-optimization/87600,
+	rtl-optimization/120718, rtl-optimization/120983,
+	rtl-optimization/121253, rtl-optimization/121757, target/49857,
+	target/81540, target/116445, target/118280, target/118885,
+	target/119830, target/120476, target/120691, target/120986,
+	target/121007, target/121118, target/121208, target/121294,
+	target/121414, target/121449, target/121464, target/121510,
+	target/121534, target/121542, target/121548, target/121602,
+	target/121608, target/121634, target/121749, target/121794,
+	target/121906, testsuite/118567, tree-optimization/107997,
+	tree-optimization/121370, tree-optimization/121527,
+	tree-optimization/121659, tree-optimization/121844,
+	tree-optimization/121870, tree-optimization/122016
 
 * Fri Aug  8 2025 Jakub Jelinek <jakub@redhat.com> 15.2.1-1
 - update from releases/gcc-15 branch

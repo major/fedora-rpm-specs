@@ -10,12 +10,12 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit 63176a1e2a942c7d2f22999f93fc963e2f8039c3
-%global commitdatestring 2025-04-22 08:13:43 -0600
-%global cosmic_minver 1.0.0~alpha.7
+%global commit 9228e3c6aec6bae7e81546206edec19353a1b10d
+%global commitdatestring 2025-09-19 11:20:59 -0600
+%global cosmic_minver 1.0.0~beta.1
 
 Name:           cosmic-files
-Version: 1.0.0~alpha.7
+Version: 1.0.0~beta.1
 Release:        %autorelease
 Summary:        Libcosmic file manager
 
@@ -32,6 +32,9 @@ Source1:        vendor-%{version_no_tilde}.tar.gz
 # * mv vendor-config-%%{version_no_tilde}.toml ..
 Source2:        vendor-config-%{version_no_tilde}.toml
 
+# Fixes desktop file
+# https://github.com/pop-os/cosmic-files/pull/1196
+Patch: https://patch-diff.githubusercontent.com/raw/pop-os/cosmic-files/pull/1196.patch
 
 BuildRequires:  cargo-rpm-macros >= 26
 BuildRequires:  rustc
@@ -75,22 +78,13 @@ export VERGEN_GIT_SHA="%{commit}"
 %{cargo_license} > LICENSE.dependencies
 %{cargo_vendor_manifest}
 sed 's/\(.*\) (.*#\(.*\))/\1+git\2/' -i cargo-vendor.txt
+sed 's/^\([^+]*\)+.*+\([^+]*\)$/\1+\2/' -i cargo-vendor.txt
 
 %install
 # Set vergen environment variables
 export VERGEN_GIT_COMMIT_DATE="date --utc '%{commitdatestring}'"
 export VERGEN_GIT_SHA="%{commit}"
 just rootdir=%{buildroot} prefix=%{_prefix} install
-
-# COSMIC is not a valid category pre-fedora 41
-%if %{defined fedora} && 0%{?fedora} < 41
-desktop-file-install \
---remove-category COSMIC \
---add-category X-COSMIC \
---delete-original \
---dir %{buildroot}%{_datadir}/applications \
-%{buildroot}%{_datadir}/applications/com.system76.CosmicFiles.desktop
-%endif
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/com.system76.CosmicFiles.desktop

@@ -1,5 +1,5 @@
 Name:           tmt
-Version:        1.57.0
+Version:        1.58.0
 Release:        %autorelease
 Summary:        Test Management Tool
 
@@ -28,7 +28,7 @@ Obsoletes:      tmt-report-reportportal < %{version}-%{release}
 %endif
 
 Recommends:     bash-completion
-Recommends:	ansible-core
+Recommends:     ansible-core
 
 %py_provides    python3-tmt
 
@@ -44,6 +44,7 @@ metadata specification (L1 and L2) and allows easy test execution.
 %pyproject_extras_subpkg -n tmt report-junit
 %pyproject_extras_subpkg -n tmt report-polarion
 %pyproject_extras_subpkg -n tmt link-jira
+%pyproject_extras_subpkg -n tmt prepare-artifact
 
 %package -n     tmt+test-convert
 Summary:        Dependencies required for tmt test import and export
@@ -128,6 +129,7 @@ Requires:       tmt+provision-virtual == %{version}-%{release}
 Requires:       tmt+provision-beaker == %{version}-%{release}
 Requires:       tmt+report-junit == %{version}-%{release}
 Requires:       tmt+report-polarion == %{version}-%{release}
+Requires:       tmt+prepare-artifact == %{version}-%{release}
 
 %description -n tmt+all
 All extra dependencies of the Test Management Tool. Install this
@@ -179,6 +181,9 @@ install -pm 644 %{name}/steps/provision/mrack/mrack* %{buildroot}/etc/%{name}/
 %files -n tmt+all -f %{_pyproject_ghost_distinfo}
 
 %changelog
+* Wed Sep 24 2025 Packit <hello@packit.dev> - 1.58.0-1
+- Update to version 1.58.0
+
 * Thu Sep 11 2025 Packit <hello@packit.dev> - 1.57.0-1
 - Update to version 1.57.0
 

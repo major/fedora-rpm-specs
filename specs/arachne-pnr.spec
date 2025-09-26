@@ -13,7 +13,7 @@
 
 Name:           arachne-pnr
 Version:        0.1
-Release:        0.24.20190729git%{shortcommit0}%{?dist}
+Release:        0.25.20190729git%{shortcommit0}%{?dist}
 Summary:        Place and route for FPGA compilation
 License:        MIT
 URL:            https://github.com/cseed/arachne-pnr
@@ -29,15 +29,24 @@ Patch2:         test-fixup.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
-# Yosys does not support s390x (see Yosys specfile for BZ)
-ExcludeArch:    s390x
+
+# Continue building on s390x, but skip the tests
+# those need yosys and it doesn't build on s390x
+# TODO: subset tests to run on s390x without yosys
+%ifnarch s390x
+%bcond check 1
+%else
+%bcond check 0
+%endif
 
 BuildRequires:  gcc-c++
 BuildRequires:  icestorm
 BuildRequires:  make
+%if %{with check}
 # shasum,yosys needed to complete simpletests
 BuildRequires:  perl(Digest::SHA)
 BuildRequires:  yosys
+%endif
 
 %description
 Arachne-pnr implements the place and route step of the hardware
@@ -71,10 +80,12 @@ make install PREFIX="%{_prefix}" \
              ICEBOX="%{_datadir}/icestorm"
 
 %check
+%if %{with check}
 make simpletest %{?_smp_mflags} \
      CXXFLAGS="%{optflags} -Isrc/" \
      PREFIX="%{_prefix}" \
      ICEBOX="%{_datadir}/icestorm"
+%endif
 
 %files
 %license COPYING
@@ -83,6 +94,9 @@ make simpletest %{?_smp_mflags} \
 %{_datadir}/%{name}
 
 %changelog
+* Wed Sep 24 2025 Alexander F. Lent <lx@xanderlent.com> - 0.1-0.25.20190729gitc40fb22
+- Re-enable builds on s390x while skipping the tests on that arch.
+
 * Fri Aug  1 2025 Alexander F. Lent <lx@xanderlent.com> - 0.1-0.24.20190729gitc40fb22
 - Enable the simple test suite to detect future breakage.
 

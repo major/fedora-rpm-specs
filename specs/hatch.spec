@@ -1,7 +1,7 @@
 %bcond tests 1
 
 Name:           hatch
-Version:        1.14.1
+Version:        1.14.2
 Release:        %autorelease
 Summary:        A modern project, package, and virtual env manager
 
@@ -174,18 +174,6 @@ done
 # Also, for ppc64le and s390x:
 k="${k-}${k+ and }not (TestDistributionPaths and test_pypy_custom)"
 k="${k-}${k+ and }not (TestDistributionVersions and test_pypy_custom)"
-
-# Test regressions with click 8.2
-# https://github.com/pypa/hatch/issues/2016
-ignore="${ignore-} --ignore=tests/cli/self/test_self.py"
-k="${k-}${k+ and }not test_clean"
-k="${k-}${k+ and }not test_clean_env_var"
-k="${k-}${k+ and }not test_clean_hooks_after"
-k="${k-}${k+ and }not test_clean_hooks_after_env_var"
-k="${k-}${k+ and }not test_default"
-k="${k-}${k+ and }not test_explicit_directory"
-k="${k-}${k+ and }not test_explicit_directory_env_var"
-k="${k-}${k+ and }not test_plugin_dependencies_unmet"
 
 %pytest -k "${k-}" ${ignore-} -vv
 %endif

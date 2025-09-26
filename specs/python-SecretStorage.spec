@@ -2,16 +2,12 @@
 %bcond docs 1
 %bcond tests %{without bootstrap}
 
-%global commit 3e5097c3c9a9c4fbfec74df4ceb0387308648525
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date 20240314
-
 Name:       python-SecretStorage
-Version:    3.3.3^%{date}git%{shortcommit}
+Version:    3.4.0
 Release:    %autorelease
 Summary:    Python bindings to FreeDesktop.org Secret Service API
 URL:        https://github.com/mitya57/secretstorage
-Source:     https://github.com/mitya57/secretstorage/archive/%{commit}/secretstorage-%{shortcommit}.tar.gz
+Source:     https://github.com/mitya57/secretstorage/archive/%{version}/secretstorage-%{version}.tar.gz
 License:    BSD-3-Clause
 BuildArch:  noarch
 
@@ -76,7 +72,7 @@ Summary:        SecretStorage documentation
 Documentation for SecretStorage.
 
 %prep
-%autosetup -n secretstorage-%{commit}
+%autosetup -n secretstorage-%{version}
 
 %build
 %pyproject_wheel

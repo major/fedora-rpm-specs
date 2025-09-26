@@ -10,7 +10,7 @@
 # https://github.com/coreos/butane
 %global goipath         github.com/coreos/butane
 %global gomodulesmode   GO111MODULE=on
-Version:                0.25.0
+Version:                0.25.1
 
 %gometa -f
 
@@ -39,27 +39,27 @@ Provides:       fcct = %{version}-%{release}
 Provides: bundled(golang(github.com/clarketm/json)) = 1.17.1
 Provides: bundled(golang(github.com/coreos/go-semver/semver)) = 0.3.1
 Provides: bundled(golang(github.com/coreos/go-systemd/v22/unit)) = 22.5.0
-Provides: bundled(golang(github.com/coreos/ignition/v2/config/doc)) = 2.21.0
-Provides: bundled(golang(github.com/coreos/ignition/v2/config/merge)) = 2.21.0
-Provides: bundled(golang(github.com/coreos/ignition/v2/config/shared/errors)) = 2.21.0
-Provides: bundled(golang(github.com/coreos/ignition/v2/config/shared/parse)) = 2.21.0
-Provides: bundled(golang(github.com/coreos/ignition/v2/config/shared/validations)) = 2.21.0
-Provides: bundled(golang(github.com/coreos/ignition/v2/config/util)) = 2.21.0
-Provides: bundled(golang(github.com/coreos/ignition/v2/config/v3_0/types)) = 2.21.0
-Provides: bundled(golang(github.com/coreos/ignition/v2/config/v3_1/types)) = 2.21.0
-Provides: bundled(golang(github.com/coreos/ignition/v2/config/v3_2/types)) = 2.21.0
-Provides: bundled(golang(github.com/coreos/ignition/v2/config/v3_3/types)) = 2.21.0
-Provides: bundled(golang(github.com/coreos/ignition/v2/config/v3_4/types)) = 2.21.0
-Provides: bundled(golang(github.com/coreos/ignition/v2/config/v3_5/types)) = 2.21.0
-Provides: bundled(golang(github.com/coreos/ignition/v2/config/v3_6_experimental/types)) = 2.21.0
-Provides: bundled(golang(github.com/coreos/ignition/v2/config/validate)) = 2.21.0
+Provides: bundled(golang(github.com/coreos/ignition/v2/config/doc)) = 2.23.0
+Provides: bundled(golang(github.com/coreos/ignition/v2/config/merge)) = 2.23.0
+Provides: bundled(golang(github.com/coreos/ignition/v2/config/shared/errors)) = 2.23.0
+Provides: bundled(golang(github.com/coreos/ignition/v2/config/shared/parse)) = 2.23.0
+Provides: bundled(golang(github.com/coreos/ignition/v2/config/shared/validations)) = 2.23.0
+Provides: bundled(golang(github.com/coreos/ignition/v2/config/util)) = 2.23.0
+Provides: bundled(golang(github.com/coreos/ignition/v2/config/v3_0/types)) = 2.23.0
+Provides: bundled(golang(github.com/coreos/ignition/v2/config/v3_1/types)) = 2.23.0
+Provides: bundled(golang(github.com/coreos/ignition/v2/config/v3_2/types)) = 2.23.0
+Provides: bundled(golang(github.com/coreos/ignition/v2/config/v3_3/types)) = 2.23.0
+Provides: bundled(golang(github.com/coreos/ignition/v2/config/v3_4/types)) = 2.23.0
+Provides: bundled(golang(github.com/coreos/ignition/v2/config/v3_5/types)) = 2.23.0
+Provides: bundled(golang(github.com/coreos/ignition/v2/config/v3_6_experimental/types)) = 2.23.0
+Provides: bundled(golang(github.com/coreos/ignition/v2/config/validate)) = 2.23.0
 Provides: bundled(golang(github.com/coreos/vcontext/json)) = 0.0.0-20230201181013.gitd72178a18687
 Provides: bundled(golang(github.com/coreos/vcontext/path)) = 0.0.0-20230201181013.gitd72178a18687
 Provides: bundled(golang(github.com/coreos/vcontext/report)) = 0.0.0-20230201181013.gitd72178a18687
 Provides: bundled(golang(github.com/coreos/vcontext/tree)) = 0.0.0-20230201181013.gitd72178a18687
 Provides: bundled(golang(github.com/coreos/vcontext/validate)) = 0.0.0-20230201181013.gitd72178a18687
 Provides: bundled(golang(github.com/coreos/vcontext/yaml)) = 0.0.0-20230201181013.gitd72178a18687
-Provides: bundled(golang(github.com/spf13/pflag)) = 1.0.6
+Provides: bundled(golang(github.com/spf13/pflag)) = 1.0.7
 Provides: bundled(golang(github.com/stretchr/testify/assert)) = 1.10.0
 Provides: bundled(golang(github.com/stretchr/testify/assert/yaml)) = 1.10.0
 Provides: bundled(golang(github.com/vincent-petithory/dataurl)) = 1.0.0
@@ -147,6 +147,9 @@ install -p -m 0644 ./butane-x86_64-unknown-linux-gnu-static %{buildroot}%{_datad
 %{_datadir}/butane/butane-x86_64-unknown-linux-gnu-static
 
 %changelog
+* Wed Sep 24 2025 Tiago Bueno <tiago.bueno@gmail.com> - 0.25.1-1
+- New release
+
 * Mon Sep 08 2025 Tiago Bueno <tiago.bueno@gmail.com> - 0.25.0-1
 - New release
 

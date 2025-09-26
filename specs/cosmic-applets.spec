@@ -7,12 +7,12 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit f26992e41a7a68aafdd74db4b3c78560282f4e05
-%global commitdatestring 2025-04-22 16:14:03 +0200
-%global cosmic_minver 1.0.0~alpha.7
+%global commit 2dba07fcae15ff93ea08afac111655325c1a3eca
+%global commitdatestring 2025-09-19 11:18:08 -0600
+%global cosmic_minver 1.0.0~beta.1
 
 Name:           cosmic-applets
-Version: 1.0.0~alpha.7
+Version: 1.0.0~beta.1
 Release:        %autorelease
 Summary:        Applets for the COSMIC Desktop Environment
 
@@ -29,9 +29,6 @@ Source1:        vendor-%{version_no_tilde}.tar.gz
 # * mv vendor-config-%%{version_no_tilde}.toml ..
 Source2:        vendor-config-%{version_no_tilde}.toml
 
-# required to compile applets in a reasonable amount of time
-# necessary even with the multi-binary feature + 8h timeout
-Patch: 0001-Set-LTO-thin.patch
 Patch: 0001-Symlink-relative-in-justfile.patch
 
 BuildRequires:  cargo-rpm-macros >= 25
@@ -45,6 +42,8 @@ BuildRequires:  libudev-devel
 BuildRequires:  pulseaudio-libs-devel
 BuildRequires:  mesa-libEGL-devel
 BuildRequires:  libxkbcommon-devel
+BuildRequires:  pipewire-devel
+BuildRequires:  clang
 BuildRequires:  just
 BuildRequires:  desktop-file-utils
 
@@ -79,6 +78,7 @@ export VERGEN_GIT_SHA="%{commit}"
 %{cargo_license} > LICENSE.dependencies
 %{cargo_vendor_manifest}
 sed 's/\(.*\) (.*#\(.*\))/\1+git\2/' -i cargo-vendor.txt
+sed 's/^\([^+]*\)+.*+\([^+]*\)$/\1+\2/' -i cargo-vendor.txt
 
 %install
 # Set vergen environment variables
@@ -88,130 +88,6 @@ just rootdir=%{buildroot} prefix=%{_prefix} install
 
 # Fix Firefox desktop file reference
 sed -e 's/"firefox"/"org.mozilla.firefox"/' -i %{buildroot}%{_datadir}/cosmic/com.system76.CosmicAppList/v1/favorites
-
-# COSMIC is not a valid category pre-fedora 41
-%if %{defined fedora} && 0%{?fedora} < 41
-
-desktop-file-install \
---remove-category COSMIC \
---add-category X-COSMIC \
---delete-original \
---dir %{buildroot}%{_datadir}/applications \
-%{buildroot}%{_datadir}/applications/com.system76.CosmicAppList.desktop
-
-desktop-file-install \
---remove-category COSMIC \
---add-category X-COSMIC \
---delete-original \
---dir %{buildroot}%{_datadir}/applications \
-%{buildroot}%{_datadir}/applications/com.system76.CosmicAppletA11y.desktop
-
-desktop-file-install \
---remove-category COSMIC \
---add-category X-COSMIC \
---delete-original \
---dir %{buildroot}%{_datadir}/applications \
-%{buildroot}%{_datadir}/applications/com.system76.CosmicAppletAudio.desktop
-
-desktop-file-install \
---remove-category COSMIC \
---add-category X-COSMIC \
---delete-original \
---dir %{buildroot}%{_datadir}/applications \
-%{buildroot}%{_datadir}/applications/com.system76.CosmicAppletBattery.desktop
-
-desktop-file-install \
---remove-category COSMIC \
---add-category X-COSMIC \
---delete-original \
---dir %{buildroot}%{_datadir}/applications \
-%{buildroot}%{_datadir}/applications/com.system76.CosmicAppletBluetooth.desktop
-
-desktop-file-install \
---remove-category COSMIC \
---add-category X-COSMIC \
---delete-original \
---dir %{buildroot}%{_datadir}/applications \
-%{buildroot}%{_datadir}/applications/com.system76.CosmicAppletInputSources.desktop
-
-desktop-file-install \
---remove-category COSMIC \
---add-category X-COSMIC \
---delete-original \
---dir %{buildroot}%{_datadir}/applications \
-%{buildroot}%{_datadir}/applications/com.system76.CosmicAppletMinimize.desktop
-
-desktop-file-install \
---remove-category COSMIC \
---add-category X-COSMIC \
---delete-original \
---dir %{buildroot}%{_datadir}/applications \
-%{buildroot}%{_datadir}/applications/com.system76.CosmicAppletNetwork.desktop
-
-desktop-file-install \
---remove-category COSMIC \
---add-category X-COSMIC \
---delete-original \
---dir %{buildroot}%{_datadir}/applications \
-%{buildroot}%{_datadir}/applications/com.system76.CosmicAppletNotifications.desktop
-
-desktop-file-install \
---remove-category COSMIC \
---add-category X-COSMIC \
---delete-original \
---dir %{buildroot}%{_datadir}/applications \
-%{buildroot}%{_datadir}/applications/com.system76.CosmicAppletPower.desktop
-
-desktop-file-install \
---remove-category COSMIC \
---add-category X-COSMIC \
---delete-original \
---dir %{buildroot}%{_datadir}/applications \
-%{buildroot}%{_datadir}/applications/com.system76.CosmicAppletStatusArea.desktop
-
-desktop-file-install \
---remove-category COSMIC \
---add-category X-COSMIC \
---delete-original \
---dir %{buildroot}%{_datadir}/applications \
-%{buildroot}%{_datadir}/applications/com.system76.CosmicAppletTiling.desktop
-
-desktop-file-install \
---remove-category COSMIC \
---add-category X-COSMIC \
---delete-original \
---dir %{buildroot}%{_datadir}/applications \
-%{buildroot}%{_datadir}/applications/com.system76.CosmicAppletTime.desktop
-
-desktop-file-install \
---remove-category COSMIC \
---add-category X-COSMIC \
---delete-original \
---dir %{buildroot}%{_datadir}/applications \
-%{buildroot}%{_datadir}/applications/com.system76.CosmicAppletWorkspaces.desktop
-
-desktop-file-install \
---remove-category COSMIC \
---add-category X-COSMIC \
---delete-original \
---dir %{buildroot}%{_datadir}/applications \
-%{buildroot}%{_datadir}/applications/com.system76.CosmicPanelAppButton.desktop
-
-desktop-file-install \
---remove-category COSMIC \
---add-category X-COSMIC \
---delete-original \
---dir %{buildroot}%{_datadir}/applications \
-%{buildroot}%{_datadir}/applications/com.system76.CosmicPanelWorkspacesButton.desktop
-
-desktop-file-install \
---remove-category COSMIC \
---add-category X-COSMIC \
---delete-original \
---dir %{buildroot}%{_datadir}/applications \
-%{buildroot}%{_datadir}/applications/com.system76.CosmicPanelLauncherButton.desktop
-
-%endif
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/com.system76.CosmicAppList.desktop
@@ -293,7 +169,7 @@ export VERGEN_GIT_SHA="%{commit}"
 %{_datadir}/icons/hicolor/scalable/apps/com.system76.CosmicAppletTiling.On.svg
 %{_datadir}/icons/hicolor/scalable/apps/com.system76.CosmicAppletTiling-symbolic.svg
 %{_datadir}/icons/hicolor/scalable/apps/com.system76.CosmicAppletTime-symbolic.svg
-%{_datadir}/icons/hicolor/scalable/apps/com.system76.CosmicAppletWorkspaces-symbolic.svg
+%{_datadir}/icons/hicolor/scalable/apps/com.system76.CosmicAppletWorkspaces.svg
 %{_datadir}/icons/hicolor/scalable/apps/com.system76.CosmicPanelAppButton.svg
 %{_datadir}/icons/hicolor/scalable/apps/com.system76.CosmicPanelWorkspacesButton.svg
 %{_datadir}/icons/hicolor/scalable/status/cosmic-applet-battery-display-brightness-high-symbolic.svg

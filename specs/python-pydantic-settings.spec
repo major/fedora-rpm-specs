@@ -11,10 +11,10 @@
 %bcond gcp_secret_manager 0
 
 %global forgeurl https://github.com/pydantic/pydantic-settings
-%global tag %{version}
+%global tag v%{version}
 
 Name:           python-pydantic-settings
-Version:        2.10.1
+Version:        2.11.0
 %forgemeta
 Release:        %autorelease
 Summary:        Settings management using pydantic

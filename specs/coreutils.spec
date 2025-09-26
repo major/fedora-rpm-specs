@@ -1,7 +1,7 @@
 Summary: A set of basic GNU tools commonly used in shell scripts
 Name:    coreutils
-Version: 9.7
-Release: 5%{?dist}
+Version: 9.8
+Release: 1%{?dist}
 # some used parts of gnulib are under various variants of LGPL
 License: GPL-3.0-or-later AND GFDL-1.3-no-invariants-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later
 Url:     https://www.gnu.org/software/coreutils/
@@ -32,28 +32,8 @@ Patch103: coreutils-python3.patch
 # df --direct
 Patch104: coreutils-df-direct.patch
 
-# cp/mv: do not fail when copying of trivial NFSv4 ACLs fails (rhbz#2363149)
-# https://git.savannah.gnu.org/cgit/gnulib.git/patch?id=8a356b77717a2e4f735ec06e326880ca1f61aadb
-# https://git.savannah.gnu.org/cgit/gnulib.git/patch?id=955360a66c99bdd9ac3688519a8b521b06958fd3
-Patch105: coreutils-9.6-cp-improve-nfsv4-acl-support.patch
-
-# sort: fix buffer under-read (CVE-2025-5278)
-# https://cgit.git.savannah.gnu.org/cgit/coreutils.git/patch/?id=8c9602e3a145e9596dc1a63c6ed67865814b6633
-Patch106: coreutils-CVE-2025-5278.patch
-
-# stty: add support for arbitrary baud rates (rhbz#2375439)
-# https://cgit.git.savannah.gnu.org/cgit/coreutils.git/patch/?id=357fda90d15fd3f7dba61e1ab322b183a48d0081
-# https://cgit.git.savannah.gnu.org/cgit/coreutils.git/patch/?id=efaec8078142996d958b6720b85a13b12497c3d0
-# https://cgit.git.savannah.gnu.org/cgit/coreutils.git/patch/?id=b7db7757831e93ca44ae59e1921bc4ebbc87974f
-# https://cgit.git.savannah.gnu.org/cgit/coreutils.git/patch/?id=8b05eca972f70858749a946ac24f08d0718c1be6
-# https://cgit.git.savannah.gnu.org/cgit/coreutils.git/patch/?id=3d35b3c0e56bd556c90dc98c3e5e2e7289b0eb0d
-Patch107: coreutils-9.7-stty-arbitrary-baud-rates.patch
-
 # (sb) lin18nux/lsb compliance - multibyte functionality patch
 Patch800: coreutils-i18n.patch
-
-# downstream SELinux options deprecated since 2009
-Patch950: coreutils-selinux.patch
 
 Conflicts: filesystem < 3
 
@@ -295,6 +275,10 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 %license COPYING
 
 %changelog
+* Wed Sep 24 2025 Lukáš Zaoral <lzaoral@redhat.com> - 9.8-1
+- rebase to latest upstream release (rhbz#2397467)
+- remove downstream patch for selinux options deprecated since 2009
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.7-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

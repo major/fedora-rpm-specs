@@ -7,12 +7,12 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit 96e9bf3b81718e2a9ac28b2c24bd1149400b286a
-%global commitdatestring 2025-04-24 12:45:50 +0200
-%global cosmic_minver 1.0.0~alpha.7
+%global commit b19f66702fcdc9c4a7ab066e8dbca4e94bb5063e
+%global commitdatestring 2025-09-19 15:33:10 +0200
+%global cosmic_minver 1.0.0~beta.1
 
 Name:           cosmic-comp
-Version: 1.0.0~alpha.7
+Version: 1.0.0~beta.1
 Release:        %autorelease
 Summary:        Compositor for the COSMIC Desktop Environment
 
@@ -72,16 +72,19 @@ fi
 # Set vergen environment variables
 export VERGEN_GIT_COMMIT_DATE="date --utc '%{commitdatestring}'"
 export VERGEN_GIT_SHA="%{commit}"
+export GIT_HASH="%{commit}"
 %cargo_build
 %{cargo_license_summary}
 %{cargo_license} > LICENSE.dependencies
 %{cargo_vendor_manifest}
 sed 's/\(.*\) (.*#\(.*\))/\1+git\2/' -i cargo-vendor.txt
+sed 's/^\([^+]*\)+.*+\([^+]*\)$/\1+\2/' -i cargo-vendor.txt
 
 %install
 # Set vergen environment variables
 export VERGEN_GIT_COMMIT_DATE="date --utc '%{commitdatestring}'"
 export VERGEN_GIT_SHA="%{commit}"
+export GIT_HASH="%{commit}"
 make install DESTDIR=%{buildroot} prefix=%{_prefix}
 
 %if %{with check}
@@ -89,6 +92,7 @@ make install DESTDIR=%{buildroot} prefix=%{_prefix}
 # Set vergen environment variables
 export VERGEN_GIT_COMMIT_DATE="date --utc '%{commitdatestring}'"
 export VERGEN_GIT_SHA="%{commit}"
+export GIT_HASH="%{commit}"
 %cargo_test
 %endif
 

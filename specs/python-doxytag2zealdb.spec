@@ -35,7 +35,7 @@ Requires: python3-%{shortname} = %{version}-%{release}
 
 
 %package -n python3-%{shortname}
-Summary:    Python modules for git-revise
+Summary:    Python modules for %{shortname}
 Recommends: %{shortname} = %{version}-%{release}
 
 %description -n python3-%{shortname}
