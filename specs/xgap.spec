@@ -1,15 +1,14 @@
-%global giturl  https://github.com/gap-packages/xgap
+%global gap_pkgname xgap
+%global giturl      https://github.com/gap-packages/xgap
 
-Name:           xgap
-Version:        4.32
+Name:           %{gap_pkgname}
+Version:        4.33
 Release:        %autorelease
 Summary:        GUI for GAP
 
 # The project as a whole is GPL-2.0-or-later.
 # src.x11/selfile.{c,h} is HPND.
 License:        GPL-2.0-or-later AND HPND
-# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch:    %{ix86}
 URL:            https://gap-packages.github.io/xgap/
 VCS :           git:%{giturl}.git
 Source0:        %{giturl}/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -22,8 +21,14 @@ Source2:        XGap
 Patch:          %{name}-warning.patch
 # Fix FTBFS due to an incompatible pointer type
 Patch:          %{name}-incompatible-pointer.patch
-# Adapt to changes in C23
-Patch:          %{name}-c23.patch
+# Adapt to a change in the gap binary location in gap 4.15.0
+Patch:          %{name}-gap-path.patch
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+BuildSystem:    gap
+BuildOption(install): bin examples htm lib tst
+BuildOption(check): tst/testall.g
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gap-devel
@@ -35,10 +40,10 @@ BuildRequires:  tth
 
 Requires:       gap%{?_isa}
 
-Provides:       gap-pkg-xgap = %{version}-%{release}
+Provides:       gap-pkg-%{gap_pkgname} = %{version}-%{release}
 
 %description
-A X Windows GUI for GAP.
+An X Windows GUI for GAP.
 
 %package doc
 # The content is GPL-2.0-or-later.  The remaining licenses cover the various
@@ -53,7 +58,7 @@ Requires:       %{name} = %{version}-%{release}
 Requires:       gap-pkg-smallgrp-doc
 
 %description doc
-This package contains documentation for %{name}.
+This package contains documentation for %{gap_pkgname}.
 
 %prep
 %autosetup -p0
@@ -71,16 +76,15 @@ ln -s %{gap_libdir}/etc ../../etc
 ln -s %{gap_libdir}/doc ../../doc
 ln -s %{gap_libdir}/pkg/smallgrp ..
 ln -s %{name}-%{version} ../%{name}
-make -C doc manual
+cd doc
+./make_doc
+cd -
 rm -f ../%{name} ../smallgrp ../../{doc,etc}
 
-%install
+%install -a
 mkdir -p %{buildroot}%{_bindir}
-mkdir -p %{buildroot}%{gap_archdir}/pkg/%{name}/doc
-cp -a *.g bin examples htm lib tst %{buildroot}%{gap_archdir}/pkg/%{name}
 mv %{buildroot}%{gap_archdir}/pkg/%{name}/bin/xgap.sh %{buildroot}%{_bindir}/xgap
 rm %{buildroot}%{gap_archdir}/pkg/%{name}/bin/*/{Makefile,config*,*.o}
-%gap_copy_docs -n %{name}
 
 # Install the desktop file
 mkdir -p %{buildroot}%{_datadir}/applications
@@ -91,11 +95,12 @@ desktop-file-install --mode=644 --dir=%{buildroot}%{_datadir}/applications \
 mkdir -p %{buildroot}%{_datadir}/X11/app-defaults
 cp -p %{SOURCE2} %{buildroot}%{_datadir}/X11/app-defaults
 
-%check
+%check -p
 # Temporarily modify the test runner to add the necessary -l argument
 sed -i.orig 's|"-p"|"-l","%{buildroot}%{gap_archdir};",&|' \
    %{buildroot}%{gap_archdir}/pkg/%{name}/tst/xgap_test.g
-gap -l '%{buildroot}%{gap_archdir};' tst/testall.g
+
+%check -a
 mv %{buildroot}%{gap_archdir}/pkg/%{name}/tst/xgap_test.g.orig \
    %{buildroot}%{gap_archdir}/pkg/%{name}/tst/xgap_test.g
 

@@ -1,21 +1,26 @@
-%global pkgname digraphs
-%global giturl  https://github.com/digraphs/Digraphs
+%global gap_pkgname digraphs
+%global giturl      https://github.com/digraphs/Digraphs
 
-Name:           gap-pkg-%{pkgname}
-Version:        1.10.0
+Name:           gap-pkg-%{gap_pkgname}
+Version:        1.12.2
 Release:        %autorelease
 Summary:        GAP package for digraphs and multidigraphs
 
 # The project as a whole is GPL-3.0-or-later.
 # The bundled copy of bliss is LGPL-3.0-only.
 License:        GPL-3.0-or-later AND LGPL-3.0-only
-# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch:    %{ix86}
 URL:            https://digraphs.github.io/Digraphs/
 VCS:            git:%{giturl}.git
-Source:         %{giturl}/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
+Source:         %{giturl}/releases/download/v%{version}/%{gap_upname}-%{version}.tar.gz
 # Compatibility with planarity 4.x
 Patch:          %{name}-planarity4.patch
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+BuildSystem:    gap
+BuildOption(build): --packagedirs ..
+BuildOption(install): bin data gap notebooks tst VERSIONS
+BuildOption(check): tst/teststandard.g
 
 BuildRequires:  gap-devel
 BuildRequires:  GAPDoc-doc
@@ -29,7 +34,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  graphviz
 BuildRequires:  libtool
 BuildRequires:  make
-BuildRequires:  planarity-devel
+BuildRequires:  pkgconfig(libplanarity)
 BuildRequires:  tex(a4wide.sty)
 BuildRequires:  xdg-utils
 
@@ -45,8 +50,8 @@ Recommends:     graphviz
 Provides:       bundled(bliss) = 0.73
 
 %description
-The Digraphs package is a GAP package containing methods for graphs,
-digraphs, and multidigraphs.
+The Digraphs package is a GAP package containing methods for graphs, digraphs,
+and multidigraphs.
 
 %package doc
 # The content is GPL-3.0-or-later.  The remaining licenses cover the various
@@ -62,54 +67,41 @@ Requires:       %{name} = %{version}-%{release}
 Requires:       GAPDoc-doc
 
 %description doc
-This package contains documentation for gap-pkg-%{pkgname}.
+This package contains documentation for gap-pkg-%{gap_pkgname}.
 
 %prep
-%autosetup -n %{pkgname}-%{version} -p1
+%autosetup -n %{gap_upname}-%{version} -p1
 
 %conf
 # Make sure the bundled planarity is not used
 rm -fr extern/edge-addition-planarity-suite-Version_3.0.1.0
 
-%build
+%build -p
 %configure --with-gaproot=%{gap_archdir} --disable-silent-rules \
   --with-external-planarity
 %make_build
 
-# Build the documentation
-mkdir ../pkg
-ln -s ../%{pkgname}-%{version} ../pkg
-gap -l "$PWD/..;" makedoc.g
-rm -fr ../pkg
+%check -p
+cp -p doc/*.xml %{buildroot}%{gap_archdir}/pkg/%{gap_upname}/doc
 
-%install
-mkdir -p %{buildroot}%{gap_archdir}/pkg/%{pkgname}/doc
-cp -a bin data gap notebooks tst VERSIONS *.g \
-   %{buildroot}%{gap_archdir}/pkg/%{pkgname}
-%gap_copy_docs
-
-%check
-# The "extreme" tests take a long time, so just run the "standard" tests
-mkdir ../pkg
-ln -s ../%{pkgname}-%{version} ../pkg
-gap -l "$PWD/..;" tst/teststandard.g
-rm -fr ../pkg
+%check -a
+rm %{buildroot}%{gap_archdir}/pkg/%{gap_upname}/doc/*.xml
 
 %files
 %doc CHANGELOG.md README.md
 %license GPL LICENSE
-%dir %{gap_archdir}/pkg/%{pkgname}/
-%{gap_archdir}/pkg/%{pkgname}/*.g
-%{gap_archdir}/pkg/%{pkgname}/bin/
-%{gap_archdir}/pkg/%{pkgname}/data/
-%{gap_archdir}/pkg/%{pkgname}/gap/
-%{gap_archdir}/pkg/%{pkgname}/notebooks/
-%{gap_archdir}/pkg/%{pkgname}/tst/
-%{gap_archdir}/pkg/%{pkgname}/VERSIONS
+%dir %{gap_archdir}/pkg/%{gap_upname}/
+%{gap_archdir}/pkg/%{gap_upname}/*.g
+%{gap_archdir}/pkg/%{gap_upname}/bin/
+%{gap_archdir}/pkg/%{gap_upname}/data/
+%{gap_archdir}/pkg/%{gap_upname}/gap/
+%{gap_archdir}/pkg/%{gap_upname}/notebooks/
+%{gap_archdir}/pkg/%{gap_upname}/tst/
+%{gap_archdir}/pkg/%{gap_upname}/VERSIONS
 
 %files doc
-%docdir %{gap_archdir}/pkg/%{pkgname}/doc/
-%{gap_archdir}/pkg/%{pkgname}/doc/
+%docdir %{gap_archdir}/pkg/%{gap_upname}/doc/
+%{gap_archdir}/pkg/%{gap_upname}/doc/
 
 %changelog
 %autochangelog

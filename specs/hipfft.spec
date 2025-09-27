@@ -61,7 +61,7 @@
 
 Name:           %{hipfft_name}
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm FFT marshalling library
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
@@ -77,7 +77,7 @@ BuildRequires:  rocm-cmake
 BuildRequires:  rocm-comgr-devel
 BuildRequires:  rocm-compilersupport-macros
 BuildRequires:  rocm-hip-devel
-BuildRequires:  rocm-runtime-devel
+BuildRequires:  rocm-runtime-devel >= %{rocm_release}
 BuildRequires:  rocm-rpm-macros
 BuildRequires:  rocprim-devel
 BuildRequires:  rocfft-devel
@@ -194,6 +194,9 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Thu Sep 25 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-2
+- Require a new rocm runtime
+
 * Sat Sep 20 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.0-1
 - Update to 7.0.1
 

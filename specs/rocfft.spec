@@ -89,7 +89,7 @@
 
 Name:           %{rocfft_name}
 Version:        %{rocm_version}
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        ROCm Fast Fourier Transforms (FFT) library
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -104,7 +104,7 @@ BuildRequires:  rocm-comgr-devel
 BuildRequires:  rocm-compilersupport-macros
 BuildRequires:  rocm-hip-devel
 BuildRequires:  rocm-rpm-macros
-BuildRequires:  rocm-runtime-devel
+BuildRequires:  rocm-runtime-devel >= %{rocm_release}
 BuildRequires:  rocm-rpm-macros
 BuildRequires:  rocm-rpm-macros-modules
 
@@ -121,7 +121,7 @@ BuildRequires:  gtest-devel
 %endif
 
 # rocfft-test compiles some things and requires rocm-hip-devel
-Requires:  rocm-hip-devel
+Requires:  rocm-hip-devel >= %{rocm_release}
 
 %endif
 
@@ -239,6 +239,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/rocfft/LICENSE.md
 %endif
 
 %changelog
+* Thu Sep 25 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-8
+- require a new rocm-runtime
+
 * Tue Sep 23 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-7
 - Rebuild
 

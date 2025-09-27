@@ -37,7 +37,7 @@
 Summary: Apache Portable Runtime Utility library
 Name: apr-util
 Version: 1.6.3
-Release: 24%{?dist}
+Release: 25%{?dist}
 # Apache-2.0:  everything
 # RSA-MD:      https://gitlab.com/fedora/legal/fedora-legal-docs/-/merge_requests/187
 #              include\apr_md5.h, passwd\apr_md5.c, crypto\apr_md4.c, include\apr_md4.h
@@ -57,6 +57,7 @@ Patch6: apr-util-1.6.3-r1908586.patch
 Patch7: apr-util-1.6.3-r1908584.patch
 Patch8: apr-util-1.6.3-r1908585.patch
 Patch9: apr-util-1.6.3-drop-engine-headers.patch
+Patch10: apr-util-1.6.3-r1928729.patch
 BuildRequires: gcc
 BuildRequires: autoconf, apr-devel >= 1.3.0
 BuildRequires: %{dbdep}, expat-devel, libuuid-devel
@@ -284,6 +285,9 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}/apr-util-%{apuver}
 %{_datadir}/aclocal/*.m4
 
 %changelog
+* Thu Sep 25 2025 Luboš Uhliarik <luhliari@redhat.com> - 1.6.3-25
+- apr_dbm lmdb: fix database access issues
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

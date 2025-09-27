@@ -1,7 +1,7 @@
 
 %global qt_module qtsvg
 
-#global unstable 0
+%global unstable 1
 %if 0%{?unstable}
 %global prerelease rc
 %endif
@@ -10,7 +10,7 @@
 
 Summary: Qt6 - Support for rendering and displaying SVG
 Name:    qt6-%{qt_module}
-Version: 6.9.2
+Version: 6.10.0%{?unstable:~%{prerelease}}
 Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -108,21 +108,22 @@ popd
 %dir %{_qt6_libdir}/cmake/Qt6Svg/
 %dir %{_qt6_libdir}/cmake/Qt6SvgPrivate/
 %dir %{_qt6_libdir}/cmake/Qt6SvgWidgets/
-%dir %{_qt6_libdir}/cmake/Qt6SvgWidgetsPrivate/
 %{_qt6_libdir}/cmake/Qt6Svg/*.cmake
 %{_qt6_libdir}/cmake/Qt6SvgPrivate/*cmake
 %{_qt6_libdir}/cmake/Qt6SvgWidgets/*.cmake
-%{_qt6_libdir}/cmake/Qt6SvgWidgetsPrivate/*.cmake
 %{_qt6_libdir}/qt6/metatypes/qt6*_metatypes.json
 %{_qt6_libdir}/qt6/modules/*.json
 %{_qt6_libdir}/pkgconfig/*.pc
 
 %if 0%{?examples}
-# FIXME there don't seem to be any examples
 %files examples
+%{_qt6_examplesdir}/
 %endif
 
 %changelog
+* Thu Sep 25 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0~rc-1
+- 6.10.0 RC
+
 * Thu Aug 28 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.2-1
 - 6.9.2
 

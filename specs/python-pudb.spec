@@ -1,18 +1,12 @@
 %global srcname pudb
 
 Name:          python-pudb
-Version:       2025.1
+Version:       2025.1.1
 Release:       %autorelease
 Summary:       A full-screen, console-based Python debugger
 License:       MIT
 URL:           https://github.com/inducer/pudb
 Source0:       %{pypi_source}
-
-# Fixes for Python 3.14 compatibility
-# The second patch is there just for the third to apply
-Patch:         https://github.com/inducer/pudb/pull/685.patch
-Patch:         https://github.com/inducer/pudb/commit/b045a7.patch
-Patch:         https://github.com/inducer/pudb/pull/689.patch
 
 BuildArch:     noarch
 BuildRequires: python3-devel

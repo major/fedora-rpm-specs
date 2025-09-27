@@ -1,17 +1,21 @@
-%global pkgname nq
-%global giturl  https://github.com/gap-packages/nq
+%global gap_pkgname nq
+%global giturl      https://github.com/gap-packages/nq
 
-Name:           gap-pkg-%{pkgname}
+Name:           gap-pkg-%{gap_pkgname}
 Version:        2.5.11
 Release:        %autorelease
 Summary:        Nilpotent Quotients of finitely presented groups
 
 License:        GPL-2.0-or-later
-# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch:    %{ix86}
 URL:            https://gap-packages.github.io/nq/
 VCS:            git:%{giturl}.git
-Source:         %{giturl}/archive/v%{version}/%{pkgname}-%{version}.tar.gz
+Source:         %{giturl}/archive/v%{version}/%{gap_upname}-%{version}.tar.gz
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+BuildSystem:    gap
+BuildOption(install): bin examples gap tst
+BuildOption(check): tst/testall.g
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-autodoc
@@ -25,9 +29,8 @@ Requires:       gap-core%{?_isa}
 Requires:       gap-pkg-polycyclic
 
 %description
-This package provides access from within GAP to the ANU nilpotent
-quotient program for computing nilpotent factor groups of finitely
-presented groups.
+This package provides access from within GAP to the ANU nilpotent quotient
+program for computing nilpotent factor groups of finitely presented groups.
 
 %package doc
 # The content is GPL-2.0-or-later.  The remaining licenses cover the various
@@ -44,41 +47,32 @@ Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
 
 %description doc
-This package contains documentation for gap-pkg-%{pkgname}.
+This package contains documentation for gap-pkg-%{gap_pkgname}.
 
 %prep
-%autosetup -n %{pkgname}-%{version}
+%autosetup -n %{gap_upname}-%{version}
 
 %conf
 ./autogen.sh
 
-%build
+%build -p
 %configure --with-gaproot=%{gap_archdir} --disable-silent-rules
 %make_build
-gap makedoc.g
-
-%install
-mkdir -p %{buildroot}%{gap_archdir}/pkg/%{pkgname}/doc
-cp -a *.g bin examples gap tst %{buildroot}%{gap_archdir}/pkg/%{pkgname}
-%gap_copy_docs
-
-%check
-gap -l '%{buildroot}%{gap_archdir};' tst/testall.g
 
 %files
 %doc CHANGES README.md
 %license LICENSE
-%dir %{gap_archdir}/pkg/%{pkgname}/
-%{gap_archdir}/pkg/%{pkgname}/*.g
-%{gap_archdir}/pkg/%{pkgname}/bin/
-%{gap_archdir}/pkg/%{pkgname}/gap/
-%{gap_archdir}/pkg/%{pkgname}/tst/
+%dir %{gap_archdir}/pkg/%{gap_upname}/
+%{gap_archdir}/pkg/%{gap_upname}/*.g
+%{gap_archdir}/pkg/%{gap_upname}/bin/
+%{gap_archdir}/pkg/%{gap_upname}/gap/
+%{gap_archdir}/pkg/%{gap_upname}/tst/
 
 %files doc
-%docdir %{gap_archdir}/pkg/%{pkgname}/doc/
-%docdir %{gap_archdir}/pkg/%{pkgname}/examples/
-%{gap_archdir}/pkg/%{pkgname}/doc/
-%{gap_archdir}/pkg/%{pkgname}/examples/
+%docdir %{gap_archdir}/pkg/%{gap_upname}/doc/
+%docdir %{gap_archdir}/pkg/%{gap_upname}/examples/
+%{gap_archdir}/pkg/%{gap_upname}/doc/
+%{gap_archdir}/pkg/%{gap_upname}/examples/
 
 %changelog
 %autochangelog

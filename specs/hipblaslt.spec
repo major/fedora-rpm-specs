@@ -31,13 +31,13 @@
 %endif
 
 %global upstreamname hipBLASLt
-%global rocm_release 6.4
-%global rocm_patch 3
+%global rocm_release 7.0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
 # hipcc does not support some clang flags
-%global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host -fcf-protection/')
+%global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host -fcf-protection/' -e 's/-mtls-dialect=gnu2//')
 
 # Fortran is only used in testing
 # clang and gfortran fedora toolchain args do not mix
@@ -89,19 +89,26 @@
 
 Name:           %{hipblaslt_name}
 Version:        %{rocm_version}
-Release:        5%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm general matrix operations beyond BLAS
-Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
-License:        MIT
+Url:            https://github.com/ROCm/%{upstreamname}
+License:        MIT AND BSD-3-Clause
 
 Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
+
+# yappi was removed from fedora
+# yappi is used in tensilelite to generate profiling data, we are not using that in the build
+Patch1:         0001-hipblaslt-tensilelite-remove-yappi-dependency.patch
+# change hard coded vendor paths to fedoras
+Patch2:         0001-hipblaslt-tensilelite-use-fedora-paths.patch
+
 # https://github.com/ROCm/hipBLASLt/issues/1959
-Patch0:         0001-hipblaslt-find-toolchain.patch
+# Patch0:         0001-hipblaslt-find-toolchain.patch
 # https://github.com/ROCm/hipBLASLt/issues/1960
-Patch1:         0001-hipblaslt-handle-missing-joblib.patch
+# Patch1:         0001-hipblaslt-handle-missing-joblib.patch
 # https://github.com/ROCm/hipBLASLt/issues/2060
 # https://github.com/AngryLoki/gentoo/blob/b211598514d2876dcbc75ae86d1dd24898f61cab/sci-libs/hipBLASLt/files/hipBLASLt-6.4.1-upstream-clang.patch
-Patch2:         hipBLASLt-6.4.1-upstream-clang.patch
+# Patch2:         hipBLASLt-6.4.1-upstream-clang.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -138,6 +145,7 @@ BuildRequires:  %{python_module simplejson}
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(pyyaml)
+BuildRequires:  python3dist(nanobind)
 %if 0%{?rhel}
 %global tensile_verbose 2
 %else
@@ -217,29 +225,38 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 # Suse obs times out
 # print out command in scripts
-%if 0%{?suse_version}
-sed -i '2i set -x'                                                             tensilelite/Tensile/Ops/gen_assembly.sh
-sed -i '2i set -x'                                                             library/src/amd_detail/rocblaslt/src/kernels/compile_code_object.sh
-%endif
+#%if 0%{?suse_version}
+#sed -i '2i set -x'                                                             tensilelite/Tensile/Ops/gen_assembly.sh
+#sed -i '2i set -x'                                                             library/src/amd_detail/rocblaslt/src/kernels/compile_code_object.sh
+#%endif
 
 # Remove venv
-sed -i -e 's@. ${venv}/bin/activate@@'                                         tensilelite/Tensile/Ops/gen_assembly.sh
-sed -i -e 's@deactivate@@'                                                     tensilelite/Tensile/Ops/gen_assembly.sh
+# sed -i -e 's@. ${venv}/bin/activate@@'                                         tensilelite/Tensile/Ops/gen_assembly.sh
+# sed -i -e 's@deactivate@@'                                                     tensilelite/Tensile/Ops/gen_assembly.sh
 # Change some paths in Common.py
 # change rocm path from /opt/rocm to /usr
 # need to be able to find hipcc, rocm-smi, extractkernel, rocm_agent_enumerator
-sed -i -e 's@opt/rocm@usr@'                                                    tensilelite/Tensile/Common.py
+# sed -i -e 's@opt/rocm@usr@'                                                    tensilelite/Tensile/Common.py
+
 # Use PATH to find where TensileGetPath and other tensile bins are
 sed -i -e 's@${Tensile_PREFIX}/bin/TensileGetPath@TensileGetPath@g'            tensilelite/Tensile/cmake/TensileConfig.cmake
 
 # defer to cmdline
 sed -i -e 's@set(CMAKE_INSTALL_LIBDIR@#set(CMAKE_INSTALL_LIBDIR@' CMakeLists.txt
+
 # Do not use virtualenv_install
 sed -i -e 's@virtualenv_install@#virtualenv_install@'                          CMakeLists.txt
+
+# Disable trying to download rocm-cmake
+sed -i -e 's@if(NOT ROCM_FOUND)@if(FALSE)@' cmake/Dependencies.cmake
+
+# Disable download of nanobind
+sed -i -e 's@FetchContent_MakeAvailable(nanobind)@find_package(nanobind)@' tensilelite/rocisa/CMakeLists.txt
+
 # do not mess with prefix path
-sed -i -e 's@APPEND CMAKE_PREFIX_PATH@APPEND NO_CMAKE_PREFIX_PATH@'            CMakeLists.txt
+# sed -i -e 's@APPEND CMAKE_PREFIX_PATH@APPEND NO_CMAKE_PREFIX_PATH@'            CMakeLists.txt
 # Remove orjson from requirements list as fallbacks exist
-%{?suse_version:sed -i -e '/orjson/d' tensilelite/requirements.txt}
+# %{?suse_version:sed -i -e '/orjson/d' tensilelite/requirements.txt}
 # For debugging
 # set threads to 1
 # sed -i -e 's@default=-1@default=1@'                                          tensilelite/Tensile/TensileCreateLibrary.py
@@ -248,19 +265,19 @@ sed -i -e 's@APPEND CMAKE_PREFIX_PATH@APPEND NO_CMAKE_PREFIX_PATH@'            C
 # sed -i -e 's@if globalParameters["PrintCodeCommands"]:@if True:@'            tensilelite/Tensile/TensileCreateLibrary.py
 # sed -i -e 's@#print@print@'                                                  tensilelite/Tensile/Parallel.py
 
-%if %{with test}
+#%if %{with test}
 # Remove problem libraries, why are we linking gfortran AND flang ?
-sed -i -e 's@-lgfortran -lflang -lflangrti@-lgfortran@'                        clients/gtest/CMakeLists.txt
-%endif
+#sed -i -e 's@-lgfortran -lflang -lflangrti@-lgfortran@'                        clients/gtest/CMakeLists.txt
+#%endif
 
-%if 0%{?suse_version}
-sed -i -e 's@\(.*find_package(msgpack \+REQUIRED\))@\1 NAMES msgpack msgpack-cxx msgpack-c)@' tensilelite/Tensile/Source/lib/CMakeLists.txt
-%endif
+#%if 0%{?suse_version}
+#sed -i -e 's@\(.*find_package(msgpack \+REQUIRED\))@\1 NAMES msgpack msgpack-cxx msgpack-c)@' tensilelite/Tensile/Source/lib/CMakeLists.txt
+#%endif
 
-sed -i 's@find_package(LLVM REQUIRED CONFIG)@find_package(LLVM REQUIRED CONFIG PATHS "%{rocmllvm_cmakedir}")@' tensilelite/Tensile/Source/lib/CMakeLists.txt
+#sed -i 's@find_package(LLVM REQUIRED CONFIG)@find_package(LLVM REQUIRED CONFIG PATHS "%{rocmllvm_cmakedir}")@' tensilelite/Tensile/Source/lib/CMakeLists.txt
 
 # Reduce requirements
-sed -i -e '/joblib/d' tensilelite/requirements.*
+#sed -i -e '/joblib/d' tensilelite/requirements.*
 
 # As of 6.4, there is a long poll
 # compile_code_object.sh gfx90a,gfx1100,gfx1101,gfx1151,gfx1200,gfx1201 RelWithDebInfo sha1 hipblasltTransform.hsaco
@@ -281,14 +298,14 @@ fi
 if [ "$GPUS" -lt "$HIP_JOBS" ]; then
     HIP_JOBS=$GPUS
 fi
-sed -i -e "s@--offload-arch@-parallel-jobs=${HIP_JOBS} --offload-arch@" library/src/amd_detail/rocblaslt/src/kernels/compile_code_object.sh
+# sed -i -e "s@--offload-arch@-parallel-jobs=${HIP_JOBS} --offload-arch@" library/src/amd_detail/rocblaslt/src/kernels/compile_code_object.sh
 
 # change looking for cblas to blaslib
-sed -i -e 's@find_package( cblas REQUIRED CONFIG )@#find_package( cblas REQUIRED CONFIG )@' clients/CMakeLists.txt
-sed -i -e 's@set( BLAS_LIBRARY "blas" )@set( BLAS_LIBRARY "%blaslib" )@' clients/CMakeLists.txt
-%if ! 0%{?fedora}
-sed -i -e 's@lapack cblas@%blaslib@' clients/gtest/CMakeLists.txt
-%endif
+#sed -i -e 's@find_package( cblas REQUIRED CONFIG )@#find_package( cblas REQUIRED CONFIG )@' clients/CMakeLists.txt
+#sed -i -e 's@set( BLAS_LIBRARY "blas" )@set( BLAS_LIBRARY "%blaslib" )@' clients/CMakeLists.txt
+#%if ! 0%{?fedora}
+#sed -i -e 's@lapack cblas@%blaslib@' clients/gtest/CMakeLists.txt
+#%endif
 
 %build
 
@@ -319,7 +336,6 @@ export Tensile_DIR=${TL}%{python3_sitelib}/Tensile
 # Uncomment and see if the path is sane
 # TensileGetPath
 
-# Use ld.lld to work around a problem with ld
 %cmake %{cmake_generator} \
        -DAMDGPU_TARGETS=%{amdgpu_targets} \
        -DBLAS_INCLUDE_DIR=%{_includedir}/%{blaslib} \
@@ -329,15 +345,14 @@ export Tensile_DIR=${TL}%{python3_sitelib}/Tensile
        -DBUILD_VERBOSE=ON \
        -DCMAKE_BUILD_TYPE=RelWithDebInfo \
        -DCMAKE_INSTALL_LIBDIR=%{_lib} \
-       -DCMAKE_C_COMPILER=%{rocmllvm_bindir}/clang \
-       -DCMAKE_CXX_COMPILER=%{rocmllvm_bindir}/clang++ \
-       -DCMAKE_CXX_FLAGS="-fuse-ld=%{rocmllvm_bindir}/ld.lld" \
+       -DCMAKE_C_COMPILER=%{rocmllvm_bindir}/amdclang \
+       -DCMAKE_CXX_COMPILER=%{rocmllvm_bindir}/amdclang++ \
+       -DCMAKE_PREFIX_PATH=%{python3_sitelib}/nanobind \
        -DCMAKE_VERBOSE_MAKEFILE=ON \
        -DHIP_PLATFORM=amd \
        -DHIPBLASLT_ENABLE_MARKER=OFF \
+       -DHIPBLASLT_USE_ROCROLLER=OFF \
        -DROCM_SYMLINK_LIBS=OFF \
-       -DBUILD_WITH_TENSILE=ON \
-       -DTensile_COMPILER=%{rocmllvm_bindir}/clang++ \
        -DTensile_LIBRARY_FORMAT=msgpack \
        -DTensile_VERBOSE=%{tensile_verbose} \
        -DVIRTUALENV_BIN_DIR=%{_bindir} \
@@ -375,6 +390,9 @@ fi
 %endif
 
 %changelog
+* Thu Sep 25 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-1
+- Update to 7.0.1
+
 * Thu Aug 28 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.3-5
 - Add Fedora copyright
 

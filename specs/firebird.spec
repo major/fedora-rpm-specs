@@ -1,4 +1,4 @@
-%global         upversion 4.0.4.3010
+%global         upversion 4.0.6.3221
 %global         pkgversion Firebird-%{upversion}-0
 
 %global         major 4.0
@@ -10,14 +10,14 @@
 
 Name:           firebird
 Version:        %{upversion}
-Release:        8%{?dist}
+Release:        1%{?dist}
 
 Summary:        SQL relational database management system
 # Automatically converted from old format: Interbase - review is highly recommended.
 License:        Interbase-1.0
 URL:            http://www.firebirdsql.org/
 
-Source0:        https://github.com/FirebirdSQL/firebird/releases/download/v4.0.3/%{pkgversion}.tar.xz
+Source0:        https://github.com/FirebirdSQL/firebird/releases/download/v4.0.6/%{pkgversion}.tar.xz
 Source1:        firebird-logrotate
 Source2:        README.Fedora
 Source3:        firebird.service
@@ -33,9 +33,7 @@ Patch205:       cloop-honour-build-flags.patch
 # from upstream
 Patch301:       c++17.patch
 Patch302:       noexcept.patch
-Patch303:       autoconf.patch
 Patch401:       btyacc-honour-build-flags.patch
-Patch402:       firebird-configure-c99.patch
 
 # not yet upstream
 Patch501:       examples-honour-build-flags.patch
@@ -200,9 +198,7 @@ in production systems, under a variety of names, since 1981.
 %patch -P205 -p1
 %patch -P301 -p1
 %patch -P302 -p1
-%patch -P303 -p1
 %patch -P401 -p1
-%patch -P402 -p1
 %patch -P501 -p1
 
 # Create a sysusers.d config file
@@ -299,9 +295,7 @@ fi
 
 
 %files
-%{_docdir}/%{name}/IDPLicense.txt
-%{_docdir}/%{name}/IPLicense.txt
-%{_docdir}/%{name}/README.Fedora
+%{_docdir}/%{name}/
 %{_bindir}/fbtracemgr
 %{_sbindir}/firebird
 %{_sbindir}/fbguard
@@ -357,7 +351,7 @@ fi
 
 
 %files doc
-%{_docdir}/%{name}
+%{_docdir}/%{name}/
 %exclude %{_docdir}/%{name}/sample
 %exclude %{_docdir}/%{name}/IDPLicense.txt
 %exclude %{_docdir}/%{name}/IPLicense.txt
@@ -382,6 +376,9 @@ fi
 
 
 %changelog
+* Thu Sep 25 2025 Gwyn Ciesla <gwync@protonmail.com> - 4.0.6.3221-1
+- 4.0.6.3221
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.4.3010-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

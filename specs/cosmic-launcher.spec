@@ -10,12 +10,12 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit 77ca2085554f1d8641f58d7954fd57be232e5006
-%global commitdatestring 2025-04-15 18:07:03 -0600
-%global cosmic_minver 1.0.0~alpha.7
+%global commit ee52edd2d1bb38ed265bc2bb2675aa1a982f3811
+%global commitdatestring 2025-09-11 08:14:06 -0600
+%global cosmic_minver 1.0.0~beta.1
 
 Name:           cosmic-launcher
-Version: 1.0.0~alpha.7
+Version: 1.0.0~beta.1
 Release:        %autorelease
 Summary:        Pop launcher frontend for the COSMIC Desktop Environment
 
@@ -72,22 +72,13 @@ export VERGEN_GIT_SHA="%{commit}"
 %{cargo_license} > LICENSE.dependencies
 %{cargo_vendor_manifest}
 sed 's/\(.*\) (.*#\(.*\))/\1+git\2/' -i cargo-vendor.txt
+sed 's/^\([^+]*\)+.*+\([^+]*\)$/\1+\2/' -i cargo-vendor.txt
 
 %install
 # Set vergen environment variables
 export VERGEN_GIT_COMMIT_DATE="date --utc '%{commitdatestring}'"
 export VERGEN_GIT_SHA="%{commit}"
 just rootdir=%{buildroot} prefix=%{_prefix} install
-
-# COSMIC is not a valid category pre-fedora 41
-%if %{defined fedora} && 0%{?fedora} < 41
-desktop-file-install \
---remove-category COSMIC \
---add-category X-COSMIC \
---delete-original \
---dir %{buildroot}%{_datadir}/applications \
-%{buildroot}%{_datadir}/applications/com.system76.CosmicLauncher.desktop
-%endif
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/com.system76.CosmicLauncher.desktop

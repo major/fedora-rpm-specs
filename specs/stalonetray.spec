@@ -1,15 +1,13 @@
 Name:           stalonetray
-Version:        0.8.5
-Release:        6%{?dist}
+Version:        0.9.0
+Release:        1%{?dist}
 Summary:        A stand alone notification area
 
 # License is only mentioned in COPYING
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
-URL:            https://kolbusa.github.io/%{name}
-Source0:        https://github.com/kolbusa/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
-# https://github.com/kolbusa/stalonetray/pull/34
-Patch0:         stalonetray-0.8.5--Werror-format-security.patch
+URL:            https://d3adb5.github.io/%{name}
+Source0:        https://github.com/d3adb5/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -25,7 +23,6 @@ support is planned. Stalonetray runs under virtually any window manager.
 
 %prep
 %setup -q
-%patch -P0 -p1 -b .error-format
 
 %build
 # https://github.com/kolbusa/stalonetray/issues/35
@@ -51,6 +48,9 @@ install -D -m644 stalonetrayrc.sample %{buildroot}%{_sysconfdir}/stalonetrayrc
 
 
 %changelog
+* Thu Sep 25 2025 Ben Boeckel <fedora@me.benboeckel.net> - 0.9.0-1
+- Update to 0.9.0
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.5-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

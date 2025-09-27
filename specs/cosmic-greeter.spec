@@ -7,12 +7,12 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit 9e22418e53055cbec2e75a5b2e048b6e9dff3a61
-%global commitdatestring 2025-04-15 12:09:18 -0400
-%global cosmic_minver 1.0.0~alpha.7
+%global commit 7f9b7e42dc6225ad87281f09454a04ecdbec6b5f
+%global commitdatestring 2025-09-17 15:13:28 -0400
+%global cosmic_minver 1.0.0~beta.1
 
 Name:           cosmic-greeter
-Version: 1.0.0~alpha.7
+Version: 1.0.0~beta.1
 Release:        %autorelease
 # Release:        %%autorelease
 Summary:        Login and display manager for the COSMIC Desktop Environment
@@ -85,6 +85,7 @@ cargo build --release --all --offline --frozen
 %{cargo_license} > LICENSE.dependencies
 %{cargo_vendor_manifest}
 sed 's/\(.*\) (.*#\(.*\))/\1+git\2/' -i cargo-vendor.txt
+sed 's/^\([^+]*\)+.*+\([^+]*\)$/\1+\2/' -i cargo-vendor.txt
 
 %install
 # Set vergen environment variables
@@ -92,6 +93,7 @@ export VERGEN_GIT_COMMIT_DATE="date --utc '%{commitdatestring}'"
 export VERGEN_GIT_SHA="%{commit}"
 install -Dm0755 target/release/cosmic-greeter %{buildroot}/%{_bindir}/cosmic-greeter
 install -Dm0755 target/release/cosmic-greeter-daemon %{buildroot}/%{_bindir}/cosmic-greeter-daemon
+install -Dm0755 cosmic-greeter-start.sh %{buildroot}/%{_bindir}/cosmic-greeter-start
 install -Dm0644 dbus/com.system76.CosmicGreeter.conf %{buildroot}/%{_datadir}/dbus-1/system.d/com.system76.CosmicGreeter.conf
 install -Dm0644 debian/cosmic-greeter.sysusers %{buildroot}/%{_sysusersdir}/cosmic-greeter.conf
 install -Dm0644 debian/cosmic-greeter.tmpfiles %{buildroot}/%{_tmpfilesdir}/cosmic-greeter.conf
@@ -132,6 +134,7 @@ export VERGEN_GIT_SHA="%{commit}"
 %doc README.md
 %{_bindir}/cosmic-greeter
 %{_bindir}/cosmic-greeter-daemon
+%{_bindir}/cosmic-greeter-start
 %{_datadir}/dbus-1/system.d/com.system76.CosmicGreeter.conf
 %{_sysusersdir}/cosmic-greeter.conf
 %{_tmpfilesdir}/cosmic-greeter.conf

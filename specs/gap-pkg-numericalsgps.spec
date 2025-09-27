@@ -1,19 +1,21 @@
-%global pkgname numericalsgps
-%global upname  NumericalSgps
-%global giturl  https://github.com/gap-packages/numericalsgps
+%global gap_pkgname numericalsgps
+%global gap_upname  NumericalSgps
+%global giturl      https://github.com/gap-packages/numericalsgps
 
-Name:           gap-pkg-%{pkgname}
+Name:           gap-pkg-%{gap_pkgname}
 Version:        1.4.0
 Release:        %autorelease
 Summary:        Compute with numerical semigroups and affine semigroups
 
 License:        GPL-2.0-or-later
-BuildArch:      noarch
-# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch:    %{ix86}
 URL:            https://gap-packages.github.io/numericalsgps/
 VCS:            git:%{giturl}.git
-Source:         %{giturl}/releases/download/v%{version}/%{upname}-%{version}.tar.gz
+Source:         %{giturl}/releases/download/v%{version}/%{gap_upname}-%{version}.tar.gz
+
+BuildArch:      noarch
+BuildSystem:    gap
+BuildOption(install): data gap tst version
+BuildOption(check): tst/testall.g
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-autodoc
@@ -30,12 +32,12 @@ NumericalSgps is a GAP package for computing with Numerical Semigroups.
 Features include:
 
 - defining numerical semigroups;
-- computing several properties of numerical semigroups, namely:
-  multiplicity, Frobenius number, (minimal) system of generators, Apéry
-  set, gaps, fundamental gaps, etc.;
+- computing several properties of numerical semigroups, namely: multiplicity,
+  Frobenius number, (minimal) system of generators, Apéry set, gaps,
+  fundamental gaps, etc.;
 - perform several operations on numerical semigroups and ideals, namely:
-  intersection, quotient by an integer, decompose into irreducible
-  semigroups, add a special gap, ...;
+  intersection, quotient by an integer, decompose into irreducible semigroups,
+  add a special gap, ...;
 - computing and testing membership to relevant families of numerical
   semigroups.
 
@@ -53,35 +55,24 @@ Summary:        Documentation for the GAP NumericalSgps package
 Requires:       %{name} = %{version}-%{release}
 
 %description doc
-This package contains documentation for gap-pkg-%{pkgname}.
+This package contains documentation for gap-pkg-%{gap_pkgname}.
 
 %prep
-%autosetup -n %{upname}-%{version}
-
-%build
-gap makedoc.g
-
-%install
-mkdir -p %{buildroot}%{gap_libdir}/pkg/%{upname}/doc
-cp -a data gap tst *.g version  %{buildroot}%{gap_libdir}/pkg/%{upname}
-%gap_copy_docs -n %{upname}
-
-%check
-gap -l '%{buildroot}%{gap_libdir};' tst/testall.g
+%autosetup -n %{gap_upname}-%{version}
 
 %files
 %doc CHANGES EXAMPLES README.md
 %license GPL LICENSE
-%dir %{gap_libdir}/pkg/%{upname}/
-%{gap_libdir}/pkg/%{upname}/*.g
-%{gap_libdir}/pkg/%{upname}/data/
-%{gap_libdir}/pkg/%{upname}/gap/
-%{gap_libdir}/pkg/%{upname}/tst/
-%{gap_libdir}/pkg/%{upname}/version
+%dir %{gap_libdir}/pkg/%{gap_upname}/
+%{gap_libdir}/pkg/%{gap_upname}/*.g
+%{gap_libdir}/pkg/%{gap_upname}/data/
+%{gap_libdir}/pkg/%{gap_upname}/gap/
+%{gap_libdir}/pkg/%{gap_upname}/tst/
+%{gap_libdir}/pkg/%{gap_upname}/version
 
 %files doc
-%docdir %{gap_libdir}/pkg/%{upname}/doc/
-%{gap_libdir}/pkg/%{upname}/doc/
+%docdir %{gap_libdir}/pkg/%{gap_upname}/doc/
+%{gap_libdir}/pkg/%{gap_upname}/doc/
 
 %changelog
 %autochangelog

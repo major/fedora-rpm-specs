@@ -2,7 +2,7 @@
 %global backends %{nil}
 
 Name: pdns
-Version: 4.9.8
+Version: 5.0.0
 Release: 1%{?dist}
 Summary: A modern, advanced and high performance authoritative-only name server
 License: GPL-2.0-only
@@ -357,6 +357,9 @@ getent passwd pdns >/dev/null || \
 %{_unitdir}/ixfrdist@.service
 
 %changelog
+* Thu Sep 25 2025 Morten Stevens <mstevens@fedoraproject.org> - 5.0.0-1
+- Update to 5.0.0
+
 * Thu Aug 07 2025 Morten Stevens <mstevens@fedoraproject.org> - 4.9.8-1
 - Update to 4.9.8
 

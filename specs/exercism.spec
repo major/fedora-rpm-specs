@@ -3,7 +3,7 @@
 
 # https://github.com/exercism/cli
 %global goipath         github.com/exercism/cli
-Version:                3.5.7
+Version:                3.5.8
 
 %gometa -L -f
 

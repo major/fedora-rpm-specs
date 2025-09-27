@@ -2,22 +2,24 @@
 # to user locations are seen and properly loaded
 %global py3_shebang_flags %(echo %py3_shebang_flags | sed s/s//)
 
-%global pkgname jupyterkernel
-%global upname  JupyterKernel
-%global giturl  https://github.com/gap-packages/JupyterKernel
+%global gap_pkgname jupyterkernel
+%global gap_upname  JupyterKernel
+%global giturl      https://github.com/gap-packages/JupyterKernel
 
-Name:           gap-pkg-%{pkgname}
+Name:           gap-pkg-%{gap_pkgname}
 Version:        1.5.1
 Release:        %autorelease
 Summary:        Jupyter kernel written in GAP
 
 License:        BSD-3-Clause
-BuildArch:      noarch
-# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch:    %{ix86}
 URL:            https://gap-packages.github.io/JupyterKernel/
 VCS:            git:%{giturl}.git
-Source:         %{giturl}/releases/download/v%{version}/%{upname}-%{version}.tar.gz
+Source:         %{giturl}/releases/download/v%{version}/%{gap_upname}-%{version}.tar.gz
+
+BuildArch:      noarch
+BuildSystem:    gap
+BuildOption(install): demos gap tst
+BuildOption(check): tst/testall.g
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-autodoc
@@ -51,21 +53,14 @@ Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
 
 %description doc
-This package contains documentation for gap-pkg-%{pkgname}.
+This package contains documentation for gap-pkg-%{gap_pkgname}.
 
 %prep
-%autosetup -n %{upname}-%{version}
+%autosetup -n %{gap_upname}-%{version}
 
-%build
-gap makedoc.g
-
-%install
+%install -a
 mkdir -p %{buildroot}%{_bindir}
 cp -p bin/jupyter-kernel-gap %{buildroot}%{_bindir}
-
-mkdir -p %{buildroot}%{gap_libdir}/pkg/%{upname}/doc
-cp -a *.g demos gap tst %{buildroot}%{gap_libdir}/pkg/%{upname}
-%gap_copy_docs -n %{upname}
 
 mkdir -p %{buildroot}%{_datadir}/jupyter/kernels
 cp -a etc/jupyter %{buildroot}%{_datadir}/jupyter/kernels/gap-4
@@ -76,9 +71,6 @@ cp -a etc/gap-mode %{buildroot}%{_datadir}/jupyter/nbextensions
 mkdir -p %{buildroot}%{_sysconfdir}/jupyter/nbconfig/notebook.d
 cp -p etc/gap-mode.json %{buildroot}%{_sysconfdir}/jupyter/nbconfig/notebook.d
 
-%check
-gap -l '%{buildroot}%{gap_libdir};' tst/testall.g
-
 %files
 %doc README.md
 %license COPYRIGHT.md LICENSE
@@ -86,16 +78,16 @@ gap -l '%{buildroot}%{gap_libdir};' tst/testall.g
 %{_datadir}/jupyter/nbextensions/gap-mode/
 %{_datadir}/jupyter/kernels/gap-4/
 %config(noreplace) %{_sysconfdir}/jupyter/nbconfig/notebook.d/gap-mode.json
-%dir %{gap_libdir}/pkg/%{upname}/
-%{gap_libdir}/pkg/%{upname}/*.g
-%{gap_libdir}/pkg/%{upname}/gap/
-%{gap_libdir}/pkg/%{upname}/tst/
+%dir %{gap_libdir}/pkg/%{gap_upname}/
+%{gap_libdir}/pkg/%{gap_upname}/*.g
+%{gap_libdir}/pkg/%{gap_upname}/gap/
+%{gap_libdir}/pkg/%{gap_upname}/tst/
 
 %files doc
-%docdir %{gap_libdir}/pkg/%{upname}/demos/
-%docdir %{gap_libdir}/pkg/%{upname}/doc/
-%{gap_libdir}/pkg/%{upname}/demos/
-%{gap_libdir}/pkg/%{upname}/doc/
+%docdir %{gap_libdir}/pkg/%{gap_upname}/demos/
+%docdir %{gap_libdir}/pkg/%{gap_upname}/doc/
+%{gap_libdir}/pkg/%{gap_upname}/demos/
+%{gap_libdir}/pkg/%{gap_upname}/doc/
 
 %changelog
 %autochangelog

@@ -1,19 +1,20 @@
-%global pkgname sl2reps
-%global upname  sl2-reps
-%global giturl  https://github.com/snw-0/sl2-reps
+%global gap_pkgname sl2reps
+%global giturl      https://github.com/snw-0/sl2-reps
 
-Name:           gap-pkg-%{pkgname}
+Name:           gap-pkg-%{gap_pkgname}
 Version:        1.1
 Release:        %autorelease
 Summary:        Construct representations of SL(2,Z)
 
 License:        GPL-2.0-or-later
-BuildArch:      noarch
-# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch:    %{ix86}
 URL:            https://snw-0.github.io/sl2-reps/
 VCS:            git:%{giturl}.git
-Source:         %{giturl}/archive/v%{version}/%{upname}-%{version}.tar.gz
+Source:         %{giturl}/archive/v%{version}/sl2-reps-%{version}.tar.gz
+
+BuildArch:      noarch
+BuildSystem:    gap
+BuildOption(install): gap tst
+BuildOption(check): tst/testall.g
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-autodoc
@@ -45,33 +46,22 @@ Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
 
 %description doc
-This package contains documentation for gap-pkg-%{pkgname}.
+This package contains documentation for gap-pkg-%{gap_pkgname}.
 
 %prep
-%autosetup -n %{upname}-%{version}
-
-%build
-gap makedoc.g
-
-%install
-mkdir -p %{buildroot}%{gap_libdir}/pkg/%{pkgname}/doc
-cp -a *.g gap tst %{buildroot}%{gap_libdir}/pkg/%{pkgname}
-%gap_copy_docs
-
-%check
-gap -l '%{buildroot}%{gap_libdir};' tst/testall.g
+%autosetup -n sl2-reps-%{version}
 
 %files
 %doc README.md
 %license LICENSE.txt
-%dir %{gap_libdir}/pkg/%{pkgname}/
-%{gap_libdir}/pkg/%{pkgname}/*.g
-%{gap_libdir}/pkg/%{pkgname}/gap/
-%{gap_libdir}/pkg/%{pkgname}/tst/
+%dir %{gap_libdir}/pkg/%{gap_upname}/
+%{gap_libdir}/pkg/%{gap_upname}/*.g
+%{gap_libdir}/pkg/%{gap_upname}/gap/
+%{gap_libdir}/pkg/%{gap_upname}/tst/
 
 %files doc
-%docdir %{gap_libdir}/pkg/%{pkgname}/doc/
-%{gap_libdir}/pkg/%{pkgname}/doc/
+%docdir %{gap_libdir}/pkg/%{gap_upname}/doc/
+%{gap_libdir}/pkg/%{gap_upname}/doc/
 
 %changelog
 %autochangelog

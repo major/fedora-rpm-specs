@@ -11,14 +11,14 @@
 %global pie_vend         pecl
 %global pie_proj         zip
 %global ini_name         40-%{pecl_name}.ini
-%global upstream_version 1.22.6
+%global upstream_version 1.22.7
 #global upstream_prever  RC6
 %global sources          %{pecl_name}-%{upstream_version}%{?upstream_prever}
 
 Summary:      A ZIP archive management extension
 Name:         php-pecl-zip
 Version:      %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:      2%{?dist}
+Release:      1%{?dist}
 License:      PHP-3.01
 URL:          https://pecl.php.net/package/zip
 
@@ -36,11 +36,14 @@ BuildRequires: php-pear
 Requires:     php(zend-abi) = %{php_zend_api}
 Requires:     php(api) = %{php_core_api}
 
-Provides:     php-pecl(%{pecl_name}) = %{version}
-Provides:     php-pecl(%{pecl_name})%{?_isa} = %{version}
-Provides:     php-pie(%{pie_vend}/%{pie_proj}) = %{version}
+# Extension
 Provides:     php-%{pecl_name} = %{version}-%{release}
 Provides:     php-%{pecl_name}%{?_isa} = %{version}-%{release}
+# PECL
+Provides:     php-pecl(%{pecl_name}) = %{version}
+Provides:     php-pecl(%{pecl_name})%{?_isa} = %{version}
+# PIE
+Provides:     php-pie(%{pie_vend}/%{pie_proj}) = %{version}
 
 
 %description
@@ -124,6 +127,9 @@ TEST_PHP_EXECUTABLE=%{__php} \
 
 
 %changelog
+* Thu Sep 25 2025 Remi Collet <remi@remirepo.net> - 1.22.7-1
+- update to 1.22.7
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

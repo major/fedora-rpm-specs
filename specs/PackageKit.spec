@@ -3,7 +3,7 @@
 
 Summary:   Package management service
 Name:      PackageKit
-Version:   1.2.8
+Version:   1.3.1
 Release:   %autorelease
 License:   GPL-2.0-or-later AND LGPL-2.1-or-later AND FSFAP
 URL:       http://www.freedesktop.org/software/PackageKit/
@@ -19,13 +19,12 @@ Patch0:    PackageKit-0.3.8-RHEL-Vendor.conf.patch
 # https://github.com/PackageKit/PackageKit/pull/404
 Patch1:    package-remove-password-prompt.patch
 
-# https://bugzilla.redhat.com/show_bug.cgi?id=2283063
-Patch2:    appstream-mark-pk-as-compulsory.patch
-
-# https://bugs.kde.org/show_bug.cgi?id=495538
-Patch3:    change-offline-update-action-without-auth.patch
+# Fixes for sdbus-cpp v2
+Patch2:    https://github.com/PackageKit/PackageKit/pull/896.patch
 
 BuildRequires: docbook-utils
+BuildRequires: gcc
+BuildRequires: gcc-c++
 BuildRequires: gettext
 BuildRequires: gtk-doc
 BuildRequires: meson
@@ -39,9 +38,11 @@ BuildRequires: pkgconfig(gstreamer-1.0)
 BuildRequires: pkgconfig(gstreamer-plugins-base-1.0)
 BuildRequires: pkgconfig(gtk+-3.0)
 BuildRequires: pkgconfig(libdnf) >= %{libdnf_version}
+BuildRequires: pkgconfig(libdnf5)
 BuildRequires: pkgconfig(libsystemd)
 BuildRequires: pkgconfig(pangoft2)
-BuildRequires: pkgconfig(polkit-gobject-1) >= 0.98
+BuildRequires: pkgconfig(polkit-gobject-1) >= 0.114
+BuildRequires: pkgconfig(sdbus-c++)
 BuildRequires: pkgconfig(sqlite3)
 BuildRequires: systemd
 BuildRequires: gobject-introspection-devel
@@ -81,6 +82,13 @@ Obsoletes: PackageKit-device-rebind < 0.8.13-2
 PackageKit is a D-Bus abstraction layer that allows the session user
 to manage packages in a secure way using a cross-distro,
 cross-architecture API.
+
+%package -n libdnf5-plugin-notify-PackageKit
+Summary: DNF5 plugin to notify PackageKit of DNF5 actions
+Supplements: (libdnf5%{?_isa} and PackageKit%{?_isa})
+
+%description -n libdnf5-plugin-notify-PackageKit
+DNF5 plugin to notify PackageKit of DNF5 actions.
 
 %package glib
 Summary: GLib libraries for accessing PackageKit
@@ -189,7 +197,7 @@ systemctl disable packagekit-offline-update.service > /dev/null 2>&1 || :
 
 %files -f %{name}.lang
 %license COPYING
-%doc README AUTHORS NEWS
+%doc README.md AUTHORS NEWS
 %dir %{_datadir}/PackageKit
 %dir %{_sysconfdir}/PackageKit
 %dir %{_localstatedir}/lib/PackageKit
@@ -226,6 +234,10 @@ systemctl disable packagekit-offline-update.service > /dev/null 2>&1 || :
 %{_libexecdir}/packagekit-dnf-refresh-repo
 %{_libdir}/packagekit-backend/libpk_backend_dnf.so
 %pycached %{python3_sitelib}/dnf-plugins/notify_packagekit.py
+
+%files -n libdnf5-plugin-notify-PackageKit
+%{_libdir}/libdnf5/plugins/notify_packagekit.so
+%config(noreplace) %{_sysconfdir}/dnf/libdnf5-plugins/notify_packagekit.conf
 
 %files glib
 %{_libdir}/*packagekit-glib2.so.*

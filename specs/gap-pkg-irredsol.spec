@@ -1,18 +1,20 @@
-%global pkgname irredsol
-%global giturl  https://github.com/bh11/irredsol
+%global gap_pkgname irredsol
+%global giturl      https://github.com/bh11/irredsol
 
-Name:           gap-pkg-%{pkgname}
+Name:           gap-pkg-%{gap_pkgname}
 Version:        1.4.4
 Release:        %autorelease
 Summary:        Irreducible soluble linear groups over finite fields
 
 License:        BSD-2-Clause
-BuildArch:      noarch
-# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch:    %{ix86}
 URL:            http://www.icm.tu-bs.de/~bhoeflin/irredsol/
 VCS:            git:%{giturl}.git
-Source:         %{giturl}/releases/download/IRREDSOL-%{version}/%{pkgname}-%{version}.tar.bz2
+Source:         %{giturl}/releases/download/IRREDSOL-%{version}/%{gap_upname}-%{version}.tar.bz2
+
+BuildArch:      noarch
+BuildSystem:    gap
+BuildOption(install): data fp htm lib tst
+BuildOption(check): tst/testall.g
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-crisp-doc
@@ -25,10 +27,10 @@ Requires:       gap-core
 Recommends:     gap-pkg-crisp
 
 %description
-IRREDSOL is a GAP package which provides a library of all irreducible
-soluble subgroups of GL(n, q), up to conjugacy, where n is a positive
-integer and q a prime power satisfying q^n <= 2000000, and a library
-of all primitive soluble groups of degree at most 2000000.
+IRREDSOL is a GAP package which provides a library of all irreducible soluble
+subgroups of GL(n, q), up to conjugacy, where n is a positive integer and q a
+prime power satisfying q^n <= 2000000, and a library of all primitive soluble
+groups of degree at most 2000000.
 
 %package doc
 # The content is BSD-2-Clause.  The remaining licenses cover the various fonts
@@ -45,10 +47,10 @@ Requires:       gap-pkg-crisp-doc
 Requires:       gap-pkg-primgrp-doc
 
 %description doc
-This package contains documentation for gap-pkg-%{pkgname}.
+This package contains documentation for gap-pkg-%{gap_pkgname}.
 
 %prep
-%autosetup -n %{pkgname}-%{version}
+%autosetup -n %{gap_upname}-%{version}
 
 %build
 # Link to main GAP documentation and CRISP documentation
@@ -67,29 +69,21 @@ perl %{gap_libdir}/etc/convert.pl -t -c -n IRREDSOL . ../htm
 popd
 rm -f ../../{doc,etc,pkg} ../crisp
 
-%install
-mkdir -p %{buildroot}%{gap_libdir}/pkg/%{pkgname}/doc
-cp -a *.g data fp htm lib tst %{buildroot}%{gap_libdir}/pkg/%{pkgname}
-%gap_copy_docs
-
-%check
-gap -l '%{buildroot}%{gap_libdir};' tst/testall.g
-
 %files
 %doc README.txt
 %license LICENSE.txt
-%dir %{gap_libdir}/pkg/%{pkgname}/
-%{gap_libdir}/pkg/%{pkgname}/*.g
-%{gap_libdir}/pkg/%{pkgname}/data/
-%{gap_libdir}/pkg/%{pkgname}/fp/
-%{gap_libdir}/pkg/%{pkgname}/lib/
-%{gap_libdir}/pkg/%{pkgname}/tst/
+%dir %{gap_libdir}/pkg/%{gap_upname}/
+%{gap_libdir}/pkg/%{gap_upname}/*.g
+%{gap_libdir}/pkg/%{gap_upname}/data/
+%{gap_libdir}/pkg/%{gap_upname}/fp/
+%{gap_libdir}/pkg/%{gap_upname}/lib/
+%{gap_libdir}/pkg/%{gap_upname}/tst/
 
 %files doc
-%docdir %{gap_libdir}/pkg/%{pkgname}/doc/
-%docdir %{gap_libdir}/pkg/%{pkgname}/htm/
-%{gap_libdir}/pkg/%{pkgname}/doc/
-%{gap_libdir}/pkg/%{pkgname}/htm/
+%docdir %{gap_libdir}/pkg/%{gap_upname}/doc/
+%docdir %{gap_libdir}/pkg/%{gap_upname}/htm/
+%{gap_libdir}/pkg/%{gap_upname}/doc/
+%{gap_libdir}/pkg/%{gap_upname}/htm/
 
 %changelog
 %autochangelog

@@ -29,6 +29,12 @@ Patch:         mutter-42.alpha-disable-tegra.patch
 # https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/4607
 Patch:         window-drag-bug.patch
 
+# https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/4667
+# https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/8640
+# https://bugzilla.redhat.com/show_bug.cgi?id=2395731
+# Fix a keyboard focus issue that particularly affects a11y
+Patch:         0001-clutter-Use-event-type-to-determine-ClutterFocus-to-.patch
+
 BuildRequires: pkgconfig(gobject-introspection-1.0) >= 1.41.0
 BuildRequires: pkgconfig(sm)
 BuildRequires: pkgconfig(libadwaita-1)

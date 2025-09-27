@@ -1,10 +1,10 @@
-%global gitcommit 7ca2d3e629cec72eb14cef74a2ee494e70594b7c
+%global gitcommit 2a3605a2182218ab5017beff064c81ae7936832f
 %global gitshortcommit %(c=%{gitcommit}; echo ${c:0:7})
-%global snapshotdate 20220714
+%global snapshotdate 20250925
 
 Name: kdump-anaconda-addon
 Version: 006
-Release: 15.%{snapshotdate}git%{gitshortcommit}%{?dist}
+Release: 16.%{snapshotdate}git%{gitshortcommit}%{?dist}
 Url: https://github.com/rhinstaller/kdump-anaconda-addon
 License: GPL-2.0-only
 Summary: Kdump configuration anaconda addon
@@ -41,6 +41,9 @@ Kdump anaconda addon
 %{_datadir}/icons/hicolor/scalable/apps/kdump.svg
 
 %changelog
+* Thu Sep 25 2025 Coiby Xu <coxu@redhat.com> - 006-16.20250925git2a3605a
+- Feature: Set up crypttab for encrypted dump target
+
 * Wed Jul 30 2025 Adam Williamson <awilliam@redhat.com> - 006-15.20220714git7ca2d3e
 - Depend on anaconda-core not anaconda
 

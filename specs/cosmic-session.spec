@@ -10,12 +10,12 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit 80209d5aadcfc05803eaa5b5099a5db1550d3fb1
-%global commitdatestring 2025-04-24 10:03:52 -0600
-%global cosmic_minver 1.0.0~alpha.7
+%global commit 379ce30715f637075879feda784edc89231792cf
+%global commitdatestring 2025-09-19 11:26:54 -0600
+%global cosmic_minver 1.0.0~beta.1
 
 Name:           cosmic-session
-Version: 1.0.0~alpha.7
+Version: 1.0.0~beta.1
 Release:        %autorelease
 Summary:        Session manager for the COSMIC desktop environment
 
@@ -99,6 +99,7 @@ export VERGEN_GIT_SHA="%{commit}"
 %{cargo_license} > LICENSE.dependencies
 %{cargo_vendor_manifest}
 sed 's/\(.*\) (.*#\(.*\))/\1+git\2/' -i cargo-vendor.txt
+sed 's/^\([^+]*\)+.*+\([^+]*\)$/\1+\2/' -i cargo-vendor.txt
 
 %install
 # Set vergen environment variables

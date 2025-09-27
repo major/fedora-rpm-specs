@@ -1,20 +1,22 @@
-%global pkgname grape
-%global giturl  https://github.com/gap-packages/grape
+%global gap_pkgname grape
+%global giturl      https://github.com/gap-packages/grape
 
-Name:           gap-pkg-%{pkgname}
-Version:        4.9.2
+Name:           gap-pkg-%{gap_pkgname}
+Version:        4.9.3
 Release:        %autorelease
 Summary:        GRaph Algorithms using PErmutation groups
 
 License:        GPL-2.0-or-later
-BuildArch:      noarch
-# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch:    %{ix86}
 URL:            https://gap-packages.github.io/grape/
 VCS:            git:%{giturl}.git
-Source:         %{giturl}/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
+Source:         %{giturl}/releases/download/v%{version}/%{gap_upname}-%{version}.tar.gz
 # Fedora-only patch: unbundle nauty
 Patch:          %{name}-nauty.patch
+
+BuildArch:      noarch
+BuildSystem:    gap
+BuildOption(install): grh htm lib tst
+BuildOption(check): tst/testall.g
 
 BuildRequires:  gap-devel
 BuildRequires:  nauty
@@ -24,9 +26,9 @@ Requires:       gap-core
 Requires:       nauty
 
 %description
-GRAPE is a package for computing with graphs and groups, and is
-primarily designed for constructing and analyzing graphs related to
-groups, finite geometries, and designs.
+GRAPE is a package for computing with graphs and groups, and is primarily
+designed for constructing and analyzing graphs related to groups, finite
+geometries, and designs.
 
 %package doc
 # The content is GPL-2.0-or-later.  The remaining licenses cover the various
@@ -41,10 +43,10 @@ Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
 
 %description doc
-This package contains documentation for gap-pkg-%{pkgname}.
+This package contains documentation for gap-pkg-%{gap_pkgname}.
 
 %prep
-%autosetup -p1 -n %{pkgname}-%{version}
+%autosetup -p1 -n %{gap_upname}-%{version}
 
 %conf
 # There is no ext manual anymore
@@ -62,28 +64,20 @@ pushd doc
 popd
 rm -f ../../{doc,etc}
 
-%install
-mkdir -p %{buildroot}%{gap_libdir}/pkg/%{pkgname}/doc
-cp -a *.g grh htm lib tst %{buildroot}%{gap_libdir}/pkg/%{pkgname}
-%gap_copy_docs
-
-%check
-gap -l '%{buildroot}%{gap_libdir};' tst/testall.g
-
 %files
 %doc CHANGES.md README.md
 %license gpl.txt
-%dir %{gap_libdir}/pkg/%{pkgname}/
-%{gap_libdir}/pkg/%{pkgname}/*.g
-%{gap_libdir}/pkg/%{pkgname}/grh/
-%{gap_libdir}/pkg/%{pkgname}/lib/
-%{gap_libdir}/pkg/%{pkgname}/tst/
+%dir %{gap_libdir}/pkg/%{gap_upname}/
+%{gap_libdir}/pkg/%{gap_upname}/*.g
+%{gap_libdir}/pkg/%{gap_upname}/grh/
+%{gap_libdir}/pkg/%{gap_upname}/lib/
+%{gap_libdir}/pkg/%{gap_upname}/tst/
 
 %files doc
-%docdir %{gap_libdir}/pkg/%{pkgname}/doc/
-%docdir %{gap_libdir}/pkg/%{pkgname}/htm/
-%{gap_libdir}/pkg/%{pkgname}/doc/
-%{gap_libdir}/pkg/%{pkgname}/htm/
+%docdir %{gap_libdir}/pkg/%{gap_upname}/doc/
+%docdir %{gap_libdir}/pkg/%{gap_upname}/htm/
+%{gap_libdir}/pkg/%{gap_upname}/doc/
+%{gap_libdir}/pkg/%{gap_upname}/htm/
 
 %changelog
 %autochangelog

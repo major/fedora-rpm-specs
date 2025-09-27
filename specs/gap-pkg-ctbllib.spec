@@ -1,30 +1,32 @@
-%global pkgname ctbllib
-
 # When bootstrapping a new architecture, there is no gap-pkg-spinsym package
 # yet.  We need it to run tests, but it needs this package to function at all.
 # Therefore, do the following:
 # 1. Build this package in bootstrap mode.
 # 2. Build gap-pkg-spinsym
-# 4. Build this package in non-bootstrap mode.
+# 3. Build this package in non-bootstrap mode.
 %bcond bootstrap 0
 
-Name:           gap-pkg-%{pkgname}
+%global gap_pkgname   ctbllib
+%global gap_skip_docs 1
+
+Name:           gap-pkg-%{gap_pkgname}
 Version:        1.3.11
 Release:        %autorelease
 Summary:        GAP Character Table Library
 
 License:        GPL-3.0-or-later
-BuildArch:      noarch
-# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch:    %{ix86}
 URL:            https://www.math.rwth-aachen.de/~Thomas.Breuer/ctbllib/
-Source0:        %{url}%{pkgname}-%{version}.tar.gz
+Source0:        %{url}%{gap_upname}-%{version}.tar.gz
 # Predownloaded data from ATLAS needed for the tests
 Source1:        %{name}-testdata.tar.xz
 
 # The makedocrel script determines that the package being built is outside of
 # the normal GAP install directories and refuses to do anything with it.
 Patch:          %{name}-makedocrel.patch
+
+BuildArch:      noarch
+BuildSystem:    gap
+BuildOption(install): data dlnames gap4 htm tst
 
 BuildRequires:  gap-devel
 BuildRequires:  GAPDoc-latex
@@ -72,10 +74,10 @@ Requires:       gap-pkg-smallgrp-doc
 Requires:       gap-pkg-tomlib-doc
 
 %description doc
-This package contains documentation for gap-pkg-%{pkgname}.
+This package contains documentation for gap-pkg-%{gap_pkgname}.
 
 %prep
-%autosetup -n %{pkgname}-%{version} -b1 -p1
+%autosetup -n %{gap_upname}-%{version} -b1 -p1
 
 %conf
 # Remove spurious executable bit
@@ -85,20 +87,22 @@ chmod a-x doc/utils.xml
 # Compress large tables
 parallel %{?_smp_mflags} --no-notice gzip --best ::: data/*.tbl
 
-%install
-mkdir -p %{buildroot}%{gap_libdir}/pkg/%{pkgname}
-cp -a *.g data dlnames gap4 htm tst %{buildroot}%{gap_libdir}/pkg/%{pkgname}
-
+%install -a
 # Building documentation has to be done after installation, because otherwise
 # GAP sees an old version of ctbllib in the buildroot rather than this version,
 # and the ctbllib version check kills the build.
-cp -a doc doc2 %{buildroot}%{gap_libdir}/pkg/%{pkgname}
+cp -a doc doc2 %{buildroot}%{gap_libdir}/pkg/%{gap_upname}
 gap -l '%{buildroot}%{gap_libdir};' makedocrel.g
 rm -fr doc doc2
-mv %{buildroot}%{gap_libdir}/pkg/%{pkgname}/doc{,2} .
-mkdir -p %{buildroot}%{gap_libdir}/pkg/%{pkgname}/doc{,2}
+mv %{buildroot}%{gap_libdir}/pkg/%{gap_upname}/doc{,2} .
+mkdir -p %{buildroot}%{gap_libdir}/pkg/%{gap_upname}/doc{,2}
 %gap_copy_docs
 %gap_copy_docs -d doc2
+
+# Put the upstream makedocrel.g back for installation
+tar -x --strip-components=1 -f %{SOURCE0} \
+    -C %{buildroot}%{gap_libdir}/pkg/%{gap_upname} \
+    %{gap_upname}-%{version}/makedocrel.g
 
 %check
 # Tell ATLAS where to find downloaded files
@@ -115,29 +119,26 @@ EOF
 %if %{without bootstrap}
 # Somewhat less basic test.  Skip the interactive tests.
 # Do not run testall.g.  It takes a long time to run.
-mkdir -p ../pkg
-ln -s ../%{pkgname}-%{version} ../pkg
 sed -i '/BrowseCTblLibInfo();/d' gap4/ctbltocb.g tst/docxpl.tst
-gap -l "$PWD/..;" tst/testauto.g
-rm -fr ../pkg
+gap --packagedirs .. tst/testauto.g
 %endif
 
 %files
 %doc README.md
-%dir %{gap_libdir}/pkg/%{pkgname}/
-%{gap_libdir}/pkg/%{pkgname}/*.g
-%{gap_libdir}/pkg/%{pkgname}/data/
-%{gap_libdir}/pkg/%{pkgname}/dlnames/
-%{gap_libdir}/pkg/%{pkgname}/gap4/
-%{gap_libdir}/pkg/%{pkgname}/tst/
+%dir %{gap_libdir}/pkg/%{gap_upname}/
+%{gap_libdir}/pkg/%{gap_upname}/*.g
+%{gap_libdir}/pkg/%{gap_upname}/data/
+%{gap_libdir}/pkg/%{gap_upname}/dlnames/
+%{gap_libdir}/pkg/%{gap_upname}/gap4/
+%{gap_libdir}/pkg/%{gap_upname}/tst/
 
 %files doc
-%docdir %{gap_libdir}/pkg/%{pkgname}/doc/
-%docdir %{gap_libdir}/pkg/%{pkgname}/doc2/
-%docdir %{gap_libdir}/pkg/%{pkgname}/htm/
-%{gap_libdir}/pkg/%{pkgname}/doc/
-%{gap_libdir}/pkg/%{pkgname}/doc2/
-%{gap_libdir}/pkg/%{pkgname}/htm/
+%docdir %{gap_libdir}/pkg/%{gap_upname}/doc/
+%docdir %{gap_libdir}/pkg/%{gap_upname}/doc2/
+%docdir %{gap_libdir}/pkg/%{gap_upname}/htm/
+%{gap_libdir}/pkg/%{gap_upname}/doc/
+%{gap_libdir}/pkg/%{gap_upname}/doc2/
+%{gap_libdir}/pkg/%{gap_upname}/htm/
 
 %changelog
 %autochangelog

@@ -121,7 +121,7 @@ BuildRequires: libldm-devel
 BuildRequires: json-c-devel
 BuildRequires: systemd-devel
 BuildRequires: bash-completion
-%if !0%{?rhel}
+%if 0%{?fedora} || 0%{?rhel} >= 11
 BuildRequires: bash-completion-devel
 %endif
 BuildRequires: /usr/bin/ping
@@ -947,7 +947,7 @@ rm ocaml/html/.gitignore
 
 
 %files bash-completion
-%if !0%{?rhel}
+%if 0%{?fedora} || 0%{?rhel} >= 11
 %dir %{bash_completions_dir}
 %{bash_completions_dir}/guestfish
 %{bash_completions_dir}/guestmount

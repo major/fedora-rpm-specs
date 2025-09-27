@@ -1,7 +1,7 @@
 %bcond_without check
 
 Name:           maturin
-Version:        1.8.7
+Version:        1.9.4
 Release:        %autorelease
 Summary:        Build and publish Rust crates as Python packages
 SourceLicense:  MIT OR Apache-2.0
@@ -119,7 +119,20 @@ install -Dpm 0644 _maturin -t %{buildroot}/%{zsh_completions_dir}
 %check
 # * skip a test that fails with Rust 1.74+
 # * skip tests for which fixtures are not included in published sources
-%cargo_test -- -- --skip build_context::test::test_macosx_deployment_target --skip build_options::test::test_find_bridge --skip metadata::test::test_implicit_readme --skip metadata::test::test_merge_metadata_from_pyproject --skip pyproject_toml::tests::test_warn_missing_maturin_version
+%{cargo_test -- -- --exact %{shrink:
+    --skip build_context::test::test_macosx_deployment_target
+    --skip build_options::test::test_find_bridge_bin
+    --skip build_options::test::test_find_bridge_cffi
+    --skip build_options::test::test_find_bridge_pyo3
+    --skip build_options::test::test_find_bridge_pyo3_abi3
+    --skip build_options::test::test_find_bridge_pyo3_feature
+    --skip metadata::test::test_implicit_readme
+    --skip metadata::test::test_merge_metadata_from_pyproject_dynamic_license_test
+    --skip metadata::test::test_merge_metadata_from_pyproject_toml
+    --skip metadata::test::test_merge_metadata_from_pyproject_toml_with_customized_python_source_dir
+    --skip metadata::test::test_pep639
+    --skip pyproject_toml::tests::test_warn_missing_maturin_version
+}}
 %endif
 
 %files -f %{pyproject_files}

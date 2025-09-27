@@ -11,10 +11,10 @@ ExcludeArch: %{ix86}
 # environment variables in multiple sections of the spec file.
 %global commit 267bb837f127eb805a17250ebcad02db57eb72cb
 %global commitdatestring 2025-02-25 19:13:24 +0100
-%global cosmic_minver 1.0.0~alpha.7
+%global cosmic_minver 1.0.0~beta.1
 
 Name:           cosmic-idle
-Version: 1.0.0~alpha.7
+Version: 1.0.0~beta.1
 Release:        %autorelease
 Summary:        Idle notify manager for COSMIC
 
@@ -70,6 +70,7 @@ export VERGEN_GIT_SHA="%{commit}"
 %{cargo_license} > LICENSE.dependencies
 %{cargo_vendor_manifest}
 sed 's/\(.*\) (.*#\(.*\))/\1+git\2/' -i cargo-vendor.txt
+sed 's/^\([^+]*\)+.*+\([^+]*\)$/\1+\2/' -i cargo-vendor.txt
 
 %install
 # Set vergen environment variables

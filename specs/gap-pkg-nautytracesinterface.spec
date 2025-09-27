@@ -1,10 +1,3 @@
-# There have been no official releases yet, so we pull from git
-%global date     20250620
-%global commit   75cf4e55feaff7d3b3bce0624d7290bc8b0ec56b
-%global user     gap-packages
-%global pkgname  nautytracesinterface
-%global forgeurl https://github.com/gap-packages/NautyTracesInterface
-
 # When bootstrapping a new architecture, there is no gap-pkg-digraphs package
 # yet.  It is only needed for testing this package, but it requires this package
 # to function at all.  Therefore, do the following:
@@ -13,7 +6,15 @@
 # 3. Build this package in non-boostrap mode.
 %bcond bootstrap 0
 
-Name:           gap-pkg-%{pkgname}
+# There have been no official releases yet, so we pull from git
+%global date           20250911
+%global commit         661bea2a02d9b17ff2b11c5e8143e7482441b933
+%global user           gap-packages
+%global gap_pkgname    nautytracesinterface
+%global gap_skip_check %{?with_bootstrap}
+%global forgeurl       https://github.com/gap-packages/NautyTracesInterface
+
+Name:           gap-pkg-%{gap_pkgname}
 Version:        0.3
 Summary:        GAP interface to nauty and Traces
 
@@ -21,15 +22,17 @@ Summary:        GAP interface to nauty and Traces
 
 Release:        %autorelease
 License:        GPL-2.0-or-later
-# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch:    %{ix86}
 URL:            https://gap-packages.github.io/NautyTracesInterface/
 VCS:            git:%{forgeurl}.git
 Source:         %{forgesource}
 # Fedora-only patch: use the system nauty library
 Patch:          %{name}-nauty.patch
-# Fix a broken documentation reference
-Patch:          %{forgeurl}/pull/53.patch
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+BuildSystem:    gap
+BuildOption(install): bin examples gap tst
+BuildOption(check): tst/testall.g
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-autodoc
@@ -60,7 +63,7 @@ Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
 
 %description doc
-This package contains documentation for gap-pkg-%{pkgname}.
+This package contains documentation for gap-pkg-%{gap_pkgname}.
 
 %prep
 %forgeautosetup -p1
@@ -78,31 +81,20 @@ autoreconf -fi
 %make_build
 %make_build doc
 
-%install
-# make install doesn't put ANYTHING where it is supposed to go, so...
-mkdir -p %{buildroot}%{gap_archdir}/pkg/%{pkgname}/doc
-cp -a bin examples gap tst *.g %{buildroot}%{gap_archdir}/pkg/%{pkgname}
-%gap_copy_docs
-
-%if %{without bootstrap}
-%check
-gap -l '%{buildroot}%{gap_archdir};' tst/testall.g
-%endif
-
 %files
 %doc README.md
 %license LICENSE
-%dir %{gap_archdir}/pkg/%{pkgname}/
-%{gap_archdir}/pkg/%{pkgname}/*.g
-%{gap_archdir}/pkg/%{pkgname}/bin/
-%{gap_archdir}/pkg/%{pkgname}/gap/
-%{gap_archdir}/pkg/%{pkgname}/tst/
+%dir %{gap_archdir}/pkg/%{gap_upname}/
+%{gap_archdir}/pkg/%{gap_upname}/*.g
+%{gap_archdir}/pkg/%{gap_upname}/bin/
+%{gap_archdir}/pkg/%{gap_upname}/gap/
+%{gap_archdir}/pkg/%{gap_upname}/tst/
 
 %files doc
-%docdir %{gap_archdir}/pkg/%{pkgname}/doc/
-%docdir %{gap_archdir}/pkg/%{pkgname}/examples/
-%{gap_archdir}/pkg/%{pkgname}/doc/
-%{gap_archdir}/pkg/%{pkgname}/examples/
+%docdir %{gap_archdir}/pkg/%{gap_upname}/doc/
+%docdir %{gap_archdir}/pkg/%{gap_upname}/examples/
+%{gap_archdir}/pkg/%{gap_upname}/doc/
+%{gap_archdir}/pkg/%{gap_upname}/examples/
 
 %changelog
 %autochangelog

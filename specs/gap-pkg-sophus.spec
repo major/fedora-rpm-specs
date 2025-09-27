@@ -1,18 +1,20 @@
-%global pkgname sophus
-%global giturl  https://github.com/gap-packages/sophus
+%global gap_pkgname sophus
+%global giturl      https://github.com/gap-packages/sophus
 
-Name:           gap-pkg-%{pkgname}
+Name:           gap-pkg-%{gap_pkgname}
 Version:        1.27
 Release:        %autorelease
 Summary:        Computing in nilpotent Lie algebras
 
 License:        GPL-2.0-or-later
-BuildArch:      noarch
-# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch:    %{ix86}
 URL:            https://gap-packages.github.io/sophus/
 VCS:            git:%{giturl}.git
-Source:         %{giturl}/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
+Source:         %{giturl}/releases/download/v%{version}/%{gap_upname}-%{version}.tar.gz
+
+BuildArch:      noarch
+BuildSystem:    gap
+BuildOption(install): gap tst
+BuildOption(check): tst/testall.g
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-autodoc
@@ -21,16 +23,15 @@ BuildRequires:  gap-pkg-autpgrp
 Requires:       gap-pkg-autpgrp
 
 %description
-The Sophus package is written to compute with nilpotent Lie algebras
-over finite prime fields.  Using this package, you can compute the
-cover, the list of immediate descendants, and the automorphism group of
-such Lie algebras.  You can also test if two such Lie algebras are
-isomorphic.
+The Sophus package is written to compute with nilpotent Lie algebras over
+finite prime fields.  Using this package, you can compute the cover, the list
+of immediate descendants, and the automorphism group of such Lie algebras.
+You can also test if two such Lie algebras are isomorphic.
 
 The immediate descendant function of the package can be used to classify
-small-dimensional nilpotent Lie algebras over a given field.  For
-instance, the package author obtained a classification of nilpotent Lie
-algebras with dimension at most 9 over F_2; see
+small-dimensional nilpotent Lie algebras over a given field.  For instance,
+the package author obtained a classification of nilpotent Lie algebras with
+dimension at most 9 over F_2; see
 http://www.sztaki.hu/~schneider/Research/SmallLie.
 
 %package doc
@@ -48,33 +49,22 @@ Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
 
 %description doc
-This package contains documentation for gap-pkg-%{pkgname}.
+This package contains documentation for gap-pkg-%{gap_pkgname}.
 
 %prep
-%autosetup -n %{pkgname}-%{version}
-
-%build
-gap makedoc.g
-
-%install
-mkdir -p %{buildroot}%{gap_libdir}/pkg/%{pkgname}/doc
-cp -a *.g gap tst %{buildroot}%{gap_libdir}/pkg/%{pkgname}
-%gap_copy_docs
-
-%check
-gap -l '%{buildroot}%{gap_libdir};' tst/testall.g
+%autosetup -n %{gap_upname}-%{version}
 
 %files
 %doc README CHANGES.md
 %license LICENSE
-%dir %{gap_libdir}/pkg/%{pkgname}/
-%{gap_libdir}/pkg/%{pkgname}/*.g
-%{gap_libdir}/pkg/%{pkgname}/gap/
-%{gap_libdir}/pkg/%{pkgname}/tst/
+%dir %{gap_libdir}/pkg/%{gap_upname}/
+%{gap_libdir}/pkg/%{gap_upname}/*.g
+%{gap_libdir}/pkg/%{gap_upname}/gap/
+%{gap_libdir}/pkg/%{gap_upname}/tst/
 
 %files doc
-%docdir %{gap_libdir}/pkg/%{pkgname}/doc/
-%{gap_libdir}/pkg/%{pkgname}/doc/
+%docdir %{gap_libdir}/pkg/%{gap_upname}/doc/
+%{gap_libdir}/pkg/%{gap_upname}/doc/
 
 %changelog
 %autochangelog

@@ -56,7 +56,7 @@ elseif posix.stat('macros.python-srpm') then
 end
 }
 Version:        %{__default_python3_version}
-Release:        7%{?dist}
+Release:        8%{?dist}
 
 BuildArch:      noarch
 
@@ -169,6 +169,10 @@ grep -E '^#[^%%]*%%[^%%]' %{buildroot}%{rpmmacrodir}/macros.* && exit 1 || true
 
 
 %changelog
+* Tue Sep 09 2025 Miro Hrončok <mhroncok@redhat.com> - 3.14-8
+- %%python_extras_subpkg: Add -v option to specify the required version(-release)
+- This is useful when the extras are built from a different specfile (e.g. in EPEL for a RHEL base package)
+
 * Fri Aug 29 2025 Miro Hrončok <mhroncok@redhat.com> - 3.14-7
 - %%python_wheel_inject_sbom: Don't accidentally alter nested .dist-infos
 

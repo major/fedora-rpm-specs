@@ -15,6 +15,11 @@ BuildRequires: make
 Provides: libatomic1 = %{version}-%{release}
 Provides: libatomic1%{?_isa} = %{version}-%{release}
 
+# from README.md:
+# IN NEW CODE, PLEASE USE C11 OR C++14 STANDARD ATOMICS INSTEAD OF THE CORE
+# LIBRARY IN THIS PACKAGE.
+Provides: deprecated()
+
 %description
 Provides implementations for atomic memory update operations on a
 number of architectures. This allows direct use of these in reasonably
@@ -25,12 +30,14 @@ that involves minimum overhead across a variety of architectures.
 %package devel
 Summary: Development files for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
+Provides: deprecated()
 %description devel
 Files for developing with %{name}.
 
 %package static
 Summary: Static library files for %{name}
 Requires: %{name}-devel%{?_isa} = %{version}-%{release}
+Provides: deprecated()
 %description static
 Files for developing with %{name} and linking statically.
 

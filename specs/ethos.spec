@@ -1,5 +1,5 @@
 Name:           ethos
-Version:        0.2.0
+Version:        0.2.1
 Release:        %autorelease
 Summary:        Flexible and efficient proof checker for SMT solvers
 
@@ -41,7 +41,7 @@ cp -p %{_vpath_builddir}/src/ethos %{buildroot}%{_bindir}
 %ctest -j1
 
 %files
-%doc NEWS.md README.md user_manual.md
+%doc AUTHORS NEWS.md README.md user_manual.md
 %license COPYING
 %{_bindir}/ethos
 

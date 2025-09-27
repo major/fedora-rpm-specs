@@ -7,12 +7,12 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit c32d0d6bfd1dc7a268642d2276db74c15c285ebb
-%global commitdatestring 2025-04-15 14:03:43 +0200
-%global cosmic_minver 1.0.0~alpha.7
+%global commit bce9cdf2d447508d4e2d54a2be4fcd738ab51df5
+%global commitdatestring 2025-09-07 14:42:23 +0200
+%global cosmic_minver 1.0.0~beta.1
 
 Name:           cosmic-randr
-Version: 1.0.0~alpha.7
+Version: 1.0.0~beta.1
 Release:        %autorelease
 Summary:        Display configuration command line tool
 
@@ -64,6 +64,7 @@ export VERGEN_GIT_SHA="%{commit}"
 %{cargo_license} > LICENSE.dependencies
 %{cargo_vendor_manifest}
 sed 's/\(.*\) (.*#\(.*\))/\1+git\2/' -i cargo-vendor.txt
+sed 's/^\([^+]*\)+.*+\([^+]*\)$/\1+\2/' -i cargo-vendor.txt
 
 %install
 # Set vergen environment variables

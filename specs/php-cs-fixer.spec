@@ -7,14 +7,14 @@
 # Please, preserve the changelog entries
 #
 
-%global gh_commit    da5f0a7858c79b56fc0b8c36d3efcfe5f37f0992
+%global gh_commit    f23469674ae50d40e398bfff8018911a2a2b0dbe
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
-%global gh_date      2025-09-10
+%global gh_date      2025-09-24
 %global gh_owner     FriendsOfPHP
 %global gh_project   PHP-CS-Fixer
 
 Name:           php-cs-fixer
-Version:        3.87.2
+Version:        3.88.0
 Release:        1%{?dist}
 Summary:        PHP Coding Standards Fixer
 
@@ -102,6 +102,9 @@ PHP_CS_FIXER_IGNORE_ENV=1 ./%{name} --version | grep %{version}
 
 
 %changelog
+* Thu Sep 25 2025 Remi Collet <remi@remirepo.net> - 3.88.0-1
+- update to 3.88.0
+
 * Wed Sep 10 2025 Remi Collet <remi@remirepo.net> - 3.87.2-1
 - update to 3.87.2
 

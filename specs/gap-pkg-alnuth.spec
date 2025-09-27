@@ -1,6 +1,3 @@
-%global pkgname alnuth
-%global giturl  https://github.com/gap-packages/alnuth
-
 # When bootstrapping a new architecture, there is no gap-pkg-radiroot package
 # yet.  It is only needed by this package to run some tests, but it requires
 # this package to funtion at all.  Therefore, do this:
@@ -9,18 +6,25 @@
 # 3. Build this package in non-bootstrap mode
 %bcond bootstrap 0
 
-Name:           gap-pkg-%{pkgname}
+%global gap_pkgname    alnuth
+%global gap_skip_check %{?with_bootstrap}
+%global giturl         https://github.com/gap-packages/alnuth
+
+Name:           gap-pkg-%{gap_pkgname}
 Version:        3.2.1
 Release:        %autorelease
 Summary:        Algebraic number theory for GAP
 
 License:        GPL-2.0-or-later
-BuildArch:      noarch
-# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch:    %{ix86}
 URL:            https://gap-packages.github.io/alnuth/
 VCS:            git:%{giturl}.git
-Source:         %{giturl}/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
+Source:         %{giturl}/releases/download/v%{version}/%{gap_upname}-%{version}.tar.gz
+
+BuildArch:      noarch
+BuildSystem:    gap
+BuildOption(build): --packagedirs ..
+BuildOption(install): exam gap gp htm tst
+BuildOption(check): tst/testall.g
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-polycyclic
@@ -34,11 +38,11 @@ Requires:       gap-pkg-polycyclic
 Requires:       pari-gp
 
 %description
-Alnuth is an extension for the computer algebra system GAP and forms
-part of a standard installation.  The functionality of Alnuth lies in
-ALgebraic NUmber THeory.  It provides an interface from GAP to certain
-number theoretic functions from the computer algebra system PARI/GP.
-Most computations with Alnuth rely on this interface.
+Alnuth is an extension for the computer algebra system GAP and forms part of a
+standard installation.  The functionality of Alnuth lies in ALgebraic NUmber
+THeory.  It provides an interface from GAP to certain number theoretic
+functions from the computer algebra system PARI/GP.  Most computations with
+Alnuth rely on this interface.
 
 %package doc
 # The content is GPL-2.0-or-later.  The remaining licenses cover the various
@@ -52,46 +56,35 @@ Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
 
 %description doc
-This package contains documentation for gap-pkg-%{pkgname}.
+This package contains documentation for gap-pkg-%{gap_pkgname}.
 
 %prep
-%autosetup -n %{pkgname}-%{version}
+%autosetup -n %{gap_upname}-%{version}
 
 %build
 # Link to main GAP documentation
 ln -s %{gap_libdir}/etc ../../etc
 ln -s %{gap_libdir}/doc ../../doc
-pushd doc
+cd doc
 ./make_doc
-popd
+cd -
 rm -f ../../{doc,etc}
-
-%install
-mkdir -p %{buildroot}%{gap_libdir}/pkg/%{pkgname}/doc
-cp -a *.g exam gap gp htm tst %{buildroot}%{gap_libdir}/pkg/%{pkgname}
-%gap_copy_docs
-
-%if %{without bootstrap}
-%check
-# Tests that depend on RadiRoot will fail during a bootstrap build.
-gap -l '%{buildroot}%{gap_libdir};' tst/testall.g
-%endif
 
 %files
 %doc CHANGES.md README.md
 %license GPL
-%dir %{gap_libdir}/pkg/%{pkgname}/
-%{gap_libdir}/pkg/%{pkgname}/*.g
-%{gap_libdir}/pkg/%{pkgname}/exam/
-%{gap_libdir}/pkg/%{pkgname}/gap/
-%{gap_libdir}/pkg/%{pkgname}/gp/
-%{gap_libdir}/pkg/%{pkgname}/tst/
+%dir %{gap_libdir}/pkg/%{gap_upname}/
+%{gap_libdir}/pkg/%{gap_upname}/*.g
+%{gap_libdir}/pkg/%{gap_upname}/exam/
+%{gap_libdir}/pkg/%{gap_upname}/gap/
+%{gap_libdir}/pkg/%{gap_upname}/gp/
+%{gap_libdir}/pkg/%{gap_upname}/tst/
 
 %files doc
-%docdir %{gap_libdir}/pkg/%{pkgname}/doc/
-%docdir %{gap_libdir}/pkg/%{pkgname}/htm/
-%{gap_libdir}/pkg/%{pkgname}/doc/
-%{gap_libdir}/pkg/%{pkgname}/htm/
+%docdir %{gap_libdir}/pkg/%{gap_upname}/doc/
+%docdir %{gap_libdir}/pkg/%{gap_upname}/htm/
+%{gap_libdir}/pkg/%{gap_upname}/doc/
+%{gap_libdir}/pkg/%{gap_upname}/htm/
 
 %changelog
 %autochangelog

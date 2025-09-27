@@ -1358,7 +1358,6 @@ popd
 # Any ABI-affecting flags should be in here.
 %global cmake_common_args \\\
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \\\
-    -DLLVM_ENABLE_EH=ON \\\
     -DLLVM_ENABLE_RTTI=ON \\\
     -DLLVM_USE_PERF=ON \\\
     -DLLVM_TARGETS_TO_BUILD=%{targets_to_build} \\\
@@ -1367,6 +1366,14 @@ popd
     -DLLVM_LINK_LLVM_DYLIB=ON \\\
     -DCLANG_LINK_CLANG_DYLIB=ON \\\
     -DLLVM_ENABLE_FFI:BOOL=ON
+
+%if %{maj_ver} >= 22
+%global cmake_common_args %{cmake_common_args} \\\
+    -DLLVM_ENABLE_EH=OFF
+%else
+%global cmake_common_args %{cmake_common_args} \\\
+    -DLLVM_ENABLE_EH=ON
+%endif
 
 %global cmake_config_args %{cmake_common_args}
 
@@ -1830,6 +1837,13 @@ deactivate
 cd ..
 
 %if %{with bundle_compat_lib}
+
+%if %{compat_maj_ver} >= 22
+%global compat_lib_cmake_args -DLLVM_ENABLE_EH=OFF
+%else
+%global compat_lib_cmake_args -DLLVM_ENABLE_EH=ON
+%endif
+
 # MIPS and Arm targets were disabled in LLVM 20, but we still need them
 # enabled for the compat libraries.
 %cmake -S ../llvm-project-%{compat_ver}.src/llvm -B ../llvm-compat-libs -G Ninja \
@@ -1838,7 +1852,10 @@ cd ..
     -DLLVM_ENABLE_PROJECTS="clang;lldb" \
     -DLLVM_INCLUDE_BENCHMARKS=OFF \
     -DLLVM_INCLUDE_TESTS=OFF \
-    %{cmake_common_args}
+    %{cmake_common_args} \
+    %{compat_lib_cmake_args}
+
+
 
 %ninja_build -C ../llvm-compat-libs LLVM
 %ninja_build -C ../llvm-compat-libs libclang.so

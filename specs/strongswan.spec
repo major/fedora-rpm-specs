@@ -178,6 +178,7 @@ autoreconf -fiv
     --enable-gcm \
     --enable-chapoly \
     --enable-md4 \
+    --enable-ml \
     --enable-gcrypt \
     --enable-newhope \
     --enable-xauth-eap \
@@ -357,6 +358,7 @@ install -D -m 0644 %{SOURCE3} %{buildroot}/%{_tmpfilesdir}/strongswan-starter.co
 %{_sbindir}/strongswan
 %{_sbindir}/swanctl
 %{_libdir}/strongswan/*.so.*
+%{_libdir}/strongswan/plugins/*.so.*
 %exclude %{_libdir}/strongswan/libimcv.so.*
 %exclude %{_libdir}/strongswan/libtnccs.so.*
 %exclude %{_libdir}/strongswan/libipsec.so.*

@@ -4,18 +4,14 @@ code to use the services and types in the document. This\
 provides an easy to use programmatic interface to a SOAP server.
 
 Name:           python-%{srcname}
-Version:        4.3.1
-Release:        7%{?dist}
+Version:        4.3.2
+Release:        1%{?dist}
 Summary:        A fast and modern Python SOAP client
 
 # Automatically converted from old format: MIT and BSD - review is highly recommended.
 License:        LicenseRef-Callaway-MIT AND LicenseRef-Callaway-BSD
 URL:            https://github.com/mvantellingen/python-zeep
 Source0:        %pypi_source
-# XXX remove again when https://github.com/mvantellingen/python-zeep/issues/1446
-#     is fixed
-# imported from https://github.com/mvantellingen/python-zeep/pull/1447
-Patch0:         pr1447-httpx-proxies.patch
 
 BuildArch:      noarch
 # Since python-aiohttp excludes s390x we have to exclude it, as well
@@ -52,7 +48,7 @@ sed -i -e '/isort\|flake\|coverage\[toml\]/d' -e 's/\([a-z]\)[>=]\{2\}[0-9.]\+/\
 
 
 %generate_buildrequires
-%pyproject_buildrequires -x xmlsec -x test
+%pyproject_buildrequires -x test
 
 
 %build
@@ -75,6 +71,10 @@ PYTHONPATH=src %{__python3} -m pytest tests -v -k 'not (SHA1 or test_sign_pw or 
 
 
 %changelog
+* Thu Sep 25 2025 Georg Sauthoff <mail@gms.tf> - 4.3.2-1
+- import 4.3.2 upstream release (fixes fedora#2395170)
+- remove optional xmlsec dependency
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.3.1-7
 - Rebuilt for Python 3.14.0rc3 bytecode
 

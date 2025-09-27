@@ -1,18 +1,21 @@
-%global pkgname qpa
-%global giturl  https://github.com/gap-packages/qpa
+%global gap_pkgname qpa
+%global giturl      https://github.com/gap-packages/qpa
 
-Name:           gap-pkg-%{pkgname}
+Name:           gap-pkg-%{gap_pkgname}
 Version:        1.36
 Release:        %autorelease
 Summary:        GAP package for quivers and path algebras
 
 License:        GPL-2.0-or-later
-BuildArch:      noarch
-# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch:    %{ix86}
 URL:            https://folk.ntnu.no/oyvinso/QPA/
 VCS:            git:%{giturl}.git
-Source:         %{giturl}/archive/v%{version}/%{pkgname}-%{version}.tar.gz
+Source:         %{giturl}/archive/v%{version}/%{gap_upname}-%{version}.tar.gz
+
+BuildArch:      noarch
+BuildSystem:    gap
+BuildOption(build): --packagedirs ..
+BuildOption(install): examples lib tst version
+BuildOption(check): tst/testall.g
 
 BuildRequires:  gap-devel
 BuildRequires:  GAPDoc-latex
@@ -25,9 +28,9 @@ BuildRequires:  tex(xy.sty)
 Requires:       gap-pkg-gbnp
 
 %description
-This package carries out computations for finite dimensional quotients
-of path algebras over the fields that are available in GAP.  QPA stands
-for "Quivers and Path Algebras".
+This package carries out computations for finite dimensional quotients of path
+algebras over the fields that are available in GAP.  QPA stands for "Quivers
+ and Path Algebras".
 
 %package doc
 # The content is GPL-2.0-or-later.  The remaining licenses cover the various
@@ -45,21 +48,16 @@ Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
 
 %description doc
-This package contains documentation for gap-pkg-%{pkgname}.
+This package contains documentation for gap-pkg-%{gap_pkgname}.
 
 %prep
-%autosetup -n %{pkgname}-%{version}
+%autosetup -n %{gap_upname}-%{version}
 
 %conf
 # Fix a broken reference
 sed -i 's/Basic Construction/Constructing Quivers/' doc/chapter_path_algebras.xml
 
-%build
-mkdir ../pkg
-ln -s ../%{pkgname}-%{version} ../pkg
-gap -l "$PWD/..;" makedoc.g
-rm -fr ../pkg
-
+%build -a
 cd doc/gap-days-lectures
 pdflatex lecture1
 pdflatex lecture1
@@ -70,29 +68,23 @@ pdflatex lecture3
 pdflatex lecture4a
 pdflatex lecture4a
 
-%install
-mkdir -p %{buildroot}%{gap_libdir}/pkg/%{pkgname}/doc
-cp -a *.g examples lib tst version %{buildroot}%{gap_libdir}/pkg/%{pkgname}
-%gap_copy_docs
+%install -a
 %gap_copy_docs -d doc/gap-days-lectures
-
-%check
-gap -l '%{buildroot}%{gap_libdir};' tst/testall.g
 
 %files
 %doc CHANGES README
 %license LICENSE
-%dir %{gap_libdir}/pkg/%{pkgname}/
-%{gap_libdir}/pkg/%{pkgname}/*.g
-%{gap_libdir}/pkg/%{pkgname}/lib/
-%{gap_libdir}/pkg/%{pkgname}/tst/
-%{gap_libdir}/pkg/%{pkgname}/version
+%dir %{gap_libdir}/pkg/%{gap_upname}/
+%{gap_libdir}/pkg/%{gap_upname}/*.g
+%{gap_libdir}/pkg/%{gap_upname}/lib/
+%{gap_libdir}/pkg/%{gap_upname}/tst/
+%{gap_libdir}/pkg/%{gap_upname}/version
 
 %files doc
-%docdir %{gap_libdir}/pkg/%{pkgname}/doc/
-%docdir %{gap_libdir}/pkg/%{pkgname}/examples/
-%{gap_libdir}/pkg/%{pkgname}/doc/
-%{gap_libdir}/pkg/%{pkgname}/examples/
+%docdir %{gap_libdir}/pkg/%{gap_upname}/doc/
+%docdir %{gap_libdir}/pkg/%{gap_upname}/examples/
+%{gap_libdir}/pkg/%{gap_upname}/doc/
+%{gap_libdir}/pkg/%{gap_upname}/examples/
 
 %changelog
 %autochangelog

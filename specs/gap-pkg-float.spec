@@ -1,21 +1,24 @@
-%global pkgname float
-%global giturl  https://github.com/gap-packages/float
+%global gap_pkgname float
+%global giturl      https://github.com/gap-packages/float
 
-Name:           gap-pkg-%{pkgname}
-Version:        1.0.8
+Name:           gap-pkg-%{gap_pkgname}
+Version:        1.0.9
 Release:        %autorelease
 Summary:        GAP access to mpfr, mpfi, mpc, fplll and cxsc
 
 License:        GPL-2.0-or-later
-# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch:    %{ix86}
 URL:            https://gap-packages.github.io/float/
 VCS:            git:%{giturl}.git
-Source:         %{giturl}/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
+Source:         %{giturl}/releases/download/v%{version}/%{gap_upname}-%{version}.tar.gz
 # Remove atexit hack, not needed for non-coverage builds
 Patch:          %{name}-atexit.patch
-# Disambiguate the name "complex"
-Patch:          %{name}-complex.patch
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+BuildSystem:    gap
+BuildOption(build): --packagedirs ..
+BuildOption(install): lib tst
+BuildOption(check): tst/testall.g
 
 BuildRequires:  cxsc-devel
 BuildRequires:  gap-devel
@@ -30,9 +33,8 @@ BuildRequires:  pkgconfig(mpfr)
 Requires:       gap-core%{?_isa}
 
 %description
-This package implements floating-point numbers within GAP, with
-arbitrary precision, based on the C libraries FPLLL, MPFR, MPFI, MPC
-and CXSC.
+This package implements floating-point numbers within GAP, with arbitrary
+precision, based on the C libraries FPLLL, MPFR, MPFI, MPC and CXSC.
 
 %package doc
 # The content is GPL-2.0-or-later.  The remaining licenses cover the various
@@ -48,53 +50,35 @@ Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
 
 %description doc
-This package contains documentation for gap-pkg-%{pkgname}.
+This package contains documentation for gap-pkg-%{gap_pkgname}.
 
 %prep
-%autosetup -n %{pkgname}-%{version} -p0
+%autosetup -n %{gap_upname}-%{version} -p0
 
 %conf
 # Do not override Fedora build flags
 sed -i 's/-O3 -fomit-frame-pointer//;s/-O3/-O2/' configure
 
-%build
+%build -p
 export CPPFLAGS='-I %{_includedir}/cxsc'
 %configure --with-gaproot=%{gap_archdir}
 %make_build
 
-# Build the documentation
-mkdir ../pkg
-ln -s ../%{pkgname}-%{version} ../pkg
-gap -l "$PWD/..;" makedoc.g
-rm -fr ../pkg
-
-%install
+%install -p
 %make_install
-
-# Install the GAP files; we install test files for use by GAP's internal test
-# suite runner.
-cp -a *.g lib tst %{buildroot}%{gap_archdir}/pkg/%{pkgname}
-rm -f %{buildroot}%{gap_archdir}/pkg/%{pkgname}/{lib,tst}/Makefile*
-
-# Install the documentation
-mkdir -p %{buildroot}%{gap_archdir}/pkg/%{pkgname}/doc
-%gap_copy_docs
-
-%check
-gap -l '%{buildroot}%{gap_archdir};' tst/testall.g
 
 %files
 %doc README.md THANKS
 %license COPYING
-%dir %{gap_archdir}/pkg/%{pkgname}/
-%{gap_archdir}/pkg/%{pkgname}/*.g
-%{gap_archdir}/pkg/%{pkgname}/bin/
-%{gap_archdir}/pkg/%{pkgname}/lib/
-%{gap_archdir}/pkg/%{pkgname}/tst/
+%dir %{gap_archdir}/pkg/%{gap_upname}/
+%{gap_archdir}/pkg/%{gap_upname}/*.g
+%{gap_archdir}/pkg/%{gap_upname}/bin/
+%{gap_archdir}/pkg/%{gap_upname}/lib/
+%{gap_archdir}/pkg/%{gap_upname}/tst/
 
 %files doc
-%docdir %{gap_archdir}/pkg/%{pkgname}/doc/
-%{gap_archdir}/pkg/%{pkgname}/doc/
+%docdir %{gap_archdir}/pkg/%{gap_upname}/doc/
+%{gap_archdir}/pkg/%{gap_upname}/doc/
 
 %changelog
 %autochangelog

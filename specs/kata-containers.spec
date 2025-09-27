@@ -28,7 +28,7 @@
 %endif
 
 # https://github.com/kata-containers/kata-containers
-Version: 3.20.0
+Version: 3.21.0
 %global tag         %{version}%{?rcstr}
 
 %global domain      github.com
@@ -390,6 +390,9 @@ fi
 
 
 %changelog
+* Thu Sep 25 2025 Christophe de Dinechin <dinechin@redhat.com> - 3.21.0-1
+- kata-containers 3.21.0
+
 * Wed Sep 10 2025 Christophe de Dinechin <dinechin@redhat.com> - 3.20.0-1
 - kata-containers 3.20.0
 

@@ -56,7 +56,7 @@
 
 Name:           libdnf
 Version:        %{libdnf_major_version}.%{libdnf_minor_version}.%{libdnf_micro_version}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Library providing simplified C and Python API to libsolv
 License:        LGPL-2.1-or-later
 URL:            https://github.com/rpm-software-management/libdnf
@@ -105,6 +105,9 @@ BuildRequires:  libubsan
 Requires:       libmodulemd%{?_isa} >= %{libmodulemd_version}
 Requires:       libsolv%{?_isa} >= %{libsolv_version}
 Requires:       librepo%{?_isa} >= %{librepo_version}
+%if 0%{?fedora} >= 43 || 0%{?rhel} >= 11
+Requires:       rpm-libs%{?_isa} >= 5.99.90
+%endif
 
 %if %{without python2}
 # Obsoleted from here so we can track the fast growing version easily.
@@ -313,6 +316,9 @@ popd
 %endif
 
 %changelog
+* Thu Sep 25 2025 Petr Pisar <ppisar@redhat.com> - 0.74.0-9
+- Constrain RPM version (bug #2372978)
+
 * Mon Sep 22 2025 Adam Williamson <awilliam@redhat.com> - 0.74.0-8
 - Backport PR #1724 to fix subkey import issue (#2372978)
 

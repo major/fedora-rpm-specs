@@ -518,8 +518,36 @@ This package contains /usr/bin/python - the "python" command that runs Python 3.
 %package -n %{pkgname}-libs
 Summary:        Python runtime libraries
 
-# Bundled mimalloc is MIT
-%global libs_license Python-2.0.1 AND MIT
+# Python is generally licensed as Python-2.0.1 but also includes incorporated software
+# Combined manually from https://docs.python.org/3.14/license.html
+# Hash of Doc/license.rst which is compared in %%prep, generated with:
+# $ sha256sum Doc/license.rst | cut -f1 -d" "
+%global license_file_hash c695d550b135e53e38807e76496d1db17d22c40e461d1f3f354c86188d3305dd
+# Licenses of incorporated software:
+# Mersenne Twister in _random C extension contains code under BSD-3-Clause
+# socket.getaddrinfo() and socket.getnameinfo() are BSD-3-Clause
+# test.support.asynchat and test.support.asyncore are MIT-CMU
+# http.cookies is MIT-CMU
+# trace is under temporary SPDX ref: https://gitlab.com/fedora/legal/fedora-license-data/-/issues/657
+# trace: LicenseRef-Fedora-Temporary-Python-trace
+# uu is MIT-CMU
+# xmlrpc.client is MIT-CMU
+# test.test_epoll is MIT
+# select kqueue interface is BSD-2-Clause
+# SipHash algorithm in Python/pyhash.c is MIT
+# strtod and dtoa are dtoa
+# OpenSSL is not bundled
+# expat is not bundled
+# libffi is not bundled
+# zlib is not bundled
+# cfuhash used by tracemalloc is BSD-3-Clause
+# libmpdec is not bundled
+# C14N test suite in Lib/test/xmltestdata/c14n-20/ is BSD-3-Clause
+# mimalloc is MIT
+# parts of asyncio from uvloop are MIT
+# Python/qsbr.c is adapted from code under BSD-2-Clause
+# Zstandard bindings in Modules/_zstd and Lib/compression/zstd are BSD-3-Clause
+%global libs_license Python-2.0.1 AND MIT AND BSD-3-Clause AND MIT-CMU AND LicenseRef-Fedora-Temporary-Python-trace AND BSD-2-Clause AND dtoa
 %if %{with rpmwheels}
 Requires: %{python_wheel_pkg_prefix}-pip-wheel >= 23.1.2
 License: %{libs_license}
@@ -527,7 +555,7 @@ License: %{libs_license}
 Provides: bundled(python3dist(pip)) = %{pip_version}
 %pip_bundled_provides
 # License combined from Python libs + pip
-License: %{libs_license} AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC AND LGPL-2.1-only AND MPL-2.0 AND (Apache-2.0 OR BSD-2-Clause)
+License: %{libs_license} AND Apache-2.0 AND ISC AND LGPL-2.1-only AND MPL-2.0 AND (Apache-2.0 OR BSD-2-Clause)
 %endif
 
 %unversioned_obsoletes_of_python3_X_if_main libs
@@ -719,7 +747,7 @@ Provides: bundled(python3dist(pip)) = %{pip_version}
 Provides: bundled(python3dist(setuptools)) = %{setuptools_version}
 %setuptools_bundled_provides
 # License combined from Python libs + pip + setuptools
-License: %{libs_license} AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC AND LGPL-2.1-only AND MPL-2.0 AND (Apache-2.0 OR BSD-2-Clause)
+License: %{libs_license} AND Apache-2.0 AND ISC AND LGPL-2.1-only AND MPL-2.0 AND (Apache-2.0 OR BSD-2-Clause)
 %endif
 
 # This package doesn't depend on python3-libs, so we need to explicitly
@@ -785,6 +813,14 @@ fi
 rm Lib/ensurepip/_bundled/pip-%{pip_version}-py3-none-any.whl
 rm Lib/test/wheeldata/setuptools-%{setuptools_version}-py3-none-any.whl
 %endif
+
+# check if there were any changes to Doc/license.rst
+# if so, a review of %%libs_license and %%license_file_hash is needed
+found_hash=$(sha256sum Doc/license.rst | cut -f1 -d" ")
+if [ "$found_hash" != %{license_file_hash} ]; then
+    echo "File hash mismatch: review Doc/license.rst for changes"
+    exit 1
+fi
 
 # Remove all exe files to ensure we are not shipping prebuilt binaries
 # note that those are only used to create Microsoft Windows installers

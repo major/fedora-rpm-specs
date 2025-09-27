@@ -1,18 +1,24 @@
-%global pkgname standardff
-%global upname  StandardFF
-%global giturl  https://github.com/frankluebeck/StandardFF
+%global gap_pkgname standardff
+%global gap_upname  StandardFF
+%global gap_makedoc makedocrel.g
+%global giturl      https://github.com/frankluebeck/StandardFF
 
-Name:           gap-pkg-%{pkgname}
+Name:           gap-pkg-%{gap_pkgname}
 Version:        1.0
 Release:        %autorelease
 Summary:        Standardized generation of finite fields and cyclic subgroups
 
 License:        GPL-3.0-or-later
-# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch:    %{ix86}
 URL:            https://www.math.rwth-aachen.de/~Frank.Luebeck/gap/StandardFF/
 VCS:            git:%{giturl}.git
-Source:         %{giturl}/archive/v%{version}/%{upname}-%{version}.tar.gz
+Source:         %{giturl}/archive/v%{version}/%{gap_upname}-%{version}.tar.gz
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+BuildSystem:    gap
+BuildOption(build): --packagedirs .. -r pathtoroot
+BuildOption(install): data lib tst VERSION
+BuildOption(check): tst/testall.g
 
 BuildRequires:  GAPDoc-latex
 BuildRequires:  gap-devel
@@ -29,10 +35,9 @@ Recommends:     gap-pkg-ctbllib
 Recommends:     gap-pkg-factint
 
 %description
-The StandardFF package contains an implementation of *standard*
-generators of finite fields and of cyclic subgroups in the
-multiplicative groups of finite fields, as described in
-https://arxiv.org/abs/2107.02257.
+The StandardFF package contains an implementation of *standard* generators of
+finite fields and of cyclic subgroups in the multiplicative groups of finite
+fields, as described in https://arxiv.org/abs/2107.02257.
 
 %package doc
 # The content is GPL-3.0-or-later.  The remaining licenses cover the various
@@ -47,12 +52,12 @@ Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
 
 %description doc
-This package contains documentation for gap-pkg-%{pkgname}.
+This package contains documentation for gap-pkg-%{gap_pkgname}.
 
 %prep
-%autosetup -n %{upname}-%{version}
+%autosetup -n %{gap_upname}-%{version}
 
-%build
+%build -p
 # Build the NTL interfaces
 cd ntl
 for fil in *.cc; do
@@ -60,39 +65,30 @@ for fil in *.cc; do
 done
 cd -
 
-# Build the documentation
-mkdir ../pkg
-ln -s ../%{upname}-%{version} ../pkg
+# Help the documentation building step find the GAP root
 cat > pathtoroot << EOF
 pathtoroot := "%{gap_libdir}";
 EOF
-gap -l "$PWD/..;" -r pathtoroot makedocrel.g
-rm -fr ../pkg
 
-%install
-mkdir -p %{buildroot}%{gap_archdir}/pkg/%{upname}/{doc,ntl}
-cp -a *.g data lib tst VERSION %{buildroot}%{gap_archdir}/pkg/%{upname}
+%install -a
+mkdir -p %{buildroot}%{gap_archdir}/pkg/%{gap_upname}/ntl
 cp -p ntl/{factors,findirr,findstdirrGF{2,p},isirrGF{p,q}} \
-   %{buildroot}%{gap_archdir}/pkg/%{upname}/ntl
-%gap_copy_docs -n %{upname}
-
-%check
-gap -l '%{buildroot}%{gap_archdir};' tst/testall.g
+   %{buildroot}%{gap_archdir}/pkg/%{gap_upname}/ntl
 
 %files
 %doc CHANGES README.md
 %license LICENSE
-%dir %{gap_archdir}/pkg/%{upname}/
-%{gap_archdir}/pkg/%{upname}/*.g
-%{gap_archdir}/pkg/%{upname}/data/
-%{gap_archdir}/pkg/%{upname}/lib/
-%{gap_archdir}/pkg/%{upname}/ntl/
-%{gap_archdir}/pkg/%{upname}/tst/
-%{gap_archdir}/pkg/%{upname}/VERSION
+%dir %{gap_archdir}/pkg/%{gap_upname}/
+%{gap_archdir}/pkg/%{gap_upname}/*.g
+%{gap_archdir}/pkg/%{gap_upname}/data/
+%{gap_archdir}/pkg/%{gap_upname}/lib/
+%{gap_archdir}/pkg/%{gap_upname}/ntl/
+%{gap_archdir}/pkg/%{gap_upname}/tst/
+%{gap_archdir}/pkg/%{gap_upname}/VERSION
 
 %files doc
-%docdir %{gap_archdir}/pkg/%{upname}/doc/
-%{gap_archdir}/pkg/%{upname}/doc/
+%docdir %{gap_archdir}/pkg/%{gap_upname}/doc/
+%{gap_archdir}/pkg/%{gap_upname}/doc/
 
 %changelog
 %autochangelog

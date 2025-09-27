@@ -2,25 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate proptest-derive
+%global crate rustflags
 
-Name:           rust-proptest-derive
-Version:        0.6.0
+Name:           rust-rustflags
+Version:        0.1.7
 Release:        %autorelease
-Summary:        Custom-derive for the Arbitrary trait of proptest
+Summary:        Parser for CARGO_ENCODED_RUSTFLAGS
 
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/proptest-derive
+URL:            https://crates.io/crates/rustflags
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * drop unused, benchmark-only criterion dev-dependency
-# * drop obsolete compiletest_rs dev-dependency
-Patch:          proptest-derive-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Custom-derive for the Arbitrary trait of proptest.}
+Parser for CARGO_ENCODED_RUSTFLAGS.}
 
 %description %{_description}
 
@@ -36,7 +32,6 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -52,24 +47,9 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+boxed_union-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+boxed_union-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "boxed_union" feature of the "%{crate}" crate.
-
-%files       -n %{name}+boxed_union-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
-# drop tests that depend on compiletest_rs
-rm -v tests/compiletest.rs
-rm -vr tests/compile-fail/
 
 %generate_buildrequires
 %cargo_generate_buildrequires

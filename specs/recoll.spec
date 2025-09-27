@@ -12,7 +12,7 @@
 Summary:        Desktop full text search tool with Qt GUI
 Name:           recoll
 Version:        1.43.5
-Release:        4%{?dist}
+Release:        5%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            https://www.recoll.org
@@ -20,6 +20,7 @@ Source0:        https://www.recoll.org/recoll-%{version}.tar.gz
 Source1:        https://www.recoll.org/downloads/src/gssp-recoll-%{gsspver}.tar.gz
 Source10:       qmake-qt6.sh
 Patch:          recoll-1.42.1-cmake4.patch
+Patch:          recoll-1.43.4-soffice.patch
 BuildRequires:  aspell-devel
 BuildRequires:  bison
 BuildRequires:  chmlib-devel
@@ -49,7 +50,7 @@ BuildRequires:  xapian-core-devel
 BuildRequires:  zlib-devel
 Requires:       xdg-utils
 Recommends:     (recoll-krunner if kf6-krunner)
-Suggests:       %{name}-helpers = %{version}-%{release}
+Recommends:     %{name}-helpers = %{version}-%{release}
 %description
 Recoll is a personal full text search package for Linux, FreeBSD and
 other Unix systems. It is based on a very strong back end (Xapian), for
@@ -245,6 +246,10 @@ echo "%{_libdir}/recoll" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/recoll-%{_arc
 %{_datadir}/applications/org.recoll.Recoll.SearchProvider.desktop
 
 %changelog
+* Thu Sep 25 2025 Terje Rosten <terjeros@gmail.com> - 1.43.5-5
+- Add soffice patch
+- Prefer Recommends over Suggests
+
 * Tue Sep 23 2025 Terje Rosten <terjeros@gmail.com> - 1.43.5-4
 - Add more helpers
 - Add dep on kio in krunner

@@ -10,12 +10,12 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit bb9eb904e800d09965e33883e4e15dfd011b1d19
-%global commitdatestring 2025-04-14 14:15:17 +0200
-%global cosmic_minver 1.0.0~alpha.7
+%global commit 99a6adccd97e44b3968db9d194028b27cdcff0cd
+%global commitdatestring 2025-09-19 11:27:40 -0600
+%global cosmic_minver 1.0.0~beta.1
 
 Name:           cosmic-settings-daemon
-Version: 1.0.0~alpha.7
+Version: 1.0.0~beta.1
 Release:        %autorelease
 Summary:        Settings daemon for the COSMIC Desktop Environment
 
@@ -45,6 +45,7 @@ BuildRequires:  libxkbcommon-devel
 BuildRequires:  pam-devel
 BuildRequires:  pulseaudio-utils
 BuildRequires:  just
+BuildRequires:  openssl-devel
 
 Requires:       acpid
 Requires:       adw-gtk3-theme
@@ -80,6 +81,7 @@ export VERGEN_GIT_SHA="%{commit}"
 %{cargo_license} > LICENSE.dependencies
 %{cargo_vendor_manifest}
 sed 's/\(.*\) (.*#\(.*\))/\1+git\2/' -i cargo-vendor.txt
+sed 's/^\([^+]*\)+.*+\([^+]*\)$/\1+\2/' -i cargo-vendor.txt
 
 %install
 # Set vergen environment variables

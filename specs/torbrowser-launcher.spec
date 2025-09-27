@@ -1,7 +1,7 @@
 %global		oname torbrowser_launcher
 Name:		torbrowser-launcher
-Version:	0.3.7
-Release:	10%{?dist}
+Version:	0.3.8
+Release:	2%{?dist}
 Summary:	Tor Browser Bundle managing tool
 License:	MIT
 URL:		https://github.com/micahflee/torbrowser-launcher/
@@ -21,7 +21,7 @@ Requires:	gnupg2
 Requires:	tor
 Requires:	python3-pysocks
 Requires:	python3-gpg
-Requires:	python3-qt5
+Requires:	python3-pyside6
 Requires:	python3-requests
 Requires:       python3-packaging
 Requires:       dbus-glib
@@ -55,8 +55,8 @@ set_active\(False\)/g" torbrowser_launcher/settings.py
 
 %build
 %pyproject_wheel
-desktop-file-validate share/applications/torbrowser.desktop
-desktop-file-validate share/applications/torbrowser-settings.desktop
+desktop-file-validate share/applications/org.torproject.torbrowser-launcher.desktop
+desktop-file-validate share/applications/org.torproject.torbrowser-launcher.settings.desktop
 
 %install
 find . -name apparmor -type d -print0|xargs -0 rm -r --
@@ -75,13 +75,19 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.torproject
 %doc README.md
 %license LICENSE
 %{_datadir}/applications/*
-%{_datadir}/icons/hicolor/128x128/apps/torbrowser.png
+%{_datadir}/icons/hicolor/128x128/apps/org.torproject.torbrowser-launcher.png
 %{_datadir}/%{name}/*
 %{python3_sitelib}/%{oname}/*
 %{_metainfodir}/org.torproject.torbrowser-launcher.metainfo.xml
 %{python3_sitelib}/%{oname}-%{version}.dist-info/
 
 %changelog
+* Thu Sep 25 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.3.8-2
+- Fix Requires
+
+* Thu Sep 25 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.3.8-1
+- 0.3.8
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.3.7-10
 - Rebuilt for Python 3.14.0rc3 bytecode
 

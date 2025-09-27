@@ -1,7 +1,7 @@
 Summary: A set of basic GNU tools commonly used in shell scripts
 Name:    coreutils
 Version: 9.8
-Release: 1%{?dist}
+Release: 2%{?dist}
 # some used parts of gnulib are under various variants of LGPL
 License: GPL-3.0-or-later AND GFDL-1.3-no-invariants-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later
 Url:     https://www.gnu.org/software/coreutils/
@@ -31,6 +31,10 @@ Patch103: coreutils-python3.patch
 
 # df --direct
 Patch104: coreutils-df-direct.patch
+
+# tail: fix tailing larger number of lines in regular files (rhbz#2398008)
+# https://github.com/coreutils/coreutils/commit/914972e80dbf82aac9ffe3ff1f67f1028e1a788b
+Patch105: coreutils-v9.8-tail-n-broken-for-regular-files.patch
 
 # (sb) lin18nux/lsb compliance - multibyte functionality patch
 Patch800: coreutils-i18n.patch
@@ -275,6 +279,9 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 %license COPYING
 
 %changelog
+* Thu Sep 25 2025 Lukáš Zaoral <lzaoral@redhat.com> - 9.8-2
+- tail: fix tailing larger number of lines in regular files (rhbz#2398008)
+
 * Wed Sep 24 2025 Lukáš Zaoral <lzaoral@redhat.com> - 9.8-1
 - rebase to latest upstream release (rhbz#2397467)
 - remove downstream patch for selinux options deprecated since 2009

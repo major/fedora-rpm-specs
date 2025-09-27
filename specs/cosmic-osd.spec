@@ -10,12 +10,12 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit 54c9672fa28c083953b2eae33c38fa4c6ebf3881
-%global commitdatestring 2025-04-08 14:55:11 -0600
-%global cosmic_minver 1.0.0~alpha.7
+%global commit c88988f7af0cf6524fdc80131446562226a3494e
+%global commitdatestring 2025-09-19 11:25:41 -0600
+%global cosmic_minver 1.0.0~beta.1
 
 Name:           cosmic-osd
-Version: 1.0.0~alpha.7
+Version: 1.0.0~beta.1
 Release:        %autorelease
 Summary:        OSDs for the COSMIC Desktop Environment
 
@@ -37,12 +37,17 @@ BuildRequires:  rustc
 BuildRequires:  lld
 BuildRequires:  cargo
 BuildRequires:  wayland-devel
+BuildRequires:  libinput-devel
+BuildRequires:  clang-devel
 BuildRequires:  libxkbcommon-devel
 BuildRequires:  systemd-devel
 BuildRequires:  pulseaudio-libs-devel
+BuildRequires:  pipewire-devel
+BuildRequires:  clang
 BuildRequires:  make
 
 Requires:       cosmic-icon-theme >= %{cosmic_minver}
+Requires:       pulseaudio-utils
 
 %global _description %{expand:
 %{summary}.}
@@ -72,6 +77,7 @@ make all polkit-agent-helper-1=/usr/lib/polkit-1/polkit-agent-helper-1
 %{cargo_license} > LICENSE.dependencies
 %{cargo_vendor_manifest}
 sed 's/\(.*\) (.*#\(.*\))/\1+git\2/' -i cargo-vendor.txt
+sed 's/^\([^+]*\)+.*+\([^+]*\)$/\1+\2/' -i cargo-vendor.txt
 
 %install
 # Set vergen environment variables

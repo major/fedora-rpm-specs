@@ -1,18 +1,21 @@
-%global pkgname utils
-%global giturl  https://github.com/gap-packages/utils
+%global gap_pkgname utils
+%global giturl      https://github.com/gap-packages/utils
 
-Name:           gap-pkg-%{pkgname}
-Version:        0.89
+Name:           gap-pkg-%{gap_pkgname}
+Version:        0.92
 Release:        %autorelease
 Summary:        Utility functions for GAP
 
 License:        GPL-2.0-or-later
-BuildArch:      noarch
-# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch:    %{ix86}
 URL:            https://gap-packages.github.io/utils/
 VCS:            git:%{giturl}.git
-Source:         %{giturl}/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
+Source:         %{giturl}/releases/download/v%{version}/%{gap_upname}-%{version}.tar.gz
+
+BuildArch:      noarch
+BuildSystem:    gap
+BuildOption(build): --packagedirs ..
+BuildOption(install): lib tst
+BuildOption(check): tst/testall.g
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-autodoc
@@ -24,8 +27,8 @@ Requires:       gap-core
 Recommends:     gap-pkg-curlinterface
 
 %description
-The Utils package provides a collection of utility functions gleaned
-from many packages.
+The Utils package provides a collection of utility functions gleaned from many
+packages.
 
 %package doc
 # The content is GPL-2.0-or-later.  The remaining licenses cover the various
@@ -42,37 +45,30 @@ Requires:       gap-pkg-curlinterface-doc
 Requires:       gap-pkg-io-doc
 
 %description doc
-This package contains documentation for gap-pkg-%{pkgname}.
+This package contains documentation for gap-pkg-%{gap_pkgname}.
 
 %prep
-%autosetup -n %{pkgname}-%{version} -p1
+%autosetup -n %{gap_upname}-%{version}
 
-%build
-gap -l "$PWD/..;" makedoc.g
-
-%install
-mkdir -p %{buildroot}%{gap_libdir}/pkg/%{pkgname}/doc
-cp -a *.g lib tst %{buildroot}%{gap_libdir}/pkg/%{pkgname}
-%gap_copy_docs
-
-%check
+%check -p
 # The download test cannot be run on the koji builders, which provide no
 # network access during a package build.
-rm %{buildroot}%{gap_libdir}/pkg/%{pkgname}/tst/download.tst
-gap -l '%{buildroot}%{gap_libdir};' tst/testall.g
-cp -p tst/download.tst %{buildroot}%{gap_libdir}/pkg/%{pkgname}/tst
+rm %{buildroot}%{gap_libdir}/pkg/%{gap_upname}/tst/download.tst
+
+%check -a
+cp -p tst/download.tst %{buildroot}%{gap_libdir}/pkg/%{gap_upname}/tst
 
 %files
 %doc CHANGES.md README.md
 %license LICENSE.txt
-%dir %{gap_libdir}/pkg/%{pkgname}/
-%{gap_libdir}/pkg/%{pkgname}/*.g
-%{gap_libdir}/pkg/%{pkgname}/lib/
-%{gap_libdir}/pkg/%{pkgname}/tst/
+%dir %{gap_libdir}/pkg/%{gap_upname}/
+%{gap_libdir}/pkg/%{gap_upname}/*.g
+%{gap_libdir}/pkg/%{gap_upname}/lib/
+%{gap_libdir}/pkg/%{gap_upname}/tst/
 
 %files doc
-%docdir %{gap_libdir}/pkg/%{pkgname}/doc/
-%{gap_libdir}/pkg/%{pkgname}/doc/
+%docdir %{gap_libdir}/pkg/%{gap_upname}/doc/
+%{gap_libdir}/pkg/%{gap_upname}/doc/
 
 %changelog
 %autochangelog

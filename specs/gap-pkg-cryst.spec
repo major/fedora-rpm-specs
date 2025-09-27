@@ -1,5 +1,3 @@
-%global pkgname cryst
-
 # When bootstrapping a new architecture, there is no gap-pkg-crystcat yet.  That
 # package is only needed for testing this one, but it needs this package to
 # function at all.  Therefore, do the following:
@@ -8,21 +6,27 @@
 # 3. Build this package in non-bootstrap mode
 %bcond bootstrap 0
 
-Name:           gap-pkg-%{pkgname}
-Version:        4.1.27
+%global gap_pkgname    cryst
+%global gap_skip_check %{?with_bootstrap}
+
+Name:           gap-pkg-%{gap_pkgname}
+Version:        4.1.30
 Release:        %autorelease
 Summary:        GAP support for crystallographic groups
 
 License:        GPL-2.0-or-later
-BuildArch:      noarch
-# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch:    %{ix86}
 URL:            https://www.math.uni-bielefeld.de/~gaehler/gap/packages.php
 VCS:            git:https://github.com/gap-packages/cryst.git
-Source:         https://www.math.uni-bielefeld.de/~gaehler/gap/Cryst/%{pkgname}-%{version}.tar.gz
+Source:         https://www.math.uni-bielefeld.de/~gaehler/gap/Cryst/%{gap_upname}-%{version}.tar.gz
+
+BuildArch:      noarch
+BuildSystem:    gap
+BuildOption(install): gap grp htm tst
+BuildOption(check): tst/testall.g
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-caratinterface
+BuildRequires:  gap-pkg-polenta
 BuildRequires:  gap-pkg-polycyclic
 BuildRequires:  tth
 
@@ -32,22 +36,22 @@ BuildRequires:  gap-pkg-crystcat
 %endif
 
 Requires:       gap-pkg-caratinterface
+Requires:       gap-pkg-polenta
 Requires:       gap-pkg-polycyclic
 
-Suggests:       gap-pkg-crystcat
 Suggests:       xgap
 
 %description
-The GAP 4 package Cryst, previously known as CrystGAP, is the successor
-of the CrystGAP package for GAP 3.  During the porting process to GAP 4,
-large parts of the code have been rewritten, and the functionality has
-been extended considerably.  Cryst provides a rich set of methods to
-compute with affine crystallographic groups, in particular space groups.
-In contrast to the GAP 3 version, affine crystallographic groups are now
-fully supported both in the representation acting from the right and in
-the representation acting from the left.  The latter representation is
-the one preferred by crystallographers.  There are also functions to
-determine representatives of all space group types of a given dimension.
+The GAP 4 package Cryst, previously known as CrystGAP, is the successor of the
+CrystGAP package for GAP 3.  During the porting process to GAP 4, large parts
+of the code have been rewritten, and the functionality has been extended
+considerably.  Cryst provides a rich set of methods to compute with affine
+crystallographic groups, in particular space groups.  In contrast to the GAP 3
+version, affine crystallographic groups are now fully supported both in the
+representation acting from the right and in the representation acting from the
+left.  The latter representation is the one preferred by crystallographers.
+There are also functions to determine representatives of all space group types
+of a given dimension.
 
 %package doc
 # The content is GPL-2.0-or-later.  The remaining licenses cover the various
@@ -61,10 +65,10 @@ Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
 
 %description doc
-This package contains documentation for gap-pkg-%{pkgname}.
+This package contains documentation for gap-pkg-%{gap_pkgname}.
 
 %prep
-%autosetup -n %{pkgname}
+%autosetup -n %{gap_upname}
 
 %build
 # Link to main GAP documentation
@@ -75,30 +79,20 @@ cd doc
 cd -
 rm -f ../../{doc,etc}
 
-%install
-mkdir -p %{buildroot}%{gap_libdir}/pkg/%{pkgname}/doc
-cp -a *.g gap grp htm tst %{buildroot}%{gap_libdir}/pkg/%{pkgname}
-%gap_copy_docs
-
-%if %{without bootstrap}
-%check
-gap -l '%{buildroot}%{gap_libdir};' tst/testall.g
-%endif
-
 %files
 %doc Changelog README
 %license COPYING
-%dir %{gap_libdir}/pkg/%{pkgname}/
-%{gap_libdir}/pkg/%{pkgname}/*.g
-%{gap_libdir}/pkg/%{pkgname}/gap/
-%{gap_libdir}/pkg/%{pkgname}/grp/
-%{gap_libdir}/pkg/%{pkgname}/tst/
+%dir %{gap_libdir}/pkg/%{gap_upname}/
+%{gap_libdir}/pkg/%{gap_upname}/*.g
+%{gap_libdir}/pkg/%{gap_upname}/gap/
+%{gap_libdir}/pkg/%{gap_upname}/grp/
+%{gap_libdir}/pkg/%{gap_upname}/tst/
 
 %files doc
-%docdir %{gap_libdir}/pkg/%{pkgname}/doc/
-%docdir %{gap_libdir}/pkg/%{pkgname}/htm/
-%{gap_libdir}/pkg/%{pkgname}/doc/
-%{gap_libdir}/pkg/%{pkgname}/htm/
+%docdir %{gap_libdir}/pkg/%{gap_upname}/doc/
+%docdir %{gap_libdir}/pkg/%{gap_upname}/htm/
+%{gap_libdir}/pkg/%{gap_upname}/doc/
+%{gap_libdir}/pkg/%{gap_upname}/htm/
 
 %changelog
 %autochangelog

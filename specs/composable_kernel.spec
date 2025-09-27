@@ -1,6 +1,6 @@
 %global upstreamname composable_kernel
-%global rocm_release 6.4
-%global rocm_patch 2
+%global rocm_release 7.0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -212,6 +212,9 @@ fi
 %endif
 
 %changelog
+* Wed Sep 24 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-1
+- Update to 7.0.1
+
 * Thu Jul 31 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-1
 - Update to 6.4.2
 

@@ -50,7 +50,7 @@ chmod a-x %{buildroot}/%{_mandir}/man1/%{name}*
 %files
 %doc readme.md LICENSE changelog.md
 %{_bindir}/%{name}
-%if 0%{?el8} || 0%{?el9}
+%if 0%{?el8} || 0%{?el9} || 0%{?el10}
 %{_unitdir}/%{name}.service
 %else
 %{_userunitdir}/%{name}.service

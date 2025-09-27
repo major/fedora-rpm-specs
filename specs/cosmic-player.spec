@@ -10,12 +10,12 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit 1503065026cae75e6e38404773f6d18e06563cf2
-%global commitdatestring 2025-04-14 09:07:59 -0600
-%global cosmic_minver 1.0.0~alpha.7
+%global commit 5556cf81a120fc60aa771e3772424d0e76a91b22
+%global commitdatestring 2025-09-15 14:17:51 -0600
+%global cosmic_minver 1.0.0~beta.1
 
 Name:           cosmic-player
-Version: 1.0.0~alpha.7
+Version: 1.0.0~beta.1
 Release:        %autorelease
 Summary:        COSMIC media player
 
@@ -76,22 +76,13 @@ export VERGEN_GIT_SHA="%{commit}"
 %{cargo_license} > LICENSE.dependencies
 %{cargo_vendor_manifest}
 sed 's/\(.*\) (.*#\(.*\))/\1+git\2/' -i cargo-vendor.txt
+sed 's/^\([^+]*\)+.*+\([^+]*\)$/\1+\2/' -i cargo-vendor.txt
 
 %install
 # Set vergen environment variables
 export VERGEN_GIT_COMMIT_DATE="date --utc '%{commitdatestring}'"
 export VERGEN_GIT_SHA="%{commit}"
 just rootdir=%{buildroot} prefix=%{_prefix} install
-
-# COSMIC is not a valid category pre-fedora 41
-%if %{defined fedora} && 0%{?fedora} < 41
-desktop-file-install \
---remove-category COSMIC \
---add-category X-COSMIC \
---delete-original \
---dir %{buildroot}%{_datadir}/applications \
-%{buildroot}%{_datadir}/applications/com.system76.CosmicPlayer.desktop
-%endif
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/com.system76.CosmicPlayer.desktop
@@ -110,6 +101,7 @@ export VERGEN_GIT_SHA="%{commit}"
 %{_datadir}/applications/com.system76.CosmicPlayer.desktop
 %{_metainfodir}/com.system76.CosmicPlayer.metainfo.xml
 %{_datadir}/icons/hicolor/*/apps/com.system76.CosmicPlayer.svg
+%{_datadir}/thumbnailers/com.system76.CosmicPlayer.thumbnailer
 
 %changelog
 %autochangelog

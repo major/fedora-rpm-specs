@@ -1,7 +1,7 @@
 ###############################################################################
 ###############################################################################
 ##
-##  Copyright (C) 2012-2022 Red Hat, Inc.  All rights reserved.
+##  Copyright (C) 2012-2025 Red Hat, Inc.  All rights reserved.
 ##
 ##  This copyrighted material is made available to anyone wishing to use,
 ##  modify, copy, or redistribute it subject to the terms and conditions
@@ -36,8 +36,8 @@
 
 Name: kronosnet
 Summary: Multipoint-to-Multipoint VPN daemon
-Version: 1.31
-Release: 2%{?dist}
+Version: 1.32
+Release: 1%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.1-or-later
 URL: https://kronosnet.org
 Source0: https://kronosnet.org/releases/%{name}-%{version}.tar.xz
@@ -436,6 +436,21 @@ Requires: libnozzle1%{_isa} = %{version}-%{release}
 %endif
 
 %changelog
+* Thu Sep 25 2025 Fabio M. Di Nitto <fdinitto@redhat.com> - 1.32-1
+- New upstream release
+- IMPORTANT: sctp support is now officially deprecated. It is disabled by default and it will be removed in knet 2.x.
+- Fix potential thread race condition in libnozzle close.
+- Fix wrong pointer in libknet RX thread, only triggered by old gcc (< 11).
+- Libnozzle: different fixes for BSD to deal with new tap driver changes and don´t leak interfaces.
+- New API call in libknet to allow configuring a dscp value for KNET_LINK_FLAG_TRAFFICHIPRIO.
+- Bump soname to reflect new API call.
+- Improve OpenSSL error handling.
+- Add support for OpenIndiana.
+- Documentation updates.
+- Fix several tests to better deal with execution timing.
+- Handle some new coverity errors.
+- Create and refine STYLE_GUIDE.md for project contributions.
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.31-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

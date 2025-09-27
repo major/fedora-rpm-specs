@@ -63,7 +63,7 @@
 Name:           ibus
 Version:        1.5.33~rc1
 # https://github.com/fedora-infra/rpmautospec/issues/101
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -72,6 +72,7 @@ Source1:        https://github.com/ibus/%name/releases/download/%{source_version
 Source2:        %{name}-xinput
 Source3:        %{name}.conf.5
 # Patch0:         %%{name}-HEAD.patch
+Patch0:         %{name}-HEAD.patch
 # Under testing #1349148 #1385349 #1350291 #1406699 #1432252 #1601577
 Patch1:         %{name}-1385349-segv-bus-proxy.patch
 
@@ -638,6 +639,9 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Thu Sep 25 2025 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.33~rc1-3
+- Fix memory leak in compose
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.5.33~rc1-2
 - Rebuilt for Python 3.14.0rc3 bytecode
 

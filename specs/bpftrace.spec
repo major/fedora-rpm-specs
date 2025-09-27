@@ -1,8 +1,8 @@
 #global llvm_compat 18
 
 Name:           bpftrace
-Version:        0.23.5
-Release:        2%{?dist}
+Version:        0.24.0
+Release:        1%{?dist}
 Summary:        High-level tracing language for Linux eBPF
 License:        Apache-2.0
 
@@ -31,6 +31,7 @@ BuildRequires:  lldb-devel
 BuildRequires:  libpcap-devel
 %endif
 BuildRequires:  rubygem-asciidoctor
+BuildRequires:  xxd
 
 
 %description
@@ -80,18 +81,19 @@ find %{buildroot}%{_datadir}/%{name}/tools -type f -exec \
 %license LICENSE
 %dir %{_datadir}/%{name}
 %dir %{_datadir}/%{name}/tools
-%dir %{_datadir}/%{name}/tools/doc
 %dir %{_datadir}/%{name}/tools/old
 %{_bindir}/%{name}
 %{_bindir}/%{name}-aotrt
 %{_mandir}/man8/*
 %attr(0755,-,-) %{_datadir}/%{name}/tools/*.bt
 %attr(0755,-,-) %{_datadir}/%{name}/tools/old/*.bt
-%{_datadir}/%{name}/tools/doc/*.txt
 %{_datadir}/bash-completion/completions/%{name}
 
 
 %changelog
+* Fri Sep 19 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 0.24.0-1
+- Rebased to version 0.24.0
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.23.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

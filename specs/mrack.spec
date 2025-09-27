@@ -1,6 +1,6 @@
 Name:           mrack
-Version:        1.23.4
-Release:        5%{?dist}
+Version:        1.24.0
+Release:        1%{?dist}
 Summary:        Multicloud use-case based multihost async provisioner
 
 License:        Apache-2.0
@@ -185,17 +185,15 @@ rm -r src/%{name}.egg-info
 %{python3_sitelib}/%{name}/providers/utils/{,__pycache__/}testcloud.*
 
 %changelog
-* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.23.4-5
-- Rebuilt for Python 3.14.0rc3 bytecode
+* Thu Sep 25 2025 David Pascual Hernandez <davherna@redhat.com> - 1.24.0-1
+- 39e9d79 feat: Add support to pass watchdog panic="ignore" in Beaker recipe (David Pascual)
+- 801ef4b fix: Fix nested and/or issue (David Pascual)
+- fad14c2 test: Add _translate_constraint test (David Pascual)
 
-* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.23.4-4
-- Rebuilt for Python 3.14.0rc2 bytecode
-
-* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.23.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 1.23.4-2
-- Rebuilt for Python 3.14
+* Tue Sep 09 2025 David Pascual Hernandez <davherna@redhat.com> - 1.23.5-1
+- b46c7c4 chore: Bump python-semantic-release to fix release issue (David Pascual)
+- 033e1f7 chore(packit): Update epel spec for fedora propose upstream (David Pascual)
+- aeb12fe fix: Enforce beaker-client 29.2 to fix fetch_url error (David Pascual)
 
 * Wed May 28 2025 David Pascual Hernandez <davherna@redhat.com> - 1.23.4-1
 - 75d8c3b chore: Enable epel-10 builds in Packit (David Pascual)

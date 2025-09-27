@@ -9,12 +9,12 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit bc70106fe568c5abf54fa18befe65b2b3f521e27
-%global commitdatestring 2025-04-23 22:07:08 +0200
-%global cosmic_minver 1.0.0~alpha.7
+%global commit 886220fc9f373c9a2dedb52224f24c1efdfefa6e
+%global commitdatestring 2025-09-19 09:22:59 -0400
+%global cosmic_minver 1.0.0~beta.1
 
 Name:           cosmic-settings
-Version: 1.0.0~alpha.7
+Version: 1.0.0~beta.1
 Release:        %autorelease
 Summary:        Settings app for the COSMIC Desktop Environment
 
@@ -31,7 +31,6 @@ Source1:        vendor-%{version_no_tilde}.tar.gz
 # * mv vendor-config-%%{version_no_tilde}.toml ..
 Source2:        vendor-config-%{version_no_tilde}.toml
 
-Patch: 0001-fix-use-image-feature-of-jxl-oxide-to-fix-image-deco.patch
 
 BuildRequires:  cargo-rpm-macros >= 25
 BuildRequires:  rustc
@@ -88,6 +87,7 @@ export VERGEN_GIT_SHA="%{commit}"
 %{cargo_license} > LICENSE.dependencies
 %{cargo_vendor_manifest}
 sed 's/\(.*\) (.*#\(.*\))/\1+git\2/' -i cargo-vendor.txt
+sed 's/^\([^+]*\)+.*+\([^+]*\)$/\1+\2/' -i cargo-vendor.txt
 
 %install
 # Set vergen environment variables
@@ -96,8 +96,7 @@ export VERGEN_GIT_SHA="%{commit}"
 just rootdir=%{buildroot} install
 
 %check
-# FIXME: OnlyShowIn=COSMIC, should be fixed in 41 ?
-# desktop-file-validate %{buildroot}%{_datadir}/applications/com.system76.CosmicSettings.desktop
+desktop-file-validate %{buildroot}%{_datadir}/applications/com.system76.CosmicSettings.desktop
 # TODO: Fix desktop file validation of sub pages upstream
 # desktop-file-validate %{buildroot}%{_datadir}/applications/com.system76.CosmicSettings.About.desktop
 # desktop-file-validate %{buildroot}%{_datadir}/applications/com.system76.CosmicSettings.Appearance.desktop

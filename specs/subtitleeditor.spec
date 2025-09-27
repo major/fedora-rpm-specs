@@ -1,16 +1,12 @@
-%global commit 75fa38b2f20a3ec9ff6c5458a7754bcef693a584
-%global date 20220919
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-
 Name:           subtitleeditor
-Version:        0.54.0
-Release:        24.%{date}git%{shortcommit}%{?dist}
+Version:        0.55.0
+Release:        1%{?dist}
 Summary:        GTK+3 tool to edit subtitles for GNU/Linux/*BSD
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
-URL:            https://kitone.github.io/subtitleeditor/
-Source0:        https://github.com/kitone/subtitleeditor/archive/%{commit}/%{name}-%{commit}.tar.gz
+URL:            https://subtitleeditor.github.io/subtitleeditor/
+Source0:        https://github.com/subtitleeditor/subtitleeditor/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires: make
 BuildRequires:  gcc-c++
@@ -42,7 +38,7 @@ existing subtitle. This program also shows sound waves, which makes it easier
 to synchronize subtitles to voices.
 
 %prep
-%setup -q -n %{name}-%{commit}
+%setup -q
 
 %build
 autoreconf -fiv
@@ -58,28 +54,24 @@ autoreconf -fiv
 %make_install
 
 #remove .la's
-find %{buildroot} -name "*.la" -exec %{__rm} -f '{}' \;
+find %{buildroot} -name "*.la" | xargs rm -v
 
 #remove useless development files
-%{__rm} -f %{buildroot}%{_libdir}/lib%{name}.so
+rm -v %{buildroot}%{_libdir}/lib%{name}.so
 
 %find_lang %{name}
 
-desktop-file-install --delete-original \
-  --dir %{buildroot}%{_datadir}/applications             \
-  --mode 0644                                            \
+desktop-file-validate \
   %{buildroot}%{_datadir}/applications/org.kitone.%{name}.desktop
 
+%check
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.kitone.%{name}.appdata.xml
-
-%ldconfig_scriptlets
 
 %files -f %{name}.lang
 %doc AUTHORS ChangeLog NEWS README TODO
 %license COPYING
 %{_bindir}/%{name}
 %{_datadir}/icons/hicolor/*/apps/%{name}.*
-%{_datadir}/pixmaps/%{name}.svg
 %{_datadir}/%{name}/
 %{_datadir}/metainfo/org.kitone.%{name}.appdata.xml
 %{_datadir}/applications/org.kitone.%{name}.desktop
@@ -88,6 +80,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.kiton
 %{_libdir}/%{name}/
 
 %changelog
+* Thu Sep 25 2025 Dominik Mierzejewski <dominik@greysector.net> - 0.55.0-1
+- update to 0.55.0 (resolves rhbz#2393843)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.54.0-24.20220919git75fa38b
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

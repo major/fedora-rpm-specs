@@ -1,21 +1,20 @@
-%global pkgname singular
-%global giturl  https://github.com/gap-packages/singular
+%global gap_pkgname singular
+%global giturl      https://github.com/gap-packages/singular
 
-Name:           gap-pkg-%{pkgname}
-Version:        2024.06.03
+Name:           gap-pkg-%{gap_pkgname}
+Version:        2025.08.26
 Release:        %autorelease
 Summary:        GAP interface to Singular
 
 License:        GPL-2.0-or-later
-BuildArch:      noarch
-# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch:    %{ix86}
 URL:            https://gap-packages.github.io/singular/
 VCS:            git:%{giturl}.git
-Source:         %{giturl}/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
-# Support the bigint, bigintvec, and bigintmat types
-# https://github.com/gap-packages/singular/pull/16
-Patch:          %{name}-bigint.patch
+Source:         %{giturl}/releases/download/v%{version}/%{gap_upname}-%{version}.tar.gz
+
+BuildArch:      noarch
+BuildSystem:    gap
+BuildOption(install): contrib gap lib tst
+BuildOption(check): tst/testall.g
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-autodoc
@@ -26,8 +25,7 @@ Requires:       gap-core
 Requires:       Singular
 
 %description
-This package contains a GAP interface to the computer algebra system
-Singular.
+This package contains a GAP interface to the computer algebra system Singular.
 
 %package doc
 # The content is GPL-2.0-or-later.  The remaining licenses cover the various
@@ -41,36 +39,25 @@ Requires:       %{name} = %{version}-%{release}
 Requires:       gap-pkg-guava-doc
 
 %description doc
-This package contains documentation for gap-pkg-%{pkgname}.
+This package contains documentation for gap-pkg-%{gap_pkgname}.
 
 %prep
-%autosetup -n %{pkgname}-%{version} -p1
-
-%build
-gap makedoc.g
-
-%install
-mkdir -p %{buildroot}%{gap_libdir}/pkg/%{pkgname}/doc
-cp -a *.g contrib gap lib tst %{buildroot}%{gap_libdir}/pkg/%{pkgname}
-%gap_copy_docs
-
-%check
-gap -l '%{buildroot}%{gap_libdir};' tst/testall.g
+%autosetup -n %{gap_upname}-%{version} -p1
 
 %files
 %doc CHANGES.md README.md
 %license LICENSE
-%dir %{gap_libdir}/pkg/%{pkgname}/
-%{gap_libdir}/pkg/%{pkgname}/*.g
-%{gap_libdir}/pkg/%{pkgname}/contrib/
-%{gap_libdir}/pkg/%{pkgname}/gap/
-%{gap_libdir}/pkg/%{pkgname}/tst/
+%dir %{gap_libdir}/pkg/%{gap_upname}/
+%{gap_libdir}/pkg/%{gap_upname}/*.g
+%{gap_libdir}/pkg/%{gap_upname}/contrib/
+%{gap_libdir}/pkg/%{gap_upname}/gap/
+%{gap_libdir}/pkg/%{gap_upname}/tst/
 
 %files doc
-%docdir %{gap_libdir}/pkg/%{pkgname}/doc/
-%docdir %{gap_libdir}/pkg/%{pkgname}/lib/
-%{gap_libdir}/pkg/%{pkgname}/doc/
-%{gap_libdir}/pkg/%{pkgname}/lib/
+%docdir %{gap_libdir}/pkg/%{gap_upname}/doc/
+%docdir %{gap_libdir}/pkg/%{gap_upname}/lib/
+%{gap_libdir}/pkg/%{gap_upname}/doc/
+%{gap_libdir}/pkg/%{gap_upname}/lib/
 
 %changelog
 %autochangelog

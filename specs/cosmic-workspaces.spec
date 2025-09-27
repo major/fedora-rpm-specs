@@ -10,12 +10,12 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit e2e0f09311b523c4690e7064dcf7d7a0c9219c10
-%global commitdatestring 2025-04-24 17:08:15 +0200
-%global cosmic_minver 1.0.0~alpha.7
+%global commit d3fc7a2815107e368d51087650e4819cc47d7828
+%global commitdatestring 2025-09-19 11:30:25 -0600
+%global cosmic_minver 1.0.0~beta.1
 
 Name:           cosmic-workspaces
-Version: 1.0.0~alpha.7
+Version: 1.0.0~beta.1
 Release:        %autorelease
 Summary:        Workspaces overview for the COSMIC Desktop Environment
 
@@ -78,22 +78,13 @@ export VERGEN_GIT_SHA="%{commit}"
 %{cargo_license} > LICENSE.dependencies
 %{cargo_vendor_manifest}
 sed 's/\(.*\) (.*#\(.*\))/\1+git\2/' -i cargo-vendor.txt
+sed 's/^\([^+]*\)+.*+\([^+]*\)$/\1+\2/' -i cargo-vendor.txt
 
 %install
 # Set vergen environment variables
 export VERGEN_GIT_COMMIT_DATE="date --utc '%{commitdatestring}'"
 export VERGEN_GIT_SHA="%{commit}"
 make install DESTDIR=%{buildroot} prefix=%{_prefix}
-
-# COSMIC is not a valid category pre-fedora 41
-%if %{defined fedora} && 0%{?fedora} < 41
-desktop-file-install \
---remove-category COSMIC \
---add-category X-COSMIC \
---delete-original \
---dir %{buildroot}%{_datadir}/applications \
-%{buildroot}%{_datadir}/applications/com.system76.CosmicWorkspaces.desktop
-%endif
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/com.system76.CosmicWorkspaces.desktop

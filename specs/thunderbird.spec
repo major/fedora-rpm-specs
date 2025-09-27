@@ -463,12 +463,13 @@ MOZ_OPT_FLAGS=$(echo "$RPM_OPT_FLAGS -fpermissive" | \
                       %{__sed} -e 's/-Wall//')
 # Thunderbird is not supposed to build with exceptions globally enabled
 MOZ_OPT_FLAGS=$(echo "$MOZ_OPT_FLAGS" | sed -e 's/-fexceptions//')
-%if 0%{?fedora} < 30
-MOZ_OPT_FLAGS="$MOZ_OPT_FLAGS -Wformat-security -Wformat -Werror=format-security"
-%else
+#rhbz#1037063
+# -Werror=format-security causes build failures when -Wno-format is explicitly given
+# for some sources
+# Explicitly force the hardening flags for Firefox so it passes the checksec test;
+# See also https://fedoraproject.org/wiki/Changes/Harden_All_Packages
 # Workaround for mozbz#1531309
 MOZ_OPT_FLAGS=$(echo "$MOZ_OPT_FLAGS" | %{__sed} -e 's/-Werror=format-security//')
-%endif
 %if %{?debug_build}
 MOZ_OPT_FLAGS=$(echo "$MOZ_OPT_FLAGS" | %{__sed} -e 's/-O2//')
 %endif

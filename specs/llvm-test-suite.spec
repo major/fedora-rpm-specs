@@ -1,6 +1,6 @@
 %global _binaries_in_noarch_packages_terminate_build %{nil}
 
-%global llvm_test_suite_version 21.1.1
+%global llvm_test_suite_version 21.1.2
 #global rc_ver 3
 %global test_suite_srcdir test-suite-%{llvm_test_suite_version}%{?rc_ver:-rc%{rc_ver}}.src.fedora
 
@@ -80,6 +80,9 @@ cp -R %{_builddir}/%{test_suite_srcdir}/* %{buildroot}%{_datadir}/llvm-test-suit
 
 
 %changelog
+* Thu Sep 25 2025 Tom Stellard <tstellar@redhat.com> - 21.1.2-1
+- Update to LLVM 21.1.2
+
 * Thu Sep 11 2025 Tom Stellard <tstellar@redhat.com> - 21.1.1-1
 - Update to LLVM 21.1.1
 

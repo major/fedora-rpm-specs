@@ -4,12 +4,12 @@
 # The cvc5_pythonic_api project needs cvc5 to build, and cvc5 needs
 # cvc5_pythonic_api to build.  See cmake/FindCVC5PythonicAPI.cmake for the git
 # commit needed by this version of cvc5.
-%global pcommit 27d50b6b23b59ef6661ef0b122daa8a51ba8e9d5
+%global pcommit 76b1acfb03c3548d5a471739dd28cd596872e426
 
 %global giturl  https://github.com/cvc5/cvc5
 
 Name:           cvc5
-Version:        1.3.0
+Version:        1.3.1
 Release:        %autorelease
 Summary:        Automatic theorem prover for SMT problems
 
@@ -78,16 +78,15 @@ Provides:       bundled(minisat2) = 2.2.0
 Obsoletes:      cvc4 < 1.9
 
 %description
-CVC5 is a tool for determining the satisfiability of a first order
-formula modulo a first order theory (or a combination of such theories).
-It is the fifth in the Cooperating Validity Checker family of tools
-(CVC, CVC Lite, CVC3, CVC4) but does not directly incorporate code from
-any previous version prior to CVC4.
+CVC5 is a tool for determining the satisfiability of a first order formula
+modulo a first order theory (or a combination of such theories).  It is the
+fifth in the Cooperating Validity Checker family of tools (CVC, CVC Lite,
+CVC3, CVC4) but does not directly incorporate code from any previous version
+prior to CVC4.
 
-CVC5 is intended to be an open and extensible SMT engine.  It can be
-used as a stand-alone tool or as a library.  It has been designed to
-increase the performance and reduce the memory overhead of its
-predecessors.
+CVC5 is intended to be an open and extensible SMT engine.  It can be used as a
+stand-alone tool or as a library.  It has been designed to increase the
+performance and reduce the memory overhead of its predecessors.
 
 %package        devel
 Summary:        Headers and other files for developing with %{name}
@@ -147,6 +146,9 @@ sed -i 's,kissat/kissat\.h,kissat.h,' cmake/FindKissat.cmake
 # Fix the path to ethos
 sed -e 's,\(--ethos-binary \).*,\1%{_bindir}/ethos,' \
     -i test/regress/cli/CMakeLists.txt
+
+# Without this, the python interface has version 0.0.0
+sed -i 's/CVC5_WHEEL_VERSION/CVC5_VERSION/' src/api/python/__init__.py.in
 
 %build
 export BUILDFLAGS='-DABC_USE_STDINT_H -I%{_jvmdir}/java/include -I%{_jvmdir}/java/include/linux -I%{_includedir}/abc -I%{_includedir}/cryptominisat5'

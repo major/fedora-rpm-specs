@@ -1,18 +1,20 @@
-%global pkgname design
-%global giturl  https://github.com/gap-packages/design
+%global gap_pkgname design
+%global giturl      https://github.com/gap-packages/design
 
-Name:           gap-pkg-%{pkgname}
+Name:           gap-pkg-%{gap_pkgname}
 Version:        1.8.2
 Release:        %autorelease
 Summary:        Construct, classify, partition, and study block designs
 
 License:        GPL-2.0-or-later
-BuildArch:      noarch
-# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch:    %{ix86}
 URL:            https://gap-packages.github.io/design/
 VCS:            git:%{giturl}.git
-Source:         %{giturl}/archive/v%{version}/%{pkgname}-%{version}.tar.gz
+Source:         %{giturl}/archive/v%{version}/%{gap_upname}-%{version}.tar.gz
+
+BuildArch:      noarch
+BuildSystem:    gap
+BuildOption(install): htm lib tst
+BuildOption(check): tst/testall.g
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-grape
@@ -21,8 +23,8 @@ BuildRequires:  tth
 Requires:       gap-pkg-grape
 
 %description
-DESIGN is a package for constructing, classifying, partitioning and
-studying block designs.
+DESIGN is a package for constructing, classifying, partitioning and studying
+block designs.
 
 %package doc
 # The content is GPL-2.0-or-later.  The remaining licenses cover the various
@@ -38,11 +40,12 @@ Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
 
 %description doc
-This package contains documentation for gap-pkg-%{pkgname}.
+This package contains documentation for gap-pkg-%{gap_pkgname}.
 
 %prep
-%autosetup -n %{pkgname}-%{version} -p1
+%autosetup -n %{gap_upname}-%{version} -p1
 
+%conf
 # There is no longer an ext manual
 sed -i '/UseReferences.*ext/d' doc/manual.tex
 
@@ -55,27 +58,19 @@ pushd doc
 popd
 rm -f ../../{doc,etc}
 
-%install
-mkdir -p %{buildroot}%{gap_libdir}/pkg/%{pkgname}/doc
-cp -a *.g htm lib tst %{buildroot}%{gap_libdir}/pkg/%{pkgname}
-%gap_copy_docs
-
-%check
-gap -l '%{buildroot}%{gap_libdir};' tst/testall.g
-
 %files
 %doc CHANGES.md README.md
 %license LICENSE
-%dir %{gap_libdir}/pkg/%{pkgname}/
-%{gap_libdir}/pkg/%{pkgname}/*.g
-%{gap_libdir}/pkg/%{pkgname}/lib/
-%{gap_libdir}/pkg/%{pkgname}/tst/
+%dir %{gap_libdir}/pkg/%{gap_upname}/
+%{gap_libdir}/pkg/%{gap_upname}/*.g
+%{gap_libdir}/pkg/%{gap_upname}/lib/
+%{gap_libdir}/pkg/%{gap_upname}/tst/
 
 %files doc
-%docdir %{gap_libdir}/pkg/%{pkgname}/doc/
-%docdir %{gap_libdir}/pkg/%{pkgname}/htm/
-%{gap_libdir}/pkg/%{pkgname}/doc/
-%{gap_libdir}/pkg/%{pkgname}/htm/
+%docdir %{gap_libdir}/pkg/%{gap_upname}/doc/
+%docdir %{gap_libdir}/pkg/%{gap_upname}/htm/
+%{gap_libdir}/pkg/%{gap_upname}/doc/
+%{gap_libdir}/pkg/%{gap_upname}/htm/
 
 %changelog
 %autochangelog

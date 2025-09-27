@@ -89,14 +89,14 @@ ExclusiveArch:  %{java_arches} noarch
 BuildRequires: ant-openjdk25  >= 1.10.2
 BuildRequires: ecj >= 4.20
 BuildRequires: findutils
-BuildRequires: java-25-devel >= 17
+BuildRequires: java-25-devel
 BuildRequires: javapackages-local-openjdk25
 BuildRequires: aqute-bnd
 BuildRequires: aqute-bndlib
 BuildRequires: systemd
 BuildRequires: tomcat-jakartaee-migration
 
-Requires:      (java-headless >= 11 or java-25 >= 11)
+Requires:      (java-25-headless or java-25)
 Requires:      javapackages-tools
 Requires:      %{name}-lib = %{epoch}:%{version}-%{release}
 %if 0%{?fedora} || 0%{?rhel} > 7
@@ -523,6 +523,10 @@ install -m0644 -D tomcat.sysusers.conf %{buildroot}%{_sysusersdir}/tomcat.conf
 %{appdir}/ROOT
 
 %changelog
+* Thu Sep 25 2025 Adam Williamson <awilliam@redhat.com> - 1:10.1.46-2
+- Drop now-unnecessary version bounds in java requirements
+- Specify java-25-headless, not java-headless (#2398212)
+
 * Fri Sep 12 2025 Dimitris Soumis <dsoumis@redhat.com> - 1:10.1.46-1
 - Update to version 10.1.46
 

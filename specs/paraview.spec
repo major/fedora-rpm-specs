@@ -87,7 +87,6 @@ License:        BSD-3-Clause
 URL:            https://www.paraview.org/
 Source0:        https://www.paraview.org/files/v%{pv_majmin}/ParaView-v%{version}%{?versuf}.tar.gz
 Source1:        paraview.xml
-Source2:        FindPEGTL.cmake
 # Fix cmake files install location
 # https://gitlab.kitware.com/paraview/paraview/issues/19724
 Patch0:         paraview-cmakedir.patch
@@ -232,9 +231,9 @@ Provides: bundled(xdmf2)
 # Do not require anything provided in paraview's library directory
 # This list needs to be maintained by hand
 %if %{with protobuf}
-%global __requires_exclude ^lib(catalyst|LegacyGhostCellsGenerator|IceT|pq|QtTesting|StereoCursorViews|vtk).*$
+%global __requires_exclude ^lib(catalyst|LegacyGhostCellsGenerator|IceT|pq|QtTesting|StereoCursorViews|viskores|vtk).*$
 %else
-%global __requires_exclude ^lib(catalyst|LegacyGhostCellsGenerator|IceT|pq|QtTesting|StereoCursorViews|vtk|protobuf).*$
+%global __requires_exclude ^lib(catalyst|LegacyGhostCellsGenerator|IceT|pq|QtTesting|StereoCursorViews|viskores|vtk|protobuf).*$
 %endif
 
 ExcludeArch: %{ix86}
@@ -478,7 +477,6 @@ rm -r VTK/ThirdParty/jsoncpp/vtkjsoncpp
 %endif
 # Remove unused KWSys items
 find VTK/Utilities/KWSys/vtksys/ -name \*.[ch]\* | grep -vE '^VTK/Utilities/KWSys/vtksys/([a-z].*|Configure|SharedForward|Status|String\.hxx|Base64|CommandLineArguments|Directory|DynamicLoader|Encoding|FStream|FundamentalType|Glob|MD5|Process|RegularExpression|System|SystemInformation|SystemTools)(C|CXX|UNIX)?\.' | xargs rm
-cp %SOURCE2 VTK/CMake/FindPEGTL.cmake
 # We want to build with a system vtk someday, but it doesn't work yet
 #rm -r VTK
 
@@ -555,7 +553,11 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.paraview.ParaView
 appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/org.paraview.ParaView.appdata.xml
 
 #Cleanup only vtk conflicting binaries
-rm %{buildroot}%{_bindir}/vtk{ParseJava,ProbeOpenGLVersion,Wrap{Hierarchy,Java,Python}}*
+rm %{buildroot}%{_bindir}/vtk{ParseJava,ProbeOpenGLVersion,Wrap{Hierarchy,Java,Python,SerDes}}*
+for mpi in %{mpi_list}
+do
+  rm %{buildroot}%{_libdir}/$mpi/bin/vtk{ParseJava,ProbeOpenGLVersion,Wrap{Hierarchy,Java,Python,SerDes}}*
+done
 
 # Build autodocs and move documentation-files to proper location
 mkdir -p %{buildroot}%{_pkgdocdir}
@@ -604,7 +606,6 @@ fi
 %files devel
 %{_bindir}/paraview-config
 %{_bindir}/vtkWrapClientServer
-%{_bindir}/vtkWrapSerDes
 %{_bindir}/vtkProcessXML
 %{_includedir}/%{name}/
 %{_libdir}/cmake/

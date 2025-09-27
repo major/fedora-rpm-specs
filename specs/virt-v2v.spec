@@ -73,7 +73,7 @@ BuildRequires: ocaml >= 4.08
 BuildRequires: libguestfs-devel >= 1:1.57.1-1
 BuildRequires: augeas-devel
 BuildRequires: bash-completion
-%if !0%{?rhel}
+%if 0%{?fedora} || 0%{?rhel} >= 11
 BuildRequires: bash-completion-devel
 %endif
 BuildRequires: file
