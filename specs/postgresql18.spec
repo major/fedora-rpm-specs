@@ -47,8 +47,8 @@
 
 Summary: PostgreSQL client programs
 Name: %{majorname}%{majorversion}
-Version: %{majorversion}beta1
-Release: 5%{?dist}
+Version: 18.0
+Release: 1%{?dist}
 
 # The PostgreSQL license is very similar to other MIT licenses, but the OSI
 # recognizes it as an independent license, so we do as well.
@@ -60,7 +60,7 @@ Url: http://www.postgresql.org/
 # that this be kept up with the latest minor release of the previous series;
 # but update when bugs affecting pg_dump output are fixed.
 %global prevmajorversion 17
-%global prevversion %{prevmajorversion}.2
+%global prevversion %{prevmajorversion}.6
 %global prev_prefix %{_libdir}/pgsql/postgresql-%{prevmajorversion}
 %global precise_version %{?epoch:%epoch:}%version-%release
 
@@ -1358,6 +1358,10 @@ make -C postgresql-setup-%{setup_version} check
 
 
 %changelog
+* Thu Sep 25 2025 Packit <hello@packit.dev> - 18.0-1
+- Update to version 18.0
+- Resolves: rhbz#2398163
+
 * Tue Sep 09 2025 Filip Janus <fjanus@redhat.com> - 18beta1-5
 - Add OpenSSL support to upgrade_configure function
 - This ensures upgrade server is compiled with OpenSSL support

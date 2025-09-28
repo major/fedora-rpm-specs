@@ -6,8 +6,8 @@
 
 Summary: A full-service natural language dependency parser
 Name: link-grammar
-Version: 5.12.5
-Release: 6%{?dist}
+Version: 5.12.7
+Release: 1%{?dist}
 License: LGPL-2.1-or-later
 Source: https://www.gnucash.org/link-grammar/downloads/%{version}/link-grammar-%{version}.tar.gz
 URL: https://opencog.github.io/link-grammar-website/
@@ -125,6 +125,9 @@ find $RPM_BUILD_ROOT/%{_libdir}/ -name '*.la' | xargs rm -f
 %endif
 
 %changelog
+* Fri Sep 26 2025 Gwyn Ciesla <gwync@protonmail.com> - 5.12.7-1
+- 5.12.7
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 5.12.5-6
 - Rebuilt for Python 3.14.0rc3 bytecode
 

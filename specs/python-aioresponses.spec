@@ -7,8 +7,7 @@ Summary:        Mock out requests made by ClientSession from aiohttp package
 
 License:        MIT
 URL:            https://github.com/pnuckowski/aioresponses
-Source0:        %{pypi_source}
-Patch:          0001-Relax_dev_dependencies.patch
+Source:         %{pypi_source}
 
 BuildArch:      noarch
 # Since python-aiohttp excludes s390x we have to exclude it, as well
@@ -20,6 +19,9 @@ ExcludeArch:    s390x
 %endif
 
 BuildRequires:  python3-devel
+# for tests
+BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(ddt)
 
 %global common_description %{expand:
 Aioresponses is a helper to mock/fake web requests in the python aiohttp
@@ -41,6 +43,7 @@ Summary:        Documentation for python-%{pypi_name}
 # MIT: jquery
 License:        BSD-2-Clause AND MIT
 BuildArch:      noarch
+BuildRequires:  python3dist(sphinx)
 Requires:       python3-%{pypi_name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Provides:       bundled(js-sphinx_javascript_frameworks_compat)
 Provides:       bundled(js-doctools)
@@ -57,7 +60,7 @@ Provides:       bundled(js-searchtools)
 
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 
 %build

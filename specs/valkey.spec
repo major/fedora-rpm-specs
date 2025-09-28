@@ -11,7 +11,7 @@
 
 Name:              valkey
 Version:           8.1.3
-Release:           4%{?dist}
+Release:           5%{?dist}
 Summary:           A persistent key-value database
 # valkey: BSD-3-Clause
 # hiredis: BSD-3-Clause
@@ -41,6 +41,7 @@ BuildRequires:     tcl
 BuildRequires:     pkgconfig(libsystemd)
 BuildRequires:     systemd-devel
 BuildRequires:     systemd-rpm-macros
+BuildRequires:     rdma-core-devel
 BuildRequires:     openssl-devel
 %if %{with docs}
 # for docs/man pages
@@ -201,7 +202,7 @@ echo '# valkey_rpm_conf' >> valkey.conf
 echo '# valkey-sentinel_rpm_conf' >> sentinel.conf
 %endif
 
-%global make_flags DEBUG="" V="echo" PREFIX=%{buildroot}%{_prefix} BUILD_WITH_SYSTEMD=yes BUILD_TLS=yes
+%global make_flags DEBUG="" V="echo" PREFIX=%{buildroot}%{_prefix} BUILD_WITH_SYSTEMD=yes BUILD_TLS=yes BUILD_RDMA=yes
 
 
 %build
@@ -408,6 +409,9 @@ fi
 
 
 %changelog
+* Fri Sep 26 2025 Nathan Scott <nathans@redhat.com> - 8.1.3-5
+- enable Remote Direct Memory Access (RDMA) capabilities
+
 * Tue Sep  9 2025 Remi Collet <remi@redhat.com> - 8.1.3-4
 - fix for ImageMode: ensure ownership of /etc/valkey
 

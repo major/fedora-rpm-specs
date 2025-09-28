@@ -5,7 +5,7 @@
 %global crate axum
 
 Name:           rust-axum
-Version:        0.7.9
+Version:        0.8.4
 Release:        %autorelease
 Summary:        Web framework that focuses on ergonomics and modularity
 
@@ -14,8 +14,8 @@ URL:            https://crates.io/crates/axum
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * remove documentation-specific feature
-# * relax tokio-tungstenite dependency from ^0.24 to >=0.23,<0.25
 Patch:          axum-fix-metadata.diff
+Patch:          0001-skip-doctest-with-unresolved-axum_extra-dependency.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -49,6 +49,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+__private-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+__private-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "__private" feature of the "%{crate}" crate.
+
+%files       -n %{name}+__private-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+form-devel

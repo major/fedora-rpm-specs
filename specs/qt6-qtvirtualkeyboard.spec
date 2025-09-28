@@ -1,7 +1,7 @@
 
 %global qt_module qtvirtualkeyboard
 
-#global unstable 0
+%global unstable 1
 %if 0%{?unstable}
 %global prerelease rc
 %endif
@@ -10,7 +10,7 @@
 
 Summary: Qt6 - VirtualKeyboard component
 Name:    qt6-%{qt_module}
-Version: 6.9.2
+Version: 6.10.0%{?unstable:~%{prerelease}}
 Release: 1%{?dist}
 
 License: GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -109,9 +109,6 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %{_qt6_libdir}/libQt6VirtualKeyboardSettings.so
 %{_qt6_libdir}/libQt6VirtualKeyboardQml.prl
 %{_qt6_libdir}/libQt6VirtualKeyboardQml.so
-%dir %{_qt6_libdir}/cmake/Qt6BundledOpenwnn/
-%dir %{_qt6_libdir}/cmake/Qt6BundledPinyin/
-%dir %{_qt6_libdir}/cmake/Qt6BundledTcime/
 %dir %{_qt6_libdir}/cmake/Qt6HunspellInputMethod/
 %dir %{_qt6_libdir}/cmake/Qt6HunspellInputMethodPrivate/
 %dir %{_qt6_libdir}/cmake/Qt6VirtualKeyboard/
@@ -122,9 +119,6 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %dir %{_qt6_libdir}/cmake/Qt6VirtualKeyboardSettingsPrivate
 %{_qt6_libdir}/cmake/Qt6/*.cmake
 %{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests/*.cmake
-%{_qt6_libdir}/cmake/Qt6BundledOpenwnn/*.cmake
-%{_qt6_libdir}/cmake/Qt6BundledPinyin/*.cmake
-%{_qt6_libdir}/cmake/Qt6BundledTcime/*.cmake
 %{_qt6_libdir}/cmake/Qt6Gui/*.cmake
 %{_qt6_libdir}/cmake/Qt6HunspellInputMethod/*.cmake
 %{_qt6_libdir}/cmake/Qt6HunspellInputMethodPrivate/*.cmake
@@ -147,6 +141,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %endif
 
 %changelog
+* Thu Sep 25 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0~rc-1
+- 6.10.0 RC
+
 * Thu Aug 28 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.2-1
 - 6.9.2
 

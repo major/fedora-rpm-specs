@@ -8,8 +8,8 @@
 #
 
 
-%global gh_commit    2da51ff4b15c95e8c060d7dd693fd5899f87a112
-%global gh_date      2025-09-14
+%global gh_commit    75f469c1948b91aa566206f88412c88f08090b32
+%global gh_date      2025-09-24
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   phpunit
@@ -22,7 +22,7 @@
 %global ver_major    8
 %global ver_minor    5
 
-%global upstream_version 8.5.46
+%global upstream_version 8.5.48
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
@@ -52,7 +52,7 @@ BuildRequires:  (php-composer(phpunit/php-timer) >= 2.1.4             with php-c
 BuildRequires:  (php-composer(sebastian/comparator) >= 3.0.6          with php-composer(sebastian/comparator) <  4)
 BuildRequires:  (php-composer(sebastian/diff) >= 3.0.6                with php-composer(sebastian/diff) <  4)
 BuildRequires:  (php-composer(sebastian/environment) >= 4.2.5         with php-composer(sebastian/environment) <  5)
-BuildRequires:  (php-composer(sebastian/exporter) >= 3.1.6            with php-composer(sebastian/exporter) <  4)
+BuildRequires:  (php-composer(sebastian/exporter) >= 3.1.8            with php-composer(sebastian/exporter) <  4)
 BuildRequires:  (php-composer(sebastian/global-state) >= 3.0.6        with php-composer(sebastian/global-state) <  4)
 BuildRequires:  (php-composer(sebastian/object-enumerator) >= 3.0.5   with php-composer(sebastian/object-enumerator) <  4)
 BuildRequires:  (php-composer(sebastian/resource-operations) >= 2.0.3 with php-composer(sebastian/resource-operations) < 3)
@@ -87,7 +87,7 @@ BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 #        "sebastian/comparator": "^3.0.6",
 #        "sebastian/diff": "^3.0.6",
 #        "sebastian/environment": "^4.2.5",
-#        "sebastian/exporter": "^3.1.6",
+#        "sebastian/exporter": "^3.1.8",
 #        "sebastian/global-state": "^3.0.6",
 #        "sebastian/object-enumerator": "^3.0.5",
 #        "sebastian/resource-operations": "^2.0.3",
@@ -113,7 +113,7 @@ Requires:       (php-composer(phpunit/php-timer) >= 2.1.4             with php-c
 Requires:       (php-composer(sebastian/comparator) >= 3.0.6          with php-composer(sebastian/comparator) <  4)
 Requires:       (php-composer(sebastian/diff) >= 3.0.6                with php-composer(sebastian/diff) <  4)
 Requires:       (php-composer(sebastian/environment) >= 4.2.5         with php-composer(sebastian/environment) <  5)
-Requires:       (php-composer(sebastian/exporter) >= 3.1.6            with php-composer(sebastian/exporter) <  4)
+Requires:       (php-composer(sebastian/exporter) >= 3.1.8            with php-composer(sebastian/exporter) <  4)
 Requires:       (php-composer(sebastian/global-state) >= 3.0.6        with php-composer(sebastian/global-state) <  4)
 Requires:       (php-composer(sebastian/object-enumerator) >= 3.0.5   with php-composer(sebastian/object-enumerator) <  4)
 Requires:       (php-composer(sebastian/resource-operations) >= 2.0.3 with php-composer(sebastian/resource-operations) < 3)
@@ -239,6 +239,10 @@ exit $ret
 
 
 %changelog
+* Wed Sep 24 2025 Remi Collet <remi@remirepo.net> - 8.5.48-1
+- update to 8.5.48 (no change)
+- raise dependency on sebastian/exporter 3.1.8
+
 * Mon Sep 15 2025 Remi Collet <remi@remirepo.net> - 8.5.46-1
 - update to 8.5.46
 

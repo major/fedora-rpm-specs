@@ -92,7 +92,7 @@ ExcludeArch: armv7hl
 Summary:        Mozilla Thunderbird mail/newsgroup client
 Name:           thunderbird
 Version:        140.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 URL:            http://www.mozilla.org/projects/thunderbird/
 License:        MPL-2.0 OR GPL-2.0-or-later OR LGPL-2.0-or-later
 Source0:        https://archive.mozilla.org/pub/thunderbird/releases/%{version}%{?pre_version}/source/thunderbird-%{version}%{?pre_version}.source.tar.xz
@@ -201,7 +201,6 @@ BuildRequires:  pulseaudio-libs-devel
 BuildRequires:  libicu-devel
 BuildRequires:  perl-interpreter
 Requires:       mozilla-filesystem
-BuildRequires:  yasm
 BuildRequires:  dbus-glib-devel
 Obsoletes:      thunderbird-lightning
 Provides:       thunderbird-lightning
@@ -752,6 +751,11 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #===============================================================================
 
 %changelog
+* Thu Sep 25 2025 Dominik Mierzejewski <dominik@greysector.net> - 140.3.0-2
+- Drop unused yasm from build dependencies
+  See: https://fedoraproject.org/wiki/Changes/DeprecateYASM
+  Resolves: rhbz#2390538
+
 * Wed Sep 24 2025 Jan Horak <jhorak@redhat.com> - 140.3.0-1
 - Update to 140.3.0 ESR
 

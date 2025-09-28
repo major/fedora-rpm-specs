@@ -1,6 +1,6 @@
 Name:           foomuuri
-Version:        0.28
-Release:        3%{?dist}
+Version:        0.29
+Release:        1%{?dist}
 Summary:        Multizone bidirectional nftables firewall
 License:        GPL-2.0-or-later
 URL:            https://github.com/FoobarOy/foomuuri
@@ -9,7 +9,8 @@ BuildArch:      noarch
 BuildRequires:  make
 BuildRequires:  python3-devel
 BuildRequires:  systemd-rpm-macros
-%if ((%{defined fedora} && 0%{?fedora} <= 42) || (%{defined epel} && 0%{?epel} <= 9))
+%if (%{defined fedora} && 0%{?fedora} <= 42)
+BuildRequires:  nftables
 BuildRequires:  pylint
 BuildRequires:  python3-dbus
 BuildRequires:  python3-flake8
@@ -64,9 +65,13 @@ allowing dynamically assign interfaces to Foomuuri zones via NetworkManager.
 
 %install
 make install DESTDIR=%{buildroot} BINDIR=%{_sbindir}
+%if %{defined fedora} || %{defined foobar}
+mkdir -p %{buildroot}%{bash_completions_dir}
+cp doc/foomuuri-bash-completion %{buildroot}%{bash_completions_dir}/foomuuri
+%endif
 
 
-%if ((%{defined fedora} && 0%{?fedora} <= 42) || (%{defined epel} && 0%{?epel} <= 9))
+%if (%{defined fedora} && 0%{?fedora} <= 42)
 %check
 make test
 %endif
@@ -114,6 +119,9 @@ systemctl stop foomuuri-resolve.timer foomuuri-resolve.service > /dev/null 2>&1 
 %ghost %dir %{_rundir}/foomuuri
 %attr(0700, root, root) %dir %{_sharedstatedir}/foomuuri
 %{_datadir}/dbus-1/system.d/fi.foobar.Foomuuri1.conf
+%if %{defined fedora} || %{defined foobar}
+%{bash_completions_dir}/foomuuri
+%endif
 
 
 %files firewalld
@@ -122,6 +130,9 @@ systemctl stop foomuuri-resolve.timer foomuuri-resolve.service > /dev/null 2>&1 
 
 
 %changelog
+* Fri Sep 26 2025 Kim B. Heino  <b@bbbs.net> - 0.29-1
+- Upgrade to 0.29
+
 * Fri Aug 15 2025 Kim B. Heino  <b@bbbs.net> - 0.28-3
 - Disable tests on Fedora 43 because of missing dependencies
 - Resolves: rhbz#2384597

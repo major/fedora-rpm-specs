@@ -1,7 +1,7 @@
 %global srcname astroquery
 
 Name:           python-%{srcname}
-Version:        0.4.10
+Version:        0.4.11
 Release:        %autorelease
 Summary:        Python module to access astronomical online data resources
 

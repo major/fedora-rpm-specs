@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        51
+Version:        52
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -120,6 +120,9 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Thu Sep 25 2025 Packit <hello@packit.dev> - 52-1
+- mount point mapping: keep menu within wizard scroll context (rhbz#2397098)
+
 * Tue Sep 23 2025 Packit <hello@packit.dev> - 51-1
 - storage: detect locked LUKS on selected disks including whole-disk LUKS (rhbz#2396646)
 - Consume branding for Fedora from cockpit/static/branding.css

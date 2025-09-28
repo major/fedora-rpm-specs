@@ -1,18 +1,21 @@
-%global pkgname typeset
-%global giturl  https://github.com/gap-packages/typeset
+%global gap_pkgname typeset
+%global giturl      https://github.com/gap-packages/typeset
 
-Name:           gap-pkg-%{pkgname}
-Version:        1.2.2
+Name:           gap-pkg-%{gap_pkgname}
+Version:        1.2.3
 Release:        %autorelease
 Summary:        Automatic typesetting framework for common GAP objects
 
 License:        GPL-2.0-or-later
-BuildArch:      noarch
-# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch:    %{ix86}
 URL:            https://gap-packages.github.io/typeset/
 VCS:            git:%{giturl}.git
-Source:         %{giturl}/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
+Source:         %{giturl}/releases/download/v%{version}/%{gap_upname}-%{version}.tar.gz
+
+BuildArch:      noarch
+BuildSystem:    gap
+BuildOption(build): --packagedirs ..
+BuildOption(install): demo gap tst
+BuildOption(check): tst/testall.g
 
 BuildRequires:  dot2tex
 BuildRequires:  gap-devel
@@ -28,10 +31,9 @@ Requires:       graphviz
 Recommends:     gap-pkg-digraphs
 
 %description
-This package implements a framework for automatic typesetting of common
-GAP objects, for the purpose of embedding them nicely into research
-papers.  Currently, an example implementation has been written
-specifically for LaTeX.
+This package implements a framework for automatic typesetting of common GAP
+objects, for the purpose of embedding them nicely into research papers.
+Currently, an example implementation has been written specifically for LaTeX.
 
 %package doc
 # The content is GPL-2.0-or-later.
@@ -45,38 +47,24 @@ Requires:       %{name} = %{version}-%{release}
 Requires:       gap-pkg-digraphs-doc
 
 %description doc
-This package contains documentation for gap-pkg-%{pkgname}.
+This package contains documentation for gap-pkg-%{gap_pkgname}.
 
 %prep
-%autosetup -n %{pkgname}-%{version}
-
-%build
-mkdir ../pkg
-ln -s ../%{pkgname}-%{version} ../pkg/%{pkgname}
-gap -l "$PWD/..;" makedoc.g
-rm -fr ../pkg
-
-%install
-mkdir -p %{buildroot}%{gap_libdir}/pkg/%{pkgname}/doc
-cp -a demo gap tst *.g  %{buildroot}%{gap_libdir}/pkg/%{pkgname}
-%gap_copy_docs
-
-%check
-gap -l '%{buildroot}%{gap_libdir};' tst/testall.g
+%autosetup -n %{gap_upname}-%{version}
 
 %files
 %doc CHANGELOG.md README.md
 %license LICENSE
-%dir %{gap_libdir}/pkg/%{pkgname}/
-%{gap_libdir}/pkg/%{pkgname}/*.g
-%{gap_libdir}/pkg/%{pkgname}/gap/
-%{gap_libdir}/pkg/%{pkgname}/tst/
+%dir %{gap_libdir}/pkg/%{gap_upname}/
+%{gap_libdir}/pkg/%{gap_upname}/*.g
+%{gap_libdir}/pkg/%{gap_upname}/gap/
+%{gap_libdir}/pkg/%{gap_upname}/tst/
 
 %files doc
-%docdir %{gap_libdir}/pkg/%{pkgname}/demo/
-%docdir %{gap_libdir}/pkg/%{pkgname}/doc/
-%{gap_libdir}/pkg/%{pkgname}/demo/
-%{gap_libdir}/pkg/%{pkgname}/doc/
+%docdir %{gap_libdir}/pkg/%{gap_upname}/demo/
+%docdir %{gap_libdir}/pkg/%{gap_upname}/doc/
+%{gap_libdir}/pkg/%{gap_upname}/demo/
+%{gap_libdir}/pkg/%{gap_upname}/doc/
 
 %changelog
 %autochangelog

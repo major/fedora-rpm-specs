@@ -20,8 +20,8 @@
 # THE SOFTWARE.
 #
 %global upstreamname MIVisionX
-%global rocm_release 6.4
-%global rocm_patch 0
+%global rocm_release 7.0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -43,7 +43,7 @@
 
 Name:           mivisionx
 Version:        %{rocm_version}
-Release:        6%{?dist}
+Release:        1%{?dist}
 Summary:        AMD's computer vision toolkit
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT AND Apache-2.0 AND MIT-Khronos-old AND GPL-3.0-or-later
@@ -161,7 +161,7 @@ rm -rf %{buildroot}%{_datadir}/%{name}/test
 %{_libdir}/libopenvx.so.1{,.*}
 %{_libdir}/libvx_amd_custom.so.1{,.*}
 %{_libdir}/libvx_opencv.so.1{,.*}
-%{_libdir}/libvx_rpp.so.1{,.*}
+%{_libdir}/libvx_rpp.so.3{,.*}
 %{_libdir}/libvxu.so.1{,.*}
 
 %files devel
@@ -175,6 +175,9 @@ rm -rf %{buildroot}%{_datadir}/%{name}/test
 %{_libdir}/libvxu.so
 
 %changelog
+* Sun Sep 21 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-1
+- Update to 7.0.1
+
 * Thu Aug 28 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-6
 - Add Fedora copyright
 

@@ -1,13 +1,13 @@
 %global pypi_name pydepsdev
 
 Name:           python-%{pypi_name}
-Version:        0.2.1
+Version:        0.2.3
 Release:        %autorelease
 Summary:        Python library for interacting with Open Source Insights API (deps.dev)
 
 License:        Apache-2.0
-URL:            https://github.com/eclipseo/pydepsdev
-Source:         %{url}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
+URL:            https://codeberg.org/eclipseo/pydepsdev
+Source:         %{pypi_source %{pypi_name}}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -25,6 +25,10 @@ Summary:        %{summary}
 
 %prep
 %autosetup -p1 -n %{pypi_name}-%{version}
+# Because these use an older version than python-setuptools 77
+%if 0%{?fedora} <= 42 || 0%{?rhel} <= 10
+sed -i 's|license = "Apache-2.0"|license = {text = "Apache-2.0"}|;/^license-files = /d' pyproject.toml
+%endif
 
 %generate_buildrequires
 %pyproject_buildrequires -t

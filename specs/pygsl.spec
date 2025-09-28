@@ -7,12 +7,10 @@
 %global _python_bytecompile_errors_terminate_build 0
 
 Name:           pygsl
-Version:        2.6.2
+Version:        2.6.3
 Release:        %autorelease
 Summary:        %{sum}
 
-# The package is mostly GPL+ but there are two scripts
-# GLPv2+: pygsl/odeiv.py and examples/siman_tsp.py
 License:        GPL-2.0-or-later
 URL:            https://github.com/pygsl/pygsl
 VCS:            git:%{url}.git
@@ -23,25 +21,19 @@ Patch:          %{name}-flexiblas.patch
 # Fix the multinomial rng test
 # See https://github.com/pygsl/pygsl/pull/58
 Patch:          %{name}-rng-test.patch
-# Fix some format modifier mismatches
-# See https://github.com/pygsl/pygsl/pull/85
-Patch:          %{name}-format-mismatch.patch
-# Fix a typo that leaves get_avmax undefined
-# See https://github.com/pygsl/pygsl/pull/86
-Patch:          %{name}-fix-get-avmax.patch
-# Add a missing typemap for const gsl_vector *IN
-# See https://github.com/pygsl/pygsl/pull/87
-Patch:          %{name}-const-vector-typemap.patch
 # Remove a redundant definition
+# https://github.com/pygsl/pygsl/pull/88
 Patch:          %{name}-remove-redundant-def.patch
 
 # Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): -p
+BuildOption(install): -L pygsl
 
 BuildRequires:  gcc
 BuildRequires:  gsl-devel
 BuildRequires:  flexiblas-devel
-BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist pytest}
 BuildRequires:  swig
 
@@ -113,18 +105,19 @@ sed -e "s|\('http://www.gnu.org/software/gsl/doc/html/', \)None|\1'%{SOURCE1}'|"
 # Don't invoke python via env
 %py3_shebang_fix pygsl typemaps/c.py
 
-%generate_buildrequires
-%pyproject_buildrequires -p
+# A fix for swig 4.4 broke the build with swig 4.3
+swigver=$(ls -1d %{_datadir}/swig/* | cut -d/ -f5)
+swigmaj=$(cut -d. -f1 <<< $swigver)
+swigmin=$(cut -d. -f2 <<< $swigver)
+if [ "$swigmaj" -eq 4 -a "$swigmin" -lt 4 ]; then
+    sed -i 's/import_array1(-1)/import_array()/' src/gslwrap/interpolation2d.i
+fi
 
-%build
+%build -p
 # Use flexiblas instead of gslcblas
 export GSL_CBLAS_LIB=-lflexiblas
-%pyproject_wheel
 
-%install
-%pyproject_install
-%pyproject_save_files pygsl
-
+%install -a
 # Fix permissions
 chmod 0755 %{buildroot}%{python3_sitearch}/pygsl/{_generic_solver,block,chebyshev,fit,gsl_function,integrate,interpolation,minimize,monte,multi{fit{,_nlin},minimize,roots},odeiv,qrng,roots,siman,spline,vector}.py
 
@@ -149,12 +142,14 @@ export FLEXIBLAS=netlib
 
 %files -n python3-pygsl -f %{pyproject_files}
 %doc ChangeLog README.html CREDITS.html TODO.html
+%license COPYING
 
 %files -n python3-pygsl-devel
 %{_includedir}/python%{python3_version}/pygsl/
 
 %files doc
 %doc examples/ html/
+%license COPYING
 
 %changelog
 %autochangelog

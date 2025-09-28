@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           ruff
-Version:        0.11.13
+Version:        0.12.1
 Release:        %autorelease
 Summary:        Extremely fast Python linter and code formatter
 
@@ -178,21 +178,21 @@ Source100:      %{lsp_types_git}/archive/%{lsp_types_rev}/lsp-types-%{lsp_types_
 # therefore bundle the fork as prescribed in
 #   https://docs.fedoraproject.org/en-US/packaging-guidelines/Rust/#_replacing_git_dependencies
 #
-# Check https://github.com/carljm/salsa/blob/%%{salsa_rev}/Cargo.toml to
-# observe the version and https://github.com/carljm/commit/%%{salsa_rev} to
+# Check https://github.com/salsa-rs/salsa/blob/%%{salsa_rev}/Cargo.toml to
+# observe the version and https://github.com/salsa-rs/commit/%%{salsa_rev} to
 # observe the date.
-%global salsa_git https://github.com/carljm/salsa
-%global salsa_rev 0f6d406f6c309964279baef71588746b8c67b4a3
+%global salsa_git https://github.com/salsa-rs/salsa
+%global salsa_rev 09627e450566f894956710a3fd923dc80462ae6d
 %global salsa_baseversion 0.22.0
-%global salsa_snapdate 20250604
+%global salsa_snapdate 20250611
 Source200:      %{salsa_git}/archive/%{salsa_rev}/salsa-%{salsa_rev}.tar.gz
 
 # Get this from ruff/crates/ty_vendored/vendor/typeshed/source_commit.txt.
-%global typeshed_rev 5a3c495d2f6fa9b68cd99f39feba4426e4d17ea9
+%global typeshed_rev ecd5141cc036366cc9e3ca371096d6a14b0ccd13
 # The typeshed project as a whole has never been versioned.
 %global typeshed_baseversion 0
 # Inspect https://github.com/python/typeshed/commit/%%{typeshed_rev}.
-%global typeshed_snapdate 20250601
+%global typeshed_snapdate 20250613
 
 # Downstream patch: always find the system-wide ruff executable
 #
@@ -207,10 +207,6 @@ Patch:          0002-drop-unavailable-features-from-uuid-dependency.patch
 Patch:          0003-ignore-vendored-annotate-snippets-tests-that-hang-in.patch
 # * update indicatif to 0.18: https://github.com/astral-sh/ruff/pull/19165
 Patch:          0004-Update-Rust-crate-indicatif-to-0.18.0-19165.patch
-
-# Downstream-only or backported patches for the vendored salsa snapshot:
-# * remove pin on half versions, done only for MSRV versions
-Patch200:       0200-remove-pin-on-half-versions-done-only-for-MSRV-purpo.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:	%{ix86}

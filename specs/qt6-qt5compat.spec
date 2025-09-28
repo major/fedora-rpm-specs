@@ -3,14 +3,14 @@
 
 %global examples 1
 
-#global unstable 0
+%global unstable 1
 %if 0%{?unstable}
 %global prerelease rc
 %endif
 
 Summary: Qt6 - Qt 5 Compatibility Libraries
 Name:    qt6-%{qt_module}
-Version: 6.9.2
+Version: 6.10.0%{?unstable:~%{prerelease}}
 Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -119,6 +119,9 @@ popd
 %endif
 
 %changelog
+* Thu Sep 25 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0~rc-1
+- 6.10.0 RC
+
 * Thu Aug 28 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.2-1
 - 6.9.2
 

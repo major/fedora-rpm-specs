@@ -1,8 +1,8 @@
 %global framework kirigami-addons
 
 Name:           kf6-%{framework}
-Version:        1.9.0
-Release:        2%{?dist}
+Version:        1.10.0
+Release:        1%{?dist}
 License:        BSD-2-Clause AND CC-BY-SA-4.0 AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND LicenseRef-KFQF-Accepted-GPL
 Summary:        Convergent visual components ("widgets") for Kirigami-based applications
 Url:            https://invent.kde.org/libraries/%{framework}
@@ -19,6 +19,9 @@ BuildRequires:  cmake(KF6GlobalAccel)
 BuildRequires:  cmake(KF6GuiAddons)
 BuildRequires:  cmake(KF6Kirigami2)
 BuildRequires:  cmake(KF6Svg)
+BuildRequires:  cmake(KF6ColorScheme)
+BuildRequires:  cmake(KF6Crash)
+BuildRequires:  cmake(KF6IconThemes)
 BuildRequires:  cmake(Qt6)
 BuildRequires:  cmake(Qt6Core)
 BuildRequires:  cmake(Qt6Quick)
@@ -82,8 +85,12 @@ and header files for developing applications that use %{name}.
 %dir %{_kf6_qmldir}/org/kde
 %{_kf6_qmldir}/org/kde/kirigamiaddons
 %{_kf6_libdir}/libKirigamiAddonsStatefulApp.so.{6,%{version}}
+%{_kf6_libdir}/libKirigamiApp.so.%{version}
+%{_kf6_libdir}/libKirigamiApp.so.6
 
 %files devel
+%{_kf6_libdir}/libKirigamiApp.so
+%{_includedir}/KirigamiAddons/
 %{_kf6_libdir}/cmake/KF6KirigamiAddons
 %{_kf6_libdir}/libKirigamiAddonsStatefulApp.so
 %{_includedir}/KirigamiAddonsStatefulApp/
@@ -91,6 +98,9 @@ and header files for developing applications that use %{name}.
 %{_kf6_datadir}/kdevappwizard/templates/librarymanager6.tar.bz2
 
 %changelog
+* Sat Sep 27 2025 Steve Cossette <farchord@gmail.com> - 1.10.0-1
+- 1.10.0
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

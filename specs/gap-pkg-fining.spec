@@ -1,18 +1,20 @@
-%global pkgname fining
-%global giturl  https://github.com/gap-packages/FinInG
+%global gap_pkgname fining
+%global giturl      https://github.com/gap-packages/FinInG
 
-Name:           gap-pkg-%{pkgname}
+Name:           gap-pkg-%{gap_pkgname}
 Version:        1.5.6
 Release:        %autorelease
 Summary:        Finite incidence geometry
 
 License:        GPL-2.0-or-later
-BuildArch:      noarch
-# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch:    %{ix86}
 URL:            https://www.fining.org/
 VCS:            git:%{giturl}.git
-Source:         %{giturl}/releases/download/v%{version}/%{pkgname}-%{version}.tar.bz2
+Source:         %{giturl}/releases/download/v%{version}/%{gap_upname}-%{version}.tar.bz2
+
+BuildArch:      noarch
+BuildSystem:    gap
+BuildOption(install): examples lib tst
+BuildOption(check): tst/testall.g
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-atlasrep
@@ -34,12 +36,12 @@ Requires:       gap-pkg-orb
 Recommends:     gap-pkg-design
 
 %description
-FinInG is a GAP package for computation in Finite Incidence Geometry
-developed by John Bamberg, Anton Betten, Philippe Cara, Jan De Beule,
-Michel Lavrauw and Max Neunhoeffer.  It provides functionality:
-- to create and explore finite incidence structures, such as finite
-  projective spaces, finite classical polar spaces, generalized
-  polygons, coset geometries, finite affine spaces, and many more;
+FinInG is a GAP package for computation in Finite Incidence Geometry developed
+by John Bamberg, Anton Betten, Philippe Cara, Jan De Beule, Michel Lavrauw and
+Max Neunhoeffer.  It provides functionality:
+- to create and explore finite incidence structures, such as finite projective
+  spaces, finite classical polar spaces, generalized polygons, coset
+  geometries, finite affine spaces, and many more;
 - to explore algebraic varieties in finite projective and finite affine
   spaces;
 - that deals with the automorphism groups of incidence structures, and
@@ -62,34 +64,23 @@ Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
 
 %description doc
-This package contains documentation for gap-pkg-%{pkgname}.
+This package contains documentation for gap-pkg-%{gap_pkgname}.
 
 %prep
-%autosetup -n %{pkgname}-%{version}
-
-%build
-gap makedoc.g
-
-%install
-mkdir -p %{buildroot}%{gap_libdir}/pkg/%{pkgname}/doc
-cp -a *.g examples lib tst %{buildroot}%{gap_libdir}/pkg/%{pkgname}
-%gap_copy_docs
-
-%check
-gap -l '%{buildroot}%{gap_libdir};' tst/testall.g
+%autosetup -n %{gap_upname}-%{version}
 
 %files
 %doc README.md
-%dir %{gap_libdir}/pkg/%{pkgname}/
-%{gap_libdir}/pkg/%{pkgname}/*.g
-%{gap_libdir}/pkg/%{pkgname}/lib/
-%{gap_libdir}/pkg/%{pkgname}/tst/
+%dir %{gap_libdir}/pkg/%{gap_upname}/
+%{gap_libdir}/pkg/%{gap_upname}/*.g
+%{gap_libdir}/pkg/%{gap_upname}/lib/
+%{gap_libdir}/pkg/%{gap_upname}/tst/
 
 %files doc
-%docdir %{gap_libdir}/pkg/%{pkgname}/doc/
-%docdir %{gap_libdir}/pkg/%{pkgname}/examples/
-%{gap_libdir}/pkg/%{pkgname}/doc/
-%{gap_libdir}/pkg/%{pkgname}/examples/
+%docdir %{gap_libdir}/pkg/%{gap_upname}/doc/
+%docdir %{gap_libdir}/pkg/%{gap_upname}/examples/
+%{gap_libdir}/pkg/%{gap_upname}/doc/
+%{gap_libdir}/pkg/%{gap_upname}/examples/
 
 %changelog
 %autochangelog

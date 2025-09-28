@@ -21,6 +21,10 @@ Patch1:    package-remove-password-prompt.patch
 
 # Fixes for sdbus-cpp v2
 Patch2:    https://github.com/PackageKit/PackageKit/pull/896.patch
+# Fixes to avoid crashes when PK is not running
+Patch3:    https://github.com/PackageKit/PackageKit/pull/902.patch
+# Fix building and linking dnf5 plugin
+Patch4:    https://github.com/PackageKit/PackageKit/pull/903.patch
 
 BuildRequires: docbook-utils
 BuildRequires: gcc
@@ -83,9 +87,19 @@ PackageKit is a D-Bus abstraction layer that allows the session user
 to manage packages in a secure way using a cross-distro,
 cross-architecture API.
 
+%package -n dnf4-plugin-notify-PackageKit
+Summary: DNF4 plugin to notify PackageKit of DNF4 actions
+Supplements: (dnf4 and PackageKit)
+Conflicts: %{name} < 1.3.1-3
+BuildArch: noarch
+
+%description -n dnf4-plugin-notify-PackageKit
+DNF4 plugin to notify PackageKit of DNF4 actions.
+
 %package -n libdnf5-plugin-notify-PackageKit
 Summary: DNF5 plugin to notify PackageKit of DNF5 actions
 Supplements: (libdnf5%{?_isa} and PackageKit%{?_isa})
+Conflicts: %{name} < 1.3.1-2
 
 %description -n libdnf5-plugin-notify-PackageKit
 DNF5 plugin to notify PackageKit of DNF5 actions.
@@ -233,6 +247,8 @@ systemctl disable packagekit-offline-update.service > /dev/null 2>&1 || :
 %{_libexecdir}/pk-*offline-update
 %{_libexecdir}/packagekit-dnf-refresh-repo
 %{_libdir}/packagekit-backend/libpk_backend_dnf.so
+
+%files -n dnf4-plugin-notify-PackageKit
 %pycached %{python3_sitelib}/dnf-plugins/notify_packagekit.py
 
 %files -n libdnf5-plugin-notify-PackageKit

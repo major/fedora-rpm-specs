@@ -19,9 +19,11 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-%global commit0 eebb229d08057617f172968df68d145f614a8a09
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global date0 20250526
+
+%global upstreamname aqlprofile
+%global rocm_release 7.0
+%global rocm_patch 1
+%global rocm_version %{rocm_release}.%{rocm_patch}
 
 # Testing is broken
 %bcond_with test
@@ -41,14 +43,14 @@
 Summary:        Architected Queuing Language Profiling Library
 Name:           aqlprofile
 License:        MIT
-Version:        0.0^git%{date0}.%{shortcommit0}
-Release:        3%{?dist}
+Version:        %{rocm_version}
+Release:        1%{?dist}
 
 # Only x86_64 works right now:
 ExclusiveArch:  x86_64
 
-Url:            https://github.com/ROCm/aqlprofile
-Source0:        %{url}/archive/%{commit0}/%{name}-%{shortcommit0}.tar.gz
+Url:            https://github.com/ROCm/%{upstreamname}
+Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -72,7 +74,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %{summary}
 
 %prep
-%autosetup -n %{name}-%{commit0}
+%autosetup -p1 -n %{upstreamname}-rocm-%{version}
 
 # Do not hardcode CMAKE_BUILD_TYPE
 # https://github.com/ROCm/aqlprofile/issues/12
@@ -100,6 +102,9 @@ sed -i -e 's@CMAKE_BUILD_TYPE@DO_NO_HARDCODE_CMAKE_BUILD_TYPE@' cmake_modules/en
 %{_libdir}/libhsa-amd-aqlprofile64.so
 
 %changelog
+* Fri Sep 26 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-1
+- Update to 7.0.1
+
 * Thu Aug 28 2025 Tom Rix <Tom.Rix@amd.com> - 0.0^git20250526.eebb229-3
 - Add Fedora copyright
 

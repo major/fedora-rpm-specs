@@ -18,7 +18,7 @@
 Summary:	Small, fast daemon to serve DNSBLs
 Name:		rbldnsd
 Version:	0.998b
-Release:	18%{?dist}
+Release:	19%{?dist}
 License:	GPL-2.0-or-later
 URL:		https://rbldnsd.io/
 Source0:	https://rbldnsd.io/dwl/rbldnsd-%{version}.tgz
@@ -27,6 +27,7 @@ Source3:	rbldnsctl
 Source4:	README.systemd
 Patch0:		rbldnsd-configure-c99.patch
 Patch1:		rbldnsd-0.998b-version.patch
+Patch2:		https://github.com/spamhaus/rbldnsd/commit/85932ec5.patch
 BuildRequires:	coreutils
 BuildRequires:	gawk
 BuildRequires:	gcc
@@ -53,6 +54,12 @@ blocklists.
 
 # Fix version number reported by rbldnsd
 %patch -P 1
+
+# Fix base template replacement issue
+# https://github.com/spamhaus/rbldnsd/issues/18
+# https://github.com/spamhaus/rbldnsd/issues/19
+# https://github.com/spamhaus/rbldnsd/pull/22
+%patch -P 2 -p1
 
 sed -i	-e 's@/var/lib/rbldns\([/ ]\)@%{_localstatedir}/lib/rbldnsd\1@g' \
 	-e 's@\(-r/[a-z/]*\) -b@\1 -q -b@g' contrib/debian/rbldnsd.default
@@ -123,6 +130,9 @@ fi
 %endif
 
 %changelog
+* Fri Sep 26 2025 Paul Howarth <paul@city-fan.org> - 0.998b-19
+- Fix base template replacement issue (GH#18, GH#19, GH#22, rhbz#2398024)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.998b-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

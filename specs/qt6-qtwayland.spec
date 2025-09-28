@@ -1,7 +1,7 @@
 
 %global qt_module qtwayland
 
-#global unstable 0
+%global unstable 1
 %if 0%{?unstable}
 %global prerelease rc
 %endif
@@ -10,7 +10,7 @@
 
 Summary: Qt6 - Wayland platform support and QtCompositor module
 Name:    qt6-%{qt_module}
-Version: 6.9.2
+Version: 6.10.0%{?unstable:~%{prerelease}}
 Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -56,11 +56,9 @@ BuildRequires: pkgconfig(xcomposite)
 BuildRequires: pkgconfig(xrender)
 BuildRequires: pkgconfig(libudev)
 BuildRequires: pkgconfig(libinput)
+BuildRequires: pkgconfig(libdrm)
 
 BuildRequires: libXext-devel
-
-Obsoletes:     qadwaitadecorations-qt6
-Provides:      qadwaitadecorations-qt6
 
 %description
 %{summary}.
@@ -118,38 +116,24 @@ popd
 %license LICENSES/*
 %{_qt6_archdatadir}/sbom/%{qt_module}-%{qt_version}.spdx
 %{_qt6_libdir}/libQt6WaylandCompositor.so.6*
-%{_qt6_libdir}/libQt6WaylandClient.so.6*
 %{_qt6_libdir}/libQt6WaylandCompositor.so.6*
 %{_qt6_libdir}/libQt6WaylandCompositorIviapplication.so.6*
 %{_qt6_libdir}/libQt6WaylandCompositorPresentationTime.so.6*
 %{_qt6_libdir}/libQt6WaylandCompositorWLShell.so.6*
 %{_qt6_libdir}/libQt6WaylandCompositorXdgShell.so.6*
-%{_qt6_libdir}/libQt6WaylandClient.so.6*
-%{_qt6_libdir}/libQt6WaylandEglClientHwIntegration.so.6*
 %{_qt6_libdir}/libQt6WaylandEglCompositorHwIntegration.so.6*
-%{_qt6_libdir}/libQt6WlShellIntegration.so.6*
 %{_qt6_plugindir}/wayland-decoration-client/
 %{_qt6_plugindir}/wayland-graphics-integration-server
-%{_qt6_plugindir}/wayland-graphics-integration-client
 %{_qt6_plugindir}/wayland-shell-integration
-%{_qt6_plugindir}/platforms/libqwayland-egl.so
-%{_qt6_plugindir}/platforms/libqwayland-generic.so
-#{_qt6_plugindir}/platforms/libqwayland-xcomposite-egl.so
-#{_qt6_plugindir}/platforms/libqwayland-xcomposite-glx.so
 %{_qt6_qmldir}/QtWayland/
 
 %files devel
-%{_qt6_libexecdir}/qtwaylandscanner
 %{_qt6_headerdir}/QtWaylandCompositor/
 %{_qt6_headerdir}/QtWaylandCompositorIviapplication/
 %{_qt6_headerdir}/QtWaylandCompositorPresentationTime/
 %{_qt6_headerdir}/QtWaylandCompositorWLShell/
 %{_qt6_headerdir}/QtWaylandCompositorXdgShell/
-%{_qt6_headerdir}/QtWaylandClient/
-%{_qt6_headerdir}/QtWaylandEglClientHwIntegration/
 %{_qt6_headerdir}/QtWaylandEglCompositorHwIntegration/
-%{_qt6_headerdir}/QtWlShellIntegration/
-%{_qt6_headerdir}/QtWaylandGlobal/
 %{_qt6_libdir}/libQt6WaylandCompositor.so
 %{_qt6_libdir}/libQt6WaylandCompositorIviapplication.prl
 %{_qt6_libdir}/libQt6WaylandCompositorIviapplication.so
@@ -159,19 +143,13 @@ popd
 %{_qt6_libdir}/libQt6WaylandCompositorWLShell.so
 %{_qt6_libdir}/libQt6WaylandCompositorXdgShell.prl
 %{_qt6_libdir}/libQt6WaylandCompositorXdgShell.so
-%{_qt6_libdir}/libQt6WaylandClient.so
-%{_qt6_libdir}/libQt6WaylandEglClientHwIntegration.so
 %{_qt6_libdir}/libQt6WaylandEglCompositorHwIntegration.so
-%{_qt6_libdir}/libQt6WlShellIntegration.so
 %{_qt6_libdir}/libQt6WaylandCompositor.prl
-%{_qt6_libdir}/libQt6WaylandClient.prl
-%{_qt6_libdir}/libQt6WaylandEglClientHwIntegration.prl
 %{_qt6_libdir}/libQt6WaylandEglCompositorHwIntegration.prl
-%{_qt6_libdir}/libQt6WlShellIntegration.prl
 %{_qt6_libdir}/cmake/Qt6WaylandCompositor/Qt6WaylandCompositorConfig*.cmake
 %{_qt6_archdatadir}/mkspecs/modules/*.pri
 %dir %{_qt6_libdir}/cmake/Qt6WaylandClient/
-%dir %{_qt6_libdir}/cmake/Qt6WaylandClientPrivate
+%dir %{_qt6_libdir}/cmake/Qt6WaylandClientFeaturesPrivate/
 %dir %{_qt6_libdir}/cmake/Qt6WaylandCompositor/
 %dir %{_qt6_libdir}/cmake/Qt6WaylandCompositorIviapplication/
 %dir %{_qt6_libdir}/cmake/Qt6WaylandCompositorIviapplicationPrivate
@@ -182,17 +160,12 @@ popd
 %dir %{_qt6_libdir}/cmake/Qt6WaylandCompositorWLShellPrivate
 %dir %{_qt6_libdir}/cmake/Qt6WaylandCompositorXdgShell/
 %dir %{_qt6_libdir}/cmake/Qt6WaylandCompositorXdgShellPrivate
-%dir %{_qt6_libdir}/cmake/Qt6WaylandEglClientHwIntegrationPrivate/
 %dir %{_qt6_libdir}/cmake/Qt6WaylandEglCompositorHwIntegrationPrivate/
-%dir %{_qt6_libdir}/cmake/Qt6WaylandGlobalPrivate/
-%dir %{_qt6_libdir}/cmake/Qt6WaylandScannerTools/
-%dir %{_qt6_libdir}/cmake/Qt6WlShellIntegrationPrivate/
 %{_qt6_libdir}/cmake/Qt6/*.cmake
 %{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtWaylandTestsConfig.cmake
-%{_qt6_libdir}/cmake/Qt6Gui/*.cmake
 %{_qt6_libdir}/cmake/Qt6Qml/QmlPlugins/*.cmake
-%{_qt6_libdir}/cmake/Qt6WaylandClient/
-%{_qt6_libdir}/cmake/Qt6WaylandClientPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6WaylandClient/*.cmake
+%{_qt6_libdir}/cmake/Qt6WaylandClientFeaturesPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6WaylandCompositor/
 %{_qt6_libdir}/cmake/Qt6WaylandCompositorIviapplication/
 %{_qt6_libdir}/cmake/Qt6WaylandCompositorIviapplicationPrivate/*.cmake
@@ -203,11 +176,7 @@ popd
 %{_qt6_libdir}/cmake/Qt6WaylandCompositorWLShellPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6WaylandCompositorXdgShell/
 %{_qt6_libdir}/cmake/Qt6WaylandCompositorXdgShellPrivate/*.cmake
-%{_qt6_libdir}/cmake/Qt6WaylandEglClientHwIntegrationPrivate/
 %{_qt6_libdir}/cmake/Qt6WaylandEglCompositorHwIntegrationPrivate/
-%{_qt6_libdir}/cmake/Qt6WaylandGlobalPrivate/
-%{_qt6_libdir}/cmake/Qt6WaylandScannerTools/
-%{_qt6_libdir}/cmake/Qt6WlShellIntegrationPrivate/
 %{_qt6_libdir}/qt6/metatypes/qt6*_metatypes.json
 %{_qt6_libdir}/qt6/modules/*.json
 %{_qt6_libdir}/pkgconfig/*.pc
@@ -218,6 +187,9 @@ popd
 %endif
 
 %changelog
+* Thu Sep 25 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0~rc-1
+- 6.10.0 RC
+
 * Thu Aug 28 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.2-1
 - 6.9.2
 

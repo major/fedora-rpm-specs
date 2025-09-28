@@ -1,7 +1,7 @@
 
 %global qt_module qtgrpc
 
-#global unstable 0
+%global unstable 1
 %if 0%{?unstable}
 %global prerelease rc
 %endif
@@ -10,8 +10,8 @@
 
 Summary: Qt6 - Support for using gRPC and Protobuf
 Name:    qt6-%{qt_module}
-Version: 6.9.2
-Release: 2%{?dist}
+Version: 6.10.0%{?unstable:~%{prerelease}}
+Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -23,9 +23,6 @@ Source0: https://download.qt.io/development_releases/qt/%{majmin}/%{qt_version}/
 %else
 Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submodules/%{qt_module}-everywhere-src-%{version}.tar.xz
 %endif
-
-# TODO: Remove with Qt 6.10
-Patch0:  qtgrpc-add-missing-linking-of-coreprivate-to-grpcquick-module.patch
 
 # filter plugin provides
 %global __provides_exclude_from ^%{_qt6_plugindir}/.*\\.so$
@@ -169,6 +166,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %endif
 
 %changelog
+* Thu Sep 25 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0~rc-1
+- 6.10.0 RC
+
 * Mon Sep 08 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 6.9.2-2
 - Rebuilt for abseil-cpp 20250814.0
 

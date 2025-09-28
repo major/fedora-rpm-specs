@@ -5,7 +5,7 @@
 Name:    plasma-workspace
 Summary: Plasma workspace, applications and applets
 Version: 6.4.5
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # Automatically converted from old format: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT - review is highly recommended.
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -26,6 +26,8 @@ Source102:      kde-smartcard
 ## (debating whether these be owned here or somewhere better...
 ## in the repective pkgs themselves? -- rdieter)
 Source40:       ssh-agent.conf
+## To be dropped when EL10 and F42 is no longer supported
+## Or if spice-vd-agent >= 0.23.0 is shipped in any existing release
 Source41:       spice-vdagent.conf
 
 ## upstream patches
@@ -481,7 +483,9 @@ mkdir -p %{buildroot}%{_userunitdir}/plasma-core.target.d/
 mkdir -p %{buildroot}%{_userunitdir}/plasma-workspace@.target.d/
 
 install -m644 -p -D %{SOURCE40} %{buildroot}%{_userunitdir}/plasma-core.target.d/ssh-agent.conf
+%if ! (0%{?rhel} >= 11 || 0%{?fedora} >= 43)
 install -m644 -p -D %{SOURCE41} %{buildroot}%{_userunitdir}/plasma-core.target.d/spice-vdagent.conf
+%endif
 
 %find_lang all --with-html --all-name
 
@@ -578,7 +582,9 @@ fi
 %{_userunitdir}/plasma-core.target
 %dir %{_userunitdir}/plasma-core.target.d/
 %{_userunitdir}/plasma-core.target.d/ssh-agent.conf
+%if ! (0%{?rhel} >= 11 || 0%{?fedora} >= 43)
 %{_userunitdir}/plasma-core.target.d/spice-vdagent.conf
+%endif
 %{_userunitdir}/plasma-workspace.target
 %{_userunitdir}/plasma-workspace-wayland.target
 %{_userunitdir}/plasma-workspace-x11.target
@@ -690,6 +696,9 @@ fi
 
 
 %changelog
+* Fri Sep 26 2025 Neal Gompa <ngompa@fedoraproject.org> - 6.4.5-3
+- Drop spice-vdagent snippet for F43+ / EL11+ (RHBZ#2399742)
+
 * Wed Sep 24 2025 Steve Cossette <farchord@gmail.com> - 6.4.5-2
 - Fix for Qt 6.9.2-related crash
 

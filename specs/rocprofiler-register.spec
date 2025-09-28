@@ -1,6 +1,6 @@
 %global upstreamname rocprofiler-register
-%global rocm_release 6.4
-%global rocm_patch 3
+%global rocm_release 7.0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global glog_version 0.7.1
@@ -137,6 +137,9 @@ fi
 %{_libdir}/cmake/rocprofiler-register/
 
 %changelog
+* Fri Sep 26 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-1
+- Update to 7.0.1
+
 * Thu Aug 21 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.3-1
 - Initial package
 

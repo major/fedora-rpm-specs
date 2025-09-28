@@ -24,8 +24,8 @@ Summary: Speedrun-oriented Doom source port
 # Check the discussion at: https://gitlab.com/fedora/legal/fedora-license-data/-/issues/310
 License: GPL-2.0-or-later AND BSD-3-Clause AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LicenseRef-Fedora-Public-Domain AND Zlib
 
-Version: 0.29.3
-Release: 2%{?dist}
+Version: 0.29.4
+Release: 1%{?dist}
 
 URL: https://github.com/kraflab/dsda-doom
 Source0: %{URL}/archive/v%{version}/%{name}-v%{version}.tar.gz
@@ -43,20 +43,18 @@ BuildRequires: portmidi-devel
 BuildRequires: pkgconfig(alsa)
 BuildRequires: pkgconfig(fluidsynth)
 BuildRequires: pkgconfig(glu)
-BuildRequires: pkgconfig(libopenmpt)
 BuildRequires: pkgconfig(libpcre2-32)
 BuildRequires: pkgconfig(libpng)
+BuildRequires: pkgconfig(libxmp)
 BuildRequires: pkgconfig(libzip)
 BuildRequires: pkgconfig(mad)
 BuildRequires: pkgconfig(SDL2_image)
 BuildRequires: pkgconfig(SDL2_mixer)
 BuildRequires: pkgconfig(SDL2_net)
+BuildRequires: pkgconfig(sndfile)
 BuildRequires: pkgconfig(vorbisfile)
 
 Requires: %{name}-data = %{version}-%{release}
-
-# Used for playing music in XM format; used by some custom level sets.
-Recommends: libxmp%{?_isa}
 
 
 %description
@@ -122,6 +120,9 @@ cp -a docs patch_notes AUTHORS README.md %{buildroot}%{_pkgdocdir}
 
 
 %changelog
+* Fri Sep 26 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.29.4-1
+- Update to v0.29.4
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.29.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

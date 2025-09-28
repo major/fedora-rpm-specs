@@ -9,7 +9,7 @@ simple and efficient, accessible to everybody, and reusable
 in various contexts.}
 
 Name: python-scikit-learn
-Version: 1.7.1
+Version: 1.7.2
 Release: %autorelease
 Summary: Machine learning in Python
 # sklearn/externals/_arff.py is MIT

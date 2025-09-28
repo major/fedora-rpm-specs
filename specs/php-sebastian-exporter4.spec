@@ -9,7 +9,7 @@
 
 %bcond_without       tests
 
-%global gh_commit    eb49b981ef0817890129cb70f774506bebe57740
+%global gh_commit    14c6ba52f95a36c3d27c835d65efc7123c446e8c
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   exporter
@@ -25,7 +25,7 @@
 %global pear_channel pear.phpunit.de
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        4.0.7
+Version:        4.0.8
 Release:        1%{?dist}
 Summary:        Export PHP variables for visualization, version %{major}
 
@@ -111,6 +111,9 @@ exit $ret
 
 
 %changelog
+* Wed Sep 24 2025 Remi Collet <remi@remirepo.net> - 4.0.8-1
+- update to 4.0.8
+
 * Mon Sep 22 2025 Remi Collet <remi@remirepo.net> - 4.0.7-1
 - update to 4.0.7
 

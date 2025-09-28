@@ -1,19 +1,21 @@
-%global pkgname lins
-%global upname  LINS
-%global giturl  https://github.com/gap-packages/LINS
+%global gap_pkgname lins
+%global gap_upname  LINS
+%global giturl      https://github.com/gap-packages/LINS
 
-Name:           gap-pkg-%{pkgname}
+Name:           gap-pkg-%{gap_pkgname}
 Version:        0.9
 Release:        %autorelease
 Summary:        Compute the normal subgroups of a finitely presented group
 
 License:        GPL-2.0-or-later
-BuildArch:      noarch
-# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch:    %{ix86}
 URL:            https://gap-packages.github.io/LINS/
 VCS:            git:%{giturl}.git
-Source:         %{giturl}/archive/v%{version}/%{upname}-%{version}.tar.gz
+Source:         %{giturl}/archive/v%{version}/%{gap_upname}-%{version}.tar.gz
+
+BuildArch:      noarch
+BuildSystem:    gap
+BuildOption(install): gap tst
+BuildOption(check): tst/testquick.g
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-autodoc
@@ -25,15 +27,14 @@ BuildRequires:  gap-pkg-recog
 Requires:       gap-core
 
 %description
-This package provides an algorithm for computing the normal subgroups of
-a finitely presented group up to some given index bound.
+This package provides an algorithm for computing the normal subgroups of a
+finitely presented group up to some given index bound.
 
-This algorithm is based on work of Derek Holt and David Firth.  Derek
-Holt and David Firth implemented this algorithm in the algebra software
-MAGMA.
+This algorithm is based on work of Derek Holt and David Firth.  Derek Holt and
+David Firth implemented this algorithm in the algebra software MAGMA.
 
-The current implementation in GAP uses a table of groups that was
-computed by the code in `createTables.gi`.
+The current implementation in GAP uses a table of groups that was computed by
+the code in `createTables.gi`.
 
 %package doc
 # The content is GPL-2.0-or-later.
@@ -48,33 +49,22 @@ Requires:       %{name} = %{version}-%{release}
 Requires:       gap-pkg-polycyclic-doc
 
 %description doc
-This package contains documentation for gap-pkg-%{pkgname}.
+This package contains documentation for gap-pkg-%{gap_pkgname}.
 
 %prep
-%autosetup -n %{upname}-%{version}
-
-%build
-gap makedoc.g
-
-%install
-mkdir -p %{buildroot}%{gap_libdir}/pkg/%{upname}/doc
-cp -a gap tst *.g  %{buildroot}%{gap_libdir}/pkg/%{upname}
-%gap_copy_docs -n %{upname}
-
-%check
-gap -l '%{buildroot}%{gap_libdir};' tst/testquick.g
+%autosetup -n %{gap_upname}-%{version}
 
 %files
 %doc README.md
 %license COPYRIGHT LICENSE
-%dir %{gap_libdir}/pkg/%{upname}/
-%{gap_libdir}/pkg/%{upname}/*.g
-%{gap_libdir}/pkg/%{upname}/gap/
-%{gap_libdir}/pkg/%{upname}/tst/
+%dir %{gap_libdir}/pkg/%{gap_upname}/
+%{gap_libdir}/pkg/%{gap_upname}/*.g
+%{gap_libdir}/pkg/%{gap_upname}/gap/
+%{gap_libdir}/pkg/%{gap_upname}/tst/
 
 %files doc
-%docdir %{gap_libdir}/pkg/%{upname}/doc/
-%{gap_libdir}/pkg/%{upname}/doc/
+%docdir %{gap_libdir}/pkg/%{gap_upname}/doc/
+%{gap_libdir}/pkg/%{gap_upname}/doc/
 
 %changelog
 %autochangelog

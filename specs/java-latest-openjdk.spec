@@ -342,7 +342,7 @@
 %global top_level_dir_name   %{vcstag}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        36
-%global rpmrelease      2
+%global rpmrelease      3
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -376,7 +376,10 @@
 %endif
 
 # parametrized macros are order-sensitive
-%global compatiblename  java-%{featurever}-%{origin}
+%global compatiblename  %{name}
+# TODO think about renaming  tarball in portables so it matches and compatiblename and drop portable_compatiblename
+# It may be better to keep portables tarball as it is, as it nicely points out what is going from portables to rpms
+%global portable_compatiblename  java-%{featurever}-%{origin}
 %define fullversion()     %{expand:%{compatiblename}%{?1}-%{version}-%{release}}
 # images directories from upstream build
 %global jdkimage                jdk
@@ -999,7 +1002,6 @@ fi
 
 %define files_javadoc_zip() %{expand:
 %doc %{_javadocdir}/%{uniquejavadocdir -- %{?1}}.zip
-%doc %{_javadocdir}/%{uniquejavadocdir -- %{?1}}
 %license %{_jvmdir}/%{sdkdir -- %{?1}}/legal
 %dir %{_jvmdir}/%{sdkdir -- %{?1}}
 %if %is_system_jdk
@@ -1169,10 +1171,10 @@ Provides: java-%{origin}-src%{?1} = %{epoch}:%{version}-%{release}
 
 Name:    java-latest-%{origin}
 Version: %{newjavaver}.%{buildver}
-# This package needs `.rolling` as part of Release so as to not conflict on install with
+# This package needs `.0` as prefix of Release so as to not conflict on install with
 # java-X-openjdk. I.e. when latest rolling release is also an LTS release packaged as
 # java-X-openjdk. See: https://bugzilla.redhat.com/show_bug.cgi?id=1647298
-Release: %{?eaprefix}%{rpmrelease}%{?extraver}.rolling%{?dist}
+Release: %{?eaprefix}0.%{rpmrelease}%{?extraver}%{?dist}
 # java-1.5.0-ibm from jpackage.org set Epoch to 1 for unknown reasons
 # and this change was brought into RHEL-4. java-1.5.0-ibm packages
 # also included the epoch in their virtual provides. This created a
@@ -1654,31 +1656,31 @@ if [ $prioritylength -ne 8 ] ; then
  exit 14
 fi
 
-tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.sources.noarch.tar.xz
-tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable*.misc.%{_arch}.tar.xz
-tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable*.docs.%{_arch}.tar.xz
+tar -xf %{portablejvmdir}/%{portable_compatiblename}*%{version}*portable.sources.noarch.tar.xz
+tar -xf %{portablejvmdir}/%{portable_compatiblename}*%{version}*portable*.misc.%{_arch}.tar.xz
+tar -xf %{portablejvmdir}/%{portable_compatiblename}*%{version}*portable*.docs.%{_arch}.tar.xz
 
 %if %{include_normal_build}
-tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.jdk.%{_arch}.tar.xz
-tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.jmods.%{_arch}.tar.xz
+tar -xf %{portablejvmdir}/%{portable_compatiblename}*%{version}*portable.jdk.%{_arch}.tar.xz
+tar -xf %{portablejvmdir}/%{portable_compatiblename}*%{version}*portable.jmods.%{_arch}.tar.xz
 # Extract debuginfo as well
-tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.debuginfo.jdk.%{_arch}.tar.xz
+tar -xf %{portablejvmdir}/%{portable_compatiblename}*%{version}*portable.debuginfo.jdk.%{_arch}.tar.xz
 %if %{include_staticlibs}
-tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.static-libs.%{_arch}.tar.xz
+tar -xf %{portablejvmdir}/%{portable_compatiblename}*%{version}*portable.static-libs.%{_arch}.tar.xz
 %endif
 %endif
 %if %{include_fastdebug_build}
-tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.fastdebug.jdk.%{_arch}.tar.xz
-tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.fastdebug.jmods.%{_arch}.tar.xz
+tar -xf %{portablejvmdir}/%{portable_compatiblename}*%{version}*portable.fastdebug.jdk.%{_arch}.tar.xz
+tar -xf %{portablejvmdir}/%{portable_compatiblename}*%{version}*portable.fastdebug.jmods.%{_arch}.tar.xz
 %if %{include_staticlibs}
-tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.fastdebug.static-libs.%{_arch}.tar.xz
+tar -xf %{portablejvmdir}/%{portable_compatiblename}*%{version}*portable.fastdebug.static-libs.%{_arch}.tar.xz
 %endif
 %endif
 %if %{include_debug_build}
-tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.slowdebug.jdk.%{_arch}.tar.xz
-tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.slowdebug.jmods.%{_arch}.tar.xz
+tar -xf %{portablejvmdir}/%{portable_compatiblename}*%{version}*portable.slowdebug.jdk.%{_arch}.tar.xz
+tar -xf %{portablejvmdir}/%{portable_compatiblename}*%{version}*portable.slowdebug.jmods.%{_arch}.tar.xz
 %if %{include_staticlibs}
-tar -xf %{portablejvmdir}/%{compatiblename}*%{version}*portable.slowdebug.static-libs.%{_arch}.tar.xz
+tar -xf %{portablejvmdir}/%{portable_compatiblename}*%{version}*portable.slowdebug.static-libs.%{_arch}.tar.xz
 %endif
 %endif
 
@@ -1689,8 +1691,8 @@ echo "The exact info is at bottom." >> %{repack_file}
 echo "All java- names and versions:" >> %{repack_file}
 ls -l %{portablejvmdir} >> %{repack_file}
 rpm -qa | grep "java-" >> %{repack_file}
-echo "Used %{compatiblename}.*portable:" >> %{repack_file}
-ls -l %{portablejvmdir} | grep "%{compatiblename}.*portable" >> %{repack_file} || echo "Not found!" >> %{repack_file}
+echo "Used %{portable_compatiblename}.*portable:" >> %{repack_file}
+ls -l %{portablejvmdir} | grep "%{portable_compatiblename}.*portable" >> %{repack_file} || echo "Not found!" >> %{repack_file}
 echo "Used %{name}.*portable:" >> %{repack_file}
 rpm -qa | grep "%{name}.*portable" >> %{repack_file} || echo "Not found!" >> %{repack_file}
 echo "Used %{version}.*portable:" >> %{repack_file}
@@ -1755,15 +1757,15 @@ done
 
 %build
 # we need to symlink sources to expected location, so debuginfo strip can locate debugsources
-src_image=`ls -d %{compatiblename}*%{version}*portable.sources.noarch`
-misc_image=`ls -d %{compatiblename}*%{version}*portable.misc.%{_arch}`
+src_image=`ls -d %{portable_compatiblename}*%{version}*portable.sources.noarch`
+misc_image=`ls -d %{portable_compatiblename}*%{version}*portable.misc.%{_arch}`
 cp -rf $misc_image/%{generated_sources_name}/%{vcstag}/ $src_image # it would be nice to remove them once debugsources are generated:(
 ln -s $src_image/%{vcstag} %{vcstag}
 mkdir build
 pushd build
   cp -r ../$misc_image/%{generated_sources_name}/jdk%{featurever}.build* .
 popd
-doc_image=`ls -d %{compatiblename}*%{version}*portable.docs.%{_arch}`
+doc_image=`ls -d %{portable_compatiblename}*%{version}*portable.docs.%{_arch}`
 
 %install
 function installjdk() {
@@ -1892,7 +1894,7 @@ for suffix in %{build_loop} ; do
   # jre tarball may be usefull for  checking integrity of jre and jre headless subpackages
   #for jdkjre in jdk jre ; do
   for jdkjre in jdk ; do
-    buildoutputdir=`ls -d %{compatiblename}*portable${debugbuild}.${jdkjre}*`
+    buildoutputdir=`ls -d %{portable_compatiblename}*portable${debugbuild}.${jdkjre}*`
     top_dir_abs_main_build_path=$(pwd)/${buildoutputdir}
     installjdk ${top_dir_abs_main_build_path}
     # it may happen, that some library - in original case libjsvml build identically for two jdks
@@ -1943,7 +1945,7 @@ for suffix in %{build_loop} ; do
       # change -something to .something
       debugbuild=`echo $suffix  | sed "s/-/./g"`
   fi
-  buildoutputdir=`ls -d %{compatiblename}*portable${debugbuild}.jdk*`
+  buildoutputdir=`ls -d %{portable_compatiblename}*portable${debugbuild}.jdk*`
   top_dir_abs_main_build_path=$(pwd)/${buildoutputdir}
 %if %{include_staticlibs}
   top_dir_abs_staticlibs_build_path=`ls -d $top_dir_abs_main_build_path/lib/static/*/glibc/`

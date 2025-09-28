@@ -109,14 +109,6 @@ sed -ri -e 's/"(packaging|filelock|platformdirs|psutil|pyproject-api|pytest|pyte
         -e 's/"(pluggy)>=.*/"\1>=1.5",/g' \
     pyproject.toml
 
-%if 0%{?rhel}
-# There is no build[virtualenv] packaged in ELN
-# https://github.com/fedora-eln/eln/issues/309
-# We flatten the test depndency to build and virtualenv (already listed in runtime deps)
-sed -i 's/"build\[virtualenv\]"/"build"/' pyproject.toml
-%endif
-
-
 %generate_buildrequires
 export SETUPTOOLS_SCM_PRETEND_VERSION="%{version}"
 %pyproject_buildrequires -r %{?with_tests:-g test}

@@ -7,7 +7,7 @@ be embeddable in whatever program you choose to use, ensuring that you can
 speak HTTP/2 regardless of your programming paradigm.}
 
 Name:           python-h2
-Version:        4.2.0
+Version:        4.3.0
 Release:        %autorelease
 Summary:        HTTP/2 State-Machine based protocol implementation
 

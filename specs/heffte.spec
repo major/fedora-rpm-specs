@@ -1,7 +1,7 @@
 Name:           heffte
 Version:        2.4.1
 %global         sover 2
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Highly Efficient FFT for Exascale
 
 License:        BSD-3-Clause
@@ -129,7 +129,7 @@ export PRTE_MCA_rmaps_default_mapping_policy=:oversubscribe
 %if %{with rocm}
 export HIP_PATH=`hipconfig -p`
 export CMAKE_HIP_COMPILER=`hipconfig -l`/clang++
-export CMAKE_HIP_ARCHITECTURES="gfx900;gfx906:xnack-;gfx908:xnack-;gfx90a:xnack+;gfx90a:xnack-;gfx942;gfx1010;gfx1012;gfx1030;gfx1031;gfx1035;gfx1100;gfx1101;gfx1102;gfx1103;gfx1151"
+export CMAKE_HIP_ARCHITECTURES="gfx900;gfx906:xnack-;gfx908:xnack-;gfx90a:xnack+;gfx90a:xnack-;gfx942;gfx950;gfx1010;gfx1012;gfx1030;gfx1031;gfx1035;gfx1100;gfx1101;gfx1102;gfx1103;gfx1151;gfx1152;gfx1153;gfx1200;gfx1201"
 %endif
 
 for mpi in  mpich openmpi; do
@@ -210,6 +210,9 @@ done
 %{_datadir}/%{name}/docs
 
 %changelog
+* Fri Sep 26 2025 Tom Rix <Tom.Rix@amd.com> - 2.4.1-9
+- Update AMD gpu list
+
 * Thu Sep 25 2025 Christoph Junghans <junghans@votca.org> - 2.4.1-8
 - Rebuild for rocm-hip-7
 - Fixes: rhbz#2398084

@@ -76,7 +76,7 @@
 # and designer plugins
 %global __provides_exclude_from ^%{_qt6_plugindir}/.*\\.so$
 
-#global unstable 1
+%global unstable 1
 %if 0%{?unstable}
 %global prerelease rc
 %endif
@@ -85,8 +85,8 @@
 
 Summary: Qt6 - QtWebEngine components
 Name:    qt6-qtwebengine
-Version: 6.9.2
-Release: 2%{?dist}
+Version: 6.10.0%{?unstable:~%{prerelease}}
+Release: 1%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 # See also http://qt-project.org/doc/qt-5.0/qtdoc/licensing.html
@@ -847,6 +847,9 @@ done
 %endif
 
 %changelog
+* Thu Sep 25 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0~rc-1
+- 6.10.0 RC
+
 * Mon Sep 08 2025 Sandro Mani <manisandro@gmail.com> - 6.9.2-2
 - Revert commit bcee2dbf412cc655c1b467091b581c696d234e3f
 

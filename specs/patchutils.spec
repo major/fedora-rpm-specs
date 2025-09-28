@@ -1,6 +1,6 @@
 Summary: A collection of programs for manipulating patch files
 Name: patchutils
-Version: 0.4.3
+Version: 0.4.4
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL: http://cyberelk.net/tim/patchutils/
@@ -44,6 +44,9 @@ make check
 %{_mandir}/*/*
 
 %changelog
+* Fri Sep 26 2025 Tim Waugh <twaugh@redhat.com>
+- 0.4.4.
+
 * Tue Aug 26 2025 Tim Waugh <twaugh@redhat.com>
 - 0.4.3.
 

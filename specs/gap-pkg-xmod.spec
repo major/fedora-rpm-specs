@@ -1,18 +1,21 @@
-%global pkgname XMod
-%global giturl  https://github.com/gap-packages/xmod
+%global gap_pkgname xmod
+%global gap_upname  XMod
+%global giturl      https://github.com/gap-packages/xmod
 
-Name:           gap-pkg-xmod
+Name:           gap-pkg-%{gap_pkgname}
 Version:        2.95
 Release:        %autorelease
 Summary:        Crossed Modules and Cat1-Groups for GAP
 
 License:        GPL-2.0-or-later
-BuildArch:      noarch
-# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch:    %{ix86}
 URL:            https://gap-packages.github.io/xmod/
 VCS:            git:%{giturl}.git
-Source:         %{giturl}/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
+Source:         %{giturl}/releases/download/v%{version}/%{gap_upname}-%{version}.tar.gz
+
+BuildArch:      noarch
+BuildSystem:    gap
+BuildOption(install): examples lib tst
+BuildOption(check): tst/testall.g
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-autodoc
@@ -35,9 +38,9 @@ Requires:       gap-pkg-utils
 %description
 This package allows for computation with crossed modules, cat1-groups,
 morphisms of these structures, derivations of crossed modules and the
-corresponding sections of cat1-groups.  Experimental functions for
-crossed squares are now included.  In October 2015 a new section on
-isoclinism of crossed modules was added.
+corresponding sections of cat1-groups.  Experimental functions for crossed
+squares are now included.  In October 2015 a new section on isoclinism of
+crossed modules was added.
 
 %package doc
 # The content is GPL-2.0-or-later.  The remaining licenses cover the various
@@ -55,35 +58,24 @@ Requires:       %{name} = %{version}-%{release}
 Requires:       GAPDoc-doc
 
 %description doc
-This package contains documentation for gap-pkg-%{pkgname}.
+This package contains documentation for gap-pkg-%{gap_pkgname}.
 
 %prep
-%autosetup -n %{pkgname}-%{version} -p1
-
-%build
-gap makedoc.g
-
-%install
-mkdir -p %{buildroot}%{gap_libdir}/pkg/%{pkgname}/doc
-cp -a *.g examples lib tst %{buildroot}%{gap_libdir}/pkg/%{pkgname}
-%gap_copy_docs
-
-%check
-gap -l '%{buildroot}%{gap_libdir};' tst/testall.g
+%autosetup -n %{gap_upname}-%{version} -p1
 
 %files
 %doc CHANGES.md README.md
 %license LICENSE.txt
-%dir %{gap_libdir}/pkg/%{pkgname}/
-%{gap_libdir}/pkg/%{pkgname}/*.g
-%{gap_libdir}/pkg/%{pkgname}/lib/
-%{gap_libdir}/pkg/%{pkgname}/tst/
+%dir %{gap_libdir}/pkg/%{gap_upname}/
+%{gap_libdir}/pkg/%{gap_upname}/*.g
+%{gap_libdir}/pkg/%{gap_upname}/lib/
+%{gap_libdir}/pkg/%{gap_upname}/tst/
 
 %files doc
-%docdir %{gap_libdir}/pkg/%{pkgname}/doc/
-%docdir %{gap_libdir}/pkg/%{pkgname}/examples/
-%{gap_libdir}/pkg/%{pkgname}/doc/
-%{gap_libdir}/pkg/%{pkgname}/examples/
+%docdir %{gap_libdir}/pkg/%{gap_upname}/doc/
+%docdir %{gap_libdir}/pkg/%{gap_upname}/examples/
+%{gap_libdir}/pkg/%{gap_upname}/doc/
+%{gap_libdir}/pkg/%{gap_upname}/examples/
 
 %changelog
 %autochangelog

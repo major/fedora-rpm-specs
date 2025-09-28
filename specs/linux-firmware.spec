@@ -5,13 +5,14 @@
 
 Name:		linux-firmware
 Version:	20250917
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Firmware files used by the Linux kernel
 License:	GPL-1.0-or-later AND GPL-2.0-or-later AND MIT AND LicenseRef-Callaway-Redistributable-no-modification-permitted
 URL:		http://www.kernel.org/
 BuildArch:	noarch
 
 Source0:	https://www.kernel.org/pub/linux/kernel/firmware/%{name}-%{version}.tar.xz
+Patch0:		0001-mediatek-mtk_wed-drop-links-for-mt7988.patch
 
 BuildRequires:	make
 BuildRequires:	git-core
@@ -228,6 +229,14 @@ supports RoCE (RDMA over Converged Ethernet), iSCSI, iWARP, FCoE
 and ethernet including SRIOV, DCB etc.
 
 # Silicon Vendor specific
+%package -n mediatek-firmware
+Summary:	Firmware for Mediatek SoCs
+License:	LicenseRef-Callaway-Redistributable-no-modification-permitted
+Requires:	linux-firmware-whence = %{version}-%{release}
+Requires:	atheros-firmware = %{version}-%{release}
+%description -n mediatek-firmware
+Firmware for various compoents in Mediatek SoCs, in particular SCP.
+
 %package -n qcom-firmware
 Summary:	Firmware for Qualcomm SoCs
 License:	LicenseRef-Callaway-Redistributable-no-modification-permitted
@@ -360,10 +369,7 @@ sed \
 	-i -e '/^libertas/d' \
 	-i -e '/^liquidio/d' \
 	-i -e '/^mellanox/d' \
-	-i -e '/^mediatek\/mt76/d' \
-	-i -e '/^mediatek\/mt79/d' \
-	-i -e '/^mediatek\/BT/d' \
-	-i -e '/^mediatek\/WIFI/d' \
+	-i -e '/^mediatek/d' \
 	-i -e '/^mrvl\/prestera/d' \
 	-i -e '/^mrvl\/sd8787/d' \
 	-i -e '/^mt76/d' \
@@ -577,7 +583,9 @@ end
 %license LICENCE.ralink_a_mediatek_company_firmware
 %dir %{_firmwarepath}/mediatek
 %{_firmwarepath}/mediatek/mt76*
-%{_firmwarepath}/mediatek/mt79*
+%{_firmwarepath}/mediatek/mt791*
+%{_firmwarepath}/mediatek/mt7925/
+%{_firmwarepath}/mediatek/mt7996/
 %{_firmwarepath}/mediatek/BT*
 %{_firmwarepath}/mediatek/WIFI*
 %{_firmwarepath}/mt76*
@@ -636,6 +644,21 @@ end
 %{_firmwarepath}/qed/*
 
 # Silicon Vendor specific
+%files -n mediatek-firmware
+%license LICENCE.mediatek
+%dir %{_firmwarepath}/mediatek
+%{_firmwarepath}/mediatek/mt798?*
+%{_firmwarepath}/mediatek/mt8173/
+%{_firmwarepath}/mediatek/mt8183/
+%{_firmwarepath}/mediatek/mt8186/
+%{_firmwarepath}/mediatek/mt8188/
+%{_firmwarepath}/mediatek/mt8189/
+%{_firmwarepath}/mediatek/mt8192/
+%{_firmwarepath}/mediatek/mt8195/
+%{_firmwarepath}/mediatek/mt8196/
+%{_firmwarepath}/mediatek/sof/
+%{_firmwarepath}/mediatek/sof-tplg/
+
 %files -n qcom-firmware
 %license LICENSE.qcom LICENSE.qcom_yamato qcom/NOTICE.txt
 %dir %{_firmwarepath}/qcom
@@ -697,6 +720,9 @@ end
 %{_firmwarepath}/v4l-cx2*
 
 %changelog
+* Fri Sep 26 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 20250917-2
+- Adjust various mediatek firmware packaging
+
 * Wed Sep 24 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 20250917-1
 - Update to 20250917
 - first phase split out newer iwlwifi firmware for newer driver

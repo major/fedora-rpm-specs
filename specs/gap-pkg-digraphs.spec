@@ -2,7 +2,7 @@
 %global giturl      https://github.com/digraphs/Digraphs
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.12.2
+Version:        1.13.0
 Release:        %autorelease
 Summary:        GAP package for digraphs and multidigraphs
 
@@ -12,8 +12,6 @@ License:        GPL-3.0-or-later AND LGPL-3.0-only
 URL:            https://digraphs.github.io/Digraphs/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/releases/download/v%{version}/%{gap_upname}-%{version}.tar.gz
-# Compatibility with planarity 4.x
-Patch:          %{name}-planarity4.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -74,7 +72,7 @@ This package contains documentation for gap-pkg-%{gap_pkgname}.
 
 %conf
 # Make sure the bundled planarity is not used
-rm -fr extern/edge-addition-planarity-suite-Version_3.0.1.0
+rm -fr extern/edge-addition-planarity-suite-Version_4.0.0.0
 
 %build -p
 %configure --with-gaproot=%{gap_archdir} --disable-silent-rules \

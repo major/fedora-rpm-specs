@@ -13,7 +13,7 @@
 %global libver 21
 
 Name:          mingw-%{pkgname}
-Version:       21.1.1
+Version:       21.1.2
 Release:       1%{?dist}
 Summary:       LLVM for MinGW
 # Only on i686: ld: out of memory allocating 1174616688 bytes after a total of 1517842432 bytes
@@ -250,6 +250,9 @@ popd
 
 
 %changelog
+* Fri Sep 26 2025 Sandro Mani <manisandro@gmail.com> - 21.1.2-1
+- Update to 21.1.2
+
 * Sun Sep 14 2025 Sandro Mani <manisandro@gmail.com> - 21.1.1-1
 - Update to 21.1.1
 

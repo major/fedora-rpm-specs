@@ -7,6 +7,11 @@ License:        MIT
 URL:            https://github.com/patrick91/rignore
 Source:         %{url}/archive/v%{version}/rignore-%{version}.tar.gz
 
+# Update PyO3 to 0.26
+# https://github.com/patrick91/rignore/pull/13
+# (without changes to Cargo.lock)
+Patch:          rignore-0.6.4-pyo3-0.26.patch
+
 BuildSystem:            pyproject
 BuildOption(install):   -l rignore
 

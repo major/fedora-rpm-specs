@@ -21,8 +21,8 @@
 #
 %global upstreamname rocAL
 
-%global rocm_release 6.4
-%global rocm_patch 0
+%global rocm_release 7.0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 # mixing gcc and clang, some flags need to be removed
@@ -55,7 +55,7 @@
 
 Name:           rocal
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm Augmentation Library
 
 Url:            https://github.com/ROCm/rocAL
@@ -234,6 +234,9 @@ rm -rf %{buildroot}%{_datadir}/rocal/test
 %endif
 
 %changelog
+* Sun Sep 21 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-1
+- Update to 7.0.1
+
 * Thu Aug 28 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.0-3
 - Add Fedora copyright
 

@@ -2,7 +2,7 @@
 
 Summary: Utilities to generate, maintain and access the AppStream database
 Name:    appstream
-Version: 1.0.6
+Version: 1.1.0
 Release: 1%{?dist}
 
 # lib LGPLv2+, tools GPLv2+
@@ -36,6 +36,7 @@ BuildRequires: pkgconfig(gi-docgen) >= 2021.1
 BuildRequires: pkgconfig(gio-2.0)
 BuildRequires: pkgconfig(gobject-introspection-1.0)
 BuildRequires: pkgconfig(libcurl)
+BuildRequires: pkgconfig(libfyaml)
 BuildRequires: pkgconfig(librsvg-2.0)
 BuildRequires: pkgconfig(libsystemd)
 BuildRequires: pkgconfig(libxml-2.0)
@@ -199,6 +200,9 @@ mv %{buildroot}%{_datadir}/metainfo/*.xml \
 
 
 %changelog
+* Fri Sep 26 2025 Neal Gompa <ngompa@fedoraproject.org> - 1.1.0-1
+- Update to 1.1.0
+
 * Mon Aug 18 2025 Marc-André Lureau <marcandre.lureau@redhat.com> - 1.0.6-1
 - rebuilt
 

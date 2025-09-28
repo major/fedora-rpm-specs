@@ -178,7 +178,8 @@ BuildRequires:  hiprand-devel
 BuildRequires:  hipsparse-devel
 BuildRequires:  hipsparselt-devel
 BuildRequires:  hipsolver-devel
-BuildRequires:  magma-devel
+# Magma is broken on ROCm 7
+# BuildRequires:  magma-devel
 BuildRequires:  miopen-devel
 BuildRequires:  rocblas-devel
 BuildRequires:  rocrand-devel
@@ -607,7 +608,8 @@ export BUILD_TEST=ON
 
 export USE_ROCM=ON
 export USE_ROCM_CK=OFF
-export USE_MAGMA=ON
+# Magma is broken on ROCm 7
+# export USE_MAGMA=ON
 export HIP_PATH=`hipconfig -p`
 export ROCM_PATH=`hipconfig -R`
 RESOURCE_DIR=`%{rocmllvm_bindir}/clang -print-resource-dir`

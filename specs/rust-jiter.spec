@@ -5,7 +5,7 @@
 %global crate jiter
 
 Name:           rust-jiter
-Version:        0.10.0
+Version:        0.11.0
 Release:        %autorelease
 Summary:        Fast Iterable JSON parser
 
@@ -13,7 +13,7 @@ License:        MIT
 URL:            https://crates.io/crates/jiter
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * Omit benchmark-only dependencies bencher and codpseed-bencher-compat
+# * Omit benchmark-only dependency codspeed-criterion-compat
 Patch:          jiter-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

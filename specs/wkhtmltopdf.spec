@@ -9,7 +9,7 @@
 #%%global	minorver	D%{?tardate}git%{shorthash}
 #%%global	prerelease	1
 
-%global	baserelease	7
+%global	baserelease	8
 
 Name:		wkhtmltopdf
 Version:	%{mainver}
@@ -39,7 +39,6 @@ rendering engine, and qt.
 %package	devel
 Summary:	Development files for %{name}
 Requires:	%{name}%{?isa} = %{version}-%{release}
-Requires:	qtwebkit-devel%{?isa}
 
 %description	devel
 The %{name}-devel package contains libraries and header files for
@@ -114,6 +113,9 @@ make install \
 
 
 %changelog
+* Fri Sep 26 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.12.6-8
+- Remove unneeded Requires for devel
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.6-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

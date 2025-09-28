@@ -2,7 +2,7 @@
 
 Name:           rubygem-%{gem_name}
 Version:        1.4.11
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Ruby wrapper for the ncurses library, with wide character support
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -10,6 +10,9 @@ URL:            http://github.com/sup-heliotrope/ncursesw-ruby
 Source0:        https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # This is a C extension linked against MRI, it's not compatible with other 
 # interpreters. So we require MRI specifically instead of ruby(release).
+# https://github.com/sup-heliotrope/ncursesw-ruby/pull/40
+# https://github.com/sup-heliotrope/ncursesw-ruby/commit/bd468ad296ed5bed2e51ad335858e0c92290e492
+Patch0:         %{gem_name}-pr40-c23.patch
 Requires:       ruby
 BuildRequires:  ruby
 BuildRequires:  rubygems-devel
@@ -43,6 +46,7 @@ Documentation for %{name}
 
 %prep
 %setup -q -n %{gem_name}-%{version}
+%patch -P0 -p1 -b .c23
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -77,6 +81,9 @@ rm -rf %{buildroot}%{gem_instdir}/extconf.rb/
 %{gem_instdir}/examples
 
 %changelog
+* Fri Sep 26 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.11-7
+- Backport upstream patch for C23
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.11-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

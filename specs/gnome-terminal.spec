@@ -8,7 +8,7 @@
 %define desktop_file_utils_version 0.2.90
 
 Name:    gnome-terminal
-Version: 3.56.2
+Version: 3.56.3
 Release: %autorelease
 Summary: Terminal emulator for GNOME
 

@@ -1,7 +1,7 @@
 
 %global qt_module qtquick3d
 
-#global unstable 0
+%global unstable 1
 %if 0%{?unstable}
 %global prerelease rc
 %endif
@@ -15,7 +15,7 @@
 
 Summary: Qt6 - Quick3D Libraries and utilities
 Name:    qt6-%{qt_module}
-Version: 6.9.2
+Version: 6.10.0%{?unstable:~%{prerelease}}
 Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -119,7 +119,7 @@ mkdir %{buildroot}%{_bindir}
 pushd %{buildroot}%{_qt6_bindir}
 for i in * ; do
   case "${i}" in
-    balsam|meshdebug|shadergen|balsamui|instancer|materialeditor|shapegen)
+    balsam|meshdebug|shadergen|balsamui|instancer|materialeditor|shapegen|lightmapviewer)
       ln -v  ${i} %{buildroot}%{_bindir}/${i}-qt6
       ;;
     *)
@@ -173,6 +173,7 @@ popd
 %{_bindir}/instancer-qt6
 %{_bindir}/materialeditor-qt6
 %{_bindir}/shapegen-qt6
+%{_bindir}/lightmapviewer-qt6
 %{_qt6_bindir}/balsam
 %{_qt6_bindir}/meshdebug
 %{_qt6_bindir}/shadergen
@@ -180,6 +181,7 @@ popd
 %{_qt6_bindir}/instancer
 %{_qt6_bindir}/materialeditor
 %{_qt6_bindir}/shapegen
+%{_qt6_bindir}/lightmapviewer
 %{_qt6_archdatadir}/mkspecs/modules/*.pri
 %{_qt6_libdir}/qt6/modules/*.json
 %{_qt6_includedir}/QtQuick3D
@@ -208,7 +210,6 @@ popd
 %dir %{_qt6_libdir}/cmake/Qt6Quick3DAssetUtils/
 %dir %{_qt6_libdir}/cmake/Qt6Quick3DAssetUtilsPrivate
 %dir %{_qt6_libdir}/cmake/Qt6Quick3DEffects/
-%dir %{_qt6_libdir}/cmake/Qt6Quick3DEffectsPrivate/
 %dir %{_qt6_libdir}/cmake/Qt6Quick3DGlslParserPrivate
 %dir %{_qt6_libdir}/cmake/Qt6Quick3DHelpers/
 %dir %{_qt6_libdir}/cmake/Qt6Quick3DHelpersPrivate/
@@ -217,7 +218,6 @@ popd
 %dir %{_qt6_libdir}/cmake/Qt6Quick3DIblBaker
 %dir %{_qt6_libdir}/cmake/Qt6Quick3DIblBakerPrivate
 %dir %{_qt6_libdir}/cmake/Qt6Quick3DParticleEffects
-%dir %{_qt6_libdir}/cmake/Qt6Quick3DParticleEffectsPrivate
 %dir %{_qt6_libdir}/cmake/Qt6Quick3DParticles
 %dir %{_qt6_libdir}/cmake/Qt6Quick3DParticlesPrivate
 %dir %{_qt6_libdir}/cmake/Qt6Quick3DPrivate
@@ -239,7 +239,6 @@ popd
 %{_qt6_libdir}/cmake/Qt6Quick3DAssetUtils/*.cmake
 %{_qt6_libdir}/cmake/Qt6Quick3DAssetUtilsPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6Quick3DEffects/*.cmake
-%{_qt6_libdir}/cmake/Qt6Quick3DEffectsPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6Quick3DGlslParserPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6Quick3DHelpers/*.cmake
 %{_qt6_libdir}/cmake/Qt6Quick3DHelpersPrivate/*.cmake
@@ -248,7 +247,6 @@ popd
 %{_qt6_libdir}/cmake/Qt6Quick3DIblBaker/*.cmake
 %{_qt6_libdir}/cmake/Qt6Quick3DIblBakerPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6Quick3DParticleEffects/*.cmake
-%{_qt6_libdir}/cmake/Qt6Quick3DParticleEffectsPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6Quick3DParticles/*.cmake
 %{_qt6_libdir}/cmake/Qt6Quick3DParticlesPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6Quick3DPrivate/*.cmake
@@ -301,6 +299,9 @@ popd
 %endif
 
 %changelog
+* Thu Sep 25 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0~rc-1
+- 6.10.0 RC
+
 * Thu Aug 28 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.2-1
 - 6.9.2
 

@@ -22,7 +22,7 @@ Name:             dogtag-pki
 # - development (unsupported): alpha<n> where n >= 1
 # - stabilization (unsupported): beta<n> where n >= 1
 # - GA/update (supported): <none>
-%global           phase beta5
+%global           phase beta6
 
 %undefine         timestamp
 %undefine         commit_id
@@ -32,7 +32,7 @@ URL:              https://www.dogtagpki.org
 # The entire source code is GPLv2 except for 'pki-tps' which is LGPLv2
 License:          GPL-2.0-only AND LGPL-2.0-only
 Version:          %{major_version}.%{minor_version}.%{update_version}
-Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}.1
+Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}
 
 
 # To create a tarball from a version tag:
@@ -2074,6 +2074,9 @@ fi
 
 ################################################################################
 %changelog
+* Fri Sep 26 2025 Dogtag PKI Team <devel@lists.dogtagpki.org> - 11.8.0-0.5.beta6
+- Rebase to PKI 11.8.0-beta6
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 11.8.0-0.6.beta5.1
 - Rebuilt for Python 3.14.0rc3 bytecode
 

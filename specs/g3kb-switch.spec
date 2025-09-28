@@ -12,6 +12,7 @@ URL:            https://github.com/lyokha/g3kb-switch
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Patch:          gnome-47.patch
 Patch:          gnome-48.patch
+Patch:          gnome-49.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc

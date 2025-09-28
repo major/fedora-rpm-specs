@@ -5,13 +5,17 @@
 %global crate test-log
 
 Name:           rust-test-log
-Version:        0.2.17
+Version:        0.2.18
 Release:        %autorelease
 Summary:        Attribute for initializing logging and/or tracing before running tests
 
 License:        Apache-2.0 OR MIT
 URL:            https://crates.io/crates/test-log
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * Update rstest requirement from 0.25.0 to 0.26.1:
+#   https://github.com/d-e-s-o/test-log/commit/d1a217e2e464905a3cddaa569d2382decf439df8
+Patch:          test-log-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

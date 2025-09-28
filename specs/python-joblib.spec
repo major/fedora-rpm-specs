@@ -3,7 +3,7 @@
 %global srcname joblib
 
 Name:  python-%{srcname}
-Version: 1.5.1
+Version: 1.5.2
 Release: %autorelease
 Summary: Lightweight pipelining: using Python functions as pipeline jobs
 
@@ -12,8 +12,6 @@ URL: https://joblib.readthedocs.io
 Source0: %{pypi_source}
 
 Patch: joblib-unbundle-cloudpickle.patch
-# Support Python 3.14
-Patch: Use-inspect.iscoroutinefunction-instead-of-asyncio-o.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

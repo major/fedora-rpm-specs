@@ -7,7 +7,7 @@
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    8c86ae3e84f69acff53b9d4b96614a68e3572901
+%global gh_commit    64cfeaa341951ceb2019d7b98232399d57bb2296
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   exporter
@@ -28,7 +28,7 @@
 # NOTICE: used by phpunit 6, 7 and 8
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        3.1.7
+Version:        3.1.8
 Release:        1%{?dist}
 Summary:        Export PHP variables for visualization, version %{major}
 
@@ -115,6 +115,9 @@ exit $ret
 
 
 %changelog
+* Wed Sep 24 2025 Remi Collet <remi@remirepo.net> - 3.1.8-1
+- update to 3.1.8
+
 * Mon Sep 22 2025 Remi Collet <remi@remirepo.net> - 3.1.7-1
 - update to 3.1.7
 

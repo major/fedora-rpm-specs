@@ -1,6 +1,6 @@
 %global qt_module qtcoap
 
-#global unstable 0
+%global unstable 1
 %if 0%{?unstable}
 %global tar_prerelease rc1
 %global prerelease rc
@@ -10,7 +10,7 @@
 
 Summary: Qt6 - CoAP component
 Name:    qt6-%{qt_module}
-Version: 6.9.2
+Version: 6.10.0%{?unstable:~%{prerelease}}
 Release: 1%{?dist}
 
 License: GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -94,6 +94,9 @@ Requires: %{name}-devel%{?_isa} = %{version}-%{release}
 %endif
 
 %changelog
+* Thu Sep 25 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0~rc-1
+- 6.10.0 RC
+
 * Thu Aug 28 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.2-1
 - 6.9.2
 

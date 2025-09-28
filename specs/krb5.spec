@@ -10,7 +10,7 @@
 #
 # baserelease is what we have standardized across Fedora and what
 # rpmdev-bumpspec knows how to handle.
-%global baserelease 7
+%global baserelease 8
 
 # This should be e.g. beta1 or %%nil
 %global pre_release %nil
@@ -97,6 +97,7 @@ Patch0035: 0035-Don-t-issue-session-keys-with-deprecated-enctypes.patch
 Patch0036: 0036-downstream-Remove-3des-support-cumulative-1.patch
 Patch0037: 0037-Add-PKINIT-paChecksum2-from-MS-PKCA-v20230920.patch
 Patch0038: 0038-downstream-Do-not-block-HMAC-MD4-5-in-FIPS-mode.patch
+Patch0040: 0040-automated-fast.patch
 
 License: Brian-Gladman-2-Clause AND BSD-2-Clause AND (BSD-2-Clause OR GPL-2.0-or-later) AND BSD-2-Clause-first-lines AND BSD-3-Clause AND BSD-4-Clause AND CMU-Mach-nodoc AND FSFULLRWD AND HPND AND HPND-export2-US AND HPND-export-US AND HPND-export-US-acknowledgement AND HPND-export-US-modify AND ISC AND MIT AND MIT-CMU AND OLDAP-2.8 AND OpenVision
 URL: https://web.mit.edu/kerberos/www/
@@ -742,6 +743,11 @@ exit 0
 %{_datarootdir}/%{name}-tests/%{_arch}
 
 %changelog
+* Fri Sep 26 2025 Alexander Bokovoy <abokovoy@redhat.com> - 1.21.3-8
+- Add automated FAST channel for kinit
+- https://github.com/krb5/krb5/pull/1447 - work in progress
+
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.21.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,11 +1,12 @@
 Summary:       A set of scripts to work locally on subversion checkouts using mercurial
 Name:          hgsvn
 Version:       0.6.0
-Release:       24%{?dist}
+Release:       25%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:       GPL-3.0-or-later
 URL:           http://pypi.python.org/pypi/hgsvn/
 Source0:       https://files.pythonhosted.org/packages/source/h/hgsvn/hgsvn-%{version}.tar.gz
+Patch:         0001-Convert-to-pytest.patch
 BuildArch:     noarch
 Requires:      mercurial >= 1.4.3
 Requires:      subversion
@@ -28,7 +29,7 @@ submit patches to project maintainers, etc. And of course you have
 fast local operations like hg log and hg annotate.
 
 %prep
-%autosetup
+%autosetup -p1
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -41,8 +42,8 @@ fast local operations like hg log and hg annotate.
 %pyproject_save_files -l %{name}
 
 %check
-%pyproject_check_import || :
-%pytest || :
+%pyproject_check_import
+%pytest
 
 %files -f %{pyproject_files}
 %doc AUTHORS.txt README.txt TODO.txt
@@ -51,6 +52,9 @@ fast local operations like hg log and hg annotate.
 %{_bindir}/hgpushsvn
 
 %changelog
+* Fri Sep 26 2025 Terje Røsten <terjeros@gmail.com> - 0.6.0-25
+- Convert to pytest
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.6.0-24
 - Rebuilt for Python 3.14.0rc3 bytecode
 

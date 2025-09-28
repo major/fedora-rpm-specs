@@ -10,11 +10,11 @@
 # disabled until phpunit11 available
 %bcond_without       tests
 
-%global gh_commit    8f67e53d3fcaf53105f95cc14f1630493d0fa2e6
+%global gh_commit    70a298763b40b213ec087c51c739efcaa90bcd74
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   exporter
-%global gh_date      2025-09-22
+%global gh_date      2025-09-24
 # Packagist
 %global pk_vendor    sebastian
 %global pk_project   %{gh_project}
@@ -27,7 +27,7 @@
 %global pear_channel pear.phpunit.de
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        6.3.1
+Version:        6.3.2
 Release:        1%{?dist}
 Summary:        Export PHP variables for visualization, version %{major}
 
@@ -114,6 +114,9 @@ exit $ret
 
 
 %changelog
+* Wed Sep 24 2025 Remi Collet <remi@remirepo.net> - 6.3.2-1
+- update to 6.3.2
+
 * Mon Sep 22 2025 Remi Collet <remi@remirepo.net> - 6.3.1-1
 - update to 6.3.1
 

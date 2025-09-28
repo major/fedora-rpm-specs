@@ -1,6 +1,6 @@
 %global        qt_module qtgraphs
 
-#global unstable 0
+%global unstable 1
 %if 0%{?unstable}
 %global prerelease rc
 %endif
@@ -9,7 +9,7 @@
 
 Summary: The Qt Graphs module enables you to visualize data in 3D
 Name:    qt6-%{qt_module}
-Version: 6.9.2
+Version: 6.10.0%{?unstable:~%{prerelease}}
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND GFDL-1.3-no-invariants-only AND GPL-3.0-only
@@ -93,8 +93,6 @@ popd
 %{_qt6_archdatadir}/sbom/%{qt_module}-%{qt_version}.spdx
 %{_qt6_libdir}/libQt6Graphs.so.6*
 %{_qt6_libdir}/libQt6GraphsWidgets.so.6*
-%{_qt6_libdir}/qt6/metatypes/qt6graphs_relwithdebinfo_metatypes.json
-%{_qt6_libdir}/qt6/modules/Graphs.json
 %{_qt6_qmldir}/QtGraphs
 
 %files devel
@@ -119,12 +117,16 @@ popd
 %{_qt6_libdir}/qt6/metatypes/qt6*_metatypes.json
 %{_qt6_libdir}/qt6/modules/*.json
 
+
 %if 0%{?examples}
 %files examples
 %{_qt6_examplesdir}/
 %endif
 
 %changelog
+* Thu Sep 25 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0~rc-1
+- 6.10.0 RC
+
 * Thu Aug 28 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.2-1
 - 6.9.2
 

@@ -10,7 +10,7 @@
 %global epoxy_version 1.2
 
 Name:           gtkmm4.0
-Version:        4.19.1
+Version:        4.20.0
 Release:        %autorelease
 Summary:        C++ interface for the GTK+ library
 

@@ -14,7 +14,7 @@
 
 Name:           zpaqfranz
 Epoch:          1
-Version:        63.1
+Version:        63.3
 Release:        1%{?dist}
 Summary:        Advanced multiversioned archiver with hardware acceleration
 # LICENSE:  MIT text
@@ -68,10 +68,7 @@ URL:            https://github.com/fcorbelli/%{name}
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 # Unbundle curl.h and fix loading curl libary, probably not suitable for
 # the upstream.
-Patch0:         zpaqfranz-63.1-Unbundle-curl.h-and-load-curl-DSO-by-a-bare-file-nam.patch
-# Fix loading libssh.so.4, in upstream after 63.1,
-# <https://github.com/fcorbelli/zpaqfranz/pull/200>.
-Patch1:         zpaqfranz-63.1-Do-not-stat-libssh.so.4-library-name-on-Unix.patch
+Patch0:         zpaqfranz-63.3-Unbundle-curl.h-and-load-curl-DSO-by-a-bare-file-nam.patch
 BuildRequires:  coreutils
 BuildRequires:  gcc-c++
 BuildRequires:  libcurl-devel
@@ -147,7 +144,7 @@ pod2man --utf8 man/zpaqfranz.pod man/zpaqfranz.1
 %check
 # Run a selftest
 ./zpaqfranz autotest
-# Test compress-decopress idemptotency
+# Test compress-decopress idempotency
 ./zpaqfranz a test.zpaq LICENSE
 ./zpaqfranz v test.zpaq
 
@@ -162,6 +159,9 @@ install -m 0644 -D -t %{buildroot}%{_mandir}/man1 man/zpaqfranz.1
 %{_mandir}/man1/zpaqfranz.1*
 
 %changelog
+* Fri Sep 26 2025 Petr Pisar <ppisar@redhat.com> - 1:63.3-1
+- 63.3 bump
+
 * Tue Aug 19 2025 Petr Pisar <ppisar@redhat.com> - 1:63.1-1
 - 63.1 bump
 

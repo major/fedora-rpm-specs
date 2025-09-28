@@ -35,8 +35,8 @@
 %endif
 
 %global upstreamname hipSPARSELt
-%global rocm_release 6.4
-%global rocm_patch 2
+%global rocm_release 7.0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 # The tensilelite that hipSPARELt use comes from hipBLASLt
@@ -44,7 +44,7 @@
 # stored in the toplevel tensilelite_tag.txt file
 #
 # https://github.com/ROCm/hipSPARSELt/issues/248
-%global hipblaslt_commit 510dcac724743ff35ec8c60270bc08505eddcfd7
+%global hipblaslt_commit 7fc3631478ce7887f3cfdba3adb149240ac539db
 %global hipblaslt_scommit %(c=%{hipblaslt_commit}; echo ${c:0:7})
 
 %global toolchain rocm
@@ -93,13 +93,16 @@
 
 Name:           %{hipsparselt_name}
 Version:        %{rocm_version}
-Release:        5%{?dist}
+Release:        1%{?dist}
 Summary:        A SPARSE marshaling library
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
 
 Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
 Source1:        https://github.com/ROCm/hipBLASLt/archive/%{hipblaslt_commit}/hipBLASLt-%{hipblaslt_scommit}.tar.gz
+# This are patches from the hiblaslt package for patching tensile
+Source2:        0001-hipblaslt-tensilelite-remove-yappi-dependency.patch
+Source3:        0001-hipblaslt-tensilelite-use-fedora-paths.patch
 
 %if %{with ninja}
 BuildRequires:  ninja-build
@@ -121,6 +124,7 @@ BuildRequires:  rocm-runtime-devel
 BuildRequires:  rocm-rpm-macros
 BuildRequires:  rocm-smi
 BuildRequires:  rocsparse-devel
+BuildRequires:  roctracer-devel
 BuildRequires:  zlib-devel
 
 # For tensilelite
@@ -139,6 +143,7 @@ BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(pyyaml)
 BuildRequires:  python3dist(joblib)
 BuildRequires:  python3dist(msgpack)
+BuildRequires:  python3dist(nanobind)
 BuildRequires:  msgpack-devel
 %global tensile_library_format msgpack
 %global tensile_verbose 1
@@ -192,29 +197,14 @@ tar xf %{SOURCE1}
 mv hipBLASLt-%{hipblaslt_commit} hipBLASLt
 cd hipBLASLt
 
-# Remove venv
-sed -i -e 's@. ${venv}/bin/activate@@'                                         tensilelite/Tensile/Ops/gen_assembly.sh
-sed -i -e 's@deactivate@@'                                                     tensilelite/Tensile/Ops/gen_assembly.sh
-# Change some paths in Common.py
-# change rocm path from /opt/rocm to /usr
-# need to be able to find hipcc, rocm-smi, extractkernel, rocm_agent_enumerator
-sed -i -e 's@opt/rocm@usr@'                                                    tensilelite/Tensile/Common.py
+patch -p1 < %{SOURCE2}
+patch -p1 < %{SOURCE3}
+
 # Use PATH to find where TensileGetPath and other tensile bins are
 sed -i -e 's@${Tensile_PREFIX}/bin/TensileGetPath@TensileGetPath@g'            tensilelite/Tensile/cmake/TensileConfig.cmake
 
-# defer to cmdline
-sed -i -e 's@set(CMAKE_INSTALL_LIBDIR@#set(CMAKE_INSTALL_LIBDIR@' CMakeLists.txt
-# Do not use virtualenv_install
-sed -i -e 's@virtualenv_install@#virtualenv_install@'                          CMakeLists.txt
-# do not mess with prefix path
-sed -i -e 's@APPEND CMAKE_PREFIX_PATH@APPEND NO_CMAKE_PREFIX_PATH@'            CMakeLists.txt
-
-sed -i 's@find_package(LLVM REQUIRED)@find_package(LLVM REQUIRED CONFIG PATHS "%{rocmllvm_cmakedir}")@' tensilelite/Tensile/Source/lib/CMakeLists.txt
-
-# Changes different from hipBLASLt
-sed -i -e 's@/opt/rocm/bin@/usr/bin@' tensilelite/Tensile/Utilities/Toolchain.py
-sed -i -e 's@/opt/rocm/lib/llvm/bin@/usr/lib64/rocm/llvm/bin@' tensilelite/Tensile/Utilities/Toolchain.py
-sed -i -e 's@amdclang@clang@g' tensilelite/Tensile/Utilities/Toolchain.py
+# Disable download of nanobind
+sed -i -e 's@FetchContent_MakeAvailable(nanobind)@find_package(nanobind)@' tensilelite/rocisa/CMakeLists.txt
 
 cd ..
 
@@ -260,19 +250,19 @@ export Tensile_DIR=${TL}%{python3_sitelib}/Tensile
        -DBUILD_CLIENTS_TESTS=%{build_test} \
        -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
        -DBUILD_VERBOSE=ON \
-       -DBUILD_WITH_TENSILE=ON \
        -DCMAKE_BUILD_TYPE=RelWithDebInfo \
        -DCMAKE_INSTALL_LIBDIR=%{_lib} \
-       -DCMAKE_C_COMPILER=%{rocmllvm_bindir}/clang \
-       -DCMAKE_CXX_COMPILER=%{rocmllvm_bindir}/clang++ \
+       -DCMAKE_C_COMPILER=%{rocmllvm_bindir}/amdclang \
+       -DCMAKE_CXX_COMPILER=%{rocmllvm_bindir}/amdclang++ \
+       -DCMAKE_PREFIX_PATH=%{python3_sitelib}/nanobind \
        -DCMAKE_Fortran_COMPILER=gfortran \
        -DCMAKE_VERBOSE_MAKEFILE=ON \
        -DHIP_PLATFORM=amd \
        -DROCM_SYMLINK_LIBS=OFF \
-       -DTensile_COMPILER=clang++ \
        -DTensile_LIBRARY_FORMAT=%{tensile_library_format} \
        -DTensile_VERBOSE=%{tensile_verbose} \
        -DVIRTUALENV_BIN_DIR=%{_bindir} \
+       -DVIRTUALENV_SITE_PATH=${TL}%{python3_sitelib} \
        %{nil}
 
 %cmake_build
@@ -324,6 +314,9 @@ chrpath -r %{rocmllvm_libdir} %{buildroot}%{_bindir}/hipsparselt-test
 %endif
 
 %changelog
+* Fri Sep 26 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-1
+- Update to 7.0.1
+
 * Thu Aug 28 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.2-5
 - Add Fedora copyright
 

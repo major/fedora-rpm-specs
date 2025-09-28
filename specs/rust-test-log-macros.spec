@@ -5,7 +5,7 @@
 %global crate test-log-macros
 
 Name:           rust-test-log-macros
-Version:        0.2.17
+Version:        0.2.18
 Release:        %autorelease
 Summary:        Supporting procedural macro crate for test-log
 

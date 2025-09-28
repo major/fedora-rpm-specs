@@ -1,20 +1,21 @@
-%global pkgname recog
-%global giturl  https://github.com/gap-packages/recog
+%global gap_pkgname recog
+%global giturl      https://github.com/gap-packages/recog
 
-Name:           gap-pkg-%{pkgname}
+Name:           gap-pkg-%{gap_pkgname}
 Version:        1.4.4
 Release:        %autorelease
 Summary:        Group recognition methods
 
 License:        GPL-3.0-or-later
-BuildArch:      noarch
-# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch:    %{ix86}
 URL:            https://gap-packages.github.io/recog/
 VCS:            git:%{giturl}.git
-Source0:        %{giturl}/releases/download/v%{version}/%{pkgname}-%{version}.tar.bz2
+Source0:        %{giturl}/releases/download/v%{version}/%{gap_upname}-%{version}.tar.bz2
 # Predownloaded data from ATLAS needed for the tests
 Source1:        %{name}-testdata.tar.xz
+
+BuildArch:      noarch
+BuildSystem:    gap
+BuildOption(install): contrib examples gap tst
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-atlasrep
@@ -48,18 +49,10 @@ Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
 
 %description doc
-This package contains documentation for gap-pkg-%{pkgname}.
+This package contains documentation for gap-pkg-%{gap_pkgname}.
 
 %prep
-%autosetup -n %{pkgname}-%{version} -b 1
-
-%build
-gap makedoc.g
-
-%install
-mkdir -p %{buildroot}%{gap_libdir}/pkg/%{pkgname}/doc
-cp -a *.g contrib examples gap tst %{buildroot}%{gap_libdir}/pkg/%{pkgname}
-%gap_copy_docs
+%autosetup -n %{gap_upname}-%{version} -b 1
 
 %check
 # Tell ATLAS where to find downloaded files
@@ -75,17 +68,17 @@ gap -l '%{buildroot}%{gap_libdir};' tst/testslow.g
 %files
 %doc CHANGES NOTES README.md TODO WISHLIST
 %license COPYRIGHT LICENSE
-%dir %{gap_libdir}/pkg/%{pkgname}/
-%{gap_libdir}/pkg/%{pkgname}/*.g
-%{gap_libdir}/pkg/%{pkgname}/contrib/
-%{gap_libdir}/pkg/%{pkgname}/gap/
-%{gap_libdir}/pkg/%{pkgname}/tst/
+%dir %{gap_libdir}/pkg/%{gap_upname}/
+%{gap_libdir}/pkg/%{gap_upname}/*.g
+%{gap_libdir}/pkg/%{gap_upname}/contrib/
+%{gap_libdir}/pkg/%{gap_upname}/gap/
+%{gap_libdir}/pkg/%{gap_upname}/tst/
 
 %files doc
-%docdir %{gap_libdir}/pkg/%{pkgname}/doc/
-%docdir %{gap_libdir}/pkg/%{pkgname}/examples/
-%{gap_libdir}/pkg/%{pkgname}/doc/
-%{gap_libdir}/pkg/%{pkgname}/examples/
+%docdir %{gap_libdir}/pkg/%{gap_upname}/doc/
+%docdir %{gap_libdir}/pkg/%{gap_upname}/examples/
+%{gap_libdir}/pkg/%{gap_upname}/doc/
+%{gap_libdir}/pkg/%{gap_upname}/examples/
 
 %changelog
 %autochangelog
