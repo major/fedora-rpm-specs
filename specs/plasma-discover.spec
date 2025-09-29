@@ -9,7 +9,7 @@
 Name:    plasma-discover
 Summary: KDE and Plasma resources management GUI
 Version: 6.4.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://invent.kde.org/plasma/discover
@@ -116,11 +116,6 @@ Recommends: fedora-appstream-metadata
 Recommends: %{name}-offline-updates = %{version}-%{release}
 %endif
 
-# Require fedora-third-party on Fedora
-%if 0%{?fedora}
-Requires: fedora-third-party
-%endif
-
 # handle upgrade path
 %if ! 0%{?snap}
 Obsoletes: plasma-discover-snap < %{version}-%{release}
@@ -138,10 +133,6 @@ Summary: Runtime libraries for %{name}
 Summary: Plasma Discover PackageKit support
 Requires: %{name} = %{version}-%{release}
 Requires: PackageKit
-%if 0%{?fedora}
-# Pull in the workstation repositories package
-Recommends: fedora-workstation-repositories
-%endif
 %description packagekit
 %{summary}.
 
@@ -165,10 +156,6 @@ Requires: flatpak >= %{flatpak_version}
 Requires: flatpak-libs%{?_isa} >= %{flatpak_version}
 Requires: (flatpak-kcm if plasma-systemsettings)
 Supplements: (%{name} and flatpak)
-%if 0%{?fedora}
-# Pull in the flathub remote package
-Recommends: fedora-flathub-remote
-%endif
 %description flatpak
 %{summary}.
 
@@ -325,6 +312,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.discover.desk
 %{_kf6_qtplugindir}/discover/kns-backend.so
 
 %changelog
+* Fri Sep 26 2025 Timothée Ravier <tim@siosm.fr> - 6.4.5-2
+- Move dependency on fedora-third-party, fedora-flathub-remote &
+  fedora-workstation-repositories to comps groups.
+
 * Tue Sep 16 2025 farchord@gmail.com - 6.4.5-1
 - 6.4.5
 

@@ -3,8 +3,8 @@
 
 # https://github.com/browserpass/browserpass-native
 %global goipath         github.com/browserpass/browserpass-native
-Version:                3.1.0
 %global tag             %{version}
+Version:                3.1.2
 
 %global native_mozpath %{_libdir}/mozilla/native-messaging-hosts
 %global native_chromepath %{_sysconfdir}/chromium/native-messaging-hosts
@@ -24,7 +24,7 @@ Summary:        Native messaging host
 License:        ISC
 URL:            %{gourl}
 Source:         %{gosource}
-Source:         %{gourl}/releases/download/%{version}/%{name}-native-%{version}.tar.gz.asc
+Source:         %{gourl}/releases/download/v%{version}/%{name}-native-%{version}.tar.gz.asc
 Source:         https://maximbaz.com/pgp_keys.asc
 
 BuildRequires: jq

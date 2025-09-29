@@ -1,15 +1,12 @@
 %define pkgverdir %(echo %version|sed s/\\\\\./_/)
 
 Name:           openmsx
-Version:        20.0
-Release:        5%{?dist}
+Version:        21.0
+Release:        1%{?dist}
 Summary:        An emulator for the MSX home computer system
 License:        GPL-2.0-only
 URL:            https://openmsx.org/
 Source0:        https://github.com/openMSX/openMSX/releases/download/RELEASE_%{pkgverdir}/%{name}-%{version}.tar.gz
-# Fix build failure with GCC 15
-# Patch from Debian
-Patch0:         %{name}-20.0-iterator.patch
 BuildRequires:  alsa-lib-devel
 BuildRequires:  desktop-file-utils libappstream-glib
 BuildRequires:  docbook-utils
@@ -181,6 +178,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Sat Sep 27 2025 Andrea Musuruane <musuruan@gmail.com> - 21.0-1
+- New upstream version 21.0
+
 * Fri Aug 01 2025 Andrea Musuruane <musuruan@gmail.com> - 20.0-5
 - Fix build failure with GCC 15 (BZ #2385367)
 

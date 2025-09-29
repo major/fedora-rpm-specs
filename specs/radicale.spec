@@ -20,7 +20,7 @@
 
 %define radicale_major  3
 
-%define radicale_version  3.5.6
+%define radicale_version  3.5.7
 %define radicale_release  1
 #define gitcommit 8e9fdf391acb79d3fb1cb6e6b8f882f8999192cf
 
@@ -36,7 +36,7 @@
 
 Name:           radicale
 Version:        %{radicale_version}
-Release:        %{radicale_release}%{?gittag}%{?dist}.3
+Release:        %{radicale_release}%{?gittag}%{?dist}
 Summary:        A simple CalDAV (calendar) and CardDAV (contact) server
 License:        GPL-3.0-or-later
 URL:            https://radicale.org
@@ -528,6 +528,9 @@ fi
 
 
 %changelog
+* Sat Sep 27 2025 Peter Bieringer <pb@bieringer.de>  - 3.5.7-1
+- Update to 3.5.7
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.5.6-1.3
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -1,6 +1,6 @@
 Name:          openapv
 Release:       %autorelease
-Version:       0.2.0.3
+Version:       0.2.0.4
 Summary:       Open Advanced Professional Video Codec
 License:       BSD-3-Clause
 URL:           https://github.com/AcademySoftwareFoundation/openapv
@@ -11,6 +11,9 @@ BuildRequires: cmake
 BuildRequires: ninja-build
 BuildRequires: gcc
 Requires:      %{name}-libs%{?_isa} = %{version}-%{release}
+
+%global somaj %{lua:t={} for f in string.gmatch(macros['version'], "([^.]*)(.?)") do table.insert(t,f) end print(t[2])}
+%global sover %{lua:t={} for f in string.gmatch(macros['version'], "([^.]*)(.?)") do table.insert(t,f) end print(string.format("%s.%s.%s",t[2],t[3],t[4]))}
 
 %description
 OpenAPV provides the reference implementation of the APV codec which can
@@ -65,8 +68,7 @@ rm -v %{buildroot}%{_libdir}/oapv/liboapv.a
 %files libs
 %license LICENSE
 %doc README.md
-%{_libdir}/liboapv.so.2
-%{_libdir}/liboapv.so.2.0.3
+%{_libdir}/liboapv.so.{%{somaj},%{sover}}
 
 %changelog
 %autochangelog

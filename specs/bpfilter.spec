@@ -1,11 +1,9 @@
 Name:       bpfilter
-Version:    0.5.2
+Version:    0.6.0
 Release:    %autorelease
 Summary:    BPF-based packet filtering framework
 
-# MurmurHash3 (src/external/murmur3.{c,h} is public domain; see
-# https://gitlab.com/fedora/legal/fedora-license-data/-/merge_requests/442
-License:    GPL-2.0-only AND LicenseRef-Fedora-Public-Domain
+License:    GPL-2.0-only
 URL:        https://bpfilter.io
 Source:     https://github.com/facebook/bpfilter/archive/refs/tags/v%{version}.tar.gz#/bpfilter-%{version}.tar.gz
 
@@ -25,10 +23,6 @@ BuildRequires: vim-common
 
 # Only those two architectures are supported by bpfilter.
 ExclusiveArch: %{x86_64} %{arm64}
-
-# Ensure we still use make for F43 until ninja can be used by default
-# See https://fedoraproject.org/wiki/Changes/CMake_ninja_default
-%global _cmake_generator "Unix Makefiles"
 
 %global soname_version %%(echo %%{version}} | cut -d. -f1)
 
@@ -56,7 +50,7 @@ developing applications that use %{name}.
 %cmake_build -- bpfilter libbpfilter bfcli
 
 %check
-make -C %__cmake_builddir test
+make -C %__cmake_builddir unit
 
 %install
 %cmake_install
@@ -79,8 +73,7 @@ make -C %__cmake_builddir test
 %{_unitdir}/bpfilter.service
 
 %files devel
-%dir %{_includedir}/bpfilter
-%{_includedir}/bpfilter/bpfilter.h
+%{_includedir}/bpfilter/
 %{_libdir}/libbpfilter.so
 %{_libdir}/pkgconfig/bpfilter.pc
 

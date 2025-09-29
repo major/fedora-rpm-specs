@@ -1,5 +1,5 @@
 %global packname V8
-%global packver  7.0.0
+%global packver  8.0.0
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}

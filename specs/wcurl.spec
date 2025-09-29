@@ -1,7 +1,7 @@
 %bcond tests 0
 
 Name:           wcurl
-Version:        2025.05.26
+Version:        2025.09.27
 Release:        %autorelease
 Summary:        A simple wrapper around curl to easily download files
 License:        curl

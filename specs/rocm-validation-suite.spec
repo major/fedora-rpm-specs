@@ -18,7 +18,7 @@
 
 Name:           rocm-validation-suite
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm Validation Suite (rvs)
 
 Url:            https://github.com/ROCm/ROCmValidationSuite
@@ -39,6 +39,15 @@ License:        MIT AND NCSA
 
 Source0:        %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
+# From CMakeMXDataGeneratorDownload.cmake
+%global mxdata_commit 12c016dc694139317feb2e23c59028fde70beaf4
+%global mxdata_scommit %(c=%{mxdata_commit}; echo ${c:0:7})
+# MIT
+Source1:        https://github.com/ROCm/mxDataGenerator/archive/%{mxdata_commit}/mxDataGenerator-%{mxdata_scommit}.tar.gz
+# https://github.com/ROCm/ROCmValidationSuite/issues/1023
+Patch1:         0001-rocm-validation-suite-do-not-download-mxDataGenerato.patch
+
+BuildRequires:  amdsmi-devel
 BuildRequires:  cmake
 BuildRequires:  fdupes
 BuildRequires:  gcc-c++
@@ -50,7 +59,9 @@ BuildRequires:  pciutils-devel
 BuildRequires:  rocblas-devel
 BuildRequires:  rocm-cmake
 BuildRequires:  rocm-comgr-devel
+BuildRequires:  rocm-compilersupport-macros
 BuildRequires:  rocm-hip-devel
+BuildRequires:  rocm-omp-devel
 BuildRequires:  rocm-rpm-macros
 BuildRequires:  rocm-runtime-devel
 BuildRequires:  rocm-smi-devel
@@ -69,6 +80,11 @@ hardware platform.
 
 %prep
 %autosetup -n %{upstreamname}-rocm-%{version} -p1
+
+# mxDataGenerator
+tar xf %{SOURCE1}
+mv mxDataGenerator-* mxDataGenerator
+cp -p mxDataGenerator/LICENSE.md mxDataGenerator/LICENSE.mxDataGenerator.md
 
 # disable rpath
 # Fixes these related issues on build
@@ -113,7 +129,11 @@ sed -i -e 's@--offload-arch=gfx1030@--offload-arch=gfx1030 --offload-arch=gfx103
 sed -i -e 's@GIT NAMES git@GIT NAMES git-not-going-to-find-me@' cmake_modules/utils.cmake
 
 # fix link of librvslib
-sed -i -e '/add_library/a target_link_libraries(${RVS_TARGET} -lrocm_smi64 -lhipblaslt -lhiprand -lrocrand -lrocblas -lyaml-cpp -lpci )' rvslib/CMakeLists.txt
+sed -i -e '/add_library/a target_link_libraries(${RVS_TARGET} -lrocm_smi64 -lhipblaslt -lhiprand -lrocrand -lrocblas -lyaml-cpp -lpci -lamd_smi -lamdhip64 -lhsa-runtime64)' rvslib/CMakeLists.txt
+
+# for finding omp.h
+sed -i -e 's@${YAML_CPP_INCLUDE_DIR}@${YAML_CPP_INCLUDE_DIR} "/usr/lib64/rocm/llvm/include" @' rvs/CMakeLists.txt
+sed -i -e 's@${YAML_CPP_INCLUDE_DIR}@${YAML_CPP_INCLUDE_DIR} "/usr/lib64/rocm/llvm/include" @' rvslib/CMakeLists.txt
 
 # No devel package
 %build
@@ -121,10 +141,11 @@ sed -i -e '/add_library/a target_link_libraries(${RVS_TARGET} -lrocm_smi64 -lhip
        -DAMDGPU_TARGETS=%{rocm_gpu_list_default} \
        -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
        -DCMAKE_BUILD_TYPE=%{build_type} \
-       -DCMAKE_C_COMPILER=hipcc \
-       -DCMAKE_CXX_COMPILER=hipcc \
+       -DCMAKE_C_COMPILER=%{rocmllvm_bindir}/amdclang \
+       -DCMAKE_CXX_COMPILER=%{rocmllvm_bindir}/amdclang++ \
        -DCMAKE_INSTALL_LIBDIR=%{_libdir} \
        -DHIP_PLATFORM=amd \
+       -DMXDATAGENERATOR_INC_DIR=${PWD}/mxDataGenerator/lib/include \
        -DRVS_BUILD_TESTS=FALSE
 
 %cmake_build
@@ -160,7 +181,7 @@ done
 %fdupes %{buildroot}%{_prefix}
 
 %files
-%license LICENSE
+%license LICENSE mxDataGenerator/LICENSE.mxDataGenerator.md
 %doc README.md
 %dir %{_datadir}/rocm-validation-suite
 %dir %{_libdir}/rvs
@@ -183,6 +204,10 @@ done
 %{_libdir}/rvs/libtst.so
 
 %changelog
+* Sat Sep 27 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-2
+- build requires amdsmi-devel
+- import mxdatagenertor
+
 * Mon Sep 22 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-1
 - Update to 7.0.1
 

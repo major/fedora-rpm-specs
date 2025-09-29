@@ -5,7 +5,7 @@
 %bcond_with check
 
 Name:		ada-url
-Version:	3.2.7
+Version:	3.3.0
 
 %global forgeurl https://github.com/%{name}/ada
 %forgemeta

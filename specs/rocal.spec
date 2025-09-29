@@ -55,7 +55,7 @@
 
 Name:           rocal
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm Augmentation Library
 
 Url:            https://github.com/ROCm/rocAL
@@ -73,7 +73,8 @@ Source0:        %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version
 Source1:        https://github.com/Tencent/rapidjson/archive/%{rapidjson_commit}.tar.gz
 
 BuildRequires:  cmake
-# Problems with opional ffmpeg
+BuildRequires:  chrpath
+# Problems with optional ffmpeg
 # rocAL-rocm-6.3.3/rocAL/source/decoders/video/hardware_video_decoder.cpp:178:11: error: no matching function for call to 'av_find_best_stream'
 #  178 |     ret = av_find_best_stream(_fmt_ctx, AVMEDIA_TYPE_VIDEO, -1, -1, &_decoder, 0);
 #      |           ^~~~~~~~~~~~~~~~~~~
@@ -190,6 +191,8 @@ cd ../..
     -DCMAKE_BUILD_TYPE=%{build_type} \
     -DCMAKE_INSTALL_LIBDIR=%_libdir \
     -DCMAKE_PREFIX_PATH=$p/install/lib/cmake \
+    -DCMAKE_C_COMPILER=%{rocmllvm_bindir}/amdclang \
+    -DCMAKE_CXX_COMPILER=%{rocmllvm_bindir}/amdclang++ \
     -DCOMPILER_FOR_HIP=%rocmllvm_bindir/clang++ \
     -DHIP_PLATFORM=amd \
     -DROCM_PATH=%_prefix
@@ -219,6 +222,9 @@ fi
 rm -rf %{buildroot}%{_datadir}/rocal/test
 %endif
 
+# ERROR   0020: file '/usr/lib64/librocal.so.2.3.0' contains a rpath referencing '..' of an absolute path [:/usr/lib64/rocm/llvm/bin/../lib]
+chrpath -r %{rocmllvm_libdir} %{buildroot}%{_libdir}/librocal.so.2.*.*
+
 %files
 %doc README.md
 %license LICENSE.txt
@@ -234,6 +240,9 @@ rm -rf %{buildroot}%{_datadir}/rocal/test
 %endif
 
 %changelog
+* Sat Sep 27 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-2
+- set cxx compiler to amdclang++
+
 * Sun Sep 21 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-1
 - Update to 7.0.1
 

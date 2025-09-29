@@ -1,10 +1,14 @@
 # The version of MuseScore itself
-%global musescore_ver             4.3.2
+%global musescore_ver             4.6.0
+%global prerel                    beta
 %global musescore_maj             %(cut -d. -f-2 <<< %{musescore_ver})
 %global giturl                    https://github.com/musescore/MuseScore
 
 # Font versions.  Use otfinfo -v to extract these values.
-%global mscore_font_ver           2.002
+# Most are in the fonts directory.  Exceptions:
+# - src/framework/ui/data/MusescoreIcon.ttf
+# - share/sound/SF_VERSION
+%global mscore_font_ver           2.003
 %global mscoretext_font_ver       1.0
 %global musescoreicon_font_ver    1.0
 %global mscorebc_font_ver         1.0
@@ -19,8 +23,8 @@
 # number indefinitely.
 Name:           musescore
 Summary:        Music Composition & Notation Software
-Version:        %{musescore_ver}
-Release:        22%{?dist}
+Version:        %{musescore_ver}%{?prerel:~%prerel}
+Release:        23%{?dist}
 
 # The MuseScore project itself is GPL-3.0-only WITH Font-exception-2.0.  Other
 # licenses in play:
@@ -38,15 +42,12 @@ Release:        22%{?dist}
 # LGPL-2.1-or-later
 # - thirdparty/fluidsynth
 # - thirdparty/rtf2html
-# (LGPL-2.1-or-later AND GPL-3.0-or-later)
-# - src/braille/thirdparty/liblouis/
 # MIT
 # - thirdparty/intervaltree
+# - src/framework/audio/thirdparty/fluidsynth/fluidsynth-2.3.3/src/bindings/fluid_rtkit.{c,h}
 # - src/framework/global/thirdparty/deto_async/LICENSE
 # - src/framework/global/thirdparty/haw_logger/LICENSE
 # - src/framework/global/thirdparty/haw_profiler/LICENSE
-# - thirdparty/fluidsynth/fluidsynth-2.1.4/src/bindings/fluid_rtkit.c
-# - thirdparty/fluidsynth/fluidsynth-2.1.4/src/bindings/fluid_rtkit.h
 # BSL-1.0
 # - code from the utf8cpp header-only library
 # BSD-2-Clause
@@ -55,7 +56,18 @@ Release:        22%{?dist}
 # - code from the dr_libs header-only library
 # Unlicense OR MIT
 # - code from the stb_vorbis header-only library
-License:        GPL-3.0-only WITH Font-exception-2.0 AND GPL-2.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND GPL-3.0-or-later AND LGPL-3.0-only AND LGPL-2.1-or-later AND (LGPL-2.1-or-later AND GPL-3.0-or-later) AND MIT AND BSD-2-Clause AND (Unlicense OR MIT-0) AND (Unlicense OR MIT)
+License:      %{shrink:
+                GPL-3.0-only WITH Font-exception-2.0 AND
+                GPL-2.0-or-later AND
+                (GPL-2.0-only OR GPL-3.0-only) AND
+                GPL-3.0-or-later AND
+                LGPL-3.0-only AND
+                LGPL-2.1-or-later AND
+                MIT AND
+                BSD-2-Clause AND
+                (Unlicense OR MIT-0) AND
+                (Unlicense OR MIT)
+		}
 URL:            https://musescore.org/
 VCS:            git:%{giturl}.git
 
@@ -65,7 +77,7 @@ VCS:            git:%{giturl}.git
 %global fontfamily1     MScore
 %global fontsummary1    MuseScore base music font
 %global fontlicense1    GPL-3.0-or-later WITH Font-exception-2.0
-%global fonts1          fonts/mscore/mscore.ttf
+%global fonts1          fonts/mscore/MScore.otf
 %global fontconfs1      %{SOURCE1}
 %global fontdescription1 %{expand:
 This package contains the base MuseScore music font.  It is derived from
@@ -79,7 +91,7 @@ Version:        %{mscore_font_ver}
 %global fontfamily2     MScoreText
 %global fontsummary2    MuseScore base text font
 %global fontlicense2    OFL-1.1-RFN
-%global fonts2          fonts/mscore/MScoreText.ttf
+%global fonts2          fonts/mscore/MScoreText.otf
 %global fontconfs2      %{SOURCE2}
 %global fontdescription2 %{expand:
 This package contains the base MuseScore text font.}
@@ -93,7 +105,7 @@ Provides:       mscore-mscoretext-fonts = %{musescore_ver}-%{release}
 %global fontfamily3     MusescoreIcon
 %global fontsummary3    MuseScore icon set
 %global fontlicense3    GPL-3.0-or-later WITH Font-exception-2.0
-%global fonts3          fonts/mscore/MusescoreIcon.ttf
+%global fonts3          src/framework/ui/data/MusescoreIcon.ttf
 %global fontconfs3      %{SOURCE3}
 %global fontdescription3 %{expand:
 This package contains a set of MuseScore icons.}
@@ -188,7 +200,7 @@ The Gootville Text font is designed to complement the Gootville font.}
 Version:        %{gootville_text_font_ver}
 }
 
-Source0:        %{giturl}/archive/v%{musescore_ver}/MuseScore-%{musescore_ver}.tar.gz
+Source0:        %{giturl}/archive/v%{musescore_ver}%{?prerel:-%prerel}/MuseScore-%{musescore_ver}%{?prerel:-%prerel}.tar.gz
 # Fontconfig files
 Source1:        65-%{fontpkgname1}.conf
 Source2:        65-%{fontpkgname2}.conf
@@ -200,121 +212,111 @@ Source7:        65-%{fontpkgname7}.conf
 Source8:        65-%{fontpkgname8}.conf
 Source9:        65-%{fontpkgname9}.conf
 
-# Ensure CMake will use qmake-qt5
-Patch:          %{name}-fix-qmake-path.patch
-# Unbundle dr_libs, flac, freetype, gtest, lame, opusenc, and stb
+# Unbundle dr_libs, gtest, lame, liblouis, pugixml, stb, and utf8cpp.
 # We cannot unbundle KDDockWidgets because the Fedora package builds the
 # QtWidgets version, but MuseScore needs the QtQuick version.
 # See https://bugzilla.redhat.com/show_bug.cgi?id=2227098
 Patch:          %{name}-unbundle-libs.patch
 # Unbundle the fonts to comply with the font packaging guidelines
 Patch:          %{name}-unbundle-fonts.patch
-# FIXME: a translucent background leads to an invisible splash screen.
-# Why?  I don't know, but make the background opaque for now.
-Patch:          %{name}-splashscreen.patch
-# Help the compiler find the ffmpeg headers
-Patch:          %{name}-ffmpeg.patch
-# Fix invalid AppData
-# - Remove an invalid <icon> tag
-# - Remove duplicated <release> data
-# https://github.com/musescore/MuseScore/pull/21482
+# Fix invalid AppData by removing an invalid <icon> tag
 Patch:          %{name}-appdata.patch
-# Avoid calling localtime in multithreaded code
-# https://github.com/musescore/MuseScore/pull/21178
-Patch:          %{name}-localtime.patch
 # Workaround to avoid an out-of-bounds vector access that causes crashes.
 # This patch treats the symptom, not the actual disease.  We need to find
 # and fix the underlying cause.
 Patch:          %{name}-vector.patch
-# Fix a build failure due to a missing include
-Patch:          %{name}-qvariantmap.patch
-# Fix a build failure due to a missing include
-Patch:          %{name}-qeventloop.patch
-# Fix a build failure due to a missing include
-Patch:          %{name}-qpainter.patch
-# Fix a build failure due to a missing include
-Patch:          %{name}-qxmlstreamreader.patch
-# Fix a build failure due to a missing include
-Patch:          %{name}-qvariantlist.patch
-# Fix a build failure due to a missing include
-Patch:          %{name}-qtcore.patch
-# Fix an abort when ALSA is shutdown but was never initialized
-# https://github.com/musescore/MuseScore/pull/21376
-Patch:          %{name}-alsa-shutdown.patch
-# Fix a crash when built with the undefined behavior sanitizer
-Patch:          %{name}-null-staff.patch
-# Fix a data race inside kors_profiler
-# https://github.com/igorkorsukov/kors_profiler/pull/1
-Patch:          %{name}-kors-profiler-race.patch
-# Fix a data race in the modularity code
-Patch:          %{name}-modularity-race.patch
-# Add compatibility with FFMPEG 7.0
-# https://github.com/musescore/MuseScore/commit/d0ceb71115c13a24542afae49d3739836d22340d
-Patch:          0001-Add-compatibility-with-FFMPEG-7.0.patch
+# Avoid using an uninitialized variable
+Patch:          %{name}-uninit.patch
+# Do not add unnecessary rpaths
+Patch:          %{name}-no-rpath.patch
+# Fix build failures due to missing #include directives
+# https://github.com/musescore/MuseScore/pull/29591
+Patch:          %{name}-include.patch
+# Update tinyxml2 from version 10 to version 11 to address CVE-2024-50615
+# https://github.com/musescore/MuseScore/pull/29652
+Patch:          %{name}-tinyxml2-11.patch
+# Update fluidsynth from version 2.3.3 to 2.3.7 to fix several bugs
+Patch:          %{name}-fluidsynth-2.3.7.patch
+# Fix a warning about references to temporaries
+# https://github.com/musescore/MuseScore/pull/29997
+Patch:          %{name}-temporary-ref.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
 BuildRequires:  cmake
 BuildRequires:  cmake(GTest)
-BuildRequires:  cmake(Qt5)
-BuildRequires:  cmake(Qt5Core)
-BuildRequires:  cmake(Qt5Gui)
-BuildRequires:  cmake(Qt5LinguistTools)
-BuildRequires:  cmake(Qt5Network)
-BuildRequires:  cmake(Qt5NetworkAuth)
-BuildRequires:  cmake(Qt5OpenGL)
-BuildRequires:  cmake(Qt5PrintSupport)
-BuildRequires:  cmake(Qt5Qml)
-BuildRequires:  cmake(Qt5Quick)
-BuildRequires:  cmake(Qt5QuickControls2)
-BuildRequires:  cmake(Qt5QuickTemplates2)
-BuildRequires:  cmake(Qt5QuickWidgets)
-BuildRequires:  cmake(Qt5Svg)
-BuildRequires:  cmake(Qt5Widgets)
-BuildRequires:  cmake(Qt5X11Extras)
-BuildRequires:  cmake(Qt5Xml)
-BuildRequires:  cmake(Qt5XmlPatterns)
-BuildRequires:  cmake(tinyxml2)
+BuildRequires:  cmake(Qt6)
+BuildRequires:  cmake(Qt6Concurrent)
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Core5Compat)
+BuildRequires:  cmake(Qt6DBus)
+BuildRequires:  cmake(Qt6Gui)
+BuildRequires:  cmake(Qt6GuiPrivate)
+BuildRequires:  cmake(Qt6LinguistTools)
+BuildRequires:  cmake(Qt6Network)
+BuildRequires:  cmake(Qt6NetworkAuth)
+BuildRequires:  cmake(Qt6PrintSupport)
+BuildRequires:  cmake(Qt6Qml)
+BuildRequires:  cmake(Qt6Quick)
+BuildRequires:  cmake(Qt6QuickControls2)
+BuildRequires:  cmake(Qt6QuickWidgets)
+BuildRequires:  cmake(Qt6ShaderTools)
+BuildRequires:  cmake(Qt6StateMachine)
+BuildRequires:  cmake(Qt6Svg)
+BuildRequires:  cmake(Qt6WebSockets)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6Xml)
 BuildRequires:  desktop-file-utils
 BuildRequires:  dr_libs-static
+BuildRequires:  fdupes
+BuildRequires:  font(bravura)
+BuildRequires:  font(bravuratext)
+BuildRequires:  font(campania)
 BuildRequires:  font(finalebroadway)
 BuildRequires:  font(finalebroadwaytext)
 BuildRequires:  font(finalemaestro)
 BuildRequires:  font(finalemaestrotext)
+BuildRequires:  font(freesans)
+BuildRequires:  font(freeserif)
+BuildRequires:  font(petaluma)
+BuildRequires:  font(petalumascript)
+BuildRequires:  font(petalumatext)
 BuildRequires:  fontforge
 BuildRequires:  fonts-rpm-macros
 BuildRequires:  gcc-c++
-BuildRequires:  gnu-free-sans-fonts
-BuildRequires:  gnu-free-serif-fonts
-BuildRequires:  hardlink
 BuildRequires:  lame-devel
 BuildRequires:  libappstream-glib
 BuildRequires:  make
-BuildRequires:  marcsabatella-campania-fonts
-BuildRequires:  mesa-dri-drivers
 BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(flac)
 BuildRequires:  pkgconfig(freetype2)
 BuildRequires:  pkgconfig(gmock)
+BuildRequires:  pkgconfig(harfbuzz)
 BuildRequires:  pkgconfig(libavcodec)
 BuildRequires:  pkgconfig(libavdevice)
 BuildRequires:  pkgconfig(libavfilter)
 BuildRequires:  pkgconfig(libavformat)
 BuildRequires:  pkgconfig(libavutil)
+BuildRequires:  pkgconfig(liblouis)
 BuildRequires:  pkgconfig(libopusenc)
 BuildRequires:  pkgconfig(libpostproc)
+BuildRequires:  pkgconfig(libpipewire-0.3)
 BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  pkgconfig(libswscale)
 BuildRequires:  pkgconfig(libswresample)
 BuildRequires:  pkgconfig(opus)
+BuildRequires:  pkgconfig(pugixml)
 BuildRequires:  pkgconfig(sndfile)
-BuildRequires:  qt5-qhelpgenerator
-BuildRequires:  qt5-qtbase-private-devel
+BuildRequires:  qt6-doctools
 BuildRequires:  stb_vorbis-static
-BuildRequires:  steinberg-bravura-fonts-all
-BuildRequires:  steinberg-petaluma-fonts-all
 BuildRequires:  utf8cpp-static
+
+# Test dependencies
+#BuildRequires:  mesa-dri-drivers
+#BuildRequires:  mutter
+#BuildRequires:  qt6-qtwayland
+#BuildRequires:  xwayland-run
 
 Requires:       gootville-fonts = %{gootville_font_ver}-%{release}
 Requires:       gootville-text-fonts = %{gootville_text_font_ver}-%{release}
@@ -328,38 +330,47 @@ Requires:       musescoreicon-fonts = %{musescoreicon_font_ver}-%{release}
 Requires:       %{name}-data = %{musescore_ver}-%{release}
 Requires:       %{name}-soundfont = %{soundfont_ver}-%{release}
 
+Requires:       font(bravura)
+Requires:       font(bravuratext)
+Requires:       font(campania)
 Requires:       font(edwin)
 Requires:       font(finalebroadway)
 Requires:       font(finalebroadwaytext)
 Requires:       font(finalemaestro)
 Requires:       font(finalemaestrotext)
+Requires:       font(freesans)
+Requires:       font(freeserif)
 Requires:       font(leland)
 Requires:       font(lelandtext)
-Requires:       gnu-free-sans-fonts
-Requires:       gnu-free-serif-fonts
+Requires:       font(petaluma)
+Requires:       font(petalumascript)
+Requires:       font(petalumatext)
 Requires:       hicolor-icon-theme
-Requires:       marcsabatella-campania-fonts
-Requires:       qt5-qtquickcontrols%{?_isa}
-Requires:       qt5-qtquickcontrols2%{?_isa}
+Requires:       liblouis-tables
 Requires:       soundfont2
 Requires:       soundfont2-default
-Requires:       steinberg-bravura-fonts-all
-Requires:       steinberg-petaluma-fonts-all
 
 # The following products have been modified from their upstream versions,
 # or MuseScore uses internal (non-public) APIs
 Provides:       bundled(beatroot-vamp) = 1.0
-Provides:       bundled(fluidsynth) = 2.3.3
-Provides:       bundled(liblouis) = 3.24.0
+Provides:       bundled(fluidsynth) = 2.3.7
 Provides:       bundled(intervaltree) = 0.1
 Provides:       bundled(rtf2html) = 0.2.0
+Provides:       bundled(tinyxml2) = 11.0.0
 Provides:       bundled(KDDockWidgets) = 1.5.0
 
-# FIXME: it might be possible to unbundle these
-Provides:       bundled(deto_async)
-Provides:       bundled(haw_logger)
-Provides:       bundled(haw_profiler)
+# The following products were developed specifically for MuseScore and their
+# documentation identifies them as copylibs.
+Provides:       bundled(kors_async) = 1.3
 Provides:       bundled(kors_logger) = 1.3
+Provides:       bundled(kors_modularity) = 1.2
+Provides:       bundled(kors_msgpack_cpp) = 1.0
+Provides:       bundled(kors_profiler) = 1.2
+
+# FIXME: it might be possible to unbundle these
+# However, libmei is unmaintained upstream: https://github.com/DDMAL/libmei
+# picojson: https://src.fedoraproject.org/rpms/picojson/pull-request/1
+Provides:       bundled(libmei) = 3.1.0
 Provides:       bundled(picojson) = 1.3.0
 
 # This can be removed when F42 reaches EOL
@@ -406,18 +417,17 @@ derived from FluidR3Mono.
 %fontpkg -a
 
 %prep
-%autosetup -n MuseScore-%{musescore_ver} -p1
+%autosetup -n MuseScore-%{musescore_ver}%{?prerel:-%prerel} -p1
 
 %conf
 # Remove bundled stuff
-rm -rf thirdparty/{dr_libs,dtl,flac,freetype,googletest,lame,opus*,singleapp,stb}
-rm -rf src/framework/global/thirdparty/{tinyxml,utfcpp*}
-
-# Fix EOL encoding
-%linuxtext -n share/sound/MS_Basic_Changelog.md share/sound/MS\ Basic_License.md thirdparty/rtf2html/README{,.ru}
-
-# Build in release mode
-sed -i '/MUSESCORE_BUILD_MODE/s/dev/release/' CMakeLists.txt
+rm -rf \
+   thirdparty/dtl \
+   src/braille/thirdparty/liblouis \
+   src/framework/audio/thirdparty/{dr_libs,flac,lame,opus,opusenc,stb} \
+   src/framework/draw/thirdparty/freetype \
+   src/framework/global/thirdparty/{pugixml,utfcpp*} \
+   src/framework/testing/thirdparty/googletest
 
 # Font compatibility symlinks so we can use resource files in place
 cd fonts
@@ -442,20 +452,24 @@ cd ..
 
 %build
 # Build the actual program
+export CFLAGS='%{build_cflags} -I%{_includedir}/ffmpeg -I%{_includedir}/freetype2 -I%{_includedir}/harfbuzz'
+export CXXFLAGS='%{build_cxxflags} -I%{_includedir}/ffmpeg -I%{_includedir}/freetype2 -I%{_includedir}/harfbuzz'
 %cmake \
     -DCMAKE_BUILD_TYPE:STRING=RELEASE         \
-    -DCMAKE_CXX_FLAGS_RELEASE:STRING='%{build_cxxflags} -fPIC -DNDEBUG -DQT_NO_DEBUG' \
-    -DMUE_BUILD_CRASHPAD_CLIENT:BOOL=OFF \
-    -DMUE_BUILD_VIDEOEXPORT_MODULE:BOOL=ON \
-    -DMUE_COMPILE_USE_PCH:BOOL=OFF \
+    -DMUE_BUILD_IMPEXP_VIDEOEXPORT_MODULE:BOOL=ON \
     -DMUE_COMPILE_USE_SYSTEM_FLAC:BOOL=ON \
     -DMUE_COMPILE_USE_SYSTEM_FREETYPE:BOOL=ON \
+    -DMUE_COMPILE_USE_SYSTEM_HARFBUZZ:BOOL=ON \
+    -DMUE_COMPILE_USE_SYSTEM_OPUS:BOOL=ON \
     -DMUE_COMPILE_USE_SYSTEM_OPUSENC:BOOL=ON \
-    -DMUE_COMPILE_USE_SYSTEM_TINYXML:BOOL=ON \
     -DMUE_DOWNLOAD_SOUNDFONT:BOOL=OFF \
-    -DMUE_ENABLE_LOGGER_DEBUGLEVEL:BOOL=OFF \
-    -DMUE_ENABLE_STRING_DEBUG_HACK:BOOL=OFF
-PREFIX=%{_prefix} %cmake_build --target lrelease
+    -DMUSE_APP_BUILD_MODE:STRING=release \
+    -DMUSE_COMPILE_STRING_DEBUG_HACK:BOOL=OFF \
+    -DMUSE_COMPILE_USE_PCH:BOOL=OFF \
+    -DMUSE_ENABLE_UNIT_TESTS:BOOL=OFF \
+    -DMUSE_MODULE_GLOBAL_LOGGER_DEBUGLEVEL:BOOL=OFF \
+    -DMUSE_MODULE_NETWORK_WEBSOCKET:BOOL=ON \
+    -DMUSE_PIPEWIRE_AUDIO_DRIVER:BOOL=ON
 PREFIX=%{_prefix} VERBOSE=1 %cmake_build
 PREFIX=%{_prefix} %cmake_build --target manpages
 
@@ -521,35 +535,45 @@ ln -s ../mscore-%{musescore_maj}/sound/MS\ Basic.sf3 \
    %{buildroot}%{_datadir}/soundfonts
 
 # Hardlink duplicate files
-hardlink -t %{buildroot}%{_datadir}/mscore-%{musescore_maj}
+%fdupes %{buildroot}%{_datadir}/mscore-%{musescore_maj}
 
 %check
 %fontcheck -a
 
-# We would like to do this, but upstream's test suite does not properly
-# initialize the font provider, and 9 of the tests subsequently segfault
-# as a direct result.  How are the tests supposed to be run?
-#%%global __ctest xvfb-run -d /usr/bin/ctest
-#export XDG_RUNTIME_DIR=/tmp/runtime-mockbuild
-#mkdir -m 0700 $XDG_RUNTIME_DIR
+# We would like to do this, but the test suite is designed to work with a dev
+# build only.  We build in release mode, which causes spurious test failures.
+#%%global __ctest xwfb-run -c mutter -- %%{_bindir}/ctest
+#export XDG_RUNTIME_DIR=$(mktemp -d /tmp/runtime-mockbuild-XXXX)
+#chmod 0700 $XDG_RUNTIME_DIR
 #%%ctest
 #rm -fr $XDG_RUNTIME_DIR
 
 %files
-%doc README* share/sound/MS?Basic_Readme.md share/sound/MS_Basic_Changelog.md
+%doc README.md share/sound/MS?Basic_Readme.md share/sound/MS_Basic_Changelog.md
 %license LICENSE.txt share/sound/MS?Basic_License.md
 %{_bindir}/mscore
 %{_mandir}/man1/mscore.1*
 %{_mandir}/man1/musescore.1*
-%{_datadir}/icons/hicolor/*/apps/mscore.png
-%{_datadir}/icons/hicolor/*/mimetypes/*.png
+%{_datadir}/icons/hicolor/16x16/apps/mscore.png
+%{_datadir}/icons/hicolor/24x24/apps/mscore.png
+%{_datadir}/icons/hicolor/32x32/apps/mscore.png
+%{_datadir}/icons/hicolor/48x48/apps/mscore.png
+%{_datadir}/icons/hicolor/64x64/apps/mscore.png
+%{_datadir}/icons/hicolor/96x96/apps/mscore.png
+%{_datadir}/icons/hicolor/128x128/apps/mscore.png
+%{_datadir}/icons/hicolor/512x512/apps/mscore.png
+%{_datadir}/icons/hicolor/512x512/mimetypes/application-x-musescore.png
+%{_datadir}/icons/hicolor/512x512/mimetypes/application-x-musescore+xml.png
+%{_datadir}/icons/hicolor/scalable/mimetypes/application-x-musescore.svg
+%{_datadir}/icons/hicolor/scalable/mimetypes/application-x-musescore+xml.svg
 %{_datadir}/applications/org.musescore.MuseScore.desktop
 %{_datadir}/mime/packages/%{name}.xml
-%{_metainfodir}/*.appdata.xml
+%{_metainfodir}/org.musescore.MuseScore.appdata.xml
 
 %files data
 %{_datadir}/mscore-%{musescore_maj}/
 %exclude %{_datadir}/mscore-%{musescore_maj}/sound
+%{_datadir}/liblouis/tables/*
 
 %files soundfont
 %{_datadir}/mscore-%{musescore_maj}/sound
@@ -585,6 +609,23 @@ hardlink -t %{buildroot}%{_datadir}/mscore-%{musescore_maj}
 %fontfiles -z 9
 
 %changelog
+* Fri Sep 19 2025 Jerry James <loganjerry@gmail.com> - 4.6.0~beta-23
+- Version 4.6.0beta
+- Build with Qt6 instead of Qt5
+- Build with the bundled tinyxml2, which has a change needed to parse MusicXML
+- Unbundle liblouis and pugixml
+- Drop upstreamed or irrelevant patches: FFMPEG 7 compatibility, alsa-shutdown,
+  fix-qmake-path, kors-profiler-race, localtime, mmpeg, modularity-race,
+  null-staff, qeventloop, qpainter, qtcore, qvariantlist, qvariantmap,
+  qxmlstreamreader, splashscreen
+- Add patch to avoid using an uninitialized variable
+- Add patch to avoid adding an unnecessary rpath to the mscore binary
+- Add patch to add some missing #include directives
+- Add patch to update the bundled tinyxml2 from version 10 to 11
+- Add patch to update the bundled fluidsynth from version 2.3.3 to 2.3.7
+- Add patch to fix a warning about references to temporaries
+- Deduplicate files with fdupes instead of hardlink
+
 * Fri Sep 19 2025 Jerry James <loganjerry@gmail.com> - 4.3.2-22
 - Rebuild to fix ABI issues
 
