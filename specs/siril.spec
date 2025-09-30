@@ -2,11 +2,11 @@
 ExcludeArch:    %{ix86}
 
 %global forgeurl https://gitlab.com/free-astro/siril
-%global tag 1.4.0-beta3
+%global tag 1.4.0-beta4
 %forgemeta
 
 Name:           siril
-Version:        1.4.0~beta3
+Version:        1.4.0~beta4
 Release:        %autorelease
 Summary:        Astronomical image processing software
 

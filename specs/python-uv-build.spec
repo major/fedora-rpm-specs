@@ -100,6 +100,7 @@ Source200:      %{pubgrub_git}/archive/%{pubgrub_rev}/pubgrub-%{pubgrub_rev}.tar
 %global reqwest_middleware_git https://github.com/astral-sh/reqwest-middleware
 %global reqwest_middleware_rev ad8b9d332d1773fde8b4cd008486de5973e0a3f8
 %global reqwest_middleware_snapdate 20250607
+%global reqwest_middleware_baseversion 0.4.2
 %global reqwest_retry_baseversion 0.7.0
 Source300:      %{reqwest_middleware_git}/archive/%{reqwest_middleware_rev}/reqwest-middleware-%{reqwest_middleware_rev}.tar.gz
 
@@ -134,7 +135,9 @@ Provides:       bundled(crate(version-ranges)) = %{version_ranges_version}
 # This is a fork of reqwest-middleware/reqwest-retry; see the notes about
 # Source300.
 %global reqwest_middleware_snapinfo %{reqwest_middleware_snapdate}git%{sub %{reqwest_middleware_rev} 1 7}
+%global reqwest_middleware_version %{reqwest_middleware_baseversion}^%{reqwest_middleware_snapinfo}
 %global reqwest_retry_version %{reqwest_retry_baseversion}^%{reqwest_middleware_snapinfo}
+Provides:       bundled(crate(reqwest-middleware)) = %{reqwest_middleware_version}
 Provides:       bundled(crate(reqwest-retry)) = %{reqwest_retry_version}
 
 # In https://github.com/astral-sh/uv/issues/5588#issuecomment-2257823242,
@@ -187,23 +190,23 @@ git2path workspace.dependencies.version-ranges crates/version-ranges
 
 # See comments above Source300:
 %setup -q -T -D -b 300 -n uv_build-%{version}
-pushd '../reqwest-middleware-%{reqwest_middleware_rev}/reqwest-middleware'
+pushd '../reqwest-middleware-%{reqwest_middleware_rev}'
 %autopatch -p1 -m300 -M399
+# The (path-based) dev-dependency on reqwest-tracing is required only for an
+# example in README.md; avoid it.
+tomcli set reqwest-middleware/Cargo.toml del dev-dependencies.reqwest-tracing
+sed -r -i 's/^```rust$/&,ignore/' README.md
 popd
-# Upstream has only modified reqwest-retry, so we may as well use the system
-# copy of reqwest-middleware.
-rm -rv '../reqwest-middleware-%{reqwest_middleware_rev}/reqwest-middleware'
-tomcli set Cargo.toml del 'workspace.dependencies.reqwest-middleware.git'
-tomcli set Cargo.toml del 'workspace.dependencies.reqwest-middleware.rev'
-tomcli set Cargo.toml str 'workspace.dependencies.reqwest-middleware.version' \
-    '0.4.2'
-tomcli set Cargo.toml del patch.crates-io.reqwest-middleware
+ln -s '../../reqwest-middleware-%{reqwest_middleware_rev}/reqwest-middleware' \
+    crates/reqwest-middleware
+git2path workspace.dependencies.reqwest-middleware crates/reqwest-middleware
+git2path patch.crates-io.reqwest-middleware crates/reqwest-middleware
+install -t LICENSE.bundled/reqwest-middleware -D -p -m 0644 \
+    crates/reqwest-middleware/LICENSE*
 ln -s '../../reqwest-middleware-%{reqwest_middleware_rev}/reqwest-retry' \
     crates/reqwest-retry
 git2path workspace.dependencies.reqwest-retry crates/reqwest-retry
-tomcli set Cargo.toml del patch.crates-io.reqwest-retry
-tomcli set crates/reqwest-retry/Cargo.toml del \
-    'dependencies.reqwest-middleware.path'
+git2path patch.crates-io.reqwest-retry crates/reqwest-retry
 install -t LICENSE.bundled/reqwest-retry -D -p -m 0644 \
     crates/reqwest-retry/LICENSE*
 # We do not need the reqwest-tracing crate.

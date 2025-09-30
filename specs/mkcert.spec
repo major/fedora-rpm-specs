@@ -47,7 +47,7 @@ Requires:       nss-tools
 
 %if %{without bootstrap}
 %build
-%gobuild -o %{gobuilddir}/bin/mkcert %{goipath}
+%gobuild -o %{gobuilddir}/bin/mkcert -ldflags "-X main.Version=%{version}" %{goipath}
 %endif
 
 %install

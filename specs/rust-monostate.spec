@@ -5,7 +5,7 @@
 %global crate monostate
 
 Name:           rust-monostate
-Version:        0.1.14
+Version:        0.1.17
 Release:        %autorelease
 Summary:        Type that deserializes only from one specific value
 

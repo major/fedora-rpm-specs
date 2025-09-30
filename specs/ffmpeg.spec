@@ -37,8 +37,10 @@
 
 %ifarch s390 s390x
 %bcond dc1394 0
+%bcond ffnvcodec 0
 %else
 %bcond dc1394 1
+%bcond ffnvcodec 1
 %endif
 
 %if 0%{?rhel}
@@ -95,8 +97,8 @@
 Name:           ffmpeg
 %global pkg_name %{name}%{?pkg_suffix}
 
-Version:        7.1.1
-Release:        10%{?dist}
+Version:        7.1.2
+Release:        1%{?dist}
 Summary:        A complete solution to record, convert and stream audio and video
 License:        GPL-3.0-or-later
 URL:            https://ffmpeg.org/
@@ -147,6 +149,7 @@ BuildRequires:  gsm-devel
 BuildRequires:  ladspa-devel
 BuildRequires:  lame-devel
 BuildRequires:  libgcrypt-devel
+BuildRequires:  libklvanc-devel
 BuildRequires:  libmysofa-devel
 BuildRequires:  libX11-devel
 BuildRequires:  libXext-devel
@@ -737,30 +740,39 @@ cp -a doc/examples/{*.c,Makefile,README} _doc/examples/
     --optflags="%{build_cflags}" \
     --extra-ldflags="%{build_ldflags}" \
     --disable-htmlpages \
-    --enable-pic \
-    --disable-stripping \
-    --enable-shared \
     --disable-static \
+    --disable-stripping \
+    --enable-pic \
+    --enable-shared \
     --enable-gpl \
     --enable-version3 \
-    --enable-libsmbclient \
-    --disable-openssl \
+    --enable-amf \
+    --enable-avcodec \
+    --enable-avdevice \
+    --enable-avfilter \
+    --enable-avformat \
+    --enable-alsa \
     --enable-bzlib \
-    --enable-frei0r \
 %if %{with chromaprint}
     --enable-chromaprint \
 %else
     --disable-chromaprint \
 %endif
+    --disable-cuda-nvcc \
+%if %{with ffnvcodec}
+    --enable-cuvid \
+%endif
+    --disable-decklink \
+    --enable-frei0r \
     --enable-gcrypt \
+    --enable-gmp \
     --enable-gnutls \
+    --enable-gray \
+    --enable-iconv \
     --enable-ladspa \
 %if %{with lcms2}
     --enable-lcms2 \
 %endif
-    --enable-libshaderc \
-    --enable-vulkan \
-    --disable-cuda-sdk \
     --enable-libaom \
     --enable-libaribb24 \
     --enable-libaribcaption \
@@ -771,6 +783,7 @@ cp -a doc/examples/{*.c,Makefile,README} _doc/examples/
     --enable-libcdio \
     --enable-libcodec2 \
     --enable-libdav1d \
+    --disable-libdavs2 \
 %if %{with dc1394}
     --enable-libdc1394 \
 %endif
@@ -783,8 +796,8 @@ cp -a doc/examples/{*.c,Makefile,README} _doc/examples/
     --enable-libfontconfig \
     --enable-libfreetype \
     --enable-libfribidi \
-    --enable-libharfbuzz \
     --enable-libgme \
+    --enable-libharfbuzz \
     --enable-libgsm \
 %if %{with dc1394}
     --enable-libiec61883 \
@@ -792,10 +805,17 @@ cp -a doc/examples/{*.c,Makefile,README} _doc/examples/
     --enable-libilbc \
     --enable-libjack \
     --enable-libjxl \
+    --enable-libklvanc \
+    --disable-liblensfun \
+    --disable-liblcevc-dec \
     --enable-liblc3 \
     --enable-libmodplug \
     --enable-libmp3lame \
     --enable-libmysofa \
+    --disable-libnpp \
+    --enable-libopencore-amrnb \
+    --enable-libopencore-amrwb \
+    --disable-libopencv \
     --enable-libopenh264 \
     --enable-libopenjpeg \
     --enable-libopenmpt \
@@ -805,44 +825,54 @@ cp -a doc/examples/{*.c,Makefile,README} _doc/examples/
 %endif
     --enable-libpulse \
     --enable-libqrencode \
+    --disable-libquirc \
     --enable-librabbitmq \
     --enable-librav1e \
     --enable-librist \
     --enable-librsvg \
+%if %{with librtmp}
+    --enable-librtmp \
+%endif
     --enable-librubberband \
+    --enable-libshaderc \
+    --disable-libshine \
+    --enable-libsmbclient \
     --enable-libsnappy \
     --enable-libsvtav1 \
     --enable-libsoxr \
     --enable-libspeex \
-    --enable-libssh \
     --enable-libsrt \
+    --enable-libssh \
+    --disable-libtensorflow \
     --enable-libtesseract \
     --enable-libtheora \
+    --disable-libtorch \
+    --disable-libuavs3d \
     --enable-libtwolame \
+    --enable-libv4l2 \
     --enable-libvidstab \
 %if %{with vmaf}
     --enable-libvmaf \
 %endif
+    --enable-libvo-amrwbenc \
     --enable-libvorbis \
-    --enable-libv4l2 \
-    --enable-libvpx \
-    --enable-libwebp \
-    --enable-libxml2 \
-    --enable-libzimg \
-    --enable-libzmq \
-    --enable-libzvbi \
-%if %{with lto}
-  --enable-lto \
-%endif
 %if %{with vpl}
     --enable-libvpl \
 %endif
-    --enable-lv2 \
-    --enable-vaapi \
-    --enable-vdpau \
-    --enable-libopencore-amrnb \
-    --enable-libopencore-amrwb \
-    --enable-libvo-amrwbenc \
+    --enable-libvpx \
+    --enable-libwebp \
+%if %{with x264}
+    --enable-libx264 \
+%endif
+%if %{with x265}
+    --enable-libx265 \
+%endif
+    --disable-libxavs2 \
+    --disable-libxavs \
+    --enable-libxcb \
+    --enable-libxcb-shape \
+    --enable-libxcb-shm \
+    --enable-libxcb-xfixes \
 %if %{with evc_main}
     --enable-libxeve \
     --enable-libxevd \
@@ -850,21 +880,35 @@ cp -a doc/examples/{*.c,Makefile,README} _doc/examples/
     --enable-libxeveb \
     --enable-libxevdb \
 %endif
-%if %{with x264}
-    --enable-libx264 \
-%endif
-%if %{with x265}
-    --enable-libx265 \
-%endif
-%if %{with librtmp}
-    --enable-librtmp \
-%endif
+    --enable-libxml2 \
     --enable-libxvid \
-    --enable-openal \
-    --enable-opencl \
-    --enable-opengl \
+    --enable-libzimg \
+    --enable-libzmq \
+    --enable-libzvbi \
+%if %{with lto}
+    --enable-lto \
+%endif
+    --enable-lv2 \
+    --enable-lzma \
+    --enable-manpages \
+%if %{with ffnvcodec}
+    --enable-nvdec \
+    --enable-nvenc \
+%endif
+    --disable-openssl \
+    --enable-postproc \
     --enable-pthreads \
+    --enable-sdl2 \
+    --enable-shared \
+    --enable-swresample \
+    --enable-swscale \
+    --enable-v4l2-m2m \
+    --enable-vaapi \
     --enable-vapoursynth \
+    --enable-vdpau \
+    --enable-vulkan \
+    --enable-xlib \
+    --enable-zlib \
 %if %{without all_codecs}
     --enable-muxers \
     --enable-demuxers \
@@ -953,6 +997,11 @@ rm -rf %{buildroot}%{_datadir}
 
 
 %changelog
+* Wed Sep 24 2025 Simone Caronni <negativo17@gmail.com> - 7.1.2-1
+- Update to 7.1.2.
+- Enable VANC processing for SDI.
+- Explicitly list all implicitly enabled/disabled options.
+
 * Tue Aug 26 2025 Neal Gompa <ngompa@fedoraproject.org> - 7.1.1-10
 - Disable all subpackages except libavcodec-freeworld with the freeworld bcond
 

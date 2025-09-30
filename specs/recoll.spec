@@ -12,7 +12,7 @@
 Summary:        Desktop full text search tool with Qt GUI
 Name:           recoll
 Version:        1.43.5
-Release:        5%{?dist}
+Release:        6%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            https://www.recoll.org
@@ -50,6 +50,7 @@ BuildRequires:  xapian-core-devel
 BuildRequires:  zlib-devel
 Requires:       xdg-utils
 Recommends:     (recoll-krunner if kf6-krunner)
+Recommends:     (recoll-gssp if gnome-shell)
 Recommends:     %{name}-helpers = %{version}-%{release}
 %description
 Recoll is a personal full text search package for Linux, FreeBSD and
@@ -94,6 +95,7 @@ information from various data formats
 %package       kio
 Summary:       KIO support for recoll
 Requires:      %{name} = %{version}-%{release}
+Supplements:   (kf6-kio-core and recoll)
 
 %description   kio
 The recoll KIO slave allows performing a recoll search by entering an
@@ -103,7 +105,6 @@ displayed in Konqueror.
 %package       krunner
 Summary:       KRunner support for recoll
 Requires:      %{name} = %{version}-%{release}
-Requires:      %{name}-kio = %{version}-%{release}
 Supplements:   (kf6-krunner and recoll)
 %description   krunner
 The recoll KRunner plugin adds Recoll search results to KRunner output.
@@ -113,6 +114,7 @@ Summary:       Recoll GNOME Shell search provider
 Requires:      %{name} = %{version}-%{release}
 Requires:      gnome-shell
 Requires:      python3-pydbus
+Supplements:   (gnome-shell and recoll)
 %description   gssp
 This package contains the Recoll GNOME Shell search provider
 
@@ -246,6 +248,11 @@ echo "%{_libdir}/recoll" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/recoll-%{_arc
 %{_datadir}/applications/org.recoll.Recoll.SearchProvider.desktop
 
 %changelog
+* Sun Sep 28 2025 Terje Rosten <terjeros@gmail.com> - 1.43.5-6
+- Add forward and backwards weak deps in -gssp subpackage to gnome-shell
+- Remove wrong req. on -kio
+- Let -kio subpackage Supplement kf6-kio-core
+
 * Thu Sep 25 2025 Terje Rosten <terjeros@gmail.com> - 1.43.5-5
 - Add soffice patch
 - Prefer Recommends over Suggests

@@ -1,59 +1,22 @@
-%if 0%{?fedora} >= 22
-%{!?python2_pkgversion: %global python2_pkgversion 2}
-%global python2_pkgprefix python%{python2_pkgversion}
-%else
-%global python2_pkgprefix python
-%endif
-
-%if 0%{?rhel}
-%{!?python3_pkgversion: %global python3_pkgversion 34}
-%else
-%{!?python3_pkgversion: %global python3_pkgversion 3}
-%endif
-%global python3_pkgprefix python%{python3_pkgversion}
-
-# Undefined in SUSE
-%{!?__python3: %global __python3 python3}
-%{!?python3_shortver: %global python3_shortver %(%{__python3} -c 'import sys; print(str(sys.version_info.major) + "." + str(sys.version_info.minor))')}
-
-# Only build python3 package?
-%if 0%{?rhel} >= 8 || 0%{?fedora} >= 31
-%global py3only 1
-%endif
-
 %global srcname ClusterShell
+%global vimdatadir %{_datadir}/vim/vimfiles
 
 Name:           clustershell
 Version:        1.9.3
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Python framework for efficient cluster administration
 
-%if 0%{?suse_version}
 License:        LGPL-2.1-or-later
-Group:          Productivity/Clustering/Computing
-%else
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:        LicenseRef-Callaway-LGPLv2+
-%endif
-URL:            http://cea-hpc.github.io/clustershell/
-Source0:        https://github.com/cea-hpc/clustershell/archive/v%{version}/%{srcname}-%{version}.tar.gz
+URL:            https://cea-hpc.github.io/clustershell/
+Source0:        https://files.pythonhosted.org/packages/source/C/%{srcname}/%{srcname}-%{version}.tar.gz#/%{srcname}-%{version}.pypi.tar.gz
+
 BuildArch:      noarch
-%if 0%{!?py3only:1}
-Requires:       python2-%{name} = %{version}-%{release}
-%else
-Requires:       python3-%{name} = %{version}-%{release}
-%endif
-%if 0%{?rhel} >= 7 || 0%{?fedora}
-Requires:       vim-filesystem
-%else
-%if 0%{?suse_version}
-Requires:       vim
-BuildRequires:  fdupes
+
+BuildRequires:  python3-devel
 BuildRequires:  vim
-%else
-Requires:       vim-common
-%endif
-%endif
+
+Requires:       python3-%{name} = %{version}-%{release}
+Requires:       vim-filesystem
 Provides:       vim-clustershell = %{version}-%{release}
 Obsoletes:      vim-clustershell < 1.7.81-4
 
@@ -66,67 +29,32 @@ server farms. Command line utilities like clush, clubak and nodeset (or
 cluset) allow traditional shell scripts to take benefit of the features
 offered by the library.
 
-
-%if 0%{!?py3only:1}
-%package -n python2-%{name}
-Summary:        ClusterShell module for Python 2
-BuildRequires:  %{python2_pkgprefix}-devel
-BuildRequires:  %{python2_pkgprefix}-setuptools
-Requires:       %{python2_pkgprefix}-setuptools
-%if 0%{?suse_version}
-Requires:       %{python2_pkgprefix}-PyYAML
-%else
-Requires:       PyYAML
-%endif
-%{?python_provide:%python_provide python2-%{name}}
-
-%description -n python2-%{name}
-ClusterShell Python 2 module and related command line tools.
-%endif
-
-
-%package -n %{python3_pkgprefix}-%{name}
+%package -n python3-%{name}
 Summary:        ClusterShell module for Python 3
-BuildRequires:  %{python3_pkgprefix}-devel
-BuildRequires:  %{python3_pkgprefix}-setuptools
-Requires:       %{python3_pkgprefix}-PyYAML
-Requires:       %{python3_pkgprefix}-setuptools
-%{?python_provide:%python_provide %{python3_pkgprefix}-%{name}}
+%{?python_provide:%python_provide python3-%{name}}
 
-%description -n %{python3_pkgprefix}-%{name}
+
+%description -n python3-%{name}
 ClusterShell Python 3 module and related command line tools.
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 
 %prep
 %setup -q -n %{srcname}-%{version}
 
+
 %build
-%{__python3} setup.py build
-%if 0%{!?py3only:1}
-%{__python2} setup.py build
-%endif
+%pyproject_wheel
+
 
 %install
-%{__python3} setup.py install -O1 --skip-build --root %{buildroot}
-
-%if 0%{!?py3only:1}
-pushd %{buildroot}%{_bindir}
-for i in clubak cluset clush nodeset; do
-  mv $i $i-%{python3_shortver}
-done
-popd
-
-%{__python2} setup.py install -O1 --skip-build --root %{buildroot}
-%endif
+%pyproject_install
+%pyproject_save_files %{srcname}
 
 # move config dir away from default setuptools /usr prefix (if rpm-building as user)
 [ -d %{buildroot}/usr/etc ] && mv %{buildroot}/usr/etc %{buildroot}/%{_sysconfdir}
-
-%if 0%{?rhel} && 0%{?rhel} <= 6
-# old versions of rpm (el5 and el6) requires that a file/link exists in buildroot
-# even when ghosted, but it is not installed at the end...
-ln -s conf/groups.d/local.cfg %{buildroot}/%{_sysconfdir}/clustershell/groups
-%endif
 
 # man pages
 install -d %{buildroot}/%{_mandir}/{man1,man5}
@@ -138,17 +66,10 @@ install -p -m 0644 doc/man/man5/clush.conf.5 %{buildroot}/%{_mandir}/man5/
 install -p -m 0644 doc/man/man5/groups.conf.5 %{buildroot}/%{_mandir}/man5/
 
 # vim addons
-%if 0%{?suse_version}
-%define vimdatadir %{_datadir}/vim/site
-%else
-%define vimdatadir %{_datadir}/vim/vimfiles
-%endif
-
 install -d %{buildroot}/%{vimdatadir}/{ftdetect,syntax}
 install -p -m 0644 doc/extras/vim/ftdetect/clustershell.vim %{buildroot}/%{vimdatadir}/ftdetect/
 install -p -m 0644 doc/extras/vim/syntax/clushconf.vim %{buildroot}/%{vimdatadir}/syntax/
 install -p -m 0644 doc/extras/vim/syntax/groupsconf.vim %{buildroot}/%{vimdatadir}/syntax/
-%{?suse_version:%fdupes %{buildroot}}
 
 install -d %{buildroot}%{bash_completions_dir}
 install -p -m 0644 bash_completion.d/cluset -t %{buildroot}%{bash_completions_dir}
@@ -157,51 +78,15 @@ pushd %{buildroot}%{bash_completions_dir}
 ln -s cluset nodeset
 popd
 
-%if 0%{!?py3only:1}
 
-%files -n python2-%{name}
-%if 0%{?rhel}
-%defattr(-,root,root,-)
-%endif
+%files -n python3-%{name} -f %{pyproject_files}
 %{_bindir}/clubak
 %{_bindir}/cluset
 %{_bindir}/clush
 %{_bindir}/nodeset
-%{python2_sitelib}/ClusterShell/
-%{python2_sitelib}/ClusterShell-*-py?.?.egg-info
 
-%files -n %{python3_pkgprefix}-%{name}
-%if 0%{?rhel}
-%defattr(-,root,root,-)
-%endif
-%{_bindir}/clubak-%{python3_shortver}
-%{_bindir}/cluset-%{python3_shortver}
-%{_bindir}/clush-%{python3_shortver}
-%{_bindir}/nodeset-%{python3_shortver}
-%{python3_sitelib}/ClusterShell/
-%{python3_sitelib}/ClusterShell-*-py%{python3_version}.egg-info
-
-%else
-
-# Unversioned python3 tools for rhel8
-
-%files -n %{python3_pkgprefix}-%{name}
-%if 0%{?rhel}
-%defattr(-,root,root,-)
-%endif
-%{_bindir}/clubak
-%{_bindir}/cluset
-%{_bindir}/clush
-%{_bindir}/nodeset
-%{python3_sitelib}/ClusterShell/
-%{python3_sitelib}/ClusterShell-*-py%{python3_version}.egg-info
-
-%endif
 
 %files
-%if 0%{?rhel}
-%defattr(-,root,root,-)
-%endif
 %doc ChangeLog COPYING.LGPLv2.1 README.md
 %doc doc/examples
 %doc doc/sphinx
@@ -234,6 +119,10 @@ popd
 %{bash_completions_dir}/nodeset
 
 %changelog
+* Sun Sep 28 2025 Stephane Thiell <sthiell@stanford.edu> - 1.9.3-6
+- Migrate from deprecated setup.py build/install to pyproject macros
+- Switch Source0 to PyPI archive for canonical tree naming
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.9.3-5
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -4,8 +4,8 @@
 
 Summary:       Compiler and toolchain infrastructure library for WebAssembly
 Name:          binaryen
-Version:       123
-Release:       2%{?dist}
+Version:       124
+Release:       1%{?dist}
 
 URL:           https://github.com/WebAssembly/binaryen
 Source0:       %{url}/archive/version_%{version}/%{name}-version_%{version}.tar.gz
@@ -24,6 +24,7 @@ BuildRequires: gcc-c++
 %if %{with check}
 BuildRequires: cmake(GTest)
 BuildRequires: nodejs
+BuildRequires: pkgconfig(gmock)
 BuildRequires: python3dist(filecheck)
 BuildRequires: python3dist(lit)
 %endif
@@ -109,6 +110,9 @@ rm -v %{buildroot}%{_bindir}/binaryen-unittests
 %{_libdir}/%{name}/libbinaryen.so
 
 %changelog
+* Sat Sep 27 2025 Dominik Mierzejewski <dominik@greysector.net> - 124-1
+- update to 124 (resolves rhbz#2392739)
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 123-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

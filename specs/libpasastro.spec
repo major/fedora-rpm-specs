@@ -3,7 +3,7 @@ ExcludeArch:    %{ix86}
 
 %global forgeurl https://github.com/pchev/libpasastro/
 
-Version:        1.4.3
+Version:        1.4.4
 %forgemeta
 
 Name:           libpasastro
@@ -20,8 +20,6 @@ Patch1:         libpasastro-1.3-nostrip.patch
 
 # Make sure Fedora's C(XX)FLAGS and LDFLAGS are applied
 Patch2:         apply_fedora_archflags.patch
-# https://github.com/pchev/libpasastro/pull/4
-Patch3:         fix_gcc15-c++23.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  make

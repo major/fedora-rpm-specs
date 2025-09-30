@@ -14,7 +14,7 @@
 
 # https://github.com/containers/podman-tui
 %global goipath github.com/containers/podman-tui
-Version: 1.8.0
+Version: 1.8.1
 %gometa
 
 %global goname podman-tui

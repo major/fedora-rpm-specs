@@ -1,41 +1,43 @@
 Name:           sasutils
 Version:        0.6.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Serial Attached SCSI (SAS) utilities
-
-# Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
 URL:            https://github.com/stanford-rc/sasutils
-Source0:        https://github.com/stanford-rc/sasutils/archive/v%{version}/%{name}-%{version}.tar.gz
-
+Source0:        https://files.pythonhosted.org/packages/source/s/sasutils/sasutils-%{version}.tar.gz#/sasutils-%{version}.pypi.tar.gz
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-Requires:       python3-setuptools
 Requires:       sg3_utils
 Requires:       smp_utils
-
-%{?python_provide:%python_provide python-sasutils}
 
 %description
 sasutils is a set of command-line tools and a Python library to ease the
 administration of Serial Attached SCSI (SAS) fabrics.
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %prep
-%setup -q
+%setup -q -n sasutils-%{version}
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
-install -d %{buildroot}/%{_mandir}/man1
-install -p -m 0644 doc/man/man1/sas_counters.1 %{buildroot}/%{_mandir}/man1/
-install -p -m 0644 doc/man/man1/sas_devices.1 %{buildroot}/%{_mandir}/man1/
-install -p -m 0644 doc/man/man1/sas_discover.1 %{buildroot}/%{_mandir}/man1/
-install -p -m 0644 doc/man/man1/ses_report.1 %{buildroot}/%{_mandir}/man1/
+%pyproject_install
+%pyproject_save_files sasutils
 
-%files
+# Man pages
+install -d %{buildroot}%{_mandir}/man1
+install -p -m 0644 doc/man/man1/sas_counters.1 %{buildroot}%{_mandir}/man1/
+install -p -m 0644 doc/man/man1/sas_devices.1 %{buildroot}%{_mandir}/man1/
+install -p -m 0644 doc/man/man1/sas_discover.1 %{buildroot}%{_mandir}/man1/
+install -p -m 0644 doc/man/man1/ses_report.1 %{buildroot}%{_mandir}/man1/
+
+%check
+# No test suite yet
+
+%files -f %{pyproject_files}
 %{_bindir}/sas_counters
 %{_bindir}/sas_devices
 %{_bindir}/sas_discover
@@ -43,8 +45,6 @@ install -p -m 0644 doc/man/man1/ses_report.1 %{buildroot}/%{_mandir}/man1/
 %{_bindir}/sas_sd_snic_alias
 %{_bindir}/sas_st_snic_alias
 %{_bindir}/ses_report
-%{python3_sitelib}/sasutils/
-%{python3_sitelib}/sasutils-*-py%{python3_version}.egg-info
 %{_mandir}/man1/sas_counters.1*
 %{_mandir}/man1/sas_devices.1*
 %{_mandir}/man1/sas_discover.1*
@@ -53,6 +53,10 @@ install -p -m 0644 doc/man/man1/ses_report.1 %{buildroot}/%{_mandir}/man1/
 %license LICENSE.txt
 
 %changelog
+* Sun Sep 28 2025 Stephane Thiell <sthiell@stanford.edu> 0.6.1-7
+- Migrate from deprecated setup.py build/install to pyproject macros
+- Switch Source0 to PyPI archive
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.6.1-6
 - Rebuilt for Python 3.14.0rc3 bytecode
 

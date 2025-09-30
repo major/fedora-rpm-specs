@@ -13,9 +13,9 @@
 %undefine _py3_shebang_s
 
 Name:           ansible-core
-Version:        2.18.7
+Version:        2.18.9
 %global uversion %{version_no_tilde %{quote:%nil}}
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        A radically simple IT automation system
 
 # The main license is GPLv3+. Many of the files in lib/ansible/module_utils
@@ -265,6 +265,9 @@ install -Dpm 0644 licenses/* -t %{buildroot}%{_pkglicensedir}
 
 
 %changelog
+* Sat Sep 27 2025 Maxwell G <maxwell@gtmx.me> - 2.18.9-1
+- Update to 2.18.9.
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.18.7-4
 - Rebuilt for Python 3.14.0rc3 bytecode
 

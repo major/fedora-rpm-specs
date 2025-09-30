@@ -6,8 +6,8 @@
 %bcond rocm 0
 %endif
 
-# build problems on aarch64
-ExcludeArch:    aarch64
+# build problems on aarch64, ppc64le and s390x
+ExcludeArch:    aarch64 ppc64le s390x
 
 # Build the next version of ollama
 %bcond next 0
@@ -15,7 +15,7 @@ ExcludeArch:    aarch64
 # https://github.com/ollama/ollama
 %global goipath         github.com/ollama/ollama
 %global forgeurl        https://github.com/ollama/ollama
-Version:                0.9.4
+Version:                0.12.3
 
 %gometa -L -f
 
@@ -77,18 +77,16 @@ mv integration/README.md integration-README.md
 mv llama/README.md llama-README.md
 mv macapp/README.md macapp-README.md
 
-# gcc 15 cstdint
-sed -i '/#include <vector.*/a#include <cstdint>' llama/llama.cpp/src/llama-mmap.h
-
 # install dir is off, lib -> lib64
-sed -i -e 's@set(OLLAMA_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/lib/ollama)@set(OLLAMA_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/lib64/ollama)@' CMakeLists.txt
+# cmake install location
+sed -i -e 's@${CMAKE_INSTALL_PREFIX}/lib/ollama@${CMAKE_INSTALL_PREFIX}/lib64/ollama@' CMakeLists.txt
+# overwrite discover/path.go so instead of attempting to discover, LibOllamaPath is set to our path
 echo -e 'package discover\nvar LibOllamaPath string = "/usr/lib64/ollama"' > discover/path.go
+# for dlopens
 sed -i -e 's@"lib/ollama"@"lib64/ollama"@' ml/backend/ggml/ggml/src/ggml.go
 
-# _build/src/github.com/ollama/ollama/model/bytepairencoding.go:25:43: undefined: regexp2.Unicode
-# https://src.fedoraproject.org/rpms/golang-github-dlclark-regexp2/pull-request/2
-# In the meantime, hack it out
-sed -i -e 's@regexp2.Unicode|regexp2.RE2@regexp2.RE2@' model/bytepairencoding.go
+# install dir for backend *.so's is off usr/bin -> usr/lib64/ollama
+sed -i -e 's@${CMAKE_INSTALL_BINDIR}@${OLLAMA_INSTALL_DIR}@' ml/backend/ggml/ggml/src/CMakeLists.txt
 
 %generate_buildrequires
 %go_generate_buildrequires

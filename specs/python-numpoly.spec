@@ -1,16 +1,19 @@
 Name:       python-numpoly
-Version:    1.3.4
+Version:    1.3.8
 Release:    %autorelease
 Summary:    Polynomials as a numpy datatype
 
 %global forgeurl https://github.com/jonathf/numpoly
-%global tag v%{version}
+%global tag %{version}
 %forgemeta
 
 # SPDX
 License:    BSD-2-Clause
 URL:        %forgeurl
 Source:     %forgesource
+# As of NumPy 2.3.0 `numpy.count_nonzero` returns a scalar instead of int
+# https://github.com/jonathf/numpoly/issues/126
+Patch:      %{forgeurl}/pull/127.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -72,7 +75,7 @@ sed -r -i '/error::DeprecationWarning/d' pyproject.toml
 %pyproject_save_files -l numpoly
 
 %check
-%pytest -v --import-mode=importlib
+%pytest -r fEs --import-mode=importlib
 
 %files -n python3-numpoly -f %{pyproject_files}
 %doc README.rst

@@ -2,25 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate tree-sitter-generate
+%global crate constcat
 
-Name:           rust-tree-sitter-generate
-Version:        0.25.10
+Name:           rust-constcat
+Version:        0.6.1
 Release:        %autorelease
-Summary:        Library for generating C source code from a tree-sitter grammar
+Summary:        Concat! with support for const variables and expressions
 
-License:        MIT
-URL:            https://crates.io/crates/tree-sitter-generate
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/constcat
 Source:         %{crates_source}
-# * Upstream license file - tree-sitter/tree-sitter#1520
-Source2:        https://github.com/tree-sitter/tree-sitter/raw/v%{version}/LICENSE#/LICENSE.upstream
-# Automatically generated patch to strip dependencies and normalize metadata
-Patch:          tree-sitter-generate-fix-metadata-auto.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Library for generating C source code from a tree-sitter grammar.}
+Concat! with support for const variables and expressions.}
 
 %description %{_description}
 
@@ -34,7 +30,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -53,7 +50,6 @@ use the "default" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
-cp -pav %{SOURCE2} LICENSE
 
 %generate_buildrequires
 %cargo_generate_buildrequires

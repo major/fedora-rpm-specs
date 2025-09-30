@@ -17,9 +17,15 @@ License:        BSL-1.0
 URL:            https://github.com/martinmoene/variant-lite
 Source:         %{url}/archive/v%{version}/variant-lite-%{version}.tar.gz
 
-# Downstream patch: disable C++17 tests since they fail to compile on GCC 14
+# Updated variant index tag definitions for compatibility with clang
+# https://github.com/martinmoene/variant-lite/pull/56
+# Cherry-picked on v2.0.0.
+#
+# Fixes:
+#
+# Tests fail to compile (GCC 14)
 # https://github.com/martinmoene/variant-lite/issues/50
-Patch:          0001-Downstream-patch-disable-C-17-tests-since-they-fail-.patch
+Patch:          0001-Updated-variant-index-tag-definitions-for-compatibil.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake

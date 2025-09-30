@@ -8,8 +8,8 @@
 %endif
 
 Name:           python-beautifulsoup4
-Version:        4.13.5
-Release:        2%{?dist}
+Version:        4.14.0
+Release:        1%{?dist}
 Summary:        HTML/XML parser for quick-turnaround applications like screen-scraping
 License:        MIT
 URL:            http://www.crummy.com/software/BeautifulSoup/
@@ -93,6 +93,9 @@ sed -i "s/strip_cdata=False,//" bs4/builder/_lxml.py
 %{python3_sitelib}/bs4
 
 %changelog
+* Sun Sep 28 2025 Terje Rosten <terjeros@gmail.com> - 4.14.0-1
+- 4.14.0
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.13.5-2
 - Rebuilt for Python 3.14.0rc3 bytecode
 

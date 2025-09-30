@@ -4,7 +4,7 @@
 %global crate just
 
 Name:           rust-just
-Version:        1.42.4
+Version:        1.43.0
 Release:        %autorelease
 Summary:        Just a command runner
 
@@ -74,6 +74,7 @@ License:        %{shrink:
 %{_bindir}/just
 %doc examples
 %{_mandir}/man1/just.1*
+%{bash_completions_dir}/just
 %{fish_completions_dir}/just.fish
 %{zsh_completions_dir}/_just
 
@@ -119,26 +120,23 @@ use the "default" feature of the "%{crate}" crate.
 %cargo_build
 %{cargo_license_summary}
 %{cargo_license} > LICENSE.dependencies
-# Generate man page and shell completions
+# Generate man page
 target/rpm/just --man > target/rpm/just.1
-for shell in fish zsh; do
-    target/rpm/just --completions $shell > target/rpm/just.$shell
-done
 
 %install
 %cargo_install
 install -D -m644 -pv target/rpm/just.1    %{buildroot}%{_mandir}/man1/just.1
-install -D -m644 -pv target/rpm/just.fish %{buildroot}%{fish_completions_dir}/just.fish
-install -D -m644 -pv target/rpm/just.zsh  %{buildroot}%{zsh_completions_dir}/_just
+install -D -m644 -pv completions/just.bash %{buildroot}%{bash_completions_dir}/just
+install -D -m644 -pv completions/just.fish %{buildroot}%{fish_completions_dir}/just.fish
+install -D -m644 -pv completions/just.zsh  %{buildroot}%{zsh_completions_dir}/_just
 
 %if %{with check}
 %check
-# * completions test script does not work outside of git checkout
-# * alignment test expects unicode-width 0.1.13
+# * completions::bash test script does not work outside of git checkout
+# * completions::tests::scripts requires pinned version of clap_complete
 %{cargo_test -- -- %{shrink:
     --skip completions::bash
-    --skip completions::replacements
-    --skip misc::list_alignment
+    --skip completions::tests::scripts
 }}
 %endif
 

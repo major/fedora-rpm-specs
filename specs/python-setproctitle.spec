@@ -2,14 +2,13 @@
 %global         forgeurl https://github.com/dvarrazzo/py-setproctitle
 
 Name:           python-%{pypi_name}
-Version:        1.3.6
+Version:        1.3.7
 %global tag     version-%{version}
 %forgemeta
 Release:        %{autorelease}
 Summary:        Python module to customize a process title
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-3-Clause
 URL:            %{forgeurl}
 Source0:        %{forgesource}
 
@@ -66,7 +65,7 @@ It's based on PostgreSQL implementation which has proven to be portable.
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.rst
-%license COPYRIGHT
+%license LICENSE
 
 %changelog
 %autochangelog

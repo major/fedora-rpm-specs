@@ -65,8 +65,8 @@
 %define default_generate_notes 0
 
 Name: %{cross}-binutils
-Version: 2.44
-Release: 2%{?dist}
+Version: 2.45
+Release: 1%{?dist}
 Summary: A GNU collection of cross-compilation binary utilities
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
@@ -75,7 +75,7 @@ URL: https://sourceware.org/binutils
 # many controversial patches so we stick with the official FSF version
 # instead.
 
-Source: http://ftp.gnu.org/gnu/binutils/binutils-with-gold-%{version}.tar.xz
+Source: http://ftp.gnu.org/gnu/binutils/binutils-%{version}.tar.xz
 
 Source2: binutils-2.19.50.0.1-output-format.sed
 
@@ -129,22 +129,6 @@ Patch06: binutils-2.27-aarch64-ifunc.patch
 # Lifetime: Permanent.
 Patch07: binutils-do-not-link-with-static-libstdc++.patch
 
-# Purpose:  Stop gold from aborting when input sections with the same name
-#            have different flags.
-# Lifetime: Fixed in 2.43 (maybe)
-Patch08: binutils-gold-mismatched-section-flags.patch
-
-# Purpose:  Change the gold configuration script to only warn about
-#            unsupported targets.  This allows the binutils to be built with
-#            BPF support enabled.
-# Lifetime: Permanent.
-Patch09: binutils-gold-warn-unsupported.patch
-
-# Purpose:  Enable the creation of .note.gnu.property sections by the GOLD
-#            linker for x86 binaries.
-# Lifetime: Permanent.
-Patch10: binutils-gold-i386-gnu-property-notes.patch
-
 # Purpose:  Allow the binutils to be configured with any (recent) version of
 #            autoconf.
 # Lifetime: Fixed in 2.44 (maybe ?)
@@ -154,10 +138,6 @@ Patch11: binutils-autoconf-version.patch
 # Lifetime: Who knows.
 Patch12: binutils-libtool-no-rpath.patch
 
-# Purpose:  Stop an abort when using dwp to process a file with no dwo links.
-# Lifetime: Fixed in 2.44 (maybe)
-Patch13: binutils-gold-empty-dwp.patch
-
 # Purpose:  Fix binutils testsuite failures.
 # Lifetime: Permanent, but varies with each rebase.
 Patch14: binutils-testsuite-fixes.patch
@@ -165,14 +145,6 @@ Patch14: binutils-testsuite-fixes.patch
 # Purpose:  Fix binutils testsuite failures for the RISCV-64 target.
 # Lifetime: Permanent, but varies with each rebase.
 Patch15: binutils-riscv-testsuite-fixes.patch
-
-# Purpose:  Make the GOLD linker ignore the "-z pack-relative-relocs" command line option.
-# Lifetime: Fixed in 2.44 (maybe)
-Patch16: binutils-gold-pack-relative-relocs.patch
-
-# Purpose:  Let the gold linker ignore --error-execstack and --error-rwx-segments.
-# Lifetime: Fixed in 2.44 (maybe)
-Patch17: binutils-gold-ignore-execstack-error.patch
 
 # Purpose:  Fix the ar test of non-deterministic archives.
 # Lifetime: Fixed in 2.44
@@ -299,7 +271,7 @@ Cross-build binary image generation, manipulation and query tools. \
 #
 ###############################################################################
 %prep
-%global srcdir binutils-with-gold-%{version}
+%global srcdir binutils-%{version}
 %setup -q -n %{srcdir} -c
 cd %{srcdir}
 %patch -P01 -p1
@@ -309,16 +281,10 @@ cd %{srcdir}
 %patch -P05 -p1
 %patch -P06 -p1
 %patch -P07 -p1
-%patch -P08 -p1
-%patch -P09 -p1
-%patch -P10 -p1
 %patch -P11 -p1
 %patch -P12 -p1
-%patch -P13 -p1
 %patch -P14 -p1
 %patch -P15 -p1
-%patch -P16 -p1
-%patch -P17 -p1
 %patch -P18 -p1
 %patch -P19 -p1
 %patch -P99 -p1
@@ -330,8 +296,6 @@ cd %{srcdir}
 # On ppc64 and aarch64, we might use 64KiB pages
 sed -i -e '/#define.*ELF_COMMONPAGESIZE/s/0x1000$/0x10000/' bfd/elf*ppc.c
 sed -i -e '/#define.*ELF_COMMONPAGESIZE/s/0x1000$/0x10000/' bfd/elf*aarch64.c
-sed -i -e '/common_pagesize/s/4 /64 /' gold/powerpc.cc
-sed -i -e '/pagesize/s/0x1000,/0x10000,/' gold/aarch64.cc
 # LTP sucks
 perl -pi -e 's/i\[3-7\]86/i[34567]86/g' */conf*
 sed -i -e 's/%''{release}/%{release}/g' bfd/Makefile{.am,.in}
@@ -807,6 +771,9 @@ cd -
 %do_files xtensa-linux-gnu	%{build_xtensa}
 
 %changelog
+* Sun Sep 28 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 2.45-1
+- Update to 2.45
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.44-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
@@ -869,304 +836,3 @@ cd -
 
 * Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.40-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sun Jul 30 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 2.40-3
-- Spec File: migrated to SPDX license.
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.40-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jun 08 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 2.40-1
-- Update to binutils-2.40-9
-
-* Thu Jan 19 2023 Michael Brown <mbrown@fensystems.co.uk> - 2.39-3
-- Enable support for LoongArch64
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.39-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Dec 30 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 2.39-1
-- sync to binutils-2.39-7.fc38
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.38-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Sat May 07 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 2.38-3
-- Resync to binutils-2.38-8.fc37
-
-* Tue Mar 22 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 2.38-2
-- Resync to binutils-2.38-6.fc37
-
-* Mon Feb 28 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 2.38-1
-- Rebase on GNU Binutils 2.38.
-- Add support for specifying a section type in linker scripts. (#2052801)
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.37-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Sun Dec 05 2021 Peter Robinson <pbrobinson@fedoraproject.org> - 2.37-4
-- Sync to binutils-2.37-22
-
-* Thu Oct 28 2021 Peter Jones <pjones@redhat.com> - 2.37-3
-- Add support for pei-aarch64-little objects on aarch64
-
-* Mon Aug 23 2021 Peter Robinson <pbrobinson@fedoraproject.org> - 2.37-2
-- Update to binutils-2.37-9
-
-* Sat Jul 24 2021 Peter Robinson <pbrobinson@fedoraproject.org> - 2.37-1
-- Update to 2.37
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.35.1-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.35.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Thu Dec  3 2020 Peter Robinson <pbrobinson@fedoraproject.org> - 2.35.1-4
-- Sync to binutils-2.35.1-16
-
-* Sun Nov  8 2020 Peter Robinson <pbrobinson@fedoraproject.org> - 2.35.1-3
-- Sync to binutils 2.35.1-13
-
-* Sat Oct 10 2020 Peter Robinson <pbrobinson@fedoraproject.org> - 2.35.1-2
-- Sync to binutils 2.35.1-5
-
-* Wed Sep 23 2020 Peter Robinson <pbrobinson@fedoraproject.org> - 2.35.1-1
-- Sync to 2.35.1
-
-* Fri Sep 04 2020 Peter Robinson <pbrobinson@fedoraproject.org> - 2.35-4
-- Sync to binutils-2.35-12
-
-* Sat Aug 01 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.35-3
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.35-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Sun Jul 26 2020 Peter Robinson <pbrobinson@fedoraproject.org> - 2.35-1
-- Update to 2.35
-
-* Mon Jul 20 2020 Jeff Law <law@redhat.com> - 2.34-3
-- Fix configure tests compromised by LTO
-- Work around diagnostics exposed by LTO
-
-* Thu Feb 27 2020 Peter Robinson <pbrobinson@fedoraproject.org> - 2.34-2
-- Fix the plugin support architecture to allow proper symbol info handling. (PR 25355)
-
-* Mon Feb  3 2020 Peter Robinson <pbrobinson@fedoraproject.org> 2.34-1
-- sync with binutils 2.34-1
-- Enable 64-bit BFD and PEP support for riscv.
-- Improve the accuracy of addr2line.
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.33.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Mon Jan 06 2020 Peter Robinson <pbrobinson@fedoraproject.org> - 2.33.1-2
-- sync with binutils 2.33.1-11
-
-* Tue Oct 15 2019 Peter Robinson <pbrobinson@fedoraproject.org> 2.33.1-1
-- Sync with binutils-2.33.1-1
-
-* Tue Aug 27 2019 Peter Robinson <pbrobinson@fedoraproject.org> 2.32-3
-- Sync with binutils-2.32-24
-
-* Wed Jul 24 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.32-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Sun May 26 2019 Peter Robinson <pbrobinson@fedoraproject.org> 2.32-1
-- Sync with binutils-2.32-14
-
-* Sun May 26 2019 Peter Robinson <pbrobinson@fedoraproject.org> 2.31.1-3
-- Sync with binutils-2.31.1-31
-
-* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.31.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Tue Nov  6 2018 Tom Callaway <spot@fedoraproject.org> - 2.31.1-1
-- update to 2.31.1
-
-* Thu Jul 12 2018 Fedora Release Engineering <releng@fedoraproject.org> - 2.30-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Wed Jul 11 2018 David Howells <dhowells@redhat.com> - 2.30-5
-- Switch ARC to arc-linux-gnu (#1600183).
-
-* Tue Jul 10 2018 David Howells <dhowells@redhat.com> - 2.30-4
-- Sync with binutils-2.30-26.
-- Add support for the ARC arch (#1599744).
-
-* Thu Jun 28 2018 David Howells <dhowells@redhat.com> - 2.30-3
-- Fix ppc* symlink packages inclusion of files from the powerpc* packages.
-- Sync with binutils-2.30-24.
-
-* Tue May 29 2018 David Howells <dhowells@redhat.com> - 2.30-2
-- Sync with binutils-2.30-21.
-
-* Fri Mar 30 2018 David Howells <dhowells@redhat.com> - 2.30-1
-- Sync with binutils-2.30-14.
-
-* Wed Feb 14 2018 David Howells <dhowells@redhat.com> - 2.29.1-4
-- Sync with binutils-2.29.1-19.
-
-* Fri Feb 09 2018 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 2.29.1-3
-- Escape macros in %%changelog
-
-* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 2.29.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Mon Nov 6 2017 David Howells <dhowells@redhat.com> - 2.29.1-1
-- Sync with binutils-2.29.1-4.
-- Add support for riscv64 arch (#1491955).
-
-* Wed Aug 02 2017 Fedora Release Engineering <releng@fedoraproject.org> - 2.29-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
-
-* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 2.29-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Tue Jul 25 2017 David Howells <dhowells@redhat.com> - 2.29-1
-- Sync with binutils-2.29-1.
-
-* Mon Jun 26 2017 David Howells <dhowells@redhat.com> - 2.28-3
-- Sync with binutils-2.28-9.
-
-* Tue May 16 2017 David Howells <dhowells@redhat.com> - 2.28-2
-- Sync with binutils-2.28-6.
-
-* Wed Mar 15 2017 David Howells <dhowells@redhat.com> - 2.28-1
-- Sync with binutils-2.28-4.
-
-* Mon Feb 6 2017 David Howells <dhowells@redhat.com> - 2.27-6
-- Sync with binutils-2.27-16.
-- Install COPYING[*] files using the %%license macro.
-
-* Wed Dec 14 2016 Merlin Mathesius <mmathesi@redhat.com> - 2.27-5
-- Import upstream xtensa bug fix causing cross-gcc FTBFS (BZ#1404857).
-
-* Fri Dec 9 2016 David Howells <dhowells@redhat.com> - 2.27-4
-- Sync with binutils-2.27-12.
-
-* Thu Sep 15 2016 David Howells <dhowells@redhat.com> - 2.27-3
-- Added version to obsoletion of sh64.
-- Fix changelog date.
-
-* Wed Sep 14 2016 David Howells <dhowells@redhat.com> - 2.27-1
-- Sync with binutils-2.27-4.
-- Obsolete sh64.
-
-* Mon Jul 4 2016 David Howells <dhowells@redhat.com> - 2.26.1-1
-- Sync with binutils-2.26.1-1.
-
-* Tue May 10 2016 David Howells <dhowells@redhat.com> - 2.26-8
-- Sync with binutils-2.26-21.
-- arm: Fix uninitialised variable in arm build (#1333695).
-
-* Wed May 4 2016 David Howells <dhowells@redhat.com> - 2.26-7
-- Sync with binutils-2.26-20.
-
-* Fri Feb 19 2016 David Howells <dhowells@redhat.com> - 2.26-6
-- Sync with binutils-2.26-12.
-
-* Thu Feb 11 2016 David Howells <dhowells@redhat.com> - 2.26-5
-- Sync with binutils-2.26-10.
-- c6x: Handle inconsistent .cfi_sections directives [binutils bz 19614].
-
-* Mon Feb 8 2016 David Howells <dhowells@redhat.com> - 2.26-4
-- SH: Drop sh-elf support to avoid ambiguity errors in target selection (#1296814).
-
-* Fri Feb 5 2016 David Howells <dhowells@redhat.com> - 2.26-3
-- Sync with binutils-2.26-8.
-- Microblaze: Fix binutils compilation on 32-bit arch.
-
-* Tue Jan 26 2016 David Howells <dhowells@redhat.com> - 2.26-1
-- Sync with binutils-2.26-2.
-
-* Mon Aug 24 2015 David Howells <dhowells@redhat.com> - 2.25.1-1
-- Sync with binutils-2.25.1-4.
-- Set --enable-targets if the target is powerpc* not just ppc*.
-- Provide LE ppc and ppc64 emulations [BZ 1255947].
-
-* Mon Apr 6 2015 David Howells <dhowells@redhat.com> - 2.25-4
-- Microblaze: Fix extra-large constant handling [binutils bz 18189].
-
-* Wed Jan 7 2015 David Howells <dhowells@redhat.com> - 2.25-3
-- Fix up the target for SH64 and cease mixing 32-bit SH targets with SH64.
-- SH64: Work around flags not getting set on incremental link of .a into .o [binutils bz 17288].
-
-* Mon Jan 5 2015 David Howells <dhowells@redhat.com> - 2.25-1
-- Sync with binutils-2.25 to pick up fixes.
-  Resolves: BZ #1162577, #1162601, #1162611, #1162625
-
-* Thu Nov 13 2014 David Howells <dhowells@redhat.com> - 2.24-7
-- Fix problems with the ar program reported in FSF PR 17533.
-  Resolves: BZ #1162672, #1162659
-
-* Wed Nov 12 2014 David Howells <dhowells@redhat.com> - 2.24-6
-- Sync with binutils to pick up fixes.
-- Backport binutils 2.4 upstream branch to pick up more fixes.
-
-* Sat Aug 16 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.24-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
-
-* Fri Jul 18 2014 David Howells <dhowells@redhat.com> - 2.24-5
-- Add NIOS2 arch support.
-
-* Mon Jun 16 2014 David Howells <dhowells@redhat.com> - 2.24-4
-- Fix gcc-4.9 new compile error in m68k handler in gas.
-
-* Wed Jun 11 2014 David Howells <dhowells@redhat.com> - 2.24-4
-- Sync with binutils-2.24-15 fixing the bfd_set_section_alignment() error [BZ 1106093]
-- Apply the changes on binutils-2_24-branch in git to cab6c3ee9785f072a373afe31253df0451db93cf.
-
-* Fri Mar 28 2014 David Howells <dhowells@redhat.com> - 2.24-2
-- A sysroot of / is bad, so make it /usr/<program-prefix>/sys-root/.
-
-* Thu Mar 27 2014 David Howells <dhowells@redhat.com> - 2.24-1
-- Fix formatless sprintfs in Score.
-
-* Wed Mar 26 2014 David Howells <dhowells@redhat.com> - 2.24-1
-- Update to binutils-2.24-1.
-- Add metag arch support.
-
-* Fri Aug 9 2013 David Howells <dhowells@redhat.com> - 2.23.88.0.1-2
-- Fix a build error in xtensa
-
-* Thu Aug 8 2013 David Howells <dhowells@redhat.com> - 2.23.88.0.1-2
-- Backport S390 .machinemode pseudo-op support from binutils-2.23.88.0.1-10.
-- Add pod2man as a build requirement.
-
-* Tue Jun 4 2013 David Howells <dhowells@redhat.com> - 2.23.88.0.1-1
-- Update to binutils-2.22.88.0.1 to fix F19 texinfo issues [BZ 912921].
-
-* Tue Jun 4 2013 David Howells <dhowells@redhat.com> - 2.23.51.0.3-2
-- Backport cleanups from the RHEL-6.4 cross-compiler.
-- Backport some macroisation from the RHEL-6.4 cross-compiler.
-- The hppa64 target cannot actually build hppa, so provide hppa [BZ 892220].
-
-* Wed Feb 13 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.23.51.0.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
-
-* Fri Nov 2 2012 David Howells <dhowells@redhat.com> - 2.23.51.0.3-1
-- Update to binutils-2.23.51.0.3.
-- Added support for aarch64.
-
-* Mon Oct 15 2012 Jon Ciesla <limburgher@gmail.com> - 2.22.52.0.3-4
-- Provides: bundled(libiberty)
-
-* Wed Jul 18 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.22.52.0.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
-
-* Wed Jul 11 2012 Dan Horák <dan[at]danny.cz> - 2.22.52.0.3-2
-- don't install libbfd/libopcode when host == target (eg. on s390x)
-
-* Wed May 30 2012 David Howells <dhowells@redhat.com> - 2.22.52.0.3-1
-- Update to binutils-2.22.52.0.3.
-- Fixed a warning in the assembler for h8300 that caused the build to fail.
-
-* Thu Mar 22 2012 David Howells <dhowells@redhat.com> - 2.22.52.0.1-8.1
-- Initial import of cross-binutils [BZ 761619].
-
-* Wed Mar 07 2012 Jakub Jelinek <jakub@redhat.com> - 2.22.52.0.1-8
-- Fix up handling of hidden ifunc relocs on x86_64
-- Add Intel TSX support

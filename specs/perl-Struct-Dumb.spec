@@ -1,10 +1,10 @@
 Name:           perl-Struct-Dumb
-Version:        0.15
+Version:        0.16
 Release:        1%{?dist}
 Summary:        Make simple lightweight record-like structures
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
-URL:            https://metacpan.org/release/Struct-Dumb
+URL:            https://metacpan.org/dist/Struct-Dumb
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PEVANS/Struct-Dumb-%{version}.tar.gz
 
 BuildArch:      noarch
@@ -57,6 +57,9 @@ that access or modify the values stored.
 
 
 %changelog
+* Sun Sep 28 2025 Emmanuel Seyman <emmanuel@seyman.fr> - 0.16-1
+- Update to 0.16
+
 * Sun Aug 24 2025 Emmanuel Seyman <emmanuel@seyman.fr> - 0.15-1
 - Update to 0.15
 

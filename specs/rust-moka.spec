@@ -5,7 +5,7 @@
 %global crate moka
 
 Name:           rust-moka
-Version:        0.12.10
+Version:        0.12.11
 Release:        %autorelease
 Summary:        Fast and concurrent cache library inspired by Java Caffeine
 
@@ -14,15 +14,6 @@ URL:            https://crates.io/crates/moka
 Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          moka-fix-metadata-auto.diff
-# Manually created patch for downstream crate metadata changes
-# * Remove dev-dependency on deprecated async-std crate
-#   (https://github.com/moka-rs/moka/issues/528) and patch out the tests that
-#   would use it
-# * Adjust license expression: some code is just Apache-2.0:
-#   https://github.com/moka-rs/moka/pull/529
-# * Update reqwest dev-dependency from 0.11 to 0.12:
-#   https://github.com/moka-rs/moka/pull/531
-Patch:          moka-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -43,6 +34,7 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
+%license %{crate_instdir}/NOTICE
 %doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/MIGRATION-GUIDE.md
 %doc %{crate_instdir}/README.md
@@ -184,11 +176,12 @@ use the "sync" feature of the "%{crate}" crate.
 %if %{with check}
 %check
 # * In future::cache::tests::ensure_gc_runs_when_dropping_cache, the number of
-#   references is affected by our downstream choice to omit the tests that
-#   require async-std. This is similar to (but slightly different from) the
-#   flakiness that was observed upstream in the other
-#   ensure_gc_runs_when_dropping_cache test; see
-#   https://github.com/moka-rs/moka/pull/387.
+#   references is sometimes different from what upstream expects. This is
+#   similar to (but slightly different from) the flakiness that was observed
+#   upstream in the other ensure_gc_runs_when_dropping_cache test; see
+#   https://github.com/moka-rs/moka/pull/387. We reported this upstream as
+#   “Flaky failures in ensure_gc_runs_when_dropping_cache,”
+#   https://github.com/moka-rs/moka/issues/539.
 %cargo_test -f future,sync -- -- --exact --skip future::cache::tests::ensure_gc_runs_when_dropping_cache
 %endif
 

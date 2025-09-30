@@ -14,10 +14,10 @@
 Summary:            Distributed Monitoring System
 Name:               ganglia
 Version:            %{gangver}
-Release:            60%{?dist}
+Release:            61%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:            LicenseRef-Callaway-BSD
-URL:                http://ganglia.sourceforge.net/
+URL:                https://github.com/ganglia
 Source0:            http://downloads.sourceforge.net/sourceforge/ganglia/ganglia-%{version}.tar.gz
 Source1:            https://github.com/ganglia/ganglia-web/archive/%{webver}/ganglia-web-%{webver}.tar.gz
 Source2:            gmond.service
@@ -32,6 +32,8 @@ Patch10:            ganglia-3.7.2-tirpc-hack.patch
 Patch20:            ganglia-web-3.7.2-path.patch
 Patch21:            ganglia-web-3.7.6-pr-379.patch
 Patch22:            ganglia-web-3.7.6-php8.patch
+Patch23:            0001-Sanitize-input-for-timezone.patch
+Patch24:            0002-Validate-that-the-supplied-timezone-is-a-valid-timez.patch
 Patch30:            ganglia-gmond-python2to3.patch
 Patch31:            0002-2to3-pass.patch
 Patch32:            0003-Ruff-pass.patch
@@ -55,15 +57,14 @@ BuildRequires:      cyrus-sasl-devel
 BuildRequires:      expat-devel
 BuildRequires:      freetype-devel
 BuildRequires:      gcc
-BuildRequires:      libart_lgpl-devel
 BuildRequires:      libconfuse-devel
 BuildRequires:      libmemcached-devel
 BuildRequires:      libpng-devel
 BuildRequires:      make
-%if 0%{?rhel}
-BuildRequires:      pcre-devel
-%else
+%if 0%{?fedora} || 0%{?rhel} > 9
 BuildRequires:      pcre2-devel
+%else
+BuildRequires:      pcre-devel
 %endif
 %{?py2:BuildRequires:      python2-devel}
 %{?py3:BuildRequires:      python3-devel}
@@ -187,7 +188,7 @@ programmers can use to build scalable cluster or grid applications
 %if 0%{?fedora} || 0%{?rhel} > 7
 %patch -P 10 -p1
 %endif
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} > 9
 %patch -P 50 -p1
 %endif
 # fix broken systemd support
@@ -200,6 +201,8 @@ pushd web
 %patch -P 20 -p1
 %patch -P 21 -p1
 %patch -P 22 -p1
+%patch -P 23 -p1
+%patch -P 24 -p1
 popd
 
 %build
@@ -214,7 +217,7 @@ automake --add-missing --copy --foreign
 autoconf -f || exit 1
 %endif
 
-%if 0%{?fedora} > 36
+%if 0%{?fedora} > 36 || 0%{?rhel} > 9
 pushd libmetrics
 aclocal -I m4
 autoheader
@@ -477,6 +480,12 @@ end
 %dir %attr(0755,apache,apache) %{_localstatedir}/lib/%{name}-web/dwoo/compiled
 
 %changelog
+* Sun Sep 28 2025 Terje Rosten <terjeros@gmail.com> - 3.7.2-61
+- Port to epel10
+- Add TZ patches
+- Remove legacy libart_lgpl-devel buildreq
+- Fix URL
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.2-60
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

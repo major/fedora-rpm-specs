@@ -32,9 +32,9 @@
 
 Name:           ansible
 Summary:        Curated set of Ansible collections included in addition to ansible-core
-Version:        11.8.0
+Version:        11.10.0
 %global uversion %{version_no_tilde %{quote:%nil}}
-Release:        4%{?dist}
+Release:        1%{?dist}
 
 # In addition to GPL-3.0-or-later, the following licenses apply.
 # License text that solely exists in file headers were not considered.
@@ -169,6 +169,9 @@ chmod 0755 %{buildroot}%{python3_sitelib}/ansible_collections/ngine_io/cloudstac
 
 
 %changelog
+* Sat Sep 27 2025 Maxwell G <maxwell@gtmx.me> - 11.10.0-1
+- Update to 11.10.0.
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 11.8.0-4
 - Rebuilt for Python 3.14.0rc3 bytecode
 

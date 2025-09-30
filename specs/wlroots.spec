@@ -6,7 +6,7 @@
 
 Name:           wlroots
 Version:        0.19.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A modular Wayland compositor library
 
 # Source files/overall project licensed as MIT, but
@@ -37,6 +37,7 @@ Source2:        https://emersion.fr/.well-known/openpgpkey/hu/dj3498u4hyyarh35rk
 Source3:        examples.meson.build
 
 # Upstream patches
+Patch:          %{url}/-/commit/7392b331.patch#/wlroots-0.19.1-backend-output-send-commit-events-after-applying-all.patch
 
 # Fedora patches
 # Following patch is required for phoc.
@@ -141,6 +142,9 @@ install -pm0644 -D '%{SOURCE3}' '%{buildroot}/%{_pkgdocdir}/examples/meson.build
 
 
 %changelog
+* Sun Sep 28 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.19.1-2
+- Apply upstream patch for crash on disabling outputs
+
 * Sun Sep 21 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.19.1-1
 - Update to 0.19.1 (#2397203)
 

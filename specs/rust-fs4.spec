@@ -5,7 +5,7 @@
 %global crate fs4
 
 Name:           rust-fs4
-Version:        0.12.0
+Version:        0.13.1
 Release:        %autorelease
 Summary:        No libc, pure Rust cross-platform file locks
 
@@ -15,12 +15,10 @@ Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          fs4-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * Disable feature 'smol' (missing dependencies: smol, smol-potat)
-# * Port tests from tempdir to tempfile:
-#   https://github.com/al8n/fs4-rs/pull/35
+# * Disable feature 'smol' (missing dependencies: smol-potat)
 Patch:          fs4-fix-metadata.diff
-Patch:          0001-Port-from-tempdir-to-tempfile.patch
-Patch:          0001-Fix-build-failure-in-test-code-with-Rust-1.89.patch
+# * Fix build failure in test code with Rust 1.89+
+Patch2:         0001-Fix-build-failure-in-test-code-with-Rust-1.89.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -42,6 +40,7 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

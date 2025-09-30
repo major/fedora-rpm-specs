@@ -5,7 +5,7 @@
 %global crate tree-sitter-loader
 
 Name:           rust-tree-sitter-loader
-Version:        0.25.8
+Version:        0.25.10
 Release:        %autorelease
 Summary:        Locates, builds, and loads tree-sitter grammars at runtime
 
@@ -18,6 +18,7 @@ Source2:        https://github.com/tree-sitter/tree-sitter/raw/v%{version}/LICEN
 # * Disable feature 'wasm'
 # * Update etcetera to 0.10:
 #   https://github.com/tree-sitter/tree-sitter/pull/4392
+# * Update fs4 to 0.13
 Patch:          tree-sitter-loader-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

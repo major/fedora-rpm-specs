@@ -11,6 +11,12 @@ Source:         %pypi_source %{srcname}
 # Fedora specific.
 Patch:          0001-Drop-pydap-from-dependencies.patch
 
+# RHBZ#2395128
+# rebase of https://github.com/pydata/xarray/pull/10788.patch
+# PR#10788 has merge conflicts
+Patch:          locking.patch
+
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -20,6 +26,7 @@ BuildRequires:  python3dist(dask[dataframe]) >= 2023.11
 BuildRequires:  python3dist(pint) >= 0.22
 BuildRequires:  python3dist(pytest) >= 2.7.1
 BuildRequires:  python3dist(pytest-xdist)
+BuildRequires:  python3dist(pytest-timeout)
 BuildRequires:  python3dist(rasterio) >= 1.3
 BuildRequires:  python3dist(seaborn) >= 0.13
 
@@ -72,7 +79,7 @@ pytest_args=(
   -k 'not test_save_mfdataset_compute_false_roundtrip'
 )
 
-%{pytest} -ra "${pytest_args[@]}" --pyargs xarray
+%{pytest} -ra "${pytest_args[@]}" --pyargs xarray --timeout 300 --full-trace
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %license licenses/*
