@@ -6,10 +6,10 @@
 
 Name:           c4core
 Summary:        C++ core utilities
-Version:        0.2.6
+Version:        0.2.7
 # This is the same as the version number. To prevent undetected soversion
 # bumps, we nevertheless express it separately.
-%global so_version 0.2.6
+%global so_version 0.2.7
 Release:        %autorelease
 
 URL:            https://github.com/biojppm/c4core

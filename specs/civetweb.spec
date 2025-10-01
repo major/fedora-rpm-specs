@@ -4,12 +4,13 @@
 Name:           civetweb
 Summary:        Embedded C/C++ web server
 Version:        1.16
-Release:        9%{?dev:%{dev}}%{?dist}
+Release:        10%{?dev:%{dev}}%{?dist}
 License:        MIT
 Url:            https://github.com/civetweb/civetweb
 Source:         https://github.com/%{name}/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch:		0001-CMakeLists.txt.patch
 Patch:		0002-src-civetweb.c.patch
+Patch:		0003-src-civetweb.c.patch
 BuildRequires:  cmake make gcc-c++
 
 %description
@@ -63,6 +64,9 @@ mkdir -p %{buildroot}%{_docdir}/civetweb
 %{_datadir}/pkgconfig/*
 
 %changelog
+* Mon Sep 29 2025 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 1.16-10
+- civetweb 1.16, rhbz 2400162-2400166
+
 * Wed Sep 3 2025 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 1.16-9
 - civetweb 1.16
 

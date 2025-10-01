@@ -52,7 +52,6 @@ BuildRequires: make
 Requires(post): systemd-units
 Requires(preun): systemd-units
 Requires(postun): systemd-units
-Requires: systemd-tmpfiles
 
 # at-sysvinit subpackage dropped
 Obsoletes: at-sysvinit < 3.1.16-1

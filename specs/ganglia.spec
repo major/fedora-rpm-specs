@@ -11,10 +11,30 @@
 %global py3             1
 %endif
 
+%if 0%{?fedora} || 0%{?rhel} > 9
+%global pcre2           1
+%global autoconf_fix    1
+%endif
+
+%if 0%{?fedora} || 0%{?rhel} > 7
+%global tirpc           1
+%global php_xml         1
+%endif
+
+%if 0%{?fedora}  > 42
+%global sysusers        1
+%else
+%global legacy_users    1
+%endif
+
+%if 0%{?fedora} || 0%{?rhel} > 6
+%global httpd24         1
+%endif
+
 Summary:            Distributed Monitoring System
 Name:               ganglia
 Version:            %{gangver}
-Release:            61%{?dist}
+Release:            62%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:            LicenseRef-Callaway-BSD
 URL:                https://github.com/ganglia
@@ -45,7 +65,7 @@ Patch50:            ganglia-3.7.2-pcre2.patch
 %if 0%{?systemd}
 BuildRequires:      systemd
 %endif
-%if 0%{?fedora} || 0%{?rhel} > 7
+%if 0%{?tirpc}
 BuildRequires:      rpcgen
 BuildRequires:      libtirpc-devel
 BuildRequires:      autoconf
@@ -61,7 +81,7 @@ BuildRequires:      libconfuse-devel
 BuildRequires:      libmemcached-devel
 BuildRequires:      libpng-devel
 BuildRequires:      make
-%if 0%{?fedora} || 0%{?rhel} > 9
+%if 0%{?pcre2}
 BuildRequires:      pcre2-devel
 %else
 BuildRequires:      pcre-devel
@@ -84,7 +104,7 @@ Requires:           rrdtool
 Requires:           php
 Requires:           php-gd
 Requires:           %{name}-gmetad = %{gangver}-%{release}
-%if 0%{?fedora} || 0%{?rhel} > 7
+%if 0%{?php_xml}
 Requires:           php-xml
 %endif
 %description        web
@@ -185,10 +205,10 @@ programmers can use to build scalable cluster or grid applications
 %{?py3:%patch -P 34 -p1}
 %{?py3:%patch -P 35 -p1}
 %patch -P 40 -p1
-%if 0%{?fedora} || 0%{?rhel} > 7
+%if 0%{?tirpc}
 %patch -P 10 -p1
 %endif
-%if 0%{?fedora} || 0%{?rhel} > 9
+%if 0%{?pcre2}
 %patch -P 50 -p1
 %endif
 # fix broken systemd support
@@ -208,7 +228,7 @@ popd
 %build
 touch Makefile.am
 
-%if 0%{?fedora} || 0%{?rhel} > 7
+%if 0%{?tirpc}
 aclocal -I m4
 autoheader
 automake --add-missing --copy --foreign 2>/dev/null
@@ -217,7 +237,7 @@ automake --add-missing --copy --foreign
 autoconf -f || exit 1
 %endif
 
-%if 0%{?fedora} > 36 || 0%{?rhel} > 9
+%if 0%{?autoconf_fix}
 pushd libmetrics
 aclocal -I m4
 autoheader
@@ -304,7 +324,7 @@ ln -s ../../..%{_sysconfdir}/%{name}/conf.php \
 popd
 
 ## httpd config
-%if 0%{?fedora} || 0%{?rhel} > 6
+%if 0%{?httpd24}
 install -Dp -m 0644 %{SOURCE4} %{buildroot}%{_sysconfdir}/httpd/conf.d/%{name}.conf
 %else
 install -Dp -m 0644 %{SOURCE5} %{buildroot}%{_sysconfdir}/httpd/conf.d/%{name}.conf
@@ -340,11 +360,12 @@ chmod 0644 %{buildroot}%{_datadir}/%{name}/css/smoothness/jquery-ui-1.10.2.custo
 %{?with_python:sed -i '1{\@^#!@d}' %{buildroot}%{_libdir}/%{name}/python_modules/*.py}
 
 # Sysusers
-%if 0%{?fedora} > 42
+%if 0%{?sysusers}
 install -m0644 -D %{SOURCE7} %{buildroot}%{_sysusersdir}/ganglia.conf
 %endif
 
-%if 0%{?rhel} || 0%{?fedora} < 43
+
+%if 0%{?legacy_users}
 %pre
 ## Add the "ganglia" user
 /usr/sbin/useradd -c "Ganglia Monitoring System" \
@@ -407,7 +428,7 @@ end
 %dir %{_libdir}/ganglia
 %{_libdir}/ganglia/*.so
 %{?with_python:%exclude %{_libdir}/ganglia/modpython.so}
-%if 0%{?fedora} > 42
+%if 0%{?sysusers}
 %{_sysusersdir}/ganglia.conf
 %endif
 
@@ -480,6 +501,9 @@ end
 %dir %attr(0755,apache,apache) %{_localstatedir}/lib/%{name}-web/dwoo/compiled
 
 %changelog
+* Mon Sep 29 2025 Terje Rosten <terjeros@gmail.com> - 3.7.2-62
+- Some refactoring
+
 * Sun Sep 28 2025 Terje Rosten <terjeros@gmail.com> - 3.7.2-61
 - Port to epel10
 - Add TZ patches

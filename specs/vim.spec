@@ -54,7 +54,7 @@ Summary: The VIM editor
 URL:     https://www.vim.org/
 Name: vim
 Version: %{baseversion}.%{patchlevel}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Epoch: 2
 # swift.vim contains Apache 2.0 with runtime library exception:
 # which is taken as Apache-2.0 WITH Swift-exception - reported to legal as https://gitlab.com/fedora/legal/fedora-license-data/-/issues/188
@@ -315,8 +315,6 @@ BuildRequires: libICE-devel
 BuildRequires: libSM-devel
 # core X11 protocol client library
 BuildRequires: libX11-devel
-# X PixMap library for X11 - for creating images in X PixMap format
-BuildRequires: libXpm-devel
 # X Toolkit Intrinsics library - working with widgets?
 BuildRequires: libXt-devel
 # for testing validity of appdata file
@@ -344,11 +342,6 @@ Requires: libattr >= 2.4
 Requires: vim-common = %{epoch}:%{version}-%{release} 
 Suggests: python3
 Suggests: python3-libs
-
-  %if 0%{?fedora} >= 41
-  # needed for icons (#2277751)
-Requires: gdk-pixbuf2-modules-extra%{?_isa}
-  %endif
 
 # suggest python3, python2, lua, ruby and perl packages because of their 
 # embedded functionality in Vim/GVim
@@ -995,6 +988,9 @@ mkdir -p %{buildroot}/%{_datadir}/fish/vendor_functions.d/
 
 
 %changelog
+* Mon Sep 29 2025 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.1.1775-2
+- remove XPM support - GVim icons work without it
+
 * Fri Sep 19 2025 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.1.1775-1
 - patchlevel 1775
 

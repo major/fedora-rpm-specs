@@ -17,6 +17,13 @@ License:        MIT
 URL:            https://github.com/fedora-iot/rpm-head-signing
 Source0:        %url/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
+# Make this build with RPM 6
+Patch:          https://github.com/fedora-iot/rpm-head-signing/pull/80.patch
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+# Plus, python3dist(xattr) is missing on i686
+ExcludeArch:    %{ix86}
+
 BuildRequires:  gcc
 BuildRequires:  openssl-devel
 BuildRequires:  ima-evm-utils

@@ -7,7 +7,7 @@
 
 %global pv_maj 6
 %global pv_min 0
-%global pv_patch 0
+%global pv_patch 1
 %global pv_majmin %{pv_maj}.%{pv_min}
 #global rcsuf RC3
 %{?rcsuf:%global relsuf .%{rcsuf}}

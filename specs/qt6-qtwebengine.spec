@@ -76,7 +76,9 @@
 # and designer plugins
 %global __provides_exclude_from ^%{_qt6_plugindir}/.*\\.so$
 
-%global unstable 1
+# FIXME: we cannot use any ~rc or similar suffix as the build
+# would fail for having too long filename
+#global unstable 1
 %if 0%{?unstable}
 %global prerelease rc
 %endif
@@ -85,7 +87,7 @@
 
 Summary: Qt6 - QtWebEngine components
 Name:    qt6-qtwebengine
-Version: 6.10.0%{?unstable:~%{prerelease}}
+Version: 6.10.0
 Release: 1%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
@@ -124,9 +126,6 @@ Patch3:   qtwebengine-aarch64-new-stat.patch
 # Enable OpenH264
 Patch4:   qtwebengine-use-openh264.patch
 
-# FTBS warning: elaborated-type-specifier for a scoped enum must not
-# use the 'class' keyword
-Patch50:  qtwebengine-fix-build.patch
 # https://bugreports.qt.io/browse/QTBUG-139424
 # Revert commit bcee2dbf412cc655c1b467091b581c696d234e3f
 # See also https://gitlab.archlinux.org/archlinux/packaging/packages/qt6-webengine/-/commit/74473e03e9d77895d22659914aa4ae91324a1f0a
@@ -141,8 +140,8 @@ Patch80:  qtwebengine-fix-arm-build.patch
 ## ppc64le port
 Patch200: qtwebengine-6.9-ppc64.patch
 Patch201: qtwebengine-chromium-ppc64.patch
-# https://src.fedoraproject.org/rpms/chromium/c/c675db4ac0623d2d97344be0b3b2d9f1ac931446?branch=rawhide
-Patch202: chromium-130-size-assertions.patch
+# https://github.com/google/highway/commit/dcc0ca1cd4245ecff9e5ba50818e47d5e2ccf699
+Patch202: qtwebengine-chromium-ppc64-highway.patch
 
 # handled by qt6-srpm-macros, which defines %%qt6_qtwebengine_arches
 # FIXME use/update qt6_qtwebengine_arches
@@ -483,7 +482,6 @@ popd
 %patch -P3 -p1 -b .aarch64-new-stat
 %patch -P4 -p1 -b .use-openh264
 
-%patch -P50 -p1 -b .fix-build.patch
 %patch -P51 -p1 -b .eglimage
 
 ## upstream patches
@@ -495,7 +493,9 @@ popd
 %patch -P200 -p1
 pushd src/3rdparty/chromium
 %patch -P201 -p1
+pushd third_party/highway/src
 %patch -P202 -p1
+popd
 popd
 
 
@@ -766,7 +766,6 @@ done
 %dir %{_qt6_libdir}/cmake/Qt6WebEngineCoreTools
 %dir %{_qt6_libdir}/cmake/Qt6WebEngineQuick
 %dir %{_qt6_libdir}/cmake/Qt6WebEngineQuickDelegatesQml
-%dir %{_qt6_libdir}/cmake/Qt6WebEngineQuickDelegatesQmlPrivate
 %dir %{_qt6_libdir}/cmake/Qt6WebEngineQuickPrivate
 %dir %{_qt6_libdir}/cmake/Qt6WebEngineWidgets
 %dir %{_qt6_libdir}/cmake/Qt6WebEngineWidgetsPrivate
@@ -779,7 +778,6 @@ done
 %{_qt6_libdir}/cmake/Qt6WebEngineCoreTools/*.cmake
 %{_qt6_libdir}/cmake/Qt6WebEngineQuick/*.cmake
 %{_qt6_libdir}/cmake/Qt6WebEngineQuickDelegatesQml/*.cmake
-%{_qt6_libdir}/cmake/Qt6WebEngineQuickDelegatesQmlPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6WebEngineQuickPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6WebEngineWidgets/*.cmake
 %{_qt6_libdir}/cmake/Qt6WebEngineWidgetsPrivate/*.cmake

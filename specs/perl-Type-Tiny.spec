@@ -1,6 +1,6 @@
 Name:           perl-Type-Tiny
-Version:        2.008002
-Release:        2%{?dist}
+Version:        2.008003
+Release:        1%{?dist}
 Summary:        Tiny, yet Moo(se)-compatible type constraint
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Type-Tiny
@@ -179,9 +179,17 @@ sed -i -e '/^inc\//d' MANIFEST
 %files
 %doc Changes CREDITS NEWS README
 %license LICENSE COPYRIGHT
-%{perl_vendorlib}/*
+%{perl_vendorlib}/Devel
+%{perl_vendorlib}/Error
+%{perl_vendorlib}/Eval
+%{perl_vendorlib}/Type
+%{perl_vendorlib}/Types
 %{!?with_reply_plugin:%exclude %{perl_vendorlib}/Reply}
-%{_mandir}/man3/*
+%{_mandir}/man3/Error::TypeTiny*
+%{_mandir}/man3/Eval::TypeTiny*
+%{_mandir}/man3/Reply::Plugin*
+%{_mandir}/man3/Type::*
+%{_mandir}/man3/Types::*
 %exclude %{perl_vendorlib}/Test
 %exclude %{_mandir}/man3/Test::TypeTiny.3pm*
 
@@ -190,6 +198,9 @@ sed -i -e '/^inc\//d' MANIFEST
 %{_mandir}/man3/Test::TypeTiny.3pm*
 
 %changelog
+* Mon Sep 29 2025 Jitka Plesnikova <jplesnik@redhat.com> - 2.008003-1
+- 2.008003 bump (rhbz#2395203)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.008002-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

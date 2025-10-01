@@ -176,13 +176,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.17.0
 %define specversion 6.17.0
 %define patchversion 6.17
-%define pkgrelease 0.rc7.250926g4ff71af020ae5.60
+%define pkgrelease 63
 %define kversion 6
-%define tarfile_release 6.17-rc7-118-g4ff71af020ae5
+%define tarfile_release 6.17
 # This is needed to do merge window version magic
 %define patchlevel 17
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc7.250926g4ff71af020ae5.60%{?buildid}%{?dist}
+%define specrelease 63%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.17.0
 
@@ -4391,10 +4391,16 @@ fi\
 #
 #
 %changelog
-* Fri Sep 26 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.17.0-0.rc7.250926g4ff71af020ae5.60]
-- Linux v6.17.0-0.rc7.250926g4ff71af020ae5
-
-* Fri Sep 26 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc7.4ff71af020ae.60]
+* Mon Sep 29 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-63]
+- redhat: config: Enable USBIO modules (Hans de Goede)
+- i2c: Add Intel USBIO I2C driver (Israel Cepeda)
+- gpio: Add Intel USBIO GPIO driver (Israel Cepeda)
+- usb: misc: Add Intel USBIO bridge driver (Israel Cepeda)
+- media: ov08x40: Fix the horizontal flip control (Hao Yao)
+- ACPI: scan: Add Intel CVS ACPI HIDs to acpi_ignore_dep_ids[] (Hans de Goede)
+- platform/x86: int3472: Increase ov08x40 handshake GPIO delay to 45 ms (Hans de Goede)
+- platform/x86: int3472: Rework regulator enable-time handling (Hans de Goede)
+- platform/x86: int3472: Convert int3472_gpio_map to use C99 initializers (Hans de Goede)
 - powerpc/tools: drop `-o pipefail` in gcc check scripts (Jan Stancek)
 - redhat/configs: enable CONFIG_KVM_INTEL_TDX for Fedora x86 (Daniel P. Berrangé)
 - KVM/TDX: Explicitly do WBINVD when no more TDX SEAMCALLs (Kai Huang)
@@ -4406,6 +4412,16 @@ fi\
 - x86/kexec: Consolidate relocate_kernel() function parameters (Kai Huang)
 - arm64: dts: qcom: x1e80100-lenovo-yoga-slim7x: add Bluetooth support (Jens Glathe)
 - redhat/configs: clang_lto: disable CONFIG_FORTIFY_KUNIT_TEST (Scott Weaver)
+
+* Mon Sep 29 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-62]
+- Linux v6.17.0
+
+* Sun Sep 28 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc7.51a24b7deaae.61]
+- Linux v6.17.0-0.rc7.51a24b7deaae
+
+* Sat Sep 27 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc7.fec734e8d564.60]
+- Revert "Merge branch 'tmp2' into 'os-build'" (Justin M. Forbes)
+- Linux v6.17.0-0.rc7.fec734e8d564
 
 * Fri Sep 26 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.17.0-0.rc7.4ff71af020ae.59]
 - Always set LLVM=1 when building with clang (Tom Stellard)

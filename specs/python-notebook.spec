@@ -3,7 +3,7 @@
 %global py3_shebang_flags %(echo %py3_shebang_flags | sed s/s//)
 
 Name:           python-notebook
-Version:        7.4.6
+Version:        7.4.7
 Release:        %autorelease
 Summary:        A web-based notebook environment for interactive computing
 # SPDX

@@ -2,8 +2,8 @@
 %global min_python_copr_version 1.128.1
 
 Name:       copr-cli
-Version:    2.2
-Release:    2%{?dist}
+Version:    2.3
+Release:    1%{?dist}
 Summary:    Command line interface for COPR
 
 License:    GPL-2.0-or-later
@@ -90,8 +90,8 @@ install -m 755 copr_cli/package_build_order.py %{buildroot}/%{_bindir}/package-b
 
 
 %changelog
-* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.2-2
-- Rebuilt for Python 3.14.0rc3 bytecode
+* Mon Sep 29 2025 Jakub Kadlcik <frostyx@email.cz> 2.3-1
+- Drop support for building modules
 
 * Tue Aug 26 2025 Jakub Kadlcik <frostyx@email.cz> 2.2-1
 - Modernize spec file and drop old stuff

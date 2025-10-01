@@ -60,6 +60,16 @@ Source2:        webkitgtk-keys.gpg
 # https://bugs.webkit.org/show_bug.cgi?id=299018
 Patch:          i686-build.patch
 
+# Fix for building with clang-22
+# This patch comes from:
+# https://skia.googlesource.com/skcms.git/+/135488419331644e59091ecc73e682299d3937a4
+# This was bundled into skia here:
+# https://github.com/google/skia/commit/9ab05b08ae3e83c80ac69c69008ed1048e9a0923
+# Then bundled into webkit in this commit:
+# https://github.com/WebKit/WebKit/commit/7257554fb8cae41212228361c22c15c2557a0cbb
+# I would expect this fix to be part of the next webkit release.
+Patch: 0001-Change-use-of-removed-intrinsic.patch
+
 BuildRequires:  bison
 BuildRequires:  bubblewrap
 BuildRequires:  clang

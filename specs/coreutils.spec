@@ -1,7 +1,7 @@
 Summary: A set of basic GNU tools commonly used in shell scripts
 Name:    coreutils
 Version: 9.8
-Release: 2%{?dist}
+Release: 3%{?dist}
 # some used parts of gnulib are under various variants of LGPL
 License: GPL-3.0-or-later AND GFDL-1.3-no-invariants-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later
 Url:     https://www.gnu.org/software/coreutils/
@@ -120,6 +120,9 @@ packaged as a single multicall binary.
 # yum obsoleting rules explained at:
 # https://bugzilla.redhat.com/show_bug.cgi?id=1107973#c7
 Obsoletes: %{name} < 8.24-100
+
+# Gnulib translations are maintained seprately since coreutils 9.6 (#2393892)
+Requires: gnulib-l10n
 
 # info doc refers to "Specifying the Time Zone" from glibc-doc (#959597)
 Suggests: glibc-doc
@@ -279,6 +282,9 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 %license COPYING
 
 %changelog
+* Mon Sep 29 2025 Lukáš Zaoral <lzaoral@redhat.com> - 9.8-3
+- require gnulib-l10n for translations of gnulib messages (rhbz#2393892)
+
 * Thu Sep 25 2025 Lukáš Zaoral <lzaoral@redhat.com> - 9.8-2
 - tail: fix tailing larger number of lines in regular files (rhbz#2398008)
 

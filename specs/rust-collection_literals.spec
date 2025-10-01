@@ -2,22 +2,27 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate munge_macro
+%global crate collection_literals
 
-Name:           rust-munge_macro
-Version:        0.4.7
+Name:           rust-collection_literals
+Version:        1.0.2
 Release:        %autorelease
-Summary:        Macro for custom destructuring
+Summary:        Easy-to-use macros for initializing any collection
 
 License:        MIT
-URL:            https://crates.io/crates/munge_macro
+URL:            https://crates.io/crates/collection_literals
 Source:         %{crates_source}
+# * Add a license file
+# * https://github.com/staedoix/collection_literals/pull/1
+# * https://docs.fedoraproject.org/en-US/packaging-guidelines/LicensingGuidelines/#_license_text
+# * Text and copyright statement based on https://github.com/rust-lang/rust/raw/refs/tags/1.90.0/LICENSE-MIT, with “The Rust Project Contributors” replaced by “The collection_literals
+#   Contributors.”
+Source10:       https://github.com/staedoix/collection_literals/raw/bca8df6a403b774e817869a6a031f441e008712c/LICENSE
 
 BuildRequires:  cargo-rpm-macros >= 24
-BuildRequires:  dos2unix
 
 %global _description %{expand:
-Macro for custom destructuring.}
+Easy-to-use macros for initializing any collection.}
 
 %description %{_description}
 
@@ -49,9 +54,8 @@ use the "default" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-# Despite https://github.com/djkoloski/munge/pull/5, we still see some
-# CRLF-terminated files in the released crates.
-find . -type f -exec dos2unix --keepdate '{}' '+'
+# Copy the proposed license file into the source.
+cp -p '%{SOURCE10}' .
 %cargo_prep
 
 %generate_buildrequires

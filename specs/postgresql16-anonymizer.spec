@@ -3,11 +3,11 @@
 %global shortname       anonymizer
 %global extension       postgresql_%{shortname}
 %global pgversion       16
-%global pgrx_version    0.14.3
+%global pgrx_version    0.16.0
 %global pg_config       %{_bindir}/pg_config
 
 Name:           postgresql%{pgversion}-%{shortname}
-Version:        2.3.0
+Version:        2.4.1
 Release:        %autorelease
 Summary:        Mask or replace personally identifiable information (PII) or sensitive data
 
@@ -61,8 +61,7 @@ Patch:          anonymizer-cargo.patch
 Patch:          remove-disallowed-licenses.patch
 
 # drop i686 support (https://fedoraproject.org/wiki/Changes/Noi686Repositories)
-# linker error because anonymizer seems to not work on ppc64 (error: linking with `cc` failed: exit status: 1)
-ExcludeArch:    %{ix86} %{power64}
+ExcludeArch:    %{ix86}
 
 %if %?postgresql_default
 %global pkgname %{extension}
@@ -115,8 +114,6 @@ and specify your anonymization policy inside the table definition itself.
 
 %prep
 %autosetup -a1 -p1 -n %{extension}-%{version}
-# temporary until upstream fixes it
-find . -name ".DS_Store" -type f -delete
 %{cargo_prep -v vendor}
 echo "[patch.crates-io]
 dunce = { path = 'vendor/dunce-1.0.5' }

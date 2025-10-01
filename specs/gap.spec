@@ -2,7 +2,7 @@
 %global gaplibdir %{_datadir}/gap
 %global icondir %{_datadir}/icons/hicolor
 %global giturl  https://github.com/gap-system/gap
-%global prerel beta3
+#global prerel beta3
 
 # Files installed in nearly every package by GAPDoc
 %global GAPDoc_files chooser.html lefttoc.css manual.css manual.js nocolorprompt.css ragged.css rainbow.js times.css toggless.css toggless.js

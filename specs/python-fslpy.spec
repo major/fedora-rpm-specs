@@ -8,7 +8,7 @@ FSLeyes.
 %global forgeurl https://github.com/pauldmccarthy/fslpy
 
 Name:           python-fslpy
-Version:        3.23.0
+Version:        3.24.0
 Release:        %autorelease
 Summary:        The FSL Python Library
 
@@ -61,9 +61,11 @@ sed -i '/^#![  ]*\/usr\/bin\/env python3$/ d' fsl/wrappers/tbss.py
 find . -type f -name "*.py" -exec sed -i 's/#![  ]*\/usr\/bin\/env python$/#!\/usr\/bin\/python3/' {} 2>/dev/null ';'
 
 %generate_buildrequires
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 %pyproject_buildrequires -x extra
 
 %build
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 %pyproject_wheel
 
 %install

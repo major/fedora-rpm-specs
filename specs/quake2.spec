@@ -1,13 +1,11 @@
-%define ver 8_60
-
 Name:           quake2
 Version:        8.60
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Quake II (Yamagi version)
 
 License:        GPL-2.0-or-later
 URL:            http://www.yamagi.org/quake2 
-Source0:        https://github.com/yquake2/yquake2/archive/QUAKE2_%{ver}.tar.gz
+Source0:        https://deponie.yamagi.org/quake2/quake2-%{version}.tar.xz
 Source1:        %{name}.desktop
 
 BuildRequires:  desktop-file-utils
@@ -77,7 +75,7 @@ of the extracted patch.
 
 
 %prep
-%autosetup -n yquake2-QUAKE2_%{ver}
+%autosetup
 
 
 %build
@@ -133,6 +131,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
 
 
 %changelog
+* Mon Sep 29 2025 Kalev Lember <kalevlember@gmail.com> - 8.60-2
+- Use deponie.yamagi.org for upstream tarball
+
 * Sun Sep 21 2025 Kalev Lember <kalevlember@gmail.com> - 8.60-1
 - Update to 8.60 (rhbz#2396368)
 

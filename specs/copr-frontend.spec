@@ -47,8 +47,8 @@
 }
 
 Name:       copr-frontend
-Version:    2.4
-Release:    2%{?dist}
+Version:    2.5
+Release:    1%{?dist}
 Summary:    Frontend for Copr
 
 License:    GPL-2.0-or-later
@@ -375,8 +375,9 @@ install -m0644 -D conf/copr-frontend.sysusers.conf %{buildroot}%{_sysusersdir}/c
 
 
 %changelog
-* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.4-2
-- Rebuilt for Python 3.14.0rc3 bytecode
+* Mon Sep 29 2025 Jakub Kadlcik <frostyx@email.cz> 2.5-1
+- Don't run builds or actions in projects that are migrated to Pulp
+- Drop support for building modules
 
 * Tue Sep 16 2025 Jakub Kadlcik <frostyx@email.cz> 2.4-1
 - Use beginning of the build as reference for timestamp

@@ -5,7 +5,7 @@
 %global crate munge
 
 Name:           rust-munge
-Version:        0.4.6
+Version:        0.4.7
 Release:        %autorelease
 Summary:        Macro for custom destructuring
 

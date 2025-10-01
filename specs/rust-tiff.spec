@@ -5,7 +5,7 @@
 %global crate tiff
 
 Name:           rust-tiff
-Version:        0.10.2
+Version:        0.10.3
 Release:        %autorelease
 Summary:        Decoding and encoding library in pure Rust
 
@@ -60,6 +60,18 @@ This package contains library source intended for building other packages which
 use the "deflate" feature of the "%{crate}" crate.
 
 %files       -n %{name}+deflate-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+fax-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+fax-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "fax" feature of the "%{crate}" crate.
+
+%files       -n %{name}+fax-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+jpeg-devel

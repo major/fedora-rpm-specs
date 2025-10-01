@@ -2,21 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate glycin-utils
+%global crate proc-macro-utils
 
-Name:           rust-glycin-utils
-Version:        4.0.2
+Name:           rust-proc-macro-utils
+Version:        0.10.0
 Release:        %autorelease
-Summary:        Sandboxed image decoding
+Summary:        Low-level utilities on proc-macro and proc-macro2 types
 
-License:        MPL-2.0 OR LGPL-2.1-or-later
-URL:            https://crates.io/crates/glycin-utils
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/proc-macro-utils
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Sandboxed image decoding.}
+Low-level utilities on proc-macro and proc-macro2 types.}
 
 %description %{_description}
 
@@ -30,9 +30,10 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
-%license %{crate_instdir}/LICENSE-LGPL-2.1
-%license %{crate_instdir}/LICENSE-MPL-2.0
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/CHANGELOG.md
+%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -47,76 +48,64 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+async-io-devel
+%package     -n %{name}+parser-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+async-io-devel %{_description}
+%description -n %{name}+parser-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "async-io" feature of the "%{crate}" crate.
+use the "parser" feature of the "%{crate}" crate.
 
-%files       -n %{name}+async-io-devel
+%files       -n %{name}+parser-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+glib-devel
+%package     -n %{name}+proc-macro-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+glib-devel %{_description}
+%description -n %{name}+proc-macro-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "glib" feature of the "%{crate}" crate.
+use the "proc-macro" feature of the "%{crate}" crate.
 
-%files       -n %{name}+glib-devel
+%files       -n %{name}+proc-macro-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+gobject-devel
+%package     -n %{name}+proc-macro2-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+gobject-devel %{_description}
+%description -n %{name}+proc-macro2-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "gobject" feature of the "%{crate}" crate.
+use the "proc-macro2" feature of the "%{crate}" crate.
 
-%files       -n %{name}+gobject-devel
+%files       -n %{name}+proc-macro2-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+image-rs-devel
+%package     -n %{name}+quote-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+image-rs-devel %{_description}
+%description -n %{name}+quote-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "image-rs" feature of the "%{crate}" crate.
+use the "quote" feature of the "%{crate}" crate.
 
-%files       -n %{name}+image-rs-devel
+%files       -n %{name}+quote-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+loader-utils-devel
+%package     -n %{name}+smallvec-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+loader-utils-devel %{_description}
+%description -n %{name}+smallvec-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "loader-utils" feature of the "%{crate}" crate.
+use the "smallvec" feature of the "%{crate}" crate.
 
-%files       -n %{name}+loader-utils-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+tokio-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+tokio-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "tokio" feature of the "%{crate}" crate.
-
-%files       -n %{name}+tokio-devel
+%files       -n %{name}+smallvec-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

@@ -1,14 +1,16 @@
 
 %global qt_module qtlottie
 
-#global unstable 0
+%global unstable 1
 %if 0%{?unstable}
 %global prerelease rc
 %endif
 
+%global examples 1
+
 Summary: Qt6 - Lottie Animation
 Name:    qt6-%{qt_module}
-Version: 6.9.2
+Version: 6.10.0%{?unstable:~%{prerelease}}
 Release: 1%{?dist}
 
 License: GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -29,6 +31,7 @@ BuildRequires: qt6-qtbase-devel >= %{version}
 BuildRequires: qt6-qtbase-private-devel
 %{?_qt6:Requires: %{_qt6}%{?_isa} = %{_qt6_version}}
 BuildRequires: qt6-qtdeclarative-devel >= %{version}
+BuildRequires: qt6-qtsvg-devel >= %{version}
 BuildRequires: pkgconfig(xkbcommon)
 BuildRequires: openssl-devel
 
@@ -43,6 +46,13 @@ Requires: qt6-qtbase-devel%{?_isa}
 %description devel
 %{summary}.
 
+%if 0%{?examples}
+%package examples
+Summary: Programming examples for %{name}
+Requires: %{name}%{?_isa} = %{version}-%{release}
+%description examples
+%{summary}.
+%endif
 
 %prep
 %autosetup -n %{qt_module}-everywhere-src-%{qt_version}%{?unstable:-%{prerelease}} -p1
@@ -60,23 +70,53 @@ Requires: qt6-qtbase-devel%{?_isa}
 %files
 %license LICENSES/GPL*
 %{_qt6_archdatadir}/sbom/%{qt_module}-%{qt_version}.spdx
-%{_qt6_libdir}/libQt6Bodymovin.so*
+%{_qt6_libdir}/libQt6Lottie.so.6*
+%{_qt6_libdir}/libQt6LottieVectorImageGenerator.so.6*
+%{_qt6_libdir}/libQt6LottieVectorImageHelpers.so.6*
+%{_qt6_plugindir}/vectorimageformats/libqlottievectorimage.so
 %{_qt6_qmldir}/Qt/labs/lottieqt/
 
 %files devel
-%dir %{_qt6_libdir}/cmake/Qt6BodymovinPrivate
-%dir %{_qt6_headerdir}/QtBodymovin
-%{_qt6_headerdir}/QtBodymovin
-%{_qt6_libdir}/libQt6Bodymovin.so
-%{_qt6_libdir}/libQt6Bodymovin.prl
-%{_qt6_libdir}/cmake/Qt6BodymovinPrivate/*.cmake
+%{_qt6_bindir}/lottietoqml
+%{_qt6_libdir}/libQt6Lottie.so
+%{_qt6_libdir}/libQt6LottieVectorImageGenerator.so
+%{_qt6_libdir}/libQt6LottieVectorImageHelpers.so
+%{_qt6_libdir}/libQt6Lottie.prl
+%{_qt6_libdir}/libQt6LottieVectorImageGenerator.prl
+%{_qt6_libdir}/libQt6LottieVectorImageHelpers.prl
+%{_qt6_headerdir}/QtLottie
+%{_qt6_headerdir}/QtLottieVectorImageGenerator
+%{_qt6_headerdir}/QtLottieVectorImageHelpers
+%dir %{_qt6_libdir}/cmake/Qt6Lottie
+%dir %{_qt6_libdir}/cmake/Qt6LottiePrivate
+%dir %{_qt6_libdir}/cmake/Qt6LottieTools
+%dir %{_qt6_libdir}/cmake/Qt6LottieVectorImageGeneratorPrivate
+%dir %{_qt6_libdir}/cmake/Qt6LottieVectorImageHelpers
+%dir %{_qt6_libdir}/cmake/Qt6LottieVectorImageHelpersPrivate
+%dir %{_qt6_libdir}/cmake/Qt6QuickVectorImageGeneratorPrivate
 %{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtLottieTestsConfig.cmake
-%{_qt6_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6lottieqtplugin*.cmake
+%{_qt6_libdir}/cmake/Qt6Lottie/*.cmake
+%{_qt6_libdir}/cmake/Qt6LottiePrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6LottieTools/*.cmake
+%{_qt6_libdir}/cmake/Qt6LottieVectorImageGeneratorPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6LottieVectorImageHelpers/*.cmake
+%{_qt6_libdir}/cmake/Qt6LottieVectorImageHelpersPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6QuickVectorImageGeneratorPrivate/*.cmake
+%{_qt6_libdir}/cmake/Qt6Qml/QmlPlugins/*.cmake
 %{_qt6_archdatadir}/mkspecs/modules/*
 %{_qt6_libdir}/qt6/metatypes/qt6*_metatypes.json
 %{_qt6_libdir}/qt6/modules/*.json
+%{_qt6_libdir}/pkgconfig/*.pc
+
+%if 0%{?examples}
+%files examples
+%{_qt6_examplesdir}/
+%endif
 
 %changelog
+* Thu Sep 25 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0~rc-1
+- 6.10.0 RC
+
 * Thu Aug 28 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.2-1
 - 6.9.2
 

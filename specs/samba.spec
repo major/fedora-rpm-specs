@@ -127,7 +127,7 @@
 %bcond varlink 0
 %endif
 
-%global samba_version 4.23.0
+%global samba_version 4.23.1
 
 # The release field is extended:
 # <pkgrel>[.<extraver>][.<snapinfo>]%%{?dist}[.<minorbump>]
@@ -228,9 +228,6 @@ Source18:       samba-winbind-systemd-sysusers.conf
 
 Source201:      README.downgrade
 Source202:      samba.abignore
-
-Patch0:         samba-fix-ctdb-pcp-7-support.patch
-Patch1:         samba-dlz-crash-fix.patch
 
 Requires(pre): %{name}-common = %{samba_depver}
 Requires: %{name}-common = %{samba_depver}

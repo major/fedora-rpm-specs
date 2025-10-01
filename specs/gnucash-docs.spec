@@ -1,8 +1,8 @@
 Name: gnucash-docs
 Summary: Help files and documentation for the GnuCash personal finance manager
-Version: 5.12
+Version: 5.13
 URL: https://gnucash.org/
-Release: 2%{?dist}
+Release: 1%{?dist}
 License: GFDL-1.1-only
 Source: https://downloads.sourceforge.net/gnucash/%{name}-%{version}.tar.gz
 BuildArchitectures: noarch
@@ -42,6 +42,9 @@ end
 return 0
 
 %changelog
+* Mon Sep 29 2025 Gwyn Ciesla <gwync@protonmail.com> - 5.13-1
+- 5.13
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.12-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

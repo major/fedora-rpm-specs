@@ -2,22 +2,24 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate munge_macro
+%global crate fax
 
-Name:           rust-munge_macro
-Version:        0.4.7
+Name:           rust-fax
+Version:        0.2.6
 Release:        %autorelease
-Summary:        Macro for custom destructuring
+Summary:        Decoder and Encoder for CCITT Group 3 and 4 bi-level image encodings
 
 License:        MIT
-URL:            https://crates.io/crates/munge_macro
+URL:            https://crates.io/crates/fax
 Source:         %{crates_source}
+# * Add a LICENSE file: https://github.com/pdf-rs/fax/pull/12
+Source10:       https://github.com/pdf-rs/fax/raw/5d70a161e33b62305f8bce7af3f7fbd011cfaf5d/LICENSE
 
 BuildRequires:  cargo-rpm-macros >= 24
-BuildRequires:  dos2unix
 
 %global _description %{expand:
-Macro for custom destructuring.}
+Decoder and Encoder for CCITT Group 3 and 4 bi-level image encodings
+used by fax machines TIFF and PDF.}
 
 %description %{_description}
 
@@ -47,11 +49,21 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+debug-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+debug-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "debug" feature of the "%{crate}" crate.
+
+%files       -n %{name}+debug-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %prep
 %autosetup -n %{crate}-%{version} -p1
-# Despite https://github.com/djkoloski/munge/pull/5, we still see some
-# CRLF-terminated files in the released crates.
-find . -type f -exec dos2unix --keepdate '{}' '+'
+cp -p '%{SOURCE10}' .
 %cargo_prep
 
 %generate_buildrequires
@@ -65,7 +77,10 @@ find . -type f -exec dos2unix --keepdate '{}' '+'
 
 %if %{with check}
 %check
-%cargo_test
+# * Integration tests require a fax-tests/ directory with sample files, which is
+#   not even included in the git repository, let alone in the crate.
+%cargo_test -- --doc
+%cargo_test -- --lib
 %endif
 
 %changelog

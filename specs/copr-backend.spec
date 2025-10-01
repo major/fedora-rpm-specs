@@ -5,7 +5,7 @@
 %global copr_common_version 1.2.1
 
 Name:       copr-backend
-Version:    2.9
+Version:    2.10
 Release:    1%{?dist}
 Summary:    Backend for Copr
 
@@ -53,7 +53,7 @@ BuildRequires: python3-sphinx
 BuildRequires: python3-tabulate
 BuildRequires: python3-zstandard
 BuildRequires: python3-cachetools
-BuildRequires: modulemd-tools >= 0.6
+BuildRequires: python3-libdnf5
 BuildRequires: prunerepo >= %prunerepo_version
 BuildRequires: resalloc-server
 BuildRequires: dnf
@@ -94,7 +94,7 @@ Requires:   python3-cachetools
 Requires:   redis
 Requires:   rpm-sign
 Requires:   rsync
-Requires:   modulemd-tools >= 0.6
+Requires:   python3-libdnf5
 Recommends: util-linux-core
 Requires:   zstd
 
@@ -240,6 +240,11 @@ install -m0644 -D conf/copr-backend.sysusers.conf %{buildroot}%{_sysusersdir}/co
 %exclude %{_pkgdocdir}/lighttpd
 
 %changelog
+* Mon Sep 29 2025 Jakub Kadlcik <frostyx@email.cz> 2.10-1
+- Don't run builds or actions in projects that are migrated to Pulp
+- Log conflicting NEVRAs when uploading
+- Drop support for building modules
+
 * Wed Sep 24 2025 Jakub Kadlcik <frostyx@email.cz> 2.9-1
 - Log the error message that we got from Pulp
 - Fix duplicate NEVRA error when migrating projects to Pulp
@@ -792,7 +797,7 @@ copr_log_hitcounter
 - terminate also 'in_use' builders if health checks have failed
 - make --detached the last arg for copr-rpmbuild
 - update copr_log_hitcounter to check ip against ignored pattern
-- new msg bus options 
+- new msg bus options
 - disable DNF makecache timer/service
 - fix message duplication for multi-bus scenario
 
@@ -1784,5 +1789,3 @@ copr_log_hitcounter
 
 * Mon Jun 17 2013 Miroslav Suchý <msuchy@redhat.com> 1.1-1
 - new package built with tito
-
-

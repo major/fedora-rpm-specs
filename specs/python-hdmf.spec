@@ -32,7 +32,7 @@ Documentation of HDMF can be found at https://hdmf.readthedocs.io}
 %global schema_version 1.8.0
 
 Name:           python-hdmf
-Version:        4.0.0
+Version:        4.1.0
 Release:        %autorelease
 Summary:        A package for standardizing hierarchical object data
 
@@ -68,10 +68,7 @@ Summary:        %{summary}
 BuildRequires:  hdmf-common-schema = %{schema_epoch}:%{schema_version}
 Requires:       hdmf-common-schema = %{schema_epoch}:%{schema_version}
 %if %{without zarr}
-# The zarr extra was removed in 1.14.2; we patched it back in for compatibility
-# in F39/F40, but it is gone in F41, so we must Obsolete it. This can be
-# removed in F44 (three releases later).
-Obsoletes:      python3-hdmf+zarr < 1.14.2-1
+# Obsoletes:      python3-hdmf+zarr < X.Y.Z-R
 %endif
 
 %description -n python3-hdmf %{desc}
@@ -81,6 +78,9 @@ Obsoletes:      python3-hdmf+zarr < 1.14.2-1
 %prep
 %forgeautosetup -p1
 rm -vrf src/hdmf/common/hdmf-common-schema/
+# Upstream pins numcodecs because “numcodecs 0.16.0 is not compatible with
+# zarr<3,” but we cannot respect this.
+sed -r -i 's/("numcodecs)<[^"]+"/\1"/' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires -x tqdm%{?with_zarr:,zarr},sparse%{?with_termset:,termset}

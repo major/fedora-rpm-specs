@@ -3,7 +3,7 @@
 
 Name:    libcamera
 Version: 0.5.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: A library to support complex camera ISPs
 # see .reuse/dep5 and COPYING for details
 License: LGPL-2.1-or-later
@@ -14,7 +14,25 @@ Source1: qcam.desktop
 Source2: qcam.metainfo.xml
 Source3: 70-libcamera.rules
 
-Patch1: 0001-disable-rpi-pisp.patch
+Patch01: 0001-disable-rpi-pisp.patch
+# Upstream 473e2dc89323 ("pipeline: simple: Enable simple pipelinehandler with SoftISP on Intel IPU7")
+Patch02: 0002-pipeline-simple-Enable-simple-pipelinehandler-with-S.patch
+# Posted upstream: https://lists.libcamera.org/pipermail/libcamera-devel/2025-September/053346.html
+Patch03: 0003-ipa-software_isp-Fix-context_.configuration.agc.agai.patch
+Patch04: 0004-ipa-software_isp-AGC-Do-not-lower-gain-below-1.0.patch
+Patch05: 0005-ipa-software_isp-AGC-Raise-exposure-or-gain-not-both.patch
+Patch06: 0006-ipa-software_isp-AGC-Only-use-integers-for-exposure-.patch
+Patch07: 0007-libcamera-software_isp-Add-valid-flag-to-struct-SwIs.patch
+Patch08: 0008-libcamera-software_isp-Run-sw-statistics-once-every-.patch
+# Posted upstream: https://lists.libcamera.org/pipermail/libcamera-devel/2025-September/053307.html
+Patch09: 0009-libcamera-software_isp-Fix-width-adjustment-in-SwSta.patch
+Patch10: 0010-libcamera-software_isp-Clarify-SwStatsCpu-setWindow-.patch
+Patch11: 0011-libcamera-software_isp-Pass-correct-y-coordinate-to-.patch
+Patch12: 0012-libcamera-simple-Avoid-incorrect-arithmetic-in-AWB.patch
+Patch13: 0013-ipa-simple-blc-Prevent-division-by-zero-in-BLC.patch
+Patch14: 0014-ipa-simple-agc-Prevent-division-by-zero-in-AGC.patch
+# Posted upstream: https://lists.libcamera.org/pipermail/libcamera-devel/2025-September/053388.html
+Patch15: 0015-ipa-simple-blc-Use-16-as-starting-blacklevel-when-th.patch
 
 # libcamera does not currently build on these architectures
 ExcludeArch: s390x ppc64le
@@ -216,6 +234,12 @@ rm -rf ${RPM_BUILD_ROOT}/%{_docdir}/%{name}-*/html/.doctrees
 %{python3_sitearch}/*
 
 %changelog
+* Sun Sep 28 2025 Hans de Goede <hdegoede@redhat.com> - 0.5.2-4
+- Add upstream patch to enable IPU7 (Lunar Lake) support (rhbz#2333383)
+- Add upstream patches to fix AGC oscillation (rhbz#2368538)
+- Add upstream patches to fix various swstats problems including
+  a reproducable divide by zero crash in the AGC code
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.5.2-3
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -1,15 +1,11 @@
 Name:           stellarium
-Version:        25.1
-Release:        5%{?dist}
+Version:        25.3
+Release:        1%{?dist}
 Summary:        Photo-realistic nightsky renderer
 
 License:        GPL-2.0-or-later
 URL:            http://www.stellarium.org
 Source0:        https://github.com/Stellarium/stellarium/archive/v%{version}/stellarium-%{version}.tar.gz
-Patch0:         md4c.patch
-# https://github.com/Stellarium/stellarium/commit/bbcd60ae52b6f1395ef2390a2d2ba9d0f98db548
-Patch1:         stellarium-fix-qt6.9-build.patch
-Patch2:         a27f10f55cdd0bcdbe74071e5b020e0297b8c57a.patch
 
 # Disabled due to lconvert segfaulting on armv7hl and i686
 # https://bugzilla.redhat.com/show_bug.cgi?id=1884681
@@ -66,9 +62,6 @@ Data files for the stellarium package.
 %prep
 %setup -q
 
-%patch -P 0 -p0
-%patch -P 1 -p1
-%patch -P 2 -p1
 
 %build
 # Kill USE_PLUGIN_TELESCOPECONTROL support due to libindi 2 incompatibility
@@ -112,6 +105,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.stellarium.Ste
 %{_datadir}/stellarium
 
 %changelog
+* Mon Sep 29 2025 Gwyn Ciesla <gwync@protonmail.com> - 25.3-1
+- 25.3
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 25.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

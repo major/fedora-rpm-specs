@@ -1,10 +1,10 @@
-%global policy_version 41.1.0
+%global policy_version 42.1.2
 
 %global with_selinux 1
 %global selinuxtype targeted
 
 Name:    keylime
-Version: 7.12.1
+Version: 7.13.0
 Release: %autorelease
 Summary: Open source TPM software for Bootstrapping and Maintaining Trust
 
@@ -26,7 +26,9 @@ BuildRequires: openssl-devel
 BuildRequires: python3-devel
 BuildRequires: python3-dbus
 BuildRequires: python3-jinja2
+BuildRequires: python3-pip
 BuildRequires: python3-setuptools
+BuildRequires: pyproject-rpm-macros
 BuildRequires: systemd-rpm-macros
 
 Requires: python3-%{name} = %{version}-%{release}
@@ -69,7 +71,7 @@ Requires: openssl
 %if 0%{?with_selinux}
 # This ensures that the *-selinux package and all it’s dependencies are not pulled
 # into containers and other systems that do not use SELinux
-Recommends:       (%{name}-selinux if selinux-policy-%{selinuxtype})
+Recommends:       (%{name}-selinux = %{version}-%{release} if selinux-policy-%{selinuxtype})
 %endif
 
 # This generates lines like 'Requires: (efivar-libs if filesystem(aarch64))'.
@@ -194,10 +196,10 @@ make -f %{_datadir}/selinux/devel/Makefile %{name}.pp
 bzip2 -9 %{name}.pp
 %endif
 
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 mkdir -p %{buildroot}/%{_sharedstatedir}/%{name}
 mkdir -p --mode=0700 %{buildroot}/%{_rundir}/%{name}
 
@@ -241,6 +243,8 @@ d %{_rundir}/%{name} 0700 %{name} %{name} -
 EOF
 
 install -p -D -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/%{name}.conf
+
+%pyproject_save_files -l %{name}
 
 
 %post base
@@ -352,10 +356,8 @@ fi
 %config(noreplace) %verify(not md5 size mode mtime) %attr(400,%{name},%{name}) %{_sysconfdir}/%{name}/tenant.conf
 %{_bindir}/%{name}_tenant
 
-%files -n python3-%{name}
+%files -n python3-%{name} -f %{pyproject_files}
 %license LICENSE
-%{python3_sitelib}/%{name}-*.egg-info/
-%{python3_sitelib}/%{name}
 %{_datadir}/%{name}/scripts/create_mb_refstate
 %{_bindir}/keylime_attest
 %{_bindir}/keylime_convert_runtime_policy

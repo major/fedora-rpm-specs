@@ -31,12 +31,12 @@
 
 # This can be slightly different than %%{version}.
 # For example, it has dash instead of tilde for release candidates.
-%global package_version 1.4.2
+%global package_version 1.4.3
 
 %global gocryptfs_version 2.5.1
 %global squashfuse_version 0.6.0
-%global e2fsprogs_version 1.47.2
-%global fuse_overlayfs_version 1.14
+%global e2fsprogs_version 1.47.3
+%global fuse_overlayfs_version 1.15
 %global squashfs_tools_version 4.6.1
 
 # The last singularity version number in EPEL/Fedora
@@ -44,7 +44,7 @@
 
 Summary: Application and environment virtualization formerly known as Singularity
 Name: apptainer
-Version: 1.4.2
+Version: 1.4.3
 Release: 2%{?dist}
 # See LICENSE.md for first party code (BSD-3-Clause and LBNL BSD)
 # See LICENSE_THIRD_PARTY.md for incorporated code (ASL 2.0)
@@ -72,6 +72,8 @@ Source13: https://github.com/containers/fuse-overlayfs/archive/v%{fuse_overlayfs
 %if "%{?squashfs_tools_version}" != ""
 Source14: https://github.com/plougher/squashfs-tools/archive/%{squashfs_tools_version}/squashfs-tools-%{squashfs_tools_version}.tar.gz
 %endif
+# From https://github.com/ulikunitz/xz/commit/7eee8a8a405163554a9accec7b9402ee21400769
+Patch0: xz-32bit.patch
 
 # This Conflicts is in case someone tries to install the main apptainer
 # package when an old singularity package is installed.  An Obsoletes is on
@@ -241,7 +243,7 @@ Provides: bundled(golang(github.com/stefanberger/go_pkcs11uri)) = v0.0.0_2023080
 Provides: bundled(golang(github.com/sylabs/json_resp)) = v0.9.4
 Provides: bundled(golang(github.com/syndtr/gocapability)) = v0.0.0_20200815063812_42c35b437635
 Provides: bundled(golang(github.com/titanous/rocacheck)) = v0.0.0_20171023193734_afe73141d399
-Provides: bundled(golang(github.com/ulikunitz/xz)) = v0.5.12
+Provides: bundled(golang(github.com/ulikunitz/xz)) = v0.5.14
 Provides: bundled(golang(github.com/vbatts/go_mtree)) = v0.5.0
 Provides: bundled(golang(github.com/vbatts/tar_split)) = v0.11.6
 Provides: bundled(golang(github.com/vbauerster/mpb/v8)) = v8.9.1
@@ -327,6 +329,7 @@ Provides the optional setuid-root portion of Apptainer.
 %setup -n %{name}-%{package_version}
 # don't need to setup dependent source packages and patches because
 # that is done by the compile-dependencies script
+%patch -P 0 -p0
 
 %build
 %if "%{?SOURCE1}" != ""
@@ -483,6 +486,12 @@ fi
 %attr(4755, root, root) %{_libexecdir}/%{name}/bin/starter-suid
 
 %changelog
+* Mon Sep 29 2025 Dave Dykstra <dwd@cern.ch> - 1.4.3-2
+- Patch xz to work with 32-bit systems. The patch is from xz v0.5.15.
+
+* Mon Sep 29 2025 Dave Dykstra <dwd@cern.ch> - 1.4.3
+- Update to upstream 1.4.3
+
 * Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 1.4.2-2
 - Rebuild for golang-1.25.0
 

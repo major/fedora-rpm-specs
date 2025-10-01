@@ -45,7 +45,7 @@ BuildRequires:  perl(Glib)
 BuildRequires:  perl(Glib::Object::Subclass)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(utf8)
-%if 0%{?fedora} >= 41
+%if 0%{?fedora} >= 41 || 0%{?rhel} >= 10
 # XPM loading for tests:
 BuildRequires:  gdk-pixbuf2-modules-extra
 %endif
@@ -82,7 +82,7 @@ interface library. Find out more about GTK+ at <http://www.gtk.org/>.
 Summary:        Tests for %{name}
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
-%if 0%{?fedora} >= 41
+%if 0%{?fedora} >= 41 || 0%{?rhel} >= 10
 # XPM loading for tests:
 Requires:       gdk-pixbuf2-modules-extra
 %endif
@@ -130,7 +130,7 @@ set -e
 cd %{_libexecdir}/%{name}
 %if %{use_x11_tests}
 %if 0%{?rhel} >= 10
-xwfb-run -c mutter prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+xwfb-run -c mutter -- prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
 %else
 xvfb-run -d prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
 %endif
@@ -148,7 +148,7 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %if %{use_x11_tests}
 %if 0%{?rhel} >= 10
     # Tests fail with default weston compositor
-    xwfb-run -c mutter make test
+    xwfb-run -c mutter -- make test
 %else
     xvfb-run -d make test
 %endif

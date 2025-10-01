@@ -6,7 +6,7 @@
 
 Summary: Config files for KDE
 Name:    kde-settings
-Version: 43.0
+Version: 43.1
 Release: 1%{?dist}
 
 License: MIT
@@ -225,6 +225,9 @@ test -f %{_datadir}/wallpapers/F%{version_maj} || ls -l %{_datadir}/wallpapers
 
 
 %changelog
+* Mon Sep 29 2025 Alessandro Astone <ales.astone@gmail.com> - 43.1-1
+- Add default list of favorites for the application launcher
+
 * Mon Sep 01 2025 Neal Gompa <ngompa@fedoraproject.org> - 43.0-1
 - Bump for F43 backgrounds
 - ShellCheck fixes for gpg-agent startup script

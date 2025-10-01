@@ -7,7 +7,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           glycin
-Version:        2.0.0
+Version:        2.0.2
 Release:        %autorelease
 Summary:        Sandboxed image rendering
 
@@ -21,6 +21,7 @@ SourceLicense:  MPL-2.0 OR LGPL-2.1-or-later
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
 # BSD-2-Clause OR Apache-2.0 OR MIT
 # BSD-3-Clause
+# BSD-3-Clause OR Apache-2.0
 # GPL-3.0-or-later
 # ISC
 # MIT
@@ -43,6 +44,7 @@ License:        %{shrink:
     (Apache-2.0 OR MIT) AND
     (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
     (BSD-2-Clause OR Apache-2.0 OR MIT) AND
+    (BSD-3-Clause OR Apache-2.0) AND
     (MIT OR Apache-2.0 OR Zlib) AND
     (Unlicense OR MIT)
 }
