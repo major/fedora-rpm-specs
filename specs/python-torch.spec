@@ -4,13 +4,13 @@
 %global forgeurl https://github.com/pytorch/pytorch
 
 # So pre releases can be tried
-%bcond_with gitcommit
+%bcond_without gitcommit
 %if %{with gitcommit}
-# v2.8.0-rc8
-%global commit0 a1cb3cc05d46d198467bebbb6e8fba50a325d4e7
+# v2.9.0-rc4
+%global commit0 715dca672526a20322d07c2e67772cfe4400a20f
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global date0 20250723
-%global pypi_version 2.8.0
+%global date0 20250923
+%global pypi_version 2.9.0
 %global flatbuffers_version 24.12.23
 %global miniz_version 3.0.2
 %global pybind11_version 2.13.6
@@ -108,11 +108,13 @@ Source80:       https://github.com/pytorch/kineto/archive/%{ki_commit}/kineto-%{
 Source90:       https://github.com/onnx/onnx/archive/refs/tags/v%{ox_ver}.tar.gz
 %endif
 
+%if %{with gitcommit}
+%else
 # https://github.com/pytorch/pytorch/issues/150187
 Patch11:       0001-Add-cmake-variable-USE_ROCM_CK.patch
 # https://github.com/pytorch/pytorch/issues/156595
-# Patch12:       0001-Use-horrible-dynamo-stub.patch
 Patch12:       0001-Fix-compilation-and-import-torch-issues-for-cpython-.patch
+%endif
 
 ExclusiveArch:  x86_64 aarch64
 %global toolchain gcc
@@ -199,6 +201,10 @@ BuildRequires:  rocsolver-devel
 BuildRequires:  rocm-smi-devel
 BuildRequires:  rocthrust-devel
 BuildRequires:  roctracer-devel
+
+%if %{with gitcommit}
+BuildRequires:  moodycamel-concurrentqueue-devel
+%endif
 
 Requires:       amdsmi
 
@@ -494,6 +500,13 @@ sed -i -e 's@HIP 1.0@HIP MODULE@'            cmake/public/LoadHIP.cmake
 
 %endif
 
+%if %{with gitcommit}
+# moodycamel include path needs adjusting to use the system's
+sed -i -e 's@${PROJECT_SOURCE_DIR}/third_party/concurrentqueue@/usr/include/concurrentqueue@' cmake/Dependencies.cmake
+
+
+%endif
+
 %build
 
 #
@@ -607,7 +620,14 @@ export BUILD_TEST=ON
 %if %{with rocm}
 
 export USE_ROCM=ON
+%if %{with gitcommit}
+export USE_ROCM_CK_SDPA=OFF
+export USE_ROCM_CK_GEMM=OFF
+export USE_FBGEMM_GENAI=OFF
+%else
 export USE_ROCM_CK=OFF
+%endif
+
 # Magma is broken on ROCm 7
 # export USE_MAGMA=ON
 export HIP_PATH=`hipconfig -p`
@@ -662,7 +682,9 @@ export PYTORCH_ROCM_ARCH=%{rocm_gpu_list_default}
 %license LICENSE
 %doc README.md 
 %{_bindir}/torchrun
+%if %{without gitcommit}
 %{_bindir}/torchfrtrace
+%endif
 %{python3_sitearch}/%{pypi_name}*
 %{python3_sitearch}/functorch
 

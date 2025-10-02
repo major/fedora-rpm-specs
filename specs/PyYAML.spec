@@ -1,5 +1,5 @@
 Name:           PyYAML
-Version:        6.0.2
+Version:        6.0.3
 Release:        %autorelease
 Summary:        YAML parser and emitter for Python
 
@@ -7,9 +7,6 @@ Summary:        YAML parser and emitter for Python
 License:        MIT
 URL:            https://github.com/yaml/pyyaml
 Source:         https://github.com/yaml/pyyaml/archive/%{version}.tar.gz
-
-# Drop unneeded build dependency on python3-wheel
-Patch:          https://github.com/yaml/pyyaml/pull/823.patch
 
 BuildRequires:  gcc
 BuildRequires:  libyaml-devel

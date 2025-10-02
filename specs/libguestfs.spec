@@ -13,10 +13,7 @@ ExcludeArch: %{ix86}
 # we only do a sanity check that kernel/qemu/libvirt/appliance is not
 # broken.  To perform the full test suite, see instructions here:
 # https://www.redhat.com/archives/libguestfs/2015-September/msg00078.html
-#%%global test_arches aarch64 %%{power64} s390x x86_64
-# aarch64 broken in Rawhide:
-# https://gitlab.com/libvirt/libvirt/-/issues/762
-%global test_arches %{power64} s390x x86_64
+%global test_arches aarch64 %%{power64} s390x x86_64
 
 # Trim older changelog entries.
 # https://lists.fedoraproject.org/pipermail/devel/2013-April/thread.html#181627
@@ -37,8 +34,8 @@ ExcludeArch: %{ix86}
 Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
-Version:       1.57.3
-Release:       2%{?dist}
+Version:       1.57.4
+Release:       1%{?dist}
 License:       LGPL-2.1-or-later
 
 # Build only for architectures that have a kernel
@@ -1076,6 +1073,10 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Tue Sep 30 2025 Richard W.M. Jones <rjones@redhat.com> - 1:1.57.4-1
+- New upstream development version 1.57.4
+- Enable aarch64 tests
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1:1.57.3-2
 - Rebuilt for Python 3.14.0rc3 bytecode
 

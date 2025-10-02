@@ -1,4 +1,3 @@
-%global build_pdf_doc 0
 %ifarch %{java_arches}
 %global build_bdj 1
 %else
@@ -6,30 +5,29 @@
 %endif
 
 Name:           libbluray
-Version:        1.3.4
-Release:        10%{?dist}
+Version:        1.4.0
+Release:        1%{?dist}
 Summary:        Library to access Blu-Ray disks for video playback 
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:        LicenseRef-Callaway-LGPLv2+
+License:        LGPL-2.0-or-later
 URL:            https://www.videolan.org/developers/libbluray.html
 
-Source0:        https://download.videolan.org/pub/videolan/%{name}/%{version}/%{name}-%{version}.tar.bz2
+Source0:        https://download.videolan.org/pub/videolan/%{name}/%{version}/%{name}-%{version}.tar.xz
 Patch0:         libbluray-0.8.0-no_doxygen_timestamp.patch
-Patch1:         libbluray-1.3.4-java_21.patch
 
-BuildRequires:  autoconf
-BuildRequires:  automake
 BuildRequires:  doxygen
 BuildRequires:  fontconfig-devel
 BuildRequires:  freetype-devel
+BuildRequires:  gcc
 BuildRequires:  graphviz
 BuildRequires:  libtool
-BuildRequires:  libudfread-devel >= 1.1.1
+BuildRequires:  libudfread-devel >= 1.2.0
 BuildRequires:  libxml2-devel
-BuildRequires:  make
+BuildRequires:  meson
 BuildRequires:  texlive-latex
 %if %{build_bdj}
-BuildRequires:  ant
+# Does not build with Java 24+
+# https://code.videolan.org/videolan/libbluray/-/issues/46
+BuildRequires:  ant-openjdk21
 BuildRequires:  java-devel >= 1:1.8.0
 BuildRequires:  jpackage-utils
 %endif
@@ -71,47 +69,36 @@ developing applications that use %{name}.
 %prep
 %setup -q
 %patch -P0 -p1 -b .no_timestamp
-%patch -P1 -p1 -b .java_21
 
+rm -rf contrib/libudfread
 
 %build
+%meson \
+  --default-library=shared \
 %if %{build_bdj}
-export JDK_HOME="%{_jvmdir}/java"
-%endif
-
-autoreconf -vif
-%configure --disable-static \
-%if %{build_bdj}
-%if 0%{?fedora} >= 41
-           --with-java21 \
-%endif
+  -Dbdj_jar=enabled \
+  -Djava9=true \
+  -Dbdj_type=j2se \
+  -Djdk_home=%{_jvmdir}/java \
 %else
-           --disable-bdjava-jar \
+  -Dbdj_jar=disabled \
 %endif
-%if %{build_pdf_doc}
-           --enable-doxygen-pdf \
-%else
-           --disable-doxygen-pdf \
-%endif
-           --disable-doxygen-ps \
-           --enable-doxygen-html \
-           --enable-examples
+  -Denable_docs=true \
+  -Denable_devtools=true \
+  -Denable_examples=true
 
-%make_build
-make doxygen-doc
-# Remove uneeded script
-rm -f doc/doxygen/html/installdox 
+%meson_build
+
 
 %install
-%make_install
-find %{buildroot} -name '*.la' -delete
+%meson_install
+mv %{buildroot}%{_docdir}/%{name}/html .
 
-%ldconfig_scriptlets
 
 %files
 %license COPYING
 %doc ChangeLog README.md
-%{_libdir}/*.so.2*
+%{_libdir}/*.so.3*
 
 %if %{build_bdj}
 %files bdj
@@ -123,15 +110,19 @@ find %{buildroot} -name '*.la' -delete
 %{_bindir}/*
 
 %files devel
-%doc doc/doxygen/html
-%if %{build_pdf_doc}
-%doc doc/doxygen/%{name}.pdf
-%endif
+%doc html/
 %{_includedir}/*
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/%{name}.pc
 
+
 %changelog
+* Tue Sep 30 2025 Xavier Bachelot <xavier@bachelot.org> - 1.4.0-1
+- Update to 1.4.0 (RHBZ#2390718)
+
+* Tue Sep 30 2025 Xavier Bachelot <xavier@bachelot.org> - 1.3.4-11
+- Build with Java 21 (RHBZ#2385107)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.4-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

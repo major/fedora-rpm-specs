@@ -6,7 +6,7 @@
 
 Name:           python-jupyter-polymake
 Version:        0.16
-Release:        34.%{gitdate}.%{shortcommit}%{?dist}
+Release:        35.%{gitdate}.%{shortcommit}%{?dist}
 Summary:        Jupyter kernel for polymake
 
 # The code is WTFPL.  The JavaScript and image files are MIT.
@@ -14,13 +14,13 @@ License:        WTFPL AND MIT
 URL:            https://github.com/polymake/jupyter-polymake
 VCS:            git:%{url}.git
 Source:         %{url}/archive/%{commit}/jupyter-polymake-%{shortcommit}.tar.gz
+# Changes made in the polymake version that have not been pushed to git
+Patch:          %{name}-update.patch
 
-# Polymake is no longer available on 32-bit platforms
-# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 BuildArch:      noarch
-ExcludeArch:    %{ix86}
+BuildSystem:    pyproject
+BuildOption(install): -l jupyter_kernel_polymake
 
-BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist ipykernel}
 BuildRequires:  %{py3_dist ipython}
 BuildRequires:  %{py3_dist jupymake}
@@ -41,35 +41,32 @@ Requires:       %{py3_dist pexpect}
 
 Recommends:     %{py3_dist ipython}
 
+Provides:       bundled(npm(three)) = 137
+
 %description -n python3-jupyter-polymake %_description
 
 %prep
-%autosetup -n jupyter-polymake-%{commit}
+%autosetup -n jupyter-polymake-%{commit} -p1
 
-%generate_buildrequires
-%pyproject_buildrequires
-
-%build
-%pyproject_wheel
-
-%install
-%pyproject_install
-
+%install -a
 # Move the jupyter kernel files to where we want them in Fedora
 mkdir -p %{buildroot}%{_datadir}/jupyter/kernels/polymake
 mv %{buildroot}%{python3_sitelib}/jupyter_kernel_polymake/resources/* \
    %{buildroot}%{_datadir}/jupyter/kernels/polymake
 rmdir %{buildroot}%{python3_sitelib}/jupyter_kernel_polymake/resources
+sed -i '/resources/d' %{pyproject_files}
 
-%check
-%py3_check_import jupyter_kernel_polymake
-
-%files -n python3-jupyter-polymake
+%files -n python3-jupyter-polymake -f %{pyproject_files}
 %doc README.md
 %{_datadir}/jupyter/kernels/polymake/
-%{python3_sitelib}/jupyter_kernel_polymake*
 
 %changelog
+* Tue Sep 30 2025 Jerry James <loganjerry@gmail.com> - 0.16-35.20180129.7049940
+- Rebuild for polymake 4.15
+- Add patch with unreleased changes from upstream
+- Add Provides to reflect bundled three.js
+- Use the pyproject declarative buildsystem
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.16-34.20180129.7049940
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -1,6 +1,6 @@
 %global qt_module qtwebview
 
-#global unstable 1
+%global unstable 1
 %if 0%{?unstable}
 %global prerelease rc
 %endif
@@ -9,7 +9,7 @@
 
 Summary: Qt6 - WebView component
 Name:    qt6-%{qt_module}
-Version: 6.9.2
+Version: 6.10.0%{?unstable:~%{prerelease}}
 Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -90,6 +90,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %dir %{_qt6_libdir}/cmake/Qt6WebViewPrivate
 %dir %{_qt6_libdir}/cmake/Qt6WebViewQuick
 %dir %{_qt6_libdir}/cmake/Qt6WebViewQuickPrivate
+%{_qt6_libdir}/cmake/Qt6/FindWebView2.cmake
 %{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtWebViewTestsConfig.cmake
 %{_qt6_libdir}/cmake/Qt6Qml/QmlPlugins/*.cmake
 %{_qt6_libdir}/cmake/Qt6WebView/*.cmake
@@ -113,6 +114,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Mon Sep 29 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0~rc-1
+- 6.10.0 RC
+
 * Fri Aug 29 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.2-1
 - 6.9.2
 

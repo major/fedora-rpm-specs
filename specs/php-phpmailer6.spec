@@ -7,7 +7,7 @@
 # Please preserve changelog entries
 #
 # Github
-%global gh_commit    bf74d75a1fde6beaa34a0ddae2ec5fce0f72a144
+%global gh_commit    d9e3b36b47f04b497a0164c5a20f92acb4593284
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     PHPMailer
 %global gh_project   PHPMailer
@@ -23,8 +23,8 @@
 %global php_home     %{_datadir}/php
 
 Name:           php-%{pk_project}%{major}
-Version:        6.10.0
-Release:        3%{?dist}
+Version:        6.11.1
+Release:        1%{?dist}
 Summary:        Full-featured email creation and transfer class for PHP
 
 License:        LGPL-2.1-only
@@ -42,13 +42,9 @@ BuildArch:      noarch
 %if %{with tests}
 BuildRequires:  php(language) >= 5.5
 BuildRequires:  php-ctype
-BuildRequires:  php-date
-BuildRequires:  php-filter
-BuildRequires:  php-hash
 BuildRequires:  php-intl
 BuildRequires:  php-mbstring
 BuildRequires:  php-openssl
-BuildRequires:  php-pcre
 BuildRequires:  php-fedora-autoloader-devel
 # From composer.json, "require-dev": {
 #        "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
@@ -73,24 +69,22 @@ BuildRequires:  %{_sbindir}/smtp-sink
 #        "ext-hash": "*"
 Requires:       php(language) >= 5.5
 Requires:       php-ctype
-Requires:       php-filter
-Requires:       php-hash
 # from phpcompatinfo report on version 6.1.3
-Requires:       php-date
 Recommends:     php-imap
 Requires:       php-intl
 Requires:       php-mbstring
 Requires:       php-openssl
-Requires:       php-pcre
 # From composer.json, "suggest": {
-#        "ext-mbstring": "Needed to send email in multibyte encoding charset",
-#        "greew/oauth2-azure-provider": "Needed for Microsoft Azure XOAUTH2 authentication",
+#        "decomplexity/SendOauth2": "Adapter for using XOAUTH2 authentication",
+#        "ext-imap": "Needed to support advanced email address parsing according to RFC822",
+#        "ext-mbstring": "Needed to send email in multibyte encoding charset or decode encoded addresses",
 #        "ext-openssl": "Needed for secure SMTP sending and DKIM signing",
+#        "greew/oauth2-azure-provider": "Needed for Microsoft Azure XOAUTH2 authentication",
 #        "hayageek/oauth2-yahoo": "Needed for Yahoo XOAUTH2 authentication",
 #        "league/oauth2-google": "Needed for Google XOAUTH2 authentication",
 #        "psr/log": "For optional PSR-3 debug logging",
-#        "thenetworg/oauth2-azure": "Needed for Microsoft XOAUTH2 authentication",
-#        "symfony/polyfill-mbstring": "To support UTF-8 if the Mbstring PHP extension is not enabled (^1.2)"
+#        "symfony/polyfill-mbstring": "To support UTF-8 if the Mbstring PHP extension is not enabled (^1.2)",
+#        "thenetworg/oauth2-azure": "Needed for Microsoft XOAUTH2 authentication"
 Suggests:       php-composer(psr/log)
 # Autoloader
 Requires:       php-composer(fedora/autoloader)
@@ -180,7 +174,7 @@ popd
 
 : Run upstream test suite
 ret=0
-for cmd in php php81 php82 php83 php84; do
+for cmd in php php81 php82 php83 php84 php85; do
   if which $cmd; then
     $cmd  -d "sendmail_path=$PWD/test/fakesendmail.sh -t -i " \
       %{phpunit} \
@@ -209,6 +203,12 @@ exit $ret
 
 
 %changelog
+* Tue Sep 30 2025 Remi Collet <remi@remirepo.net> - 6.11.1-1
+- update to 6.11.1
+
+* Tue Sep 30 2025 Remi Collet <remi@remirepo.net> - 6.11.0-1
+- update to 6.11.0
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.10.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

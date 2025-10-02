@@ -17,14 +17,15 @@
 
 Name:       python-%{library}
 Epoch:      1
-Version:    32.0.1
-Release:    5%{?dist}
+Version:    34.1.0
+Release:    2%{?dist}
 Summary:    Python client for the kubernetes API.
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:    Apache-2.0
 URL:        https://pypi.python.org/pypi/kubernetes
 
 Source0:    https://github.com/kubernetes-client/python/archive/v%{version}.tar.gz
+Patch1:     0001-Revert-Set-an-upper-limit-on-the-urllib3-dependency.patch
 BuildArch:  noarch
 
 %package -n %{py3}-%{library}
@@ -141,6 +142,12 @@ cp -pr kubernetes/e2e_test %{buildroot}%{python3_sitelib}/%{library}/
 %{python3_sitelib}/%{library}/e2e_test
 
 %changelog
+* Tue Sep 30 2025 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 1:34.1.0-2
+- Drop urllib3 upper limit so the package can be installed, https://github.com/kubernetes-client/python/issues/2458
+
+* Mon Sep 29 2025 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 1:34.1.0-1
+- Update to 34.1.0 (#2371315)
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1:32.0.1-5
 - Rebuilt for Python 3.14.0rc3 bytecode
 

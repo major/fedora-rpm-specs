@@ -1,5 +1,4 @@
 %global _hardened_build 1
-%bcond_with python2
 
 #TODO: split nut-client so it does not require python
 %global nut_uid 57
@@ -7,14 +6,14 @@
 
 %global cgidir  /var/www/nut-cgi-bin
 %global piddir  /run/nut
-%global modeldir %{_sbindir}
+%global modeldir %{_libexecdir}/%{name}
 # powerman is retired on Fedora, therefore disable it by default
 %bcond_with powerman
 
 Summary: Network UPS Tools
 Name: nut
 Version: 2.8.4
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPL-2.0-or-later AND GPL-3.0-or-later
 Url: https://www.networkupstools.org/
 Source: https://www.networkupstools.org/source/2.8/%{name}-%{version}.tar.gz
@@ -94,10 +93,6 @@ live status tracking on web pages, and more.
 Summary: Network UPS Tools client monitoring utilities
 Requires(post): systemd
 Requires(preun): systemd
-%if %{with python2}
-Requires: pygtk2, pygtk2-libglade
-#only for python and gui part
-%endif
 Requires: group(dialout)
 Requires: group(tty)
 
@@ -113,6 +108,14 @@ Requires: %{name}-client = %{version}-%{release} webserver
 %description cgi
 This package includes CGI programs for accessing UPS status via a web
 browser.
+
+%package monitor
+Summary: Network UPS Tools monitor application
+BuildRequires: python3-pyqt6
+
+%description monitor
+This package contain the Python NUT-Monitor GUI application to
+monitor a UPS.
 
 %package xml
 Summary: XML UPS driver for the Network UPS Tools
@@ -137,8 +140,6 @@ necessary to develop NUT client applications.
 #patch -P 15 -p1
 %patch -P 16 -p2 -b .rhinoname
 
-sed -i 's|=NUT-Monitor|=nut-monitor|'  scripts/python/app/nut-monitor-py3qt5.desktop
-sed -i "s|sys.argv\[0\]|'%{_datadir}/%{name}/nut-monitor/nut-monitor'|" scripts/python/app/NUT-Monitor-py3qt5.in
 sed -i 's|LIBSSL_LDFLAGS|LIBSSL_LIBS|' lib/libupsclient-config.in
 sed -i 's|LIBSSL_LDFLAGS|LIBSSL_LIBS|' lib/libupsclient.pc.in
 
@@ -156,7 +157,7 @@ m nut tty
 EOF
 
 %build
-%if 0%{?fedora} > 38
+%if 0%{?fedora}
 #--without-gpio is not enough to stop it complaining about missing library
 sed -i 's|with_gpio="[^"]*"|with_gpio="no"|g' configure.ac
 %endif
@@ -170,7 +171,7 @@ export LDFLAGS="-Wl,-z,now"
     --without-powerman \
 %endif
     --with-libltdl \
-%if (0%{?fedora} && 0%{?fedora} < 33) || 0%{?el8}
+%if 0%{?el8}
     --with-nss \
 %endif
     --without-wrap \
@@ -187,7 +188,7 @@ export LDFLAGS="-Wl,-z,now"
     --sysconfdir=%{_sysconfdir}/ups \
     --with-cgipath=%{cgidir} \
     --with-drvpath=%{modeldir} \
-%if 0%{?fedora} > 38
+%if 0%{?fedora}
     --without-gpio \
 %endif
     --with-systemdsystemunitdir=%{_unitdir} \
@@ -250,16 +251,20 @@ mv %{buildroot}%{_mandir}/man8/rhino.8 %{buildroot}%{_mandir}/man8/nutdrv_rhino.
 
 # install PyNUT
 install -p -D -m 644 scripts/python/module/PyNUT.py %{buildroot}%{python3_sitelib}/PyNUT.py
-# install nut-monitor
-%if %{with python2}
-mkdir -p %{buildroot}%{_datadir}/nut/nut-monitor/pixmaps
-install -p -m 755 scripts/python/app/NUT-Monitor %{buildroot}%{_datadir}/nut/nut-monitor/nut-monitor
-install -p -m 644 scripts/python/app/gui-1.3.glade %{buildroot}%{_datadir}/nut/nut-monitor
-install -p -m 644 scripts/python/app/pixmaps/* %{buildroot}%{_datadir}/nut/nut-monitor/pixmaps/
-install -p -D scripts/python/app/nut-monitor.png %{buildroot}%{_datadir}/pixmaps/nut-monitor.png
-desktop-file-install --dir=%{buildroot}%{_datadir}/applications scripts/python/app/nut-monitor.desktop
-ln -s %{_datadir}/nut/nut-monitor/nut-monitor %{buildroot}%{_bindir}/nut-monitor
-%endif
+# add lowercase name
+ln %{buildroot}%{_bindir}/{NUT-Monitor,nut-monitor}
+# install desktop file
+mkdir -p %{buildroot}%{_datadir}/applications
+desktop-file-install \
+  --dir=%{buildroot}%{_datadir}/applications \
+  %{buildroot}%{_datadir}/nut-monitor/app/nut-monitor.desktop
+# install icons
+for res in 256x256 48x48 64x64 scalable
+do
+  mkdir -p %{buildroot}%{_datadir}/icons/hicolor/${res}/apps
+  ln %{buildroot}%{_datadir}/nut-monitor/app/icons/${res}/nut-monitor.* \
+    %{buildroot}%{_datadir}/icons/hicolor/${res}/apps/
+done
 
 # Setup permissions for pid file
 touch %{buildroot}/%{piddir}/upsmon.pid
@@ -315,7 +320,9 @@ fi
 %config(noreplace) %attr(640,root,nut) %{_sysconfdir}/ups/upsd.users
 %attr(644,root,root) %{_usr}/lib/udev/rules.d/62-nut-usbups.rules
 %attr(644,root,root) %{_usr}/lib/udev/rules.d/62-nut-ipmipsu.rules
-%{modeldir}/*
+%{modeldir}/
+# dummy-ups requires libupsclient
+%exclude %{modeldir}/dummy-ups
 %exclude %{modeldir}/netxml-ups
 %{_unitdir}/nut-driver-enumerator.path
 %{_unitdir}/nut-driver-enumerator.service
@@ -333,6 +340,8 @@ fi
 %{_sbindir}/upsd
 %{_bindir}/nutconf
 %{_bindir}/nut-scanner
+%{_sbindir}/upsdrvctl
+%{_sbindir}/upsdrvsvcctl
 %{_libdir}/libnutscan.so.*
 %{_libdir}/libnutconf.so.*
 %{_libexecdir}/nut-driver-enumerator.sh
@@ -453,6 +462,8 @@ fi
 %{_sbindir}/upsmon
 %{_sbindir}/upssched
 %{_bindir}/upssched-cmd
+# dummy-ups requires libupsclient
+%{modeldir}/dummy-ups
 %{_unitdir}/nut-monitor.service
 # nut-monitor.service also needs nut.target
 %{_unitdir}/nut.target
@@ -470,15 +481,19 @@ fi
 %{_mandir}/man8/upsrw.8.gz
 %{_mandir}/man8/upsmon.8.gz
 %{_mandir}/man8/upssched.8.gz
+%{_datadir}/nut
+%{_sysusersdir}/nut.conf
+
+%files monitor
+%{_bindir}/nut-monitor
+%{_bindir}/NUT-Monitor
+%{_datadir}/applications/nut-monitor.desktop
+%{_datadir}/icons/hicolor/*/apps/nut-monitor.png
+%{_datadir}/icons/hicolor/scalable/apps/nut-monitor.svg
+%{_datadir}/nut-monitor/
+%{_mandir}/man8/NUT-Monitor*.8.gz
 %pycached %{python3_sitelib}/PyNUT.py
 %pycached %{python3_sitelib}/test_nutclient.py
-%{_datadir}/nut
-%if %{with python2}
-%{_bindir}/nut-monitor
-%{_datadir}/pixmaps/nut-monitor.png
-%{_datadir}/applications/nut-monitor.desktop
-%endif
-%{_sysusersdir}/nut.conf
 
 %files cgi
 %config(noreplace) %attr(644,root,root) %{_sysconfdir}/ups/hosts.conf
@@ -515,6 +530,11 @@ fi
 %{_libdir}/pkgconfig/libnutscan.pc
 
 %changelog
+* Tue Sep 30 2025 Michal Hlavinka <mhlavink@redhat.com> - 2.8.4-4
+- based on PR#18 by Orion Poplawski
+- Build NUT-Monitor and ship in separate nut-monitor package (rhbz#2359149)
+- Move UPS drivers into /usr/libexec/nut
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.8.4-3
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -2,8 +2,8 @@
 %bcond_without perl_XS_Parse_Keyword_enables_optional_test
 
 Name:           perl-XS-Parse-Keyword
-Version:        0.48
-Release:        4%{?dist}
+Version:        0.49
+Release:        1%{?dist}
 Summary:        XS functions to assist in parsing keyword syntax
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/XS-Parse-Keyword
@@ -44,14 +44,14 @@ BuildRequires:  perl(Test::Pod) >= 1.00
 # run-time by S_boot_xs_parse_keyword() compiled into the users of this module.
 # This ABI range is defined with XS::Parse::Keyword/ABIVERSION_MIN and
 # XS::Parse::Keyword/ABIVERSION_MAX in lib/XS/Parse/Keyword.xs.
-Provides:       perl(:XS_Parse_Keyword_ABI_1)
-Provides:       perl(:XS_Parse_Keyword_ABI_2)
+Provides:       perl(:XS_Parse_Keyword_ABI_1) = 1
+Provides:       perl(:XS_Parse_Keyword_ABI_2) = 2
 # This module maintains multiple ABIs whose compatibility is checked at
 # run-time by S_boot_xs_parse_infix() compiled into the users of this module.
 # This ABI range is defined with XS::Parse::Infix/ABIVERSION_MIN and
 # XS::Parse::Infix/ABIVERSION_MAX in lib/XS/Parse/Keyword.xs.
-Provides:       perl(:XS_Parse_Infix_ABI_1)
-Provides:       perl(:XS_Parse_Infix_ABI_2)
+Provides:       perl(:XS_Parse_Infix_ABI_1) = 1
+Provides:       perl(:XS_Parse_Infix_ABI_2) = 2
 
 # Filter private modules
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(testcase\\)
@@ -155,6 +155,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Sep 30 2025 Petr Pisar <ppisar@redhat.com> - 0.49-1
+- 0.49 bump
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.48-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

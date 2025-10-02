@@ -1,28 +1,27 @@
 Name:           python-flask-session
-Version:        0.5.0
-Release:        11%{?dist}
+Version:        0.8.0
+Release:        1%{?dist}
 Summary:        Server side session extension for Flask
 
 License:        BSD-3-Clause
 URL:            https://github.com/pallets-eco/flask-session
-Source:         %{url}/archive/%{version}/Flask-Session-%{version}.tar.gz
-
-# https://github.com/pallets-eco/flask-session/pull/189/commits/73166f72c34c92f92794fabe24839da10ed3670d
-# Werkzeug/Flask 3.x Support
-Patch01:        73166f72c34c92f92794fabe24839da10ed3670d.patch
+Source:         %{url}/archive/%{version}/flask-session-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
+BuildRequires:  python3-pytest-cov
 
 # Extra testing deps
 BuildRequires: redis
 BuildRequires: python3-redis
+BuildRequires: python3-pymemcache
+BuildRequires: memcached
 
 # These are for the remaining tests that aren't working properly at the moment
 # See the check section
 #BuildRequires: python3-pymongo
-#BuildRequires: python3-memcached
+#BuildRequires: python3-boto3
 #BuildRequires: python3-flask-sqlalchemy
 
 %global _description %{expand:
@@ -51,19 +50,29 @@ Summary:        %{summary}
 %pyproject_save_files flask_session
 
 %check
-redis-server &
 # Enable only working backends tests:
-# Mongo test doesn't work with pymongo >= 4
-# Sqla test expects a pre-created DB
-# Memchached just doesn't work...
-%pytest -k 'test_null_session or test_redis_session or test_filesystem_session'
+#   Mongo test: no mongodb in Fedora anymore due to licensing
+#   Sqlalchemy test expects a pre-created DB
+#   DynamoDB: missing mypy_boto3 dependencies in Fedora
+# Note: pytest will try to import so will fail if
+#       we run on whole directory, so we have to run on files
+redis-server &
+%pytest -v tests/test_basic.py tests/test_cachelib.py tests/test_filesystem.py tests/test_redis.py
 kill %1
+
+memcached -vv &
+%pytest -v tests/test_memcached.py
+kill %1
+
 
 %files -n python3-flask-session -f %{pyproject_files}
 %doc README.rst
 %license LICENSE.rst
 
 %changelog
+* Tue Sep 30 2025 Federico Pellegrin <fede@evolware.org> - 0.8.0-1
+- Bump to 0.8.0, improve testing selection
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.5.0-11
 - Rebuilt for Python 3.14.0rc3 bytecode
 

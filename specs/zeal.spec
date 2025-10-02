@@ -10,6 +10,7 @@ License:        GPL-3.0-or-later
 URL:            https://zealdocs.org/
 Source:         https://github.com/zealdocs/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch0:         0001-apply-websettings.patch
+Patch1:         zeal-fix-build-against-qt-6-10.patch
 
 ExclusiveArch:  %{qt6_qtwebengine_arches}
 

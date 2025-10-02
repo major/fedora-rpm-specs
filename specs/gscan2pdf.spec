@@ -4,7 +4,7 @@
 
 Name:           gscan2pdf
 Version:        2.13.4
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        GUI for producing a multipage PDF from a scan
 # icons/180_degree.svg: GPL-3.0-only
 # icons/scanner.svg:    GPL-2.0-only
@@ -29,6 +29,9 @@ Patch2:         gscan2pdf-2.13.3-Remove-tiff2ps-and-tiff2pdf.patch
 # Adapt to ImageMagick 7, propsed to the upstream,
 # <https://sourceforge.net/p/gscan2pdf/bugs/431/>
 Patch3:         gscan2pdf-2.13.3-Execute-magick-instead-of-convert-command.patch
+# Fix a hang when saving PNG and G4 TIFF images to PDF, proposed upstream,
+# <https://sourceforge.net/p/gscan2pdf/patches/25/>
+Patch4:         gscan2pdf-2.13.4-Pass-PNG-and-TIFF-images-by-a-file-name-to-PDF-Build.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  desktop-file-utils
@@ -352,6 +355,9 @@ fi
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Sep 30 2025 Petr Pisar <ppisar@redhat.com> - 2.13.4-5
+- Fix a hang when saving PNG and G4 TIFF images to PDF
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.13.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

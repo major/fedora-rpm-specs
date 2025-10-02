@@ -23,8 +23,10 @@ Patch01:   opendmarc-1.4.0-ticket159-179.patch
 # https://github.com/trusteddomainproject/OpenDMARC/issues/256
 Patch02: cve-2024-25768.patch
 
-# gcc15 includes stricter check for header detection
-Patch: 0001-Fix-gcc15-stricter-check-for-headers.patch
+# Correctly persist SPF include and library paths.
+# This prevents build failures in strict environments like rpmbuild.
+# https://github.com/trusteddomainproject/OpenDMARC/pull/287
+Patch: 0001-Fix-configure-Correctly-persist-SPF-include-and-libr.patch
 
 # rhbz 2177653
 # Fix for several segfauls
@@ -119,7 +121,7 @@ autoreconf -v -i
   --with-sql-backend \
   --with-spf \
   --with-spf2-include=%{_prefix}/include/spf2 \
-  --with-spf2-lib=%{_libdir}/
+  --with-spf2-lib=%{_libdir}
 %make_build CFLAGS="%{optflags} -std=gnu17"
 
 %install

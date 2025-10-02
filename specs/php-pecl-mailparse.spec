@@ -9,6 +9,8 @@
 # Please, preserve the changelog entries
 #
 
+%global pie_vend   pecl
+%global pie_proj   mailparse
 %global pecl_name  mailparse
 # After 20-mbstring
 %global ini_name   40-%{pecl_name}.ini
@@ -16,8 +18,8 @@
 
 Summary:   PHP PECL package for parsing and working with email messages
 Name:      php-pecl-mailparse
-Version:   3.1.8
-Release:   4%{?dist}
+Version:   3.1.9
+Release:   1%{?dist}
 License:   PHP-3.01
 URL:       https://pecl.php.net/package/mailparse
 Source0:   https://pecl.php.net/get/%{sources}.tgz
@@ -37,10 +39,14 @@ Requires: php-mbstring%{?_isa}
 Requires: php(zend-abi) = %{php_zend_api}
 Requires: php(api) = %{php_core_api}
 
+# Extension
 Provides: php-%{pecl_name} = %{version}
 Provides: php-%{pecl_name}%{?_isa} = %{version}
+# PECL
 Provides: php-pecl(%{pecl_name}) = %{version}
 Provides: php-pecl(%{pecl_name})%{?_isa} = %{version}
+# PIE
+Provides: php-pie(%{pie_vend}/%{pie_proj}) = %{version}
 
 
 %description
@@ -127,6 +133,10 @@ NO_INTERACTION=1 \
 
 
 %changelog
+* Tue Sep 30 2025 Remi Collet <remi@remirepo.net> - 3.1.9-1
+- update to 3.1.9
+- add pie virtual provides
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.8-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

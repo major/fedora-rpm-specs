@@ -3,7 +3,7 @@
 %{!?_with_bootstrap: %global bootstrap 0}
 
 Name: rubygem-%{gem_name}
-Version: 1.2.0
+Version: 1.2.1
 Release: 1%{?dist}
 Summary: Ruby STDOUT text formatting
 License: MIT
@@ -76,6 +76,10 @@ popd
 %{gem_instdir}/tests
 
 %changelog
+* Tue Sep 30 2025 David Auer <dreua@posteo.de> - 1.2.1-1
+- Update to formatador 1.2.1
+  Resolves: rhbz#2396192
+
 * Sat Aug 16 2025 David Auer <dreua@posteo.de> - 1.2.0-1
 - Update to formatador 1.2.0
   Resolves: rhbz#1973265 rhbz#2385588

@@ -1,4 +1,5 @@
 %global glib2_version 2.56.0
+%global glycin_version 2.0.1
 
 # Normally we want auto features enabled to ensure no important feature gets
 # disabled by mistake. But in this package, the auto features are mostly legacy
@@ -6,7 +7,7 @@
 %global __meson_auto_features disabled
 
 Name:           gdk-pixbuf2
-Version:        2.44.2
+Version:        2.44.3
 Release:        %autorelease
 Summary:        An image loading library
 
@@ -18,7 +19,7 @@ BuildRequires:  docbook-style-xsl
 BuildRequires:  gettext
 BuildRequires:  gi-docgen
 BuildRequires:  pkgconfig(gio-2.0) >= %{glib2_version}
-BuildRequires:  pkgconfig(glycin-2)
+BuildRequires:  pkgconfig(glycin-2) >= %{glycin_version}
 BuildRequires:  libxslt
 BuildRequires:  meson
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
@@ -28,6 +29,7 @@ BuildRequires:  shared-mime-info
 BuildRequires:  /usr/bin/rst2man
 
 Requires: glib2%{?_isa} >= %{glib2_version}
+Requires: glycin-libs%{?_isa} >= %{glycin_version}
 # We also need MIME information at runtime
 Requires: shared-mime-info
 

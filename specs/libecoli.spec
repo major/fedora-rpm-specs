@@ -4,7 +4,7 @@
 %global forgeurl https://github.com/rjarry/libecoli
 
 Name: libecoli
-Version: 0.6.0
+Version: 0.7.2
 Summary: Extensible COmmand LIne library
 License: BSD-3-Clause AND LicenseRef-Fedora-Public-Domain
 

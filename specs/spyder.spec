@@ -19,6 +19,9 @@ Summary:        Scientific Python Development Environment
 License:        MIT AND BSD-3-Clause
 URL:            https://www.spyder-ide.org/
 Source:         %forgesource
+# https://github.com/spyder-ide/spyder/pull/24698
+# Rebased on 6.0.8 as https://github.com/mathstuf/spyder/commit/c04ba8c301117dfa717b5506fc7b282432b7b76a
+Patch:          c04ba8c301117dfa717b5506fc7b282432b7b76a.patch
 
 BuildArch:      noarch
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval

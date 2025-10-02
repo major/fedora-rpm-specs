@@ -8,11 +8,11 @@
 # don't require bundled modules
 %global __requires_exclude_from ^(%{nodejs_sitelib}/yarn/lib/.*|%{nodejs_sitelib}/yarn/bin/yarn(|\\.cmd|\\.ps1|pkg.*))$
 
-%global bundledate 20250728
+%global bundledate 20250930
 
 Name:           yarnpkg
 Version:        1.22.22
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Fast, reliable, and secure dependency management.
 License:        BSD-2-Clause
 URL:            https://github.com/yarnpkg/yarn
@@ -22,6 +22,8 @@ Source1:        yarnpkg-tarball.sh
 
 # These are applied by yarnpkg-tarball.sh
 # yarn-update-jest.prebundle.patch
+# yarn-no-commitizen.prebundle.patch
+# yarn-no-eslint.prebundle.patch
 
 Patch0:         CVE-2023-26136.patch
 Patch1:         CVE-2022-37599.patch
@@ -90,6 +92,10 @@ if [[ $(%{buildroot}%{_bindir}/yarn --version) == %{version} ]] ; then echo PASS
 
 
 %changelog
+* Tue Sep 30 2025 Sandro Mani <manisandro@gmail.com> - 1.22.22-12
+- Regenerate bundle, fixes CVE-2025-59343
+- Patch out eslint and commitizen devDependencies to reduce dependencies
+
 * Wed Jul 30 2025 Sandro Mani <manisandro@gmail.com> - 1.22.22-11
 - Refresh bundle
 - Drop patches obsoleted by new bundle

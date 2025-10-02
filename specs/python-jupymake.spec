@@ -6,26 +6,34 @@
 
 Name:           python-jupymake
 Version:        0.9
-Release:        38.%{gitdate}.%{shortcommit}%{?dist}
+Release:        39.%{gitdate}.%{shortcommit}%{?dist}
 Summary:        Python wrapper for the polymake shell
 
 License:        GPL-2.0-or-later
 URL:            https://github.com/polymake/JuPyMake
 VCS:            git:%{url}.git
 Source:         %{url}/archive/%{commit}/JuPyMake-%{shortcommit}.tar.gz
-
-BuildRequires:  gcc-c++
-BuildRequires:  libnormaliz-devel
-BuildRequires:  polymake
-BuildRequires:  python3-devel
+# Upstream patch to fix polymake shell usage
+Patch:          %{name}-shell.patch
+# Add a missing const keyword
+Patch:          %{name}-const.patch
+# Fix too-small type sizes
+Patch:          %{name}-size.patch
+# Adapt to license handling in newer setuptools
+Patch:          %{name}-license-files.patch
 
 # Polymake is not available on 32-bit platforms.
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
+BuildSystem:    pyproject
+BuildOption(install): -l JuPyMake
+
+BuildRequires:  gcc-c++
+BuildRequires:  polymake
 
 %global _description %{expand:
-This package provides a basic interface to call polymake from python.
-It is meant to be used in the Jupyter interface for polymake.}
+This package provides a basic interface to call polymake from python.  It is
+meant to be used in the Jupyter interface for polymake.}
 
 %description %_description
 
@@ -36,29 +44,22 @@ Requires:       polymake%{?_isa}
 %description -n python3-jupymake %_description
 
 %prep
-%autosetup -n JuPyMake-%{commit}
-
-%generate_buildrequires
-%pyproject_buildrequires
-
-%build
-%pyproject_wheel
-
-%install
-%pyproject_install
-%pyproject_save_files -l JuPyMake
-
-%check
-%pyproject_check_import
+%autosetup -n JuPyMake-%{commit} -p1
 
 %files -n python3-jupymake -f %{pyproject_files}
 %doc README README.md example.py
 
 %changelog
+* Tue Sep 30 2025 Jerry James <loganjerry@gmail.com> - 0.9-39.20231204.a6987c8
+- Rebuild for polymake 4.15
+- Add patch to fix polymake shell usage
+- Add patches to fix compiler warnings
+- Use the pyproject declarative buildsystem
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-38.20231204.a6987c8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Fri Jul 11 2025 Jerry James  <loganjerry@gmail.com> - 0.9-37.20231204.a6987c8
+* Fri Jul 11 2025 Jerry James <loganjerry@gmail.com> - 0.9-37.20231204.a6987c8
 - Rebuild for polymake 4.14
 
 * Wed Jun 11 2025 Jerry James <loganjerry@gmail.com> - 0.9-36.20231204.a6987c8

@@ -1,7 +1,7 @@
 %global         gsspver 1.1.3
 %global         __cmake_in_source_build 1
 
-%if 0%{?fedora} < 42 && 0%{?rhel} < 11
+%if 0%{?fedora} < 42 && 0%{?rhel} < 10
 %global         kio4 1
 %endif
 
@@ -9,10 +9,16 @@
 %global         qtweb 1
 %endif
 
+%if 0%{?rhel} > 9
+# pass
+%else
+%global         chm 1
+%endif
+
 Summary:        Desktop full text search tool with Qt GUI
 Name:           recoll
 Version:        1.43.5
-Release:        6%{?dist}
+Release:        7%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            https://www.recoll.org
@@ -23,7 +29,7 @@ Patch:          recoll-1.42.1-cmake4.patch
 Patch:          recoll-1.43.4-soffice.patch
 BuildRequires:  aspell-devel
 BuildRequires:  bison
-BuildRequires:  chmlib-devel
+%{?chm:BuildRequires:  chmlib-devel}
 BuildRequires:  desktop-file-utils
 BuildRequires:  extra-cmake-modules
 BuildRequires:  file-devel
@@ -248,6 +254,9 @@ echo "%{_libdir}/recoll" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/recoll-%{_arc
 %{_datadir}/applications/org.recoll.Recoll.SearchProvider.desktop
 
 %changelog
+* Mon Sep 29 2025 Terje Rosten <terjeros@gmail.com> - 1.43.5-7
+- Add support for el10
+
 * Sun Sep 28 2025 Terje Rosten <terjeros@gmail.com> - 1.43.5-6
 - Add forward and backwards weak deps in -gssp subpackage to gnome-shell
 - Remove wrong req. on -kio

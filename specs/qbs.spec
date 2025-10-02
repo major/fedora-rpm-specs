@@ -11,7 +11,7 @@ Name:           qbs
 # qbs was previously packaged as part of qt-creator, using the qt-creator version, hence the epoch bump
 Epoch:          1
 Version:        3.0.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Cross platform build tool
 # Fails to build on i686
 ExcludeArch:    i686
@@ -27,6 +27,7 @@ Source0:        https://code.qt.io/cgit/qbs/qbs.git/snapshot/qbs-%{commit}.tar.x
 Source0:        https://download.qt.io/official_releases/%{name}/%{version}/%{name}-src-%{version}.tar.gz
 %endif
 
+Patch0:         qbs-fix-build-against-qt-6-10.patch
 
 BuildRequires:  cmake
 BuildRequires:  ninja-build
@@ -154,6 +155,9 @@ rm %{buildroot}%{_bindir}/clang-format-test
 
 
 %changelog
+* Tue Sep 30 2025 Jan Grulich <jgrulich@redhat.com> - 1:3.0.3-2
+- Rebuild (qt6)
+
 * Tue Sep 02 2025 Sandro Mani <manisandro@gmail.com> - 1:3.0.3-1
 - Update to 3.0.3
 

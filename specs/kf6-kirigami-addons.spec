@@ -2,7 +2,7 @@
 
 Name:           kf6-%{framework}
 Version:        1.10.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        BSD-2-Clause AND CC-BY-SA-4.0 AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND LicenseRef-KFQF-Accepted-GPL
 Summary:        Convergent visual components ("widgets") for Kirigami-based applications
 Url:            https://invent.kde.org/libraries/%{framework}
@@ -26,6 +26,8 @@ BuildRequires:  cmake(Qt6)
 BuildRequires:  cmake(Qt6Core)
 BuildRequires:  cmake(Qt6Quick)
 BuildRequires:  cmake(Qt6QuickControls2)
+
+BuildRequires:  qt6-qtbase-private-devel
 
 Requires: kf6-filesystem
 
@@ -98,6 +100,9 @@ and header files for developing applications that use %{name}.
 %{_kf6_datadir}/kdevappwizard/templates/librarymanager6.tar.bz2
 
 %changelog
+* Tue Sep 30 2025 Jan Grulich <jgrulich@redhat.com> - 1.10.0-2
+- Rebuild (qt6)
+
 * Sat Sep 27 2025 Steve Cossette <farchord@gmail.com> - 1.10.0-1
 - 1.10.0
 

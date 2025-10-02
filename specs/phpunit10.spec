@@ -16,8 +16,8 @@
 %bcond_with          defcmd
 %endif
 
-%global gh_commit    8e7598bbb17bb5cd80728f4831d3f83223d3a6b3
-%global gh_date      2025-09-24
+%global gh_commit    e24fb46da450d8e6a5788670513c1af1424f16ca
+%global gh_date      2025-09-28
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   phpunit
@@ -30,7 +30,7 @@
 %global ver_major    10
 %global ver_minor    5
 
-%global upstream_version 10.5.57
+%global upstream_version 10.5.58
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
@@ -265,6 +265,9 @@ exit $ret
 
 
 %changelog
+* Mon Sep 29 2025 Remi Collet <remi@remirepo.net> - 10.5.58-1
+- update to 10.5.58
+
 * Wed Sep 24 2025 Remi Collet <remi@remirepo.net> - 10.5.57-1
 - update to 10.5.57 (no change)
 - raise dependency on sebastian/exporter 5.1.4

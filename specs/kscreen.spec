@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 Name:    kscreen
 Epoch:   1
 Version: 6.4.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Display Management software
 
 License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND (GPL-2.0-only OR GPL-3.0-only)
@@ -77,6 +77,9 @@ KCM and KDED modules for managing displays in KDE.
 %{_kf6_datadir}/kscreen/graz.png
 
 %changelog
+* Tue Sep 30 2025 Jan Grulich <jgrulich@redhat.com> - 1:6.4.5-2
+- Rebuild (qt6)
+
 * Tue Sep 16 2025 farchord@gmail.com - 1:6.4.5-1
 - 6.4.5
 

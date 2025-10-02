@@ -1,5 +1,5 @@
 Name:		stalld
-Version:	1.21.1
+Version:	1.23.1
 Release:	1%{?dist}
 Summary:	Daemon that finds starving tasks and gives them a temporary boost
 
@@ -62,6 +62,16 @@ allow 10 microseconds of runtime for 1 second of clock time.
 %systemd_postun_with_restart %{name}.service
 
 %changelog
+* Tue Sep 30 2025 Clark Williams <williams@redhat.com> - 1.23.1-1
+- stalld:  make the queue_track (eBPF) backend the default
+- Makefile: version bump to v1.23.1
+
+* Tue Sep 30 2025 Clark Williams <williams@redhat.com> - 1.22.1-1
+- bpf: Reduce arguments to log() to fix verifier error
+- stalld: Always reset starving vector in merge_taks_info
+- stalld: Remove forced log-only mode with DL-server
+- Makefile: version bump to v1.22.1
+
 * Fri Sep 12 2025 Clark Williams <williams@redhat.com> - 1.21.1-1
 - refactor: Remove unused 'exiting' variable
 - bpf: Introduce task_is_rt() helper

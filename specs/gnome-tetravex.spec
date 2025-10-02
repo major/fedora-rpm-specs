@@ -1,16 +1,12 @@
 Name:           gnome-tetravex
-Version:        3.38.2
-Release:        14%{?dist}
+Version:        3.38.3
+Release:        1%{?dist}
 Summary:        GNOME Tetravex game
 
 # Automatically converted from old format: GPLv2+ and CC-BY-SA - review is highly recommended.
 License:        GPL-2.0-or-later AND LicenseRef-Callaway-CC-BY-SA
 URL:            https://wiki.gnome.org/Apps/Tetravex
 Source0:        https://download.gnome.org/sources/%{name}/3.38/%{name}-%{version}.tar.xz
-
-# Fix the build with meson 0.61
-# https://gitlab.gnome.org/GNOME/gnome-tetravex/-/merge_requests/20
-Patch0:         20.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
@@ -57,6 +53,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Tetravex
 
 
 %changelog
+* Tue Sep 30 2025 Petr Schindler <pschindl@redhat.com> - 3.38.3-1
+- Update to 3.38.3
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.38.2-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

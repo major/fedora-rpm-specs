@@ -40,6 +40,9 @@ Patch0:		%{name}-unbundle.patch
 # Always use xdg-open
 Patch1:		%{name}-%{version}-viewfiles.patch
 
+# Fix build against Qt 6.10
+Patch2:		texmaker-fix-build-against-qt-6-10.patch
+
 # Bundled libraries
 Provides: bundled(encodingprober)
 Provides: bundled(pdfium)
@@ -63,6 +66,7 @@ license
 %setup -q
 %patch -P0 -p1 -b .unbundle
 %patch -P1 -p0
+%patch -P2 -p1
 
 # remove bundled stuff (hunspell and qtsingleapplication)
 # libtiff, pymock appear to be unused by anything

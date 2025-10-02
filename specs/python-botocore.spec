@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 # NOTICE - Updating this package requires updating python-boto3
-Version:        1.40.41
+Version:        1.40.42
 Release:        1%{?dist}
 Summary:        Low-level, data-driven core of boto 3
 
@@ -68,6 +68,9 @@ rm -vr tests/functional/leak
 %license LICENSE.txt
 
 %changelog
+* Tue Sep 30 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.40.42-1
+- 1.40.42
+
 * Mon Sep 29 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.40.41-1
 - 1.40.41
 

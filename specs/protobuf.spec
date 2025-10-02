@@ -25,7 +25,7 @@ Name:           protobuf
 # “patch” updates of protobuf.
 Version:        3.19.6
 %global so_version 30
-Release:        18%{?dist}
+Release:        19%{?dist}
 
 # The entire source is BSD-3-Clause, except the following files, which belong
 # to the build system; are unpackaged maintainer utility scripts; or are used
@@ -222,7 +222,7 @@ descriptions in Vim editor
 %package java
 Summary:        Java Protocol Buffers runtime library
 BuildArch:      noarch
-BuildRequires:  maven-local
+BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(com.google.code.gson:gson)
 BuildRequires:  mvn(com.google.guava:guava)
 BuildRequires:  mvn(com.google.guava:guava-testlib)
@@ -491,6 +491,9 @@ install -p -m 0644 %{SOURCE2} %{buildroot}%{_emacs_sitestartdir}
 
 
 %changelog
+* Sun Sep 28 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 3.19.6-19
+- Rebuilt for java-25-openjdk as system jdk
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.19.6-18
 - Rebuilt for Python 3.14.0rc3 bytecode
 

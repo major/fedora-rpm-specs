@@ -1,7 +1,7 @@
 %bcond tests %{undefined rhel}
 
 Name:           ansible-collection-dellemc-openmanage
-Version:        9.12.3
+Version:        10.0.1
 Release:        %autorelease
 Summary:        Dell OpenManage collection for Ansible
 

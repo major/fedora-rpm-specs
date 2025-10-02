@@ -134,18 +134,6 @@ use the "serde" feature of the "%{crate}" crate.
 %files       -n %{name}+serde-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+syntect-highlighter-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+syntect-highlighter-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "syntect-highlighter" feature of the "%{crate}" crate.
-
-%files       -n %{name}+syntect-highlighter-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep

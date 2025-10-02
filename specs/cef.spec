@@ -217,15 +217,15 @@
 %endif
 
 ## CEF: Package version & metadata
-%global chromium_major 139
-%global chromium_branch 7258
+%global chromium_major 140
+%global chromium_branch 7339
 # Where possible, track Chromium versions already released in Fedora.
-%global chromium_minor 154
+%global chromium_minor 207
 %global chromium_version %{chromium_major}.0.%{chromium_branch}.%{chromium_minor}
-%global cef_commit b457b0b3f26042b457186128bff976e8b9ada6b4
+%global cef_commit faef09bbdc5ea30a12e7c71592c0f07e7fb6f3b8
 %global cef_branch %{chromium_branch}
-%global cef_minor 0
-%global cef_patch 37
+%global cef_minor 1
+%global cef_patch 15
 %global cef_version %{chromium_major}.%{cef_minor}.%{cef_patch}
 %global shortcommit %(c=%{cef_commit}; echo ${c:0:7})
 
@@ -274,7 +274,7 @@ Patch92: chromium-138-checkversion-nodejs.patch
 # system ffmpeg
 # need for old ffmpeg 5.x on epel9
 Patch128: chromium-138-el9-ffmpeg-deprecated-apis.patch
-Patch129: chromium-125-ffmpeg-5.x-reordered_opaque.patch
+Patch129: chromium-el9-ffmpeg-AV_CODEC_FLAG_COPY_OPAQUE.patch
 Patch130: chromium-107-ffmpeg-5.x-duration.patch
 # disable the check
 Patch131: chromium-107-proprietary-codecs.patch
@@ -309,6 +309,9 @@ Patch309: chromium-132-el8-unsupport-rustc-flags.patch
 
 # Fix rhbz#2387446, FTBFS with rust-1.89.0
 Patch310: chromium-139-rust-FTBFS-suppress-warnings.patch
+
+# Fix FTBFS: undefined symbol: __rust_no_alloc_shim_is_unstable
+Patch311: chromium-rust-no-alloc-shim-is-unstable.patch
 
 # enable fstack-protector-strong
 Patch312: chromium-123-fstack-protector-strong.patch
@@ -351,27 +354,11 @@ Patch358: chromium-135-rust-clanglib.patch
 # Timothy Pearson's patchset
 # https://gitlab.raptorengineering.com/raptor-engineering-public/chromium/openpower-patches
 Patch359: add-ppc64-architecture-string.patch
-Patch360: 0001-linux-seccomp-bpf-ppc64-glibc-workaround-in-SIGSYS-h.patch
 Patch361: 0001-sandbox-Enable-seccomp_bpf-for-ppc64.patch
-Patch362: 0001-services-service_manager-sandbox-linux-Fix-TCGETS-de.patch
-Patch363: 0001-sandbox-linux-bpf_dsl-Update-syscall-ranges-for-ppc6.patch
-Patch364: 0001-sandbox-linux-Implement-partial-support-for-ppc64-sy.patch
-Patch365: 0001-sandbox-linux-Update-IsSyscallAllowed-in-broker_proc.patch
-Patch366: 0001-sandbox-linux-Update-syscall-helpers-lists-for-ppc64.patch
-Patch367: 0002-sandbox-linux-bpf_dsl-Modify-seccomp_macros-to-add-s.patch
-Patch368: 0003-sandbox-linux-system_headers-Update-linux-seccomp-he.patch
-Patch369: 0004-sandbox-linux-system_headers-Update-linux-signal-hea.patch
-Patch370: 0005-sandbox-linux-seccomp-bpf-Add-ppc64-syscall-stub.patch
-Patch371: 0005-sandbox-linux-update-unit-test-for-ppc64.patch
-Patch372: 0006-sandbox-linux-disable-timedwait-time64-ppc64.patch
-Patch373: 0007-sandbox-linux-add-ppc64-stat.patch
-Patch374: Sandbox-linux-services-credentials.cc-PPC.patch
-Patch375: 0008-sandbox-fix-ppc64le-glibc234.patch
 
 Patch376: 0001-third_party-angle-Include-missing-header-cstddef-in-.patch
 Patch377: 0001-Add-PPC64-support-for-boringssl.patch
 Patch378: 0001-third_party-libvpx-Properly-generate-gni-on-ppc64.patch
-Patch379: 0009-sandbox-updates-138.patch
 Patch380: 0001-third_party-pffft-Include-altivec.h-on-ppc64-with-SI.patch
 Patch381: 0002-Add-PPC64-generated-files-for-boringssl.patch
 Patch382: 0002-third_party-lss-kernel-structs.patch
@@ -381,38 +368,36 @@ Patch383: 0001-swiftshader-fix-build.patch
 
 Patch384: Rtc_base-system-arch.h-PPC.patch
 
-Patch385: 0002-Include-cstddef-to-fix-build.patch
 Patch386: 0004-third_party-crashpad-port-curl-transport-ppc64.patch
 
 Patch387: HACK-third_party-libvpx-use-generic-gnu.patch
 Patch388: 0001-third-party-hwy-wrong-include.patch
 Patch389: HACK-debian-clang-disable-base-musttail.patch
+Patch390: HACK-debian-clang-disable-pa-musttail.patch
+Patch391: 0001-Add-ppc64-target-to-libaom.patch
+Patch392: 0001-Add-pregenerated-config-for-libaom-on-ppc64.patch
 
-Patch390: 0001-Add-ppc64-target-to-libaom.patch
-Patch391: 0001-Add-pregenerated-config-for-libaom-on-ppc64.patch
-
-Patch392: 0002-third_party-libvpx-Remove-bad-ppc64-config.patch
-Patch393: 0003-third_party-libvpx-Add-ppc64-generated-config.patch
+Patch393: 0002-third_party-libvpx-Remove-bad-ppc64-config.patch
+Patch394: 0003-third_party-libvpx-Add-ppc64-generated-config.patch
 # Enabling VSX causes artifacts to appear in VP9 videos
-Patch394: 0004-third_party-libvpx-work-around-ambiguous-vsx.patch
+Patch395: 0004-third_party-libvpx-work-around-ambiguous-vsx.patch
 
 # Enable VSX acceleration in Skia.  Requires POWER8 or higher.
-Patch395: skia-vsx-instructions.patch
+Patch396: skia-vsx-instructions.patch
 
-Patch396: 0001-Implement-support-for-ppc64-on-Linux.patch
-Patch397: 0001-Implement-support-for-PPC64-on-Linux.patch
-Patch398: 0001-Force-baseline-POWER8-AltiVec-VSX-CPU-features-when-.patch
-Patch399: fix-clang-selection.patch
-Patch400: fix-rustc.patch
-Patch401: fix-rust-linking.patch
-Patch402: fix-breakpad-compile.patch
-Patch403: fix-partition-alloc-compile.patch
-Patch404: fix-study-crash.patch
-Patch405: memory-allocator-dcheck-assert-fix.patch
-Patch406: fix-different-data-layouts.patch
-Patch407: 0002-Add-ppc64-trap-instructions.patch
+Patch397: 0001-Implement-support-for-ppc64-on-Linux.patch
+Patch398: 0001-Implement-support-for-PPC64-on-Linux.patch
+Patch399: 0001-Force-baseline-POWER8-AltiVec-VSX-CPU-features-when-.patch
+Patch400: fix-clang-selection.patch
+Patch401: fix-rustc.patch
+Patch402: fix-rust-linking.patch
+Patch403: fix-breakpad-compile.patch
+Patch404: fix-partition-alloc-compile.patch
+Patch405: fix-study-crash.patch
+Patch406: memory-allocator-dcheck-assert-fix.patch
+Patch407: fix-different-data-layouts.patch
+Patch408: 0002-Add-ppc64-trap-instructions.patch
 
-Patch408: fix-ppc64-linux-syscalls-headers.patch
 Patch409: fix-page-allocator-overflow.patch
 Patch410: 0001-Enable-ppc64-pointer-compression.patch
 
@@ -422,8 +407,6 @@ Patch412: add-ppc64-architecture-to-extensions.diff
 # Suppress harmless compiler warning messages that appear on ppc64 due to arch-specific warning flags being passed
 Patch413: fix-unknown-warning-option-messages.diff
 Patch415: add-ppc64-pthread-stack-size.patch
-# Fix build error on el10
-Patch416: fix-ppc64-rust_png-build-error.patch
 
 Patch417: 0001-add-xnn-ppc64el-support.patch
 Patch418: 0002-regenerate-xnn-buildgn.patch
@@ -949,7 +932,7 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 %if ! %{bundleffmpegfree}
 %if 0%{?rhel} == 9
 %patch -P128 -p1 -b .el9-ffmpeg-deprecated-apis
-%patch -P129 -p1 -R -b .ffmpeg-5.x-reordered_opaque
+%patch -P129 -p1 -b .el9-ffmpeg-AV_CODEC_FLAG_COPY_OPAQUE
 %patch -P130 -p1 -b .ffmpeg-5.x-duration
 %patch -P133 -p1 -b .el9-ffmpeg-5.1.x
 %endif
@@ -981,6 +964,7 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 %endif
 
 %patch -P310 -p1 -b .rust-FTBFS-suppress-warnings
+%patch -P311 -p1 -b .rust-no-alloc-shim-is-unstable
 %patch -P312 -p1 -b .fstack-protector-strong
 
 %if 0%{?rhel} && 0%{?rhel} < 10
@@ -1009,62 +993,44 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 
 %ifarch ppc64le
 %patch -P359 -p1 -b .add-ppc64-architecture-string
-%patch -P360 -p1 -b .0001-linux-seccomp-bpf-ppc64-glibc-workaround-in-SIGSYS-h
 %patch -P361 -p1 -b .0001-sandbox-Enable-seccomp_bpf-for-ppc64
-%patch -P362 -p1 -b .0001-services-service_manager-sandbox-linux-Fix-TCGETS-de
-%patch -P363 -p1 -b .0001-sandbox-linux-bpf_dsl-Update-syscall-ranges-for-ppc6
-%patch -P364 -p1 -b .0001-sandbox-linux-Implement-partial-support-for-ppc64-sy
-%patch -P365 -p1 -b .0001-sandbox-linux-Update-IsSyscallAllowed-in-broker_proc
-%patch -P366 -p1 -b .0001-sandbox-linux-Update-syscall-helpers-lists-for-ppc64
-%patch -P367 -p1 -b .0002-sandbox-linux-bpf_dsl-Modify-seccomp_macros-to-add-s
-%patch -P368 -p1 -b .0003-sandbox-linux-system_headers-Update-linux-seccomp-he
-%patch -P369 -p1 -b .0004-sandbox-linux-system_headers-Update-linux-signal-hea
-%patch -P370 -p1 -b .0005-sandbox-linux-seccomp-bpf-Add-ppc64-syscall-stub
-%patch -P371 -p1 -b .0005-sandbox-linux-update-unit-test-for-ppc64
-%patch -P372 -p1 -b .0006-sandbox-linux-disable-timedwait-time64-ppc64
-%patch -P373 -p1 -b .0007-sandbox-linux-add-ppc64-stat
-%patch -P374 -p1 -b .Sandbox-linux-services-credentials.cc-PPC
-%patch -P375 -p1 -b .0008-sandbox-fix-ppc64le-glibc234
 %patch -P376 -p1 -b .0001-third_party-angle-Include-missing-header-cstddef-in-
 %patch -P377 -p1 -b .0001-Add-PPC64-support-for-boringssl
 %patch -P378 -p1 -b .0001-third_party-libvpx-Properly-generate-gni-on-ppc64
-%patch -P379 -p1 -b .0009-sandbox-updates-138
 %patch -P380 -p1 -b .0001-third_party-pffft-Include-altivec.h-on-ppc64-with-SI
-%patch -P381 -p1 -b .002-Add-PPC64-generated-files-for-boringssl
+%patch -P381 -p1 -b .0002-Add-PPC64-generated-files-for-boringssl
 %patch -P382 -p1 -b .0002-third_party-lss-kernel-structs
 %patch -P383 -p1 -b .0001-swiftshader-fix-build
 %patch -P384 -p1 -b .Rtc_base-system-arch.h-PPC
-%patch -P385 -p1 -b .0002-Include-cstddef-to-fix-build
 %patch -P386 -p1 -b .0004-third_party-crashpad-port-curl-transport-ppc64
 %patch -P387 -p1 -b .HACK-third_party-libvpx-use-generic-gnu
 %patch -P388 -p1 -b .0001-third-party-hwy-wrong-include.patch
 %patch -P389 -p1 -b .HACK-debian-clang-disable-base-musttail
-%patch -P390 -p1 -b .0001-Add-ppc64-target-to-libaom
-%patch -P391 -p1 -b .0001-Add-pregenerated-config-for-libaom-on-ppc64
-%patch -P392 -p1 -b .0002-third_party-libvpx-Remove-bad-ppc64-config
-%patch -P393 -p1 -b .0003-third_party-libvpx-Add-ppc64-generated-config
-%patch -P394 -p1 -b .0004-third_party-libvpx-work-around-ambiguous-vsx
-%patch -P395 -p1 -b .skia-vsx-instructions
-%patch -P396 -p1 -b .0001-Implement-support-for-ppc64-on-Linux
-%patch -P397 -p1 -b .0001-Implement-support-for-PPC64-on-Linux
-%patch -P398 -p1 -b .0001-Force-baseline-POWER8-AltiVec-VSX-CPU-features-when-
-%patch -P399 -p1 -b .fix-clang-selection
-%patch -P400 -p1 -b .fix-rustc
-%patch -P401 -p1 -b .fix-rust-linking
-%patch -P402 -p1 -b .fix-breakpad-compile
-%patch -P403 -p1 -b .fix-partition-alloc-compile
-%patch -P404 -p1 -b .fix-study-crash
-%patch -P405 -p1 -b .memory-allocator-dcheck-assert-fix
-%patch -P406 -p1 -b .fix-different-data-layouts
-%patch -P407 -p1 -b .0002-Add-ppc64-trap-instructions
-%patch -P408 -p1 -b .fix-ppc64-linux-syscalls-headers
-%patch -P409 -p1 -b .use-sysconf-page-size-on-ppc64
+%patch -P390 -p1 -b .HACK-debian-clang-disable-pa-musttail
+%patch -P391 -p1 -b .0001-Add-ppc64-target-to-libaom
+%patch -P392 -p1 -b .0001-Add-pregenerated-config-for-libaom-on-ppc64
+%patch -P393 -p1 -b .0002-third_party-libvpx-Remove-bad-ppc64-config
+%patch -P394 -p1 -b .0003-third_party-libvpx-Add-ppc64-generated-config
+%patch -P395 -p1 -b .0004-third_party-libvpx-work-around-ambiguous-vsx
+%patch -P396 -p1 -b .skia-vsx-instructions
+%patch -P397 -p1 -b .0001-Implement-support-for-ppc64-on-Linux
+%patch -P398 -p1 -b .0001-Implement-support-for-PPC64-on-Linux
+%patch -P399 -p1 -b .0001-Force-baseline-POWER8-AltiVec-VSX-CPU-features-when-
+%patch -P400 -p1 -b .fix-clang-selection
+%patch -P401 -p1 -b .fix-rustc
+%patch -P402 -p1 -b .fix-rust-linking
+%patch -P403 -p1 -b .fix-breakpad-compile
+%patch -P404 -p1 -b .fix-partition-alloc-compile
+%patch -P405 -p1 -b .fix-study-crash
+%patch -P406 -p1 -b .memory-allocator-dcheck-assert-fix
+%patch -P407 -p1 -b .fix-different-data-layouts
+%patch -P408 -p1 -b .0002-Add-ppc64-trap-instructions
+%patch -P409 -p1 -b .fix-page-allocator-overflow
 %patch -P410 -p1 -b .0001-Enable-ppc64-pointer-compression
 %patch -P411 -p1 -b .dawn-fix-ppc64le-detection
 %patch -P412 -p1 -b .add-ppc64-architecture-to-extensions
 %patch -P413 -p1 -b .fix-unknown-warning-option-messages
 %patch -P415 -p1 -b .add-ppc64-pthread-stack-size
-%patch -P416 -p1 -b .ppc64-rust_png-build-error
 %patch -P417 -p1 -b .0001-add-xnn-ppc64el-support
 %patch -P418 -p1 -b .0002-regenerate-xnn-buildgn
 %endif
@@ -1153,12 +1119,6 @@ find -type f \( -iname "*.py" \) -exec sed -i '1s=^#! */usr/bin/\(python\|env py
 
 # Get rid of the prebuilt esbuild binary
 rm -rf third_party/devtools-frontend/src/third_party/esbuild
-
-# Get rid of the pre-built eu-strip binary, it is x86_64 and of mysterious origin
-rm -rf buildtools/third_party/eu-strip/bin/eu-strip
-
-# Replace it with a symlink to the Fedora copy
-ln -s $(which eu-strip) buildtools/third_party/eu-strip/bin/eu-strip
 
 # Remove bundle gn and replace it with a system gn or bootstrap gn as it is x86_64 and causes
 # FTBFS on other arch like aarch64/ppc64le
@@ -1623,64 +1583,63 @@ fi
 %endif
 %dir %{chromium_path}/
 %dir %{chromium_path}/locales/
-%lang(af) %{chromium_path}/locales/af.pak
-%lang(am) %{chromium_path}/locales/am.pak
-%lang(ar) %{chromium_path}/locales/ar.pak
-%lang(bg) %{chromium_path}/locales/bg.pak
-%lang(bn) %{chromium_path}/locales/bn.pak
-%lang(ca) %{chromium_path}/locales/ca.pak
-%lang(cs) %{chromium_path}/locales/cs.pak
-%lang(da) %{chromium_path}/locales/da.pak
-%lang(de) %{chromium_path}/locales/de.pak
-%lang(el) %{chromium_path}/locales/el.pak
-%lang(en_GB) %{chromium_path}/locales/en-GB.pak
+%lang(af) %{chromium_path}/locales/af*.pak
+%lang(am) %{chromium_path}/locales/am*.pak
+%lang(ar) %{chromium_path}/locales/ar*.pak
+%lang(bg) %{chromium_path}/locales/bg*.pak
+%lang(bn) %{chromium_path}/locales/bn*.pak
+%lang(ca) %{chromium_path}/locales/ca*.pak
+%lang(cs) %{chromium_path}/locales/cs*.pak
+%lang(da) %{chromium_path}/locales/da*.pak
+%lang(de) %{chromium_path}/locales/de*.pak
+%lang(el) %{chromium_path}/locales/el*.pak
+%lang(en_GB) %{chromium_path}/locales/en-GB*.pak
 # Chromium _ALWAYS_ needs en-US.pak as a fallback
 # This means we cannot apply the lang code here.
 # Otherwise, it is filtered out on install.
-%{chromium_path}/locales/en-US.pak
-%lang(es) %{chromium_path}/locales/es.pak
-%lang(es) %{chromium_path}/locales/es-419.pak
-%lang(et) %{chromium_path}/locales/et.pak
-%lang(fa) %{chromium_path}/locales/fa.pak
-%lang(fi) %{chromium_path}/locales/fi.pak
-%lang(fil) %{chromium_path}/locales/fil.pak
-%lang(fr) %{chromium_path}/locales/fr.pak
-%lang(gu) %{chromium_path}/locales/gu.pak
-%lang(he) %{chromium_path}/locales/he.pak
-%lang(hi) %{chromium_path}/locales/hi.pak
-%lang(hr) %{chromium_path}/locales/hr.pak
-%lang(hu) %{chromium_path}/locales/hu.pak
-%lang(id) %{chromium_path}/locales/id.pak
-%lang(it) %{chromium_path}/locales/it.pak
-%lang(ja) %{chromium_path}/locales/ja.pak
-%lang(kn) %{chromium_path}/locales/kn.pak
-%lang(ko) %{chromium_path}/locales/ko.pak
-%lang(lt) %{chromium_path}/locales/lt.pak
-%lang(lv) %{chromium_path}/locales/lv.pak
-%lang(ml) %{chromium_path}/locales/ml.pak
-%lang(mr) %{chromium_path}/locales/mr.pak
-%lang(ms) %{chromium_path}/locales/ms.pak
-%lang(nb) %{chromium_path}/locales/nb.pak
-%lang(nl) %{chromium_path}/locales/nl.pak
-%lang(pl) %{chromium_path}/locales/pl.pak
-%lang(pt_BR) %{chromium_path}/locales/pt-BR.pak
-%lang(pt_PT) %{chromium_path}/locales/pt-PT.pak
-%lang(ro) %{chromium_path}/locales/ro.pak
-%lang(ru) %{chromium_path}/locales/ru.pak
-%lang(sk) %{chromium_path}/locales/sk.pak
-%lang(sl) %{chromium_path}/locales/sl.pak
-%lang(sr) %{chromium_path}/locales/sr.pak
-%lang(sv) %{chromium_path}/locales/sv.pak
-%lang(sw) %{chromium_path}/locales/sw.pak
-%lang(ta) %{chromium_path}/locales/ta.pak
-%lang(te) %{chromium_path}/locales/te.pak
-%lang(th) %{chromium_path}/locales/th.pak
-%lang(tr) %{chromium_path}/locales/tr.pak
-%lang(uk) %{chromium_path}/locales/uk.pak
-%lang(ur) %{chromium_path}/locales/ur.pak
-%lang(vi) %{chromium_path}/locales/vi.pak
-%lang(zh_CN) %{chromium_path}/locales/zh-CN.pak
-%lang(zh_TW) %{chromium_path}/locales/zh-TW.pak
+%{chromium_path}/locales/en-US*.pak
+%lang(es) %{chromium_path}/locales/es*.pak
+%lang(et) %{chromium_path}/locales/et*.pak
+%lang(fa) %{chromium_path}/locales/fa*.pak
+%lang(fi) %{chromium_path}/locales/fi{.pak,_*.pak}
+%lang(fil) %{chromium_path}/locales/fil*.pak
+%lang(fr) %{chromium_path}/locales/fr*.pak
+%lang(gu) %{chromium_path}/locales/gu*.pak
+%lang(he) %{chromium_path}/locales/he*.pak
+%lang(hi) %{chromium_path}/locales/hi*.pak
+%lang(hr) %{chromium_path}/locales/hr*.pak
+%lang(hu) %{chromium_path}/locales/hu*.pak
+%lang(id) %{chromium_path}/locales/id*.pak
+%lang(it) %{chromium_path}/locales/it*.pak
+%lang(ja) %{chromium_path}/locales/ja*.pak
+%lang(kn) %{chromium_path}/locales/kn*.pak
+%lang(ko) %{chromium_path}/locales/ko*.pak
+%lang(lt) %{chromium_path}/locales/lt*.pak
+%lang(lv) %{chromium_path}/locales/lv*.pak
+%lang(ml) %{chromium_path}/locales/ml*.pak
+%lang(mr) %{chromium_path}/locales/mr*.pak
+%lang(ms) %{chromium_path}/locales/ms*.pak
+%lang(nb) %{chromium_path}/locales/nb*.pak
+%lang(nl) %{chromium_path}/locales/nl*.pak
+%lang(pl) %{chromium_path}/locales/pl*.pak
+%lang(pt_BR) %{chromium_path}/locales/pt-BR*.pak
+%lang(pt_PT) %{chromium_path}/locales/pt-PT*.pak
+%lang(ro) %{chromium_path}/locales/ro*.pak
+%lang(ru) %{chromium_path}/locales/ru*.pak
+%lang(sk) %{chromium_path}/locales/sk*.pak
+%lang(sl) %{chromium_path}/locales/sl*.pak
+%lang(sr) %{chromium_path}/locales/sr*.pak
+%lang(sv) %{chromium_path}/locales/sv*.pak
+%lang(sw) %{chromium_path}/locales/sw*.pak
+%lang(ta) %{chromium_path}/locales/ta*.pak
+%lang(te) %{chromium_path}/locales/te*.pak
+%lang(th) %{chromium_path}/locales/th*.pak
+%lang(tr) %{chromium_path}/locales/tr*.pak
+%lang(uk) %{chromium_path}/locales/uk*.pak
+%lang(ur) %{chromium_path}/locales/ur*.pak
+%lang(vi) %{chromium_path}/locales/vi*.pak
+%lang(zh_CN) %{chromium_path}/locales/zh-CN*.pak
+%lang(zh_TW) %{chromium_path}/locales/zh-TW*.pak
 # These are psuedolocales, not real ones.
 # They only get generated when is_official_build=false
 %if ! %{official_build}

@@ -13,7 +13,7 @@ framework, which is a popular Python collection of nature-inspired algorithms.
 The NiaClass classifier support numerical and categorical features.}
 
 Name:           python-niaclass
-Version:        0.2.2
+Version:        0.2.4
 Release:        %autorelease
 Summary:        Python framework for building classifiers using nature-inspired algorithms
 
@@ -59,6 +59,9 @@ Summary:        Documentation and examples for python-niaclass
 # The SemVer pins on dependencies are far too strict to be practical. Convert
 # them to lower bounds.
 sed -r -i 's/( = ")\^/\1>=/' pyproject.toml
+# Similarly, we cannot respect an upper bound on the Python interpreter
+# version.
+sed -r -i 's/^(python = "[^"]+),[[:blank:]]*<[^"]+"/\1"/' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires

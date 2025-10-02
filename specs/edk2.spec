@@ -98,9 +98,9 @@ Source43: 41-edk2-ovmf-2m-raw-x64-sb.json
 Source44: 50-edk2-ovmf-x64-microvm.json
 Source45: 50-edk2-ovmf-4m-qcow2-x64-nosb.json
 Source46: 51-edk2-ovmf-2m-raw-x64-nosb.json
-Source47: 60-edk2-ovmf-x64-amdsev.json
-Source48: 60-edk2-ovmf-x64-amdsevsnp.json
-Source49: 60-edk2-ovmf-x64-inteltdx.json
+Source47: 60-edk2-ovmf-x64-stateless.json
+Source48: 61-edk2-ovmf-x64-amdsev.json
+Source49: 61-edk2-ovmf-x64-inteltdx.json
 
 Source50: 50-edk2-riscv-qcow2.json
 
@@ -138,6 +138,10 @@ Patch0017: 0017-OvmfPkg-X64-add-opt-org.tianocore-UninstallMemAttrPr.patch
 Patch0018: 0018-openssl-silence-unused-variable-warning.patch
 Patch0019: 0019-OvmfPkg-PlatformDxe-register-page-fault-handler-for-.patch
 Patch0020: 0020-SecurityPkg-Tpm2DeviceLibDTpm-Remove-global-variable.patch
+Patch0021: 0021-OvmfPkg-MemFd-move-MEMFD-config-from-OvmfPkgX64-to-i.patch
+Patch0022: 0022-OvmfPkg-MemFd-add-AmdSev-changes-switch-AmdSev-build.patch
+Patch0023: 0023-OvmfPkg-MemFD-swap-memory-log-buffer-and-pei-firmwar.patch
+Patch0024: 0024-UefiCpuPkg-CpuDxe-fix-page-table-walk-in-confidentia.patch
 
 
 # needed by %prep
@@ -488,9 +492,9 @@ for raw in */ovmf/*_4M*.fd; do
     rm -f "$raw"
 done
 
-# experimental stateless builds
-virt-fw-vars --input   Fedora/experimental/OVMF.stateless.fd \
-             --output  Fedora/experimental/OVMF.stateless.secboot.fd \
+# stateless builds
+virt-fw-vars --input   Fedora/ovmf/OVMF.stateless.fd \
+             --output  Fedora/ovmf/OVMF.stateless.secboot.fd \
              --set-dbx DBXUpdate-%{DBXDATE}.x64.bin \
              --enroll-redhat --secure-boot \
              --set-fallback-no-reboot
@@ -498,7 +502,7 @@ virt-fw-vars --input   Fedora/experimental/OVMF.stateless.fd \
 for image in \
 	Fedora/ovmf/OVMF_CODE.secboot.fd \
 	Fedora/ovmf/OVMF_CODE_4M.secboot.qcow2 \
-	Fedora/experimental/OVMF.stateless.secboot.fd \
+	Fedora/ovmf/OVMF.stateless.secboot.fd \
 ; do
 	pcr="${image}"
 	pcr="${pcr%.fd}"
@@ -601,13 +605,13 @@ install -m 0644 \
         41-edk2-ovmf-2m-raw-x64-sb.json \
         50-edk2-ovmf-4m-qcow2-x64-nosb.json \
         51-edk2-ovmf-2m-raw-x64-nosb.json \
-        60-edk2-ovmf-x64-amdsev.json \
-        60-edk2-ovmf-x64-amdsevsnp.json \
-        60-edk2-ovmf-x64-inteltdx.json \
+        61-edk2-ovmf-x64-amdsev.json \
+        61-edk2-ovmf-x64-inteltdx.json \
         %{buildroot}%{_datadir}/qemu/firmware
 %if %{defined fedora}
 install -m 0644 \
         50-edk2-ovmf-x64-microvm.json \
+        60-edk2-ovmf-x64-stateless.json \
         %{buildroot}%{_datadir}/qemu/firmware
 %endif
 
@@ -717,16 +721,18 @@ done
 %{_datadir}/qemu/firmware/41-edk2-ovmf-2m-raw-x64-sb.json
 %{_datadir}/qemu/firmware/50-edk2-ovmf-4m-qcow2-x64-nosb.json
 %{_datadir}/qemu/firmware/51-edk2-ovmf-2m-raw-x64-nosb.json
-%{_datadir}/qemu/firmware/60-edk2-ovmf-x64-amdsev.json
-%{_datadir}/qemu/firmware/60-edk2-ovmf-x64-amdsevsnp.json
-%{_datadir}/qemu/firmware/60-edk2-ovmf-x64-inteltdx.json
+%{_datadir}/qemu/firmware/61-edk2-ovmf-x64-amdsev.json
+%{_datadir}/qemu/firmware/61-edk2-ovmf-x64-inteltdx.json
 %if %{qemuvars}
 %{_datadir}/%{name}/ovmf/OVMF.qemuvars.fd
 %endif
 %if %{defined fedora}
 %{_datadir}/%{name}/ovmf/MICROVM.fd
 %{_datadir}/%{name}/ovmf/OVMF.igvm
+%{_datadir}/%{name}/ovmf/OVMF.stateless.fd
+%{_datadir}/%{name}/ovmf/OVMF.stateless.secboot.fd
 %{_datadir}/qemu/firmware/50-edk2-ovmf-x64-microvm.json
+%{_datadir}/qemu/firmware/60-edk2-ovmf-x64-stateless.json
 %{_datadir}/%{name}/ovmf/OVMF_CODE_4M.qcow2
 %{_datadir}/%{name}/ovmf/OVMF_CODE_4M.secboot.qcow2
 %{_datadir}/%{name}/ovmf/OVMF_VARS_4M.qcow2
@@ -803,7 +809,6 @@ done
 %if %{build_aarch64}
 %{_datadir}/%{name}/experimental/*.raw
 %endif
-%{_datadir}/%{name}/experimental/*.pcrlock
 
 %files ovmf-xen
 %common_files

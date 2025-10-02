@@ -2,13 +2,13 @@ Name:           nvmetcli
 License:        Apache-2.0
 Summary:        An adminstration shell for NVMe storage targets
 Version:        0.8
-Release:        5%{?dist}
+Release:        6%{?dist}
 URL:            ftp://ftp.infradead.org/pub/nvmetcli/
 Source:         ftp://ftp.infradead.org/pub/nvmetcli/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires: make
 BuildRequires:  python3-devel python3-setuptools systemd-units asciidoc xmlto
-Requires:       python3-configshell python3-kmod
+Requires:       python3-configshell python3-kmod python3-six
 Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
@@ -56,6 +56,9 @@ install -m 644 Documentation/nvmetcli.8.gz %{buildroot}%{_mandir}/man8/
 %{_mandir}/man8/nvmetcli.8.gz
 
 %changelog
+* Tue Sep 30 2025 Maurizio Lombardi <mlombard@redhat.com> - 0.8-6
+- Add explicit dependency on python3-six
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.8-5
 - Rebuilt for Python 3.14.0rc3 bytecode
 

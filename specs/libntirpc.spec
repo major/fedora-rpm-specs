@@ -2,8 +2,8 @@
 #%%global		dev rc3
 
 Name:		libntirpc
-Version:	7.0
-Release:	3%{?dev:%{dev}}%{?dist}
+Version:	7.2
+Release:	1%{?dev:%{dev}}%{?dist}
 Summary:	New Transport Independent RPC Library
 License:	BSD-3-Clause
 Url:		https://github.com/nfs-ganesha/ntirpc
@@ -95,6 +95,9 @@ ln -s %{name}.so.%{version} %{buildroot}%{_libdir}/%{name}.so.7
 %{_libdir}/pkgconfig/libntirpc.pc
 
 %changelog
+* Tue Sep 30 2025 Kaleb S. KEITHLEY <kkeithle at redhat.com> 7.2-1
+- ntirpc-7.2 GA
+
 * Tue Jul 29 2025 Kaleb S. KEITHLEY <kkeithle at redhat.com> 7.0-1
 - ntirpc-7.0 GA
 

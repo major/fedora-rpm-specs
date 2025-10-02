@@ -2,7 +2,7 @@
 
 Name:		kf6-%{framework}
 Version:	6.18.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	KDE Frameworks 6 Tier 1 integration module with classes for windows management
 License:	CC0-1.0 AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND MIT
 URL:		https://invent.kde.org/frameworks/%{framework}
@@ -100,6 +100,9 @@ Developer Documentation files for %{name} in HTML format
 
 
 %changelog
+* Tue Sep 30 2025 Jan Grulich <jgrulich@redhat.com> - 6.18.0-2
+- Rebuild (qt6)
+
 * Tue Sep 16 2025 farchord@gmail.com - 6.18.0-1
 - 6.18.0
 

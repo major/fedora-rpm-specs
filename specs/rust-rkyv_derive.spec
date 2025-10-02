@@ -5,7 +5,7 @@
 %global crate rkyv_derive
 
 Name:           rust-rkyv_derive
-Version:        0.8.10
+Version:        0.8.12
 Release:        %autorelease
 Summary:        Derive macro for rkyv
 
@@ -14,6 +14,7 @@ URL:            https://crates.io/crates/rkyv_derive
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  dos2unix
 
 %global _description %{expand:
 Derive macro for rkyv.}
@@ -61,6 +62,8 @@ use the "bytecheck" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
+# Fix CRLF-terminated source files
+find . -type f -exec dos2unix --keepdate '{}' '+'
 %cargo_prep
 
 %generate_buildrequires

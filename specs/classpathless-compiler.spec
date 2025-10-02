@@ -1,7 +1,7 @@
 %global cli_tool cplc
 
 Name:           classpathless-compiler
-Version:        2.3
+Version:        2.4
 Release:        %autorelease
 Summary:        Tool for recompiling java sources with customizable class providers
 License:        Apache-2.0
@@ -41,7 +41,7 @@ pulls dependencies using an API.
 %pom_remove_plugin :maven-gpg-plugin
 %pom_remove_plugin :maven-javadoc-plugin
 %pom_remove_plugin :maven-source-plugin
-%pom_remove_plugin :nexus-staging-maven-plugin
+%pom_remove_plugin :central-publishing-maven-plugin
 %pom_remove_plugin :spotbugs-maven-plugin
 
 %build

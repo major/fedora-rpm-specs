@@ -11,7 +11,7 @@ ExcludeArch: %{ix86}
 Name:    kate
 Summary: Advanced Text Editor
 Version: 25.08.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # kwrite LGPLv2+
 # kate: app LGPLv2, plugins, LGPLv2 and LGPLv2+ and GPLv2+
@@ -185,6 +185,9 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 
 
 %changelog
+* Tue Sep 30 2025 Jan Grulich <jgrulich@redhat.com> - 25.08.1-2
+- Rebuild (qt6)
+
 * Sun Sep 21 2025 Steve Cossette <farchord@gmail.com> - 25.08.1-1
 - 25.08.1
 

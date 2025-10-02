@@ -7,6 +7,7 @@ URL:            https://github.com/linuxdeepin/dtk6log
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 Patch0:         dtk6log-fix-qt6.9-build.patch
+Patch1:         dtk6log-fix-build-against-qt-6-10.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake

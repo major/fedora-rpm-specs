@@ -57,7 +57,7 @@
 Name:    qt5-qtbase
 Summary: Qt5 - QtBase components
 Version: 5.15.17
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, for exception details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -1175,6 +1175,9 @@ fi
 
 
 %changelog
+* Tue Sep 30 2025 Gwyn Ciesla <gwync@protonmail.com> - 5.15.17-6
+- Firebird 5 rebuild
+
 * Thu Aug 14 2025 Sandro Mani <manisandro@gmail.com> - 5.15.17-5
 - Actually apply 0001-Update-SSL-trust-store-locations-for-modern-Red-Hat-.patch
 

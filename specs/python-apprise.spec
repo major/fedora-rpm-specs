@@ -78,13 +78,12 @@ notification services. It supports sending alerts to platforms such as: \
 `Webex Teams`, `Workflows`, `WxPusher`, and `XBMC`.}
 
 Name:           python-%{pypi_name}
-Version:        1.9.4
-Release:        4%{?dist}
+Version:        1.9.5
+Release:        1%{?dist}
 Summary:        A simple wrapper to many popular notification services used today
 License:        BSD-2-Clause
 URL:            https://github.com/caronc/%{pypi_name}
 Source0:        %{url}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
-Patch0:         apprise-translation-files.patch
 BuildArch:      noarch
 
 Obsoletes: python%{python3_pkgversion}-%{pypi_name} < %{version}-%{release}
@@ -148,7 +147,7 @@ BuildRequires: python%{python3_pkgversion}-pytest-cov
 %description -n python%{python3_pkgversion}-%{pypi_name} %{common_description}
 
 %prep
-%autosetup -n %{pypi_name}-%{version} -p1
+%autosetup -n %{pypi_name}-%{version}
 
 %build
 %if %{legacy_python_build}
@@ -162,10 +161,28 @@ BuildRequires: python%{python3_pkgversion}-pytest-cov
 %if %{legacy_python_build}
 # backwards compatible
 %py3_install
+# Compile gettext catalogues from SOURCE into the INSTALLED tree
+pushd %{_builddir}/%{pypi_name}-%{version}
+for po in apprise/i18n/*/LC_MESSAGES/apprise.po; do
+    [ -f "$po" ] || continue
+    langdir="$(dirname "${po#apprise/i18n/}")"
+    outdir="%{buildroot}%{python3_sitelib}/%{pypi_name}/i18n/${langdir}"
+    install -d "$outdir"
+    msgfmt -o "${outdir}/apprise.mo" "$po"
+done
 %else
 %pyproject_install
 %pyproject_save_files apprise
+
+# Compile gettext catalogues into the installed tree
+pushd %{buildroot}%{python3_sitelib}/apprise/i18n
+for po in */LC_MESSAGES/apprise.po; do
+    [ -f "$po" ] || continue
+    msgfmt -o "${po%.po}.mo" "$po"
+done
 %endif
+
+popd
 
 %{__install} -p -D -T -m 0644 packaging/man/%{pypi_name}.1 \
    %{buildroot}%{_mandir}/man1/%{pypi_name}.1
@@ -185,7 +202,6 @@ LANG=C.UTF-8 PYTHONPATH=%{buildroot}%{python3_sitelib}:%{_builddir}/%{name}-%{ve
 %doc README.md ACKNOWLEDGEMENTS.md CONTRIBUTING.md
 %{python3_sitelib}/%{pypi_name}/
 # Exclude i18n as it is handled below with the lang(spoken) tag below
-%exclude %{python3_sitelib}/%{pypi_name}/i18n/
 %exclude %{python3_sitelib}/%{pypi_name}/cli.*
 
 # Handle egg-info to dist-info transfer
@@ -195,8 +211,14 @@ LANG=C.UTF-8 PYTHONPATH=%{buildroot}%{python3_sitelib}:%{_builddir}/%{name}-%{ve
 %{python3_sitelib}/apprise-*.egg-info
 %endif
 
+%if %{legacy_python_build}
+# Legacy: include all compiled locales that we produced under the package tree
+%{python3_sitelib}/%{pypi_name}/i18n/*/LC_MESSAGES/apprise.mo
+%else
 # Localised Files
+%exclude %{python3_sitelib}/%{pypi_name}/i18n/
 %lang(en) %{python3_sitelib}/%{pypi_name}/i18n/en/LC_MESSAGES/apprise.mo
+%endif
 
 %files -n %{pypi_name}
 %{_bindir}/%{pypi_name}
@@ -205,6 +227,9 @@ LANG=C.UTF-8 PYTHONPATH=%{buildroot}%{python3_sitelib}:%{_builddir}/%{name}-%{ve
 %{python3_sitelib}/%{pypi_name}/__pycache__/cli*.py?
 
 %changelog
+* Tue Sep 30 2025 Chris Caron <lead2gold@gmail.com> - 1.9.5-1
+- Updated to v1.9.5
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.9.4-4
 - Rebuilt for Python 3.14.0rc3 bytecode
 

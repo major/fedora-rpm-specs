@@ -124,7 +124,7 @@ BuildRequires:  rocm-compilersupport-macros
 BuildRequires:  rocm-hip-devel
 BuildRequires:  rocm-runtime-devel
 BuildRequires:  rocm-rpm-macros
-BuildRequires:  rocprim-devel
+BuildRequires:  rocprim-static
 BuildRequires:  rocsparse-devel
 
 %if %{with compress}

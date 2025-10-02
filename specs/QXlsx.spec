@@ -1,11 +1,13 @@
 Name: QXlsx
 Version:  1.4.10
-Release:  4%{?dist}
+Release:  5%{?dist}
 Summary:  Excel/XLSX file reader/writer library for Qt
 
 License: MIT
 URL: https://github.com/QtExcel/QXlsx
 Source0: %{url}/archive/v%{version}/QtXslx-%{version}.tar.gz
+
+Patch0:  qxlsx-fix-build-against-qt-6-10.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -27,6 +29,8 @@ These are the development files.
 
 %prep
 %setup -q
+
+%patch -P0 -p1 -b .fix-build-against-qt-6-10
 
 %build
 
@@ -53,6 +57,9 @@ These are the development files.
 
 
 %changelog
+* Tue Sep 30 2025 Jan Grulich <jgrulich@redhat.com> - 1.4.10-5
+- Rebuild (qt6)
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.10-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

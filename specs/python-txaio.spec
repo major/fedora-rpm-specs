@@ -1,17 +1,14 @@
 %global pypi_name txaio
 
 Name:           python-%{pypi_name}
-Version:        25.6.1
-Release:        4%{?dist}
+Version:        25.9.2
+Release:        1%{?dist}
 Summary:        Compatibility API between asyncio/Twisted/Trollius
 
 License:        MIT
 URL:            https://txaio.readthedocs.io/
 Source0:        https://files.pythonhosted.org/packages/source/t/txaio/txaio-%{version}.tar.gz
 Patch0:         remove-unpackaged-sphinx-ext.patch
-# From https://github.com/Jenselme/txaio/commit/2502a42349c515f6014eb9986aac90d407fb9a4b
-# Temporary fix until https://github.com/crossbario/txaio/issues/193 is fixed properly.
-Patch1:         python314.patch
 BuildArch:      noarch
 
 %description
@@ -37,8 +34,9 @@ asyncio.
 Summary:        Documentation for txaio
 
 BuildRequires:  make
-BuildRequires:  python3-sphinx
-BuildRequires:  python3-sphinx_rtd_theme
+BuildRequires:  python3dist(sphinx)
+BuildRequires:  python3dist(sphinx-rtd-theme)
+BuildRequires:  python3dist(myst-parser)
 Requires:       js-jquery
 
 %description doc
@@ -49,9 +47,6 @@ asyncio. Documentation in html format.
 %autosetup -n %{pypi_name}-%{version} -p 1
 # Remove upstream's egg-info
 rm -rf %{pypi_name}.egg-info
-# README is just a symlink to index.rst. Using this file as README
-rm docs/index.rst
-cp -a README.rst docs/index.rst
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -78,13 +73,16 @@ ln -s /usr/share/javascript/jquery/latest/jquery.min.js _build/html/_static/jque
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE
-%doc README.rst
+%doc README.md
 
 %files doc
 %license LICENSE
 %doc docs/_build/html
 
 %changelog
+* Tue Sep 30 2025 Julien Enselme <jujens@jujens.eu> - 25.9.2-1
+- Update to 25.9.2
+
 * Sat Sep 20 2025 Julien Enselme <jujens@jujens.eu> - 25.6.1-4
 - Version bump for rebuild.
 

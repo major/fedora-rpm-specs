@@ -13,7 +13,7 @@
 %bcond jreality 0
 
 Name:           polymake
-Version:        4.14
+Version:        4.15
 Release:        %autorelease
 
 # GPL-2.0-or-later: the project as a whole
@@ -50,8 +50,6 @@ Patch:          %{name}-soplex.patch
 Patch:          %{name}-Singular-4.3.2.patch
 # Build the bundled sympol against system cddlib and lrslib
 Patch:          %{name}-sympol.patch
-# Adapt for Perl 5.42.0 update
-Patch:          %{name}-Perl-5.42.patch
 
 # Polymake 4.7 and later cannot be built on 32 bit platforms due to the
 # limited integer ranges on those platforms.
@@ -309,7 +307,7 @@ make test
 %{_includedir}/%{name}/
 %{_libdir}/%{name}/
 %{_libdir}/lib%{name}*.so
-%{_libdir}/lib%{name}*.so.4.14
+%{_libdir}/lib%{name}*.so.4.15
 %{_mandir}/man1/%{name}.1*
 
 %files doc

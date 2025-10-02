@@ -55,6 +55,7 @@ Source5:        https://github.com/syoyo/tinygltf/archive/refs/tags/v%{tinygltf_
 # Update bundled mbedtls:
 # https://github.com/dolphin-emu/dolphin/pull/13443
 Patch0:         0001-Update-mbedtls-to-2.28.9.patch
+Patch1:         dolphin-emu-fix-build-against-qt-6-10.patch
 
 ###Bundled code ahoy, I've added my best guess for versions and upstream urls
 ##The following isn't in Fedora yet:

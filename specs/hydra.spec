@@ -1,7 +1,7 @@
 Summary:        Very fast network log-on cracker
 Name:           hydra
 Version:        9.5
-Release:        9%{?dist}
+Release:        10%{?dist}
 License:        AGPL-3.0-only
 URL:            https://github.com/vanhauser-thc/thc-hydra
 VCS:            git:https://github.com/vanhauser-thc/thc-hydra
@@ -92,6 +92,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/xhydra.desktop
 %{_mandir}/man1/xhydra.1*
 
 %changelog
+* Tue Sep 30 2025 Gwyn Ciesla <gwync@protonmail.com> - 9.5-10
+- Firebird 5 rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 9.5-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

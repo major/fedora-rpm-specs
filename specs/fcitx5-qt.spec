@@ -12,6 +12,8 @@ Source:         https://download.fcitx-im.org/fcitx5/%{name}/%{name}-%{version}.
 Source1:        https://download.fcitx-im.org/fcitx5/%{name}/%{name}-%{version}.tar.zst.sig
 Source2:        https://pgp.key-server.io/download/0x8E8B898CBF2412F9
 
+Patch0:         fcitx5-qt-fix-build-against-qt-6-10.patch
+
 BuildRequires:  gnupg2
 BuildRequires:  cmake
 BuildRequires:  extra-cmake-modules

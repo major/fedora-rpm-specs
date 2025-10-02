@@ -24,7 +24,7 @@
 Summary:        A multimedia engine
 Name:           xine-lib
 Version:        1.2.13
-Release:        25%{?snapshot:.%{date}hg%{revision}}%{?dist}
+Release:        26%{?snapshot:.%{date}hg%{revision}}%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://www.xine-project.org/
 %if ! 0%{?snapshot}
@@ -52,6 +52,9 @@ Patch4:         xine-lib-1.2.13-fix_libnfs6.patch
 Patch5:         xine-lib-1.2.13-gcc_15.patch
 # https://sourceforge.net/p/xine/xine-lib-1.2/ci/5a68e8b08fd5378780f76c3ab957d790209388db/
 Patch6:         xine-lib-1.2.13-gcc_15-w32dll.patch
+# https://sourceforge.net/p/xine/xine-lib-1.2/ci/9bb3977ea7e2b652742b3cdd200b0a4a72eb48bc/
+# https://sourceforge.net/p/xine/xine-lib-1.2/ci/a8fffd1193b2247c7f732d4df83dcc03fce96dbe/
+Patch7:         xine-lib-1.2.13-ffmpeg8-compatibility.patch
 
 Provides:       xine-lib(plugin-abi) = %{plugin_abi}
 Provides:       xine-lib(plugin-abi)%{?_isa} = %{plugin_abi}
@@ -358,6 +361,9 @@ mkdir -p %{buildroot}%{codecdir}
 
 
 %changelog
+* Mon Sep 15 2025 Xavier Bachelot <xavier@bachelot.org>- 1.2.13-26
+- Add upstream patch for ffmpeg 8 compatibility
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.13-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

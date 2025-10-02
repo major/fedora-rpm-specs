@@ -55,7 +55,6 @@ BuildRequires: pkgconfig(xcb-ewmh)
 BuildRequires: pkgconfig(zlib)
 
 BuildRequires: lmdbxx-devel >= 1.0.0
-BuildRequires: qt6-qtbase-private-devel
 
 BuildRequires: asciidoc
 BuildRequires: cmake

@@ -127,15 +127,14 @@ Requires: openSUSE-release
 #%%global dev rc6
 
 Name:		nfs-ganesha
-Version:	7.0
-Release:	3%{?dev:%{dev}}%{?dist}
+Version:	7.2
+Release:	1%{?dev:%{dev}}%{?dist}
 Summary:	NFS-Ganesha is a NFS Server running in user space
 License:	LGPL-3.0-or-later
 Url:		https://github.com/nfs-ganesha/nfs-ganesha/wiki
 
 Source0:	https://github.com/%{name}/%{name}/archive/V%{version}%{?dev:-%{dev}}/%{name}-%{version}%{?dev:%{dev}}.tar.gz
 Patch:		0001-config_samples-log_rotate.patch
-Patch:		0002-src-MainNFSD-CMakeLists.txt.patch
 
 BuildRequires:	cmake
 BuildRequires:	make
@@ -965,6 +964,9 @@ killall -SIGHUP dbus-daemon >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Tue Sep 30 2025 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 7.2-1
+- NFS-Ganesha 7.2 GA
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 7.0-3
 - Rebuilt for Python 3.14.0rc3 bytecode
 

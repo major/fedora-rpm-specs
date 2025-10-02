@@ -7,7 +7,7 @@
 
 Name:           fractal
 Version:        12.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Matrix group messaging app
 
 # fractal itself is GPL-3.0-or-later. The rest are statically linked rust libraries based on cargo_license_summary output.
@@ -42,6 +42,7 @@ BuildRequires:  pkgconfig(libadwaita-1)
 BuildRequires:  pkgconfig(lcms2)
 BuildRequires:  pkgconfig(libpipewire-0.3)
 BuildRequires:  pkgconfig(libseccomp)
+BuildRequires:  pkgconfig(libwebp)
 BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(shumate-1.0)
 BuildRequires:  pkgconfig(sqlite3)
@@ -99,6 +100,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Tue Sep 30 2025 Fabio Valentini <decathorpe@gmail.com> - 12.1-2
+- Add missing BR: pkgconfig(libwebp).
+
 * Tue Aug 26 2025 Gwyn Ciesla <gwync@protonmail.com> - 12.1-1
 - 12.1
 

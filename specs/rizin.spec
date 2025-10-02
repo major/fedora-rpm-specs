@@ -1,81 +1,69 @@
 Name:           rizin
 Summary:        UNIX-like reverse engineering framework and command-line tool-set
-Version:        0.7.4
+Version:        0.8.1
+
+%global forgeurl https://github.com/rizinorg/rizin
+%forgemeta
+
 Release:        %autorelease
 URL:            https://rizin.re/
-VCS:            https://github.com/rizinorg/rizin
 
-%global         gituser         rizinorg
-%global         gitname         rizin
-%global         shortversion    %(c=%{version}; echo ${c} | cut -d'.' -f-2)
+Source0:        %{forgeurl}/releases/download/v%{version}/%{name}-src-v%{version}.tar.xz
 
-Source0:        https://github.com/%{gituser}/%{gitname}/releases/download/v%{version}/%{name}-src-v%{version}.tar.xz
+# https://github.com/rizinorg/rizin/pull/5414
+Patch:          0001-Add-option-to-use-system-BLAKE3.patch
 
-License:        LGPL-3.0-or-later AND GPL-2.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND MIT AND Apache-2.0 AND MPL-2.0 AND Zlib
+# https://github.com/rizinorg/rizin/pull/5417
+Patch:          0002-Fix-using-system-libpcre2.patch
+
+# see .reuse/dep5 for license breakdown
+License:        LGPL-3.0-only AND LGPL-2.1-or-later AND LGPL-2.1-only AND LGPL-2.0-or-later AND GPL-3.0-or-later AND GPL-2.0-or-later AND GPL-2.0-only AND GPL-1.0-or-later AND MIT AND Apache-2.0 AND NCSA AND BSD-3-Clause AND BSD-2-Clause AND CC-BY-SA-4.0 AND CC0-1.0 AND CC-PDDC
 
 
 BuildRequires:  gcc
+BuildRequires:  gcc-c++
 BuildRequires:  meson
 BuildRequires:  ninja-build
 BuildRequires:  pkgconfig
 BuildRequires:  python3-pyyaml
 
+BuildRequires:  pkgconfig(capstone) >= 3.0.4
 %if 0%{?rhel}
 # rhel8 file-devel package stil doesn't provide pkgconfig 
 BuildRequires:  file-devel
 %else
 BuildRequires:  pkgconfig(libmagic)
 %endif
-BuildRequires:  pkgconfig(libxxhash)
-BuildRequires:  pkgconfig(bzip2)
 BuildRequires:  pkgconfig(libzip)
 BuildRequires:  pkgconfig(zlib)
 BuildRequires:  pkgconfig(liblz4)
-BuildRequires:  pkgconfig(capstone) >= 3.0.4
-BuildRequires:  pkgconfig(openssl)
-BuildRequires:  pkgconfig(tree-sitter)
-BuildRequires:  pkgconfig(liblzma)
-BuildRequires:  pkgconfig(libmspack)
 BuildRequires:  pkgconfig(libzstd)
+BuildRequires:  pkgconfig(liblzma)
+BuildRequires:  pkgconfig(libxxhash)
+BuildRequires:  pkgconfig(openssl)
+BuildRequires:  pkgconfig(libmspack)
+BuildRequires:  pkgconfig(tree-sitter)
+BuildRequires:  pkgconfig(libpcre2-8)
+BuildRequires:  pkgconfig(libblake3)
 
 Requires:       %{name}-common = %{version}-%{release}
 
 # Package contains several bundled libraries that are used in Fedora builds
 
-# ./shlr/spp/README.md
+# subprojects/spp
 # SPP stands for Simple Pre-Processor, a templating language.
 # https://github.com/rizinorg/spp
 Provides:       bundled(spp) = 1.2.0
 
-# ./shlr/sdb/README.md
-# sdb is a simple string key/value database based on djb's cdb
-# https://github.com/rizinorg/sdb
-Provides:       bundled(sdb) = db7edd4a96a89b6749b677a85d7fa4ee2c6fbbb9
+# all binutils code resides in librz/arch/p_gnu/ and librz/arch/isa_gnu/
+# last update's upstream commit: 4ed07377e47addf4dd0594ac5b16d7e4cdb19436
+# BFD_VERSION_DATE = 20221025
+Provides:       bundled(binutils) = 2.39.50~20221025
 
-# librz/util/regex/README
-# Modified OpenBSD regex to be portable
-# cvs -qd anoncvs@anoncvs.ca.openbsd.org:/cvs get -P src/lib/libc/regex
-# version from 2010/11/21 00:02:30, version of files ranges from v1.11 to v1.20
-Provides:       bundled(openbsdregex) = 1.11
-
-# ./librz/asm/arch/tricore/README.md
-# Based on code from https://www.hightec-rt.com/en/downloads/sources/14-sources-for-tricore-v3-3-7-9-binutils-1.html
-# part of binutils to read machine code for Tricore architecture
-# ./librz/asm/arch/ppc/gnu/
-# part of binutils to read machine code for ppc architecture
-# ./librz/asm/arch/arm/gnu/
-Provides:       bundled(binutils) = 2.13
-
-# ./librz/asm/arch/avr/README
-# * This code has been ripped from vavrdisasm 1.6
-Provides:       bundled(vavrdisasm) = 1.6
-
-# rizin-v0.5.0/subprojects/blake3
-# url = https://github.com/BLAKE3-team/BLAKE3.git
-# revision = f84636e59ce575e5dd127399e0c7de0c1ea595da
-Provides:       bundled(blake3) = 1.3.1
-
-
+# subprojects/softfloat
+# url = https://github.com/rizinorg/softfloat
+# version: 3e
+Provides:       bundled(softfloat3) = 3e~git537d18e
 
 %description
 Rizin is a free and open-source Reverse Engineering framework, providing a
@@ -109,22 +97,24 @@ information
 
 %prep
 # Build from git release version
-%autosetup -n %{gitname}-v%{version}
+%autosetup -p1 -n %{name}-v%{version}
 
 %build
 # Whereever possible use the system-wide libraries instead of bundles
 %meson \
+    -Duse_sys_capstone=enabled \
     -Duse_sys_magic=enabled \
     -Duse_sys_libzip=enabled \
     -Duse_sys_zlib=enabled \
     -Duse_sys_lz4=enabled \
+    -Duse_sys_libzstd=enabled \
+    -Duse_sys_lzma=enabled \
     -Duse_sys_xxhash=enabled \
     -Duse_sys_openssl=enabled \
-    -Duse_sys_capstone=enabled \
-    -Duse_sys_tree_sitter=enabled \
-    -Duse_sys_lzma=enabled \
     -Duse_sys_libmspack=enabled \
-    -Duse_sys_libzstd=enabled \
+    -Duse_sys_tree_sitter=enabled \
+    -Duse_sys_pcre2=enabled \
+    -Duse_sys_blake3=enabled \
 %ifarch s390x
     -Ddebugger=false \
 %endif
@@ -137,7 +127,6 @@ information
 
 %install
 %meson_install
-%ldconfig_scriptlets
 
 
 %check
@@ -151,7 +140,7 @@ information
 %license COPYING COPYING.LESSER
 %{_bindir}/r*
 %{_libdir}/librz_*.so.%{version}*
-%{_libdir}/librz_*.so.%{shortversion}
+%{_libdir}/librz_*.so.0.8
 %{_mandir}/man1/rizin.1.*
 %{_mandir}/man1/rz*.1.*
 %{_mandir}/man7/rz-esil.7.*
@@ -167,6 +156,7 @@ information
 
 
 %files common
+%{_datadir}/%{name}/arch
 %{_datadir}/%{name}/asm
 %{_datadir}/%{name}/cons
 %{_datadir}/%{name}/flag
@@ -182,109 +172,4 @@ information
 
 
 %changelog
-* Wed Feb 19 2025 Peter Oliver <rpm@mavit.org.uk> - 0.7.4-5
-- Rebuild against tree-sitter-0.25.2-3.fc43
-
-* Mon Feb 03 2025 Peter Oliver <rpm@mavit.org.uk> - 0.7.4-4
-- Rebuild against tree-sitter-0.25.1-6.fc42
-
-* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Tue Dec 31 2024 Michal Ambroz <rebus _AT seznam.cz> - 0.7.4-2
-- bump to version 0.7.4
-
-* Sun Sep 01 2024 Yaakov Selkowitz <yselkowi@redhat.com> - 0.7.3-3
-- Rebuilt for tree-sitter 0.23.0
-
-* Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Sun Apr 14 2024 Sérgio Basto <sergio@serjux.com> - 0.7.3-1
-- Update rizin to 0.7.3 (#2238987)
-- (#2271957) remove provides of pkgconfig(libzstd)
-
-* Mon Mar 25 2024 Riccardo Schirone <rschirone91@gmail.com> - 0.7.2-2
-- Rebase to upstream version 0.7.2 (fix changelog)
-
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Nov 13 2023 Michal Ambroz <rebus _AT seznam.cz> - 0.6.3-1
-- Rebase to upstream version 0.6.3
-- change license string to comply with the SPDX
-
-* Mon Aug 21 2023 Riccardo Schirone <rschirone91@gmail.com> - 0.6.1-1
-- Rebase to upstream version 0.6.1
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Wed Jul 12 2023 Michal Ambroz <rebus _AT seznam.cz> - 0.5.2-2
-- cosmetics, remove the excessive .2 in the release
-- use baserelese (recognized by rpmdev-bumpspec used for massrebuilds)
-- prepare to sync for the feature branches
-- fix dependencies for rhel
-
-* Wed May 17 2023 Riccardo Schirone <rschirone91@gmail.com> - 0.5.2-1.2
-- Rebase to upstream version 0.5.2
-
-* Tue Mar 14 2023 Riccardo Schirone <rschirone91@gmail.com> - 0.5.1-1
-- Rebase to upstream version 0.5.1
-
-* Sun Feb 19 2023 Michal Ambroz <rebus _AT seznam.cz> - 0.5.0-1
-- Rebase to upstream version 0.5.0
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-1.2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Sat Sep 10 2022 Richard Hughes <richard@hughsie.com> - 0.4.1-1
-- Rebase to upstream version 0.4.1
-- Fixed CVE-2022-36039
-- Fixed CVE-2022-36040
-- Fixed CVE-2022-36041
-- Fixed CVE-2022-36042
-- Fixed CVE-2022-36043
-- Fixed CVE-2022-36044
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-2.1
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Tue Jun 28 2022 Riccardo Schirone <rschirone91@gmail.com> - 0.4.0-2
-- Increase release number to put in the side-tag
-
-* Mon Jun 27 2022 Riccardo Schirone <rschirone91@gmail.com> - 0.4.0-1
-- Rebase to upstream version 0.4.0
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.4-1.1
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Tue Jan 11 2022 Riccardo Schirone <rschirone91@gmail.com> - 0.3.4-1
-- Rebase to upstream version 0.3.4
-
-* Mon Jan 3 2022 Riccardo Schirone <rschirone91@gmail.com> - 0.3.2-1
-- Rebase to upstream version 0.3.2
-
-* Mon Nov 29 2021 Riccardo Schirone <rschirone91@gmail.com> - 0.3.1-1
-- Rebase to upstream version 0.3.1
-
-* Mon Sep 27 2021 Riccardo Schirone <rschirone91@gmail.com> - 0.3.0-1
-- Rebase to upstream version 0.3.0
-
-* Tue Sep 14 2021 Sahana Prasad <sahana@redhat.com> - 0.2.0-2.2
-- Rebuilt with OpenSSL 3.0.0
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-2.1
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Apr 20 2021 Riccardo Schirone <rschirone91@gmail.com> - 0.2.0-2
-- Apply patch to avoid symbols collision
-
-* Mon Apr 12 2021 Riccardo Schirone <rschirone91@gmail.com> - 0.2.0-1
-- Rebase to upstream version 0.2.0
-
-* Tue Mar 30 2021 Riccardo Schirone <rschirone91@gmail.com> - 0.1.2-1
-- Initial SPEC file
+%autochangelog

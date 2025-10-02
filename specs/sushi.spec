@@ -16,11 +16,13 @@ License:        GPL-2.0-or-later WITH GStreamer-exception-2008 AND CC0-1.0 AND (
 URL:            https://gitlab.gnome.org/GNOME/sushi
 Source0:        https://download.gnome.org/sources/%{name}/%{url_ver}/%{name}-%{tarball_version}.tar.xz
 
+BuildRequires:  gcc
 BuildRequires:  gettext
 BuildRequires:  gjs-devel
 BuildRequires:  meson
 BuildRequires:  pkgconfig(evince-document-3.0)
 BuildRequires:  pkgconfig(gobject-2.0)
+BuildRequires:  pkgconfig(gobject-introspection-1.0)
 BuildRequires:  pkgconfig(gstreamer-audio-1.0)
 BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:  pkgconfig(gtksourceview-4)

@@ -1,17 +1,14 @@
 Name:           libudfread
-Version:        1.1.2
-Release:        12%{?dist}
+Version:        1.2.0
+Release:        1%{?dist}
 Summary:        UDF reader library
-# Automatically converted from old format: LGPLv2+ - review is highly recommended.
-License:        LicenseRef-Callaway-LGPLv2+
+License:        LGPL-2.0-or-later
 URL:            https://code.videolan.org/videolan/libudfread
 Source0:        https://code.videolan.org/videolan/%{name}/-/archive/%{version}/%{name}-%{version}.tar.bz2
 
 BuildRequires:  gcc
-BuildRequires:  autoconf
-BuildRequires:  automake
 BuildRequires:  libtool
-BuildRequires: make
+BuildRequires:  meson
 
 
 %description
@@ -34,23 +31,18 @@ developing applications that use %{name}.
 
 
 %build
-autoreconf -vif
-%configure --disable-static
-%make_build
+%meson -Ddefault_library=shared
+%meson_build
 
 
 %install
-%make_install
-find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
-
-
-%ldconfig_scriptlets
+%meson_install
 
 
 %files
 %doc ChangeLog
 %license COPYING
-%{_libdir}/libudfread.so.0*
+%{_libdir}/libudfread.so.3*
 
 %files devel
 %{_includedir}/udfread/
@@ -59,6 +51,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Tue Sep 30 2025 Xavier Bachelot <xavier@bachelot.org> 1.2.0-1
+- Update to 1.2.0 (RHBZ#2390021)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

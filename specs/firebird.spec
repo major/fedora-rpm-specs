@@ -1,7 +1,7 @@
-%global         upversion 4.0.6.3221
+%global         upversion 5.0.3.1683
 %global         pkgversion Firebird-%{upversion}-0
 
-%global         major 4.0
+%global         major 5.0
 %global         _hardened_build 1
 # firebird is mis-compiled when LTO is enabled. A root
 # cause analysis has not yet been completed. Reported upstream.
@@ -17,7 +17,7 @@ Summary:        SQL relational database management system
 License:        Interbase-1.0
 URL:            http://www.firebirdsql.org/
 
-Source0:        https://github.com/FirebirdSQL/firebird/releases/download/v4.0.6/%{pkgversion}.tar.xz
+Source0:        https://github.com/FirebirdSQL/firebird/releases/download/v5.0.3/%{pkgversion}-source.tar.xz
 Source1:        firebird-logrotate
 Source2:        README.Fedora
 Source3:        firebird.service
@@ -31,8 +31,6 @@ Patch203:       no-copy-from-icu.patch
 Patch205:       cloop-honour-build-flags.patch
 
 # from upstream
-Patch301:       c++17.patch
-Patch302:       noexcept.patch
 Patch401:       btyacc-honour-build-flags.patch
 
 # not yet upstream
@@ -55,6 +53,7 @@ BuildRequires: make
 BuildRequires: libtomcrypt-devel
 BuildRequires: unzip
 BuildRequires: sed
+BuildRequires: cmake
 
 Requires(postun): /usr/sbin/userdel
 Requires(postun): /usr/sbin/groupdel
@@ -62,19 +61,6 @@ Recommends:     logrotate
 Requires:       libfbclient2 = %{version}-%{release}
 Requires:       libib-util = %{version}-%{release}
 Requires:       %{name}-utils = %{version}-%{release}
-
-Obsoletes:      firebird-arch < 4.0
-Obsoletes:      firebird-filesystem < 4.0
-Obsoletes:      firebird-classic-common < 4.0
-Obsoletes:      firebird-classic < 4.0
-Obsoletes:      firebird-superclassic < 4.0
-Obsoletes:      firebird-superserver < 4.0
-Conflicts:      firebird-arch < 4.0
-Conflicts:      firebird-filesystem < 4.0
-Conflicts:      firebird-classic-common < 4.0
-Conflicts:      firebird-classic < 4.0
-Conflicts:      firebird-superclassic < 4.0
-Conflicts:      firebird-superserver < 4.0
 
 
 %description
@@ -117,9 +103,6 @@ in production systems, under a variety of names, since 1981.
 
 %package -n libfbclient2
 Summary:        Firebird SQL server client library
-Obsoletes:      firebird-libfbclient < 4.0
-Conflicts:      firebird-libfbclient < 4.0
-Obsoletes:      firebird-libfbembed < 4.0
 
 %description -n libfbclient2
 Shared client library for Firebird SQL server.
@@ -192,12 +175,10 @@ in production systems, under a variety of names, since 1981.
 
 
 %prep
-%setup -q -n %{pkgversion}
+%setup -q -n %{pkgversion}-source
 %patch -P101 -p1
 %patch -P203 -p1
 %patch -P205 -p1
-%patch -P301 -p1
-%patch -P302 -p1
 %patch -P401 -p1
 %patch -P501 -p1
 
@@ -316,8 +297,7 @@ fi
 %dir %attr(0700,%{name},%{name}) %{_localstatedir}/lib/%{name}/data
 %dir %attr(0755,%{name},%{name}) %{_localstatedir}/lib/%{name}/system
 %dir %attr(0755,%{name},%{name}) %{_localstatedir}/lib/%{name}/tzdata
-%attr(0600,firebird,firebird) %config(noreplace) %{_localstatedir}/lib/%{name}/secdb/security4.fdb
-%attr(0644,firebird,firebird) %{_localstatedir}/lib/%{name}/system/help.fdb
+%attr(0600,firebird,firebird) %config(noreplace) %{_localstatedir}/lib/%{name}/secdb/security5.fdb
 %attr(0644,firebird,firebird) %{_localstatedir}/lib/%{name}/system/firebird.msg
 %attr(0644,firebird,firebird) %{_localstatedir}/lib/%{name}/tzdata/*.res
 %ghost %dir %attr(0775,%{name},%{name}) /run/%{name}
@@ -338,7 +318,8 @@ fi
 
 
 %files -n libfbclient2
-%{_libdir}/libfbclient.so.*
+%{_libdir}/libfbclient.so.2
+%{_libdir}/libfbclient.so.%{major}*
 
 
 %files -n libfbclient2-devel
@@ -366,7 +347,6 @@ fi
 %{_bindir}/gsec
 %{_bindir}/isql-fb
 %{_bindir}/nbackup
-%{_bindir}/qli
 %{_bindir}/gsplit
 
 
@@ -376,6 +356,9 @@ fi
 
 
 %changelog
+* Fri Sep 26 2025 Gwyn Ciesla <gwync@protonmail.com> - 5.0.3.1683-1
+- 5.0.3.1683
+
 * Thu Sep 25 2025 Gwyn Ciesla <gwync@protonmail.com> - 4.0.6.3221-1
 - 4.0.6.3221
 

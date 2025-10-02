@@ -2,7 +2,7 @@
 %global with_broadway 1
 %endif
 
-%global glib2_version 2.80.0
+%global glib2_version 2.84.0
 %global pango_version 1.56.0
 %global cairo_version 1.18.0
 %global gdk_pixbuf_version 2.30.0
@@ -26,7 +26,7 @@
 %endif
 
 Name:           gtk4
-Version:        4.20.1
+Version:        4.21.0
 Release:        %autorelease
 Summary:        GTK graphical user interface library
 
@@ -126,6 +126,8 @@ Requires: adwaita-icon-theme
 Requires: hicolor-icon-theme
 # split out in a subpackage
 Requires: gtk-update-icon-cache
+# for mime directory ownership
+Requires: shared-mime-info
 
 Requires: cairo%{?_isa} >= %{cairo_version}
 Requires: cairo-gobject%{?_isa} >= %{cairo_version}
@@ -217,7 +219,7 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 %doc AUTHORS NEWS README.md
 %{_bindir}/gtk4-launch
 %{_bindir}/gtk4-update-icon-cache
-%{_libdir}/libgtk-4.so.1*
+%{_libdir}/libgtk-4.so.1{,.*}
 %dir %{_libdir}/gtk-4.0
 %{_libdir}/gtk-4.0/modules
 %{_libdir}/girepository-1.0/
@@ -230,6 +232,7 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 %{_datadir}/glib-2.0/schemas/org.gtk.gtk4.Settings.FileChooser.gschema.xml
 %dir %{_datadir}/gtk-4.0
 %{_datadir}/gtk-4.0/emoji/
+%{_datadir}/mime/packages/gtk-mime.xml
 %if 0%{?with_broadway}
 %{_bindir}/gtk4-broadwayd
 %{_mandir}/man1/gtk4-broadwayd.1*
@@ -263,6 +266,7 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 %files devel-tools
 %{_bindir}/gtk4-demo
 %{_bindir}/gtk4-demo-application
+%{_bindir}/gtk4-icon-editor
 %{_bindir}/gtk4-image-tool
 %{_bindir}/gtk4-node-editor
 %{_bindir}/gtk4-print-editor
@@ -271,6 +275,7 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 %{_datadir}/applications/org.gtk.gtk4.NodeEditor.desktop
 %{_datadir}/applications/org.gtk.Demo4.desktop
 %{_datadir}/applications/org.gtk.PrintEditor4.desktop
+%{_datadir}/applications/org.gtk.Shaper.desktop
 %{_datadir}/applications/org.gtk.WidgetFactory4.desktop
 %{_datadir}/bash-completion/completions/gtk4-demo
 %{_datadir}/bash-completion/completions/gtk4-image-tool
@@ -282,6 +287,7 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/*/apps/org.gtk.gtk4.NodeEditor*.svg
 %{_datadir}/icons/hicolor/*/apps/org.gtk.Demo4*.svg
 %{_datadir}/icons/hicolor/*/apps/org.gtk.PrintEditor4*.svg
+%{_datadir}/icons/hicolor/*/apps/org.gtk.Shaper*.svg
 %{_datadir}/icons/hicolor/*/apps/org.gtk.WidgetFactory4*.svg
 %{_datadir}/glib-2.0/schemas/org.gtk.Demo4.gschema.xml
 %{_metainfodir}/org.gtk.gtk4.NodeEditor.appdata.xml

@@ -163,7 +163,7 @@
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          2%{?with_debug:.debug}%{?dist}
+Release:          3%{?with_debug:.debug}%{?dist}
 Epoch:            3
 
 Summary:          A very fast and robust SQL database server
@@ -231,6 +231,7 @@ Patch13:          %{majorname}-libfmt.patch
 Patch14:          %{majorname}-mtr.patch
 
 Patch16:          %{majorname}-federated.patch
+Patch17:          upstream_dafd1c414f96ca399e5779ba075fdf1dd8fb7f8a.patch
 
 # This macro is used for package/sub-package names in the entire specfile
 %if %?mariadb_default
@@ -884,6 +885,7 @@ rm -r storage/rocksdb/
 
 %patch -P14 -p1
 %patch -P16 -p1
+%patch -P17 -p1
 
 # generate a list of tests that fail, but are not disabled by upstream
 cat %{SOURCE50} | tee -a mysql-test/unstable-tests
@@ -998,7 +1000,6 @@ CXXFLAGS="$CFLAGS"; CPPFLAGS="$CFLAGS"; export CFLAGS CXXFLAGS CPPFLAGS
          -DINSTALL_SCRIPTDIR=bin \
          -DINSTALL_SUPPORTFILESDIR=share/%{majorname} \
          -DMYSQL_DATADIR="%{dbdatadir}" \
-         -DMYSQL_UNIX_ADDR="%{dbdatadir}/mysql.sock" \
          -DTMPDIR=%{_localstatedir}/tmp \
          -DINSTALL_SYSTEMD_TMPFILESDIR="" \
          -DINSTALL_SYSTEMD_SYSUSERSDIR="" \
@@ -1841,6 +1842,9 @@ fi
 %endif
 
 %changelog
+* Tue Sep 30 2025 Petr Khartskhaev <pkhartsk@redhat.com> - 3:11.8.3-3
+- Bump release for package rebuild
+
 * Tue Aug 12 2025 Michal Schorm <mschorm@redhat.com> - 3:11.8.3-2
 - Bump release for package rebuild
 

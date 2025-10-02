@@ -79,7 +79,7 @@ BuildRequires:  rocm-compilersupport-macros
 BuildRequires:  rocm-hip-devel
 BuildRequires:  rocm-runtime-devel >= %{rocm_release}
 BuildRequires:  rocm-rpm-macros
-BuildRequires:  rocprim-devel
+BuildRequires:  rocprim-static
 BuildRequires:  rocfft-devel
 
 %if %{with test}

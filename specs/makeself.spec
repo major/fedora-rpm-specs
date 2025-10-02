@@ -1,6 +1,6 @@
 Name:           makeself
-Version:        2.5.0
-Release:        8%{?dist}
+Version:        2.6.0
+Release:        1%{?dist}
 BuildArch:      noarch
 Summary:        Make self-extractable archives on Unix
 
@@ -8,8 +8,6 @@ Summary:        Make self-extractable archives on Unix
 License:        GPL-2.0-or-later
 URL:            http://%{name}.io/
 Source:         https://github.com/megastep/%{name}/archive/release-%{version}/%{name}-%{version}.tar.gz
-
-Patch0:         https://github.com/megastep/makeself/pull/303.patch
 
 BuildRequires:  %{_bindir}/iconv
 BuildRequires:  sed
@@ -64,6 +62,9 @@ ln -s %{name}.sh %{buildroot}%{_bindir}/%{name}
 
 
 %changelog
+* Tue Sep 30 2025 Dridi Boukelmoune <dridi@fedoraproject.org> - 2.6.0-1
+- Bump version to 2.6.0
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

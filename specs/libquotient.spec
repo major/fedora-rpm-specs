@@ -8,12 +8,14 @@ older use the previous name - libQMatrixClient.}
 
 Name: libquotient
 Version: 0.9.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: BSD-3-Clause AND LGPL-2.1-or-later
 URL: https://github.com/quotient-im/%{libname}
 Summary: Qt library to write cross-platform clients for Matrix
 Source0: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+
+Patch0:  libquotient-fix-build-against-qt-6-10.patch
 
 BuildRequires: cmake(Olm)
 BuildRequires: cmake(Qt6Core)
@@ -82,6 +84,9 @@ rm -rf %{buildroot}%{_datadir}/ndk-modules
 %{_libdir}/pkgconfig/%{appname}Qt6.pc
 
 %changelog
+* Tue Sep 30 2025 Jan Grulich <jgrulich@redhat.com> - 0.9.2-4
+- Rebuild (qt6)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

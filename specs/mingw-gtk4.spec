@@ -5,7 +5,7 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-gtk4
-Version:        4.19.2
+Version:        4.21.0
 Release:        1%{?dist}
 Summary:        MinGW Windows GTK+ library
 
@@ -158,6 +158,7 @@ rm -rf %{buildroot}%{mingw64_datadir}/bash-completion/
 %{mingw32_bindir}/gtk4-widget-factory.exe
 %{mingw32_bindir}/gtk4-builder-tool.exe
 %{mingw32_bindir}/gtk4-encode-symbolic-svg.exe
+%{mingw32_bindir}/gtk4-icon-editor.exe
 %{mingw32_bindir}/gtk4-query-settings.exe
 %{mingw32_bindir}/gtk4-node-editor.exe
 %{mingw32_bindir}/gtk4-path-tool.exe
@@ -189,6 +190,7 @@ rm -rf %{buildroot}%{mingw64_datadir}/bash-completion/
 %{mingw64_bindir}/gtk4-widget-factory.exe
 %{mingw64_bindir}/gtk4-builder-tool.exe
 %{mingw64_bindir}/gtk4-encode-symbolic-svg.exe
+%{mingw64_bindir}/gtk4-icon-editor.exe
 %{mingw64_bindir}/gtk4-query-settings.exe
 %{mingw64_bindir}/gtk4-node-editor.exe
 %{mingw64_bindir}/gtk4-path-tool.exe
@@ -215,6 +217,9 @@ rm -rf %{buildroot}%{mingw64_datadir}/bash-completion/
 
 
 %changelog
+* Tue Sep 30 2025 Marc-André Lureau <marcandre.lureau@redhat.com> - 4.21.0-1
+- new version
+
 * Wed Jul 30 2025 Marc-André Lureau <marcandre.lureau@redhat.com> - 4.19.2-1
 - new version
 

@@ -25,6 +25,7 @@ BuildRequires:  python3-boutdata
 BuildRequires:  python3-sphinx-autodoc-typehints
 # Testing
 BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(pytest-timeout)
 
 %generate_buildrequires
 %pyproject_buildrequires -r
@@ -71,7 +72,7 @@ rm -rf html/.{doctrees,buildinfo}
 %pyproject_save_files %{pypi_name}
 
 %check
-%pytest xbout --long --durations=0
+%pytest xbout --long --durations=0 --timeout 3600 -sv
 
 
 %files -n python3-%{pypi_name}

@@ -5,7 +5,7 @@
 %global crate rkyv
 
 Name:           rust-rkyv
-Version:        0.8.10
+Version:        0.8.12
 Release:        %autorelease
 Summary:        Zero-copy deserialization framework for Rust
 
@@ -18,13 +18,11 @@ Source:         %{crates_source}
 #   specifically requires them. Upstream plans to remove these crate-integration
 #   features in 1.0:
 #   https://github.com/rkyv/rkyv/blob/89a1bc48229ca6ac5ee620964d778293270257d0/rkyv/Cargo.toml#L29-L32
-# * Patch out the ui test, which seems to require *all* integrations, even the
-#   patched-out ones
+# * Remove the benchmark-only dev-dependency on divan
 Patch:          rkyv-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  dos2unix
-BuildRequires:  tomcli
 
 %global _description %{expand:
 Zero-copy deserialization framework for Rust.}
@@ -191,8 +189,8 @@ use the "unaligned" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-# Do not depend on divan; it is needed only for benchmarks.
-tomcli set Cargo.toml del dev-dependencies.divan
+# Fix CRLF-terminated source files
+find . -type f -exec dos2unix --keepdate '{}' '+'
 %cargo_prep
 
 %generate_buildrequires

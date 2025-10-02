@@ -14,12 +14,15 @@ Summary:        Manage initrd cpio archives
 License:        ISC
 URL:            https://crates.io/crates/threecpio
 Source:         %{crates_source}
-# * Remove executable permissions from the LICENSE file:
-#   https://github.com/bdrung/3cpio/pull/29
-Patch10:        https://github.com/bdrung/3cpio/pull/29.patch
+# * Remove executable permissions from the LICENSE file; fixes
+#   https://github.com/bdrung/3cpio/issues/30
+Patch10:        https://github.com/bdrung/3cpio/commit/1994d529b67cd584dddea9bacde0360fe1a124a5.patch
 # * On 32-bit platforms, panic if a time does not fit in time_t
 # * Fixes failure to compile on 32-bit platforms.
 Patch11:        0001-On-32-bit-platforms-panic-if-a-time-does-not-fit-in-.patch
+# * test: do not hard-code expected mode and gid in block device test; fixes
+#   https://github.com/bdrung/3cpio/issues/28
+Patch12:        https://github.com/bdrung/3cpio/commit/e32d80fbaefce61683bb950bf4f834bb82514420.patch
 
 BuildRequires:  cargo-rpm-macros >= 26
 BuildRequires:  /usr/bin/asciidoctor
@@ -70,14 +73,9 @@ install -p -m 0644 -D -t '%{buildroot}%{_mandir}/man1' man/3cpio.1
 
 %if %{with check}
 %check
-# * Hard-coded mode and gid in test_file_from_line_location_block_device are
-#   nonportable: https://github.com/bdrung/3cpio/issues/28
 # * Test test_file_from_line_location_character_device requires /dev/console,
 #   which does not exist in the mock chroot.
-%{cargo_test -- -- %{shrink:
-    --skip test_file_from_line_location_block_device
-    --skip test_file_from_line_location_character_device
-}}
+%cargo_test -- -- --skip test_file_from_line_location_character_device
 %endif
 
 %changelog

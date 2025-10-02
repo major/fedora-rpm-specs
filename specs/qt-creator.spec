@@ -6,7 +6,7 @@
 
 Name:           qt-creator
 Version:        18.0.0
-Release:        0.1%{?dist}
+Release:        0.2%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 License:        GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -211,6 +211,9 @@ diff -u %{SOURCE1} $outfile
 
 
 %changelog
+* Tue Sep 30 2025 Jan Grulich <jgrulich@redhat.com>
+- Rebuild (qt6)
+
 * Tue Sep 23 2025 Sandro Mani <manisandro@gmail.com> - 18.0.0-0.1.beta1
 - Update to 18.0.0-beta1
 

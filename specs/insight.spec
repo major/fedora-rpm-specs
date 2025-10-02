@@ -18,7 +18,7 @@
 
 Name:		insight
 Version:	%(echo %{ver} | tr - .)%{?snap:.%{snap}}
-Release:	26%{?dist}
+Release:	27%{?dist}
 Summary:	Graphical debugger based on GDB
 # Automatically converted from old format: GPLv3+ and GPLv3+ with exceptions and GPLv2+ and GPLv2+ with exceptions and GPL+ and LGPLv2+ and BSD and Public Domain and GFDL - review is highly recommended.
 License:	GPL-3.0-or-later AND LicenseRef-Callaway-GPLv3+-with-exceptions AND GPL-2.0-or-later AND LicenseRef-Callaway-GPLv2+-with-exceptions AND GPL-1.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-BSD AND LicenseRef-Callaway-Public-Domain AND LicenseRef-Callaway-GFDL
@@ -34,8 +34,13 @@ Provides:	bundled(libiberty) = %{snap}
 Provides:	bundled(md5-gcc) = %{snap}
 BuildRequires:	gcc
 BuildRequires:	gcc-c++
+%if 0%{?fedora} < 42
+BuildRequires:	tcl-devel
+BuildRequires:	tk-devel
+%else
 BuildRequires:	tcl8-devel
 BuildRequires:	tk8-devel
+%endif
 BuildRequires:	iwidgets
 BuildRequires:	ncurses-devel
 BuildRequires:	readline-devel >= 6.0
@@ -97,6 +102,8 @@ Patch208:	insight-13.0-gdb-python313.patch
 Patch209:	insight-13.0.50-calloc.patch
 Patch210:	insight-13.0.50-C++20.patch
 Patch211:	insight-13.0.50-bool.patch
+Patch212:	insight-13.0.50-cve-2025-11082.patch
+Patch213:	insight-13.0.50-cve-2025-11083.patch
 
 
 %description
@@ -138,6 +145,8 @@ the latest GDB version.
 %patch 209 -p1
 %patch 210 -p1
 %patch 211 -p1
+%patch 212 -p1
+%patch 213 -p1
 
 
 #-------------------------------------------------------------------------------
@@ -318,6 +327,14 @@ ${INSTALL} -m 644 gdb/gdbtk/insight_icon.svg				\
 
 %py_byte_compile %{__python3} %{buildroot}%{_datadir}/insight/python/gdb
 
+
+#-------------------------------------------------------------------------------
+%check
+#-------------------------------------------------------------------------------
+
+#	No check yet.
+
+
 #-------------------------------------------------------------------------------
 %files
 #-------------------------------------------------------------------------------
@@ -333,6 +350,16 @@ ${INSTALL} -m 644 gdb/gdbtk/insight_icon.svg				\
 
 #-------------------------------------------------------------------------------
 %changelog
+#-------------------------------------------------------------------------------
+
+* Tue Sep 30 2025 Patrick Monnerat <patrick@monnerat.net> 13.0.50.20220502-27
+- Patch "cve-2025-11082" fixes CVS 2025-11082.
+  https://bugzilla.redhat.com/show_bug.cgi?id=2400356
+- Patch "cve-2025-11083" fixes CVS 2025-11083.
+  https://bugzilla.redhat.com/show_bug.cgi?id=2400349
+- Conditional explicit BR tcl/tk 8.
+- Dummy rpm check section.
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 13.0.50.20220502-26
 - Rebuilt for Python 3.14.0rc3 bytecode
 
@@ -344,8 +371,6 @@ ${INSTALL} -m 644 gdb/gdbtk/insight_icon.svg				\
 
 * Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 13.0.50.20220502-23
 - Rebuilt for Python 3.14
-
-#-------------------------------------------------------------------------------
 
 * Thu May 15 2025 Patrick Monnerat <patrick@monnerat.net> 13.0.50.20220502-22
 - Use Tcl/Tk version 8.

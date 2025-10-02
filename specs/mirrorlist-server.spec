@@ -5,7 +5,7 @@
 %global cargo_install_lib 0
 
 Name:           mirrorlist-server
-Version:        3.0.7
+Version:        3.0.8
 Release:        %autorelease
 Summary:        Mirrorlist Server
 
@@ -33,16 +33,9 @@ URL:            https://github.com/adrianreber/mirrorlist-server
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 Patch:          0001-set-license-in-crate-metadata.patch
-# https://github.com/adrianreber/mirrorlist-server/commit/4f59b4b
-Patch:          0002-bump-pretty_env_logger-dependency-from-0.4-to-0.5.patch
-# Allow console 0.16.0 and indicatif 0.18; see:
-#
-# Update console dependency to 0.16.0
 # https://github.com/adrianreber/mirrorlist-server/pull/336
-#
-# Bump indicatif from 0.17.9 to 0.17.11
-# https://github.com/adrianreber/mirrorlist-server/commit/da5c1b7070fe1ca2e5faffce62a2dcaf5f195fcf
-Patch:          0003-Allow-console-0.16-and-indicatif-0.18.patch
+Patch:          0002-Bump-console-dependency-from-0.15-to-0.16-to-match-i.patch
+Patch:          0003-Relax-ipnetwork-dependency-to-allow-both-v0.20-and-v.patch
 
 BuildRequires:  cargo-rpm-macros >= 26
 

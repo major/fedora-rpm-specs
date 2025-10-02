@@ -2,7 +2,7 @@
 %bcond uvicorn 1
 
 Name:           python-socketio
-Version:        5.13.0
+Version:        5.14.0
 Release:        %autorelease
 Summary:        Socket.IO server
 

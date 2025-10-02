@@ -36,7 +36,7 @@ Name: ca-certificates
 Version: 2025.2.80_v9.0.304
 # for Rawhide, please always use release >= 2
 # for Fedora release branches, please use release < 2 (1.0, 1.1, ...)
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: MIT AND GPL-2.0-or-later
 
 URL: https://fedoraproject.org/wiki/CA-Certificates
@@ -419,6 +419,9 @@ fi
 %ghost %{catrustdir}/extracted/edk2/cacerts.bin
 
 %changelog
+*Tue Sep 16 2025 Frantisek Krenzelok <krenzelok.frantisek@gmail.com> - 2025.2.80_v9.0.304-3
+- Migrate STI test to tmt
+
 *Tue Aug 26 2025 rhel-developer-toolbox <krenzelok.frantisek@gmail.com> - 2025.2.80_v9.0.304-2
 - Update to CKBI 2.80_v9.0.304 from NSS 3.114
 -    Adding:

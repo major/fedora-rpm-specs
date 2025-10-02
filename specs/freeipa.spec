@@ -122,9 +122,9 @@
 # fix for segfault in python3-ldap, https://pagure.io/freeipa/issue/7324
 %global python_ldap_version 3.1.0-1
 
-# 389-ds-base version that fixes a number of crashes and performance issues
-# https://bodhi.fedoraproject.org/updates/FEDORA-2023-9133b9b669
-%global ds_version 2.4.3-1
+# 389-ds-base version that fixes uniqueness plugin
+# https://bodhi.fedoraproject.org/updates/FEDORA-2025-db214a095a
+%global ds_version 3.1.3-2
 
 # Fix for TLS 1.3 PHA, RHBZ#1775146
 %global httpd_version 2.4.41-9
@@ -201,7 +201,7 @@
 
 # Work-around fact that RPM SPEC parser does not accept
 # "Version: @VERSION@" in freeipa.spec.in used for Autoconf string replacement
-%define IPA_VERSION 4.12.2
+%define IPA_VERSION 4.12.5
 %global TARBALL_IPA_VERSION 4.12.2
 # Release candidate version -- uncomment with one percent for RC versions
 #%%global rc_version rc1
@@ -215,7 +215,7 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        19%{?rc_version:.%rc_version}%{?dist}
+Release:        2%{?rc_version:.%rc_version}%{?dist}
 Summary:        The Identity, Policy and Audit system
 
 License:        GPL-3.0-or-later
@@ -241,6 +241,9 @@ Patch0002:      freeipa-4-12-2-post-updates-edns.patch
 # This one includes CVE-2025-4404 fixes as well
 Patch0003:      freeipa-4-12-2-post-updates-2.patch
 Patch0004:      freeipa-4-12-2-post-updates-3.patch
+Patch0005:      freeipa-4-12-5-cve-2025-7493-patchset-1.patch
+Patch0006:      freeipa-4-12-5-cve-2025-7493-patchset-2.patch
+Patch0007:      freeipa-4-12-5-cve-2025-7493-patchset-3.patch
 
 # RHEL spec file only: START: Change branding to IPA and Identity Management
 # Moved branding logos and background to redhat-logos-ipa-80.4:
@@ -1070,6 +1073,10 @@ cp %{SOURCE3} doc/designs/edns/FreeIPA-eDNS-version3.jpg
 export PATH=/usr/bin:/usr/sbin:$PATH
 
 export PYTHON=%{__python3}
+
+# Adjust minor release version because we actually applied all patches post 4.12.2
+sed -i 's@IPA_VERSION_RELEASE, 2@IPA_VERSION_RELEASE, 5@' VERSION.m4
+
 autoreconf -ivf
 %configure --with-vendor-suffix=-%{release} \
            %{enable_server_option} \
@@ -1938,6 +1945,12 @@ fi
 %endif
 
 %changelog
+* Tue Sep 30 2025 Alexander Bokovoy <abokovoy@redhat.com> - 4.12.5-2
+- Update minor version metadata to alow IPA data upgrade
+
+* Tue Sep 30 2025 Alexander Bokovoy <abokovoy@redhat.com> - 4.12.5-1
+- CVE-2025-7493: host to admin escalation prevention
+
 * Tue Sep 23 2025 Alexander Bokovoy <abokovoy@redhat.com> - 4.12.2-19
 - Update fixes from ipa-4-12 branch
 

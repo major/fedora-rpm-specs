@@ -19,6 +19,8 @@ Patch:          calibre-no-update.patch
 # This is so gnome-software only 'sees' calibre once.
 Patch:          calibre-nodisplay.patch
 
+Patch:          calibre-fix-build-against-qt-6-10.patch
+
 ExclusiveArch:  %{qt6_qtwebengine_arches}
 
 BuildRequires:  python3-devel
