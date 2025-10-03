@@ -1,7 +1,7 @@
 Summary: Powerful interactive shell
 Name: zsh
 Version: 5.9
-Release: 17%{?dist}
+Release: 18%{?dist}
 License: MIT-Modern-Variant AND ISC AND GPL-2.0-only
 URL: http://zsh.sourceforge.net/
 Source0: https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz
@@ -29,6 +29,10 @@ Patch6: 0006-zsh-support-texinfo-7.0.patch
 Patch7: 0007-zsh-configure-c99.patch
 # upstream commit d3edf318306e37d2d96c4e4ea442d10207722e94
 Patch8: 0008-zsh-deletefilelist-segfault.patch
+# upstream commit b70b241cc5ca88cc129ff9ba14f8af2e889b90e6
+Patch9: 0009-zsh-support-dnf5.patch
+# upstream commit 071e325c826a89b792056c3faf0c400b8c0c5738
+Patch10: 0010-zsh-fix-dnf5-completion-with-rpm-files.patch
 
 BuildRequires: autoconf
 BuildRequires: coreutils
@@ -174,6 +178,9 @@ fi
 %doc Doc/*.html
 
 %changelog
+* Mon Sep 29 2025 Christoph Erhardt <fedora@sicherha.de> - 5.9-18
+- Add completion support for dnf5
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.9-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

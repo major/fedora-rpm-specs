@@ -24,8 +24,8 @@
 
 Name:           mapserver
 Version:        8.4.1
-Release:        1%{?dist}
-Summary:        Environment for building spatially-enabled internet applications
+Release:        2%{?dist}
+Summary:        Platform for publishing spatial data and interactive mapping applications to the web
 %global dashver %(echo %version | sed 's|\\.|-|g')
 
 License:        MIT
@@ -77,10 +77,8 @@ BuildRequires:  dejavu-sans-fonts
 
 
 %description
-Mapserver is an internet mapping program that converts GIS data to
-map images in real time. With appropriate interface pages,
-Mapserver can provide an interactive internet map based on
-custom GIS data.
+MapServer is an Open Source platform for publishing spatial data and
+interactive mapping applications to the web.
 
 
 %package  libs
@@ -337,6 +335,9 @@ rm %{buildroot}%{_usr}/%{_sysconfdir}/mapserver-sample.conf
 %{ruby_sitearchdir}/mapscript.so
 
 %changelog
+* Wed Oct 01 2025 Sandro Mani <manisandro@gmail.com> - 8.4.1-2
+- Sync package description with upstream text
+
 * Mon Sep 22 2025 Sandro Mani <manisandro@gmail.com> - 8.4.1-1
 - Update to 8.4.1
 

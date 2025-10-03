@@ -7,7 +7,7 @@
 #
 %global wp_content %{_datadir}/wordpress/wp-content
 
-%global upstream_version 6.8.2
+%global upstream_version 6.8.3
 #global upstream_prever  RC5
 #global upstream_lower   rc5
 
@@ -15,7 +15,7 @@ Summary:    Blog tool and publishing platform
 URL:        https://wordpress.org/
 Name:       wordpress
 Version:    %{upstream_version}%{?upstream_prever:~%upstream_lower}
-Release:    3%{?dist}
+Release:    1%{?dist}
 # Wordpress     is GPL-2.0-or-later
 # php-simplepie is BSD-3-Clause
 # php-getid3    is LGPL-3.0-or-later (or some others)
@@ -252,6 +252,9 @@ end
 
 
 %changelog
+* Wed Oct  1 2025 Remi Collet <remi@remirepo.net> - 6.8.3-1
+- WordPress 6.8.3 Security Release
+
 * Mon Jul 28 2025 Remi Collet <remi@remirepo.net> - 6.8.2-3
 - fix system certificates path
 

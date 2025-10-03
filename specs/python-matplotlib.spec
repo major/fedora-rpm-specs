@@ -186,7 +186,7 @@ BuildRequires:  python3dist(pikepdf)
 %endif
 # Remove in F45.
 Provides:       python3-matplotlib-data = %{version}-%{release}
-Obsoletes:      python3-matplotlib-data < 3.10.3-4
+Obsoletes:      python3-matplotlib-data < 3.11~~~
 Obsoletes:      python-matplotlib-data < 3
 
 %description -n python3-matplotlib

@@ -1,5 +1,6 @@
+%global gitver 49abc7cb5f73cc6852136c91da49ea3a338960e4
 Name:          waffle
-Version:       1.8.0
+Version:       1.8.1
 Release:       %autorelease
 Summary:       Platform independent GL API layer
 
@@ -7,10 +8,8 @@ License:       MIT
 URL:           http://www.waffle-gl.org/releases.html
 Source0:       https://gitlab.freedesktop.org/mesa/waffle/-/archive/v%{version}/waffle-%{version}.tar.bz2
 
-Patch0:        0001-wayland-fix-build-against-version-1.20.patch
-Patch1:        fix-bash.patch
-
-BuildRequires: cmake libxslt docbook-style-xsl libxcb-devel
+BuildRequires: meson ninja-build
+BuildRequires: libxslt docbook-style-xsl libxcb-devel
 BuildRequires: gcc-c++
 BuildRequires: libX11-devel mesa-libGL-devel mesa-libGLU-devel
 BuildRequires: chrpath
@@ -54,24 +53,15 @@ Example programs using %{name}.
 
 
 %prep
-%autosetup -n waffle-v1.7.0-905c6c10f2483adf0cbfa024e2d3c2ed541fb300 -p1
+%autosetup -n waffle-v%{version}-%{gitver} -p1
 
 
 %build
-%cmake \
-    -DCMAKE_INSTALL_DOCDIR:PATH=%{_defaultdocdir}/%{name}-%{version} \
-    -DCMAKE_BUILD_STRIP=FALSE \
-    -Dwaffle_has_glx=1 -Dwaffle_has_gbm=1 \
-    -Dwaffle_has_wayland=1 \
-    -Dwaffle_build_manpages=1 -Dwaffle_build_htmldocs=1
-
-%cmake_build
-
-# We don’t want to install binary files in %%docdir
-rm -rf examples/CMakeFiles
+%meson
+%meson_build
 
 %install
-%cmake_install
+%meson_install
 # Fedora now uses unversioned doc dirs, make install shouldn’t try to
 # install there anyway.
 rm -rf %{buildroot}%{_docdir}/%{name}*
@@ -85,6 +75,7 @@ rm -rf %{buildroot}%{_docdir}/%{name}*
 %{_libdir}/lib%{name}*.so.*
 %{_bindir}/wflinfo
 %{_datadir}/bash-completion/completions/wflinfo
+%{_datadir}/zsh/site-functions/_wflinfo
 
 %files doc
 %doc doc/html/
@@ -94,8 +85,7 @@ rm -rf %{buildroot}%{_docdir}/%{name}*
 %{_includedir}/waffle*
 %{_libdir}/lib%{name}*.so
 %{_libdir}/pkgconfig/%{name}*
-%{_libdir}/cmake/Waffle/*
-%{_mandir}/man*/*
+#{_mandir}/man*/*
 
 
 %files examples

@@ -1,23 +1,27 @@
-Version:        4.1.1
-%global sover %{echo %{version} | cut -d '.' -f 1,2}
-
 Name:           zydis
+Version:        5.0.0
+
+%global forgeurl https://github.com/zyantific/zydis
+%global commit 5091440c2a1f963e00c6e6aceec7c4346e656fa4
+%forgemeta
+
 Release:        %autorelease
 Summary:        Fast and lightweight x86/x86-64 disassembler and code generation library
 
 License:        MIT
-URL:            https://github.com/zyantific/zydis
-Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+URL:            %forgeurl
+Source0:        %forgesource
 
 ExcludeArch:    s390x
 
-BuildRequires:  gcc-c++
-BuildRequires:  cmake
-BuildRequires:  ninja-build
-BuildRequires:  zycore-c-devel
+BuildRequires:  gcc
+BuildRequires:  meson >= 1.3
+BuildRequires:  pkgconfig(zycore)
 BuildRequires:  doxygen
 # build man pages
 BuildRequires:  rubygem-ronn-ng
+# tests
+BuildRequires:  python3
 
 %description
 Zydis is fast and lightweight x86/x86-64 disassembler and code generation
@@ -56,34 +60,33 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 The %{name}-tools package contains tools about %{name}.
 
 %prep
-%autosetup -p1
+%forgesetup
 
 %build
-%cmake \
-    -GNinja \
-    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-    -DZYAN_SYSTEM_ZYCORE=ON \
-    -DZYDIS_BUILD_SHARED_LIB=ON \
-    -DZYDIS_BUILD_MAN=ON \
-    -DZYDIS_BUILD_TESTS=ON \
+%meson \
+    -Dtools=enabled \
+    -Dman=enabled \
+    -Ddoc=enabled \
+    -Dtests=enabled \
 
-%cmake_build
+%meson_build
 
 %install
-%cmake_install
+%meson_install
 
 %check
-%ctest
+%ifnarch %{ix86}
+%meson_test
+%endif
 
 %files
 %license LICENSE
-%{_libdir}/libZydis.so.%{sover}*
+%{_libdir}/libZydis.so.5*
 
 %files devel
 %doc README.md
 %{_includedir}/Zydis/
-%dir %{_libdir}/cmake/zydis
-%{_libdir}/cmake/zydis/*.cmake
+%{_libdir}/pkgconfig/zydis.pc
 %{_libdir}/libZydis.so
 
 %files doc

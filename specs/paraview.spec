@@ -87,6 +87,7 @@ License:        BSD-3-Clause
 URL:            https://www.paraview.org/
 Source0:        https://www.paraview.org/files/v%{pv_majmin}/ParaView-v%{version}%{?versuf}.tar.gz
 Source1:        paraview.xml
+Source2:        https://www.paraview.org/files/v%{pv_majmin}/ParaViewGettingStarted-%{version}%{?versuf}.pdf
 # Fix cmake files install location
 # https://gitlab.kitware.com/paraview/paraview/issues/19724
 Patch0:         paraview-cmakedir.patch
@@ -99,6 +100,8 @@ Patch2:         vtk-ppc64-no-always-inline.patch
 # Fix build with newer freetype
 # https://gitlab.kitware.com/vtk/vtk/-/issues/18033
 Patch3:         paraview-freetype.patch
+# Fix location of resources
+Patch4:         paraview-resources.patch
 
 BuildRequires:  cmake >= 3.12
 BuildRequires:  make
@@ -253,6 +256,7 @@ ExcludeArch: %{ix86}
         -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \\\
         -DCMAKE_BUILD_TYPE=RelWithDebInfo \\\
         -DCMAKE_CXX_FLAGS_RELWITHDEBINFO:STRING="-DNDEBUG -DOMPI_SKIP_MPICXX" \\\
+        -DCMAKE_INSTALL_DOCDIR:PATH=share/doc/%{name} \\\
         -DOpenGL_GL_PREFERENCE=GLVND \\\
         -DPARAVIEW_BUILD_SHARED_LIBS:BOOL=ON \\\
         -DPARAVIEW_VERSIONED_INSTALL:BOOL=OFF \\\
@@ -561,13 +565,14 @@ done
 
 # Build autodocs and move documentation-files to proper location
 mkdir -p %{buildroot}%{_pkgdocdir}
+install -pm 0644 %SOURCE2 %{buildroot}%{_pkgdocdir}/GettingStarted.pdf
 install -pm 0644 README.md %{buildroot}%{_pkgdocdir}
 install -pm 0644 Utilities/VisItBridge/README-VisItBridge.md %{buildroot}%{_pkgdocdir}
-mv %{buildroot}%{_docdir}/ParaView/* %{buildroot}%{_pkgdocdir}
-rm -rf %{buildroot}%{_docdir}/ParaView
 find %{buildroot}%{_pkgdocdir} -name '.*' -print0 | xargs -0 rm -frv
 find %{buildroot}%{_pkgdocdir} -name '*.map' -or -name '*.md5' -print -delete
 hardlink -cfv %{buildroot}%{_pkgdocdir}
+# Cleanup docs and link to where paraview will find it
+ln -s ../doc/paraview %{buildroot}/%{_datadir}/paraview/doc
 
 
 %pre
@@ -594,7 +599,9 @@ fi
 %files data
 %license Copyright.txt
 %dir %{_pkgdocdir}
+%{_pkgdocdir}/GettingStarted.pdf
 %{_pkgdocdir}/README.md
+%{_pkgdocdir}/README-VisItBridge.md
 %{_pkgdocdir}/README-VisItBridge.md
 %{_datadir}/metainfo/org.paraview.ParaView.appdata.xml
 %{_datadir}/applications/org.paraview.ParaView.desktop
@@ -612,7 +619,7 @@ fi
 %{_libdir}/%{name}/*.a
 
 %files doc
-%{_pkgdocdir}
+%{_pkgdocdir}/
 
 %if %{with openmpi}
 %files openmpi

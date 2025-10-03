@@ -2,16 +2,17 @@
 Name:    skrooge
 Summary: Personal finances manager
 Version: 25.4.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL:     http://skrooge.org
 Source0: https://download.kde.org/stable/skrooge/skrooge-%{version}.tar.xz
 
+Patch0:  skrooge-fix-build-against-qt-6-10.patch
+
 ## upstream patches
 
-	
 ExclusiveArch: %{qt6_qtwebengine_arches}
 
 BuildRequires: desktop-file-utils
@@ -33,6 +34,7 @@ BuildRequires: cmake(Qt6Core5Compat)
 BuildRequires: cmake(Qt6DBus)
 BuildRequires: cmake(Qt6WebEngineWidgets)
 BuildRequires: cmake(Qt6Designer)
+BuildRequires: qt6-qtbase-private-devel
 
 BuildRequires: cmake(KF6Archive)
 BuildRequires: cmake(KF6Config)
@@ -89,7 +91,7 @@ Requires: %{name} = %{version}-%{release}
 
 %build
 %cmake_kf6 \
-  -DQT_MAJOR_VERSION=6 
+  -DQT_MAJOR_VERSION=6
 
 %cmake_build
 
@@ -136,8 +138,11 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.skrooge.d
 %{_kf6_libdir}/libskgbasemodeler.so.2*
 %{_kf6_datadir}/skrooge_import_backend/
 %{_kf6_datadir}/skrooge_source/
- 
+
 %changelog
+* Wed Oct 01 2025 Jan Grulich <jgrulich@redhat.com> - 25.4.0-5
+- Rebuild (qt6)
+
 * Mon Sep 22 2025 Jan Grulich <jgrulich@redhat.com> - 25.4.0-4
 - Rebuild (qt6)
 

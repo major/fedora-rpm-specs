@@ -5,19 +5,13 @@
 %global crate collection_literals
 
 Name:           rust-collection_literals
-Version:        1.0.2
+Version:        1.0.3
 Release:        %autorelease
 Summary:        Easy-to-use macros for initializing any collection
 
 License:        MIT
 URL:            https://crates.io/crates/collection_literals
 Source:         %{crates_source}
-# * Add a license file
-# * https://github.com/staedoix/collection_literals/pull/1
-# * https://docs.fedoraproject.org/en-US/packaging-guidelines/LicensingGuidelines/#_license_text
-# * Text and copyright statement based on https://github.com/rust-lang/rust/raw/refs/tags/1.90.0/LICENSE-MIT, with “The Rust Project Contributors” replaced by “The collection_literals
-#   Contributors.”
-Source10:       https://github.com/staedoix/collection_literals/raw/bca8df6a403b774e817869a6a031f441e008712c/LICENSE
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -54,8 +48,6 @@ use the "default" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-# Copy the proposed license file into the source.
-cp -p '%{SOURCE10}' .
 %cargo_prep
 
 %generate_buildrequires

@@ -8,6 +8,7 @@ Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 Patch0:         dtk6gui-fix-qt6.9-build.patch
 Patch1:         dtk6gui-add-missing-header.patch
+Patch2:         dtk6gui-fix-build-against-qt-6-10.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake

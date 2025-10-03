@@ -27,7 +27,9 @@ BuildRequires:  cmake(Qt6Core)
 BuildRequires:  cmake(Qt6Quick)
 BuildRequires:  cmake(Qt6QuickControls2)
 
-BuildRequires:  qt6-qtbase-private-devel
+# Doesn't need qtbase-private-devel, but private stuff from qtdeclarative
+# so we still need to rebuild it
+#BuildRequires: qt6-qtbase-private-devel
 
 Requires: kf6-filesystem
 

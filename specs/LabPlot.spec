@@ -26,6 +26,8 @@ Source0:        https://download.kde.org/stable/labplot/labplot-%{version}.tar.x
 #Source0:        https://invent.kde.org/education/labplot/-/archive/%%{version}/labplot-%%{version}.tar.bz2
 #Source0:        https://invent.kde.org/education/labplot/-/archive/%%{gitcommit}/labplot-%%{gitcommit}.tar.bz2
 
+Patch0:         labplot-fix-build-against-qt-6-10.patch
+
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  extra-cmake-modules

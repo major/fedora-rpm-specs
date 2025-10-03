@@ -2,9 +2,9 @@
 # changes, since clang releases are not ABI compatible between major
 # versions. See also https://bugzilla.redhat.com/1544964.
 
-Version:       4.33c
+Version:       4.34c
 %global forgeurl https://github.com/AFLplusplus/AFLplusplus/
-%global tag    v4.33c
+%global tag    v4.34c
 %forgemeta
 
 Name:          american-fuzzy-lop
@@ -12,7 +12,7 @@ Summary:       Practical, instrumentation-driven fuzzer for binary formats
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:       Apache-2.0
 
-Release:       2%{?dist}
+Release:       1%{?dist}
 URL:           %{forgeurl}
 Source0:       %{forgesource}
 
@@ -90,10 +90,10 @@ This subpackage contains clang and clang++ support for
 # interpret the .o/.a files.  Disable LTO for now
 %define _lto_cflags %{nil}
 
-# Remove some optflags which clang doesn't understand:
-clang_optflags="$( echo '%{optflags}' | sed 's/-mtls-dialect=gnu2//' )"
-export CFLAGS="$clang_optflags"
-export CXXFLAGS="$clang_optflags"
+# We used to set CFLAGS/CXXFLAGS = %%{optflags} here, but these break
+# the Clang instrumentation in some way.
+unset CFLAGS
+unset CXXFLAGS
 
 %ifnarch x86_64
 AFL_NO_X86=1 \
@@ -110,10 +110,10 @@ AFL_REAL_LD="%{lld}" \
 
 
 %install
-# Remove some optflags which clang doesn't understand:
-clang_optflags="$( echo '%{optflags}' | sed 's/-mtls-dialect=gnu2//' )"
-export CFLAGS="$clang_optflags"
-export CXXFLAGS="$clang_optflags"
+# We used to set CFLAGS/CXXFLAGS = %%{optflags} here, but these break
+# the Clang instrumentation in some way.
+unset CFLAGS
+unset CXXFLAGS
 
 %ifnarch x86_64
 AFL_NO_X86=1 \
@@ -217,6 +217,7 @@ test -n '%{clang_major}'
 %{afl_helper_path}/afl-gcc-cmptrs-pass.so
 %{afl_helper_path}/afl-gcc-pass.so
 %{afl_helper_path}/afl-gcc-rt.o
+%{afl_helper_path}/afl-llvm-ijon-pass.so
 %{afl_helper_path}/injection-pass.so
 %ifarch x86_64
 %{_mandir}/man8/afl-c++.8*
@@ -290,6 +291,9 @@ test -n '%{clang_major}'
 
 
 %changelog
+* Wed Oct 01 2025 Richard W.M. Jones <rjones@redhat.com> - 4.34c-1
+- New version 4.34c (RHBZ#2400625)
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.33c-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

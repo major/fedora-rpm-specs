@@ -5,6 +5,9 @@ Release:       3%{?dist}
 License:       LGPL-2.1-only
 URL:           https://lxqt-project.org/
 Source0:       https://github.com/lxqt/lxqt-qtplugin/archive/%{version}/lxqt-qtplugin-%{version}.tar.gz
+
+Patch0:        lxqt-qtplugin-fix-build-against-qt-6-10.patch
+
 BuildRequires: cmake
 BuildRequires: gcc-c++
 BuildRequires: pkgconfig(lxqt)
@@ -22,7 +25,7 @@ BuildRequires: qt6-qtbase-private-devel
 %{summary}.
 
 %prep
-%autosetup -n lxqt-qtplugin-%{version}
+%autosetup -p1 -n lxqt-qtplugin-%{version}
 
 %build
 %cmake

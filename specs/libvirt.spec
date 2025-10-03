@@ -288,8 +288,8 @@
 
 Summary: Library providing a simple virtualization API
 Name: libvirt
-Version: 11.7.0
-Release: 3%{?dist}
+Version: 11.8.0
+Release: 1%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND OFL-1.1
 URL: https://libvirt.org/
 
@@ -1429,13 +1429,7 @@ export SOURCE_DATE_EPOCH=$(stat --printf='%Y' %{_specdir}/libvirt.spec)
            -Drpath=disabled \
            %{?arg_login_shell}
 
-
-%ifarch i686
-# disable parallelization (we get build failures with -j 64 on buildhw)
-%meson_build -j 1
-%else
 %meson_build
-%endif
 %endif
 
 %if %{with_mingw32} || %{with_mingw64}
@@ -2698,6 +2692,9 @@ exit 0
 
 
 %changelog
+* Wed Oct 01 2025 Cole Robinson <crobinso@redhat.com> - 11.8.0-1
+- Update to version 11.8.0
+
 * Thu Sep 04 2025 Adam Williamson <awilliam@redhat.com> - 11.7.0-3
 - Rebuild on a side tag
 

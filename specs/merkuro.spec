@@ -13,7 +13,6 @@ Source:  https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%
 BuildRequires:  kf6-rpm-macros
 BuildRequires:  extra-cmake-modules
 BuildRequires:  gcc-c++
-BuildRequires:  qt6-qtbase-private-devel
 BuildRequires:  cmake
 BuildRequires:  cmake(QGpgmeQt6)
 BuildRequires:  cmake(Plasma)

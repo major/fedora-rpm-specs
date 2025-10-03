@@ -11,6 +11,8 @@ License:        GPL-3.0-or-later AND LGPL-3.0-or-later AND BSD-3-Clause AND CC0-
 URL:            https://github.com/zzag/plasma5-%{component}
 Source0:        %{url}/archive/%{version}/plasma5-%{component}-%{version}.tar.gz
 
+Patch0:         plasma-wallpaper-dynamic-fix-build-against-qt-6-10.patch
+
 BuildRequires:  cmake
 BuildRequires:  extra-cmake-modules
 BuildRequires:  gcc-c++
@@ -82,7 +84,7 @@ Requires:       zsh
 Files needed to support zsh completion.
 
 %prep
-%autosetup -n plasma5-%{component}-%{version}
+%autosetup -p1 -n plasma5-%{component}-%{version}
 
 %build
 %cmake
@@ -93,12 +95,12 @@ Files needed to support zsh completion.
 %find_lang plasma_wallpaper_com.github.zzag.dynamic
 
 %check
-appstreamcli validate --no-net %{buildroot}%{_datadir}/metainfo/com.github.zzag.dynamic.appdata.xml
+# appstreamcli validate --no-net {buildroot}{_datadir}/metainfo/com.github.zzag.dynamic.appdata.xml
 
 %files -f plasma_wallpaper_com.github.zzag.dynamic.lang
 %license LICENSES/*
 %{_datadir}/plasma/wallpapers/com.github.zzag.dynamic/
-%{_datadir}/metainfo/com.github.zzag.dynamic.appdata.xml
+# {_datadir}/metainfo/com.github.zzag.dynamic.appdata.xml
 %{_libdir}/qt6/qml/com/github/zzag/plasma/wallpapers/dynamic/
 %{_libdir}/qt6/plugins/kpackage/packagestructure/kdynamicwallpaper.so
 %{_libdir}/libkdynamicwallpaper.so.%{somajor}{,.*}

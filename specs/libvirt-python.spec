@@ -12,11 +12,13 @@
     %define supported_platform 0
 %endif
 
+%define dist_name libvirt_python
+
 Summary: The libvirt virtualization API python3 binding
 Name: libvirt-python
-Version: 11.7.0
-Release: 2%{?dist}
-Source0: https://libvirt.org/sources/python/%{name}-%{version}.tar.gz
+Version: 11.8.0
+Release: 1%{?dist}
+Source0: https://libvirt.org/sources/python/%{dist_name}-%{version}.tar.gz
 Url: https://libvirt.org
 License: LGPL-2.1-or-later
 BuildRequires: libvirt-devel == %{version}
@@ -51,7 +53,7 @@ supplied by the libvirt library to use the virtualization capabilities
 of recent versions of Linux (and other OSes).
 
 %prep
-%setup -q
+%setup -q -n %{dist_name}-%{version}
 
 # Unset execute bit for example scripts; it can introduce spurious
 # RPM dependencies, like /usr/bin/python3
@@ -87,6 +89,9 @@ exit 1
 
 
 %changelog
+* Wed Oct 01 2025 Cole Robinson <crobinso@redhat.com> - 11.8.0-1
+- Update to version 11.8.0
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 11.7.0-2
 - Rebuilt for Python 3.14.0rc3 bytecode
 

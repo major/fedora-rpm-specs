@@ -1,5 +1,5 @@
 Name:           python-pyxdameraulevenshtein
-Version:        1.8.0
+Version:        1.9.0
 Release:        %autorelease
 Summary:        Damerau-Levenshtein (DL) edit distance algorithm
 
@@ -15,6 +15,7 @@ BuildRequires:  dos2unix
 BuildRequires:  gcc
 
 # The tests only require unittest, but pytest is a more convenient runner.
+# See: dev-requirements.txt.
 BuildRequires:  %{py3_dist pytest}
 
 %global common_description %{expand:

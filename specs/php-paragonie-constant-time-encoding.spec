@@ -5,12 +5,12 @@
 %global github_owner            paragonie
 %global github_name             constant_time_encoding
 
-%global commit0 ce27936c8dfb73e3ab9c94469130428af9752c96
+%global commit0 e30811f7bc69e4b5b6d5783e712c06c8eabf0226
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 
 Name:       php-%{composer_vendor}-constant-time-encoding
-Version:    2.8.0
+Version:    2.8.2
 Release:    1%{?dist}
 Summary:    Constant-time Implementations of RFC 4648 Encoding
 
@@ -66,6 +66,9 @@ cp -pr src/* %{buildroot}%{_datadir}/php/%{composer_namespace}
 %license LICENSE.txt
 
 %changelog
+* Wed Oct 01 2025 François Kooman <fkooman@tuxed.net> - 2.8.2-1
+- update to 2.8.2
+
 * Tue Sep 23 2025 François Kooman <fkooman@tuxed.net> - 2.8.0-1
 - update to 2.8.0
 - hard build dependency on PHPUnit 9 now

@@ -34,6 +34,7 @@ Source10: digikam-import.desktop
 ## upstream patches
 
 ## upstreamable patches
+Patch0:   digikam-fix-build-against-qt-6-10.patch
 
 %if 0%{?ninja}
 BuildRequires: ninja-build
@@ -1300,7 +1301,7 @@ update-desktop-database -q &> /dev/null
 - BR: liblqr-1-devel
 
 * Wed Aug 05 2009 Rex Dieter <rdieter@fedoraproject.org> - 1.0.0-0.4.beta3
-- drop xdg-utils references 
+- drop xdg-utils references
 - tighten -libs related deps via %%{?_isa}
 
 * Fri Jul 24 2009 Rex Dieter <rdieter@fedoraproject.org> - 1.0.0-0.3.beta3
@@ -1326,7 +1327,7 @@ update-desktop-database -q &> /dev/null
 
 * Wed Feb 04 2009 Rex Dieter <rdieter@fedoraproject.org> - 0.10.0-0.15.rc1
 - BR: kdeedu-devel >= 4.2.0, Req: kdeedu-marble >= 4.2.0
-- add min Req: kdelibs4 dep too 
+- add min Req: kdelibs4 dep too
 
 * Thu Jan 22 2009 Rex Dieter <rdieter@fedoraproject.org> - 0.10-0-0.14.rc1
 - digikam-0.10.0-rc1

@@ -1,5 +1,5 @@
 Name:           cockpit-image-builder
-Version:        77
+Version:        78
 Release:        1%{?dist}
 Summary:        Image builder plugin for Cockpit
 
@@ -46,6 +46,57 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Wed Oct 1 2025 Packit <hello@packit.dev> - 78-1
+Changes with 78
+----------------
+  - Notifications: fix mutations with notifications hook (HMS-9449) (#3683)
+    - Author: Sanne Raymaekers, Reviewers: Gianluca Zuccarelli, Klara Simickova, Tomáš Koscielniak
+  - Remove frontend components dependencies of Launch (#3657)
+    - Author: Anna Vítová, Reviewers: Gianluca Zuccarelli
+  - Update Konflux references (#3660)
+    - Author: red-hat-konflux[bot], Reviewers: Klara Simickova
+  - Update the list of known vulnerable packages (#3653)
+    - Author: Florian Schüller, Reviewers: Gianluca Zuccarelli, Lukáš Zapletal
+  - Wizard: Increase limit for Compliance policies in selector to 50 (#3679)
+    - Author: Tomáš Koscielniak, Reviewers: Klara Simickova
+  - Wizard: Update Satellite registration based on mocks (HMS-9414) (#3423)
+    - Author: Klara Simickova, Reviewers: Gianluca Zuccarelli, Katarína Sieklová
+  - Wizard: don't clear first boot systemd service (HMS-9306) (#3690)
+    - Author: Gianluca Zuccarelli, Reviewers: Klara Simickova
+  - Wizard: fix root not removable when duplicate (#3614)
+    - Author: Anna Vítová, Reviewers: Michal Gold, Tomáš Koscielniak
+  - Wizard: remove deprecated satellite flag (#3664)
+    - Author: Anna Vítová, Reviewers: Gianluca Zuccarelli, Klara Simickova
+  - build(deps): bump @redhat-cloud-services/frontend-components-notifications from 6.1.8 to 6.1.11 (#3686)
+    - Author: dependabot[bot], Reviewers: Klara Simickova
+  - build(deps): bump @redhat-cloud-services/frontend-components-utilities from 7.0.6 to 7.0.8 (#3685)
+    - Author: dependabot[bot], Reviewers: Klara Simickova
+  - build(deps-dev): bump @types/node from 24.5.0 to 24.5.2 (#3678)
+    - Author: dependabot[bot], Reviewers: Klara Simickova
+  - build(deps-dev): bump @types/uuid from 10.0.0 to 11.0.0 (#3671)
+    - Author: dependabot[bot], Reviewers: Klara Simickova
+  - build(deps-dev): bump @vitejs/plugin-react from 5.0.2 to 5.0.3 (#3667)
+    - Author: dependabot[bot], Reviewers: Klara Simickova
+  - build(deps-dev): bump eslint from 9.34.0 to 9.36.0 (#3661)
+    - Author: dependabot[bot], Reviewers: Klara Simickova
+  - build(deps-dev): bump stylelint-config-recommended-scss from 16.0.0 to 16.0.1 (#3681)
+    - Author: dependabot[bot], Reviewers: Klara Simickova
+  - check-vulnerable-packages: show packages we have installed (#3654)
+    - Author: Florian Schüller, Reviewers: Gianluca Zuccarelli
+  - devDeps: Remove unused @types/uuid dependency (HMS-9431) (#3674)
+    - Author: Klara Simickova, Reviewers: Anna Vítová
+  - npm/deps-dev: Add fec dev-proxy to npm run start:stage (#3689)
+    - Author: Tomáš Koscielniak, Reviewers: Gianluca Zuccarelli, Klara Simickova
+  - src: Update API and remove Azure source ID from imagesTable (HMS-9424) (#3669)
+    - Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+  - test: Clean up mocked flags (#3663)
+    - Author: Klara Simickova, Reviewers: Anna Vítová, Gianluca Zuccarelli
+  - tests: Add integration test for Compliance - CIS policy (HMS-5964) (#3676)
+    - Author: Tomáš Koscielniak, Reviewers: Gianluca Zuccarelli
+
+— Somewhere on the Internet, 2025-10-01
+
+
 * Wed Sep 17 2025 Packit <hello@packit.dev> - 77-1
 Changes with 77
 ----------------

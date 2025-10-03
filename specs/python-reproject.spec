@@ -2,17 +2,13 @@
 %global sum Reproject astronomical images
 
 Name:           python-%{srcname}
-Version:        0.15.0
+Version:        0.16.0
 Release:        %autorelease
 Summary:        %{sum}
 
 License:        BSD-3-Clause
 URL:            https://reproject.readthedocs.io/
 Source0:        %{pypi_source}
-
-# Backport upstream patch which removes the upper Cython version bound
-# https://github.com/astropy/reproject/commit/27aee71380bbdd29fefec6f0319d5b21bbc590d5
-#Patch:          fix-cython-pin.patch
 
 BuildRequires:  gcc
 
@@ -47,6 +43,7 @@ Summary:        %{sum}
 export PYTEST_ADDOPTS='-p no:cacheprovider'
 # these fail in arm
 # reproject/healpix/tests/test_healpix.py::test_reproject_healpix_to_image_footprint[**]
+# TestHIPSDaskArray uses remote data
 %ifarch aarch64
 %pyproject_check_import -e '*.test*'
 %else
@@ -54,6 +51,8 @@ export PYTEST_ADDOPTS='-p no:cacheprovider'
 pushd %{buildroot}/%{python3_sitearch}
   %pytest \
    --deselect "reproject/interpolation/tests/test_core.py::test_reproject_parallel_broadcasting" \
+   --deselect "reproject/hips/tests/test_dask_array.py::TestHIPSDaskArray::test_roundtrip"  \
+   --deselect "reproject/hips/tests/test_dask_array.py::TestHIPSDaskArray::test_level_validation" \
    reproject
 popd
 %endif

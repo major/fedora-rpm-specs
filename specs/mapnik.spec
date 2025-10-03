@@ -6,7 +6,7 @@
 %global vectortileshortcommit %(c=%{vectortilecommit}; echo ${c:0:7})
 
 Name:      mapnik
-Version:   4.1.2
+Version:   4.1.3
 Release:   %autorelease
 Summary:   Free Toolkit for developing mapping applications
 License:   LGPL-2.1-only
@@ -36,7 +36,7 @@ BuildRequires: libpq-devel pkgconfig
 BuildRequires: gdal-devel proj-devel
 BuildRequires: cmake make desktop-file-utils gcc-c++
 BuildRequires: qt6-qtbase-devel
-BuildRequires: libxml2-devel boost-devel libicu-devel
+BuildRequires: libxml2-devel boost-devel boost-url libicu-devel
 BuildRequires: libtiff-devel libjpeg-devel libpng-devel libwebp-devel libavif-devel
 BuildRequires: cairo-devel freetype-devel harfbuzz-devel
 BuildRequires: sqlite-devel

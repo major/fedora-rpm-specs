@@ -2,21 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate yuv
+%global crate pyo3-async-runtimes
 
-Name:           rust-yuv
-Version:        0.8.8
+Name:           rust-pyo3-async-runtimes
+Version:        0.26.0
 Release:        %autorelease
-Summary:        High performance utilities for YUV format handling and conversion
+Summary:        PyO3 bridges from Rust runtimes to Python's Asyncio library
 
-License:        BSD-3-Clause OR Apache-2.0
-URL:            https://crates.io/crates/yuv
+License:        Apache-2.0
+URL:            https://crates.io/crates/pyo3-async-runtimes
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-High performance utilities for YUV format handling and conversion.}
+PyO3 bridges from Rust runtimes to Python's Asyncio library.}
 
 %description %{_description}
 
@@ -30,10 +30,10 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE.md
-%license %{crate_instdir}/LICENSE.md
+%license %{crate_instdir}/LICENSE
 %doc %{crate_instdir}/CHANGELOG.md
-%doc %{crate_instdir}/CODE_OF_CONDUCT.md
+%doc %{crate_instdir}/Code-of-Conduct.md
+%doc %{crate_instdir}/Contributing.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -49,136 +49,136 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+avx-devel
+%package     -n %{name}+async-channel-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+avx-devel %{_description}
+%description -n %{name}+async-channel-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "avx" feature of the "%{crate}" crate.
+use the "async-channel" feature of the "%{crate}" crate.
 
-%files       -n %{name}+avx-devel
+%files       -n %{name}+async-channel-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+big_endian-devel
+%package     -n %{name}+async-std-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+big_endian-devel %{_description}
+%description -n %{name}+async-std-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "big_endian" feature of the "%{crate}" crate.
+use the "async-std" feature of the "%{crate}" crate.
 
-%files       -n %{name}+big_endian-devel
+%files       -n %{name}+async-std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+fast_mode-devel
+%package     -n %{name}+async-std-runtime-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+fast_mode-devel %{_description}
+%description -n %{name}+async-std-runtime-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "fast_mode" feature of the "%{crate}" crate.
+use the "async-std-runtime" feature of the "%{crate}" crate.
 
-%files       -n %{name}+fast_mode-devel
+%files       -n %{name}+async-std-runtime-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+nightly_f16-devel
+%package     -n %{name}+attributes-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+nightly_f16-devel %{_description}
+%description -n %{name}+attributes-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "nightly_f16" feature of the "%{crate}" crate.
+use the "attributes" feature of the "%{crate}" crate.
 
-%files       -n %{name}+nightly_f16-devel
+%files       -n %{name}+attributes-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+nightly_i8mm-devel
+%package     -n %{name}+clap-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+nightly_i8mm-devel %{_description}
+%description -n %{name}+clap-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "nightly_i8mm" feature of the "%{crate}" crate.
+use the "clap" feature of the "%{crate}" crate.
 
-%files       -n %{name}+nightly_i8mm-devel
+%files       -n %{name}+clap-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+professional_mode-devel
+%package     -n %{name}+inventory-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+professional_mode-devel %{_description}
+%description -n %{name}+inventory-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "professional_mode" feature of the "%{crate}" crate.
+use the "inventory" feature of the "%{crate}" crate.
 
-%files       -n %{name}+professional_mode-devel
+%files       -n %{name}+inventory-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+rayon-devel
+%package     -n %{name}+pyo3-async-runtimes-macros-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+rayon-devel %{_description}
+%description -n %{name}+pyo3-async-runtimes-macros-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "rayon" feature of the "%{crate}" crate.
+use the "pyo3-async-runtimes-macros" feature of the "%{crate}" crate.
 
-%files       -n %{name}+rayon-devel
+%files       -n %{name}+pyo3-async-runtimes-macros-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+rdm-devel
+%package     -n %{name}+testing-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+rdm-devel %{_description}
+%description -n %{name}+testing-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "rdm" feature of the "%{crate}" crate.
+use the "testing" feature of the "%{crate}" crate.
 
-%files       -n %{name}+rdm-devel
+%files       -n %{name}+testing-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+rdp-devel
+%package     -n %{name}+tokio-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+rdp-devel %{_description}
+%description -n %{name}+tokio-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "rdp" feature of the "%{crate}" crate.
+use the "tokio" feature of the "%{crate}" crate.
 
-%files       -n %{name}+rdp-devel
+%files       -n %{name}+tokio-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+sse-devel
+%package     -n %{name}+tokio-runtime-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+sse-devel %{_description}
+%description -n %{name}+tokio-runtime-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "sse" feature of the "%{crate}" crate.
+use the "tokio-runtime" feature of the "%{crate}" crate.
 
-%files       -n %{name}+sse-devel
+%files       -n %{name}+tokio-runtime-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+ycgco_r_type-devel
+%package     -n %{name}+unstable-streams-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+ycgco_r_type-devel %{_description}
+%description -n %{name}+unstable-streams-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "ycgco_r_type" feature of the "%{crate}" crate.
+use the "unstable-streams" feature of the "%{crate}" crate.
 
-%files       -n %{name}+ycgco_r_type-devel
+%files       -n %{name}+unstable-streams-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

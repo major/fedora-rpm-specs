@@ -13,6 +13,8 @@ Url:     %{forgeurl}
 Source0: %{forgesource}
 Source1: %{name}.rpmlintrc
 
+Patch0:  copyq-fix-build-against-qt-6-10.patch
+
 BuildRequires: cmake, extra-cmake-modules, gcc-c++
 BuildRequires: libappstream-glib
 BuildRequires: desktop-file-utils, git

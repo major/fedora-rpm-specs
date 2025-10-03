@@ -1,9 +1,9 @@
-%global	urlver		3.5
-%global	mainver		3.5.99
+%global	urlver		3.6
+%global	mainver		3.6.0
 
-%global	core_least_ver	3.5.99^20250907git2cd4d36
+%global	core_least_ver	3.6.0
 
-%global	use_git	1
+%dnl %global	use_git	1
 %global	gitdate	20250922
 %global	githash	f45372c1fbce5dc9a34a991ff6e2485d39603279
 %global	shorthash	%(c=%{githash} ; echo ${c:0:7})
@@ -11,7 +11,7 @@
 %global	tarballver	%{mainver}%{?use_git:-%{gitdate}git%{shorthash}}
 
 %global	baserelease	1
-%global	alphatag		.rc9
+%dnl %global	alphatag		.rc9
 
 %global	ruby_vendorlib	%(ruby -rrbconfig -e "puts RbConfig::CONFIG['vendorlibdir']")
 %global	dbus_datadir	%{_datadir}/cairo-dock/plug-ins/Dbus
@@ -242,7 +242,9 @@ sed -i.installdir \
 	CMakeLists.txt
 
 # Modify version forcely
+%if 0%{?use_git}
 sed -i CMakeLists.txt -e '\@set (\(CORE_REQUIRED_\|\)VERSION @s|VERSION.*|VERSION "%{mainver}")|'
+%endif
 
 # Kill python2 explicitly
 sed -i.py2 CMakeLists.txt -e 's|python2)|python2-nono)|'
@@ -417,6 +419,9 @@ popd
 %{_datadir}/cairo-dock/plug-ins/Dbus/CDApplet.h
 
 %changelog
+* Wed Oct 01 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.6.0-1
+- 3.6.0
+
 * Wed Sep 24 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.5.99^20250922gitf45372c-1.rc9
 - Update to the latest git (20250922gitf45372c)
 

@@ -1,6 +1,5 @@
 # The version of MuseScore itself
 %global musescore_ver             4.6.0
-%global prerel                    beta
 %global musescore_maj             %(cut -d. -f-2 <<< %{musescore_ver})
 %global giturl                    https://github.com/musescore/MuseScore
 
@@ -23,8 +22,8 @@
 # number indefinitely.
 Name:           musescore
 Summary:        Music Composition & Notation Software
-Version:        %{musescore_ver}%{?prerel:~%prerel}
-Release:        23%{?dist}
+Version:        %{musescore_ver}
+Release:        24%{?dist}
 
 # The MuseScore project itself is GPL-3.0-only WITH Font-exception-2.0.  Other
 # licenses in play:
@@ -45,9 +44,11 @@ Release:        23%{?dist}
 # MIT
 # - thirdparty/intervaltree
 # - src/framework/audio/thirdparty/fluidsynth/fluidsynth-2.3.3/src/bindings/fluid_rtkit.{c,h}
-# - src/framework/global/thirdparty/deto_async/LICENSE
-# - src/framework/global/thirdparty/haw_logger/LICENSE
-# - src/framework/global/thirdparty/haw_profiler/LICENSE
+# - src/framework/global/thirdparty/kors_async/LICENSE
+# - src/framework/global/thirdparty/kors_logger/LICENSE
+# - src/framework/global/thirdparty/kors_modularity/LICENSE
+# - src/framework/global/thirdparty/kors_msgpack/LICENSE
+# - src/framework/global/thirdparty/kors_profiler/LICENSE
 # BSL-1.0
 # - code from the utf8cpp header-only library
 # BSD-2-Clause
@@ -200,7 +201,7 @@ The Gootville Text font is designed to complement the Gootville font.}
 Version:        %{gootville_text_font_ver}
 }
 
-Source0:        %{giturl}/archive/v%{musescore_ver}%{?prerel:-%prerel}/MuseScore-%{musescore_ver}%{?prerel:-%prerel}.tar.gz
+Source0:        %{giturl}/archive/v%{musescore_ver}/MuseScore-%{musescore_ver}.tar.gz
 # Fontconfig files
 Source1:        65-%{fontpkgname1}.conf
 Source2:        65-%{fontpkgname2}.conf
@@ -230,16 +231,12 @@ Patch:          %{name}-uninit.patch
 # Do not add unnecessary rpaths
 Patch:          %{name}-no-rpath.patch
 # Fix build failures due to missing #include directives
-# https://github.com/musescore/MuseScore/pull/29591
 Patch:          %{name}-include.patch
 # Update tinyxml2 from version 10 to version 11 to address CVE-2024-50615
 # https://github.com/musescore/MuseScore/pull/29652
 Patch:          %{name}-tinyxml2-11.patch
 # Update fluidsynth from version 2.3.3 to 2.3.7 to fix several bugs
 Patch:          %{name}-fluidsynth-2.3.7.patch
-# Fix a warning about references to temporaries
-# https://github.com/musescore/MuseScore/pull/29997
-Patch:          %{name}-temporary-ref.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -417,7 +414,7 @@ derived from FluidR3Mono.
 %fontpkg -a
 
 %prep
-%autosetup -n MuseScore-%{musescore_ver}%{?prerel:-%prerel} -p1
+%autosetup -n MuseScore-%{musescore_ver} -p1
 
 %conf
 # Remove bundled stuff
@@ -609,6 +606,10 @@ ln -s ../mscore-%{musescore_maj}/sound/MS\ Basic.sf3 \
 %fontfiles -z 9
 
 %changelog
+* Tue Sep 30 2025 Jerry James <loganjerry@gmail.com> - 1:4.6.0-24
+- Version 4.6.0
+- Drop upstreamed patch to fix warning about references to temporaries
+
 * Fri Sep 19 2025 Jerry James <loganjerry@gmail.com> - 4.6.0~beta-23
 - Version 4.6.0beta
 - Build with Qt6 instead of Qt5

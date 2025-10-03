@@ -20,10 +20,17 @@
 # Qt6 is here
 %global qt6 1
 
+# Qt4 webkit is abandoned in Fedora 44+
+%if 0%{?fedora} <= 43
+%global qt4webkit 1
+%else
+%global qt4webkit 0
+%endif
+
 Name:		gambas3
 Summary:	IDE based on a basic interpreter with object extensions
-Version:	3.20.2
-Release:	5%{?dist}
+Version:	3.20.4
+Release:	1%{?dist}
 License:	GPL-1.0-or-later
 URL:		http://gambas.sourceforge.net/
 Source0:	https://gitlab.com/gambas/gambas/-/archive/%{version}/gambas-%{version}.tar.bz2
@@ -47,8 +54,11 @@ BuildRequires:	libXcursor-devel, libXft-devel, libtool-ltdl-devel
 BuildRequires:	xdg-utils, glibc-devel, libffi-devel
 BuildRequires:	cairo-devel, qt4-devel, dbus-devel, libXcursor-devel
 BuildRequires:	SDL_ttf-devel, sqlite2-devel, glew-devel
-BuildRequires:	imlib2-devel, qt-webkit-devel, gsl-devel
+BuildRequires:	imlib2-devel, gsl-devel
 BuildRequires:	libtool, ncurses-devel, libX11-devel
+%if 0%{?qt4webkit}
+BuildRequires:	qtwebkit-devel
+%endif
 BuildRequires:	gmime30-devel, libgnome-keyring-devel
 BuildRequires:	qt5-qtsvg-devel, qt5-qtbase-devel, qt5-qtx11extras-devel, qt5-qtwebkit-devel
 %ifnarch ppc64le s390x
@@ -91,8 +101,6 @@ Patch5:		%{name}-3.14.1-gst1.patch
 # If we're using C++20 then we can't override toupper/tolower, it is not allowed.
 Patch6:		gambas3-3.19.4-c++20-do-not-try-to-override-std-functions.patch
 
-Patch7:		gambas3-fix-qt6.9-build.patch
-
 Patch8:		gambas3-3.20.2-poppler-25.07.0.patch
 
 %description
@@ -109,6 +117,15 @@ Provides:	%{name}-gb-gui = %{version}-%{release}
 Obsoletes:	%{name}-gb-gui <= 3.4
 Provides:	%{name}-gb-test = %{version}-%{release}
 Obsoletes:	%{name}-gb-test <= 3.15.2
+%if 0%{?qt4webkit}
+# do nothing extra
+%else
+# Clean up old packages
+Provides:	%{name}-gb-qt4-webkit = %{version}-%{release}
+Obsoletes:	%{name}-gb-qt4-webkit <= 3.20.2
+Provides:	%{name}-gb-qt4-webview = %{version}-%{release}
+Obsoletes:      %{name}-gb-qt4-webview <= 3.20.2
+%endif
 
 %description runtime
 Gambas3 is a free development environment based on a Basic interpreter
@@ -870,6 +887,7 @@ Requires:	%{name}-gb-opengl = %{version}-%{release}
 %description gb-qt4-opengl
 %{summary}
 
+%if 0%{?qt4webkit}
 %package gb-qt4-webkit
 Summary:	Gambas3 component package for qt4-webkit
 Requires:	%{name}-runtime = %{version}-%{release}
@@ -885,6 +903,7 @@ Requires:	%{name}-gb-qt4 = %{version}-%{release}
 
 %description gb-qt4-webview
 %{summary}
+%endif
 
 %package gb-qt5
 Summary:	 Gambas3 component package for qt5
@@ -1191,7 +1210,6 @@ Requires:	%{name}-gb-xml = %{version}-%{release}
 %patch -P 2 -p1 -b .noliconv
 %patch -P 5 -p1 -b .gst1
 %patch -P 6 -p1 -b .c++20
-%patch -P 7 -p1 -b .fix-qt6.9-build
 %patch -P 8 -p1 -b .poppler-25.07.0
 for i in `find . |grep acinclude.m4`; do
 	sed -i 's|$AM_CFLAGS -O3|$AM_CFLAGS|g' $i
@@ -1817,6 +1835,7 @@ install -m 0644 -p main/mime/application-x-gambas3.xml %{buildroot}%{_datadir}/m
 %{_libdir}/%{name}/gb.qt4.opengl.*
 %{_datadir}/%{name}/info/gb.qt4.opengl.*
 
+%if 0%{?qt4webkit}
 %files gb-qt4-webkit
 %{_libdir}/%{name}/gb.qt4.webkit.*
 %{_datadir}/%{name}/control/gb.qt4.webkit*
@@ -1825,6 +1844,7 @@ install -m 0644 -p main/mime/application-x-gambas3.xml %{buildroot}%{_datadir}/m
 %files gb-qt4-webview
 %{_libdir}/%{name}/gb.qt4.webview.*
 %{_datadir}/%{name}/info/gb.qt4.webview.*
+%endif
 
 %files gb-qt5
 %{_libdir}/%{name}/gb.qt5.component
@@ -2027,6 +2047,9 @@ install -m 0644 -p main/mime/application-x-gambas3.xml %{buildroot}%{_datadir}/m
 %{_datadir}/%{name}/info/gb.xml.xslt.*
 
 %changelog
+* Wed Oct  1 2025 Tom Callaway <spot@fedoraproject.org> - 3.20.4-1
+- update to 3.20.4
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.20.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

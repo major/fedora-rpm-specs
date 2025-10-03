@@ -1,7 +1,7 @@
 %bcond tests 1
 
 Name:           openapi-python-client
-Version:        0.26.0
+Version:        0.26.1
 Release:        %autorelease
 Summary:        Generate modern Python clients from OpenAPI
 
@@ -10,9 +10,6 @@ URL:            https://github.com/openapi-generators/openapi-python-client
 Source0:        %{url}/archive/refs/tags/v%{version}/openapi-python-client-%{version}.tar.gz
 Source1:        openapi-python-client.man1
 
-# Fixes test failure due to breaking change in click 8.2.0+
-# https://github.com/openapi-generators/openapi-python-client/pull/1309
-Patch:          fix-test-cli-1309.patch
 # chore(deps): update dependency typer to >0.6,<0.18
 # https://github.com/openapi-generators/openapi-python-client/pull/1310
 # chore(deps): update dependency typer to >0.6,<0.19

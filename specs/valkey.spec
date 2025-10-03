@@ -11,7 +11,7 @@
 
 Name:              valkey
 Version:           8.1.3
-Release:           5%{?dist}
+Release:           6%{?dist}
 Summary:           A persistent key-value database
 # valkey: BSD-3-Clause
 # hiredis: BSD-3-Clause
@@ -97,14 +97,36 @@ a cache.
 
 You can use Valkey from most programming languages also.
 
+See https://valkey.io/topics/
+
 %package           devel
 Summary:           Development header for Valkey module development
 # Header-Only Library (https://fedoraproject.org/wiki/Packaging:Guidelines)
 Provides:          %{name}-static = %{version}-%{release}
+Requires:          %{name}%{?_isa} = %{version}-%{release}
 
 %description       devel
 Header file required for building loadable Valkey modules.
 
+%package           rdma
+Summary:           RDMA module for %{name}
+Requires:          %{name}%{?_isa} = %{version}-%{release}
+Supplements:       %{name}
+
+%description       rdma
+%summary.
+
+See https://valkey.io/topics/RDMA/
+
+%package           tls
+Summary:           TLS module for %{name}
+Requires:          %{name}%{?_isa} = %{version}-%{release}
+Supplements:       %{name}
+
+%description       tls
+%summary.
+
+See https://valkey.io/topics/encryption/
 
 %package           compat-redis
 Summary:           Conversion script and compatibility symlinks for Redis
@@ -202,7 +224,19 @@ echo '# valkey_rpm_conf' >> valkey.conf
 echo '# valkey-sentinel_rpm_conf' >> sentinel.conf
 %endif
 
-%global make_flags DEBUG="" V="echo" PREFIX=%{buildroot}%{_prefix} BUILD_WITH_SYSTEMD=yes BUILD_TLS=yes BUILD_RDMA=yes
+%global make_flags DEBUG="" V="echo" PREFIX=%{buildroot}%{_prefix} BUILD_WITH_SYSTEMD=yes BUILD_TLS=module BUILD_RDMA=module
+
+: RDMA configuration file
+cat << EOF | tee rdma.conf
+# RDMA module
+loadmodule %{valkey_modules_dir}/rdma.so
+EOF
+
+: TLS configuration file
+cat << EOF | tee tls.conf
+# TLS module
+loadmodule %{valkey_modules_dir}/tls.so
+EOF
 
 
 %build
@@ -282,6 +316,14 @@ install -pDm644 src/redismodule.h %{buildroot}%{_includedir}/redismodule.h
 # compat systemd symlinks
 ln -sr %{buildroot}/usr/lib/systemd/system/valkey.service %{buildroot}/usr/lib/systemd/system/redis.service
 ln -sr %{buildroot}/usr/lib/systemd/system/valkey-sentinel.service %{buildroot}/usr/lib/systemd/system/redis-sentinel.service
+
+# RDMA module
+install -pm755 src/valkey-rdma.so %{buildroot}%{valkey_modules_dir}/rdma.so
+install -pm640 rdma.conf          %{buildroot}%{valkey_modules_cfg}/rdma.conf
+
+# TLS module
+install -pm755 src/valkey-tls.so %{buildroot}%{valkey_modules_dir}/tls.so
+install -pm640 tls.conf          %{buildroot}%{valkey_modules_cfg}/tls.conf
 
 
 %check
@@ -390,6 +432,13 @@ fi
 %{_mandir}/man{3,7}/*%{name}*.gz
 %endif
 
+%files rdma
+%attr(0640, valkey, root) %config(noreplace) %{valkey_modules_cfg}/rdma.conf
+%{valkey_modules_dir}/rdma.so
+
+%files tls
+%attr(0640, valkey, root) %config(noreplace) %{valkey_modules_cfg}/tls.conf
+%{valkey_modules_dir}/tls.so
 
 %files devel
 # main package is not required
@@ -409,6 +458,10 @@ fi
 
 
 %changelog
+* Wed Oct  1 2025 Remi Collet <remi@fedoraproject.org> - 8.1.3-6
+- add sub-package for RDMA module
+- add sub-package for TLS module
+
 * Fri Sep 26 2025 Nathan Scott <nathans@redhat.com> - 8.1.3-5
 - enable Remote Direct Memory Access (RDMA) capabilities
 

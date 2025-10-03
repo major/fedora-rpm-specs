@@ -2,8 +2,8 @@
 %bcond_without perl_Dist_Zilla_Plugin_Git_enables_optional_test
 
 Name:           perl-Dist-Zilla-Plugin-Git
-Version:        2.051
-Release:        4%{?dist}
+Version:        2.052
+Release:        1%{?dist}
 Summary:        Update your git repository after release
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Dist-Zilla-Plugin-Git
@@ -45,7 +45,6 @@ BuildRequires:  perl(List::Util) >= 1.45
 BuildRequires:  perl(Module::Runtime)
 BuildRequires:  perl(Moose)
 BuildRequires:  perl(Moose::Role)
-BuildRequires:  perl(MooseX::Has::Sugar)
 BuildRequires:  perl(namespace::autoclean) >= 0.09
 BuildRequires:  perl(Path::Tiny) >= 0.048
 BuildRequires:  perl(String::Formatter)
@@ -70,6 +69,7 @@ BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(File::Which)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Log::Dispatchouli)
+BuildRequires:  perl(Term::ANSIColor)
 BuildRequires:  perl(Test::DZil)
 BuildRequires:  perl(Test::Fatal)
 BuildRequires:  perl(Test::More) >= 0.88
@@ -184,6 +184,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Oct 01 2025 Petr Pisar <ppisar@redhat.com> - 2.052-1
+- 2.052 bump
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.051-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

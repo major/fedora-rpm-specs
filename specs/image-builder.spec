@@ -7,7 +7,7 @@
 
 %global goipath         github.com/osbuild/image-builder-cli
 
-Version:        36
+Version:        37
 
 %gometa
 
@@ -37,6 +37,8 @@ BuildRequires:  libassuan-devel
 # Build requirements of 'github.com/containers/storage' package
 BuildRequires:  device-mapper-devel
 BuildRequires:  libxcrypt-devel
+# Build requiremets of 'github.com/osbuild/images' package
+BuildRequires:  libvirt-devel
 %if 0%{?fedora}
 # Build requirements of 'github.com/containers/storage' package
 BuildRequires:  btrfs-progs-devel
@@ -127,7 +129,7 @@ Provides: bundled(golang(github.com/opencontainers/image-spec)) = 1.1.1
 Provides: bundled(golang(github.com/opencontainers/runtime-spec)) = 1.2.1
 Provides: bundled(golang(github.com/opencontainers/selinux)) = 1.12.0
 Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.13.0
-Provides: bundled(golang(github.com/osbuild/images)) = 0.195.0
+Provides: bundled(golang(github.com/osbuild/images)) = 0.197.0
 Provides: bundled(golang(github.com/pkg/errors)) = 0.9.1
 Provides: bundled(golang(github.com/pmezard/go-difflib)) = 5d4384e
 Provides: bundled(golang(github.com/proglottis/gpgme)) = 0.1.4
@@ -169,6 +171,7 @@ Provides: bundled(golang(google.golang.org/grpc)) = 1.74.2
 Provides: bundled(golang(google.golang.org/protobuf)) = 1.36.7
 Provides: bundled(golang(gopkg.in/ini.v1)) = 1.67.0
 Provides: bundled(golang(gopkg.in/yaml.v3)) = 3.0.1
+Provides: bundled(golang(libvirt.org/go/libvirt)) = 1.11006.0
 Provides: bundled(golang(sigs.k8s.io/yaml)) = 1.5.0
 # BUNDLE_END
 %endif
@@ -238,6 +241,27 @@ cd $PWD/_build/src/%{goipath}
 %{_bindir}/image-builder
 
 %changelog
+* Wed Oct 01 2025 Packit <hello@packit.dev> - 37-1
+Changes with 37
+----------------
+  - Support uploading to libvirt (#300)
+    - Author: Jakub Kadlčík, Reviewers: Sanne Raymaekers, Simon de Vlieger
+  - blueprintload: improve error message in Load (#333)
+    - Author: Ondřej Budai, Reviewers: Michael Vogt, Simon de Vlieger, Tomáš Hozza
+  - doc: mention CentOS (#336)
+    - Author: Simon de Vlieger, Reviewers: Lukáš Zapletal, Tomáš Hozza
+  - go.mod: update to v0.197.0 (#326)
+    - Author: Michael Vogt, Reviewers: Achilleas Koutsou, Lukáš Zapletal
+  - main: add `--bootc-build-ref` option to set build container (#325)
+    - Author: Michael Vogt, Reviewers: Lukáš Zapletal, Simon de Vlieger
+  - test: add missing test container cleanups (#330)
+    - Author: Michael Vogt, Reviewers: Lukáš Zapletal, Simon de Vlieger
+  - test: check that we get the expected image types (HMS-9426) (#320)
+    - Author: Michael Vogt, Reviewers: Sanne Raymaekers, Simon de Vlieger
+
+— Somewhere on the Internet, 2025-10-01
+
+
 * Wed Sep 24 2025 Packit <hello@packit.dev> - 36-1
 Changes with 36
 ----------------

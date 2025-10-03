@@ -24,6 +24,7 @@ Source0: https://download.kde.org/stable/kmymoney/%{version}/kmymoney-%{version}
 # enable using KIdentityManagement with PIM version >= 6.0.0
 # https://invent.kde.org/office/kmymoney/-/merge_requests/290
 Patch100: kmymoney-5.2.1-kidentitymanagementcore.patch
+Patch101: kmymoney-fix-build-against-qt-6-10.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
@@ -111,7 +112,7 @@ Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 %description
 KMyMoney strives to be the best personal finance manager.
 The ultimate objectives of KMyMoney are...
-* Accuracy.  Using time tested double entry accounting principles 
+* Accuracy.  Using time tested double entry accounting principles
   helps ensure that your finances are kept in correct order.
 * Ease of use.  Strives to be the easiest open source personal
   finance manager to use, especially for the non-technical user.
@@ -527,7 +528,7 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.kmymoney.
 
 * Tue Sep 11 2012 Rex Dieter <rdieter@fedoraproject.org>
 - 4.6.3-1
-- kmymoney-4.6.3 
+- kmymoney-4.6.3
 - -libs: Requires: kdelibs4 ...
 - -doc subpkg
 
@@ -594,7 +595,7 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.kmymoney.
 - kmymoney-3.97.2
 - License: GPLv2 or GPLv3
 - omit .directory files from packaging
-- -debuginfo: fix world-writable perms in generated headers 
+- -debuginfo: fix world-writable perms in generated headers
 
 * Fri Apr 02 2010 Rex Dieter <rdieter@fedoraproject.org> - 3.97.0-1
 - kmymoney-3.97.0
@@ -635,7 +636,7 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.kmymoney.
 - kmymoney2-0.9.3
 
 * Mon Sep 15 2008 Rex Dieter <rdieter@fedoraproject.org> 0.9.2-3
-- respun tarball 
+- respun tarball
 
 * Sun Sep 14 2008 Rex Dieter <rdieter@fedoraproject.org> 0.9.2-1
 - kmymoney2-0.9.2

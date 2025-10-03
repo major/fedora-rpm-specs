@@ -19,6 +19,8 @@ Patch1:  0001-build-refactor-CMake-build-rules.patch
 Patch2:  0002-Wrap-forward-declaration-within-QT_NAMESPACE.patch
 Patch3:  0003-Revert-Use-KDE-s-QtQuick-QtWidgets-style-bridge.patch
 
+Patch4:  qt6ct-fix-build-against-qt-6-10.patch
+
 BuildRequires: cmake
 BuildRequires: extra-cmake-modules
 

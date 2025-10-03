@@ -17,7 +17,7 @@ Summary: OpenPrinting CUPS filters for CUPS 2.X
 Name:    cups-filters
 Epoch:   1
 Version: 2.0.1
-Release: 9%{?dist}
+Release: 10%{?dist}
 
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
@@ -157,6 +157,8 @@ queues.
 install -p -m 0755 %{SOURCE2} %{buildroot}%{_cups_serverbin}/filter/lftocrlf
 install -p -m 0644 %{SOURCE1} %{buildroot}%{_datadir}/ppd/cupsfilters/lftocrlf.ppd
 
+%if 0%{?fedora} >= 43 || 0%{?rhel} >=9
+
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
 
 cat > %{buildroot}%{_libexecdir}/%{name}/posttrans.sh << EOF
@@ -206,6 +208,8 @@ After=foomaticrip-upgrade.service
 Wants=foomaticrip-upgrade.service
 EOF
 
+%endif
+
 
 # LSB3.2 requires /usr/bin/foomatic-rip,
 # create it temporarily as a relative symlink
@@ -240,19 +244,29 @@ if [ $1 -gt 1 ]
 then
   rm -f /var/cache/cups/ppds.dat || :
 fi
-%systemd_post foomaticrip-upgrade.service
+
+%if 0%{?fedora} >= 43 || 0%{?rhel} >=9
+  %systemd_post foomaticrip-upgrade.service
+%endif
 
 
 %preun
-%systemd_preun foomaticrip-upgrade.service
+%if 0%{?fedora} >= 43 || 0%{?rhel} >=9
+  %systemd_preun foomaticrip-upgrade.service
+%endif
 
 
 %postun
-%systemd_postun foomaticrip-upgrade.service
+%if 0%{?fedora} >= 43 || 0%{?rhel} >=9
+  %systemd_postun foomaticrip-upgrade.service
+%endif
 
 
 %posttrans
-%systemd_posttrans_with_reload foomaticrip-upgrade.service
+%if 0%{?fedora} >= 43 || 0%{?rhel} >=9
+  %systemd_posttrans_with_reload foomaticrip-upgrade.service
+%endif
+
 if [ $1 -gt 1 ]
 then
   # since we moved to individual filters, we have to restart cups
@@ -263,7 +277,9 @@ then
     systemctl restart cups || :
   fi
 
-  systemctl start foomaticrip-upgrade.service || :
+  %if 0%{?fedora} >= 43 || 0%{?rhel} >=9
+    systemctl start foomaticrip-upgrade.service || :
+  %endif
 fi
 
 
@@ -322,15 +338,17 @@ fi
 %{_datadir}/ppdc/escp.h
 %{_datadir}/ppdc/pcl.h
 %endif
-%dir %{_libexecdir}/%{name}
-%attr(0744,root,root) %{_libexecdir}/%{name}/posttrans.sh
 %{_mandir}/man1/foomatic-hash.1.gz
 %{_mandir}/man1/foomatic-rip.1.gz
 %config(noreplace) %{_sysconfdir}/foomatic
-%ghost %{_sysconfdir}/foomatic/hashes.d/hashes.new
+%if 0%{?fedora} >= 43 || 0%{?rhel} >=9
+%dir %{_libexecdir}/%{name}
+%attr(0744,root,root) %{_libexecdir}/%{name}/posttrans.sh
+%ghost %attr(0644,root,root) %{_sysconfdir}/foomatic/hashes.d/hashes.new
 %dir %{_unitdir}/cups.service.d
 %{_unitdir}/cups.service.d/10-foomaticrip-upgrade.conf
 %{_unitdir}/foomaticrip-upgrade.service
+%endif
 
 %files driverless
 %license COPYING LICENSE NOTICE
@@ -344,6 +362,9 @@ fi
 
 
 %changelog
+* Wed Oct 01 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0.1-10
+- protect older Fedoras from F43+ changes, fix installability report about hashes.new
+
 * Thu Jul 31 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0.1-9
 - Reject unknown values in foomatic-rip in F43+
 

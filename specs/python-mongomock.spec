@@ -1,8 +1,8 @@
 %global pypi_name mongomock
 
 Name:           python-%{pypi_name}
-Version:        4.1.2
-Release:        5%{?dist}
+Version:        4.3.0
+Release:        1%{?dist}
 Summary:        Module for testing MongoDB-dependent code
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -15,43 +15,49 @@ BuildArch:      noarch
 Mongomock is a small library to help testing Python code that interacts
 with MongoDB via Pymongo.
 
+
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
-
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(pbr)
-BuildRequires:  python3dist(sentinels)
-BuildRequires:  python3dist(setuptools)
-BuildRequires:  python3dist(six)
 BuildRequires:  python3dist(pytest)
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
 Mongomock is a small library to help testing Python code that interacts
 with MongoDB via Pymongo.
 
+
 %prep
 %autosetup -n %{pypi_name}-%{version}
 rm -rf %{pypi_name}.egg-info
 
+
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
+
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l mongomock
+
 
 %check
 %pytest -v tests -k "not BulkOperationsWithPymongoTest and not CollectionComparisonTest \
   and not MongoClientCollectionTest and not MongoClientSortSkipLimitTest \
   and not test__insert_do_not_modify_input"
 
-%files -n python3-%{pypi_name}
-%license LICENSE
+
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.rst
-%{python3_sitelib}/%{pypi_name}/
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
+
 
 %changelog
+* Mon Sep 22 2025 Sandro Mani <manisandro@gmail.com> - 4.3.0-1
+- Update to 4.3.0
+
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.1.2-5
 - Rebuilt for Python 3.14.0rc2 bytecode
 

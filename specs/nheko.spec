@@ -64,6 +64,7 @@ BuildRequires: gcc-c++
 BuildRequires: libappstream-glib
 BuildRequires: ninja-build
 
+BuildRequires: qt6-qtbase-private-devel
 %{?_qt6:Requires: %{_qt6}%{?_isa} = %{_qt6_version}}
 Requires: hicolor-icon-theme
 

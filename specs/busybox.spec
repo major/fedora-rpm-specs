@@ -54,7 +54,7 @@
 
 Name:		busybox
 Version:	1.37.0
-Release:	3%{?dist}
+Release:	4%{?dist}
 Epoch:		1
 Summary:	Statically linked binary providing simplified versions of system commands
 License:	GPL-2.0-only
@@ -209,7 +209,7 @@ cat .config && \
 %endif
 make V=1 \
 EXTRA_CFLAGS="%{?hcflags} -g" \
-CFLAGS_busybox="%{?hldflags}"
+CFLAGS_busybox="-static %{?hldflags}"
 
 cp busybox_unstripped busybox.glibc.static
 cp docs/busybox.1 docs/busybox.glibc.static.1
@@ -360,6 +360,9 @@ ln -s ./busybox %{buildroot}%{_sbindir}/udhcpc
 %{_mandir}/man1/busybox.shared.1.gz
 
 %changelog
+* Wed Sep 03 2025 Stephen Brennan <stephen.s.brennan@oracle.com> - 1:1.37.0-4
+- Fix static linking when using glibc-static
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.37.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

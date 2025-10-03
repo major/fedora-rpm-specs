@@ -40,6 +40,8 @@ Summary:        Sphinx theme for readthedocs.org
 Requires:       font(fontawesome)
 Requires:       font(lato)
 Requires:       font(robotoslab)
+# Serve the built documentation with working references to the fonts
+Recommends:     (web-assets-httpd if httpd)
 
 %description -n python%{python3_pkgversion}-%{srcname}
 This is a prototype mobile-friendly sphinx theme for readthedocs.org.

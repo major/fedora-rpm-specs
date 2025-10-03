@@ -1,10 +1,10 @@
-%global forgeurl https://github.com/zyantific/zycore-c
+Name:           zycore-c
 Version:        1.5.2
+
+%global forgeurl https://github.com/zyantific/%{name}
+%global commit ba34692d371cde5f45539b5fa26ea11b09721751 
 %forgemeta
 
-%global sover %{echo %{version} | cut -d '.' -f 1,2}
-
-Name:           zycore-c
 Release:        %autorelease
 Summary:        Zyan Core Library for C
 
@@ -12,13 +12,10 @@ License:        MIT
 URL:            %{forgeurl}
 Source0:        %{forgesource}
 
-# https://github.com/zyantific/zycore-c/issues/59
-ExcludeArch:    s390x
-
+BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  cmake
-BuildRequires:  ninja-build
-BuildRequires:  gtest-devel
+BuildRequires:  meson >= 1.3
+BuildRequires:  pkgconfig(gtest)
 BuildRequires:  doxygen
 
 %description
@@ -41,33 +38,29 @@ BuildArch:      noarch
 The %{name}-doc package contains the documentation for %{name}.
 
 %prep
-%autosetup -p1
+%forgesetup
 
 %build
-%cmake \
-    -GNinja \
-    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-    -DZYCORE_BUILD_SHARED_LIB=ON \
-    -DZYCORE_BUILD_TESTS=ON \
-    -DZYCORE_BUILD_EXAMPLES=ON \
-%cmake_build
+%meson \
+    -Ddoc=enabled \
+    -Dtests=enabled \
+    -Dexamples=enabled \
+%meson_build
 
 %install
-%cmake_install
-
-rm -r %{buildroot}%{_mandir}/man3
+%meson_install
 
 %check
-%ctest
+%meson_test
 
 %files
 %license LICENSE
 %doc README.md
-%{_libdir}/libZycore.so.%{sover}*
+%{_libdir}/libZycore.so.1*
 
 %files devel
 %{_includedir}/Zycore/
-%{_libdir}/cmake/zycore/
+%{_libdir}/pkgconfig/zycore.pc
 %{_libdir}/libZycore.so
 
 %files doc

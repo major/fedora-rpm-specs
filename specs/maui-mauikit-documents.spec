@@ -7,6 +7,8 @@ URL:           https://invent.kde.org/maui/mauikit-documents/
 
 Source0:       https://download.kde.org/stable/maui/mauikit-documents/%{version}/mauikit-documents-%{version}.tar.xz
 
+Patch0:        mauikit-documents-fix-build-against-qt-6-10.patch
+
 BuildRequires: extra-cmake-modules
 BuildRequires: gcc-c++
 BuildRequires: kf6-rpm-macros

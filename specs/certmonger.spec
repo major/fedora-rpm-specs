@@ -27,8 +27,8 @@
 %bcond_with xmlrpc
 
 Name:		certmonger
-Version:	0.79.20
-Release:	5%{?dist}
+Version:	0.79.21
+Release:	1%{?dist}
 Summary:	Certificate status monitor and PKI enrollment client
 
 License:	GPL-3.0-or-later
@@ -264,6 +264,9 @@ exit 0
 %endif
 
 %changelog
+* Wed Oct 01 2025 Rob Crittenden <rcritten@redhat.com> - 0.79.21-1
+- Update to upstream 0.79.21
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.79.20-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %bcond CHECK 1
 
 Name:           ngtcp2
-Version:        1.15.1
+Version:        1.16.0
 Release:        %autorelease
 Summary:        Implementation of RFC 9000 QUIC protocol
 
@@ -33,8 +33,7 @@ ngtcp2 project is an effort to implement RFC9000 QUIC protocol.
 %package devel
 Summary:        The ngtcp2 development files
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Recommends:     %{name}-crypto-gnutls%{?_isa} = %{version}-%{release}
-Recommends:     %{name}-crypto-ossl%{?_isa} = %{version}-%{release}
+Suggests:       %{name}-crypto-any-devel%{?_isa} = %{version}-%{release}
 
 %description devel
 "Call it TCP/2. One More Time."
@@ -58,6 +57,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       %{name}-crypto-gnutls%{?_isa} = %{version}-%{release}
 BuildRequires:  gnutls-devel >= 3.7.5
 Requires:       gnutls-devel >= 3.7.5
+Provides:       %{name}-crypto-any-devel = %{version}-%{release}
 
 %description crypto-gnutls-devel
 "Call it TCP/2. One More Time." RFC9000 QUIC protocol.
@@ -66,7 +66,7 @@ GnuTLS library provider headers.
 
 %package crypto-ossl
 Summary:        The ngtcp2 dependency for OpenSSL
-Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description crypto-ossl
 "Call it TCP/2. One More Time." RFC9000 QUIC protocol.
@@ -79,6 +79,7 @@ Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
 Requires:       %{name}-crypto-ossl%{?_isa} = %{version}-%{release}
 BuildRequires:  openssl-devel >= 3.5.0
 Requires:       openssl-devel >= 3.5.0
+Provides:       %{name}-crypto-any-devel = %{version}-%{release}
 
 %description crypto-ossl-devel
 "Call it TCP/2. One More Time." RFC9000 QUIC protocol.
@@ -142,7 +143,6 @@ rm -f ${RPM_BUILD_ROOT}%{_libdir}/lib%{name}*.la
 %files devel
 %doc ChangeLog
 %{_libdir}/libngtcp2.so
-%{_libdir}/libngtcp2_crypto_ossl.so
 %{_libdir}/pkgconfig/libngtcp2.pc
 %{_includedir}/%{name}/
 %exclude %{_includedir}/%{name}/ngtcp2_crypto_*.h

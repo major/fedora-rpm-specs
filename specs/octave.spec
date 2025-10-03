@@ -36,7 +36,7 @@
 
 Name:           octave
 Epoch:          6
-Version:        10.2.0
+Version:        10.3.0
 Release:        %autorelease
 Summary:        A high-level language for numerical computations
 # Automatically converted from old format: GPLv3+ - review is highly recommended.

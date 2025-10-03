@@ -22,6 +22,8 @@ Source0: https://github.com/openbao/%{name}/releases/download/v%{package_version
 # single git branch to track changes to them (unlike src.fedoraproject.org)
 # and a place where checks can be automated using github actions.
 Source1: https://github.com/openbao/%{name}-fedora/releases/download/v%{package_version}/%{name}-fedora-%{package_version}.tar.gz
+# This has to be separate because it is used in a %%pre step
+Source2: https://github.com/openbao/%{name}-fedora/blob/v{package_version}/%{name}.conf
 Patch0: goversion.patch
 
 BuildRequires: golang-bin
@@ -1867,7 +1869,7 @@ cp -p %{name}.service %{buildroot}%{_unitdir}
 ln -s %{name}.service %{buildroot}%{_unitdir}/%{oldname}.service
 
 mkdir -p %{buildroot}%{_sysusersdir}
-cp %{name}.conf %{buildroot}%{_sysusersdir}/%{name}.conf
+cp %{SOURCE2} %{buildroot}%{_sysusersdir}/%{name}.conf
 
 #
 # NOTE: we can't run the standard go tests because some of them
@@ -1875,7 +1877,7 @@ cp %{name}.conf %{buildroot}%{_sysusersdir}/%{name}.conf
 #
 
 %pre
-%sysusers_create_compat %{name}.conf
+%sysusers_create_compat %{SOURCE2}
 
 %post
 %systemd_post %{name}.service

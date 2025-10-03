@@ -1,5 +1,5 @@
 Name:           akmods
-Version:        0.6.1
+Version:        0.6.2
 Release:        %autorelease
 Summary:        Automatic kmods build and install tool
 
@@ -11,7 +11,7 @@ Source0:        95-akmods.preset
 Source1:        akmods
 Source2:        akmodsbuild
 Source3:        akmods.h2m
-Source6:        akmods.service.in
+Source6:        akmods.service
 Source7:        akmods-shutdown
 Source8:        akmods-shutdown.service
 Source9:        README
@@ -122,9 +122,9 @@ install -pm 0755 %{SOURCE13} %{buildroot}%{_prefix}/lib/kernel/install.d/
 mkdir -p \
          %{buildroot}%{_unitdir} \
          %{buildroot}%{_presetdir}
-sed "s|@SERVICE@|display-manager.service|" %{SOURCE6} >\
-    %{buildroot}%{_unitdir}/akmods.service
+
 install -pm 0644 %{SOURCE0} %{buildroot}%{_presetdir}/
+install -pm 0644 %{SOURCE6} %{buildroot}%{_unitdir}/
 install -pm 0755 %{SOURCE7} %{buildroot}%{_sbindir}/
 install -pm 0644 %{SOURCE8} %{buildroot}%{_unitdir}/
 install -pm 0644 %{SOURCE11} %{buildroot}%{_unitdir}/

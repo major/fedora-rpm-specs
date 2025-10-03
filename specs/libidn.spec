@@ -9,7 +9,7 @@
 Summary: Internationalized Domain Name support library
 Name: libidn
 Version: 1.43
-Release: 2%{?dist}
+Release: 3%{?dist}
 URL: http://www.gnu.org/software/libidn/
 License: (LGPL-3.0-or-later OR GPL-2.0-or-later) AND GPL-3.0-or-later AND GFDL-1.3-or-later
 Source0: https://ftp.gnu.org/gnu/libidn/libidn-%{version}.tar.gz
@@ -61,7 +61,7 @@ developing programs which use the GNU libidn library.
 %package java
 Summary:       Java port of the GNU Libidn library
 BuildRequires: java-devel
-BuildRequires: javapackages-local
+BuildRequires: javapackages-local-openjdk25
 BuildRequires: mvn(com.google.guava:guava)
 BuildRequires: mvn(junit:junit)
 BuildRequires: make
@@ -196,6 +196,9 @@ rm -rf $RPM_BUILD_ROOT%{_javadir}/libidn*.jar
 %endif
 
 %changelog
+* Wed Oct 01 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 1.43-3
+- Rebuilt for java-25-openjdk as system jdk
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.43-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

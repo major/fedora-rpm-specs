@@ -1,10 +1,13 @@
 Name:          xdg-desktop-portal-lxqt
 Version:       1.2.0
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       A backend implementation for xdg-desktop-portal that is using Qt/KF5/libfm-qt
 License:       LGPL-2.0-or-later
 URL:           https://lxqt-project.org
 Source0:       https://github.com/lxqt/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz
+
+Patch0:        xdg-desktop-portal-lxqt-fix-build-against-qt-6-10.patch
+
 BuildRequires: cmake
 BuildRequires: gcc-c++
 BuildRequires: pkgconfig(Qt6Core)
@@ -18,13 +21,12 @@ BuildRequires: pkgconfig(Qt5X11Extras)
 BuildRequires: libexif-devel
 Requires:      dbus-common
 Requires:      xdg-desktop-portal
-Requires:      libfm-qt-qt6
 
 %description
 %{summary}
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
 %cmake
@@ -45,6 +47,9 @@ Requires:      libfm-qt-qt6
 %{_libexecdir}/xdg-desktop-portal-lxqt
 
 %changelog
+* Wed Oct 01 2025 Adam Williamson <awilliam@redhat.com> - 1.2.0-3
+- Drop explicit libfm-qt dependency (it's broken and unneeded)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
