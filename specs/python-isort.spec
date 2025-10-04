@@ -2,8 +2,8 @@
 %global srcname isort
 
 Name:               python-%{modname}
-Version:            6.0.1
-Release:            5%{?dist}
+Version:            6.1.0
+Release:            1%{?dist}
 Summary:            Python utility / library to sort Python imports
 
 License:            MIT
@@ -56,6 +56,9 @@ ln -s %{modname}-3 %{buildroot}%{_bindir}/%{modname}
 %{_bindir}/%{modname}-identify-imports
 
 %changelog
+* Thu Oct 02 2025 Gwyn Ciesla <gwync@protonmail.com> - 6.1.0-1
+- 6.1.0
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 6.0.1-5
 - Rebuilt for Python 3.14.0rc3 bytecode
 

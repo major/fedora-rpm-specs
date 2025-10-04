@@ -1,7 +1,7 @@
 %{?mingw_package_header}
 
 %global qt_module qtshadertools
-#global pre rc2
+%global pre rc
 
 #global commit a73dfa7c63b82e25f93e44ed6386664373aaca74
 #global shortcommit %(c=%{commit}; echo ${c:0:7})
@@ -9,14 +9,15 @@
 %if 0%{?commit:1}
 %global source_folder %{qt_module}-%{commit}
 %else
-%global source_folder %{qt_module}-everywhere-src-%{version}%{?pre:-%{pre}}
+%global source_folder %{qt_module}-everywhere-src-%{qt_version}%{?pre:-%{pre}}
 %endif
 
 # first two digits of version
-%global release_version %(echo %{version} | awk -F. '{print $1"."$2}')
+%define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
+%define qt_version %(echo %{version} | cut -d~ -f1)
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.9.2
+Version:        6.10.0%{?pre:~%pre}
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - Qt Shader Tools component
 
@@ -26,7 +27,7 @@ URL:            http://qt.io/
 %if 0%{?commit:1}
 Source0:        https://github.com/qt/%{qt_module}/archive/%{commit}/%{qt_module}-everywhere-src-%{commit}.tar.gz
 %else
-Source0:        http://download.qt.io/%{?pre:development}%{?!pre:official}_releases/qt/%{release_version}/%{version}%{?pre:-%pre}/submodules/%{qt_module}-everywhere-src-%{version}%{?pre:-%pre}.tar.xz
+Source0:        http://download.qt.io/%{?pre:development}%{?!pre:official}_releases/qt/%{release_version}/%{qt_version}%{?pre:-%pre}/submodules/%{qt_module}-everywhere-src-%{qt_version}%{?pre:-%pre}.tar.xz
 %endif
 Patch0:         qtshadertools_gcc13.patch
 
@@ -34,7 +35,7 @@ BuildArch:      noarch
 
 BuildRequires:  cmake
 BuildRequires:  ninja-build
-BuildRequires:  qt6-qtshadertools-devel = %{version}%{?pre:~%pre}
+BuildRequires:  qt6-qtshadertools-devel = %{version}
 
 BuildRequires:  mingw32-filesystem >= 96
 BuildRequires:  mingw32-gcc-c++
@@ -59,7 +60,7 @@ Fedora Windows cross-compiler.
 %package -n mingw32-qt6-%{qt_module}
 Summary:        Qt6 for Windows - Qt Serial Port component
 # Dependency for host tools
-Requires:       qt6-qtshadertools-devel = %{version}%{?pre:~%pre}
+Requires:       qt6-qtshadertools-devel = %{version}
 
 %description -n mingw32-qt6-%{qt_module}
 This package contains the Qt software toolkit for developing
@@ -73,7 +74,7 @@ Fedora Windows cross-compiler.
 %package -n mingw64-qt6-%{qt_module}
 Summary:        Qt6 for Windows - Qt Serial Port component
 # Dependency for host tools
-Requires:       qt6-qtshadertools-devel = %{version}%{?pre:~%pre}
+Requires:       qt6-qtshadertools-devel = %{version}
 
 %description -n mingw64-qt6-%{qt_module}
 This package contains the Qt software toolkit for developing
@@ -112,9 +113,9 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %{mingw32_libdir}/Qt6ShaderTools.prl
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_shadertools_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_shadertools.pri
-%{mingw32_libdir}/qt6/metatypes/qt6shadertools_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6shadertools_metatypes.json
 %{mingw32_libdir}/qt6/modules/ShaderTools.json
-%{mingw32_libdir}/qt6/sbom/%{qt_module}-%{version}.spdx
+%{mingw32_libdir}/qt6/sbom/%{qt_module}-%{qt_version}.spdx
 %{mingw32_libdir}/pkgconfig/Qt6ShaderTools.pc
 %{mingw32_includedir}/qt6/QtShaderTools/
 
@@ -130,14 +131,17 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %{mingw64_libdir}/Qt6ShaderTools.prl
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_shadertools_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_shadertools.pri
-%{mingw64_libdir}/qt6/metatypes/qt6shadertools_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6shadertools_metatypes.json
 %{mingw64_libdir}/qt6/modules/ShaderTools.json
-%{mingw64_libdir}/qt6/sbom/%{qt_module}-%{version}.spdx
+%{mingw64_libdir}/qt6/sbom/%{qt_module}-%{qt_version}.spdx
 %{mingw64_libdir}/pkgconfig/Qt6ShaderTools.pc
 %{mingw64_includedir}/qt6/QtShaderTools/
 
 
 %changelog
+* Thu Oct 02 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0~rc-1
+- Update 6.10.0 RC
+
 * Tue Sep 02 2025 Sandro Mani <manisandro@gmail.com> - 6.9.2-1
 - Update to 6.9.2
 

@@ -57,8 +57,8 @@ Summary:        Web Console for Linux servers
 License:        LGPL-2.1-or-later
 URL:            https://cockpit-project.org/
 
-Version:        347
-Release:        2%{?dist}
+Version:        348
+Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 
 %if 0%{?fedora} >= 41 || 0%{?rhel}
@@ -123,6 +123,9 @@ Requires: cockpit-system
 # Optional components
 Recommends: (cockpit-storaged if udisks2)
 Recommends: (cockpit-packagekit if dnf)
+%if 0%{?suse_version} == 0
+Recommends: (dnf5-daemonserver if dnf5)
+%endif
 Suggests: python3-pcp
 
 %if 0%{?rhel} == 0
@@ -321,7 +324,6 @@ Provides: cockpit-users = %{version}-%{release}
 Requires: NetworkManager >= 1.6
 Requires: sos
 Requires: sudo
-Recommends: PackageKit
 Recommends: setroubleshoot-server >= 3.3.3
 Recommends: /usr/bin/kdumpctl
 Suggests: NetworkManager-team
@@ -648,6 +650,9 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Thu Oct 02 2025 Packit <hello@packit.dev> - 348-1
+- Bug fixes and translation updates
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 347-2
 - Rebuilt for Python 3.14.0rc3 bytecode
 

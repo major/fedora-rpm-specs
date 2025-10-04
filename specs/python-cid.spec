@@ -12,6 +12,11 @@ License:       MIT
 URL:           https://github.com/ipld/py-cid
 Source0:       %{pypi_source py-%{pypi_name}}
 Patch1:        python-cid-0001-Relax-dependencies.patch
+# Drop pytest-runner / "setup.py test" support from setup.py
+# https://fedoraproject.org/wiki/Changes/DeprecatePythonPytestRunner
+# https://github.com/pypa/setuptools/blob/v75.8.0/NEWS.rst#v7200
+# Downstream-only because the upstream project is archived.
+Patch2:        python-cid-0002-Drop-pytest-runner.patch
 BuildRequires: python3-hypothesis
 BuildRequires: python3-pytest
 BuildSystem:   pyproject

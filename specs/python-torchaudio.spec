@@ -73,7 +73,7 @@ BuildRequires:  miopen-devel
 BuildRequires:  rocblas-devel
 BuildRequires:  rocrand-devel
 BuildRequires:  rocfft-devel
-BuildRequires:  rocprim-devel
+BuildRequires:  rocprim-static
 BuildRequires:  rocm-cmake
 BuildRequires:  rocm-comgr-devel
 BuildRequires:  rocm-core-devel

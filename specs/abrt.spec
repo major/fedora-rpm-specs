@@ -56,8 +56,8 @@
 
 Summary: Automatic bug detection and reporting tool
 Name: abrt
-Version: 2.17.6
-Release: 10%{?dist}
+Version: 2.17.7
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL: https://abrt.readthedocs.org/
 Source: https://github.com/abrt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -66,7 +66,7 @@ BuildRequires: %{dbus_devel}
 BuildRequires: hostname
 BuildRequires: gtk3-devel
 BuildRequires: glib2-devel >= %{glib_ver}
-BuildRequires: rpm-devel >= 4.18
+BuildRequires: rpm-devel >= 6.0.0
 BuildRequires: desktop-file-utils
 BuildRequires: libnotify-devel
 #why? BuildRequires: file-devel
@@ -994,6 +994,10 @@ killall abrt-dbus >/dev/null 2>&1 || :
 %config(noreplace) %{_sysconfdir}/profile.d/abrt-console-notification.sh
 
 %changelog
+* Thu Oct 02 2025 Michal Srb <michal@redhat.com> - 2.17.7-1
+- Update to upstream release 2.17.7
+- Fix reading gpg keys with RPM 6.0.0 (rhbz#2396899)
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.17.6-10
 - Rebuilt for Python 3.14.0rc3 bytecode
 

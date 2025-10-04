@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-machines
-Version:        340
+Version:        341
 Release:        1%{?dist}
 Summary:        Cockpit user interface for virtual machines
 License:        LGPL-2.1-or-later AND MIT
@@ -119,6 +119,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 # The changelog is automatically generated and merged
 %changelog
+* Thu Oct 02 2025 Packit <hello@packit.dev> - 341-1
+- Improved UX for Disks and Network interface tables
+- Bug fixes and translation updates
+
 * Wed Sep 17 2025 Packit <hello@packit.dev> - 340-1
 - Use exclusive VNC connections with "Remote resizing"
 

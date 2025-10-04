@@ -8,6 +8,8 @@ License:        GPL-3.0-or-later AND MIT AND Apache-2.0 AND CC-BY-SA-4.0 AND LGP
 URL:            https://invent.kde.org/network/kaidan
 Source0:        %{url}/-/archive/v%{version}/%{name}-v%{version}.tar.gz
 
+Patch0:         kaidan-fix-build-against-qt-6-10.patch
+
 %if 0%{?fedora} || 0%{?epel} > 7
 # handled by qt6-srpm-macros, which defines %%qt6_qtwebengine_arches
 # Package doesn't build on arches that qtwebengine is not built on.
@@ -31,7 +33,7 @@ BuildRequires:  cmake(Qt6Multimedia)
 BuildRequires:  cmake(Qt6Positioning)
 BuildRequires:  cmake(Qt6Location)
 BuildRequires:  cmake(Qt6Test)
-
+BuildRequires:  qt6-qtbase-private-devel
 
 BuildRequires:  cmake(KF6KIO)
 BuildRequires:  cmake(KF6Kirigami2)

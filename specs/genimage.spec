@@ -27,7 +27,7 @@ Source0:        %{url}/releases/download/v%{version}/genimage-%{version}.tar.xz
 Recommends:     %{fs_block_tools}
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=2374067
-ExcludeArch: s390x
+ExcludeArch: s390x %{ix86}
 
 BuildRequires:  autoconf automake
 BuildRequires:  gcc

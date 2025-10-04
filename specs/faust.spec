@@ -12,8 +12,8 @@
 %global __requires_exclude %{__requires_exclude}|libm.so(LIBC)(64bit)
 
 Name:		faust
-Version:	2.79.3
-Release:	2%{?dist}
+Version:	2.81.8
+Release:	1%{?dist}
 Summary:	Compiled language for real-time audio signal processing
 # Examples are BSD
 # The rest is GPLv2+
@@ -21,6 +21,7 @@ License:	GPL-2.0-or-later AND MIT AND GPL-3.0-or-later AND BSD-3-Clause AND LGPL
 URL:		https://faust.grame.fr/
 Source0:	https://github.com/grame-cncm/faust/releases/download/%{version}/%{name}-%{version}.tar.gz
 Patch0:         includes.patch
+Patch1:         nostatic.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  doxygen
@@ -105,6 +106,7 @@ for KDE's Kate/Kwrite.
 %prep
 %setup -q
 %patch -P 0 -p0
+%patch -P 1 -p1
 
 # Fix permissions
 chmod -x compiler/draw/device/SVGDev.* architecture/VST/PkgInfo
@@ -192,6 +194,9 @@ find %{buildroot} -type f -name '*.a' -print0 | xargs -0 rm
 %{_datadir}/kde4/apps/katepart/syntax/%{name}.xml
 
 %changelog
+* Tue Sep 30 2025 Gwyn Ciesla <gwync@protonmail.com> - 2.81.8-1
+- 2.81.8
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.79.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

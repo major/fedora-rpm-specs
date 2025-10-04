@@ -1,5 +1,5 @@
 Name:           python-playsound3
-Version:        3.2.7
+Version:        3.2.8
 Release:        %autorelease
 Summary:        Cross-platform library to play audio files
 

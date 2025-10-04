@@ -1,11 +1,10 @@
 
 Name:		jpegoptim
-Version:	1.5.5
-Release:	7%{?dist}
+Version:	1.5.6
+Release:	1%{?dist}
 Summary:	Utility to optimize JPEG files
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
-License:	GPL-2.0-or-later
+License:	GPL-3.0-or-later
 URL:		http://www.kokkonen.net/tjko/projects.html
 
 Source0:	https://github.com/tjko/jpegoptim/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
@@ -22,7 +21,7 @@ setting maximum quality factor.
 
 
 %prep
-%setup -q
+%autosetup
 
 
 %build
@@ -31,8 +30,7 @@ setting maximum quality factor.
 
 
 %install
-install -Dpm 0755 jpegoptim %{buildroot}/%{_bindir}/jpegoptim
-install -Dpm 0644 jpegoptim.1 %{buildroot}/%{_mandir}/man1/jpegoptim.1
+%make_install
 
 
 %files
@@ -43,6 +41,9 @@ install -Dpm 0644 jpegoptim.1 %{buildroot}/%{_mandir}/man1/jpegoptim.1
 
 
 %changelog
+* Wed Oct 01 2025 Denis Fateyev <denis@fateyev.com> - 1.5.6-1
+- Update to version 1.5.6
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.5-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

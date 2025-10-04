@@ -19,13 +19,13 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-%global rocm_release 6.4
-%global rocm_patch 3
+%global rocm_release 7.0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 Name:           rocm
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm Metapackage
 License:        MIT
 
@@ -154,7 +154,8 @@ This is a meta package for all of the ROCm devel packages.
 Summary:        Tests for ROCm
 Requires: kfdtest             >= %{rocm_release}
 %if 0%{?fedora}
-Requires: rocm-bandwidth-test >= %{rocm_release}
+Requires: rocm-bandwidth-test
+Requires: rocblas-test >= %{rocm_release}
 Requires: rocm-validation-suite >= %{rocm_release}
 %endif
 
@@ -179,6 +180,9 @@ install -pm 644 %{SOURCE0} .
 %license License.txt
 
 %changelog
+* Thu Oct 2 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-1
+- Update to 7.0.1
+
 * Thu Sep 11 2025 Tom Rix <Tom.Rix@amd.com> - 6.4.3-4
 - Add rocprofiler-register, rocm-validation-suite
 

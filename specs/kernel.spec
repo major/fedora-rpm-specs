@@ -176,13 +176,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.18.0
 %define specversion 6.18.0
 %define patchversion 6.18
-%define pkgrelease 0.rc0.251001g50c19e20ed2e.4
+%define pkgrelease 0.rc0.251002g7f7072574127.5
 %define kversion 6
-%define tarfile_release 6.17-1737-g50c19e20ed2e
+%define tarfile_release 6.17-4185-g7f7072574127
 # This is needed to do merge window version magic
 %define patchlevel 18
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc0.251001g50c19e20ed2e.4%{?buildid}%{?dist}
+%define specrelease 0.rc0.251002g7f7072574127.5%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.18.0
 
@@ -4392,7 +4392,7 @@ fi\
 #
 #
 %changelog
-* Wed Oct 01 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc0.50c19e20ed2e.4]
+* Thu Oct 02 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc0.7f7072574127.5]
 - add xxd to as BuildRequire for bpf selftests (Thorsten Leemhuis)
 - powerpc/tools: drop `-o pipefail` in gcc check scripts (Jan Stancek)
 - redhat/configs: enable CONFIG_KVM_INTEL_TDX for Fedora x86 (Daniel P. Berrangé)
@@ -4403,8 +4403,14 @@ fi\
 - x86/virt/tdx: Mark memory cache state incoherent when making SEAMCALL (Kai Huang)
 - x86/sme: Use percpu boolean to control WBINVD during kexec (Kai Huang)
 - x86/kexec: Consolidate relocate_kernel() function parameters (Kai Huang)
-- arm64: dts: qcom: x1e80100-lenovo-yoga-slim7x: add Bluetooth support (Jens Glathe)
 - redhat/configs: clang_lto: disable CONFIG_FORTIFY_KUNIT_TEST (Scott Weaver)
+
+* Thu Oct 02 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc0.7f7072574127.4]
+- redhat: ark-linux-next.sh: initial commit (Scott Weaver)
+- redhat: prepare-commit-msg: initial commit (Scott Weaver)
+- redhat: ark-merge-driver: initial commit (Scott Weaver)
+- redhat/Makefile: add dist-configs-commit-mismatches (Scott Weaver)
+- Linux v6.18.0-0.rc0.7f7072574127
 
 * Wed Oct 01 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc0.50c19e20ed2e.3]
 - Flip SCHED_MC for RHEL ppc to avoid a mismatch (Justin M. Forbes)

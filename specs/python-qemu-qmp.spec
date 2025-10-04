@@ -1,25 +1,25 @@
 Name:           python-qemu-qmp
-Version:        0.0.3
-Release:        7%{?dist}
+Version:        0.0.5
+Release:        1%{?dist}
 Summary:        QEMU Monitor Protocol library
 
 License:        GPL-2.0-only AND LGPL-2.0-or-later
 # NB:           qemu/qmp/legacy.py is GPLv2 only.
 #               Everything else installed is LGPLv2+.
 URL:            https://pypi.org/project/qemu.qmp
-Source0:        %{pypi_source qemu.qmp}
+Source0:        %{pypi_source qemu_qmp}
 
 BuildArch:      noarch
 BuildRequires:  gnupg2
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(avocado-framework)
+BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(sphinx)
 BuildRequires:  python3dist(sphinx-rtd-theme)
 
 %global _description %{expand:
 qemu.qmp is a QEMU Monitor Protocol (“QMP”) library written in Python,
 using asyncio. It is used to send QMP messages to running QEMU
-emulators. It requires Python 3.6+ and has no mandatory
+emulators. It requires Python 3.8+ and has no mandatory
 dependencies. This library can be used to communicate with QEMU
 emulators, the QEMU Guest Agent (QGA), the QEMU Storage Daemon (QSD), or
 any other utility or application that speaks QMP.}
@@ -40,7 +40,7 @@ This package provides offline HTML documentation for python3-qemu-qmp.
 
 
 %prep
-%autosetup -n qemu.qmp-%{version}
+%autosetup -n qemu_qmp-%{version}
 
 
 %generate_buildrequires
@@ -73,10 +73,7 @@ install -Dpm 0644 man/*.1 -t %{buildroot}%{_mandir}/man1/
 
 %check
 %pyproject_check_import -e qemu.qmp.qmp_tui
-export PYTHONPATH=%{buildroot}%{python3_sitelib}
-export PYTHONDONTWRITEBYTECODE=1
-export PATH="%{buildroot}%{_bindir}:${PATH}"
-avocado --config avocado.cfg run tests/*.py
+%pytest -v
 
 
 %files -n python3-qemu-qmp -f %{pyproject_files}
@@ -94,6 +91,9 @@ avocado --config avocado.cfg run tests/*.py
 
 
 %changelog
+* Wed Oct 02 2025 John Snow <jsnow@redhat.com> - 0.0.5-1
+- Update to v0.0.5
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

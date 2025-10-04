@@ -95,7 +95,7 @@
 %global remotingbuilddir out/Remoting
 
 # enable|disable debuginfo
-%global enable_debug 0
+%global enable_debug 1
 # disable debuginfo due to a bug in debugedit on el7
 # error: canonicalization unexpectedly shrank by one character
 # https://bugzilla.redhat.com/show_bug.cgi?id=304121
@@ -244,7 +244,7 @@
 %endif
 
 Name:	chromium
-Version: 140.0.7339.207
+Version: 141.0.7390.54
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -277,11 +277,17 @@ Patch91: chromium-108-system-opus.patch
 # patch for Failed NodeJS version check
 Patch92: chromium-138-checkversion-nodejs.patch
 
+# fix build error
+Patch93: chromium-141-csss_style_sheet.patch
+
+# Revert due to incorrect display of links on startpage in Darkmode
+Patch94: chromium-141-revert-remove-darkmode-image-policy.patch
+
 # system ffmpeg
 # need for old ffmpeg 5.x on epel9
 Patch128: chromium-138-el9-ffmpeg-deprecated-apis.patch
 Patch129: chromium-el9-ffmpeg-AV_CODEC_FLAG_COPY_OPAQUE.patch
-Patch130: chromium-107-ffmpeg-5.x-duration.patch
+Patch130: chromium-141-el9-ffmpeg-5.x-duration.patch
 # disable the check
 Patch131: chromium-107-proprietary-codecs.patch
 # fix tab crash with SIGTRAP error when using system ffmpeg
@@ -350,11 +356,15 @@ Patch354: chromium-126-split-threshold-for-reg-with-hint.patch
 # fix build error: no member named 'hardware_destructive_interference_size' in namespace 'std'
 Patch355: chromium-130-hardware_destructive_interference_size.patch
 
+# fix build error:
+# ../../build/modules/linux-x64/module.modulemap:11:12: error: header '../../linux/debian_bullseye_amd64-sysroot/usr/include/alloca.h' not found
+Patch356: chromium-141-use_libcxx_modules.patch
+
 # error: no matching member function for call to 'Append'
 Patch357: chromium-134-type-mismatch-error.patch
 
 # set clang_lib path
-Patch358: chromium-135-rust-clanglib.patch
+Patch358: chromium-141-rust-clanglib.patch
 
 # PowerPC64 LE support
 # Timothy Pearson's patchset
@@ -962,6 +972,8 @@ Qt6 UI for chromium.
 %endif
 
 %patch -P92 -p1 -b .nodejs-checkversion
+%patch -P93 -p1 -b .ftbfs-csss_style_sheet
+%patch -P94 -p1 -R -b .revert-remove-darkmode-image-policy
 
 %if ! %{bundleffmpegfree}
 %if 0%{?rhel} == 9
@@ -1020,6 +1032,8 @@ Qt6 UI for chromium.
 %endif
 
 %patch -P355 -p1 -b .hardware_destructive_interference_size
+
+%patch -P356 -p1 -b .disable_use_libcxx_modules
 
 %patch -P357 -p1 -b .type-mismatch-error
 
@@ -1269,6 +1283,8 @@ CHROMIUM_BROWSER_GN_DEFINES+=' media_use_openh264=false'
 CHROMIUM_BROWSER_GN_DEFINES+=' rtc_use_h264=false'
 %endif
 CHROMIUM_BROWSER_GN_DEFINES+=' use_kerberos=true'
+# Workaround for FTBFS, error: no member named 'bPsnrY' in 'Source_Picture_s'
+CHROMIUM_BROWSER_GN_DEFINES+=' rtc_video_psnr=false'
 
 %if %{use_qt5}
 CHROMIUM_BROWSER_GN_DEFINES+=" use_qt5=true moc_qt5_path=\"$(%{_qt5_qmake} -query QT_HOST_BINS)\""
@@ -1705,6 +1721,21 @@ fi
 %endif
 
 %changelog
+* Thu Oct 02 2025 Than Ngo <than@redhat.com> - 141.0.7390.54-1
+- Update to 141.0.7390.54
+  * High CVE-2025-11205: Heap buffer overflow in WebGPU
+  * High CVE-2025-11206: Heap buffer overflow in Video
+  * Medium CVE-2025-11207: Side-channel information leakage in Storage
+  * Medium CVE-2025-11208: Inappropriate implementation in Media
+  * Medium CVE-2025-11209: Inappropriate implementation in Omnibox
+  * Medium CVE-2025-11210: Side-channel information leakage in Tab
+  * Medium CVE-2025-11211: Out of bounds read in Media
+  * Medium CVE-2025-11212: Inappropriate implementation in Media
+  * Medium CVE-2025-11213: Inappropriate implementation in Omnibox
+  * Medium CVE-2025-11215: Off by one error in V8
+  * Low CVE-2025-11216: Inappropriate implementation in Storage
+  * Low CVE-2025-11219: Use after free in V8
+
 * Wed Sep 24 2025 Than Ngo <than@redhat.com> - 140.0.7339.207-1
 - Update to 140.0.7339.207
   * CVE-2025-10890: Side-channel information leakage in V8

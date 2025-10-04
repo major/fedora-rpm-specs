@@ -1,17 +1,11 @@
 %bcond_without python
 
-# time of tests on s390x is too long, disable it for now
-%ifarch s390x
 %bcond_with check
-%else
-%bcond_without check
-%endif
 
-%bcond_with all_tests
 %global usd 0
 
 %global forgeurl https://github.com/f3d-app/f3d
-Version:        3.0.0
+Version:        3.2.0
 %forgemeta
 
 Name:           f3d
@@ -21,9 +15,6 @@ Summary:        Fast and minimalist 3D viewer
 License:        BSD-3-Clause
 URL:            %{forgeurl}
 Source0:        %{forgesource}
-# Backport fix for building with assimp-6.x
-# https://github.com/f3d-app/f3d/commit/9bed68ef2b5425c9600c81a7245f13ed2d4079b8.patch
-Patch:          f3d-assimp6.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
@@ -174,21 +165,7 @@ rm -r %{buildroot}%{_datadir}/doc/F3D
 export MESA_DEBUG=silent
 export LIBGL_ALWAYS_SOFTWARE=true
 export MESA_LOADER_DRIVER_OVERRIDE=llvmpipe
-%if %{with all_tests}
 xvfb-run -a bash -c "%ctest"
-%else
-skip_tests=
-skip_tests+="libf3d::TestSDKCompareWithFile|libf3d::TestSDKMultiColoring|libf3d::TestSDKMultiOptions|"
-skip_tests+="libf3d::TestSDKDynamicBackgroundColor|libf3d::TestSDKDynamicFontFile|libf3d::TestSDKDynamicLightIntensity|"
-skip_tests+="libf3d::TestSDKDynamicProperties|f3d::TestVTP|f3d::TestVTR|f3d::TestVTM|f3d::TestGridAbsolute|"
-skip_tests+="f3d::TestPointCloud|f3d::TestPointCloudBar|f3d::TestPointCloudDefaultScene|f3d::TestMultiblockMetaData|"
-skip_tests+="f3d::TestLightIntensityBrighter|f3d::TestLightIntensityDarker|f3d::TestUTF8|f3d::TestComponentName|"
-skip_tests+="f3d::TestGroupGeometries|f3d::TestGroupGeometriesColoring|f3d::TestScalarsCell|f3d::TestMetaData|"
-skip_tests+="f3d::TestNoBackground|f3d::TestInteractionGroupGeometriesDrop|f3d::TestInteractionDropSameFiles|"
-skip_tests+="f3d::TestVerboseWarning|f3d::TestTensorsDirect|f3d::TestTensorsVolumeDirect|pyf3d::TestPython_deprecated|"
-skip_tests+="pyf3d::TestPython_image_compare|f3d::TestCameraOrthographic|f3d::TestWatch|"
-xvfb-run -a bash -c "%ctest -E '$skip_tests'"
-%endif
 %endif
 
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop

@@ -22,6 +22,8 @@ Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Patch0:         dtkmultimedia-ffmpeg7.patch
 Patch1:         https://github.com/linuxdeepin/dtkmultimedia/pull/67.patch
 
+Patch2:         dtkmultimedia-fix-build-against-qt-6-10.patch
+
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 
@@ -34,6 +36,7 @@ BuildRequires:  cmake(Qt6LinguistTools)
 BuildRequires:  cmake(Qt6Network)
 BuildRequires:  cmake(Qt6Concurrent)
 BuildRequires:  cmake(Qt6MultimediaWidgets)
+BuildRequires:  qt6-qtbase-private-devel
 
 BuildRequires:  cmake(Dtk6Core)
 BuildRequires:  cmake(Dtk6Widget)

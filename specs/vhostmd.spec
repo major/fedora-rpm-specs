@@ -3,7 +3,7 @@
 Summary:       Virtualization host metrics daemon
 Name:          vhostmd
 Version:       1.1
-Release:       18%{?dist}
+Release:       19%{?dist}
 License:       LGPL-2.1-or-later
 
 URL:           https://github.com/vhostmd/vhostmd
@@ -35,6 +35,8 @@ Patch0018:     0018-vhostmd-Fix-memory-leak-in-vhostmd_run.patch
 Patch0019:     0019-virtio-Fix-strncpy-length-parameter.patch
 # https://github.com/vhostmd/vhostmd/pull/13
 Patch0020:     0020-implicit-function-declarations.patch
+
+ExcludeArch: %{ix86}
 
 BuildRequires: make
 BuildRequires: gcc
@@ -179,6 +181,9 @@ rm $RPM_BUILD_ROOT%{_datadir}/vhostmd/scripts/pagerate.pl
 
 
 %changelog
+* Thu Oct  2 2025 Daniel P. Berrangé <berrange@redhat.com> - 1.1-19
+- Disable build on i686 architecture
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

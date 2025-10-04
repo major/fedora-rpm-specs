@@ -98,7 +98,7 @@ Name:           ffmpeg
 %global pkg_name %{name}%{?pkg_suffix}
 
 Version:        7.1.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A complete solution to record, convert and stream audio and video
 License:        GPL-3.0-or-later
 URL:            https://ffmpeg.org/
@@ -997,6 +997,9 @@ rm -rf %{buildroot}%{_datadir}
 
 
 %changelog
+* Thu Oct 02 2025 Robert-André Mauchin <zebob.m@gmail.com> - 7.1.2-2
+- Rebuild for svt-av1 soname bump
+
 * Wed Sep 24 2025 Simone Caronni <negativo17@gmail.com> - 7.1.2-1
 - Update to 7.1.2.
 - Enable VANC processing for SDI.

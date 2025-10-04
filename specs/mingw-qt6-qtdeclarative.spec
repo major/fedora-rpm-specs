@@ -4,7 +4,7 @@
 %undefine _debugsource_packages
 
 %global qt_module qtdeclarative
-#global pre rc2
+%global pre rc
 
 #global commit dd1d6b56271caf3f90e536b3ad9dab58c873f202
 #global shortcommit %(c=%{commit}; echo ${c:0:7})
@@ -12,14 +12,15 @@
 %if 0%{?commit:1}
 %global source_folder %{qt_module}-%{commit}
 %else
-%global source_folder %{qt_module}-everywhere-src-%{version}%{?pre:-%{pre}}
+%global source_folder %{qt_module}-everywhere-src-%{qt_version}%{?pre:-%{pre}}
 %endif
 
 # first two digits of version
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
+%define qt_version %(echo %{version} | cut -d~ -f1)
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.9.2
+Version:        6.10.0%{?pre:~%pre}
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtDeclarative component
 
@@ -29,19 +30,18 @@ URL:            http://qt.io/
 %if 0%{?commit:1}
 Source0:        https://github.com/qt/%{qt_module}/archive/%{commit}/%{qt_module}-everywhere-src-%{commit}.tar.gz
 %else
-Source0:        http://download.qt.io/%{?pre:development}%{?!pre:official}_releases/qt/%{release_version}/%{version}%{?pre:-%pre}/submodules/%{qt_module}-everywhere-src-%{version}%{?pre:-%pre}.tar.xz
+Source0:        http://download.qt.io/%{?pre:development}%{?!pre:official}_releases/qt/%{release_version}/%{qt_version}%{?pre:-%pre}/submodules/%{qt_module}-everywhere-src-%{qt_version}%{?pre:-%pre}.tar.xz
 %endif
 
 # Add qt6 suffix to tools to avoid collision with qt5 tools
 Patch0:         qtdeclarative-qt6-suffix.patch
 
 # Upstream patches
-Patch50:        d3d-retry-with-dxgi-adapter-flag-software-adapter-if-failed.patch
 
 BuildRequires:  cmake
 BuildRequires:  ninja-build
 BuildRequires:  perl-interpreter
-BuildRequires:  qt6-qtdeclarative-devel = %{version}%{?pre:~%pre}
+BuildRequires:  qt6-qtdeclarative-devel = %{version}
 
 BuildRequires:  mingw32-filesystem >= 96
 BuildRequires:  mingw32-gcc-c++
@@ -65,7 +65,7 @@ Fedora Windows cross-compiler.
 %package -n mingw32-qt6-%{qt_module}
 Summary:        Qt6 for Windows - QtDeclarative component
 # Dependency for host tools
-Requires:       qt6-qtdeclarative-devel = %{version}%{?pre:~%pre}
+Requires:       qt6-qtdeclarative-devel = %{version}
 Obsoletes:      mingw32-qt6-qtquickcontrols2 < 6.2.0-0.1.rc
 Provides:       mingw32-qt6-qtquickcontrols2 = %{version}-%{release}
 BuildArch:      noarch
@@ -82,7 +82,7 @@ Fedora Windows cross-compiler.
 %package -n mingw64-qt6-%{qt_module}
 Summary:        Qt for Windows - QtDeclarative component
 # Dependency for host tools
-Requires:       qt6-qtdeclarative-devel = %{version}%{?pre:~%pre}
+Requires:       qt6-qtdeclarative-devel = %{version}
 Obsoletes:      mingw64-qt6-qtquickcontrols2 < 6.2.0-0.1.rc
 Provides:       mingw64-qt6-qtquickcontrols2 = %{version}-%{release}
 BuildArch:      noarch
@@ -127,6 +127,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_bindir}/Qt6LabsPlatform.dll
 %{mingw32_bindir}/Qt6LabsSettings.dll
 %{mingw32_bindir}/Qt6LabsSharedImage.dll
+%{mingw32_bindir}/Qt6LabsSynchronizer.dll
 %{mingw32_bindir}/Qt6LabsWavefrontMesh.dll
 %{mingw32_bindir}/Qt6Qml.dll
 %{mingw32_bindir}/Qt6QmlCompiler.dll
@@ -159,6 +160,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_bindir}/Qt6QuickLayouts.dll
 %{mingw32_bindir}/Qt6QuickParticles.dll
 %{mingw32_bindir}/Qt6QuickShapes.dll
+%{mingw32_bindir}/Qt6QuickShapesDesignHelpers.dll
 %{mingw32_bindir}/Qt6QuickTemplates2.dll
 %{mingw32_bindir}/Qt6QuickTest.dll
 %{mingw32_bindir}/Qt6QuickWidgets.dll
@@ -173,6 +175,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_includedir}/qt6/QtLabsPlatform/
 %{mingw32_includedir}/qt6/QtLabsSettings/
 %{mingw32_includedir}/qt6/QtLabsSharedImage/
+%{mingw32_includedir}/qt6/QtLabsSynchronizer/
 %{mingw32_includedir}/qt6/QtLabsWavefrontMesh/
 %{mingw32_includedir}/qt6/QtPacketProtocol/
 %{mingw32_includedir}/qt6/QtQml/
@@ -214,6 +217,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_includedir}/qt6/QtQuickLayouts/
 %{mingw32_includedir}/qt6/QtQuickParticles/
 %{mingw32_includedir}/qt6/QtQuickShapes/
+%{mingw32_includedir}/qt6/QtQuickShapesDesignHelpers/
 %{mingw32_includedir}/qt6/QtQuickTemplates2/
 %{mingw32_includedir}/qt6/QtQuickTest/
 %{mingw32_includedir}/qt6/QtQuickTestUtils/
@@ -224,6 +228,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/Qt6LabsPlatform.prl
 %{mingw32_libdir}/Qt6LabsSettings.prl
 %{mingw32_libdir}/Qt6LabsSharedImage.prl
+%{mingw32_libdir}/Qt6LabsSynchronizer.prl
 %{mingw32_libdir}/Qt6LabsWavefrontMesh.prl
 %{mingw32_libdir}/Qt6PacketProtocol.prl
 %{mingw32_libdir}/Qt6Qml.prl
@@ -264,6 +269,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/Qt6QuickLayouts.prl
 %{mingw32_libdir}/Qt6QuickParticles.prl
 %{mingw32_libdir}/Qt6QuickShapes.prl
+%{mingw32_libdir}/Qt6QuickShapesDesignHelpers.prl
 %{mingw32_libdir}/Qt6QuickTemplates2.prl
 %{mingw32_libdir}/Qt6QuickTest.prl
 %{mingw32_libdir}/Qt6QuickTestUtils.prl
@@ -275,6 +281,8 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/cmake/Qt6LabsPlatform/
 %{mingw32_libdir}/cmake/Qt6LabsSettings/
 %{mingw32_libdir}/cmake/Qt6LabsSharedImage/
+%{mingw32_libdir}/cmake/Qt6LabsSynchronizer/
+%{mingw32_libdir}/cmake/Qt6LabsSynchronizerPrivate/
 %{mingw32_libdir}/cmake/Qt6LabsWavefrontMesh/
 %{mingw32_libdir}/cmake/Qt6PacketProtocolPrivate/
 %{mingw32_libdir}/cmake/Qt6Qml/
@@ -315,6 +323,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/cmake/Qt6QuickLayouts/
 %{mingw32_libdir}/cmake/Qt6QuickParticlesPrivate/
 %{mingw32_libdir}/cmake/Qt6QuickShapesPrivate/
+%{mingw32_libdir}/cmake/Qt6QuickShapesDesignHelpersPrivate
 %{mingw32_libdir}/cmake/Qt6QuickTemplates2/
 %{mingw32_libdir}/cmake/Qt6QuickTest/
 %{mingw32_libdir}/cmake/Qt6QuickTestUtilsPrivate/
@@ -330,7 +339,6 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/cmake/Qt6QmlCompilerPrivate/
 %{mingw32_libdir}/cmake/Qt6QmlCorePrivate/
 %{mingw32_libdir}/cmake/Qt6QmlFormatPrivate/
-%{mingw32_libdir}/cmake/Qt6QmlIntegrationPrivate/
 %{mingw32_libdir}/cmake/Qt6QmlLocalStoragePrivate/
 %{mingw32_libdir}/cmake/Qt6QmlMetaPrivate/
 %{mingw32_libdir}/cmake/Qt6QmlModelsPrivate/
@@ -344,14 +352,12 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/cmake/Qt6QuickControls2FusionPrivate/
 %{mingw32_libdir}/cmake/Qt6QuickControls2FusionStyleImplPrivate/
 %{mingw32_libdir}/cmake/Qt6QuickControls2ImaginePrivate/
-%{mingw32_libdir}/cmake/Qt6QuickControls2ImagineStyleImplPrivate/
 %{mingw32_libdir}/cmake/Qt6QuickControls2ImplPrivate/
 %{mingw32_libdir}/cmake/Qt6QuickControls2MaterialPrivate/
 %{mingw32_libdir}/cmake/Qt6QuickControls2MaterialStyleImplPrivate/
 %{mingw32_libdir}/cmake/Qt6QuickControls2Private/
 %{mingw32_libdir}/cmake/Qt6QuickControls2UniversalPrivate/
 %{mingw32_libdir}/cmake/Qt6QuickControls2UniversalStyleImplPrivate/
-%{mingw32_libdir}/cmake/Qt6QuickControls2WindowsStyleImplPrivate/
 %{mingw32_libdir}/cmake/Qt6QuickDialogs2Private/
 %{mingw32_libdir}/cmake/Qt6QuickDialogs2QuickImplPrivate/
 %{mingw32_libdir}/cmake/Qt6QuickDialogs2UtilsPrivate/
@@ -367,6 +373,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/libQt6LabsQmlModels.dll.a
 %{mingw32_libdir}/libQt6LabsSettings.dll.a
 %{mingw32_libdir}/libQt6LabsSharedImage.dll.a
+%{mingw32_libdir}/libQt6LabsSynchronizer.dll.a
 %{mingw32_libdir}/libQt6LabsWavefrontMesh.dll.a
 %{mingw32_libdir}/libQt6PacketProtocol.a
 %{mingw32_libdir}/libQt6Qml.dll.a
@@ -407,6 +414,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/libQt6QuickLayouts.dll.a
 %{mingw32_libdir}/libQt6QuickParticles.dll.a
 %{mingw32_libdir}/libQt6QuickShapes.dll.a
+%{mingw32_libdir}/libQt6QuickShapesDesignHelpers.dll.a
 %{mingw32_libdir}/libQt6QuickTemplates2.dll.a
 %{mingw32_libdir}/libQt6QuickTest.dll.a
 %{mingw32_libdir}/libQt6QuickTestUtils.a
@@ -417,6 +425,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/pkgconfig/Qt6LabsQmlModels.pc
 %{mingw32_libdir}/pkgconfig/Qt6LabsSettings.pc
 %{mingw32_libdir}/pkgconfig/Qt6LabsSharedImage.pc
+%{mingw32_libdir}/pkgconfig/Qt6LabsSynchronizer.pc
 %{mingw32_libdir}/pkgconfig/Qt6LabsWavefrontMesh.pc
 %{mingw32_libdir}/pkgconfig/Qt6Qml.pc
 %{mingw32_libdir}/pkgconfig/Qt6QmlAssetDownloader.pc
@@ -452,56 +461,58 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/pkgconfig/Qt6QuickTemplates2.pc
 %{mingw32_libdir}/pkgconfig/Qt6QuickTest.pc
 %{mingw32_libdir}/pkgconfig/Qt6QuickWidgets.pc
-%{mingw32_libdir}/qt6/metatypes/qt6labsanimation_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6labsfolderlistmodel_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6labsplatform_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6labsqmlmodels_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6labssettings_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6labssharedimage_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6labswavefrontmesh_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6packetprotocolprivate_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6qml_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6qmlassetdownloader_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6qmlcompiler_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6qmlcore_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6qmldebugprivate_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6qmldomprivate_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6qmlformatprivate_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6qmllocalstorage_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6qmlmeta_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6qmlmodels_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6qmlnetwork_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6qmltoolingsettingsprivate_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6qmltyperegistrarprivate_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6qmlworkerscript_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6qmlxmllistmodel_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6quick_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6quickcontrols2_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6quickcontrols2basic_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6quickcontrols2basicstyleimpl_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6quickcontrols2fluentwinui3styleimpl_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6quickcontrols2fusion_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6quickcontrols2fusionstyleimpl_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6quickcontrols2imagine_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6quickcontrols2imaginestyleimpl_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6quickcontrols2impl_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6quickcontrols2material_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6quickcontrols2materialstyleimpl_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6quickcontrols2universal_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6quickcontrols2universalstyleimpl_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6quickcontrols2windowsstyleimpl_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6quickcontrolstestutilsprivate_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6quickdialogs2_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6quickdialogs2quickimpl_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6quickdialogs2utils_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6quickeffects_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6quicklayouts_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6quickparticlesprivate_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6quickshapesprivate_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6quicktemplates2_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6quicktest_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6quicktestutilsprivate_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6quickwidgets_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6labsanimation_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6labsfolderlistmodel_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6labsplatform_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6labsqmlmodels_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6labssettings_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6labssharedimage_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6labssynchronizer_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6labswavefrontmesh_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6packetprotocolprivate_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6qml_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6qmlassetdownloader_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6qmlcompiler_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6qmlcore_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6qmldebugprivate_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6qmldomprivate_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6qmlformatprivate_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6qmllocalstorage_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6qmlmeta_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6qmlmodels_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6qmlnetwork_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6qmltoolingsettingsprivate_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6qmltyperegistrarprivate_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6qmlworkerscript_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6qmlxmllistmodel_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6quick_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6quickcontrols2_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6quickcontrols2basic_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6quickcontrols2basicstyleimpl_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6quickcontrols2fluentwinui3styleimpl_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6quickcontrols2fusion_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6quickcontrols2fusionstyleimpl_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6quickcontrols2imagine_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6quickcontrols2imaginestyleimpl_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6quickcontrols2impl_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6quickcontrols2material_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6quickcontrols2materialstyleimpl_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6quickcontrols2universal_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6quickcontrols2universalstyleimpl_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6quickcontrols2windowsstyleimpl_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6quickcontrolstestutilsprivate_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6quickdialogs2_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6quickdialogs2quickimpl_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6quickdialogs2utils_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6quickeffects_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6quicklayouts_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6quickparticlesprivate_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6quickshapesprivate_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6quickshapesdesignhelpersprivate_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6quicktemplates2_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6quicktest_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6quicktestutilsprivate_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6quickwidgets_metatypes.json
 %{mingw32_libdir}/qt6/mkspecs/features/qmltypes.prf
 %{mingw32_libdir}/qt6/mkspecs/features/qmlcache.prf
 %{mingw32_libdir}/qt6/mkspecs/features/qtquickcompiler.prf
@@ -517,6 +528,8 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_labssettings_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_labssharedimage.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_labssharedimage_private.pri
+%{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_labssynchronizer.pri
+%{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_labssynchronizer_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_labswavefrontmesh.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_labswavefrontmesh_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_packetprotocol_private.pri
@@ -532,7 +545,6 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_qmldom_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_qmlformat_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_qmlintegration.pri
-%{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_qmlintegration_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_qmllocalstorage.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_qmllocalstorage_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_qmlmeta.pri
@@ -566,7 +578,6 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2imagine.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2imagine_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2imaginestyleimpl.pri
-%{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2imaginestyleimpl_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2impl.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2impl_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2material.pri
@@ -578,7 +589,6 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2universalstyleimpl.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2universalstyleimpl_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2windowsstyleimpl.pri
-%{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2windowsstyleimpl_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrolstestutilsprivate_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quickdialogs2.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quickdialogs2_private.pri
@@ -592,6 +602,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quicklayouts_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quickparticles_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quickshapes_private.pri
+%{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quickshapesdesignhelpers_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quicktemplates2.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quicktemplates2_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_quicktestutilsprivate_private.pri
@@ -603,6 +614,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/qt6/modules/LabsPlatform.json
 %{mingw32_libdir}/qt6/modules/LabsSettings.json
 %{mingw32_libdir}/qt6/modules/LabsSharedImage.json
+%{mingw32_libdir}/qt6/modules/LabsSynchronizer.json
 %{mingw32_libdir}/qt6/modules/LabsWavefrontMesh.json
 %{mingw32_libdir}/qt6/modules/PacketProtocolPrivate.json
 %{mingw32_libdir}/qt6/modules/Qml.json
@@ -644,14 +656,14 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw32_libdir}/qt6/modules/QuickLayouts.json
 %{mingw32_libdir}/qt6/modules/QuickParticlesPrivate.json
 %{mingw32_libdir}/qt6/modules/QuickShapesPrivate.json
+%{mingw32_libdir}/qt6/modules/QuickShapesDesignHelpersPrivate.json
 %{mingw32_libdir}/qt6/modules/QuickTemplates2.json
 %{mingw32_libdir}/qt6/modules/QuickTest.json
 %{mingw32_libdir}/qt6/modules/QuickTestUtilsPrivate.json
 %{mingw32_libdir}/qt6/modules/QuickWidgets.json
-%{mingw32_libdir}/qt6/plugins/qmllint/
 %{mingw32_libdir}/qt6/plugins/qmltooling/
 %{mingw32_libdir}/qt6/qml/
-%{mingw32_libdir}/qt6/sbom/%{qt_module}-%{version}.spdx
+%{mingw32_libdir}/qt6/sbom/%{qt_module}-%{qt_version}.spdx
 
 
 # Win64
@@ -663,6 +675,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_bindir}/Qt6LabsPlatform.dll
 %{mingw64_bindir}/Qt6LabsSettings.dll
 %{mingw64_bindir}/Qt6LabsSharedImage.dll
+%{mingw64_bindir}/Qt6LabsSynchronizer.dll
 %{mingw64_bindir}/Qt6LabsWavefrontMesh.dll
 %{mingw64_bindir}/Qt6Qml.dll
 %{mingw64_bindir}/Qt6QmlCompiler.dll
@@ -695,6 +708,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_bindir}/Qt6QuickLayouts.dll
 %{mingw64_bindir}/Qt6QuickParticles.dll
 %{mingw64_bindir}/Qt6QuickShapes.dll
+%{mingw64_bindir}/Qt6QuickShapesDesignHelpers.dll
 %{mingw64_bindir}/Qt6QuickTemplates2.dll
 %{mingw64_bindir}/Qt6QuickTest.dll
 %{mingw64_bindir}/Qt6QuickWidgets.dll
@@ -711,6 +725,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_includedir}/qt6/QtLabsPlatform/
 %{mingw64_includedir}/qt6/QtLabsSettings/
 %{mingw64_includedir}/qt6/QtLabsSharedImage/
+%{mingw64_includedir}/qt6/QtLabsSynchronizer/
 %{mingw64_includedir}/qt6/QtLabsWavefrontMesh/
 %{mingw64_includedir}/qt6/QtPacketProtocol/
 %{mingw64_includedir}/qt6/QtQml/
@@ -752,6 +767,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_includedir}/qt6/QtQuickLayouts/
 %{mingw64_includedir}/qt6/QtQuickParticles/
 %{mingw64_includedir}/qt6/QtQuickShapes/
+%{mingw64_includedir}/qt6/QtQuickShapesDesignHelpers/
 %{mingw64_includedir}/qt6/QtQuickTemplates2/
 %{mingw64_includedir}/qt6/QtQuickTest/
 %{mingw64_includedir}/qt6/QtQuickTestUtils/
@@ -762,6 +778,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/Qt6LabsPlatform.prl
 %{mingw64_libdir}/Qt6LabsSettings.prl
 %{mingw64_libdir}/Qt6LabsSharedImage.prl
+%{mingw64_libdir}/Qt6LabsSynchronizer.prl
 %{mingw64_libdir}/Qt6LabsWavefrontMesh.prl
 %{mingw64_libdir}/Qt6PacketProtocol.prl
 %{mingw64_libdir}/Qt6Qml.prl
@@ -802,6 +819,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/Qt6QuickLayouts.prl
 %{mingw64_libdir}/Qt6QuickParticles.prl
 %{mingw64_libdir}/Qt6QuickShapes.prl
+%{mingw64_libdir}/Qt6QuickShapesDesignHelpers.prl
 %{mingw64_libdir}/Qt6QuickTemplates2.prl
 %{mingw64_libdir}/Qt6QuickTest.prl
 %{mingw64_libdir}/Qt6QuickTestUtils.prl
@@ -813,6 +831,8 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/cmake/Qt6LabsPlatform/
 %{mingw64_libdir}/cmake/Qt6LabsSettings/
 %{mingw64_libdir}/cmake/Qt6LabsSharedImage/
+%{mingw64_libdir}/cmake/Qt6LabsSynchronizer/
+%{mingw64_libdir}/cmake/Qt6LabsSynchronizerPrivate/
 %{mingw64_libdir}/cmake/Qt6LabsWavefrontMesh/
 %{mingw64_libdir}/cmake/Qt6PacketProtocolPrivate/
 %{mingw64_libdir}/cmake/Qt6Qml/
@@ -853,6 +873,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/cmake/Qt6QuickLayouts/
 %{mingw64_libdir}/cmake/Qt6QuickParticlesPrivate/
 %{mingw64_libdir}/cmake/Qt6QuickShapesPrivate/
+%{mingw64_libdir}/cmake/Qt6QuickShapesDesignHelpersPrivate
 %{mingw64_libdir}/cmake/Qt6QuickTemplates2/
 %{mingw64_libdir}/cmake/Qt6QuickTest/
 %{mingw64_libdir}/cmake/Qt6QuickTestUtilsPrivate/
@@ -868,7 +889,6 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/cmake/Qt6QmlCompilerPrivate/
 %{mingw64_libdir}/cmake/Qt6QmlCorePrivate/
 %{mingw64_libdir}/cmake/Qt6QmlFormatPrivate/
-%{mingw64_libdir}/cmake/Qt6QmlIntegrationPrivate/
 %{mingw64_libdir}/cmake/Qt6QmlLocalStoragePrivate/
 %{mingw64_libdir}/cmake/Qt6QmlMetaPrivate/
 %{mingw64_libdir}/cmake/Qt6QmlModelsPrivate/
@@ -882,14 +902,12 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/cmake/Qt6QuickControls2FusionPrivate/
 %{mingw64_libdir}/cmake/Qt6QuickControls2FusionStyleImplPrivate/
 %{mingw64_libdir}/cmake/Qt6QuickControls2ImaginePrivate/
-%{mingw64_libdir}/cmake/Qt6QuickControls2ImagineStyleImplPrivate/
 %{mingw64_libdir}/cmake/Qt6QuickControls2ImplPrivate/
 %{mingw64_libdir}/cmake/Qt6QuickControls2MaterialPrivate/
 %{mingw64_libdir}/cmake/Qt6QuickControls2MaterialStyleImplPrivate/
 %{mingw64_libdir}/cmake/Qt6QuickControls2Private/
 %{mingw64_libdir}/cmake/Qt6QuickControls2UniversalPrivate/
 %{mingw64_libdir}/cmake/Qt6QuickControls2UniversalStyleImplPrivate/
-%{mingw64_libdir}/cmake/Qt6QuickControls2WindowsStyleImplPrivate/
 %{mingw64_libdir}/cmake/Qt6QuickDialogs2Private/
 %{mingw64_libdir}/cmake/Qt6QuickDialogs2QuickImplPrivate/
 %{mingw64_libdir}/cmake/Qt6QuickDialogs2UtilsPrivate/
@@ -905,6 +923,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/libQt6LabsQmlModels.dll.a
 %{mingw64_libdir}/libQt6LabsSettings.dll.a
 %{mingw64_libdir}/libQt6LabsSharedImage.dll.a
+%{mingw64_libdir}/libQt6LabsSynchronizer.dll.a
 %{mingw64_libdir}/libQt6LabsWavefrontMesh.dll.a
 %{mingw64_libdir}/libQt6PacketProtocol.a
 %{mingw64_libdir}/libQt6Qml.dll.a
@@ -945,6 +964,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/libQt6QuickLayouts.dll.a
 %{mingw64_libdir}/libQt6QuickParticles.dll.a
 %{mingw64_libdir}/libQt6QuickShapes.dll.a
+%{mingw64_libdir}/libQt6QuickShapesDesignHelpers.dll.a
 %{mingw64_libdir}/libQt6QuickTemplates2.dll.a
 %{mingw64_libdir}/libQt6QuickTest.dll.a
 %{mingw64_libdir}/libQt6QuickTestUtils.a
@@ -955,6 +975,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/pkgconfig/Qt6LabsQmlModels.pc
 %{mingw64_libdir}/pkgconfig/Qt6LabsSettings.pc
 %{mingw64_libdir}/pkgconfig/Qt6LabsSharedImage.pc
+%{mingw64_libdir}/pkgconfig/Qt6LabsSynchronizer.pc
 %{mingw64_libdir}/pkgconfig/Qt6LabsWavefrontMesh.pc
 %{mingw64_libdir}/pkgconfig/Qt6Qml.pc
 %{mingw64_libdir}/pkgconfig/Qt6QmlAssetDownloader.pc
@@ -990,56 +1011,58 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/pkgconfig/Qt6QuickTemplates2.pc
 %{mingw64_libdir}/pkgconfig/Qt6QuickTest.pc
 %{mingw64_libdir}/pkgconfig/Qt6QuickWidgets.pc
-%{mingw64_libdir}/qt6/metatypes/qt6labsanimation_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6labsfolderlistmodel_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6labsplatform_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6labsqmlmodels_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6labssettings_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6labssharedimage_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6labswavefrontmesh_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6packetprotocolprivate_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6qml_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6qmlassetdownloader_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6qmlcompiler_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6qmlcore_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6qmldebugprivate_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6qmldomprivate_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6qmlformatprivate_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6qmllocalstorage_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6qmlmeta_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6qmlmodels_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6qmlnetwork_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6qmltoolingsettingsprivate_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6qmltyperegistrarprivate_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6qmlworkerscript_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6qmlxmllistmodel_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6quick_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6quickcontrols2_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6quickcontrols2basic_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6quickcontrols2basicstyleimpl_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6quickcontrols2fluentwinui3styleimpl_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6quickcontrols2fusion_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6quickcontrols2fusionstyleimpl_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6quickcontrols2imagine_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6quickcontrols2imaginestyleimpl_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6quickcontrols2impl_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6quickcontrols2material_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6quickcontrols2materialstyleimpl_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6quickcontrols2universal_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6quickcontrols2universalstyleimpl_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6quickcontrols2windowsstyleimpl_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6quickcontrolstestutilsprivate_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6quickdialogs2_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6quickdialogs2quickimpl_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6quickdialogs2utils_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6quickeffects_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6quicklayouts_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6quickparticlesprivate_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6quickshapesprivate_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6quicktemplates2_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6quicktest_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6quicktestutilsprivate_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6quickwidgets_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6labsanimation_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6labsfolderlistmodel_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6labsplatform_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6labsqmlmodels_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6labssettings_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6labssharedimage_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6labssynchronizer_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6labswavefrontmesh_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6packetprotocolprivate_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6qml_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6qmlassetdownloader_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6qmlcompiler_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6qmlcore_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6qmldebugprivate_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6qmldomprivate_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6qmlformatprivate_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6qmllocalstorage_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6qmlmeta_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6qmlmodels_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6qmlnetwork_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6qmltoolingsettingsprivate_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6qmltyperegistrarprivate_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6qmlworkerscript_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6qmlxmllistmodel_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6quick_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6quickcontrols2_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6quickcontrols2basic_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6quickcontrols2basicstyleimpl_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6quickcontrols2fluentwinui3styleimpl_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6quickcontrols2fusion_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6quickcontrols2fusionstyleimpl_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6quickcontrols2imagine_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6quickcontrols2imaginestyleimpl_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6quickcontrols2impl_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6quickcontrols2material_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6quickcontrols2materialstyleimpl_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6quickcontrols2universal_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6quickcontrols2universalstyleimpl_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6quickcontrols2windowsstyleimpl_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6quickcontrolstestutilsprivate_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6quickdialogs2_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6quickdialogs2quickimpl_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6quickdialogs2utils_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6quickeffects_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6quicklayouts_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6quickparticlesprivate_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6quickshapesprivate_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6quickshapesdesignhelpersprivate_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6quicktemplates2_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6quicktest_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6quicktestutilsprivate_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6quickwidgets_metatypes.json
 %{mingw64_libdir}/qt6/mkspecs/features/qmltypes.prf
 %{mingw64_libdir}/qt6/mkspecs/features/qmlcache.prf
 %{mingw64_libdir}/qt6/mkspecs/features/qtquickcompiler.prf
@@ -1055,6 +1078,8 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_labssettings_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_labssharedimage.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_labssharedimage_private.pri
+%{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_labssynchronizer.pri
+%{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_labssynchronizer_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_labswavefrontmesh.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_labswavefrontmesh_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_packetprotocol_private.pri
@@ -1070,7 +1095,6 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_qmldom_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_qmlformat_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_qmlintegration.pri
-%{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_qmlintegration_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_qmllocalstorage.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_qmllocalstorage_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_qmlmeta.pri
@@ -1104,7 +1128,6 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2imagine.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2imagine_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2imaginestyleimpl.pri
-%{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2imaginestyleimpl_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2impl.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2impl_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2material.pri
@@ -1116,7 +1139,6 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2universalstyleimpl.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2universalstyleimpl_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2windowsstyleimpl.pri
-%{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrols2windowsstyleimpl_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quickcontrolstestutilsprivate_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quickdialogs2.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quickdialogs2_private.pri
@@ -1130,6 +1152,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quicklayouts_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quickparticles_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quickshapes_private.pri
+%{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quickshapesdesignhelpers_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quicktemplates2.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quicktemplates2_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_quicktestutilsprivate_private.pri
@@ -1141,6 +1164,7 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/qt6/modules/LabsPlatform.json
 %{mingw64_libdir}/qt6/modules/LabsSettings.json
 %{mingw64_libdir}/qt6/modules/LabsSharedImage.json
+%{mingw64_libdir}/qt6/modules/LabsSynchronizer.json
 %{mingw64_libdir}/qt6/modules/LabsWavefrontMesh.json
 %{mingw64_libdir}/qt6/modules/PacketProtocolPrivate.json
 %{mingw64_libdir}/qt6/modules/Qml.json
@@ -1182,17 +1206,20 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 %{mingw64_libdir}/qt6/modules/QuickLayouts.json
 %{mingw64_libdir}/qt6/modules/QuickParticlesPrivate.json
 %{mingw64_libdir}/qt6/modules/QuickShapesPrivate.json
+%{mingw64_libdir}/qt6/modules/QuickShapesDesignHelpersPrivate.json
 %{mingw64_libdir}/qt6/modules/QuickTemplates2.json
 %{mingw64_libdir}/qt6/modules/QuickTest.json
 %{mingw64_libdir}/qt6/modules/QuickTestUtilsPrivate.json
 %{mingw64_libdir}/qt6/modules/QuickWidgets.json
-%{mingw64_libdir}/qt6/plugins/qmllint/
 %{mingw64_libdir}/qt6/plugins/qmltooling/
 %{mingw64_libdir}/qt6/qml/
-%{mingw64_libdir}/qt6/sbom/%{qt_module}-%{version}.spdx
+%{mingw64_libdir}/qt6/sbom/%{qt_module}-%{qt_version}.spdx
 
 
 %changelog
+* Thu Oct 02 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0~rc-1
+- Update 6.10.0 RC
+
 * Tue Sep 02 2025 Sandro Mani <manisandro@gmail.com> - 6.9.2-1
 - Update to 6.9.2
 

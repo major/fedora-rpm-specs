@@ -1,5 +1,5 @@
 Name:           auditwheel
-Version:        6.2.0
+Version:        6.4.2
 Release:        %autorelease
 Summary:        Cross-distribution Linux wheels auditing and relabeling
 
@@ -43,15 +43,15 @@ like static linking, may implicate copyright concerns.
 
 %prep
 %autosetup -p1
-# pypatchelf is patchelf, packaged for pip -- we'll use the native one instead
-sed -E -i 's/(, )?"pypatchelf"//' setup.py
+# This project uses patchelf, packaged for pip -- we'll use the native one instead
+sed -E -i 's/(, ?)?\"patchelf\"//' pyproject.toml
 
 # docker is only used for integration testing we don't run
-sed -E -i 's/(, )?"docker"//' setup.py
+sed -E -i 's/(, ?)?\"docker\"//' pyproject.toml
 
 
 %generate_buildrequires
-%pyproject_buildrequires -r -x test
+%pyproject_buildrequires -g test
 
 
 %build
@@ -79,7 +79,7 @@ test "$(%{python3} -c 'from auditwheel._vendor import wheel; print(wheel.__versi
 
 # Assert the policy files are installed
 # Regression test for https://github.com/pypa/auditwheel/issues/321
-for json in manylinux-policy.json musllinux-policy.json policy-schema.json; do
+for json in manylinux-policy.json musllinux-policy.json; do
   test -f %{buildroot}%{python3_sitelib}/auditwheel/policy/${json}
 done
 

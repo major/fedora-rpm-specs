@@ -17,8 +17,8 @@
 
 Summary:       The BOINC client
 Name:          boinc-client
-Version:       8.0.2
-Release:       4%{?dist}
+Version:       8.2.4
+Release:       1%{?dist}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:       LicenseRef-Callaway-LGPLv2+
 URL:           http://boinc.berkeley.edu/
@@ -347,6 +347,9 @@ fi
 %{_libdir}/pkgconfig/libboinc_opencl.pc
 
 %changelog
+* Thu Oct 02 2025 Germano Massullo <germano.massullo@thetra.eu> - 8.2.4-1
+- 8.2.4 release
+
 * Tue Aug 05 2025 Zbigniew Jedrzejewski-Szmek  <zbyszek@in.waw.pl> - 8.0.2-4
 - Add sysusers.d config file to allow rpm to create users/groups automatically
 

@@ -3,7 +3,7 @@
 Summary: A document formatting system
 Name: groff
 Version: 1.23.0
-Release: 10%{?dist}
+Release: 11%{?dist}
 # Everything is under GPL-3.0-or-later, except for the following files:
 # MIT license
 #  -- tmac/hyphen.den
@@ -71,7 +71,8 @@ Requires(preun): /usr/sbin/update-alternatives
 
 BuildRequires: gcc, gcc-c++
 BuildRequires: bison, texinfo
-BuildRequires: git, netpbm-progs, perl-generators, ghostscript
+# psutils is required for the "psselect" command
+BuildRequires: git, netpbm-progs, perl-generators, psutils, ghostscript
 
 Provides: nroff-i18n = %{version}-%{release}
 Provides: bundled(gnulib)
@@ -500,6 +501,9 @@ fi
 %doc %{_pkgdocdir}/pdf/
 
 %changelog
+* Wed Sep 24 2025 Lukas Javorsky <ljavorsk@redhat.com> - 1.23.0-11
+- Revert the `psutils` removal
+
 * Tue Sep 02 2025 Lukas Javorsky <ljavorsk@redhat.com> - 1.23.0-10
 - Remove psutils from BuildRequires as it's not needed
 

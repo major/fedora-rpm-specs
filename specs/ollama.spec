@@ -88,6 +88,10 @@ sed -i -e 's@"lib/ollama"@"lib64/ollama"@' ml/backend/ggml/ggml/src/ggml.go
 # install dir for backend *.so's is off usr/bin -> usr/lib64/ollama
 sed -i -e 's@${CMAKE_INSTALL_BINDIR}@${OLLAMA_INSTALL_DIR}@' ml/backend/ggml/ggml/src/CMakeLists.txt
 
+# https://github.com/ollama/ollama/issues/12479
+# hipblas.so soversion changes in ROCm 7
+sed -i -e 's@libhipblas.so.2@libhipblas.so.3@' discover/amd_linux.go
+
 %generate_buildrequires
 %go_generate_buildrequires
 

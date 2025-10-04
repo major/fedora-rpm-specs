@@ -12,9 +12,9 @@
 %define tag v%{version_no_tilde %{quote:%nil}}
 
 Name:           go-vendor-tools
-Version:        0.8.0
+Version:        0.9.0
 %forgemeta
-Release:        5%{?dist}
+Release:        1%{?dist}
 Summary:        Tools for handling Go library vendoring in Fedora [SEE NOTE IN DESCRIPTION]
 
 # BSD-3-Clause: src/go_vendor_tools/archive.py
@@ -39,6 +39,13 @@ Recommends:     askalono-cli
 # Used by default for go_vendor_license report --autofill
 Recommends:     go-vendor-tools+scancode
 Recommends:     go-vendor-tools+all
+
+# NOTE(gotmax23): Buildflags from go-rpm-macros are used by %%gocheck2 defined
+# in this package, but we don't want to depend on it directly.
+# Packages should still explicitly require go-rpm-macros, and the license
+# scanning in this package could potentially be useful outside of the Go ecosystem,
+# so it would be nice to avoid dependning on go-rpm-macros in this package.
+# Requires:       go-rpm-macros
 
 
 %global common_description %{expand:
@@ -79,13 +86,13 @@ Enhances:       go-vendor-tools
 %endif
 
 mkdir -p bash_completions fish_completions zsh_completions
-for bin in go_vendor_archive go_vendor_license; do
+for bin in go_vendor_archive go_vendor_license gocheck2; do
     register-python-argcomplete --shell bash "${bin}" > "bash_completions/${bin}"
     register-python-argcomplete --shell fish "${bin}" > "fish_completions/${bin}.fish"
-    # Compatibility with old argcomplete versions
+    # Compatibility with old argcomplete versions that don't direcrly support zsh
     if ! (register-python-argcomplete --shell zsh "${bin}" > "zsh_completions/_${bin}"); then
         echo "#compdef ${bin}" > "zsh_completions/_${bin}"
-        echo -e "autoload -Uz bashcompinit\nbashcompinit" > "zsh_completions/_${bin}"
+        echo -e "autoload -Uz bashcompinit\nbashcompinit" >> "zsh_completions/_${bin}"
         cat "bash_completions/${bin}" >> "zsh_completions/_${bin}"
     fi
 done
@@ -93,11 +100,11 @@ done
 
 %install
 %pyproject_install
-# TODO(anyone): Use -l flag once supported by EL 9.
-%pyproject_save_files go_vendor_tools
+%pyproject_save_files go_vendor_tools -l
 
 # Install RPM macros
 install -Dpm 0644 rpm/macros.go_vendor_tools -t %{buildroot}%{_rpmmacrodir}
+install -Dpm 0644 rpm/macros.gocheck2 -t %{buildroot}%{_rpmmacrodir}
 
 # Install documentation
 mkdir -p %{buildroot}%{_docdir}/go-vendor-tools-doc
@@ -123,23 +130,30 @@ export MACRO_DIR=%{buildroot}%{_rpmmacrodir}
 %files -f %{pyproject_files}
 # Install top-level markdown files
 %doc *.md
-%license LICENSES/*
+%{_bindir}/gocheck2
 %{_bindir}/go_vendor*
-%{bash_completions_dir}/go_vendor_*
-%{fish_completions_dir}/go_vendor_*.fish
-%{zsh_completions_dir}/_go_vendor_*
+%{bash_completions_dir}/go*
+%{fish_completions_dir}/go*.fish
+%{zsh_completions_dir}/_go*
+%{_rpmmacrodir}/macros.gocheck2
 %{_rpmmacrodir}/macros.go_vendor_tools
 %if %{with manpages}
 %{_mandir}/man1/go*.1*
 %{_mandir}/man5/go*.5*
 %endif
 
+
 %files doc
 %doc %{_docdir}/go-vendor-tools-doc/
 
+
 %pyproject_extras_subpkg -n go-vendor-tools all %{?with_scancode:scancode}
 
+
 %changelog
+* Thu Oct 2 2025 Maxwell G <maxwell@gtmx.me> - 0.9.0-1
+- Update to 0.9.0.
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.8.0-5
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -1,20 +1,24 @@
 %bcond_without  tests
 
 Name:           python-daphne
-Version:        4.1.2
+Version:        4.2.1
 Release:        %autorelease
 Summary:        Django ASGI (HTTP/WebSocket) server
 License:        BSD-3-Clause
 URL:            https://github.com/django/daphne
-# PyPI tarball is missing a file needed to run tests.
-# https://github.com/django/daphne/issues/522
-# Should be resolved in 4.1.3.
-# https://github.com/django/daphne/pull/530
-Source:         %{url}/archive/%{version}/daphne-%{version}.tar.gz
-# https://github.com/django/daphne/pull/526
-Patch:          0001-fix-tests-with-Twisted-24.7.0-526.patch
+Source:         %{pypi_source daphne}
 BuildArch:      noarch
 BuildRequires:  python3-devel
+
+%if %{with tests}
+# List test dependencies manually, since the test extra contains many unwanted
+# linters, coverage-analysis tools, typecheckers, etc.:
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+BuildRequires:  %{py3_dist django}
+BuildRequires:  %{py3_dist hypothesis}
+BuildRequires:  %{py3_dist pytest}
+BuildRequires:  %{py3_dist pytest-asyncio}
+%endif
 
 %global common_description %{expand:
 Daphne is a HTTP, HTTP2 and WebSocket protocol server for ASGI and ASGI-HTTP,
@@ -38,7 +42,7 @@ Summary:        %{summary}
 
 
 %generate_buildrequires
-%pyproject_buildrequires %{?with_tests:-x tests}
+%pyproject_buildrequires
 
 
 %build
@@ -47,12 +51,15 @@ Summary:        %{summary}
 
 %install
 %pyproject_install
-%pyproject_save_files daphne twisted
+%pyproject_save_files -l daphne twisted
 
 
 %check
 %if %{with tests}
-%pytest
+# This test assumes that twisted/plugins/fd_endpoint.py is installed in the
+# system site-packages, but we have it in the buildroot site-packages.
+k="${k-}${k+ and }not test_fd_endpoint_plugin_installed"
+%pytest -k "${k-}"
 %else
 %pyproject_check_import
 %endif

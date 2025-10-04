@@ -2,7 +2,7 @@
 
 Name:		kf6-%{framework}
 Version:	6.18.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	KDE Frameworks 6 Tier 1 addon with various classes on top of QtCore
 License:	BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later AND MPL-1.1 AND LGPL-2.0-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-2.1-only WITH Qt-LGPL-exception-1.1
 URL:		https://invent.kde.org/frameworks/%{framework}
@@ -47,7 +47,6 @@ The package contains the pyside6 bindings library for %{name}
 Summary:    Development files for %{name}
 Requires:   %{name} = %{version}-%{release}
 Requires:   qt6-qtbase-devel
-Requires:   cmake(PySide6)
 %description devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
@@ -115,6 +114,9 @@ cat *.lang > all.lang
 
 
 %changelog
+* Mon Sep 29 2025 Pavel Solovev <daron439@gmail.com> - 6.18.0-2
+- Remove pyside6 from requires
+
 * Tue Sep 16 2025 farchord@gmail.com - 6.18.0-1
 - 6.18.0
 

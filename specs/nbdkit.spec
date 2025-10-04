@@ -45,7 +45,8 @@
 
 # If the test suite is broken on a particular architecture, document
 # it as a bug and add it to this list.
-%global broken_test_arches NONE
+#  https://gitlab.com/nbdkit/nbdkit/-/issues/30
+%global broken_test_arches %{ix86}
 
 # If we should verify tarball signature with GPGv2.
 %global verify_tarball_signature 1
@@ -55,7 +56,7 @@
 
 Name:           nbdkit
 Version:        1.45.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        NBD server
 
 License:        BSD-3-Clause
@@ -167,9 +168,11 @@ BuildRequires:  /usr/bin/lzip
 BuildRequires:  /usr/bin/nbdcopy
 BuildRequires:  /usr/bin/nbdinfo
 BuildRequires:  /usr/bin/nbdsh
+%ifnarch %{ix86}
 BuildRequires:  /usr/bin/qemu-img
 BuildRequires:  /usr/bin/qemu-io
 BuildRequires:  /usr/bin/qemu-nbd
+%endif
 BuildRequires:  /usr/sbin/sfdisk
 %if !0%{?rhel}
 BuildRequires:  /usr/bin/socat
@@ -1554,6 +1557,9 @@ fi
 
 
 %changelog
+* Thu Oct  2 2025 Daniel P. Berrangé <berrange@redhat.com> - 1.45.8-2
+- Stop using QEMU for tests on 32-bit
+
 * Sat Sep 13 2025 Richard W.M. Jones <rjones@redhat.com> - 1.45.8-1
 - New upstream version 1.45.8
 

@@ -4,7 +4,7 @@
 # Disable debugsource packages
 %undefine _debugsource_packages
 
-#global pre rc2
+%global pre rc
 
 #global commit d725239c3e09c2b740a093265f6a9675fd2f8524
 #global shortcommit %(c=%{commit}; echo ${c:0:7})
@@ -12,14 +12,15 @@
 %if 0%{?commit:1}
 %global source_folder %{qt_module}-%{commit}
 %else
-%global source_folder %{qt_module}-everywhere-src-%{version}%{?pre:-%{pre}}
+%global source_folder %{qt_module}-everywhere-src-%{qt_version}%{?pre:-%{pre}}
 %endif
 
 # first two digits of version
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
+%define qt_version %(echo %{version} | cut -d~ -f1)
 
 Name:           mingw-qt6-qtbase
-Version:        6.9.2
+Version:        6.10.0%{?pre:~%pre}
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtBase component
 # Can't make package noarch as it could lead to -DQT_HOST_PATH_CMAKE_DIR=%%{_libdir}/cmake ponting to the wrong libdir
@@ -30,7 +31,7 @@ URL:            http://qt.io/
 %if 0%{?commit:1}
 Source0:        https://github.com/qt/%{qt_module}/archive/%{commit}/%{qt_module}-everywhere-src-%{commit}.tar.gz
 %else
-Source0:        http://download.qt.io/%{?pre:development}%{?!pre:official}_releases/qt/%{release_version}/%{version}%{?pre:-%pre}/submodules/%{qt_module}-everywhere-src-%{version}%{?pre:-%pre}.tar.xz
+Source0:        http://download.qt.io/%{?pre:development}%{?!pre:official}_releases/qt/%{release_version}/%{qt_version}%{?pre:-%pre}/submodules/%{qt_module}-everywhere-src-%{qt_version}%{?pre:-%pre}.tar.xz
 %endif
 
 # Fix import library suffix
@@ -45,11 +46,10 @@ Patch3:         qtbase-qmakeconf.patch
 # Fix mingw build
 Patch4:         qtbase-mingw.patch
 
-
 BuildRequires:  cmake
 BuildRequires:  ninja-build
 BuildRequires:  perl-interpreter
-BuildRequires:  qt6-qtbase-devel = %{version}%{?pre:~%pre}
+BuildRequires:  qt6-qtbase-devel = %{version}
 BuildRequires:  xmlstarlet
 
 BuildRequires:  mingw32-filesystem >= 95
@@ -113,7 +113,7 @@ Fedora Windows cross-compiler.
 %package -n mingw32-qt6-qtbase
 Summary:        Qt6 for Windows - QtBase component
 # Dependency for host tools
-Requires:       qt6-qtbase-devel = %{version}%{?pre:~%pre}
+Requires:       qt6-qtbase-devel = %{version}
 # Public headers require vulkan/vulkan.h
 Requires:       mingw32-vulkan-headers
 
@@ -130,7 +130,7 @@ Fedora Windows cross-compiler.
 %package -n mingw64-qt6-qtbase
 Summary:        Qt6 for Windows - QtBase component
 # Dependency for host tools
-Requires:       qt6-qtbase-devel = %{version}%{?pre:~%pre}
+Requires:       qt6-qtbase-devel = %{version}
 # Public headers require vulkan/vulkan.h
 Requires:       mingw64-vulkan-headers
 
@@ -192,6 +192,10 @@ rm %{buildroot}%{mingw32_bindir}/qmake6
 rm %{buildroot}%{mingw64_bindir}/qmake6
 rm %{buildroot}%{mingw32_bindir}/qtpaths6
 rm %{buildroot}%{mingw64_bindir}/qtpaths6
+rm -rf %{buildroot}%{mingw32_datadir}/qt6/wayland/protocols
+rm -rf %{buildroot}%{mingw64_datadir}/qt6/wayland/protocols
+rm -rf %{buildroot}%{mingw32_datadir}/qt6/wayland/extensions
+rm -rf %{buildroot}%{mingw64_datadir}/qt6/wayland/extensions
 
 # Move host scripts
 mkdir -p %{buildroot}%{_prefix}/%{mingw32_target}/bin/qt6
@@ -284,22 +288,22 @@ rm -rf %{buildroot}/%{mingw64_libdir}/objects-RelWithDebInfo/
 %{mingw32_libdir}/qt6/bin/qt-testrunner.py
 %{mingw32_libdir}/qt6/bin/sanitizer-testrunner.py
 %dir %{mingw32_libdir}/qt6/metatypes/
-%{mingw32_libdir}/qt6/metatypes/qt6concurrent_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6core_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6dbus_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6devicediscoverysupportprivate_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6exampleiconsprivate_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6examplesassetdownloaderprivate_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6fbsupportprivate_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6gui_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6network_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6opengl_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6openglwidgets_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6printsupport_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6sql_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6test_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6widgets_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6xml_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6concurrent_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6core_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6dbus_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6devicediscoverysupportprivate_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6exampleiconsprivate_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6examplesassetdownloaderprivate_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6fbsupportprivate_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6gui_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6network_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6opengl_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6openglwidgets_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6printsupport_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6sql_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6test_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6widgets_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6xml_metatypes.json
 %{mingw32_libdir}/qt6/mkspecs/
 %{mingw32_libdir}/qt6/modules/
 %{mingw32_libdir}/qt6/modules/Concurrent.json
@@ -342,11 +346,11 @@ rm -rf %{buildroot}/%{mingw64_libdir}/objects-RelWithDebInfo/
 %{mingw32_libdir}/qt6/plugins/tls/qopensslbackend.dll
 %{mingw32_libdir}/qt6/plugins/tls/qschannelbackend.dll
 %dir %{mingw32_libdir}/qt6/sbom
-%{mingw32_libdir}/qt6/sbom/%{qt_module}-%{version}.spdx
+%{mingw32_libdir}/qt6/sbom/%{qt_module}-%{qt_version}.spdx
 %{mingw32_libdir}/cmake/Qt6/
 %{mingw32_libdir}/cmake/Qt6BuildInternals/
 %{mingw32_libdir}/cmake/Qt6Concurrent/
-%{mingw32_libdir}/cmake/Qt6ConcurrentPrivate/
+
 %{mingw32_libdir}/cmake/Qt6Core/
 %{mingw32_libdir}/cmake/Qt6CorePrivate/
 %{mingw32_libdir}/cmake/Qt6DBus/
@@ -364,7 +368,6 @@ rm -rf %{buildroot}/%{mingw64_libdir}/objects-RelWithDebInfo/
 %{mingw32_libdir}/cmake/Qt6OpenGL/
 %{mingw32_libdir}/cmake/Qt6OpenGLPrivate/
 %{mingw32_libdir}/cmake/Qt6OpenGLWidgets/
-%{mingw32_libdir}/cmake/Qt6OpenGLWidgetsPrivate/
 %{mingw32_libdir}/cmake/Qt6PrintSupport/
 %{mingw32_libdir}/cmake/Qt6PrintSupportPrivate/
 %{mingw32_libdir}/cmake/Qt6Sql/
@@ -462,22 +465,22 @@ rm -rf %{buildroot}/%{mingw64_libdir}/objects-RelWithDebInfo/
 %{mingw64_libdir}/qt6/bin/qt-testrunner.py
 %{mingw64_libdir}/qt6/bin/sanitizer-testrunner.py
 %dir %{mingw64_libdir}/qt6/metatypes/
-%{mingw64_libdir}/qt6/metatypes/qt6concurrent_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6core_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6dbus_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6devicediscoverysupportprivate_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6exampleiconsprivate_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6examplesassetdownloaderprivate_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6fbsupportprivate_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6gui_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6network_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6opengl_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6openglwidgets_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6printsupport_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6sql_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6test_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6widgets_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6xml_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6concurrent_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6core_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6dbus_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6devicediscoverysupportprivate_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6exampleiconsprivate_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6examplesassetdownloaderprivate_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6fbsupportprivate_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6gui_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6network_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6opengl_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6openglwidgets_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6printsupport_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6sql_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6test_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6widgets_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6xml_metatypes.json
 %{mingw64_libdir}/qt6/mkspecs/
 %{mingw64_libdir}/qt6/modules/
 %{mingw64_libdir}/qt6/modules/Concurrent.json
@@ -520,11 +523,10 @@ rm -rf %{buildroot}/%{mingw64_libdir}/objects-RelWithDebInfo/
 %{mingw64_libdir}/qt6/plugins/tls/qopensslbackend.dll
 %{mingw64_libdir}/qt6/plugins/tls/qschannelbackend.dll
 %dir %{mingw64_libdir}/qt6/sbom/
-%{mingw64_libdir}/qt6/sbom/%{qt_module}-%{version}.spdx
+%{mingw64_libdir}/qt6/sbom/%{qt_module}-%{qt_version}.spdx
 %{mingw64_libdir}/cmake/Qt6/
 %{mingw64_libdir}/cmake/Qt6BuildInternals/
 %{mingw64_libdir}/cmake/Qt6Concurrent/
-%{mingw64_libdir}/cmake/Qt6ConcurrentPrivate/
 %{mingw64_libdir}/cmake/Qt6Core/
 %{mingw64_libdir}/cmake/Qt6CorePrivate/
 %{mingw64_libdir}/cmake/Qt6DBus/
@@ -542,7 +544,6 @@ rm -rf %{buildroot}/%{mingw64_libdir}/objects-RelWithDebInfo/
 %{mingw64_libdir}/cmake/Qt6OpenGL/
 %{mingw64_libdir}/cmake/Qt6OpenGLPrivate/
 %{mingw64_libdir}/cmake/Qt6OpenGLWidgets/
-%{mingw64_libdir}/cmake/Qt6OpenGLWidgetsPrivate/
 %{mingw64_libdir}/cmake/Qt6PrintSupport/
 %{mingw64_libdir}/cmake/Qt6PrintSupportPrivate/
 %{mingw64_libdir}/cmake/Qt6Sql/
@@ -582,6 +583,9 @@ rm -rf %{buildroot}/%{mingw64_libdir}/objects-RelWithDebInfo/
 
 
 %changelog
+* Thu Oct 02 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0~rc-1
+- Update 6.10.0 RC
+
 * Tue Sep 02 2025 Sandro Mani <manisandro@gmail.com> - 6.9.2-1
 - Update to 6.9.2
 

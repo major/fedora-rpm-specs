@@ -1,10 +1,6 @@
-# Test dependency, not yet packaged: python-snakemake-logger-plugin-rich
-#
-# Blocked for now by:
-#
-# Please select a license
-# https://github.com/cademirch/snakemake-logger-plugin-rich/issues/25
-%bcond tests 0
+# Work around circular dependencies on snakemake and
+# python-snakemake-logger-plugin-rich
+%bcond bootstrap 0
 
 Name:           python-snakemake-interface-logger-plugins
 Version:        2.0.0
@@ -23,7 +19,7 @@ BuildOption(install):   -l snakemake_interface_logger_plugins
 
 BuildArch:      noarch
 
-%if %{with tests}
+%if %{without bootstrap}
 # See: [tool.pixi.feature.dev.dependencies] in pyproject.toml
 BuildRequires:  %{py3_dist pytest}
 BuildRequires:  %{py3_dist snakemake-interface-common}
@@ -43,8 +39,8 @@ Summary:        %{summary}
 %description -n python3-snakemake-interface-logger-plugins %{common_description}
 
 
-%if %{with tests}
 %check -a
+%if %{without bootstrap}
 %pytest -v tests/tests.py
 %endif
 

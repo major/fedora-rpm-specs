@@ -1,10 +1,13 @@
 Name:           screengrab
 Summary:        Crossplatform tool for fast making screenshots
 Version:        3.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        GPL-2.0-only
 URL:            https://lxqt-project.org/
 Source0:        https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+
+Patch0:         screengrab-fix-build-against-qt-6-10.patch
+
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  desktop-file-utils
@@ -14,9 +17,11 @@ BuildRequires:  cmake(LayerShellQt)
 BuildRequires:  cmake(lxqt2-build-tools)
 BuildRequires:  cmake(Qt6LinguistTools)
 BuildRequires:  cmake(Qt6Network)
-BuildRequires:  cmake(Qt6WaylandClient)
+BuildRequires:  cmake(Qt6Gui)
 BuildRequires:  cmake(Qt6Widgets)
 BuildRequires:  cmake(qt6xdg)
+BuildRequires:  qt6-qtbase-private-devel
+BuildRequires:  wayland-devel
 
 BuildRequires:  cmake(KF6WindowSystem)
 
@@ -65,6 +70,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/screengrab.desktop
 %{_datadir}/screengrab/screengrab.conf
 
 %changelog
+* Thu Oct 02 2025 Jan Grulich <jgrulich@redhat.com> - 3.0.0-3
+- Rebuild (qt6)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
@@ -79,64 +87,64 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/screengrab.desktop
 
 * Fri Jul 26 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
- 
+
 * Sat Feb 02 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
- 
+
 * Sat Jul 14 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
- 
+
 * Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
- 
+
 * Thu Aug 03 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
- 
+
 * Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
- 
+
 * Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
- 
+
 * Mon Nov 28 2016 TI_Eugene <ti.eugene@gmail.com> 1.2.1-1
 - Version bump
 - Changed source URL
 - Clean up docs
- 
+
 * Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
- 
+
 * Fri Jun 19 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
- 
+
 * Sat May 02 2015 Kalev Lember <kalevlember@gmail.com> - 1.2-3
 - Rebuilt for GCC 5 C++11 ABI change
- 
+
 * Thu Mar 26 2015 Richard Hughes <rhughes@redhat.com> - 1.2-2
 - Add an AppData file for the software center
- 
+
 * Mon Jan 19 2015 TI_Eugene <ti.eugene@gmail.com> 1.2-1
 - Version bump
- 
+
 * Mon Aug 18 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
- 
+
 * Sun Jun 08 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
- 
+
 * Fri Aug 16 2013 TI_Eugene <ti.eugene@gmail.com> 1.0-1
 - Version bump
 - %%find_lang added
- 
+
 * Sun Aug 04 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.9.96-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
- 
+
 * Sat Mar 16 2013 TI_Eugene <ti.eugene@gmail.com> 0.9.96-3
 - User CXXFLAGS patch improved
- 
+
 * Fri Mar 08 2013 TI_Eugene <ti.eugene@gmail.com> 0.9.96-2
 - src/3rdparty removed (built-in qxt)
- 
+
 * Fri Mar 08 2013 TI_Eugene <ti.eugene@gmail.com> 0.9.96-1
 - next version - 0.9.96
 - spec fix: License set to GPLv2
@@ -148,7 +156,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/screengrab.desktop
 - spec fix: cmake call changed to %%cmake macro with BUILD_SHARED_LIBS=OFF
 - spec fix: Source0 tag changed to URL
 - spec fix: previous changelog record expanded
- 
+
 * Thu Mar 07 2013 TI_Eugene <ti.eugene@gmail.com> 0.9.1-2
 - spec fix: gcc-c++ removed from BuildRequires
 - spec fix: description wraped
@@ -159,6 +167,6 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/screengrab.desktop
 - spec fix: changelog cutted up to starting in Fedora
 - spec fix: Source tag changed to non-URL with comments
 - spec fix: License set to GPLv2
- 
+
 * Thu Mar 07 2013 TI_Eugene <ti.eugene@gmail.com> 0.9.1-1
 - initial packaging for Fedora

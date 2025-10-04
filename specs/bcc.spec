@@ -24,6 +24,8 @@ Summary:        BPF Compiler Collection (BCC)
 License:        Apache-2.0
 URL:            https://github.com/iovisor/bcc
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+# Fix build with clang 21
+Patch0:         %{url}/pull/5369.patch
 
 # Arches will be included as upstream support is added and dependencies are
 # satisfied in the respective arches
@@ -172,6 +174,9 @@ done
 mkdir -p %{buildroot}%{_docdir}/%{name}
 mv %{buildroot}%{_datadir}/%{name}/examples %{buildroot}%{_docdir}/%{name}/
 
+# Delete static libraries we don't want to ship
+rm -f %{buildroot}%{_libdir}/lib%{name}*.a
+
 # Delete old tools we don't want to ship
 rm -rf %{buildroot}%{_datadir}/%{name}/tools/old/
 
@@ -194,8 +199,6 @@ cp -a libbpf-tools/tmp-install/bin/* %{buildroot}/%{_sbindir}/
 %{_libdir}/libbcc_bpf.so.*
 
 %files devel
-%exclude %{_libdir}/lib%{name}*.a
-%exclude %{_libdir}/lib%{name}*.la
 %{_libdir}/lib%{name}.so
 %{_libdir}/libbcc_bpf.so
 %{_libdir}/pkgconfig/lib%{name}.pc

@@ -14,7 +14,7 @@
 
 Name:           zpaqfranz
 Epoch:          1
-Version:        63.3
+Version:        63.4
 Release:        1%{?dist}
 Summary:        Advanced multiversioned archiver with hardware acceleration
 # LICENSE:  MIT text
@@ -92,6 +92,8 @@ Recommends:     libcurl-full
 %if 0%(/usr/lib/rpm/elfdeps --provides --soname-only %{_libdir}/libcurl.so.4 >/dev/null 2>&1 && echo 1)
 Recommends:     %(/usr/lib/rpm/elfdeps --provides --soname-only %{_libdir}/libcurl.so.4)
 %endif
+# libsodium is not yet needed. It's experimental and requires building with
+# -DZPAQFULL which do not do.
 # For libssh library. It's dlopened at run-time as an optional feature.
 Recommends:     libssh
 %if 0%(/usr/lib/rpm/elfdeps --provides --soname-only %{_libdir}/libssh.so.4 >/dev/null 2>&1 && echo 1)
@@ -159,6 +161,9 @@ install -m 0644 -D -t %{buildroot}%{_mandir}/man1 man/zpaqfranz.1
 %{_mandir}/man1/zpaqfranz.1*
 
 %changelog
+* Thu Oct 02 2025 Petr Pisar <ppisar@redhat.com> - 1:63.4-1
+- 63.4 bump
+
 * Fri Sep 26 2025 Petr Pisar <ppisar@redhat.com> - 1:63.3-1
 - 63.3 bump
 

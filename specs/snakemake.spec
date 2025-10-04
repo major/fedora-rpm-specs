@@ -1,8 +1,10 @@
 # Work around a series of circular test dependencies:
 #
-# python-snakemake-interface-scheduler-plugins
-# │￪ python-snakemake-interface-report-plugins
-# ￬│ ￬￪   ⬐───╮
+# ⬐─python-snakemake-logger-plugin-rich🠔────╮
+# python-snakemake-interface-logger-plugins─╯
+# │￪python-snakemake-interface-scheduler-plugins
+# │││￪ python-snakemake-interface-report-plugins
+# ￬│￬│ ￬￪ ⬐───╮
 # snakemake → python-snakemake-interface-executor-plugins⬎
 #   ￪￪￪ │ ⬑────────────────────python-snakemake-executor-plugin-cluster-generic
 #   │││ ↳python-snakemake-interface-storage-plugins─────────────────╮
@@ -13,19 +15,26 @@
 #
 # A good build order is:
 #
-#   1. BOOTSTRAP: python-snakemake-interface-common
-#      python-snakemake-interface-executor-plugins,
-#      python-snakemake-interface-storage-plugins,
-#      python-snakemake-interface-report-plugins
-#   2. BOOTSTRAP: snakemake
-#   3. python-snakemake-executor-plugin-cluster-generic,
-#      python-snakemake-storage-plugin-http,
-#      python-snakemake-storage-plugin-s3,
-#      python-snakemake-storage-plugin-fs
-#   4. snakemake, python-snakemake-interface-executor-plugins,
-#      python-snakemake-interface-storage-plugins,
+#   1. BOOTSTRAP:
+#      python-snakemake-interface-common
+#   2. BOOTSTRAP:
+#      python-snakemake-interface-executor-plugins
+#      python-snakemake-interface-logger-plugins
 #      python-snakemake-interface-report-plugins
 #      python-snakemake-interface-scheduler-plugins
+#      python-snakemake-interface-storage-plugins
+#   3. BOOTSTRAP: snakemake
+#   4. python-snakemake-executor-plugin-cluster-generic
+#      python-snakemake-logger-plugin-rich
+#      python-snakemake-storage-plugin-fs
+#      python-snakemake-storage-plugin-http
+#      python-snakemake-storage-plugin-s3
+#   5. snakemake
+#      python-snakemake-interface-executor-plugins
+#      python-snakemake-interface-logger-plugins
+#      python-snakemake-interface-report-plugins
+#      python-snakemake-interface-scheduler-plugins
+#      python-snakemake-interface-storage-plugins
 %bcond bootstrap 0
 %bcond tests %{without bootstrap}
 # Run tests that require network access? This only makes sense for local mock
@@ -37,7 +46,7 @@
 %bcond gcs_tests 1
 
 Name:           snakemake
-Version:        9.11.7
+Version:        9.11.8
 %global srcversion %(echo '%{version}' | cut -d '^' -f 1)
 Release:        %autorelease
 Summary:        Workflow management system to create reproducible and scalable data analyses

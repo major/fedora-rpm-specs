@@ -10,6 +10,10 @@ URL:           https://github.com/multiformats/py-%{pypi_name}
 VCS:           git:%{url}.git
 Source0:       %{pypi_source py-%{pypi_name}}
 Patch1:        python-multicodec-0001-Fix-issues-with-py.test.patch
+# Downstream-only: remove pytest-runner dependency
+# We can’t send this upstream because the project is archived.
+# https://fedoraproject.org/wiki/Changes/DeprecatePythonPytestRunner
+Patch2:        0001-Downstream-only-remove-pytest-runner-dependency.patch
 BuildRequires: python3-pytest
 BuildSystem:   pyproject
 BuildOption(prep):    -n py-%{pypi_name}-%{version}

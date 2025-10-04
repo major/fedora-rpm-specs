@@ -5,12 +5,15 @@
 %if 0%{?rhel}
 ExclusiveArch: x86_64
 %endif
+%if 0%{?fedora}
+ExcludeArch: %{ix86}
+%endif
 
 
 # The following qemu_kvm_arches/with_qemu_kvm defines come from
 # libvirt.spec
 %if 0%{?fedora}
-    %global qemu_kvm_arches %{ix86} x86_64 %{power64} s390x %{arm} aarch64
+    %global qemu_kvm_arches x86_64 %{power64} s390x %{arm} aarch64
     %global distributor_name fedora
     %global distributor_version %{fedora}
 %endif
@@ -36,7 +39,7 @@ ExclusiveArch: x86_64
 
 Name:		gnome-boxes
 Version:	49.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A simple GNOME 3 application to access remote or virtual systems
 
 # Sources are under LGPL-2.0-or-later, AppData is CC0-1.0 and help is
@@ -157,6 +160,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.gnome.Boxe
 %{_metainfodir}/org.gnome.Boxes.metainfo.xml
 
 %changelog
+* Thu Oct  2 2025 Daniel P. Berrange <berrange@redhat.com> - 49.0-2
+- Exclude build on i686 arch
+
 * Tue Sep 16 2025 Packit <hello@packit.dev> - 49.0-1
 - Update to version 49.0
 - Resolves: rhbz#2391731

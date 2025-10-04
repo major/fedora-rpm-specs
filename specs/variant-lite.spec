@@ -9,23 +9,13 @@
 %bcond tests 1
 
 Name:           variant-lite
-Version:        2.0.0
+Version:        3.0.0
 Release:        %autorelease
 Summary:        Represent a type-safe union
 
 License:        BSL-1.0
 URL:            https://github.com/martinmoene/variant-lite
 Source:         %{url}/archive/v%{version}/variant-lite-%{version}.tar.gz
-
-# Updated variant index tag definitions for compatibility with clang
-# https://github.com/martinmoene/variant-lite/pull/56
-# Cherry-picked on v2.0.0.
-#
-# Fixes:
-#
-# Tests fail to compile (GCC 14)
-# https://github.com/martinmoene/variant-lite/issues/50
-Patch:          0001-Updated-variant-index-tag-definitions-for-compatibil.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -103,9 +93,6 @@ ln -s /usr/include/lest test/lest
 
 %files devel
 %license LICENSE.txt
-# We don’t package CHANGES.txt because it was never updated after “version
-# 0.0.0-alpha 2016-10-23.” If we did, we would need to fix its encoding,
-# https://github.com/martinmoene/variant-lite/pull/51.
 %doc README.md
 %doc example/
 
