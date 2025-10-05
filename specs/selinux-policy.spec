@@ -15,10 +15,12 @@
 %define POLICYVER 35
 %define POLICYCOREUTILSVER 3.9
 %define CHECKPOLICYVER 3.9
+# To be updated after major policy changes
+%define STABLEVER 42.10
 Summary: SELinux policy configuration
 Name: selinux-policy
 Version: 42.11
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 Source1: Makefile.devel
@@ -59,6 +61,7 @@ Requires(post): /bin/awk /usr/bin/sha512sum
 Requires(meta): (rpm-plugin-selinux if rpm-libs)
 Requires: selinux-policy-any = %{version}-%{release}
 Provides: selinux-policy-base = %{version}-%{release}
+Provides: selinux-policy-stable = %{STABLEVER}
 Suggests: selinux-policy-targeted
 
 %description
@@ -486,6 +489,7 @@ mv %{buildroot}%{_datadir}/man/man8/style.css %{buildroot}%{_datadir}/selinux/de
 mkdir -p %{buildroot}%{_rpmconfigdir}/macros.d
 install -p -m 644 %{SOURCE5} %{buildroot}%{_rpmconfigdir}/macros.d/macros.selinux-policy
 sed -i 's/SELINUXPOLICYVERSION/%{version}/' %{buildroot}%{_rpmconfigdir}/macros.d/macros.selinux-policy
+sed -i 's/SELINUXPOLICYSTABLE/%{STABLEVER}/' %{buildroot}%{_rpmconfigdir}/macros.d/macros.selinux-policy
 sed -i 's@SELINUXSTOREPATH@%{_sharedstatedir}/selinux@' %{buildroot}%{_rpmconfigdir}/macros.d/macros.selinux-policy
 
 mkdir -p %{buildroot}%{_unitdir}

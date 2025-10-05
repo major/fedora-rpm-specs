@@ -2,7 +2,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-firmware
-Version:        47.0
+Version:        49.0
 Release:        %autorelease
 Summary:        Install firmware on devices
 
@@ -21,7 +21,7 @@ BuildRequires:  pkgconfig(fwupd) >= 2.0.0
 BuildRequires:  pkgconfig(gio-2.0) >= 2.74.0
 BuildRequires:  pkgconfig(gtk4) >= 4.6.0
 BuildRequires:  pkgconfig(xmlb) >= 0.1.7
-BuildRequires:  pkgconfig(libadwaita-1) >= 1.3.99
+BuildRequires:  pkgconfig(libadwaita-1) >= 1.5
 
 Requires:       hicolor-icon-theme
 
@@ -58,6 +58,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{uuid}.desktop
 %{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/*/*/*.svg
 %{_datadir}/glib-2.0/schemas/org.gnome.Firmware.gschema.xml
+%{_datadir}/dbus-1/services/org.gnome.Firmware.service
 %{_mandir}/man1/*.1.*
 %{_metainfodir}/*.xml
 

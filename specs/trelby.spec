@@ -1,6 +1,6 @@
 Name:           trelby
-Version:        2.4.15
-Release:        5%{?dist}
+Version:        2.4.16.2
+Release:        1%{?dist}
 Summary:        The free, multiplatform, feature-rich screenwriting program
 
 License:        GPL-2.0-only AND GPL-3.0-or-later
@@ -56,6 +56,9 @@ install -m644 trelby/trelby.1.gz %{buildroot}%{_mandir}/man1/
 %exclude %{python3_sitelib}/tests/
 
 %changelog
+* Fri Oct 03 2025 Gwyn Ciesla <gwync@protonmail.com> - 2.4.16.2-1
+- 2.4.16.2
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.4.15-5
 - Rebuilt for Python 3.14.0rc3 bytecode
 

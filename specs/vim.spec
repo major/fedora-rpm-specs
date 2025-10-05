@@ -12,7 +12,7 @@
 %endif
 
 
-%define patchlevel 1775
+%define patchlevel 1818
 %define withnetbeans 1
 
 %define withhunspell 0
@@ -54,7 +54,7 @@ Summary: The VIM editor
 URL:     https://www.vim.org/
 Name: vim
 Version: %{baseversion}.%{patchlevel}
-Release: 2%{?dist}
+Release: 1%{?dist}
 Epoch: 2
 # swift.vim contains Apache 2.0 with runtime library exception:
 # which is taken as Apache-2.0 WITH Swift-exception - reported to legal as https://gitlab.com/fedora/legal/fedora-license-data/-/issues/188
@@ -988,6 +988,9 @@ mkdir -p %{buildroot}/%{_datadir}/fish/vendor_functions.d/
 
 
 %changelog
+* Fri Oct 03 2025 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.1.1818-1
+- patchlevel 1818
+
 * Mon Sep 29 2025 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.1.1775-2
 - remove XPM support - GVim icons work without it
 

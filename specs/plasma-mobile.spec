@@ -1,10 +1,9 @@
-
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
 
 Name:           plasma-mobile
-Version:        6.4.5
-Release:        2%{?dist}
+Version:        6.4.91
+Release:        1%{?dist}
 License:        CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-only AND MIT
 Summary:        General UI components for Plasma Phone including shell, containment and applets
 Url:            https://invent.kde.org/plasma/plasma-mobile
@@ -62,6 +61,7 @@ BuildRequires: wayland-devel
 BuildRequires: qt6-qtbase-private-devel
 
 BuildRequires: cmake(PlasmaActivities)
+BuildRequires: cmake(PlasmaWaylandProtocols)
 BuildRequires: cmake(Plasma)
 BuildRequires: cmake(KWayland)
 
@@ -104,7 +104,8 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_{mobile_info,mob
 
 %files -f plasma_applet_org.kde.phone.homescreen.lang
 %license LICENSES/*
-
+%{_kf6_libexecdir}/kauth/flashlighthelper
+%{_kf6_libexecdir}/kauth/waydroidhelper
 %{_kf6_bindir}/startplasmamobile
 %{_kf6_bindir}/plasma-mobile-envmanager
 %{_kf6_bindir}/plasma-mobile-initial-start
@@ -115,26 +116,24 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_{mobile_info,mob
 %{_kf6_datadir}/plasma/look-and-feel/org.kde.breeze.mobile
 %{_kf6_datadir}/plasma/mobileinitialstart
 %{_kf6_datadir}/applications/*.desktop
-%{_kf6_datadir}/dbus-1/interfaces/org.kde.plasmashell.Mobile.xml
 %{_kf6_datadir}/knotifications6/plasma_mobile_quicksetting*.notifyrc
 %{_kf6_datadir}/kwin/effects/mobiletaskswitcher
 %{_kf6_datadir}/kwin/scripts/convergentwindows/contents/ui/main.qml
 %{_kf6_datadir}/kwin/scripts/convergentwindows/metadata.json
-%{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.mobile.homescreen.folio
-%{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.mobile.panel
-%{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.mobile.taskpanel
-%{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.mobile.homescreen.halcyon
 %{_kf6_datadir}/plasma/layout-templates/org.kde.plasma.mobile.defaultNavigationPanel/contents/layout.js
 %{_kf6_datadir}/plasma/layout-templates/org.kde.plasma.mobile.defaultNavigationPanel/metadata.json
 %{_kf6_datadir}/plasma/layout-templates/org.kde.plasma.mobile.defaultStatusBar/contents/layout.js
 %{_kf6_datadir}/plasma/layout-templates/org.kde.plasma.mobile.defaultStatusBar/metadata.json
-
 %{_kf6_qmldir}/org/kde/plasma/mm/*
 %{_kf6_qmldir}/org/kde/plasma/private/mobileshell
 %{_kf6_qmldir}/org/kde/plasma/quicksetting
 %{_kf6_qmldir}/org/kde/plasma/mobileinitialstart
-%{_kf6_qmldir}/org/kde/private/mobile
-
+%{_kf6_qtplugindir}/plasma/kcms/systemsettings/kcm_navigation.so
+%{_kf6_qtplugindir}/plasma/kcms/systemsettings/kcm_waydroidintegration.so
+%{_datadir}/dbus-1/interfaces/org.kde.plasmashell*.xml
+%{_datadir}/dbus-1/system-services/org.kde.plasma.mobileshell*.service
+%{_datadir}/dbus-1/system.d/org.kde.plasma.mobileshell*.conf
+%{_datadir}/polkit-1/actions/org.kde.plasma.mobileshell*.policy
 %{_kf6_qtplugindir}/plasma/kcms/systemsettings/kcm_mobileshell.so
 %{_kf6_qtplugindir}/plasma/applets/*.so
 %{_kf6_qtplugindir}/kf6/kded/kded_plasma_mobile_start.so
@@ -142,8 +141,14 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kcm_{mobile_info,mob
 %{_kf6_qtplugindir}/kf6/kded/kded_plasma_mobile_autodetect_apn.so
 
 %changelog
+* Thu Oct 02 2025 Steve Cossette <farchord@gmail.com> - 6.4.91-1
+- 6.4.91
+
 * Tue Sep 30 2025 Jan Grulich <jgrulich@redhat.com> - 6.4.5-2
 - Rebuild (qt6)
+
+* Thu Sep 25 2025 Steve Cossette <farchord@gmail.com> - 6.4.90-1
+- 6.4.90
 
 * Tue Sep 16 2025 farchord@gmail.com - 6.4.5-1
 - 6.4.5

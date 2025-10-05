@@ -215,7 +215,7 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        2%{?rc_version:.%rc_version}%{?dist}
+Release:        3%{?rc_version:.%rc_version}%{?dist}
 Summary:        The Identity, Policy and Audit system
 
 License:        GPL-3.0-or-later
@@ -1945,6 +1945,9 @@ fi
 %endif
 
 %changelog
+* Fri Oct 03 2025 Adam Williamson <awilliam@redhat.com> - 4.12.5-3
+- Rebuild with no changes to keep version ahead of F41
+
 * Tue Sep 30 2025 Alexander Bokovoy <abokovoy@redhat.com> - 4.12.5-2
 - Update minor version metadata to alow IPA data upgrade
 

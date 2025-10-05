@@ -1,7 +1,7 @@
 %{?mingw_package_header}
 
 %global qt_module qt3d
-#global pre rc2
+%global pre rc
 
 #global commit bdb98baf8253c69949a8c259369203da9ffb269c
 #global shortcommit %(c=%{commit}; echo ${c:0:7})
@@ -9,14 +9,15 @@
 %if 0%{?commit:1}
 %global source_folder %{qt_module}-%{commit}
 %else
-%global source_folder %{qt_module}-everywhere-src-%{version}%{?pre:-%{pre}}
+%global source_folder %{qt_module}-everywhere-src-%{qt_version}%{?pre:-%{pre}}
 %endif
 
 # first two digits of version
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
+%define qt_version %(echo %{version} | cut -d~ -f1)
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.9.2
+Version:        6.10.0%{?pre:~%pre}
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - Qt3d component
 
@@ -28,7 +29,7 @@ BuildArch:      noarch
 %if 0%{?commit:1}
 Source0:        https://github.com/qt/%{qt_module}/archive/%{commit}/%{qt_module}-everywhere-src-%{commit}.tar.gz
 %else
-Source0:        http://download.qt.io/%{?pre:development}%{?!pre:official}_releases/qt/%{release_version}/%{version}%{?pre:-%pre}/submodules/%{qt_module}-everywhere-src-%{version}%{?pre:-%pre}.tar.xz
+Source0:        http://download.qt.io/%{?pre:development}%{?!pre:official}_releases/qt/%{release_version}/%{qt_version}%{?pre:-%pre}/submodules/%{qt_module}-everywhere-src-%{qt_version}%{?pre:-%pre}.tar.xz
 %endif
 
 BuildRequires:  cmake
@@ -163,7 +164,7 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %{mingw32_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6quick3dcoreplugin*
 %{mingw32_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6quick3dextrasplugin*
 %{mingw32_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6quick3dinputplugin*
-%{mingw32_libdir}/cmake/Qt6Qml/QmlPlugins/Qt63DQuickLogicplugin*
+%{mingw32_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6quick3dlogicplugin*
 %{mingw32_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6quick3drenderplugin*
 %{mingw32_libdir}/cmake/Qt6/FindWrapQt3DAssimp.cmake
 %{mingw32_libdir}/pkgconfig/Qt63DAnimation.pc
@@ -208,20 +209,20 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %{mingw32_libdir}/Qt63DQuickRender.prl
 %{mingw32_libdir}/Qt63DQuickScene2D.prl
 %{mingw32_libdir}/Qt63DQuickScene3D.prl
-%{mingw32_libdir}/qt6/metatypes/qt63danimation_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt63dcore_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt63dextras_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt63dinput_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt63dlogic_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt63drender_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt63dquick_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt63dquickanimation_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt63dquickextras_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt63dquickinput_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt63dquicklogic_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt63dquickrender_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt63dquickscene2d_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt63dquickscene3d_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt63danimation_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt63dcore_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt63dextras_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt63dinput_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt63dlogic_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt63drender_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt63dquick_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt63dquickanimation_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt63dquickextras_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt63dquickinput_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt63dquicklogic_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt63dquickrender_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt63dquickscene2d_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt63dquickscene3d_metatypes.json
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_3dquick.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_3danimation.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_3danimation_private.pri
@@ -279,7 +280,7 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %{mingw32_libdir}/qt6/modules/3DQuickRender.json
 %{mingw32_libdir}/qt6/modules/3DQuickScene2D.json
 %{mingw32_libdir}/qt6/modules/3DQuickScene3D.json
-%{mingw32_libdir}/qt6/sbom/%{qt_module}-%{version}.spdx
+%{mingw32_libdir}/qt6/sbom/%{qt_module}-%{qt_version}.spdx
 
 
 # Win64
@@ -348,7 +349,7 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %{mingw64_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6quick3dcoreplugin*
 %{mingw64_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6quick3dextrasplugin*
 %{mingw64_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6quick3dinputplugin*
-%{mingw64_libdir}/cmake/Qt6Qml/QmlPlugins/Qt63DQuickLogicplugin*
+%{mingw64_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6quick3dlogicplugin*
 %{mingw64_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6quick3drenderplugin*
 %{mingw64_libdir}/cmake/Qt6/FindWrapQt3DAssimp.cmake
 %{mingw64_libdir}/pkgconfig/Qt63DAnimation.pc
@@ -393,20 +394,20 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %{mingw64_libdir}/Qt63DQuickRender.prl
 %{mingw64_libdir}/Qt63DQuickScene2D.prl
 %{mingw64_libdir}/Qt63DQuickScene3D.prl
-%{mingw64_libdir}/qt6/metatypes/qt63danimation_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt63dcore_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt63dextras_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt63dinput_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt63dlogic_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt63drender_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt63dquick_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt63dquickanimation_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt63dquickextras_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt63dquickinput_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt63dquicklogic_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt63dquickrender_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt63dquickscene2d_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt63dquickscene3d_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt63danimation_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt63dcore_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt63dextras_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt63dinput_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt63dlogic_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt63drender_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt63dquick_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt63dquickanimation_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt63dquickextras_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt63dquickinput_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt63dquicklogic_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt63dquickrender_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt63dquickscene2d_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt63dquickscene3d_metatypes.json
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_3dquick.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_3danimation.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_3danimation_private.pri
@@ -464,10 +465,13 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %{mingw64_libdir}/qt6/modules/3DQuickRender.json
 %{mingw64_libdir}/qt6/modules/3DQuickScene2D.json
 %{mingw64_libdir}/qt6/modules/3DQuickScene3D.json
-%{mingw64_libdir}/qt6/sbom/%{qt_module}-%{version}.spdx
+%{mingw64_libdir}/qt6/sbom/%{qt_module}-%{qt_version}.spdx
 
 
 %changelog
+* Thu Oct 02 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0~rc-1
+- Update 6.10.0 RC
+
 * Wed Sep 03 2025 Sandro Mani <manisandro@gmail.com> - 6.9.2-1
 - Update to 6.9.2
 

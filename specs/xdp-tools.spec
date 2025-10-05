@@ -1,5 +1,5 @@
 Name:             xdp-tools
-Version:          1.5.6
+Version:          1.5.7
 Release:          1%{?dist}
 Summary:          Utilities and example programs for use with XDP
 %global _soversion 1.5.0
@@ -13,6 +13,7 @@ BuildRequires:    libbpf-devel
 BuildRequires:    elfutils-libelf-devel
 BuildRequires:    zlib-devel
 BuildRequires:    libpcap-devel
+BuildRequires:    libcap-ng-devel
 BuildRequires:    clang >= 10.0.0
 BuildRequires:    llvm >= 10.0.0
 BuildRequires:    make
@@ -29,9 +30,6 @@ BuildRequires:    bpftool
 # Always keep xdp-tools and libxdp packages in sync
 Requires:         libxdp = %{version}-%{release}
 
-# find-debuginfo produces empty debugsourcefiles.list
-# disable the debug package to avoid rpmbuild error'ing out because of this
-%global debug_package %{nil}
 %global _hardened_build 1
 
 %description
@@ -123,6 +121,11 @@ make install V=1
 %{_libdir}/pkgconfig/libxdp.pc
 
 %changelog
+* Fri Oct 3 2025 Toke Høiland-Jørgensen <toke@redhat.com> 1.5.7-1
+- Upstream version bump
+- Re-enable debug packages
+- Add libcap-ng-devel to BuildRequires
+
 * Fri Aug 15 2025 Toke Høiland-Jørgensen <toke@redhat.com> 1.5.6-1
 - Upstream version bump
 

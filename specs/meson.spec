@@ -3,7 +3,7 @@
 %bcond check 1
 
 Name:           meson
-Version:        1.9.0
+Version:        1.9.1
 Release:        %autorelease
 Summary:        High productivity build system
 
@@ -98,13 +98,6 @@ BuildRequires:  /usr/bin/wx-config
 %endif
 BuildRequires:  /usr/bin/sdl2-config
 %endif
-
-Patch2: 0002-coredata-check-for-per-subproject-compiler-options.patch
-Patch3: 0003-coredata-check-for-per-subproject-compiler-and-linke.patch
-Patch4: 0004-rustdoc-skip-crate-type-option.patch
-Patch5: 0005-options-do-not-raise-exception-for-unknown-options-i.patch
-Patch6: 0006-coredata-do-not-write-None-to-cmd_line.txt.patch
-Patch7: 0007-msetup-not-found-subprojects-do-not-have-known-optio.patch
 
 %description
 Meson is a build system designed to optimize programmer

@@ -1,7 +1,7 @@
 %{?mingw_package_header}
 
 %global qt_module qtsvg
-#global pre rc2
+%global pre rc
 
 #global commit 45483bfae4f59ab92be22007cf49d9d7eee8a16c
 #global shortcommit %(c=%{commit}; echo ${c:0:7})
@@ -9,14 +9,15 @@
 %if 0%{?commit:1}
 %global source_folder %{qt_module}-%{commit}
 %else
-%global source_folder %{qt_module}-everywhere-src-%{version}%{?pre:-%{pre}}
+%global source_folder %{qt_module}-everywhere-src-%{qt_version}%{?pre:-%{pre}}
 %endif
 
 # first two digits of version
 %global release_version %(echo %{version} | awk -F. '{print $1"."$2}')
+%define qt_version %(echo %{version} | cut -d~ -f1)
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.9.2
+Version:        6.10.0%{?pre:~%pre}
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtSvg component
 
@@ -26,7 +27,7 @@ URL:            http://qt.io/
 %if 0%{?commit:1}
 Source0:        https://github.com/qt/%{qt_module}/archive/%{commit}/%{qt_module}-everywhere-src-%{commit}.tar.gz
 %else
-Source0:        http://download.qt.io/%{?pre:development}%{?!pre:official}_releases/qt/%{release_version}/%{version}%{?pre:-%pre}/submodules/%{qt_module}-everywhere-src-%{version}%{?pre:-%pre}.tar.xz
+Source0:        http://download.qt.io/%{?pre:development}%{?!pre:official}_releases/qt/%{release_version}/%{qt_version}%{?pre:-%pre}/submodules/%{qt_module}-everywhere-src-%{qt_version}%{?pre:-%pre}.tar.xz
 %endif
 
 BuildArch:      noarch
@@ -110,21 +111,19 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %{mingw32_libdir}/cmake/Qt6Svg/
 %{mingw32_libdir}/cmake/Qt6SvgPrivate/
 %{mingw32_libdir}/cmake/Qt6SvgWidgets/
-%{mingw32_libdir}/cmake/Qt6SvgWidgetsPrivate/
 %{mingw32_libdir}/pkgconfig/Qt6Svg.pc
 %{mingw32_libdir}/pkgconfig/Qt6SvgWidgets.pc
-%{mingw32_libdir}/qt6/metatypes/qt6svg_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6svgwidgets_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6svg_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6svgwidgets_metatypes.json
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_svg.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_svg_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_svgwidgets.pri
-%{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_svgwidgets_private.pri
 %dir %{mingw32_libdir}/qt6/plugins/iconengines/
 %{mingw32_libdir}/qt6/plugins/iconengines/qsvgicon.dll
 %{mingw32_libdir}/qt6/plugins/imageformats/qsvg.dll
 %{mingw32_libdir}/qt6/modules/Svg.json
 %{mingw32_libdir}/qt6/modules/SvgWidgets.json
-%{mingw32_libdir}/qt6/sbom/%{qt_module}-%{version}.spdx
+%{mingw32_libdir}/qt6/sbom/%{qt_module}-%{qt_version}.spdx
 
 # Win64
 %files -n mingw64-qt6-%{qt_module}
@@ -143,24 +142,25 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %{mingw64_libdir}/cmake/Qt6Svg/
 %{mingw64_libdir}/cmake/Qt6SvgPrivate/
 %{mingw64_libdir}/cmake/Qt6SvgWidgets/
-%{mingw64_libdir}/cmake/Qt6SvgWidgetsPrivate/
 %{mingw64_libdir}/pkgconfig/Qt6Svg.pc
 %{mingw64_libdir}/pkgconfig/Qt6SvgWidgets.pc
-%{mingw64_libdir}/qt6/metatypes/qt6svg_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6svgwidgets_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6svg_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6svgwidgets_metatypes.json
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_svg.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_svg_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_svgwidgets.pri
-%{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_svgwidgets_private.pri
 %dir %{mingw64_libdir}/qt6/plugins/iconengines/
 %{mingw64_libdir}/qt6/plugins/iconengines/qsvgicon.dll
 %{mingw64_libdir}/qt6/plugins/imageformats/qsvg.dll
 %{mingw64_libdir}/qt6/modules/Svg.json
 %{mingw64_libdir}/qt6/modules/SvgWidgets.json
-%{mingw64_libdir}/qt6/sbom/%{qt_module}-%{version}.spdx
+%{mingw64_libdir}/qt6/sbom/%{qt_module}-%{qt_version}.spdx
 
 
 %changelog
+* Thu Oct 02 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0~rc-1
+- Update 6.10.0 RC
+
 * Tue Sep 02 2025 Sandro Mani <manisandro@gmail.com> - 6.9.2-1
 - Update to 6.9.2
 

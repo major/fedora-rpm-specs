@@ -6,7 +6,7 @@
 
 
 Name:           mariadb-connector-c
-Version:        3.4.5
+Version:        3.4.7
 Release:        2%{?with_debug:.debug}%{?dist}
 Summary:        The MariaDB Native Client library (C driver)
 License:        LGPL-2.1-or-later AND PHP-3.0 AND PHP-3.01
@@ -19,8 +19,6 @@ Url:            http://mariadb.org/
 %if %{with testsuite}
 Patch1:         testsuite.patch
 %endif
-
-Patch2:         upstream-b10b76e5a2b983d86bd487873608abce8e0d507b.patch
 
 %if 0%{?flatpak}
 Requires:       %{name}-config = %{version}-%{release}
@@ -94,7 +92,6 @@ and require this package, so the /etc/my.cnf file is present.
 %if %{with testsuite}
 %patch -P1 -p1
 %endif
-%patch -P2 -p1
 
 # Remove unsused parts
 rm -r win win-iconv external/zlib
@@ -272,6 +269,9 @@ install -D -p -m 0644 %{name}.conf %{buildroot}%{_sysconfdir}/ld.so.conf.d/%{nam
 #      Need to ensure, that the testsuite will also run properly on 'fedpkg local' buid, not damaging the host machine
 
 %changelog
+* Mon Sep 29 2025 Pavol Sloboda <psloboda@redhat.com> - 3.4.7-1
+- Rebase to 3.4.7
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

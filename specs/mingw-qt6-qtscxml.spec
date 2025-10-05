@@ -1,18 +1,20 @@
 %{?mingw_package_header}
 
 %global qt_module qtscxml
+%global pre rc
 
 %if 0%{?commit:1}
 %global source_folder %{qt_module}-%{commit}
 %else
-%global source_folder %{qt_module}-everywhere-src-%{version}%{?pre:-%{pre}}
+%global source_folder %{qt_module}-everywhere-src-%{qt_version}%{?pre:-%{pre}}
 %endif
 
 # first two digits of version
 %global release_version %(echo %{version} | awk -F. '{print $1"."$2}')
+%define qt_version %(echo %{version} | cut -d~ -f1)
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.9.2
+Version:        6.10.0%{?pre:~%pre}
 Release:        %autorelease
 Summary:        Qt6 for Windows - QtScxml component
 
@@ -22,7 +24,7 @@ URL:            http://qt.io/
 %if 0%{?commit:1}
 Source0:        https://github.com/qt/%{qt_module}/archive/%{commit}/%{qt_module}-everywhere-src-%{commit}.tar.gz
 %else
-Source0:        http://download.qt.io/%{?pre:development}%{?!pre:official}_releases/qt/%{release_version}/%{version}%{?pre:-%pre}/submodules/%{qt_module}-everywhere-src-%{version}%{?pre:-%pre}.tar.xz
+Source0:        http://download.qt.io/%{?pre:development}%{?!pre:official}_releases/qt/%{release_version}/%{qt_version}%{?pre:-%pre}/submodules/%{qt_module}-everywhere-src-%{qt_version}%{?pre:-%pre}.tar.xz
 %endif
 
 BuildArch:      noarch
@@ -111,7 +113,7 @@ export MINGW64_CXXFLAGS="${mingw64_cflags} -msse2"
 %{mingw32_libdir}/qt6/modules/*.json
 %{mingw32_libdir}/qt6/qml
 %{mingw32_libdir}/qt6/mkspecs
-%{mingw32_libdir}/qt6/sbom/%{qt_module}-%{version}.spdx
+%{mingw32_libdir}/qt6/sbom/%{qt_module}-%{qt_version}.spdx
 %{mingw32_libdir}/cmake/Qt6Scxml/
 %{mingw32_libdir}/cmake/Qt6ScxmlPrivate/
 %{mingw32_libdir}/cmake/Qt6ScxmlGlobalPrivate/
@@ -149,7 +151,7 @@ export MINGW64_CXXFLAGS="${mingw64_cflags} -msse2"
 %{mingw64_libdir}/qt6/modules/*.json
 %{mingw64_libdir}/qt6/qml
 %{mingw64_libdir}/qt6/mkspecs
-%{mingw64_libdir}/qt6/sbom/%{qt_module}-%{version}.spdx
+%{mingw64_libdir}/qt6/sbom/%{qt_module}-%{qt_version}.spdx
 %{mingw64_libdir}/cmake/Qt6Scxml/
 %{mingw64_libdir}/cmake/Qt6ScxmlPrivate/
 %{mingw64_libdir}/cmake/Qt6ScxmlGlobalPrivate/

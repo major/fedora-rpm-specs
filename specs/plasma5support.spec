@@ -1,7 +1,7 @@
 Name:    plasma5support
 Summary: Support components for porting from KF5/Qt5 to KF6/Qt6
-Version: 6.4.5
-Release: 2%{?dist}
+Version: 6.4.91
+Release: 1%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:     https://invent.kde.org/plasma/%{name}
@@ -30,6 +30,8 @@ BuildRequires:  cmake(KF6Service)
 BuildRequires:  cmake(KF6Solid)
 BuildRequires:  cmake(KF6IdleTime)
 BuildRequires:  cmake(KF6NetworkManagerQt)
+BuildRequires:  cmake(KF6UnitConversion)
+BuildRequires:  cmake(KF6Holidays)
 BuildRequires:  cmake(PlasmaActivities)
 BuildRequires:  cmake(KSysGuard)
 BuildRequires:  cmake(Plasma)
@@ -90,21 +92,32 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_kf6_qtplugindir}/plasma5support/
 %{_libdir}/libplasma-geolocation-interface.so.6
 %{_libdir}/libplasma-geolocation-interface.so.%{version}
+%{_libdir}/libweather_ion.so.7
+%{_libdir}/libweather_ion.so.7.0.0
+%{_kf6_datadir}/plasma/weather_legacy/noaa_station_list.xml
 
 %files devel
 %{_includedir}/Plasma5Support/
 %{_kf6_libdir}/cmake/Plasma5Support/
 %{_qt6_docdir}/*.tags
 %{_kf6_libdir}/libPlasma5Support.so
+%{_libdir}/libweather_ion.so
 %{_libdir}/libplasma-geolocation-interface.so
 %{_includedir}/plasma/geolocation/
+%{_includedir}/plasma5support/
 
 %files doc
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Thu Oct 02 2025 Steve Cossette <farchord@gmail.com> - 6.4.91-1
+- 6.4.91
+
 * Tue Sep 30 2025 Jan Grulich <jgrulich@redhat.com> - 6.4.5-2
 - Rebuild (qt6)
+
+* Thu Sep 25 2025 Steve Cossette <farchord@gmail.com> - 6.4.90-1
+- 6.4.90
 
 * Tue Sep 16 2025 farchord@gmail.com - 6.4.5-1
 - 6.4.5

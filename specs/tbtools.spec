@@ -7,7 +7,7 @@
 
 Name:     tbtools
 Summary:  Thunderbolt/USB4 debugging tools
-Version:  0.6.0
+Version:  0.7.0
 Release:  %autorelease
 # Most source files lack an explicit license
 # The main LICENSE file is MIT
@@ -98,9 +98,11 @@ PREFIX=%{buildroot}%{_prefix} %make_install CARGO=/usr/bin/true
 %{_bindir}/tblist
 %{_bindir}/tbman
 %{_bindir}/tbmargin
+%{_bindir}/tbmonitor
 %{_bindir}/tbpd
 %{_bindir}/tbset
 %{_bindir}/tbtrace
+%{_bindir}/tbtunnels
 %{bash_completions_dir}/tbtools-completion.bash
 %{bash_completions_dir}/tbadapters
 %{bash_completions_dir}/tbauth
@@ -108,8 +110,10 @@ PREFIX=%{buildroot}%{_prefix} %make_install CARGO=/usr/bin/true
 %{bash_completions_dir}/tbget
 %{bash_completions_dir}/tblist
 %{bash_completions_dir}/tbmargin
+%{bash_completions_dir}/tbmonitor
 %{bash_completions_dir}/tbset
 %{bash_completions_dir}/tbtrace
+%{bash_completions_dir}/tbtunnels
 %{_datadir}/tbtools/
 
 %changelog

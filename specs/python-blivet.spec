@@ -1,11 +1,11 @@
 Summary:  A python module for system storage configuration
 Name: python-blivet
 Url: https://storageapis.wordpress.com/projects/blivet
-Version: 3.12.1
+Version: 3.13.0
 
 #%%global prerelease .b2
 # prerelease, if defined, should be something like .a1, .b1, .b2.dev1, or .c2
-Release: 8%{?prerelease}%{?dist}
+Release: 1%{?prerelease}%{?dist}
 Epoch: 1
 License: LGPL-2.1-or-later
 %global realname blivet
@@ -17,17 +17,12 @@ Source1: http://github.com/storaged-project/blivet/releases/download/%{realname}
 Patch0: 0001-remove-btrfs-plugin.patch
 %endif
 
-Patch1: 0002-Drop-parted-device-cache-during-reset.patch
-Patch2: 0003-Fix-getting-filesystem-size-from-udev.patch
-Patch3: 0004-Fix-getting-missing-libblockdev-technologies-with-Python-3.14.patch
-Patch4: 0005-tests-Skip-test_detect_virt-on-systems-without-runni.patch
-
 # Versions of required components (done so we make sure the buildrequires
 # match the requires versions of things).
 %global partedver 1.8.1
 %global pypartedver 3.10.4
 %global utillinuxver 2.15.1
-%global libblockdevver 3.3.0
+%global libblockdevver 3.4.0
 %global libbytesizever 0.3
 %global pyudevver 0.18
 %global s390utilscorever 2.31.0
@@ -56,7 +51,6 @@ Summary: A python3 package for examining and modifying storage configuration.
 
 BuildRequires: gettext
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
 
 # For tests
 BuildRequires: python3-pyudev >= %{pyudevver}
@@ -64,7 +58,7 @@ BuildRequires: parted >= %{partedver}
 BuildRequires: python3-pyparted >= %{pypartedver}
 BuildRequires: libselinux-python3
 BuildRequires: python3-libmount
-BuildRequires: python3-blockdev >= %{libblockdevver}
+BuildRequires: python3-blockdev
 BuildRequires: python3-bytesize >= %{libbytesizever}
 BuildRequires: util-linux >= %{utillinuxver}
 BuildRequires: lsof
@@ -73,6 +67,7 @@ BuildRequires: systemd-udev
 BuildRequires: libblockdev-plugins-all
 BuildRequires: python3-dbus
 BuildRequires: python3-pyyaml
+BuildRequires: python3-dasbus
 
 Requires: python3-pyudev >= %{pyudevver}
 Requires: parted >= %{partedver}
@@ -80,6 +75,7 @@ Requires: python3-pyparted >= %{pypartedver}
 Requires: libselinux-python3
 Requires: python3-libmount
 Requires: python3-blockdev >= %{libblockdevver}
+Requires: python3-dasbus
 Recommends: libblockdev-btrfs >= %{libblockdevver}
 Recommends: libblockdev-crypto >= %{libblockdevver}
 Recommends: libblockdev-dm >= %{libblockdevver}
@@ -111,6 +107,9 @@ configuration.
 %autosetup -n %{realname}-%{realversion} -N
 %autosetup -n %{realname}-%{realversion} -b1 -p1
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
 make
 
@@ -131,10 +130,12 @@ make DESTDIR=%{buildroot} install
 %files -n python3-%{realname}
 %license COPYING
 %doc README.md ChangeLog examples
-%{python3_sitelib}/%{realname}/
-%{python3_sitelib}/%{realname}-%{version}-py%{python3_version}.egg-info/
+%{python3_sitelib}/*
 
 %changelog
+* Fri Oct 03 2025 Packit <hello@packit.dev> - 1:3.13.0-1
+- Update to version 3.13.0
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1:3.12.1-8
 - Rebuilt for Python 3.14.0rc3 bytecode
 

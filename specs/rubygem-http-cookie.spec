@@ -1,14 +1,17 @@
 %global	gem_name	http-cookie
 
 Name:		rubygem-%{gem_name}
-Version:	1.0.8
-Release:	3%{?dist}
+Version:	1.1.0
+Release:	1%{?dist}
 
 Summary:	Ruby library to handle HTTP Cookies based on RFC 6265
 License:	MIT
 URL:		https://github.com/sparklemotion/http-cookie
 Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
 %dnl Source0:	https://github.com/sparklemotion/%{gem_name}/archive/v%{version}.tar.gz/#/%{gem_name}-%{version}.tar.gz
+Source1:	%{gem_name}-%{version}-additional.tar.gz
+# Source1 is created by $ bash %%SOURCE2 %%version
+Source2:	%{gem_name}-create-missing-files.sh
 
 Requires:	ruby(release)
 BuildRequires:	ruby(release)
@@ -39,15 +42,8 @@ BuildArch:	noarch
 Documentation for %{name}
 
 %prep
-%setup -q -n %{gem_name}-%{version}
-%if 1
+%setup -q -n %{gem_name}-%{version} -b 1
 mv ../%{gem_name}-%{version}.gemspec .
-%else
-find . -type f | sort | sed -e 's|\./||' > ../ls-files
-mv ../ls-files .
-sed -i %{gem_name}.gemspec -e 's|git ls-files|cat ls-files|'
-cp -p  %{gem_name}{,-%{version}}.gemspec
-%endif
 
 %build
 gem build %{gem_name}-%{version}.gemspec
@@ -60,19 +56,9 @@ cp -a .%{gem_dir}/* \
 
 # Clean up
 rm -f %{buildroot}%{gem_cache}
-pushd %{buildroot}%{gem_instdir}
-rm -rf \
-	.gitignore \
-	.github \
-	.travis.yml \
-	Gemfile \
-	Rakefile \
-	test/ \
-	%{gem_name}.gemspec \
-	%{nil}
-popd
 
 %check
+cp -a test/ .%{gem_instdir}
 pushd .%{gem_instdir}
 ruby -Ilib:test:. -e 'Dir.glob("test/test_*.rb").each {|f| require f}'
 popd
@@ -90,6 +76,9 @@ popd
 %doc	%{gem_instdir}/CHANGELOG.md
 
 %changelog
+* Fri Oct 03 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.1.0-1
+- 1.1.0
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

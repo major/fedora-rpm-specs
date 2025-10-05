@@ -1,6 +1,6 @@
 Name:    kwin
-Version: 6.4.5
-Release: 2%{?dist}
+Version: 6.4.91
+Release: 1%{?dist}
 Summary: KDE Window manager
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -92,6 +92,7 @@ BuildRequires:  cmake(KF6TextWidgets)
 BuildRequires:  cmake(KF6Kirigami2)
 BuildRequires:  cmake(KF6Runner)
 BuildRequires:  cmake(KF6Svg)
+BuildRequires:  cmake(KNightTime)
 
 BuildRequires:  cmake(KDecoration3)
 BuildRequires:  kscreenlocker-devel
@@ -240,6 +241,7 @@ ln -sr %{buildroot}%{_kf6_bindir}/kwin_wayland %{buildroot}%{_bindir}/kwin
 %{_kf6_libdir}/kconf_update_bin/kwin-6.0-remove-breeze-tabbox-default
 %{_kf6_libdir}/kconf_update_bin/kwin-6.0-reset-active-mouse-screen
 %{_kf6_libdir}/kconf_update_bin/kwin-6.1-remove-gridview-expose-shortcuts
+%{_kf6_libdir}/kconf_update_bin/kwin-6.5-showpaint-changes
 %{_libexecdir}/kwin_killer_helper
 %{_libexecdir}/kwin-applywindowdecoration
 %{_libexecdir}/kwin-tabbox-preview
@@ -253,6 +255,7 @@ ln -sr %{buildroot}%{_kf6_bindir}/kwin_wayland %{buildroot}%{_bindir}/kwin
 %{_datadir}/knsrcfiles/*.knsrc
 %{_datadir}/krunner/dbusplugins/kwin-runner-windows.desktop
 %{_datadir}/applications/*.desktop
+%{_bindir}/kwindowprop
 
 %files libs
 %{_kf6_datadir}/qlogging-categories6/org_kde_kwin.categories
@@ -271,8 +274,14 @@ ln -sr %{buildroot}%{_kf6_bindir}/kwin_wayland %{buildroot}%{_bindir}/kwin
 
 
 %changelog
+* Thu Oct 02 2025 Steve Cossette <farchord@gmail.com> - 6.4.91-1
+- 6.4.91
+
 * Tue Sep 30 2025 Jan Grulich <jgrulich@redhat.com> - 6.4.5-2
 - Rebuild (qt6)
+
+* Thu Sep 25 2025 Steve Cossette <farchord@gmail.com> - 6.4.90-1
+- 6.4.90
 
 * Tue Sep 16 2025 farchord@gmail.com - 6.4.5-1
 - 6.4.5

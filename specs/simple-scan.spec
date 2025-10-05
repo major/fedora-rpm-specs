@@ -1,14 +1,14 @@
 %global         desktop_id org.gnome.SimpleScan
 
 Name:           simple-scan
-Version:        48.1
+Version:        49.0.1
 Release:        %autorelease
 Summary:        Simple scanning utility
 # Sources are under GPLv3+, icon and help are under CC-BY-SA.
 License:        GPL-3.0-or-later AND CC-BY-SA-3.0
 URL:            https://gitlab.gnome.org/GNOME/simple-scan
 
-%global         gittag %{version}-2
+%global         gittag %{version}
 Source0:        %{url}/-/archive/%{gittag}/%{name}-%{gittag}.tar.gz
 
 BuildRequires:  desktop-file-utils
@@ -52,19 +52,19 @@ scanner and quickly have the image/document in an appropriate format.
 %find_lang %{name} --with-man --with-gnome
 
 %check
-appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{desktop_id}.appdata.xml
-desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
+appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{desktop_id}.metainfo.xml
+desktop-file-validate %{buildroot}/%{_datadir}/applications/%{desktop_id}.desktop
 
 %files -f %{name}.lang
 %doc NEWS README.md
 %license COPYING
 %{_bindir}/%{name}
-%{_datadir}/applications/%{name}.desktop
+%{_datadir}/applications/%{desktop_id}.desktop
 %{_datadir}/glib-2.0/schemas/%{desktop_id}.gschema.xml
 %{_datadir}/icons/hicolor/scalable/apps/%{desktop_id}.svg
 %{_datadir}/icons/hicolor/symbolic/apps/%{desktop_id}-symbolic.svg
 %{_mandir}/man1/%{name}.1*
-%{_metainfodir}/%{desktop_id}.appdata.xml
+%{_metainfodir}/%{desktop_id}.metainfo.xml
 
 %changelog
 %autochangelog

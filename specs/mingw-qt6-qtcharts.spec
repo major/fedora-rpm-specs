@@ -1,7 +1,7 @@
 %{?mingw_package_header}
 
 %global qt_module qtcharts
-#global pre rc2
+%global pre rc
 
 #global commit a73dfa7c63b82e25f93e44ed6386664373aaca74
 #global shortcommit %(c=%{commit}; echo ${c:0:7})
@@ -9,14 +9,15 @@
 %if 0%{?commit:1}
 %global source_folder %{qt_module}-%{commit}
 %else
-%global source_folder %{qt_module}-everywhere-src-%{version}%{?pre:-%{pre}}
+%global source_folder %{qt_module}-everywhere-src-%{qt_version}%{?pre:-%{pre}}
 %endif
 
 # first two digits of version
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
+%define qt_version %(echo %{version} | cut -d~ -f1)
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.9.2
+Version:        6.10.0%{?pre:~%pre}
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtCharts component
 
@@ -26,7 +27,7 @@ URL:            http://qt.io/
 %if 0%{?commit:1}
 Source0:        https://github.com/qt/%{qt_module}/archive/%{commit}/%{qt_module}-everywhere-src-%{commit}.tar.gz
 %else
-Source0:        http://download.qt.io/%{?pre:development}%{?!pre:official}_releases/qt/%{release_version}/%{version}%{?pre:-%pre}/submodules/%{qt_module}-everywhere-src-%{version}%{?pre:-%pre}.tar.xz
+Source0:        http://download.qt.io/%{?pre:development}%{?!pre:official}_releases/qt/%{release_version}/%{qt_version}%{?pre:-%pre}/submodules/%{qt_module}-everywhere-src-%{qt_version}%{?pre:-%pre}.tar.xz
 %endif
 
 BuildArch:      noarch
@@ -114,8 +115,8 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %{mingw32_libdir}/libQt6ChartsQml.dll.a
 %{mingw32_libdir}/Qt6Charts.prl
 %{mingw32_libdir}/Qt6ChartsQml.prl
-%{mingw32_libdir}/qt6/metatypes/qt6charts_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6chartsqml_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6charts_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6chartsqml_metatypes.json
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_charts.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_charts_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_chartsqml.pri
@@ -123,7 +124,7 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %{mingw32_libdir}/qt6/qml/QtCharts/
 %{mingw32_libdir}/qt6/modules/Charts.json
 %{mingw32_libdir}/qt6/modules/ChartsQml.json
-%{mingw32_libdir}/qt6/sbom/%{qt_module}-%{version}.spdx
+%{mingw32_libdir}/qt6/sbom/%{qt_module}-%{qt_version}.spdx
 
 
 # Win64
@@ -145,8 +146,8 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %{mingw64_libdir}/libQt6ChartsQml.dll.a
 %{mingw64_libdir}/Qt6Charts.prl
 %{mingw64_libdir}/Qt6ChartsQml.prl
-%{mingw64_libdir}/qt6/metatypes/qt6charts_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6chartsqml_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6charts_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6chartsqml_metatypes.json
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_charts.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_charts_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_chartsqml.pri
@@ -154,10 +155,13 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %{mingw64_libdir}/qt6/qml/QtCharts/
 %{mingw64_libdir}/qt6/modules/Charts.json
 %{mingw64_libdir}/qt6/modules/ChartsQml.json
-%{mingw64_libdir}/qt6/sbom/%{qt_module}-%{version}.spdx
+%{mingw64_libdir}/qt6/sbom/%{qt_module}-%{qt_version}.spdx
 
 
 %changelog
+* Thu Oct 02 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0~rc-1
+- Update 6.10.0 RC
+
 * Wed Sep 03 2025 Sandro Mani <manisandro@gmail.com> - 6.9.2-1
 - Update to 6.9.2
 

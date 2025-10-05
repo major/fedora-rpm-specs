@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:    kde-gtk-config
 Summary: Configure the appearance of GTK apps in KDE
-Version: 6.4.5
+Version: 6.4.91
 Release: 1%{?dist}
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only)
@@ -67,9 +67,9 @@ appearance of GTK apps in KDE.
 %license LICENSES/*.txt
 %{_libexecdir}/gtk3_preview
 %{_libdir}/kconf_update_bin/gtk_theme
-%{_libdir}/kconf_update_bin/remove_deprecated_gtk4_option
 %{_datadir}/kconf_update/gtkconfig.upd
 %{_datadir}/kconf_update/remove_window_decorations_from_gtk_css.sh
+%{_libdir}/kconf_update_bin/remove_deprecated_gtk4_option_v2
 %{_kf6_plugindir}/kded/gtkconfig.so
 %{_libdir}/gtk-3.0/modules/libcolorreload-gtk-module.so
 %{_libdir}/gtk-3.0/modules/libwindow-decorations-gtk-module.so
@@ -79,6 +79,12 @@ appearance of GTK apps in KDE.
 
 
 %changelog
+* Thu Oct 02 2025 Steve Cossette <farchord@gmail.com> - 6.4.91-1
+- 6.4.91
+
+* Thu Sep 25 2025 Steve Cossette <farchord@gmail.com> - 6.4.90-1
+- 6.4.90
+
 * Tue Sep 16 2025 farchord@gmail.com - 6.4.5-1
 - 6.4.5
 

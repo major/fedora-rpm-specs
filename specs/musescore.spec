@@ -23,7 +23,7 @@
 Name:           musescore
 Summary:        Music Composition & Notation Software
 Version:        %{musescore_ver}
-Release:        24%{?dist}
+Release:        25%{?dist}
 
 # The MuseScore project itself is GPL-3.0-only WITH Font-exception-2.0.  Other
 # licenses in play:
@@ -237,6 +237,8 @@ Patch:          %{name}-include.patch
 Patch:          %{name}-tinyxml2-11.patch
 # Update fluidsynth from version 2.3.3 to 2.3.7 to fix several bugs
 Patch:          %{name}-fluidsynth-2.3.7.patch
+# https://github.com/KDAB/KDDockWidgets/commit/5a86cf69207bfbcc683343b2faf1d3466be2af56.patch
+Patch:          musescore-fix-build-against-qt-6-10.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -606,6 +608,9 @@ ln -s ../mscore-%{musescore_maj}/sound/MS\ Basic.sf3 \
 %fontfiles -z 9
 
 %changelog
+* Thu Oct 02 2025 Jan Grulich <jgrulich@redhat.com> - 4.6.0-25
+- Rebuild (qt6)
+
 * Tue Sep 30 2025 Jerry James <loganjerry@gmail.com> - 1:4.6.0-24
 - Version 4.6.0
 - Drop upstreamed patch to fix warning about references to temporaries

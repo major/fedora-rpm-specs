@@ -91,7 +91,7 @@ install -Dpm 0644 man/*.1 -t %{buildroot}%{_mandir}/man1/
 
 
 %changelog
-* Wed Oct 02 2025 John Snow <jsnow@redhat.com> - 0.0.5-1
+* Fri Oct 03 2025 John Snow <jsnow@redhat.com> - 0.0.5-1
 - Update to v0.0.5
 
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.3-7

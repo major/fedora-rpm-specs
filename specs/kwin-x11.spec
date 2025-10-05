@@ -1,6 +1,6 @@
 Name:    kwin-x11
-Version: 6.4.5
-Release: 2%{?dist}
+Version: 6.4.91
+Release: 1%{?dist}
 Summary: KDE Window manager with X11 support
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -98,6 +98,7 @@ BuildRequires:  cmake(KF6TextWidgets)
 BuildRequires:  cmake(KF6Kirigami2)
 BuildRequires:  cmake(KF6Runner)
 BuildRequires:  cmake(KF6Svg)
+BuildRequires:  cmake(KNightTime)
 
 BuildRequires:  cmake(KDecoration3)
 BuildRequires:  kscreenlocker-devel
@@ -202,6 +203,7 @@ developing applications that use %{name}.
 %{_kf6_libdir}/kconf_update_bin/kwin-6.0-remove-breeze-tabbox-default-x11
 %{_kf6_libdir}/kconf_update_bin/kwin-6.0-reset-active-mouse-screen-x11
 %{_kf6_libdir}/kconf_update_bin/kwin-6.1-remove-gridview-expose-shortcuts-x11
+%{_kf6_libdir}/kconf_update_bin/kwin-6.5-showpaint-changes-x11
 %{_kf6_libdir}/kconf_update_bin/kwin5_update_default_rules_x11
 %{_kf6_qtplugindir}/%{name}/
 %{_kf6_qtplugindir}/kf6/packagestructure/kwin_*_x11.so
@@ -226,6 +228,11 @@ developing applications that use %{name}.
 
 
 %changelog
+* Fri Oct 03 2025 Kevin Kofler <Kevin@tigcc.ticalc.org> - 6.4.91-1
+- 6.4.91 (6.5 Beta 2)
+- BuildRequires: cmake(KNightTime)
+- Add kconf_update_bin/kwin-6.5-showpaint-changes-x11 to file list
+
 * Tue Sep 30 2025 Jan Grulich <jgrulich@redhat.com> - 6.4.5-2
 - Rebuild (qt6)
 

@@ -1,15 +1,17 @@
-
-%undefine __cmake_in_source_build
+%global gitcommit 42902ed51e02e78f13a002c5e81c240601b7445a
+%global gitdate 20250914.113000
+%global shortcommit %(c=%{gitcommit}; echo ${c:0:7})
 
 Summary:   Qt support library for PackageKit
 Name:      PackageKit-Qt
-Version:   1.1.2
-Release:   2%{?dist}
+Version:   1.1.4~%{gitdate}.%{shortcommit}
+Release:   1%{?dist}
 
 License:   LGPL-2.1-only
 URL:       http://www.packagekit.org/
 
-Source0:   https://github.com/hughsie/PackageKit-Qt/archive/v%{version}.tar.gz
+# Source0:   https://github.com/hughsie/PackageKit-Qt/archive/v%%{version}.tar.gz
+Source0:   https://github.com/PackageKit/%{name}/archive/%{gitcommit}.tar.gz
 
 # Upstream patches
 
@@ -31,87 +33,50 @@ Recommends: PackageKit
 %description
 PackageKit-Qt is a Qt support library for PackageKit
 
-%package -n PackageKit-Qt5
-Summary: Qt5 support library for PackageKit
-Recommends: PackageKit
-%description -n PackageKit-Qt5
-%{summary}.
-
-%package -n PackageKit-Qt5-devel
-Summary: Development files for PackageKit-Qt5
-Requires: PackageKit-Qt5%{?_isa} = %{version}-%{release}
-%description -n PackageKit-Qt5-devel
-%{summary}.
-
 %package -n PackageKit-Qt6
 Summary: Qt6 support library for PackageKit
 Recommends: PackageKit
+Conflicts:  PackageKit-Qt5 < 1.1.4~
 %description -n PackageKit-Qt6
 %{summary}.
 
 %package -n PackageKit-Qt6-devel
 Summary: Development files for PackageKit-Qt6
 Requires: PackageKit-Qt6%{?_isa} = %{version}-%{release}
+Conflicts: PackageKit-Qt5-devel < 1.1.4~
 %description -n PackageKit-Qt6-devel
 %{summary}.
 
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{name}-%{gitcommit}
 
 
 %build
-mkdir -p pkqt6
-pushd pkqt6
-%cmake -S .. -DBUILD_WITH_QT6=ON
+%cmake -DBUILD_WITH_QT6=ON
 %cmake_build
-popd
-
-mkdir -p pkqt5
-pushd pkqt5
-%cmake -S .. -DBUILD_WITH_QT6=OFF
-%cmake_build
-popd
 
 
 %install
-pushd pkqt6
 %cmake_install
-popd
-
-pushd pkqt5
-%cmake_install
-popd
-
-
-%files -n PackageKit-Qt5
-%doc AUTHORS NEWS
-%license COPYING
-%{_libdir}/libpackagekitqt5.so.%{version}
-%{_libdir}/libpackagekitqt5.so.1
-
-%files -n PackageKit-Qt5-devel
-%{_libdir}/libpackagekitqt5.so
-%{_libdir}/pkgconfig/packagekitqt5.pc
-%{_includedir}/packagekitqt5/
-%dir %{_libdir}/cmake
-%{_libdir}/cmake/packagekitqt5/
 
 %files -n PackageKit-Qt6
 %doc AUTHORS NEWS
 %license COPYING
-%{_libdir}/libpackagekitqt6.so.%{version}
-%{_libdir}/libpackagekitqt6.so.1
+%{_libdir}/libpackagekitqt.so.1.1.4
+%{_libdir}/libpackagekitqt.so.1
 
 %files -n PackageKit-Qt6-devel
-%{_libdir}/libpackagekitqt6.so
+%{_libdir}/libpackagekitqt.so
 %{_libdir}/pkgconfig/packagekitqt6.pc
-%{_includedir}/packagekitqt6/
-%dir %{_libdir}/cmake
+%{_includedir}/PackageKitQt/
 %{_libdir}/cmake/packagekitqt6/
 
 
 %changelog
+* Thu Sep 25 2025 Steve Cossette <farchord@gmail.com> - 1.1.4~20250914.113000.42902ed-1
+- Git build for Plasma 6.4.90
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

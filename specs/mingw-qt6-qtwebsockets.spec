@@ -1,7 +1,7 @@
 %{?mingw_package_header}
 
 %global qt_module qtwebsockets
-#global pre rc2
+%global pre rc
 
 #global commit e5133f4f0bb7c01d7bd7fc499d8c148c03a5b500
 #global shortcommit %(c=%{commit}; echo ${c:0:7})
@@ -9,14 +9,15 @@
 %if 0%{?commit:1}
 %global source_folder %{qt_module}-%{commit}
 %else
-%global source_folder %{qt_module}-everywhere-src-%{version}%{?pre:-%{pre}}
+%global source_folder %{qt_module}-everywhere-src-%{qt_version}%{?pre:-%{pre}}
 %endif
 
 # first two digits of version
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
+%define qt_version %(echo %{version} | cut -d~ -f1)
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.9.2
+Version:        6.10.0%{?pre:~%pre}
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtWebsockets component
 
@@ -26,7 +27,7 @@ URL:            http://qt.io/
 %if 0%{?commit:1}
 Source0:        https://github.com/qt/%{qt_module}/archive/%{commit}/%{qt_module}-everywhere-src-%{commit}.tar.gz
 %else
-Source0:        http://download.qt.io/%{?pre:development}%{?!pre:official}_releases/qt/%{release_version}/%{version}%{?pre:-%pre}/submodules/%{qt_module}-everywhere-src-%{version}%{?pre:-%pre}.tar.xz
+Source0:        http://download.qt.io/%{?pre:development}%{?!pre:official}_releases/qt/%{release_version}/%{qt_version}%{?pre:-%pre}/submodules/%{qt_module}-everywhere-src-%{qt_version}%{?pre:-%pre}.tar.xz
 %endif
 
 BuildArch:      noarch
@@ -106,13 +107,13 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %{mingw32_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6qmlwebsockets*
 %{mingw32_libdir}/pkgconfig/Qt6WebSockets.pc
 %{mingw32_libdir}/libQt6WebSockets.dll.a
-%{mingw32_libdir}/qt6/metatypes/qt6websockets_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6websockets_metatypes.json
 %{mingw32_libdir}/Qt6WebSockets.prl
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_websockets.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_websockets_private.pri
 %{mingw32_libdir}/qt6/qml/QtWebSockets/
 %{mingw32_libdir}/qt6/modules/WebSockets.json
-%{mingw32_libdir}/qt6/sbom/%{qt_module}-%{version}.spdx
+%{mingw32_libdir}/qt6/sbom/%{qt_module}-%{qt_version}.spdx
 
 
 # Win64
@@ -126,16 +127,19 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %{mingw64_libdir}/cmake/Qt6Qml/QmlPlugins/Qt6qmlwebsockets*
 %{mingw64_libdir}/pkgconfig/Qt6WebSockets.pc
 %{mingw64_libdir}/libQt6WebSockets.dll.a
-%{mingw64_libdir}/qt6/metatypes/qt6websockets_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6websockets_metatypes.json
 %{mingw64_libdir}/Qt6WebSockets.prl
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_websockets.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_websockets_private.pri
 %{mingw64_libdir}/qt6/qml/QtWebSockets/
 %{mingw64_libdir}/qt6/modules/WebSockets.json
-%{mingw64_libdir}/qt6/sbom/%{qt_module}-%{version}.spdx
+%{mingw64_libdir}/qt6/sbom/%{qt_module}-%{qt_version}.spdx
 
 
 %changelog
+* Thu Oct 02 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0~rc-1
+- Update 6.10.0 RC
+
 * Wed Sep 03 2025 Sandro Mani <manisandro@gmail.com> - 6.9.2-1
 - Update to 6.9.2
 

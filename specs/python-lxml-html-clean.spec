@@ -1,5 +1,5 @@
 Name:           python-lxml-html-clean
-Version:        0.4.2
+Version:        0.4.3
 Release:        %autorelease
 Summary:        HTML cleaner from lxml project
 License:        BSD-3-Clause
@@ -23,6 +23,10 @@ Summary:        %{summary}
 %prep
 %autosetup -p1 -n lxml_html_clean-%{version}
 sed -i "/memory_profiler/d" tox.ini
+# This test requires newer version of libxml2
+# https://src.fedoraproject.org/rpms/libxml2/pull-request/16
+rm tests/test_clean.txt
+sed -i "s@tests/test_clean.txt@@" tox.ini
 
 
 %generate_buildrequires

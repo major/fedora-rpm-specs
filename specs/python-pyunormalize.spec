@@ -1,8 +1,7 @@
 %global pypi_name pyunormalize
-%global git_commit 4b45c576567fb0293acb93a308c97cbaba3caa5f
 
 Name:          python-%{pypi_name}
-Version:       16.0.0
+Version:       17.0.0
 Release:       %autorelease
 BuildArch:     noarch
 Summary:       Unicode normalization forms (NFC, NFKC, NFD, NFKD)
@@ -11,7 +10,7 @@ Summary:       Unicode normalization forms (NFC, NFKC, NFD, NFKD)
 License:       MIT AND Unicode-3.0
 URL:           https://github.com/mlodewijck/pyunormalize
 VCS:           git:%{url}.git
-Source0:       %{url}/archive/%{git_commit}/%{pypi_name}-%{git_commit}.tar.gz
+Source0:       %{url}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
 BuildRequires: tox
 BuildSystem:   pyproject
 BuildOption(generate_buildrequires): -t

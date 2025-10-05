@@ -1,5 +1,5 @@
 Name:           python-cucumber-tag-expressions
-Version:        6.2.0
+Version:        7.0.0
 Release:        %autorelease
 Summary:        Provides a tag-expression parser and evaluation logic for cucumber/behave
 
@@ -13,7 +13,7 @@ Source:         %{url}/archive/v%{version}/tag-expressions-%{version}.tar.gz
 Patch:          0001-Downstream-only-omit-pytest-options-for-pytest-html.patch
 
 BuildSystem:            pyproject
-BuildOption(install):   -L cucumber_tag_expressions
+BuildOption(install):   -l cucumber_tag_expressions
 BuildOption(generate_buildrequires): -x testing
 
 BuildArch:      noarch
@@ -60,7 +60,6 @@ install -t '%{buildroot}%{_pkgdocdir}' -p -m 0644 -D python/README.rst
 
 
 %files -n python3-cucumber-tag-expressions -f %{pyproject_files}
-%license LICENSE
 %doc %{_pkgdocdir}/
 
 

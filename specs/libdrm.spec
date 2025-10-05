@@ -44,12 +44,12 @@ end}
 %bcond_without install_test_programs
 %bcond_without udev
 
-%global lib_version 125
+%global lib_version 126
 
 Name:           libdrm
 Summary:        Direct Rendering Manager runtime library
 Version:        2.4.%{lib_version}
-Release:        3%{?dist}
+Release:        1%{?dist}
 License:        MIT
 
 URL:            https://dri.freedesktop.org
@@ -279,6 +279,9 @@ cp %{SOURCE1} %{buildroot}%{_docdir}/libdrm
 %endif
 
 %changelog
+* Thu Oct 03 2025 José Expósito <jexposit@redhat.com> - 2.4.126-1
+- Update to 2.4.126
+
 * Tue Aug 12 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 2.4.125-3
 - Drop unnecessary libatomic_ops dependency
 

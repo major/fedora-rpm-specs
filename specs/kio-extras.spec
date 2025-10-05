@@ -1,6 +1,6 @@
 Name:    kio-extras
 Version: 25.08.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Additional components to increase the functionality of KIO Framework
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -61,6 +61,9 @@ BuildRequires:  pkgconfig(libtirpc)
 BuildRequires:  pkgconfig(shared-mime-info)
 BuildRequires:  pkgconfig(xcursor)
 BuildRequires:  taglib-devel > 1.11
+
+# Requires QtGui Private, it seems
+BuildRequires:  qt6-qtbase-private-devel
 
 # This package provides plugins for KIO
 Supplements:    kf6-kio-core
@@ -133,6 +136,9 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Fri Oct 03 2025 Steve Cossette <farchord@gmail.com> - 25.08.1-2
+- Rebuild for plasma-activities
+
 * Sun Sep 21 2025 Steve Cossette <farchord@gmail.com> - 25.08.1-1
 - 25.08.1
 

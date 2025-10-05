@@ -1,6 +1,6 @@
 Name:    plasma-activities
 Summary: Core components for the KDE Activity concept
-Version: 6.4.5
+Version: 6.4.91
 Release: 1%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -66,7 +66,7 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_kf6_bindir}/plasma-activities-cli6
 %{_kf6_datadir}/qlogging-categories6/plasma-activities.categories
 %{_kf6_datadir}/qlogging-categories6/plasma-activities.renamecategories
-%{_kf6_libdir}/libPlasmaActivities.so.6
+%{_kf6_libdir}/libPlasmaActivities.so.7
 %{_kf6_libdir}/libPlasmaActivities.so.%{version}
 %{_kf6_qmldir}/org/kde/activities/
 
@@ -82,6 +82,12 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 
 
 %changelog
+* Thu Oct 02 2025 Steve Cossette <farchord@gmail.com> - 6.4.91-1
+- 6.4.91
+
+* Thu Sep 25 2025 Steve Cossette <farchord@gmail.com> - 6.4.90-1
+- 6.4.90
+
 * Tue Sep 16 2025 farchord@gmail.com - 6.4.5-1
 - 6.4.5
 

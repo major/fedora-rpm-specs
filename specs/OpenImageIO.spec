@@ -32,7 +32,6 @@ BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  txt2man
 # Libraries
-BuildRequires:  boost-devel
 BuildRequires:  bzip2-devel
 # Not currently in RHEL/EPEL
 %if ! 0%{?rhel}
@@ -42,8 +41,6 @@ BuildRequires:  fmt-devel
 BuildRequires:  freetype-devel
 BuildRequires:  giflib-devel
 BuildRequires:  glew-devel
-BuildRequires:  hdf5-devel
-BuildRequires:  jasper-devel
 # Only available on RPM Fusion
 BuildRequires:  libheif-devel
 BuildRequires:  turbojpeg-devel

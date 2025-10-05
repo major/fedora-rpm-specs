@@ -1,6 +1,6 @@
 Name:           knighttime
 Summary:        Helpers for scheduling the dark-light cycle
-Version:        6.4.90
+Version:        6.4.91
 Release:        1%{?dist}
 
 License:        GPL-3.0-only AND BSD-3-Clause AND MIT AND GPL-2.0-only AND LGPL-2.1-only AND CC0-1.0 AND LGPL-3.0-only
@@ -10,8 +10,6 @@ Source0:        https://download.kde.org/%{stable_kf6}/plasma/%{majmin_ver_kf6}/
 Source1:        https://download.kde.org/%{stable_kf6}/plasma/%{majmin_ver_kf6}/%{name}-%{version}.tar.xz.sig
 
 # Upstream Patches
-# https://invent.kde.org/plasma/knighttime/-/commit/e0c555ebb70f305345ff18d5d70a4ee14475ec28
-Patch0:         e0c555ebb70f305345ff18d5d70a4ee14475ec28.patch
 
 BuildRequires:  extra-cmake-modules >= %{version}
 BuildRequires:  cmake
@@ -99,5 +97,8 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.knighttimed.d
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Fri Oct 03 2025 Steve Cossette <farchord@gmail.com> - 6.4.91-1
+- 6.4.91
+
 * Fri Sep 26 2025 Steve Cossette <farchord@gmail.com> - 6.4.90-1
 - Initial Release

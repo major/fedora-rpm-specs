@@ -2,11 +2,11 @@
 
 Summary:   Firmware update EFI binaries
 Name:      fwupd-efi
-Version:   1.7
+Version:   1.8
 Release:   %autorelease
 License:   LGPL-2.1-or-later
 URL:       https://github.com/fwupd/fwupd-efi
-Source0:   https://github.com/fwupd/%{name}/archive/refs/tags/%{name}-%{version}.tar.gz
+Source0:   https://github.com/fwupd/%{name}/archive/refs/tags/%{version}.tar.gz
 
 # these are the only architectures supporting UEFI UpdateCapsule
 ExclusiveArch: x86_64 aarch64
@@ -55,6 +55,7 @@ rm -vf %{fwup_efi_fn}.tmp
 %files
 %doc README.md AUTHORS
 %license COPYING
+%dir %{_libexecdir}/fwupd/efi
 %{_libexecdir}/fwupd/efi/*.efi
 %{_libexecdir}/fwupd/efi/*.efi.signed
 %{_libdir}/pkgconfig/fwupd-efi.pc

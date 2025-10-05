@@ -1,6 +1,6 @@
 Name:           sdcc
 Version:        4.4.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Small Device C Compiler
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -127,10 +127,18 @@ mv $RPM_BUILD_ROOT%{_bindir}/* $RPM_BUILD_ROOT%{_libexecdir}/sdcc
 # Create launch scripts in _bindir
 pushd $RPM_BUILD_ROOT%{_bindir}
 for x in ../libexec/sdcc/*; do
+fname=$(basename $x)
+if [ $fname = 'sdcc' ]; then
+cc1Path=`find ../libexec -name cc1 | sed -n -e 's/\.\.\(.*\)\/cc1/\/usr\1/p'`
+echo "#!/usr/bin/sh
+PATH=/usr/libexec/sdcc:$cc1Path:\$PATH
+/usr/libexec/%{name}/$fname \"\$@\"" > %{name}-$fname
+else
 echo "#!/usr/bin/sh
 PATH=/usr/libexec/sdcc:\$PATH
-/usr/libexec/%{name}/$(basename $x) \"\$@\"" > %{name}-$(basename $x)
-chmod 755 %{name}-$(basename $x)
+/usr/libexec/%{name}/$fname \"\$@\"" > %{name}-$fname
+fi
+chmod 755 %{name}-$fname
 done
 popd
 
@@ -159,6 +167,9 @@ popd
 
 
 %changelog
+* Thu Oct 02 2025 Roy Rankin <rrankin@ihug.com.au> - 4.4.0-4
+- add path to cc1 in sdcc-sdcc
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

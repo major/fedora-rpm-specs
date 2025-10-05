@@ -1,6 +1,6 @@
 Name:    powerdevil
-Version: 6.4.5
-Release: 2%{?dist}
+Version: 6.4.91
+Release: 1%{?dist}
 Summary: Manages the power consumption settings of a Plasma Shell
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -133,29 +133,24 @@ rm -fv %{buildroot}/%{_libdir}/libpowerdevil{configcommonprivate,core,ui}.so
 %{_kf6_qmldir}/org/kde/plasma/private/brightnesscontrolplugin/kde-qmlmodule.version
 %{_kf6_qmldir}/org/kde/plasma/private/brightnesscontrolplugin/libbrightnesscontrolplugin.so
 %{_kf6_qmldir}/org/kde/plasma/private/brightnesscontrolplugin/qmldir
-%{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.battery/contents/config/main.xml
-%{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.battery/contents/ui/BatteryItem.qml
-%{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.battery/contents/ui/CompactRepresentation.qml
-%{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.battery/contents/ui/InhibitionHint.qml
-%{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.battery/contents/ui/PopupDialog.qml
-%{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.battery/contents/ui/InhibitionItem.qml
-%{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.battery/contents/ui/PowerProfileItem.qml
-%{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.battery/contents/ui/main.qml
-%{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.battery/metadata.json
-%{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.brightness/contents/ui/BrightnessItem.qml
-%{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.brightness/contents/ui/CompactRepresentation.qml
-%{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.brightness/contents/ui/KeyboardColorItem.qml
-%{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.brightness/contents/ui/NightLightItem.qml
-%{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.brightness/contents/ui/PopupDialog.qml
-%{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.brightness/contents/ui/main.qml
-%{_kf6_datadir}/plasma/plasmoids/org.kde.plasma.brightness/metadata.json
 %{_kf6_datadir}/qlogging-categories6/batterymonitor.categories
 %{_kf6_datadir}/qlogging-categories6/brightness.categories
+%{_kf6_qtplugindir}/plasma/applets/org.kde.plasma*.so
+%{_kf6_libexecdir}/kauth/wakeupsourcehelper
+%{_datadir}/dbus-1/system-services/org.kde.powerdevil.wakeupsourcehelper.service
+%{_datadir}/dbus-1/system.d/org.kde.powerdevil.wakeupsourcehelper.conf
+%{_datadir}/polkit-1/actions/org.kde.powerdevil.wakeupsourcehelper.policy
 
 
 %changelog
+* Thu Oct 02 2025 Steve Cossette <farchord@gmail.com> - 6.4.91-1
+- 6.4.91
+
 * Tue Sep 30 2025 Jan Grulich <jgrulich@redhat.com> - 6.4.5-2
 - Rebuild (qt6)
+
+* Thu Sep 25 2025 Steve Cossette <farchord@gmail.com> - 6.4.90-1
+- 6.4.90
 
 * Tue Sep 16 2025 farchord@gmail.com - 6.4.5-1
 - 6.4.5

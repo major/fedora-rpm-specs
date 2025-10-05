@@ -8,8 +8,8 @@
 
 Name:    plasma-discover
 Summary: KDE and Plasma resources management GUI
-Version: 6.4.5
-Release: 2%{?dist}
+Version: 6.4.91
+Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://invent.kde.org/plasma/discover
@@ -283,7 +283,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.discover.desk
 %{_kf6_qtplugindir}/discover-notifier/FlatpakNotifier.so
 %{_kf6_qtplugindir}/discover/flatpak-backend.so
 %{_datadir}/libdiscover/categories/flatpak-backend-categories.xml
-%{_datadir}/applications/org.kde.discover-flatpak.desktop
+%{_datadir}/applications/org.kde.discover.flatpak.desktop
 
 %if 0%{?snap}
 %files snap
@@ -312,9 +312,15 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.discover.desk
 %{_kf6_qtplugindir}/discover/kns-backend.so
 
 %changelog
+* Thu Oct 02 2025 Steve Cossette <farchord@gmail.com> - 6.4.91-1
+- 6.4.91
+
 * Fri Sep 26 2025 Timothée Ravier <tim@siosm.fr> - 6.4.5-2
 - Move dependency on fedora-third-party, fedora-flathub-remote &
   fedora-workstation-repositories to comps groups.
+
+* Thu Sep 25 2025 Steve Cossette <farchord@gmail.com> - 6.4.90-1
+- 6.4.90
 
 * Tue Sep 16 2025 farchord@gmail.com - 6.4.5-1
 - 6.4.5

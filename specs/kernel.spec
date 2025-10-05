@@ -176,13 +176,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.18.0
 %define specversion 6.18.0
 %define patchversion 6.18
-%define pkgrelease 0.rc0.251002g7f7072574127.5
+%define pkgrelease 0.rc0.251003ge406d57be7bd.6
 %define kversion 6
-%define tarfile_release 6.17-4185-g7f7072574127
+%define tarfile_release 6.17-9099-ge406d57be7bd
 # This is needed to do merge window version magic
 %define patchlevel 18
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc0.251002g7f7072574127.5%{?buildid}%{?dist}
+%define specrelease 0.rc0.251003ge406d57be7bd.6%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.18.0
 
@@ -4392,7 +4392,7 @@ fi\
 #
 #
 %changelog
-* Thu Oct 02 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc0.7f7072574127.5]
+* Fri Oct 03 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc0.e406d57be7bd.6]
 - add xxd to as BuildRequire for bpf selftests (Thorsten Leemhuis)
 - powerpc/tools: drop `-o pipefail` in gcc check scripts (Jan Stancek)
 - redhat/configs: enable CONFIG_KVM_INTEL_TDX for Fedora x86 (Daniel P. Berrangé)
@@ -4404,6 +4404,9 @@ fi\
 - x86/sme: Use percpu boolean to control WBINVD during kexec (Kai Huang)
 - x86/kexec: Consolidate relocate_kernel() function parameters (Kai Huang)
 - redhat/configs: clang_lto: disable CONFIG_FORTIFY_KUNIT_TEST (Scott Weaver)
+
+* Fri Oct 03 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc0.e406d57be7bd.5]
+- Linux v6.18.0-0.rc0.e406d57be7bd
 
 * Thu Oct 02 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc0.7f7072574127.4]
 - redhat: ark-linux-next.sh: initial commit (Scott Weaver)

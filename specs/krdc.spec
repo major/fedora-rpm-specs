@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 Name:    krdc
 Summary: Remote desktop client
 Version: 25.08.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # Automatically converted from old format: GPLv2+ and GFDL - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-GFDL
@@ -123,6 +123,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Sat Oct 04 2025 Steve Cossette <farchord@gmail.com> - 25.08.1-3
+- Rebuild for plasma-activities
+
 * Tue Sep 30 2025 Jan Grulich <jgrulich@redhat.com> - 25.08.1-2
 - Rebuild (qt6)
 

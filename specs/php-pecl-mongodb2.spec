@@ -16,13 +16,13 @@
 # After 40-smbclient.ini, see https://jira.mongodb.org/browse/PHPC-658
 %global ini_name          50-%{pecl_name}.ini
 
-%global upstream_version  2.1.0
+%global upstream_version  2.1.2
 #global upstream_prever   RC1
 #global upstream_lower    ~rc1
 %global sources           %{pecl_name}-%{upstream_version}%{?upstream_prever}
 
 # Required versions from config.m4
-%global minimal_libmongo  1.30.4
+%global minimal_libmongo  1.30.5
 %global minimal_libcrypt  1.12.0
 
 # Build dependencies
@@ -32,7 +32,7 @@
 Summary:        MongoDB driver for PHP version 2
 Name:           php-pecl-%{pecl_name}2
 Version:        %{upstream_version}%{?upstream_lower}
-Release:        2%{?dist}
+Release:        1%{?dist}
 License:        Apache-2.0
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}.tgz
@@ -51,22 +51,19 @@ Requires:       php(zend-abi) = %{php_zend_api}
 Requires:       php(api) = %{php_core_api}
 Requires:       php-json%{?_isa}
 
-# Don't provide php-mongodb which is the pure PHP library
-Provides:       php-pecl(%{pecl_name})           = %{version}
-Provides:       php-pecl(%{pecl_name})%{?_isa}   = %{version}
-Provides:       php-pie(%{pie_vend}/%{pie_proj}) = %{version}
-Provides:       php-%{pie_vend}-%{pie_proj}      = %{version}
-%if 0%{?fedora} >= 43 || 0%{?rhel} >= 11
+# Extension (php-mongodb was the pure PHP library)
 Obsoletes:      php-%{pecl_name}                 < 2
 Provides:       php-%{pecl_name}                 = %{version}
 Provides:       php-%{pecl_name}%{?_isa}         = %{version}
+# PECL and package rename (for new major version)
 Obsoletes:      php-pecl-%{pecl_name}            < 2
 Provides:       php-pecl-%{pecl_name}            = %{version}-%{release}
 Provides:       php-pecl-%{pecl_name}%{?_isa}    = %{version}-%{release}
-%else
-# A single version can be installed
-Conflicts:     php-pecl-%{pecl_name}             < 2
-%endif
+Provides:       php-pecl(%{pecl_name})           = %{version}
+Provides:       php-pecl(%{pecl_name})%{?_isa}   = %{version}
+# PIE
+Provides:       php-pie(%{pie_vend}/%{pie_proj}) = %{version}
+Provides:       php-%{pie_vend}-%{pie_proj}      = %{version}
 
 
 %description
@@ -168,6 +165,9 @@ OPT="-n"
 
 
 %changelog
+* Thu Oct  2 2025 Remi Collet <remi@remirepo.net> - 2.1.2-1
+- update to 2.1.2
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

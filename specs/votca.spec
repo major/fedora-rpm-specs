@@ -1,8 +1,8 @@
 Name:           votca
-Version:        2025
+Version:        2025.1
 %global         uversion %{version}
 %global         sover 2025
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Versatile Object-oriented Toolkit for Coarse-graining Applications
 License:        Apache-2.0
 URL:            http://www.votca.org
@@ -254,6 +254,10 @@ export PYTHONPATH="${MPI_PYTHON3_SITEARCH}${PYTHONPATH:+:}${PYTHONPATH}"
 %{_datadir}/bash-completion/completions/votca
 
 %changelog
+* Fri Oct 03 2025 Christoph Junghans <junghans@votca.org> - 2025.1-1
+- Version bump to v2025.1
+- Fixes: rhbz#2401325
+
 * Thu Aug 14 2025 Christoph Junghans <junghans@votca.org> - 2025-3
 - Rebuilt for gromacs-2025
 

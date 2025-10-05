@@ -7,8 +7,8 @@ ExcludeArch: %{ix86}
 
 Name:           krdp
 Summary:        Desktop sharing using RDP
-Version:        6.4.5
-Release:        2%{?dist}
+Version:        6.4.91
+Release:        1%{?dist}
 
 License:        LGPL-2.1-only OR LGPL-3.0-only
 URL:            https://invent.kde.org/plasma/krdp
@@ -28,6 +28,7 @@ BuildRequires:  cmake(KF6KCMUtils) >= %{kf6minver}
 BuildRequires:  cmake(KF6I18n) >= %{kf6minver}
 BuildRequires:  cmake(KF6CoreAddons) >= %{kf6minver}
 BuildRequires:  cmake(KF6StatusNotifierItem) >= %{kf6minver}
+BuildRequires:  cmake(KF6GuiAddons)
 BuildRequires:  qt6-qtbase-private-devel >= %{qt6minver}
 BuildRequires:  cmake(Qt6Core) >= %{qt6minver}
 BuildRequires:  cmake(Qt6Gui) >= %{qt6minver}
@@ -40,6 +41,7 @@ BuildRequires:  cmake(WinPR) >= 3.1
 BuildRequires:  cmake(FreeRDP-Server) >= 3.1
 BuildRequires:  cmake(KPipeWire) >= 5.27.80
 BuildRequires:  cmake(PlasmaWaylandProtocols)
+BuildRequires:  pkgconfig(pam)
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-cursor)
 BuildRequires:  pkgconfig(wayland-egl)
@@ -86,9 +88,18 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 %install
 %cmake_install
-
 %find_lang %{name} --with-html --all-name
 
+%post
+%systemd_user_post app-org.kde.krdpserver.service
+
+%preun
+%systemd_user_preun app-org.kde.krdpserver.service
+
+%postun
+%systemd_user_postun_with_restart app-org.kde.krdpserver.service
+%systemd_user_postun_with_reload app-org.kde.krdpserver.service
+%systemd_user_postun app-org.kde.krdpserver.service
 
 %files -f %{name}.lang
 %doc README.md
@@ -99,6 +110,7 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 %{_kf6_datadir}/qlogging-categories6/krdp.categories
 %{_qt6_plugindir}/plasma/kcms/systemsettings/kcm_krdpserver.so
 %{_userunitdir}/app-org.kde.krdpserver.service
+%{_userpresetdir}/00-krdp.preset
 
 %files libs
 %license LICENSES/LGPL-*.txt LICENSES/LicenseRef-KDE-*
@@ -110,8 +122,14 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Thu Oct 02 2025 Steve Cossette <farchord@gmail.com> - 6.4.91-1
+- 6.4.91
+
 * Tue Sep 30 2025 Jan Grulich <jgrulich@redhat.com> - 6.4.5-2
 - Rebuild (qt6)
+
+* Thu Sep 25 2025 Steve Cossette <farchord@gmail.com> - 6.4.90-1
+- 6.4.90
 
 * Tue Sep 16 2025 farchord@gmail.com - 6.4.5-1
 - 6.4.5

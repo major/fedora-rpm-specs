@@ -1,7 +1,7 @@
 %{?mingw_package_header}
 
 %global qt_module qtmultimedia
-#global pre rc2
+%global pre rc
 
 #global commit a73dfa7c63b82e25f93e44ed6386664373aaca74
 #global shortcommit %(c=%{commit}; echo ${c:0:7})
@@ -9,14 +9,15 @@
 %if 0%{?commit:1}
 %global source_folder %{qt_module}-%{commit}
 %else
-%global source_folder %{qt_module}-everywhere-src-%{version}%{?pre:-%{pre}}
+%global source_folder %{qt_module}-everywhere-src-%{qt_version}%{?pre:-%{pre}}
 %endif
 
 # first two digits of version
 %global release_version %(echo %{version} | awk -F. '{print $1"."$2}')
+%define qt_version %(echo %{version} | cut -d~ -f1)
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.9.2
+Version:        6.10.0%{?pre:~%pre}
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtMultimedia component
 
@@ -26,7 +27,7 @@ URL:            http://qt.io/
 %if 0%{?commit:1}
 Source0:        https://github.com/qt/%{qt_module}/archive/%{commit}/%{qt_module}-everywhere-src-%{commit}.tar.gz
 %else
-Source0:        http://download.qt.io/%{?pre:development}%{?!pre:official}_releases/qt/%{release_version}/%{version}%{?pre:-%pre}/submodules/%{qt_module}-everywhere-src-%{version}%{?pre:-%pre}.tar.xz
+Source0:        http://download.qt.io/%{?pre:development}%{?!pre:official}_releases/qt/%{release_version}/%{qt_version}%{?pre:-%pre}/submodules/%{qt_module}-everywhere-src-%{qt_version}%{?pre:-%pre}.tar.xz
 %endif
 
 BuildArch:      noarch
@@ -113,7 +114,6 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %{mingw32_libdir}/cmake/Qt6/FindVAAPI.cmake
 %{mingw32_libdir}/cmake/Qt6/FindWrapBundledResonanceAudioConfigExtra.cmake
 %{mingw32_libdir}/cmake/Qt6/FindWrapPulseAudio.cmake
-%{mingw32_libdir}/cmake/Qt6/FindWMF.cmake
 %{mingw32_libdir}/cmake/Qt6/FindMMRenderer.cmake
 %{mingw32_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtMultimediaTestsConfig.cmake
 %{mingw32_libdir}/cmake/Qt6BundledResonanceAudio/
@@ -146,15 +146,15 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_multimediawidgets_private.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_spatialaudio.pri
 %{mingw32_libdir}/qt6/mkspecs/modules/qt_lib_spatialaudio_private.pri
-%{mingw32_libdir}/qt6/metatypes/qt6multimedia_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6multimediatestlibprivate_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6multimediawidgets_relwithdebinfo_metatypes.json
-%{mingw32_libdir}/qt6/metatypes/qt6spatialaudio_relwithdebinfo_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6multimedia_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6multimediatestlibprivate_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6multimediawidgets_metatypes.json
+%{mingw32_libdir}/qt6/metatypes/qt6spatialaudio_metatypes.json
 %{mingw32_libdir}/qt6/modules/Multimedia.json
 %{mingw32_libdir}/qt6/modules/MultimediaTestLibPrivate.json
 %{mingw32_libdir}/qt6/modules/MultimediaWidgets.json
 %{mingw32_libdir}/qt6/modules/SpatialAudio.json
-%{mingw32_libdir}/qt6/sbom/%{qt_module}-%{version}.spdx
+%{mingw32_libdir}/qt6/sbom/%{qt_module}-%{qt_version}.spdx
 
 
 # Win64
@@ -175,7 +175,6 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %{mingw64_libdir}/cmake/Qt6/FindVAAPI.cmake
 %{mingw64_libdir}/cmake/Qt6/FindWrapBundledResonanceAudioConfigExtra.cmake
 %{mingw64_libdir}/cmake/Qt6/FindWrapPulseAudio.cmake
-%{mingw64_libdir}/cmake/Qt6/FindWMF.cmake
 %{mingw64_libdir}/cmake/Qt6/FindMMRenderer.cmake
 %{mingw64_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtMultimediaTestsConfig.cmake
 %{mingw64_libdir}/cmake/Qt6BundledResonanceAudio/
@@ -208,18 +207,21 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_multimediawidgets_private.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_spatialaudio.pri
 %{mingw64_libdir}/qt6/mkspecs/modules/qt_lib_spatialaudio_private.pri
-%{mingw64_libdir}/qt6/metatypes/qt6multimedia_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6multimediatestlibprivate_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6multimediawidgets_relwithdebinfo_metatypes.json
-%{mingw64_libdir}/qt6/metatypes/qt6spatialaudio_relwithdebinfo_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6multimedia_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6multimediatestlibprivate_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6multimediawidgets_metatypes.json
+%{mingw64_libdir}/qt6/metatypes/qt6spatialaudio_metatypes.json
 %{mingw64_libdir}/qt6/modules/Multimedia.json
 %{mingw64_libdir}/qt6/modules/MultimediaTestLibPrivate.json
 %{mingw64_libdir}/qt6/modules/MultimediaWidgets.json
 %{mingw64_libdir}/qt6/modules/SpatialAudio.json
-%{mingw64_libdir}/qt6/sbom/%{qt_module}-%{version}.spdx
+%{mingw64_libdir}/qt6/sbom/%{qt_module}-%{qt_version}.spdx
 
 
 %changelog
+* Thu Oct 02 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0~rc-1
+- Update 6.10.0 RC
+
 * Tue Sep 02 2025 Sandro Mani <manisandro@gmail.com> - 6.9.2-1
 - Update to 6.9.2
 

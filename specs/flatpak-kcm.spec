@@ -3,7 +3,7 @@
 ExcludeArch: %{ix86}
 
 Name:          flatpak-kcm
-Version:       6.4.5
+Version:       6.4.91
 Release:       1%{?dist}
 License:       BSD-2-Clause and BSD-3-Clause and CC0-1.0 and GPL-2.0-or-later
 Summary:       Flatpak Permissions Management KCM
@@ -15,11 +15,13 @@ Source1:       https://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-
 BuildRequires: extra-cmake-modules
 BuildRequires: gcc-c++
 BuildRequires: kf6-rpm-macros
+BuildRequires: desktop-file-utils
 
 BuildRequires: cmake(KF6Declarative)
 BuildRequires: cmake(KF6I18n)
 BuildRequires: cmake(KF6ItemModels)
 BuildRequires: cmake(KF6KCMUtils)
+BuildRequires: cmake(KF6IconThemes)
 
 BuildRequires: cmake(Qt6Svg)
 
@@ -37,15 +39,21 @@ BuildRequires: pkgconfig(flatpak)
 
 %install
 %cmake_install
+desktop-file-validate %{buildroot}%{_datadir}/applications/kcm_app-permissions.desktop
+%find_lang kcm_app-permissions
 
-%find_lang kcm_flatpak
-
-%files -f kcm_flatpak.lang
+%files -f kcm_app-permissions.lang
 %license LICENSES/*
-%{_kf6_datadir}/applications/kcm_flatpak.desktop
-%{_qt6_plugindir}/plasma/kcms/systemsettings/kcm_flatpak.so
+%{_kf6_qtplugindir}/plasma/kcms/systemsettings/kcm_app-permissions.so
+%{_kf6_datadir}/applications/kcm_app-permissions.desktop
 
 %changelog
+* Thu Oct 02 2025 Steve Cossette <farchord@gmail.com> - 6.4.91-1
+- 6.4.91
+
+* Thu Sep 25 2025 Steve Cossette <farchord@gmail.com> - 6.4.90-1
+- 6.4.90
+
 * Tue Sep 16 2025 farchord@gmail.com - 6.4.5-1
 - 6.4.5
 

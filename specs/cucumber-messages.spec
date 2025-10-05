@@ -10,8 +10,8 @@
 %bcond network_tests 0
 
 Name:           cucumber-messages
-Version:        29.0.1
-%global cpp_soversion 29
+Version:        30.0.0
+%global cpp_soversion 30
 Release:        %autorelease
 Summary:        A message protocol for representing results and other information from Cucumber
 

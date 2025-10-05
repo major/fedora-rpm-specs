@@ -3,7 +3,7 @@
 
 Name:          sbsigntools
 Version:       0.9.5
-Release:       11%{?dist}
+Release:       12%{?dist}
 Summary:       Signing utility for UEFI secure boot
 # Most source code is GPL-3.0-or-later, except:
 # LicenseRef-Fedora-Public-Domain:
@@ -41,6 +41,8 @@ Patch1:        %{name}-gnuefi.patch
 Patch2:        %{name}-no-wchar_t.patch
 # revert addition of openssl engine support
 Patch3:        %{name}-no-openssl-engines.patch
+# avoid wrong --target option usage that's been fixed in recent binutils
+Patch4:        %{name}-binutils.patch
 # same as gnu-efi
 ExclusiveArch: x86_64 aarch64 %{arm} %{ix86}
 BuildRequires: make
@@ -88,6 +90,7 @@ Tools to add signatures to EFI binaries and Drivers.
 # EL10 disables openssl engines
 %patch -p 1 -P 3
 %endif
+%patch -p 1 -P 4
 
 %build
 ./autogen.sh
@@ -119,6 +122,9 @@ make check
 %{_mandir}/man1/sbverify.1.*
 
 %changelog
+* Fri Oct 03 2025 Dominik Mierzejewski <dominik@greysector.net> - 0.9.5-12
+- avoid wrong --target option usage that was fixed in recent binutils
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.5-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
