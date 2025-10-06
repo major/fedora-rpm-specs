@@ -10,8 +10,8 @@
 %bcond_with tests
 
 Name:              valkey
-Version:           8.1.3
-Release:           6%{?dist}
+Version:           8.1.4
+Release:           1%{?dist}
 Summary:           A persistent key-value database
 # valkey: BSD-3-Clause
 # hiredis: BSD-3-Clause
@@ -31,6 +31,8 @@ Source50:          https://github.com/valkey-io/%{name}-doc/archive/%{doc_versio
 
 # Fix default paths in configuration files for RPM layout
 Patch0:            %{name}-conf.patch
+# Workaround to https://github.com/valkey-io/valkey/issues/2678
+Patch1:            %{name}-loadmod.patch
 
 BuildRequires:     make
 BuildRequires:     gcc
@@ -184,7 +186,8 @@ Provides:          redis-doc = %{version}-%{release}
 %prep
 # no autosetup due to no support for multiple source extraction
 %setup -n %{name}-%{version} -a50
-%patch -P0 -p1 -b.rpm
+%patch -P0 -p1 -b .rpm
+%patch -P1 -p1 -b .loadmod
 
 mv deps/lua/COPYRIGHT             COPYRIGHT-lua
 mv deps/jemalloc/COPYING          COPYING-jemalloc
@@ -458,6 +461,14 @@ fi
 
 
 %changelog
+* Sat Oct  4 2025 Remi Collet <remi@fedoraproject.org> - 8.1.4-1
+- Valkey 8.1.4 - Released Fri 09 October 2025
+- Upgrade urgency SECURITY:
+  CVE-2025-49844 CVE-2025-46817 CVE-2025-46818 CVE-2025-46819
+- fix CONFIG REWRITE breaks configuration
+  reported as https://github.com/valkey-io/valkey/issues/2678
+  using patch from https://github.com/valkey-io/valkey/pull/2689
+
 * Wed Oct  1 2025 Remi Collet <remi@fedoraproject.org> - 8.1.3-6
 - add sub-package for RDMA module
 - add sub-package for TLS module

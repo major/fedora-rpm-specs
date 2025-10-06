@@ -2,21 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate rend
+%global crate lru-slab
 
-Name:           rust-rend
-Version:        0.5.3
+Name:           rust-lru-slab
+Version:        0.1.2
 Release:        %autorelease
-Summary:        Cross-platform, endian-aware primitives for Rust
+Summary:        Pre-allocated storage with constant-time LRU tracking
 
-License:        MIT
-URL:            https://crates.io/crates/rend
+License:        MIT OR Apache-2.0 OR Zlib
+URL:            https://crates.io/crates/lru-slab
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Cross-platform, endian-aware primitives for Rust.}
+Pre-allocated storage with constant-time LRU tracking.}
 
 %description %{_description}
 
@@ -30,9 +30,10 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
+%license %{crate_instdir}/LICENSE-ZLIB
 %doc %{crate_instdir}/README.md
-%doc %{crate_instdir}/example.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -45,18 +46,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+bytecheck-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+bytecheck-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "bytecheck" feature of the "%{crate}" crate.
-
-%files       -n %{name}+bytecheck-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

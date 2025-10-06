@@ -8,7 +8,7 @@
 
 Summary: FC & Hippel TFMX input plugin for Audacious
 Name: audacious-plugin-fc
-Version: 0.9
+Version: 0.9.1
 Release: 1%{?dist}
 Provides: audacious-plugins-fc = %{version}-%{release}
 URL: https://github.com/mschwendt/audacious-plugins-fc
@@ -60,7 +60,10 @@ appstream-util validate-relax --nonet ${RPM_BUILD_ROOT}%{_datadir}/appdata/*.xml
 
 
 %changelog
-* Sun Sep 07 2025 Michael Schwendt  <mschwendt@fedoraproject.org> - 0.9-1
+* Sat Oct 04 2025 Michael Schwendt <mschwendt@fedoraproject.org> - 0.9.1-1
+- update to 0.9.1
+
+* Sun Sep 07 2025 Michael Schwendt <mschwendt@fedoraproject.org> - 0.9-1
 - update summary and description
 - upgrade to 0.9
 

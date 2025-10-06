@@ -1,20 +1,20 @@
 %global readers_dir %(pkg-config libpcsclite --variable=usbdropdir)
 
-
 Name:		pcsc-cyberjack
 Summary:	PC/SC driver for REINER SCT cyberjack USB chip card reader
-Version:	3.99.5final.SP15
+Version:	3.99.5final.SP16
 %global version_prefix %(c=%{version}; echo ${c:0:6})
 %global version_suffix %(c=%{version}; echo ${c:12:4})
-Release:	12%{?dist}
+Release:	1%{?dist}
 License:	GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
 URL:		https://www.reiner-sct.com/
-Source0:	https://support.reiner-sct.de/downloads/LINUX/V%{version_prefix}_%{version_suffix}/%{name}_%{version}.tar.bz2
-Source1:	pcsc-cyberjack-3.99.5final.SP09-README-FEDORA
+Source0:	https://support.reiner-sct.de/downloads/LINUX/V%{version_prefix}_%{version_suffix}/%{name}-%{version}.tar.bz2
+Source1:	%{name}-3.99.5final.SP09-README-FEDORA
 Source2:	libifd-cyberjack6.udev
+Source3:	%{name}.sysusersd
 # this patch replaces the obsoleted AC_PROG_LIBTOOLT macro with LT_INIT
 # the patch is sent to upstream per email (20160528)
-Patch0:		pcsc-cyberjack-3.99.5final.SP09-configure.patch
+Patch0:		%{name}-3.99.5final.SP09-configure.patch
 
 Requires:	udev
 Requires:	pcsc-lite
@@ -29,11 +29,7 @@ BuildRequires:	libusb1-devel
 BuildRequires:	readline-devel
 BuildRequires:	libsysfs-devel
 BuildRequires:	pcsc-lite-devel >= 1.3.0
-%if 0%{?fedora} || 0%{?rhel} > 7
 BuildRequires:	systemd-rpm-macros
-%else
-BuildRequires:	systemd
-%endif
 %{?systemd_requires}
 
 %package cjflash
@@ -72,12 +68,7 @@ Sample code to use/test SCardControl() API by Ludovic Rousseau.
 autoreconf --force --install
 
 # README-FEDORA
-install -pm 644 %{SOURCE1} README-FEDORA.txt
-
-# Create a sysusers.d config file
-cat >pcsc-cyberjack.sysusers.conf <<EOF
-g cyberjack -
-EOF
+install -p -m 0644 %{SOURCE1} README-FEDORA.txt
 
 %build
 # while the docs say --enable-udev will create udev files, I get no rule
@@ -121,8 +112,10 @@ pushd tools/cjflash
 %make_install
 popd
 
-install -m0644 -D pcsc-cyberjack.sysusers.conf %{buildroot}%{_sysusersdir}/pcsc-cyberjack.conf
+install -D -p -m 0644 %{SOURCE3} %{buildroot}%{_sysusersdir}/%{name}.conf
 
+%pre
+%sysusers_create_compat %{SOURCE3}
 
 %post
 %udev_rules_update
@@ -147,7 +140,7 @@ exit 0
 %{readers_dir}/libifd-cyberjack.bundle/
 
 %config(noreplace) %{_sysconfdir}/cyberjack.conf
-%{_sysusersdir}/pcsc-cyberjack.conf
+%{_sysusersdir}/%{name}.conf
 
 
 %files cjflash
@@ -158,6 +151,9 @@ exit 0
 %doc doc/verifypin_ascii.c doc/verifypin_fpin2.c
 
 %changelog
+* Sun Oct 05 2025 Robert Scheck <robert@fedoraproject.org> - 3.99.5final.SP16-1
+- Update to new upstream version SP16 (#2400852)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.99.5final.SP15-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
@@ -348,4 +344,3 @@ exit 0
 + pcsc-cyberjack-3.99.5final.SP02
 - released 3.99.5final.SP02
 - see changelog in debian/changelog in the source package
-

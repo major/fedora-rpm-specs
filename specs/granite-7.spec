@@ -4,7 +4,7 @@ provides complex widgets and convenience functions designed for use in
 apps built for elementary OS.}
 
 Name:           granite-7
-Version:        7.6.0
+Version:        7.7.0
 Release:        %autorelease
 Summary:        Extend GTK with common widgets and utilities
 License:        LGPL-3.0-or-later AND LGPL-2.1-or-later AND GPL-2.0-or-later AND GPL-3.0-or-later
@@ -24,6 +24,7 @@ BuildRequires:  pkgconfig(gee-0.8)
 BuildRequires:  pkgconfig(glib-2.0) >= 2.50
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
 BuildRequires:  pkgconfig(gtk4) >= 4.4.0
+BuildRequires:  pkgconfig(shumate-1.0)
 
 %description %{_description}
 

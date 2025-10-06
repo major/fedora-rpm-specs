@@ -4,14 +4,14 @@
 
 Summary:   Qt support library for PackageKit
 Name:      PackageKit-Qt
-Version:   1.1.4~%{gitdate}.%{shortcommit}
+Version:   1.1.4
 Release:   1%{?dist}
 
 License:   LGPL-2.1-only
 URL:       http://www.packagekit.org/
 
-# Source0:   https://github.com/hughsie/PackageKit-Qt/archive/v%%{version}.tar.gz
-Source0:   https://github.com/PackageKit/%{name}/archive/%{gitcommit}.tar.gz
+Source0:   https://github.com/hughsie/PackageKit-Qt/archive/v%{version}.tar.gz
+# Source0:   https://github.com/PackageKit/%%{name}/archive/%%{gitcommit}.tar.gz
 
 # Upstream patches
 
@@ -49,7 +49,7 @@ Conflicts: PackageKit-Qt5-devel < 1.1.4~
 
 
 %prep
-%autosetup -p1 -n %{name}-%{gitcommit}
+%autosetup -p1 -n %{name}-%{version}
 
 
 %build
@@ -63,17 +63,20 @@ Conflicts: PackageKit-Qt5-devel < 1.1.4~
 %files -n PackageKit-Qt6
 %doc AUTHORS NEWS
 %license COPYING
-%{_libdir}/libpackagekitqt.so.1.1.4
-%{_libdir}/libpackagekitqt.so.1
+%{_libdir}/libpackagekitqt6.so.%{version}
+%{_libdir}/libpackagekitqt6.so.2
 
 %files -n PackageKit-Qt6-devel
-%{_libdir}/libpackagekitqt.so
+%{_libdir}/libpackagekitqt6.so
 %{_libdir}/pkgconfig/packagekitqt6.pc
 %{_includedir}/PackageKitQt/
 %{_libdir}/cmake/packagekitqt6/
 
 
 %changelog
+* Sat Oct 04 2025 Steve Cossette <farchord@gmail.com> - 1.1.4-1
+- Update to 1.1.4
+
 * Thu Sep 25 2025 Steve Cossette <farchord@gmail.com> - 1.1.4~20250914.113000.42902ed-1
 - Git build for Plasma 6.4.90
 

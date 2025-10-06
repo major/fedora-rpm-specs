@@ -1,5 +1,5 @@
 Name:           podofo0.10
-Version:        0.10.4
+Version:        0.10.5
 Release:        1%{?dist}
 Summary:        Podofo 0.10.x compatibility library
 
@@ -68,7 +68,7 @@ rmdir %{buildroot}%{_datadir}/podofo/
 %files
 %doc AUTHORS.md CHANGELOG.md README.md TODO.md
 %license COPYING
-%{_libdir}/*.so.0.10.4
+%{_libdir}/*.so.0.10.5
 %{_libdir}/*.so.2
 
 %files devel
@@ -79,5 +79,8 @@ rmdir %{buildroot}%{_datadir}/podofo/
 
 
 %changelog
+* Sat Oct 04 2025 Sandro Mani <manisandro@gmail.com> - 0.10.5-1
+- Update to 0.10.5
+
 * Sat Aug 02 2025 Sandro Mani <manisandro@gmail.com> - 0.10.4-1
 - Initial 0.10.x compat package

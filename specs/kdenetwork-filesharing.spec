@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 Name:    kdenetwork-filesharing
 Summary: Network filesharing
 Version: 25.08.1
-Release: 1%{?dist}
+Release: 3%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only
@@ -76,6 +76,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.kd
 
 
 %changelog
+* Sat Oct 04 2025 Steve Cossette <farchord@gmail.com> - 25.08.1-3
+- Another rebuild for PackageKit-Qt Update
+
+* Sat Oct 04 2025 Steve Cossette <farchord@gmail.com> - 25.08.1-2
+- Rebuild for PackageKit-Qt6
+
 * Sun Sep 21 2025 Steve Cossette <farchord@gmail.com> - 25.08.1-1
 - 25.08.1
 

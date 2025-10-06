@@ -4,10 +4,10 @@
 Name: 		newscache
 Summary: 	Free cache server for USENET News
 Version: 	1.2
-Release: 	0.52.rc6%{?dist}
+Release: 	0.53.rc6%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
-URL:		http://www.linuxhacker.at/newscache/
+URL:		https://github.com/hstraub/NewsCache
 Source0: 	http://src.linuxhacker.at/NewsCache/%{srcnamever}.tar.gz
 Source1:	http://src.linuxhacker.at/socket++/socket++-%{socketver}.tar.gz
 Source2:	%{name}.init
@@ -160,6 +160,9 @@ install -m0644 -D newscache.sysusers.conf %{buildroot}%{_sysusersdir}/newscache.
 
 
 %changelog
+* Sat Oct  4 2025 Dmitry Butskoy <Dmitry@Butskoy.name> - 1.2-0.53.rc6
+- update URL (#2401403)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-0.52.rc6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

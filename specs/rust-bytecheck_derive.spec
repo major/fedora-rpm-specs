@@ -5,7 +5,7 @@
 %global crate bytecheck_derive
 
 Name:           rust-bytecheck_derive
-Version:        0.8.1
+Version:        0.8.2
 Release:        %autorelease
 Summary:        Derive macro for bytecheck
 

@@ -17,6 +17,10 @@ Source:  https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%
 %{?qt6_qtwebengine_arches:ExclusiveArch: %{qt6_qtwebengine_arches}}
 
 ## upstream patches
+# Disable functionality related to running activities when compiling with Plasma 6.5
+# https://invent.kde.org/network/konqueror/-/commit/a33e34c749acbd6247279863aac3b90d44f27814
+# Will probably be fixed by 24.08.2
+Patch0:        a33e34c749acbd6247279863aac3b90d44f27814.patch
 
 ## upstreamable patches
 

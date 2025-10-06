@@ -2,21 +2,29 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate rend
+%global crate quote-use
 
-Name:           rust-rend
-Version:        0.5.3
+Name:           rust-quote-use
+Version:        0.8.4
 Release:        %autorelease
-Summary:        Cross-platform, endian-aware primitives for Rust
+Summary:        Support use in procmacros hygienically
 
 License:        MIT
-URL:            https://crates.io/crates/rend
+URL:            https://crates.io/crates/quote-use
 Source:         %{crates_source}
+# * Add a license file
+# * https://github.com/ModProg/quote-use/pull/8
+# * https://docs.fedoraproject.org/en-US/packaging-guidelines/LicensingGuidelines/#_license_text
+# * Text and copyright statement based on
+#   https://github.com/rust-lang/rust/raw/refs/tags/1.90.0/LICENSE-MIT, with
+#   “The Rust Project Contributors” replaced by “Roland Fredenhagen,” as
+#   @ModProg appears to be the sole contributor.
+Source10:       https://github.com/ModProg/quote-use/raw/e4b59902f6af22b8317714e4e7ec695c0fc9e621/LICENSE
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Cross-platform, endian-aware primitives for Rust.}
+Support `use` in procmacros hygienically.}
 
 %description %{_description}
 
@@ -32,7 +40,6 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE
 %doc %{crate_instdir}/README.md
-%doc %{crate_instdir}/example.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -47,20 +54,22 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+bytecheck-devel
+%package     -n %{name}+syn-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+bytecheck-devel %{_description}
+%description -n %{name}+syn-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "bytecheck" feature of the "%{crate}" crate.
+use the "syn" feature of the "%{crate}" crate.
 
-%files       -n %{name}+bytecheck-devel
+%files       -n %{name}+syn-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
+# Copy the proposed license file into the source.
+cp -p '%{SOURCE10}' .
 %cargo_prep
 
 %generate_buildrequires

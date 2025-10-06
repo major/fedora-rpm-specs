@@ -1,6 +1,6 @@
 Name:		msgpack
 Version:	3.1.0
-Release:	20%{?dist}
+Release:	21%{?dist}
 Summary:	Binary-based efficient object serialization library
 
 # Automatically converted from old format: Boost - review is highly recommended.
@@ -35,8 +35,8 @@ Libraries and header files for %{name}
 %prep
 %autosetup -p1
 
-# gtest 1.13.0 requires at least C++14
-sed -i "s|-std=c++98|-std=gnu++14|g" CMakeLists.txt
+# gtest 1.17.0 requires at least C++17
+sed -i "s|-std=c++98|-std=gnu++17|g" CMakeLists.txt
 
 %build
 %cmake -DCMAKE_INSTALL_LIBDIR=%{_libdir} -Dlibdir=%{_libdir} -DBUILD_SHARED_LIBS=ON
@@ -65,6 +65,9 @@ cat %_vpath_builddir/Testing/Temporary/LastTest.log
 
 
 %changelog
+* Sat Oct 04 2025 Terje Røsten <terjeros@gmail.com> - 3.1.0-21
+- Bump to C++17 for gtest 1.17.0
+
 * Sat Aug 02 2025 Antonio Trande <sagitter@fedoraproject.org> - 3.1.0-20
 - Fix rhbz#2381079
 

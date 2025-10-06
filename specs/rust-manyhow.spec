@@ -2,28 +2,25 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate interpolator
+%global crate manyhow
 
-Name:           rust-interpolator
-Version:        0.5.0
+Name:           rust-manyhow
+Version:        0.11.4
 Release:        %autorelease
-Summary:        Runtime format strings, fully compatible with std's macros
+Summary:        Proc macro error handling à la anyhow x proc-macro-error
 
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/interpolator
+URL:            https://crates.io/crates/manyhow
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * Omit derive_more, proptest, proptest-derive, quote, and trybuild2
-#   dev-dependencies, only required for tests that are not included in published
-#   crates
-Patch:          interpolator-fix-metadata.diff
-# * Downstream-only: ignore test that requires assert-dbg, not in the crate
-Patch10:        0001-Downstream-only-ignore-test-that-requires-assert-dbg.patch
+# * Update proc-macro-utils dev-dependency to 0.10.0:
+#   https://github.com/ModProg/manyhow/pull/22
+Patch:          manyhow-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Runtime format strings, fully compatible with std's macros.}
+Proc macro error handling à la anyhow x proc-macro-error.}
 
 %description %{_description}
 
@@ -55,52 +52,76 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+debug-devel
+%package     -n %{name}+darling-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+debug-devel %{_description}
+%description -n %{name}+darling-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "debug" feature of the "%{crate}" crate.
+use the "darling" feature of the "%{crate}" crate.
 
-%files       -n %{name}+debug-devel
+%files       -n %{name}+darling-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+iter-devel
+%package     -n %{name}+darling_core-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+iter-devel %{_description}
+%description -n %{name}+darling_core-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "iter" feature of the "%{crate}" crate.
+use the "darling_core" feature of the "%{crate}" crate.
 
-%files       -n %{name}+iter-devel
+%files       -n %{name}+darling_core-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+number-devel
+%package     -n %{name}+macros-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+number-devel %{_description}
+%description -n %{name}+macros-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "number" feature of the "%{crate}" crate.
+use the "macros" feature of the "%{crate}" crate.
 
-%files       -n %{name}+number-devel
+%files       -n %{name}+macros-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+pointer-devel
+%package     -n %{name}+syn-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+pointer-devel %{_description}
+%description -n %{name}+syn-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "pointer" feature of the "%{crate}" crate.
+use the "syn" feature of the "%{crate}" crate.
 
-%files       -n %{name}+pointer-devel
+%files       -n %{name}+syn-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+syn1-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+syn1-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "syn1" feature of the "%{crate}" crate.
+
+%files       -n %{name}+syn1-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+syn2-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+syn2-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "syn2" feature of the "%{crate}" crate.
+
+%files       -n %{name}+syn2-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
@@ -108,17 +129,17 @@ use the "pointer" feature of the "%{crate}" crate.
 %cargo_prep
 
 %generate_buildrequires
-%cargo_generate_buildrequires -a
+%cargo_generate_buildrequires
 
 %build
-%cargo_build -a
+%cargo_build
 
 %install
-%cargo_install -a
+%cargo_install
 
 %if %{with check}
 %check
-%cargo_test -a
+%cargo_test
 %endif
 
 %changelog

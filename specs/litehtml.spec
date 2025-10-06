@@ -1,6 +1,6 @@
 Name:           litehtml
 Version:        0.9
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Fast and lightweight HTML/CSS rendering engine
 
 License:        BSD-3-Clause
@@ -14,6 +14,8 @@ Patch0:         litehtml_gumbo.patch
 Patch1:         litehtml_qtcreator.patch
 # Port to GNUInstallDirs
 Patch2:         litehtml_gnuinstalldirs.patch
+# To build with C++17
+Patch3:         litehtml_c++17.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -50,8 +52,8 @@ developing applications that use %{name}.
 rm -rf src/gumbo
 rm -rf xxd
 
-# Since 1.13.0, gtest requires C++14 or later
-sed -r -i 's/(CXX_STANDARD[[:blank:]]+)11/\114/' CMakeLists.txt
+# Since 1.17.0, gtest requires C++17 or later
+sed -r -i 's/(CXX_STANDARD[[:blank:]]+)11/\117/' CMakeLists.txt
 
 
 %build
@@ -79,6 +81,9 @@ sed -r -i 's/(CXX_STANDARD[[:blank:]]+)11/\114/' CMakeLists.txt
 
 
 %changelog
+* Sat Oct 04 2025 Terje Rosten <terjeros@gmail.com> - 0.9-7
+- Switch to C++17 for gtest 1.17.0
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

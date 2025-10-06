@@ -1,11 +1,11 @@
-%global commit 8aa8b706727a6a6a841be42ef35a629ed635db3e
+%global commit 96d9e0b6e81330c61c954c6bc73a2302276fcda1
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date 20250718
+%global date 20251004
 %global _hardened_build 1
 
 Name: odhcp6c
 Version: 0
-Release: 0.29.%{date}git%{shortcommit}%{?dist}
+Release: 0.30.%{date}git%{shortcommit}%{?dist}
 Summary: Embedded DHCPv6 and RA client
 # License is GPLv2 except:
 # ./src/md5.c: ISC
@@ -19,8 +19,6 @@ URL: https://git.openwrt.org/?p=project/odhcp6c.git
 # git archive --format=tar.gz --prefix=odhcp6c-%%{commit}/ %%{commit} > ../odhcp6c-%%{commit}.tar.gz
 Source0: %{name}-%{commit}.tar.gz
 Source1: odhcp6c@.service
-# https://github.com/openwrt/odhcp6c/pull/99
-Patch: %{name}-0-Add-compatibility-for-CMake-4.0.patch
 BuildRequires: cmake
 BuildRequires: gcc
 %if 0%{?rhel}
@@ -54,6 +52,10 @@ install -D -p -m 0644 %{SOURCE1} %{buildroot}%{_unitdir}/odhcp6c@.service
 %{_unitdir}/odhcp6c@.service
 
 %changelog
+* Sat Oct 04 2025 Juan Orti Alcaine <jortialc@redhat.com> - 0-0.30.20251004git96d9e0b
+- Update to commit 96d9e0b
+- Drop CMake version patch
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.29.20250718git8aa8b70
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

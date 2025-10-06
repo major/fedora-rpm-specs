@@ -1,6 +1,6 @@
 Name: libfc14audiodecoder
-Version: 2.0.0
-Release: 2%{?dist}
+Version: 2.0.2
+Release: 1%{?dist}
 
 Summary: C wrapper library for FC & Hippel TFMX music
 License: GPL-2.0-or-later
@@ -54,6 +54,9 @@ make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
 
 
 %changelog
+* Sat Oct 04 2025 Michael Schwendt <mschwendt@fedoraproject.org> - 2.0.2-1
+- update to 2.0.2
+
 * Sun Sep 07 2025 Michael Schwendt <mschwendt@fedoraproject.org> - 2.0.0-2
 - update summary and description
 

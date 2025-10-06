@@ -5,7 +5,7 @@
 # Python Module
 
 Name:           alembic
-Version:        1.8.8
+Version:        1.8.9
 Release:        %autorelease
 Summary:        Open framework for storing and sharing scene data
 License:        BSD-3-Clause AND BSL-1.0
@@ -84,7 +84,7 @@ export CXXFLAGS="%{optflags} -Wl,--as-needed"
 %{_bindir}/abctree
 
 %files libs
-%license LICENSE.txt                                       
+%license LICENSE.txt
 %doc ACKNOWLEDGEMENTS.txt FEEDBACK.txt NEWS.txt README.txt
 %{_libdir}/libAlembic.so.*
 

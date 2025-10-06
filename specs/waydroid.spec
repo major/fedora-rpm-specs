@@ -6,7 +6,7 @@ Version:        1.5.4
 
 %forgemeta
 Name:           waydroid
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Container-based approach to boot a full Android system on GNU/Linux
 License:        GPL-3.0-only
 URL:            %{forgeurl}
@@ -23,6 +23,9 @@ Patch1:         mount-secontext.patch
 
 # Fedora LXC is compiled without AppArmor support and fails to parse lxc.apparmor.profile config
 Patch2:         no-apparmor.patch
+
+# Hotfix for Python 3.14; can be dropped with upstream versions > 1.5.4
+Patch3:         py3.14-multiprocessing-fork.patch
 
 BuildArch:      noarch
 
@@ -149,6 +152,9 @@ fi
 %{_datadir}/selinux/%{selinuxtype}/%{name}.pp
 
 %changelog
+* Sat Oct 04 2025 Alessandro Astone <ales.astone@gmail.com> - 1.5.4-5
+- Fix running the graphical initializer on Python3.14 (rhbz#2394967)
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.5.4-4
 - Rebuilt for Python 3.14.0rc3 bytecode
 
