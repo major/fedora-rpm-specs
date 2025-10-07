@@ -2,21 +2,22 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate ptr_meta
+%global crate atspi-common
 
-Name:           rust-ptr_meta
-Version:        0.3.1
+Name:           rust-atspi-common
+Version:        0.10.1
 Release:        %autorelease
-Summary:        Radioactive stabilization of the ptr_meta rfc
+Summary:        Primitive types used for sending and receiving Linux accessibility events
 
-License:        MIT
-URL:            https://crates.io/crates/ptr_meta
+License:        Apache-2.0 OR MIT
+URL:            https://crates.io/crates/atspi-common
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-A radioactive stabilization of the ptr_meta rfc.}
+Primitive types used for sending and receiving Linux accessibility
+events.}
 
 %description %{_description}
 
@@ -30,9 +31,9 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/LICENSE-APACHE2.txt
+%license %{crate_instdir}/LICENSE-MIT.txt
 %doc %{crate_instdir}/README.md
-%doc %{crate_instdir}/example.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -47,40 +48,52 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+derive-devel
+%package     -n %{name}+async-std-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+derive-devel %{_description}
+%description -n %{name}+async-std-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "derive" feature of the "%{crate}" crate.
+use the "async-std" feature of the "%{crate}" crate.
 
-%files       -n %{name}+derive-devel
+%files       -n %{name}+async-std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+ptr_meta_derive-devel
+%package     -n %{name}+tokio-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+ptr_meta_derive-devel %{_description}
+%description -n %{name}+tokio-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "ptr_meta_derive" feature of the "%{crate}" crate.
+use the "tokio" feature of the "%{crate}" crate.
 
-%files       -n %{name}+ptr_meta_derive-devel
+%files       -n %{name}+tokio-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+std-devel
+%package     -n %{name}+wrappers-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+std-devel %{_description}
+%description -n %{name}+wrappers-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "std" feature of the "%{crate}" crate.
+use the "wrappers" feature of the "%{crate}" crate.
 
-%files       -n %{name}+std-devel
+%files       -n %{name}+wrappers-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+zbus-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+zbus-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "zbus" feature of the "%{crate}" crate.
+
+%files       -n %{name}+zbus-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

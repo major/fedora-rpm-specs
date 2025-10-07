@@ -3,6 +3,7 @@
 %global modname  jaraco
 %global projname %{modname}.logging
 %global pkgname  %{modname}-logging
+%global srcname  %{modname}_logging
 
 %if 0%{?epel} <= 9
 # pytest fails with some weird import path error in EPEL 9
@@ -12,13 +13,13 @@
 %endif
 
 Name:           python-%{pkgname}
-Version:        3.3.0
+Version:        3.4.0
 Release:        %autorelease
 Summary:        Support for Python logging facility
 
 License:        MIT
 URL:            https://github.com/jaraco/%{projname}
-Source0:        %{pypi_source %{projname}}
+Source0:        %{pypi_source %{srcname}}
 
 BuildArch:      noarch
 
@@ -35,21 +36,16 @@ Summary:        %{summary}
 %description -n python3-%{pkgname} %_description
 
 %prep
-%autosetup -n %{projname}-%{version}
-
-# Remove dev-only dependencies. Upstream later split the `test` dependencies out of it
-# https://github.com/jaraco/skeleton/issues/138
-sed -E -i '/pytest-/d' setup.cfg
-sed -E -i '/python_implementation/d' setup.cfg
+%autosetup -n %{srcname}-%{version}
 
 %if 0%{?rhel}
 # relax setuptools requirement in EPEL
-sed -i 's/setuptools>=56/setuptools/' pyproject.toml
+sed -i 's/setuptools>=77/setuptools/' pyproject.toml
 %endif
 
 %generate_buildrequires
 %if %{with tests}
-%pyproject_buildrequires -x testing
+%pyproject_buildrequires -x test
 %else
 %pyproject_buildrequires
 %endif

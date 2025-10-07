@@ -12,8 +12,8 @@
 %global relccache %(%abs2rel %{_bindir}/ccache %{_libdir}/ccache)
 
 Name:           ccache
-Version:        4.11.3
-Release:        2%{?dist}
+Version:        4.12.1
+Release:        1%{?dist}
 Summary:        C/C++ compiler cache
 
 # See LICENSE.adoc for licenses of bundled codes
@@ -112,6 +112,8 @@ find $RPM_BUILD_ROOT%{_libdir}/ccache -type l | \
     sed -e "s|^$RPM_BUILD_ROOT|%%ghost |" > %{name}-%{version}.compilers
 
 install -m0644 -D ccache.sysusers.conf %{buildroot}%{_sysusersdir}/ccache.conf
+
+install -m0644 README.md %{buildroot}%{_pkgdocdir}/
 
 
 %check
@@ -226,7 +228,7 @@ done\
 
 %files -f %{name}-%{version}.compilers
 %license GPL-3.0.txt LICENSE.*
-%doc doc/AUTHORS.*  doc/MANUAL.* doc/NEWS.* README.md
+%{_pkgdocdir}/
 %config(noreplace) %{_sysconfdir}/profile.d/%{name}.*sh
 %{_bindir}/ccache
 %dir %{_libdir}/ccache/
@@ -236,6 +238,9 @@ done\
 
 
 %changelog
+* Thu Oct 02 2025 Orion Poplawski <orion@nwra.com> - 4.12.1-1
+- Update to 4.12.1
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.11.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

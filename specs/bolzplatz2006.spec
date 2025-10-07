@@ -7,7 +7,7 @@
 
 Name:           bolzplatz2006
 Version:        1.0.3
-Release:        63%{?dist}
+Release:        64%{?dist}
 Summary:        Slam Soccer 2006 is a funny football game in 3D-comic-style
 Summary(fr):    Coup de Foot 2006 est un jeu comique en 3D
 Summary(de):    Bolzplatz 2006 ist ein spaßiges Fußballspiel im 3D-Comic-Stil
@@ -37,6 +37,7 @@ Patch9:         %{name}-1.0.3-libpng15.patch
 Patch10:        %{name}-use-system-extgl.patch
 Patch11:        %{name}-gcc6.patch
 Patch12:        %{name}-openjdk11.patch
+Patch13:        %{name}-gcc15.patch
 BuildRequires:  gcc-c++ make
 BuildRequires:  ant-openjdk25  sdljava dom4j vecmath1.2 swig xml-commons-apis
 BuildRequires:  libGLU-devel DevIL-devel libXxf86vm-devel libjpeg-devel
@@ -222,6 +223,9 @@ install -p -m 644 %{name}-functions.sh %{SOURCE8} %{SOURCE9} \
 
 
 %changelog
+* Sun Oct  5 2025 Hans de Goede <hans@hansg.org> - 1.0.3-64
+- Fix FTBFS (rhbz#2339940, rhbz#2384482)
+
 * Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 1.0.3-63
 - Rebuilt for java-25-openjdk as preffered jdk
 

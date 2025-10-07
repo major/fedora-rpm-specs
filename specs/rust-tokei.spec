@@ -6,10 +6,10 @@
 %global cargo_install_bin 0
 
 %global crate tokei
-%global crate_version 13.0.0-alpha.8
+%global crate_version 13.0.0-alpha.9
 
 Name:           rust-tokei
-Version:        13.0.0~alpha.8
+Version:        13.0.0~alpha.9
 Release:        %autorelease
 Summary:        Count your code, quickly
 
@@ -23,15 +23,8 @@ Source:         %{crates_source %{crate} %{crate_version}}
 #   having to adjust the patch for every new git2 release.
 # * Update etcetera to 0.10: https://github.com/XAMPPRocky/tokei/pull/1253
 Patch:          tokei-fix-metadata.diff
-# * Fix a minor typo in CLI help text
-# * https://github.com/XAMPPRocky/tokei/pull/1217
-Patch10:        https://github.com/XAMPPRocky/tokei/pull/1217.patch
-# * Fix a missing space in CLI help text
-# * https://github.com/XAMPPRocky/tokei/pull/1218
-Patch11:        https://github.com/XAMPPRocky/tokei/pull/1218.patch
 
 BuildRequires:  cargo-rpm-macros >= 26
-BuildRequires:  dos2unix
 
 %global _description %{expand:
 Count your code, quickly.}
@@ -103,9 +96,6 @@ use the "yaml" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{crate_version} -p1
-# Fix CRLF or mixed CRLF/LF line terminations in Markdown files
-# https://github.com/XAMPPRocky/tokei/pull/1219
-dos2unix --keepdate *.md
 %cargo_prep
 
 %generate_buildrequires

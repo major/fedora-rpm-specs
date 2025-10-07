@@ -1,11 +1,11 @@
 # Use File::Slurper for reading file content
-%bcond_without perl_Config_AutoConf_enables_File_Slurper
+%bcond perl_Config_AutoConf_enables_File_Slurper %{undefined rhel}
 # Use Scalar::Util for detecting numbers
-%bcond_without perl_Config_AutoConf_enables_Scalar_Util
+%bcond perl_Config_AutoConf_enables_Scalar_Util 1
 
 Name:           perl-Config-AutoConf
 Version:        0.320
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        A module to implement some of AutoConf macros in pure Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Config-AutoConf
@@ -72,6 +72,9 @@ a command, a library and similar.
 %{_mandir}/man3/*
 
 %changelog
+* Tue Sep 09 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 0.320-14
+- Avoid File::Slurper dependency in RHEL builds
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.320-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

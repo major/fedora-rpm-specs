@@ -1,38 +1,43 @@
-%global debug_package %{nil}
-# debug info was always empty, so disable for now
+# There have been many bugfixes since the 1.3.0 release
+%global commit  111c9be5188f7350c2eac9ddaedd8cca3d7bf394
+%global date    20210117
+%global forgeurl https://github.com/kazuho/picojson
 
 Name:           picojson
 Summary:        A header-file-only, JSON parser / serializer in C++
 Version:        1.3.0
-Release:        22%{?dist}
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
-# http://opensource.org/licenses/BSD-2-Clause
-URL:            https://github.com/kazuho/picojson
-Source0:        https://github.com/kazuho/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+%forgemeta
+
+Release:        23%{?dist}
+License:        BSD-2-Clause
+URL:            %{forgeurl}
+VCS:            git:%{forgeurl}.git
+Source:         %{forgesource}
+
+BuildArch:      noarch
 
 BuildRequires:  gcc-c++
 BuildRequires:  make
 
-%description
+%global desc %{expand:
 PicoJSON is a tiny JSON parser / serializer for C++ with following properties:
 Header-file only, No external dependencies (only uses standard C++ libraries),
 STL-friendly (arrays are represented by using std::vector, objects are std::map)
-provides both pull interface and streaming (event-based) interface.
+provides both pull interface and streaming (event-based) interface.}
+
+%description
+%desc
 
 %package devel
 Summary:        Header files for picojson development
 Provides:       %{name}-static = %{version}-%{release}
 
 %description devel
-Provide header file for %{name}.
+%desc
 
 %prep
-%setup -qn %{name}-%{version}
-
-%build
-echo "Nothing to do"
+%forgeautosetup
 
 %check
 make test
@@ -43,9 +48,18 @@ install -p -m 0644 picojson.h %{buildroot}%{_includedir}/picojson.h
 
 %files devel
 %{_includedir}/picojson.h
-%doc LICENSE README.mkdn examples
+%doc README.mkdn examples
+%license LICENSE
 
 %changelog
+* Fri Aug 29 2025 Jerry James <loganjerry@gmail.com> - 1.3.0-23.20210117git111c9be
+- Update to latest git snapshot for many bug fixes
+- Change architecture to noarch
+- Add a VCS tag
+- Change License to BSD-2-Clause
+- Use the %%license macro
+- Make the devel subpackage description more verbose
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

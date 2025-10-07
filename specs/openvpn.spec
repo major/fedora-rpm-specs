@@ -1,27 +1,25 @@
 %define _hardened_build 1
 
-# LTO needs to be disabled to avoid issues on Fedora 34+ and
-# EL-9 when linking the unit-test, which utilizes --wrap in
-# the link process
-%if 0%{?rhel} > 8 || 0%{?fedora} > 34
+# LTO needs to be disabled to avoid issues when linking the unit-test,
+# which utilizes --wrap in the link process
 %global _lto_cflags %{nil}
-%endif
 
+
+#
+# Build conditionals
+#
+
+# Build with OpenVPN Data Channel Offload (kernel) support?
 %bcond_without dco
 
-# pkcs11-helper on RHEL9 (v1.27.0) comes with a buggy pkcs11.h, so skip it
-%if 0%{?rhel} == 9
-%bcond_with pkcs11
-%else
+# Build with PKCS#11/SmartCard support?
 %bcond_without pkcs11
-%endif
 
-# Build conditionals
 # tests_long - Enabled by default, enables long running tests in %%check
 %bcond_without tests_long
 
 Name:              openvpn
-Version:           2.6.15
+Version:           2.7_beta2
 Release:           1%{?dist}
 Summary:           A full-featured TLS VPN solution
 URL:               https://community.openvpn.net/
@@ -31,11 +29,8 @@ Source2:           roadwarrior-server.conf
 Source3:           roadwarrior-client.conf
 # Upstream signing key
 Source10:          gpgkey-F554A3687412CFFEBDEFE0A312F5F7B42F2B01E7.gpg
-Source11:          openvpn.rpmlintrc
-Patch1:            0001-Change-the-default-cipher-to-AES-256-GCM-for-server-.patch
-Patch2:            fedora-crypto-policy-compliance.patch
+Patch1:            fedora-crypto-policy-compliance.patch
 Patch50:           openvpn-2.4-change-tmpfiles-permissions.patch
-# Automatically converted from old format: GPLv2 - review is highly recommended.
 License:           GPL-2.0-only
 BuildRequires:     gnupg2
 BuildRequires:     gcc
@@ -48,7 +43,7 @@ BuildRequires:     gettext
 BuildRequires:     lzo-devel
 BuildRequires:     lz4-devel
 BuildRequires:     make
-BuildRequires:     openssl-devel
+BuildRequires:     openssl-devel >= 1.1.0
 %if %{with dco}
 BuildRequires:     libnl3-devel
 %endif
@@ -62,10 +57,11 @@ BuildRequires:     systemd
 BuildRequires:     systemd-devel
 
 %{?systemd_requires}
+Requires(pre):     /usr/sbin/useradd
 Requires(post):    /usr/bin/awk
 
 %if %{with dco}
-Recommends:        kmod-ovpn-dco >= 0.2
+Recommends:        kmod-ovpn
 %endif
 
 BuildRequires:  python3-docutils
@@ -96,16 +92,11 @@ to similar features as the various script-hooks.
 
 %prep
 gpgv2 --quiet --keyring %{SOURCE10} %{SOURCE1} %{SOURCE0}
-%autosetup -p1
+%autosetup -p1 -n %{name}-%{version}
 
 # %%doc items shouldn't be executable.
 find contrib sample -type f -perm /100 \
     -exec chmod a-x {} \;
-
-# Create a sysusers.d config file
-cat >openvpn.sysusers.conf <<EOF
-u openvpn - 'OpenVPN' /etc/openvpn -
-EOF
 
 %build
 %configure \
@@ -116,7 +107,7 @@ EOF
     --enable-systemd \
     --enable-x509-alt-username \
     --enable-async-push \
-    %{?with_dco:--enable-dco} \
+    %{?!with_dco:--disable-dco} \
     --docdir=%{_pkgdocdir} \
     SYSTEMD_UNIT_DIR=%{_unitdir} \
     TMPFILES_DIR=%{_tmpfilesdir}
@@ -126,11 +117,11 @@ EOF
 
 %check
 # Test Crypto:
-./src/openvpn/openvpn --genkey --secret key
-./src/openvpn/openvpn --cipher aes-128-cbc --test-crypto --secret key
-./src/openvpn/openvpn --cipher aes-256-cbc --test-crypto --secret key
-./src/openvpn/openvpn --cipher aes-128-gcm --test-crypto --secret key
-./src/openvpn/openvpn --cipher aes-256-gcm --test-crypto --secret key
+./src/openvpn/openvpn --genkey secret key
+./src/openvpn/openvpn --cipher aes-128-cbc --test-crypto --secret key --allow-deprecated-insecure-static-crypto
+./src/openvpn/openvpn --cipher aes-256-cbc --test-crypto --secret key --allow-deprecated-insecure-static-crypto
+./src/openvpn/openvpn --cipher aes-128-gcm --test-crypto --secret key --allow-deprecated-insecure-static-crypto
+./src/openvpn/openvpn --cipher aes-256-gcm --test-crypto --secret key --allow-deprecated-insecure-static-crypto
 
 # Some of the unit tests does not run on RHEL-7
 pushd tests/unit_tests
@@ -164,32 +155,39 @@ rm -f %{_tmppath}/%{name}-%{version}-%{release}-%(%{__id_u})-loopback-client \
 %endif
 
 %install
-%{__make} install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -name '*.la' | xargs rm -f
-mkdir -p -m 0750 $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/client $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/server
+%{__make} install DESTDIR=%{buildroot}
+find %{buildroot} -name '*.la' | xargs rm -f
+mkdir -p -m 0750 %{buildroot}/%{_sysconfdir}/%{name}/client %{buildroot}/%{_sysconfdir}/%{name}/server
 cp %{SOURCE2} %{SOURCE3} sample/sample-config-files/
 
 # Create some directories the OpenVPN package should own
-mkdir -m 0750 -p $RPM_BUILD_ROOT%{_rundir}/%{name}-{client,server}
-mkdir -m 0770 -p $RPM_BUILD_ROOT%{_sharedstatedir}/%{name}
+mkdir -m 0750 -p %{buildroot}%{_rundir}/%{name}-{client,server}
+mkdir -m 0770 -p %{buildroot}%{_sharedstatedir}/%{name}
 
 # Package installs into %%{_pkgdocdir} directly
 # Add various additional files
-cp -a AUTHORS ChangeLog contrib sample distro/systemd/README.systemd $RPM_BUILD_ROOT%{_pkgdocdir}
+cp -a AUTHORS ChangeLog contrib sample distro/systemd/README.systemd %{buildroot}%{_pkgdocdir}
 
 # Fix incorrect she-bang on a python script
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_interpreter_invocation
 sed -e "s|^#!/usr/bin/env.*python3$|#!%{python3} -%{py3_shebang_flags}|" \
-    -i $RPM_BUILD_ROOT%{_pkgdocdir}/contrib/extract-crl/extractcrl.py
+    -i %{buildroot}%{_pkgdocdir}/contrib/extract-crl/extractcrl.py
 
 # Remove some files which does not really belong here
-rm -f  $RPM_BUILD_ROOT%{_pkgdocdir}/sample/Makefile{,.in,.am}
-rm -f  $RPM_BUILD_ROOT%{_pkgdocdir}/contrib/multilevel-init.patch
-rm -rf $RPM_BUILD_ROOT%{_pkgdocdir}/sample/sample-keys
+rm -f  %{buildroot}%{_pkgdocdir}/sample/Makefile{,.in,.am}
+rm -f  %{buildroot}%{_pkgdocdir}/sample/sample-plugins/Makefile{,.in,.am}
+rm -rf %{buildroot}%{_pkgdocdir}/sample/sample-keys
+rm -f  %{buildroot}%{_pkgdocdir}/contrib/multilevel-init.patch
+rm -rf %{buildroot}%{_pkgdocdir}/contrib/vcpkg-*
+rm -rf %{buildroot}%{_pkgdocdir}/contrib/cmake*
 
-install -m0644 -D openvpn.sysusers.conf %{buildroot}%{_sysusersdir}/openvpn.conf
 
-
+%pre
+getent group openvpn &>/dev/null || groupadd -r openvpn
+getent passwd openvpn &>/dev/null || \
+    /usr/sbin/useradd -r -g openvpn -s /sbin/nologin -c OpenVPN \
+        -d /etc/openvpn openvpn
+exit 0
 
 %post
 for srv in `systemctl | awk '/openvpn-client@.*\.service/{print $1} /openvpn-server@.*\.service/{print $1}'`;
@@ -210,13 +208,16 @@ do
 done
 
 %files
-%{_pkgdocdir}
+%license COPYING COPYRIGHT.GPL
+%{_pkgdocdir}/
+%exclude %{_pkgdocdir}/{COPYING,COPYRIGHT.GPL}
 %exclude %{_pkgdocdir}/README.mbedtls
 %exclude %{_pkgdocdir}/sample/sample-plugins
 %{_mandir}/man8/%{name}.8*
 %{_mandir}/man5/%{name}-*.5*
 %{_sbindir}/%{name}
 %{_libdir}/%{name}/
+%{_libexecdir}/%{name}/
 %{_unitdir}/%{name}-client@.service
 %{_unitdir}/%{name}-server@.service
 %{_tmpfilesdir}/%{name}.conf
@@ -226,128 +227,27 @@ done
 %attr(0770,openvpn,openvpn) %{_sharedstatedir}/%{name}
 %dir %attr(0750,-,openvpn) %{_rundir}/openvpn-client
 %dir %attr(0750,-,openvpn) %{_rundir}/openvpn-server
-%{_sysusersdir}/openvpn.conf
 
 %files devel
 %{_pkgdocdir}/sample/sample-plugins
+%exclude %{_pkgdocdir}/sample/sample-{config-files,scripts,windows}
 %{_includedir}/openvpn-plugin.h
 %{_includedir}/openvpn-msg.h
 
 
 %changelog
-* Mon Sep 22 2025 Frank Lichtenheld <frank@lichtenheld.com> - 2.6.15-1
-- Update to upstream OpenVPN 2.6.15
+* Thu Sep 25 2025 Frank Lichtenheld <frank@lichtenheld.com> - 2.7_beta2
+- Update to upstream 2.7_beta2 release
 
-* Thu Jul 31 2025 Frank Lichtenheld <frank@lichtenheld.com> - 2.6.14-4
-- Fix build with Linux 6.16 (RHBZ#2385369)
-- Fix build with glibc 2.42
+* Tue Sep 9 2025 David Sommerseth <dazo@eurephia.org> - 2.7_beta1
+- Update to upstream 2.7_beta1 release
 
-* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.14-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+* Fri Aug 1 2025 Frank Lichtenheld <frank@lichtenheld.com>  - 2.7_alpha3
+- Update to upstream 2.7_alpha3 release
 
-* Mon May 5 2025 Frank Lichtenheld <frank@lichtenheld.com> - 2.6.14-2
-- Add Requires(post) on awk (RHBZ#2363809)
+* Mon Jun 23 2025 Frank Lichtenheld <frank@lichtenheld.com>  - 2.7_alpha2
+- Update to upstream 2.7_alpha2 release
 
-* Wed Apr 2 2025 Frank Lichtenheld <frank@lichtenheld.com> - 2.6.14-1
-- Update to upstream OpenVPN 2.6.14
-- Fixes CVE-2025-2704
+* Fri May 30 2025 Frank Lichtenheld <frank@lichtenheld.com>  - 2.7_alpha1
+- Update to upstream 2.7_alpha1 release
 
-* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.6.13-2
-- Add sysusers.d config file to allow rpm to create users/groups automatically
-
-* Thu Jan 16 2025 Frank Lichtenheld <frank@lichtenheld.com> - 2.6.13-1
-- Update to upstream OpenVPN 2.6.13 (RHBZ#2338321)
-- Remove RHEL 7 compat code
-
-* Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 2.6.12-2
-- convert license to SPDX
-
-* Thu Jul 18 2024 Frank Lichtenheld <frank@lichtenheld.com> - 2.6.12-1
-- Update to upstream OpenVPN 2.6.12
-
-* Fri Jul 12 2024 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.6.11-3
-- Call useradd without full path
-
-* Fri Jun 21 2024 Frank Lichtenheld <frank@lichtenheld.com> - 2.6.11-2
-- Change /run directories from ghost to dir (RHBZ#2281686)
-
-* Fri Jun 21 2024 Frank Lichtenheld <frank@lichtenheld.com> - 2.6.11-1
-- Update to upstream OpenVPN 2.6.11
-- Remove obsolete "beta release" qualifier from Summary
-
-* Mon Feb 19 2024 David Sommerseth <davids@openvpn.net> - 2.6.9-1
-- Update to upstream OpenVPN 2.6.9
-
-* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.8-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.8-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Nov 20 2023 David Sommerseth <davids@openvpn.net> - 2.6.8-1
-- Update to upstream OpenPVN 2.6.7
-- Fixes a regression from 2.6.7 resulting in a SIGSEGV (GitHub#449)
-
-* Thu Nov 9 2023 David Sommerseth <davids@openvpn.net> - 2.6.7-1
-- Update to upstream OpenVPN 2.6.7
-- Fixes CVE-2023-46849, CVE-2023-46850
-- Fix false exit status on pre runtime scriptlet (Elkhan Mammadli <elkhan@almalinux.org>, RHBZ#2239722)
-- Fix regression of systemctl scriptlet globbing issues (RHBZ#1887984); reintroduced in openvpn-2.6.0-1
-
-* Mon Aug 21 2023 Frank Lichtenheld <frank@lichtenheld.com> - 2.6.6-1
-- Update to upstream OpenVPN 2.6.6
-- Fix "warning: %%patchN is deprecated"
-
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.5-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Wed Jun 14 2023 David Sommerseth <davids@openvpn.net> - 2.6.5-1
-- Update to upstream OpenVPN 2.6.5
-
-* Fri Apr 21 2023 David Sommerseth <davids@openvpn.net> - 2.6.3-1
-- Update to upstream OpenVPN 2.6.3
-- Remove BF-CBC from the --data-ciphers list in openvpn-server@.service
-- Add Recommends dependency to kmod-ovpn-dco (external Copr repo)
-
-* Fri Mar 24 2023 David Sommerseth <davids@openvpn.net> -2.6.2-1
-- Update to upstream OpenVPN 2.6.2
-
-* Tue Mar 14 2023 David Sommerseth <davids@openvpn.net> -2.6.1-2
-- Added patch to fix xkey related issues (rhbz#2177834)
-
-* Mon Mar 13 2023 David Sommerseth <davids@openvpn.net> -2.6.1-1
-- Update to upstream OpenVPN 2.6.1
-
-* Thu Jan 26 2023 David Sommerseth <davids@openvpn.net> - 2.6.0-2
-- Add missing fedora-crypto-policy-compliance.patch
-
-* Thu Jan 26 2023 David Sommerseth <davids@openvpn.net> - 2.6.0-1
-- Packaging of final openvpn-2.6.0 release
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.8-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Tue Nov 1 2022 David Sommerseth <davids@openvpn.net> - 2.5.8-1
-- Update to upstream OpenVPN 2.5.8
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.7-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Tue May 31 2022 David Sommerseth <davids@openvpn.net> - 2.5.7-2
-- Added additional upstream patch resolving BF-CBC issues (to be removed with 2.5.8)
-  https://patchwork.openvpn.net/patch/2504/
-- Removed BF-CBC from the --data-ciphers list.  This is no longer available by default
-  in OpenSSL 3.0
-
-* Tue May 31 2022 David Sommerseth <davids@openvpn.net> - 2.5.7-1
-- Update to upstream OpenVPN 2.5.7
-
-* Wed Mar 16 2022 David Sommerseth <davids@openvpn.net> - 2.5.6-1
-- Update to upstream OpenVPN 2.5.6
-- Fixes CVE-2022-0547
-
-* Thu Jan 27 2022 David Sommerseth <davids@openvpn.net> - 2.5.5-4
-- Fix systemd related scriptlet error (#1887984)
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.5-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild

@@ -11,7 +11,7 @@
 
 Name:              valkey
 Version:           8.1.4
-Release:           1%{?dist}
+Release:           2%{?dist}
 Summary:           A persistent key-value database
 # valkey: BSD-3-Clause
 # hiredis: BSD-3-Clause
@@ -461,6 +461,9 @@ fi
 
 
 %changelog
+* Mon Oct  6 2025 Remi Collet <remi@fedoraproject.org> - 8.1.4-2
+- improve the patch for loadmodule directive
+
 * Sat Oct  4 2025 Remi Collet <remi@fedoraproject.org> - 8.1.4-1
 - Valkey 8.1.4 - Released Fri 09 October 2025
 - Upgrade urgency SECURITY:

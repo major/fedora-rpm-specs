@@ -4,7 +4,7 @@
 
 Name:           puppet
 Version:        8.10.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Network tool for managing many disparate systems
 License:        Apache-2.0
 URL:            https://puppet.com
@@ -28,6 +28,7 @@ Source14:       start-puppet-wrapper
 Source15:       logrotate
 
 Patch:          0001-Avoid-closing-directory-we-re-iterating.patch
+Patch:          openvox-dnf5.patch
 
 BuildArch: noarch
 
@@ -214,6 +215,9 @@ rm %{buildroot}%{_datadir}/%{name}/ext/{build_defaults.yaml,project_data.yaml}
 %systemd_postun_with_restart %{name}.service
 
 %changelog
+* Fri Oct 03 2025 Terje Rosten <terjeros@gmail.com> - 8.10.0-3
+- Add patch from openvox to fix dnf5 issue
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.10.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

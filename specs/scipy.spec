@@ -43,8 +43,8 @@
 
 Summary:    Scientific Tools for Python
 Name:       scipy
-Version:    1.15.3
-Release:    6%{?dist}
+Version:    1.16.2
+Release:    1%{?dist}
 
 # BSD-3-Clause -- whole package except:
 # BSD-2-Clause -- scipy/_lib/_pep440.py
@@ -70,9 +70,6 @@ License:    BSD-3-Clause AND BSD-2-Clause AND MIT AND BSL-1.0 AND Boehm-GC AND Q
 Url:        https://scipy.org/
 Source0:    https://github.com/scipy/scipy/releases/download/v%{version}/scipy-%{version}.tar.gz
 
-# Fix SyntaxWarning with Python 3.14
-Patch:      https://github.com/scipy/scipy/pull/22913.patch
-
 BuildRequires: %{blaslib}-devel
 BuildRequires: gcc-gfortran, gcc-c++
 
@@ -81,6 +78,11 @@ BuildRequires:  python3-devel, python3-numpy-f2py
 
 # for %%pyproject_buildrequires -p:
 BuildRequires:  pyproject-rpm-macros >= 1.15
+
+%ifarch %{power64}
+# scipy segfaults with netlib/atlas on ppc64le
+BuildRequires:  flexiblas-openblas-openmp
+%endif
 
 %if %{with doc}
 BuildRequires:  python3-sphinx
@@ -171,8 +173,8 @@ sed -i '/^[[:blank:]]*"pytest-xdist"/d' pyproject.toml
 # Loosen the upper bound on numpy
 sed -i "/numpy/s/,<2\.3//" pyproject.toml
 
-# Loosen the upper bound on pybind11
-sed -i '/pybind11/s/2\.13\.0/2.14.0/' pyproject.toml
+# Loosen the lower bound on array-api-strict
+sed -i "/array-api-strict/s/>=2\.3\.1/>=2/" pyproject.toml
 
 # Loosen the upper bound on Cython
 # This can be removed from scipy >= 1.16.0
@@ -206,6 +208,11 @@ done
 %if %{with tests}
 # check against the reference BLAS/LAPACK
 export FLEXIBLAS=netlib
+
+%ifarch %{power64}
+# scipy segfaults with netlib/atlas on ppc64le
+export FLEXIBLAS=openblas-openmp
+%endif
 
 # TestDatasets try to download from the internet
 SKIP_ALL="not TestDatasets"
@@ -291,6 +298,10 @@ popd
 %endif
 
 %changelog
+* Mon Sep 29 2025 Nikola Forró <nforro@redhat.com> - 1.16.2-1
+- New upstream release 1.16.2
+- Work around ppc64le FTBFS with netlib/atlas
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.15.3-6
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -5,12 +5,13 @@
 
 Name: btrbk
 Version: 0.32.6
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: Tool for creating snapshots and remote backups of btrfs sub-volumes
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License: GPL-3.0-or-later
 URL: https://digint.ch/btrbk/
 Source0: https://digint.ch/download/%{name}/releases/%{name}-%{version}.tar.xz
+Source1: btrbk-logrotate
 BuildArch: noarch
 BuildRequires: python3-devel
 %if 0%{?rhel} && 0%{?rhel} == 7
@@ -54,6 +55,7 @@ find %{buildroot}%{_datadir}/%{name} -type f -exec sed -i '1s=^#!/usr/bin/\(pyth
 %else
 %py3_shebang_fix %{buildroot}%{_datadir}/%{name}
 %endif
+install -D -p -m 0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
 
 
 %post
@@ -76,6 +78,7 @@ find %{buildroot}%{_datadir}/%{name} -type f -exec sed -i '1s=^#!/usr/bin/\(pyth
 %license COPYING
 %dir %{_sysconfdir}/%{name}
 %{_sysconfdir}/%{name}/btrbk.conf.example
+%config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
 %{_unitdir}/%{name}.*
 %{_datadir}/%{name}
 %{_bindir}/btrbk
@@ -89,6 +92,9 @@ find %{buildroot}%{_datadir}/%{name} -type f -exec sed -i '1s=^#!/usr/bin/\(pyth
 
 
 %changelog
+* Sun Oct 05 2025 Juan Orti Alcaine <jortialc@redhat.com> - 0.32.6-9
+- Add logrotate file (RHBZ#2385266)
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.32.6-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

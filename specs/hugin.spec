@@ -1,7 +1,7 @@
 Summary: A panoramic photo stitcher and more
 Name: hugin
 Version: 2024.0.0
-Release: 10%{?dist}
+Release: 11%{?dist}
 License: GPL-2.0-or-later
 Source: https://downloads.sourceforge.net/hugin/%{name}-%{version}.tar.bz2
 Patch:  hugin-2024.0.0-UseGNUInstallDirs.patch
@@ -13,7 +13,7 @@ BuildRequires: gcc-c++
 BuildRequires: libpano13-devel zlib-devel libtiff-devel libjpeg-devel
 BuildRequires: libpng-devel gettext-devel wxGTK-devel boost-devel freeglut-devel
 BuildRequires: cmake desktop-file-utils OpenEXR-devel exiv2-devel libepoxy-devel
-BuildRequires: python3-devel swig flann-devel perl-Image-ExifTool
+BuildRequires: python3-devel swig perl-Image-ExifTool
 BuildRequires: mesa-libGLU-devel libXmu-devel sqlite-devel vigra-devel
 BuildRequires: perl-podlators fftw-devel lcms2-devel
 
@@ -181,6 +181,9 @@ EOF
 %{_mandir}/man1/hugin_lensdb.*
 
 %changelog
+* Sun Oct 05 2025 Bruno Postle <bruno@postle.net> - 2024.0.0-11
+- Rebuild without orphaned flann-devel BuildRequires
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2024.0.0-10
 - Rebuilt for Python 3.14.0rc3 bytecode
 
