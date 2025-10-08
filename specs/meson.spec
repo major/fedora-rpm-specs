@@ -14,8 +14,6 @@ Source:         https://github.com/mesonbuild/meson/releases/download/%{version_
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-Requires:       python%{python3_version}dist(setuptools)
 Requires:       ninja-build
 
 %if %{with check}
@@ -99,6 +97,9 @@ BuildRequires:  /usr/bin/wx-config
 BuildRequires:  /usr/bin/sdl2-config
 %endif
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %description
 Meson is a build system designed to optimize programmer
 productivity. It aims to do this by providing simple, out-of-the-box
@@ -111,10 +112,12 @@ unit tests, coverage reports, Valgrind, CCache and the like.
 sed -i -e "/^%%__meson /s| .*$| %{_bindir}/%{name}|" data/macros.%{name}
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l mesonbuild
+
 install -Dpm0644 -t %{buildroot}%{rpmmacrodir} data/macros.%{name}
 install -Dpm0644 -t %{buildroot}%{_datadir}/bash-completion/completions/ data/shell-completions/bash/meson
 install -Dpm0644 -t %{buildroot}%{_datadir}/zsh/site-functions/ data/shell-completions/zsh/_meson
@@ -125,11 +128,9 @@ export MESON_PRINT_TEST_OUTPUT=1
 %{python3} ./run_unittests.py -v
 %endif
 
-%files
+%files -f %{pyproject_files}
 %license COPYING
 %{_bindir}/%{name}
-%{python3_sitelib}/%{libname}/
-%{python3_sitelib}/%{name}-*.egg-info/
 %{_mandir}/man1/%{name}.1*
 %{rpmmacrodir}/macros.%{name}
 %dir %{_datadir}/polkit-1

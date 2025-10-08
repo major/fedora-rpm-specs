@@ -82,6 +82,9 @@ Patch:      0022-onnxruntime-convert-gsl-byte-to-std-byte.patch
 # https://github.com/microsoft/onnxruntime/issues/25815
 # Patch suggested in a comment in the above issue.
 Patch:      abseil-cpp-20250814.patch
+# Build fails on ROCm 7
+Patch:     0001-onnxruntime-warpSize-is-not-constant-in-ROCm-7.patch
+Patch:     0001-onnxruntime-ignore-deprecated-thrust-warnings.patch
 
 # s390x:   https://bugzilla.redhat.com/show_bug.cgi?id=2235326
 # armv7hl: https://bugzilla.redhat.com/show_bug.cgi?id=2235328
@@ -296,9 +299,17 @@ ln -s "../../../../libonnxruntime_providers_shared.so.%{version}" "%{buildroot}/
 
 %if %{with test}
 %check
+
+%if %{with rocm_test}
+backend=rocm
+export GTEST_FILTER=-CApiTensorTest.load_huge_tensor_with_external_data
+%ctest
+%else
 backend=cpu
 export GTEST_FILTER=-CApiTensorTest.load_huge_tensor_with_external_data
 %ctest
+%endif
+
 %endif
 
 %files

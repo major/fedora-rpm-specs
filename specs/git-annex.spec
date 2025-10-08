@@ -12,9 +12,9 @@
 %endif
 
 Name:           git-annex
-Version:        10.20250630
+Version:        10.20250929
 # can only be reset when subpkg bumped
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Manage files with git, without checking their contents into git
 
 License:        AGPL-3.0-or-later
@@ -343,8 +343,7 @@ popd
 %{_bindir}/%{name}-shell
 %{_bindir}/git-remote-tor-annex
 %{_mandir}/man1/git-annex-*.1*
-%{_mandir}/man1/git-remote-annex.1*
-%{_mandir}/man1/git-remote-tor-annex.1*
+%{_mandir}/man1/git-remote-*annex.1*
 
 %if %{with ikiwiki}
 %files docs
@@ -354,6 +353,9 @@ popd
 
 
 %changelog
+* Mon Oct 06 2025 Jens Petersen <petersen@redhat.com> - 10.20250929-5
+- https://hackage.haskell.org/package/git-annex-10.20250929/changelog
+
 * Mon Aug 11 2025 Jens Petersen <petersen@redhat.com> - 10.20250630-4
 - Rebuild
 

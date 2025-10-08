@@ -10,12 +10,12 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit 9228e3c6aec6bae7e81546206edec19353a1b10d
-%global commitdatestring 2025-09-19 11:20:59 -0600
-%global cosmic_minver 1.0.0~beta.1
+%global commit 0c222e1e3a9da73c32240858c3dafc81956396f0
+%global commitdatestring 2025-09-24 14:23:41 -0600
+%global cosmic_minver 1.0.0~beta.1.1
 
 Name:           cosmic-files
-Version: 1.0.0~beta.1
+Version: 1.0.0~beta.1.1
 Release:        %autorelease
 Summary:        Libcosmic file manager
 
@@ -31,10 +31,6 @@ Source0:        https://github.com/pop-os/cosmic-files/archive/epoch-%{version_n
 Source1:        vendor-%{version_no_tilde}.tar.gz
 # * mv vendor-config-%%{version_no_tilde}.toml ..
 Source2:        vendor-config-%{version_no_tilde}.toml
-
-# Fixes desktop file
-# https://github.com/pop-os/cosmic-files/pull/1196
-Patch: https://patch-diff.githubusercontent.com/raw/pop-os/cosmic-files/pull/1196.patch
 
 BuildRequires:  cargo-rpm-macros >= 26
 BuildRequires:  rustc

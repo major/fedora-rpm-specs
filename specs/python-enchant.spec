@@ -13,8 +13,10 @@ BuildArch:      noarch
 
 BuildRequires:  enchant2
 BuildRequires:  python3-devel
+%if %{undefined rhel}
 # For importing the wxSpellCheckerDialog module
 BuildRequires:  python3-wxpython4
+%endif
 
 %description
 PyEnchant is a spellchecking library for Python, based on the Enchant
@@ -46,8 +48,9 @@ library by Dom Lachowicz.
 # Tests are not included in the upstream tarball
 %check
 # We exclude testing of the import for the GtkSpellCheckerDialog
-# as it utilizes the legacy PyGTK bindings
-%pyproject_check_import -e '*.GtkSpellCheckerDialog'
+# as it utilizes the legacy PyGTK bindings.
+# On RHEL, we also exclude wx to avoid it as a dependency.
+%pyproject_check_import -e '*.GtkSpellCheckerDialog' %{?rhel:-e '*.wxSpellCheckerDialog'}
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst

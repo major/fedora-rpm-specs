@@ -1,5 +1,5 @@
 Name:           python-frozenlist
-Version:        1.7.0
+Version:        1.8.0
 Release:        %autorelease
 Summary:        List-like structure which can be made immutable
 

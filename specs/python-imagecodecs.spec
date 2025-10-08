@@ -1,7 +1,7 @@
 %global srcname imagecodecs
 
 Name:           python-imagecodecs
-Version:        2025.3.30
+Version:        2025.8.2
 Release:        %autorelease
 Summary:        Image transformation, compression, and decompression codecs
 
@@ -26,7 +26,7 @@ BuildRequires:  giflib-devel
 BuildRequires:  jxrlib-devel
 BuildRequires:  lcms2-devel
 BuildRequires:  libaec-devel
-BuildRequires:  libavif-devel
+BuildRequires:  libavif-devel >= 1.3.0
 BuildRequires:  libdeflate-devel
 BuildRequires:  libheif-devel
 BuildRequires:  libjpeg-turbo-devel >= 3

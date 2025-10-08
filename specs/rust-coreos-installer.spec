@@ -11,8 +11,8 @@
 %global crate coreos-installer
 
 Name:           rust-coreos-installer
-Version:        0.24.0
-Release:        4%{?dist}
+Version:        0.25.0
+Release:        1%{?dist}
 Summary:        Installer for Fedora CoreOS and RHEL CoreOS
 
 License:        Apache-2.0
@@ -183,6 +183,9 @@ mv %{buildroot}%{_bindir}/rdcore %{buildroot}%{dracutlibdir}/modules.d/50rdcore/
 %endif
 
 %changelog
+* Mon Oct 06 2025 Packit <hello@packit.dev> - 0.25.0-1
+- New upstream release
+
 * Fri Aug 15 2025 Michael Armijo<marmijo@redhat.com> - 0.24.0-4
 - Backport patch that adds F44 signing key
 

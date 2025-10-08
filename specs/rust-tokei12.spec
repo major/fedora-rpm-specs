@@ -21,7 +21,13 @@ Source10:       tokei.1
 #   having to adjust the patch for every new git2 release.
 # * Remove reference to readme file that is not included in published crates.
 # * Allow dirs 4 and 5; downstream-only since tokei 13 will not depend on dirs.
+# * Allow aho-corasick 1.0; updated upstream as part of a much larger commit,
+#   https://github.com/XAMPPRocky/tokei/commit/9627a24c9c53ebb5ded0c297d9221b8d0d331c09,
+#   without source-code changes related to aho-corasick.
 Patch:          tokei-fix-metadata.diff
+# * Backport source-code changes for aho-corasick 1.0
+# * https://github.com/XAMPPRocky/tokei/commit/ae77e1945631fd9457f7d455f2f0f2f889356f58
+Patch10:        aho-corasick-1.0.patch
 
 BuildRequires:  cargo-rpm-macros >= 26
 

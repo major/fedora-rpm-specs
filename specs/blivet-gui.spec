@@ -1,7 +1,7 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
 Version: 2.6.0
-Release: 9%{?dist}
+Release: 10%{?dist}
 Source0: http://github.com/storaged-project/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 Source1: blivet-gui_event.conf
 License: GPL-2.0-or-later
@@ -12,6 +12,7 @@ Patch0:  0001-Set-LUKS-format-before-creating-the-LUKS-device.patch
 Patch1:  0002-Fix-detection-of-empty-disks-for-NVMe-drives.patch
 Patch2:  0003-Fix-displaying-whole-disk-MD-arrays-in-installer-mode.patch
 Patch3:  0004-Do-not-treat-xgettext-warnings-as-errors.patch
+Patch4:  0005-Fix-AttributeError-when-creating-encrypted-MD-array.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
@@ -79,6 +80,9 @@ mkdir -p %{buildroot}/%{_localstatedir}/log/blivet-gui
 %{_sysconfdir}/libreport/events.d/blivet-gui_event.conf
 
 %changelog
+* Mon Oct 06 2025 Vojtech Trefny <vtrefny@redhat.com> - 2.6.0-10
+- Fix AttributeError when creating encrypted MD array (#2401870)
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.6.0-9
 - Rebuilt for Python 3.14.0rc3 bytecode
 

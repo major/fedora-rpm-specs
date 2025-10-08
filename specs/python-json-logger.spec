@@ -1,8 +1,8 @@
 %global pypi_name python_json_logger
 
 Name:           python-json-logger
-Version:        3.3.0
-Release:        5%{?dist}
+Version:        4.0.0
+Release:        1%{?dist}
 Summary:        A python library adding a json log formatter
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -49,6 +49,9 @@ rm -rf src/%{pypi_name}.egg-info
 
 
 %changelog
+* Mon Oct 06 2025 Lumír Balhar <lbalhar@redhat.com> - 4.0.0-1
+- Update to 4.0.0 (rhbz#2401781)
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.3.0-5
 - Rebuilt for Python 3.14.0rc3 bytecode
 

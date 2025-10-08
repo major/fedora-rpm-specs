@@ -6,14 +6,15 @@
 # So pre releases can be tried
 %bcond_without gitcommit
 %if %{with gitcommit}
-# v2.9.0-rc4
-%global commit0 715dca672526a20322d07c2e67772cfe4400a20f
+# v2.9.0-rc6
+%global commit0 fd364580a94079854f2f32d463c118afaefe62e0
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global date0 20250923
+%global date0 20251002
 %global pypi_version 2.9.0
 %global flatbuffers_version 24.12.23
 %global miniz_version 3.0.2
 %global pybind11_version 2.13.6
+%global rc_tag -rc6
 %else
 %global pypi_version 2.8.0
 %global flatbuffers_version 24.12.23
@@ -116,7 +117,9 @@ Patch11:       0001-Add-cmake-variable-USE_ROCM_CK.patch
 Patch12:       0001-Fix-compilation-and-import-torch-issues-for-cpython-.patch
 %endif
 
-ExclusiveArch:  x86_64 aarch64
+# ExclusiveArch:  x86_64 aarch64
+# aarch64 not building on 2.9.0-rc6
+ExclusiveArch:  x86_64
 %global toolchain gcc
 %global _lto_cflags %nil
 

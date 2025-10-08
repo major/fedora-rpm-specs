@@ -20,7 +20,7 @@
 
 Name:              openvpn
 Version:           2.7_beta2
-Release:           1%{?dist}
+Release:           2%{?dist}
 Summary:           A full-featured TLS VPN solution
 URL:               https://community.openvpn.net/
 Source0:           https://build.openvpn.net/downloads/releases/%{name}-%{version}.tar.gz
@@ -57,7 +57,6 @@ BuildRequires:     systemd
 BuildRequires:     systemd-devel
 
 %{?systemd_requires}
-Requires(pre):     /usr/sbin/useradd
 Requires(post):    /usr/bin/awk
 
 %if %{with dco}
@@ -91,7 +90,7 @@ written in C and provides a more low-level and information rich access
 to similar features as the various script-hooks.
 
 %prep
-gpgv2 --quiet --keyring %{SOURCE10} %{SOURCE1} %{SOURCE0}
+%{gpgverify} --keyring='%{SOURCE10}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1 -n %{name}-%{version}
 
 # %%doc items shouldn't be executable.
@@ -113,6 +112,7 @@ find contrib sample -type f -perm /100 \
     TMPFILES_DIR=%{_tmpfilesdir}
 
 %{__make} %{?_smp_mflags}
+
 
 
 %check
@@ -164,6 +164,10 @@ cp %{SOURCE2} %{SOURCE3} sample/sample-config-files/
 mkdir -m 0750 -p %{buildroot}%{_rundir}/%{name}-{client,server}
 mkdir -m 0770 -p %{buildroot}%{_sharedstatedir}/%{name}
 
+# Create a sysusers.d config file
+echo "u openvpn - 'OpenVPN' /etc/openvpn -" > %{name}.sysusers.conf
+install -m0644 -D %{name}.sysusers.conf %{buildroot}%{_sysusersdir}/%{name}.conf
+
 # Package installs into %%{_pkgdocdir} directly
 # Add various additional files
 cp -a AUTHORS ChangeLog contrib sample distro/systemd/README.systemd %{buildroot}%{_pkgdocdir}
@@ -183,13 +187,9 @@ rm -rf %{buildroot}%{_pkgdocdir}/contrib/cmake*
 
 
 %pre
-getent group openvpn &>/dev/null || groupadd -r openvpn
-getent passwd openvpn &>/dev/null || \
-    /usr/sbin/useradd -r -g openvpn -s /sbin/nologin -c OpenVPN \
-        -d /etc/openvpn openvpn
-exit 0
 
 %post
+
 for srv in `systemctl | awk '/openvpn-client@.*\.service/{print $1} /openvpn-server@.*\.service/{print $1}'`;
 do
     %systemd_post $srv
@@ -221,6 +221,7 @@ done
 %{_unitdir}/%{name}-client@.service
 %{_unitdir}/%{name}-server@.service
 %{_tmpfilesdir}/%{name}.conf
+%{_sysusersdir}/%{name}.conf
 %config %dir %{_sysconfdir}/%{name}/
 %config %dir %attr(-,-,openvpn) %{_sysconfdir}/%{name}/client
 %config %dir %attr(-,-,openvpn) %{_sysconfdir}/%{name}/server
@@ -236,6 +237,10 @@ done
 
 
 %changelog
+* Mon Oct 6 2025 David Sommerseth <dazo@eurephia.org> - 2.7_beta2-2
+- Add missing sysusers.d/openvpn.conf configuration file
+- Switch to using %%{gpgverify} macro
+
 * Thu Sep 25 2025 Frank Lichtenheld <frank@lichtenheld.com> - 2.7_beta2
 - Update to upstream 2.7_beta2 release
 

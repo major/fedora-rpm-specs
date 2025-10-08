@@ -4,7 +4,7 @@
 %global forgeurl https://github.com/DPDK/grout
 
 Name: grout
-Version: 0.10.3
+Version: 0.12.0
 Summary: Graph router based on DPDK
 License: BSD-3-Clause
 Group: System Environment/Daemons
@@ -64,7 +64,7 @@ This package contains the development headers to build %{name} API clients.
 
 %build
 export GROUT_VERSION=v%{version}-%{release}
-%meson
+%meson -Dfrr=disabled
 %meson_build
 
 %check
@@ -96,6 +96,7 @@ install -D -m 0755 cli/grcli.bash-completion %{buildroot}%{_datadir}/bash-comple
 %attr(755, root, root) %{_bindir}/grcli
 %attr(755, root, root) %{_bindir}/grout
 %attr(644, root, root) %{_mandir}/man1/grcli.1*
+%attr(644, root, root) %{_mandir}/man7/grout-frr.7*
 %attr(644, root, root) %{_mandir}/man8/grout.8*
 
 %files devel

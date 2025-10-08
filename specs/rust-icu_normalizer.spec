@@ -13,7 +13,7 @@ License:        Unicode-3.0
 URL:            https://crates.io/crates/icu_normalizer
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * Omit the benchmark-only dev-dependency on criterion
+# * Omit benchmark-only dev-dependencies criterion and detone
 # * Do not package benchmarks or benchmark data
 # * Remove the dev-dependency on arraystring, which does not appear actively
 #   maintained, and which we do not want to package, at the cost of some of the

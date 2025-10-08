@@ -1,15 +1,15 @@
 # http://git.osmocom.org/osmo-fl2k
 # https://github.com/osmocom/osmo-fl2k/
-%global git_commit f8cdd64b7607f43e9813d60f473905c679bb4c19
-%global git_date 20230403
+#%%global git_commit f8cdd64b7607f43e9813d60f473905c679bb4c19
+#%%global git_date 20230403
 
-%global git_short_commit %(echo %{git_commit} | cut -c -8)
-%global git_suffix %{git_date}git%{git_short_commit}
+#%%global git_short_commit %%(echo %%{git_commit} | cut -c -8)
+#%%global git_suffix %%{git_date}git%%{git_short_commit}
 
 Name:             osmo-fl2k
 URL:              https://osmocom.org/projects/osmo-fl2k/wiki
-Version:          0.1.1^%{git_suffix}
-Release:          8%{?dist}
+Version:          0.2.1
+Release:          1%{?dist}
 # Automatically converted from old format: GPLv2+ and GPLv3+ - review is highly recommended.
 License:          GPL-2.0-or-later AND GPL-3.0-or-later
 BuildRequires:    cmake
@@ -17,8 +17,8 @@ BuildRequires:    gcc-c++
 BuildRequires:    libusbx-devel
 Requires:         systemd-udev
 Summary:          Turns FL2000-based USB 3.0 to VGA adapters into low cost DACs
-Source0:          https://github.com/osmocom/osmo-fl2k/archive/%{git_commit}/%{name}-%{git_suffix}.tar.gz
-Patch0:           osmo-fl2k-0.1.1-lib-version-fix.patch
+#Source0:          https://github.com/osmocom/osmo-fl2k/archive/%%{git_commit}/%%{name}-%%{git_suffix}.tar.gz
+Source0:          https://github.com/osmocom/osmo-fl2k/archive/v%{version}/%{name}-%{version}.tar.gz
 
 %description
 Turns FL2000-based USB 3.0 to VGA adapters into low cost DACs.
@@ -37,7 +37,7 @@ Requires:         %{name}-libs%{?_isa} = %{version}-%{release}
 Development files for osmo-fl2k.
 
 %prep
-%autosetup -p1 -n %{name}-%{git_commit}
+%autosetup -p1
 
 %build
 %cmake
@@ -74,6 +74,10 @@ install -Dpm 644 ./osmo-fl2k.rules %{buildroot}%{_prefix}/lib/udev/rules.d/10-os
 %{_libdir}/*.so
 
 %changelog
+* Mon Oct 06 2025 Jaroslav Škarvada  <jskarvad@redhat.com> - 0.2.1-1
+- New version
+  Resolves: rhbz#2393920
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1^20230403gitf8cdd64b-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

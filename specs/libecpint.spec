@@ -6,7 +6,7 @@
 
 Name:           libecpint
 Version:        1.0.7
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Efficient evaluation of integrals over ab initio effective core potentials
 License:        MIT
 Url:            https://github.com/robashaw/libecpint
@@ -51,9 +51,9 @@ This package contains development headers and libraries for libecpint.
 
 %prep
 %autosetup -p1
-# gtest 1.13.0 requires C++14 or later
+# gtest 1.17.0 requires C++17 or later
 # https://github.com/robashaw/libecpint/issues/58
-sed -r -i 's/\b(CMAKE_CXX_STANDARD[[:blank:]]+)11\b/\114/' CMakeLists.txt
+sed -r -i 's/\b(CMAKE_CXX_STANDARD[[:blank:]]+)11\b/\117/' CMakeLists.txt
 
 %build
 %cmake %{?with_libcerf:-DLIBECPINT_USE_CERF=ON}
@@ -80,6 +80,9 @@ sed -r -i 's/\b(CMAKE_CXX_STANDARD[[:blank:]]+)11\b/\114/' CMakeLists.txt
 %{_libdir}/lib*.so
 
 %changelog
+* Mon Oct 06 2025 Terje Rosten <terjeros@gmail.com> - 1.0.7-16
+- Switch to C++17 for gtest 1.17.0
+
 * Tue Aug 12 2025 Orion Poplawski <orion@nwra.com> - 1.0.7-15
 - No libcerf-3 on s390x
 

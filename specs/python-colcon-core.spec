@@ -1,8 +1,8 @@
 %global srcname colcon-core
 
 Name:           python-%{srcname}
-Version:        0.19.0
-Release:        5%{?dist}
+Version:        0.20.1
+Release:        1%{?dist}
 Summary:        Command line tool to build sets of software packages
 
 License:        Apache-2.0
@@ -32,6 +32,7 @@ BuildRequires:  python%{python3_pkgversion}-empy
 BuildRequires:  python%{python3_pkgversion}-packaging
 BuildRequires:  python%{python3_pkgversion}-pytest
 BuildRequires:  python%{python3_pkgversion}-setuptools >= 30.3.0
+BuildRequires:  python%{python3_pkgversion}-setuptools < 80
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
 
 %if %{undefined __pythondist_requires}
@@ -40,7 +41,7 @@ Requires:       (python%{python3_pkgversion} >= 3.11 or python%{python3_pkgversi
 Requires:       python%{python3_pkgversion}-distlib >= 0.2.5
 Requires:       python%{python3_pkgversion}-empy
 Requires:       python%{python3_pkgversion}-packaging
-Requires:       python%{python3_pkgversion}-setuptools
+Requires:       python%{python3_pkgversion}-setuptools < 80
 %endif
 
 Recommends:     python%{python3_pkgversion}-coloredlogs
@@ -82,6 +83,9 @@ and sets up the environment to use the packages.
 
 
 %changelog
+* Mon Oct 06 2025 Scott K Logan <logans@cottsay.net> - 0.20.1-1
+- Update to 0.20.1 (rhbz#2384195)
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.19.0-5
 - Rebuilt for Python 3.14.0rc3 bytecode
 

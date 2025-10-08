@@ -14,6 +14,7 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Bump monitord to 0.12
 Patch:          monitord-exporter-fix-metadata.diff
+Patch:          0001-Add-missing-type-annotation-for-prometheus-0.14-comp.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  systemd-rpm-macros

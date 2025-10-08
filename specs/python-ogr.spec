@@ -1,6 +1,6 @@
 Name:           python-ogr
-Version:        0.56.0
-Release:        2%{?dist}
+Version:        0.56.1
+Release:        1%{?dist}
 Summary:        One API for multiple git forges
 
 License:        MIT
@@ -47,6 +47,10 @@ One Git library to Rule!
 
 
 %changelog
+* Fri Oct 03 2025 Packit <hello@packit.dev> - 0.56.1-1
+- We now use httpx when making requests from our Forgejo implementation. (#941)
+- Resolves: rhbz#2401236
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.56.0-2
 - Rebuilt for Python 3.14.0rc3 bytecode
 

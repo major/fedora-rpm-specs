@@ -14,11 +14,11 @@
 %global pie_vend   xdebug
 %global pie_proj   xdebug
 %global pecl_name  xdebug
-%global gh_commit  4085f1421d54aa60c40fe334f5c7a118a045200f
+%global gh_commit  a6fc5d7d5aaf43c09f8e44981b310b592d0c2cac
 %global gh_short   %(c=%{gh_commit}; echo ${c:0:7})
 
 # version/release
-%global upstream_version 3.4.5
+%global upstream_version 3.4.6
 #global upstream_prever  beta1
 %global upstream_lower   %(echo %{upstream_prever} | tr '[:upper:]' '[:lower:]')
 %global sources          src
@@ -29,7 +29,7 @@
 Name:           php-pecl-xdebug3
 Summary:        Provides functions for function traces and profiling
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_lower}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Source0:        https://github.com/%{pecl_name}/%{pecl_name}/archive/%{gh_commit}/%{pecl_name}-%{upstream_version}%{?upstream_prever}-%{gh_short}.tar.gz
 
 License:        Xdebug-1.03
@@ -49,10 +49,13 @@ BuildRequires:  pkgconfig(zlib) >= 1.2.9
 Requires:       php(zend-abi) = %{php_zend_api}
 Requires:       php(api) = %{php_core_api}
 
+# Extension
 Provides:       php-%{pecl_name}                 = %{version}
 Provides:       php-%{pecl_name}%{?_isa}         = %{version}
+# PECL
 Provides:       php-pecl(Xdebug)                 = %{version}
 Provides:       php-pecl(Xdebug)%{?_isa}         = %{version}
+# PIE
 Provides:       php-pie(%{pie_vend}/%{pie_proj}) = %{version}
 Provides:       php-%{pie_vend}-%{pie_proj}      = %{version}
 
@@ -204,6 +207,9 @@ TEST_PHP_ARGS="-n $modules -d zend_extension=%{buildroot}%{php_extdir}/%{pecl_na
 
 
 %changelog
+* Mon Oct  6 2025 Remi Collet <remi@remirepo.net> - 3.4.6-1
+- update to 3.4.6
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

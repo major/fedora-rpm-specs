@@ -11,6 +11,8 @@ URL:            https://github.com/ansible/pylibssh
 Source0:        %{pypi_source}
 # Downstream patch to disable coverage tests
 Patch0:         python-ansible-pylibssh-nocov.patch
+# Force build inplace so that debuginfo can be generated
+Patch1:         python-ansible-pylibssh-debug.patch
 
 BuildRequires:  gcc
 BuildRequires:  libssh-devel

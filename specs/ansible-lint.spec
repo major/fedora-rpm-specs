@@ -4,7 +4,7 @@
 Name:           %{archive_name}
 Epoch:          1
 Version:        25.9.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Best practices checker for Ansible
 
 # README file says its just GPLv3
@@ -34,13 +34,8 @@ Python3 module for ansible-lint.
 %prep
 %autosetup -n %{archive_name}-%{version}
 
-# There's nothing special in setuptools 63.0 that's needed here.
-# Fedora 36's setuptools version is actually too old;
-# it does not support PEP 621.
-%if %{defined fc37}
-sed 's|setuptools >= 63.0.0|setuptools >= 62.0.0|' -i pyproject.toml
-grep -F 'setuptools >= 62.0.0' pyproject.toml
-%endif
+# Fedora's ansible-core is 2.18.9 version currently
+sed -i '37d' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -66,6 +61,9 @@ ln -sr %{buildroot}%{_bindir}/%{name}{,-3}
 %{_bindir}/%{name}-3
 
 %changelog
+* Mon Oct 06 2025 Parag Nemade <pnemade AT redhat DOT com> - 1:25.9.1-2
+- Patch pyproject.toml for not satisfying ansible-core>=2.20.0b1 requirement
+
 * Thu Oct 02 2025 Parag Nemade <pnemade AT redhat DOT com> - 1:25.9.1-1
 - Update to 25.9.1 version (#2400854)
 

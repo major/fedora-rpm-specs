@@ -176,13 +176,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.18.0
 %define specversion 6.18.0
 %define patchversion 6.18
-%define pkgrelease 0.rc0.251003ge406d57be7bd.6
+%define pkgrelease 0.rc0.251006gfd94619c4336.8
 %define kversion 6
-%define tarfile_release 6.17-9099-ge406d57be7bd
+%define tarfile_release 6.17-11322-gfd94619c4336
 # This is needed to do merge window version magic
 %define patchlevel 18
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc0.251003ge406d57be7bd.6%{?buildid}%{?dist}
+%define specrelease 0.rc0.251006gfd94619c4336.8%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.18.0
 
@@ -4392,18 +4392,17 @@ fi\
 #
 #
 %changelog
-* Fri Oct 03 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc0.e406d57be7bd.6]
+* Mon Oct 06 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc0.fd94619c4336.8]
 - add xxd to as BuildRequire for bpf selftests (Thorsten Leemhuis)
 - powerpc/tools: drop `-o pipefail` in gcc check scripts (Jan Stancek)
-- redhat/configs: enable CONFIG_KVM_INTEL_TDX for Fedora x86 (Daniel P. Berrangé)
-- KVM/TDX: Explicitly do WBINVD when no more TDX SEAMCALLs (Kai Huang)
-- x86/virt/tdx: Update the kexec section in the TDX documentation (Kai Huang)
-- x86/virt/tdx: Remove the !KEXEC_CORE dependency (Kai Huang)
-- x86/kexec: Disable kexec/kdump on platforms with TDX partial write erratum (Kai Huang)
-- x86/virt/tdx: Mark memory cache state incoherent when making SEAMCALL (Kai Huang)
-- x86/sme: Use percpu boolean to control WBINVD during kexec (Kai Huang)
-- x86/kexec: Consolidate relocate_kernel() function parameters (Kai Huang)
 - redhat/configs: clang_lto: disable CONFIG_FORTIFY_KUNIT_TEST (Scott Weaver)
+
+* Mon Oct 06 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc0.fd94619c4336.7]
+- Linux v6.18.0-0.rc0.fd94619c4336
+
+* Sat Oct 04 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc0.cbf33b8e0b36.6]
+- redhat: rpminspect: update emptyrpm list for kernel variants (Patrick Talbert)
+- Linux v6.18.0-0.rc0.cbf33b8e0b36
 
 * Fri Oct 03 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc0.e406d57be7bd.5]
 - Linux v6.18.0-0.rc0.e406d57be7bd

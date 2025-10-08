@@ -13,7 +13,7 @@ License:        Unicode-3.0
 URL:            https://crates.io/crates/icu_collections
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * Drop benchmark-only criterion dependency
+# * Drop benchmark-only dependencies criterion and iai
 # * Omit the unicode_bmp_blocks_selector example, which would require the
 #   internal icu_benchmark_macros crate
 Patch:          icu_collections-fix-metadata.diff

@@ -14,6 +14,9 @@ URL:            https://crates.io/crates/arcstr
 Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          arcstr-fix-metadata-auto.diff
+# Manually created patch for downstream crate metadata changes
+# * Omit serde_test dev-dependency, not needed for anything in the crate
+Patch:          arcstr-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

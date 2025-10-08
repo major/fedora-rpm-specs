@@ -44,16 +44,13 @@
 
 # flags for testing, neither should be enabled for official builds in koji
 # relevant HW is required to run %check
+%if 0%{?fedora}
+%bcond_without test
+%else
 %bcond_with test
-%bcond_with check
-
-# do not check for rpaths when building test subpackages
-%if %{with test} || %{with check}
-%global __brp_check_rpaths %{nil}
 %endif
-
-# enable building of tests if check or test are enabled
-%if %{with test} || %{with check}
+# enable building of tests if test is enabled
+%if %{with test}
 %global build_test ON
 %else
 %global build_test OFF
@@ -114,7 +111,7 @@
 
 Name:           %{rocrand_name}
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        ROCm random number generator
 
 Url:            https://github.com/ROCm/rocRAND
@@ -208,17 +205,6 @@ sed -i -e 's@set(CMAKE_CXX_STANDARD 11)@set(CMAKE_CXX_STANDARD 17)@' {,test/{cpp
 
 rm -f %{buildroot}%{_prefix}/share/doc/rocrand/LICENSE.txt
 
-%check
-%if %{with check}
-%if 0%{?suse_version}
-# Need some help to find librocrand.so on suse
-# find . -name 'librocrand.so.1'
-export LD_LIBRARY_PATH=$PWD/build/library:$LD_LIBRARY_PATH
-%endif
-
-%ctest
-%endif
-
 %files 
 %doc README.md
 %license LICENSE.txt
@@ -239,6 +225,10 @@ export LD_LIBRARY_PATH=$PWD/build/library:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Thu Oct 2 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-3
+- Enable -test for fedora
+- Remove check
+
 * Mon Sep 22 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-2
 - Rebuild
 

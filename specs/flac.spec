@@ -1,14 +1,20 @@
-Summary: An encoder/decoder for the Free Lossless Audio Codec
-Name: flac
-Version: 1.5.0
-Release: 3%{?dist}
-License: BSD-3-Clause AND GPL-2.0-or-later AND GFDL-1.3-or-later
-Source0: https://downloads.xiph.org/releases/flac/flac-%{version}.tar.xz
-URL: https://www.xiph.org/flac/
-Requires: %{name}-libs%{?_isa} = %{version}-%{release}
-BuildRequires: libogg-devel
-BuildRequires: gcc gcc-c++ automake autoconf libtool gettext-devel doxygen
-BuildRequires: make
+Name:           flac
+Version:        1.5.0
+Release:        4%{?dist}
+Summary:        An encoder/decoder for the Free Lossless Audio Codec
+
+License:        BSD-3-Clause AND GPL-2.0-or-later AND GFDL-1.3-or-later
+URL:            https://www.xiph.org/flac/
+Source:         https://downloads.xiph.org/releases/flac/flac-%{version}.tar.xz
+
+BuildRequires:  cmake
+BuildRequires:  doxygen
+BuildRequires:  gcc
+BuildRequires:  gcc-c++
+BuildRequires:  gettext-devel
+BuildRequires:  libtool
+BuildRequires:  make
+BuildRequires:  pkgconfig(ogg)
 
 %description
 FLAC stands for Free Lossless Audio Codec. Grossly oversimplified, FLAC
@@ -20,59 +26,55 @@ various music players.
 
 This package contains the command-line tools and documentation.
 
-%package libs
-Summary: Libraries for the Free Lossless Audio Codec
-Obsoletes: flac < 1.2.1-11
-# xmms-flac dropped in 1.3.3-8
-Obsoletes: xmms-flac < 1.3.3-8
+%package        libs
+Summary:        Libraries for the Free Lossless Audio Codec
 
-%description libs
+%description    libs
 FLAC stands for Free Lossless Audio Codec. Grossly oversimplified, FLAC
 is similar to Ogg Vorbis, but lossless. The FLAC project consists of
 the stream format, reference encoders and decoders in library form,
 flac, a command-line program to encode and decode FLAC files, metaflac,
 a command-line metadata editor for FLAC files and input plugins for
 various music players.
+
 This package contains the FLAC libraries.
 
-%package devel
-Summary: Development libraries and header files from FLAC
-Requires: %{name}-libs%{?_isa} = %{version}-%{release}
-Requires: pkgconfig
+%package        devel
+Summary:        Development libraries and header files from FLAC
 
-%description devel
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+
+%description    devel
 This package contains all the files needed to develop applications that
 will use the Free Lossless Audio Codec.
 
 %prep
-%setup -q
+%autosetup -p1
+
+# Disable thorough tests
+sed -i 's|FLAC__TEST_LEVEL=1|FLAC__TEST_LEVEL=0|' test/CMakeLists.txt
 
 %build
-# use our libtool to avoid problems with RPATH
-./autogen.sh -V
-
-%configure \
-    --htmldir=%{_docdir}/flac/html \
-    --disable-silent-rules \
-    --disable-thorough-tests
-
-%make_build
+%cmake
+%cmake_build
 
 %install
-%make_install
+%cmake_install
 
-rm -r %{buildroot}%{_docdir}/flac
-rm %{buildroot}%{_libdir}/*.la
+rm -rfv %{buildroot}%{_docdir}/FLAC
+
+mkdir %{buildroot}%{_datadir}/aclocal
+install src/libFLAC/libFLAC.m4 %{buildroot}%{_datadir}/aclocal/
+install src/libFLAC++/libFLAC++.m4 %{buildroot}%{_datadir}/aclocal/
 
 %check
-make check
-
-%ldconfig_scriptlets libs
+%ctest -j1
 
 %files
 %{_bindir}/flac
 %{_bindir}/metaflac
-%{_mandir}/man1/*
+%{_mandir}/man1/flac.1.*
+%{_mandir}/man1/metaflac.1.*
 
 %files libs
 %doc AUTHORS README.md CHANGELOG.md
@@ -82,12 +84,19 @@ make check
 
 %files devel
 %doc doc/api
-%{_includedir}/*
-%{_libdir}/*.so
-%{_libdir}/pkgconfig/*
+%{_includedir}/FLAC
+%{_includedir}/FLAC++
+%{_libdir}/cmake/FLAC/
+%{_libdir}/libFLAC.so
+%{_libdir}/libFLAC++.so
+%{_libdir}/pkgconfig/*.pc
 %{_datadir}/aclocal/*.m4
 
 %changelog
+* Mon Oct 06 2025 Miroslav Lichvar <mlichvar@redhat.com> 1.5.0-4
+- cleanup the spec (Robert-André Mauchin)
+- convert to cmake (Robert-André Mauchin, Gwyn Ciesla)
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -13,7 +13,7 @@ License:        Unicode-3.0
 URL:            https://crates.io/crates/icu_locale_core
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * Drop benchmark-only criterion dependency
+# * Drop benchmark-only criterion and iai dependencies
 # * Restore litemap dev-dependency with testing feature; see
 #   https://github.com/unicode-org/icu4x/pull/6601
 # * Omit the filter_langids and syntatically_canonicalize_locales examples,

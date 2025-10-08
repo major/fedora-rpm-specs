@@ -4,7 +4,7 @@
 %{!?jobs:%global jobs %(/usr/bin/getconf _NPROCESSORS_ONLN)}
 
 # apt library somajor...
-%global libsomajor 6.0
+%global libsomajor 7.0
 %global libprivsomajor 0.0
 
 # Disable integration tests by default,
@@ -13,19 +13,21 @@
 %bcond_with check_integration
 
 Name:           apt
-Version:        2.9.27
-Release:        3%{?dist}
+Version:        3.1.8
+Release:        1%{?dist}
 Summary:        Command-line package manager for Debian packages
 
 License:        GPL-2.0-or-later
 URL:            https://tracker.debian.org/pkg/apt
 Source0:        https://salsa.debian.org/apt-team/%{name}/-/archive/%{version}/%{name}-%{version}.tar.gz
 Patch1:         apt_include_cstdint.patch
+Patch2:         apt-2.9.27-cstdint.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  cmake >= 3.4
 BuildRequires:  ninja-build
+BuildRequires:  openssl-devel
 
 BuildRequires:  pkgconfig(gnutls) >= 3.4.6
 BuildRequires:  pkgconfig(libgcrypt)
@@ -233,7 +235,6 @@ unbuffer ./test/integration/run-tests -q %{?jobs:-j %{jobs}}
 %{_bindir}/apt-cdrom
 %{_bindir}/apt-config
 %{_bindir}/apt-get
-%{_bindir}/apt-key
 %{_bindir}/apt-mark
 %dir %{_libexecdir}/apt
 %{_libexecdir}/apt/apt-helper
@@ -257,7 +258,6 @@ unbuffer ./test/integration/run-tests -q %{?jobs:-j %{jobs}}
 %{_mandir}/*/*/apt-cdrom.*
 %{_mandir}/*/*/apt-config.*
 %{_mandir}/*/*/apt-get.*
-%{_mandir}/*/*/apt-key.*
 %{_mandir}/*/*/apt-mark.*
 %{_mandir}/*/*/apt-patterns.*
 %{_mandir}/*/*/apt-secure.*
@@ -272,7 +272,6 @@ unbuffer ./test/integration/run-tests -q %{?jobs:-j %{jobs}}
 %{_mandir}/*/apt-cdrom.*
 %{_mandir}/*/apt-config.*
 %{_mandir}/*/apt-get.*
-%{_mandir}/*/apt-key.*
 %{_mandir}/*/apt-mark.*
 %{_mandir}/*/apt-patterns.*
 %{_mandir}/*/apt-secure.*
@@ -302,9 +301,9 @@ unbuffer ./test/integration/run-tests -q %{?jobs:-j %{jobs}}
 %{_includedir}/*
 
 %files utils -f %{name}-utils.lang
-%{_bindir}/apt-extracttemplates
 %{_bindir}/apt-ftparchive
 %{_bindir}/apt-sortpkgs
+%{_libexecdir}/apt/apt-extracttemplates
 %{_libexecdir}/apt/planners
 %{_libexecdir}/apt/solvers
 %{_mandir}/*/*/apt-extracttemplates.*
@@ -316,6 +315,13 @@ unbuffer ./test/integration/run-tests -q %{?jobs:-j %{jobs}}
 %doc %{_docdir}/%{name}-utils
 
 %changelog
+* Mon Oct 06 2025 Terje Rosten <terjeros@gmail.com> - 3.1.8-1
+- 3.1.8
+- apt-key is gone
+- Add openssl-devel to buildreq
+- Fix include issue
+- apt-extracttemplates has moved
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.27-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

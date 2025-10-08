@@ -5,8 +5,8 @@
 %define with_dvb 1
 
 Name:           v4l-utils
-Version:        1.30.1
-Release:        4%{?dist}
+Version:        1.32.0
+Release:        1%{?dist}
 Summary:        Utilities for video4linux and DVB devices
 # libdvbv5, dvbv5 utils, ir-keytable are GPL-2.0-only
 # e.g. utils/cec-follower/cec-follower.cpp is (GPL-2.0-only OR BSD-3-Clause) 
@@ -15,7 +15,7 @@ Summary:        Utilities for video4linux and DVB devices
 License:        GPL-2.0-or-later AND GPL-2.0-only AND (GPL-2.0-only OR BSD-3-Clause) AND LicenseRef-Fedora-Public-Domain AND HPND-sell-variant
 URL:            http://www.linuxtv.org/downloads/v4l-utils/
 
-Source0:        http://linuxtv.org/downloads/v4l-utils/v4l-utils-%{version}.tar.xz
+Source0:        %{url}/v4l-utils-%{version}.tar.xz
 # TODO: submit upstream
 Patch0:         sbin-location.diff
 
@@ -234,6 +234,7 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/qvidcap.desktop
 %{_includedir}/libv4l*.h
 %{_libdir}/libv4l*.so
 %{_libdir}/libv4l/ov*
+%{_libdir}/libv4l/libv4l2tracer.so
 %{_libdir}/pkgconfig/libv4l*.pc
 
 %if %{with qt}
@@ -285,6 +286,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/qvidcap.desktop
 
 
 %changelog
+* Mon Oct 06 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1.32.0-1
+- Update to 1.32.0
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.30.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

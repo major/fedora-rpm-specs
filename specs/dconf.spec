@@ -40,7 +40,7 @@ development using dconf.
 %autosetup -p1
 
 %build
-%meson -Dgtk_doc=true
+%meson -Dgtk_doc=true -Dsystemduserunitdir=%{_userunitdir}
 %meson_build
 
 %install

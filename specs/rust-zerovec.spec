@@ -13,7 +13,8 @@ License:        Unicode-3.0
 URL:            https://crates.io/crates/zerovec
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * Do not depend on criterion; it is needed only for benchmarks.
+# * Do not depend on criterion, iai, or rand_distr; they are needed only for
+#   benchmarks.
 # * Do not depend on postcard; it is only for benchmarks and an example, and
 #   that example would have required the internal icu_benchmark_macros crate.
 # * Do not depend on getrandom; nothing that needs it is included in the crate.

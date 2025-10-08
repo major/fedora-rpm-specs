@@ -3,11 +3,11 @@
 # required. So if this needs backport to places where there is no
 # recent osbuild available we could simply make --use-librepo false
 # and go back to 129.
-%global min_osbuild_version 157
+%global min_osbuild_version 160
 
 %global goipath         github.com/osbuild/image-builder-cli
 
-Version:        37
+Version:        38
 
 %gometa
 
@@ -129,7 +129,7 @@ Provides: bundled(golang(github.com/opencontainers/image-spec)) = 1.1.1
 Provides: bundled(golang(github.com/opencontainers/runtime-spec)) = 1.2.1
 Provides: bundled(golang(github.com/opencontainers/selinux)) = 1.12.0
 Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.13.0
-Provides: bundled(golang(github.com/osbuild/images)) = 0.197.0
+Provides: bundled(golang(github.com/osbuild/images)) = 0.202.0
 Provides: bundled(golang(github.com/pkg/errors)) = 0.9.1
 Provides: bundled(golang(github.com/pmezard/go-difflib)) = 5d4384e
 Provides: bundled(golang(github.com/proglottis/gpgme)) = 0.1.4
@@ -241,6 +241,15 @@ cd $PWD/_build/src/%{goipath}
 %{_bindir}/image-builder
 
 %changelog
+* Mon Oct 06 2025 Packit <hello@packit.dev> - 38-1
+Changes with 38
+----------------
+  - deps: bump images to 0.202.0 (#339)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Michael Vogt
+
+— Somewhere on the Internet, 2025-10-06
+
+
 * Wed Oct 01 2025 Packit <hello@packit.dev> - 37-1
 Changes with 37
 ----------------

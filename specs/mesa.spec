@@ -3,7 +3,6 @@
 %global with_radeonsi 1
 %global with_vmware 1
 %global with_vulkan_hw 1
-%global with_vdpau 1
 %global with_va 1
 %if !0%{?rhel}
 %global with_r300 1
@@ -151,9 +150,6 @@ BuildRequires:  flex
 %if 0%{?with_lmsensors}
 BuildRequires:  lm_sensors-devel
 %endif
-%if 0%{?with_vdpau}
-BuildRequires:  pkgconfig(vdpau) >= 1.1
-%endif
 %if 0%{?with_va}
 BuildRequires:  pkgconfig(libva) >= 0.38.0
 %endif
@@ -207,6 +203,7 @@ Provides:       mesa-dri-filesystem = %{?epoch:%{epoch}:}%{version}-%{release}
 Obsoletes:      mesa-omx-drivers < %{?epoch:%{epoch}:}%{version}-%{release}
 Obsoletes:      mesa-libd3d < %{?epoch:%{epoch}:}%{version}-%{release}
 Obsoletes:      mesa-libd3d-devel < %{?epoch:%{epoch}:}%{version}-%{release}
+Obsoletes:      mesa-vdpau-drivers < %{?epoch:%{epoch}:}%{version}-%{release}
 
 %description filesystem
 %{summary}.
@@ -271,15 +268,6 @@ Requires:       %{name}-filesystem%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{rel
 Obsoletes:      %{name}-vaapi-drivers < 22.2.0-5
 
 %description va-drivers
-%{summary}.
-%endif
-
-%if 0%{?with_vdpau}
-%package        vdpau-drivers
-Summary:        Mesa-based VDPAU drivers
-Requires:       %{name}-filesystem%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
-
-%description vdpau-drivers
 %{summary}.
 %endif
 
@@ -428,7 +416,7 @@ rewrite_wrap_file rustc-hash
 %else
   -Dgallium-drivers=llvmpipe,virgl \
 %endif
-  -Dgallium-vdpau=%{?with_vdpau:enabled}%{!?with_vdpau:disabled} \
+  -Dgallium-vdpau=disabled \
   -Dgallium-va=%{?with_va:enabled}%{!?with_va:disabled} \
   -Dgallium-mediafoundation=disabled \
   -Dteflon=%{?with_teflon:true}%{!?with_teflon:false} \
@@ -474,8 +462,6 @@ rewrite_wrap_file rustc-hash
 %install
 %meson_install
 
-# libvdpau opens the versioned name, don't bother including the unversioned
-rm -vf %{buildroot}%{_libdir}/vdpau/*.so
 # likewise glvnd
 rm -vf %{buildroot}%{_libdir}/libGLX_mesa.so
 rm -vf %{buildroot}%{_libdir}/libEGL_mesa.so
@@ -662,22 +648,6 @@ popd
 %{_libdir}/dri/d3d12_drv_video.so
 %endif
 %{_libdir}/dri/virtio_gpu_drv_video.so
-%endif
-
-%if 0%{?with_vdpau}
-%files vdpau-drivers
-%dir %{_libdir}/vdpau
-%{_libdir}/vdpau/libvdpau_nouveau.so.1*
-%if 0%{?with_r600}
-%{_libdir}/vdpau/libvdpau_r600.so.1*
-%endif
-%if 0%{?with_radeonsi}
-%{_libdir}/vdpau/libvdpau_radeonsi.so.1*
-%endif
-%if 0%{?with_d3d12}
-%{_libdir}/vdpau/libvdpau_d3d12.so.1*
-%endif
-%{_libdir}/vdpau/libvdpau_virtio_gpu.so.1*
 %endif
 
 %if 0%{?with_d3d12}

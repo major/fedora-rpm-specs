@@ -70,7 +70,7 @@
   -DCMAKE_AR=%rocmllvm_bindir/llvm-ar \\\
   -DCMAKE_RANLIB=%rocmllvm_bindir/llvm-ranlib \\\
   -DCMAKE_PREFIX_PATH=%{rocmllvm_cmakedir}/.. \\\
-  -DBUILD_CLIENTS_TESTS_OPENMP=OFF \\\
+  -DBUILD_CLIENTS_TESTS_OPENMP=%{build_test} \\\
   -DBUILD_CLIENTS_TESTS=%{build_test} \\\
   -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \\\
   -DCMAKE_BUILD_TYPE=%{build_type} \\\
@@ -89,7 +89,7 @@
 
 Name:           %{rocfft_name}
 Version:        %{rocm_version}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        ROCm Fast Fourier Transforms (FFT) library
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -113,6 +113,7 @@ BuildRequires:  rocrand-devel
 BuildRequires:  fftw-devel
 BuildRequires:  boost-devel
 BuildRequires:  hiprand-devel
+BuildRequires:  rocm-omp-devel
 
 %if 0%{?suse_version}
 BuildRequires:  gtest
@@ -239,6 +240,10 @@ rm -f %{buildroot}%{_prefix}/share/doc/rocfft/LICENSE.md
 %endif
 
 %changelog
+* Mon Oct 6 2025 Tim Flink <tflink@fedoraproject.org> - 7.0.1-9
+- require rocm-omp-devel for test subpackage
+- re-enable omp tests for test subpackage builds
+
 * Thu Sep 25 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-8
 - require a new rocm-runtime
 

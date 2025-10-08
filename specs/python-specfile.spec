@@ -7,7 +7,7 @@ Main focus is on modifying existing spec files, any change should result
 in a minimal diff.}
 
 
-%global base_version 0.37.0
+%global base_version 0.37.1
 #global prerelease   rc1
 
 %global package_version %{base_version}%{?prerelease:~%{prerelease}}
@@ -16,7 +16,7 @@ in a minimal diff.}
 
 Name:           python-specfile
 Version:        %{package_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 
 Summary:        A library for parsing and manipulating RPM spec files
 License:        MIT
@@ -77,6 +77,9 @@ sed -i 's/setuptools_scm\[toml\]>=7/setuptools_scm[toml]/' pyproject.toml
 
 
 %changelog
+* Fri Oct 03 2025 Packit <hello@packit.dev> - 0.37.1-1
+- We have solved a FutureWarning in our codebase. (#485)
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.37.0-2
 - Rebuilt for Python 3.14.0rc3 bytecode
 

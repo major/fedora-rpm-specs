@@ -54,7 +54,7 @@
 # than a Fedora release lifecycle.
 %global nodejs_epoch 1
 %global nodejs_major 22
-%global nodejs_minor 19
+%global nodejs_minor 20
 %global nodejs_patch 0
 # nodejs_soversion - from NODE_MODULE_VERSION in src/node_version.h
 %global nodejs_soversion 127
@@ -133,7 +133,7 @@
 %global npm_envr %{npm_epoch}:%{npm_version}-%{npm_release}
 
 # uvwasi - from deps/uvwasi/include/uvwasi.h
-%global uvwasi_version 0.0.21
+%global uvwasi_version 0.0.23
 
 # histogram_c - assumed from timestamps
 %global histogram_version 0.9.7

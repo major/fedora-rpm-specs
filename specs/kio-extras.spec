@@ -12,6 +12,9 @@ Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%
 ## upstramable patches
 
 ## upstream patches
+# Remove dependancy on Qt6GuiPrivate
+# https://invent.kde.org/network/kio-extras/-/commit/eb7a44f144aec72c578804587a61da3f1a02a7fb
+Patch0: eb7a44f144aec72c578804587a61da3f1a02a7fb.patch
 
 BuildRequires:  bzip2-devel
 BuildRequires:  gperf
@@ -61,9 +64,6 @@ BuildRequires:  pkgconfig(libtirpc)
 BuildRequires:  pkgconfig(shared-mime-info)
 BuildRequires:  pkgconfig(xcursor)
 BuildRequires:  taglib-devel > 1.11
-
-# Requires QtGui Private, it seems
-BuildRequires:  qt6-qtbase-private-devel
 
 # This package provides plugins for KIO
 Supplements:    kf6-kio-core

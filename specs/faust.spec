@@ -12,7 +12,7 @@
 %global __requires_exclude %{__requires_exclude}|libm.so(LIBC)(64bit)
 
 Name:		faust
-Version:	2.81.8
+Version:	2.81.10
 Release:	1%{?dist}
 Summary:	Compiled language for real-time audio signal processing
 # Examples are BSD
@@ -194,6 +194,9 @@ find %{buildroot} -type f -name '*.a' -print0 | xargs -0 rm
 %{_datadir}/kde4/apps/katepart/syntax/%{name}.xml
 
 %changelog
+* Mon Oct 06 2025 Gwyn Ciesla <gwync@protonmail.com> - 2.81.10-1
+- 2.81.10
+
 * Tue Sep 30 2025 Gwyn Ciesla <gwync@protonmail.com> - 2.81.8-1
 - 2.81.8
 

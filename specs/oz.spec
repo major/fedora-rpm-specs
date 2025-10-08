@@ -1,6 +1,6 @@
 Name:    oz
 Version: 0.18.1
-Release: 23%{?dist}
+Release: 24%{?dist}
 Summary: Library and utilities for automated guest OS installs
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2
@@ -49,6 +49,9 @@ Patch: 0001-Really-rename-oz-examples.1-to-oz-examples.5.patch
 # https://github.com/clalancette/oz/pull/318
 # Avoid monotonic dependency
 Patch: 0001-Switch-to-time.monotonic.patch
+
+# Enable RISC-V arch
+Patch: 0027-Enable-riscv64-arch.patch
 
 BuildArch: noarch
 
@@ -143,6 +146,9 @@ libvirtd -d
 %{python3_sitelib}/%{name}*.egg-info
 
 %changelog
+* Thu Oct 02 2025 David Abdurachmanov <davidlt@rivosinc.com> - 0.18.1-24
+- Enable riscv64 arch
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.18.1-23
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -63,7 +63,7 @@
 Name:           ibus
 Version:        1.5.33~rc2
 # https://github.com/fedora-infra/rpmautospec/issues/101
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -638,6 +638,10 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Mon Oct 06 2025 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.33~rc2-2
+- Rebuild for cldr-emoji-annotation-48~beta1-1.fc43 and
+  gnome-shell-extension-no-overview-49-1.fc43
+
 * Sun Oct 05 2025 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.33~rc2-1
 - Fix memory leak in Wayland IM protocol
 - Fix reset signal w/ GTK_IM_MODULE=ibus and GTK3, GTK4 in Wayland

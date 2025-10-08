@@ -12,10 +12,10 @@ ExcludeArch: %{ix86}
 # environment variables in multiple sections of the spec file.
 %global commit 379ce30715f637075879feda784edc89231792cf
 %global commitdatestring 2025-09-19 11:26:54 -0600
-%global cosmic_minver 1.0.0~beta.1
+%global cosmic_minver 1.0.0~beta.1.1
 
 Name:           cosmic-session
-Version: 1.0.0~beta.1
+Version: 1.0.0~beta.1.1
 Release:        %autorelease
 Summary:        Session manager for the COSMIC desktop environment
 
@@ -51,6 +51,7 @@ Requires:       cosmic-files >= %{cosmic_minver}
 Requires:       cosmic-greeter >= %{cosmic_minver}
 Requires:       cosmic-icons >= %{cosmic_minver}
 Requires:       cosmic-idle >= %{cosmic_minver}
+Requires:       cosmic-initial-setup >= %{cosmic_minver}
 Requires:       cosmic-launcher >= %{cosmic_minver}
 Requires:       cosmic-notifications >= %{cosmic_minver}
 Requires:       cosmic-osd >= %{cosmic_minver}
