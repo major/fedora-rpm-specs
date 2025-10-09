@@ -7,18 +7,18 @@
 %bcond_with js_recompilation
 
 Name: rubygem-%{gem_name}
-Version: 8.0.2
-Release: 2%{?dist}
+Version: 8.0.3
+Release: 1%{?dist}
 Summary: Rich text framework
 License: MIT
 URL: https://rubyonrails.org
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}%{?prerelease}.gem
 # git clone https://github.com/rails/rails.git --no-checkout && cd rails/actiontext
-# git archive -v -o actiontext-8.0.2-tests.tar.gz v8.0.2 test/
+# git archive -v -o actiontext-8.0.3-tests.tar.gz v8.0.3 test/
 Source1: %{gem_name}-%{version}%{?prerelease}-tests.tar.gz
 # Source code of pregenerated JS files.
 # git clone https://github.com/rails/rails.git && cd rails/actiontext
-# git archive -v -o actiontext-8.0.2-js.tar.gz v8.0.2 app/javascript rollup.config.js
+# git archive -v -o actiontext-8.0.3-js.tar.gz v8.0.3 app/javascript rollup.config.js
 Source2: %{gem_name}-%{version}%{?prerelease}-js.tar.gz
 
 BuildRequires: ruby(release)
@@ -153,6 +153,10 @@ ruby -Itest -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Mon Oct 06 2025 Vít Ondruch <vondruch@redhat.com> - 8.0.3-1
+- Update to Action Text 8.0.3.
+  Related: rhzb#2388437
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

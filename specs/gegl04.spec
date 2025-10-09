@@ -10,7 +10,7 @@
 %bcond docs 1
 
 Name:           gegl04
-Version:        0.4.62
+Version:        0.4.64
 Release:        %autorelease
 Summary:        Graph based image processing framework
 
@@ -33,7 +33,7 @@ BuildRequires:  suitesparse-devel
 BuildRequires:  vala
 BuildRequires:  asciidoc
 
-BuildRequires:  pkgconfig(babl-0.1) >= 0.1.112
+BuildRequires:  pkgconfig(babl-0.1) >= 0.1.116
 BuildRequires:  pkgconfig(cairo) >= 1.12.2
 BuildRequires:  pkgconfig(exiv2) >= 0.25
 BuildRequires:  pkgconfig(gdk-pixbuf-2.0) >= 2.32.0

@@ -1,7 +1,7 @@
 
 %global qt_module qtsvg
 
-%global unstable 1
+#global unstable 0
 %if 0%{?unstable}
 %global prerelease rc
 %endif
@@ -10,7 +10,7 @@
 
 Summary: Qt6 - Support for rendering and displaying SVG
 Name:    qt6-%{qt_module}
-Version: 6.10.0%{?unstable:~%{prerelease}}
+Version: 6.10.0
 Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -121,6 +121,9 @@ popd
 %endif
 
 %changelog
+* Tue Oct 07 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0-1
+- 6.10.0
+
 * Thu Sep 25 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0~rc-1
 - 6.10.0 RC
 

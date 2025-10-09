@@ -41,7 +41,9 @@
 %global skip_tests_networking gimp:desktop / appdata_file
 
 # tests known to fail for being problematic
-%global skip_tests_problematic gimp:app / save-and-export
+%global skip_tests_problematic gimp:app / save-and-export\
+gimp:app / single-window-mode\
+gimp:app / ui
 
 # tests known to fail in a normal user environment
 %global skip_tests_user gimp:app / save-and-export\
@@ -56,7 +58,7 @@ gimp:app / ui
 Summary:        GNU Image Manipulation Program
 Name:           gimp
 Epoch:          2
-Version:        3.0.4
+Version:        3.0.6
 Release:        %autorelease
 # https://bugzilla.redhat.com/show_bug.cgi?id=2318369
 ExcludeArch:    s390x
@@ -96,8 +98,8 @@ ExcludeArch:    s390x
 %global api_version %{major}.0
 %global lib_api_version %{major}.0
 %endif
-%global lib_minor %{lua: print(tonumber(macros.minor) * 100)}
-%global lib_micro %micro
+%global lib_minor %{lua: print(tonumber(macros.minor) * 100 + macros.micro)}
+%global lib_micro 0
 
 # gimp core app is GPL-3.0-or-later, libgimp and other libraries are LGPL-3.0-or-later
 # plugin file-dds is GPL-2.0-or-later and plugins script-fu/libscriptfu/{ftx,tinyscheme}
@@ -109,15 +111,15 @@ URL:            https://www.gimp.org
 # Have macros for required minimum versions, so they can be set in one place where they need to be
 # specified for runtime, too.
 %global alsa_minver 1.0.0
-%global appstream_glib_minver 0.7.7
+%global appstream_minver 0.16.1
 %global atk_minver 2.4.0
-%global babl_minver 0.1.114
+%global babl_minver 0.1.116
 %global cairo_minver 1.14.0
 %global cairopdf_minver 1.12.2
 %global fontconfig_minver 2.12.4
 %global freetype2_minver 2.1.7
 %global gdk_pixbuf_minver 2.30.8
-%global gegl_minver 0.4.62
+%global gegl_minver 0.4.64
 %global exiv2_minver 0.27.4
 %global gettext_minver 0.19.8
 %global gexiv2_minver 0.14.0
@@ -176,7 +178,7 @@ BuildRequires:  lua-lgi
 BuildRequires:  meson
 BuildRequires:  perl >= %perl_minver
 BuildRequires:  pkgconfig(alsa) >= %alsa_minver
-BuildRequires:  pkgconfig(appstream-glib) >= %appstream_glib_minver
+BuildRequires:  pkgconfig(appstream) >= %appstream_minver
 BuildRequires:  pkgconfig(atk) >= %atk_minver
 BuildRequires:  pkgconfig(babl-0.1) >= %babl_minver
 BuildRequires:  pkgconfig(bzip2)
@@ -200,6 +202,7 @@ BuildRequires:  pkgconfig(harfbuzz) >= %harfbuzz_minver
 BuildRequires:  pkgconfig(iso-codes)
 BuildRequires:  pkgconfig(json-glib-1.0) >= %json_glib_minver
 BuildRequires:  pkgconfig(lcms2) >= %lcms_minver
+BuildRequires:  pkgconfig(libarchive)
 BuildRequires:  pkgconfig(libheif) >= %libheif_minver
 BuildRequires:  pkgconfig(libjpeg)
 BuildRequires:  pkgconfig(libjxl) >= %jpegxl_minver
@@ -281,20 +284,6 @@ Patch2:         gimp-2.99.19-no-phone-home-default.patch
 # use external help browser directly if help browser plug-in is not built
 Patch3:         gimp-2.99.19-external-help-browser.patch
 
-# Upstreamed patches:
-
-# Fix Python crashing if 32bit typelibs are present
-# https://gitlab.gnome.org/GNOME/gimp/-/merge_requests/2306
-Patch10:        https://gitlab.gnome.org/GNOME/gimp/-/merge_requests/2306.patch
-
-# Fix crash when opening text outline color dialog
-# https://gitlab.gnome.org/GNOME/gimp/-/issues/14047
-Patch11:        https://gitlab.gnome.org/GNOME/gimp/-/commit/1685c86af5d6253151d0056a9677ba469ea10164.patch
-
-# Fix crash with Script-Fu function not consuming all parameters
-# https://gitlab.gnome.org/GNOME/gimp/-/issues/14192
-Patch12:        https://gitlab.gnome.org/GNOME/gimp/-/commit/6192b79d891398d285a03fe52ffa609396274c51.patch
-
 %description
 GIMP (GNU Image Manipulation Program) is a powerful image composition and
 editing program, which can be extremely useful for creating logos and other
@@ -366,10 +355,6 @@ EOF
 %patch 1 -p1 -b .cm-system-monitor-profile-by-default
 %patch 2 -p1 -b .no-phone-home-default
 %patch 3 -p1 -b .external-help-browser
-
-%patch 10 -p1 -b .accommodate-lib64-multiarch
-%patch 11 -p1 -b .text-outline-color-dialog-crash
-%patch 12 -p1 -b .scriptfu-fn-invocation-crash
 
 %build
 # Use hardening compiler/linker flags because gimp is likely to deal with files

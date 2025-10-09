@@ -1,8 +1,8 @@
 %global framework kapidox
 
 Name:    kf6-%{framework}
-Version: 6.18.0
-Release: 2%{?dist}
+Version: 6.19.0
+Release: 1%{?dist}
 Summary: KDE Frameworks 6 Tier 4 scripts and data for building API documentation
 
 License: BSD
@@ -67,6 +67,9 @@ style.
 
 
 %changelog
+* Sun Oct 05 2025 Steve Cossette <farchord@gmail.com> - 6.19.0-1
+- 6.19.0
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 6.18.0-2
 - Rebuilt for Python 3.14.0rc3 bytecode
 

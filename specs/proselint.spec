@@ -4,7 +4,7 @@ Release:        %autorelease
 Summary:        A linter for English prose
 
 License:        BSD-3-Clause
-URL:            %{forgeurl}
+URL:            https://github.com/amperser/proselint
 Source0:        %pypi_source
 BuildArch:      noarch
 

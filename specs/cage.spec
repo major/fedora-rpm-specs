@@ -1,8 +1,8 @@
 %global forgeurl	https://github.com/cage-kiosk/cage
 
 Name:			cage
-Version:		0.2.0
-Release:		3%{?dist}
+Version:		0.2.1
+Release:		1%{?dist}
 Summary:		A Wayland kiosk
 
 License:		MIT
@@ -16,7 +16,7 @@ BuildRequires:	gcc
 BuildRequires:	gnupg2
 BuildRequires:	meson
 BuildRequires:	pkgconfig(scdoc)
-BuildRequires:	pkgconfig(wlroots-0.18)
+BuildRequires:	pkgconfig(wlroots-0.19)
 BuildRequires:	pkgconfig(wayland-protocols) >= 1.14
 BuildRequires:	pkgconfig(wayland-server)
 BuildRequires:	pkgconfig(xkbcommon)
@@ -51,6 +51,9 @@ project page and the Wiki.
 
 
 %changelog
+* Tue Oct 07 2025 Federico Pellegrin <fede@evolware.org> - 0.2.1-1
+- Update to 0.2.1 (#2400950)
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

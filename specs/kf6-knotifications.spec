@@ -1,7 +1,7 @@
 %global framework knotifications
 
 Name:    kf6-%{framework}
-Version: 6.18.0
+Version: 6.19.0
 Release: 1%{?dist}
 Summary: KDE Frameworks 6 Tier 2 solution with abstraction for system notifications
 
@@ -103,6 +103,9 @@ mkdir -p %{buildroot}/%{_kf6_datadir}/knotifications6
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Sun Oct 05 2025 Steve Cossette <farchord@gmail.com> - 6.19.0-1
+- 6.19.0
+
 * Tue Sep 16 2025 farchord@gmail.com - 6.18.0-1
 - 6.18.0
 

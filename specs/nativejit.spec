@@ -9,11 +9,12 @@ ExclusiveArch: x86_64
 
 Name:    nativejit
 Version: 0.1
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: Library for high-performance just-in-time compilation
 License: MIT
 URL:     https://github.com/copasi/copasi-dependencies/tree/master/src/NativeJIT
 Source0: https://gitlab.com/anto.trande/nativejit/-/archive/v%{version}/nativejit-v%{version}.tar.bz2
+Patch:   nativejit-v0.1-c++17.patch
 
 BuildRequires: cmake3, gcc, gcc-c++, make
 BuildRequires: gtest-devel
@@ -37,7 +38,7 @@ Requires: cmake%{?_isa}
 NativeJIT headers and development-related files, CMake config files.
 
 %prep
-%autosetup -n %{name}-v%{version}
+%autosetup -p1 -n %{name}-v%{version}
 
 %build
 %cmake \
@@ -74,6 +75,9 @@ fi
 %{_libdir}/cmake/nativejit*.cmake
 
 %changelog
+* Tue Oct 07 2025 Terje Rosten <terjeros@gmail.com> - 0.1-13
+- Switch to C++17 for gtest 1.17.0
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

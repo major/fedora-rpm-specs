@@ -1,7 +1,7 @@
 
 %global qt_module qtwayland
 
-%global unstable 1
+#global unstable 0
 %if 0%{?unstable}
 %global prerelease rc
 %endif
@@ -10,7 +10,7 @@
 
 Summary: Qt6 - Wayland platform support and QtCompositor module
 Name:    qt6-%{qt_module}
-Version: 6.10.0%{?unstable:~%{prerelease}}
+Version: 6.10.0
 Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -25,9 +25,9 @@ Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submod
 %endif
 
 # Upstream patches
-# https://codereview.qt-project.org/c/qt/qtbase/+/656190 [Qt 6.10]
-# FIXME: disabled because of https://bugs.kde.org/show_bug.cgi?id=506316
-# Patch0:  qtwayland-add-pointer-warp-support.patch
+# https://codereview.qt-project.org/c/qt/qtwayland/+/678263
+Patch0:  qtwaylandadwaitadecoration-unify-window-border-into-single-path.patch
+
 # Upstreamable patches
 
 # filter qml provides
@@ -70,6 +70,13 @@ Requires: qt6-qtbase-devel%{?_isa}
 Requires: qt6-qtdeclarative-devel%{?_isa}
 Requires: wayland-devel%{?_isa}
 %description devel
+%{summary}.
+
+%package adwaita-decoration
+Summary: Qt decoration plugin implementing Adwaita-like client-side decorations
+Requires: %{name}%{?_isa} = %{version}-%{release}
+Supplements: (qt6-qtbase and gnome-shell)
+%description adwaita-decoration
 %{summary}.
 
 %if 0%{?examples}
@@ -122,7 +129,6 @@ popd
 %{_qt6_libdir}/libQt6WaylandCompositorWLShell.so.6*
 %{_qt6_libdir}/libQt6WaylandCompositorXdgShell.so.6*
 %{_qt6_libdir}/libQt6WaylandEglCompositorHwIntegration.so.6*
-%{_qt6_plugindir}/wayland-decoration-client/
 %{_qt6_plugindir}/wayland-graphics-integration-server
 %{_qt6_plugindir}/wayland-shell-integration
 %{_qt6_qmldir}/QtWayland/
@@ -181,12 +187,18 @@ popd
 %{_qt6_libdir}/qt6/modules/*.json
 %{_qt6_libdir}/pkgconfig/*.pc
 
+%files adwaita-decoration
+%{_qt6_plugindir}/wayland-decoration-client/libadwaita.so
+
 %if 0%{?examples}
 %files examples
 %{_qt6_examplesdir}/wayland/
 %endif
 
 %changelog
+* Tue Oct 07 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0-1
+- 6.10.0
+
 * Thu Sep 25 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0~rc-1
 - 6.10.0 RC
 

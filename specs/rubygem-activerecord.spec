@@ -3,14 +3,14 @@
 
 Name: rubygem-%{gem_name}
 Epoch: 1
-Version: 8.0.2
-Release: 2%{?dist}
+Version: 8.0.3
+Release: 1%{?dist}
 Summary: Object-relational mapper framework (part of Rails)
 License: MIT
 URL: https://rubyonrails.org
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}%{?prerelease}.gem
 # git clone http://github.com/rails/rails.git && cd rails/activerecord
-# git archive -v -o activerecord-8.0.2-tests.tar.gz v8.0.2 test/
+# git archive -v -o activerecord-8.0.3-tests.tar.gz v8.0.3 test/
 Source1: activerecord-%{version}%{?prerelease}-tests.tar.gz
 # Fix undefined `Rails` constant in sqlite3 dbconsole.
 # https://github.com/rails/rails/pull/54498
@@ -106,6 +106,10 @@ done
 %{gem_instdir}/examples
 
 %changelog
+* Mon Oct 06 2025 Vít Ondruch <vondruch@redhat.com> - 1:8.0.3-1
+- Update to Active Record 8.0.3.
+  Related: rhzb#2388437
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:8.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

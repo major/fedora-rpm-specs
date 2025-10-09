@@ -13,8 +13,7 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/reqwest-middleware
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * Remove wiremock dev-dependency; tests shipped in the crate do not use
-#   wiremock
+# * Remove tokio and wiremock dev-dependencies, not used by tests in the crate
 Patch:          reqwest-middleware-fix-metadata.diff
 # * Downstream-only: do not attempt to run doctests from README.md
 # * These would introduce a circular dependency on the reqwest-retry crate.

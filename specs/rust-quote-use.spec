@@ -20,6 +20,10 @@ Source:         %{crates_source}
 #   “The Rust Project Contributors” replaced by “Roland Fredenhagen,” as
 #   @ModProg appears to be the sole contributor.
 Source10:       https://github.com/ModProg/quote-use/raw/e4b59902f6af22b8317714e4e7ec695c0fc9e621/LICENSE
+# Manually created patch for downstream crate metadata changes
+# * Omit dev-dependencies not used for anything included in the crate:
+#   pretty_assertions, proc-macro2, and trybuild2
+Patch:          quote-use-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

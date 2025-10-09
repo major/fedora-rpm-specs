@@ -4,7 +4,7 @@
 %undefine _debugsource_packages
 
 %global qt_module qttools
-%global pre rc
+#global pre rc
 
 #global commit 769fa282ac8a4b98698dada6969452363e0eb415
 #global shortcommit %(c=%{commit}; echo ${c:0:7})
@@ -20,7 +20,7 @@
 %define qt_version %(echo %{version} | cut -d~ -f1)
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.10.0%{?pre:~%pre}
+Version:        6.10.0
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtTools component
 
@@ -279,6 +279,9 @@ ln -s %{_libdir}/cmake/Qt6LinguistTools %{buildroot}%{mingw64_libdir}/cmake/Qt6L
 
 
 %changelog
+* Tue Oct 07 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0-1
+- 6.10.0
+
 * Thu Oct 02 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0~rc-1
 - Update 6.10.0 RC
 

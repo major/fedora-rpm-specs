@@ -1,6 +1,6 @@
 # Requires python-pymongo 4.4.0 or later, so disable for F41/F42.
 # F43: disable until RHBZ#2356166 is fixed in python-pymongo.
-%bcond bson %[ %{undefined fc43} && %{undefined fc42} && %{undefined fc41} ]
+%bcond bson %[ %{undefined fc42} && %{undefined fc41} ]
 %bcond cbor2 1
 %bcond msgpack 1
 %bcond msgspec 1

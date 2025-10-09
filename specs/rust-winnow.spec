@@ -16,8 +16,14 @@ Source:         %{crates_source}
 # * remove references to benchmark and example binaries from Cargo.toml
 # * drop unused, benchmark-only criterion dev-dependency
 # * drop dev-dependencies which are only needed for example binaries
+# * update anstream dependency from 0.3 to 0.6:
+#   https://github.com/winnow-rs/winnow/commit/2314765d68fbceb80d8249ec2095a6d4448deb3e
 Patch:          winnow-fix-metadata.diff
-Patch:          0001-Port-from-is_terminal_polyfill-to-std-io-IsTerminal.patch
+# * Port from is_terminal_polyfill to std::io::IsTerminal
+# * We are not concerned about MSRV issues in downstream builds.
+Patch10:        0001-Port-from-is_terminal_polyfill-to-std-io-IsTerminal.patch
+# * Omit a test that would require term-transcript, not packaged
+Patch11:        no-term-transcript.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -129,17 +135,17 @@ use the "unstable-recover" feature of the "%{crate}" crate.
 %cargo_prep
 
 %generate_buildrequires
-%cargo_generate_buildrequires
+%cargo_generate_buildrequires -f debug
 
 %build
-%cargo_build
+%cargo_build -f debug
 
 %install
-%cargo_install
+%cargo_install -f debug
 
 %if %{with check}
 %check
-%cargo_test
+%cargo_test -f debug
 %endif
 
 %changelog

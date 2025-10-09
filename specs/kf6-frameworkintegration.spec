@@ -1,8 +1,8 @@
 %global framework frameworkintegration
 
 Name:    kf6-%{framework}
-Version: 6.18.0
-Release: 3%{?dist}
+Version: 6.19.0
+Release: 1%{?dist}
 Summary: KDE Frameworks 6 Tier 4 workspace and cross-framework integration plugins
 License: CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
 URL:     https://invent.kde.org/frameworks/%{framework}
@@ -103,6 +103,9 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Sun Oct 05 2025 Steve Cossette <farchord@gmail.com> - 6.19.0-1
+- 6.19.0
+
 * Sat Oct 04 2025 Steve Cossette <farchord@gmail.com> - 6.18.0-3
 - Another rebuild for PackageKit-Qt Update
 

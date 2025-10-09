@@ -15,8 +15,8 @@
 %endif
 
 Name:           vdr-%{pname}
-Version:        2.4.3
-Release:        8%{?dist}
+Version:        2.4.4
+Release:        1%{?dist}
 # Release:        0.12.%%{gitdate}git%%{shortcommit0}%%{?dist}
 Summary:        Powerful schedules menu replacement plugin for VDR
 
@@ -31,8 +31,6 @@ Source4:        %{name}-quickepgsearch.conf
 Source5:        %{name}-epgsearchmenu.conf
 # Fedora specific, no need to send upstream
 Patch0:         %{name}-2.4.0-fedora.patch
-# https://www.vdr-portal.de/attachment/51079-fix-dump-timer-programming-txt/
-Patch1:         fix_dump_timer_programming.txt
 
 BuildRequires:  make
 BuildRequires:  gcc-c++
@@ -53,7 +51,6 @@ sed -e 's|__VARDIR__|%{vdr_vardir}|g' %{PATCH0} | %{__patch} -p1 --fuzz=0
 for f in scripts/epgsearchcmds-french.conf conf/epgsearchcats.conf-tvm2vdr* ; do
     iconv -f iso-8859-1 -t utf-8 -o $f.utf8 $f ; mv $f.utf8 $f
 done
-%patch 1 -p1
 
 chmod -x scripts/*
 
@@ -95,6 +92,9 @@ install -dm 755 $RPM_BUILD_ROOT%{vdr_vardir}/epgsearch
 %defattr(-,root,root,-)
 
 %changelog
+* Tue Oct 07 2025 Martin Gansser <martinkg@fedoraproject.org> - 2.4.4-1
+- Update to 2.4.4
+
 * Fri Jul 25 2025 Martin Gansser <martinkg@fedoraproject.org> - 2.4.3-8
 - Rebuilt for new VDR API version 2.7.7
 

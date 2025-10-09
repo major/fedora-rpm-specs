@@ -1,7 +1,7 @@
 %{?mingw_package_header}
 
 %global qt_module qtsvg
-%global pre rc
+#global pre rc
 
 #global commit 45483bfae4f59ab92be22007cf49d9d7eee8a16c
 #global shortcommit %(c=%{commit}; echo ${c:0:7})
@@ -17,7 +17,7 @@
 %define qt_version %(echo %{version} | cut -d~ -f1)
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.10.0%{?pre:~%pre}
+Version:        6.10.0
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtSvg component
 
@@ -158,6 +158,9 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 
 
 %changelog
+* Tue Oct 07 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0-1
+- 6.10.0
+
 * Thu Oct 02 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0~rc-1
 - Update 6.10.0 RC
 

@@ -7,13 +7,15 @@
 Name:           rust-fluent-bundle
 Version:        0.15.3
 Release:        %autorelease
-Summary:        Localization system designed to unleash the entire expressive power of natural language translations
+Summary:        Localization system that unleashes the power of natural language translations
 
 License:        Apache-2.0 OR MIT
 URL:            https://crates.io/crates/fluent-bundle
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * drop unused, benchmark-only criterion dev-dependency
+# * drop unused, benchmark-only criterion and iai dev-dependency
+# * drop serde, serde_yaml, and rand dev-dependencies, not used by anything in
+#   the published crate
 # * bump self_cell dependency from 0.10 to 1.0
 Patch:          fluent-bundle-fix-metadata.diff
 

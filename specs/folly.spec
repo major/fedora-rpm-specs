@@ -54,6 +54,13 @@
 %bcond_with uring
 %endif
 
+# Newer Fedora/RHEL have libdwarf 2
+%if 0%{?fedora} > 42 || 0%{?rhel} > 9
+%global dwarf  2
+%else
+%global dwarf  0
+%endif
+
 Name:           folly
 Version:        2025.02.03.00
 Release:        %{autorelease}
@@ -228,9 +235,7 @@ sed -i folly/CMakeLists.txt -e '\@logging/example@s|add_subdirectory|#add_subdir
   -DBUILD_TESTS=ON \
 %endif
   -DCMAKE_INSTALL_DIR=%{_libdir}/cmake/%{name} \
-%if 0%{?fedora} >= 36 || 0%{?rhel} >= 9
-  -DLIBDWARF_INCLUDE_DIR=%{_includedir}/libdwarf-0 \
-%endif
+  -DLIBDWARF_INCLUDE_DIR=%{_includedir}/libdwarf-%{dwarf} \
 %ifarch riscv64
   -DFOLLY_HAVE_INT128_T=1 \
 %endif

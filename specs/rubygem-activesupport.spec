@@ -4,18 +4,21 @@
 
 Name: rubygem-%{gem_name}
 Epoch: 1
-Version: 8.0.2
-Release: 2%{?dist}
+Version: 8.0.3
+Release: 1%{?dist}
 Summary: A support libraries and Ruby core extensions extracted from the Rails framework
 License: MIT
 URL: https://rubyonrails.org
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}%{?prerelease}.gem
 # git clone http://github.com/rails/rails.git && cd rails/activesupport
-# git archive -v -o activesupport-8.0.2-tests.tar.gz v8.0.2 test/
+# git archive -v -o activesupport-8.0.3-tests.tar.gz v8.0.3 test/
 Source1: %{gem_name}-%{version}%{?prerelease}-tests.tar.gz
 # This is needed due to `force_skip` alias.
 # https://github.com/rails/rails/blob/main/tools/test_common.rb
 Source2: https://raw.githubusercontent.com/rails/rails/e25d738430bdc6bdd04cd28be705484ea953e74e/tools/test_common.rb
+# Fix XmlMiniTest::ParsingTest#test_decimal test failure with BigDecimal 3.2.3+
+# https://github.com/rails/rails/pull/55840
+Patch1: rubygem-activesupport-8.0.3-Always-pass-default-precision-to-BigDecimal-when-parsing.patch
 
 # Ruby package has just soft dependency on rubygem(json), while
 # ActiveSupport always requires it.
@@ -66,6 +69,8 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version}%{?prerelease} -b1
+
+%patch 1 -p2
 
 %build
 gem build ../%{gem_name}-%{version}%{?prerelease}.gemspec
@@ -122,6 +127,10 @@ kill -INT $(cat $VALKEY_DIR/valkey.pid)
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Mon Oct 06 2025 Vít Ondruch <vondruch@redhat.com> - 1:8.0.3-1
+- Update to Active Support 8.0.3.
+  Related: rhzb#2388437
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:8.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

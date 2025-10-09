@@ -63,7 +63,7 @@
 Name:           ibus
 Version:        1.5.33~rc2
 # https://github.com/fedora-infra/rpmautospec/issues/101
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -72,6 +72,7 @@ Source1:        https://github.com/ibus/%name/releases/download/%{source_version
 Source2:        %{name}-xinput
 Source3:        %{name}.conf.5
 # Patch0:         %%{name}-HEAD.patch
+Patch0:         %{name}-HEAD.patch
 # Under testing #1349148 #1385349 #1350291 #1406699 #1432252 #1601577
 Patch1:         %{name}-1385349-segv-bus-proxy.patch
 
@@ -638,6 +639,9 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Mon Oct 06 2025 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.33~rc2-3
+- Revert GDM relative patch
+
 * Mon Oct 06 2025 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.33~rc2-2
 - Rebuild for cldr-emoji-annotation-48~beta1-1.fc43 and
   gnome-shell-extension-no-overview-49-1.fc43

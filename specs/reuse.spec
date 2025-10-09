@@ -1,5 +1,5 @@
 Name:           reuse
-Version:        5.0.2
+Version:        6.0.0
 Release:        %autorelease
 Summary:        A tool for compliance with the REUSE recommendations
 # The CC0-1.0 licence applies to json data files, not code.
@@ -7,10 +7,6 @@ Summary:        A tool for compliance with the REUSE recommendations
 License:        Apache-2.0 AND CC0-1.0 AND CC-BY-SA-4.0 AND GPL-3.0-or-later
 Url:            https://github.com/fsfe/reuse-tool
 Source0:        %pypi_source
-
-Patch:          0001-Use-importlib-mode-for-pytest.patch
-Patch:          0002-Skip-tests-with-old-freezegun.patch
-Patch:          0003-Prepare-test_cli_main.py-for-click-8.2.patch
 
 # Build
 BuildRequires:  python3-devel
@@ -59,7 +55,10 @@ popd
 install -p -m0644 -Dt "${RPM_BUILD_ROOT}%{_mandir}/man1" docs/manpages/*.1
 
 %check
-%{pytest}
+# Note: just running %%{pytest} does not work, since the path manipulation
+# by that macro and `--doctest-modules` confuse the import machinery too much.
+# Hence the manual specification of the test directories.
+%{pytest} tests/ "${RPM_BUILD_ROOT}/%{python3_sitearch}/reuse/"
 
 %files -n reuse -f %{pyproject_files}
 %license LICENSES/*.txt

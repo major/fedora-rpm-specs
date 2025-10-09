@@ -1,21 +1,13 @@
 Name:           python-oracledb
-Version:        3.3.0
+Version:        3.4.0
 Release:        %{autorelease}
 Summary:        OracleDB Driver
 
 License:        Apache-2.0 OR UPL-1.0
 URL:            https://oracle.github.io/python-oracledb/
 Source:         %{pypi_source oracledb}
-Patch0:         https://github.com/oracle/python-oracledb/commit/47208ff39046b9dccc248bb6a4325cd448381db3.patch
 
 BuildRequires:  python3-devel
-# https://github.com/oracle/python-oracledb/issues/512
-BuildRequires:  python3-azure-appconfiguration
-BuildRequires:  python3-azure-core
-BuildRequires:  python3-azure-identity
-BuildRequires:  python3-azure-keyvault-secrets
-BuildRequires:  python3-oci
-
 BuildRequires:  gcc
 
 %global _description %{expand:
@@ -24,6 +16,10 @@ allowing Python programs to connect to Oracle Database. Python-oracledb
 is the new name for Oracle's popular cx_Oracle driver.}
 
 %description %_description
+
+
+%pyproject_extras_subpkg -n python3-oracledb oci_config oci_auth azure_config azure_auth
+
 
 %package -n python3-oracledb
 Summary:        %{summary}
@@ -36,7 +32,7 @@ Summary:        %{summary}
 
 
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires -x oci_config,oci_auth,azure_config,azure_auth
 
 
 %build

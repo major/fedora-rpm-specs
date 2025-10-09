@@ -5,19 +5,15 @@
 %bcond_with bootstrap
 
 Name: rubygem-%{gem_name}
-Version: 8.0.2
-Release: 3%{?dist}
+Version: 8.0.3
+Release: 1%{?dist}
 Summary: Tools for creating, working with, and running Rails applications
 License: MIT
 URL: https://rubyonrails.org
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}%{?prerelease}.gem
 # git clone http://github.com/rails/rails.git && cd rails/railties
-# git archive -v -o railties-8.0.2-tests.tar.gz v8.0.2 test/
+# git archive -v -o railties-8.0.3-tests.tar.gz v8.0.3 test/
 Source1: %{gem_name}-%{version}%{?prerelease}-tests.tar.gz
-# Fix flaky "ActiveStorage::ImageTagTest#test_blob" test in Active Storage
-# https://github.com/rails/rails/pull/54904
-Patch0: rubygem-railties-8.0.2-Fix-polymorphic-url-and-polymorphic-path.patch
-Patch1: rubygem-railties-8.0.2-Fix-polymorphic-url-and-polymorphic-path-tests.patch
 
 # dbconsole requires the executable.
 Suggests: %{_bindir}/sqlite3
@@ -86,12 +82,6 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version}%{?prerelease} -b1
-
-%patch 0 -p2
-
-( cd %{builddir}
-%patch 1 -p2
-)
 
 %build
 gem build ../%{gem_name}-%{version}%{?prerelease}.gemspec
@@ -289,6 +279,10 @@ rm -rf ${PG_DIR}
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Mon Oct 06 2025 Vít Ondruch <vondruch@redhat.com> - 8.0.3-1
+- Update to Railties 8.0.3.
+  Related: rhzb#2388437
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,13 +1,13 @@
 %global qt_module qttranslations
 
-%global unstable 1
+#global unstable 0
 %if 0%{?unstable}
 %global prerelease rc
 %endif
 
 Summary: Qt6 - QtTranslations module
 Name:    qt6-%{qt_module}
-Version: 6.10.0%{?unstable:~%{prerelease}}
+Version: 6.10.0
 Release: 1%{?dist}
 
 License: GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -131,6 +131,9 @@ Provides: %{_qt6}-zh_TW = %{version}-%{release}
 
 
 %changelog
+* Tue Oct 07 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0-1
+- 6.10.0
+
 * Thu Sep 25 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0~rc-1
 - 6.10.0 RC
 

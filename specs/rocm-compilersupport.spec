@@ -83,7 +83,7 @@ Version:        %{llvm_maj_ver}
 %if %{with gitcommit}
 Release:        0.rocm%{rocm_version}^git%{date0}.%{shortcommit0}%{?dist}
 %else
-Release:        2.rocm%{rocm_version}%{?dist}
+Release:        3.rocm%{rocm_version}%{?dist}
 %endif
 
 Summary:        Various AMD ROCm LLVM related services
@@ -106,6 +106,8 @@ Source1:        rocm-compilersupport.prep.in
 Patch1:         %{url}/commit/b0baa1d8bd68a2ce2f7c5f2b62333e410e9122a1.patch
 # Link comgr with static versions of llvm's libraries
 Patch2:         0001-comgr-link-with-static-llvm.patch
+# On Fedora the assert came in gcc 15, on RHEL 10.2 gcc 14
+# Reduce the gcc version check below
 Patch3:         0001-rocm-llvm-work-around-new-assert-in-array.patch
 # https://github.com/ROCm/llvm-project/issues/301
 Patch4:         0001-rocm-compilersupport-force-hip-runtime-detection.patch
@@ -366,6 +368,12 @@ rm -rf {bolt,flang,flang-rt,libclc,lldb,llvm-libgcc,mlir,polly}
 
 #Force static linking of libclang in comgr
 sed -i "s/TARGET clangFrontendTool/true/" amd/comgr/CMakeLists.txt
+
+# change version check of array assert work around
+%if 0%{?rhel}
+sed -i -e 's@#if _GLIBCXX_RELEASE >= 15@#if _GLIBCXX_RELEASE >= 14@' clang/lib/Headers/cuda_wrappers/array
+%endif
+
 
 install -pm 755 %{SOURCE1} prep.sh
 sed -i -e 's@%%{_prefix}@%{_prefix}@' prep.sh
@@ -1072,6 +1080,9 @@ rm -f %{buildroot}%{_bindir}/hipvars.pm
 
 
 %changelog
+* Mon Oct 6 2025 Tom Rix <Tom.Rix@amd.com> - 20-3.rocm7.0.0
+- Adjust array workaround for RHEL 10.2
+
 * Thu Sep 18 2025 Tom Rix <Tom.Rix@amd.com> - 20-2.rocm7.0.0
 - Add base llvm license
 - Force hip runtime detection

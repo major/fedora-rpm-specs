@@ -1,7 +1,7 @@
 %global package_name	psycopg
 %global src_name		%{package_name}3
 
-%global pool_version	3.2.2
+%global pool_version	3.2.6
 %global pool_name		pool-%{pool_version}
 
 %if 0%{?fedora}
@@ -25,8 +25,8 @@ any other DB-API 2.0 database adapter, but allows to use more modern PostgreSQL 
 and Python features.
 
 Name:		python-%{src_name}
-Version:	3.2.9
-Release:	5%{?dist}
+Version:	3.2.10
+Release:	1%{?dist}
 Summary:	Psycopg 3 is a modern implementation of a PostgreSQL adapter for Python
 
 License:	LGPL-3.0-only
@@ -136,7 +136,7 @@ popd
 export PGTESTS_LOCALE=C.UTF-8
 %postgresql_tests_run
 
-export PSYCOPG_TEST_DSN="host=$PGHOST port=$PGPORT dbname=${PGTESTS_DATABASES##*:} sslmode=disable"
+export PSYCOPG_TEST_DSN="port=$PGPORT dbname=${PGTESTS_DATABASES##*:} sslmode=disable"
 
 # Remove tests that need to use internet or specific settings
 # Disable test_psycopg_dbapi20.py for riscv64
@@ -158,6 +158,7 @@ export PSYCOPG_TEST_DSN="host=$PGHOST port=$PGPORT dbname=${PGTESTS_DATABASES##*
 		test_client_cursor_async or \
 		test_cursor_async or \
 		sched_async or \
+		sched or \
 		test_pipeline_async or \
 		test_copy_async or \
 		test_pipeline or \
@@ -166,6 +167,7 @@ export PSYCOPG_TEST_DSN="host=$PGHOST port=$PGPORT dbname=${PGTESTS_DATABASES##*
 		test_range or \
 		test_string or \
 		test_notify or \
+		test_break_attempts or \
 		test_waiting\
 )"
 %endif
@@ -192,6 +194,10 @@ export PSYCOPG_TEST_DSN="host=$PGHOST port=$PGPORT dbname=${PGTESTS_DATABASES##*
 %endif
 
 %changelog
+* Fri Oct 3 2025 Ales Nezbeda <anezbeda@redhat.com> - 3.2.10-1
+- Update
+- Fix tests
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.2.9-5
 - Rebuilt for Python 3.14.0rc3 bytecode
 

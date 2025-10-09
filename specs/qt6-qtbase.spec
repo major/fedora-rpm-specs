@@ -40,15 +40,15 @@ BuildRequires: pkgconfig(libsystemd)
 ## skip for now, until we're better at it --rex
 #global tests 1
 
-%global unstable 1
+#global unstable 0
 %if 0%{?unstable}
 %global prerelease rc
 %endif
 
 Name:    qt6-qtbase
 Summary: Qt6 - QtBase components
-Version: 6.10.0%{?unstable:~%{prerelease}}
-Release: 2%{?dist}
+Version: 6.10.0
+Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://qt-project.org/
@@ -689,7 +689,7 @@ make check -k ||:
 %{_qt6_libdir}/libQt6Widgets.prl
 %{_qt6_libdir}/libQt6Widgets.so
 %{_qt6_libdir}/libQt6XcbQpa.prl
-%{_qt6_libdir}/libQt6XcbQpa.so 
+%{_qt6_libdir}/libQt6XcbQpa.so
 %{_qt6_libdir}/libQt6Xml.prl
 %{_qt6_libdir}/libQt6Xml.so
 %{_qt6_libdir}/cmake/Qt6/3rdparty/extra-cmake-modules/REUSE.toml
@@ -962,6 +962,9 @@ make check -k ||:
 %{_qt6_datadir}/wayland/protocols/
 
 %changelog
+* Tue Oct 07 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0-1
+- 6.10.0
+
 * Tue Sep 30 2025 Gwyn Ciesla <gwync@protonmail.com> - 6.10.0~rc-2
 - Firebird 5 rebuild
 
@@ -1176,7 +1179,7 @@ make check -k ||:
 * Fri Apr 7 2023 Marie Loise Nolden <loise@kde.org> - 6.5.0-2
 - fix xcb plugin with new dependency xcb-cursor instead of Xcursor
   introduction with qt 6.5, add firebird sql plugin cleanly, clean up spec file
-  
+
 * Mon Apr 03 2023 Jan Grulich <jgrulich@redhat.com> - 6.5.0-1
 - 6.5.0
 

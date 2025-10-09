@@ -5,7 +5,7 @@
 %global crate time
 
 Name:           rust-time
-Version:        0.3.41
+Version:        0.3.44
 Release:        %autorelease
 Summary:        Date and time library
 
@@ -148,6 +148,30 @@ This package contains library source intended for building other packages which
 use the "rand" feature of the "%{crate}" crate.
 
 %files       -n %{name}+rand-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+rand08-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+rand08-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "rand08" feature of the "%{crate}" crate.
+
+%files       -n %{name}+rand08-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+rand09-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+rand09-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "rand09" feature of the "%{crate}" crate.
+
+%files       -n %{name}+rand09-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+serde-devel

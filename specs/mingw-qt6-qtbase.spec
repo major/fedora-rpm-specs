@@ -4,7 +4,7 @@
 # Disable debugsource packages
 %undefine _debugsource_packages
 
-%global pre rc
+#global pre rc
 
 #global commit d725239c3e09c2b740a093265f6a9675fd2f8524
 #global shortcommit %(c=%{commit}; echo ${c:0:7})
@@ -20,7 +20,7 @@
 %define qt_version %(echo %{version} | cut -d~ -f1)
 
 Name:           mingw-qt6-qtbase
-Version:        6.10.0%{?pre:~%pre}
+Version:        6.10.0
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtBase component
 # Can't make package noarch as it could lead to -DQT_HOST_PATH_CMAKE_DIR=%%{_libdir}/cmake ponting to the wrong libdir
@@ -583,6 +583,9 @@ rm -rf %{buildroot}/%{mingw64_libdir}/objects-RelWithDebInfo/
 
 
 %changelog
+* Tue Oct 07 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0-1
+- 6.10.0
+
 * Thu Oct 02 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0~rc-1
 - Update 6.10.0 RC
 

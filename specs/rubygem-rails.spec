@@ -3,8 +3,8 @@
 
 Name: rubygem-%{gem_name}
 Epoch: 1
-Version: 8.0.2
-Release: 2%{?dist}
+Version: 8.0.3
+Release: 1%{?dist}
 Summary: Full-stack web application framework
 License: MIT
 URL: https://rubyonrails.org
@@ -51,6 +51,10 @@ cp -a .%{gem_dir}/* \
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Mon Oct 06 2025 Vít Ondruch <vondruch@redhat.com> - 1:8.0.3-1
+- Update to Rails 8.0.3.
+  Resolves: rhzb#2388437
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:8.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

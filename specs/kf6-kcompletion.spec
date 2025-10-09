@@ -1,7 +1,7 @@
 %global framework kcompletion
 
 Name:           kf6-%{framework}
-Version:        6.18.0
+Version:        6.19.0
 Release:        1%{?dist}
 Summary:        KDE Frameworks 6 Tier 2 addon with auto completion widgets and classes
 # BSD-3-Clause is in the LICENSES folder but goes unused.
@@ -80,6 +80,9 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Sun Oct 05 2025 Steve Cossette <farchord@gmail.com> - 6.19.0-1
+- 6.19.0
+
 * Tue Sep 16 2025 farchord@gmail.com - 6.18.0-1
 - 6.18.0
 

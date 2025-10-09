@@ -1,5 +1,14 @@
 %global __brp_check_rpaths %{nil}
 
+%if 0%{?rhel}
+%if 0%{?rhel} <= 9
+%{!?bash_completions_dir: %global bash_completions_dir %{_datadir}/bash-completion/completions}
+%{!?fish_completions_dir: %global fish_completions_dir %{_datadir}/fish/vendor_completions.d}
+%{!?zsh_completions_dir: %global zsh_completions_dir %{_datadir}/zsh/site-functions}
+%endif
+%endif
+
+
 Name:          toolbox
 Version:       0.3
 

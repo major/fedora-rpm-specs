@@ -18,7 +18,7 @@
 
 Summary:    A dynamic, any to any, pixel format conversion library
 Name:       babl
-Version:    0.1.114
+Version:    0.1.116
 Release:    %autorelease
 
 # Compute some version related macros

@@ -3,8 +3,8 @@
 %bcond docs %[!0%{?rhel}]
 
 Name:		python-Bottleneck
-Version:	1.5.0
-Release:	2%{?dist}
+Version:	1.6.0
+Release:	1%{?dist}
 Summary:	Collection of fast NumPy array functions written in Cython
 
 License:	BSD-2-Clause
@@ -87,6 +87,9 @@ cd -
 
 
 %changelog
+* Tue Oct 07 2025 Björn Esser <besser82@fedoraproject.org> - 1.6.0-1
+- Update to 1.6.0
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.5.0-2
 - Rebuilt for Python 3.14.0rc3 bytecode
 

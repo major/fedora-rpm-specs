@@ -6,6 +6,7 @@ Summary:        A customizable music player
 License:        GPL-3.0-or-later
 URL:            https://www.fooyin.org/
 Source0:        https://github.com/fooyin/fooyin/archive/v%{version}/fooyin-%{version}.tar.gz
+Patch0:         https://github.com/fooyin/fooyin/commit/c93d58283121c6aed44d137d88f5837f6995bbee.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++

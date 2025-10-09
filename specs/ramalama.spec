@@ -1,7 +1,7 @@
 %global pypi_name ramalama
 %global forgeurl  https://github.com/containers/%{pypi_name}
 # see ramalama/version.py
-%global version0  0.12.3
+%global version0  0.12.4
 %forgemeta
 
 %global summary   Command line tool for working with AI LLM models
@@ -15,7 +15,7 @@ Name:             %{pypi_name}
 # If that's what you're reading, Version must be 0, and will be updated by Packit for
 # copr and koji builds.
 # If you're reading this on dist-git, the version is automatically filled in by Packit.
-Version:          0.12.3
+Version:          0.12.4
 License:          MIT
 Release:          %{autorelease}
 Summary:          %{summary}
@@ -27,16 +27,20 @@ BuildArch:        noarch
 # golang is required for docs
 BuildRequires:    golang
 BuildRequires:    go-md2man
-BuildRequires:    make
-BuildRequires:    python3-devel
-BuildRequires:    podman
-BuildRequires:    python3-pytest
 BuildRequires:    mailcap
+BuildRequires:    make
+BuildRequires:    podman
+BuildRequires:    python3-devel
+BuildRequires:    python3-jsonschema
+BuildRequires:    python3-pytest
+BuildRequires:    python3-jinja2
 
 Provides: python3-ramalama = %{version}-%{release}
-Obsoletes: python3-ramalama < 0.12.3-1
+Obsoletes: python3-ramalama < 0.12.4-1
 
 Requires: podman
+Requires: python3-jsonschema
+Requires: python3-jinja2
 
 %description
 %summary
@@ -75,6 +79,7 @@ make docs
 %dir %{_datadir}/%{pypi_name}
 %{_datadir}/%{pypi_name}/shortnames.conf
 %{_datadir}/%{pypi_name}/ramalama.conf
+%{_datadir}/%{pypi_name}/inference/*
 %{_mandir}/man1/ramalama*.1*
 %{_mandir}/man5/ramalama*.5*
 %{_mandir}/man7/ramalama*.7*

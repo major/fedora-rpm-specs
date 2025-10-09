@@ -1,6 +1,6 @@
 %global qt_module qthttpserver
 
-%global unstable 1
+#global unstable 0
 %if 0%{?unstable}
 %global prerelease rc
 %endif
@@ -9,7 +9,7 @@
 
 Summary: Library to facilitate the creation of an http server with Qt
 Name:    qt6-qthttpserver
-Version: 6.10.0%{?unstable:~%{prerelease}}
+Version: 6.10.0
 Release: 1%{?dist}
 
 License:    BSD-3-Clause AND GFDL-1.3-no-invariants-only AND GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -97,6 +97,9 @@ to the usage of %{name}.
 %endif
 
 %changelog
+* Tue Oct 07 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0-1
+- 6.10.0
+
 * Thu Sep 25 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0~rc-1
 - 6.10.0 RC
 

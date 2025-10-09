@@ -22,7 +22,7 @@ Version:                2.23.0
 %global dracutlibdir %{_prefix}/lib/dracut
 
 Name:           ignition
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        First boot installer and configuration tool
 
 # Upstream license specification: Apache-2.0
@@ -270,7 +270,7 @@ LDFLAGS+=' -compressdwarf=false '
 export GOFLAGS="-mod=vendor"
 
 echo "Building ignition..."
-%gobuild -o ./ignition internal/main.go
+GOEXPERIMENT=strictfipsruntime %gobuild -o ./ignition internal/main.go
 
 echo "Building ignition-validate..."
 %gobuild -o ./ignition-validate validate/main.go
@@ -279,17 +279,17 @@ echo "Building ignition-validate..."
 
 %if 0%{?fedora}
 echo "Building statically-linked Linux ignition-validate..."
-CGO_ENABLED=0 GOARCH=arm64 GOOS=linux %gocrossbuild -o ./ignition-validate-aarch64-unknown-linux-gnu-static validate/main.go
-CGO_ENABLED=0 GOARCH=ppc64le GOOS=linux %gocrossbuild -o ./ignition-validate-ppc64le-unknown-linux-gnu-static validate/main.go
-CGO_ENABLED=0 GOARCH=s390x GOOS=linux %gocrossbuild -o ./ignition-validate-s390x-unknown-linux-gnu-static validate/main.go
-CGO_ENABLED=0 GOARCH=amd64 GOOS=linux %gocrossbuild -o ./ignition-validate-x86_64-unknown-linux-gnu-static validate/main.go
+GOEXPERIMENT= CGO_ENABLED=0 GOARCH=arm64 GOOS=linux %gocrossbuild -o ./ignition-validate-aarch64-unknown-linux-gnu-static validate/main.go
+GOEXPERIMENT= CGO_ENABLED=0 GOARCH=ppc64le GOOS=linux %gocrossbuild -o ./ignition-validate-ppc64le-unknown-linux-gnu-static validate/main.go
+GOEXPERIMENT= CGO_ENABLED=0 GOARCH=s390x GOOS=linux %gocrossbuild -o ./ignition-validate-s390x-unknown-linux-gnu-static validate/main.go
+GOEXPERIMENT= CGO_ENABLED=0 GOARCH=amd64 GOOS=linux %gocrossbuild -o ./ignition-validate-x86_64-unknown-linux-gnu-static validate/main.go
 
 echo "Building macOS ignition-validate..."
-GOARCH=amd64 GOOS=darwin %gocrossbuild -o ./ignition-validate-x86_64-apple-darwin validate/main.go
-GOARCH=arm64 GOOS=darwin %gocrossbuild -o ./ignition-validate-aarch64-apple-darwin validate/main.go
+GOEXPERIMENT= GOARCH=amd64 GOOS=darwin %gocrossbuild -o ./ignition-validate-x86_64-apple-darwin validate/main.go
+GOEXPERIMENT= GOARCH=arm64 GOOS=darwin %gocrossbuild -o ./ignition-validate-aarch64-apple-darwin validate/main.go
 
 echo "Building Windows ignition-validate..."
-GOARCH=amd64 GOOS=windows %gocrossbuild -o ./ignition-validate-x86_64-pc-windows-gnu.exe validate/main.go
+GOEXPERIMENT= GOARCH=amd64 GOOS=windows %gocrossbuild -o ./ignition-validate-x86_64-pc-windows-gnu.exe validate/main.go
 %endif
 
 %install
@@ -377,6 +377,10 @@ install -p -m 0755 ./ignition %{buildroot}/%{dracutlibdir}/modules.d/30ignition
 %{_prefix}/lib/bootupd/grub2-static/configs.d/05_ignition.cfg
 
 %changelog
+* Wed Oct 01 2025 Steven Presti <spresti@redhat.com> - 2.23.0-2
+- Build Ignition with GOEXPERIMENT=strictfipsruntime
+- Ignition-validate non-FIPS
+
 * Wed Sep 10 2025 Steven Presti <spresti@redhat.com> - 2.23.0-1
 - New Release
 

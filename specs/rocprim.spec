@@ -51,7 +51,7 @@
 
 Name:           rocprim
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm parallel primatives
 
 License:        MIT AND BSD-3-Clause
@@ -162,12 +162,16 @@ sed -i -e 's@\.\.@\/usr\/bin@' %{buildroot}%{_bindir}/%{name}/CTestTestfile.cmak
 %if %{with test}
 %files test
 %{_bindir}/test*
+%{_datadir}/libtest*
 %dir %{_bindir}/%{name}
 %{_bindir}/%{name}/CTestTestfile.cmake
 %endif
 
 
 %changelog
+* Tue Oct 7 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-2
+- Fix -test subpackage build
+
 * Sat Sep 20 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-1
 - Update to 7.0.1
 

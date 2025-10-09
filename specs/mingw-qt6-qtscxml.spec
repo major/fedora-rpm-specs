@@ -1,7 +1,7 @@
 %{?mingw_package_header}
 
 %global qt_module qtscxml
-%global pre rc
+#global pre rc
 
 %if 0%{?commit:1}
 %global source_folder %{qt_module}-%{commit}
@@ -14,7 +14,7 @@
 %define qt_version %(echo %{version} | cut -d~ -f1)
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.10.0%{?pre:~%pre}
+Version:        6.10.0
 Release:        %autorelease
 Summary:        Qt6 for Windows - QtScxml component
 

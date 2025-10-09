@@ -88,8 +88,8 @@ sed -r -i "/$(tr '\n' '|' < '%{SOURCE2}' | sed -r 's@\|+$@@')/d" \
 
 
 %conf
-# gtest 1.13.0 requires at least C++14
-%meson -Dcpp_std=c++14
+# gtest 1.17.0 requires at least C++17
+%meson -Dcpp_std=c++17
 
 
 %build

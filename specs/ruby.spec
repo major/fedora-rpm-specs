@@ -186,10 +186,10 @@ Release: 27%{?dist}
 # GPL-1.0-or-later: ext/win32/lib/win32/sspi.rb
 # GPL-1.0-or-later OR Artistic-1.0-Perl: win32/win32.c, include/ruby/win32.h,
 #   ext/win32ole/win32ole.c
-#
-# Licenses under review:
+# IETF (this is not official SPDX identifier)
 #   .bundle/gems/net-imap-0.4.9/LICENSE.txt
-#   https://gitlab.com/fedora/legal/fedora-license-data/-/issues/506
+#     Licenses in this file covers fair use and don't need to be listed:
+#     https://gitlab.com/fedora/legal/fedora-license-data/-/issues/506
 #
 # BSD-3-Clause: missing/{crypt,mt19937,setproctitle}.c, addr2line.c:2652
 # CC0: ccan/{build_assert/build_assert.h,check_type/check_type.h,
@@ -581,6 +581,7 @@ Provides:   bundled(rubygem-net-http-persistent) = %{bundler_net_http_persistent
 Provides:   bundled(rubygem-pub_grub) = %{bundler_pub_grub_version}
 Provides:   bundled(rubygem-securerandom) = %{bundler_securerandom_version}
 Provides:   bundled(rubygem-thor) = %{bundler_thor_version}
+Provides:   bundled(rubygem-tsort) = %{bundler_tsort_version}
 Provides:   bundled(rubygem-uri) = %{bundler_uri_version}
 BuildArch:  noarch
 

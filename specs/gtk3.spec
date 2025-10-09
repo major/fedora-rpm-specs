@@ -27,6 +27,8 @@ License: LGPL-2.0-or-later
 URL:     https://gtk.org
 Source0: https://download.gnome.org/sources/gtk/3.24/gtk-%{version}.tar.xz
 
+patch0: drop-down-menu-fix.patch
+
 BuildRequires: pkgconfig(atk) >= %{atk_version}
 BuildRequires: pkgconfig(atk-bridge-2.0)
 BuildRequires: pkgconfig(avahi-gobject)

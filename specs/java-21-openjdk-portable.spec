@@ -238,8 +238,25 @@
 # Target to use to just build HotSpot
 %global hotspot_target hotspot
 
+# When building on older systems, we need system, or self build legacy toolchains of explicit version
+%if ((0%{?rhel} > 0 && 0%{?rhel} < 8)) || ((0%{?epel} > 0 && 0%{?epel} < 9))
+%global is_dtstoolchain 1
+%else
+%global is_dtstoolchain 0
+%endif
+%if ((0%{?rhel} > 0 && 0%{?rhel} < 8))
 # DTS toolset to use to provide gcc & binutils
 %global dtsversion 10
+%global dtsname devtoolset
+%endif
+%if ((0%{?epel} > 0 && 0%{?epel} < 9))
+# GCC toolset to use to provide gcc & binutils
+%global dtsversion 14
+%global dtsname gcc-toolset
+%endif
+%if %{is_dtstoolchain}
+%global dtsid %{dtsname}-%{dtsversion}
+%endif
 
 # Disable LTO as this causes build failures at the moment.
 # See RHBZ#1861401
@@ -396,7 +413,7 @@
 %global top_level_dir_name   %{vcstag}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        9
-%global rpmrelease      1
+%global rpmrelease      2
 #%%global tagsuffix     %%{nil}
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
@@ -712,14 +729,22 @@ BuildRequires: desktop-file-utils
 BuildRequires: elfutils-devel
 BuildRequires: file
 BuildRequires: fontconfig-devel
-%if (0%{?rhel} > 0 && 0%{?rhel} < 8)
-BuildRequires: devtoolset-%{dtsversion}-gcc
-BuildRequires: devtoolset-%{dtsversion}-gcc-c++
-%else
-BuildRequires: gcc
-# gcc-c++ is already needed
+%if %{is_dtstoolchain}
+BuildRequires: %{dtsid}-gcc
+BuildRequires: %{dtsid}-gcc-c++
 %endif
+%if %{is_dtstoolchain} && "%{?dtsname}" == "gcc-toolset"
+# wee need slightly more for gcc-toolset
+BuildRequires: %{dtsid}-annobin-annocheck
+BuildRequires: %{dtsid}-annobin-plugin-gcc
+BuildRequires: %{dtsid}-binutils
+BuildRequires: %{dtsid}-gcc-plugin-annobin
+%endif
+%if ! %{is_dtstoolchain}
+# Earlier versions have a bug in tree vectorization on PPC
+BuildRequires: gcc >= 4.8.3-8
 BuildRequires: gcc-c++
+%endif
 BuildRequires: gdb
 %if (0%{?rhel} > 0 && 0%{?rhel} < 8)
 # rhel7 only, portables only. Rhel8 have gtk3, rpms have runtime recommends of gtk
@@ -762,8 +787,6 @@ BuildRequires: pandoc
 BuildRequires: tzdata-java >= 2023c
 # cacerts build requirement in portable mode
 BuildRequires: ca-certificates
-# Earlier versions have a bug in tree vectorization on PPC
-BuildRequires: gcc >= 4.8.3-8
 
 %if %{with_systemtap}
 BuildRequires: systemtap-sdt-devel
@@ -1096,8 +1119,8 @@ function buildjdk() {
     # rather than ${link_opt} as the system versions
     # are always used in a system_libs build, even
     # for the static library build
-%if (0%{?rhel} > 0 && 0%{?rhel} < 8)
-    scl enable devtoolset-%{dtsversion} -- bash ${top_dir_abs_src_path}/configure \
+%if %{is_dtstoolchain}
+    scl enable %{dtsid} -- bash ${top_dir_abs_src_path}/configure \
 %else
     bash ${top_dir_abs_src_path}/configure \
 %endif
@@ -1138,11 +1161,12 @@ function buildjdk() {
 %ifarch %{zgc_arches}
     --with-jvm-features=zgc \
 %endif
-    --disable-warnings-as-errors
+    --disable-warnings-as-errors  \
+    || ( pwd; cat $(find | grep config.log) && false )
 
     cat spec.gmk
-%if (0%{?rhel} > 0 && 0%{?rhel} < 8)
-    scl enable devtoolset-%{dtsversion} -- make \
+%if %{is_dtstoolchain}
+    scl enable %{dtsid} -- make \
 %else
     make \
 %endif

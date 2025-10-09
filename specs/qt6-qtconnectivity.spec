@@ -1,7 +1,7 @@
 
 %global qt_module qtconnectivity
 
-%global unstable 1
+#global unstable 0
 %if 0%{?unstable}
 %global prerelease rc
 %endif
@@ -10,7 +10,7 @@
 
 Summary: Qt6 - Connectivity components
 Name:    qt6-%{qt_module}
-Version: 6.10.0%{?unstable:~%{prerelease}}
+Version: 6.10.0
 Release: 1%{?dist}
 
 # See LICENSE.GPL3, respectively, for exception details
@@ -129,6 +129,9 @@ popd
 %endif
 
 %changelog
+* Tue Oct 07 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0-1
+- 6.10.0
+
 * Thu Sep 25 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0~rc-1
 - 6.10.0 RC
 

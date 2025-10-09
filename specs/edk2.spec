@@ -142,6 +142,7 @@ Patch0021: 0021-OvmfPkg-MemFd-move-MEMFD-config-from-OvmfPkgX64-to-i.patch
 Patch0022: 0022-OvmfPkg-MemFd-add-AmdSev-changes-switch-AmdSev-build.patch
 Patch0023: 0023-OvmfPkg-MemFD-swap-memory-log-buffer-and-pei-firmwar.patch
 Patch0024: 0024-UefiCpuPkg-CpuDxe-fix-page-table-walk-in-confidentia.patch
+Patch0025: 0025-OvmfPkg-PlatformDxe-add-check-for-1g-page-support.patch
 
 
 # needed by %prep

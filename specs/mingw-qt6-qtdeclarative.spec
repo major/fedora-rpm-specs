@@ -4,7 +4,7 @@
 %undefine _debugsource_packages
 
 %global qt_module qtdeclarative
-%global pre rc
+#global pre rc
 
 #global commit dd1d6b56271caf3f90e536b3ad9dab58c873f202
 #global shortcommit %(c=%{commit}; echo ${c:0:7})
@@ -20,7 +20,7 @@
 %define qt_version %(echo %{version} | cut -d~ -f1)
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.10.0%{?pre:~%pre}
+Version:        6.10.0
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtDeclarative component
 
@@ -1217,6 +1217,9 @@ rm -rf %{buildroot}%{mingw64_libdir}/objects-RelWithDebInfo/QmlTypeRegistrarPriv
 
 
 %changelog
+* Tue Oct 07 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0-1
+- 6.10.0
+
 * Thu Oct 02 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0~rc-1
 - Update 6.10.0 RC
 

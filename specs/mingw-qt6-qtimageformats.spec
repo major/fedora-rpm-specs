@@ -1,7 +1,7 @@
 %{?mingw_package_header}
 
 %global qt_module qtimageformats
-%global pre rc
+#global pre rc
 
 #global commit a0ec617b21d9ce0c562e8e7c0dc59bc4d08c509b
 #global shortcommit %(c=%{commit}; echo ${c:0:7})
@@ -17,7 +17,7 @@
 %define qt_version %(echo %{version} | cut -d~ -f1)
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.10.0%{?pre:~%pre}
+Version:        6.10.0
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtImageFormats component
 
@@ -151,6 +151,9 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 
 
 %changelog
+* Tue Oct 07 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0-1
+- 6.10.0
+
 * Thu Oct 02 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0~rc-1
 - Update 6.10.0 RC
 

@@ -88,7 +88,7 @@
 Summary: Qt6 - QtWebEngine components
 Name:    qt6-qtwebengine
 Version: 6.10.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 # See also http://qt-project.org/doc/qt-5.0/qtdoc/licensing.html
@@ -125,11 +125,6 @@ Patch3:   qtwebengine-aarch64-new-stat.patch
 
 # Enable OpenH264
 Patch4:   qtwebengine-use-openh264.patch
-
-# https://bugreports.qt.io/browse/QTBUG-139424
-# Revert commit bcee2dbf412cc655c1b467091b581c696d234e3f
-# See also https://gitlab.archlinux.org/archlinux/packaging/packages/qt6-webengine/-/commit/74473e03e9d77895d22659914aa4ae91324a1f0a
-Patch51:  qtwebengine-revert-create-eglimage.patch
 
 ## Upstream patches:
 # https://bugreports.qt.io/browse/QTBUG-129985
@@ -481,8 +476,6 @@ popd
 %patch -P2 -p1 -b .link-pipewire
 %patch -P3 -p1 -b .aarch64-new-stat
 %patch -P4 -p1 -b .use-openh264
-
-%patch -P51 -p1 -b .eglimage
 
 ## upstream patches
 %patch -P80 -p1 -b .fix-arm-build
@@ -845,6 +838,9 @@ done
 %endif
 
 %changelog
+* Tue Oct 07 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0-2
+- 6.10.0
+
 * Thu Sep 25 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0~rc-1
 - 6.10.0 RC
 
@@ -926,7 +922,7 @@ done
 - 6.7.0
 
 * Sun Mar 3 2024 Marie Loise Nolden <loise@kde.org> - 6.6.2-3
-- move qt designer plugin to -devel 
+- move qt designer plugin to -devel
 - remove old doc package code (docs are in qt6-doc)
 
 * Mon Feb 19 2024 Jan Grulich <jgrulich@redhat.com> - 6.6.2-2

@@ -1,7 +1,7 @@
 %{?mingw_package_header}
 
 %global qt_module qt3d
-%global pre rc
+#global pre rc
 
 #global commit bdb98baf8253c69949a8c259369203da9ffb269c
 #global shortcommit %(c=%{commit}; echo ${c:0:7})
@@ -17,7 +17,7 @@
 %define qt_version %(echo %{version} | cut -d~ -f1)
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.10.0%{?pre:~%pre}
+Version:        6.10.0
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - Qt3d component
 
@@ -469,6 +469,9 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 
 
 %changelog
+* Tue Oct 07 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0-1
+- 6.10.0
+
 * Thu Oct 02 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0~rc-1
 - Update 6.10.0 RC
 

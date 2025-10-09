@@ -1,6 +1,6 @@
 Name:           perl-SDL
 Version:        2.548
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Simple DirectMedia Layer for Perl
 # COPYING:                      GPL-2.0 text
 # lib/pods/SDL.pod:             GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -26,13 +26,13 @@ Summary:        Simple DirectMedia Layer for Perl
 # src/SDL.xs:           LGPL-2.1-or-later
 # src/SDLx/SFont.h:     LGPL-2.1-or-later
 # src/SDLx/SFont.xs:    LGPL-2.1-or-later
-## Used at build-time, but not in any binary package
-# Build.PL:                 refers to LGPL
-# inc/My/Builder.pm:        LGPL-2.1-or-later
 # test/data/5x7.fnt:        LGPL-2.1-only (see test/data/README)
 # test/data/tribe_i.wav:    GPL-3.0-only OR LGPL-2.0-only OR CC-BY-SA-3.0
 #                           (see test/data/README; there is a typo in the file
 #                           name)
+## Used at build-time, but not in any binary package
+# Build.PL:                 refers to LGPL
+# inc/My/Builder.pm:        LGPL-2.1-or-later
 ## Not in any binary package and not used
 # META.json:    refers to LGPL-2.1
 # OFL.txt:      OFL-1.1-RFN text
@@ -61,6 +61,12 @@ Patch4:         SDL-2.548-Fix-building-in-ISO-C23.patch
 # Adapt t/core_surface.t test to SDL3, incompatible with SDL2, bug #2341036,
 # proposed to upstream, <https://github.com/PerlGameDev/SDL/pull/310>
 Patch5:         SDL-2.548-core_surface.t-test-data-icon.bmp-is-really-4-bits-p.patch
+# Adapt t/core.t test to SDL-3.2.24, bug #2401791, proposed upstream,
+# <https://github.com/PerlGameDev/SDL/pull/311>
+Patch6:         SDL-2.548-Adapt-to-SDL-3.2.24.patch
+# Make the tests read-only, proposed upstream,
+# <https://github.com/PerlGameDev/SDL/pull/312>
+Patch7:         SDL-2.548-Read-only-t-core_rwops.t.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  libGLU-devel
@@ -116,6 +122,11 @@ BuildRequires:  perl(threads::shared)
 Requires:       sil-gentium-basic-book-fonts
 
 %{?perl_default_filter}
+# Remove under-specified dependencies
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(Test::Most\\)$
+# Hide private modules
+%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(SDL::TestTool\\)
+%global __provides_exclude %{?__provides_exclude:%{__provides_exclude}|}^perl\\(SDL::TestTool\\)
 
 %description
 SDL_perl is a package of Perl modules that provide both functional and
@@ -136,6 +147,20 @@ some tasks specific to SDL applications - e.g. packaging SDL
 application/game into PAR archive.
 
 
+%package tests
+Summary:        Tests for %{name}
+License:        LGPL-2.1-or-later AND (GPL-3.0-only OR LGPL-2.0-only OR CC-BY-SA-3.0)
+BuildArch:      noarch
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+Requires:       perl(Test::Most) >= 0.21
+Requires:       sil-gentium-basic-book-fonts
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
+
 %prep
 %autosetup -p1 -n SDL-%{version}
 # Delete a bundled font file, code removed with
@@ -153,6 +178,11 @@ sed -i -e 's|lib/pods|lib|' MANIFEST
 # Disable the sdlx_controller_interface.t test, it hangs on arm
 rm t/sdlx_controller_interface.t
 sed -i -e '/t\/sdlx_controller_interface\.t/d' MANIFEST
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Build.PL installdirs=vendor optimize="$RPM_OPT_FLAGS"
@@ -166,6 +196,14 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 ./Build install destdir=%{buildroot} create_packlist=0
 find %{buildroot} -type f -name '*.bs' -a -size 0 -delete
 %{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}/upstream
+cp -a t test %{buildroot}%{_libexecdir}/%{name}/upstream
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name}/upstream && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %files
 %license COPYING
@@ -188,7 +226,14 @@ find %{buildroot} -type f -name '*.bs' -a -size 0 -delete
 %{perl_vendorarch}/Module/Build/SDL.pm
 %{_mandir}/man3/Module::Build::SDL.*
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Tue Oct 07 2025 Petr Pisar <ppisar@redhat.com> - 2.548-31
+- Adapt tests to SDL-3.2.24 (bug #2401791)
+- Package the tests
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.548-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

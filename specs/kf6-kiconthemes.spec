@@ -1,8 +1,8 @@
 %global framework kiconthemes
 
 Name:    kf6-%{framework}
-Version: 6.18.0
-Release: 2%{?dist}
+Version: 6.19.0
+Release: 1%{?dist}
 Summary: KDE Frameworks 6 Tier 3 integration module with icon themes
 
 License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -98,6 +98,9 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Sun Oct 05 2025 Steve Cossette <farchord@gmail.com> - 6.19.0-1
+- 6.19.0
+
 * Tue Sep 30 2025 Jan Grulich <jgrulich@redhat.com> - 6.18.0-2
 - Rebuild (qt6)
 

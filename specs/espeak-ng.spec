@@ -20,9 +20,6 @@ BuildRequires: pcaudiolib-devel
 # Backported from:
 # https://github.com/espeak-ng/espeak-ng/commit/58f1e0b6a4e6aa55621c6f01118994d01fd6f68c
 Patch:        espeak-ng-1.51-CVE-2023-49990-4.patch
-# for add-text-to-phonemes-with-terminator.patch
-# https://github.com/espeak-ng/espeak-ng/commit/530bf0abf4174dc9ca28dbacc11bd5e9ae6152cd
-Patch:        espeak-ng-1.51-fix-decl-translate-clause-with-terminator.patch
 # backported from upstream for add-text-to-phonemes-with-terminator
 Patch:        espeak-ng-1.51-add-translate-clause-with-terminator.patch
 # Backported from:

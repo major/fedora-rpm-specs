@@ -1,8 +1,8 @@
 %global framework kjobwidgets
 
 Name:           kf6-%{framework}
-Version:        6.18.0
-Release:        2%{?dist}
+Version:        6.19.0
+Release:        1%{?dist}
 Summary:        KDE Frameworks 6 Tier 2 addon for KJobs
 # The following are in the LICENSES folder, but go unused: LGPL-3.0-only, LicenseRef-KDE-Accepted-LGPL
 License:        CC0-1.0 AND LGPL-2.0-only AND LGPL-2.0-or-later
@@ -22,6 +22,8 @@ BuildRequires:  qt6-qtbase-private-devel
 BuildRequires:  cmake(KF6CoreAddons)
 BuildRequires:  cmake(KF6Notifications)
 BuildRequires:  cmake(KF6WidgetsAddons)
+BuildRequires:  pkgconfig(shiboken6)
+BuildRequires:  pkgconfig(pyside6)
 BuildRequires:  python3-devel
 BuildRequires:  python3-build
 BuildRequires:  python3-setuptools
@@ -99,6 +101,9 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Sun Oct 05 2025 Steve Cossette <farchord@gmail.com> - 6.19.0-1
+- 6.19.0
+
 * Tue Sep 30 2025 Jan Grulich <jgrulich@redhat.com> - 6.18.0-2
 - Rebuild (qt6)
 
