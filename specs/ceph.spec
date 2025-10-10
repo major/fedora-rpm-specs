@@ -190,8 +190,8 @@
 # main package definition
 #################################################################################
 Name:		ceph
-Version:	20.1.0
-Release:	6%{?dist}
+Version:	20.1.1
+Release:	1%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -206,7 +206,8 @@ License:	LGPL-2.1-or-later AND LGPL-3.0-only AND CC-BY-SA-3.0 AND GPL-2.0-only A
 Group:		System/Filesystems
 %endif
 URL:		http://ceph.com/
-Source:		https://download.ceph.com/tarballs/ceph-%{version}.tar.gz
+Source:		ceph-%{version}.tar.bz2
+#Source:		https://download.ceph.com/tarballs/ceph-%{version}.tar.gz
 #Source0:	https://1.chacra.ceph.com/r/ceph/tentacle/
 Patch:		0001-src-common-crc32c_intel_fast.patch
 Patch:		0003-src-common-bitstr.h.patch
@@ -2769,7 +2770,10 @@ exit 0
 %{python3_sitelib}/ceph_node_proxy-*
 
 %changelog
-* Tue Sep 23 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:20.1.0-4
+* Tue Oct 7 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:20.1.1-1
+- ceph-20.1.1 RC
+
+* Tue Sep 23 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:20.1.0-6
 - ceph-20.1.0 RC, rhbz#2396036 (gmock, gtest again)
 
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2:20.1.0-5

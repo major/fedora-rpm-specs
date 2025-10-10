@@ -1,9 +1,8 @@
 Name:       resalloc-aws
 Summary:    Resource allocator scripts for AWS
-Version:    1.8
-Release:    5%{?dist}
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
-License:    GPL-2.0-or-later
+Version:    1.9
+Release:    1%{?dist}
+License:    GPLv2+
 URL:        https://github.com/praiskup/resalloc-aws
 BuildArch:  noarch
 
@@ -56,17 +55,8 @@ install -p -m 0755 bin/resalloc-aws-minimal-spot-zone %{buildroot}%{_bindir}
 
 
 %changelog
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Fri Jul 26 2024 Miroslav Suchý <msuchy@redhat.com> - 1.8-3
-- convert license to SPDX
-
-* Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
+* Wed Oct 08 2025 Pavel Raiskup <praiskup@redhat.com> 1.9-1
+- Allow overriding the region that is set in ~/.aws/config (praiskup@redhat.com)
 
 * Wed Feb 28 2024 Pavel Raiskup <praiskup@redhat.com> 1.8-1
 - The wait-for-ssh script moved to resalloc-helpers

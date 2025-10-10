@@ -2,28 +2,24 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate cmd_lib
+%global crate reqsign-file-read-tokio
 
-Name:           rust-cmd_lib
-Version:        2.0.0
+Name:           rust-reqsign-file-read-tokio
+Version:        1.0.0
 Release:        %autorelease
-Summary:        Common rust commandline macros and utils for shell script like tasks
+Summary:        Signing API requests without effort
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/cmd_lib
+License:        Apache-2.0
+URL:            https://crates.io/crates/reqsign-file-read-tokio
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * drop references to removed example program
-Patch:          cmd_lib-fix-metadata.diff
+# * Fix license files missing from published crates
+# * https://github.com/apache/opendal-reqsign/pull/635
+Source10:       https://github.com/apache/opendal-reqsign/raw/refs/tags/v0.17.0/LICENSE
 
 BuildRequires:  cargo-rpm-macros >= 24
-%if %{with check}
-BuildRequires:  procps-ng
-%endif
 
 %global _description %{expand:
-Common rust commandline macros and utils, to write shell script like
-tasks easily.}
+Signing API requests without effort.}
 
 %description %{_description}
 
@@ -53,21 +49,10 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+tracing-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+tracing-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "tracing" feature of the "%{crate}" crate.
-
-%files       -n %{name}+tracing-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %prep
 %autosetup -n %{crate}-%{version} -p1
-rm examples/tetris.{sh,rs}
+# Copy the license file into the source.
+cp -p '%{SOURCE10}' .
 %cargo_prep
 
 %generate_buildrequires

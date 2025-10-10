@@ -89,7 +89,7 @@
 
 Name:           %{hipblaslt_name}
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm general matrix operations beyond BLAS
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT AND BSD-3-Clause
@@ -141,17 +141,13 @@ BuildRequires:  %{python_module dataclasses if %python-base < 3.11}
 BuildRequires:  %{python_module ujson}
 BuildRequires:  %{python_module distro}
 BuildRequires:  %{python_module simplejson}
-%else # %suse_version
+%else
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(pyyaml)
 BuildRequires:  python3dist(nanobind)
-%if 0%{?rhel}
-%global tensile_verbose 2
-%else
 %global tensile_verbose 1
 BuildRequires:  python3dist(joblib)
-%endif
 # https://github.com/ROCm/hipBLASLt/issues/1734
 BuildRequires:  python3dist(msgpack)
 BuildRequires:  msgpack-devel
@@ -390,6 +386,9 @@ fi
 %endif
 
 %changelog
+* Wed Oct 8 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-2
+- Use joblib on RHEL
+
 * Thu Sep 25 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-1
 - Update to 7.0.1
 

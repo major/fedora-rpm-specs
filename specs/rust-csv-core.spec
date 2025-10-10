@@ -13,6 +13,13 @@ Summary:        Bare bones CSV parsing with no_std support
 License:        Unlicense OR MIT
 URL:            https://crates.io/crates/csv-core
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * update arrayvec dependency from 0.5 to 0.7:
+#   https://github.com/BurntSushi/rust-csv/pull/404
+Patch:          csv-core-fix-metadata.diff
+# * Source-code change for arrayvec 0.7; backported from
+#   https://github.com/BurntSushi/rust-csv/pull/404
+Patch10:        arrayvec-0.7.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

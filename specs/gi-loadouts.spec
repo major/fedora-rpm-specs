@@ -3,13 +3,14 @@
 %global         identity net.gridhead.gi-loadouts
 
 Name:           %{hyphen}
-Version:        0.1.9
-Release:        3%{?dist}
+Version:        0.1.10
+Release:        1%{?dist}
 Summary:        Loadouts for Genshin Impact
 
 License:        GPL-3.0-or-later
 URL:            https://github.com/gridhead/%{hyphen}
-Source0:        %{url}/releases/download/%{version}/%{actual}-%{version}-custom.tar.gz
+Source0:        %{pypi_source %{actual}}
+Patch0:         dependencies.diff
 
 BuildArch:      noarch
 
@@ -22,18 +23,18 @@ Requires:       python3-pyside6
 Requires:       hicolor-icon-theme
 
 %description
-This is a desktop application that allows travelers to manage their custom 
-equipment of artifacts and weapons for playable characters and makes it 
-convenient for travelers to calculate the associated statistics based on their 
+This is a desktop application that allows travelers to manage their custom
+equipment of artifacts and weapons for playable characters and makes it
+convenient for travelers to calculate the associated statistics based on their
 equipment using the semantic understanding of how the gameplay works. Travelers
-can create their bespoke loadouts consisting of characters, artifacts and 
-weapons and share them with their fellow travelers. Supported file formats 
-include a human-readable Yet Another Markup Language (YAML) serialization 
-format and a JSON-based Genshin Open Object Definition (GOOD) serialization 
+can create their bespoke loadouts consisting of characters, artifacts and
+weapons and share them with their fellow travelers. Supported file formats
+include a human-readable Yet Another Markup Language (YAML) serialization
+format and a JSON-based Genshin Open Object Definition (GOOD) serialization
 format.
 
 %prep
-%autosetup -n %{actual}-%{version} -p0
+%autosetup -n %{actual}-%{version} -p1
 
 %generate_buildrequires
 %pyproject_buildrequires -r
@@ -61,6 +62,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{identity}.me
 %{_datadir}/icons/hicolor/scalable/apps/%{identity}.svg
 
 %changelog
+* Wed Oct 08 2025 Akashdeep Dhar <t0xic0der@fedoraproject.org> - 0.1.10-1
+- Version 0.1.10 release of Loadouts for Genshin Impact
+- Announcement - https://gridhead.net/loadouts-for-genshin-impact-v0-1-10-released/
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.1.9-3
 - Rebuilt for Python 3.14.0rc3 bytecode
 

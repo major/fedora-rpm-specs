@@ -7,15 +7,15 @@ Release:	%autorelease
 Summary:	Graphical shell for mobile devices
 License:	GPL-3.0-or-later
 URL:		https://gitlab.gnome.org/World/Phosh/phosh
-Source:	https://gitlab.gnome.org/World/Phosh/phosh/-/archive/v%{version_no_tilde _}/%{name}-v%{version_no_tilde _}.tar.gz
+Source0:	https://gitlab.gnome.org/World/Phosh/phosh/-/archive/v%{version_no_tilde _}/%{name}-v%{version_no_tilde _}.tar.gz
 # This library doesn't compile into a DSO nor has any tagged releases.
 # Other projects such as gnome-shell use it this way.
-Source:	https://gitlab.gnome.org/GNOME/libgnome-volume-control/-/archive/%{gvc_commit}/libgnome-volume-control-%{gvc_commit}.tar.gz
+Source1:	https://gitlab.gnome.org/GNOME/libgnome-volume-control/-/archive/%{gvc_commit}/libgnome-volume-control-%{gvc_commit}.tar.gz
 # Similar situation as gvc
-Source:	https://gitlab.gnome.org/World/Phosh/libcall-ui/-/archive/v%{libcall_ui_version}/libcall-ui-v%{libcall_ui_version}.tar.gz
-Source:	phosh
+Source2:	https://gitlab.gnome.org/World/Phosh/libcall-ui/-/archive/v%{libcall_ui_version}/libcall-ui-v%{libcall_ui_version}.tar.gz
+Source3:	phosh
 
-ExcludeArch:	i686
+ExcludeArch:	%{ix86}
 
 BuildRequires:	gcc
 BuildRequires:	meson
@@ -73,7 +73,7 @@ Requires:	xorg-x11-server-Xwayland
 
 Recommends:	gnome-control-center
 Recommends:	phosh-mobile-settings
-Suggests:	squeekboard-phosh-osk-provider
+Suggests:	stevia-phosh-osk-provider
 
 %description
 Phosh is a simple shell for Wayland compositors speaking the layer-surface

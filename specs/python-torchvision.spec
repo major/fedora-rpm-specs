@@ -8,7 +8,7 @@
 %global date0 20240326 
 %global pypi_version 0.19.0a0
 %else
-%global pypi_version 0.22.1
+%global pypi_version 0.23.0
 %endif
 
 # check takes too long, make optional
@@ -41,7 +41,8 @@ Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz#/vision-v%{version}.
 Patch1:         0001-A-better-cuda-version.patch
 
 # Limit to these because that is what torch is on
-ExclusiveArch:  x86_64 aarch64
+# ExclusiveArch:  x86_64 aarch64
+ExclusiveArch:  x86_64
 
 BuildRequires:  gcc-c++
 BuildRequires:  ffmpeg-free
@@ -53,6 +54,7 @@ BuildRequires:  libjpeg-turbo-devel
 BuildRequires:  libpng-devel
 BuildRequires:  libswresample-free-devel
 BuildRequires:  libswscale-free-devel
+BuildRequires:  libwebp-devel
 BuildRequires:  ninja-build
 BuildRequires:  python3-devel
 BuildRequires:  zlib-devel
@@ -100,6 +102,10 @@ sed -i -e 's@ffmpeg_library_dir = os.path.join(ffmpeg_root, "lib")@ffmpeg_librar
 # Building uses python3_sitearch/torch/utils/cpp_extension.py
 # cpp_extension.py does a general linking with all the pytorch libs which
 # leads warnings being reported by rpmlint.
+
+export ROCM_HOME=/usr
+export TORCHVISION_USE_WEBP=1
+
 %pyproject_wheel
 
 %install

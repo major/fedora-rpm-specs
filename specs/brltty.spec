@@ -37,7 +37,7 @@
 
 Name: brltty
 Version: 6.8
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: LGPL-2.0-or-later AND LGPL-2.1-or-later AND GPL-2.0-or-later
 URL: http://brltty.app/
 Source0: http://brltty.app/archive/%{name}-%{version}.tar.xz
@@ -621,6 +621,7 @@ fi
 %{_bindir}/vstp
 %{_bindir}/eutp
 %{_bindir}/xbrlapi
+%dir %{_libdir}/brltty
 %{_libdir}/brltty/libbrlttybba.so
 %{_libdir}/libbrlapi.so.*
 %ghost %verify(not group) %{_sysconfdir}/brlapi.key
@@ -674,6 +675,9 @@ fi
 %config(noreplace) %verify(not size md5 mtime) %{_sysconfdir}/brltty/Initramfs/cmdline
 
 %changelog
+* Wed Oct 08 2025 Dominik Mierzejewski <dominik@greysector.net> - 6.8-5
+- own _libdir/brltty directory in brlapi
+
 * Wed Aug 06 2025 František Zatloukal <fzatlouk@redhat.com> - 6.8-4
 - Rebuilt for icu 77.1
 

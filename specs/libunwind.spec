@@ -45,8 +45,8 @@
 
 Summary: An unwinding library
 Name: libunwind
-Version: 1.8.1
-Release: 3%{?dist}
+Version: 1.8.3
+Release: 1%{?dist}
 License: MIT
 URL: http://savannah.nongnu.org/projects/libunwind
 Source: https://github.com/libunwind/libunwind/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -150,6 +150,9 @@ echo ====================TESTING END=====================
 %{_libexecdir}/libunwind
 
 %changelog
+* Wed Oct  8 2025 Tom Callaway <spot@fedoraproject.org> - 1.8.3-1
+- update to 1.8.3
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

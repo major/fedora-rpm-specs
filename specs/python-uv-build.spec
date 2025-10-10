@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           python-uv-build
-Version:        0.8.11
+Version:        0.8.20
 Release:        %autorelease
 Summary:        The uv build backend
 
@@ -85,8 +85,8 @@ Source:         %{pypi_source uv_build}
 #   https://docs.fedoraproject.org/en-US/packaging-guidelines/Rust/#_replacing_git_dependencies
 # Note that uv-build currently only uses version-ranges, not pubgrub.
 %global pubgrub_git https://github.com/astral-sh/pubgrub
-%global pubgrub_rev 06ec5a5f59ffaeb6cf5079c6cb184467da06c9db
-%global pubgrub_snapdate 20250523
+%global pubgrub_rev d8efd77673c9a90792da9da31b6c0da7ea8a324b
+%global pubgrub_snapdate 20250810
 %global version_ranges_baseversion 0.1.1
 Source200:      %{pubgrub_git}/archive/%{pubgrub_rev}/pubgrub-%{pubgrub_rev}.tar.gz
 
@@ -98,8 +98,8 @@ Source200:      %{pubgrub_git}/archive/%{pubgrub_rev}/pubgrub-%{pubgrub_rev}.tar
 # prescribed in
 #   https://docs.fedoraproject.org/en-US/packaging-guidelines/Rust/#_replacing_git_dependencies
 %global reqwest_middleware_git https://github.com/astral-sh/reqwest-middleware
-%global reqwest_middleware_rev ad8b9d332d1773fde8b4cd008486de5973e0a3f8
-%global reqwest_middleware_snapdate 20250607
+%global reqwest_middleware_rev 7650ed76215a962a96d94a79be71c27bffde7ab2
+%global reqwest_middleware_snapdate 20250828
 %global reqwest_middleware_baseversion 0.4.2
 %global reqwest_retry_baseversion 0.7.0
 Source300:      %{reqwest_middleware_git}/archive/%{reqwest_middleware_rev}/reqwest-middleware-%{reqwest_middleware_rev}.tar.gz

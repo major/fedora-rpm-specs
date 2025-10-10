@@ -18,7 +18,7 @@
 
 Name:           zstd
 Version:        1.5.7
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Zstd compression library
 
 License:        BSD-3-Clause AND GPL-2.0-only
@@ -105,7 +105,7 @@ execstack %{_vpath_builddir}/lib/libzstd.so.1
 export CFLAGS="$RPM_OPT_FLAGS"
 export LDFLAGS="$RPM_LD_FLAGS"
 export CXXFLAGS="$RPM_OPT_FLAGS"
-make PZSTD_CXX_STD=-std=c++14 -C contrib/pzstd tests check
+make PZSTD_CXX_STD=-std=c++17 -C contrib/pzstd tests check
 %endif
 
 %files
@@ -146,6 +146,9 @@ make PZSTD_CXX_STD=-std=c++14 -C contrib/pzstd tests check
 %ldconfig_scriptlets -n lib%{name}
 
 %changelog
+* Wed Oct 08 2025 Terje Røsten <terjeros@gmail.com> - 1.5.7-4
+- Move to C++17 for gtest 1.17.0
+
 * Sat Sep 20 2025 Orion Poplawski <orion@nwra.com> - 1.5.7-3
 - Build with cmake (bz#2088517)
 

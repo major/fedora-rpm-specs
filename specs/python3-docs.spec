@@ -4,7 +4,7 @@ Summary:        Documentation for the Python 3 programming language
 # The Version should be in-sync with the python3 package:
 %global         pybasever 3.14
 %global         general_version %{pybasever}.0
-%global         prerel rc3
+#global         prerel ...
 %global         upstream_version %{general_version}%{?prerel}
 Version:        %{general_version}%{?prerel:~%{prerel}}
 Release:        %autorelease
@@ -13,9 +13,6 @@ Release:        %autorelease
 License:        Python-2.0.1 AND (Python-2.0.1 OR 0BSD)
 URL:            https://www.python.org/
 Source:         %{url}ftp/python/%{general_version}/Python-%{upstream_version}.tar.xz
-
-# Fix the reference to unicode specs (breaking linkchecker)
-Patch:          https://github.com/python/cpython/pull/139138.patch
 
 BuildArch:      noarch
 

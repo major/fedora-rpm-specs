@@ -12,6 +12,7 @@ Release:        %autorelease
 
 URL:            https://github.com/sogou/workflow
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Patch:          workflow-0.11.10-test-c++17.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -56,7 +57,7 @@ BuildArch:     noarch
 %_description
 
 %prep
-%autosetup
+%autosetup -p1
 # Rename files to make installation of documentation easier
 pushd docs
 pushd en

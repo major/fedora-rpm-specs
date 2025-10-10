@@ -3,7 +3,7 @@
 %global _python_bytecompile_extra 0
 
 Name:           calibre
-Version:        8.7.0
+Version:        8.12.0
 Release:        %autorelease
 Summary:        E-book converter and library manager
 # see COPYRIGHT file for a listing
@@ -90,6 +90,8 @@ BuildRequires:  qt6-qtspeech-devel
 BuildRequires:  qt6-qtmultimedia-devel
 BuildRequires:  qt6-qtspeech-flite
 BuildRequires:  ffmpeg-free-devel
+BuildRequires:  espeak-ng-devel
+BuildRequires:  onnxruntime-devel
 # Those are only used for tests. Do not add to runtime deps.
 BuildRequires:  /usr/bin/jpegtran
 BuildRequires:  jxrlib

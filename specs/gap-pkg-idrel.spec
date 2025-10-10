@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/idrel
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        2.48
+Version:        2.49
 Release:        %autorelease
 Summary:        Identities among relations of a group presentation
 
@@ -14,7 +14,7 @@ Source:         %{giturl}/releases/download/v%{version}/%{gap_upname}-%{version}
 BuildArch:      noarch
 BuildSystem:    gap
 BuildOption(build): --packagedirs ..
-BuildOption(install): lib tst xtst
+BuildOption(install): lib tst
 BuildOption(check): tst/testall.g
 
 BuildRequires:  gap-devel
@@ -52,7 +52,6 @@ This package contains documentation for gap-pkg-%{gap_pkgname}.
 %{gap_libdir}/pkg/%{gap_upname}/*.g
 %{gap_libdir}/pkg/%{gap_upname}/lib/
 %{gap_libdir}/pkg/%{gap_upname}/tst/
-%{gap_libdir}/pkg/%{gap_upname}/xtst/
 
 %files doc
 %docdir %{gap_libdir}/pkg/%{gap_upname}/doc/

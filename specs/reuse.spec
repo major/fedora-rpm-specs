@@ -1,5 +1,5 @@
 Name:           reuse
-Version:        6.0.0
+Version:        6.1.2
 Release:        %autorelease
 Summary:        A tool for compliance with the REUSE recommendations
 # The CC0-1.0 licence applies to json data files, not code.

@@ -176,13 +176,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.18.0
 %define specversion 6.18.0
 %define patchversion 6.18
-%define pkgrelease 0.rc0.251007gc746c3b51698.10
+%define pkgrelease 0.rc0.251008g0d97f2067c166.11
 %define kversion 6
-%define tarfile_release 6.17-11846-gc746c3b51698
+%define tarfile_release 6.17-12260-g0d97f2067c166
 # This is needed to do merge window version magic
 %define patchlevel 18
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc0.251007gc746c3b51698.10%{?buildid}%{?dist}
+%define specrelease 0.rc0.251008g0d97f2067c166.11%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.18.0
 
@@ -4392,10 +4392,18 @@ fi\
 #
 #
 %changelog
-* Tue Oct 07 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc0.c746c3b51698.10]
+* Wed Oct 08 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.18.0-0.rc0.251008g0d97f2067c166.11]
+- Only strip unneeded symbols (Patrick Talbert)
+- Linux v6.18.0-0.rc0.251008g0d97f2067c166
+
+* Wed Oct 08 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc0.0d97f2067c16.11]
 - add xxd to as BuildRequire for bpf selftests (Thorsten Leemhuis)
 - powerpc/tools: drop `-o pipefail` in gcc check scripts (Jan Stancek)
 - redhat/configs: clang_lto: disable CONFIG_FORTIFY_KUNIT_TEST (Scott Weaver)
+
+* Wed Oct 08 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc0.0d97f2067c16.10]
+- redhat/configs: automotive: enable SPI_OMAP24XX as a module (Jared Kangas)
+- Linux v6.18.0-0.rc0.0d97f2067c16
 
 * Tue Oct 07 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc0.c746c3b51698.9]
 - Fix up mismatch with PCI_PWRCTRL_SLOT on arm (Justin M. Forbes)

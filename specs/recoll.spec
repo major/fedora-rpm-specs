@@ -17,8 +17,8 @@
 
 Summary:        Desktop full text search tool with Qt GUI
 Name:           recoll
-Version:        1.43.5
-Release:        7%{?dist}
+Version:        1.43.6
+Release:        1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            https://www.recoll.org
@@ -26,7 +26,6 @@ Source0:        https://www.recoll.org/recoll-%{version}.tar.gz
 Source1:        https://www.recoll.org/downloads/src/gssp-recoll-%{gsspver}.tar.gz
 Source10:       qmake-qt6.sh
 Patch:          recoll-1.42.1-cmake4.patch
-Patch:          recoll-1.43.4-soffice.patch
 BuildRequires:  aspell-devel
 BuildRequires:  bison
 %{?chm:BuildRequires:  chmlib-devel}
@@ -254,6 +253,9 @@ echo "%{_libdir}/recoll" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/recoll-%{_arc
 %{_datadir}/applications/org.recoll.Recoll.SearchProvider.desktop
 
 %changelog
+* Wed Oct 08 2025 Terje Rosten <terjeros@gmail.com> - 1.43.6-1
+- 1.43.6
+
 * Mon Sep 29 2025 Terje Rosten <terjeros@gmail.com> - 1.43.5-7
 - Add support for el10
 

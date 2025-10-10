@@ -1,18 +1,20 @@
 %bcond tests 1
-# python-pymongo fails to build with Python 3.14: DeprecationWarning:
-# 'asyncio.iscoroutinefunction' and 'asyncio.get_event_loop_policy' is
-# deprecated and slated for removal in Python 3.16
-# https://bugzilla.redhat.com/show_bug.cgi?id=2356166
-%bcond pymongo 0
+
+# Not packaged: python-cron-converter, https://pypi.org/project/cron-converter/
+# bugzilla.redhat.com/show_bug.cgi?id=2402494
+%bcond cron 0
+
 # Dependencies for some extras are not (yet?) in EPEL10
 %bcond pendulum %{undefined el10}
 %bcond phonenumbers %{undefined el10}
 %bcond pycountry %{undefined el10}
 
+%bcond pymongo 1
+
 %global forgeurl https://github.com/pydantic/pydantic-extra-types
 
 Name:           python-pydantic-extra-types
-Version:        2.10.5
+Version:        2.10.6
 %forgemeta
 Release:        %autorelease
 Summary:        Extra types for Pydantic
@@ -32,7 +34,7 @@ BuildRequires:  %{py3_dist pytest}
 BuildRequires:  %{py3_dist pytz}
 %endif
 
-%if %{with pendulum} && %{with phonenumbers} && %{with pycountry} && %{with pymongo}
+%if %{with cron} && %{with pendulum} && %{with phonenumbers} && %{with pycountry} && %{with pymongo}
 %global all_extra 1
 %else
 %if %{with pymongo}
@@ -76,6 +78,7 @@ tomcli set pyproject.toml lists delitem --type regex --no-first \
     -x semver \
     -x python_ulid \
     %{?with_pendulum:-x pendulum} \
+    %{?with_cron:-x cron} \
     }
 
 
@@ -90,6 +93,7 @@ tomcli set pyproject.toml lists delitem --type regex --no-first \
 
 %check
 %{pyproject_check_import \
+    %{?!with_cron:-e pydantic_extra_types.cron} \
     %{?!with_pendulum:-e pydantic_extra_types.pendulum_dt} \
     %{?!with_phonenumbers:-e pydantic_extra_types.phone_numbers} \
     %{?!with_pycountry:-e pydantic_extra_types.country} \
@@ -100,6 +104,9 @@ tomcli set pyproject.toml lists delitem --type regex --no-first \
     %{nil}}
 
 %if %{with tests}
+%if %{without cron}
+ignore="${ignore-} --ignore=tests/test_cron.py"
+%endif
 %if %{without pendulum}
 ignore="${ignore-} --ignore=tests/test_pendulum_dt.py"
 %endif
@@ -116,7 +123,7 @@ ignore="${ignore-} --ignore=tests/test_scripts.py"
 %if %{without pymongo}
 ignore="${ignore-} --ignore=tests/test_mongo_object_id.py"
 %endif
-%if %{without pendulum} || %{without phonenumbers} || %{without pycountry} || %{without pymongo}
+%if %{without cron} || %{without pendulum} || %{without phonenumbers} || %{without pycountry} || %{without pymongo}
 ignore="${ignore-} --ignore=tests/test_json_schema.py"
 %endif
 
@@ -146,6 +153,9 @@ k="${k-}${k+ and }not test_json_schema"
 %endif
 %if %{with pycountry}
 %pyproject_extras_subpkg -n python3-pydantic-extra-types pycountry
+%endif
+%if %{with cron}
+%pyproject_extras_subpkg -n python3-pydantic-extra-types cron
 %endif
 
 

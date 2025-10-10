@@ -1,6 +1,6 @@
 Name:           perl-Imager
-Version:        1.028
-Release:        3%{?dist}
+Version:        1.029
+Release:        1%{?dist}
 Summary:        Perl extension for Generating 24 bit Images
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Imager
@@ -123,6 +123,9 @@ make test
 %{_mandir}/man3/Imager::Test.3pm*
 
 %changelog
+* Wed Oct 08 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.029-1
+- 1.029 bump (rhbz#2402436)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.028-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

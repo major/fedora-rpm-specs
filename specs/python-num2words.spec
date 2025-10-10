@@ -1,5 +1,5 @@
 # Currently disabled because the BR isn't available in Fedora
-%bcond_with tests
+%bcond tests 1
 
 %global forgeurl https://github.com/savoirfairelinux/num2words
 
@@ -19,29 +19,29 @@ Summary:        Module to convert numbers to words
 # spdx
 License:        LGPL-2.0-or-later
 URL:            %forgeurl
-Source0:        %forgesource
+Source:         %forgesource
 
 BuildArch:      noarch
 
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-devel
 BuildRequires:  help2man
+
+%if %{with tests}
+# Upstream does not specifically depend on pytest, but it is a convenient test
+# runner that allows us to easily skip tests and/or ignore particular files as
+# needed.
+BuildRequires:  %{py3_dist pytest}
+%endif
 
 %description %_description
 
 %package -n python3-num2words
 Summary:        %{summary}
 
-%if %{with tests}
-BuildRequires:  %{py3_dist delegator.py}
-%endif
-
 %description -n python3-num2words %_description
 
 %prep
 %forgesetup
-# Remove bundled egg-info
-rm -rf num2words.egg-info
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -51,27 +51,24 @@ rm -rf num2words.egg-info
 
 %install
 %pyproject_install
-%pyproject_save_files num2words
+%pyproject_save_files -l num2words
 
 # generate man pages
-for binary in "num2words"
-do
-    echo "Generating man page for ${binary// /-/}"
-    PYTHONPATH="$PYTHONPATH:%{buildroot}/%{python3_sitelib}/" PATH="$PATH:%{buildroot}/%{_bindir}/" help2man --no-info --no-discard-stderr --name="${binary}" --version-string="${binary} %{version}" --output="${binary// /-}.1" "${binary}"
-    cat "${binary// /-}.1"
-    install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 -D "${binary// /-}.1"
-done
+install -d '%{buildroot}%{_mandir}/man1'
+%{py3_test_envvars} help2man --no-info num2words |
+  tee '%{buildroot}%{_mandir}/man1/num2words.1'
 
 %check
 %pyproject_check_import
 %if %{with tests}
-%{__python3} setup.py test
+# tests/test_cli.py: requires unpackaged test dependency delegator.py
+%pytest --ignore=tests/test_cli.py -v
 %endif
 
 %files -n python3-num2words -f %{pyproject_files}
 %doc README.rst
 %{_bindir}/num2words
-%{_mandir}/man1/num2words.*
+%{_mandir}/man1/num2words.1*
 
 %changelog
 %autochangelog

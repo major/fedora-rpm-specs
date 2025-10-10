@@ -1,5 +1,5 @@
 Name:           python-openstep-plist
-Version:        0.5.0
+Version:        0.5.1
 Release:        %autorelease
 Summary:        ASCII plist parser written in Cython
 
@@ -10,13 +10,6 @@ License:        MIT
 SourceLicense:  %{license} AND BSD-3-Clause
 URL:            https://github.com/fonttools/openstep-plist
 Source:         %{pypi_source openstep_plist}
-
-# Fix Cython 3.1 compatibility
-#
-# The long type was unified with int for Python 3, and support for Python 2 was
-# removed for Cython 3.1, https://github.com/cython/cython/issues/2800.
-# https://github.com/fonttools/openstep-plist/pull/41
-Patch:          %{url}/pull/41.patch
 
 BuildSystem:            pyproject
 BuildOption(generate_buildrequires): -t

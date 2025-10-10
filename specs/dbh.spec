@@ -1,7 +1,9 @@
+%undefine _hardened_build
+%global debug_package %{nil}
 Summary: Disk based hash library
 Name: dbh
-Version: 5.0.16
-Release: 24%{?dist}
+Version: 5.0.22
+Release: 1%{?dist}
 URL: http://dbh.sourceforge.net/
 Source0: http://downloads.sourceforge.net/%{name}/lib%{name}2-%{version}.tar.gz
 Patch0: %{name}-5.0.13-bigendian.patch
@@ -32,15 +34,14 @@ to compile applications for dbh.
 %setup -qn lib%{name}2-%{version}
 %patch -P0 -p1 -b .bigendian
 
-
 %build
-%configure --disable-rpath --disable-static
+./autogen.sh
+%configure --disable-static
 
-make %{?_smp_mflags}
+%make_build
 
 %install
-rm -rf $RPM_BUILD_ROOT
-make install DESTDIR=$RPM_BUILD_ROOT
+%make_install
 
 mv $RPM_BUILD_ROOT/usr/share/gtk-doc .
 rm -rf $RPM_BUILD_ROOT/usr/share/dbh
@@ -51,18 +52,22 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %ldconfig_scriptlets
 
 %files
-%doc AUTHORS COPYING ChangeLog README
-%{_libdir}/*.so.*
+%license COPYING
+%doc AUTHORS ChangeLog README
+%{_libdir}/*.so.2*
 
 %files devel
 %doc examples/*.c examples/Makefile* doc/html gtk-doc
 %{_libdir}/lib*.so
-%{_libdir}/pkgconfig/*
+%{_datadir}/pkgconfig/*
 %{_includedir}/*
-#%{_mandir}/man1/dbh*
+#%%{_mandir}/man1/dbh*
 %{_mandir}/man3/dbh*
 
 %changelog
+* Wed Oct 08 2025 Gwyn Ciesla <gwync@protonmail.com> - 1:5.0.22-1
+- 5.0.22
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.0.16-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -6,19 +6,17 @@
 # Please, preserve the changelog entries
 #
 
-%bcond_with generators
-
 # nginx 1.6 with nginx-filesystem
 %global with_nginx     1
 # httpd 2.4 with httpd-filesystem
 %global with_httpd     1
 
-%global upstream_version 5.2.2
+%global upstream_version 5.2.3
 #global upstream_prever  rc1
 
 Name: phpMyAdmin
 Version: %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release: 2%{?dist}
+Release: 1%{?dist}
 Summary: A web interface for MySQL and MariaDB
 
 # phpMyAdmin is GPL-2.0-or-later
@@ -44,9 +42,7 @@ BuildRequires: gnupg2
 BuildRequires: php(language) >= 7.2.5
 BuildRequires: php-cli
 BuildRequires: php-json
-%if %{with generators}
 BuildRequires: composer-generators
-%endif
 
 Requires(post): coreutils sed
 Requires:  webserver
@@ -82,82 +78,11 @@ Suggests:  httpd
 #        "twig/twig": "^2.14.9 || ^3.3.5",
 #        "williamdes/mariadb-mysql-kbs": "^1.2"
 Requires:  php(language) >= 7.2.5
-Requires:  php-hash
 Requires:  php-iconv
 Requires:  php-json
 Requires:  php-mysqli
 Requires:  php-openssl
-Requires:  php-pcre
 Requires:  php-xml
-
-%if %{without generators}
-# License BSD-2-Clause
-Provides:  bundled(php-composer(bacon/bacon-qr-code)) = 2.0.8
-Provides:  bundled(php-composer(beberlei/assert)) = 3.3.3
-Provides:  bundled(php-composer(code-lts/u2f-php-server)) = 1.2.2
-Provides:  bundled(php-composer(dasprid/enum)) = 1.0.6
-# License BSD-3-Clause
-Provides:  bundled(php-composer(google/recaptcha)) = 1.2.4
-Provides:  bundled(php-composer(nikic/fast-route)) = 1.3.0
-Provides:  bundled(php-composer(twig/twig)) = 3.11.3
-# License GPL-2.0-or-later
-Provides:  bundled(php-composer(phpmyadmin/motranslator)) = 5.3.1
-Provides:  bundled(php-composer(phpmyadmin/shapefile)) = 3.0.2
-Provides:  bundled(php-composer(phpmyadmin/sql-parser)) = 5.10.3
-# License ISC
-Provides:  bundled(php-composer(paragonie/sodium_compat)) = 1.21.1
-# License LGPL-3.0-or-later
-Provides:  bundled(php-composer(tecnickcom/tcpdf)) = 6.8.0
-# License MIT
-Provides:  bundled(php-composer(brick/math)) = 0.8.17
-Provides:  bundled(php-composer(composer/ca-bundle)) = 1.5.5
-Provides:  bundled(php-composer(fgrosse/phpasn1)) = 2.5.0
-Provides:  bundled(php-composer(fig/http-message-util)) = 1.1.5
-Provides:  bundled(php-composer(league/uri)) = 6.4.0
-Provides:  bundled(php-composer(league/uri-interfaces)) = 2.3.0
-Provides:  bundled(php-composer(paragonie/constant_time_encoding)) = 2.7.0
-Provides:  bundled(php-composer(paragonie/random_compat)) = 9.99.100
-Provides:  bundled(php-composer(phpmyadmin/twig-i18n-extension)) = 4.1.3
-Provides:  bundled(php-composer(pragmarx/google2fa)) = 8.0.3
-Provides:  bundled(php-composer(pragmarx/google2fa-qrcode)) = 2.1.1
-Provides:  bundled(php-composer(psr/cache)) = 1.0.1
-Provides:  bundled(php-composer(psr/container)) = 1.1.1
-Provides:  bundled(php-composer(psr/http-client)) = 1.0.3
-Provides:  bundled(php-composer(psr/http-factory)) = 1.1.0
-Provides:  bundled(php-composer(psr/http-message)) = 1.1
-Provides:  bundled(php-composer(psr/log)) = 1.1.4
-Provides:  bundled(php-composer(ralouphie/getallheaders)) = 3.0.3
-Provides:  bundled(php-composer(ramsey/collection)) = 1.1.4
-Provides:  bundled(php-composer(ramsey/uuid)) = 4.2.3
-Provides:  bundled(php-composer(slim/psr7)) = 1.4.1
-Provides:  bundled(php-composer(spomky-labs/base64url)) = 2.0.4
-Provides:  bundled(php-composer(spomky-labs/cbor-php)) = 1.1.1
-Provides:  bundled(php-composer(symfony/cache)) = 5.4.46
-Provides:  bundled(php-composer(symfony/cache-contracts)) = 2.5.4
-Provides:  bundled(php-composer(symfony/config)) = 5.4.46
-Provides:  bundled(php-composer(symfony/dependency-injection)) = 5.4.48
-Provides:  bundled(php-composer(symfony/deprecation-contracts)) = 2.5.4
-Provides:  bundled(php-composer(symfony/expression-language)) = 5.4.45
-Provides:  bundled(php-composer(symfony/filesystem)) = 5.4.45
-Provides:  bundled(php-composer(symfony/polyfill-ctype)) = 1.31.0
-Provides:  bundled(php-composer(symfony/polyfill-mbstring)) = 1.31.0
-Provides:  bundled(php-composer(symfony/polyfill-php73)) = 1.31.0
-Provides:  bundled(php-composer(symfony/polyfill-php80)) = 1.31.0
-Provides:  bundled(php-composer(symfony/polyfill-php81)) = 1.31.0
-Provides:  bundled(php-composer(symfony/process)) = 5.4.47
-Provides:  bundled(php-composer(symfony/service-contracts)) = 2.5.4
-Provides:  bundled(php-composer(symfony/var-exporter)) = 5.4.45
-Provides:  bundled(php-composer(thecodingmachine/safe)) = 1.3.3
-Provides:  bundled(php-composer(web-auth/cose-lib)) = 3.3.12
-Provides:  bundled(php-composer(web-auth/metadata-service)) = 3.3.12
-Provides:  bundled(php-composer(web-auth/webauthn-lib)) = 3.3.12
-Provides:  bundled(php-composer(webmozart/assert)) = 1.11.0
-# License MPL-2.0
-Provides:  bundled(php-composer(williamdes/mariadb-mysql-kbs)) = 1.3.0
-# main package
-Provides:  php-composer(phpmyadmin/phpmyadmin) = %{version}
-%endif
-
 Requires:  php-dom
 Requires:  php-intl
 Requires:  php-posix
@@ -171,15 +96,11 @@ Requires:  php-gd
 Requires:  php-mbstring
 # From phpcompatinfo reports for 4.8.0
 #   notice: recode is optional (iconv or mbstring are preferred / used first)
-Requires:  php-date
-Requires:  php-filter
 Requires:  php-libxml
-Requires:  php-session
 Requires:  php-simplexml
-Requires:  php-spl
 Requires:  php-xmlwriter
 # System certificates
-Requires:  ca-certificates
+Requires:  %{_sysconfdir}/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
 
 # Bundled JS library
 Provides:  bundled(js-codemirror)
@@ -225,10 +146,6 @@ sed -e "/'changeLogFile'/s@ROOT_PATH@'%{_pkgdocdir}/'@" \
 
 # For debug
 grep '=>' libraries/vendor_config.php
-
-%if %{without generators}
-php %{SOURCE5} vendor/composer/installed.json
-%endif
 
 
 %build
@@ -309,6 +226,11 @@ sed -e "/'blowfish_secret'/s/MUSTBECHANGEDONINSTALL/$SECRET/" \
 
 
 %changelog
+* Wed Oct  8 2025 Remi Collet <remi@remirepo.net> - 5.2.3-1
+- update to 5.2.3 (2025-10-08, bugfix release)
+- fix patch to system CA certificates
+- always build with composer-generators
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

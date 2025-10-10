@@ -6,7 +6,7 @@
 %endif
 
 Name:		perl-Specio
-Version:	0.52
+Version:	0.53
 Release:	1%{?dist}
 Summary:	Type constraints and coercions for Perl
 # lib/Specio/PartialDump.pm:	GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -164,6 +164,10 @@ make test
 %{_mandir}/man3/Test::Specio.3*
 
 %changelog
+* Wed Oct  8 2025 Paul Howarth <paul@city-fan.org> - 0.53-1
+- Update to 0.53
+  - Fixed a test failure when trying to open $^X on some platforms
+
 * Mon Aug 11 2025 Paul Howarth <paul@city-fan.org> - 0.52-1
 - Update to 0.52
   - Really made it possible to force Specio to use only pure Perl dependencies;

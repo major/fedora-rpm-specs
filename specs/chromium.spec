@@ -244,8 +244,8 @@
 %endif
 
 Name:	chromium
-Version: 141.0.7390.54
-Release: 2%{?dist}
+Version: 141.0.7390.65
+Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD-3-Clause AND LGPL-2.1-or-later AND Apache-2.0 AND IJG AND MIT AND GPL-2.0-or-later AND ISC AND OpenSSL AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.0-only)
@@ -426,14 +426,6 @@ Patch415: add-ppc64-pthread-stack-size.patch
 
 Patch417: 0001-add-xnn-ppc64el-support.patch
 Patch418: 0002-regenerate-xnn-buildgn.patch
-
-
-# Fix for building with clang-22
-# This patch comes from:
-# https://skia.googlesource.com/skcms.git/+/135488419331644e59091ecc73e682299d3937a4
-# This was bundled into skia here:
-# https://github.com/google/skia/commit/9ab05b08ae3e83c80ac69c69008ed1048e9a0923
-Patch419: 0001-Change-use-of-removed-intrinsic.patch
 
 # flatpak sandbox patches from
 # https://github.com/flathub/org.chromium.Chromium/tree/master/patches/chromium
@@ -1091,8 +1083,6 @@ Qt6 UI for chromium.
 %patch -P418 -p1 -b .0002-regenerate-xnn-buildgn
 %endif
 
-%patch -P419 -p1 -b .clang-22-fix
-
 %if 0%{?flatpak}
 %patch -P500 -p1 -b .flatpak-initial-sandbox
 %patch -P501 -p1 -b .flatpak-sandbox-paths
@@ -1731,6 +1721,12 @@ fi
 %endif
 
 %changelog
+* Wed Oct 08 2025 Than Ngo <than@redhat.com> - 141.0.7390.65-1
+- Update to 141.0.7390.65
+  * High CVE-2025-11458: Heap buffer overflow in Sync
+  * High CVE-2025-11460: Use after free in Storage
+  * Medium CVE-2025-11211: Out of bounds read in WebCodecs
+
 * Fri Oct 03 2025 Tom Stellard <tstellar@redhat.com> - 141.0.7390.54-2
 - Fix build with clang-22
 

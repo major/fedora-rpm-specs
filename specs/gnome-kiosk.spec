@@ -47,6 +47,7 @@ BuildRequires:  pkgconfig(libmutter-17) >= %{mutter_version}
 
 Requires:       gnome-settings-daemon%{?_isa} >= %{gnome_settings_daemon_version}
 Requires:       gsettings-desktop-schemas%{?_isa} >= %{gsettings_desktop_schemas_version}
+Recommends:     xorg-x11-server-Xwayland
 
 %description
 GNOME Kiosk provides a desktop enviroment suitable for fixed purpose, or

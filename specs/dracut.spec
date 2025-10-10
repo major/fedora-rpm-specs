@@ -8,7 +8,7 @@
 
 Name: dracut
 Version: 108
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 Summary: Initramfs generator using udev
 
@@ -52,6 +52,9 @@ Patch9:  0009-Revert-feat-systemd-sysusers-run-systemd-sysusers-as.patch
 # fix(systemd-sysusers): reapply "feat(systemd-sysusers): run systemd-sysusers
 # Author: Pavel Valena <pvalena@redhat.com>
 Patch10: 0010-fix-systemd-sysusers-reapply-feat-systemd-sysusers-r.patch
+# fix: partial revert for hostonly sloppy mode
+# Author: Jo Zzsi <jozzsicsataban@gmail.com>
+Patch11: 0011-fix-partial-revert-for-hostonly-sloppy-mode.patch
 
 # Please use source-git to work with this spec file:
 # HowTo: https://packit.dev/source-git/work-with-source-git
@@ -484,6 +487,9 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %{_prefix}/lib/kernel/install.d/51-dracut-rescue.install
 
 %changelog
+* Tue Oct 07 2025 Pavel Valena <pvalena@redhat.com> - 108-3
+- fix: partial revert for hostonly sloppy mode
+
 * Wed Sep 10 2025 Pavel Valena <pvalena@redhat.com> - 108-2
 - Reapply "feat(systemd-sysusers): run systemd-sysusers as part
 

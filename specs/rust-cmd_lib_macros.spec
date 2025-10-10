@@ -6,15 +6,13 @@
 %global crate cmd_lib_macros
 
 Name:           rust-cmd_lib_macros
-Version:        1.9.6
+Version:        2.0.0
 Release:        %autorelease
 Summary:        Common rust commandline macros and utils for shell script like tasks
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/cmd_lib_macros
 Source:         %{crates_source}
-# * https://github.com/rust-shell-script/rust_cmd_lib/pull/64
-Source2:        https://github.com/rust-shell-script/rust_cmd_lib/raw/master/LICENSE
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -51,7 +49,6 @@ use the "default" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-cp -p %SOURCE2 .
 %cargo_prep
 
 %generate_buildrequires

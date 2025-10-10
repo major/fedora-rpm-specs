@@ -56,7 +56,7 @@
 
 Name:           libdnf
 Version:        %{libdnf_major_version}.%{libdnf_minor_version}.%{libdnf_micro_version}
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Library providing simplified C and Python API to libsolv
 License:        LGPL-2.1-or-later
 URL:            https://github.com/rpm-software-management/libdnf
@@ -70,6 +70,14 @@ Patch2:         1704.patch
 Patch3:         1710.patch
 # https://github.com/rpm-software-management/libdnf/pull/1710
 Patch4:         0001-Stop-importing-subkeys-to-RPM-5.99.90.patch
+# 1/2 Fix appending protected packages list from drop-in directories,
+# bug #2400488, in upstream after 0.74.0,
+# <https://github.com/rpm-software-management/libdnf/pull/1725>
+Patch5:         0005-config-Support-optionTListAppend-for-options-lacking.patch
+# 2/2 Fix appending protected packages list from drop-in directories,
+# bug #2400488, in upstream after 0.74.0,
+# <https://github.com/rpm-software-management/libdnf/pull/1725>
+Patch6:         0006-config-Convert-protected_packages-to-an-append-optio.patch
 
 BuildRequires:  cmake >= 3.5.0
 BuildRequires:  gcc
@@ -316,6 +324,10 @@ popd
 %endif
 
 %changelog
+* Wed Oct 08 2025 Petr Pisar <ppisar@redhat.com> - 0.74.0-10
+- Fix appending protected packages from drop-in directories
+  (bug #2400488)
+
 * Thu Sep 25 2025 Petr Pisar <ppisar@redhat.com> - 0.74.0-9
 - Constrain RPM version (bug #2372978)
 

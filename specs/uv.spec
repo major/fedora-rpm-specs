@@ -11,7 +11,7 @@
 %bcond it %{undefined el10}
 
 Name:           uv
-Version:        0.8.11
+Version:        0.8.20
 Release:        %autorelease
 Summary:        An extremely fast Python package installer and resolver, written in Rust
 
@@ -161,9 +161,9 @@ Source100:      %{async_zip_git}/archive/%{async_zip_rev}/rs-async-zip-%{async_z
 # We therefore bundle the fork as prescribed in
 #   https://docs.fedoraproject.org/en-US/packaging-guidelines/Rust/#_replacing_git_dependencies
 %global pubgrub_git https://github.com/astral-sh/pubgrub
-%global pubgrub_rev 06ec5a5f59ffaeb6cf5079c6cb184467da06c9db
+%global pubgrub_rev d8efd77673c9a90792da9da31b6c0da7ea8a324b
 %global pubgrub_baseversion 0.3.0
-%global pubgrub_snapdate 20250523
+%global pubgrub_snapdate 20250810
 %global version_ranges_baseversion 0.1.1
 Source200:      %{pubgrub_git}/archive/%{pubgrub_rev}/pubgrub-%{pubgrub_rev}.tar.gz
 
@@ -175,8 +175,8 @@ Source200:      %{pubgrub_git}/archive/%{pubgrub_rev}/pubgrub-%{pubgrub_rev}.tar
 # prescribed in
 #   https://docs.fedoraproject.org/en-US/packaging-guidelines/Rust/#_replacing_git_dependencies
 %global reqwest_middleware_git https://github.com/astral-sh/reqwest-middleware
-%global reqwest_middleware_rev ad8b9d332d1773fde8b4cd008486de5973e0a3f8
-%global reqwest_middleware_snapdate 20250607
+%global reqwest_middleware_rev 7650ed76215a962a96d94a79be71c27bffde7ab2
+%global reqwest_middleware_snapdate 20250828
 %global reqwest_middleware_baseversion 0.4.2
 %global reqwest_retry_baseversion 0.7.0
 Source300:      %{reqwest_middleware_git}/archive/%{reqwest_middleware_rev}/reqwest-middleware-%{reqwest_middleware_rev}.tar.gz
@@ -310,6 +310,19 @@ Provides:       bundled(crate(glibc_version)) = 0.1.2^20221117git5e1002d
 # The unquote implementation is vendored from the r-shquote crate because it is
 # unmaintained upstream, https://github.com/astral-sh/uv/issues/11780.
 Provides:       bundled(crate(r-shquote)) = 0.1.1
+
+# crates/uv-keyring
+# From crates/uv-keyring/README.md, “This is vendored from [keyring-rs
+# crate](https://github.com/open-source-cooperative/keyring-rs)
+# commit 9635a2f53a19eb7f188cdc4e38982dcb19caee00.” The commit message of the
+# referenced upstream commit indicates it corresponds to 4.0.0-rc2.
+#
+# The text of https://github.com/astral-sh/uv/pull/14725 explains the differing
+# design goals and tradeoffs that lead uv to fork keyring-rs rather than using
+# the upstream https://crates.io/crates/keyring crate or trying to get the
+# necessary changes merged upstream. Based on this explanation, there does not
+# appear to be any prospect of unbundling.
+Provides:       bundled(crate(keyring)) = 4.0.0~rc2
 
 # The contents of crates/uv-virtualenv/src/activator/ are a bundled and
 # slightly forked copy of a subset of https://pypi.org/project/virtualenv; see

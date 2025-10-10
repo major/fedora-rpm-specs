@@ -5,13 +5,10 @@ URL:           https://buildstream.build/
 
 ExcludeArch:   %{ix86}
 
-Version:       2.5.0
+Version:       2.6.0
 Release:       %autorelease
 Source0:       https://github.com/apache/buildstream/archive/%{version}/buildstream-%{version}.tar.gz
 Patch:         0001-requirements-requirements.in-Do-not-limit-protobuf-v.patch
-Patch:         0001-scheduler.py-Replace-asyncio-child-watcher-with-our-.patch
-Patch:         0001-_frontend-Fix-shell-completion-with-Click-8.2.patch
-Patch:         0001-types.py-Return-NotImplemented-for-unsupported-FastE.patch
 
 BuildRequires: gcc
 BuildRequires: python3-devel >= 3.9

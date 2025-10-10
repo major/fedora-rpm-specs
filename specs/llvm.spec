@@ -2871,6 +2871,7 @@ fi
 %{expand_bins %{expand:
     llvm-ir2vec
     llvm-offload-wrapper
+    llvm-offload-binary
 }}
 %endif
 

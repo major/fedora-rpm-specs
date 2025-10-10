@@ -10,19 +10,18 @@
 %global bpftool_shortcommit %(c=%{bpftool_commit}; echo ${c:0:7})
 %global bpftool_date 20240716
 # see bpftool/src/main.c
-%global bpftool_version 7.5.0^%{bpftool_date}git%{bpftool_shortcommit}
+# libbpf version + 6 to the major version
+%global bpftool_version 7.7.0^%{bpftool_date}git%{bpftool_shortcommit}
 
 %global libbpf_url https://github.com/libbpf/libbpf
-%global libbpf_commit 686f600bca59e107af4040d0838ca2b02c14ff50
+%global libbpf_commit 3f077472ee7e703b733c2c9ae15ef3f4c13ee25b
 %global libbpf_shortcommit %(c=%{libbpf_commit}; echo ${c:0:7})
-%global libbpf_date 20240710
-# <mock-chroot> sh-5.2# ./bpftool/bootstrap/bpftool version
-# bpftool v7.5.0
-# using libbpf v1.5
-%global libbpf_version 1.5^%{libbpf_date}git%{libbpf_shortcommit}
+%global libbpf_date 20250826
+# see libbpf/src/libbpf_version.h
+%global libbpf_version 1.7^%{libbpf_date}git%{libbpf_shortcommit}
 
 Name:           retsnoop
-Version:        0.10.1
+Version:        0.11
 Release:        %autorelease
 Summary:        A tool for investigating kernel error call stacks
 
@@ -42,18 +41,16 @@ Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        %{bpftool_url}/archive/%{bpftool_commit}/bpftool-%{bpftool_version}.tar.gz
 Source2:        %{libbpf_url}/archive/%{libbpf_commit}/libbpf-%{libbpf_version}.tar.gz
 Source3:        README.Fedora
-# Use memmap2 rather than the deprecated memmap
-# Based on https://github.com/anakryiko/retsnoop/pull/86
-Patch:          %{name}-use-memmap2.diff
 
 # has a Rust component
 ExclusiveArch:  %{rust_arches}
-# rust syn crate not compiling on 32-bit ARM
-ExcludeArch:    armv7hl
 # bpftool not compiling on ix86
 # we don't ship 32-bit binaries anyway, but it'd be good to test compilation
 # once this is fixed https://github.com/libbpf/bpftool/issues/158
 ExcludeArch:    %{ix86}
+# retsnoop 0.11 FTBFS on ppc64le
+# rhbz#2402550
+ExcludeArch:    ppc64le
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  clang
