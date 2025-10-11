@@ -1,14 +1,11 @@
 %bcond tests 1
 
-# Not packaged: python-cron-converter, https://pypi.org/project/cron-converter/
-# bugzilla.redhat.com/show_bug.cgi?id=2402494
-%bcond cron 0
-
 # Dependencies for some extras are not (yet?) in EPEL10
 %bcond pendulum %{undefined el10}
 %bcond phonenumbers %{undefined el10}
 %bcond pycountry %{undefined el10}
 
+%bcond cron 1
 %bcond pymongo 1
 
 %global forgeurl https://github.com/pydantic/pydantic-extra-types

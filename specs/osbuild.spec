@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        161
+Version:        162
 
 %forgemeta
 
@@ -118,6 +118,20 @@ Contains the necessary SELinux policies that allows
 osbuild to use labels unknown to the host inside the
 containers it uses to build OS artifacts.
 
+%package        container-selinux
+Summary:        SELinux container policies
+Requires:       selinux-policy-%{selinuxtype}
+Requires:       container-selinux
+Requires(post): selinux-policy-%{selinuxtype}
+Requires(post): container-selinux
+BuildRequires:  selinux-policy-devel
+BuildRequires:  selinux-policy-devel
+%{?selinux_requires}
+
+%description    container-selinux
+Contains the necessary SELinux policies that allows
+running osbuild in a container.
+
 %package        tools
 Summary:        Extra tools and utilities
 Requires:       %{name} = %{version}-%{release}
@@ -183,6 +197,9 @@ make man
 make -f /usr/share/selinux/devel/Makefile osbuild.pp
 bzip2 -9 osbuild.pp
 
+make -f /usr/share/selinux/devel/Makefile osbuild-container.pp
+bzip2 -9 osbuild-container.pp
+
 %pre selinux
 %selinux_relabel_pre -s %{selinuxtype}
 
@@ -226,6 +243,7 @@ install -p -m 0644 -t %{buildroot}%{_mandir}/man5/ docs/*.5
 
 # SELinux
 install -D -m 0644 -t %{buildroot}%{_datadir}/selinux/packages/%{selinuxtype} %{name}.pp.bz2
+install -D -m 0644 -t %{buildroot}%{_datadir}/selinux/packages/%{selinuxtype} %{name}-container.pp.bz2
 install -D -m 0644 -t %{buildroot}%{_mandir}/man8 selinux/%{name}_selinux.8
 install -D -p -m 0644 selinux/osbuild.if %{buildroot}%{_datadir}/selinux/devel/include/distributed/%{name}.if
 
@@ -320,6 +338,18 @@ fi
 %posttrans selinux
 %selinux_relabel_post -s %{selinuxtype}
 
+%files container-selinux
+%{_datadir}/selinux/packages/%{selinuxtype}/%{name}-container.pp.bz2
+%ghost %verify(not md5 size mode mtime) %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{name}-container
+
+%post container-selinux
+%selinux_modules_install -s %{selinuxtype} %{_datadir}/selinux/packages/%{selinuxtype}/%{name}-container.pp.bz2
+
+%postun container-selinux
+if [ $1 -eq 0 ]; then
+    %selinux_modules_uninstall -s %{selinuxtype} %{name}-container
+fi
+
 %files tools
 %{_bindir}/osbuild-image-info
 %{_bindir}/osbuild-mpp
@@ -330,6 +360,35 @@ fi
 %{pkgdir}/solver.json
 
 %changelog
+* Wed Oct 08 2025 Packit <hello@packit.dev> - 162-1
+Changes with 162
+----------------
+  - Added new org.osbuild.systemd-sysuser stage (#2192)
+    - Author: Michael Engel, Reviewers: Nobody
+  - Allow building bootc images in unprivileged containers (#2187)
+    - Author: Alexander Larsson, Reviewers: Brian C. Lane, Michael Vogt, Tomáš Hozza
+  - CI: enable RPM builds and testing on RHEL 9.8 and 10.2 nightly (HMS-9227) (#2203)
+    - Author: Tomáš Hozza, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - Revert "stages: add `efi_src_dir` config to grub2.iso stage" (#2205)
+    - Author: Michael Vogt, Reviewers: Achilleas Koutsou
+  - Update images dependency ref to latest (#2207)
+    - Author: SchutzBot, Reviewers: Simon de Vlieger, Tomáš Hozza
+  - Update snapshots to 20251001 (#2210)
+    - Author: SchutzBot, Reviewers: Simon de Vlieger, Tomáš Hozza
+  - docs: document `--quiet, -q` flag (#2214)
+    - Author: Florian Schüller, Reviewers: Michael Vogt, Simon de Vlieger
+  - osbuild: if Loop.mknod() cannot bind mount fallback to mknod (#2208)
+    - Author: Michael Vogt, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - schema/metadata: `exports` (#2198)
+    - Author: Simon de Vlieger, Reviewers: Brian C. Lane, Tomáš Hozza
+  - selinux: Add osbuild_container_t domain for using osbuild in a container (#2195)
+    - Author: Alexander Larsson, Reviewers: Achilleas Koutsou, Lukáš Zapletal
+  - stages: add `efi_src_dir` config to grub2.iso stage (#2202)
+    - Author: Michael Vogt, Reviewers: Achilleas Koutsou, Simon de Vlieger
+
+— Somewhere on the Internet, 2025-10-08
+
+
 * Wed Sep 24 2025 Packit <hello@packit.dev> - 161-1
 Changes with 161
 ----------------

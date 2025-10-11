@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        52
+Version:        53
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -120,6 +120,11 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Thu Oct 09 2025 Packit <hello@packit.dev> - 53-1
+- keyboard: in Gnome spawn Gnome keyboard settings in storage configurationscreen
+- storage: installation-method: the screen id is
+  'anaconda-screen-method' (Fixes notification for missing space for /boot)
+
 * Thu Sep 25 2025 Packit <hello@packit.dev> - 52-1
 - mount point mapping: keep menu within wizard scroll context (rhbz#2397098)
 

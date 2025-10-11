@@ -9,7 +9,6 @@ URL:            https://mycli.net
 Source0:        %{pypi_source}
 Patch1:         0001-SQL-quote-test-fix.patch
 Patch2:         0002-Switch-from-pyaes-to-pycryptodomex.patch
-Patch3:         0003-Paramiko-fix.patch
 Patch4:         0004-Python-3.13.patch
 Patch5:         0005-Revert-to-sqlglot-5.1.3.patch
 Patch6:         0006-Revert-to-older-toml-format.patch

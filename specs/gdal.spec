@@ -52,7 +52,7 @@
 
 Name:          gdal
 Version:       3.11.4
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       GIS file format library
 License:       MIT
 URL:           http://www.gdal.org
@@ -157,9 +157,9 @@ BuildRequires: python3dist(lxml) >= 4.5.1
 # Java
 %if %{with java}
 # For 'mvn_artifact' and 'mvn_install'
-BuildRequires: ant
+BuildRequires: ant-openjdk25
 BuildRequires: java-devel >= 1:1.6.0
-BuildRequires: javapackages-local
+BuildRequires: javapackages-local-openjdk25
 BuildRequires: jpackage-utils
 %endif
 
@@ -601,33 +601,33 @@ done
 %{_mandir}/man1/gdal-vsi-sync.1*
 %{_mandir}/man1/gdal-vsi.1*
 %{_mandir}/man1/gdal.1*
-%{_mandir}/man1/gdaladdo.1.*
-%{_mandir}/man1/gdalbuildvrt.1.*
-%{_mandir}/man1/gdal_contour.1.*
-%{_mandir}/man1/gdal_create.1.*
-%{_mandir}/man1/gdaldem.1.*
-%{_mandir}/man1/gdal_footprint.1.*
-%{_mandir}/man1/gdal_grid.1.*
-%{_mandir}/man1/gdalinfo.1.*
-%{_mandir}/man1/gdallocationinfo.1.*
-%{_mandir}/man1/gdalmanage.1.*
-%{_mandir}/man1/gdalmdiminfo.1.*
-%{_mandir}/man1/gdalmdimtranslate.1.*
-%{_mandir}/man1/gdal_rasterize.1.*
-%{_mandir}/man1/gdalsrsinfo.1.*
-%{_mandir}/man1/gdaltindex.1.*
-%{_mandir}/man1/gdaltransform.1.*
-%{_mandir}/man1/gdal_translate.1.*
-%{_mandir}/man1/gdal_viewshed.1.*
-%{_mandir}/man1/gdalwarp.1.*
-%{_mandir}/man1/gnmanalyse.1.*
-%{_mandir}/man1/gnmmanage.1.*
-%{_mandir}/man1/nearblack.1.*
-%{_mandir}/man1/ogr2ogr.1.*
-%{_mandir}/man1/ogrinfo.1.*
-%{_mandir}/man1/ogrlineref.1.*
-%{_mandir}/man1/ogrtindex.1.*
-%{_mandir}/man1/sozip.1.*
+%{_mandir}/man1/gdaladdo.1*
+%{_mandir}/man1/gdalbuildvrt.1*
+%{_mandir}/man1/gdal_contour.1*
+%{_mandir}/man1/gdal_create.1*
+%{_mandir}/man1/gdaldem.1*
+%{_mandir}/man1/gdal_footprint.1*
+%{_mandir}/man1/gdal_grid.1*
+%{_mandir}/man1/gdalinfo.1*
+%{_mandir}/man1/gdallocationinfo.1*
+%{_mandir}/man1/gdalmanage.1*
+%{_mandir}/man1/gdalmdiminfo.1*
+%{_mandir}/man1/gdalmdimtranslate.1*
+%{_mandir}/man1/gdal_rasterize.1*
+%{_mandir}/man1/gdalsrsinfo.1*
+%{_mandir}/man1/gdaltindex.1*
+%{_mandir}/man1/gdaltransform.1*
+%{_mandir}/man1/gdal_translate.1*
+%{_mandir}/man1/gdal_viewshed.1*
+%{_mandir}/man1/gdalwarp.1*
+%{_mandir}/man1/gnmanalyse.1*
+%{_mandir}/man1/gnmmanage.1*
+%{_mandir}/man1/nearblack.1*
+%{_mandir}/man1/ogr2ogr.1*
+%{_mandir}/man1/ogrinfo.1*
+%{_mandir}/man1/ogrlineref.1*
+%{_mandir}/man1/ogrtindex.1*
+%{_mandir}/man1/sozip.1*
 
 %files libs
 %license LICENSE.TXT
@@ -850,6 +850,9 @@ done
 
 
 %changelog
+* Thu Oct 09 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 3.11.4-5
+- Rebuilt for java-25-openjdk as system jdk
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.11.4-4
 - Rebuilt for Python 3.14.0rc3 bytecode
 

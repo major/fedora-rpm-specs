@@ -23,8 +23,8 @@
 #global pre rc2
 
 Name:          mingw-%{pkgname}
-Version:       3.11.13
-Release:       4%{?dist}
+Version:       3.11.14
+Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname}
 
 BuildArch:     noarch
@@ -69,10 +69,6 @@ Patch13:       mingw-python3_module-select.patch
 # Add -lpython<VER> to Libs: in pkgconfig (windows extensions need to be linked against libpython)
 Patch14:       mingw-python3_pkgconfig.patch
 
-# Backport upstream fix for CVE-2025-6069
-Patch15:       https://github.com/python/cpython/pull/135484.patch
-# Backport upstream fix for CVE-2025-8194
-Patch16:       https://github.com/python/cpython/pull/137172.patch
 
 BuildRequires: make
 BuildRequires: automake autoconf libtool
@@ -512,6 +508,9 @@ chmod +x %{buildroot}%{mingw64_bindir}/python3-config
 
 
 %changelog
+* Thu Oct 09 2025 Sandro Mani <manisandro@gmail.com> - 3.11.14-1
+- Update to 3.11.14
+
 * Sun Aug 03 2025 Sandro Mani <manisandro@gmail.com> - 3.11.13-4
 - Backport upstream fix for CVE-2025-8194
 

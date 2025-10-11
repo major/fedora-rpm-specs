@@ -3,7 +3,7 @@
 ExcludeArch: %{ix86}
 
 Name:           keysmith
-Version:        25.08.1
+Version:        25.08.2
 Release:        1%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
@@ -28,6 +28,7 @@ BuildRequires:  cmake(KF6DBusAddons)
 BuildRequires:  cmake(KF6QQC2DesktopStyle)
 BuildRequires:  cmake(KF6WindowSystem)
 BuildRequires:  cmake(KF6Config)
+BuildRequires:  cmake(KF6KirigamiAddons)
 # Runtime dependancy, but it's required to build...
 BuildRequires:  cmake(KF6Prison)
 
@@ -74,6 +75,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 %{_kf6_datadir}/icons/hicolor/scalable/apps/org.kde.%{name}.svg
 
 %changelog
+* Wed Oct 08 2025 Steve Cossette <farchord@gmail.com> - 25.08.2-1
+- 25.08.2
+
 * Sun Sep 21 2025 Steve Cossette <farchord@gmail.com> - 25.08.1-1
 - 25.08.1
 

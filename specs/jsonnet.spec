@@ -1,6 +1,6 @@
 Name:           jsonnet
 Version:        0.21.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A data templating language based on JSON
 
 # The entire source is Apache-2.0, except:
@@ -192,6 +192,9 @@ LD_LIBRARY_PATH='%{buildroot}%{_libdir}' \
 
 
 %changelog
+* Thu Oct 09 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 0.21.0-5
+- Rebuilt for rapidyaml 0.10.0
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.21.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

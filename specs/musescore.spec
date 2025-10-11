@@ -1,5 +1,5 @@
 # The version of MuseScore itself
-%global musescore_ver             4.6.0
+%global musescore_ver             4.6.1
 %global musescore_maj             %(cut -d. -f-2 <<< %{musescore_ver})
 %global giturl                    https://github.com/musescore/MuseScore
 
@@ -23,7 +23,7 @@
 Name:           musescore
 Summary:        Music Composition & Notation Software
 Version:        %{musescore_ver}
-Release:        25%{?dist}
+Release:        26%{?dist}
 
 # The MuseScore project itself is GPL-3.0-only WITH Font-exception-2.0.  Other
 # licenses in play:
@@ -220,8 +220,6 @@ Source9:        65-%{fontpkgname9}.conf
 Patch:          %{name}-unbundle-libs.patch
 # Unbundle the fonts to comply with the font packaging guidelines
 Patch:          %{name}-unbundle-fonts.patch
-# Fix invalid AppData by removing an invalid <icon> tag
-Patch:          %{name}-appdata.patch
 # Workaround to avoid an out-of-bounds vector access that causes crashes.
 # This patch treats the symptom, not the actual disease.  We need to find
 # and fix the underlying cause.
@@ -238,6 +236,7 @@ Patch:          %{name}-tinyxml2-11.patch
 # Update fluidsynth from version 2.3.3 to 2.3.7 to fix several bugs
 Patch:          %{name}-fluidsynth-2.3.7.patch
 # https://github.com/KDAB/KDDockWidgets/commit/5a86cf69207bfbcc683343b2faf1d3466be2af56.patch
+# https://github.com/musescore/MuseScore/pull/30422
 Patch:          musescore-fix-build-against-qt-6-10.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -354,6 +353,7 @@ Requires:       soundfont2-default
 Provides:       bundled(beatroot-vamp) = 1.0
 Provides:       bundled(fluidsynth) = 2.3.7
 Provides:       bundled(intervaltree) = 0.1
+Provides:       bundled(picojson) = 1.3.0
 Provides:       bundled(rtf2html) = 0.2.0
 Provides:       bundled(tinyxml2) = 11.0.0
 Provides:       bundled(KDDockWidgets) = 1.5.0
@@ -366,11 +366,9 @@ Provides:       bundled(kors_modularity) = 1.2
 Provides:       bundled(kors_msgpack_cpp) = 1.0
 Provides:       bundled(kors_profiler) = 1.2
 
-# FIXME: it might be possible to unbundle these
-# However, libmei is unmaintained upstream: https://github.com/DDMAL/libmei
-# picojson: https://src.fedoraproject.org/rpms/picojson/pull-request/1
+# It might be possible to unbundle libmei.  However, libmei is unmaintained
+# upstream: https://github.com/DDMAL/libmei
 Provides:       bundled(libmei) = 3.1.0
-Provides:       bundled(picojson) = 1.3.0
 
 # This can be removed when F42 reaches EOL
 Obsoletes:      mscore < 4.0
@@ -608,10 +606,14 @@ ln -s ../mscore-%{musescore_maj}/sound/MS\ Basic.sf3 \
 %fontfiles -z 9
 
 %changelog
+* Wed Oct 08 2025 Jerry James <loganjerry@gmail.com> - 4.6.1-26
+- Version 4.6.1
+- Drop upstreamed appdata patch
+
 * Thu Oct 02 2025 Jan Grulich <jgrulich@redhat.com> - 4.6.0-25
 - Rebuild (qt6)
 
-* Tue Sep 30 2025 Jerry James <loganjerry@gmail.com> - 1:4.6.0-24
+* Tue Sep 30 2025 Jerry James <loganjerry@gmail.com> - 4.6.0-24
 - Version 4.6.0
 - Drop upstreamed patch to fix warning about references to temporaries
 

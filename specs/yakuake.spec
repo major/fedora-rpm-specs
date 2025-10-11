@@ -6,8 +6,8 @@
 ExcludeArch: %{ix86}
 
 Name:    yakuake
-Version: 25.08.1
-Release: 2%{?dist}
+Version: 25.08.2
+Release: 1%{?dist}
 Summary: A drop-down terminal emulator
 
 # KDE e.V. may determine that future GPL versions are accepted
@@ -95,6 +95,9 @@ desktop-file-validate  %{buildroot}%{_kf6_datadir}/applications/org.kde.yakuake.
 
 
 %changelog
+* Wed Oct 08 2025 Steve Cossette <farchord@gmail.com> - 25.08.2-1
+- 25.08.2
+
 * Tue Sep 30 2025 Jan Grulich <jgrulich@redhat.com> - 25.08.1-2
 - Rebuild (qt6)
 

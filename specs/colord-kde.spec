@@ -3,7 +3,7 @@
 ExcludeArch: %{ix86}
 
 Name:           colord-kde
-Version:        25.08.1
+Version:        25.08.2
 Release:        1%{?dist}
 Summary:        Colord support for KDE
 
@@ -68,6 +68,9 @@ desktop-file-validate %{buildroot}/%{_kf6_datadir}/applications/{colordkdeiccimp
 
 
 %changelog
+* Wed Oct 08 2025 Steve Cossette <farchord@gmail.com> - 25.08.2-1
+- 25.08.2
+
 * Sun Sep 21 2025 Steve Cossette <farchord@gmail.com> - 25.08.1-1
 - 25.08.1
 

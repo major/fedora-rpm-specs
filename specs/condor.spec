@@ -6,7 +6,7 @@
 #######################
 Name:           condor
 Version:        23.9.6
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        HTCondor: High Throughput Computing
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -16,6 +16,8 @@ URL:            http://htcondor.org
 # or adjust the URL to a private github location
 ##############################################################
 Source0:        https://github.com/htcondor/htcondor/archive/v%{version}/%{name}-%{version}.tar.gz
+
+ExcludeArch: %{ix86}
 
 Patch1: exit_37.sif.patch
 Patch2: unified-bin.patch
@@ -945,6 +947,9 @@ install -m0644 -D condor.sysusers.conf %{buildroot}%{_sysusersdir}/condor.conf
 /sbin/ldconfig
 
 %changelog
+* Thu Oct  2 2025 Daniel P. Berrangé <berrange@redhat.com> - 23.9.6-12
+- Exclude build on i686
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 23.9.6-11
 - Rebuilt for Python 3.14.0rc3 bytecode
 

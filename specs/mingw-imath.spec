@@ -3,7 +3,7 @@
 %global pkgname imath
 
 Name:          mingw-%{pkgname}
-Version:       3.2.1
+Version:       3.2.2
 Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
@@ -74,6 +74,9 @@ Summary:       MinGW Windows %{pkgname} library
 
 
 %changelog
+* Thu Oct 09 2025 Sandro Mani <manisandro@gmail.com> - 3.2.2-1
+- Update to 3.2.2
+
 * Sat Aug 16 2025 Sandro Mani <manisandro@gmail.com> - 3.2.1-1
 - Update to 3.2.1
 

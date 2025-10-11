@@ -9,18 +9,18 @@
 
 
 %{!?php_version:  %global php_version  %(php -r 'echo PHP_VERSION;' 2>/dev/null)}
-%global gh_commit    25777bc305fac9344a2193e5328f7743eb6b77c9
+%global gh_commit    165460c7b51948ce55f07b2a32670aa97aa06282
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
-%global gh_date      2025-05-01
+%global gh_date      2025-10-09
 %global gh_owner     llaville
 %global gh_project   php-compatinfo
 
-%global upstream_version  7.2.3
+%global upstream_version  7.2.4
 #global upstream_prever   RC1
 
 Name:           php-bartlett-PHP-CompatInfo
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Find out version and the extensions required for a piece of code to run
 
 # SPDX: see bundled libraries list below
@@ -124,6 +124,10 @@ install -D -p -m 755 %{SOURCE1} \
 
 
 %changelog
+* Thu Oct  9 2025 Remi Collet <remi@remirepo.net> - 7.2.4-1
+- update to 7.2.4
+- update bundled bartlett/php-compatinfo-db to 6.24.1
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

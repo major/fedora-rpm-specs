@@ -1,3 +1,9 @@
+%if 0%{?rhel} >= 10
+%global wayland 1
+%else
+%global wayland 0
+%endif
+
 Name:           perl-Gtk3-ImageView
 Version:        12
 Release:        3%{?dist}
@@ -35,13 +41,11 @@ BuildRequires:  perl(Test::Deep)
 BuildRequires:  perl(Test::MockObject)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Try::Tiny)
-%if 0%{?rhel} >= 10
+%if %{wayland}
 BuildRequires:  mutter
 BuildRequires:  xwayland-run
-%global xvfbrunner xwfb-run -c mutter
 %else
 BuildRequires:  xorg-x11-server-Xvfb
-%global xvfbrunner xvfb-run -d
 %endif
 # Optional tests:
 # CPAN::Meta not helpful
@@ -60,9 +64,10 @@ to be created and used.
 %package tests
 Summary:        Tests for %{name}
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       coreutils
 Requires:       perl-Test-Harness
 Requires:       perl(Glib) >= 1.2100
-%if 0%{?rhel} >= 10
+%if %{wayland}
 Requires:       mutter
 Requires:       xwayland-run
 %else
@@ -92,14 +97,32 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t %{buildroot}%{_libexecdir}/%{name}
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
-#!/bin/sh
-cd %{_libexecdir}/%{name} && exec %{xvfbrunner} prove -I . -j 1
+#!/bin/bash
+set -ex
+cd %{_libexecdir}/%{name}
+%if %{wayland}
+LOGFILE=$(mktemp)
+# Some tests fail on Xwayland
+xwfb-run -c mutter -- prove -I . -j 1 ||:
+cat "$LOGFILE"
+rm "$LOGFILE"
+%else
+xvfb-run -d prove -I . -j 1
+%endif
 EOF
 chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
 # Not parallel-safe
-%{xvfbrunner} make test
+%if %{wayland}
+LOGFILE=$(mktemp)
+# Some tests fail on Xwayland
+xwfb-run -e "$LOGFILE" -c mutter -- make test ||:
+cat "$LOGFILE"
+rm "$LOGFILE"
+%else
+xvfb-run -d make test
+%endif
 
 %files
 %license LICENSE

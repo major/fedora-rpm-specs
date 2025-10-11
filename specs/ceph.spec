@@ -149,10 +149,6 @@
 %{!?python3_pkgversion: %global python3_pkgversion 3}
 %{!?python3_version_nodots: %global python3_version_nodots 3}
 %{!?python3_version: %global python3_version 3}
-%if 0%{with crimson}
-%{!?gts_version: %global gts_version 13}
-%else
-%endif
 %define _lto_cflags %{nil}
 
 %if ! 0%{?suse_version}
@@ -191,7 +187,7 @@
 #################################################################################
 Name:		ceph
 Version:	20.1.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -206,8 +202,7 @@ License:	LGPL-2.1-or-later AND LGPL-3.0-only AND CC-BY-SA-3.0 AND GPL-2.0-only A
 Group:		System/Filesystems
 %endif
 URL:		http://ceph.com/
-Source:		ceph-%{version}.tar.bz2
-#Source:		https://download.ceph.com/tarballs/ceph-%{version}.tar.gz
+Source:		https://download.ceph.com/tarballs/ceph-%{version}.tar.gz
 #Source0:	https://1.chacra.ceph.com/r/ceph/tentacle/
 Patch:		0001-src-common-crc32c_intel_fast.patch
 Patch:		0003-src-common-bitstr.h.patch
@@ -264,12 +259,7 @@ BuildRequires:	gperf
 BuildRequires:	cmake > 3.5
 BuildRequires:	fuse3-devel
 BuildRequires:	grpc-devel
-%if 0%{?fedora} || 0%{?suse_version} > 1500 || 0%{?rhel}
-BuildRequires: gcc-c++ >= 11
-%endif
-%if 0%{?suse_version} == 1500
-BuildRequires:	gcc11-c++
-%endif
+BuildRequires:	gcc-c++
 %if 0%{?fedora} || 0%{?rhel}
 BuildRequires:	libatomic
 %endif
@@ -408,19 +398,9 @@ BuildRequires:	ragel
 BuildRequires:	systemtap-sdt-devel
 BuildRequires:	libubsan
 BuildRequires:	libasan
-%if 0%{?gts_version} > 0
-%if 0%{?gts_version} >= 12
-BuildRequires:  gcc-toolset-%{gts_version}-gcc-plugin-annobin
-%else
-BuildRequires:  gcc-toolset-%{gts_version}-annobin
-BuildRequires:  gcc-toolset-%{gts_version}-annobin-plugin-gcc
-%endif
-BuildRequires:  gcc-toolset-%{gts_version}-libubsan-devel
-BuildRequires:  gcc-toolset-%{gts_version}-libasan-devel
-%endif
-%endif
 BuildRequires:	protobuf-devel
 BuildRequires:	protobuf-compiler
+%endif
 #################################################################################
 # distro-conditional dependencies
 #################################################################################
@@ -534,6 +514,7 @@ BuildRequires:	libcryptopp-devel
 BuildRequires:	libnuma-devel
 %endif
 %endif
+BuildRequires:	python-rpm-macros
 
 %description
 Ceph is a massively scalable, open-source, distributed storage system that runs
@@ -1654,9 +1635,7 @@ install -m 0644 -D udev/50-rbd.rules %{buildroot}%{_udevrulesdir}/50-rbd.rules
 # sudoers.d
 install -m 0440 -D sudoers.d/ceph-smartctl %{buildroot}%{_sysconfdir}/sudoers.d/ceph-smartctl
 
-%if 0%{?rhel} >= 8
 %py3_shebang_fix %{buildroot}%{_bindir}/* %{buildroot}%{_sbindir}/*
-%endif
 
 #set up placeholder directories
 mkdir -p %{buildroot}%{_sysconfdir}/ceph

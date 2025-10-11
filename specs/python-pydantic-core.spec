@@ -10,7 +10,7 @@
 %bcond inline_snapshot_tests 1
 
 Name:           python-pydantic-core
-Version:        2.37.2
+Version:        2.41.1
 Release:        %autorelease
 Summary:        Core validation logic for pydantic written in rust
 
@@ -136,7 +136,10 @@ ignore="${ignore-} --ignore=tests/benchmarks"
 ignore="${ignore-} --ignore=tests/validators/test_allow_partial.py"
 %endif
 
-%pytest ${ignore-} -k "${k-}" -rs
+# Due to patching out the pytest-timeout dependency:
+warningsfilter="${warningsfilter-} -W ignore::pytest.PytestUnknownMarkWarning"
+
+%pytest ${warningsfilter-} ${ignore-} -k "${k-}" -rs
 %endif
 
 

@@ -11,12 +11,12 @@
 %bcond acceptance_python 1
 
 Name:           gherkin
-Version:        35.1.0
+Version:        36.0.0
 # While SONAME versions are based on the major version number, we repeat them
 # here as a reminder, hopefully reducing the chance of an unintended SONAME
 # version bump.
-%global cpp_soversion 35
-%global c_soversion 35
+%global cpp_soversion 36
+%global c_soversion 36
 Release:        %autorelease
 Summary:        A parser and compiler for the Gherkin language
 
@@ -29,6 +29,12 @@ Source:         %{url}/archive/v%{version}/gherkin-%{version}.tar.gz
 # based on a cursory inspection of gherkin-generate-tokens.cpp.
 Source10:       gherkin.1
 Source11:       gherkin-generate-tokens.1
+
+# Downstream-only: loosen the lower bound on uv_build
+#
+# It was aggressively updated by upstream automation; we can use an older
+# version until we catch up.
+Patch:          0001-Downstream-only-loosen-the-lower-bound-on-uv_build.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -165,7 +171,10 @@ Requires:       gherkin-data = %{version}-%{release}
 sed -r -i 's/^(\.run:) cli \$\(GHERKIN\)/\1/' c/Makefile
 # Python: Fix unversioned python interpreter.
 sed -r -i 's@python -m@%{python3} -m@' python/Makefile
-
+# Python: Do not upper-bound (SemVer-bound) the version of uv_build; we must
+# work with what we have, and compatibility across SemVer boundaries is quite
+# good in practice.
+sed -r -i 's/"(uv_build *>= *[^:]+), *<[^"]+"/"\1"/' python/pyproject.toml
 
 
 %generate_buildrequires

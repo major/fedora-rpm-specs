@@ -3,14 +3,14 @@
 %define enable_new_dtags 0
 
 Name:           mingw-binutils
-Version:        2.44
-Release:        3%{?dist}
+Version:        2.45
+Release:        1%{?dist}
 Summary:        Cross-compiled version of binutils for Win32 and Win64 environments
 
 License:        GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 
 URL:            http://www.gnu.org/software/binutils/
-Source0:        https://ftp.gnu.org/gnu/binutils/binutils-with-gold-%{version}.tar.xz
+Source0:        https://ftp.gnu.org/gnu/binutils/binutils-%{version}.tar.xz
 
 ### Patches from native package
 # Purpose:  Use /lib64 and /usr/lib64 instead of /lib and /usr/lib in the
@@ -62,70 +62,59 @@ Patch06: binutils-2.27-aarch64-ifunc.patch
 # Lifetime: Permanent.
 Patch07: binutils-do-not-link-with-static-libstdc++.patch
 
-# Purpose:  Allow OS specific sections in section groups.
-# Lifetime: Fixed in 2.43 (maybe)
-# Patch08: binutils-special-sections-in-groups.patch
-
 # Purpose:  Stop gold from aborting when input sections with the same name
 #            have different flags.
 # Lifetime: Fixed in 2.43 (maybe)
-Patch09: binutils-gold-mismatched-section-flags.patch
+# Patch08: binutils-gold-mismatched-section-flags.patch
 
 # Purpose:  Change the gold configuration script to only warn about
 #            unsupported targets.  This allows the binutils to be built with
 #            BPF support enabled.
 # Lifetime: Permanent.
-Patch10: binutils-gold-warn-unsupported.patch
+# Patch09: binutils-gold-warn-unsupported.patch
 
 # Purpose:  Enable the creation of .note.gnu.property sections by the GOLD
 #            linker for x86 binaries.
 # Lifetime: Permanent.
-Patch11: binutils-gold-i386-gnu-property-notes.patch
+# Patch10: binutils-gold-i386-gnu-property-notes.patch
 
 # Purpose:  Allow the binutils to be configured with any (recent) version of
 #            autoconf.
 # Lifetime: Fixed in 2.44 (maybe ?)
-Patch12: binutils-autoconf-version.patch
+Patch11: binutils-autoconf-version.patch
 
 # Purpose:  Stop libtool from inserting useless runpaths into binaries.
 # Lifetime: Who knows.
-Patch13: binutils-libtool-no-rpath.patch
+Patch12: binutils-libtool-no-rpath.patch
 
 # Purpose:  Stop an abort when using dwp to process a file with no dwo links.
 # Lifetime: Fixed in 2.44 (maybe)
-Patch15: binutils-gold-empty-dwp.patch
+# Patch13: binutils-gold-empty-dwp.patch
 
 # Purpose:  Fix binutils testsuite failures.
 # Lifetime: Permanent, but varies with each rebase.
-Patch16: binutils-testsuite-fixes.patch
+Patch14: binutils-testsuite-fixes.patch
 
 # Purpose:  Fix binutils testsuite failures for the RISCV-64 target.
 # Lifetime: Permanent, but varies with each rebase.
-Patch17: binutils-riscv-testsuite-fixes.patch
+Patch15: binutils-riscv-testsuite-fixes.patch
 
 # Purpose:  Make the GOLD linker ignore the "-z pack-relative-relocs" command line option.
 # Lifetime: Fixed in 2.44 (maybe)
-Patch18: binutils-gold-pack-relative-relocs.patch
+# Patch16: binutils-gold-pack-relative-relocs.patch
 
 # Purpose:  Let the gold lihnker ignore --error-execstack and --error-rwx-segments.
 # Lifetime: Fixed in 2.44 (maybe)
-Patch19: binutils-gold-ignore-execstack-error.patch
+# Patch17: binutils-gold-ignore-execstack-error.patch
 
 # Purpose:  Fix the ar test of non-deterministic archives.
 # Lifetime: Fixed in 2.44
-Patch20: binutils-fix-ar-test.patch
+Patch18: binutils-fix-ar-test.patch
 
 # Purpose:  Fix a seg fault in the AArch64 linker when building u-boot.
 # Lifetime: Fixed in 2.45
-Patch21: binutils-aarch64-small-plt0.patch
+Patch19: binutils-aarch64-small-plt0.patch
 
-# Backport fix for CVE-2025-7546
-# https://sourceware.org/git/gitweb.cgi?p=binutils-gdb.git;h=41461010eb7c79fee7a9d5f6209accdaac66cc6b
-Patch22: CVE-2025-7546.patch
-
-# Backport fix for CVE-2025-7545
-# https://sourceware.org/git/gitweb.cgi?p=binutils-gdb.git;h=08c3cbe5926e4d355b5cb70bbec2b1eeb40c2944
-Patch23: CVE-2025-7545.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -189,7 +178,7 @@ understand Windows executables and DLLs.
 
 
 %prep
-%autosetup -p1 -n binutils-with-gold-%{version}
+%autosetup -p1 -n binutils-%{version}
 
 # See Patch02
 sed -i -e 's/%''{release}/%{release}/g' bfd/Makefile{.am,.in}
@@ -458,6 +447,9 @@ rm -rf %{buildroot}%{_mandir}/man1/*
 
 
 %changelog
+* Thu Oct 09 2025 Sandro Mani <manisandro@gmail.com> - 2.45-1
+- Update to 2.45
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.44-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

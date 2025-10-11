@@ -7,10 +7,10 @@
 
 Name:           rapidyaml
 Summary:        A library to parse and emit YAML, and do it fast
-Version:        0.9.0
+Version:        0.10.0
 # This is the same as the version number. To prevent undetected soversion
 # bumps, we nevertheless express it separately.
-%global so_version 0.9.0
+%global so_version 0.10.0
 Release:        %autorelease
 
 # SPDX

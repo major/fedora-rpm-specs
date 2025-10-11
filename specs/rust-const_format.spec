@@ -5,7 +5,7 @@
 %global crate const_format
 
 Name:           rust-const_format
-Version:        0.2.34
+Version:        0.2.35
 Release:        %autorelease
 Summary:        Compile-time string formatting
 
@@ -44,66 +44,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+__debug-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+__debug-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "__debug" feature of the "%{crate}" crate.
-
-%files       -n %{name}+__debug-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+__docsrs-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+__docsrs-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "__docsrs" feature of the "%{crate}" crate.
-
-%files       -n %{name}+__docsrs-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+__inline_const_pat_tests-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+__inline_const_pat_tests-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "__inline_const_pat_tests" feature of the "%{crate}" crate.
-
-%files       -n %{name}+__inline_const_pat_tests-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+__only_new_tests-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+__only_new_tests-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "__only_new_tests" feature of the "%{crate}" crate.
-
-%files       -n %{name}+__only_new_tests-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+__test-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+__test-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "__test" feature of the "%{crate}" crate.
-
-%files       -n %{name}+__test-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+all-devel

@@ -9,7 +9,7 @@ Summary: WPA/WPA2/IEEE 802.1X Supplicant
 Name: wpa_supplicant
 Epoch: 1
 Version: 2.11
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: BSD-3-Clause
 Source0: http://w1.fi/releases/%{name}-%{version}.tar.gz
 Source1: wpa_supplicant.conf
@@ -143,7 +143,7 @@ install -m 0755 wpa_supplicant/wpa_cli %{buildroot}/%{_sbindir}
 install -m 0755 wpa_supplicant/wpa_supplicant %{buildroot}/%{_sbindir}
 install -m 0755 wpa_supplicant/eapol_test %{buildroot}/%{_sbindir}
 install -D -m 0644 wpa_supplicant/dbus/dbus-wpa_supplicant.conf \
-  %{buildroot}/%{_sysconfdir}/dbus-1/system.d/wpa_supplicant.conf
+  %{buildroot}/%{_datadir}/dbus-1/system.d/wpa_supplicant.conf
 install -D -m 0644 wpa_supplicant/dbus/fi.w1.wpa_supplicant1.service \
   %{buildroot}/%{_datadir}/dbus-1/system-services/fi.w1.wpa_supplicant1.service
 
@@ -188,7 +188,7 @@ chmod -R 0644 wpa_supplicant/examples/*.py
 %dir %{_sysconfdir}/logrotate.d
 %config(noreplace) %{_sysconfdir}/logrotate.d/wpa_supplicant
 %{_unitdir}/wpa_supplicant.service
-%{_sysconfdir}/dbus-1/system.d/wpa_supplicant.conf
+%{_datadir}/dbus-1/system.d/wpa_supplicant.conf
 %{_datadir}/dbus-1/system-services/fi.w1.wpa_supplicant1.service
 %{_sbindir}/wpa_passphrase
 %{_sbindir}/wpa_supplicant
@@ -219,6 +219,9 @@ chmod -R 0644 wpa_supplicant/examples/*.py
 
 
 %changelog
+* Thu Oct 09 2025 Christian Glombek <lorbus@fedoraproject.org> - 1:2.11-8
+- Move dbus conf from /etc to /usr/share
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.11-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

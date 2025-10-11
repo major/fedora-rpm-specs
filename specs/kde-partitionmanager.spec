@@ -9,7 +9,7 @@
 ExcludeArch: %{ix86}
 
 Name:           kde-partitionmanager
-Version:        25.08.1
+Version:        25.08.2
 Release:        1%{?dist}
 Summary:        KDE Partition Manager
 
@@ -90,6 +90,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/*.appdata.
 
 
 %changelog
+* Wed Oct 08 2025 Steve Cossette <farchord@gmail.com> - 25.08.2-1
+- 25.08.2
+
 * Sun Sep 21 2025 Steve Cossette <farchord@gmail.com> - 25.08.1-1
 - 25.08.1
 

@@ -1,7 +1,7 @@
 %global srcname Levenshtein
 
-%global forgeurl https://github.com/maxbachmann/%{srcname}
-Version:        0.26.1
+%global forgeurl https://github.com/rapidfuzz/%{srcname}
+Version:        0.27.1
 %forgemeta
 
 Name:         python-%{srcname}
@@ -15,8 +15,6 @@ License:      GPL-2.0-or-later
 URL:          %{forgeurl}
 
 Source0:      %{forgesource}
-
-Patch:        https://github.com/rapidfuzz/Levenshtein/pull/72.patch
 
 BuildRequires: cmake
 BuildRequires: gcc
@@ -41,6 +39,9 @@ Summary:  %{summary}
 %autosetup -n %{srcname}-%{version}
 # Remove Cython's upper constraint
 sed -i '/Cython>=3\.[0-9]\+\./s/,\s*<3\.[0-9]\+\.[0-9a-z]*[0-9]*//' pyproject.toml
+
+# Open up the rapidfuzz version constraint.
+sed -i 's/rapidfuzz 3.2.0/rapidfuzz 3.2...<4/' CMakeLists.txt
 
 %generate_buildrequires
 %pyproject_buildrequires

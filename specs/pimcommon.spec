@@ -1,6 +1,6 @@
 Name:    pimcommon
-Version: 25.08.1
-Release: 2%{?dist}
+Version: 25.08.2
+Release: 1%{?dist}
 Summary: PIM common libraries
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND (GPL-2.0-only OR GPL-3.0-only)
@@ -110,6 +110,9 @@ Developer Documentation files for %{name} for use with KDevelop or QtCreator.
 %{_qt6_docdir}/*.qch
 
 %changelog
+* Wed Oct 08 2025 Steve Cossette <farchord@gmail.com> - 25.08.2-1
+- 25.08.2
+
 * Sat Oct 04 2025 Steve Cossette <farchord@gmail.com> - 25.08.1-2
 - Rebuild for plasma-activities
 

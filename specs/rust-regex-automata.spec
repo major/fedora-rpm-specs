@@ -5,7 +5,7 @@
 %global crate regex-automata
 
 Name:           rust-regex-automata
-Version:        0.4.10
+Version:        0.4.11
 Release:        %autorelease
 Summary:        Automata construction and matching using regular expressions
 

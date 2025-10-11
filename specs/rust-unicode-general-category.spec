@@ -5,7 +5,7 @@
 %global crate unicode-general-category
 
 Name:           rust-unicode-general-category
-Version:        1.0.0
+Version:        1.1.0
 Release:        %autorelease
 Summary:        Fast lookup of the Unicode General Category property for char
 

@@ -2936,6 +2936,7 @@ fi
 %if %{maj_ver} >= 22
 %{expand_mans %{expand:
     llvm-ir2vec
+    llvm-offload-binary
 }}
 %endif
 

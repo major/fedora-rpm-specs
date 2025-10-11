@@ -8,9 +8,11 @@ Name: ags
 Summary: Engine for creating and running videogames of adventure (quest) genre
 Version: 3.6.2.13
 URL:     http://www.adventuregamestudio.co.uk/site/ags/
-Release: 1%{?dist}
+Release: 2%{?dist}
 Source0: https://github.com/adventuregamestudio/ags/archive/%{fver}/ags-%{fver}.tar.gz
 Patch0: ags-use-system-libraries.patch
+Patch1: ags-build-tests-with-cxx14.patch
+Patch2: ags-missing-includes.patch
 # Most code is under Artistic-2.0, except:
 # Common/libsrc/aastr-0.1.1: LicenseRef-Fedora-UltraPermissive
 # Common/libsrc/alfont-2.0.9: FTL
@@ -34,6 +36,7 @@ BuildRequires: cmake
 BuildRequires: gcc-c++
 BuildRequires: glad
 BuildRequires: glm-devel
+BuildRequires: gtest-devel
 # for KHR/khrplatform.h
 BuildRequires: libglvnd-devel
 BuildRequires: libogg-devel
@@ -66,9 +69,18 @@ limited, support for other genres as well.
 Originally created by Chris Jones back in 1999, AGS was opensourced in 2011 and
 since continued to be developed by contributors.
 
+%package tools
+Summary: Tools for Adventure Game Studio engine game development
+Requires: %{name}%{_isa} = %{version}-%{release}
+
+%description tools
+This package contains the AGS engine game development tools.
+
 %prep
 %setup -q
 %patch 0 -p1 -b .orig
+%patch 1 -p1 -b .cxx14
+%patch 2 -p1 -b .incl
 # delete unused bundled stuff
 pushd Common/libinclude
 rm -r ogg
@@ -101,6 +113,8 @@ mv Changes.txt.utf-8 Changes.txt
 %build
 %cmake \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+    -DAGS_BUILD_TOOLS=TRUE \
+    -DAGS_TESTS=TRUE \
     -DAGS_USE_LOCAL_SDL2=TRUE \
     -DAGS_USE_LOCAL_SDL2_SOUND=TRUE \
     -DAGS_USE_LOCAL_OGG=TRUE \
@@ -109,18 +123,36 @@ mv Changes.txt.utf-8 Changes.txt
     -DAGS_USE_LOCAL_GLM=TRUE \
     -DAGS_USE_LOCAL_TINYXML2=TRUE \
     -DAGS_USE_LOCAL_MINIZ=TRUE \
+    -DAGS_USE_LOCAL_GTEST=TRUE \
 
 %cmake_build
 
 %install
 %cmake_install
 
+%check
+%ctest
+
 %files
 %license License.txt
 %doc Changes.txt Copyright.txt OPTIONS.md README.md
 %{_bindir}/ags
 
+%files tools
+%{_bindir}/agscc
+%{_bindir}/agf2dlgasc
+%{_bindir}/agfexport
+%{_bindir}/agspak
+%{_bindir}/agsunpak
+%{_bindir}/crm2ash
+%{_bindir}/crmpak
+%{_bindir}/trac
+%{_bindir}/ags
+
 %changelog
+* Fri Sep 05 2025 Dominik Mierzejewski <dominik@greysector.net> - 3.6.2.13-2
+- build tools and run tests
+
 * Thu Sep 04 2025 Dominik Mierzejewski <dominik@greysector.net> - 3.6.2.13-1
 - update to 3.6.2.13 (resolves rhbz#2393079)
 

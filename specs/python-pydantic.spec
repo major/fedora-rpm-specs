@@ -1,15 +1,15 @@
 %bcond tests 1
 
 Name:           python-pydantic
-Version:        2.12.0~a1
-%global srcversion %{lua:return(rpm.expand("%{version}"):gsub("~",""))}
+Version:        2.12.0
+#%%global srcversion %%{lua:return(rpm.expand("%%{version}"):gsub("~",""))}
 Release:        %autorelease
 Summary:        Data validation using Python type hinting
 
 # SPDX
 License:        MIT
 URL:            https://github.com/pydantic/pydantic
-Source:         %{url}/archive/v%{srcversion}/pydantic-%{srcversion}.tar.gz
+Source:         %{url}/archive/v%{version}/pydantic-%{version}.tar.gz
 
 BuildArch:      noarch
 
@@ -64,7 +64,7 @@ This package includes the documentation for Pydantic in Markdown format.
 
 
 %prep
-%autosetup -n pydantic-%{srcversion} -p1
+%autosetup -n pydantic-%{version} -p1
 
 # Delete pytest addopts. We don't care about benchmarking or coverage.
 tomcli-set pyproject.toml del 'tool.pytest.ini_options.addopts'
@@ -105,12 +105,15 @@ ignore="${ignore-} --ignore=tests/benchmarks"
 %doc HISTORY.md
 %doc README.md
 
+
 # Note that the timezone extra has no dependencies on our platform.
 %pyproject_extras_subpkg email timezone -n python3-pydantic
+
 
 %files doc
 %license LICENSE
 %doc docs/*
+
 
 %changelog
 %autochangelog

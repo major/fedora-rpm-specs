@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 43.41
+Version: 43.44
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -510,6 +510,12 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Oct 09 2025 Packit <hello@packit.dev> - 43.44-1
+- flatpak: enable installation with CDROM source type (bciconel)
+- storage: Improve NotEnoughFreeSpaceError message with specific request
+  details (k.koukiou)
+- pyanaconda: storage: platform: Raise /boot to 2 GiB (neal)
+
 * Tue Sep 23 2025 Packit <hello@packit.dev> - 43.41-1
 - data: profiles: enable geolocation on Fedora Workstation live image
   (matiwari)

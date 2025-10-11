@@ -6,7 +6,7 @@
 %endif
 
 Name:             python-%{srcname}
-Version:          0.24.3
+Version:          0.24.4
 Release:          %autorelease
 Summary:          A libudev binding
 

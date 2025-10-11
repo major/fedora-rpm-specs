@@ -14,8 +14,8 @@
 
 Name:    okular
 Summary: A document viewer
-Version: 25.08.1
-Release: 3%{?dist}
+Version: 25.08.2
+Release: 1%{?dist}
 
 License: GPL-2.0-only
 URL:     https://www.kde.org/applications/graphics/okular/
@@ -221,6 +221,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.ok
 
 
 %changelog
+* Wed Oct 08 2025 Steve Cossette <farchord@gmail.com> - 25.08.2-1
+- 25.08.2
+
 * Sat Oct 04 2025 Steve Cossette <farchord@gmail.com> - 25.08.1-3
 - Rebuild for plasma-activities
 

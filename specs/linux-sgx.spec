@@ -1356,6 +1356,12 @@ ln -s libsgx_qe3_logic.so.1 %{buildroot}%{_libdir}/libsgx_qe3_logic.so
 %sysusers_create_compat %{SOURCE42}
 %endif
 
+%post -n sgx-libs
+if [ -S /run/udev/control ]; then
+    udevadm control --reload
+    udevadm trigger --property-match=DEVNAME=/dev/sgx_provision
+fi
+
 %if %{with_aesm}
 %if %{with_sysusers_scripts}
 %pre -n sgx-aesm

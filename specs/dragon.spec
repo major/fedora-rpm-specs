@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:    dragon
 Summary: Media player
-Version: 25.08.1
+Version: 25.08.2
 Release: 1%{?dist}
 
 # code: KDE e.V. may determine that future GPL versions are accepted
@@ -15,6 +15,9 @@ URL:     https://apps.kde.org/dragonplayer/
 Source0: https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 
 ## upstream patches
+# https://invent.kde.org/multimedia/dragon/-/commit/e7217cf0cde5ecb733781c50f0446a8b647d21f6
+# Remove timebomb for building for qt 6.10
+Patch0:  e7217cf0cde5ecb733781c50f0446a8b647d21f6.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: kf6-rpm-macros
@@ -80,6 +83,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.dragonpla
 
 
 %changelog
+* Wed Oct 08 2025 Steve Cossette <farchord@gmail.com> - 25.08.2-1
+- 25.08.2
+
 * Sun Sep 21 2025 Steve Cossette <farchord@gmail.com> - 25.08.1-1
 - 25.08.1
 

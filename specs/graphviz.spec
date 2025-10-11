@@ -595,7 +595,7 @@ php --no-php-ini \
 %files libs
 %license COPYING
 %{_libdir}/libcdt.so.6{,.*}
-%{_libdir}/libcgraph.so.7{,.*}
+%{_libdir}/libcgraph.so.8{,.*}
 %{_libdir}/libgvc.so.7{,.*}
 %{_libdir}/libgvpr.so.2{,.*}
 %{_libdir}/libpathplan.so.4{,.*}

@@ -4,8 +4,8 @@ ExcludeArch: %{ix86}
 
 Name:    krfb
 Summary: Desktop sharing
-Version: 25.08.1
-Release: 2%{?dist}
+Version: 25.08.2
+Release: 1%{?dist}
 
 License: GPL-2.0-only AND LGPL-2.1-only AND GFDL-1.2-no-invariants-only
 URL:     https://apps.kde.org/krfb/
@@ -22,7 +22,6 @@ BuildRequires: cmake(PlasmaWaylandProtocols)
 BuildRequires: cmake(Qt6Core)
 BuildRequires: cmake(Qt6DBus)
 BuildRequires: cmake(Qt6Widgets)
-BuildRequires: qt6-qtwayland-devel
 BuildRequires: qt6-qtbase-private-devel
 BuildRequires: lzo-devel
 BuildRequires: libpng-devel
@@ -122,6 +121,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.krfb.desk
 
 
 %changelog
+* Wed Oct 08 2025 Steve Cossette <farchord@gmail.com> - 25.08.2-1
+- 25.08.2
+
 * Tue Sep 30 2025 Jan Grulich <jgrulich@redhat.com> - 25.08.1-2
 - Rebuild (qt6)
 

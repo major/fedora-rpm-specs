@@ -54,8 +54,7 @@ BuildRequires:  python3-devel
 BuildRequires:  stb_image-devel
 BuildRequires:  stb_image_write-devel
 BuildRequires:  which
-# Not available on fedora rawhide
-#BuildRequires:  whereami
+BuildRequires:  whereami
 # Documentation
 BuildRequires:  python3dist(argcomplete)
 BuildRequires:  python3dist(babel)
@@ -78,9 +77,15 @@ BuildRequires:  python3dist(sphinx)
 BuildRequires:  python3dist(sphinx-rtd-theme)
 BuildRequires:  python3dist(sphinxcontrib-chapeldomain)
 BuildRequires:  python3dist(urllib3)
+Requires: clang20-devel
+Requires: gcc
+Requires: gcc-c++
+Requires: gmp-devel
+Requires: hwloc-devel
+Requires: llvm20-devel
 Requires: stb_image-devel
 Requires: stb_image_write-devel
-#Requires:  whereami
+Requires: whereami
 Provides: bundled(re2)
 
 %description

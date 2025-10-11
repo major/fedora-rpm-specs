@@ -3,7 +3,7 @@
 Summary: Qt5 - Support for rendering and displaying SVG
 Name:    qt5-%{qt_module}
 Version: 5.15.17
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -20,6 +20,9 @@ Patch2:  0002-Support-font-size-not-in-pixels.patch
 Patch3:  0003-Fix-text-x-y-when-the-length-is-not-in-pixels.patch
 Patch4:  0004-Improve-parsing-of-r.patch
 Patch5:  0005-SVG-Image-reading-Reject-oversize-svgs-as-corrupt.patch
+
+# backport for CVE-2025-10729
+Patch10: qtsvg-5.15.17-CVE-2025-10729.patch
 
 BuildRequires: make
 BuildRequires: qt5-qtbase-devel >= %{version}
@@ -96,6 +99,9 @@ popd
 
 
 %changelog
+* Thu Oct 09 2025 Than Ngo <than@redhat.com> - 5.15.17-3
+- Fixed CVE-2025-10729
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.17-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

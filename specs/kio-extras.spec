@@ -1,6 +1,6 @@
 Name:    kio-extras
-Version: 25.08.1
-Release: 2%{?dist}
+Version: 25.08.2
+Release: 1%{?dist}
 Summary: Additional components to increase the functionality of KIO Framework
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -136,6 +136,9 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Wed Oct 08 2025 Steve Cossette <farchord@gmail.com> - 25.08.2-1
+- 25.08.2
+
 * Fri Oct 03 2025 Steve Cossette <farchord@gmail.com> - 25.08.1-2
 - Rebuild for plasma-activities
 

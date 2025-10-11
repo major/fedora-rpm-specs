@@ -17,6 +17,8 @@ Summary: A Vietnamese input method for IBus
 License: GPL-3.0-or-later and MIT
 URL: https://github.com/BambooEngine/ibus-bamboo
 Source0: https://github.com/BambooEngine/%{name}/archive/refs/tags/v%{source_version}.tar.gz#/%{name}-%{source_version}.tar.gz
+# Bug 2402676
+Patch1:  %{name}-2402676-del-attr-none.patch
 
 # Required by desktop-file-install
 BuildRequires: desktop-file-utils

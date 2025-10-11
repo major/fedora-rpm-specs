@@ -1,8 +1,8 @@
 %global modname dbusmock
 
 Name:             python-%{modname}
-Version:          0.37.0
-Release:          2%{?dist}
+Version:          0.37.1
+Release:          1%{?dist}
 Summary:          Mock D-Bus objects
 
 License:          LGPL-3.0-or-later
@@ -53,6 +53,9 @@ rm -rf python-%{modname}.egg-info
 %doc README.md COPYING
 
 %changelog
+* Wed Oct 08 2025 Packit <hello@packit.dev> - 0.37.1-1
+- test: Skip test_notification_daemon with AppArmor profile (LP: #2121092)
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.37.0-2
 - Rebuilt for Python 3.14.0rc3 bytecode
 

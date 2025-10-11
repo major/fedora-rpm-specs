@@ -10,7 +10,7 @@
 
 Summary:    X Keyboard Extension configuration data
 Name:       xkeyboard-config
-Version:    2.45
+Version:    2.46
 Release:    1%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 License:    HPND AND HPND-sell-variant AND X11 AND X11-distribute-modifications-variant AND MIT AND MIT-open-group AND xkeyboard-config-Zinoviev
 URL:        http://www.freedesktop.org/wiki/Software/XKeyboardConfig
@@ -104,6 +104,9 @@ end
 %{_datadir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Oct 09 2025 Peter Hutterer <peter.hutterer@redhat.com> - 2.46-1
+- xkeyboard-config 2.46
+
 * Thu Aug 07 2025 Peter Hutterer <peter.hutterer@redhat.com> - 2.45-1
 - xkeyboard-config 2.45
   xkeyboard-config changed from /usr/share/X11/xkb to /usr/share/xkeyboard-config-2/,

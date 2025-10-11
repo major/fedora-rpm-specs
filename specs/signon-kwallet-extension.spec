@@ -5,7 +5,7 @@
 ExcludeArch: %{ix86}
 
 Name:    signon-kwallet-extension
-Version: 25.08.1
+Version: 25.08.2
 Release: 1%{?dist}
 Summary: KWallet integration for Sign-on framework
 
@@ -54,6 +54,9 @@ Supplements:    (kf6-kwallet and signon)
 
 
 %changelog
+* Wed Oct 08 2025 Steve Cossette <farchord@gmail.com> - 25.08.2-1
+- 25.08.2
+
 * Sun Sep 21 2025 Steve Cossette <farchord@gmail.com> - 25.08.1-1
 - 25.08.1
 

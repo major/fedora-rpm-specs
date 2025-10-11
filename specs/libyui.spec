@@ -32,7 +32,7 @@
 
 Name:     %{libname}
 Version:  4.2.16
-Release:  26%{?dist}
+Release:  27%{?dist}
 Summary:  GUI-abstraction library
 
 License:  (LGPLv2 or LGPLv3) and MIT
@@ -349,6 +349,9 @@ install -m0755 -d %{buildroot}%{_libdir}/yui
 
 
 %changelog
+* Thu Oct 09 2025 Jaroslav Škarvada <jskarvad@redhat.com> - 4.2.16-27
+- Rebuilt for new graphviz
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.2.16-26
 - Rebuilt for Python 3.14.0rc3 bytecode
 

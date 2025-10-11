@@ -14,7 +14,10 @@
 # in version0. tag0 reverses the substitution
 # e.g.  global version0        27.4.0~rc.4
 %global version0        28.5.1
-%global tag0            v%{gsub %{version0} ~ -}
+%{lua:
+    local version0 = rpm.expand("%{version0}")
+    rpm.define("tag0 " .. version0:gsub("~", "-"))
+}
 
 # https://github.com/docker/cli
 %global goipath2        github.com/docker/cli
@@ -173,7 +176,7 @@ This package provides RPM macros for the Moby/Docker stack.
 # moby-engine
 cd %{_builddir}/%{extractdir0}
 # Unpack vendor archive
-%__rpmuncompress -x %{S:1}
+tar -xf %{S:1}
 # Apply patches 0-1000
 # Leave this here despite warnings so we can easily add and remove patches.
 %autopatch -M999 -p1
@@ -185,7 +188,7 @@ cp go.sum vendor.sum
 # docker-cli
 cd %{cli_dir}
 # Unpack vendor archive
-%__rpmuncompress -x %{S:3}
+tar -xf %{S:3}
 # Apply patches 1000+.
 # Leave this here despite warnings so we can easily add and remove patches.
 %autopatch -m1000 -p1

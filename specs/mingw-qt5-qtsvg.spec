@@ -17,7 +17,7 @@
 
 Name:           mingw-qt5-%{qt_module}
 Version:        5.15.17
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Qt5 for Windows - QtSvg component
 
 License:        LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -28,16 +28,19 @@ Source0:        https://github.com/qt/%{qt_module}/archive/%{commit}/%{qt_module
 %else
 Source0:        http://download.qt.io/%{?pre:development}%{?!pre:official}_releases/qt/%{release_version}/%{version}%{?pre:-%pre}/submodules/%{qt_module}-everywhere-opensource-src-%{version}%{?pre:-%pre}.tar.xz
 %endif
+# Backport patch for CVE-2025-10729
+# https://code.qt.io/cgit/qt/qtsvg.git/diff/src/svg/qsvghandler.cpp?id=7e8898903265d931df0aa54b3913f2c49d4d7bf2
+Patch0:         CVE-2025-10729.patch
 
 BuildArch:      noarch
 
 BuildRequires:  make
 
-BuildRequires:  mingw32-filesystem >= 96
+BuildRequires:  mingw32-filesystem
 BuildRequires:  mingw32-gcc-c++
 BuildRequires:  mingw32-qt5-qtbase = %{version}
 
-BuildRequires:  mingw64-filesystem >= 96
+BuildRequires:  mingw64-filesystem
 BuildRequires:  mingw64-gcc-c++
 BuildRequires:  mingw64-qt5-qtbase = %{version}
 
@@ -130,6 +133,9 @@ mkdir .git
 
 
 %changelog
+* Thu Oct 09 2025 Sandro Mani <manisandro@gmail.com> - 5.15.17-3
+- Backport patch for CVE-2025-10729
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.17-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

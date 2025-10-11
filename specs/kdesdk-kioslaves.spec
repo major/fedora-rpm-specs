@@ -6,7 +6,7 @@ ExcludeArch: %{ix86}
 
 Name:    kdesdk-kioslaves
 Summary: KDESDK KIOslaves
-Version: 25.08.1
+Version: 25.08.2
 Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv2 and GPLv2+ - review is highly recommended.
@@ -64,6 +64,9 @@ KDE SDK kioslaves:
 
 
 %changelog	
+* Wed Oct 08 2025 Steve Cossette <farchord@gmail.com> - 25.08.2-1
+- 25.08.2
+
 * Sun Sep 21 2025 Steve Cossette <farchord@gmail.com> - 25.08.1-1
 - 25.08.1
 

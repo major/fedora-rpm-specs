@@ -32,6 +32,14 @@
 %global build_compile_db OFF
 %endif
 
+# Only build the header of ck
+%bcond_with cklibs
+%if %{with cklibs}
+%global build_header_only OFF
+%else
+%global build_header_only ON
+%endif
+
 # Testing depends on having GPU hw, build only for these gpus to speed up tests
 # Need to use --enable-network with mock
 %bcond_with test
@@ -51,12 +59,13 @@
 
 Name:           composable_kernel
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Performance Portable Programming Model for Machine Learning Tensor Operators
 Url:            https://github.com/ROCm
 License:        MIT
 
 Source0:        %{url}/%{upstreamname}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+Patch1:         0001-composable_kernel-add-build-header-only-cmake-option.patch
 
 BuildRequires:  cmake
 BuildRequires:  fdupes
@@ -166,6 +175,7 @@ if [ "$LINK_JOBS" -lt "$JOBS" ]; then
 fi
 
 %cmake \
+    -DBUILD_HEADER_ONLY=%{build_header_only} \
     -DBUILD_TESTING=%{build_test} \
     -DCMAKE_BUILD_TYPE=%{build_type} \
     -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/clang++ \
@@ -183,6 +193,10 @@ fi
 %install
 %cmake_install
 
+%if %{without cklibs}
+cp -p -r include/ck_tile %{buildroot}%{_includedir}
+%endif
+
 # Clean up dupes
 %fdupes %{buildroot}%{_prefix}
 
@@ -192,8 +206,10 @@ fi
 
 %files
 %license LICENSE
-%{_libdir}/libdevice_*.so.*
 %{_libdir}/libutility.so.*
+%if %{with cklibs}
+%{_libdir}/libdevice_*.so.*
+%endif
 
 %files devel
 %dir %{_includedir}/ck
@@ -203,8 +219,10 @@ fi
 %{_includedir}/ck/*
 %{_includedir}/ck_tile/*
 %{_libdir}/cmake/%{name}/*
-%{_libdir}/libdevice_*.so
 %{_libdir}/libutility.so
+%if %{with cklibs}
+%{_libdir}/libdevice_*.so
+%endif
 
 %if %{with test}
 %files test
@@ -212,6 +230,9 @@ fi
 %endif
 
 %changelog
+* Thu Sep 25 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-2
+- Add with cklibs option to disable lib builds
+
 * Wed Sep 24 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-1
 - Update to 7.0.1
 

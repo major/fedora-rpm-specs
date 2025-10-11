@@ -1,9 +1,6 @@
 # Opt out of https://fedoraproject.org/wiki/Changes/fno-omit-frame-pointer
 %undefine _include_frame_pointers
 
-# Use Clang for building this project
-%global toolchain clang
-
 # Pin to a specific llvm version
 %global llvm_ver 20
 
@@ -24,6 +21,11 @@ Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 ExcludeArch: %{ix86}
 %endif
 
+# PoCL always targets clang/LLVM, but should be built with the same
+# system compiler used to build LLVM, thus we build with GCC.
+# See: https://portablecl.org/docs/html/install.html#compiler-support
+BuildRequires: gcc
+BuildRequires: gcc-c++
 BuildRequires: clang(major) = %{llvm_ver}
 BuildRequires: clang-devel(major) = %{llvm_ver}
 BuildRequires: compiler-rt(major) = %{llvm_ver}
@@ -49,19 +51,17 @@ Requires: libstdc++-devel%{?_isa}
 Requires: glibc-devel%{?_isa}
 
 %description
-Pocl's goal is to become an efficient open source (MIT-licensed) implementation
-of the OpenCL 1.2 and OpenCL 3.0 standard.
+PoCL is a portable open source (MIT-licensed) implementation of the OpenCL
+standard. In addition to being an easily portable/layered multi-device
+open-source OpenCL implementation, a major goal of this project is improving
+interoperability of diversity of OpenCL-capable devices by integrating them to
+a single centrally orchestrated platform. Also one of the key goals is to
+enhance performance portability of OpenCL programs across device types
+utilizing runtime and compiler techniques.
 
-In addition to producing an easily portable open-source OpenCL implementation,
-another major goal of this project is improving performance portability of
-OpenCL programs with compiler optimizations, reducing the need for
-target-dependent manual optimizations.
-
-At the core of pocl is the kernel compiler that consists of a set of LLVM
-passes used to statically transform kernels into work-group functions with
-multiple work-items, even in the presence of work-group barriers. These
-functions are suitable for parallelization in multiple ways (SIMD, VLIW,
-superscalar,...).
+PoCL uses Clang as an OpenCL C frontend and LLVM for kernel compiler
+implementation, and as a portability layer. Thus, if your desired target has an
+LLVM backend, it should be able to get OpenCL support easily by using PoCL.
 
 %package devel
 Summary: Portable Computing Language development files
@@ -88,14 +88,14 @@ find . -depth -name utlist.h -print -delete
     -DCMAKE_BUILD_TYPE=Release \
     -DENABLE_ICD:BOOL=ON \
     -DENABLE_CUDA:BOOL=OFF \
-    -DENABLE_TESTS:BOOL=OFF \
+    -DENABLE_TESTS:BOOL=ON \
     -DENABLE_EXAMPLES:BOOL=OFF \
     -DPOCL_INSTALL_ICD_VENDORDIR=%{_sysconfdir}/OpenCL/vendors \
     -DEXTRA_KERNEL_CXX_FLAGS="%{optflags}" \
-%ifarch x86_64
+%ifarch %{ix86} %{x86_64} ppc64le
     -DKERNELLIB_HOST_CPU_VARIANTS=distro \
 %endif
-%ifarch aarch64
+%ifarch %{arm64}
     -DLLC_HOST_CPU="cortex-a53" \
 %endif
 %ifarch riscv64
@@ -110,9 +110,16 @@ find . -depth -name utlist.h -print -delete
 %cmake_install
 
 %check
-# Upstream support running tests only on x86_64
-%ifarch x86_64
-%ctest
+# Upstream supports running tests only on x86_64, but test everything anyway
+%ifarch %{arm64} ppc64le s390x
+# on non-x86, the fp16 tests fail since it isn't supported (technically it's unfinished on x86 too)
+%global pocl_arched_test_excludes |^kernel/test_halfs_loopvec$|^kernel/test_halfs_cbs$|^kernel/test_printf_vectors_halfn_loopvec$|^kernel/test_printf_vectors_halfn_cbs$
+%else
+%global pocl_arched_test_excludes %{nil}
+%endif
+# PoCL doesn't support s390x, see rhbz#2396306. The tests fail badly (endian issues?) but removing a main arch from a package is a pain.
+%ifnarch s390x
+%ctest -E '^regression/test_rematerialized_alloca_load_with_outside_pr_users$|^workgroup/conditional_barrier_dynamic$%{pocl_arched_test_excludes}'
 %endif
 
 %files

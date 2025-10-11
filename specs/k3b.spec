@@ -4,7 +4,7 @@
 Name:    k3b
 Summary: CD/DVD/Blu-ray burning application
 Epoch:   1
-Version: 25.08.1
+Version: 25.08.2
 Release: 1%{?dist}
 
 License: GPL-2.0-or-later
@@ -167,6 +167,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.k3b.deskt
 
 
 %changelog
+* Wed Oct 08 2025 Steve Cossette <farchord@gmail.com> - 1:25.08.2-1
+- 25.08.2
+
 * Thu Sep 18 2025 Than Ngo <than@redhat.com> - 1:25.08.1-1
 - Fix rhbz#2270711, update to 25.08.1
 

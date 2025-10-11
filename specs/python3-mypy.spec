@@ -1,6 +1,6 @@
 Name:           python3-mypy
 Version:        1.18.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A static type checker for Python
 %{?python_provide:%python_provide python3-mypy}
 
@@ -34,6 +34,8 @@ hints to your Python programs using the upcoming standard for type
 annotations introduced in Python 3.5 beta 1 (PEP 484), and use mypy to
 type check them statically. Find bugs in your programs without even
 running them!
+
+%python_extras_subpkg -n %{name} -i %{python3_sitelib}/mypy-*.egg-info dmypy,mypyc,reports,install-types,faster-cache
 
 %prep
 %autosetup -n mypy-%{version} -p1
@@ -81,6 +83,9 @@ end
 %{_mandir}/man1/stubgen.1*
 
 %changelog
+* Thu Oct 09 2025 Miro Hrončok <mhroncok@redhat.com> - 1.18.2-2
+- Package the Python extras
+
 * Fri Sep 19 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.18.2-1
 - 1.18.2
 

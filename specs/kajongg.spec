@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:    kajongg
 Summary: Classical Mah Jongg game for four players
-Version: 25.08.1
+Version: 25.08.2
 Release: 1%{?dist}
 
 License: GPL-2.0-only AND GFDL-1.1-or-later
@@ -91,6 +91,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Wed Oct 08 2025 Steve Cossette <farchord@gmail.com> - 25.08.2-1
+- 25.08.2
+
 * Sun Sep 21 2025 Steve Cossette <farchord@gmail.com> - 25.08.1-1
 - 25.08.1
 

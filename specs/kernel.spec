@@ -176,13 +176,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.18.0
 %define specversion 6.18.0
 %define patchversion 6.18
-%define pkgrelease 0.rc0.251008g0d97f2067c166.11
+%define pkgrelease 0.rc0.251009gec714e371f22f.12
 %define kversion 6
-%define tarfile_release 6.17-12260-g0d97f2067c166
+%define tarfile_release 6.17-12537-gec714e371f22f
 # This is needed to do merge window version magic
 %define patchlevel 18
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc0.251008g0d97f2067c166.11%{?buildid}%{?dist}
+%define specrelease 0.rc0.251009gec714e371f22f.12%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.18.0
 
@@ -4392,14 +4392,19 @@ fi\
 #
 #
 %changelog
-* Wed Oct 08 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.18.0-0.rc0.251008g0d97f2067c166.11]
-- Only strip unneeded symbols (Patrick Talbert)
-- Linux v6.18.0-0.rc0.251008g0d97f2067c166
+* Thu Oct 09 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.18.0-0.rc0.251009gec714e371f22f.12]
+- Flip HID_HAPTIC to inline for Fedora due to symbol errors (Justin M. Forbes)
+- Linux v6.18.0-0.rc0.251009gec714e371f22f
 
-* Wed Oct 08 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc0.0d97f2067c16.11]
+* Thu Oct 09 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc0.ec714e371f22.12]
+- Only strip unneeded symbols (Patrick Talbert)
 - add xxd to as BuildRequire for bpf selftests (Thorsten Leemhuis)
 - powerpc/tools: drop `-o pipefail` in gcc check scripts (Jan Stancek)
 - redhat/configs: clang_lto: disable CONFIG_FORTIFY_KUNIT_TEST (Scott Weaver)
+
+* Thu Oct 09 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc0.ec714e371f22.11]
+- fedora: updates for 6.18 (Peter Robinson)
+- Linux v6.18.0-0.rc0.ec714e371f22
 
 * Wed Oct 08 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc0.0d97f2067c16.10]
 - redhat/configs: automotive: enable SPI_OMAP24XX as a module (Jared Kangas)

@@ -1,8 +1,8 @@
 # Header only library
 %global debug_package %{nil}
 
-%global forgeurl https://github.com/maxbachmann/rapidfuzz-cpp
-Version: 3.2.0
+%global forgeurl https://github.com/rapidfuzz/rapidfuzz-cpp
+Version: 3.3.3
 %forgemeta
 
 Name: rapidfuzz-cpp

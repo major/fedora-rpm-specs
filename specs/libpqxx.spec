@@ -4,8 +4,8 @@
 Name:           libpqxx
 Summary:        C++ client API for PostgreSQL
 Epoch:          1
-Version:        7.10.1
-Release:        2%{?dist}
+Version:        7.10.3
+Release:        1%{?dist}
 
 %global         forgeurl https://github.com/jtv/%{name}/
 %global         tag %{version}
@@ -15,9 +15,6 @@ Release:        2%{?dist}
 License:        LicenseRef-Callaway-BSD
 URL:            http://pqxx.org/
 Source0:        %{forgesource}
-
-# Fixes: warning <ciso646> is deprecated in C++17.
-Patch0:         libpqxx-7.10.1-drop-ciso646.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  ninja-build
@@ -107,6 +104,12 @@ cd -
 %endif
 
 %changelog
+* Thu Oct 09 2025 Björn Esser <besser82@fedoraproject.org> - 1:7.10.3-1
+- Update to v7.10.3
+  Fixes rhbz#2401105
+- Drop patch to fix deprecation of the <ciso646> header for C++17,
+  solved upstream
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:7.10.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

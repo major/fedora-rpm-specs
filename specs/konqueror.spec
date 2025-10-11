@@ -4,8 +4,8 @@
 #global tests 1
 
 Name:    konqueror
-Version: 25.08.1
-Release: 3%{?dist}
+Version: 25.08.2
+Release: 1%{?dist}
 Summary: KDE File Manager and Browser
 
 # Automatically converted from old format: GPLv2+ and LGPLv2+ and GFDL - review is highly recommended.
@@ -17,10 +17,6 @@ Source:  https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%
 %{?qt6_qtwebengine_arches:ExclusiveArch: %{qt6_qtwebengine_arches}}
 
 ## upstream patches
-# Disable functionality related to running activities when compiling with Plasma 6.5
-# https://invent.kde.org/network/konqueror/-/commit/a33e34c749acbd6247279863aac3b90d44f27814
-# Will probably be fixed by 24.08.2
-Patch0:        a33e34c749acbd6247279863aac3b90d44f27814.patch
 
 ## upstreamable patches
 
@@ -215,6 +211,9 @@ make test -C %{_target_platform} ARGS="--output-on-failure --timeout 300" ||:
 %{_kf6_plugindir}/parts/webenginepart.so
 
 %changelog
+* Wed Oct 08 2025 Steve Cossette <farchord@gmail.com> - 25.08.2-1
+- 25.08.2
+
 * Sat Oct 04 2025 Steve Cossette <farchord@gmail.com> - 25.08.1-3
 - Rebuild for plasma-activities
 

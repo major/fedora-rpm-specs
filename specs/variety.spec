@@ -9,10 +9,10 @@
 Name:           variety
 %if 0%{?usesnapshot}
 Version:        0.8.6
-Release:        0.15%{?snapshottag}%{?dist}
+Release:        0.16%{?snapshottag}%{?dist}
 %else
 Version:        0.8.13
-Release:        6%{?dist}
+Release:        7%{?dist}
 %endif
 Summary:        Wallpaper changer that automatically downloads wallpapers
 License:        GPL-3.0-only
@@ -23,6 +23,9 @@ Source0:        %{url}/archive/%{commit0}/%{name}-%{shortcommit0}.tar.gz
 %else
 Source0:        %{url}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 %endif
+
+# Fix wheel-based installations to include variety_build_settings
+Patch:          https://github.com/varietywalls/variety/pull/796.patch
 
 BuildArch:      noarch
 
@@ -82,7 +85,7 @@ desktop is always fresh and unique.
 %prep
 
 %if 0%{?usesnapshot}
-%setup -q -n %{name}-%{commit0}
+%autosetup -p1 -n %{name}-%{commit0}
 %else
 %autosetup -p1
 %endif
@@ -107,6 +110,7 @@ rm -rf debian
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appdata.xml
+%py3_check_import variety_lib.variety_build_settings
 
 %files -f %{name}.lang
 %doc README.md
@@ -124,6 +128,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 
 %changelog
+* Thu Oct 09 2025 Miro Hrončok <mhroncok@redhat.com> - 0.8.13-7
+- Fix a crash on startup for not being bale to find the data directory
+- Fixes: rhbz#2401190
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.8.13-6
 - Rebuilt for Python 3.14.0rc3 bytecode
 

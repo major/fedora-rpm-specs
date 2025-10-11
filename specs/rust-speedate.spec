@@ -5,7 +5,7 @@
 %global crate speedate
 
 Name:           rust-speedate
-Version:        0.16.0
+Version:        0.17.0
 Release:        %autorelease
 Summary:        Fast and simple datetime, date, time and duration parsing
 

@@ -5,7 +5,7 @@
 %global crate regex
 
 Name:           rust-regex
-Version:        1.11.2
+Version:        1.11.3
 Release:        %autorelease
 Summary:        Implementation of regular expressions for Rust
 
@@ -304,6 +304,8 @@ use the "use_std" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
+# Fuzz tests are not included in the crate.
+sed -r -i 's@^mod fuzz;@// &@' tests/lib.rs
 %cargo_prep
 
 %generate_buildrequires

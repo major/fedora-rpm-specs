@@ -2,7 +2,7 @@
 %bcond tests %{without bootstrap}
 
 Name:           python-virtualenv
-Version:        20.34.0
+Version:        20.35.0
 Release:        %autorelease
 Summary:        Tool to create isolated Python environments
 
@@ -111,6 +111,9 @@ sed -i "s|/usr/share/python-wheels|%{python_wheel_dir}|" src/virtualenv/util/pat
 # - test_bundle.py (whole file)
 # Uses disabled functionalities around automatic updates:
 # - test_periodic_update.py (whole file)
+# We don't run the tests in an active virtual environment
+# https://github.com/pypa/virtualenv/issues/2939#issuecomment-3384554583
+# - test_py_info_cache_clear
 PIP_CERT=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem \
 %pytest -vv -k "not test_bundle and \
                 not test_acquire and \
@@ -119,7 +122,8 @@ PIP_CERT=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem \
                 not test_download_ and \
                 not test_can_build_c_extensions and \
                 not test_base_bootstrap_via_pip_invoke and \
-                not test_seed_link_via_app_data"
+                not test_seed_link_via_app_data and \
+                not test_py_info_cache_clear"
 %endif
 
 %files -n python3-virtualenv -f %{pyproject_files}
