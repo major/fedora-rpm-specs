@@ -5,7 +5,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-system-monitor
-Version:        49.0
+Version:        49.1
 Release:        1%{?dist}
 Summary:        Process and resource monitor
 
@@ -63,7 +63,6 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/gnome-system-monit
 %{_datadir}/applications/gnome-system-monitor-kde.desktop
 %{_datadir}/glib-2.0/schemas/org.gnome.gnome-system-monitor.enums.xml
 %{_datadir}/glib-2.0/schemas/org.gnome.gnome-system-monitor.gschema.xml
-%{_datadir}/gnome-system-monitor/
 %{_datadir}/icons/hicolor/scalable/apps/org.gnome.SystemMonitor*.svg
 %{_datadir}/icons/hicolor/symbolic/apps/org.gnome.SystemMonitor-symbolic.svg
 %{_datadir}/icons/hicolor/symbolic/apps/processes-symbolic.svg
@@ -73,6 +72,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/gnome-system-monit
 %{_libexecdir}/gnome-system-monitor/
 
 %changelog
+* Fri Oct 10 2025 Petr Schindler <pschindl@redhat.com> - 49.1-1
+- Update to 49.1
+
 * Mon Sep 15 2025 Michael Catanzaro <mcatanzaro@gnome.org> - 49.0-1
 - Update to 49.0
 

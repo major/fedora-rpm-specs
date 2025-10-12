@@ -16,7 +16,7 @@ generates Go code that statically implements the provided http.FileSystem.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.22%{?dist}
+Release:        0.23%{?dist}
 Summary:        Takes an input http.FileSystem and generates code that statically implements it
 
 License:        MIT
@@ -56,6 +56,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 0-0.23
+- rebuild
+
 * Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 0-0.22
 - Rebuild for golang-1.25.0
 

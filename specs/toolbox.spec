@@ -42,7 +42,7 @@ Version:       0.3
 %endif
 %endif
 
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Tool for interactive command line environments on Linux
 
 License:       Apache-2.0
@@ -197,6 +197,9 @@ install -m0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/containers/%{name}.conf
 
 
 %changelog
+* Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 0.3-2
+- rebuild
+
 * Wed Sep 17 2025 Debarshi Ray <rishi@fedoraproject.org> - 0.3-1
 - Update to 0.3
 

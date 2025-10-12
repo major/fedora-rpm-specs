@@ -17,7 +17,7 @@ XCB and xpyb.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.26%{?dist}
+Release:        0.27%{?dist}
 Summary:        Low-level api to communicate with the X server
 
 License:        WTFPL
@@ -55,6 +55,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 0-0.27
+- rebuild
+
 * Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 0-0.26
 - Rebuild for golang-1.25.0
 

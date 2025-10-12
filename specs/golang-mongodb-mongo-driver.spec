@@ -17,7 +17,7 @@ The Go driver for MongoDB.}
 %global godocs          examples CONTRIBUTING.md README.md
 
 Name:           %{goname}
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Go driver for MongoDB
 
 # Upstream license specification: Apache-2.0
@@ -89,6 +89,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 1.4.5-19
+- rebuild
+
 * Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 1.4.5-18
 - Rebuild for golang-1.25.0
 

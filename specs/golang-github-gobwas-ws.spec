@@ -14,7 +14,7 @@ Tiny WebSocket library for Go.}
 %global godocs          example README.md
 
 Name:           %{goname}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Tiny WebSocket library
 
 License:        MIT
@@ -56,6 +56,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 1.4.0-6
+- rebuild
+
 * Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 1.4.0-5
 - Rebuild for golang-1.25.0
 

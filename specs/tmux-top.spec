@@ -17,7 +17,7 @@ Version:        0.1.1
 %gometa
 
 Name:           tmux-top
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Monitoring information for your tmux status line.
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -68,6 +68,9 @@ make test
 
 
 %changelog
+* Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 0.1.1-14
+- rebuild
+
 * Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 0.1.1-13
 - Rebuild for golang-1.25.0
 

@@ -9,7 +9,7 @@ License:	GPL-3.0-or-later
 
 URL:		http://physics.princeton.edu/pulsar/k1jt/wsjtx.html
 Source0:    https://sourceforge.net/projects/wsjt/files/%{name}-%{version}%{?rctag:-%{rctag}}/%{name}-%{version}%{?rctag:-%{rctag}}.tgz
-Source100:	wsjtx.appdata.xml
+Source100:	edu.princeton.physics.WSJTX.metainfo.xml
 
 ExcludeArch:    i686
 
@@ -110,7 +110,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/wsjtx.desktop
 desktop-file-validate %{buildroot}%{_datadir}/applications/message_aggregator.desktop
 
 %if 0%{?fedora}
-# appdata file
+# metainfo file
 mkdir -p %{buildroot}%{_metainfodir}
 install -pm 0644 %{SOURCE100} %{buildroot}%{_metainfodir}/
 %endif
@@ -125,7 +125,7 @@ rm -f %{buildroot}%{_bindir}/rigctl*-wsjtx
 
 %if 0%{?fedora}
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %endif
 
 

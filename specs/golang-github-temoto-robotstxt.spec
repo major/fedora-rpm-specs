@@ -14,7 +14,7 @@ The robots.txt exclusion protocol implementation for Go language.}
 %global godocs          README.rst
 
 Name:           %{goname}
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Robots.txt exclusion protocol implementation
 
 License:        MIT
@@ -58,6 +58,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 1.1.2-15
+- rebuild
+
 * Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 1.1.2-14
 - Rebuild for golang-1.25.0
 

@@ -1,10 +1,10 @@
 %global srcname ansible-compat
 %global pkgname python-ansible-compat
 
-%bcond_without tests
+%bcond_with tests
 
 Name:    %{pkgname}
-Version: 25.8.1
+Version: 25.8.2
 Release: %autorelease
 Summary: Ansible python helper functions
 

@@ -3,7 +3,7 @@
 
 Name:           reposurgeon
 Version:        5.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        SCM Repository Manipulation Tool
 License:        BSD-2-Clause
 URL:            http://www.catb.org/~esr/reposurgeon/
@@ -93,6 +93,9 @@ make check
 %{_mandir}/man1/repotool.1*
 
 %changelog
+* Fri Oct 10 2025 Maxwell G <maxwell@gtmx.me> - 5.3-3
+- Rebuild for golang 1.25.2
+
 * Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 5.3-2
 - Rebuild for golang-1.25.0
 

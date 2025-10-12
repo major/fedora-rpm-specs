@@ -18,7 +18,7 @@ Version:        6.15
 %global golicenses COPYING
 
 Name:           incus
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Powerful system container and virtual machine manager
 License:        Apache-2.0
 URL:            https://linuxcontainers.org/incus
@@ -456,6 +456,9 @@ export CGO_LDFLAGS_ALLOW="(-Wl,-wrap,pthread_create)|(-Wl,-z,now)"
 %endif
 
 %changelog
+* Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 6.15-3
+- rebuild
+
 * Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 6.15-2
 - Rebuild for golang-1.25.0
 

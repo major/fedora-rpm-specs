@@ -73,6 +73,7 @@ Source26: remote-control-include.conf
 Source27: fedora-defaults.conf
 Source28: module-setup.sh
 Source29: unbound-initrd.conf
+Source30: tmpfiles-unbound-libs.conf
 
 # Downstream configuration changes
 Patch1:   unbound-fedora-config.patch
@@ -350,17 +351,18 @@ done
 %endif
 
 # install streamtcp man page
-install -m 0644 testcode/streamtcp.1 %{buildroot}/%{_mandir}/man1/unbound-streamtcp.1
-install -D -m 0644 contrib/libunbound.pc %{buildroot}/%{_libdir}/pkgconfig/libunbound.pc
+install -p -m 0644 testcode/streamtcp.1 %{buildroot}/%{_mandir}/man1/unbound-streamtcp.1
+install -p -D -m 0644 contrib/libunbound.pc %{buildroot}/%{_libdir}/pkgconfig/libunbound.pc
 
 # Install tmpfiles.d config
 install -d -m 0755 %{buildroot}%{_tmpfilesdir} %{buildroot}%{_sharedstatedir}/unbound
-install -m 0644 %{SOURCE8} %{buildroot}%{_tmpfilesdir}/unbound.conf
+install -p -m 0644 %{SOURCE8} %{buildroot}%{_tmpfilesdir}/unbound.conf
+install -p -m 0644 %{SOURCE30} %{buildroot}%{_tmpfilesdir}/unbound-libs.conf
 
 # install root - we keep a copy of the root key in old location,
 # in case user has changed the configuration and we wouldn't update it there
 install -m 0644 %{SOURCE5} %{buildroot}%{_sysconfdir}/unbound/
-install -m 0644 %{SOURCE13} %{buildroot}%{_sysconfdir}/unbound/dnssec-root.key
+install -p -m 0644 %{SOURCE13} %{buildroot}%{_sysconfdir}/unbound/dnssec-root.key
 # make initial key static
 pushd %{buildroot}%{_sharedstatedir}/unbound
   KEYPATH=$(realpath --relative-to="%{buildroot}%{_sharedstatedir}/unbound" "%{buildroot}%{_sysconfdir}/unbound/dnssec-root.key")
@@ -518,6 +520,7 @@ popd
 # just left for backwards compat with user changed unbound.conf files - format is different!
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/%{name}/root.key
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/%{name}/dnssec-root.key
+%attr(0644,root,root) %{_tmpfilesdir}/unbound-libs.conf
 
 %files anchor
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/sysconfig/%{name}

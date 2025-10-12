@@ -1,5 +1,5 @@
 Name:           python-pyproject-api
-Version:        1.9.1
+Version:        1.10.0
 Release:        %autorelease
 Summary:        API to interact with the python pyproject.toml based projects
 
@@ -25,7 +25,10 @@ Summary:        %{summary}
 %autosetup -n pyproject_api-%{version}
 # Remove unneeded testing deps
 sed -i "/covdefaults/d;/pytest-cov/d" pyproject.toml
+# Remove version constraints
 sed -i 's/"setuptools>=.*"/"setuptools"/' pyproject.toml
+sed -i 's/"pytest>=.*"/"pytest"/' pyproject.toml
+sed -i 's/"pytest-mock>=.*"/"pytest-mock"/' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires -x testing

@@ -17,7 +17,7 @@ OSTree commits. Uses osbuild under the hood.
 }
 
 Name:           image-builder
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An image building executable using osbuild
 ExcludeArch:    i686
 
@@ -241,6 +241,9 @@ cd $PWD/_build/src/%{goipath}
 %{_bindir}/image-builder
 
 %changelog
+* Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 38-2
+- rebuild
+
 * Mon Oct 06 2025 Packit <hello@packit.dev> - 38-1
 Changes with 38
 ----------------

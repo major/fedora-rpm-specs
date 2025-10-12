@@ -22,7 +22,7 @@ Version:                2.23.0
 %global dracutlibdir %{_prefix}/lib/dracut
 
 Name:           ignition
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        First boot installer and configuration tool
 
 # Upstream license specification: Apache-2.0
@@ -377,6 +377,9 @@ install -p -m 0755 ./ignition %{buildroot}/%{dracutlibdir}/modules.d/30ignition
 %{_prefix}/lib/bootupd/grub2-static/configs.d/05_ignition.cfg
 
 %changelog
+* Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 2.23.0-3
+- rebuild
+
 * Wed Oct 01 2025 Steven Presti <spresti@redhat.com> - 2.23.0-2
 - Build Ignition with GOEXPERIMENT=strictfipsruntime
 - Ignition-validate non-FIPS

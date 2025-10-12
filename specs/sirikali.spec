@@ -2,7 +2,7 @@
 %global srcurl  https://github.com/mhogomchungu/%{name}
 
 Name:           sirikali
-Version:        1.8.3
+Version:        1.8.4
 Release:        1%{?dist}
 Summary:        GUI front end to encfs,cryfs,gocryptfs and securefs
 # generally GPLv2+, BSD for tasks and NetworkAccessManager folders
@@ -76,6 +76,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/io.github.mhogomchung
 
 
 %changelog
+* Fri Oct 10 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.8.4-1
+- 1.8.4
+
 * Tue Aug 19 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.8.3-1
 - 1.8.3
 

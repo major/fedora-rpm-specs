@@ -14,7 +14,7 @@
 
 Name: fail2ban
 Version: 1.1.0
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: Daemon to ban hosts that cause multiple authentication errors
 
 License: GPL-2.0-or-later
@@ -306,7 +306,9 @@ rmdir %{buildroot}%{python3_sitelib}%{_prefix}
 %endif
 
 mkdir -p %{buildroot}%{_unitdir}
-cp -p build/fail2ban.service %{buildroot}%{_unitdir}/
+# Note that the tests rewrite build/fail2ban.service, but it uses build/ paths before the rewrite
+# so we will do our own modification
+sed -e 's,@BINDIR@,%{_bindir},' files/fail2ban.service.in > %{buildroot}%{_unitdir}/fail2ban.service
 mkdir -p %{buildroot}%{_mandir}/man{1,5}
 install -p -m 644 man/*.1 %{buildroot}%{_mandir}/man1
 install -p -m 644 man/*.5 %{buildroot}%{_mandir}/man5
@@ -483,6 +485,9 @@ fi
 
 
 %changelog
+* Fri Oct 10 2025 Orion Poplawski <orion@nwra.com> - 1.1.0-13
+- Fix paths in fail2ban.service (rhbz#2399981)
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.1.0-12
 - Rebuilt for Python 3.14.0rc3 bytecode
 

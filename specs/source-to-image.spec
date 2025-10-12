@@ -18,7 +18,7 @@ container images to version your runtime environments.}
 %global golicenses LICENSE
 
 Name:           source-to-image
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A tool for building artifacts from source and injecting into docker images
 License:        Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0
 URL:            %{gourl}
@@ -104,6 +104,9 @@ export LDFLAGS="$LDFLAGS -X %{goipath}/pkg/version.versionFromGit=v%{version} "
 %endif
 
 %changelog
+* Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 1.5.0-4
+- rebuild
+
 * Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 1.5.0-3
 - Rebuild for golang-1.25.0
 

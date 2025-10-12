@@ -1,5 +1,7 @@
+# SPDX-License-Identifier: MIT
+
 Name:		qat-zstd-plugin
-Version:	0.2.0
+Version:	1.0.0
 Release:	%autorelease
 Summary:	Intel QuickAssist Technology ZSTD Plugin
 
@@ -7,13 +9,13 @@ License:	BSD-3-Clause
 URL:		https://github.com/intel/QAT-ZSTD-Plugin
 Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
-Patch0:		lib-version.patch
-Patch1:		test.patch
+Patch0:		test.patch
 
 BuildRequires:	automake
 BuildRequires:	gcc
 BuildRequires:	libzstd-devel
 BuildRequires:	qatlib-devel
+BuildRequires:	numactl-devel
 
 # Upstream only supports x86_64
 ExclusiveArch:	x86_64
@@ -58,7 +60,7 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} ./test/test README.md
 
 %files
 %license LICENSE
-%{_libdir}/libqatseqprod.so.0
+%{_libdir}/libqatseqprod.so.1
 %{_libdir}/libqatseqprod.so.%{version}
 
 %files devel

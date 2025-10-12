@@ -1,9 +1,9 @@
 Summary: Intrusion Detection System
 Name: suricata
-Version: 7.0.11
+Version: 8.0.1
 Release: 1%{?dist}
 License: GPL-2.0-only
-URL: https://suricata-ids.org/
+URL: https://suricata.io/
 Source0: https://www.openinfosecfoundation.org/download/%{name}-%{version}.tar.gz
 Source1: suricata.sysconfig
 Source2: fedora.notes
@@ -17,8 +17,6 @@ Patch2: suricata-4.1.1-service.patch
 Patch3: suricata-5.0.4-geolite-path-fixup.patch
 # The log path has an extra '/' at the end
 Patch4: suricata-6.0.3-log-path-fixup.patch
-# Build fails with ambiguous python shebang
-Patch5: suricata-7.0.2-python.patch
 
 BuildRequires: make
 BuildRequires: gcc gcc-c++
@@ -40,13 +38,11 @@ BuildRequires: autoconf automake libtool
 BuildRequires: systemd-devel
 BuildRequires: hiredis-devel
 BuildRequires: libevent-devel
-# Prelude is disabled pending resolution of bz 1908783
-#BuildRequires: libprelude-devel
 BuildRequires: pkgconfig(gnutls)
 
 %if 0%{?fedora} >= 25 || 0%{?epel} >= 8
 %ifarch x86_64
-BuildRequires: hyperscan-devel
+BuildRequires: vectorscan-devel
 %endif
 %endif
 
@@ -79,7 +75,6 @@ install -m 644 %{SOURCE2} doc/
 %patch -P2 -p1
 %patch -P3 -p1
 %patch -P4 -p1
-%patch -P5 -p1
 sed -i 's/(datadir)/(sysconfdir)/' etc/Makefile.am
 %ifarch x86_64
 sed -i 's/-D__KERNEL__/-D__KERNEL__ -D__x86_64__/' ebpf/Makefile.am
@@ -127,9 +122,6 @@ install -m 644 etc/%{name}.logrotate %{buildroot}%{_sysconfdir}/logrotate.d/%{na
 
 # Remove a couple things so they don't get picked up
 rm -rf %{buildroot}%{_includedir}
-rm -f %{buildroot}%{_libdir}/libhtp.la
-rm -f %{buildroot}%{_libdir}/libhtp.a
-rm -f %{buildroot}%{_libdir}/libhtp.so
 rm -rf %{buildroot}%{_libdir}/pkgconfig
 
 # Setup suricata-update data directory
@@ -184,9 +176,7 @@ fi
 %{_sbindir}/suricatasc
 %{_sbindir}/suricatactl
 %{_sbindir}/suricata-update
-%{_libdir}/libhtp*
 /usr/lib/suricata/python/suricata/*
-/usr//lib/suricata/python/suricatasc
 %config(noreplace) %attr(0640,suricata,suricata) %{_sysconfdir}/%{name}/suricata.yaml
 %config(noreplace) %attr(0640,suricata,suricata) %{_sysconfdir}/%{name}/*.config
 %config(noreplace) %attr(0640,suricata,suricata) %{_sysconfdir}/%{name}/rules/*.rules
@@ -205,6 +195,14 @@ fi
 %endif
 
 %changelog
+* Thu Oct 09 2025 Jason Taylor <jtfas90@proton.me> 8.0.1-1
+- Migrate to 8.0.x release
+- Addresses CVE-2025-59147, CVE-2025-59148
+- Addresses CVE-2025-59149, CVE-2025-59150
+- removed libprelude references as it is orphaned
+- removed suricatasc python patch, suricatasc has been migrated to rust
+- removed references to legacy C based libhtp, libhtp has been migrated to rust
+
 * Fri Aug 08 2025 Steve Grubb <sgrubb@redhat.com> 7.0.11-1
 - New bugfix release
 

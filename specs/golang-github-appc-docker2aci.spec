@@ -18,7 +18,7 @@ dependencies.}
 %global godocs          CHANGELOG.md README.md Documentation
 
 Name:           %{goname}
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Library and CLI tool to convert Docker images to ACIs
 
 # Upstream license specification: Apache-2.0
@@ -72,6 +72,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 0.17.2-22
+- rebuild
+
 * Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 0.17.2-21
 - Rebuild for golang-1.25.0
 

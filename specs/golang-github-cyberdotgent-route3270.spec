@@ -20,7 +20,7 @@ Features:
 %global godocs          doc README.md
 
 Name:           %{goname}
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        A simple 3270 application/connection router
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -73,6 +73,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Fri Oct 10 2025 Maxwell G <maxwell@gtmx.me> - 0.2-16
+- Rebuild for golang 1.25.2
+
 * Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 0.2-15
 - Rebuild for golang-1.25.0
 

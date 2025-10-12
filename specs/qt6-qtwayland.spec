@@ -11,7 +11,7 @@
 Summary: Qt6 - Wayland platform support and QtCompositor module
 Name:    qt6-%{qt_module}
 Version: 6.10.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -154,7 +154,6 @@ popd
 %{_qt6_libdir}/libQt6WaylandEglCompositorHwIntegration.prl
 %{_qt6_libdir}/cmake/Qt6WaylandCompositor/Qt6WaylandCompositorConfig*.cmake
 %{_qt6_archdatadir}/mkspecs/modules/*.pri
-%dir %{_qt6_libdir}/cmake/Qt6WaylandClient/
 %dir %{_qt6_libdir}/cmake/Qt6WaylandClientFeaturesPrivate/
 %dir %{_qt6_libdir}/cmake/Qt6WaylandCompositor/
 %dir %{_qt6_libdir}/cmake/Qt6WaylandCompositorIviapplication/
@@ -186,9 +185,11 @@ popd
 %{_qt6_libdir}/qt6/metatypes/qt6*_metatypes.json
 %{_qt6_libdir}/qt6/modules/*.json
 %{_qt6_libdir}/pkgconfig/*.pc
+%exclude %{_qt6_libdir}/cmake/Qt6WaylandClient/Qt6QWaylandAdwaitaDecoration*.cmake
 
 %files adwaita-decoration
 %{_qt6_plugindir}/wayland-decoration-client/libadwaita.so
+%{_qt6_libdir}/cmake/Qt6WaylandClient/Qt6QWaylandAdwaitaDecoration*.cmake
 
 %if 0%{?examples}
 %files examples
@@ -196,6 +197,9 @@ popd
 %endif
 
 %changelog
+* Fri Oct 10 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0-2
+- Move Qt6WaylandAdwaitaDecoration cmake fiels to its subpackage
+
 * Tue Oct 07 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0-1
 - 6.10.0
 

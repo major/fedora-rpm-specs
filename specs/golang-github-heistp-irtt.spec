@@ -14,7 +14,7 @@ Isochronous Round-Trip Tester.}
 %global godocs          CHANGES.md README.md
 
 Name:           %{goname}
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Isochronous Round-Trip Tester
 
 # Upstream license specification: GPL-2.0-only
@@ -65,6 +65,9 @@ install -m 0644 -vp %{gosourcedir}/doc/*.1 %{buildroot}%{_mandir}/man1/
 %gopkgfiles
 
 %changelog
+* Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 0.9.1-16
+- rebuild
+
 * Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 0.9.1-15
 - Rebuild for golang-1.25.0
 

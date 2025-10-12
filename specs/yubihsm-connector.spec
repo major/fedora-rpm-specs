@@ -12,7 +12,7 @@ Version:                3.0.5
 Backend to talk to YubiHSM 2}
 
 Name:           yubihsm-connector
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        YubiHSM Connector
 
 # Upstream license specification: Apache-2.0
@@ -130,6 +130,9 @@ go test -v
 %{_sysusersdir}/yubihsm-connector.conf
 
 %changelog
+* Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 3.0.5-11
+- rebuild
+
 * Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 3.0.5-10
 - Rebuild for golang-1.25.0
 

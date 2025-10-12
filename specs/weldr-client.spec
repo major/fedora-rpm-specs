@@ -7,7 +7,7 @@
 
 Name:      weldr-client
 Version:   36.0
-Release:   2%{?dist}
+Release:   3%{?dist}
 # Upstream license specification: Apache-2.0
 License:   Apache-2.0
 Summary:   Command line utility to control osbuild-composer
@@ -132,6 +132,9 @@ composer-cli package.
 
 
 %changelog
+* Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 36.0-3
+- rebuild
+
 * Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 36.0-2
 - Rebuild for golang-1.25.0
 

@@ -33,7 +33,7 @@ Requires:  pkgconfig(libusb-1.0) >= 1.0
 }
 
 Name:           %{goname}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        HTTP reverse proxy, backed by IPP-over-USB connection to device
 
 # Upstream license specification: BSD-2-Clause
@@ -135,6 +135,9 @@ install -m 0644 -vp ipp-usb-quirks/* %{buildroot}%{_datadir}/ipp-usb/quirks
 %gopkgfiles
 
 %changelog
+* Fri Oct 10 2025 Maxwell G <maxwell@gtmx.me> - 0.9.30-6
+- Rebuild for golang 1.25.2
+
 * Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 0.9.30-5
 - Rebuild for golang-1.25.0
 

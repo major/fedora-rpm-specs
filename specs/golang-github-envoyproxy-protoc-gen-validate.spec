@@ -15,7 +15,7 @@ Protoc plugin to generate polyglot message validators.}
                         rule_comparison.md README.md java/RELEASING.md
 
 Name:           %{goname}
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Protoc plugin to generate polyglot message validators
 
 # Upstream license specification: Apache-2.0
@@ -66,6 +66,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 0.4.1-19
+- rebuild
+
 * Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 0.4.1-18
 - Rebuild for golang-1.25.0
 

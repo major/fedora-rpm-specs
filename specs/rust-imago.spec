@@ -5,7 +5,7 @@
 %global crate imago
 
 Name:           rust-imago
-Version:        0.1.4
+Version:        0.1.5
 Release:        %autorelease
 Summary:        Library for accessing virtual machine disk images
 

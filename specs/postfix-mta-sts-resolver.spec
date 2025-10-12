@@ -1,7 +1,7 @@
 %global pypi_name postfix_mta_sts_resolver
 
 Name:           postfix-mta-sts-resolver
-Version:        1.5.0
+Version:        1.5.1
 Release:        %autorelease
 Summary:        Daemon providing MTA-STS map to Postfix
 
@@ -35,7 +35,7 @@ client policy to Postfix via socketmap.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE4}' --signature='%{SOURCE3}' --data='%{SOURCE0}'
-%autosetup -n %{name}-%{version}
+%autosetup -n %{name}-%{version} -p1
 
 
 %generate_buildrequires

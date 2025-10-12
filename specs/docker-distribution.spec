@@ -35,7 +35,7 @@
 
 Name:           %{project}-%{repo}
 Version:        2.8.1
-Release:        10.git%{shortcommit}%{?dist}
+Release:        11.git%{shortcommit}%{?dist}
 Summary:        Docker toolset to pack, ship, store, and deliver content
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -323,6 +323,9 @@ make test
 %endif
 
 %changelog
+* Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 2.8.1-11.gitb5ca020
+- rebuild
+
 * Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 2.8.1-10.gitb5ca020
 - Rebuild for golang-1.25.0
 

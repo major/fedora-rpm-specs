@@ -17,7 +17,7 @@ output).}
 %global godocs          FAQ.md README.md mmark.1.md Syntax.md 
 
 Name:           %{goname}
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Powerful markdown processor in Go geared towards the IETF
 
 # Upstream license specification: BSD-2-Clause
@@ -70,6 +70,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 2.2.10-18
+- rebuild
+
 * Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 2.2.10-17
 - Rebuild for golang-1.25.0
 

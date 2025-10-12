@@ -1,5 +1,5 @@
 Name:           GeographicLib
-Version:        2.5.2
+Version:        2.6
 Release:        1%{?dist}
 Summary:        Library for geographic coordinate transformations
 
@@ -105,9 +105,12 @@ MinGW Windows %{name} library.
 %files
 %doc AUTHORS NEWS
 %license LICENSE.txt
+%{_bindir}/Cart3Convert
 %{_bindir}/CartConvert
+%{_bindir}/Conformal3Proj
 %{_bindir}/ConicProj
 %{_bindir}/GeoConvert
+%{_bindir}/Geod3Solve
 %{_bindir}/GeodesicProj
 %{_bindir}/GeodSolve
 %{_bindir}/GeoidEval
@@ -136,9 +139,12 @@ MinGW Windows %{name} library.
 
 %files -n mingw32-%{name}
 %license LICENSE.txt
+%{mingw32_bindir}/Cart3Convert.exe
 %{mingw32_bindir}/CartConvert.exe
+%{mingw32_bindir}/Conformal3Proj.exe
 %{mingw32_bindir}/ConicProj.exe
 %{mingw32_bindir}/GeoConvert.exe
+%{mingw32_bindir}/Geod3Solve.exe
 %{mingw32_bindir}/GeodesicProj.exe
 %{mingw32_bindir}/GeodSolve.exe
 %{mingw32_bindir}/GeoidEval.exe
@@ -156,9 +162,12 @@ MinGW Windows %{name} library.
 
 %files -n mingw64-%{name}
 %license LICENSE.txt
+%{mingw64_bindir}/Cart3Convert.exe
 %{mingw64_bindir}/CartConvert.exe
+%{mingw64_bindir}/Conformal3Proj.exe
 %{mingw64_bindir}/ConicProj.exe
 %{mingw64_bindir}/GeoConvert.exe
+%{mingw64_bindir}/Geod3Solve.exe
 %{mingw64_bindir}/GeodesicProj.exe
 %{mingw64_bindir}/GeodSolve.exe
 %{mingw64_bindir}/GeoidEval.exe
@@ -176,6 +185,9 @@ MinGW Windows %{name} library.
 
 
 %changelog
+* Fri Oct 10 2025 Sandro Mani <manisandro@gmail.com> - 2.6-1
+- Update to 2.6
+
 * Fri Aug 22 2025 Sandro Mani <manisandro@gmail.com> - 2.5.2-1
 - Update to 2.5.2
 

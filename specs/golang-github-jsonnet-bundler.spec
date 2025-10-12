@@ -14,7 +14,7 @@ A jsonnet package manager.}
 %global godocs          CHANGELOG.md README.md
 
 Name:           %{goname}
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        A jsonnet package manager
 
 # Upstream license specification: Apache-2.0
@@ -67,6 +67,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 0.4.0-21
+- rebuild
+
 * Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 0.4.0-20
 - Rebuild for golang-1.25.0
 

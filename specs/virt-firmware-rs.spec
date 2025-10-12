@@ -100,11 +100,13 @@ for dir in efi-apps efi-tools igvm-tools; do
     cp -v ${dir}/README.md README.${dir}.md
 done
 
+%if %{with check}
 %check
 %cargo_test -- --package virtfw-libefi
 %cargo_test -- --package virtfw-efi-tools --features udev
 %cargo_test -- --package virtfw-igvm-tools
 %cargo_test -- --package virtfw-varstore
+%endif
 
 %files
 %license LICENSE LICENSE.dependencies

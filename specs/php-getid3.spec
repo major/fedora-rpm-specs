@@ -6,7 +6,7 @@
 #
 # Please preserve changelog entries
 #
-%global gh_commit    06c7482532ff2b3f9111b011d880ca6699c8542b
+%global gh_commit    1e11b9b6eb468b522fe604a42a9fdc8ee759bf8a
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     JamesHeinrich
 %global gh_project   getID3
@@ -14,8 +14,8 @@
 %global pk_project   getid3
 
 Name:      php-%{pk_project}
-Version:   1.9.23
-Release:   6%{?dist}
+Version:   1.9.24
+Release:   1%{?dist}
 Epoch:     1
 License:   GPL-1.0-or-later OR LGPL-3.0-only OR MPL-2.0
 Summary:   The PHP media file parser
@@ -31,23 +31,17 @@ BuildRequires: php-fedora-autoloader-devel
 Requires:  php(language) >= 5.3.0
 # from phpcompatinfo for version 1.9.16
 Requires:  php-simplexml
-Requires:  php-ctype
-Requires:  php-date
 Requires:  php-exif
-Requires:  php-filter
 Requires:  php-gd
 Requires:  php-iconv
 Requires:  php-json
 Requires:  php-libxml
 Requires:  php-mbstring
-Requires:  php-pcre
 Requires:  php-xml
-%if 0%{?fedora} >= 27 || 0%{?rhel} >= 8
-Suggests: php-dba
-Suggests: php-mysqli
-Suggests: php-rar
-Suggests: php-sqlite3
-%endif
+Suggests:  php-dba
+Suggests:  php-mysqli
+Suggests:  php-rar
+Suggests:  php-sqlite3
 # Autoloader
 Requires:  php-composer(fedora/autoloader)
 
@@ -97,6 +91,9 @@ exit ($ok ? 0 : 1);
 
 
 %changelog
+* Fri Oct 10 2025 Remi Collet <remi@remirepo.net> - 1.9.24-1
+- update to 1.9.24
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.9.23-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

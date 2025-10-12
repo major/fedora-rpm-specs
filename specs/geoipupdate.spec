@@ -7,7 +7,7 @@ Version:	7.1.1
 %gometa
 
 Name:		geoipupdate
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Update GeoIP2 binary databases from MaxMind
 
 License:	Apache-2.0 OR MIT
@@ -107,6 +107,9 @@ install -p -m 0644 _build/GeoIP.conf.5 %{buildroot}%{_mandir}/man5/GeoIP.conf.5
 %config(noreplace) %{_sysconfdir}/cron.weekly/geoipupdate
 
 %changelog
+* Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 7.1.1-4
+- rebuild
+
 * Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 7.1.1-3
 - Rebuild for golang-1.25.0
 

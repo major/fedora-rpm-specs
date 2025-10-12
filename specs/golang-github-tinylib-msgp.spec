@@ -14,7 +14,7 @@ This is a code generation tool and serialization library for MessagePack.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Go code generator for MessagePack
 License:        MIT
 URL:            %{gourl}
@@ -66,6 +66,9 @@ go generate ./_generated
 %gopkgfiles
 
 %changelog
+* Fri Oct 10 2025 Maxwell G <maxwell@gtmx.me> - 1.1.5-17
+- Rebuild for golang 1.25.2
+
 * Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 1.1.5-16
 - Rebuild for golang-1.25.0
 

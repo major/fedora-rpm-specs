@@ -1,5 +1,5 @@
 # from https://www.unicode.org/Public files (unicode-ucd pkg)
-%global unicodedir  %{_datadir}/unicode
+%global unicodedir  /usr/share/unicode
 %global ucddir      %{unicodedir}/ucd
 
 Name:           mujs
@@ -21,6 +21,7 @@ Patch:          remove-curl-from-Makefile.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
+BuildRequires:  python3-devel
 BuildRequires:  readline-devel
 BuildRequires:  unicode-ucd
 

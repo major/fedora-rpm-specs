@@ -4,15 +4,15 @@
 %endif
 
 Name: python-linux-procfs
-Version: 0.7.3
-Release: 11%{?dist}
+Version: 0.7.4
+Release: 1%{?dist}
 License: GPL-2.0-only
 Summary: Linux /proc abstraction classes
 Source: https://cdn.kernel.org/pub/software/libs/python/%{name}/%{name}-%{version}.tar.xz
-URL: https://rt.wiki.kernel.org/index.php/Tuna
+URL: https://www.kernel.org/pub/software/libs/python/python-linux-procfs
 BuildArch: noarch
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
+BuildRequires: pyproject-rpm-macros
 
 # Patches
 
@@ -25,29 +25,33 @@ Abstractions to extract information from the Linux kernel /proc files.
 Summary: %summary
 %{?python_provide:%python_provide python3-linux-procfs}
 
-Requires: python3-six
-
 %description -n python3-linux-procfs %_description
 
 %prep
 %autosetup -p1
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-rm -rf %{buildroot}
-%py3_install
+%pyproject_install
+%pyproject_save_files procfs
 
 %files -n python3-linux-procfs
 %defattr(0755,root,root,0755)
 %{_bindir}/pflags
 %{python3_sitelib}/procfs/
 %defattr(0644,root,root,0755)
-%{python3_sitelib}/python_linux_procfs*.egg-info
+%{python3_sitelib}/python_linux_procfs*.dist-info
 %license COPYING
 
 %changelog
+* Fri Oct 10 2025 John Kacur <jkacur@redhat.com> - 0.7.4-1
+- Rebase to v0.7.4 upstream and use pyproject.toml
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.7.3-11
 - Rebuilt for Python 3.14.0rc3 bytecode
 

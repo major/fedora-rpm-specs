@@ -34,7 +34,7 @@ teams, nextcloud, mumble, vk and more with REST API (mattermost not required!).}
 %global godocs          README.md changelog.md matterclient/README.md
 
 Name:           matterbridge
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Bridge between many online chat protocols
 
 License:        BSD-2-Clause AND MIT AND (Apache-2.0 OR AGPL-3.0-only) AND Apache-2.0 AND MPL-2.0 AND GPL-3.0-or-later AND ISC AND (MIT OR ICU) AND BSD-3-Clause
@@ -421,6 +421,9 @@ install -p -D -m 0644 %{S:3} %{buildroot}%{_sysusersdir}/%{name}.conf
 %endif
 
 %changelog
+* Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 1.26.0-8
+- rebuild
+
 * Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 1.26.0-7
 - Rebuild for golang-1.25.0
 

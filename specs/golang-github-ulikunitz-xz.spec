@@ -17,7 +17,7 @@ code.}
 %global godocs          doc README.md TODO.md
 
 Name:           %{goname}
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Pure golang package for reading and writing xz-compressed files
 
 # Upstream license specification: BSD-3-Clause
@@ -58,6 +58,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 0.5.11-12
+- rebuild
+
 * Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 0.5.11-11
 - Rebuild for golang-1.25.0
 

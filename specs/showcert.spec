@@ -1,6 +1,6 @@
 Name:           showcert
-Version:        0.2.12
-Release:        6%{?dist}
+Version:        0.4.7
+Release:        1%{?dist}
 Summary:        inspect TLS certificates presented by remote servers
 
 License:        MIT
@@ -22,7 +22,7 @@ purposes.
 
 %prep
 %autosetup -p1 -n showcert-%{version}
-%py3_shebang_fix showcert/gencert.py
+%py3_shebang_fix showcert/cli/*.py
 %generate_buildrequires
 %pyproject_buildrequires
 
@@ -53,6 +53,9 @@ gencert --help
 %{_bindir}/gencert
 
 %changelog
+* Fri Oct 10 2025 Felix Schwarz <fschwarz@fedoraproject.org> - 0.4.7-1
+- update to 0.4.7
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.2.12-6
 - Rebuilt for Python 3.14.0rc3 bytecode
 

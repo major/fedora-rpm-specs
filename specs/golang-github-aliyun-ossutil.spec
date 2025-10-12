@@ -15,7 +15,7 @@ Alibaba Cloud (Aliyun) Object Storage Service (OSS) CLI.}
 %global godocs          CHANGELOG.md README-CN.md README.md
 
 Name:           %{goname}
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Alibaba Cloud (Aliyun) Object Storage Service (OSS) CLI
 
 License:        MIT
@@ -69,6 +69,9 @@ install -m 0644 -vp %{gobuilddir}/share/man/man1/* %{buildroot}%{_mandir}/man1/
 %gopkgfiles
 
 %changelog
+* Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 1.7.9-15
+- rebuild
+
 * Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 1.7.9-14
 - Rebuild for golang-1.25.0
 

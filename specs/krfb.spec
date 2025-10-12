@@ -22,6 +22,7 @@ BuildRequires: cmake(PlasmaWaylandProtocols)
 BuildRequires: cmake(Qt6Core)
 BuildRequires: cmake(Qt6DBus)
 BuildRequires: cmake(Qt6Widgets)
+BuildRequires: cmake(Qt6WaylandClient)
 BuildRequires: qt6-qtbase-private-devel
 BuildRequires: lzo-devel
 BuildRequires: libpng-devel

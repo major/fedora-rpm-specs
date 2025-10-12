@@ -21,7 +21,7 @@ Version:                1.84.1
 The easiest, most secure way to use WireGuard and 2FA.}
 
 Name:           tailscale
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        The easiest, most secure way to use WireGuard and 2FA
 
 # main source code is BSD-3-Clause
@@ -915,6 +915,9 @@ install -dpm 600 %{buildroot}%{_localstatedir}/cache/tailscale
 
 
 %changelog
+* Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 1.84.1-4
+- rebuild
+
 * Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 1.84.1-3
 - Rebuild for golang-1.25.0
 

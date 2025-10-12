@@ -17,7 +17,7 @@ RocksDB/LevelDB inspired key-value database in Go.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.21%{?dist}
+Release:        0.22%{?dist}
 Summary:        RocksDB/LevelDB inspired key-value database in Go
 
 # Upstream license specification: MIT and Apache-2.0 and BSD-3-Clause
@@ -77,6 +77,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 0-0.22
+- rebuild
+
 * Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 0-0.21
 - Rebuild for golang-1.25.0
 

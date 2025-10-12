@@ -16,7 +16,7 @@ binary data in a Go program.}
 %global godocs          AUTHORS CONTRIBUTING.md README.md CHANGELOG
 
 Name:           %{goname}
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        A small utility which generates Go code from any file
 
 # Upstream license specification: CC0-1.0
@@ -65,6 +65,9 @@ install -m 0644 -vp %{gobuilddir}/share/man/man1/* %{buildroot}%{_mandir}/man1/
 %gopkgfiles
 
 %changelog
+* Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 3.6.1-19
+- rebuild
+
 * Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 3.6.1-18
 - Rebuild for golang-1.25.0
 

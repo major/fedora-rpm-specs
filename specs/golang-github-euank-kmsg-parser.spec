@@ -15,7 +15,7 @@ This device provides a read-write interface to the Linux Kernel's ring buffer.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Simpler parser for the /dev/kmsg format
 
 # Upstream license specification: Apache-2.0
@@ -68,6 +68,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Fri Oct 10 2025 Maxwell G <maxwell@gtmx.me> - 2.0.1-21
+- Rebuild for golang 1.25.2
+
 * Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 2.0.1-20
 - Rebuild for golang-1.25.0
 

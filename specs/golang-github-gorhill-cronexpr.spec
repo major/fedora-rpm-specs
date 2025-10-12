@@ -23,7 +23,7 @@ in a number of implementations out there.}
 %global godocs          README.md cronexpr/README.md
 
 Name:           %{goname}
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Cron expression parser in Go language
 
 # Automatically converted from old format: GPLv3 or ASL 2.0 - review is highly recommended.
@@ -61,6 +61,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 1.0.0-17
+- rebuild
+
 * Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 1.0.0-16
 - Rebuild for golang-1.25.0
 

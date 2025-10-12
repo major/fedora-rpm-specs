@@ -27,7 +27,7 @@
 
 Name: cri-tools
 Version: 1.29.0
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: CLI and validation tools for Container Runtime Interface
 License: Apache-2.0
 URL: https://%{provider_prefix}
@@ -85,6 +85,9 @@ install -p -m 644 docs/crictl.1 %{buildroot}%{_mandir}/man1
 %{_mandir}/man1/crictl*.1*
 
 %changelog
+* Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 1.29.0-10
+- rebuild
+
 * Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 1.29.0-9
 - Rebuild for golang-1.25.0
 

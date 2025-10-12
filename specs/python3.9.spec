@@ -13,11 +13,11 @@ URL: https://www.python.org/
 
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
-%global general_version %{pybasever}.23
+%global general_version %{pybasever}.24
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 2%{?dist}
+Release: 1%{?dist}
 License: Python
 
 
@@ -315,7 +315,7 @@ Patch1: 00001-rpath.patch
 # See https://bugzilla.redhat.com/show_bug.cgi?id=556092
 Patch111: 00111-no-static-lib.patch
 
-# 00189 # 60517f098bd1525ad454adf7252b60a3d6b0f8ba
+# 00189 # 0c6dd5d318a22bbe89e09e1cd5513eaaca549aa5
 # Instead of bundled wheels, use our RPM packaged wheels
 #
 # We keep them in /usr/share/python-wheels
@@ -328,7 +328,7 @@ Patch189: 00189-use-rpm-wheels.patch
 # When the bundled setuptools/pip wheel is updated, the patch no longer applies cleanly.
 # In such cases, the patch needs to be amended and the versions updated here:
 %global pip_version 23.0.1
-%global setuptools_version 58.1.0
+%global setuptools_version 79.0.1
 
 # 00251 # 1b1047c14ff98eae6d355b4aac4df3e388813f62
 # Change user install location
@@ -1856,6 +1856,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Fri Oct 10 2025 Karolina Surma <ksurma@redhat.com> - 3.9.24-1
+- Update to Python 3.9.24
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.23-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

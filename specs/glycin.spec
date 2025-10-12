@@ -7,7 +7,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           glycin
-Version:        2.0.2
+Version:        2.0.3
 Release:        %autorelease
 Summary:        Sandboxed image rendering
 
@@ -201,7 +201,7 @@ rm -r glycin-loaders/glycin-jpeg2000
 
 %if %{with check}
 %check
-# tests don't work - fail with "error: NoLoadersConfigured" in build environment
+# tests fail with "UnsupportedFileType" (missing nonfree plugins for libheif?)
 %meson_test || :
 %endif
 

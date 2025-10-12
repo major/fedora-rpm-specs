@@ -13,6 +13,7 @@ License:        GPL-2.0-or-later
 URL:            https://gedit-text-editor.org/
 Source:         https://gitlab.gnome.org/World/gedit/%{name}/-/archive/%{version}/%{name}-%{version}.tar.bz2
 
+BuildRequires:  gcc
 BuildRequires:  gettext
 BuildRequires:  libappstream-glib
 BuildRequires:  meson

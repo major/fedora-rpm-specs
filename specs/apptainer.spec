@@ -45,7 +45,7 @@
 Summary: Application and environment virtualization formerly known as Singularity
 Name: apptainer
 Version: 1.4.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 # See LICENSE.md for first party code (BSD-3-Clause and LBNL BSD)
 # See LICENSE_THIRD_PARTY.md for incorporated code (ASL 2.0)
 # See LICENSE_DEPENDENCIES.md for dependencies
@@ -486,6 +486,9 @@ fi
 %attr(4755, root, root) %{_libexecdir}/%{name}/bin/starter-suid
 
 %changelog
+* Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 1.4.3-3
+- rebuild
+
 * Mon Sep 29 2025 Dave Dykstra <dwd@cern.ch> - 1.4.3-2
 - Patch xz to work with 32-bit systems. The patch is from xz v0.5.15.
 

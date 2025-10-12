@@ -1,6 +1,6 @@
 Name:           librtprocess
 Version:        0.12.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        RawTherapee's processing algorithms
 
 # The entire source is GPL-3.0-or-later, except:
@@ -9,16 +9,16 @@ Summary:        RawTherapee's processing algorithms
 #            src/include/sleefsseavx.h
 License:        GPL-3.0-or-later AND BSL-1.0
 URL:            https://github.com/CarVac/librtprocess
-Source0:        %{url}/archive/%{version}/librtprocess-%{version}.tar.gz
+Source:         %{url}/archive/%{version}/librtprocess-%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
-BuildRequires:  make
 
 %description
 This is a project that aims to make some of RawTherapee's highly optimized
 raw processing routines readily available for other FOSS photo editing
 software.
+
 The goal is to move certain source files from RawTherapee into this library.
 Thus, any changes to the source can be done here and will be used by the
 projects which use librtprocess.
@@ -26,8 +26,8 @@ projects which use librtprocess.
 
 %package devel
 Summary:        Libraries, includes, etc. used to develop an application with librtprocess
-# Automatically converted from old format: GPLv3 - review is highly recommended.
-License:        GPL-3.0-only
+# Does not include anything derived from the BSL-1.0-licensed headers.
+License:        GPL-3.0-or-later
 Requires:       %{name}%{_isa} = %{version}-%{release}
 
 %description devel
@@ -50,17 +50,21 @@ These are the files needed to develop an application using librtprocess.
 %files
 %license LICENSE.txt
 %doc README.md
-%{_libdir}/*.so.0
-%{_libdir}/*.so.0.0.1
+%{_libdir}/librtprocess.so.0
+%{_libdir}/librtprocess.so.0.0.1
+
 
 %files devel
-%{_includedir}/rtprocess
-%{_libdir}/*.so
+%{_includedir}/rtprocess/
+%{_libdir}/librtprocess.so
 %{_libdir}/pkgconfig/rtprocess.pc
 %{_libdir}/cmake/rtprocess/
 
 
 %changelog
+* Fri Oct 10 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 0.12.0-15
+- Correct the License for the -devel subpackage
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

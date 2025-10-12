@@ -61,7 +61,16 @@ touch -r howdoi/howdoi.py.shebang howdoi/howdoi.py
 
 %check
 TEST_CLASS=test_howdoi.py::HowdoiTestCase
-skipped_tests=(colorize)
+skipped_tests=(
+  all_text
+  answer_links_using_all_option
+  answer_links_using_l_option
+  colorize
+  json_output
+  missing_pre_or_code_query
+  multiple_answers
+  position
+)
 DESELECT=
 for testcase in "${skipped_tests[@]}"; do
   DESELECT+=" --deselect ${TEST_CLASS}::test_${testcase}"

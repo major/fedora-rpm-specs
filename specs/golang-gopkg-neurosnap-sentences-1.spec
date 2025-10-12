@@ -56,7 +56,7 @@ A multilingual command line sentence tokenizer in Golang.}
                         test_files/english/self_reliance_s.txt
 
 Name:           golang-gopkg-neurosnap-sentences-1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A multilingual command line sentence tokenizer in Golang
 
 License:        MIT
@@ -120,6 +120,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 1.1.2-6
+- rebuild
+
 * Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 1.1.2-5
 - Rebuild for golang-1.25.0
 

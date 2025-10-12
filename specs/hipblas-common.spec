@@ -26,7 +26,7 @@
 
 Name:           hipblas-common
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Common files shared by hipBLAS and hipBLASLt
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
@@ -59,7 +59,7 @@ Provides:       %{name}-static = %{version}-%{release}
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
 
 %build
-%cmake -DCMAKE_INSTALL_LIBDIR=share \
+%cmake -DCMAKE_INSTALL_LIBDIR=share
 %cmake_build
 
 %install
@@ -73,6 +73,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/hipblas-common/LICENSE.md
 %{_datadir}/cmake/%{name}
 
 %changelog
+* Fri Oct 10 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.0-2
+- Remove stray backlash
+
 * Fri Sep 19 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.0-1
 - Update to 7.0.1
 

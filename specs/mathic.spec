@@ -5,13 +5,14 @@
 
 Name:           mathic
 Version:        1.0
-Release:        33.%{gitdate}.git%{shorttag}%{?dist}
+Release:        34.%{gitdate}.git%{shorttag}%{?dist}
 Summary:        Data structures for Groebner basis computations
 
 License:        LGPL-2.0-or-later
 URL:            https://github.com/Macaulay2/mathic
 VCS:            git:%{url}.git
 Source:         %{url}/tarball/%{gittag}/%{user}-%{name}-%{shorttag}.tar.gz
+Patch:          Macaulay2-mathic-7abf77e-c++17.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -56,7 +57,7 @@ Mathic-based tools.  Currently this contains:
 - pqsim: priority queue simulation
 
 %prep
-%autosetup -n %{user}-%{name}-%{shorttag}
+%autosetup -p1 -n %{user}-%{name}-%{shorttag}
 
 %conf
 # Upstream doesn't generate the configure script
@@ -104,6 +105,9 @@ make check
 %{_bindir}/pqsim
 
 %changelog
+* Mon Oct 06 2025 Terje Rosten <terjeros@gmail.com> - 1.0-33.20250513.git7abf77e
+- Switch to C++17 for gtest 1.17.0.
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-33.20250513.git7abf77e
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

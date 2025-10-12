@@ -5,7 +5,7 @@
 %global pypi_name qtconsole
 
 Name:		python-%{pypi_name}
-Version:	5.6.1
+Version:	5.7.0
 Release:	%autorelease
 Summary:	Jupyter Qt console
 License:	BSD-3-Clause

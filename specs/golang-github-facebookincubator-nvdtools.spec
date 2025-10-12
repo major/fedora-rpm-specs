@@ -22,7 +22,7 @@ distributed by National Vulnerability Database (NVD)}
                         vulndb/sqlutil/README.md
 
 Name:           %{goname}
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        %{common_summary}
 
 # Upstream license specification: Apache-2.0
@@ -97,6 +97,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Fri Oct 10 2025 Maxwell G <maxwell@gtmx.me> - 0.1.4-19
+- Rebuild for golang 1.25.2
+
 * Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 0.1.4-18
 - Rebuild for golang-1.25.0
 

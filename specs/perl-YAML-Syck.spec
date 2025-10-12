@@ -6,8 +6,8 @@
 %endif
 
 Name:           perl-YAML-Syck
-Version:        1.34
-Release:        18%{?dist}
+Version:        1.35
+Release:        1%{?dist}
 Summary:        Fast, lightweight YAML loader and dumper
 # gram.*: GPL-2.0-or-later
 # *:      MIT
@@ -92,6 +92,10 @@ make test
 %{_mandir}/man3/YAML::Syck.3*
 
 %changelog
+* Fri Oct 10 2025 Paul Howarth <paul@city-fan.org> - 1.35-1
+- Update to 1.35
+  - Address parsing error related to string detection on read for empty strings
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.34-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

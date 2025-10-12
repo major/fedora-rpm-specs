@@ -4,7 +4,7 @@
 
 Name:           mingw-binutils
 Version:        2.45
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Cross-compiled version of binutils for Win32 and Win64 environments
 
 License:        GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
@@ -114,6 +114,22 @@ Patch18: binutils-fix-ar-test.patch
 # Purpose:  Fix a seg fault in the AArch64 linker when building u-boot.
 # Lifetime: Fixed in 2.45
 Patch19: binutils-aarch64-small-plt0.patch
+
+# Backport fix for CVE-2025-11494
+# https://sourceware.org/cgit/binutils-gdb/patch/?id=b6ac5a8a5b82f0ae6a4642c8d7149b325f4cc60a
+Patch20:         CVE-2025-11494.patch
+# Backport fix for CVE-2025-11495
+# https://sourceware.org/cgit/binutils-gdb/patch/?id=6b21c8b2ecfef5c95142cbc2c32f185cb1c26ab0
+Patch21:         CVE-2025-11495.patch
+# Backport fix for CVE-2025-11082
+# https://sourceware.org/cgit/binutils-gdb/patch/?id=ea1a0737c7692737a644af0486b71e4a392cbca8
+Patch22:         CVE-2025-11082.patch
+# Backport fix CVE-2025-11081
+# https://sourceware.org/cgit/binutils-gdb/patch/?id=f87a66db645caf8cc0e6fc87b0c28c78a38af59b
+Patch23:         CVE-2025-11081.patch
+# Backport fix for CVE-2025-11083
+# https://sourceware.org/cgit/binutils-gdb/patch/?id=9ca499644a21ceb3f946d1c179c38a83be084490
+Patch24:         CVE-2025-11083.patch
 
 
 BuildRequires:  make
@@ -447,6 +463,10 @@ rm -rf %{buildroot}%{_mandir}/man1/*
 
 
 %changelog
+* Fri Oct 10 2025 Sandro Mani <manisandro@gmail.com>
+- Backport fixes for CVE-2025-11494, CVE-2025-11495, CVE-2025-11082,
+  CVE-2025-11081, CVE-2025-11083
+
 * Thu Oct 09 2025 Sandro Mani <manisandro@gmail.com> - 2.45-1
 - Update to 2.45
 

@@ -12,7 +12,7 @@ Summary:        Insight Toolkit library for medical image processing
 Version:        %{version_major_minor}.3
 %global version_doc_major_minor 4.13
 %global version_doc %{version_doc_major_minor}.0
-Release:        28%{?dist}
+Release:        29%{?dist}
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
 Source0:        https://github.com/InsightSoftwareConsortium/ITK/releases/download/v%{version}/InsightToolkit-%{version}.tar.gz
@@ -63,7 +63,6 @@ BuildRequires:  jsoncpp-devel
 BuildRequires:  expat-devel
 BuildRequires:  libminc-devel
 BuildRequires:  dcmtk
-BuildRequires:  gtest-devel
 
 %description
 ITK is an open-source software toolkit for performing registration and 
@@ -200,6 +199,7 @@ extra_cflags=(
        -DITK_USE_SYSTEM_EXPAT=ON \
        -DITK_USE_SYSTEM_FFTW=ON \
        -DITK_USE_SYSTEM_GDCM=ON \
+       -DITK_USE_SYSTEM_GOOGLETEST=OFF \
        -DITK_USE_SYSTEM_HDF5=ON \
        -DITK_USE_SYSTEM_JPEG=ON \
        -DITK_USE_SYSTEM_MINC=ON \
@@ -278,6 +278,10 @@ cp -ar Examples/* %{buildroot}%{_datadir}/%{name}/examples/
 %{_libdir}/cmake/%{name}/Modules/ITKVtkGlue.cmake
 
 %changelog
+* Fri Oct 10 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 4.13.3-29
+- Use the bundled gtest. GTest 1.17.1 will require C++17, and this version of
+  ITK can’t be compiled as C++17.
+
 * Sun Aug 24 2025 Orion Poplawski <orion@nwra.com> - 4.13.3-28
 - Rebuild for VTK 9.5
 

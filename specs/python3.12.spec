@@ -13,11 +13,11 @@ URL: https://www.python.org/
 
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
-%global general_version %{pybasever}.11
+%global general_version %{pybasever}.12
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 3%{?dist}
+Release: 1%{?dist}
 License: Python-2.0.1
 
 
@@ -72,7 +72,7 @@ License: Python-2.0.1
 # from Python with the versions below.
 # This needs to be manually updated when we update Python.
 %global pip_version 25.0.1
-%global setuptools_version 67.6.1
+%global setuptools_version 79.0.1
 %global wheel_version 0.40.0
 # All of those also include a list of indirect bundled libs:
 # pip
@@ -98,22 +98,25 @@ Provides: bundled(python3dist(typing-extensions)) = 4.12.2
 Provides: bundled(python3dist(urllib3)) = 1.26.20
 }
 # setuptools
-# vendor.txt files not in .whl
-#  $ %%{_rpmconfigdir}/pythonbundles.py \
-#    <(curl -L https://github.com/pypa/setuptools/raw/v%%{setuptools_version}/setuptools/_vendor/vendored.txt) \
-#    <(curl -L https://github.com/pypa/setuptools/raw/v%%{setuptools_version}/pkg_resources/_vendor/vendored.txt)
+# vendor.txt not in .whl
+# %%{_rpmconfigdir}/pythonbundles.py <(unzip -l Lib/test/wheeldata/setuptools-*.whl | grep -E '_vendor/.+dist-info/RECORD' | sed -E 's@^.*/([^-]+)-([^-]+)\.dist-info/.*$@\1==\2@')
 %global setuptools_bundled_provides %{expand:
-Provides: bundled(python3dist(importlib-metadata)) = 6
-Provides: bundled(python3dist(importlib-resources)) = 5.10.2
-Provides: bundled(python3dist(jaraco-text)) = 3.7
-Provides: bundled(python3dist(more-itertools)) = 8.8
-Provides: bundled(python3dist(ordered-set)) = 3.1.1
-Provides: bundled(python3dist(packaging)) = 23
-Provides: bundled(python3dist(platformdirs)) = 2.6.2
+Provides: bundled(python3dist(autocommand)) = 2.2.2
+Provides: bundled(python3dist(backports-tarfile)) = 1.2
+Provides: bundled(python3dist(importlib-metadata)) = 8
+Provides: bundled(python3dist(inflect)) = 7.3.1
+Provides: bundled(python3dist(jaraco-collections)) = 5.1
+Provides: bundled(python3dist(jaraco-context)) = 5.3
+Provides: bundled(python3dist(jaraco-functools)) = 4.0.1
+Provides: bundled(python3dist(jaraco-text)) = 3.12.1
+Provides: bundled(python3dist(more-itertools)) = 10.3
+Provides: bundled(python3dist(packaging)) = 24.2
+Provides: bundled(python3dist(platformdirs)) = 4.2.2
 Provides: bundled(python3dist(tomli)) = 2.0.1
-Provides: bundled(python3dist(typing-extensions)) = 4.0.1
-Provides: bundled(python3dist(typing-extensions)) = 4.4
-Provides: bundled(python3dist(zipp)) = 3.7
+Provides: bundled(python3dist(typeguard)) = 4.3
+Provides: bundled(python3dist(typing-extensions)) = 4.12.2
+Provides: bundled(python3dist(wheel)) = 0.45.1
+Provides: bundled(python3dist(zipp)) = 3.19.2
 }
 # wheel
 #  $ %%{_rpmconfigdir}/pythonbundles.py <(unzip -p Lib/test/wheeldata/wheel-*.whl wheel/vendored/vendor.txt)
@@ -370,17 +373,7 @@ Patch251: 00251-change-user-install-location.patch
 # https://github.com/GrahamDumpleton/mod_wsgi/issues/730
 Patch371: 00371-revert-bpo-1596321-fix-threading-_shutdown-for-the-main-thread-gh-28549-gh-28589.patch
 
-# 00459 # 906f6692bd85034012c9554f2434627ccfc04c67
-# Apply Intel Control-flow Technology for x86-64
-#
-# Required for mitigation against return-oriented programming (ROP) and Call or Jump Oriented Programming (COP/JOP) attacks
-#
-# Proposed upstream: https://github.com/python/cpython/pull/128606
-#
-# See also: https://sourceware.org/annobin/annobin.html/Test-cf-protection.html
-Patch459: 00459-apply-intel-control-flow-technology-for-x86-64.patch
-
-# 00460 # f399a428258bbb149de1a9b8a62583bf77742eb0
+# 00460 # 1da89114f7ee7e7f392128a9861d9c2b41c0ddeb
 # gh-132415: Update vendored setuptools in ``Lib/test/wheeldata``
 #
 # (actual changes in .whl files removed to make this patch smaller)
@@ -388,7 +381,7 @@ Patch459: 00459-apply-intel-control-flow-technology-for-x86-64.patch
 # gh-127906: Add missing sys import to test_cppext
 Patch460: 00460-gh-132415-update-vendored-setuptools-in-lib-test-wheeldata.patch
 
-# 00461 # 47f50dd1f049470c33edb114754529777ab2332f
+# 00461 # f7bc103c7bcc6e48789b225e06daf835793e1086
 # Downstream only: Install wheel in test venvs when setuptools < 71
 Patch461: 00461-downstream-only-install-wheel-in-test-venvs-when-setuptools-71.patch
 
@@ -752,6 +745,7 @@ The debug runtime additionally supports debug builds of C-API extensions
 if [ -f %{_rpmconfigdir}/pythonbundles.py ]; then
   %{_rpmconfigdir}/pythonbundles.py <(unzip -p Lib/ensurepip/_bundled/pip-*.whl pip/_vendor/vendor.txt) --compare-with '%pip_bundled_provides'
   %{_rpmconfigdir}/pythonbundles.py <(unzip -p Lib/test/wheeldata/wheel-*.whl wheel/vendored/vendor.txt) --compare-with '%wheel_bundled_provides'
+  %{_rpmconfigdir}/pythonbundles.py <(unzip -l Lib/test/wheeldata/setuptools-*.whl | grep -E '_vendor/.+dist-info/RECORD' | sed -E 's@^.*/([^-]+)-([^-]+)\.dist-info/.*$@\1==\2@') --compare-with '%setuptools_bundled_provides'
 fi
 
 %if %{with rpmwheels}
@@ -1740,6 +1734,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Fri Oct 10 2025 Karolina Surma <ksurma@redhat.com> - 3.12.12-1
+- Update to 3.12.12
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.12.11-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

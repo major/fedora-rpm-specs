@@ -8,7 +8,7 @@
 Name:             gr-air-modes
 URL:              http://github.com/bistromath/gr-air-modes
 Version:          0
-Release:          0.122.%{git_suffix}%{?dist}
+Release:          0.123.%{git_suffix}%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:          GPL-3.0-or-later
 BuildRequires:    cmake
@@ -30,11 +30,13 @@ BuildRequires:    python3-PyQt4-devel
 # gnuradio dependency
 BuildRequires:    spdlog-devel
 # TODO: check whether qwt is needed
-BuildRequires:    qwt5-qt4-devel
+# needs porting to qt5
+#BuildRequires:    qwt-qt5-devel
 Requires:         python3-numpy
 Requires:         python3-scipy
 Requires:         python3-zmq
-Requires:         qwt5-qt4
+# TODO: needs porting to qt5
+#Requires:         qwt-qt5
 Summary:          SDR receiver for Mode S transponder signals (ADS-B)
 Source0:          https://github.com/bistromath/gr-air-modes/archive/%{git_commit}/%{name}-%{git_suffix}.tar.gz
 # https://github.com/bistromath/gr-air-modes/issues/111
@@ -88,6 +90,9 @@ popd
 %{_libdir}/cmake/{air_modes,gr-air_modes}/*.cmake
 
 %changelog
+* Fri Oct 10 2025 Jaroslav Škarvada  <jskarvad@redhat.com> - 0-0.123.20200807git9e2515a5
+- Temporally dropped qwt requirement (until ported to qt5)
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0-0.122.20200807git9e2515a5
 - Rebuilt for Python 3.14.0rc3 bytecode
 

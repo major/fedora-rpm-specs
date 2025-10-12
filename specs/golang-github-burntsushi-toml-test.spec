@@ -25,7 +25,7 @@ format as the JSON that a TOML decoder should output.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Language agnostic test suite for TOML parsers
 
 License:        MIT
@@ -68,6 +68,9 @@ cp -a tests %{buildroot}%{_datadir}/toml-test/
 %gopkgfiles
 
 %changelog
+* Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 0.2.0-23
+- rebuild
+
 * Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 0.2.0-22
 - Rebuild for golang-1.25.0
 

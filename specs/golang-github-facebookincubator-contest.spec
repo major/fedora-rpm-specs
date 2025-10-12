@@ -15,7 +15,7 @@ Run continuous and on-demand system testing for real and virtual hardware.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.16%{?dist}
+Release:        0.17%{?dist}
 Summary:        Run continuous and on-demand system testing for real and virtual hardware
 
 License:        MIT
@@ -87,6 +87,9 @@ rm pkg/xcontext/metrics/{tsmetrics,simplemetrics}/metrics_test.go
 %gopkgfiles
 
 %changelog
+* Fri Oct 10 2025 Maxwell G <maxwell@gtmx.me> - 0-0.17
+- Rebuild for golang 1.25.2
+
 * Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 0-0.16
 - Rebuild for golang-1.25.0
 

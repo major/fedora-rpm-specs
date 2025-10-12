@@ -8,6 +8,8 @@ License:        Apache-2.0 AND CC0-1.0 AND CC-BY-SA-4.0 AND GPL-3.0-or-later
 Url:            https://github.com/fsfe/reuse-tool
 Source0:        %pypi_source
 
+Patch:  0001-remove-dependency-on-python-magic.patch
+
 # Build
 BuildRequires:  python3-devel
 BuildRequires:  gettext
@@ -26,6 +28,10 @@ BuildRequires:  %{py3_dist sphinx_rtd_theme}
 BuildRequires:  %{py3_dist sphinxcontrib-apidoc}
 Recommends:     git
 Recommends:     mercurial
+# FIXME: This probably should be handled by the dependency generator
+# and better handling of extras, but needs to be hardcoded for now
+# See https://bugzilla.redhat.com/show_bug.cgi?id=2402682 for issue that triggered this.
+Requires:       %{py3_dist charset-normalizer}
 BuildArch:      noarch
 
 %description
@@ -37,7 +43,7 @@ generates a project's bill of materials.
 %autosetup -n %{name}-%{version} -S git_am
 
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires -x charset-normalizer
 
 %build
 %pyproject_wheel

@@ -3,8 +3,8 @@
 
 Name:           %{archive_name}
 Epoch:          1
-Version:        25.9.1
-Release:        2%{?dist}
+Version:        25.9.2
+Release:        1%{?dist}
 Summary:        Best practices checker for Ansible
 
 # README file says its just GPLv3
@@ -61,6 +61,9 @@ ln -sr %{buildroot}%{_bindir}/%{name}{,-3}
 %{_bindir}/%{name}-3
 
 %changelog
+* Fri Oct 10 2025 Parag Nemade <pnemade AT redhat DOT com> - 1:25.9.2-1
+- Update to 25.9.2 version (#2402507)
+
 * Mon Oct 06 2025 Parag Nemade <pnemade AT redhat DOT com> - 1:25.9.1-2
 - Patch pyproject.toml for not satisfying ansible-core>=2.20.0b1 requirement
 

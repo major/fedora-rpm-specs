@@ -1,7 +1,7 @@
 Summary:        LightDM GTK Greeter
 Name:           lightdm-gtk
 Version:        2.0.8
-Release:        14%{?dist}
+Release:        15%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 URL:            https://github.com/Xubuntu/lightdm-gtk-greeter
@@ -50,7 +50,11 @@ Requires:       desktop-backgrounds-compat
 Requires:       system-logos
 %endif
 # owner of HighContrast gtk/icon themes
-Requires:       gnome-themes-standard
+# disabled because the package got retired, but that means icons are
+# broken in high contrast mode:
+# https://bugzilla.redhat.com/show_bug.cgi?id=2398086
+# https://bugzilla.redhat.com/show_bug.cgi?id=881352
+# Requires:       gnome-themes-standard
 
 # Fix issue with lightdm-autologin-greeter pulled in basic-desktop netinstall.
 # See: https://bugzilla.redhat.com/show_bug.cgi?id=1481192
@@ -115,6 +119,9 @@ rm -fv %{buildroot}%{_docdir}/lightdm-gtk-greeter/sample-lightdm-gtk-greeter.css
 
 
 %changelog
+* Fri Oct 10 2025 Adam Williamson <awilliam@redhat.com> - 2.0.8-15
+- Drop gnome-themes-standard dep as the provider was retired (#2398086)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.8-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

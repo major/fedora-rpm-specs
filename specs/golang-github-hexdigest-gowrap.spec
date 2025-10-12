@@ -21,7 +21,7 @@ seconds.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        GoWrap is a command line tool for generating decorators for Go interfaces
 
 License:        MIT
@@ -82,6 +82,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Fri Oct 10 2025 Maxwell G <maxwell@gtmx.me> - 1.1.12-17
+- Rebuild for golang 1.25.2
+
 * Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 1.1.12-16
 - Rebuild for golang-1.25.0
 

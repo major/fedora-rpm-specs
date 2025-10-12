@@ -17,7 +17,7 @@ used by the other packages.}
                         README-ocdiscover.md
 
 Name:           %{goname}
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Go packages for auto discovery of resource information in various environments
 
 # Upstream license specification: Apache-2.0
@@ -64,6 +64,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 0.1.2-22
+- rebuild
+
 * Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 0.1.2-21
 - Rebuild for golang-1.25.0
 

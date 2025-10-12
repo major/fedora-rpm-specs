@@ -1,6 +1,6 @@
 Name: libcap
 Version: 2.76
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Library for getting and setting POSIX.1e capabilities
 URL: https://sites.google.com/site/fullycapable/
 License: BSD-3-Clause OR GPL-2.0-only
@@ -121,6 +121,9 @@ chmod +x %{buildroot}/%{_libdir}/*.so.*
 %endif
 
 %changelog
+* Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 2.76-4
+- rebuild
+
 * Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 2.76-3
 - Rebuild for golang-1.25.0
 

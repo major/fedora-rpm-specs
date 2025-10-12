@@ -12,7 +12,7 @@
 %endif
 
 
-%define patchlevel 1818
+%define patchlevel 1845
 %define withnetbeans 1
 
 %define withhunspell 0
@@ -121,6 +121,10 @@ BuildRequires: libtool
 BuildRequires: make
 # screen handling library
 BuildRequires: ncurses-devel
+
+# for building function prototypes
+BuildRequires: python3
+BuildRequires: python3-clang
 
 # for python plugin
 BuildRequires: python3-devel
@@ -444,6 +448,15 @@ perl -pi -e "s/vimrc/virc/"  os_unix.h
   --enable-year2038 \
   --disable-libsodium
 
+# related to the previous issue with `make depend`, auto/osdef.h
+# has to be generated
+make auto/osdef.h
+# wayland is hardwired in Makefile dependencies
+# to work around it call `make depend` before build
+# problem fixed by https://github.com/vim/vim/pull/18538
+# remove once it is merged
+make depend
+
 %make_build
 cp vim minimal-vim
 make clean
@@ -502,6 +515,15 @@ mv -f os_unix.h.save os_unix.h
   --without-wayland \
   --enable-year2038 \
   --disable-canberra
+
+## related to the previous issue with `make depend`, auto/osdef.h
+## has to be generated
+make auto/osdef.h
+# wayland is hardwired in Makefile dependencies
+# to work around it call `make depend` before build
+# problem fixed by https://github.com/vim/vim/pull/18538
+# remove once it is merged
+make depend
 
 %make_build
 cp vim enhanced-vim
@@ -566,6 +588,15 @@ cp vim enhanced-vim
   --enable-socketserver \
   --enable-canberra
 
+# related to the issue with `make depend`, auto/osdef.h
+# has to be generated
+make auto/osdef.h auto/gui_gtk_gresources.h auto/wayland/wlr-data-control-unstable-v1.h
+# wayland is hardwired in Makefile dependencies
+# to work around it call `make depend` before build
+# problem fixed by https://github.com/vim/vim/pull/18538
+# remove once it is merged
+make depend
+
 %make_build
 cp vim gvim
 make clean
@@ -581,6 +612,9 @@ cp -f %{SOURCE7} %{buildroot}/%{_datadir}/%{name}/vimfiles/template.spec
 rm -f README*.info
 
 cd src
+# related to the issue with `make depend`, auto/osdef.h
+# has to be generated
+make auto/osdef.h auto/gui_gtk_gresources.h auto/wayland/wlr-data-control-unstable-v1.h
 # Adding STRIP=/bin/true, because Vim wants to strip the binaries by himself
 # and put the stripped files into correct dirs. Build system (koji/brew) 
 # does it for us, so there is no need to do it in Vim
@@ -988,6 +1022,9 @@ mkdir -p %{buildroot}/%{_datadir}/fish/vendor_functions.d/
 
 
 %changelog
+* Fri Oct 10 2025 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.1.1845-1
+- patchlevel 1845
+
 * Fri Oct 03 2025 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.1.1818-1
 - patchlevel 1818
 

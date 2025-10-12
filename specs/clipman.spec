@@ -15,7 +15,7 @@ after an application exits.}
 %global godocs          docs CHANGELOG.md CONTRIBUTING.md README.md
 
 Name:           clipman
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A simple clipboard manager for Wayland
 
 License:        GPL-3.0-only
@@ -55,6 +55,9 @@ install -m 0644 -vpD docs/clipman.1  -t %{buildroot}%{_mandir}/man1/
 %{_mandir}/man1/*
 
 %changelog
+* Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 1.6.4-6
+- rebuild
+
 * Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 1.6.4-5
 - Rebuild for golang-1.25.0
 

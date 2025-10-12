@@ -16,7 +16,7 @@ Serve embedded files from jteeuwen/go-bindata with net/http.}
 %global gosupfiles glide.lock glide.yaml
 
 Name:           %{goname}
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Serve embedded files from jteeuwen/go-bindata with net/http
 
 # Upstream license specification: BSD-2-Clause
@@ -59,6 +59,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 1.0.1-22
+- rebuild
+
 * Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 1.0.1-21
 - Rebuild for golang-1.25.0
 

@@ -13,11 +13,11 @@ URL: https://www.python.org/
 
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
-%global general_version %{pybasever}.13
+%global general_version %{pybasever}.14
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 2%{?dist}
+Release: 1%{?dist}
 License: Python-2.0.1
 
 
@@ -68,7 +68,7 @@ License: Python-2.0.1
 # from Python with the versions below.
 # This needs to be manually updated when we update Python.
 %global pip_version 24.0
-%global setuptools_version 65.5.0
+%global setuptools_version 79.0.1
 
 # Expensive optimizations (mainly, profile-guided optimizations)
 %bcond_without optimizations
@@ -1661,6 +1661,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Fri Oct 10 2025 Karolina Surma <ksurma@redhat.com> - 3.11.14-1
+- Update to 3.11.14
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.11.13-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

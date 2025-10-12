@@ -4,7 +4,7 @@
 
 Name: singularity-ce
 Version: 4.3.3
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Application and environment virtualization
 
 # From 'go_vendor_license report' output.
@@ -376,6 +376,9 @@ container platform designed to be simple, fast, and secure.
 %doc CONTRIBUTING.md
 
 %changelog
+* Fri Oct 10 2025 Maxwell G <maxwell@gtmx.me> - 4.3.3-4
+- Rebuild for golang 1.25.2
+
 * Fri Sep 19 2025 David Trudgian <dtrudg@sylabs.io> - 4.3.3-3
 - Update License with go_vendor_license report output.
 

@@ -8,6 +8,7 @@ License: MIT
 URL: https://github.com/microsoft/GSL
 Summary: Guidelines Support Library
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Patch:   guidelines-support-library-4.2.0-test-c++17.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 %if 0%{?fedora} && 0%{?fedora} >= 42

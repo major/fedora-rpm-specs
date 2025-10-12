@@ -1,5 +1,5 @@
 # The version of MuseScore itself
-%global musescore_ver             4.6.1
+%global musescore_ver             4.6.2
 %global musescore_maj             %(cut -d. -f-2 <<< %{musescore_ver})
 %global giturl                    https://github.com/musescore/MuseScore
 
@@ -23,7 +23,7 @@
 Name:           musescore
 Summary:        Music Composition & Notation Software
 Version:        %{musescore_ver}
-Release:        26%{?dist}
+Release:        27%{?dist}
 
 # The MuseScore project itself is GPL-3.0-only WITH Font-exception-2.0.  Other
 # licenses in play:
@@ -524,7 +524,6 @@ mv thirdparty/rtf2html/README           README.rtf2html
 mv thirdparty/rtf2html/README.mscore    README.mscore.rtf2html
 mv thirdparty/rtf2html/README.ru        README.ru.rtf2html
 mv share/wallpapers/COPYRIGHT           COPYING.wallpapers
-mv %{buildroot}%{_datadir}/mscore-%{musescore_maj}/sound/MS\ Basic_License.md .
 
 # Put a link to the soundfont from the system soundfont directory
 mkdir -p %{buildroot}%{_datadir}/soundfonts
@@ -546,8 +545,8 @@ ln -s ../mscore-%{musescore_maj}/sound/MS\ Basic.sf3 \
 #rm -fr $XDG_RUNTIME_DIR
 
 %files
-%doc README.md share/sound/MS?Basic_Readme.md share/sound/MS_Basic_Changelog.md
-%license LICENSE.txt share/sound/MS?Basic_License.md
+%doc README.md
+%license LICENSE.txt COPYING.LESSER.rtf2html COPYING.wallpapers
 %{_bindir}/mscore
 %{_mandir}/man1/mscore.1*
 %{_mandir}/man1/musescore.1*
@@ -568,11 +567,178 @@ ln -s ../mscore-%{musescore_maj}/sound/MS\ Basic.sf3 \
 %{_metainfodir}/org.musescore.MuseScore.appdata.xml
 
 %files data
-%{_datadir}/mscore-%{musescore_maj}/
-%exclude %{_datadir}/mscore-%{musescore_maj}/sound
+%license LICENSE.txt
 %{_datadir}/liblouis/tables/*
+%dir %{_datadir}/mscore-%{musescore_maj}/
+%{_datadir}/mscore-%{musescore_maj}/autobotscripts/
+%{_datadir}/mscore-%{musescore_maj}/extensions/
+%{_datadir}/mscore-%{musescore_maj}/fonts/
+%{_datadir}/mscore-%{musescore_maj}/plugins/
+%{_datadir}/mscore-%{musescore_maj}/styles/
+%{_datadir}/mscore-%{musescore_maj}/templates/
+%{_datadir}/mscore-%{musescore_maj}/wallpapers/
+%{_datadir}/mscore-%{musescore_maj}/workspaces/
+%dir %{_datadir}/mscore-%{musescore_maj}/locale/
+%{_datadir}/mscore-%{musescore_maj}/locale/languages.json
+%lang(af) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_af.qm
+%lang(ar) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_ar.qm
+%lang(ar_DZ) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_ar_DZ.qm
+%lang(ar_EG) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_ar_EG.qm
+%lang(ar_SD) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_ar_SD.qm
+%lang(ast) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_ast.qm
+%lang(be) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_be.qm
+%lang(bg) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_bg.qm
+%lang(br) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_br.qm
+%lang(ca) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_ca.qm
+%lang(ca@valencia) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_ca@valencia.qm
+%lang(cs) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_cs.qm
+%lang(cy) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_cy.qm
+%lang(da) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_da.qm
+%lang(de) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_de.qm
+%lang(el) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_el.qm
+%lang(en) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_en.qm
+%lang(en_GB) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_en_GB.qm
+%lang(en_US) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_en_US.qm
+%lang(eo) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_eo.qm
+%lang(es) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_es.qm
+%lang(et) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_et.qm
+%lang(eu) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_eu.qm
+%lang(fa) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_fa.qm
+%lang(fi) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_fi.qm
+%lang(fil) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_fil.qm
+%lang(fo) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_fo.qm
+%lang(fr) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_fr.qm
+%lang(ga) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_ga.qm
+%lang(gd) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_gd.qm
+%lang(gl) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_gl.qm
+%lang(he) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_he.qm
+%lang(hi_IN) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_hi_IN.qm
+%lang(hr) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_hr.qm
+%lang(hu) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_hu.qm
+%lang(hy) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_hy.qm
+%lang(id) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_id.qm
+%lang(ig) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_ig.qm
+%lang(it) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_it.qm
+%lang(ja) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_ja.qm
+%lang(ka) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_ka.qm
+%lang(kab) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_kab.qm
+%lang(ko) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_ko.qm
+%lang(lt) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_lt.qm
+%lang(lv) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_lv.qm
+%lang(ml) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_ml.qm
+%lang(mn_MN) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_mn_MN.qm
+%lang(mt) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_mt.qm
+%lang(nb) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_nb.qm
+%lang(nl) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_nl.qm
+%lang(nn) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_nn.qm
+%lang(pl) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_pl.qm
+%lang(pt) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_pt.qm
+%lang(pt_BR) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_pt_BR.qm
+%lang(ro) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_ro.qm
+%lang(ru) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_ru.qm
+%lang(scn) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_scn.qm
+%lang(sk) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_sk.qm
+%lang(sl) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_sl.qm
+%lang(sr) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_sr.qm
+%lang(sr_RS) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_sr_RS.qm
+%lang(sv) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_sv.qm
+%lang(sv_SE) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_sv_SE.qm
+%lang(th) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_th.qm
+%lang(tr) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_tr.qm
+%lang(uk) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_uk.qm
+%lang(uz@Latn) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_uz@Latn.qm
+%lang(vi) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_vi.qm
+%lang(zh_CN) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_zh_CN.qm
+%lang(zh_HK) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_zh_HK.qm
+%lang(zh_TW) %{_datadir}/mscore-%{musescore_maj}/locale/instruments_zh_TW.qm
+%lang(af) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_af.qm
+%lang(ar) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_ar.qm
+%lang(ar_DZ) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_ar_DZ.qm
+%lang(ar_EG) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_ar_EG.qm
+%lang(ar_SD) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_ar_SD.qm
+%lang(ast) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_ast.qm
+%lang(be) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_be.qm
+%lang(bg) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_bg.qm
+%lang(br) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_br.qm
+%lang(ca) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_ca.qm
+%lang(ca@valencia) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_ca@valencia.qm
+%lang(cs) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_cs.qm
+%lang(cy) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_cy.qm
+%lang(da) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_da.qm
+%lang(de) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_de.qm
+%lang(el) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_el.qm
+%lang(en) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_en.qm
+%lang(en_GB) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_en_GB.qm
+%lang(en_US) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_en_US.qm
+%lang(eo) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_eo.qm
+%lang(es) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_es.qm
+%lang(et) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_et.qm
+%lang(eu) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_eu.qm
+%lang(fa) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_fa.qm
+%lang(fi) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_fi.qm
+%lang(fil) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_fil.qm
+%lang(fo) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_fo.qm
+%lang(fr) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_fr.qm
+%lang(ga) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_ga.qm
+%lang(gd) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_gd.qm
+%lang(gl) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_gl.qm
+%lang(he) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_he.qm
+%lang(hi_IN) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_hi_IN.qm
+%lang(hr) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_hr.qm
+%lang(hu) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_hu.qm
+%lang(hy) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_hy.qm
+%lang(id) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_id.qm
+%lang(ig) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_ig.qm
+%lang(it) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_it.qm
+%lang(ja) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_ja.qm
+%lang(ka) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_ka.qm
+%lang(kab) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_kab.qm
+%lang(ko) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_ko.qm
+%lang(lt) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_lt.qm
+%lang(lv) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_lv.qm
+%lang(ml) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_ml.qm
+%lang(mn_MN) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_mn_MN.qm
+%lang(mt) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_mt.qm
+%lang(nb) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_nb.qm
+%lang(nl) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_nl.qm
+%lang(nn) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_nn.qm
+%lang(pl) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_pl.qm
+%lang(pt) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_pt.qm
+%lang(pt_BR) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_pt_BR.qm
+%lang(ro) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_ro.qm
+%lang(ru) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_ru.qm
+%lang(scn) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_scn.qm
+%lang(sk) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_sk.qm
+%lang(sl) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_sl.qm
+%lang(sr) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_sr.qm
+%lang(sr_RS) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_sr_RS.qm
+%lang(sv) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_sv.qm
+%lang(sv_SE) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_sv_SE.qm
+%lang(th) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_th.qm
+%lang(tr) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_tr.qm
+%lang(uk) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_uk.qm
+%lang(uz@Latn) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_uz@Latn.qm
+%lang(vi) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_vi.qm
+%lang(zh_CN) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_zh_CN.qm
+%lang(zh_HK) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_zh_HK.qm
+%lang(zh_TW) %{_datadir}/mscore-%{musescore_maj}/locale/musescore_zh_TW.qm
+%lang(bg) %{_datadir}/mscore-%{musescore_maj}/locale/qt_bg.qm
+%lang(el) %{_datadir}/mscore-%{musescore_maj}/locale/qt_el.qm
+%lang(eu) %{_datadir}/mscore-%{musescore_maj}/locale/qt_eu.qm
+%lang(gd) %{_datadir}/mscore-%{musescore_maj}/locale/qt_gd.qm
+%lang(id) %{_datadir}/mscore-%{musescore_maj}/locale/qt_id.qm
+%lang(lv) %{_datadir}/mscore-%{musescore_maj}/locale/qt_lv.qm
+%lang(nb) %{_datadir}/mscore-%{musescore_maj}/locale/qt_nb.qm
+%lang(nl) %{_datadir}/mscore-%{musescore_maj}/locale/qt_nl.qm
+%lang(nl_BE) %{_datadir}/mscore-%{musescore_maj}/locale/qt_nl_BE.qm
+%lang(pt_BR) %{_datadir}/mscore-%{musescore_maj}/locale/qt_pt_BR.qm
+%lang(ro) %{_datadir}/mscore-%{musescore_maj}/locale/qt_ro.qm
+%lang(tr) %{_datadir}/mscore-%{musescore_maj}/locale/qt_tr.qm
+%lang(vi) %{_datadir}/mscore-%{musescore_maj}/locale/qt_vi.qm
 
 %files soundfont
+%doc share/sound/MS?Basic_Readme.md share/sound/MS_Basic_Changelog.md
+%license share/sound/MS?Basic_License.md
 %{_datadir}/mscore-%{musescore_maj}/sound
 %{_datadir}/soundfonts/*.sf3
 
@@ -606,6 +772,11 @@ ln -s ../mscore-%{musescore_maj}/sound/MS\ Basic.sf3 \
 %fontfiles -z 9
 
 %changelog
+* Fri Oct 10 2025 Jerry James <loganjerry@gmail.com> - 4.6.2-27
+- Version 4.6.2
+- Rework which license/doc file is installed in which package
+- Add %%lang markings to translation files
+
 * Wed Oct 08 2025 Jerry James <loganjerry@gmail.com> - 4.6.1-26
 - Version 4.6.1
 - Drop upstreamed appdata patch

@@ -36,7 +36,7 @@ generate-gnostic directory.}
                        README-report-messages.md README-generate-gnostic.md
 
 Name:           %{goname}
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Compiler for APIs described by the OpenAPI Specification
 
 # Upstream license specification: Apache-2.0
@@ -112,6 +112,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 0.5.3-20
+- rebuild
+
 * Fri Aug 15 2025 Maxwell G <maxwell@gtmx.me> - 0.5.3-19
 - Rebuild for golang-1.25.0
 

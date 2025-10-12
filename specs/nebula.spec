@@ -3,7 +3,7 @@
 
 # https://github.com/slackhq/nebula
 %global goipath         github.com/slackhq/nebula
-Version:                1.9.6
+Version:                1.9.7
 
 %gometa -L -f
 
@@ -32,7 +32,6 @@ BuildRequires:  systemd-rpm-macros
 %prep
 %goprep -A
 %setup -q -T -D -a1 %{forgesetupargs}
-%autopatch -p1
 
 %generate_buildrequires
 %go_vendor_license_buildrequires -c %{S:2}
