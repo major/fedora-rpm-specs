@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 Name:           apache-commons-compress
-Version:        1.27.1
+Version:        1.28.0
 Release:        %autorelease
 Summary:        Java API for working with compressed files and archivers
 License:        Apache-2.0
@@ -14,7 +14,6 @@ Source0:        https://archive.apache.org/dist/commons/compress/source/commons-
 Patch:          0001-Remove-Brotli-compressor.patch
 Patch:          0002-Remove-ZSTD-compressor.patch
 Patch:          0003-Remove-Pack200-compressor.patch
-Patch:          0004-Replace-unmappable-character-with-oe.patch
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap

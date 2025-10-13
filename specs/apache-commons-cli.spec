@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 Name:           apache-commons-cli
-Version:        1.9.0
+Version:        1.10.0
 Release:        %autorelease
 Summary:        Command Line Interface Library for Java
 License:        Apache-2.0
@@ -10,6 +10,8 @@ BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
 Source0:        https://www.apache.org/dist/commons/cli/source/commons-cli-%{version}-src.tar.gz
+
+Patch:          0001-Port-tests-to-commons-lang3.patch
 
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap

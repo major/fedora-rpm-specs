@@ -1,5 +1,5 @@
 Name:           beets
-Version:        2.4.0
+Version:        2.5.0
 Release:        %autorelease
 Summary:        Music library manager and MusicBrainz tagger
 License:        MIT and ISC
@@ -9,6 +9,10 @@ Source0:        %{pypi_source beets}
 BuildRequires:  python3-devel
 BuildRequires:  python3-sphinx
 BuildRequires:  python3-pydata-sphinx-theme
+BuildRequires:  python3dist(poetry-core) >= 1
+# Helpful Sphinx extras on some builders
+BuildRequires:  python3dist(sphinxcontrib-htmlhelp)
+BuildRequires:  python3dist(sphinxcontrib-serializinghtml)
 
 # Tests
 BuildRequires:  python3-jellyfish
@@ -56,6 +60,23 @@ both text and html formats.
 # Tarball has wrong basedir https://github.com/beetbox/beets/issues/5284
 %autosetup -p1 -n beets-%{version}
 
+# --- Make builds deterministic: change backend + tighten [build-system] only ---
+# 1) Switch backend away from poetry_dynamic_versioning
+sed -i 's/^build-backend *= *"poetry_dynamic_versioning\.backend"/build-backend = "poetry.core.masonry.api"/' pyproject.toml
+# 2) Force [build-system].requires to poetry-core only (don’t delete any other tables)
+awk '
+  BEGIN{inbs=0}
+  /^\[build-system\]/{inbs=1; print; next}
+  /^\[.*\]/{inbs=0; print; next}
+  inbs && /^requires *=/ {print "requires = [\"poetry-core>=1.0.0\"]"; next}
+  {print}
+' pyproject.toml > pyproject.toml.tmp && mv pyproject.toml.tmp pyproject.toml
+# ------------------------------------------------------------------------------
+
+%generate_buildrequires
+# Already in BUILD/beets-%%{version}
+%pyproject_buildrequires -r
+
 %build
 %pyproject_wheel
 
@@ -80,7 +101,6 @@ install -Dm0644 docs/_build/man/beetsconfig.5 \
 mkdir -p %{buildroot}%{_docdir}/%{name}
 cp -a docs/_build/html %{buildroot}%{_docdir}/%{name}/html
 rm -f %{buildroot}%{_docdir}/%{name}/html/.buildinfo
-
 
 %files -n beets -f %{pyproject_files}
 %{_bindir}/beet

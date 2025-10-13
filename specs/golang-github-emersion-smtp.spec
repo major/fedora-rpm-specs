@@ -14,7 +14,7 @@ An SMTP client & server library written in Go.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        SMTP client & server library written in Go
 
 License:        MIT
@@ -54,6 +54,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Sun Oct 12 2025 Maxwell G <maxwell@gtmx.me> - 0.15.0-17
+- Rebuild for golang 1.25.2
+
 * Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 0.15.0-16
 - rebuild
 

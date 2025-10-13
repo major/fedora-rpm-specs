@@ -20,7 +20,7 @@
 # THE SOFTWARE.
 #
 %global rocm_release 7.0
-%global rocm_patch 0
+%global rocm_patch 2
 %global rocm_version %{rocm_release}.%{rocm_patch}
 %global upstreamname rocm_smi_lib
 
@@ -150,6 +150,9 @@ rm -f %{buildroot}%{_datadir}/doc/rocm-smi-lib/LICENSE.txt
 %endif
 
 %changelog
+* Fri Oct 10 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.2-1
+- Update to 7.0.2
+
 * Tue Sep 16 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.0-1
 - Update to 7.0.0
 

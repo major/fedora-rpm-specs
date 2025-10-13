@@ -14,7 +14,7 @@ A simple RPC framework with protobuf service definitions.}
 %global godocs          docs example CONTRIBUTING.md PROTOCOL.md README.md
 
 Name:           %{goname}
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        A simple RPC framework with protobuf service definitions
 
 # Upstream license specification: Apache-2.0
@@ -72,6 +72,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Sun Oct 12 2025 Maxwell G <maxwell@gtmx.me> - 8.1.0-18
+- Rebuild for golang 1.25.2
+
 * Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 8.1.0-17
 - rebuild
 

@@ -14,7 +14,7 @@ A PDF processor written in Go.}
 %global godocs          CODE_OF_CONDUCT.md README.md
 
 Name:           %{goname}
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        A PDF processor written in Go
 
 # Upstream license specification: Apache-2.0
@@ -57,6 +57,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Sun Oct 12 2025 Maxwell G <maxwell@gtmx.me> - 0.3.13-16
+- Rebuild for golang 1.25.2
+
 * Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 0.3.13-15
 - rebuild
 

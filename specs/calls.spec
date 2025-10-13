@@ -1,8 +1,8 @@
 %global libcall_ui_commit f66056ace818ff19b507335634dd67138a92c77f
 
 Name:       calls
-Version:    48.2
-Release:    2%{?dist}
+Version:    49.1
+Release:    1%{?dist}
 Summary:    A phone dialer and call handler
 
 License:    GPL-3.0-or-later AND LGPL-2.1-or-later
@@ -10,7 +10,7 @@ URL:        https://gitlab.gnome.org/GNOME/calls
 Source0:    https://gitlab.gnome.org/GNOME/calls/-/archive/v%{version}/%{name}-v%{version}.tar.gz
 Source1:    https://gitlab.gnome.org/World/Phosh/libcall-ui/-/archive/%{libcall_ui_commit}/libcall-ui-%{libcall_ui_commit}.tar.gz
 
-ExcludeArch:    i686
+ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc
 BuildRequires:  meson
@@ -140,10 +140,4 @@ SH
 %license COPYING
 
 %changelog
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 48.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 47.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
 %autochangelog

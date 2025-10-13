@@ -194,8 +194,6 @@ cp -rp examples %{buildroot}%{_docdir}/cairomm-%{apiver}/
 
 %files doc
 %license COPYING
-# Note: JavaScript has been removed from HTML reference manual, degrading the
-# browser experience. It is still needed for Devhelp support.
 %doc %{_docdir}/cairomm-%{apiver}/
 %doc %{_datadir}/devhelp/
 

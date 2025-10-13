@@ -2,7 +2,7 @@
 %global debug_package %{nil}
 
 %global shortname clc
-%global libclc_version 21.1.2
+%global libclc_version 21.1.3
 #global rc_ver 3
 %global libclc_srcdir libclc-%{libclc_version}%{?rc_ver:-rc%{rc_ver}}.src
 
@@ -105,6 +105,10 @@ export CFLAGS="%{build_cflags} -D__extern_always_inline=inline"
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Wed Oct 08 2025 Packit <hello@packit.dev> - 21.1.3-1
+- Update to version 21.1.3
+- Resolves: rhbz#2402496
+
 * Thu Sep 25 2025 Tom Stellard <tstellar@redhat.com> - 21.1.2-1
 - Update to LLVM 21.1.2
 

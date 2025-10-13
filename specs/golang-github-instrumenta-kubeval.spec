@@ -17,7 +17,7 @@ versions.}
 %global godocs          docs BUILDING.md CONDUCT.md README.md
 
 Name:           %{goname}
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Validate your Kubernetes configuration files
 
 # Upstream license specification: Apache-2.0
@@ -67,6 +67,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Sun Oct 12 2025 Maxwell G <maxwell@gtmx.me> - 0.15.0-22
+- Rebuild for golang 1.25.2
+
 * Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 0.15.0-21
 - rebuild
 

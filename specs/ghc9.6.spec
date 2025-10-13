@@ -24,6 +24,8 @@
 %global rts_ver 1.0.2
 %global xhtml_ver 3000.2.2.1
 
+%global hadrian_Cabal_ver 3.6.0.0
+
 # bootstrap needs 9.2+
 %global ghcboot_major 9.4
 %global ghcboot ghc%{?ghcboot_major}
@@ -67,6 +69,8 @@ Source1: https://downloads.haskell.org/ghc/9.6.7/ghc-%{version}-testsuite.tar.lz
 Source5: ghc-pkg.man
 Source6: haddock.man
 Source7: runghc.man
+Source10: https://hackage.haskell.org/package/Cabal-syntax-%{hadrian_Cabal_ver}/Cabal-syntax-%{hadrian_Cabal_ver}.tar.gz
+Source11: https://hackage.haskell.org/package/Cabal-%{hadrian_Cabal_ver}/Cabal-%{hadrian_Cabal_ver}.tar.gz
 
 # absolute haddock path (was for html/libraries -> libraries)
 Patch1: ghc-gen_contents_index-haddock-path.patch
@@ -375,11 +379,11 @@ Installing this package causes %{name}-*-prof packages corresponding to
 
 
 %prep
-%setup -q -n ghc-%{version} %{?with_testsuite:-b1}
+%setup -q -n ghc-%{version} %{?with_testsuite:-b1} -a10 -a11
 ( cd hadrian
   cabal-tweak-flag selftest False
   cabal-tweak-dep-ver bytestring '< 0.12' '< 0.13'
-  cabal-tweak-dep-ver directory '>= 1.3.9.0' '>= 1.3.7'
+  cabal-tweak-dep-ver directory '>= 1.3.9.0' '>= 1.3.6'
 )
 
 %patch -P1 -p1 -b .orig
@@ -420,7 +424,7 @@ rm libraries/directory/directory.buildinfo
 
 %build
 # patch8
-autoupdate
+autoreconf
 
 %ghc_set_gcc_flags
 export CC=%{_bindir}/gcc
@@ -465,6 +469,11 @@ export LANG=C.utf8
 %global ghc_debuginfo 1
 (
 cd hadrian
+%if %{defined el9}
+ln -sf ../Cabal-syntax-%{hadrian_Cabal_ver} Cabal-syntax-%{hadrian_Cabal_ver}
+ln -sf ../Cabal-%{hadrian_Cabal_ver} Cabal-%{hadrian_Cabal_ver}
+%ghc_libs_build -H -P -W Cabal-syntax-%{hadrian_Cabal_ver} Cabal-%{hadrian_Cabal_ver}
+%endif
 %ghc_bin_build -W
 )
 %global hadrian hadrian/dist/build/hadrian/hadrian

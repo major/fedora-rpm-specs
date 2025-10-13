@@ -6,7 +6,7 @@
 %endif
 
 Name:           perl-YAML-Syck
-Version:        1.35
+Version:        1.36
 Release:        1%{?dist}
 Summary:        Fast, lightweight YAML loader and dumper
 # gram.*: GPL-2.0-or-later
@@ -92,6 +92,10 @@ make test
 %{_mandir}/man3/YAML::Syck.3*
 
 %changelog
+* Sat Oct 11 2025 Paul Howarth <paul@city-fan.org> - 1.36-1
+- Update to 1.36
+  - Address memory corruption leading to 'str' value being set on empty keys
+
 * Fri Oct 10 2025 Paul Howarth <paul@city-fan.org> - 1.35-1
 - Update to 1.35
   - Address parsing error related to string detection on read for empty strings

@@ -43,7 +43,7 @@
 %global comgr_maj_api_ver 3
 # Upstream tags are based on rocm releases:
 %global rocm_release 7.0
-%global rocm_patch 0
+%global rocm_patch 2
 # What LLVM is upstream using (use LLVM_VERSION_MAJOR from llvm/CMakeLists.txt):
 %global llvm_maj_ver 20
 
@@ -83,7 +83,7 @@ Version:        %{llvm_maj_ver}
 %if %{with gitcommit}
 Release:        0.rocm%{rocm_version}^git%{date0}.%{shortcommit0}%{?dist}
 %else
-Release:        3.rocm%{rocm_version}%{?dist}
+Release:        4.rocm%{rocm_version}%{?dist}
 %endif
 
 Summary:        Various AMD ROCm LLVM related services
@@ -1080,6 +1080,9 @@ rm -f %{buildroot}%{_bindir}/hipvars.pm
 
 
 %changelog
+* Fri Oct 10 2025 Tom Rix <Tom.Rix@amd.com> - 20-4.rocm7.0.2
+- Update to 7.0.2
+
 * Mon Oct 6 2025 Tom Rix <Tom.Rix@amd.com> - 20-3.rocm7.0.0
 - Adjust array workaround for RHEL 10.2
 

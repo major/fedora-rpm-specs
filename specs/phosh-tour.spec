@@ -1,5 +1,5 @@
 Name:     phosh-tour
-Version:  0.47.0
+Version:  0.50.0
 Release:  %autorelease
 Summary:  Simple introduction to Phosh
 License:  GPL-3.0-or-later
@@ -8,7 +8,7 @@ Source:   https://gitlab.gnome.org/World/Phosh/phosh-tour/-/archive/v%{version_n
 # Ensure appstream file is tested
 Patch:    Require-appstreamcli-to-validate-appstream-file.patch
 
-ExcludeArch:  i686
+ExcludeArch:  %{ix86}
 
 BuildRequires:  gcc
 BuildRequires:  meson

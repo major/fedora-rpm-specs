@@ -1,13 +1,13 @@
-%global commit0 2828df54594673653a641ab551caf6c6b1bfeee5
+%global commit0 147f003fb7076ac4c7cf76a9a5ce152dc10e0ca6
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
-%global snapdate 20250211
+%global snapdate 20251010
 
 %global srcname migen
 
 Name:           python-%{srcname}
 Version:        0.9.2
-Release:        35.%{snapdate}git%{shortcommit0}%{?dist}
+Release:        36.%{snapdate}git%{shortcommit0}%{?dist}
 Summary:        A Python toolbox for building complex digital hardware
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -64,6 +64,9 @@ install -Dpm644 -t %{buildroot}%{_mandir}/man1 _build/man/%{srcname}.1
 %{_mandir}/man1/%{srcname}.1*
 
 %changelog
+* Fri Oct 10 2025 Gabriel Somlo <gsomlo@gmail.com> - 0.9.2-36.20251010git147f003
+- update to newer snapshot
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.9.2-35.20250211git2828df5
 - Rebuilt for Python 3.14.0rc3 bytecode
 

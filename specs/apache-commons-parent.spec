@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 Name:           apache-commons-parent
-Version:        85
+Version:        89
 Release:        %autorelease
 Summary:        Apache Commons Parent Pom
 License:        Apache-2.0

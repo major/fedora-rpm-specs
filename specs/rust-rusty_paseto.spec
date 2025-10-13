@@ -5,7 +5,7 @@
 %global crate rusty_paseto
 
 Name:           rust-rusty_paseto
-Version:        0.7.2
+Version:        0.8.0
 Release:        %autorelease
 Summary:        Type-driven, ergonomic alternative to JWT for secure stateless PASETO tokens
 
@@ -114,6 +114,18 @@ This package contains library source intended for building other packages which
 use the "core" feature of the "%{crate}" crate.
 
 %files       -n %{name}+core-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+ctr-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+ctr-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "ctr" feature of the "%{crate}" crate.
+
+%files       -n %{name}+ctr-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+ed25519-dalek-devel

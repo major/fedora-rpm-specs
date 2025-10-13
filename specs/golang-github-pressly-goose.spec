@@ -14,7 +14,7 @@ Goose database migration tool - fork of https://bitbucket.org/liamstask/goose.}
 %global godocs          examples README.md
 
 Name:           %{goname}
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Goose database migration tool
 
 License:        MIT
@@ -62,6 +62,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Sun Oct 12 2025 Maxwell G <maxwell@gtmx.me> - 2.7.0-17
+- Rebuild for golang 1.25.2
+
 * Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 2.7.0-16
 - rebuild
 

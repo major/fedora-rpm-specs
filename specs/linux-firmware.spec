@@ -4,15 +4,14 @@
 %define _binaries_in_noarch_packages_terminate_build 0
 
 Name:		linux-firmware
-Version:	20250917
-Release:	2%{?dist}
+Version:	20251011
+Release:	1%{?dist}
 Summary:	Firmware files used by the Linux kernel
 License:	GPL-1.0-or-later AND GPL-2.0-or-later AND MIT AND LicenseRef-Callaway-Redistributable-no-modification-permitted
 URL:		http://www.kernel.org/
 BuildArch:	noarch
 
 Source0:	https://www.kernel.org/pub/linux/kernel/firmware/%{name}-%{version}.tar.xz
-Patch0:		0001-mediatek-mtk_wed-drop-links-for-mt7988.patch
 
 BuildRequires:	make
 BuildRequires:	git-core
@@ -233,7 +232,6 @@ and ethernet including SRIOV, DCB etc.
 Summary:	Firmware for Mediatek SoCs
 License:	LicenseRef-Callaway-Redistributable-no-modification-permitted
 Requires:	linux-firmware-whence = %{version}-%{release}
-Requires:	atheros-firmware = %{version}-%{release}
 %description -n mediatek-firmware
 Firmware for various compoents in Mediatek SoCs, in particular SCP.
 
@@ -667,6 +665,7 @@ end
 %{_firmwarepath}/qcom/*.bin*
 %{_firmwarepath}/qcom/*.m*
 %{_firmwarepath}/qcom/apq*/
+%{_firmwarepath}/qcom/kaanapali/
 %{_firmwarepath}/qcom/qcm*/
 %{_firmwarepath}/qcom/qcs*/
 %{_firmwarepath}/qcom/qrb*/
@@ -720,6 +719,37 @@ end
 %{_firmwarepath}/v4l-cx2*
 
 %changelog
+* Sat Oct 11 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 20251011-1
+- Update to 20251011
+- qcom: add CDSP firmware for kaanapali platform
+- qcom: add version for A650 GMU firmware
+- qca: Update Bluetooth WCN6750 1.1.3-00091 firmware to 1.1.3-00100
+- qcom: Add firmwares for Kaanapali GPU
+- qcom: Update A623 GMU fw
+- qcom: Fix QCS615 chipset's GPU secure fw
+- qcom: Update DSP firmware for sa8775p platform
+- amdgpu: DMCUB updates for various ASICs
+- WHENCE: remove link for Kaanapali video firmware
+- intel_vpu: Update NPU firmware
+- Add Dell ISH firmware for Intel Lunar Lake systems
+- Update VCN for Navi1x, Green Sardine and Renoir
+- qcom: vpu: update video firmware binary for SM8550
+- rtl_bt: Update RTL8852BT/RTL8852BE-VT BT USB FW to 0x3BAC_ADBA
+- qcom: vpu: add video firmware for Kaanapali
+- qcom: Update DSP firmware for qcs8300 platform.
+- qcom: Add Audio topology for HAMOA-EVK
+- intel/ish:Add ISH firmware file for Intel Lunar Lake platform
+- mediatek: update firmware version info for MT7986/81/16
+- ql2500_fw: update ISP25xx Firmware
+- qcom: Update aic100 firmware files
+- qcom: Add audio topology and ADSP firmware for qcs6490-radxa-dragon-q6a
+- mediatek: mtk_wed: drop links for mt7988
+- qcom: Update DSP firmware for qcs8300 platform.
+- powervr: update firmware for Imagination Technologies BXS-4-64 GPU
+- qcom: Update DSP firmware for sa8775p platform.
+- ath12k: WCN7850 hw2.0: update board-2.bin
+- qcom: move LEMANS EVK firmware to correct location
+
 * Fri Sep 26 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 20250917-2
 - Adjust various mediatek firmware packaging
 

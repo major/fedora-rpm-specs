@@ -1,7 +1,7 @@
 %global gvc_commit 5f9768a2eac29c1ed56f1fbb449a77a3523683b6
 
 Name:		phosh-mobile-settings
-Version:	0.49.0
+Version:	0.50.0
 Release:	%autorelease
 Summary:	Mobile Settings App for phosh and related components
 License:	GPL-3.0-or-later AND LGPL-3.0-or-later
@@ -17,7 +17,7 @@ ExcludeArch:	i686
 
 BuildRequires:	gcc
 BuildRequires:	gcc-c++
-BuildRequires:	meson
+BuildRequires:	meson >= 1.7.0
 
 BuildRequires:	pkgconfig(glib-2.0) >= 2.76
 BuildRequires:	pkgconfig(gio-2.0) >= 2.76
@@ -37,6 +37,7 @@ BuildRequires:	pkgconfig(gnome-desktop-4) >= 44
 BuildRequires:	pkgconfig(libportal-gtk4) >= 0.9.1
 BuildRequires:	pkgconfig(libfeedback-0.0) >= 0.8.0
 BuildRequires:	pkgconfig(libcellbroadcast-0.0) >= 0.0.2
+BuildRequires:	pkgconfig(yaml-0.1)
 BuildRequires:	appstream-devel
 BuildRequires:	lm_sensors-devel
 BuildRequires:	desktop-file-utils
@@ -57,12 +58,15 @@ mv libgnome-volume-control-%{gvc_commit} subprojects/gvc
 mkdir -p /tmp/runtime-dir
 chmod 0700 /tmp/runtime-dir
 
+%conf
+%meson -Dtweaks-data-dir=%{_datadir}/phosh-tweaks
+
 %build
-%meson
 %meson_build
 
 %install
 %meson_install
+install -d %{buildroot}%{_datadir}/phosh-tweaks
 %find_lang %{name}
 
 %check
@@ -80,6 +84,7 @@ SH
 %{_datadir}/icons/hicolor/scalable/apps/mobi.phosh.MobileSettings.svg
 %{_datadir}/icons/hicolor/symbolic/apps/mobi.phosh.MobileSettings-symbolic.svg
 %{_datadir}/metainfo/mobi.phosh.MobileSettings.metainfo.xml
+%dir %{_datadir}/phosh-tweaks
 
 %doc README.md
 %license COPYING

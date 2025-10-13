@@ -1,16 +1,16 @@
-%global commit0 f98e72e4963d9c9da57620595282e58d46a045f7
+%global commit0 92345b77edf775fe5668700dd9931e19db2d36b0
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
-%global commit1 4dda149b9e4f1753ebc8b011ece2fe794be1281a
+%global commit1 015e0330630d7c238c0e4f2cdd9c8157eb78c54a
 %global shortcommit1 %(c=%{commit1}; echo ${c:0:7})
 
-%global snapdate 20250707
+%global snapdate 20251010
 
 %global __python %{__python3}
 
 Name:          trellis
 Version:       1.2.1
-Release:       34.%{snapdate}git%{shortcommit0}%{?dist}
+Release:       35.%{snapdate}git%{shortcommit0}%{?dist}
 Summary:       Lattice ECP5 FPGA bitstream creation/analysis/programming tools
 License:       ISC
 URL:           https://github.com/YosysHQ/prj%{name}
@@ -123,6 +123,9 @@ install -Dpm644 -t %{buildroot}%{_mandir}/man1 man1/*
 %{_datadir}/%{name}/database
 
 %changelog
+* Fri Oct 10 2025 Gabriel Somlo <gsomlo@gmail.com> - 1.2.1-35.20251010git92345b7
+- update to newer snapshot (incl. database)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-34.20250707gitf98e72e
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

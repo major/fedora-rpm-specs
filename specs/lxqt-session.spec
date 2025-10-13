@@ -1,7 +1,7 @@
 Name:         lxqt-session
 Summary:      Main session for LXQt desktop suite
 Version:      2.2.0
-Release:      3%{?dist}
+Release:      5%{?dist}
 License:      LGPL-2.1-only
 URL:          https://lxqt-project.org/
 Source0:      https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -11,9 +11,12 @@ Source0:      https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{versi
 # Proposed upstream
 # https://github.com/lxqt/lxqt-session/pull/571
 Patch0101:    0101-Add-miriway-entry-for-Wayland-window-managers.patch
+Patch0102:    0102-set-default-compositor.patch
+Patch0103:    0103-set-locale1-envar-for-miriway.patch
 
 # Downstream only
 Patch1001:    1001-Drop-Hyprland-entry-for-Wayland-window-managers.patch
+Patch1002:    1002-fix-build-against-qt-6-10.patch
 
 
 BuildRequires:  cmake
@@ -22,6 +25,7 @@ BuildRequires:  git-core
 BuildRequires:  pkgconfig(lxqt)
 BuildRequires:  cmake(Qt6DBus)
 BuildRequires:  cmake(Qt6LinguistTools)
+BuildRequires:  cmake(Qt6GuiPrivate)
 BuildRequires:  cmake(KF6WindowSystem)
 BuildRequires:  cmake(LayerShellQt)
 BuildRequires:  cmake(lxqt2-build-tools)
@@ -134,6 +138,13 @@ sed -i 's/cursor_theme=whiteglass/cursor_theme=breeze_cursors/g;/General/a windo
 %{_datadir}/lxqt/translations/lxqt-session/lxqt-session_arn.qm
 
 %changelog
+* Sat Oct 11 2025 Shawn W Dunn <sfalken@opensuse.org> - 2.2.0-5
+- Add 0103-set-locale1-envar-for-miriway.patch
+- Add 1002-fix-build-against-qt-6-10.patch
+
+* Sat Oct 11 2025 Shawn W Dunn <sfalken@opensuse.org> - 2.2.0-4
+- Add 0102-set-default-compositor.patch
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
@@ -142,7 +153,7 @@ sed -i 's/cursor_theme=whiteglass/cursor_theme=breeze_cursors/g;/General/a windo
 
 * Thu Jun 05 2025 Shawn W, Dunn <sfalken@cloverleaf-linux.org> - 2.2.0-1
 - 2.2.0
- 
+
 * Sun Feb 16 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.1.1-6
 - Ensure the Wayland session is installed
 

@@ -18,7 +18,7 @@ vendored and distributed with the package.}
 %global godocs          docs CHANGELOG.md README.md
 
 Name:           glide
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Package Management for Golang
 
 License:        MIT
@@ -69,6 +69,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Sun Oct 12 2025 Maxwell G <maxwell@gtmx.me> - 0.13.2-23
+- Rebuild for golang 1.25.2
+
 * Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 0.13.2-22
 - rebuild
 

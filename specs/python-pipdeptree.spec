@@ -6,7 +6,7 @@ packages in form of a dependency tree. It works for packages installed\
 globally on a machine as well as in a virtualenv.
 
 Name:           python-%{srcname}
-Version:        2.28.0
+Version:        2.29.0
 Release:        %autorelease
 Summary:        Command line utility to show dependency tree of packages
 
@@ -36,6 +36,7 @@ sed -i "/diff-cover/d;/covdefaults/d;/pytest-cov/d" pyproject.toml
 sed -i 's/"virtualenv.*",/"virtualenv",/' pyproject.toml
 sed -i 's/"graphviz.*",/"graphviz",/' pyproject.toml
 sed -i 's/"pytest>.*",/"pytest",/' pyproject.toml
+sed -i 's/"pytest-mock>.*",/"pytest-mock",/' pyproject.toml
 
 %generate_buildrequires
 export SETUPTOOLS_SCM_PRETEND_VERSION="%{version}"

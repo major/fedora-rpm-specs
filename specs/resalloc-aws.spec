@@ -1,8 +1,8 @@
 Name:       resalloc-aws
 Summary:    Resource allocator scripts for AWS
-Version:    1.9
+Version:    1.10
 Release:    1%{?dist}
-License:    GPLv2+
+License:    GPL-2.0-or-later
 URL:        https://github.com/praiskup/resalloc-aws
 BuildArch:  noarch
 
@@ -55,6 +55,9 @@ install -p -m 0755 bin/resalloc-aws-minimal-spot-zone %{buildroot}%{_bindir}
 
 
 %changelog
+* Sat Oct 11 2025 Pavel Raiskup <praiskup@redhat.com> 1.10-1
+- SPDX license format (praiskup@redhat.com)
+
 * Wed Oct 08 2025 Pavel Raiskup <praiskup@redhat.com> 1.9-1
 - Allow overriding the region that is set in ~/.aws/config (praiskup@redhat.com)
 

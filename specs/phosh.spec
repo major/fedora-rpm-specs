@@ -2,7 +2,7 @@
 %global libcall_ui_version 0.1.4
 
 Name:		phosh
-Version:	0.49.0
+Version:	0.50.0
 Release:	%autorelease
 Summary:	Graphical shell for mobile devices
 License:	GPL-3.0-or-later
@@ -62,7 +62,7 @@ BuildRequires:	systemd-rpm-macros
 BuildRequires:	xmlstarlet
 
 Requires:	gnome-session
-Requires:	gnome-settings-daemon
+Requires:	gnome-settings-daemon >= 49.0
 Requires:	gnome-shell-common
 Requires:	hicolor-icon-theme
 Requires:	lato-fonts
@@ -158,6 +158,7 @@ SH
 %{_datadir}/phosh
 %{_sysconfdir}/pam.d/phosh
 %{_userunitdir}/gnome-session@phosh.target.d/session.conf
+%{_userunitdir}/mobi.phosh.OSK.target
 %{_userunitdir}/mobi.phosh.Shell.service
 %{_userunitdir}/mobi.phosh.Shell.target
 %{_datadir}/xdg-desktop-portal/portals/phosh-shell.portal

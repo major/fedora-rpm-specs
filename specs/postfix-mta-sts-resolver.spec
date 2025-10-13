@@ -73,8 +73,8 @@ install -m0644 -D postfix-mta-sts-resolver.sysusers.conf %{buildroot}%{_sysusers
 # Upstream's test suite doesn't play nicely with Fedora's offline build system
 %pyproject_check_import -e 'postfix_mta_sts_resolver.postgres_cache' -e 'postfix_mta_sts_resolver.redis_cache' -e 'postfix_mta_sts_resolver.sqlite_cache'
 
-
-%pyproject_extras_subpkg -n %{name} sqlite dev redis postgres uvloop
+# uvloop subpkg removed due to rhbz#2326210
+%pyproject_extras_subpkg -n %{name} sqlite dev redis postgres
 
 
 %files  -f %{pyproject_files} 

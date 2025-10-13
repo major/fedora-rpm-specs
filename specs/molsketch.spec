@@ -1,5 +1,5 @@
 Name:           molsketch
-Version:        0.8.3
+Version:        0.8.4
 Release:        1%{?dist}
 Summary:        Molecular Structures Editor
 License:        GPL-2.0-or-later
@@ -104,6 +104,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 
 
 %changelog
+* Sat Oct 11 2025 Alexander Ploumistos <alexpl@fedoraproject.org> - 0.8.4-1
+- Update to 0.8.4
+
 * Sun Aug 03 2025 Alexander Ploumistos <alexpl@fedoraproject.org> - 0.8.3-1
 - Update to 0.8.3
 

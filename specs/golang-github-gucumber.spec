@@ -24,7 +24,7 @@ An implementation of Cucumber BDD-style testing for Go.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.35%{?dist}
+Release:        0.36%{?dist}
 Summary:        Cucumber BDD-style testing for Go
 
 License:        MIT
@@ -77,6 +77,9 @@ end
 %gopkgfiles
 
 %changelog
+* Sun Oct 12 2025 Maxwell G <maxwell@gtmx.me> - 0-0.36
+- Rebuild for golang 1.25.2
+
 * Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 0-0.35
 - rebuild
 

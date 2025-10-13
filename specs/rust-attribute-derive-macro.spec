@@ -2,26 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate primes
+%global crate attribute-derive-macro
 
-Name:           rust-primes
-Version:        0.4.0
+Name:           rust-attribute-derive-macro
+Version:        0.10.5
 Release:        %autorelease
-Summary:        Package for calculating primes using the Sieve of Eratosthenes
+Summary:        Clap for proc macro attributes
 
-License:        BSD-3-Clause
-URL:            https://crates.io/crates/primes
+License:        MIT
+URL:            https://crates.io/crates/attribute-derive-macro
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * Do not depend on criterion; it is needed only for benchmarks.
-Patch:          primes-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-A package for calculating primes using the Sieve of Eratosthenes, and
-using that to check if a number is prime and calculating factors.
-Includes an iterator over all primes.}
+Clap for proc macro attributes.}
 
 %description %{_description}
 

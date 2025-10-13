@@ -1,6 +1,6 @@
 Name:           librime
 Version:        1.14.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Rime Input Method Engine Library
 
 License:        GPL-3.0-only
@@ -9,6 +9,8 @@ Source0:        https://github.com/rime/librime/archive/%{version}.tar.gz#/%{nam
 # The following librime lua plugin needs to access the librime internal API.
 # Build the librime lua plugin when build the librime package.
 Source1:        https://github.com/hchunhui/librime-lua/archive/refs/heads/master.tar.gz#/librime-lua.tar.gz
+# For the librime octagram plugin
+Source2:        https://github.com/lotem/librime-octagram/archive/refs/heads/master.tar.gz#/librime-octagram.tar.gz
 
 Patch0:         librime-fixes-setup-log.patch
 
@@ -56,6 +58,12 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %description    lua
 The %{name}-lua package contains the lua plugin from the community.
 
+%package        octagram
+Summary:        Octagram plugin for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description    octagram
+The %{name}-octagram package contains the octagram plugin from the community.
 
 %prep
 %autosetup -p1
@@ -63,6 +71,8 @@ The %{name}-lua package contains the lua plugin from the community.
 pushd plugins
 tar xvf %{SOURCE1}
 mv librime-lua-master lua
+tar xvf %{SOURCE2}
+mv librime-octagram-master octagram
 popd
 
 %build
@@ -105,15 +115,22 @@ popd
 %{_libdir}/rime-plugins/librime-lua.so
 
 
+%files octagram
+%{_libdir}/rime-plugins/librime-octagram.so
+
+
 %changelog
-* Tue Aug 05 2025 Peng Wu  <pwu@redhat.com> - 1.14.0-1
+* Sat Oct 11 2025 Peng Wu <pwu@redhat.com> - 1.14.0-2
+- Add the librime octagram plugin
+
+* Tue Aug 05 2025 Peng Wu <pwu@redhat.com> - 1.14.0-1
 - Update to 1.14.0
 - Resolves: RHBZ#2382172
 
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Thu Jul 17 2025 Peng Wu  <pwu@redhat.com> - 1.13.1-2
+* Thu Jul 17 2025 Peng Wu <pwu@redhat.com> - 1.13.1-2
 - Rebuild for marisa
 
 * Mon Feb 17 2025 Peng Wu <pwu@redhat.com> - 1.13.1-1

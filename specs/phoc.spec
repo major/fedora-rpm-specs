@@ -1,7 +1,7 @@
 %global gvdb_commit 4758f6fb7f889e074e13df3f914328f3eecb1fd3
 
 Name:		phoc
-Version:	0.49.0
+Version:	0.50.0
 Release:	%{autorelease}
 Summary:	Display compositor designed for phones
 
@@ -20,7 +20,7 @@ BuildRequires:	pkgconfig(glib-2.0) >= 2.80
 BuildRequires:	pkgconfig(gobject-2.0) >= 2.80
 BuildRequires:	pkgconfig(glesv2)
 BuildRequires:	pkgconfig(gnome-desktop-3.0) >= 3.26
-BuildRequires:	pkgconfig(libinput)
+BuildRequires:	pkgconfig(libinput) >= 1.27.0
 BuildRequires:	pkgconfig(libudev)
 BuildRequires:	pkgconfig(libdrm)
 BuildRequires:	pkgconfig(pixman-1) >= 0.43.4

@@ -3,10 +3,12 @@ Name:           srpc
 License:        Apache-2.0
 
 Version:        0.10.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 URL:            https://github.com/sogou/srpc
 Source0:        %{url}/archive/v%{version}/%{name}-v%{version}.tar.gz
+# https://github.com/sogou/srpc/pull/429
+Patch:          srpc-gtest.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -35,7 +37,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %_description
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
 %cmake
@@ -68,6 +70,9 @@ make check
 %{_libdir}/cmake/%{name}/*.cmake
 
 %changelog
+* Tue Oct 07 2025 Terje Rosten <terjeros@gmail.com> - 0.10.3-4
+- Use C++17 with gtest 1.17.0
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

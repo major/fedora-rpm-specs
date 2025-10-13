@@ -5,17 +5,13 @@
 %global crate rusty_paserk
 
 Name:           rust-rusty_paserk
-Version:        0.4.0
+Version:        0.5.0
 Release:        %autorelease
 Summary:        Platform Agnostic Serializable Keys
 
 License:        MIT
 URL:            https://crates.io/crates/rusty_paserk
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * Allow libtest-mimic 0.8; see “Update libtest-mimic dev-dependency from 0.7.3
-#   to 0.8.1”, https://github.com/conradludgate/rusty-paserk/pull/4
-Patch:          rusty_paserk-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

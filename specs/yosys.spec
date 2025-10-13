@@ -1,11 +1,11 @@
-%global commit0 cec48c6abdb4493515330e17c97625675fc1583c
+%global commit0 9a12d92551096cd458fd635ed84acf3ba0f2c423
 %global shortcommit0 %%(c=%%{commit0}; echo ${c:0:7})
 
-%global snapdate 20250904
+%global snapdate 20251010
 
 Name:           yosys
-Version:        0.57
-Release:        2.%{snapdate}git%{shortcommit0}%{?dist}
+Version:        0.58
+Release:        1.%{snapdate}git%{shortcommit0}%{?dist}
 Summary:        Yosys Open SYnthesis Suite, including Verilog synthesizer
 License:        ISC and MIT
 URL:            http://www.clifford.at/yosys/
@@ -173,6 +173,9 @@ make test ABCEXTERNAL=%{_bindir}/abc SEED=314159265359
 
 
 %changelog
+* Fri Oct 10 2025 Gabriel Somlo <gsomlo@gmail.com> - 0.58.1.20251010git9a12d92
+- update to 0.58 snapshot
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.57-2.20250904gitcec48c6
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -12,7 +12,7 @@
 
 Name: flang
 Version: %{flang_version}%{?rc_ver:~rc%{rc_ver}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: a Fortran language front-end designed for integration with LLVM
 
 License: Apache-2.0 WITH LLVM-exception
@@ -105,6 +105,9 @@ BuildRequires: gnupg2
 Requires: %{name}-runtime = %{version}-%{release}
 # flang installs headers in the clang resource directory
 Requires: clang-resource-filesystem = %{version}
+# flang implicitly calls ld.bfd when linking and depends on the gcc runtime objects.
+Requires: binutils
+Requires: gcc
 # Up to version 17.0.6-1, flang used to provide a flang-devel package.
 # This changed in 17.0.6-2 and all development-related files are now
 # distributed in the main flang package.
@@ -338,6 +341,9 @@ export LD_LIBRARY_PATH=%{_builddir}/%{srcdir}/flang/%{_vpath_builddir}/lib
 %{clang_resource_dir}/lib/%{llvm_triple}/libflang_rt.runtime.a
 
 %changelog
+* Fri Oct 03 2025 Tom Stellard <tstellar@redhat.com> - 21.1.2-2
+- Add binutils and gcc requires
+
 * Thu Sep 25 2025 Tom Stellard <tstellar@redhat.com> - 21.1.2-1
 - Update to LLVM 21.1.2
 

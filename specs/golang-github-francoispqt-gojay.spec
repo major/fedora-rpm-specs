@@ -23,7 +23,7 @@ Unsafe API.}
 %global godocs          examples README.md
 
 Name:           %{goname}
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Fastest JSON encoder/decoder with powerful stream API for Golang
 
 License:        MIT
@@ -78,6 +78,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Sun Oct 12 2025 Maxwell G <maxwell@gtmx.me> - 1.2.13-21
+- Rebuild for golang 1.25.2
+
 * Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 1.2.13-20
 - rebuild
 

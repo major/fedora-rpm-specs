@@ -64,6 +64,12 @@ Summary:        %{summary}
 # NumPy 2.x.
 sed -r -i '/error::DeprecationWarning/d' pyproject.toml
 
+# Fix incorrect version string in pyproject.toml
+# Tarball n PyPI has the correct version, but not the GitHub tarball
+sed -r \
+    -e 's/^(version = ).*/\1"%{version}"/' \
+    -i pyproject.toml
+
 %generate_buildrequires
 %pyproject_buildrequires
 

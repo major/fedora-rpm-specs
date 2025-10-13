@@ -18,7 +18,7 @@ Bash completion written in go + bash completion for go command.}
 %global godocs          example README.md
 
 Name:           %{goname}
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Bash completion written in go + bash completion for go command
 
 License:        MIT
@@ -67,6 +67,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Sun Oct 12 2025 Maxwell G <maxwell@gtmx.me> - 2.0.1~alpha.13-19
+- Rebuild for golang 1.25.2
+
 * Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 2.0.1~alpha.13-18
 - rebuild
 

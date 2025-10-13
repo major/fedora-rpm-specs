@@ -10,7 +10,7 @@
 
 
 Name:           gi-docgen
-Version:        2025.4
+Version:        2025.5
 Release:        %autorelease
 Summary:        Documentation tool for GObject-based libraries
 
@@ -235,7 +235,7 @@ cp -rp examples '%{buildroot}%{_pkgdocdir}/'
 
 
 %files -f %{pyproject_files}
-%license LICENSES/ .reuse/dep5
+%license LICENSES/ REUSE.toml
 
 %{_bindir}/gi-docgen
 %{_mandir}/man1/gi-docgen.1*
@@ -250,7 +250,7 @@ cp -rp examples '%{buildroot}%{_pkgdocdir}/'
 
 
 %files doc
-%license LICENSES/ .reuse/dep5
+%license LICENSES/ REUSE.toml
 %doc %{_pkgdocdir}/
 
 

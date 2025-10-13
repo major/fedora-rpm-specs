@@ -82,6 +82,9 @@ Patch14:        atuin-relax-config.patch
 # * Cherry-picked https://github.com/atuinsh/atuin/pull/2833
 # * Adjusted to still allow 0.17.x
 Patch15:        atuin-update-indicatif.patch
+# * chore: update rusty_paseto and rusty_paserk
+# * https://github.com/atuinsh/atuin/pull/2942
+Patch16:        atuin-update-paseto-paserk.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 %if %{with check}

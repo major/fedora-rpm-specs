@@ -1,11 +1,3 @@
-# OMPI4 oshcc is now not on all arches (depending on UCX)
-%ifnarch ppc64le
-%global oshm 1
-%endif
-
-# libunwind for score-p
-%bcond_without libunwind
-
 Name:           scorep
 Version:        9.3
 Release:        1%{?dist}
@@ -31,7 +23,7 @@ BuildRequires:  llvm-devel
 BuildRequires:  clang
 BuildRequires:  clang-devel
 BuildRequires:  automake libtool
-%{?with_libunwind:BuildRequires:  libunwind-devel}
+BuildRequires:  libunwind-devel
 BuildRequires:  gotcha-devel%{?_isa} >= 1.0.5
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:       binutils-devel%{?_isa}
@@ -41,7 +33,7 @@ Requires:       papi-devel%{?_isa}
 Requires:       ocl-icd-devel%{?_isa}
 Requires:       opari2%{?_isa} >= 2.0.9
 Requires:       gotcha-devel%{?_isa} >= 1.0.5
-%{?with_libunwind:Requires:  libunwind-devel%{?_isa}}
+Requires:       libunwind-devel%{?_isa}
 # s390 is missing papi and libunwind; 32-bit fails with configure
 # "cannot determine instruction set" in v7.0.
 ExcludeArch: s390 s390x armv7hl i686
@@ -173,7 +165,7 @@ ln -s %_bindir/llvm-config-%__isa_bits bin/llvm-config
 
 %global _configure ../configure
 # Fixme: --disable-silent-rules or V=1 doesn't work in all parts of the build
-%global configure_opts --enable-shared --disable-static --disable-silent-rules %{?with_libunwind:--with-libunwind=yes}
+%global configure_opts --enable-shared --disable-static --disable-silent-rules --with-libunwind=yes
 
 cp /usr/lib/rpm/redhat/config.{sub,guess} build-config/
 
@@ -330,11 +322,9 @@ make -C serial check V=1
 %{_libdir}/openmpi/bin/scorep-mpicxx
 %{_libdir}/openmpi/bin/scorep-mpif77
 %{_libdir}/openmpi/bin/scorep-mpif90
-%if %{?oshm}0
 %{_libdir}/openmpi/bin/scorep-oshcc
 %{_libdir}/openmpi/bin/scorep-oshcxx
 %{_libdir}/openmpi/bin/scorep-oshfort
-%endif
 %{_libdir}/openmpi/bin/scorep-score
 %{_libdir}/openmpi/bin/scorep-wrapper
 %{_libdir}/openmpi/bin/scorep-preload-init

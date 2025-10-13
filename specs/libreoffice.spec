@@ -1,7 +1,7 @@
 # download path contains version without the last (fourth) digit
 %global libo_version 25.8.2
 # This is the last (fourth) digit of LO version
-%global libo_min_version 1
+%global libo_min_version 2
 # Set this to 1 if this is a prerelease build
 %global prerelease %{nil}
 # Should contain .alphaX / .betaX, if this is pre-release (actually
@@ -270,7 +270,11 @@ BuildRequires: pkgconfig(harfbuzz)
 BuildRequires: pkgconfig(libeot)
 BuildRequires: pkgconfig(libepubgen-0.1)
 BuildRequires: pkgconfig(libqxp-0.0)
+%if 0%{?fedora} > 43
 BuildRequires: pkgconfig(liborcus-0.21)
+%else
+BuildRequires: pkgconfig(liborcus-0.20)
+%endif
 BuildRequires: pkgconfig(mdds-3.0)
 BuildRequires: pkgconfig(zxing)
 BuildRequires: libnumbertext-devel
@@ -324,7 +328,9 @@ Patch12: cflags.patch
 Patch13: fix_or_exclude-tests-with-missing-glyphs.patch
 # https://lists.freedesktop.org/archives/libreoffice/2023-September/090948.html
 Patch501: kahansum_test_fix_for_aarc64_s390x.patch
+%if 0%{?fedora} > 43
 Patch502: orcus.patch
+%endif
 
 %global instdir %{_libdir}
 %global baseinstdir %{instdir}/libreoffice
@@ -1094,7 +1100,9 @@ mv -f redhat.soc extras/source/palettes/standard.soc
 %ifarch aarch64 s390x ppc64le
 %patch -P 501 -p1
 %endif
+%if 0%{?fedora} > 43
 %patch -P 502 -p0
+%endif
 
 # Temporarily disable failing tests
 %ifarch ppc64le

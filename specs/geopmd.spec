@@ -9,7 +9,7 @@ optimize system hardware settings to achieve energy efficiency and/or
 performance objectives.}
 
 Name:		geopmd
-Version:	3.2.0
+Version:	3.2.1
 Release:	%autorelease
 Summary:	GEOPM daemon
 
@@ -21,7 +21,7 @@ ExclusiveArch:	x86_64
 
 BuildRequires:	gcc
 BuildRequires:	grpc-plugins
-BuildRequires:	libgeopmd-devel >= 3.2.0
+BuildRequires:	libgeopmd-devel >= 3.2.1
 BuildRequires:	python3-devel
 BuildRequires:	python3-setuptools
 BuildRequires:	python3-setuptools_scm

@@ -2,26 +2,33 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate primes
+%global crate reqsign-aws-v4
 
-Name:           rust-primes
-Version:        0.4.0
+Name:           rust-reqsign-aws-v4
+Version:        1.0.0
 Release:        %autorelease
-Summary:        Package for calculating primes using the Sieve of Eratosthenes
+Summary:        Signing API requests without effort
 
-License:        BSD-3-Clause
-URL:            https://crates.io/crates/primes
+License:        Apache-2.0
+URL:            https://crates.io/crates/reqsign-aws-v4
 Source:         %{crates_source}
+# * Fix license files missing from published crates
+# * https://github.com/apache/opendal-reqsign/pull/635
+Source10:       https://github.com/apache/opendal-reqsign/raw/refs/tags/v0.17.0/LICENSE
 # Manually created patch for downstream crate metadata changes
-# * Do not depend on criterion; it is needed only for benchmarks.
-Patch:          primes-fix-metadata.diff
+# * Patch out benchmark-only criterion dev-dependency
+# * Patch out dev-dependencies on aws-sig4 and aws-credential-types since we do
+#   not want to package them; these are used only for benchmarks and for one
+#   group of tests.
+Patch:          reqsign-aws-v4-fix-metadata.diff
+# * Downstream-only: avoid a dev-dependency on aws-sigv4 and
+#   aws-credential-types
+Patch11:        reqsign-aws-v4-1.0.0-unwanted-dev-deps.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-A package for calculating primes using the Sieve of Eratosthenes, and
-using that to check if a number is prime and calculating factors.
-Includes an iterator over all primes.}
+Signing API requests without effort.}
 
 %description %{_description}
 
@@ -53,6 +60,10 @@ use the "default" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
+# Copy the license file into the source.
+cp -p '%{SOURCE10}' .
+# Remove unused mock server scripts from tests to avoid a Python dependency
+rm -rv tests/mocks
 %cargo_prep
 
 %generate_buildrequires

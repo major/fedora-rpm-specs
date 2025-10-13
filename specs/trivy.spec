@@ -3,7 +3,7 @@
 
 # https://github.com/aquasecurity/trivy
 %global goipath         github.com/aquasecurity/trivy
-Version:                0.64.1
+Version:                0.67.2
 
 %gometa -L
 
@@ -40,10 +40,11 @@ sed -i 's|_ "modernc.org/sqlite"|_ "github.com/mattn/go-sqlite3"|' \
 # Set the package version in the binary
 # Change go-sqlite3 driver name for compatibility with modernc sqlite
 %global our_goldflags %{shrink:
-    -X=github.com/aquasecurity/trivy/pkg/version.ver=%{version}
-    -X=github.com/mattn/go-sqlite3.driverName=sqlite
+    -X github.com/aquasecurity/trivy/pkg/version/app.ver=%{version}
+    -X github.com/mattn/go-sqlite3.driverName=sqlite
 }
 export GO_LDFLAGS=%{shescape:%our_goldflags}
+export GOEXPERIMENT="nodwarf5,jsonv2"
 # Do not use the bundled sqlite
 export CGO_CFLAGS="-D USE_LIBSQLITE3=1 %{build_cflags}" CGO_LDFLAGS="-lsqlite3 %{build_ldflags}"
 # This package does not build without go modules enabled
@@ -89,12 +90,14 @@ skiptest TestArtifact_InspectWithMaxImageSize
 # Terraform tests attempt to connect to the terraform registry
 find pkg/iac/scanners/terraform*/ -name '*_test.go' -print -delete
 
+export GOEXPERIMENT="nodwarf5,jsonv2"
 export GO_LDFLAGS="-X=github.com/mattn/go-sqlite3.driverName=sqlite"
 export CGO_CFLAGS="-D USE_LIBSQLITE3=1" CGO_LDFLAGS="-lsqlite3"
 %gotest ./...
 %endif
 
 %files -f %{go_vendor_license_filelist}
+%license vendor/modules.txt
 %doc CONTRIBUTING.md README.md SECURITY.md
 %{_bindir}/trivy
 %{bash_completions_dir}/trivy
