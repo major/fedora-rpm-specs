@@ -1,48 +1,47 @@
 %{?mingw_package_header}
 
-%global majorver1 8
-%global majorver2 6
-%global majorver %{majorver1}.%{majorver2}
-%global vers %{majorver}.12
+%global majorver 9
+%global minorver 0
+%global fullver %{majorver}.%{minorver}
 
-%global pkgname tk
-
+Name:          mingw-tk
+Version:       9.0.2
+Release:       1%{?dist}
 Summary:       MinGW Windows graphical toolkit for the Tcl scripting language
-Name:          mingw-%{pkgname}
-Version:       8.6.15
-Release:       3%{?dist}
+
 License:       TCL
 URL:           http://tcl.sourceforge.net/
-Source0:       http://downloads.sourceforge.net/sourceforge/tcl/%{pkgname}%{version}-src.tar.gz
+Source0:       http://downloads.sourceforge.net/sourceforge/tcl/tk%{version}-src.tar.gz
+BuildArch:     noarch
 
 BuildRequires: make
+
 BuildRequires: mingw32-tcl = %{version}
-BuildRequires: mingw32-filesystem >= 95
+BuildRequires: mingw32-filesystem
 BuildRequires: mingw32-gcc
 
 BuildRequires: mingw64-tcl = %{version}
-BuildRequires: mingw64-filesystem >= 95
+BuildRequires: mingw64-filesystem
 BuildRequires: mingw64-gcc
 
-BuildArch: noarch
 
 %description
 When paired with the Tcl scripting language, Tk provides a fast and powerful
 way to create cross-platform GUI applications.
 
 
-%package -n mingw32-%{pkgname}
+%package -n mingw32-tk
 Summary:   MinGW Windows graphical toolkit for the Tcl scripting language
 
-%description -n mingw32-%{pkgname}
+%description -n mingw32-tk
 When paired with the Tcl scripting language, Tk provides a fast and powerful
 way to create cross-platform GUI applications.
 
 
-%package -n mingw64-%{pkgname}
+%package -n mingw64-tk
 Summary:   MinGW Windows graphical toolkit for the Tcl scripting language
 
-%description -n mingw64-%{pkgname}
+%description -n mingw64-tk
 When paired with the Tcl scripting language, Tk provides a fast and powerful
 way to create cross-platform GUI applications.
 
@@ -51,110 +50,92 @@ way to create cross-platform GUI applications.
 
 
 %prep
-%autosetup -p1 -n %{pkgname}%{version}
-iconv -f iso-8859-1 -t utf-8 changes > changes.utf8
-touch -r changes changes.utf8
-mv changes.utf8 changes
+%autosetup -p1 -n tk%{version}
 
 
 %build
 pushd win
 
-MINGW32_CONFIGURE_ARGS="--with-tcl=%{mingw32_libdir}/tcl%{majorver}"
-MINGW64_CONFIGURE_ARGS="--with-tcl=%{mingw64_libdir}/tcl%{majorver}"
+MINGW32_CONFIGURE_ARGS="--with-tcl=%{mingw32_libdir}"
+MINGW64_CONFIGURE_ARGS="--with-tcl=%{mingw64_libdir}"
 %{mingw_configure}
-# builds fail sometimes with %%{?_smp_mflags}, so don't use
-sed -i -e 's,mingw-tcl,tcl,g' build_win*/Makefile
-sed -i -e 's,/usr/include,%{mingw32_includedir},g' build_win32/Makefile
-sed -i -e 's,/usr/include,%{mingw64_includedir},g' build_win64/Makefile
-sed -i -e 's,tcl8.6/libtclstub86,libtclstub86,g' build_win*/Makefile
-sed -i -e 's,libtcl86.a,libtcl86.dll.a,g' build_win*/Makefile
-sed -i -e 's,tcl8.6/libtcl86,libtcl86,g' build_win*/Makefile
-%{mingw32_make} -C build_win32 TCL_LIBRARY=%{mingw32_datadir}/%{pkgname}%{majorver}
-%{mingw64_make} -C build_win64 TCL_LIBRARY=%{mingw64_datadir}/%{pkgname}%{majorver}
+%{mingw32_make} -C build_win32 TCL_LIBRARY=%{mingw32_datadir}/tk%{fullver}
+%{mingw64_make} -C build_win64 TCL_LIBRARY=%{mingw64_datadir}/tk%{fullver}
 popd
 
 
 %install
-make install -C win/build_win32 INSTALL_ROOT=%{buildroot} TK_LIBRARY=%{mingw32_datadir}/%{pkgname}%{majorver}
-make install -C win/build_win64 INSTALL_ROOT=%{buildroot} TK_LIBRARY=%{mingw64_datadir}/%{pkgname}%{majorver}
+make install -C win/build_win32 INSTALL_ROOT=%{buildroot} TK_LIBRARY=%{mingw32_datadir}/tk%{fullver}
+make install -C win/build_win64 INSTALL_ROOT=%{buildroot} TK_LIBRARY=%{mingw64_datadir}/tk%{fullver}
 
-ln -s wish%{majorver1}%{majorver2}.exe %{buildroot}%{mingw32_bindir}/wish.exe
-ln -s wish%{majorver1}%{majorver2}.exe %{buildroot}%{mingw64_bindir}/wish.exe
+ln -s wish%{majorver}%{minorver}.exe %{buildroot}%{mingw32_bindir}/wish.exe
+ln -s wish%{majorver}%{minorver}.exe %{buildroot}%{mingw64_bindir}/wish.exe
 
-# for linking with -lib%%{pkgname}
-ln -s lib%{pkgname}%{majorver1}%{majorver2}.dll.a \
-      %{buildroot}%{mingw32_libdir}/lib%{pkgname}.dll.a
-ln -s lib%{pkgname}%{majorver1}%{majorver2}.dll.a \
-      %{buildroot}%{mingw64_libdir}/lib%{pkgname}.dll.a
+# for linking with -libtk
+ln -s libtcl9tk%{majorver}%{minorver}.dll.a %{buildroot}%{mingw32_libdir}/libtk.dll.a
+ln -s libtcl9tk%{majorver}%{minorver}.dll.a %{buildroot}%{mingw64_libdir}/libtk.dll.a
 
-mkdir -p %{buildroot}/%{mingw32_libdir}/%{pkgname}%{majorver}
-mkdir -p %{buildroot}/%{mingw64_libdir}/%{pkgname}%{majorver}
+mkdir -p %{buildroot}/%{mingw32_libdir}/tk%{fullver}
+mkdir -p %{buildroot}/%{mingw64_libdir}/tk%{fullver}
 
 # postgresql and maybe other packages too need tclConfig.sh
 # paths don't look at /usr/lib for efficiency, so we symlink into tcl8.5 for now
-ln -s %{mingw32_libdir}/%{pkgname}Config.sh \
-      %{buildroot}/%{mingw32_libdir}/%{pkgname}%{majorver}/%{pkgname}Config.sh
-ln -s %{mingw64_libdir}/%{pkgname}Config.sh \
-      %{buildroot}/%{mingw64_libdir}/%{pkgname}%{majorver}/%{pkgname}Config.sh
+ln -s ../tkConfig.sh \
+      %{buildroot}/%{mingw32_libdir}/tk%{fullver}/tkConfig.sh
+ln -s ../tkConfig.sh \
+      %{buildroot}/%{mingw64_libdir}/tk%{fullver}/tkConfig.sh
 
-mkdir -p %{buildroot}/%{mingw32_includedir}/%{pkgname}-private/{generic/ttk,win}
-mkdir -p %{buildroot}/%{mingw64_includedir}/%{pkgname}-private/{generic/ttk,win}
-find generic win -name "*.h" -exec cp -p '{}' %{buildroot}/%{mingw32_includedir}/%{pkgname}-private/'{}' ';'
-find generic win -name "*.h" -exec cp -p '{}' %{buildroot}/%{mingw64_includedir}/%{pkgname}-private/'{}' ';'
-( cd %{buildroot}/%{mingw32_includedir}
-     for i in *.h ; do
-         [ -f %{buildroot}/%{mingw32_includedir}/%{pkgname}-private/generic/$i ] && \
-         ln -sf ../../$i %{buildroot}/%{mingw32_includedir}/%{pkgname}-private/generic ;
-     done
-) || true
-( cd %{buildroot}/%{mingw64_includedir}
-     for i in *.h ; do
-         [ -f %{buildroot}/%{mingw64_includedir}/%{pkgname}-private/generic/$i ] && \
-         ln -sf ../../$i %{buildroot}/%{mingw64_includedir}/%{pkgname}-private/generic ;
-     done
-) || true
-
-# fix executable bits
-chmod a-x %{buildroot}/%{mingw32_libdir}/*/pkgIndex.tcl
-chmod a-x %{buildroot}/%{mingw64_libdir}/*/pkgIndex.tcl
-
-# remove buildroot traces
-sed -i -e "s|$PWD/win|%{_libdir}|; s|$PWD|%{_includedir}/%{name}-private|" %{buildroot}/%{mingw32_libdir}/%{pkgname}Config.sh
-sed -i -e "s|$PWD/win|%{_libdir}|; s|$PWD|%{_includedir}/%{name}-private|" %{buildroot}/%{mingw64_libdir}/%{pkgname}Config.sh
-rm -rf %{buildroot}/%{mingw32_datadir}/%{pkgname}%{majorver}/tclAppInit.c
-rm -rf %{buildroot}/%{mingw64_datadir}/%{pkgname}%{majorver}/tclAppInit.c
-rm -rf %{buildroot}/%{mingw32_datadir}/%{pkgname}%{majorver}/ldAix
-rm -rf %{buildroot}/%{mingw64_datadir}/%{pkgname}%{majorver}/ldAix
+mkdir -p %{buildroot}/%{mingw32_includedir}/tk-private/{generic/ttk,win}
+mkdir -p %{buildroot}/%{mingw64_includedir}/tk-private/{generic/ttk,win}
+find generic win -name "*.h" -exec cp -p '{}' %{buildroot}/%{mingw32_includedir}/tk-private/'{}' ';'
+find generic win -name "*.h" -exec cp -p '{}' %{buildroot}/%{mingw64_includedir}/tk-private/'{}' ';'
+(
+cd %{buildroot}/%{mingw32_includedir}
+for i in *.h ; do
+      [ -f %{buildroot}/%{mingw32_includedir}/tk-private/generic/$i ] && \
+      ln -sf ../../$i %{buildroot}/%{mingw32_includedir}/tk-private/generic || : ;
+done
+)
+(
+cd %{buildroot}/%{mingw64_includedir}
+for i in *.h ; do
+      [ -f %{buildroot}/%{mingw64_includedir}/tk-private/generic/$i ] && \
+      ln -sf ../../$i %{buildroot}/%{mingw64_includedir}/tk-private/generic || : ;
+done
+)
 
 
-%files -n mingw32-%{pkgname}
-%{mingw32_bindir}/wish*.exe
-%{mingw32_bindir}/%{pkgname}%{majorver1}%{majorver2}.dll
-%{mingw32_libdir}/lib%{pkgname}%{majorver1}%{majorver2}.dll.a
-%{mingw32_libdir}/lib%{pkgname}stub%{majorver1}%{majorver2}.a
-%{mingw32_libdir}/lib%{pkgname}.dll.a
-%{mingw32_libdir}/%{pkgname}Config.sh
+%files -n mingw32-tk
+%{mingw32_bindir}/wish.exe
+%{mingw32_bindir}/wish%{majorver}%{minorver}.exe
+%{mingw32_bindir}/tcl9tk%{majorver}%{minorver}.dll
+%{mingw32_libdir}/libtcl9tk%{majorver}%{minorver}.dll.a
+%{mingw32_libdir}/libtkstub.a
+%{mingw32_libdir}/libtk.dll.a
+%{mingw32_libdir}/tkConfig.sh
 %{mingw32_includedir}/*
-%{mingw32_libdir}/%{pkgname}%{majorver}/
-%{mingw32_datadir}/%{pkgname}%{majorver1}.%{majorver2}
-%doc changes
-%doc license.terms
+%{mingw32_libdir}/tk%{fullver}/
+%{mingw32_datadir}/tk%{majorver}.%{minorver}
+%license license.terms
 
-%files -n mingw64-%{pkgname}
-%{mingw64_bindir}/wish*.exe
-%{mingw64_bindir}/%{pkgname}%{majorver1}%{majorver2}.dll
-%{mingw64_libdir}/lib%{pkgname}%{majorver1}%{majorver2}.dll.a
-%{mingw64_libdir}/lib%{pkgname}stub%{majorver1}%{majorver2}.a
-%{mingw64_libdir}/lib%{pkgname}.dll.a
-%{mingw64_libdir}/%{pkgname}Config.sh
+%files -n mingw64-tk
+%{mingw64_bindir}/wish.exe
+%{mingw64_bindir}/wish%{majorver}%{minorver}.exe
+%{mingw64_bindir}/tcl9tk%{majorver}%{minorver}.dll
+%{mingw64_libdir}/libtcl9tk%{majorver}%{minorver}.dll.a
+%{mingw64_libdir}/libtkstub.a
+%{mingw64_libdir}/libtk.dll.a
+%{mingw64_libdir}/tkConfig.sh
 %{mingw64_includedir}/*
-%{mingw64_libdir}/%{pkgname}%{majorver}/
-%{mingw64_datadir}/%{pkgname}%{majorver1}.%{majorver2}
-%doc changes
-%doc license.terms
+%{mingw64_libdir}/tk%{fullver}/
+%{mingw64_datadir}/tk%{majorver}.%{minorver}
+%license license.terms
+
 
 %changelog
+* Sun Oct 12 2025 Sandro Mani <manisandro@gmail.com> - 9.0.2-1
+- Update to 9.0.2
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.6.15-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

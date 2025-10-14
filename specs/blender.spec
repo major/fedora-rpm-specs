@@ -27,7 +27,7 @@
     # x86_64 exclusive features
     %ifarch x86_64
     %bcond hip   1    # AMD HIP support
-    %bcond hiprt 1    # HIP ray tracing (requires Fedora 42+)
+    %bcond hiprt 0    # HIP ray tracing (requires Fedora 42+)
     %bcond oidn  1    # OpenImageDenoise
     %bcond oneapi 0   # Intel OneAPI support
     %bcond opgl  1    # OpenPGL

@@ -139,8 +139,8 @@ install -D -m 0755 %{SOURCE1} %{buildroot}%{_bindir}/%{name}-flatpak-fixup.sh
 
 # Avoid RPM build warning:
 #  absolute symlink: /usr/share/localsearch3/miners/org.freedesktop.Tracker3.Miner.Files.service -> /usr/share/dbus-1/services/org.freedesktop.Tracker3.Miner.Files.service
-rm %{buildroot}%{_datadir}/localsearch3/miners/org.freedesktop.Tracker3.Miner.Files.service
-ln -sr %{buildroot}%{_datadir}/dbus-1/services/org.freedesktop.Tracker3.Miner.Files.service %{buildroot}%{_datadir}/localsearch3/miners/org.freedesktop.Tracker3.Miner.Files.service
+rm %{buildroot}%{_datadir}/localsearch3/miners/%{domain_ontology}.Tracker3.Miner.Files.service
+ln -sr %{buildroot}%{_datadir}/dbus-1/services/%{domain_ontology}.Tracker3.Miner.Files.service %{buildroot}%{_datadir}/localsearch3/miners/%{domain_ontology}.Tracker3.Miner.Files.service
 
 %find_lang localsearch3
 

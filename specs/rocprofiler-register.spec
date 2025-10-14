@@ -1,6 +1,27 @@
+#
+# Copyright Fedora Project Authors.
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to
+# deal in the Software without restriction, including without limitation the
+# rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+# sell copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+# THE SOFTWARE.
+#
 %global upstreamname rocprofiler-register
 %global rocm_release 7.0
-%global rocm_patch 1
+%global rocm_patch 2
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global glog_version 0.7.1
@@ -111,15 +132,9 @@ cp -p external/glog/COPYING COPYING.glog
 %cmake_install
 
 # Do not install the test source etc
-if [ -d %{buildroot}%{_prefix}/share/rocprofiler-register ]; then
-    rm -rf %{buildroot}%{_prefix}/share/rocprofiler-register
-fi
-if [ -d %{buildroot}%{_prefix}/share/modulefiles ]; then
-    rm -rf %{buildroot}%{_prefix}/share/modulefiles
-fi
-if [ -f %{buildroot}%{_prefix}/share/doc/rocprofiler-register/LICENSE ]; then
-    rm -rf %{buildroot}%{_prefix}/share/doc/rocprofiler-register/LICENSE
-fi
+rm -rf %{buildroot}%{_prefix}/share/rocprofiler-register
+rm -rf %{buildroot}%{_prefix}/share/modulefiles
+rm -rf %{buildroot}%{_prefix}/share/doc/rocprofiler-register/LICENSE
 
 %if %{with check}
 %check
@@ -137,6 +152,9 @@ fi
 %{_libdir}/cmake/rocprofiler-register/
 
 %changelog
+* Fri Oct 10 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.2-1
+- Update to 7.0.2
+
 * Fri Sep 26 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-1
 - Update to 7.0.1
 

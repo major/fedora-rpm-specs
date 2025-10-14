@@ -5,7 +5,7 @@
 %global crate bb8
 
 Name:           rust-bb8
-Version:        0.8.6
+Version:        0.9.0
 Release:        %autorelease
 Summary:        Full-featured async (tokio-based) connection pool (like r2d2)
 

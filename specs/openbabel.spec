@@ -14,7 +14,7 @@
 
 Name: openbabel
 Version: 3.1.1
-Release: 40%{?dist}
+Release: 41%{?dist}
 Summary: Chemistry software file format converter
 License: GPL-2.0-only
 URL: https://openbabel.org/
@@ -336,6 +336,9 @@ export PYTHONPATH=%{buildroot}%{python3_sitearch}
 %{ruby_vendorarchdir}/openbabel.so
 
 %changelog
+* Sun Oct 12 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 3.1.1-41
+- Fix cmake config for flatpak builds
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.1.1-40
 - Rebuilt for Python 3.14.0rc3 bytecode
 

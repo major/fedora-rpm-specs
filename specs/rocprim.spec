@@ -21,7 +21,7 @@
 #
 %global upstreamname rocPRIM
 %global rocm_release 7.0
-%global rocm_patch 1
+%global rocm_patch 2
 %global rocm_version %{rocm_release}.%{rocm_patch}
 # Compiler is hipcc, which is clang based:
 %global toolchain rocm
@@ -51,15 +51,13 @@
 
 Name:           rocprim
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm parallel primatives
 
 License:        MIT AND BSD-3-Clause
 
 URL:            https://github.com/ROCm/%{name}
 Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
-
-# Patch0:         0001-Add-macros-for-128-bit-atomic-loads-stores-on-gfx950.patch
 
 # ROCm only working on x86_64
 ExclusiveArch:  x86_64
@@ -169,6 +167,9 @@ sed -i -e 's@\.\.@\/usr\/bin@' %{buildroot}%{_bindir}/%{name}/CTestTestfile.cmak
 
 
 %changelog
+* Sat Oct 11 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.2-1
+- Update to 7.0.2
+
 * Tue Oct 7 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-2
 - Fix -test subpackage build
 

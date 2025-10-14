@@ -28,7 +28,7 @@
 
 %global rocm_major 7
 %global rocm_minor 0
-%global rocm_patch 1
+%global rocm_patch 2
 %global rocm_release %{rocm_major}.%{rocm_minor}
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -397,6 +397,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/hip/LICENSE.txt
 %endif
 
 %changelog
+* Fri Oct 10 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-2
+- Update to 7.0.2
+
 * Mon Sep 22 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-1
 - Update to 7.0.1
 

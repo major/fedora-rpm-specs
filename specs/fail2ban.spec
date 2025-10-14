@@ -8,13 +8,10 @@
 %if %{defined rhel} && 0%{?rhel} < 10
 %define legacy_var_run 1
 %endif
-%if %{defined fedora} && 0%{?fedora} < 40
-%define legacy_var_run 1
-%endif
 
 Name: fail2ban
 Version: 1.1.0
-Release: 13%{?dist}
+Release: 14%{?dist}
 Summary: Daemon to ban hosts that cause multiple authentication errors
 
 License: GPL-2.0-or-later
@@ -57,24 +54,17 @@ Patch5: https://github.com/fail2ban/fail2ban/commit/54c0effceb998b73545073ac59c4
 
 BuildArch: noarch
 
-%if 0%{?rhel} && 0%{?rhel} < 8
-BuildRequires: python-devel
-BuildRequires: python-setuptools
-# For testcases
-BuildRequires: python-inotify
-%else
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
 # For testcases
 BuildRequires: python3-inotify
-%endif
 # using a python3_version-based conditional does not work here, so
 # this is a proxy for "Python version greater than 3.12". asyncore
 # and asynchat were dropped from cpython core in 3.12, these modules
 # make them available again. See:
 # https://github.com/fail2ban/fail2ban/issues/3487
 # https://bugzilla.redhat.com/show_bug.cgi?id=2219991
-%if 0%{?fedora} > 38
+%if 0%{?fedora} || 0%{?rhel} >= 10
 BuildRequires: python3-pyasyncore
 BuildRequires: python3-pyasynchat
 %endif
@@ -82,7 +72,7 @@ BuildRequires: sqlite
 BuildRequires: systemd
 BuildRequires: selinux-policy-devel
 BuildRequires: make
-%if 0%{?fedora} >= 41
+%if 0%{?fedora} || 0%{?rhel} >= 11
 BuildRequires: bash-completion-devel
 %else
 BuildRequires: bash-completion
@@ -123,24 +113,14 @@ SELinux policies for Fail2Ban.
 
 %package server
 Summary: Core server component for Fail2Ban
-%if 0%{?rhel} && 0%{?rhel} < 8
-Requires: systemd-python
-Requires: ipset
-Requires: iptables
-%else
 Requires: python3-systemd
 Requires: nftables
-%endif
 Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
-%if 0%{?fedora} || 0%{?rhel} >= 8
 Requires: (%{name}-selinux if selinux-policy-%{selinuxtype})
-%else
-Requires: %{name}-selinux
-%endif
 # see note above in BuildRequires section
-%if 0%{?fedora} > 38
+%if 0%{?fedora} || 0%{?rhel} >= 10
 Requires: python3-pyasyncore
 Requires: python3-pyasynchat
 %endif
@@ -162,13 +142,7 @@ Requires: %{name}-server = %{version}-%{release}
 Requires: %{name}-shorewall = %{version}-%{release}
 %endif
 Requires: perl-interpreter
-%if 0%{?rhel} && 0%{?rhel} < 8
-Requires: python-inotify
-# No python3 support for gamin so epel only
-Requires: gamin-python
-%else
 Requires: python3-inotify
-%endif
 Requires: /usr/bin/whois
 
 %description all
@@ -258,11 +232,6 @@ by default.
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
-# this test uses smtpd which is removed in Python 3.12, rewriting it
-# isn't trivial
-%if 0%{?fedora} > 38
-rm -f fail2ban/tests/action_d/test_smtp.py
-%endif
 
 # Use Fedora paths
 sed -i -e 's/^before = paths-.*/before = paths-fedora.conf/' config/jail.conf
@@ -284,26 +253,16 @@ sed -i "/use_2to3/d" setup.py
 
 
 %build
-%if 0%{?rhel} && 0%{?rhel} < 8
-%py2_build
-%else
 %pyproject_wheel
-%endif
 make -f %SOURCE6
 
 
 %install
-%if 0%{?rhel} && 0%{?rhel} < 8
-%py2_install
-# Make symbolic link relative
-ln -fs python2 %{buildroot}%{_bindir}/fail2ban-python
-%else
 %pyproject_install
 ln -fs python3 %{buildroot}%{_bindir}/fail2ban-python
 mv %{buildroot}%{python3_sitelib}/etc %{buildroot}
 mv %{buildroot}%{python3_sitelib}/%{_datadir} %{buildroot}%{_datadir}
 rmdir %{buildroot}%{python3_sitelib}%{_prefix}
-%endif
 
 mkdir -p %{buildroot}%{_unitdir}
 # Note that the tests rewrite build/fail2ban.service, but it uses build/ paths before the rewrite
@@ -364,17 +323,7 @@ COMPLETIONDIR=%{buildroot}$(pkg-config --variable=completionsdir bash-completion
 
 
 %check
-%if 0%{?rhel} && 0%{?rhel} < 8
-%python2 bin/fail2ban-testcases --verbosity=2 --no-network
-%else
-%if 0%{?fedora} > 38
-# testRepairDb does not work with sqlite 3.42.0+
-# https://github.com/fail2ban/fail2ban/issues/3586
-%python3 bin/fail2ban-testcases --verbosity=2 --no-network -i testRepairDb
-%else
 %python3 bin/fail2ban-testcases --verbosity=2 --no-network
-%endif
-%endif
 
 
 %pre selinux
@@ -414,13 +363,8 @@ fi
 %{_bindir}/fail2ban-python
 %{_bindir}/fail2ban-regex
 %{_bindir}/fail2ban-server
-%if 0%{?rhel} && 0%{?rhel} < 8
-%{python2_sitelib}/*
-%exclude %{python2_sitelib}/fail2ban/tests
-%else
 %{python3_sitelib}/*
 %exclude %{python3_sitelib}/fail2ban/tests
-%endif
 %{_unitdir}/fail2ban.service
 %{_datadir}/bash-completion/
 %{_mandir}/man1/fail2ban.1*
@@ -456,11 +400,7 @@ fi
 %files tests
 %{_bindir}/fail2ban-testcases
 %{_mandir}/man1/fail2ban-testcases.1*
-%if 0%{?rhel} && 0%{?rhel} < 8
-%{python2_sitelib}/fail2ban/tests
-%else
 %{python3_sitelib}/fail2ban/tests
-%endif
 
 %files mail
 %config(noreplace) %{_sysconfdir}/fail2ban/action.d/complain.conf
@@ -485,6 +425,9 @@ fi
 
 
 %changelog
+* Sat Oct 11 2025 Orion Poplawski <orion@nwra.com> - 1.1.0-14
+- Cleanup old conditionals
+
 * Fri Oct 10 2025 Orion Poplawski <orion@nwra.com> - 1.1.0-13
 - Fix paths in fail2ban.service (rhbz#2399981)
 

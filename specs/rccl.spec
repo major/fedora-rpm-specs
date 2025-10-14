@@ -27,7 +27,7 @@
 
 %global upstreamname RCCL
 %global rocm_release 7.0
-%global rocm_patch 1
+%global rocm_patch 2
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -269,6 +269,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/rccl/LICENSE.txt
 %endif
 
 %changelog
+* Sat Oct 11 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.2-1
+- Update to 7.0.2
+
 * Sat Sep 20 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-1
 - Update to 7.0.1
 

@@ -7,7 +7,7 @@ Summary: The Akonadi Search library and indexing agent
 # MIT
 # MIT OR Apache-2.0
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND (MIT OR Apache-2.0) AND MIT
-URL:     https://invent.kde.org/frameworks/%{name}
+URL:     https://invent.kde.org/pim/%{name}
 
 Source0: http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 

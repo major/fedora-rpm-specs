@@ -1,6 +1,6 @@
 Name:           veusz
-Version:        4.1
-Release:        4%{?dist}
+Version:        4.2
+Release:        2%{?dist}
 Summary:        GUI scientific plotting package
 
 License:        GPL-2.0-or-later AND (LGPL-2.1-only OR GPL-3.0-only) AND PSF-2.0 AND CC0-1.0
@@ -14,7 +14,6 @@ BuildRequires:  qt6-qtbase-devel qt6-qtsvg-devel
 BuildRequires:  python3-pyqt6 python3-pyqt6-devel
 BuildRequires:  python3-pyqt6-sip python3dist(sip)
 BuildRequires:  python3-h5py
-BuildRequires:  python3-tomli
 BuildRequires:  desktop-file-utils
 
 Requires:       python3dist(pyqt6-sip) >= 13, python3dist(pyqt6-sip) < 14
@@ -127,6 +126,12 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} \
 %{python3_sitearch}/veusz
 
 %changelog
+* Sun Oct 12 2025 Jeremy Sanders <jeremy@jeremysanders.net> - 4.2-2
+- Remove python3-tomli build requirement
+
+* Sun Oct 12 2025 Jeremy Sanders <jeremy@jeremysanders.net> - 4.2-1
+- Update to Veusz 4.2
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.1-4
 - Rebuilt for Python 3.14.0rc3 bytecode
 

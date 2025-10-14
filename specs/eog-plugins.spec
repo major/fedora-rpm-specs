@@ -11,6 +11,7 @@ License:        GPL-2.0-or-later AND CC0-1.0
 URL:            https://wiki.gnome.org/Apps/EyeOfGnome/Plugins
 Source0:        https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
 
+BuildRequires:  gcc
 BuildRequires:  pkgconfig(champlain-gtk-0.12)
 BuildRequires:  pkgconfig(clutter-gtk-1.0)
 BuildRequires:  pkgconfig(eog)

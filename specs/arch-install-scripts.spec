@@ -1,5 +1,5 @@
 Name:           arch-install-scripts
-Version:        29
+Version:        31
 Release:        %autorelease
 Summary:        Scripts to bootstrap Arch Linux distribution
 License:        GPL-2.0-only

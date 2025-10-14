@@ -1,5 +1,5 @@
 # Documentation sources:
-%global commit f728a2505313a928413af07720db7b261e8adcd4
+%global commit 5784c30866a94942a5200db4d5f6c2850afb1caa
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 %global docrepo uwsgi-docs
 
@@ -261,8 +261,8 @@
 %endif
 
 Name:           uwsgi
-Version:        2.0.30
-Release:        7%{?dist}
+Version:        2.0.31
+Release:        1%{?dist}
 Summary:        Fast, self-healing, application container server
 # uwsgi is licensed under GPLv2 with a linking exception
 # docs are licensed under MIT
@@ -293,7 +293,6 @@ Patch6:         uwsgi_v8-314_compatibility.patch
 Patch7:         uwsgi_fix_mono.patch
 Patch13:        uwsgi_fix_chroot_chdir.patch
 Patch14:        uwsgi_python312-2.patch
-Patch15:        uwsgi_gcc15-signal-handler.patch
 
 BuildRequires:  curl, libxml2-devel, libuuid-devel, jansson-devel
 BuildRequires:  libyaml-devel, ruby-devel
@@ -1385,7 +1384,6 @@ cp -p %{SOURCE5} README.Fedora
 %endif
 %patch -P13 -p1
 %patch -P14 -p1
-%patch -P15 -p1
 
 %build
 CFLAGS="%{optflags} -Wno-error -Wno-unused-but-set-variable -fPIC" %{__python} uwsgiconfig.py --verbose --build fedora.ini
@@ -2032,6 +2030,9 @@ install -m0644 -D %{SOURCE8} %{buildroot}%{_sysusersdir}/uwsgi.conf
 
 
 %changelog
+* Sun Oct 12 2025 Ralf Ertzinger <ralf@skytale.net> - 2.0.31-1
+- Update to 2.0.31, drop merged patches
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.0.30-7
 - Rebuilt for Python 3.14.0rc3 bytecode
 

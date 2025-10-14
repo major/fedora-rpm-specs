@@ -1,5 +1,5 @@
 Name:             umockdev
-Version:          0.19.3
+Version:          0.19.4
 Release:          1%{?dist}
 Summary:          Mock hardware devices
 
@@ -75,6 +75,14 @@ rm -rf $RPM_BUILD_ROOT/%{_datadir}/doc/umockdev
 %{_datadir}/vala/vapi/umockdev-1.0.vapi
 
 %changelog
+* Sun Oct 12 2025 Packit <hello@packit.dev> - 0.19.4-1
+- preload: Hide sticky bit from emulated block dev stat
+- preload: Wrap listxattr()
+- uevent-sender: Retry udev_device_new_from_syspath() on failure
+- uevent_sender: Retry sendmsg() on EAGAIN
+- tests: Adjust for evtest 1.36
+
+
 * Fri Aug 01 2025 Packit <hello@packit.dev> - 0.19.3-1
 - preload: Wrap __fstat64_time64()
 

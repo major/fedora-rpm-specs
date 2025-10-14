@@ -187,11 +187,11 @@ find %{buildroot}%{_datadir} \( -name "*.bat" -o -name "*.awk" \) \
 
 # Refresh documentation helptags.
 %transfiletriggerin -- %{_datadir}/nvim/runtime/doc
-%{_bindir}/nvim -u NONE -es -c ":helptags %{_datadir}/nvim/runtime/doc" -c ":q" &> /dev/null || :
+NVIM_LOG_FILE=/dev/null %{_bindir}/nvim -u NONE -es -c ":helptags %{_datadir}/nvim/runtime/doc" -c ":q" &> /dev/null || :
 
 %transfiletriggerpostun -- %{_datadir}/nvim/runtime/doc
 > %{_datadir}/nvim/runtime/doc/tags || :
-%{_bindir}/nvim -u NONE -es -c ":helptags %{_datadir}/nvim/runtime/doc" -c ":q" &> /dev/null || :
+NVIM_LOG_FILE=/dev/null %{_bindir}/nvim -u NONE -es -c ":helptags %{_datadir}/nvim/runtime/doc" -c ":q" &> /dev/null || :
 
 %files -f nvim.lang
 %license LICENSE.txt neovim-bundled-licenses.txt

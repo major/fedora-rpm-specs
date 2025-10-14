@@ -20,7 +20,7 @@
 Summary: GTK+ graphical user interface library
 Name: gtk2
 Version: 2.24.33
-Release: 23%{?dist}
+Release: 24%{?dist}
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2+
 URL: http://www.gtk.org
@@ -268,10 +268,10 @@ mkdir -p $RPM_BUILD_ROOT%{_libdir}/gtk-2.0/%{bin_version}/filesystems
 
 
 %transfiletriggerin -- %{_libdir}/gtk-2.0/immodules/ %{_libdir}/gtk-2.0/%{bin_version}/immodules/
-gtk-query-immodules-2.0-%{__isa_bits} --update-cache
+%{_bindir}/gtk-query-immodules-2.0-%{__isa_bits} --update-cache
 
 %transfiletriggerpostun -- %{_libdir}/gtk-2.0/immodules/ %{_libdir}/gtk-2.0/%{bin_version}/immodules/
-gtk-query-immodules-2.0-%{__isa_bits} --update-cache
+%{_bindir}/gtk-query-immodules-2.0-%{__isa_bits} --update-cache
 
 %ldconfig_scriptlets
 
@@ -339,6 +339,9 @@ gtk-query-immodules-2.0-%{__isa_bits} --update-cache
 %doc tmpdocs/examples
 
 %changelog
+* Sun Oct 12 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 2.24.33-24
+- Fix trigger scriptlets for flatpak builds
+
 * Thu Sep 04 2025 Adam Williamson <awilliam@redhat.com> - 2.24.33-23
 - Drop explicit dependency on obsolete gdk-pixbuf2-modules
 

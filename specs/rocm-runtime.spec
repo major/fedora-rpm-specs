@@ -35,7 +35,7 @@
 %global enableimage 1
 %endif
 %global rocm_release 7.0
-%global rocm_patch 1
+%global rocm_patch 2
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_without kfdtest
@@ -178,6 +178,9 @@ rm -f %{buildroot}%{_libdir}/pkgconfig/libhsakmt.pc
 %endif
 
 %changelog
+* Fri Oct 10 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-2
+- Update to 7.0.2
+
 * Thu Sep 18 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-1
 - Update to 7.0.1
 - Remove compat gcc

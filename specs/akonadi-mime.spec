@@ -4,7 +4,7 @@ Release: 1%{?dist}
 Summary: The Akonadi Mime Library
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-only AND (LGPL-2.1-only OR LGPL-3.0-only)
-URL:     https://invent.kde.org/frameworks/%{name}
+URL:     https://invent.kde.org/pim/%{name}
 
 Source0:        https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 

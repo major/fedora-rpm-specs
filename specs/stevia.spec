@@ -1,5 +1,5 @@
 Name:     stevia
-Version:  0.48.0
+Version:  0.50.1
 Release:  %autorelease
 Summary:  Alternative keyboard for Phosh
 License:  GPL-3.0-or-later
@@ -36,6 +36,7 @@ BuildRequires:  systemd-rpm-macros
 BuildRequires:  libappstream-glib
 BuildRequires:  desktop-file-utils
 BuildRequires:  words
+BuildRequires:  systemd-rpm-macros
 
 %description
 Stevia is an alternative keyboard for Phosh.
@@ -91,6 +92,7 @@ SH
 
 %files phosh-osk-provider
 %{_datadir}/applications/sm.puri.OSK0.desktop
+%{_userunitdir}/mobi.phosh.OSK.service
 
 %changelog
 %autochangelog

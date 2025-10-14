@@ -21,7 +21,7 @@
 #
 %global upstreamname hip-tests
 %global rocm_release 7.0
-%global rocm_patch 1
+%global rocm_patch 2
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -178,6 +178,9 @@ rm -rf %{buildroot}%{_libexecdir}/hip-tests/catch_tests/saxpy.h
 %{_libexecdir}/hip-tests/
 
 %changelog
+* Fri Oct 10 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.2-1
+- Update to 7.0.2
+
 * Thu Sep 18 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.0-1
 - Update to 7.0.0
 

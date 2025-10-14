@@ -7,6 +7,17 @@ License:        Apache-2.0
 URL:            https://github.com/openlawlibrary/pygls
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
+# test: adjust tests for cattrs structuring sequences as tuples
+#
+# Provides forward compatibility with upcoming cattrs releases, while
+# maintaining backwards compatibility with releases that structure
+# sequences as lists.
+#
+# Fixes https://github.com/openlawlibrary/pygls/issues/578.
+#
+# https://github.com/openlawlibrary/pygls/pull/579
+Patch:          0001-test-adjust-tests-for-cattrs-structuring-sequences-a.patch
+
 BuildArch:      noarch
 BuildRequires:  python3-devel
 

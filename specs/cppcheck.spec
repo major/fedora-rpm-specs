@@ -69,7 +69,7 @@ from xml files first generated using cppcheck.
 rm -r externals/tinyxml2
 # Generate the Qt online-help file
 cd gui/help
-%{_qt6_libexecdir}/qhelpgenerator online-help.qhcp -o online-help.qhc
+$(qmake6 -query QT_HOST_LIBEXECS)/qhelpgenerator online-help.qhcp -o online-help.qhc
 
 %build
 # Manuals

@@ -4,7 +4,7 @@ Release: 4%{?dist}
 Summary: The Akonadi Notes Library
 
 License: BSD-3-Clause AND CC0-1.0 AND LGPL-2.0-or-later
-URL:     https://invent.kde.org/frameworks/%{name}
+URL:     https://invent.kde.org/pim/%{name}
 
 Source0:        http://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%{name}-%{version}.tar.xz
 

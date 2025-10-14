@@ -27,7 +27,7 @@
 
 %global upstreamname rocBLAS
 %global rocm_release 7.0
-%global rocm_patch 1
+%global rocm_patch 2
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -137,7 +137,7 @@
 
 Name:           %{rocblas_name}
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        BLAS implementation for ROCm
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT AND BSD-3-Clause
@@ -347,6 +347,9 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library/src:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Fri Oct 10 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.2-1
+- Update to 7.0.2
+
 * Mon Oct 6 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-2
 - Remove setting __brp_check_rpaths to nil
 

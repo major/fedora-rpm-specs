@@ -230,7 +230,7 @@ grep "%{_qt6_translationdir}" qscintilla.lang > qscintilla-qt6.lang
 %files -n python3-qscintilla-qt5
 %{python3_sitearch}/PyQt5/Qsci.*
 %{_qt5_datadir}/qsci/
-%{python3_sitearch}/QScintilla-%{version}.dist-info/
+%{python3_sitearch}/qscintilla-%{version}.dist-info/
 
 %files -n python3-qscintilla-qt5-devel
 %{python3_sitearch}/PyQt5/bindings/Qsci/
@@ -257,7 +257,7 @@ grep "%{_qt6_translationdir}" qscintilla.lang > qscintilla-qt6.lang
 %files -n python3-qscintilla-qt6
 %{python3_sitearch}/PyQt6/Qsci.*
 %{_qt6_datadir}/qsci/
-%{python3_sitearch}/PyQt6_QScintilla-%{version}.dist-info/
+%{python3_sitearch}/pyqt6_qscintilla-%{version}.dist-info/
 
 %files -n python3-qscintilla-qt6-devel
 %{python3_sitearch}/PyQt6/bindings/Qsci/

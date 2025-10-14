@@ -60,10 +60,11 @@ both text and html formats.
 # Tarball has wrong basedir https://github.com/beetbox/beets/issues/5284
 %autosetup -p1 -n beets-%{version}
 
-# --- Make builds deterministic: change backend + tighten [build-system] only ---
-# 1) Switch backend away from poetry_dynamic_versioning
+# --- Deterministic builds: switch backend, tighten [build-system], pin version ---
+# Switch build backend from poetry_dynamic_versioning to Poetry core API
 sed -i 's/^build-backend *= *"poetry_dynamic_versioning\.backend"/build-backend = "poetry.core.masonry.api"/' pyproject.toml
-# 2) Force [build-system].requires to poetry-core only (don’t delete any other tables)
+
+# Force [build-system].requires to poetry-core only (don’t touch other tables)
 awk '
   BEGIN{inbs=0}
   /^\[build-system\]/{inbs=1; print; next}
@@ -71,10 +72,13 @@ awk '
   inbs && /^requires *=/ {print "requires = [\"poetry-core>=1.0.0\"]"; next}
   {print}
 ' pyproject.toml > pyproject.toml.tmp && mv pyproject.toml.tmp pyproject.toml
-# ------------------------------------------------------------------------------
+
+# Pin version to the RPM Version for both layouts (Poetry and PEP 621)
+sed -ri '/^\[tool\.poetry\]/,/^\[/{s/^version\s*=\s*".*"/version = "%{version}"/}' pyproject.toml
+sed -ri '/^\[project\]/,/^\[/{s/^version\s*=\s*".*"/version = "%{version}"/}' pyproject.toml
+# -------------------------------------------------------------------------------
 
 %generate_buildrequires
-# Already in BUILD/beets-%%{version}
 %pyproject_buildrequires -r
 
 %build

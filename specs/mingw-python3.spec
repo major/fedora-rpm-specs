@@ -24,7 +24,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       3.11.14
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       MinGW Windows %{pkgname}
 
 BuildArch:     noarch
@@ -68,6 +68,8 @@ Patch12:       mingw-python3_module-socket.patch
 Patch13:       mingw-python3_module-select.patch
 # Add -lpython<VER> to Libs: in pkgconfig (windows extensions need to be linked against libpython)
 Patch14:       mingw-python3_pkgconfig.patch
+# Backport: Fix build with tcl9
+Patch15:       https://github.com/python/cpython/commit/e0799352823289fafb8131341abd751923ee9c08.patch
 
 
 BuildRequires: make
@@ -508,6 +510,9 @@ chmod +x %{buildroot}%{mingw64_bindir}/python3-config
 
 
 %changelog
+* Sun Oct 12 2025 Sandro Mani <manisandro@gmail.com> - 3.11.14-2
+- Rebuild (tcl9)
+
 * Thu Oct 09 2025 Sandro Mani <manisandro@gmail.com> - 3.11.14-1
 - Update to 3.11.14
 

@@ -46,7 +46,7 @@
 
 Name:           gotun
 Version:        0
-Release:        0.27.git%{shortcommit}%{?dist}
+Release:        0.28.git%{shortcommit}%{?dist}
 Summary:        Tool to run tests on OpenStack
 # Detected licences
 # - Unknown at 'COPYING'
@@ -246,6 +246,9 @@ export GOPATH=%{buildroot}/%{gopath}:$(pwd)/vendor:%{gopath}
 %endif
 
 %changelog
+* Sun Oct 12 2025 Maxwell G <maxwell@gtmx.me> - 0-0.28.gita9dbe4d
+- Rebuild for golang 1.25.2
+
 * Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 0-0.27.gita9dbe4d
 - rebuild
 

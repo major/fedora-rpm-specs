@@ -1,5 +1,5 @@
 Name:           kaichat
-Version:        0.4.1
+Version:        0.5.0
 Release:        1%{?dist}
 Summary:        Chat interface for AI models such as ollama
 
@@ -34,6 +34,11 @@ BuildRequires:  cmake(KF6Crash)
 BuildRequires:  cmake(KF6WindowSystem)
 BuildRequires:  cmake(KF6StatusNotifierItem)
 BuildRequires:  cmake(KF6DBusAddons)
+BuildRequires:  cmake(KF6NotifyConfig)
+BuildRequires:  cmake(KF6DocTools)
+BuildRequires:  cmake(KF6KIO)
+BuildRequires:  cmake(KF6Sonnet)
+BuildRequires:  cmake(KF6Notifications)
 
 # KDE Libraries
 BuildRequires:  cmake(KF6TextAutoGenerateText) >= 1.7.0
@@ -57,7 +62,7 @@ Requires:       hicolor-icon-theme
 
 %install
 %cmake_install
-%find_lang kaichat
+%find_lang kaichat --all-name --with-html
 desktop-file-validate %{buildroot}/%{_datadir}/applications/org.kde.kaichat.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
@@ -70,8 +75,16 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_kf6_datadir}/icons/hicolor/*/apps/kaichat.png
 %{_metainfodir}/org.kde.kaichat.appdata.xml
 %{_kf6_datadir}/qlogging-categories6/kaichat.categories
+%{_kf6_libdir}/libkaichatcore.so.0
+%{_kf6_libdir}/libkaichatwidgets.so.0
+%{_kf6_qtplugindir}/autogeneratetext/textplugins/kaichat_webshortcuttextplugin.so
+%{_kf6_qtplugindir}/autogeneratetext/toolplugins/textautogeneratetext_currentdatetimeplugin.so
+%{_kf6_datadir}/knotifications6/kaichat.notifyrc
 
 %changelog
+* Mon Oct 13 2025 Steve Cossette <farchord@gmail.com> - 0.5.0-1
+- 0.5.0
+
 * Mon Aug 11 2025 Steve Cossette <farchord@gmail.com> - 0.4.1-1
 - 0.4.1
 

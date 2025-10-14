@@ -1,6 +1,6 @@
 Name:           perl-Data-Random
-Version:        0.13
-Release:        22%{?dist}
+Version:        0.14
+Release:        1%{?dist}
 Summary:        Perl module to generate random data
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -52,15 +52,15 @@ A module used to generate random data. Useful mostly for test programs.
 chmod 644 lib/Data/Random.pm lib/Data/Random/WordList.pm
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+/usr/bin/perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
-AUTHOR_TESTING=1 make test
+AUTHOR_TESTING=1 %{make_build} test
 
 %files
 %doc Changes README
@@ -68,6 +68,12 @@ AUTHOR_TESTING=1 make test
 %{_mandir}/man3/*
 
 %changelog
+* Sun Oct 12 2025 Emmanuel Seyman <emmanuel@seyman.fr> - 0.14-1
+- Update to 0.14
+- Pass NO_PERLLOCAL=1 to Makefile.PL
+- Replace %%{__perl} with '/usr/bin/perl'
+- Use %%{make_build} and %%{make_install} where appropriate
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,28 +1,24 @@
 %{?mingw_package_header}
 
-%global majorver1 8
-%global majorver2 6
-%global majorver %{majorver1}.%{majorver2}
-%global	vers %{majorver}.12
+%global majorver 9
+%global minorver 0
+%global fullver %{majorver}.%{minorver}
 
-%global pkgname tcl
+Name:          mingw-tcl
+Version:       9.0.2
+Release:       1%{?dist}
+Summary:       MinGW Windows Tool Command Language, pronounced tickle
 
-Name: mingw-%{pkgname}
-Version: 8.6.15
-Release: 3%{?dist}
-Summary: MinGW Windows Tool Command Language, pronounced tickle
-
-License: TCL
-URL: http://tcl.sourceforge.net/
-Source0: http://downloads.sourceforge.net/sourceforge/tcl/%{pkgname}-core%{version}-src.tar.gz
-BuildArch: noarch
+License:       TCL
+URL:           http://tcl.sourceforge.net/
+Source0:       http://downloads.sourceforge.net/sourceforge/tcl/tcl-core%{version}-src.tar.gz
+BuildArch:     noarch
 
 BuildRequires: make
 BuildRequires: autoconf
-BuildRequires: file
 BuildRequires: m4
-BuildRequires: net-tools
 BuildRequires: tcl
+
 BuildRequires: mingw32-binutils
 BuildRequires: mingw32-filesystem
 BuildRequires: mingw32-gcc
@@ -33,14 +29,14 @@ BuildRequires: mingw64-filesystem
 BuildRequires: mingw64-gcc
 BuildRequires: mingw64-zlib
 
-Patch0: tcl-8.6.15-autopath.patch
-Patch1: tcl-8.6.15-conf.patch
-Patch2: tcl-8.6.13-tcltests-path-fix.patch
-Patch3: tcl-8.6.13-configure-c99.patch
-Patch4: tcl-mingw.patch
-Patch5: tcl-nativetclsh.patch
-Patch6: tcl-mingw-w64-compatibility.patch
-Patch7: tcl-nativezlib.patch
+# Use mingw-target prefixed ar, randlib, windres
+Patch1:        tcl-mingw.patch
+# Look for native tclsh
+Patch2:        tcl-nativetclsh.patch
+# Build with internal tommath for now
+# Use forward slash instead of backslash
+# FIXME: package libtommath for mingw
+Patch3:        tcl-configure.patch
 
 
 %description
@@ -53,10 +49,10 @@ of web-related tasks and for creating powerful command languages for
 applications.
 
 
-%package -n mingw32-%{pkgname}
+%package -n mingw32-tcl
 Summary: MinGW Windows Tool Command Language, pronounced tickle
 
-%description -n mingw32-%{pkgname}
+%description -n mingw32-tcl
 The Tcl (Tool Command Language) provides a powerful platform for
 creating integration applications that tie together diverse
 applications, protocols, devices, and frameworks. When paired with the
@@ -65,10 +61,11 @@ cross-platform GUI applications.  Tcl can also be used for a variety
 of web-related tasks and for creating powerful command languages for
 applications.
 
-%package -n mingw64-%{pkgname}
+
+%package -n mingw64-tcl
 Summary: MinGW Windows Tool Command Language, pronounced tickle
 
-%description -n mingw64-%{pkgname}
+%description -n mingw64-tcl
 The Tcl (Tool Command Language) provides a powerful platform for
 creating integration applications that tie together diverse
 applications, protocols, devices, and frameworks. When paired with the
@@ -82,114 +79,106 @@ applications.
 
 
 %prep
-%autosetup -p1 -n %{pkgname}%{version}
-chmod -x generic/tclThreadAlloc.c
+%autosetup -p1 -n tcl%{version}
+# Delete precompiled binaries to be sure
+rm -rf libtommath/win32
+rm -rf libtommath/win64
+rm -rf libtommath/win64-arm
+
 
 %build
 pushd win
 autoconf
 %mingw_configure --disable-threads --enable-shared
-%mingw_make_build TCL_LIBRARY=%{mingw32_datadir}/%{pkgname}%{majorver}
+%mingw32_make -C build_win32 TCL_LIBRARY=%{mingw32_datadir}/tcl%{fullver}
+%mingw64_make -C build_win64 TCL_LIBRARY=%{mingw64_datadir}/tcl%{fullver}
 popd
 
 
 %install
-make install -C win/build_win32 INSTALL_ROOT=%{buildroot} TCL_LIBRARY=%{mingw32_datadir}/%{pkgname}%{majorver}
-make install -C win/build_win64 INSTALL_ROOT=%{buildroot} TCL_LIBRARY=%{mingw64_datadir}/%{pkgname}%{majorver}
+pushd win
+%mingw32_make -C build_win32 install INSTALL_ROOT=%{buildroot} TCL_LIBRARY=%{mingw32_datadir}/tcl%{fullver}
+%mingw64_make -C build_win64 install INSTALL_ROOT=%{buildroot} TCL_LIBRARY=%{mingw64_datadir}/tcl%{fullver}
+%mingw32_make -C build_win32 install-libraries INSTALL_ROOT=%{buildroot} TCL_LIBRARY=%{mingw32_datadir}/tcl%{fullver}
+%mingw64_make -C build_win64 install-libraries INSTALL_ROOT=%{buildroot} TCL_LIBRARY=%{mingw64_datadir}/tcl%{fullver}
+popd
 
-mv %{buildroot}%{mingw32_bindir}/tclsh%{majorver1}.%{majorver2} %{buildroot}%{mingw32_bindir}/tclsh%{majorver1}%{majorver2}.exe
-mv %{buildroot}%{mingw64_bindir}/tclsh%{majorver1}.%{majorver2} %{buildroot}%{mingw64_bindir}/tclsh%{majorver1}%{majorver2}.exe
-ln -s tclsh%{majorver1}%{majorver2}.exe %{buildroot}%{mingw32_bindir}/tclsh.exe
-ln -s tclsh%{majorver1}%{majorver2}.exe %{buildroot}%{mingw64_bindir}/tclsh.exe
+mv %{buildroot}%{mingw32_bindir}/tclsh%{majorver}.%{minorver} %{buildroot}%{mingw32_bindir}/tclsh%{majorver}%{minorver}.exe
+mv %{buildroot}%{mingw64_bindir}/tclsh%{majorver}.%{minorver} %{buildroot}%{mingw64_bindir}/tclsh%{majorver}%{minorver}.exe
+ln -s tclsh%{majorver}%{minorver}.exe %{buildroot}%{mingw32_bindir}/tclsh.exe
+ln -s tclsh%{majorver}%{minorver}.exe %{buildroot}%{mingw64_bindir}/tclsh.exe
 
-# for linking with -lib%{pkgname}
-ln -s lib%{pkgname}%{majorver1}%{majorver2}.dll.a %{buildroot}%{mingw32_libdir}/lib%{pkgname}.dll.a
-ln -s lib%{pkgname}%{majorver1}%{majorver2}.dll.a %{buildroot}%{mingw64_libdir}/lib%{pkgname}.dll.a
+# for linking with -libtcl
+ln -s libtcl%{majorver}%{minorver}.dll.a %{buildroot}%{mingw32_libdir}/libtcl.dll.a
+ln -s libtcl%{majorver}%{minorver}.dll.a %{buildroot}%{mingw64_libdir}/libtcl.dll.a
 
-ln -s ../share/%{pkgname}%{majorver} %{buildroot}/%{mingw32_libdir}/%{pkgname}%{majorver}
-ln -s ../share/%{pkgname}%{majorver} %{buildroot}/%{mingw64_libdir}/%{pkgname}%{majorver}
+mkdir -p %{buildroot}%{mingw32_libdir}/tcl%{fullver}
+mkdir -p %{buildroot}%{mingw64_libdir}/tcl%{fullver}
 
 # postgresql and maybe other packages too need tclConfig.sh
-# paths don't look at /usr/lib for efficiency, so we symlink into tcl8.5 for now
-ln -s %{mingw32_libdir}/%{pkgname}Config.sh %{buildroot}/%{mingw32_libdir}/%{pkgname}%{majorver}/%{pkgname}Config.sh
-ln -s %{mingw32_libdir}/%{pkgname}Config.sh %{buildroot}/%{mingw64_libdir}/%{pkgname}%{majorver}/%{pkgname}Config.sh
+# paths don't look at /usr/lib for efficiency, so we symlink into tcl%%{fullver} for now
+ln -s ../tclConfig.sh %{buildroot}%{mingw32_libdir}/tcl%{fullver}/tclConfig.sh
+ln -s ../tclConfig.sh %{buildroot}%{mingw64_libdir}/tcl%{fullver}/tclConfig.sh
 
-mkdir -p %{buildroot}/%{mingw32_includedir}/%{pkgname}-private/{generic,win}
-mkdir -p %{buildroot}/%{mingw64_includedir}/%{pkgname}-private/{generic,win}
-find generic win -name "*.h" -exec cp -p '{}' %{buildroot}/%{mingw32_includedir}/%{pkgname}-private/'{}' ';'
-find generic win -name "*.h" -exec cp -p '{}' %{buildroot}/%{mingw64_includedir}/%{pkgname}-private/'{}' ';'
-( cd %{buildroot}/%{mingw32_includedir}
-	for i in *.h ; do
-		[ -f %{buildroot}/%{mingw32_includedir}/%{pkgname}-private/generic/$i ] && ln -sf ../../$i %{buildroot}/%{mingw32_includedir}/%{pkgname}-private/generic ;
-	done
-) || true
-( cd %{buildroot}/%{mingw64_includedir}
-	for i in *.h ; do
-		[ -f %{buildroot}/%{mingw64_includedir}/%{pkgname}-private/generic/$i ] && ln -sf ../../$i %{buildroot}/%{mingw64_includedir}/%{pkgname}-private/generic ;
-	done
-) || true
+mkdir -p %{buildroot}%{mingw32_includedir}/tcl-private/{generic,win}
+mkdir -p %{buildroot}%{mingw64_includedir}/tcl-private/{generic,win}
+find generic win -maxdepth 1 -name "*.h" -exec cp -p '{}' %{buildroot}%{mingw32_includedir}/tcl-private/'{}' ';'
+find generic win -maxdepth 1 -name "*.h" -exec cp -p '{}' %{buildroot}%{mingw64_includedir}/tcl-private/'{}' ';'
+cp -p win/build_win32/tclUuid.h %{buildroot}%{mingw32_includedir}/tcl-private/win/tclUuid.h
+cp -p win/build_win64/tclUuid.h %{buildroot}%{mingw64_includedir}/tcl-private/win/tclUuid.h
+(
+cd %{buildroot}%{mingw32_includedir}
+for i in *.h ; do
+    [ -f %{buildroot}%{mingw32_includedir}/tcl-private/generic/$i ] && ln -sf ../../$i %{buildroot}%{mingw32_includedir}/tcl-private/generic || :;
+done
+)
+(
+cd %{buildroot}%{mingw64_includedir}
+for i in *.h ; do
+    [ -f %{buildroot}%{mingw64_includedir}/tcl-private/generic/$i ] && ln -sf ../../$i %{buildroot}%{mingw64_includedir}/tcl-private/generic || : ;
+done
+)
 
-# fix executable bits
-chmod a-x %{buildroot}/%{mingw32_datadir}/%{pkgname}%{majorver}/encoding/*.enc
-chmod a-x %{buildroot}/%{mingw64_datadir}/%{pkgname}%{majorver}/encoding/*.enc
-chmod a-x %{buildroot}/%{mingw32_libdir}/*/pkgIndex.tcl
-chmod a-x %{buildroot}/%{mingw64_libdir}/*/pkgIndex.tcl
-
-# remove buildroot traces
-sed -i -e "s|$PWD/win|%{_libdir}|; s|$PWD|%{_includedir}/%{name}-private|" %{buildroot}/%{mingw32_libdir}/%{pkgname}Config.sh
-sed -i -e "s|$PWD/win|%{_libdir}|; s|$PWD|%{_includedir}/%{name}-private|" %{buildroot}/%{mingw64_libdir}/%{pkgname}Config.sh
-rm -rf %{buildroot}/%{mingw32_datadir}/%{pkgname}%{majorver}/tclAppInit.c
-rm -rf %{buildroot}/%{mingw64_datadir}/%{pkgname}%{majorver}/tclAppInit.c
-rm -rf %{buildroot}/%{mingw32_datadir}/%{pkgname}%{majorver}/ldAix
-rm -rf %{buildroot}/%{mingw64_datadir}/%{pkgname}%{majorver}/ldAix
-
-# move windows packages to where tcl85.dll will find them
-mv %{buildroot}/%{mingw32_libdir}/dde* %{buildroot}/%{mingw32_libdir}/%{pkgname}%{majorver}/
-mv %{buildroot}/%{mingw64_libdir}/dde* %{buildroot}/%{mingw64_libdir}/%{pkgname}%{majorver}/
-mv %{buildroot}/%{mingw32_libdir}/reg* %{buildroot}/%{mingw32_libdir}/%{pkgname}%{majorver}/
-mv %{buildroot}/%{mingw64_libdir}/reg* %{buildroot}/%{mingw64_libdir}/%{pkgname}%{majorver}/
-
-# remove local zlib
-rm -f %{buildroot}/%{mingw32_bindir}/zlib1.dll
-rm -f %{buildroot}/%{mingw64_bindir}/zlib1.dll
+# move windows packages to where tcl.dll will find them
+mv %{buildroot}%{mingw32_libdir}/dde* %{buildroot}%{mingw32_libdir}/tcl%{fullver}/
+mv %{buildroot}%{mingw64_libdir}/dde* %{buildroot}%{mingw64_libdir}/tcl%{fullver}/
+mv %{buildroot}%{mingw32_libdir}/reg* %{buildroot}%{mingw32_libdir}/tcl%{fullver}/
+mv %{buildroot}%{mingw64_libdir}/reg* %{buildroot}%{mingw64_libdir}/tcl%{fullver}/
 
 
-%files -n mingw32-%{pkgname}
-%{mingw32_bindir}/%{pkgname}sh.exe
-%{mingw32_bindir}/%{pkgname}sh%{majorver1}%{majorver2}.exe
-%{mingw32_bindir}/%{pkgname}%{majorver1}%{majorver2}.dll
-%{mingw32_libdir}/lib%{pkgname}%{majorver1}%{majorver2}.dll.a
-%{mingw32_libdir}/lib%{pkgname}stub%{majorver1}%{majorver2}.a
-%{mingw32_libdir}/lib%{pkgname}.dll.a
-%{mingw32_libdir}/%{pkgname}Config.sh
-%{mingw32_datadir}/%{pkgname}%{majorver}
-%exclude %{mingw32_datadir}/%{pkgname}%{majorver}/dde1.4/tcldde14.dll.debug
-%exclude %{mingw32_datadir}/%{pkgname}%{majorver}/reg1.3/tclreg13.dll.debug
-%{mingw32_datadir}/%{pkgname}%{majorver1}
+%files -n mingw32-tcl
+%{mingw32_bindir}/tclsh.exe
+%{mingw32_bindir}/tclsh%{majorver}%{minorver}.exe
+%{mingw32_bindir}/tcl%{majorver}%{minorver}.dll
+%{mingw32_libdir}/libtcl%{majorver}%{minorver}.dll.a
+%{mingw32_libdir}/libtclstub.a
+%{mingw32_libdir}/libtcl.dll.a
+%{mingw32_libdir}/tclConfig.sh
+%{mingw32_libdir}/tcl%{fullver}
+%{mingw32_datadir}/tcl%{fullver}
+%{mingw32_datadir}/tcl%{majorver}
 %{mingw32_includedir}/*
-%{mingw32_libdir}/%{pkgname}%{majorver}
-%doc changes
-%doc license.terms
+%license license.terms
 
-%files -n mingw64-%{pkgname}
-%{mingw64_bindir}/%{pkgname}sh.exe
-%{mingw64_bindir}/%{pkgname}sh%{majorver1}%{majorver2}.exe
-%{mingw64_bindir}/%{pkgname}%{majorver1}%{majorver2}.dll
-%{mingw64_libdir}/lib%{pkgname}%{majorver1}%{majorver2}.dll.a
-%{mingw64_libdir}/lib%{pkgname}stub%{majorver1}%{majorver2}.a
-%{mingw64_libdir}/lib%{pkgname}.dll.a
-%{mingw64_libdir}/%{pkgname}Config.sh
-%{mingw64_datadir}/%{pkgname}%{majorver}
-%exclude %{mingw64_datadir}/%{pkgname}%{majorver}/dde1.4/tcldde14.dll.debug
-%exclude %{mingw64_datadir}/%{pkgname}%{majorver}/reg1.3/tclreg13.dll.debug
-%{mingw64_datadir}/%{pkgname}%{majorver1}
+%files -n mingw64-tcl
+%{mingw64_bindir}/tclsh.exe
+%{mingw64_bindir}/tclsh%{majorver}%{minorver}.exe
+%{mingw64_bindir}/tcl%{majorver}%{minorver}.dll
+%{mingw64_libdir}/libtcl%{majorver}%{minorver}.dll.a
+%{mingw64_libdir}/libtclstub.a
+%{mingw64_libdir}/libtcl.dll.a
+%{mingw64_libdir}/tclConfig.sh
+%{mingw64_libdir}/tcl%{fullver}
+%{mingw64_datadir}/tcl%{fullver}
+%{mingw64_datadir}/tcl%{majorver}
 %{mingw64_includedir}/*
-%{mingw64_libdir}/%{pkgname}%{majorver}
-%doc changes
-%doc license.terms
+%license license.terms
 
 
 %changelog
+* Fri Oct 10 2025 Sandro Mani <manisandro@gmail.com> - 9.0.2-1
+- Update to 9.0.2
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.6.15-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

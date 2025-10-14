@@ -12,7 +12,7 @@
 
 Name:           qcustomplot
 Version:        2.1.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Qt widget for plotting and data visualization
 
 License:        GPL-3.0-or-later
@@ -40,7 +40,6 @@ This package contains the Qt4 version.
 
 %package        qt5
 Summary:        Qt widget for plotting and data visualization
-Requires:       %{name}-qt5%{?_isa} = %{version}-%{release}
 
 %description    qt5
 QCustomPlot is a Qt C++ widget for plotting and data visualization.
@@ -63,7 +62,6 @@ developing applications that use %{name} (Qt5).
 %if %{with qt6}
 %package        qt6
 Summary:        Qt widget for plotting and data visualization
-Requires:       %{name}-qt5%{?_isa} = %{version}-%{release}
 
 %description    qt6
 QCustomPlot is a Qt C++ widget for plotting and data visualization.
@@ -76,7 +74,7 @@ This package contains the Qt6 version.
 
 %package        qt6-devel
 Summary:        Development files for %{name} (Qt6)
-Requires:       %{name}-qt5%{?_isa} = %{version}-%{release}
+Requires:       %{name}-qt6%{?_isa} = %{version}-%{release}
 
 %description    qt6-devel
 The %{name}-devel package contains libraries and header files for
@@ -171,6 +169,9 @@ EOF
 
 
 %changelog
+* Sun Oct 12 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 2.1.1-14
+- Fix dependencies
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

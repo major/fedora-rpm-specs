@@ -249,6 +249,7 @@ BuildRequires:  mutter
 BuildRequires:  gsettings-desktop-schemas
 BuildRequires:  gnome-settings-daemon
 BuildRequires:  mesa-dri-drivers
+BuildRequires:  mesa-libEGL
 BuildRequires:  xorg-x11-server-Xwayland
 BuildRequires:  dbus-x11
 BuildRequires:  gnome-keyring

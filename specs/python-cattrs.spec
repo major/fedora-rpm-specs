@@ -10,7 +10,7 @@
 #global snapdate YYYYMMDD
 
 Name:           python-cattrs
-Version:        25.1.1%{?commit:^%{snapdate}git%{sub %{commit} 1 7}}
+Version:        25.3.0%{?commit:^%{snapdate}git%{sub %{commit} 1 7}}
 Release:        %autorelease
 Summary:        Python library for structuring and unstructuring data
 
@@ -25,6 +25,9 @@ Source:         %{url}/archive/v%{version}/cattrs-%{version}.tar.gz
 Source:         %{url}/archive/%{commit}/cattrs-%{commit}.tar.gz
 %global srcversion %(echo %{version} | cut -d '^' -f 1)
 %endif
+
+# Downstream: temporarily loosen version bounds on some test dependencies
+Patch:          0001-Downstream-temporarily-loosen-version-bounds-on-some.patch
 
 # Because an extras metapackage is conditionalized on architecture, the base
 # package cannot be noarch – but the rest of the binary packages *are* noarch,
@@ -143,86 +146,14 @@ ignore="${ignore-} --ignore=tests/preconf/test_pyyaml.py"
 %endif
 
 %if !%{msgspec_enabled}
+k="${k-}${k+ and }not test_literal_dicts_msgspec"
+k="${k-}${k+ and }not test_msgspec_efficient_enum"
+k="${k-}${k+ and }not test_msgspec_json_converter"
+k="${k-}${k+ and }not test_msgspec_json_unions"
+k="${k-}${k+ and }not test_msgspec_json_unstruct_collection_overrides"
+k="${k-}${k+ and }not test_msgspec_native_enums"
 # These unconditionally import msgspec, so they error during test collection
 ignore="${ignore-} --ignore=tests/preconf/test_msgspec_cpython.py"
-%endif
-
-%if v"0%{?python3_version}" >= v"3.14"
-# https://github.com/python-attrs/cattrs/issues/626
-#
-# With 3.14.0b2:
-#
-# FAILED tests/strategies/test_include_subclasses.py::test_structure_as_union
-# FAILED tests/strategies/test_include_subclasses.py::test_structuring_unstructuring_unknown_subclass
-# FAILED tests/strategies/test_include_subclasses.py::test_overrides[wo-union-strategy-grandchild-only]
-# FAILED tests/strategies/test_include_subclasses.py::test_overrides[wo-union-strategy-parent-only]
-# FAILED tests/strategies/test_include_subclasses.py::test_parents_with_generics[True]
-# FAILED tests/strategies/test_include_subclasses.py::test_overrides[wo-union-strategy-child1-only]
-# FAILED tests/strategies/test_include_subclasses.py::test_parents_with_generics[False]
-# FAILED tests/strategies/test_include_subclasses.py::test_overrides[wo-union-strategy-child2-only]
-# FAILED tests/test_generics.py::test_deep_copy - assert list[~T | None] == lis...
-# FAILED tests/test_generics.py::test_structure_nested_generics_with_cols[True-int-result0]
-# FAILED tests/test_generics.py::test_structure_nested_generics_with_cols[False-int-result0]
-# FAILED tests/test_preconf.py::test_bson
-# FAILED tests/test_gen_dict.py::test_type_names_with_quotes - cattrs.errors.St...
-# FAILED tests/test_self.py::test_self_roundtrip[True] - AssertionError: assert...
-# FAILED tests/test_self.py::test_self_roundtrip[False] - AssertionError: asser...
-# FAILED tests/test_self.py::test_self_roundtrip_dataclass[True] - AssertionErr...
-# FAILED tests/test_self.py::test_self_roundtrip_dataclass[False] - AssertionEr...
-# FAILED tests/test_self.py::test_self_roundtrip_typeddict[True] - cattrs.error...
-# FAILED tests/test_self.py::test_self_roundtrip_typeddict[False] - cattrs.erro...
-# FAILED tests/test_self.py::test_self_roundtrip_namedtuple[True] - AssertionEr...
-# FAILED tests/test_self.py::test_self_roundtrip_namedtuple[False] - AssertionE...
-# FAILED tests/test_self.py::test_subclass_roundtrip[True] - AssertionError: as...
-# FAILED tests/test_self.py::test_subclass_roundtrip[False] - AssertionError: a...
-# FAILED tests/test_self.py::test_subclass_roundtrip_dataclass[True] - Assertio...
-# FAILED tests/test_self.py::test_subclass_roundtrip_dataclass[False] - Asserti...
-# FAILED tests/test_self.py::test_nested_roundtrip[True] - AssertionError: asse...
-# FAILED tests/test_self.py::test_nested_roundtrip[False] - AssertionError: ass...
-# FAILED tests/test_structure.py::test_structuring_unsupported - AssertionError...
-# FAILED tests/test_preconf.py::test_bson_converter
-# ERROR tests/strategies/test_include_subclasses.py::test_structuring_with_inheritance[with-subclasses-grandchild-only]
-# ERROR tests/strategies/test_include_subclasses.py::test_structuring_with_inheritance[with-subclasses-union-container]
-# ERROR tests/strategies/test_include_subclasses.py::test_unstructuring_with_inheritance[with-subclasses-union-compose-child]
-# ERROR tests/strategies/test_include_subclasses.py::test_structuring_with_inheritance[with-subclasses-parent-only]
-# ERROR tests/strategies/test_include_subclasses.py::test_structuring_with_inheritance[with-subclasses-union-compose-parent]
-# ERROR tests/strategies/test_include_subclasses.py::test_structuring_with_inheritance[with-subclasses-non-union-container]
-# ERROR tests/strategies/test_include_subclasses.py::test_unstructuring_with_inheritance[with-subclasses-union-compose-grandchild]
-# ERROR tests/strategies/test_include_subclasses.py::test_circular_reference[with-subclasses]
-# ERROR tests/strategies/test_include_subclasses.py::test_unstructuring_with_inheritance[with-subclasses-parent-only]
-# ERROR tests/strategies/test_include_subclasses.py::test_structuring_with_inheritance[with-subclasses-child1-only]
-# ERROR tests/strategies/test_include_subclasses.py::test_structuring_with_inheritance[with-subclasses-union-compose-child]
-# ERROR tests/strategies/test_include_subclasses.py::test_unstructuring_with_inheritance[with-subclasses-non-union-compose-parent]
-# ERROR tests/strategies/test_include_subclasses.py::test_unstructuring_with_inheritance[with-subclasses-child1-only]
-# ERROR tests/strategies/test_include_subclasses.py::test_structuring_with_inheritance[with-subclasses-union-compose-grandchild]
-# ERROR tests/strategies/test_include_subclasses.py::test_structuring_with_inheritance[with-subclasses-child2-only]
-# ERROR tests/strategies/test_include_subclasses.py::test_unstructuring_with_inheritance[with-subclasses-non-union-compose-child]
-# ERROR tests/strategies/test_include_subclasses.py::test_structuring_with_inheritance[with-subclasses-non-union-compose-parent]
-# ERROR tests/strategies/test_include_subclasses.py::test_unstructuring_with_inheritance[with-subclasses-child2-only]
-# ERROR tests/strategies/test_include_subclasses.py::test_unstructuring_with_inheritance[with-subclasses-non-union-compose-grandchild]
-# ERROR tests/strategies/test_include_subclasses.py::test_structuring_with_inheritance[with-subclasses-non-union-compose-child]
-# ERROR tests/strategies/test_include_subclasses.py::test_unstructuring_with_inheritance[with-subclasses-grandchild-only]
-# ERROR tests/strategies/test_include_subclasses.py::test_unstructuring_with_inheritance[with-subclasses-union-container]
-# ERROR tests/strategies/test_include_subclasses.py::test_unstructuring_with_inheritance[with-subclasses-union-compose-parent]
-# ERROR tests/strategies/test_include_subclasses.py::test_structuring_with_inheritance[with-subclasses-non-union-compose-grandchild]
-# ERROR tests/strategies/test_include_subclasses.py::test_unstructuring_with_inheritance[with-subclasses-non-union-container]
-k="${k-}${k+ and }not test_bson"
-k="${k-}${k+ and }not test_bson_converter"
-k="${k-}${k+ and }not test_circular_reference"
-k="${k-}${k+ and }not test_deep_copy"
-k="${k-}${k+ and }not test_include_subclasses"
-k="${k-}${k+ and }not test_nested_roundtrip"
-k="${k-}${k+ and }not test_self_roundtrip"
-k="${k-}${k+ and }not test_self_roundtrip_dataclass"
-k="${k-}${k+ and }not test_self_roundtrip_namedtuple"
-k="${k-}${k+ and }not test_self_roundtrip_typeddict"
-k="${k-}${k+ and }not test_structure_nested_generics_with_cols"
-k="${k-}${k+ and }not test_structuring_unsupported"
-k="${k-}${k+ and }not test_structuring_with_inheritance"
-k="${k-}${k+ and }not test_subclass_roundtrip"
-k="${k-}${k+ and }not test_subclass_roundtrip_dataclass"
-k="${k-}${k+ and }not test_type_names_with_quotes"
-k="${k-}${k+ and }not test_unstructuring_with_inheritance"
 %endif
 
 %pytest --ignore-glob='bench/*' ${ignore-} -k "${k-}" -n auto
