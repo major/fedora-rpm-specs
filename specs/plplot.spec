@@ -64,7 +64,7 @@
 
 Name:           plplot
 Version:        5.15.0
-Release:        85%{?dist}
+Release:        86%{?dist}
 Summary:        Library of functions for making scientific plots
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -788,6 +788,9 @@ export LD_LIBRARY_PATH=$PWD/%{_vpath_builddir}/bindings/ocaml:$RPM_BUILD_ROOT%{_
 
 
 %changelog
+* Mon Oct 13 2025 Richard W.M. Jones <rjones@redhat.com> - 5.15.0-86
+- OCaml 5.4.0 rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 5.15.0-85
 - Rebuilt for Python 3.14.0rc3 bytecode
 

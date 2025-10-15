@@ -198,7 +198,7 @@ This %{upstream}-java includes the %{upstream} Java JDBC provider.
 %autosetup -p1 -n %{upstream}-%{version}
 # Workaround to detect JRE 17 (java 17)
 sed -i.java m4/java.m4 \
-	-e 's|JRE11.0|JRE[[1-9]][[0-9]].0|' -e 's|Sun JRE 11.0|Sun \$JVERSION|'
+	-e 's|JRE11\.0\.|JRE[[1-9]][[0-9]]|' -e 's|Sun JRE 11.0|Sun \$JVERSION|'
 NOCONFIGURE=1 srcdir=. gnome-autogen.sh
 
 # AUTHORS not in UTF-8

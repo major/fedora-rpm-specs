@@ -5,7 +5,7 @@
 %global crate opendal
 
 Name:           rust-opendal
-Version:        0.53.3
+Version:        0.54.1
 Release:        %autorelease
 Summary:        Apache OpenDAL: One Layer, All Storage
 
@@ -20,6 +20,7 @@ Patch:          opendal-fix-metadata-auto.diff
 # * Remove opentelemetry dev dependency
 # * Remove fasttrace dev dependency
 # * Remove libtest-mimic dev dependency
+# * Remove divan (benchmark) dev dependency
 Patch:          opendal-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
@@ -61,6 +62,18 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+blocking-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+blocking-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "blocking" feature of the "%{crate}" crate.
+
+%files       -n %{name}+blocking-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+executors-tokio-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -83,6 +96,18 @@ This package contains library source intended for building other packages which
 use the "internal-tokio-rt" feature of the "%{crate}" crate.
 
 %files       -n %{name}+internal-tokio-rt-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+layers-fastmetrics-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+layers-fastmetrics-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "layers-fastmetrics" feature of the "%{crate}" crate.
+
+%files       -n %{name}+layers-fastmetrics-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+services-fs-devel

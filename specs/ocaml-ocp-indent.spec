@@ -4,8 +4,8 @@ ExcludeArch: %{ix86}
 %global giturl  https://github.com/OCamlPro/ocp-indent
 
 Name:           ocaml-ocp-indent
-Version:        1.8.2
-Release:        34%{?dist}
+Version:        1.9.0
+Release:        1%{?dist}
 Summary:        A simple tool to indent OCaml programs
 
 # The entire source code is LGPL with the OCaml linking exception except
@@ -14,8 +14,6 @@ License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception AND QPL-1.0
 URL:            https://www.typerex.org/ocp-indent.html
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/%{version}/ocp-indent-%{version}.tar.gz
-# Update the Emacs interface for Emacs 27.1
-Patch:          %{name}-emacs.patch
 # Fix use of ISO8859-1 characters at the beginnings of lines
 # https://github.com/OCamlPro/ocp-indent/issues/318
 Patch:          %{name}-nonbreaking-space.patch
@@ -85,7 +83,7 @@ cd -
 # ./tests/test.sh
 
 %files -f .ofiles
-%doc README.md CHANGELOG
+%doc README.md CHANGELOG.md
 %license LICENSE
 %{_emacs_sitelispdir}/ocp-indent.elc
 %{_emacs_sitestartdir}/ocp-indent-loaddefs.el
@@ -94,6 +92,11 @@ cd -
 %files devel -f .ofiles-devel
 
 %changelog
+* Mon Oct 13 2025 Richard W.M. Jones <rjones@redhat.com> - 1.9.0-1
+- New upstream version 1.9.0 (RHBZ#2400841)
+- Remove emacs fix which is now upstream.
+- Rebase nonbreaking space patch for code movements in 1.9.0
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           btop
 Version:        1.4.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Modern and colorful command line resource monitor that shows usage and stats
 
 # The entire source code is ASL 2.0 except:
@@ -26,10 +26,11 @@ BuildRequires:  gcc-toolset-13-annobin-plugin-gcc
 BuildRequires:  gcc-toolset-13-binutils
 %endif
 
-# gpu support
+# AMD GPU support
 %if 0%{?fedora}
 %ifnarch i686 s390x
 BuildRequires:  rocm-smi-devel
+Recommends: rocm-smi
 %endif
 %endif
 
@@ -74,6 +75,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/btop.desktop
 %{_mandir}/man1/%{name}.1.gz
 
 %changelog
+* Sat Sep 27 2025 Timothée Ravier <tim@siosm.fr> - 1.4.4-2
+- Recommend rocm-smi for AMD GPU support.
+
 * Fri Aug 08 2025 Jonathan Wright <jonathan@almalinux.org> - 1.4.4-1
 - update to 1.4.4 rhbz#2362554
 

@@ -10,7 +10,7 @@
 Summary:    A collection of SNMP protocol tools and libraries
 Name:       net-snmp
 Version:    5.9.4
-Release:    17%{?dist}
+Release:    18%{?dist}
 Epoch:      1
 
 License:    MIT-CMU AND BSD-3-Clause AND MIT
@@ -52,6 +52,8 @@ Patch22:    net-snmp-5.9-ipv6-disable-leak.patch
 Patch23:    net-snmp-5.9-rpmdb.patch
 Patch24:    net-snmp-5.9.4-autoconf.patch
 Patch25:    net-snmp-5.9.4-kernel-6.7.patch
+Patch26:    net-snmp-5.9.4-tls.patch
+Patch27:    net-snmp-5.9.4-revert-n-snmptrapd-log.patch
 
 # Modern RPM API means at least EL6
 Patch101:   net-snmp-5.8-modern-rpm-api.patch
@@ -247,6 +249,8 @@ cp %{SOURCE10} .
 %patch 23 -p1 -b .rpmdbpatch
 %patch 24 -p1 
 %patch 25 -p1 -b .kernel-6.7
+%patch 26 -p1 -b .tls
+%patch 27 -p1 -b .revert-n-snmptrapd-log
 
 %patch 101 -p1 -b .modern-rpm-api
 %patch 102 -p1
@@ -521,6 +525,10 @@ LD_LIBRARY_PATH=%{buildroot}/%{_libdir} make test
 %{_libdir}/libnetsnmptrapd*.so.%{soname}*
 
 %changelog
+* Mon Oct 13 2025 Josef Ridky <jridky@redhat.com> - 1:5.9.4-18
+- Enable PQC in net-snmp
+- Fix inverted use of -n in snmptrapd_log.c
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1:5.9.4-17
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -29,9 +29,10 @@
 
 Name:           uhd
 URL:            http://github.com/EttusResearch/uhd
-Version:        4.9.0.0
-%global images_ver %{version}
-Release:        2%{?dist}
+Version:        4.9.0.1
+#%%global images_ver %%{version}
+%global images_ver 4.9.0.0
+Release:        1%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 BuildRequires:  make
@@ -280,6 +281,10 @@ install -m0644 -D uhd.sysusers.conf %{buildroot}%{_sysusersdir}/uhd.conf
 %endif
 
 %changelog
+* Mon Oct 13 2025 Jaroslav Škarvada  <jskarvad@redhat.com> - 4.9.0.1-2
+- New version
+  Resolves: rhbz#2403533
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.9.0.0-2
 - Rebuilt for Python 3.14.0rc3 bytecode
 

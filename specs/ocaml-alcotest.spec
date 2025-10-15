@@ -11,7 +11,7 @@ ExcludeArch: %{ix86}
 %global giturl  https://github.com/mirage/alcotest
 
 Name:           ocaml-%{srcname}
-Version:        1.9.0
+Version:        1.9.1
 Release:        %autorelease
 Summary:        Lightweight and colorful test framework for OCaml
 

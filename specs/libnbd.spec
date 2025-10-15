@@ -21,7 +21,7 @@
 
 Name:           libnbd
 Version:        1.23.8
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        NBD client library in userspace
 
 License:        LGPL-2.0-or-later AND BSD-3-Clause
@@ -393,6 +393,9 @@ make %{?_smp_mflags} check || {
 
 
 %changelog
+* Mon Oct 13 2025 Richard W.M. Jones <rjones@redhat.com> - 1.23.8-3
+- OCaml 5.4.0 rebuild
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.23.8-2
 - Rebuilt for Python 3.14.0rc3 bytecode
 

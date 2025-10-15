@@ -48,7 +48,7 @@
 Summary: System for algebraic geometry and commutative algebra
 Name:    Macaulay2
 Version: 1.25.06
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 # GPL-2.0-only OR GPL-3.0-only:
 #   - the project as a whole
@@ -230,6 +230,8 @@ Patch: %{name}-1.17-configure.patch
 Patch: %{name}-1.18-lto.patch
 # Avoid use of the deprecated strstream C++ header
 Patch: %{name}-1.25-strstream.patch
+# Move to C++17 for gtest 1.17.0
+Patch: %{name}-1.25-c++17.patch
 
 BuildRequires: 4ti2
 BuildRequires: appstream
@@ -284,7 +286,6 @@ BuildRequires: normaliz
 BuildRequires: ntl-devel
 BuildRequires: ocl-icd-devel
 BuildRequires: pari-devel
-BuildRequires: pkgconfig(atomic_ops)
 BuildRequires: pkgconfig(bdw-gc) >= 8.2.6
 BuildRequires: pkgconfig(cddlib)
 BuildRequires: pkgconfig(expat)
@@ -594,6 +595,12 @@ make check -C BUILD/%{_target_platform}/Macaulay2/bin
 
 
 %changelog
+* Mon Oct 13 2025 Jerry James <loganjerry@gmail.com> - 1.25.06-4
+- Drop unused atomic_ops dependency
+
+* Wed Oct 08 2025 Terje Rosten <terjeros@gmail.com> - 1.25.06-4
+- Move to C++17 for gtest 1.17.0
+
 * Sat Aug 23 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 1.25.06-3
 - Rebuilt for tinyxml2 11.0.0
 

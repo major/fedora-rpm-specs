@@ -41,7 +41,7 @@
 %global        chroot_prefix     %{bind_dir}/chroot
 %global        chroot_create_directories /dev /run/named %{_localstatedir}/{log,named,tmp} \\\
                                          %{_sysconfdir}/{crypto-policies/back-ends,pki/dnssec-keys,named} \\\
-                                         %{_libdir}/bind %{_libdir}/named %{_datadir}/GeoIP /proc/sys/net/ipv4
+                                         %{_libdir}/bind %{_libdir}/named %{_datadir}/{GeoIP,named} /proc/sys/net/ipv4
 
 ## The order of libs is important. See lib/Makefile.in for details
 %define bind_export_libs isc dns isccfg irs
@@ -86,7 +86,7 @@ License:  MPL-2.0 AND ISC AND MIT AND BSD-3-Clause AND BSD-2-Clause
 # Before rebasing bind, ensure bind-dyndb-ldap is ready to be rebuild and use side-tag with it.
 # Updating just bind will cause freeipa-dns-server package to be uninstallable.
 Version:  9.18.39
-Release:  4%{?dist}
+Release:  7%{?dist}
 Epoch:    32
 Url:      https://www.isc.org/downloads/bind/
 #
@@ -140,6 +140,8 @@ Patch32: bind-9.18-partial-additional-records.patch
 # https://gitlab.isc.org/isc-projects/bind9/-/merge_requests/9723
 # downstream only
 Patch33: bind-9.18-dig-idn-input-always.patch
+# downstream only too
+Patch34: bind-9.18-dig-idn-input-always-test.patch
 
 %{?systemd_ordering}
 # https://fedoraproject.org/wiki/Changes/RPMSuportForSystemdSysusers
@@ -634,23 +636,33 @@ touch ${RPM_BUILD_ROOT}%{_sysconfdir}/rndc.{key,conf}
 install -m 644 %{SOURCE27} ${RPM_BUILD_ROOT}%{_sysconfdir}/named.root.key
 install -m 644 %{SOURCE36} ${RPM_BUILD_ROOT}%{_sysconfdir}/trusted-key.key
 mkdir -p ${RPM_BUILD_ROOT}%{_sysconfdir}/named
+install -p -m 644 %{SOURCE17} ${RPM_BUILD_ROOT}%{_sysconfdir}/named.ca
+ln -sr ${RPM_BUILD_ROOT}%{_sysconfdir}/named.ca \
+       ${RPM_BUILD_ROOT}%{_localstatedir}/named/named.ca
+mkdir -p ${RPM_BUILD_ROOT}%{_datadir}/named
+install -p -m 644 %{SOURCE18} ${RPM_BUILD_ROOT}%{_datadir}/named/named.localhost
+install -p -m 644 %{SOURCE19} ${RPM_BUILD_ROOT}%{_datadir}/named/named.loopback
+install -p -m 644 %{SOURCE20} ${RPM_BUILD_ROOT}%{_datadir}/named/named.empty
 
 # data files:
 mkdir -p ${RPM_BUILD_ROOT}%{_localstatedir}/named
-install -m 640 %{SOURCE17} ${RPM_BUILD_ROOT}%{_localstatedir}/named/named.ca
-install -m 640 %{SOURCE18} ${RPM_BUILD_ROOT}%{_localstatedir}/named/named.localhost
-install -m 640 %{SOURCE19} ${RPM_BUILD_ROOT}%{_localstatedir}/named/named.loopback
-install -m 640 %{SOURCE20} ${RPM_BUILD_ROOT}%{_localstatedir}/named/named.empty
-install -m 640 %{SOURCE23} ${RPM_BUILD_ROOT}%{_sysconfdir}/named.rfc1912.zones
+for FILE in named.{localhost,loopback,empty}
+do
+  ln -sr "${RPM_BUILD_ROOT}%{_datadir}/named/$FILE" \
+         "${RPM_BUILD_ROOT}%{_localstatedir}/named/$FILE"
+done
+install -p -m 640 %{SOURCE23} ${RPM_BUILD_ROOT}%{_sysconfdir}/named.rfc1912.zones
 
 # sample bind configuration files for %%doc:
 mkdir -p sample/etc sample/var/named/{data,slaves}
 install -m 644 %{SOURCE25} sample/etc/named.conf
-# Copy default configuration to %%doc to make it usable from system-config-bind
+# Copy default configuration to %%doc
 install -m 644 %{SOURCE16} named.conf.default
 install -m 644 %{SOURCE23} sample/etc/named.rfc1912.zones
-install -m 644 %{SOURCE18} %{SOURCE19} %{SOURCE20}  sample/var/named
-install -m 644 %{SOURCE17} sample/var/named/named.ca
+ln -s %{_sysconfdir}/named.ca sample/var/named/named.ca
+for FILE in named.{localhost,loopback,empty}; do
+  ln -s %{_datadir}/named/$FILE sample/var/named/$FILE
+done
 for f in my.internal.zone.db slaves/my.slave.internal.zone.db slaves/my.ddns.internal.zone.db my.external.zone.db; do 
   echo '@ in soa localhost. root 1 3H 15M 1W 1D
   ns localhost.' > sample/var/named/$f; 
@@ -658,10 +670,10 @@ done
 :;
 
 mkdir -p ${RPM_BUILD_ROOT}%{_tmpfilesdir}
-install -m 644 %{SOURCE35} ${RPM_BUILD_ROOT}%{_tmpfilesdir}/named.conf
+install -p -m 644 %{SOURCE35} ${RPM_BUILD_ROOT}%{_tmpfilesdir}/named.conf
 
 mkdir -p ${RPM_BUILD_ROOT}%{_sysconfdir}/rwtab.d
-install -m 644 %{SOURCE43} ${RPM_BUILD_ROOT}%{_sysconfdir}/rwtab.d/named
+install -p -m 644 %{SOURCE43} ${RPM_BUILD_ROOT}%{_sysconfdir}/rwtab.d/named
 
 %post
 %?ldconfig
@@ -753,6 +765,7 @@ fi;
 %dir %{_libdir}/named
 %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/sysconfig/named
 %config(noreplace) %attr(0644,root,named) %{_sysconfdir}/named.root.key
+%config(noreplace) %attr(0644,root,named) %{_sysconfdir}/named.ca
 %config(noreplace) %{_sysconfdir}/logrotate.d/named
 %{_tmpfilesdir}/named.conf
 %{_sysconfdir}/rwtab.d/named
@@ -796,7 +809,9 @@ fi;
 %dir %{_localstatedir}/named/dynamic
 %ghost %{_localstatedir}/log/named.log
 %defattr(0640,root,named,0750)
+%{_datadir}/named/
 %config %verify(not link) %{_localstatedir}/named/named.ca
+# Moved to %%_datadir/named, keep compat symlinks
 %config %verify(not link) %{_localstatedir}/named/named.localhost
 %config %verify(not link) %{_localstatedir}/named/named.loopback
 %config %verify(not link) %{_localstatedir}/named/named.empty
@@ -905,6 +920,7 @@ fi;
 %dir %{chroot_prefix}/%{_libdir}
 %dir %{chroot_prefix}/%{_libdir}/bind
 %dir %{chroot_prefix}/%{_datadir}/GeoIP
+%dir %{chroot_prefix}/%{_datadir}/named
 %{chroot_prefix}/proc
 %defattr(0660,root,named,01770)
 %dir %{chroot_prefix}%{_localstatedir}/named
@@ -927,6 +943,16 @@ fi;
 %endif
 
 %changelog
+* Fri Oct 10 2025 Petr Menšík <pemensik@redhat.com> - 32:9.18.39-7
+- Reference to absolute config names from named.rfc1912.zones
+
+* Fri Oct 03 2025 Petr Menšík <pemensik@redhat.com> - 32:9.18.39-6
+- Move named.* files from /var/named into /usr/share/named
+- Move named.ca into /etc/named.ca
+
+* Tue Sep 16 2025 Petr Menšík <pemensik@redhat.com> - 32:9.18.39-5
+- Fix failures in idna system test (rhbz#2324186)
+
 * Wed Sep 10 2025 Adam Williamson <awilliam@redhat.com> - 32:9.18.39-4
 - No-change rebuild to fix F43 update
 

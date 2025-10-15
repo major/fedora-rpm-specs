@@ -1,5 +1,5 @@
 Name:           apache-commons-net
-Version:        3.11.1
+Version:        3.12.0
 Release:        %autorelease
 Summary:        Internet protocol suite Java library
 License:        Apache-2.0
@@ -44,6 +44,10 @@ fundamental protocol access, not higher-level abstractions.
 
 %pom_remove_dep org.apache.ftpserver:ftpserver-core
 
+# Disable tests that depends on commons-collections4 (not packaged yet)
+%pom_remove_dep :commons-collections4
+rm src/test/java/org/apache/commons/net/util/SubnetUtilsTest.java
+
 # Disable tests that rely on networking to be available and working.
 # Depending on host configuration, on different systems they fail with
 # errors such as "Connection timed out", "Address already in use",
@@ -62,6 +66,7 @@ src/test/java/org/apache/commons/net/tftp/TFTPAckPacketTest.java \
 src/test/java/org/apache/commons/net/tftp/TFTPDataPacketTest.java \
 src/test/java/org/apache/commons/net/tftp/TFTPErrorPacketTest.java \
 src/test/java/org/apache/commons/net/tftp/TFTPReadRequestPacketTest.java \
+src/test/java/org/apache/commons/net/tftp/TFTPRequestPacketTest.java \
 src/test/java/org/apache/commons/net/tftp/TFTPServerPathTest.java \
 src/test/java/org/apache/commons/net/tftp/TFTPTest.java \
 src/test/java/org/apache/commons/net/tftp/TFTPWriteRequestPacketTest.java \

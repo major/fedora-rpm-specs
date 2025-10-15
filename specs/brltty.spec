@@ -37,7 +37,7 @@
 
 Name: brltty
 Version: 6.8
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: LGPL-2.0-or-later AND LGPL-2.1-or-later AND GPL-2.0-or-later
 URL: http://brltty.app/
 Source0: http://brltty.app/archive/%{name}-%{version}.tar.xz
@@ -675,6 +675,9 @@ fi
 %config(noreplace) %verify(not size md5 mtime) %{_sysconfdir}/brltty/Initramfs/cmdline
 
 %changelog
+* Mon Oct 13 2025 Richard W.M. Jones <rjones@redhat.com> - 6.8-6
+- OCaml 5.4.0 rebuild
+
 * Wed Oct 08 2025 Dominik Mierzejewski <dominik@greysector.net> - 6.8-5
 - own _libdir/brltty directory in brlapi
 

@@ -4,8 +4,8 @@
 
 %global crate bindgen
 
-Name:           rust-bindgen
-Version:        0.72.1
+Name:           rust-bindgen0.71
+Version:        0.71.1
 Release:        %autorelease
 Summary:        Automatically generates Rust FFI bindings to C and C++ libraries
 
@@ -152,6 +152,18 @@ This package contains library source intended for building other packages which
 use the "static" feature of the "%{crate}" crate.
 
 %files       -n %{name}+static-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+which-rustfmt-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+which-rustfmt-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "which-rustfmt" feature of the "%{crate}" crate.
+
+%files       -n %{name}+which-rustfmt-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

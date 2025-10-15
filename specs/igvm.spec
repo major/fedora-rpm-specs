@@ -17,6 +17,7 @@ BuildRequires:  CUnit-devel cbindgen cargo-c make gcc
 # Bump bitfield struct to version 0.11
 Patch1: 0001-update-bitfield-struct-to-version-0.11.patch
 Patch2: 0002-switch-to-cbuild.patch
+Patch3: 0003-igvm_c-dump_igvm-add-missing-device-tree-directive-9.patch
 
 %description
 Igvm is an implementation of a parser for the Independent Guest Virtual Machine

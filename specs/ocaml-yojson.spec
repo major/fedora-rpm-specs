@@ -1,9 +1,17 @@
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch: %{ix86}
 
+# There's a circular build dependency from ocaml-yojson ->
+# ocaml-sedlex -> [.. lots of packages ..] -> ocaml-ppxlib ->
+# ocaml-yojson.  Avoid this by setting bootstrap to 1, building, then
+# setting it back to 0 and building (just this package) again.  All
+# this does is avoid building the 'five' subpackage which is the bit
+# that needs sedlex.
+%bcond bootstrap 0
+
 Name:           ocaml-yojson
 Version:        3.0.0
-Release:        2%{?dist}
+Release:        6%{?dist}
 Summary:        An optimized parsing and printing library for the JSON format
 
 License:        BSD-3-Clause
@@ -14,7 +22,9 @@ Source0:        %{url}/releases/download/%{version}/yojson-%{version}.tbz
 BuildRequires:  ocaml >= 4.08
 BuildRequires:  ocaml-alcotest-devel >= 0.8.5
 BuildRequires:  ocaml-dune >= 2.7
+%if %{without bootstrap}
 BuildRequires:  ocaml-sedlex-devel >= 2.5
+%endif
 
 %description
 Yojson is an optimized parsing and printing library for the JSON
@@ -38,6 +48,7 @@ The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
 
 
+%if %{without bootstrap}
 %package        five
 Summary:        Parsing and printing library for the JSON5 format
 Requires:       %{name}%{?_isa} = %{version}-%{release}
@@ -56,6 +67,7 @@ Requires:       ocaml-sedlex-devel%{?_isa}
 %description    five-devel
 The %{name}-five-devel package contains libraries and signature
 files for developing applications that use %{name}-five.
+%endif
 
 
 %prep
@@ -63,15 +75,27 @@ files for developing applications that use %{name}-five.
 
 
 %build
+%if %{with bootstrap}
+%dune_build -p yojson
+%else
 %dune_build -p yojson,yojson-five
+%endif
 
 
 %install
+%if %{with bootstrap}
+%dune_install -s yojson
+%else
 %dune_install -s yojson yojson-five
+%endif
 
 
 %check
+%if %{with bootstrap}
+%dune_check -p yojson
+%else
 %dune_check -p yojson,yojson-five
+%endif
 
 
 %files -f .ofiles-yojson
@@ -83,13 +107,22 @@ files for developing applications that use %{name}-five.
 %doc CHANGES.md examples
 
 
+%if %{without bootstrap}
 %files five -f .ofiles-yojson-five
 
-
 %files five-devel -f .ofiles-yojson-five-devel
-
+%endif
 
 %changelog
+* Mon Oct 13 2025 Richard W.M. Jones <rjones@redhat.com> - 3.0.0-6
+- Bump release and rebuild
+
+* Mon Oct 13 2025 Richard W.M. Jones <rjones@redhat.com> - 3.0.0-5
+- OCaml 5.4.0 rebuild
+
+* Mon Oct 13 2025 Richard W.M. Jones <rjones@redhat.com> - 3.0.0-3
+- Add bootstrap option to avoid circular dependency
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -10,7 +10,7 @@
 Summary: A fast, lightweight Source Control Management system
 Name: mercurial
 Version: 7.1.1
-Release: 2%{?dist}
+Release: 2.1%{?dist}
 
 # Release: 1.rc1%%{?dist}
 
@@ -56,7 +56,7 @@ Extensions: https://www.mercurial-scm.org/wiki/UsingExtensions
 %package hgk
 Summary:    Hgk interface for mercurial
 Requires:   hg = %{version}-%{release}
-Requires:   tk
+Requires:   tk8
 
 %description hgk
 A Mercurial extension for displaying the change history graphically
@@ -135,6 +135,9 @@ in mind.
 
 %prep
 %autosetup -p1 -n %{name}-%{upstreamversion}
+
+# Use tk8 with better handling of 8-bit encodings than the default tk9
+sed -i.wish8 -e '1,1s/wish/\08/' contrib/hgk
 
 %if %{with rust}
 pushd rust
@@ -273,6 +276,9 @@ rm -rf %{buildroot}%{python3_sitearch}/mercurial/locale
 
 
 %changelog
+* Mon Oct 13 2025 Mads Kiilerich <mads@kiilerich.com> - 7.1.1-2.1
+- Launch hgk with wish8 / tk8 to avoid regression with 8-bit encodings (#2384296)
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 7.1.1-2
 - Rebuilt for Python 3.14.0rc3 bytecode
 

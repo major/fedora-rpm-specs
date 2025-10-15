@@ -1,3 +1,6 @@
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch: %{ix86}
+
 # NOTE: There is no %%check section, because the tests require administrator
 # privileges so that non-default values can be written to:
 # - /proc/sys/kernel/core_pattern

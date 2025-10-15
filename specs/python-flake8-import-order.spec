@@ -53,8 +53,7 @@ rm tests/test_pylama_linter.py
 mv flake8_import_order/pylama_linter.py flake8_import_order/pylama_linter.NOT
 %endif
 
-%python3 setup.py develop --user
-%python3 -m pytest -v
+%pytest -v
 
 %files -n python%{python3_pkgversion}-%{srcname} -f %{pyproject_files}
 %license COPYING

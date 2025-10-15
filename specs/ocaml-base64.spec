@@ -6,7 +6,7 @@ ExcludeArch: %{ix86}
 %endif
 
 Name:           ocaml-base64
-Version:        3.5.1
+Version:        3.5.2
 Release:        %autorelease
 Summary:        Base64 library for OCaml
 
@@ -16,7 +16,7 @@ VCS:            git:%{url}.git
 Source0:        %{url}/releases/download/v%{version}/base64-%{version}.tbz
 
 BuildRequires:  ocaml
-BuildRequires:  ocaml-dune
+BuildRequires:  ocaml-dune >= 3.20
 
 # Test dependencies
 BuildRequires:  ocaml-alcotest-devel

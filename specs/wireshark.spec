@@ -1,11 +1,11 @@
 %undefine __cmake_in_source_build
 %global with_lua 1
 %global with_maxminddb 1
-%global plugins_version 4.4
+%global plugins_version 4.6
 
 Summary:	Network traffic analyzer
 Name:		wireshark
-Version:	4.4.9
+Version:	4.6.0
 Release:	1%{?dist}
 Epoch:		1
 License:	BSD-1-Clause AND BSD-2-Clause AND BSD-3-Clause AND MIT AND GPL-2.0-or-later AND LGPL-2.0-or-later AND Zlib AND ISC AND (BSD-3-Clause OR GPL-2.0-only) AND (GPL-2.0-or-later AND Zlib)
@@ -18,8 +18,6 @@ Source3:	wireshark.sysusers
 
 # Fedora-specific
 Patch2:   wireshark-0002-Customize-permission-denied-error.patch
-# Will be proposed upstream
-Patch3:   wireshark-0003-fix-string-overrun-in-plugins-profinet.patch
 # Fedora-specific
 Patch4:   wireshark-0004-Restore-Fedora-specific-groups.patch
 # Fedora-specific
@@ -28,6 +26,7 @@ Patch5:   wireshark-0005-Fix-paths-in-a-wireshark.desktop-file.patch
 Patch6:   wireshark-0006-Move-tmp-to-var-tmp.patch
 Patch7:   wireshark-0007-cmakelists.patch
 Patch8:   wireshark-0008-pkgconfig.patch
+Patch9:   wireshark-0009-remove-strato-manpages.patch
 
 #install tshark together with wireshark GUI
 Requires:	%{name}-cli = %{epoch}:%{version}-%{release}
@@ -156,7 +155,8 @@ and plugins.
   -DENABLE_PLUGINS=ON \
   -DENABLE_NETLINK=ON \
   -DBUILD_dcerpcidl2wrs=OFF \
-  -DBUILD_sdjournal=ON
+  -DBUILD_sdjournal=ON \
+  -DBUILD_stratoshark=OFF
 
 %cmake_build
 
@@ -204,6 +204,7 @@ fi
 %{_bindir}/capinfos
 %{_bindir}/captype
 %{_bindir}/editcap
+%{_bindir}/dftest
 %{_bindir}/mergecap
 %{_bindir}/randpkt
 %{_bindir}/reordercap
@@ -217,16 +218,17 @@ fi
 %{_bindir}/rawshark
 %{_udevrulesdir}/90-wireshark-usbmon.rules
 %{_libdir}/lib*.so.*
-%dir %{_libdir}/wireshark
-%dir %{_libdir}/wireshark/extcap
+%dir %{_libexecdir}/wireshark
+%dir %{_libexecdir}/wireshark/extcap
 %dir %{_libdir}/wireshark/plugins
-%{_libdir}/wireshark/extcap/ciscodump
-%{_libdir}/wireshark/extcap/udpdump
-%{_libdir}/wireshark/extcap/wifidump
-%{_libdir}/wireshark/extcap/sshdump
-%{_libdir}/wireshark/extcap/sdjournal
-%{_libdir}/wireshark/extcap/dpauxmon
-%{_libdir}/wireshark/extcap/androiddump
+%dir %{_libdir}/wireshark
+%{_libexecdir}/wireshark/extcap/ciscodump
+%{_libexecdir}/wireshark/extcap/udpdump
+%{_libexecdir}/wireshark/extcap/wifidump
+%{_libexecdir}/wireshark/extcap/sshdump
+%{_libexecdir}/wireshark/extcap/sdjournal
+%{_libexecdir}/wireshark/extcap/dpauxmon
+%{_libexecdir}/wireshark/extcap/androiddump
 #the version wireshark uses to store plugins is only x.y, not .z
 %dir %{_libdir}/wireshark/plugins/%{plugins_version}
 %dir %{_libdir}/wireshark/plugins/%{plugins_version}/epan
@@ -255,7 +257,6 @@ fi
 %{_mandir}/man1/dpauxmon.*
 %{_mandir}/man1/sdjournal.*
 %{_mandir}/man1/etwdump.*
-%{_mandir}/man1/falcodump.*
 %{_mandir}/man4/extcap.*
 %{_datadir}/doc/wireshark/*
 
@@ -275,6 +276,9 @@ fi
 %{_libdir}/cmake/%{name}/*.cmake
 
 %changelog
+* Thu Oct 09 2025 Michal Ruprich <mruprich@redhat.com> - 1:4.6.0-1
+- New version 4.6.0
+
 * Mon Sep 01 2025 Michal Ruprich <mruprich@redhat.com> - 1:4.4.9-1
 - New version 4.4.9
 

@@ -1,6 +1,6 @@
 Name:           libkdtree++
-Version:        0.7.4
-Release:        3%{?dist}
+Version:        0.7.5
+Release:        1%{?dist}
 Summary:        C++ template container implementation of kd-tree sorting
 URL:            https://github.com/nvmd/libkdtree
 License:        Artistic-2.0
@@ -10,8 +10,8 @@ BuildRequires:  cmake
 BuildRequires:  python3-devel
 BuildRequires:  swig
 
-Source0:        https://github.com/nvmd/libkdtree/archive/%{version}/%{name}-%{version}.tar.gz
-# Raise minimum cmake version, fix python module build
+Source0:        https://github.com/nvmd/libkdtree/archive/v%{version}/%{name}-%{version}.tar.gz
+# Fix python module build
 Patch0:         libkdtree_cmake.patch
 # Fix python test
 Patch1:         libkdtree_pythontest.patch
@@ -98,6 +98,9 @@ popd
 
 
 %changelog
+* Mon Oct 13 2025 Sandro Mani <manisandro@gmail.com> - 0.7.5-1
+- Update to 0.7.5
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.7.4-3
 - Rebuilt for Python 3.14.0rc3 bytecode
 

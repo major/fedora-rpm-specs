@@ -4,16 +4,13 @@
 
 
 Name:           mariadb-connector-odbc
-Version:        3.2.6
-Release:        3%{?with_debug:.debug}%{?dist}
+Version:        3.2.7
+Release:        1%{?with_debug:.debug}%{?dist}
 Summary:        The MariaDB Native Client library (ODBC driver)
 License:        LGPL-2.1-or-later
 Source:         https://archive.mariadb.org/connector-odbc-%{version}/%{name}-%{version}-src.tar.gz
 Url:            https://mariadb.org/en/
 # Online documentation can be found at: https://mariadb.com/kb/en/library/mariadb-connector-odbc/
-
-Patch1: gcc-15.patch
-Patch2: upstream_125389a471ba12a244029801786cc459cf930e65.patch
 
 BuildRequires:  cmake unixODBC-devel gcc-c++
 BuildRequires:  mariadb-connector-c-devel >= 3.4.5
@@ -35,8 +32,6 @@ this connector easier.
 
 %prep
 %setup -q -n %{name}-%{version}-src
-%patch -P1 -p1
-%patch -P2 -p1
 
 sed -i -e "s|/usr/include/mariadb|$(pkg-config --variable=includedir libmariadb)|" CMakeLists.txt
 

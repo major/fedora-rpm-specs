@@ -6,15 +6,15 @@
 # So pre releases can be tried
 %bcond_without gitcommit
 %if %{with gitcommit}
-# v2.9.0-rc6
-%global commit0 fd364580a94079854f2f32d463c118afaefe62e0
+# v2.9.0-rc9
+%global commit0 0fabc3ba44823f257e70ce397d989c8de5e362c1
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global date0 20251002
+%global date0 20251008
 %global pypi_version 2.9.0
 %global flatbuffers_version 24.12.23
 %global miniz_version 3.0.2
 %global pybind11_version 2.13.6
-%global rc_tag -rc6
+%global rc_tag -rc9
 %else
 %global pypi_version 2.8.0
 %global flatbuffers_version 24.12.23
@@ -117,9 +117,13 @@ Patch11:       0001-Add-cmake-variable-USE_ROCM_CK.patch
 Patch12:       0001-Fix-compilation-and-import-torch-issues-for-cpython-.patch
 %endif
 
-# ExclusiveArch:  x86_64 aarch64
-# aarch64 not building on 2.9.0-rc6
-ExclusiveArch:  x86_64
+%if 0%{?fedora} >= 45
+# drop aarch64 in 45
+%global pt_arches x86_64
+%else
+%global pt_arches x86_64 aarch64
+%endif
+ExclusiveArch:  %pt_arches
 %global toolchain gcc
 %global _lto_cflags %nil
 
@@ -137,6 +141,9 @@ BuildRequires:  gloo-devel
 BuildRequires:  json-devel
 
 BuildRequires:  libomp-devel
+%if %{with gitcommit}
+BuildRequires:  moodycamel-concurrentqueue-devel
+%endif
 BuildRequires:  numactl-devel
 BuildRequires:  ninja-build
 %if %{with onnx}
@@ -205,10 +212,6 @@ BuildRequires:  rocm-smi-devel
 BuildRequires:  rocthrust-devel
 BuildRequires:  roctracer-devel
 
-%if %{with gitcommit}
-BuildRequires:  moodycamel-concurrentqueue-devel
-%endif
-
 Requires:       amdsmi
 
 %endif
@@ -260,6 +263,14 @@ PyTorch is a Python package that provides two high-level features:
 
 You can reuse your favorite Python packages such as NumPy, SciPy,
 and Cython to extend PyTorch when needed.
+
+%package -n pytorch-rpm-macros
+Summary:        PyTorch RPM macros
+BuildArch:      noarch
+
+%description -n pytorch-rpm-macros
+This package contains PyTorch related RPM macros.
+
 
 %if %{with test}
 %package -n python3-%{pypi_name}-test
@@ -512,6 +523,9 @@ sed -i -e 's@${PROJECT_SOURCE_DIR}/third_party/concurrentqueue@/usr/include/conc
 
 %build
 
+# Export the arches
+echo "%%pytorch_arches %pt_arches"   > macros.pytorch
+
 #
 # Control the number of jobs
 #
@@ -653,6 +667,10 @@ export PYTORCH_ROCM_ARCH=%{rocm_gpu_list_default}
 
 %install
 
+# pytorch rpm macros
+install -Dpm 644 macros.pytorch \
+    %{buildroot}%{_rpmmacrodir}/macros.pytorch
+
 %if %{with rocm}
 export USE_ROCM=ON
 export USE_ROCM_CK=OFF
@@ -690,6 +708,9 @@ export PYTORCH_ROCM_ARCH=%{rocm_gpu_list_default}
 %endif
 %{python3_sitearch}/%{pypi_name}*
 %{python3_sitearch}/functorch
+
+%files -n pytorch-rpm-macros
+%{_rpmmacrodir}/macros.pytorch
 
 %changelog
 %autochangelog

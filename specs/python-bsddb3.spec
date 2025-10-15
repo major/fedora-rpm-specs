@@ -63,7 +63,9 @@ BuildRequires:  python%{python3_other_pkgversion}-setuptools
 #%%pyproject_buildrequires
 
 %build
-%pyproject_wheel
+%pyproject_wheel \
+    -C--global-option=--berkeley-db-incdir=%{_includedir} \
+    -C--global-option=--berkeley-db-libdir=%{_libdir}
 %{?with_python3_other:%py3_other_build}
 
 %install

@@ -35,7 +35,7 @@ Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
 Version:       1.57.4
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       LGPL-2.1-or-later
 
 # Build only for architectures that have a kernel
@@ -1073,6 +1073,9 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Mon Oct 13 2025 Richard W.M. Jones <rjones@redhat.com> - 1:1.57.4-2
+- OCaml 5.4.0 rebuild
+
 * Tue Sep 30 2025 Richard W.M. Jones <rjones@redhat.com> - 1:1.57.4-1
 - New upstream development version 1.57.4
 - Enable aarch64 tests

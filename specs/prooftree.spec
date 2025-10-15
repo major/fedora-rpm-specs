@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           prooftree
 Version:        0.14
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Proof tree visualization for Proof General
 
 License:        GPL-3.0-or-later
@@ -66,6 +66,9 @@ sed -i 's/-I \$(LABLGTKDIR)/& -I +unix/' Makefile.in
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Mon Oct 13 2025 Richard W.M. Jones <rjones@redhat.com> - 0.14-9
+- OCaml 5.4.0 rebuild
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

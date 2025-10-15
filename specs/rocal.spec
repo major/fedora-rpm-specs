@@ -22,7 +22,7 @@
 %global upstreamname rocAL
 
 %global rocm_release 7.0
-%global rocm_patch 1
+%global rocm_patch 2
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 # mixing gcc and clang, some flags need to be removed
@@ -55,7 +55,7 @@
 
 Name:           rocal
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm Augmentation Library
 
 Url:            https://github.com/ROCm/rocAL
@@ -210,12 +210,8 @@ cd ../..
 %install
 %cmake_install
 
-if [ -f %{buildroot}%{_prefix}/share/doc/rocal/LICENSE.txt ]; then
-    rm %{buildroot}%{_prefix}/share/doc/rocal/LICENSE.txt
-fi
-if [ -f %{buildroot}%{_prefix}/share/doc/rocal-asan/LICENSE.txt ]; then
-    rm %{buildroot}%{_prefix}/share/doc/rocal-asan/LICENSE.txt
-fi
+rm -f %{buildroot}%{_prefix}/share/doc/rocal/LICENSE.txt
+rm -f %{buildroot}%{_prefix}/share/doc/rocal-asan/LICENSE.txt
 
 # No cmake knob to turn off testing, remove the install dir
 %if %{without test}
@@ -240,6 +236,9 @@ chrpath -r %{rocmllvm_libdir} %{buildroot}%{_libdir}/librocal.so.2.*.*
 %endif
 
 %changelog
+* Sat Oct 11 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.2-1
+- Update to 7.0.2
+
 * Sat Sep 27 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-2
 - set cxx compiler to amdclang++
 

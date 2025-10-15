@@ -2,7 +2,7 @@
 
 Name:           ocaml-ppxlib
 Epoch:          1
-Version:        0.36.1
+Version:        0.37.0
 Release:        %autorelease
 Summary:        Base library and tools for ppx rewriters
 
@@ -22,6 +22,7 @@ BuildRequires:  ocaml-findlib
 BuildRequires:  ocaml-ppx-derivers-devel >= 1.0
 BuildRequires:  ocaml-re-devel >= 1.9.0
 BuildRequires:  ocaml-sexplib0-devel >= 0.15
+BuildRequires:  ocaml-yojson-devel
 
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}

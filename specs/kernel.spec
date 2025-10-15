@@ -176,13 +176,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.18.0
 %define specversion 6.18.0
 %define patchversion 6.18
-%define pkgrelease 0.rc0.251010g5472d60c129f7.13
+%define pkgrelease 0.rc1.16
 %define kversion 6
-%define tarfile_release 6.17-12607-g5472d60c129f7
+%define tarfile_release 6.18-rc1
 # This is needed to do merge window version magic
 %define patchlevel 18
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc0.251010g5472d60c129f7.13%{?buildid}%{?dist}
+%define specrelease 0.rc1.16%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.18.0
 
@@ -4392,14 +4392,20 @@ fi\
 #
 #
 %changelog
-* Fri Oct 10 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.18.0-0.rc0.251010g5472d60c129f7.13]
-- Linux v6.18.0-0.rc0.251010g5472d60c129f7
-
-* Fri Oct 10 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc0.5472d60c129f.13]
-- Only strip unneeded symbols (Patrick Talbert)
-- add xxd to as BuildRequire for bpf selftests (Thorsten Leemhuis)
+* Mon Oct 13 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc1.16]
 - powerpc/tools: drop `-o pipefail` in gcc check scripts (Jan Stancek)
 - redhat/configs: clang_lto: disable CONFIG_FORTIFY_KUNIT_TEST (Scott Weaver)
+
+* Mon Oct 13 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc1.15]
+- Turn on X86_FRED for Fedora (Justin M. Forbes)
+- Linux v6.18.0-0.rc1
+
+* Sun Oct 12 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc0.0739473694c4.14]
+- Fix up HYPERV configs for 6.18 (Justin M. Forbes)
+- add xxd to as BuildRequire for bpf selftests (Thorsten Leemhuis)
+
+* Sat Oct 11 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc0.0739473694c4.13]
+- Linux v6.18.0-0.rc0.0739473694c4
 
 * Fri Oct 10 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc0.5472d60c129f.12]
 - Flip HID_HAPTIC to inline for Fedora due to symbol errors (Justin M. Forbes)

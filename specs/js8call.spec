@@ -6,26 +6,21 @@
 %global project widefido
 
 Name:           js8call
-Version:        2.2.0
-Release:        27%{?dist}
+Version:        2.3.1
+Release:        1%{?dist}
 Summary:        Amateur Radio message passing using FT8 modulation
 
-# Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
 URL:            http://js8call.com/
 
 # Source archive from bitbucket includes project name and commit for directory.
 # Use repack.sh to repack the archive.
-Source0:        http://files.js8call.com/%{version}/js8call-%{version}.tgz
+Source0:        https://github.com/js8call/js8call/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        com.js8call.JS8Call.metainfo.xml
 
-# Unbundle boost libraries.
-Patch0:         js8call-sys_boost.patch
 # js8call assumes it's using bundled hamlib and copies and installs binaries to
 # new names.
-Patch1:         js8call-hamlib.patch
-# Fix missing headers exposed by gcc-11
-Patch2:         js8call-gcc11.patch
+Patch0:         js8call-hamlib.patch
 
 ExcludeArch:    i686
 
@@ -34,17 +29,16 @@ BuildRequires:  asciidoc dos2unix rubygem-asciidoctor
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 # Libraries and devel packages
+BuildRequires:  hamlib hamlib-devel
 BuildRequires:  boost-devel 
 BuildRequires:  fftw-devel
 BuildRequires:  pkgconfig(hamlib)
 BuildRequires:  libusbx-devel
 BuildRequires:  portaudio-devel
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qtserialport-devel
-BuildRequires:  qt5-qtmultimedia-devel
+BuildRequires:  qt6-qtbase-devel
+BuildRequires:  qt6-qtserialport-devel
+BuildRequires:  qt6-qtmultimedia-devel
 BuildRequires:  systemd-devel
-
-Requires:       hicolor-icon-theme
 
 
 %description
@@ -61,10 +55,7 @@ work and dedication of the many developers in the amateur radio community.
 
 
 %prep
-%autosetup -p1 -c %{name}-%{version}
-
-# remove bundled boost
-rm -rf boost
+%autosetup -p1
 
 # convert CR + LF to LF
 dos2unix *.ui *.rc *.txt
@@ -76,8 +67,13 @@ sed -i 's/--std=gnu++11 //' CMakeLists.txt
 
 
 %build
-# workaround for hamlib check, i.e. for hamlib_LIBRARY_DIRS not to be empty
+# Workaround for CMake 4
+# https://bugzilla.redhat.com/show_bug.cgi?id=2380665
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
+
+# Workaround for hamlib check, i.e. for hamlib_LIBRARY_DIRS not to be empty
 export PKG_CONFIG_ALLOW_SYSTEM_LIBS=1
+
 %cmake3 -DBoost_NO_SYSTEM_PATHS=FALSE \
         -Dhamlib_STATIC=FALSE
 
@@ -123,6 +119,9 @@ rm -f %{buildroot}%{_datadir}/doc/JS8Call/INSTALL*
 
 
 %changelog
+* Mon Oct 13 2025 Richard Shaw <hobbes1069@gmail.com> - 2.3.1-1
+- Update to 2.3.1.
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 %global srcname     astroid
 
-Version:        3.3.8
+Version:        4.0.1
 
 Name:           python-astroid
 # Note: please check that this doesn't break pylint before committing and building! -GC
@@ -9,16 +9,13 @@ Summary:        Common base representation of python source code for pylint and 
 License:        LGPL-2.1-or-later
 URL:            https://pypi.org/project/astroid/
 Source0:        https://github.com/pylint-dev/%{srcname}/archive/v%{version}/%{srcname}-%{version}.tar.gz
-# Based on: https://github.com/pylint-dev/astroid/pull/2747
-# and https://github.com/pylint-dev/astroid/pull/2731
-Patch:          Initial-fixes-for-Python-3.14.patch
-Patch:          Test-with-Python-3.14.patch
 
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
 BuildRequires:  python3-setuptools
+BuildRequires:  python3-mypy
 
 %global _description %{expand:
 The aim of this module is to provide a common base representation of python

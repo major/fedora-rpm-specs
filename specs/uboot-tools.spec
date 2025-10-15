@@ -1,4 +1,4 @@
-%global candidate rc5
+#global candidate rc0
 %if 0%{?rhel}
 %bcond_with toolsonly
 %else
@@ -10,7 +10,7 @@
 
 Name:     uboot-tools
 Version:  2025.10
-Release:  0.7%{?candidate:.%{candidate}}%{?dist}
+Release:  1%{?candidate:.%{candidate}}%{?dist}
 Epoch:    1
 Summary:  U-Boot utilities
 # Automatically converted from old format: GPLv2+ BSD LGPL-2.1+ LGPL-2.0+ - review is highly recommended.
@@ -43,11 +43,13 @@ Patch10:  USB-PD-TCPM-improvements.patch
 # Rockchips improvements
 Patch11:  rockchip-Enable-preboot-start-for-pci-usb.patch
 Patch13:  Initial-MNT-Reform2-support.patch
-# Fix Jetson Nano
+# Jetson fixes
 Patch14:  p3450-fix-board.patch
+Patch15:  JetsonTX2-Fix-upstream-device-tree-naming.patch
 # Fix AllWinner
-Patch15:  Allwinner-fix-booting-on-a-number-of-devices.patch
-
+Patch16:  Allwinner-fix-booting-on-a-number-of-devices.patch
+# RPi
+Patch17:  Improve-RaspBerry-Pi-5-support-part1-Fixes.patch
 
 BuildRequires:  bc
 BuildRequires:  bison
@@ -274,6 +276,12 @@ install -p -m 0755 builds/tools/env/fw_printenv %{buildroot}%{_bindir}
 %endif
 
 %changelog
+* Mon Oct 13 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2025.10-1
+- Update to 2025.10 GA (rhbz#2401964)
+- Fix booting when using FW device-tree (rhbz#2402498)
+- Fix for some variants of Raspberry Pi
+- Fixes for Jetson device booting
+
 * Fri Sep 26 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1:2025.10-0.7.rc5
 - Update to 2025.10 RC5
 

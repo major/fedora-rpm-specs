@@ -9,7 +9,7 @@
 %global __provides_exclude_from ^(%{_libdir}/papers/.*\\.so|%{_libdir}/nautilus/extensions-4/.*\\.so)$
 
 Name:           papers
-Version:        49.0
+Version:        49.1
 Release:        %autorelease
 Summary:        View multipage documents
 
@@ -24,6 +24,7 @@ SourceLicense:  GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND 
 # BSD-2-Clause
 # BSD-2-Clause OR Apache-2.0 OR MIT
 # BSD-3-Clause
+# BSD-3-Clause OR Apache-2.0
 # GPL-2.0-or-later
 # MIT
 # MIT OR Apache-2.0
@@ -48,6 +49,7 @@ License:        %{shrink:
     (Apache-2.0 OR MIT) AND
     (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
     (BSD-2-Clause OR Apache-2.0 OR MIT) AND
+    (BSD-3-Clause OR Apache-2.0) AND
     (MIT OR Zlib OR Apache-2.0) AND
     (Unlicense OR MIT)
 }

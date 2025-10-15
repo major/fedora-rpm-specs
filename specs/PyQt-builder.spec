@@ -1,8 +1,8 @@
 %global pypi_name pyqt_builder
 
 Name:           PyQt-builder
-Version:        1.18.2
-Release:        5%{?dist}
+Version:        1.19.0
+Release:        1%{?dist}
 Summary:        The PEP 517 compliant PyQt build system
 
 License:        BSD-2-Clause
@@ -48,6 +48,9 @@ sed -r -i '/\/pyqtbuild\/bundle\/dlls/d' %{pyproject_files}
 %{_bindir}/pyqt-qt-wheel
 
 %changelog
+* Mon Oct 13 2025 Jan Grulich <jgrulich@redhat.com> - 1.19.0-1
+- 1.19.0
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.18.2-5
 - Rebuilt for Python 3.14.0rc3 bytecode
 

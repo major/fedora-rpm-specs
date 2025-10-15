@@ -32,7 +32,7 @@
 
 %global upstreamname hipBLASLt
 %global rocm_release 7.0
-%global rocm_patch 1
+%global rocm_patch 2
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -219,21 +219,6 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %prep
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
 
-# Suse obs times out
-# print out command in scripts
-#%if 0%{?suse_version}
-#sed -i '2i set -x'                                                             tensilelite/Tensile/Ops/gen_assembly.sh
-#sed -i '2i set -x'                                                             library/src/amd_detail/rocblaslt/src/kernels/compile_code_object.sh
-#%endif
-
-# Remove venv
-# sed -i -e 's@. ${venv}/bin/activate@@'                                         tensilelite/Tensile/Ops/gen_assembly.sh
-# sed -i -e 's@deactivate@@'                                                     tensilelite/Tensile/Ops/gen_assembly.sh
-# Change some paths in Common.py
-# change rocm path from /opt/rocm to /usr
-# need to be able to find hipcc, rocm-smi, extractkernel, rocm_agent_enumerator
-# sed -i -e 's@opt/rocm@usr@'                                                    tensilelite/Tensile/Common.py
-
 # Use PATH to find where TensileGetPath and other tensile bins are
 sed -i -e 's@${Tensile_PREFIX}/bin/TensileGetPath@TensileGetPath@g'            tensilelite/Tensile/cmake/TensileConfig.cmake
 
@@ -249,31 +234,11 @@ sed -i -e 's@if(NOT ROCM_FOUND)@if(FALSE)@' cmake/Dependencies.cmake
 # Disable download of nanobind
 sed -i -e 's@FetchContent_MakeAvailable(nanobind)@find_package(nanobind)@' tensilelite/rocisa/CMakeLists.txt
 
-# do not mess with prefix path
-# sed -i -e 's@APPEND CMAKE_PREFIX_PATH@APPEND NO_CMAKE_PREFIX_PATH@'            CMakeLists.txt
-# Remove orjson from requirements list as fallbacks exist
-# %{?suse_version:sed -i -e '/orjson/d' tensilelite/requirements.txt}
-# For debugging
-# set threads to 1
-# sed -i -e 's@default=-1@default=1@'                                          tensilelite/Tensile/TensileCreateLibrary.py
-# sed -i -e 's@return cpu_count@return 1@'                                     tensilelite/Tensile/Parallel.py
-# Print things
-# sed -i -e 's@if globalParameters["PrintCodeCommands"]:@if True:@'            tensilelite/Tensile/TensileCreateLibrary.py
-# sed -i -e 's@#print@print@'                                                  tensilelite/Tensile/Parallel.py
-
-#%if %{with test}
-# Remove problem libraries, why are we linking gfortran AND flang ?
-#sed -i -e 's@-lgfortran -lflang -lflangrti@-lgfortran@'                        clients/gtest/CMakeLists.txt
-#%endif
-
 #%if 0%{?suse_version}
 #sed -i -e 's@\(.*find_package(msgpack \+REQUIRED\))@\1 NAMES msgpack msgpack-cxx msgpack-c)@' tensilelite/Tensile/Source/lib/CMakeLists.txt
 #%endif
 
 #sed -i 's@find_package(LLVM REQUIRED CONFIG)@find_package(LLVM REQUIRED CONFIG PATHS "%{rocmllvm_cmakedir}")@' tensilelite/Tensile/Source/lib/CMakeLists.txt
-
-# Reduce requirements
-#sed -i -e '/joblib/d' tensilelite/requirements.*
 
 # As of 6.4, there is a long poll
 # compile_code_object.sh gfx90a,gfx1100,gfx1101,gfx1151,gfx1200,gfx1201 RelWithDebInfo sha1 hipblasltTransform.hsaco
@@ -295,13 +260,6 @@ if [ "$GPUS" -lt "$HIP_JOBS" ]; then
     HIP_JOBS=$GPUS
 fi
 # sed -i -e "s@--offload-arch@-parallel-jobs=${HIP_JOBS} --offload-arch@" library/src/amd_detail/rocblaslt/src/kernels/compile_code_object.sh
-
-# change looking for cblas to blaslib
-#sed -i -e 's@find_package( cblas REQUIRED CONFIG )@#find_package( cblas REQUIRED CONFIG )@' clients/CMakeLists.txt
-#sed -i -e 's@set( BLAS_LIBRARY "blas" )@set( BLAS_LIBRARY "%blaslib" )@' clients/CMakeLists.txt
-#%if ! 0%{?fedora}
-#sed -i -e 's@lapack cblas@%blaslib@' clients/gtest/CMakeLists.txt
-#%endif
 
 %build
 
@@ -386,6 +344,9 @@ fi
 %endif
 
 %changelog
+* Sat Oct 11 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.2-1
+- Update to 7.0.2
+
 * Wed Oct 8 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-2
 - Use joblib on RHEL
 

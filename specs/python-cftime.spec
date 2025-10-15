@@ -1,7 +1,7 @@
 %global srcname cftime
 
 Name:           python-%{srcname}
-Version:        1.6.4
+Version:        1.6.5
 Release:        %autorelease
 Summary:        Time-handling functionality from netcdf4-python
 
@@ -29,9 +29,6 @@ Time-handling functionality from netcdf4-python.
 %prep
 %autosetup -n %{srcname}-%{version}
 sed -i -e '/--cov/d' setup.cfg
-# Relax numpy requirement
-# https://github.com/Unidata/cftime/commit/c640b72781f1ac038cfa9c23f58e4a5591721275#commitcomment-138887748
-sed -i -e 's/1.26.0b1/1.24.4/' requirements.txt
 
 %generate_buildrequires
 %pyproject_buildrequires

@@ -76,6 +76,13 @@ awk '
 # Pin version to the RPM Version for both layouts (Poetry and PEP 621)
 sed -ri '/^\[tool\.poetry\]/,/^\[/{s/^version\s*=\s*".*"/version = "%{version}"/}' pyproject.toml
 sed -ri '/^\[project\]/,/^\[/{s/^version\s*=\s*".*"/version = "%{version}"/}' pyproject.toml
+
+# *** SET RUNTIME __version__ SO `beet --version` SHOWS 2.5.0 ***
+if grep -qE '^__version__\s*=' beets/__init__.py; then
+  sed -ri 's/^(__version__\s*=\s*).*/\1"%{version}"/' beets/__init__.py
+elif [ -f beets/_version.py ]; then
+  sed -ri 's/^(__version__\s*=\s*).*/\1"%{version}"/' beets/_version.py
+fi
 # -------------------------------------------------------------------------------
 
 %generate_buildrequires
@@ -91,6 +98,13 @@ env PYTHONPATH=.. sphinx-build-3 -b text -d _build/doctrees . _build/text
 popd
 
 %check
+PYTHONPATH=. python3 - <<'PY'
+import beets
+assert getattr(beets, "__version__", None) == "%{version}", (
+    f"beets.__version__ is {getattr(beets, '__version__', None)} != %{version}"
+)
+PY
+
 %pytest \
   --deselect test/test_importer.py::ImportDuplicateAlbumTest::test_merge_duplicate_album
 

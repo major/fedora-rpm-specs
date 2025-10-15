@@ -22,7 +22,7 @@
 
 # Upstream tags are based on rocm releases:
 %global rocm_release 7.0
-%global rocm_patch 1
+%global rocm_patch 2
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 # What LLVM is upstream using (use LLVM_VERSION_MAJOR from llvm/CMakeLists.txt):
@@ -91,14 +91,8 @@ Requires:       rocm-omp-devel%{?_isa} = %{version}-%{release}
 %prep
 %autosetup -p1 -n %{upstreamname}-rocm-%{rocm_version}
 
-# no nvidia
-# sed -i -e 's@LIBOMPTARGET_DEVICE_ARCHITECTURES "all"@LIBOMPTARGET_DEVICE_ARCHITECTURES "${all_amdgpu_architectures}"@' openmp/libomptarget/DeviceRTL/CMakeLists.txt
-
 # rm llvm-project bits we do not need
 rm -rf {bolt,clang,compiler-rt,flang,libc,libclc,libcxx,libcxxabi,libunwind,lld,lldb,llvm-libgcc,mlir,polly,pst,runtimes,utils}
-
-# cmake changed
-# sed -i -e 's@cmake_minimum_required(VERSION 3.0 FATAL_ERROR)@cmake_minimum_required(VERSION 3.5 FATAL_ERROR)'@ openmp/libomptarget/*/CMakeLists.txt
 
 %build
 
@@ -226,6 +220,9 @@ rm -rf %{buildroot}%{bundle_prefix}/lib/cmake/omptest
 %files static
 
 %changelog
+* Sat Oct 11 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.2-1
+- Update to 7.0.2
+
 * Sun Sep 21 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-1
 - Update to 7.0.1
 

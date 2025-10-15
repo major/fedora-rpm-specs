@@ -1,11 +1,11 @@
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch: %{ix86}
 
-%global ocamlver 503
+%global ocamlver 504
 %global giturl  https://github.com/ocaml/merlin
 
 Name:           ocaml-merlin
-Version:        5.5
+Version:        5.6
 Release:        %autorelease
 Summary:        Context sensitive completion for OCaml
 
@@ -33,7 +33,7 @@ BuildRequires:  emacs-auto-complete
 BuildRequires:  emacs-company-mode
 BuildRequires:  emacs-iedit
 BuildRequires:  jq
-BuildRequires:  ocaml >= 5.3
+BuildRequires:  ocaml >= 5.4
 BuildRequires:  ocaml-alcotest-devel >= 1.3.0
 BuildRequires:  ocaml-caml-mode
 BuildRequires:  ocaml-csexp-devel >= 1.5.1

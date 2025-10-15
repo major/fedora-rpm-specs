@@ -1,6 +1,6 @@
 Name:           deja-dup
 Version:        49.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple backup tool and frontend for duplicity
 
 License:        GPL-3.0-or-later
@@ -23,7 +23,9 @@ BuildRequires:  dbus-daemon
 BuildRequires:  json-glib-devel libsoup3-devel
 BuildRequires:  libhandy1-devel
 BuildRequires:  libadwaita-devel
+%if %{undefined flatpak}
 BuildRequires:  PackageKit-glib-devel
+%endif
 BuildRequires:  blueprint-compiler
 Requires:       duplicity >= 0.6.23
 Requires:       python3-gobject-base
@@ -47,7 +49,7 @@ Features:
 %autosetup -p1
 
 %build
-%meson -Denable_restic=true
+%meson -Denable_restic=true %{?flatpak:-Dpackagekit=disabled}
 %meson_build
 
 %install
@@ -77,6 +79,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.metain
 %{_datadir}/help/*
 
 %changelog
+* Mon Oct 13 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 49.2-2
+- Disable PackageKit for flatpak builds
+
 * Wed Oct 01 2025 Gwyn Ciesla <gwync@protonmail.com> - 49.2-1
 - 49.2
 

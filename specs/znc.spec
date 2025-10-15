@@ -12,8 +12,8 @@
 %endif # 0%{?fedora} || 0%{?rhel} >= 7
 
 Name:           znc
-Version:        1.9.1
-Release:        13%{?dist}
+Version:        1.10.1
+Release:        1%{?dist}
 Summary:        An advanced IRC bouncer
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -143,6 +143,10 @@ sed -e 's/"openssl"/"openssl11"/g' -i configure
 %global _smp_build_ncpus 1
 %endif
 
+%ifarch x86_64
+%global _smp_build_ncpus 1
+%endif
+
 %cmake \
 %if 0%{?with_modperl}
     -DWANT_PERL=1 \
@@ -231,6 +235,9 @@ install -m0644 -D znc.sysusers.conf %{buildroot}%{_sysusersdir}/znc.conf
 
 
 %changelog
+* Mon Oct 13 2025 Ben Maconi <turboben@fedoraproject.org> - 1.10.1-1
+- Updated to 1.10.1
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.9.1-13
 - Rebuilt for Python 3.14.0rc3 bytecode
 
