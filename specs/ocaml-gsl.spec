@@ -1,6 +1,6 @@
 Name:           ocaml-gsl
 Version:        1.25.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Interface to GSL (GNU scientific library) for OCaml
 License:        GPL-3.0-or-later
 
@@ -70,6 +70,9 @@ export GSL_CBLAS_LIB="-lflexiblas"
 
 
 %changelog
+* Tue Oct 14 2025 Richard W.M. Jones <rjones@redhat.com> - 1.25.1-6
+- OCaml 5.4.0 rebuild
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.25.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

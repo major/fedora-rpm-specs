@@ -15,6 +15,8 @@ URL:            https://thetumultuousunicornofdarkness.github.io/CPU-X/
 Source0:        %{forgesource}
 # https://github.com/TheTumultuousUnicornOfDarkness/CPU-X/issues/362
 Patch0:         %{name}_policy.patch
+# https://github.com/TheTumultuousUnicornOfDarkness/CPU-X/pull/402
+Patch1:         0001-use-default-cpu-instead-of-ia64.patch
 
 BuildRequires:  cmake >= 3.12
 BuildRequires:  desktop-file-utils

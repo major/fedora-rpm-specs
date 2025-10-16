@@ -674,7 +674,7 @@ BuildRequires: libxdp-devel
 %if %{have_rutabaga_gfx}
 BuildRequires: rutabaga-gfx-ffi-devel
 %endif
-%if 0%{?rhel} <= 9
+%if 0%{?rhel} && 0%{?rhel} <= 9
 # Builds on centos-stream 9 require python-tomli
 BuildRequires: python-tomli
 %endif

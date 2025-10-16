@@ -5,8 +5,8 @@
 
 Summary: Implementation of the JPEG-2000 standard, Part 1
 Name:    jasper
-Version: 4.2.3
-Release: 5%{?dist}
+Version: 4.2.8
+Release: 1%{?dist}
 
 License: JasPer-2.0
 URL:     http://www.ece.uvic.ca/~frodo/jasper/
@@ -125,6 +125,9 @@ rm -f %{buildroot}%{_libdir}/lib*.la
 
 
 %changelog
+* Tue Oct 14 2025 Josef Ridky <jridky@redhat.com> - 4.2.8-1
+- New upstream release 4.2.8 (#2277616)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

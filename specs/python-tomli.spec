@@ -1,5 +1,8 @@
+# Whether to build extension modules with mypyc:
+%bcond          mypyc 1
+
 Name:           python-tomli
-Version:        2.2.1
+Version:        2.3.0
 Release:        %autorelease
 Summary:        A little TOML parser for Python
 
@@ -7,8 +10,15 @@ License:        MIT
 URL:            https://pypi.org/project/tomli/
 Source0:        https://github.com/hukkin/tomli/archive/%{version}/%{name}-%{version}.tar.gz
 
-BuildArch:      noarch
 BuildRequires:  python3-devel
+
+%if %{with mypyc}
+BuildRequires:  gcc
+# scripts/use_setuptools.py uses tomli-w.
+BuildRequires:  python3-tomli-w
+%else
+BuildArch:      noarch
+%endif
 
 # The test suite uses the stdlib's unittest framework, but we use %%pytest
 # as the test runner.
@@ -29,6 +39,10 @@ Summary:        %{summary}
 
 %prep
 %autosetup -p1 -n tomli-%{version}
+%if %{with mypyc}
+# Taken from .github/workflows/tests.yaml, uses tomli-w, required for mypyc.
+%{python3} scripts/use_setuptools.py
+%endif
 
 
 %generate_buildrequires
@@ -36,12 +50,17 @@ Summary:        %{summary}
 
 
 %build
+%if %{with mypyc}
+export TOMLI_USE_MYPYC=1
+%endif
 %pyproject_wheel
 
 
 %install
 %pyproject_install
-%pyproject_save_files tomli
+# There is a top-level <hash>_mypyc module:
+# https://github.com/hukkin/tomli/issues/268
+%pyproject_save_files tomli %{?with_mypyc:'*_mypyc'}
 
 
 %check

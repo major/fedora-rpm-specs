@@ -72,6 +72,9 @@ BuildRequires:  indent
 BuildRequires:  java-25-devel
 BuildRequires:  javapackages-tools
 %endif
+%if %{with customgc}
+BuildRequires:  libatomic
+%endif
 BuildRequires:  libtool
 %if %{without customlbt}
 BuildRequires:  libbacktrace-devel
@@ -80,9 +83,6 @@ BuildRequires:  libunistring-devel
 BuildRequires:  make
 BuildRequires:  pkgconfig
 BuildRequires:  pkgconfig(alsa)
-%if %{with customgc}
-BuildRequires:  pkgconfig(atomic_ops)
-%endif
 BuildRequires:  pkgconfig(avahi-client)
 %if %{without customgc}
 BuildRequires:  pkgconfig(bdw-gc)
@@ -113,9 +113,6 @@ Requires:       gc-devel%{?_isa}
 %endif
 Requires:       gcc
 Requires:       glibc-devel%{?_isa}
-%if %{with customgc}
-Requires:       libatomic_ops-devel%{?_isa}
-%endif
 Requires:       libgcc%{?_isa}
 Requires:       libunistring-devel%{?_isa}
 Requires:       libuv-devel%{?_isa}
@@ -131,14 +128,12 @@ Provides:       bundled(libbacktrace) = %{bundlelbt}
 %endif
 
 %description
-Bigloo is a Scheme implementation devoted to one goal: enabling a Scheme
-based programming style where C(++) is usually required.  Bigloo
-attempts to make Scheme practical by offering features usually presented
-by traditional programming languages but not offered by Scheme and
-functional programming.  Bigloo compiles Scheme modules.  It delivers
-small and fast standalone binary executables.  Bigloo enables full
-connections between Scheme and C programs.
-
+Bigloo is a Scheme implementation devoted to one goal: enabling a Scheme based
+programming style where C(++) is usually required.  Bigloo attempts to make
+Scheme practical by offering features usually presented by traditional
+programming languages but not offered by Scheme and functional programming.
+Bigloo compiles Scheme modules.  It delivers small and fast standalone binary
+executables.  Bigloo enables full connections between Scheme and C programs.
 
 %package libs
 Summary:        Bigloo runtime libraries
@@ -147,15 +142,12 @@ License:        LGPL-2.0-or-later AND LGPL-3.0-or-later AND BSD-3-Clause AND MIT
 %description libs
 Runtime libraries for Bigloo compiled programs.
 
-
 %package doc
 Summary:        Bigloo documentation
 BuildArch:      noarch
 
 %description doc
-Documentation for the Bigloo compiler and integrated development
-environment.
-
+Documentation for the Bigloo compiler and integrated development environment.
 
 %prep
 %autosetup -p0 -n %{name}-%{version}%{?patch_suffix}

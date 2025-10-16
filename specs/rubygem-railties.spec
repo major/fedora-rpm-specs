@@ -6,7 +6,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 8.0.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Tools for creating, working with, and running Rails applications
 License: MIT
 URL: https://rubyonrails.org
@@ -14,6 +14,10 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}%{?prerelease}.gem
 # git clone http://github.com/rails/rails.git && cd rails/railties
 # git archive -v -o railties-8.0.3-tests.tar.gz v8.0.3 test/
 Source1: %{gem_name}-%{version}%{?prerelease}-tests.tar.gz
+
+# Fix test compatibility with Propshaft 1.3+
+# https://github.com/rails/rails/pull/55746
+Patch0: rubygem-railties-8.0.3-Fix-tests-now-that-Propshaft-Server-is-a-middleware.patch
 
 # dbconsole requires the executable.
 Suggests: %{_bindir}/sqlite3
@@ -82,6 +86,10 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version}%{?prerelease} -b1
+
+( cd %{builddir}
+%patch 0 -p2
+)
 
 %build
 gem build ../%{gem_name}-%{version}%{?prerelease}.gemspec
@@ -279,6 +287,9 @@ rm -rf ${PG_DIR}
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Mon Oct 13 2025 Vít Ondruch <vondruch@redhat.com> - 8.0.3-2
+- Fix test compatibility with Propshaft 1.3+
+
 * Mon Oct 06 2025 Vít Ondruch <vondruch@redhat.com> - 8.0.3-1
 - Update to Railties 8.0.3.
   Related: rhzb#2388437

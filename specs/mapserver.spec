@@ -29,7 +29,7 @@ Summary:        Platform for publishing spatial data and interactive mapping app
 %global dashver %(echo %version | sed 's|\\.|-|g')
 
 License:        MIT
-URL:            http://www.mapserver.org
+URL:            https://mapserver.org
 
 Source0:        https://github.com/%{project_owner}/%{project_name}/archive/rel-%{dashver}/%{project_name}-%{version}.tar.gz
 

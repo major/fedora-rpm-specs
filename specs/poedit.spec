@@ -1,5 +1,5 @@
 Name:           poedit
-Version:        3.7
+Version:        3.8
 Release:        1%{?dist}
 Summary:        GUI editor for GNU gettext .po files
 Summary(de):    Grafischer Editor für GNU Gettext-Dateien
@@ -95,6 +95,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/net.%{nam
 
 
 %changelog
+* Tue Oct 14 2025 Wolfgang Stöggl <c72578@yahoo.de> - 3.8-1
+- New upstream version
+
 * Wed Aug 20 2025 Wolfgang Stöggl <c72578@yahoo.de> - 3.7-1
 - New upstream version
 

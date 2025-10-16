@@ -2,16 +2,17 @@
 %global repo_name ProcDump-for-Linux
 
 Name:           procdump
-Version:        3.4.0
-Release:        2%{?dist}
+Version:        3.5.0
+Release:        1%{?dist}
 Summary:        Sysinternals process dump utility
 
 License:        MIT
 URL:            https://github.com/Microsoft/%{repo_name}
 Source:         %{url}/archive/%{version}/%{repo_name}-%{version}.tar.gz
-Patch1:         0001-Monitor-remove-useless-variables-267.patch
-Patch2:         0002-CMake-Add-ability-to-use-system-installed-libbpf-rat.patch
-Patch3:         0003-cmake-Include-install-section-for-procdump-and-its-m.patch
+Patch1:         0001-tests-Remove-unused-variable-work_time-from-stress_c.patch
+Patch2:         0002-Initialize-TerminalState-structure-properly.patch
+Patch3:         0003-CMake-Add-ability-to-use-system-installed-libbpf-rat.patch
+Patch4:         0004-cmake-Include-install-section-for-procdump-and-its-m.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -60,6 +61,17 @@ general process dump utility that you can embed in other scripts.
 
 
 %changelog
+* Tue Oct 14 2025 Julio Faracco <jfaracco@redhat.com> - 3.5.0-1
+- Add logging for missing symbols in restrack callstacks
+- Fix dotnet socket PID matching to prevent conflicts between processes
+- Updating trigger docs and removing unused condition in Monitor
+- Add manual trigger support for restrack snapshots
+- Use prctl syscall to enable ptrace + replace stress-ng with custom stress cpu/mem code
+
+* Tue Mar 18 2025 Julio Faracco <jfaracco@redhat.com> - 3.4.1-1
+- Removes the ':' separator for the date/time section of the generated core dump filename, aligning across operating systems
+- Monitor: remove useless variables
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -13,7 +13,7 @@ ExcludeArch: %{ix86}
 
 Name:		alt-ergo
 Version:	%{minorver}.%{patchrel}
-Release:	28%{?dist}
+Release:	29%{?dist}
 Summary:	Automated theorem prover including linear arithmetic
 
 # The top-level license files apply to the non-free main distribution of
@@ -283,6 +283,9 @@ cd sources
 %{ocamldir}/%{name}-lib/*.cmti
 
 %changelog
+* Tue Oct 14 2025 Richard W.M. Jones <rjones@redhat.com> - 2.3.3-29
+- OCaml 5.4.0 rebuild
+
 * Tue Sep 16 2025 Jerry James <loganjerry@gmail.com> - 2.3.3-28
 - Rebuild for ocaml-menhir 20250912
 

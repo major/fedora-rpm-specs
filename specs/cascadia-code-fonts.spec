@@ -19,7 +19,7 @@
 Name:		%{fontname}-code-fonts
 Summary:	A mono-spaced font designed for programming and terminal emulation
 Version:	2407.24
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	OFL-1.1-RFN
 URL:		https://github.com/microsoft/cascadia-code/
 Source0:	https://github.com/microsoft/cascadia-code/archive/v%{version}.tar.gz
@@ -149,7 +149,7 @@ ln -s %{_fontconfig_templatedir}/%{fontconfmono} %{buildroot}%{_fontconfig_confd
 ln -s %{_fontconfig_templatedir}/%{fontconfmonopl} %{buildroot}%{_fontconfig_confdir}/%{fontconfmonopl}
 ln -s %{_fontconfig_templatedir}/%{fontconfpl} %{buildroot}%{_fontconfig_confdir}/%{fontconfpl}
 ln -s %{_fontconfig_templatedir}/%{fontconfnf} %{buildroot}%{_fontconfig_confdir}/%{fontconfnf}
-ln -s %{_fontconfig_templatedir}/%{fontconfmonopl} %{buildroot}%{_fontconfig_confdir}/%{fontconfmononf}
+ln -s %{_fontconfig_templatedir}/%{fontconfmononf} %{buildroot}%{_fontconfig_confdir}/%{fontconfmononf}
 
 
 # Add AppStream metadata
@@ -157,8 +157,8 @@ install -Dm 0644 -p %{SOURCE2} %{buildroot}%{_datadir}/appdata/%{fontname}-code.
 install -Dm 0644 -p %{SOURCE4} %{buildroot}%{_datadir}/appdata/%{fontname}-mono.metainfo.xml
 install -Dm 0644 -p %{SOURCE6} %{buildroot}%{_datadir}/appdata/%{fontname}-mono-pl.metainfo.xml
 install -Dm 0644 -p %{SOURCE8} %{buildroot}%{_datadir}/appdata/%{fontname}-code-pl.metainfo.xml
-install -Dm 0644 -p %{SOURCE10} %{buildroot}%{_datadir}/appdata/%{fontname}-mono-nf.metainfo.xml
-install -Dm 0644 -p %{SOURCE12} %{buildroot}%{_datadir}/appdata/%{fontname}-code-nf.metainfo.xml
+install -Dm 0644 -p %{SOURCE10} %{buildroot}%{_datadir}/appdata/%{fontname}-code-nf.metainfo.xml
+install -Dm 0644 -p %{SOURCE12} %{buildroot}%{_datadir}/appdata/%{fontname}-mono-nf.metainfo.xml
 
 %files -n %{fontname}-code-fonts
 %license LICENSE
@@ -217,6 +217,9 @@ install -Dm 0644 -p %{SOURCE12} %{buildroot}%{_datadir}/appdata/%{fontname}-code
 %files -n %{fontname}-fonts-all
 
 %changelog
+* Mon Oct 13 2025 Tarik ROKHSANE <trkrksn@proton.me> - 2407.24-2
+- Fix package names (#2403432)
+
 * Wed Sep 10 2025 Tom Callaway <spot@fedoraproject.org> - 2407.24-1
 - update to 2407.24
 

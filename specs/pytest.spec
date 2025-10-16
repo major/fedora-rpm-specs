@@ -22,6 +22,9 @@ Patch:          13502.patch
 # Fix test_doctest_unexpected_exception on Python 3.14
 Patch:          https://github.com/pytest-dev/pytest/pull/13548.patch
 
+# testing: skip pkg_resources tests if modern setuptools
+Patch:          https://github.com/pytest-dev/pytest/pull/13446.patch
+
 # Remove -s from Python shebang,
 # ensure that packages installed with pip to user locations are testable
 # https://bugzilla.redhat.com/2152171

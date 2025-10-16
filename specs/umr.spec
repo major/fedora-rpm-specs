@@ -3,15 +3,11 @@
 
 Summary: AMDGPU Userspace Register Debugger
 Name: umr
-Version: 1.0.10
+Version: 1.0.11
 Release: %autorelease
 License: MIT
 URL: https://gitlab.freedesktop.org/tomstdenis/umr
 Source0: https://gitlab.freedesktop.org/tomstdenis/%{name}/-/archive/%{version}/%{name}-%{version}.tar.gz
-
-# Upstream fixes to newer GCC
-#https://gitlab.freedesktop.org/tomstdenis/umr/-/commit/511d5b9bebd91346ee208dfffed304ed05890d8d
-Patch0: 0001-Fix-warnings-treewide.patch
 
 #Glibc is too old prior to EL7, enable rt linking to avoid compilation failure
 %if 0%{?rhel} && 0%{?rhel} < 7
@@ -72,6 +68,8 @@ as write to AMDGPU device MMIO, PCIE, SMC, and DIDT registers via userspace.
 %{_mandir}/man1/*
 %{_datadir}/%{name}
 %{_datadir}/bash-completion/completions/%{name}
+#Not including static libs right now
+%exclude %{_libdir}/lib*.a
 
 %changelog
 %autochangelog

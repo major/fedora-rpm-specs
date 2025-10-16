@@ -19,7 +19,7 @@
 %bcond_without tests_long
 
 Name:              openvpn
-Version:           2.7_beta2
+Version:           2.7_beta3
 Release:           2%{?dist}
 Summary:           A full-featured TLS VPN solution
 URL:               https://community.openvpn.net/
@@ -237,6 +237,9 @@ done
 
 
 %changelog
+* Tue Oct 14 2025 Frank Lichtenheld <frank@lichtenheld.com> - 2.7_beta3
+- Update to upstream 2.7_beta3 release
+
 * Mon Oct 6 2025 David Sommerseth <dazo@eurephia.org> - 2.7_beta2-2
 - Add missing sysusers.d/openvpn.conf configuration file
 - Switch to using %%{gpgverify} macro

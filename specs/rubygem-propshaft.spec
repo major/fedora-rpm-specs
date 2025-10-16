@@ -2,14 +2,14 @@
 %global gem_name propshaft
 
 Name: rubygem-%{gem_name}
-Version: 1.1.0
-Release: 2%{?dist}
+Version: 1.3.1
+Release: 1%{?dist}
 Summary: Deliver assets for Rails
 License: MIT
 URL: https://github.com/rails/propshaft
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone http://github.com/rails/propshaft.git && cd propshaft
-# git archive -v -o propshaft-1.1.0-tests.tar.gz v1.1.0 test/
+# git archive -v -o propshaft-1.3.1-tests.tar.gz v1.3.1 test/
 Source1: %{gem_name}-%{version}%{?prerelease}-tests.tar.gz
 
 BuildRequires: ruby(release)
@@ -61,11 +61,6 @@ ln -s %{builddir}/test .
 # Remove Bundler usage.
 sed -i '/Bundler.require/ s/^/#/' test/dummy/config/application.rb
 
-# Rails 7.0 returns just `500` error code. Can be enabled with Rails 8.0, where
-# this test passes just fine.
-sed -i "/get sample_load_nonexistent_assets_url/i\      skip" \
-  test/propshaft_integration_test.rb
-
 ruby -Ilib:test -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
 )
 
@@ -82,6 +77,10 @@ ruby -Ilib:test -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
 %{gem_instdir}/Rakefile
 
 %changelog
+* Mon Oct 13 2025 Vít Ondruch <vondruch@redhat.com> - 1.3.1-1
+- Update to Propshaft 1.3.1
+  Resolves: rhbz#2380390
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -94,7 +94,7 @@ ExcludeArch: %{ix86} %{arm}
 
 Name:    icecat
 Epoch:   4
-Version: 140.3.0
+Version: 140.4.0
 Release: %autorelease -e %{redhat_ver}
 Summary: GNU version of Firefox browser
 
@@ -131,12 +131,7 @@ Source14: %{name}.desktop
 # cbingen
 Source17: cbindgen-vendor.tar.xz
 Source18: node-stdout-nonblocking-wrapper
-
 Source19: run-wayland-compositor
-
-# Gnuzilla patch:
-# https://lists.gnu.org/archive/html/help-gnuzilla/2025-09/msg00002.html
-Patch7:  icecat-140.3.0-remove_frozen_cargo_flag.patch
 
 # Fedora specific patches
 Patch221: firefox-nss-addon-hack.patch
@@ -317,8 +312,6 @@ and translations langpack add-ons.
 
 # Copy license files
 tar -xf %{SOURCE5}
-
-%patch -P 7 -p 1 -b .frozen
 
 # Fedora patches
 %if 0%{?fedora}
@@ -570,7 +563,7 @@ sed -i -e 's|#!/usr/bin/env python3|#!/usr/bin/env python3.11|' mach
 ./mach build -v 2>&1 | cat - || exit 1
 
 %if 0%{?build_with_pgo}
-kill $MUTTER_PID	
+kill $MUTTER_PID
 %endif
 
 %install

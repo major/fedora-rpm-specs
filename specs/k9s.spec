@@ -6,7 +6,7 @@
 
 # https://github.com/derailed/k9s
 %global goipath         github.com/derailed/k9s
-Version:                0.50.9
+Version:                0.50.15
 
 %gometa -L -f
 

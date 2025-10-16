@@ -137,6 +137,18 @@ use the "libc" feature of the "%{crate}" crate.
 %files       -n %{name}+libc-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+moka-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+moka-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "moka" feature of the "%{crate}" crate.
+
+%files       -n %{name}+moka-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+net-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -183,6 +195,30 @@ This package contains library source intended for building other packages which
 use the "rand" feature of the "%{crate}" crate.
 
 %files       -n %{name}+rand-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+resolv-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+resolv-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "resolv" feature of the "%{crate}" crate.
+
+%files       -n %{name}+resolv-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+resolv-sync-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+resolv-sync-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "resolv-sync" feature of the "%{crate}" crate.
+
+%files       -n %{name}+resolv-sync-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+ring-devel
@@ -317,6 +353,18 @@ use the "tsig" feature of the "%{crate}" crate.
 %files       -n %{name}+tsig-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+unstable-client-transport-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+unstable-client-transport-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "unstable-client-transport" feature of the "%{crate}" crate.
+
+%files       -n %{name}+unstable-client-transport-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+unstable-server-transport-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -392,8 +440,7 @@ use the "zonefile" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# * moka is not yet available, rhbz#2302590
-%cargo_test -- -- --skip client-transport
+%cargo_test
 %endif
 
 %changelog

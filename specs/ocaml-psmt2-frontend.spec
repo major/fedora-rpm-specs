@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-psmt2-frontend
 Version:        0.4.0
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Parser and typechecker for an extension of SMT-LIB 2
 
 License:        Apache-2.0
@@ -75,6 +75,9 @@ EOF
 %doc docs/sphinx
 
 %changelog
+* Tue Oct 14 2025 Richard W.M. Jones <rjones@redhat.com> - 0.4.0-27
+- OCaml 5.4.0 rebuild
+
 * Tue Sep 16 2025 Jerry James <loganjerry@gmail.com> - 0.4.0-26
 - Rebuild for ocaml-menhir 20250912
 

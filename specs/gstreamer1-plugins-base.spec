@@ -8,7 +8,7 @@
 #global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
 
 Name:           gstreamer1-plugins-base
-Version:        1.26.6
+Version:        1.26.7
 Release:        1%{?dist}
 Summary:        GStreamer streaming media framework base plugins
 
@@ -505,6 +505,9 @@ chrpath --delete $RPM_BUILD_ROOT%{_bindir}/gst-play-1.0
 %endif
 
 %changelog
+* Tue Oct 14 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.26.7-1
+- 1.26.7
+
 * Mon Sep 15 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.26.6-1
 - 1.26.6
 

@@ -30,12 +30,14 @@ Contains a shared library that applications that use %{name} will link to
 
 %package devel
 Provides: igvm-static = %{version}-%{release}
+Requires: igvm-libs = %{version}-%{release}
 Summary: IGVM library header files
 
 %description devel
 Contains header files and a static library for developing applications that use %{name}
 
 %package tools
+Requires: igvm-libs = %{version}-%{release}
 Summary: IGVM tools
 
 %description tools

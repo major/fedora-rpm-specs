@@ -289,7 +289,7 @@
 Summary: Library providing a simple virtualization API
 Name: libvirt
 Version: 11.8.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND OFL-1.1
 URL: https://libvirt.org/
 
@@ -297,6 +297,16 @@ URL: https://libvirt.org/
     %define mainturl stable_updates/
 %endif
 Source: https://download.libvirt.org/%{?mainturl}libvirt-%{version}.tar.xz
+
+Patch: 0001-wireshark-Drop-needless-declaration-of-proto_registe.patch
+Patch: 0002-wireshark-Switch-header-files-to-pragma-once.patch
+Patch: 0003-wireshark-Move-WIRESHARK_VERSION-macro-definition.patch
+Patch: 0004-wireshark-Fix-int-type-of-some-virNetMessageHeader-m.patch
+Patch: 0005-wireshark-Don-t-special-case-retval-of-get_program_d.patch
+Patch: 0006-wireshark-Introduce-and-use-vir_val_to_str.patch
+Patch: 0007-wireshark-Don-t-leak-column-strings.patch
+Patch: 0008-wireshark-Adapt-to-wireshark-4.6.0.patch
+
 
 Requires: libvirt-daemon = %{version}-%{release}
 Requires: libvirt-daemon-config-network = %{version}-%{release}
@@ -2692,6 +2702,9 @@ exit 0
 
 
 %changelog
+* Tue Oct 14 2025 Cole Robinson <crobinso@redhat.com> - 11.8.0-2
+- Fix build with latest wireshark
+
 * Wed Oct 01 2025 Cole Robinson <crobinso@redhat.com> - 11.8.0-1
 - Update to version 11.8.0
 

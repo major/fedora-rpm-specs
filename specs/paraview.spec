@@ -510,7 +510,7 @@ done
 
 
 %build
-%cmake_build -t ParaViewDoxygenDoc ParaViewPythonDoc
+%cmake_build -t ParaViewDoxygenDoc
 %cmake_build
 export LANG=en_US.UTF-8
 # Built-in Python modules were not found, set pythonpath as workaround
@@ -522,6 +522,7 @@ do
   %cmake_build
   module purge
 done
+%cmake_build -t ParaViewPythonDoc
 
 
 %install

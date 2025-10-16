@@ -2,10 +2,10 @@ Name:		dokuwiki
 Summary:	Standards compliant simple to use wiki
 License:	GPL-2.0-only
 
-%global		releasenum 2024-02-06b
+%global		releasenum 2025-05-14b
 %global		releasetag %(rel="%{releasenum}"; echo "${rel//-/}")
 Version:	%{releasetag}
-Release:	2%{?dist}
+Release:	1%{?dist}
 
 URL:		https://www.dokuwiki.org/dokuwiki
 Source0:	https://download.dokuwiki.org/src/%{name}/%{name}-%{releasenum}.tgz
@@ -26,6 +26,7 @@ Requires:	php-composer(geshi/geshi) >= 1.0.9.1-5
 Requires:	php-composer(kissifrot/php-ixr) >= 1.8.4
 Requires:	php-composer(openpsa/universalfeedcreator) >= 1.8.6
 Requires:	php-composer(paragonie/constant_time_encoding) >= 2.6.3
+Requires:	php-composer(php81_bc/strftime) >= 0.7.6
 Requires:	php-composer(phpseclib/phpseclib) >= 3.0.35
 Requires:	php-composer(simplepie/simplepie) >= 1.8.0
 Requires:	php-composer(splitbrain/lesserphp) >= 0.10.0
@@ -75,6 +76,9 @@ rmdir vendor/openpsa || true
 rm -r vendor/paragonie/constant_time_encoding
 rm -r vendor/paragonie/random_compat
 rmdir vendor/paragonie || true
+#  php81bc/strftime
+rm -r vendor/php81_bc/strftime
+rmdir vendor/php81_bc || true
 #  phpseclib
 rm -r vendor/phpseclib/phpseclib
 rmdir vendor/phpseclib || true
@@ -235,6 +239,9 @@ fi
 %doc DOKUWIKI-SELINUX.README
 
 %changelog
+* Tue Oct 14 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 20250514b-1
+- Update to version 2025-05-14b "Librarian"
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20240206b-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

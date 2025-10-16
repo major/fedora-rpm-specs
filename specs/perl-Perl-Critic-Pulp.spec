@@ -1,6 +1,6 @@
 Name:           perl-Perl-Critic-Pulp
-Version:        99
-Release:        13%{?dist}
+Version:        100
+Release:        1%{?dist}
 Summary:        Some add-on perlcritic policies
 License:        GPL-3.0-or-later
 URL:            https://metacpan.org/release/Perl-Critic-Pulp
@@ -100,12 +100,13 @@ with "%{_libexecdir}/%{name}/test".
 chmod +x t/*.t t/ProhibitModuleShebang/Script.pl
 
 %build
-perl Makefile.PL INSTALLDIRS=perl NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="$RPM_OPT_FLAGS"
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %{make_build}
 
 %install
 %{make_install}
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{_fixperms} -c %{buildroot}
+
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t %{buildroot}%{_libexecdir}/%{name}
@@ -122,13 +123,61 @@ make test
 %files
 %license COPYING
 %doc Changes README
-%{perl_privlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/Perl/
+%{_mandir}/man3/Perl::Critic::Policy::CodeLayout::ProhibitFatCommaNewline.3*
+%{_mandir}/man3/Perl::Critic::Policy::CodeLayout::ProhibitIfIfSameLine.3*
+%{_mandir}/man3/Perl::Critic::Policy::CodeLayout::RequireFinalSemicolon.3*
+%{_mandir}/man3/Perl::Critic::Policy::CodeLayout::RequireTrailingCommaAtNewline.3*
+%{_mandir}/man3/Perl::Critic::Policy::Compatibility::ConstantLeadingUnderscore.3*
+%{_mandir}/man3/Perl::Critic::Policy::Compatibility::ConstantPragmaHash.3*
+%{_mandir}/man3/Perl::Critic::Policy::Compatibility::Gtk2Constants.3*
+%{_mandir}/man3/Perl::Critic::Policy::Compatibility::PerlMinimumVersionAndWhy.3*
+%{_mandir}/man3/Perl::Critic::Policy::Compatibility::PodMinimumVersion.3*
+%{_mandir}/man3/Perl::Critic::Policy::Compatibility::ProhibitUnixDevNull.3*
+%{_mandir}/man3/Perl::Critic::Policy::Documentation::ProhibitAdjacentLinks.3*
+%{_mandir}/man3/Perl::Critic::Policy::Documentation::ProhibitBadAproposMarkup.3*
+%{_mandir}/man3/Perl::Critic::Policy::Documentation::ProhibitDuplicateHeadings.3*
+%{_mandir}/man3/Perl::Critic::Policy::Documentation::ProhibitDuplicateSeeAlso.3*
+%{_mandir}/man3/Perl::Critic::Policy::Documentation::ProhibitLinkToSelf.3*
+%{_mandir}/man3/Perl::Critic::Policy::Documentation::ProhibitParagraphEndComma.3*
+%{_mandir}/man3/Perl::Critic::Policy::Documentation::ProhibitParagraphTwoDots.3*
+%{_mandir}/man3/Perl::Critic::Policy::Documentation::ProhibitUnbalancedParens.3*
+%{_mandir}/man3/Perl::Critic::Policy::Documentation::ProhibitVerbatimMarkup.3*
+%{_mandir}/man3/Perl::Critic::Policy::Documentation::RequireEndBeforeLastPod.3*
+%{_mandir}/man3/Perl::Critic::Policy::Documentation::RequireFilenameMarkup.3*
+%{_mandir}/man3/Perl::Critic::Policy::Documentation::RequireFinalCut.3*
+%{_mandir}/man3/Perl::Critic::Policy::Documentation::RequireLinkedURLs.3*
+%{_mandir}/man3/Perl::Critic::Policy::Miscellanea::TextDomainPlaceholders.3*
+%{_mandir}/man3/Perl::Critic::Policy::Miscellanea::TextDomainUnused.3*
+%{_mandir}/man3/Perl::Critic::Policy::Modules::ProhibitModuleShebang.3*
+%{_mandir}/man3/Perl::Critic::Policy::Modules::ProhibitPOSIXimport.3*
+%{_mandir}/man3/Perl::Critic::Policy::Modules::ProhibitUseQuotedVersion.3*
+%{_mandir}/man3/Perl::Critic::Policy::ValuesAndExpressions::ConstantBeforeLt.3*
+%{_mandir}/man3/Perl::Critic::Policy::ValuesAndExpressions::NotWithCompare.3*
+%{_mandir}/man3/Perl::Critic::Policy::ValuesAndExpressions::ProhibitArrayAssignAref.3*
+%{_mandir}/man3/Perl::Critic::Policy::ValuesAndExpressions::ProhibitBarewordDoubleColon.3*
+%{_mandir}/man3/Perl::Critic::Policy::ValuesAndExpressions::ProhibitDuplicateHashKeys.3*
+%{_mandir}/man3/Perl::Critic::Policy::ValuesAndExpressions::ProhibitEmptyCommas.3*
+%{_mandir}/man3/Perl::Critic::Policy::ValuesAndExpressions::ProhibitFiletest_f.3*
+%{_mandir}/man3/Perl::Critic::Policy::ValuesAndExpressions::ProhibitNullStatements.3*
+%{_mandir}/man3/Perl::Critic::Policy::ValuesAndExpressions::ProhibitUnknownBackslash.3*
+%{_mandir}/man3/Perl::Critic::Policy::ValuesAndExpressions::RequireNumericVersion.3*
+%{_mandir}/man3/Perl::Critic::Policy::ValuesAndExpressions::UnexpandedSpecialLiteral.3*
+%{_mandir}/man3/Perl::Critic::Pulp.3*
+%{_mandir}/man3/Perl::Critic::Pulp::PodParser.3*
+%{_mandir}/man3/Perl::Critic::Pulp::Utils.3*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Oct 13 2025 Paul Howarth <paul@city-fan.org> - 100-1
+- Update to 100 (rhbz#2403443)
+  - ProhibitUnknownBackslash allow \F new in Perl 5.16
+- Install to vendor directories
+- Fix permissions verbosely
+- Make %%files list more explicit
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 99-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -45,7 +45,7 @@ ExclusiveArch: x86_64
 Name:          virt-v2v
 Epoch:         1
 Version:       2.9.8
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Convert a virtual machine to run on KVM
 
 License:       GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -367,6 +367,9 @@ done
 
 
 %changelog
+* Tue Oct 14 2025 Richard W.M. Jones <rjones@redhat.com> - 1:2.9.8-2
+- OCaml 5.4.0 rebuild
+
 * Mon Sep 22 2025 Richard W.M. Jones <rjones@redhat.com> - 1:2.9.8-1
 - New upstream development version 2.9.8
 - Remove Windows conversion patch which is now upstream.

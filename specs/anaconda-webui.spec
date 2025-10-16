@@ -1,11 +1,16 @@
 Name:           anaconda-webui
-Version:        53
+Version:        53^20251014git7ea927a
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
 URL:            https://github.com/rhinstaller/%{name}
 
-Source0:        https://github.com/rhinstaller/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz
+#Source0:        https://github.com/rhinstaller/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz
+# git clone https://github.com/rhinstaller/anaconda-webui.git
+# cd anaconda-webui
+# git checkout 7ea927aaf5540aca42497d2e9bec5ae852607561
+# make dist
+Source0:        anaconda-webui-53.14.g7ea927aa.tar.xz
 BuildArch:      noarch
 BuildRequires:  libappstream-glib
 BuildRequires:  make
@@ -120,6 +125,15 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Tue Oct 14 2025 Adam Williamson <awilliam@redhat.com> - 53^20251014git7ea927a.1
+- components/localization: Only offer ASCII-capable keyboard layouts (rhbz#2402430)
+- localization: dissallow layouts which do not support ASCII input in gnome
+- storage: normalize locale decimals for PatternFly slider input (rhbz#2403028)
+- review: storage: don't use action-description from blivet in conditions as it's translated
+- storage: stop using inputValue from slider as it cannot parse localized floats
+- storage: encryption: show warning when the compositor layout differs from target system default
+- localization: set virtual console keymap explicity when choosing keyboards
+
 * Thu Oct 09 2025 Packit <hello@packit.dev> - 53-1
 - keyboard: in Gnome spawn Gnome keyboard settings in storage configurationscreen
 - storage: installation-method: the screen id is

@@ -3,7 +3,7 @@
 %global giturl      https://github.com/stertooy/SmallClassNr
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.4.1
+Version:        1.4.2
 Release:        %autorelease
 Summary:        Library of finite groups with small class number
 

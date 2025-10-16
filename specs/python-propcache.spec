@@ -1,7 +1,7 @@
 %global pypi_name propcache
 
 Name:           python-%{pypi_name}
-Version:        0.4.0
+Version:        0.4.1
 Release:        %autorelease
 Summary:        Module for fast property caching
 

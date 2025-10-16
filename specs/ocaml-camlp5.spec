@@ -9,7 +9,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-camlp5
 Version:        8.04.00
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Preprocessor and pretty printer for OCaml
 
 License:        BSD-3-Clause
@@ -116,6 +116,9 @@ make -C test all
 
 
 %changelog
+* Tue Oct 14 2025 Richard W.M. Jones <rjones@redhat.com> - 8.04.00-2
+- OCaml 5.4.0 rebuild
+
 * Mon Oct 13 2025 Richard W.M. Jones <rjones@redhat.com> - 8.04.00-1
 - New upstream version 8.04.00
 

@@ -1,6 +1,6 @@
 Name:           dash
-Version:        0.5.12
-Release:        6%{?dist}
+Version:        0.5.13.1
+Release:        %autorelease
 Summary:        Small and fast POSIX-compliant shell
 # BSD-3-Clause: DASH in general
 # GPL-2.0-or-later: From src/mksignames.c
@@ -8,9 +8,11 @@ Summary:        Small and fast POSIX-compliant shell
 License:        BSD-3-Clause AND GPL-2.0-or-later AND LicenseRef-Fedora-Public-Domain
 URL:            http://gondor.apana.org.au/~herbert/%{name}/
 Source0:        http://gondor.apana.org.au/~herbert/%{name}/files/%{name}-%{version}.tar.gz
-Provides:   /bin/dash
-BuildRequires: gcc
-BuildRequires: make
+
+Provides:       /bin/dash
+
+BuildRequires:  gcc
+BuildRequires:  make
 
 %description
 DASH is a POSIX-compliant implementation of /bin/sh that aims to be as small as
@@ -42,6 +44,11 @@ fi
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Tue Oct 14 2025 Dave Cantrell <dcantrell@redhat.com> - 0.5.13.1-1
+- Upgrade to dash-0.5.13.1 (#2397138)
+- Use %%autorelease for the Release field
+- Drop the redundant dash-0.5.7-format-security.patch patch
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.12-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

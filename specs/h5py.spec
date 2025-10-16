@@ -3,8 +3,8 @@
 
 Summary:        A Python interface to the HDF5 library
 Name:           h5py
-Version:        3.13.0
-Release:        6%{?dist}
+Version:        3.15.0
+Release:        1%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
 URL:            http://www.h5py.org/
@@ -12,8 +12,9 @@ Source0:        https://files.pythonhosted.org/packages/source/h/h5py/h5py-%{ver
 # drop the unnecessary workaround for float128 type after
 # https://fedoraproject.org/wiki/Changes/PPC64LE_Float128_Transition
 # in F-36
-Patch0:         h5py-3.12.1-ppc-float128.patch
-Patch1:         h5py-3.12.1-python-crash-file-test2.patch
+Patch:          h5py-3.15.0-ppc-float128.patch
+Patch:          h5py-3.12.1-python-crash-file-test2.patch
+Patch:          h5py-3.15.0-setuptools.patch
 BuildRequires:  gcc
 BuildRequires:  hdf5-devel
 BuildRequires:  liblzf-devel
@@ -111,6 +112,15 @@ mv %{name}-%{version} serial
 %{?with_openmpi:cp -al serial openmpi}
 %{?with_mpich:cp -al serial mpich}
 
+%ifarch %{ix86}
+%generate_buildrequires
+cd  serial
+%pyproject_buildrequires
+%else
+%generate_buildrequires
+cd openmpi
+%pyproject_buildrequires
+%endif
 
 %build
 # Upstream requires a specific numpy without this
@@ -119,7 +129,7 @@ export H5PY_SYSTEM_LZF=1
 # serial
 export CFLAGS="%{optflags} -fopenmp"
 cd serial
-%py3_build
+%pyproject_wheel
 cd -
 
 # MPI
@@ -129,7 +139,7 @@ export HDF5_MPI="ON"
 %if %{with openmpi}
 cd openmpi
 %{_openmpi_load}
-%py3_build
+%pyproject_wheel
 %{_openmpi_unload}
 cd -
 %endif
@@ -137,7 +147,7 @@ cd -
 %if %{with mpich}
 cd mpich
 %{_mpich_load}
-%py3_build
+%pyproject_wheel
 %{_mpich_unload}
 cd -
 %endif
@@ -150,29 +160,29 @@ export H5PY_SYSTEM_LZF=1
 
 %if %{with openmpi}
 cd openmpi
-%py3_install
+%pyproject_install
 rm -rf %{buildroot}%{python3_sitearch}/h5py/tests
 mkdir -p %{buildroot}%{python3_sitearch}/openmpi
 mv %{buildroot}%{python3_sitearch}/%{name}/ \
-   %{buildroot}%{python3_sitearch}/%{name}*.egg-info \
+   %{buildroot}%{python3_sitearch}/%{name}*.dist-info \
    %{buildroot}%{python3_sitearch}/openmpi
 cd -
 %endif
 
 %if %{with mpich}
 cd mpich
-%py3_install
+%pyproject_install
 rm -rf %{buildroot}%{python3_sitearch}/h5py/tests
 mkdir -p %{buildroot}%{python3_sitearch}/mpich
 mv %{buildroot}%{python3_sitearch}/%{name}/ \
-   %{buildroot}%{python3_sitearch}/%{name}*.egg-info \
+   %{buildroot}%{python3_sitearch}/%{name}*.dist-info \
    %{buildroot}%{python3_sitearch}/mpich
 cd -
 %endif
 
 # serial part must be last (not to overwrite files)
 cd serial
-%py3_install
+%pyproject_install
 rm -rf %{buildroot}%{python3_sitearch}/h5py/tests
 cd -
 
@@ -190,19 +200,19 @@ fail=1
 %endif
 
 export PYTHONPATH=$(echo serial/build/lib*)
-%{__python3} -m pytest -rxXs ${PYTHONPATH} || exit $fail
+%{__python3} -m pytest -rxXs ${PYTHONPATH} -W ignore::DeprecationWarning || exit $fail
 
 %if %{with openmpi}
 export PYTHONPATH=$(echo openmpi/build/lib*)
 %{_openmpi_load}
-mpirun -- %{__python3} -m pytest -rxXs --with-mpi ${PYTHONPATH} || exit $fail
+mpirun -- %{__python3} -m pytest -rxXs --with-mpi -W ignore::DeprecationWarning ${PYTHONPATH} || exit $fail
 %{_openmpi_unload}
 %endif
 
 %if %{with mpich}
 export PYTHONPATH=$(echo mpich/build/lib*)
 %{_mpich_load}
-mpirun %{__python3} -m pytest -rxXs --with-mpi ${PYTHONPATH} || exit $fail
+mpirun %{__python3} -m pytest -rxXs --with-mpi -W ignore::DeprecationWarning ${PYTHONPATH} || exit $fail
 %{_mpich_unload}
 %endif
 
@@ -212,14 +222,14 @@ mpirun %{__python3} -m pytest -rxXs --with-mpi ${PYTHONPATH} || exit $fail
 #doc serial/ANN.rst serial/README.rst serial/examples
 %doc serial/README.rst serial/examples
 %{python3_sitearch}/%{name}/
-%{python3_sitearch}/%{name}-%{version}-*.egg-info
+%{python3_sitearch}/%{name}-%{version}.dist-info
 
 %if %{with openmpi}
 %files -n python%{python3_pkgversion}-h5py-openmpi
 %license openmpi/licenses/*.txt
 %doc openmpi/README.rst
 %{python3_sitearch}/openmpi/%{name}/
-%{python3_sitearch}/openmpi/%{name}-%{version}-*.egg-info
+%{python3_sitearch}/openmpi/%{name}-%{version}.dist-info
 %endif
 
 %if %{with mpich}
@@ -227,11 +237,18 @@ mpirun %{__python3} -m pytest -rxXs --with-mpi ${PYTHONPATH} || exit $fail
 %license mpich/licenses/*.txt
 %doc mpich/README.rst
 %{python3_sitearch}/mpich/%{name}/
-%{python3_sitearch}/mpich/%{name}-%{version}-*.egg-info
+%{python3_sitearch}/mpich/%{name}-%{version}.dist-info
 %endif
 
 
 %changelog
+* Mon  Oct 13 2025 Terje Rosten <terjeros@gmail.com> - 3.15.0-1
+- 3.15.0
+
+* Mon Oct 13 2025 Orion Poplawski <orion@nwra.com> - 3.14.0-1
+- 3.14.0
+- Use pyproject macros (rhbz#2377285)
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.13.0-6
 - Rebuilt for Python 3.14.0rc3 bytecode
 

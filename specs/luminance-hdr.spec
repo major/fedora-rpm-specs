@@ -193,7 +193,7 @@ BuildRequires:  boost-devel
 BuildRequires:  gsl-devel
 # - [Eigen3](http://eigen.tuxfamily.org/), a C++ template library required by
 #   by the Lischinski tone mapping operator.
-BuildRequires:  eigen3-devel
+BuildRequires:  pkgconfig(eigen3)
 
 BuildRequires:  librtprocess-devel
 
@@ -298,8 +298,18 @@ sed -r -i \
 # pfstools copy.
 rm -rf hdrhtml/*
 
+# build error against boost 1.88 due to outdated C++ std version
+# https://github.com/LuminanceHDR/LuminanceHDR/issues/291
+sed -r -i 's/\b(CMAKE_CXX_STANDARD[[:blank:]]+)11\b/\114/' \
+    build_files/Modules/CompilerSettings.cmake
+
 
 %conf
+# Since Fedora 44 / eigen3 5.0, we actually need to set the proper include path
+# for eigen3. There are still no linker flags for eigen3, but we check anyway.
+export CXXFLAGS="${CXXFLAGS} $(pkgconf --cflags eigen3)"
+export LDFLAGS="${LDFLAGS} $(pkgconf --libs eigen3)"
+
 %cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DENABLE_UNIT_TEST:BOOL=ON -GNinja
 
 

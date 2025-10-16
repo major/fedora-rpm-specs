@@ -1,11 +1,11 @@
 Name: pdsh
-Version: 2.34
-Release: 16%{?dist}
+Version: 2.35
+Release: 1%{?dist}
 Summary: Parallel remote shell program
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 Url: https://github.com/chaos/pdsh/
-Source0: https://github.com/chaos/pdsh/releases/download/pdsh-2.33/pdsh-%{version}.tar.gz
+Source0: https://github.com/chaos/pdsh/releases/download/pdsh-%{version}/pdsh-%{version}.tar.gz
 Patch0: pdsh-2.34-fix-c23.patch
 Requires: pdsh-rcmd
 BuildRequires: make
@@ -393,6 +393,9 @@ fi
 %endif
 
 %changelog
+* Tue Oct 14 2025 Tom Callaway <spot@fedoraproject.org> - 2.35-1
+- update to 2.35
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.34-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,11 +1,16 @@
 Name:           livesys-scripts
 Version:        0.8.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Scripts for auto-configuring live media during boot
 
 License:        GPL-3.0-or-later
 URL:            https://pagure.io/livesys-scripts
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+
+# https://pagure.io/livesys-scripts/pull-request/28
+# https://bugzilla.redhat.com/show_bug.cgi?id=2240823
+# Fix installer launch on i3
+Patch:          0001-livesys-i3-restore-the-hack-to-fix-the-installer.patch
 
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  make
@@ -18,7 +23,7 @@ BuildArch:      noarch
 
 
 %prep
-%autosetup
+%autosetup -p1
 
 
 %build
@@ -57,6 +62,9 @@ touch %{buildroot}%{_sharedstatedir}/livesys/livesys-session-late-extra
 
 
 %changelog
+* Tue Oct 14 2025 Adam Williamson <awilliam@redhat.com> - 0.8.0-3
+- Backport PR #28 to fix installer launch on i3
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

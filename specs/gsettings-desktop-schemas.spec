@@ -3,7 +3,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gsettings-desktop-schemas
-Version:        49.0
+Version:        49.1
 Release:        %autorelease
 Summary:        A collection of GSettings schemas
 

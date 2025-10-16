@@ -11,7 +11,7 @@
 %endif
 
 Name:           tinysparql
-Version:        3.10.0
+Version:        3.10.1
 Release:        %autorelease
 Summary:        Desktop-neutral metadata database and search tool
 

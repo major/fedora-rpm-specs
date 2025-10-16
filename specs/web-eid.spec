@@ -3,17 +3,16 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2325424
 
 
-%global build_number 654-2004
+%global build_number 660-2204
 
 Name:    web-eid
-Version: 2.6.0
-Release: 4%{?dist}
+Version: 2.7.0
+Release: 1%{?dist}
 Summary: Web eID browser extension helper application
 License: MIT
 URL:     https://github.com/web-eid/web-eid-app
 Source0: %{url}/releases/download/v%{version}/%{name}_%{version}.%{build_number}.tar.xz
 # https://github.com/web-eid/web-eid-app/issues/359#issuecomment-2796312287
-Patch0: 126.patch
 BuildRequires: bash
 BuildRequires: desktop-file-utils
 BuildRequires: git
@@ -53,7 +52,7 @@ browser extension (it is the native messaging host for the extension). Also
 works standalone without the extension in command-line mode.
 
 %prep
-%autosetup -n %{name} -p1
+%autosetup -n %{name}
 
 
 %build
@@ -99,6 +98,9 @@ fi
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 
 %changelog
+* Tue Oct 14 2025 Dmitri Smirnov <dmitri@smirnov.ee> - 2.7.0-1
+- 2.7.0 upstream release
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -2,14 +2,14 @@
 # signature for users of Estonian ID card.
 # Limited support is also available for ID Cards of Latvia and Finland.
 %global upstream_name qdigidoc4
-%global build_number 4460-2004
+%global build_number 5377-2404
 
 # qdigidoc release URLs are troublesome, to download the tar.gz use the following command
 # spectool -g -s 0 qdigidoc.spec
 
 Name:           qdigidoc
-Version:        4.7.0
-Release:        2%{?dist}
+Version:        4.8.2
+Release:        1%{?dist}
 Summary:        Estonian digital signature and encryption application
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2+
@@ -95,6 +95,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/ee.ria.qdigidoc4.des
 %{_datadir}/nautilus-python/extensions/*
 
 %changelog
+* Mon Oct 13 2025 Dmitri Smirnov <dmitri@smirnov.ee> 4.8.2-1
+- Upstream release 4.8.2
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           python-norpm
-Version:        1.5
-Release:        2%?dist
+Version:        1.6
+Release:        1%?dist
 Summary:        RPM Macro Expansion in Python
 
 License:        LGPL-2.1-or-later
@@ -52,10 +52,15 @@ Summary:        %summary
 
 %files -n python3-norpm -f %pyproject_files
 %doc README.md
+%_bindir/norpm-conditions-for-arch-statements
 %_bindir/norpm-expand-specfile
 
 
 %changelog
+* Tue Oct 14 2025 Pavel Raiskup <praiskup@redhat.com> - 1.6-1
+- new upstream release:
+  https://github.com/praiskup/norpm/releases/tag/v1.6
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.5-2
 - Rebuilt for Python 3.14.0rc3 bytecode
 

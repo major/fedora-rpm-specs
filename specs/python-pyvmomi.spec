@@ -5,28 +5,33 @@ pyVmomi is the Python SDK for the vSphere API that allows you to manage\
 ESX, ESXi, and vCenter.}
 
 Name:           python-%{srcname}
-Version:        8.0.3.0.1
-Release:        6%{?dist}
+Version:        9.0.0.0
+Release:        1%{?dist}
 Summary:        vSphere Python SDK
 License:        Apache-2.0
 URL:            https://github.com/vmware/%{srcname}
-Source0:        %{pypi_source}
+Source0:        %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 
-# FIXME python validator does not like any explicit version
-# upstream issue#735, rhbz#1763484
-# drop useless doublication of dependency generation
+# Downstream only patch:
+# Remove un-needed test deps.  Changed to use pytest.
+
 Patch0:         00-test-requirements.patch
 BuildArch:      noarch
 
 %description %desc
 
-
+%dnl---------------------------------------------------------------------------
 %package -n     python3-%{srcname}
 Summary:        vSphere SDK for Python3
 BuildRequires:  python3-devel
 BuildRequires:  dos2unix
+BuildRequires:  pytest
 
 %description -n python3-%{srcname} %desc
+
+%files -n python3-%{srcname} -f %{pyproject_files}
+%license LICENSE.txt
+%doc README.rst
 
 
 %prep
@@ -52,19 +57,12 @@ find . -name '*.py' -exec sed -i 's@/usr/bin/env python@@' {} \;
 
 
 %check
-# Temporarily reverting unit tests due to pyvcr version...
-# %%tox
-%pyproject_check_import -t
-
-
-%files -n python3-%{srcname} -f %{pyproject_files}
-%license LICENSE.txt
-%doc README.rst
+%tox
 
 
 %changelog
-* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 8.0.3.0.1-6
-- Rebuilt for Python 3.14.0rc3 bytecode
+* Tue Oct 14 2025 Robby Callicotte <rcallicotte@fedoraproject.org> - 9.0.0.0-1
+- Update to 9.0.0.0
 
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 8.0.3.0.1-5
 - Rebuilt for Python 3.14.0rc2 bytecode

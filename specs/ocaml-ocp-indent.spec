@@ -5,7 +5,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-ocp-indent
 Version:        1.9.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A simple tool to indent OCaml programs
 
 # The entire source code is LGPL with the OCaml linking exception except
@@ -92,6 +92,9 @@ cd -
 %files devel -f .ofiles-devel
 
 %changelog
+* Tue Oct 14 2025 Richard W.M. Jones <rjones@redhat.com> - 1.9.0-2
+- OCaml 5.4.0 rebuild
+
 * Mon Oct 13 2025 Richard W.M. Jones <rjones@redhat.com> - 1.9.0-1
 - New upstream version 1.9.0 (RHBZ#2400841)
 - Remove emacs fix which is now upstream.

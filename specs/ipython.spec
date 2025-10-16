@@ -28,6 +28,10 @@ Source0:        %pypi_source
 # released upstream in 9.2.0
 Patch:          https://github.com/ipython/ipython/pull/14876.patch
 
+# Unset -s on python shebang - ensure that packages installed with pip
+# to user locations are seen and properly loaded.
+%undefine _py3_shebang_s
+
 BuildArch:      noarch
 BuildRequires:  make
 BuildRequires:  python3-devel

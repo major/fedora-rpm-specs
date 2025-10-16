@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-zed
 Version:        3.2.3
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Abstract engine for text editing in OCaml
 
 License:        BSD-3-Clause
@@ -68,6 +68,9 @@ developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Tue Oct 14 2025 Richard W.M. Jones <rjones@redhat.com> - 3.2.3-18
+- OCaml 5.4.0 rebuild
+
 * Wed Sep 17 2025 Jerry James <loganjerry@gmail.com> - 3.2.3-17
 - Rebuild for ocaml-uucp and ocaml-uuseg 17.0.0
 

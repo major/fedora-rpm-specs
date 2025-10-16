@@ -20,6 +20,8 @@ Summary:    Royalty-free next-generation video format
 License:    BSD-3-Clause
 URL:        http://aomedia.org/
 Source:     https://aomedia.googlesource.com/%{name}/+archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+# https://aomedia.issues.chromium.org/issues/448994065
+Patch:      0001-cmake-fix-nasm-detection-w-3.0.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  gcc
