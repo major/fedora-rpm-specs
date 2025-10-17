@@ -262,7 +262,7 @@
 
 Name:           uwsgi
 Version:        2.0.31
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fast, self-healing, application container server
 # uwsgi is licensed under GPLv2 with a linking exception
 # docs are licensed under MIT
@@ -2030,6 +2030,9 @@ install -m0644 -D %{SOURCE8} %{buildroot}%{_sysusersdir}/uwsgi.conf
 
 
 %changelog
+* Wed Oct 15 2025 Remi Collet <remi@remirepo.net> - 2.0.31-2
+- rebuild for https://fedoraproject.org/wiki/Changes/php85
+
 * Sun Oct 12 2025 Ralf Ertzinger <ralf@skytale.net> - 2.0.31-1
 - Update to 2.0.31, drop merged patches
 

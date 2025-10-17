@@ -1,6 +1,6 @@
 Name:           wayland
 Version:        1.24.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Wayland Compositor Infrastructure
 
 # SPDX
@@ -38,6 +38,7 @@ Requires:       libwayland-client%{?_isa} = %{version}-%{release}
 Requires:       libwayland-cursor%{?_isa} = %{version}-%{release}
 Requires:       libwayland-egl%{?_isa} = %{version}-%{release}
 Requires:       libwayland-server%{?_isa} = %{version}-%{release}
+Requires:       pkgconfig(libffi)
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -117,6 +118,9 @@ Wayland server library
 %{_libdir}/libwayland-server.so.0*
 
 %changelog
+* Mon Oct 13 2025 Olivier Fourdan <ofourdan@redhat.com> - 1.24.0-2
+- Add dependency on libffi for the devel package (#2403323)
+
 * Tue Aug 05 2025 Neal Gompa <ngompa@fedoraproject.org> - 1.24.0-1
 - Update to 1.24.0
 

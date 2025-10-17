@@ -7,8 +7,8 @@
 #
 
 # API/ABI check
-%global apiver      20240924
-%global zendver     20240924
+%global apiver      20250925
+%global zendver     20250925
 %global pdover      20240423
 
 # we don't want -z defs linker flag
@@ -18,7 +18,7 @@
 %global _hardened_build 1
 
 # version used for php embedded library soname
-%global embed_version 8.4
+%global embed_version 8.5
 
 %global mysql_sock %(mysql_config --socket 2>/dev/null || echo /var/lib/mysql/mysql.sock)
 
@@ -60,8 +60,12 @@
 %bcond_with      modphp
 %bcond_without   lmdb
 
-%global upver        8.4.13
-#global rcver        RC1
+# liburiparser version 0.9.10 required (not yet released)
+# use bundled library instead for now
+%bcond_with          liburiparser
+
+%global upver        8.5.0
+%global rcver        RC2
 
 Summary: PHP scripting language for creating dynamic web sites
 Name: php
@@ -89,6 +93,7 @@ Source9: php.modconf
 Source12: php-fpm.wants
 Source13: nginx-fpm.conf
 Source14: nginx-php.conf
+Source15: php.tmpfiles
 # See https://secure.php.net/gpg-keys.php
 Source20: https://www.php.net/distributions/php-keyring.gpg
 Source21: https://www.php.net/distributions/php-%{upver}%{?rcver}.tar.xz.asc
@@ -99,26 +104,26 @@ Source53: 20-ffi.ini
 
 # Build fixes
 Patch1: php-8.4.0-httpd.patch
-Patch5: php-8.4.0-includedir.patch
-Patch6: php-8.4.6-embed.patch
+Patch5: php-8.5.0-includedir.patch
+Patch6: php-8.5.0-embed.patch
 Patch8: php-8.4.0-libdb.patch
 
 # Functional changes
 # Use system nikic/php-parser
-Patch41: php-8.3.3-parser.patch
+Patch41: php-8.5.0-parser.patch
 # use system tzdata
-Patch42: php-8.4.0-systzdata-v24.patch
+Patch42: php-8.5.0-systzdata-v24.patch
 # See http://bugs.php.net/53436
 # + display PHP version backported from 8.4
 Patch43: php-8.4.0-phpize.patch
 # Use -lldap_r for OpenLDAP
-Patch45: php-8.4.0-ldap_r.patch
+Patch45: php-8.5.0-ldap_r.patch
 # drop "Configure command" from phpinfo output
 # and only use gcc (instead of full version)
 Patch47: php-8.4.0-phpinfo.patch
 # Always warn about missing curve_name
 # Both Fedora and RHEL do not support arbitrary EC parameters
-Patch48: php-8.3.0-openssl-ec-param.patch
+Patch48: php-8.5.0-openssl-ec-param.patch
 
 # Upstream fixes (100+)
 
@@ -147,6 +152,7 @@ BuildRequires: pkgconfig(zlib) >= 1.2.0.4
 BuildRequires: smtpdaemon
 BuildRequires: pkgconfig(libedit)
 BuildRequires: pkgconfig(libpcre2-8) >= 10.30
+BuildRequires: pkgconfig(capstone) >= 3.0
 BuildRequires: pkgconfig(libxcrypt)
 BuildRequires: libxcrypt-devel
 BuildRequires: bzip2
@@ -161,6 +167,11 @@ BuildRequires: libtool-ltdl-devel
 BuildRequires: systemtap-sdt-devel
 %if 0%{?fedora} >= 41 || 0%{?rhel} >= 10
 BuildRequires: systemtap-sdt-dtrace
+%endif
+%if %{with liburiparser}
+BuildRequires: pkgconfig(liburiparser) >= 0.9.10
+%else
+Provides:      bundled(liburiparser) = 0.9.10
 %endif
 # used for tests
 BuildRequires: %{_bindir}/ps
@@ -194,7 +205,6 @@ Recommends: php-fpm%{?_isa}      = %{version}-%{release}
 # as "php" is now mostly a meta-package, commonly used extensions
 # reduce diff with "dnf module install php"
 Recommends: php-mbstring%{?_isa} = %{version}-%{release}
-Recommends: php-opcache%{?_isa}  = %{version}-%{release}
 Recommends: php-pdo%{?_isa}      = %{version}-%{release}
 %if %{with sodium}
 Recommends: php-sodium%{?_isa}   = %{version}-%{release}
@@ -285,11 +295,14 @@ Provides: php-filter, php-filter%{?_isa}
 Provides: php-ftp, php-ftp%{?_isa}
 Provides: php-gettext, php-gettext%{?_isa}
 Provides: php-hash, php-hash%{?_isa}
+Provides: php-lexbor, php-lexbor%{?_isa}
 Provides: php-mhash = %{version}, php-mhash%{?_isa} = %{version}
 Provides: php-iconv, php-iconv%{?_isa}
 Obsoletes: php-json < 8
 Provides: php-json = %{version}, php-json%{?_isa} = %{version}
 Provides: php-libxml, php-libxml%{?_isa}
+Obsoletes: php-opcache < 8.5.0
+Provides: php-opcache = %{version}, php-opcache%{?_isa} = %{version}
 Provides: php-openssl, php-openssl%{?_isa}
 Provides: php-phar, php-phar%{?_isa}
 Provides: php-pcre, php-pcre%{?_isa}
@@ -300,6 +313,7 @@ Provides: php-sockets, php-sockets%{?_isa}
 Provides: php-spl, php-spl%{?_isa}
 Provides: php-standard = %{version}, php-standard%{?_isa} = %{version}
 Provides: php-tokenizer, php-tokenizer%{?_isa}
+Provides: php-uri, php-uri%{?_isa}
 Provides: php-zlib, php-zlib%{?_isa}
 
 %description common
@@ -326,30 +340,14 @@ Requires: zlib-devel%{?_isa}
 Provides: php-zts-devel = %{version}-%{release}
 Provides: php-zts-devel%{?_isa} = %{version}-%{release}
 %endif
-Recommends: php-nikic-php-parser5 >= 5.0.0
+Recommends: php-nikic-php-parser5 >= 5.6.1
+Conflicts:  php-nikic-php-parser5 <  5.6.1
 
 
 %description devel
 The php-devel package contains the files needed for building PHP
 extensions. If you need to compile your own PHP extensions, you will
 need to install this package.
-
-%package opcache
-Summary:   The Zend OPcache
-License:   PHP-3.01
-BuildRequires: pkgconfig(capstone) >= 3.0
-Requires:  php-common%{?_isa} = %{version}-%{release}
-Provides:  php-pecl-zendopcache = %{version}
-Provides:  php-pecl-zendopcache%{?_isa} = %{version}
-Provides:  php-pecl(opcache) = %{version}
-Provides:  php-pecl(opcache)%{?_isa} = %{version}
-
-%description opcache
-The Zend OPcache provides faster PHP execution through opcode caching and
-optimization. It improves PHP performance by storing precompiled script
-bytecode in the shared memory. This eliminates the stages of reading code from
-the disk and compiling it on future access. In addition, it applies a few
-bytecode optimization patterns that make code execution faster.
 
 %package ldap
 Summary: A module for PHP applications that use LDAP
@@ -734,14 +732,11 @@ rm ext/date/tests/timezone_version_get.phpt
 rm ext/date/tests/timezone_version_get_basic1.phpt
 # fails sometime
 rm ext/sockets/tests/mcast_ipv?_recv.phpt
-# cause stack exhausion
-rm Zend/tests/bug54268.phpt
-rm Zend/tests/bug68412.phpt
-# tar issue
-rm ext/zlib/tests/004-mb.phpt
 # Both Fedora and RHEL do not support arbitrary EC parameters
 # https://bugzilla.redhat.com/2223953
 rm ext/openssl/tests/ecc_custom_params.phpt
+# Failing when build with PHP installed
+rm ext/opcache/tests/zzz_basic_logging.phpt
 
 # Safety check for API version change.
 pver=$(sed -n '/#define PHP_VERSION /{s/.* "//;s/".*$//;p}' main/php_version.h)
@@ -857,11 +852,15 @@ ln -sf ../configure
     --without-pear \
     --with-exec-dir=%{_bindir} \
     --without-gdbm \
+    --enable-opcache-file \
     --with-openssl \
     --with-openssl-argon2 \
     --with-system-ciphers \
     --with-external-pcre \
     --with-external-libcrypt \
+%if %{with liburiparser}
+    --with-external-uriparser \
+%endif
 %ifarch s390 s390x sparc64 sparcv9 riscv64
     --without-pcre-jit \
 %endif
@@ -887,7 +886,6 @@ fi
 pushd build-cgi
 
 build --enable-pcntl \
-      --enable-opcache \
       --with-capstone \
       --enable-phpdbg --enable-phpdbg-readline \
       --enable-mbstring=shared \
@@ -965,7 +963,6 @@ without_shared="--without-gd \
       --disable-dom --disable-dba --without-unixODBC \
       --without-mysqli \
       --disable-pdo \
-      --disable-opcache \
       --disable-phpdbg \
       --without-ffi \
       --disable-xmlreader --disable-xmlwriter \
@@ -1008,7 +1005,6 @@ build --includedir=%{_includedir}/php-zts \
       --disable-cgi \
       --with-config-file-scan-dir=%{_sysconfdir}/php-zts.d \
       --enable-pcntl \
-      --enable-opcache \
       --with-capstone \
       --enable-mbstring=shared \
       --enable-mbregex \
@@ -1147,6 +1143,9 @@ install -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/php.ini
 # For third-party packaging:
 install -m 755 -d $RPM_BUILD_ROOT%{_datadir}/php/preload
 
+# Install tmpfiles.d file
+install -p -D -m 0644 %{SOURCE15} %{buildroot}%{_tmpfilesdir}/%{name}.conf
+
 %if %{with modphp}
 # install the DSO
 install -m 755 -d $RPM_BUILD_ROOT%{_httpd_moddir}
@@ -1232,8 +1231,7 @@ for mod in pgsql odbc ldap snmp \
 do
     case $mod in
       opcache)
-        # Zend extensions
-        TESTCMD="$TESTCMD --define zend_extension=$mod"
+        # static extension
         ini=10-${mod}.ini;;
       pdo_*|mysqli|xmlreader)
         # Extensions with dependencies on 20-*
@@ -1303,6 +1301,7 @@ cat files.curl files.phar files.fileinfo \
     files.tokenizer > files.common
 
 # The default Zend OPcache blacklist file
+rm files.opcache
 install -m 644 %{SOURCE51} $RPM_BUILD_ROOT%{_sysconfdir}/php.d/opcache-default.blacklist
 %if %{with zts}
 install -m 644 %{SOURCE51} $RPM_BUILD_ROOT%{_sysconfdir}/php-zts.d/opcache-default.blacklist
@@ -1355,6 +1354,7 @@ systemctl try-restart php-fpm.service >/dev/null 2>&1 || :
 %attr(0770,root,apache) %dir %{_sharedstatedir}/php/wsdlcache
 %attr(0770,root,apache) %dir %{_sharedstatedir}/php/opcache
 %config(noreplace) %{_httpd_confdir}/php.conf
+%{_tmpfilesdir}/%{name}.conf
 %endif
 
 %files common -f files.common
@@ -1364,10 +1364,13 @@ systemctl try-restart php-fpm.service >/dev/null 2>&1 || :
 %license timelib_LICENSE
 %doc php.ini-*
 %config(noreplace) %{_sysconfdir}/php.ini
+%config(noreplace) %{_sysconfdir}/php.d/10-opcache.ini
+%config(noreplace) %{_sysconfdir}/php.d/opcache-default.blacklist
 %dir %{_sysconfdir}/php.d
 %dir %{_libdir}/php
 %dir %{_libdir}/php/modules
 %if %{with zts}
+%config(noreplace) %{_sysconfdir}/php-zts.d/opcache-default.blacklist
 %dir %{_sysconfdir}/php-zts.d
 %dir %{_libdir}/php-zts
 %dir %{_libdir}/php-zts/modules
@@ -1427,8 +1430,9 @@ systemctl try-restart php-fpm.service >/dev/null 2>&1 || :
 %attr(770,apache,root) %dir %{_localstatedir}/log/php-fpm
 %dir %ghost /run/php-fpm
 %{_mandir}/man8/php-fpm.8*
-%dir %{_datadir}/fpm
-%{_datadir}/fpm/status.html
+%dir %{_datadir}/php/fpm
+%{_datadir}/php/fpm/status.html
+%{_tmpfilesdir}/%{name}.conf
 
 %files devel
 %{_bindir}/php-config
@@ -1476,11 +1480,6 @@ systemctl try-restart php-fpm.service >/dev/null 2>&1 || :
 %endif
 %files enchant -f files.enchant
 %files mysqlnd -f files.mysqlnd
-%files opcache -f files.opcache
-%config(noreplace) %{_sysconfdir}/php.d/opcache-default.blacklist
-%if %{with zts}
-%config(noreplace) %{_sysconfdir}/php-zts.d/opcache-default.blacklist
-%endif
 %if %{with sodium}
 %files sodium -f files.sodium
 %endif
@@ -1489,6 +1488,14 @@ systemctl try-restart php-fpm.service >/dev/null 2>&1 || :
 
 
 %changelog
+* Tue Oct  7 2025 Remi Collet <remi@remirepo.net> - 8.5.0~RC2-1
+- update to 8.5.0RC2
+- bump ABI/API numbers to 20240925
+- drop opcache subpackage, extension is build statically
+- add lexbor and uri extension (always static)
+- move /usr/share/fpm/status.html to /usr/share/php/fpm/status.html
+- add tmpfiles.d configuration file
+
 * Tue Sep 30 2025 Gwyn Ciesla <gwync@protonmail.com> - 8.4.13-2
 - Firebird 5 rebuild
 

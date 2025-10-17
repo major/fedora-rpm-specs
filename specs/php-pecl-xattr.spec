@@ -3,21 +3,23 @@
 #
 # remirepo spec file for php-pecl-xattr
 #
-# Copyright (c) 2013-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2013-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
 
 %global pecl_name xattr
+%global pie_vend  pecl
+%global pie_proj  xattr
 %global ini_name  40-%{pecl_name}.ini
 %global sources   %{pecl_name}-%{version}
 
 Summary:        Extended attributes
 Name:           php-pecl-%{pecl_name}
-Version:        1.4.0
-Release:        21%{?dist}
+Version:        1.4.1
+Release:        1%{?dist}
 License:        PHP-3.01
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{sources}.tgz
@@ -32,10 +34,14 @@ BuildRequires:  php-pear  >= 1.10
 Requires:       php(zend-abi) = %{php_zend_api}
 Requires:       php(api) = %{php_core_api}
 
+# Extension
 Provides:       php-%{pecl_name} = %{version}
 Provides:       php-%{pecl_name}%{?_isa} = %{version}
+# PECL
 Provides:       php-pecl(%{pecl_name}) = %{version}
 Provides:       php-pecl(%{pecl_name})%{?_isa} = %{version}
+# PIE
+Provides:       %{?scl_prefix}php-pie(%{pie_vend}/%{pie_proj}) = %{version}
 
 
 %description
@@ -124,6 +130,11 @@ REPORT_EXIT_STATUS=1 \
 
 
 %changelog
+* Wed Sep 17 2025 Remi Collet <remi@remirepo.net> - 1.4.0-22
+- update to 1.4.1
+- re-license spec file to CECILL-2.1
+- add PIE virtual provides
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

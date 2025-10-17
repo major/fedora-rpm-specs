@@ -1,6 +1,6 @@
 # Fedora spec file for php-pecl-mailparse
 #
-# Copyright (c) 2008-2024 Remi Collet
+# Copyright (c) 2008-2025 Remi Collet
 # Copyright (c) 2004-2007 Matthias Saou
 #
 # License: MIT
@@ -19,7 +19,7 @@
 Summary:   PHP PECL package for parsing and working with email messages
 Name:      php-pecl-mailparse
 Version:   3.1.9
-Release:   1%{?dist}
+Release:   2%{?dist}
 License:   PHP-3.01
 URL:       https://pecl.php.net/package/mailparse
 Source0:   https://pecl.php.net/get/%{sources}.tgz
@@ -133,6 +133,9 @@ NO_INTERACTION=1 \
 
 
 %changelog
+* Wed Oct 08 2025 Remi Collet <remi@remirepo.net> - 3.1.9-2
+- rebuild for https://fedoraproject.org/wiki/Changes/php85
+
 * Tue Sep 30 2025 Remi Collet <remi@remirepo.net> - 3.1.9-1
 - update to 3.1.9
 - add pie virtual provides

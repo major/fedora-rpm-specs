@@ -8,6 +8,8 @@
 %bcond_without           tests
 
 %global pecl_name        yaml
+%global pie_vend         pecl
+%global pie_proj         yaml
 %global ini_name         40-%{pecl_name}.ini
 
 %global upstream_version 2.2.5
@@ -17,11 +19,13 @@
 Summary:       PHP Bindings for libyaml
 Name:          php-pecl-%{pecl_name}
 Version:       %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       MIT
 URL:           https://pecl.php.net/package/%{pecl_name}
 
 Source0:       https://pecl.php.net/get/%{sources}.tgz
+
+Patch0:        https://patch-diff.githubusercontent.com/raw/php/pecl-file_formats-yaml/pull/95.patch
 
 ExcludeArch:   %{ix86}
 
@@ -34,10 +38,14 @@ BuildRequires: libyaml-devel
 Requires:      php(zend-abi) = %{php_zend_api}
 Requires:      php(api) = %{php_core_api}
 
-Provides:      php-%{pecl_name}               = %{version}
-Provides:      php-%{pecl_name}%{?_isa}       = %{version}
-Provides:      php-pecl(%{pecl_name})         = %{version}
-Provides:      php-pecl(%{pecl_name})%{?_isa} = %{version}
+# Extension
+Provides:      php-%{pecl_name}                 = %{version}
+Provides:      php-%{pecl_name}%{?_isa}         = %{version}
+# PECL
+Provides:      php-pecl(%{pecl_name})           = %{version}
+Provides:      php-pecl(%{pecl_name})%{?_isa}   = %{version}
+# PIE
+Provides:      php-pie(%{pie_vend}/%{pie_proj}) = %{version}
 
 
 %description
@@ -58,6 +66,8 @@ sed -e 's/role="test"/role="src"/' \
     -i package.xml
 
 cd %{sources}
+%patch -P0 -p1
+
 # Check upstream version (often broken)
 extver=$(sed -n '/#define PHP_YAML_VERSION/{s/.* "//;s/".*$//;p}' php_yaml.h)
 if test "x${extver}" != "x%{upstream_version}%{?upstream_prever}"; then
@@ -147,6 +157,12 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Thu Sep 18 2025 Remi Collet <remi@remirepo.net> - 2.2.5-2
+- rebuild for https://fedoraproject.org/wiki/Changes/php85
+- add patch for PHP 8.5.0RC1 from
+  https://github.com/php/pecl-file_formats-yaml/pull/95
+- add pie virtual provides
+
 * Mon Aug  4 2025 Remi Collet <remi@remirepo.net> - 2.2.5-1
 - update to 2.2.5
 - drop patch merged upstream

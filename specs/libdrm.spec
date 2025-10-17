@@ -44,7 +44,7 @@ end}
 %bcond_without install_test_programs
 %bcond_without udev
 
-%global lib_version 126
+%global lib_version 127
 
 Name:           libdrm
 Summary:        Direct Rendering Manager runtime library
@@ -279,6 +279,9 @@ cp %{SOURCE1} %{buildroot}%{_docdir}/libdrm
 %endif
 
 %changelog
+* Wed Oct 15 2025 José Expósito <jexposit@redhat.com> - 2.4.127-1
+- Update to 2.4.127
+
 * Thu Oct 03 2025 José Expósito <jexposit@redhat.com> - 2.4.126-1
 - Update to 2.4.126
 

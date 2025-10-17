@@ -1,8 +1,8 @@
 # Fedora spec file for php-pecl-msgpack
 #
-# Copyright (c) 2012-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2012-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
@@ -20,13 +20,15 @@
 %global sources          %{pecl_name}-%{upstream_version}%{?upstream_prever}
 %global _configure       ../%{sources}/configure
 
+%global pie_vend         msgpack
+%global pie_proj         msgpack-php
 %global pecl_name        msgpack
 %global ini_name         40-%{pecl_name}.ini
 
 Summary:       API for communicating with MessagePack serialization
 Name:          php-pecl-msgpack
 Version:       %{upstream_version}%{?upstream_lower:~%{upstream_lower}}
-Release:       4%{?dist}
+Release:       5%{?dist}
 Source:        https://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}.tgz
 License:       BSD-3-Clause
 URL:           https://pecl.php.net/package/msgpack
@@ -45,10 +47,12 @@ Provides:      bundled(msgpack) = 3.2.0
 Requires:      php(zend-abi) = %{php_zend_api}
 Requires:      php(api) = %{php_core_api}
 
-Provides:      php-%{pecl_name} = %{version}
-Provides:      php-%{pecl_name}%{?_isa} = %{version}
-Provides:      php-pecl(%{pecl_name}) = %{version}
-Provides:      php-pecl(%{pecl_name})%{?_isa} = %{version}
+Provides:      php-%{pecl_name}                 = %{version}
+Provides:      php-%{pecl_name}%{?_isa}         = %{version}
+Provides:      php-pecl(%{pecl_name})           = %{version}
+Provides:      php-pecl(%{pecl_name})%{?_isa}   = %{version}
+Provides:      php-pie(%{pie_vend}/%{pie_proj}) = %{version}
+Provides:      php-%{pie_vend}-%{pie_proj}      = %{version}
 
 
 %description
@@ -173,6 +177,11 @@ TEST_PHP_ARGS="-n -d extension=apcu.so -d extension=$PWD/modules/%{pecl_name}.so
 
 
 %changelog
+* Wed Sep 17 2025 Remi Collet <remi@remirepo.net> - 3.0.0-5
+- rebuild for https://fedoraproject.org/wiki/Changes/php85
+- re-license spec file to CECILL-2.1
+- add pie virtual provides
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -24,7 +24,7 @@
 
 Name:           mapserver
 Version:        8.4.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Platform for publishing spatial data and interactive mapping applications to the web
 %global dashver %(echo %version | sed 's|\\.|-|g')
 
@@ -335,6 +335,9 @@ rm %{buildroot}%{_usr}/%{_sysconfdir}/mapserver-sample.conf
 %{ruby_sitearchdir}/mapscript.so
 
 %changelog
+* Wed Oct 15 2025 Remi Collet <remi@remirepo.net> - 8.4.1-3
+- rebuild for https://fedoraproject.org/wiki/Changes/php85
+
 * Wed Oct 01 2025 Sandro Mani <manisandro@gmail.com> - 8.4.1-2
 - Sync package description with upstream text
 

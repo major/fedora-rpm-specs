@@ -14,12 +14,12 @@
 %global pie_vend   xdebug
 %global pie_proj   xdebug
 %global pecl_name  xdebug
-%global gh_commit  a6fc5d7d5aaf43c09f8e44981b310b592d0c2cac
+%global gh_commit  377ffc53e5dd761c02bd5c64f853de9e7b85cf04
 %global gh_short   %(c=%{gh_commit}; echo ${c:0:7})
 
 # version/release
-%global upstream_version 3.4.6
-#global upstream_prever  beta1
+%global upstream_version 3.5.0
+%global upstream_prever  alpha2
 %global upstream_lower   %(echo %{upstream_prever} | tr '[:upper:]' '[:lower:]')
 %global sources          src
 
@@ -39,7 +39,7 @@ ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc
 BuildRequires:  make
-BuildRequires: (php-devel >= 8.0 with php-devel < 8.5)
+BuildRequires: (php-devel >= 8.0 with php-devel < 8.6)
 BuildRequires:  php-pear
 BuildRequires:  php-simplexml
 BuildRequires:  libtool
@@ -189,7 +189,6 @@ rm tests/debugger/bug00998-ipv6.phpt
 
 # bug00886 is marked as slow as it uses a lot of disk space
 TEST_OPTS="-q -x --show-diff"
-
 TEST_PHP_ARGS="-n $modules -d zend_extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
 %{__php} -n run-xdebug-tests.php $TEST_OPTS
 %else
@@ -207,6 +206,9 @@ TEST_PHP_ARGS="-n $modules -d zend_extension=%{buildroot}%{php_extdir}/%{pecl_na
 
 
 %changelog
+* Tue Oct  7 2025 Remi Collet <remi@remirepo.net> - 3.5.0~alpha2-1
+- update to 3.5.0alpha2
+
 * Mon Oct  6 2025 Remi Collet <remi@remirepo.net> - 3.4.6-1
 - update to 3.4.6
 

@@ -1,6 +1,6 @@
 Name:      gnome-app-list
 Version:   3.0
-Release:   2%{?dist}
+Release:   %autorelease
 BuildArch: noarch
 Summary:   A curated list of apps to feature or highlight in GNOME
 License:   LGPL-2.1-or-later
@@ -35,7 +35,4 @@ some apps as featured or highlighted in GNOME.
 %{_datadir}/swcatalog/xml/org.gnome.App-list.xml
 
 %changelog
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
 %autochangelog

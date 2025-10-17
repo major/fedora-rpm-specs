@@ -20,7 +20,7 @@
 Summary:       Abstract Syntax Tree
 Name:          php-ast
 Version:       1.1.3
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       BSD-3-Clause
 URL:           https://pecl.php.net/package/ast
 Source0:       httpd://pecl.php.net/get/%{sources}.tgz
@@ -127,6 +127,9 @@ TEST_PHP_ARGS="-n -d extension=tokenizer.so -d extension=%{buildroot}%{php_extdi
 
 
 %changelog
+* Wed Sep 17 2025 Remi Collet <remi@remirepo.net> - 1.1.3-2
+- rebuild for https://fedoraproject.org/wiki/Changes/php85
+
 * Fri Aug 29 2025 Remi Collet <remi@remirepo.net> - 1.1.3-1
 - update to 1.1.3
 - re-license spec file to CECILL-2.1

@@ -3,7 +3,7 @@
 %global giturl      https://github.com/gap-packages/InduceReduce
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.1
+Version:        1.2
 Release:        %autorelease
 Summary:        Compute the character table of a finite group
 

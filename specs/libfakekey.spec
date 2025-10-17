@@ -56,7 +56,6 @@ autoreconf -f -i -v
 
 %install
 %make_install
-rm -vf '%{buildroot}%{_libdir}/libfakekey.la'
 
 
 # The only test is more like a demo; running it is not valuable

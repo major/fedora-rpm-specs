@@ -3,9 +3,9 @@
 #
 # remirepo spec file for php-smbclient
 #
-# Copyright (c) 2015-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2015-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
@@ -18,7 +18,7 @@
 
 Name:           php-smbclient
 Version:        1.1.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        PHP wrapper for libsmbclient
 
 License:        BSD-2-Clause
@@ -137,6 +137,10 @@ cp %{SOURCE2} phpunit.xml
 
 
 %changelog
+* Wed Sep 17 2025 Remi Collet <remi@remirepo.net> - 1.1.2-4
+- rebuild for https://fedoraproject.org/wiki/Changes/php85
+- re-license spec file to CECILL-2.1
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

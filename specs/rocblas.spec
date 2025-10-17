@@ -25,6 +25,13 @@
 %global rocblas_name rocblas
 %endif
 
+%bcond_with gitcommit
+%if %{with gitcommit}
+%global commit0 2584e35062ad9c2edb68d93c464cf157bc57e3b0
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+%global date0 20250926
+%endif
+
 %global upstreamname rocBLAS
 %global rocm_release 7.0
 %global rocm_patch 2
@@ -136,16 +143,27 @@
 %endif
 
 Name:           %{rocblas_name}
+%if %{with gitcommit}
+Version:        git%{date0}.%{shortcommit0}
+Release:        1%{?dist}
+%else
 Version:        %{rocm_version}
 Release:        1%{?dist}
+%endif
 Summary:        BLAS implementation for ROCm
+%if %{with gitcommit}
+Url:            https://github.com/ROCm/rocm-libraries
+%else
 Url:            https://github.com/ROCm/%{upstreamname}
+%endif
 License:        MIT AND BSD-3-Clause
 
+%if %{with gitcommit}
+Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
+%else
 Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
-Patch2:         0001-fixup-install-of-tensile-output.patch
-# Patch4:         0001-offload-compress-option.patch
-# Patch6:         0001-rocblas-remove-roctracer.patch
+%endif
+Patch1:         0001-fixup-install-of-tensile-output.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -253,7 +271,13 @@ Requires:       diffutils
 %endif
 
 %prep
+%if %{with gitcommit}
+%setup -q -n rocm-libraries-%{commit0}
+cd projects/rocblas
+%patch -P1 -p1 
+%else
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
+%endif
 sed -i -e 's@set( BLAS_LIBRARY "blas" )@set( BLAS_LIBRARY "%blaslib" )@' clients/CMakeLists.txt
 sed -i -e 's@target_link_libraries( rocblas-test PRIVATE ${BLAS_LIBRARY} ${GTEST_BOTH_LIBRARIES} roc::rocblas )@target_link_libraries( rocblas-test PRIVATE %blaslib ${GTEST_BOTH_LIBRARIES} roc::rocblas )@' clients/gtest/CMakeLists.txt
 
@@ -274,6 +298,10 @@ sed -i -e 's@list( APPEND COMMON_LINK_LIBS "-lgfortran")@#list( APPEND COMMON_LI
 %endif
 
 %build
+
+%if %{with gitcommit}
+cd projects/rocblas
+%endif
 
 # With compat llvm the system clang is wrong
 CLANG_PATH=`hipconfig --hipclangpath`
@@ -306,6 +334,10 @@ fi
 %cmake_build
 
 %install
+%if %{with gitcommit}
+cd projects/rocblas
+%endif
+
 %cmake_install
 
 rm -f %{buildroot}%{_prefix}/share/doc/rocblas/LICENSE.md
@@ -324,7 +356,11 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library/src:$LD_LIBRARY_PATH
 %endif
 
 %files
+%if %{with gitcommit}
+%license projects/rocblas/LICENSE.md
+%else
 %license LICENSE.md
+%endif
 %{_libdir}/librocblas.so.5{,.*}
 %if %{with tensile}
 %dir %{_libdir}/rocblas
@@ -333,8 +369,12 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library/src:$LD_LIBRARY_PATH
 %{_libdir}/rocblas/library/Tensile*
 %endif
 
-%files devel 
+%files devel
+%if %{with gitcommit}
+%doc projects/rocblas/README.md
+%else
 %doc README.md
+%endif
 %dir %{_libdir}/cmake/rocblas
 %dir %{_includedir}/rocblas
 %{_includedir}/rocblas/*

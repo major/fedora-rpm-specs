@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-machines
-Version:        341
+Version:        342
 Release:        1%{?dist}
 Summary:        Cockpit user interface for virtual machines
 License:        LGPL-2.1-or-later AND MIT
@@ -119,6 +119,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Oct 15 2025 Packit <hello@packit.dev> - 342-1
+- Bug fixes and translation updates
+
 * Thu Oct 02 2025 Packit <hello@packit.dev> - 341-1
 - Improved UX for Disks and Network interface tables
 - Bug fixes and translation updates

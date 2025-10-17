@@ -1,6 +1,5 @@
 Summary:		Automated Password Generator for random password generation
 Name:			apg
-
 Version:		2.3.0b
 Release:		50%{?dist}
 License:		BSD-3-Clause

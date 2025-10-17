@@ -3,9 +3,9 @@
 #
 # remirepo spec file for php-pecl-pq
 #
-# Copyright (c) 2014-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2014-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
@@ -14,16 +14,20 @@
 %bcond_without     tests
 
 %global pecl_name  pq
+%global pie_vend   m6w6
+%global pie_proj   ext-pq
 %global ini_name   50-%{pecl_name}.ini
 %global sources    %{pecl_name}-%{version}
 
 Summary:        PostgreSQL client library (libpq) binding
 Name:           php-pecl-%{pecl_name}
 Version:        2.2.3
-Release:        7%{?dist}
+Release:        8%{?dist}
 License:        BSD-2-Clause
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{version}%{?rcver}.tgz
+
+Patch0:         53.patch
 
 ExcludeArch:    %{ix86}
 
@@ -44,10 +48,12 @@ Requires:       php(api) = %{php_core_api}
 Requires:       php-json%{?_isa}
 Requires:       php-raphf%{?_isa}  >= 1.1.0
 
-Provides:       php-%{pecl_name} = %{version}
-Provides:       php-%{pecl_name}%{?_isa} = %{version}
-Provides:       php-pecl(%{pecl_name}) = %{version}
-Provides:       php-pecl(%{pecl_name})%{?_isa} = %{version}
+Provides:       php-%{pecl_name}                 = %{version}
+Provides:       php-%{pecl_name}%{?_isa}         = %{version}
+Provides:       php-pecl(%{pecl_name})           = %{version}
+Provides:       php-pecl(%{pecl_name})%{?_isa}   = %{version}
+Provides:       php-pie(%{pie_vend}/%{pie_proj}) = %{version}
+Provides:       php-%{pie_vend}-%{pie_proj}      = %{version}
 
 
 %description
@@ -71,6 +77,8 @@ sed -e '/role="test"/d' \
     -i package.xml
 
 cd %{sources}
+%patch -P0 -p1 -b .pr53
+
 # Sanity check, really often broken
 extver=$(sed -n '/#define PHP_PQ_VERSION/{s/.* "//;s/".*$//;p}' php_pq.h)
 if test "x${extver}" != "x%{version}%{?rcver}"; then
@@ -179,6 +187,13 @@ exit $RET
 
 
 %changelog
+* Wed Sep 17 2025 Remi Collet <remi@remirepo.net> - 2.2.3-8
+- rebuild for https://fedoraproject.org/wiki/Changes/php85
+- re-license spec file to CECILL-2.1
+- add patch for test suite with PHP 8.5 from
+  https://github.com/m6w6/ext-pq/pull/53
+- add pie virtual provides
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

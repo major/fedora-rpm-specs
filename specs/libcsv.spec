@@ -108,7 +108,6 @@ autoreconf --force --install --verbose
 
 %install
 %make_install
-find '%{buildroot}' -type f -name '*.la' -print -delete
 
 
 %check

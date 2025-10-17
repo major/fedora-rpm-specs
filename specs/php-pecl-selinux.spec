@@ -15,6 +15,8 @@
 %bcond_without      tests
 
 %define pecl_name   selinux
+%global pie_vend    pecl
+%global pie_proj    selinux
 %global ini_name    40-%{pecl_name}.ini
 %global sources     %{pecl_name}-%{version}
 %global _configure  ../%{sources}/configure
@@ -22,7 +24,7 @@
 Summary: SELinux binding for PHP scripting language
 Name:    php-pecl-selinux
 Version: 0.6.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: PHP-3.01
 URL:     https://pecl.php.net/package/%{pecl_name}
 Source:  https://pecl.php.net/get/%{sources}.tgz
@@ -38,9 +40,10 @@ BuildRequires: libselinux-devel >= 2.0.80
 Requires: php(zend-abi) = %{php_zend_api}
 Requires: php(api) = %{php_core_api}
 
-Provides: php-%{pecl_name}         = %{version}
-Provides: php-%{pecl_name}%{?_isa} = %{version}
-Provides: php-pecl(%{pecl_name})   = %{version}-%{release}
+Provides: php-%{pecl_name}                 = %{version}
+Provides: php-%{pecl_name}%{?_isa}         = %{version}
+Provides: php-pecl(%{pecl_name})           = %{version}-%{release}
+Provides: php-pie(%{pie_vend}/%{pie_proj}) = %{version}
 
 
 %description
@@ -131,6 +134,10 @@ REPORT_EXIT_STATUS=0 \
 
 
 %changelog
+* Wed Sep 17 2025 Remi Collet <remi@remirepo.net> - 0.6.1-5
+- rebuild for https://fedoraproject.org/wiki/Changes/php85
+- add pie virtual provides
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

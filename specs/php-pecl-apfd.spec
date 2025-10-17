@@ -1,8 +1,8 @@
 # spec file for php-pecl-apfd
 #
-# Copyright (c) 2015-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2015-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
@@ -10,13 +10,15 @@
 %bcond_without     tests
 
 %global pecl_name  apfd
+%global pie_vend   m6w6
+%global pie_proj   ext-apfd
 %global ini_name   40-%{pecl_name}.ini
 %global sources    %{pecl_name}-%{version}
 
 Summary:        Always Populate Form Data
 Name:           php-pecl-%{pecl_name}
 Version:        1.0.3
-Release:        18%{?dist}
+Release:        19%{?dist}
 License:        BSD-2-Clause
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{sources}%{?prever}.tgz
@@ -34,6 +36,9 @@ Provides:       php-%{pecl_name} = %{version}
 Provides:       php-%{pecl_name}%{?_isa} = %{version}
 Provides:       php-pecl(%{pecl_name}) = %{version}
 Provides:       php-pecl(%{pecl_name})%{?_isa} = %{version}
+Provides:       php-pie(%{pie_vend}/%{pie_proj}) = %{version}
+Provides:       php-%{pie_vend}-%{pie_proj} = %{version}
+
 # Split off pecl/http
 Conflicts:      php-pecl(http) < 2.4
 
@@ -124,6 +129,11 @@ TEST_PHP_ARGS="-n -d extension=modules/%{pecl_name}.so" \
 
 
 %changelog
+* Wed Sep 17 2025 Remi Collet <remi@remirepo.net> - 1.0.3-19
+- rebuild for https://fedoraproject.org/wiki/Changes/php85
+- re-license spec file to CECILL-2.1
+- add pie virtual provides
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

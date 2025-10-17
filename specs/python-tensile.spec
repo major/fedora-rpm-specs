@@ -28,8 +28,14 @@
 %define python_alternative %nil
 %endif
 
-%global upstreamname Tensile
+%bcond_with gitcommit
+%if %{with gitcommit}
+%global commit0 976b9c4a87a60a862ffb0e88e1fc0016e93c9961
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+%global date0 20250816
+%endif
 
+%global upstreamname Tensile
 %global rocm_release 7.0
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
@@ -39,13 +45,23 @@ Name:           python-tensile-devel
 %else
 Name:           python-tensile
 %endif
+%if %{with gitcommit}
+Version:        git%{date0}.%{shortcommit0}
+Release:        1%{?dist}
+%else
 Version:        %{rocm_version}
 Release:        1%{?dist}
+%endif
 Summary:        Tool for creating benchmark-driven backend libraries for GEMMs
 
-URL:            https://github.com/ROCmSoftwarePlatform/Tensile
 License:        MIT
+%if %{with gitcommit}
+URL:            https://github.com/ROCm/rocm-libraries
+Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
+%else
+URL:            https://github.com/ROCmSoftwarePlatform/Tensile
 Source0:        %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+%endif
 
 Patch1:         0001-tensile-fedora-gpus.patch
 Patch2:         0001-tensile-gfx1153.patch
@@ -110,7 +126,15 @@ rocBLAS. Tensile acts as the performance backbone for a wide variety of
 %endif
 
 %prep
+%if %{with gitcommit}
+%setup -q -n rocm-libraries-%{commit0}
+cd shared/tensile
+%patch -P1 -p1
+%patch -P2 -p1
+%patch -P3 -p1
+%else
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
+%endif
 
 #Fix a few things:
 chmod 755 Tensile/Configs/miopen/convert_cfg.py
@@ -140,10 +164,18 @@ sed -i -e '/rich/d' requirements.*
 sed -i -e '/msgpack/d' requirements.*
 
 %build
+%if %{with gitcommit}
+cd shared/tensile
+%endif
+
 %py3_build
 %{?python_build: %python_build}
 
 %install
+%if %{with gitcommit}
+cd shared/tensile
+%endif
+
 %py3_install
 %{?python_install: %python_install}
 
@@ -192,8 +224,13 @@ mv %{buildroot}%{_datadir}/cmake/Tensile/*.cmake %{buildroot}%{python3_sitelib}/
 %files %{python_files}
 %dir %{python_sitelib}/%{upstreamname}
 %dir %{python_sitelib}/%{upstreamname}*.egg-info
+%if %{with gitcommit}
+%doc shared/tensile/README.md
+%license shared/tensile/LICENSE.md
+%else
 %doc README.md
 %license LICENSE.md
+%endif
 %python_alternative %{_bindir}/Tensile
 %python_alternative %{_bindir}/TensileBenchmarkCluster
 %python_alternative %{_bindir}/TensileCreateLibrary

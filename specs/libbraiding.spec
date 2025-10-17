@@ -57,9 +57,6 @@ sed -i 's|CC=.g..|& -Wl,--as-needed|' libtool
 %install
 %make_install
 
-# We do not want the libtool files
-find '%{buildroot}' -type f -name '*.la' -print -delete
-
 
 # Upstream does not provide any tests.
 
@@ -67,11 +64,11 @@ find '%{buildroot}' -type f -name '*.la' -print -delete
 %files
 %license LICENSE
 %doc README.md
+%doc CHANGELOG
 %{_libdir}/libbraiding.so.%{so_version}{,.*}
 
 
 %files devel
-%doc CHANGELOG
 %{_includedir}/braiding.h
 %{_includedir}/cbraid*.h
 %{_libdir}/libbraiding.so

@@ -1,5 +1,5 @@
-%global commit 97f1582fc44c3912934157a726fb6f44efd7cec9
-%global snapdate 20251003
+%global commit 6c77b6b2809d897fe5a887358f7d1cfe12353bef
+%global snapdate 20251114
 
 Name:           pythoncapi-compat
 Summary:        Python C API compatibility
@@ -12,10 +12,6 @@ URL:            https://github.com/python/pythoncapi-compat
 Source0:        %{url}/archive/%{commit}/pythoncapi-compat-%{commit}.tar.gz
 # Man page hand-written for Fedora in groff_man(7) format based on --help
 Source1:        upgrade_pythoncapi.py.1
-
-# Fix varargs indicator for PyBytesWriter_Format
-# https://github.com/python/pythoncapi-compat/pull/153
-Patch:          %{url}/pull/153.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++

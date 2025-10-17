@@ -1,6 +1,6 @@
 Name:           synfig
 Version:        1.5.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Vector-based 2D animation rendering backend
 
 License:        GPL-2.0-or-later
@@ -8,6 +8,9 @@ URL:            http://synfig.org/
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 Patch0:         synfig-1.5.3-optflags.patch
 Patch1:         synfig-1.0.2-ltld.patch
+
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  make
 BuildRequires:  ETL-devel >= 1.5.1
@@ -121,6 +124,9 @@ touch -r README $RPM_BUILD_ROOT%{_bindir}/synfig-config
 
 
 %changelog
+* Tue Aug 26 2025 Jerry James <loganjerry@gmail.com> - 1.5.3-4
+- Stop building for 32-bit x86
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -4,12 +4,14 @@
 
 Name:             php-pecl-%{pecl_name}
 Version:          1.1.5
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          Pecl package for XML diff and merge
 
 License:          BSD-2-Clause
 URL:              http://pecl.php.net/package/%{pecl_name}
 Source0:          http://pecl.php.net/get/%{sources}.tgz
+
+Patch0:           6.patch
 
 ExcludeArch:      %{ix86}
 
@@ -51,6 +53,7 @@ sed -e '/name="diffmark/d' \
     -i package.xml
 
 cd %{sources}
+%patch -P0 -p1
 
 # drop bundled library to ensure it is not used
 rm -rf diffmark
@@ -119,6 +122,11 @@ php -n run-tests.php -q --show-diff
 
 
 %changelog
+* Thu Sep 18 2025 Remi Collet <remi@remirepo.net> - 1.1.5-3
+- rebuild for https://fedoraproject.org/wiki/Changes/php85
+- add patch for PHP 8.5.0alpha2 from
+  https://github.com/php/pecl-xml-xmldiff/pull/6
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

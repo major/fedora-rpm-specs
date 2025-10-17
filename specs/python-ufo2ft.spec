@@ -1,6 +1,6 @@
 %global         srcname         ufo2ft
 %global         forgeurl        https://github.com/googlefonts/ufo2ft
-Version:        3.6.6
+Version:        3.6.8
 %global         tag             v%{version}
 %forgemeta
 
@@ -15,10 +15,8 @@ URL:            %forgeurl
 Source:         %{pypi_source %{srcname}}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(ufolib2)
 BuildRequires:  python3dist(defcon)
-BuildRequires:  python3dist(syrupy)
 BuildArch: noarch
 
 %global _description %{expand:
@@ -40,7 +38,7 @@ Summary:        %{summary}
 %autosetup -n %{srcname}-%{version} -p 1
 
 %generate_buildrequires
-%pyproject_buildrequires -x cffsubr,compreffor
+%pyproject_buildrequires -x cffsubr,compreffor,test
 
 
 %build
@@ -49,7 +47,7 @@ Summary:        %{summary}
 
 %install
 %pyproject_install
-%pyproject_save_files ufo2ft
+%pyproject_save_files -l ufo2ft
 
 %check
 # These require the “pathops” extra
@@ -68,8 +66,11 @@ k="${k-}${k+ and }not (test_kern_zyyy_zinh)"
 %doc README.rst
  
 %changelog
+* Wed Oct 15 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 3.6.8-1
+- Update to 3.6.8 (close RHBZ#2397679)
+
 * Fri Sep 19 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 3.6.5-1
-- Update to 3.6.5 (close RHBZ#2396951)
+- Update to 3.6.6 (close RHBZ#2396951)
 
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.6.4-3
 - Rebuilt for Python 3.14.0rc3 bytecode

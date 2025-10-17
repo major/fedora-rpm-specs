@@ -1,4 +1,4 @@
-%global upstream_version 3.1
+%global upstream_version 3.2
 
 Name:           ongres-scram
 Version:        %(echo %{upstream_version} | sed 's/-/~/g')

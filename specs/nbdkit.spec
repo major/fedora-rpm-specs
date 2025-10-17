@@ -55,7 +55,7 @@
 
 Name:           nbdkit
 Version:        1.45.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        NBD server
 
 License:        BSD-3-Clause
@@ -85,6 +85,10 @@ Source5:        nbdkit-find-provides
 Source6:        %{modulename}.te
 Source7:        %{modulename}.if
 Source8:        %{modulename}.fc
+
+# Crash with OCaml 5.4:
+# https://gitlab.com/nbdkit/nbdkit/-/merge_requests/112
+Patch:          https://gitlab.com/nbdkit/nbdkit/-/merge_requests/112.patch
 
 # For applying the patches:
 BuildRequires:  git
@@ -1556,6 +1560,9 @@ fi
 
 
 %changelog
+* Wed Oct 15 2025 Richard W.M. Jones <rjones@redhat.com> - 1.45.9-2
+- OCaml 5.4.0 rebuild
+
 * Fri Oct  3 2025 Richard W.M. Jones <rjones@redhat.com> - 1.45.9-1
 - New upstream version 1.45.9
 - Reenable the tests on all arches, since we can now handle missing qemu-img

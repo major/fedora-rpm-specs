@@ -80,6 +80,8 @@ Patch0: %{name}-remove_testflag.patch
 
 Patch1: %{name}-3.2.0-bz2254779.patch
 Patch3: %{name}-bug7907.patch
+# Relax eigen version check to build against eigen3-5.0.0
+Patch4: %{name}-eigen.patch
 
 
 %description
@@ -197,6 +199,7 @@ HTML documentation of OpenMS.
 %ifarch %{power64}
 %patch -P 3 -p1 -b .backup
 %endif
+%patch -P 4 -p1 -b .eigen
 
 # Remove invalid tags
 sed -e 's| <project_group></project_group>||g' -i share/OpenMS/DESKTOP/*.appdata.xml

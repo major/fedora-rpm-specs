@@ -134,7 +134,6 @@ autoreconf --force --install --verbose
 
 %install
 %make_install
-find '%{buildroot}' -type f -name '*.la' -print -delete
 
 install -D -p -m 0644 '%{SOURCE1}' '%{buildroot}%{_unitdir}/edac.service'
 rm -f '%{buildroot}%{_sysconfdir}/init.d/edac'

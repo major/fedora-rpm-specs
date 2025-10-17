@@ -1,7 +1,7 @@
 %global pypi_name emoji
 
 Name:           python-%{pypi_name}
-Version:        2.14.1
+Version:        2.15.0
 Release:        %autorelease
 Summary:        Emoji library for Python
 

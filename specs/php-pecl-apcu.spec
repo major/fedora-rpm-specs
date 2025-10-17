@@ -16,7 +16,7 @@
 Name:           php-pecl-apcu
 Summary:        APC User Cache
 Version:        5.1.27
-Release:        1%{?dist}
+Release:        2%{?dist}
 Source0:        https://pecl.php.net/get/%{sources}.tgz
 Source1:        %{pecl_name}.ini
 Source2:        %{pecl_name}-panel.conf
@@ -170,6 +170,9 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Wed Sep 17 2025 Remi Collet <remi@remirepo.net> - 5.1.27-2
+- rebuild for https://fedoraproject.org/wiki/Changes/php85
+
 * Fri Aug 29 2025 Remi Collet <remi@remirepo.net> - 5.1.27-1
 - update to 5.1.27
 

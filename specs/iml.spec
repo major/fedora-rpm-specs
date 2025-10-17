@@ -135,11 +135,9 @@ sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
 %install
 %make_install
 
-# Remove libtool library file
-find '%{buildroot}' -type f -name '*.la' -print -delete
 # This contains the files “liblink” and “libroutines”, which are actually
 # documentation and should be installed in a documentation directory.
-rm -vrf '%{buildroot}%{_datadir}/iml'
+rm -vr '%{buildroot}%{_datadir}/iml'
 
 
 %check

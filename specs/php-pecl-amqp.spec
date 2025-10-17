@@ -1,15 +1,18 @@
 # Fedora spec file for php-pecl-amqp
 #
-# Copyright (c) 2012-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2012-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
 
 %bcond_with         tests
-%global pecl_name   amqp
-%global ini_name    40-%{pecl_name}.ini
+
+%global pie_vend         php-amqp
+%global pie_proj         php-amqp
+%global pecl_name        amqp
+%global ini_name         40-%{pecl_name}.ini
 
 %global upstream_version 2.1.2
 #global upstream_prever  RC1
@@ -20,10 +23,12 @@
 Summary:       Communicate with any AMQP compliant server
 Name:          php-pecl-amqp
 Version:       %{upstream_version}%{?upstream_prever:~%{upstream_lower}}
-Release:       8%{?dist}
+Release:       9%{?dist}
 License:       PHP-3.01
 URL:           https://pecl.php.net/package/amqp
 Source0:       https://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}.tgz
+
+Patch0:        595.patch
 
 ExcludeArch:   %{ix86}
 
@@ -40,10 +45,12 @@ BuildRequires: hostname
 Requires:      php(zend-abi) = %{php_zend_api}
 Requires:      php(api) = %{php_core_api}
 
-Provides:      php-%{pecl_name}               = %{version}
-Provides:      php-%{pecl_name}%{?_isa}       = %{version}
-Provides:      php-pecl(%{pecl_name})         = %{version}
-Provides:      php-pecl(%{pecl_name})%{?_isa} = %{version}
+Provides:      php-%{pecl_name}                 = %{version}
+Provides:      php-%{pecl_name}%{?_isa}         = %{version}
+Provides:      php-pecl(%{pecl_name})           = %{version}
+Provides:      php-pecl(%{pecl_name})%{?_isa}   = %{version}
+Provides:      php-pecl(%{pecl_name})%{?_isa}   = %{version}
+Provides:      php-pie(%{pie_vend}/%{pie_proj}) = %{version}
 
 
 %description
@@ -62,6 +69,8 @@ sed -e 's/role="test"/role="src"/' \
     -i package.xml
 
 cd %{sources}
+%patch -P0 -p1 -b .pr595
+
 # Upstream often forget to change this
 extver=$(sed -n '/#define PHP_AMQP_VERSION /{s/.* "//;s/".*$//;p}' php_amqp_version.h)
 if test "x${extver}" != "x%{upstream_version}%{?upstream_prever}"; then
@@ -195,6 +204,13 @@ exit $ret
 
 
 %changelog
+* Wed Sep 17 2025 Remi Collet <remi@remirepo.net> - 2.1.2-9
+- rebuild for https://fedoraproject.org/wiki/Changes/php85
+- add patch for PHP 8.5.0alpha2 from
+  https://github.com/php-amqp/php-amqp/pull/595
+- re-license spec file to CECILL-2.1
+- add pie virtual provides
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

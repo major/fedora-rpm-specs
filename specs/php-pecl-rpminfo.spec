@@ -11,13 +11,15 @@
 #
 
 %global pecl_name  rpminfo
+%global pie_vend   remi
+%global pie_proj   rpminfo
 %global ini_name   40-%{pecl_name}.ini
 %global sources    %{pecl_name}-%{version}
 
 Summary:        RPM information
 Name:           php-pecl-%{pecl_name}
 Version:        1.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        PHP-3.01
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{sources}.tgz
@@ -34,13 +36,14 @@ Requires:       php(zend-abi) = %{php_zend_api}
 Requires:       php(api) = %{php_core_api}
 
 # Extension
-Provides:       php-%{pecl_name}               = %{version}
-Provides:       php-%{pecl_name}%{?_isa}       = %{version}
+Provides:       php-%{pecl_name}                 = %{version}
+Provides:       php-%{pecl_name}%{?_isa}         = %{version}
 # PECL
-Provides:       php-pecl(%{pecl_name})         = %{version}
-Provides:       php-pecl(%{pecl_name})%{?_isa} = %{version}
+Provides:       php-pecl(%{pecl_name})           = %{version}
+Provides:       php-pecl(%{pecl_name})%{?_isa}   = %{version}
 # PIE
-Provides:       php-pie(remi/%{pecl_name})     = %{version}
+Provides:       php-pie(%{pie_vend}/%{pie_proj}) = %{version}
+Provides:       php-%{pie_vend}-%{pie_proj}      = %{version}
 
 
 %description
@@ -126,6 +129,9 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}/%{php_extdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Wed Oct 08 2025 Remi Collet <remi@remirepo.net> - 1.2.1-2
+- rebuild for https://fedoraproject.org/wiki/Changes/php85
+
 * Thu Sep 25 2025 Remi Collet <remi@remirepo.net> - 1.2.1-1
 - update to 1.2.1
 

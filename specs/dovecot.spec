@@ -6,7 +6,7 @@ Name: dovecot
 Epoch: 1
 Version: 2.4.1
 %global prever -4
-Release: 6%{?dist}
+Release: 7%{?dist}
 #dovecot itself is MIT, a few sources are PD, pigeonhole is LGPLv2
 License: MIT AND LGPL-2.1-only
 
@@ -72,6 +72,7 @@ BuildRequires: lua-json
 BuildRequires: libicu-devel
 %if %{?rhel}0 == 0
 BuildRequires: libstemmer-devel
+BuildRequires: xapian-core-devel
 %endif
 BuildRequires: multilib-rpm-config
 BuildRequires: flex, bison
@@ -211,6 +212,7 @@ fi
     --with-icu                   \
 %if %{?rhel}0 == 0
     --with-libstemmer            \
+    --with-flatcurve             \
     --with-lua=plugin            \
 %else
     --without-libstemmer         \
@@ -477,6 +479,9 @@ make check
 %{_libdir}/%{name}/dict/libdriver_pgsql.so
 
 %changelog
+* Wed Oct 15 2025 Michal Hlavinka <mhlavink@redhat.com> - 1:2.4.1-7
+- enable fts flatcurve
+
 * Thu Oct 09 2025 Michal Hlavinka <mhlavink@redhat.com> - 1:2.4.1-6
 - fix CVE-2025-30189: users would end up overwriting each other in cache (rhbz#2402122)
 

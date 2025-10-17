@@ -1,15 +1,15 @@
 # spec file for php-pecl-fann
 #
-# Copyright (c) 2013-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/3.0/
+# SPDX-FileCopyrightText:  Copyright 2013-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
 
-%global with_zts         0%{?__ztsphp:1}
+%bcond_without           tests
+
 %global pecl_name        fann
-%global with_tests       0%{!?_without_tests:1}
 %global ini_name         40-%{pecl_name}.ini
 
 %global upstream_version 1.2.0
@@ -20,7 +20,7 @@
 Summary:        Wrapper for FANN Library
 Name:           php-pecl-%{pecl_name}
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        12%{?dist}
+Release:        13%{?dist}
 License:        PHP-3.01
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{sources}.tgz
@@ -66,11 +66,6 @@ if test "x${extver}" != "x%{upstream_version}%{?upstream_prever}"; then
 fi
 cd ..
 
-mkdir NTS
-%if %{with_zts}
-mkdir ZTS
-%endif
-
 # Create configuration file
 cat > %{ini_name} << 'EOF'
 ; Enable %{pecl_name} extension module
@@ -82,33 +77,19 @@ EOF
 cd %{sources}
 %{__phpize}
 
-cd ../NTS
 %configure \
     --with-php-config=%{__phpconfig}
 make %{?_smp_mflags}
 
-%if %{with_zts}
-cd ../ZTS
-%configure \
-    --with-php-config=%{__ztsphpconfig}
-make %{?_smp_mflags}
-%endif
-
 
 %install
-make -C NTS install INSTALL_ROOT=%{buildroot}
+make -C %{sources} install INSTALL_ROOT=%{buildroot}
 
 # install config file
 install -D -m 644 %{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
 
 # Install XML package description
 install -D -m 644 package.xml %{buildroot}%{pecl_xmldir}/%{name}.xml
-
-%if %{with_zts}
-make -C ZTS install INSTALL_ROOT=%{buildroot}
-
-install -D -m 644 %{ini_name} %{buildroot}%{php_ztsinidir}/%{ini_name}
-%endif
 
 # Documentation
 for i in $(grep 'role="doc"' package.xml | sed -e 's/^.*name="//;s/".*$//')
@@ -123,23 +104,10 @@ cd %{sources}
     --define extension=%{buildroot}%{php_extdir}/%{pecl_name}.so \
     --modules | grep '^%{pecl_name}$'
 
-%if %{with_tests}
+%if %{with tests}
 : Upstream test suite  for NTS extension
 TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
 %{__php} -n run-tests.php -q --show-diff %{?_smp_mflags}
-%endif
-
-%if %{with_zts}
-: Minimal load test for ZTS extension
-%{__ztsphp} --no-php-ini \
-    --define extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so \
-    --modules | grep '^%{pecl_name}$'
-
-%if %{with_tests}
-: Upstream test suite  for ZTS extension
-TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so" \
-%{__ztsphp} -n run-tests.php -q --show-diff %{?_smp_mflags}
-%endif
 %endif
 
 
@@ -151,13 +119,12 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so" \
 %config(noreplace) %{php_inidir}/%{ini_name}
 %{php_extdir}/%{pecl_name}.so
 
-%if %{with_zts}
-%config(noreplace) %{php_ztsinidir}/%{ini_name}
-%{php_ztsextdir}/%{pecl_name}.so
-%endif
-
 
 %changelog
+* Wed Sep 17 2025 Remi Collet <remi@remirepo.net> - 1.2.0-13
+- rebuild for https://fedoraproject.org/wiki/Changes/php85
+- re-license spec file to CECILL-2.1
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

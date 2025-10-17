@@ -6,7 +6,7 @@ ExcludeArch: %{ix86}
 
 Name:           haxe
 Version:        4.3.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Multi-target universal programming language
 
 # As described in https://haxe.org/foundation/open-source.html:
@@ -124,6 +124,9 @@ popd
 %{_datadir}/%{name}/
 
 %changelog
+* Wed Oct 15 2025 Richard W.M. Jones <rjones@redhat.com> - 4.3.7-2
+- OCaml 5.4.0 rebuild
+
 * Sun Sep 07 2025 Andy Li <andy@onthewings.net> - 4.3.7-1
 - New upstream version 4.3.7. (RHBZ#2365379)
 - Remove haxe-ocaml5.3.patch and haxe-ghpr11646-supportmbedtls3.patch

@@ -7,7 +7,7 @@
 
 %global goipath         github.com/osbuild/image-builder-cli
 
-Version:        38
+Version:        39
 
 %gometa
 
@@ -17,7 +17,7 @@ OSTree commits. Uses osbuild under the hood.
 }
 
 Name:           image-builder
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        An image building executable using osbuild
 ExcludeArch:    i686
 
@@ -128,8 +128,8 @@ Provides: bundled(golang(github.com/opencontainers/go-digest)) = 1.0.0
 Provides: bundled(golang(github.com/opencontainers/image-spec)) = 1.1.1
 Provides: bundled(golang(github.com/opencontainers/runtime-spec)) = 1.2.1
 Provides: bundled(golang(github.com/opencontainers/selinux)) = 1.12.0
-Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.13.0
-Provides: bundled(golang(github.com/osbuild/images)) = 0.202.0
+Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.16.0
+Provides: bundled(golang(github.com/osbuild/images)) = 0.206.0
 Provides: bundled(golang(github.com/pkg/errors)) = 0.9.1
 Provides: bundled(golang(github.com/pmezard/go-difflib)) = 5d4384e
 Provides: bundled(golang(github.com/proglottis/gpgme)) = 0.1.4
@@ -241,6 +241,23 @@ cd $PWD/_build/src/%{goipath}
 %{_bindir}/image-builder
 
 %changelog
+* Wed Oct 15 2025 Packit <hello@packit.dev> - 39-1
+Changes with 39
+----------------
+  - ci: consistent triggers for spec check (#346)
+    - Author: Simon de Vlieger, Reviewers: Ondřej Budai, Tomáš Hozza
+  - ci: split apart test cases (#331)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Michael Vogt
+  - cmd/image-builder: adjust code to unified rpmmd.Package struct (HMS-9457) (#334)
+    - Author: Tomáš Hozza, Reviewers: Brian C. Lane, Simon de Vlieger
+  - deps: update images and blueprint (#345)
+    - Author: Simon de Vlieger, Reviewers: Florian Schüller, Tomáš Hozza
+  - main: add osbuild version to version command (#332)
+    - Author: Lukáš Zapletal, Reviewers: Michael Vogt, Tomáš Hozza
+
+— Somewhere on the Internet, 2025-10-15
+
+
 * Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 38-2
 - rebuild
 

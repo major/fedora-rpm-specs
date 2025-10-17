@@ -224,7 +224,6 @@ sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
 
 %install
 %make_install
-find '%{buildroot}' -type f -name '*.la' -print -delete
 
 install -t '%{buildroot}%{_mandir}/man1' -D -m 0644 -p \
     '%{SOURCE1}' '%{SOURCE2}'

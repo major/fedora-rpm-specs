@@ -22,7 +22,7 @@
 Summary:        Resource and persistent handles factory
 Name:           php-pecl-%{pecl_name}
 Version:        2.0.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        BSD-2-Clause
 URL:            http://pecl.php.net/package/%{pecl_name}
 Source0:        http://pecl.php.net/get/%{sources}.tgz
@@ -153,6 +153,9 @@ REPORT_EXIT_STATUS=1 \
 
 
 %changelog
+* Wed Sep 17 2025 Remi Collet <remi@remirepo.net> - 2.0.2-2
+- rebuild for https://fedoraproject.org/wiki/Changes/php85
+
 * Fri Aug 29 2025 Remi Collet <remi@remirepo.net> - 2.0.2-1
 - update to 2.0.2
 - re-license spec file to CECILL-2.1

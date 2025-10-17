@@ -9,7 +9,7 @@
 
 # Not (yet) in EPEL10:
 # mingw{32,64}-{expat,libcharset,minizip}
-%bcond mingw %{expr:!0%{?el10}}
+%bcond mingw %{undefined el10}
 
 Name:           freexl
 Version:        2.0.0
@@ -64,7 +64,6 @@ BuildRequires:  mingw64-libcharset
 BuildRequires:  mingw64-minizip
 BuildRequires:  mingw64-win-iconv
 %endif
-
 
 %description
 FreeXL is a library to extract valid data from within spreadsheets.
@@ -184,9 +183,6 @@ popd
 %mingw_debug_install_post
 %endif
 
-# Delete undesired libtool archives
-find '%{buildroot}' -type f -name '*.la' -print -delete
-
 
 %check
 %make_build -C build_native check
@@ -196,10 +192,12 @@ find '%{buildroot}' -type f -name '*.la' -print -delete
 %license COPYING
 %{_libdir}/libfreexl.so.%{so_version}{,.*}
 
+
 %files devel
 %{_includedir}/freexl.h
 %{_libdir}/libfreexl.so
 %{_libdir}/pkgconfig/freexl.pc
+
 
 %files doc
 %license COPYING
@@ -210,6 +208,7 @@ find '%{buildroot}' -type f -name '*.la' -print -delete
 %doc build_native/latex/FreeXL.pdf
 %endif
 
+
 %if %{with mingw}
 %files -n mingw32-%{name}
 %license COPYING
@@ -217,6 +216,7 @@ find '%{buildroot}' -type f -name '*.la' -print -delete
 %{mingw32_includedir}/freexl.h
 %{mingw32_libdir}/libfreexl.dll.a
 %{mingw32_libdir}/pkgconfig/freexl.pc
+
 
 %files -n mingw64-%{name}
 %license COPYING

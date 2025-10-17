@@ -1,6 +1,6 @@
 Name:           graphene
 Version:        1.10.8
-Release:        2%{?dist}
+Release:        %autorelease
 Summary:        Thin layer of types for graphic libraries
 
 License:        MIT
@@ -75,7 +75,4 @@ the functionality of the installed %{name} package.
 %{_datadir}/installed-tests/
 
 %changelog
-* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.8-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
 %autochangelog

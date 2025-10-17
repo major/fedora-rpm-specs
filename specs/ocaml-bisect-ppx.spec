@@ -23,6 +23,10 @@ Source:         %{giturl}/archive/%{version}/bisect_ppx-%{version}.tar.gz
 # Support ppxlib 0.36.0
 Patch:          %{giturl}/pull/448.patch
 
+# Support cmdliner 2.0
+# https://github.com/aantron/bisect_ppx/commit/2d8dffbbfc0c431a37319d4d9a143836c9ec542e
+Patch:          %{giturl}/commit/2d8dffbbfc0c431a37319d4d9a143836c9ec542e.patch
+
 BuildRequires:  git-core
 BuildRequires:  ocaml >= 4.03.0
 BuildRequires:  ocaml-cmdliner-devel >= 1.0.0

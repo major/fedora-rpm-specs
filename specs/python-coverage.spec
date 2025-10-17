@@ -4,8 +4,8 @@
 
 Name:           python-coverage
 Summary:        Code coverage testing module for Python
-Version:        7.10.2
-Release:        3%{?dist}
+Version:        7.11.0
+Release:        1%{?dist}
 # There is a jquery file in tests/ that is MIT OR GPL-2.0-only
 # but it does not end up in the binary package
 License:        Apache-2.0
@@ -14,12 +14,12 @@ Source0:        https://pypi.python.org/packages/source/c/coverage/coverage-%{ve
 BuildRequires:  gcc
 
 %description
-Coverage.py is a Python module that measures code coverage during Python 
-execution. It uses the code analysis tools and tracing hooks provided in the 
-Python standard library to determine which lines are executable, and which 
+Coverage.py is a Python module that measures code coverage during Python
+execution. It uses the code analysis tools and tracing hooks provided in the
+Python standard library to determine which lines are executable, and which
 have been executed.
 
-%{?python_extras_subpkg:%python_extras_subpkg -n python%{python3_pkgversion}-coverage -i %{python3_sitearch}/coverage*.egg-info toml}
+%{?pyproject_extras_subpkg:%pyproject_extras_subpkg -n python%%{python3_pkgversion}-coverage toml}
 
 %if %{py2support}
 
@@ -39,8 +39,8 @@ Provides:       bundled(js-jquery-tablesorter)
 
 %description -n python2-coverage
 Coverage.py is a Python 2 module that measures code coverage during Python
-execution. It uses the code analysis tools and tracing hooks provided in the 
-Python standard library to determine which lines are executable, and which 
+execution. It uses the code analysis tools and tracing hooks provided in the
+Python standard library to determine which lines are executable, and which
 have been executed.
 
 %endif
@@ -49,6 +49,7 @@ have been executed.
 Summary:        Code coverage testing module for Python 3
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
+BuildRequires:  pyproject-rpm-macros
 # As the "coverage" executable requires the setuptools at runtime (#556290),
 # so the "python3-coverage" executable requires python3-setuptools:
 Requires:       python%{python3_pkgversion}-setuptools
@@ -62,9 +63,12 @@ Conflicts:      python2-coverage < 4.5.4-2
 
 %description -n python%{python3_pkgversion}-coverage
 Coverage.py is a Python 3 module that measures code coverage during Python
-execution. It uses the code analysis tools and tracing hooks provided in the 
-Python standard library to determine which lines are executable, and which 
+execution. It uses the code analysis tools and tracing hooks provided in the
+Python standard library to determine which lines are executable, and which
 have been executed.
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %prep
 %setup -q -n coverage-%{version}%{?prever}
@@ -76,7 +80,7 @@ sed -i 's/\r//g' README.rst
 %if %{py2support}
 %py2_build
 %endif
-%py3_build
+%pyproject_wheel
 
 %install
 %if %{py2support}
@@ -84,7 +88,7 @@ sed -i 's/\r//g' README.rst
 rm %{buildroot}/%{_bindir}/coverage
 %endif
 
-%py3_install
+%pyproject_install
 rm %{buildroot}/%{_bindir}/coverage
 
 # make compat symlinks
@@ -113,9 +117,13 @@ popd
 %{_bindir}/coverage3
 %{_bindir}/coverage-3*
 %{python3_sitearch}/coverage/
-%{python3_sitearch}/coverage*.egg-info/
+# %%{python3_sitearch}/coverage*.egg-info/
 
 %changelog
+* Wed Oct 15 2025 Tom Callaway <spot@fedoraproject.org> - 7.11.0-1
+- update to 7.11.0
+- update macros
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 7.10.2-3
 - Rebuilt for Python 3.14.0rc3 bytecode
 

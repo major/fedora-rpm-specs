@@ -48,7 +48,7 @@
 
 Summary:        JDBC driver for PostgreSQL
 Name:           postgresql-jdbc
-Version:        42.7.7
+Version:        42.7.8
 Release:        %autorelease
 License:        BSD-2-Clause
 URL:            https://jdbc.postgresql.org/
@@ -56,8 +56,6 @@ Source0:        https://repo1.maven.org/maven2/org/postgresql/postgresql/%{versi
 Source1:        postgresql_jdbc_tests_init.sh
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
-
-Patch:          0001-Port-to-junit-5.13.patch
 
 Provides:       pgjdbc = %{version}-%{release}
 
@@ -94,9 +92,6 @@ This package contains tests for %{name}.
 
 # remove any binary libs
 find -type f \( -name "*.jar" -or -name "*.class" \) -delete
-
-%pom_remove_dep junit:junit
-%pom_remove_dep org.junit.vintage:junit-vintage-engine
 
 # Build parent POMs in the same Maven call.
 %pom_remove_plugin :maven-shade-plugin

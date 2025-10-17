@@ -193,7 +193,7 @@ BuildRequires:  boost-devel
 BuildRequires:  gsl-devel
 # - [Eigen3](http://eigen.tuxfamily.org/), a C++ template library required by
 #   by the Lischinski tone mapping operator.
-BuildRequires:  pkgconfig(eigen3)
+BuildRequires:  (pkgconfig(eigen3) with eigen3-static)
 
 BuildRequires:  librtprocess-devel
 

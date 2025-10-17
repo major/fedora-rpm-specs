@@ -10,6 +10,8 @@
 # Please, preserve the changelog entries
 #
 %global pecl_name  ip2location
+%global pie_vend   ip2location
+%global pie_proj   ip2location-pie
 %global ini_name   40-%{pecl_name}.ini
 %global sources    %{pecl_name}-%{upstream_version}%{?upstream_prever}
 
@@ -22,7 +24,7 @@ Summary:        Get geo location information of an IP address
 Name:           php-pecl-%{pecl_name}
 License:        PHP-3.01
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{sources}.tgz
 
@@ -41,10 +43,12 @@ Requires:       IP2Location-libs%{?_isa} >= %{libversion}
 Requires:       php(zend-abi) = %{php_zend_api}
 Requires:       php(api) = %{php_core_api}
 
-Provides:       php-%{pecl_name}                = %{version}
-Provides:       php-%{pecl_name}%{?_isa}        = %{version}
-Provides:       php-pecl(%{pecl_name})          = %{version}
-Provides:       php-pecl(%{pecl_name})%{?_isa}  = %{version}
+Provides:       php-%{pecl_name}                 = %{version}
+Provides:       php-%{pecl_name}%{?_isa}         = %{version}
+Provides:       php-pecl(%{pecl_name})           = %{version}
+Provides:       php-pecl(%{pecl_name})%{?_isa}   = %{version}
+Provides:       php-pie(%{pie_vend}/%{pie_proj}) = %{version}
+Provides:       php-%{pie_vend}-%{pie_proj}      = %{version}
 
 
 %description
@@ -129,6 +133,10 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Wed Sep 17 2025 Remi Collet <remi@remirepo.net> - 8.3.0-2
+- rebuild for https://fedoraproject.org/wiki/Changes/php85
+- add pie virtual provides
+
 * Wed Sep  3 2025 Remi Collet <remi@remirepo.net> - 8.3.0-1
 - update to 8.3.0
 - re-license spec file to CECILL-2.1

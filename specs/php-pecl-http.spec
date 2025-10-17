@@ -10,6 +10,8 @@
 # The project is pecl_http but the extension is only http
 %global proj_name pecl_http
 %global pecl_name http
+%global pie_vend  m6w6
+%global pie_proj  ext-http
 # after 20-iconv 40-raphf
 %global ini_name  50-%{pecl_name}.ini
 
@@ -20,13 +22,13 @@
 %bcond_without tests
 %endif
 
-%global upstream_version 4.2.6
+%global upstream_version 4.3.1
 #global upstream_prever  RC1
 %global sources          %{proj_name}-%{upstream_version}%{?upstream_prever}
 
 Name:           php-pecl-http
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        5%{?dist}
+Release:        1%{?dist}
 Summary:        Extended HTTP support
 
 License:        BSD-2-Clause
@@ -35,8 +37,6 @@ Source0:        https://pecl.php.net/get/%{sources}.tgz
 
 # From http://www.php.net/manual/en/http.configuration.php
 Source1:        %{proj_name}.ini
-
-Patch0:         0001-fix-incompatible-pointer-type.patch
 
 ExcludeArch:    %{ix86}
 
@@ -66,12 +66,14 @@ Obsoletes:      php-pecl-http1 < 2
 # to allow migration from PHP 7 (last is 2.1.0)
 Obsoletes:      php-pecl-propro < 2.2
 
-Provides:       php-pecl(%{proj_name})         = %{version}
-Provides:       php-pecl(%{proj_name})%{?_isa} = %{version}
-Provides:       php-pecl(%{pecl_name})         = %{version}
-Provides:       php-pecl(%{pecl_name})%{?_isa} = %{version}
-Provides:       php-%{pecl_name}               = %{version}
-Provides:       php-%{pecl_name}%{?_isa}       = %{version}
+Provides:       php-pecl(%{proj_name})           = %{version}
+Provides:       php-pecl(%{proj_name})%{?_isa}   = %{version}
+Provides:       php-pecl(%{pecl_name})           = %{version}
+Provides:       php-pecl(%{pecl_name})%{?_isa}   = %{version}
+Provides:       php-%{pecl_name}                 = %{version}
+Provides:       php-%{pecl_name}%{?_isa}         = %{version}
+Provides:       php-pie(%{pie_vend}/%{pie_proj}) = %{version}
+Provides:       php-%{pie_vend}-%{pie_proj}      = %{version}
 
 
 %description
@@ -107,8 +109,6 @@ These are the files needed to compile programs using HTTP extension.
 sed -e '/LICENSE/s/role="doc"/role="src"/' -i package.xml
 
 cd %{sources}
-%patch -P0 -p1
-
 extver=$(sed -n '/#define PHP_PECL_HTTP_VERSION/{s/.* "//;s/".*$//;p}' php_http.h)
 if test "x${extver}" != "x%{upstream_version}%{?upstream_prever}%{?gh_date:dev}"; then
    : Error: Upstream HTTP version is now ${extver}, expecting %{upstream_version}%{?upstream_prever}%{?gh_date:dev}.
@@ -211,6 +211,10 @@ TEST_PHP_ARGS="-n $modules -d extension=$PWD/modules/%{pecl_name}.so" \
 
 
 %changelog
+* Fri Oct 10 2025 Remi Collet <remi@remirepo.net> - 4.3.1-1
+- update to 4.3.1
+- add pie virtual provides
+
 * Wed Aug 06 2025 František Zatloukal <fzatlouk@redhat.com> - 4.2.6-5
 - Rebuilt for icu 77.1
 

@@ -1,7 +1,7 @@
 %bcond tests 1
 
 Name:           hatch
-Version:        1.14.2
+Version:        1.15.0
 Release:        %autorelease
 Summary:        A modern project, package, and virtual env manager
 
@@ -163,7 +163,7 @@ k="${k-}${k+ and }not (TestCustomScripts and test_single)"
 # Since we cannot use %%ifarch in a noarch package, we skip tests that fail on
 # *any* architecture, even if we happen to be building on an architecture where
 # they pass. The largest set of failing distributions are, for ppc64le/s390x:
-missing_dists='3.7 3.8 pypy2.7 pypy3.9 pypy3.10'
+missing_dists='3.7 3.8 pypy2.7 pypy3.9 pypy3.10 pypy3.11'
 # For aarch64, missing_dists='3.7', and for x86_64, missing_dists=''.
 for param in ${missing_dists}
 do

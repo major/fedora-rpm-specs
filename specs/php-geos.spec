@@ -3,27 +3,23 @@
 #
 # remirepo spec file for php-geos
 #
-# Copyright (c) 2016-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2016-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
 
 %bcond_without tests
 
-# we don't want -z defs linker flag
-%undefine _strict_symbol_defs_build
-
 %global pecl_name  geos
-%global with_zts   0%{!?_without_zts:%{?__ztsphp:1}}
 %global ini_name   40-%{pecl_name}.ini
 %global sources    %{name}
 %global _configure ../%{sources}/configure
 
 Name:           php-%{pecl_name}
 Version:        1.0.0
-Release:        36%{?dist}
+Release:        37%{?dist}
 
 Summary:        PHP module for GEOS
 
@@ -44,6 +40,8 @@ Patch3:         0004-fix-all-zend_parse_parameters-call-to-use-zend_long.patch
 Patch5:         0006-fix-__toString-with-8.2.patch
 # https://git.osgeo.org/gitea/geos/php-geos/issues/32
 Patch6:         0001-Fix-incompatible-pointer-types.patch
+# https://git.osgeo.org/gitea/geos/php-geos/issues/35
+Patch7:         0001-use-zend_ce_exception-instead-of-zend_exception_get_.patch
 
 ExcludeArch:    %{ix86}
 
@@ -76,6 +74,7 @@ cd %{sources}
 %patch -P4 -p1 -b .arg
 %patch -P5 -p1 -b .php82
 %patch -P6 -p1 -b .pointers
+%patch -P7 -p1 -b .php85
 
 sed -e '/PHP_GEOS_VERSION/s/"0.0"/"%{version}%{?prever}"/' -i php_geos.h
 
@@ -92,37 +91,20 @@ cat  << 'EOF' | tee %{ini_name}
 extension=%{pecl_name}.so
 EOF
 
-mkdir NTS
-%if %{with_zts}
-mkdir ZTS
-%endif
-
 
 %build
 cd %{sources}
 %{__phpize}
 
-cd ../NTS
 %configure --with-php-config=%{__phpconfig}
 make %{?_smp_mflags}
 
-%if %{with_zts}
-cd ../ZTS
-%configure --with-php-config=%{__ztsphpconfig}
-make %{?_smp_mflags}
-%endif
-
 
 %install
-make -C NTS install INSTALL_ROOT=%{buildroot}
+make -C %{sources} install INSTALL_ROOT=%{buildroot}
 
 # install configuration
 install -Dpm 644 %{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
-
-%if %{with_zts}
-make -C ZTS install INSTALL_ROOT=%{buildroot}
-install -Dpm 644 %{ini_name} %{buildroot}%{php_ztsinidir}/%{ini_name}
-%endif
 
 
 %check
@@ -130,13 +112,6 @@ install -Dpm 644 %{ini_name} %{buildroot}%{php_ztsinidir}/%{ini_name}
 %{__php} --no-php-ini \
     --define extension=%{buildroot}%{php_extdir}/%{pecl_name}.so \
     --modules | grep '^%{pecl_name}$'
-
-%if %{with_zts}
-: Minimal load test for NTS extension
-%{__ztsphp} --no-php-ini \
-    --define extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so \
-    --modules | grep '^%{pecl_name}$'
-%endif
 
 %if %{with tests}
 cd %{sources}
@@ -165,14 +140,6 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
 REPORT_EXIT_STATUS=1 \
 %{__php} -n run-tests.php -q --show-diff || ret=1
 
-%if %{with_zts}
-: Upstream test suite for ZTS extension
-TEST_PHP_EXECUTABLE=%{__ztsphp} \
-TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so" \
-REPORT_EXIT_STATUS=1 \
-%{__ztsphp} -n run-tests.php -q --show-diff || ret=1
-%endif
-
 exit $ret
 %endif
 
@@ -184,13 +151,13 @@ exit $ret
 %config(noreplace) %{php_inidir}/%{ini_name}
 %{php_extdir}/%{pecl_name}.so
 
-%if %{with_zts}
-%config(noreplace) %{php_ztsinidir}/%{ini_name}
-%{php_ztsextdir}/%{pecl_name}.so
-%endif
-
 
 %changelog
+* Wed Sep 17 2025 Remi Collet <remi@remirepo.net> - 1.0.0-37
+- rebuild for https://fedoraproject.org/wiki/Changes/php85
+- fix build with PHP 8.5.0alpha2
+- re-license spec file to CECILL-2.1
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

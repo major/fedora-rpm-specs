@@ -1,16 +1,12 @@
 # remirepo/fedora spec file for php-pecl-rrd
 #
-# Copyright (c) 2011-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2011-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
 
-# we don't want -z defs linker flag
-%undefine _strict_symbol_defs_build
-
-%global with_zts   0%{?__ztsphp:1}
 %global pecl_name  rrd
 %global ini_name   40-%{pecl_name}.ini
 %global sources    %{pecl_name}-%{version}
@@ -19,13 +15,14 @@
 Summary:      PHP Bindings for rrdtool
 Name:         php-pecl-rrd
 Version:      2.0.3
-Release:      18%{?dist}
+Release:      19%{?dist}
 License:      BSD-2-Clause
 URL:          https://pecl.php.net/package/rrd
 
 Source0:      https://pecl.php.net/get/%{sources}.tgz
 
 Patch0:       %{pecl_name}-build.patch
+Patch1:       %{pecl_name}-php85.patch
 
 ExcludeArch:   %{ix86}
 
@@ -61,6 +58,7 @@ sed -e 's/role="test"/role="src"/' \
 
 cd %{sources}
 %patch -P0 -p1
+%patch -P1 -p1
 
 # Sanity check, really often broken
 extver=$(sed -n '/#define PHP_RRD_VERSION/{s/.* "//;s/".*$//;p}' php_rrd.h)
@@ -75,11 +73,6 @@ cat > %{ini_name} << 'EOF'
 extension=%{pecl_name}.so
 EOF
 
-mkdir NTS
-%if %{with_zts}
-mkdir ZTS
-%endif
-
 
 %build
 # See https://bugzilla.redhat.com/2264827
@@ -89,30 +82,18 @@ export CFLAGS="%{optflags} -Wno-incompatible-pointer-types"
 cd %{sources}
 %{__phpize}
 
-cd ../NTS
 %configure --with-php-config=%{__phpconfig}
 make %{?_smp_mflags}
 
-%if %{with_zts}
-cd ../ZTS
-%configure --with-php-config=%{__ztsphpconfig}
-make %{?_smp_mflags}
-%endif
-
 
 %install
-make install -C NTS INSTALL_ROOT=%{buildroot}
+make install -C %{sources} INSTALL_ROOT=%{buildroot}
 
 # Drop in the bit of configuration
 install -D -m 644 %{ini_name} %{buildroot}%{php_inidir}/%{ini_name}
 
 # Install XML package description
 install -D -m 644 package.xml %{buildroot}%{pecl_xmldir}/%{name}.xml
-
-%if %{with_zts}
-make install -C ZTS INSTALL_ROOT=%{buildroot}
-install -D -m 644 %{ini_name} %{buildroot}%{php_ztsinidir}/%{ini_name}
-%endif
 
 # Test & Documentation
 for i in $(grep 'role="doc"' package.xml | sed -e 's/^.*name="//;s/".*$//')
@@ -121,12 +102,6 @@ done
 
 
 %check
-%if %{with_zts}
-%{__ztsphp} --no-php-ini \
-    --define extension=%{buildroot}%{php_ztsextdir}/%{pecl_name}.so \
-    --modules | grep '^%{pecl_name}$'
-%endif
-
 %{__php} --no-php-ini \
     --define extension=%{buildroot}%{php_extdir}/%{pecl_name}.so \
     --modules | grep '^%{pecl_name}$'
@@ -146,8 +121,6 @@ then
   rm tests/rrd_{012,017}.phpt
 fi
 
-cp ../NTS/tests/data/Makefile   tests/data
-cp ../NTS/tests/rrdtool-bin.inc tests
 make -C tests/data clean
 make -C tests/data all
 
@@ -166,13 +139,12 @@ REPORT_EXIT_STATUS=1 \
 %config(noreplace) %{php_inidir}/%{ini_name}
 %{php_extdir}/%{pecl_name}.so
 
-%if %{with_zts}
-%config(noreplace) %{php_ztsinidir}/%{ini_name}
-%{php_ztsextdir}/%{pecl_name}.so
-%endif
-
 
 %changelog
+* Wed Sep 17 2025 Remi Collet <remi@remirepo.net> - 2.0.3-19
+- rebuild for https://fedoraproject.org/wiki/Changes/php85
+- re-license spec file to CECILL-2.1
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

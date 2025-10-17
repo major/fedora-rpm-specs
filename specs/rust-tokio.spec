@@ -5,7 +5,7 @@
 %global crate tokio
 
 Name:           rust-tokio
-Version:        1.47.1
+Version:        1.48.0
 Release:        %autorelease
 Summary:        Event-driven, non-blocking I/O platform
 
@@ -16,6 +16,7 @@ Source:         %{crates_source}
 Patch:          tokio-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * drop tests that can only be compiled in-workspace
+# * drop unstable features (io-uring, taskdump)
 # * relax mockall dev-dependency from ^0.13 to >=0.11,<0.14
 Patch:          tokio-fix-metadata.diff
 # * skip one doctest that pulls in an additional dev-dependency

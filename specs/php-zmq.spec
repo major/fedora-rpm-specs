@@ -14,7 +14,7 @@
 Summary:        ZeroMQ messaging
 Name:           php-%{pecl_name}
 Version:        1.1.3
-Release:        35%{?dist}
+Release:        36%{?dist}
 License:        BSD-3-Clause
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{version}.tgz
@@ -23,6 +23,7 @@ Patch0:         https://patch-diff.githubusercontent.com/raw/zeromq/php-zmq/pull
 Patch1:         https://patch-diff.githubusercontent.com/raw/zeromq/php-zmq/pull/222.patch
 Patch2:         https://patch-diff.githubusercontent.com/raw/zeromq/php-zmq/pull/228.patch
 Patch3:         https://patch-diff.githubusercontent.com/raw/zeromq/php-zmq/pull/238.patch
+Patch4:         https://patch-diff.githubusercontent.com/raw/zeromq/php-zmq/pull/240.patch
 
 ExcludeArch:    %{ix86}
 
@@ -60,6 +61,7 @@ cd NTS
 %patch -P1 -p1 -b .pr222
 %patch -P2 -p1 -b .pr228
 %patch -P3 -p1 -b .pr238
+%patch -P4 -p1 -b .pr240
 cd ..
 
 # Create configuration file
@@ -123,6 +125,11 @@ export TEST_PHP_ARGS="-n -d extension_dir=$PWD/modules -d extension=%{pecl_name}
 
 
 %changelog
+* Wed Sep 17 2025 Remi Collet <remi@remirepo.net> - 1.1.3-36
+- rebuild for https://fedoraproject.org/wiki/Changes/php85
+- fix build with PHP 8.5.0alpha2 using patch from
+  https://github.com/zeromq/php-zmq/pull/240
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -2,7 +2,7 @@ Name:           pystring
 Version:        1.1.4
 
 %global forgeurl https://github.com/imageworks/%{name}
-%global commit e2c8d8f5a1cac71f32726fa0ea137893e8e2ba24
+%global commit a09708a4870db7862e1a1aa42658c8e6e36547e7
 
 %forgemeta
 
@@ -58,7 +58,7 @@ for %{name}.
 %{_libdir}/lib%{name}.so.1*
 
 %files devel
-%{_includedir}/%{name}.h
+%{_includedir}/%{name}/%{name}.h
 %{_libdir}/lib%{name}.so
 %{_libdir}/pkgconfig/%{name}.pc
 

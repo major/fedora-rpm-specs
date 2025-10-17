@@ -4,7 +4,7 @@
 %global forgeurl https://github.com/pytorch/pytorch
 
 # So pre releases can be tried
-%bcond_without gitcommit
+%bcond_with gitcommit
 %if %{with gitcommit}
 # v2.9.0-rc9
 %global commit0 0fabc3ba44823f257e70ce397d989c8de5e362c1
@@ -16,7 +16,7 @@
 %global pybind11_version 2.13.6
 %global rc_tag -rc9
 %else
-%global pypi_version 2.8.0
+%global pypi_version 2.9.0
 %global flatbuffers_version 24.12.23
 %global miniz_version 3.0.2
 %global pybind11_version 2.13.6
@@ -109,14 +109,6 @@ Source80:       https://github.com/pytorch/kineto/archive/%{ki_commit}/kineto-%{
 Source90:       https://github.com/onnx/onnx/archive/refs/tags/v%{ox_ver}.tar.gz
 %endif
 
-%if %{with gitcommit}
-%else
-# https://github.com/pytorch/pytorch/issues/150187
-Patch11:       0001-Add-cmake-variable-USE_ROCM_CK.patch
-# https://github.com/pytorch/pytorch/issues/156595
-Patch12:       0001-Fix-compilation-and-import-torch-issues-for-cpython-.patch
-%endif
-
 %if 0%{?fedora} >= 45
 # drop aarch64 in 45
 %global pt_arches x86_64
@@ -141,9 +133,7 @@ BuildRequires:  gloo-devel
 BuildRequires:  json-devel
 
 BuildRequires:  libomp-devel
-%if %{with gitcommit}
 BuildRequires:  moodycamel-concurrentqueue-devel
-%endif
 BuildRequires:  numactl-devel
 BuildRequires:  ninja-build
 %if %{with onnx}
@@ -514,12 +504,8 @@ sed -i -e 's@HIP 1.0@HIP MODULE@'            cmake/public/LoadHIP.cmake
 
 %endif
 
-%if %{with gitcommit}
 # moodycamel include path needs adjusting to use the system's
 sed -i -e 's@${PROJECT_SOURCE_DIR}/third_party/concurrentqueue@/usr/include/concurrentqueue@' cmake/Dependencies.cmake
-
-
-%endif
 
 %build
 
@@ -637,13 +623,9 @@ export BUILD_TEST=ON
 %if %{with rocm}
 
 export USE_ROCM=ON
-%if %{with gitcommit}
 export USE_ROCM_CK_SDPA=OFF
 export USE_ROCM_CK_GEMM=OFF
 export USE_FBGEMM_GENAI=OFF
-%else
-export USE_ROCM_CK=OFF
-%endif
 
 # Magma is broken on ROCm 7
 # export USE_MAGMA=ON
@@ -703,9 +685,6 @@ export PYTORCH_ROCM_ARCH=%{rocm_gpu_list_default}
 %license LICENSE
 %doc README.md 
 %{_bindir}/torchrun
-%if %{without gitcommit}
-%{_bindir}/torchfrtrace
-%endif
 %{python3_sitearch}/%{pypi_name}*
 %{python3_sitearch}/functorch
 

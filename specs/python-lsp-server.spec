@@ -1,19 +1,10 @@
-%global short_name lsp-server
-
-%global _description %{expand:
-A python implementation of language server protocol. pylsp provides for 
-auto-completion, code linting (via pycodestyle and pyflakes) and other features.
-
-This package provides the python-language-server package maintained by 
-spyder-IDE maintainers.
-}
-
-Name:           python-%{short_name}
-Version:        1.12.2
+Name:           python-lsp-server
+Version:        1.13.1
 Release:        %autorelease
 Summary:        Python implementation of language server protocol
 
 %global forgeurl https://github.com/python-lsp/python-lsp-server
+%global tag v%{version}
 %forgemeta
 
 # SPDX
@@ -23,44 +14,53 @@ Source:         %{forgesource}
 
 BuildArch:      noarch
 
-BuildRequires:  python3-devel, git-core
-BuildRequires:  pyproject-rpm-macros
+BuildRequires:  python3-devel
+BuildRequires:  tomcli
+
+%global _description %{expand:
+A python implementation of language server protocol. pylsp provides for
+auto-completion, code linting (via pycodestyle and pyflakes) and other
+features.
+
+This package provides the python-language-server package maintained by
+spyder-IDE maintainers.}
 
 %description %_description
 
-%package -n     python3-%{short_name}
+%package -n     python3-lsp-server
 Summary:        %{summary}
 
 Provides:       pylsp = %{version}-%{release}
 
 
-%description -n python3-%{short_name} %_description
+%description -n python3-lsp-server %_description
 
 
-%pyproject_extras_subpkg -n python3-%{short_name} all
+%pyproject_extras_subpkg -n python3-lsp-server all
 
 
 %prep
-%forgeautosetup -p1 -S git
-# Remove version pinning from linters
-# Do this inline instead of a patch for automatic updates using Packit
-sed -r -i \
--e 's/(flake8)>.*"/\1"/g' \
--e '/pycodestyle>.*/d' \
--e '/pyflakes>.*/d' \
--e '/pylint>.*/d' pyproject.toml
+%forgeautosetup -p1
+# Remove version pinning from linters.
+# Do this inline instead of a patch for automatic updates using Packit.
+tomcli set pyproject.toml arrays replace \
+    project.dependencies '(.+)>=+[0-9.]+.*' '\1'
+tomcli set pyproject.toml arrays replace \
+    project.optional-dependencies.all '(.+)>=+[0-9.]+.*' '\1'
 
-# Unpin `autopep8`. Version 2.1.0 is coming to rawhide.
-sed -r -i 's/(autopep8)>.*"/\1"/g' pyproject.toml
-
-git add pyproject.toml
-git commit -m '[Fedora] Remove version pinning where needed'
-git tag v%{version}
+# Remove linters from test extra and pytest options
+tomcli set pyproject.toml arrays delitem --type fnmatch \
+    project.optional-dependencies.test '*cov*'
+tomcli set pyproject.toml arrays delitem --type fnmatch \
+    project.optional-dependencies.test '*lint*'
+tomcli set pyproject.toml del tool.pytest.ini_options.addopts
 
 %generate_buildrequires
+export SETUPTOOLS_SCM_PRETEND_VERSION="%{version}"
 %pyproject_buildrequires -x test,all
 
 %build
+export SETUPTOOLS_SCM_PRETEND_VERSION="%{version}"
 %pyproject_wheel
 
 %install
@@ -69,10 +69,11 @@ git tag v%{version}
 %pyproject_save_files -l pylsp
 
 %check
-%pytest --no-cov --ignore test/plugins/test_pyflakes_lint.py \
-  -k "not (test_pylint or test_syntax_error_pylint)"
+k="${k:-}${k:+ and }not test_missing_message"
+export RUNNING_IN_CI="True"
+%pytest -r fEs "${k:+-k ${k:-}}"
 
-%files -n python3-%{short_name} -f %{pyproject_files}
+%files -n python3-lsp-server -f %{pyproject_files}
 %doc README.md
 %{_bindir}/pylsp
 

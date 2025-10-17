@@ -37,10 +37,13 @@
 Summary:       PHP extension for interfacing with key-value stores
 Name:          php-pecl-redis6
 Version:       %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:       2%{?dist}
+Release:       3%{?dist}
 License:       PHP-3.01
 URL:           https://pecl.php.net/package/redis
 Source0:       https://pecl.php.net/get/%{sources}.tgz
+
+Patch0:        redis-8.0.patch
+Patch1:        2677.patch
 
 ExcludeArch:   %{ix86}
 
@@ -123,6 +126,8 @@ sed -e 's/role="test"/role="src"/' \
     -i package.xml
 
 cd %{sources}
+%patch -P0 -p1
+%patch -P1 -p1
 
 # Use system library
 rm -r liblzf
@@ -304,6 +309,12 @@ exit $ret
 
 
 %changelog
+* Wed Sep 17 2025 Remi Collet <remi@remirepo.net> - 6.2.0-3
+- rebuild for https://fedoraproject.org/wiki/Changes/php85
+- add patch for PHP 8.5.0alpha3 from
+  https://github.com/phpredis/phpredis/pull/2677
+- add upstream patch for redis 8
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

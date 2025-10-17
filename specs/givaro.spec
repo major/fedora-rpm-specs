@@ -143,9 +143,6 @@ sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
 %install
 %make_install
 
-# We don't want libtool archives
-rm -f %{buildroot}%{_libdir}/libgivaro.la
-
 
 %check
 export LD_LIBRARY_PATH="${PWD}/src/.libs"

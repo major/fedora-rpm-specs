@@ -10,7 +10,7 @@
 #
 # baserelease is what we have standardized across Fedora and what
 # rpmdev-bumpspec knows how to handle.
-%global baserelease 8
+%global baserelease 9
 
 # This should be e.g. beta1 or %%nil
 %global pre_release %nil
@@ -743,6 +743,10 @@ exit 0
 %{_datarootdir}/%{name}-tests/%{_arch}
 
 %changelog
+* Wed Oct 15 2025 Alexander Bokovoy <abokovoy@redhat.com> - 1.21.3-9
+- do not crash when prompter is not available in GSSAPI
+  Resolves: rhbz#243513
+
 * Fri Sep 26 2025 Alexander Bokovoy <abokovoy@redhat.com> - 1.21.3-8
 - Add automated FAST channel for kinit
 - https://github.com/krb5/krb5/pull/1447 - work in progress

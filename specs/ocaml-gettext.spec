@@ -26,6 +26,11 @@ Source0:        %{url}/archive/v%{version}.tar.gz
 # https://github.com/gildor478/ocaml-gettext/pull/37
 Patch:          https://github.com/gildor478/ocaml-gettext/pull/37.patch
 
+# Fix for OCaml >= 5.4
+# https://github.com/gildor478/ocaml-gettext/issues/40
+# https://github.com/gildor478/ocaml-gettext/pull/41
+Patch:          0001-xgettext-Fix-type-for-OCaml-5.4.patch
+
 BuildRequires:  ocaml >= 4.03.0
 BuildRequires:  ocaml-fileutils-devel >= 0.6.6-1
 BuildRequires:  ocaml-dune >= 1.11.0

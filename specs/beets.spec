@@ -1,5 +1,5 @@
 Name:           beets
-Version:        2.5.0
+Version:        2.5.1
 Release:        %autorelease
 Summary:        Music library manager and MusicBrainz tagger
 License:        MIT and ISC
@@ -10,9 +10,11 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-sphinx
 BuildRequires:  python3-pydata-sphinx-theme
 BuildRequires:  python3dist(poetry-core) >= 1
-# Helpful Sphinx extras on some builders
+# Sphinx extras used by upstream docs
 BuildRequires:  python3dist(sphinxcontrib-htmlhelp)
 BuildRequires:  python3dist(sphinxcontrib-serializinghtml)
+BuildRequires:  python-sphinx-design
+BuildRequires:  python-sphinx-copybutton
 
 # Tests
 BuildRequires:  python3-jellyfish
@@ -60,31 +62,6 @@ both text and html formats.
 # Tarball has wrong basedir https://github.com/beetbox/beets/issues/5284
 %autosetup -p1 -n beets-%{version}
 
-# --- Deterministic builds: switch backend, tighten [build-system], pin version ---
-# Switch build backend from poetry_dynamic_versioning to Poetry core API
-sed -i 's/^build-backend *= *"poetry_dynamic_versioning\.backend"/build-backend = "poetry.core.masonry.api"/' pyproject.toml
-
-# Force [build-system].requires to poetry-core only (don’t touch other tables)
-awk '
-  BEGIN{inbs=0}
-  /^\[build-system\]/{inbs=1; print; next}
-  /^\[.*\]/{inbs=0; print; next}
-  inbs && /^requires *=/ {print "requires = [\"poetry-core>=1.0.0\"]"; next}
-  {print}
-' pyproject.toml > pyproject.toml.tmp && mv pyproject.toml.tmp pyproject.toml
-
-# Pin version to the RPM Version for both layouts (Poetry and PEP 621)
-sed -ri '/^\[tool\.poetry\]/,/^\[/{s/^version\s*=\s*".*"/version = "%{version}"/}' pyproject.toml
-sed -ri '/^\[project\]/,/^\[/{s/^version\s*=\s*".*"/version = "%{version}"/}' pyproject.toml
-
-# *** SET RUNTIME __version__ SO `beet --version` SHOWS 2.5.0 ***
-if grep -qE '^__version__\s*=' beets/__init__.py; then
-  sed -ri 's/^(__version__\s*=\s*).*/\1"%{version}"/' beets/__init__.py
-elif [ -f beets/_version.py ]; then
-  sed -ri 's/^(__version__\s*=\s*).*/\1"%{version}"/' beets/_version.py
-fi
-# -------------------------------------------------------------------------------
-
 %generate_buildrequires
 %pyproject_buildrequires -r
 
@@ -98,11 +75,10 @@ env PYTHONPATH=.. sphinx-build-3 -b text -d _build/doctrees . _build/text
 popd
 
 %check
+# Minimal sanity: upstream sets __version__ in 2.5.1
 PYTHONPATH=. python3 - <<'PY'
 import beets
-assert getattr(beets, "__version__", None) == "%{version}", (
-    f"beets.__version__ is {getattr(beets, '__version__', None)} != %{version}"
-)
+assert beets.__version__ == "%{version}", f"got {beets.__version__}"
 PY
 
 %pytest \

@@ -18,7 +18,7 @@
 
 Name:           gnome-kiosk
 Version:        49.0
-Release:        %{autorelease}
+Release:        %autorelease
 Summary:        Window management and application launching for GNOME
 
 License:        GPL-2.0-or-later

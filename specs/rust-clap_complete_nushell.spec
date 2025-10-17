@@ -6,7 +6,7 @@
 %global crate clap_complete_nushell
 
 Name:           rust-clap_complete_nushell
-Version:        4.5.8
+Version:        4.5.9
 Release:        %autorelease
 Summary:        Generator library used with clap for Nushell completion scripts
 

@@ -18,7 +18,7 @@
 Summary:      A ZIP archive management extension
 Name:         php-pecl-zip
 Version:      %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:      1%{?dist}
+Release:      2%{?dist}
 License:      PHP-3.01
 URL:          https://pecl.php.net/package/zip
 
@@ -127,6 +127,9 @@ TEST_PHP_EXECUTABLE=%{__php} \
 
 
 %changelog
+* Wed Oct 08 2025 Remi Collet <remi@remirepo.net> - 1.22.7-2
+- rebuild for https://fedoraproject.org/wiki/Changes/php85
+
 * Thu Sep 25 2025 Remi Collet <remi@remirepo.net> - 1.22.7-1
 - update to 1.22.7
 

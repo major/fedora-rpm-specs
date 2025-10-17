@@ -19,7 +19,7 @@
 Summary:      Bindings for the libmcrypt library
 Name:         php-pecl-mcrypt
 Version:      1.0.9
-Release:      1%{?dist}
+Release:      2%{?dist}
 License:      PHP-3.01
 URL:          https://pecl.php.net/package/mcrypt
 Source0:      https://pecl.php.net/get/%{sources}.tgz
@@ -118,6 +118,9 @@ make test TESTS='-q --show-diff'
 
 
 %changelog
+* Wed Sep 17 2025 Remi Collet <remi@remirepo.net> - 1.0.9-2
+- rebuild for https://fedoraproject.org/wiki/Changes/php85
+
 * Tue Aug  5 2025 Remi Collet <remi@fedoraproject.org> - 1.0.9-1
 - update to 1.0.9
 - re-license spec file to CECILL-2.1

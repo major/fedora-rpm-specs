@@ -7,11 +7,13 @@
 Summary:        Provides a wrapper to the ImageMagick library
 Name:           php-pecl-%pecl_name
 Version:        3.8.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        PHP-3.01
 URL:            https://pecl.php.net/package/%pecl_name
 
 Source0:        https://pecl.php.net/get/%{sources}.tgz
+
+Patch0:         741.patch
 
 ExcludeArch:    %{ix86}
 
@@ -63,6 +65,8 @@ then : "Font files detected!"
 fi
 
 cd %{sources}
+%patch -P0 -p1 -b .pr741
+
 : Avoid arginfo to be regenerated
 rm *.stub.php
 
@@ -145,6 +149,9 @@ rm tests/073_Imagick_forwardFourierTransformImage_basic.phpt
 rm tests/086_Imagick_forwardFourierTransformImage_basic.phpt
 rm tests/151_Imagick_subImageMatch_basic.phpt
 rm tests/316_Imagick_getImageKurtosis.phpt
+# change in 7.1.2
+# see https://github.com/Imagick/imagick/issues/737
+rm tests/024-ispixelsimilar.phpt
 
 : upstream test suite for the extension
 TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
@@ -166,6 +173,13 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Wed Sep 17 2025 Remi Collet <remi@remirepo.net> - 3.8.0-3
+- rebuild for https://fedoraproject.org/wiki/Changes/php85
+- fix for PHP 8.5.0alpha3 using patch from
+  https://github.com/Imagick/imagick/pull/741
+- ignore 1 test failing with IM 7.1.2 reported as
+  https://github.com/Imagick/imagick/issues/737
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

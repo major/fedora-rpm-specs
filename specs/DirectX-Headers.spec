@@ -14,7 +14,7 @@
 %define _lto_cflags %{nil}
 
 Name:           DirectX-Headers
-Version:        1.615.0
+Version:        1.618.1
 Release:        %autorelease
 Summary:        Official Direct3D 12 headers
 
@@ -102,6 +102,7 @@ done
 %files devel
 %license LICENSE
 %doc README.md SECURITY.md
+%{_includedir}/composition
 %{_includedir}/directx
 %{_includedir}/dxguids
 %{_includedir}/wsl
@@ -115,6 +116,7 @@ done
 %{mingw32_libdir}/pkgconfig/DirectX-Headers.pc
 %{mingw32_libdir}/libDirectX-Guids.a
 %{mingw32_libdir}/libd3dx12-format-properties.a
+%{mingw32_includedir}/composition
 %{mingw32_includedir}/wsl/
 %{mingw32_includedir}/dxguids/
 %{mingw32_includedir}/directx/
@@ -125,6 +127,7 @@ done
 %{mingw64_libdir}/pkgconfig/DirectX-Headers.pc
 %{mingw64_libdir}/libDirectX-Guids.a
 %{mingw64_libdir}/libd3dx12-format-properties.a
+%{mingw64_includedir}/composition
 %{mingw64_includedir}/wsl/
 %{mingw64_includedir}/dxguids/
 %{mingw64_includedir}/directx/
@@ -135,6 +138,7 @@ done
 %{ucrt64_libdir}/pkgconfig/DirectX-Headers.pc
 %{ucrt64_libdir}/libDirectX-Guids.a
 %{ucrt64_libdir}/libd3dx12-format-properties.a
+%{ucrt64_includedir}/composition
 %{ucrt64_includedir}/wsl/
 %{ucrt64_includedir}/dxguids/
 %{ucrt64_includedir}/directx/

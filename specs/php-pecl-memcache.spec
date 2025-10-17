@@ -1,8 +1,8 @@
 # Fedora spec file for php-pecl-memcache
 #
-# Copyright (c) 2007-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/3.0/
+# SPDX-FileCopyrightText:  Copyright 2007-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
@@ -16,11 +16,14 @@
 Summary:      Extension to work with the Memcached caching daemon
 Name:         php-pecl-memcache
 Version:      8.2
-Release:      11%{?dist}
+Release:      12%{?dist}
 Source0:      https://pecl.php.net/get/%{sources}.tgz
 License:      PHP-3.01
 Group:        Development/Languages
 URL:          https://pecl.php.net/package/%{pecl_name}
+
+Patch0:       118.patch
+Patch1:       120.patch
 
 ExcludeArch:   %{ix86}
 
@@ -62,6 +65,9 @@ sed -e 's/role="test"/role="src"/' \
     -i package.xml
 
 pushd %{sources}
+%patch -P0 -p1 -b .pr118
+%patch -P1 -p1 -b .pr120
+
 extver=$(sed -n '/#define PHP_MEMCACHE_VERSION/{s/.* "//;s/".*$//;p}' src/php_memcache.h)
 if test "x${extver}" != "x%{version}%{?prever:-%{prever}}"; then
    : Error: Upstream version is now ${extver}, expecting %{version}%{?prever:-%{prever}}
@@ -199,6 +205,14 @@ exit $ret
 
 
 %changelog
+* Wed Sep 17 2025 Remi Collet <remi@remirepo.net> - 8.2-12
+- rebuild for https://fedoraproject.org/wiki/Changes/php85
+- fix for PHP 8.5.0RC1 using patch from
+  https://github.com/websupport-sk/pecl-memcache/pull/120
+- fix for PHP 8.5.0alpha3 using patch from
+  https://github.com/websupport-sk/pecl-memcache/pull/118
+- re-license spec file to CECILL-2.1
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

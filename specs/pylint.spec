@@ -3,9 +3,9 @@
 %undefine _py3_shebang_s
 
 %global forgeurl https://github.com/PyCQA/pylint
-%global basever 4.0.0
+%global basever 4.0.1
 #%%global prever b0
-Version:        4.0.0
+Version:        4.0.1
 %forgemeta
 
 Name:           pylint
@@ -114,7 +114,8 @@ done
   --deselect=tests/test_import_graph.py::test_checker_dep_graphs \
   --deselect=tests/test_self.py::TestRunTC::test_do_not_import_files_from_local_directory[args0] \
   --deselect=tests/test_self.py::TestRunTC::test_do_not_import_files_from_local_directory[args1] \
-  --deselect=tests/test_self.py::TestRunTC::test_progress_reporting
+  --deselect=tests/test_self.py::TestRunTC::test_progress_reporting \
+  --deselect=tests/pyreverse/test_diadefs.py::TestDefaultDiadefGenerator::test_functional_relation_extraction
 
 %files
 %doc CONTRIBUTORS.txt

@@ -32,6 +32,9 @@ BuildArch:      noarch
 
 BuildRequires:  help2man
 
+# Needed for older branches el8+, noop on f43+
+%{?sysusers_requires_compat}
+
 # not picked up automatically
 Requires:       %{_bindir}/flock
 Requires:       %{_bindir}/time
@@ -143,6 +146,8 @@ help2man -N -i %{SOURCE3} -s 1 \
 install -m0644 -D %{SOURCE21} %{buildroot}%{_sysusersdir}/akmods.conf
 
 
+%pre
+%sysusers_create_compat %{SOURCE21}
 
 %post
 %systemd_post akmods.service

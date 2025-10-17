@@ -3,7 +3,7 @@ ExcludeArch: %{ix86}
 
 Name:           ocaml-ocamlnet
 Version:        4.1.9
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Network protocols for OCaml
 License:        BSD-3-Clause
 
@@ -11,21 +11,26 @@ URL:            http://projects.camlcity.org/projects/ocamlnet.html
 VCS:            git:https://gitlab.com/gerdstolpmann/lib-ocamlnet3.git
 Source0:        http://download.camlcity.org/download/ocamlnet-%{version}.tar.gz
 
+# Patches are here:
+# https://gitlab.com/rwmjones/lib-ocamlnet3/-/commits/ocaml-5.4
+
 # Avoid implicit int return types in C code in configure
 # https://gitlab.com/gerdstolpmann/lib-ocamlnet3/-/merge_requests/23
-Patch0:         ocaml-ocamlnet-configure-c99.patch
+Patch:          0001-configure-Avoid-implicit-ints.patch
 
 # Build ocamlrpcgen as native code.  Sent upstream 2021-01-14.
-Patch1:         0001-Build-ocamlrpcgen-as-native-code.patch
+Patch:          0002-Build-ocamlrpcgen-as-native-code.patch
 
 # Make library linkage explicit
-Patch2:         0002-Make-library-linkage-explicit.patch
+Patch:          0003-Make-library-linkage-explicit.patch
 
 # Various fixes for OCaml 5
-Patch3:         https://gitlab.com/gerdstolpmann/lib-ocamlnet3/-/merge_requests/24.patch
-
-# More OCaml 5 changes missed by patch 3
-Patch4:         %{name}-ocaml5.patch
+# https://gitlab.com/gerdstolpmann/lib-ocamlnet3/-/issues/29
+Patch:          0004-started-porting-to-OCaml-5.patch
+Patch:          0005-more-build-fixes-for-OCaml-5.patch
+Patch:          0006-Further-OCaml-5-changes.patch
+Patch:          0007-netsys_c.h-Don-t-redefine-caml_ba_element_size.patch
+Patch:          0008-configure-Assume-we-have-the-Bytes-type-immutable-st.patch
 
 BuildRequires:  make
 BuildRequires:  ocaml >= 4.07.0
@@ -125,7 +130,7 @@ files for developing applications that use %{name}-nethttpd.
 
 %prep
 %autosetup -N -n ocamlnet-%{version}
-%autopatch -M 0 -p1
+%autopatch -M 0 -p2
 %ifarch %{ocaml_native_compiler}
 %patch -P 1 -p2
 %endif
@@ -257,8 +262,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/ocaml/rpc-generator/dummy.mli
 
 
 %changelog
-* Tue Oct 14 2025 Richard W.M. Jones <rjones@redhat.com> - 4.1.9-28
+* Tue Oct 14 2025 Richard W.M. Jones <rjones@redhat.com> - 4.1.9-29
 - OCaml 5.4.0 rebuild
+- Add various fixes for OCaml 5.4
 
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.9-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild

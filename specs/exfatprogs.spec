@@ -1,5 +1,5 @@
 Name:           exfatprogs
-Version:        1.2.9
+Version:        1.3.0
 Release:        %autorelease
 Summary:        Userspace utilities for exFAT filesystems
 License:        GPL-2.0-only
@@ -32,12 +32,14 @@ autoreconf -vif
 %files
 %license COPYING
 %doc README.md
+%{_sbindir}/defrag.exfat
 %{_sbindir}/dump.exfat
 %{_sbindir}/exfat2img
 %{_sbindir}/exfatlabel
 %{_sbindir}/fsck.exfat
 %{_sbindir}/mkfs.exfat
 %{_sbindir}/tune.exfat
+%{_mandir}/man8/defrag.exfat.*
 %{_mandir}/man8/dump.exfat.*
 %{_mandir}/man8/exfat2img.*
 %{_mandir}/man8/exfatlabel.*

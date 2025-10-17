@@ -45,7 +45,7 @@ URL: https://www.python.org/
 
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
-%global general_version %{pybasever}.8
+%global general_version %{pybasever}.9
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
@@ -528,8 +528,7 @@ Summary:        Python runtime libraries
 # socket.getaddrinfo() and socket.getnameinfo() are BSD-3-Clause
 # test.support.asynchat and test.support.asyncore are MIT-CMU
 # http.cookies is MIT-CMU
-# trace is under temporary SPDX ref: https://gitlab.com/fedora/legal/fedora-license-data/-/issues/657
-# trace: LicenseRef-Fedora-Temporary-Python-trace
+# trace is HPND-SMC
 # uu is MIT-CMU
 # xmlrpc.client is MIT-CMU
 # test.test_epoll is MIT
@@ -549,7 +548,7 @@ Summary:        Python runtime libraries
 # Bundled libb2 is not declared in the upstream document, but it's:
 # CC0-1.0, covered by grandfathering exception
 # We don't query upstream for changes, as 3.13 is the last Python version containing it.
-%global libs_license Python-2.0.1 AND CC0-1.0 AND MIT AND BSD-3-Clause AND MIT-CMU AND LicenseRef-Fedora-Temporary-Python-trace AND BSD-2-Clause AND dtoa
+%global libs_license Python-2.0.1 AND CC0-1.0 AND MIT AND BSD-3-Clause AND MIT-CMU AND HPND-SMC AND BSD-2-Clause AND dtoa
 %if %{with rpmwheels}
 Requires: %{python_wheel_pkg_prefix}-pip-wheel >= 23.1.2
 License: %{libs_license}
@@ -1776,6 +1775,9 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Tue Oct 14 2025 Miro Hrončok <mhroncok@redhat.com> - 3.13.9-1
+- Update to Python 3.13.9
+
 * Tue Oct 07 2025 Karolina Surma <ksurma@redhat.com> - 3.13.8-1
 - Update to Python 3.13.8
 

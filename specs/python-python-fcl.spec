@@ -43,8 +43,8 @@ URL:            https://github.com/BerkeleyAutomation/python-fcl
 Source0:        %{url}/archive/v%{version}/python-fcl-%{version}.tar.gz
 %global libccd_forgeurl https://github.com/danfis/libccd
 Source1:        %{libccd_forgeurl}/archive/v%{libccd_version}/libccd-%{libccd_version}.tar.gz
-%global fcl_forgeurl https://github.com/ambi-robotics/fcl
-Source2:        %{fcl_forgeurl}/archive/v%{fcl_version}/fcl-%{fcl_version}.tar.gz
+%global fcl_forgeurl https://github.com/flexible-collision-library/fcl
+Source2:        %{fcl_forgeurl}/archive/%{fcl_version}/fcl-%{fcl_version}.tar.gz
 
 BuildSystem:            pyproject
 BuildOption(install):   -l fcl
@@ -70,6 +70,13 @@ Patch1002:      https://src.fedoraproject.org/rpms/libccd/raw/80bc68bb9f9644aec2
 # Update minimum CMake version to 3.12; support CMake 4.0
 # https://github.com/danfis/libccd/pull/82
 Patch1003:      https://github.com/danfis/libccd/pull/82.patch#/libccd-2.1-cmake4.patch
+
+# Patches for bundled fcl
+# Directly include cassert wherever we use assert()
+# 
+# Rebased on 0.7.0. Required for building as C++14.
+Patch2001:      2001-Directly-include-cassert-wherever-we-use-assert.patch
+
  
 BuildRequires:  gcc-c++
 
@@ -140,6 +147,8 @@ Provides:       bundled(fcl) = %{fcl_version}
 %prep
 %autosetup -n python-fcl-%{version} -N
 %autopatch -M999 -p1
+# Compile as C++14 instead of C++11, for compatibility with eigen3 5.0.
+sed -r -i 's/(-std=c\+\+)11\b/\114/' setup.py
 
 %if %{without system_fcl}
 %setup -q -T -D -b 1 -n python-fcl-%{version}
@@ -152,6 +161,9 @@ cp -p ../libccd-%{libccd_version}/BSD-LICENSE libccd-LICENSE
 %setup -q -T -D -b 2 -n python-fcl-%{version}
 pushd ../fcl-%{fcl_version}/
 %autopatch -m2000 -M2999 -p1
+# Compile as C++14 instead of C++11, for compatibility with eigen3 5.0.
+sed -r -i 's/(-std=c\+\+)11\b/\114/' \
+    CMakeModules/CompilerSettings.cmake CMakeLists.txt
 popd
 cp -p ../fcl-%{fcl_version}/LICENSE fcl-LICENSE
 %endif
@@ -241,7 +253,7 @@ do
   unset filter
   case "$(basename "${exe}")" in
   test_fcl_capsule_capsule)
-%ifarch %{arm64}
+%ifarch %{arm64} %{power64}
     filter="${filter--}${filter+:}CapsuleCapsuleSegmentTest/1.NominalSeparatedCase"
 %endif
 %ifarch %{arm64} %{power64}
