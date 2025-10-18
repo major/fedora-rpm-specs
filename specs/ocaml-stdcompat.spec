@@ -7,6 +7,8 @@ License:        LGPL-2.1-or-later
 URL:            https://github.com/ocamllibs/stdcompat
 VCS:            git:%{url}.git
 Source:         %{url}/archive/%{version}/stdcompat-%{version}.tar.gz
+# Temporary patch to support OCaml 5.4
+Patch:          %{name}-ocaml5.4.patch
 
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}

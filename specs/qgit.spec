@@ -1,6 +1,6 @@
 Name:           qgit
-Version:        2.12
-Release:        2%{?dist}
+Version:        2.13
+Release:        1%{?dist}
 Summary:        GUI browser for git repositories
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -43,6 +43,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.appdat
 
 
 %changelog
+* Thu Oct 16 2025 Dan Horák <dan[at]danny.cz> - 2.13-1
+- Update to the new upstream version 2.13 (rhbz#2404318)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.12-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

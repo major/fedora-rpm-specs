@@ -54,8 +54,8 @@
 %global source_directory 1.45-development
 
 Name:           nbdkit
-Version:        1.45.9
-Release:        2%{?dist}
+Version:        1.45.10
+Release:        1%{?dist}
 Summary:        NBD server
 
 License:        BSD-3-Clause
@@ -85,10 +85,6 @@ Source5:        nbdkit-find-provides
 Source6:        %{modulename}.te
 Source7:        %{modulename}.if
 Source8:        %{modulename}.fc
-
-# Crash with OCaml 5.4:
-# https://gitlab.com/nbdkit/nbdkit/-/merge_requests/112
-Patch:          https://gitlab.com/nbdkit/nbdkit/-/merge_requests/112.patch
 
 # For applying the patches:
 BuildRequires:  git
@@ -1560,6 +1556,10 @@ fi
 
 
 %changelog
+* Thu Oct 16 2025 Richard W.M. Jones <rjones@redhat.com> - 1.45.10-1
+- New upstream version 1.45.10
+- Remove OCaml 5.4.0 fix, which is included upstream.
+
 * Wed Oct 15 2025 Richard W.M. Jones <rjones@redhat.com> - 1.45.9-2
 - OCaml 5.4.0 rebuild
 

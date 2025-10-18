@@ -201,7 +201,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        144.0
-Release:        2%{?pre_tag}%{?dist}
+Release:        3%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 # Automatically converted from old format: MPLv1.1 or GPLv2+ or LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-MPLv1.1 OR GPL-2.0-or-later OR LicenseRef-Callaway-LGPLv2+
@@ -248,29 +248,15 @@ Source49:       wasi.patch.template
 Source50:       wasi-sdk-25.tar.gz
 
 # Build patches
-Patch32:        build-rust-ppc64le.patch
-Patch35:        build-ppc-jit.patch
-# Fixing missing cacheFlush when JS_CODEGEN_NONE is used (s390x)
-Patch38:        build-cacheFlush-missing.patch
 Patch40:        build-aarch64-skia.patch
 Patch44:        build-arm-libopus.patch
-Patch46:        firefox-nss-version.patch
 Patch53:        firefox-gcc-build.patch
-Patch55:        firefox-testing.patch
-Patch61:        firefox-glibc-dynstack.patch
 Patch71:        0001-GLIBCXX-fix-for-GCC-12.patch
 Patch78:        firefox-i686-build.patch
 Patch79:        firefox-gcc-13-build.patch
 Patch80:        wasi.patch
 Patch81:        firefox-gcc-15.0-s390.patch
 
-# Test patches
-# Generate without context by
-# GENDIFF_DIFF_ARGS=-U0 gendiff firefox-xxxx .firefox-tests-xpcshell
-# GENDIFF_DIFF_ARGS=-U0 gendiff firefox-xxxx .firefox-tests-reftest
-Patch100:       firefox-tests-xpcshell.patch
-Patch101:       firefox-tests-reftest.patch
-Patch102:       firefox-tests-xpcshell-freeze.patch
 
 # Fedora specific patches
 Patch215:        firefox-enable-addons.patch
@@ -286,15 +272,13 @@ Patch242:        0026-Add-KDE-integration-to-Firefox.patch
 # Upstream patches
 Patch402:        mozilla-1196777.patch
 Patch407:        mozilla-1667096.patch
+Patch408:        D268839.1760704138.diff
 
 # PGO/LTO patches
 Patch600:        pgo.patch
 Patch602:        mozilla-1516803.patch
 Patch603:        firefox-gcc-always-inline.patch
 
-# system AV1 patches (from Gentoo)
-Patch800:        bmo-1559213-Support-system-av1.patch
-Patch801:        bmo-1559213-fix-system-av1-libs.patch
 
 %if %{?system_nss}
 BuildRequires:  pkgconfig(nspr) >= %{nspr_version}
@@ -601,6 +585,7 @@ cat %{SOURCE49} | sed -e "s|LIBCLANG_RT_PLACEHOLDER|`pwd`/wasi-sdk-25/build/sysr
 %patch -P228 -p1 -b .disable-openh264-download
 %patch -P229 -p1 -b .firefox-nss-addon-hack
 %patch -P231 -p1 -b .fedora-customization
+%patch -P408 -p1 -b .D268839.1760704138
 
 %patch -P402 -p1 -b .1196777
 %patch -P407 -p1 -b .1667096
@@ -1277,6 +1262,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Thu Oct 16 2025 Martin Stransky <stransky@redhat.com> - 144.0-3
+- Add fix for mzbz#1990430
+
 * Mon Oct 13 2025 Martin Stransky <stransky@redhat.com> - 144.0-2
 - Updated to 144.0 (b2)
 

@@ -2,7 +2,7 @@
 
 Name:           guvcview
 Version:        2.1.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        GTK+ UVC Viewer and Capturer
 License:        GPL-2.0-or-later
 URL:            http://guvcview.sourceforge.net/
@@ -11,6 +11,8 @@ Source0:        http://downloads.sourceforge.net/%{name}/%{name}-src-%{version}.
 # Add missing includes to fix build
 # https://sourceforge.net/p/guvcview/tickets/75/
 Patch:          0001-Add-missing-libavutil-includes-for-av_image_get_buff.patch
+# Fix build with FFmpeg 8
+Patch:          %{name}-ffmpeg8.patch
 
 BuildRequires:  autoconf automake libtool
 BuildRequires:  gettext-devel intltool
@@ -119,6 +121,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 
 
 %changelog
+* Sat Oct 11 2025 Dominik Mierzejewski <dominik@greysector.net> - 2.1.0-8
+- Fix build with FFmpeg 8
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

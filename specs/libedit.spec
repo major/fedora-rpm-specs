@@ -1,9 +1,12 @@
-%global snap 20250104
+%global snap 20251016
+
+# Build man pages with mdoc2man.awk to avoid circular dependencies
+%bcond bootstrap 0
 
 Summary:	The NetBSD Editline library
 Name:		libedit
 Version:	3.1
-Release:	56.%{snap}cvs%{?dist}
+Release:	57.%{snap}cvs%{?dist}
 
 # The project as a whole is BSD-3-Clause.
 # These files are BSD-2-Clause:
@@ -29,9 +32,12 @@ URL:		https://www.thrysoee.dk/editline/
 Source:		%{url}/%{name}-%{snap}-%{version}.tar.gz
 
 BuildRequires:	gcc
-BuildRequires:	groff-base
 BuildRequires:	make
 BuildRequires:	ncurses-devel
+
+%if %{without bootstrap}
+BuildRequires:	groff-base
+%endif
 
 %description
 Libedit is an autotool- and libtoolized port of the NetBSD Editline library.
@@ -50,6 +56,7 @@ This package contains development files for %{name}.
 %prep
 %autosetup -n %{name}-%{snap}-%{version}
 
+%conf
 # Fix unused direct shared library dependencies.
 sed -i "s/lncurses/ltinfo/" configure
 
@@ -60,14 +67,12 @@ sed -i "s/lncurses/ltinfo/" configure
 
 %install
 %make_install
-find $RPM_BUILD_ROOT -type f -name "*.la" -delete
 
 %files
 %license COPYING
 %doc ChangeLog THANKS
 %{_mandir}/man5/editrc.5*
-%{_libdir}/%{name}.so.0
-%{_libdir}/%{name}.so.0.*
+%{_libdir}/%{name}.so.0{,.*}
 
 %files devel
 %doc examples/fileman.c examples/tc1.c examples/wtc1.c
@@ -81,6 +86,10 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -delete
 %{_includedir}/editline/readline.h
 
 %changelog
+* Thu Oct 16 2025 Jerry James <loganjerry@gmail.com> - 3.1-57.20251016cvs
+- New version (20251016-3.1)
+- Add bootstrap mode that does not need groff-base
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-56.20250104cvs
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

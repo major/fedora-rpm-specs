@@ -6,7 +6,7 @@
 %global crate bytestring
 
 Name:           rust-bytestring
-Version:        1.4.0
+Version:        1.5.0
 Release:        %autorelease
 Summary:        UTF-8 encoded read-only string using Bytes as storage
 

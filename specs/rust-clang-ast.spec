@@ -6,7 +6,7 @@
 %global crate clang-ast
 
 Name:           rust-clang-ast
-Version:        0.1.33
+Version:        0.1.35
 Release:        %autorelease
 Summary:        Data structures for processing Clang's -ast-dump=json format
 
@@ -46,6 +46,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+serde-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+serde-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "serde" feature of the "%{crate}" crate.
+
+%files       -n %{name}+serde-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

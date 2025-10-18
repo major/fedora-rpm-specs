@@ -4,7 +4,7 @@
 %global projectname guest-components
 
 Name:           trustee-guest-components
-Version:        0.13.0
+Version:        0.14.0
 Release:        %autorelease
 Summary:        Tools that run in confidential VMs, attest and get secrets from Trustee
 
@@ -48,7 +48,7 @@ Patch1:         0001-Fedora-Remove-workspace-members-which-are-not-built.patch
 # * deps/crypto defaults to openssl
 Patch2:         0002-Fedora-AA-deps-crypto-default-to-openssl.patch
 # * kbs_protocol defaults to openssl
-Patch3:         0003-Fedora-kbs_protocol-use-openssl-instead-of-rust-cryp.patch
+Patch3:         0003-Fedora-kbs_protocol-default-to-openssl.patch
 # * pick attesters to build
 Patch4:         0004-Fedora-attester-pick-attesters-in-all-attesters.patch
 # * remove dependency ttrpc - not in Fedora
@@ -58,22 +58,25 @@ Patch6:         0006-Fedora-remove-jwt-simple-dependency.patch
 # * remove dependency testcontainers - not in Fedora
 Patch7:         0007-Fedora-remove-testcontainers-dependency.patch
 # * rstest version is 0.26
-#   https://github.com/confidential-containers/guest-components/pull/1089
 Patch8:         0008-Fedora-rstest-0.26.patch
-# * kbs-type version is 0.11.0
-Patch9:         0009-Fedora-kbs-type-0.11.0.patch
-# * tempfile version is 3.20
-Patch10:         0010-Fedora-tempfile-3.20.patch
-# * tokio version is 1.45
-Patch11:         0011-Fedora-tokio-1.45.patch
+# * tempfile version is 3.21
+Patch9:         0009-Fedora-tempfile-3.21.patch
+# * tokio version is 1.47
+Patch10:         0010-Fedora-tokio-1.47.patch
 # * zeroize version is 1.8.1
-Patch12:         0012-Fedora-zeroize-1.8.1.patch
+Patch11:         0011-Fedora-zeroize-1.8.1.patch
 # * Use clap ^4.2.7
-Patch13:         0013-Fedora-use-clap-4.2.7.patch
-# * sev version is 6.2.1
-Patch14:         0014-Fedora-sev-6.2.1.patch
-# * az-snp-vtpm/az-tdx/vtpm is 0.7.4
-Patch15:         0015-Fedora-az-snp-vtpm-az-tdx-vtpm-0.7.4.patch
+Patch12:         0012-Fedora-use-clap-4.2.7.patch
+# * az-snp-vtpm/az-tdx-vtpm 0.7.4
+Patch13:         0013-Fedora-az-snp-vtpm-az-tdx-vtpm-0.7.4.patch
+# * kbs-types 0.13.0
+Patch14:         0014-Fedora-kbs-types-0.13.0.patch
+# * serde_version is 3.12.0
+Patch15:         0015-Fedora-serde_with-3.12.0.patch
+# * refactor: adapt to kbs-types InitData/RuntimeData type changes
+Patch16:         0016-Fedora-refactor-adapt-to-kbs-types-InitData-RuntimeD.patch
+# * resolve Tee serialization mismatch with kbs-types
+Patch17:         0017-Fedora-resolve-Tee-serialization-mismatch-with-kbs-t.patch
 
 ExclusiveArch:  x86_64
 BuildRequires:  cargo-rpm-macros >= 24

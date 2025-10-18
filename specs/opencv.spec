@@ -11,6 +11,15 @@
 %bcond_without  gstreamer
 %bcond_with     eigen2
 %bcond_without  eigen3
+# Disable eigen3 on i686 for now
+# /usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:2837:10: error: ‘_mm_cvtsi64_si128’ was not declared in this scope; did you mean ‘_mm_cvtsi64_si32’?
+# only available on x86_64
+# https://github.com/gcc-mirror/gcc/blob/4a3895903c29ed85da6fcb886f31ff23d4c6e935/gcc/config/i386/emmintrin.h#L228C1-L234
+%if 0%{?fedora} > 43
+%ifarch i686
+%global __without_eigen3 1
+%endif
+%endif
 %bcond_without  opencl
 %ifarch x86_64 %{arm}
 %bcond_without  openni
@@ -75,7 +84,7 @@ Version:        4.11.0
 %global minorver %(foo=%{version}; a=(${foo//./ }); echo ${a[1]} )
 %global padding  %(digits=00; num=%{minorver}; echo ${digits:${#num}:${#digits}} )
 %global abiver   %(echo %{majorver}%{padding}%{minorver} )
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Collection of algorithms for computer vision
 # This is normal three clause BSD.
 License:        BSD-3-Clause AND Apache-2.0 AND ISC
@@ -166,7 +175,6 @@ BuildRequires:  zlib-devel
 BuildRequires:  pkgconfig
 BuildRequires:  python3-devel
 BuildRequires:  python3-numpy
-BuildRequires:  python3-setuptools
 %{?with_linters:
 BuildRequires:  pylint
 BuildRequires:  python3-flake8
@@ -458,6 +466,9 @@ mv opencv_3rdparty-%{wechat_commit}/sr.prototxt .cache/wechat_qrcode/69db99927a7
 mkdir -p .cache/ade
 install -pm 0644 %{S:4} .cache/ade/
 
+%generate_buildrequires
+%pyproject_buildrequires -N
+
 %build
 # enabled by default if libraries are presents at build time:
 # GTK, GSTREAMER, 1394, V4L, eigen3
@@ -525,6 +536,7 @@ install -pm 0644 %{S:4} .cache/ade/
  -DOPENCV_GENERATE_PKGCONFIG=ON \
 %{?with_extras_tests: -DOPENCV_TEST_DATA_PATH=opencv_extra-%{version}/testdata} \
  %{?with_gdcm: -DWITH_GDCM=ON } \
+ -DWITH_IMGCODEC_GIF=ON \
  %{?with_libmfx: -DWITH_MFX=ON  -DWITH_GAPI_ONEVPL=ON} \
  %{?with_clp: -DWITH_CLP=ON } \
  %{?with_libva: -DWITH_VA=ON } \
@@ -533,11 +545,14 @@ install -pm 0644 %{S:4} .cache/ade/
 
 %cmake_build
 
+cd %{__cmake_builddir}/python_loader/
+%pyproject_wheel
 
 %install
 %cmake_install
 cd %{__cmake_builddir}/python_loader/
-%py3_install -- --install-lib %{python3_sitearch}
+%pyproject_install
+%pyproject_save_files cv2
 
 rm -rf %{buildroot}%{_datadir}/OpenCV/licenses/
 %if %{with java}
@@ -552,6 +567,8 @@ ln -s -r %{buildroot}%{_jnidir}/opencv-%{javaver}.jar %{buildroot}%{_jnidir}/ope
 
 
 %check
+%pyproject_check_import
+
 #ifnarch ppc64
 %if %{with tests}
     cp %{S:5} %{__cmake_builddir}
@@ -598,9 +615,7 @@ ln -s -r %{buildroot}%{_jnidir}/opencv-%{javaver}.jar %{buildroot}%{_jnidir}/ope
 %files doc
 %{_datadir}/opencv4/samples
 
-%files -n python3-opencv
-%{python3_sitearch}/cv2
-%{python3_sitearch}/opencv-*.egg-info
+%files -n python3-opencv -f %{pyproject_files}
 
 %if %{with java}
 %files java
@@ -612,6 +627,9 @@ ln -s -r %{buildroot}%{_jnidir}/opencv-%{javaver}.jar %{buildroot}%{_jnidir}/ope
 
 
 %changelog
+* Thu Oct 16 2025 Nicolas Chauvet <kwizart@gmail.com> - 4.11.0-13
+- Use pyprojectize - thanks Miro !
+
 * Tue Sep 30 2025 Nicolas Chauvet <kwizart@gmail.com> - 4.11.0-12
 - Drop retired openni-primesense in fedora >= 44
 

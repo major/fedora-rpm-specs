@@ -3,8 +3,8 @@
 %endif
 
 Name: mbedtls
-Version: 3.6.4
-Release: 3%{?dist}
+Version: 3.6.5
+Release: 1%{?dist}
 Summary: Light-weight cryptographic and SSL/TLS library
 License: Apache-2.0
 URL: https://www.trustedfirmware.org/projects/mbed-tls
@@ -18,9 +18,6 @@ BuildRequires: doxygen
 BuildRequires: graphviz
 BuildRequires: perl-interpreter
 BuildRequires: python3
-
-Obsoletes: mbedtls-utils < 2.28.0-1
-Obsoletes: mbedtls-static < 2.28.0-1
 
 %description
 Mbed TLS is a light-weight open source cryptographic and SSL/TLS
@@ -102,6 +99,9 @@ chmod 755 %{buildroot}%{_libdir}/*.so.*
 %doc apidoc/*
 
 %changelog
+* Thu Oct 16 2025 Morten Stevens <mstevens@fedoraproject.org> - 3.6.5-1
+- Update to 3.6.5
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

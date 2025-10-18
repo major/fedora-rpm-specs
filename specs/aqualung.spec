@@ -1,26 +1,15 @@
 %global forgeurl https://github.com/jeremyevans/aqualung
 
-# We need -fcommon for this to build
-%define _legacy_common_support 1
-
 Name:           aqualung
-Version:        1.2
-Release:        11%{?dist}
+Version:        2.0
+Release:        1%{?dist}
 Summary:        Music Player for GNU/Linux
 License:        GPL-2.0-or-later
 URL:            https://aqualung.jeremyevans.net
 Source:         %{forgeurl}/archive/%{version}/%{name}-%{version}.tar.gz
 Source:         %{name}.desktop
-# Add more supported formats to FFmpeg decoder
-Patch:          %{forgeurl}/commit/0ecc6721d5078c0bc9cae771d485c8d676443c23.patch
-# Add support for recent versions of Monkey's Audio
-Patch:          %{forgeurl}/commit/a991c13d0df734a5d0fea7db6b181176858f3e58.patch
-# Fix the Monkey's Audio decoder to work with current Monkey's Audio
-Patch:          %{forgeurl}/commit/d2c88317b6042a05c236faf3c09f600337c6379e.patch
-# Remove now unnecessary glib include in mac decoder
-Patch:          %{forgeurl}/commit/1c2a295a72e1e3abc6df40714d9753e311541550.patch
-# Add platform define when enabling mac
-Patch:          %{forgeurl}/pull/34.patch
+# https://github.com/jeremyevans/aqualung/pull/48
+Patch:          %{name}-ffmpeg8.patch
 
 # autogen.sh
 BuildRequires:  autoconf
@@ -33,7 +22,7 @@ BuildRequires:  cairo-devel
 BuildRequires:  fontconfig-devel
 BuildRequires:  freetype-devel
 BuildRequires:  glib2-devel
-BuildRequires:  gtk2-devel
+BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:  libpng-devel
 BuildRequires:  libxml2-devel
 BuildRequires:  pango-devel
@@ -199,6 +188,11 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 %{_metainfodir}/%{name}.appdata.xml
 
 %changelog
+* Wed Oct 01 2025 Dominik Mierzejewski <dominik@greysector.net> - 2.0-1
+- Update to 2.0 (resolves rhbz#2347440)
+- Drop obsolete patches
+- Fix build with FFmpeg 8
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

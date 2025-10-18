@@ -1,7 +1,7 @@
 %global giturl  https://github.com/pradyunsg/furo
 
 Name:           python-furo
-Version:        2025.07.19
+Version:        2025.09.25
 Release:        %autorelease
 Summary:        Clean customizable Sphinx documentation theme
 
@@ -14,38 +14,39 @@ Source1:        furo-%{version}-vendor.tar.xz
 Source2:        furo-%{version}-vendor-licenses.txt
 
 BuildArch:      noarch
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): docs/requirements.txt
+BuildOption(install): -L furo
 
 BuildRequires:  make
 BuildRequires:  nodejs-devel
 BuildRequires:  nodejs-npm
 BuildRequires:  python-sphinx-doc
-BuildRequires:  python3-devel
 BuildRequires:  python3-docs
 BuildRequires:  yarnpkg
 
-%global _description %{expand:
-Furo is a Sphinx theme, which is:
-- Intentionally minimal --- the most important thing is the content, not
-  the scaffolding around it.
-- Responsive --- adapting perfectly to the available screen space, to
-  work on all sorts of devices.
-- Customizable --- change the color palette, font families, logo and
-  more!
+%global _description %{expand:Furo is a Sphinx theme, which is:
+- Intentionally minimal --- the most important thing is the content, not the
+  scaffolding around it.
+- Responsive --- adapting perfectly to the available screen space, to work on
+  all sorts of devices.
+- Customizable --- change the color palette, font families, logo and more!
 - Easy to navigate --- with carefully-designed sidebar navigation and
   inter-page links.
 - Good looking content --- through clear typography and well-stylized
   elements.
 - Good looking search --- helps readers find what they want quickly.
-- Biased for smaller docsets --- intended for smaller documentation
-  sets, where presenting the entire hierarchy in the sidebar is not
-  overwhelming.}
+- Biased for smaller docsets --- intended for smaller documentation sets,
+  where presenting the entire hierarchy in the sidebar is not overwhelming.}
 
-%description %_description
+%description
+%_description
 
 %package     -n python3-furo
 Summary:        Clean customizable Sphinx documentation theme
 
-%description -n python3-furo %_description
+%description -n python3-furo
+%_description
 
 %package        doc
 Summary:        Documentation for %{name}
@@ -95,21 +96,13 @@ sed -e 's|\("https://docs\.python\.org/3", \)None|\1"%{_docdir}/python3-docs/htm
     -e 's|\("https://www\.sphinx-doc\.org/en/master", \)None|\1"%{_docdir}/python-sphinx-doc/html/objects.inv"|' \
     -i docs/conf.py
 
-%generate_buildrequires
-%pyproject_buildrequires docs/requirements.txt
-
-%build
+%build -p
 export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1
 export YARN_CACHE_FOLDER="$PWD/.package-cache"
 yarn install --offline
 nodeenv --node=system --prebuilt --clean-src $PWD/.nodeenv
 
-%pyproject_wheel
-
-%install
-%pyproject_install
-%pyproject_save_files -L furo
-
+%install -a
 # Build documentation
 %{py3_test_envvars} sphinx-build -b html docs html
 rm -rf html/{.buildinfo,.doctrees}

@@ -42,6 +42,8 @@ Source1:        %{extras_data_url}/archive/%{extras_data_commit}/%{name}-extras-
 
 # Do not attempt to get the test artifacts from the Internet
 Patch:          %{name}-no-external-project.patch
+# Adapt eigen version detection for eigen3-5.0.0
+Patch:          %{name}-eigen3.patch
 
 # Build fails on i686 due to incompatible pointer types
 ExcludeArch:    %{ix86}

@@ -51,7 +51,7 @@ BuildRequires: pkgconfig(libavdevice)
 BuildRequires: pkgconfig(libavfilter)
 BuildRequires: pkgconfig(libavformat)
 BuildRequires: pkgconfig(libavutil)
-BuildRequires: pkgconfig(libpostproc)
+BuildRequires: (pkgconfig(libpostproc) if libavcodec-free < 8.0)
 BuildRequires: pkgconfig(libswresample)
 BuildRequires: pkgconfig(libswscale)
 

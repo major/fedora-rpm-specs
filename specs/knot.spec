@@ -14,8 +14,8 @@
 
 Summary:	High-performance authoritative DNS server
 Name:		knot
-Version:	3.4.8
-Release:	3%{?dist}
+Version:	3.5.1
+Release:	1%{?dist}
 License:	GPL-3.0-or-later
 URL:		https://www.knot-dns.cz
 Source0:	https://secure.nic.cz/files/knot-dns/%{name}-%{version}.tar.xz
@@ -46,6 +46,7 @@ BuildRequires:	pkgconfig(libmnl)
 BuildRequires:	pkgconfig(libnghttp2)
 BuildRequires:	pkgconfig(libsystemd)
 BuildRequires:	pkgconfig(systemd)
+BuildRequires:	pkgconfig(hiredis)
 %if 0%{?fedora} || 0%{?rhel}
 BuildRequires:	softhsm
 %endif
@@ -94,6 +95,8 @@ Requires(postun):	systemd
 
 Requires:	%{name}-libs%{?_isa} = %{version}-%{release}
 
+Recommends:	%{name}-keymgr
+
 %if 0%{?suse_version}
 Provides:	group(knot)
 %endif
@@ -103,8 +106,8 @@ Knot DNS is a high-performance authoritative DNS server implementation.
 
 %package libs
 Summary:	Libraries used by the Knot DNS server and client applications
-# Knot DNS 3.4+ isn't compatible with earlier knot-resolver
-Conflicts:	knot-resolver < 5.7.4-2
+# Knot DNS 3.5+ isn't compatible with earlier knot-resolver
+Conflicts:	knot-resolver < 5.7.6-3
 
 %description libs
 The package contains shared libraries used by the Knot DNS server and
@@ -133,6 +136,13 @@ Requires:	%{name}-libs%{?_isa} = %{version}-%{release}
 
 %description dnssecutils
 The package contains DNSSEC tools shipped with the Knot DNS server.
+
+%package keymgr
+Summary:	Knot DNS key management utility
+Requires:	%{name}-libs%{?_isa} = %{version}-%{release}
+
+%description keymgr
+The package contains keymgr program for Knot DNS key management.
 
 %package module-dnstap
 Summary:	dnstap module for Knot DNS
@@ -164,6 +174,13 @@ Requires:	%{name}-libs = %{version}-%{release}
 
 %description -n python3-libknot
 The package provides Python bindings for the libknot shared library.
+
+%package -n valkey-module-knot
+Summary:	Valkey module for Knot DNS.
+Requires:	%{name}-libs = %{version}-%{release}
+
+%description -n valkey-module-knot
+The package provides Valkey module for Knot DNS.
 
 %package doc
 Summary:	Documentation for the Knot DNS server
@@ -205,9 +222,11 @@ CFLAGS="%{optflags} -DNDEBUG -Wno-unused"
   --libexecdir=/usr/lib/knot \
   --with-rundir=/run/knot \
   --with-moduledir=%{_libdir}/knot/modules-%{BASE_VERSION} \
+  --with-redisdir=%{_libdir}/valkey/modules \
   --with-storage=/var/lib/knot \
   %{?configure_db_sizes} \
   %{?configure_quic} \
+  --enable-redis=auto \
   --disable-static \
   --enable-dnstap=yes \
   --with-module-dnstap=shared \
@@ -333,7 +352,6 @@ V=1 make check
 %{_unitdir}/knot.service
 %{_sbindir}/kcatalogprint
 %{_sbindir}/kjournalprint
-%{_sbindir}/keymgr
 %{_sbindir}/knotc
 %{_sbindir}/knotd
 %if 0%{?suse_version}
@@ -342,7 +360,6 @@ V=1 make check
 %{_mandir}/man5/knot.conf.*
 %{_mandir}/man8/kcatalogprint.*
 %{_mandir}/man8/kjournalprint.*
-%{_mandir}/man8/keymgr.*
 %{_mandir}/man8/knotc.*
 %{_mandir}/man8/knotd.*
 %ghost %attr(770,root,knot) %dir %{_rundir}/knot
@@ -366,6 +383,10 @@ V=1 make check
 %{_mandir}/man1/kzonecheck.*
 %{_mandir}/man1/kzonesign.*
 
+%files keymgr
+%{_sbindir}/keymgr
+%{_mandir}/man8/keymgr.*
+
 %files module-dnstap
 %{_libdir}/knot/modules-*/dnstap.so
 
@@ -380,6 +401,9 @@ V=1 make check
 %files -n python3-libknot
 %{python3_sitelib}/libknot
 %{python3_sitelib}/libknot-*-info
+
+%files -n valkey-module-knot
+%attr(0755, root, root) %{_libdir}/valkey/modules/knot.so
 
 %files libs
 %license COPYING
@@ -407,6 +431,11 @@ V=1 make check
 %doc %{_pkgdocdir}/html
 
 %changelog
+* Thu Oct 16 2025 Jakub Ružička <jakub.ruzicka@nic.cz> - 3.5.1-1
+- Update to 3.5.1
+- Add new valkey-module-knot package
+- Split keymgr into knot-keymgr package
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.4.8-3
 - Rebuilt for Python 3.14.0rc3 bytecode
 

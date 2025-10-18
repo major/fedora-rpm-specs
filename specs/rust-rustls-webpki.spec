@@ -6,7 +6,7 @@
 %global crate rustls-webpki
 
 Name:           rust-rustls-webpki
-Version:        0.103.5
+Version:        0.103.7
 Release:        %autorelease
 Summary:        Web PKI X.509 Certificate Verification
 

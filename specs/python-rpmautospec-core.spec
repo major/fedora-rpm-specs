@@ -1,5 +1,3 @@
-%bcond_with testcoverage
-
 # Only use poetry-core on Fedora and new EPEL releases because
 # it is missing elsewhere. Fall back to using setuptools instead.
 %if ! 0%{?rhel} || 0%{?epel} >= 10
@@ -23,9 +21,6 @@ BuildArch: noarch
 BuildRequires: python3-devel >= 3.6.0
 # The dependencies needed for testing don’t get auto-generated.
 BuildRequires: python3dist(pytest)
-%if %{with testcoverage}
-BuildRequires: python3dist(pytest-cov)
-%endif
 BuildRequires: sed
 
 %global _description %{expand:
@@ -51,12 +46,8 @@ test -f setup.py
 sed -i 's/\[build-system\]/[ignore-this]/' pyproject.toml
 %endif
 
-%if %{without testcoverage}
-cat << PYTESTINI > pytest.ini
-[pytest]
-addopts =
-PYTESTINI
-%endif
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+sed -i -e '/pytest-cov/d; /addopts.*--cov/d' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires

@@ -17,6 +17,9 @@ Source1:        https://matplotlib.org/stable/objects.inv#/objects-matplotlib.in
 Source2:        https://docs.scipy.org/doc/scipy/objects.inv#/objects-scipy.inv
 # Do not depend on intersphinx_registry, which is not available in Fedora
 Patch:          %{name}-intersphinx.patch
+# Support llvmlite >= 0.45.
+# https://github.com/sympy/sympy/pull/28472
+Patch:          %{giturl}/pull/28472.patch
 
 # We have to build on an architecture that:
 # - Supports Java (for antlr4), which excludes 32-bit x86

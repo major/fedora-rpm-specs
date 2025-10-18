@@ -8,7 +8,7 @@
 Summary:	Free implementation of the server-side SMTP protocol as defined by RFC 5321
 Name:		opensmtpd
 Version:	7.7.0p0
-Release:	3%{?dist}
+Release:	4%{?dist}
 
 License:	ISC
 URL:		http://www.opensmtpd.org/
@@ -84,7 +84,7 @@ export CFLAGS="%{optflags}"
 
 %configure \
     --sysconfdir=%{_sysconfdir}/opensmtpd \
-    --with-path-CAfile=%{_sysconfdir}/pki/tls/cert.pem \
+    --with-path-CAfile=%{_sysconfdir}/pki/ca-trust/extracted/pem/tls-ca-bundle.pem \
     --with-mantype=man \
     %if 0%{?_with_pam}
     --with-auth-pam=smtp \
@@ -271,6 +271,9 @@ exit 0
 
 
 %changelog
+* Thu Oct 16 2025 Denis Fateyev <denis@fateyev.com> - 7.7.0p0-4
+- Switch to new tls-ca-bundle path
+
 * Fri Jul 25 2025 Denis Fateyev <denis@fateyev.com> - 7.7.0p0-3
 - Small cleanup: invalid group id, pid path and description
 

@@ -4,15 +4,14 @@
 # global prerelease b4
 
 %global openldap_version 2.4.45-4
-%global pypi_name python-ldap
 
 Name: python-ldap
-Version: 3.4.4
+Version: 3.4.5
 Release: %autorelease
 License: python-ldap
 Summary: An object-oriented API to access LDAP directory servers
 URL: https://python-ldap.org/
-Source0: %{pypi_source}
+Source0: %{pypi_source python_ldap}
 
 # Conditionally applied paches, numbereed > 100
 Patch101: 0101-Disable-openldap-servers-tests.patch
@@ -23,14 +22,11 @@ BuildRequires: openldap-devel >= %{openldap_version}
 BuildRequires: openssl-devel
 BuildRequires: cyrus-sasl-devel
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
 # Test dependencies
 %if %{with servers}
 BuildRequires: openldap-servers >= %{openldap_version}
 %endif
 BuildRequires: openldap-clients >= %{openldap_version}
-BuildRequires: python3-pyasn1 >= 0.3.7
-BuildRequires: python3-pyasn1-modules >= 0.1.5
 
 %global _description\
 python-ldap provides an object-oriented API for working with LDAP within\
@@ -53,7 +49,7 @@ Provides:  python3-pyldap%{?_isa} = %{version}-%{release}
 
 
 %prep
-%autosetup -p1 -n %{name}-%{version}%{?prerelease} -N
+%autosetup -p1 -n python_ldap-%{version}%{?prerelease} -N
 %autopatch -p1 -M100
 %if %{without servers}
 %autopatch -p1 101
@@ -63,8 +59,12 @@ Provides:  python3-pyldap%{?_isa} = %{version}-%{release}
 find . -name '*.py' | xargs sed -i '1s|^#!/usr/bin/env python|#!%{__python3}|'
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %check
@@ -72,18 +72,11 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} %{__python3} -m unittest discover -v 
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l ldap slapdtest ldapurl ldif _ldap
 
-%files -n python3-ldap
-%license LICENCE
+%files -n python3-ldap -f %{pyproject_files}
 %doc CHANGES README TODO Demo
-%{python3_sitearch}/_ldap.cpython-*.so
-%{python3_sitearch}/ldapurl.py*
-%{python3_sitearch}/ldif.py*
-%{python3_sitearch}/__pycache__/*
-%{python3_sitearch}/slapdtest/
-%{python3_sitearch}/ldap/
-%{python3_sitearch}/python_ldap-%{version}%{?prerelease}-py%{python3_version}.egg-info/
 
 %changelog
 %autochangelog

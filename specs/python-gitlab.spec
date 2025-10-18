@@ -58,6 +58,10 @@ sed -i 's/anyio==.*/anyio/'                            requirements-test.txt
 sed -i 's/pytest-console-scripts.*//'                  requirements-test.txt
 sed -i 's/pytest-github-actions-annotate-failures.*//' requirements-test.txt
 
+# coverage disabled
+sed -i 's/pytest-cov.*//'                              requirements-test.txt
+sed -i 's/coverage.*//'                                requirements-test.txt
+
 %generate_buildrequires
 %pyproject_buildrequires -t
 

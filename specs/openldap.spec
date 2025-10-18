@@ -9,6 +9,9 @@
 # Build openldap-servers package and its libslapi in openldap-devel and openldap-compat
 %bcond servers 1
 
+# Build with argon2 support
+%bcond argon2 1
+
 # When you change "Version: " to the new major version, remember to change this value too
 %global major_version 2.6
 
@@ -74,6 +77,9 @@ BuildRequires: unixODBC-devel
 BuildRequires: cracklib-devel
 BuildRequires: systemd
 BuildRequires: systemd-rpm-macros
+%if %{with argon2}
+BuildRequires: libsodium-devel
+%endif
 
 %description
 OpenLDAP is an open source suite of LDAP (Lightweight Directory Access
@@ -221,6 +227,9 @@ pushd openldap-%{version}
 	--enable-rlookups \
 %if %{with servers}
 	--enable-slapi \
+%if %{with argon2}
+        --enable-argon2 \
+%endif
 %endif
 	--disable-slp \
 	\
@@ -460,6 +469,12 @@ exit 0
 %{_datadir}/openldap-servers/
 %{_libdir}/openldap/accesslog*
 %{_libdir}/openldap/allop*
+%if %{with argon2}
+%{_libdir}/openldap/argon2*
+%{_mandir}/man5/slappw-argon2.5*
+%else
+%exclude %{_mandir}/man5/slappw-argon2.5*
+%endif
 %{_libdir}/openldap/auditlog*
 %{_libdir}/openldap/autoca*
 %{_libdir}/openldap/back_asyncmeta*
@@ -502,7 +517,6 @@ exit 0
 %{_mandir}/man8/lloadd.8*
 %{_mandir}/man5/slapd*.5*
 %{_mandir}/man5/slapo-*.5*
-%{_mandir}/man5/slappw-argon2.5*
 %{_mandir}/man8/slap*.8*
 %{_sysusersdir}/openldap.conf
 # obsolete configuration

@@ -2,7 +2,7 @@
 
 Name:           %{target}-binutils
 Version:        2.45
-Release:        1%{?dist}
+Release:        3%{?dist}
 Epoch:          1
 Summary:        Cross Compiling GNU binutils targeted at %{target}
 License:        GPL-2.0-or-later
@@ -12,6 +12,10 @@ Source1:        README.fedora
 #add widespread options to avr-size: --format=avr -mcu=XX
 Patch1: http://distribute.atmel.no/tools/opensource/avr-gcc/binutils-2.20.1/30-binutils-2.20.1-avr-size.patch
 Patch2: avr-binutils-config.patch
+# from upstream, for == 2.45, rhbz#2400332
+Patch3:         binutils-2.45-cve-2025-11081.patch
+# from upstream, for == 2.45, rhbz#2400333
+Patch4:         binutils-2.45-cve-2025-11082.patch
 
 BuildRequires:  gawk texinfo gcc
 #for autoreconf:
@@ -31,6 +35,8 @@ native %{_arch} platform.
 pushd binutils-%{version}
 %patch -P1 -p2 -b .avr-size
 %patch -P2 -p1 -b .config
+%patch -P 3 -p1 -b .cve-2025-11081
+%patch -P 4 -p1 -b .cve-2025-11082
 
 # We call configure directly rather than via macros, thus if
 # we are using LTO, we have to manually fix the broken configure
@@ -84,6 +90,12 @@ rm    $RPM_BUILD_ROOT%{_libdir}/lib*.a $RPM_BUILD_ROOT%{_libdir}/bfd-plugins/lib
 
 
 %changelog
+* Thu Oct 16 2025 Michal Hlavinka <mhlavink@redhat.com> - 1:2.45-3
+- fix CVE-2025-11082: heap-based overflow (rhbz#2400333)
+
+* Thu Oct 16 2025 Michal Hlavinka <mhlavink@redhat.com> - 1:2.45-2
+- fix CVE-2025-11081: out-of-bounds read (rhbz#2400332)
+
 * Wed Aug 06 2025 Michal Hlavinka <mhlavink@redhat.com> - 1:2.45-1
 - updated to 2.45
 

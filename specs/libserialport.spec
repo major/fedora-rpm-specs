@@ -1,13 +1,15 @@
 Name:           libserialport
-Version:        0.1.1
-Release:        22%{?dist}
+Version:        0.1.2
+Release:        1%{?dist}
 Summary:        Library for accessing serial ports
 # Automatically converted from old format: LGPLv3+ - review is highly recommended.
 License:        LGPL-3.0-or-later
 URL:            http://sigrok.org/wiki/%{name}
 Source0:        http://sigrok.org/download/source/%{name}/%{name}-%{version}.tar.gz
-# https://sigrok.org/bugzilla/show_bug.cgi?id=1687
-Patch0:         0001-HACK-don-t-even-check-for-termiox.patch
+# https://github.com/sigrokproject/libserialport/pull/25
+Patch0:         libserialport-0.1.2-version.patch
+# https://github.com/sigrokproject/libserialport/pull/24
+Patch1:         libserialport-0.1.2-glibc-2.42.patch
 BuildRequires:  doxygen
 BuildRequires:  graphviz
 BuildRequires:  gcc
@@ -83,6 +85,10 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Thu Oct 16 2025 Dan Horák <dan[at]danny.cz> - 0.1.2-1
+- update to libserialport 0.1.2
+- update for glibc 2.42 (rhbz#2394724)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

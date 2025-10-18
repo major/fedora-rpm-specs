@@ -5,7 +5,7 @@
 %global crate serde_path_to_error
 
 Name:           rust-serde_path_to_error
-Version:        0.1.17
+Version:        0.1.20
 Release:        %autorelease
 Summary:        Path to the element that failed to deserialize
 

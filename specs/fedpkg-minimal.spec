@@ -1,6 +1,6 @@
 Name:           fedpkg-minimal
 Version:        1.2.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Script to allow fedpkg fetch to work
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -42,6 +42,9 @@ install -pm 755 bin/fedpkg-base %{buildroot}%{_bindir}/fedpkg-base
 %{_bindir}/fedpkg-base
 
 %changelog
+* Wed Oct 15 2025 Fabio Valentini <decathorpe@gmail.com> - 1.2.0-15
+- Add Accept-Encoding: identity header to curl requests.
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

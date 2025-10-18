@@ -2,7 +2,7 @@
 %global _vpath_srcdir src
 
 Name:           daggy
-Version:        2.2.3
+Version:        2.2.4
 Release:        %autorelease
 Summary:        Data Aggregation Utility and C/C++ developer library
 

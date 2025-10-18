@@ -5,7 +5,7 @@
 %global crate pango
 
 Name:           rust-pango
-Version:        0.21.2
+Version:        0.21.3
 Release:        %autorelease
 Summary:        Rust bindings for the Pango library
 

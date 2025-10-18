@@ -3,10 +3,10 @@
 %global debug_package %{nil}
 
 %global crate tikv-jemalloc-sys
-%global crate_version 0.6.0+5.3.0-1-ge13ca993e8ccb9ba9847cc330696e02839f328f7
+%global crate_version 0.6.1+5.3.0-1-ge13ca993e8ccb9ba9847cc330696e02839f328f7
 
 Name:           rust-tikv-jemalloc-sys
-Version:        0.6.0
+Version:        0.6.1
 Release:        %autorelease
 Summary:        Rust FFI bindings to jemalloc
 
@@ -92,6 +92,19 @@ This package contains library source intended for building other packages which
 use the "debug" feature of the "%{crate}" crate.
 
 %files       -n %{name}+debug-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+override_allocator_on_supported_platforms-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+override_allocator_on_supported_platforms-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "override_allocator_on_supported_platforms" feature of the
+"%{crate}" crate.
+
+%files       -n %{name}+override_allocator_on_supported_platforms-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+profiling-devel

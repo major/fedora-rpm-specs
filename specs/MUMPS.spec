@@ -10,7 +10,7 @@
 %undefine _ld_as_needed
 
 # Due to OpenMPI-5.0 dropping in i686
-%if 0%{?rhel} || 0%{?fedora}
+%if 0%{?fedora}
 %ifarch %{ix86}
 %global with_openmpi 0
 %global with_openmpi_check 0
@@ -27,12 +27,21 @@
 %global with_mpich 1
 %endif
 
-## Due to rhbz#1744780
 %if 0%{?rhel}
-%global with_mpich 1
-%global with_mpich_check 1
+%ifarch %{ix86}
+%global with_openmpi 0
+%global with_openmpi_check 0
+%else
 %global with_openmpi 1
 %global with_openmpi_check 1
+%endif
+# rhbz#2225803
+%ifnarch s390x
+%global with_mpich_check 1
+%else
+%global with_mpich_check 0
+%endif
+%global with_mpich 1
 %endif
 
 # Workarounf for GCC-10

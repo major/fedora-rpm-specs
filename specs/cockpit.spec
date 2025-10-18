@@ -57,7 +57,7 @@ Summary:        Web Console for Linux servers
 License:        LGPL-2.1-or-later
 URL:            https://cockpit-project.org/
 
-Version:        348
+Version:        349
 Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 
@@ -650,6 +650,10 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Oct 15 2025 Packit <hello@packit.dev> - 349-1
+- Package manifests: Add `any` test
+- Bug fixes and translation updates
+
 * Thu Oct 02 2025 Packit <hello@packit.dev> - 348-1
 - Bug fixes and translation updates
 

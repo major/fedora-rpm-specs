@@ -1,12 +1,12 @@
-%global srcname requests-file
+%global srcname requests_file
 
-Name:           python-%{srcname}
-Version:        2.0.0
-Release:        9%{?dist}
+Name:           python-requests-file
+Version:        3.0.0
+Release:        1%{?dist}
 Summary:        Transport adapter for using file:// URLs with python-requests
 
 License:        Apache-2.0
-URL:            https://github.com/dashea/requests-file
+URL:            https://codeberg.org/dashea/requests-file
 Source0:        %pypi_source
 
 BuildArch:      noarch
@@ -45,6 +45,9 @@ Summary:        %{summary}
 %doc README.rst
 
 %changelog
+* Thu Oct 16 2025 David Shea <reallylongword@gmail.com> - 3.0.0-1
+- Update to version 3.0.0
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.0.0-9
 - Rebuilt for Python 3.14.0rc3 bytecode
 

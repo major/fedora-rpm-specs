@@ -13,13 +13,17 @@
 
 Name:		xrootd
 Epoch:		1
-Version:	5.8.4
-Release:	4%{?dist}
+Version:	5.9.0
+Release:	1%{?dist}
 Summary:	Extended ROOT file server
 License:	LGPL-3.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND curl AND MIT AND Zlib
 URL:		https://xrootd.web.cern.ch
 Source0:	%{url}/download/v%{version}/%{name}-%{version}.tar.gz
 Source1:	%{name}-sysusers.conf
+#		https://github.com/xrootd/xrootd/pull/2615
+Patch0:		0001-Tests-Fix-xcache-test-failure.patch
+#		https://github.com/xrootd/xrootd/pull/2617
+Patch1:		0001-Fix-spelling-errors-found-by-lintian.patch
 
 BuildRequires:	cmake
 BuildRequires:	gcc-c++
@@ -257,6 +261,8 @@ This package contains the API documentation of the xrootd libraries.
 
 %prep
 %setup -q
+%patch -P0 -p1
+%patch -P1 -p1
 
 %build
 %cmake \
@@ -297,6 +303,8 @@ rm -f %{buildroot}%{python3_sitearch}/xrootd-*.*-info/RECORD
 [ -r %{buildroot}%{python3_sitearch}/xrootd-*.*-info/INSTALLER ] && \
     sed s/pip/rpm/ \
     -i %{buildroot}%{python3_sitearch}/xrootd-*.*-info/INSTALLER
+
+rm -f %{buildroot}%{_libdir}/cmake/XRootD/uninstall.cmake
 
 LD_LIBRARY_PATH=%{buildroot}%{_libdir} \
 PYTHONPATH=%{buildroot}%{python3_sitearch} \
@@ -376,17 +384,15 @@ export HOSTNAME=localhost
 # rpm 4.20 uses a longer path to the build directory than earlier versions
 # Tests fail with sockets in the build directory with rpm 4.20
 adminpath=$(mktemp -d -p /var/tmp)
-sed "s!all.adminpath .*!all.adminpath ${adminpath}!" \
-    -i %{_vpath_builddir}/tests/cluster/common.cfg \
-       %{_vpath_builddir}/tests/badredir/common.cfg \
-       tests/XRootD/common.cfg
+trap "rm -rf ${adminpath}" EXIT
 
-# Use a separate directory for TPC test due to name clash (srv1, srv2)
-adminpath2=$(mktemp -d -p /var/tmp)
-sed "s!all.adminpath .*!all.adminpath ${adminpath2}!" \
-    -i %{_vpath_builddir}/tests/TPCTests/common.cfg
+sed "s!all.adminpath .*!all.adminpath ${adminpath}/XRootD!" \
+    -i tests/XRootD/common.cfg
 
-trap "rm -rf ${adminpath} ${adminpath2}" EXIT
+for x in authenticated_cluster badredir cluster TPCTests xcachewithcsi ; do
+    sed "s!all.adminpath .*!all.adminpath ${adminpath}/${x}!" \
+	-i %{_vpath_builddir}/tests/${x}/common.cfg
+done
 
 # The badredir test fails when there is no network - exclude
 
@@ -407,6 +413,7 @@ XrdCl::ThreadingTest|\
 XrdCl::WorkflowTest.CheckpointTest|\
 XrdCl::WorkflowTest.XAttrWorkflowTest|\
 XrdEc::XrdEcTests|\
+XRootD::authenticated_cluster::test|\
 XRootD::badredir|\
 XRootD::cluster::test|\
 XRootD::http::test|\
@@ -574,6 +581,7 @@ fi
 %{_libdir}/libXrdCmsRedirectLocal-5.so
 %{_libdir}/libXrdFileCache-5.so
 %{_libdir}/libXrdHttp-5.so
+%{_libdir}/libXrdHttpCors-5.so
 %{_libdir}/libXrdHttpTPC-5.so
 %{_libdir}/libXrdMacaroons-5.so
 %{_libdir}/libXrdN2No2p-5.so
@@ -665,6 +673,9 @@ fi
 %doc %{_pkgdocdir}
 
 %changelog
+* Fri Oct 10 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:5.9.0-1
+- Update to version 5.9.0
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1:5.8.4-4
 - Rebuilt for Python 3.14.0rc3 bytecode
 

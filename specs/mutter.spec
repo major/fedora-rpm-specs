@@ -13,7 +13,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:          mutter
-Version:       49.0
+Version:       49.1
 Release:       %autorelease
 Summary:       Window and compositing manager based on Clutter
 
@@ -25,22 +25,6 @@ Source1:       org.gnome.mutter.fedora.gschema.override
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=1936991
 Patch:         mutter-42.alpha-disable-tegra.patch
-
-# https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/4607
-Patch:         window-drag-bug.patch
-
-# https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/4667
-# https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/8640
-# https://bugzilla.redhat.com/show_bug.cgi?id=2395731
-# Fix a keyboard focus issue that particularly affects a11y
-Patch:         0001-clutter-Use-event-type-to-determine-ClutterFocus-to-.patch
-
-# https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/4675
-# https://gitlab.gnome.org/GNOME/mutter/-/issues/4324
-# https://bugzilla.redhat.com/show_bug.cgi?id=2397256
-# Fix a Shell crash when doing a drag-tab-to-create-new-window in Chrome/ium
-Patch:         0001-compositor-Destroy-window-drag-after-other-end-handl.patch
-Patch:         0002-wayland-data-device-Only-finish-drag-actor-if-there-.patch
 
 BuildRequires: pkgconfig(gobject-introspection-1.0) >= 1.41.0
 BuildRequires: pkgconfig(sm)

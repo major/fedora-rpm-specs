@@ -5,7 +5,7 @@
 %global crate semver
 
 Name:           rust-semver
-Version:        1.0.26
+Version:        1.0.27
 Release:        %autorelease
 Summary:        Parser and evaluator for Cargo's flavor of Semantic Versioning
 

@@ -1,5 +1,5 @@
 Name:           python-rignore
-Version:        0.7.0
+Version:        0.7.1
 Release:        %autorelease
 Summary:        Python bindings for the ignore crate
 
@@ -7,15 +7,18 @@ License:        MIT
 URL:            https://github.com/patrick91/rignore
 Source:         %{url}/archive/v%{version}/rignore-%{version}.tar.gz
 
+# Make snapshot tests order-insensitive
+# https://github.com/patrick91/rignore/pull/20
+Patch:          %{url}/pull/20.patch
+# Downstream-only: Allow a slightly older maturin for now
+Patch:          0001-Downstream-only-Allow-a-slightly-older-maturin-for-n.patch
+
 BuildSystem:            pyproject
 BuildOption(install):   -l rignore
+BuildOption(generate_buildrequires): -g dev
 
 BuildRequires:  tomcli
 BuildRequires:  cargo-rpm-macros >= 24
-
-# Test dependencies; see [tool.pdm.dev-dependencies]
-BuildRequires:  %{py3_dist pytest}
-BuildRequires:  %{py3_dist typing-extensions}
 
 %global common_description %{expand:
 rignore is a Python module that provides a high-performance, Rust-powered file

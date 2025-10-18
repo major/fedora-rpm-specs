@@ -7,13 +7,13 @@
 Summary: A full-service natural language dependency parser
 Name: link-grammar
 Version: 5.12.7
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: LGPL-2.1-or-later
 Source: https://www.gnucash.org/link-grammar/downloads/%{version}/link-grammar-%{version}.tar.gz
 URL: https://opencog.github.io/link-grammar-website/
 BuildRequires: hunspell-devel, libedit-devel, perl-devel, python3-devel, python3-setuptools
 %if %{JAVA}
-BuildRequires: java-devel, jpackage-utils, ant, javapackages-compat
+BuildRequires: java-devel, jpackage-utils, ant-openjdk25, javapackages-local-openjdk25
 %endif
 BuildRequires: perl-generators, swig, minisat2-devel, gcc-c++
 BuildRequires: make, flex, pcre2-devel
@@ -125,6 +125,9 @@ find $RPM_BUILD_ROOT/%{_libdir}/ -name '*.la' | xargs rm -f
 %endif
 
 %changelog
+* Sun Oct 12 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 5.12.7-2
+- Rebuilt for java-25-openjdk as system jdk
+
 * Fri Sep 26 2025 Gwyn Ciesla <gwync@protonmail.com> - 5.12.7-1
 - 5.12.7
 

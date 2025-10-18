@@ -1,7 +1,7 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 43.44
-Release: 3%{?dist}
+Version: 43.46
+Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -12,17 +12,6 @@ URL:     http://fedoraproject.org/wiki/Anaconda
 # ./autogen.sh
 # make dist
 Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{version}/%{name}-%{version}.tar.bz2
-
-# Fix crash on start in Silverblue (and probably other cases)
-# https://github.com/rhinstaller/anaconda/pull/6691
-Patch: 0001-RebootData-don-t-allow-action-to-be-None.patch
-
-# https://github.com/rhinstaller/anaconda/pull/6692
-# Indicate ASCII support in get_keyboard_layouts
-# This is needed for anaconda-webui to be able to make good
-# choices, see:
-# https://bugzilla.redhat.com/show_bug.cgi?id=2402430
-Patch: 0001-pyanaconda-localization-Indicate-ASCII-support-in-ge.patch
 
 # Versions of required components (done so we make sure the buildrequires
 # match the requires versions of things).
@@ -521,6 +510,10 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Oct 16 2025 Packit <hello@packit.dev> - 43.46-1
+- Introduce SetXKeyboardDefaults D-Bus method for setting sensible keyboard
+  defaults (k.koukiou)
+
 * Tue Oct 14 2025 Adam Williamson <awilliam@redhat.com> - 43.44-3
 - Backport PR #6692 to provide keyboard layout ASCII info to anaconda-webui
 

@@ -6,7 +6,6 @@
 %bcond_with pthread
 #
 
-#define _legacy_common_support 1
 #https://github.com/LLNL/sundials/issues/97
 %define _lto_cflags %{nil}
 
@@ -70,7 +69,7 @@
 ##########
 %endif
 %if 0%{?fedora}
-%ifarch s390x x86_64 %{power64} aarch64 riscv64
+%ifarch s390x x86_64 %{power64} %{arm64} riscv64
 %global with_klu64 1
 %global with_fortran 1
 %endif
@@ -91,20 +90,20 @@
 %global idalib_SOVERSION 7
 %global idaslib_SOVERSION 6
 %global kinsollib_SOVERSION 7
-#global cpodeslib_SOVERSION 0
 %global nveclib_SOVERSION 7
 %global sunmatrixlib_SOVERSION 5
 %global sunlinsollib_SOVERSION 5
 %global sunnonlinsollib_SOVERSION 4
 %global sundialslib_SOVERSION 7
+%global sundomeigestpower_SOVERSION 1
 
 Summary:    Suite of nonlinear solvers
 Name:       sundials
-Version:    7.3.0
+Version:    7.5.0
 Release:    %autorelease
 License:    BSD-3-Clause
 URL:        https://computation.llnl.gov/projects/%{name}/
-Source0:    https://github.com/LLNL/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0:    https://github.com/LLNL/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 
 # This patch rename superLUMT library
 Patch0:     %{name}-5.5.0-set_superlumt_name.patch
@@ -762,6 +761,7 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 %{_libdir}/libsundials_sunlinsol*.so.%{sunlinsollib_SOVERSION}*
 %{_libdir}/libsundials_sunmatrix*.so.%{sunmatrixlib_SOVERSION}*
 %{_libdir}/libsundials_sunnonlinsol*.so.%{sunnonlinsollib_SOVERSION}*
+%{_libdir}/libsundials_sundomeigestpower.so.%{sundomeigestpower_SOVERSION}*
 %if 0%{?with_fortran}
 %{_libdir}/libsundials_f*[_mod].so.*
 %endif
@@ -776,6 +776,7 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 %{_libdir}/libsundials_nvecserial.so
 %{_libdir}/libsundials_nvecopenmp.so
 %{_libdir}/libsundials_nvecmanyvector.so
+%{_libdir}/libsundials_sundomeigestpower.so
 %{_libdir}/cmake/sundials/
 %if %{with pthread}
 %{_libdir}/libsundials_nvecpthreads.so
@@ -806,6 +807,7 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 %{_includedir}/ida/
 %{_includedir}/idas/
 %{_includedir}/kinsol/
+%{_includedir}/sundomeigest
 %dir %{_includedir}/sundials
 %{_includedir}/sundials/priv/
 %{_includedir}/sundials/sundials_adjointcheckpointscheme.h
@@ -814,6 +816,7 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 %{_includedir}/sundials/sundials_export.h
 %{_includedir}/sundials/sundials_band.h
 %{_includedir}/sundials/sundials_dense.h
+%{_includedir}/sundials/sundials_domeigestimator.h
 %{_includedir}/sundials/sundials_direct.h
 %{_includedir}/sundials/sundials_futils.h
 %{_includedir}/sundials/sundials_iterative.h
@@ -868,6 +871,7 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 %if %{with pthread}
 %{_libdir}/openmpi/lib/libsundials_nvecmpipthreads.so.*
 %endif
+%{_libdir}/openmpi/lib/libsundials_sundomeigestpower.so.*
 %{_libdir}/openmpi/lib/libsundials_nvecmpiplusx.so.*
 %{_libdir}/openmpi/lib/libsundials_core.so.*
 %{_libdir}/openmpi/lib/libsundials_kinsol.so.*
@@ -895,6 +899,7 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 %{_includedir}/openmpi-%{_arch}/arkode/
 %{_includedir}/openmpi-%{_arch}/cvode/
 %{_includedir}/openmpi-%{_arch}/cvodes/
+%{_includedir}/openmpi-%{_arch}/sundomeigest/
 %{_includedir}/openmpi-%{_arch}/ida/
 %{_includedir}/openmpi-%{_arch}/idas/
 %{_includedir}/openmpi-%{_arch}/kinsol/
@@ -922,6 +927,7 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 %{_libdir}/openmpi/lib/libsundials_nvecmpipthreads.so
 %{_libdir}/openmpi/lib/libsundials_nvecpthreads.so
 %endif
+%{_libdir}/openmpi/lib/libsundials_sundomeigestpower.so
 %{_libdir}/openmpi/lib/libsundials_nvecmpiplusx.so
 %{_libdir}/openmpi/lib/libsundials_core.so
 %{_libdir}/openmpi/lib/libsundials_kinsol.so
@@ -975,6 +981,7 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 %{_libdir}/mpich/lib/libsundials_sunnonlinsol*.so.*
 %{_libdir}/mpich/lib/libsundials_nvecmanyvector.so.*
 %{_libdir}/mpich/lib/libsundials_nvecmpimanyvector.so.*
+%{_libdir}/mpich/lib/libsundials_sundomeigestpower.so.*
 %if %{with pthread}
 %{_libdir}/mpich/lib/libsundials_nvecpthreads.so.*
 %endif
@@ -989,6 +996,7 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 %{_includedir}/mpich-%{_arch}/arkode/
 %{_includedir}/mpich-%{_arch}/cvode/
 %{_includedir}/mpich-%{_arch}/cvodes/
+%{_includedir}/mpich-%{_arch}/sundomeigest/
 %{_includedir}/mpich-%{_arch}/ida/
 %{_includedir}/mpich-%{_arch}/idas/
 %{_includedir}/mpich-%{_arch}/kinsol/
@@ -1017,6 +1025,7 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 %{_libdir}/mpich/lib/libsundials_nvecmpipthreads.so
 %{_libdir}/mpich/lib/libsundials_nvecpthreads.so
 %endif
+%{_libdir}/mpich/lib/libsundials_sundomeigestpower.so
 %{_libdir}/mpich/lib/libsundials_nvecmpiplusx.so
 %{_libdir}/mpich/lib/libsundials_core.so
 %{_libdir}/mpich/lib/libsundials_kinsol.so

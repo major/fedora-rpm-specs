@@ -5,7 +5,7 @@
 %global crate camino
 
 Name:           rust-camino
-Version:        1.1.12
+Version:        1.2.1
 Release:        %autorelease
 Summary:        UTF-8 paths
 
@@ -48,18 +48,6 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+proptest-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+proptest-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "proptest" feature of the "%{crate}" crate.
-
-%files       -n %{name}+proptest-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+proptest1-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -70,18 +58,6 @@ This package contains library source intended for building other packages which
 use the "proptest1" feature of the "%{crate}" crate.
 
 %files       -n %{name}+proptest1-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+serde-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+serde-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "serde" feature of the "%{crate}" crate.
-
-%files       -n %{name}+serde-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+serde1-devel

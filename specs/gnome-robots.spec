@@ -2,7 +2,7 @@
 
 Name:           gnome-robots
 Version:        41.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GNOME Robots game
 
 # * gnome-robots source code and data is GPL-3.0-or-later and GFDL-1.1-or-later
@@ -13,12 +13,14 @@ Summary:        GNOME Robots game
 # Apache-2.0
 # Apache-2.0 OR MIT
 # BSD-2-Clause OR Apache-2.0 OR MIT
+# BSD-3-Clause OR Apache-2.0
 # LGPL-2.1-or-later
 # MIT
 # MIT OR Apache-2.0
 # MIT OR Apache-2.0 OR Zlib
 # MIT OR Zlib OR Apache-2.0
 # MPL-2.0
+# Unicode-3.0
 # Unlicense OR MIT
 # Zlib OR Apache-2.0 OR MIT
 License:        %{shrink:
@@ -28,9 +30,11 @@ License:        %{shrink:
     LGPL-2.1-or-later AND
     MIT AND
     MPL-2.0 AND
+    Unicode-3.0 AND
     Unicode-DFS-2016 AND
     (0BSD OR MIT OR Apache-2.0) AND
     (Apache-2.0 OR MIT) AND
+    (BSD-2-Clause OR Apache-2.0) AND
     (BSD-2-Clause OR Apache-2.0 OR MIT) AND
     (MIT OR Apache-2.0 OR Zlib) AND
     (Unlicense OR MIT)
@@ -38,6 +42,8 @@ License:        %{shrink:
 # LICENSE.dependencies contains a full license breakdown
 URL:            https://wiki.gnome.org/Apps/Robots
 Source0:        https://download.gnome.org/sources/%{name}/41/%{name}-%{tarball_version}.tar.xz
+# Update dependencies to GNOME SDK 49
+Patch0:         https://gitlab.gnome.org/GNOME/gnome-robots/-/merge_requests/39.patch
 
 BuildRequires:  cargo-rpm-macros
 BuildRequires:  desktop-file-utils
@@ -103,6 +109,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/org.gn
 
 
 %changelog
+* Thu Oct 16 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 41.2-3
+- Reuilt with rust-gtk4 0.10
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 41.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

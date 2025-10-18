@@ -176,13 +176,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.18.0
 %define specversion 6.18.0
 %define patchversion 6.18
-%define pkgrelease 0.rc1.251015g9b332cece987e.18
+%define pkgrelease 0.rc1.251016g7ea30958b3054.19
 %define kversion 6
-%define tarfile_release 6.18-rc1-6-g9b332cece987e
+%define tarfile_release 6.18-rc1-28-g7ea30958b3054
 # This is needed to do merge window version magic
 %define patchlevel 18
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc1.251015g9b332cece987e.18%{?buildid}%{?dist}
+%define specrelease 0.rc1.251016g7ea30958b3054.19%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.18.0
 
@@ -4494,12 +4494,16 @@ fi\
 #
 #
 %changelog
-* Wed Oct 15 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.18.0-0.rc1.251015g9b332cece987e.18]
-- Linux v6.18.0-0.rc1.251015g9b332cece987e
+* Thu Oct 16 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.18.0-0.rc1.251016g7ea30958b3054.19]
+- Linux v6.18.0-0.rc1.251016g7ea30958b3054
 
-* Wed Oct 15 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc1.9b332cece987.18]
+* Thu Oct 16 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc1.7ea30958b305.19]
 - powerpc/tools: drop `-o pipefail` in gcc check scripts (Jan Stancek)
 - redhat/configs: clang_lto: disable CONFIG_FORTIFY_KUNIT_TEST (Scott Weaver)
+
+* Thu Oct 16 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc1.7ea30958b305.18]
+- redhat/configs: Re-enable Raspberry Pi support in automotive (Radu Rendec)
+- Linux v6.18.0-0.rc1.7ea30958b305
 
 * Wed Oct 15 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc1.9b332cece987.17]
 - redhat/configs: automotive: enable FSL_EDMA (Jared Kangas)

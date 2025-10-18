@@ -1,5 +1,5 @@
 Name:		qmmp
-Version:	2.2.8
+Version:	2.3.0
 Release:	1%{?dist}
 Summary:	Qt-based multimedia player
 
@@ -21,7 +21,6 @@ BuildRequires:	libcddb-devel
 BuildRequires:	libcdio-paranoia-devel
 BuildRequires:	libcurl-devel
 BuildRequires:	libmad-devel
-BuildRequires:	libmms-devel
 BuildRequires:	libmpcdec-devel
 BuildRequires:	libogg-devel
 BuildRequires:	libprojectM-devel
@@ -151,6 +150,11 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}-enqueue.desk
 %{_libdir}/libqmmp*.so
 
 %changelog
+* Thu Oct 16 2025 Karel Volný <kvolny@redhat.com> 2.3.0-1
+- new version 2.3.0 (rhbz#2403550)
+- see the upstream changelog at http://qmmp.ylsoftware.com/
+- removes mms plugin (moves to plugin pack)
+
 * Thu Sep 04 2025 Karel Volný <kvolny@redhat.com> 2.2.8-1
 - new version 2.2.8 (rhbz#2390065)
 - see the upstream changelog at http://qmmp.ylsoftware.com/

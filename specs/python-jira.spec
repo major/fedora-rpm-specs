@@ -1,11 +1,12 @@
 Name:               python-jira
-Version:            3.8.0
+Version:            3.10.5
 Release:            %autorelease
 Summary:            Python library for interacting with JIRA via REST APIs
 
 License:            BSD-2-Clause
 URL:                https://pypi.io/project/jira
 Source0:            https://github.com/pycontribs/jira/archive/%{version}/jira-%{version}.tar.gz
+Patch0:             https://github.com/pycontribs/jira/pull/2388.patch
 
 BuildArch:          noarch
 

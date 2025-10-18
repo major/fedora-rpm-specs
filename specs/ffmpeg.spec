@@ -47,11 +47,13 @@
 # Disable dependencies not available or wanted on RHEL/EPEL
 %bcond chromaprint 0
 %bcond flite 0
+%bcond lc3 0
 %else
 # Break chromaprint dependency cycle (Fedora-only):
 #   ffmpeg (libavcodec-free) → chromaprint → ffmpeg
 %bcond chromaprint %{?_with_bootstrap:0}%{!?_with_bootstrap:1}
 %bcond flite 1
+%bcond lc3 1
 %endif
 
 %if 0%{?rhel} && 0%{?rhel} <= 9
@@ -177,7 +179,9 @@ BuildRequires:  pkgconfig(gnutls)
 BuildRequires:  pkgconfig(harfbuzz)
 BuildRequires:  pkgconfig(libilbc)
 BuildRequires:  pkgconfig(jack)
-BuildRequires:  pkgconfig(lc3)
+%if %{with lc3}
+BuildRequires:  pkgconfig(lc3) >= 1.1.0
+%endif
 %if %{with lcms2}
 BuildRequires:  pkgconfig(lcms2) >= 2.13
 %endif
@@ -808,7 +812,9 @@ cp -a doc/examples/{*.c,Makefile,README} _doc/examples/
     --enable-libklvanc \
     --disable-liblensfun \
     --disable-liblcevc-dec \
+%if %{with lc3}
     --enable-liblc3 \
+%endif
     --enable-libmodplug \
     --enable-libmp3lame \
     --enable-libmysofa \

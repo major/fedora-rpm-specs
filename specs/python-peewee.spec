@@ -1,4 +1,4 @@
-%if %{defined rhel}
+%if %{defined rhel} || %{defined flatpak}
 # CentOS/RHEL missing mysql-connector-python3
 %bcond mysql_tests 0
 %else

@@ -7,7 +7,7 @@
 # Please preserve changelog entries
 #
 # Github
-%global gh_commit    d9e3b36b47f04b497a0164c5a20f92acb4593284
+%global gh_commit    d1ac35d784bf9f5e61b424901d5a014967f15b12
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     PHPMailer
 %global gh_project   PHPMailer
@@ -23,7 +23,7 @@
 %global php_home     %{_datadir}/php
 
 Name:           php-%{pk_project}%{major}
-Version:        6.11.1
+Version:        6.12.0
 Release:        1%{?dist}
 Summary:        Full-featured email creation and transfer class for PHP
 
@@ -76,15 +76,14 @@ Requires:       php-mbstring
 Requires:       php-openssl
 # From composer.json, "suggest": {
 #        "decomplexity/SendOauth2": "Adapter for using XOAUTH2 authentication",
-#        "ext-imap": "Needed to support advanced email address parsing according to RFC822",
 #        "ext-mbstring": "Needed to send email in multibyte encoding charset or decode encoded addresses",
 #        "ext-openssl": "Needed for secure SMTP sending and DKIM signing",
 #        "greew/oauth2-azure-provider": "Needed for Microsoft Azure XOAUTH2 authentication",
 #        "hayageek/oauth2-yahoo": "Needed for Yahoo XOAUTH2 authentication",
 #        "league/oauth2-google": "Needed for Google XOAUTH2 authentication",
 #        "psr/log": "For optional PSR-3 debug logging",
-#        "symfony/polyfill-mbstring": "To support UTF-8 if the Mbstring PHP extension is not enabled (^1.2)",
-#        "thenetworg/oauth2-azure": "Needed for Microsoft XOAUTH2 authentication"
+#        "thenetworg/oauth2-azure": "Needed for Microsoft XOAUTH2 authentication",
+#        "symfony/polyfill-mbstring": "To support UTF-8 if the Mbstring PHP extension is not enabled (^1.2)"
 Suggests:       php-composer(psr/log)
 # Autoloader
 Requires:       php-composer(fedora/autoloader)
@@ -203,6 +202,9 @@ exit $ret
 
 
 %changelog
+* Thu Oct 16 2025 Remi Collet <remi@remirepo.net> - 6.12.0-1
+- update to 6.12.0
+
 * Tue Sep 30 2025 Remi Collet <remi@remirepo.net> - 6.11.1-1
 - update to 6.11.1
 

@@ -5,7 +5,7 @@
 %global crate quote
 
 Name:           rust-quote
-Version:        1.0.40
+Version:        1.0.41
 Release:        %autorelease
 Summary:        Quasi-quoting macro quote!(...)
 

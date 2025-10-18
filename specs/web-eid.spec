@@ -4,6 +4,7 @@
 
 
 %global build_number 660-2204
+ExcludeArch: %{ix86}
 
 Name:    web-eid
 Version: 2.7.0

@@ -9,6 +9,7 @@ Summary:        Lightweight video thumbnailer that can be used by file managers
 License:        GPL-2.0-or-later
 URL:            %{forgeurl}
 Source0:        %{forgesource}
+Patch0:         https://github.com/dirkvdb/ffmpegthumbnailer/pull/240.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake

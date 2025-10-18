@@ -75,8 +75,6 @@ Provides:       bundled(sjpeg) = 0-0.1.20230608gite5ab130
 # Build system is Bazel, which is not packaged by Fedora
 Provides:       bundled(skcms) = 0-0.1.20240122git51b7f2a
 
-Obsoletes:      jxl-pixbuf-loader < %{epoch}:%{version}-%{release}
-
 %description
 %common_description
 
@@ -112,6 +110,7 @@ Summary:        Library files for JPEG-XL
 Requires:       shared-mime-info
 Provides:       jpegxl-libs = %{epoch}:%{version}-%{release}
 Obsoletes:      jpegxl-libs < 0.3.7-5
+Obsoletes:      jxl-pixbuf-loader < %{epoch}:%{version}-%{release}
 %if %{without gimp_plugin}
 Obsoletes:      gimp-jxl-plugin < 1:0.10.3-4
 %endif

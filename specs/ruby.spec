@@ -165,6 +165,7 @@
 %endif
 # Enable test when building on local.
 %bcond_with bundler_tests
+%bcond_without parallel_tests
 
 %if 0%{?fedora}
 %bcond_without hardening_test
@@ -1212,7 +1213,7 @@ MSPECOPTS=""
 # Give an option to increase the timeout in tests.
 # https://bugs.ruby-lang.org/issues/16921
 %{?test_timeout_scale:RUBY_TEST_TIMEOUT_SCALE="%{test_timeout_scale}"} \
-  make -C %{_vpath_builddir} check TESTS="-v --show-skip $DISABLE_TESTS" MSPECOPT="-fs $MSPECOPTS"
+  make -C %{_vpath_builddir} %{?with_parallel_tests:%{?_smp_mflags}} check TESTS="-v --show-skip $DISABLE_TESTS" MSPECOPT="-fs $MSPECOPTS"
 
 # Run Ruby OpenSSL tests in OpenSSL FIPS.
 make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=" \

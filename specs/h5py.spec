@@ -3,8 +3,8 @@
 
 Summary:        A Python interface to the HDF5 library
 Name:           h5py
-Version:        3.15.0
-Release:        2%{?dist}
+Version:        3.15.1
+Release:        1%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
 URL:            http://www.h5py.org/
@@ -244,10 +244,13 @@ mpirun %{__python3} -m pytest -rxXs --with-mpi -W ignore::DeprecationWarning ${P
 
 
 %changelog
+* Thu Oct 16 2025 Terje Rosten <terjeros@gmail.com> - 3.15.1-1
+- 3.15.1
+
 * Wed Oct 15 2025 Orion Poplawski <orion@nwra.com> - 3.15.0-2
 - Remove requires on mpi4py (rhbz#2403804)
 
-* Mon  Oct 13 2025 Terje Rosten <terjeros@gmail.com> - 3.15.0-1
+* Mon Oct 13 2025 Terje Rosten <terjeros@gmail.com> - 3.15.0-1
 - 3.15.0
 
 * Mon Oct 13 2025 Orion Poplawski <orion@nwra.com> - 3.14.0-1

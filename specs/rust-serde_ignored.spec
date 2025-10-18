@@ -5,7 +5,7 @@
 %global crate serde_ignored
 
 Name:           rust-serde_ignored
-Version:        0.1.12
+Version:        0.1.14
 Release:        %autorelease
 Summary:        Find out about keys that are ignored when deserializing data
 

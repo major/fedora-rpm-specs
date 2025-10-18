@@ -8,7 +8,7 @@
 %endif
 
 Name:           gnome-shell
-Version:        49.0
+Version:        49.1
 Release:        %autorelease
 Summary:        Window management and application launching for GNOME
 
@@ -22,12 +22,6 @@ Patch: gnome-shell-favourite-apps-firefox.patch
 # Some users might have a broken PAM config, so we really need this
 # downstream patch to stop trying on configuration errors.
 Patch: 0001-gdm-Work-around-failing-fingerprint-auth.patch
-
-# https://bugzilla.redhat.com/show_bug.cgi?id=2399599
-# https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/8660
-# https://gitlab.gnome.org/GNOME/gnome-shell/-/merge_requests/3887
-# Fix crash on touching quickmenu sliders with touchscreen
-Patch: 0001-slider-Use-the-sprite-of-the-touch-event-not-the-poi.patch
 
 %define eds_version 3.45.1
 %define gnome_desktop_version 44.0-7

@@ -1,6 +1,6 @@
 %global majorversion 1
-%global minorversion 4
-%global microversion 9
+%global minorversion 5
+%global microversion 81
 
 %global apiversion   0.3
 %global spaversion   0.2
@@ -40,17 +40,23 @@
 %bcond_with libmysofa
 %bcond_with lv2
 %bcond_with roc
+%bcond_with ffado
+%bcond_with onnx
 %else
 %bcond_without jackserver_plugin
 %bcond_without libmysofa
 %bcond_without lv2
 %bcond_without roc
-%endif
-
-%if 0%{?rhel} || ("%{_arch}" == "s390x")
+%ifarch s390x
 %bcond_with ffado
+%bcond_with onnx
+%elifarch %{ix86}
+%bcond_without ffado
+%bcond_with onnx
 %else
 %bcond_without ffado
+%bcond_without onnx
+%endif
 %endif
 
 # Disabled for RHEL < 11 and Fedora < 36
@@ -129,6 +135,7 @@ BuildRequires:  speexdsp-devel
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  libebur128-devel
 BuildRequires:  fftw-devel
+BuildRequires:  spandsp-devel
 
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:       systemd
@@ -406,6 +413,18 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 This package contains the mysofa support for PipeWire filter-chain.
 %endif
 
+%if %{with onnx}
+%package module-filter-chain-onnx
+Summary:        PipeWire media server ONNX filter-chain support
+License:        MIT
+BuildRequires:  onnxruntime-devel
+Recommends:     %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+
+%description module-filter-chain-onnx
+This package contains the ONNX support for PipeWire filter-chain.
+%endif
+
 %package config-rates
 Summary:        PipeWire media server multirate configuration
 License:        MIT
@@ -445,11 +464,13 @@ cp %{SOURCE1} subprojects/packagefiles/
 
 %build
 %meson \
-    -D docs=enabled -D man=enabled -D gstreamer=enabled -D systemd=enabled	\
+    -D docs=enabled -D man=enabled -D gstreamer=enabled -D libsystemd=enabled	\
+    -D systemd-user-service=enabled 						\
     -D sdl2=disabled 								\
     -D audiotestsrc=disabled -D videotestsrc=disabled				\
     -D volume=disabled -D bluez5-codec-aptx=disabled 		  		\
     -D bluez5-codec-lc3plus=disabled -D bluez5-codec-lc3=enabled		\
+    -D bluez5-codec-ldac-dec=disabled 						\
 %ifarch s390x
     -D bluez5-codec-ldac=disabled						\
 %endif
@@ -464,6 +485,7 @@ cp %{SOURCE1} subprojects/packagefiles/
     %{?with_vulkan:-D vulkan=enabled}						\
     %{!?with_libmysofa:-D libmysofa=disabled}					\
     %{!?with_lv2:-D lv2=disabled}						\
+    %{!?with_onnx:-D onnxruntime=disabled}					\
     %{!?with_roc:-D roc=disabled}						\
     %{!?with_ffado:-D libffado=disabled}					\
     %{nil}
@@ -726,11 +748,14 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_bindir}/pw-mididump
 %{_bindir}/pw-midiplay
 %{_bindir}/pw-midirecord
+%{_bindir}/pw-midi2play
+%{_bindir}/pw-midi2record
 %{_bindir}/pw-mon
 %{_bindir}/pw-play
 %{_bindir}/pw-profiler
 %{_bindir}/pw-record
 %{_bindir}/pw-reserve
+%{_bindir}/pw-sysex
 %{_bindir}/pw-top
 %{_mandir}/man1/pw-cat.1*
 %{_mandir}/man1/pw-cli.1*
@@ -886,6 +911,11 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_libdir}/spa-%{spaversion}/filter-graph/libspa-filter-graph-plugin-lv2.so
 %endif
 
+%if %{with onnx}
+%files module-filter-chain-onnx
+%{_libdir}/spa-%{spaversion}/filter-graph/libspa-filter-graph-plugin-onnx.so
+%endif
+
 %files config-rates
 %{_datadir}/pipewire/pipewire.conf.d/10-rates.conf
 
@@ -900,6 +930,9 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_datadir}/pipewire/pipewire.conf.d/50-raop.conf
 
 %changelog
+* Thu Oct 16 2025 Wim Taymans <wtaymans@redhat.com> - 1.5.81-1
+- Update version to 1.5.81
+
 * Thu Oct 9 2025 Wim Taymans <wtaymans@redhat.com> - 1.4.9-1
 - Update version to 1.4.9
 

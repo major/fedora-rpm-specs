@@ -1,5 +1,5 @@
 Name:           pyshp
-Version:        2.4.1
+Version:        3.0.2.post1
 Release:        %autorelease
 Summary:        Pure Python read/write support for ESRI Shapefile format
 
@@ -38,11 +38,9 @@ Source25:       %{data_url}/raw/%{data_commit}/gis_osm_natural_a_free_1.zip
 
 BuildSystem:            pyproject
 BuildOption(install):   -l shapefile
-BuildOption(generate_buildrequires): requirements.test.txt
+BuildOption(generate_buildrequires): -x test
 
 BuildArch:      noarch
-
-BuildRequires:  dos2unix
 
 %global common_description %{expand:
 The Python Shapefile Library (PyShp) provides read and write support for the
@@ -73,17 +71,6 @@ Summary:        %{summary}
 
 
 %prep -a
-# Fix non-UTF-8 license file
-iconv --from-code=Windows-1252 --to-code=UTF-8 --output=LICENSE.TXT.conv \
-    LICENSE.TXT
-touch -r LICENSE.TXT LICENSE.TXT.conv
-mv LICENSE.TXT.conv LICENSE.TXT
-# Fix line endings
-dos2unix --keepdate LICENSE.TXT changelog.txt shapefile.py
-
-# Allow newer versions of test dependencies
-sed -r -i 's/==/>=/' requirements.test.txt
-
 mkdir -p _testdata
 ln '%{SOURCE10}' '%{SOURCE11}' '%{SOURCE12}' '%{SOURCE13}' '%{SOURCE14}' \
     '%{SOURCE20}' '%{SOURCE21}' '%{SOURCE22}' '%{SOURCE23}' '%{SOURCE24}' \
@@ -100,8 +87,8 @@ popd
 export REPLACE_REMOTE_URLS_WITH_LOCALHOST='yes'
 
 %pytest -v
-# Run the doctests with the integrated runner in shapefile.py
-%{py3_test_envvars} %{python3} shapefile.py
+# Doctests
+%{py3_test_envvars} %{python3} test_shapefile.py
 
 
 %files -n python3-pyshp -f %{pyproject_files}

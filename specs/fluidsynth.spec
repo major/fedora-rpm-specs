@@ -1,7 +1,7 @@
 
 Summary:      Real-time software synthesizer
 Name:         fluidsynth
-Version:      2.4.7
+Version:      2.4.8
 Release:      1%{?dist}
 URL:          http://www.fluidsynth.org/
 Source0:      https://github.com/Fluidsynth/fluidsynth/archive/v%{version}/fluidsynth-%{version}.tar.gz
@@ -13,6 +13,8 @@ Recommends:   fluid-soundfont-gm
 Patch0:        fluidsynth-fedora-defaults.patch
 # Make correct (user) service file
 Patch1:        fluidsynth-fedora-service.patch
+# Make not world writeable /run/log/fluidsynth
+Patch2:        fluidsynth-fedora-access-rights.patch
 
 BuildRequires: alsa-lib-devel
 %if 0%{?el7}
@@ -133,6 +135,10 @@ install -m 644 fluidsynth.tmpfiles.in $RPM_BUILD_ROOT/usr/lib/tmpfiles.d/fluidsy
 
 
 %changelog
+* Thu Oct 16 2025 Christoph Karl <pampelmuse [AT] gmx [DOT] at> - 2.4.8-1
+- Update to 2.4.8
+- Fix world writeable /run/lock/fluidsynth
+
 * Sat Aug  2 2025 Christoph Karl <pampelmuse [AT] gmx [DOT] at> - 2.4.7-1
 - Update to 2.4.7
 

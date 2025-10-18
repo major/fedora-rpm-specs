@@ -8,7 +8,7 @@
 
 Name:       procyon
 Version:    0.6.0
-Release:    0.10.%{commitdate}.git%{shortcommit}%{?dist}
+Release:    0.11.%{commitdate}.git%{shortcommit}%{?dist}
 Summary:    procyon java decompiler and other tools
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:    Apache-2.0 
@@ -131,10 +131,12 @@ mkdir -p build/Procyon.Decompiler/{libs,classes}
 mkdir -p build/Procyon.Expressions/{libs,classes}
 mkdir -p build/Procyon.Reflection/{libs,classes}
 
-javac -d build/Procyon.Core/classes/ ` find Procyon.Core/src/main/java -type f | grep  "\.java"`
-javac -d build/Procyon.Reflection/classes/    -cp build/Procyon.Core/classes/ ` find Procyon.Reflection/src/main/java -type f | grep  "\.java"`
-javac -d build/Procyon.Expressions/classes/   -cp build/Procyon.Core/classes/:build/Procyon.Reflection/classes/ ` find Procyon.Expressions/src/main/java -type f | grep  "\.java"`
-javac -d build/Procyon.CompilerTools/classes/ -cp build/Procyon.Core/classes/ ` find Procyon.CompilerTools/src/main/java -type f | grep  "\.java"`
+sourceVersion="-source 8 -target 8 -g"
+
+javac $sourceVersion -d build/Procyon.Core/classes/ ` find Procyon.Core/src/main/java -type f | grep  "\.java"`
+javac $sourceVersion -d build/Procyon.Reflection/classes/    -cp build/Procyon.Core/classes/ ` find Procyon.Reflection/src/main/java -type f | grep  "\.java"`
+javac $sourceVersion -d build/Procyon.Expressions/classes/   -cp build/Procyon.Core/classes/:build/Procyon.Reflection/classes/ ` find Procyon.Expressions/src/main/java -type f | grep  "\.java"`
+javac $sourceVersion -d build/Procyon.CompilerTools/classes/ -cp build/Procyon.Core/classes/ ` find Procyon.CompilerTools/src/main/java -type f | grep  "\.java"`
 
 # pack the jars
 for x in Procyon.CompilerTools Procyon.Core Procyon.Reflection Procyon.Expressions ; do
@@ -212,87 +214,4 @@ popd
 %doc README.md
 
 %changelog
-* Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 0.6.0-0.10.20220221.git88a95fa
-- Rebuilt for java-25-openjdk as preffered jdk
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-0.9.20220221.git88a95fa
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-0.8.20220221.git88a95fa
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Wed Jul 24 2024 Miroslav Suchý <msuchy@redhat.com> - 0.6.0-0.7.20220221.git88a95fa
-- convert license to SPDX
-
-* Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-0.6.20220221.git88a95fa
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-0.5.20220221.git88a95fa
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-0.4.20220221.git88a95fa
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-0.3.20220221.git88a95fa
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-0.2.20220221.git88a95fa
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-0.1.20220221.git88a95fa
-- bumped to 0.6.0
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.36-0.11.20210619.git92ba3f4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Fri Jul 08 2022 Jiri Vanek <jvanek@redhat.com> - 0.5.36-0.10.20210619.git92ba3f4
-- Rebuilt for Drop i686 JDKs
-
-* Sat Feb 05 2022 Jiri Vanek <jvanek@redhat.com> - 0.5.36-0.9.20210619.git92ba3f4
-- Rebuilt for java-17-openjdk as system jdk
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.36-0.8.20210619.git92ba3f4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.36-0.7.20210619.git92ba3f4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Thu Jun 03 2021 Jiri Vanek <jvanek@redhat.com> - 0.5.36-0.6-92ba3f4
-- moved to commit versioning
-
-* Thu Jun 03 2021 Marian Koncek <mkoncek@redhat.com> - 1.0~SNAPSHOT-1
-- Update to upstream version 1.0~SNAPSHOT
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.36-0.5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Thu Dec 10 2020 Jiri Vanek <jvanek@redhat.com> - 0.5.36-0.4
-- set source/target of 8
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.36-0.3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Sat Jul 11 2020 Jiri Vanek <jvanek@redhat.com> - 0.5.36-0.2
-- Rebuilt for JDK-11, see https://fedoraproject.org/wiki/Changes/Java11
-
-* Tue Feb 18 2020  Jiri Vanek <jvanek@redhat.com> - 0.5.36-0.1
-- bumped to latest tagged forest 0.5.36
-- fixed bug in usage of newer jcommander
-
-* Tue Feb 18 2020  Jiri Vanek <jvanek@redhat.com> - 0.5.33-0.5.pre02
-- removed fat jar, as gradle is gone
-- removed javadoc and srcs artifacts. will eb building by javac
-- buit by javac instead of gradle
-
-* Fri Jul 26 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.33-0.3.pre02
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Sat Feb 02 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.33-0.2.pre02
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Fri Dec 21 2018 Jiri Vanek <jvanek@redhat.com> 0.5.33-0.1.pre02
-- created special package for assembled fat jar
-- adapted rest of package to include and cooperate with minimal decompiler frontend
-
-* Fri Dec 21 2018 Jiri Vanek <jvanek@redhat.com> 0.5.33-0.1.pre01
-- inital load
+%autochangelog

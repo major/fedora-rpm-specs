@@ -1,5 +1,5 @@
 Name:           nox
-Version:        2025.05.01
+Version:        2025.10.14
 Release:        %autorelease
 Summary:        Flexible test automation
 
@@ -36,9 +36,10 @@ file for configuration.
 # - test__create_venv_options requires conda
 # - test_main_requires requires alternative Python interpreters
 # - test_noxfile_script_mode installs from PyPI
+# - test_download_python_* uses uv to install alternative Python interpreters
 %pytest -k "not test__create_venv_options[nox.virtualenv.CondaEnv.create-conda-CondaEnv] and \
             not test_main_requires[sessions2-expected_order2] and not test_main_requires[sessions1-expected_order1] and\
-            not test_noxfile_script_mode"
+            not test_noxfile_script_mode and not test_download_python_"
 
 %files -f %{pyproject_files}
 %{_bindir}/nox

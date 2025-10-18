@@ -5,7 +5,7 @@
 %global crate proc-macro-crate
 
 Name:           rust-proc-macro-crate
-Version:        3.3.0
+Version:        3.4.0
 Release:        %autorelease
 Summary:        Replacement for crate (macro_rules keyword) in proc-macros
 

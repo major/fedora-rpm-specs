@@ -21,7 +21,6 @@ This is a separate distribution of the zope.interface package used in Zope 3.
 
 %package -n python3-zope-interface
 Summary:	Zope 3 Interface Infrastructure
-%{?python_provide:%python_provide python3-zope-interface}
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -54,6 +53,9 @@ sed -i "s/'default'/'classic'/" docs/conf.py
 
 # Use local objects.inv for intersphinx
 sed -i "s|\('https://docs\.python\.org/': \)None|\1'%{_docdir}/python3-docs/html/objects.inv'|" docs/conf.py
+
+# Do not run coverage tests in Fedora
+sed -i "/coverage/d" setup.py
 
 %generate_buildrequires
 %pyproject_buildrequires %{?with_docs: -x docs} %{?with_tests: -x test}

@@ -2,7 +2,7 @@
 
 Name:           mrcpp
 Version:        1.5.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A numerical mathematics library based on multiresolution analysis
 License:        LGPL-3.0-or-later
 URL:            https://github.com/MRChemSoft/mrcpp/
@@ -14,6 +14,8 @@ Patch0:         mrcpp-1.4.0-eigen3.patch
 Patch1:         mrcpp-1.4.0-rpath.patch
 # Patch in catchv3 support, see https://github.com/MRChemSoft/mrcpp/pull/213
 Patch2:         mrcpp-1.5.0-catchv3.patch
+# Fix build due to missing cassert header
+Patch3:         mrcpp-1.5.0-cassert.patch
 
 %if 0%{?rhel} == 9
 # Compile fails on ppc64le with the error /usr/include/eigen3/Eigen/src/Core/arch/AltiVec/MatrixProduct.h:1199:26: error: inlining failed in call to 'always_inline' 'Eigen::internal::bload<Eigen::internal::blas_data_mapper<double, long, 0, 0, 1>, double __vector(2), long, 2l, 0, 0>(Eigen::internal::PacketBlock<double __vector(2), 4>&, Eigen::internal::blas_data_mapper<double, long, 0, 0, 1> const&, long, long)void': target specific option mismatch
@@ -77,6 +79,7 @@ This package contains the runtime data.
 %patch -P0 -p1 -b .eigen3
 %patch -P1 -p1 -b .rpath
 %patch -P2 -p1 -b .catchv3
+%patch -P3 -p1 -b .cassert
 # Remove bundled catch
 rm -rf external/catch/
 
@@ -107,6 +110,9 @@ rm %{buildroot}%{_bindir}/mrcpp-tests
 %{_includedir}/MRCPP/
 
 %changelog
+* Wed Oct 15 2025 Sandro Mani <manisandro@gmail.com> - 1.5.0-9.1
+- Fix build against eigen3-5.0.0
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -22,8 +22,8 @@
 %bcond_with sourcegit
 
 Name:           dnsmasq
-Version:        2.90
-Release:        7%{?extraversion:.%{extraversion}}%{?dist}
+Version:        2.91
+Release:        1%{?extraversion:.%{extraversion}}%{?dist}
 Summary:        A lightweight DHCP/caching DNS server
 
 # SPDX identifiers already
@@ -47,9 +47,6 @@ Patch1:         dnsmasq-2.77-underflow.patch
 Patch2:         dnsmasq-2.81-configuration.patch
 Patch3:         dnsmasq-2.78-fips.patch
 Patch7:         dnsmasq-2.90-dbus-interfaces.patch
-# https://bugzilla.redhat.com/show_bug.cgi?id=2340085
-# https://thekelleys.org.uk/gitweb/?p=dnsmasq.git;a=commit;h=da2cc84854a01dd08a8bb4161428be20b83a5ec7
-Patch8:         dnsmasq-2.90-C23-compatibility.patch
 
 
 Requires:       nettle
@@ -154,39 +151,35 @@ mkdir -p $RPM_BUILD_ROOT%{_sbindir} \
         $RPM_BUILD_ROOT%{_mandir}/man8 \
         $RPM_BUILD_ROOT%{_var}/lib/dnsmasq \
         $RPM_BUILD_ROOT%{_sysconfdir}/dnsmasq.d \
-        $RPM_BUILD_ROOT%{_sysconfdir}/dbus-1/system.d
-install src/dnsmasq $RPM_BUILD_ROOT%{_sbindir}/dnsmasq
-install dnsmasq.conf.example $RPM_BUILD_ROOT%{_sysconfdir}/dnsmasq.conf
-install dbus/dnsmasq.conf $RPM_BUILD_ROOT%{_sysconfdir}/dbus-1/system.d/
-install -m 644 man/dnsmasq.8 $RPM_BUILD_ROOT%{_mandir}/man8/
-install -D trust-anchors.conf $RPM_BUILD_ROOT%{_datadir}/%{name}/trust-anchors.conf
+        $RPM_BUILD_ROOT%{_datadir}/dbus-1/system.d
+install -p src/dnsmasq $RPM_BUILD_ROOT%{_sbindir}/dnsmasq
+install -p -m 0644 dnsmasq.conf.example $RPM_BUILD_ROOT%{_sysconfdir}/dnsmasq.conf
+install -p -m 0644 dbus/dnsmasq.conf $RPM_BUILD_ROOT%{_datadir}/dbus-1/system.d/
+install -p -m 0644 man/dnsmasq.8 $RPM_BUILD_ROOT%{_mandir}/man8/
+install -p -D -m 0644 trust-anchors.conf $RPM_BUILD_ROOT%{_datadir}/%{name}/trust-anchors.conf
 
 # utils sub package
 mkdir -p $RPM_BUILD_ROOT%{_bindir} \
          $RPM_BUILD_ROOT%{_mandir}/man1
-install -m 755 contrib/lease-tools/dhcp_release $RPM_BUILD_ROOT%{_bindir}/dhcp_release
-install -m 644 contrib/lease-tools/dhcp_release.1 $RPM_BUILD_ROOT%{_mandir}/man1/dhcp_release.1
-install -m 755 contrib/lease-tools/dhcp_release6 $RPM_BUILD_ROOT%{_bindir}/dhcp_release6
-install -m 644 contrib/lease-tools/dhcp_release6.1 $RPM_BUILD_ROOT%{_mandir}/man1/dhcp_release6.1
-install -m 755 contrib/lease-tools/dhcp_lease_time $RPM_BUILD_ROOT%{_bindir}/dhcp_lease_time
-install -m 644 contrib/lease-tools/dhcp_lease_time.1 $RPM_BUILD_ROOT%{_mandir}/man1/dhcp_lease_time.1
+install -p -m 755 contrib/lease-tools/dhcp_release $RPM_BUILD_ROOT%{_bindir}/dhcp_release
+install -p -m 644 contrib/lease-tools/dhcp_release.1 $RPM_BUILD_ROOT%{_mandir}/man1/dhcp_release.1
+install -p -m 755 contrib/lease-tools/dhcp_release6 $RPM_BUILD_ROOT%{_bindir}/dhcp_release6
+install -p -m 644 contrib/lease-tools/dhcp_release6.1 $RPM_BUILD_ROOT%{_mandir}/man1/dhcp_release6.1
+install -p -m 755 contrib/lease-tools/dhcp_lease_time $RPM_BUILD_ROOT%{_bindir}/dhcp_lease_time
+install -p -m 644 contrib/lease-tools/dhcp_lease_time.1 $RPM_BUILD_ROOT%{_mandir}/man1/dhcp_lease_time.1
 
 # Systemd
 mkdir -p %{buildroot}%{_unitdir}
-install -m644 %{SOURCE1} %{buildroot}%{_unitdir}
+install -p -m644 %{SOURCE1} %{buildroot}%{_unitdir}
 rm -rf %{buildroot}%{_initrddir}
 
 #install systemd sysuser file
-install -Dpm 644 %{SOURCE2} %{buildroot}%{_sysusersdir}/%{name}.conf
+install -p -Dpm 644 %{SOURCE2} %{buildroot}%{_sysusersdir}/%{name}.conf
 
 %if %{with i18n}
 %make_install PREFIX=/usr BINDIR=%{_sbindir} install-i18n
 %find_lang %{name} --with-man
 %endif
-
-%pre
-#precreate users so that rpm can install files owned by that user
-%sysusers_create_compat %{SOURCE2}
 
 %post
 %systemd_post dnsmasq.service
@@ -203,7 +196,7 @@ install -Dpm 644 %{SOURCE2} %{buildroot}%{_sysusersdir}/%{name}.conf
 %config(noreplace) %{_sysconfdir}/dnsmasq.conf
 %dir %{_sysconfdir}/dnsmasq.d
 %dir %attr(0755,root,dnsmasq) %{_var}/lib/dnsmasq
-%config(noreplace) %{_sysconfdir}/dbus-1/system.d/dnsmasq.conf
+%{_datadir}/dbus-1/system.d/dnsmasq.conf
 %{_unitdir}/%{name}.service
 %{_sbindir}/dnsmasq
 %{_mandir}/man8/dnsmasq*
@@ -221,6 +214,11 @@ install -Dpm 644 %{SOURCE2} %{buildroot}%{_sysusersdir}/%{name}.conf
 %endif
 
 %changelog
+* Thu Aug 14 2025 Petr Menšík <pemensik@redhat.com> - 2.91-1
+- Update to 2.91 (rhbz#2353910)
+- Move dbus-1 definition to _datadir
+- Drop call to %sysusers_create_compat
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.90-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

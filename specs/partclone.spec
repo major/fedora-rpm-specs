@@ -3,8 +3,8 @@
 
 Summary:        Utility to clone and restore a partition
 Name:           partclone
-Version:        0.3.37
-Release:        2%{?dist}
+Version:        0.3.38
+Release:        1%{?dist}
 # Partclone itself is GPL-2.0-or-later but uses other source codes, breakdown:
 # GPL-3.0-or-later: fail-mbr/fail-mbr.S
 # BSD-2-Clause AND GPL-2.0-only AND GPL-2.0-or-later AND LGPL-3.0-or-later: src/btrfs*
@@ -21,7 +21,7 @@ Source0:        https://github.com/Thomas-Tsai/partclone/archive/%{version}/%{na
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  libuuid-devel
-BuildRequires:  fuse-devel
+BuildRequires:  fuse3-devel
 BuildRequires:  ncurses-devel
 BuildRequires:  openssl-devel >= 1.1.0
 BuildRequires:  e2fsprogs-devel
@@ -50,8 +50,8 @@ BuildRequires:  gettext-devel
 Recommends:     bash-completion
 # Partclone depends on specific source files, either not exposed to -devel package or no -devel package exists
 # Version information origin: src/btrfs/libbtrfs/version.h
-Provides:       bundled(libbtrfs) = 6.14
-Provides:       bundled(libbtrfsutil) = 6.14
+Provides:       bundled(libbtrfs) = 6.16
+Provides:       bundled(libbtrfsutil) = 6.16
 # Version information origin: src/xfs/include/builddefs
 Provides:       bundled(xfsprogs-libs) = 4.20.0
 
@@ -126,6 +126,9 @@ make check || { cat tests/test-suite.log; exit 1; }
 %{_mandir}/man8/%{name}*.8*
 
 %changelog
+* Thu Oct 16 2025 Robert Scheck <robert@fedoraproject.org> 0.3.38-1
+- Upgrade to 0.3.38 (#2404068)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.37-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,4 +1,4 @@
-%define moodlewebdir %{_var}/www/moodle/web
+%define moodlewebdir %{_var}/www/moodle/public
 %define moodledatadir %{_var}/www/moodle/data
 
 # Suppress finding Perl libraries supplied by filter/algebra/*.p?
@@ -6,13 +6,13 @@
 %define __perl_provides %{nil}
 
 Name:           moodle
-Version:        5.0.2
+Version:        5.1
 Release:       	1%{?dist}
 Summary:        A Course Management System
 
 License:        GPL-2.0-or-later
 URL:            https://moodle.org/
-Source0:        https://download.moodle.org/download.php/direct/stable500/%{name}-%{version}.tgz
+Source0:        https://download.moodle.org/download.php/direct/stable501/%{name}-%{version}.tgz
 Source1:        moodle.conf
 Source2:        moodle-config.php
 Source3:        moodle.cron
@@ -56,11 +56,7 @@ find . -type f \! -name \*.pl -exec chmod a-x {} \;
 find . -name \*.cgi -exec chmod a+x {} \;
 
 %build
-rm config-dist.php install.php filter/tex/mimetex.* filter/tex/README.mimetex
-
-# Get rid of language files in subordinate packages for languages not supported
-# by moodle itself.
-rm lib/phpmailer/language/phpmailer.lang-fo.php
+rm config-dist.php
 
 #Drop precompiled flash
 find . -type f -name '*.swf' | xargs rm -f
@@ -69,10 +65,9 @@ find . -type f -name '*.swf' | xargs rm -f
 rm -rf %{buildroot}
 mkdir -p %{buildroot}%{moodlewebdir}
 mkdir -p %{buildroot}%{moodledatadir}
-cp -a * %{buildroot}%{moodlewebdir}
-rm %{buildroot}%{moodlewebdir}/README*
+cp -a * %{buildroot}%{_var}/www/moodle/
 install -p -D -m 0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/httpd/conf.d/moodle.conf
-install -p -D -m 0644 %{SOURCE2} %{buildroot}%{moodlewebdir}/config.php
+install -p -D -m 0644 %{SOURCE2} %{buildroot}/var/www/moodle/config.php
 install -p -D -m 0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/cron.d/moodle
 install -p -D -m 0755 %{SOURCE4} %{buildroot}%{_sbindir}/moodle-cron
 install -p -D -m 0644 %{SOURCE5} %{buildroot}%{_unitdir}/moodle.service
@@ -80,7 +75,7 @@ find %{buildroot} -name \*.mimetex-\* -exec rm {} \;
 rm -f %{buildroot}${moodlewebdir}/pix/.cvsignore
 
 #use system adodb
-rm -rf %{buildroot}/var/www/moodle/web/lib/adodb
+rm -rf %{buildroot}%{moodlewebdir}/lib/adodb
 ln -s /usr/share/php/adodb/ %{buildroot}%{moodlewebdir}/lib/adodb
 
 #Symlink to FreeSans, to save space.
@@ -92,8 +87,8 @@ rm -rf %{buildroot}%{moodlewebdir}/lib/markdown.php
 ln -s /usr/share/php/markdown.php %{buildroot}%{moodlewebdir}/lib/markdown.php
 
 #use system php-pear-OLE
-rm -rf %{buildroot}/var/www/moodle/web/lib/pear/OLE
-ln -s /usr/share/pear/OLE %{buildroot}/var/www/moodle/web/lib/pear/OLE
+rm -rf %{buildroot}%{moodlewebdir}/lib/pear/OLE
+ln -s /usr/share/pear/OLE %{buildroot}%{moodlewebdir}/lib/pear/OLE
 
 #use system php-simplepie
 cp -p %{buildroot}%{moodlewebdir}/lib/simplepie/moodle_simplepie.php .
@@ -105,18 +100,18 @@ cp -p moodle_simplepie.php %{buildroot}%{_datadir}/php/php-simplepie
 %post
 %systemd_post moodle.service
 
-if [ -d /var/www/moodle/web/lib/adodb -a ! -L /var/www/moodle/web/lib/adodb ]; then
-  mv /var/www/moodle/web/lib/adodb /var/www/moodle/web/lib/adodb.rpmbak && \
-  ln -s /usr/share/php/adodb/ /var/www/moodle/web/lib/adodb
-  rm -rf /var/www/moodle/web/lib/adodb.rpmbak
+if [ -d %{moodlewebdir}/lib/adodb -a ! -L %{moodlewebdir}/lib/adodb ]; then
+  mv %{moodlewebdir}/lib/adodb %{moodlewebdir}/adodb.rpmbak && \
+  ln -s /usr/share/php/adodb/ %{moodlewebdir}/lib/adodb
+  rm -rf %{moodlewebdir}/lib/adodb.rpmbak
 fi
 
-if [ ! -L /var/www/moodle/web/lib/adodb ]; then
-  ln -s /usr/share/php/adodb/ /var/www/moodle/web/lib/adodb
+if [ ! -L %{moodlewebdir}/lib/adodb ]; then
+  ln -s /usr/share/php/adodb/ %{moodlewebdir}/lib/adodb
 fi
 
-if [ ! -L /var/www/moodle/web/lib/pear/OLE ]; then
-  ln -s /usr/share/pear/OLE /var/www/moodle/web/lib/pear/OLE
+if [ ! -L %{moodlewebdir}/lib/pear/OLE ]; then
+  ln -s /usr/share/pear/OLE %{moodlewebdir}/lib/pear/OLE
 fi
 
 %preun
@@ -127,7 +122,7 @@ fi
 
 %pretrans -p <lua>
 -- Remove symlinks that will become directories
-dirs = {"/var/www/moodle/web/lib/magpie", "/var/www/moodle/web/lib/google", "/var/www/moodle/web/auth/cas", "/var/www/moodle/web/auth/cas/CAS"}
+dirs = {"%{moodlewebdir}/lib/magpie", "%{moodlewebdir}/lib/google", "%{moodlewebdir}/auth/cas", "%{moodlewebdir}/auth/cas/CAS"}
 for i, path in ipairs(dirs) do
   st = posix.stat(path)
   if st and st.type == "link" then
@@ -136,7 +131,7 @@ for i, path in ipairs(dirs) do
 end
 
 -- Remove directories that will become symlinks
-dirs = {"/var/www/moodle/web/auth/cas/CAS"}
+dirs = {"%{moodlewebdir}/auth/cas/CAS"}
 for i, path in ipairs(dirs) do
   st = posix.stat(path)
   if st and st.type == "directory" then
@@ -154,21 +149,26 @@ end
 
 %files
 %license COPYING.txt
-%doc README* TRADEMARK.txt local/readme.txt
-%dir %{_var}/www/moodle
+%doc README* TRADEMARK.txt public/local/readme.txt
+%{_var}/www/moodle/
 %config(noreplace) %{moodlewebdir}/config.php
-%{moodlewebdir}
 %attr(-,apache,apache) %{moodledatadir}
+%attr(-,apache,apache) %{moodlewebdir}
 %config(noreplace) %{_sysconfdir}/cron.d/%{name}
 %config(noreplace) %{_sysconfdir}/httpd/conf.d/moodle.conf
 %{_unitdir}/%{name}.service
 %{_sbindir}/%{name}-cron
-%ghost /var/www/moodle/web/lib/adodb
+%ghost %{moodlewebdir}/lib/adodb
 %ghost /var/www/moodle/auth/cas/CAS.rpmmoved
-%exclude %{moodlewebdir}/COPYING.txt
 %{_datadir}/php/php-simplepie/moodle_simplepie.php
 
 %changelog
+* Thu Oct 16 2025 Gwyn Ciesla <gwync@protonmail.com> - 5.1.0-1
+- 5.1.0
+
+* Thu Oct 16 2025 Gwyn Ciesla <gwync@protonmail.com> - 5.0.3-1
+- 5.0.3
+
 * Fri Aug 08 2025 Gwyn Ciesla <gwync@protonmail.com> - 5.0.2-1
 - 5.0.2
 

@@ -283,11 +283,11 @@
 %global mpichversion %(rpm -qi mpich | awk -F': ' '/Version/ {print $2}')
 %global openmpiversion %(rpm -qi openmpi | awk -F': ' '/Version/ {print $2}')
 %global majorver 3
-%global releasever %{majorver}.23
+%global releasever %{majorver}.24
 
 Name:    petsc
 Summary: Portable Extensible Toolkit for Scientific Computation
-Version: %{releasever}.6
+Version: %{releasever}.0
 Release: %autorelease
 License: BSD-2-Clause
 URL:     https://petsc.org/
@@ -305,12 +305,9 @@ Patch0:  %{name}-3.21.1-no-rpath.patch
 ## Rename library name for 64-bit integer package
 Patch1:  %{name}-lib64.patch
 Patch3:  %{name}-3.19.4-fix_mumps_includes.patch
-Patch4:  %{name}-3.21.1-fix_metis64.patch
+Patch4:  %{name}-3.24.0-fix_metis64.patch
 Patch6:  %{name}-3.14.1-fix_pkgconfig_file.patch
 Patch7:  %{name}-3.22.2-avoid_fake_MKL_detection.patch
-
-## Fix tests for Python-3.14+
-Patch8:  https://gitlab.com/%{name}/%{name}/-/merge_requests/8680.patch
 
 %if %{with superlu}
 BuildRequires: SuperLU-devel >= 5.2.0
@@ -584,9 +581,6 @@ done
 
 pushd %{name}-%{version}
 %patch -P 7 -p1 -b .backup
-%if 0%{?fedora} > 42
-%patch -P 8 -p1 -b .backup
-%endif
 popd
 
 # Remove pregenerated Cython C sources

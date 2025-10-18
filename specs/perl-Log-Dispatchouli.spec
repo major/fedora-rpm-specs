@@ -1,5 +1,5 @@
 Name:           perl-Log-Dispatchouli
-Version:        3.011
+Version:        3.013
 Release:        1%{?dist}
 Summary:        Simple wrapper around Log::Dispatch
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -18,6 +18,7 @@ BuildRequires:  perl(warnings)
 # Runtime
 BuildRequires:  perl(:VERSION) >= 5.20
 BuildRequires:  perl(Carp)
+BuildRequires:  perl(Encode)
 BuildRequires:  perl(experimental)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Log::Dispatch)
@@ -110,6 +111,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Oct 16 2025 Jitka Plesnikova <jplesnik@redhat.com> - 3.013-1
+- 3.013 bump (rhbz#2404040)
+
 * Tue Jul 29 2025 Jitka Plesnikova <jplesnik@redhat.com> - 3.011-1
 - 3.011 bump (rhbz#2383966)
 

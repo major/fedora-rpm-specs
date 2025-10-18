@@ -528,8 +528,7 @@ Summary:        Python runtime libraries
 # socket.getaddrinfo() and socket.getnameinfo() are BSD-3-Clause
 # test.support.asynchat and test.support.asyncore are MIT-CMU
 # http.cookies is MIT-CMU
-# trace is under temporary SPDX ref: https://gitlab.com/fedora/legal/fedora-license-data/-/issues/657
-# trace: LicenseRef-Fedora-Temporary-Python-trace
+# trace is HPND-SMC
 # uu is MIT-CMU
 # xmlrpc.client is MIT-CMU
 # test.test_epoll is MIT
@@ -547,7 +546,7 @@ Summary:        Python runtime libraries
 # parts of asyncio from uvloop are MIT
 # Python/qsbr.c is adapted from code under BSD-2-Clause
 # Zstandard bindings in Modules/_zstd and Lib/compression/zstd are BSD-3-Clause
-%global libs_license Python-2.0.1 AND MIT AND BSD-3-Clause AND MIT-CMU AND LicenseRef-Fedora-Temporary-Python-trace AND BSD-2-Clause AND dtoa
+%global libs_license Python-2.0.1 AND MIT AND BSD-3-Clause AND MIT-CMU AND HPND-SMC AND BSD-2-Clause AND dtoa
 %if %{with rpmwheels}
 Requires: %{python_wheel_pkg_prefix}-pip-wheel >= 23.1.2
 License: %{libs_license}

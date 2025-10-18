@@ -5,7 +5,7 @@
 %global crate tikv-jemallocator
 
 Name:           rust-tikv-jemallocator
-Version:        0.6.0
+Version:        0.6.1
 Release:        %autorelease
 Summary:        Rust allocator backed by jemalloc
 
@@ -13,6 +13,11 @@ Summary:        Rust allocator backed by jemalloc
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/tikv-jemallocator
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * Omit the tikv-jemalloc-ctl dev-dependency, which we do not wish to package,
+#   and the tests that would require it: tests/background_thread_defaults.rs,
+#   tests/background_thread_enabled.rs, and tests/malloctl.rs.
+Patch:          tikv-jemallocator-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -79,7 +84,8 @@ BuildArch:      noarch
 %description -n %{name}+background_threads_runtime_support-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "background_threads_runtime_support" feature of the "%{crate}" crate.
+use the "background_threads_runtime_support" feature of the
+"%{crate}" crate.
 
 %files       -n %{name}+background_threads_runtime_support-devel
 %ghost %{crate_instdir}/Cargo.toml
@@ -94,6 +100,19 @@ This package contains library source intended for building other packages which
 use the "debug" feature of the "%{crate}" crate.
 
 %files       -n %{name}+debug-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+override_allocator_on_supported_platforms-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+override_allocator_on_supported_platforms-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "override_allocator_on_supported_platforms" feature of the
+"%{crate}" crate.
+
+%files       -n %{name}+override_allocator_on_supported_platforms-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+profiling-devel
@@ -127,17 +146,14 @@ BuildArch:      noarch
 %description -n %{name}+unprefixed_malloc_on_supported_platforms-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "unprefixed_malloc_on_supported_platforms" feature of the "%{crate}" crate.
+use the "unprefixed_malloc_on_supported_platforms" feature of the
+"%{crate}" crate.
 
 %files       -n %{name}+unprefixed_malloc_on_supported_platforms-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-# Remove tests that would require packaging tikv-jemalloc-ctl
-rm tests/background_thread_defaults.rs
-rm tests/background_thread_enabled.rs
-rm tests/malloctl.rs
 %cargo_prep
 
 %generate_buildrequires

@@ -3,7 +3,7 @@
 %global giturl  https://github.com/arminbiere/kissat
 
 Name:           kissat
-Version:        4.0.3
+Version:        4.0.4
 Release:        %autorelease
 Summary:        Keep It Simple SAT solver
 
@@ -13,16 +13,19 @@ VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/rel-%{version}/%{name}-%{version}.tar.gz
 # Fedora-only patch: give the shared library an SONAME
 Patch:          %{name}-shared.patch
+# Fix a bitwise NOT that should be a logical NOT
+# https://github.com/arminbiere/kissat/pull/75
+Patch:          %{name}-logical-not.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
+BuildRequires:  7zip
 BuildRequires:  drat-trim-tools
 BuildRequires:  gcc
 BuildRequires:  glibc-langpack-en
 BuildRequires:  help2man
 BuildRequires:  make
-BuildRequires:  p7zip-plugins
 BuildRequires:  xz-lzma-compat
 
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}

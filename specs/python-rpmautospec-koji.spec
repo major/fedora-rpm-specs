@@ -19,7 +19,6 @@ BuildRequires: python3-devel >= 3.9.0
 BuildRequires: python3dist(rpmautospec[all])
 # Dependencies needed for testing don’t get auto-generated.
 BuildRequires: python3dist(pytest)
-BuildRequires: python3dist(pytest-cov)
 BuildRequires: sed
 
 %generate_buildrequires
@@ -41,6 +40,9 @@ Requires: redhat-rpm-config
 
 %prep
 %autosetup -n %{srcname}-%{version}
+
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+sed -i -e '/pytest-cov/d; /addopts.*--cov/d' pyproject.toml
 
 %build
 %pyproject_wheel

@@ -1,15 +1,13 @@
 %global pypi_name autobahn
 
 Name:           python-%{pypi_name}
-Version:        24.4.2
-Release:        5%{?dist}
+Version:        25.9.1
+Release:        1%{?dist}
 Summary:        Python networking library for WebSocket and WAMP
 
 License:        MIT
 URL:            https://autobahn.readthedocs.io/en/latest/
 Source0:        https://github.com/crossbario/autobahn-python/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
-# fix some deprecations in tests
-Patch0:         https://github.com/crossbario/autobahn-python/pull/1647.patch
 
 BuildArch:      noarch
 
@@ -59,10 +57,7 @@ Documentation for %{name}.
 %pyproject_extras_subpkg -n python3-%{pypi_name} twisted
 
 %prep
-%autosetup -n %{pypi_name}-python-%{version} -p1
-# There is a requirement for pytest 6.2+ in pytest.ini and we don't have that yet
-# it works with 6.0 just fine and the config file is not needed
-rm pytest.ini
+%autosetup -n %{pypi_name}-%{version} -p1
 # Some packages are always outdated...
 sed -i -e "s/cryptography>=3.4.6/cryptography>=3.4.2/g" setup.py
 # Remove packages that will try to import attrs (optionnal deps) since in EPEL it's outdated and doesn't allow the import of attrs
@@ -119,15 +114,16 @@ USE_ASYNCIO=1 %pytest --ignore=xbr/test --pyargs autobahn ${k+ -k} "${k-}"
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE
-%doc docs README.rst
+%doc README.md
 %{_bindir}/wamp
-%{_bindir}/xbrnetwork
-%{_bindir}/xbrnetwork-ui
 
 %files -n python-%{pypi_name}-doc
 %license LICENSE
 
 %changelog
+* Thu Oct 16 2025 Julien Enselme <jujens@jujens.eu> - 25.9.1-1
+- Update to 25.9.1
+
 * Tue Sep 23 2025 Julien Enselme <jujens@jujens.eu> - 24.4.2-5
 - Rebuilt for f43 (#2397414)
 
