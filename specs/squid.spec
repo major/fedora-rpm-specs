@@ -2,8 +2,8 @@
 %define version_underscore %(echo %{version} | tr '.' '_')
 
 Name:     squid
-Version:  7.1
-Release:  3%{?dist}
+Version:  7.2
+Release:  1%{?dist}
 Summary:  The Squid proxy caching server
 Epoch:    7
 # See CREDITS for breakdown of non GPLv2+ code
@@ -37,7 +37,6 @@ Patch203: squid-6.1-perlpath.patch
 # revert this upstream patch - https://bugzilla.redhat.com/show_bug.cgi?id=1936422
 # workaround for #1934919
 Patch204: squid-6.1-symlink-lang-err.patch
-Patch205: squid-7.1-provider-keys-digest.patch
 
 # cache_swap.sh
 Requires: bash gawk
@@ -307,6 +306,9 @@ fi
 
 
 %changelog
+* Fri Oct 17 2025 Luboš Uhliarik <luhliari@redhat.com> - 7:7.2-1
+- new version 7.2
+
 * Thu Sep 11 2025 Luboš Uhliarik <luhliari@redhat.com> - 7:7.1-3
 - Support provider keys that require NULL digest
 

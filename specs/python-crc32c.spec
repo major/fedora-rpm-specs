@@ -1,7 +1,5 @@
-%bcond tests 1
-
 Name:           python-crc32c
-Version:        2.7.1
+Version:        2.8
 Release:        %autorelease
 Summary:        A python package implementing the crc32c algorithm in hardware and software
 
@@ -11,8 +9,7 @@ Source:         %{url}/archive/refs/tags/v%{version}/crc32c-%{version}.tar.gz
 
 BuildRequires:  python3-devel
 BuildRequires:  gcc
-BuildRequires:  python3dist(wheel)
-BuildRequires:  python3dist(pytest)
+BuildRequires:  help2man
 
 %global _description %{expand:
 This package implements the crc32c checksum algorithm. It automatically
@@ -31,10 +28,8 @@ Summary:        %{summary}
 
 %prep
 %autosetup -n crc32c-%{version}
-
-
 %generate_buildrequires
-%pyproject_buildrequires %{?with_tests:-x testing}
+%pyproject_buildrequires -g test
 
 
 %build
@@ -44,15 +39,19 @@ Summary:        %{summary}
 %install
 %pyproject_install
 %pyproject_save_files -l crc32c
+mkdir -p %{buildroot}%{_mandir}/man1
+PYTHONPATH="%{buildroot}%{python3_sitearch}" help2man \
+    --version-string %{version} \
+    %{buildroot}%{_bindir}/crc32c | \
+    sed 's|\\fI\\,.*\/crc32c\\/\\fP|\\fI\\,crc32c\\/\\fP|g' | \
+    gzip > %{buildroot}%{_mandir}/man1/crc32c.1.gz
 
 
 %check
 %pyproject_check_import
 
-%if %{with tests}
 %pytest
 PYTHONPATH=%{buildroot}%{python3_sitearch} %{python3} run-tests.py
-%endif
 
 
 %files -n python3-crc32c -f %{pyproject_files}
@@ -61,6 +60,8 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} %{python3} run-tests.py
 %license LICENSE.google-crc32c
 %license LICENSE.slice-by-8
 %doc README.rst
+%attr(755,root,root) %{_bindir}/crc32c
+%{_mandir}/man1/crc32c.1.gz
 
 %changelog
 %autochangelog

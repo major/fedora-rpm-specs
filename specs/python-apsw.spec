@@ -1,5 +1,5 @@
 # https://rogerbinns.github.io/apsw/about.html#apsw-and-sqlite-versions
-%global sqlite_version 3.50.2
+%global sqlite_version 3.50.4
 
 Name:               python-apsw
 Version:            %{sqlite_version}.0
@@ -8,9 +8,6 @@ Summary:            Another Python SQLite Wrapper
 License:            any-OSI
 URL:                https://github.com/rogerbinns/apsw
 Source:             %{pypi_source apsw}
-# https://github.com/rogerbinns/apsw/issues/565
-# https://github.com/rogerbinns/apsw/commit/a3a8d6d2df283dfe1df4e00d6e6aaf43d31d8e18
-Patch:              0001-Omit-session-code-when-session-is-not-enabled.patch
 
 BuildRequires:      gcc
 BuildRequires:      python3-devel

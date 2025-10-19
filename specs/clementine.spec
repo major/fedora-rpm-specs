@@ -1,4 +1,4 @@
-%global tag     1.4.1-30-ga05464b42 
+%global tag     1.4.1-58-gbae968a2f
 
 Name:           clementine
 Version:        1.4.1
@@ -32,6 +32,8 @@ Summary:        A music player and library organizer
 #   - 3rdparty/qsqlite/clementinesqlcachedresult.h
 #   - 3rdparty/qsqlite/qsql_sqlite.cpp
 #   - 3rdparty/qsqlite/qsql_sqlite.h
+#   - 3rdparty/qtiocompressor/qtiocompressor.cpp
+#   - 3rdparty/qtiocompressor/qtiocompressor.h
 # LGPL-2.1-only WITH Qt-LGPL-exception-1.1 OR LGPL-3.0-only WITH Qt-LGPL-exception-1.1:
 #   - 3rdparty/qsqlite/smain.cpp
 #   - 3rdparty/qsqlite/smain.h
@@ -95,7 +97,7 @@ BuildRequires:  pkgconfig(sqlite3) >= 3.7
 BuildRequires:  pkgconfig(taglib) >= 1.11
 BuildRequires:  pkgconfig(udisks)
 BuildRequires:  qt5-linguist
-BuildRequires:  qtiocompressor-devel
+#BuildRequires:  qtiocompressor-devel
 BuildRequires:  qtsingleapplication-qt5-devel >= 2.6.1-2
 BuildRequires:  qtsinglecoreapplication-qt5-devel >= 2.6.1-2
 %ifnarch s390 s390x
@@ -105,10 +107,10 @@ BuildRequires:  pkgconfig(libimobiledevice-1.0)
 
 Requires:       gstreamer1-plugins-good
 Requires:       hicolor-icon-theme
-Requires:       qtiocompressor >= 2.3.1-17
 
 Provides:       bundled(qocoa)
 Provides:       bundled(qsqlite)
+Provides:       bundled(qtiocompressor)
 Provides:       bundled(utf8-cpp)
 
 %description
@@ -137,9 +139,9 @@ Features include:
 %autosetup -p1 -n Clementine-%{tag}
 
 # Remove most 3rdparty libraries
-mv 3rdparty/{qocoa,qsqlite,utf8-cpp}/ .
+mv 3rdparty/{qocoa,qsqlite,qtiocompressor,utf8-cpp}/ .
 rm -rfv 3rdparty/*
-mv {qocoa,qsqlite,utf8-cpp}/ 3rdparty/
+mv {qocoa,qsqlite,qtiocompressor,utf8-cpp}/ 3rdparty/
 
 %build
 %cmake \

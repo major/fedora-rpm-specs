@@ -25,8 +25,14 @@
 %global rocrand_name rocrand
 %endif
 
-%global upstreamname rocRAND
+%bcond_with gitcommit
+%if %{with gitcommit}
+%global commit0 2584e35062ad9c2edb68d93c464cf157bc57e3b0
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+%global date0 20250926
+%endif
 
+%global upstreamname rocRAND
 %global rocm_release 7.0
 %global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
@@ -110,13 +116,26 @@
 %endif
 
 Name:           %{rocrand_name}
+%if %{with gitcommit}
+Version:        git%{date0}.%{shortcommit0}
+Release:        1%{?dist}
+%else
 Version:        %{rocm_version}
 Release:        3%{?dist}
+%endif
 Summary:        ROCm random number generator
 
+%if %{with gitcommit}
+Url:            https://github.com/ROCm/rocm-libraries
+%else
 Url:            https://github.com/ROCm/rocRAND
+%endif
 License:        MIT AND BSD-3-Clause
+%if %{with gitcommit}
+Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
+%else
 Source0:        %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+%endif
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -184,7 +203,13 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %endif
 
 %prep
+%if %{with gitcommit}
+%setup -q -n rocm-libraries-%{commit0}
+cd projects/rocrand
+%else
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
+%endif
+
 
 # On Tumbleweed Q3,2025
 # https://github.com/ROCm/rocm-libraries/issues/83
@@ -194,6 +219,10 @@ sed -i -e 's@set(CMAKE_CXX_STANDARD 11)@set(CMAKE_CXX_STANDARD 17)@' {,test/{cpp
 
 %build
 
+%if %{with gitcommit}
+cd projects/rocrand
+%endif
+
 %cmake %{cmake_generator} %{cmake_config} \
     -DAMDGPU_TARGETS=%{gpu_list} \
     -DCMAKE_INSTALL_LIBDIR=%_libdir
@@ -201,13 +230,23 @@ sed -i -e 's@set(CMAKE_CXX_STANDARD 11)@set(CMAKE_CXX_STANDARD 17)@' {,test/{cpp
 %cmake_build
 
 %install
+%if %{with gitcommit}
+cd projects/rocrand
+%endif
+
 %cmake_install
 
 rm -f %{buildroot}%{_prefix}/share/doc/rocrand/LICENSE.txt
 
-%files 
+%files
+%if %{with gitcommit}
+%doc projects/rocrand/README.md
+%license projects/rocrand/LICENSE.txt
+%else
 %doc README.md
 %license LICENSE.txt
+%endif
+
 %{_libdir}/librocrand.so.1{,.*}
 
 %files devel 

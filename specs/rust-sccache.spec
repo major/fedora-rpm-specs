@@ -26,6 +26,9 @@ Patch:          sccache-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 26
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:  %{ix86}
+
 %global _description %{expand:
 Sccache is a ccache-like tool. It is used as a compiler wrapper and
 avoids compilation when possible. Sccache has the capability to utilize

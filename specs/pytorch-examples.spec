@@ -33,10 +33,9 @@ Patch1:         0001-Fix-license-in-environment.py.patch
 
 # Only samples
 BuildArch:      noarch
-ExclusiveArch:  %pytorch_arches
+ExclusiveArch:  aarch64 x86_64
 
 BuildRequires:  fdupes
-BuildRequires:  pytorch-rpm-macros
 
 Requires:  python3dist(aiohttp)
 Requires:  python3dist(boto3)

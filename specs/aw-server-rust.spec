@@ -1,10 +1,10 @@
 %bcond check 1
 
-%global commit c6409796f3859c1c610339682d90e0a03659ccdd
+%global commit 8e369e7d18fc198badde97f4a21011767fa2ccc8
 %global short_commit %(c=%{commit}; echo ${c:0:7})
 
 Name:           aw-server-rust
-Version:        0.13.1^20250507.git%{short_commit}
+Version:        0.13.1^20251017.git%{short_commit}
 Release:        %autorelease
 Summary:        A re-implementation of aw-server in Rust
 # (Apache-2.0 OR MIT) AND BSD-3-Clause
@@ -18,12 +18,13 @@ Summary:        A re-implementation of aw-server in Rust
 # BSD-2-Clause OR Apache-2.0 OR MIT
 # MIT
 # MIT OR Apache-2.0
-# MIT OR Apache-2.0 OR Zlib
 # MIT OR Zlib OR Apache-2.0
 # MPL-2.0
+# Unicode-3.0
 # Unlicense OR MIT
+# Zlib
 # Zlib OR Apache-2.0 OR MIT
-License:        MPL-2.0 AND Apache-2.0 AND BSD-3-Clause AND MIT AND Unicode-DFS-2016 AND (0BSD OR MIT OR Apache-2.0) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR ISC OR MIT) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND (MIT OR Apache-2.0 OR Zlib) AND (Unlicense OR MIT)
+License:        MPL-2.0 AND Apache-2.0 AND BSD-3-Clause AND MIT AND Unicode-DFS-2016 AND (0BSD OR MIT OR Apache-2.0) AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR ISC OR MIT) AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (BSD-2-Clause OR Apache-2.0 OR MIT) AND (MIT OR Apache-2.0 OR Zlib) AND (Unlicense OR MIT) AND Unicode-3.0 AND Zlib
 # LICENSE.dependencies contains a full license breakdown
 
 URL:            https://github.com/ActivityWatch/aw-server-rust
@@ -34,10 +35,10 @@ Patch1:         0002-Remove-Android-dependencies.patch
 # jemallocator will not be packaged for Fedora, so remove it
 Patch2:         0003-Remove-jemallocator.patch
 # switch to dependency versions available in Fedora
-Patch4:         0005-Fix-fancy-regex-dependency-to-the-one-used-in-Fedora.patch
-Patch5:         0006-Fix-rusqlite-dependency-to-the-one-used-in-Fedora.patch
+Patch3:         0004-Fix-fancy-regex-dependency-to-the-one-used-in-Fedora.patch
+Patch4:         0005-Fix-rusqlite-dependency-to-the-one-used-in-Fedora.patch
 # drop an unused, benchmark-only criterion dev-dependency to speed up builds
-Patch6:         0007-Remove-criterion.patch
+Patch5:         0006-Remove-criterion.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  systemd-rpm-macros

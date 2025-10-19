@@ -1,26 +1,20 @@
 Name:           librhsm
-Version:        0.0.3
-Release:        17%{?dist}
+Version:        0.0.4
+Release:        1%{?dist}
 Summary:        Red Hat Subscription Manager library
-
 License:        LGPL-2.1-or-later
 URL:            https://github.com/rpm-software-management/librhsm
-Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
+Source1:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz.asc
+# Key exported from Petr Pisar's keyring
+Source2:        gpgkey-E3F42FCE156830A80358E6E94FD1AEC3365AF7BF.gpg
 
-# Patches backported from upstream
-Patch0001:      0001-Replace-bool-option-with-int-to-generate-repo-files.patch
-Patch0002:      0002-Generate-repofile-for-any-architecture-if-ALL-is-spe.patch
-Patch0003:      0003-Enable-repos-when-generating-a-.repo-file-based-on-e.patch
-Patch0004:      0004-Append-ctx_baseurl-prefix-to-gpg_url-RhBug-1708628.patch
-Patch0005:      0005-Added-some-instruction-for-building-librhsm.patch
-Patch0006:      0006-Refactor-parse_entitlement_data.patch
-Patch0007:      0007-Fix-relocating-certificate-paths-to-etc-rhsm-host.patch
-
+BuildRequires:  gnupg2
 BuildRequires:  meson >= 0.37.0
 BuildRequires:  gcc
+BuildRequires:  pkgconfig(gio-2.0) >= 2.44
 BuildRequires:  pkgconfig(glib-2.0) >= 2.44
 BuildRequires:  pkgconfig(gobject-2.0) >= 2.44
-BuildRequires:  pkgconfig(gio-2.0) >= 2.44
 BuildRequires:  pkgconfig(json-glib-1.0) >= 1.2
 BuildRequires:  pkgconfig(openssl)
 
@@ -35,6 +29,7 @@ Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 %{summary}.
 
 %prep
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 %build
@@ -47,7 +42,7 @@ Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 %files
 %license COPYING
 %doc README.md
-%{_libdir}/%{name}.so.*
+%{_libdir}/%{name}.so.0
 
 %files devel
 %{_libdir}/%{name}.so
@@ -55,6 +50,9 @@ Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Oct 17 2025 Petr Pisar <ppisar@redhat.com> - 0.0.4-1
+- 0.0.4 bump
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.3-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

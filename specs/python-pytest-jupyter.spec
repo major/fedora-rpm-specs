@@ -1,5 +1,5 @@
 Name:           python-pytest-jupyter
-Version:        0.10.1
+Version:        0.11.0
 Release:        %autorelease
 Summary:        A pytest plugin for testing Jupyter libraries and extensions
 # BSD for pytest-jupyter itself and

@@ -2,7 +2,7 @@
 %global giturl      https://github.com/gap-packages/cohomolo
 
 Name:           gap-pkg-%{gap_pkgname}
-Version:        1.6.11
+Version:        1.6.12
 Release:        %autorelease
 Summary:        Cohomology groups of finite groups on finite modules
 

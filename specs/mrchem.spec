@@ -21,10 +21,8 @@ Patch5:         mrchem-1.1.4-ompnamespace.patch
 
 # mrcpp doesn't build on s390x which is not supported by upstream (BZ#2035671)
 ExcludeArch:    s390x
-%if 0%{?rhel} == 9
-# mrcpp compile fails on ppc64le
+# mrcpp compile fails on ppc64le on RHEL and gives wrong results on Fedora 44 rawhide
 ExcludeArch:    ppc64le
-%endif
 
 # We need the data files
 Requires:       %{name}-data = %{version}-%{release}

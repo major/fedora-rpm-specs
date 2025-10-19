@@ -12,7 +12,7 @@
 %endif
 
 
-%define patchlevel 1845
+%define patchlevel 1863
 %define withnetbeans 1
 
 %define withhunspell 0
@@ -448,15 +448,6 @@ perl -pi -e "s/vimrc/virc/"  os_unix.h
   --enable-year2038 \
   --disable-libsodium
 
-# related to the previous issue with `make depend`, auto/osdef.h
-# has to be generated
-make auto/osdef.h
-# wayland is hardwired in Makefile dependencies
-# to work around it call `make depend` before build
-# problem fixed by https://github.com/vim/vim/pull/18538
-# remove once it is merged
-make depend
-
 %make_build
 cp vim minimal-vim
 make clean
@@ -515,15 +506,6 @@ mv -f os_unix.h.save os_unix.h
   --without-wayland \
   --enable-year2038 \
   --disable-canberra
-
-## related to the previous issue with `make depend`, auto/osdef.h
-## has to be generated
-make auto/osdef.h
-# wayland is hardwired in Makefile dependencies
-# to work around it call `make depend` before build
-# problem fixed by https://github.com/vim/vim/pull/18538
-# remove once it is merged
-make depend
 
 %make_build
 cp vim enhanced-vim
@@ -587,15 +569,6 @@ cp vim enhanced-vim
   --enable-year2038 \
   --enable-socketserver \
   --enable-canberra
-
-# related to the issue with `make depend`, auto/osdef.h
-# has to be generated
-make auto/osdef.h auto/gui_gtk_gresources.h auto/wayland/wlr-data-control-unstable-v1.h
-# wayland is hardwired in Makefile dependencies
-# to work around it call `make depend` before build
-# problem fixed by https://github.com/vim/vim/pull/18538
-# remove once it is merged
-make depend
 
 %make_build
 cp vim gvim
@@ -1022,6 +995,9 @@ mkdir -p %{buildroot}/%{_datadir}/fish/vendor_functions.d/
 
 
 %changelog
+* Fri Oct 17 2025 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.1.1863-1
+- patchlevel 1863
+
 * Fri Oct 10 2025 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.1.1845-1
 - patchlevel 1845
 

@@ -4,7 +4,7 @@
 Summary:        A Python interface to the HDF5 library
 Name:           h5py
 Version:        3.15.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
 URL:            http://www.h5py.org/
@@ -130,6 +130,7 @@ export H5PY_SYSTEM_LZF=1
 export CFLAGS="%{optflags} -fopenmp"
 cd serial
 %pyproject_wheel
+mv %{_pyproject_wheeldir} %{_pyproject_wheeldir}-serial
 cd -
 
 # MPI
@@ -140,6 +141,7 @@ export HDF5_MPI="ON"
 cd openmpi
 %{_openmpi_load}
 %pyproject_wheel
+mv %{_pyproject_wheeldir} %{_pyproject_wheeldir}-openmpi
 %{_openmpi_unload}
 cd -
 %endif
@@ -148,6 +150,7 @@ cd -
 cd mpich
 %{_mpich_load}
 %pyproject_wheel
+mv %{_pyproject_wheeldir} %{_pyproject_wheeldir}-mpich
 %{_mpich_unload}
 cd -
 %endif
@@ -160,7 +163,11 @@ export H5PY_SYSTEM_LZF=1
 
 %if %{with openmpi}
 cd openmpi
+%{_openmpi_load}
+mv %{_pyproject_wheeldir}-openmpi %{_pyproject_wheeldir}
 %pyproject_install
+mv %{_pyproject_wheeldir} %{_pyproject_wheeldir}-openmpi
+%{_openmpi_unload}
 rm -rf %{buildroot}%{python3_sitearch}/h5py/tests
 mkdir -p %{buildroot}%{python3_sitearch}/openmpi
 mv %{buildroot}%{python3_sitearch}/%{name}/ \
@@ -171,7 +178,11 @@ cd -
 
 %if %{with mpich}
 cd mpich
+%{_mpich_load}
+mv %{_pyproject_wheeldir}-mpich %{_pyproject_wheeldir}
 %pyproject_install
+mv %{_pyproject_wheeldir} %{_pyproject_wheeldir}-mpich
+%{_mpich_unload}
 rm -rf %{buildroot}%{python3_sitearch}/h5py/tests
 mkdir -p %{buildroot}%{python3_sitearch}/mpich
 mv %{buildroot}%{python3_sitearch}/%{name}/ \
@@ -182,7 +193,9 @@ cd -
 
 # serial part must be last (not to overwrite files)
 cd serial
+mv %{_pyproject_wheeldir}-serial %{_pyproject_wheeldir}
 %pyproject_install
+mv %{_pyproject_wheeldir} %{_pyproject_wheeldir}-serial
 rm -rf %{buildroot}%{python3_sitearch}/h5py/tests
 cd -
 # Hack to remove mpi4py requirement from serial package
@@ -244,6 +257,10 @@ mpirun %{__python3} -m pytest -rxXs --with-mpi -W ignore::DeprecationWarning ${P
 
 
 %changelog
+* Fri Oct 17 2025 Terje Rosten <terjeros@gmail.com> - 3.15.1-2
+- Add hack avoid %%pyproject_wheel overwriting the wordir
+  %%{_pyproject_wheeldir} between different runs (rhbz#2404466)
+
 * Thu Oct 16 2025 Terje Rosten <terjeros@gmail.com> - 3.15.1-1
 - 3.15.1
 

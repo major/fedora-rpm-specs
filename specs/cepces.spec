@@ -7,15 +7,13 @@
 %global modulename %{name}
 
 Name:           cepces
-Version:        0.3.9
+Version:        0.3.10
 Release:        %autorelease
 Summary:        Certificate Enrollment through CEP/CES
 
 License:        GPL-3.0-or-later
 URL:            https://github.com/openSUSE/%{name}
 Source0:        https://github.com/openSUSE/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
-
-Patch0:         cepces-pyproject.patch
 
 BuildArch:      noarch
 
@@ -44,7 +42,7 @@ Summary:        Python part of %{name}
 Requires:       python3dist(cryptography) >= 1.2
 Requires:       python3dist(requests)
 Requires:       python3dist(gssapi)
-Requires:       python3dist(requests-gssapi)
+Requires:       python3dist(requests-gssapi) >= 1.4.0
 
 %description -n python%{python3_pkgversion}-%{name}
 %{name} is an application for enrolling certificates through CEP and CES.

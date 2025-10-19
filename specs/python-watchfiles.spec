@@ -1,5 +1,5 @@
 Name:           python-watchfiles
-Version:        1.1.0
+Version:        1.1.1
 Release:        %autorelease
 Summary:        Simple, modern and high performance file watching and code reload in python
 # The main source code is under the MIT license.  See the license field of the

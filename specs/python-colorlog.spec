@@ -2,7 +2,7 @@
 %global desc "colorlog.ColoredFormatter is a formatter for use with Python's logging module that outputs records using terminal colors."
 
 Name:           python-%{srcname}
-Version:        6.9.0
+Version:        6.10.1
 Release:        %autorelease
 Summary:        Colored formatter for the Python logging module
 

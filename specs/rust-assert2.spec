@@ -2,24 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate stacker
+%global crate assert2
 
-Name:           rust-stacker
-Version:        0.1.22
+Name:           rust-assert2
+Version:        0.3.16
 Release:        %autorelease
-Summary:        Stack growth library useful when implementing deeply recursive algorithms
+Summary:        Assert!(...) and check!(...) macros inspired by Catch2, now with diffs!
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/stacker
+License:        BSD-2-Clause
+URL:            https://crates.io/crates/assert2
 Source:         %{crates_source}
-# Automatically generated patch to strip dependencies and normalize metadata
-Patch:          stacker-fix-metadata-auto.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-A stack growth library useful when implementing deeply recursive
-algorithms that may accidentally blow the stack.}
+Assert!(...) and check!(...) macros inspired by Catch2, now with diffs!.}
 
 %description %{_description}
 
@@ -33,8 +30,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
+%license %{crate_instdir}/LICENSE.md
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

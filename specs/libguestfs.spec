@@ -34,8 +34,8 @@ ExcludeArch: %{ix86}
 Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
-Version:       1.57.4
-Release:       4%{?dist}
+Version:       1.57.5
+Release:       1%{?dist}
 License:       LGPL-2.1-or-later
 
 # Build only for architectures that have a kernel
@@ -753,6 +753,15 @@ if ! make quickcheck QUICKCHECK_TEST_TOOL_ARGS="-t 1200"; then
     cat $HOME/.cache/libvirt/qemu/log/*
     exit 1
 fi
+
+# As libvirt is the default backend, test that the direct backend
+# works too.  It's a good place to get test coverage across all the
+# architectures.
+if ! LIBGUESTFS_BACKEND=direct \
+     make quickcheck QUICKCHECK_TEST_TOOL_ARGS="-t 1200"; then
+    cat $HOME/.cache/libvirt/qemu/log/*
+    exit 1
+fi
 %endif
 
 
@@ -1073,6 +1082,10 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Fri Oct 17 2025 Richard W.M. Jones <rjones@redhat.com> - 1:1.57.5-1
+- New upstream development version 1.57.5
+- Test direct backend in %%check
+
 * Wed Oct 15 2025 Richard W.M. Jones <rjones@redhat.com> - 1:1.57.4-4
 - Require passt
 - https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/message/YDHKKQSDURTMSKSN6GW3QGQI43DTFXNH/

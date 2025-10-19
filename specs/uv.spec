@@ -209,7 +209,7 @@ ExcludeArch:    %{ix86}
 # of memory in the final linking step. This cannot be fixed by adding
 # "-C link-args=-Wl,--no-keep-memory" to the RUSTFLAGS (as that seems to have
 # no significant effect on memory requirements), nor can it be fixed by
-# reducing parallelism with e.g. the %%constrain_build macro (although we do
+# reducing parallelism with e.g. the _smp_tasksize_proc global (although we do
 # need this as well), since nothing else is happening at that point in the
 # build. See:
 # https://doc.rust-lang.org/rustc/codegen-options/index.html#debuginfo
@@ -222,7 +222,7 @@ ExcludeArch:    %{ix86}
 # crates have finished, so it does not need to influence (and does not benefit
 # from) this setting. Even though some crates will require more than 3GB, the
 # average should be below that on many-core systems. Increase as needed.
-%constrain_build -m 4096
+%global _smp_tasksize_proc 4096
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  rust2rpm-helper
@@ -738,7 +738,7 @@ skip="${skip-} --skip python_list::python_list_venv"
 # https://github.com/astral-sh/uv/pull/13699#issuecomment-2916115588.
 skip="${skip-} --skip remote_metadata::remote_metadata_with_and_without_cache"
 
-%if %[ %{defined fc41} || %{defined el10} || %{defined el9} ]
+%if %[ %{defined fc41} || %{defined el10} ]
 # Trivial difference in snapshots: packages appear in a different order.
 skip="${skip-} --skip lock::tests::missing_dependency_source_unambiguous"
 skip="${skip-} --skip lock::tests::missing_dependency_version_dynamic"

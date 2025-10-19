@@ -9,7 +9,8 @@ License:        GPL-3.0-or-later
 URL:            https://boutproject.github.io/
 Source0:        https://github.com/boutproject/BOUT-dev/releases/download/v%{version}/BOUT++-v%{version}.tar.xz
 
-Patch:  test-timeout.patch
+Patch0:  test-timeout.patch
+Patch1:  https://patch-diff.githubusercontent.com/raw/boutproject/BOUT-dev/pull/3141.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch: %{ix86}
@@ -342,8 +343,9 @@ This package contains the documentation.
 #
 
 %prep
-%autosetup -n BOUT++-v%{version} -p 1
-
+%autosetup -n BOUT++-v%{version} -N
+%patch -P 0 -p1
+%patch -P 1 -p1 -b .backup
 
 # Switch to standard theme
 # sphinx_book_theme is not packaged

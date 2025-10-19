@@ -70,7 +70,7 @@
 Summary: PHP scripting language for creating dynamic web sites
 Name: php
 Version: %{upver}%{?rcver:~%{rcver}}
-Release: 2%{?dist}
+Release: 4%{?dist}
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
 # TSRM is licensed under BSD
@@ -1488,6 +1488,9 @@ systemctl try-restart php-fpm.service >/dev/null 2>&1 || :
 
 
 %changelog
+* Fri Oct 17 2025 Remi Collet <remi@remirepo.net> - 8.5.0~RC2-4
+- fix permissions on /var/lib/php #2404692
+
 * Tue Oct  7 2025 Remi Collet <remi@remirepo.net> - 8.5.0~RC2-1
 - update to 8.5.0RC2
 - bump ABI/API numbers to 20240925

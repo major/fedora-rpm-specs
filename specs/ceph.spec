@@ -157,23 +157,16 @@
 %global _binary_payload w7T%{_smp_build_ncpus}.xzdio
 %endif
 
-%define smp_limit_mem_per_job() %( \
-  kb_per_job=%1 \
-  kb_total=$(head -3 /proc/meminfo | sed -n 's/MemAvailable:\\s*\\(.*\\) kB.*/\\1/p') \
-  jobs=$(( $kb_total / $kb_per_job )) \
-  [ $jobs -lt 1 ] && jobs=1 \
-  echo $jobs )
-
 %if 0%{?_smp_ncpus_max} == 0
 %if 0%{?__isa_bits} == 32
 # 32-bit builds can use 3G memory max, which is not enough even for -j2
 %global _smp_ncpus_max 1
 %else
 # 3.0 GiB mem per job
-# SUSE distros use limit_build in the place of smp_limit_mem_per_job, please
+# SUSE distros still use limit_build in the place of _smp_tasksize_proc, please
 # be sure to update it (in the build section, below) as well when changing this
 # number.
-%global _smp_ncpus_max %{smp_limit_mem_per_job 3000000}
+%global _smp_tasksize_proc 3000
 %endif
 %endif
 
@@ -187,7 +180,7 @@
 #################################################################################
 Name:		ceph
 Version:	20.1.1
-Release:	2%{?dist}
+Release:	3%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -1888,11 +1881,11 @@ fi
 %post mds
 %if 0%{?suse_version}
 if [ $1 -eq 1 ] ; then
-  /usr/bin/systemctl preset ceph-mds@\*.service ceph-mds.target >/dev/null 2>&1 || :
+  /usr/bin/systemctl preset ceph-mds@.service ceph-mds.target >/dev/null 2>&1 || :
 fi
 %endif
 %if 0%{?fedora} || 0%{?rhel}
-%systemd_post ceph-mds@\*.service ceph-mds.target
+%systemd_post ceph-mds@.service ceph-mds.target
 %endif
 if [ $1 -eq 1 ] ; then
 /usr/bin/systemctl start ceph-mds.target >/dev/null 2>&1 || :
@@ -1900,14 +1893,14 @@ fi
 
 %preun mds
 %if 0%{?suse_version}
-%service_del_preun ceph-mds@\*.service ceph-mds.target
+%service_del_preun ceph-mds@.service ceph-mds.target
 %endif
 %if 0%{?fedora} || 0%{?rhel}
-%systemd_preun ceph-mds@\*.service ceph-mds.target
+%systemd_preun ceph-mds@.service ceph-mds.target
 %endif
 
 %postun mds
-%systemd_postun ceph-mds@\*.service ceph-mds.target
+%systemd_postun ceph-mds@.service ceph-mds.target
 if [ $1 -ge 1 ] ; then
   # Restart on upgrade, but only if "CEPH_AUTO_RESTART_ON_UPGRADE" is set to
   # "yes". In any case: if units are not running, do not touch them.
@@ -1916,7 +1909,7 @@ if [ $1 -ge 1 ] ; then
     source $SYSCONF_CEPH
   fi
   if [ "X$CEPH_AUTO_RESTART_ON_UPGRADE" = "Xyes" ] ; then
-    /usr/bin/systemctl try-restart ceph-mds@\*.service > /dev/null 2>&1 || :
+    /usr/bin/systemctl try-restart ceph-mds@.service > /dev/null 2>&1 || :
   fi
 fi
 
@@ -1933,11 +1926,11 @@ fi
 %post mgr
 %if 0%{?suse_version}
 if [ $1 -eq 1 ] ; then
-  /usr/bin/systemctl preset ceph-mgr@\*.service ceph-mgr.target >/dev/null 2>&1 || :
+  /usr/bin/systemctl preset ceph-mgr@.service ceph-mgr.target >/dev/null 2>&1 || :
 fi
 %endif
 %if 0%{?fedora} || 0%{?rhel}
-%systemd_post ceph-mgr@\*.service ceph-mgr.target
+%systemd_post ceph-mgr@.service ceph-mgr.target
 %endif
 if [ $1 -eq 1 ] ; then
 /usr/bin/systemctl start ceph-mgr.target >/dev/null 2>&1 || :
@@ -1945,14 +1938,14 @@ fi
 
 %preun mgr
 %if 0%{?suse_version}
-%service_del_preun ceph-mgr@\*.service ceph-mgr.target
+%service_del_preun ceph-mgr@.service ceph-mgr.target
 %endif
 %if 0%{?fedora} || 0%{?rhel}
-%systemd_preun ceph-mgr@\*.service ceph-mgr.target
+%systemd_preun ceph-mgr@.service ceph-mgr.target
 %endif
 
 %postun mgr
-%systemd_postun ceph-mgr@\*.service ceph-mgr.target
+%systemd_postun ceph-mgr@.service ceph-mgr.target
 if [ $1 -ge 1 ] ; then
   # Restart on upgrade, but only if "CEPH_AUTO_RESTART_ON_UPGRADE" is set to
   # "yes". In any case: if units are not running, do not touch them.
@@ -1961,7 +1954,7 @@ if [ $1 -ge 1 ] ; then
     source $SYSCONF_CEPH
   fi
   if [ "X$CEPH_AUTO_RESTART_ON_UPGRADE" = "Xyes" ] ; then
-    /usr/bin/systemctl try-restart ceph-mgr@\*.service > /dev/null 2>&1 || :
+    /usr/bin/systemctl try-restart ceph-mgr@.service > /dev/null 2>&1 || :
   fi
 fi
 
@@ -2072,11 +2065,11 @@ fi
 %post mon
 %if 0%{?suse_version}
 if [ $1 -eq 1 ] ; then
-  /usr/bin/systemctl preset ceph-mon@\*.service ceph-mon.target >/dev/null 2>&1 || :
+  /usr/bin/systemctl preset ceph-mon@.service ceph-mon.target >/dev/null 2>&1 || :
 fi
 %endif
 %if 0%{?fedora} || 0%{?rhel}
-%systemd_post ceph-mon@\*.service ceph-mon.target
+%systemd_post ceph-mon@.service ceph-mon.target
 %endif
 if [ $1 -eq 1 ] ; then
 /usr/bin/systemctl start ceph-mon.target >/dev/null 2>&1 || :
@@ -2084,14 +2077,14 @@ fi
 
 %preun mon
 %if 0%{?suse_version}
-%service_del_preun ceph-mon@\*.service ceph-mon.target
+%service_del_preun ceph-mon@.service ceph-mon.target
 %endif
 %if 0%{?fedora} || 0%{?rhel}
-%systemd_preun ceph-mon@\*.service ceph-mon.target
+%systemd_preun ceph-mon@.service ceph-mon.target
 %endif
 
 %postun mon
-%systemd_postun ceph-mon@\*.service ceph-mon.target
+%systemd_postun ceph-mon@.service ceph-mon.target
 if [ $1 -ge 1 ] ; then
   # Restart on upgrade, but only if "CEPH_AUTO_RESTART_ON_UPGRADE" is set to
   # "yes". In any case: if units are not running, do not touch them.
@@ -2100,7 +2093,7 @@ if [ $1 -ge 1 ] ; then
     source $SYSCONF_CEPH
   fi
   if [ "X$CEPH_AUTO_RESTART_ON_UPGRADE" = "Xyes" ] ; then
-    /usr/bin/systemctl try-restart ceph-mon@\*.service > /dev/null 2>&1 || :
+    /usr/bin/systemctl try-restart ceph-mon@.service > /dev/null 2>&1 || :
   fi
 fi
 
@@ -2124,11 +2117,11 @@ fi
 %post -n cephfs-mirror
 %if 0%{?suse_version}
 if [ $1 -eq 1 ] ; then
-  /usr/bin/systemctl preset cephfs-mirror@\*.service cephfs-mirror.target >/dev/null 2>&1 || :
+  /usr/bin/systemctl preset cephfs-mirror@.service cephfs-mirror.target >/dev/null 2>&1 || :
 fi
 %endif
 %if 0%{?fedora} || 0%{?rhel}
-%systemd_post cephfs-mirror@\*.service cephfs-mirror.target
+%systemd_post cephfs-mirror@.service cephfs-mirror.target
 %endif
 if [ $1 -eq 1 ] ; then
 /usr/bin/systemctl start cephfs-mirror.target >/dev/null 2>&1 || :
@@ -2136,14 +2129,14 @@ fi
 
 %preun -n cephfs-mirror
 %if 0%{?suse_version}
-%service_del_preun cephfs-mirror@\*.service cephfs-mirror.target
+%service_del_preun cephfs-mirror@.service cephfs-mirror.target
 %endif
 %if 0%{?fedora} || 0%{?rhel}
-%systemd_preun cephfs-mirror@\*.service cephfs-mirror.target
+%systemd_preun cephfs-mirror@.service cephfs-mirror.target
 %endif
 
 %postun -n cephfs-mirror
-%systemd_postun cephfs-mirror@\*.service cephfs-mirror.target
+%systemd_postun cephfs-mirror@.service cephfs-mirror.target
 if [ $1 -ge 1 ] ; then
   # Restart on upgrade, but only if "CEPH_AUTO_RESTART_ON_UPGRADE" is set to
   # "yes". In any case: if units are not running, do not touch them.
@@ -2152,7 +2145,7 @@ if [ $1 -ge 1 ] ; then
     source $SYSCONF_CEPH
   fi
   if [ "X$CEPH_AUTO_RESTART_ON_UPGRADE" = "Xyes" ] ; then
-    /usr/bin/systemctl try-restart cephfs-mirror@\*.service > /dev/null 2>&1 || :
+    /usr/bin/systemctl try-restart cephfs-mirror@.service > /dev/null 2>&1 || :
   fi
 fi
 
@@ -2173,11 +2166,11 @@ fi
 %post -n rbd-mirror
 %if 0%{?suse_version}
 if [ $1 -eq 1 ] ; then
-  /usr/bin/systemctl preset ceph-rbd-mirror@\*.service ceph-rbd-mirror.target >/dev/null 2>&1 || :
+  /usr/bin/systemctl preset ceph-rbd-mirror@.service ceph-rbd-mirror.target >/dev/null 2>&1 || :
 fi
 %endif
 %if 0%{?fedora} || 0%{?rhel}
-%systemd_post ceph-rbd-mirror@\*.service ceph-rbd-mirror.target
+%systemd_post ceph-rbd-mirror@.service ceph-rbd-mirror.target
 %endif
 if [ $1 -eq 1 ] ; then
 /usr/bin/systemctl start ceph-rbd-mirror.target >/dev/null 2>&1 || :
@@ -2185,14 +2178,14 @@ fi
 
 %preun -n rbd-mirror
 %if 0%{?suse_version}
-%service_del_preun ceph-rbd-mirror@\*.service ceph-rbd-mirror.target
+%service_del_preun ceph-rbd-mirror@.service ceph-rbd-mirror.target
 %endif
 %if 0%{?fedora} || 0%{?rhel}
-%systemd_preun ceph-rbd-mirror@\*.service ceph-rbd-mirror.target
+%systemd_preun ceph-rbd-mirror@.service ceph-rbd-mirror.target
 %endif
 
 %postun -n rbd-mirror
-%systemd_postun ceph-rbd-mirror@\*.service ceph-rbd-mirror.target
+%systemd_postun ceph-rbd-mirror@.service ceph-rbd-mirror.target
 if [ $1 -ge 1 ] ; then
   # Restart on upgrade, but only if "CEPH_AUTO_RESTART_ON_UPGRADE" is set to
   # "yes". In any case: if units are not running, do not touch them.
@@ -2201,7 +2194,7 @@ if [ $1 -ge 1 ] ; then
     source $SYSCONF_CEPH
   fi
   if [ "X$CEPH_AUTO_RESTART_ON_UPGRADE" = "Xyes" ] ; then
-    /usr/bin/systemctl try-restart ceph-rbd-mirror@\*.service > /dev/null 2>&1 || :
+    /usr/bin/systemctl try-restart ceph-rbd-mirror@.service > /dev/null 2>&1 || :
   fi
 fi
 
@@ -2214,11 +2207,11 @@ fi
 %post immutable-object-cache
 %if 0%{?suse_version}
 if [ $1 -eq 1 ] ; then
-  /usr/bin/systemctl preset ceph-immutable-object-cache@\*.service ceph-immutable-object-cache.target >/dev/null 2>&1 || :
+  /usr/bin/systemctl preset ceph-immutable-object-cache@.service ceph-immutable-object-cache.target >/dev/null 2>&1 || :
 fi
 %endif
 %if 0%{?fedora} || 0%{?rhel}
-%systemd_post ceph-immutable-object-cache@\*.service ceph-immutable-object-cache.target
+%systemd_post ceph-immutable-object-cache@.service ceph-immutable-object-cache.target
 %endif
 if [ $1 -eq 1 ] ; then
 /usr/bin/systemctl start ceph-immutable-object-cache.target >/dev/null 2>&1 || :
@@ -2226,14 +2219,14 @@ fi
 
 %preun immutable-object-cache
 %if 0%{?suse_version}
-%service_del_preun ceph-immutable-object-cache@\*.service ceph-immutable-object-cache.target
+%service_del_preun ceph-immutable-object-cache@.service ceph-immutable-object-cache.target
 %endif
 %if 0%{?fedora} || 0%{?rhel}
-%systemd_preun ceph-immutable-object-cache@\*.service ceph-immutable-object-cache.target
+%systemd_preun ceph-immutable-object-cache@.service ceph-immutable-object-cache.target
 %endif
 
 %postun immutable-object-cache
-%systemd_postun ceph-immutable-object-cache@\*.service ceph-immutable-object-cache.target
+%systemd_postun ceph-immutable-object-cache@.service ceph-immutable-object-cache.target
 if [ $1 -ge 1 ] ; then
   # Restart on upgrade, but only if "CEPH_AUTO_RESTART_ON_UPGRADE" is set to
   # "yes". In any case: if units are not running, do not touch them.
@@ -2242,7 +2235,7 @@ if [ $1 -ge 1 ] ; then
     source $SYSCONF_CEPH
   fi
   if [ "X$CEPH_AUTO_RESTART_ON_UPGRADE" = "Xyes" ] ; then
-    /usr/bin/systemctl try-restart ceph-immutable-object-cache@\*.service > /dev/null 2>&1 || :
+    /usr/bin/systemctl try-restart ceph-immutable-object-cache@.service > /dev/null 2>&1 || :
   fi
 fi
 
@@ -2268,11 +2261,11 @@ fi
 %post radosgw
 %if 0%{?suse_version}
 if [ $1 -eq 1 ] ; then
-  /usr/bin/systemctl preset ceph-radosgw@\*.service ceph-radosgw.target >/dev/null 2>&1 || :
+  /usr/bin/systemctl preset ceph-radosgw@.service ceph-radosgw.target >/dev/null 2>&1 || :
 fi
 %endif
 %if 0%{?fedora} || 0%{?rhel}
-%systemd_post ceph-radosgw@\*.service ceph-radosgw.target
+%systemd_post ceph-radosgw@.service ceph-radosgw.target
 %endif
 if [ $1 -eq 1 ] ; then
 /usr/bin/systemctl start ceph-radosgw.target >/dev/null 2>&1 || :
@@ -2280,14 +2273,14 @@ fi
 
 %preun radosgw
 %if 0%{?suse_version}
-%service_del_preun ceph-radosgw@\*.service ceph-radosgw.target
+%service_del_preun ceph-radosgw@.service ceph-radosgw.target
 %endif
 %if 0%{?fedora} || 0%{?rhel}
-%systemd_preun ceph-radosgw@\*.service ceph-radosgw.target
+%systemd_preun ceph-radosgw@.service ceph-radosgw.target
 %endif
 
 %postun radosgw
-%systemd_postun ceph-radosgw@\*.service ceph-radosgw.target
+%systemd_postun ceph-radosgw@.service ceph-radosgw.target
 if [ $1 -ge 1 ] ; then
   # Restart on upgrade, but only if "CEPH_AUTO_RESTART_ON_UPGRADE" is set to
   # "yes". In any case: if units are not running, do not touch them.
@@ -2296,7 +2289,7 @@ if [ $1 -ge 1 ] ; then
     source $SYSCONF_CEPH
   fi
   if [ "X$CEPH_AUTO_RESTART_ON_UPGRADE" = "Xyes" ] ; then
-    /usr/bin/systemctl try-restart ceph-radosgw@\*.service > /dev/null 2>&1 || :
+    /usr/bin/systemctl try-restart ceph-radosgw@.service > /dev/null 2>&1 || :
   fi
 fi
 
@@ -2318,11 +2311,11 @@ fi
 %post osd
 %if 0%{?suse_version}
 if [ $1 -eq 1 ] ; then
-  /usr/bin/systemctl preset ceph-osd@\*.service ceph-osd.target >/dev/null 2>&1 || :
+  /usr/bin/systemctl preset ceph-osd@.service ceph-osd.target >/dev/null 2>&1 || :
 fi
 %endif
 %if 0%{?fedora} || 0%{?rhel}
-%systemd_post ceph-osd@\*.service ceph-osd.target
+%systemd_post ceph-osd@.service ceph-osd.target
 %endif
 if [ $1 -eq 1 ] ; then
 /usr/bin/systemctl start ceph-osd.target >/dev/null 2>&1 || :
@@ -2331,14 +2324,14 @@ fi
 
 %preun osd
 %if 0%{?suse_version}
-%service_del_preun ceph-osd@\*.service ceph-osd.target
+%service_del_preun ceph-osd@.service ceph-osd.target
 %endif
 %if 0%{?fedora} || 0%{?rhel}
-%systemd_preun ceph-osd@\*.service ceph-osd.target
+%systemd_preun ceph-osd@.service ceph-osd.target
 %endif
 
 %postun osd
-%systemd_postun ceph-osd@\*.service ceph-volume@\*.service ceph-osd.target
+%systemd_postun ceph-osd@.service ceph-volume@.service ceph-osd.target
 if [ $1 -ge 1 ] ; then
   # Restart on upgrade, but only if "CEPH_AUTO_RESTART_ON_UPGRADE" is set to
   # "yes". In any case: if units are not running, do not touch them.
@@ -2347,7 +2340,7 @@ if [ $1 -ge 1 ] ; then
     source $SYSCONF_CEPH
   fi
   if [ "X$CEPH_AUTO_RESTART_ON_UPGRADE" = "Xyes" ] ; then
-    /usr/bin/systemctl try-restart ceph-osd@\*.service ceph-volume@\*.service > /dev/null 2>&1 || :
+    /usr/bin/systemctl try-restart ceph-osd@.service ceph-volume@.service > /dev/null 2>&1 || :
   fi
 fi
 
@@ -2369,23 +2362,23 @@ fi
 %post volume
 %if 0%{?suse_version}
 if [ $1 -eq 1 ] ; then
-  /usr/bin/systemctl preset ceph-volume@\*.service >/dev/null 2>&1 || :
+  /usr/bin/systemctl preset ceph-volume@.service >/dev/null 2>&1 || :
 fi
 %endif
 %if 0%{?fedora} || 0%{?rhel}
-%systemd_post ceph-volume@\*.service
+%systemd_post ceph-volume@.service
 %endif
 
 %preun volume
 %if 0%{?suse_version}
-%service_del_preun ceph-volume@\*.service
+%service_del_preun ceph-volume@.service
 %endif
 %if 0%{?fedora} || 0%{?rhel}
-%systemd_preun ceph-volume@\*.service
+%systemd_preun ceph-volume@.service
 %endif
 
 %postun volume
-%systemd_postun ceph-volume@\*.service
+%systemd_postun ceph-volume@.service
 if [ $1 -ge 1 ] ; then
   # Restart on upgrade, but only if "CEPH_AUTO_RESTART_ON_UPGRADE" is set to
   # "yes". In any case: if units are not running, do not touch them.
@@ -2394,7 +2387,7 @@ if [ $1 -ge 1 ] ; then
     source $SYSCONF_CEPH
   fi
   if [ "X$CEPH_AUTO_RESTART_ON_UPGRADE" = "Xyes" ] ; then
-    /usr/bin/systemctl try-restart ceph-volume@\*.service > /dev/null 2>&1 || :
+    /usr/bin/systemctl try-restart ceph-volume@.service > /dev/null 2>&1 || :
   fi
 fi
 
@@ -2749,6 +2742,9 @@ exit 0
 %{python3_sitelib}/ceph_node_proxy-*
 
 %changelog
+* Thu Oct 16 2025 Gordon Messmer <gordon.messmer[at]gmail.com> - 2:20.1.1-3
+- Use rpm's native resource tunable to limit parallelism. BZ#2404624
+
 * Tue Oct 7 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:20.1.1-1
 - ceph-20.1.1 RC
 

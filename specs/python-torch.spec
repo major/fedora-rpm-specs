@@ -254,14 +254,6 @@ PyTorch is a Python package that provides two high-level features:
 You can reuse your favorite Python packages such as NumPy, SciPy,
 and Cython to extend PyTorch when needed.
 
-%package -n pytorch-rpm-macros
-Summary:        PyTorch RPM macros
-BuildArch:      noarch
-
-%description -n pytorch-rpm-macros
-This package contains PyTorch related RPM macros.
-
-
 %if %{with test}
 %package -n python3-%{pypi_name}-test
 Summary:        Tests for %{name}
@@ -510,7 +502,7 @@ sed -i -e 's@${PROJECT_SOURCE_DIR}/third_party/concurrentqueue@/usr/include/conc
 %build
 
 # Export the arches
-echo "%%pytorch_arches %pt_arches"   > macros.pytorch
+# echo "%%pytorch_arches %pt_arches"   > macros.pytorch
 
 #
 # Control the number of jobs
@@ -650,8 +642,8 @@ export PYTORCH_ROCM_ARCH=%{rocm_gpu_list_default}
 %install
 
 # pytorch rpm macros
-install -Dpm 644 macros.pytorch \
-    %{buildroot}%{_rpmmacrodir}/macros.pytorch
+# install -Dpm 644 macros.pytorch \
+#    %{buildroot}%{_rpmmacrodir}/macros.pytorch
 
 %if %{with rocm}
 export USE_ROCM=ON
@@ -687,9 +679,6 @@ export PYTORCH_ROCM_ARCH=%{rocm_gpu_list_default}
 %{_bindir}/torchrun
 %{python3_sitearch}/%{pypi_name}*
 %{python3_sitearch}/functorch
-
-%files -n pytorch-rpm-macros
-%{_rpmmacrodir}/macros.pytorch
 
 %changelog
 %autochangelog

@@ -1,6 +1,6 @@
 Name:           python-uc-micro-py
 Version:        1.0.3
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Micro subset of Unicode data files for linkify-it.py projects
 
 License:        MIT
@@ -9,31 +9,28 @@ VCS:            git:%{url}.git
 Source:         %{url}/archive/v%{version}/uc.micro-py-%{version}.tar.gz
 
 BuildArch:      noarch
-BuildRequires:  python3-devel
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): -x test
+BuildOption(install): -l uc_micro
 
-%global _description %{expand:
-Micro subset of Unicode data files for linkify-it.py projects.  This is
-a Python port of uc.micro (https://github.com/markdown-it/uc.micro).}
+%global _description %{expand:Micro subset of Unicode data files for linkify-it.py projects.  This is a
+Python port of uc.micro (https://github.com/markdown-it/uc.micro).}
 
-%description %_description
+%description
+%_description
 
 %package     -n python3-uc-micro-py
 Summary:        Micro subset of Unicode data files for linkify-it.py projects
 
-%description -n python3-uc-micro-py %_description
+%description -n python3-uc-micro-py
+%_description
 
 %prep
 %autosetup -n uc.micro-py-%{version}
 
-%generate_buildrequires
-%pyproject_buildrequires -x test
-
-%build
-%pyproject_wheel
-
-%install
-%pyproject_install
-%pyproject_save_files -l uc_micro
+%generate_buildrequires -p
+# Do not run coverage tools in RPM builds
+sed -i 's/, "coverage", "pytest-cov"//' pyproject.toml
 
 %check
 %pytest -v
@@ -42,6 +39,10 @@ Summary:        Micro subset of Unicode data files for linkify-it.py projects
 %doc CHANGELOG.md README.md
 
 %changelog
+* Fri Oct 17 2025 Jerry James <loganjerry@gmail.com> - 1.0.3-9
+- Do not run coverage tools in RPM builds
+- Use the pyproject declarative buildsystem
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0.3-8
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -5,7 +5,7 @@
 
 Name:           python-linkify-it-py
 Version:        2.0.3
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Link recognition library with full Unicode support
 
 License:        MIT
@@ -14,37 +14,33 @@ VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/v%{version}/linkify-it-py-%{version}.tar.gz
 
 BuildArch:      noarch
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): -x test
+BuildOption(install): -l linkify_it
 
-BuildRequires:  python3-devel
-
-%global _description %{expand:
-This is a Python port of linkify-it [1], a link recognition library with
-FULL unicode support.  It is focused on high quality link pattern
-detection in plain text.  See a JavaScript demo [2].
+%global _description %{expand:This is a Python port of linkify-it [1], a link recognition library with FULL
+unicode support.  It is focused on high quality link pattern detection in
+plain text.  See a JavaScript demo [2].
 
 References:
 [1] https://github.com/markdown-it/linkify-it
 [2] https://markdown-it.github.io/linkify-it/}
 
-%description %_description
+%description
+%_description
 
 %package     -n python3-linkify-it-py
 Summary:        Link recognition library with full Unicode support
 
-%description -n python3-linkify-it-py %_description
+%description -n python3-linkify-it-py
+%_description
 
 %prep
 %autosetup -n linkify-it-py-%{version}
 
-%generate_buildrequires
-%pyproject_buildrequires -x test
-
-%build
-%pyproject_wheel
-
-%install
-%pyproject_install
-%pyproject_save_files -l linkify_it
+%generate_buildrequires -p
+# Do not run coverage tools in RPM builds
+sed -i 's/, "coverage", "pytest-cov"//' pyproject.toml
 
 %check
 %pytest -v
@@ -53,6 +49,10 @@ Summary:        Link recognition library with full Unicode support
 %doc CHANGELOG.md README.md
 
 %changelog
+* Fri Oct 17 2025 Jerry James <loganjerry@gmail.com> - 2.0.3-9
+- Do not run coverage tools in RPM builds
+- Use the pyproject declarative buildsystem
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.0.3-8
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -10,7 +10,7 @@
 
 %global	tarballver	%{mainver}%{?use_git:-%{gitdate}git%{shorthash}}
 
-%global	baserelease	1
+%global	baserelease	2
 %dnl %global	alphatag		.rcb
 
 %undefine _ld_strict_symbol_defs
@@ -43,6 +43,8 @@ Source0:		cairo-dock-fedora-%{tarballver}.tar.gz
 Source1:		cairo-dock-create-fedora-tarball.sh
 # And some legal explanation
 Source2:		LEGAL.fedora.cairo-dock
+# https://github.com/Cairo-Dock/cairo-dock-core/pull/157
+Patch0:		cairo-dock-pr157-disabled-zoom-feature.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -171,6 +173,9 @@ export CXXFLAGS="$(echo $CXXFLAGS | sed -e 's|-specs=[^ \t][^ \t]*hardened[^ \t]
 export LDFLAGS="$(echo $LDFLAGS   | sed -e 's|-specs=[^ \t][^ \t]*hardened[^ \t][^ \t]*||g')"
 %endif
 
+# PATCH157 needs this: remove this when patch is included in tarball
+export CFLAGS="$CFLAGS -DAVOID_PATENT_CRAP=1"
+
 rm -f CMakeCache.txt
 %cmake \
 	-DCMAKE_SKIP_RPATH:BOOL=ON \
@@ -265,6 +270,9 @@ popd
 %{_libdir}/pkgconfig/gldi.pc
 
 %changelog
+* Fri Oct 17 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.6.0-2
+- Upstream patch for warning for disabling zoom effect
+
 * Wed Oct 01 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.6.0-1
 - 3.6.0
 

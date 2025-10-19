@@ -1,5 +1,5 @@
 Name:           tree-sitter-cmake
-Version:        0.7.1
+Version:        0.7.2
 Release:        %{autorelease}
 License:        MIT
 URL:            https://github.com/uyha/%{name}

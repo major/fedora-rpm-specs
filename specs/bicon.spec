@@ -29,12 +29,12 @@ Requires:       %{name} = %{version}-%{release}
 The bicon-devel package contains the libraries and header files
 that are needed for writing applications with BiCon.
 
-%package fonts
+%package legacyfonts
 Summary:        Font Files for BiCon
 Requires:       %{name} = %{version}-%{release}
 BuildArch:      noarch
 
-%description fonts
+%description legacyfonts
 The bicon-fonts package contains the font files for BiCon.
 
 %package keymaps
@@ -73,7 +73,7 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/bicon/*.a
 %{_libdir}/bicon/*.so
 %{_libdir}/pkgconfig/*.pc
 
-%files fonts
+%files legacyfonts
 %{_datadir}/%{name}/font
 
 %files keymaps

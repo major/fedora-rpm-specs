@@ -171,7 +171,7 @@ export CXXFLAGS="%{build_cxxflags} -Wl,--as-needed"
 %endif
 %if %{with python}
     -DOPENVDB_BUILD_PYTHON_MODULE=ON \
-    -DCMAKE_PREFIX_PATH='%{python3_sitelib}/nanobind/cmake' \
+    -DCMAKE_PREFIX_PATH=$(python3 -c 'import os;import nanobind;print(os.path.dirname(nanobind.__file__))')/cmake \
 %endif
 %if 0%{?rhel}
     -DCONCURRENT_MALLOC=None \

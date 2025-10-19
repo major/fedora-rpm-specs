@@ -2,7 +2,7 @@
 
 Name:           free42
 Epoch:          1
-Version:        3.3.8
+Version:        3.3.9
 Release:        %autorelease
 License:        GPL-2.0-only AND BSD-3-Clause
 Summary:        42S Calculator Simulator
@@ -14,15 +14,9 @@ Patch1:         free42-intel-lib-arches.patch
 BuildRequires:  gcc-c++
 BuildRequires:  gtk3-devel
 BuildRequires:  alsa-lib-devel
-BuildRequires:  ImageMagick
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 BuildRequires:  make
-
-%if 0%{?fedora} >= 41 || 0%{?rhel} >= 10
-# for XPM icon loading
-Requires:       gdk-pixbuf2-modules-extra%{?_isa}
-%endif
 
 Provides:       bundled(IntelRDFPMathLib) = 2.1
 
@@ -42,10 +36,6 @@ cd gtk
 export CFLAGS_OPT="%{optflags}"
 # make fails when using %{?_smp_mflags}
 make BCD_MATH=1 AUDIO_ALSA=1
-
-convert icon-48x48.xpm icon-48x48.png
-sed -i -e 's/IvoryBlack/#231F20/' icon-128x128.xpm
-convert icon-128x128.xpm icon-128x128.png
 
 cat <<EOF >%{app_id}.desktop
 [Desktop Entry]

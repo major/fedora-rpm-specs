@@ -7,7 +7,7 @@
 %global crate sudo-rs
 
 Name:           sudo-rs
-Version:        0.2.6
+Version:        0.2.9
 Release:        %autorelease
 Summary:        Memory safe implementation of sudo and su
 
@@ -53,7 +53,10 @@ mv %{buildroot}/%{_bindir}/visudo %{buildroot}/%{_bindir}/visudo-rs
 
 %if %{with check}
 %check
-%cargo_test -f pam-login
+# * skip a test that fails due to inconsistency between mockbuild user / mock group:
+#   https://github.com/trifectatechfoundation/sudo-rs/issues/1293
+#   https://github.com/rpm-software-management/mock/issues/1643
+%cargo_test -f pam-login -- -- --exact --skip common::context::tests::test_build_run_context
 %endif
 
 %files

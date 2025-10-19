@@ -4,7 +4,7 @@
 
 Name:           bcd
 Version:        1.1
-Release:        17.%{?date0}git%{?shortcommit0}%{?dist}
+Release:        18.%{?date0}git%{?shortcommit0}%{?dist}
 Summary:        Bayesian Collaborative Denoiser for Monte-Carlo Rendering
 # BSD: main program
 # AGPLv3+: src/io/exr
@@ -21,6 +21,7 @@ Patch0:         bcd-nodeps.patch
 # https://github.com/superboubek/bcd/pull/11
 Patch1:         bcd-gcc.patch
 # Use system eigen3
+# Set std=c++14 for eigen3-5.0.0
 Patch2:         bcd-eigen3.patch
 # Turn into a shared library forging SONAME (no ABI stability expected)
 Patch3:         bcd-links.patch
@@ -141,6 +142,9 @@ cp -pr include/* %{buildroot}%{_includedir}
 
 
 %changelog
+* Wed Oct 15 2025 Sandro Mani <manisandro@gmail.com> - 1.1-18.20180610gitd94c9fa
+- Fix build against eigen3-5.0.0
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-17.20180610gitd94c9fa
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

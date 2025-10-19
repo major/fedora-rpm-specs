@@ -70,6 +70,9 @@ k="${k-}${k+ and }not test_resolve_dependencies_install_deps"
 k="${k-}${k+ and }not generates_expected_mappings"
 # TypeError: 'NoneType' object is not subscriptable
 k="${k-}${k+ and }not no_pyenvs_found"
+# Pydantic raises UserWarning regarding Python 3.14. Ignore!
+# Core Pydantic V1 functionality isn't compatible with Python 3.14 or greater
+export PYTHONWARNINGS="ignore::UserWarning"
 %pytest -r fEs "${k:+-k ${k:-}}"
 %endif
 

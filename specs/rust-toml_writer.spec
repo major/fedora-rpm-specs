@@ -5,7 +5,7 @@
 %global crate toml_writer
 
 Name:           rust-toml_writer
-Version:        1.0.2
+Version:        1.0.4
 Release:        %autorelease
 Summary:        Low-level interface for writing out TOML
 

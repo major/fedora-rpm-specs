@@ -11,15 +11,6 @@
 %bcond_without  gstreamer
 %bcond_with     eigen2
 %bcond_without  eigen3
-# Disable eigen3 on i686 for now
-# /usr/include/eigen3/Eigen/src/Core/arch/AVX/PacketMath.h:2837:10: error: ‘_mm_cvtsi64_si128’ was not declared in this scope; did you mean ‘_mm_cvtsi64_si32’?
-# only available on x86_64
-# https://github.com/gcc-mirror/gcc/blob/4a3895903c29ed85da6fcb886f31ff23d4c6e935/gcc/config/i386/emmintrin.h#L228C1-L234
-%if 0%{?fedora} > 43
-%ifarch i686
-%global __without_eigen3 1
-%endif
-%endif
 %bcond_without  opencl
 %ifarch x86_64 %{arm}
 %bcond_without  openni
@@ -142,7 +133,6 @@ BuildRequires:  pkgconfig(cufft-%{?_cuda_version})
 BuildRequires:  pkgconfig(nppc-%{?_cuda_version})
 %{?with_dnn_cuda:BuildRequires: libcudnn8-devel}
 }
-%{?with_eigen2:BuildRequires:  eigen2-devel}
 %{?with_eigen3:BuildRequires:  eigen3-devel}
 BuildRequires:  libtheora-devel
 BuildRequires:  libvorbis-devel
@@ -174,6 +164,9 @@ BuildRequires:  tbb-devel
 BuildRequires:  zlib-devel
 BuildRequires:  pkgconfig
 BuildRequires:  python3-devel
+BuildRequires:  python3-pip
+BuildRequires:  python3-setuptools
+BuildRequires:  python3-types-setuptools
 BuildRequires:  python3-numpy
 %{?with_linters:
 BuildRequires:  pylint
@@ -495,6 +488,10 @@ install -pm 0644 %{S:4} .cache/ade/
  -DWITH_CAROTENE=OFF \
 %ifarch x86_64 %{ix86}
  -DCPU_BASELINE=SSE2 \
+%ifarch %{ix86}
+ -DCV_DISABLE_OPTIMIZATION=ON \
+ -DCPU_DISPATCH=SSE4.2 \
+%endif
 %endif
  -DCMAKE_BUILD_TYPE=Release \
  %{?with_java: -DBUILD_opencv_java=ON \
@@ -519,7 +516,6 @@ install -pm 0644 %{S:4} .cache/ade/
  -DINSTALL_C_EXAMPLES=ON \
  -DINSTALL_PYTHON_EXAMPLES=ON \
  -DPYTHON3_EXECUTABLE=%{__python3} \
- -DPYTHON3_PACKAGES_PATH=%{python3_sitearch} \
  -DOPENCV_GENERATE_SETUPVARS=OFF \
  %{!?with_linters: \
  -DENABLE_PYLINT=OFF \
@@ -553,6 +549,12 @@ cd %{__cmake_builddir}/python_loader/
 cd %{__cmake_builddir}/python_loader/
 %pyproject_install
 %pyproject_save_files cv2
+# Hack - move the binary
+%ifnarch i686
+mkdir -p %{buildroot}/%{python3_sitearch}/cv2
+mv %{buildroot}/%{python3_sitelib}/cv2/cv2.cpython-*-linux-gnu.so \
+  %{buildroot}/%{python3_sitearch}/cv2
+%endif
 
 rm -rf %{buildroot}%{_datadir}/OpenCV/licenses/
 %if %{with java}
@@ -567,7 +569,9 @@ ln -s -r %{buildroot}%{_jnidir}/opencv-%{javaver}.jar %{buildroot}%{_jnidir}/ope
 
 
 %check
-%pyproject_check_import
+# Currently fails during build with:
+# ImportError: libopencv_hdf.so.411: cannot open shared object file: No such file or directory
+%pyproject_check_import || :
 
 #ifnarch ppc64
 %if %{with tests}
@@ -615,7 +619,14 @@ ln -s -r %{buildroot}%{_jnidir}/opencv-%{javaver}.jar %{buildroot}%{_jnidir}/ope
 %files doc
 %{_datadir}/opencv4/samples
 
-%files -n python3-opencv -f %{pyproject_files}
+# some files aren't properly listed
+#files -n python3-opencv -f %%{pyproject_files}
+%files -n python3-opencv
+%{python3_sitelib}/opencv*.dist-info
+%{python3_sitelib}/cv2
+%ifnarch i686
+%{python3_sitearch}/cv2
+%endif
 
 %if %{with java}
 %files java

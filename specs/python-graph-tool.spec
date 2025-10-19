@@ -1,5 +1,5 @@
 # This needs about 15 gigs per thread, otherwise OOMs.
-%constrain_build -m 15360
+%global _smp_tasksize_proc 15360
 
 Name:           python-graph-tool
 Version:        2.98

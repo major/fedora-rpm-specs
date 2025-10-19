@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.42.9000-144-gb173557da9
+%global glibcsrcdir glibc-2.42.9000-294-g850d93f514
 %global glibcversion 2.42.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 5
+%global baserelease 6
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2389,6 +2389,89 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Fri Oct 17 2025 Florian Weimer <fweimer@redhat.com> - 2.42.9000-6
+- Auto-sync with upstream branch master,
+  commit 850d93f514ebc3c8b62603e70586edd38a18f46b:
+- math: Use binary search on lgammaf slow path
+- math: Use stdbit.h instead of builtin in math_config.h
+- math: Optimize fma call on log2pf1
+- math: Optimize fma call on asinpif
+- math: Remove erfcf fma usage
+- math: Remove asinhf fma usage
+- math: Optimize fma call on acospif
+- math: Remove acoshf fma usage
+- math: Update auto-libm-test-out-log2p1
+- aarch64: clear ZA state of SME before clone and clone3 syscalls
+- replace use of double by float [BZ#29326]
+- posix: Avoid a stack overflow when glob is given many slashes [BZ #30635]
+- i386: Use __seg_gs qualifiers in PTR_{MANGLE,DEMANGLE}() macros
+- x86_64: Use __seg_fs qualifiers in PTR_{MANGLE,DEMANGLE}() macros
+- libio: Add terminating NUL when the first character is EOF in getdelim [BZ #28038]
+- elf: Report when found libraries are rejected [BZ #25669]
+- malloc: Do not call madvise if oldsize >= THP size
+- malloc: Improve mmap interface
+- nss: use C locale for parsing nsswitch.conf (bug 33519)
+- x86: Use typeof_member style in RSEQ area access expressions
+- x86: Simplify RSEQ area access expressions
+- x86: Simplify stack and pointer guard macros
+- x86: Simplify TCB access expressions
+- x86: Detect Intel Nova Lake Processor
+- x86: Detect Intel Wildcat Lake Processor
+- ppc64le: Restore optimized strncmp for power10
+- ppc64le: Restore optimized strcmp for power10
+- math: Optimize flt-32 remainder implementation
+- math: Optimize dbl-64 remainder implementation
+- malloc: Cleanup macros, asserts and sysmalloc_mmap_fallback
+- shm-directory: Truncated struct member name length
+- Add once_flag, ONCE_FLAG_INIT and call_once to stdlib.h for C23
+- Implement C23 memset_explicit (bug 32378)
+- AArch64: Implement AdvSIMD and SVE log10p1(f) routines
+- AArch64: Implement AdvSIMD and SVE log2p1(f) routines
+- x86: Restore "*&" GCC asm memory operand workaround to installed fpu-control.h
+- benchtests: Add workload for tgammaf-inputs
+- assert: Refactor assert/assert_perror
+- nptl: Fix MADV_GUARD_INSTALL logic for thread without guard page (BZ 33356)
+- x86_64: Fix number of operands mismatch for vdivss
+- x86: Use "%v" to emit VEX encoded instructions for AVX targets
+- x86: Remove obsolete "*&" GCC asm memory operand workaround
+- malloc: Remove dumped heap support
+- AArch64: Update math-vector-fortran.h
+- malloc: Hoist common unlock out of if-else control block
+- x86: Don't use asm statement for trunc/truncf
+- i686: Compile .op files and gmon tests with -mfentry
+- i386: Use __seg_gs qualifier to cast access to TCB in THREAD_GSCOPE_RESET_FLAG()
+- x86_64: Use __seg_fs qualifier to cast access to TCB in THREAD_GSCOPE_RESET_FLAG()
+- nss: Group merge does not react to ERANGE during merge (bug 33361)
+- math: Remove clz_uint64/ctz_uint64 and use stdbit.h
+- math: Split erf and erfc
+- math: Use internal fesetround alias on fma
+- math: Use internal fetestexcept alias on fma
+- math: Add fetestexcept internal alias
+- math: Use internal feholdexcept alias on fma
+- math: Use internal feupdateenv alias on fma
+- math: Use internal feholdexcept alias on fma
+- math: Add feclearexcept internal alias
+- Update to Unicode 17.0.0 [BZ #33289]
+- AArch64: add optimised strspn/strcspn
+- i386: Use __seg_gs qualifiers in {STACK, POINTER}_CHK_GUARD macros
+- x86_64: Use __seg_fs qualifiers in {STACK, POINTER}_CHK_GUARD macros
+- x86: Remove x86 version of thread_pointer.h
+- x86: Remove stale __GNUC_PREREQ (11, 1) test from __thread_pointer()
+- malloc: Cleanup libc_realloc
+- malloc: check "negative" tcache_key values by hand
+- x86: Define atomic_compare_and_exchange_{val, bool}_acq using __atomic_compare_exchange_n
+- x86: Define atomic_exchange_acq using __atomic_exchange_n
+- x86: Define atomic_full_barrier using __sync_synchronize
+- x86: Remove catomic_* locking primitives
+- atomic: Switch atomic.h to builtin atomics
+- atomic: Switch power to builtin atomics
+- atomic: Use builtin atomics with USE_ATOMIC_COMPILER_BUILTINS
+- x86: Include <bits/stdlib-bsearch.h> in dl-cacheinfo.h
+- Linux: Add missing si_code constants from Linux kernel
+- Remove futex_supports_pshared
+- misc: Add support for Linux uio.h RWF_DONTCACHE flag
+- malloc: Fix Os build on some ABIs
+
 * Mon Sep 08 2025 Frédéric Bérat <fberat@redhat.com> - 2.42.9000-5
 - Auto-sync with upstream branch master,
   commit b173557da978a04ac3bdfc0bd3b0e7ac583b44d5:

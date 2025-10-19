@@ -1,6 +1,6 @@
 Name:           rpkg
 Version:        1.68
-Release:        8%{?dist}
+Release:        9%{?dist}
 
 Summary:        Python library for interacting with rpm+git
 # Automatically converted from old format: GPLv2+ and LGPLv2 - review is highly recommended.
@@ -53,6 +53,7 @@ Patch5:         0005-type-fix-typo-in-requirements-README.patch
 Patch6:         0006-install-add-rpmbuild-arguments-with-and-without.patch
 Patch7:         0007-srpm-man-page-generation-fixed.patch
 Patch8:         0008-Add-mock-configuration-option-to-build-and-srpm.patch
+Patch9:         https://pagure.io/rpkg/pull-request/757.patch
 
 %description
 Python library for interacting with rpm+git
@@ -283,6 +284,9 @@ example_cli_dir=$RPM_BUILD_ROOT%{_datadir}/%{name}/examples/cli
 
 
 %changelog
+* Fri Oct 17 2025 Lubomír Sedlář <lsedlar@redhat.com> - 1.68-9
+- Accept auto-generated sources in pre-push checks
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.68-8
 - Rebuilt for Python 3.14.0rc3 bytecode
 

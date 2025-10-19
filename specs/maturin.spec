@@ -1,7 +1,7 @@
-%bcond_without check
+%bcond check 1
 
 Name:           maturin
-Version:        1.9.4
+Version:        1.9.6
 Release:        %autorelease
 Summary:        Build and publish Rust crates as Python packages
 SourceLicense:  MIT OR Apache-2.0
@@ -61,18 +61,17 @@ Patch:          0001-drop-unavailable-features-and-unused-dev-dependencie.patch
 Patch:          0002-drop-incompatible-cargo-flags-from-setuptools_rust.patch
 
 # * drop #!/usr/bin/env python3 shebang from maturin/__init__.py
+#   https://github.com/PyO3/maturin/pull/2775
 Patch:          0003-remove-shebang-from-non-executable-__init__.py-file.patch
 
-# * Update base64 from 0.21 to 0.22 and itertools from 0.12 to 0.13:
-#   https://github.com/PyO3/maturin/pull/2404
+# * Update base64 from 0.21 to 0.22
+#   https://github.com/PyO3/maturin/pull/2776
+# * Update itertools dependency from 0.12 to 0.14
+#   https://github.com/PyO3/maturin/pull/2779
 Patch:          0004-Bump-base64-from-0.21-to-0.22-and-itertools-from-0.1.patch
 
 # * revert to building maturin with setuptools instead of boostrapping maturin
 Patch:          0005-revert-to-using-setuptools-for-non-maturin-bootstrap.patch
-
-# * Allow console 0.16; see “Update console dependency from 0.15.4 to 0.16.0,”
-#   https://github.com/PyO3/maturin/pull/2688
-Patch:          0006-Allow-console-0.16.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  python3-devel
@@ -117,10 +116,8 @@ install -Dpm 0644 _maturin -t %{buildroot}/%{zsh_completions_dir}
 
 %if %{with check}
 %check
-# * skip a test that fails with Rust 1.74+
 # * skip tests for which fixtures are not included in published sources
 %{cargo_test -- -- --exact %{shrink:
-    --skip build_context::test::test_macosx_deployment_target
     --skip build_options::test::test_find_bridge_bin
     --skip build_options::test::test_find_bridge_cffi
     --skip build_options::test::test_find_bridge_pyo3

@@ -1,8 +1,5 @@
-%global srcname jiter
-%global _description %{summary}.
-
-Name:           python-%{srcname}
-Version:        0.11.0
+Name:           python-jiter
+Version:        0.11.1
 Release:        %autorelease
 Summary:        Fast iterable JSON parser
 
@@ -13,12 +10,12 @@ Summary:        Fast iterable JSON parser
 # MIT
 # MIT OR Apache-2.0
 License:        %{shrink:
-                (BSD-2-Clause OR Apache-2.0 OR MIT) AND
-                MIT AND
-                (MIT OR Apache-2.0)
-                }
+    (BSD-2-Clause OR Apache-2.0 OR MIT) AND
+    MIT AND
+    (MIT OR Apache-2.0)
+    }
 URL:            https://github.com/pydantic/jiter/
-Source:         %{pypi_source %{srcname}}
+Source:         %{pypi_source jiter}
 
 BuildRequires:  python3-devel
 BuildRequires:  tomcli
@@ -30,21 +27,20 @@ BuildRequires:  cargo-rpm-macros
 BuildRequires:  python3dist(dirty-equals)
 BuildRequires:  python3dist(pytest)
 
-%description
-%{_description}
+%global _description %{expand:
+%{summary}.}
 
-%package -n     python3-%{srcname}
+%description %{_description}
+
+
+%package -n     python3-jiter
 Summary:        %{summary}
 
-%description -n python3-%{srcname}
-%{_description}
+%description -n python3-jiter %{_description}
 
 
 %prep
-%autosetup -p1 -n %{srcname}-%{version}
-# There is no top-level LICENSE file, but the one from the bundled jiter crate
-# is the correct license.
-mv crates/jiter/LICENSE ./
+%autosetup -p1 -n jiter-%{version}
 
 # We want to use the system copy of the jiter crate, but we need the JSON data
 # files from its benchmarks for testing the Python extension.
@@ -79,7 +75,7 @@ tomcli set crates/jiter-python/Cargo.toml lists delitem \
 
 %install
 %pyproject_install
-%pyproject_save_files -l %{srcname}
+%pyproject_save_files -l jiter
 
 
 %check
@@ -87,7 +83,7 @@ tomcli set crates/jiter-python/Cargo.toml lists delitem \
 %pytest
 
 
-%files -n python3-%{srcname} -f %{pyproject_files}
+%files -n python3-jiter -f %{pyproject_files}
 %doc README.md
 
 

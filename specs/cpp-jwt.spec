@@ -2,16 +2,14 @@
 # header only lib
 
 Name:           cpp-jwt
-Version:        1.4
-Release:        10%{?dist}
+Version:        1.5.1
+Release:        1%{?dist}
 Summary:        JSON Web Token library for C++
 
 License:        MIT
 URL:            https://github.com/arun11299/cpp-jwt
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
-Patch0:          cmake-project-version.patch
-Patch1:          side-channel-fix.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -59,14 +57,13 @@ Provides:       %{name}-static = %{version}-%{release}
 %license LICENSE
 %doc README.md
 %{_includedir}/jwt/
-# empty dir
-%exclude %{_includedir}/jwt/test
-# not needed
-%exclude %{_includedir}/jwt/json/test_json.cc
-%{_libdir}/cmake/%{name}
+%{_datadir}/cmake/%{name}
 
 
 %changelog
+* Sat Oct 11 2025 Terje Rosten <terjeros@gmail.com> - 1.5.1-1
+- 1.5.1
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

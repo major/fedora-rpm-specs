@@ -5,7 +5,7 @@
 %bcond_with extended_tests
 
 Name:       bitcoin-core
-Version:    29.2
+Version:    30.0
 Release:    %autorelease
 Summary:    Peer to Peer Cryptographic Currency
 License:    MIT
@@ -39,23 +39,21 @@ Source12:   README.gui.redhat
 Source13:   README.utils.redhat
 Source14:   README.server.redhat
 
-# Berkeley DB will be dropped in Bitcoin 30.0!
-# https://github.com/bitcoin/bitcoin/issues/20160
-
-# Berkeley DB non-strong cryptography variant (NC)
-Source15:   https://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz
-Source16:   db-4.8.30.NC-format-security.patch
-Source17:   db-4.8.30.NC-configure-c99.patch
-
 # AppStream metadata
 Source18:   %{project_name}-qt.metainfo.xml
 
 # Patch verify script to use local keyring
 Patch0:     %{project_name}-verify-offline.patch
 
+# Patch to set the shared object version to the main version
+Patch1:     %{project_name}-shared.patch
+
 BuildRequires:  boost-devel >= 1.64.0
+BuildRequires:  capnproto
+BuildRequires:  capnproto-devel
 BuildRequires:  checkpolicy
 BuildRequires:  desktop-file-utils
+BuildRequires:  doxygen
 BuildRequires:  gnupg2
 BuildRequires:  libappstream-glib
 BuildRequires:  cmake > 3.22
@@ -66,28 +64,38 @@ BuildRequires:  pkgconfig(libevent_pthreads) >= 2.1.8
 BuildRequires:  pkgconfig(libqrencode)
 BuildRequires:  pkgconfig(libzmq) >= 4
 BuildRequires:  pkgconfig(sqlite3) >= 3.7.17
-BuildRequires:  qt5-linguist
-BuildRequires:  qt5-qtbase-devel
+BuildRequires:  qt6-qtbase-devel
+BuildRequires:  qt6-qttools-devel
 BuildRequires:  systemd
 BuildRequires:  systemtap-sdt-devel
 
-# For Berkeley BDB
-BuildRequires:  autoconf
-BuildRequires:  automake
-BuildRequires:  libtool
+Requires:   %{name}-desktop = %{version}-%{release}
+Requires:   %{name}-server = %{version}-%{release}
+Requires:   %{name}-utils = %{version}-%{release}
+Requires:   lib%{project_name}kernel = %{version}-%{release}
 
 %description
 Bitcoin is a digital cryptographic currency that uses peer-to-peer technology to
 operate with no central authority or banks; managing transactions and the
 issuing of bitcoins is carried out collectively by the network.
 
+This package installs the full Bitcoin Core distribution, with utilities, server
+and desktop (graphical wallet) components.
+
+%package -n lib%{project_name}kernel
+Summary:    Consensus engine and support library
+
+%description -n lib%{project_name}kernel
+Bitcoin Core consensus engine. A stateful library that can spawn threads, do
+caching, do I/O, and many other things which one may not normally expect from a
+library.
+
 %package desktop
 Summary:    Peer to Peer Cryptographic Currency
-Conflicts:  bitcoin
-Provides:   bundled(leveldb) = 1.22.0
-Provides:   bundled(libdb) = 4.8.30.NC
-Provides:   bundled(secp256k1) = 0.1
-Provides:   bundled(univalue) = 1.1.3
+Provides:   bundled(leveldb)
+Provides:   bundled(libmultiprocess)
+Provides:   bundled(secp256k1)
+Provides:   bundled(univalue)
 
 %description desktop
 Bitcoin is a digital cryptographic currency that uses peer-to-peer technology to
@@ -99,9 +107,7 @@ to run a Bitcoin wallet, this is probably the package you want.
 
 %package devel
 Summary:    Peer-to-peer digital currency
-Conflicts:  bitcoin-devel
-Provides:   %{name}-libs = %{version}-%{release}
-Obsoletes:  %{name}-libs < %{version}-%{release}
+Requires:   lib%{project_name} = %{version}-%{release}
 
 %description devel
 This package contains the bitcoin utility tool.
@@ -110,7 +116,6 @@ Most people do not need this package installed.
 
 %package utils
 Summary:    Peer-to-peer digital currency
-Conflicts:  bitcoin-utils
 
 %description utils 
 Bitcoin is an experimental new digital currency that enables instant payments to
@@ -123,13 +128,12 @@ control a Bitcoin server via its RPC protocol, and bitcoin-tx, a utility
 to create custom Bitcoin transactions.
 
 %package server
-Summary:        Peer-to-peer digital currency
-Conflicts:      bitcoin-server
-Requires:       (%{name}-selinux >= 0.1 if selinux-policy)
-Provides:       bundled(leveldb) = 1.22.0
-Provides:       bundled(libdb) = 4.8.30.NC
-Provides:       bundled(secp256k1) = 0.1
-Provides:       bundled(univalue) = 1.1.3
+Summary:    Peer-to-peer digital currency
+Requires:   (%{name}-selinux >= 0.1 if selinux-policy)
+Provides:   bundled(leveldb)
+Provides:   bundled(libmultiprocess)
+Provides:   bundled(secp256k1)
+Provides:   bundled(univalue)
 
 %description server
 This package provides a stand-alone bitcoin-core daemon. For most users, this
@@ -151,20 +155,6 @@ contrib/verify-binaries/verify.py --min-good-sigs 3 bin %{SOURCE2} %{SOURCE0}
 # Check the hash of the tarball, not in the same folder where we are now:
 grep -q $(sha256sum %{SOURCE0}) %{SOURCE2}
 
-# No publicly available hash file, check it against what bitcoin-core expects:
-export BDB_HASH=$(grep sha256_hash depends/packages/bdb.mk | sed -e "s/.*=//g")
-echo $BDB_HASH %{SOURCE15} | sha256sum -c
-
-# Berkeley DB:
-mkdir db4
-tar --strip-components=1 -xzf %{SOURCE15} -C db4
-patch -d db4 -p1 -i ../depends/patches/bdb/clang_cxx_11.patch
-patch -d db4 -p1 -i %{SOURCE16}
-patch -d db4 -p1 -i %{SOURCE17}
-# Avoid any modification timestamp based regeneration of the configure
-# script due to patching above:
-touch -r db4/dist/configure db4/dist/configure.ac db4/dist/aclocal/*.m4
-
 # Documentation (sources can not be directly reference with doc)
 cp -p %{SOURCE11} %{SOURCE12} %{SOURCE13} %{SOURCE14} .
 
@@ -174,24 +164,9 @@ u bitcoin - 'Bitcoin wallet server' /var/lib/%{project_name} -
 EOF
 
 %build
-# Build static Berkeley DB reusing all compiler flags / hardening:
-pushd db4/build_unix
-
-%define _configure ../dist/configure
-%configure \
-    --disable-shared \
-    --enable-cxx \
-    --disable-replication
-%undefine _configure
-
-%make_build libdb_cxx.a libdb.a
-make install_lib install_include DESTDIR=%{_builddir}/%{buildsubdir}/db4
-popd
 
 # Bitcoin kernel library used only as part of the testing for now:
 %cmake \
-    -DBerkeleyDB_INCLUDE_DIR=%{_builddir}/%{buildsubdir}/db4%{_includedir}/ \
-    -DBerkeleyDB_LIBRARY_RELEASE=%{_builddir}/%{buildsubdir}/db4%{_libdir}/libdb_cxx.a \
     -DBUILD_CLI=ON \
     -DBUILD_DAEMON=ON \
     -DBUILD_GUI=ON \
@@ -200,9 +175,9 @@ popd
     -DBUILD_TX=ON \
     -DBUILD_UTIL=ON \
     -DBUILD_UTIL_CHAINSTATE=ON \
+    -DENABLE_IPC=ON \
     -DENABLE_WALLET=ON \
     -DINSTALL_MAN=ON \
-    -DWITH_BDB=ON \
     -DWITH_DBUS=ON \
     -DWITH_QRENCODE=ON \
     -DWITH_SQLITE=ON \
@@ -215,9 +190,6 @@ popd
 %cmake_install
 
 find %{buildroot} -name "*.la" -delete
-
-# Remove Bitcoin Kernel Library for now (https://github.com/bitcoin/bitcoin/issues/27587)
-rm -frv %{buildroot}%{_libdir}
 
 # Temporary files
 mkdir -p %{buildroot}%{_tmpfilesdir}
@@ -274,6 +246,19 @@ test/functional/test_runner.py --tmpdirprefix `pwd` --extended
 %postun server
 %systemd_postun_with_restart %{project_name}.service
 
+%files
+%{_bindir}/%{project_name}
+%{_libexecdir}/bitcoin-chainstate
+%{_libexecdir}/bitcoin-gui
+%{_libexecdir}/bitcoin-node
+%{_libexecdir}/test_bitcoin
+%{_libexecdir}/test_bitcoin-qt
+%{_mandir}/man1/bitcoin.1*
+
+%files -n libbitcoinkernel
+%{_libdir}/lib%{project_name}kernel.so.%(echo %{version} | cut -d. -f 1)
+%{_libdir}/lib%{project_name}kernel.so.%{version}
+
 %files desktop
 %license COPYING
 %doc %{project_name}.conf.example README.gui.redhat README.md SECURITY.md
@@ -288,6 +273,8 @@ test/functional/test_runner.py --tmpdirprefix `pwd` --extended
 %files devel
 %doc doc/developer-notes.md
 %{_bindir}/%{project_name}-util
+%{_libdir}/pkgconfig/lib%{project_name}kernel.pc
+%{_libdir}/lib%{project_name}kernel.so
 %{_mandir}/man1/%{project_name}-util.1*
 
 %files utils

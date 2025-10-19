@@ -4,13 +4,27 @@
 # Disable LTO because it breaks EFI binary build
 %global _lto_cflags %{nil}
 
+%ifarch aarch64
+# working around
+# [100%] Linking C shared library libbtrfs.so
+# /usr/bin/cmake -E cmake_link_script CMakeFiles/btrfs.dir/link.txt --verbose=1
+# /usr/bin/ld: error: libbtrfs.so has a LOAD segment with RWX permissions
+# /usr/bin/ld: final link failed
+#
+# this should have worked but cmake's compiler test passed this wrongly to GCC
+# https://fedoraproject.org/wiki/Changes/Linker_Error_On_Security_Issues
+#global _pkg_extra_ldflags --no-error-rwx-segments
+# see https://src.fedoraproject.org/rpms/redhat-rpm-config/blob/rawhide/f/buildflags.md#hardened-builds
+%undefine _hardened_linker_errors
+%endif
+
 %global commit 496ae8501f244e38e812f234968121bb809e248b
 %global commitdate 20240824
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           btrfs-efi
 Version:        20230328^git%{commitdate}.%{shortcommit}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        EFI driver to enable Btrfs support
 
 License:        LGPL-2.1-or-later
@@ -75,6 +89,9 @@ BuildArch:      noarch
 
 
 %changelog
+* Fri Oct 17 2025 Michel Lind <salimma@fedoraproject.org> - 20230328^git20240824.496ae85-5
+- aarch64: work around loading an RWX segment now being considered an error; Resolves: RHBZ#2384486
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20230328^git20240824.496ae85-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

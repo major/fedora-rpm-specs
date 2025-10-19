@@ -6,7 +6,7 @@ License:        GPL-3.0-or-later
 URL:            http://fritzing.org/
 
 Version:        1.0.5
-%global baserelease 2
+%global baserelease 3
 
 # The upstream developer no longer marks their releases with git tags.
 # The official website says that v1.0.5 was released on 2025-04-14.
@@ -47,6 +47,9 @@ Patch10:        0010-quazip-detect.patch
 Patch11:        0011-ngspice-detect.patch
 Patch12:        0012-clipper1-detect.patch
 
+# Fix program looking for ngspice library in /lib instead of /lib64.
+Patch20:        0020-ngspice-location.patch
+
 BuildRequires:  pkgconfig(ngspice)
 BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(polyclipping)
@@ -70,6 +73,9 @@ BuildRequires:  gcc-c++
 BuildRequires:  libappstream-glib
 BuildRequires:  make
 BuildRequires:  svgpp-devel
+
+# Needed for simulations, dlopened at runtime
+Recommends:     libngspice%{?_isa}
 
 Requires:       %{name}-parts = %{version}-%{parts_release}
 %if %{undefined flatpak}
@@ -163,6 +169,9 @@ fi
 
 
 %changelog
+* Fri Oct 17 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.0.5-3.20250402
+- Fix loading ngspice library
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-2.20250402
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

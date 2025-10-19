@@ -7,10 +7,10 @@
 
 # For 0.44.0, LLVM 15 is the default. LLVM 16 support is “experimental;” we can
 # try it if we need to.
-%global llvm_compat 15
+%global llvm_compat 20
 
 Name:           python-llvmlite
-Version:        0.44.0
+Version:        0.45.1
 Release:        %{autorelease}
 Summary:        Lightweight LLVM Python binding for writing JIT compilers
 
@@ -44,6 +44,7 @@ BuildRequires:  %{py3_dist pytest}
 
 BuildRequires:  llvm%{llvm_compat}-devel
 BuildRequires:  gcc-c++
+BuildRequires:  cmake
 
 %global _description %{expand:
 llvmlite is a project originally tailored for Numba‘s needs, using the
@@ -66,19 +67,22 @@ Provides:       bundled(llvm)
 %description -n python3-llvmlite %_description
 
 %package doc
-Summary:        %{summary}
+Summary:        Documentation for %{name}
 
 %if %{with doc_pdf}
 BuildRequires:  make
-BuildRequires:  python3dist(sphinx)
+BuildRequires:  %{py3_dist sphinx}
 BuildRequires:  python3-sphinx-latex
 BuildRequires:  latexmk
+# See docs/environment.yml:
+# The HTML theme is imported in conf.py even when not generating HTML
+BuildRequires:  %{py3_dist sphinx_rtd_theme}
 %endif
 
 BuildArch:      noarch
 
 %description doc
-Documentation for %{name}.
+%{summary}.
 
 %prep
 %autosetup -n llvmlite-%{version} -p1
@@ -94,11 +98,15 @@ sed -i 's/\(def run_tests.*verbosity=\)1/\12/' llvmlite/tests/__init__.py
 echo 'intersphinx_mapping.clear()' >> docs/source/conf.py
 
 %generate_buildrequires
-# The HTML theme is imported in conf.py even when not generating HTML
-%pyproject_buildrequires %{?with_doc_pdf:docs/rtd-requirements.txt}
+%pyproject_buildrequires
 
 %build
-export LLVM_CONFIG="%{_libdir}/llvm%{llvm_compat}/bin/llvm-config"
+# See docs/source/admin-guide/install.rst.
+LLVM_CONFIG='%{_libdir}/llvm%{llvm_compat}/bin/llvm-config'
+export CMAKE_PREFIX_PATH="$("${LLVM_CONFIG}" --cmakedir)/../"
+export LLVMLITE_SHARED=1
+# https://cmake.org/cmake/help/latest/manual/cmake-env-variables.7.html
+export VERBOSE=1
 %pyproject_wheel
 
 %if %{with doc_pdf}
@@ -114,7 +122,7 @@ export LLVM_CONFIG="%{_libdir}/llvm%{llvm_compat}/bin/llvm-config"
 %if %{with tests}
 %ifarch riscv64
 # Disable JIT tests on riscv64 since that feature is not supported
-# upstream yet.  See:
+# upstream yet. See:
 # https://github.com/numba/llvmlite/issues/923
 # https://github.com/felixonmars/archriscv-packages/blob/master/python-llvmlite/riscv64.patch
 export PYTEST_ADDOPTS="\

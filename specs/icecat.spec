@@ -538,7 +538,7 @@ export CCACHE_DISABLE=1
 %endif
 
 # Require 4 GB of RAM per CPU core
-%constrain_build -m 4096
+%global _smp_tasksize_proc 4096
 %if %{?less_optbuild}
 echo "mk_add_options MOZ_MAKE_FLAGS=\"-j1\"" >> .mozconfig
 %else

@@ -1,15 +1,15 @@
-%global commit e2971e45063f6b327ccedbf18e168bda6749155c
+%global commit d3f7cd6a955d2191800f01d6d2efb2ee196127c5
 %if 0%{?rhel} && 0%{?rhel} < 10
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 %else
 %global shortcommit %{sub %{commit} 1 7}
 %endif
-%global commitdate 20240522
+%global commitdate 20250927
 
 
 Name:           steam-devices
 Version:        1.0.0.101^git%{commitdate}.%{shortcommit}
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        MIT
 Summary:        Device support for Steam-related hardware
 Url:            https://github.com/ValveSoftware/steam-devices/
@@ -42,6 +42,9 @@ install -Dpm0644 60-steam-vr.rules %{buildroot}%{_udevrulesdir}/60-steam-vr.rule
 %{_udevrulesdir}/60-steam-vr.rules
 
 %changelog
+* Fri Oct 17 2025 Simone Caronni <negativo17@gmail.com> - 1.0.0.101^git20250927.d3f7cd6-4
+- Update to latest snapshot.
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0.101^git20240522.e2971e4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

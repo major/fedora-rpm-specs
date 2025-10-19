@@ -48,6 +48,8 @@ Documentation for %{name}.
 %autosetup -n MyST-NB-%{version} -p1
 
 %generate_buildrequires -p
+# Do not run coverage tools in RPM builds
+sed -i '/coverage/d;/pytest-cov/d' pyproject.toml
 # Permit newer versions of matplotlib for testing only.  The newer version of
 # matplotlib causes some changes in test output; pyproject.toml says:
 #   Matplotlib outputs are sensitive to the matplotlib version
