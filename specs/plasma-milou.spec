@@ -5,7 +5,7 @@
 ExcludeArch: %{ix86}
 
 Name:    plasma-%{base_name}
-Version: 6.4.91
+Version: 6.5.0
 Release: 1%{?dist}
 Summary: A dedicated KDE search application built on top of Baloo
 
@@ -61,6 +61,9 @@ Provides:       kde-plasma-milou = %{version}-%{release}
 
 
 %changelog
+* Fri Oct 17 2025 Steve Cossette <farchord@gmail.com> - 6.5.0-1
+- 6.5.0
+
 * Thu Oct 02 2025 Steve Cossette <farchord@gmail.com> - 6.4.91-1
 - 6.4.91
 

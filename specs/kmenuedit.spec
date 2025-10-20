@@ -1,6 +1,6 @@
 Name:    kmenuedit
 Summary: KDE menu editor
-Version: 6.4.91
+Version: 6.5.0
 Release: 1%{?dist}
 
 License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later
@@ -62,6 +62,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.kmenuedit.des
 %{_kf6_datadir}/metainfo/org.kde.kmenuedit.appdata.xml
 
 %changelog
+* Fri Oct 17 2025 Steve Cossette <farchord@gmail.com> - 6.5.0-1
+- 6.5.0
+
 * Thu Oct 02 2025 Steve Cossette <farchord@gmail.com> - 6.4.91-1
 - 6.4.91
 

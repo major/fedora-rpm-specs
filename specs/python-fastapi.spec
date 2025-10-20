@@ -726,6 +726,10 @@ ignore="${ignore-} --ignore-glob=tests/test_tutorial/test_sql_databases/*"
 # dependency versions in CI.
 warningsfilter="${warningsfilter-} -W ignore::DeprecationWarning"
 
+# This is a new warning in Pydantic 3.12.1:
+# Core Pydantic V1 functionality isn't compatible with Python 3.14 or greater.
+warningsfilter="${warningsfilter-} -W ignore:Core:UserWarning"
+
 %pytest ${warningsfilter-} -k "${k-}" ${ignore-}
 
 

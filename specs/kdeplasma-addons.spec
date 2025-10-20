@@ -1,6 +1,6 @@
 Name:    kdeplasma-addons
 Summary: Additional Plasmoids for Plasma 6
-Version: 6.4.91
+Version: 6.5.0
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -16,17 +16,6 @@ BuildRequires:  cmake(Qt6WebEngineQuick)
 %endif
 
 ## upstream patches
-# https://invent.kde.org/plasma/kdeplasma-addons/-/commit/d8f003291de8cd3e808874709b160c77b48e5daf
-# Set of 3 commits to fix versionless soname libraries
-# Will be fixed in 6.5
-# #1
-Patch0:         d6d3fdba20c5f21ef705d2fb389db09b843177e4.patch
-# #2
-Patch1:         2ed22e4255df4d9d9059320f90202e18476dc965.patch
-# #3
-Patch2:         d8f003291de8cd3e808874709b160c77b48e5daf.patch
-# #4
-Patch3:         34836d23fa378790fc26d76fdb10344f9627b2d3.patch
 
 Obsoletes: kdeplasma-addons-libs < 5.0.0
 
@@ -172,6 +161,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Fri Oct 17 2025 Steve Cossette <farchord@gmail.com> - 6.5.0-1
+- 6.5.0
+
 * Thu Oct 02 2025 Steve Cossette <farchord@gmail.com> - 6.4.91-1
 - 6.4.91
 

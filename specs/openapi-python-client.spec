@@ -1,23 +1,12 @@
-%bcond tests 1
-
 Name:           openapi-python-client
-Version:        0.26.1
+Version:        0.26.2
 Release:        %autorelease
 Summary:        Generate modern Python clients from OpenAPI
 
 License:        MIT
 URL:            https://github.com/openapi-generators/openapi-python-client
-Source0:        %{url}/archive/refs/tags/v%{version}/openapi-python-client-%{version}.tar.gz
+Source:         %{url}/archive/refs/tags/v%{version}/openapi-python-client-%{version}.tar.gz
 Source1:        openapi-python-client.man1
-
-# chore(deps): update dependency typer to >0.6,<0.18
-# https://github.com/openapi-generators/openapi-python-client/pull/1310
-# chore(deps): update dependency typer to >0.6,<0.19
-# https://github.com/openapi-generators/openapi-python-client/pull/1323
-# chore(deps): update dependency typer to >0.6,<0.20
-# https://github.com/openapi-generators/openapi-python-client/pull/1324
-# (without changes to pdm.lock, which is not used in packaging)
-Patch:          allow-typer-0.19.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-hatchling
@@ -46,8 +35,6 @@ Summary:        %{summary}
 
 %prep
 %autosetup -p1 -n openapi-python-client-%{version}
-
-
 %generate_buildrequires
 %pyproject_buildrequires
 
@@ -59,8 +46,6 @@ Summary:        %{summary}
 %install
 %pyproject_install
 %pyproject_save_files -l openapi_python_client
-
-# Install man page
 mkdir -p %{buildroot}%{_mandir}/man1
 cp %{SOURCE1} %{buildroot}%{_mandir}/man1/%{name}.1
 gzip %{buildroot}%{_mandir}/man1/%{name}.1
@@ -68,10 +53,7 @@ gzip %{buildroot}%{_mandir}/man1/%{name}.1
 
 %check
 %pyproject_check_import
-
-%if %{with tests}
 %pytest tests
-%endif
 
 
 %files -n %{name} -f %{pyproject_files}

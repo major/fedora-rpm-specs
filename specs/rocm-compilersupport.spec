@@ -78,6 +78,14 @@
 # Enable ppc and aarch64 builds
 %bcond_with alt_arch
 
+# buid the static analyzer
+%bcond_with sa
+%if %{with sa}
+%global build_sa ON
+%else
+%global build_sa OFF
+%endif
+
 Name:           rocm-compilersupport
 Version:        %{llvm_maj_ver}
 %if %{with gitcommit}
@@ -356,6 +364,15 @@ Requires:      rocm-libc++-devel%{?_isa} = %{version}-%{release}
 %description -n rocm-libc++-static
 %{summary}
 
+%if %{with sa}
+%package -n rocm-clang-analyzer
+Summary:       The ROCm code analysis framework
+Requires:      rocm-clang = %{version}-%{release}
+
+%description -n rocm-clang-analyzer
+%{summary}
+%endif
+
 %prep
 %if %{with gitcommit}
 %autosetup -p1 -n %{upstreamname}-%{commit0}
@@ -423,7 +440,7 @@ p=$PWD
 %global llvmrocm_cmake_config \\\
  -DBUILD_SHARED_LIBS=OFF \\\
  -DBUILD_TESTING=OFF \\\
- -DCLANG_ENABLE_STATIC_ANALYZER=OFF \\\
+ -DCLANG_ENABLE_STATIC_ANALYZER=%{build_sa} \\\
  -DCLANG_ENABLE_ARCMT=OFF \\\
  -DCLANG_TOOL_CLANG_FUZZER_BUILD=OFF \\\
  -DCMAKE_BUILD_TYPE=%{build_type} \\\
@@ -1078,6 +1095,25 @@ rm -f %{buildroot}%{_bindir}/hipvars.pm
 %{bundle_prefix}/lib/libc++abi.a
 %{bundle_prefix}/lib/libc++experimental.a
 
+%if %{with sa}
+%files -n rocm-clang-analyzer
+%{bundle_prefix}/bin/analyze-build
+%{bundle_prefix}/bin/intercept-build
+%{bundle_prefix}/bin/scan-build
+%{bundle_prefix}/bin/scan-build-py
+%{bundle_prefix}/bin/scan-view
+%{bundle_prefix}/lib/libear/*
+%{bundle_prefix}/lib/libscanbuild/*
+%{bundle_prefix}/libexec/analyze-c++
+%{bundle_prefix}/libexec/analyze-cc
+%{bundle_prefix}/libexec/c++-analyzer
+%{bundle_prefix}/libexec/ccc-analyzer
+%{bundle_prefix}/libexec/intercept-c++
+%{bundle_prefix}/libexec/intercept-cc
+%{bundle_prefix}/share/man/man1/scan-build.1
+%{bundle_prefix}/share/scan-build/*
+%{bundle_prefix}/share/scan-view/*
+%endif
 
 %changelog
 * Fri Oct 10 2025 Tom Rix <Tom.Rix@amd.com> - 20-4.rocm7.0.2

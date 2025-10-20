@@ -1,6 +1,6 @@
 Name:		planarity
 Summary:	Implementations of several planarity-related graph algorithms
-Version:	4.0.0.0
+Version:	4.0.1.0
 Release:	%autorelease
 License:	BSD-3-Clause
 URL:		https://github.com/graph-algorithms/edge-addition-planarity-suite
@@ -85,7 +85,7 @@ make check
 %doc README.md
 %{_mandir}/man1/%{name}.1*
 %{_bindir}/%{name}
-%{_libdir}/lib%{name}.so.2*
+%{_libdir}/lib%{name}.so.2{,.*}
 
 %files		devel
 %{_includedir}/%{name}/

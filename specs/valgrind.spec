@@ -2,8 +2,8 @@
 
 Summary: Dynamic analysis tools to detect memory or thread bugs and profile
 Name: %{?scl_prefix}valgrind
-Version: 3.25.1
-Release: 4%{?dist}
+Version: 3.26.0
+Release: 0.1.RC1%{?dist}
 Epoch: 1
 
 # This ignores licenses that are only found in the test or perf sources
@@ -12,7 +12,7 @@ Epoch: 1
 # a license specifier is in coregrind/m_main.c for some Hacker's Delight
 # public domain code, which is only compiled into Darwin binaries, which
 # we don't create. Also some subpackages have their own license tags.
-License: GPL-2.0-or-later AND bzip2-1.0.6 AND GFDL-1.2-or-later AND (GPL-2.0-or-later AND LGPL-2.0-or-later) AND (GPL-2.0-or-later AND ISC) AND (GPL-2.0-or-later AND Unlicense) AND (GPL-2.0-or-later AND Zlib) AND (GPL-2.0-or-later WITH GCC-exception-2.0) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND (GPL-2.0-or-later AND BSD-3-Clause) AND (GPL-2.0-or-later AND (MIT OR NCSA)) AND CMU-Mach AND (GPL-2.0-or-later AND X11 AND BSD-3-Clause) AND X11 AND (GPL-2.0-or-later AND LGPL-2.0-or-later) AND (GPL-2.0-or-later AND (GPL-2.0-or-later OR MPL-2.0)) AND (GPL-2.0-or-later WITH Autoconf-exception-generic) AND (GPL-3.0-or-later WITH Autoconf-exception-generic-3.0) AND FSFULLR AND FSFAP AND FSFUL AND FSFULLRWD
+License: GPL-3.0-or-later AND bzip2-1.0.6 AND (GPL-3.0-or-later AND LGPL-2.0-or-later) AND (GPL-3.0-or-later AND ISC) AND (GPL-3.0-or-later AND Unlicense) AND (GPL-3.0-or-later AND Zlib) AND (GPL-3.0-or-later WITH GCC-exception-2.0) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND (GPL-3.0-or-later AND BSD-3-Clause) AND (GPL-3.0-or-later AND (MIT OR NCSA)) AND CMU-Mach AND (GPL-3.0-or-later AND X11 AND BSD-3-Clause) AND X11 AND (GPL-3.0-or-later AND LGPL-2.0-or-later) AND (GPL-3.0-or-later AND (GPL-3.0-or-later OR MPL-2.0)) AND (GPL-2.0-or-later WITH Autoconf-exception-generic) AND (GPL-3.0-or-later WITH Autoconf-exception-generic-3.0) AND FSFULLR AND FSFAP AND FSFUL AND FSFULLRWD
 URL: https://www.valgrind.org/
 
 # Are we building for a Software Collection?
@@ -71,7 +71,7 @@ URL: https://www.valgrind.org/
 # So those will already have their full symbol table.
 %undefine _include_minidebuginfo
 
-Source0: https://sourceware.org/pub/valgrind/valgrind-%{version}.tar.bz2
+Source0: https://sourceware.org/pub/valgrind/valgrind-%{version}.RC1.tar.bz2
 
 # Needs investigation and pushing upstream
 Patch1: valgrind-3.9.0-cachegrind-improvements.patch
@@ -80,19 +80,10 @@ Patch1: valgrind-3.9.0-cachegrind-improvements.patch
 Patch2: valgrind-3.9.0-ldso-supp.patch
 
 # Add some stack-protector
-Patch3: valgrind-3.16.0-some-stack-protector.patch
+Patch3: valgrind-3.26.0-some-stack-protector.patch
 
 # Add some -Wl,z,now.
-Patch4: valgrind-3.16.0-some-Wl-z-now.patch
-
-# VALGRIND_3_25_BRANCH patches
-Patch5: 0001-Prepare-NEWS-for-branch-3.25.x-fixes.patch
-Patch6: 0002-Bug-503241-s390x-Support-z17-changes-to-the-NNPA-ins.patch
-Patch7: 0003-Add-several-missing-syscall-hooks-to-ppc64-linux.patch
-
-# Proposed upstream patches
-# https://bugs.kde.org/show_bug.cgi?id=508145
-Patch101: ppc64-strcmp-ld.patch
+Patch4: valgrind-3.26.0-some-Wl-z-now.patch
 
 BuildRequires: make
 BuildRequires: glibc-devel
@@ -223,7 +214,7 @@ Documentation in html and pdf, plus man pages for valgrind tools and scripts.
 
 %package scripts
 Summary: Scripts for post-processing valgrind tool output
-License: GPL-2.0-or-later
+License: GPL-3.0-or-later
 # Most scripts can be used as is for post-processing a valgrind tool run.
 # But callgrind_control uses vgdb.
 Recommends: %{?scl_prefix}valgrind-gdb = %{epoch}:%{version}-%{release}
@@ -233,7 +224,7 @@ Perl and Python scripts for post-processing valgrind tool output.
 
 %package gdb
 Summary: Tools for integrating valgrind and gdb
-License: GPL-2.0-or-later
+License: GPL-3.0-or-later
 Requires: %{?scl_prefix}valgrind = %{epoch}:%{version}-%{release}
 # vgdb can be used without gdb, just to control valgrind.
 # But normally you use it together with both valgrind and gdb.
@@ -266,18 +257,12 @@ Valgrind User Manual for details.
 %endif
 
 %prep
-%setup -q -n %{?scl:%{pkg_name}}%{!?scl:%{name}}-%{version}
+%setup -q -n %{?scl:%{pkg_name}}%{!?scl:%{name}}-%{version}.RC1
 
 %patch -P1 -p1
 %patch -P2 -p1
 %patch -P3 -p1
 %patch -P4 -p1
-
-%patch -P5 -p1
-%patch -P6 -p1
-%patch -P7 -p1
-
-%patch -P101 -p1
 
 %build
 # LTO triggers undefined symbols in valgrind.  But valgrind has a
@@ -482,6 +467,7 @@ echo ===============END TESTING===============
 %{_bindir}/valgrind-di-server
 %{_bindir}/valgrind-listener
 %{_bindir}/vgdb
+%{_bindir}/vgstack
 # gdb register descriptions
 %{_libexecdir}/valgrind/*.xml
 %{_datadir}/gdb/auto-load/valgrind-monitor.py
@@ -517,6 +503,13 @@ echo ===============END TESTING===============
 %endif
 
 %changelog
+* Sat Oct 18 2025 Mark Wielaard <mjw@fedoraproject.org> - 3.26.0-0.1.RC1
+- Upstream 3.26.0-RC1
+- Remove all VALGRIND_3_25_BRANCH and proposed upstream patches
+- Refresh some-stack-protector and some-Wl-z-now patches.
+- Add vgstack to valgrind-gdb.
+- Update License to GPL-3.0-or-later
+
 * Mon Aug 11 2025 Mark Wielaard <mjw@fedoraproject.org> - 3.25.1-4
 - Add ppc64-strcmp-ld.patch
 - Add 0003-Add-several-missing-syscall-hooks-to-ppc64-linux.patch

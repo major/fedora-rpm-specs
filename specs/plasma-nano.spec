@@ -5,7 +5,7 @@
 ExcludeArch: %{ix86}
 
 Name:    plasma-nano
-Version: 6.4.91
+Version: 6.5.0
 Release: 1%{?dist}
 License: CC0-1.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later AND MIT
 URL:     https://invent.kde.org/plasma/plasma-nano
@@ -75,6 +75,9 @@ Requires: qt6-qtdeclarative
 
 
 %changelog
+* Fri Oct 17 2025 Steve Cossette <farchord@gmail.com> - 6.5.0-1
+- 6.5.0
+
 * Thu Oct 02 2025 Steve Cossette <farchord@gmail.com> - 6.4.91-1
 - 6.4.91
 

@@ -19,6 +19,14 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
+
+%bcond_with gitcommit
+%if %{with gitcommit}
+%global commit0 2584e35062ad9c2edb68d93c464cf157bc57e3b0
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+%global date0 20250926
+%endif
+
 %global upstreamname rocPRIM
 %global rocm_release 7.0
 %global rocm_patch 2
@@ -50,14 +58,24 @@
 %endif
 
 Name:           rocprim
+%if %{with gitcommit}
+Version:        git%{date0}.%{shortcommit0}
+Release:        1%{?dist}
+%else
 Version:        %{rocm_version}
 Release:        1%{?dist}
+%endif
 Summary:        ROCm parallel primatives
 
 License:        MIT AND BSD-3-Clause
 
+%if %{with gitcommit}
+Url:            https://github.com/ROCm/rocm-libraries
+Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
+%else
 URL:            https://github.com/ROCm/%{name}
 Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+%endif
 
 # ROCm only working on x86_64
 ExclusiveArch:  x86_64
@@ -112,8 +130,12 @@ tests for the rocPRIM package
 %endif
 
 %prep
+%if %{with gitcommit}
+%setup -q -n rocm-libraries-%{commit0}
+cd projects/rocprim
+%else
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
-
+%endif
 
 # In file included from rocPRIM-rocm-6.4.2/test/rocprim/test_texture_cache_iterator.cpp:26: 
 # ../rocprim/include/rocprim/iterator/texture_cache_iterator.hpp:231:13: error:
@@ -123,6 +145,9 @@ sed -i -e 's@add_rocprim_test("rocprim.texture_cache_iterator"@#add_rocprim_test
 grep texture_cach test/rocprim/CMakeLists.txt
 
 %build
+%if %{with gitcommit}
+cd projects/rocprim
+%endif
 
 %cmake \
 	-DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
@@ -141,6 +166,10 @@ grep texture_cach test/rocprim/CMakeLists.txt
 %cmake_build
 
 %install
+%if %{with gitcommit}
+cd projects/rocprim
+%endif
+
 %cmake_install
 
 rm -f %{buildroot}%{_prefix}/share/doc/rocprim/LICENSE.txt
@@ -151,9 +180,15 @@ sed -i -e 's@\.\.@\/usr\/bin@' %{buildroot}%{_bindir}/%{name}/CTestTestfile.cmak
 %endif
 
 %files devel
+%if %{with gitcommit}
+%doc projects/rocprim/README.md
+%license projects/rocprim/LICENSE.txt
+%license projects/rocprim/NOTICES.txt
+%else
 %doc README.md
 %license LICENSE.txt
 %license NOTICES.txt
+%endif
 %{_includedir}/%{name}
 %{_datadir}/cmake/rocprim
 

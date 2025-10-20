@@ -30,6 +30,9 @@ developing applications that use %{name}.
 
 %prep
 %autosetup -p1
+# spng incompatible with libpng 1.6.47 (PNGv3)
+# https://github.com/randy408/libspng/issues/276
+sed -i -e '/\(ch1n3p04\|ch2n3p08\)/s/)$/, should_fail : true)/' tests/images/meson.build
 
 %build
 %meson -Ddev_build=true

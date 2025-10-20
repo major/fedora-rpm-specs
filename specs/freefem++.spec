@@ -28,7 +28,7 @@
 Summary: PDE solving tool
 Name: freefem++
 Version: %{expand:%(echo %tarvers | tr - .)}
-Release: 7%{?dist}
+Release: 8%{?dist}
 URL: https://freefem.org
 Source0: https://github.com/FreeFem/FreeFem-sources/archive/v%{tarvers}.tar.gz#/%{tarname}-%{tarvers}.tar.gz
 
@@ -138,7 +138,7 @@ BuildRequires:	arpack-devel
 BuildRequires:	boost-devel
 BuildRequires:	coin-or-Ipopt-devel
 BuildRequires:	asio-devel
-BuildRequires:	gmm-devel
+#BuildRequires:	gmm-devel
 BuildRequires:	fftw-devel
 BuildRequires:	hdf5-devel
 BuildRequires:	metis-devel
@@ -311,7 +311,7 @@ pushd serial
 	--with-petsc=%{_libdir}/petsc/conf/petscvariables \
 	--enable-hpddm --enable-download_hpddm \
 	--enable-yams --enable-download_yams \
-	--enable-gmm --disable-download_gmm \
+	--disable-gmm --disable-download_gmm \
 	--enable-mumps \
 	--enable-mumps_seq --enable-download_mumps_seq \
 	--enable-bem --enable-download_bem \
@@ -346,7 +346,7 @@ for mpi in %{?with_mpich:mpich} %{?with_openmpi:openmpi} ; do
 	--with-petsc=%{_libdir}/${mpi}/lib/petsc/conf/petscvariables \
 	--enable-hpddm --enable-download_hpddm \
 	--enable-yams --enable-download_yams \
-	--enable-gmm --disable-download_gmm \
+	--disable-gmm --disable-download_gmm \
 	--enable-mumps \
 	--enable-mumps_seq --enable-download_mumps_seq \
 	--enable-bem --enable-download_bem \
@@ -459,6 +459,10 @@ done
 %endif
 
 %changelog
+* Sat Oct 18 2025 Antonio Trande <sagitter@fedoraproject.org> - 4.15-8
+- Rebuild for petsc-3.24.0
+- Disable gmm support
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.15-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

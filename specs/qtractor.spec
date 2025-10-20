@@ -1,10 +1,12 @@
 Name:           qtractor
-Version:        1.2.0
+Version:        1.5.8
 Release:        %autorelease
 Summary:        Audio/MIDI multi-track sequencer
 License:        GPL-2.0-or-later
 URL:            https://www.qtractor.org
 Source0:        https://download.sourceforge.net/qtractor/qtractor-%{version}.tar.gz
+# https://bugzilla.redhat.com/show_bug.cgi?id=2385565
+Patch0:         0001-cmake-jack-libs.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
