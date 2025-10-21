@@ -9,6 +9,8 @@ URL:            http://www.collada.org
 Source0:        https://github.com/rdiankov/collada-dom/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Patch0:         collada-dom.minizip-include.patch
 Patch1:         collada-dom.include-zlib.patch
+Patch2:         collada-dom.cmake-version.patch
+Patch3:         collada-dom.cmake-drop-vars.patch
 
 BuildRequires:  boost-devel
 BuildRequires:  cmake

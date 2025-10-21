@@ -13,7 +13,7 @@ ExclusiveArch:  %{java_arches} noarch
 BuildRequires:  maven-local-openjdk25
 BuildRequires:  maven-compiler-plugin
 
-Requires:       java-25-headless
+Requires:       java-headless
 Requires:       javapackages-tools
 
 Provides:       cfr

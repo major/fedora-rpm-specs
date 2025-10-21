@@ -17,8 +17,8 @@
 %endif
 
 Name:           python-%{srcname}
-Version:        11.3.0
-Release:        6%{?dist}
+Version:        12.0.0
+Release:        1%{?dist}
 Summary:        Python image processing library
 
 # License: see http://www.pythonware.com/products/pil/license.htm
@@ -39,6 +39,7 @@ BuildRequires:  libraqm-devel
 BuildRequires:  libtiff-devel
 BuildRequires:  libwebp-devel
 BuildRequires:  openjpeg2-devel
+BuildRequires:  python3-pybind11
 BuildRequires:  tk-devel
 BuildRequires:  zlib-devel
 
@@ -306,6 +307,9 @@ popd
 
 
 %changelog
+* Sun Oct 19 2025 Sandro Mani <manisandro@gmail.com> - 12.0.0-1
+- Update to 12.0.0
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 11.3.0-6
 - Rebuilt for Python 3.14.0rc3 bytecode
 

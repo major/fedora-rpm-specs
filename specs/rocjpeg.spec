@@ -20,7 +20,7 @@
 # THE SOFTWARE.
 #
 %if 0%{?suse_version}
-%global rocjpeg_name librocjpeg0
+%global rocjpeg_name librocjpeg1
 %else
 %global rocjpeg_name rocjpeg
 %endif

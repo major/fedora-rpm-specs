@@ -23,6 +23,7 @@ Patch3:         freeopcua-fmt9-formatter.patch
 Patch4:         freeopcua-fmt10-fmt-format.patch
 # https://github.com/FreeOpcUa/freeopcua/pull/398
 Patch5:         freeopcua-gcc14-headers.patch
+Patch6:         freeopcua.cmake-version.patch
 
 BuildRequires:  boost-devel
 BuildRequires:  cmake

@@ -5,20 +5,21 @@
 %global cargo_install_lib 0
 
 Name:           bign-handheld-thumbnailer
-Version:        1.1.3
-Release:        2%{?dist}
+Version:        1.2.0
+Release:        1%{?dist}
 Summary:        Thumbnailer for Nintendo handheld game consoles
 
 SourceLicense:  GPL-2.0-or-later
 # 0BSD OR MIT OR Apache-2.0
 # Apache-2.0 OR MIT
+# BSD-3-Clause OR Apache-2.0
 # GPL-2.0-or-later
 # MIT
 # MIT OR Apache-2.0
 # MIT OR Zlib OR Apache-2.0
 # Unlicense OR MIT
 # Zlib OR Apache-2.0 OR MIT
-License:        GPL-2.0-or-later AND MIT AND (0BSD OR Apache-2.0 OR MIT) AND (Apache-2.0 OR MIT) AND (Apache-2.0 OR MIT OR Zlib) AND (MIT OR Unlicense)
+License:        GPL-2.0-or-later AND MIT AND (0BSD OR Apache-2.0 OR MIT) AND (Apache-2.0 OR BSD-3-Clause) AND (Apache-2.0 OR MIT) AND (Apache-2.0 OR MIT OR Zlib) AND (MIT OR Unlicense)
 # LICENSE.dependencies contains a full license breakdown
 
 URL:            https://github.com/MateusRodCosta/bign-handheld-thumbnailer
@@ -61,11 +62,14 @@ Thumbnailer for Nintendo handheld game consoles (DS and 3DS) roms and homebrew.}
 %dir %{_datadir}/mime
 %dir %{_datadir}/mime/packages
 %dir %{_datadir}/thumbnailers
-%{_datadir}/mime/packages/bign-handheld-thumbnailer-3ds.xml
+%{_datadir}/mime/packages/bign-handheld-thumbnailer.xml
 %{_datadir}/thumbnailers/bign-handheld-thumbnailer.thumbnailer
 %{_metainfodir}/dev.mateusrodcosta.bign_handheld_thumbnailer.metainfo.xml
 
 %changelog
+* Sun Oct 19 2025 Mateus Rodrigues Costa <mateusrodcosta@gmail.com> - 1.2.0-1
+- Update to 1.2.0
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

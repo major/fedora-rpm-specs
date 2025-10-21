@@ -1,6 +1,6 @@
 Name:           perl-Data-ObjectDriver
-Version:        0.25
-Release:        2%{?dist}
+Version:        0.26
+Release:        1%{?dist}
 Summary:        Simple, transparent data interface, with caching
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Data-ObjectDriver
@@ -11,15 +11,16 @@ BuildArch:      noarch
 BuildRequires:  perl-generators
 BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Module::Build::Tiny)
-# Test requirements
-BuildRequires:  perl(Test::Builder)
-BuildRequires:  perl(version)
 # Runtime requirements
 BuildRequires:  perl(Class::Accessor::Fast)
 BuildRequires:  perl(Class::Data::Inheritable)
 BuildRequires:  perl(Class::Trigger)
 BuildRequires:  perl(DBD::SQLite)
 BuildRequires:  perl(DBI)
+# Test requirements
+BuildRequires:  perl(Test::Builder)
+BuildRequires:  perl(Tie::IxHash)
+BuildRequires:  perl(version)
 
 %{?perl_default_filter}
 %global __requires_exclude_from %{?__requires_exclude_from:%__requires_exclude_from|}%{perl_vendorlib}/Data/ObjectDriver/Driver/DBD/Oracle.pm
@@ -50,6 +51,9 @@ oriented design concepts onto a relational database.
 %{_mandir}/man3/*
 
 %changelog
+* Sun Oct 19 2025 Emmanuel Seyman <emmanuel@seyman.fr> - 0.26-1
+- Update to 0.26
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.25-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -14,7 +14,7 @@ URL:            https://crates.io/crates/jiff
 Source:         %{crates_source}
 # * Since 0.1.22, the published crates no longer include “non-essential files
 #   (including tests and test data).” Since we would like to run the tests, we
-#   use the GitHub archive as an additonal source as permitted in
+#   use the GitHub archive as an additional source as permitted in
 #   https://docs.fedoraproject.org/en-US/packaging-guidelines/Rust/#_package_sources,
 #   waiting until %%check to copy in the extra files to prove they are not
 #   included in the crate sources shipped in the binary RPMs.

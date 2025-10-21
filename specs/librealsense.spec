@@ -1,6 +1,6 @@
 %global abiver 2.56
 Name:           librealsense
-Version:        2.56.3
+Version:        2.56.5
 Release:        %autorelease
 Summary:        Cross-platform camera capture for Intel RealSense
 
@@ -155,6 +155,7 @@ mv %{buildroot}/builddir/Documents/librealsense2/presets %{buildroot}/%{_datadir
 %{_bindir}/rs-measure
 %{_bindir}/rs-motion
 %{_bindir}/rs-multicam
+%{_bindir}/rs-on-chip-calib
 %{_bindir}/rs-pointcloud
 %{_bindir}/rs-post-processing
 %{_bindir}/rs-record

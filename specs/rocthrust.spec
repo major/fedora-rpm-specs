@@ -19,8 +19,15 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-%global upstreamname rocThrust
 
+%bcond_with gitcommit
+%if %{with gitcommit}
+%global commit0 2584e35062ad9c2edb68d93c464cf157bc57e3b0
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+%global date0 20250926
+%endif
+
+%global upstreamname rocThrust
 %global rocm_release 7.0
 %global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
@@ -47,11 +54,15 @@
 %global _binary_payload w7T0.xzdio
 
 Name:           rocthrust
+%if %{with gitcommit}
+Version:        git%{date0}.%{shortcommit0}
+Release:        1%{?dist}
+%else
 Version:        %{rocm_version}
 Release:        1%{?dist}
+%endif
 Summary:        ROCm Thrust libary
 
-Url:            https://github.com/ROCm/%{upstreamname}
 %if 0%{?suse_version}
 # https://en.opensuse.org/openSUSE:Accepted_licences
 # Uses 'Public Domain' but this is not a spdx tag and hangs up the SLE 15.7 autochecker
@@ -71,7 +82,13 @@ License:        Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BSL-1.0 AND MIT
 # ./thrust/detail/allocator/allocator_traits.h is dual Apache 2.0 and MIT
 # ./thrust/detail/complex contains BSD 2 clause licensed headers
 
+%if %{with gitcommit}
+Url:            https://github.com/ROCm/rocm-libraries
+Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
+%else
+Url:            https://github.com/ROCm/%{upstreamname}
 Source0:        %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+%endif
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -109,7 +126,12 @@ Provides:       %{name}-static = %{version}-%{release}
 The %{upstreamname} development package.
 
 %prep
+%if %{with gitcommit}
+%setup -q -n rocm-libraries-%{commit0}
+cd projects/rocthrust
+%else
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
+%endif
 
 #
 # The ROCMExportTargetsHeaderOnly.cmake file
@@ -118,6 +140,10 @@ The %{upstreamname} development package.
 sed -i -e 's/ROCM_INSTALL_LIBDIR lib/ROCM_INSTALL_LIBDIR lib64/' cmake/ROCMExportTargetsHeaderOnly.cmake
 
 %build
+%if %{with gitcommit}
+cd projects/rocthrust
+%endif
+
 
 %if %{with check}
 # Building all the gpu's does not make sense
@@ -141,6 +167,10 @@ gpu=`rocm_agent_enumerator | head -n 1`
 %cmake_build
 
 %install
+%if %{with gitcommit}
+cd projects/rocthrust
+%endif
+
 %cmake_install
 
 rm -f %{buildroot}%{_prefix}/share/doc/rocthrust/LICENSE
@@ -151,9 +181,15 @@ rm -f %{buildroot}%{_prefix}/share/doc/rocthrust/LICENSE
 %endif
 
 %files devel
+%if %{with gitcommit}
+%doc projects/rocthrust/README.md
+%license projects/rocthrust/LICENSE
+%license projects/rocthrust/NOTICES.txt
+%else
 %doc README.md
 %license LICENSE
 %license NOTICES.txt
+%endif
 %{_includedir}/thrust
 %{_libdir}/cmake/%{name}
 

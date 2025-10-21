@@ -6,8 +6,8 @@
 %endif
 
 Name:           perl-B-Keywords
-Version:        1.28
-Release:        2%{?dist}
+Version:        1.29
+Release:        1%{?dist}
 Summary:        Lists of reserved barewords and symbol names
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/B-Keywords
@@ -115,6 +115,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Oct 19 2025 Jitka Plesnikova <jplesnik@redhat.com> - 1.29-1
+- 1.29 bump (rhbz#2404865)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.28-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

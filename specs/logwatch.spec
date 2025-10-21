@@ -2,7 +2,7 @@
 Summary: Analyzes and Reports on system logs
 Name: logwatch
 Version: 7.13
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: MIT
 URL: https://sourceforge.net/projects/logwatch/
 Source0: https://sourceforge.net/projects/logwatch/files/%{name}-%{version}/%{name}-%{version}.tar.gz
@@ -137,6 +137,9 @@ install -m 0644 %{SOURCE2} %{buildroot}%{_datadir}/logwatch/default.conf/service
 %{_unitdir}/logwatch.timer
 
 %changelog
+* Sun Oct 19 2025 Frank Crawford <frank@crawford.emu.id.au> - 7.13-3
+- Correct issue that dnf5 reports times in UTC and logwatch uses localtime
+
 * Sun Sep 28 2025 Frank Crawford <frank@crawford.emu.id.au> - 7.13-2
 - Add dnf5 reports from future release
 

@@ -26,7 +26,8 @@ BuildRequires:  maven-local-openjdk25
 BuildRequires:  maven-compiler-plugin
 BuildRequires:  maven-jar-plugin
 BuildRequires:  junit5
-Requires:  (java-21-headless or java-25-headless or java-latest-openjdk-headless)
+Requires:       java-headless
+Requires:       javapackages-tools
 
 # Explicit requires for javapackages-tools since scripts
 # use /usr/share/java-utils/java-functions

@@ -1,5 +1,5 @@
 %if 0%{?suse_version}
-%global hipsparse_name libhipsparse1
+%global hipsparse_name libhipsparse4
 %else
 %global hipsparse_name hipsparse
 %endif

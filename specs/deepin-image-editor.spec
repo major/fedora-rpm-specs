@@ -97,8 +97,8 @@ sed -i '/-O3/d' \
     libimageviewer/CMakeLists.txt \
     libimagevisualresult/CMakeLists.txt
 
-sed -i 's/CMAKE_CXX_STANDARD 11/CMAKE_CXX_STANDARD 14/' tests/CMakeLists.txt
-sed -i 's/std=c++11/std=c++14/' tests/CMakeLists.txt
+sed -i 's/CMAKE_CXX_STANDARD 11/CMAKE_CXX_STANDARD 17/' tests/CMakeLists.txt
+sed -i 's/std=c++11/std=c++17/' tests/CMakeLists.txt
 
 %build
 %cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo \

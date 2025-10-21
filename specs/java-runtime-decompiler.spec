@@ -1,8 +1,7 @@
 Summary: Application for extraction and decompilation of JVM byte code
 Name: java-runtime-decompiler
-Version: 9.1
+Version: 10.0
 Release: %autorelease
-# Automatically converted from old format: GPLv3 - review is highly recommended.
 License: GPL-3.0-only
 URL: https://github.com/pmikova/java-runtime-decompiler
 Source0: https://github.com/judovana/%{name}/archive/%{name}-%{version}.tar.gz
@@ -22,7 +21,7 @@ Patch6: systemJcoder.patch
 Patch61: systemJcoder7.patch
 Patch62: systemJcoderG.patch
 Patch63: systemJcoderG7.patch
-Patch7: removeMultilineSpotbugs.patch
+Patch7: systemJd.patch
 
 BuildArch: noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -31,8 +30,6 @@ BuildRequires: byteman
 BuildRequires: rsyntaxtextarea
 BuildRequires: junit5
 BuildRequires: ant-junit5
-BuildRequires: junit
-BuildRequires: ant-junit
 BuildRequires: java-diff-utils
 BuildRequires: maven-surefire-provider-junit
 BuildRequires: maven-surefire-provider-junit5
@@ -54,6 +51,7 @@ Recommends: java
 Recommends: %{name}-fernflower-plugin
 Recommends: %{name}-procyon-plugin
 Recommends: %{name}-cfr-plugin
+Recommends: %{name}-jd-plugin
 Recommends: %{name}-asmtools-plugin
 Recommends: %{name}-asmtools7-plugin
 
@@ -93,6 +91,14 @@ Requires: %{name} = %{version}-%{release}
 %description cfr-plugin
 This package provides bindings and requirements to CFR decompiler for %{name}.
 
+%package jd-plugin
+Requires: jd-core
+Summary: JD decompiler %{name}
+Requires: %{name} = %{version}-%{release}
+
+%description jd-plugin
+This package provides bindings and requirements to JD decompiler for %{name}.
+
 %package asmtools-plugin
 Requires: openjdk-asmtools >= 8.0.b09
 Summary: asmtools disassembler and assembler plugin for %{name}
@@ -111,22 +117,22 @@ This package provides bindings and requirements to asmtools7 disassembler and as
 
 %prep
 %setup -q -n %{name}-%{name}-%{version}
-%patch 1 -p0
-%patch 2 -p0
-%patch 21 -p0
-%patch 3 -p0
-%patch 4 -p0
-%patch 5 -p0
-%patch 51 -p0
-%patch 52 -p0
-%patch 53 -p0
-%patch 6 -p0
-%patch 61 -p0
-%patch 62 -p0
-%patch 63 -p0
-%patch 7 -p1
+%patch -P1 -p0
+%patch -P2 -p0
+%patch -P21 -p0
+%patch -P3 -p0
+%patch -P4 -p0
+%patch -P5 -p0
+%patch -P51 -p0
+%patch -P52 -p0
+%patch -P53 -p0
+%patch -P6 -p0
+%patch -P61 -p0
+%patch -P62 -p0
+%patch -P63 -p0
+%patch -P7 -p0
 
-%java_remove_annotations decompiler_agent runtime-decompiler -s -n SuppressFBWarnings
+jurand -i -s -a -n SuppressFBWarnings  decompiler_agent runtime-decompiler
 
 %build
 pushd runtime-decompiler
@@ -137,8 +143,6 @@ popd
 %pom_remove_plugin :formatter-maven-plugin
 %pom_remove_dep :spotbugs-annotations
 xmvn --version
-#echo $JAVA_HOME
-#export JAVA_HOME=/usr/lib/jvm/java-25-openjdk #why?
 xmvn --version
 %mvn_build -f --xmvn-javadoc -- -Plegacy
 CPLC=/usr/share/java/classpathless-compiler
@@ -170,10 +174,6 @@ install -d -m 755 $RPM_BUILD_ROOT%{_datadir}/applications
 desktop-file-install --vendor="fedora" --dir=${RPM_BUILD_ROOT}%{_datadir}/applications %{SOURCE3}
 desktop-file-install --vendor="fedora" --dir=${RPM_BUILD_ROOT}%{_datadir}/applications %{SOURCE4}
 
-#jd is not yet packed and sucks anyway
-rm $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/plugins/JdDecompilerWrapper.java
-rm $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/plugins/JdDecompilerWrapper.json
-
 %files -f .mfiles
 %attr(755, root, -) %{_bindir}/java-runtime-decompiler
 %attr(755, root, -) %{_bindir}/java-runtime-decompiler-hex
@@ -201,6 +201,10 @@ rm $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/plugins/JdDecompilerWrapper.json
 %files cfr-plugin
 %config %{_sysconfdir}/%{name}/plugins/CfrDecompilerWrapper.java
 %config(noreplace) %{_sysconfdir}/%{name}/plugins/CfrDecompilerWrapper.json
+
+%files jd-plugin
+%config %{_sysconfdir}/%{name}/plugins/JdDecompilerWrapper.java
+%config(noreplace) %{_sysconfdir}/%{name}/plugins/JdDecompilerWrapper.json
 
 %files asmtools-plugin
 %config %{_sysconfdir}/%{name}/plugins/JasmDecompilerWrapper.java

@@ -8,8 +8,8 @@
 %global modname pycurl
 
 Name:           python-%{modname}
-Version:        7.45.6
-Release:        7%{?dist}
+Version:        7.45.7
+Release:        1%{?dist}
 Summary:        A Python interface to libcurl
 
 License:        curl OR LGPL-2.1-or-later
@@ -18,8 +18,8 @@ Source0:        %{pypi_source pycurl}
 
 # drop link-time vs. run-time TLS backend check (#1446850)
 Patch1:         0001-python-pycurl-7.45.1-tls-backend.patch
-# Fix debug test due to changed output in curl 8.16.0
-Patch2:         https://github.com/pycurl/pycurl/commit/eb7f52eeef85feb6c117678d52803050bbdd7bc8.patch
+# skip Kerberos tests on libcurl >= 8.17.0
+Patch2:         ea92e3ca230a3ff3d464cb6816102fa157177aca.patch
 
 BuildRequires:  gcc
 BuildRequires:  libcurl-devel
@@ -96,6 +96,9 @@ export PYTEST_ADDOPTS="--ignore examples -m 'not online'"
 %doc ChangeLog README.rst examples doc
 
 %changelog
+* Fri Oct 17 2025 Jacek Migacz <jmigacz@redhat.com> - 7.45.7-1
+- Update to 7.45.7 (#2397795)
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 7.45.6-7
 - Rebuilt for Python 3.14.0rc3 bytecode
 

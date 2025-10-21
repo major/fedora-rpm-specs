@@ -20,7 +20,7 @@
 # THE SOFTWARE.
 #
 %if 0%{?suse_version}
-%global rocdecode_name librocdecode0
+%global rocdecode_name librocdecode1
 %else
 %global rocdecode_name rocdecode
 %endif
