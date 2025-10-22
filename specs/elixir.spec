@@ -2,7 +2,7 @@
 %global debug_package %{nil}
 
 Name:     elixir
-Version:  1.18.4
+Version:  1.19.1
 
 %global __requires_exclude_from ^%{_datadir}/%{name}/%{version}/bin/.+\\.ps1$
 
@@ -13,6 +13,7 @@ URL:      https://elixir-lang.org/
 VCS:      git:https://github.com/%{upstream}/%{name}.git
 Source0:  https://github.com/%{upstream}/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:  https://github.com/%{upstream}/%{name}/releases/download/v%{version}/Docs.zip#/%{name}-%{version}-doc.zip
+Patch:    elixir-0001-Fix-shebang.patch
 # See https://bugzilla.redhat.com/1470583
 #BuildArch:      noarch
 BuildRequires: erlang-compiler

@@ -4,7 +4,7 @@
 Summary: Kernel analysis utility for live systems, netdump, diskdump, kdump, LKCD or mcore dumpfiles
 Name: crash
 Version: 9.0.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPL-3.0-only
 Source0: https://github.com/crash-utility/crash/archive/crash-%{version}.tar.gz
 Source1: http://ftp.gnu.org/gnu/gdb/gdb-16.2.tar.gz
@@ -33,6 +33,21 @@ Patch12: 0002-doc-Update-requirements-for-building-on-Fedora.patch
 Patch13: 0003-gdb-Fix-a-regression-for-eppic-extension-on-gdb-16.2.patch
 Patch14: 0004-Fix-crash-initialization-failure-on-LoongArch-with-r.patch
 Patch15: 0005-gdb-Disable-DT_DEBUG-lookup-by-GDB-inside-the-vmcore.patch
+Patch16: 0001-Add-blk_mq-shared-tags-support-for-dev-d-D.patch
+Patch17: 0002-Support-running-on-X86_64-with-RISCV-target.patch
+Patch18: 0003-RISCV64-Add-PAGE-DIRECTORY-property-to-the-vtop-comm.patch
+Patch19: 0004-vmware_vmss-support-segment-registers.patch
+Patch20: 0005-vmware_guestdump-support-segment-registers.patch
+Patch21: 0006-Fix-the-segfault-issue-caused-by-dis-s-command.patch
+Patch22: 0007-Add-a-rustfilt-command-to-demangle-a-mangled-Rust-sy.patch
+Patch23: 0008-Enable-demangling-a-mangled-Rust-support.patch
+Patch24: 0009-Enable-resolving-mangled-Rust-symbol-in-lockless-rin.patch
+Patch25: 0010-Fix-a-compilation-error-on-the-old-gcc-version-8.5.0.patch
+Patch26: 0011-Fix-for-log-command-printed-a-couple-of-empty-lines.patch
+Patch27: 0012-Optimize-extensions-s-compiler-from-gcc-to-CC.patch
+Patch28: 0013-Fix-get_pathname-not-handling-stacked-mounts.patch
+Patch29: 0014-Fix-mount-address-fail-when-super_block.s_files-unav.patch
+Patch30: 0015-Fix-mount-MNT_CURSOR-entries-kernels-5.8-6.7.patch
 
 %description
 The core analysis suite is a self-contained tool that can be used to
@@ -68,6 +83,21 @@ offered by Mission Critical Linux, or the LKCD kernel patch.
 %patch -P 13 -p1
 %patch -P 14 -p1
 %patch -P 15 -p1
+%patch -P 16 -p1
+%patch -P 17 -p1
+%patch -P 18 -p1
+%patch -P 19 -p1
+%patch -P 20 -p1
+%patch -P 21 -p1
+%patch -P 22 -p1
+%patch -P 23 -p1
+%patch -P 24 -p1
+%patch -P 25 -p1
+%patch -P 26 -p1
+%patch -P 27 -p1
+%patch -P 28 -p1
+%patch -P 29 -p1
+%patch -P 30 -p1
 
 %build
 
@@ -93,6 +123,24 @@ cp -p defs.h %{buildroot}%{_includedir}/crash
 %{_includedir}/*
 
 %changelog
+* Mon Oct 20 2025 Lianbo Jiang <lijiang@redhat.com> - 9.0.0-5
+- Add blk_mq shared tags support for dev -d/-D
+- Support running on X86_64 with RISCV target
+- RISCV64: Add 'PAGE DIRECTORY' property to the 'vtop' command
+- vmware_vmss: support segment registers
+- vmware_guestdump: support segment registers
+- Fix the segfault issue caused by "dis -s" command
+- Add a rustfilt command to demangle a mangled Rust symbol
+- Enable demangling a mangled Rust support
+- Enable resolving mangled Rust symbol in lockless ring buffer
+- Fix a compilation error on the old gcc version 8.5.0
+- Fix for log command printed a couple of empty lines
+- Optimize extensions's compiler from gcc to $(CC)
+- Fix get_pathname() not handling stacked mounts
+- Fix "mount <address>" fail when "super_block.s_files" unavaliable
+- Fix "mount" MNT_CURSOR entries (kernels 5.8-6.7)
+
+
 * Fri Jul 25 2025 Lianbo Jiang <lijiang@redhat.com> - 9.0.0-4
 - x86_64: filter unwanted warning message for "bt -T" cmd
 - doc: Update requirements for building on Fedora

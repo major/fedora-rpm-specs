@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.0.2
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Coverage PTH file to enable coverage at the virtualenv level
 
 # See github repo for license information
@@ -15,6 +15,7 @@ Patch0:         python310.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+BuildRequires:  python3-pip
 BuildRequires:  python3-setuptools
 
 %description
@@ -27,7 +28,7 @@ Summary:        Coverage PTH file to enable coverage at the virtualenv level
 Requires:       python3-coverage
 
 # since there are no .py files, this is not picked automatically
-Requires:       python(abi) = %{python3_version}
+Requires:       python(abi) = %python3_version
 
 %description -n python3-%{pypi_name}
 A .pth file to site-packages to enable coverage.py.
@@ -38,18 +39,22 @@ Python 3 version.
 cp %{SOURCE1} .
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
 %files -n python3-%{pypi_name}
 %license LICENSE.txt
 %doc README.rst
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
-%{python3_sitelib}/%{pypi_name}.pth
+%{python3_sitelib}/%{pypi_name}*.pth
+%{python3_sitelib}/%{pypi_name}-%{version}.dist-info/
 
 %changelog
+* Mon Oct 20 2025 Dan Radez <dan@radez.net> - 0.0.2-25
+- Stop using deprecated %%py3_build/%%py3_install macros
+- Resolves: rhbz#2377581
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

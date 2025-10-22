@@ -1,6 +1,6 @@
 Name: sysrepo
-Version: 3.6.11
-Release: 2%{?dist}
+Version: 3.7.11
+Release: 1%{?dist}
 Summary: YANG-based configuration and operational data store
 Url: https://github.com/sysrepo/sysrepo
 Source: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -138,6 +138,9 @@ fi
 
 
 %changelog
+* Mon Oct 20 2025 Michal Ruprich <mruprich@redhat.com> - 3.7.11-1
+- New version 3.7.11
+
 * Tue Jul 29 2025 Michal Ruprich <mruprich@redhat.com> - 3.6.11-2
 - Fixing the license identifier
 

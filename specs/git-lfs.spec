@@ -5,7 +5,7 @@
 
 # https://github.com/git-lfs/git-lfs
 %global goipath         github.com/git-lfs/git-lfs/v3
-Version:                3.7.0
+Version:                3.7.1
 
 %gometa -L -f
 

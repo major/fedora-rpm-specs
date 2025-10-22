@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        54
+Version:        56
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -120,6 +120,12 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Fri Oct 17 2025 Packit <hello@packit.dev> - 56-1
+- Launch slitherer as XWayland app to address the autoclose issue (rhbz#2404424)
+- localization: keyboard: do not apply any keyboard config in Workstation (rhbz#2404629)
+- localization: keyboard: do not allow proceeding before vconsole is set
+- localization: keyboard: make keyboard dialog always read fresh data
+
 * Thu Oct 16 2025 Packit <hello@packit.dev> - 54-1
 - localization: Keyboard multiple layout selection for non-Gnome systems (rhbz#2402430)
 - localization: Only offer ASCII-capable keyboard layouts in non Gnome selector (rhbz#2402430)

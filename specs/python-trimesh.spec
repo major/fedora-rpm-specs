@@ -18,6 +18,10 @@ Source0:        https://github.com/mikedh/trimesh/archive/%{version}/trimesh-%{v
 # output and on the docstring of trimesh.__main__.main
 Source1:        trimesh.1
 
+BuildSystem:            pyproject
+# With v4, [all] = [easy,recommend,test,test_more,deprecated].
+BuildOption(generate_buildrequires): -x easy,recommend,test,test_more
+
 # The combination of an arched package with only noarch binary packages makes
 # it easier for us to detect arch-dependent test failures, since the tests will
 # always be run on every platform, and easier for us to skip failing tests if
@@ -150,9 +154,7 @@ Recommends:     /usr/bin/openscad
 #     documentation is not well-suited to building as a PDF instead of HTML.
 
 
-%prep
-%autosetup -n trimesh-%{version} -p1
-
+%prep -a
 # Stub out unavailable pyinstrument test dependency; we don’t really need to do
 # profiling anyway. Note that this does mean that API function
 # trimesh.viewer.windowed.SceneViewer(…) will not work with “profile=True”.
@@ -231,15 +233,6 @@ tomcli set pyproject.toml lists delitem \
     '(coveralls|pyright|xatlas|pytest-beartype|pymeshlab|triangle|marimo)\b.*'
 
 
-%generate_buildrequires
-# With v4, [all] = [easy,recommend,test,test_more,deprecated].
-%pyproject_buildrequires -x easy,recommend,test,test_more
-
-
-%build
-%pyproject_wheel
-
-
 %install
 %pyproject_install
 # Manual byte-compile, to skip that one troublesome “.py” template file:
@@ -256,6 +249,8 @@ install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 -D '%{SOURCE1}'
 
 
 %check
+# We cannot use %%pyproject_check_import without %%pyproject_save_files.
+
 while read -r t
 do
   k="${k-}${k+ and }not ($(sed -r 's/::/ and /' <<<"${t}"))"

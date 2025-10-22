@@ -4,8 +4,8 @@
 %global __global_ldflags %(echo "%{__global_ldflags} -lX11")
 
 Name:           supertuxkart
-Version:        1.4
-Release:        15%{?dist}
+Version:        1.5
+Release:        1%{?dist}
 Summary:        Kids 3D go-kart racing game featuring Tux
 # Font licensing
 # [unbundled] GNU FreeFont - GPLv3
@@ -15,17 +15,10 @@ Summary:        Kids 3D go-kart racing game featuring Tux
 # SigmarOne - SIL 1.1 (OFL)
 License:        GPL-2.0-or-later AND GPL-3.0-only AND CC-BY-1.0 AND CC-BY-3.0 AND CC-BY-4.0 AND OFL-1.1 AND Apache-2.0 AND Zlib
 URL:            https://supertuxkart.net/Main_Page
-Source0:        https://github.com/%{name}/stk-code/releases/download/%{version}/SuperTuxKart-%{version}%{?rctag:-%{rctag}}-src.tar.xz
+Source0:        https://github.com/%{name}/stk-code/releases/download/%{version}/SuperTuxKart-%{version}%{?rctag:-%{rctag}}-src.tar.gz
 Source1:        %{name}.6
 Source2:        supertuxkart-0.7.3-license-clarification.txt
-Patch0:         0c2b81ac1f9ff29f5012a98f530880b87f416337.patch
-Patch1:         8544f19b59208ae93fc3db0cf41bd386c6aefbcb.patch
-Patch2:         stk-gcc13.patch
-Patch3:         defaultgpu.patch
-Patch4:         c46e1ce457529cc575543eb9186702216913fccd.patch
-# https://github.com/supertuxkart/stk-code/pull/5310
-Patch5:         includes.patch
-Patch6:         cmake.patch
+Patch0:         defaultgpu.patch
 
 BuildRequires: make
 BuildRequires: gcc-c++
@@ -116,7 +109,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*%{name}.desktop
 %doc CHANGELOG.md README.md
 %{_bindir}/%{name}*
 %{_mandir}/man6/%{name}.6*
-%{_datadir}/metainfo/*%{name}.appdata.xml
+%{_datadir}/metainfo/net.supertuxkart.SuperTuxKart.metainfo.xml
 %{_datadir}/applications/*%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 %exclude %{_includedir}/wiiuse.h
@@ -126,6 +119,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*%{name}.desktop
 %{_datadir}/%{name}/
 
 %changelog
+* Mon Oct 20 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.5-1
+- 1.5
+
 * Thu Aug 14 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.4-15
 - Angelscript rebuild
 

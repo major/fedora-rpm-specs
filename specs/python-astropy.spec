@@ -3,7 +3,7 @@
 %global srcname astropy
 
 Name: python-%{srcname}
-Version: 7.1.0
+Version: 7.1.1
 Release: %autorelease
 Summary: A Community Python Library for Astronomy
 # File _strptime.py is under Python-2.0.1
@@ -17,11 +17,6 @@ Patch: python-astropy-system-configobj.patch
 Patch: python-astropy-system-ply.patch
 # Add python 3.14 to tox.ini
 Patch: tox314.patch
-# Backported fix 
-# https://github.com/astropy/astropy/issues/18127
-Patch: fix-18125.patch
-# https://github.com/astropy/astropy/issues/18126
-Patch: fix-18126.patch
 
 BuildRequires: gcc
 BuildRequires: expat-devel

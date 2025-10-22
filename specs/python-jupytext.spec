@@ -2,7 +2,7 @@
 #global vsuffix d
 
 Name:           python-jupytext
-Version:        1.18.0
+Version:        1.18.1
 Release:        %autorelease
 Summary:        Save Jupyter notebooks as text documents or scripts
 
@@ -122,11 +122,6 @@ sed -i '/jupytext/d' docs/doc-requirements.txt
 
 # Take this package out of the test requirements
 sed -ri '/jupytext\[test(-functional)?\]/d' pyproject.toml
-
-# Skip a test that fails with version 1.18.0
-# https://github.com/mwouts/jupytext/issues/1460
-sed -i '/when_using_jupytext_sync/i@pytest.mark.skip' \
-    tests/functional/cli/test_source_is_newer.py
 
 %generate_buildrequires -p
 export HATCH_BUILD_HOOKS_ENABLE=true

@@ -1,12 +1,12 @@
 Name:           python-matplotlib-inline
-Version:        0.1.7
-Release:        9%{?dist}
+Version:        0.2.0
+Release:        1%{?dist}
 Summary:        Inline Matplotlib backend for Jupyter
 
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
 URL:            https://github.com/ipython/matplotlib-inline
-Source0:        %{pypi_source matplotlib_inline}
+Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -23,7 +23,7 @@ Inline Matplotlib backend for Jupyter
 
 
 %prep
-%autosetup -n matplotlib_inline-%{version}
+%autosetup -n matplotlib-inline-%{version}
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -40,6 +40,9 @@ Inline Matplotlib backend for Jupyter
 %doc README.md
 
 %changelog
+* Fri Oct 17 2025 Lumír Balhar <lbalhar@redhat.com> - 0.2.0-1
+- Update to 0.2.0 (rhbz#2404423)
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.1.7-9
 - Rebuilt for Python 3.14.0rc3 bytecode
 

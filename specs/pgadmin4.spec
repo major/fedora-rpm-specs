@@ -6,7 +6,7 @@
 Name:           pgadmin4
 # NOTE: Also regenerate requires as indicated below when updating!
 # Verify Patch4 on next update
-Version:        9.8
+Version:        9.9
 Release:        2%{?dist}
 Summary:        Administration tool for PostgreSQL
 
@@ -64,9 +64,9 @@ Requires: python3dist(azure-identity) >= 1.17
 Requires: python3dist(azure-mgmt-rdbms) >= 10.1
 Requires: python3dist(azure-mgmt-resource) >= 23.1
 Requires: python3dist(azure-mgmt-subscription) >= 3
-Requires: (python3dist(bcrypt) >= 4.3 with python3dist(bcrypt) < 4.4)
+Requires: python3dist(bcrypt) >= 4.3
 Requires: (python3dist(boto3) >= 1.40 with python3dist(boto3) < 1.41)
-Requires: (python3dist(cryptography) >= 45 with python3dist(cryptography) < 45.1)
+Requires: python3dist(cryptography) >= 45
 Requires: (python3dist(flask-babel) >= 4 with python3dist(flask-babel) < 4.1)
 Requires: (python3dist(flask-compress) >= 1 with python3dist(flask-compress) < 2)
 Requires: (python3dist(flask-login) >= 0 with python3dist(flask-login) < 1)
@@ -85,9 +85,10 @@ Requires: (python3dist(jsonformatter) >= 0.3.4 with python3dist(jsonformatter) <
 Requires: (python3dist(keyring) >= 25 with python3dist(keyring) < 26)
 Requires: (python3dist(ldap3) >= 2 with python3dist(ldap3) < 3)
 Requires: (python3dist(libgravatar) >= 1 with python3dist(libgravatar) < 1.1)
+Requires: python3dist(paramiko) = 3.5.1
 Requires: (python3dist(passlib) >= 1 with python3dist(passlib) < 2)
-Requires: (python3dist(psutil) >= 7 with python3dist(psutil) < 7.1)
-Requires: (python3dist(psycopg) >= 3.2 with python3dist(psycopg) < 3.3)
+Requires: python3dist(psutil) >= 7
+Requires: python3dist(psycopg) >= 3.2
 Requires: (python3dist(pyotp) >= 2 with python3dist(pyotp) < 3)
 Requires: (python3dist(python-dateutil) >= 2 with python3dist(python-dateutil) < 3)
 Requires: (python3dist(pytz) >= 2025 with python3dist(pytz) < 2026)
@@ -258,6 +259,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Mon Oct 20 2025 Sandro Mani <manisandro@gmail.com> - 9.9-2
+- Fix psutil Requires
+
+* Sun Oct 19 2025 Sandro Mani <manisandro@gmail.com> - 9.9-1
+- Update to 9.9
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 9.8-2
 - Rebuilt for Python 3.14.0rc3 bytecode
 

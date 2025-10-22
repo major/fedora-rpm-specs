@@ -4,7 +4,7 @@
 %global dnf_conflict 4.11.0
 %global swig_version 3.0.12
 %global libdnf_major_version 0
-%global libdnf_minor_version 74
+%global libdnf_minor_version 75
 %global libdnf_micro_version 0
 
 %define __cmake_in_source_build 1
@@ -56,32 +56,19 @@
 
 Name:           libdnf
 Version:        %{libdnf_major_version}.%{libdnf_minor_version}.%{libdnf_micro_version}
-Release:        10%{?dist}
+Release:        1%{?dist}
 Summary:        Library providing simplified C and Python API to libsolv
 License:        LGPL-2.1-or-later
 URL:            https://github.com/rpm-software-management/libdnf
-Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-Patch1:         0001-spec-Consistently-use-CMake-RPM-macros.patch
-# https://bugzilla.redhat.com/show_bug.cgi?id=2354865
-# compatibility with dnf5 repo overrides
-# https://github.com/rpm-software-management/libdnf/pull/1704
-Patch2:         1704.patch
-# https://github.com/rpm-software-management/libdnf/pull/1710
-Patch3:         1710.patch
-# https://github.com/rpm-software-management/libdnf/pull/1710
-Patch4:         0001-Stop-importing-subkeys-to-RPM-5.99.90.patch
-# 1/2 Fix appending protected packages list from drop-in directories,
-# bug #2400488, in upstream after 0.74.0,
-# <https://github.com/rpm-software-management/libdnf/pull/1725>
-Patch5:         0005-config-Support-optionTListAppend-for-options-lacking.patch
-# 2/2 Fix appending protected packages list from drop-in directories,
-# bug #2400488, in upstream after 0.74.0,
-# <https://github.com/rpm-software-management/libdnf/pull/1725>
-Patch6:         0006-config-Convert-protected_packages-to-an-append-optio.patch
+Source0:        %{url}/releases/download/%{version}/%{name}-%{version}.tar.gz
+Source1:        %{url}/releases/download/%{version}/%{name}-%{version}.tar.gz.asc
+# Key exported from Petr Pisar's keyring
+Source2:        gpgkey-E3F42FCE156830A80358E6E94FD1AEC3365AF7BF.gpg
 
 BuildRequires:  cmake >= 3.5.0
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
+BuildRequires:  gnupg2
 BuildRequires:  libsolv-devel >= %{libsolv_version}
 BuildRequires:  pkgconfig(librepo) >= %{librepo_version}
 BuildRequires:  pkgconfig(check)
@@ -206,6 +193,7 @@ Python 3 bindings for the hawkey library.
 %endif
 
 %prep
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 %if %{with python2}
 mkdir build-py2
@@ -243,6 +231,10 @@ popd
 %endif
 
 %check
+%if 0%{?rhel} == 9 && %{defined ctest}
+# Work around broken passing options to ctest macro, RHEL-120543
+%global ctest(-) %{expand:%{macrobody:ctest}}
+%endif
 %if %{with python2}
 pushd build-py2
   %ctest -V
@@ -324,6 +316,9 @@ popd
 %endif
 
 %changelog
+* Mon Oct 20 2025 Petr Pisar <ppisar@redhat.com> - 0.75.0-1
+- 0.75.0 bump
+
 * Wed Oct 08 2025 Petr Pisar <ppisar@redhat.com> - 0.74.0-10
 - Fix appending protected packages from drop-in directories
   (bug #2400488)

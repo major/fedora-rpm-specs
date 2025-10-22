@@ -6,7 +6,7 @@
 %global crate actix-http
 
 Name:           rust-actix-http
-Version:        3.11.1
+Version:        3.11.2
 Release:        %autorelease
 Summary:        HTTP types and services for the Actix ecosystem
 

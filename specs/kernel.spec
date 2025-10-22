@@ -176,13 +176,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.18.0
 %define specversion 6.18.0
 %define patchversion 6.18
-%define pkgrelease 0.rc1.251017g98ac9cc4b4452.20
+%define pkgrelease 0.rc2.23
 %define kversion 6
-%define tarfile_release 6.18-rc1-104-g98ac9cc4b4452
+%define tarfile_release 6.18-rc2
 # This is needed to do merge window version magic
 %define patchlevel 18
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc1.251017g98ac9cc4b4452.20%{?buildid}%{?dist}
+%define specrelease 0.rc2.23%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.18.0
 
@@ -4494,12 +4494,18 @@ fi\
 #
 #
 %changelog
-* Fri Oct 17 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.18.0-0.rc1.251017g98ac9cc4b4452.20]
-- Linux v6.18.0-0.rc1.251017g98ac9cc4b4452
-
-* Fri Oct 17 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc1.98ac9cc4b445.20]
+* Mon Oct 20 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc2.23]
 - powerpc/tools: drop `-o pipefail` in gcc check scripts (Jan Stancek)
 - redhat/configs: clang_lto: disable CONFIG_FORTIFY_KUNIT_TEST (Scott Weaver)
+
+* Mon Oct 20 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc2.22]
+- Linux v6.18.0-0.rc2
+
+* Sun Oct 19 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc1.1c64efcb083c.21]
+- Linux v6.18.0-0.rc1.1c64efcb083c
+
+* Sat Oct 18 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc1.f406055cb18c.20]
+- Linux v6.18.0-0.rc1.f406055cb18c
 
 * Fri Oct 17 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc1.98ac9cc4b445.19]
 - fedora: arm64: Updates for AMD Xilinx devices (Peter Robinson)

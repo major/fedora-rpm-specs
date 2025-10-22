@@ -10,7 +10,7 @@
 #
 # baserelease is what we have standardized across Fedora and what
 # rpmdev-bumpspec knows how to handle.
-%global baserelease 9
+%global baserelease 10
 
 # This should be e.g. beta1 or %%nil
 %global pre_release %nil
@@ -98,6 +98,7 @@ Patch0036: 0036-downstream-Remove-3des-support-cumulative-1.patch
 Patch0037: 0037-Add-PKINIT-paChecksum2-from-MS-PKCA-v20230920.patch
 Patch0038: 0038-downstream-Do-not-block-HMAC-MD4-5-in-FIPS-mode.patch
 Patch0040: 0040-automated-fast.patch
+Patch0041: 0041-bail-if-prompter-is-not-specified-but-required.patch
 
 License: Brian-Gladman-2-Clause AND BSD-2-Clause AND (BSD-2-Clause OR GPL-2.0-or-later) AND BSD-2-Clause-first-lines AND BSD-3-Clause AND BSD-4-Clause AND CMU-Mach-nodoc AND FSFULLRWD AND HPND AND HPND-export2-US AND HPND-export-US AND HPND-export-US-acknowledgement AND HPND-export-US-modify AND ISC AND MIT AND MIT-CMU AND OLDAP-2.8 AND OpenVision
 URL: https://web.mit.edu/kerberos/www/
@@ -743,9 +744,13 @@ exit 0
 %{_datarootdir}/%{name}-tests/%{_arch}
 
 %changelog
+* Mon Oct 20 2025 Alexander Bokovoy <abokovoy@redhat.com> - 1.21.3-10
+- Update the prompter patch to upstream version
+  Resolves: rhbz#2403513
+
 * Wed Oct 15 2025 Alexander Bokovoy <abokovoy@redhat.com> - 1.21.3-9
 - do not crash when prompter is not available in GSSAPI
-  Resolves: rhbz#243513
+  Resolves: rhbz#2403513
 
 * Fri Sep 26 2025 Alexander Bokovoy <abokovoy@redhat.com> - 1.21.3-8
 - Add automated FAST channel for kinit

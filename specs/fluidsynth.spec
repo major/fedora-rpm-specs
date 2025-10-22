@@ -2,7 +2,7 @@
 Summary:      Real-time software synthesizer
 Name:         fluidsynth
 Version:      2.4.8
-Release:      1%{?dist}
+Release:      2%{?dist}
 URL:          http://www.fluidsynth.org/
 Source0:      https://github.com/Fluidsynth/fluidsynth/archive/v%{version}/fluidsynth-%{version}.tar.gz
 License:      LGPL-2.1-or-later
@@ -135,6 +135,9 @@ install -m 644 fluidsynth.tmpfiles.in $RPM_BUILD_ROOT/usr/lib/tmpfiles.d/fluidsy
 
 
 %changelog
+* Mon Oct 20 2025 Christoph Karl <pampelmuse [AT] gmx [DOT] at> - 2.4.8-2
+- Fix world writeable /run/lock/fluidsynth
+
 * Thu Oct 16 2025 Christoph Karl <pampelmuse [AT] gmx [DOT] at> - 2.4.8-1
 - Update to 2.4.8
 - Fix world writeable /run/lock/fluidsynth

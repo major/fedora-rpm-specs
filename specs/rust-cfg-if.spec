@@ -5,7 +5,7 @@
 %global crate cfg-if
 
 Name:           rust-cfg-if
-Version:        1.0.3
+Version:        1.0.4
 Release:        %autorelease
 Summary:        Ergonomically define an item depending on a large number of #[cfg] parameters
 

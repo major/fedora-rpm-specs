@@ -1,5 +1,5 @@
 Name:           exaile
-Version:        4.1.4
+Version:        4.2.0
 Release:        1%{?dist}
 Summary:        Simple but powerful Amarok-style music player for GTK users
 License:        GPL-2.0-or-later
@@ -46,9 +46,9 @@ Requires:       python3-setproctitle
 # Device detection:
 Recommends:     libudisks2
 # DAAP plugins (daapserver and daapclient):
+Recommends:     python3-zeroconf
 #Not packaged for Fedora
 #Recommends:     spydaap
-#Recommends:     python3-zeroconf
 # Last.FM integration:
 Recommends:     python3-pylast
 # Lyrics from lyricsmania.com (lyricsmania):
@@ -121,7 +121,7 @@ desktop-file-install --delete-original \
 # this test should be ignored on Fedora/Debian systems and also doesn't work via Koji
 rm tests/xl/trax/test_migration.py
 
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/exaile.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.exaile.exaile.appdata.xml
 
 make test
 
@@ -129,7 +129,7 @@ make test
 %doc README.md
 %license COPYING
 %{_bindir}/exaile
-%{_metainfodir}/exaile.appdata.xml
+%{_metainfodir}/org.exaile.exaile.appdata.xml
 %{_datadir}/applications/exaile.desktop
 %{_datadir}/bash-completion/completions/exaile
 %{_datadir}/fish/vendor_completions.d/exaile.fish
@@ -141,6 +141,9 @@ make test
 %{_mandir}/man1/exaile*.1*
 
 %changelog
+* Mon Oct 20 2025 Graham White <graham_alton@hotmail.com> - 4.2.0-1
+- Update to 4.2.0
+
 * Tue Aug 12 2025 Graham White <graham_alton@hotmail.com> - 4.1.4-1
 - Update to 4.1.4
 

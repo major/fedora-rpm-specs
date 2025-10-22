@@ -2,6 +2,13 @@
 # fonts) and take long and need many dependencies.
 %bcond_without gscan2pdf_enables_test
 
+# There is no native X11 on RHEL ≥ 10
+%if 0%{?rhel} >= 10
+%global wayland 1
+%else
+%global wayland 0
+%endif
+
 Name:           gscan2pdf
 Version:        2.13.4
 Release:        5%{?dist}
@@ -140,7 +147,12 @@ BuildRequires:  perl(Sub::Override)
 BuildRequires:  perl(Test::More)
 # poppler-utils for pdffonts and pdfinfo
 BuildRequires:  sane-backends-drivers-scanners
+%if %{wayland}
+BuildRequires:  mutter
+BuildRequires:  xwayland-run
+%else
 BuildRequires:  xorg-x11-server-Xvfb
+%endif
 # Optional tests:
 %if 0%{?fedora} >= 41
 # Some tests (e.g. t/52_process_chain_udt.t) attempt to load PNM or PBM
@@ -225,7 +237,12 @@ Requires:       perl(PDF::Builder) >= 3.022
 # poppler-utils for pdffonts and pdfinfo
 Requires:       poppler-utils
 Requires:       sane-backends-drivers-scanners
+%if %{wayland}
+Requires:       mutter
+Requires:       xwayland-run
+%else
 Requires:       xorg-x11-server-Xvfb
+%endif
 # Optional tests:
 # pdftk not packaged (bug #1708054)
 # poppler-utils for pdfunite, pdftotext
@@ -309,7 +326,11 @@ unset GNOME_DESKTOP_SESSION_ID KDE_FULL_SESSION LOGDIR OCROSCRIPTS \
     SANE_DEFAULT_DEVICE XDG_CONFIG_HOME XDG_CURRENT_DESKTOP
 pushd "$DIR"
 # Tests overwrite same-named files
+%if %{wayland}
+xwfb-run -c mutter -- prove -I . -j 1
+%else
 xvfb-run -d prove -I . -j 1
+%endif
 popd
 rm -r "$DIR"
 EOF
@@ -321,7 +342,11 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %if %{with gscan2pdf_enables_test}
 unset GNOME_DESKTOP_SESSION_ID KDE_FULL_SESSION LOGDIR OCROSCRIPTS \
     SANE_DEFAULT_DEVICE XDG_CONFIG_HOME XDG_CURRENT_DESKTOP
+%if %{wayland}
+xwfb-run -c mutter -- make test
+%else
 xvfb-run -d make test
+%endif
 %endif
 appstream-util validate-relax --nonet \
     %{buildroot}/%{_datadir}/metainfo/net.sourceforge.gscan2pdf.appdata.xml

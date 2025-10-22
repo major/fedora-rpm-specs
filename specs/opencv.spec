@@ -23,9 +23,10 @@
 %bcond_without  xine
 # Atlas need (missing: Atlas_CLAPACK_INCLUDE_DIR Atlas_CBLAS_LIBRARY Atlas_BLAS_LIBRARY Atlas_LAPACK_LIBRARY)
 # LAPACK may use atlas or openblas since now it detect openblas, atlas is not used anyway, more info please
-# check OpenCVFindLAPACK.cmake
+# Now FlexiBLAS should be used instead: https://fedoraproject.org/wiki/Changes/FlexiBLAS_as_BLAS/LAPACK_manager
 %bcond_with     atlas
-%bcond_without  openblas
+%bcond_with     openblas
+%bcond_without  flexiblas
 %bcond_without  gdcm
 %if 0%{?rhel} >= 8
 %bcond_with     vtk
@@ -75,7 +76,7 @@ Version:        4.11.0
 %global minorver %(foo=%{version}; a=(${foo//./ }); echo ${a[1]} )
 %global padding  %(digits=00; num=%{minorver}; echo ${digits:${#num}:${#digits}} )
 %global abiver   %(echo %{majorver}%{padding}%{minorver} )
-Release:        13%{?dist}
+Release:        16%{?dist}
 Summary:        Collection of algorithms for computer vision
 # This is normal three clause BSD.
 License:        BSD-3-Clause AND Apache-2.0 AND ISC
@@ -121,6 +122,8 @@ Patch15:        0010-Merge-pull-request-26915-from-mshabunin-fix-png-be.patch
 # Fix build with Qt 6.9, by Atri Bhattacharya (thanks)
 # https://github.com/opencv/opencv/issues/27223#issuecomment-2797750952
 Patch16:        qt69.patch
+# Fix build with FFmpeg 8
+Patch17:        https://github.com/opencv/opencv/pull/27691.patch
 
 
 BuildRequires:  gcc-c++
@@ -164,9 +167,6 @@ BuildRequires:  tbb-devel
 BuildRequires:  zlib-devel
 BuildRequires:  pkgconfig
 BuildRequires:  python3-devel
-BuildRequires:  python3-pip
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-types-setuptools
 BuildRequires:  python3-numpy
 %{?with_linters:
 BuildRequires:  pylint
@@ -214,7 +214,6 @@ BuildRequires:  harfbuzz-devel
 BuildRequires:  vtk-java
    }
 }
-%{?with_atlas:BuildRequires: atlas-devel}
 #ceres-solver-devel push eigen3-devel and tbb-devel
 %{?with_tbb:
   %{?with_eigen3:
@@ -223,11 +222,9 @@ BuildRequires:  vtk-java
 # BuildRequires:  ceres-solver-devel
   }
 }
-%{?with_openblas:
-BuildRequires:  openblas-devel
-BuildRequires:  blas-devel
-BuildRequires:  lapack-devel
-}
+%{?with_atlas:BuildRequires:  atlas-devel}
+%{?with_openblas:BuildRequires:  openblas-devel}
+%{?with_flexiblas:BuildRequires:  flexiblas-devel}
 %{?with_gdcm:BuildRequires: gdcm-devel}
 %{?with_libmfx:BuildRequires:  libvpl-devel}
 %{?with_clp:BuildRequires:  coin-or-Clp-devel}
@@ -237,7 +234,10 @@ BuildRequires:  ant
 BuildRequires:  java-devel
 }
 %{?with_vulkan:BuildRequires:  vulkan-headers}
-#BuildRequires: flatbuffers-devel
+%ifnarch i686
+BuildRequires: flatbuffers-devel
+BuildRequires: flatbuffers-compiler
+%endif
 %if %{with tests}
 BuildRequires:  xorg-x11-drv-dummy
 BuildRequires:  mesa-dri-drivers
@@ -437,6 +437,7 @@ popd &>/dev/null
 %patch -P 14 -p1 -b .png9
 %patch -P 15 -p1 -b .png10
 %patch -P 16 -p1 -b .qt69
+%patch -P 17 -p1 -b .ffmpeg8
 
 pushd %{name}_contrib-%{version}
 #patch1 -p1 -b .install_cvv
@@ -460,7 +461,8 @@ mkdir -p .cache/ade
 install -pm 0644 %{S:4} .cache/ade/
 
 %generate_buildrequires
-%pyproject_buildrequires -N
+cd modules/python/package
+%pyproject_buildrequires
 
 %build
 # enabled by default if libraries are presents at build time:
@@ -489,8 +491,7 @@ install -pm 0644 %{S:4} .cache/ade/
 %ifarch x86_64 %{ix86}
  -DCPU_BASELINE=SSE2 \
 %ifarch %{ix86}
- -DCV_DISABLE_OPTIMIZATION=ON \
- -DCPU_DISPATCH=SSE4.2 \
+ -DCPU_DISPATCH=SSE4_2 \
 %endif
 %endif
  -DCMAKE_BUILD_TYPE=Release \
@@ -569,9 +570,8 @@ ln -s -r %{buildroot}%{_jnidir}/opencv-%{javaver}.jar %{buildroot}%{_jnidir}/ope
 
 
 %check
-# Currently fails during build with:
-# ImportError: libopencv_hdf.so.411: cannot open shared object file: No such file or directory
-%pyproject_check_import || :
+export LD_LIBRARY_PATH=%{_builddir}/%{name}-%{version}/%{__cmake_builddir}/lib:$LD_LIBARY_PATH
+%pyproject_check_import -e cv2.config
 
 #ifnarch ppc64
 %if %{with tests}
@@ -583,7 +583,6 @@ ln -s -r %{buildroot}%{_jnidir}/opencv-%{javaver}.jar %{buildroot}%{_jnidir}/ope
     fi
     $Xorg -noreset +extension GLX +extension RANDR +extension RENDER -logfile ./xorg.log -config ./xorg.conf -configdir . :99 &
     export DISPLAY=:99
-    export LD_LIBRARY_PATH=%{_builddir}/%{name}-%{version}/%{__cmake_builddir}/lib:$LD_LIBARY_PATH
     %ctest || :
 %endif
 #endif
@@ -638,6 +637,15 @@ ln -s -r %{buildroot}%{_jnidir}/opencv-%{javaver}.jar %{buildroot}%{_jnidir}/ope
 
 
 %changelog
+* Mon Oct 20 2025 Nicolas Chauvet <kwizart@gmail.com> - 4.11.0-16
+- Fix build with i686
+
+* Mon Oct 20 2025 Iñaki Úcar <iucar@fedoraproject.org> - 4.11.0-15
+- https://fedoraproject.org/wiki/Changes/FlexiBLAS_as_BLAS/LAPACK_manager
+
+* Fri Oct 17 2025 Dominik Mierzejewski <dominik@greysector.net> - 4.11.0-14
+- Fix build with FFmpeg 8
+
 * Thu Oct 16 2025 Nicolas Chauvet <kwizart@gmail.com> - 4.11.0-13
 - Use pyprojectize - thanks Miro !
 

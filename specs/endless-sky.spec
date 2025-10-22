@@ -1,6 +1,6 @@
 Name:		endless-sky
-Version:	0.10.14
-Release:	2%{?dist}
+Version:	0.10.15
+Release:	1%{?dist}
 Summary:	Space exploration, trading, and combat game
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -32,6 +32,10 @@ BuildRequires:  catch-devel
 BuildRequires:  libasan
 BuildRequires:  libubsan
 BuildRequires:  minizip-ng-compat-devel
+BuildRequires:  cmake(flac)
+BuildRequires:  flac
+BuildRequires:  libavif-devel
+BuildRequires:  cmake(ogg)
 
 %description
 Explore other star systems. Earn money by trading, carrying passengers, or
@@ -97,6 +101,9 @@ rm -f %{buildroot}%{_datadir}/doc/endless-sky/license.txt
 
 
 %changelog
+* Mon Sep 29 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.10.15-1
+- 0.10.15
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.14-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

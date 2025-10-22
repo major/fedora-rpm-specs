@@ -1,7 +1,7 @@
 # TODO: Package mplrs, the MPI version.
 
 Name:           lrslib
-Version:        7.3
+Version:        7.3a
 Release:        %autorelease
 Summary:        Reverse search for vertex enumeration/convex hull problems
 
@@ -73,6 +73,7 @@ ARITH=$(ls -1d lrsarith-*)
 CFLAGS="%{build_cflags} -fopenmp -DPLRS -DMA -I . -I $ARITH"
 GMPCFLAGS="$CFLAGS -DGMP"
 INTCFLAGS="$CFLAGS -DSAFE -DLRSLONG"
+LDFLAGS='%{build_ldflags} -Wl,--enable-new-dtags'
 
 # Build the individual objects
 gcc $GMPCFLAGS -fPIC -c -o $ARITH/lrsgmp.o $ARITH/lrsgmp.c
@@ -81,45 +82,35 @@ gcc $GMPCFLAGS -fPIC -c -o lrslibgmp.o lrslib.c
 gcc $INTCFLAGS -fPIC -c -o lrslib1.o lrslib.c
 gcc $GMPCFLAGS -fPIC -c -o lrsdriver.o lrsdriver.c
 gcc $GMPCFLAGS -fPIC -c -o lrsnashlib.o lrsnashlib.c
-%if 0%{?__isa_bits} == 64
 gcc $INTCFLAGS -DB128 -fPIC -c -o $ARITH/lrslong2.o $ARITH/lrslong.c
 gcc $INTCFLAGS -DB128 -fPIC -c -o lrslib2.o lrslib.c
-%endif
 
 # Build the library
 gcc $CFLAGS %{build_ldflags} -fPIC -shared -Wl,-soname,liblrs.so.%{sover} \
-  -o liblrs.so.%{ver} \
-%if 0%{?__isa_bits} == 64
-  $ARITH/lrslong2.o lrslib2.o \
-%endif
-  $ARITH/lrsgmp.o $ARITH/lrslong1.o lrslibgmp.o lrslib1.o \
-  lrsdriver.o lrsnashlib.o -lgmp
+  -o liblrs.so.%{ver} $ARITH/lrslong2.o lrslib2.o $ARITH/lrsgmp.o \
+  $ARITH/lrslong1.o lrslibgmp.o lrslib1.o lrsdriver.o lrsnashlib.o -lgmp
 ln -s liblrs.so.%{ver} liblrs.so.%{sover}
 ln -s liblrs.so.%{sover} liblrs.so
 
 # Build the binaries
-LDFLAGS='%{build_ldflags} -L . -llrs -lgmp'
-%if 0%{?__isa_bits} == 64
-gcc $INTCFLAGS -DB128 lrs.c -o lrs $LDFLAGS
-gcc $INTCFLAGS -DB128 lrsnash.c -o lrsnash2 $LDFLAGS
-%else
-gcc $INTCFLAGS lrs.c -o lrs $LDFLAGS
-%endif
-gcc $GMPCFLAGS lrs.c -o lrsgmp $LDFLAGS
-gcc $GMPCFLAGS lrsnash.c -o lrsnash $LDFLAGS
-gcc $INTCFLAGS lrsnash.c -o lrsnash1 $LDFLAGS
-gcc $GMPCFLAGS 2nash.c -o 2nash $LDFLAGS
-gcc $GMPCFLAGS buffer.c -o buffer $LDFLAGS
-gcc $GMPCFLAGS hvref.c -o hvref $LDFLAGS
-gcc $GMPCFLAGS inedel.c -o inedel $LDFLAGS
-gcc $GMPCFLAGS polyv.c -o polyv $LDFLAGS
-gcc $GMPCFLAGS setupnash.c -o setupnash $LDFLAGS
-gcc $GMPCFLAGS setupnash2.c -o setupnash2 $LDFLAGS
-gcc $GMPCFLAGS -DLRSMP -Dcopy=copy_dict_1 -Dlrs_mp_init=lrs_mp_init_1 \
-  -Dpmp=pmp_1 -Drattodouble=rattodouble_1 -Dreadrat=readrat_1 rat2float.c \
-  -o rat2float $LDFLAGS
-gcc $GMPCFLAGS float2rat.c -o float2rat $LDFLAGS
-gcc $GMPCFLAGS $ARITH/fixed.c -o fixed $LDFLAGS
+LIBS='-L . -llrs -lgmp'
+gcc $INTCFLAGS $LDFLAGS -DB128 lrs.c -o lrs $LIBS
+gcc $INTCFLAGS $LDFLAGS -DB128 lrsnash.c -o lrsnash2 $LIBS
+gcc $GMPCFLAGS $LDFLAGS lrs.c -o lrsgmp $LIBS
+gcc $GMPCFLAGS $LDFLAGS lrsnash.c -o lrsnash $LIBS
+gcc $INTCFLAGS $LDFLAGS lrsnash.c -o lrsnash1 $LIBS
+gcc $GMPCFLAGS $LDFLAGS 2nash.c -o 2nash $LIBS
+gcc $GMPCFLAGS $LDFLAGS buffer.c -o buffer $LIBS
+gcc $GMPCFLAGS $LDFLAGS hvref.c -o hvref $LIBS
+gcc $GMPCFLAGS $LDFLAGS inedel.c -o inedel $LIBS
+gcc $GMPCFLAGS $LDFLAGS polyv.c -o polyv $LIBS
+gcc $GMPCFLAGS $LDFLAGS setupnash.c -o setupnash $LIBS
+gcc $GMPCFLAGS $LDFLAGS setupnash2.c -o setupnash2 $LIBS
+gcc $GMPCFLAGS $LDFLAGS -Dcopy=copy_dict_1 -Dlrs_mp_init=lrs_mp_init_1 \
+  -DLRSMP -Dpmp=pmp_1 -Drattodouble=rattodouble_1 -Dreadrat=readrat_1 \
+  rat2float.c -o rat2float $LIBS
+gcc $GMPCFLAGS $LDFLAGS float2rat.c -o float2rat $LIBS
+gcc $GMPCFLAGS $LDFLAGS $ARITH/fixed.c -o fixed $LIBS
 
 %install
 ARITH=$(ls -1d lrsarith-*)

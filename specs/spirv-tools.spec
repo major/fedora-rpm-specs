@@ -40,6 +40,7 @@ library files for %{name}
 
 %package        devel
 Summary:        Development files for %{name}
+Requires:       %{name} = %{version}-%{release}
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 %description    devel

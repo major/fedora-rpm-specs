@@ -21,15 +21,8 @@ dependency tree as resolved by setup-tools. Use after installing a package.show
 A dist-utils command for reporting the attributes of a distribution, such as the
 version or author name.
 
-%package -n python3-jaraco
-Summary: A Parent package for jaraco's parent dir and init file.
-
-%description -n python3-jaraco
-A Parent package for jaraco's parent dir and init file.
-
 %package -n python3-jaraco-packaging
 Summary:        %{summary}
-
 
 %description -n python3-jaraco-packaging
 Tools for packaging.dependency_tree A dist-utils command for reporting the
@@ -85,12 +78,6 @@ rm -rf html/.{doctrees,buildinfo}
 or packaging.print-metadata.main \
 or packaging.sphinx._load_metadata_from_wheel)"
 
-
-%files -n python3-jaraco
-%license LICENSE
-%doc README.rst
-%{python3_sitelib}/jaraco
-%exclude %{python3_sitelib}/jaraco/packaging
 
 %files -n python3-jaraco-packaging -f %{pyproject_files}
 %doc README.rst

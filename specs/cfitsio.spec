@@ -1,11 +1,11 @@
 Name: cfitsio
-Version: 4.6.2
+Version: 4.6.3
 Release: %autorelease
 Summary: Library for manipulating FITS data files
 
 License: CFITSIO
-URL: http://heasarc.gsfc.nasa.gov/fitsio/
-Source: http://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/cfitsio-%{version}.tar.gz
+URL: https://heasarc.gsfc.nasa.gov/fitsio/
+Source: https://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/cfitsio-%{version}.tar.gz
 # Remove soname version check
 Patch: cfitsio-noversioncheck.patch
 
@@ -61,7 +61,7 @@ This package contains utility programas provided by CFITSIO
 %autosetup -p1
 
 %build
-%configure --enable-reentrant -with-bzip2 --includedir=%{_includedir}/%{name}
+%configure --enable-reentrant --with-bzip2 --includedir=%{_includedir}/%{name}
 make %{?_smp_mflags}
 
 %check

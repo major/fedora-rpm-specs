@@ -9,8 +9,15 @@ Source:         %{pypi_source pathspec}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-pytest
 
+# Tests require pytest which requires python-iniconfig, which in turn
+# requires python-hatchling, requiring python-pathspec
+# Conditionalize to make new Python bootstrap possible
+%bcond tests 1
+
+%if %{with tests}
+BuildRequires:  python3-pytest
+%endif
 
 %description
 Path Specification (pathspec) is a utility library for pattern matching of file
@@ -45,7 +52,10 @@ is derived from Rsync's wildmatch. Git uses wildmatch for its gitignore files.
 
 
 %check
+%pyproject_check_import
+%if %{with tests}
 %pytest
+%endif
 
 
 %files -n python3-pathspec -f %{pyproject_files}

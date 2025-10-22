@@ -5,7 +5,7 @@
 %global crate bitstream-io
 
 Name:           rust-bitstream-io
-Version:        4.6.0
+Version:        4.9.0
 Release:        %autorelease
 Summary:        Library for reading/writing un-aligned values from/to streams
 

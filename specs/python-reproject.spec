@@ -2,7 +2,7 @@
 %global sum Reproject astronomical images
 
 Name:           python-%{srcname}
-Version:        0.16.0
+Version:        0.18.0
 Release:        %autorelease
 Summary:        %{sum}
 

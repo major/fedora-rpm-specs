@@ -36,7 +36,7 @@
 
 Summary: Enhanced system logging and kernel message trapping daemon
 Name: rsyslog
-Version: 8.2508.0
+Version: 8.2510.0
 Release: 1%{?dist}
 License: GPL-3.0-or-later AND Apache-2.0
 URL: http://www.rsyslog.com/
@@ -616,6 +616,7 @@ done
 %{_libdir}/rsyslog/mmanon.so
 %{_libdir}/rsyslog/mmcount.so
 %{_libdir}/rsyslog/mmexternal.so
+%{_libdir}/rsyslog/mmleefparse.so
 %{_libdir}/rsyslog/mmutf8fix.so
 %{_libdir}/rsyslog/omhttp.so
 %{_libdir}/rsyslog/omjournal.so
@@ -754,6 +755,13 @@ done
 
 
 %changelog
+* Mon Oct 20 2025 Attila Lakatos <alakatos@redhat.com> - 8.2510.0-1
+- Rebase to 8.2510.0
+  Resolves: rhbz#2404131
+- imjournal open error handling fix
+  Resolves: rhbz#2375742
+- Add mmleefparse module to base package
+
 * Fri Sep 05 2025 Attila Lakatos <alakatos@redhat.com> - 8.2508.0-1
 - Rebase to 8.2508.0
   Resolves: rhbz#2392918

@@ -371,6 +371,14 @@ Patch1912: 0001-SystemZ-Fix-ICE-with-i128-i64-uaddo-carry-chain.patch
 # https://github.com/llvm/llvm-project/commit/83a5c7cb62e404a713a35445b755cf0109650279
 Patch1915: 0001-ConstantFolding-Ensure-TLI-is-valid-when-simplifying.patch
 
+# Avoid a race condition in opt-viewer/optrecord
+# https://github.com/llvm/llvm-project/pull/131214
+Patch1916: 131214.patch
+
+# [sanitizer_common] Remove interceptors for deprecated struct termio
+# https://github.com/llvm/llvm-project/pull/137403
+Patch1917: 137403.patch
+
 %if 0%{?rhel} == 8
 %global python3_pkgversion 3.12
 %global __python3 /usr/bin/python3.12

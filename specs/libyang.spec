@@ -11,8 +11,8 @@
 %endif
 
 Name: libyang
-Version: 3.12.2
-Release: 2%{?dist}
+Version: 3.13.5
+Release: 1%{?dist}
 Summary: YANG data modeling language library
 Url: https://github.com/CESNET/libyang
 Source: %{url}/archive/%{name}-%{version}.tar.gz
@@ -111,6 +111,9 @@ cp -a doc/html %{buildroot}/%{_docdir}/libyang/html
 %{_docdir}/libyang
 
 %changelog
+* Mon Oct 20 2025 Michal Ruprich <mruprich@redhat.com> - 3.13.5-1
+- New version 3.13.5
+
 * Wed Jul 30 2025 Michal Ruprich <mruprich@redhat.com> - 3.12.2-2
 - Opting-out from the default ninja build due to docs
 

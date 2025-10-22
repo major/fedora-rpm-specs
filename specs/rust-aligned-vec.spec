@@ -12,6 +12,9 @@ Summary:        Aligned vector and box containers
 License:        MIT
 URL:            https://crates.io/crates/aligned-vec
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * Allow equator 0.6: https://github.com/sarah-quinones/aligned-vec/pull/22
+Patch:          aligned-vec-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

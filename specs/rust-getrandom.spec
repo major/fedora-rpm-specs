@@ -5,7 +5,7 @@
 %global crate getrandom
 
 Name:           rust-getrandom
-Version:        0.3.3
+Version:        0.3.4
 Release:        %autorelease
 Summary:        Small cross-platform library for retrieving random data from system source
 
@@ -16,7 +16,6 @@ Source:         %{crates_source}
 Patch:          getrandom-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * add libc dependency unconditionally to avoid target-cfg doom
-# * drop dependencies on compiler internals
 Patch:          getrandom-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

@@ -49,7 +49,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Python-2.0.1
 
 
@@ -733,48 +733,159 @@ The debug runtime additionally supports debug builds of C-API extensions
 # we want to call this python3.X-threading even when built as a main Python.
 # This build of Python is not "the main freethreading Python", there's no such thing (yet?)
 %package -n python%{pybasever}-freethreading
-Summary: Free Threading (PEP 703) version of the Python runtime
+Summary: Free Threading (PEP 703) version of the Python interpreter
 
-%if %{with rpmwheels}
-Requires: %{python_wheel_pkg_prefix}-pip-wheel >= 23.1.2
-Requires: %{python_wheel_pkg_prefix}-setuptools-wheel
-Requires: (%{python_wheel_pkg_prefix}-wheel-wheel if %{python_wheel_pkg_prefix}-setuptools-wheel < 71)
-License: %{libs_license}
-%else
-Provides: bundled(python3dist(pip)) = %{pip_version}
-%pip_bundled_provides
-Provides: bundled(python3dist(setuptools)) = %{setuptools_version}
-%setuptools_bundled_provides
-# License combined from Python libs + pip + setuptools
-License: %{libs_license} AND Apache-2.0 AND ISC AND LGPL-2.1-only AND MPL-2.0 AND (Apache-2.0 OR BSD-2-Clause)
-%endif
+Requires: python%{pybasever}-freethreading-libs%{?_isa} = %{version}-%{release}
 
-# This package doesn't depend on python3-libs, so we need to explicitly
-# define the same Provides and Requires.
-# See the comments in the definition of -libs subpackage for detailed explanations
-Provides: bundled(mimalloc) = 2.12
-Requires: tzdata
+Obsoletes: python%{pybasever}-freethreading < 3.14.0-2
 
 %description -n python%{pybasever}-freethreading
-The Free Threading (PEP 703) build of Python.
+The Free Threading (PEP 703) build of Python interpreter.
 
-CPython’s global interpreter lock (“GIL”) prevents multiple threads from
+CPython's global interpreter lock ("GIL") prevents multiple threads from
 executing Python code at the same time. The GIL is an obstacle to using
 multi-core CPUs from Python efficiently.
 
 This build of Python is built with the --disable-gil option.
 It lets the interpreter run Python code without the global interpreter lock
 and with the necessary changes needed to make the interpreter thread-safe.
-%endif # with freethreading_build
 
+The %{pkgname}-freethreading package provides the "python%{pybasever}t" executable.
+The majority of its standard library is provided in the
+python%{pybasever}-freethreading-libs package, which should be installed
+automatically along with python%{pybasever}-freethreading.
+The remaining parts of the Python standard library are broken out into the
+python%{pybasever}-freethreading-tkinter and
+python%{pybasever}-freethreading-test packages,
+which may need to be installed separately.
+
+
+%package -n python%{pybasever}-freethreading-libs
+Summary: Free Threading Python runtime libraries
+%if %{with rpmwheels}
+Requires: %{python_wheel_pkg_prefix}-pip-wheel >= 23.1.2
+License: %{libs_license}
+%else
+Provides: bundled(python3dist(pip)) = %{pip_version}
+%pip_bundled_provides
+# License combined from Python libs + pip
+License: %{libs_license} AND Apache-2.0 AND ISC AND LGPL-2.1-only AND MPL-2.0 AND (Apache-2.0 OR BSD-2-Clause)
+%endif
+
+# See the comments in the definition of main -libs subpackage for detailed explanations
+Provides: bundled(mimalloc) = 2.12
+Requires: tzdata
+
+# There are files in the standard library that have python shebang.
+# We've filtered the automatic requirement out so libs are installable without
+# the main package. This however makes it pulled in by default.
+Recommends: python%{pybasever}-freethreading%{?_isa}
+
+# tkinter is part of the standard library,
+# but it is torn out to save an unwanted dependency on tk and X11.
+# we recommend it when tk is already installed (for better UX)
+Recommends: (python%{pybasever}-freethreading-tkinter%{?_isa} if tk%{?_isa})
+
+Obsoletes: python%{pybasever}-freethreading < 3.14.0-2
+
+%description -n python%{pybasever}-freethreading-libs
+This package contains runtime libraries for use by Free Threading Python:
+- the majority of the Python standard library
+- a dynamically linked library for use by applications that embed Python as
+  a scripting language, and by the main "python%{pybasever}t" executable
+
+
+%package -n python%{pybasever}-freethreading-devel
+Summary: Libraries and header files needed for Free Threading Python evelopment
+# Bundled mimalloc header files are MIT
+License: Python-2.0.1 AND MIT
+Requires: python%{pybasever}-freethreading = %{version}-%{release}
+Requires: python%{pybasever}-freethreading-libs%{?_isa} = %{version}-%{release}
+
+Obsoletes: python%{pybasever}-freethreading < 3.14.0-2
+
+%description -n python%{pybasever}-freethreading-devel
+This package contains the header files and configuration needed to compile
+Python extension modules (typically written in C or C++) for the Free hreading
+build, to embed Free Threading Python into other programs, and to make binary
+distributions for Free Threading Python libraries.
+
+
+%package -n python%{pybasever}-freethreading-idle
+Summary: A basic graphical development environment for Free Threading Python
+Requires: python%{pybasever}-freethreading = %{version}-%{release}
+Requires: python%{pybasever}-freethreading-tkinter = %{version}-%{release}
+
+Obsoletes: python%{pybasever}-freethreading < 3.14.0-2
+
+%description -n python%{pybasever}-freethreading-idle
+IDLE is Python's Integrated Development and Learning Environment for
+the Free Threading build.
+
+IDLE has the following features: Python shell window (interactive
+interpreter) with colorizing of code input, output, and error messages;
+multi-window text editor with multiple undo, Python colorizing,
+smart indent, call tips, auto completion, and other features;
+search within any window, replace within editor windows, and
+search through multiple files (grep); debugger with persistent
+breakpoints, stepping, and viewing of global and local namespaces;
+configuration, browsers, and other dialogs.
+Run with `python%{pybasever}t -m idlelib`.
+
+
+%package -n python%{pybasever}-freethreading-tkinter
+Summary: A GUI toolkit for Free Threading Python
+Requires: python%{pybasever}-freethreading = %{version}-%{release}
+
+# The importable module "turtle" is here, so provide python3.x-freethreading-turtle.
+%py_provides python%{pybasever}-freethreading-turtle
+
+Obsoletes: python%{pybasever}-freethreading < 3.14.0-2
+
+%description -n python%{pybasever}-freethreading-tkinter
+The Tkinter (Tk interface) library is a graphical user interface toolkit for
+the Free Threading Python interpreter.
+
+
+%package -n python%{pybasever}-freethreading-test
+Summary: The self-test suite for the Free Threading Python package
+Requires: python%{pybasever}-freethreading = %{version}-%{release}
+Requires: python%{pybasever}-freethreading-libs%{?_isa} = %{version}-%{release}
+
+%if %{with rpmwheels}
+Requires: %{python_wheel_pkg_prefix}-setuptools-wheel
+Requires: (%{python_wheel_pkg_prefix}-wheel-wheel if %{python_wheel_pkg_prefix}-setuptools-wheel < 71)
+%else
+Provides: bundled(python3dist(setuptools)) = %{setuptools_version}
+%setuptools_bundled_provides
+# License manually combined from Python + setuptools + wheel
+License: Python-2.0.1 AND MIT AND Apache-2.0 AND (Apache-2.0 OR BSD-2-Clause)
+%endif
+
+Obsoletes: python%{pybasever}-freethreading < 3.14.0-2
+
+%description -n python%{pybasever}-freethreading-test
+The self-test suite for the Free Threading Python interpreter.
+
+This is only useful to test Free Threading Python itself. For testing general
+Python code with the Free Threading build, you should use the unittest module
+from python%{pybasever}-freethreading-libs, or a library such as pytest.
+%endif  # with freethreading_build
 
 %if %{with freethreading_build} && %{with debug_build}
 %package -n python%{pybasever}-freethreading-debug
 Summary: Free Threading (PEP 703) version of the Python runtime (debug build)
 License: %{libs_license}
 
-# This uses the pure Python modules from the freethreading package
+# The debug build is an all-in-one package version of the regular build, and
+# shares the same .py/.pyc files and directories as the regular build. Hence
+# we depend on all of the subpackages of the regular build:
 Requires: python%{pybasever}-freethreading%{?_isa} = %{version}-%{release}
+Requires: python%{pybasever}-freethreading-libs%{?_isa} = %{version}-%{release}
+Requires: python%{pybasever}-freethreading-devel%{?_isa} = %{version}-%{release}
+Requires: python%{pybasever}-freethreading-test%{?_isa} = %{version}-%{release}
+Requires: python%{pybasever}-freethreading-tkinter%{?_isa} = %{version}-%{release}
+Requires: python%{pybasever}-freethreading-idle%{?_isa} = %{version}-%{release}
 
 %description -n python%{pybasever}-freethreading-debug
 The Free Threading (PEP 703) build of Python. Debug build.
@@ -1100,6 +1211,9 @@ InstallPython optimized \
 
 # Install directories for additional packages
 install -d -m 0755 %{buildroot}%{pylibdir}/site-packages/__pycache__
+%if %{with freethreading_build}
+install -d -m 0755 %{buildroot}%{pylibdir_freethreading}/site-packages/__pycache__
+%endif
 %if "%{_lib}" == "lib64"
 # The 64-bit version needs to create "site-packages" in /usr/lib/ (for
 # pure-Python modules) as well as in /usr/lib64/ (for packages with extension
@@ -1674,6 +1788,13 @@ CheckPython freethreading
 
 %if %{with freethreading_build}
 %files -n python%{pybasever}-freethreading
+%{_bindir}/python%{LDVERSION_freethreading}
+%doc README.rst
+
+
+%files -n python%{pybasever}-freethreading-libs
+%doc README.rst
+
 %dir %{pylibdir_freethreading}
 %dir %{dynload_dir_freethreading}
 
@@ -1683,16 +1804,13 @@ CheckPython freethreading
 # Pure Python modules
 %pure_python_modules %{pylibdir_freethreading}
 
-# Modules that we separate from python3-libs, but want to ship in -freethreading
-%{pylibdir_freethreading}/__phello__/
-%{pylibdir_freethreading}/idlelib/
-%{pylibdir_freethreading}/test/
-%{pylibdir_freethreading}/tkinter/
-%{pylibdir_freethreading}/turtledemo/
-
 %{pylibdir_freethreading}/_sysconfig_vars_%{ABIFLAGS_freethreading}_linux_%{platform_triplet}.json
 # File defined by PEP 739 since Python 3.14:
 %{pylibdir_freethreading}/build-details.json
+
+# This will be in the -freethreading-tkinter package
+%exclude %{pylibdir_freethreading}/turtle.py
+%exclude %{pylibdir_freethreading}/__pycache__/turtle*%{bytecode_suffixes}
 
 # This will be in the -freethreading-debug package
 %if %{with debug_build}
@@ -1700,24 +1818,69 @@ CheckPython freethreading
 %exclude %{pylibdir_freethreading}/__pycache__/_sysconfigdata_%{ABIFLAGS_freethreading_debug}_linux_%{platform_triplet}%{bytecode_suffixes}
 %endif
 
-# Analog of the core subpackage's files:
-%{_bindir}/python%{LDVERSION_freethreading}
+# Extension modules
+%extension_modules %{dynload_dir_freethreading} %{SOABI_freethreading}
 
-# Analog to the -libs subpackage's files:
+%dir %{pylibdir_freethreading}/site-packages/
+%dir %{pylibdir_freethreading}/site-packages/__pycache__/
+
+%if "%{_lib}" == "lib64"
+%attr(0755,root,root) %dir %{_prefix}/lib/python%{pybasever}%{ABIFLAGS_freethreading}/
+%attr(0755,root,root) %dir %{_prefix}/lib/python%{pybasever}%{ABIFLAGS_freethreading}/site-packages/
+%attr(0755,root,root) %dir %{_prefix}/lib/python%{pybasever}%{ABIFLAGS_freethreading}/site-packages/__pycache__/
+%endif
+
+# "Makefile" and the config-32/64.h file are needed by
+# sysconfig.get_config_vars(), so we include them in the core
+# package, along with their parent directories:
+%dir %{pylibdir_freethreading}/config-%{LDVERSION_freethreading}-%{platform_triplet}/
+%{pylibdir_freethreading}/config-%{LDVERSION_freethreading}-%{platform_triplet}/Makefile
+%dir %{_includedir}/python%{LDVERSION_freethreading}/
+%{_includedir}/python%{LDVERSION_freethreading}/%{_pyconfig_h}
+
+# Finally, libpython
 %{_libdir}/%{py_INSTSONAME_freethreading}
 
-%extension_modules %{dynload_dir_freethreading} %{SOABI_freethreading}
-%extension_modules_test %{dynload_dir_freethreading} %{SOABI_freethreading}
-%{dynload_dir_freethreading}/_tkinter.%{SOABI_freethreading}.so
 
-# Analog of the -devel subpackage's files:
-%{pylibdir_freethreading}/config-%{LDVERSION_freethreading}-%{platform_triplet}/
-%{_includedir}/python%{LDVERSION_freethreading}/
+%files -n python%{pybasever}-freethreading-devel
+%{pylibdir_freethreading}/config-%{LDVERSION_freethreading}-%{platform_triplet}/*
+%exclude %{pylibdir_freethreading}/config-%{LDVERSION_freethreading}-%{platform_triplet}/Makefile
+%exclude %{_includedir}/python%{LDVERSION_freethreading}/%{_pyconfig_h}
+%{_includedir}/python%{LDVERSION_freethreading}/*.h
+%{_includedir}/python%{LDVERSION_freethreading}/internal/
+%{_includedir}/python%{LDVERSION_freethreading}/cpython/
+
 %{_bindir}/python%{LDVERSION_freethreading}-config
 %{_bindir}/python%{LDVERSION_freethreading}-*-config
 %{_libdir}/libpython%{LDVERSION_freethreading}.so
 %{_libdir}/pkgconfig/python-%{LDVERSION_freethreading}.pc
 %{_libdir}/pkgconfig/python-%{LDVERSION_freethreading}-embed.pc
+
+
+%files -n python%{pybasever}-freethreading-idle
+%{pylibdir_freethreading}/idlelib/
+
+
+%files -n python%{pybasever}-freethreading-tkinter
+%{pylibdir_freethreading}/tkinter/
+%{dynload_dir_freethreading}/_tkinter.%{SOABI_freethreading}.so
+%{pylibdir_freethreading}/turtle.py
+%{pylibdir_freethreading}/__pycache__/turtle*%{bytecode_suffixes}
+%dir %{pylibdir_freethreading}/turtledemo/
+%{pylibdir_freethreading}/turtledemo/*.py
+%{pylibdir_freethreading}/turtledemo/*.cfg
+%dir %{pylibdir_freethreading}/turtledemo/__pycache__/
+%{pylibdir_freethreading}/turtledemo/__pycache__/*%{bytecode_suffixes}
+
+
+%files -n python%{pybasever}-freethreading-test
+%{pylibdir_freethreading}/test/
+
+# Pure Python modules
+%{pylibdir_freethreading}/__phello__/
+
+# Extension modules
+%extension_modules_test %{dynload_dir_freethreading} %{SOABI_freethreading}
 
 %endif # with freethreading_build
 
@@ -1770,6 +1933,9 @@ CheckPython freethreading
 # ======================================================
 
 %changelog
+* Fri Oct 17 2025 Karolina Surma <ksurma@redhat.com> - 3.14.0-2
+- Split -freethreading package into analogs of the main Python
+
 * Tue Oct 07 2025 Karolina Surma <ksurma@redhat.com> - 3.14.0-1
 - Update to Python 3.14.0
 

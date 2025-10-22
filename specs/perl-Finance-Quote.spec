@@ -1,10 +1,10 @@
 %bcond author_tests 0
 
 Name:           perl-Finance-Quote
-%global cpan_version 1.66
+%global cpan_version 1.67
 # RPM version needs 4 digits after the decimal to preserve upgrade path
-Version:        %(LANG=C printf "%.4f" %{cpan_version})
-Release:        2%{?dist}
+Version:        %(LANG=C printf "%.4f" %(echo %{cpan_version} | tr -d _))
+Release:        1%{?dist}
 Summary:        A Perl module that retrieves stock and mutual fund quotes
 License:        GPL-2.0-or-later
 URL:            https://metacpan.org/release/Finance-Quote
@@ -49,7 +49,6 @@ BuildRequires:  perl(Module::Load) >= 0.36
 BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Readonly)
 BuildRequires:  perl(Scalar::Util)
-BuildRequires:  perl(Spreadsheet::XLSX)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(String::Util)
 BuildRequires:  perl(Text::Template)
@@ -112,7 +111,7 @@ make test
 
 %files
 %license LICENSE
-%doc Change* Documentation/* README.dist
+%doc Change* CONTRIBUTING.md Documentation/* README.dist
 %{perl_vendorlib}/Finance/
 %{_mandir}/man3/Finance::Quote.3*
 %{_mandir}/man3/Finance::Quote::AEX.3*
@@ -155,6 +154,7 @@ make test
 %{_mandir}/man3/Finance::Quote::SIX.3*
 %{_mandir}/man3/Finance::Quote::StockData.3*
 %{_mandir}/man3/Finance::Quote::Stooq.3*
+%{_mandir}/man3/Finance::Quote::SwissFundData.3*
 %{_mandir}/man3/Finance::Quote::TesouroDireto.3*
 %{_mandir}/man3/Finance::Quote::TMX.3*
 %{_mandir}/man3/Finance::Quote::Tradegate.3*
@@ -168,6 +168,18 @@ make test
 %{_mandir}/man3/Finance::Quote::ZA.3*
 
 %changelog
+* Mon Oct 20 2025 Paul Howarth <paul@city-fan.org> - 1.6700-1
+- Update to 1.67
+  - Fixed ASEGR.pm; web site redesigned, URL used for data was no longer
+    working (GH#509)
+  - Fixed TesouroDireto.pm using Tesouro Transparente as data source (GH#527)
+  - Added a new module to fetch data from SwissFundData (GH#515)
+  - Handle no trade date in BorsaItaliana.pm (GH#528)
+  - Added methodinfo() to MarketWatch.pm and BorsaItaliana.pm
+  - Fixed MorningstarCH.pm
+  - Fixed MorningstarUK.pm
+- Package new CONTRIBUTING.md file
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6600-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

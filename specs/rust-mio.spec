@@ -5,7 +5,7 @@
 %global crate mio
 
 Name:           rust-mio
-Version:        1.0.4
+Version:        1.1.0
 Release:        %autorelease
 Summary:        Lightweight non-blocking I/O
 

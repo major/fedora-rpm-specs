@@ -6,7 +6,7 @@
 
 # https://github.com/derailed/k9s
 %global goipath         github.com/derailed/k9s
-Version:                0.50.15
+Version:                0.50.16
 
 %gometa -L -f
 
@@ -67,7 +67,7 @@ export LDFLAGS="-X %{goipath}/cmd.version=%{version} \
 %install
 %go_vendor_license_install -c %{S:2}
 install -m 0755 -vd %{buildroot}%{_bindir}
-install -m 0755 -vp %{gobuilddir}/bin/k9s %{buildroot}%{_bindir}/
+install -m 0755 -vp %{gobuilddir}/bin/%{name} %{buildroot}%{_bindir}/
 install -Dpm 0644 %{name}.bash %{buildroot}%{bash_completions_dir}/%{name}
 install -Dpm 0644 %{name}.fish %{buildroot}%{fish_completions_dir}/%{name}.fish
 install -Dpm 0644 %{name}.zsh  %{buildroot}%{zsh_completions_dir}/_%{name}
@@ -84,7 +84,7 @@ install -Dpm 0644 %{name}.zsh  %{buildroot}%{zsh_completions_dir}/_%{name}
 %license vendor/modules.txt
 %doc README.md
 %doc plugins/README.md
-%{_bindir}/k9s
+%{_bindir}/%{name}
 %{bash_completions_dir}/%{name}
 %{fish_completions_dir}/%{name}.fish
 %{zsh_completions_dir}/_%{name}

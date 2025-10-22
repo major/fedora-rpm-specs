@@ -1,8 +1,8 @@
 Summary:        Extension for creating pdf-Files with CUPS
 Summary(fr):    Extension de CUPS pour créer des fichiers PDF
 Name:           cups-pdf
-Version:        3.0.1
-Release:        24%{?dist}
+Version:        3.0.2
+Release:        1%{?dist}
 URL:            https://www.cups-pdf.de/
 License:        GPL-2.0-or-later
 
@@ -19,10 +19,8 @@ Patch3:         cups-pdf-title.patch
 Patch4:         cups-pdf-build.patch
 # Report error/success in log
 Patch5:         cups-pdf-result.patch
-# Replace removed gs .setpdfwrite option
-Patch6:         cups-pdf-setpdfwrite.patch
 # Fix processing of lines with embedded null characters
-Patch7:         cups-pdf-fix-null-chars.patch
+Patch6:         cups-pdf-fix-null-chars.patch
 
 BuildRequires:  gcc
 BuildRequires:  cups-devel
@@ -50,15 +48,15 @@ Requires(post): %{_bindir}/pgrep
 
 %description
 "cups-pdf" is a backend script for use with CUPS - the "Common UNIX Printing
-System" (see more for CUPS under https://www.cups.org/). 
+System" (see more for CUPS under https://www.cups.org/).
 "cups-pdf" uses the ghostscript pdfwrite device to produce PDF Files.
 
-This version has been modified to store the PDF files on the Desktop of the 
+This version has been modified to store the PDF files on the Desktop of the
 user. This behavior can be changed by editing the configuration file.
 
 %description -l fr
 "cups-pdf" est un script de traitement CUPS - le "Common UNIX Printing System"
-(plus d'informations sur CUPS à l'adresse https://www.cups.org/). 
+(plus d'informations sur CUPS à l'adresse https://www.cups.org/).
 "cups-pdf" utilise ghostscript pour construire des fichiers au format PDF.
 
 Cette version a été modifiée pour produire les fichiers PDF sur le bureau
@@ -76,8 +74,7 @@ cp -p %{SOURCE1} INSTALL.RPM
 %patch -P3 -p0 -b .title
 %patch -P4 -p0 -b .build
 %patch -P5 -p0 -b .result
-%patch -P6 -p0 -b .setpdfwrite
-%patch -P7 -p1 -b .nullchars
+%patch -P6 -p1 -b .nullchars
 
 
 %build
@@ -127,6 +124,9 @@ fi
 
 
 %changelog
+* Mon Oct 20 2025 Robert Marcano <robert@marcanoonline.com> - 3.0.2-1
+- Update to upstream version 3.0.2.
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
@@ -258,7 +258,7 @@ overwriting previously generated files (#1419308)
 
 * Sat Jan 31 2009 Remi Collet <Fedora@FamilleCollet.com> 2.5.0-1
 - update to 2.5.0
-- Add SElinux notes in INSTALL.fedora 
+- Add SElinux notes in INSTALL.fedora
 
 * Fri Mar 28 2008 Remi Collet <Fedora@FamilleCollet.com> 2.4.8-1
 - update to 2.4.8
@@ -376,7 +376,7 @@ overwriting previously generated files (#1419308)
 - adapted to cups-pdf 1.6.6
 
 * Thu Aug 12 2004 Volker Behr <vrbehr@cip.physik.uni-wuerzburg.de>
-- adapted to cups-pdf 1.5.2 
+- adapted to cups-pdf 1.5.2
 
 * Sat Jan 31 2004 Volker Behr <vrbehr@cip.physik.uni-wuerzburg.de>
 - adapetd to cups-pdf 1.4.0 and new building environment

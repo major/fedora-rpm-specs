@@ -20,7 +20,7 @@
 # THE SOFTWARE.
 #
 %if 0%{?suse_version}
-%global hipblas_name libhipblas2
+%global hipblas_name libhipblas3
 %else
 %global hipblas_name hipblas
 %endif

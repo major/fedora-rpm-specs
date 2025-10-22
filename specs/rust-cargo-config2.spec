@@ -5,7 +5,7 @@
 %global crate cargo-config2
 
 Name:           rust-cargo-config2
-Version:        0.1.36
+Version:        0.1.39
 Release:        %autorelease
 Summary:        Load and resolve Cargo configuration
 

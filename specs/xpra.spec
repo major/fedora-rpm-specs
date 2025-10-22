@@ -33,6 +33,8 @@ Source1:        %{name}.appdata.xml
 # Add compatibility with FFMPEG 7.0
 # https://github.com/Xpra-org/xpra/pull/4216
 Patch2:         0001-Add-compatibility-with-FFMPEG-7.0.patch
+# Fix build with FFmpeg 8.0
+Patch3:         xpra-ffmpeg8.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  gtk3-devel
@@ -159,6 +161,7 @@ network bandwidth constraints.
 %autosetup -N -n %{name}-%{version}
 
 %patch -P2 -p1
+%patch -P3 -p1 -b .ffmpeg8
 
 # cc1: error: unrecognized compiler option ‘-mfpmath=387’
 %ifarch %{arm}

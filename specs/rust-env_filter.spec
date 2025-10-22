@@ -5,7 +5,7 @@
 %global crate env_filter
 
 Name:           rust-env_filter
-Version:        0.1.3
+Version:        0.1.4
 Release:        %autorelease
 Summary:        Filter log events using environment variables
 

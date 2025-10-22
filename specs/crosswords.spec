@@ -5,7 +5,7 @@
 %global ipuz_soversion 0.5
 
 Name:           crosswords
-Version:        0.3.15
+Version:        0.3.16
 Release:        %autorelease
 Summary:        Solve crossword puzzles
 
@@ -115,6 +115,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Recommends:     %{name}-thumbnailer = %{version}-%{release}
 # Used to load .puz files from disk
 Recommends:     ipuz-convertor = %{version}-%{release}
+Suggests:       ipuz2pdf = %{version}-%{release}
 
 %description -n crossword-editor
 Standalone-tool to create crossword puzzles based on GNOME Crosswords. It can
@@ -138,6 +139,12 @@ Requires:       python3dist(xdfile)
 
 %description -n ipuz-convertor
 ipuz-convertor is a script to convert puzzle files from puz to ipuz.
+
+%package -n     ipuz2pdf
+Summary:        Export IPUZ puzzles to printable PDF documents
+
+%description -n ipuz2pdf
+ipuz2pdf is a tool to export IPUZ puzzles to printable PDF documents.
 
 %prep
 %autosetup -p1
@@ -237,6 +244,10 @@ desktop-file-validate \
 %license COPYING
 %{_datadir}/%{name}/ipuz-convertor
 %{_libexecdir}/ipuz-convertor
+
+%files -n ipuz2pdf
+%license COPYING
+%{_bindir}/ipuz2pdf
 
 %changelog
 %autochangelog

@@ -34,6 +34,7 @@ Source3: pubkey.asc
 ### Patches ###
 # Place your patches here:
 # Patch0001:  0001-patch-file.patch
+Patch0001: 0001-krb5-disable-Kerberos-localauth-an2ln-plugin-for-AD-.patch
 
 ### Downstream only patches ###
 # Place your downstream only patches here:

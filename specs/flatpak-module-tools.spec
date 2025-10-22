@@ -1,8 +1,8 @@
 %global srcname flatpak_module_tools
-%global project_version 1.2.0
+%global project_version 1.3.0
 
 Name:		flatpak-module-tools
-Version:	1.2.0
+Version:	1.3.0
 Release:	%autorelease
 Summary:	Tools for maintaining Flatpak applications and runtimes as Fedora modules
 
@@ -22,7 +22,6 @@ BuildRequires: flatpak
 BuildRequires: git-core
 BuildRequires: libappstream-glib
 BuildRequires: libmodulemd
-BuildRequires: librsvg2
 BuildRequires: ostree
 # GI overrides for Modulemd
 BuildRequires: python3-libmodulemd
@@ -33,6 +32,10 @@ BuildRequires: zstd
 Requires: python3-%{name}+cli = %{version}-%{release}
 # FIXME: python3-solv does not provide python3dist(solv)
 Requires: python3-solv
+
+%if %{defined fedora} || %{defined eln} || %{defined epel}
+Recommends: fedora-packager
+%endif
 
 %description
 flatpak-module-tools is a set of command line tools (all accessed via a single
@@ -51,8 +54,6 @@ Requires: createrepo_c
 Requires: flatpak
 # For appstream-compose
 Requires: libappstream-glib
-# for SVG gdk-pixbuf loader
-Requires: librsvg2
 Requires: ostree
 Requires: zstd
 

@@ -5,7 +5,7 @@
 Summary: Application Whitelisting Daemon
 Name: fapolicyd
 Version: 1.3.7
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-3.0-or-later
 URL: https://github.com/linux-application-whitelisting/fapolicyd
 Source0: https://github.com/linux-application-whitelisting/fapolicyd/releases/download/v%{version}/fapolicyd-%{version}.tar.gz
@@ -17,11 +17,13 @@ Source11: https://github.com/linux-application-whitelisting/%{name}-selinux/rele
 Source20: https://github.com/troydhanson/uthash/archive/refs/tags/v2.3.0.tar.gz#/uthash-2.3.0.tar.gz
 
 # https://github.com/linux-application-whitelisting/fapolicyd
-# $ git format-patch -N v1.3.6
+# $ git format-patch -N v1.3.7
 # https://github.com/linux-application-whitelisting/fapolicyd-selinux
-# $ git format-patch -N --start-number 100 --src-prefix=a/fapolicyd-selinux-0.8/ --dst-prefix=b/fapolicyd-selinux-0.8/ v0.8
+# $ git format-patch -N --start-number 100 --src-prefix=a/fapolicyd-selinux-0.9/ --dst-prefix=b/fapolicyd-selinux-0.9/ v0.9
 # $ for j in [0-9]*.patch; do printf "Patch%s: %s\n" ${j/-*/} $j; done
 # Patch list start
+Patch0001: 0001-Update-magic-for-python-3.14rc3.patch
+Patch0100: 0100-Allow-daemon-to-change-dir-attributes.patch
 # Patch list end
 
 BuildRequires: gcc
@@ -231,6 +233,10 @@ fi
 %selinux_relabel_post -s %{selinuxtype}
 
 %changelog
+* Fri Oct 17 2025 Petr Lautrbach <lautrbach@redhat.com> - 1.3.7-2
+- Update magic for python 3.14rc3
+- Allow daemon to change var_run_t dir attributes
+
 * Fri Sep 19 2025 Petr Lautrbach <lautrbach@redhat.com> - 1.3.7-1
 - fapolicyd-1.3.7
 

@@ -5,7 +5,7 @@
 %global crate globset
 
 Name:           rust-globset
-Version:        0.4.16
+Version:        0.4.17
 Release:        %autorelease
 Summary:        Cross platform single glob and glob set matching
 
@@ -49,6 +49,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+arbitrary-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+arbitrary-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "arbitrary" feature of the "%{crate}" crate.
+
+%files       -n %{name}+arbitrary-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+log-devel

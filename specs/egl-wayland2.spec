@@ -1,10 +1,10 @@
-%global commit0 d4deb7c371aac2a304522ffc297fcb71e6507699
-%global date 20250806
+%global commit0 295712b113d5863ca2de0feeac478c73965c5dfd
+%global date 20251018
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 #global tag %{version}
 
 Name:           egl-wayland2
-Version:        1.0.0%{!?tag:~%{date}git%{shortcommit0}}
+Version:        1.0.1%{!?tag:~%{date}git%{shortcommit0}}
 Release:        %autorelease
 Summary:        Dma-buf-based Wayland external platform library
 # src/wayland/dma-buf.h is GPL 2, rest is Apache 2.0

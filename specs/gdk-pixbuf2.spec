@@ -16,6 +16,8 @@ URL:            https://gitlab.gnome.org/GNOME/gdk-pixbuf
 Source0:        https://download.gnome.org/sources/gdk-pixbuf/2.44/gdk-pixbuf-%{version}.tar.xz
 # https://gitlab.gnome.org/GNOME/gdk-pixbuf/-/merge_requests/248
 Patch0:         0001-glycin-Claim-more-file-extensions.patch
+# https://gitlab.gnome.org/GNOME/gdk-pixbuf/-/merge_requests/252
+Patch1:         0002-glycin-Special-case-svg.patch
 
 BuildRequires:  docbook-style-xsl
 BuildRequires:  gettext

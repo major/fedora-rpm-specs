@@ -26,7 +26,6 @@ BuildRequires:  python3dist(sphinx-rtd-theme)
 BuildRequires:  python3dist(twisted)
 %endif
 
-Patch:          disable-pip-in-tox.patch
 # Fix doc build with Sphinx 8.
 # https://github.com/twisted/constantly/pull/46
 Patch:          fix-build-sphinx-8.patch
@@ -51,7 +50,7 @@ This is the documentation package for %{name}.
 %autosetup -p1 -n %{srcname}-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires %{!?with_bootstrap:-t}
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -67,7 +66,7 @@ rm -rf html/.{doctrees,buildinfo}
 %check
 %pyproject_check_import -e constantly.test*
 %if %{without bootstrap}
-%tox
+%{py3_test_envvars} trial %{srcname}
 %endif
 
 %files -n python3-%{srcname} -f %{pyproject_files}

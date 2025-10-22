@@ -39,11 +39,6 @@ have been tested.
 %package -n python%{python3_pkgversion}-%{name}
 Summary:        Python part of %{name}
 
-Requires:       python3dist(cryptography) >= 1.2
-Requires:       python3dist(requests)
-Requires:       python3dist(gssapi)
-Requires:       python3dist(requests-gssapi) >= 1.4.0
-
 %description -n python%{python3_pkgversion}-%{name}
 %{name} is an application for enrolling certificates through CEP and CES.
 This package provides the Python part for CEP and CES interaction.

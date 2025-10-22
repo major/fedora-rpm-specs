@@ -3,7 +3,7 @@
 %bcond_with docs
 
 Name:           python-jaraco-functools
-Version:        4.1.0
+Version:        4.3.0
 Release:        %autorelease
 Summary:        Functools like those found in stdlib
 

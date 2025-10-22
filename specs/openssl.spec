@@ -33,8 +33,8 @@ print(string.sub(hash, 0, 16))
 
 Summary: Utilities from the general purpose cryptography library with TLS implementation
 Name: openssl
-Version: 3.5.1
-Release: 4%{?dist}
+Version: 3.5.4
+Release: 1%{?dist}
 Epoch: 1
 Source0: openssl-%{version}.tar.gz
 Source1: fips-hmacify.sh
@@ -98,9 +98,12 @@ Patch0052: 0052-Red-Hat-9-FIPS-indicator-defines.patch
 %if ( %{defined rhel} && (! %{defined centos}) && (! %{defined eln}) )
 Patch0053: 0053-Allow-hybrid-MLKEM-in-FIPS-mode.patch
 %endif
-Patch0054: 0054-Speed-test-signatures-without-errors.patch
-Patch0055: 0055-Targets-to-skip-build-of-non-installable-programs.patch
-
+Patch0054: 0054-Temporarily-disable-SLH-DSA-FIPS-self-tests.patch
+Patch0055: 0055-Add-a-define-to-disable-symver-attributes.patch
+Patch0056: 0056-apps-speed.c-Disable-testing-of-composite-signature-.patch
+Patch0057: 0057-apps-speed.c-Support-more-signature-algorithms.patch
+Patch0058: 0058-Add-targets-to-skip-build-of-non-installable-program.patch
+Patch0059: 0059-RSA_encrypt-decrypt-with-padding-NONE-is-not-support.patch
 
 License: Apache-2.0
 URL: http://www.openssl.org/
@@ -473,6 +476,9 @@ ln -s /etc/crypto-policies/back-ends/openssl_fips.config $RPM_BUILD_ROOT%{_sysco
 %ldconfig_scriptlets libs
 
 %changelog
+* Wed Oct 15 2025 Dmitry Belyavskiy <dbelyavs@redhat.com> - 1:3.5.4-1
+- Rebase to OpenSSL 3.5.4, resolving CVE-2025-9230 and CVE-2025-9232
+
 * Thu Sep 04 2025 Pavol Žáčik <pzacik@redhat.com> - 1:3.5.1-4
 - Fix globally disabled LTO
 

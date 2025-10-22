@@ -49,7 +49,7 @@ end}
 Name:           libdrm
 Summary:        Direct Rendering Manager runtime library
 Version:        2.4.%{lib_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        MIT
 
 URL:            https://dri.freedesktop.org
@@ -82,6 +82,8 @@ BuildRequires:  chrpath
 Patch1001:      libdrm-make-dri-perms-okay.patch
 # remove backwards compat not needed on Fedora
 Patch1002:      libdrm-2.4.0-no-bc.patch
+# use /proc/cpuinfo to identify AMD APU
+Patch1003:	amdgpu-apu.patch
 
 %description
 Direct Rendering Manager runtime library
@@ -279,6 +281,9 @@ cp %{SOURCE1} %{buildroot}%{_docdir}/libdrm
 %endif
 
 %changelog
+* Mon Oct 20 2025 Mika Penttilä <mpenttil@redhat.com> - 2.4.127-2
+- amdgpu-apu.patch: Read model name from /proc/cpuinfo for APUs
+
 * Wed Oct 15 2025 José Expósito <jexposit@redhat.com> - 2.4.127-1
 - Update to 2.4.127
 

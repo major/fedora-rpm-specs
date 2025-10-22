@@ -2,7 +2,7 @@
 %global debug_package %{nil}
 
 Name:           zstr
-Version:        1.0.7
+Version:        1.1.0
 Release:        %autorelease
 Summary:        A C++ header-only ZLib wrapper
 
@@ -20,18 +20,17 @@ BuildRequires:  pkgconfig(zlib-ng)
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
-%global _desc %{expand:
-This C++ header-only library enables the use of C++ standard iostreams
-to access ZLib-compressed streams.
+%global _desc %{expand:This C++ header-only library enables the use of C++ standard iostreams to
+access ZLib-compressed streams.
 
-For input access (decompression), the compression format is
-auto-detected, and multiple concatenated compressed streams are
-decompressed seamlessly.
+For input access (decompression), the compression format is auto-detected, and
+multiple concatenated compressed streams are decompressed seamlessly.
 
-For output access (compression), the only parameter exposed by this API
-is the compression level.}
+For output access (compression), the only parameter exposed by this API is the
+compression level.}
 
-%description %_desc
+%description
+%_desc
 
 %package devel
 Summary:        A C++ header-only ZLib wrapper
@@ -39,7 +38,8 @@ BuildArch:      noarch
 Requires:       pkgconfig(zlib-ng)
 Provides:       %{name}-static = %{version}-%{release}
 
-%description devel %_desc
+%description devel
+%_desc
 
 %prep
 %autosetup -p1

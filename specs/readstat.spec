@@ -43,7 +43,7 @@ The %{name}-tools package contains tools about %{name}.
 %forgeautosetup -p1
 
 %build
-./autogen.sh
+autoreconf -fiv
 # workaround for GCC 15
 CFLAGS="$CFLAGS -Wno-error=stringop-truncation"
 %configure

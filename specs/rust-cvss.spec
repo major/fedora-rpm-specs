@@ -5,7 +5,7 @@
 %global crate cvss
 
 Name:           rust-cvss
-Version:        2.1.0
+Version:        2.1.1
 Release:        %autorelease
 Summary:        Common Vulnerability Scoring System parser/serializer
 

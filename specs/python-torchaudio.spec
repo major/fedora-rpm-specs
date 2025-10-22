@@ -8,7 +8,7 @@
 %global date0 20240318
 %global pypi_version 2.3.0
 %else
-%global pypi_version 2.8.0
+%global pypi_version 2.9.0
 %endif
 
 %global desc %{expand: \
@@ -50,8 +50,7 @@ Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz#/audio-v%{version}.t
 %endif
 
 # Limit to these because that is what torch is on
-# ExclusiveArch:  x86_64 aarch64
-ExclusiveArch:  x86_64
+ExclusiveArch:  aarch64 x86_64
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -170,7 +169,6 @@ done
 %files -n python3-%{pypi_name}  -f %{pyproject_files}
 %license LICENSE
 %doc README.md 
-%{python3_sitearch}/torio
 
 %changelog
 %autochangelog

@@ -20,7 +20,7 @@
 # THE SOFTWARE.
 #
 %if 0%{?suse_version}
-%global hipsolver_name libhipsolver0
+%global hipsolver_name libhipsolver1
 %else
 %global hipsolver_name hipsolver
 %endif
@@ -41,12 +41,13 @@
 %global build_type RelWithDebInfo
 %endif
 
+%if 0%{?fedora}
+%bcond_without test
+%else
 %bcond_with test
+%endif
 %if %{with test}
 %global build_test ON
-%global __brp_check_rpaths %{nil}
-# test parallel building broken
-%global _smp_mflags -j1
 %else
 %global build_test OFF
 %endif
@@ -61,7 +62,7 @@
 
 Name:           %{hipsolver_name}
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm SOLVER marshalling library
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
@@ -186,6 +187,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/hipsolver/LICENSE.md
 %endif
 
 %changelog
+* Mon Oct 20 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-2
+- Turn on -test for fedora
+
 * Sun Sep 21 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-1
 - Update to 7.0.1
 

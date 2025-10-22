@@ -20,7 +20,7 @@
 # THE SOFTWARE.
 #
 %if 0%{?suse_version}
-%global rocblas_name librocblas4
+%global rocblas_name librocblas5
 %else
 %global rocblas_name rocblas
 %endif

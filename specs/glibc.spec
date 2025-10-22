@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.42.9000-294-g850d93f514
+%global glibcsrcdir glibc-2.42.9000-298-g0375e6e233
 %global glibcversion 2.42.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 6
+%global baserelease 7
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2389,6 +2389,14 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Mon Oct 20 2025 Frédéric Bérat <fberat@redhat.com> - 2.42.9000-7
+- Auto-sync with upstream branch master,
+  commit 0375e6e2336a779cdddb4d11442126d366b1efc2:
+- AArch64: Use math-use-builtins for roundeven(f)/lrint(f)/lround(f)
+- math: Add builtin support for (l)lround(f)
+- malloc: Cleanup _int_memalign
+- Implement C23 memalignment
+
 * Fri Oct 17 2025 Florian Weimer <fweimer@redhat.com> - 2.42.9000-6
 - Auto-sync with upstream branch master,
   commit 850d93f514ebc3c8b62603e70586edd38a18f46b:

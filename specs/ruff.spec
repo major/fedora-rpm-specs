@@ -213,7 +213,7 @@ ExcludeArch:	%{ix86}
 
 # Memory exhaustion can occur on builders with very many CPUs. Increase as
 # needed.
-%constrain_build -m 4096
+%global _smp_tasksize_proc 4096
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  rust2rpm-helper

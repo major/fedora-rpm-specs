@@ -19,8 +19,15 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-%global upstreamname hipCUB
 
+%bcond_with gitcommit
+%if %{with gitcommit}
+%global commit0 2584e35062ad9c2edb68d93c464cf157bc57e3b0
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+%global date0 20250926
+%endif
+
+%global upstreamname hipCUB
 %global rocm_release 7.0
 %global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
@@ -50,13 +57,24 @@
 %global _binary_payload w7T0.xzdio
 
 Name:           hipcub
+%if %{with gitcommit}
+Version:        git%{date0}.%{shortcommit0}
+Release:        1%{?dist}
+%else
 Version:        %{rocm_version}
 Release:        1%{?dist}
+%endif
 Summary:        ROCm port of CUDA CUB library
 
-Url:            https://github.com/ROCm
 License:        MIT and BSD-3-Clause
+
+%if %{with gitcommit}
+Url:            https://github.com/ROCm/rocm-libraries
+Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
+%else
+Url:            https://github.com/ROCm
 Source0:        %{url}/%{upstreamname}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+%endif
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -105,7 +123,12 @@ Precompiled self-tests for %{name}
 %endif
 
 %prep
+%if %{with gitcommit}
+%setup -q -n rocm-libraries-%{commit0}
+cd projects/hipcub
+%else
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
+%endif
 
 #
 # The ROCMExportTargetsHeaderOnly.cmake file
@@ -114,6 +137,10 @@ Precompiled self-tests for %{name}
 sed -i -e 's/ROCM_INSTALL_LIBDIR lib/ROCM_INSTALL_LIBDIR lib64/' cmake/ROCMExportTargetsHeaderOnly.cmake
 
 %build
+%if %{with gitcommit}
+cd projects/hipcub
+%endif
+
 
 %if %{with check}
 # Building all the gpu's does not make sense
@@ -137,6 +164,10 @@ gpu=`rocm_agent_enumerator | head -n 1`
 %cmake_build
 
 %install
+%if %{with gitcommit}
+cd projects/hipcub
+%endif
+
 %cmake_install
 
 rm -f %{buildroot}%{_prefix}/share/doc/hipcub/LICENSE.txt
@@ -147,8 +178,13 @@ rm -f %{buildroot}%{_prefix}/share/doc/hipcub/LICENSE.txt
 %endif
 
 %files devel
+%if %{with gitcommit}
+%doc projects/hipcub/README.md
+%license projects/hipcub/LICENSE.txt
+%else
 %doc README.md
 %license LICENSE.txt
+%endif
 %{_includedir}/%{name}
 %{_libdir}/cmake/%{name}
 

@@ -5,18 +5,13 @@
 %global crate equator
 
 Name:           rust-equator
-Version:        0.4.2
+Version:        0.6.0
 Release:        %autorelease
 Summary:        Composable assertion library
 
 License:        MIT
 URL:            https://crates.io/crates/equator
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * Remove the dev-dependency on assert2, not packaged
-Patch:          equator-fix-metadata.diff
-# * Omit tests that would require us to package the assert2 crate
-Patch10:        equator-0.4.2-no-assert2.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

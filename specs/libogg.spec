@@ -2,7 +2,7 @@ Summary:        The Ogg bitstream file format library
 Name:           libogg
 Epoch:          2
 Version:        1.3.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        BSD-3-Clause
 URL:            https://www.xiph.org/
 
@@ -10,6 +10,7 @@ Source:         https://downloads.xiph.org/releases/ogg/%{name}-%{version}.tar.x
 
 BuildRequires:  gcc
 BuildRequires:  make
+BuildRequires:  cmake
 
 %description
 Libogg is a library for manipulating Ogg bitstream file formats.
@@ -44,17 +45,18 @@ Documentation for developing applications with libogg
 
 
 %build
-%configure --disable-static
-%make_build
-
+%cmake
+%cmake_build
 
 %install
-%make_install
+%cmake_install
 
 rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 
-mv $RPM_BUILD_ROOT%{_docdir}/%{name} __installed_docs
+mv $RPM_BUILD_ROOT%{_docdir}/ogg __installed_docs
 
+mkdir -p %{buildroot}%{_datadir}/aclocal
+cp -pr ogg.m4 %{buildroot}%{_datadir}/aclocal/
 
 %ldconfig_scriptlets
 
@@ -72,13 +74,15 @@ mv $RPM_BUILD_ROOT%{_docdir}/%{name} __installed_docs
 %{_libdir}/libogg.so
 %{_libdir}/pkgconfig/ogg.pc
 %{_datadir}/aclocal/ogg.m4
-
+%{_libdir}/cmake/Ogg/
 
 %files devel-docs
 %doc __installed_docs/*
 
-
 %changelog
+* Thu Oct 16 2025 Gwyn Ciesla <gwync@protonmail.com> - 2:1.3.6-2
+- Build with cmake, but still ship m4
+
 * Mon Aug 25 2025 Miroslav Lichvar <mlichvar@redhat.com> 2:1.3.6-1
 - update to 1.3.6
 

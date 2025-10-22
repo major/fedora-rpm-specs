@@ -2,7 +2,7 @@
 %global debug_package %{nil}
 
 Name:           xtl
-Version:        0.8.0
+Version:        0.8.1
 Release:        %autorelease
 License:        BSD-3-Clause
 Summary:        QuantStack tools library

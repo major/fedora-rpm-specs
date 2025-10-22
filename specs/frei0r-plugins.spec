@@ -1,5 +1,5 @@
 Name:           frei0r-plugins
-Version:        2.4.0
+Version:        2.5.0
 Release:        1%{?dist}
 Summary:        Frei0r - a minimalist plugin API for video effects
 
@@ -74,6 +74,9 @@ rm -rf %{buildroot}%{_docdir}/%{name}
 %{_libdir}/pkgconfig/frei0r.pc
 
 %changelog
+* Mon Oct 20 2025 Nicolas Chauvet <kwizart@gmail.com> - 2.5.0-1
+- Update to 2.5.0
+
 * Tue Sep 16 2025 Nicolas Chauvet <kwizart@gmail.com> - 2.4.0-1
 - Update to 2.4.0
 
