@@ -15,7 +15,6 @@ Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          opendal-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * Bump size version
 # * Remove criterion dev dependency
 # * Remove opentelemetry dev dependency
 # * Remove fasttrace dev dependency
@@ -96,18 +95,6 @@ This package contains library source intended for building other packages which
 use the "internal-tokio-rt" feature of the "%{crate}" crate.
 
 %files       -n %{name}+internal-tokio-rt-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+layers-fastmetrics-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+layers-fastmetrics-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "layers-fastmetrics" feature of the "%{crate}" crate.
-
-%files       -n %{name}+layers-fastmetrics-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+services-fs-devel

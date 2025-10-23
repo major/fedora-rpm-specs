@@ -2,25 +2,24 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate astral-tokio-tar
+%global crate pyo3-async-runtimes-macros
 
-Name:           rust-astral-tokio-tar
-Version:        0.5.6
+Name:           rust-pyo3-async-runtimes-macros0.25
+Version:        0.25.0
 Release:        %autorelease
-Summary:        Rust implementation of an async TAR file reader and writer
+Summary:        Proc Macro Attributes for pyo3-async-runtimes
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/astral-tokio-tar
+License:        Apache-2.0
+URL:            https://crates.io/crates/pyo3-async-runtimes-macros
 Source:         %{crates_source}
+# * Fix missing LICENSE file in macros crate
+# * https://github.com/PyO3/pyo3-async-runtimes/pull/63
+Source10:       https://github.com/PyO3/pyo3-async-runtimes/raw/refs/tags/v0.26.0/LICENSE
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-A Rust implementation of an async TAR file reader and writer. This
-library does not currently handle compression, but it is abstract over
-all I/O readers and writers. Additionally, great lengths are taken to
-ensure that the entire contents are never required to be entirely
-resident in memory all at once.}
+Proc Macro Attributes for `pyo3-async-runtimes`.}
 
 %description %{_description}
 
@@ -34,9 +33,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/CHANGELOG.md
+%license %{crate_instdir}/LICENSE
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -52,20 +49,9 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+xattr-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+xattr-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "xattr" feature of the "%{crate}" crate.
-
-%files       -n %{name}+xattr-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %prep
 %autosetup -n %{crate}-%{version} -p1
+cp -p '%{SOURCE10}' .
 %cargo_prep
 
 %generate_buildrequires

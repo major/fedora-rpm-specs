@@ -35,7 +35,7 @@
 
 Name:           gstreamer1-plugins-good
 Version:        1.26.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GStreamer plugins with good code and licensing
 
 License:        CC0-1.0 AND GPL-2.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND xlock AND MIT AND BSD-3-Clause AND CC-BY-3.0 
@@ -54,6 +54,8 @@ Source0:        http://gstreamer.freedesktop.org/src/gst-plugins-good/gst-plugin
 # project, translated and installed into the right place during `make install`.
 # See http://www.freedesktop.org/software/appstream/docs/ for more details.
 Source1:        gstreamer-good.appdata.xml
+
+Patch0:         9870.diff
 
 BuildRequires:  meson >= 0.48.0
 BuildRequires:  gcc
@@ -217,6 +219,8 @@ to be installed.
 %prep
 %setup -q -n gst-plugins-good-%{version}
 
+%patch -P0 -p3
+
 %build
 %meson \
   -D package-name='Fedora GStreamer-plugins-good package' \
@@ -373,6 +377,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -fv {} ';'
 
 
 %changelog
+* Tue Oct 21 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.26.7-2
+- v4l2: Fix NULL pointer dereference in probe error path
+
 * Tue Oct 14 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.26.7-1
 - 1.26.7
 

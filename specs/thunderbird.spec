@@ -91,13 +91,13 @@ ExcludeArch: armv7hl
 
 Summary:        Mozilla Thunderbird mail/newsgroup client
 Name:           thunderbird
-Version:        144.0
+Version:        144.0.1
 Release:        1%{?dist}
 URL:            http://www.mozilla.org/projects/thunderbird/
 License:        MPL-2.0 OR GPL-2.0-or-later OR LGPL-2.0-or-later
 Source0:        https://archive.mozilla.org/pub/thunderbird/releases/%{version}%{?pre_version}/source/thunderbird-%{version}%{?pre_version}.source.tar.xz
 %if %{build_langpacks}
-Source1:        thunderbird-langpacks-%{version}%{?pre_version}-20251016.tar.xz
+Source1:        thunderbird-langpacks-%{version}%{?pre_version}-20251021.tar.xz
 %endif
 Source3:        get-calendar-langpacks.sh
 Source4:        cbindgen-vendor.tar.xz
@@ -588,6 +588,13 @@ rm -f $RPM_BUILD_ROOT/%{_bindir}/thunderbird
 %{__cat} %{SOURCE21} | %{__sed} -e 's,__PREFIX__,%{_prefix},g' > \
         $RPM_BUILD_ROOT/%{_bindir}/thunderbird
 %{__chmod} 755 $RPM_BUILD_ROOT/%{_bindir}/thunderbird
+
+%if 0%{?flatpak}
+sed -i -e 's|%FLATPAK_ENV_VARS%|export TMPDIR="$XDG_CACHE_HOME/tmp"|' %{buildroot}%{_bindir}/thunderbird
+%else
+sed -i -e 's|%FLATPAK_ENV_VARS%||' %{buildroot}%{_bindir}/thunderbird
+%endif
+
 # Enable wayland by default on f40+
 # Overridable for rhbz#2283993 https://bugzilla.mozilla.org/show_bug.cgi?id=1898476
 %if 0%{?fedora} >= %{only_wayland}
@@ -749,6 +756,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 #===============================================================================
 
 %changelog
+* Tue Oct 21 2025 Jan Horak <jhorak@redhat.com> - 144.0.1-1
+- Update to 144.0.1
+
 * Thu Oct 16 2025 Jan Horak <jhorak@redhat.com> - 144.0-1
 - Update to 144.0
 

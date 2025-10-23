@@ -25,6 +25,8 @@ BuildRequires:  pyproject-rpm-macros
 BuildRequires:  sed
 BuildRequires:  gnupg2
 
+# uvloop subpkg removed due to rhbz#2326210
+Obsoletes:      postfix-mta-sts-resolver+uvloop < 1.5.1-2
 
 %description
 postfix-mta-sts-resolver provides a lookup daemon and command line

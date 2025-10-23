@@ -1,7 +1,7 @@
 %bcond_without docs
 
 Name:     open62541
-Version:  1.4.13
+Version:  1.4.14
 Release:  1%{?dist}
 Summary:  OPC UA implementation
 License:  MPL-2.0
@@ -112,6 +112,9 @@ cd -
 %endif
 
 %changelog
+* Tue Oct 21 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1.4.14-1
+- Update to 1.4.14
+
 * Tue Aug 05 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1.4.13-1
 - Update to 1.4.13
 

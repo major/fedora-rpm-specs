@@ -176,13 +176,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.18.0
 %define specversion 6.18.0
 %define patchversion 6.18
-%define pkgrelease 0.rc2.23
+%define pkgrelease 0.rc2.251021g6548d364a3e85.24
 %define kversion 6
-%define tarfile_release 6.18-rc2
+%define tarfile_release 6.18-rc2-8-g6548d364a3e85
 # This is needed to do merge window version magic
 %define patchlevel 18
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc2.23%{?buildid}%{?dist}
+%define specrelease 0.rc2.251021g6548d364a3e85.24%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.18.0
 
@@ -4176,7 +4176,7 @@ fi\
 %{_includedir}/perf/perf_dlfilter.h
 
 %files -n python3-perf
-%{python3_sitearch}/*
+%{python3_sitearch}/perf*
 
 %if %{with_debuginfo}
 %files -f perf-debuginfo.list -n perf-debuginfo
@@ -4286,6 +4286,8 @@ fi\
 # libcpupower Python bindings
 %{python3_sitearch}/_raw_pylibcpupower.so
 %{python3_sitearch}/raw_pylibcpupower.py
+%{python3_sitearch}/__pycache__/raw_pylibcpupower*
+
 %endif
 %if %{with_ynl}
 %{_libdir}/libynl*
@@ -4494,9 +4496,16 @@ fi\
 #
 #
 %changelog
-* Mon Oct 20 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc2.23]
+* Tue Oct 21 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.18.0-0.rc2.251021g6548d364a3e85.24]
+- Linux v6.18.0-0.rc2.251021g6548d364a3e85
+
+* Tue Oct 21 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc2.6548d364a3e8.24]
 - powerpc/tools: drop `-o pipefail` in gcc check scripts (Jan Stancek)
 - redhat/configs: clang_lto: disable CONFIG_FORTIFY_KUNIT_TEST (Scott Weaver)
+
+* Tue Oct 21 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc2.6548d364a3e8.23]
+- redhat/kernel.spec: make python3-perf glob more specific (Jan Stancek)
+- Linux v6.18.0-0.rc2.6548d364a3e8
 
 * Mon Oct 20 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc2.22]
 - Linux v6.18.0-0.rc2

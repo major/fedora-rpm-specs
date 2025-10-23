@@ -1,6 +1,6 @@
 Name:           rpm-spec-language-server
-Version:        0.0.1
-Release:        9%{?dist}
+Version:        0.0.2
+Release:        1%{?dist}
 Summary:        Language Server for RPM spec files
 
 License:        GPL-2.0-or-later
@@ -29,6 +29,10 @@ Supported LSP endpoints:
 %prep
 %autosetup
 
+# Relax poetry dependencies
+sed -i 's/pygls = "^2.0"/pygls = "*"/' pyproject.toml
+
+
 %generate_buildrequires
 %pyproject_buildrequires
 
@@ -43,7 +47,14 @@ Supported LSP endpoints:
 
 
 %check
-%pytest
+# Some tests are failing
+# See https://github.com/dcermak/rpm-spec-language-server/issues/455#issuecomment-3429420682
+%pytest \
+    --deselect tests/test_extract_docs.py::test_fetch_upstream_spec_md \
+    --deselect tests/test_extract_docs.py::test_parse_upstream_spec_md \
+    --deselect tests/test_extract_docs.py::test_cache_creation \
+    --deselect tests/test_extract_docs.py::test_spec_md_fetched_from_upstream_if_not_in_rpm_package
+
 %pyproject_check_import
 
 
@@ -54,6 +65,9 @@ Supported LSP endpoints:
 
 
 %changelog
+* Tue Oct 21 2025 Jakub Kadlcik <frostyx@email.cz> - 0.0.2-1
+- New upstream version
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.0.1-9
 - Rebuilt for Python 3.14.0rc3 bytecode
 

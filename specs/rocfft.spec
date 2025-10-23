@@ -25,8 +25,14 @@
 %global rocfft_name rocfft
 %endif
 
-%global upstreamname rocFFT
+%bcond_with gitcommit
+%if %{with gitcommit}
+%global commit0 2584e35062ad9c2edb68d93c464cf157bc57e3b0
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+%global date0 20250926
+%endif
 
+%global upstreamname rocFFT
 %global rocm_release 7.0
 %global rocm_patch 2
 %global rocm_version %{rocm_release}.%{rocm_patch}
@@ -109,13 +115,23 @@
 %endif
 
 Name:           %{rocfft_name}
+%if %{with gitcommit}
+Version:        git%{date0}.%{shortcommit0}
+Release:        1%{?dist}
+%else
 Version:        %{rocm_version}
 Release:        1%{?dist}
+%endif
 Summary:        ROCm Fast Fourier Transforms (FFT) library
-
-Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
+
+%if %{with gitcommit}
+Url:            https://github.com/ROCm/rocm-libraries
+Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
+%else
+Url:            https://github.com/ROCm/%{upstreamname}
 Source0:        %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-rocm-%{version}.tar.gz
+%endif
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -197,12 +213,20 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %endif
 
 %prep
+%if %{with gitcommit}
+%setup -q -n rocm-libraries-%{commit0}
+cd projects/rocfft
+%else
 %autosetup -n %{upstreamname}-rocm-%{version} -p 1
+%endif
 
 # Do not care so much about the sqlite version
 sed -i -e 's@SQLite3 3.36 @SQLite3 @' cmake/sqlite.cmake
 
 %build
+%if %{with gitcommit}
+cd projects/rocfft
+%endif
 
 # ensuring executables are PIE enabled
 export LDFLAGS="${LDFLAGS} -pie"
@@ -220,6 +244,10 @@ export LDFLAGS="${LDFLAGS} -pie"
 %cmake_build
 
 %install
+%if %{with gitcommit}
+cd projects/rocfft
+%endif
+
 %cmake_install
 
 # we don't need the rocfft_rtc_helper binary, don't package it
@@ -243,8 +271,14 @@ rm -f %{buildroot}%{_prefix}/share/doc/rocfft/LICENSE.md
 %endif
 
 %files
+%if %{with gitcommit}
+%doc projects/rocfft/README.md
+%license projects/rocfft/LICENSE.md
+%else
 %doc README.md
 %license LICENSE.md
+%endif
+
 %{_libdir}/librocfft.so.0{,.*}
 
 %files devel

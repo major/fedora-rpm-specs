@@ -1,7 +1,7 @@
 %global pypi_name pytest-testmon
 
 Name:           python-%{pypi_name}
-Version:        2.1.1
+Version:        2.1.3
 Release:        %autorelease
 Summary:        A py.test plug-in which executes only tests affected by recent changes
 License:        MIT
@@ -32,7 +32,7 @@ executes only tests affected by recent changes.
 This a Python 3 version of the package.
 
 %prep
-%autosetup -n %{pypi_name}-%{version} -p1
+%autosetup -n pytest_testmon-%{version} -p1
 
 %generate_buildrequires
 %pyproject_buildrequires

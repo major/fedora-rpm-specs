@@ -9,7 +9,7 @@
 
 Name:           chrony
 Version:        4.8
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        An NTP client/server
 
 License:        GPL-2.0-only
@@ -27,6 +27,8 @@ Source10:       https://gitlab.com/chrony/clknetsim/-/archive/master/clknetsim-%
 Patch1:         chrony-nm-dispatcher-dhcp.patch
 # let systemd create /var/lib/chrony and /var/log/chrony
 Patch2:         chrony-servicedirs.patch
+# update seccomp filter for new glibc
+Patch3:         chrony-seccomp.patch
 
 BuildRequires:  libcap-devel libedit-devel nettle-devel pps-tools-devel
 BuildRequires:  gcc gcc-c++ make bison systemd gnupg2
@@ -59,6 +61,7 @@ service to other computers in the network.
 %{?gitpatch:%patch -P 0 -p1}
 %patch -P 1 -p1 -b .nm-dispatcher-dhcp
 %patch -P 2 -p1 -b .servicedirs
+%patch -P 3 -p1 -b .seccomp
 
 %{?gitpatch: echo %{version}-%{gitpatch} > version.txt}
 
@@ -206,6 +209,9 @@ fi
 %ghost %dir %attr(750,chrony,chrony) %{_localstatedir}/log/chrony
 
 %changelog
+* Tue Oct 21 2025 Miroslav Lichvar <mlichvar@redhat.com> 4.8-3
+- update seccomp filter for new glibc (#2405310)
+
 * Mon Sep 08 2025 Miroslav Lichvar <mlichvar@redhat.com> 4.8-2
 - drop root privileges in chronyc by default
 

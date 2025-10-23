@@ -1,7 +1,7 @@
 #
 # Fedora spec file for php-webmozart-assert
 #
-# Copyright (c) 2016-2020 Shawn Iwinski <shawn@iwin.ski>
+# Copyright (c) 2016-2025 Shawn Iwinski <shawn@iwin.ski>
 #
 # License: MIT
 # http://opensource.org/licenses/MIT
@@ -13,8 +13,8 @@
 %global bootstrap 0
 %global github_owner     webmozart
 %global github_name      assert
-%global github_version   1.11.0
-%global github_commit    11cb2199493b2f8a3b53e7f19068fc6aac760991
+%global github_version   1.12.0
+%global github_commit    541057574806f942c94662b817a50f63f7345360
 
 %global composer_vendor  webmozart
 %global composer_project assert
@@ -38,7 +38,7 @@
 
 Name:          php-%{composer_vendor}-%{composer_project}
 Version:       %{github_version}
-Release:       8%{?github_release}%{?dist}
+Release:       1%{?github_release}%{?dist}
 Summary:       Assertions to validate method input/output with nice error messages
 
 License:       MIT
@@ -57,12 +57,8 @@ BuildRequires: php(language) >= %{php_min_ver}
 BuildRequires: php-ctype
 BuildRequires: %{phpunit_require}
 ## phpcompatinfo (computed from version 1.7.0)
-BuildRequires: php-filter
 BuildRequires: php-mbstring
-BuildRequires: php-pcre
-BuildRequires: php-reflection
 BuildRequires: php-simplexml
-BuildRequires: php-spl
 ## Autoloader
 BuildRequires: php-composer(fedora/autoloader)
 %endif
@@ -71,10 +67,7 @@ BuildRequires: php-composer(fedora/autoloader)
 Requires:      php(language) >= %{php_min_ver}
 Requires:      php-ctype
 # phpcompatinfo (computed from version 1.7.0)
-Requires:      php-filter
 Requires:      php-mbstring
-Requires:      php-pcre
-Requires:      php-spl
 # Autoloader
 Requires:      php-composer(fedora/autoloader)
 
@@ -126,7 +119,7 @@ BOOTSTRAP
 : Upstream tests
 RETURN_CODE=0
 PHPUNIT=$(which %{phpunit_exec})
-for PHP_EXEC in php74 php80 php81 php82; do
+for PHP_EXEC in php81 php82 php83 php84 php85; do
     if [ -z "$PHP_EXEC" ] || which $PHP_EXEC; then
         $PHP_EXEC \
             -d auto_prepend_file=%{buildroot}%{phpdir}/Webmozart/Assert/autoload.php \
@@ -151,6 +144,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Tue Oct 21 2025 Remi Collet <remi@remirepo.net> - 1.12.0-1
+- update to 1.12.0
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

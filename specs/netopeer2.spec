@@ -1,6 +1,6 @@
 Name: netopeer2
-Version: 2.4.1
-Release: 1%{?dist}
+Version: 2.4.5
+Release: 3%{?dist}
 Summary: Netopeer2 NETCONF tools suite
 Url: https://github.com/CESNET/netopeer2
 Source: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -37,6 +37,8 @@ Requires: libyang >= 2.0.231
 Requires: sysrepo-tools
 # for provided systemd units
 Requires: systemd
+# needed for some yang files provided by libnetconf2
+Requires: libnetconf2 >= 3.7.10
 
 
 %package cli
@@ -125,6 +127,15 @@ set -e
 %{_datadir}/man/man1/netopeer2-cli.1.gz
 
 %changelog
+* Tue Oct 21 2025 Michal Ruprich <mruprich@redhat.com> - 2.4.5-3
+- Fixing previous dependency, we need a runtime dependency
+
+* Tue Oct 21 2025 Michal Ruprich <mruprich@redhat.com> - 2.4.5-2
+- Fixing libnetconf2 dependency due to some needed yang files
+
+* Mon Oct 20 2025 Michal Ruprich <mruprich@redhat.com> - 2.4.5-1
+- New version 2.4.5
+
 * Mon Jul 28 2025 Michal Ruprich <mruprich@redhat.com> - 2.4.1-1
 - New version 2.4.1
 

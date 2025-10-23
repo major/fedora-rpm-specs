@@ -13,6 +13,7 @@ License:        Apache-2.0
 URL:            https://crates.io/crates/tokenizers
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
+# * Allow newer (but still compatible) monostate versions
 # * Downgrade fancy-regex dependency from 0.14 to 0.13
 # * Upgrade indicatif dependency from 0.17 to 0.18
 # * Downgrade onig dependency from 6.5.1 to 6.4.0

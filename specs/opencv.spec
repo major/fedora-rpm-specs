@@ -9,7 +9,6 @@
 %bcond_with     linters
 %bcond_without  ffmpeg
 %bcond_without  gstreamer
-%bcond_with     eigen2
 %bcond_without  eigen3
 %bcond_without  opencl
 %ifarch x86_64 %{arm}
@@ -304,7 +303,9 @@ This package contains the OpenCV %{moduledesc} module runtime.\
 %opencv_module_subpkg -m video -d %{quote:Video Analysis}
 %opencv_module_subpkg -m videoio -d %{quote:Video I/O}
 # contrib/extra modules
+%if %{with eigen3}
 %opencv_module_subpkg -m alphamat -d %{quote:Alpha Matting}
+%endif
 %opencv_module_subpkg -m aruco -d %{quote:Aruco Markers}
 %opencv_module_subpkg -m bgsegm -d %{quote:Background Segmentation}
 %opencv_module_subpkg -m bioinspired -d %{quote:Biologically-inspired Vision Models}
@@ -532,6 +533,7 @@ cd modules/python/package
  -DOPENCV_CONFIG_INSTALL_PATH=%{_lib}/cmake/OpenCV \
  -DOPENCV_GENERATE_PKGCONFIG=ON \
 %{?with_extras_tests: -DOPENCV_TEST_DATA_PATH=opencv_extra-%{version}/testdata} \
+ %{?without_eigen3: -DWITH_EIGEN=OFF} \
  %{?with_gdcm: -DWITH_GDCM=ON } \
  -DWITH_IMGCODEC_GIF=ON \
  %{?with_libmfx: -DWITH_MFX=ON  -DWITH_GAPI_ONEVPL=ON} \

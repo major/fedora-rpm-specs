@@ -8,6 +8,13 @@ URL:            https://github.com/openapi-generators/openapi-python-client
 Source:         %{url}/archive/refs/tags/v%{version}/openapi-python-client-%{version}.tar.gz
 Source1:        openapi-python-client.man1
 
+# chore(deps): update dependency ruff to >=0.2,<0.15
+# https://github.com/openapi-generators/openapi-python-client/pull/1332
+Patch:          openapi-python-client-0.26.2-ruff-0.14.patch
+# chore(deps): update dependency typer to >0.6,<0.21
+# https://github.com/openapi-generators/openapi-python-client/pull/1336
+Patch:          openapi-python-client-0.26.2-typer-0.20.patch
+
 BuildRequires:  python3-devel
 BuildRequires:  python3-hatchling
 BuildRequires:  python3-mypy

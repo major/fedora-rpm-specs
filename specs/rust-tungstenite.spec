@@ -5,7 +5,7 @@
 %global crate tungstenite
 
 Name:           rust-tungstenite
-Version:        0.26.2
+Version:        0.28.0
 Release:        %autorelease
 Summary:        Lightweight stream-based WebSocket implementation
 
@@ -13,7 +13,8 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/tungstenite
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * drop unused, benchmark-only criterion dev-dependency
+# * drop unused, benchmark-only criterion and input_buffer dev-dependencies
+# * drop socket2 dev-dependency, not used for anything in the crate
 Patch:          tungstenite-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

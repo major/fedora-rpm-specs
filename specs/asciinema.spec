@@ -47,6 +47,16 @@ License:        %{shrink:
 URL:            https://asciinema.org
 Source:         https://github.com/asciinema/asciinema/archive/v%{version}/asciinema-%{version}.tar.gz
 
+# Update tokio-tungstenite from 0.26 to 0.28
+#
+# This matches the verison used by the latest axum, 0.8.6.
+#
+# This was proposed upstream as part of a larger set of updates, “chore:
+# update dependencies” at https://github.com/asciinema/asciinema/pull/698.
+#
+# In this minimal downstream patch, only Cargo.toml is adjusted.
+Patch:          0001-Update-tokio-tungstenite-from-0.26-to-0.28.patch
+
 BuildRequires:  cargo-rpm-macros
 
 %description

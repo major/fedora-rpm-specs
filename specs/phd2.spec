@@ -31,6 +31,11 @@ Source1:        generate-tarball.sh
 Patch99:        phd2_2.9.10_std_cflags.patch
 Patch100:       phd2-2.6.13-include.patch
 
+# Fix eigen 5.0.0 detection
+Patch101:       phd2-eigen3.patch
+# Fix missing cassert include
+Patch102:       phd2-cassert.patch
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 

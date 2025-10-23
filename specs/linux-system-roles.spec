@@ -23,7 +23,7 @@ Name: linux-system-roles
 %endif
 Url: https://github.com/linux-system-roles
 Summary: Set of interfaces for unified system management
-Version: 1.109.0
+Version: 1.110.0
 Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv3+ and MIT and BSD and Python - review is highly recommended.
@@ -98,28 +98,28 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 2 1.10.4
 
 %global rolename3 timesync
-%deftag 3 1.10.2
+%deftag 3 1.11.0
 
 %global rolename4 kdump
-%deftag 4 1.4.13
+%deftag 4 1.4.14
 
 %global rolename5 network
-%deftag 5 1.17.5
+%deftag 5 1.17.6
 
 %global rolename6 storage
-%deftag 6 1.18.20
+%deftag 6 1.19.0
 
 %global rolename7 metrics
-%deftag 7 1.13.0
+%deftag 7 1.13.1
 
 %global rolename8 tlog
 %deftag 8 1.4.3
 
 %global rolename9 kernel_settings
-%deftag 9 1.3.5
+%deftag 9 1.3.6
 
 %global rolename10 logging
-%deftag 10 1.15.2
+%deftag 10 1.15.3
 
 %global rolename11 nbde_server
 %deftag 11 1.5.0
@@ -139,22 +139,22 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 15 v0.28.0
 
 %global rolename16 ssh
-%deftag 16 1.6.0
+%deftag 16 1.6.1
 
 %global rolename17 ha_cluster
-%deftag 17 1.25.6
+%deftag 17 1.26.0
 
 %global rolename18 vpn
-%deftag 18 1.6.11
+%deftag 18 1.6.12
 
 %global rolename19 firewall
-%deftag 19 1.10.2
+%deftag 19 1.11.0
 
 %global rolename20 cockpit
 %deftag 20 1.7.1
 
 %global rolename21 podman
-%deftag 21 1.8.3
+%deftag 21 1.9.0
 
 %global rolename22 ad_integration
 %deftag 22 1.6.0
@@ -166,7 +166,7 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 24 1.5.0
 
 %global rolename25 postgresql
-%deftag 25 1.4.2
+%deftag 25 1.4.3
 
 %global rolename26 systemd
 %deftag 26 1.3.4
@@ -703,6 +703,9 @@ find %{buildroot}%{ansible_roles_dir} -mindepth 1 -maxdepth 1 | \
 %endif
 
 %changelog
+* Tue Oct  21 2025 Packit <hello@packit.dev> - 1.110.0-1
+- Update to upstream version 1.110.0
+
 * Sun Sep  7 2025 Packit <hello@packit.dev> - 1.109.0-1
 - Update to upstream version 1.109.0
 

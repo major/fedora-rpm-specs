@@ -5,7 +5,7 @@
 %global crate axum
 
 Name:           rust-axum
-Version:        0.8.4
+Version:        0.8.6
 Release:        %autorelease
 Summary:        Web framework that focuses on ergonomics and modularity
 
@@ -15,7 +15,8 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * remove documentation-specific feature
 Patch:          axum-fix-metadata.diff
-Patch:          0001-skip-doctest-with-unresolved-axum_extra-dependency.patch
+# * skip doctest with unresolved axum_extra dependency
+Patch10:        0001-skip-doctest-with-unresolved-axum_extra-dependency.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -169,6 +170,18 @@ This package contains library source intended for building other packages which
 use the "query" feature of the "%{crate}" crate.
 
 %files       -n %{name}+query-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+serde-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+serde-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "serde" feature of the "%{crate}" crate.
+
+%files       -n %{name}+serde-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+tokio-devel

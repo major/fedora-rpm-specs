@@ -5,16 +5,15 @@
 %global crate rpds
 
 Name:           rust-rpds
-Version:        1.1.1
+Version:        1.1.2
 Release:        %autorelease
 Summary:        Persistent data structures with structural sharing
 
-License:        MPL-2.0
+License:        MIT
 URL:            https://crates.io/crates/rpds
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# - remove criterion dependency
-# - relax serde dependency
+# * remove criterion dependency
 Patch:          rpds-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

@@ -1,99 +1,106 @@
 %bcond check 1
 
 Name:           ruff
-Version:        0.12.1
+Version:        0.14.1
+# The ruff package has a permanent exception to the Updates Policy in Fedora,
+# so it can be updated in stable releases across SemVer boundaries (subject to
+# good judgement and actual compatibility of any reverse dependencies). See
+# https://docs.fedoraproject.org/en-US/fesco/Updates_Policy/#_other_packages,
+# https://pagure.io/fesco/issue/3197. It also has a corresponding exception in
+# EPEL, but only in leading branches and only until version 1.0; see
+# https://pagure.io/epel/issue/350.
 Release:        %autorelease
 Summary:        Extremely fast Python linter and code formatter
 
 # The license of the ruff project is MIT, except:
 #
-# Parts of ruff are derived from the following projects (details in LICENSE).
-# These are not really cases of bundling or vendoring, and they cannot be
-# unbundled, since they have been effectively reimplemented. We therefore do
-# not document these as bundled dependencies via virtual Provides. We also make
-# no attempt to ascertain precisely which source files are derived from each of
-# these upstream projects.
+# As described in https://github.com/astral-sh/ruff/pull/20222, the README
+# lists projects whose rules ruff has (re)implemented but from which ruff does
+# not otherwise reuse or adapt source code. We don’t consider those to be
+# bundled dependencies, and we don’t consider their licenses to contribute to
+# the licenses of the binary RPMs.
 #
-# 0BSD:
-#   - flake8-gettext
-# Apache-2.0
-#   - flake8-logging-format
-# BSD-3-Clause:
-#   - flake8-todos
-#   - flake8-type-checking
-# GPL-3.0-or-later:
-#   - flake8-django
+# Meanwhile, LICENSE documents projects from which parts of ruff are derived,
+# e.g. by copying and adapting source code. In general, we can’t always readily
+# identify precisely which source files are derived from each of these upstream
+# projects, and it doesn’t make sense to treat them as bundled or vendored
+# dependencies. However, we do need to account for their licenses.
+#
 # MIT (same as ruff itself):
-#   - Pyright
-#   - RustPython
 #   - autoflake
 #   - autotyping
 #   - flake8
-#   - flake8-2020
-#   - flake8-annotations
-#   - flake8-async
-#   - flake8-bandit
-#   - flake8-blind-except
-#   - flake8-bugbear
-#   - flake8-commas
-#   - flake8-comprehensions
-#   - flake8-debugger
 #   - flake8-eradicate
-#   - flake8-implicit-str-concat
-#   - flake8-import-conventions
-#   - flake8-logging
-#   - flake8-no-pep420
-#   - flake8-print
 #   - flake8-pyi
-#   - flake8-quotes
-#   - flake8-raise
-#   - flake8-return
-#   - flake8-self
 #   - flake8-simplify
-#   - flake8-slots
-#   - flake8-tidy-imports
-#   - flake8-trio
-#   - flake8-unused-arguments
-#   - flake8-use-pathlib
-#   - flynt
 #   - isort
-#   - pep8-naming
-#   - perflint
+#   - pygrep-hooks
 #   - pycodestyle
-#   - pydoclint
 #   - pydocstyle
 #   - pyflakes
-#   - pygrep-hooks
+#   - Pyright
 #   - pyupgrade
 #   - rome/tools
+#   - RustPython
 #   - rust-analyzer/text-size
 #
+# =====
+#
 # Besides the above projects mentioned in LICENSE, the following vendored,
-# forked, or derived code is present:
+# forked, or derived code is present, either directly in the ruff source
+# archive or as additional sources corresponding to git dependencies.
 #
 # Apache-2.0 AND MIT:
 #   - crates/ty_vendored/vendor/typeshed/ is a bundled snapshot of
 #     https://github.com/python/typeshed at a commit hash listed in
 #     ruff/crates/ty_vendored/vendor/typeshed/source_commit.txt; license text
-#     is in crates/ty_vendored/vendor/typeshed/LICENSE.
+#     is in crates/ty_vendored/vendor/typeshed/LICENSE
+#
+#    Within the typeshed snapshot, the docstring of
+#    crates/ty_vendored/vendor/typeshed/stdlib/ast.pyi cites the Python-2.0.1
+#    license of the ast module from the Python library. We feel that this
+#    type-stub file probably doesn’t contain enough of the original Python
+#    source for the license to apply. If we’re wrong, then SourceLicense and
+#    License should gain a Python-2.0.1 term.
 #
 # Apache-2.0 OR MIT:
 #   - crates/ruff_annotate_snippets/ is a fork of the annotate-snippets crate
+#   - salsa, salsa-macros, salsa-macros-rules, Source200
 #
 # MIT:
-#   - book/mermaid.min.js in the vendored salsa snapshot (removed in %%prep)
+#   - book/mermaid.min.js in the vendored salsa snapshot; does not contribute
+#     to the licenses of the binary RPMs, since we do not package the book, and
+#     it is removed in %%prep to be sure
+#   - lsp-types, Source100
 #
-# Finally, the following are bundled as additional sources corresponding to git
-# dependencies.
-#   - lsp-types, Source100, is MIT.
-#   - salsa/salsa-macros/salsa-macros-rules, Source200, is (Apache-2.0 OR MIT)
+# =====
+#
+# A few other source files carry their own licenses but do not fit into the
+# above categories.
+#
+# Apache-2.0:
+#   - crates/ruff_server/resources/test/fixtures/tensorflow_test_notebook.ipynb
+#     comes from TensorFlow, and some of its content also appears in
+#     crates/ruff_server/tests/notebook.rs and in the snapshots
+#     crates/ruff_server/tests/snapshots/notebook__changed_notebook.snap and
+#     crates/ruff_server/tests/snapshots/notebook__initial_notebook.snap; none
+#     of these should contribute to the licenses of the binary RPMs, since they
+#     are only for testing
+#
+# Apache-2.0 OR MIT:
+#   - .github/workflows/release.yml (autogenerated by dist,
+#     https://github.com/astral-sh/cargo-dist; does not contribute to the
+#     licenses of the binary RPMs, since it is only for CI)
+#
+# MIT:
+#   - playground/shared/src/Icons.tsx contains icons from the VS code icon set,
+#     https://github.com/microsoft/vscode-icons/; we do not package the
+#     in-browser playground, available at https://play.ruff.rs/, so this file
+#     does not contribute to the licenses of the binary RPMs
 SourceLicense:  %{shrink:
     MIT AND
-    0BSD AND
     Apache-2.0 AND
-    (Apache-2.0 OR MIT) AND
-    BSD-3-Clause AND
-    GPL-3.0-or-later
+    (Apache-2.0 OR MIT)
     }
 
 # Rust crates compiled into the executable contribute additional license terms.
@@ -126,7 +133,6 @@ SourceLicense:  %{shrink:
 # Zlib OR Apache-2.0 OR MIT
 License:        %{shrink:
     MIT AND
-    0BSD AND
     Apache-2.0 AND
     (Apache-2.0 OR BSD-2-Clause) AND
     (Apache-2.0 OR BSD-2-Clause OR MIT) AND
@@ -138,7 +144,6 @@ License:        %{shrink:
     BSD-3-Clause AND
     (BSD-3-Clause OR MIT) AND
     CC0-1.0 AND
-    GPL-3.0-or-later AND
     ISC AND
     (MIT OR Unlicense)
     MPL-2.0 AND
@@ -182,17 +187,17 @@ Source100:      %{lsp_types_git}/archive/%{lsp_types_rev}/lsp-types-%{lsp_types_
 # observe the version and https://github.com/salsa-rs/commit/%%{salsa_rev} to
 # observe the date.
 %global salsa_git https://github.com/salsa-rs/salsa
-%global salsa_rev 09627e450566f894956710a3fd923dc80462ae6d
-%global salsa_baseversion 0.22.0
-%global salsa_snapdate 20250611
+%global salsa_rev ef9f9329be6923acd050c8dddd172e3bc93e8051
+%global salsa_baseversion 0.24.0
+%global salsa_snapdate 20251016
 Source200:      %{salsa_git}/archive/%{salsa_rev}/salsa-%{salsa_rev}.tar.gz
 
 # Get this from ruff/crates/ty_vendored/vendor/typeshed/source_commit.txt.
-%global typeshed_rev ecd5141cc036366cc9e3ca371096d6a14b0ccd13
+%global typeshed_rev d6f4a0f7102b1400a21742cf9b7ea93614e2b6ec
 # The typeshed project as a whole has never been versioned.
 %global typeshed_baseversion 0
 # Inspect https://github.com/python/typeshed/commit/%%{typeshed_rev}.
-%global typeshed_snapdate 20250613
+%global typeshed_snapdate 20251014
 
 # Downstream patch: always find the system-wide ruff executable
 #
@@ -205,15 +210,12 @@ Patch:          0001-Downstream-patch-always-find-the-system-wide-ruff-ex.patch
 Patch:          0002-drop-unavailable-features-from-uuid-dependency.patch
 # * ignore tests in vendored annotate-snippets that hang indefinitely:
 Patch:          0003-ignore-vendored-annotate-snippets-tests-that-hang-in.patch
-# * update indicatif to 0.18: https://github.com/astral-sh/ruff/pull/19165
-Patch:          0004-Update-Rust-crate-indicatif-to-0.18.0-19165.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch:	%{ix86}
+ExcludeArch:    %{ix86}
 
-# Memory exhaustion can occur on builders with very many CPUs. Increase as
-# needed.
-%global _smp_tasksize_proc 4096
+# Memory exhaustion can occur. Increase as needed.
+%global _smp_tasksize_proc 8192
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  rust2rpm-helper
@@ -349,6 +351,7 @@ tomcli set crates/salsa/Cargo.toml str \
     '../salsa-macros'
 # Remove examples, and omit dev-dependencies that are only for examples:
 rm -rv crates/salsa/examples/
+tomcli set crates/salsa/Cargo.toml del example
 for crate in crossbeam-channel eyre notify-debouncer-mini ordered-float
 do
   tomcli set crates/salsa/Cargo.toml del "dev-dependencies.${crate}"
@@ -508,12 +511,12 @@ skip="${skip-} --skip color/"
 #   error: no matching package named `boxcar` found
 #   location searched: crates.io index
 skip="${skip-} --skip compile_fail"
-%ifarch s390x %{power64}
-# These tests (in the bundled salsa) are flaky on s390x and (rarely) ppc64le.
+
+# These tests (in the bundled salsa) are flaky on all architectures, although
+# not with equal frequency: https://github.com/salsa-rs/salsa/issues/994
 skip="${skip-} --skip parallel_join::execute_cancellation"
 skip="${skip-} --skip parallel_map::execute_cancellation"
 skip="${skip-} --skip parallel_scope::execute_cancellation"
-%endif
 
 %cargo_test -- -- ${skip-}
 %endif

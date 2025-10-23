@@ -1,6 +1,6 @@
 Name: astromenace
 Version:  1.4.3
-Release:  3%{?dist}
+Release:  4%{?dist}
 Summary: Hardcore 3D space shooter with spaceship upgrade possibilities  
 
 License: GPL-3.0-only
@@ -37,7 +37,7 @@ Go ahead and make alien aggressors regret their insolence.
 %setup -q
 
 %build
-%cmake %_vpath_srcdir -G Ninja -DDATADIR="%{_prefix}/share/astromenace"i -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+%cmake %_vpath_srcdir -G Ninja -DDATADIR="%{_datadir}/astromenace" -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake_build
 
 %__cmake_builddir/astromenace --pack --rawdata=./gamedata --dir=./
@@ -106,6 +106,9 @@ EOF
 %{_datadir}/astromenace/
 
 %changelog
+* Tue Oct 21 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 1.4.3-4
+- Fix datadir definition
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

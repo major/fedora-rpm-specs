@@ -8,26 +8,37 @@ License:        Apache-2.0
 URL:            https://github.com/huggingface/datasets
 Source:         %{pypi_source datasets}
 
-# Extras that depend on PyTorch should only exist on arches with PyTorch
-%ifarch %{x86_64} %{arm64}
-%bcond torch 1
-%else
-%bcond torch 0
-%endif
-
-# The base package is arched not because it contains arch-specific code, but
-# because it depends on packages only built on some arches. (PyTorch, mainly.)
-# Disable debug package generation because it fails; there is no complied code!
-%global debug_package %{nil}
-# Builds fail on i686, which isn't a main arch anymore. Just drop it.
-# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch:    %{ix86}
-
 BuildRequires:  python3-devel
 # Test requires
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pytest-datadir)
 BuildRequires:  python3dist(pytest-xdist)
+
+# The base package is arched not because it contains arch-specific code, but
+# because it depends on packages only built on some arches. (PyTorch, mainly.)
+# Disable debug package generation because it fails; there is no complied code!
+%global debug_package %{nil}
+
+# Builds fail on i686, which isn't a main arch anymore. Just drop it.
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
+# Define our own pytorch_arches macro until we have one system-wide.
+%if %{undefined pytorch_arches}
+# Match the pytorch package's current (as of F43) arch support plans.
+%if 0%{?fedora} < 45
+%global pytorch_arches %{x86_64} %{arm64}
+%else
+%global pytorch_arches %{x86_64}
+%endif
+%endif
+
+# Extras that depend on PyTorch should only exist on arches with PyTorch
+%ifarch %{pytorch_arches}
+%bcond torch 1
+%else
+%bcond torch 0
+%endif
 
 
 %global _description %{expand:

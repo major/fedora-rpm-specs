@@ -7,6 +7,10 @@ Summary:        A tool for compliance with the REUSE recommendations
 License:        Apache-2.0 AND CC0-1.0 AND CC-BY-SA-4.0 AND GPL-3.0-or-later
 Url:            https://github.com/fsfe/reuse-tool
 Source0:        %pypi_source
+# workaround for python-file-magic issues
+# https://github.com/fsfe/reuse-tool/issues/1261
+Source1:        reuse-chardet.sh
+Source2:        reuse-chardet.csh
 
 Patch:  0001-remove-dependency-on-python-magic.patch
 
@@ -60,6 +64,8 @@ popd
 
 install -p -m0644 -Dt "${RPM_BUILD_ROOT}%{_mandir}/man1" docs/manpages/*.1
 
+install -p -m0644 -Dt "${RPM_BUILD_ROOT}%{_sysconfdir}/profile.d/" '%{SOURCE1}' '%{SOURCE2}'
+
 %check
 # Note: just running %%{pytest} does not work, since the path manipulation
 # by that macro and `--doctest-modules` confuse the import machinery too much.
@@ -72,6 +78,7 @@ install -p -m0644 -Dt "${RPM_BUILD_ROOT}%{_mandir}/man1" docs/manpages/*.1
 %{_bindir}/reuse
 %{_mandir}/man1/reuse.1*
 %{_mandir}/man1/reuse-*.1*
+%{_sysconfdir}/profile.d/reuse-chardet.*
 
 %changelog
 %autochangelog

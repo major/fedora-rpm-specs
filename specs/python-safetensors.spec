@@ -17,22 +17,33 @@ SourceLicense:  Apache-2.0
 URL:            https://github.com/huggingface/safetensors
 Source:         %{url}/archive/refs/tags/v%{version}/safetensors-%{version}.tar.gz
 
+BuildRequires:  python3-devel
+BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  tomcli
+# Test requirements
+BuildRequires:  python3dist(pytest)
+# https://github.com/huggingface/safetensors/pull/640
+BuildRequires:  python3dist(fsspec)
+
 # Exclude i686 because rust-safetensors does
-ExcludeArch:   %{ix86}
-# Right now, torch is exclusive to x86_64 and aarch64 so only build the torch extra on those arches.
-%ifarch %{x86_64} %{arm64}
+ExcludeArch:    %{ix86}
+
+# Define our own pytorch_arches macro until we have one system-wide.
+%if %{undefined pytorch_arches}
+# Match the pytorch package's current (as of F43) arch support plans.
+%if 0%{?fedora} < 45
+%global pytorch_arches %{x86_64} %{arm64}
+%else
+%global pytorch_arches %{x86_64}
+%endif
+%endif
+
+# Only include the torch extras on arches with PyTorch
+%ifarch %{pytorch_arches}
 %bcond torch 1
 %else
 %bcond torch 0
 %endif
-
-BuildRequires:	python3-devel
-BuildRequires:	cargo-rpm-macros >= 24
-BuildRequires:	tomcli
-# Test requirements
-BuildRequires:	python3dist(pytest)
-# https://github.com/huggingface/safetensors/pull/640
-BuildRequires:	python3dist(fsspec)
 
 %global _description %{expand:
 This library implements a new simple format for storing tensors safely
@@ -41,7 +52,7 @@ This library implements a new simple format for storing tensors safely
 %description %_description
 
 %package -n python3-safetensors
-Summary:	%{summary}
+Summary:        %{summary}
 
 %description -n python3-safetensors %_description
 

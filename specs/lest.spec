@@ -1,15 +1,11 @@
 Name:           lest
-Version:        1.35.2
+Version:        1.36.0
 Release:        %autorelease
 Summary:        Tiny C++11 test framework
 
 License:        BSL-1.0
 URL:            https://github.com/martinmoene/lest
 Source:         %{url}/archive/v%{version}/lest-%{version}.tar.gz
-
-# Fix some text-incoding inconsistencies
-# https://github.com/martinmoene/lest/pull/77
-Patch:          %{url}/pull/77.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake

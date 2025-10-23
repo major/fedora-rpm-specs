@@ -5,7 +5,7 @@
 %endif
 
 Name:           cloud-init
-Version:        25.2
+Version:        25.3
 Release:        %autorelease
 Summary:        Cloud instance init scripts
 License:        Apache-2.0 OR GPL-3.0-only
@@ -14,23 +14,18 @@ URL:            https://github.com/canonical/cloud-init
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:        cloud-init-tmpfiles.conf
 
-# https://github.com/canonical/cloud-init/pull/6448
-# Removes auditd.service dependency to prevent systemd ordering issues
-Patch:          6448.patch
 # https://github.com/canonical/cloud-init/pull/6423
 # Fixes systemd dependency cycle on Fedora by adding DefaultDependencies=no
 # and including Fedora in distribution-specific conditional blocks
 Patch:          0001-fix-avoid-dependency-cycle-on-Fedora.patch
-# https://github.com/canonical/cloud-init/pull/6339
-# Switches socket protocol from DGRAM to STREAM and removes ncat's -s flag
-# for proper systemd service coordination
-Patch:          6339.patch
 
 BuildArch:      noarch
 
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  python3-devel
 BuildRequires:  pkgconfig(systemd)
+BuildRequires:  pkgconfig(bash-completion)
+BuildRequires:  meson
 
 %if %{with tests}
 BuildRequires:  iproute
@@ -52,6 +47,16 @@ Requires:       hostname
 Requires:       e2fsprogs
 Requires:       iproute
 Requires:       python3-libselinux
+# cloud-init builds with meson and continues to install an egg-info directory.
+# It's not clear if it's possible to use the Python auto-generated run-time requirement
+# with cloud-init's current setup. Something to try to fix upstream, I suppose.
+Requires:       %{py3_dist configobj}
+Requires:       %{py3_dist jinja2}
+Requires:       %{py3_dist jsonpatch}
+Requires:       %{py3_dist jsonschema}
+Requires:       %{py3_dist oauthlib}
+Requires:       %{py3_dist pyyaml}
+Requires:       %{py3_dist requests}
 Requires:       policycoreutils-python3
 Requires:       procps
 Requires:       shadow-utils
@@ -72,10 +77,6 @@ ssh keys and to let the user run various scripts.
 %prep
 %autosetup -p1
 
-# Change shebangs
-sed -i -e 's|#!/usr/bin/env python|#!/usr/bin/env python3|' \
-       -e 's|#!/usr/bin/python|#!/usr/bin/python3|' tools/* cloudinit/ssh_util.py
-
 # Removing shebang manually because of rpmlint, will update upstream later
 sed -i -e 's|#!/usr/bin/python||' cloudinit/cmd/main.py
 
@@ -84,20 +85,21 @@ sed -i -e 's|#!/usr/bin/python||' cloudinit/cmd/main.py
 find tests/ -type f | xargs sed -i s/unittest2/unittest/
 find tests/ -type f | xargs sed -i s/assertItemsEqual/assertCountEqual/
 
-
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires -N requirements.txt
+
+
+%conf
+%meson -Dinit_system=systemd -Ddisable_sshd_keygen=true
 
 
 %build
-%py3_build
+%meson_build
 
 
 %install
-%py3_install -- --init-system=systemd
-
-# Generate cloud-config file
-python3 tools/render-template --variant %{?rhel:rhel}%{!?rhel:fedora} > $RPM_BUILD_ROOT/%{_sysconfdir}/cloud/cloud.cfg
+%meson_install
+%py3_shebang_fix %{buildroot}%{_bindir}/
 
 mkdir -p $RPM_BUILD_ROOT/var/lib/cloud
 
@@ -109,17 +111,11 @@ cp -p %{SOURCE1} $RPM_BUILD_ROOT/%{_tmpfilesdir}/%{name}.conf
 mkdir -p $RPM_BUILD_ROOT/%{_sysconfdir}/rsyslog.d
 cp -p tools/21-cloudinit.conf $RPM_BUILD_ROOT/%{_sysconfdir}/rsyslog.d/21-cloudinit.conf
 
-# installing man pages
-mkdir -p ${RPM_BUILD_ROOT}%{_mandir}/man1/
-for man in cloud-id.1 cloud-init.1 cloud-init-per.1; do
-    install -c -m 0644 doc/man/${man} ${RPM_BUILD_ROOT}%{_mandir}/man1/${man}
-    chmod -x ${RPM_BUILD_ROOT}%{_mandir}/man1/*
-done
-
 
 %check
 %if %{with tests}
-python3 -m pytest tests/unittests
+%py3_check_import cloudinit
+%meson test -C builddir -v
 %else
 %py3_check_import cloudinit
 %endif

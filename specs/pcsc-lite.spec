@@ -6,8 +6,8 @@
 %endif
 
 Name:           pcsc-lite
-Version:        2.3.3
-Release:        3%{?dist}
+Version:        2.4.0
+Release:        1%{?dist}
 Summary:        PC/SC Lite smart card framework and applications
 
 License:        BSD-3-Clause AND BSD-2-Clause AND GPL-3.0-or-later
@@ -115,9 +115,6 @@ mkdir -p $RPM_BUILD_ROOT%{_localstatedir}/run/pcscd
 
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
-# remove static archives .a
-rm $RPM_BUILD_ROOT%{_libdir}/libpcsclite.a
-
 %post
 %systemd_post pcscd.socket pcscd.service
 # If install, test if pcscd socket is enabled.
@@ -164,6 +161,7 @@ fi
 %license COPYING
 %{_libdir}/libpcsclite.so.*
 %{_libdir}/libpcsclite_real.so.*
+%{_sysusersdir}/pcscd-sysusers.conf
 
 %files devel
 %{_bindir}/pcsc-spy
@@ -180,6 +178,9 @@ fi
 
 
 %changelog
+* Tue Oct 21 2025 Jakub Jelen <jjelen@redhat.com> - 2.4.0-1
+- New upstream release (#2356956)
+
 * Sat Sep 06 2025 Paul Bolle <pebolle@tiscali.nl> - 2.3.3-3
 - Remove unneeded %{_sysconfdir} directory from %files
 

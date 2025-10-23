@@ -2,7 +2,7 @@
 %bcond_without ninja_build
 
 Name:           ddnet
-Version:        19.4
+Version:        19.5
 Release:        1%{?dist}
 Summary:        DDraceNetwork, a cooperative racing mod of Teeworlds
 
@@ -177,6 +177,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Fri Oct 17 2025 Rafael Fontenelle <rafaelff@gnome.org> - 19.5-1
+- Update to version 19.5
+- Resolves:  rhbz#2402159
+
 * Tue Sep 09 2025 Packit <hello@packit.dev> - 19.4-1
 - Update to version 19.4
 - Resolves: rhbz#2372837

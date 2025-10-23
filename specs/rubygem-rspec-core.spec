@@ -1,9 +1,9 @@
-%global	majorver	3.13.5
+%global	majorver	3.13.6
 #%%global	preminorver	.rc6
 %global	rpmminorver	.%(echo %preminorver | sed -e 's|^\\.\\.*||')
 %global	fullver	%{majorver}%{?preminorver}
 
-%global	baserelease	2
+%global	baserelease	1
 
 %global	gem_name	rspec-core
 
@@ -209,6 +209,9 @@ done
 %{gem_docdir}
 
 %changelog
+* Mon Oct 20 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.13.6-1
+- 3.13.6
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

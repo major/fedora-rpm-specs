@@ -57,7 +57,7 @@
 Name:    qt5-qtbase
 Summary: Qt5 - QtBase components
 Version: 5.15.17
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, for exception details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -188,6 +188,10 @@ Patch166: 0017-Fix-disabled-button-color-in-Linux-x11-wayland.patch
 Patch167: 0018-Fix-inactive-palette-in-gtk3-theme.patch
 Patch168: 0019-Fix-tooltip-palette-issue-in-gtk3-theme.patch
 Patch169: 0020-QGtk3Theme-define-light-midlight-mid-dark-shadow-colors.patch
+
+# Security
+# CVE-2025-5455 - https://download.qt.io/archive/qt/5.15/CVE-2025-5455-qtbase-5.15.patch
+Patch180: CVE-2025-5455-qtbase-5.15.patch 
 
 # Latest QGnomePlatform needs to be specified to be used
 Patch200: qtbase-use-qgnomeplatform-as-default-platform-theme-on-gnome.patch
@@ -504,6 +508,7 @@ Qt5 libraries used for drawing widgets and OpenGL items.
 %patch -P167 -p1
 %patch -P168 -p1
 %patch -P169 -p1
+%patch -P180 -p1
 %endif
 
 %if 0%{?fedora} < 39
@@ -1175,6 +1180,9 @@ fi
 
 
 %changelog
+* Tue Oct 21 2025 Than Ngo <than@redhat.com> - 5.15.17-7
+- Fix CVE-2025-5455, qt5-qtbase: QtCore Assertion Failure Denial of Service
+
 * Tue Sep 30 2025 Gwyn Ciesla <gwync@protonmail.com> - 5.15.17-6
 - Firebird 5 rebuild
 

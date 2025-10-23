@@ -4,7 +4,7 @@
 %define _binaries_in_noarch_packages_terminate_build 0
 
 Name:		linux-firmware
-Version:	20251011
+Version:	20251021
 Release:	1%{?dist}
 Summary:	Firmware files used by the Linux kernel
 License:	GPL-1.0-or-later AND GPL-2.0-or-later AND MIT AND LicenseRef-Callaway-Redistributable-no-modification-permitted
@@ -351,6 +351,7 @@ sed \
 	-i -e '/^i915/d' \
 	-i -e '/^intel\/avs/d' \
 	-i -e '/^intel\/catpt/d' \
+	-i -e '/^intel\/IntcSST2.bin/d' \
 	-i -e '/^intel\/dsp_fw/d' \
 	-i -e '/^intel\/fw_sst/d' \
 	-i -e '/^intel\/ipu/d' \
@@ -702,6 +703,7 @@ end
 %{_firmwarepath}/intel/catpt/*
 %{_firmwarepath}/intel/dsp_fw*
 %{_firmwarepath}/intel/fw_sst*
+%{_firmwarepath}/intel/IntcSST2.bin*
 
 # Random other hardware
 %files -n dvb-firmware
@@ -719,6 +721,25 @@ end
 %{_firmwarepath}/v4l-cx2*
 
 %changelog
+* Tue Oct 21 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 20251021-1
+- Update to 20251021
+- Revert "update firmware for MT7922 WiFi device"
+- QCA: Update Bluetooth WCN6856 firmware 2.1.0-00653 to 2.1.0-00659
+- iwlwifi: add Bz/Fm and gl FW for core98-161 release
+- iwlwifi: update Bz/Hr and Bz/Gf firmwares for core98-161 release
+- iwlwifi: update ty/So/Ma firmwares for core98-161 release
+- iwlwifi: update cc/Qu/QuZ firmwares for core98-161 release
+- intel: qat: Fix missing link
+- amdgpu: DMCUB updates for various ASICs
+- nvidia: add generic bootloader for GSP-enabled systems
+- qcom: sync audioreach firmwares from v1.0.0 build
+- qcom: vpu: rename firmware binaries
+- Intel IPU7: Update product signed firmware binary
+- i915: DMC Xe2LPD v2.29 / Xe3LPD v2.32 / Xe3LPD_3002 v2.27
+- WHENCE: nvidia: rearrange GSP-RM firmware lines
+- Add ISH firmware file for Intel Pather Lake platform
+- Update firmware file for Intel Magnetar/BlazarU/BlazarI core
+
 * Sat Oct 11 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 20251011-1
 - Update to 20251011
 - qcom: add CDSP firmware for kaanapali platform

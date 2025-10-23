@@ -1,18 +1,20 @@
 Name:           qmmp-plugin-pack
-Version:        2.2.2
-Release:        3%{?dist}
+Version:        2.3.0
+Release:        1%{?dist}
 Summary:        A set of extra plugins for Qmmp
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            http://qmmp.ylsoftware.com/plugins.php
-Source0:        %{url}/files/{%name}/2.2/%{name}-%{version}.tar.bz2
+Source0:        %{url}/files/{%name}/2.3/%{name}-%{version}.tar.bz2
 
-BuildRequires:  qmmp-devel >= 2.2.0
+BuildRequires:  qmmp-devel >= 2.3.0
 BuildRequires:  cmake
 BuildRequires:  ffmpeg-free-devel
+BuildRequires:  libmms-devel
 BuildRequires:  libmodplug-devel
 BuildRequires:  libsamplerate-devel
+BuildRequires:  mpv-devel
 BuildRequires:  qt6-qttools-devel
 BuildRequires:  taglib-devel
 
@@ -27,9 +29,11 @@ Plugin pack is a set of extra plugins for Qmmp.
  * FFap - enhanced Monkey's Audio (APE) decoder
    (24-bit samples and embedded cue support)
  * FFVideo - video playback engine based on FFmpeg library
- * ModPlug - module player with use of the libmodplug library
- * SRC - sample rate converter
  * Goom - audio visualization based on goom project
+ * MMS - MMS protocol support (uses libmms library)
+ * ModPlug - module player with use of the libmodplug library
+ * Mpv - video playback using mpv
+ * SRC - sample rate converter
  * Ytb - audio playback from YouTube (uses yt-dlp or youtube-dl)
 
 
@@ -39,6 +43,7 @@ Plugin pack is a set of extra plugins for Qmmp.
 
 %build
 %cmake \
+        -D USE_MPLAYER:BOOL=FALSE \
         -D PLUGIN_DIR=%{_lib}/qmmp
 %cmake_build
 
@@ -59,6 +64,12 @@ Plugin pack is a set of extra plugins for Qmmp.
 
 
 %changelog
+* Thu Oct 16 2025 Karel Volný <kvolny@redhat.com> 2.3.0-1
+- new version 2.3.0 (rhbz#2403551)
+- add MMS plugin (moved from qmmp)
+- add mpv plugin
+- see the upstream changelog at http://qmmp.ylsoftware.com/
+
 * Tue Jul 29 2025 Dominik Mierzejewski <dominik@greysector.net> - 2.2.2-3
 - drop unused yasm from BuildRequires:, part of:
   https://fedoraproject.org/wiki/Changes/DeprecateYASM

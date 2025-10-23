@@ -422,7 +422,7 @@ make check
 %{_libdir}/octave/packages/
 %{_libdir}/octave/site/
 %{_libexecdir}/octave/
-%{_mandir}/man1/octave*.1.*
+%{_mandir}/man1/octave*.1*
 %{_infodir}/liboctave.info*
 %{_infodir}/octave.info*
 %{_datadir}/applications/org.octave.Octave.desktop
@@ -449,7 +449,7 @@ make check
 %{_libdir}/pkgconfig/octave.pc
 %{_libdir}/pkgconfig/octinterp.pc
 %{_libdir}/pkgconfig/octmex.pc
-%{_mandir}/man1/mkoctfile.1.*
+%{_mandir}/man1/mkoctfile.1*
 
 %files doc
 %{_pkgdocdir}/examples/

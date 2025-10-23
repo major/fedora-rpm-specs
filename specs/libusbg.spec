@@ -5,7 +5,7 @@ Summary:       Library for USB gadget-configfs userspace functionality
 License:       LGPL-2.1-or-later
 
 URL:           https://github.com/libusbgx/libusbgx
-Source0:       https://github.com/libusbgx/libusbgx/archive/%{name}x-v%{version}.tar.gz
+Source0:       %{url}/archive/%{name}x-v%{version}.tar.gz
 
 BuildRequires: doxygen
 BuildRequires: gcc gcc-c++

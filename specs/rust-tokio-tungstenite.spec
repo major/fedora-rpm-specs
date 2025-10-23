@@ -5,7 +5,7 @@
 %global crate tokio-tungstenite
 
 Name:           rust-tokio-tungstenite
-Version:        0.26.2
+Version:        0.28.0
 Release:        %autorelease
 Summary:        Tokio binding for Tungstenite
 

@@ -15,10 +15,21 @@
 
 # PETSc fails yet on s390x
 # Abort(76) on node 1 (rank 0 in comm 16): application called MPI_Abort(MPI_COMM_SELF, 76) - process 0
+%if 0%{?fedora}
 %ifnarch s390x
 %bcond_without check
 %else
 %bcond_with check
+%endif
+%endif
+
+# Openmpi-5.0.6 mpirun fails to run due to https://github.com/open-mpi/ompi/issues/12939 
+%if 0%{?rhel}
+%ifnarch s390x
+%bcond_with check
+%else
+%bcond_with check
+%endif
 %endif
 
 %global pymodule_name petsc4py
@@ -389,6 +400,7 @@ Portable Extensible Toolkit for Scientific Computation (developer files)
 %package openmpi
 Summary:    Portable Extensible Toolkit for Scientific Computation (OpenMPI)
 BuildRequires: openmpi-devel
+BuildRequires: prrte
 %if %{with hdf5}
 BuildRequires: hdf5-openmpi-devel
 %endif

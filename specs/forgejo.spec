@@ -12,20 +12,18 @@
 %global __node_deps_provides %{S:10} %{_builddir}/%{name}-src-%{version}/package-lock.json
 %global __node_deps_path ^%{_bindir}/%{name}$
 
-%global pagure_migrator_gitrev c9a5694dd2
-
 Name:           forgejo
-Version:        12.0.4
+Version:        13.0.1
 Release:        %autorelease
 Summary:        A lightweight software forge
 
 # CC0-1.0 is normally not permissible for code in Fedora. Because the vendored Go package
 # github.com/zeebo/blake3 it applies to has been available in Fedora as golang-github-zeebo-blake3
 # since before the cutoff date 2022-08-01, the exception to use it also applies here.
-%global vendored_go_mod_licenses Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-3.0-or-later AND ICU AND ISC AND LicenseRef-Fedora-Public-Domain AND MIT AND MPL-2.0 AND (FTL OR GPL-2.0-or-later)
+%global vendored_go_mod_licenses 0BSD AND AGPL-3.0-only AND Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-3.0-only AND GPL-3.0-or-later AND ICU AND ISC AND MIT AND MPL-2.0 AND (FTL OR GPL-2.0-or-later)
 
 # Determined using forgejo-node-get-licenses.py
-%global vendored_node_mod_licenses (BSD-2-Clause OR MIT OR Apache-2.0) AND BSD-3-Clause AND ISC AND PSF-2.0 AND CC-BY-3.0 AND Apache-2.0 AND (MIT OR CC0-1.0) AND MIT AND (MIT OR Apache-2.0) AND BlueOak-1.0.0 AND MIT-0 AND (MIT AND CC-BY-3.0) AND 0BSD AND MPL-2.0 AND BSD-2-Clause AND LGPL-3.0-only AND CC0-1.0 AND CC-BY-4.0 AND (MPL-2.0 OR Apache-2.0) AND Unlicense
+%global vendored_node_mod_licenses Apache-2.0 AND LGPL-3.0-or-later AND Unlicense AND PSF-2.0 AND (BSD-2-Clause OR MIT OR Apache-2.0) AND CC-BY-4.0 AND CC-BY-3.0 AND MIT-0 AND Apache-2.0 AND LGPL-3.0-only AND BSD-2-Clause AND LGPL-3.0-or-later AND (MIT OR Apache-2.0) AND Apache-2.0 AND LGPL-3.0-or-later AND MIT AND ISC AND BSD-3-Clause AND BlueOak-1.0.0 AND (MPL-2.0 OR Apache-2.0) AND MPL-2.0 AND 0BSD AND CC0-1.0 AND MIT AND (MIT AND CC-BY-3.0) AND (MIT OR CC0-1.0)
 
 # Forgejo itself is "MIT AND GPL-3.0-or-later", the following is the combination with vendored
 # sources.
@@ -54,12 +52,6 @@ Source10:       forgejo-node-deps-provides.py
 Source11:       forgejo-node-get-licenses.py
 
 Patch0:         forgejo-10.0.1-app.ini.tmpl.patch
-# Pagure migrator plugin. Generate from the pagure-migrator branch of
-# https://codeberg.org/ryanlerch/forgejo like this (assuming the branch is based off of the
-# v12.0/forgejo upstream branch):
-# git diff $(git merge-base v12.0/forgejo pagure-migrator) pagure-migrator | \
-#     gzip -9 -c > %%{name}-pagure-migrator-%%{pagure_migrator_gitrev}.patch.gz
-Patch1:         %{name}-pagure-migrator-%{pagure_migrator_gitrev}.patch.gz
 
 ExclusiveArch:  %golang_arches_future
 
@@ -94,8 +86,6 @@ them!
 %{gpgverify} --keyring='%{S:2}' --signature='%{S:1}' --data='%{S:0}'
 %autosetup -N -n %{name}-src-%{version}
 patch --input=%{PATCH0} --output=app.ini.tmpl custom/conf/app.example.ini
-
-%patch 1 -p1 -b .pagure-migrator
 
 
 %generate_buildrequires
