@@ -1,6 +1,6 @@
 Name:		perl-Apache-Session-Browseable
 Version:	1.3.18
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Add index and search methods to Apache::Session
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Apache-Session-Browseable
@@ -35,8 +35,10 @@ BuildRequires:	perl(JSON)
 BuildRequires:	perl(MIME::Base64)
 BuildRequires:	perl(Net::LDAP) >= 0.38
 BuildRequires:	perl(Net::LDAP::Util)
-# Prefers Redis::Fast but only Redis is available in Fedora at the moment
 BuildRequires:	perl(Redis)
+%if 0%{?fedora} || 0%{?rhel} >= 10
+BuildRequires:	perl(Redis::Fast)
+%endif
 BuildRequires:	perl(Storable)
 BuildRequires:	perl(strict)
 BuildRequires:	perl(vars)
@@ -52,10 +54,14 @@ BuildRequires:	perl(DBD::mysql)
 BuildRequires:	perl(DBD::Pg)
 BuildRequires:	perl(DBD::SQLite) > 1.19
 BuildRequires:	perl(DBI)
+BuildRequires:	valkey
 # Dependencies
 Requires:	perl(MIME::Base64)
 Requires:	perl(Redis)
 Requires:	perl(Storable)
+%if 0%{?fedora} || 0%{?rhel} >= 10
+Recommends:     perl(Redis::Fast)
+%endif
 
 %description
 A virtual Apache::Session back-end providing some class methods to manipulate
@@ -77,7 +83,9 @@ perl Build.PL --installdirs=vendor
 %{_fixperms} -c %{buildroot}
 
 %check
+valkey-server --port 6379 --pidfile /tmp/valkey.pid &
 ./Build test
+kill $(cat /tmp/valkey.pid)
 
 %files
 %license COPYRIGHT LICENSE
@@ -103,6 +111,10 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/Apache::Session::Serialize::JSON.3*
 
 %changelog
+* Fri Oct 17 2025 Xavier Bachelot <xavier@bachelot.org> - 1.3.18-2
+- BR:/Recommends: Redis::Fast where possible
+- Run Redis tests
+
 * Tue Sep 23 2025 Paul Howarth <paul@city-fan.org> - 1.3.18-1
 - Update to 1.3.18 (rhbz#2397597)
   - Add persistence option for Redis

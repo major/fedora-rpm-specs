@@ -128,7 +128,7 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 %{SOURCE1} %{SOURCE2}
 
 
 %files -n python3-hdfs+avro
-%ghost %{python3_sitelib}/*.dist-info
+%ghost %dir %{python3_sitelib}/*.dist-info
 
 %{_bindir}/hdfscli-avro
 %{_mandir}/man1/hdfscli-avro.1*

@@ -12,7 +12,7 @@
 
 Name: flang
 Version: %{flang_version}%{?rc_ver:~rc%{rc_ver}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: a Fortran language front-end designed for integration with LLVM
 
 License: Apache-2.0 WITH LLVM-exception
@@ -239,6 +239,12 @@ cp -r %{_vpath_builddir}/docs/html/* %{buildroot}%{_pkgdocdir}/html/
 cd ../runtimes
 %cmake_install
 
+# Create ld.so.conf.d entry
+mkdir -p %{buildroot}%{_sysconfdir}/ld.so.conf.d
+cat >> %{buildroot}%{_sysconfdir}/ld.so.conf.d/%{name}-%{_arch}.conf << EOF
+%{clang_resource_dir}/lib/%{llvm_triple}/
+EOF
+
 %check
 
 cd flang
@@ -339,8 +345,12 @@ export LD_LIBRARY_PATH=%{_builddir}/%{srcdir}/flang/%{_vpath_builddir}/lib
 %{_libdir}/libFortranDecimal.so.%{maj_ver}.%{min_ver}*
 %{clang_resource_dir}/lib/%{llvm_triple}/libflang_rt.runtime.so
 %{clang_resource_dir}/lib/%{llvm_triple}/libflang_rt.runtime.a
+%config(noreplace) %{_sysconfdir}/ld.so.conf.d/%{name}-%{_arch}.conf
 
 %changelog
+* Fri Oct 17 2025 Tom Stellard <tstellar@redhat.com> - 21.1.3-2
+- Add flang runtimes libraries to ld.so search path
+
 * Sat Oct 11 2025 Tom Stellard <tstellar@redhat.com> - 21.1.3-1
 - Update to LLVM 21.1.3
 

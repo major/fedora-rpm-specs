@@ -5,7 +5,7 @@
 %global crate owo-colors
 
 Name:           rust-owo-colors
-Version:        4.2.2
+Version:        4.2.3
 Release:        %autorelease
 Summary:        Zero-allocation terminal colors that'll make people go owo
 

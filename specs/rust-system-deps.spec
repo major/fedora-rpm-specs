@@ -6,7 +6,7 @@
 %global crate system-deps
 
 Name:           rust-system-deps
-Version:        7.0.5
+Version:        7.0.6
 Release:        %autorelease
 Summary:        Declarative system dependencies in Cargo.toml
 

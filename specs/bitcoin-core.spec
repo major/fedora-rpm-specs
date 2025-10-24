@@ -107,7 +107,7 @@ to run a Bitcoin wallet, this is probably the package you want.
 
 %package devel
 Summary:    Peer-to-peer digital currency
-Requires:   lib%{project_name} = %{version}-%{release}
+Requires:   lib%{project_name}kernel = %{version}-%{release}
 
 %description devel
 This package contains the bitcoin utility tool.

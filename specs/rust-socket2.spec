@@ -5,7 +5,7 @@
 %global crate socket2
 
 Name:           rust-socket2
-Version:        0.6.0
+Version:        0.6.1
 Release:        %autorelease
 Summary:        Utilities for handling networking sockets
 

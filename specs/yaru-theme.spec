@@ -3,7 +3,7 @@
 %global _license COPYING COPYING.LGPL-2.1 COPYING.LGPL-3.0 LICENSE_CCBYSA
 
 Name:       yaru-theme
-Version:    25.04.2
+Version:    25.10.3
 %forgemeta
 Release:    %autorelease
 Summary:    Ubuntu community theme "yaru"

@@ -1,7 +1,7 @@
 %global octpkg statistics
 
 Name:           octave-%{octpkg}
-Version:        1.7.5
+Version:        1.7.6
 Release:        %autorelease
 Summary:        Additional statistics functions for Octave
 License:        GPL-3.0-or-later AND LicenseRef-Fedora-Public-Domain
@@ -21,6 +21,12 @@ Requires(postun): octave
 %description
 Additional statistics functions for Octave.
 
+%package        demos
+Summary:        Demo files for using %{name}
+Requires:       %{name} = %{version}-%{release}
+
+%description    demos
+Demo files for using %{name}.
 
 %prep
 %setup -qcT
@@ -65,6 +71,8 @@ chmod a-x %{buildroot}/%{octpkgdir}/*.m
 %{octpkgdir}/shadow9/
 %{octpkglibdir}/
 
+%files demos
+%{octpkgdir}/demos/
 
 %changelog
 %autochangelog

@@ -1,7 +1,7 @@
 %global utf8_range_commit 72c943dea2b9240cd09efde15191e144bc7c7d38
 %global utf8_range_name utf8_range-%( echo %utf8_range_commit | cut -c1-7 )
 
-%if 0%{?fedora}
+%if 0%{?fedora} && ! 0%{?flatpak}
 %ifarch x86_64
 %bcond rocm 1
 %else

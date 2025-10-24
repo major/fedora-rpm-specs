@@ -1,6 +1,6 @@
 %global forgeurl https://github.com/svarshavchik/%{name}
-%global commit   fc87e2caa1df0df7e71cf431ebf157b65ceecc69
-%global date     20250322
+%global commit   71c2a694e7336d2aee1e99665ee8e460451847f7
+%global date     20251021
 %forgemeta
 
 Name:           clean-rpm-gpg-pubkey
@@ -16,6 +16,7 @@ BuildRequires:  perl-generators
 Requires:       /usr/bin/curl
 Requires:       /usr/bin/gpg2
 Requires:       /usr/bin/rpm
+Requires:       /usr/bin/rpmkeys
 Requires:       fedora-release-common
 Requires:       fedora-repos
 

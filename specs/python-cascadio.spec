@@ -3,7 +3,7 @@
 %bcond tests %{without bootstrap}
 
 Name:           python-cascadio
-Version:        0.0.16
+Version:        0.0.17
 Release:        %autorelease
 Summary:        Convert STEP files to GLB using OpenCASCADE
 

@@ -2,22 +2,25 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate regex-lite
+%global crate reqsign
 
-Name:           rust-regex-lite
-Version:        0.1.8
+Name:           rust-reqsign
+Version:        0.17.0
 Release:        %autorelease
-Summary:        Lightweight regex engine that optimizes for binary size and compilation time
+Summary:        Signing HTTP requests for popular cloud services
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/regex-lite
+License:        Apache-2.0
+URL:            https://crates.io/crates/reqsign
 Source:         %{crates_source}
+# * Fix license files missing from published crates
+# * https://github.com/apache/opendal-reqsign/pull/635
+Source10:       https://github.com/apache/opendal-reqsign/raw/refs/tags/v%{version}/LICENSE
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-A lightweight regex engine that optimizes for binary size and
-compilation time.}
+Signing HTTP requests for AWS, Azure, Google, Huawei, Aliyun, Tencent
+and Oracle services.}
 
 %description %{_description}
 
@@ -31,8 +34,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
+%license %{crate_instdir}/LICENSE
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -48,32 +50,34 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+std-devel
+%package     -n %{name}+aws-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+std-devel %{_description}
+%description -n %{name}+aws-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "std" feature of the "%{crate}" crate.
+use the "aws" feature of the "%{crate}" crate.
 
-%files       -n %{name}+std-devel
+%files       -n %{name}+aws-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+string-devel
+%package     -n %{name}+default-context-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+string-devel %{_description}
+%description -n %{name}+default-context-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "string" feature of the "%{crate}" crate.
+use the "default-context" feature of the "%{crate}" crate.
 
-%files       -n %{name}+string-devel
+%files       -n %{name}+default-context-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
+# Copy the license file into the source.
+cp -p '%{SOURCE10}' .
 %cargo_prep
 
 %generate_buildrequires
@@ -87,9 +91,7 @@ use the "string" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# * integration tests can only be run in-tree
-%cargo_test -- --lib
-%cargo_test -- --doc
+%cargo_test
 %endif
 
 %changelog

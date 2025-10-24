@@ -49,7 +49,6 @@ BuildRequires:  python%{python3_pkgversion}-iso8601
 BuildRequires:  python%{python3_pkgversion}-pretend
 BuildRequires:  python%{python3_pkgversion}-pytest-benchmark
 BuildRequires:  python%{python3_pkgversion}-pytest-xdist
-BuildRequires:  python%{python3_pkgversion}-pytz
 %endif
 BuildRequires:  python%{python3_pkgversion}-pytest >= 6.2.0
 %endif
@@ -120,7 +119,7 @@ find . -name Cargo.toml -print -delete
 %check
 %if %{with tests}
 %if 0%{?rhel}
-# skip benchmark, hypothesis, and pytz tests on RHEL
+# skip benchmark and hypothesis tests on RHEL
 rm -rf tests/bench tests/hypothesis
 # append skipper to skip iso8601 and pretend tests
 cat < %{SOURCE2} >> tests/conftest.py

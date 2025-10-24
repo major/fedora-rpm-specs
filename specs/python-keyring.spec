@@ -141,7 +141,7 @@ PYTHONPATH='%{buildroot}%{python3_sitelib}' help2man \
 %{zsh_completions_dir}/_keyring
 %config(noreplace) %{_sysconfdir}/profile.d/keyring.csh
 
-%ghost %{python3_sitelib}/*.dist-info
+%ghost %dir %{python3_sitelib}/*.dist-info
 
 
 %changelog

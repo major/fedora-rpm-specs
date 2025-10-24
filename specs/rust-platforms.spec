@@ -5,7 +5,7 @@
 %global crate platforms
 
 Name:           rust-platforms
-Version:        3.6.0
+Version:        3.7.0
 Release:        %autorelease
 Summary:        Rust platform registry with information about valid Rust platforms
 

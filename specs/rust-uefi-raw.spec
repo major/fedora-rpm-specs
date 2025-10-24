@@ -4,16 +4,17 @@
 
 %global crate uefi-raw
 
+# compile and run tests only on supported architectures
+%global unsupported_arches ppc64le s390x
+
 Name:           rust-uefi-raw
-Version:        0.11.0
+Version:        0.12.0
 Release:        %autorelease
 Summary:        Raw UEFI types and bindings for protocols, boot, and runtime services
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/uefi-raw
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-Patch:          uefi-raw-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -61,14 +62,18 @@ use the "default" feature of the "%{crate}" crate.
 %cargo_generate_buildrequires
 
 %build
+%ifnarch %{unsupported_arches}
 %cargo_build
+%endif
 
 %install
 %cargo_install
 
 %if %{with check}
+%ifnarch %{unsupported_arches}
 %check
 %cargo_test
+%endif
 %endif
 
 %changelog

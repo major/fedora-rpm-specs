@@ -2,7 +2,7 @@
 
 Name:               python-kajiki
 Version:            1.0.2
-Release:            5%{?dist}
+Release:            6%{?dist}
 Summary:            Really fast well-formed xml templates
 
 License:            MIT
@@ -14,7 +14,6 @@ BuildArch:          noarch
 BuildRequires:      python3-devel
 #BuildRequires:      python3-setuptools
 #BuildRequires:      python3-babel
-#BuildRequires:      python3-pytz
 BuildRequires:      python3-pytest
 
 
@@ -31,7 +30,6 @@ Summary:            Really fast well-formed xml templates
 %{?python_provide:%python_provide python3-kajiki}
 
 Requires:           python3-babel
-Requires:           python3-pytz
 
 %description -n python3-kajiki
 Are you tired of the slow performance of Genshi? But you still long for the
@@ -62,6 +60,9 @@ speed! Don't delay! Pick up your copy of Kajiki today!
 %{_bindir}/kajiki
 
 %changelog
+* Wed Oct 22 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 1.0.2-6
+- Drop pytz, not used upstream
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0.2-5
 - Rebuilt for Python 3.14.0rc3 bytecode
 

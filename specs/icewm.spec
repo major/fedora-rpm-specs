@@ -11,7 +11,7 @@
 %global awe_shortcommit %(c=%{awe_commit}; echo ${c:0:7})
 
 Name:           icewm
-Version:        3.8.1
+Version:        3.9.0
 %forgemeta
 Release:        %autorelease
 Summary:        Window manager designed for speed, usability, and consistency
@@ -54,12 +54,12 @@ BuildRequires:  pkgconfig(sm)
 BuildRequires:  pkgconfig(sndfile)
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xcomposite)
+BuildRequires:  pkgconfig(xcursor)
 BuildRequires:  pkgconfig(xdamage)
 BuildRequires:  pkgconfig(xext)
 BuildRequires:  pkgconfig(xfixes)
 BuildRequires:  pkgconfig(xft)
 BuildRequires:  pkgconfig(xinerama)
-BuildRequires:  pkgconfig(xpm)
 BuildRequires:  pkgconfig(xrandr)
 BuildRequires:  pkgconfig(xrender)
 
@@ -173,7 +173,6 @@ autoreconf -fiv
     -DCFGDIR=%{_sysconfdir}/%{name} \
     -DCONFIG_LIBPNG=on \
     -DCONFIG_LIBRSVG=on \
-    -DCONFIG_XPM=on \
     -DXTERMCMD=%{_bindir}/xterm \
     %{nil}
 %endif

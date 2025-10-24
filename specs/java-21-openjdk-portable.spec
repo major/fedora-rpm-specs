@@ -348,7 +348,7 @@
 # New Version-String scheme-style defines
 %global featurever 21
 %global interimver 0
-%global updatever 8
+%global updatever 9
 %global patchver 0
 # buildjdkver is usually same as %%{featurever},
 # but in time of bootstrap of next jdk, it is featurever-1,
@@ -412,8 +412,8 @@
 %global origin_nice     OpenJDK
 %global top_level_dir_name   %{vcstag}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
-%global buildver        9
-%global rpmrelease      2
+%global buildver        10
+%global rpmrelease      1
 #%%global tagsuffix     %%{nil}
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
@@ -577,7 +577,7 @@ ExcludeArch: %{ix86}
 
 Name:    java-%{javaver}-%{origin}-portable%{?pkgos:-%{pkgos}}
 Version: %{newjavaver}.%{buildver}
-Release: %{?eaprefix}%{rpmrelease}%{?extraver}%{?dist}.2
+Release: %{?eaprefix}%{rpmrelease}%{?extraver}%{?dist}
 # java-1.5.0-ibm from jpackage.org set Epoch to 1 for unknown reasons
 # and this change was brought into RHEL-4. java-1.5.0-ibm packages
 # also included the epoch in their virtual provides. This created a
@@ -700,8 +700,6 @@ Patch1001: fips-%{featurever}u-%{fipsver}.patch
 # OpenJDK patches in need of upstreaming
 #
 #############################################
-# Fix rawhide build failure with GCC 15
-Patch1100: 0001-Fix-name-class-of-uabs-with-GCC-15.patch
 
 #############################################
 #
@@ -1014,7 +1012,6 @@ pushd %{top_level_dir_name}
 # Add crypto policy and FIPS support
 %patch -P1001 -p1
 # Patches in need of upstreaming
-%patch -P1100 -p1
 popd # openjdk
 
 

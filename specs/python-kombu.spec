@@ -46,7 +46,6 @@ BuildRequires:  python3-setuptools
 BuildRequires:  python3-amqp
 BuildRequires:  python3-pymongo
 BuildRequires:  python3-vine
-BuildRequires:  python3-pytz
 BuildRequires:  python3-sqlalchemy
 BuildRequires:  python3-boto3
 BuildRequires:  python3-pytest

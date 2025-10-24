@@ -39,7 +39,6 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 # for tests
 BuildRequires:  python3-pytest
-BuildRequires:  python3-pytz
 BuildRequires:  python3-ordered-set
 BuildRequires:  python3-dateutil
 BuildRequires:  python3-simplejson

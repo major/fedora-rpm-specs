@@ -1,5 +1,5 @@
 Name:       debmirror
-Version:    2.46
+Version:    2.47
 Release:    %autorelease
 Summary:    Debian partial mirror script, with ftp and package pool support
 License:    GPL-2.0-or-later

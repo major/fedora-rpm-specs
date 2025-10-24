@@ -5,7 +5,7 @@
 %global crate normpath
 
 Name:           rust-normpath
-Version:        1.4.0
+Version:        1.5.0
 Release:        %autorelease
 Summary:        More reliable path manipulation
 

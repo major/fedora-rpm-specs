@@ -1,5 +1,5 @@
-%global commit0 295712b113d5863ca2de0feeac478c73965c5dfd
-%global date 20251018
+%global commit0 e16cb0ffd8ff53a2ece9ef899f085120dc32a862
+%global date 20251021
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 #global tag %{version}
 

@@ -215,7 +215,7 @@ Patch:          0003-ignore-vendored-annotate-snippets-tests-that-hang-in.patch
 ExcludeArch:    %{ix86}
 
 # Memory exhaustion can occur. Increase as needed.
-%global _smp_tasksize_proc 8192
+%global _smp_tasksize_proc 16384
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  rust2rpm-helper

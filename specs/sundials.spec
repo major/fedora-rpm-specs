@@ -54,7 +54,7 @@
 %global with_superludist 0
 ###########
 
-%if 0%{?rhel} && 0%{?rhel} >= 9
+%if 0%{?fedora} || 0%{?rhel} >= 10
 # KLU support
 %global with_klu   1
 %global with_klu64 1
@@ -860,13 +860,8 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 %doc sundials-%{version}/NOTICE
 %{_libdir}/openmpi/lib/libsundials_nvecparallel.so.*
 %{_libdir}/openmpi/lib/libsundials_nvecparhyp.so.*
-%if 0%{?fedora}
-%ifarch %{arm} %{ix86}
 %if 0%{?with_petsc}
 %{_libdir}/openmpi/lib/libsundials_nvecpetsc.so.*
-%{_libdir}/openmpi/lib/libsundials_sunnonlinsolpetscsnes.so.*
-%endif
-%endif
 %endif
 %if %{with pthread}
 %{_libdir}/openmpi/lib/libsundials_nvecmpipthreads.so.*
@@ -915,13 +910,8 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 %endif
 %{_libdir}/openmpi/lib/libsundials_nvecparallel.so
 %{_libdir}/openmpi/lib/libsundials_nvecparhyp.so
-%if 0%{?fedora}
-%ifarch %{arm} %{ix86}
 %if 0%{?with_petsc}
 %{_libdir}/openmpi/lib/libsundials_nvecpetsc.so
-%{_libdir}/openmpi/lib/libsundials_sunnonlinsolpetscsnes.so
-%endif
-%endif
 %endif
 %if %{with pthread}
 %{_libdir}/openmpi/lib/libsundials_nvecmpipthreads.so
@@ -957,13 +947,8 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 %doc sundials-%{version}/NOTICE
 %{_libdir}/mpich/lib/libsundials_nvecparallel.so.*
 %{_libdir}/mpich/lib/libsundials_nvecparhyp.so.*
-%if 0%{?fedora}
-%ifarch %{arm} %{ix86}
 %if 0%{?with_petsc}
 %{_libdir}/mpich/lib/libsundials_nvecpetsc.so.*
-%{_libdir}/mpich/lib/libsundials_sunnonlinsolpetscsnes.so.*
-%endif
-%endif
 %endif
 %if %{with pthread}
 %{_libdir}/mpich/lib/libsundials_nvecmpipthreads.so.*
@@ -1013,13 +998,8 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 %{_libdir}/mpich/lib/*.a
 %{_libdir}/mpich/lib/libsundials_nvecparallel.so
 %{_libdir}/mpich/lib/libsundials_nvecparhyp.so
-%if 0%{?fedora}
-%ifarch %{arm} %{ix86}
 %if 0%{?with_petsc}
 %{_libdir}/mpich/lib/libsundials_nvecpetsc.so
-%{_libdir}/mpich/lib/libsundials_sunnonlinsolpetscsnes.so
-%endif
-%endif
 %endif
 %if %{with pthread}
 %{_libdir}/mpich/lib/libsundials_nvecmpipthreads.so

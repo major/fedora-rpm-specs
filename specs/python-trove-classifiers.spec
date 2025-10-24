@@ -14,7 +14,14 @@ Patch:          Move-to-PEP-621-declarative-metadata.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
+
+# Tests require python-iniconfig which requires python-trove-classifiers
+# The bcond is needed for new Python bootstrap
+%bcond tests 1
+
+%if %{with tests}
 BuildRequires:  python3-pytest
+%endif
 
 %global _description %{expand:
 Canonical source for classifiers on PyPI.
@@ -54,7 +61,10 @@ sed -i 's@{BINDIR}/@@' tests/test_cli.py
 
 
 %check
+%pyproject_check_import
+%if %{with tests}
 %pytest
+%endif
 
 
 %files -n python3-trove-classifiers -f %{pyproject_files}

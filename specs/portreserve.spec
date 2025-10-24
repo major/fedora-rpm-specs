@@ -3,7 +3,7 @@
 Summary: TCP port reservation utility
 Name: portreserve
 Version: 0.0.5
-Release: 38%{?dist}
+Release: 39%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL: http://cyberelk.net/tim/portreserve/
@@ -20,7 +20,7 @@ Requires(postun): systemd-units
 Requires(post): systemd-sysv
 
 BuildRequires: make
-BuildRequires:  gcc
+BuildRequires: gcc
 BuildRequires: xmlto
 BuildRequires: systemd-units
 Obsoletes: portreserve-selinux < 0.0.3-3
@@ -38,7 +38,7 @@ port (generally in the init script).
 %patch -P1 -p1 -b .pid-file
 
 %build
-%configure --sbindir=/sbin
+%configure --sbindir=%_sbindir
 make
 
 %install
@@ -78,10 +78,14 @@ EOF
 %dir %{_sysconfdir}/portreserve
 %config %{_tmpfilesdir}/portreserve.conf
 %{_unitdir}/portreserve.service
-/sbin/*
+%{_sbindir}/portreserve
+%{_sbindir}/portrelease
 %{_mandir}/*/*
 
 %changelog
+* Wed Oct 22 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.0.5-39
+- Use %%_sbindir for the binary (rhbz#2405415)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.5-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 %global crate xattr
 
 Name:           rust-xattr
-Version:        1.5.1
+Version:        1.6.1
 Release:        %autorelease
 Summary:        Unix extended filesystem attributes
 
@@ -76,9 +76,7 @@ use the "unsupported" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# * skip a test that fails on systems with SELinux enabled:
-#   https://github.com/Stebalien/xattr/issues/68
-%cargo_test -- -- --exact --skip test_debug
+%cargo_test
 %endif
 
 %changelog

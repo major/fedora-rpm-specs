@@ -95,6 +95,9 @@ Patch12:        plplot-cmake-c99.patch
 Patch13:        plplot-ocaml-link.patch
 # Fix for SWIG 4.3.0
 Patch14:        plplot-5.15.0-swig-4.3.patch
+# Fix for SWIG 4.4.0
+# https://sourceforge.net/p/plplot/support-requests/56/
+Patch15:        https://sourceforge.net/p/plplot/support-requests/_discuss/thread/bd326c8bff/fec5/attachment/plplot-5.15.0-swig-4.4.patch
 
 
 BuildRequires:  cmake >= 3.13.2
@@ -428,6 +431,7 @@ Requires:       wxGTK-devel%{?_isa}
 %patch -P12 -p1
 %patch -P13 -p1 -b .ocamlmklib
 %patch -P14 -p1
+%patch -P15 -p1
 # Use cmake FindLua
 rm cmake/modules/FindLua.cmake
 

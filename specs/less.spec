@@ -1,7 +1,7 @@
 Summary: A text file browser similar to more, but better
 Name: less
-Version: 679
-Release: 4%{?dist}
+Version: 685
+Release: 1%{?dist}
 License: GPL-3.0-only and BSD-2-Clause
 Source0: https://www.greenwoodsoftware.com/less/%{name}-%{version}.tar.gz
 Source1: lesspipe.sh
@@ -65,6 +65,9 @@ install -p -m 644 %{SOURCE4} $RPM_BUILD_ROOT/%{_mandir}/man1/lesspipe.sh.1
 %{_mandir}/man1/*
 
 %changelog
+* Wed Oct 22 2025 Michal Hlavinka <mhlavink@redhat.com> - 685-1
+- updated to 685 (#2404089)
+
 * Tue Sep 02 2025 Michal Hlavinka <mhlavink@redhat.com> - 679-4
 - add man page for lesspipe.sh (rhbz#2376159)
 

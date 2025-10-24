@@ -353,7 +353,7 @@
 # New Version-String scheme-style defines
 %global featurever 25
 %global interimver 0
-%global updatever 0
+%global updatever 1
 %global patchver 0
 # buildjdkver is usually same as %%{featurever},
 # but in time of bootstrap of next jdk, it is featurever-1,
@@ -369,7 +369,7 @@
   %global lts_designator_zip ""
 %endif
 # JDK to use for bootstrapping
-%global bootjdk /usr/lib/jvm/java-%{buildjdkver}-openjdk
+%global bootjdk /usr/lib/jvm/java-latest-openjdk
 # Define whether to use the bootstrap JDK directly or with a fresh libjvm.so
 # This will only work where the bootstrap JDK is the same major version
 # as the JDK being built
@@ -416,8 +416,8 @@
 %global origin_nice     OpenJDK
 %global top_level_dir_name   %{vcstag}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
-%global buildver        36
-%global rpmrelease      3
+%global buildver        8
+%global rpmrelease      1
 #%%global tagsuffix     %%{nil}
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk

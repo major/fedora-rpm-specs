@@ -2,8 +2,8 @@
 %global snapper_svcs snapper-boot.service snapper-boot.timer snapper-cleanup.service snapper-cleanup.timer snapper-timeline.service snapper-timeline.timer snapperd.service
 
 Name:           snapper
-Version:        0.11.0
-Release:        4%{?dist}
+Version:        0.13.0
+Release:        1%{?dist}
 Summary:        Tool for filesystem snapshot management
 
 License:        GPL-2.0-only
@@ -71,6 +71,13 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 %description tests
 %{summary}.
 
+%package backup
+Summary:        A backup program for snapper
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description backup
+A backup program for snapshots created by snapper.
+
 %package -n pam_snapper
 Summary:        PAM module for calling snapper
 BuildRequires:  pam-devel
@@ -79,25 +86,25 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %description -n pam_snapper
 A PAM module for calling snapper during user login and logout.
 
-%files tests
-%license COPYING
-%dir %{_libdir}/snapper
-%{_libdir}/snapper/testsuite/
-
 %prep
 %autosetup -p1
 # use libexecdir
 find -type f -exec sed -i -e "s|/usr/lib/snapper|%{_libexecdir}/%{name}|g" {} ';'
 
-%build
+%conf
 autoreconf -vfi
+# NOTE: --disable-bcachefs option removes support for bcachefs snapshots since bcachefs has
+# been removed from the upstream kernel
 # NOTE: --disable-ext4 option removes support for ext4 internal snapshots since the feature
 # never made it into upstream kernel
 %configure \
+  --disable-bcachefs \
   --disable-ext4 \
   --disable-zypp \
   --enable-selinux \
   %{nil}
+
+%build
 %make_build
 
 %install
@@ -140,7 +147,8 @@ done
 %{_sbindir}/mksubvolume
 %{_sbindir}/snapperd
 %config(noreplace) %{_sysconfdir}/logrotate.d/snapper
-%{_unitdir}/%{name}*
+%{_unitdir}/snapper-{timeline,cleanup,boot}.*
+%{_unitdir}/snapperd.service
 %{_datadir}/bash-completion/completions/snapper
 %{_datadir}/zsh/site-functions/_snapper
 %{_datadir}/dbus-1/system.d/org.opensuse.Snapper.conf
@@ -171,12 +179,30 @@ done
 %{_libdir}/libsnapper.so
 %{_includedir}/%{name}/
 
+%files tests
+%license COPYING
+%dir %{_libdir}/snapper
+%{_libdir}/snapper/testsuite/
+
+%files backup
+%{_sbindir}/snbk
+%dir %{_sysconfdir}/%{name}/backup-configs
+%dir %{_sysconfdir}/%{name}/certs
+%{_unitdir}/%{name}-{backup}.*
+%{_mandir}/*/snbk.8*
+%{_mandir}/*/%{name}-backup-configs.5*
+%{_datadir}/bash-completion/completions/snbk
+
+
 %files -n pam_snapper
 %{_libdir}/security/pam_snapper.so
 %{_prefix}/lib/pam_snapper/
 %{_mandir}/man8/pam_snapper.8*
 
 %changelog
+* Wed Oct 22 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.13.0-1
+- Rebase to 0.13.0
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

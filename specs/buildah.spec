@@ -32,7 +32,7 @@ Epoch: 2
 # If that's what you're reading, Version must be 0, and will be updated by Packit for
 # copr and koji builds.
 # If you're reading this on dist-git, the version is automatically filled in by Packit.
-Version: 1.41.5
+Version: 1.42.0
 # The `AND` needs to be uppercase in the License for SPDX compatibility
 License: Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0
 Release: %autorelease
@@ -139,6 +139,8 @@ export BUILDTAGS+=" libtrust_openssl"
 %gobuild -o bin/inet ./tests/inet
 %gobuild -o bin/dumpspec ./tests/dumpspec
 %gobuild -o bin/passwd ./tests/passwd
+%gobuild -o bin/crash ./tests/crash
+%gobuild -o bin/wait ./tests/wait
 %{__make} docs
 
 %install
@@ -152,6 +154,8 @@ cp bin/tutorial %{buildroot}/%{_bindir}/%{name}-tutorial
 cp bin/inet     %{buildroot}/%{_bindir}/%{name}-inet
 cp bin/dumpspec %{buildroot}/%{_bindir}/%{name}-dumpspec
 cp bin/passwd %{buildroot}/%{_bindir}/%{name}-passwd
+cp bin/crash %{buildroot}/%{_bindir}/%{name}-crash
+cp bin/wait %{buildroot}/%{_bindir}/%{name}-wait
 
 rm %{buildroot}%{_datadir}/%{name}/test/system/tools/build/*
 
@@ -178,6 +182,8 @@ rm %{buildroot}%{_datadir}/%{name}/test/system/tools/build/*
 %{_bindir}/%{name}-inet
 %{_bindir}/%{name}-dumpspec
 %{_bindir}/%{name}-passwd
+%{_bindir}/%{name}-crash
+%{_bindir}/%{name}-wait
 %{_datadir}/%{name}/test
 
 %changelog

@@ -65,12 +65,12 @@
 %bcond_with          liburiparser
 
 %global upver        8.5.0
-%global rcver        RC2
+%global rcver        RC3
 
 Summary: PHP scripting language for creating dynamic web sites
 Name: php
 Version: %{upver}%{?rcver:~%{rcver}}
-Release: 4%{?dist}
+Release: 1%{?dist}
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
 # TSRM is licensed under BSD
@@ -1488,6 +1488,9 @@ systemctl try-restart php-fpm.service >/dev/null 2>&1 || :
 
 
 %changelog
+* Wed Oct 22 2025 Remi Collet <remi@remirepo.net> - 8.5.0~RC3-1
+- update to 8.5.0RC3
+
 * Fri Oct 17 2025 Remi Collet <remi@remirepo.net> - 8.5.0~RC2-4
 - fix permissions on /var/lib/php #2404692
 

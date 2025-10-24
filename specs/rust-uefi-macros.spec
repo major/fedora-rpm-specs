@@ -5,8 +5,11 @@
 
 %global crate uefi-macros
 
+# compile and run tests only on supported architectures
+%global unsupported_arches ppc64le s390x
+
 Name:           rust-uefi-macros
-Version:        0.18.1
+Version:        0.19.0
 Release:        %autorelease
 Summary:        Procedural macros for the uefi crate
 
@@ -57,14 +60,18 @@ use the "default" feature of the "%{crate}" crate.
 %cargo_generate_buildrequires
 
 %build
+%ifnarch %{unsupported_arches}
 %cargo_build
+%endif
 
 %install
 %cargo_install
 
 %if %{with check}
+%ifnarch %{unsupported_arches}
 %check
 %cargo_test
+%endif
 %endif
 
 %changelog

@@ -58,7 +58,7 @@
 
 # MLIR version 22 started to require nanobind >= 2.9, which is only available
 # on Fedora >= 44.
-%if %{without compat_build} && ((%{maj_ver} >= 22 && 0%{?fedora} >= 44) || (%{maj_ver} < 22 && 0%{?fedora} >= 41))
+%if %{without compat_build} && %{defined fedora} && (%{maj_ver} < 22 || 0%{?fedora} >= 44)
 %ifarch %{ix86}
 %bcond_with mlir
 %else
@@ -69,9 +69,7 @@
 %endif
 
 # The libcxx build condition also enables libcxxabi and libunwind.
-# Fedora 41 is the first version that enabled FatLTO for clang-built files.
-# Without FatLTO, we can't enable ThinLTO and link using GNU LD.
-%if %{without compat_build} && 0%{?fedora} >= 41
+%if %{without compat_build} && %{defined fedora}
 %bcond_without libcxx
 %else
 %bcond_with libcxx
@@ -79,7 +77,7 @@
 
 # I've called the build condition "build_bolt" to indicate that this does not
 # necessarily "use" BOLT in order to build LLVM.
-%if %{without compat_build} && 0%{?fedora} >= 41
+%if %{without compat_build} && %{defined fedora}
 # BOLT only supports aarch64 and x86_64
 %ifarch aarch64 x86_64
 %bcond_without build_bolt
@@ -90,7 +88,7 @@
 %bcond_with build_bolt
 %endif
 
-%if %{without compat_build} && 0%{?fedora} >= 41
+%if %{without compat_build} && %{defined fedora}
 %bcond_without polly
 %else
 %bcond_with polly
@@ -571,7 +569,7 @@ BuildRequires: procps-ng
 # For reproducible pyc file generation
 # See https://docs.fedoraproject.org/en-US/packaging-guidelines/Python_Appendix/#_byte_compilation_reproducibility
 # Since Fedora 41 this happens automatically, and RHEL 8 does not support this.
-%if %{without compat_build} && ((%{defined fedora} && 0%{?fedora} < 41) || 0%{?rhel} == 9 || 0%{?rhel} == 10)
+%if %{without compat_build} && (0%{?rhel} == 9 || 0%{?rhel} == 10)
 BuildRequires: /usr/bin/marshalparser
 %global py_reproducible_pyc_path %{buildroot}%{python3_sitelib}
 %endif
@@ -1547,11 +1545,7 @@ popd
 	-DLLVM_LIT_ARGS="-vv"
 
 %if %{with lto_build}
-%if 0%{?fedora} >= 41
 	%global cmake_config_args %{cmake_config_args} -DLLVM_UNITTEST_LINK_FLAGS="-fno-lto"
-%else
-	%global cmake_config_args %{cmake_config_args} -DLLVM_UNITTEST_LINK_FLAGS="-Wl,-plugin-opt=O0"
-%endif
 %endif
 #endregion test options
 

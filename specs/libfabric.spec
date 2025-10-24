@@ -9,7 +9,7 @@
 %endif
 
 Name:           libfabric
-Version:        2.2.0
+Version:        2.3.1
 Release:        %autorelease
 Summary:        Open Fabric Interfaces
 

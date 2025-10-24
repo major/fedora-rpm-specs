@@ -5,7 +5,7 @@
 %global crate rust-ini
 
 Name:           rust-rust-ini
-Version:        0.21.2
+Version:        0.21.3
 Release:        %autorelease
 Summary:        Ini configuration file parsing library in Rust
 

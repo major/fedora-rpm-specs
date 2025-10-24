@@ -5,7 +5,7 @@
 %global crate newtype-uuid
 
 Name:           rust-newtype-uuid
-Version:        1.3.0
+Version:        1.3.1
 Release:        %autorelease
 Summary:        Newtype wrapper around UUIDs
 
@@ -118,6 +118,18 @@ This package contains library source intended for building other packages which
 use the "v4" feature of the "%{crate}" crate.
 
 %files       -n %{name}+v4-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+v7-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+v7-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "v7" feature of the "%{crate}" crate.
+
+%files       -n %{name}+v7-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

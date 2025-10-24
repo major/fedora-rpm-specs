@@ -6,7 +6,7 @@
 %global crate rustls-native-certs
 
 Name:           rust-rustls-native-certs
-Version:        0.8.1
+Version:        0.8.2
 Release:        %autorelease
 Summary:        Allows rustls to use the platform native certificate store
 

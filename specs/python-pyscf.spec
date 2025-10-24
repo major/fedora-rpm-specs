@@ -15,8 +15,8 @@
 %endif
 
 Name:           python-pyscf
-Version:        2.8.0
-Release:        7%{?dist}
+Version:        2.11.0
+Release:        1%{?dist}
 Summary:        Python module for quantum chemistry
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
@@ -27,6 +27,8 @@ Source0:        https://github.com/pyscf/pyscf/archive/v%{version}/pyscf-%{versi
 Patch1:         pyscf-2.6.0-rpath.patch
 # Need to load libpbc before libdft, https://github.com/pyscf/pyscf/pull/2273
 Patch2:         2273.patch
+# Fix test segfault (https://github.com/pyscf/pyscf/issues/2720)
+Patch3:         pyscf-2.11.0-segfault.patch
 
 # i686 disabled since this is a leaf package; see
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -95,6 +97,7 @@ chemistry programs.
 %setup -q -n pyscf-%{version}
 %patch 1 -p1 -b .rpath
 %patch 2 -p1 -b .2273
+%patch 3 -p1 -b .segfault
 
 # Remove shebangs
 find pyscf -name \*.py -exec sed -i '/#!\/usr\/bin\/env /d' '{}' \;
@@ -121,10 +124,8 @@ for f in $(find pyscf -name \*.so); do
 done
 
 %check
-export PYTHONPATH=$PWD
-## While the program has tests, they take forever and won't ever finish
-##on the build system.
-#pytest
+# Use the same test setup as upstream
+bash .github/workflows/run_tests.sh
 
 %files -n python3-pyscf
 %license LICENSE
@@ -132,6 +133,9 @@ export PYTHONPATH=$PWD
 %{python3_sitearch}/pyscf/
 
 %changelog
+* Wed Oct 22 2025 Susi Lehtola <jussilehtola@fedoraproject.org> - 2.11.0-1
+- Update to 2.11.0.
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.8.0-7
 - Rebuilt for Python 3.14.0rc3 bytecode
 

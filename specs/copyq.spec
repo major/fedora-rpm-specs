@@ -1,8 +1,8 @@
 %global forgeurl https://github.com/hluk/CopyQ/
-%global commit aaf841bf0450052ebfe410c2304760ac4a2a1bf3
+%global commit fa209998b981460003349194b5ba1237d9804ea8
 
 Name:    copyq
-Version: 12.0.1
+Version: 13.0.0
 Release: %autorelease
 Summary: Advanced clipboard manager
 License: GPL-3.0-or-later
@@ -13,14 +13,12 @@ Url:     %{forgeurl}
 Source0: %{forgesource}
 Source1: %{name}.rpmlintrc
 
-Patch0:  copyq-fix-build-against-qt-6-10.patch
-
 BuildRequires: cmake, extra-cmake-modules, gcc-c++
 BuildRequires: libappstream-glib
 BuildRequires: desktop-file-utils, git
 BuildRequires: libXtst-devel, libXfixes-devel
 BuildRequires: kf6-knotifications-devel
-BuildRequires: kf6-kstatusnotifieritem-devel
+BuildRequires: kf6-kguiaddons-devel
 BuildRequires: kf6-rpm-macros
 BuildRequires: qt6-qtbase-devel, qt6-qtbase-private-devel
 BuildRequires: qt6-qtsvg-devel, qt6-qtdeclarative-devel
@@ -35,7 +33,26 @@ support for image formats, command line control and more.
 %prep
 %{forgesetup}
 %autosetup -p1 -n %{archivename}
+
+# drop upstream ASCII restricted cast define
 sed -i '/DQT_RESTRICTED_CAST_FROM_ASCII/d' CMakeLists.txt
+
+# Force the right private target and make sure CMake can find it
+grep -Rl -F 'Qt::GuiPrivate' src | xargs sed -i 's/\bQt::GuiPrivate\b/Qt6::GuiPrivate/g'
+grep -q 'find_package(Qt6GuiPrivate' CMakeLists.txt || \
+  sed -i '/set(QT_DEFAULT_MAJOR_VERSION 6)/a find_package(Qt6GuiPrivate REQUIRED)' CMakeLists.txt
+
+# Tests on Qt 6.10 need this explicit include
+grep -q '^#include <QElapsedTimer>' src/tests/tests_scripts.cpp || \
+  sed -i '1i #include <QElapsedTimer>' src/tests/tests_scripts.cpp
+
+# (Optional, GCC15 nit) Make QLockFile init explicit
+sed -i 's/QLockFile lockFile = lockFilePath();/QLockFile lockFile = QLockFile(lockFilePath());/' src/common/server.cpp
+
+# Fail early if any Qt::GuiPrivate remains
+if grep -R --line-number -F 'Qt::GuiPrivate' src ; then
+  echo "ERROR: Qt::GuiPrivate still present after sed" >&2 ; exit 1
+fi
 
 %build
 %cmake_kf6 \

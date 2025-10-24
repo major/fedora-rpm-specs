@@ -1,10 +1,10 @@
-%global DATE 20250924
-%global gitrev 720a9e91dc822477b5e5417a2134c2a1668da177
+%global DATE 20251022
+%global gitrev ad903636211be01b8c06d8cf09ee5710ac43b2cb
 %global gcc_version 15.2.1
 %global gcc_major 15
 # Note, gcc_release must be integer, if you want to add suffixes to
 # %%{release}, append them after %%{gcc_release} on Release: line.
-%global gcc_release 2
+%global gcc_release 3
 %global nvptx_tools_gitrev a0c1fff6534a4df9fb17937c3c4a4b1071212029
 %global newlib_cygwin_gitrev d35cc82b5ec15bb8a5fe0fe11e183d1887992e99
 %global _unpackaged_files_terminate_build 0
@@ -1674,6 +1674,9 @@ mv %{buildroot}%{_prefix}/%{_lib}/libitm.spec $FULLPATH/
 %if %{build_libasan}
 mv %{buildroot}%{_prefix}/%{_lib}/libsanitizer.spec $FULLPATH/
 %endif
+%if %{build_cobol}
+mv %{buildroot}%{_prefix}/%{_lib}/libgcobol.spec $FULLPATH/
+%endif
 
 mkdir -p %{buildroot}/%{_lib}
 mv -f %{buildroot}%{_prefix}/%{_lib}/libgcc_s.so.1 %{buildroot}/%{_lib}/libgcc_s-%{gcc_major}-%{DATE}.so.1
@@ -3282,6 +3285,7 @@ end
 %dir %{_prefix}/libexec/gcc/%{gcc_target_platform}
 %dir %{_prefix}/libexec/gcc/%{gcc_target_platform}/%{gcc_major}
 %{_prefix}/libexec/gcc/%{gcc_target_platform}/%{gcc_major}/cobol1
+%{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/libgcobol.spec
 %{_prefix}/lib/gcc/%{gcc_target_platform}/%{gcc_major}/libgcobol.so
 %{_datadir}/gcobol
 %doc rpm.doc/gcobol/*
@@ -3765,6 +3769,19 @@ end
 %endif
 
 %changelog
+* Wed Oct 21 2025 Jakub Jelinek <jakub@redhat.com> 15.2.1-3
+- update from releases/gcc-15 branch
+  - PRs ada/107536, ada/113536, ada/117517, ada/118343, c/122188, c++/120757,
+	c++/121981, c++/122302, fortran/108581, fortran/121616,
+	fortran/121939, go/104290, libstdc++/122062, libstdc++/122322,
+	middle-end/121922, middle-end/122133, target/110812, target/121599,
+	target/121652, target/121742, target/121780, target/121781,
+	target/121845, target/121875, target/122119, target/122177,
+	target/122187, target/122210, target/122220, target/122222,
+	target/122223, tree-optimization/121772, tree-optimization/122104,
+	tree-optimization/122213
+- package libgcobol.spec (#2401679)
+
 * Wed Sep 24 2025 Jakub Jelinek <jakub@redhat.com> 15.2.1-2
 - update from releases/gcc-15 branch
   - PRs ada/121968, bootstrap/118009, bootstrap/119089, c++/97740, c++/119859,

@@ -5,13 +5,13 @@
 %bcond_with docs
 %endif
 # See https://github.com/valkey-io/valkey-doc/tags
-%global doc_version 8.1.1
+%global doc_version 9.0.0
 # Tests fail in mock, not in local build.
 %bcond_with tests
 
 Name:              valkey
-Version:           8.1.4
-Release:           2%{?dist}
+Version:           9.0.0
+Release:           1%{?dist}
 Summary:           A persistent key-value database
 # valkey: BSD-3-Clause
 # hiredis: BSD-3-Clause
@@ -53,8 +53,8 @@ BuildRequires:     python3-pyyaml
 %endif
 
 Requires:          logrotate
-# from deps/hiredis/hiredis.h
-Provides:          bundled(hiredis) = 1.0.3
+# from deps/libvalkey/include/valkey/valkey.h
+Provides:          bundled(libvalkey) = 0.2.1
 # from deps/jemalloc/VERSION
 Provides:          bundled(jemalloc) = 5.3.0
 # from deps/lua/src/lua.h
@@ -62,8 +62,9 @@ Provides:          bundled(lua-libs) = 5.1.5
 # from deps/linenoise/linenoise.h
 Provides:          bundled(linenoise) = 1.0
 Provides:          bundled(lzf)
-# from deps/hdr_histogram/README.md
-Provides:          bundled(hdr_histogram) = 0.11.0
+# from deps/README.md
+# e4448cf6d1cd08fff519812d3b1e58bd5a94ac42
+Provides:          bundled(hdr_histogram) = 0.11.9
 # no version
 Provides:          bundled(fpconv)
 
@@ -191,7 +192,7 @@ Provides:          redis-doc = %{version}-%{release}
 
 mv deps/lua/COPYRIGHT             COPYRIGHT-lua
 mv deps/jemalloc/COPYING          COPYING-jemalloc
-mv deps/hiredis/COPYING COPYING-hiredis-BSD-3-Clause
+mv deps/libvalkey/COPYING         COPYING-libvalkey
 mv deps/hdr_histogram/LICENSE.txt LICENSE-hdrhistogram
 mv deps/hdr_histogram/COPYING.txt COPYING-hdrhistogram
 mv deps/fpconv/LICENSE.txt        LICENSE-fpconv
@@ -406,7 +407,7 @@ fi
 %license LICENSE-hdrhistogram
 %license COPYING-hdrhistogram
 %license LICENSE-fpconv
-%license COPYING-hiredis-BSD-3-Clause
+%license COPYING-libvalkey
 %config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
 %attr(0750, valkey, root) %dir %{_sysconfdir}/%{name}
 %attr(0750, valkey, root) %dir %{valkey_modules_cfg}
@@ -461,6 +462,10 @@ fi
 
 
 %changelog
+* Wed Oct 22 2025 Remi Collet <remi@fedoraproject.org> - 9.0.0-1
+- Valkey 9.0.0 GA - October 21, 2025
+- bundled hiredis replaced by libvalkey
+
 * Mon Oct  6 2025 Remi Collet <remi@fedoraproject.org> - 8.1.4-2
 - improve the patch for loadmodule directive
 

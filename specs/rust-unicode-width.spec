@@ -5,7 +5,7 @@
 %global crate unicode-width
 
 Name:           rust-unicode-width
-Version:        0.2.1
+Version:        0.2.2
 Release:        %autorelease
 Summary:        Determine displayed width of 'char' and 'str' types
 

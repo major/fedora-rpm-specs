@@ -67,7 +67,7 @@ install -Dpm0644 %{SOURCE5} %{buildroot}%{_unitdir}/systemd-firstboot.service.d/
 %files
 %{_bindir}/wsl-setup
 %config(noreplace) %{_sysconfdir}/wsl.conf
-%ghost %{_prefix}/lib/wsl-distribution.conf
+%ghost %attr(644, root, root) %{_prefix}/lib/wsl-distribution.conf
 %{_sysconfdir}/wsl-distribution.conf
 %dir %{_datarootdir}/wsl-setup/
 %{_datarootdir}/wsl-setup/wsl-distribution.conf.template

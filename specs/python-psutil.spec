@@ -10,25 +10,6 @@ License:        BSD-3-Clause
 URL:            https://github.com/giampaolo/psutil
 Source:         %{url}/archive/release-%{version}/psutil-%{version}.tar.gz
 #
-# skip tests that fail in mock chroots
-#
-Patch:          python-psutil-skip-tests-in-mock.patch
-#
-# Skip test_emulate_multi_cpu on aarch64 and ppc64le
-# Failure reported upstream: https://github.com/giampaolo/psutil/issues/2373
-#
-Patch:          python-psutil-skip-test_emulate_multi_cpu.patch
-#
-# Skip test_misc.TestCommonModule.test_debug
-# Failure reported upstream: https://github.com/giampaolo/psutil/issues/2374
-#
-Patch:          python-psutil-skip-test_debug.patch
-#
-# Skip test_system.TestSensorsAPIs.test_sensors_temperatures
-# Failure reported upstream: https://github.com/giampaolo/psutil/issues/2434
-#
-Patch:          python-psutil-skip-test-sensors-temperatures.patch
-#
 # Don't treat sockets as paths
 # Reported upstream: https://github.com/giampaolo/psutil/pull/2435
 #
@@ -70,6 +51,8 @@ ifconfig, nice, ionice, iostat, iotop, uptime, pidof, tty, who, taskset, pmap.
 %package -n python%{python3_pkgversion}-psutil-tests
 Summary:        %{summary}, test suite
 Requires:       python%{python3_pkgversion}-psutil%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+Recommends:     python%{python3_pkgversion}-pytest
+Requires:       procps-ng
 
 %description -n python%{python3_pkgversion}-psutil-tests
 The test suite for psutil.
@@ -92,6 +75,10 @@ done
  sed -i "s/test_disk_partitions/notest_disk_partitions/" psutil/tests/test_system.py
 %endif
 
+# Don't run and install tests for unpackaged scripts
+rm psutil/tests/test_scripts.py
+
+
 %generate_buildrequires
 %pyproject_buildrequires
 
@@ -110,13 +97,45 @@ done
 # as dependency from stable and already tested branches.
 %if ! 0%{?flatpak}
 %check
-# Setting APPVEYOR to convince the test suite this is a CI.
+# Deselect tests that fail in mock chroots
+k="${k-}${k+ and }not (TestProcessAgainstStatus and test_cpu_affinity and not eligible_cpus)"
+k="${k-}${k+ and }not (TestSystemVirtualMemory and test_used)"
+k="${k-}${k+ and }not (test_process_all and test_all)"
+k="${k-}${k+ and }not (test_system and test_cpu_freq)"
+k="${k-}${k+ and }not TestSystemCPUCountCores"
+k="${k-}${k+ and }not TestSystemCPUStats"
+k="${k-}${k+ and }not TestSystemNetIfAddrs"
+k="${k-}${k+ and }not test_against_nproc"
+k="${k-}${k+ and }not test_against_sysdev_cpu_"
+k="${k-}${k+ and }not test_disk_partitions_mocked"
+k="${k-}${k+ and }not test_emulate_use_cpuinfo"
+k="${k-}${k+ and }not test_emulate_use_second_file"
+k="${k-}${k+ and }not test_exe_mocked"
+
+# Failure reported upstream: https://github.com/giampaolo/psutil/issues/2374
+k="${k-}${k+ and }not test_debug"
+
+# Flaky failure reported upstream: https://github.com/giampaolo/psutil/issues/2434
+k="${k-}${k+ and }not (test_system and test_sensors_temperatures and not fahreneit)"
+
+# Skip test_emulate_multi_cpu on aarch64, ppc64le, riscv64
+# Failure reported upstream: https://github.com/giampaolo/psutil/issues/2373
+%ifarch aarch64 ppc64le riscv64
+k="${k-}${k+ and }not test_emulate_multi_cpu"
+%endif
+
+# The following options were present in the specfile without explanation
+# when the pytest -k option was expanded across multiple lines:
+k="${k-}${k+ and }not emulate_energy_full_0"
+k="${k-}${k+ and }not emulate_energy_full_not_avail"
+k="${k-}${k+ and }not emulate_no_power"
+k="${k-}${k+ and }not emulate_power_undetermined"
+
+# Setting GITHUB_ACTIONS to convince the test suite this is a CI.
 # That way, some unreliable tests are skipped and some timeouts are extended.
-# Previously, this was done by the CI_TESTING variable, but that works no more.
-# Alternative is to set GITHUB_ACTIONS but that has undesirable side effects.
 
 # Note: We deliberately bypass the Makefile here to test the installed modules.
-GITHUB_ACTIONS=1 %{pytest} %{?with_xdist:-n auto} -k "not emulate_energy_full_0 and not emulate_energy_full_not_avail and not emulate_no_power and not emulate_power_undetermined and not test_scripts" --pyargs psutil.tests
+GITHUB_ACTIONS=1 %{pytest} %{?with_xdist:-n auto} "${k:+-k $k}" --pyargs psutil.tests
 
 %endif
 

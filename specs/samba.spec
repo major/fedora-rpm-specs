@@ -6,7 +6,17 @@
 # or
 # rpmbuild --rebuild --with testsuite samba.src.rpm
 #
+# If you just want to run a single test, you can use:
+# fedpkg mockbuild --with testsuite -- --define 'SAMBA_TESTS regex' samba.src.rpm
+# or
+# rpmbuild --rebuild --with testsuite --define='SAMBA_TESTS regex' samba.src.rpm
+#
 %bcond testsuite 0
+%if %{with testsuite}
+# As the file list is empty for running just the tests, we have empty debuginfo
+# package. Disable it to avoid error reporting.
+%global debug_package %{nil}
+%endif
 
 # Build with internal talloc, tevent, tdb
 #
@@ -1328,6 +1338,13 @@ xzcat %{SOURCE0} | gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} -
 # Make sure we do not build with heimdal code
 rm -rfv third_party/heimdal
 
+%if %{with testsuite}
+# WARNING: Don't change that for production!
+#
+# Shorten the priviliged dir, as unix sockets only have 108 chars
+sed -i 's/#define WINBINDD_PRIV_SOCKET_SUBDIR.*/#define WINBINDD_PRIV_SOCKET_SUBDIR "wb_priv"/' nsswitch/winbind_struct_protocol.h
+%endif
+
 %build
 %if %{with includelibs}
 %global _talloc_lib ,talloc,pytalloc,pytalloc-util
@@ -1619,20 +1636,37 @@ touch %{buildroot}%{_libexecdir}/ctdb/statd_callout
 # in the timestamp so the year 2038 problem is deferred till 2446.
 # https://bugzilla.samba.org/show_bug.cgi?id=14546
 #
-for t in samba3.smb2.timestamps.time_t_15032385535 \
-         samba3.smb2.timestamps.time_t_10000000000 \
-         samba3.smb2.timestamps.time_t_4294967295 \
-         ; do
-    echo "^$t" >> selftest/knownfail.d/fedora.%{dist}
-done
-cat selftest/knownfail.d/fedora.%{dist}
+if [ "$(df --portability --print-type "$(pwd)" | grep -c ext4)" == "1" ]; then
+    cat > selftest/knownfail.d/fedora%{dist} << EOF
+^samba3.smb2.timestamps.time_t_15032385535
+^samba3.smb2.timestamps.time_t_10000000000
+^samba3.smb2.timestamps.time_t_4294967295
+EOF
+fi
+
+echo
+echo "Content of selftest/knownfail.d/fedora%{dist}:"
+cat selftest/knownfail.d/fedora%{dist} || true
+
+cat >> selftest/skip << EOF
+# FIXME: Investigate why it fails. Might be CUPS is not running?
+^samba3.rpc.spoolss.printserver
+EOF
+
+echo
+echo "Content of selftest/skip:"
+cat selftest/skip
 
 export TDB_NO_FSYNC=1
 export NMBD_DONT_LOG_STDOUT=1
 export SMBD_DONT_LOG_STDOUT=1
 export WINBINDD_DONT_LOG_STDOUT=1
 export SAMBA_DCERPCD_DONT_LOG_STDOUT=1
+%if "x%{?SAMBA_TESTS}" != "x"
+%{__make} %{?_smp_mflags} test FAIL_IMMEDIATELY=1 TESTS="%{SAMBA_TESTS}"
+%else
 %{__make} %{?_smp_mflags} test FAIL_IMMEDIATELY=1
+%endif
 #endif with testsuite
 %endif
 

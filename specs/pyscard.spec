@@ -12,6 +12,8 @@ Summary:        A framework for building smart card aware applications in Python
 License:        LicenseRef-Callaway-LGPLv2+
 URL:            https://github.com/LudovicRousseau/pyscard
 Source0:        https://github.com/LudovicRousseau/pyscard/archive/%{version}/%{name}-%{version}.tar.gz
+# Upstream commit for SWIG 4.4 support
+Patch:          https://github.com/LudovicRousseau/pyscard/commit/54ef7f2ca636b83657506030e6bfbdc335f65bb5.patch
 
 BuildRequires:  gcc
 BuildRequires:  pcsc-lite-devel

@@ -5,7 +5,7 @@
 %global crate pem
 
 Name:           rust-pem
-Version:        3.0.5
+Version:        3.0.6
 Release:        %autorelease
 Summary:        Parse and encode PEM-encoded data
 

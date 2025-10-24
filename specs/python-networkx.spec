@@ -41,7 +41,9 @@ Patch:          %{name}-intersphinx.patch
 
 BuildArch:      noarch
 BuildSystem:    pyproject
-BuildOption(generate_buildrequires): %{?with_doctest:-x doc,example,extra,test}
+%if %{with doctest}
+BuildOption(generate_buildrequires): -x doc,example,extra,test
+%endif
 BuildOption(install): -l networkx
 
 BuildRequires:  make

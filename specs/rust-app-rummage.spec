@@ -5,18 +5,13 @@
 %global crate app-rummage
 
 Name:           rust-app-rummage
-Version:        0.2.8
+Version:        0.2.9
 Release:        %autorelease
 Summary:        Find installed and running applications on Linux
 
 License:        MIT
 URL:            https://crates.io/crates/app-rummage
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * Allow nix 0.29 until we have 0.30 packaged
-Patch:          app-rummage-fix-metadata.diff
-# * patch tests to not fail
-Patch1:         https://gitlab.com/mission-center-devs/app-detection/-/commit/029ae0329235ad0f19c4c26e1acd54712cf63a31.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

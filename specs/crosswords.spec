@@ -5,7 +5,7 @@
 %global ipuz_soversion 0.5
 
 Name:           crosswords
-Version:        0.3.16
+Version:        0.3.16.1
 Release:        %autorelease
 Summary:        Solve crossword puzzles
 
@@ -148,6 +148,9 @@ ipuz2pdf is a tool to export IPUZ puzzles to printable PDF documents.
 
 %prep
 %autosetup -p1
+
+# Relax regex version pin
+sed -i 's:^regex==.*$:regex:' requirements.txt
 
 # Update image references in README
 mkdir images

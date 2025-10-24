@@ -7,7 +7,7 @@
 %global crate webbrowser
 
 Name:           rust-webbrowser
-Version:        1.0.5
+Version:        1.0.6
 Release:        %autorelease
 Summary:        Open URLs in web browsers available on a platform
 

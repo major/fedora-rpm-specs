@@ -5,7 +5,7 @@
 %global crate reqwest
 
 Name:           rust-reqwest
-Version:        0.12.23
+Version:        0.12.24
 Release:        %autorelease
 Summary:        Higher level HTTP client library
 

@@ -1,7 +1,7 @@
 %global pypi_name pelican
 Name:           python-%{pypi_name}
 Version:        4.11.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A tool to generate a static blog from reStructuredText or Markdown input files
 
 # Automatically converted from old format: AGPLv3
@@ -36,8 +36,6 @@ BuildRequires:  python3-rich
 BuildRequires:  python3-markdown
 BuildRequires:  python3-beautifulsoup4
 BuildRequires:  python3-lxml
-BuildRequires:  python3-six
-BuildRequires:  python3-pytz
 BuildRequires:  python3-jinja2
 BuildRequires:  python3-feedgenerator
 BuildRequires:  python3-dateutil
@@ -137,6 +135,9 @@ ln -s ./pelican-themes %{buildroot}/%{_bindir}/pelican-themes-3
 
 
 %changelog
+* Wed Oct 22 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 4.11.0-3
+- Drop pytz/six deps, no longer used
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.11.0-2
 - Rebuilt for Python 3.14.0rc3 bytecode
 

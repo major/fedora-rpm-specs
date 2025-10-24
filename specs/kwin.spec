@@ -1,6 +1,6 @@
 Name:    kwin
 Version: 6.5.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Window manager
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -12,6 +12,9 @@ Source0: http://download.kde.org/%{stable_kf6}/plasma/%{maj_ver_kf6}.%{min_ver_k
 Source1: http://download.kde.org/%{stable_kf6}/plasma/%{maj_ver_kf6}.%{min_ver_kf6}.%{bug_ver_kf6}/%{name}-%{version}.tar.xz.sig
 
 ## upstream patches
+# Fix for kwin crashing on suspend
+# https://invent.kde.org/plasma/kwin/-/merge_requests/8283
+Patch0:  8283.patch
 
 ## proposed patches
 
@@ -274,6 +277,9 @@ ln -sr %{buildroot}%{_kf6_bindir}/kwin_wayland %{buildroot}%{_bindir}/kwin
 
 
 %changelog
+* Wed Oct 22 2025 Steve Cossette <farchord@gmail.com> - 6.5.0-2
+- Fix for kwin suspend crash
+
 * Fri Oct 17 2025 Steve Cossette <farchord@gmail.com> - 6.5.0-1
 - 6.5.0
 

@@ -25,6 +25,13 @@
 %global rocsparse_name rocsparse
 %endif
 
+%bcond_with gitcommit
+%if %{with gitcommit}
+%global commit0 2584e35062ad9c2edb68d93c464cf157bc57e3b0
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+%global date0 20250926
+%endif
+
 %global upstreamname rocSPARSE
 %global rocm_release 7.0
 %global rocm_patch 2
@@ -99,14 +106,23 @@
   -DBUILD_FORTRAN_CLIENTS=OFF
 
 Name:           %{rocsparse_name}
+%if %{with gitcommit}
+Version:        git%{date0}.%{shortcommit0}
+Release:        1%{?dist}
+%else
 Version:        %{rocm_version}
 Release:        1%{?dist}
+%endif
 Summary:        SPARSE implementation for ROCm
-Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
 
+%if %{with gitcommit}
+Url:            https://github.com/ROCm/rocm-libraries
+Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
+%else
+Url:            https://github.com/ROCm/%{upstreamname}
 Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
-# Patch0:         0001-rocsparse-offload-compress.patch
+%endif
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -184,7 +200,12 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %endif
 
 %prep
+%if %{with gitcommit}
+%setup -q -n rocm-libraries-%{commit0}
+cd projects/rocsparse
+%else
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
+%endif
 
 # On Tumbleweed Q3,2025
 # /usr/include/gtest/internal/gtest-port.h:273:2: error: C++ versions less than C++17 are not supported.
@@ -192,6 +213,10 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 sed -i -e 's@set(CMAKE_CXX_STANDARD 14)@set(CMAKE_CXX_STANDARD 17)@' {,clients/}CMakeLists.txt
 
 %build
+%if %{with gitcommit}
+cd projects/rocsparse
+%endif
+
 %cmake %{cmake_generator} %{cmake_config} \
     -DGPU_TARGETS=%{rocm_gpu_list_default} \
     -DCMAKE_INSTALL_LIBDIR=%_libdir \
@@ -202,6 +227,10 @@ sed -i -e 's@set(CMAKE_CXX_STANDARD 14)@set(CMAKE_CXX_STANDARD 17)@' {,clients/}
 %cmake_build
 
 %install
+%if %{with gitcommit}
+cd projects/rocsparse
+%endif
+
 %cmake_install
 
 rm -f %{buildroot}%{_prefix}/share/doc/rocsparse/LICENSE.md
@@ -224,12 +253,18 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library:$LD_LIBRARY_PATH
 %endif
 %endif
 
-%files 
+%files
+%if %{with gitcommit}
+%doc projects/rocsparse/README.md
+%license projects/rocsparse/LICENSE.md
+%else
+%doc README.md
 %license LICENSE.md
+%endif
+
 %{_libdir}/librocsparse.so.1{,.*}
 
 %files devel
-%doc README.md
 %dir %{_libdir}/cmake/rocsparse
 %dir %{_includedir}/rocsparse
 %{_includedir}/rocsparse/*
