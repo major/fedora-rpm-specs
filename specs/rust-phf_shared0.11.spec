@@ -2,21 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate python-pkginfo
+%global crate phf_shared
 
-Name:           rust-python-pkginfo
-Version:        0.6.6
+Name:           rust-phf_shared0.11
+Version:        0.11.3
 Release:        %autorelease
-Summary:        Parse Python package metadata from sdist and bdists and etc
+Summary:        Support code shared by PHF libraries
 
 License:        MIT
-URL:            https://crates.io/crates/python-pkginfo
+URL:            https://crates.io/crates/phf_shared
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Parse Python package metadata from sdist and bdists and etc.}
+Support code shared by PHF libraries.}
 
 %description %{_description}
 
@@ -31,7 +31,7 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
-%doc %{crate_instdir}/Changelog.md
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -47,52 +47,40 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+bzip2-devel
+%package     -n %{name}+std-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+bzip2-devel %{_description}
+%description -n %{name}+std-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "bzip2" feature of the "%{crate}" crate.
+use the "std" feature of the "%{crate}" crate.
 
-%files       -n %{name}+bzip2-devel
+%files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+deprecated-formats-devel
+%package     -n %{name}+uncased-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+deprecated-formats-devel %{_description}
+%description -n %{name}+uncased-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "deprecated-formats" feature of the "%{crate}" crate.
+use the "uncased" feature of the "%{crate}" crate.
 
-%files       -n %{name}+deprecated-formats-devel
+%files       -n %{name}+uncased-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+serde-devel
+%package     -n %{name}+unicase-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+serde-devel %{_description}
+%description -n %{name}+unicase-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "serde" feature of the "%{crate}" crate.
+use the "unicase" feature of the "%{crate}" crate.
 
-%files       -n %{name}+serde-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+xz-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+xz-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "xz" feature of the "%{crate}" crate.
-
-%files       -n %{name}+xz-devel
+%files       -n %{name}+unicase-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

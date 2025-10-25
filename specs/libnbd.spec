@@ -20,8 +20,8 @@
 %global source_directory 1.23-development
 
 Name:           libnbd
-Version:        1.23.8
-Release:        3%{?dist}
+Version:        1.23.9
+Release:        1%{?dist}
 Summary:        NBD client library in userspace
 
 License:        LGPL-2.0-or-later AND BSD-3-Clause
@@ -393,6 +393,11 @@ make %{?_smp_mflags} check || {
 
 
 %changelog
+* Thu Oct 23 2025 Richard W.M. Jones <rjones@redhat.com> - 1.23.9-1
+- New upstream development version 1.23.9
+- Fixes security issue with nbd+ssh URIs
+  https://lists.libguestfs.org/archives/list/guestfs@lists.libguestfs.org/thread/YZMBF3SJRWTRVT5L3KWSNHITFTRMQNTT/
+
 * Mon Oct 13 2025 Richard W.M. Jones <rjones@redhat.com> - 1.23.8-3
 - OCaml 5.4.0 rebuild
 

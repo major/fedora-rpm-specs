@@ -25,6 +25,13 @@
 %global hipfft_name hipfft
 %endif
 
+%bcond_with gitcommit
+%if %{with gitcommit}
+%global commit0 2584e35062ad9c2edb68d93c464cf157bc57e3b0
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+%global date0 20250926
+%endif
+
 %global upstreamname hipFFT
 %global rocm_release 7.0
 %global rocm_patch 2
@@ -60,16 +67,26 @@
 %global _binary_payload w7T0.xzdio
 
 Name:           %{hipfft_name}
+%if %{with gitcommit}
+Version:        git%{date0}.%{shortcommit0}
+Release:        1%{?dist}
+%else
 Version:        %{rocm_version}
 Release:        1%{?dist}
+%endif
 Summary:        ROCm FFT marshalling library
-Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
+
+%if %{with gitcommit}
+Url:            https://github.com/ROCm/rocm-libraries
+Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
+%else
+Url:            https://github.com/ROCm/%{upstreamname}
+Source0:        %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-rocm-%{version}.tar.gz
+%endif
 
 # Only x86_64 works right now
 ExclusiveArch:  x86_64
-
-Source0:        %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-rocm-%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -130,7 +147,12 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %endif
 
 %prep
+%if %{with gitcommit}
+%setup -q -n rocm-libraries-%{commit0}
+cd projects/hipfft
+%else
 %autosetup -n %{upstreamname}-rocm-%{version} -p 1
+%endif
 
 # CMake Error at clients/tests/CMakeLists.txt:87 (find_package):
 #   No "FindHIP.cmake" found in CMAKE_MODULE_PATH.
@@ -138,6 +160,10 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 sed -i -e 's@find_package( HIP MODULE REQUIRED )@find_package( HIP REQUIRED )@' clients/tests/CMakeLists.txt
 
 %build
+%if %{with gitcommit}
+cd projects/hipfft
+%endif
+
 %cmake \
     -DCMAKE_CXX_COMPILER=hipcc \
     -DCMAKE_C_COMPILER=hipcc \
@@ -159,6 +185,9 @@ sed -i -e 's@find_package( HIP MODULE REQUIRED )@find_package( HIP REQUIRED )@' 
 
 
 %install
+%if %{with gitcommit}
+cd projects/hipfft
+%endif
 %cmake_install
 
 rm -f %{buildroot}%{_prefix}/share/doc/hipfft/LICENSE.md
@@ -177,11 +206,17 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library:$LD_LIBRARY_PATH
 %endif
 
 %files
+%if %{with gitcommit}
+%license projects/hipfft/LICENSE.md
+%doc projects/hipfft/README.md
+%else
 %license LICENSE.md
+%doc README.md
+%endif
+
 %{_libdir}/libhipfft.so.0{,.*}
 
 %files devel
-%doc README.md
 %dir %{_libdir}/cmake/hipfft
 %dir %{_includedir}/hipfft
 %{_includedir}/hipfft/*

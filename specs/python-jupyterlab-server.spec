@@ -1,5 +1,5 @@
 Name:           python-jupyterlab-server
-Version:        2.27.3
+Version:        2.28.0
 Release:        %autorelease
 Summary:        A set of server components for JupyterLab and JupyterLab like applications
 License:        BSD-3-Clause

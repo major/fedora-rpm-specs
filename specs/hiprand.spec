@@ -25,8 +25,14 @@
 %global hiprand_name hiprand
 %endif
 
-%global upstreamname hipRAND
+%bcond_with gitcommit
+%if %{with gitcommit}
+%global commit0 2584e35062ad9c2edb68d93c464cf157bc57e3b0
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+%global date0 20250926
+%endif
 
+%global upstreamname hipRAND
 %global rocm_release 7.0
 %global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
@@ -64,13 +70,22 @@
 %global _binary_payload w7T0.xzdio
 
 Name:           %{hiprand_name}
+%if %{with gitcommit}
+Version:        git%{date0}.%{shortcommit0}
+Release:        1%{?dist}
+%else
 Version:        %{rocm_version}
 Release:        2%{?dist}
+%endif
 Summary:        HIP random number generator
-
-Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT AND BSD-3-Clause
+%if %{with gitcommit}
+Url:            https://github.com/ROCm/rocm-libraries
+Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
+%else
+Url:            https://github.com/ROCm/%{upstreamname}
 Source0:        %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+%endif
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -128,7 +143,12 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %endif
 
 %prep
+%if %{with gitcommit}
+%setup -q -n rocm-libraries-%{commit0}
+cd projects/hiprand
+%else
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
+%endif
 
 #Remove RPATH:
 sed -i '/INSTALL_RPATH/d' CMakeLists.txt
@@ -141,6 +161,10 @@ sed -i '/INSTALL_RPATH/d' CMakeLists.txt
 sed -i -e 's@set(CMAKE_CXX_STANDARD 11)@set(CMAKE_CXX_STANDARD 14)@' {,test/package/}CMakeLists.txt
 
 %build
+%if %{with gitcommit}
+cd projects/hiprand
+%endif
+
 
 %cmake \
     -DCMAKE_CXX_COMPILER=hipcc \
@@ -160,6 +184,9 @@ sed -i -e 's@set(CMAKE_CXX_STANDARD 11)@set(CMAKE_CXX_STANDARD 14)@' {,test/pack
 %cmake_build
 
 %install
+%if %{with gitcommit}
+cd projects/hiprand
+%endif
 %cmake_install
 
 rm -f %{buildroot}%{_prefix}/share/doc/hiprand/LICENSE.txt
@@ -177,8 +204,13 @@ export LD_LIBRARY_PATH=$PWD/build/library:$LD_LIBRARY_PATH
 %endif
 
 %files
+%if %{with gitcommit}
+%doc projects/hiprand/README.md
+%license projects/hiprand/LICENSE.txt
+%else
 %doc README.md
 %license LICENSE.txt
+%endif
 %{_libdir}/libhiprand.so.1{,.*}
 
 %files devel

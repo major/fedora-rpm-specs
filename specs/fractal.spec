@@ -6,8 +6,8 @@
 %global rustflags_debuginfo 1
 
 Name:           fractal
-Version:        12.1
-Release:        2%{?dist}
+Version:        13~rc
+Release:        1%{?dist}
 Summary:        Matrix group messaging app
 
 # fractal itself is GPL-3.0-or-later. The rest are statically linked rust libraries based on cargo_license_summary output.
@@ -23,6 +23,7 @@ Patch0:          cargo-vendor.patch
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
+BuildRequires:  blueprint-compiler
 BuildRequires:  cargo
 BuildRequires:  cargo-rpm-macros
 BuildRequires:  clang-devel
@@ -100,6 +101,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Thu Oct 23 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 13~rc-1
+- Update to 13.rc for GNOME 49 (rhbz#2405881)
+
 * Tue Sep 30 2025 Fabio Valentini <decathorpe@gmail.com> - 12.1-2
 - Add missing BR: pkgconfig(libwebp).
 

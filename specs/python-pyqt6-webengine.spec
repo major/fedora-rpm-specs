@@ -3,8 +3,8 @@
 #define snap dev2503211447
 
 Name:          python-pyqt6-webengine
-Version:       6.9.0
-Release:       0.3%{?snap:^%{snap}}%{?dist}
+Version:       6.10.0
+Release:       %autorelease
 Summary:       Python bindings for Qt6WebEngine
 License:       GPL-3.0-only
 Url:           https://www.riverbankcomputing.com/software/pyqtwebengine/
@@ -88,10 +88,4 @@ done
 
 
 %changelog
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.9.0-0.3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 6.9.0-0.2
-- Rebuilt for Python 3.14
-
 %autochangelog

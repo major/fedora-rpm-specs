@@ -1,13 +1,13 @@
 %global enable_debugging 0
 
 Name: gnome-menus
-Version: 3.36.0
-Release: 14%{?dist}
+Version: 3.38.1
+Release: 1%{?dist}
 Summary:  A menu system for the GNOME project
 
 License: LGPL-2.0-or-later
 URL: https://gitlab.gnome.org/GNOME/gnome-menus
-Source0: https://download.gnome.org/sources/gnome-menus/3.36/%{name}-%{version}.tar.xz
+Source0: https://download.gnome.org/sources/gnome-menus/3.38/%{name}-%{version}.tar.xz
 # https://gitlab.gnome.org/GNOME/gnome-menus/merge_requests/14
 # Puts eog back to the Utilities submenu
 Patch0: 14.patch
@@ -90,6 +90,9 @@ mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/xdg/menus/applications-merged
 %{_datadir}/gir-1.0/GMenu-3.0.gir
 
 %changelog
+* Thu Oct 23 2025 Matthias Clasen <mclasen@redhat.com> - 3.38.1-1
+- Update to 3.38.1
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.36.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

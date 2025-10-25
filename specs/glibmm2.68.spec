@@ -6,7 +6,7 @@
 %global glib2_version 2.81.0
 
 Name:           glibmm2.68
-Version:        2.84.0
+Version:        2.86.0
 Release:        %autorelease
 Summary:        C++ interface for the GLib library
 

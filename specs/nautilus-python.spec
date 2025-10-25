@@ -3,13 +3,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           nautilus-python
-Version:        4.0.1
-Release:        6%{?dist}
+Version:        4.1.0
+Release:        1%{?dist}
 Summary:        Python bindings for Nautilus
 
 License:        GPL-2.0-or-later
 URL:            https://wiki.gnome.org/Projects/NautilusPython
-Source0:        https://download.gnome.org/sources/%{name}/4.0/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/4.1/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  gtk-doc
 BuildRequires:  meson
@@ -62,6 +62,9 @@ rm -rfv $RPM_BUILD_ROOT%{_docdir}
 
 
 %changelog
+* Thu Oct 23 2025 Matthias Clasen <mclasen@redhat.com> - 4.1.0-1
+- Update to 4.1.0
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

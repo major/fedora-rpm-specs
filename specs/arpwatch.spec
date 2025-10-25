@@ -2,7 +2,7 @@
 
 Name:           arpwatch
 Epoch:          14
-Version:        3.8
+Version:        3.9
 Release:        %autorelease
 Summary:        Network monitoring tools for tracking IP addresses on a network
 
@@ -48,7 +48,7 @@ Source0:        https://ee.lbl.gov/downloads/arpwatch/arpwatch-%{version}.tar.gz
 # updated), we store the file directly in the repository with the spec file;
 # see the update-oui-csv script.
 #
-# File oui.csv last fetched 2025-10-11T06:04:33+00:00.
+# File oui.csv last fetched 2025-10-23T22:21:46+00:00.
 Source1:        oui.csv
 Source2:        arpwatch.service
 Source3:        arpwatch.sysconfig
@@ -71,7 +71,7 @@ Patch:          arpwatch-3.1-arp2ethers-sort-invocation.patch
 # Fix stray rm (of an undefined variable) in example arpfetch script.
 Patch:          arpwatch-3.1-arpfetch-stray-rm.patch
 # Do not add /usr/local/bin or /usr/local/sbin to the PATH in any scripts
-Patch:          arpwatch-3.2-no-usr-local-path.patch
+Patch:          arpwatch-3.9-no-usr-local-path.patch
 # Do not attempt to search for local libpcap libraries lying around in the
 # parent of the build directory, or anywhere else random. This is not expected
 # to succeed anyway, but it is better to be sure.

@@ -4,7 +4,7 @@
 
 Name:          plasma-bigscreen
 Version:       5.27.80~%{gitdate}.%{shortcommit}
-Release:       7%{?dist}
+Release:       8%{?dist}
 License:       BSD-2-Clause and BSD-3-Clause and CC0-1.0 and GPL-2.0-or-later and CC-BY-SA-4.0
 Summary:       A big launcher giving you access to any installed apps and skills
 Url:           https://invent.kde.org/plasma/plasma-bigscreen
@@ -89,7 +89,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_kf6_qtplugindir}/kcms/kcm_mediacenter_*.so
 %{_kf6_qmldir}/org/kde/mycroft/bigscreen/
 %{_kf6_datadir}/kpackage/genericqml/org.kde.plasma.settings/contents/ui/+mediacenter/*.qml
-%{_kf6_metainfodir}/org.kde.plasma.mycroft.bigscreen.appdata.xml
 %{_kf6_metainfodir}/org.kde.plasma.mycroft.bigscreen.metainfo.xml
 %{_kf6_datadir}/plasma/look-and-feel/org.kde.plasma.mycroft.bigscreen/
 %{_kf6_datadir}/plasma/plasmoids/org.kde.mycroft.bigscreen.homescreen/
@@ -104,6 +103,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
+* Thu Oct 23 2025 Steve Cossette <farchord@gmail.com> - 5.27.80~20240204.214319.046d404-8
+- Rebuild for plasma-activities change
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.27.80~20240204.214319.046d404-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

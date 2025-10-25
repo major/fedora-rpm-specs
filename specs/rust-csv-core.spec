@@ -5,7 +5,7 @@
 %global crate csv-core
 
 Name:           rust-csv-core
-Version:        0.1.12
+Version:        0.1.13
 Release:        %autorelease
 Summary:        Bare bones CSV parsing with no_std support
 

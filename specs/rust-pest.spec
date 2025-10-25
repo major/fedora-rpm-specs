@@ -5,7 +5,7 @@
 %global crate pest
 
 Name:           rust-pest
-Version:        2.8.1
+Version:        2.8.3
 Release:        %autorelease
 Summary:        Elegant Parser
 

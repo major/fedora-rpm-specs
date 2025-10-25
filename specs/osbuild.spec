@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        162
+Version:        163
 
 %forgemeta
 
@@ -23,6 +23,19 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-docutils
 BuildRequires:  python3-setuptools
 BuildRequires:  systemd
+
+# for tests
+BuildRequires:  python3-iniparse
+BuildRequires:  python3-jsonschema
+BuildRequires:  python3-kickstart
+BuildRequires:  python3-mako
+BuildRequires:  python3-PyYAML
+BuildRequires:  python3-pytest
+%if 0%{?fedora}
+BuildRequires:  python3-license-expression
+BuildRequires:  python3-pytest-xdist
+BuildRequires:  python3-tomli-w
+%endif
 
 Requires:       bash
 Requires:       bubblewrap
@@ -270,10 +283,27 @@ install -p -m 0644 tools/solver-dnf5.json %{buildroot}%{pkgdir}/solver.json
 install -p -m 0644 tools/solver-dnf.json %{buildroot}%{pkgdir}/solver.json
 %endif
 
+%if 0%{?fedora} || 0%{?rhel} >= 9
 %check
-exit 0
-# We have some integration tests, but those require running a VM, so that would
-# be an overkill for RPM check script.
+# skip toml-writing tests in RHEL (no such library available there)
+# There is a bunch of tests failing on specific arch/OS combinations.
+# osbuild is a noarch package, meaning the architecture conditionals don't work.
+# The details of the failing tests are described in the comments.
+# Since we can't be granular enough, skip tests based on the OS only.
+# This means some tests won't be run even though they could,
+# but that's an acceptable tradeoff.
+# x86_64-specific tests:
+# test/mod/test_util_sbom_spdx.py, test/mod/test_util_sbom_dnf.py, test/mod/test_testutil_dnf4.py
+# test_ioctl_toggle_immutable and test_rmtree_immutable fail on s390x
+# test_cache_full_behavior fails on ppc64le
+# tools/test/test_depsolve.py fails on C9S and EPEL9
+ignore="--ignore test/mod/test_util_sbom_spdx.py --ignore test/mod/test_util_sbom_dnf.py --ignore test/mod/test_testutil_dnf4.py"
+skip="not test_ioctl_toggle_immutable and not test_rmtree_immutable and not test_cache_full_behavior"
+%if 0%{?rhel}
+ignore="$ignore --ignore tools/test/test_depsolve.py"
+%endif
+%pytest %{?fedora:-n auto} -v %{?rhel:-m "not tomlwrite"} ${ignore:-} -k "${skip:-}"
+%endif
 
 %files
 %license LICENSE
@@ -360,6 +390,25 @@ fi
 %{pkgdir}/solver.json
 
 %changelog
+* Wed Oct 22 2025 Packit <hello@packit.dev> - 163-1
+Changes with 163
+----------------
+  - Run tests in Fedora RPM build (#2116)
+    - Author: Karolina Surma, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - Update images dependency ref to latest (#2217)
+    - Author: SchutzBot, Reviewers: Simon de Vlieger, Tomáš Hozza
+  - docs: document `--cache` flag (#2213)
+    - Author: Florian Schüller, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - gitlab: build RPMs for Fedora 43 (#2183)
+    - Author: Achilleas Koutsou, Reviewers: Simon de Vlieger, Tomáš Hozza
+  - monitor: collect metadata alongside the result of a stage (#2215)
+    - Author: Sanne Raymaekers, Reviewers: Michael Vogt, Simon de Vlieger
+  - schutzbot/mockbuild: use the global AWS credentials (#2221)
+    - Author: Ondřej Budai, Reviewers: Sanne Raymaekers, Tomáš Hozza
+
+— Somewhere on the Internet, 2025-10-22
+
+
 * Wed Oct 08 2025 Packit <hello@packit.dev> - 162-1
 Changes with 162
 ----------------

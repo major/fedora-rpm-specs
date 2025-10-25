@@ -56,7 +56,7 @@
 %else
 # Temporary disable java tests, because they doesn't pass with java-21-openjdk
 # https://github.com/swig/swig/issues/2767
-%{!?javalang:%global javalang 0}
+%{!?javalang:%global javalang 1}
 %endif
 
 # Do not run Go tests, they failed with 4.0.0 on ppc64le, s390
@@ -68,8 +68,8 @@
 
 Summary: Connects C/C++/Objective C to some high-level programming languages
 Name:    swig
-Version: 4.3.1
-Release: 6%{?dist}
+Version: 4.4.0
+Release: 1%{?dist}
 License: GPL-3.0-or-later AND BSD-3-Clause
 URL:     https://www.swig.org/
 Source0: http://downloads.sourceforge.net/project/swig/swig/swig-%{version}/swig-%{version}.tar.gz
@@ -80,11 +80,6 @@ Source2: description-ccache.h2m
 Source3: ccache-swig.sh
 Source4: ccache-swig.csh
 %endif
-# https://github.com/swig/swig/pull/3159
-Patch0:  swig-python-Python-3.14-support.patch
-# Python DeprecationWarning fixes - in upstream after 4.4.0
-# https://github.com/swig/swig/issues/2881
-Patch1:  swig-4.4.0-Python-DeprecationWarning-fixes.patch
 
 BuildRequires: coreutils
 BuildRequires: findutils
@@ -368,6 +363,9 @@ install -pm 644 Tools/swig.gdb %{buildroot}%{_datadir}/%{name}/gdb
 %{_datadir}/%{name}/gdb
 
 %changelog
+* Tue Oct 21 2025 Jitka Plesnikova <jplesnik@redhat.com> - 4.4.0-1
+- 4.4.0 bump (rhbz#2405182)
+
 * Mon Oct 13 2025 Richard W.M. Jones <rjones@redhat.com> - 4.3.1-6
 - OCaml 5.4.0 rebuild
 

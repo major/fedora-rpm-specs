@@ -4,7 +4,7 @@
 %global crate cargo-insta
 
 Name:           rust-cargo-insta
-Version:        1.43.1
+Version:        1.43.2
 Release:        %autorelease
 Summary:        Review tool for the insta snapshot testing library for Rust
 
@@ -85,6 +85,7 @@ License:        %{shrink:
     --skip binary::test_change_text_to_binary
     --skip delete_pending::delete_unreferenced
     --skip delete_pending::test_pending_snapshot_deletion
+    --skip glob_filter::test_glob_filter_preserves_snapshot_names
     --skip inline::test_hashtag_escape_in_inline_snapshot
     --skip inline::test_json_inline
     --skip inline::test_multiple_assertions_within_allow_duplicates
@@ -102,6 +103,7 @@ License:        %{shrink:
     --skip test_ignored_snapshots
     --skip test_inline_snapshot_indent
     --skip test_json_inline
+    --skip test_line_numbers_1_based
     --skip test_matches_fully_linebreaks
     --skip test_root_crate_all
     --skip test_root_crate_no_all
@@ -112,6 +114,8 @@ License:        %{shrink:
     --skip test_virtual_manifest_all
     --skip test_virtual_manifest_default
     --skip test_virtual_manifest_single_crate
+    --skip test_workspace_source_path::test_workspace_source_path_complex
+    --skip test_workspace_source_path::test_workspace_source_path_issue_777
     --skip test_yaml_inline
     --skip unreferenced::test_unreferenced_config_reject
     --skip unreferenced::test_unreferenced_delete

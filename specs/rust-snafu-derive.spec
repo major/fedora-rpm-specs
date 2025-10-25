@@ -5,7 +5,7 @@
 %global crate snafu-derive
 
 Name:           rust-snafu-derive
-Version:        0.8.6
+Version:        0.8.9
 Release:        %autorelease
 Summary:        Ergonomic error handling library
 

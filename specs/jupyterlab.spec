@@ -3,7 +3,7 @@
 %undefine _py3_shebang_s
 
 Name:           jupyterlab
-Version:        4.4.9
+Version:        4.4.10
 Release:        %autorelease
 Summary:        JupyterLab computational environment
 # JupyterLab itself is BSD-3-Clause and

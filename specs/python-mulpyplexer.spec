@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.09
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Module that multiplexes interactions with lists of Python objects
 
 License:        BSD-2-Clause
@@ -11,36 +11,42 @@ Source0:        %{pypi_source}
 BuildArch:      noarch
  
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 
-%description
+%global _description %{expand:
 Mulpyplexer is a piece of code that can multiplex interactions with lists of
-python objects.
+python objects.}
+
+%description %_description
 
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
 %{?python_provide:%python_provide python3-%{pypi_name}}
 
-%description -n python3-%{pypi_name}
-Mulpyplexer is a piece of code that can multiplex interactions with lists of
-python objects.
+%description -n python3-%{pypi_name} %_description
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -p1 -n %{pypi_name}-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l mulpyplexer
 
-%files -n python3-%{pypi_name}
+%check
+%pyproject_check_import
+
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE
-%{python3_sitelib}/__pycache__/*
-%{python3_sitelib}/%{pypi_name}.py
-%{python3_sitelib}/%{pypi_name}-*-py*.egg-info
 
 %changelog
+* Thu Oct 23 2025 W. Michael Petullo <mike@flyn.org> - 0.09-22
+- Use new Python packaging macros
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.09-21
 - Rebuilt for Python 3.14.0rc3 bytecode
 

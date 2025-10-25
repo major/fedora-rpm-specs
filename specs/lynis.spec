@@ -1,7 +1,7 @@
 %global bashcompdir %(pkg-config --variable=completionsdir bash-completion)
 
 Name:           lynis
-Version:        3.1.5
+Version:        3.1.6
 Release:        1%{?dist}
 Summary:        Security and system auditing tool
 License:        GPL-3.0-only
@@ -78,6 +78,9 @@ touch %{buildroot}%{_localstatedir}/log/lynis-report.dat
 %ghost %{_localstatedir}/log/lynis-report.dat
 
 %changelog
+* Thu Oct 23 2025 Gwyn Ciesla <gwync@protonmail.com> - 3.1.6-1
+- 3.1.6
+
 * Tue Jul 29 2025 Gwyn Ciesla <gwync@protonmail.com> - 3.1.5-1
 - 3.1.5
 

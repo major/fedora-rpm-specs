@@ -6,7 +6,7 @@
 %global crate serde_core
 
 Name:           rust-serde_core
-Version:        1.0.225
+Version:        1.0.228
 Release:        %autorelease
 Summary:        Serde traits
 

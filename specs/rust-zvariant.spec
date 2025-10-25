@@ -5,7 +5,7 @@
 %global crate zvariant
 
 Name:           rust-zvariant
-Version:        5.7.0
+Version:        5.8.0
 Release:        %autorelease
 Summary:        D-Bus & GVariant encoding & decoding
 
@@ -13,7 +13,7 @@ License:        MIT
 URL:            https://crates.io/crates/zvariant
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * drop unused, benchmark-only criterion dev-dependency
+# * drop unused, benchmark-only codspeed-criterion-compat dev-dependency
 Patch:          zvariant-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

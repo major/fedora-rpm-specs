@@ -74,7 +74,6 @@ BuildRequires:  python3-pytest
 BuildRequires:  python3-pytest-click
 BuildRequires:  python3-pytest-timeout
 BuildRequires:  python3-pytest-subtests
-BuildRequires:  python3-pytz
 BuildRequires:  python3-pyyaml
 BuildRequires:  python3-redis
 BuildRequires:  python3-simplejson

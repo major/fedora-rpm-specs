@@ -1,7 +1,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-user-docs
-Version:        49.0
+Version:        49.1
 Release:        1%{?dist}
 Summary:        GNOME User Documentation
 
@@ -38,6 +38,9 @@ environment.
 %doc NEWS README.md
 
 %changelog
+* Mon Oct 13 2025 Petr Schindler <pschindl@redhat.com> - 49.1-1
+- Update to 49.1
+
 * Mon Sep 15 2025 Michael Catanzaro <mcatanzaro@gnome.org> - 49.0-1
 - Update to 49.0
 

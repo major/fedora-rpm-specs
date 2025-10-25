@@ -42,7 +42,6 @@ Supplements:    (pop-session and gtk2)
 # gtk3
 %package -n pop-gtk3-theme
 Summary:        Pop GTK 3 Theme
-Requires:       gnome-themes-extra
 Supplements:    (pop-session and gtk3)
 
 %description -n pop-gtk3-theme
@@ -59,7 +58,6 @@ Supplements:    (pop-session and gtk3)
 # gtk4
 %package -n pop-gtk4-theme
 Summary:        Pop GTK 4 Theme
-Requires:       gnome-themes-extra
 Supplements:    (pop-session and gtk4)
 
 %description -n pop-gtk4-theme

@@ -1,12 +1,12 @@
 Name:          ruqola
-Version:       2.5.1
+Version:       2.6.0
 Release:       1%{?dist}
 Summary:       Qt-based client for Rocket Chat
 
 License:       BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later
 URL:           https://invent.kde.org/network/%{name}
 
-Source:        https://download.kde.org/stable/%{name}/%{version}/%{name}-%{version}.tar.xz
+Source:        https://download.kde.org/stable/%{name}/%{name}-%{version}.tar.xz
 
 BuildRequires: kf6-rpm-macros
 BuildRequires: extra-cmake-modules
@@ -112,6 +112,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.ru
 %{_docdir}/HTML/en/ruqola/index.docbook
 
 %changelog
+* Thu Oct 23 2025 Steve Cossette <farchord@gmail.com> - 2.6.0-1
+- 2.6.0
+
 * Sun Aug 10 2025 Steve Cossette <farchord@gmail.com> - 2.5.1-1
 - 2.5.1
 

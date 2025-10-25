@@ -5,7 +5,7 @@
 %global crate snafu
 
 Name:           rust-snafu
-Version:        0.8.6
+Version:        0.8.9
 Release:        %autorelease
 Summary:        Ergonomic error handling library
 

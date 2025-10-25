@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        3.1.0
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        A mutable, self-balancing interval tree for Python
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -12,36 +12,44 @@ Source0:        https://files.pythonhosted.org/packages/source/i/%{srcname}/%{sr
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 
-%description
+%global _description %{expand:
 A mutable, self-balancing interval tree for Python. Queries may
-be by point, by range overlap, or by range envelopment.
+be by point, by range overlap, or by range envelopment.}
+
+%description %_description
 
 %package -n python3-%{srcname}
 Summary:        %{summary}
 %{?python_provide:%python_provide python3-%{srcname}}
 Requires:       python3-sortedcontainers
 
-%description -n python3-%{srcname}
-A mutable, self-balancing interval tree for Python. Queries may
-be by point, by range overlap, or by range envelopment.
+%description -n python3-%{srcname} %_description
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -p1 -n %{srcname}-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l intervaltree
 
-%files -n python3-%{srcname}
-%{python3_sitelib}/*
+%check
+%pyproject_check_import
+
+%files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE.txt
 %doc README.md CHANGELOG.md
 
 %changelog
+* Thu Oct 23 2025 W. Michael Petullo <mike@flyn.org> - 3.1.0-21
+- Use new Python packaging macros
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.1.0-20
 - Rebuilt for Python 3.14.0rc3 bytecode
 

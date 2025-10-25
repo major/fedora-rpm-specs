@@ -5,7 +5,7 @@
 %global crate phf_macros
 
 Name:           rust-phf_macros
-Version:        0.11.3
+Version:        0.12.1
 Release:        %autorelease
 Summary:        Macros to generate types in the phf crate
 
@@ -45,6 +45,30 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+uncased-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+uncased-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "uncased" feature of the "%{crate}" crate.
+
+%files       -n %{name}+uncased-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+uncased_-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+uncased_-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "uncased_" feature of the "%{crate}" crate.
+
+%files       -n %{name}+uncased_-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+unicase-devel

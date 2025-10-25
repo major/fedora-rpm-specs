@@ -1,5 +1,5 @@
 Name:           python-posix-ipc
-Version:        1.3.1
+Version:        1.3.2
 Release:        %autorelease
 Summary:        POSIX IPC primitives for Python
 License:        BSD-3-Clause

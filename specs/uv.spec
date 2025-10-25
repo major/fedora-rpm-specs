@@ -224,6 +224,10 @@ ExcludeArch:    %{ix86}
 # average should be below that on many-core systems. Increase as needed.
 %global _smp_tasksize_proc 4096
 
+# Compilation may fail on builders with very many cores (e.g. 192 cores) due to
+# “too many open files.” Try to keep the files/core ratio from getting too low.
+%global _smp_ncpus_max 128
+
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  rust2rpm-helper
 BuildRequires:  tomcli

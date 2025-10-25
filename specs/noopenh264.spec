@@ -14,7 +14,7 @@ BuildRequires:  meson
 
 # Explicitly conflict with openh264 that ships the actual
 # non-dummy version of the library.
-Conflicts:      openh264
+Conflicts:      openh264%{?_isa}
 
 %description
 Fake implementation of the OpenH264 library we can link from
@@ -26,7 +26,7 @@ Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 # Explicitly conflict with openh264-devel that ships the actual
 # non-dummy version of the library.
-Conflicts:      openh264-devel
+Conflicts:      openh264-devel%{?_isa}
 
 %description    devel
 The %{name}-devel package contains libraries and header files for

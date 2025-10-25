@@ -40,7 +40,7 @@ sed -i -e 's/unknown/%{version}/' getver.sh
 %make_build 
 
 %install
-%make_install LIBDIR=%{_lib}
+%make_install PREFIX=%{_prefix} LIBDIR=%{_lib}
 %find_lang %{name}
 
 # Add AppStream metadata

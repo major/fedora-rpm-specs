@@ -1,7 +1,7 @@
 ### Header
 Summary: Collection of basic system utilities
 Name: util-linux
-Version: 2.41.1
+Version: 2.41.2
 # -p -e rc1
 Release: %autorelease -b7
 License: GPL-1.0-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.1-or-later AND BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause-UC AND LicenseRef-Fedora-Public-Domain
@@ -113,9 +113,6 @@ Patch1: login-default-motd-file.patch
 # https://github.com/dracut-ng/dracut-ng/issues/1384
 # 2367956 - EROFS vs. the latest util-linux and kernel
 Patch2: 0001-libmount-disable-EROFS-backing-file-support.patch
-
-# Upstream
-Patch3: 0001-ldattach-add-ifndef-BOTHER.patch
 
 %description
 The util-linux package contains a large variety of low-level system
@@ -733,11 +730,13 @@ fi
 %{compldir}/chcpu
 %{compldir}/chfn
 %{compldir}/chmem
+%{compldir}/choom
 %{compldir}/chsh
 %{compldir}/col
 %{compldir}/colcrt
 %{compldir}/colrm
 %{compldir}/column
+%{compldir}/coresched
 %{compldir}/ctrlaltdel
 %{compldir}/delpart
 %{compldir}/eject

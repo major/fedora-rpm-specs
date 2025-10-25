@@ -3,7 +3,7 @@
 %global debug_package %{nil}
 
 Name:           python-%{srcname}
-Version:        0.24.6
+Version:        0.24.7
 Release:        %autorelease
 Summary:        Python implementation of the Git file formats and protocols
 

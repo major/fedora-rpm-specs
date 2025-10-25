@@ -1,7 +1,7 @@
 Summary: A DSSSL implementation
 Name: openjade
 Version: 1.3.2
-Release: 83%{?dist}
+Release: 84%{?dist}
 Requires: sgml-common
 URL: http://openjade.sourceforge.net/
 Source: http://download.sourceforge.net/openjade/openjade-%{version}.tar.gz
@@ -63,6 +63,9 @@ cp -p %{SOURCE2} %{SOURCE3} config/
 export CXXFLAGS="%optflags -fno-lifetime-dse"
 %configure --disable-static --datadir=%{_datadir}/sgml/%{name}-%{version} \
 	--enable-splibdir=%{_libdir}
+# Remove rpath from libtool
+sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
+sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 make
 
 
@@ -87,9 +90,6 @@ ln -s %{name}-%{version}-%{release}.soc %{name}.soc
 popd
 
 rm -f %{buildroot}%{_libdir}/*.so %{buildroot}%{_libdir}/*.la
-
-# Stop check-rpaths from complaining about standard runpaths.
-export QA_RPATHS=0x0001
 
 %post
 %{?ldconfig}
@@ -117,6 +117,9 @@ touch %{_sysconfdir}/sgml/%{name}-%{version}-%{release}.soc
 %{_datadir}/sgml/%{name}-%{version}
 
 %changelog
+* Wed Oct 22 2025 Ales Nezbeda <anezbeda@redhat.com> - 1.3.2-84
+- Remove RPATH from binary
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-83
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

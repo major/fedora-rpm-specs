@@ -5,7 +5,7 @@
 %global crate phf_codegen
 
 Name:           rust-phf_codegen
-Version:        0.11.3
+Version:        0.12.1
 Release:        %autorelease
 Summary:        Codegen library for PHF types
 

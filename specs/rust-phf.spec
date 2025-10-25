@@ -5,7 +5,7 @@
 %global crate phf
 
 Name:           rust-phf
-Version:        0.11.3
+Version:        0.12.1
 Release:        %autorelease
 Summary:        Runtime support for perfect hash function data structures
 

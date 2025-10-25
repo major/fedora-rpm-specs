@@ -27,7 +27,7 @@
 
 Name:		0ad
 Version:	0.27.1
-Release:	4%{?dist}
+Release:	5%{?dist}
 # BSD License:
 #	build/premake/*
 #	libraries/source/miniupnpc/*		(not built/used)
@@ -76,6 +76,8 @@ Source2:	%{name}.6
 # Patches to bundled mozjs for Python 3.11 and setuptools 60+ compatibility
 Source3:	0001-Bug-1654457-Update-virtualenv-to-20.0.31.-r-mhentges.patch
 Source4:	0001-Python-Build-Use-r-instead-of-rU-file-read-modes.patch
+
+Source5:        premake-core-5.0.0-beta7.tar.gz
 
 Requires:	%{name}-data = %{version}
 Requires:	hicolor-icon-theme
@@ -130,7 +132,7 @@ BuildRequires:	pkgconfig(mozjs-115)
 BuildRequires:	python3.11-devel
 BuildRequires:	perl-devel
 
-ExclusiveArch:	%{ix86} x86_64 %{arm} aarch64
+ExclusiveArch:	%{ix86} x86_64 %{arm} aarch64 ppc64le
 
 %if %{without system_mozjs115}
 Provides: bundled(mozjs) = 115
@@ -154,6 +156,9 @@ Patch9:		0ad-icu76.patch
 # pulled from https://gitlab.archlinux.org/archlinux/packaging/packages/0ad/-/blob/a26-20/49507c04e027b0d48e050bfc38ae2b631d7403c7.patch
 # due to 500 errors upstream
 Patch10:        49507c04e027b0d48e050bfc38ae2b631d7403c7.patch
+# Re-enable ppc64le
+Patch11:        638c04987ef134edea2b87d5f97996219206cebb.patch
+Patch12:        59cb3cd67b2b51a5bcc9d052d8d77e2f2a4b89b7.patch
 
 %description
 0 A.D. (pronounced "zero ey-dee") is a free, open-source, cross-platform
@@ -190,6 +195,10 @@ hobbyist game developers, since 2001.
 #%%patch -P8 -p1
 #%%patch -P9 -p1
 #%%patch -P10 -p1
+%patch -P11 -p1
+%patch -P12 -p1
+
+cp %{SOURCE5} libraries/source/premake-core/
 
 %if %{with system_nvtt}
 rm -fr libraries/source/nvtt
@@ -301,6 +310,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/0ad.desktop
 %{_mandir}/man6/*.6*
 
 %changelog
+* Tue Sep 23 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.27.1-5
+- Re-enable ppc64le
+
 * Fri Aug 08 2025 František Zatloukal <fzatlouk@redhat.com> - 0.27.1-4
 - Rebuild for mozjs115 rebuilt with icu 77.1
 

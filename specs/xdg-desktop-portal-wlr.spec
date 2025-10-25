@@ -1,6 +1,6 @@
 Name:           xdg-desktop-portal-wlr
-Version:        0.7.1
-Release:        4%{?dist}
+Version:        0.8.0
+Release:        1%{?dist}
 Summary:        xdg-desktop-portal backend for wlroots
 
 License:        MIT
@@ -83,6 +83,9 @@ install -D -pv -m644 %{SOURCE3} \
 
 
 %changelog
+* Tue Oct 21 2025 Tomasz Hołubowicz <mail@alternateved.com> - 0.8.0-1
+- Update to 0.8.0
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

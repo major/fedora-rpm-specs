@@ -6,7 +6,7 @@
 %global crate zbus
 
 Name:           rust-zbus
-Version:        5.10.0
+Version:        5.12.0
 Release:        %autorelease
 Summary:        API for D-Bus communication
 
@@ -18,7 +18,6 @@ Patch:          zbus-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * drop unstable-only tracing feature from tokio
 # * remove features and dependencies for unused vsock support
-# * remove Windows-only windows-gdbus feature
 Patch:          zbus-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

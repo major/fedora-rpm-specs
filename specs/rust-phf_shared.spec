@@ -5,7 +5,7 @@
 %global crate phf_shared
 
 Name:           rust-phf_shared
-Version:        0.11.3
+Version:        0.12.1
 Release:        %autorelease
 Summary:        Support code shared by PHF libraries
 

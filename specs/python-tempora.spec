@@ -23,10 +23,8 @@ BuildRequires:  python3dist(build)
 BuildRequires:  python3dist(freezegun)
 BuildRequires:  python3dist(jaraco-functools) >= 1.20
 BuildRequires:  python3dist(pip)
-BuildRequires:  python3dist(pytz)
 BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(setuptools-scm) >= 1.15
-BuildRequires:  python3dist(six)
 BuildRequires:  python3dist(wheel)
 # testing Reqs
 BuildConflicts: python3dist(pytest) = 3.7.3

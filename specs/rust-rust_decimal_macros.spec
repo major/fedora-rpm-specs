@@ -6,7 +6,7 @@
 %global crate rust_decimal_macros
 
 Name:           rust-rust_decimal_macros
-Version:        1.37.1
+Version:        1.39.0
 Release:        %autorelease
 Summary:        Shorthand macros to assist creating Decimal types
 

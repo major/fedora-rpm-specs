@@ -2,11 +2,11 @@
 %global abi_ver 0.19
 # libliftoff does not bump soname on API changes
 %global liftoff_ver 0.5.0
-%global tag     0.19.1
+%global tag     0.19.2
 
 Name:           wlroots
-Version:        0.19.1
-Release:        2%{?dist}
+Version:        0.19.2
+Release:        1%{?dist}
 Summary:        A modular Wayland compositor library
 
 # Source files/overall project licensed as MIT, but
@@ -37,7 +37,6 @@ Source2:        https://emersion.fr/.well-known/openpgpkey/hu/dj3498u4hyyarh35rk
 Source3:        examples.meson.build
 
 # Upstream patches
-Patch:          %{url}/-/commit/7392b331.patch#/wlroots-0.19.1-backend-output-send-commit-events-after-applying-all.patch
 
 # Fedora patches
 # Following patch is required for phoc.
@@ -142,6 +141,9 @@ install -pm0644 -D '%{SOURCE3}' '%{buildroot}/%{_pkgdocdir}/examples/meson.build
 
 
 %changelog
+* Tue Oct 21 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.19.2-1
+- Update to 0.19.2 (#2405567)
+
 * Sun Sep 28 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.19.1-2
 - Apply upstream patch for crash on disabling outputs
 

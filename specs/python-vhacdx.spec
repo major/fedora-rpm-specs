@@ -1,5 +1,5 @@
 Name:           python-vhacdx
-Version:        0.0.8.post2
+Version:        0.0.9
 Release:        %autorelease
 Summary:        Python bindings for V-HACD
 

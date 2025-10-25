@@ -7,7 +7,7 @@
 %bcond awscrt 0
 
 Name:           python-boto3
-Version:        1.40.57
+Version:        1.40.58
 Release:        1%{?dist}
 Summary:        The AWS SDK for Python
 
@@ -83,6 +83,9 @@ hardlink -c '%{buildroot}%{python3_sitelib}/boto3'
 %license LICENSE
 
 %changelog
+* Thu Oct 23 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.40.58-1
+- 1.40.58
+
 * Wed Oct 22 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.40.57-1
 - 1.40.57
 

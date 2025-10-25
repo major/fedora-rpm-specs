@@ -78,8 +78,8 @@
 %global _package_note_file  %{_builddir}/%{name}-%{real_version}/.package_note-%{name}-%{version}-%{release}.%{_arch}.ld
 
 Name:           git
-Version:        2.51.0
-Release:        3%{?dist}
+Version:        2.51.1
+Release:        1%{?dist}
 Summary:        Fast Version Control System
 License:        BSD-3-Clause AND GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
 URL:            https://git-scm.com/
@@ -1042,6 +1042,9 @@ rmdir --ignore-fail-on-non-empty "$testdir"
 %{?with_docs:%{_pkgdocdir}/git-svn.html}
 
 %changelog
+* Thu Oct 23 2025 Ondřej Pohořelský <opohorel@redhat.com> - 2.51.1-1
+- update to 2.51.1
+
 * Sun Oct 12 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 2.51.0-3
 - Revbump for tcl/tk 9
 

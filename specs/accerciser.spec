@@ -2,8 +2,8 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           accerciser
-Version:        3.46.2
-Release:        5%{?dist}
+Version:        3.48.0
+Release:        1%{?dist}
 Summary:        Interactive Python accessibility explorer for the GNOME desktop
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -75,6 +75,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/accerciser.desktop
 
 
 %changelog
+* Thu Oct 23 2025 Matthias Clasen <mclasen@redhat.com> - 3.48.0-1
+- Update to 3.48.0
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.46.2-5
 - Rebuilt for Python 3.14.0rc3 bytecode
 

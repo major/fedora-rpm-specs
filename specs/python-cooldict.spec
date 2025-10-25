@@ -2,44 +2,55 @@
 
 Name:           python-%{pypi_name}
 Version:        1.04
-Release:        23%{?dist}
+Release:        25%{?dist}
 Summary:        Some useful dict-like structures
 
 License:        BSD-2-Clause
 URL:            https://github.com/zardus/cooldict
 Source0:        %{pypi_source}
-BuildArch:      noarch
- 
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 
-%description
-Helper for handling dictonery-like structures.
+BuildArch:      noarch
+BuildRequires:  python3-devel
+
+%global _description %{expand:
+Helper for handling dictonery-like structures.}
+
+%description %_description
 
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
 %{?python_provide:%python_provide python3-%{pypi_name}}
 
-%description -n python3-%{pypi_name}
-Helper for handling dictonery-like structures.
+%description -n python3-%{pypi_name} %_description
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -p1 -n %{pypi_name}-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
-%files -n python3-%{pypi_name}
+%pyproject_save_files -l %{pypi_name}
+
+%check
+%pyproject_check_import
+
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE
 %doc README.md
-%{python3_sitelib}/__pycache__/*
-%{python3_sitelib}/%{pypi_name}.py
-%{python3_sitelib}/%{pypi_name}-*-py*.egg-info
 
 %changelog
+* Thu Oct 23 2025 W. Michael Petullo <mike@flyn.org> - 1.04-25
+- Add use of additional Python macros.
+
+* Thu Oct 23 2025 W. Michael Petullo <mike@flyn.org> - 1.04-24
+- Adopt new Python macros.
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.04-23
 - Rebuilt for Python 3.14.0rc3 bytecode
 

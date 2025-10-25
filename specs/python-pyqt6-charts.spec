@@ -3,8 +3,8 @@
 #define snap dev2503181029
 
 Name:           python-pyqt6-charts
-Version:        6.9.0
-Release:        4%{?snap:^%{snap}}%{?dist}
+Version:        6.10.0
+Release:        %autorelease
 Summary:        Set of Python bindings for The Qt Charts library
 License:        GPL-3.0-only
 URL:            https://www.riverbankcomputing.com/software/pyqtchart/
@@ -89,13 +89,4 @@ grep %{buildroot} %{buildroot}%{python3_sitearch}/*.dist-info/* && exit 1 || tru
 
 
 %changelog
-* Thu Oct 02 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.0-4
-- Rebuild (qt6)
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.9.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 6.9.0-2
-- Rebuilt for Python 3.14
-
 %autochangelog

@@ -1,6 +1,6 @@
 Name:           python-colored-traceback
 Version:        0.3.0
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        A library to color exception traces
 
 License:        ISC
@@ -9,35 +9,41 @@ Source0:        %{pypi_source colored-traceback}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 
-%description
-Colored-traceback is a python library to color exception traces.
+%global _description %{expand:
+Colored-traceback is a python library to color exception traces.}
+
+%description %_description
 
 %package -n python3-colored-traceback
 Summary:        %{summary}
 
-%description -n python3-colored-traceback
-Colored-traceback is a python library to color exception traces.
+%description -n python3-colored-traceback %_description
 
 %prep
-%autosetup -n colored-traceback-%{version} -p1
+%autosetup -p1 -n colored-traceback-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
 %check
 %py3_check_import colored_traceback
 
 %files -n python3-colored-traceback
 %doc README.rst
-%{python3_sitelib}/colored_traceback-%{version}-py%{python3_version}.egg-info/
+%{python3_sitelib}/colored_traceback-%{version}.dist-info/
 %{python3_sitelib}/colored_traceback/
 
 %changelog
+* Thu Oct 23 2025 W. Michael Petullo <mike@flyn.org> - 3.1.0-21
+- Use new Python packaging macros
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.3.0-16
 - Rebuilt for Python 3.14.0rc3 bytecode
 

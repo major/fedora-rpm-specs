@@ -1,13 +1,13 @@
 %global debug_package %{nil}
 
 Name: gtk-doc
-Version: 1.34.0
-Release: 7%{?dist}
+Version: 1.35.1
+Release: 1%{?dist}
 Summary: API documentation generation tool for GTK+ and GNOME
 
 License: GPL-2.0-or-later AND GFDL-1.1-no-invariants-or-later
 URL: https://gitlab.gnome.org/GNOME/gtk-doc/
-Source0: http://download.gnome.org/sources/%{name}/1.34/%{name}-%{version}.tar.xz
+Source0: http://download.gnome.org/sources/%{name}/1.35/%{name}-%{version}.tar.xz
 
 # Resolve FTBFS, unclear if solution is 'proper'
 # https://gitlab.gnome.org/GNOME/gtk-doc/-/issues/150
@@ -77,6 +77,9 @@ mv doc/README doc/README.docs
 %{_libdir}/cmake/GtkDoc/
 
 %changelog
+* Thu Oct 23 2025 Matthias Clasen <mclasen@redhat.com> - 1.35.1-1
+- Update to 1.35.1
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.34.0-7
 - Rebuilt for Python 3.14.0rc3 bytecode
 

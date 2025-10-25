@@ -3,15 +3,12 @@
 # Has been different from cubelib/cube
 %global cubew_vers %version
 %global shortwv %(echo %cubew_vers|awk -F. '{print $1 "." $2}')
-%if 0%{?el7}
-%global dts devtoolset-9
-%endif
 %{!?bash_completion_dir:%global bash_completion_dir /usr/share/bash-completion/completions}
 
 
 Name:           cube
 Version:        4.9
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        CUBE Uniform Behavioral Encoding generic presentation component
 License:        BSD-3-Clause
 URL:            http://www.scalasca.org/software/cube-4.x/download.html
@@ -310,6 +307,8 @@ make -C cubew-%cubew_vers check || { cat test/test*/*log && false; }
 %{_datadir}/cubegui/
 %{bash_completion_dir}/cube
 
+%files devel
+
 %files libs
 %license cubegui-%ver/COPYING
 %{_bindir}/cube_server
@@ -348,6 +347,9 @@ make -C cubew-%cubew_vers check || { cat test/test*/*log && false; }
 
 
 %changelog
+* Thu Oct 23 2025 Dave Love <loveshack@fedoraproject.org> - 4.9-3
+- Reinstate cube-devel package (#2406039)
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

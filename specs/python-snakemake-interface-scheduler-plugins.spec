@@ -2,7 +2,7 @@
 %bcond bootstrap 0
 
 Name:           python-snakemake-interface-scheduler-plugins
-Version:        2.0.1
+Version:        2.0.2
 Release:        %autorelease
 Summary:        Scheduler plugin interface for snakemake
 

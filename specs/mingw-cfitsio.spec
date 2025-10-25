@@ -4,14 +4,14 @@
 
 Name:          mingw-%{pkgname}
 # NOTE: sync SOVER in cfitsio_build.patch with the one in configure.in
-Version:       4.6.2
-Release:       3%{?dist}
+Version:       4.6.3
+Release:       1%{?dist}
 Summary:       MinGW Windows CFITSIO library
 
 License:       CFITSIO
 BuildArch:     noarch
-URL:           http://heasarc.gsfc.nasa.gov/fitsio/
-Source0:       http://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/%{pkgname}-%{version}.tar.gz
+URL:           https://heasarc.gsfc.nasa.gov/fitsio/
+Source0:       https://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/%{pkgname}-%{version}.tar.gz
 # Install headers to include/cfitsio
 Patch0:        cfitsio_cmake.patch
 
@@ -110,6 +110,9 @@ MinGW Windows CFITSIO library.
 %{mingw64_bindir}/speed.exe
 
 %changelog
+* Wed Oct 22 2025 Sandro Mani <manisandro@gmail.com> - 4.6.3-1
+- Update to 4.6.3
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

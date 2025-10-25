@@ -6,7 +6,7 @@
 %global crate strum_macros
 
 Name:           rust-strum_macros
-Version:        0.27.1
+Version:        0.27.2
 Release:        %autorelease
 Summary:        Helpful macros for working with enums and strings
 

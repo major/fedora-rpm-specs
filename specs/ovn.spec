@@ -45,20 +45,20 @@
 Name: ovn
 Summary: Open Virtual Network support
 URL: http://www.openvswitch.org/
-Version: 25.03.1
+Version: 25.09.0
 Release: 42%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
 Obsoletes: openvswitch-ovn-common < %{?epoch_ovs:%{epoch_ovs}:}2.11.0-8
 Provides: openvswitch-ovn-common = %{?epoch:%{epoch}:}%{version}-%{release}
 
 License: Apache-2.0 AND LGPL-2.1-only AND SISSL
 
-%define ovncommit 4b8dac64fd3fbbfb39a7105365d5143c7ffa5a35
+%define ovncommit 8890abf5a25b7b67f08aca8917c1d00cf2296a56
 
 # Always pull an upstream release, since this is what we rebase to.
 Source: https://github.com/ovn-org/ovn/archive/%{ovncommit}.tar.gz#/ovn-%{version}.tar.gz
 
-%define ovscommit a0f636163b60a6afe5e20da221b7e7a47a8a3753
-%define ovsshortcommit a0f6361
+%define ovscommit 852f07e5251c6a0c0d5c43dc980d12a4f1bcd370
+%define ovsshortcommit 852f07e
 
 Source10: https://github.com/openvswitch/ovs/archive/%{ovscommit}.tar.gz#/openvswitch-%{ovsshortcommit}.tar.gz
 %define ovsdir ovs-%{ovscommit}
@@ -437,6 +437,14 @@ fi
 %{_unitdir}/ovn-controller-vtep.service
 
 %changelog
+* Thu Oct 23 2025 Numan Siddique <numans@ovn.org> - 25.09.0-1
+- Updated the OVN sources to upstream release v25.09.0 with the
+  commit 8890abf5a25b7b67f08aca8917c1d00cf2296a56 and picked up
+  the commits from v25.09.0 till the tip of branch-25.09
+  b5f5e0f9cf58a4062a3709b237d152127eba445f (42 commits) in ovn.patch
+- Updated the OVS sources to the branch-25.09 ovs submodule
+  commit - 852f07e5251c6a0c0d5c43dc980d12a4f1bcd370
+
 * Mon Jul 28 2025 Dumitru Ceara <dceara@redhat.com> - 25.03.1-32
 - Updated the OVN sources to upstream release 25.03.1
   with the base OVN commit 4b8dac64fd3fbbfb39a7105365d5143c7ffa5a35

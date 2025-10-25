@@ -13,48 +13,47 @@ Source2:        https://raw.githubusercontent.com/JonathanSalwan/ROPgadget/c29c5
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist capstone}
-BuildRequires:  %{py3_dist setuptools}
 
-%description
+%global _description %{expand:
 ROPGadget lets you search your gadgets on your binaries to facilitate
 your ROP exploitation. ROPgadget supports ELF, PE and Mach-O format on
-x86, x64, ARM, ARM64, PowerPC, SPARC and MIPS architectures.
+x86, x64, ARM, ARM64, PowerPC, SPARC and MIPS architectures.}
+
+%description %_description
 
 %package -n python3-ROPGadget
 Summary:        %{summary}
 %{?python_provide:%python_provide python3-ROPGadget}
 Requires:       %{py3_dist capstone}
 
-%description -n python3-ROPGadget
-ROPGadget lets you search your gadgets on your binaries to facilitate
-your ROP exploitation. ROPgadget supports ELF, PE and Mach-O format on
-x86, x64, ARM, ARM64, PowerPC, SPARC and MIPS architectures.
+%description -n python3-ROPGadget %_description
 
 %prep
-%autosetup -n %{srcname}-%{version}
-
-# Requires capstone that is not yet released. Be less selective.
-sed -i 's/>=5.0.0rc2//g' setup.py
+%autosetup -p1 -n %{srcname}-%{version}
 
 cp -p %SOURCE1 .
 cp -p %SOURCE2 .
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 for lib in $(find %{buildroot}%{python3_sitelib}/ropgadget/ -name "*.py"); do
   sed '1{\@^#!/usr/bin/env python@d}' $lib > $lib.new &&
   touch -r $lib $lib.new &&
   mv $lib.new $lib
 done
+%pyproject_save_files -l ropgadget
 
-%files -n python3-ROPGadget
+%check
+%pyproject_check_import
+
+%files -n python3-ROPGadget -f %{pyproject_files}
 %doc LICENSE_BSD.txt README.md
-%{python3_sitelib}/ropgadget
-%{python3_sitelib}/ROPGadget-%{version}-py%{python3_version}.egg-info
 %{_bindir}/*
 
 %changelog
