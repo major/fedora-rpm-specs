@@ -34,6 +34,13 @@
 %define python_expand python3
 %endif
 
+%bcond_with gitcommit
+%if %{with gitcommit}
+%global commit0 2584e35062ad9c2edb68d93c464cf157bc57e3b0
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+%global date0 20250926
+%endif
+
 %global upstreamname hipSPARSELt
 %global rocm_release 7.0
 %global rocm_patch 1
@@ -92,13 +99,25 @@
 %endif
 
 Name:           %{hipsparselt_name}
+%if %{with gitcommit}
+Version:        git%{date0}.%{shortcommit0}
+Release:        1%{?dist}
+%else
 Version:        %{rocm_version}
 Release:        1%{?dist}
+%endif
 Summary:        A SPARSE marshaling library
-Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
 
+%if %{with gitcommit}
+Url:            https://github.com/ROCm/rocm-libraries
+Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
+%else
+Url:            https://github.com/ROCm/%{upstreamname}
 Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
+%endif
+
+# TODO : track down the gitcommit for this
 Source1:        https://github.com/ROCm/hipBLASLt/archive/%{hipblaslt_commit}/hipBLASLt-%{hipblaslt_scommit}.tar.gz
 # This are patches from the hiblaslt package for patching tensile
 Source2:        0001-hipblaslt-tensilelite-remove-yappi-dependency.patch
@@ -191,7 +210,12 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %endif
 
 %prep
+%if %{with gitcommit}
+%setup -q -n rocm-libraries-%{commit0}
+cd projects/hipsparselt
+%else
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
+%endif
 
 tar xf %{SOURCE1}
 mv hipBLASLt-%{hipblaslt_commit} hipBLASLt
@@ -220,6 +244,9 @@ sed -i -e 's@find_package( cblas REQUIRED CONFIG )@#find_package( cblas REQUIRED
 sed -i -e 's@set( BLAS_LIBRARY "blas" )@set( BLAS_LIBRARY "flexiblas" )@' clients/CMakeLists.txt
 sed -i -e 's@lapack cblas@flexiblas@' clients/gtest/CMakeLists.txt
 %build
+%if %{with gitcommit}
+cd projects/hipsparselt
+%endif
 
 # Do a manual install instead of cmake's virtualenv
 cd hipBLASLt/tensilelite
@@ -268,11 +295,13 @@ export Tensile_DIR=${TL}%{python3_sitelib}/Tensile
 %cmake_build
 
 %install
+%if %{with gitcommit}
+cd projects/hipsparselt
+%endif
+
 %cmake_install
 
-if [ -f %{buildroot}%{_prefix}/share/doc/hipsparselt/LICENSE.md ]; then
-    rm %{buildroot}%{_prefix}/share/doc/hipsparselt/LICENSE.md
-fi
+rm -f %{buildroot}%{_prefix}/share/doc/hipsparselt/LICENSE.md
 
 # hipsparselt.x86_64: W: unstripped-binary-or-object /usr/lib64/hipsparselt/library/Kernels.so-000-gfx1100.hsaco
 %{rocmllvm_bindir}/llvm-strip %{buildroot}%{_libdir}/hipsparselt/library/Kernels*.hsaco
@@ -295,15 +324,20 @@ chrpath -r %{rocmllvm_libdir} %{buildroot}%{_bindir}/hipsparselt-test
 %endif
 
 %files
+%if %{with gitcommit}
+%doc projects/hipsparselt/README.md
+%license projects/hipsparselt/LICENSE.md
+%else
+%doc README.md
+%license LICENSE.md
+%endif
 %dir %{_libdir}/cmake/hipsparselt/
 %dir %{_libdir}/hipsparselt/
 %dir %{_libdir}/hipsparselt/library/
-%license LICENSE.md
 %{_libdir}/libhipsparselt.so.*
 %{_libdir}/hipsparselt/library/*
 
 %files devel
-%doc README.md
 %{_includedir}/hipsparselt
 %{_libdir}/cmake/hipsparselt/
 %{_libdir}/libhipsparselt.so

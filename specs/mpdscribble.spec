@@ -5,12 +5,10 @@ Summary:        A mpd client which submits information about tracks being played
 License:        GPL-2.0-or-later AND BSD-2-Clause
 URL:            https://www.musicpd.org/clients/%{name}/
 Source0:        https://www.musicpd.org/download/%{name}/%{version}/%{name}-%{version}.tar.xz
-Source1:        %{name}.service
 Source2:        %{name}.tmpfiles.conf
 
 BuildRequires: cmake
 BuildRequires: gcc-g++
-BuildRequires: git
 BuildRequires: libcurl-devel
 BuildRequires: libgcrypt-devel
 BuildRequires: libmpdclient-devel >= 2.2
@@ -26,7 +24,7 @@ mpdscribble is a music player daemon (mpd) client which submits information
 about tracks being played to Last.fm (formerly audioscrobbler)
 
 %prep
-%autosetup -S git_am
+%autosetup
 
 # Create a sysusers.d config file
 cat >mpdscribble.sysusers.conf <<EOF
@@ -43,7 +41,6 @@ EOF
 %install
 %meson_install
 
-install -D -m 0644 -p %{SOURCE1} %{buildroot}%{_unitdir}/%{name}.service
 install -D -m 0644 -p %{SOURCE2} %{buildroot}%{_tmpfilesdir}/%{name}.conf
 install -d %{buildroot}%{_localstatedir}/run/%{name}
 

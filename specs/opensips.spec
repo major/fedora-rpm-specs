@@ -1,10 +1,10 @@
-%global git_commit 07da80880d36f260af51077d9a89867525a40468
+%global git_commit 994bcd6900f1a7d7939e55e143c3f4e25772a440
 
 %global EXCLUDE_MODULES cachedb_cassandra cachedb_dynamodb %{!?_with_oracle:db_oracle} event_sqs example launch_darkly osp rtp.io sngtc tls_wolfssl
 
 Summary:  Open Source SIP Server
 Name:     opensips
-Version:  3.6.1
+Version:  3.6.2
 Release:  %autorelease
 License:  GPL-2.0-or-later
 Source0:  https://github.com/%{name}/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -15,14 +15,6 @@ Patch: opensips-0002-Cleanup-Oracle-s-makefiles.patch
 Patch: opensips-0003-db_ora-null-terminating-string-is-more-safely-most-m.patch
 Patch: opensips-0004-Return-actual-payload-ID-in-case-of-a-dynamic-payloa.patch
 Patch: opensips-0005-Guard-VERSIONTYPE.patch
-Patch: opensips-0006-Replace-distutils-completely.patch
-Patch: opensips-0007-Possible-free-of-unitialized-variable.patch
-Patch: opensips-0008-Possible-use-of-unitialized-variable.patch
-Patch: opensips-0009-Make-GCC-happy.patch
-Patch: opensips-0010-Make-GCC-happy.patch
-Patch: opensips-0011-Fix-function-type-mismatch.patch
-Patch: opensips-0012-Fix-function-type-mismatch.patch
-Patch: opensips-0013-Fix-variable-type-mismatch.patch
 
 URL:      https://opensips.org
 

@@ -7,6 +7,18 @@ License:        LGPL-2.0-only
 URL:            https://github.com/rems-project/%{name}
 Source0:        https://github.com/rems-project/%{name}/archive/2025-03-13/%{name}-2025-03-13.tar.gz
 
+# Fix file permissions: lem generates files with 0o600 permissions due to
+# Filename.open_temp_file defaulting to restrictive permissions. This patch
+# adds ~perms:0o666 to allow proper file permissions in generated output.
+# This should be discussed with upstream.
+Patch0:         fix-file-permissions.patch
+
+# Fix OCaml str library deprecation warning: OCaml 5.0 changed lib directory
+# layout. Adding use_str to _tags ensures the str subdirectory is properly
+# included, preventing build failures in future OCaml releases.
+# Upstream should add use_str to src/_tags.
+Patch1:         fix-ocaml-str-warning.patch
+
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}
 
@@ -60,10 +72,10 @@ help2man -N --version-string=%{version} -o %{buildroot}%{_mandir}/man1/lem.1 \
 %{ocamldir}/lem/*
 %{ocamldir}/lem_num/*
 %{ocamldir}/lem_zarith/*
-%attr(644, root, root)%{_datadir}/lem/coq-lib/*
-%attr(644, root, root)%{_datadir}/lem/hol-lib/*
-%attr(644, root, root)%{_datadir}/lem/isabelle-lib/*
-%attr(644, root, root)%{_datadir}/lem/library/*
+%{_datadir}/lem/coq-lib/*
+%{_datadir}/lem/hol-lib/*
+%{_datadir}/lem/isabelle-lib/*
+%{_datadir}/lem/library/*
 
 %changelog
 %autochangelog

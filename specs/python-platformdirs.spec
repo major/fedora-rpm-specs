@@ -9,7 +9,9 @@ URL:            https://github.com/platformdirs/platformdirs
 Source:         %{pypi_source platformdirs}
 BuildArch:      noarch
 
+%if %{with tests}
 BuildRequires:  tomcli
+%endif
 
 %global common_description %{expand:
 When writing desktop application, finding the right location to store user data
@@ -32,9 +34,11 @@ BuildRequires:  python3-devel
 %prep
 %autosetup -n platformdirs-%{version}
 
+%if %{with tests}
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 tomcli set pyproject.toml lists delitem project.optional-dependencies.test 'pytest-cov\b.*'
 tomcli set pyproject.toml lists delitem project.optional-dependencies.test 'covdefaults\b.*'
+%endif
 
 
 %generate_buildrequires

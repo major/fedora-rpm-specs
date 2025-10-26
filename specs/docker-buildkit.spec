@@ -25,7 +25,7 @@ Source2:        go-vendor-tools.toml
 
 BuildRequires:  go-vendor-tools >= 0.7.0
 BuildRequires:  git
-BuildRequires:  golang-github-distribution-3
+BuildRequires:  docker-distribution
 
 # Upstream binary package includes the package equivalents below
 Requires:       containerd
@@ -71,28 +71,34 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %check
 %go_vendor_license_check -c %{S:2}
 %if %{with check}
-# skip specific tests that fail with 'operation not permitted'.
-for test in \
-           "TestGetRemotes" \
-           "TestExtractOnMutable" \
-           "TestMergeOp" \
-           "TestDiffOp" \
-           "TestCLIIntegration" \
-           "TestSnapshotExtract" \
-           "TestJobsIntegration" \
-           "TestGhaCacheIntegration" \
-; do
-awk -i inplace '/^func.*'"$test"'\(/ { print; print "\tt.Skip(\"disabled failing test\")"; next}1' $(grep -rl $test)
-done
 
-# tags and ldflags defined to mimic build settings
-# currentgoldflags is reset under check and ignores being set check
-# use LDFLAGS
-export LDFLAGS="%{specldflags}"
-%define gotestflags       %{gocompilerflags} -tags "%{buildtags}"
+%global test_ignores %{shrink:
+    %dnl skip tests that fail with create tmp file: open - invalid argument
+    -s "TestConversion"
+    -s "TestSetBlob"
+    -s "TestLoopLeaseContent"
+    -s "TestSharingCompressionVariant"
+    -s "TestContentAttachable"
+    %dnl skip specific tests that fail with 'operation not permitted'
+    -s "TestGetRemotes"
+    -s "TestExtractOnMutable"
+    -s "TestMergeOp"
+    -s "TestDiffOp"
+    -s "TestCLIIntegration"
+    -s "TestSnapshotExtract"
+    -s "TestJobsIntegration"
+    -s "TestGhaCacheIntegration"
+    %dnl exclude directories where tests fail with 'operation not permitted'
+    -d cache/contenthash
+    -t source
+    -d client
+    -d frontend
+    -t frontend/dockerfile
+    -d snapshot
+    -t util/overlay
+}
+%gocheck2 %{test_ignores}
 
-# exclude directories where tests fail with 'operation not permitted' errors
-%gocheck -d cache/contenthash -t source -d client -d frontend -t frontend/dockerfile -d snapshot -t util/overlay
 %endif
 
 %files -f %{go_vendor_license_filelist}

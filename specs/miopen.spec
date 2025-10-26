@@ -25,6 +25,13 @@
 %global miopen_name miopen
 %endif
 
+%bcond_with gitcommit
+%if %{with gitcommit}
+%global commit0 2584e35062ad9c2edb68d93c464cf157bc57e3b0
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+%global date0 20250926
+%endif
+
 %global upstreamname MIOpen
 %global rocm_release 7.0
 %global rocm_patch 1
@@ -88,10 +95,14 @@
 %endif
 
 Name:           %{miopen_name}
+%if %{with gitcommit}
+Version:        git%{date0}.%{shortcommit0}
+Release:        1%{?dist}
+%else
 Version:        %{rocm_version}
 Release:        1%{?dist}
+%endif
 Summary:        AMD's Machine Intelligence Library
-Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT AND BSD-2-Clause AND Apache-2.0 AND %{?fedora:LicenseRef-Fedora-Public-Domain}%{?suse_version:SUSE-Public-Domain}
 # The base license is MIT with a couple of exceptions
 # BSD-2-Clause
@@ -103,7 +114,13 @@ License:        MIT AND BSD-2-Clause AND Apache-2.0 AND %{?fedora:LicenseRef-Fed
 # Public Domain
 #   src/md5.cpp
 
+%if %{with gitcommit}
+Url:            https://github.com/ROCm/rocm-libraries
+Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
+%else
+Url:            https://github.com/ROCm/%{upstreamname}
 Source0:        %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+%endif
 
 # So we do not thrash memory
 Patch1:         0001-miopen-add-link-and-compile-pools.patch
@@ -196,7 +213,13 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %endif
 
 %prep
+%if %{with gitcommit}
+%setup -q -n rocm-libraries-%{commit0}
+cd projects/miopen
+%patch -P1 -p1
+%else
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
+%endif
 
 # Readme has executable bit
 chmod 644 README.md
@@ -244,6 +267,10 @@ sed -i -e 's@opts.push_back("-fno-offload-uniform-block");@//opts.push_back("-fn
 sed -i -e 's@llvm/bin/clang@bin/clang@' src/hip/hip_build_utils.cpp
 
 %build
+%if %{with gitcommit}
+cd projects/miopen
+%endif
+
 
 # Real cores, No hyperthreading
 COMPILE_JOBS=`cat /proc/cpuinfo | grep -m 1 'cpu cores' | awk '{ print $4 }'`
@@ -312,11 +339,12 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/lib:$LD_LIBRARY_PATH
 %endif
 
 %install
+%if %{with gitcommit}
+cd projects/miopen
+%endif
 %cmake_install
 
-if [ -f %{buildroot}%{_prefix}/share/doc/miopen-hip/LICENSE.txt ]; then
-    rm %{buildroot}%{_prefix}/share/doc/miopen-hip/LICENSE.txt
-fi
+rm -f %{buildroot}%{_prefix}/share/doc/miopen-hip/LICENSE.txt
 
 %if 0%{?fedora} || 0%{?suse_version}
 %fdupes %{buildroot}%{_prefix}
@@ -326,7 +354,14 @@ fi
 %postun -p /sbin/ldconfig
 
 %files
+%if %{with gitcommit}
+%doc projects/miopen/README.md
+%license projects/miopen/LICENSE.txt
+%else
+%doc README.md
 %license LICENSE.txt
+%endif
+
 %dir %_libexecdir/miopen
 %{_libdir}/libMIOpen.so.1{,.*}
 %{_libexecdir}/miopen/install*.sh
@@ -336,7 +371,6 @@ fi
 %dir %_datadir/miopen/db
 %dir %_includedir/miopen
 %dir %_libdir/cmake/miopen
-%doc README.md
 %_datadir/miopen/*
 %_includedir/miopen/*
 %{_libdir}/libMIOpen.so

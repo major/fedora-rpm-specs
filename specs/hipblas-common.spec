@@ -19,19 +19,37 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
+
+%bcond_with gitcommit
+%if %{with gitcommit}
+%global commit0 2584e35062ad9c2edb68d93c464cf157bc57e3b0
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+%global date0 20250926
+%endif
+
 %global upstreamname hipBLAS-common
 %global rocm_release 7.0
 %global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 Name:           hipblas-common
+%if %{with gitcommit}
+Version:        git%{date0}.%{shortcommit0}
+Release:        1%{?dist}
+%else
 Version:        %{rocm_version}
 Release:        2%{?dist}
+%endif
 Summary:        Common files shared by hipBLAS and hipBLASLt
-Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
 
+%if %{with gitcommit}
+Url:            https://github.com/ROCm/rocm-libraries
+Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
+%else
+Url:            https://github.com/ROCm/%{upstreamname}
 Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
+%endif
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -56,19 +74,37 @@ Provides:       %{name}-static = %{version}-%{release}
 %{summary}
 
 %prep
+%if %{with gitcommit}
+%setup -q -n rocm-libraries-%{commit0}
+cd projects/hipblas-common
+%else
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
+%endif
 
 %build
+%if %{with gitcommit}
+cd projects/hipblas-common
+%endif
+
 %cmake -DCMAKE_INSTALL_LIBDIR=share
 %cmake_build
 
 %install
+%if %{with gitcommit}
+cd projects/hipblas-common
+%endif
+
 %cmake_install
 
 rm -f %{buildroot}%{_prefix}/share/doc/hipblas-common/LICENSE.md
 
 %files devel
+%if %{with gitcommit}
+%license projects/hipblas-common/LICENSE.md
+%else
 %license LICENSE.md
+%endif
+
 %{_includedir}/%{name}
 %{_datadir}/cmake/%{name}
 

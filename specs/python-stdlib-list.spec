@@ -5,7 +5,7 @@
 %bcond doc_pdf 1
 
 Name:       python-stdlib-list
-Version:    0.11.1
+Version:    0.12.0
 Release:    %autorelease
 Summary:    A list of Python Standard Libraries
 

@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           ruff
-Version:        0.14.1
+Version:        0.14.2
 # The ruff package has a permanent exception to the Updates Policy in Fedora,
 # so it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -187,9 +187,9 @@ Source100:      %{lsp_types_git}/archive/%{lsp_types_rev}/lsp-types-%{lsp_types_
 # observe the version and https://github.com/salsa-rs/commit/%%{salsa_rev} to
 # observe the date.
 %global salsa_git https://github.com/salsa-rs/salsa
-%global salsa_rev ef9f9329be6923acd050c8dddd172e3bc93e8051
+%global salsa_rev d38145c29574758de7ffbe8a13cd4584c3b09161
 %global salsa_baseversion 0.24.0
-%global salsa_snapdate 20251016
+%global salsa_snapdate 20251023
 Source200:      %{salsa_git}/archive/%{salsa_rev}/salsa-%{salsa_rev}.tar.gz
 
 # Get this from ruff/crates/ty_vendored/vendor/typeshed/source_commit.txt.

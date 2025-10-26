@@ -5,16 +5,13 @@
 %global crate reqsign-core
 
 Name:           rust-reqsign-core
-Version:        1.0.0
+Version:        2.0.0
 Release:        %autorelease
 Summary:        Signing API requests without effort
 
 License:        Apache-2.0
 URL:            https://crates.io/crates/reqsign-core
 Source:         %{crates_source}
-# * Fix license files missing from published crates
-# * https://github.com/apache/opendal-reqsign/pull/635
-Source10:       https://github.com/apache/opendal-reqsign/raw/refs/tags/v0.17.0/LICENSE
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          reqsign-core-fix-metadata-auto.diff
 
@@ -53,8 +50,6 @@ use the "default" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-# Copy the license file into the source.
-cp -p '%{SOURCE10}' .
 %cargo_prep
 
 %generate_buildrequires

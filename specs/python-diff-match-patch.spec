@@ -51,7 +51,11 @@ Summary:       %{summary}
 
 %install
 %pyproject_install
+%if 0%{?fedora} < 43
+%pyproject_save_files -L diff_match_patch
+%else
 %pyproject_save_files -l diff_match_patch
+%endif
 
 
 %check
@@ -59,6 +63,9 @@ Summary:       %{summary}
 
 
 %files -n python3-diff-match-patch -f %{pyproject_files}
+%if 0%{?fedora} < 43
+%license LICENSE
+%endif
 %doc README.md CHANGELOG.md
 
 

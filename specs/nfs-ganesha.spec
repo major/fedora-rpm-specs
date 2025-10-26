@@ -119,6 +119,12 @@ Requires: openSUSE-release
 %bcond_with legacy_python_install
 %global use_legacy_python_install %{on_off_switch legacy_python_install}
 
+%bcond_without monitoring
+%global use_monitoring %{on_off_switch monitoring}
+
+%bcond_without grpc
+%global use_grpc %{on_off_switch grpc}
+
 %if ( 0%{?rhel} && 0%{?rhel} < 7 )
 %global _rundir %{_localstatedir}/run
 %endif
@@ -127,7 +133,7 @@ Requires: openSUSE-release
 #%%global dev rc6
 
 Name:		nfs-ganesha
-Version:	7.2
+Version:	8.1
 Release:	1%{?dev:%{dev}}%{?dist}
 Summary:	NFS-Ganesha is a NFS Server running in user space
 License:	LGPL-3.0-or-later
@@ -964,6 +970,9 @@ killall -SIGHUP dbus-daemon >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Thu Oct 23 2025 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 8.1-1
+- NFS-Ganesha 8.1 GA
+
 * Tue Sep 30 2025 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 7.2-1
 - NFS-Ganesha 7.2 GA
 

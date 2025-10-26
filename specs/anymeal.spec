@@ -37,6 +37,8 @@ edit, and print them.
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -n %{name}-%{version}
+# cleanup moc/rcc/uic output in tarball
+rm -f anymeal/{moc,qrc,ui}_*
 
 %build
 

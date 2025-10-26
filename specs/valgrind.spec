@@ -3,7 +3,7 @@
 Summary: Dynamic analysis tools to detect memory or thread bugs and profile
 Name: %{?scl_prefix}valgrind
 Version: 3.26.0
-Release: 0.1.RC1%{?dist}
+Release: 1%{?dist}
 Epoch: 1
 
 # This ignores licenses that are only found in the test or perf sources
@@ -12,7 +12,7 @@ Epoch: 1
 # a license specifier is in coregrind/m_main.c for some Hacker's Delight
 # public domain code, which is only compiled into Darwin binaries, which
 # we don't create. Also some subpackages have their own license tags.
-License: GPL-3.0-or-later AND bzip2-1.0.6 AND (GPL-3.0-or-later AND LGPL-2.0-or-later) AND (GPL-3.0-or-later AND ISC) AND (GPL-3.0-or-later AND Unlicense) AND (GPL-3.0-or-later AND Zlib) AND (GPL-3.0-or-later WITH GCC-exception-2.0) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND (GPL-3.0-or-later AND BSD-3-Clause) AND (GPL-3.0-or-later AND (MIT OR NCSA)) AND CMU-Mach AND (GPL-3.0-or-later AND X11 AND BSD-3-Clause) AND X11 AND (GPL-3.0-or-later AND LGPL-2.0-or-later) AND (GPL-3.0-or-later AND (GPL-3.0-or-later OR MPL-2.0)) AND (GPL-2.0-or-later WITH Autoconf-exception-generic) AND (GPL-3.0-or-later WITH Autoconf-exception-generic-3.0) AND FSFULLR AND FSFAP AND FSFUL AND FSFULLRWD
+License: GPL-3.0-or-later AND bzip2-1.0.6 AND (GPL-3.0-or-later AND LGPL-2.0-or-later) AND (GPL-3.0-or-later AND ISC) AND (GPL-3.0-or-later AND Unlicense) AND (GPL-3.0-or-later AND Zlib) AND (GPL-3.0-or-later WITH GCC-exception-2.0) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND (GPL-3.0-or-later AND BSD-3-Clause) AND (GPL-3.0-or-later AND (MIT OR NCSA)) AND CMU-Mach AND (GPL-3.0-or-later AND X11 AND BSD-3-Clause) AND X11 AND (GPL-3.0-or-later AND LGPL-2.0-or-later) AND (GPL-2.0-or-later WITH Autoconf-exception-generic) AND (GPL-3.0-or-later WITH Autoconf-exception-generic-3.0) AND FSFULLR AND FSFAP AND FSFUL AND FSFULLRWD
 URL: https://www.valgrind.org/
 
 # Are we building for a Software Collection?
@@ -71,7 +71,7 @@ URL: https://www.valgrind.org/
 # So those will already have their full symbol table.
 %undefine _include_minidebuginfo
 
-Source0: https://sourceware.org/pub/valgrind/valgrind-%{version}.RC1.tar.bz2
+Source0: https://sourceware.org/pub/valgrind/valgrind-%{version}.tar.bz2
 
 # Needs investigation and pushing upstream
 Patch1: valgrind-3.9.0-cachegrind-improvements.patch
@@ -214,7 +214,7 @@ Documentation in html and pdf, plus man pages for valgrind tools and scripts.
 
 %package scripts
 Summary: Scripts for post-processing valgrind tool output
-License: GPL-3.0-or-later
+License: GPL-3.0-or-later AND (GPL-3.0-or-later OR MPL-2.0)
 # Most scripts can be used as is for post-processing a valgrind tool run.
 # But callgrind_control uses vgdb.
 Recommends: %{?scl_prefix}valgrind-gdb = %{epoch}:%{version}-%{release}
@@ -257,7 +257,7 @@ Valgrind User Manual for details.
 %endif
 
 %prep
-%setup -q -n %{?scl:%{pkg_name}}%{!?scl:%{name}}-%{version}.RC1
+%setup -q -n %{?scl:%{pkg_name}}%{!?scl:%{name}}-%{version}
 
 %patch -P1 -p1
 %patch -P2 -p1
@@ -503,6 +503,10 @@ echo ===============END TESTING===============
 %endif
 
 %changelog
+* Fri Oct 24 2025 Mark Wielaard <mjw@fedoraproject.org> - 3.26.0-1
+- Valgrind 3.26.0 final
+- Clarify License of valgrind-scripts.
+
 * Sat Oct 18 2025 Mark Wielaard <mjw@fedoraproject.org> - 3.26.0-0.1.RC1
 - Upstream 3.26.0-RC1
 - Remove all VALGRIND_3_25_BRANCH and proposed upstream patches

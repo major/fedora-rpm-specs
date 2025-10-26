@@ -1,7 +1,7 @@
 %global gem_name rack
 
 Name: rubygem-%{gem_name}
-Version: 3.1.16
+Version: 3.2.3
 # Introduce Epoch (related to bug 552972)
 Epoch:  1
 Release: 2%{?dist}
@@ -11,7 +11,7 @@ License: MIT AND BSD-3-Clause
 URL: https://github.com/rack/rack
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/rack/rack.git && cd rack/
-# git archive -v -o rack-3.1.16-tests.tar.gz v3.1.16 test/
+# git archive -v -o rack-3.2.3-tests.tar.gz v3.2.3 test/
 Source1: rack-%{version}-tests.tar.gz
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
@@ -81,6 +81,16 @@ ruby -Itest -e 'Dir.glob "./test/spec_*.rb", &method(:require)'
 %doc %{gem_instdir}/SPEC.rdoc
 
 %changelog
+* Mon Oct 13 2025 Vít Ondruch <vondruch@redhat.com> - 1:3.2.3-1
+- Update to Rack 3.2.3
+  Resolves: rhbz#2385295
+- Rack QueryParser has an unsafe default allowing params_limit bypass via
+  semicolon-separated parameters (CVE-2025-59830)
+- Unbounded read in `Rack::Request` form parsing can lead to memory exhaustion
+  (CVE-2025-61919)
+- Improper handling of headers in `Rack::Sendfile` may allow proxy bypass
+  (CVE-2025-61780)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.1.16-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

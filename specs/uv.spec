@@ -11,7 +11,7 @@
 %bcond it %{undefined el10}
 
 Name:           uv
-Version:        0.8.24
+Version:        0.9.5
 Release:        %autorelease
 Summary:        An extremely fast Python package installer and resolver, written in Rust
 
@@ -243,6 +243,9 @@ BuildRequires:  /usr/bin/python3.10
 BuildRequires:  /usr/bin/python3.11
 BuildRequires:  /usr/bin/python3.12
 BuildRequires:  /usr/bin/python3.13
+BuildRequires:  /usr/bin/python3.13t
+BuildRequires:  /usr/bin/python3.14
+BuildRequires:  /usr/bin/python3.14t
 %endif
 
 # This is a fork of async_zip; see the notes about Source100.
@@ -710,6 +713,13 @@ skip="${skip-} --skip keyring::tests::fetch_url_with_password"
 skip="${skip-} --skip version::self_version"
 skip="${skip-} --skip version::self_version_json"
 skip="${skip-} --skip version::self_version_short"
+%else
+# Some python_find:: tests don’t find system interpreters, require network
+# https://github.com/astral-sh/uv/issues/16431
+skip="${skip-} --skip python_find::python_find_freethreaded_313"
+skip="${skip-} --skip python_find::python_find_freethreaded_314"
+skip="${skip-} --skip python_find::python_find_prerelease_version_specifiers"
+skip="${skip-} --skip python_find::python_find_prerelease_with_patch_request"
 %endif
 
 %ifnarch %{x86_64} %{arm64}

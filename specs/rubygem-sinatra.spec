@@ -4,14 +4,14 @@
 %bcond_without tilt_integration_tests
 
 Name: rubygem-%{gem_name}
-Version: 4.1.1
-Release: 2%{?dist}
+Version: 4.2.1
+Release: 1%{?dist}
 Summary: Ruby-based web application framework
 License: MIT
 URL: http://sinatrarb.com/
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/sinatra/sinatra.git && cd sinatra
-# git archive -v -o sinatra-4.1.1-test.tar.gz v4.1.1 test/
+# git archive -v -o sinatra-4.2.1-test.tar.gz v4.2.1 test/
 Source1: %{gem_name}-%{version}-test.tar.gz
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
@@ -120,6 +120,10 @@ popd
 %{gem_instdir}/sinatra.gemspec
 
 %changelog
+* Mon Oct 20 2025 Vít Ondruch <vondruch@redhat.com> - 1:4.2.1-1
+- Update to Sinatra 4.2.1.
+  Resolves: rhbz#2402534
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.1.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

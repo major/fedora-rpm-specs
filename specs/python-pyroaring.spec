@@ -1,7 +1,7 @@
 %global pypi_name pyroaring
 
 Name:           python-%{pypi_name}
-Version:        1.0.2
+Version:        1.0.3
 Release:        %{autorelease}
 Summary:        Fast and lightweight set for unsigned 32 bits integers
 

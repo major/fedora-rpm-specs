@@ -1,13 +1,12 @@
 Summary:	Utilities for managing the XFS filesystem
 Name:		xfsprogs
-Version:	6.16.0
+Version:	6.17.0
 Release:	1%{?dist}
 License:	GPL-1.0-or-later AND LGPL-2.1-or-later
 URL:		https://xfs.wiki.kernel.org
 Source0:	http://kernel.org/pub/linux/utils/fs/xfs/xfsprogs/%{name}-%{version}.tar.xz
 Source1:	http://kernel.org/pub/linux/utils/fs/xfs/xfsprogs/%{name}-%{version}.tar.sign
-Source2:	https://git.kernel.org/pub/scm/docs/kernel/pgpkeys.git/plain/keys/13F703E6C11CF6F0.asc
-Source3:	https://git.kernel.org/pub/scm/docs/kernel/pgpkeys.git/plain/keys/46A7EA18AC33E108.asc
+Source2:	https://git.kernel.org/pub/scm/docs/kernel/pgpkeys.git/plain/keys/46A7EA18AC33E108.asc
 
 BuildRequires:	make
 BuildRequires:	gcc
@@ -76,7 +75,7 @@ Extra utilities for XFS filesystems, such as xfs_protofile, that may require
 Python.
 
 %prep
-xzcat '%{SOURCE0}' | %{gpgverify} --keyring='%{SOURCE3}' --signature='%{SOURCE1}' --data=-
+xzcat '%{SOURCE0}' | %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data=-
 %autosetup -p1
 
 # Inject libicuuc to fix link error:
@@ -159,6 +158,10 @@ rm -rf $RPM_BUILD_ROOT/%{_datadir}/doc/xfsprogs/
 %{_libdir}/*.so
 
 %changelog
+* Fri Oct 24 2025 Pavel Reichl <preichl@redhat.com> - 6.17.0-1
+- Rebase to v6.17
+- Related: rhbz#2405145
+
 * Wed Aug 27 2025 Pavel Reichl <preichl@redhat.com> - 6.16.0-1
 - new version
 - Related: rhbz#2391115

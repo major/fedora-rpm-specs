@@ -1,3 +1,34 @@
+#
+# Copyright Fedora Project Authors.
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to
+# deal in the Software without restriction, including without limitation the
+# rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+# sell copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+# THE SOFTWARE.
+#
+
+%bcond_with gitcommit
+%if %{with gitcommit}
+# 7.0.x is broken, ck was never updated in rocm-libraries
+# https://github.com/ROCm/rocm-libraries/issues/2263
+%global commit0 2584e35062ad9c2edb68d93c464cf157bc57e3b0
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+%global date0 20250926
+%endif
+
 %global upstreamname composable_kernel
 %global rocm_release 7.0
 %global rocm_patch 1
@@ -58,13 +89,24 @@
 %global _binary_payload w7T0.xzdio
 
 Name:           composable_kernel
+%if %{with gitcommit}
+Version:        git%{date0}.%{shortcommit0}
+Release:        1%{?dist}
+%else
 Version:        %{rocm_version}
 Release:        2%{?dist}
+%endif
 Summary:        Performance Portable Programming Model for Machine Learning Tensor Operators
-Url:            https://github.com/ROCm
 License:        MIT
 
+%if %{with gitcommit}
+Url:            https://github.com/ROCm/rocm-libraries
+Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
+%else
+Url:            https://github.com/ROCm
 Source0:        %{url}/%{upstreamname}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+%endif
+
 Patch1:         0001-composable_kernel-add-build-header-only-cmake-option.patch
 
 BuildRequires:  cmake
@@ -114,7 +156,13 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %{summary}
 
 %prep
+%if %{with gitcommit}
+%setup -q -n rocm-libraries-%{commit0}
+cd projects/composablekernel
+%patch -P1 -p1
+%else
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
+%endif
 
 # do not error on warnings
 sed -i -e 's@add_compile_options(-Werror)@#add_compile_options(-Werror)@' CMakeLists.txt
@@ -142,6 +190,9 @@ sed -i -e 's@STATIC@SHARED@' library/src/utility/CMakeLists.txt library/src/tens
 sed -i -e 's@POSITION_INDEPENDENT_CODE ON@POSITION_INDEPENDENT_CODE ON SOVERSION \"%{version}\"@' library/src/utility/CMakeLists.txt library/src/tensor_operation_instance/gpu/CMakeLists.txt
 
 %build
+%if %{with gitcommit}
+cd projects/composablekernel
+%endif
 
 # Real cores, No hyperthreading
 COMPILE_JOBS=`cat /proc/cpuinfo | grep -m 1 'cpu cores' | awk '{ print $4 }'`
@@ -191,6 +242,10 @@ fi
 %cmake_build -j ${JOBS}
 
 %install
+%if %{with gitcommit}
+cd projects/composablekernel
+%endif
+
 %cmake_install
 
 %if %{without cklibs}
@@ -200,12 +255,17 @@ cp -p -r include/ck_tile %{buildroot}%{_includedir}
 # Clean up dupes
 %fdupes %{buildroot}%{_prefix}
 
-if [ -f %{buildroot}%{_prefix}/share/doc/composablekernel/LICENSE ]; then
-    rm %{buildroot}%{_prefix}/share/doc/composablekernel/LICENSE
-fi
+rm -f %{buildroot}%{_prefix}/share/doc/composablekernel/LICENSE
 
 %files
+%if %{with gitcommit}
+%doc projects/composablekernel/README.md
+%license projects/composablekernel/LICENSE
+%else
+%doc README.md
 %license LICENSE
+%endif
+
 %{_libdir}/libutility.so.*
 %if %{with cklibs}
 %{_libdir}/libdevice_*.so.*
@@ -215,7 +275,6 @@ fi
 %dir %{_includedir}/ck
 %dir %{_includedir}/ck_tile
 %dir %{_libdir}/cmake/%{name}
-%doc README.md
 %{_includedir}/ck/*
 %{_includedir}/ck_tile/*
 %{_libdir}/cmake/%{name}/*

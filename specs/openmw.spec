@@ -52,6 +52,9 @@ Patch0:         4807.patch
 # openmw-cs currently runs under wayland, but there's bugs that make it basically unusable
 # this patches the default desktop file to add QT_QPA_PLATFORM=xcb
 Patch1:         csxcb.patch
+# Fixes build with Qt 6.10
+# https://gitlab.com/OpenMW/openmw/-/merge_requests/4941
+Patch2:         4941.patch
 
 # OpenMW Build Dependencies
 BuildRequires:  boost-devel

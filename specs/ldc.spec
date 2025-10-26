@@ -1,9 +1,5 @@
-%if 0%{?rhel}
-#global llvm_version 15
-%else
-#global llvm_version 19
-%endif
-%global soversion 110
+%global llvm_version 20
+%global soversion 111
 
 # bootstrapping is used for updating LDC to a newer version: it relies on an
 # older, working LDC compiler in the buildroot, which is then used to build a
@@ -16,8 +12,8 @@
 
 Name:           ldc
 Epoch:          1
-Version:        1.40.0
-Release:        4%{?dist}
+Version:        1.41.0
+Release:        1%{?dist}
 Summary:        LLVM D Compiler
 
 # The DMD frontend in dmd/* GPL version 1 or artistic license
@@ -31,12 +27,6 @@ Source3:        macros.%{name}
 Patch:          ldc-include-path.patch
 # Don't add rpath to standard libdir
 Patch:          ldc-no-default-rpath.patch
-%if 0%{?rhel} && 0%{?rhel} <= 9
-# Keep on using ld.gold on RHEL 8 and 9 where using ldc with ld.bfd breaks gtkd
-# and leads to crashing tilix.
-# https://bugzilla.redhat.com/show_bug.cgi?id=2134875
-Patch:          0001-Revert-Linux-Don-t-default-to-ld.gold-linker.patch
-%endif
 
 ExclusiveArch:  %{ldc_arches} ppc64le
 
@@ -152,6 +142,11 @@ install --mode=0644 %{SOURCE3} %{buildroot}%{_rpmconfigdir}/macros.d/macros.ldc
 %{_libdir}/libphobos2-ldc-shared.so.%{soversion}*
 
 %changelog
+* Fri Oct 24 2025 Kalev Lember <kalevlember@gmail.com> - 1:1.41.0-1
+- Update to 1.41.0
+- Build with llvm 20
+- Re-bootstrap on ppc64le to switch to 128-bit IEEE long double ABI
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.40.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

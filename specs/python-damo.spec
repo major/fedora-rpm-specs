@@ -11,7 +11,7 @@ patterns of your system or workloads and make data access-aware memory
 management optimizations.}
 
 Name:           python-%{srcname}
-Version:        2.9.9
+Version:        3.0.1
 Release:        %autorelease
 Summary:        Data Access Monitoring Operator
 

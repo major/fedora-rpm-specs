@@ -1,7 +1,7 @@
 %global pypi_name pyftpdlib
 
 Name:           python-%{pypi_name}
-Version:        2.0.1
+Version:        2.1.0
 Release:        %autorelease
 Summary:        Very fast asynchronous FTP server library
 
@@ -13,9 +13,6 @@ Summary:        Very fast asynchronous FTP server library
 License:        MIT
 URL:            %forgeurl
 Source:         %forgesource
-
-# Avoid the multiprocessing forkserver method (for Python 3.14+ compatibility)
-Patch:          https://github.com/giampaolo/pyftpdlib/pull/656.patch
 
 BuildArch:      noarch
 
@@ -73,14 +70,10 @@ Suggests:       python3dist(psutil)
 %prep
 %forgeautosetup -p1
 
-# do not install tests
-sed -i "s/, 'pyftpdlib.test'//" setup.py
-
-# `psutil` >= 6 has renamed `connections` to `net_connections`. However,
-# current version in Fedora is 5.9.8.
+# Don't use pytest-instafail (not in Fedora)
 sed -r \
-    -e 's/(this_proc\.)net_(connections)/\1\2/' \
-    -i pyftpdlib/test/__init__.py
+    -e '/instafail/d' \
+    -i pyproject.toml setup.py
 
 
 %generate_buildrequires

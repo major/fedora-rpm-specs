@@ -25,6 +25,13 @@
 %global hipsolver_name hipsolver
 %endif
 
+%bcond_with gitcommit
+%if %{with gitcommit}
+%global commit0 2584e35062ad9c2edb68d93c464cf157bc57e3b0
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+%global date0 20250926
+%endif
+
 %global upstreamname hipSOLVER
 %global rocm_release 7.0
 %global rocm_patch 1
@@ -61,13 +68,24 @@
 %global _binary_payload w7T0.xzdio
 
 Name:           %{hipsolver_name}
+%if %{with gitcommit}
+Version:        git%{date0}.%{shortcommit0}
+Release:        1%{?dist}
+%else
 Version:        %{rocm_version}
 Release:        2%{?dist}
+%endif
 Summary:        ROCm SOLVER marshalling library
-Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
 
+%if %{with gitcommit}
+Url:            https://github.com/ROCm/rocm-libraries
+Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
+%else
+Url:            https://github.com/ROCm/%{upstreamname}
 Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
+%endif
+
 Patch1:         0001-hipsolver-so-version-fortran-bindings.patch
 
 BuildRequires:  cmake
@@ -138,9 +156,18 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %endif
 
 %prep
+%if %{with gitcommit}
+%setup -q -n rocm-libraries-%{commit0}
+cd projects/hipsolver
+%patch -P1 -p1
+%else
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
+%endif
 
 %build
+%if %{with gitcommit}
+cd projects/hipsolver
+%endif
 
 %cmake \
     -DCMAKE_CXX_COMPILER=hipcc \
@@ -161,17 +188,27 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %cmake_build
 
 %install
+%if %{with gitcommit}
+cd projects/hipsolver
+%endif
+
 %cmake_install
 
 rm -f %{buildroot}%{_prefix}/share/doc/hipsolver/LICENSE.md
 
 %files
+%if %{with gitcommit}
+%doc projects/hipsolver/README.md
+%license projects/hipsolver/LICENSE.md
+%else
+%doc README.md
 %license LICENSE.md
+%endif
+
 %{_libdir}/libhipsolver.so.1{,.*}
 %{_libdir}/libhipsolver_fortran.so.1{,.*}
 
 %files devel
-%doc README.md
 %dir %{_libdir}/cmake/hipsolver
 %dir %{_includedir}/hipsolver
 %{_includedir}/hipsolver/*

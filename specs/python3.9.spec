@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Python
 
 
@@ -40,9 +40,10 @@ License: Python
 %endif
 
 # Flat package, i.e. no separate subpackages
-# Default (in Fedora): if this is a main Python, it is not a flatpackage
+# Default (in Fedora >= 44): disabled
+# Default (in Fedora < 44): enabled when this is not the main Python
 # Not supported: Combination of flatpackage enabled and main_python enabled
-%if %{with main_python}
+%if %{with main_python} || 0%{?fedora} >= 44
 %bcond_with flatpackage
 %else
 %bcond_without flatpackage
@@ -467,9 +468,18 @@ Obsoletes: platform-python < %{pybasever}
 Provides: python%{pyshortver} = %{version}-%{release}
 Obsoletes: python%{pyshortver} < %{version}-%{release}
 
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/#_one_to_many_replacement
+Obsoletes: %{pkgname} < 3.9.24-2
+
+%if %{with main_python}
 # Packages with Python modules in standard locations automatically
 # depend on python(abi). Provide that here.
 Provides: python(abi) = %{pybasever}
+%else
+# We exclude the `python(abi)` Provides
+%global __requires_exclude ^python\\(abi\\) = 3\\..+
+%global __provides_exclude ^python\\(abi\\) = 3\\..+
+%endif
 
 Requires: %{pkgname}-libs%{?_isa} = %{version}-%{release}
 
@@ -584,6 +594,8 @@ Conflicts: python-libs < 3
 # (We explicitly conflict with python-libs and not python2-libs, so only the
 # old Python 2 builds that still provided unversioned Python are handled.)
 
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/#_one_to_many_replacement
+Obsoletes: %{pkgname} < 3.9.24-2
 
 %description -n %{pkgname}-libs
 This package contains runtime libraries for use by Python:
@@ -603,6 +615,7 @@ Requires: (python3-rpm-macros if rpm-build)
 Requires: (pyproject-rpm-macros if rpm-build)
 
 %if %{without bootstrap}
+%if %{with main_python}
 # This is not "API" (packages that need setuptools should still BuildRequire it)
 # However some packages apparently can build both with and without setuptools
 # producing egg-info as file or directory (depending on setuptools presence).
@@ -611,6 +624,7 @@ Requires: (pyproject-rpm-macros if rpm-build)
 # See https://bugzilla.redhat.com/show_bug.cgi?id=1623914
 # See https://fedoraproject.org/wiki/Packaging:Directory_Replacement
 Requires: (%{pkgname}-setuptools if rpm-build)
+%endif
 
 Requires: (python3-rpm-generators if rpm-build)
 %endif
@@ -629,6 +643,9 @@ Provides:  platform-python-devel = %{version}-%{release}
 Provides:  platform-python-devel%{?_isa} = %{version}-%{release}
 Obsoletes: platform-python-devel < %{pybasever}
 %endif
+
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/#_one_to_many_replacement
+Obsoletes: %{pkgname} < 3.9.24-2
 
 %description -n %{pkgname}-devel
 This package contains the header files and configuration needed to compile
@@ -654,6 +671,9 @@ Obsoletes: %{pkgname}-tools < %{version}-%{release}
 # In Fedora 31, /usr/bin/idle was moved here from Python 2.
 Conflicts: python-tools < 3
 
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/#_one_to_many_replacement
+Obsoletes: %{pkgname} < 3.9.24-2
+
 %description -n %{pkgname}-idle
 IDLE is Python’s Integrated Development and Learning Environment.
 
@@ -675,6 +695,9 @@ Requires: %{pkgname} = %{version}-%{release}
 # (We don't provide python3-turtledemo, that's not too useful when imported.)
 %py_provides %{pkgname}-turtle
 
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/#_one_to_many_replacement
+Obsoletes: %{pkgname} < 3.9.24-2
+
 %description -n %{pkgname}-tkinter
 The Tkinter (Tk interface) library is a graphical user interface toolkit for
 the Python programming language.
@@ -684,6 +707,9 @@ the Python programming language.
 Summary: The self-test suite for the main python3 package
 Requires: %{pkgname} = %{version}-%{release}
 Requires: %{pkgname}-libs%{?_isa} = %{version}-%{release}
+
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/#_one_to_many_replacement
+Obsoletes: %{pkgname} < 3.9.24-2
 
 %description -n %{pkgname}-test
 The self-test suite for the Python interpreter.
@@ -734,11 +760,6 @@ The debug runtime additionally supports debug builds of C-API extensions
 %endif # with debug_build
 
 %else  # with flatpackage
-
-# We'll not provide this, on purpose
-# No package in Fedora shall ever depend on flatpackage via this
-%global __requires_exclude ^python\\(abi\\) = 3\\..$
-%global __provides_exclude ^python\\(abi\\) = 3\\..$
 
 # Python interpreter packages used to be named (or provide) name pythonXY (e.g.
 # python39). However, to align it with the executable names and to prepare for
@@ -1856,6 +1877,10 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Wed Oct 15 2025 Miro Hrončok <mhroncok@redhat.com> - 3.9.24-2
+- On Fedora 44+, split this package into multiple subpackages
+- This mimics newer Python versions
+
 * Fri Oct 10 2025 Karolina Surma <ksurma@redhat.com> - 3.9.24-1
 - Update to Python 3.9.24
 

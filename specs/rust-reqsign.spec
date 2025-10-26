@@ -5,16 +5,13 @@
 %global crate reqsign
 
 Name:           rust-reqsign
-Version:        0.17.0
+Version:        0.18.0
 Release:        %autorelease
 Summary:        Signing HTTP requests for popular cloud services
 
 License:        Apache-2.0
 URL:            https://crates.io/crates/reqsign
 Source:         %{crates_source}
-# * Fix license files missing from published crates
-# * https://github.com/apache/opendal-reqsign/pull/635
-Source10:       https://github.com/apache/opendal-reqsign/raw/refs/tags/v%{version}/LICENSE
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -76,8 +73,6 @@ use the "default-context" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-# Copy the license file into the source.
-cp -p '%{SOURCE10}' .
 %cargo_prep
 
 %generate_buildrequires

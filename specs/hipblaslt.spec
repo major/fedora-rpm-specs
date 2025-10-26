@@ -30,6 +30,13 @@
 %define python_expand python3
 %endif
 
+%bcond_with gitcommit
+%if %{with gitcommit}
+%global commit0 2584e35062ad9c2edb68d93c464cf157bc57e3b0
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+%global date0 20250926
+%endif
+
 %global upstreamname hipBLASLt
 %global rocm_release 7.0
 %global rocm_patch 2
@@ -88,13 +95,23 @@
 %endif
 
 Name:           %{hipblaslt_name}
+%if %{with gitcommit}
+Version:        git%{date0}.%{shortcommit0}
+Release:        1%{?dist}
+%else
 Version:        %{rocm_version}
 Release:        2%{?dist}
+%endif
 Summary:        ROCm general matrix operations beyond BLAS
-Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT AND BSD-3-Clause
 
+%if %{with gitcommit}
+Url:            https://github.com/ROCm/rocm-libraries
+Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
+%else
+Url:            https://github.com/ROCm/%{upstreamname}
 Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
+%endif
 
 # yappi was removed from fedora
 # yappi is used in tensilelite to generate profiling data, we are not using that in the build
@@ -217,7 +234,14 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %endif
 
 %prep
+%if %{with gitcommit}
+%setup -q -n rocm-libraries-%{commit0}
+cd projects/hipblaslt
+%patch -P1 -p1
+%patch -P2 -p1
+%else
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
+%endif
 
 # Use PATH to find where TensileGetPath and other tensile bins are
 sed -i -e 's@${Tensile_PREFIX}/bin/TensileGetPath@TensileGetPath@g'            tensilelite/Tensile/cmake/TensileConfig.cmake
@@ -262,6 +286,9 @@ fi
 # sed -i -e "s@--offload-arch@-parallel-jobs=${HIP_JOBS} --offload-arch@" library/src/amd_detail/rocblaslt/src/kernels/compile_code_object.sh
 
 %build
+%if %{with gitcommit}
+cd projects/hipblaslt
+%endif
 
 # Do a manual install instead of cmake's virtualenv
 cd tensilelite
@@ -315,25 +342,33 @@ export Tensile_DIR=${TL}%{python3_sitelib}/Tensile
 %cmake_build
 
 %install
+%if %{with gitcommit}
+cd projects/hipblaslt
+%endif
+
 %cmake_install
 
-if [ -f %{buildroot}%{_prefix}/share/doc/hipblaslt/LICENSE.md ]; then
-    rm %{buildroot}%{_prefix}/share/doc/hipblaslt/LICENSE.md
-fi
+rm -f %{buildroot}%{_prefix}/share/doc/hipblaslt/LICENSE.md
 
 %post  -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
 
 %files
+%if %{with gitcommit}
+%doc projects/hipblaslt/README.md
+%license projects/hipblaslt/LICENSE.md
+%else
+%doc README.md
+%license LICENSE.md
+%endif
+
 %dir %{_libdir}/cmake/hipblaslt/
 %dir %{_libdir}/hipblaslt/
 %dir %{_libdir}/hipblaslt/library/
-%license LICENSE.md
 %{_libdir}/libhipblaslt.so.*
 %{_libdir}/hipblaslt/library/*
 
 %files devel
-%doc README.md
 %{_includedir}/hipblaslt
 %{_libdir}/cmake/hipblaslt/
 %{_libdir}/libhipblaslt.so

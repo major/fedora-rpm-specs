@@ -1,4 +1,4 @@
-%global device_mapper_version 1.02.209
+%global device_mapper_version 1.02.210
 
 %global enable_cache 1
 %global enable_lvmdbusd 1
@@ -49,7 +49,7 @@ Name: lvm2
 %if 0%{?rhel}
 Epoch: %{rhel}
 %endif
-Version: 2.03.35
+Version: 2.03.36
 Release: %autorelease
 License: GPL-2.0-only
 URL: https://sourceware.org/lvm2
@@ -65,6 +65,7 @@ BuildRequires: libblkid-devel >= %{util_linux_version}
 BuildRequires: ncurses-devel
 BuildRequires: libedit-devel
 BuildRequires: libaio-devel
+BuildRequires: libnvme-devel
 %if %{enable_lockd_dlm}
 BuildRequires: dlm-devel >= %{dlm_version}
 %endif
@@ -189,8 +190,6 @@ V=1 make install_tmpfiles_configuration DESTDIR=$RPM_BUILD_ROOT
 %if %{enable_testsuite}
 %make_install -C test
 %endif
-# TODO: The path is hardcoded in source. Is it good idea e.g. for testing purposes?
-install -m 700 -d ${RPM_BUILD_ROOT}%{_sharedstatedir}/lvm
 
 %post
 %systemd_post blk-availability.service lvm2-monitor.service

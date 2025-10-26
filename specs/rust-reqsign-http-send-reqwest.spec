@@ -5,27 +5,18 @@
 %global crate reqsign-http-send-reqwest
 
 Name:           rust-reqsign-http-send-reqwest
-Version:        1.0.0
+Version:        2.0.0
 Release:        %autorelease
-Summary:        Signing API requests without effort
+Summary:        Reqwest-based HTTP client implementation for reqsign
 
 License:        Apache-2.0
 URL:            https://crates.io/crates/reqsign-http-send-reqwest
 Source:         %{crates_source}
-# * Fix license files missing from published crates
-# * https://github.com/apache/opendal-reqsign/pull/635
-Source10:       https://github.com/apache/opendal-reqsign/raw/refs/tags/v0.17.0/LICENSE
-# Manually created patch for downstream crate metadata changes
-# * Add a dev-dependency on reqwest with the default-tls feature added, so that
-#   we can successfully compile the custom_client example; see
-#   https://github.com/apache/opendal-reqsign/issues/636, where the issue was
-#   reported and this approach was suggested upstream.
-Patch:          reqsign-http-send-reqwest-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Signing API requests without effort.}
+Reqwest-based HTTP client implementation for reqsign.}
 
 %description %{_description}
 
@@ -57,8 +48,6 @@ use the "default" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-# Copy the license file into the source.
-cp -p '%{SOURCE10}' .
 %cargo_prep
 
 %generate_buildrequires

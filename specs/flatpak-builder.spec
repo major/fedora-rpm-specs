@@ -7,8 +7,8 @@
 %global __requires_exclude ^/usr/bin/python2$
 
 Name:           flatpak-builder
-Version:        1.4.4
-Release:        4%{?dist}
+Version:        1.4.5
+Release:        1%{?dist}
 Summary:        Tool to build flatpaks from source
 
 # src/builder-utils.c has portions derived from GPLv2+ code,
@@ -16,6 +16,9 @@ Summary:        Tool to build flatpaks from source
 License:        LGPL-2.1-or-later AND GPL-2.0-or-later
 URL:            https://flatpak.org/
 Source0:        https://github.com/flatpak/flatpak-builder/releases/download/%{version}/%{name}-%{version}.tar.xz
+
+# https://github.com/flatpak/flatpak-builder/pull/662
+Patch0:         %{name}-Fix-incorrect-paths-for-test-files.patch
 
 # ostree not on i686 for RHEL 10
 # https://github.com/containers/composefs/pull/229#issuecomment-1838735764
@@ -56,7 +59,7 @@ Recommends:     /usr/bin/git
 Recommends:     /usr/bin/patch
 Recommends:     /usr/bin/strip
 Recommends:     /usr/bin/tar
-Recommends:     /usr/bin/unzip
+Recommends:     /usr/bin/bsdunzip
 Recommends:     /usr/bin/zstd
 Recommends:     ccache
 
@@ -109,6 +112,9 @@ install -pm 644 NEWS README.md %{buildroot}/%{_pkgdocdir}
 
 
 %changelog
+* Sat Oct 25 2025 Debarshi Ray <rishi@fedoraproject.org> - 1.4.5-1
+- Update to 1.4.5 (#2393709)
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

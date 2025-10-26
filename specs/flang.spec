@@ -1,6 +1,6 @@
 %global maj_ver 21
 %global min_ver 1
-%global patch_ver 3
+%global patch_ver 4
 #global rc_ver 3
 %global flang_version %{maj_ver}.%{min_ver}.%{patch_ver}
 %global srcdir llvm-project-%{flang_version}%{?rc_ver:-rc%{rc_ver}}.src
@@ -12,7 +12,7 @@
 
 Name: flang
 Version: %{flang_version}%{?rc_ver:~rc%{rc_ver}}
-Release: 2%{?dist}
+Release: 1%{?dist}
 Summary: a Fortran language front-end designed for integration with LLVM
 
 License: Apache-2.0 WITH LLVM-exception
@@ -348,6 +348,9 @@ export LD_LIBRARY_PATH=%{_builddir}/%{srcdir}/flang/%{_vpath_builddir}/lib
 %config(noreplace) %{_sysconfdir}/ld.so.conf.d/%{name}-%{_arch}.conf
 
 %changelog
+* Thu Oct 23 2025 Tom Stellard <tstellar@redhat.com> - 21.1.4-1
+- Update to LLVM 21.1.4
+
 * Fri Oct 17 2025 Tom Stellard <tstellar@redhat.com> - 21.1.3-2
 - Add flang runtimes libraries to ld.so search path
 

@@ -6,7 +6,7 @@
 # https://github.com/golang/arch
 %global goipath  golang.org/x/arch
 %global forgeurl https://github.com/golang/arch
-Version:         0.13.0
+Version:         0.22.0
 
 %gometa
 

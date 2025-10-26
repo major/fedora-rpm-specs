@@ -1,10 +1,10 @@
 %global         uuid app.drey.Dialect
 %global         forgeurl0 https://github.com/dialect-app/dialect
 %global         forgeurl1 https://github.com/dialect-app/po
-%global         adw_version 1.4.0
+%global         adw_version 1.6.0
 
 Name:           dialect
-Version:        2.5.0
+Version:        2.6.1
 Release:        %autorelease
 Summary:        A translation app for GNOME based on Google Translate
 
@@ -28,8 +28,8 @@ BuildRequires:  libadwaita-devel >= %{adw_version}
 BuildRequires:  libsecret-devel
 BuildRequires:  libsoup3-devel
 BuildRequires:  blueprint-compiler
-BuildRequires:  python3-devel
-BuildRequires:  python3-gobject-devel
+BuildRequires:  python3-devel >= 3.10
+BuildRequires:  python3-gobject-devel >= 3.51.0
 
 Requires:       hicolor-icon-theme
 Requires:       gstreamer1-plugins-base
@@ -37,7 +37,7 @@ Requires:       gtk4
 Requires:       libadwaita >= %{adw_version}
 Requires:       libsecret
 Requires:       libsoup3
-Requires:       python3-gobject
+Requires:       python3-gobject >= 3.51.0
 Requires:       python3-dbus
 Requires:       python3-gtts
 Requires:       python3-beautifulsoup4

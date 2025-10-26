@@ -30,8 +30,8 @@
 %bcond_without have_utf8proc
 
 Name:		libarrow
-Version:	21.0.0
-Release:	6%{?dist}
+Version:	22.0.0
+Release:	1%{?dist}
 Summary:	A toolbox for accelerated data interchange and in-memory processing
 License:	Apache-2.0
 URL:		https://arrow.apache.org/
@@ -39,6 +39,7 @@ Requires:	%{name}-doc = %{version}-%{release}
 Source0:	https://downloads.apache.org/arrow/arrow-%{version}/apache-arrow-%{version}.tar.gz
 Patch0001:	0001-python-pyarrow-tests-read_record_patch.py.patch
 Patch0002:	0002-python-pyarrow-tests-test_ipc.py.patch
+Patch0003:	0003-cpp-src-arrow-util-byte_stream_split_internal.h.patch
 
 # Apache ORC (liborc) has numerous compile errors and apparently assumes
 # a 64-bit build and runtime environment. This is only consumer of the liborc
@@ -856,6 +857,9 @@ export LD_LIBRARY_PATH='%{buildroot}%{_libdir}'
 #--------------------------------------------------------------------
 
 %changelog
+* Fri Oct 24 2025  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 22.0.0-1
+- Arrow 22.0.0 GA f44-build-side-121464
+
 * Fri Oct 3 2025 Python Maint <python-maint@redhat.com> - 21.0.0-6
 - Rebuild w/ liborc-2.2.1 (Apache ORC)
 

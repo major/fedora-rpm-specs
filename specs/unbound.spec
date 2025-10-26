@@ -39,7 +39,7 @@
 
 Summary: Validating, recursive, and caching DNS(SEC) resolver
 Name: unbound
-Version: 1.24.0
+Version: 1.24.1
 Release: %autorelease %{?extra_version:-e %{extra_version}}
 License: BSD-3-Clause
 Url: https://nlnetlabs.nl/projects/unbound/
@@ -77,6 +77,8 @@ Source30: tmpfiles-unbound-libs.conf
 
 # Downstream configuration changes
 Patch1:   unbound-fedora-config.patch
+# https://github.com/NLnetLabs/unbound/pull/1331
+Patch2:   unbound-1.24-swig-function.patch
 
 BuildRequires: gcc, make
 BuildRequires: openssl-devel
@@ -219,6 +221,7 @@ in initramfs.
 
 %prep
 %if 0%{?fedora}
+%{gpgverify} --keyring='%{SOURCE22}' --signature='%{SOURCE18}' --data='%{SOURCE0}' || \
 %{gpgverify} --keyring='%{SOURCE19}' --signature='%{SOURCE18}' --data='%{SOURCE0}'
 %endif
 %global pkgname %{name}-%{version}%{?extra_version}

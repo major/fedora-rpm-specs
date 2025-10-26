@@ -1,5 +1,5 @@
 # comment out if no extra version
-%global extraver p1
+%global extraver p2
 
 Summary: Allows restricted root access for specified users
 Name: sudo

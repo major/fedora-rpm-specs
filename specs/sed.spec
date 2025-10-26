@@ -3,7 +3,7 @@
 Summary: A GNU stream text editor
 Name: sed
 Version: 4.9
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: GPL-3.0-or-later
 URL: http://sed.sourceforge.net/
 Source0: ftp://ftp.gnu.org/pub/gnu/sed/sed-%{version}.tar.xz
@@ -44,6 +44,11 @@ specified in a script file or from the command line.
 %build
 %configure --without-included-regex
 %make_build
+
+#rhbz#2396649
+sed -i s/"SELinux is enabled on this system."// ./doc/sed.1
+sed -i s/"SELinux is disabled on this system."// ./doc/sed.1
+
 install -m 644 -p %{SOURCE1} sedfaq.txt
 gzip -9 sedfaq.txt
 
@@ -68,6 +73,11 @@ rm -f ${RPM_BUILD_ROOT}/%{_infodir}/dir
 %{_mandir}/man1/sed.1*
 
 %changelog
+* Fri Oct 24 2025 Jakub Martisko <jamartis@redhat.com> - 4.9-6
+- The manpage should no longer mention whether the SELinux is enabled/disabled on the system
+- It was based on the build system anyway
+- Resolves: rhbz#2396649
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.9-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

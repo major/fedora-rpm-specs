@@ -5,16 +5,13 @@
 %global crate reqsign-aws-v4
 
 Name:           rust-reqsign-aws-v4
-Version:        1.0.0
+Version:        2.0.0
 Release:        %autorelease
-Summary:        Signing API requests without effort
+Summary:        AWS SigV4 signing implementation for reqsign
 
 License:        Apache-2.0
 URL:            https://crates.io/crates/reqsign-aws-v4
 Source:         %{crates_source}
-# * Fix license files missing from published crates
-# * https://github.com/apache/opendal-reqsign/pull/635
-Source10:       https://github.com/apache/opendal-reqsign/raw/refs/tags/v0.17.0/LICENSE
 # Manually created patch for downstream crate metadata changes
 # * Patch out benchmark-only criterion dev-dependency
 # * Patch out dev-dependencies on aws-sig4 and aws-credential-types since we do
@@ -23,12 +20,12 @@ Source10:       https://github.com/apache/opendal-reqsign/raw/refs/tags/v0.17.0/
 Patch:          reqsign-aws-v4-fix-metadata.diff
 # * Downstream-only: avoid a dev-dependency on aws-sigv4 and
 #   aws-credential-types
-Patch11:        reqsign-aws-v4-1.0.0-unwanted-dev-deps.patch
+Patch10:        reqsign-aws-v4-2.0.0-unwanted-dev-deps.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Signing API requests without effort.}
+AWS SigV4 signing implementation for reqsign.}
 
 %description %{_description}
 
@@ -60,8 +57,6 @@ use the "default" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-# Copy the license file into the source.
-cp -p '%{SOURCE10}' .
 # Remove unused mock server scripts from tests to avoid a Python dependency
 rm -rv tests/mocks
 %cargo_prep

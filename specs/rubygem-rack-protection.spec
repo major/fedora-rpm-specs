@@ -3,14 +3,14 @@
 %bcond_with bootstrap
 
 Name: rubygem-%{gem_name}
-Version: 4.1.1
-Release: 2%{?dist}
+Version: 4.2.1
+Release: 1%{?dist}
 Summary: Ruby gem that protects against typical web attacks
 License: MIT
 URL: https://sinatrarb.com/protection/
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/sinatra/sinatra.git && cd sinatra/rack-protection
-# git archive -v -o rack-protection-4.1.1-spec.tar.gz v4.1.1 spec/
+# git archive -v -o rack-protection-4.2.1-spec.tar.gz v4.2.1 spec/
 Source1: %{gem_name}-%{version}-spec.tar.gz
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
@@ -72,6 +72,10 @@ popd
 %{gem_instdir}/rack-protection.gemspec
 
 %changelog
+* Mon Oct 20 2025 Vít Ondruch <vondruch@redhat.com> - 4.2.1-1
+- Update to Rack::Protection 4.2.1.
+  Resolves: rhbz#2402532
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name:           thorvg
-Version:        0.15.14
+Version:        0.15.16
 Release:        %{autorelease}
 Summary:        Lightweight vector-based scenes and animation drawing library
 

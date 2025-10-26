@@ -180,7 +180,7 @@
 #################################################################################
 Name:		ceph
 Version:	20.1.1
-Release:	3%{?dist}
+Release:	4%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -2742,6 +2742,9 @@ exit 0
 %{python3_sitelib}/ceph_node_proxy-*
 
 %changelog
+* Fri Oct 24 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:20.1.1-2
+- ceph-20.1.1 RC, rebuild with libarrow-22.0.0, side tag f44-build-side-121464
+
 * Thu Oct 16 2025 Gordon Messmer <gordon.messmer[at]gmail.com> - 2:20.1.1-3
 - Use rpm's native resource tunable to limit parallelism. BZ#2404624
 

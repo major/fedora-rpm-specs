@@ -1,5 +1,5 @@
 Name:		stalld
-Version:	1.23.1
+Version:	1.24.1
 Release:	1%{?dist}
 Summary:	Daemon that finds starving tasks and gives them a temporary boost
 
@@ -37,7 +37,7 @@ allow 10 microseconds of runtime for 1 second of clock time.
 %autosetup -p1
 
 %build
-%make_build RPMCFLAGS="%{optflags} %{build_cflags} -DVERSION="\\\"%{version}\\\"""  RPMLDFLAGS="%{build_ldflags}"
+%make_build CFLAGS="%{optflags} %{build_cflags} -DVERSION="\\\"%{version}\\\"""  LDFLAGS="%{build_ldflags}"
 
 %install
 %make_install DOCDIR=%{_docdir} MANDIR=%{_mandir} BINDIR=%{_bindir} DATADIR=%{_datadir} VERSION=%{version}
@@ -62,6 +62,25 @@ allow 10 microseconds of runtime for 1 second of clock time.
 %systemd_postun_with_restart %{name}.service
 
 %changelog
+* Fri Oct 24 2025 Clark Williams <williams@redhat.com> - 1.24.1-1
+- sched_debug: Unify parsing methods for task_info
+- sched_debug: Fix runqueue task parsing logic and state filtering
+- sched_debug: Fix double-free crash in fill_waiting_task()
+- stalld.c: remove noisy idle report and added report to should_skip_idle_cpus()
+- stalld.c: initialize cpu_info->idle_time to be -1
+- stalld.c: get rid of misleading print about DL-Server
+- stalld.c: Add starvation logging in single-threaded log-only mode
+- stalld: Add -N/--no_idle_detect flag to disable idle detection
+- stalld: Add defensive checks in print_boosted_info
+- Makefile: Add support for legacy kernels
+- scripts: fix run-local if bashism
+- sched_debug: Fix segfault in adaptive/aggressive modes
+- Makefile: Remove redhat-specific checks
+- Makefile: Add a help target
+- Makefile: Check compatible compiler versions
+- stalld.c: Ensure queue_track backend is not referenced when USE_BPF=0
+- Makefile: version bump to v1.24.1
+	      
 * Tue Sep 30 2025 Clark Williams <williams@redhat.com> - 1.23.1-1
 - stalld:  make the queue_track (eBPF) backend the default
 - Makefile: version bump to v1.23.1

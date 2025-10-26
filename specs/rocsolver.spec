@@ -25,6 +25,13 @@
 %global rocsolver_name rocsolver
 %endif
 
+%bcond_with gitcommit
+%if %{with gitcommit}
+%global commit0 2584e35062ad9c2edb68d93c464cf157bc57e3b0
+%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
+%global date0 20250926
+%endif
+
 %global upstreamname rocSOLVER
 %global rocm_release 7.0
 %global rocm_patch 2
@@ -92,10 +99,14 @@
 %endif
 
 Name:           %{rocsolver_name}
+%if %{with gitcommit}
+Version:        git%{date0}.%{shortcommit0}
+Release:        1%{?dist}
+%else
 Version:        %{rocm_version}
 Release:        1%{?dist}
+%endif
 Summary:        Next generation LAPACK implementation for ROCm platform
-Url:            https://github.com/ROCm/rocSOLVER
 
 # License check reports BSD 2-Clause
 # But reviewing LICENSE.md, this is only for AMD
@@ -105,7 +116,14 @@ License:        BSD-3-Clause AND BSD-2-Clause
 # Only x86_64 works right now:
 ExclusiveArch:  x86_64
 
+%if %{with gitcommit}
+Url:            https://github.com/ROCm/rocm-libraries
+Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
+%else
+Url:            https://github.com/ROCm/rocSOLVER
 Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
+%endif
+
 # https://github.com/ROCm/rocSOLVER/pull/652
 Patch0:         0001-Add-llvm-style-compile-and-link-options.patch
 Patch1:         0001-rocsolver-offload-compress.patch
@@ -191,7 +209,15 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %endif
 
 %prep
+%if %{with gitcommit}
+%setup -q -n rocm-libraries-%{commit0}
+cd projects/rocsolver
+%patch -P0 -p1
+%patch -P1 -p1
+%patch -P2 -p1 
+%else
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
+%endif
 
 # As of 6.4, there are 2 long running hip jobs
 # There are ~20 gpu targets
@@ -226,6 +252,9 @@ fi
 sed -i -e "s@-parallel-jobs=4@-parallel-jobs=${HIP_JOBS}@" library/src/CMakeLists.txt
 
 %build
+%if %{with gitcommit}
+cd projects/rocsolver
+%endif
 
 cat /proc/cpuinfo
 cat /proc/meminfo
@@ -288,16 +317,25 @@ fi
 %endif
 
 %install
+%if %{with gitcommit}
+cd projects/rocsolver
+%endif
 %cmake_install
 
 rm -f %{buildroot}%{_prefix}/share/doc/rocsolver/LICENSE.md
 
 %files
+%if %{with gitcommit}
+%license projects/rocsolver/LICENSE.md
+%doc projects/rocsolver/README.md
+%else
 %license LICENSE.md
+%doc README.md
+%endif
+
 %{_libdir}/librocsolver.so.0{,.*}
 
 %files devel
-%doc README.md
 %dir %{_libdir}/cmake/rocsolver
 %dir %{_includedir}/rocsolver
 %{_includedir}/rocsolver/*
