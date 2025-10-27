@@ -2,7 +2,7 @@
 %global tag %{version}
 
 Name:       labwc
-Version:    0.9.1
+Version:    0.9.2
 %forgemeta
 Release:    %autorelease
 Summary:    A Wayland window-stacking compositor
@@ -113,6 +113,7 @@ standalone environment.
 %doc NEWS.md
 %{_bindir}/%{name}
 %{_bindir}/lab-sensible-terminal
+%{_bindir}/labnag
 %{_docdir}/%{name}/*
 %{_mandir}/man1/*.1*
 %{_mandir}/man5/*.5*

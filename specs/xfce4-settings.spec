@@ -1,7 +1,7 @@
 %global xfceversion 4.20
 
 Name:           xfce4-settings
-Version:        4.20.1
+Version:        4.20.2
 Release:        %autorelease
 Summary:        Settings Manager for Xfce
 

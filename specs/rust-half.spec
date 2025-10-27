@@ -5,7 +5,7 @@
 %global crate half
 
 Name:           rust-half
-Version:        2.6.0
+Version:        2.7.1
 Release:        %autorelease
 Summary:        Half-precision floating point f16 and bf16 types for Rust
 
@@ -19,6 +19,7 @@ Patch:          half-fix-metadata-auto.diff
 Patch:          half-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  dos2unix
 
 %global _description %{expand:
 Half-precision floating point f16 and bf16 types for Rust implementing
@@ -176,6 +177,8 @@ use the "zerocopy" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
+# Fix some CRLF-terminated files in the released crates.
+find . -type f -exec dos2unix --keepdate '{}' '+'
 %cargo_prep
 
 %generate_buildrequires

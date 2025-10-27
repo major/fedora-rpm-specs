@@ -1,7 +1,7 @@
 %global srcname ducc0
 
 Name:           python-%{srcname}
-Version:        0.38.0
+Version:        0.39.1
 Release:        %autorelease
 Summary:        Programming tools for numerical computation
 

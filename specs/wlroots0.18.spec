@@ -5,7 +5,7 @@
 %global liftoff_ver 0.5.0
 
 Name:           wlroots%{compat_ver}
-Version:        %{compat_ver}.2
+Version:        %{compat_ver}.3
 Release:        %autorelease
 Summary:        A modular Wayland compositor library
 
@@ -32,8 +32,6 @@ Source1:        %{url}/-/releases/%{version}/downloads/wlroots-%{version}.tar.gz
 Source2:        https://emersion.fr/.well-known/openpgpkey/hu/dj3498u4hyyarh35rkjfnghbjxug6b19#/gpgkey-0FDE7BE0E88F5E48.gpg
 
 # Upstream patches
-# Needed by phoc 0.45.0+, can be dropped in wlroots 0.18.3
-Patch:          https://gitlab.freedesktop.org/wlroots/wlroots/-/merge_requests/4985.patch
 
 # Fedora patches
 # Following patch is required for phoc.
@@ -44,13 +42,13 @@ BuildRequires:  glslang
 BuildRequires:  gnupg2
 BuildRequires:  meson >= 0.59.0
 
-BuildRequires:  (pkgconfig(libdisplay-info) >= 0.1.1 with pkgconfig(libdisplay-info) < 0.3)
 BuildRequires:  (pkgconfig(libliftoff) >= %{liftoff_ver} with pkgconfig(libliftoff) < 0.6)
 BuildRequires:  pkgconfig(egl)
 BuildRequires:  pkgconfig(gbm) >= 17.1.0
 BuildRequires:  pkgconfig(glesv2)
 BuildRequires:  pkgconfig(hwdata)
 BuildRequires:  pkgconfig(lcms2)
+BuildRequires:  pkgconfig(libdisplay-info)
 BuildRequires:  pkgconfig(libdrm) >= 2.4.122
 BuildRequires:  pkgconfig(libinput) >= 1.21.0
 BuildRequires:  pkgconfig(libseat)

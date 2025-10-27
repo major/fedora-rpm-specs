@@ -12,8 +12,8 @@
 %global api_majorver 0
 
 Name:           libxfce4windowing
-Version:        4.20.3
-Release:        2%{?dist}
+Version:        4.20.4
+Release:        1%{?dist}
 Summary:        Windowing concept abstraction library for X11 and Wayland
 
 License:        LGPL-2.1-or-later
@@ -36,6 +36,7 @@ BuildRequires:  pkgconfig(gdk-3.0) >= %{gtk3_minver}
 BuildRequires:  pkgconfig(gtk+-3.0) >= %{gtk3_minver}
 BuildRequires:  pkgconfig(gtk-doc) >= 1.30
 BuildRequires:  pkgconfig(gobject-introspection-1.0) >= 1.66.0
+BuildRequires:  pkgconfig(vapigen)
 # Wayland deps
 BuildRequires:  pkgconfig(gdk-wayland-3.0) >= %{gtk3_minver}
 BuildRequires:  pkgconfig(wayland-scanner) >= %{wl_minver}
@@ -104,9 +105,12 @@ developing applications that use %{name}.
 %{_libdir}/%{name}*.so
 %{_libdir}/pkgconfig/%{name}*.pc
 %{_datadir}/gir-1.0/Libxfce4windowing*-%{api_majorver}.0.gir
-
+%{_datadir}/vala/vapi/libxfce4windowing*
 
 %changelog
+* Sat Oct 25 2025 Kevin Fenzi <kevin@scrye.com> - 4.20.4-1
+- Update to 4.20.4.
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.20.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

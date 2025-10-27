@@ -656,13 +656,6 @@ done
 %{cargo_license_summary}
 %{cargo_license} > LICENSE.dependencies
 
-# TODO: Since the --help output interacts well with help2man, use it to
-# generate man pages: ideally, a man page for each (sub)command
-# cross-referenced appropriately. (There are many subcommands, and this would
-# be tedious to do manually.) This should be feasible with the --include option
-# to help2man and a bit of scripting, but we choose to ship the initial package
-# without man pages and defer this to a later effort.
-
 
 %install
 %pyproject_install
@@ -728,22 +721,18 @@ skip="${skip-} --skip python_find::python_find_prerelease_with_patch_request"
 skip="${skip-} --skip python_list::python_list_downloads"
 %endif
 %ifarch %{power64}
-# Weirdly, the error message lacks the expected hint. This might be worth
-# reporting upstream at some point, but it is not a serious issue.
+# The error message lacks the expected hint:
+#   hint: A managed Python download is available for PyPy, but Python downloads
+#   are set to 'never'
+# This might be worth reporting upstream, but is not a serious issue.
 skip="${skip-} --skip python_pin::python_pin_resolve"
 %endif
-# TODO: Each of these has stdout something like this:
-#   cpython-3.12.11-linux-x86_64-gnu    /tmp/uv/tests/.tmp0dvvpZ/python/3.12/python3 -> /usr/bin/python3.12
-#   cpython-3.11.13-linux-x86_64-gnu    /tmp/uv/tests/.tmp0dvvpZ/python/3.11/python3 -> /usr/bin/python3.11
-# … and a difference in snapshots like this:
-#       3       │-cpython-3.12.[X]-[PLATFORM] [PYTHON-3.12]
-#             3 │+cpython-3.12.[X]-[PLATFORM] [PYTHON-3.12] -> [PYTHON-BIN-3.11]python3.12
-# Check whether we can reproduce this in a git checkout and/or whether we
-# should report it upstream.
-skip="${skip-} --skip python_list::python_list"
-skip="${skip-} --skip python_list::python_list_duplicate_path_entries"
-skip="${skip-} --skip python_list::python_list_pin"
-skip="${skip-} --skip python_list::python_list_venv"
+%ifarch %{power64} s390x
+# Test registry_client::tests::test_redirect_to_server_with_credentials is
+# flaky on ppc64le
+# https://github.com/astral-sh/uv/issues/16447
+skip="${skip-} --skip registry_client::tests::test_redirect_to_server_with_credentials"
+%endif
 
 # This requires specific Python interpreter versions (so it would be grouped
 # with the conditionalized integration tests above), but it also requires
@@ -760,52 +749,24 @@ skip="${skip-} --skip lock::tests::missing_dependency_source_version_unambiguous
 skip="${skip-} --skip lock::tests::missing_dependency_version_unambiguous"
 %endif
 
-# Trivial difference in snapshots: error message output differs slightly,
-# presumably due to slightly different dependency versions.
-skip="${skip-} --skip metadata::requires_dist::test::invalid_syntax"
-
-# TODO: What’s going wrong here? It doesn’t seem serious…
-# thread 'middleware::tests::test_tracing_url' panicked at
-#   crates/uv-auth/src/middleware.rs:2095:5:
-# Could not set global tracing subscriber: SetGlobalDefaultError("a global
-#   default trace dispatcher has already been set")
-skip="${skip-} --skip middleware::tests::test_tracing_url"
-
 # Upstream is trying to ensure platform-independent byte-for-byte deterministic
 # wheels. This isn’t quite working out. It would be nice to understand this,
 # but this kind of reproducibility can be brittle, and there are many possible
 # innocuous reasons behind it.
 # ---- tests::built_by_uv_building stdout ----
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ Snapshot Summary ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# Snapshot: built_by_uv_building-6
-# Source: crates/uv-build-backend/src/lib.rs:516
+# Snapshot: built_by_uv_building-4
+# Source: crates/uv-build-backend/src/lib.rs:652
 # ────────────────────────────────────────────────────────────────────────────────
-# Expression: format!("{:x}", sha2::Sha256::digest(&index_wheel_contents))
+# Expression: format!("{:x}", sha2::Sha256::digest(fs_err::read(&wheel_path).unwrap()))
 # ────────────────────────────────────────────────────────────────────────────────
 # -old snapshot
 # +new results
 # ────────────┬───────────────────────────────────────────────────────────────────
-#     0       │-ac3f68ac448023bca26de689d80401bff57f764396ae802bf4666234740ffbe3
-#           0 │+7ba9bfcaf3c0354c2cb8578922a00726b1ff6bdfa85fcb738bd45978fa86fd0a
+#     1       │-319afb04e87caf894b1362b508ec745253c6d241423ea59021694d2015e821da
+#           1 │+007327b23085c5debf31fb44df7a2294b5882aefdba960bdd68fab665db12c5a
 # ────────────┴───────────────────────────────────────────────────────────────────
 skip="${skip-} --skip tests::built_by_uv_building"
-
-# Since 0.8.0, version_get_fallback_unmanaged_json fails outside of a git checkout
-# https://github.com/astral-sh/uv/issues/14785
-skip="${skip-} --skip version::version_get_fallback_unmanaged_json"
-
-%ifarch s390x
-# ---- registry_client::tests::test_redirect_to_server_with_credentials stdout ----
-# thread 'registry_client::tests::test_redirect_to_server_with_credentials'
-# panicked at crates/uv-client/src/registry_client.rs:1292:9:
-# assertion `left == right` failed: Requests should fail if credentials are missing
-#   left: 200
-#  right: 401
-# Ideally, we would report this upstream, but "cargo test -p uv-client --lib"
-# does not fail in a git checkout in an emulated s390x chroot, so it’s
-# difficult to do so usefully. More information is needed.
-skip="${skip-} --skip registry_client::tests::test_redirect_to_server_with_credentials"
-%endif
 
 %cargo_test -- -- --exact ${skip-}
 %endif

@@ -2,20 +2,18 @@
 # SPDX-License-Identifier: MIT
 # SPDX-FileCopyrightText: Fedora Project Authors
 # SPDX-FileCopyrightText: 2022 Maxwell G <gotmax@e.email>
-# See yt-dlp.spec.license for the full license text.
+# License text: https://spdx.org/licenses/MIT.html
 
 %bcond_without tests
 
 Name:           yt-dlp
-Version:        2025.09.26
+Version:        2025.10.22
 Release:        %autorelease
 Summary:        A command-line program to download videos from online video platforms
 
 License:        Unlicense
 URL:            https://github.com/yt-dlp/yt-dlp
 Source:         %{url}/archive/%{version}/yt-dlp-%{version}.tar.gz
-# License of the specfile
-Source:         yt-dlp.spec.license
 
 # https://github.com/yt-dlp/yt-dlp/commit/6f9e6537434562d513d0c9b68ced8a61ade94a64
 # [rh:websockets] Upgrade websockets to 13.0 (#10815)
@@ -49,39 +47,16 @@ Recommends:     /usr/bin/ffprobe
 
 Suggests:       python3dist(keyring)
 
-%global _description %{expand:
+# Remove in Fedora 46
+Obsoletes:      yt-dlp-bash-completion < 2025.09.26-2
+Obsoletes:      yt-dlp-fish-completion < 2025.09.26-2
+Obsoletes:      yt-dlp-zsh-completion < 2025.09.26-2
+
+%description
 yt-dlp is a command-line program to download videos from many different online
 video platforms, such as youtube.com. The project is a fork of youtube-dl with
-additional features and fixes.}
+additional features and fixes.
 
-%description %{_description}
-
-%package bash-completion
-Summary:        Bash completion for yt-dlp
-Requires:       yt-dlp = %{version}-%{release}
-Requires:       bash-completion
-Supplements:    (yt-dlp and bash-completion)
-
-%description bash-completion
-Bash command line completion support for yt-dlp.
-
-%package zsh-completion
-Summary:        Zsh completion for yt-dlp
-Requires:       yt-dlp = %{version}-%{release}
-Requires:       zsh
-Supplements:    (yt-dlp and zsh)
-
-%description zsh-completion
-Zsh command line completion support for yt-dlp.
-
-%package fish-completion
-Summary:        Fish completion for yt-dlp
-Requires:       yt-dlp = %{version}-%{release}
-Requires:       fish
-Supplements:    (yt-dlp and fish)
-
-%description fish-completion
-Fish command line completion support for yt-dlp.
 
 %prep
 %autosetup -N
@@ -94,8 +69,10 @@ Fish command line completion support for yt-dlp.
 # Remove unnecessary shebangs
 find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{}' +
 
+
 %generate_buildrequires
 %pyproject_buildrequires -x default,secretstorage
+
 
 %build
 # Docs and shell completions
@@ -104,31 +81,30 @@ make yt-dlp.1 completion-bash completion-zsh completion-fish
 # Docs and shell completions are also included in the wheel.
 %pyproject_wheel
 
+
 %install
 %pyproject_install
 %pyproject_save_files yt_dlp
+
 
 %check
 %if %{with tests}
 %pytest -k "not download and not test_verify_cert[Websockets]"
 %endif
 
+
 %files -f %{pyproject_files}
-%{_bindir}/yt-dlp
-%{_mandir}/man1/yt-dlp.1*
 %doc README.md
 %license LICENSE
-
-%files bash-completion
+%{_bindir}/yt-dlp
+%{_mandir}/man1/yt-dlp.1*
 %{bash_completions_dir}/yt-dlp
-
-%files zsh-completion
+%{fish_completions_dir}/yt-dlp.fish
 %{zsh_completions_dir}/_yt-dlp
 
-%files fish-completion
-%{fish_completions_dir}/yt-dlp.fish
 
 %pyproject_extras_subpkg -n yt-dlp default secretstorage
+
 
 %changelog
 %autochangelog

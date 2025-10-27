@@ -15,6 +15,8 @@ Source:         %{crates_source}
 # * Remove CC0-1.0 option (not allowed for code in Fedora) from license
 #   expression (but note that LICENSE still includes CC0-1.0 text); see
 #   https://docs.fedoraproject.org/en-US/legal/spdx/#_spdx_license_expressions_in_fedora_license_data
+# * Allow duct 1.0.0:
+#   https://github.com/BLAKE3-team/BLAKE3/commit/33038828510d0ce83d5c1cbc1efb10e683c15aaa
 Patch:          b3sum-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

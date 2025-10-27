@@ -11,7 +11,7 @@
 %define split_getimage   1
 %endif
 
-%define baserelease    3
+%define baserelease    4
 
 %global use_clang_as_cc 0
 %global use_clang_analyze 0
@@ -106,6 +106,8 @@ Patch4701:       xscreensaver-6.07-0001-make_ximage-avoid-integer-overflow-on-le
 Patch4702:       xscreensaver-6.07-0002-convert_ximage_to_rgba32-avoid-integer-overflow-on-l.patch
 # demo-Gtk.c/server_current_hack: read hack number when really available
 Patch5201:       xscreensaver-6.12-0001-server_current_hack-read-hack-number-when-really-ava.patch
+# Fix build with FFmpeg 8
+Patch5202:       xscreensaver-6.12-0002-ffmpeg_out_init-support-ffmpeg-8.patch
 # Fedora specific
 # window_init: search parenthesis first for searching year
 Patch10001:      xscreensaver-6.00-0001-screensaver_id-search-parenthesis-first-for-searchin.patch
@@ -415,6 +417,7 @@ done
 %__cat %PATCH4701 | %__git am
 %__cat %PATCH4702 | %__git am
 %__cat %PATCH5201 | %__git am
+%__cat %PATCH5202 | %__git am
 %__cat %PATCH10001 | %__git am
 %__cat %PATCH10003 | %__git am
 
@@ -1210,6 +1213,9 @@ exit 0
 %endif
 
 %changelog
+* Wed Oct 15 2025 Dominik Mierzejewski <dominik@greysector.net> - 1:6.12-4
+- Fixed build with FFmpeg 8
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:6.12-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name: zswap-cli
-Version: 1.1.0
+Version: 1.1.1
 Release: %autorelease
 
 License: MIT

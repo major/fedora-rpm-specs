@@ -1,4 +1,4 @@
-%bcond system_lapack 1
+%bcond system_lapack 0
 %bcond atlas %[%{undefined rhel} && %{undefined flatpak} && "%{_arch}" != "riscv64" ]
 %bcond blis %[%{undefined rhel} && %{undefined flatpak}]
 %bcond openblas 1
@@ -14,13 +14,12 @@
 %global default_backend64 %{default_backend}64
 
 %global major_version 3
-%global minor_version 4
-%global patch_version 5
-%global laapi_version 3.12.0
+%global minor_version 5
+%global patch_version 0
 
 Name:           flexiblas
 Version:        %{major_version}.%{minor_version}.%{patch_version}
-Release:        5%{?dist}
+Release:        1%{?dist}
 Summary:        A BLAS/LAPACK wrapper library with runtime exchangeable backends
 
 # LGPL-3.0-or-later
@@ -29,12 +28,8 @@ Summary:        A BLAS/LAPACK wrapper library with runtime exchangeable backends
 License:        LGPL-3.0-or-later AND LGPL-2.0-or-later AND BSD-3-Clause-Open-MPI
 URL:            https://www.mpi-magdeburg.mpg.de/projects/%{name}
 Source:         https://github.com/mpimd-csc/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
-# https://github.com/mpimd-csc/flexiblas/issues/63
-Patch:          flexiblas-3.4.5-gemmtr.patch
 
-%global _cmake_generator "Unix Makefiles"
-
-BuildRequires:  make, cmake, python
+BuildRequires:  cmake, python
 BuildRequires:  gcc, gcc-fortran
 BuildRequires:  multilib-rpm-config
 %if %{with system_lapack}
@@ -247,39 +242,38 @@ threading support with a 64-integer interface.
 
 %build
 %if %{with system_lapack}
-rm -rf contributed
+rm -rf contributed/{cblas,lapack-*,netlib-blas,win32ports}
 %endif
-%cmake -B build \
-%if %{with atlas}
-    -DEXTRA="ATLAS" -DATLAS_LIBRARY="%{_libdir}/atlas/libtatlas.so;-lm;gfortran" \
-%endif
+%global _vpath_builddir build
+%cmake \
 %if %{with system_lapack}
-    -DLAPACK_API_VERSION=%{laapi_version} \
     -DSYS_BLAS_LIBRARY=$(pkg-config --variable=libdir blas)/libblas.a \
     -DSYS_LAPACK_LIBRARY=$(pkg-config --variable=libdir lapack)/liblapack.a \
 %endif
     -DINTEGER8=OFF \
     -DCMAKE_SKIP_INSTALL_RPATH=ON \
     -DTESTS=ON
-%make_build -C build
+%cmake_build
 %if 0%{?__isa_bits} == 64
-%cmake -B build64 \
+%global _vpath_builddir build64
+%cmake \
 %if %{with system_lapack}
-    -DLAPACK_API_VERSION=%{laapi_version} \
     -DSYS_BLAS_LIBRARY=$(pkg-config --variable=libdir blas)/libblas64.a \
     -DSYS_LAPACK_LIBRARY=$(pkg-config --variable=libdir lapack)/liblapack64.a \
 %endif
     -DINTEGER8=ON \
     -DCMAKE_SKIP_INSTALL_RPATH=ON \
     -DTESTS=ON
-%make_build -C build64
+%cmake_build
 %endif
 
 %install
-%make_install -C build
+%global _vpath_builddir build
+%cmake_install
 echo "default = %{default_backend}" > %{buildroot}%{_sysconfdir}/%{name}rc
 %if 0%{?__isa_bits} == 64
-%make_install -C build64
+%global _vpath_builddir build64
+%cmake_install
 echo "default = %{default_backend64}" > %{buildroot}%{_sysconfdir}/%{name}64rc
 %endif
 
@@ -293,32 +287,29 @@ rm -f %{buildroot}%{_libdir}/%{name}*/lib%{name}_hook_dummy.so
 rename -- serial -serial %{buildroot}%{_libdir}/%{name}*/* || true
 rename -- openmp -openmp %{buildroot}%{_libdir}/%{name}*/* || true
 rename -- pthread -threads %{buildroot}%{_libdir}/%{name}*/* || true
-rename NETLIB netlib %{buildroot}%{_sysconfdir}/%{name}*.d/* || true
-rename ATLAS atlas %{buildroot}%{_sysconfdir}/%{name}*.d/* || true
-rename Blis blis %{buildroot}%{_sysconfdir}/%{name}*.d/* || true
-rename OpenBLAS openblas %{buildroot}%{_sysconfdir}/%{name}*.d/* || true
 rename -- Serial -serial %{buildroot}%{_sysconfdir}/%{name}*.d/* || true
 rename -- OpenMP -openmp %{buildroot}%{_sysconfdir}/%{name}*.d/* || true
 rename -- PThread -threads %{buildroot}%{_sysconfdir}/%{name}*.d/* || true
 find %{buildroot}%{_sysconfdir}/%{name}*.d/* -type f \
-    -exec sed -i 's NETLIB netlib gI' {} \;\
-    -exec sed -i 's ATLAS atlas gI' {} \;\
-    -exec sed -i 's Blis blis gI' {} \;\
-    -exec sed -i 's OpenBLAS openblas gI' {} \;\
     -exec sed -i 's Serial -serial gI' {} \;\
     -exec sed -i 's OpenMP -openmp gI' {} \;\
-    -exec sed -i 's PThread -threads gI' {} \;
+    -exec sed -i 's PThread -threads gI' {} \;\
+    -exec sed -i 's .* \L& g' {} \;\
+    -exec sh -c 'mv $0 $(dirname $0)/$(basename $0 | tr [A-Z] [a-z])' {} \;
 
 %check
+%global _smp_mflags -j1
 # limit the number of threads
 # MAX_CORES=10; CORES=$(nproc)
 # export OMP_NUM_THREADS=$((CORES > MAX_CORES ? MAX_CORES : CORES))
 export CTEST_OUTPUT_ON_FAILURE=1
 export FLEXIBLAS_TEST=%{buildroot}%{_libdir}/%{name}/lib%{name}_%{default_backend}.so
-make -C build test
+%global _vpath_builddir build
+%ctest
 %if 0%{?__isa_bits} == 64
 export FLEXIBLAS64_TEST=%{buildroot}%{_libdir}/%{name}64/lib%{name}_%{default_backend64}.so
-make -C build64 test
+%global _vpath_builddir build64
+%ctest
 %endif
 
 %files
@@ -366,8 +357,8 @@ make -C build64 test
 
 %if %{with atlas}
 %files atlas
-%{_sysconfdir}/%{name}rc.d/atlas.conf
-%{_libdir}/%{name}/lib%{name}_atlas.so
+%{_sysconfdir}/%{name}rc.d/*atlas.conf
+%{_libdir}/%{name}/lib%{name}_*atlas.so
 %endif
 
 %if %{with blis}
@@ -448,6 +439,9 @@ make -C build64 test
 %endif
 
 %changelog
+* Sat Oct 25 2025 Iñaki Úcar <iucar@fedoraproject.org> - 3.5.0-1
+- Update to 3.5.0
+
 * Thu Aug 28 2025 Iñaki Úcar <iucar@fedoraproject.org> - 3.4.5-5
 - Rebuild for lapack 3.12.0-10
 

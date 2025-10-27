@@ -41,11 +41,7 @@
 %global build_type RelWithDebInfo
 %endif
 
-%if 0%{?fedora}
 %bcond_without cppheaderparser
-%else
-%bcond_with cppheaderparser
-%endif
 %if %{with cppheaderparser}
 %global build_prof_api ON
 %else
@@ -81,7 +77,7 @@
 
 Name:           rocclr
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm Compute Language Runtime
 Url:            https://github.com/ROCm/clr
 License:        MIT
@@ -137,7 +133,11 @@ BuildRequires:  pkgconfig(ocl-icd)
 %endif
 BuildRequires:  pkgconfig(numa)
 %if %{with cppheaderparser}
+%if 0%{?suse_version}
+BuildRequires:  python3-CppHeaderParser
+%else
 BuildRequires:  python3-cppheaderparser
+%endif
 %endif
 BuildRequires:  rocm-comgr-devel
 BuildRequires:  rocm-compilersupport-macros
@@ -397,7 +397,10 @@ rm -f %{buildroot}%{_prefix}/share/doc/hip/LICENSE.txt
 %endif
 
 %changelog
-* Fri Oct 10 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-2
+* Sat Oct 25 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.2-2
+- Use SUSE cppheaderparser name
+
+* Fri Oct 10 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.2-1
 - Update to 7.0.2
 
 * Mon Sep 22 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-1

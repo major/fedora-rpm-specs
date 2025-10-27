@@ -1,16 +1,16 @@
-%global majorver 4.18
+%global majorver 4.20
 
 Name:           xfce4-screensaver
-Version:        4.18.4
+Version:        4.20.0
 Release:        %autorelease
 Summary:        Screensaver application for Xfce Desktop
 
 # Automatically converted from old format: GPLv2 and LGPLv2 - review is highly recommended.
 License:        GPL-2.0-only AND LicenseRef-Callaway-LGPLv2
 URL:            https://git.xfce.org/apps/xfce4-screensaver/
-Source0:        https://archive.xfce.org/src/apps/%{name}/%{majorver}/%{name}-%{version}.tar.bz2
+Source0:        https://archive.xfce.org/src/apps/%{name}/%{majorver}/%{name}-%{version}.tar.xz
 
-BuildRequires: make
+BuildRequires:  meson
 BuildRequires:  gcc-c++
 BuildRequires:  intltool
 BuildRequires:  pkgconfig(gtk+-3.0)
@@ -25,6 +25,7 @@ BuildRequires:  libwnck3-devel
 BuildRequires:  systemd-devel
 BuildRequires:  pam-devel
 BuildRequires:  desktop-file-utils
+BuildRequires:  xmlto
 
 Requires:       xfdesktop
 Requires:       xfconf
@@ -40,13 +41,15 @@ Xfce libraries and the Xfconf configuration backend.
 %autosetup
 
 
-%build
-%configure --with-systemd --enable-pam --enable-locking
+%conf
+# wayland backend needs libwlembed packaged
+%meson -Dx11=enabled -Dwayland=disabled
 
-%make_build
+%build
+%meson_build
 
 %install
-%make_install
+%meson_install
 
 # conflict between systemd service and autostart
 # remove systemd file
@@ -80,13 +83,13 @@ desktop-file-install \
 %{_bindir}/xfce4-screensaver-configure.py
 %{_bindir}/xfce4-screensaver-preferences
 %{_libexecdir}/xfce4-screensaver-dialog
-%{_libexecdir}/xfce4-screensaver-gl-helper
 %{_datadir}/icons/hicolor/*/apps/org.xfce.ScreenSaver.*
 %{_datadir}/applications/screensavers/xfce-personal-slideshow.desktop
 %{_datadir}/applications/screensavers/xfce-popsquares.desktop
 %{_datadir}/applications/screensavers/xfce-floaters.desktop
 %{_datadir}/applications/xfce4-screensaver-preferences.desktop
 %{_datadir}/desktop-directories/xfce4-screensaver.directory
+%{_datadir}/doc/xfce4-screensaver-%{version}
 %{_mandir}/man1/xfce4-screensaver-command.1.*
 %{_mandir}/man1/xfce4-screensaver-preferences.1.*
 %{_mandir}/man1/xfce4-screensaver.1.*

@@ -1,5 +1,5 @@
 Name:           git-cola
-Version:        4.15.0
+Version:        4.16.0
 Release:        %autorelease
 Summary:        A sleek and powerful git GUI
 
@@ -15,6 +15,7 @@ BuildRequires:  git
 BuildRequires:  xmlto
 BuildRequires:  libappstream-glib
 BuildRequires:  rsync
+BuildRequires:  python%{python3_pkgversion}-setuptools >= 77.0.0
 BuildRequires:  python%{python3_pkgversion}-sphinx
 BuildRequires:  make
 

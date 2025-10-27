@@ -1,5 +1,5 @@
 Name:           ncdu
-Version:        2.9.1
+Version:        2.9.2
 Release:        1%{?dist}
 Summary:        Text-based disk usage viewer
 
@@ -44,6 +44,9 @@ and provides a fast way to see what directories are using your disk space.
 %{_bindir}/ncdu
 
 %changelog
+* Sat Oct 25 2025 Richard Fearn <richardfearn@gmail.com> - 2.9.2-1
+- Update to 2.9.2 (#2406187)
+
 * Fri Aug 22 2025 Richard Fearn <richardfearn@gmail.com> - 2.9.1-1
 - Update to 2.9.1 (#2390047)
 

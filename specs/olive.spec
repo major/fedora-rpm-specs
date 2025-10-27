@@ -18,7 +18,7 @@ Version:        0.2.0^%{gitdate}git%{shortcommit}
 %else
 Version:        0.2.0
 %endif
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        A free non-linear video editor
 # app/widget/flowlayout/flowlayout.*: BSD-3-Clause
 # ext/KDDockWidgets/LICENSE.txt: GPL-2.0-only OR GPL-3.0-only
@@ -38,6 +38,8 @@ Patch2:         %{name}-ffmpeg-7.patch
 # fix build with OpenImageIO 3.0+
 # https://github.com/olive-editor/olive/issues/2392
 Patch3:         %{name}-oiio-3.0.patch
+# fix build with FFmpeg 8.0+
+Patch4:         %{name}-ffmpeg-8.patch
 %else
 Source0:        https://github.com/olive-editor/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 %endif
@@ -145,6 +147,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{unique_name
 %{_datadir}/mime/packages/%{unique_name}.xml
 
 %changelog
+* Wed Oct 15 2025 Dominik Mierzejewski <dominik@greysector.net> - 0.2.0^20240825git617ff87-11
+- Fixed build with FFmpeg 8
+
 * Tue Sep 30 2025 Jan Grulich <jgrulich@redhat.com> - 0.2.0^20240825git617ff87-10
 - Rebuild (qt6)
 

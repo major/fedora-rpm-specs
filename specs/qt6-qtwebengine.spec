@@ -131,6 +131,7 @@ Patch4:   qtwebengine-use-openh264.patch
 Patch80:  qtwebengine-fix-arm-build.patch
 
 ## Upstreamable patches:
+Patch100: qtwebengine-add-missing-pipewire-headers.patch
 
 ## ppc64le port
 Patch200: qtwebengine-6.9-ppc64.patch
@@ -481,6 +482,7 @@ popd
 %patch -P80 -p1 -b .fix-arm-build
 
 ## upstreamable patches
+%patch -P100 -p1 -b .add-missing-pipewire-headers
 
 # ppc64le support
 %patch -P200 -p1

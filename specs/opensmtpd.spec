@@ -8,7 +8,7 @@
 Summary:	Free implementation of the server-side SMTP protocol as defined by RFC 5321
 Name:		opensmtpd
 Version:	7.7.0p0
-Release:	4%{?dist}
+Release:	5%{?dist}
 
 License:	ISC
 URL:		http://www.opensmtpd.org/
@@ -183,12 +183,13 @@ alternatives --install %{_sbindir}/sendmail mta %{_sbindir}/sendmail.opensmtpd 1
 	--follower %{_mandir}/man8/smtp.8.gz mta-smtpman %{_mandir}/man8/smtp.opensmtpd.8.gz \
 	--follower %{_mandir}/man8/smtpd.8.gz mta-smtpdman %{_mandir}/man8/smtpd.opensmtpd.8.gz \
 	--initscript opensmtpd
-exit 0
 
 # Make sure that /usr/sbin/sendmail is not missing, if /usr/sbin is a
 # directory. The symlink will only be created if there is no symlink
 # or file already.
 test -h /usr/sbin || ln -s ../bin/sendmail /usr/sbin/sendmail 2>/dev/null || :
+
+exit 0
 
 %preun
 %systemd_preun %{name}.service
@@ -271,6 +272,9 @@ exit 0
 
 
 %changelog
+* Fri Oct 24 2025 Denis Fateyev <denis@fateyev.com> - 7.7.0p0-5
+- Fix /usr/sbin/sendmail symlink creation
+
 * Thu Oct 16 2025 Denis Fateyev <denis@fateyev.com> - 7.7.0p0-4
 - Switch to new tls-ca-bundle path
 

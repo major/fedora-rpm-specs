@@ -2,14 +2,15 @@
 %bcond_with x264
 
 %global forgeurl0      https://github.com/WiVRn/WiVRn
-%global wivrn_version  25.9
-%global tag0           v%{wivrn_version}
-%global date           20250917
+%global wivrn_version  25.10~alpha1
+%global commit0        de32f6e24f1f457dcea78974b945e1cb3ac6dee8
+#%%global tag0           v%%{wivrn_version}
+%global date           20251025
 
 # WiVRn is based on Monado, we need the full source
 # Monado base source (find in monado-rev file)
 %global forgeurl1      https://gitlab.freedesktop.org/monado/monado
-%global commit1        7a4018e2d89151e60e562fac79eba90ca7a328d8
+%global commit1        06e62fc7d9c5cbcbc43405bb86dfde3bf01ce043
 %global monado_version 25.0.0
 
 %forgemeta
@@ -78,29 +79,29 @@ URL:            %{forgeurl0}
 Source0:        %{forgesource0}
 # License: GPL-3.0-or-later
 Source1:        %{forgeurl1}/-/archive/%{commit1}/monado-src-%{commit1}.tar.bz2
-# https://github.com/WiVRn/WiVRn/issues/505 - Fix APK download
-Patch99:        https://github.com/WiVRn/WiVRn/commit/66ca73981d0c6c079b34566fa53a7a415c403611.patch
 
 # Check for new/removed patches when updating: https://github.com/WiVRn/WiVRn/tree/master/patches/monado/ (check the tag)
 # Make sure to re-pull the patches every release. They are rebased and need to be updated!
 # For tagged releases: https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%%{tag0}/patches/monado/
 # For commit releases: https://raw.githubusercontent.com/WiVRn/WiVRn/%%{commit0}/patches/monado/
 # downstream-only - WiVRn specific Monado patches
-Patch0001:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0001-c-multi-early-wake-of-compositor.patch
+Patch0001:      https://raw.githubusercontent.com/WiVRn/WiVRn/%{commit0}/patches/monado/0001-c-multi-early-wake-of-compositor.patch
 # downstream-only - WiVRn specific Monado patches
-Patch0002:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0002-ipc-server-Always-listen-to-stdin.patch
+Patch0002:      https://raw.githubusercontent.com/WiVRn/WiVRn/%{commit0}/patches/monado/0002-ipc-server-Always-listen-to-stdin.patch
 # downstream-only - WiVRn specific Monado patches
-Patch0003:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0003-Use-extern-socket-fd.patch
+Patch0003:      https://raw.githubusercontent.com/WiVRn/WiVRn/%{commit0}/patches/monado/0003-Use-extern-socket-fd.patch
 # downstream-only - WiVRn specific Monado patches
-Patch0004:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0004-change-environment-blend-mode-selection-logic.patch
+Patch0004:      https://raw.githubusercontent.com/WiVRn/WiVRn/%{commit0}/patches/monado/0004-change-environment-blend-mode-selection-logic.patch
 # downstream-only - WiVRn specific Monado patches
-Patch0005:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0005-c-main-allow-custom-pacing-app-factory.patch
+Patch0005:      https://raw.githubusercontent.com/WiVRn/WiVRn/%{commit0}/patches/monado/0005-st-oxr-forward-0-refresh-rate.patch
 # downstream-only - WiVRn specific Monado patches
-Patch0006:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0006-st-oxr-forward-0-refresh-rate.patch
+Patch0006:      https://raw.githubusercontent.com/WiVRn/WiVRn/%{commit0}/patches/monado/0006-Replace-distortion-with-foveation.patch
 # downstream-only - WiVRn specific Monado patches
-Patch0007:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0007-Replace-distortion-with-foveation.patch
+Patch0007:      https://raw.githubusercontent.com/WiVRn/WiVRn/%{commit0}/patches/monado/0007-Limit-foveation-samples-per-pixel.patch
 # downstream-only - WiVRn specific Monado patches
-Patch0008:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0008-Limit-foveation-samples-per-pixel.patch
+Patch0008:      https://raw.githubusercontent.com/WiVRn/WiVRn/%{commit0}/patches/monado/0008-ipc-Add-callbacks-and-unify-main-functions.patch
+# downstream-only - WiVRn specific Monado patches
+Patch0009:      https://raw.githubusercontent.com/WiVRn/WiVRn/%{commit0}/patches/monado/0009-d-steamvr_lh-prevent-crash-on-vive-pro2-WiVRn.patch
 
 
 # If BuildRequires change, be sure to update envision-wivrn Requires
@@ -219,9 +220,6 @@ and to assist in pairing the headset with the server.
 %prep
 %forgesetup
 
-# Fix APK download
-%patch -P99 -p1
-
 # Extract libraries that are bundled
 mkdir -p _deps/monado-src
 tar -xvf %{SOURCE1} --strip-components 1 -C _deps/monado-src
@@ -235,6 +233,7 @@ pushd _deps/monado-src
 %patch -P0006 -p1
 %patch -P0007 -p1
 %patch -P0008 -p1
+%patch -P0009 -p1
 popd
 
 
