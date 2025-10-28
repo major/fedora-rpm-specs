@@ -1,7 +1,7 @@
 %global __provides_exclude_from ^%{_libdir}/fcitx5/.*\\.so$
 
 Name:       fcitx5-m17n
-Version:    5.1.4
+Version:    5.1.5
 Release:    %autorelease
 Summary:    m17n Wrapper for Fcitx5
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.

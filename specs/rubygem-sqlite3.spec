@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.5.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Allows Ruby scripts to interface with a SQLite3 database
 License: BSD-3-Clause
 URL: https://github.com/sparklemotion/sqlite3-ruby
@@ -13,6 +13,10 @@ Source1: %{gem_name}-%{version}-test.tar.gz
 # Fix (s390x) big endian tees failure.
 # https://github.com/sparklemotion/sqlite3-ruby/pull/616
 Patch0: rubygem-sqlite3-2.5.0-fix-tests-pass-on-bigendian-architecture.patch
+# Remove benchmark dependency for ruby3_5
+# https://github.com/sparklemotion/sqlite3-ruby/pull/606
+# https://github.com/sparklemotion/sqlite3-ruby/commit/e2bb2a9bc6b4729a2fef135f7eb4f7b3b41e03d4
+Patch1: rubygem-sqlite3-pr606-remove-benchmark-dep.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby-devel
@@ -41,6 +45,7 @@ rm -rf ports
 
 ( cd %{builddir}
 %patch 0 -p1
+%patch 1 -p1
 )
 
 # This is not really runtime dependency, neither it is needed by official
@@ -99,6 +104,9 @@ popd
 %{gem_instdir}/dependencies.yml
 
 %changelog
+* Sun Oct 26 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.5.0-3
+- Apply upstream patch to remove benchmark dep for ruby3_5
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

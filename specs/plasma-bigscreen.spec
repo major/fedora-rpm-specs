@@ -1,10 +1,10 @@
-%global commit 046d404e34aa04f4deddddd40e8bdf40dfa43d05
-%global shortcommit 046d404
-%global gitdate 20240204.214319
+%global commit 6a767b376cfb821e0098e5b28846fe83eecda6d6
+%global shortcommit 6a767b3
+%global gitdate 20251021.093642
 
 Name:          plasma-bigscreen
-Version:       5.27.80~%{gitdate}.%{shortcommit}
-Release:       8%{?dist}
+Version:       6.4.80~%{gitdate}.%{shortcommit}
+Release:       1%{?dist}
 License:       BSD-2-Clause and BSD-3-Clause and CC0-1.0 and GPL-2.0-or-later and CC-BY-SA-4.0
 Summary:       A big launcher giving you access to any installed apps and skills
 Url:           https://invent.kde.org/plasma/plasma-bigscreen
@@ -12,6 +12,9 @@ Url:           https://invent.kde.org/plasma/plasma-bigscreen
 # Not currently in the plasma releases. Getting from gitlab tags.
 # Source0:       http://download.kde.org/%{stable_kf6}/plasma/%{version}/%{name}-%{version}.tar.xz
 Source0:       https://invent.kde.org/plasma/%{name}/-/archive/%{commit}/%{name}-%{commit}.tar.gz
+
+# handled by qt6-srpm-macros, which defines %%qt6_qtwebengine_arches
+%{?qt6_qtwebengine_arches:ExclusiveArch: %{qt6_qtwebengine_arches}}
 
 BuildRequires: extra-cmake-modules
 BuildRequires: gcc-c++
@@ -26,12 +29,18 @@ BuildRequires: cmake(KF6Notifications)
 BuildRequires: cmake(KF6KIO)
 BuildRequires: cmake(KF6WindowSystem)
 BuildRequires: cmake(KF6Svg)
+BuildRequires: cmake(KF6BluezQt)
+BuildRequires: cmake(KF6GlobalAccel)
+BuildRequires: cmake(KF6DBusAddons)
+BuildRequires: cmake(KF6IconThemes)
+BuildRequires: cmake(KF6Screen)
 
 BuildRequires: cmake(Plasma)
 BuildRequires: cmake(PlasmaActivities)
 BuildRequires: cmake(PlasmaActivitiesStats)
 
 BuildRequires: cmake(LibKWorkspace)
+BuildRequires: cmake(QCoro6)
 
 BuildRequires: cmake(Qt6Quick)
 BuildRequires: cmake(Qt6Core)
@@ -39,7 +48,7 @@ BuildRequires: cmake(Qt6Qml)
 BuildRequires: cmake(Qt6DBus)
 BuildRequires: cmake(Qt6Network)
 BuildRequires: cmake(Qt6Multimedia)
-
+BuildRequires: cmake(Qt6WebEngineCore)
 
 Requires:   %{name}-wayland = %{version}-%{release}
 
@@ -73,29 +82,28 @@ Conflicts: %{name}-x11 < %{version}-%{release}
 
 %install
 %cmake_install
-chmod +x %{buildroot}%{_kf6_bindir}/mycroft-skill-launcher.py
-# F40: Remove the X11 Launcher
-rm -v %{buildroot}%{_kf6_bindir}/plasma-bigscreen-x11
-rm -v %{buildroot}%{_kf6_datadir}/xsessions/plasma-bigscreen-x11.desktop
 %find_lang plasma-bigscreen --with-man --with-qt --all-name
 
 %check
 desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/kcm_mediacenter_{audiodevice,bigscreen_settings,kdeconnect,wifi}.desktop
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/plasma-bigscreen-swap-session.desktop
+desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.plasma.bigscreen.uvcviewer.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 %files -f plasma-bigscreen.lang
 %license LICENSES/*
-%{_kf6_bindir}/mycroft-skill-launcher.py
-%{_kf6_qtplugindir}/kcms/kcm_mediacenter_*.so
-%{_kf6_qmldir}/org/kde/mycroft/bigscreen/
-%{_kf6_datadir}/kpackage/genericqml/org.kde.plasma.settings/contents/ui/+mediacenter/*.qml
-%{_kf6_metainfodir}/org.kde.plasma.mycroft.bigscreen.metainfo.xml
-%{_kf6_datadir}/plasma/look-and-feel/org.kde.plasma.mycroft.bigscreen/
-%{_kf6_datadir}/plasma/plasmoids/org.kde.mycroft.bigscreen.homescreen/
-%{_kf6_datadir}/plasma/shells/org.kde.plasma.mycroft.bigscreen/
+%{_kf6_bindir}/plasma-bigscreen-{common-env,envmanager,settings,swap-session,uvcviewer,wayland,webapp}
+%{_kf6_qtplugindir}/plasma/kcms/systemsettings/kcm_mediacenter_*.so
+%{_kf6_qmldir}/org/kde//bigscreen/
+%{_kf6_metainfodir}/org.kde.plasma.bigscreen.metainfo.xml
+%{_kf6_datadir}/plasma/look-and-feel/org.kde.plasma.bigscreen/
+%{_kf6_datadir}/plasma/plasmoids/org.kde.bigscreen.homescreen/
+%{_kf6_datadir}/plasma/shells/org.kde.plasma.bigscreen/
 %{_kf6_datadir}/sounds/plasma-bigscreen/
-%{_kf6_qtplugindir}/plasma/applets/org.kde.mycroft.bigscreen.homescreen.so
+%{_kf6_qtplugindir}/plasma/applets/org.kde.bigscreen.homescreen.so
 %{_kf6_datadir}/applications/kcm_mediacenter_*.desktop
+%{_kf6_datadir}/applications/plasma-bigscreen-swap-session.desktop
+%{_kf6_datadir}/applications/org.kde.plasma.bigscreen.uvcviewer.desktop
 
 %files wayland
 %{_kf6_bindir}/plasma-bigscreen-wayland
@@ -103,6 +111,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
+* Sun Oct 26 2025 Steve Cossette <farchord@gmail.com> - 6.4.80~20251021.093642.6a767b3-1
+- Updated to latest git snapshot
+
 * Thu Oct 23 2025 Steve Cossette <farchord@gmail.com> - 5.27.80~20240204.214319.046d404-8
 - Rebuild for plasma-activities change
 

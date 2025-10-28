@@ -1,7 +1,7 @@
 %global pypi_name autobahn
 
 Name:           python-%{pypi_name}
-Version:        25.9.1
+Version:        25.10.2
 Release:        1%{?dist}
 Summary:        Python networking library for WebSocket and WAMP
 
@@ -59,7 +59,8 @@ Documentation for %{name}.
 %prep
 %autosetup -n %{pypi_name}-%{version} -p1
 # Some packages are always outdated...
-sed -i -e "s/cryptography>=3.4.6/cryptography>=3.4.2/g" setup.py
+# setuptools >= 80 is used to detect the license we install the RPM way. Downgrade…
+sed -i -e "s/setuptools>=80.9.0/setuptools>=70/g" pyproject.toml
 # Remove packages that will try to import attrs (optionnal deps) since in EPEL it's outdated and doesn't allow the import of attrs
 # See https://www.attrs.org/en/stable/changelog.html#id11
 %if ! 0%{?fedora}
@@ -121,6 +122,9 @@ USE_ASYNCIO=1 %pytest --ignore=xbr/test --pyargs autobahn ${k+ -k} "${k-}"
 %license LICENSE
 
 %changelog
+* Sun Oct 26 2025 Julien Enselme <jujens@jujens.eu> - 25.10.2
+- Update to 25.10.2
+
 * Thu Oct 16 2025 Julien Enselme <jujens@jujens.eu> - 25.9.1-1
 - Update to 25.9.1
 

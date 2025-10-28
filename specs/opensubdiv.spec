@@ -1,12 +1,12 @@
 # Force out of source build
-%undefine __cmake_in_source_build
+%undefine       __cmake_in_source_build
 
-%global		upstream_version 3_6_0
-#%%global       prerelease RC1
+%global         upstream_version 3_7_0
+%global         prerelease RC1
 
 Name:           opensubdiv
-Version:        3.6.1
-Release:        %autorelease
+Version:        3.7.0
+Release:        %autorelease %{?prerelease:-p -e %{prerelease}}
 Summary:        High performance subdivision surface libraries
 
 # The entire source is Pixar except:
@@ -16,8 +16,8 @@ Summary:        High performance subdivision surface libraries
 #   - documentation/tipuesearch/
 License:        Pixar AND MIT
 #URL:            http://graphics.pixar.com/%%{name}
-Url:		https://github.com/PixarAnimationStudios/OpenSubdiv
-Source:	        https://github.com/PixarAnimationStudios/OpenSubdiv/archive/v%{upstream_version}%{?prerelease}/%{name}-%{version}%{?prerelease}.tar.gz
+Url:	            https://github.com/PixarAnimationStudios/OpenSubdiv
+Source:	        https://github.com/PixarAnimationStudios/OpenSubdiv/archive/v%{upstream_version}%{?prerelease:_%{prerelease}}/%{name}-%{version}%{?prerelease:_%{prerelease}}.tar.gz
 
 # fix linking against libdl (see https://github.com/PixarAnimationStudios/OpenSubdiv/issues/1196)
 Patch:         	%{name}-rpath.patch
@@ -43,14 +43,14 @@ BuildRequires:  gcc-c++
 BuildRequires:  graphviz-devel
 BuildRequires:  pkgconfig(glew)
 BuildRequires:  pkgconfig(glfw3)
-BuildRequires:	pkgconfig(OpenCL)
-BuildRequires:	pkgconfig(ptex)
+BuildRequires:  pkgconfig(OpenCL)
+BuildRequires:  pkgconfig(ptex)
 BuildRequires:  pkgconfig(python3)
 BuildRequires:  pkgconfig(tbb)
 BuildRequires:  pkgconfig(zlib)
-BuildRequires:	python3dist(pygments)
+BuildRequires:  python3dist(pygments)
 # Drop libs subpackage
-Obsoletes:	%{name}-libs < %{version}-%{release}
+Obsoletes:      %{name}-libs < %{version}-%{release}
 # Doxygen-generated HTML documentation is not suitable for packaging; see
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
 Obsoletes:      %{name}-doc < 3.5.0-10
@@ -71,7 +71,7 @@ The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%autosetup -p1 -n OpenSubdiv-%{upstream_version}%{?prerelease}
+%autosetup -p1 -n OpenSubdiv-%{upstream_version}%{?prerelease:_%{prerelease}}
 
 # work around linking glitch
 # https://github.com/PixarAnimationStudios/OpenSubdiv/issues/1196
@@ -91,7 +91,6 @@ find . -type f -name '*.min.js' -print -delete
        -DNO_DOC=1\
        -DNO_EXAMPLES=1 \
        -DNO_GLFW_X11=1 \
-       -DNO_OPENCL=1 \
        -DNO_METAL=1 \
        -DNO_REGRESSION=1 \
        -DNO_TUTORIALS=1 \

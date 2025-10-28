@@ -3,10 +3,10 @@
 %global debug_package %{nil}
 
 %global crate zstd-sys
-%global crate_version 2.0.15+zstd.1.5.7
+%global crate_version 2.0.16+zstd.1.5.7
 
 Name:           rust-zstd-sys
-Version:        2.0.15
+Version:        2.0.16
 Release:        %autorelease
 Summary:        Low-level bindings for the zstd compression library
 

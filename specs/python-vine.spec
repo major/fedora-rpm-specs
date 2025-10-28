@@ -31,7 +31,6 @@ BuildRequires:  python3-sphinx
 Summary:        Promises, promises, promises
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 %if %{with tests}
 BuildRequires:  python3-pytest
 BuildRequires:  python3-pytest-cov
@@ -50,15 +49,16 @@ Documentation for vine
 
 %prep
 %autosetup -n %{pypi_name}-%{version}
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
 
 # Compatibility with pytest 8
 # https://github.com/celery/vine/commit/cf9b3979173ff22a4a410c4da6cfdad878eced8c
 sed -i "/def setup(self)/s/setup/setup_method/" t/unit/test_synchronization.py
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 # docs depend on sphinx-celery
 %if %{with docs}
@@ -70,19 +70,19 @@ rm -rf html/.{doctrees,buildinfo}
 %endif
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{pypi_name}
 
 
 %if %{with tests}
 %check
+%pyproject_check_import
+
 %pytest -xv --cov=vine --cov-report=xml --no-cov-on-fail
 %endif
 
-%files -n python3-%{pypi_name}
-%license LICENSE
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc docs/templates/readme.txt README.rst
-%{python3_sitelib}/%{pypi_name}
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %if %{with docs}
 %files -n python-%{pypi_name}-doc

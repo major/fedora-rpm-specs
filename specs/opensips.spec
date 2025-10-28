@@ -15,6 +15,14 @@ Patch: opensips-0002-Cleanup-Oracle-s-makefiles.patch
 Patch: opensips-0003-db_ora-null-terminating-string-is-more-safely-most-m.patch
 Patch: opensips-0004-Return-actual-payload-ID-in-case-of-a-dynamic-payloa.patch
 Patch: opensips-0005-Guard-VERSIONTYPE.patch
+Patch: opensips-0006-Revert-Guard-VERSIONTYPE.patch
+Patch: opensips-0007-Fix-libdl-linking-typo-to-eliminate-build-warnings.patch
+Patch: opensips-0008-Remove-unnecessary-j-invocation.patch
+Patch: opensips-0009-Curl-expects-signed-long-integers.patch
+Patch: opensips-0010-Missing-const.patch
+Patch: opensips-0011-Fix-rabbitmq-c-deprecated-header-warnings.patch
+Patch: opensips-0012-Fix-libbson-deprecated-API-warning-with-version-comp.patch
+Patch: opensips-0013-Fix-uninitialized-variable-warnings-in-SQL-API-funct.patch
 
 URL:      https://opensips.org
 
@@ -33,13 +41,11 @@ BuildRequires: systemd-units
 Requires(post): systemd
 Requires(preun): systemd
 
-Obsoletes: %{name}-auth_diameter
-Obsoletes: %{name}-event_datagram
-Obsoletes: %{name}-event_jsonrpc
-Obsoletes: %{name}-mi_xmlrpc
-Obsoletes: %{name}-seas
-Obsoletes: %{name}-sms
-Obsoletes: %{name}-xmlrpc
+Obsoletes: %{name}-auth_diameter < 2.2.2
+Obsoletes: %{name}-event_datagram < 1.9.1
+Obsoletes: %{name}-event_jsonrpc < 3.1.0
+Obsoletes: %{name}-seas < 3.1.0
+Obsoletes: %{name}-sms < 3.1.0
 
 %description
 OpenSIPS or Open SIP Server is a very fast and flexible SIP (RFC3261)
@@ -135,7 +141,7 @@ work with a Couchbase server.
 Summary:  Memcached connector for cache subsystem
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Provides: %{name}-memcached%{?_isa} = %{version}-%{release}
-Obsoletes: %{name}-memcached
+Obsoletes: %{name}-memcached < 1.11.6
 BuildRequires: libmemcached-devel
 
 %description cachedb_memcached
@@ -157,7 +163,7 @@ work with a MongoDB server.
 Summary:  Redis connector for cache subsystem
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Provides: %{name}-redis%{?_isa} = %{version}-%{release}
-Obsoletes: %{name}-redis
+Obsoletes: %{name}-redis < 1.11.6
 BuildRequires: hiredis-devel
 
 %description cachedb_redis
@@ -237,7 +243,7 @@ HTTP server.
 Summary:  MySQL storage support for OpenSIPS
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Provides: %{name}-mysql%{?_isa} = %{version}-%{release}
-Obsoletes: %{name}-mysql
+Obsoletes: %{name}-mysql < 1.11.6
 BuildRequires: mariadb-connector-c-devel
 
 %description db_mysql
@@ -249,7 +255,7 @@ a MySQL database to be used for persistent storage.
 Summary:  Oracle storage support for OpenSIPS
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Provides: %{name}-oracle%{?_isa} = %{version}-%{release}
-Obsoletes: %{name}-oracle
+Obsoletes: %{name}-oracle < 1.11.6
 BuildRequires: oracle-instantclient-devel
 
 %description db_oracle
@@ -264,7 +270,7 @@ BuildRequires: perl(ExtUtils::MakeMaker)
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: %{name}-perl%{?_isa} = %{version}-%{release}
 Provides: %{name}-perlvdb%{?_isa} = %{version}-%{release}
-Obsoletes: %{name}-perlvdb
+Obsoletes: %{name}-perlvdb < 1.11.6
 
 %description db_perlvdb
 The Perl Virtual Database (VDB) provides a virtualization framework for
@@ -275,7 +281,7 @@ itself but lets the user relay database requests to arbitrary Perl functions.
 Summary:  PostgreSQL storage support for OpenSIPS
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Provides: %{name}-postgresql%{?_isa} = %{version}-%{release}
-Obsoletes: %{name}-postgresql
+Obsoletes: %{name}-postgresql < 1.11.6
 BuildRequires: libpq-devel
 
 %description db_postgresql
@@ -295,7 +301,7 @@ allows SQLite to be used for persistent storage.
 Summary:  OpenSIPS unixODBC Storage support
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Provides: %{name}-unixodbc%{?_isa} = %{version}-%{release}
-Obsoletes: %{name}-unixodbc
+Obsoletes: %{name}-unixodbc < 1.11.6
 BuildRequires: unixODBC-devel
 
 %description db_unixodbc
@@ -316,7 +322,7 @@ Event Interface triggers an event subscribed for.
 Summary:  Event RabbitMQ module
 Requires: %{name}%{?_isa} = %{version}-%{release}
 BuildRequires: librabbitmq-devel
-Obsoletes: %{name}-rabbitmq
+Obsoletes: %{name}-rabbitmq < 3.6.0
 
 %description event_rabbitmq
 This module provides the implementation of a RabbitMQ client for the Event Interface.
@@ -447,7 +453,9 @@ BuildRequires: libxml2-devel
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: %{name}-httpd%{?_isa} = %{version}-%{release}
 Provides: %{name}-xmlrpc_ng%{?_isa} = %{version}-%{release}
-Obsoletes: %{name}-xmlrpc_ng
+Obsoletes: %{name}-mi_xmlrpc_ng < 2.2.2
+Obsoletes: %{name}-xmlrpc_ng < 1.11.6
+Obsoletes: %{name}-xmlrpc < 1.11.6
 
 %description mi_xmlrpc_ng
 This module implements a xmlrpc server that handles xmlrpc requests and generates
@@ -607,7 +615,7 @@ allowing it to fetch different statistics from OpenSIPS.
 Summary:  A secure Binary clustering protocol
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: %{name}-tls_mgm%{?_isa} = %{version}-%{release}
-Obsoletes: %{name}-tlsops
+Obsoletes: %{name}-tlsops < 2.2.2
 
 %description proto_bins
 This module provides a secure Binary communication protocol
@@ -641,7 +649,7 @@ script.
 Summary:  An optional TLS transport module
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: %{name}-tls_mgm%{?_isa} = %{version}-%{release}
-Obsoletes: %{name}-tlsops
+Obsoletes: %{name}-tlsops < 2.2.2
 
 %description proto_tls
 This module is an optional transport module (shared library) which exports the
@@ -908,6 +916,7 @@ LOCALBASE=/usr NICER=0 CFLAGS="%{optflags}" LDFLAGS="%{?__global_ldflags}" %{?_w
 %install
 NICER=0 make install TLS=1 VERSIONTYPE=git THISREVISION=%{sub %git_commit 0 9} HTTP2D_USE_SYSTEM=yes HTTP2D_USE_SHARED=yes LIBDIR=%{_lib} \
   exclude_modules="%EXCLUDE_MODULES" \
+  PYTHON=/usr/bin/python3 \
   basedir=%{buildroot} prefix=%{_prefix} \
   bin_dir=bin \
   cfg_prefix=%{buildroot} \

@@ -37,7 +37,6 @@ Summary:        Python 3 interface to testcloud
 BuildRequires:  bash-completion
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
-BuildRequires:  python3-setuptools
 
 Requires:       acl
 Requires:       genisoimage
@@ -65,10 +64,11 @@ sed -i 's/ --cov-report=term-missing --cov testcloud//g' tox.ini
 %pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files testcloud
 
 # configuration files
 mkdir -p %{buildroot}%{_sysconfdir}/testcloud/
@@ -91,6 +91,7 @@ install conf/99-testcloud-nonroot-libvirt-access.rules %{buildroot}%{_sysconfdir
 install -p -m644 -D %{SOURCE1} %{buildroot}%{_sysusersdir}/%{name}.conf
 
 %check
+%pyproject_check_import
 %pytest
 # Remove compiled .py files from /etc after os_install_post
 rm -f %{buildroot}%{_sysconfdir}/testcloud/*.py{c,o}
@@ -115,9 +116,7 @@ rm -rf %{buildroot}%{_sysconfdir}/testcloud/__pycache__
 
 %{_sysusersdir}/%{name}.conf
 
-%files -n python3-%{name}
-%{python3_sitelib}/testcloud
-%{python3_sitelib}/*.egg-info
+%files -n python3-%{name} -f %{pyproject_files}
 
 %changelog
 %autochangelog

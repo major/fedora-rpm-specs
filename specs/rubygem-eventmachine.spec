@@ -6,7 +6,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.2.7
-Release: 30%{?dist}
+Release: 31%{?dist}
 Summary: Ruby/EventMachine library
 # Automatically converted from old format: GPLv2 or Ruby - review is highly recommended.
 License: GPL-2.0-only OR Ruby
@@ -39,6 +39,7 @@ BuildRequires: ruby-devel
 BuildRequires: gcc-c++
 # Enables SSL support.
 BuildRequires: openssl-devel
+BuildRequires: rubygem(ostruct)
 BuildRequires: rubygem(test-unit)
 
 %description
@@ -157,6 +158,9 @@ popd
 %{gem_instdir}/tests
 
 %changelog
+* Sun Oct 26 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.2.7-31
+- Add BR: rubygem(ostruct) for testsuite with ruby3_5
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.7-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

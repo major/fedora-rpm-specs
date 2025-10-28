@@ -5,7 +5,7 @@
 %global crate vt100
 
 Name:           rust-vt100
-Version:        0.15.2
+Version:        0.16.2
 Release:        %autorelease
 Summary:        Library for parsing terminal data
 
@@ -13,8 +13,8 @@ License:        MIT
 URL:            https://crates.io/crates/vt100
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * bump vte from 0.11.0 to 0.13.0
-# * drop dev-dependencies that are only used in tests or examples that are not
+# * Allow older vte (0.13; wants 0.15)
+# * Drop dev-dependencies that are only used in tests or examples that are not
 #   included in the crate: nix, quickcheck, rand, serde, serde_json,
 #   terminal_size
 Patch:          vt100-fix-metadata.diff

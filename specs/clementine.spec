@@ -35,10 +35,12 @@ Summary:        A music player and library organizer
 #   - 3rdparty/qtiocompressor/qtiocompressor.cpp
 #   - 3rdparty/qtiocompressor/qtiocompressor.h
 # LGPL-2.1-only WITH Qt-LGPL-exception-1.1 OR LGPL-3.0-only WITH Qt-LGPL-exception-1.1:
+# but Qt-LGPL-exception-1.1 refers to nonexistent file so we can ignore this exception so it is:
+# LGPL-2.1-only OR LGPL-3.0-only
 #   - 3rdparty/qsqlite/smain.cpp
 #   - 3rdparty/qsqlite/smain.h
 # MIT: 3rdparty/qocoa
-License:        GPL-3.0-or-later AND GPL-2.0-or-later AND BSL-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-only AND Apache-2.0 AND (LGPL-2.1-only WITH Qt-LGPL-exception-1.1 OR GPL-3.0-only) AND (LGPL-2.1-only WITH Qt-LGPL-exception-1.1 OR LGPL-3.0-only WITH Qt-LGPL-exception-1.1) AND MIT
+License:        GPL-3.0-or-later AND GPL-2.0-or-later AND BSL-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-only AND Apache-2.0 AND (LGPL-2.1-only WITH Qt-LGPL-exception-1.1 OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
 URL:            https://www.clementine-player.org/
 VCS:            https://github.com/clementine-player/Clementine
 Source:         %vcs/archive/%{tag}/%{name}-%{tag}.tar.gz

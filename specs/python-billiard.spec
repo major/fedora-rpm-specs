@@ -1,7 +1,7 @@
 %bcond tests 1
 
 Name:           python-billiard
-Version:        4.2.1
+Version:        4.2.2
 Release:        %autorelease
 Epoch:          1
 Summary:        Python multiprocessing fork with improvements and bugfixes
@@ -9,7 +9,6 @@ Summary:        Python multiprocessing fork with improvements and bugfixes
 License:        BSD-3-Clause
 URL:            https://github.com/celery/billiard
 Source:         %{pypi_source billiard}
-Patch:          0001-Don-t-set-_USE_VFORK-on-Python-3.14.patch
 
 BuildRequires:  python3-devel
 

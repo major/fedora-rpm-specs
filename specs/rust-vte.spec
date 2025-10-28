@@ -5,7 +5,7 @@
 %global crate vte
 
 Name:           rust-vte
-Version:        0.13.1
+Version:        0.15.0
 Release:        %autorelease
 Summary:        Parser for implementing terminal emulators
 
@@ -60,18 +60,6 @@ use the "ansi" feature of the "%{crate}" crate.
 %files       -n %{name}+ansi-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+arrayvec-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+arrayvec-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "arrayvec" feature of the "%{crate}" crate.
-
-%files       -n %{name}+arrayvec-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+bitflags-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -108,30 +96,6 @@ use the "log" feature of the "%{crate}" crate.
 %files       -n %{name}+log-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+nightly-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+nightly-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "nightly" feature of the "%{crate}" crate.
-
-%files       -n %{name}+nightly-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+no_std-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+no_std-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "no_std" feature of the "%{crate}" crate.
-
-%files       -n %{name}+no_std-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+serde-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -142,6 +106,18 @@ This package contains library source intended for building other packages which
 use the "serde" feature of the "%{crate}" crate.
 
 %files       -n %{name}+serde-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+std-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+std-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "std" feature of the "%{crate}" crate.
+
+%files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

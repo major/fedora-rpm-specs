@@ -1,21 +1,26 @@
-# necessary since commit string is part of release tar ball - Roland
-%global _commit_string ea93b21f9498
+%global appname org.speedcrunch.SpeedCrunch
+%global commit 3c1b4c18ccb275eb2891f9d8ff36a9205c0f566b
+%global date 20241202
+
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+%global tarballcommit %(c=%{commit}; echo ${c:0:12})
 
 Name:           speedcrunch
-Version:        0.12
+Version:        0.12^%{date}git%{shortcommit}
 Release:        %autorelease
-Summary:        A fast power user calculator
 
 License:        GPL-2.0-or-later
-URL:            https://www.speedcrunch.org
-Source0:        https://bitbucket.org/heldercorreia/%{name}/get/release-%{version}.0.tar.bz2
+Summary:        A fast power user calculator
+URL:            https://bitbucket.org/heldercorreia/%{name}
+Source0:        %{url}/get/%{commit}.tar.bz2#/%{name}-%{tarballcommit}.tar.bz2
 
-Patch100:       %{name}-0.12-metainfo-fixes.patch
-Patch101:       %{name}-0.12-cmake4-fixes.patch
+# https://bugs.gentoo.org/953885
+Patch100:       %{name}-0.12-qhash.patch
+Patch101:       %{name}-0.12-qsignalmapper.patch
 
-BuildRequires:  cmake(Qt5Widgets)
-BuildRequires:  cmake(Qt5Core)
-BuildRequires:  cmake(Qt5Help)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6Help)
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
@@ -24,6 +29,8 @@ BuildRequires:  ninja-build
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 
+Requires:       hicolor-icon-theme
+
 %description
 SpeedCrunch is a fast, high precision and powerful desktop calculator.
 Among its distinctive features are a scrollable display, up to 50 decimal
@@ -31,7 +38,7 @@ precisions, unlimited variable storage, intelligent automatic completion
 full keyboard-friendly and more than 15 built-in math function.
 
 %prep
-%autosetup -n heldercorreia-%{name}-%{_commit_string} -p1
+%autosetup -n heldercorreia-%{name}-%{tarballcommit} -p1
 
 %build
 %cmake \
@@ -44,35 +51,29 @@ full keyboard-friendly and more than 15 built-in math function.
 %cmake_install
 
 # Install SVG icon
-install -D -m 0644 -p gfx/%{name}.svg %{buildroot}/%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
+install -D -m 0644 -p gfx/%{name}.svg %{buildroot}/%{_datadir}/icons/hicolor/scalable/apps/%{appname}.svg
 
 # Create icons on the fly
 for size in 16 22 24 32 48 64 128 256; do
     dest=%{buildroot}%{_datadir}/icons/hicolor/${size}x${size}/apps
     mkdir -p ${dest}
-    rsvg-convert -w ${size} -h ${size} gfx/%{name}.svg -o ${dest}/%{name}.png
-    chmod 0644 ${dest}/%{name}.png
-    touch -r gfx/%{name}.svg ${dest}/%{name}.png
+    rsvg-convert -w ${size} -h ${size} gfx/%{name}.svg -o ${dest}/%{appname}.png
+    chmod 0644 ${dest}/%{appname}.png
+    touch -r gfx/%{name}.svg ${dest}/%{appname}.png
 done
 
-desktop-file-install \
-    --set-key=StartupWMClass \
-    --set-value=%{name} \
-    --dir=%{buildroot}%{_datadir}/applications \
-    pkg/%{name}.desktop
-
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdata.xml
-desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{appname}.metainfo.xml
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{appname}.desktop
 
 %files
 %license pkg/COPYING.rtf
 %doc README.md
 %{_bindir}/%{name}
-%{_datadir}/applications/%{name}.desktop
-%{_datadir}/icons/hicolor/*/apps/%{name}.*
-%{_datadir}/pixmaps/%{name}.png
-%{_metainfodir}/%{name}.appdata.xml
+%{_datadir}/applications/%{appname}.desktop
+%{_datadir}/icons/hicolor/*/apps/%{appname}.*
+%{_datadir}/pixmaps/%{appname}.png
+%{_metainfodir}/%{appname}.metainfo.xml
 
 %changelog
 %autochangelog

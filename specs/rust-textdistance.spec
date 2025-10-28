@@ -2,26 +2,28 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate url
+# prevent executables from being installed
+%global cargo_install_bin 0
 
-Name:           rust-url
-Version:        2.5.7
+%global crate textdistance
+
+Name:           rust-textdistance
+Version:        1.1.1
 Release:        %autorelease
-Summary:        URL library for Rust, based on the WHATWG URL Standard
+Summary:        Lots of algorithms to compare how similar two sequences are
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/url
+License:        MIT
+URL:            https://crates.io/crates/textdistance
 Source:         %{crates_source}
-# Automatically generated patch to strip dependencies and normalize metadata
-Patch:          url-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * drop unused, benchmark-only bencher dev-dependency
-Patch:          url-fix-metadata.diff
+# * remove criterion as it is a bench mark dep
+# * increase version bounds of rtest
+Patch:          textdistance-fix-metadata.diff
 
-BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  cargo-rpm-macros >= 26
 
 %global _description %{expand:
-URL library for Rust, based on the WHATWG URL Standard.}
+Lots of algorithms to compare how similar two sequences are.}
 
 %description %{_description}
 
@@ -35,8 +37,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
+%license %{crate_instdir}/LICENSE
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -50,30 +51,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+expose_internals-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+expose_internals-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "expose_internals" feature of the "%{crate}" crate.
-
-%files       -n %{name}+expose_internals-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+serde-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+serde-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "serde" feature of the "%{crate}" crate.
-
-%files       -n %{name}+serde-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+std-devel

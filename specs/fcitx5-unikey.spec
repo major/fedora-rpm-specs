@@ -1,7 +1,7 @@
 %global __provides_exclude_from ^%{_libdir}/fcitx5/.*\\.so$
 
 Name:       fcitx5-unikey
-Version:    5.1.7
+Version:    5.1.8
 Release:    %autorelease
 Summary:    Unikey support for Fcitx5
 # Automatically converted from old format: GPLv2+ and LGPLv2+ - review is highly recommended.

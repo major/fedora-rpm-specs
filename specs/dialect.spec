@@ -41,6 +41,8 @@ Requires:       python3-gobject >= 3.51.0
 Requires:       python3-dbus
 Requires:       python3-gtts
 Requires:       python3-beautifulsoup4
+Requires:       libspelling
+Requires:       gtksourceview5
 
 %description
 A translation app for GNOME based on Google Translate.

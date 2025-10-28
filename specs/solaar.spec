@@ -3,13 +3,13 @@
 %global app_id io.github.pwr_solaar.solaar
 
 Name:           solaar
-Version:        1.1.14
+Version:        1.1.16
 Release:        %autorelease
 Summary:        Device manager for a wide range of Logitech devices
 URL:            https://github.com/pwr-Solaar/Solaar
 Source:         %{url}/archive/%{version}/Solaar-%{version}.tar.gz
-Patch:          %{url}/commit/3de575b6973b3de1a33fcf57557f1551def5d939.patch#/%{name}-ignore-unsupported-locale.patch
-Patch:          %{url}/commit/924684b610f831ceeb659bbc9a8321e38954870e.patch#/%{name}-uaccess-rules-systemd-258.patch
+# https://github.com/rathann/Solaar/commit/bc41badff18d6075e97bb41f02c39a9946f96d22
+Patch:          %{name}-fix-appstream.patch
 
 BuildArch:      noarch
 License:        GPL-2.0-or-later

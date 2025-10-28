@@ -1,7 +1,7 @@
 %global __provides_exclude_from ^%{_libdir}/fcitx5/.*\\.so$
 
 Name:       fcitx5-chewing
-Version:    5.1.8
+Version:    5.1.9
 Release:    %autorelease
 Summary:    Chewing Wrapper for Fcitx
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.

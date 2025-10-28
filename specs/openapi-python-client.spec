@@ -8,12 +8,10 @@ URL:            https://github.com/openapi-generators/openapi-python-client
 Source:         %{url}/archive/refs/tags/v%{version}/openapi-python-client-%{version}.tar.gz
 Source1:        openapi-python-client.man1
 
-# chore(deps): update dependency ruff to >=0.2,<0.15
-# https://github.com/openapi-generators/openapi-python-client/pull/1332
-Patch:          openapi-python-client-0.26.2-ruff-0.14.patch
-# chore(deps): update dependency typer to >0.6,<0.21
-# https://github.com/openapi-generators/openapi-python-client/pull/1336
-Patch:          openapi-python-client-0.26.2-typer-0.20.patch
+# Remove upper bounds from dependencies due to
+# strict upper bound policy of the upstream project
+# https://bugzilla.redhat.com/show_bug.cgi?id=2405298
+Patch:          remove-dep-upper-bounds.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-hatchling
@@ -42,6 +40,8 @@ Summary:        %{summary}
 
 %prep
 %autosetup -p1 -n openapi-python-client-%{version}
+
+
 %generate_buildrequires
 %pyproject_buildrequires
 
@@ -66,9 +66,7 @@ gzip %{buildroot}%{_mandir}/man1/%{name}.1
 %files -n %{name} -f %{pyproject_files}
 %attr(755,root,root) %{_bindir}/%{name}
 %{_mandir}/man1/%{name}.1.*
-%doc README.md
-%doc CHANGELOG.md
-%license LICENSE
+%doc README.md CHANGELOG.md
 
 
 %changelog

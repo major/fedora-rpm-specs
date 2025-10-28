@@ -115,13 +115,13 @@
 %global build_compile_db OFF
 %endif
 
-Name:           %{rocrand_name}
+Name:           rocrand
 %if %{with gitcommit}
 Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 %endif
 Summary:        ROCm random number generator
 
@@ -182,13 +182,19 @@ The rocRAND library is implemented in the HIP programming language and
 optimized for AMD's latest discrete GPUs. It is designed to run on top of AMD's
 Radeon Open Compute ROCm runtime, but it also works on CUDA enabled GPUs.
 
-%post -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
+%if 0%{?suse_version}
+%package -n %{rocrand_name}
+Summary:        Shared libraries for %{name}
+
+%description -n %{rocrand_name}
+%{summary}
+
+%ldconfig_scriptlets -n %{rocrand_name}
+%endif
 
 %package devel
 Summary:        The rocRAND development package
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-Provides:       rocrand-devel = %{version}-%{release}
+Requires:       %{rocrand_name}%{?_isa} = %{version}-%{release}
 
 %description devel
 The rocRAND development package.
@@ -238,7 +244,7 @@ cd projects/rocrand
 
 rm -f %{buildroot}%{_prefix}/share/doc/rocrand/LICENSE.txt
 
-%files
+%files -n %{rocrand_name}
 %if %{with gitcommit}
 %doc projects/rocrand/README.md
 %license projects/rocrand/LICENSE.txt
@@ -264,6 +270,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/rocrand/LICENSE.txt
 %endif
 
 %changelog
+* Sun Oct 26 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-4
+- better handling of shared library on opensuse
+
 * Thu Oct 2 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-3
 - Enable -test for fedora
 - Remove check

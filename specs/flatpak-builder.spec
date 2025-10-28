@@ -1,4 +1,4 @@
-%global appstream_version 0.15.0
+%global appstream_version 0.16.3
 %global debugedit_version 5.0
 %global glib2_version 2.66
 %global ostree_version 2017.14
@@ -7,7 +7,7 @@
 %global __requires_exclude ^/usr/bin/python2$
 
 Name:           flatpak-builder
-Version:        1.4.5
+Version:        1.4.6
 Release:        1%{?dist}
 Summary:        Tool to build flatpaks from source
 
@@ -16,9 +16,6 @@ Summary:        Tool to build flatpaks from source
 License:        LGPL-2.1-or-later AND GPL-2.0-or-later
 URL:            https://flatpak.org/
 Source0:        https://github.com/flatpak/flatpak-builder/releases/download/%{version}/%{name}-%{version}.tar.xz
-
-# https://github.com/flatpak/flatpak-builder/pull/662
-Patch0:         %{name}-Fix-incorrect-paths-for-test-files.patch
 
 # ostree not on i686 for RHEL 10
 # https://github.com/containers/composefs/pull/229#issuecomment-1838735764
@@ -53,13 +50,14 @@ Requires:       ostree-libs%{?_isa} >= %{ostree_version}
 Requires:       /usr/bin/rofiles-fuse
 
 # Recommend various things that may or may not be needed depending on the code being built
+Recommends:     /usr/bin/bsdunzip
 Recommends:     /usr/bin/bzip2
 Recommends:     /usr/bin/eu-strip
 Recommends:     /usr/bin/git
+Recommends:     /usr/bin/git-lfs
 Recommends:     /usr/bin/patch
 Recommends:     /usr/bin/strip
 Recommends:     /usr/bin/tar
-Recommends:     /usr/bin/bsdunzip
 Recommends:     /usr/bin/zstd
 Recommends:     ccache
 
@@ -112,6 +110,9 @@ install -pm 644 NEWS README.md %{buildroot}/%{_pkgdocdir}
 
 
 %changelog
+* Sun Oct 26 2025 Debarshi Ray <rishi@fedoraproject.org> - 1.4.6-1
+- Update to 1.4.6 (#2393709)
+
 * Sat Oct 25 2025 Debarshi Ray <rishi@fedoraproject.org> - 1.4.5-1
 - Update to 1.4.5 (#2393709)
 

@@ -5,17 +5,13 @@
 %global crate typenum
 
 Name:           rust-typenum
-Version:        1.18.0
+Version:        1.19.0
 Release:        %autorelease
 Summary:        Type-level numbers evaluated at compile time
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/typenum
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * exclude some files from published crates:
-#   https://github.com/paholg/typenum/pull/223
-Patch:          typenum-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

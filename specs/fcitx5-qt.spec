@@ -1,7 +1,7 @@
 %global __provides_exclude_from ^%{_libdir}/(fcitx5|qt5)/.*\\.so$
 
 Name:           fcitx5-qt
-Version:        5.1.10
+Version:        5.1.11
 Release:        %autorelease
 Summary:        Qt library and IM module for fcitx5
 # Fcitx5Qt{4,5}DBusAddons Library and Input context plugin are released under BSD.
@@ -12,7 +12,6 @@ Source:         https://download.fcitx-im.org/fcitx5/%{name}/%{name}-%{version}.
 Source1:        https://download.fcitx-im.org/fcitx5/%{name}/%{name}-%{version}.tar.zst.sig
 Source2:        https://pgp.key-server.io/download/0x8E8B898CBF2412F9
 
-Patch0:         fcitx5-qt-fix-build-against-qt-6-10.patch
 
 BuildRequires:  gnupg2
 BuildRequires:  cmake

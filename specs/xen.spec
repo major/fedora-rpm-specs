@@ -51,7 +51,7 @@
 Summary: Xen is a virtual machine monitor
 Name:    xen
 Version: 4.20.1
-Release: 7%{?dist}
+Release: 9%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ and BSD - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-BSD
 URL:     http://xen.org/
@@ -84,6 +84,10 @@ Patch52: xsa472-2.patch
 Patch53: xsa472-3.patch
 Patch54: xsa473-1.patch
 Patch55: xsa473-2.patch
+Patch56: xsa475-1.patch
+Patch57: xsa475-2.patch
+Patch58: xsa476-4.20.patch
+Patch59: dropped.regs.patch
 
 
 # build using Fedora seabios and ipxe packages for roms
@@ -269,6 +273,10 @@ manage Xen virtual machines.
 %patch 53 -p1
 %patch 54 -p1
 %patch 55 -p1
+%patch 56 -p1
+%patch 57 -p1
+%patch 58 -p1
+%patch 59 -p1
 
 # stubdom sources
 cp -v %{SOURCE10} %{SOURCE11} %{SOURCE12} %{SOURCE13} %{SOURCE14} %{SOURCE15} stubdom
@@ -818,6 +826,17 @@ fi
 %endif
 
 %changelog
+* Sun Oct 26 2025 Michael Young <m.a.young@durham.ac.uk> - 4.20.1-9
+- teecr32_el1 and teehbr32_el1 support dropped in binutils 2.45.50-5.fc44
+
+* Fri Oct 24 2025 Michael Young <m.a.young@durham.ac.uk>
+- Incorrect removal of permissions on PCI device unplug [XSA-476,
+	CVE-2025-58149]
+
+* Tue Oct 21 2025 Michael Young <m.a.young@durham.ac.uk>
+- x86: Incorrect input sanitisation in Viridian hypercalls [XSA-475,
+	CVE-2025-58147, CVE-2025-58148]
+
 * Wed Oct 15 2025 Richard W.M. Jones <rjones@redhat.com> - 4.20.1-7
 - OCaml 5.4.0 rebuild
 

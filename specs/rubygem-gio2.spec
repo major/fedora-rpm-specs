@@ -10,7 +10,7 @@
 Summary:	Ruby binding of gio-2.0.x
 Name:		rubygem-%{gem_name}
 Version:	4.3.3
-Release:	1%{?dist}
+Release:	2%{?dist}
 # SPDX confirmed
 # LGPL-2.1-or-later: gemspec
 License:	LGPL-2.1-or-later
@@ -30,6 +30,7 @@ BuildRequires:	rubygem-gobject-introspection-devel >= %{glibminver}
 BuildRequires:	ruby-devel
 # For Patch0:
 #BuildRequires:	rubygem(rake-compiler)
+BuildRequires:	rubygem(fiddle)
 BuildRequires:	rubygem(test-unit)
 BuildRequires:	rubygem(test-unit-notify)
 BuildRequires:	rubygem(rake)
@@ -182,6 +183,9 @@ popd
 %exclude	%{gem_instdir}/test/
 
 %changelog
+* Sun Oct 26 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.3-2
+- Add fiddle for BR for ruby3_5
+
 * Mon Aug 18 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.3.3-1
 - 4.3.3
 

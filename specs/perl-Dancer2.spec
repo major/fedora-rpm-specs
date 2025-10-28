@@ -1,6 +1,6 @@
 Name:           perl-Dancer2
-Version:        1.1.2
-Release:        3%{?dist}
+Version:        2.0.1
+Release:        2%{?dist}
 Summary:        Lightweight yet powerful web application framework
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -18,6 +18,7 @@ BuildRequires:  perl(CPAN::Meta::Requirements) >= 2.120620
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(File::ShareDir::Install) >= 0.06
 BuildRequires:  perl(Module::Metadata)
+BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time:
@@ -26,6 +27,7 @@ BuildRequires:  perl(Carp)
 BuildRequires:  perl(CLI::Osprey)
 BuildRequires:  perl(Config::Any)
 BuildRequires:  perl(Cwd)
+BuildRequires:  perl(Data::Censor) >= 0.04
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Digest::SHA)
 BuildRequires:  perl(Encode)
@@ -78,7 +80,7 @@ BuildRequires:  perl(Safe::Isa)
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(Sub::Quote)
 BuildRequires:  perl(Template)
-BuildRequires:  perl(Template::Tiny)
+BuildRequires:  perl(Template::Tiny) >= 1.16
 BuildRequires:  perl(Test::Builder)
 BuildRequires:  perl(Test::EOL)
 BuildRequires:  perl(Test::More) >= 0.92
@@ -142,6 +144,9 @@ Requires:       perl(YAML) >= 0.86
 %global __requires_exclude %__requires_exclude|^perl\\(Plack::Builder\\)$
 %global __requires_exclude %__requires_exclude|^perl\\(Test::More\\)$
 %global __requires_exclude %__requires_exclude|^perl\\(YAML\\)$
+%global __requires_exclude %__requires_exclude|^perl\\(Dancer2::Plugin::Auth::Tiny\\)$
+%global __requires_exclude %__requires_exclude|^perl\\(Dancer2::Plugin::CryptPassphrase\\)$
+%global __requires_exclude %__requires_exclude|^perl\\(Dancer2::Plugin::DBIx::Class\\)$
 
 %description
 Dancer2 is the new generation of Dancer, the lightweight web-framework for
@@ -150,8 +155,8 @@ Perl. It is a complete rewrite based on Moo and is meant to be easy and fun.
 %prep
 %setup -q -n Dancer2-%{version}
 %patch 0 -p1
-/usr/bin/sed -i -e '1s,#!.*perl,#!/usr/bin/perl,' script/dancer2 share/skel/bin/+app.psgi
-/usr/bin/chmod +x share/skel/bin/+app.psgi
+/usr/bin/sed -i -e '1s,#!.*perl,#!/usr/bin/perl,' script/dancer2 share/skel/default/bin/+app.psgi share/skel/tutorial/bin/+app.psgi
+/usr/bin/chmod +x share/skel/default/bin/+app.psgi share/skel/tutorial/bin/+app.psgi
 /usr/bin/rm share/.gitignore
 
 %build
@@ -184,6 +189,12 @@ provides nice, easily-extendable CLI interface for it.
 %{_bindir}/*
 
 %changelog
+* Sun Oct 26 2025 Emmanuel Seyman <emmanuel@seyman.fr> - 2.0.1-2
+- Filter out plugins used in the documentation
+
+* Sun Oct 26 2025 Emmanuel Seyman <emmanuel@seyman.fr> - 2.0.1-1
+- Update to 2.0.1
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
