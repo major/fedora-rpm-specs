@@ -30,6 +30,12 @@ Patch7:         0007-CMakeLists-Bump-minimum-C-version.patch
 # Upstream commit 11721b78b67e ("libzwerg: Drop std-memory.hh, std-utility.hh")
 # One hunk dropped because it's not applicable to 0.4.
 Patch8:         0008-libzwerg-Drop-std-memory.hh-std-utility.hh.patch
+# Prefer C++17 when available, as required for GoogleTest 1.17
+# https://github.com/pmachata/dwgrep/pull/44
+# * Make deref_less::operator() const. For C++17 compatibility.
+Patch9:         0009-Make-deref_less-operator-const.patch
+# * Prefer C++17 when available. GoogleTest 1.17 requires C++17.
+Patch10:        0010-Prefer-C-17-when-available.patch
 
 Requires: libzwerg%{?_isa} = %{version}-%{release}
 
@@ -104,6 +110,8 @@ Boost web page (http://pmachata.github.io/dwgrep/).
 %patch 6 -p1
 %patch 7 -p1
 %patch 8 -p1
+%patch 9 -p1
+%patch 10 -p1
 
 
 %build

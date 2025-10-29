@@ -114,13 +114,13 @@
 %global gpu_list %{rocm_gpu_list_default}
 %endif
 
-Name:           %{rocfft_name}
+Name:           rocfft
 %if %{with gitcommit}
 Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        ROCm Fast Fourier Transforms (FFT) library
 License:        MIT
@@ -191,13 +191,19 @@ Patch0: 0001-cmake-use-gnu-installdirs.patch
 %description
 A library for computing Fast Fourier Transforms (FFT), part of ROCm.
 
-%post -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
+%if 0%{?suse_version}
+%package -n %{rocfft_name}
+Summary:        Shared libraries for %{name}
+
+%description -n %{rocfft_name}
+%{summary}
+
+%ldconfig_scriptlets -n %{rocfft_name}
+%endif
 
 %package devel
 Summary:        The rocFFT development package
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-Provides:       rocfft-devel = %{version}-%{release}
+Requires:       %{rocfft_name}%{?_isa} = %{version}-%{release}
 Requires:       rocm-hip-devel
 
 %description devel
@@ -270,7 +276,7 @@ rm -f %{buildroot}%{_prefix}/share/doc/rocfft/LICENSE.md
 %endif
 %endif
 
-%files
+%files -n %{rocfft_name}
 %if %{with gitcommit}
 %doc projects/rocfft/README.md
 %license projects/rocfft/LICENSE.md
@@ -295,6 +301,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/rocfft/LICENSE.md
 %endif
 
 %changelog
+* Sun Oct 26 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.2-2
+- better handling of shared library on opensuse
+
 * Fri Oct 10 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.2-1
 - Update to 7.0.2
 

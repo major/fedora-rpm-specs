@@ -5,7 +5,7 @@
 %global _docdir_fmt %{name}-devel
 
 Name:           cli11
-Version:        2.5.0
+Version:        2.6.1
 Release:        %autorelease
 Summary:        Command line parser for C++11
 
@@ -15,11 +15,11 @@ VCS:            git:%{url}.git
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  boost-devel
-BuildRequires:  catch-devel
 BuildRequires:  cmake
 BuildRequires:  doxygen
 BuildRequires:  gcc-c++
 BuildRequires:  make
+BuildRequires:  pkgconfig(catch2-with-main)
 BuildRequires:  python3-devel
 
 %description

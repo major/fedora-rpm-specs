@@ -3,7 +3,7 @@
 
 Name:           onedrive
 Version:        2.5.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        OneDrive Free Client written in D
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
@@ -61,6 +61,9 @@ chmod a-x %{buildroot}/%{_mandir}/man1/%{name}*
 %config %{_sysconfdir}/logrotate.d/onedrive
 
 %changelog
+* Sun Oct 26 2025 Kalev Lember <klember@redhat.com> - 2.5.7-2
+- Rebuilt for ldc 1.41
+
 * Wed Sep 24 2025 Zamir SUN <sztsian@gmail.com> - 2.5.7-1
 - Update to 2.5.7 (#2397542)
 

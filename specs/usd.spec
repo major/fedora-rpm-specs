@@ -167,6 +167,11 @@ BuildRequires:  pkgconfig(dri)
 BuildRequires:  hdf5-devel
 BuildRequires:  cmake(OpenSubdiv)
 BuildRequires:  pkgconfig(tbb)
+# This seems to be an indirect dependency, probably through OpenSubdiv.
+# Ideally, everything would take care of its own dependencies, and we wouldn’t
+# have to specify it directly, but we haven’t studied the problem closely
+# enough to propose a fix.
+BuildRequires:  pkgconfig(OpenCL)
 # Unbundled:
 BuildRequires:  cmake(double-conversion)
 BuildRequires:  pkgconfig(liblz4)

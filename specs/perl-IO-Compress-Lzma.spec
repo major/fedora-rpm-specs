@@ -6,8 +6,8 @@
 %endif
 
 Name:		perl-IO-Compress-Lzma
-Version:	2.213
-Release:	3%{?dist}
+Version:	2.214
+Release:	1%{?dist}
 Summary:	Read and write lzma compressed data
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/IO-Compress-Lzma
@@ -15,12 +15,11 @@ Source0:	https://cpan.metacpan.org/modules/by-module/IO/IO-Compress-Lzma-%{versi
 BuildArch:	noarch
 # Module Build
 BuildRequires:	coreutils
-BuildRequires:	findutils
 BuildRequires:	make
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
 BuildRequires:	perl(Config)
-BuildRequires:	perl(ExtUtils::MakeMaker) >= 5.16
+BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:	perl(File::Copy)
 BuildRequires:	perl(File::Spec::Functions)
 BuildRequires:	perl(lib)
@@ -81,12 +80,11 @@ perl -pi -e 's|^#!/usr/local/bin/perl\b|#!/usr/bin/perl|' \
 	examples/lzcat examples/lzstream examples/xzcat examples/xzstream
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check
@@ -103,6 +101,13 @@ make test COMPRESS_ZLIB_RUN_MOST=1
 %{_mandir}/man3/IO::Uncompress::UnXz.3*
 
 %changelog
+* Sun Oct 26 2025 Paul Howarth <paul@city-fan.org> - 2.214-1
+- Update to 2.214
+  - Various workflow updates
+  - Stop accidentally modifying the `$EXPORT_TAGS{all}->@*` of other modules
+    (IO::Compress GH#64)
+- Use %%{make_build} and %%{make_install}
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.213-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

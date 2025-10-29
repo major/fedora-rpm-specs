@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.12
-Release:	44%{?dist}
+Release:	45%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPL-3.0-or-later
 URL:		http://www.gnu.org/software/grub/
@@ -609,6 +609,9 @@ fi
 %endif
 
 %changelog
+* Wed Oct 15 2025 Leo Sandoval <lsandova@redhat.com> - 2.12-45
+- Include upstream blsuki related patches
+
 * Mon Sep 15 2025 Leo Sandoval <lsandova@redhat.com> - 2.12-44
 - Include function name on debug print function
 

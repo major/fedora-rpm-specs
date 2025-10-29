@@ -6,7 +6,7 @@
 
 Name:           appstream-generator
 Version:        0.9.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Fast AppStream metadata generator
 
 License:        LGPL-3.0-or-later AND MIT
@@ -117,6 +117,9 @@ install contrib/setup/node_modules/jquery-flot/jquery.flot*.js -t %{buildroot}%{
 %{_datadir}/metainfo/org.freedesktop.appstream.generator.metainfo.xml
 
 %changelog
+* Sun Oct 26 2025 Kalev Lember <klember@redhat.com> - 0.9.1-9
+- Rebuilt for ldc 1.41
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

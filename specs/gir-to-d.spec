@@ -1,6 +1,6 @@
 Name:           gir-to-d
 Version:        0.23.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Tool to create D bindings from GObject introspection files
 
 License:        LGPL-3.0-or-later
@@ -43,6 +43,9 @@ export LDFLAGS="-Wl,-z,relro"
 
 
 %changelog
+* Sun Oct 26 2025 Kalev Lember <klember@redhat.com> - 0.23.2-7
+- Rebuilt for ldc 1.41
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.23.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

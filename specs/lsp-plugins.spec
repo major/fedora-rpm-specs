@@ -1,5 +1,5 @@
 Name:           lsp-plugins
-Version:        1.2.23
+Version:        1.2.24
 Release:        1%{?dist}
 Summary:        Linux Studio Plugins
 
@@ -194,6 +194,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_libdir}/gstreamer-1.0/libgstlsp-plugins*.so
 
 %changelog
+* Mon Oct 27 2025 Vasiliy Glazov <vascom2@gmail.com> - 1.2.24-1
+- Update to 1.2.24
+
 * Thu Aug 28 2025 Vasiliy Glazov <vascom2@gmail.com> - 1.2.23-1
 - Update to 1.2.23
 

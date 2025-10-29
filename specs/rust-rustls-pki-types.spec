@@ -5,7 +5,7 @@
 %global crate rustls-pki-types
 
 Name:           rust-rustls-pki-types
-Version:        1.12.0
+Version:        1.13.0
 Release:        %autorelease
 Summary:        Shared types for the rustls PKI ecosystem
 

@@ -5,7 +5,7 @@
 %global crate parking_lot_core
 
 Name:           rust-parking_lot_core
-Version:        0.9.11
+Version:        0.9.12
 Release:        %autorelease
 Summary:        Advanced API for creating custom synchronization primitives
 
@@ -94,18 +94,6 @@ This package contains library source intended for building other packages which
 use the "petgraph" feature of the "%{crate}" crate.
 
 %files       -n %{name}+petgraph-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+thread-id-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+thread-id-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "thread-id" feature of the "%{crate}" crate.
-
-%files       -n %{name}+thread-id-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

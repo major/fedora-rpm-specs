@@ -2,8 +2,8 @@
 %bcond_without perl_Compress_Raw_Lzma_enables_optional_test
 
 Name:		perl-Compress-Raw-Lzma
-Version:	2.213
-Release:	7%{?dist}
+Version:	2.214
+Release:	1%{?dist}
 Summary:	Low-level interface to lzma compression library
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Compress-Raw-Lzma
@@ -59,9 +59,9 @@ This module provides a Perl interface to the lzma compression library.
 It is used by IO::Compress::Lzma.
 
 %package tests
-Summary:        Tests for %{name}
-Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:       perl-Test-Harness
+Summary:	Tests for %{name}
+Requires:	%{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:	perl-Test-Harness
 
 %description tests
 Tests from %{name}. Execute them
@@ -76,8 +76,8 @@ perl -i -ne 'print $_ unless m{^t/Test/}' MANIFEST
 
 # Help generators to recognize Perl scripts
 for F in t/*.t; do
-    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
-    chmod +x "$F"
+  perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+  chmod +x "$F"
 done
 
 %build
@@ -129,6 +129,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Oct 26 2025 Paul Howarth <paul@city-fan.org> - 2.214-1
+- Update to 2.214
+  - Development workflow updates, no functional changes
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.213-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

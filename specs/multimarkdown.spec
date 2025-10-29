@@ -12,6 +12,9 @@ License:        LicenseRef-Callaway-MIT AND ((LicenseRef-Callaway-MIT AND GPL-2.
 URL:            https://fletcher.github.io/%{projectname}/
 Source0:        https://github.com/fletcher/%{projectname}/archive/%{version}/%{projectname}-%{version}.tar.gz
 
+# UPDATED: Increase required CMake version to silence warning
+Patch0:         https://github.com/fletcher/%{projectname}/commit/655c0908155758e7c94858af2fb99dc992709075.patch
+
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
 BuildRequires:  git-core

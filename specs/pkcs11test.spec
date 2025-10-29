@@ -44,7 +44,7 @@ This package provides a test suite for PKCS#11.
 rm -r gtest-1.10.0
 sed -i makefile \
   -e 's:libgtest.a::' \
-  -e 's:-std=c++0x:-std=c++14:' \
+  -e 's:-std=c++0x:-std=c++17:' \
   -e 's:-lpthread:-lpthread -lgtest %{build_ldflags}:' \
   -e 's:/usr/lib/opencryptoki:%{_libdir}/opencryptoki:g'
 

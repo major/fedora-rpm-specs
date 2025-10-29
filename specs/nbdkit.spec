@@ -54,7 +54,7 @@
 %global source_directory 1.45-development
 
 Name:           nbdkit
-Version:        1.45.11
+Version:        1.45.12
 Release:        1%{?dist}
 Summary:        NBD server
 
@@ -85,6 +85,11 @@ Source5:        nbdkit-find-provides
 Source6:        %{modulename}.te
 Source7:        %{modulename}.if
 Source8:        %{modulename}.fc
+
+# Fix vram tests.  Upstream in > 1.45.12.
+Patch:          0001-vram-Skip-listing-devices-when-no-platforms-are-foun.patch
+# Fix for getline change in glibc-2.42.9000-7.fc44
+Patch:          0002-linuxdisk-Fix-parsing-of-last-line-of-du-command-out.patch
 
 # For applying the patches:
 BuildRequires:  git
@@ -125,6 +130,9 @@ BuildRequires:  pkgconfig(libtorrent-rasterbar)
 %endif
 %if 0%{?have_blkio}
 BuildRequires:  pkgconfig(blkio)
+%endif
+%if !0%{?rhel}
+BuildRequires:  pkgconfig(OpenCL)
 %endif
 BuildRequires:  bash-completion
 %if 0%{?fedora} || 0%{?rhel} >= 11
@@ -576,6 +584,17 @@ VMware VDDK for accessing VMware disks and servers.
 %endif
 
 
+%if !0%{?rhel}
+%package vram-plugin
+Summary:        use GPU Video RAM as a network block device
+Requires:       %{name}-server%{?_isa} = %{version}-%{release}
+Recommends:     %{_bindir}/clinfo
+
+%description vram-plugin
+This package contains GPU Video RAM support for %{name}.
+%endif
+
+
 %package basic-filters
 Summary:        Basic filters for %{name}
 Requires:       %{name}-server%{?_isa} = %{version}-%{release}
@@ -856,6 +875,7 @@ export PYTHON=%{__python3}
     --enable-perl \
     --enable-tcl \
     --enable-torrent \
+    --enable-vram \
     --with-ext2 \
     --with-iso \
     --with-libvirt \
@@ -864,6 +884,7 @@ export PYTHON=%{__python3}
     --disable-perl \
     --disable-tcl \
     --disable-torrent \
+    --disable-vram \
     --without-ext2 \
     --without-iso \
     --without-libvirt \
@@ -928,6 +949,7 @@ popd
     --disable-torrent \
     --disable-valgrind \
     --disable-vddk \
+    --disable-vram \
     --without-bash-completions \
     --without-curl \
     --without-ext2 \
@@ -1337,6 +1359,15 @@ fi
 %endif
 
 
+%if !0%{?rhel}
+%files vram-plugin
+%doc README.md
+%license LICENSE
+%{_libdir}/%{name}/plugins/nbdkit-vram-plugin.so
+%{_mandir}/man1/nbdkit-vram-plugin.1*
+%endif
+
+
 %files basic-filters
 %doc README.md
 %license LICENSE
@@ -1556,6 +1587,10 @@ fi
 
 
 %changelog
+* Mon Oct 27 2025 Richard W.M. Jones <rjones@redhat.com> - 1.45.12-1
+- New upstream version 1.45.12
+- Add new nbdkit-vram-plugin
+
 * Mon Oct 20 2025 Richard W.M. Jones <rjones@redhat.com> - 1.45.11-1
 - New upstream version 1.45.11
 

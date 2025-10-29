@@ -1,10 +1,16 @@
 Summary: A system tool for maintaining the /etc/rc*.d hierarchy
 Name: chkconfig
 Version: 1.33
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-2.0-only
 URL: https://github.com/fedora-sysv/chkconfig
 Source: https://github.com/fedora-sysv/chkconfig/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+
+# https://github.com/fedora-sysv/chkconfig/pull/157
+# https://bugzilla.redhat.com/show_bug.cgi?id=2363937
+# ignore 'duplicate' entries in config file (same effective binary)
+# avoids issue where package install/update disables service
+Patch: 0001-Ignore-alternatives-that-are-binary-identical-to-exi.patch
 
 BuildRequires: gcc gettext libselinux-devel make newt-devel popt-devel pkgconfig(systemd)
 # beakerlib might not be available on CentOS Stream any more
@@ -50,7 +56,7 @@ programs fulfilling the same or similar functions to be installed on a single
 system at the same time.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 %make_build RPM_OPT_FLAGS="$RPM_OPT_FLAGS" LDFLAGS="$RPM_LD_FLAGS" MERGED_SBIN=%{merged_sbin}
@@ -105,6 +111,9 @@ mkdir -p $RPM_BUILD_ROOT/etc/chkconfig.d
 %{_mandir}/*/alternatives*
 
 %changelog
+* Fri Oct 24 2025 Adam Williamson <awilliam@redhat.com> - 1.33-3
+- Backport PR #157 to fix MTA service disablement on package update (#2363937)
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.33-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

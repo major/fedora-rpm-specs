@@ -176,13 +176,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.18.0
 %define specversion 6.18.0
 %define patchversion 6.18
-%define pkgrelease 0.rc2.251022g552c50713f273.25
+%define pkgrelease 0.rc3.30
 %define kversion 6
-%define tarfile_release 6.18-rc2-10-g552c50713f273
+%define tarfile_release 6.18-rc3
 # This is needed to do merge window version magic
 %define patchlevel 18
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc2.251022g552c50713f273.25%{?buildid}%{?dist}
+%define specrelease 0.rc3.30%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.18.0
 
@@ -923,6 +923,8 @@ BuildRequires: lvm2
 BuildRequires: systemd-boot-unsigned
 # For systemd-stub and systemd-pcrphase
 BuildRequires: systemd-udev >= 252-1
+# For systemd-repart
+BuildRequires: xfsprogs e2fsprogs dosfstools
 # For UKI kernel cmdline addons
 BuildRequires: systemd-ukify
 # For TPM operations in UKI initramfs
@@ -4496,12 +4498,33 @@ fi\
 #
 #
 %changelog
-* Wed Oct 22 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.18.0-0.rc2.251022g552c50713f273.25]
-- Linux v6.18.0-0.rc2.251022g552c50713f273
-
-* Wed Oct 22 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc2.552c50713f27.25]
+* Mon Oct 27 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc3.30]
 - powerpc/tools: drop `-o pipefail` in gcc check scripts (Jan Stancek)
 - redhat/configs: clang_lto: disable CONFIG_FORTIFY_KUNIT_TEST (Scott Weaver)
+
+* Mon Oct 27 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc3.29]
+- Linux v6.18.0-0.rc3
+
+* Sun Oct 26 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc2.72761a7e3122.28]
+- Linux v6.18.0-0.rc2.72761a7e3122
+
+* Sat Oct 25 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc2.566771afc7a8.27]
+- uki-virt: add systemd-repart module (Emanuele Giuseppe Esposito)
+- fedora: cleanup/de-dupe the USB configfs options (Peter Robinson)
+- fedora: cleanup/de-dupe the USB Device/Gadget config (Peter Robinson)
+- fedora: Disable the remanents of legacy USB gadget (Peter Robinson)
+- fedora: i3c: enable more i3c (Peter Robinson)
+- Configs: Mark SCHED_MC as enabled for powerpc (Phil Auld)
+- redhat: update self-test-data for RELEASE_LOCALVERSION (Jan Stancek)
+- redhat: introduce RELEASE_LOCALVERSION variable (Jan Stancek)
+- Turn on CONFIG_DEBUG_INFO_COMPRESSED_ZLIB (Lianbo Jiang)
+- Linux v6.18.0-0.rc2.566771afc7a8
+
+* Fri Oct 24 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc2.6fab32bb6508.26]
+- Linux v6.18.0-0.rc2.6fab32bb6508
+
+* Thu Oct 23 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc2.43e9ad0c55a3.25]
+- Linux v6.18.0-0.rc2.43e9ad0c55a3
 
 * Wed Oct 22 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc2.552c50713f27.24]
 - Linux v6.18.0-0.rc2.552c50713f27

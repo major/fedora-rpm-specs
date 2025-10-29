@@ -802,6 +802,9 @@ License: Python-2.0.1 AND MIT
 Requires: python%{pybasever}-freethreading = %{version}-%{release}
 Requires: python%{pybasever}-freethreading-libs%{?_isa} = %{version}-%{release}
 
+# tox users are likely to need the devel subpackage
+Supplements: tox
+
 Obsoletes: python%{pybasever}-freethreading < 3.14.0-2
 
 %description -n python%{pybasever}-freethreading-devel

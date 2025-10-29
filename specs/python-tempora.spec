@@ -1,6 +1,7 @@
 # Created by pyp2rpm-3.3.2
 %global pypi_name tempora
-%bcond_with docs
+# Requires jaraco-tidelift
+%bcond docs 0
 
 Name:           python-%{pypi_name}
 Version:        5.8.0
@@ -19,19 +20,6 @@ Objects and routines pertaining to date and time (tempora).
 Summary:        %{summary}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(build)
-BuildRequires:  python3dist(freezegun)
-BuildRequires:  python3dist(jaraco-functools) >= 1.20
-BuildRequires:  python3dist(pip)
-BuildRequires:  python3dist(setuptools)
-BuildRequires:  python3dist(setuptools-scm) >= 1.15
-BuildRequires:  python3dist(wheel)
-# testing Reqs
-BuildConflicts: python3dist(pytest) = 3.7.3
-BuildRequires:  python3dist(pytest) >= 3.4
-BuildRequires:  python3-more-itertools
-
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
 Objects and routines pertaining to date and time (tempora).
@@ -40,21 +28,15 @@ Objects and routines pertaining to date and time (tempora).
 %package -n python-%{pypi_name}-doc
 Summary:        tempora documentation
 
-BuildRequires:  python3dist(sphinx)
-BuildRequires:  python3dist(jaraco-packaging) >= 3.2
-BuildRequires:  python3dist(rst-linker) >= 1.9
-
-
 %description -n python-%{pypi_name}-doc
 Documentation for tempora
 %endif
 
 %prep
 %autosetup -n %{pypi_name}-%{version}
-# Remove tests that requires pytest-freezer.
-# it is not packaged in Fedora
-sed -i 221,229d tempora/__init__.py
-sed -i 25,30d tempora/utc.py
+
+%generate_buildrequires
+%pyproject_buildrequires -x %{?with_docs:doc,}test
 
 %build
 %pyproject_wheel
@@ -67,16 +49,16 @@ rm -rf html/.{doctrees,buildinfo}
 
 %install
 %pyproject_install
+%pyproject_save_files %{pypi_name}
 
 %check
-LANG=C.utf-8 %{__python3} -m pytest --ignore=build
+%pyproject_check_import
+%pytest
 
 
-%files -n python3-%{pypi_name}
-%license LICENSE
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.rst
 %{_bindir}/calc-prorate
-%{python3_sitelib}/%{pypi_name}*
 
 %if %{with docs}
 %files -n python-%{pypi_name}-doc

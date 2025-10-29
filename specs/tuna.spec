@@ -1,22 +1,20 @@
 %bcond oscilloscope %{undefined rhel}
 
 Name: tuna
-Version: 0.19
-Release: 13%{?dist}
+Version: 0.20
+Release: 1%{?dist}
 License: GPL-2.0-only AND LGPL-2.1-only
 Summary: Application tuning GUI & command line utility
 Source: https://www.kernel.org/pub/software/utils/%{name}/%{name}-%{version}.tar.xz
 URL: https://rt.wiki.kernel.org/index.php/Tuna
 BuildArch: noarch
 BuildRequires: python3-devel, gettext
-BuildRequires: python3-setuptools
+BuildRequires: pyproject-rpm-macros
 Requires: python3-linux-procfs >= 0.6
 # This really should be a Suggests...
 # Requires: python-inet_diag
 
 # Patches
-Patch1: 0001-Add-SPDX-license-identifiers.patch
-Patch2: 0002-tuna-Remove-spec-file-from-git.patch
 
 %description
 Provides interface for changing scheduler and IRQ tunables, at whole CPU and at
@@ -46,29 +44,22 @@ priority is changed, be it using tuna or plain chrt & taskset.
 %endif
 
 %prep
-%setup -q
-%patch 1 -p1
-%patch 2 -p1
+%autosetup -v -p1
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
-%py3_shebang_fix tuna/
-%py3_shebang_fix tuna-cmd.py
-%if %{with oscilloscope}
-%py3_shebang_fix oscilloscope-cmd.py
-%endif
+%pyproject_wheel
 
 %install
-rm -rf %{buildroot}
-%py3_install
+%pyproject_install
+%pyproject_save_files tuna
+
 mkdir -p %{buildroot}/%{_sysconfdir}/tuna/
-mkdir -p %{buildroot}/{%{_bindir},%{_datadir}/tuna/help/kthreads,%{_mandir}/man8}
+mkdir -p %{buildroot}/{%{_datadir}/tuna/help/kthreads,%{_mandir}/man8}
 mkdir -p %{buildroot}/%{_datadir}/polkit-1/actions/
 install -p -m644 tuna/tuna_gui.glade %{buildroot}/%{_datadir}/tuna/
-install -p -m755 tuna-cmd.py %{buildroot}/%{_bindir}/tuna
-%if %{with oscilloscope}
-install -p -m755 oscilloscope-cmd.py %{buildroot}/%{_bindir}/oscilloscope
-%endif
 install -p -m644 help/kthreads/* %{buildroot}/%{_datadir}/tuna/help/kthreads/
 install -p -m644 docs/tuna.8 %{buildroot}/%{_mandir}/man8/
 install -p -m644 etc/tuna/example.conf %{buildroot}/%{_sysconfdir}/tuna/
@@ -84,12 +75,10 @@ done
 
 %find_lang %name
 
-%files -f %{name}.lang
+%files -f %{name}.lang -f %{pyproject_files}
 %doc ChangeLog
-%{python3_sitelib}/*.egg-info
 %{_bindir}/tuna
 %{_datadir}/tuna/
-%{python3_sitelib}/tuna/
 %{_mandir}/man8/tuna.8*
 %{_sysconfdir}/tuna.conf
 %{_sysconfdir}/tuna/*
@@ -103,6 +92,12 @@ done
 %endif
 
 %changelog
+* Mon Oct 27 2025 John Kacur <jkacur@redhat.com> - 0.20-1
+- Update to upstream version 0.20
+- Convert to pyproject-rpm-macros for modern Python packaging
+- Add pyproject.toml for modern Python packaging
+- Remove all patches (now included in upstream 0.20)
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.19-13
 - Rebuilt for Python 3.14.0rc3 bytecode
 

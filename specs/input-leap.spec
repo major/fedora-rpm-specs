@@ -1,7 +1,7 @@
-%global rdnn_name io.github.input_leap.InputLeap
+%global rdnn_name io.github.input_leap.input-leap
 
 Name:		input-leap
-Version:	3.0.2
+Version:	3.0.3
 Release:	%autorelease
 Summary:	Share mouse and keyboard between multiple computers over the network
 

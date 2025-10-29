@@ -3,7 +3,7 @@
 
 Name:           mpv
 Version:        0.40.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 Summary:        Movie player playing most video formats and DVDs
@@ -224,6 +224,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Mon Oct 27 2025 Simone Caronni <negativo17@gmail.com> - 0.40.0-4
+- Rebuild for updated vapoursynth.
+
 * Tue Jul 29 2025 Nicolas Chauvet <kwizart@gmail.com> - 0.40.0-3
 - Rebuilt for libplacebo
 

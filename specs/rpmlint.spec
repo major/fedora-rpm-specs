@@ -2,14 +2,12 @@
 %bcond_without tests
 
 Name:           rpmlint
-Version:        2.7.0
-Release:        8%{?dist}
+Version:        2.8.0
+Release:        1%{?dist}
 Summary:        Tool for checking common errors in RPM packages
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/rpmlint
 Source0:        %{url}/archive/%{version}/rpmlint-%{version}.tar.gz
-
-Patch:          https://github.com/rpm-software-management/rpmlint/pull/1337.patch
 
 # Taken from https://github.com/rpm-software-management/rpmlint/tree/main/configs/Fedora
 Source1:        fedora.toml
@@ -98,6 +96,11 @@ cp -a %{SOURCE1} %{SOURCE3} %{SOURCE4} %{SOURCE5} %{buildroot}%{_sysconfdir}/xdg
 %{_bindir}/rpmlint
 
 %changelog
+* Mon Oct 27 2025 Tom Callaway <spot@fedoraproject.org> - 2.8.0-1
+- update to 2.8.0
+- filter out the "alternative-link-missing" and "alternative-generic-name-not-symlink" checks
+  these reflect the OpenSUSE packaging guidelines, but NOT the Fedora ones (bz2208474)
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.7.0-8
 - Rebuilt for Python 3.14.0rc3 bytecode
 

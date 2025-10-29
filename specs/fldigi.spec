@@ -2,8 +2,8 @@
 %global alpha 0
 
 Name:           fldigi
-Version:        4.2.06
-Release:        5%{?dist}
+Version:        4.2.09
+Release:        1%{?dist}
 Summary:        Digital modem program for Linux
 
 License:        GPL-3.0-or-later AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-3.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND GPL-2.0-only AND BSL-1.0 AND MIT-0 AND LGPL-3.0-only AND GPL-1.0-only AND Apache-2.0
@@ -15,8 +15,6 @@ Source0:        https://www.w1hkj.org/alpha/%{name}/%{name}-%{version}.tar.gz
 Source0:        https://www.w1hkj.org/files/%{name}/%{name}-%{version}.tar.gz
 %endif
 Source100:      fldigi.appdata.xml
-
-Patch0:         fldigi-hamlib.patch
 
 ExcludeArch:    i686
 
@@ -117,6 +115,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.appdata.
 
 
 %changelog
+* Mon Oct 27 2025 Richard Shaw <hobbes1069@gmail.com> - 4.2.09-1
+- Update to 4.2.09.
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.06-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

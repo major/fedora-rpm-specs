@@ -1,8 +1,8 @@
 #TODO: Run test suite (see debian/rules)
 
 Name:           qgis
-Version:        3.44.3
-Release:        2%{?dist}
+Version:        3.44.4
+Release:        1%{?dist}
 Summary:        A user friendly Open Source Geographic Information System
 
 # http://issues.qgis.org/issues/3789
@@ -73,7 +73,11 @@ BuildRequires:  qt5-qttools-static
 BuildRequires:  qt5-qtwebkit-devel
 BuildRequires:  qtkeychain-qt5-devel
 BuildRequires:  qwt-qt5-devel
+%if 0%{?fedora} >= 43
+BuildRequires:  spatialindex2.0-devel
+%else
 BuildRequires:  spatialindex-devel
+%endif
 BuildRequires:  sqlite-devel
 BuildRequires:  libzstd-devel
 BuildRequires:  yarnpkg
@@ -305,6 +309,9 @@ rm -f %{buildroot}%{_prefix}/lib/liboauth2authmethod_static.a
 
 
 %changelog
+* Fri Oct 24 2025 Sandro Mani <manisandro@gmail.com> - 3.44.4-1
+- Update to 3.44.4
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.44.3-2
 - Rebuilt for Python 3.14.0rc3 bytecode
 

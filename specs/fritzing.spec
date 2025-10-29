@@ -3,29 +3,29 @@ Name:           fritzing
 
 Summary:        Electronic Design Automation software; from prototype to product
 License:        GPL-3.0-or-later
-URL:            http://fritzing.org/
+URL:            https://fritzing.org/
 
-Version:        1.0.5
-%global baserelease 3
+%global version_no 1.0.6
+Release:        1%{?dist}
 
 # The upstream developer no longer marks their releases with git tags.
-# The official website says that v1.0.5 was released on 2025-04-14.
+# The official website says that v1.0.6 was released on 2025-10-21.
 #
 # There are no commits in the fritzing-app repo on that date.
 # The latest commit before that date is the one listed below.
-%global app_date 20250402
-%global app_commit b9add9eaa7c426963de20c8514a69d3f15e83bdf
+%global app_date 20251007
+%global app_commit 04e5bb0241e8f1de24d0fce9be070041c6d5b68e
 
 # There are no commits in the fritzing-parts repo on release date.
 # The latest commit made before that date is the one listed below.
-%global parts_date 20240930
-%global parts_commit 76235099ed556e52003de63522fdd74e61d53a36
+%global parts_date 20251007
+%global parts_commit 73bc0559bb8399b2f895d68f032e41d7efc720c0
 
-# Include the commit date in the release numbers
-%global app_release %{baserelease}.%{app_date}%{?dist}
-%global parts_release %{baserelease}.%{parts_date}%{?dist}
+# Include the commit date in the version numbers
+%global app_version %{version_no}^%{app_date}
+%global parts_version %{version_no}^%{parts_date}
 
-Release:        %{app_release}
+Version:        %{app_version}
 
 Source0:        https://github.com/%{name}/%{name}-app/archive/%{app_commit}/%{name}-app-%{app_commit}.tar.gz
 Source1:        https://github.com/%{name}/%{name}-parts/archive/%{parts_commit}/%{name}-parts-%{parts_commit}.tar.gz
@@ -77,7 +77,7 @@ BuildRequires:  svgpp-devel
 # Needed for simulations, dlopened at runtime
 Recommends:     libngspice%{?_isa}
 
-Requires:       %{name}-parts = %{version}-%{parts_release}
+Requires:       %{name}-parts = %{parts_version}-%{release}
 %if %{undefined flatpak}
 Requires:       electronics-menu
 %endif
@@ -90,8 +90,7 @@ hobbyists to work creatively with interactive electronics.
 
 
 %package parts
-Version: %{version}
-Release: %{parts_release}
+Version: %{parts_version}
 Summary: Parts library for the Fritzing electronic design application
 BuildArch: noarch
 
@@ -169,6 +168,9 @@ fi
 
 
 %changelog
+* Mon Oct 27 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.0.6^20251007-1
+- Update to v1.0.6
+
 * Fri Oct 17 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.0.5-3.20250402
 - Fix loading ngspice library
 

@@ -1,6 +1,6 @@
 Name: pulp-cli
 Version: 0.36.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Command line interface to talk to the Pulp 3 REST API
 
 License: GPL-2.0-or-later
@@ -33,6 +33,9 @@ sed -i '/requires =.*setuptools/s/<[0-9]\+//' pyproject.toml
 
 # Remove upper version bound on packaging to enable building with new versions in Fedora
 sed -i 's/"packaging.*"/"packaging"/' pyproject.toml
+
+# Remove all upper bounds on test dependencies; we must use what we have
+sed -r -i 's/,[[:blank:]]*<[^;]+//' test_requirements.txt
 
 %generate_buildrequires
 %pyproject_buildrequires test_requirements.txt
@@ -83,6 +86,9 @@ done
 
 
 %changelog
+* Wed Oct 22 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 0.36.0-3
+- Remove upper version bounds for all test dependencies
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.36.0-2
 - Rebuilt for Python 3.14.0rc3 bytecode
 

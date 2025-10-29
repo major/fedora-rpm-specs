@@ -8,8 +8,6 @@
 %bcond_with openh264
 %endif
 
-%global __js_jquery_latest %{_datadir}/javascript/jquery/latest/
-
 # Remove private provides from .so files in the python3_sitearch directory
 %global __provides_exclude_from ^%{python3_sitearch}/.*\\.so$
 
@@ -21,20 +19,21 @@
 %global cupslibdir %(cups-config --serverbin 2> /dev/null || echo "/usr/lib/cups")
 %endif
 
+%global gnome_shell_extension input-source-manager@xpra_org
+
+%global build_opts -C--global-option=--without-nvidia -C--global-option=--without-pandoc_lua -C--global-option=--with-verbose -C--global-option=--with-Xdummy -C--global-option=--with-Xdummy_wrapper -C--global-option=--without-strict -C--global-option=--with-vpx %{?with_debug:-C--global-option=--with-debug} %{?with_openh264:-C--global-option=--with-openh264} -C--global-option=--without-cuda_rebuild -C--global-option=--with-client -C--global-option=--without-qt6_client -C--global-option=--without-pyglet_client -C--global-option=--without-enc_x264
+
 Name:           xpra
-Version:        5.1.1
+Version:        6.3.4
 Release:        %autorelease
+Epoch:          1
 Summary:        Remote display server for applications and desktops
 License:        GPL-2.0-or-later AND BSD-2-Clause AND LGPL-3.0-or-later AND BSD-3-Clause
 URL:            https://www.xpra.org/
 Source0:        https://github.com/Xpra-org/xpra/archive/refs/tags/v%{version}/%{name}-%{version}.tar.gz
+
 # Appdata file for Fedora
 Source1:        %{name}.appdata.xml
-# Add compatibility with FFMPEG 7.0
-# https://github.com/Xpra-org/xpra/pull/4216
-Patch2:         0001-Add-compatibility-with-FFMPEG-7.0.patch
-# Fix build with FFmpeg 8.0
-Patch3:         xpra-ffmpeg8.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  gtk3-devel
@@ -54,8 +53,11 @@ BuildRequires:  python3-rpm-macros
 BuildRequires:  gcc-c++
 BuildRequires:  pam-devel
 BuildRequires:  pandoc
+
 # needs by setup.py to detect systemd `sd_listen_ENABLED = POSIX and pkg_config_ok("--exists", "libsystemd")`
 BuildRequires:  systemd-devel
+
+BuildRequires:  systemd-rpm-macros
 %if 0%{?fedora}
 BuildRequires:  procps-ng-devel
 %endif
@@ -63,53 +65,29 @@ BuildRequires:  pkgconfig(libavif)
 BuildRequires:  pkgconfig(libqrencode)
 BuildRequires:  libdrm-devel
 BuildRequires:  pkgconfig(libwebp)
-%if 0%{?el8}
-#BuildRequires:  xorg-x11-server-Xvfb
-#BuildRequires:  cairo-devel
-BuildRequires:  pygobject3-devel
-%else
 BuildRequires:  python3-gobject-devel
-%endif
 BuildRequires:  libappstream-glib
 BuildRequires:  libasan
 BuildRequires:  python3-cairo-devel
 BuildRequires:  xorg-x11-server-Xorg
 BuildRequires:  xorg-x11-drv-dummy
 BuildRequires:  xorg-x11-xauth
+BuildRequires:  xxhash-devel
 BuildRequires:  xkbcomp
 BuildRequires:  setxkbmap
 %if %{with debug}
 BuildRequires: libasan
 %endif
-
-%if %{with enc_x264}
-BuildRequires:  x264-devel
-%endif
-# While ffmpeg-devel should only be needed in theses conditions, setup.py requires it anyway
-#if %%{with dec_avcodec2} || %%{with csc_swscale}
 BuildRequires:  pkgconfig(libavcodec)
 BuildRequires:  pkgconfig(libavformat)
 BuildRequires:  pkgconfig(libavutil)
 BuildRequires:  pkgconfig(libswscale)
-#endif
 %if %{with openh264}
 BuildRequires:  noopenh264-devel
 %endif
 
 Requires: python3-pillow
-Requires: python3-cups
-Requires: python3-pyopengl
-Requires: python3-gobject
-Requires: python3-inotify
 Requires: python3-lz4
-Requires: python3-ldap3
-Requires: python3-rencode
-Requires: python3-netifaces
-Requires: python3-dbus
-Requires: python3-numpy
-%if 0%{?fedora}
-Requires: python3-zeroconf
-%endif
 Requires: dbus-x11
 Requires: xmodmap
 Requires: xrandr
@@ -129,21 +107,7 @@ Requires: pulseaudio-utils%{?_isa}
 %endif
 Requires: cups-filesystem
 Requires: shared-mime-info%{?_isa}
-Requires: js-jquery
-
-# python3-opencv is required for webcam forwarding support, client-side only.
-# Available on Fedora only.
-# https://github.com/Xpra-org/xpra/issues/4035#issuecomment-2405430577
-#%%{?fedora:Requires: python3-opencv}
-
-# Needed to create the xpra group
-
-# xpra-html5 is now separately provided
-Obsoletes: xpra-html5 < 0:4.1-1
-
 Requires: systemd-udev%{?_isa}
-Obsoletes: xpra-udev < %{version}-%{release}
-Provides: xpra-udev = %{version}-%{release}
 
 %description
 Xpra is "screen for X": it allows you to run X programs, usually on a remote
@@ -157,11 +121,28 @@ Sessions can be accessed over SSH, or password protected over plain TCP sockets.
 Xpra is usable over reasonably slow links and does its best to adapt to changing
 network bandwidth constraints.
 
-%prep
-%autosetup -N -n %{name}-%{version}
+%package -n %{name}-client-gnome
+Summary:			Gnome integration for the xpra client
+Requires:			%{name}-client-gtk3 = 1:%{version}-%{release}
+Requires:			gnome-shell-extension-appindicator
 
-%patch -P2 -p1
-%patch -P3 -p1 -b .ffmpeg8
+%description -n %{name}-client-gnome
+This package installs the GNOME Shell extensions
+that can help in restoring the system tray functionality.
+It also includes the gnome_shell_extension extension which
+is required for querying and activating keyboard input sources.
+
+%package -n %{name}-client-gtk3
+Summary:			GTK3 xpra client
+BuildRequires:		xclip
+
+%description -n %{name}-client-gtk3
+This package contains the GTK3 xpra client.
+
+%prep
+%autosetup -n %{name}-%{version}
+
+rm -rf *.egg-info
 
 # cc1: error: unrecognized compiler option ‘-mfpmath=387’
 %ifarch %{arm}
@@ -178,7 +159,7 @@ EOF
 
 %build
 export CFLAGS="%{optflags} -I%{_includedir}/security"
-%pyproject_wheel -C--global-option=--without-nvidia -C--global-option=--without-pandoc_lua -C--global-option=--with-verbose -C--global-option=--with-Xdummy -C--global-option=--with-Xdummy_wrapper -C--global-option=--without-strict -C--global-option=--with-enc_ffmpeg -C--global-option=--with-vpx -C--global-option=--with-dec_avcodec2 -C--global-option=--with-csc_swscale -C--global-option=--with-debug -C--global-option=--with-openh264 -C--global-option=--with-openh264_decoder -C--global-option=--with-openh264_encoder
+%pyproject_wheel %{build_opts}
 
 %install
 %pyproject_install
@@ -245,6 +226,20 @@ install -pm 644 README.md %{buildroot}%{_docdir}/xpra/
 
 install -m0644 -D xpra.sysusers.conf %{buildroot}%{_sysusersdir}/xpra.conf
 
+%post
+%systemd_post xpra-encoder.service
+%systemd_post xpra.service
+# Suggested by 'rpmlint -e post-without-tmpfile-creation'
+%tmpfiles_create %{_tmpfilesdir}/xpra.conf
+
+%preun
+%systemd_preun xpra-encoder.service
+%systemd_preun xpra.service
+
+%postun
+%systemd_postun_with_restart xpra-encoder.service
+%systemd_postun_with_restart xpra.service
+
 %check
 %{?fedora:appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/xpra.appdata.xml}
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
@@ -254,6 +249,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %license COPYING
 %dir %{_sysconfdir}/xpra
 %dir %{_sysconfdir}/xpra/conf.d
+%dir %{_sysconfdir}/xpra/content-type
+%dir %{_sysconfdir}/xpra/pulse
+%dir %{_rundir}/xpra
+%config(noreplace) %{_sysconfdir}/xpra/pulse/xpra.pa
 %config(noreplace) %{_sysconfdir}/xpra/*.conf
 %config(noreplace) %{_sysconfdir}/xpra/nvenc.keys
 %config(noreplace) %{_sysconfdir}/xpra/conf.d/*.conf
@@ -267,8 +266,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %config(noreplace) %{_sysconfdir}/xpra/content-type/30_title.conf
 %config(noreplace) %{_sysconfdir}/xpra/content-type/50_class.conf
 %config(noreplace) %{_sysconfdir}/xpra/content-type/70_commands.conf
+%config(noreplace) %{_sysconfdir}/xpra/content-type/90_fallback.conf
 %config(noreplace) %{_sysconfdir}/xpra/http-headers/00_nocache.txt
 %config(noreplace) %{_sysconfdir}/xpra/http-headers/10_content_security_policy.txt
+%ghost %{_rundir}/xpra/proxy
 %{_libexecdir}/xpra/
 %{_bindir}/xpra
 %{_bindir}/xpra_launcher
@@ -286,12 +287,30 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/xpra/
 %{cupslibdir}/backend/xpraforwarder
 %{_tmpfilesdir}/xpra.conf
-%dir %{_rundir}/xpra
 %{_docdir}/xpra
 %{_unitdir}/xpra.service
+%{_unitdir}/xpra-encoder.service
 %{_unitdir}/xpra.socket
+%{_unitdir}/xpra-encoder.socket
 %{_udevrulesdir}/71-xpra-virtual-pointer.rules
 %{_sysusersdir}/xpra.conf
+
+%files -n %{name}-client-gtk3
+%{python3_sitearch}/xpra/client/gui/
+%{python3_sitearch}/xpra/client/gtk3/
+%{python3_sitearch}/xpra/client/mixins/
+%{_libexecdir}/xpra/xpra_signal_listener
+%{_datadir}/applications/xpra-launcher.desktop
+%{_datadir}/applications/xpra-gui.desktop
+%{_datadir}/applications/xpra.desktop
+%{_datadir}/mime/packages/application-x-xpraconfig.xml
+%{_datadir}/xpra/autostart.desktop
+
+%files -n %{name}-client-gnome
+%{_datadir}/gnome-shell/extensions/%{gnome_shell_extension}/COPYING
+%{_datadir}/gnome-shell/extensions/%{gnome_shell_extension}/README.md
+%{_datadir}/gnome-shell/extensions/%{gnome_shell_extension}/extension.js
+%{_datadir}/gnome-shell/extensions/%{gnome_shell_extension}/metadata.json
 
 %changelog
 %autochangelog

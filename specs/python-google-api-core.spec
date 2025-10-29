@@ -1,7 +1,7 @@
 %bcond tests 1
 
 Name:           python-google-api-core
-Version:        2.26.0
+Version:        2.27.0
 Epoch:          1
 Release:        %autorelease
 Summary:        Google API client core library

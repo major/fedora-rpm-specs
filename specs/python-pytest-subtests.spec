@@ -1,12 +1,13 @@
 Name:           python-pytest-subtests
-Version:        0.14.2
+Version:        0.15.0
 Release:        %autorelease
 Summary:        Support for unittest subTest() and subtests fixture
 
 # SPDX
 License:        MIT
 URL:            https://github.com/pytest-dev/pytest-subtests
-Source:         %{pypi_source pytest_subtests}
+# We *could* package from the PyPI sdist without losing anything, if we liked.
+Source:         %{url}/archive/v%{version}/pytest-subtests-%{version}.tar.gz
 
 BuildSystem:            pyproject
 BuildOption(install):   -l pytest_subtests
@@ -32,6 +33,14 @@ Summary:        %{summary}
 
 %description -n python3-pytest-subtests
 %{summary}.
+
+
+%generate_buildrequires -p
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
+
+
+%build -p
+export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 
 
 %check -a

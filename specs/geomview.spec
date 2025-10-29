@@ -51,6 +51,9 @@ Patch:          %{forgeurl}/pull/5.patch
 # Fedora-only change: link with zlib-ng instead of zlib
 Patch:          %{name}-zlib-ng.patch
 
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  bison

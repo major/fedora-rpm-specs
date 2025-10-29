@@ -10,12 +10,12 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit 2477a1b39806fd0eb6831e38f0a32a81abb1a806
-%global commitdatestring 2025-09-19 11:35:41 -0600
-%global cosmic_minver 1.0.0~beta.1.1
+%global commit 56da80f1b4bb8ae84dc4aee50c191bcd6b2ec118
+%global commitdatestring 2025-10-17 11:58:46 -0700
+%global cosmic_minver 1.0.0~beta.3
 
 Name:           xdg-desktop-portal-cosmic
-Version: 1.0.0~beta.1.1
+Version: 1.0.0~beta.3
 Release:        %autorelease
 Summary:        XDG Desktop Portals for the COSMIC Desktop Environment
 
@@ -45,6 +45,7 @@ BuildRequires:  mesa-libgbm-devel
 BuildRequires:  gstreamer1-devel
 BuildRequires:  glib2-devel
 BuildRequires:  just
+BuildRequires:  systemd-rpm-macros
 
 Requires:       cosmic-icon-theme >= %{cosmic_minver}
 
@@ -98,6 +99,7 @@ export VERGEN_GIT_SHA="%{commit}"
 %license cargo-vendor.txt
 %{_libexecdir}/xdg-desktop-portal-cosmic
 %{_datadir}/dbus-1/services/org.freedesktop.impl.portal.desktop.cosmic.service
+%{_userunitdir}/org.freedesktop.impl.portal.desktop.cosmic.service
 %{_datadir}/xdg-desktop-portal/portals/cosmic.portal
 %{_datadir}/xdg-desktop-portal/cosmic-portals.conf
 %{_datadir}/icons/hicolor/scalable/actions/screenshot-screen-symbolic.svg

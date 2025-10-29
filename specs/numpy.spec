@@ -204,7 +204,7 @@ export PYTHONPATH=%{buildroot}%{python3_sitearch}
 %global py313_k and not test_deprecate_help_indentation and not test_deprecate_preserve_whitespace
 %endif
 %ifnarch %{ix86}
-python3 runtests.py --no-build -- -ra -k 'not test_ppc64_ibm_double_double128 %{?ix86_k} %{?riscv64_k} %{?py313_k}' \
+%{__python3} runtests.py --no-build -- -ra -k 'not test_ppc64_ibm_double_double128 %{?ix86_k} %{?riscv64_k} %{?py313_k}' \
                                   -W "ignore:pkg_resources is deprecated as an API::pkg_resources"
 %endif
 

@@ -8,7 +8,7 @@ tools dot, neato, twopi.
 
 Name:		pydot
 Version:	4.0.1
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Python interface to Graphviz's Dot language
 License:	MIT
 URL:		https://github.com/pydot/pydot
@@ -20,6 +20,8 @@ Patch0:		https://github.com/pydot/pydot/commit/103a1a1d7027d90eab7577a8860dba2b0
 # https://github.com/pydot/pydot/issues/501
 Patch1:		pydot-4.0.1-testfix-replace-jpe-with-png.patch
 BuildArch:	noarch
+
+BuildRequires:  tomcli
 
 %description
 %{common_desc}
@@ -39,6 +41,15 @@ Provides:	%{name} = %{version}-%{release}
 %patch -P 0 -p1 -b .103a1a1d
 %patch -P 1 -p1 -b .fixtest
 
+# Do not depend on linters, typecheckers, or coverage tools
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+tomcli set pyproject.toml lists delitem project.optional-dependencies.dev \
+    'pydot\[(lint|types)\]'
+tomcli set pyproject.toml lists delitem project.optional-dependencies.tests \
+    'pytest-cov'
+sed -r -i 's/--cov\b//' setup.cfg
+
+
 %generate_buildrequires
 %pyproject_buildrequires -t -x tests
 
@@ -56,6 +67,9 @@ Provides:	%{name} = %{version}-%{release}
 %doc ChangeLog README.md
 
 %changelog
+* Mon Oct 27 2025 Tom Callaway <spot@fedoraproject.org> - 4.0.1-3
+- do not depend on linters, typecheckers, or coverage tools
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.0.1-2
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -1,5 +1,5 @@
 Name:           cockpit-image-builder
-Version:        78
+Version:        80
 Release:        1%{?dist}
 Summary:        Image builder plugin for Cockpit
 
@@ -46,6 +46,45 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Fri Oct 24 2025 Packit <hello@packit.dev> - 80-1
+Changes with 80
+----------------
+  - CI/Playwright: Run boot tests on PR when changed and increase global timeout (HMS-9465) (#3718)
+    - Author: Tomáš Koscielniak, Reviewers: Gianluca Zuccarelli, Sanne Raymaekers
+  - LandingPage: Add "service unavailable" alert (HMS-9582) (#3739)
+    - Author: Klara Simickova, Reviewers: Sanne Raymaekers
+  - Playwright: Change AAP tests file extension, remove redundant timeout (#3725)
+    - Author: Tomáš Koscielniak, Reviewers: Anna Vítová
+  - Wizard: Add status polling for pending repositories (HMS-9591) (#3749)
+    - Author: Tomáš Koscielniak, Reviewers: Gianluca Zuccarelli
+  - Wizard: Firewall revamp (HMS-9399) (#3675)
+    - Author: Katarína Sieklová, Reviewers: Gianluca Zuccarelli
+  - Wizard: address Google Cloud Platform renaming (HMS-9577) (#3727)
+    - Author: Anna Vítová, Reviewers: Tomáš Koscielniak
+  - build(deps): bump @patternfly/react-code-editor from 6.3.1 to 6.4.0 (#3746)
+    - Author: dependabot[bot], Reviewers: Klara Simickova
+  - build(deps-dev): bump @redhat-cloud-services/tsc-transform-imports from 1.0.25 to 1.0.26 (#3726)
+    - Author: dependabot[bot], Reviewers: Anna Vítová
+  - build(deps-dev): bump msw from 2.11.3 to 2.11.6 (#3745)
+    - Author: dependabot[bot], Reviewers: Klara Simickova
+  - chore(deps): replace dependency npm-run-all with npm-run-all2 5.0.0 (#3736)
+    - Author: red-hat-konflux[bot], Reviewers: Michal Gold
+  - chore(deps): update build-tools digest to 4eea3e7 (#3737)
+    - Author: red-hat-konflux[bot], Reviewers: Klara Simickova
+  - ci: update typescript-eslint packages to 8.46.1 (HMS-9579) (#3733)
+    - Author: Gianluca Zuccarelli, Reviewers: Klara Simickova
+  - devDeps: Bump playwright and @playwright/test (HMS-9583) (#3743)
+    - Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+  - devDeps: Bump typescript deps (HMS-9581) (#3742)
+    - Author: Klara Simickova, Reviewers: Tomáš Koscielniak
+  - playwright: Registration step tests (#3721)
+    - Author: Anna Vítová, Reviewers: Gianluca Zuccarelli
+  - src/constants: add support for fedora 43 and 44 (#3754)
+    - Author: Sanne Raymaekers, Reviewers: Gianluca Zuccarelli, Klara Simickova
+
+— Somewhere on the Internet, 2025-10-24
+
+
 * Wed Oct 1 2025 Packit <hello@packit.dev> - 78-1
 Changes with 78
 ----------------

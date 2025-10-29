@@ -1,5 +1,5 @@
 Name:             python-alembic
-Version:          1.16.5
+Version:          1.17.0
 Release:          %autorelease
 Summary:          Database migration tool for SQLAlchemy
 
@@ -20,7 +20,6 @@ BuildRequires:    python3-devel
 BuildRequires:    python3dist(pytest)
 %if %{undefined rhel}
 BuildRequires:    python3dist(pytest-xdist)
-BuildRequires:    python3dist(black)
 %endif
 
 BuildRequires:    tzdata
@@ -101,7 +100,7 @@ ln -s alembic-%{python3_version}.1 %{buildroot}%{_mandir}/man1/alembic.1
 
 %check
 # test_module.* uses 'black'
-%pytest %{?!rhel:-n auto} %{?rhel:-k 'not test_module'}
+%pytest %{?!rhel:-n auto} -k 'not test_module'
 
 
 %files -n python3-alembic -f %{pyproject_files}

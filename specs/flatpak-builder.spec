@@ -7,7 +7,7 @@
 %global __requires_exclude ^/usr/bin/python2$
 
 Name:           flatpak-builder
-Version:        1.4.6
+Version:        1.4.7
 Release:        1%{?dist}
 Summary:        Tool to build flatpaks from source
 
@@ -110,6 +110,9 @@ install -pm 644 NEWS README.md %{buildroot}/%{_pkgdocdir}
 
 
 %changelog
+* Mon Oct 27 2025 Boudhayan Bhattcharya <bbhtt.zn0i8@slmail.me> - 1.4.7-1
+- Update to 1.4.7 (#2393709)
+
 * Sun Oct 26 2025 Debarshi Ray <rishi@fedoraproject.org> - 1.4.6-1
 - Update to 1.4.6 (#2393709)
 

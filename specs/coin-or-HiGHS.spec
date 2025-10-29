@@ -2,12 +2,12 @@
 # either interface, file a bug requesting it.
 
 # The build runs git to get a commit, but we don't have a git checkout
-%global commit  364c83a51
+%global commit  755a8e027
 
 %global giturl  https://github.com/ERGO-Code/HiGHS
 
 Name:           coin-or-HiGHS
-Version:        1.11.0
+Version:        1.12.0
 Release:        %autorelease
 Summary:        Linear optimization software
 
@@ -23,8 +23,6 @@ Patch:          %{name}-popcount.patch
 Patch:          %{name}-vector.patch
 # Unbundle cli11, pdqsort, and zstr
 Patch:          %{name}-unbundle.patch
-# Fix a build failure with pybind11 3.0
-Patch:          %{giturl}/pull/2467.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

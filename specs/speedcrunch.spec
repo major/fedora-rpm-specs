@@ -17,17 +17,22 @@ Source0:        %{url}/get/%{commit}.tar.bz2#/%{name}-%{tarballcommit}.tar.bz2
 # https://bugs.gentoo.org/953885
 Patch100:       %{name}-0.12-qhash.patch
 Patch101:       %{name}-0.12-qsignalmapper.patch
+# workaround empty help
+Patch102:       %{name}-0.12-manual.patch
+# workaround missing taskbar icon
+Patch103:       %{name}-0.12-icon.patch
 
-BuildRequires:  cmake(Qt6Widgets)
 BuildRequires:  cmake(Qt6Core)
 BuildRequires:  cmake(Qt6Help)
+BuildRequires:  cmake(Qt6Widgets)
 
+BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
+BuildRequires:  gcc-c++
 BuildRequires:  libappstream-glib
 BuildRequires:  librsvg2-tools
 BuildRequires:  ninja-build
-BuildRequires:  gcc-c++
-BuildRequires:  cmake
+BuildRequires:  sed
 
 Requires:       hicolor-icon-theme
 
@@ -39,6 +44,16 @@ full keyboard-friendly and more than 15 built-in math function.
 
 %prep
 %autosetup -n heldercorreia-%{name}-%{tarballcommit} -p1
+
+# fix project version
+sed -i '/set(speedcrunch_VERSION/c\set(speedcrunch_VERSION "0.12")' src/CMakeLists.txt
+
+# regenerate qch and qhc files
+for lang in en_US de_DE fr_FR es_ES; do
+    sed -i 's|\\|/|g' doc/build_html_embedded/${lang}/manual-${lang}.qhp
+    %{_qt6_libexecdir}/qhelpgenerator doc/build_html_embedded/${lang}/manual-${lang}.qhp
+    %{_qt6_libexecdir}/qhelpgenerator doc/build_html_embedded/${lang}/manual-${lang}.qhcp
+done
 
 %build
 %cmake \

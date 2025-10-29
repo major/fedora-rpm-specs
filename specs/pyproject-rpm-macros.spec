@@ -14,7 +14,7 @@ License:        MIT
 #   Increment Y and reset Z when new macros or features are added
 #   Increment Z when this is a bugfix or a cosmetic change
 # Dropping support for EOL Fedoras is *not* considered a breaking change
-Version:        1.18.4
+Version:        1.18.5
 Release:        1%{?dist}
 
 # Macro files
@@ -167,6 +167,11 @@ export HOSTNAME="rpmbuild"  # to speedup tox in network-less mock, see rhbz#1856
 
 
 %changelog
+* Thu Oct 16 2025 Miro Hrončok <mhroncok@redhat.com> - 1.18.5-1
+- %%pyproject_extras_subpkg: Only %%ghost the dist-info directory, not the content
+- That way, accidentally unpackaged files within are reported as errors
+- %%pyproject_save_files: Also save top level typing stub files (.pyi)
+
 * Mon Sep 01 2025 Miro Hrončok <mhroncok@redhat.com> - 1.18.4-1
 - Don't exit from pyproject-srpm-macros implementation of %%pyproject_buildrequires
 - Fixes: rhbz#2391290

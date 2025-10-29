@@ -10,7 +10,7 @@
 %global py3_shebang_flags %(echo %py3_shebang_flags | sed s/s//)
 
 Name:    salt
-Version: 3007.6
+Version: 3007.8
 Release: %autorelease
 Summary: A parallel remote execution system
 Group:   System Environment/Daemons
@@ -45,6 +45,9 @@ Patch0: contextvars.patch
 # Fix urlib changes in python >= 3.12.6
 # https://github.com/saltstack/salt/issues/66898
 Patch2: urllib.patch
+# Fix for deprecated python module spwd
+# https://github.com/saltstack/salt/issues/67119
+Patch3: 68402.patch
 BuildArch: noarch
 
 %ifarch %{ix86} x86_64
@@ -172,7 +175,8 @@ install -d -m 0755 %{buildroot}%{_sysconfdir}/%{name}/proxy.d
 # Add the config files
 install -p -m 0640 conf/minion %{buildroot}%{_sysconfdir}/%{name}/minion
 install -p -m 0640 conf/master %{buildroot}%{_sysconfdir}/%{name}/master
-# Use salt user on nre master installations
+
+# Use salt user on new master installations
 sed -i 's/#user: root/user: salt/g' %{buildroot}%{_sysconfdir}/%{name}/master
 install -p -m 0600 conf/cloud  %{buildroot}%{_sysconfdir}/%{name}/cloud
 install -p -m 0640 conf/roster %{buildroot}%{_sysconfdir}/%{name}/roster

@@ -1,41 +1,44 @@
-Name:	 frobby
-Summary: Computations With Monomial Ideals
-Version: 0.9.5
-Release: 8%{?dist}
+Name:           frobby
+Summary:        Computations with monomial ideals
+Version:        0.9.5
+Release:        9%{?dist}
 
 # GPL-2.0-or-later: the frobby code
 # OFL-1.1-RFN: AMS fonts embedded in the PDF manual
 # Knuth-CTAN: Computer Modern fonts embedded in the PDF manual
-License: GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN
-URL:	 https://github.com/Macaulay2/frobby
-Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN
+URL:            https://github.com/Macaulay2/frobby
+VCS:            git:%{url}.git
+Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 # make makefile a wee bit more sane
-Patch0:  frobby-0.9.0-makefile.patch
+Patch:          frobby-0.9.0-makefile.patch
 
-BuildRequires: gcc-c++
-BuildRequires: gmp-devel
-BuildRequires: make
+# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
+BuildRequires:  gcc-c++
+BuildRequires:  gmp-devel
+BuildRequires:  make
 # docs
-BuildRequires: doxygen-latex
+BuildRequires:  doxygen-latex
 
-Requires: lib%{name}%{?_isa} = %{version}-%{release}
+Requires:       lib%{name}%{?_isa} = %{version}-%{release}
 
 %description
-Frobby is a software system and project for computations with monomial
-ideals. Frobby is free software and it is intended as a vehicle for
-research on monomial ideals, as well as a useful practical tool for
-investigating monomial ideals.
+Frobby is a software system and project for computations with monomial ideals.
+Frobby is free software and it is intended as a vehicle for research on
+monomial ideals, as well as a useful practical tool for investigating monomial
+ideals.
 
-The current functionality includes Hilbert series, maximal standard
-monomials, combinatorial optimization on monomial ideals, primary
-decomposition, irreducible decomposition, Alexander dual, associated
-primes, minimization and intersection of monomial ideals as well as
-the computation of Frobenius problems (using 4ti2) with very large
-numbers. Frobby is also able to translate between formats that can be used
-with several different computer systems, such as Macaulay 2, Monos, 4ti2,
-CoCoA4 and Singular. Thus Frobby can be used with any of those systems.
-
+The current functionality includes Hilbert series, maximal standard monomials,
+combinatorial optimization on monomial ideals, primary decomposition,
+irreducible decomposition, Alexander dual, associated primes, minimization and
+intersection of monomial ideals as well as the computation of Frobenius
+problems (using 4ti2) with very large numbers.  Frobby is also able to
+translate between formats that can be used with several different computer
+systems, such as Macaulay 2, Monos, 4ti2, CoCoA4 and Singular.  Thus Frobby
+can be used with any of those systems.
 
 %package -n libfrobby
 License:        GPL-2.0-or-later
@@ -44,7 +47,6 @@ Summary:        Frobby internals as a library
 %description -n libfrobby
 This package contains the frobby internals as a library, often called
 libfrobby.
-
 
 %package -n libfrobby-devel
 License:        GPL-2.0-or-later
@@ -56,10 +58,8 @@ Requires:       gmp-devel%{?_isa}
 Header files and library links to develop applications that use the
 Frobby internals as a library (libfrobby).
 
-
 %prep
 %autosetup
-
 
 %build
 %make_build \
@@ -82,7 +82,6 @@ g++ bin/shared/main.o ${CFLAGS:-%build_cflags} ${LDFLAGS:-%build_ldflags} \
 # generate docs
 make docPdf
 
-
 %install
 # Install the binary
 mkdir -p %{buildroot}/%{_bindir}
@@ -98,11 +97,9 @@ ln -s libfrobby.so.0 %{buildroot}%{_libdir}/libfrobby.so
 mkdir -p %{buildroot}%{_includedir}/frobby
 cp -p src/{frobby,stdinc}.h %{buildroot}%{_includedir}/frobby
 
-
 %check
 export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 test/runTests
-
 
 %files
 %doc bin/manual.pdf
@@ -110,14 +107,16 @@ test/runTests
 
 %files -n libfrobby
 %doc COPYING
-%{_libdir}/*.so.0*
+%{_libdir}/*.so.0{,.*}
 
 %files -n libfrobby-devel
 %{_includedir}/frobby/
 %{_libdir}/*.so
 
-
 %changelog
+* Mon Oct 27 2025 Jerry James <loganjerry@gmail.com> - 0.9.5-9
+- Stop building for 32-bit x86
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.5-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

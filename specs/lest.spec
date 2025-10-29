@@ -1,5 +1,5 @@
 Name:           lest
-Version:        1.36.0
+Version:        1.37.0
 Release:        %autorelease
 Summary:        Tiny C++11 test framework
 

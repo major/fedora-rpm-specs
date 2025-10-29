@@ -45,7 +45,9 @@ Requires: %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 sed -e "s/, 'optimization=s'//" -i meson.build
 
 %build
+# Upstream default C++ standard is c++14; gtest 1.17 requires C++17
 %meson \
+    -Dcpp_std=c++17 \
     -Dwerror=false \
     -Dtest=true \
     -Dthread=true \
