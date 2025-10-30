@@ -3,7 +3,7 @@
 %bcond check_jsonschema 0
 
 Name:           bids-schema
-Version:        1.1.0
+Version:        1.1.1
 Release:        %autorelease
 Summary:        BIDS schema description
 
@@ -16,7 +16,7 @@ Summary:        BIDS schema description
 #   https://github.com/bids-standard/bids-schema/raw/refs/heads/main/…
 #   versions/%%{bidsversion}/schema/SCHEMA_VERSION
 # should match or nearly match the schema version packaged here.
-%global bidsversion 1.10.0
+%global bidsversion 1.10.1
 
 # The specification, and the schema data derived from it, are CC-BY-4.0.
 #
@@ -51,7 +51,7 @@ Source0:        %{url}/archive/schema-%{srcversion}/bids-specification-schema-%{
 # tools/schemacode/src/bidsschematools/conftest.py, which contains code to download
 # these if they are not present.
 %global examples_url https://github.com/bids-standard/bids-examples
-%global examples_commit 546cb454ca33327fb27474edb508ead17c4053ac
+%global examples_commit 8f916644b973b44c946b7617e96b04b7be312f89
 %global error_examples_url https://github.com/bids-standard/bids-error-examples
 %global error_examples_commit ac0a2f58f34ce284847dde5bd3b90d7ea048c141
 #

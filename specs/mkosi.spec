@@ -10,6 +10,7 @@ Source:         https://github.com/systemd/mkosi/archive/v%{version}/%{name}-%{v
 BuildArch:      noarch
 
 %bcond tests 1
+%bcond docs 1
 
 # Build with OBS-specific quirks
 %bcond obs 0
@@ -17,7 +18,9 @@ BuildArch:      noarch
 # mkosi wants the uncompressed man page to show via 'mkosi documentation'
 %global __brp_compress true
 
+%if %{with docs}
 BuildRequires:  pandoc
+%endif
 %if %{undefined suse_version}
 BuildRequires:  python3-devel
 BuildRequires:  pyproject-rpm-macros
@@ -90,7 +93,9 @@ configuration for the addon to `/etc/mkosi-addon` or `/run/mkosi-addon`.
 %endif
 
 %build
+%if %{with docs}
 tools/make-man-page.sh
+%endif
 
 %pyproject_wheel
 
@@ -129,6 +134,7 @@ export NO_BRP_STALE_LINK_ERROR=yes
 %endif
 
 # Install man pages
+%if %{with docs}
 mkdir -p %{buildroot}%{_mandir}/man1
 mkdir -p %{buildroot}%{_mandir}/man7
 ln -s -t %{buildroot}%{_mandir}/man1/ \
@@ -138,6 +144,7 @@ ln -s -t %{buildroot}%{_mandir}/man1/ \
          ../../../..%{python3_sitelib}/mkosi/resources/man/mkosi-addon.1
 ln -s -t %{buildroot}%{_mandir}/man7/ \
          ../../../..%{python3_sitelib}/mkosi/resources/man/mkosi.news.7
+%endif
 
 # Install the kernel-install plugins
 install -Dt %{buildroot}%{_prefix}/lib/kernel/install.d/ \
@@ -169,9 +176,11 @@ install -m0644 -D mkosi.zsh %{buildroot}%{zsh_completions_dir}/_mkosi
 %doc README.md
 %_bindir/mkosi
 %_bindir/mkosi-sandbox
+%if %{with docs}
 %_mandir/man1/mkosi.1*
 %_mandir/man7/mkosi.news.7*
 %_mandir/man1/mkosi-sandbox.1*
+%endif
 %{bash_completions_dir}/mkosi
 %{fish_completions_dir}/mkosi.fish
 %{zsh_completions_dir}/_mkosi
@@ -184,7 +193,9 @@ install -m0644 -D mkosi.zsh %{buildroot}%{zsh_completions_dir}/_mkosi
 
 %files initrd
 %_bindir/mkosi-initrd
+%if %{with docs}
 %_mandir/man1/mkosi-initrd.1*
+%endif
 %_prefix/lib/kernel/install.d/50-mkosi.install
 %ghost %dir %{_prefix}/lib/mkosi-initrd
 %ghost %dir %{_sysconfdir}/mkosi-initrd
@@ -195,7 +206,9 @@ install -m0644 -D mkosi.zsh %{buildroot}%{zsh_completions_dir}/_mkosi
 
 %files addon
 %_bindir/mkosi-addon
+%if %{with docs}
 %_mandir/man1/mkosi-addon.1*
+%endif
 %_prefix/lib/kernel/install.d/51-mkosi-addon.install
 %ghost %dir %{_prefix}/lib/mkosi-addon
 %ghost %dir %{_sysconfdir}/mkosi-addon

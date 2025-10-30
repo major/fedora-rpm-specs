@@ -1,6 +1,6 @@
 Name: fxload
 Version: 2008_10_13
-Release: 31%{?dist}
+Release: 33%{?dist}
 Summary: A helper program to download firmware into FX and FX2 EZ-USB devices
 
 License: GPL-2.0-or-later
@@ -21,33 +21,34 @@ BuildRequires: gcc kernel-headers make
 Requires: udev
 Conflicts: hotplug-gtk hotplug
 
-%description 
+%description
 This program is conveniently able to download firmware into FX and FX2
 EZ-USB devices, as well as the original AnchorChips EZ-USB.  It is
 intended to be invoked by udev scripts when the unprogrammed device
 appears on the bus.
 
 %prep
-%setup -q 
+%setup -q
 %patch -P0 -p1 -b .fxload-noa3load
 %patch -P1 -p1 -b .ldflags
 
-%build 
+%build
 %{make_build} CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="$RPM_LD_FLAGS -pie"
 
 %install
-mkdir -p -m 755 %{buildroot}/usr/sbin
-install -m 755 fxload %{buildroot}/usr/sbin
-mkdir -p -m 755 %{buildroot}/%{_mandir}/man8/
-install -m 644 fxload.8 %{buildroot}/%{_mandir}/man8/
+install -m 755 -Dt %{buildroot}%{_sbindir}/ fxload
+install -m 644 -Dt %{buildroot}%{_mandir}/man8/ fxload.8
 
 %files
 %doc COPYING
 %doc README.txt
-%attr(0755, root, root) /usr/sbin/fxload
-%{_mandir}/*/*
+%{_sbindir}/fxload
+%{_mandir}/man8/fxload.8*
 
 %changelog
+* Wed Oct 22 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2008_10_13-33
+- Use %%_sbindir for the binary (rhbz#2405414)
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2008_10_13-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

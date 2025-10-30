@@ -10,6 +10,8 @@
 # Please, preserve the changelog entries
 #
 
+%global php_base     php
+
 %bcond_without       tests
 %if 0%{?fedora}
 # optional compressors/serializers enabled by default
@@ -27,7 +29,7 @@
 %global pie_vend     phpredis
 %global pie_proj     phpredis
 %global pecl_name    redis
-# after 20-json, 40-igbinary and 40-msgpack
+# after 40-igbinary and 40-msgpack
 %global ini_name     50-%{pecl_name}.ini
 
 %global upstream_version 6.2.0
@@ -35,9 +37,9 @@
 %global sources          %{pecl_name}-%{upstream_version}%{?upstream_prever}
 
 Summary:       PHP extension for interfacing with key-value stores
-Name:          php-pecl-redis6
+Name:          %{php_base}-pecl-redis6
 Version:       %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:       3%{?dist}
+Release:       4%{?dist}
 License:       PHP-3.01
 URL:           https://pecl.php.net/package/redis
 Source0:       https://pecl.php.net/get/%{sources}.tgz
@@ -49,14 +51,13 @@ ExcludeArch:   %{ix86}
 
 BuildRequires: make
 BuildRequires: gcc
-BuildRequires: php-devel >= 7.4
+BuildRequires: %{php_base}-devel >= 8.0
 BuildRequires: php-pear
-BuildRequires: php-json
 %if %{with igbinary}
-BuildRequires: php-pecl-igbinary-devel
+BuildRequires: %{php_base}-pecl-igbinary-devel
 %endif
 %if %{with msgpack}
-BuildRequires: php-pecl-msgpack-devel >= 2.0.3
+BuildRequires: %{php_base}-pecl-msgpack-devel >= 2.0.3
 %endif
 %if %{with liblzf}
 BuildRequires: pkgconfig(liblzf)
@@ -74,12 +75,11 @@ BuildRequires: redis
 
 Requires:      php(zend-abi) = %{php_zend_api}
 Requires:      php(api) = %{php_core_api}
-Requires:      php-json%{?_isa}
 %if %{with igbinary}
-Requires:      php-igbinary%{?_isa}
+Requires:      %{php_base}-pecl-igbinary%{?_isa}
 %endif
 %if %{with msgpack}
-Requires:      php-msgpack%{?_isa}
+Requires:      %{php_base}-pecl-msgpack%{?_isa}
 %endif
 
 Provides:      php-%{pecl_name}                 = %{version}
@@ -89,7 +89,15 @@ Provides:      php-pecl(%{pecl_name})%{?_isa}   = %{version}
 Provides:      php-pie(%{pie_vend}/%{pie_proj}) = %{version}
 Provides:      php-%{pie_vend}-%{pie_proj}      = %{version}
 
-%if 0%{?fedora} >= 42 || 0%{?rhel} >= 10 || "%{php_version}" > "8.4"
+%if "%{php_base}" != "php"
+Requires:      %{php_base}-common%{?_isa}
+Conflicts:     php-pecl-%{pecl_name}6
+Provides:      php-pecl-%{pecl_name}6 = %{version}-%{release}
+Provides:      php-pecl-%{pecl_name}6%{?_isa} = %{version}-%{release}
+Provides:      php-pecl-%{pecl_name}          = %{version}-%{release}
+Provides:      php-pecl-%{pecl_name}%{?_isa}  = %{version}-%{release}
+
+%elif 0%{?fedora} >= 42 || 0%{?rhel} >= 10 || "%{php_version}" > "8.4"
 Obsoletes:     php-pecl-%{pecl_name}          < 6
 Provides:      php-pecl-%{pecl_name}          = %{version}-%{release}
 Provides:      php-pecl-%{pecl_name}%{?_isa}  = %{version}-%{release}
@@ -99,6 +107,7 @@ Provides:      php-pecl-%{pecl_name}4%{?_isa} = %{version}-%{release}
 Obsoletes:     php-pecl-%{pecl_name}5         < 6
 Provides:      php-pecl-%{pecl_name}5         = %{version}-%{release}
 Provides:      php-pecl-%{pecl_name}5%{?_isa} = %{version}-%{release}
+
 %else
 # A single version can be installed
 Conflicts:     php-pecl-%{pecl_name}  < 6
@@ -244,7 +253,7 @@ done
 %check
 # simple module load test
 DEPS="--no-php-ini"
-for i in json igbinary msgpack
+for i in igbinary msgpack
 do  [ -f %{php_extdir}/${i}.so ] && DEPS="$DEPS --define extension=${i}.so"
 done
 
@@ -309,6 +318,9 @@ exit $ret
 
 
 %changelog
+* Tue Oct 28 2025 Remi Collet <remi@remirepo.net> - 6.2.0-4
+- add php_base option to create namespaced packages
+
 * Wed Sep 17 2025 Remi Collet <remi@remirepo.net> - 6.2.0-3
 - rebuild for https://fedoraproject.org/wiki/Changes/php85
 - add patch for PHP 8.5.0alpha3 from

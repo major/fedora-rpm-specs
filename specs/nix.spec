@@ -172,7 +172,7 @@ install -p -m 0644 %{SOURCE3} README.fedora.md
 
 %build
 MESON_OPTS=(
-    --sysconf=%{_sysconfdir}
+    --sysconfdir=%{_sysconfdir}
     --localstatedir=/nix/var
     --libexecdir=%{_libexecdir}
     -Dbindings=false
@@ -259,9 +259,10 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{buildroot}%{_bindir}/nix --help
 %config(noreplace) %{_sysconfdir}/nix/registry.json
 %config(noreplace) %{_sysconfdir}/profile.d/nix.sh
 %config(noreplace) %{_sysconfdir}/profile.d/nix.fish
-%{_datadir}/bash-completion/completions/nix
-%{_datadir}/fish/vendor_completions.d/nix.fish
-%{_datadir}/zsh/site-functions/*
+%{bash_completions_dir}/nix
+%{fish_completions_dir}/nix.fish
+%{zsh_completions_dir}/_nix
+%{zsh_completions_dir}/run-help-nix
 
 
 %files daemon

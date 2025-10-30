@@ -50,7 +50,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        Tool for creating benchmark-driven backend libraries for GEMMs
 
@@ -109,8 +109,10 @@ Summary:        Tool for creating benchmark-driven backend libraries for GEMMs
 Requires:       cmake-filesystem
 Requires:       hipcc
 Requires:       rocminfo
-# Available on ferdora,EPEL
+# Available on ferdora,EPEL 10+
+%if 0%{?fedora} || 0%{?rhel} > 9
 Requires:       python3dist(joblib)
+%endif
 %if 0%{?fedora}
 Requires:       python3dist(msgpack)
 %endif
@@ -240,6 +242,9 @@ mv %{buildroot}%{_datadir}/cmake/Tensile/*.cmake %{buildroot}%{python3_sitelib}/
 %{python_sitelib}/%{upstreamname}*.egg-info/*
 
 %changelog
+* Tue Oct 28 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.0-2
+- joblib is not available on EPEL 9
+
 * Sun Sep 21 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.0-1
 - Update to 7.0.0
 

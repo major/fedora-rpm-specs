@@ -1,7 +1,7 @@
 %global realname mochiweb
 
 Name:		erlang-%{realname}
-Version:	3.2.2
+Version:	3.3.0
 Release:	%autorelease
 BuildArch:	noarch
 Summary:	An Erlang library for building lightweight HTTP servers

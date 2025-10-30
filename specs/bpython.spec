@@ -2,8 +2,8 @@
 
 Name:          bpython
 Summary:       Fancy curses interface to the Python interactive interpreter
-Version:       0.25
-Release:       5%{?dist}
+Version:       0.26
+Release:       1%{?dist}
 URL:           http://www.bpython-interpreter.org/
 License:       MIT
 Source0:       https://github.com/bpython/bpython/archive/%{version}-release.tar.gz
@@ -122,6 +122,9 @@ install -m0644 -p -D doc/sphinx/build/man/bpython-config.5 \
 %{_bindir}/bpython-urwid
 
 %changelog
+* Tue Oct 28 2025 Terje Rosten <terjeros@gmail.com> - 0.26-1
+- 0.26
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.25-5
 - Rebuilt for Python 3.14.0rc3 bytecode
 

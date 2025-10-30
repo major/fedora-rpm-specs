@@ -10,7 +10,9 @@
 # Please, preserve the changelog entries
 #
 
-%bcond_without      tests
+%global php_base         php
+
+%bcond_without           tests
 
 %global pie_vend         remi
 %global pie_proj         xpass
@@ -21,9 +23,9 @@
 %global sources          %{pecl_name}-%{upstream_version}%{?upstream_prever}
 
 Summary:        Extended password extension
-Name:           php-pecl-%{pecl_name}
+Name:           %{php_base}-pecl-%{pecl_name}
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        6%{?dist}
+Release:        7%{?dist}
 License:        PHP-3.01
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{sources}.tgz
@@ -34,7 +36,7 @@ BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  pkgconfig(libxcrypt) >= 4.4
 BuildRequires:  libxcrypt-devel
-BuildRequires:  php-devel >= 8.0
+BuildRequires:  %{php_base}-devel >= 8.0
 BuildRequires:  php-pear
 
 Requires:       php(zend-abi) = %{php_zend_api}
@@ -49,6 +51,13 @@ Provides:       php-pecl(%{pecl_name})%{?_isa}   = %{version}
 # PIE
 Provides:       php-pie(%{pie_vend}/%{pie_proj}) = %{version}
 Provides:       php-%{pie_vend}-%{pie_proj}      = %{version}
+
+%if "%{php_base}" != "php"
+Requires:       %{php_base}-common%{?_isa}
+Conflicts:      php-pecl-%{pecl_name}
+Provides:       php-pecl-%{pecl_name} = %{version}-%{release}
+Provides:       php-pecl-%{pecl_name}%{?_isa} = %{version}-%{release}
+%endif
 
 
 %description
@@ -140,6 +149,9 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}/%{php_extdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Tue Oct 28 2025 Remi Collet <remi@remirepo.net> - 1.1.0-7
+- add php_base option to create namespaced packages
+
 * Thu Sep 18 2025 Remi Collet <remi@remirepo.net> - 1.1.0-6
 - rebuild for https://fedoraproject.org/wiki/Changes/php85
 - re-license spec file to CECILL-2.1

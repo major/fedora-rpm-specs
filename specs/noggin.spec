@@ -105,7 +105,6 @@ touch %{buildroot}%{_localstatedir}/log/nginx/noggin.error.log
 %config(noreplace) %{_sysconfdir}/nginx/conf.d/noggin.conf
 %dir %{_localstatedir}/log/noggin
 %ghost %{_localstatedir}/log/noggin/*.log
-%dir %{_localstatedir}/log/nginx/
 %ghost %{_localstatedir}/log/nginx/*.log
 %exclude %{python3_sitelib}/%{name}/themes/fas
 %exclude %{python3_sitelib}/%{name}/themes/centos

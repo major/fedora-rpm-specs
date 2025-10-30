@@ -7,15 +7,17 @@
 # Please, preserve the changelog entries
 #
 
+%global php_base   php
+
 %global pecl_name  rrd
 %global ini_name   40-%{pecl_name}.ini
 %global sources    %{pecl_name}-%{version}
 %global _configure ../%{sources}/configure
 
 Summary:      PHP Bindings for rrdtool
-Name:         php-pecl-rrd
+Name:         %{php_base}-pecl-rrd
 Version:      2.0.3
-Release:      19%{?dist}
+Release:      20%{?dist}
 License:      BSD-2-Clause
 URL:          https://pecl.php.net/package/rrd
 
@@ -28,7 +30,7 @@ ExcludeArch:   %{ix86}
 
 BuildRequires: make
 BuildRequires: gcc
-BuildRequires: php-devel >= 7.0
+BuildRequires: %{php_base}-devel >= 7.0
 BuildRequires: rrdtool
 BuildRequires: pkgconfig(librrd) >= 1.3.0
 BuildRequires: php-pear
@@ -37,10 +39,19 @@ Requires:     php(zend-abi) = %{php_zend_api}
 Requires:     php(api) = %{php_core_api}
 
 Conflicts:    rrdtool-php
+# PECL
 Provides:     php-pecl(%{pecl_name})         = %{version}
 Provides:     php-pecl(%{pecl_name})%{?_isa} = %{version}
+# Extension
 Provides:     php-%{pecl_name}               = %{version}%{?pre}
 Provides:     php-%{pecl_name}%{?_isa}       = %{version}%{?pre}
+
+%if "%{php_base}" != "php"
+Requires:     %{php_base}-common%{?_isa}
+Conflicts:    php-pecl-%{pecl_name}
+Provides:     php-pecl-%{pecl_name} = %{version}-%{release}
+Provides:     php-pecl-%{pecl_name}%{?_isa} = %{version}-%{release}
+%endif
 
 
 %description
@@ -141,6 +152,9 @@ REPORT_EXIT_STATUS=1 \
 
 
 %changelog
+* Tue Oct 28 2025 Remi Collet <remi@remirepo.net> - 2.0.3-20
+- add %php_base option to create namespaced packages
+
 * Wed Sep 17 2025 Remi Collet <remi@remirepo.net> - 2.0.3-19
 - rebuild for https://fedoraproject.org/wiki/Changes/php85
 - re-license spec file to CECILL-2.1

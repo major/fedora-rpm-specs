@@ -10,7 +10,7 @@
 ExcludeArch: %{ix86}
 
 Name:    plasma-%{base_name}
-Version: 6.5.0
+Version: 6.5.1
 Release: 1%{?dist}
 Summary: Plasma and Qt widget style and window decorations for Plasma
 
@@ -176,6 +176,9 @@ popd
 
 
 %changelog
+* Tue Oct 28 2025 Steve Cossette <farchord@gmail.com> - 6.5.1-1
+- 6.5.1
+
 * Fri Oct 17 2025 Steve Cossette <farchord@gmail.com> - 6.5.0-1
 - 6.5.0
 

@@ -7,7 +7,7 @@
 %global tag %{version}
 
 Name:    distrobox
-Version: 1.8.1.2
+Version: 1.8.2.0
 
 %forgemeta
 

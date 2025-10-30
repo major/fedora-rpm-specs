@@ -34,7 +34,6 @@ BuildRequires:	openssl-devel
 BuildRequires:	systemd-devel
 BuildRequires:	systemd-rpm-macros
 BuildRequires:	xxhash-devel
-Requires(pre):	/usr/sbin/useradd
 Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
@@ -74,8 +73,6 @@ install -d %{buildroot}%{_localstatedir}/lib/%{name}
 install -p -D -m 0644 %{SOURCE3} %{buildroot}%{_sysusersdir}/%{name}.conf
 
 
-%pre
-%sysusers_create_compat %{SOURCE3}
 
 
 %post

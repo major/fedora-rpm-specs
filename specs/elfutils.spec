@@ -3,8 +3,8 @@
 %bcond_with static
 
 Name: elfutils
-Version: 0.193
-%global baserelease 3
+Version: 0.194
+%global baserelease 1
 Release: %{baserelease}%{?dist}
 URL: http://elfutils.org/
 %global source_url ftp://sourceware.org/pub/elfutils/%{version}/
@@ -96,6 +96,9 @@ BuildRequires: gettext-devel
 
 # For s390x... FDO package notes are bogus.
 Patch1: elfutils-0.186-fdo-swap.patch
+
+# Prevent assert failure in readelf for some -ggdb3 binaries.
+Patch2: elfutils-0.194-alloc-jobs.patch
 
 %description
 Elfutils is a collection of utilities, including stack (to show
@@ -457,6 +460,7 @@ fi
 %{_mandir}/man3/elf_*.3*
 %{_mandir}/man3/elf32_*.3*
 %{_mandir}/man3/elf64_*.3*
+%{_mandir}/man3/gelf_*.3*
 %{_mandir}/man3/libelf.3*
 
 %if %{with static}
@@ -518,6 +522,10 @@ exit 0
 %systemd_postun_with_restart debuginfod.service
 
 %changelog
+* Tue Oct 28 2025 Aaron Merey <amerey@redhat.com> - 0.194-1
+- Upgrade to upstream elfutils 0.194
+- Add elfutils-0.194-alloc-jobs.patch
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.193-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

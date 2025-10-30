@@ -18,6 +18,10 @@ Patch3: dymo-cups-drivers-replace-deprecated-type.patch
 Patch4: dymo-cups-drivers-append-cxxflags-dont-overwrite.patch
 Patch5: dymo-cups-drivers-fprintf-format-specifier.patch
 
+# Per i686 leaf package policy 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
+
 BuildRequires: autoconf
 BuildRequires: automake
 BuildRequires: boost-devel

@@ -7,16 +7,18 @@
 # Please, preserve the changelog entries
 #
 
+%global php_base   php
+
 %global pie_vend   apcu
 %global pie_proj   apcu
 %global pecl_name  apcu
 %global ini_name   40-%{pecl_name}.ini
 %global sources    %{pecl_name}-%{version}
 
-Name:           php-pecl-apcu
+Name:           %{php_base}-pecl-apcu
 Summary:        APC User Cache
 Version:        5.1.27
-Release:        2%{?dist}
+Release:        3%{?dist}
 Source0:        https://pecl.php.net/get/%{sources}.tgz
 Source1:        %{pecl_name}.ini
 Source2:        %{pecl_name}-panel.conf
@@ -29,7 +31,7 @@ ExcludeArch:    %{ix86}
 
 BuildRequires:  make
 BuildRequires:  gcc
-BuildRequires:  php-devel
+BuildRequires:  %{php_base}-devel
 BuildRequires:  php-pear
 
 Requires:       php(zend-abi) = %{php_zend_api}
@@ -41,6 +43,13 @@ Provides:       php-pecl(%{pecl_name})           = %{version}
 Provides:       php-pecl(%{pecl_name})%{?_isa}   = %{version}
 Provides:       php-pie(%{pie_vend}/%{pie_proj}) = %{version}
 Provides:       php-%{pie_vend}-%{pie_proj}      = %{version}
+
+%if "%{php_base}" != "php"
+Requires:     %{php_base}-common%{?_isa}
+Conflicts:    php-pecl-%{pecl_name}
+Provides:     php-pecl-%{pecl_name} = %{version}-%{release}
+Provides:     php-pecl-%{pecl_name}%{?_isa} = %{version}-%{release}
+%endif
 
 
 %description
@@ -55,13 +64,29 @@ in replacement for APC.
 %package devel
 Summary:       APCu developer files (header)
 Requires:      %{name}%{?_isa} = %{version}-%{release}
-Requires:      php-devel%{?_isa}
+
+%if "%{php_base}" == "php"
+Requires:     php-devel%{?_isa}
+%else
+Requires:     %{php_base}-devel%{?_isa}
+Requires:     %{php_base}-common%{?_isa}
+Conflicts:    php-pecl-%{pecl_name}-devel
+Provides:     php-pecl-%{pecl_name}-devel = %{version}-%{release}
+Provides:     php-pecl-%{pecl_name}-devel%{?_isa} = %{version}-%{release}
+%endif
 
 %description devel
 These are the files needed to compile programs using APCu.
 
 
+%if "%{php_base}" == "php"
 %package -n apcu-panel
+%else
+%package panel
+Requires:      %{php_base}-common
+Conflicts:     apcu-panel
+Provides:      apcu-panel = %{version}-%{release}
+%endif
 Summary:       APCu control panel
 BuildArch:     noarch
 Requires:      %{name} = %{version}-%{release}
@@ -69,7 +94,11 @@ Requires:      php(httpd)
 Requires:      php-gd
 Requires:      httpd
 
+%if "%{php_base}" == "php"
 %description -n apcu-panel
+%else
+%description panel
+%endif
 This package provides the APCu control panel, with Apache
 configuration, available on http://localhost/apcu-panel/
 
@@ -161,7 +190,11 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
 %{php_incldir}/ext/%{pecl_name}
 
 
+%if "%{php_base}" == "php"
 %files -n apcu-panel
+%else
+%files panel
+%endif
 # Need to restrict access, as it contains a clear password
 %attr(550,apache,root) %dir %{_sysconfdir}/apcu-panel
 %config(noreplace) %{_sysconfdir}/apcu-panel/conf.php
@@ -170,6 +203,9 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Tue Oct 28 2025 Remi Collet <remi@remirepo.net> - 5.1.27-3
+- add %%php_base option to create namespaced packages
+
 * Wed Sep 17 2025 Remi Collet <remi@remirepo.net> - 5.1.27-2
 - rebuild for https://fedoraproject.org/wiki/Changes/php85
 

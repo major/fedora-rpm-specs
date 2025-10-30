@@ -4,7 +4,7 @@
 
 Name:    plasma-workspace
 Summary: Plasma workspace, applications and applets
-Version: 6.5.0
+Version: 6.5.1
 Release: 1%{?dist}
 
 # Automatically converted from old format: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT - review is highly recommended.
@@ -694,6 +694,9 @@ fi
 
 
 %changelog
+* Tue Oct 28 2025 Steve Cossette <farchord@gmail.com> - 6.5.1-1
+- 6.5.1
+
 * Fri Oct 17 2025 Steve Cossette <farchord@gmail.com> - 6.5.0-1
 - 6.5.0
 

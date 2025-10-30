@@ -19,8 +19,8 @@ need libxc version > 3
 
 %global upstream_name nwchem
 
-%{?!major_version: %global major_version 7.2.3}
-%{?!git_hash: %global git_hash 8701f25ad941a4237cdd5a843b6d569f5b3fff1d}
+%{?!major_version: %global major_version 7.3.0}
+%{?!git_hash: %global git_hash e60d3d906ff3f4f2548a7beb696e13330d887a6b}
 %{?!ga_version: %global ga_version 5.8.2-1}
 
 
@@ -51,7 +51,7 @@ need libxc version > 3
 
 Name:			nwchem
 Version:		%{major_version}
-Release:		7%{?dist}
+Release:		1%{?dist}
 Summary:		Delivering High-Performance Computational Chemistry to Science
 
 # Automatically converted from old format: ECL 2.0 - review is highly recommended.
@@ -59,8 +59,6 @@ License:		ECL-2.0
 URL:			https://nwchemgit.github.io/
 # Nwchem changes naming convention of tarballs very often!
 Source0:		https://github.com/nwchemgit/nwchem/archive/%{git_hash}.tar.gz
-# Patch for gcc-15 "error: expected identifier or '(' before 'false'" https://github.com/nwchemgit/nwchem/issues/1072
-Patch0:                 nwchem-7.2.3-hdbm.c.patch
 
 
 %global PKG_TOP ${RPM_BUILD_DIR}/%{name}-%{git_hash}
@@ -179,7 +177,6 @@ This package contains the data files.
 
 %prep
 %setup -q -n %{name}-%{git_hash}
-%patch -P 0 -p0
 
 # See bundling discussion at https://github.com/nwchemgit/nwchem/discussions/905
 # remove the whole src/libext
@@ -224,9 +221,7 @@ sed -i '/libxc_waterdimer_bmk/d' QA/dolibxctests.mpi
 # base settings
 echo "# see https://nwchemgit.github.io/Compiling-NWChem.html" > settings.sh
 echo export NWCHEM_TARGET=%{NWCHEM_TARGET} >> settings.sh
-# https://github.com/nwchemgit/nwchem/issues/1082
-# Use -std=gnu17 to avoid md5wrap.c:48:5: error: too many arguments to function ‘MD5Init’; expected 0, have 1
-echo export CC="'gcc -std=gnu17'" >> settings.sh
+echo export CC="'gcc'" >> settings.sh
 echo export FC=gfortran >> settings.sh
 # https://nwchemgit.github.io/Special_AWCforum/st/id1590/Nwchem-dev.revision26704-src.201....html
 %if 0%{?fedora} >= 21 || 0%{?rhel} >= 9
@@ -235,7 +230,6 @@ echo export USE_ARUR=TRUE >> settings.sh
 %if 0%{?rhel} >= 7
 echo export USE_ARUR=TRUE >> settings.sh
 %endif
-#
 echo export USE_NOFSCHECK=TRUE >> settings.sh
 # https://github.com/nwchemgit/nwchem/issues/272
 echo export USE_NOIO=TRUE >> settings.sh
@@ -253,6 +247,9 @@ echo export LIBXC_LIB="'%{_libdir}'" >> settings.sh
 echo export LIBXC_INCLUDE="'%{_includedir}'" >> settings.sh
 echo export LIBXC_MODDIR="'%{_libdir}/gfortran/modules'" >> settings.sh
 echo export NO_NWPWXC_VDW3A=1 >> settings.sh
+# https://github.com/nwchemgit/nwchem/issues/1189
+echo export SCALAPACK_SIZE=4 >> settings.sh
+echo export USE_HWOPT=n >> settings.sh
 #
 echo export HAS_BLAS=yes >> settings.sh
 echo export BLASOPT="'%{BLASOPT}'" >> settings.sh
@@ -283,6 +280,7 @@ cp -p ../settings.sh ../compile$MPI_SUFFIX.sh&& \
 echo export USE_MPI=y >> ../compile$MPI_SUFFIX.sh&& \
 echo export USE_MPIF=y >> ../compile$MPI_SUFFIX.sh&& \
 echo export USE_MPIF4=y >> ../compile$MPI_SUFFIX.sh&& \
+echo export SCALAPACK="'-L$MPI_LIB -lscalapack'" >> ../compile$MPI_SUFFIX.sh&& \
 echo export MPIEXEC=$MPI_BIN/mpiexec >> ../compile$MPI_SUFFIX.sh&& \
 echo export LD_LIBRARY_PATH=$MPI_LIB >> ../compile$MPI_SUFFIX.sh&& \
 echo export EXTERNAL_GA_PATH=$MPI_HOME >> ../compile$MPI_SUFFIX.sh&& \
@@ -523,6 +521,9 @@ mv QA.orig QA
 
 
 %changelog
+* Sat Oct 25 2025 Marcin Dulak <marcindulak@fedoraproject.org> - 7.3.0-1
+- New upstream release
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -13,16 +13,12 @@
 %endif
 
 Name:           python-uvicorn
-Version:        0.35.0
+Version:        0.38.0
 Release:        %autorelease
 Summary:        The lightning-fast ASGI server
 License:        BSD-3-Clause
 URL:            https://www.uvicorn.org
-# PyPI tarball doesn't have tests
-Source:         https://github.com/encode/uvicorn/archive/%{version}/uvicorn-%{version}.tar.gz
-# Fix test_loop_auto for Python 3.14
-# https://github.com/encode/uvicorn/pull/2652
-Patch:          https://github.com/encode/uvicorn/pull/2652.patch
+Source:         %{pypi_source uvicorn}
 BuildArch:      noarch
 
 BuildRequires:  tomcli
@@ -41,7 +37,7 @@ Uvicorn supports HTTP/1.1 and WebSockets.}
 %package -n python3-uvicorn
 Summary:        %{summary}
 BuildRequires:  python3-devel
-# See "Testing" and "Explicit optionals" in requirements.txt. We list these
+# See "Testing" and "Explicit optionals" in pyproject.toml. We list these
 # manually because we must omit strict version pins as well as dependencies for
 # type-checking, linting, coverage analysis, etc.
 BuildRequires:  python3-pytest
@@ -108,7 +104,7 @@ k="${k-}${k+ and }not test_send_binary_data_to_server_bigger_than_default_on_web
 
 
 %files -n python3-uvicorn -f %{pyproject_files}
-%doc README.md CHANGELOG.md CITATION.cff
+%doc README.md
 %{_bindir}/uvicorn
 
 

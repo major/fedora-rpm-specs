@@ -1,6 +1,6 @@
 %global major_version 3
 %global minor_version 4
-%global teeny_version 5
+%global teeny_version 7
 %global major_minor_version %{major_version}.%{minor_version}
 
 %global ruby_version %{major_minor_version}.%{teeny_version}
@@ -83,7 +83,7 @@
 %global pathname_version 0.4.0
 %global pp_version 0.6.2
 %global prettyprint_version 0.2.0
-%global prism_version 1.2.0
+%global prism_version 1.5.1
 %global pstore_version 0.1.4
 %global psych_version 5.2.2
 %global rdoc_version 6.14.0
@@ -104,7 +104,7 @@
 %global tmpdir_version 0.3.1
 %global tsort_version 0.2.0
 %global un_version 0.3.0
-%global uri_version 1.0.3
+%global uri_version 1.0.4
 %global weakref_version 0.1.3
 %global win32_registry_version 0.1.0
 %global win32ole_version 1.9.1
@@ -135,7 +135,7 @@
 %global rbs_version 3.8.0
 %global repl_type_completor_version 0.1.9
 %global resolv_replace_version 0.1.1
-%global rexml_version 3.4.0
+%global rexml_version 3.4.4
 %global rinda_version 0.2.0
 %global rss_version 0.3.1
 %global syslog_version 0.2.0
@@ -178,7 +178,7 @@
 Summary: An interpreter of object-oriented scripting language
 Name: ruby
 Version: %{ruby_version}%{?development_release}
-Release: 27%{?dist}
+Release: 28%{?dist}
 # Licenses, which are likely not included in binary RPMs:
 # Apache-2.0:
 #   benchmark/gc/redblack.rb
@@ -240,6 +240,8 @@ Source19: test_rubygems_con.rb
 # default RDoc gem as shipped in Ruby tarball. This should not be needed for
 # Ruby 3.5+.
 Source20: https://github.com/ruby/rdoc/blob/master/lib/rubygems_plugin.rb
+# rexml gem
+Source21: https://rubygems.org/gems/rexml-%{rexml_version}.gem
 
 # The load directive is supported since RPM 4.12, i.e. F21+. The build process
 # fails on older Fedoras.
@@ -780,6 +782,10 @@ analysis result in RBS format, a standard type description format for Ruby
 # Provide an example of usage of the tapset:
 cp -a %{SOURCE3} .
 
+rm -rf .bundle/gems/rexml-3.4.0
+rm .bundle/specifications/rexml-3.4.0.gemspec
+rm gems/rexml-3.4.0.gem
+
 %build
 autoconf
 
@@ -818,6 +824,16 @@ popd
 
 %install
 rm -rf %{buildroot}
+
+cp -p %{SOURCE21} gems/
+
+make -C %{_vpath_builddir} runruby \
+  TESTRUN_SCRIPT="%{_builddir}/%{buildsubdir}/bin/gem unpack %{SOURCE21} --target='%{_builddir}/%{buildsubdir}/.bundle/gems'"
+make --silent -C %{_vpath_builddir} runruby \
+  TESTRUN_SCRIPT="%{_builddir}/%{buildsubdir}/bin/gem spec '%{SOURCE21}' --ruby" \
+  > .bundle/specifications/rexml-%{rexml_version}.gemspec
+
+sed -i -e '/^rexml/ s/3.4.0/3.4.4/' gems/bundled_gems
 
 %make_install -C %{_vpath_builddir}
 
@@ -1881,6 +1897,14 @@ make -C %{_vpath_builddir} runruby TESTRUN_SCRIPT=" \
 
 
 %changelog
+* Tue Oct 21 2025 Jun Aruga <jaruga@redhat.com> - 3.4.7-28
+- Upgrade to Ruby 3.4.7.
+  Resolves: rhbz#2402422
+- Fix URI Credential Leakage Bypass previous fixes.
+  Resolves: CVE-2025-61594
+- Fix REXML denial of service.
+  Resolves: CVE-2025-58767
+
 * Mon Aug 18 2025 Jarek Prokop <jprokop@redhat.com> - 3.4.5-27
 - Upgrade to Ruby 3.4.5.
   Resolves: rhbz#2380246

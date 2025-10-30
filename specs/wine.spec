@@ -1016,25 +1016,41 @@ fi
 %ifarch %{ix86}
 pathA = "%{_libdir}/wine/x86_64-unix"
 pathB = "%{_libdir}/wine/x86_64-windows"
+pathC = "%{_libdir}/wine/i386-unix"
+pathD = "%{_libdir}/wine/i386-windows"
+pathE = "%{_libdir}64/wine/i386-unix"
+pathF = "%{_libdir}64/wine/i386-windows"
 stA = posix.stat(pathA)
 stB = posix.stat(pathB)
 if stA and stA.type == "link" then
+  os.rename(pathC, pathC .. ".rpmmoved")
   os.remove(pathA)
+  os.remove(pathE)
 end
 if stB and stB.type == "link" then
+  os.rename(pathD, pathD .. ".rpmmoved")
   os.remove(pathB)
+  os.remove(pathF)
 end
 %endif
 %ifarch x86_64
-pathA = "%{_libdir}/wine/x86_64-unix"
-pathB = "%{_libdir}/wine/x86_64-windows"
+pathA = "%{_libdir}/wine/i386-unix"
+pathB = "%{_libdir}/wine/i386-windows"
+pathC = "%{_libdir}/wine/x86_64-unix"
+pathD = "%{_libdir}/wine/x86_64-windows"
+pathE = "/usr/lib/wine/x86_64-unix"
+pathF = "/usr/lib/wine/x86_64-windows"
 stA = posix.stat(pathA)
 stB = posix.stat(pathB)
 if stA and stA.type == "link" then
+  os.rename(pathC, pathC .. ".rpmmoved")
   os.remove(pathA)
+  os.remove(pathE)
 end
 if stB and stB.type == "link" then
+  os.rename(pathD, pathD .. ".rpmmoved")
   os.remove(pathB)
+  os.remove(pathF)
 end
 %endif
 %endif
@@ -1080,6 +1096,16 @@ rm -f %{_bindir}/wine-preloader
   --slave  %{_libdir}/wine/i386-windows/d3d10core.dll 'wine-d3d10core(x86-32)' %{_libdir}/wine/i386-windows/wine-d3d10core.dll
 %{_sbindir}/alternatives --install %{_libdir}/wine/i386-windows/d3d11.dll \
   'wine-d3d11(x86-32)' %{_libdir}/wine/i386-windows/wine-d3d11.dll 10 || :
+%endif
+%if %{with new_wow64}
+%ifarch %{ix86}
+rm -rf "%{_libdir}/wine/i386-unix.rpmmoved"
+rm -rf "%{_libdir}/wine/i386-windows.rpmmoved"
+%endif
+%ifarch x86_64
+rm -rf "%{_libdir}/wine/x86_64-unix.rpmmoved"
+rm -rf "%{_libdir}/wine/x86_64-windows.rpmmoved"
+%endif
 %endif
 
 %postun core

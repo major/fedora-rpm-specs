@@ -9,6 +9,8 @@
 # Please, preserve the changelog entries
 #
 
+%global php_base   php
+
 %bcond_without     tests
 
 %global pie_vend   xdebug
@@ -26,10 +28,10 @@
 # XDebug should be loaded after opcache
 %global ini_name  15-%{pecl_name}.ini
 
-Name:           php-pecl-xdebug3
+Name:           %{php_base}-pecl-xdebug3
 Summary:        Provides functions for function traces and profiling
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_lower}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Source0:        https://github.com/%{pecl_name}/%{pecl_name}/archive/%{gh_commit}/%{pecl_name}-%{upstream_version}%{?upstream_prever}-%{gh_short}.tar.gz
 
 License:        Xdebug-1.03
@@ -39,11 +41,11 @@ ExcludeArch:    %{ix86}
 
 BuildRequires:  gcc
 BuildRequires:  make
-BuildRequires: (php-devel >= 8.0 with php-devel < 8.6)
+BuildRequires: (%{php_base}-devel >= 8.0 with %{php_base}-devel < 8.6)
 BuildRequires:  php-pear
-BuildRequires:  php-simplexml
 BuildRequires:  libtool
-BuildRequires:  php-soap
+BuildRequires:  %{php_base}-xml
+BuildRequires:  %{php_base}-soap
 BuildRequires:  pkgconfig(zlib) >= 1.2.9
 
 Requires:       php(zend-abi) = %{php_zend_api}
@@ -59,8 +61,15 @@ Provides:       php-pecl(Xdebug)%{?_isa}         = %{version}
 Provides:       php-pie(%{pie_vend}/%{pie_proj}) = %{version}
 Provides:       php-%{pie_vend}-%{pie_proj}      = %{version}
 
+%if "%{php_base}" != "php"
+Requires:       %{php_base}-common%{?_isa}
+Conflicts:      php-pecl-%{pecl_name}3
+Provides:       php-pecl-%{pecl_name}3 = %{version}-%{release}
+Provides:       php-pecl-%{pecl_name}3%{?_isa}   = %{version}-%{release}
+%else
 # package was renamed on new major version
 Obsoletes:      php-pecl-%{pecl_name}            < 3
+%endif
 Provides:       php-pecl-%{pecl_name}            = %{version}-%{release}
 Provides:       php-pecl-%{pecl_name}%{?_isa}    = %{version}-%{release}
 
@@ -189,6 +198,7 @@ rm tests/debugger/bug00998-ipv6.phpt
 
 # bug00886 is marked as slow as it uses a lot of disk space
 TEST_OPTS="-q -x --show-diff"
+
 TEST_PHP_ARGS="-n $modules -d zend_extension=%{buildroot}%{php_extdir}/%{pecl_name}.so" \
 %{__php} -n run-xdebug-tests.php $TEST_OPTS
 %else
@@ -206,6 +216,9 @@ TEST_PHP_ARGS="-n $modules -d zend_extension=%{buildroot}%{php_extdir}/%{pecl_na
 
 
 %changelog
+* Tue Oct 28 2025 Remi Collet <remi@remirepo.net> - 3.5.0~alpha2-2
+- add php_base option to create namespaced packages
+
 * Tue Oct  7 2025 Remi Collet <remi@remirepo.net> - 3.5.0~alpha2-1
 - update to 3.5.0alpha2
 

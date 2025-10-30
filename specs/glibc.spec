@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.42.9000-298-g0375e6e233
+%global glibcsrcdir glibc-2.42.9000-361-g013f5167b9
 %global glibcversion 2.42.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 7
+%global baserelease 8
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2389,6 +2389,73 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Mon Oct 27 2025 Patsy Griffin <patsy@redhat.com> - 2.42.9000-8
+- Auto-sync with upstream branch master,
+  commit 013f5167b9c091dc78779841c3ca1c6c2f218ff2.
+- math: Consolidate CORE-MATH double-double routines
+- math: Consolidate erf/erfc definitions
+- math: Consolidate internal erf/erfc tables
+- math: Use erfc from CORE-MATH
+- math: Use erf from CORE-MATH
+- math: Use tgamma from CORE-MATH
+- math: Use lgamma from CORE-MATH
+- math: Move atanh internal data to separate file
+- math: Consolidate acosh and asinh internal table
+- math: Use atanh from CORE-MATH
+- math: Use asinh from CORE-MATH
+- math: Use acosh from CORE-MATH
+- Linux: fix tst-copy_file_range-large test on 32-bit platforms.
+- x86: Disable AVX Fast Unaligned Load on Hygon 1/2/3
+- ppc64le: Power 10 rawmemchr clobbers v20 (bug #33091)
+- malloc: fix large tcache code to check for exact size match
+- Fix configure from ab22e5ec37396f6c6f29d3e3306f6fcc2ebe9d49
+- misc: Fix clang -Wstring-plus-int warnings on syslog
+- sprof: fix -Wformat warnings on 32-bit hosts
+- various fixes detected with -Wdouble-promotion
+- posix: Fix memory leak a memory leak in glob.
+- plot_strings.py: Replace np.complex with complex
+- malloc: avoid need for tcache == NULL checks
+- sprof: check pread size and offset for overflow
+- Simplify powl computation for small integral y [BZ #33411]
+- sunrpc: Fix clang build
+- math: Fix compare sort function on compoundn
+- gmon: Only used -fno-tree-loop-distribute-patterns if compiler supports it
+- termios: Suppress clang -Winitializer-overrider on ___cbaud_to_speed
+- stdio: Only use __va_arg_pack if compiler supports it
+- elf: Fix tunable handing with clang
+- elf: Suppress unused function clang warning for __ifunc_resolver
+- support: Handle clang support/dtotimespec.c on dtotimespec
+- stdio: Fix -Wtautological-constant-out-of-range-compare on clang
+- math: Suppress more aliases builtin type conflicts
+- support: Use CHAR_MAX as maximum value
+- math: Suppress clang -Wincompatible-library-redeclaration on s_llround
+- math: use fabs on __ieee754_lgamma_r
+- math: Suppress clang -Wabsolute-value warning on math_check_force_underflow
+- catgets: Remove catgets/config.h
+- iconvdata: Fix clang -Wstring-plus-int clang warning
+- elf: Fix clang -Wstring-plus-int on rtld.c
+- sunrpc: Suppress clang -Wgnu-variable-sized-type-not-at-end warning on struct cmessage
+- nptl: Fix Wincompatible-pointer-types on clang
+- Suppress -Wmaybe-uninitialized only for gcc
+- configure: Use -Wno-maybe-uninitialized iff compiler supports it
+- Disable __USE_EXTERN_INLINES for clang
+- malloc: Do not call madvise if heap's oldsize >= THP size
+- microblaze: fix __syscall_cancel_arch (BZ 33547)
+- locale: Fix implicit conversion on collate_finish
+- posix: Only enable -Wmaybe-uninitialized suppression on gcc
+- malloc: Use INT_ADD_OVERFLOW instead of __builtin_add_overflow_p
+- Adjust stdint for clang-20
+- Build glibc with -ftrapping-math
+- linux: Fix function point cast on vDSO handling
+- elf: Only define _dl_tls_allocate_active for SHARED
+- Fix -Wno-ignored-attributes configure check
+- aarch64: Fix gcs linker flags
+- posix: Defined _POSIX_VDISABLE as integer literal
+- iconvdata: Remove use of GNU old-style field designator extension
+- sunrpc: Remove extra parenthesis on comparison
+- stdlib: Remove -Wmaybe-uninitialized supression on setenv.c
+- Make <inttypes.h> printf macros narrow arguments (bug 31470)
+
 * Mon Oct 20 2025 Frédéric Bérat <fberat@redhat.com> - 2.42.9000-7
 - Auto-sync with upstream branch master,
   commit 0375e6e2336a779cdddb4d11442126d366b1efc2:

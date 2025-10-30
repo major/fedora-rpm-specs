@@ -23,13 +23,17 @@
 
 Name:		nordugrid-arc
 Version:	7.1.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Advanced Resource Connector Middleware
 #		Apache-2.0: most files
 #		MIT: src/external/cJSON/cJSON.c src/external/cJSON/cJSON.h
 License:	Apache-2.0 AND MIT
 URL:		https://www.nordugrid.org/
 Source:		https://download.nordugrid.org/packages/%{name}/releases/%{version}/src/%{name}-%{version}.tar.gz
+#		Support SWIG 4.4.0 (patch from William S Fulton)
+#		https://github.com/nordugrid/arc/pull/15
+#		https://source.coderefinery.org/nordugrid/arc/-/merge_requests/1964
+Patch0:		0001-Handle-Python-multi-phase-initialization-support-in-.patch
 
 #		Packages dropped without replacements
 Obsoletes:	%{name}-arcproxyalt < 6.0.0
@@ -551,6 +555,7 @@ publishes metrics about jobs and datastaging on the ARC-CE.
 
 %prep
 %setup -q
+%patch -P0 -p1
 
 %build
 autoreconf -v -f -i
@@ -643,11 +648,6 @@ ln -s %{_datadir}/%{pkgdir}/examples/client.conf $PWD/docdir/client.conf
 
 %postun hed
 %systemd_postun_with_restart arched.service
-
-%pre arex
-# Service renamed - remove old files
-systemctl --no-reload disable a-rex.service > /dev/null 2>&1 || :
-systemctl stop a-rex.service > /dev/null 2>&1 || :
 
 %post arex
 %systemd_post arc-arex.service
@@ -1134,6 +1134,9 @@ semanage fcontext -a -t slapd_var_run_t "/var/run/arc/bdii/db(/.*)?" 2>/dev/null
 %{_sbindir}/arc-exporter
 
 %changelog
+* Tue Oct 28 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 7.1.1-2
+- Support SWIG 4.4.0 (patch from William S Fulton)
+
 * Sat Oct 04 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 7.1.1-1
 - Update to version 7.1.1
 

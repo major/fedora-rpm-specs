@@ -6,13 +6,13 @@
 
 Name: ags
 Summary: Engine for creating and running videogames of adventure (quest) genre
-Version: 3.6.2.13
+Version: 3.6.2.14
 URL:     http://www.adventuregamestudio.co.uk/site/ags/
-Release: 2%{?dist}
+Release: 1%{?dist}
 Source0: https://github.com/adventuregamestudio/ags/archive/%{fver}/ags-%{fver}.tar.gz
 Patch0: ags-use-system-libraries.patch
 Patch1: ags-build-tests-with-cxx14.patch
-Patch2: ags-missing-includes.patch
+Patch2: https://github.com/adventuregamestudio/ags/commit/d1ec1705381f3684bf85666b3cea4978efb4fbac.patch#/ags-missing-includes.patch
 # Most code is under Artistic-2.0, except:
 # Common/libsrc/aastr-0.1.1: LicenseRef-Fedora-UltraPermissive
 # Common/libsrc/alfont-2.0.9: FTL
@@ -150,6 +150,9 @@ mv Changes.txt.utf-8 Changes.txt
 %{_bindir}/ags
 
 %changelog
+* Mon Oct 27 2025 Dominik Mierzejewski <dominik@greysector.net> - 3.6.2.14-1
+- update to 3.6.2.14 (resolves rhbz#2405254)
+
 * Fri Sep 05 2025 Dominik Mierzejewski <dominik@greysector.net> - 3.6.2.13-2
 - build tools and run tests
 

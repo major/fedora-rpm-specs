@@ -1,6 +1,6 @@
 Name:           xwayland-run
 Version:        0.0.4
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Set of utilities to run headless X/Wayland clients
 
 License:        GPL-2.0-or-later
@@ -9,6 +9,10 @@ Source0:        %{url}/-/archive/%{version}/%{name}-%{version}.tar.gz
 
 # https://gitlab.freedesktop.org/ofourdan/xwayland-run/-/merge_requests/19
 Patch1: 0001-wlheadless-Ignore-os.waitpid-1-0-error.patch
+# https://gitlab.freedesktop.org/ofourdan/xwayland-run/-/merge_requests/21
+Patch2: 0002-wlheadless-Set-sensible-defaults-for-XDG-dirs.patch
+# https://gitlab.freedesktop.org/ofourdan/xwayland-run/-/merge_requests/22
+Patch3: 0003-wlheadless-Wait-for-the-compositor.patch
 
 BuildArch:      noarch
 
@@ -63,6 +67,9 @@ Xwayland and various Wayland compositor headless.
 
 
 %changelog
+* Mon Oct 27 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 0.0.4-13
+- Add upstream fixes for alternative compositors
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.0.4-12
 - Rebuilt for Python 3.14.0rc3 bytecode
 

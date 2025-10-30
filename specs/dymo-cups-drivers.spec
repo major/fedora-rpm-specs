@@ -1,14 +1,9 @@
 %global short_version 1.4.0
 
-%if 0%{?fedora} || 0%{?rhel} >= 8
-%global with_python3_cups 1
-%endif
-
 Name: dymo-cups-drivers
 Version: %{short_version}.5
-Release: 23%{?dist}
+Release: 24%{?dist}
 Summary: DYMO LabelWriter Drivers for CUPS
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL: http://www.dymo.com
 
@@ -33,18 +28,20 @@ Patch7: 0005-Include-cups-sidechannel.h-for-cupsBackChannelRead-s.patch
 BuildRequires: autoconf
 BuildRequires: automake
 BuildRequires: cups-devel
-BuildRequires: glibc-headers
 BuildRequires: libtool
 BuildRequires: gcc-c++
 BuildRequires: sed
 BuildRequires: make
-%{?with_python3_cups:BuildRequires: python3-cups}
-%{!?with_python3_cups:BuildRequires: python-cups}
 
 Requires: cups
 
+# Provide additional aliases for this package, consistent with dymo-cups-drivers-lw5xx package
+Provides:       dymo-cups-drivers-lw4xx%{?_isa} = %{version}-%{release}
+Provides:       dymo-cups-drivers-lw3xx%{?_isa} = %{version}-%{release}
+
 %description
-DYMO LabelWriter and DYMO LabelMANAGER series drivers for CUPS
+This package contains DYMO LabelWriter 4xx and 3xx series drivers for CUPS.
+For LabelWriter 5xx series drivers, use the dymo-cups-drivers-lw5xx package.
 
 %prep
 %autosetup -p 1
@@ -65,13 +62,18 @@ autoreconf --force --install
 %{_datadir}/cups/model/*
 
 %changelog
+* Tue Oct 28 2025 Andrew Bauer <zonexpertconsulting@outlook.com> - 1.4.0.5-24
+- Remove python-cups build requirement
+- Mention dymo-cups-drivers-lw5xx in description
+- Add additional provides
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0.5-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
 * Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0.5-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
 
-* Thu Jul 25 2024 Miroslav Suchý <msuchy@redhat.com> - 1.4.0.5-21
+* Thu Jul 25 2024 Miroslav SuchÃ½ <msuchy@redhat.com> - 1.4.0.5-21
 - convert license to SPDX
 
 * Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0.5-20

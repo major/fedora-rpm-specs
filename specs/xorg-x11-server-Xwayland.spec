@@ -8,8 +8,8 @@
 
 Summary:   Xwayland
 Name:      xorg-x11-server-Xwayland
-Version:   24.1.8
-Release:   4%{?gitdate:.%{gitdate}git%{shortcommit}}%{?dist}
+Version:   24.1.9
+Release:   1%{?gitdate:.%{gitdate}git%{shortcommit}}%{?dist}
 
 URL:       http://www.x.org
 %if 0%{?gitdate}
@@ -133,6 +133,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_libdir}/pkgconfig/xwayland.pc
 
 %changelog
+* Tue Oct 28 2025 Olivier Fourdan <ofourdan@redhat.com> - 24.1.9-1
+- Update to xwayland 24.1.9 (#2406802)
+- CVE fix for: CVE-2025-62229, CVE-2025-62230, CVE-2025-62231
+
 * Wed Oct 15 2025 Olivier Fourdan <ofourdan@redhat.com> - 24.1.8-4
 - Revert last change, that breaks keyboard modifiers in gamescope
 

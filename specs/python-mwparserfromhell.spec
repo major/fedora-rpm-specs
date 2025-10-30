@@ -11,7 +11,7 @@ Source:         %{url}/archive/v%{version}/%{modname}-%{version}.tar.gz
 
 BuildRequires:  python3-devel
 BuildRequires:  gcc
-
+BuildRequires:  tomcli
 
 %global _description %{expand:
 mwparserfromhell (the MediaWiki Parser from Hell) is a Python package that
@@ -32,6 +32,12 @@ Requires:       python3-%{modname}%{?_isa} = %{version}-%{release}
 
 %prep
 %autosetup -p1 -n %{modname}-%{version}
+
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+tomcli set pyproject.toml lists delitem dependency-groups.dev 'pytest-cov\b.*'
+# Only needed for building documentation:
+tomcli set pyproject.toml lists delitem dependency-groups.dev 'sphinx\b.*'
+
 
 %generate_buildrequires
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}

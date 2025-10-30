@@ -17,6 +17,7 @@ Patch2:         %{name}-drop-qtio-p2.patch
 Patch3:         %{name}-hidebroken-p3.patch
 Patch4:         %{name}-no-tag-edit-p4.patch
 Patch5:         %{name}-trayicon-p5.patch
+Patch6:         %{name}-qt610-p6.patch
 
 BuildRequires:  kf6-kitemviews-devel
 BuildRequires:  kf6-karchive-devel
@@ -74,7 +75,6 @@ rm -rf \
 
 %build
 %cmake -DCMAKE_BUILD_TYPE=Release \
-  -DCMAKE_INSTALL_PREFIX=/usr \
   -DENABLE_CATEGORIZED_VIEW=OFF \
   -DBUILD_PLUGIN_DEBUG=OFF \
   -DENABLE_DEVICES_SUPPORT=ON \

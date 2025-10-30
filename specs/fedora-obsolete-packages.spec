@@ -673,6 +673,7 @@ Source0:    README
 %obsolete python3-astor 0.8.1-25
 %obsolete python3-astral 3.2-9
 %obsolete python3-async-upnp-client 0.14.15-17
+%obsolete python3-atomicwrites 1.4.1-14
 %obsolete python3-auth-credential 1.1-13
 %obsolete python3-autograd 1.8.0-3
 %obsolete python3-autograd+scipy 1.8.0-3

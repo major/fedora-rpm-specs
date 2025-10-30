@@ -1,5 +1,5 @@
 Name:           mass-prebuild
-Version:        1.6.1
+Version:        1.7.0
 Release:        %autorelease
 Summary:        A set of tools to massively pre-build reverse dependencies for an RPM package
 

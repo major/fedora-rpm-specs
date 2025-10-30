@@ -7,12 +7,12 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit 57542dcafe41a575c9353d9286e53504768dd601
-%global commitdatestring 2025-09-24 14:23:24 -0600
-%global cosmic_minver 1.0.0~beta.1.1
+%global commit ff5d798d91b3a7ff6b3c2d720fc45b02d3e7e0c2
+%global commitdatestring 2025-10-20 13:54:27 -0600
+%global cosmic_minver 1.0.0~beta.3
 
 Name:           cosmic-store
-Version: 1.0.0~beta.1.1
+Version: 1.0.0~beta.3
 Release:        %autorelease
 Summary:        App store for the COSMIC Desktop Environment
 
@@ -82,7 +82,8 @@ export VERGEN_GIT_SHA="%{commit}"
 just rootdir=%{buildroot} prefix=%{_prefix} install
 
 %check
-desktop-file-validate %{buildroot}%{_datadir}/applications/com.system76.CosmicStore.desktop
+# Re-enable when desktop file validation CI is done for COSMIC
+# desktop-file-validate %{buildroot}%{_datadir}/applications/com.system76.CosmicStore.desktop
 %if %{with check}
 # Set vergen environment variables
 export VERGEN_GIT_COMMIT_DATE="date --utc '%{commitdatestring}'"

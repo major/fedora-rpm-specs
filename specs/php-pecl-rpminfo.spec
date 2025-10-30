@@ -10,6 +10,8 @@
 # Please, preserve the changelog entries
 #
 
+%global php_base   php
+
 %global pecl_name  rpminfo
 %global pie_vend   remi
 %global pie_proj   rpminfo
@@ -17,9 +19,9 @@
 %global sources    %{pecl_name}-%{version}
 
 Summary:        RPM information
-Name:           php-pecl-%{pecl_name}
+Name:           %{php_base}-pecl-%{pecl_name}
 Version:        1.2.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        PHP-3.01
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{sources}.tgz
@@ -29,7 +31,7 @@ ExcludeArch:    %{ix86}
 BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  pkgconfig(rpm) >= 4.13
-BuildRequires:  php-devel >= 8.0
+BuildRequires:  %{php_base}-devel >= 8.0
 BuildRequires:  php-pear
 
 Requires:       php(zend-abi) = %{php_zend_api}
@@ -44,6 +46,13 @@ Provides:       php-pecl(%{pecl_name})%{?_isa}   = %{version}
 # PIE
 Provides:       php-pie(%{pie_vend}/%{pie_proj}) = %{version}
 Provides:       php-%{pie_vend}-%{pie_proj}      = %{version}
+
+%if "%{php_base}" != "php"
+Requires:     %{php_base}-common%{?_isa}
+Conflicts:    php-pecl-%{pecl_name}
+Provides:     php-pecl-%{pecl_name} = %{version}-%{release}
+Provides:     php-pecl-%{pecl_name}%{?_isa} = %{version}-%{release}
+%endif
 
 
 %description
@@ -129,6 +138,9 @@ TEST_PHP_ARGS="-n -d extension=%{buildroot}/%{php_extdir}/%{pecl_name}.so" \
 
 
 %changelog
+* Tue Oct 28 2025 Remi Collet <remi@remirepo.net> - 1.2.1-3
+- add php_base option to create namespaced packages
+
 * Wed Oct 08 2025 Remi Collet <remi@remirepo.net> - 1.2.1-2
 - rebuild for https://fedoraproject.org/wiki/Changes/php85
 

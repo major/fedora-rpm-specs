@@ -3,7 +3,7 @@
 ExcludeArch: %{ix86}
 
 Name:    plasma-systemmonitor
-Version: 6.5.0
+Version: 6.5.1
 Release: 1%{?dist}
 Summary: An application for monitoring system resources
 
@@ -80,6 +80,9 @@ resources.
 %{_kf6_datadir}/kconf_update/plasma-systemmonitor*
 
 %changelog
+* Tue Oct 28 2025 Steve Cossette <farchord@gmail.com> - 6.5.1-1
+- 6.5.1
+
 * Fri Oct 17 2025 Steve Cossette <farchord@gmail.com> - 6.5.0-1
 - 6.5.0
 

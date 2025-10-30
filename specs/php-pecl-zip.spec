@@ -7,6 +7,8 @@
 # Please, preserve the changelog entries
 #
 
+%global php_base         php
+
 %global pecl_name        zip
 %global pie_vend         pecl
 %global pie_proj         zip
@@ -16,9 +18,9 @@
 %global sources          %{pecl_name}-%{upstream_version}%{?upstream_prever}
 
 Summary:      A ZIP archive management extension
-Name:         php-pecl-zip
+Name:         %{php_base}-pecl-zip
 Version:      %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:      2%{?dist}
+Release:      3%{?dist}
 License:      PHP-3.01
 URL:          https://pecl.php.net/package/zip
 
@@ -28,7 +30,7 @@ ExcludeArch:   %{ix86}
 
 BuildRequires: make
 BuildRequires: gcc
-BuildRequires: php-devel
+BuildRequires: %{php_base}-devel
 BuildRequires: pkgconfig(libzip) >= 1.0.0
 BuildRequires: zlib-devel
 BuildRequires: php-pear
@@ -44,6 +46,13 @@ Provides:     php-pecl(%{pecl_name}) = %{version}
 Provides:     php-pecl(%{pecl_name})%{?_isa} = %{version}
 # PIE
 Provides:     php-pie(%{pie_vend}/%{pie_proj}) = %{version}
+
+%if "%{php_base}" != "php"
+Requires:     %{php_base}-common%{?_isa}
+Conflicts:    php-pecl-%{pecl_name}
+Provides:     php-pecl-%{pecl_name} = %{version}-%{release}
+Provides:     php-pecl-%{pecl_name}%{?_isa} = %{version}-%{release}
+%endif
 
 
 %description
@@ -127,6 +136,9 @@ TEST_PHP_EXECUTABLE=%{__php} \
 
 
 %changelog
+* Tue Oct 28 2025 Remi Collet <remi@remirepo.net> - 1.22.7-3
+- add php_base option to create namespaced packages
+
 * Wed Oct 08 2025 Remi Collet <remi@remirepo.net> - 1.22.7-2
 - rebuild for https://fedoraproject.org/wiki/Changes/php85
 

@@ -3,7 +3,7 @@
 ExcludeArch: %{ix86}
 
 Name:           oxygen-sounds
-Version:        6.5.0
+Version:        6.5.1
 Release:        1%{?dist}
 Summary:        The Oxygen Sound Theme
 
@@ -45,6 +45,9 @@ BuildArch:      noarch
 
 
 %changelog
+* Tue Oct 28 2025 Steve Cossette <farchord@gmail.com> - 6.5.1-1
+- 6.5.1
+
 * Fri Oct 17 2025 Steve Cossette <farchord@gmail.com> - 6.5.0-1
 - 6.5.0
 

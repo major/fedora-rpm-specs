@@ -12,18 +12,14 @@
 
 
 Name:           chromaprint
-Version:        1.5.1
-Release:        25%{?dist}
+Version:        1.6.0
+Release:        1%{?dist}
 Summary:        Library implementing the AcoustID fingerprinting
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            http://www.acoustid.org/chromaprint
 Source:         https://github.com/acoustid/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
-
-Patch1:         https://github.com/acoustid/chromaprint/commit/8ccad6937177b1b92e40ab8f4447ea27bac009a7.patch
-# Addresses fpcalc error, could not create an audio converter instance
-Patch2:         https://github.com/acoustid/chromaprint/commit/82781d02cd3063d071a501218297a90bde9a314f.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -87,10 +83,10 @@ License for binaries is GPLv2+ but source code is MIT + LGPLv2+
 %autosetup -p1
 
 %build
-# examples and cli tools require ffmpeg, so turn off; test depend of external artifact so turn off.
+# examples and cli tools require ffmpeg, so turn off.
 %cmake -GNinja \
         -DCMAKE_BUILD_TYPE=Release \
-        -DBUILD_TESTS=OFF \
+        -DBUILD_TESTS=ON \
         -DBUILD_TOOLS=%{?with_ffmpeg:ON}%{!?with_ffmpeg:OFF}
 
 %cmake_build
@@ -99,6 +95,9 @@ License for binaries is GPLv2+ but source code is MIT + LGPLv2+
 %cmake_install
 
 rm  -f %{buildroot}%{_libdir}/lib*.la
+
+%check
+%ctest
 
 %files -n libchromaprint
 %doc NEWS.txt README.md
@@ -109,6 +108,8 @@ rm  -f %{buildroot}%{_libdir}/lib*.la
 %{_includedir}/chromaprint.h
 %{_libdir}/lib*.so
 %{_libdir}/pkgconfig/*.pc
+%dir %{_libdir}/cmake/Chromaprint/
+%{_libdir}/cmake/Chromaprint/*.cmake
 
 %if %{with ffmpeg}
 %files tools
@@ -116,6 +117,11 @@ rm  -f %{buildroot}%{_libdir}/lib*.la
 %endif
 
 %changelog
+* Tue Oct 28 2025 Andrew Bauer <zonexpertconsulting@outlook.com> - 1.6.0-1
+- 1.6.0 release RHBZ#2391533
+- Includes fixes for Cmake 4 RHBZ#2381184 RHBZ#2380497
+- re-enable tests. They no longer require external artifacts
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

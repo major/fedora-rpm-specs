@@ -6,6 +6,11 @@
 # Please preserve changelog entries
 #
 
+# Option to build as php8.5 with same provides
+# php-common is the pivot package required by all
+# Only used by RHEL
+%bcond_with         rename
+
 # API/ABI check
 %global apiver      20250925
 %global zendver     20250925
@@ -18,7 +23,7 @@
 %global _hardened_build 1
 
 # version used for php embedded library soname
-%global embed_version 8.5
+%global major_version 8.5
 
 %global mysql_sock %(mysql_config --socket 2>/dev/null || echo /var/lib/mysql/mysql.sock)
 
@@ -68,9 +73,13 @@
 %global rcver        RC3
 
 Summary: PHP scripting language for creating dynamic web sites
+%if %{with rename}
+Name: php%{major_version}
+%else
 Name: php
+%endif
 Version: %{upver}%{?rcver:~%{rcver}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
 # TSRM is licensed under BSD
@@ -197,19 +206,24 @@ Provides: deprecated()
 # preserve old behavior
 Recommends: httpd
 %endif
-Requires: php-common%{?_isa}     = %{version}-%{release}
+Requires:   %{name}-common%{?_isa}   = %{version}-%{release}
 # For backwards-compatibility, pull the "php" command
-Recommends: php-cli%{?_isa}      = %{version}-%{release}
+Recommends: %{name}-cli%{?_isa}      = %{version}-%{release}
 # httpd have threaded MPM by default
-Recommends: php-fpm%{?_isa}      = %{version}-%{release}
+Recommends: %{name}-fpm%{?_isa}      = %{version}-%{release}
 # as "php" is now mostly a meta-package, commonly used extensions
 # reduce diff with "dnf module install php"
-Recommends: php-mbstring%{?_isa} = %{version}-%{release}
-Recommends: php-pdo%{?_isa}      = %{version}-%{release}
+Recommends: %{name}-mbstring%{?_isa} = %{version}-%{release}
+Recommends: %{name}-pdo%{?_isa}      = %{version}-%{release}
 %if %{with sodium}
-Recommends: php-sodium%{?_isa}   = %{version}-%{release}
+Recommends: %{name}-sodium%{?_isa}   = %{version}-%{release}
 %endif
-Recommends: php-xml%{?_isa}      = %{version}-%{release}
+Recommends: %{name}-xml%{?_isa}      = %{version}-%{release}
+%if %{with rename}
+Conflicts:  php         < %{major_version}
+Provides:   php         = %{version}-%{release}
+Provides:   php%{?_isa} = %{version}-%{release}
+%endif
 
 
 %description
@@ -220,7 +234,7 @@ non-commercial database management systems, so writing a
 database-enabled webpage with PHP is fairly simple. The most common
 use of PHP coding is probably as a replacement for CGI scripts.
 %if %{with modphp}
-The php package contains the module (often referred to as mod_php)
+The %{name} package contains the module (often referred to as mod_php)
 which adds support for the PHP language to Apache HTTP Server when
 running in prefork mode. This module is deprecated.
 %endif
@@ -229,22 +243,32 @@ running in prefork mode. This module is deprecated.
 Summary: Command-line interface for PHP
 # sapi/cli/ps_title.c is PostgreSQL
 License: PHP-3.01 AND Zend-2.0 AND BSD-2-Clause AND MIT AND Apache-1.0 AND NCSA AND PostgreSQL
-Requires: php-common%{?_isa} = %{version}-%{release}
+Requires: %{name}-common%{?_isa} = %{version}-%{release}
 Provides: php-cgi = %{version}-%{release}, php-cgi%{?_isa} = %{version}-%{release}
 Provides: php-pcntl, php-pcntl%{?_isa}
 Provides: php-readline, php-readline%{?_isa}
+%if %{with rename}
+Conflicts:  php-cli         < %{major_version}
+Provides:   php-cli         = %{version}-%{release}
+Provides:   php-cli%{?_isa} = %{version}-%{release}
+%endif
 
 %description cli
-The php-cli package contains the command-line interface
+The %{name}-cli package contains the command-line interface
 executing PHP scripts, /usr/bin/php, and the CGI interface.
 
 
 %package dbg
 Summary: The interactive PHP debugger
-Requires: php-common%{?_isa} = %{version}-%{release}
+Requires: %{name}-common%{?_isa} = %{version}-%{release}
+%if %{with rename}
+Conflicts:  php-dbg         < %{major_version}
+Provides:   php-dbg         = %{version}-%{release}
+Provides:   php-dbg%{?_isa} = %{version}-%{release}
+%endif
 
 %description dbg
-The php-dbg package contains the interactive PHP debugger.
+The %{name}-dbg package contains the interactive PHP debugger.
 
 
 %package fpm
@@ -252,7 +276,7 @@ Summary: PHP FastCGI Process Manager
 BuildRequires: libacl-devel
 BuildRequires: pkgconfig(libsystemd) >= 209
 BuildRequires: pkgconfig(libselinux)
-Requires: php-common%{?_isa} = %{version}-%{release}
+Requires: %{name}-common%{?_isa} = %{version}-%{release}
 %{?systemd_requires}
 # To ensure correct /var/lib/php/session ownership:
 Requires(pre): httpd-filesystem
@@ -263,6 +287,11 @@ Requires: httpd-filesystem >= 2.4.10
 Provides: php(httpd)
 # for /etc/nginx ownership
 Requires: nginx-filesystem
+%if %{with rename}
+Conflicts:  php-fpm         < %{major_version}
+Provides:   php-fpm         = %{version}-%{release}
+Provides:   php-fpm%{?_isa} = %{version}-%{release}
+%endif
 
 %description fpm
 PHP-FPM (FastCGI Process Manager) is an alternative PHP FastCGI
@@ -315,14 +344,20 @@ Provides: php-standard = %{version}, php-standard%{?_isa} = %{version}
 Provides: php-tokenizer, php-tokenizer%{?_isa}
 Provides: php-uri, php-uri%{?_isa}
 Provides: php-zlib, php-zlib%{?_isa}
+%if %{with rename}
+Conflicts:  php-common         < %{major_version}
+Provides:   php-common         = %{version}-%{release}
+Provides:   php-common%{?_isa} = %{version}-%{release}
+%endif
 
 %description common
-The php-common package contains files used by both the php
-package and the php-cli package.
+The %{name}-common package contains files used by both the %{name}
+package and the %{name}-cli package.
 
 %package devel
 Summary: Files needed for building PHP extensions
-Requires: php-cli%{?_isa} = %{version}-%{release}
+Requires: %{name}-common%{?_isa} = %{version}-%{release}
+Requires: %{name}-cli%{?_isa} = %{version}-%{release}
 # always needed to build extension
 Requires: autoconf
 Requires: automake
@@ -340,12 +375,17 @@ Requires: zlib-devel%{?_isa}
 Provides: php-zts-devel = %{version}-%{release}
 Provides: php-zts-devel%{?_isa} = %{version}-%{release}
 %endif
+%if %{with rename}
+Conflicts:  php-devel         < %{major_version}
+Provides:   php-devel         = %{version}-%{release}
+Provides:   php-devel%{?_isa} = %{version}-%{release}
+%endif
 Recommends: php-nikic-php-parser5 >= 5.6.1
 Conflicts:  php-nikic-php-parser5 <  5.6.1
 
 
 %description devel
-The php-devel package contains the files needed for building PHP
+The %{name}-devel package contains the files needed for building PHP
 extensions. If you need to compile your own PHP extensions, you will
 need to install this package.
 
@@ -353,13 +393,18 @@ need to install this package.
 Summary: A module for PHP applications that use LDAP
 # All files licensed under PHP version 3.01
 License:  PHP-3.01
-Requires: php-common%{?_isa} = %{version}-%{release}
+Requires: %{name}-common%{?_isa} = %{version}-%{release}
 BuildRequires: pkgconfig(libsasl2)
 BuildRequires: openldap-devel
 BuildRequires: openssl-devel >= 1.0.2
+%if %{with rename}
+Conflicts:  php-ldap         < %{major_version}
+Provides:   php-ldap         = %{version}-%{release}
+Provides:   php-ldap%{?_isa} = %{version}-%{release}
+%endif
 
 %description ldap
-The php-ldap adds Lightweight Directory Access Protocol (LDAP)
+The %{name}-ldap adds Lightweight Directory Access Protocol (LDAP)
 support to PHP. LDAP is a set of protocols for accessing directory
 services over the Internet. PHP is an HTML-embedded scripting
 language.
@@ -368,15 +413,20 @@ language.
 Summary: A database access abstraction module for PHP applications
 # All files licensed under PHP version 3.01
 License:  PHP-3.01
-Requires: php-common%{?_isa} = %{version}-%{release}
+Requires: %{name}-common%{?_isa} = %{version}-%{release}
 # ABI/API check - Arch specific
 Provides: php-pdo-abi  = %{pdover}-%{__isa_bits}
 Provides: php(pdo-abi) = %{pdover}-%{__isa_bits}
 Provides: php-sqlite3, php-sqlite3%{?_isa}
 Provides: php-pdo_sqlite, php-pdo_sqlite%{?_isa}
+%if %{with rename}
+Conflicts:  php-pdo         < %{major_version}
+Provides:   php-pdo         = %{version}-%{release}
+Provides:   php-pdo%{?_isa} = %{version}-%{release}
+%endif
 
 %description pdo
-The php-pdo package contains a dynamic shared object that will add
+The %{name}-pdo package contains a dynamic shared object that will add
 a database access abstraction layer to PHP.  This module provides
 a common interface for accessing MySQL, PostgreSQL or other
 databases.
@@ -385,14 +435,20 @@ databases.
 Summary: A module for PHP applications that use MySQL databases
 # All files licensed under PHP version 3.01
 License:  PHP-3.01
-Requires: php-pdo%{?_isa} = %{version}-%{release}
+Requires: %{name}-common%{?_isa} = %{version}-%{release}
+Requires: %{name}-pdo%{?_isa} = %{version}-%{release}
 Provides: php_database
 Provides: php-mysqli = %{version}-%{release}
 Provides: php-mysqli%{?_isa} = %{version}-%{release}
 Provides: php-pdo_mysql, php-pdo_mysql%{?_isa}
+%if %{with rename}
+Conflicts:  php-mysqlnd         < %{major_version}
+Provides:   php-mysqlnd         = %{version}-%{release}
+Provides:   php-mysqlnd%{?_isa} = %{version}-%{release}
+%endif
 
 %description mysqlnd
-The php-mysqlnd package contains a dynamic shared object that will add
+The %{name}-mysqlnd package contains a dynamic shared object that will add
 MySQL database support to PHP. MySQL is an object-relational database
 management system. PHP is an HTML-embeddable scripting language. If
 you need MySQL support for PHP applications, you will need to install
@@ -404,15 +460,21 @@ This package use the MySQL Native Driver
 Summary: A PostgreSQL database module for PHP
 # All files licensed under PHP version 3.01
 License:  PHP-3.01
-Requires: php-pdo%{?_isa} = %{version}-%{release}
+Requires: %{name}-common%{?_isa} = %{version}-%{release}
+Requires: %{name}-pdo%{?_isa} = %{version}-%{release}
 Provides: php_database
 Provides: php-pdo_pgsql, php-pdo_pgsql%{?_isa}
 BuildRequires: krb5-devel
 BuildRequires: openssl-devel >= 1.0.2
 BuildRequires: libpq-devel
+%if %{with rename}
+Conflicts:  php-pgsql         < %{major_version}
+Provides:   php-pgsql         = %{version}-%{release}
+Provides:   php-pgsql%{?_isa} = %{version}-%{release}
+%endif
 
 %description pgsql
-The php-pgsql package add PostgreSQL database support to PHP.
+The %{name}-pgsql package add PostgreSQL database support to PHP.
 PostgreSQL is an object-relational database management
 system that supports almost all SQL constructs. PHP is an
 HTML-embedded scripting language. If you need back-end support for
@@ -423,15 +485,20 @@ php package.
 Summary: Modules for PHP script using system process interfaces
 # All files licensed under PHP version 3.01
 License:  PHP-3.01
-Requires: php-common%{?_isa} = %{version}-%{release}
+Requires: %{name}-common%{?_isa} = %{version}-%{release}
 Provides: php-posix, php-posix%{?_isa}
 Provides: php-shmop, php-shmop%{?_isa}
 Provides: php-sysvsem, php-sysvsem%{?_isa}
 Provides: php-sysvshm, php-sysvshm%{?_isa}
 Provides: php-sysvmsg, php-sysvmsg%{?_isa}
+%if %{with rename}
+Conflicts:  php-process         < %{major_version}
+Provides:   php-process         = %{version}-%{release}
+Provides:   php-process%{?_isa} = %{version}-%{release}
+%endif
 
 %description process
-The php-process package contains dynamic shared objects which add
+The %{name}-process package contains dynamic shared objects which add
 support to PHP using system interfaces for inter-process
 communication.
 
@@ -440,13 +507,19 @@ Summary: A module for PHP applications that use ODBC databases
 # All files licensed under PHP version 3.01, except
 # pdo_odbc is licensed under PHP version 3.0
 License:  PHP-3.01
-Requires: php-pdo%{?_isa} = %{version}-%{release}
+Requires: %{name}-common%{?_isa} = %{version}-%{release}
+Requires: %{name}-pdo%{?_isa} = %{version}-%{release}
 Provides: php_database
 Provides: php-pdo_odbc, php-pdo_odbc%{?_isa}
 BuildRequires: unixODBC-devel
+%if %{with rename}
+Conflicts:  php-odbc         < %{major_version}
+Provides:   php-odbc         = %{version}-%{release}
+Provides:   php-odbc%{?_isa} = %{version}-%{release}
+%endif
 
 %description odbc
-The php-odbc package contains a dynamic shared object that will add
+The %{name}-odbc package contains a dynamic shared object that will add
 database support through ODBC to PHP. ODBC is an open specification
 which provides a consistent API for developers to use for accessing
 data sources (which are often, but not always, databases). PHP is an
@@ -458,11 +531,16 @@ package.
 Summary: A module for PHP applications that use the SOAP protocol
 # All files licensed under PHP version 3.01
 License:  PHP-3.01
-Requires: php-common%{?_isa} = %{version}-%{release}
+Requires: %{name}-common%{?_isa} = %{version}-%{release}
 BuildRequires: pkgconfig(libxml-2.0)
+%if %{with rename}
+Conflicts:  php-soap         < %{major_version}
+Provides:   php-soap         = %{version}-%{release}
+Provides:   php-soap%{?_isa} = %{version}-%{release}
+%endif
 
 %description soap
-The php-soap package contains a dynamic shared object that will add
+The %{name}-soap package contains a dynamic shared object that will add
 support to PHP for using the SOAP web services protocol.
 
 %if %{with firebird}
@@ -472,12 +550,18 @@ Summary: PDO driver for Interbase/Firebird databases
 License:  PHP-3.01
 # for fb_config command
 BuildRequires:  firebird-devel
-Requires: php-pdo%{?_isa} = %{version}-%{release}
+Requires: %{name}-common%{?_isa} = %{version}-%{release}
+Requires: %{name}-pdo%{?_isa} = %{version}-%{release}
 Provides: php_database
 Provides: php-pdo_firebird, php-pdo_firebird%{?_isa}
+%if %{with rename}
+Conflicts:  php-pdo-firebird         < %{major_version}
+Provides:   php-pdo-firebird         = %{version}-%{release}
+Provides:   php-pdo-firebird%{?_isa} = %{version}-%{release}
+%endif
 
 %description pdo-firebird
-The php-pdo-firebird package contains the PDO driver for
+The %{name}-pdo-firebird package contains the PDO driver for
 Interbase/Firebird databases.
 %endif
 
@@ -485,11 +569,17 @@ Interbase/Firebird databases.
 Summary: A module for PHP applications that query SNMP-managed devices
 # All files licensed under PHP version 3.01
 License:  PHP-3.01
-Requires: php-common%{?_isa} = %{version}-%{release}, net-snmp
+Requires: %{name}-common%{?_isa} = %{version}-%{release}
+Requires: net-snmp
 BuildRequires: net-snmp-devel
+%if %{with rename}
+Conflicts:  php-snmp         < %{major_version}
+Provides:   php-snmp         = %{version}-%{release}
+Provides:   php-snmp%{?_isa} = %{version}-%{release}
+%endif
 
 %description snmp
-The php-snmp package contains a dynamic shared object that will add
+The %{name}-snmp package contains a dynamic shared object that will add
 support for querying SNMP devices to PHP.  PHP is an HTML-embeddable
 scripting language. If you need SNMP support for PHP applications, you
 will need to install this package and the php package.
@@ -498,7 +588,7 @@ will need to install this package and the php package.
 Summary: A module for PHP applications which use XML
 # All files licensed under PHP version 3.01
 License:  PHP-3.01
-Requires: php-common%{?_isa} = %{version}-%{release}
+Requires: %{name}-common%{?_isa} = %{version}-%{release}
 Provides: php-dom, php-dom%{?_isa}
 Provides: php-domxml, php-domxml%{?_isa}
 Provides: php-simplexml, php-simplexml%{?_isa}
@@ -508,9 +598,14 @@ Provides: php-xsl, php-xsl%{?_isa}
 BuildRequires: pkgconfig(libxslt)  >= 1.1
 BuildRequires: pkgconfig(libexslt)
 BuildRequires: pkgconfig(libxml-2.0)  >= 2.7.6
+%if %{with rename}
+Conflicts:  php-xml         < %{major_version}
+Provides:   php-xml         = %{version}-%{release}
+Provides:   php-xml%{?_isa} = %{version}-%{release}
+%endif
 
 %description xml
-The php-xml package contains dynamic shared objects which add support
+The %{name}-xml package contains dynamic shared objects which add support
 to PHP for manipulating XML documents using the DOM tree,
 and performing XSL transformations on XML documents.
 
@@ -522,21 +617,31 @@ Summary: A module for PHP applications which need multi-byte string handling
 License: PHP-3.01 AND LGPL-2.1-only AND OLDAP-2.8
 BuildRequires: pkgconfig(oniguruma) >= 6.8
 Provides: bundled(libmbfl) = 1.3.2
-Requires: php-common%{?_isa} = %{version}-%{release}
+Requires: %{name}-common%{?_isa} = %{version}-%{release}
+%if %{with rename}
+Conflicts:  php-mbstring         < %{major_version}
+Provides:   php-mbstring         = %{version}-%{release}
+Provides:   php-mbstring%{?_isa} = %{version}-%{release}
+%endif
 
 %description mbstring
-The php-mbstring package contains a dynamic shared object that will add
+The %{name}-mbstring package contains a dynamic shared object that will add
 support for multi-byte string handling to PHP.
 
 %package gd
 Summary: A module for PHP applications for using the gd graphics library
 # All files licensed under PHP version 3.01
 License:  PHP-3.01
-Requires: php-common%{?_isa} = %{version}-%{release}
+Requires: %{name}-common%{?_isa} = %{version}-%{release}
 BuildRequires: pkgconfig(gdlib) >= 2.1.1
+%if %{with rename}
+Conflicts:  php-gd         < %{major_version}
+Provides:   php-gd         = %{version}-%{release}
+Provides:   php-gd%{?_isa} = %{version}-%{release}
+%endif
 
 %description gd
-The php-gd package contains a dynamic shared object that will add
+The %{name}-gd package contains a dynamic shared object that will add
 support for using the gd graphics library to PHP.
 
 %package bcmath
@@ -544,10 +649,15 @@ Summary: A module for PHP applications for using the bcmath library
 # All files licensed under PHP version 3.01, except
 # libbcmath is licensed under LGPLv2+
 License:  PHP-3.01 AND LGPL-2.1-or-later
-Requires: php-common%{?_isa} = %{version}-%{release}
+Requires: %{name}-common%{?_isa} = %{version}-%{release}
+%if %{with rename}
+Conflicts:  php-bcmath         < %{major_version}
+Provides:   php-bcmath         = %{version}-%{release}
+Provides:   php-bcmath%{?_isa} = %{version}-%{release}
+%endif
 
 %description bcmath
-The php-bcmath package contains a dynamic shared object that will add
+The %{name}-bcmath package contains a dynamic shared object that will add
 support for using the bcmath library to PHP.
 
 %package gmp
@@ -555,7 +665,12 @@ Summary: A module for PHP applications for using the GNU MP library
 # All files licensed under PHP version 3.01
 License:  PHP-3.01
 BuildRequires: gmp-devel
-Requires: php-common%{?_isa} = %{version}-%{release}
+Requires: %{name}-common%{?_isa} = %{version}-%{release}
+%if %{with rename}
+Conflicts:  php-gmp         < %{major_version}
+Provides:   php-gmp         = %{version}-%{release}
+Provides:   php-gmp%{?_isa} = %{version}-%{release}
+%endif
 
 %description gmp
 These functions allow you to work with arbitrary-length integers
@@ -575,10 +690,15 @@ BuildRequires: lmdb-devel
 %if %{with qdbm}
 BuildRequires: qdbm-devel
 %endif
-Requires: php-common%{?_isa} = %{version}-%{release}
+Requires: %{name}-common%{?_isa} = %{version}-%{release}
+%if %{with rename}
+Conflicts:  php-dba         < %{major_version}
+Provides:   php-dba         = %{version}-%{release}
+Provides:   php-dba%{?_isa} = %{version}-%{release}
+%endif
 
 %description dba
-The php-dba package contains a dynamic shared object that will add
+The %{name}-dba package contains a dynamic shared object that will add
 support for using the DBA database abstraction layer to PHP.
 
 %if %{with tidy}
@@ -586,11 +706,16 @@ support for using the DBA database abstraction layer to PHP.
 Summary: Standard PHP module provides tidy library support
 # All files licensed under PHP version 3.01
 License:  PHP-3.01
-Requires: php-common%{?_isa} = %{version}-%{release}
+Requires: %{name}-common%{?_isa} = %{version}-%{release}
 BuildRequires: libtidy-devel
+%if %{with rename}
+Conflicts:  php-tidy         < %{major_version}
+Provides:   php-tidy         = %{version}-%{release}
+Provides:   php-tidy%{?_isa} = %{version}-%{release}
+%endif
 
 %description tidy
-The php-tidy package contains a dynamic shared object that will add
+The %{name}-tidy package contains a dynamic shared object that will add
 support for using the tidy library to PHP.
 %endif
 
@@ -599,49 +724,70 @@ support for using the tidy library to PHP.
 Summary: PDO driver for Microsoft SQL Server and Sybase databases
 # All files licensed under PHP version 3.01
 License:  PHP-3.01
-Requires: php-pdo%{?_isa} = %{version}-%{release}
+Requires: %{name}-common%{?_isa} = %{version}-%{release}
+Requires: %{name}-pdo%{?_isa} = %{version}-%{release}
 BuildRequires: freetds-devel
 Provides: php-pdo_dblib, php-pdo_dblib%{?_isa}
+%if %{with rename}
+Conflicts:  php-pdo-dblib         < %{major_version}
+Provides:   php-pdo-dblib         = %{version}-%{release}
+Provides:   php-pdo-dblib%{?_isa} = %{version}-%{release}
+%endif
 
 %description pdo-dblib
-The php-pdo-dblib package contains a dynamic shared object
+The %{name}-pdo-dblib package contains a dynamic shared object
 that implements the PHP Data Objects (PDO) interface to enable access from
 PHP to Microsoft SQL Server and Sybase databases through the FreeTDS library.
 %endif
 
 %package embedded
 Summary: PHP library for embedding in applications
-Requires: php-common%{?_isa} = %{version}-%{release}
+Requires: %{name}-common%{?_isa} = %{version}-%{release}
 # doing a real -devel package for just the .so symlink is a bit overkill
 Provides: php-embedded-devel = %{version}-%{release}
 Provides: php-embedded-devel%{?_isa} = %{version}-%{release}
+%if %{with rename}
+Conflicts:  php-embedded         < %{major_version}
+Provides:   php-embedded         = %{version}-%{release}
+Provides:   php-embedded%{?_isa} = %{version}-%{release}
+%endif
 
 %description embedded
-The php-embedded package contains a library which can be embedded
+The %{name}-embedded package contains a library which can be embedded
 into applications to provide PHP scripting language support.
 
 %package intl
 Summary: Internationalization extension for PHP applications
 # All files licensed under PHP version 3.01
 License:  PHP-3.01
-Requires: php-common%{?_isa} = %{version}-%{release}
+Requires: %{name}-common%{?_isa} = %{version}-%{release}
 BuildRequires: pkgconfig(icu-i18n) >= 50.1
 BuildRequires: pkgconfig(icu-io)   >= 50.1
 BuildRequires: pkgconfig(icu-uc)   >= 50.1
+%if %{with rename}
+Conflicts:  php-intl         < %{major_version}
+Provides:   php-intl         = %{version}-%{release}
+Provides:   php-intl%{?_isa} = %{version}-%{release}
+%endif
 
 %description intl
-The php-intl package contains a dynamic shared object that will add
+The %{name}-intl package contains a dynamic shared object that will add
 support for using the ICU library to PHP.
 
 %package enchant
 Summary: Enchant spelling extension for PHP applications
 # All files licensed under PHP version 3.0
 License:  PHP-3.01
-Requires: php-common%{?_isa} = %{version}-%{release}
+Requires: %{name}-common%{?_isa} = %{version}-%{release}
 BuildRequires: pkgconfig(enchant-2)
+%if %{with rename}
+Conflicts:  php-enchant         < %{major_version}
+Provides:   php-enchant         = %{version}-%{release}
+Provides:   php-enchant%{?_isa} = %{version}-%{release}
+%endif
 
 %description enchant
-The php-enchant package contains a dynamic shared object that will add
+The %{name}-enchant package contains a dynamic shared object that will add
 support for using the enchant library to PHP.
 
 %if %{with sodium}
@@ -651,13 +797,18 @@ Summary: Wrapper for the Sodium cryptographic library
 License:  PHP-3.01
 BuildRequires:  pkgconfig(libsodium) >= 1.0.9
 
-Requires: php-common%{?_isa} = %{version}-%{release}
+Requires: %{name}-common%{?_isa} = %{version}-%{release}
 Obsoletes: php-pecl-libsodium2 < 3
 Provides:  php-pecl(libsodium)         = %{version}
 Provides:  php-pecl(libsodium)%{?_isa} = %{version}
+%if %{with rename}
+Conflicts: php-sodium         < %{major_version}
+Provides:  php-sodium         = %{version}-%{release}
+Provides:  php-sodium%{?_isa} = %{version}-%{release}
+%endif
 
 %description sodium
-The php-sodium package provides a simple,
+The %{name}-sodium package provides a simple,
 low-level PHP extension for the libsodium cryptographic library.
 %endif
 
@@ -667,7 +818,12 @@ Summary: Foreign Function Interface
 # All files licensed under PHP version 3.0.1
 License:  PHP-3.01
 BuildRequires:  pkgconfig(libffi)
-Requires: php-common%{?_isa} = %{version}-%{release}
+Requires: %{name}-common%{?_isa} = %{version}-%{release}
+%if %{with rename}
+Conflicts: php-ffi         < %{major_version}
+Provides:  php-ffi         = %{version}-%{release}
+Provides:  php-ffi%{?_isa} = %{version}-%{release}
+%endif
 
 %description ffi
 FFI is one of the features that made Python and LuaJIT very useful for fast
@@ -1144,7 +1300,7 @@ install -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/php.ini
 install -m 755 -d $RPM_BUILD_ROOT%{_datadir}/php/preload
 
 # Install tmpfiles.d file
-install -p -D -m 0644 %{SOURCE15} %{buildroot}%{_tmpfilesdir}/%{name}.conf
+install -p -D -m 0644 %{SOURCE15} %{buildroot}%{_tmpfilesdir}/php.conf
 
 %if %{with modphp}
 # install the DSO
@@ -1354,7 +1510,7 @@ systemctl try-restart php-fpm.service >/dev/null 2>&1 || :
 %attr(0770,root,apache) %dir %{_sharedstatedir}/php/wsdlcache
 %attr(0770,root,apache) %dir %{_sharedstatedir}/php/opcache
 %config(noreplace) %{_httpd_confdir}/php.conf
-%{_tmpfilesdir}/%{name}.conf
+%{_tmpfilesdir}/php.conf
 %endif
 
 %files common -f files.common
@@ -1432,7 +1588,7 @@ systemctl try-restart php-fpm.service >/dev/null 2>&1 || :
 %{_mandir}/man8/php-fpm.8*
 %dir %{_datadir}/php/fpm
 %{_datadir}/php/fpm/status.html
-%{_tmpfilesdir}/%{name}.conf
+%{_tmpfilesdir}/php.conf
 
 %files devel
 %{_bindir}/php-config
@@ -1451,7 +1607,7 @@ systemctl try-restart php-fpm.service >/dev/null 2>&1 || :
 
 %files embedded
 %{_libdir}/libphp.so
-%{_libdir}/libphp-%{embed_version}.so
+%{_libdir}/libphp-%{major_version}.so
 
 %files pgsql -f files.pgsql
 %files odbc -f files.odbc
@@ -1488,6 +1644,9 @@ systemctl try-restart php-fpm.service >/dev/null 2>&1 || :
 
 
 %changelog
+* Tue Oct 28 2025 Remi Collet <remi@remirepo.net> - 8.5.0~RC3-2
+- add build option to rename to php8.5
+
 * Wed Oct 22 2025 Remi Collet <remi@remirepo.net> - 8.5.0~RC3-1
 - update to 8.5.0RC3
 
