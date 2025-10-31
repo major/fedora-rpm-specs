@@ -25,8 +25,8 @@
 
 Name:           rocm
 Version:        %{rocm_version}
-Release:        1%{?dist}
-Summary:        ROCm Metapackage
+Release:        2%{?dist}
+Summary:        ROCm tools for computing on AMD GPU
 License:        MIT
 
 Source0:        License.txt
@@ -86,7 +86,8 @@ Requires: roctracer >= %{rocm_release}
 
 
 %description
-This is a meta package for all of the ROCm packages.
+This is a collection of ROCm tools and libraries for programming
+AMD graphics processing units.
 
 %package devel
 Summary:        Development environment for ROCm
@@ -180,6 +181,9 @@ install -pm 644 %{SOURCE0} .
 %license License.txt
 
 %changelog
+* Wed Oct 29 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-2
+- Improve description
+
 * Thu Oct 2 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-1
 - Update to 7.0.1
 

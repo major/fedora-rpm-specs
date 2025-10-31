@@ -1,7 +1,7 @@
 %bcond tests 1
 
 Name:           python-mkdocs-literate-nav
-Version:        0.6.1
+Version:        0.6.2
 Release:        %autorelease
 Summary:        MkDocs plugin to specify the navigation in Markdown instead of YAML
 

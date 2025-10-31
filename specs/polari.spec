@@ -12,11 +12,14 @@ License:       GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+
 URL:           https://wiki.gnome.org/Apps/Polari
 Source0:       http://download.gnome.org/sources/%{name}/45/%{name}-%{tarball_version}.tar.xz
 
+# Port to gjs-1.85/girepository-2.0 for GNOME 49
+Patch0:        0001-Port-to-girepository-2.0.patch
+
 BuildRequires: meson
 BuildRequires: pkgconfig(gtk4)
 BuildRequires: pkgconfig(libadwaita-1)
-BuildRequires: pkgconfig(gjs-1.0) >= 1.69.2
-BuildRequires: pkgconfig(gobject-introspection-1.0)
+BuildRequires: pkgconfig(girepository-2.0)
+BuildRequires: pkgconfig(gjs-1.0) >= 1.85.1
 BuildRequires: pkgconfig(telepathy-glib)
 BuildRequires: pkgconfig(tracker-sparql-3.0)
 

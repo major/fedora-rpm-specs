@@ -234,10 +234,6 @@ chown -R keylime:keylime %{_sysconfdir}/keylime
 
 %files common
 %license LICENSE
-%license LICENSE.dependencies
-%if 0%{?bundled_rust_deps}
-%license cargo-vendor.txt
-%endif
 %doc README.md
 %attr(500,keylime,keylime) %dir %{_sysconfdir}/keylime
 %attr(500,keylime,keylime) %dir %{_sysconfdir}/keylime/agent.conf.d
@@ -248,15 +244,27 @@ chown -R keylime:keylime %{_sysconfdir}/keylime
 %attr(700,keylime,keylime) %{_libexecdir}/keylime
 
 %files
+%license LICENSE.dependencies
+%if 0%{?bundled_rust_deps}
+%license cargo-vendor.txt
+%endif
 %{_unitdir}/keylime_agent.service
 %{_unitdir}/var-lib-keylime-secure.mount
 %{_bindir}/keylime_agent
 
 %files push
+%license LICENSE.dependencies
+%if 0%{?bundled_rust_deps}
+%license cargo-vendor.txt
+%endif
 %{_unitdir}/keylime_push_model_agent.service
 %{_bindir}/keylime_push_model_agent
 
 %files ima-emulator
+%license LICENSE.dependencies
+%if 0%{?bundled_rust_deps}
+%license cargo-vendor.txt
+%endif
 %{_bindir}/keylime_ima_emulator
 
 %if %{with check}

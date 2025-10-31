@@ -1,5 +1,5 @@
 Name:           python-wrapt
-Version:        1.17.1
+Version:        2.0.0
 Release:        %autorelease
 Summary:        A Python module for decorators, wrappers and monkey patching
 
@@ -15,6 +15,7 @@ BuildRequires:  gcc
 # We bypass tox and instead use pytest directly; this is simpler and avoids the
 # need to patch out coverage analysis.
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+# See also [tool.uv.dev-dependencies] in pyproject.toml.
 BuildRequires:  %{py3_dist pytest}
 
 %global common_description %{expand:
@@ -35,12 +36,25 @@ Obsoletes:      python-wrapt-doc < 1.16.0-8
 %description -n python3-wrapt %{common_description}
 
 
+%install -a
+# Including this file in binary distributions is not likely to be useful to
+# users; it is in the debugsource RPM anyway. It is not immediately obvious
+# what to suggest that upstream should do to avoid this.
+rm '%{buildroot}%{python3_sitearch}/wrapt/_wrappers.c'
+sed -r -i 's@^.*/wrapt/_wrappers\.c$@# &@' %{pyproject_files}
+
+
 %check -a
-%pytest -v
+# This file contains mypy typechecking tests:
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+ignore="${ignore-} --ignore=tests/conftest.py"
+
+%pytest ${ignore-} -v
+WRAPT_DISABLE_EXTENSIONS=true %pytest ${ignore-} -v
 
 
 %files -n python3-wrapt -f %{pyproject_files}
-%doc README.rst
+%doc README.md
 
 
 %changelog

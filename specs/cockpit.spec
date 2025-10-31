@@ -57,7 +57,7 @@ Summary:        Web Console for Linux servers
 License:        LGPL-2.1-or-later
 URL:            https://cockpit-project.org/
 
-Version:        349
+Version:        350
 Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 
@@ -334,12 +334,12 @@ Provides: cockpit-selinux = %{version}-%{release}
 Provides: cockpit-sosreport = %{version}-%{release}
 %endif
 
-Provides: bundled(npm(@patternfly/patternfly)) = 6.3.1
-Provides: bundled(npm(@patternfly/react-core)) = 6.3.1
-Provides: bundled(npm(@patternfly/react-icons)) = 6.3.1
-Provides: bundled(npm(@patternfly/react-styles)) = 6.3.1
-Provides: bundled(npm(@patternfly/react-table)) = 6.3.1
-Provides: bundled(npm(@patternfly/react-tokens)) = 6.3.1
+Provides: bundled(npm(@patternfly/patternfly)) = 6.4.0
+Provides: bundled(npm(@patternfly/react-core)) = 6.4.0
+Provides: bundled(npm(@patternfly/react-icons)) = 6.4.0
+Provides: bundled(npm(@patternfly/react-styles)) = 6.4.0
+Provides: bundled(npm(@patternfly/react-table)) = 6.4.0
+Provides: bundled(npm(@patternfly/react-tokens)) = 6.4.0
 Provides: bundled(npm(@xterm/addon-canvas)) = 0.7.0
 Provides: bundled(npm(@xterm/xterm)) = 5.5.0
 Provides: bundled(npm(argparse)) = 1.0.10
@@ -650,6 +650,10 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Oct 29 2025 Packit <hello@packit.dev> - 350-1
+- networking: fix renaming of bridges and other groups (RHEL-117883)
+- bridge: fix OpenSSH_10.2p1 host key detection
+
 * Wed Oct 15 2025 Packit <hello@packit.dev> - 349-1
 - Package manifests: Add `any` test
 - Bug fixes and translation updates

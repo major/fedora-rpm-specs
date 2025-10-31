@@ -2,7 +2,7 @@
 
 Name:		kf6-%{framework}
 Version:	6.19.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	KDE Frameworks 6 Tier 1 addon with various classes on top of QtGui
 
 License:	BSD-2-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only
@@ -16,11 +16,10 @@ BuildRequires:	cmake
 BuildRequires:	gcc-c++
 BuildRequires:  libX11-devel
 BuildRequires:  libxcb-devel
-BuildRequires:  qt6-qtbase-private-devel
 BuildRequires:  kf6-rpm-macros
-BuildRequires:  plasma-wayland-protocols-devel
-BuildRequires:  qt6-qtbase-devel
-BuildRequires:  qt6-qtwayland-devel
+BuildRequires:  cmake(PlasmaWaylandProtocols)
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6GuiPrivate)
 BuildRequires:  pkgconfig(wayland-protocols)
 
 BuildRequires:  cmake(Qt6WaylandClient)
@@ -107,6 +106,9 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Wed Oct 29 2025 Steve Cossette <farchord@gmail.com> - 6.19.0-2
+- Bump for Plasma/Qt6.10 rebuild
+
 * Sun Oct 05 2025 Steve Cossette <farchord@gmail.com> - 6.19.0-1
 - 6.19.0
 

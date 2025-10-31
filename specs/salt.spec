@@ -58,10 +58,39 @@ Requires: pciutils
 Requires: which
 Requires: dnf-utils
 Requires: logrotate
-Requires: python3-tornado
+Requires: python%{python3_version}dist(aiohttp)
+Requires: python%{python3_version}dist(certifi)
+Requires: python%{python3_version}dist(cherrypy)
+Requires: python%{python3_version}dist(cryptography)
+Requires: python%{python3_version}dist(distro) >= 1.0.1
+Requires: python%{python3_version}dist(importlib-metadata)
+Requires: python%{python3_version}dist(jaraco-functools)
+Requires: python%{python3_version}dist(jaraco-text)
+Requires: python%{python3_version}dist(jinja2) >= 3.1.5
+Requires: python%{python3_version}dist(jmespath)
+Requires: python%{python3_version}dist(looseversion)
+Requires: python%{python3_version}dist(markupsafe)
+Requires: python%{python3_version}dist(msgpack) >= 1
+Requires: python%{python3_version}dist(packaging)
+Requires: python%{python3_version}dist(psutil)
+Requires: python%{python3_version}dist(pycryptodomex) >= 3.9.8
+Requires: python%{python3_version}dist(pyopenssl)
+Requires: python%{python3_version}dist(python-dateutil)
+Requires: python%{python3_version}dist(python-gnupg)
+Requires: python%{python3_version}dist(pyyaml)
+Requires: python%{python3_version}dist(pyzmq) >= 25.1.2
+Requires: python%{python3_version}dist(requests)
+Requires: python%{python3_version}dist(setproctitle)
+Requires: python%{python3_version}dist(timelib)
+Requires: python%{python3_version}dist(tornado)
+Requires: python%{python3_version}dist(urllib3)
 
 BuildRequires: systemd-rpm-macros
 BuildRequires: python3-devel
+
+# Temporary disabled runtime dependency generator due
+# to missing metadata.
+%{?python_disable_dependency_generator}
 
 %description
 Salt is a distributed remote execution system used to execute commands and
@@ -142,6 +171,7 @@ Supports Python 3.
 
 %prep
 %autosetup -p1
+
 %generate_buildrequires
 %pyproject_buildrequires
 

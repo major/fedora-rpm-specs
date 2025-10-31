@@ -3,7 +3,7 @@
 Summary:	Pure ruby library which provides basic APIs for localization
 Name:		rubygem-%{gem_name}
 Version:	2.1.4
-Release:	4%{?dist}
+Release:	5%{?dist}
 
 # SPDX confirmed
 # Ruby:	lib/locale.rb
@@ -62,7 +62,20 @@ popd
 pushd .%{gem_instdir}
 #rake test
 # test/test_detect_cgi.rb needs test-unit-rr
+# https://github.com/ruby-gettext/locale/issues/19
+# https://github.com/ruby-gettext/locale/pull/20
+# Because test/test_detect_cgi.rb overrides CGI class (and calls super),
+# this needs "real" cgi Gem, which is removed from stdlib
+# on ruby3_5
+%if 0%{?fedora} >= 44
+mv test/test_detect_cgi.rb{,.skip}
+%endif
 ruby -Ilib:test:. -e 'require "test-unit" ; require "test/unit/rr" ; Dir.glob("test/test_*.rb").each {|f| require f}'
+%if 0%{?fedora} >= 44
+find . -name \*.skip | while read f ; do
+	mv $f ${f%.skip}
+done
+%endif
 popd
 
 %files
@@ -81,6 +94,9 @@ popd
 %{gem_instdir}/samples/
 
 %changelog
+* Wed Oct 29 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.1.4-5
+- Skip unavailable tests on ruby3_5
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

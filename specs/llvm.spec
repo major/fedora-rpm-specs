@@ -70,6 +70,67 @@
 %bcond_with mlir
 %endif
 
+#region flang
+%if %{without compat_build} && %{defined fedora} && (%{maj_ver} >= 22 && 0%{?fedora} >= 44)
+# Link error on i686.
+# s390x is not supported upstream yet.
+%ifarch i686 s390x
+%bcond_with flang
+%else
+%bcond_without flang
+%endif
+%endif
+
+%if %{with flang}
+
+# Sanity check for flang
+# flang depends on mlir, clang, flang, openmp.
+# Make sure those are being built.
+%if %{without mlir}
+%{error:flang must be built --with=mlir}
+%endif
+
+# Set Fortran build flags to nil because they contain flags that don't apply to flang.
+%global build_fflags %{nil}
+
+%{lua:
+
+-- Return the maximum number of parallel jobs a build can run based on the
+-- amount of maximum memory used per process (per_proc_mem).
+function print_max_procs(per_proc_mem)
+    local f = io.open("/proc/meminfo", "r")
+    local mem = 0
+    local nproc_str = nil
+    for line in f:lines() do
+        _, _, mem = string.find(line, "MemTotal:%s+(%d+)%s+kB")
+        if mem then
+           break
+        end
+    end
+    f:close()
+
+    local proc_handle = io.popen("nproc")
+    _, _, nproc_str = string.find(proc_handle:read("*a"), "(%d+)")
+    proc_handle:close()
+    local nproc = tonumber(nproc_str)
+    if nproc < 1 then
+        nproc = 1
+    end
+    local mem_mb = mem / 1024
+    local cpu = math.floor(mem_mb / per_proc_mem)
+    if cpu < 1 then
+        cpu = 1
+    end
+
+    if cpu > nproc then
+        cpu = nproc
+    end
+    print(cpu)
+end
+}
+%endif
+#endregion flang
+
 # The libcxx build condition also enables libcxxabi and libunwind.
 %if %{without compat_build} && %{defined fedora}
 %bcond_without libcxx
@@ -330,6 +391,10 @@
 %global llvm_test_suite_dir %{_datadir}/llvm-test-suite
 %endif
 #endregion PGO globals
+
+#region flang globals
+%global pkg_name_flang flang%{pkg_suffix}
+#endregion flang globals
 
 #endregion globals
 
@@ -1163,6 +1228,42 @@ Polly header files.
 %endif
 #endregion polly packages
 
+#region flang packages
+%if %{with flang}
+%package -n %{pkg_name_flang}
+Summary: a Fortran language front-end designed for integration with LLVM
+Requires: %{pkg_name_flang}-runtime%{?_isa} = %{version}-%{release}
+# flang installs headers in the clang resource directory
+Requires: %{pkg_name_clang}-resource-filesystem%{?_isa} = %{version}-%{release}
+# flang implicitly calls ld.bfd when linking and depends on the gcc runtime objects.
+Requires: binutils
+Requires: gcc
+# Up to version 17.0.6-1, flang used to provide a flang-devel package.
+# This changed in 17.0.6-2 and all development-related files are now
+# distributed in the main flang package.
+Obsoletes: %{pkg_name_flang}-devel < 17.0.6-2
+
+# We no longer ship flang-doc.
+Obsoletes: %{pkg_name_flang}-doc < 22
+
+License: Apache-2.0 WITH LLVM-exception
+URL:     https://flang.llvm.org
+
+%description -n %{pkg_name_flang}
+
+Flang is a ground-up implementation of a Fortran front end written in modern
+C++.
+
+%package -n %{pkg_name_flang}-runtime
+Summary: Flang runtime libraries
+Conflicts: %{pkg_name_flang} < 17.0.6-2
+
+%description -n %{pkg_name_flang}-runtime
+Flang runtime libraries.
+
+%endif
+#endregion flang packages
+
 #endregion packages
 
 #region prep
@@ -1298,6 +1399,11 @@ cd llvm/utils/lit
 %global projects %{projects};polly
 %endif
 
+%if %{with flang}
+%global projects %{projects};flang
+%global runtimes %{runtimes};flang-rt
+%endif
+
 %if %{with libcxx}
 %global runtimes %{runtimes};libcxx;libcxxabi;libunwind
 %endif
@@ -1423,7 +1529,8 @@ popd
 #region compiler-rt options
 %global cmake_config_args %{cmake_config_args} \\\
 	-DCOMPILER_RT_INCLUDE_TESTS:BOOL=OFF \\\
-	-DCOMPILER_RT_INSTALL_PATH=%{_prefix}/lib/clang/%{maj_ver}
+	-DCOMPILER_RT_INSTALL_PATH=%{_prefix}/lib/clang/%{maj_ver} \\\
+	-DLLVM_BUILD_EXTERNAL_COMPILER_RT:BOOL=ON
 #endregion compiler-rt options
 
 #region docs options
@@ -1491,7 +1598,6 @@ popd
 %global cmake_config_args %{cmake_config_args}  \\\
 	-DLLVM_APPEND_VC_REV:BOOL=OFF \\\
 	-DLLVM_BUILD_EXAMPLES:BOOL=OFF \\\
-	-DLLVM_BUILD_EXTERNAL_COMPILER_RT:BOOL=ON \\\
 	-DLLVM_BUILD_RUNTIME:BOOL=ON \\\
 	-DLLVM_BUILD_TOOLS:BOOL=ON \\\
 	-DLLVM_BUILD_UTILS:BOOL=ON \\\
@@ -1524,6 +1630,7 @@ popd
         -DMLIR_INSTALL_AGGREGATE_OBJECTS=OFF \\\
         -DMLIR_BUILD_MLIR_C_DYLIB=ON \\\
         -DMLIR_ENABLE_BINDINGS_PYTHON:BOOL=ON
+
 %endif
 #endregion mlir options
 
@@ -1559,6 +1666,23 @@ popd
   -DLLVM_POLLY_LINK_INTO_TOOLS=OFF
 %endif
 #endregion polly options
+
+#region flang options
+%if %{with flang}
+%global cmake_config_args %{cmake_config_args} \\\
+  -DFLANG_INCLUDE_DOCS:BOOL=ON
+# Build both, shared and static flang runtime objects.
+# See also https://llvm.org/devmtg/2025-04/slides/quick_talk/kruse_flang-rt.pdf
+%global cmake_config_args %{cmake_config_args} \\\
+  -DFLANG_RT_ENABLE_SHARED:BOOL=ON \\\
+  -DFLANG_RT_ENABLE_STATIC:BOOL=ON
+# The amount of RAM used per process has been set by trial and error.
+# This number may increase/decrease from time to time and may require changes.
+# We prefer to be on the safe side in order to avoid spurious errors.
+%global cmake_config_args %{cmake_config_args} \\\
+  -DFLANG_PARALLEL_COMPILE_JOBS=%{lua: print_max_procs(3072)}
+%endif
+#endregion flang options
 
 
 #region test options
@@ -1904,6 +2028,14 @@ popd
 
 %cmake_install
 
+%if %{with flang}
+# Create ld.so.conf.d entry
+mkdir -p %{buildroot}%{_sysconfdir}/ld.so.conf.d
+cat >> %{buildroot}%{_sysconfdir}/ld.so.conf.d/%{pkg_name_flang}-%{_arch}.conf << EOF
+%{_prefix}/lib/clang/%{maj_ver}/lib/%{llvm_triple}/
+EOF
+%endif
+
 popd
 
 mkdir -p %{buildroot}/%{_bindir}
@@ -2083,7 +2215,8 @@ echo " %{cfg_file_content}" >> %{buildroot}%{_sysconfdir}/%{pkg_name_clang}/i386
 %ifarch ppc64le
 # Fix install path on ppc64le so that the directory name matches the triple used
 # by clang.
-mv %{buildroot}%{_prefix}/lib/clang/%{maj_ver}/lib/powerpc64le-redhat-linux-gnu %{buildroot}%{_prefix}/lib/clang/%{maj_ver}/lib/%{llvm_triple}
+mkdir -pv %{buildroot}%{_prefix}/lib/clang/%{maj_ver}/lib/%{llvm_triple}
+mv %{buildroot}%{_prefix}/lib/clang/%{maj_ver}/lib/powerpc64le-redhat-linux-gnu/* %{buildroot}%{_prefix}/lib/clang/%{maj_ver}/lib/%{llvm_triple}
 %endif
 
 %ifarch %{ix86}
@@ -2158,6 +2291,50 @@ rm -rf %{buildroot}%{install_prefix}/src/python
 %endif
 #endregion mlir installation
 
+#region flang installation
+%if %{with flang}
+# Remove unnecessary files.
+rm -rfv %{buildroot}%{install_libdir}/cmake/flang
+
+rm -v %{buildroot}%{install_libdir}/libFIRAnalysis.a \
+      %{buildroot}%{install_libdir}/libFIRBuilder.a \
+      %{buildroot}%{install_libdir}/libFIRCodeGen.a \
+      %{buildroot}%{install_libdir}/libFIRCodeGenDialect.a \
+      %{buildroot}%{install_libdir}/libFIRDialect.a \
+      %{buildroot}%{install_libdir}/libFIRDialectSupport.a \
+      %{buildroot}%{install_libdir}/libFIROpenACCSupport.a \
+      %{buildroot}%{install_libdir}/libFIROpenMPSupport.a \
+      %{buildroot}%{install_libdir}/libFIRSupport.a \
+      %{buildroot}%{install_libdir}/libFIRTestAnalysis.a \
+      %{buildroot}%{install_libdir}/libFIRTestOpenACCInterfaces.a \
+      %{buildroot}%{install_libdir}/libFIRTransforms.a \
+      %{buildroot}%{install_libdir}/libflangFrontend.a \
+      %{buildroot}%{install_libdir}/libflangFrontendTool.a \
+      %{buildroot}%{install_libdir}/libflangPasses.a \
+      %{buildroot}%{install_libdir}/libFlangOpenMPTransforms.a \
+      %{buildroot}%{install_libdir}/libFortranEvaluate.a \
+      %{buildroot}%{install_libdir}/libFortranLower.a \
+      %{buildroot}%{install_libdir}/libFortranParser.a \
+      %{buildroot}%{install_libdir}/libFortranSemantics.a \
+      %{buildroot}%{install_libdir}/libFortranSupport.a \
+      %{buildroot}%{install_libdir}/libHLFIRDialect.a \
+      %{buildroot}%{install_libdir}/libHLFIRTransforms.a \
+      %{buildroot}%{install_libdir}/libCUFAttrs.a \
+      %{buildroot}%{install_libdir}/libCUFDialect.a \
+      %{buildroot}%{install_libdir}/libFortranDecimal.a
+%if %{maj_ver} >= 22
+rm -v %{buildroot}%{install_libdir}/libFortranUtils.a \
+      %{buildroot}%{install_libdir}/libFIROpenACCTransforms.a \
+      %{buildroot}%{install_libdir}/libMIFDialect.a
+%endif
+
+find %{buildroot}%{install_includedir}/flang -type f -a ! -iname '*.mod' -delete
+
+# this is a test binary
+rm -v %{buildroot}%{install_bindir}/f18-parse-demo
+%endif
+#endregion flang installation
+
 #region libcxx installation
 %if %{with libcxx}
 # We can't install the unversionned path on default location because that would conflict with
@@ -2212,14 +2389,14 @@ move_and_replace_with_symlinks %{buildroot}%{install_datadir} %{buildroot}%{_dat
 mkdir -p %{buildroot}%{_bindir}
 for f in %{buildroot}%{install_bindir}/*; do
   filename=`basename $f`
-  if [[ "$filename" =~ ^(lit|ld|clang-%{maj_ver})$ ]]; then
+  if [[ "$filename" =~ ^(lit|ld|clang-%{maj_ver}|flang-%{maj_ver})$ ]]; then
     continue
   fi
   %if %{with compat_build}
     ln -s ../../%{install_bindir}/$filename %{buildroot}/%{_bindir}/$filename-%{maj_ver}
   %else
-    # clang-NN is already created by the build system.
-    if [[ "$filename" == "clang" ]]; then
+    # clang-NN and flang-NN are already created by the build system.
+    if [[ "$filename" =~ ^(clang|flang)$ ]]; then
       continue
     fi
     ln -s $filename %{buildroot}/%{_bindir}/$filename-%{maj_ver}
@@ -2374,6 +2551,7 @@ export LIT_XFAIL="tools/UpdateTestChecks"
 #region Test CLANG
 reset_test_opts
 export LIT_XFAIL="$LIT_XFAIL;clang/test/CodeGen/profile-filter.c"
+
 %cmake_build --target check-clang
 #endregion Test Clang
 
@@ -2556,6 +2734,13 @@ adjust_lit_filter_out test_list_filter_out
 # to pass. And then we can adapt this number.
 export LIT_OPTS="$LIT_OPTS --max-retries-per-test=4"
 
+%if %{with flang}
+# Without this we run into a libflang_rt.runtime.so not found error.
+# See https://github.com/llvm/llvm-project/pull/150722 for why this only
+# happens when flang is found.
+export LD_LIBRARY_PATH=%{buildroot}%{_prefix}/lib/clang/%{maj_ver}/lib/%{llvm_triple}
+%endif
+
 %if 0%{?rhel}
 # libomp tests are often very slow on s390x brew builders
 %ifnarch s390x riscv64
@@ -2620,6 +2805,12 @@ test_list_filter_out+=("MLIR :: python/execution_engine.py")
 test_list_filter_out+=("MLIR :: python/multithreaded_tests.py")
 %endif
 
+%if %{with flang}
+# TODO(kkleine): This test needs to be re-enabled. I currently only fails when building with flang.
+# Here's the test failure: https://gist.github.com/kwk/5d551e27a28dfc1b34a09dca781f91df
+test_list_filter_out+=("MLIR :: mlir-pdll-lsp-server/view-output.test")
+%endif
+
 adjust_lit_filter_out test_list_filter_out
 
 export PYTHONPATH=%{buildroot}/%{python3_sitearch}
@@ -2655,6 +2846,8 @@ if ! grep -q atomics /proc/cpuinfo; then
 fi
 %endif
 
+adjust_lit_filter_out test_list_filter_out
+
 %cmake_build --target check-bolt
 %endif
 #endregion BOLT tests
@@ -2666,6 +2859,25 @@ reset_test_opts
 %endif
 #endregion polly tests
 
+#region flang tests
+%if %{with flang}
+reset_test_opts
+
+# https://github.com/llvm/llvm-project/issues/126051
+test_list_filter_out+=("Flang :: Driver/linker-flags.f90")
+
+# We filter our the location.f90 test for now because with LTO+PGO enabled,
+# We miss the location.f90 entry in the loc_kind_array[ base, inclusion] entry.
+# https://github.com/llvm/llvm-project/issues/156629
+test_list_filter_out+=("Flang :: Lower/location.f90")
+
+adjust_lit_filter_out test_list_filter_out
+
+%cmake_build --target check-flang
+%cmake_build --target check-flang-rt
+
+%endif
+#endregion flang tests
 
 %endif
 
@@ -3425,6 +3637,52 @@ fi
 #endregion MLIR files
 
 #region libcxx files
+
+#region flang files
+%if %{with flang}
+%files -n %{pkg_name_flang}
+%license flang/LICENSE.TXT
+%{expand_mans flang}
+%{expand_bins %{expand:
+    tco
+    bbc
+    fir-opt
+    fir-lsp-server
+    flang
+    flang-new
+}}
+%{install_bindir}/flang-%{maj_ver}
+%{expand_includes %{expand:
+    flang/__cuda_builtins.mod
+    flang/__cuda_device.mod
+    flang/__fortran_builtins.mod
+    flang/__fortran_ieee_exceptions.mod
+    flang/__fortran_type_info.mod
+    flang/__ppc_intrinsics.mod
+    flang/__ppc_types.mod
+    flang/cooperative_groups.mod
+    flang/ieee_arithmetic.mod
+    flang/ieee_exceptions.mod
+    flang/ieee_features.mod
+    flang/iso_c_binding.mod
+    flang/iso_fortran_env.mod
+    flang/mma.mod
+    flang/cudadevice.mod
+    flang/iso_fortran_env_impl.mod
+    flang/omp_lib.mod
+    flang/omp_lib_kinds.mod
+}}
+
+%{_prefix}/lib/clang/%{maj_ver}/include/ISO_Fortran_binding.h
+
+%files -n %{pkg_name_flang}-runtime
+%{_prefix}/lib/clang/%{maj_ver}/lib/%{llvm_triple}/libflang_rt.runtime.a
+%{_prefix}/lib/clang/%{maj_ver}/lib/%{llvm_triple}/libflang_rt.runtime.so
+%config(noreplace) %{_sysconfdir}/ld.so.conf.d/%{pkg_name_flang}-%{_arch}.conf
+
+%endif
+#region flang files
+
 %if %{with libcxx}
 
 %files -n %{pkg_name_libcxx}

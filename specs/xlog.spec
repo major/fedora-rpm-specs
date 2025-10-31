@@ -11,6 +11,7 @@ Source1:       org.nongnu.Xlog.metainfo.xml
 
 Patch0:        %{name}-2.0.19-no-error.patch
 Patch1:        xlog-%{version}-hamlib42.patch
+Patch2:        %{name}-2.0.25-aclocal.patch
 
 ExcludeArch:   i686
 

@@ -1,5 +1,5 @@
 Name: conan
-Version: 2.21.0
+Version: 2.22.0
 Release: %autorelease
 
 License: MIT

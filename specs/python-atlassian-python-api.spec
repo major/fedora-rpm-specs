@@ -16,6 +16,9 @@ Source0:        %{pypi_source %{srcname}}
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+%if %{with tests}
+BuildRequires:  python3-pytest
+%endif
 
 %global _description %{expand:
 The atlassian-python-api library provides a simple and convenient way to
@@ -44,11 +47,7 @@ Summary:        %{summary}
 %autosetup -n %{srcname}-%{version}
 
 %generate_buildrequires
-%if %{with tests}
-%pyproject_buildrequires -t
-%else
 %pyproject_buildrequires
-%endif
 
 %build
 %pyproject_wheel
@@ -59,7 +58,7 @@ Summary:        %{summary}
 
 %check
 %if %{with tests}
-%tox
+%pytest
 %else
 %pyproject_check_import
 %endif

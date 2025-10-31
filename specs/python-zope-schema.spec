@@ -2,17 +2,12 @@
 
 Summary: Zope 3 schemas
 Name: python-zope-schema
-Version: 7.0.1
+Version: 8.1
 Release: %autorelease
 License: ZPL-2.1
 BuildArch: noarch
 URL: http://pypi.python.org/pypi/zope.schema
-Source0: %{pypi_source %{modname}}
-
-# Compatibility with Sphinx 8
-# from https://github.com/zopefoundation/zope.schema/commit/c0be2d
-# Unrelated files removed
-Patch: sphinx8.patch
+Source0: %{pypi_source zope_schema}
 
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
@@ -28,7 +23,7 @@ Summary:        Zope 3 schemas
 This package is a zope.interface extension for defining data schemas.
 
 %prep
-%autosetup -p1 -n %{modname}-%{version}
+%autosetup -p1 -n zope_schema-%{version}
 
 %generate_buildrequires
 %pyproject_buildrequires -t
@@ -53,8 +48,6 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} zope-testrunner --test-path=src
 %doc html/
 %exclude %dir %{python3_sitelib}/zope
 %exclude %{python3_sitelib}/zope/schema/tests/
-%{python3_sitelib}/%{modname}-*-nspkg.pth
-
 
 %changelog
 %autochangelog

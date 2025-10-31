@@ -1,12 +1,12 @@
 Name:           feedbackd
-Version:        0.8.1
+Version:        0.8.6
 Release:        %autorelease
 Summary:        Feedback library for GNOME
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
-URL:            https://source.puri.sm/Librem5/feedbackd
-Source0:        https://source.puri.sm/Librem5/feedbackd/-/archive/v%{version}/%{name}-v%{version}.tar.gz
+URL:            https://gitlab.freedesktop.org/agx/feedbackd
+Source0:        https://gitlab.freedesktop.org/agx/feedbackd/-/archive/v%{version}/%{name}-v%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  meson
@@ -76,7 +76,7 @@ developing applications that use %{name}.
 %{_libexecdir}/feedbackd
 %{_libexecdir}/fbd-ledctrl
 %{_libexecdir}/fbd-alert-slider
-%{_udevrulesdir}/90-feedbackd.rules
+%{_udevrulesdir}/72-feedbackd.rules
 %{_datadir}/dbus-1/interfaces/org.sigxcpu.Feedback.xml
 %{_datadir}/dbus-1/interfaces/org.sigxcpu.Feedback.Haptic.xml
 %{_datadir}/dbus-1/services/org.sigxcpu.Feedback.service

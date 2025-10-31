@@ -47,7 +47,7 @@
 
 Name:           blender
 Epoch:          1
-Version:        4.5.3
+Version:        4.5.4
 Release:        %autorelease
 
 Summary:        3D modeling, animation, rendering and post-production

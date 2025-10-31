@@ -3,7 +3,7 @@
 
 Name:		mupen64plus
 Version:	2.6.0
-Release:	5%{?dist}
+Release:	%autorelease
 
 Summary:	Nintendo 64 Emulator
 # Automatically converted from old format: GPLv2+ and CC-BY-SA - review is highly recommended.
@@ -11,10 +11,24 @@ License:	GPL-2.0-or-later AND LicenseRef-Callaway-CC-BY-SA
 URL:		http://www.mupen64plus.org/
 Source:		https://github.com/mupen64plus/mupen64plus-core/releases/download/%{version}/mupen64plus-bundle-src-%{version}.tar.gz
 
-# https://github.com/mupen64plus/mupen64plus-core/issues/1104
+# https://github.com/mupen64plus/mupen64plus-core/issues/1104 (merged, unreleased)
 Patch1:		search-lib64.patch
-# Fix missing includes bubbling up due to sdl-compat
+
+# Fix missing includes bubbling up due gnu23 rules
+# https://github.com/mupen64plus/mupen64plus-core/issues/1114 (merged, unreleased)
 Patch2:		add-includes.patch
+
+# Combined changes of four merged upstream PRs:
+# https://github.com/mupen64plus/mupen64plus-core/pull/1122/commits
+# https://github.com/mupen64plus/mupen64plus-core/pull/1123/commits
+# https://github.com/mupen64plus/mupen64plus-core/pull/1080/commits
+# https://github.com/mupen64plus/mupen64plus-core/pull/1119/commits
+# 
+# This should mitigate vulnerabilities:
+# CVE-2025-29366
+# CVE-2025-9688
+# https://github.com/mupen64plus/mupen64plus-core/issues/1146
+Patch3:		upstream-prs-1122-1123-1080-1119.patch
 
 BuildRequires:	pkgconfig(SDL_ttf)
 BuildRequires:	pkgconfig(lirc)
@@ -114,104 +128,4 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/mupen64plus.desktop
 %{_libdir}/libmupen64plus.so
 
 %changelog
-* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Fri Jan 17 2025 David Auer <dreua@posteo.de> - 2.6.0-4
-- Fix build on rawhide (42)
-
-* Wed Jan 08 2025 David Auer <dreua@posteo.de> - 2.6.0-3
-- Add patch for the plugin search path
-
-* Fri Dec 20 2024 David Auer <dreua@posteo.de> - 2.6.0-2
-- Disable debug build
-- Enable pic build
-- Add optional build requirment speexdsp
-- Lib symlink is now relative
-
-* Sun Nov 24 2024 David Auer <dreua@posteo.de> - 2.6.0-1
-- Updated to 2.6.0
-
-* Mon Sep 02 2024 Miroslav Suchý <msuchy@redhat.com> - 2.5-24
-- convert license to SPDX
-
-* Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-23
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-22
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-21
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Jan 17 2024 Jonathan Wakely <jwakely@redhat.com> - 2.5-20
-- Rebuilt for Boost 1.83
-
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-19
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 2.5-18
-- Rebuilt for Boost 1.81
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-17
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-16
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed May 04 2022 Thomas Rodgers <trodgers@redhat.com> - 2.5-15
-- Rebuilt for Boost 1.78
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-14
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Sat Aug 07 2021 Jonathan Wakely <jwakely@redhat.com> - 2.5-13
-- Rebuilt for Boost 1.76
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Fri Jan 22 2021 Jonathan Wakely <jwakely@redhat.com> - 2.5-10
-- Rebuilt for Boost 1.75
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Sat May 30 2020 Jonathan Wakely <jwakely@redhat.com> - 2.5-8
-- Rebuilt for Boost 1.73
-
-* Mon May 25 2020 Wade Berrier <wberrier@gmail.com> - 2.5-7
-- Fix builds on arm, aarch64, and ppc64le
-
-* Sun May 24 2020 Wade Berrier <wberrier@gmail.com> - 2.5-6
-- Fix build with gcc 10
-
-* Sat Apr 25 2020 Wade Berrier <wberrier@gmail.com> - 2.5-5
-- Add gcc-c++ to BuildRequires
-
-* Sat Jan 27 2018 Wade Berrier <wberrier@gmail.com> - 2.5-4
-- Additional updates for Fedora package review (#1535549)
-
-* Sat Jan 20 2018 Wade Berrier <wberrier@gmail.com> - 2.5-3
-- Various updates for Fedora package review (#1535549)
-
-* Thu Jan 11 2018 Wade Berrier <wberrier@gmail.com> - 2.5-2
-- Update homepage url
-- Remove references to nonexistant gtk gui
-- add lirc build option
-- split out devel package
-
-* Fri Oct 02 2015 David Vásquez <davidjeremias82[AT]gmail [DOT] com> - 2.5-1
-- Updated to 2.5
-
-* Fri Jul 04 2014 David Vásquez <davidjeremias82[AT]gmail [DOT] com> - 2.0-6
-- Excluded innecesary sources
-
-* Fri Nov 22 2013 David Vasquez <davidjeremias82[AT]gmail [DOT] com> - 2.0-5
-- Added Modules Input SDL
-
-* Wed Sep 25 2013 David Vasquez <davidjeremias82[AT]gmail [DOT] com> - 2.0-4
-- Initial build rpm
+%autochangelog

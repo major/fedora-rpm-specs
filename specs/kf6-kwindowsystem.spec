@@ -2,7 +2,7 @@
 
 Name:		kf6-%{framework}
 Version:	6.19.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	KDE Frameworks 6 Tier 1 integration module with classes for windows management
 License:	CC0-1.0 AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND MIT
 URL:		https://invent.kde.org/frameworks/%{framework}
@@ -105,6 +105,9 @@ Developer Documentation files for %{name} in HTML format
 
 
 %changelog
+* Wed Oct 29 2025 Steve Cossette <farchord@gmail.com> - 6.19.0-3
+- Bump for Plasma/Qt6.10 rebuild
+
 * Tue Oct 07 2025 Steve Cossette <farchord@gmail.com> - 6.19.0-2
 - Fix for global shortcuts not working
 

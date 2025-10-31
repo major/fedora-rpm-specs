@@ -2,13 +2,17 @@
 Summary: Analyzes and Reports on system logs
 Name: logwatch
 Version: 7.13
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: MIT
 URL: https://sourceforge.net/projects/logwatch/
 Source0: https://sourceforge.net/projects/logwatch/files/%{name}-%{version}/%{name}-%{version}.tar.gz
 # Add dnf5 module that will be available in the next release
 Source1: dnf5
 Source2: dnf5.conf
+# Fix for BZ2322773
+Patch1: zz-disk-space.patch
+# Fix for excess blank line in dovecot
+Patch2: dovecot.patch
 BuildRequires: perl-generators
 Requires: grep
 Requires: dnf5
@@ -137,6 +141,10 @@ install -m 0644 %{SOURCE2} %{buildroot}%{_datadir}/logwatch/default.conf/service
 %{_unitdir}/logwatch.timer
 
 %changelog
+* Wed Oct 29 2025 Frank Crawford <frank@crawford.emu.id.au> - 7.13-4
+- Ignore virtual filesystem nsfs in zz-disk-space (BZ2322773)
+- Suppress extra blank line from dovecot when no other output generate
+
 * Sun Oct 19 2025 Frank Crawford <frank@crawford.emu.id.au> - 7.13-3
 - Correct issue that dnf5 reports times in UTC and logwatch uses localtime
 

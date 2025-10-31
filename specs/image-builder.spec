@@ -3,11 +3,11 @@
 # required. So if this needs backport to places where there is no
 # recent osbuild available we could simply make --use-librepo false
 # and go back to 129.
-%global min_osbuild_version 160
+%global min_osbuild_version 163
 
 %global goipath         github.com/osbuild/image-builder-cli
 
-Version:        39
+Version:        40
 
 %gometa
 
@@ -46,10 +46,13 @@ BuildRequires:  btrfs-progs-devel
 # BUNDLE_START
 Provides: bundled(golang(dario.cat/mergo)) = 1.0.2
 Provides: bundled(golang(github.com/BurntSushi/toml)) = 3d3abc2
+Provides: bundled(golang(github.com/IBM/go-sdk-core/v5)) = 5.21.0
+Provides: bundled(golang(github.com/IBM/ibm-cos-sdk-go)) = 1.12.3
 Provides: bundled(golang(github.com/Microsoft/go-winio)) = 0.6.2
 Provides: bundled(golang(github.com/Microsoft/hcsshim)) = 0.13.0
 Provides: bundled(golang(github.com/VividCortex/ewma)) = 1.2.0
 Provides: bundled(golang(github.com/acarl005/stripansi)) = 5a71ef0
+Provides: bundled(golang(github.com/asaskevich/govalidator)) = a9d515a
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2)) = 1.38.3
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream)) = 1.7.1
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/config)) = 1.31.6
@@ -93,9 +96,15 @@ Provides: bundled(golang(github.com/docker/go-connections)) = 0.5.0
 Provides: bundled(golang(github.com/docker/go-units)) = 0.5.0
 Provides: bundled(golang(github.com/fatih/color)) = 1.18.0
 Provides: bundled(golang(github.com/felixge/httpsnoop)) = 1.0.4
+Provides: bundled(golang(github.com/gabriel-vasile/mimetype)) = 1.4.8
 Provides: bundled(golang(github.com/go-jose/go-jose/v4)) = 4.0.5
 Provides: bundled(golang(github.com/go-logr/logr)) = 1.4.3
 Provides: bundled(golang(github.com/go-logr/stdr)) = 1.2.2
+Provides: bundled(golang(github.com/go-openapi/errors)) = 0.22.0
+Provides: bundled(golang(github.com/go-openapi/strfmt)) = 0.23.0
+Provides: bundled(golang(github.com/go-playground/locales)) = 0.14.1
+Provides: bundled(golang(github.com/go-playground/universal-translator)) = 0.18.1
+Provides: bundled(golang(github.com/go-playground/validator/v10)) = 10.26.0
 Provides: bundled(golang(github.com/gobwas/glob)) = 0.2.3
 Provides: bundled(golang(github.com/gogo/protobuf)) = 1.3.2
 Provides: bundled(golang(github.com/golang/groupcache)) = 2c02b82
@@ -103,14 +112,19 @@ Provides: bundled(golang(github.com/golang/protobuf)) = 1.5.4
 Provides: bundled(golang(github.com/google/go-containerregistry)) = 0.20.3
 Provides: bundled(golang(github.com/google/go-intervals)) = 0.0.2
 Provides: bundled(golang(github.com/google/uuid)) = 1.6.0
+Provides: bundled(golang(github.com/gophercloud/gophercloud/v2)) = 2.8.0
 Provides: bundled(golang(github.com/gorilla/mux)) = 1.8.1
 Provides: bundled(golang(github.com/hashicorp/errwrap)) = 1.1.0
+Provides: bundled(golang(github.com/hashicorp/go-cleanhttp)) = 0.5.2
 Provides: bundled(golang(github.com/hashicorp/go-multierror)) = 1.1.1
+Provides: bundled(golang(github.com/hashicorp/go-retryablehttp)) = 0.7.8
 Provides: bundled(golang(github.com/hashicorp/go-version)) = 1.7.0
 Provides: bundled(golang(github.com/inconshreveable/mousetrap)) = 1.1.0
+Provides: bundled(golang(github.com/jmespath/go-jmespath)) = b0104c8
 Provides: bundled(golang(github.com/json-iterator/go)) = 1.1.12
 Provides: bundled(golang(github.com/klauspost/compress)) = 1.18.0
 Provides: bundled(golang(github.com/klauspost/pgzip)) = 1.2.6
+Provides: bundled(golang(github.com/leodido/go-urn)) = 1.4.0
 Provides: bundled(golang(github.com/letsencrypt/boulder)) = de9c061
 Provides: bundled(golang(github.com/mattn/go-colorable)) = 0.1.14
 Provides: bundled(golang(github.com/mattn/go-isatty)) = 0.0.20
@@ -118,18 +132,20 @@ Provides: bundled(golang(github.com/mattn/go-runewidth)) = 0.0.16
 Provides: bundled(golang(github.com/mattn/go-sqlite3)) = 1.14.28
 Provides: bundled(golang(github.com/miekg/pkcs11)) = 1.1.1
 Provides: bundled(golang(github.com/mistifyio/go-zfs/v3)) = 3.0.1
+Provides: bundled(golang(github.com/mitchellh/mapstructure)) = 1.5.0
 Provides: bundled(golang(github.com/moby/docker-image-spec)) = 1.3.1
 Provides: bundled(golang(github.com/moby/sys/capability)) = 0.4.0
 Provides: bundled(golang(github.com/moby/sys/mountinfo)) = 0.7.2
 Provides: bundled(golang(github.com/moby/sys/user)) = 0.4.0
 Provides: bundled(golang(github.com/modern-go/concurrent)) = bacd9c7
 Provides: bundled(golang(github.com/modern-go/reflect2)) = 1.0.2
+Provides: bundled(golang(github.com/oklog/ulid)) = 1.3.1
 Provides: bundled(golang(github.com/opencontainers/go-digest)) = 1.0.0
 Provides: bundled(golang(github.com/opencontainers/image-spec)) = 1.1.1
 Provides: bundled(golang(github.com/opencontainers/runtime-spec)) = 1.2.1
 Provides: bundled(golang(github.com/opencontainers/selinux)) = 1.12.0
 Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.16.0
-Provides: bundled(golang(github.com/osbuild/images)) = 0.206.0
+Provides: bundled(golang(github.com/osbuild/images)) = 0.210.0
 Provides: bundled(golang(github.com/pkg/errors)) = 0.9.1
 Provides: bundled(golang(github.com/pmezard/go-difflib)) = 5d4384e
 Provides: bundled(golang(github.com/proglottis/gpgme)) = 0.1.4
@@ -151,6 +167,7 @@ Provides: bundled(golang(github.com/titanous/rocacheck)) = afe7314
 Provides: bundled(golang(github.com/ulikunitz/xz)) = 0.5.12
 Provides: bundled(golang(github.com/vbatts/tar-split)) = 0.12.1
 Provides: bundled(golang(github.com/vbauerster/mpb/v8)) = 8.10.2
+Provides: bundled(golang(go.mongodb.org/mongo-driver)) = 1.17.2
 Provides: bundled(golang(go.opencensus.io)) = 0.24.0
 Provides: bundled(golang(go.opentelemetry.io/auto/sdk)) = 1.1.0
 Provides: bundled(golang(go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp)) = 0.61.0
@@ -158,6 +175,7 @@ Provides: bundled(golang(go.opentelemetry.io/otel)) = 1.36.0
 Provides: bundled(golang(go.opentelemetry.io/otel/metric)) = 1.36.0
 Provides: bundled(golang(go.opentelemetry.io/otel/trace)) = 1.36.0
 Provides: bundled(golang(go.yaml.in/yaml/v2)) = 2.4.2
+Provides: bundled(golang(go.yaml.in/yaml/v3)) = 3.0.3
 Provides: bundled(golang(golang.org/x/crypto)) = 0.41.0
 Provides: bundled(golang(golang.org/x/exp)) = 7d7fa50
 Provides: bundled(golang(golang.org/x/net)) = 0.43.0
@@ -241,6 +259,25 @@ cd $PWD/_build/src/%{goipath}
 %{_bindir}/image-builder
 
 %changelog
+* Wed Oct 29 2025 Packit <hello@packit.dev> - 40-1
+Changes with 40
+----------------
+  - Allow setting custom tags when uploading to AWS (#327)
+    - Author: Jakub Kadlčík, Reviewers: Lukáš Zapletal, Simon de Vlieger
+  - Support uploading to IBM Cloud (#338)
+    - Author: Jakub Kadlčík, Reviewers: Michael Vogt, Simon de Vlieger
+  - Support uploading to OpenStack (#337)
+    - Author: Jakub Kadlčík, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - deps: switch yaml libraries (#354)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Michael Vogt
+  - main: add support for bootc-installer image types (#341)
+    - Author: Michael Vogt, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - progress: detect real terminal width for messages (#316)
+    - Author: Lukáš Zapletal, Reviewers: Brian C. Lane, Simon de Vlieger
+
+— Somewhere on the Internet, 2025-10-29
+
+
 * Wed Oct 15 2025 Packit <hello@packit.dev> - 39-1
 Changes with 39
 ----------------

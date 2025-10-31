@@ -2,7 +2,7 @@
 
 Name:       calls
 Version:    49.1.1
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    A phone dialer and call handler
 
 License:    GPL-3.0-or-later AND LGPL-2.1-or-later
@@ -42,6 +42,9 @@ BuildRequires:  libappstream-glib
 BuildRequires:  python3-docutils
 
 Requires:  hicolor-icon-theme
+
+Provides: gnome-calls = %{version}-%{release}
+Provides: gnome-calls%{?_isa} = %{version}-%{release}
 
 %description
 A phone dialer and call handler.

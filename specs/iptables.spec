@@ -11,7 +11,7 @@ Name: iptables
 Summary: Tools for managing Linux kernel packet filtering capabilities
 URL: https://www.netfilter.org/projects/iptables
 Version: 1.8.11
-Release: 11%{?dist}
+Release: 12%{?dist}
 Source0: %{url}/files/%{name}-%{version}.tar.xz
 source1: %{url}/files/%{name}-%{version}.tar.xz.sig
 Source2: coreteam-gpg-key-0xD70D1A666ACF2B21.txt
@@ -27,7 +27,10 @@ Source11: ebtables-helper
 Source12: ebtables-config
 # Patch to fix -C handling, already upstream
 # https://git.netfilter.org/iptables/patch/?id=40406dbfaefbc204134452b2747bae4f6a122848
-Patch: iptables-1.8.11-fix-interface-comparisons.patch
+Patch1: iptables-1.8.11-fix-interface-comparisons.patch
+# Patch to fix overly strict command option checking
+# https://git.netfilter.org/iptables/patch/?id=192c3a6bc18f206895ec5e38812d648ccfe7e281
+Patch2: iptables-1.8.11-command-options-fix.patch
 
 # pf.os: ISC license
 # iptables-apply: Artistic Licence 2.0
@@ -473,6 +476,9 @@ fi
 
 
 %changelog
+* Tue Oct 28 2025 Paul Wouters <paul.wouters@aiven.io> - 1.8.11-12
+- Pull in upstream fix for too strict command option parsing
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.11-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

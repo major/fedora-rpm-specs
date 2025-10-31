@@ -131,7 +131,9 @@ mv Changes.txt.utf-8 Changes.txt
 %cmake_install
 
 %check
-%ctest
+# some tests fail randomly when run in parallel:
+# https://github.com/adventuregamestudio/ags/issues/2906
+%ctest -j1
 
 %files
 %license License.txt

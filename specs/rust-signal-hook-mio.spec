@@ -5,17 +5,15 @@
 %global crate signal-hook-mio
 
 Name:           rust-signal-hook-mio
-Version:        0.2.4
+Version:        0.2.5
 Release:        %autorelease
 Summary:        MIO support for signal-hook
 
-# Upstream license specification: Apache-2.0/MIT
-License:        Apache-2.0 OR MIT
+License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/signal-hook-mio
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * drop unused support for mio v0.6 and v0.7
-# * bump serial_test dev-dependency from 0.5 to 3
 Patch:          signal-hook-mio-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

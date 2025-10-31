@@ -1,5 +1,5 @@
 Name:		xrootd-s3-http
-Version:	0.5.1
+Version:	0.5.3
 Release:	1%{?dist}
 Summary:	S3/HTTP filesystem plugins for XRootD
 
@@ -60,6 +60,9 @@ and HTTP backends through an XRootD server.
 %license LICENSE
 
 %changelog
+* Wed Oct 29 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.5.3-1
+- Update to version 0.5.3
+
 * Tue Sep 02 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.5.1-1
 - Update to version 0.5.1
 

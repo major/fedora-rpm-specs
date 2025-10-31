@@ -21,7 +21,7 @@
 %endif
 
 Name:           bootc
-Version:        1.9.0
+Version:        1.10.0
 Release:        %{autorelease}
 Summary:        Bootable container system
 
@@ -143,7 +143,11 @@ find %{?buildroot}/%{_docdir} ! -type d -printf '%{_docdir}/%%P\n' > bootcdoclis
 
 %if %{with check}
 %check
-%cargo_test
+if grep -qEe 'Seccomp:.*0$' /proc/self/status; then
+    %cargo_test
+else
+    echo "skipping unit tests due to https://github.com/rpm-software-management/mock/pull/1613#issuecomment-3421908652"
+fi
 %endif
 
 %files -f bootcdoclist.txt

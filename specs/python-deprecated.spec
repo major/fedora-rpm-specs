@@ -1,11 +1,16 @@
 Name:           python-deprecated
 Version:        1.2.18
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Python decorator to deprecate old python classes, functions or methods
 License:        MIT
 URL:            https://github.com/laurent-laporte-pro/deprecated
 Source:         %{pypi_source deprecated}
 BuildArch:      noarch
+
+# Allow wrapt 2.x
+# https://github.com/laurent-laporte-pro/deprecated/pull/88/commits/52f4acc0c6f5781f030541d3047abca907bff572
+# https://github.com/laurent-laporte-pro/deprecated/pull/88/commits/f30b85eaa058e4aa1e0f0e86ad2de4012e598cd5
+Patch:          %{url}/pull/88/commits/f30b85eaa058e4aa1e0f0e86ad2de4012e598cd5.patch
 
 %global _description %{expand:
 Python @deprecated decorator to deprecate old python classes,
@@ -21,7 +26,7 @@ BuildRequires:  python3-pytest
 %description -n python3-deprecated %{_description}
 
 %prep
-%autosetup -n deprecated-%{version}
+%autosetup -n deprecated-%{version} -p1
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -41,6 +46,9 @@ BuildRequires:  python3-pytest
 
 
 %changelog
+* Wed Oct 29 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 1.2.18-6
+- Allow wrapt 2.x
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.2.18-5
 - Rebuilt for Python 3.14.0rc3 bytecode
 

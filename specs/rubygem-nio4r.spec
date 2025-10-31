@@ -5,12 +5,15 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.6.1
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: New IO for Ruby
 # The entire source code is MIT, bundled libev is BSD-2-Clause OR GPL-2.0-or-later
 License: MIT AND (BSD-2-Clause OR GPL-2.0-or-later)
 URL: https://github.com/socketry/nio4r
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
+# https://github.com/socketry/nio4r/pull/328
+# ruby3.5.0dev removes SSLContext#set_minmax_proto_version
+Patch0:  %{gem_name}-pr328-support-rubu35-openssl.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby-devel
@@ -44,6 +47,7 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version}
+%patch -P0 -p1
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -100,6 +104,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Thu Oct 30 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.6.1-8
+- Support ruby35/openssl SSLContext change
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

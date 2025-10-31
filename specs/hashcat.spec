@@ -7,7 +7,7 @@
 %bcond_with zlib
 %endif
 
-%global makeflags PREFIX=%{_prefix} LIBRARY_FOLDER=%{_libdir} SHARED_ROOT_FOLDER=%{_libdir} DOCUMENT_FOLDER=%{_docdir}/hashcat-doc SHARED=1 USE_SYSTEM_OPENCL=1 USE_SYSTEM_XXHASH=1 ENABLE_UNRAR=0
+%global makeflags PREFIX=%{_prefix} LIBRARY_FOLDER=%{_libdir} SHARED_ROOT_FOLDER=%{_libdir} DOCUMENT_FOLDER=%{_docdir}/hashcat-doc SHARED=1 USE_SYSTEM_OPENCL=1 USE_SYSTEM_XXHASH=1 ENABLE_UNRAR=0 MAINTAINER_MODE=1
 
 %if %{with zlib}
 %global makeflags %(echo %{makeflags} USE_SYSTEM_ZLIB=1)
@@ -16,10 +16,10 @@
 %endif
 
 Name: hashcat
-Version: 6.2.6
+Version: 7.1.2
 Release: %autorelease
 
-License: MIT AND LicenseRef-Fedora-Public-Domain
+License: MIT AND LicenseRef-Fedora-Public-Domain AND BSD-2-Clause AND Apache-2.0
 URL: https://github.com/%{name}/%{name}
 Summary: Advanced password recovery utility
 
@@ -32,22 +32,31 @@ Patch0: %{name}-build-fixes.patch
 
 BuildRequires: opencl-headers
 BuildRequires: xxhash-devel
+%ifarch aarch64
+BuildRequires: sse2neon-devel
+%endif
+
 BuildRequires: gcc
 BuildRequires: make
 
 %if %{with zlib}
-BuildRequires: zlib-devel
+BuildRequires: zlib-ng-compat-devel
 BuildRequires: minizip-compat-devel
 %else
 Provides: bundled(zlib) = 1.2.11
 Provides: bundled(minizip) = 1.2.11
 %endif
+Provides: bundled(lzma-sdk) = 24.09
+Provides: bundled(scrypt-jane)
+Provides: bundled(yescrypt)
+Provides: bundled(libargon2) = 20190702
 
 Recommends: %{name}-doc
 
 # Upstream does not support Big Endian architectures.
+# Upstream source code does not longer build for ppc64le: https://bugzilla.redhat.com/show_bug.cgi?id=2407234
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch: %{ix86} ppc64 s390x
+ExcludeArch: %{ix86} ppc64 s390x ppc64le
 
 %description
 Hashcat is the world's fastest and most advanced password recovery
@@ -74,7 +83,7 @@ BuildArch: noarch
 
 %prep
 %autosetup -p1
-rm -rf deps/{OpenCL-Headers,xxHash}
+rm -rf deps/{OpenCL-Headers,xxHash,sse2neon}
 %if %{with zlib}
 rm -rf deps/zlib
 %endif
@@ -91,6 +100,7 @@ rm -f modules/.lock
 ln -s lib%{name}.so.%{version} %{buildroot}%{_libdir}/lib%{name}.so
 mkdir -p %{buildroot}%{_datadir}/bash-completion/completions
 install -m 0744 -p extra/tab_completion/hashcat.sh %{buildroot}%{_datadir}/bash-completion/completions/%{name}
+find %{buildroot}%{_libdir}/%{name}/ -name '.gitkeep' -type f -delete
 
 %files
 %license docs/license.txt

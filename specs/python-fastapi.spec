@@ -37,7 +37,7 @@
 %global sum_zh FastAPI 框架
 
 Name:           python-fastapi
-Version:        0.120.1
+Version:        0.120.2
 Release:        %autorelease
 Summary:        %{sum_en}
 

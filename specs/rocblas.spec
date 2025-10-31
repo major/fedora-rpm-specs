@@ -142,13 +142,13 @@
 %global gpu_list %{rocm_gpu_list_default}
 %endif
 
-Name:           %{rocblas_name}
+Name:           rocblas
 %if %{with gitcommit}
 Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        BLAS implementation for ROCm
 %if %{with gitcommit}
@@ -248,14 +248,20 @@ rocBLAS is the AMD library for Basic Linear Algebra Subprograms
 (BLAS) on the ROCm platform. It is implemented in the HIP
 programming language and optimized for AMD GPUs.
 
-%post -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
+%if 0%{?suse_version}
+%package -n %{rocblas_name}
+Summary:        Shared libraries for %{name}
+
+%description -n %{rocblas_name}
+%{summary}
+
+%ldconfig_scriptlets -n %{rocblas_name}
+%endif
 
 %package devel
 Summary:        Libraries and headers for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{rocblas_name}%{?_isa} = %{version}-%{release}
 Requires:       cmake(hip)
-Provides:       rocblas-devel = %{version}-%{release}
 
 %description devel
 %{summary}
@@ -355,7 +361,7 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library/src:$LD_LIBRARY_PATH
 %endif
 %endif
 
-%files
+%files -n %{rocblas_name}
 %if %{with gitcommit}
 %license projects/rocblas/LICENSE.md
 %else
@@ -387,6 +393,9 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library/src:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Mon Oct 27 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.2-2
+- Better handling of shared library on opensuse
+
 * Fri Oct 10 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.2-1
 - Update to 7.0.2
 

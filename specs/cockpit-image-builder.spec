@@ -1,5 +1,5 @@
 Name:           cockpit-image-builder
-Version:        80
+Version:        81
 Release:        1%{?dist}
 Summary:        Image builder plugin for Cockpit
 
@@ -46,6 +46,33 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Wed Oct 29 2025 Packit <hello@packit.dev> - 81-1
+Changes with 81
+----------------
+  - Wizard: add custom EPEL repo warning (#3757)
+    - Author: Bryttanie, Reviewers: Klara Simickova
+  - build(deps): bump @patternfly/react-table from 6.3.1 to 6.4.0 (#3759)
+    - Author: dependabot[bot], Reviewers: Klara Simickova
+  - build(deps): bump @redhat-cloud-services/frontend-components from 7.0.6 to 7.0.12 (#3774)
+    - Author: dependabot[bot], Reviewers: Klara Simickova
+  - build(deps): bump @scalprum/react-core from 0.10.0 to 0.11.0 (#3772)
+    - Author: dependabot[bot], Reviewers: Klara Simickova
+  - build(deps-dev): bump @eslint/js from 9.36.0 to 9.38.0 (#3760)
+    - Author: dependabot[bot], Reviewers: Klara Simickova
+  - chore(deps): update babel monorepo to v7.28.5 (#3762)
+    - Author: red-hat-konflux[bot], Reviewers: Klara Simickova
+  - chore(deps): update dependency chart.js to v4.5.1 (#3764)
+    - Author: red-hat-konflux[bot], Reviewers: Klara Simickova
+  - chore(deps): update dependency sass-loader to v16.0.6 (#3765)
+    - Author: red-hat-konflux[bot], Reviewers: Klara Simickova
+  - package.json: replace @ltd/j-toml with smol-toml (RHEL-123840) (#3770)
+    - Author: Sanne Raymaekers, Reviewers: Klara Simickova
+  - schutzbot/terraform: bump terraform sha (#3769)
+    - Author: Sanne Raymaekers, Reviewers: Klara Simickova
+
+— Somewhere on the Internet, 2025-10-29
+
+
 * Fri Oct 24 2025 Packit <hello@packit.dev> - 80-1
 Changes with 80
 ----------------

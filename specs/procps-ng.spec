@@ -4,11 +4,13 @@
 Summary: System and process monitoring utilities
 Name: procps-ng
 Version: 4.0.4
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later
 URL: https://sourceforge.net/projects/procps-ng/
 
 Source0: https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz
+
+Patch1: free-overcommit-note.patch
 
 BuildRequires: make
 BuildRequires: ncurses-devel
@@ -159,6 +161,9 @@ ln -s %{_bindir}/pidof %{buildroot}%{_sbindir}/pidof
 %files i18n -f %{name}.lang
 
 %changelog
+* Thu Oct 23 2025 Jan Rybar <jrybar@redhat.com> - 4.0.4-9
+- free manpage: expand note on negative value with overcommit
+
 * Wed Sep 17 2025 Jan Rybar <jrybar@redhat.com> - 4.0.4-8
 - conflict of 'kill' i18n manpage with util-linux-i18n
 - Resolves: bz#2393949

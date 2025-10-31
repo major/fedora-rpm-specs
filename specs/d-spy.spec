@@ -2,7 +2,7 @@
 %define major_version %(c=%{version}; echo $c | cut -d. -f1 | cut -d~ -f1)
 
 Name:           d-spy
-Version:        49.1
+Version:        49.2
 Release:        %autorelease
 Summary:        D-Bus explorer
 

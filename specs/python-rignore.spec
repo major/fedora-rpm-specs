@@ -1,17 +1,11 @@
 Name:           python-rignore
-Version:        0.7.1
+Version:        0.7.2
 Release:        %autorelease
 Summary:        Python bindings for the ignore crate
 
 License:        MIT
 URL:            https://github.com/patrick91/rignore
 Source:         %{url}/archive/v%{version}/rignore-%{version}.tar.gz
-
-# Make snapshot tests order-insensitive
-# https://github.com/patrick91/rignore/pull/20
-Patch:          %{url}/pull/20.patch
-# Downstream-only: Allow a slightly older maturin for now
-Patch:          0001-Downstream-only-Allow-a-slightly-older-maturin-for-n.patch
 
 BuildSystem:            pyproject
 BuildOption(install):   -l rignore

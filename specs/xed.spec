@@ -71,7 +71,7 @@ This package contains the documentation files for %{name}.
 
 %prep
 %setup -q
-%if 0%{?fedora} > 42
+%if 0%{?fedora} > 42 || 0%{?rhel} > 10
 %patch -P0 -p1
 %endif
 

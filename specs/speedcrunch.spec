@@ -17,7 +17,7 @@ Source0:        %{url}/get/%{commit}.tar.bz2#/%{name}-%{tarballcommit}.tar.bz2
 # https://bugs.gentoo.org/953885
 Patch100:       %{name}-0.12-qhash.patch
 Patch101:       %{name}-0.12-qsignalmapper.patch
-# workaround empty help
+# fixed id, name in qhp keywords section
 Patch102:       %{name}-0.12-manual.patch
 # workaround missing taskbar icon
 Patch103:       %{name}-0.12-icon.patch
@@ -50,9 +50,8 @@ sed -i '/set(speedcrunch_VERSION/c\set(speedcrunch_VERSION "0.12")' src/CMakeLis
 
 # regenerate qch and qhc files
 for lang in en_US de_DE fr_FR es_ES; do
-    sed -i 's|\\|/|g' doc/build_html_embedded/${lang}/manual-${lang}.qhp
-    %{_qt6_libexecdir}/qhelpgenerator doc/build_html_embedded/${lang}/manual-${lang}.qhp
-    %{_qt6_libexecdir}/qhelpgenerator doc/build_html_embedded/${lang}/manual-${lang}.qhcp
+    $(qmake6 -query QT_HOST_LIBEXECS)/qhelpgenerator doc/build_html_embedded/${lang}/manual-${lang}.qhp
+    $(qmake6 -query QT_HOST_LIBEXECS)/qhelpgenerator doc/build_html_embedded/${lang}/manual-${lang}.qhcp
 done
 
 %build

@@ -1,21 +1,13 @@
-%if 0%{?fedora} >= 40
-%global qt_ver    6
-%else
-%global qt_ver    5
-%endif
-
 Name:             kvirc
-Version:          5.2.6
-Release:          6%{?dist}
+Version:          5.2.8
+Release:          1%{?dist}
 Summary:          Free portable IRC client
-# Automatically converted from old format: GPLv2+ with exceptions - review is highly recommended.
-License:          LicenseRef-Callaway-GPLv2+-with-exceptions
+License:          GPL-2.0-or-later WITH kvirc-openssl-exception
 URL:              https://www.kvirc.net/
 %global forgeurl  https://github.com/kvirc/KVIrc
 Source:           %{forgeurl}/archive/refs/tags/%{version}/%{name}-%{version}.tar.gz
 # https://fedoraproject.org/wiki/Packaging:CryptoPolicies
 Patch:            kvirc-5.0.0_enforce_system_crypto.patch
-Patch:            https://github.com/kvirc/KVIrc/commit/5882316f4ccd20a768ae296e1d7efcdfed45d0a3.patch
 
 BuildRequires:    enchant2-devel
 BuildRequires:    audiofile-devel
@@ -34,38 +26,29 @@ BuildRequires:    libtheora-devel
 BuildRequires:    libvorbis-devel
 BuildRequires:    zlib-devel
 BuildRequires:    openssl-devel
-BuildRequires:    cmake(KF%{qt_ver}CoreAddons)
-BuildRequires:    cmake(KF%{qt_ver}I18n)
-BuildRequires:    cmake(KF%{qt_ver}KIO)
-BuildRequires:    cmake(KF%{qt_ver}Notifications)
-BuildRequires:    cmake(KF%{qt_ver}Parts)
-BuildRequires:    cmake(KF%{qt_ver}Service)
-%if %{qt_ver} >= 6
-BuildRequires:    cmake(KF%{qt_ver}StatusNotifierItem)
-%endif
-BuildRequires:    cmake(KF%{qt_ver}WindowSystem)
-BuildRequires:    cmake(KF%{qt_ver}XmlGui)
-BuildRequires:    cmake(Phonon4Qt%{qt_ver})
-BuildRequires:    cmake(Qt%{qt_ver}Concurrent)
-BuildRequires:    cmake(Qt%{qt_ver}Core)
-BuildRequires:    cmake(Qt%{qt_ver}DBus)
-BuildRequires:    cmake(Qt%{qt_ver}Multimedia)
-BuildRequires:    cmake(Qt%{qt_ver}Network)
-BuildRequires:    cmake(Qt%{qt_ver}PrintSupport)
-BuildRequires:    cmake(Qt%{qt_ver}Sql)
-BuildRequires:    cmake(Qt%{qt_ver}Svg)
-BuildRequires:    cmake(Qt%{qt_ver}Widgets)
-BuildRequires:    cmake(Qt%{qt_ver}Xml)
-%if %{qt_ver} < 6
-BuildRequires:    cmake(Qt5X11Extras)
-%ifarch %{?qt5_qtwebengine_arches}
-BuildRequires:    cmake(Qt5WebEngineWidgets)
-%endif
-%else
+BuildRequires:    cmake(KF6CoreAddons)
+BuildRequires:    cmake(KF6I18n)
+BuildRequires:    cmake(KF6KIO)
+BuildRequires:    cmake(KF6Notifications)
+BuildRequires:    cmake(KF6Parts)
+BuildRequires:    cmake(KF6Service)
+BuildRequires:    cmake(KF6StatusNotifierItem)
+BuildRequires:    cmake(KF6WindowSystem)
+BuildRequires:    cmake(KF6XmlGui)
+BuildRequires:    cmake(Phonon4Qt6)
+BuildRequires:    cmake(Qt6Concurrent)
+BuildRequires:    cmake(Qt6Core)
 BuildRequires:    cmake(Qt6Core5Compat)
+BuildRequires:    cmake(Qt6DBus)
+BuildRequires:    cmake(Qt6Multimedia)
+BuildRequires:    cmake(Qt6Network)
+BuildRequires:    cmake(Qt6PrintSupport)
+BuildRequires:    cmake(Qt6Sql)
+BuildRequires:    cmake(Qt6Svg)
+BuildRequires:    cmake(Qt6Widgets)
+BuildRequires:    cmake(Qt6Xml)
 %ifarch %{?qt6_qtwebengine_arches}
 BuildRequires:    cmake(Qt6WebEngineWidgets)
-%endif
 %endif
 
 %description
@@ -81,12 +64,15 @@ many IRC addicted developers around the world.
 %{cmake3}  \
 -GNinja \
 -DCMAKE_SKIP_RPATH=ON \
--DQT_VERSION_MAJOR=%{qt_ver} \
+-DQT_VERSION_MAJOR=6 \
 -DWANT_ENV_FLAGS=ON \
 -DWANT_DCC_VIDEO=OFF \
 -DWANT_OGG_THEORA=ON \
 -DWANT_GTKSTYLE=ON \
 -DADDITIONAL_LINK_FLAGS='-Wl,--as-needed' \
+%if "%{?_lib}" == "lib64"
+%{?_cmake_lib_suffix64} \
+%endif
 %{nil}
 
 
@@ -145,6 +131,11 @@ rm %{buildroot}%{_libdir}/libkvilib.so
 %lang(uk) %{_mandir}/uk/man1/%{name}.1.gz
 
 %changelog
+* Sat Aug 30 2025 Aleksei Bavshin <alebastr@fedoraproject.org> - 5.2.8-1
+- Update to 5.2.8
+- Drop Qt version conditionals
+- Convert License tag to SPDX
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.6-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-podman
-Version:        115
+Version:        116
 Release:        1%{?dist}
 Summary:        Cockpit component for Podman containers
 License:        LGPL-2.1-or-later
@@ -68,7 +68,7 @@ Provides: bundled(npm(react-dropzone)) = 14.3.8
 Provides: bundled(npm(react-is)) = 16.13.1
 Provides: bundled(npm(react)) = 18.3.1
 Provides: bundled(npm(scheduler)) = 0.23.2
-Provides: bundled(npm(tabbable)) = 6.2.0
+Provides: bundled(npm(tabbable)) = 6.3.0
 Provides: bundled(npm(throttle-debounce)) = 5.0.2
 Provides: bundled(npm(tslib)) = 2.8.1
 
@@ -92,6 +92,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Wed Oct 29 2025 Packit <hello@packit.dev> - 116-1
+- Support stopping/starting/restart quadlets
+
+
 * Wed Oct 15 2025 Packit <hello@packit.dev> - 115-1
 - List stopped quadlets
 - Translations and dependency updates

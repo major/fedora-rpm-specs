@@ -2,7 +2,7 @@
 
 Name:    kf6-%{framework}
 Version: 6.19.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Frameworks 6 Tier 3 integration module with icon themes
 
 License: CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)
@@ -98,6 +98,9 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Wed Oct 29 2025 Steve Cossette <farchord@gmail.com> - 6.19.0-2
+- Bump for Plasma/Qt6.10 rebuild
+
 * Sun Oct 05 2025 Steve Cossette <farchord@gmail.com> - 6.19.0-1
 - 6.19.0
 

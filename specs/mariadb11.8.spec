@@ -163,7 +163,7 @@
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          3%{?with_debug:.debug}%{?dist}
+Release:          4%{?with_debug:.debug}%{?dist}
 Epoch:            3
 
 Summary:          A very fast and robust SQL database server
@@ -1114,7 +1114,6 @@ install -p -m 644 %{_vpath_builddir}/scripts/mariadb-scripts-common %{buildroot}
 
 # Install downstream version of tmpfiles
 install -D -p -m 0644 %{_vpath_builddir}/scripts/mariadb.tmpfiles.d %{buildroot}%{_tmpfilesdir}/%{majorname}.conf
-echo "d %{pidfiledir} 0755 mysql mysql -" >>%{buildroot}%{_tmpfilesdir}/%{majorname}.conf
 
 # Install downstream version of sysusers.d config
 install -m0644 -D support-files/%{majorname}.sysusers.conf %{buildroot}%{_sysusersdir}/%{majorname}.conf
@@ -1684,6 +1683,7 @@ fi
 %{_libexecdir}/mariadb-check-upgrade
 %{_libexecdir}/mariadb-scripts-common
 
+# Remember to also update the mariadb.tmpfiles.d.in file when updating these permissions
 %attr(0755,mysql,mysql) %dir %{pidfiledir}
 %attr(0755,mysql,mysql) %dir %{dbdatadir}
 %attr(0750,mysql,mysql) %dir %{logfiledir}
@@ -1842,6 +1842,9 @@ fi
 %endif
 
 %changelog
+* Thu Oct 29 2025 Nikola Davidova <ndavidov@redhat.com> - 3:11.8.3-4
+- Bump release for tmpfiles.d change
+
 * Tue Sep 30 2025 Petr Khartskhaev <pkhartsk@redhat.com> - 3:11.8.3-3
 - Bump release for package rebuild
 

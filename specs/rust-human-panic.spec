@@ -5,7 +5,7 @@
 %global crate human-panic
 
 Name:           rust-human-panic
-Version:        2.0.3
+Version:        2.0.4
 Release:        %autorelease
 Summary:        Panic messages for humans
 
@@ -57,18 +57,6 @@ This package contains library source intended for building other packages which
 use the "color" feature of the "%{crate}" crate.
 
 %files       -n %{name}+color-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+nightly-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+nightly-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "nightly" feature of the "%{crate}" crate.
-
-%files       -n %{name}+nightly-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

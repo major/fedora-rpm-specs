@@ -1,7 +1,7 @@
 %bcond testcoverage 0
 
 Name:           rpmspectool
-Version:        1.99.10
+Version:        1.100.0
 Release:        %autorelease
 Summary:        Utility for dealing with RPM spec files
 
@@ -16,10 +16,9 @@ BuildRequires:  sed
 BuildRequires:  python3dist(pytest)
 %if %{with testcoverage}
 BuildRequires:  python3dist(pytest-cov)
-BuildRequires:  sed
 %endif
 
-Requires:       python3dist(%{name}) = %{version}
+Requires:       python3-%{name} = %{version}-%{release}
 
 %generate_buildrequires
 %{pyproject_buildrequires}
