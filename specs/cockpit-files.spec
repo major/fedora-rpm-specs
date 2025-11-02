@@ -1,5 +1,5 @@
 Name: cockpit-files
-Version: 30
+Version: 31.1
 Release: 1%{?dist}
 Summary: A filesystem browser for Cockpit
 License: LGPL-2.1-or-later
@@ -20,27 +20,20 @@ Requires: cockpit-bridge >= 318
 # Replace the older cockpit-navigator provided by 45Drives
 Obsoletes: cockpit-navigator < 0.5.11
 
-Provides: bundled(npm(@patternfly/patternfly)) = 6.3.1
-Provides: bundled(npm(@patternfly/react-core)) = 6.3.1
-Provides: bundled(npm(@patternfly/react-icons)) = 6.3.1
-Provides: bundled(npm(@patternfly/react-styles)) = 6.3.1
-Provides: bundled(npm(@patternfly/react-table)) = 6.3.1
-Provides: bundled(npm(@patternfly/react-tokens)) = 6.3.1
-Provides: bundled(npm(attr-accept)) = 2.2.5
+Provides: bundled(npm(@patternfly/patternfly)) = 6.4.0
+Provides: bundled(npm(@patternfly/react-core)) = 6.4.0
+Provides: bundled(npm(@patternfly/react-icons)) = 6.4.0
+Provides: bundled(npm(@patternfly/react-styles)) = 6.4.0
+Provides: bundled(npm(@patternfly/react-table)) = 6.4.0
+Provides: bundled(npm(@patternfly/react-tokens)) = 6.4.0
 Provides: bundled(npm(dequal)) = 2.0.3
-Provides: bundled(npm(file-selector)) = 2.1.2
 Provides: bundled(npm(focus-trap)) = 7.6.4
-Provides: bundled(npm(js-tokens)) = 4.0.0
-Provides: bundled(npm(language-map)) = 1.5.0
 Provides: bundled(npm(lodash)) = 4.17.21
-Provides: bundled(npm(loose-envify)) = 1.4.0
-Provides: bundled(npm(mime-db)) = 1.54.0
 Provides: bundled(npm(object-assign)) = 4.1.1
 Provides: bundled(npm(prop-types)) = 15.8.1
-Provides: bundled(npm(react-dom)) = 18.3.1
-Provides: bundled(npm(react-dropzone)) = 14.3.8
-Provides: bundled(npm(react-is)) = 16.13.1
 Provides: bundled(npm(react)) = 18.3.1
+Provides: bundled(npm(react-dom)) = 18.3.1
+Provides: bundled(npm(react-is)) = 16.13.1
 Provides: bundled(npm(scheduler)) = 0.23.2
 Provides: bundled(npm(tabbable)) = 6.2.0
 Provides: bundled(npm(throttle-debounce)) = 5.0.2
@@ -74,6 +67,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Fri Oct 31 2025 Packit <hello@packit.dev> - 31.1-1
+- don't initialise a git repo in gating tests (fixes fedora gating)
+
+
 * Wed Oct 15 2025 Packit <hello@packit.dev> - 30-1
 - Translations and dependency updates
 

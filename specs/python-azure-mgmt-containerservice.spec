@@ -5,7 +5,7 @@
 %global         tarball_name    azure_mgmt_containerservice
 
 Name:           python-%{srcname}
-Version:        36.0.0
+Version:        39.1.0
 Release:        %autorelease
 Summary:        Microsoft Azure Container Service Management Client Library for Python
 License:        MIT

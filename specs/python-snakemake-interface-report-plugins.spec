@@ -2,7 +2,7 @@
 %bcond bootstrap 0
 
 Name:           python-snakemake-interface-report-plugins
-Version:        1.2.0
+Version:        1.3.0
 Release:        %autorelease
 Summary:        The interface for Snakemake report plugins
 

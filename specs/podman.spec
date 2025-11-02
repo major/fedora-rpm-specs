@@ -15,6 +15,9 @@
 %define qemu 1
 # bats is included in the default repos (No epel/copr etc.)
 %define distro_bats 1
+%if %{?fedora} >= 43
+%define sequoia 1
+%endif
 %endif
 
 %if %{defined copr_username}
@@ -60,7 +63,7 @@ Epoch: 5
 # If that's what you're reading, Version must be 0, and will be updated by Packit for
 # copr and koji builds.
 # If you're reading this on dist-git, the version is automatically filled in by Packit.
-Version: 5.7.0~rc1
+Version: 5.7.0~rc2
 # The `AND` needs to be uppercase in the License for SPDX compatibility
 License: Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0
 Release: %autorelease
@@ -109,6 +112,10 @@ Requires: containers-common-extra >= 5:0.58.0-1
 %else
 Requires: containers-common-extra
 %endif
+%if %{defined sequoia}
+Requires: podman-sequoia
+%endif
+
 Obsoletes: %{name}-quadlet <= 5:4.4.0-1
 Provides: %{name}-quadlet = %{epoch}:%{version}-%{release}
 
@@ -247,7 +254,7 @@ LDFLAGS="-X %{ld_libpod}/define.buildInfo=${SOURCE_DATE_EPOCH:-$(date +%s)} \
 
 # This variable will be set by Packit actions. See .packit.yaml in the root dir
 # of the repo (upstream as well as Fedora dist-git).
-GIT_COMMIT="9dd5e1ed33830612bc200d7a13db00af6ab865a4"
+GIT_COMMIT="fa892f1df01aacbbc3faf5ec941b39c29e9aa64f"
 LDFLAGS="$LDFLAGS -X %{ld_libpod}/define.gitCommit=$GIT_COMMIT"
 
 # build rootlessport first
@@ -265,6 +272,11 @@ export BASEBUILDTAGS="$BASEBUILDTAGS libtrust_openssl"
 
 # build %%{name}
 export BUILDTAGS="$BASEBUILDTAGS $(hack/btrfs_installed_tag.sh)"
+
+%if %{defined sequoia}
+export BUILDTAGS="$BUILDTAGS containers_image_sequoia"
+%endif
+
 %gobuild -o bin/%{name} ./cmd/%{name}
 
 # build %%{name}-remote

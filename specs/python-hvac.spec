@@ -1,7 +1,7 @@
 %global pypi_name hvac
 
 Name:           python-%{pypi_name}
-Version:        2.3.0
+Version:        2.4.0
 Release:        %autorelease
 Summary:        HashiCorp Vault API client for Python
 

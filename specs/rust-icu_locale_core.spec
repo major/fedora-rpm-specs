@@ -5,7 +5,7 @@
 %global crate icu_locale_core
 
 Name:           rust-icu_locale_core
-Version:        2.0.0
+Version:        2.1.1
 Release:        %autorelease
 Summary:        API for managing Unicode Language and Locale Identifiers
 
@@ -13,16 +13,22 @@ License:        Unicode-3.0
 URL:            https://crates.io/crates/icu_locale_core
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
+# * Restore missing dev-dependencies,
+#   https://github.com/unicode-org/icu4x/issues/7196: use .cargo_vcs_info.json
+#   in the published crate to find the corresponding git commit,
+#   git clone https://github.com/unicode-org/icu4x.git, cd utils/${crate},
+#   cargo publish --dry-run,
+#   tar -xzf ../../target/package/${crate}-${version}.crate, and inspect
+#   ${crate}-${version}/Cargo.toml to find the missing dev-dependencies. Note
+#   that just looking at the crate’s Cargo.toml in the git checkout isn’t that
+#   useful without the cargo publish --dry-run step because most or all of the
+#   dev-dependencies are inherited from the workspace. Note also that we end up
+#   omitting some of the dev-dependencies, as documented in the following
+#   comments.
 # * Drop benchmark-only criterion and iai dependencies
-# * Restore litemap dev-dependency with testing feature; see
-#   https://github.com/unicode-org/icu4x/pull/6601
 # * Omit the filter_langids and syntatically_canonicalize_locales examples,
 #   which would require the internal icu_benchmark_macros crate
 Patch:          icu_locale_core-fix-metadata.diff
-# * In locale_core, skip check_sizes() test on non-64-bit arches
-#   (https://github.com/unicode-org/icu4x/pull/6602); exported with git
-#   format-patch --relative so that it applies to the released crate.
-Patch10:        0001-In-locale_core-skip-check_sizes-test-on-non-64-bit-a.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -123,6 +129,7 @@ use the "zerovec" feature of the "%{crate}" crate.
 # * Very many doctests have circular dependencies on the top-level icu crate,
 #   enough that it would be very tedious to patch them all out.
 %cargo_test -f alloc,databake,serde,zerovec -- --lib
+%cargo_test -f alloc,databake,serde,zerovec -- --tests
 %endif
 
 %changelog

@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/oracle/ktls-utils
-%global baseversion 1.2.1
+%global baseversion 1.3.0
 
 Name:           ktls-utils
 Version:        %{baseversion}
@@ -35,7 +35,7 @@ negotiated session parameters are passed back to the kernel via
 standard kTLS socket options.
 
 %prep
-%autosetup -p1 -n %{name}-%{name}-%{baseversion}
+%autosetup -p1 -n %{name}-%{baseversion}
 
 %build
 ./autogen.sh
@@ -46,7 +46,7 @@ standard kTLS socket options.
 %make_install
 
 %files
-%config(noreplace) %{_sysconfdir}/tlshd.conf
+%config(noreplace) %{_sysconfdir}/tlshd/config
 %{_sbindir}/tlshd
 %{_mandir}/man5/tlshd.conf.5.gz
 %{_mandir}/man8/tlshd.8.gz

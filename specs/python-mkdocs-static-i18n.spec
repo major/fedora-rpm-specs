@@ -1,5 +1,5 @@
 Name:           python-mkdocs-static-i18n
-Version:        1.2.3
+Version:        1.3.0
 Release:        %autorelease
 Summary:        MkDocs i18n plugin using static translation Markdown files
 

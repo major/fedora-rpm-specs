@@ -2,11 +2,11 @@
 %global sphinx_docs 1
 
 Name:		boom-boot
-Version:	1.6.6
-Release:	6%{?dist}
+Version:	1.6.8
+Release:	2%{?dist}
 Summary:	%{summary}
 
-License:	GPL-2.0-only
+License:	Apache-2.0
 URL:		https://github.com/snapshotmanager/boom-boot
 Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
@@ -131,13 +131,13 @@ rm doc/conf.py
 pytest-3 --log-level=debug -v
 
 %files
-%license COPYING
+%license LICENSE
 %doc README.md
 %{_bindir}/boom
 %doc %{_mandir}/man*/boom.*
 
 %files -n python3-boom
-%license COPYING
+%license LICENSE
 %doc README.md
 %{python3_sitelib}/boom/*
 %if 0%{?rhel} && 0%{?rhel} < 11
@@ -150,7 +150,7 @@ pytest-3 --log-level=debug -v
 %doc tests
 
 %files conf
-%license COPYING
+%license LICENSE
 %doc README.md
 %dir /boot/boom
 %config(noreplace) /boot/boom/boom.conf
@@ -161,6 +161,10 @@ pytest-3 --log-level=debug -v
 
 
 %changelog
+* Fri Oct 31 2025 Bryn M. Reeves <bmr@redhat.com> - 1.6.8-2
+- Update tmt configuration to be version agnostic
+- Update to release 1.6.8.
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.6.6-6
 - Rebuilt for Python 3.14.0rc3 bytecode
 

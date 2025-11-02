@@ -2,14 +2,15 @@
 %bcond_with    tests
 
 %global         srcname     azure-mgmt-web
+%global         tarball_name     azure_mgmt_web
 
 Name:           python-%{srcname}
-Version:        7.3.1
+Version:        9.0.0
 Release:        %autorelease
 Summary:        Microsoft Azure Web Apps Management Client Library for Python
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
-Source0:        %{pypi_source %{srcname} %{version}}
+Source0:        %{pypi_source %{tarball_name} %{version}}
 
 BuildArch:      noarch
 
@@ -40,7 +41,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n %{tarball_name}-%{version}
 
 
 %generate_buildrequires

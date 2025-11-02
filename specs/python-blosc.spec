@@ -7,6 +7,8 @@ URL:            https://github.com/Blosc/python-blosc
 Source0:        https://github.com/Blosc/python-blosc/archive/v%{version}/blosc-%{version}.tar.gz
 Source1:        https://raw.githubusercontent.com/Blosc/python-blosc/f3c5e341a2504a03c225f4f1d9066ccdf4bd31dd/setup.py
 
+Patch:          0001-docs-update-example-for-newer-numpy.patch
+
 BuildRequires:  gcc
 BuildRequires:  blosc-devel >= 1.16.0
 BuildRequires:  python%{python3_pkgversion}-devel

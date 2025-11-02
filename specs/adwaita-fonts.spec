@@ -13,7 +13,7 @@ URL:     https://gitlab.gnome.org/GNOME/adwaita-fonts.git
 %global foundry         adwaita-fonts
 %global fontdocs        README.md
 
-%global	common_description	%{expand:
+%global common_description  %{expand:
 Adwaita Fonts contains Adwaita Sans, a variation of Inter,
 and Adwaita Mono, Iosevka customized to match Inter.
 }
@@ -39,7 +39,7 @@ Adwaita Mono is a customized version of the Iosevka font, designed to match Inte
 }
 
 
-Source0:	https://download.gnome.org/sources/adwaita-fonts/49/adwaita-fonts-%{tarball_version}.tar.xz
+Source0:    https://download.gnome.org/sources/adwaita-fonts/49/adwaita-fonts-%{tarball_version}.tar.xz
 Source1:    59-adwaita-sans-fonts.conf
 Source2:    59-adwaita-mono-fonts.conf
 

@@ -12,15 +12,15 @@ Source:         %{giturl}/archive/janus-%{version}.tar.gz
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
+BuildSystem:    pyproject
+BuildOption(install): -l janus_swi
 
 BuildRequires:  gcc
-BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist pytest}
 BuildRequires:  swi-prolog-core-packages
 
-%global common_desc %{expand:
-This package implements a ready-to-use bidirectional interface between
-SWI Prolog and Python.}
+%global common_desc %{expand:This package implements a ready-to-use bidirectional interface between SWI
+Prolog and Python.}
 
 %description
 %common_desc
@@ -39,21 +39,12 @@ Requires:       swi-prolog-core-packages
 # Avoid unwanted rpaths
 sed -i 's|-rpath={props\["PLLIBDIR"\]},||' setup.py
 
-%generate_buildrequires
-%pyproject_buildrequires
-
-%build
+%build -p
 # Do not pass -pthread to the compiler or linker
 export LDSHARED="gcc -shared"
 
-%pyproject_wheel
-
-%install
-%pyproject_install
-%pyproject_save_files -L janus_swi
-
 %check
-%pytest
+%pytest -v
 
 %files -n python3-janus-swi -f %{pyproject_files}
 %doc README.md

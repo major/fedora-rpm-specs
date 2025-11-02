@@ -1434,6 +1434,7 @@ This package provides the QEMU system emulator for Loongson boards.
 %package system-loongarch64-core
 Summary: QEMU system emulator for LoongArch (LA64)
 Requires: %{name}-common = %{evr}
+Requires: edk2-loongarch64
 %description system-loongarch64-core
 This package provides the QEMU system emulator for Loongson boards.
 

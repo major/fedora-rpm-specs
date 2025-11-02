@@ -4,8 +4,8 @@
 %global dist %{expand:%%{_dist}}
 
 Name:		shim
-Version:	15.8
-Release:	5%{?dist}
+Version:	16.1
+Release:	4%{?dist}
 Summary:	First-stage UEFI bootloader
 License:	BSD-3-Clause
 URL:		https://github.com/rhboot/shim/
@@ -115,6 +115,12 @@ if [[ ! -e "/run/ostree-booted" ]]; then
 fi
 
 %changelog
+* Thu Oct 30 2025 Peter Jones <pjones@redhat.com> - 16.1-3
+- Bump the release number so this is newer than f43.
+
+* Mon Oct 27 2025 Peter Jones <pjones@redhat.com> - 16.1-1
+- Update to shim-16.1
+
 * Wed Aug 27 2025 Leo Sandoval <lsandova@redhat.com> - 15.8-5
 - Remove efi_esp_dir|boot hard coded architecture
 

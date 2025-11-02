@@ -508,6 +508,10 @@ Source0:    README
 %obsolete dmraid-events-logwatch 1.0.0.rc16-61
 %obsolete dmraid-libs 1.0.0.rc16-61
 
+# https://src.fedoraproject.org/rpms/sqlninja/c/c59701b7eb428155d8619bf325eb50500eeb0438
+%obsolete_ticket https://bugzilla.redhat.com/show_bug.cgi?id=2405419
+%obsolete sqlninja 0.2.999-0.24
+
 # Removed packages with broken dependencies on Python 3.13
 %obsolete_ticket https://bugzilla.redhat.com/show_bug.cgi?id=2373699
 %obsolete artifacts 0.0.20240518-5

@@ -2,7 +2,7 @@
 
 Name:			libtirpc
 Version:		1.3.7
-Release:		0%{?dist}
+Release:		1%{?dist}
 Summary:		Transport Independent RPC Library
 License:		SISSL AND BSD-3-Clause
 URL:  			http://git.linux-nfs.org/?p=steved/libtirpc.git;a=summary
@@ -62,6 +62,8 @@ mv %{buildroot}%{_mandir}/man3 %{buildroot}%{_mandir}/man3t
 
 
 %files
+%{!?_licensedir:%global license %%doc}
+%license COPYING
 %doc AUTHORS ChangeLog NEWS README
 %{_root_libdir}/libtirpc.so.*
 %config(noreplace)%{_sysconfdir}/netconfig
@@ -112,6 +114,9 @@ mv %{buildroot}%{_mandir}/man3 %{buildroot}%{_mandir}/man3t
 %{_mandir}/*/*
 
 %changelog
+* Fri Oct 31 2025 Steve Dickson <steved@redhat.com> - 1.3.7-1
+- libtirpc licence files missing from filesystem (bz 2315740)
+
 * Tue Aug 26 2025 Steve Dickson <steved@redhat.com> - 1.3.7-0
 - Updated to the latest upstream release: libtirpc-1-3-7 (bz 2390812)
 

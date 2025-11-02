@@ -1,5 +1,5 @@
 Name:              zathura
-Version:           0.5.12
+Version:           0.5.14
 Release:           1%{?dist}
 Summary:           A lightweight document viewer
 License:           Zlib
@@ -18,6 +18,7 @@ BuildRequires:     file-devel
 %if %{undefined flatpak}
 BuildRequires:     fish
 %endif
+BuildRequires:     cmake
 BuildRequires:     gcc
 BuildRequires:     gettext
 BuildRequires:     girara-devel >= 0.4.5
@@ -25,7 +26,7 @@ BuildRequires:     glib2-devel >= 2.72
 BuildRequires:     gtk3-devel >= 3.24
 BuildRequires:     intltool
 # Needed to validate appdata
-BuildRequires:     libappstream-glib
+BuildRequires:     appstream
 BuildRequires:     librsvg2-tools
 BuildRequires:     libseccomp-devel
 BuildRequires:     meson >= 0.61
@@ -37,6 +38,7 @@ BuildRequires:     zsh
 # Tests
 BuildRequires:     pkgconfig(check) >= 0.11
 Buildrequires:     xorg-x11-server-Xvfb
+Buildrequires:     weston
 
 Suggests:          zathura-cb
 Suggests:          zathusa-djvu
@@ -119,15 +121,16 @@ This package provides %{summary}.
 
 %install
 %meson_install
-appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata.xml
+# This duplicates meson_test validate-appdata:
+appstreamcli validate --no-net %{buildroot}%{_datadir}/metainfo/*.appdata.xml
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
-%find_lang zathura
+%find_lang org.pwmt.zathura
 
 %check
 # Leave out flaky sandbox test which is either skipped or fails strangely:
-%meson_test validate-desktop validate-appdata document types utils session
+%meson_test validate-desktop validate-appdata document types utils xvfb_session weston_session
 
-%files -f zathura.lang
+%files -f org.pwmt.zathura.lang
 %license LICENSE
 %doc README.md
 %{_bindir}/*
@@ -156,6 +159,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Thu Oct 30 2025 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 0.5.14-1
+- Update to 0.5.14 (fixes rh#2397792)
+
+* Thu Sep 25 2025 Michael J Gruber <mjg@fedoraproject.org> - 0.5.13-1
+- feat: update to 0.5.13 (fixes rh#2397792)
+
 * Tue Sep 09 2025 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 0.5.12-1
 - Update to latest release
 

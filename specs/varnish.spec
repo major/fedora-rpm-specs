@@ -32,13 +32,14 @@
 Summary: High-performance HTTP accelerator
 Name: varnish
 Version: 7.7.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: BSD-2-Clause AND (BSD-2-Clause-FreeBSD AND BSD-3-Clause AND LicenseRef-Fedora-Public-Domain AND Zlib)
 URL: https://www.varnish-cache.org/
 Source0: http://varnish-cache.org/_downloads/%{name}-%{version}.tgz
 Source1: https://github.com/varnishcache/pkg-varnish-cache/archive/%{commit1}.tar.gz#/pkg-varnish-cache-%{shortcommit1}.tar.gz
 Source2: varnish.sysusers
 Source3: https://github.com/jemalloc/jemalloc/releases/download/%{jemalloc_version}/jemalloc-%{jemalloc_version}.tar.bz2
+Source4: varnish.tmpfiles
 
 # Fix for h2 switch in varnishtest
 # https://github.com/varnishcache/varnish-cache/issues/4298
@@ -343,6 +344,10 @@ install -D -m 0644 redhat/varnishncsa.service %{buildroot}%{_unitdir}/varnishncs
 install -D -m 0755 redhat/varnishreload %{buildroot}%{_sbindir}/varnishreload
 install -p -D -m 0644 %{SOURCE2} %{buildroot}%{_sysusersdir}/varnish.conf
 
+# tmpfiles.d configuration
+mkdir -p %{buildroot}%{_tmpfilesdir}
+install -m 644 -p %{SOURCE4} %{buildroot}%{_tmpfilesdir}/varnish.conf
+
 echo %{_libdir}/varnish > %{buildroot}%{_sysconfdir}/ld.so.conf.d/%{name}-%{_arch}.conf
 
 # No idea why these ends up with mode 600 in the debug package
@@ -377,6 +382,7 @@ chmod 644 lib/libvmod_*/*.h
 %{_unitdir}/varnish.service
 %{_unitdir}/varnishncsa.service
 %{_sysusersdir}/varnish.conf
+%{_tmpfilesdir}/varnish.conf
 
 %files devel
 %license LICENSE
@@ -407,6 +413,9 @@ test -f /etc/varnish/secret || (uuidgen > /etc/varnish/secret && chmod 0600 /etc
 
 
 %changelog
+* Wed Oct 29 2025 Luboš Uhliarik <luhliari@redhat.com> - 7.7.3-2
+- Add tmpfiles.d rules for /var directories (bootc compatibility)
+
 * Mon Sep 15 2025 Ingvar Hagelund <ingvar@redpill-linpro.com> - 7.7.3-1
 - New upstream release: A security release
 - Includes fix for VSV00017 aka CVE-2025-8671, rhbz#2388222

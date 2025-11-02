@@ -12,9 +12,11 @@ VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/%{version}/sphinx-autobuild-%{version}.tar.gz
 
 BuildArch:      noarch
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): -x test
+BuildOption(install): -l sphinx_autobuild
 
 BuildRequires:  help2man
-BuildRequires:  python3-devel
 
 %description
 Rebuild Sphinx documentation on changes, with live-reload in the browser.
@@ -50,11 +52,7 @@ Documentation for sphinx-autobuild.
 %prep
 %autosetup -n sphinx-autobuild-%{version} -p1
 
-%generate_buildrequires
-%pyproject_buildrequires -x test
-
-%build
-%pyproject_wheel
+%build -a
 rst2html --no-datestamp NEWS.rst NEWS.html
 rst2html --no-datestamp README.rst README.html
 
@@ -63,10 +61,7 @@ mkdir html
 sphinx-build -b html docs html
 rm -rf html/{.buildinfo,.doctrees}
 
-%install
-%pyproject_install
-%pyproject_save_files -L sphinx_autobuild
-
+%install -a
 # Install a man page
 mkdir -p %{buildroot}%{_mandir}/man1
 %{py3_test_envvars} help2man -N %{buildroot}%{_bindir}/sphinx-autobuild \
@@ -78,7 +73,6 @@ mkdir -p %{buildroot}%{_mandir}/man1
 
 %files -n python3-sphinx-autobuild -f %{pyproject_files}
 %doc AUTHORS.rst NEWS.html README.html
-%license LICENSE.rst
 %{_bindir}/sphinx-autobuild
 %{_mandir}/man1/sphinx-autobuild.1*
 

@@ -5,7 +5,7 @@
 %global crate argmax
 
 Name:           rust-argmax
-Version:        0.3.1
+Version:        0.4.0
 Release:        %autorelease
 Summary:        Rust library to deal with 'argument too long' errors
 
@@ -13,9 +13,6 @@ Summary:        Rust library to deal with 'argument too long' errors
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/argmax
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * Allow nix 0.29: https://github.com/sharkdp/argmax/pull/17
-Patch:          argmax-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

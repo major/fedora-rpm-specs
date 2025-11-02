@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 3.0.9
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: A gem that provides a simple mixin for log functionality
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License: Apache-2.0
@@ -19,6 +19,7 @@ BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby >= 2.3
 BuildRequires: rubygem-rspec
+BuildRequires: rubygem(logger)
 BuildArch: noarch
 
 %description
@@ -35,6 +36,9 @@ Documentation for %{name}.
 %prep
 %setup -q -n %{gem_name}-%{version} -b 1
 %patch -P0 -p1
+
+# from lib/mixlib/log.rb
+%gemspec_add_dep -g logger
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -66,6 +70,9 @@ popd
 %doc %{gem_docdir}
 
 %changelog
+* Thu Oct 30 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.0.9-13
+- Add dependency for logger for ruby3_5
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.9-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 %global crate writeable
 
 Name:           rust-writeable
-Version:        0.6.1
+Version:        0.6.2
 Release:        %autorelease
 Summary:        More efficient alternative to fmt::Display
 
@@ -49,6 +49,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+alloc-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+alloc-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "alloc" feature of the "%{crate}" crate.
+
+%files       -n %{name}+alloc-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+either-devel

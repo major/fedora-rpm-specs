@@ -3,8 +3,8 @@
 
 Name:           google-auth-httplib2
 Summary:        %{sum}
-Version:        0.2.0
-Release:        10%{?dist}
+Version:        0.2.1
+Release:        1%{?dist}
 
 License:        Apache-2.0
 URL:            https://github.com/googleapis/google-auth-library-python-httplib2
@@ -44,6 +44,9 @@ Python 3 client library for accessing Google APIs.
 %doc README.rst
 
 %changelog
+* Fri Oct 31 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.2.1-1
+- 0.2.1
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.2.0-10
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -130,7 +130,7 @@ f /var/log/stap-server/log 0644 stap-server stap-server -
 
 Name: systemtap
 # PRERELEASE
-Version: 5.4~pre17585496g86ab88eb
+Version: 5.4
 Release: 1%{?release_override}%{?dist}
 # for version, see also configure.ac
 
@@ -167,7 +167,7 @@ Release: 1%{?release_override}%{?dist}
 Summary: Programmable system-wide instrumentation system
 License: GPL-2.0-or-later
 URL: https://sourceware.org/systemtap/
-Source: %{name}-%{version}.tar.gz
+Source: ftp://sourceware.org/pub/systemtap/releases/systemtap-%{version}.tar.gz
 
 # Build*
 BuildRequires: make
@@ -1363,6 +1363,10 @@ exit 0
 
 # PRERELEASE
 %changelog
+* Fri Oct 31 2025 Frank Ch. Eigler <fche@redhat.com> - 5.4-1
+- Upstream release, see wiki page below for detailed notes.
+  https://sourceware.org/systemtap/wiki/SystemTapReleases
+
 * Mon Sep 22 2025 Frank Ch. Eigler <fche@redhat.com> - 5.4-17585496g86ab88eb
 - Automated weekly rawhide release
 - Applied spec changes from upstream git

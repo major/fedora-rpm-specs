@@ -1,7 +1,7 @@
-%global upstream_version     1.4.2
+%global upstream_version     1.5.0
 
 Name:            supernovas
-Version:         1.4.2
+Version:         1.5.0
 Release:         %autorelease
 Summary:         The Naval Observatory's NOVAS C astronomy library, made better 
 License:         Unlicense
@@ -13,8 +13,13 @@ ExcludeArch:     %{ix86}
 
 BuildRequires:   calceph-devel%{_isa} >= 4.0.0
 BuildRequires:   gcc
-BuildRequires:   sed
+BuildRequires:   cmake
 BuildRequires:   doxygen >= 1.13.0
+
+# Starting with v1.5.0, we no longer need or package cio-data
+Obsoletes:       %{name}-cio-data < %{version}-%{release} 
+
+
 Suggests:        %{name}-solsys-calceph = %{version}-%{release}
 
 %description
@@ -35,38 +40,7 @@ code is compatible with the C90 standard, and hence should be suitable for old
 and new platforms alike. It is light-weight and easy to use, with full support 
 for the IAU 2000/2006 standards for sub-micro-arc-second position 
 calculations.
-
-%package solsys1
-Summary: Legacy solar-system plugin for JPL DE200 through DE421
-Requires:        %{name}%{?_isa} >= %{version}-%{release}
-# This legacy module for ephemeris support is outdated, providing limited
-# support to obsoleted planetary ephemerides DE421 or earlier only. The 
-# source code of is available in the documentation of the devel sub-package,
-# so anyone can still build and link against these even in the absence of
-# the shared library that is provided by this sub-package.
-Provides:        deprecated()
-
-%description solsys1
-Optional SuperNOVAS plugin library that provides legacy solar-system routines 
-for accessing older JPL planetary data (DE200 through DE421).
  
-%package solsys2
-Summary: Legacy solar-system plugin for the JPL PLEPH routines
-Requires:        %{name}%{?_isa} >= %{version}-%{release}
-# This legacy module for ephemeris support is half-baked, and requires 
-# additional code by the user to become functional. It is also outdated and 
-# unsupported. The source code is available in the documentation of the devel 
-# sub-package, so anyone can still build and link against these even in the 
-# absence of the shared library that is provided by this sub-package.
-Provides:        deprecated()
-
-%description solsys2
-Optional SuperNOVAS plugin library that provides legacy solar-system routines 
-for accessing older JPL planetary data through the JPL PLEPH routines. It 
-requires a user-provided FORTRAN adapter module, and PLEPH library. This 
-package is provided only to support legacy applications that were written for 
-that particular interfacing.
-
 %package solsys-calceph
 Summary: Solar-system plugin based on the CALCEPH C library
 Requires:        %{name}%{?_isa} = %{version}-%{release}
@@ -79,29 +53,14 @@ with SuperNOVAS to obtain precise locations for Solar-system bodies. This
 plugin is currently the preferred option to use for Fedora / RPM Linux 
 development, which requires use of precise Solar-system data.
 
-
-%package cio-data
-Summary:         CIO location data for the SuperNOVAS C/C++ astronomy library
-BuildArch:       noarch
-# Future versions of SuperNOVAS will no longer need or use such 
-# data in any way. The data themselves are quite specific to this library
-# anb are not expected to be useful for other packages.
-Provides:        deprecated()
-
-%description cio-data
-Optional CIO location vs GCRS lookup table. This file is not normally required
-for the operation of the library. It is needed only if the user explicitly needs
-to know the location of the CIO vs GCRS, rather than w.r.t. the equinox of date.
-Applications that require CIO location w.r.t. the GCRS should depend on this
-sub-package. Future versions of SuperNOVAS will no longer need or use such 
-data in any way. Therefore this sub-package is now deprecated.
-
 %package devel
 Summary:         C development files for the SuperNOVAS C/C++ astronomy library
 Requires:        %{name}%{?_isa} = %{version}-%{release}
-Requires:        %{name}-solsys1%{?_isa} = %{version}-%{release}
-Requires:        %{name}-solsys2%{?_isa} = %{version}-%{release}
 Requires:        %{name}-solsys-calceph%{?_isa} = %{version}-%{release}
+# We no longer package legacy plugins, since upstream no longer builds these. 
+# Their source codes are however available in devel, if needed.
+Obsoletes:       %{name}-solsys1 < %{version}-%{release} 
+Obsoletes:       %{name}-solsys2 < %{version}-%{release} 
 
 %description devel
 This sub-package provides C headers and non-versioned shared library symbolic 
@@ -109,10 +68,10 @@ links for the SuperNOVAS C/C++ library. It also provides a default FORTRAN
 adapter module (as documentation) that may be used as is, or modified as 
 needed, for the the JPL PLEPH module.
 
-
 %package doc
 Summary:         Documentation for the SuperNOVAS C/C++ astronomy library
 BuildArch:       noarch
+
 
 %description doc
 This package provides HTML documentation, examples, and legacy adapter 
@@ -122,44 +81,35 @@ templates for the SuperNOVAS C/C++ astronomy library.
 %setup -q -n SuperNOVAS-%{upstream_version}
 
 %build
+%cmake \
+    -DBUILD_SHARED_LIBS=ON \
+    -DBUILD_DOC=ON \
+    -DENABLE_CALCEPH=ON 
 
-export CALCEPH_SUPPORT=1
-make %{?_smp_mflags} distro CIO_LOCATOR_FILE=%{_datadir}/%{name}/CIO_RA.TXT
-
-%check
-
-export CALCEPH_SUPPORT=1
-make test
+%cmake_build
 
 %install
+%cmake_install
 
-export CALCEPH_SUPPORT=1
-make DESTDIR=%{buildroot} libdir=%{_libdir} install
+%check
+%ctest
 
 %files
 %license LICENSE
 %doc CHANGELOG.md
 %{_libdir}/lib%{name}.so.1{,.*}
 
-%files solsys1
-%{_libdir}/libsolsys1.so.1{,.*}
-
-%files solsys2
-%{_libdir}/libsolsys2.so.1{,.*}
-
 %files solsys-calceph
 %{_libdir}/libsolsys-calceph.so.1{,.*}
-
-%files cio-data
-%dir %{_datadir}/%{name}
-%{_datadir}/%{name}/CIO_RA.TXT
 
 %files devel
 %{_includedir}/*.h
 %{_libdir}/*.so
-%doc examples
-%doc legacy
-%doc CONTRIBUTING.md
+%{_libdir}/cmake
+%{_libdir}/pkgconfig
+%doc %{_docdir}/%{name}/*.md
+%doc %{_docdir}/%{name}/examples
+%doc %{_docdir}/%{name}/legacy
 
 %files doc
 %license LICENSE

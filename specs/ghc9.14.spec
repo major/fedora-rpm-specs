@@ -44,7 +44,7 @@
 %global ghc_version_for_lib %{ghc_major}0%{ghc_patchlevel}.0
 %global ghc_platform_ver 0.1.0.0
 %global ghc_toolchain_ver 0.1.0.0
-%global haddock_api_ver 2.30.0
+%global haddock_api_ver 2.33.0
 %global hpc_ver 0.7.0.2
 %global rts_ver 1.0.3
 %global xhtml_ver 3000.2.2.1
@@ -86,10 +86,10 @@
 %global ghc_unregisterized_arches s390 %{mips}
 
 Name: %{ghc_name}
-Version: %{ghc_major}.%{ghc_patchlevel}.20251007
+Version: %{ghc_major}.%{ghc_patchlevel}.20251028
 # Since library subpackages are versioned:
 # - release can only be reset if *all* library versions get bumped simultaneously
-Release: 0.6%{?dist}
+Release: 0.7%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -394,11 +394,13 @@ This provides the hadrian tool which can be used to build ghc.
 %ghc_lib_subpackage -d -l BSD-3-Clause semaphore-compat-1.0.0
 %ghc_lib_subpackage -d -l BSD-3-Clause stm-2.5.3.1
 %ghc_lib_subpackage -d -l BSD-3-Clause template-haskell-2.24.0.0
+%ghc_lib_subpackage -d -l BSD-3-Clause template-haskell-lift-0.1.0.0
+%ghc_lib_subpackage -d -l BSD-3-Clause template-haskell-quasiquoter-0.1.0.0
 %ghc_lib_subpackage -d -l BSD-3-Clause -c ncurses-devel%{?_isa} terminfo-0.4.1.7
 %ghc_lib_subpackage -d -l BSD-3-Clause text-2.1.3
 %ghc_lib_subpackage -d -l BSD-3-Clause time-1.15
 %ghc_lib_subpackage -d -l BSD-3-Clause transformers-0.6.1.2
-%ghc_lib_subpackage -d -l BSD-3-Clause unix-2.8.7.0
+%ghc_lib_subpackage -d -l BSD-3-Clause unix-2.8.8.0
 %ghc_lib_subpackage -d -l BSD-3-Clause xhtml-%{xhtml_ver}
 %endif
 
@@ -903,7 +905,13 @@ make test
 
 
 %changelog
-* Fri Oct 10 2025 Jens Petersen <petersen@redhat.com> - 9.14.%{ghc_patchlevel}.20251007-0.6
+* Fri Oct 31 2025 Jens Petersen <petersen@redhat.com> - 9.14.0.20251028-0.7
+- 9.14.1 rc1
+- https://downloads.haskell.org/ghc/9.14.1-rc1/docs/users_guide/9.14.1-notes.html
+- unix-2.8.8.0
+- adds template-haskell-lift and template-haskell-quasiquoter
+
+* Fri Oct 10 2025 Jens Petersen <petersen@redhat.com> - 9.14.0.20251007-0.6
 - 9.14.1 alpha3
 - https://downloads.haskell.org/ghc/9.14.1-alpha3/docs/users_guide/9.14.1-notes.html
 

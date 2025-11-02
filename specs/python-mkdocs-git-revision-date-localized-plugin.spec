@@ -2,7 +2,7 @@
 %global forgeurl https://github.com/timvink/mkdocs-git-revision-date-localized-plugin
 
 Name:           python-mkdocs-git-revision-date-localized-plugin
-Version:        1.3.0
+Version:        1.5.0
 Release:        %autorelease
 Summary:        Mkdocs plugin to display the last git modification date
 
@@ -10,17 +10,18 @@ License:        MIT
 URL:            https://timvink.github.io/mkdocs-git-revision-date-localized-plugin/
 Source:         %{pypi_source mkdocs_git_revision_date_localized_plugin}
 
-# Fix tests with click >= 8.2
-# Resolved upstream: https://github.com/timvink/mkdocs-git-revision-date-localized-plugin/pull/187
-Patch:          fix-click-8.2.1-tests.patch
-
 BuildArch:      noarch
 BuildRequires:  python3-devel
-%if 0%{?fc41} || 0%{?el10}
+%if 0%{?el10}
 BuildRequires:  sed
 %endif
 %if %{with tests}
 BuildRequires:  git-core
+BuildRequires:  mkdocs-material
+BuildRequires:  python3dist(mkdocs-gen-files)
+BuildRequires:  python3dist(mkdocs-monorepo-plugin)
+BuildRequires:  python3dist(mkdocs-static-i18n)
+BuildRequires:  python3dist(pytest)
 %endif
 
 %global _description %{expand:
@@ -33,19 +34,20 @@ mkdocs-git-revision-date-plugin.}
 
 %package -n     python3-mkdocs-git-revision-date-localized-plugin
 Summary:        %{summary}
+# no longer in 1.5.0
+Obsoletes:      python3-mkdocs-git-revision-date-localized-plugin+all < 1.5.0
+Obsoletes:      python3-mkdocs-git-revision-date-localized-plugin+base < 1.5.0
 
 %description -n python3-mkdocs-git-revision-date-localized-plugin %_description
 
-%pyproject_extras_subpkg -n python3-mkdocs-git-revision-date-localized-plugin all,base
-
 %prep
 %autosetup -p1 -n mkdocs_git_revision_date_localized_plugin-%{version}
-%if 0%{?fc41} || 0%{?el10}
+%if 0%{?el10}
 sed -i 's:setuptools>=70.0:setuptools>=69.0:' pyproject.toml
 %endif
 
 %generate_buildrequires
-%pyproject_buildrequires -x all,base,dev
+%pyproject_buildrequires -x dev
 
 %build
 %pyproject_wheel
@@ -66,6 +68,7 @@ git config --global user.name 'Mock build'
   --deselect='tests/test_builds.py::test_tags_are_replaced[mkdocs file: basic_project/mkdocs_theme_timeago_instant.yml]' \
   --deselect='tests/test_builds.py::test_tags_are_replaced[mkdocs file: basic_project/mkdocs_timeago_locale.yml]' \
   --deselect='tests/test_builds.py::test_tags_are_replaced[mkdocs file: basic_project/mkdocs_timeago.yml]' \
+  --deselect='tests/test_builds.py::test_tags_are_replaced[mkdocs file: techdocs-core/mkdocs.yml]' \
   --deselect=tests/test_builds.py::test_build_material_theme \
   --deselect=tests/test_builds.py::test_material_theme_locale \
   --deselect=tests/test_builds.py::test_material_theme_no_locale \

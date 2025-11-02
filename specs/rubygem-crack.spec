@@ -1,14 +1,14 @@
 %global gem_name crack
 
 Name: rubygem-%{gem_name}
-Version: 1.0.0
-Release: 3%{?dist}
+Version: 1.0.1
+Release: 1%{?dist}
 Summary: Really simple JSON and XML parsing, ripped from Merb and Rails
 License: MIT
 URL: https://github.com/jnunemaker/crack
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/jnunemaker/crack.git && cd crack
-# git archive -v -o crack-1.0.0-tests.tar.gz v1.0.0 test/
+# git archive -v -o crack-1.0.1-tests.tar.gz v1.0.1 test/
 Source1: crack-%{version}-tests.tar.gz
 BuildRequires: rubygems-devel
 BuildRequires: rubygem(bigdecimal)
@@ -49,11 +49,11 @@ cp -a .%{gem_dir}/* \
 
 
 %check
-pushd .%{gem_instdir}
-ln -s %{_builddir}/test test
+( cd .%{gem_instdir}
+ln -s %{builddir}/test test
 
 ruby -Ilib:test -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
-popd
+)
 
 %files
 %dir %{gem_instdir}
@@ -68,6 +68,10 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Fri Oct 31 2025 Vít Ondruch <vondruch@redhat.com> - 1:1.0.1-1
+- Update to crack 1.0.1.
+  Resolves: rhbz#2405836
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -289,7 +289,7 @@
 Summary: Library providing a simple virtualization API
 Name: libvirt
 Version: 11.8.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND OFL-1.1
 URL: https://libvirt.org/
 
@@ -414,7 +414,7 @@ BuildRequires: numactl-devel
     %endif
 BuildRequires: libcap-ng-devel >= 0.5.0
     %if %{with_fuse}
-BuildRequires: fuse-devel >= 2.8.6
+BuildRequires: fuse3-devel
     %endif
     %if %{with_libssh2}
 BuildRequires: libssh2-devel >= 1.3.0
@@ -2702,6 +2702,9 @@ exit 0
 
 
 %changelog
+* Wed Oct 29 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 11.8.0-3
+- Build against fuse3, supported since 8.2
+
 * Tue Oct 14 2025 Cole Robinson <crobinso@redhat.com> - 11.8.0-2
 - Fix build with latest wireshark
 

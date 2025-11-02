@@ -56,7 +56,7 @@
 
 Name: postfix
 Summary: Postfix Mail Transport Agent
-Version: 3.10.4
+Version: 3.10.5
 Release: 1%{?dist}
 Epoch: 2
 URL: http://www.postfix.org
@@ -74,7 +74,7 @@ Requires: findutils
 Requires: policycoreutils
 Provides: MTA smtpd smtpdaemon server(smtp)
 
-Source0: ftp://ftp.porcupine.org/mirrors/postfix-release/official/%{name}-%{version}.tar.gz
+Source0: http://ftp.porcupine.org/mirrors/postfix-release/official/%{name}-%{version}.tar.gz
 Source1: postfix-etc-init.d-postfix
 Source2: postfix.service
 Source3: README-Postfix-SASL-RedHat.txt
@@ -96,7 +96,7 @@ Source101: postfix-pam.conf
 
 # Patches
 
-Patch1: postfix-3.10.3-config.patch
+Patch1: postfix-3.10.5-config.patch
 Patch2: postfix-3.9.0-files.patch
 Patch3: postfix-3.9.0-alternatives.patch
 # probably rhbz#428996
@@ -846,6 +846,11 @@ fi
 %endif
 
 %changelog
+* Thu Oct 30 2025 Jaroslav Škarvada  <jskarvad@redhat.com> - 2:3.10.5-1
+- New version
+  Resolves: rhbz#2406450
+- Changed protocol for downloading sources from FTP to HTTP (HTTPS isn't supported)
+
 * Mon Aug 25 2025 Jaroslav Škarvada  <jskarvad@redhat.com> - 2:3.10.4-1
 - New version
   Resolves: rhbz#2389310

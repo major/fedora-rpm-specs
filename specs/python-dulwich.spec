@@ -3,7 +3,7 @@
 %global debug_package %{nil}
 
 Name:           python-%{srcname}
-Version:        0.24.7
+Version:        0.24.8
 Release:        %autorelease
 Summary:        Python implementation of the Git file formats and protocols
 
@@ -66,14 +66,14 @@ rm -rf %{buildroot}%{python3_sitearch}/docs/tutorial/
 #%{python3} -m pytest tests --ignore=tests/contrib/test_swift_smoke.py -k "not test_copy and not test_receive_pack"
 
 %files -n python3-%{srcname} -f %{pyproject_files}
-%doc AUTHORS README.rst
+%doc README.rst
 %license COPYING
 %{_bindir}/dul-*
 %{_bindir}/%{srcname}
 %exclude %{python3_sitearch}/%{srcname}/tests*
 
 %files -n %{name}-doc
-%doc AUTHORS README.rst
+%doc README.rst
 %license COPYING
 %doc html
 

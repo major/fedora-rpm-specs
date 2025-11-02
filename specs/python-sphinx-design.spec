@@ -14,8 +14,9 @@ VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/v%{version}/sphinx-design-%{version}.tar.gz
 
 BuildArch:      noarch
-
-BuildRequires:  python3-devel
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): -x testing
+BuildOption(install): -l sphinx_design
 
 # The Fedora package does not contain JSON glyphs
 Provides:       bundled(material-icons-fonts) = 4.0.0.c9e5528
@@ -24,16 +25,17 @@ Provides:       bundled(material-icons-fonts) = 4.0.0.c9e5528
 # The upstream release tarball does not contain JSON glyphs
 Provides:       bundled(octicons) = 19.8.0
 
-%global _description %{expand:
-This package contains a Sphinx extension for designing beautiful, view
-size responsive web components.}
+%global _description %{expand:This package contains a Sphinx extension for designing beautiful, view size
+responsive web components.}
 
-%description %_description
+%description
+%_description
 
 %package     -n python3-sphinx-design
 Summary:        Sphinx extension for responsive web components
 
-%description -n python3-sphinx-design %_description
+%description -n python3-sphinx-design
+%_description
 
 %package        doc
 Summary:        Documentation for %{name}
@@ -64,29 +66,21 @@ Documentation for %{name}.
 %prep
 %autosetup -n sphinx-design-%{version} -p1
 
-%generate_buildrequires
+%generate_buildrequires -p
 # Unpin pytest and myst-parser's version
 sed -i "/pytest~=/s/~=8\.3//" pyproject.toml
 sed -i "/myst-parser>=/s/>=2,<4//" pyproject.toml
-%pyproject_buildrequires -t -x testing
 
-%build
-%pyproject_wheel
-
+%build -a
 # Build documentation
 PYTHONPATH=$PWD sphinx-build -b html docs html
 rm -rf html/{.buildinfo,.doctrees}
-
-%install
-%pyproject_install
-%pyproject_save_files -L sphinx_design
 
 %check
 %pytest -v
 
 %files -n python3-sphinx-design -f %{pyproject_files}
 %doc CHANGELOG.md README.md
-%license LICENSE
 %license sphinx_design/compiled/material-icons_LICENSE
 %license sphinx_design/compiled/octicon_LICENSE
 

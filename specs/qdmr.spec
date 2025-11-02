@@ -13,7 +13,7 @@
 # published by the Open Source Initiative.
 
 Name:		qdmr
-Version:	0.12.3
+Version:	0.13.1
 Release:	1%{?dist}
 Summary:	A GUI application for configuring and programming DMR radios
 License:	GPL-3.0-or-later
@@ -132,6 +132,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_libdir}/libdmrconf.so
 
 %changelog
+* Thu Oct 30 2025 Jaroslav Škarvada  <jskarvad@redhat.com> - 0.13.1-1
+- New version
+  Resolves: rhbz#2405149
+
 * Fri Sep 05 2025 Jaroslav Škarvada  <jskarvad@redhat.com> - 0.12.3-1
 - New version
 

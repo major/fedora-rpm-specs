@@ -30,6 +30,9 @@ Summary:        %{summary}
 %prep
 %autosetup -p1 -n asttokens-%{version}
 
+# Drop dependency on pytest-cov, not useful for distro builds
+sed -r -i '/pytest-cov/d' setup.cfg
+
 %generate_buildrequires
 # Let setuptools_scm determine version outside of SCM
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}

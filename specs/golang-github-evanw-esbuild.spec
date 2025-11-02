@@ -22,9 +22,18 @@ License:        MIT
 URL:            %{gourl}
 Source:         %{gosource}
 
+BuildRequires:  nodejs
+BuildRequires:  nodejs-devel
+
 %description %{common_description}
 
 %gopkg
+
+%package -n nodejs-esbuild
+Summary: ESBuild ESM module
+Requires: %{name} = %{version}-%{release}
+
+%description -n nodejs-esbuild %{common_description} (JavaScript library)
 
 %prep
 %goprep -A
@@ -36,10 +45,25 @@ Source:         %{gosource}
 %build
 %gobuild -o %{gobuilddir}/bin/esbuild %{goipath}/cmd/esbuild
 
+# Build the "esbuild" ESM module
+node scripts/esbuild.js %{gobuilddir}/bin/esbuild --neutral
+
 %install
 %gopkginstall
 install -m 0755 -vd                     %{buildroot}%{_bindir}
 install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
+
+# Detect node platform name (e.g., "linux-x64")
+node_platform=$(node -p 'process.platform + "-" + process.arch')
+
+# Install esbuild JavaScript module
+install -m 0755 -vd                     %{buildroot}%{nodejs_sitelib}/esbuild
+cp -pr npm/esbuild/lib                  %{buildroot}%{nodejs_sitelib}/esbuild/
+install -m 0644 -vp npm/esbuild/package.json %{buildroot}%{nodejs_sitelib}/esbuild/
+# Install the @esbuild/platform module
+install -m 0755 -vd %{buildroot}%{nodejs_sitelib}/@esbuild/${node_platform}/bin
+install -m 0644 -vp npm/@esbuild/${node_platform}/package.json %{buildroot}%{nodejs_sitelib}/@esbuild/${node_platform}/
+ln -s %{_bindir}/esbuild                %{buildroot}%{nodejs_sitelib}/@esbuild/${node_platform}/bin/esbuild
 
 %if %{with check}
 %check
@@ -57,6 +81,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %{_bindir}/esbuild
 
 %gopkgfiles
+
+%files -n nodejs-esbuild
+%{nodejs_sitelib}/*esbuild
 
 %changelog
 %autochangelog

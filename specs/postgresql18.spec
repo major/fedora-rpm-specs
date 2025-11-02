@@ -48,7 +48,7 @@
 Summary: PostgreSQL client programs
 Name: %{majorname}%{majorversion}
 Version: 18.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # The PostgreSQL license is very similar to other MIT licenses, but the OSI
 # recognizes it as an independent license, so we do as well.
@@ -64,7 +64,7 @@ Url: http://www.postgresql.org/
 %global prev_prefix %{_libdir}/pgsql/postgresql-%{prevmajorversion}
 %global precise_version %{?epoch:%epoch:}%version-%release
 
-%global setup_version 8.9
+%global setup_version 8.10
 
 %global service_name postgresql.service
 
@@ -1358,6 +1358,9 @@ make -C postgresql-setup-%{setup_version} check
 
 
 %changelog
+* Thu Oct 30 2025 Ales Nezbeda <anezbeda@redhat.com> - 18.0-2
+- Update postgresql-setup script
+
 * Thu Sep 25 2025 Packit <hello@packit.dev> - 18.0-1
 - Update to version 18.0
 - Resolves: rhbz#2398163

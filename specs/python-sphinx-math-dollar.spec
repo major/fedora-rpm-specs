@@ -2,7 +2,7 @@
 
 Name:           python-sphinx-math-dollar
 Version:        1.2.1
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Sphinx extension to enable LaTeX math with $$
 
 # MIT: All files with the following exception.
@@ -17,20 +17,22 @@ Source:         %{giturl}/archive/%{version}/sphinx-math-dollar-%{version}.tar.g
 Patch:          %{name}-extension.patch
 
 BuildArch:      noarch
+BuildSystem:    pyproject
+BuildOption(install): -l sphinx_math_dollar
+
 BuildRequires:  make
-BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist pytest-doctestplus}
 
-%global _desc %{expand:
-sphinx-math-dollar is a Sphinx extension to let you write LaTeX math
-using $$.}
+%global _desc sphinx-math-dollar is a Sphinx extension to let you write LaTeX math using $$.
 
-%description %_desc
+%description
+%_desc
 
 %package     -n python3-sphinx-math-dollar
 Summary:        Sphinx extension to enable LaTeX math with $$
 
-%description -n python3-sphinx-math-dollar %_desc
+%description -n python3-sphinx-math-dollar
+%_desc
 
 %package        doc
 # The content is MIT.  Other licenses are due to files copied in by Sphinx.
@@ -59,21 +61,12 @@ Documentation for sphinx-math-dollar.
 %prep
 %autosetup -n sphinx-math-dollar-%{version} -p1
 
-%generate_buildrequires
-%pyproject_buildrequires
-
-%build
-%pyproject_wheel
-
+%build -a
 # Build the documentation
 make -C docs html
 rst2html --no-datestamp CHANGELOG.rst CHANGELOG.html
 rst2html --no-datestamp README.rst README.html
 rm -f docs/_build/html/.{buildinfo,nojekyll}
-
-%install
-%pyproject_install
-%pyproject_save_files -l sphinx_math_dollar
 
 %check
 %pytest -v
@@ -86,6 +79,9 @@ rm -f docs/_build/html/.{buildinfo,nojekyll}
 %license LICENSE
 
 %changelog
+* Fri Oct 31 2025 Jerry James <loganjerry@gmail.com> - 1.2.1-17
+- Use the pyproject declarative buildsystem
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.2.1-16
 - Rebuilt for Python 3.14.0rc3 bytecode
 
@@ -98,7 +94,7 @@ rm -f docs/_build/html/.{buildinfo,nojekyll}
 * Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.2.1-13
 - Rebuilt for Python 3.14
 
-* Mon Apr 28 2025 Jerry James  <loganjerry@gmail.com> - 1.2.1-12
+* Mon Apr 28 2025 Jerry James <loganjerry@gmail.com> - 1.2.1-12
 - Declare the extension to be parallel-safe
 
 * Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-11

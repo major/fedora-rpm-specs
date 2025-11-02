@@ -1,7 +1,7 @@
 Name:           liferea
 Epoch:          1
 Version:        1.16.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        An RSS/RDF feed reader
 
 License:        GPL-2.0-or-later
@@ -34,13 +34,8 @@ BuildRequires:  pkgconfig(webkit2gtk-4.1)
 BuildRequires:  pkgconfig(webkit2gtk-web-extension-4.1)
 BuildRequires:  xorg-x11-server-Xvfb
 
-%if 0%{?rhel} >= 7
-Requires:       libpeas-loader-python%{python3_pkgversion}%{?_isa} < 2.0
-%else
-Requires:       libpeas-loader-python3%{?_isa} < 2.0
-%endif
+Requires:       libpeas-loader-python%{?_isa} >= 2
 # gobject introspection dependencies
-Requires:       libpeas-gtk%{?_isa} < 2.0
 Recommends:     gstreamer1-plugins-base%{?_isa}
 Recommends:     libappindicator-gtk3%{?_isa}
 Recommends:     libnotify%{?_isa}
@@ -58,11 +53,7 @@ browse through their items, and show their contents.
 %build
 %configure --disable-static
 
-%if 0%{?rhel} > 0 && 0%{?rhel} < 8
-xvfb-run -- %make_build CFLAGS="%{optflags} --std=gnu99"
-%else
 xvfb-run -- %make_build
-%endif
 
 %install
 %make_install
@@ -100,6 +91,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/net.sourc
 
 
 %changelog
+* Thu Oct 30 2025 Yanko Kaneti <yaneti@declera.com> - 1:1.16.5-3
+- Fix incomplete libpeas requirements update (#207399)
+- Drop rhel conditionals for now
+
 * Wed Oct  1 2025 Yanko Kaneti <yaneti@declera.com> - 1:1.16.5-2
 - Update to wip 1.16.x to uncork f43 and rawhide
 - Switch to libpeas2 and girepository-2.0

@@ -10,7 +10,7 @@
 
 Name:           python-sphinx-theme-builder
 Version:        0.2.0
-Release:        0.25.%{prerel}%{?dist}
+Release:        0.26.%{prerel}%{?dist}
 Summary:        Streamline the Sphinx theme development workflow
 
 # Most of the code is MIT.  However,
@@ -24,9 +24,11 @@ Source:         %{giturl}/archive/%{version}%{prerel}/sphinx-theme-builder-%{ver
 Patch:          0001-Avoid-ast.Str-for-python-3.14-compatibility.patch
 
 BuildArch:      noarch
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): %{!?with_bootstrap:-x cli tests/requirements.txt}
+BuildOption(install): -l sphinx_theme_builder
 
 BuildRequires:  help2man
-BuildRequires:  python3-devel
 
 %description
 A tool for authoring Sphinx themes with a simple (opinionated) workflow.
@@ -52,18 +54,11 @@ sed -e 's|\("https://docs\.python\.org/3", \)None|\1"%{_docdir}/python3-docs/htm
     -e 's|\("https://www\.sphinx-doc\.org/en/master", \)None|\1"%{_docdir}/python-sphinx-doc/html/objects.inv"|' \
     -i docs/conf.py
 
-%generate_buildrequires
+%generate_buildrequires -p
 # Skip test packages not available in Fedora
 sed -i '/pytest-clarity/d;/pytest-pspec/d' tests/requirements.txt
-%pyproject_buildrequires %{!?with_bootstrap:-x cli tests/requirements.txt}
 
-%build
-%pyproject_wheel
-
-%install
-%pyproject_install
-%pyproject_save_files -L sphinx_theme_builder
-
+%install -a
 %if %{without bootstrap}
 # Install a man page
 mkdir -p %{buildroot}%{_mandir}/man1
@@ -84,9 +79,11 @@ rm %{buildroot}%{_bindir}/stb
 
 %files -n python3-sphinx-theme-builder -f %{pyproject_files}
 %doc README.md
-%license LICENSE
 
 %changelog
+* Fri Oct 31 2025 Jerry James <loganjerry@gmail.com> - 0.2.0-0.26.b2
+- Use the pyproject declarative buildsystem
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.2.0-0.25.b2
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -6,7 +6,7 @@ ExcludeArch: %{ix86}
 
 Name:       elisa-player
 Version:    25.08.2
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Elisa music player
 
 # Main program LGPLv3+
@@ -95,6 +95,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.el
 %{_kf6_libdir}/elisa/
 
 %changelog
+* Thu Oct 30 2025 Jan Grulich <jgrulich@redhat.com> - 25.08.2-2
+- Rebuild (qt6)
+
 * Wed Oct 08 2025 Steve Cossette <farchord@gmail.com> - 25.08.2-1
 - 25.08.2
 

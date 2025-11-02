@@ -31,11 +31,11 @@
 
 %global major_version 4
 %global minor_version 5
-%global patch_version 1
+%global patch_version 2
 
 Name:           R
 Version:        %{major_version}.%{minor_version}.%{patch_version}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        A language for data analysis and graphics
 
 License:        GPL-2.0-or-later
@@ -140,7 +140,7 @@ Provides:       R(ABI) = %{bootstrap_abi}
   print("Provides: R(" .. name .. ") = " .. rpm_version)
 }
 %add_submodule  base %{version}
-%add_submodule  boot 1.3-31
+%add_submodule  boot 1.3-32
 %add_submodule  class 7.3-23
 %add_submodule  cluster 2.1.8.1
 %add_submodule  codetools 0.2-20
@@ -153,7 +153,7 @@ Provides:       R(ABI) = %{bootstrap_abi}
 %add_submodule  KernSmooth 2.23-26
 %add_submodule  lattice 0.22-7
 %add_submodule  MASS 7.3-65
-%add_submodule  Matrix 1.7-3
+%add_submodule  Matrix 1.7-4
 Obsoletes:      R-Matrix < 0.999375-7
 %add_submodule  methods %{version}
 %add_submodule  mgcv 1.9-3
@@ -219,7 +219,7 @@ Recommends:     tex(inconsolata.sty)
 Recommends:     qpdf
 %endif
 
-Provides:       R-Matrix-devel = 1.7.3
+Provides:       R-Matrix-devel = 1.7.4
 Obsoletes:      R-Matrix-devel < 0.999375-7
 
 %ifarch %{java_arches}
@@ -308,6 +308,8 @@ from the R project.  This package provides the static libRmath library.
 %prep
 %setup -q
 %patch -P0 -p1 -b .fixpath
+# A bunch of macOS stuff in v4.5.2's archive
+find . -name '._*' -delete
 
 %build
 # Comment out default R_LIBS_SITE (since R 4.2) and set our own as always
@@ -960,6 +962,9 @@ TZ="Europe/Paris" make check
 %{_libdir}/libRmath.a
 
 %changelog
+* Fri Oct 31 2025 Iñaki Úcar <iucar@fedoraproject.org> - 4.5.2-1
+- Update to 4.5.2
+
 * Tue Aug 05 2025 František Zatloukal <fzatlouk@redhat.com> - 4.5.1-3
 - Rebuilt for icu 77.1
 

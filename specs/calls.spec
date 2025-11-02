@@ -54,10 +54,11 @@ A phone dialer and call handler.
 
 mv libcall-ui-%{libcall_ui_commit}/* subprojects/libcall-ui/
 
-%build
+%conf
 %meson
-%meson_build
 
+%build
+%meson_build
 
 %install
 %meson_install
@@ -110,7 +111,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Calls.deskt
 LC_ALL=C.UTF-8 xvfb-run sh <<'SH'
 %meson_test plugins
 SH
-
 
 %files -f %{name}.lang
 %{_sysconfdir}/xdg/autostart/org.gnome.Calls-daemon.desktop

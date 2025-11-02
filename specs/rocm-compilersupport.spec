@@ -23,15 +23,14 @@
 # For building earlier snapshots of the compiler
 %bcond_with gitcommit
 %if %{with gitcommit}
-# for tip of rocm-rel-7.0
-%global commit0 a4487fe1e1877e449c84ef8cb41bb65327e03770
+%global commit0 1b0eada6b0ee93e2e694c8c146d23fca90bc11c5
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global date0 20250910
+%global date0 20251024
 
 # The package follows LLVM's major version, but API version is still important:
 %global comgr_maj_api_ver 3
 # Upstream tags are based on rocm releases:
-%global rocm_release 7.0
+%global rocm_release 7.1
 %global rocm_patch 0
 # What LLVM is upstream using (use LLVM_VERSION_MAJOR from llvm/CMakeLists.txt):
 %global llvm_maj_ver 20
@@ -42,8 +41,8 @@
 # The package follows LLVM's major version, but API version is still important:
 %global comgr_maj_api_ver 3
 # Upstream tags are based on rocm releases:
-%global rocm_release 7.0
-%global rocm_patch 2
+%global rocm_release 7.1
+%global rocm_patch 0
 # What LLVM is upstream using (use LLVM_VERSION_MAJOR from llvm/CMakeLists.txt):
 %global llvm_maj_ver 20
 
@@ -91,7 +90,7 @@ Version:        %{llvm_maj_ver}
 %if %{with gitcommit}
 Release:        0.rocm%{rocm_version}^git%{date0}.%{shortcommit0}%{?dist}
 %else
-Release:        4.rocm%{rocm_version}%{?dist}
+Release:        5.rocm%{rocm_version}%{?dist}
 %endif
 
 Summary:        Various AMD ROCm LLVM related services
@@ -1116,6 +1115,9 @@ rm -f %{buildroot}%{_bindir}/hipvars.pm
 %endif
 
 %changelog
+* Thu Oct 30 2025 Tom Rix <Tom.Rix@amd.com> - 20-5.rocm7.1.0
+- Update to 7.1.0
+
 * Fri Oct 10 2025 Tom Rix <Tom.Rix@amd.com> - 20-4.rocm7.0.2
 - Update to 7.0.2
 

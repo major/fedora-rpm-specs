@@ -2,21 +2,18 @@ Name: cpufetch
 Summary: Simple tool for determining CPU architecture
 License: GPL-2.0-only
 
-Version: 1.06
-Release: 3%{?dist}
+Version: 1.07
+Release: 1%{?dist}
 
 URL: https://github.com/Dr-Noob/cpufetch
 Source0: %{URL}/archive/v%{version}/%{name}-v%{version}.tar.gz
 
-# The program has a couple of off-by-one errors
-# which make it allocate buffers that can't fit the data.
-#
-# Reported upstream: https://github.com/Dr-Noob/cpufetch/issues/264
-Patch0: 0000-off-by-one-errors.patch
-
 # Program assumes that a processor must have an L2 cache,
 # and crashes if it does not.
 Patch1: 0001-L2-cache-may-not-exist.patch
+
+# Fix mixed-up variable names in ppc code
+Patch2: 0002-ppc-variable-name.patch
 
 BuildRequires: gcc
 BuildRequires: make
@@ -43,8 +40,6 @@ It currently supports x86_64 CPUs (both Intel and AMD), ARM, and PowerPC.
 
 # "make install" installs the LICENSE file as well
 rm %{buildroot}%{_datadir}/licenses/cpufetch-git/LICENSE
-# The man page is not actually gzipped
-mv %{buildroot}%{_mandir}/man1/%{name}.1{.gz,}
 
 
 %check
@@ -59,6 +54,9 @@ mv %{buildroot}%{_mandir}/man1/%{name}.1{.gz,}
 
 
 %changelog
+* Fri Oct 31 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.07-1
+- Update to v1.07
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.06-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

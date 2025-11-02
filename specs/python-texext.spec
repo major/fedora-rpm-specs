@@ -1,6 +1,6 @@
 Name:           python-texext
 Version:        0.6.7
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Sphinx extensions for working with LaTeX math
 
 # BSD-2-Clause: the project as a whole
@@ -29,7 +29,9 @@ Patch:          %{name}-looseversion.patch
 Patch:          %{name}-autodoc.patch
 
 BuildArch:      noarch
-BuildRequires:  python3-devel
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): -x test
+BuildOption(install): -l texext
 
 %description
 This package contains Sphinx extensions for working with LaTeX math.
@@ -43,16 +45,8 @@ This package contains Sphinx extensions for working with LaTeX math.
 %prep
 %autosetup -n texext-%{version} -p1
 
-%generate_buildrequires
-%pyproject_buildrequires -x test
-
-%build
-%pyproject_wheel
+%build -a
 rst2html --no-datestamp README.rst README.html
-
-%install
-%pyproject_install
-%pyproject_save_files -l texext
 
 %check
 %pytest -v
@@ -61,6 +55,9 @@ rst2html --no-datestamp README.rst README.html
 %doc README.html
 
 %changelog
+* Fri Oct 31 2025 Jerry James <loganjerry@gmail.com> - 0.6.7-18
+- Use the pyproject declarative buildsystem
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.6.7-17
 - Rebuilt for Python 3.14.0rc3 bytecode
 

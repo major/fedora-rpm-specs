@@ -8,18 +8,13 @@
 %global crate zopfli
 
 Name:           rust-zopfli
-Version:        0.8.2
+Version:        0.8.3
 Release:        %autorelease
 Summary:        Rust implementation of the Zopfli compression algorithm
 
 License:        Apache-2.0
 URL:            https://crates.io/crates/zopfli
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * chore(deps): update rust crate proptest-derive to 0.6.0:
-#   https://github.com/zopfli-rs/zopfli/pull/66; still allow 0.5.0,
-#   https://bugzilla.redhat.com/show_bug.cgi?id=2370964
-Patch:          zopfli-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 26
 

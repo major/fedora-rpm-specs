@@ -9,7 +9,7 @@
 
 Name:           python-zope-event
 Version:        5.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Zope Event Publication
 License:        ZPL-2.1
 URL:            https://pypi.python.org/pypi/zope.event/
@@ -50,6 +50,8 @@ Documentation for %{name}.
 
 %prep
 %autosetup -n zope_event-%{version} -p1
+# we don't have specific versions of setuptools available
+sed -i -r 's/("| )setuptools == /\1setuptools >= /' pyproject.toml tox.ini
 
 # Update the sphinx theme name
 sed -i "s/'default'/'classic'/" docs/conf.py
@@ -95,6 +97,10 @@ rm -f docs/_build/html/.buildinfo
 %endif
 
 %changelog
+* Tue Oct 14 2025 Miro Hrončok <mhroncok@redhat.com> - 5.1-5
+- Allow build with setuptools > 78.1.1
+- Fixes: rhbz#2403568
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 5.1-4
 - Rebuilt for Python 3.14.0rc3 bytecode
 

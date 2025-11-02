@@ -5,17 +5,19 @@ Version:        0.0.5
 Release:        %autorelease
 Summary:        Accessible pygments themes
 
-BuildArch:      noarch
 License:        BSD-3-Clause
 URL:            https://quansight-labs.github.io/accessible-pygments/
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/v%{version}/accessible-pygments-%{version}.tar.gz
 
-BuildRequires:  python3-devel
+BuildArch:      noarch
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): -x tests
+BuildOption(install): -l a11y_pygments
 
 %description
-This package includes a collection of accessible themes for pygments
-based on different sources.
+This package includes a collection of accessible themes for pygments based on
+different sources.
 
 %package     -n python3-accessible-pygments
 Summary:        %{summary}
@@ -23,23 +25,17 @@ Summary:        %{summary}
 %py_provides python3-a11y-pygments
 
 %description -n python3-accessible-pygments
-This package includes a collection of accessible themes for pygments
-based on different sources.
+This package includes a collection of accessible themes for pygments based on
+different sources.
 
 %prep
 %autosetup -n accessible-pygments-%{version}
 
-%generate_buildrequires
+%generate_buildrequires -p
 export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
-%pyproject_buildrequires -x tests
 
-%build
+%build -p
 export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
-%pyproject_wheel
-
-%install
-%pyproject_install
-%pyproject_save_files -l a11y_pygments
 
 %check
 %pytest -v

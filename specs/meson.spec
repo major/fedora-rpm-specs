@@ -13,6 +13,8 @@ Source:         https://github.com/mesonbuild/meson/releases/download/%{version_
 
 BuildArch:      noarch
 
+Patch0001:      0001-mdist-fix-failure-to-create-tar-files.patch
+
 BuildRequires:  python3-devel
 Requires:       ninja-build
 

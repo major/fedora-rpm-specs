@@ -1,6 +1,6 @@
 Name:           python-pysingular
 Version:        0.9.7
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Python interface to Singular
 
 License:        GPL-2.0-or-later
@@ -10,43 +10,35 @@ Source:         %{url}/archive/v%{version}/PySingular-%{version}.tar.gz
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
+BuildSystem:    pyproject
+BuildOption(install): -l PySingular
 
 BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig(Singular)
-BuildRequires:  python3-devel
 
-%global _description %{expand:
-This package contains a basic interface to call Singular from python.
-It is meant to be used in the Jupyter interface to Singular.}
+%global _description %{expand:This package contains a basic interface to call Singular from python.  It is
+meant to be used in the Jupyter interface to Singular.}
 
-%description %_description
+%description
+%_description
 
 %package     -n python3-pysingular
 Summary:        Python 3 interface to Singular
 
-%description -n python3-pysingular %_description
+%description -n python3-pysingular
+%_description
 
 %prep
 %autosetup -n PySingular-%{version}
-
-%generate_buildrequires
-%pyproject_buildrequires
-
-%build
-%pyproject_wheel
-
-%install
-%pyproject_install
-%pyproject_save_files -l PySingular
-
-%check
-%pyproject_check_import
 
 %files -n python3-pysingular -f %{pyproject_files}
 %doc README
 %license GPLv2
 
 %changelog
+* Fri Oct 31 2025 Jerry James <loganjerry@gmail.com> - 0.9.7-27
+- Use the pyproject declarative buildsystem
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.7-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -88,7 +88,7 @@
 Summary: Qt6 - QtWebEngine components
 Name:    qt6-qtwebengine
 Version: 6.10.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 # See also http://qt-project.org/doc/qt-5.0/qtdoc/licensing.html
@@ -125,6 +125,10 @@ Patch3:   qtwebengine-aarch64-new-stat.patch
 
 # Enable OpenH264
 Patch4:   qtwebengine-use-openh264.patch
+
+# FTBFS - /usr/include/bits/siginfo-consts.h:219:3: error: expected identifier
+# 219 |   SYS_SECCOMP = 1,              /* Seccomp triggered.  */
+Patch5:   qtwebengine-chromium-141-glibc-2.42-SYS_SECCOMP.patch
 
 ## Upstream patches:
 # https://bugreports.qt.io/browse/QTBUG-129985
@@ -477,6 +481,7 @@ popd
 %patch -P2 -p1 -b .link-pipewire
 %patch -P3 -p1 -b .aarch64-new-stat
 %patch -P4 -p1 -b .use-openh264
+%patch -P5 -p1 -b .chromium-141-glibc-2.42-SYS_SECCOMP
 
 ## upstream patches
 %patch -P80 -p1 -b .fix-arm-build
@@ -840,6 +845,9 @@ done
 %endif
 
 %changelog
+* Thu Oct 30 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0-3
+- Fix FTBS in rawhide due to glib and PipeWire updates
+
 * Tue Oct 07 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0-2
 - 6.10.0
 

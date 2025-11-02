@@ -1,9 +1,9 @@
 %global eppic_ver 72da440362e20291d5ecbb04b6eb7c7b492f233c
 %global eppic_shortver %(c=%{eppic_ver}; echo ${c:0:7})
 Name: makedumpfile
-Version: 1.7.7
+Version: 1.7.8
 Summary: make a small dumpfile of kdump
-Release: 4%{?dist}
+Release: 1%{?dist}
 
 License: GPL-2.0-only
 URL: https://github.com/makedumpfile/makedumpfile
@@ -26,8 +26,6 @@ BuildRequires: libzstd-devel
 BuildRequires: pkgconfig
 BuildRequires: intltool
 BuildRequires: gettext
-
-Patch01: 0001-PATCH-v2-Fix-a-data-race-in-multi-threading-mode-num.patch
 
 %description
 makedumpfile is a tool to compress and filter out unneeded data from kernel
@@ -59,6 +57,10 @@ install -m 755 -D eppic_makedumpfile.so %{buildroot}/%{_libdir}/eppic_makedumpfi
 %license COPYING
 
 %changelog
+* Thu Oct 30 2025 Packit <hello@packit.dev> - 1.7.8-1
+- Update to version 1.7.8
+- Resolves: rhbz#2407308
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

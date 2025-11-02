@@ -1,12 +1,13 @@
 Summary: Password manager with GTK3 GUI
 Name: fpm2
-Version: 0.90.1
-Release: 2%{?dist}
+Version: 0.90.2
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: https://als.regnet.cz/%{name}/download/%{name}-%{version}.tar.xz
 URL: https://als.regnet.cz/fpm2/
-BuildRequires: gtk3-devel, libxml2-devel, nettle-devel, desktop-file-utils, gettext, intltool, gcc
-BuildRequires: make
+BuildRequires: meson
+BuildRequires: gcc, desktop-file-utils, gettext
+BuildRequires: gtk3-devel, libxml2-devel, nettle-devel
 
 %description
 Figaro's Password Manager 2 is a program that allows you to securely store the
@@ -28,15 +29,16 @@ passwords using GTK3 interface. Features include:
   to the tray icon.
 
 %prep
-%setup -q
+%autosetup
+
+%conf
+%meson
 
 %build
-%configure
-make %{?_smp_mflags}
+%meson_build
 
 %install
-rm -rf %{buildroot}
-make DESTDIR=%{buildroot} install
+%meson_install
 
 %find_lang %{name}
 
@@ -50,10 +52,18 @@ desktop-file-install \
 %{_bindir}/fpm2
 %{_datadir}/pixmaps/fpm2
 %{_mandir}/man1/fpm2.1.gz
-%{_datadir}/applications/*.desktop
+%{_datadir}/applications/fpm2.desktop
 %{_datadir}/icons/hicolor/*/apps/fpm2.png
+%{_datadir}/metainfo/fpm2.metainfo.xml
+
+%check
+# No tests available for this package
 
 %changelog
+* Fri Oct 31 2025 Aleš Koval <als@regnet.cz> - 0.90.2-1
+- Update to 0.90.2
+- Change build system from GNU Autotools to Meson
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.90.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

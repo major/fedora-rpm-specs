@@ -1,29 +1,28 @@
 %global selinuxtype targeted
 %global moduletype contrib
-%define semodule_version 0.9
+%define semodule_version 1.0
 
 Summary: Application Whitelisting Daemon
 Name: fapolicyd
-Version: 1.3.7
-Release: 2%{?dist}
+Version: 1.4.1
+Release: 1%{?dist}
 License: GPL-3.0-or-later
 URL: https://github.com/linux-application-whitelisting/fapolicyd
 Source0: https://github.com/linux-application-whitelisting/fapolicyd/releases/download/v%{version}/fapolicyd-%{version}.tar.gz
 Source1: https://github.com/linux-application-whitelisting/%{name}-selinux/releases/download/v%{semodule_version}/%{name}-selinux-%{semodule_version}.tar.gz
 Source2: https://github.com/bachradsusi.gpg
+Source3: fapolicyd.sysusers
 Source10: https://github.com/linux-application-whitelisting/fapolicyd/releases/download/v%{version}/fapolicyd-%{version}.tar.gz.asc
 Source11: https://github.com/linux-application-whitelisting/%{name}-selinux/releases/download/v%{semodule_version}/%{name}-selinux-%{semodule_version}.tar.gz.asc
 # we bundle uthash for eln
 Source20: https://github.com/troydhanson/uthash/archive/refs/tags/v2.3.0.tar.gz#/uthash-2.3.0.tar.gz
 
 # https://github.com/linux-application-whitelisting/fapolicyd
-# $ git format-patch -N v1.3.7
+# $ git format-patch -N v1.4.1
 # https://github.com/linux-application-whitelisting/fapolicyd-selinux
-# $ git format-patch -N --start-number 100 --src-prefix=a/fapolicyd-selinux-0.9/ --dst-prefix=b/fapolicyd-selinux-0.9/ v0.9
+# $ git format-patch -N --start-number 100 --src-prefix=a/fapolicyd-selinux-1.0/ --dst-prefix=b/fapolicyd-selinux-1.0/ v1.0
 # $ for j in [0-9]*.patch; do printf "Patch%s: %s\n" ${j/-*/} $j; done
 # Patch list start
-Patch0001: 0001-Update-magic-for-python-3.14rc3.patch
-Patch0100: 0100-Allow-daemon-to-change-dir-attributes.patch
 # Patch list end
 
 BuildRequires: gcc
@@ -34,6 +33,8 @@ BuildRequires: libcap-ng-devel libseccomp-devel lmdb-devel
 BuildRequires: python3-devel
 %if 0%{?fedora} || 0%{?rhel} > 10
 BuildRequires: gpgverify
+%else
+BuildRequires: gnupg
 %endif
 
 %if 0%{?rhel} == 0
@@ -79,8 +80,8 @@ The %{name}-selinux package contains selinux policy for the %{name} daemon.
 %endif
 
 # generate rules for python
-sed -i "s/%python2_path%/`readlink -f %{__python2} | sed 's/\//\\\\\//g'`/g" rules.d/*.rules
-sed -i "s/%python3_path%/`readlink -f %{__python3} | sed 's/\//\\\\\//g'`/g" rules.d/*.rules
+sed -i "s|%python2_path%|`readlink -f %{__python2}`|g" rules.d/*.rules
+sed -i "s|%python3_path%|`readlink -f %{__python3}`|g" rules.d/*.rules
 
 # Detect run time linker directly from bash
 interpret=`readelf -e /usr/bin/bash \
@@ -90,11 +91,6 @@ interpret=`readelf -e /usr/bin/bash \
     | rev`
 
 sed -i "s|%ld_so_path%|`realpath $interpret`|g" rules.d/*.rules
-
-# Create a sysusers.d config file
-cat >fapolicyd.sysusers.conf <<EOF
-u fapolicyd - 'Application Whitelisting Daemon' %{_localstatedir}/lib/%{name} -
-EOF
 
 %build
 cp INSTALL INSTALL.tmp
@@ -129,11 +125,17 @@ make check
 %install
 %make_install
 install -p -m 644 -D init/%{name}-tmpfiles.conf %{buildroot}/%{_tmpfilesdir}/%{name}.conf
+install -p -D -m 0644 %{SOURCE3} %{buildroot}%{_sysusersdir}/%{name}.conf
 mkdir -p %{buildroot}/%{_localstatedir}/lib/%{name}
 mkdir -p %{buildroot}/run/%{name}
 mkdir -p %{buildroot}%{_sysconfdir}/%{name}/trust.d
 mkdir -p %{buildroot}%{_sysconfdir}/%{name}/rules.d
-
+# get list of file names between known-libs and restrictive from sample-rules/README-rules
+cat %{buildroot}/%{_datadir}/%{name}/sample-rules/README-rules \
+  | grep -A 100 'known-libs' \
+  | grep -B 100 'restrictive' \
+  | grep '^[0-9]' > %{buildroot}/%{_datadir}/%{name}/default-ruleset.known-libs
+chmod 644 %{buildroot}/%{_datadir}/%{name}/default-ruleset.known-libs
 
 # selinux
 install -d %{buildroot}%{_datadir}/selinux/packages/%{selinuxtype}
@@ -144,9 +146,6 @@ install -p -m 644 %{name}-selinux-%{semodule_version}/%{name}.if %{buildroot}%{_
 #cleanup
 find %{buildroot} \( -name '*.la' -o -name '*.a' \) -delete
 
-install -m0644 -D fapolicyd.sysusers.conf %{buildroot}%{_sysusersdir}/fapolicyd.conf
-
-
 %post
 # if no pre-existing rule file
 if [ ! -e %{_sysconfdir}/%{name}/%{name}.rules ] ; then
@@ -154,23 +153,15 @@ if [ ! -e %{_sysconfdir}/%{name}/%{name}.rules ] ; then
  # Only if no pre-existing component rules
  if [ "$files" -eq 0 ] ; then
   ## Install the known libs policy
-  cp %{_datadir}/%{name}/sample-rules/10-languages.rules  %{_sysconfdir}/%{name}/rules.d/
-  cp %{_datadir}/%{name}/sample-rules/20-dracut.rules %{_sysconfdir}/%{name}/rules.d/
-  cp %{_datadir}/%{name}/sample-rules/21-updaters.rules  %{_sysconfdir}/%{name}/rules.d/
-  cp %{_datadir}/%{name}/sample-rules/30-patterns.rules %{_sysconfdir}/%{name}/rules.d/
-  cp %{_datadir}/%{name}/sample-rules/40-bad-elf.rules  %{_sysconfdir}/%{name}/rules.d/
-  cp %{_datadir}/%{name}/sample-rules/41-shared-obj.rules  %{_sysconfdir}/%{name}/rules.d/
-  cp %{_datadir}/%{name}/sample-rules/42-trusted-elf.rules  %{_sysconfdir}/%{name}/rules.d/
-  cp %{_datadir}/%{name}/sample-rules/70-trusted-lang.rules  %{_sysconfdir}/%{name}/rules.d/
-  cp %{_datadir}/%{name}/sample-rules/72-shell.rules  %{_sysconfdir}/%{name}/rules.d/
-  cp %{_datadir}/%{name}/sample-rules/90-deny-execute.rules %{_sysconfdir}/%{name}/rules.d/
-  cp %{_datadir}/%{name}/sample-rules/95-allow-open.rules  %{_sysconfdir}/%{name}/rules.d/
+  for rulesfile in `cat %{_datadir}/%{name}/default-ruleset.known-libs`; do
+    cp %{_datadir}/%{name}/sample-rules/$rulesfile  %{_sysconfdir}/%{name}/rules.d/
+  done
   chgrp %{name} %{_sysconfdir}/%{name}/rules.d/*
   if [ -x /usr/sbin/restorecon ] ; then
    # restore correct label
    /usr/sbin/restorecon -F %{_sysconfdir}/%{name}/rules.d/*
   fi
-  fagenrules --load
+  fagenrules >/dev/null
  fi
 fi
 %systemd_post %{name}.service
@@ -187,6 +178,7 @@ fi
 %license COPYING
 %attr(755,root,root) %dir %{_datadir}/%{name}
 %attr(755,root,root) %dir %{_datadir}/%{name}/sample-rules
+%attr(644,root,root) %{_datadir}/%{name}/default-ruleset.known-libs
 %attr(644,root,root) %{_datadir}/%{name}/sample-rules/*
 %attr(644,root,root) %{_datadir}/%{name}/fapolicyd-magic.mgc
 %attr(750,root,%{name}) %dir %{_sysconfdir}/%{name}
@@ -201,6 +193,7 @@ fi
 %ghost %attr(644,root,%{name}) %{_sysconfdir}/%{name}/compiled.rules
 %attr(644,root,root) %{_unitdir}/%{name}.service
 %attr(644,root,root) %{_tmpfilesdir}/%{name}.conf
+%attr(644,root,root) %{_sysusersdir}/%{name}.conf
 %attr(755,root,root) %{_bindir}/%{name}-rpm-loader
 %attr(755,root,root) %{_sbindir}/%{name}
 %attr(755,root,root) %{_sbindir}/%{name}-cli
@@ -213,7 +206,6 @@ fi
 %ghost %attr(660,root,%{name}) /run/%{name}/%{name}.fifo
 %ghost %attr(660,%{name},%{name}) %verify(not md5 size mtime) %{_localstatedir}/lib/%{name}/data.mdb
 %ghost %attr(660,%{name},%{name}) %verify(not md5 size mtime) %{_localstatedir}/lib/%{name}/lock.mdb
-%{_sysusersdir}/fapolicyd.conf
 
 %files selinux
 %{_datadir}/selinux/packages/%{selinuxtype}/%{name}.pp.bz2
@@ -233,6 +225,14 @@ fi
 %selinux_relabel_post -s %{selinuxtype}
 
 %changelog
+* Fri Oct 31 2025 Petr Lautrbach <lautrbach@redhat.com> - 1.4.1-1
+- Fix deadlock on reconfigure
+- On reconfigure, update the trust list and reload the rpm filter
+
+* Thu Oct 30 2025 Petr Lautrbach <lautrbach@redhat.com> - 1.4-1
+- fapolicyd-1.4 and fapolicyd-selinux-1.0
+  https://github.com/linux-application-whitelisting/fapolicyd/releases/tag/v1.4
+
 * Fri Oct 17 2025 Petr Lautrbach <lautrbach@redhat.com> - 1.3.7-2
 - Update magic for python 3.14rc3
 - Allow daemon to change var_run_t dir attributes

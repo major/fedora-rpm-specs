@@ -1,15 +1,13 @@
 Name: xtrkcad
 Summary: CAD for Model Railroad layout
-Version: 5.3.0
-Release: 6%{?dist}
+Version: 5.3.1
+Release: 1%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only
 URL: https://sourceforge.net/projects/xtrkcad-fork
 Source0: https://sourceforge.net/projects/xtrkcad-fork/files/XTrackCad/Version%20%{version}/xtrkcad-source-%{version}GA.tar.gz
 # fix build to use dynamic libzip
-Patch0: xtrkcad-5.3.0GA.libzip.patch
-# fix conflicting types for ‘canonicalize’
-Patch1: xtrkcad-5.3.0GA.canonicalize.patch
+Patch0: xtrkcad-5.3.1GA.libzip.patch
 
 BuildRequires: gcc
 BuildRequires: gcc-c++
@@ -47,7 +45,6 @@ car inventory. Documents/help is in xtrkcad-doc rpm.
 %prep
 %setup -n xtrkcad-source-%{version}GA -q
 %patch 0 -p1
-%patch 1 -p1
 
 %package doc
 Summary: Documentation for %{name}
@@ -104,6 +101,9 @@ mv %{buildroot}/%{_datadir}/%{name}/applications/xtrkcad.xml \
 %{_datadir}/locale/ru/LC_MESSAGES/%{name}.mo
 
 %changelog
+* Thu Oct 30 2025 Phil Cameron <pecameron1 -at- gmail.com> 5.3.1-1
+- V5.3.1 GA
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %bcond tests 1
 
 Name:           python-jsonfeed-util
-Version:        1.1.3
+Version:        1.2.0
 Release:        %autorelease
 Summary:        Python package for parsing and generating JSON feeds
 

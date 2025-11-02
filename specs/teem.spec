@@ -14,7 +14,7 @@ Summary:        Libraries for processing and visualizing scientific raster data
 #   License/exception review: Simple Library Usage License
 #   https://gitlab.com/fedora/legal/fedora-license-data/-/issues/658
 License:        %{shrink:
-    LGPL-2.1-or-later WITH LicenseRef-Fedora-Temporary-Simple-Library-exception
+    LGPL-2.1-or-later WITH AdditionRef-Fedora-Temporary-Simple-Library-exception
     }
 # Additionally, the following are removed in %%prep to assert that they do not
 # contribute to the built package:
@@ -251,7 +251,7 @@ Summary:        Examples for developing with for teem
 # BSD-3-Clause:
 #   Examples/sanity/sanity.c
 License:        %{shrink:
-    LGPL-2.1-or-later WITH LicenseRef-Fedora-Temporary-Simple-Library-exception AND
+    LGPL-2.1-or-later WITH AdditionRef-Fedora-Temporary-Simple-Library-exception AND
     Zlib AND
     BSD-3-Clause
     }

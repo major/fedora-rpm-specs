@@ -13,7 +13,7 @@
 Name:           ldc
 Epoch:          1
 Version:        1.41.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        LLVM D Compiler
 
 # The DMD frontend in dmd/* GPL version 1 or artistic license
@@ -32,6 +32,7 @@ ExclusiveArch:  %{ldc_arches} ppc64le
 
 BuildRequires:  bash-completion
 BuildRequires:  cmake
+BuildRequires:  compiler-rt%{?llvm_version}
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  ldc
@@ -46,6 +47,8 @@ BuildRequires:  zlib-devel
 Requires:       %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 # Require gcc for linking
 Requires:       gcc
+# Recommend compiler-rt for PGO, sanitizers and fuzzing
+Recommends:     compiler-rt%{?llvm_version}
 
 %description
 LDC is a portable compiler for the D programming language with modern
@@ -93,6 +96,7 @@ popd
        -DINCLUDE_INSTALL_DIR:PATH=%{_prefix}/lib/ldc/%{_target_platform}/include/d \
        -DBASH_COMPLETION_COMPLETIONSDIR:PATH=%{_datadir}/bash-completion/completions \
        -DLLVM_CONFIG:PATH=llvm-config%{?llvm_version:-%{llvm_version}} \
+       -DCOMPILER_RT_BASE_DIR:PATH=%{_prefix}/lib/clang \
        -DPHOBOS_SYSTEM_ZLIB=ON \
 %if %{with bootstrap}
        -DD_COMPILER:PATH=`pwd`/build-bootstrap/bin/ldmd2 \
@@ -142,6 +146,10 @@ install --mode=0644 %{SOURCE3} %{buildroot}%{_rpmconfigdir}/macros.d/macros.ldc
 %{_libdir}/libphobos2-ldc-shared.so.%{soversion}*
 
 %changelog
+* Thu Oct 30 2025 Kalev Lember <kalevlember@gmail.com> - 1:1.41.0-2
+- Fix compiler-rt library path in ldc2.conf
+- Recommend compiler-rt package
+
 * Fri Oct 24 2025 Kalev Lember <kalevlember@gmail.com> - 1:1.41.0-1
 - Update to 1.41.0
 - Build with llvm 20

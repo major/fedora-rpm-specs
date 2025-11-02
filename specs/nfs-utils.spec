@@ -2,7 +2,7 @@ Summary: NFS utilities and supporting clients and daemons for the kernel NFS ser
 Name: nfs-utils
 URL: http://linux-nfs.org/
 Version: 2.8.4
-Release: 0%{?dist}
+Release: 1%{?dist}
 Epoch: 1
 
 # group all 32bit related archs
@@ -387,6 +387,7 @@ rm -f %{_sysconfdir}/nfsmount.conf.d/10-nfsv4.conf
 %files -n libnfsidmap
 %doc support/nfsidmap/AUTHORS support/nfsidmap/README support/nfsidmap/COPYING
 %config(noreplace) %{_sysconfdir}/idmapd.conf
+%dir %{_libdir}/libnfsidmap/
 %{_libdir}/libnfsidmap.so.*
 %{_libdir}/libnfsidmap/*.so
 
@@ -476,8 +477,11 @@ rm -f %{_sysconfdir}/nfsmount.conf.d/10-nfsv4.conf
 %{_mandir}/*/rpcctl.8.gz
 
 %changelog
+* Wed Oct 29 2025 Steve Dickson <steved@redhat.com> 2.8.4-1
+- Added the libnfsidmap directory to RPM database (bz 2284001)
+
 * Wed Sep 10 2025 Steve Dickson <steved@redhat.com> 2.8.4-0
-- Updated to latest upstream release: nfs-utils-2-8-4 (bz2394816)
+- Updated to latest upstream release: nfs-utils-2-8-4 (bz 2394816)
 
 * Wed Sep  3 2025 Bipin B Narayan <bbnaraya@redhat.com> 2.8.3-4.rc3
 - nfs-client-utils: Remove symlink from sysconfdir instead of datadir

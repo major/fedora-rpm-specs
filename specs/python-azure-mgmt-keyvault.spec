@@ -5,7 +5,7 @@
 %global         tarball_name     azure_mgmt_keyvault
 
 Name:           python-%{srcname}
-Version:        11.0.0
+Version:        12.1.0
 Release:        %autorelease
 Summary:        Microsoft Azure Keyvault Management Client Library for Python
 License:        MIT
@@ -53,7 +53,7 @@ Summary:        %{summary}
 %install
 %pyproject_install
 %pyproject_save_files azure
-
+rm -rf %{buildroot}%{python3_sitelib}/generated_{samples,tests}
 
 %check
 %pyproject_check_import

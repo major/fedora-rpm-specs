@@ -91,30 +91,24 @@ be installed.
 sed -r -i '1{/^#!/d}' keyring/cli.py
 
 
-%build -a
-for sh in bash zsh tcsh
-do
-  PYTHONPATH="${PWD}/build/lib" '%{python3}' -m keyring \
-      --print-completion "${sh}" | tee "keyring.${sh}"
-done
-
-
 %install -a
-install -D -p -m 0644 keyring.bash \
-    '%{buildroot}%{bash_completions_dir}/keyring'
-install -D -p -m 0644 keyring.zsh \
-    '%{buildroot}%{zsh_completions_dir}/_keyring'
-install -D -p -m 0644 keyring.tcsh \
-    '%{buildroot}%{_sysconfdir}/profile.d/keyring.csh'
+# Generate both completions and man pages in %%install rather than in %%build
+# so we can use the actual generated entry point. For completions in
+# particular, this is very important; see RHBZ#2408842.
 
-# Do this in %%install rather than in %%build so we can use the actual
-# generated entry point
+install -d '%{buildroot}%{bash_completions_dir}'
+%{py3_test_envvars} keyring --print-completion bash |
+    tee '%{buildroot}%{bash_completions_dir}/keyring'
+install -d '%{buildroot}%{zsh_completions_dir}'
+%{py3_test_envvars} keyring --print-completion zsh |
+    tee '%{buildroot}%{zsh_completions_dir}/_keyring'
+install -d '%{buildroot}%{_sysconfdir}/profile.d'
+%{py3_test_envvars} keyring --print-completion tcsh |
+    tee '%{buildroot}%{_sysconfdir}/profile.d/keyring.csh'
+
 install -d '%{buildroot}%{_mandir}/man1'
-PYTHONPATH='%{buildroot}%{python3_sitelib}' help2man \
-    --no-info \
-    --version-string='%{version}' \
-    --output='%{buildroot}%{_mandir}/man1/keyring.1' \
-    '%{buildroot}%{_bindir}/keyring'
+%{py3_test_envvars} help2man --no-info --version-string='%{version}' \
+    --output='%{buildroot}%{_mandir}/man1/keyring.1' keyring
 
 
 %check -a

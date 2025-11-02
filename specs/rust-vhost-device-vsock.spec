@@ -33,7 +33,7 @@ Source1:        %{name}-%{version}-vendor.tar.xz
 %endif
 
 # Package dependency vmm-sys-util is only built for these architectures.
-ExclusiveArch:  aarch64 ppc64le riscv64 x86_64
+ExclusiveArch:  aarch64 %{!?rhel:ppc64le} riscv64 x86_64
 
 %if %{with bundled_rust_deps}
 BuildRequires:  rust-toolset

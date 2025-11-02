@@ -5,12 +5,13 @@
 %global         tarball_name     azure_mgmt_containerregistry
 
 Name:           python-%{srcname}
-Version:        14.0.0
+Version:        14.1.0~b1
+%global         pypi_version 14.1.0b1
 Release:        %autorelease
 Summary:        Microsoft Azure Container Registry Client Library for Python
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
-Source0:        %{pypi_source %{tarball_name} %{version}}
+Source0:        %{pypi_source %{tarball_name} %{pypi_version}}
 
 BuildArch:      noarch
 
@@ -41,7 +42,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n %{tarball_name}-%{version}
+%autosetup -n %{tarball_name}-%{pypi_version}
 
 
 %generate_buildrequires

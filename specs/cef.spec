@@ -217,15 +217,15 @@
 %endif
 
 ## CEF: Package version & metadata
-%global chromium_major 140
-%global chromium_branch 7339
+%global chromium_major 142
+%global chromium_branch 7444
 # Where possible, track Chromium versions already released in Fedora.
-%global chromium_minor 207
+%global chromium_minor 59
 %global chromium_version %{chromium_major}.0.%{chromium_branch}.%{chromium_minor}
-%global cef_commit faef09bbdc5ea30a12e7c71592c0f07e7fb6f3b8
+%global cef_commit a56110d2d1b297611cdc56afdfad73d44af6b309
 %global cef_branch %{chromium_branch}
-%global cef_minor 1
-%global cef_patch 15
+%global cef_minor 0
+%global cef_patch 6
 %global cef_version %{chromium_major}.%{cef_minor}.%{cef_patch}
 %global shortcommit %(c=%{cef_commit}; echo ${c:0:7})
 
@@ -260,7 +260,7 @@ Patch21: chromium-123-screen-ai-service.patch
 Patch82: chromium-98.0.4758.102-remoting-no-tests.patch
 
 # patch for using system brotli
-Patch89: chromium-136-system-brotli.patch
+Patch89: chromium-142-system-brotli.patch
 
 # patch for using system libxml
 Patch90: chromium-121-system-libxml.patch
@@ -271,11 +271,29 @@ Patch91: chromium-108-system-opus.patch
 # patch for Failed NodeJS version check
 Patch92: chromium-138-checkversion-nodejs.patch
 
+# fix build error
+Patch93: chromium-141-csss_style_sheet.patch
+
+# Revert due to incorrect display of links on startpage in Darkmode
+Patch94: chromium-141-revert-remove-darkmode-image-policy.patch
+
+# FTBFS - fatal error: 'gpu/webgpu/dawn_commit_hash.h' file not found
+Patch95: chromium-142-dawn-commit-hash.patch
+
+# FTBFS - error: cannot find attribute `sanitize` in this scope
+#    --> ../../third_party/crabbyavif/src/src/capi/io.rs:210:41
+#     |
+# 210 |     #[cfg_attr(feature = "disable_cfi", sanitize(cfi = "off"))]
+Patch96: chromium-142-crabbyavif-ftbfs-old-rust.patch
+
+# FTBFS - /usr/include/bits/siginfo-consts.h:219:3: error: expected identifier
+# 219 |   SYS_SECCOMP = 1,              /* Seccomp triggered.  */
+Patch97: chromium-141-glibc-2.42-SYS_SECCOMP.patch
+
 # system ffmpeg
 # need for old ffmpeg 5.x on epel9
 Patch128: chromium-138-el9-ffmpeg-deprecated-apis.patch
 Patch129: chromium-el9-ffmpeg-AV_CODEC_FLAG_COPY_OPAQUE.patch
-Patch130: chromium-107-ffmpeg-5.x-duration.patch
 # disable the check
 Patch131: chromium-107-proprietary-codecs.patch
 # fix tab crash with SIGTRAP error when using system ffmpeg
@@ -289,6 +307,9 @@ Patch136: chromium-133-workaround-system-ffmpeg-whitelist.patch
 
 # file conflict with old kernel on el8/el9
 Patch141: chromium-118-dma_buf_export_sync_file-conflict.patch
+
+#  fix ftbfs caused by old python-3.9 on el8
+Patch142: chromium-142-python-3.9-ftbfs.patch
 
 # add correct path for Qt6Gui header and libs
 Patch150: chromium-124-qt6.patch
@@ -328,7 +349,7 @@ Patch315: chromium-134-rust-libadler2.patch
 Patch316: chromium-122-clang-build-flags.patch
 
 # unknown warning option -Wno-nontrivial-memcall
-Patch317: chromium-138-clang++-unknown-argument.patch
+Patch317: chromium-142-clang++-unknown-argument.patch
 
 # Workaround for https://bugzilla.redhat.com/show_bug.cgi?id=2239523
 # https://bugs.chromium.org/p/chromium/issues/detail?id=1145581#c60
@@ -339,16 +360,20 @@ Patch352: chromium-117-workaround_for_crash_on_BTI_capable_system.patch
 Patch353: chromium-127-aarch64-duplicate-case-value.patch
 
 # remove flag split-threshold-for-reg-with-hint, it's not supported in clang <= 17
-Patch354: chromium-126-split-threshold-for-reg-with-hint.patch
+Patch354: chromium-142-split-threshold-for-reg-with-hint.patch
 
 # fix build error: no member named 'hardware_destructive_interference_size' in namespace 'std'
 Patch355: chromium-130-hardware_destructive_interference_size.patch
+
+# fix build error:
+# ../../build/modules/linux-x64/module.modulemap:11:12: error: header '../../linux/debian_bullseye_amd64-sysroot/usr/include/alloca.h' not found
+Patch356: chromium-141-use_libcxx_modules.patch
 
 # error: no matching member function for call to 'Append'
 Patch357: chromium-134-type-mismatch-error.patch
 
 # set clang_lib path
-Patch358: chromium-135-rust-clanglib.patch
+Patch358: chromium-141-rust-clanglib.patch
 
 # PowerPC64 LE support
 # Timothy Pearson's patchset
@@ -371,7 +396,6 @@ Patch384: Rtc_base-system-arch.h-PPC.patch
 Patch386: 0004-third_party-crashpad-port-curl-transport-ppc64.patch
 
 Patch387: HACK-third_party-libvpx-use-generic-gnu.patch
-Patch388: 0001-third-party-hwy-wrong-include.patch
 Patch389: HACK-debian-clang-disable-base-musttail.patch
 Patch390: HACK-debian-clang-disable-pa-musttail.patch
 Patch391: 0001-Add-ppc64-target-to-libaom.patch
@@ -424,6 +448,10 @@ Patch511: 0002-Fix-Missing-OPENSSL_NO_ENGINE-Guard.patch
 %endif
 
 # upstream patches
+# Fix FTBFS
+# ../../base/containers/span.h:1387:63: error: arithmetic on a pointer to an incomplete type 'element_type' (aka 'const autofill::FormFieldData')
+# 1387 |         typename iterator::AssumeValid(data(), data(), data() + size())));
+Patch1000: chromium-142-missing-include-for-form_field_data.patch
 
 ## CEF: CEF-specific fix patches
 Patch900: cef-no-sysroot.patch
@@ -928,12 +956,19 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 %endif
 
 %patch -P92 -p1 -b .nodejs-checkversion
+%patch -P93 -p1 -b .ftbfs-csss_style_sheet
+%patch -P94 -p1 -R -b .revert-remove-darkmode-image-policy
+%patch -P95 -p1 -b .dawn-commit-hash
+%patch -P96 -p1 -b .crabbyavif-ftbfs-old-rust
+
+%if 0%{?fedora} > 43
+%patch -P97 -p1 -b .glibc-2.42-SYS_SECCOMP
+%endif
 
 %if ! %{bundleffmpegfree}
 %if 0%{?rhel} == 9
 %patch -P128 -p1 -b .el9-ffmpeg-deprecated-apis
 %patch -P129 -p1 -b .el9-ffmpeg-AV_CODEC_FLAG_COPY_OPAQUE
-%patch -P130 -p1 -b .ffmpeg-5.x-duration
 %patch -P133 -p1 -b .el9-ffmpeg-5.1.x
 %endif
 %patch -P131 -p1 -b .prop-codecs
@@ -944,6 +979,7 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 
 %if 0%{?rhel} == 8 || 0%{?rhel} == 9
 %patch -P141 -p1 -b .dma_buf_export_sync_file-conflict
+%patch -P142 -p1 -b .python-3.9-ftbfs
 %endif
 
 %patch -P150 -p1 -b .qt6
@@ -987,6 +1023,8 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 
 %patch -P355 -p1 -b .hardware_destructive_interference_size
 
+%patch -P356 -p1 -b .disable_use_libcxx_modules
+
 %patch -P357 -p1 -b .type-mismatch-error
 
 %patch -P358 -p1 -b .rust-clang_lib
@@ -1004,7 +1042,6 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 %patch -P384 -p1 -b .Rtc_base-system-arch.h-PPC
 %patch -P386 -p1 -b .0004-third_party-crashpad-port-curl-transport-ppc64
 %patch -P387 -p1 -b .HACK-third_party-libvpx-use-generic-gnu
-%patch -P388 -p1 -b .0001-third-party-hwy-wrong-include.patch
 %patch -P389 -p1 -b .HACK-debian-clang-disable-base-musttail
 %patch -P390 -p1 -b .HACK-debian-clang-disable-pa-musttail
 %patch -P391 -p1 -b .0001-Add-ppc64-target-to-libaom
@@ -1042,6 +1079,7 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 %endif
 
 # Upstream patches
+%patch -P1000 -p1 -b .missing-include-for-form_field_data.patch
 
 ## CEF: CEF-specific fix patches & other fixup
 %patch -P900 -p1 -b .cef-no-sysroot
@@ -1288,6 +1326,8 @@ CHROMIUM_BROWSER_GN_DEFINES+=' media_use_openh264=false'
 CHROMIUM_BROWSER_GN_DEFINES+=' rtc_use_h264=false'
 %endif
 CHROMIUM_BROWSER_GN_DEFINES+=' use_kerberos=true'
+# Workaround for FTBFS, error: no member named 'bPsnrY' in 'Source_Picture_s'
+CHROMIUM_BROWSER_GN_DEFINES+=' rtc_video_psnr=false'
 
 %if %{use_qt5}
 CHROMIUM_BROWSER_GN_DEFINES+=" use_qt5=true moc_qt5_path=\"$(%{_qt5_qmake} -query QT_HOST_BINS)\""

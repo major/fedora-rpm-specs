@@ -52,7 +52,7 @@
 %bcond autogen 0
 
 Name:           openmpi%{?_cc_name_suffix}
-Version:        5.0.8
+Version:        5.0.9
 Release:        %autorelease
 Summary:        Open Message Passing Interface
 # Automatically converted from old format: BSD and MIT and Romio - review is highly recommended.
@@ -65,8 +65,6 @@ Source0:        https://www.open-mpi.org/software/ompi/v5.0/downloads/openmpi-%{
 Source1:        openmpi.module.in
 Source3:        openmpi.pth.py3
 Source4:        macros.openmpi
-
-Patch0:         https://github.com/open-mpi/ompi/pull/13281.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  gcc-gfortran

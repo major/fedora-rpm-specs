@@ -1,9 +1,13 @@
+%global _cmake_generator "Unix Makefiles"
+
 Name:           hedgewars
-Version:        1.0.2
-Release:        11%{?dist}
+Version:        1.0.3
+Release:        1%{?dist}
 Summary:        Funny turn-based artillery game, featuring fighting Hedgehogs!
 License:        GPL-1.0-or-later
 URL:            http://www.hedgewars.org/
+
+ExcludeArch:    %{ix86}
 
 Source0:        http://www.hedgewars.org/download/releases/%{name}-src-%{version}.tar.bz2
 # SystemD service file for hedgewars-server
@@ -28,8 +32,6 @@ Patch3:        0a8921bf167481045830095c731eb3c67af913e4.patch
 # https://github.com/hedgewars/hw/pull/75
 Patch4:        https://patch-diff.githubusercontent.com/raw/hedgewars/hw/pull/75.patch
 Patch5:        hedgewars-mtl-2.3.patch
-
-Patch6:        cmake.patch
 
 BuildRequires:  cmake gcc-c++ fpc desktop-file-utils
 BuildRequires:  libatomic
@@ -76,6 +78,8 @@ BuildRequires:  ghc-vector-devel
 BuildRequires:  ghc-zlib-devel
 BuildRequires:  compat-lua-devel
 BuildRequires:  systemd
+BuildRequires:  chrpath
+BuildRequires:  libavformat-free-devel
 %{?systemd_requires}
 
 %description server
@@ -126,28 +130,26 @@ done
 export CFLAGS="%{build_cflags} -DGL_GLEXT_PROTOTYPES"
 export CXXFLAGS="%{build_cxxflags} -DGL_GLEXT_PROTOTYPES"
 %ifarch %{arm}
-%cmake -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DMINIMAL_FLAGS=1 -DNOVIDEOREC=1 -DBUILD_ENGINE_C=1 -DFONTS_DIRS="`find %{_datadir}/fonts -type d -printf '%p;'`" -DINCLUDE_INSTALL_DIR:PATH=%{_includedir} \
-   -DLIB_INSTALL_DIR:PATH=%{_libdir} \
-   -DSYSCONF_INSTALL_DIR:PATH=%{_sysconfdir} \
-   -DSHARE_INSTALL_PREFIX:PATH=%{_datadir} \
-%if "%{?_lib}" == "lib64"
-     %{?_cmake_lib_suffix64} \
-%endif
+%cmake -DMINIMAL_FLAGS=1 -DNOVIDEOREC=1 -DBUILD_ENGINE_C=1 -DFONTS_DIRS="`find %{_datadir}/fonts -type d -printf '%p;'`"
 %else
-%cmake -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DMINIMAL_FLAGS=1 -DNOVIDEOREC=1 -DBUILD_ENGINE_C=1 -DGHFLAGS=-dynamic -DFONTS_DIRS="`find %{_datadir}/fonts -type d -printf '%p;'`" -DINCLUDE_INSTALL_DIR:PATH=%{_includedir} \
-   -DLIB_INSTALL_DIR:PATH=%{_libdir} \
-   -DSYSCONF_INSTALL_DIR:PATH=%{_sysconfdir} \
-   -DSHARE_INSTALL_PREFIX:PATH=%{_datadir} \
-%if "%{?_lib}" == "lib64"
-     %{?_cmake_lib_suffix64} \
- %endif
+%cmake -DMINIMAL_FLAGS=1 -DNOVIDEOREC=1 -DBUILD_ENGINE_C=1 -DGHFLAGS=-dynamic -DFONTS_DIRS="`find %{_datadir}/fonts -type d -printf '%p;'`"i
 %endif
+
+sed -i "s|/usr/local|/usr|g" redhat-linux-build/cmake_install.cmake
+sed -i "s|/usr/local|/usr|g" redhat-linux-build/CMakeCache.txt
 
 %cmake_build
 
 
 %install
 %cmake_install
+
+# Ugh. If you can get cmake to do the right thing, be my guest. GC 9/26/2025
+%if "%{?_lib}" == "lib64"
+  mv %{buildroot}/usr/lib %{buildroot}/usr/lib64
+%endif
+
+chrpath --delete %{buildroot}/usr/bin/*
 
 # below is the desktop file and icon stuff.
 desktop-file-validate %{buildroot}/%{_datadir}/applications/hedgewars.desktop
@@ -165,9 +167,6 @@ mkdir -p %{buildroot}%{_unitdir} %{buildroot}%{_sysconfdir}/sysconfig \
 install -pm 0644 %{SOURCE100} %{buildroot}%{_unitdir}/
 install -pm 0644 %{SOURCE101} %{buildroot}%{_sysconfdir}/sysconfig/%{name}
 install -pm 0644 %{SOURCE102} %{buildroot}%{_prefix}/lib/firewalld/services/
-
-# wipe out fonts to unbreak flatpak build
-find %{buildroot} -type f -name '*.ttc' | xargs rm -f
 
 %ldconfig_scriptlets
 
@@ -194,6 +193,8 @@ find %{buildroot} -type f -name '*.ttc' | xargs rm -f
 %{_datadir}/applications/hwengine.desktop
 %{_libdir}/libphyslayer.so.1.0
 %{_libdir}/libphyslayer.so
+%{_libdir}/libavwrapper.so.1.0
+%{_libdir}/libavwrapper.so
 
 %files server
 %{_bindir}/%{name}-server
@@ -204,12 +205,6 @@ find %{buildroot} -type f -name '*.ttc' | xargs rm -f
 %files data
 %dir %{_datadir}/%{name}
 %dir %{_datadir}/%{name}/Data
-# Exclude the Fonts directory as there should not be any fonts included
-# Note we want the build to fail if any fonts are included in the package
-# %%exclude won't trigger a build failure if excluded files are installed.
-# So the problem won't show up until runtime.
-# Also of note is that unpackaged directories also don't seem to cause
-# a build failure. However we don't care in this case.
 %{_datadir}/%{name}/Data/Graphics
 %{_datadir}/%{name}/Data/Maps
 %{_datadir}/%{name}/Data/Missions
@@ -221,9 +216,14 @@ find %{buildroot} -type f -name '*.ttc' | xargs rm -f
 %{_datadir}/%{name}/Data/Music
 %{_datadir}/%{name}/Data/Scripts
 %{_datadir}/%{name}/Data/Themes
-
+# Symlinking fonts doesn't work, we have to bundle them.
+%{_datadir}/%{name}/Data/Fonts/DejaVuSans-Bold.ttf
+%{_datadir}/%{name}/Data/Fonts/wqy-zenhei.ttc
 
 %changelog
+* Fri Sep 26 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.0.3-1
+- 1.0.3
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

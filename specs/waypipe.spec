@@ -4,6 +4,12 @@
 # prevent library files from being installed
 %global cargo_install_lib 0
 
+# Default features in Cargo.toml, except:
+# video: requires ffmpeg (not included in RHEL)
+# test_proto: only needed in %%check
+%global features %{!?rhel:video,}dmabuf,lz4,zstd,gbmfallback
+%global test_features test_proto
+
 Name:           waypipe
 Version:        0.10.5
 Release:        %autorelease
@@ -22,6 +28,7 @@ URL:            https://gitlab.freedesktop.org/mstoeckl/waypipe
 Source0:        https://gitlab.freedesktop.org/mstoeckl/waypipe/-/archive/v%{version}/%{name}-v%{version}.tar.gz
 Source1:        waypipe.1
 Patch1:         license.patch
+Patch2:         cargo-workspace.patch
 
 BuildRequires:  cargo-rpm-macros >= 26
 BuildRequires:  bindgen-cli
@@ -37,7 +44,6 @@ BuildRequires:  pkgconfig(gbm)
 BuildRequires:  pkgconfig(libavcodec)
 BuildRequires:  pkgconfig(libavutil)
 BuildRequires:  pkgconfig(libswscale)
-# not sure if needed without ffmpeg?
 BuildRequires:  glslc
 BuildRequires:  vulkan-headers
 %endif
@@ -48,8 +54,6 @@ BuildRequires:  pkgconfig(libva)
 BuildRequires:  pkgconfig(wayland-protocols)
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-server)
-# This one is not automatically detected properly...
-BuildRequires:  rust-pkg-config+default-devel
 
 %global _description %{expand:
 %{summary}.}
@@ -61,10 +65,10 @@ BuildRequires:  rust-pkg-config+default-devel
 %cargo_prep
 
 %generate_buildrequires
-%cargo_generate_buildrequires
+%cargo_generate_buildrequires -n -f %{features},%{test_features}
 
 %build
-%cargo_build
+%cargo_build -n -f %{features}
 %{cargo_license_summary}
 %{cargo_license} > LICENSE.dependencies
 %if !0%{?rhel}
@@ -72,9 +76,7 @@ scdoc < waypipe.scd > waypipe.1
 %endif
 
 %install
-%cargo_install
-# Is there a better way to build only `--bin waypipe` ?
-rm -f %{buildroot}%{_bindir}/test_proto
+%cargo_install -n -f %{features}
 %if !0%{?rhel}
 install -D -p -m 0644 waypipe.1 %{buildroot}%{_mandir}/man1/waypipe.1
 %else
@@ -83,7 +85,7 @@ install -D -p -m 0644 %{SOURCE1} %{buildroot}%{_mandir}/man1/waypipe.1
 
 %if %{with check}
 %check
-%cargo_test
+%cargo_test -n -f %{features},%{test_features}
 %endif
 
 %files

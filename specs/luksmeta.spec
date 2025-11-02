@@ -1,15 +1,11 @@
 Name:           luksmeta
-Version:        9
+Version:        10
 Release:        %autorelease
 Summary:        Utility for storing small metadata in the LUKSv1 header
 
 License:        LGPL-2.1-or-later
 URL:            https://github.com/latchset/%{name}
 Source0:        https://github.com/latchset/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.bz2
-
-Patch01: luksmeta-9-tests.patch
-Patch02: luksmeta-9-relax-layout-assumptions.patch
-Patch03: Define-log-callback-function-to-use-with-libcryptset.patch
 
 BuildRequires:  gcc
 BuildRequires:  asciidoc

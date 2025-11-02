@@ -1,6 +1,6 @@
-%global pkgver 2.2.17
+%global pkgver 2.2.18
 #global prerel rc1
-%global baserelease 5
+%global baserelease 1
 
 Name:		bluefish
 Version:	%{pkgver}
@@ -94,10 +94,9 @@ find %{buildroot}%{_datadir}/bluefish/plugins/zencoding -name '*.py' |
 %find_lang %{name}_plugin_charmap
 %find_lang %{name}_plugin_entities
 %find_lang %{name}_plugin_htmlbar
-%find_lang %{name}_plugin_infbrowser
 %find_lang %{name}_plugin_snippets
 %find_lang %{name}_plugin_zencoding
-cat %{name}_plugin_{about,charmap,entities,htmlbar,infbrowser,snippets,zencoding}.lang >> \
+cat %{name}_plugin_{about,charmap,entities,htmlbar,snippets,zencoding}.lang >> \
 	%{name}.lang
 
 appstream-util --nonet validate-relax \
@@ -158,6 +157,19 @@ fi
 %{_mandir}/man1/bluefish.1*
 
 %changelog
+* Fri Oct 31 2025 Paul Howarth <paul@city-fan.org> - 2.2.18-1
+- Update to 2.2.18 (rhbz#2407559)
+  - Much better CSS language support
+  - The color editor now also supports hsl() and rgb() style colors
+  - Show colors by just hovering the mouse over a color code
+  - Reinstate feature to dynamically change a shortcut key by hovering the
+    mouse over a menu item and pressing a new shortcut key again; this feature
+    was present in all gtk2 applications and has not been working for bluefish
+    gtk3 builds until now
+  - Remove the infobrowser from the build since it no longer compiles with new
+    libxml versions; this plugin was already deprecated and disabled by default
+    for years
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.2.17-5
 - Rebuilt for Python 3.14.0rc3 bytecode
 

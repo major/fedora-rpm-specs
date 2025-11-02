@@ -2,14 +2,16 @@
 %bcond_with     tests
 
 %global         srcname     azure-mgmt-authorization
+%global         tarball_name     azure_mgmt_authorization
 
 Name:           python-%{srcname}
-Version:        4.0.0
+Version:        5.0.0~b1
+%global         pypi_version 5.0.0b1
 Release:        %autorelease
 Summary:        Microsoft Azure Authorization Management Client Library for Python
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
-Source0:        %{pypi_source %{srcname} %{version} zip}
+Source0:        %{pypi_source %{tarball_name} %{pypi_version}}
 
 BuildArch:      noarch
 
@@ -40,7 +42,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n %{tarball_name}-%{pypi_version}
 
 
 %generate_buildrequires

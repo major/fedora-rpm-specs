@@ -5,8 +5,8 @@
 %global         tarball_name     azure_keyvault_keys
 
 Name:           python-%{srcname}
-Version:        4.11.0~b1
-%global         pypi_version 4.11.0b1
+Version:        4.11.0
+%global         pypi_version 4.11.0
 Release:        %autorelease
 Summary:        Microsoft Azure Key Vault Keys Client Library for Python
 License:        MIT

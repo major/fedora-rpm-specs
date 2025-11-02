@@ -9,7 +9,7 @@
 %endif
 
 Name:           perl-GD-Barcode
-Version:        2.01
+Version:        2.02
 Release:        1%{?dist}
 Summary:        Create barcode image with GD
 # see Barcode.pm
@@ -106,6 +106,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Oct 31 2025 Jitka Plesnikova <jplesnik@redhat.com> - 2.02-1
+- 2.02 bump (rhbz#2406378)
+
 * Mon Jul 28 2025 Jitka Plesnikova <jplesnik@redhat.com> - 2.01-1
 - 2.01 bump (rhbz#2383395)
 

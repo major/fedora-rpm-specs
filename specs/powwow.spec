@@ -8,6 +8,8 @@ License:        GPL-2.0-or-later
 URL:            http://hoopajoo.net/projects/powwow.html
 Source:         http://hoopajoo.net/static/projects/%{name}-%{version}.tar.gz
 
+Patch0:         powwow-no-termio.patch
+
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  ncurses-devel
@@ -30,7 +32,7 @@ for developing applications which use powwow plugin interface.
 
 
 %prep
-%setup -q
+%autosetup -p1
 
 # Convert to utf-8
 for file in README doc/powwow.doc; do

@@ -5,7 +5,7 @@
 %global crate litemap
 
 Name:           rust-litemap
-Version:        0.8.0
+Version:        0.8.1
 Release:        %autorelease
 Summary:        Key-value Map implementation based on a flat, sorted Vec
 
@@ -127,7 +127,16 @@ use the "yoke" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
+%if %{defined el9}
+# * EPEL9: These tests require a newer Rust than the MSRV
+%{cargo_test -- -- %{shrink:
+    --skip const_get_indexed_or_panic
+    --skip const_get_with_index
+    --skip const_len
+}}
+%else
 %cargo_test
+%endif
 %endif
 
 %changelog

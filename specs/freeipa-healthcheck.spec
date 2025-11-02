@@ -17,7 +17,7 @@
 
 Name:           %{prefix}-healthcheck
 Version:        0.19
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Health check tool for %{productname}
 BuildArch:      noarch
 License:        GPL-3.0-or-later
@@ -63,6 +63,9 @@ proactively detect defects in a FreeIPA cluster.
 
 %package -n %{name}-core
 Summary: Core plugin system for healthcheck
+
+# so that freeipa-healthcheck-core can work standalone
+Requires:       python3-setuptools
 
 # Cross-provides for sibling OS
 Provides:       %{alt_name}-core = %{version}
@@ -160,6 +163,9 @@ PYTHONPATH=src PATH=$PATH:$RPM_BUILD_ROOT/usr/bin pytest-3 tests/test_*
 
 
 %changelog
+* Fri Oct 31 2025 Rob Crittenden <rcritten@redhat.com> - 0.19-2
+- Added Requires on python3-setuptools to the core subpackage
+
 * Mon Sep 22 2025 Rob Crittenden <rcritten@redhat.com> - 0.19-1
 - Update to 0.19 release
 

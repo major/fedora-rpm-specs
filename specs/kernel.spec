@@ -176,13 +176,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.18.0
 %define specversion 6.18.0
 %define patchversion 6.18
-%define pkgrelease 0.rc3.251028gfd57572253bc3.31
+%define pkgrelease 0.rc3.251031gd127176862a93.34
 %define kversion 6
-%define tarfile_release 6.18-rc3-7-gfd57572253bc3
+%define tarfile_release 6.18-rc3-131-gd127176862a93
 # This is needed to do merge window version magic
 %define patchlevel 18
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc3.251028gfd57572253bc3.31%{?buildid}%{?dist}
+%define specrelease 0.rc3.251031gd127176862a93.34%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.18.0
 
@@ -2371,12 +2371,14 @@ BuildKernel() {
     # to the end user so that the packaged config file can be easily reused with
     # upstream make targets
     %if %{signkernel}%{signmodules}
-      sed -i -e '/^CONFIG_SYSTEM_TRUSTED_KEYS/{
-        i\# The kernel was built with
-        s/^/# /
-        a\# We are resetting this value to facilitate local builds
-        a\CONFIG_SYSTEM_TRUSTED_KEYS=""
-        }' .config
+      for configopt in SYSTEM_TRUSTED_KEYS EFI_SBAT_FILE; do
+        sed -i -e '/^CONFIG_'"${configopt}"'/{
+          i\# The kernel was built with
+          s/^/# /
+          a\# We are resetting this value to facilitate local builds
+          a\CONFIG_'"${configopt}"'=""
+          }' .config
+      done
     %endif
 
     # Start installing the results
@@ -4498,12 +4500,27 @@ fi\
 #
 #
 %changelog
-* Tue Oct 28 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.18.0-0.rc3.251028gfd57572253bc3.31]
-- Linux v6.18.0-0.rc3.251028gfd57572253bc3
+* Fri Oct 31 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.18.0-0.rc3.251031gd127176862a93.34]
+- Linux v6.18.0-0.rc3.251031gd127176862a93
 
-* Tue Oct 28 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc3.fd57572253bc.31]
+* Fri Oct 31 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc3.d127176862a9.34]
 - powerpc/tools: drop `-o pipefail` in gcc check scripts (Jan Stancek)
 - redhat/configs: clang_lto: disable CONFIG_FORTIFY_KUNIT_TEST (Scott Weaver)
+
+* Fri Oct 31 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc3.d127176862a9.33]
+- redhat/configs:  configure CONFIG_ATH12K_AHB for rhel (Jose Ignacio Tornos Martinez)
+- Final configs for Fedora 6.18 (Justin M. Forbes)
+- Linux v6.18.0-0.rc3.d127176862a9
+
+* Thu Oct 30 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc3.e53642b87a4f.32]
+- redhat/configs: Enable additional RV monitors on debug kernels (Gabriele Monaco)
+- redhat/configs: Enable sched and rtapp RV monitors (Gabriele Monaco)
+- redhat/configs: Move CONFIG_RV_PER_TASK_MONITORS to common/generic (Gabriele Monaco)
+- properly reset CONFIG_EFI_SBAT_FILE value (Thorsten Leemhuis)
+
+* Wed Oct 29 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc3.e53642b87a4f.31]
+- kernel: extend rh_waived to cope better with the CVE mitigations case (Ricardo Robaina) [RHEL-122979]
+- Linux v6.18.0-0.rc3.e53642b87a4f
 
 * Tue Oct 28 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc3.fd57572253bc.30]
 - Linux v6.18.0-0.rc3.fd57572253bc

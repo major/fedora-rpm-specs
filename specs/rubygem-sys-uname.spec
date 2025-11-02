@@ -3,12 +3,15 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.2.2
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: An interface for returning uname (platform) information
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License: Apache-2.0
 URL: http://github.com/djberg96/sys-uname
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
+# https://github.com/djberg96/sys-uname/pull/23
+# Remove unneeded ostruct dep which is no longer default gem in ruby35
+Patch0:  sys-uname-pr23-remove-ostruct-dep.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -34,6 +37,7 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version}
+%patch -P0 -p1
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -70,6 +74,9 @@ popd
 %{gem_instdir}/sys-uname.gemspec
 
 %changelog
+* Thu Oct 30 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.2.2-11
+- Remove unneeded ostruct dep for ruby3_5
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

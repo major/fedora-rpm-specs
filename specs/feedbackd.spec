@@ -24,9 +24,10 @@ BuildRequires:  systemd-devel
 BuildRequires:  vala
 BuildRequires:  dbus-daemon
 BuildRequires:  systemd-rpm-macros
-Requires: lib%{name}%{?_isa} = %{version}-%{release}
 
-ExcludeArch:    i686
+Requires:       lib%{name}%{?_isa} = %{version}-%{release}
+
+ExcludeArch:    %{ix86}
 
 %description
 feedbackd provides a DBus daemon (feedbackd) to act on events to provide

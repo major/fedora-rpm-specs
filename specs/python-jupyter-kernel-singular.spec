@@ -1,6 +1,6 @@
 Name:           python-jupyter-kernel-singular
 Version:        0.9.9
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Jupyter kernel for Singular
 
 License:        GPL-2.0-or-later
@@ -10,21 +10,20 @@ Source:         %{url}/archive/v%{version}/jupyter_kernel_singular-%{version}.ta
 # https://github.com/sebasguts/jupyter_kernel_singular/pull/13
 Patch:          %{name}-imports.patch
 
-# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch:    %{ix86}
 BuildArch:      noarch
+BuildSystem:    pyproject
+BuildOption(install): -l jupyter_kernel_singular
 
-BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist ipykernel}
 BuildRequires:  %{py3_dist ipython}
 BuildRequires:  %{py3_dist jupyter-client}
 BuildRequires:  %{py3_dist pysingular}
 
-%global _description %{expand:
-This package contains a Jupyter kernel for Singular, to enable using
-Jupyter as the front end for Singular.}
+%global _description %{expand:This package contains a Jupyter kernel for Singular, to enable using Jupyter
+as the front end for Singular.}
 
-%description %_description
+%description
+%_description
 
 %package     -n python3-jupyter-kernel-singular
 Summary:        Jupyter kernel for Singular
@@ -32,26 +31,15 @@ Requires:       python-jupyter-filesystem
 Requires:       %{py3_dist ipykernel}
 Requires:       %{py3_dist pysingular}
 
-%description -n python3-jupyter-kernel-singular %_description
+%description -n python3-jupyter-kernel-singular
+%_description
 
 %prep
 %autosetup -n jupyter_kernel_singular-%{version} -p1
 
-%generate_buildrequires
-%pyproject_buildrequires
-
-%build
-%pyproject_wheel
-
-%install
-%pyproject_install
-%pyproject_save_files -l jupyter_kernel_singular
-
+%install -a
 # We want /etc, not /usr/etc
 mv %{buildroot}%{_prefix}%{_sysconfdir} %{buildroot}%{_sysconfdir}
-
-%check
-%pyproject_check_import
 
 %files -n python3-jupyter-kernel-singular -f %{pyproject_files}
 %doc README.md
@@ -60,6 +48,9 @@ mv %{buildroot}%{_prefix}%{_sysconfdir} %{buildroot}%{_sysconfdir}
 %config(noreplace) %{_sysconfdir}/jupyter/nbconfig/notebook.d/singular-mode.json
 
 %changelog
+* Fri Oct 31 2025 Jerry James <loganjerry@gmail.com> - 0.9.9-24
+- Use the pyproject declarative buildsystem
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.9.9-23
 - Rebuilt for Python 3.14.0rc3 bytecode
 

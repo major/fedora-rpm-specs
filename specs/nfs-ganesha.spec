@@ -134,13 +134,14 @@ Requires: openSUSE-release
 
 Name:		nfs-ganesha
 Version:	8.1
-Release:	1%{?dev:%{dev}}%{?dist}
+Release:	2%{?dev:%{dev}}%{?dist}
 Summary:	NFS-Ganesha is a NFS Server running in user space
 License:	LGPL-3.0-or-later
 Url:		https://github.com/nfs-ganesha/nfs-ganesha/wiki
 
 Source0:	https://github.com/%{name}/%{name}/archive/V%{version}%{?dev:-%{dev}}/%{name}-%{version}%{?dev:%{dev}}.tar.gz
 Patch:		0001-config_samples-log_rotate.patch
+Patch:		0002-src-scripts-python.patch
 
 BuildRequires:	cmake
 BuildRequires:	make
@@ -694,23 +695,14 @@ install -p -m 644 selinux/ganesha.if %{buildroot}%{_selinux_store_path}/devel/in
 install -m 0644 selinux/ganesha.pp.bz2 %{buildroot}%{_selinux_store_path}/packages
 %endif
 
-%if ( ! 0%{?with_legacy_python_install} )
-%if ( 0%{?with_gpfs} )
-mv %{buildroot}/usr/bin/gpfs-epoch %{buildroot}/usr/libexec/ganesha/
-%endif
-%endif
-
-%if ( 0%{?rhel} && 0%{?rhel} < 8 )
-rm -rf %{buildroot}/%{python_sitelib}/gpfs*
-rm -f %{buildroot}/%{python_sitelib}/__init__.*
-%else
-rm -rf %{buildroot}/%{python3_sitelib}/gpfs*
-rm -rf %{buildroot}/%{python3_sitelib}/ganeshactl*
 rm -f %{buildroot}/%{python3_sitelib}/__init__.*
 rm -rf %{buildroot}/%{python3_sitelib}/__pycache__
 rm -f %{buildroot}/%{python3_sitelib}/Ganesha/__init__.*
 rm -f %{buildroot}/%{python3_sitelib}/Ganesha/QtUI/__init__.*
 rm -rf %{buildroot}/%{python3_sitelib}/Ganesha/QtUI/__pycache__
+
+%if ( 0%{?with_gpfs} )
+mv %{buildroot}/usr/bin/gpfs-epoch %{buildroot}/usr/libexec/ganesha/
 %endif
 
 install -m0644 -D ../nfs-ganesha.sysusers.conf %{buildroot}%{_sysusersdir}/nfs-ganesha.conf
@@ -860,6 +852,9 @@ killall -SIGHUP dbus-daemon >/dev/null 2>&1 || :
 %if ( 0%{?with_man_page} )
 %{_mandir}/*/ganesha-gpfs-config.8.gz
 %endif
+%if ( 0%{?with_utils} )
+%{python3_sitelib}/gpfs_epoch*-info
+%endif
 %endif
 
 %if ( 0%{?with_xfs} )
@@ -939,10 +934,9 @@ killall -SIGHUP dbus-daemon >/dev/null 2>&1 || :
 
 %if ( 0%{?with_utils} )
 %files utils
-%if ( 0%{?rhel} && 0%{?rhel} < 8 )
-%{python_sitelib}/Ganesha/*
-%{python_sitelib}/ganeshactl-*-info
-%endif
+%{python3_sitelib}/ganesha*-info
+%{python3_sitelib}/Ganesha/*
+
 %if ( 0%{?with_gui_utils} )
 %{_bindir}/ganesha-admin
 %{_bindir}/manage_clients
@@ -966,10 +960,14 @@ killall -SIGHUP dbus-daemon >/dev/null 2>&1 || :
 %{_bindir}/ganesha_mgr
 %{_bindir}/ganesha_logrotate_mgr
 %{_bindir}/ganesha_conf
+%{_bindir}/ganesha-top
 %{_mandir}/*/ganesha_conf.8.gz
 %endif
 
 %changelog
+* Thu Oct 30 2025 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 8.1-2
+- NFS-Ganesha 8.1, python cleanup
+
 * Thu Oct 23 2025 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 8.1-1
 - NFS-Ganesha 8.1 GA
 

@@ -2,7 +2,7 @@
 %global backends %{nil}
 
 Name: pdns
-Version: 5.0.0
+Version: 5.0.1
 Release: 1%{?dist}
 Summary: A modern, advanced and high performance authoritative-only name server
 License: GPL-2.0-only
@@ -107,6 +107,15 @@ BuildRequires: openldap-devel
 %description backend-ldap
 This package contains the ldap backend for %{name}
 
+%package backend-lmdb
+Summary: LMDB backend for %{name}
+Requires: %{name}%{?_isa} = %{version}-%{release}
+BuildRequires: lmdb-devel
+%global backends %{backends} lmdb
+
+%description backend-lmdb
+This package contains the lmdb backend for %{name}
+
 %package backend-lua2
 Summary: LUA2 backend for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
@@ -191,6 +200,7 @@ chrpath --delete $RPM_BUILD_ROOT%{_bindir}/pdns_notify || :
 chrpath --delete $RPM_BUILD_ROOT%{_bindir}/pdnsutil || :
 chrpath --delete $RPM_BUILD_ROOT%{_bindir}/nproxy || :
 chrpath --delete $RPM_BUILD_ROOT%{_bindir}/calidns || :
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/pdns/liblmdbbackend.so || :
 
 %{__rm} -f %{buildroot}%{_libdir}/%{name}/*.la
 %{__mv} %{buildroot}%{_sysconfdir}/%{name}/pdns.conf{-dist,}
@@ -331,6 +341,9 @@ getent passwd pdns >/dev/null || \
 %{_pkgdocdir}/dnsdomain2.schema
 %{_pkgdocdir}/pdns-domaininfo.schema
 
+%files backend-lmdb
+%{_libdir}/%{name}/liblmdbbackend.so
+
 %files backend-lua2
 %{_libdir}/%{name}/liblua2backend.so
 
@@ -357,6 +370,10 @@ getent passwd pdns >/dev/null || \
 %{_unitdir}/ixfrdist@.service
 
 %changelog
+* Thu Oct 30 2025 Morten Stevens <mstevens@fedoraproject.org> - 5.0.1-1
+- Update to 5.0.1
+- Enable backend lmdb
+
 * Thu Sep 25 2025 Morten Stevens <mstevens@fedoraproject.org> - 5.0.0-1
 - Update to 5.0.0
 

@@ -23,7 +23,7 @@
 Name:           musescore
 Summary:        Music Composition & Notation Software
 Version:        %{musescore_ver}
-Release:        27%{?dist}
+Release:        28%{?dist}
 
 # The MuseScore project itself is GPL-3.0-only WITH Font-exception-2.0.  Other
 # licenses in play:
@@ -288,6 +288,9 @@ BuildRequires:  libappstream-glib
 BuildRequires:  make
 BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(flac)
+# NOTE: Might be a bug in flac packaging, but flac CMake files
+# require /usr/bin/flac
+BuildRequires:  flac
 BuildRequires:  pkgconfig(freetype2)
 BuildRequires:  pkgconfig(gmock)
 BuildRequires:  pkgconfig(harfbuzz)
@@ -772,6 +775,9 @@ ln -s ../mscore-%{musescore_maj}/sound/MS\ Basic.sf3 \
 %fontfiles -z 9
 
 %changelog
+* Thu Oct 30 2025 Jan Grulich <jgrulich@redhat.com> - 4.6.2-28
+- Rebuild (qt6)
+
 * Fri Oct 10 2025 Jerry James <loganjerry@gmail.com> - 4.6.2-27
 - Version 4.6.2
 - Rework which license/doc file is installed in which package

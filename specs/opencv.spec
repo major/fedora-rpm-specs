@@ -75,7 +75,7 @@ Version:        4.11.0
 %global minorver %(foo=%{version}; a=(${foo//./ }); echo ${a[1]} )
 %global padding  %(digits=00; num=%{minorver}; echo ${digits:${#num}:${#digits}} )
 %global abiver   %(echo %{majorver}%{padding}%{minorver} )
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Collection of algorithms for computer vision
 # This is normal three clause BSD.
 License:        BSD-3-Clause AND Apache-2.0 AND ISC
@@ -472,7 +472,7 @@ cd modules/python/package
 # disabling IPP because it is closed source library from intel
 
 %cmake \
-%if 0%{?fedora} > 38
+%if 0%{?fedora} > 38 || 0%{?rhel} > 10
  -DCMAKE_CXX_STANDARD=17 \
 %endif
  -DCV_TRACE=OFF \
@@ -558,6 +558,10 @@ mkdir -p %{buildroot}/%{python3_sitearch}/cv2
 mv %{buildroot}/%{python3_sitelib}/cv2/cv2.cpython-*-linux-gnu.so \
   %{buildroot}/%{python3_sitearch}/cv2
 %endif
+# Correct reference in config-x.yz, keep build one for testing
+mkdir test_python
+cp %{buildroot}/%{python3_sitelib}/cv2/config-*.py test_python
+sed -i -e "s#/builddir[^']*#%{python3_sitearch}/cv2#g" %{buildroot}/%{python3_sitelib}/cv2/config-*.py
 
 rm -rf %{buildroot}%{_datadir}/OpenCV/licenses/
 %if %{with java}
@@ -573,7 +577,12 @@ ln -s -r %{buildroot}%{_jnidir}/opencv-%{javaver}.jar %{buildroot}%{_jnidir}/ope
 
 %check
 export LD_LIBRARY_PATH=%{_builddir}/%{name}-%{version}/%{__cmake_builddir}/lib:$LD_LIBARY_PATH
+# Due to complex import method, we need to point to builddir temporarily at least to have test working, undoing
+# the fix above and then removing this again
+cp %{buildroot}/%{python3_sitelib}/cv2/config-*.py .
+cp %{__cmake_builddir}/python_loader/test_python/config-*.py %{buildroot}/%{python3_sitelib}/cv2/
 %pyproject_check_import -e cv2.config
+cp config-*.py %{buildroot}/%{python3_sitelib}/cv2/
 
 #ifnarch ppc64
 %if %{with tests}
@@ -639,6 +648,9 @@ export LD_LIBRARY_PATH=%{_builddir}/%{name}-%{version}/%{__cmake_builddir}/lib:$
 
 
 %changelog
+* Wed Oct 29 2025 Federico Pellegrin <fede@evolware.org> - 4.11.0-17
+- Fix importing of Python module (#2406800)
+
 * Mon Oct 20 2025 Nicolas Chauvet <kwizart@gmail.com> - 4.11.0-16
 - Fix build with i686
 

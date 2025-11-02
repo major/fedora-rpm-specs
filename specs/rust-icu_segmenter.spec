@@ -5,7 +5,7 @@
 %global crate icu_segmenter
 
 Name:           rust-icu_segmenter
-Version:        2.0.0
+Version:        2.1.1
 Release:        %autorelease
 Summary:        Unicode line breaking and text segmentation algorithms
 
@@ -13,6 +13,18 @@ License:        Unicode-3.0
 URL:            https://crates.io/crates/icu_segmenter
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
+# * Restore missing dev-dependencies,
+#   https://github.com/unicode-org/icu4x/issues/7196: use .cargo_vcs_info.json
+#   in the published crate to find the corresponding git commit,
+#   git clone https://github.com/unicode-org/icu4x.git, cd utils/${crate},
+#   cargo publish --dry-run,
+#   tar -xzf ../../target/package/${crate}-${version}.crate, and inspect
+#   ${crate}-${version}/Cargo.toml to find the missing dev-dependencies. Note
+#   that just looking at the crate’s Cargo.toml in the git checkout isn’t that
+#   useful without the cargo publish --dry-run step because most or all of the
+#   dev-dependencies are inherited from the workspace. Note also that we end up
+#   omitting some of the dev-dependencies, as documented in the following
+#   comments.
 # * Omit benchmark-only dev-dependency `criterion`.
 # * Restore dev-dependency `icu_properties` (version 2.0), which is path-based
 #   and was therefore removed by Cargo.toml normalization.

@@ -5,7 +5,7 @@
 
 Name:           elementary-music
 Summary:        Music player and library designed for elementary
-Version:        8.0.0
+Version:        8.1.0
 Release:        %autorelease
 License:        GPL-3.0-or-later AND LGPL-3.0-or-later
 
@@ -19,7 +19,7 @@ BuildRequires:  libappstream-glib
 BuildRequires:  meson >= 0.58.0
 BuildRequires:  vala >= 0.26
 
-BuildRequires:  pkgconfig(granite-7)
+BuildRequires:  pkgconfig(granite-7) >= 7.6.0
 BuildRequires:  pkgconfig(gstreamer-1.0)
 BuildRequires:  pkgconfig(gstreamer-pbutils-1.0)
 BuildRequires:  pkgconfig(gstreamer-tag-1.0)

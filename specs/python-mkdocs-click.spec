@@ -1,5 +1,5 @@
 Name:           python-mkdocs-click
-Version:        0.8.1
+Version:        0.9.0
 Release:        %autorelease
 Summary:        MkDocs extension to generate documentation for Click CLIs
 

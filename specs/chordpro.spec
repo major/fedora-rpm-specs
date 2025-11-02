@@ -5,7 +5,7 @@
 Name: chordpro
 Summary: Print songbooks (lyrics + chords)
 License: Artistic-2.0
-Version: 6.080.1
+Version: 6.090.0
 Release: %autorelease
 Source: https://cpan.metacpan.org/authors/id/J/JV/JV/%{FullName}-%{version}.tar.gz
 Source1: README.ABC
@@ -32,6 +32,7 @@ Requires: gnu-free-mono-fonts
 Requires: gnu-free-sans-fonts
 Requires: gnu-free-serif-fonts
 Requires: perl(Data::Printer)               >= 1.001001
+Requires: perl(File::Copy)                  >= 2.32
 Requires: perl(File::HomeDir)               >= 1.004
 Requires: perl(File::LoadLines)             >= 1.047
 Requires: perl(FindBin)
@@ -65,6 +66,7 @@ BuildRequires: perl(Data::Dumper)
 BuildRequires: perl(Data::Printer)               >= 1.001001
 BuildRequires: perl(Encode)
 BuildRequires: perl(ExtUtils::MakeMaker)         >= 7.24
+BuildRequires: perl(File::Copy)                  >= 2.32
 BuildRequires: perl(File::HomeDir)               >= 1.004
 BuildRequires: perl(File::LoadLines)             >= 1.021
 BuildRequires: perl(File::Spec)
@@ -189,12 +191,11 @@ find blib/lib -type f -name .exists -delete
 find blib/lib -type d -printf "mkdir %{buildroot}%{share}/lib/%%P\n" | sh -x
 find blib/lib ! -type d -printf "install -p -m 0644 %p %{buildroot}%{share}/lib/%%P\n" | sh -x
 
-for script in chordpro wxchordpro
+for script in chordpro wxchordpro ttc
 do
 
   # Create the main scripts.
-  sed -e "s;use lib ..FindBin.*/lib.;use lib qw(%{share}/lib);" \
-           -e "/FindBin.*CPAN/d;" \
+  sed -e "s;for my .lib .*.;for my \$lib ( qw(%{share}/lib) ) {;" \
     < script/${script} >> %{buildroot}%{_bindir}/${script}
   chmod 0755 %{buildroot}%{_bindir}/${script}
 
@@ -230,11 +231,13 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %dir %{_sysconfdir}/%{name}
 %config(noreplace) %{_sysconfdir}/%{name}/%{name}.conf
 %{_bindir}/chordpro
+%{_bindir}/ttc
 %{share}/lib/ChordPro.pm
 %{share}/lib/ChordPro
 %exclude %{share}/lib/ChordPro/Wx.pm
 %exclude %{share}/lib/ChordPro/Wx
 %{_mandir}/man1/chordpro*
+%{_mandir}/man1/ttc*
 # Exclude Lilypond files.
 %exclude %{share}/lib/ChordPro/Delegate/Lilypond.pm
 

@@ -24,10 +24,6 @@ fi                                               \
 %global build_fflags   %(echo '%{build_fflags}' | sed -e 's!-ffat-lto-objects!-fno-fat-lto-objects!g')
 %global build_fcflags  %(echo '%{build_fflags}' | sed -e 's!-ffat-lto-objects!-fno-fat-lto-objects!g')
 
-# Build and package Doxygen documentation?
-%bcond_without    doxy
-
-# Do we build with Qt6?
 %if 0%{?fedora} || 0%{?rhel} >= 9
 %global qt6_build 1
 %else
@@ -41,7 +37,7 @@ fi                                               \
 %global newname   AusweisApp
 
 Name:             AusweisApp2
-Version:          2.3.2
+Version:          2.4.0
 Release:          %autorelease
 Summary:          %{pkg_sum}
 
@@ -67,7 +63,7 @@ Patch01000:       %{name}-1.24.1-use_Qt_TranslationsPath.patch
 # Needed because Fedora's openssl does not support elliptic curves using custom parameters.
 # Request to enable them was denied: https://bugzilla.redhat.com/show_bug.cgi?id=2259403
 # It is currently not clear if the legacy API works by accident or by design. It does work as of March 2025.
-Patch01001:       %{name}-2.0.1-use-legacy-openssl-api.patch
+Patch01001:       0001-Use-legacy-OpenSSL-API.patch
 
 BuildRequires:    cmake
 BuildRequires:    crypto-policies
@@ -162,21 +158,12 @@ used by %{name}.
 Summary:          User and API documentation for %{name}
 BuildArch:        noarch
 
-%if %{with doxy}
-BuildRequires:    doxygen
-BuildRequires:    graphviz
-%endif
 BuildRequires:    hardlink
 BuildRequires:    python3-sphinx
 BuildRequires:    python3-sphinx_rtd_theme
 
 # Do not raise conflicts about shared license files.
 Requires:         (%{name}               = %{version}-%{release} if %{name})
-
-# The doc-api package is faded, since we can ship the
-# Doxygen documentation noarch'ed as well now.
-Obsoletes:        %{name}-doc-api        < 1.20.1-2
-Provides:         %{name}-doc-api        = %{version}-%{release}
 
 %description doc
 This package contains the user and API documentation for %{name}.
@@ -232,16 +219,10 @@ EOF
 
 %if (0%{?fedora} || 0%{?rhel} > 8)
 # Documentation.
-%cmake_build --target installation_integration notes sdk
-%if %{with doxy}
-%cmake_build --target doxy
-%endif
+%cmake_build --target installation_integration_de installation_integration_en notes sdk
 %else
 # Documentation.
-%ninja_build -C %{_vpath_builddir} installation_integration notes sdk
-%if %{with doxy}
-%ninja_build -C %{_vpath_builddir} doxy
-%endif
+%ninja_build -C %{_vpath_builddir} installation_integration_de installation_integration_en notes sdk
 %endif
 
 
@@ -266,13 +247,10 @@ rm -fr %{buildroot}%{_datadir}/%{newname}/translations
 %endif
 
 # Excessive docs.
-mkdir -p %{buildroot}%{_pkgdocdir}/{installation_integration,notes,sdk}
+mkdir -p %{buildroot}%{_pkgdocdir}/{installation_integration_{de,en},notes,sdk}
 install -pm 0644 README.rst %{buildroot}%{_pkgdocdir}
-%if %{with doxy}
-mkdir -p %{buildroot}%{_pkgdocdir}/doxy
-cp -a %{_vpath_builddir}/doc/html/* %{buildroot}%{_pkgdocdir}/doxy
-%endif
-cp -a %{_vpath_builddir}/docs/installation_integration/html/* %{buildroot}%{_pkgdocdir}/installation_integration
+cp -a %{_vpath_builddir}/docs/installation_integration_de/html/* %{buildroot}%{_pkgdocdir}/installation_integration_de
+cp -a %{_vpath_builddir}/docs/installation_integration_en/html/* %{buildroot}%{_pkgdocdir}/installation_integration_en
 cp -a %{_vpath_builddir}/docs/notes/html/* %{buildroot}%{_pkgdocdir}/notes
 cp -a %{_vpath_builddir}/docs/sdk/html/* %{buildroot}%{_pkgdocdir}/sdk
 find %{buildroot}%{_pkgdocdir} -type d -print0 | xargs -0 chmod -c 0755

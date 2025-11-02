@@ -1,5 +1,5 @@
 Name:           kea
-Version:        3.0.1
+Version:        3.0.2
 Release:        %autorelease
 Summary:        DHCPv4, DHCPv6 and DDNS server from ISC
 License:        MPL-2.0 AND BSL-1.0
@@ -405,11 +405,11 @@ fi
 %{_libdir}/libkea-database.so.76*
 %{_libdir}/libkea-dhcp_ddns.so.68*
 %{_libdir}/libkea-dhcp.so.109*
-%{_libdir}/libkea-dhcpsrv.so.130*
+%{_libdir}/libkea-dhcpsrv.so.131*
 %{_libdir}/libkea-dns.so.71*
 %{_libdir}/libkea-eval.so.84*
 %{_libdir}/libkea-exceptions.so.45*
-%{_libdir}/libkea-hooks.so.119*
+%{_libdir}/libkea-hooks.so.120*
 %{_libdir}/libkea-http.so.87*
 %{_libdir}/libkea-log-interprocess.so.3*
 %{_libdir}/libkea-log.so.75*

@@ -5,7 +5,7 @@
 %global crate icu_collections
 
 Name:           rust-icu_collections
-Version:        2.0.0
+Version:        2.1.1
 Release:        %autorelease
 Summary:        Collection of API for use in ICU libraries
 
@@ -14,8 +14,6 @@ URL:            https://crates.io/crates/icu_collections
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Drop benchmark-only dependencies criterion and iai
-# * Omit the unicode_bmp_blocks_selector example, which would require the
-#   internal icu_benchmark_macros crate
 Patch:          icu_collections-fix-metadata.diff
 # * Downstream-only: disable tests that create circular deps. on the icu crate
 Patch10:        0001-Downstream-only-disable-tests-that-create-circular-d.patch

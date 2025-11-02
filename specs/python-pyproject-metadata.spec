@@ -14,36 +14,33 @@ VCS:            git:%{url}.git
 Source:         %{url}/archive/%{version}/pyproject-metadata-%{version}.tar.gz
 
 BuildArch:      noarch
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): -x test%{?with_doc:,docs}
+BuildOption(install): -l pyproject_metadata
 
-BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist sphinx}
+%if %{with doc}
+BuildRequires:  python3-docs
+%endif
 
-%global _desc %{expand:
-Dataclass for PEP 621 metadata with support for core metadata generation.
+%global _desc %{expand:Dataclass for PEP 621 metadata with support for core metadata generation.
 
-This project does not implement the parsing of pyproject.toml containing
-PEP 621 metadata.  Instead, given a Python data structure representing
-PEP 621 metadata (already parsed), it will validate this input and
-generate a PEP 643-compliant metadata file (e.g. PKG-INFO).}
+This project does not implement the parsing of pyproject.toml containing PEP
+621 metadata.  Instead, given a Python data structure representing PEP 621
+metadata (already parsed), it will validate this input and generate a PEP
+643-compliant metadata file (e.g. PKG-INFO).}
 
-%description %_desc
+%description
+%_desc
 
 %package     -n python3-pyproject-metadata
 Summary:        PEP 621 metadata parsing
 
-# This can be removed when F40 reaches EOL
-Obsoletes:      python3-pep621 < 0.5
-Provides:       python3-pep621 = %{version}-%{release}
-
-%description -n python3-pyproject-metadata %_desc
+%description -n python3-pyproject-metadata
+%_desc
 
 %if %{with doc}
 %package        doc
 Summary:        Documentation for python3-pyproject-metadata
-
-# This can be removed when F40 reaches EOL
-Obsoletes:      python3-pep621-doc < 0.5
-Provides:       python3-pep621-doc = %{version}-%{release}
 
 %description    doc
 Documentation for python3-pyproject-metadata.
@@ -54,30 +51,26 @@ Documentation for python3-pyproject-metadata.
 # No need to BuildRequire pytest-cov to run pytest
 sed -i /pytest-cov/d pyproject.toml
 
-%generate_buildrequires
-%pyproject_buildrequires -x test%{?with_doc:,docs}
+%if %{with doc}
+# Use local objects.inv for intersphinx
+sed -e 's|\("https://docs\.python\.org/3/", \)None|\1"%{_docdir}/python3-docs/html/objects.inv"|' \
+    -i docs/conf.py
+%endif
 
-%build
-%pyproject_wheel
-
+%build -a
 %if %{with doc}
 # Build the documentation
-PYTHONPATH=$PWD/build/lib
+export PYTHONPATH=$PWD
 mkdir html
 sphinx-build -b html docs html
 rm -rf html/{.buildinfo,.doctrees}
 %endif
-
-%install
-%pyproject_install
-%pyproject_save_files -L pyproject_metadata
 
 %check
 %pytest -v
 
 %files -n python3-pyproject-metadata -f %{pyproject_files}
 %doc docs/changelog.md README.md
-%license LICENSE
 
 %if %{with doc}
 %files doc

@@ -1,6 +1,6 @@
 Name:           python-pybtex-docutils
 Version:        1.0.3
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Docutils backend for pybtex
 
 # The content is MIT.  Other licenses are due to files copied in by Sphinx.
@@ -26,26 +26,29 @@ VCS:            git:https://github.com/mcmtroffaes/pybtex-docutils.git
 Source:         %pypi_source pybtex-docutils
 
 BuildArch:      noarch
+BuildSystem:    pyproject
+BuildOption(install): -l pybtex_docutils
+
 BuildRequires:  make
-BuildRequires:  python3-devel
 BuildRequires:  python3-docs
 BuildRequires:  %{py3_dist pytest}
 BuildRequires:  %{py3_dist sphinx}
 
-%global common_desc %{expand:
-This package contains a docutils backend for pybtex, a BibTeX-compatible
-bibliography processor written in Python.  Bibliographic references in
-BibTeX format (or any other format supported by pybtex) can be inserted
-into python documentation to be rendered by docutils.}
+%global common_desc %{expand:This package contains a docutils backend for pybtex, a BibTeX-compatible
+bibliography processor written in Python.  Bibliographic references in BibTeX
+format (or any other format supported by pybtex) can be inserted into python
+documentation to be rendered by docutils.}
 
-%description %common_desc
+%description
+%common_desc
 
 %package -n python3-pybtex-docutils
 Summary:        Docutils backend for pybtex
 Provides:       bundled(js-jquery)
 Provides:       bundled(js-underscore)
 
-%description -n python3-pybtex-docutils %common_desc
+%description -n python3-pybtex-docutils
+%common_desc
 
 %prep
 %autosetup -n pybtex-docutils-%{version}
@@ -57,17 +60,9 @@ sed -i "s/'default'/'classic'/" doc/conf.py
 # Use local objects.inv for intersphinx
 sed -i "s|\('http://docs\.python\.org/', \)None|\1'%{_docdir}/python3-docs/html/objects.inv'|" doc/conf.py
 
-%generate_buildrequires
-%pyproject_buildrequires
-
-%build
-%pyproject_wheel
+%build -a
 PYTHONPATH=$PWD/src make -C doc html
 rst2html --no-datestamp README.rst README.html
-
-%install
-%pyproject_install
-%pyproject_save_files -l pybtex_docutils
 
 %check
 %pytest -v test
@@ -76,6 +71,9 @@ rst2html --no-datestamp README.rst README.html
 %doc README.html doc/_build/html/*
 
 %changelog
+* Fri Oct 31 2025 Jerry James <loganjerry@gmail.com> - 1.0.3-11
+- Use the pyproject declarative buildsystem
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0.3-10
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-machines
-Version:        342
+Version:        343
 Release:        1%{?dist}
 Summary:        Cockpit user interface for virtual machines
 License:        LGPL-2.1-or-later AND MIT
@@ -47,6 +47,7 @@ Requires: libvirt-daemon-config-network
 Recommends: libvirt-daemon-driver-storage-disk
 %if 0%{?rhel}
 Requires: qemu-kvm
+Suggests: qemu-kvm-block-curl
 %else
 # smaller footprint on Fedora, as qemu-kvm is really expensive on a server
 Requires: qemu-kvm-core
@@ -69,12 +70,12 @@ Recommends: python3-gobject-base
 Suggests: (qemu-virtiofsd or virtiofsd)
 
 Provides: bundled(npm(@novnc/novnc)) = 1.5.0
-Provides: bundled(npm(@patternfly/patternfly)) = 6.3.1
-Provides: bundled(npm(@patternfly/react-core)) = 6.3.1
-Provides: bundled(npm(@patternfly/react-icons)) = 6.3.1
-Provides: bundled(npm(@patternfly/react-styles)) = 6.3.1
-Provides: bundled(npm(@patternfly/react-table)) = 6.3.1
-Provides: bundled(npm(@patternfly/react-tokens)) = 6.3.1
+Provides: bundled(npm(@patternfly/patternfly)) = 6.4.0
+Provides: bundled(npm(@patternfly/react-core)) = 6.4.0
+Provides: bundled(npm(@patternfly/react-icons)) = 6.4.0
+Provides: bundled(npm(@patternfly/react-styles)) = 6.4.0
+Provides: bundled(npm(@patternfly/react-table)) = 6.4.0
+Provides: bundled(npm(@patternfly/react-tokens)) = 6.4.0
 Provides: bundled(npm(@xterm/addon-canvas)) = 0.7.0
 Provides: bundled(npm(@xterm/xterm)) = 5.5.0
 Provides: bundled(npm(attr-accept)) = 2.2.5
@@ -94,7 +95,7 @@ Provides: bundled(npm(react)) = 18.3.1
 Provides: bundled(npm(redux-thunk)) = 3.1.0
 Provides: bundled(npm(redux)) = 5.0.1
 Provides: bundled(npm(scheduler)) = 0.23.2
-Provides: bundled(npm(tabbable)) = 6.2.0
+Provides: bundled(npm(tabbable)) = 6.3.0
 Provides: bundled(npm(throttle-debounce)) = 5.0.2
 Provides: bundled(npm(tslib)) = 2.8.1
 
@@ -119,6 +120,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 # The changelog is automatically generated and merged
 %changelog
+* Thu Oct 30 2025 Packit <hello@packit.dev> - 343-1
+- Memory usage now shows numbers reported by the guest (RHEL-116731)
+
+
 * Wed Oct 15 2025 Packit <hello@packit.dev> - 342-1
 - Bug fixes and translation updates
 

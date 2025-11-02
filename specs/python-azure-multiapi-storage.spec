@@ -2,14 +2,15 @@
 %bcond_with     tests
 
 %global         srcname     azure-multiapi-storage
+%global         tarball_name     azure_multiapi_storage
 
 Name:           python-%{srcname}
-Version:        1.4.0
+Version:        1.6.0
 Release:        %autorelease
 Summary:        Microsoft Azure Storage Client Library for Python with multi API version support
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
-Source0:        %{pypi_source %{srcname} %{version}}
+Source0:        %{pypi_source %{tarball_name} %{version}}
 
 BuildArch:      noarch
 
@@ -43,7 +44,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n %{tarball_name}-%{version}
 
 
 %generate_buildrequires

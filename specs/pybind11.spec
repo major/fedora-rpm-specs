@@ -4,11 +4,12 @@
 # https://fedoraproject.org/wiki/Packaging:Guidelines#Packaging_Header_Only_Libraries
 %global debug_package %{nil}
 
-# Whether to run the tests, enabled by default
-%bcond tests 1
+# Whether to run additional tests, enabled by default
+%bcond optional_tests 1
+
 
 Name:    pybind11
-Version: 2.13.6
+Version: 3.0
 Release: %autorelease
 Summary: Seamless operability between C++11 and Python
 License: BSD-3-Clause
@@ -17,21 +18,27 @@ Source0: https://github.com/pybind/pybind11/archive/v%{version}/%{name}-%{versio
 
 # Use the `/usr` prefix for the python commands
 Patch1:  pybind11-2.13.6-Use_usr_prefix.patch
-# Drop cmake and ninja from build-requires
-Patch2:  pybind11-2.13.6-Drop_some_build-requires.patch
 
 # Needed to build the python libraries
 BuildRequires: python3-devel
-# Test depdendencies are not exposed
-%if %{with tests}
-BuildRequires: python3-pytest
-BuildRequires: python3-numpy
-BuildRequires: python3-scipy
-%endif
 
-BuildRequires: eigen3-devel
 BuildRequires: gcc-c++
 BuildRequires: cmake
+
+# Additional optional test dependencies
+%if %{with optional_tests}
+# The dependencies from test/requirements.txt do not cover arbitrary python version
+# Other source of the extra test depenenecies is not provided
+BuildRequires: python3dist(scipy)
+BuildRequires: python3dist(numpy)
+# Note, normally numpy dependency is still injected due to boost-devel (rhbz#2392860) 
+# For some reason boost-devel does not provide cmake(Boost) (rhbz#2407049)
+BuildRequires: boost-devel
+%endif
+
+# Other test dependencies
+BuildRequires: cmake(Eigen3)
+BuildRequires: cmake(Catch2)
 
 %global base_description \
 pybind11 is a lightweight header-only library that exposes C++ types \
@@ -66,41 +73,34 @@ This package contains the Python 3 files.
 
 
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires -g test
 
 
 %build
-# Build with CMake first to install the devel files in OS native paths
-# When -DCMAKE_BUILD_TYPE is set to Release, the tests in %%check might segfault.
-# However, we do not ship any binaries, and therefore Debug
-# build type does not affect the results.
-# https://bugzilla.redhat.com/show_bug.cgi?id=1921199
+# Have to build twice:
+# - CMake: install into system paths
+# - pyproject: install python metadata without the source files
 %cmake \
-  -DCMAKE_BUILD_TYPE=Debug \
-  %{!?with_tests:-DPYBIND11_TEST=OFF} \
+  -DCMAKE_BUILD_TYPE:STRING=Release \
   -DUSE_PYTHON_INCLUDE_DIR=FALSE
 %cmake_build
-
-# Build again with the python build system to get the python files
-%pyproject_wheel
+%{pyproject_wheel %{shrink:
+  -C cmake.build-type=Release
+  -C cmake.define.PYBIND11_INSTALL=OFF
+  -C cmake.define.PYBIND11_TEST=OFF
+}}
 
 
 %install
 %cmake_install
 %pyproject_install
-%pyproject_save_files pybind11
-
-# Remove the devel files in the python package
-rm -rf %{buildroot}%{python3_sitelib}/pybind11/include/
-rm -rf %{buildroot}%{python3_sitelib}/pybind11/share/
-sed -i '/pybind11\/include/d' %{pyproject_files}
-sed -i '/pybind11\/share/d' %{pyproject_files}
+%pyproject_save_files -l pybind11
 
 
-%if %{with tests}
 %check
-%ctest
-%endif
+# The project does not provide ctest or running pytest directly
+# Additional tests from optional_tests are automatically skipped/picked-up by pytest
+%cmake_build --target check
 
 
 %files devel

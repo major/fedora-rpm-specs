@@ -3,7 +3,7 @@
 
 Name:           elementary-camera
 Summary:        Camera app designed for elementary
-Version:        8.0.1
+Version:        8.0.2
 Release:        %autorelease
 License:        GPL-3.0-or-later
 

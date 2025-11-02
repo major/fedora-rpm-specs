@@ -3,11 +3,18 @@
 
 Name: rubygem-%{gem_name}
 Version: 10.1.0
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: Core library for the Cucumber BDD app
 License: MIT
 URL: https://cucumber.io
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
+# https://github.com/cucumber/cucumber-ruby-core/pull/299/
+# https://github.com/cucumber/cucumber-ruby-core/pull/302/commits/6f157ae0a5d2dac850f3d0d6982dd00b5c25b1d9
+# Discard the extraneous arguments from Method#source_location
+# ruby3_5 now returns 5 elements from source_location:
+# https://github.com/ruby/ruby/pull/12539
+Patch0:  cucumber-ruby-core-pr299-default-source-location-fix.patch
+Patch1:  cucumber-ruby-core-pr302-remove-source_location-extra-args.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -33,6 +40,8 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version}
+%patch -P0 -p1
+%patch -P1 -p1
 
 %gemspec_remove_dep -g cucumber-messages "~> 17.1", ">= 17.1.1"
 %gemspec_add_dep -g cucumber-messages ">= 17.0"
@@ -75,6 +84,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Thu Oct 30 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 10.1.0-11
+- Backport upstream patch for ruby3_5 source_location behavior change
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 10.1.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

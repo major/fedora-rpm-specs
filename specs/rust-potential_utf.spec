@@ -5,7 +5,7 @@
 %global crate potential_utf
 
 Name:           rust-potential_utf
-Version:        0.1.3
+Version:        0.1.4
 Release:        %autorelease
 Summary:        Unvalidated string and character types
 

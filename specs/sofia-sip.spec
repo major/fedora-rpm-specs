@@ -15,8 +15,8 @@ BuildRequires:  gcc-c++
 BuildRequires:  openssl-devel
 BuildRequires:  glib2-devel
 BuildRequires:  lksctp-tools-devel
-BuildRequires:	autoconf
-BuildRequires:	automake
+BuildRequires:  autoconf
+BuildRequires:  automake
 BuildRequires:  libtool >= 1.5.17
 
 %description

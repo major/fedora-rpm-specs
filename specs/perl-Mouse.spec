@@ -1,7 +1,7 @@
 Name:           perl-Mouse
 Summary:        Moose minus the antlers
-Version:        2.5.11
-Release:        5%{?dist}
+Version:        2.6.0
+Release:        1%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Mouse
 Source0:        https://cpan.metacpan.org/modules/by-module/Test/Mouse-v%{version}.tar.gz
@@ -13,6 +13,7 @@ BuildRequires:  make
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(:VERSION) >= 5.10.1
 BuildRequires:  perl(Devel::PPPort) >= 3.59
 BuildRequires:  perl(ExtUtils::ParseXS) >= 3.22
 BuildRequires:  perl(File::Basename)
@@ -171,6 +172,10 @@ find %{buildroot} -type f -name '*.bs' -empty -delete
 %{_mandir}/man3/Test::Mouse.3*
 
 %changelog
+* Thu Oct 30 2025 Paul Howarth <paul@city-fan.org> - 2.6.0-1
+- Update to 2.6.0 (rhbz#2407306)
+  - Update minimum perl version from 5.8 => 5.10 (GH#112)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.11-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

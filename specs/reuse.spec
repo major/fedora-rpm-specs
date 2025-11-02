@@ -1,5 +1,5 @@
 Name:           reuse
-Version:        6.1.2
+Version:        6.2.0
 Release:        %autorelease
 Summary:        A tool for compliance with the REUSE recommendations
 # The CC0-1.0 licence applies to json data files, not code.
@@ -7,12 +7,8 @@ Summary:        A tool for compliance with the REUSE recommendations
 License:        Apache-2.0 AND CC0-1.0 AND CC-BY-SA-4.0 AND GPL-3.0-or-later
 Url:            https://github.com/fsfe/reuse-tool
 Source0:        %pypi_source
-# workaround for python-file-magic issues
-# https://github.com/fsfe/reuse-tool/issues/1261
-Source1:        reuse-chardet.sh
-Source2:        reuse-chardet.csh
 
-Patch:  0001-remove-dependency-on-python-magic.patch
+Patch: 0001-use-python-file-magic-for-filetype-detection.patch
 
 # Build
 BuildRequires:  python3-devel
@@ -32,10 +28,6 @@ BuildRequires:  %{py3_dist sphinx_rtd_theme}
 BuildRequires:  %{py3_dist sphinxcontrib-apidoc}
 Recommends:     git
 Recommends:     mercurial
-# FIXME: This probably should be handled by the dependency generator
-# and better handling of extras, but needs to be hardcoded for now
-# See https://bugzilla.redhat.com/show_bug.cgi?id=2402682 for issue that triggered this.
-Requires:       %{py3_dist charset-normalizer}
 BuildArch:      noarch
 
 %description
@@ -47,7 +39,7 @@ generates a project's bill of materials.
 %autosetup -n %{name}-%{version} -S git_am
 
 %generate_buildrequires
-%pyproject_buildrequires -x charset-normalizer
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -64,8 +56,6 @@ popd
 
 install -p -m0644 -Dt "${RPM_BUILD_ROOT}%{_mandir}/man1" docs/manpages/*.1
 
-install -p -m0644 -Dt "${RPM_BUILD_ROOT}%{_sysconfdir}/profile.d/" '%{SOURCE1}' '%{SOURCE2}'
-
 %check
 # Note: just running %%{pytest} does not work, since the path manipulation
 # by that macro and `--doctest-modules` confuse the import machinery too much.
@@ -78,7 +68,6 @@ install -p -m0644 -Dt "${RPM_BUILD_ROOT}%{_sysconfdir}/profile.d/" '%{SOURCE1}' 
 %{_bindir}/reuse
 %{_mandir}/man1/reuse.1*
 %{_mandir}/man1/reuse-*.1*
-%{_sysconfdir}/profile.d/reuse-chardet.*
 
 %changelog
 %autochangelog

@@ -5,7 +5,7 @@
 %global crate zerovec
 
 Name:           rust-zerovec
-Version:        0.11.4
+Version:        0.11.5
 Release:        %autorelease
 Summary:        Zero-copy vector backed by a byte array
 
@@ -13,6 +13,18 @@ License:        Unicode-3.0
 URL:            https://crates.io/crates/zerovec
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
+# * Restore missing dev-dependencies,
+#   https://github.com/unicode-org/icu4x/issues/7196: use .cargo_vcs_info.json
+#   in the published crate to find the corresponding git commit,
+#   git clone https://github.com/unicode-org/icu4x.git, cd utils/${crate},
+#   cargo publish --dry-run,
+#   tar -xzf ../../target/package/${crate}-${version}.crate, and inspect
+#   ${crate}-${version}/Cargo.toml to find the missing dev-dependencies. Note
+#   that just looking at the crate’s Cargo.toml in the git checkout isn’t that
+#   useful without the cargo publish --dry-run step because most or all of the
+#   dev-dependencies are inherited from the workspace. Note also that we end up
+#   omitting some of the dev-dependencies, as documented in the following
+#   comments.
 # * Do not depend on criterion, iai, or rand_distr; they are needed only for
 #   benchmarks.
 # * Do not depend on postcard; it is only for benchmarks and an example, and

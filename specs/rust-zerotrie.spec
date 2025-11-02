@@ -5,7 +5,7 @@
 %global crate zerotrie
 
 Name:           rust-zerotrie
-Version:        0.2.2
+Version:        0.2.3
 Release:        %autorelease
 Summary:        Data structure that efficiently maps strings to integers
 
@@ -13,6 +13,18 @@ License:        Unicode-3.0
 URL:            https://crates.io/crates/zerotrie
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
+# * Restore missing dev-dependencies,
+#   https://github.com/unicode-org/icu4x/issues/7196: use .cargo_vcs_info.json
+#   in the published crate to find the corresponding git commit,
+#   git clone https://github.com/unicode-org/icu4x.git, cd utils/${crate},
+#   cargo publish --dry-run,
+#   tar -xzf ../../target/package/${crate}-${version}.crate, and inspect
+#   ${crate}-${version}/Cargo.toml to find the missing dev-dependencies. Note
+#   that just looking at the crate’s Cargo.toml in the git checkout isn’t that
+#   useful without the cargo publish --dry-run step because most or all of the
+#   dev-dependencies are inherited from the workspace. Note also that we end up
+#   further modifying the dev-dependencies, as documented in the following
+#   comments.
 # * Drop benchmark-only criterion dependency
 # * Omit the first_weekday_for_region example, which would require the internal
 #   icu_benchmark_macros crate
@@ -21,10 +33,6 @@ Source:         %{crates_source}
 # * Restore zerovec dev-dependency, which was path-based and was therefore
 #   removed in Cargo.toml normalization. We have it as a (non-dev) dependency, but the dev-dependency enables the serde and hashmap features.
 Patch:          zerotrie-fix-metadata.diff
-# * Fix test failures in zerotrie on 32-bit platforms,
-#   https://github.com/unicode-org/icu4x/pull/6697.
-# * Fixes https://github.com/unicode-org/icu4x/issues/6696.
-Patch10:        zerotrie-0.2.2-pr-6697.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

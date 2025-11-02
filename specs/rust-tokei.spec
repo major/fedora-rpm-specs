@@ -21,7 +21,9 @@ Source:         %{crates_source %{crate} %{crate_version}}
 #   to create git repositories for testing using git2::Repository::init(…),
 #   there is almost no exposure to future API changes, and this keeps us from
 #   having to adjust the patch for every new git2 release.
-# * Update etcetera to 0.10: https://github.com/XAMPPRocky/tokei/pull/1253
+# * Update etcetera to 0.10, https://github.com/XAMPPRocky/tokei/pull/1253, and
+#   allow 0.11,
+#   https://github.com/XAMPPRocky/tokei/pull/1253#issuecomment-3471595554
 Patch:          tokei-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 26

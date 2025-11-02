@@ -38,7 +38,9 @@ Source1: rust-vhost-device-scmi-%{version}-vendor.tar.xz
 Patch0:         rust-vhost-device-scmi-man-page.patch
 
 # We depend on rust-vmm crates that don't support 32 bit targets
-ExcludeArch:    %{ix86}
+# RHEL does not support virt on ppc64le
+# Unit tests fail on s390x, see bug #2244364.
+ExcludeArch:    %{ix86} %{?rhel:ppc64le} s390x
 
 %if %{with bundled_rust_deps}
 BuildRequires:  rust-toolset
@@ -46,9 +48,6 @@ BuildRequires:  rust-toolset
 %else
 BuildRequires:  cargo-rpm-macros >= 24
 %endif
-
-# Unit tests fail on s390x, see bug #2244364.
-ExcludeArch: s390x
 
 %global _description %{expand:
 Vhost-user SCMI backend device.}

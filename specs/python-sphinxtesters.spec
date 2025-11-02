@@ -25,7 +25,9 @@ VCS:            git:%{url}.git
 Source:         %{url}/archive/%{version}/sphinxtesters-%{version}.tar.gz
 
 BuildArch:      noarch
-BuildRequires:  python3-devel
+BuildSystem:    pyproject
+BuildOption(generate_buildrequires): -x doc,test
+BuildOption(install): -l sphinxtesters
 
 %description
 This package contains utilities for testing Sphinx extensions.
@@ -40,25 +42,16 @@ This package contains utilities for testing Sphinx extensions.
 %prep
 %autosetup -n sphinxtesters-%{version} -p1
 
-%generate_buildrequires
-%pyproject_buildrequires -x doc,test
-
-%build
-%pyproject_wheel
+%build -a
 rst2html --no-datestamp README.rst README.html
 PYTHONPATH=$PWD sphinx-build doc build
 rm -fr build/.{buildinfo,doctrees,nojekyll}
-
-%install
-%pyproject_install
-%pyproject_save_files -L sphinxtesters
 
 %check
 %pytest -v
 
 %files -n python3-sphinxtesters -f %{pyproject_files}
 %doc README.html build
-%license LICENSE
 
 %changelog
 %autochangelog

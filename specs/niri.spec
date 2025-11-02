@@ -94,6 +94,9 @@ BuildRequires:  pkgconfig(xkbcommon)
 # required for xwayland support
 Requires:       xwayland-satellite >= 0.7
 
+# shared libraries opened with dlopen
+Requires:       libwayland-server
+
 # required for portal support 
 Recommends:     gnome-keyring
 Recommends:     xdg-desktop-portal-gnome

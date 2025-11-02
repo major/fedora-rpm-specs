@@ -13,8 +13,8 @@
 %global bootstrap 0
 %global github_owner     webmozart
 %global github_name      assert
-%global github_version   1.12.0
-%global github_commit    541057574806f942c94662b817a50f63f7345360
+%global github_version   1.12.1
+%global github_commit    9be6926d8b485f55b9229203f962b51ed377ba68
 
 %global composer_vendor  webmozart
 %global composer_project assert
@@ -135,7 +135,6 @@ exit $RETURN_CODE
 
 
 %files
-%{!?_licensedir:%global license %%doc}
 %license LICENSE
 %doc *.md
 %doc composer.json
@@ -144,6 +143,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Thu Oct 30 2025 Remi Collet <remi@remirepo.net> - 1.12.1-1
+- update to 1.12.1 (no change)
+
 * Tue Oct 21 2025 Remi Collet <remi@remirepo.net> - 1.12.0-1
 - update to 1.12.0
 

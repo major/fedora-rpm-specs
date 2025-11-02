@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           ruff
-Version:        0.14.2
+Version:        0.14.3
 # The ruff package has a permanent exception to the Updates Policy in Fedora,
 # so it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -187,9 +187,9 @@ Source100:      %{lsp_types_git}/archive/%{lsp_types_rev}/lsp-types-%{lsp_types_
 # observe the version and https://github.com/salsa-rs/commit/%%{salsa_rev} to
 # observe the date.
 %global salsa_git https://github.com/salsa-rs/salsa
-%global salsa_rev d38145c29574758de7ffbe8a13cd4584c3b09161
+%global salsa_rev cdd0b85516a52c18b8a6d17a2279a96ed6c3e198
 %global salsa_baseversion 0.24.0
-%global salsa_snapdate 20251023
+%global salsa_snapdate 20251027
 Source200:      %{salsa_git}/archive/%{salsa_rev}/salsa-%{salsa_rev}.tar.gz
 
 # Get this from ruff/crates/ty_vendored/vendor/typeshed/source_commit.txt.
@@ -375,6 +375,15 @@ rm crates/salsa/book/mermaid.min.js
 # #   currently packaged: 0.1.2
 # #   https://bugzilla.redhat.com/show_bug.cgi?id=1234567
 # tomcli set Cargo.toml str workspace.dependencies.foocrate.version 0.1.2
+
+# etcetera
+#   wanted: 0.10.0
+#   currently packaged: 0.11.0
+#   https://bugzilla.redhat.com/show_bug.cgi?id=2406801
+# Update etcetera to 0.11.0
+# https://github.com/astral-sh/ruff/pull/21160
+tomcli set Cargo.toml str workspace.dependencies.etcetera.version \
+    '>=0.10.0, <0.12.0'
 
 %cargo_prep
 

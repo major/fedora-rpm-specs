@@ -5,6 +5,7 @@ Summary:        Music library manager and MusicBrainz tagger
 License:        MIT and ISC
 URL:            http://pypi.org/project/beets/
 Source0:        %{pypi_source beets}
+Patch0:         rhbz2407232.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-sphinx

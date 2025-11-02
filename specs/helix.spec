@@ -350,6 +350,10 @@ A Kakoune / Neovim inspired editor, written in Rust.
 tomcli set helix-vcs/Cargo.toml str dependencies.gix.version 0.73
 # Relax unicode-width lower bound
 tomcli set helix-core/Cargo.toml str dependencies.unicode-width 0.1.14
+# Allow etcetera 0.11; not suitable for offering upstream yet because this has
+# MSRV 1.87 and helix has MSRV 1.82.
+tomcli set helix-stdx/Cargo.toml str dependencies.etcetera '>=0.10.0, <0.12.0'
+tomcli set helix-loader/Cargo.toml str dependencies.etcetera '>=0.10.0, <0.12.0'
 
 # Rename license files for themes so they can be installed
 find runtime/themes/licenses -type f -exec /bin/sh -c 'cp -pav {} LICENSE-themes-$(basename {} .LICENSE)' \;

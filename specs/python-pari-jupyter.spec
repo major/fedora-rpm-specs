@@ -12,12 +12,13 @@ Patch:          %{name}-pari.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
+BuildSystem:    pyproject
+BuildOption(install): -l PARIKernel
 
 BuildRequires:  gcc
 BuildRequires:  pari-devel
 BuildRequires:  pari-gp
 BuildRequires:  pkgconfig(readline)
-BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist cython}
 BuildRequires:  %{py3_dist docutils}
 BuildRequires:  %{py3_dist jupyter_kernel_test}
@@ -38,16 +39,10 @@ This package contains a Jupyter kernel for PARI/GP.
 %prep
 %autosetup -n pari-jupyter-%{version} -p1
 
-%generate_buildrequires
-%pyproject_buildrequires
-
-%build
-%pyproject_wheel
+%build -a
 rst2html --no-datestamp README.rst README.html
 
-%install
-%pyproject_install
-
+%install -a
 # Move the config file to the right place
 mkdir -p %{buildroot}%{_sysconfdir}/jupyter/nbconfig
 mv %{buildroot}%{_prefix}%{_sysconfdir}/jupyter/nbconfig/notebook.d \
@@ -64,13 +59,11 @@ cd test
 cd -
 rm -fr .ipython
 
-%files -n python3-pari-jupyter
+%files -n python3-pari-jupyter -f %{pyproject_files}
 %doc README.html
 %config(noreplace) %{_sysconfdir}/jupyter/nbconfig/notebook.d/gp-mode.json
 %{_datadir}/jupyter/kernels/pari_jupyter/
 %{_datadir}/jupyter/nbextensions/gp-mode/
-%{python3_sitearch}/PARIKernel/
-%{python3_sitearch}/pari_jupyter*
 
 %changelog
 %autochangelog

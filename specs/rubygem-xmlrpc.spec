@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.3.2
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: XMLRPC is a lightweight protocol that enables remote procedure calls over HTTP
 # Automatically converted from old format: Ruby or BSD - review is highly recommended.
 License: Ruby OR LicenseRef-Callaway-BSD
@@ -13,6 +13,9 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone --no-checkout https://github.com/ruby/xmlrpc
 # cd xmlrpc && git archive -v -o xmlrpc-0.3.2-tests.txz v0.3.2 test/
 Source1: xmlrpc-%{version}-tests.txz
+# https://github.com/ruby/xmlrpc/pull/54
+# Remove unneeded logger dep
+Patch0:  xmlrpc-pr54-remover-logger-dep.patch
 
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
@@ -36,6 +39,10 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b1
+(
+cd %{_builddir}
+%patch -P0 -p1
+)
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -72,6 +79,9 @@ popd
 %{gem_instdir}/NEWS.md
 
 %changelog
+* Fri Oct 31 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.3.2-12
+- Remove unneded logger dep for ruby3_5
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

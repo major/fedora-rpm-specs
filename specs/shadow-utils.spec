@@ -1,7 +1,7 @@
 Summary: Utilities for managing accounts and shadow password files
 Name: shadow-utils
 Version: 4.18.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Epoch: 2
 License: BSD-3-Clause AND GPL-2.0-or-later
 URL: https://github.com/shadow-maint/shadow
@@ -24,6 +24,8 @@ Source7: passwd.pamd
 Patch0: shadow-4.15.0-manfix.patch
 # Probably non-upstreamable
 Patch1: shadow-4.18.0-account-tools-setuid.patch
+# https://github.com/shadow-maint/shadow/commit/db0e0b9112332a45131912021317ab5ab4fd6e40
+Patch2: shadow-4.18.0-selinux-chroot-prefix.patch
 
 ### Dependencies ###
 Requires: audit-libs >= 1.6.5
@@ -269,6 +271,10 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/libsubid.a
 %{_libdir}/libsubid.so
 
 %changelog
+* Fri Oct 31 2025 Iker Pedrosa <ipedrosa@redhat.com> - 2:4.18.0-4
+- Stop setting SELinux labels in chroot and prefix environments
+  Resolves: #2249524
+
 * Tue Jul 29 2025 Alexey Tikhonov <atikhono@redhat.com> - 2:4.18.0-3
 - Revert "Stop assigning subids by default"
   Resolves: #2382662

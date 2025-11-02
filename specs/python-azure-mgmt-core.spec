@@ -9,7 +9,7 @@
 %global         tarball_name     azure_mgmt_core
 
 Name:           python-%{srcname}
-Version:        1.5.0
+Version:        1.6.0
 Release:        %autorelease
 Summary:        Azure Management Core Library
 License:        MIT

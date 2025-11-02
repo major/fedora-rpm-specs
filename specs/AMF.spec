@@ -1,13 +1,14 @@
 Name:           AMF
 Epoch:          1
-Version:        1.4.36
+Version:        1.5.0
 Release:        %autorelease
 Summary:        Advanced Media Framework (AMF) SDK
 License:        MIT
 URL:            https://gpuopen.com/advanced-media-framework/
 BuildArch:      noarch
 
-# Cleaned up tarballi without Thirdparty folder:
+# Releases include headers only and we miss documents and samples; so get a
+# full tarball without Thirdparty folder.
 Source0:        %{name}-cleaned-%{version}.tar.gz
 Source1:        %{name}-tarball.sh
 

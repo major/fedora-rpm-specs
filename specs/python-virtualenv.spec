@@ -2,7 +2,7 @@
 %bcond tests %{without bootstrap}
 
 Name:           python-virtualenv
-Version:        20.35.3
+Version:        20.35.4
 Release:        %autorelease
 Summary:        Tool to create isolated Python environments
 
@@ -103,6 +103,7 @@ sed -i "s|/usr/share/python-wheels|%{python_wheel_dir}|" src/virtualenv/util/pat
 # Requires internet:
 # - test_download_*
 # - test_can_build_c_extensions
+# - test_create_distutils_cfg
 # Uses disabled functionalities around bundled wheels:
 # - test_wheel_*
 # - test_seed_link_via_app_data
@@ -123,7 +124,8 @@ PIP_CERT=/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem \
                 not test_can_build_c_extensions and \
                 not test_base_bootstrap_via_pip_invoke and \
                 not test_seed_link_via_app_data and \
-                not test_py_info_cache_clear"
+                not test_py_info_cache_clear and \
+                not test_create_distutils_cfg"
 %endif
 
 %files -n python3-virtualenv -f %{pyproject_files}

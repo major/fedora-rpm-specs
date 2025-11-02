@@ -1,15 +1,16 @@
 # No tests provided by upstream.
 %bcond_with     tests
 
-%global         srcname     azure-mgmt-cognitiveservices
+%global         srcname          azure-mgmt-cognitiveservices
+%global         tarball_name     azure_mgmt_cognitiveservices
 
 Name:           python-%{srcname}
-Version:        13.5.0
+Version:        13.7.0
 Release:        %autorelease
 Summary:        Microsoft Azure Cognitive Services Management Client Library for Python
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
-Source0:        %{pypi_source %{srcname} %{version} zip}
+Source0:        %{pypi_source %{tarball_name} %{version}}
 
 BuildArch:      noarch
 
@@ -36,7 +37,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n %{tarball_name}-%{version}
 
 
 %generate_buildrequires

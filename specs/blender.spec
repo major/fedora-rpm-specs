@@ -69,6 +69,10 @@ URL:            https://www.blender.org
 Source0:        https://download.%{name}.org/source/%{name}-%{version}.tar.xz
 # Custom RPM macros
 Source1:        %{name}-macros-source
+# Fix build with FFmpeg 8
+Patch0:         https://projects.blender.org/blender/blender/commit/49a6c426206e283f8abb4a438bdc0e93e46e9799.patch#/%{name}-ffmpeg8.patch
+# Fix bundled audaspace build with FFmpeg 8
+Patch1:         https://projects.blender.org/blender/blender/commit/ebfad2c071d712d126a5c3d93ebed8a226821feb.patch#/%{name}-audaspace-ffmpeg8.patch
 
 # Build requirements
 BuildRequires:  boost-devel

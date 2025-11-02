@@ -104,7 +104,7 @@ ExcludeArch: %{ix86}
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          3%{?with_debug:.debug}%{?dist}
+Release:          4%{?with_debug:.debug}%{?dist}
 Summary:          MySQL client programs and shared libraries
 URL:              http://www.mysql.com
 
@@ -659,7 +659,7 @@ rm -r %{buildroot}%{_tmpfilesdir}/mysql.conf
 # We no longer enforce the hardcoded UID/GID 27
 mkdir -p %{buildroot}%{_sysusersdir}
 cat > %{buildroot}%{_sysusersdir}/%{name}.conf << EOF
-u mysql - 'MariaDB and MySQL Server' %{dbdatadir} -
+u mysql 27 'MariaDB and MySQL Server' %{dbdatadir} -
 EOF
 
 # helper scripts for service starting
@@ -1116,6 +1116,9 @@ popd
 %endif
 
 %changelog
+* Mon Oct 27 2025 Lukas Javorsky <ljavorsk@redhat.com> - 8.4.6-4
+- Revert to soft static allocation of MariaDB and MySQL sysusers.d files
+
 * Tue Aug 26 2025 Pavol Sloboda <psloboda@redhat.com> - 8.4.6-3
 - Bump release for package rebuild
 

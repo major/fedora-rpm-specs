@@ -1,4 +1,4 @@
-%bcond_without bootstrap
+%bcond_with bootstrap
 
 # LTO triggers a compilation error for a source level issue.  Given that LTO should not
 # change the validity of any given source and the nature of the error (undefined enum), I
@@ -625,8 +625,8 @@ CXXFLAGS="$CXXFLAGS -Wno-used-but-marked-unused"
 
 %if 0%{?fedora} >= 43 || 0%{?rhel} > 10
 # -Wall includes Wjump-misses-init and other additional warnings in newer clang versions
-CFLAGS='-Wno-jump-misses-init -Wno-implicit-void-ptr-cast -Wno-implicit-int-enum-cast'
-CXXFLAGS='-Wno-jump-misses-init -Wno-implicit-void-ptr-cast -Wno-implicit-int-enum-cast'
+CFLAGS='-Wno-unknown-warning-option -Wno-jump-misses-init -Wno-implicit-void-ptr-cast -Wno-implicit-int-enum-cast'
+CXXFLAGS='-Wno-unknown-warning-option -Wno-jump-misses-init -Wno-implicit-void-ptr-cast -Wno-implicit-int-enum-cast'
 %endif
 
 export EXTRA_CFLAGS="$CFLAGS"
@@ -933,6 +933,9 @@ export COMPlus_LTTng=0
 
 
 %changelog
+* Thu Oct 30 2025 Omair Majid <omajid@redhat.com> - 10.0.100~rc.1.25451.107-0.9
+- Disable bootstrap
+
 * Wed Oct 29 2025 Omair Majid <omajid@redhat.com> - 10.0.100~rc.1.25451.107-0.8
 - Don't build with clang 21
 

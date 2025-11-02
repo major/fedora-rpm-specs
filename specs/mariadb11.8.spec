@@ -163,7 +163,7 @@
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          4%{?with_debug:.debug}%{?dist}
+Release:          5%{?with_debug:.debug}%{?dist}
 Epoch:            3
 
 Summary:          A very fast and robust SQL database server
@@ -909,7 +909,7 @@ cp %{SOURCE2} %{SOURCE3} %{SOURCE10} %{SOURCE11} %{SOURCE12} \
 # Create a sysusers.d config file
 # We no longer enforce the hardcoded UID/GID 27.
 cat > support-files/%{majorname}.sysusers.conf << EOF
-u mysql - 'MariaDB and MySQL Server' %{dbdatadir} -
+u mysql 27 'MariaDB and MySQL Server' %{dbdatadir} -
 EOF
 
 %if %{with galera}
@@ -1842,6 +1842,9 @@ fi
 %endif
 
 %changelog
+* Mon Oct 27 2025 Lukas Javorsky <ljavorsk@redhat.com> - 3:11.8.3-5
+- Revert to soft static allocation of MariaDB and MySQL sysusers.d files
+
 * Thu Oct 29 2025 Nikola Davidova <ndavidov@redhat.com> - 3:11.8.3-4
 - Bump release for tmpfiles.d change
 

@@ -11,7 +11,7 @@
 %bcond it %{undefined el10}
 
 Name:           uv
-Version:        0.9.5
+Version:        0.9.7
 Release:        %autorelease
 Summary:        An extremely fast Python package installer and resolver, written in Rust
 
@@ -149,9 +149,9 @@ Source1:        uv.toml
 # We therefore bundle the fork as prescribed in
 #   https://docs.fedoraproject.org/en-US/packaging-guidelines/Rust/#_replacing_git_dependencies
 %global async_zip_git https://github.com/astral-sh/rs-async-zip
-%global async_zip_rev 285e48742b74ab109887d62e1ae79e7c15fd4878
+%global async_zip_rev f6a41d32866003c868d03ed791a89c794f61b703
 %global async_zip_baseversion 0.0.17
-%global async_zip_snapdate 20250807
+%global async_zip_snapdate 20251014
 Source100:      %{async_zip_git}/archive/%{async_zip_rev}/rs-async-zip-%{async_zip_rev}.tar.gz
 
 # For the foreseeable future, uv must use a fork of pubgrub (and the
@@ -618,7 +618,14 @@ tomcli set crates/uv/Cargo.toml del dependencies.tracing-durations-export
 # #   wanted: 0.2.0
 # #   currently packaged: 0.1.2
 # #   https://bugzilla.redhat.com/show_bug.cgi?id=1234567
-# tomcli set crates/uv/Cargo.toml str dev-dependencies.foocrate.version 0.1.2
+# tomcli set Cargo.toml str workspace.dependencies.foocrate.version 0.1.2
+
+# etcetera
+#   wanted: 0.11.0
+#   currently packaged: 0.10.0
+#   https://bugzilla.redhat.com/show_bug.cgi?id=2406801
+tomcli set Cargo.toml str workspace.dependencies.etcetera.version \
+    '>=0.10.0, <0.12.0'
 
 %cargo_prep
 

@@ -1,7 +1,7 @@
 %global forgeurl https://github.com/Guts/mkdocs-rss-plugin
 
 Name:           python-mkdocs-rss-plugin
-Version:        1.17.3
+Version:        1.17.4
 Release:        %autorelease
 Summary:        MkDocs plugin which generates a static RSS feed
 
@@ -36,6 +36,10 @@ sed -i 's/GitPython>=3.1.43,<3.2/GitPython>=3.1,<3.2/' requirements/base.txt
 
 # Relax version pins for test dependencies
 sed -i 's/>=.*$//g' requirements/testing.txt
+
+# and disable coverage tests
+sed -i 's/pytest-cov/pytest/' requirements/testing.txt
+sed -i '/--cov/d' setup.cfg
 
 %generate_buildrequires
 %pyproject_buildrequires -x test

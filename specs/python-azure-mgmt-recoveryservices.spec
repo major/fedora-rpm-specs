@@ -2,14 +2,15 @@
 %bcond_with    tests
 
 %global         srcname     azure-mgmt-recoveryservices
+%global         tarball_name     azure_mgmt_recoveryservices
 
 Name:           python-%{srcname}
-Version:        3.0.0
+Version:        3.1.0
 Release:        %autorelease
 Summary:        Microsoft Azure Recovery Services Client Library for Python
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
-Source0:        %{pypi_source %{srcname} %{version}}
+Source0:        %{pypi_source %{tarball_name} %{version}}
 
 BuildArch:      noarch
 
@@ -41,7 +42,7 @@ Obsoletes:      python3-azure-sdk < 5.0.1
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n %{tarball_name}-%{version}
 
 
 %generate_buildrequires

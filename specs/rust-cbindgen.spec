@@ -4,7 +4,7 @@
 %global crate cbindgen
 
 Name:           rust-cbindgen
-Version:        0.29.0
+Version:        0.29.2
 Release:        %autorelease
 Summary:        Tool for generating C bindings to Rust code
 
@@ -29,7 +29,7 @@ A tool for generating C bindings to Rust code.}
 
 %package     -n %{crate}
 Summary:        %{summary}
-# (MIT OR Apache-2.0) AND Unicode-DFS-2016
+# (MIT OR Apache-2.0) AND Unicode-3.0
 # Apache-2.0 OR BSL-1.0
 # Apache-2.0 OR MIT
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
@@ -40,7 +40,7 @@ Summary:        %{summary}
 License:        %{shrink:
     MPL-2.0 AND
     MIT AND
-    Unicode-DFS-2016 AND
+    Unicode-3.0 AND
     (Apache-2.0 OR BSL-1.0) AND
     (Apache-2.0 OR MIT) AND
     (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND

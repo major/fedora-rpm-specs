@@ -1,15 +1,17 @@
 # Upstream removed tests.
 %bcond_with     tests
 
-%global         srcname     azure-mgmt-eventhub
+%global         srcname          azure-mgmt-eventhub
+%global         tarball_name     azure_mgmt_eventhub
 
 Name:           python-%{srcname}
-Version:        10.1.0
+Version:        12.0.0~b1
+%global         pypi_version 12.0.0b1
 Release:        %autorelease
 Summary:        Microsoft Azure EventHub Management Client Library for Python
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
-Source0:        %{pypi_source %{srcname} %{version} zip}
+Source0:        %{pypi_source %{tarball_name} %{pypi_version}}
 
 BuildArch:      noarch
 
@@ -44,7 +46,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n %{tarball_name}-%{pypi_version}
 
 
 %generate_buildrequires

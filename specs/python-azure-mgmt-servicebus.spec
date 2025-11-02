@@ -2,14 +2,16 @@
 %bcond_with     tests
 
 %global         srcname     azure-mgmt-servicebus
+%global         tarball_name     azure_mgmt_servicebus
 
 Name:           python-%{srcname}
-Version:        8.2.0
+Version:        10.0.0~b1
+%global         pypi_version 10.0.0b1
 Release:        %autorelease
 Summary:        Microsoft Azure Service Bus Management Client Library for Python
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
-Source0:        %{pypi_source %{srcname} %{version} zip}
+Source0:        %{pypi_source %{tarball_name} %{pypi_version}}
 
 BuildArch:      noarch
 
@@ -38,7 +40,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n %{tarball_name}-%{pypi_version}
 
 
 %generate_buildrequires

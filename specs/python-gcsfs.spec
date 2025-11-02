@@ -1,5 +1,5 @@
 Name:           python-gcsfs
-Version:        2025.9.0
+Version:        2025.10.0
 Release:        %autorelease
 Summary:        Convenient Filesystem interface over GCS
 

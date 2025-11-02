@@ -1,7 +1,7 @@
 %global pypi_name google-auth-oauthlib
 
 Name:           python-%{pypi_name}
-Version:        1.2.2
+Version:        1.2.3
 Release:        %autorelease
 Summary:        Google oAuth Authentication Library
 
@@ -46,7 +46,6 @@ rm -rf /docs/
 %license LICENSE
 %doc README.rst
 %{_bindir}/google-oauthlib-tool
-%exclude %{python3_sitelib}/docs/
 
 %changelog
 %autochangelog
