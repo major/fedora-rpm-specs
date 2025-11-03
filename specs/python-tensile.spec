@@ -30,13 +30,13 @@
 
 %bcond_with gitcommit
 %if %{with gitcommit}
-%global commit0 976b9c4a87a60a862ffb0e88e1fc0016e93c9961
+%global commit0 de5c1aebb641af098d9310a9fcca5591a7c066c8
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global date0 20250816
+%global date0 20251015
 %endif
 
 %global upstreamname Tensile
-%global rocm_release 7.0
+%global rocm_release 7.1
 %global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -50,7 +50,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 %endif
 Summary:        Tool for creating benchmark-driven backend libraries for GEMMs
 
@@ -67,6 +67,7 @@ Patch1:         0001-tensile-fedora-gpus.patch
 Patch2:         0001-tensile-gfx1153.patch
 Patch3:         0001-tensile-set-default-paths.patch
 Patch4:         0001-tensile-ignore-cache-check.patch
+Patch5:         0001-tensile-add-cmake-arches.patch
 
 %if 0%{?fedora} || 0%{?suse_version}
 BuildRequires:  fdupes
@@ -134,6 +135,8 @@ cd shared/tensile
 %patch -P1 -p1
 %patch -P2 -p1
 %patch -P3 -p1
+%patch -P4 -p1
+%patch -P5 -p1
 %else
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
 %endif

@@ -37,7 +37,7 @@
 %global sum_zh FastAPI 框架
 
 Name:           python-fastapi
-Version:        0.120.3
+Version:        0.120.4
 Release:        %autorelease
 Summary:        %{sum_en}
 
@@ -59,6 +59,9 @@ BuildArch:      noarch
 # Downstream-only: run test_fastapi_cli without coverage
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 Patch:          0001-Downstream-only-run-test_fastapi_cli-without-coverag.patch
+# ⬆️ Bump Starlette to <0.51.0
+# https://github.com/fastapi/fastapi/pull/14282
+Patch:          %{url}/pull/14282.patch
 
 BuildRequires:  python3-devel
 

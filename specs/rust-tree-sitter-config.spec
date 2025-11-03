@@ -16,7 +16,8 @@ Source:         %{crates_source}
 Source2:        https://github.com/tree-sitter/tree-sitter/raw/v%{version}/LICENSE#/LICENSE.upstream
 # Manually created patch for downstream crate metadata changes
 # * Update etcetera to 0.10:
-#   https://github.com/tree-sitter/tree-sitter/pull/4392
+#   https://github.com/tree-sitter/tree-sitter/pull/4392; allow etcetera 0.11,
+#   downstream for now because updating upstream would increase MSRV to 1.87
 Patch:          tree-sitter-config-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

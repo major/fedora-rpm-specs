@@ -1,5 +1,5 @@
 Name:           input-remapper
-Version:        2.1.1
+Version:        2.2.0
 Release:        %autorelease
 Summary:        An easy to use tool to change the behaviour of your input devices
 

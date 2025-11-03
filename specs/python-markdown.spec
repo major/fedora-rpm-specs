@@ -2,14 +2,12 @@
 %global pkgname markdown
 
 Name:           python-%{pkgname}
-Version:        3.8.2
+Version:        3.9
 Release:        %autorelease
 Summary:        Markdown implementation in Python
 License:        BSD-3-Clause
 URL:            https://python-markdown.github.io/
 Source0:        %{pypi_source}
-# https://github.com/Python-Markdown/markdown/pull/1548
-Patch0:         0001-Fix-failing-cases-for-Python-3-14.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

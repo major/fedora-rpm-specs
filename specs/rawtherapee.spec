@@ -34,6 +34,7 @@ Source0:        https://github.com/Beep6581/RawTherapee/releases/download/%{vers
 # Patch to fix segfault at startup
 # See upstream ticket https://github.com/RawTherapee/RawTherapee/issues/7532
 Patch:          0001-Fix-static-init-order-fiasco-crashes.patch
+Patch:          0001-Fix-typos.patch
 
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils

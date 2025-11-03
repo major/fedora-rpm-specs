@@ -4,7 +4,7 @@
 %global forgeurl https://github.com/rjarry/libecoli
 
 Name: libecoli
-Version: 0.8.0
+Version: 0.9.1
 Summary: Extensible COmmand LIne library
 License: BSD-3-Clause AND LicenseRef-Fedora-Public-Domain
 
@@ -94,7 +94,8 @@ done
 
 %files devel
 %{_mandir}/man3/*
-%{_includedir}/ecoli*.h
+%{_includedir}/ecoli.h
+%{_includedir}/ecoli/*.h
 %{_libdir}/%{name}.so
 %{_libdir}/pkgconfig/libecoli.pc
 

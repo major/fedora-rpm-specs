@@ -17,7 +17,8 @@ Source2:        https://github.com/tree-sitter/tree-sitter/raw/v%{version}/LICEN
 # Manually created patch for downstream crate metadata changes
 # * Disable feature 'wasm'
 # * Update etcetera to 0.10:
-#   https://github.com/tree-sitter/tree-sitter/pull/4392
+#   https://github.com/tree-sitter/tree-sitter/pull/4392; allow etcetera 0.11,
+#   downstream for now because updating upstream would increase MSRV to 1.87
 # * Update fs4 to 0.13
 Patch:          tree-sitter-loader-fix-metadata.diff
 

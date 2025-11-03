@@ -294,7 +294,7 @@
 
 Name:    petsc
 Summary: Portable Extensible Toolkit for Scientific Computation
-Version: %{releasever}.0
+Version: %{releasever}.1
 Release: %autorelease
 License: BSD-2-Clause
 URL:     https://petsc.org/
@@ -309,6 +309,7 @@ Patch3:  %{name}-3.19.4-fix_mumps_includes.patch
 Patch4:  %{name}-3.24.0-fix_metis64.patch
 Patch6:  %{name}-3.14.1-fix_pkgconfig_file.patch
 Patch7:  %{name}-3.22.2-avoid_fake_MKL_detection.patch
+Patch8:  %{name}-3.24.1-fix_PetscComplex.patch
 
 %if %{with superlu}
 BuildRequires: SuperLU-devel >= 5.2.0
@@ -582,6 +583,9 @@ done
 
 pushd %{name}-%{version}
 %patch -P 7 -p1 -b .backup
+%ifarch %{power64}
+%patch -P 8 -p1 -b .backup
+%endif
 popd
 
 # Remove pregenerated Cython C sources

@@ -1,7 +1,7 @@
 #The debug build is disabled by default, please use # --with debug to override
 %bcond_with debug
 
-%global baseversion 281
+%global baseversion 282
 
 %undefine _auto_set_build_flags
 
@@ -57,7 +57,7 @@ BuildRequires:  utf8proc-devel
 BuildRequires:  zlib-devel
 Requires:       %{name}-data = %{version}-%{release}
 
-Provides:       bundled(asmjit) = 1.13.0
+Provides:       bundled(asmjit) = 1.20
 #bx and bgfx are not made to be linked to dynamically as per http://forums.bannister.org/ubbthreads.php?ubb=showflat&Number=104437
 Provides:       bundled(bgfx)
 Provides:       bundled(bimg)

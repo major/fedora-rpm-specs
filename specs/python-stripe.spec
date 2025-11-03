@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/stripe/stripe-python
-Version:        12.5.0
+Version:        13.1.1
 %forgemeta
 
 Name:           python-stripe

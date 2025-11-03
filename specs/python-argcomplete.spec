@@ -10,15 +10,11 @@
 
 Name:          python-argcomplete
 Summary:       Bash tab completion for argparse
-Version:       3.6.2
+Version:       3.6.3
 Release:       %autorelease
 License:       Apache-2.0
 URL:           https://github.com/kislyuk/argcomplete
 Source0:       %pypi_source argcomplete
-
-# Only execute Python interpreters
-# Fix for https://bugzilla.redhat.com/2359689
-Patch:         https://github.com/kislyuk/argcomplete/commit/0f0797b11c.patch
 
 BuildRequires: python3-devel
 

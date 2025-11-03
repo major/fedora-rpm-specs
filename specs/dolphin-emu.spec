@@ -11,7 +11,7 @@
 %global FatFs_version 0.14b
 %global imgui_version 1.70
 %global implot_version 0.16
-%global mbedtls_version 2.28.9
+%global mbedtls_version 2.28.10
 %global soundtouch_version 2.3.2
 %global tinygltf_version 2.9.5
 
@@ -54,8 +54,12 @@ Source5:        https://github.com/syoyo/tinygltf/archive/refs/tags/v%{tinygltf_
 
 # Update bundled mbedtls:
 # https://github.com/dolphin-emu/dolphin/pull/13443
-Patch0:         0001-Update-mbedtls-to-2.28.9.patch
-Patch1:         dolphin-emu-fix-build-against-qt-6-10.patch
+Patch0:         0001-Update-mbedtls-to-2.28.10.patch
+Patch1:         0002-mbedtls-CVE-2025-52496-fix.patch
+Patch2:         0003-mbedtls-CVE-2025-48965-fix.patch
+Patch3:         0004-mbedtls-CVE-2025-47917-fix.patch
+
+Patch10:        dolphin-emu-fix-build-against-qt-6-10.patch
 
 ###Bundled code ahoy, I've added my best guess for versions and upstream urls
 ##The following isn't in Fedora yet:

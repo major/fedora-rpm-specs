@@ -3,7 +3,7 @@
 %global module %{pypi_name}
 
 Name:             python-%{pypi_name}
-Version:          1.85
+Version:          1.86
 Release:          %autorelease
 Summary:          Python tools for computational molecular biology
 Source:           %{pypi_source}

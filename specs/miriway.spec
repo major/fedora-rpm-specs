@@ -1,5 +1,5 @@
 Name:           miriway
-Version:        25.10
+Version:        25.12
 Release:        1%{?dist}
 Summary:        Simple Wayland compositor built on Mir
 
@@ -124,6 +124,9 @@ install -pm 0755 %{S:1} %{buildroot}%{_libexecdir}/initial-setup/run-gui-backend
 
 
 %changelog
+* Sat Nov 01 2025 Shawn W Dunn <sfalken@opensuse.org> - 25.12-1
+- Update to 25.12
+
 * Thu Sep 04 2025 Neal Gompa <ngompa@fedoraproject.org> - 25.10-1
 - Update to 25.10
 

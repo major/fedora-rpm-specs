@@ -2,7 +2,7 @@
 
 Name:           dippi
 Summary:        Calculate display info like DPI and aspect ratio
-Version:        4.1.0
+Version:        4.1.1
 Release:        %autorelease
 # The entire source is GPL-3.0-only, except:
 #   - data/metadata.metainfo.xml.in is CC0-1.0, which is allowed for content
@@ -28,8 +28,8 @@ BuildRequires:  meson
 BuildRequires:  vala
 BuildRequires:  gcc
 
-BuildRequires:  pkgconfig(gtk4)
-BuildRequires:  pkgconfig(libadwaita-1) >= 1.4
+BuildRequires:  pkgconfig(gtk4) >= 4.19.4
+BuildRequires:  pkgconfig(libadwaita-1) >= 1.8.1
 
 Requires:       hicolor-icon-theme
 
@@ -39,7 +39,7 @@ Summary(en_GB): Calculate display info like DPI and aspect ratio
 Summary(es):    Cálculo de datos de la pantalla como los PPP y la relación de aspecto
 Summary(fr_CA): Calculez les informations de l’écran comme le DPI ou le ratio
 Summary(fr):    Calculez des informations sur l'écran comme le DPI ou le ratio
-Summary(it):    Calcola informazioni di visualizzazione come DPI e proporzioni
+Summary(it):    Calcola le informazioni di visualizzazione come DPI
 Summary(lt):    Apskaičiuoti tokią ekrano informaciją kaip taškus colyje (DPI) ir proporcijas
 Summary(nl):    Bereken scherminformatie, zoals DPI en beeldverhouding
 Summary(pt):    Calcule informação do monitor como o DPI e a relação de aspeto

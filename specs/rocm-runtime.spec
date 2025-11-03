@@ -34,8 +34,8 @@
 %ifarch x86_64
 %global enableimage 1
 %endif
-%global rocm_release 7.0
-%global rocm_patch 2
+%global rocm_release 7.1
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %bcond_without kfdtest
@@ -178,6 +178,9 @@ rm -f %{buildroot}%{_libdir}/pkgconfig/libhsakmt.pc
 %endif
 
 %changelog
+* Thu Oct 30 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
+- Update to 7.1.0
+
 * Fri Oct 10 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-2
 - Update to 7.0.2
 

@@ -466,6 +466,9 @@ sed -i "1d" jupyterlab/staging/yarn.js
 %pyproject_install
 %pyproject_save_files jupyterlab
 
+# jupyter-labhub requires jupyterhub, which is not available in Fedora
+rm %{buildroot}%{_bindir}/jupyter-labhub
+
 # Add %%license to some bundled LICENSE.txt files
 sed -i "s/\(.*\.LICEN[SC]E\.txt\)/%%license \1/" %{pyproject_files}
 
@@ -502,7 +505,8 @@ grep -E '!#.+node' $(find %{buildroot} -type f -executable) && exit 1 || true
 %config(noreplace) %{_sysconfdir}/jupyter/jupyter_notebook_config.d/jupyterlab.json
 %config(noreplace) %{_sysconfdir}/jupyter/jupyter_server_config.d/jupyterlab.json
 %{_bindir}/jlpm
-%{_bindir}/jupyter-lab*
+%{_bindir}/jupyter-lab
+%{_bindir}/jupyter-labextension
 %{_datadir}/jupyter/lab
 %{_datadir}/applications/jupyterlab.desktop
 %{_datadir}/icons/hicolor/scalable/apps/jupyterlab.svg

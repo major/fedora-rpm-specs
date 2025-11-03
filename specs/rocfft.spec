@@ -33,8 +33,8 @@
 %endif
 
 %global upstreamname rocFFT
-%global rocm_release 7.0
-%global rocm_patch 2
+%global rocm_release 7.1
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -120,7 +120,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 %endif
 Summary:        ROCm Fast Fourier Transforms (FFT) library
 License:        MIT
@@ -301,6 +301,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/rocfft/LICENSE.md
 %endif
 
 %changelog
+* Thu Oct 30 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
+- Update to 7.1.0
+
 * Sun Oct 26 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.2-2
 - better handling of shared library on opensuse
 

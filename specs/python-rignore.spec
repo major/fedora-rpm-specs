@@ -1,5 +1,5 @@
 Name:           python-rignore
-Version:        0.7.2
+Version:        0.7.3
 Release:        %autorelease
 Summary:        Python bindings for the ignore crate
 

@@ -3,10 +3,10 @@
 %global debug_package %{nil}
 
 %global crate libheif-sys
-%global crate_version 4.1.0+1.19.8
+%global crate_version 5.0.0+1.20.2
 
 Name:           rust-libheif-sys
-Version:        4.1.0
+Version:        5.0.0
 Release:        %autorelease
 Summary:        Libheif bindings
 
@@ -17,7 +17,7 @@ Source:         %{crates_source %{crate} %{crate_version}}
 Patch:          libheif-sys-fix-metadata-auto.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
-BuildRequires:  pkgconfig(libheif) >= 1.16
+BuildRequires:  pkgconfig(libheif) >= 1.20
 
 %global _description %{expand:
 Libheif bindings.}
@@ -27,7 +27,7 @@ Libheif bindings.}
 %package        devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       pkgconfig(libheif) >= 1.16
+Requires:       pkgconfig(libheif) >= 1.20
 
 %description    devel %{_description}
 
@@ -113,6 +113,18 @@ use the "v1_19" feature of the "%{crate}" crate.
 %files       -n %{name}+v1_19-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+v1_20-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+v1_20-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "v1_20" feature of the "%{crate}" crate.
+
+%files       -n %{name}+v1_20-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %prep
 %autosetup -n %{crate}-%{crate_version} -p1
 %cargo_prep
@@ -120,18 +132,18 @@ use the "v1_19" feature of the "%{crate}" crate.
 rm -rf vendor/
 
 %generate_buildrequires
-%cargo_generate_buildrequires -f v1_17
+%cargo_generate_buildrequires -f v1_20
 
 %build
-%cargo_build -f v1_17
+%cargo_build -f v1_20
 
 %install
-%cargo_install -f v1_17
+%cargo_install -f v1_20
 
 %if %{with check}
 %check
 # * skip a test that expects a an exact libheif version
-%cargo_test -f v1_17 -- -- --skip create_heic_context
+%cargo_test -f v1_20 -- -- --skip create_heic_context
 %endif
 
 %changelog

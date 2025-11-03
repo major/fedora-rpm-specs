@@ -4,23 +4,23 @@ License: GPL-3.0-only
 URL: https://www.gnome-look.org/p/1253385/
 
 # Upstream keeps each colour variant of the theme in a separate git branch.
-%global git_date_master 20250630
-%global git_commit_master d4f980a65c4e1acaabd69c34dfbedbe3779799e1
+%global git_date_master 20251016
+%global git_commit_master d61d7bc7d234b6a40d4a6016e129080605eabbdb
 
-%global git_date_ambar 20250630
-%global git_commit_ambar 1390141ded3bc51a77af7dfd863e484b5a597c19
+%global git_date_ambar 20251016
+%global git_commit_ambar d4a430cf5be0fc31c51d9b4500f6ba323a97167b
 
-%global git_date_ambar_blue 20250630
-%global git_commit_ambar_blue aa8c72eeeeabc6bee242163128326a62ee220baa
+%global git_date_ambar_blue 20251016
+%global git_commit_ambar_blue 4781ed7639d1adc31e9ed0b6ff1ff070e580a144
 
-%global git_date_ambar_blue_dark 20250630
-%global git_commit_ambar_blue_dark 699d9816524fee6334d0e13ced328ac51210d5f2
+%global git_date_ambar_blue_dark 20251016
+%global git_commit_ambar_blue_dark 26b987cb86deec843d7b6bb4adda28a7d3946c8f
 
-%global git_date_mars 20250630
-%global git_commit_mars 43ce08374ec31bed7ca391e94ebd072344bb5997
+%global git_date_mars 20251016
+%global git_commit_mars 501702a96a448187e8ce5312831d6ce513a53ddc
 
-%global git_date_nova 20250630
-%global git_commit_nova 45a75e114494133fdf971a165db5475797e9daff
+%global git_date_nova 20251016
+%global git_commit_nova d7f0c2153d32a3513455112895160bb8500ef0f5
 
 %global git_date %( \
 	( \
@@ -33,7 +33,7 @@ URL: https://www.gnome-look.org/p/1253385/
 	) | sort -rn | head -n1)
 
 Version: 6.0^%{git_date}
-Release: 2%{?dist}
+Release: 1%{?dist}
 
 %global repo_name  Sweet
 %global repo_url   https://github.com/EliverLara/%{repo_name}
@@ -142,6 +142,9 @@ mv "%{buildroot}%{_datadir}/themes/Sweet-master" "%{buildroot}%{_datadir}/themes
 
 
 %changelog
+* Sat Nov 01 2025 Artur Frenszek-Iwicki <fedora@svgames.pl> - 6.0^20251016-1
+- Update to latest git snapshots (2025-10-16)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.0^20250630-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -27,8 +27,8 @@
 # https://github.com/ROCm-Developer-Tools/ROCclr/blob/develop/device/comgrctx.cpp#L62
 
 %global rocm_major 7
-%global rocm_minor 0
-%global rocm_patch 2
+%global rocm_minor 1
+%global rocm_patch 0
 %global rocm_release %{rocm_major}.%{rocm_minor}
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
@@ -77,7 +77,7 @@
 
 Name:           rocclr
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm Compute Language Runtime
 Url:            https://github.com/ROCm/clr
 License:        MIT
@@ -86,10 +86,10 @@ Source0:        %{url}/archive/refs/tags/rocm-%{version}.tar.gz#/%{name}-%{versi
 Source1:        https://github.com/ROCm-Developer-Tools/HIP/archive/refs/tags/rocm-%{version}.tar.gz#/HIP-%{version}.tar.gz
 
 # a fix for building blender
-Patch8:         0001-add-long-variants-for-__ffsll.patch
+Patch1:         0001-rocclr-long-variants-for-__ffsll.patch
 
 #https://github.com/ROCm/clr/pull/97
-patch10:        %{url}/pull/97/commits/909fa3dcb644f7ca422ed1a980a54ac426d831b1.patch
+patch2:        %{url}/pull/97/commits/909fa3dcb644f7ca422ed1a980a54ac426d831b1.patch
 
 BuildRequires:  cmake
 %if %{with docs}
@@ -344,10 +344,10 @@ rm %{buildroot}%{_libdir}/.hipInfo
 # Windows files:
 rm %{buildroot}%{_bindir}/*.bat
 
-rm -f %{buildroot}%{_prefix}/share/doc/packages/rocclr*/LICENSE.txt
-rm -f %{buildroot}%{_prefix}/share/doc/opencl*/LICENSE.txt
-rm -f %{buildroot}%{_prefix}/share/doc/hip-asan/LICENSE.txt
-rm -f %{buildroot}%{_prefix}/share/doc/hip/LICENSE.txt
+rm -f %{buildroot}%{_prefix}/share/doc/packages/rocclr*/LICENSE.md
+rm -f %{buildroot}%{_prefix}/share/doc/opencl*/LICENSE.md
+rm -f %{buildroot}%{_prefix}/share/doc/hip-asan/LICENSE.md
+rm -f %{buildroot}%{_prefix}/share/doc/hip/LICENSE.md
 
 %if %{with ocl}
 %files -n rocm-opencl
@@ -355,7 +355,7 @@ rm -f %{buildroot}%{_prefix}/share/doc/hip/LICENSE.txt
 %dir %{_sysconfdir}/OpenCL/
 %dir %{_sysconfdir}/OpenCL/vendors
 %endif
-%license opencl/LICENSE.txt
+%license opencl/LICENSE.md
 %config(noreplace) %{_sysconfdir}/OpenCL/vendors/amdocl64.icd
 %{_libdir}/libamdocl64.so.%{rocm_major}{,.*}
 %{_libdir}/libcltrace.so.%{rocm_major}{,.*}
@@ -366,12 +366,12 @@ rm -f %{buildroot}%{_prefix}/share/doc/hip/LICENSE.txt
 %{_includedir}/%{name}
 
 %files -n rocm-clinfo
-%license opencl/LICENSE.txt
+%license opencl/LICENSE.md
 %{_bindir}/rocm-clinfo
 %endif
 
 %files -n rocm-hip
-%license hipamd/LICENSE.txt
+%license hipamd/LICENSE.md
 %{_libdir}/libamdhip64.so.%{rocm_major}{,.*}
 %{_libdir}/libhiprtc.so.%{rocm_major}{,.*}
 %{_libdir}/libhiprtc-builtins.so.%{rocm_major}{,.*}
@@ -392,11 +392,14 @@ rm -f %{buildroot}%{_prefix}/share/doc/hip/LICENSE.txt
 
 %if %{with docs}
 %files -n hip-doc
-%license HIP-rocm-%{version}/LICENSE.txt
+%license HIP-rocm-%{version}/LICENSE.md
 %{_docdir}/hip
 %endif
 
 %changelog
+* Thu Oct 30 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
+- Update to 7.1.0
+
 * Sat Oct 25 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.2-2
 - Use SUSE cppheaderparser name
 

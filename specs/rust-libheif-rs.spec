@@ -5,7 +5,7 @@
 %global crate libheif-rs
 
 Name:           rust-libheif-rs
-Version:        2.2.0
+Version:        2.5.1
 Release:        %autorelease
 Summary:        Safe wrapper around the libheif-sys crate for parsing heif/heic files
 
@@ -47,6 +47,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+image-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+image-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "image" feature of the "%{crate}" crate.
+
+%files       -n %{name}+image-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+latest-devel
@@ -97,23 +109,35 @@ use the "v1_19" feature of the "%{crate}" crate.
 %files       -n %{name}+v1_19-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+v1_20-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+v1_20-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "v1_20" feature of the "%{crate}" crate.
+
+%files       -n %{name}+v1_20-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep
 
 %generate_buildrequires
-%cargo_generate_buildrequires
+%cargo_generate_buildrequires -f image
 
 %build
-%cargo_build
+%cargo_build -f image
 
 %install
-%cargo_install
+%cargo_install -f image
 
 %if %{with check}
 %check
 # * skip tests that rely on unavailable loaders for some image formats
-%cargo_test -- -- --exact --skip get_auxiliary_images
+%cargo_test -f image -- -- --exact --skip get_auxiliary_images
 %endif
 
 %changelog
