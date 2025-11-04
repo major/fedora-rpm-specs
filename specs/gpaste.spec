@@ -2,12 +2,14 @@
 
 Name:           gpaste
 Version:        45.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Clipboard management system
 
 License:        BSD-2-Clause
 URL:            https://github.com/Keruspe/%{alt_name}/
 Source0:        https://www.imagination-land.org/files/%{name}/%{alt_name}-%{version}.tar.xz
+# Fix GNOME 49 support (see https://github.com/Keruspe/GPaste/commit/c67a4df)
+Patch0:         gpaste-45.3-GNOME_Shell_49.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
@@ -98,7 +100,6 @@ Supplements:    (%{name} and bash-completion)
 Bash command line completion support for %{name}.
 
 
-
 %package zsh-completion
 Summary:        Zsh completion for %{name}
 Requires:       %{name} = %{version}-%{release}
@@ -110,7 +111,7 @@ Zsh command line completion support for %{name}.
 
 
 %prep
-%autosetup -n %{alt_name}-%{version}
+%autosetup -p0 -n %{alt_name}-%{version}
 
 
 %build
@@ -201,6 +202,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/org.gn
 
 
 %changelog
+* Sun Nov 02 2025 Mohamed El Morabity - 45.3-3
+- Fix GNOME 49 support (RHBZ #2408828)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 45.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

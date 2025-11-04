@@ -28,8 +28,8 @@
 %endif
 
 %global upstreamname rocPRIM
-%global rocm_release 7.0
-%global rocm_patch 2
+%global rocm_release 7.1
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 # Compiler is hipcc, which is clang based:
 %global toolchain rocm
@@ -172,7 +172,7 @@ cd projects/rocprim
 
 %cmake_install
 
-rm -f %{buildroot}%{_prefix}/share/doc/rocprim/LICENSE.txt
+rm -f %{buildroot}%{_prefix}/share/doc/rocprim/LICENSE.md
 
 %if %{with test}
 # force the cmake test file to use absolute paths for its referenced binaries
@@ -182,11 +182,11 @@ sed -i -e 's@\.\.@\/usr\/bin@' %{buildroot}%{_bindir}/%{name}/CTestTestfile.cmak
 %files devel
 %if %{with gitcommit}
 %doc projects/rocprim/README.md
-%license projects/rocprim/LICENSE.txt
+%license projects/rocprim/LICENSE.md
 %license projects/rocprim/NOTICES.txt
 %else
 %doc README.md
-%license LICENSE.txt
+%license LICENSE.md
 %license NOTICES.txt
 %endif
 %{_includedir}/%{name}
@@ -202,6 +202,9 @@ sed -i -e 's@\.\.@\/usr\/bin@' %{buildroot}%{_bindir}/%{name}/CTestTestfile.cmak
 
 
 %changelog
+* Thu Oct 30 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
+- Update to 7.0.1
+
 * Sat Oct 11 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.2-1
 - Update to 7.0.2
 

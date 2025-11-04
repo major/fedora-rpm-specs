@@ -1,12 +1,12 @@
 %global plugin_name googlechat
 
-%global commit0 c46690733591bedd9207e414ad9223c27a40c86c
+%global commit0 c02af37450150a2cc77367b8e03172196748f52c
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global date 20250714
+%global date 20251020
 
 Name: purple-%{plugin_name}
 Version: 0
-Release: 6.%{date}git%{shortcommit0}%{?dist}
+Release: 7.%{date}git%{shortcommit0}%{?dist}
 
 License: GPL-3.0-or-later
 Summary: Google Chat plugin for libpurple
@@ -64,6 +64,9 @@ chmod 755 %{buildroot}%{_libdir}/purple-2/lib%{plugin_name}.so
 %{_datadir}/pixmaps/pidgin/protocols/*/%{plugin_name}.png
 
 %changelog
+* Sun Nov  2 2025 Jan Kratochvil <jan@jankratochvil.net> - 0-7.20251020gitc02af37
+- Update to the latest snapshot.
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-6.20250714gitc466907
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

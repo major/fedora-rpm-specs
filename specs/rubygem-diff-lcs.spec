@@ -6,11 +6,14 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.5.0
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: Provide a list of changes between two sequenced collections
 License: MIT OR Artistic-2.0 OR GPL-2.0-or-later
 URL: https://github.com/halostatue/diff-lcs
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
+# https://github.com/halostatue/diff-lcs/pull/97
+# Remove unneeded ostruct dep
+Patch0:  diff-lcs-pr97-remove-ostruct-dep.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -35,6 +38,7 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version}
+%patch -P0 -p1
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -89,6 +93,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Sun Nov 02 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.5.0-9
+- Remove unneeded ostruct dep for ruby3_5
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -10,7 +10,7 @@ RTSP or SIP clients and servers, and have been used to add streaming support to
 existing media player applications.}
 
 Name:           live555
-Version:        2025.09.17
+Version:        2025.10.13
 Release:        %autorelease
 Summary:        RTP/RTCP/RTSP/SIP multimedia streaming libraries
 
@@ -63,7 +63,7 @@ chmod +x %{buildroot}%{_libdir}/*.so*
 %doc README
 %{_libdir}/libBasicUsageEnvironment.so.2{,.*}
 %{_libdir}/libgroupsock.so.30{,.*}
-%{_libdir}/libliveMedia.so.116{,.*}
+%{_libdir}/libliveMedia.so.117{,.*}
 %{_libdir}/libUsageEnvironment.so.3{,.*}
 
 %files tools

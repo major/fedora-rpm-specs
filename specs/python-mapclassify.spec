@@ -16,6 +16,7 @@ Patch:          0001-Use-system-copy-of-Natural-Earth-data.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+BuildRequires:  tomcli
 
 # Tests
 BuildRequires:  natural-earth-map-data-110m
@@ -36,6 +37,9 @@ It is part of PySAL the Python Spatial Analysis Library.
 
 %prep
 %autosetup -n %{srcname}-%{version} -p1
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+tomcli set pyproject.toml lists delitem project.optional-dependencies.tests \
+    'pytest-cov\b.*'
 
 mkdir -p pysal_data/pysal
 unzip %SOURCE1 -d pysal_data/pysal/South

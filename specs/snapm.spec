@@ -1,7 +1,7 @@
 %global summary A set of tools for managing snapshots
 
 Name:		snapm
-Version:	0.4.3
+Version:	0.5.0
 Release:	%autorelease
 Summary:	%{summary}
 
@@ -18,6 +18,9 @@ BuildRequires:	stratis-cli
 BuildRequires:	stratisd
 BuildRequires:	python3-devel
 BuildRequires:	python3-sphinx
+%if 0%{?fedora}
+BuildRequires: libfaketime
+%endif
 
 Requires: python3-snapm = %{version}-%{release}
 Recommends: boom-boot
@@ -65,8 +68,25 @@ rm -f doc/*.rst doc/Makefile doc/conf.py
 %install
 %pyproject_install
 
-mkdir -p %{buildroot}/%{_mandir}/man8
-%{__install} -p -m 644 man/man8/snapm.8 %{buildroot}/%{_mandir}/man8
+mkdir -p ${RPM_BUILD_ROOT}/%{_sysconfdir}/%{name}/plugins.d
+mkdir -p ${RPM_BUILD_ROOT}/%{_sysconfdir}/%{name}/schedule.d
+%{__install} -p -m 644 etc/%{name}/snapm.conf ${RPM_BUILD_ROOT}/%{_sysconfdir}/%{name}
+%{__install} -p -m 644 etc/%{name}/plugins.d/lvm2-cow.conf ${RPM_BUILD_ROOT}/%{_sysconfdir}/%{name}/plugins.d
+%{__install} -p -m 644 etc/%{name}/plugins.d/lvm2-thin.conf ${RPM_BUILD_ROOT}/%{_sysconfdir}/%{name}/plugins.d
+%{__install} -p -m 644 etc/%{name}/plugins.d/stratis.conf ${RPM_BUILD_ROOT}/%{_sysconfdir}/%{name}/plugins.d
+
+mkdir -p ${RPM_BUILD_ROOT}/%{_mandir}/man8
+mkdir -p ${RPM_BUILD_ROOT}/%{_mandir}/man5
+%{__install} -p -m 644 man/man8/snapm.8 ${RPM_BUILD_ROOT}/%{_mandir}/man8
+%{__install} -p -m 644 man/man5/snapm.conf.5 ${RPM_BUILD_ROOT}/%{_mandir}/man5
+%{__install} -p -m 644 man/man5/snapm-plugins.d.5 ${RPM_BUILD_ROOT}/%{_mandir}/man5
+%{__install} -p -m 644 man/man5/snapm-schedule.d.5 ${RPM_BUILD_ROOT}/%{_mandir}/man5
+
+mkdir -p ${RPM_BUILD_ROOT}/%{_unitdir}
+%{__install} -p -m 644 systemd/snapm-create@.service ${RPM_BUILD_ROOT}/%{_unitdir}
+%{__install} -p -m 644 systemd/snapm-create@.timer ${RPM_BUILD_ROOT}/%{_unitdir}
+%{__install} -p -m 644 systemd/snapm-gc@.service ${RPM_BUILD_ROOT}/%{_unitdir}
+%{__install} -p -m 644 systemd/snapm-gc@.timer ${RPM_BUILD_ROOT}/%{_unitdir}
 
 %check
 %pytest --log-level=debug -v tests/
@@ -76,7 +96,14 @@ mkdir -p %{buildroot}/%{_mandir}/man8
 %license LICENSE
 %doc README.md
 %{_bindir}/snapm
-%doc %{_mandir}/man*/snapm.*
+%doc %{_mandir}/man*/snapm*
+%attr(644, -, -) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/%{name}/snapm.conf
+%attr(644, -, -) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/%{name}/plugins.d/*
+%dir %attr(755, -, -) %{_sysconfdir}/%{name}/schedule.d
+%attr(644, -, -) %{_unitdir}/snapm-create@.service
+%attr(644, -, -) %{_unitdir}/snapm-create@.timer
+%attr(644, -, -) %{_unitdir}/snapm-gc@.service
+%attr(644, -, -) %{_unitdir}/snapm-gc@.timer
 
 %files -n python3-snapm
 # license for snapm (Apache-2.0)

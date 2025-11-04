@@ -20,7 +20,8 @@ Source10:       tokei.1
 #   there is almost no exposure to future API changes, and this keeps us from
 #   having to adjust the patch for every new git2 release.
 # * Remove reference to readme file that is not included in published crates.
-# * Allow dirs 4 and 5; downstream-only since tokei 13 will not depend on dirs.
+# * Allow dirs 4, 5, and 6; downstream-only since tokei 13 will not depend on
+#   dirs.
 # * Allow aho-corasick 1.0; updated upstream as part of a much larger commit,
 #   https://github.com/XAMPPRocky/tokei/commit/9627a24c9c53ebb5ded0c297d9221b8d0d331c09,
 #   without source-code changes related to aho-corasick.

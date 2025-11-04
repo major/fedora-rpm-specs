@@ -176,7 +176,7 @@ fi                                          \
 
 Name:           libxcrypt
 Version:        4.4.38
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Extended crypt library for descrypt, md5crypt, bcrypt, and others
 
 # For explicit license breakdown, see the
@@ -192,11 +192,16 @@ Source3:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.xz.s
 Patch0000:      %{url}/pull/205.patch#/%{name}-%{version}-crypt-Properly-initialize-and-cleanup-struct-crypt_data.patch
 Patch0001:      %{url}/commit/4450c48701c8.patch#/%{name}-%{version}-C23-memset_explicit.patch
 Patch0002:      %{url}/commit/5cb5c8dab8ba.patch#/%{name}-%{version}-crypt_preferred_method_3-fix-syntax.patch
+Patch0004:      %{url}/commit/dcaf1f31046c.patch#/%{name}-%{version}-strcpy_or_abort-DNDEBUG.patch
 # Patch 3000 - 5999: Backported patches from pull requests.
 Patch3000:      %{url}/commit/ba67911314f5.patch#/%{name}-%{version}-Make-crypt-and-crypt_gensalt-use-thread-local-output.patch
-Patch3001:      %{url}/commit/f23fb625b611.patch#/%{name}-%{version}-Add-sm3crypt-backend.patch
-Patch3002:      %{url}/commit/e0d7cf9c9faf.patch#/%{name}-%{version}-Add-sm3-yescrypt-backend-and-tests.patch
 # Patch 6000 - 9999: Downstream patches.
+# Squashed from the following commits:
+# https://github.com/besser82/libxcrypt/commit/9d085237bf356c7d9d09e815f18e682d0ed1b32d
+# https://github.com/besser82/libxcrypt/commit/9d111c593fcd8e8215450ecd68f53ed4cbf320ca
+# https://github.com/besser82/libxcrypt/commit/34188690dbabff6277ac0c95d1b3f27e01134b12
+# https://github.com/besser82/libxcrypt/commit/4ffbcacf02dc55028909795991547e2eee3177df
+Patch6000:      %{name}-%{version}-sm3crypt.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -554,6 +559,10 @@ done
 
 
 %changelog
+* Sun Nov 02 2025 Björn Esser <besser82@fedoraproject.org> - 4.4.38-10
+- Consolidate upstream patches for sm3crypt
+- Add patch fixing strcpy_or_abort with NDEBUG builds
+
 * Fri Sep 19 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 4.4.38-9
 - Re-enable compat package for ELN
 

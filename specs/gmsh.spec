@@ -55,7 +55,10 @@ BuildRequires: desktop-file-utils
 BuildRequires: fltk-devel
 BuildRequires: gcc-c++
 BuildRequires: gcc-gfortran
+# gmm is retired in Fedora
+%if 0%{?fedora} < 44
 BuildRequires: gmm-devel
+%endif
 BuildRequires: gmp-devel
 BuildRequires: hdf5-devel
 BuildRequires: libjpeg-turbo-devel
@@ -322,7 +325,7 @@ cp -a src/parser/Gmsh.* %{_target_platform}-mpich
 find %{buildroot} -type f -name libgmsh.a -exec rm -f {} \;
 
 # Install icon and .desktop file
-convert -scale 128 utils/icons/gmsh.png icon_128x128.png
+magick -scale 128 utils/icons/gmsh.png icon_128x128.png
 install -Dpm 0644 icon_128x128.png  %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/%{name}.png
 desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
 

@@ -13,8 +13,8 @@ URL:            https://wiki.gnome.org/Projects/PyGObject
 Source0:        https://download.gnome.org/sources/pygobject/3.54/pygobject-%{version}.tar.gz
 
 BuildRequires:  pkgconfig(cairo-gobject)
+BuildRequires:  pkgconfig(girepository-2.0) >= %{glib2_version}
 BuildRequires:  pkgconfig(glib-2.0) >= %{glib2_version}
-BuildRequires:  pkgconfig(gobject-introspection-1.0) >= %{gobject_introspection_version}
 BuildRequires:  pkgconfig(libffi)
 BuildRequires:  pkgconfig(py3cairo) >= %{pycairo_version}
 BuildRequires:  meson
@@ -22,7 +22,9 @@ BuildRequires:  python3-devel >= %{python3_version}
 BuildRequires:  python3-setuptools
 # Test dependencies.
 # Keep TEST_GTK_VERSION in %%check in sync with gtk version used here
+BuildRequires:  pkgconfig(gobject-introspection-1.0) >= %{gobject_introspection_version}
 BuildRequires:  python3dist(pytest)
+BuildRequires:  gcc
 BuildRequires:  gtk3
 BuildRequires:  xwayland-run
 BuildRequires:  mutter
@@ -45,7 +47,6 @@ for use in Python 3 programs.
 
 %package     -n python3-gobject-base
 Summary:        Python 3 bindings for GObject Introspection base package
-Requires:       gobject-introspection%{?_isa} >= %{gobject_introspection_version}
 # Noarch package removed in F40.
 Obsoletes:      python3-gobject-base-noarch < 3.46.0-5
 Provides:       python3-gobject-base-noarch = %{version}-%{release}
@@ -57,7 +58,6 @@ library.
 %package     -n python3-gobject-devel
 Summary:        Development files for embedding PyGObject introspection support
 Requires:       python3-gobject%{?_isa} = %{version}-%{release}
-Requires:       gobject-introspection-devel%{?_isa}
 
 %description -n python3-gobject-devel
 This package contains files required to embed PyGObject

@@ -27,7 +27,7 @@ Reads the key/value pair from .env file and adds them to environment variable.
 
 # Get rid of dependency on python-cov, drop --cov... options from pytest
 # Downstream-only change, based on Fedora's linters policy
-sed -Ei -e "/^  pytest-cov$/d" \
+sed -Ei -e "/^ +pytest-cov$/d" \
         -e "s/--cov //" \
         -e "s/--cov-[[:alnum:]]+(=| +)[^ ]+ //g" \
     tox.ini

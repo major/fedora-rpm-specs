@@ -27,14 +27,14 @@
 
 %bcond_with gitcommit
 %if %{with gitcommit}
-%global commit0 2584e35062ad9c2edb68d93c464cf157bc57e3b0
+%global commit0 de5c1aebb641af098d9310a9fcca5591a7c066c8
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-%global date0 20250926
+%global date0 20251015
 %endif
 
 %global upstreamname rocBLAS
-%global rocm_release 7.0
-%global rocm_patch 2
+%global rocm_release 7.1
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -148,7 +148,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 %endif
 Summary:        BLAS implementation for ROCm
 %if %{with gitcommit}
@@ -393,6 +393,9 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library/src:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Thu Oct 30 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
+- Update to 7.1.0
+
 * Mon Oct 27 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.2-2
 - Better handling of shared library on opensuse
 

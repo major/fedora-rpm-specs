@@ -21,8 +21,8 @@
 #
 
 %global upstreamname aqlprofile
-%global rocm_release 7.0
-%global rocm_patch 1
+%global rocm_release 7.1
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 # Testing is broken
@@ -92,7 +92,7 @@ sed -i -e 's@CMAKE_BUILD_TYPE@DO_NO_HARDCODE_CMAKE_BUILD_TYPE@' cmake_modules/en
 %cmake_install
 
 %files
-%license LICENSE
+%license LICENSE.md
 %{_libdir}/libhsa-amd-aqlprofile64.so.1{,.*}
 
 %files devel
@@ -102,6 +102,9 @@ sed -i -e 's@CMAKE_BUILD_TYPE@DO_NO_HARDCODE_CMAKE_BUILD_TYPE@' cmake_modules/en
 %{_libdir}/libhsa-amd-aqlprofile64.so
 
 %changelog
+* Fri Oct 31 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
+- Update to 7.1.0
+
 * Fri Sep 26 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-1
 - Update to 7.0.1
 

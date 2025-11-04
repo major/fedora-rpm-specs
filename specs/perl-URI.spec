@@ -9,7 +9,7 @@
 
 Name:           perl-URI
 Version:        5.34
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A Perl module implementing URI parsing and manipulation
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/URI
@@ -73,6 +73,11 @@ Suggests:       perl(Business::ISBN) >= 3.005
 BuildRequires:  perl(Regexp::IPv6) >= 0.03
 Suggests:       perl(Regexp::IPv6) >= 0.03
 %endif
+
+# URI::ws incorporated into URI dist at version 5.34
+# rhbz#2411728, rhbz#2411834
+Obsoletes:      perl-URI-ws < 0.03-32
+Provides:       perl-URI-ws = %{version}-%{release}
 
 %description
 This module implements the URI class. Objects of this class represent
@@ -153,6 +158,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Nov  2 2025 Paul Howarth <paul@city-fan.org> - 5.34-2
+- Obsolete/Provide perl-URI-ws (rhbz#2411728, rhbz#2411834)
+  URI::ws incorporated into URI dist at version 5.34
+
 * Wed Sep 17 2025 Jitka Plesnikova <jplesnik@redhat.com> - 5.34-1
 - 5.34 bump (rhbz#2396087)
 

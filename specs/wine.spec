@@ -11,7 +11,7 @@
 
 %global no64bit   0
 %global winegecko 2.47.4
-%global winemono  10.2.0
+%global winemono  10.3.0
 %if 0%{?fedora}
 %global opencl    1
 %endif
@@ -46,8 +46,8 @@
 # 0%%{?fedora}
 
 Name:           wine
-Version:        10.16
-Release:        1%{?dist}
+Version:        10.18
+Release:        2%{?dist}
 Summary:        A compatibility layer for windows applications
 
 License:        LGPL-2.1-or-later
@@ -1016,41 +1016,25 @@ fi
 %ifarch %{ix86}
 pathA = "%{_libdir}/wine/x86_64-unix"
 pathB = "%{_libdir}/wine/x86_64-windows"
-pathC = "%{_libdir}/wine/i386-unix"
-pathD = "%{_libdir}/wine/i386-windows"
-pathE = "%{_libdir}64/wine/i386-unix"
-pathF = "%{_libdir}64/wine/i386-windows"
 stA = posix.stat(pathA)
 stB = posix.stat(pathB)
 if stA and stA.type == "link" then
-  os.rename(pathC, pathC .. ".rpmmoved")
   os.remove(pathA)
-  os.remove(pathE)
 end
 if stB and stB.type == "link" then
-  os.rename(pathD, pathD .. ".rpmmoved")
   os.remove(pathB)
-  os.remove(pathF)
 end
 %endif
 %ifarch x86_64
 pathA = "%{_libdir}/wine/i386-unix"
 pathB = "%{_libdir}/wine/i386-windows"
-pathC = "%{_libdir}/wine/x86_64-unix"
-pathD = "%{_libdir}/wine/x86_64-windows"
-pathE = "/usr/lib/wine/x86_64-unix"
-pathF = "/usr/lib/wine/x86_64-windows"
 stA = posix.stat(pathA)
 stB = posix.stat(pathB)
 if stA and stA.type == "link" then
-  os.rename(pathC, pathC .. ".rpmmoved")
   os.remove(pathA)
-  os.remove(pathE)
 end
 if stB and stB.type == "link" then
-  os.rename(pathD, pathD .. ".rpmmoved")
   os.remove(pathB)
-  os.remove(pathF)
 end
 %endif
 %endif
@@ -1096,16 +1080,6 @@ rm -f %{_bindir}/wine-preloader
   --slave  %{_libdir}/wine/i386-windows/d3d10core.dll 'wine-d3d10core(x86-32)' %{_libdir}/wine/i386-windows/wine-d3d10core.dll
 %{_sbindir}/alternatives --install %{_libdir}/wine/i386-windows/d3d11.dll \
   'wine-d3d11(x86-32)' %{_libdir}/wine/i386-windows/wine-d3d11.dll 10 || :
-%endif
-%if %{with new_wow64}
-%ifarch %{ix86}
-rm -rf "%{_libdir}/wine/i386-unix.rpmmoved"
-rm -rf "%{_libdir}/wine/i386-windows.rpmmoved"
-%endif
-%ifarch x86_64
-rm -rf "%{_libdir}/wine/x86_64-unix.rpmmoved"
-rm -rf "%{_libdir}/wine/x86_64-windows.rpmmoved"
-%endif
 %endif
 
 %postun core
@@ -1319,6 +1293,7 @@ fi
 %{_libdir}/wine/%{winepedirs}/combase.dll
 %{_libdir}/wine/%{winepedirs}/comcat.dll
 %{_libdir}/wine/%{winepedirs}/comctl32.dll
+%{_libdir}/wine/%{winepedirs}/comctl32_v6.dll
 %{_libdir}/wine/%{winepedirs}/comdlg32.dll
 %{_libdir}/wine/%{winepedirs}/coml2.dll
 %{_libdir}/wine/%{winepedirs}/compstui.dll
@@ -1801,6 +1776,7 @@ fi
 %endif
 %{_libdir}/wine/%{winepedirs}/win32u.dll
 %{_libdir}/wine/%{winepedirs}/winbio.dll
+%{_libdir}/wine/%{winepedirs}/winbrand.dll
 %{_libdir}/wine/%{winepedirs}/windows.applicationmodel.dll
 %{_libdir}/wine/%{winepedirs}/windows.devices.bluetooth.dll
 %{_libdir}/wine/%{winepedirs}/windows.devices.enumeration.dll
@@ -1827,6 +1803,7 @@ fi
 %{_libdir}/wine/%{winepedirs}/windows.system.profile.systemid.dll
 %{_libdir}/wine/%{winepedirs}/windows.system.profile.systemmanufacturers.dll
 %{_libdir}/wine/%{winepedirs}/windows.ui.dll
+%{_libdir}/wine/%{winepedirs}/windows.ui.core.textinput.dll
 %{_libdir}/wine/%{winepedirs}/windows.ui.xaml.dll
 %{_libdir}/wine/%{winepedirs}/windows.web.dll
 %{_libdir}/wine/%{winepedirs}/windowscodecs.dll
@@ -2326,10 +2303,12 @@ fi
 %endif
 
 %changelog
-* Mon Oct 06 2025 Michael Cronenworth <mike@cchtml.com> - 10.16-1
+* Sun Nov 02 2025 Michael Cronenworth <mike@cchtml.com> - 10.18-2
+- wine-mono 10.3.0
+
+* Sun Nov 02 2025 Michael Cronenworth <mike@cchtml.com> - 10.18-1
 - version update
 - reorganize fonts packages (RHBZ#2372648)
-- drop 32-bit from meta package for Fedora 43+
 
 * Wed Sep 17 2025 Michael Cronenworth <mike@cchtml.com> - 10.15-1
 - version update

@@ -2,7 +2,7 @@
 # package version, as a reminder of the need to rebuild dependent packages on
 # every update. See additional notes near the downstream ABI versioning patch.
 # It should be 0.MAJOR.MINOR without leading zeros, e.g. 22.03 → 0.22.3.
-%global downstream_so_version 0.25.8
+%global downstream_so_version 0.25.11
 
 %bcond alembic       1
 %bcond draco         1
@@ -27,7 +27,7 @@
 %bcond test          0
 
 Name:           usd
-Version:        25.08
+Version:        25.11
 Release:        %autorelease
 Summary:        3D VFX pipeline interchange file format
 
@@ -40,7 +40,7 @@ Summary:        3D VFX pipeline interchange file format
 #   - pxr/base/js/rapidjson/msinttypes/ (removed in %%prep)
 #   - pxr/base/tf/pxrCLI11/ (removed in %%prep)
 #   - pxr/base/tf/pxrDoubleConversion/ (removed in %%prep)
-#   - pxr/imaging/hio/OpenEXR/OpenEXRCore/
+#   - pxr/imaging/plugin/hioOpenEXR/OpenEXR/OpenEXRCore/
 #   - pxr/imaging/plugin/hioAvif/AVIF/src/src-libyuv/
 # BSD-2-Clause:
 #   - pxr/base/tf/pxrLZ4/ (removed in %%prep)
@@ -58,14 +58,16 @@ Summary:        3D VFX pipeline interchange file format
 #   - pxr/base/tf/pxrTslRobinMap/
 #   - pxr/imaging/garch/khrplatform.h
 #   - pxr/imaging/hgiVulkan/vk_mem_alloc.h
-#   - pxr/imaging/hio/OpenEXR/deflate/ (removed in %%prep)
+#   - pxr/imaging/plugin/hioOpenEXR/OpenEXR/deflate/ (removed in %%prep)
 #   - third_party/renderman-26/plugin/rmanArgsParser/pugixml/ (removed in %%prep)
+#   - third_party/renderman-27/plugin/rmanArgsParser/pugixml/ (removed in %%prep)
 # MIT OR Unlicense:
 #   - pxr/imaging/hio/stb/
 # Pixar AND GPL-3.0-or-later WITH Bison-exception-2.2:
 #   - pxr/usd/sdf/path.tab.{cpp,h}
 #   - pxr/usd/sdf/textFileFormat.tab.{cpp,h}
 #   - third_party/renderman-26/plugin/hdPrman/virtualStructConditionalGrammar.tab.{cpp,h}
+#   - third_party/renderman-27/plugin/hdPrman/virtualStructConditionalGrammar.tab.{cpp,h}
 #
 # Additionally, the following would be listed above but are removed in %%prep:
 #
@@ -125,10 +127,6 @@ Source1:        org.openusd.usdview.desktop
 # because we do not want to package the built plugin anyway. (It should not be
 # built with -DPXR_BUILD_EXAMPLES=OFF, but it is.)
 Patch:          0001-Downstream-only-add-an-SONAME-version.patch
-
-# hdEmbree: add support for building against embree4
-# https://github.com/PixarAnimationStudios/USD/pull/2313
-Patch:          %{forgeurl}/pull/2313.patch
 
 # Downstream-only: use Valgrind macro instead of inline assembly
 #
@@ -285,8 +283,9 @@ Provides:       bundled(ilmbase) = 2.5.3
 # Currently, Fedora’s PEGTL is too old:
 # https://bugzilla.redhat.com/show_bug.cgi?id=1902427
 Provides:       bundled(PEGTL) = 3.2.7
-# Version from pxr/imaging/hio/OpenEXR/OpenEXRCore/openexr_version.h
-# From pxr/imaging/hio/OpenEXR/README.md:
+# Version from
+# pxr/imaging/plugin/hioOpenEXR/OpenEXR/OpenEXRCore/openexr_version.h
+# From pxr/imaging/plugin/hioOpenEXR/OpenEXR/README.md:
 #   A few changes are still in progress to upstreamed to the OpenEXR project,
 #   but these are minor, and otherwise, almost all differences between the
 #   interred OpenEXRCore and the official OpenEXR repo are consolidated to the
@@ -328,6 +327,7 @@ Provides:       bundled(boost) = 1.85.0
 # Provides:       bundled(cli11) = 2.3.1
 # Version from:
 # third_party/renderman-26/plugin/rmanArgsParser/pugixml/pugiconfig.hpp
+# third_party/renderman-27/plugin/rmanArgsParser/pugixml/pugiconfig.hpp
 # (header comment)
 # Provides:       bundled(pugixml) = 1.9
 # Version from: pxr/base/js/rapidjson/rapidjson.h
@@ -336,7 +336,7 @@ Provides:       bundled(boost) = 1.85.0
 # Version from: pxr/base/tf/pxrTslRobinMap/robin_growth_policy.h
 # (PXR_TSL_RH_VERSION_{MAJOR,MINOR,PATCH})
 # Provides:       bundled(robin-map) = 1.3.0
-# Version from pxr/imaging/hio/OpenEXR/deflate/libdeflate.h
+# Version from pxr/imaging/plugin/hioOpenEXR/OpenEXR/deflate/libdeflate.h
 # Provides:       bundled(libdeflate) = 1.18
 # Version from pxr/imaging/plugin/hioAvif/AVIF/src/avif/avif.h
 #   We actually have a post-release snapshot of libavif, because
@@ -491,7 +491,7 @@ namespace pxr_tsl = tsl;
 EOF
 done
 # Remove the bundled copy of libdeflate.
-rm -rv pxr/imaging/hio/OpenEXR/deflate/
+rm -rv pxr/imaging/plugin/hioOpenEXR/OpenEXR/deflate/
 # Remove the bundled copies of libavif, along with the associated libaom and
 # the libyuv that is in the libavif sources.
 rm -rv pxr/imaging/plugin/hioAvif/aom/ \

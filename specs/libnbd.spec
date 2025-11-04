@@ -20,7 +20,7 @@
 %global source_directory 1.23-development
 
 Name:           libnbd
-Version:        1.23.9
+Version:        1.23.10
 Release:        1%{?dist}
 Summary:        NBD client library in userspace
 
@@ -351,8 +351,12 @@ make %{?_smp_mflags} check || {
 %{python3_sitearch}/nbd.py
 %{python3_sitearch}/nbdsh.py
 %{python3_sitearch}/__pycache__/nbd*.py*
+%{_bindir}/nbddiscard
 %{_bindir}/nbdsh
+%{_bindir}/nbdzero
+%{_mandir}/man1/nbddiscard.1*
 %{_mandir}/man1/nbdsh.1*
+%{_mandir}/man1/nbdzero.1*
 %{_mandir}/man3/libnbd-python.3*
 
 
@@ -372,6 +376,7 @@ make %{?_smp_mflags} check || {
 %if 0%{?fedora} || 0%{?rhel} >= 11
 %dir %{bash_completions_dir}
 %{bash_completions_dir}/nbdcopy
+%{bash_completions_dir}/nbddiscard
 %{bash_completions_dir}/nbddump
 %{bash_completions_dir}/nbdfuse
 %{bash_completions_dir}/nbdinfo
@@ -379,9 +384,11 @@ make %{?_smp_mflags} check || {
 %if 0%{?have_ublk}
 %{bash_completions_dir}/nbdublk
 %endif
+%{bash_completions_dir}/nbdzero
 %else
 %dir %{_datadir}/bash-completion/completions
 %{_datadir}/bash-completion/completions/nbdcopy
+%{_datadir}/bash-completion/completions/nbddiscard
 %{_datadir}/bash-completion/completions/nbddump
 %{_datadir}/bash-completion/completions/nbdfuse
 %{_datadir}/bash-completion/completions/nbdinfo
@@ -389,10 +396,15 @@ make %{?_smp_mflags} check || {
 %if 0%{?have_ublk}
 %{_datadir}/bash-completion/completions/nbdublk
 %endif
+%{_datadir}/bash-completion/completions/nbdzero
 %endif
 
 
 %changelog
+* Sun Nov  2 2025 Richard W.M. Jones <rjones@redhat.com> - 1.23.10-1
+- New upstream development version 1.23.10
+- New tools nbddiscard and nbdzero.
+
 * Thu Oct 23 2025 Richard W.M. Jones <rjones@redhat.com> - 1.23.9-1
 - New upstream development version 1.23.9
 - Fixes security issue with nbd+ssh URIs

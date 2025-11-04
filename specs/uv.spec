@@ -610,9 +610,8 @@ tomcli set crates/uv/Cargo.toml del features.self-update
 tomcli set crates/uv/Cargo.toml del features.tracing-durations-export
 tomcli set crates/uv/Cargo.toml del dependencies.tracing-durations-export
 
-# Loosen some version bounds that were aggressively updated upstream by the
-# renovate bot. We retain this comment and the following example even when
-# there are currently no dependencies that need to be adjusted.
+# We retain the following example even when there are currently no dependencies
+# that need to be adjusted.
 #
 # # foocrate
 # #   wanted: 0.2.0
@@ -626,6 +625,15 @@ tomcli set crates/uv/Cargo.toml del dependencies.tracing-durations-export
 #   https://bugzilla.redhat.com/show_bug.cgi?id=2406801
 tomcli set Cargo.toml str workspace.dependencies.etcetera.version \
     '>=0.10.0, <0.12.0'
+
+# spdx
+#   wanted: 0.10.6
+#   currently packaged: 0.10.9 (but we want to update to 0.12)
+#   https://bugzilla.redhat.com/show_bug.cgi?id=2387258
+#   Update the spdx dependency to version 0.12
+#   https://github.com/astral-sh/uv/pull/16552
+tomcli set Cargo.toml str workspace.dependencies.spdx.version \
+    '>=0.10.6, <0.13.0'
 
 %cargo_prep
 

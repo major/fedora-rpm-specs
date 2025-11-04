@@ -3,7 +3,7 @@
 %{?mingw_package_header}
 
 Name:           wine-mono
-Version:        10.2.0
+Version:        10.3.0
 Release:        1%{?dist}
 Summary:        Mono library required for Wine
 
@@ -100,10 +100,13 @@ cp -rp image/* \
 
 %files
 %license mono/LICENSE
-%doc README
+%doc README.md
 %{_datadir}/wine/mono/wine-mono-%{version}/
 
 %changelog
+* Sun Nov 02 2025 Michael Cronenworth <mike@cchtml.com> - 10.3.0-1
+- version upgrade
+
 * Fri Aug 29 2025 Michael Cronenworth <mike@cchtml.com> - 10.2.0-1
 - version upgrade
 

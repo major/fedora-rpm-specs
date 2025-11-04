@@ -20,8 +20,8 @@
 # THE SOFTWARE.
 #
 %global upstreamname hip-tests
-%global rocm_release 7.0
-%global rocm_patch 2
+%global rocm_release 7.1
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -69,6 +69,7 @@ License:    MIT AND BSL-1.0 AND Apache-2.0
 URL:        https://github.com/ROCm/%{upstreamname}
 Source0:    %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
 Patch1:     0001-hip-tests-build-on-fedora.patch
+Patch2:     0001-hip-tests-link-with-libamd64.patch
 
 ExclusiveArch:  x86_64
 
@@ -78,6 +79,7 @@ BuildRequires:  fdupes
 BuildRequires:  freeglut-devel
 BuildRequires:  gcc-c++
 BuildRequires:  make
+BuildRequires:  numactl-devel
 BuildRequires:  pkgconfig(opengl)
 %if 0%{?fedora}
 BuildRequires:  picojson-devel
@@ -131,8 +133,8 @@ cd catch
     -DCMAKE_C_COMPILER=%{rocmllvm_bindir}/clang \
     -DCMAKE_CXX_COMPILER=%{rocmllvm_bindir}/clang++ \
     -DCMAKE_CXX_FLAGS="-O2" \
-    -DCMAKE_AR=%{rocmllvm_bindir}/llvm-ar \
     -DCMAKE_EXE_LINKER_FLAGS="-lamdhip64" \
+    -DCMAKE_AR=%{rocmllvm_bindir}/llvm-ar \
     -DCMAKE_RANLIB=%{rocmllvm_bindir}/llvm-ranlib \
     -DHIP_PLATFORM=amd \
     -DOFFLOAD_ARCH_STR=%{gpu_offload_list} \
@@ -173,11 +175,14 @@ rm -rf %{buildroot}%{_libexecdir}/hip-tests/catch_tests/saxpy.h
 
 %files
 %doc README.md
-%license LICENSE.txt
+%license LICENSE.md
 %license catch/external/Catch2/LICENSE.catch2.txt
 %{_libexecdir}/hip-tests/
 
 %changelog
+* Fri Oct 31 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
+- Update to 7.1.0
+
 * Fri Oct 10 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.2-1
 - Update to 7.0.2
 

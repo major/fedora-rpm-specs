@@ -33,8 +33,8 @@
 %endif
 
 %global upstreamname rocRAND
-%global rocm_release 7.0
-%global rocm_patch 1
+%global rocm_release 7.1
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -121,7 +121,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        4%{?dist}
+Release:        1%{?dist}
 %endif
 Summary:        ROCm random number generator
 
@@ -242,15 +242,15 @@ cd projects/rocrand
 
 %cmake_install
 
-rm -f %{buildroot}%{_prefix}/share/doc/rocrand/LICENSE.txt
+rm -f %{buildroot}%{_prefix}/share/doc/rocrand/LICENSE.md
 
 %files -n %{rocrand_name}
 %if %{with gitcommit}
 %doc projects/rocrand/README.md
-%license projects/rocrand/LICENSE.txt
+%license projects/rocrand/LICENSE.md
 %else
 %doc README.md
-%license LICENSE.txt
+%license LICENSE.md
 %endif
 
 %{_libdir}/librocrand.so.1{,.*}
@@ -270,6 +270,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/rocrand/LICENSE.txt
 %endif
 
 %changelog
+* Thu Oct 30 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
+- Update to 7.1.0
+
 * Sun Oct 26 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-4
 - better handling of shared library on opensuse
 

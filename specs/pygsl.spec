@@ -7,7 +7,7 @@
 %global _python_bytecompile_errors_terminate_build 0
 
 Name:           pygsl
-Version:        2.6.3
+Version:        2.6.4
 Release:        %autorelease
 Summary:        %{sum}
 
@@ -21,9 +21,10 @@ Patch:          %{name}-flexiblas.patch
 # Fix the multinomial rng test
 # See https://github.com/pygsl/pygsl/pull/58
 Patch:          %{name}-rng-test.patch
-# Remove a redundant definition
-# https://github.com/pygsl/pygsl/pull/88
-Patch:          %{name}-remove-redundant-def.patch
+# Fix FTBFS due to incompatible pointer types
+Patch:          %{name}-incompatible-pointer.patch
+# Fix warnings due to printf format mismatches
+Patch:          %{name}-format-mismatch.patch
 
 # Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -104,14 +105,6 @@ sed -e "s|\('http://www.gnu.org/software/gsl/doc/html/', \)None|\1'%{SOURCE1}'|"
 
 # Don't invoke python via env
 %py3_shebang_fix pygsl typemaps/c.py
-
-# A fix for swig 4.4 broke the build with swig 4.3
-swigver=$(ls -1d %{_datadir}/swig/* | cut -d/ -f5)
-swigmaj=$(cut -d. -f1 <<< $swigver)
-swigmin=$(cut -d. -f2 <<< $swigver)
-if [ "$swigmaj" -eq 4 -a "$swigmin" -lt 4 ]; then
-    sed -i 's/import_array1(-1)/import_array()/' src/gslwrap/interpolation2d.i
-fi
 
 %build -p
 # Use flexiblas instead of gslcblas

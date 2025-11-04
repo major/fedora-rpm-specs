@@ -4,7 +4,7 @@
 %global crate zeitfetch
 
 Name:           rust-zeitfetch
-Version:        0.1.14
+Version:        0.1.16
 Release:        %autorelease
 Summary:        Instantaneous snapshots of cross-platform system information
 
@@ -13,9 +13,6 @@ URL:            https://crates.io/crates/zeitfetch
 Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          zeitfetch-fix-metadata-auto.diff
-# Manually created patch for downstream crate metadata changes
-# * Update rstest to 0.26: https://github.com/nidnogg/zeitfetch/pull/27
-Patch:          zeitfetch-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -28,12 +25,18 @@ Instantaneous snapshots of cross-platform system information.}
 Summary:        %{summary}
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
 # Apache-2.0 OR BSL-1.0
-# Apache-2.0 OR MIT
-# BSD-3-Clause
+# Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
 # MIT
 # MIT OR Apache-2.0
 # Unlicense OR MIT
-License:        MIT AND BSD-3-Clause AND Unicode-DFS-2016 AND (Apache-2.0 OR BSL-1.0) AND (Apache-2.0 OR MIT) AND (Unlicense OR MIT)
+License:        %{shrink:
+    MIT AND
+    Unicode-DFS-2016 AND
+    (Apache-2.0 OR BSL-1.0) AND
+    (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
+    (MIT OR Apache-2.0) AND
+    (Unlicense OR MIT)
+    }
 # LICENSE.dependencies contains a full license breakdown
 
 %description -n %{crate} %{_description}
@@ -41,6 +44,7 @@ License:        MIT AND BSD-3-Clause AND Unicode-DFS-2016 AND (Apache-2.0 OR BSL
 %files       -n %{crate}
 %license LICENSE
 %license LICENSE.dependencies
+%doc CONTRIBUTING.md
 %doc README.md
 %{_bindir}/zeitfetch
 

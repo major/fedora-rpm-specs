@@ -677,7 +677,7 @@ Source0:    README
 %obsolete python3-astor 0.8.1-25
 %obsolete python3-astral 3.2-9
 %obsolete python3-async-upnp-client 0.14.15-17
-%obsolete python3-atomicwrites 1.4.1-14
+%obsolete python3-atomicwrites 1.4.1-15
 %obsolete python3-auth-credential 1.1-13
 %obsolete python3-autograd 1.8.0-3
 %obsolete python3-autograd+scipy 1.8.0-3
@@ -1328,6 +1328,20 @@ Source0:    README
 %obsolete python3-qcengine 0.30.0-5
 %obsolete zeekctl 6.0.4-2
 %obsolete zeek-zkg 6.0.4-2
+
+# Remove in F45
+# Package was retired during F43 cycle.
+# Leads to conflict during upgrade (requires libhdf5.so.200()(64bit))
+%obsolete_ticket https://src.fedoraproject.org/rpms/Field3D/c/b9115ad851cb1c45c4e6473bc974cc98f9654125
+%obsolete Field3D 1.7.3-34
+%obsolete Field3D-devel 1.7.3-34
+# Leads to conflict during upgrade (depends on libjxl-1:0.10.4)
+%obsolete_ticket https://bugzilla.redhat.com/show_bug.cgi?id=2369023
+%obsolete webkit2gtk4.0 2.47.2-4
+%obsolete webkit2gtk4.0-devel 2.47.2-4
+%obsolete webkit2gtk4.0-doc 2.47.2-4
+%obsolete javascriptcoregtk4.0 2.47.2-4
+%obsolete javascriptcoregtk4.0-devel 2.47.2-4
 
 
 # This package won't be installed, but will obsolete other packages

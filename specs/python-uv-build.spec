@@ -225,6 +225,24 @@ find -L . -type f -name Cargo.toml -print \
 tomcli set pyproject.toml false tool.maturin.strip
 tomcli set Cargo.toml false profile.release.strip
 
+# We retain the following example even when there are currently no dependencies
+# that need to be adjusted.
+#
+# # foocrate
+# #   wanted: 0.2.0
+# #   currently packaged: 0.1.2
+# #   https://bugzilla.redhat.com/show_bug.cgi?id=1234567
+# tomcli set Cargo.toml str workspace.dependencies.foocrate.version 0.1.2
+
+# spdx
+#   wanted: 0.10.6
+#   currently packaged: 0.10.9 (but we want to update to 0.12)
+#   https://bugzilla.redhat.com/show_bug.cgi?id=2387258
+#   Update the spdx dependency to version 0.12
+#   https://github.com/astral-sh/uv/pull/16552
+tomcli set Cargo.toml str workspace.dependencies.spdx.version \
+    '>=0.10.6, <0.13.0'
+
 %cargo_prep
 
 

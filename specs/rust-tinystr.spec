@@ -5,7 +5,7 @@
 %global crate tinystr
 
 Name:           rust-tinystr
-Version:        0.8.1
+Version:        0.8.2
 Release:        %autorelease
 Summary:        Small ASCII-only bounded length string representation
 

@@ -12,7 +12,7 @@
 %undefine _ld_as_needed
 
 Name:           python-%{pypi_name}
-Version:        1.2.0
+Version:        1.3.0
 Release:        %autorelease
 Summary:        %{pypi_name} is a library for the QUIC network protocol in Python
 License:        BSD-3-Clause
@@ -98,7 +98,7 @@ export LDFLAGS="%{__global_ldflags} %(pkg-config --libs python3-embed)"
 %check
 %pyproject_check_import
 # SHA1 not supported, so disable test
-%pytest -k 'not (ContextTest and test_handshake_with_rsa_pkcs1_sha1_signature)'
+%pytest -k "not test_handshake_with_rsa_pkcs1_sha1_signature"
 
 
 %install

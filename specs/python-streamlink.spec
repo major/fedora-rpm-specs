@@ -7,8 +7,8 @@ who want access to the video stream data. This project was forked from
 Livestreamer, which is no longer maintained.}
 
 Name:           python-%{srcname}
-Version:        7.5.0
-Release:        5%{?dist}
+Version:        7.6.0
+Release:        1%{?dist}
 Summary:        Python library for extracting streams from various websites
 
 # src/streamlink/packages/requests_file.py is Apache-2.0
@@ -19,7 +19,6 @@ Source0:        %{pypi_source %{srcname}}
 Patch1:         %{name}-6.6.2-documentation.patch
 BuildRequires:  make
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist shtab}
 # For easy patching of pyproject.toml
 BuildRequires:  tomcli
 BuildArch:      noarch
@@ -62,14 +61,35 @@ Supplements:    (%{name} and zsh)
 Zsh command line completion support for %{srcname}.
 
 
+%if 0%{?fedora} >= 42
+%pyproject_extras_subpkg -n %{name} decompress
+%endif
+
+
 %prep
 %autosetup -n %{srcname}-%{version} -p1
 
-# Fix dependency on pycryptodomex
+# Replace pycryptodome dependency with pycryptodomex
 tomcli set pyproject.toml arrays replace "project.dependencies" "(pycryptodome)(\s*[><=]+.*)" "\1x\2"
 
 # Drop useless dependencies
 tomcli set pyproject.toml arrays delitem "dependency-groups.docs" "furo\s*[><=]+.*"
+
+%if 0%{?fedora} < 43
+# Drop version constraint on setuptools
+tomcli set pyproject.toml arrays replace "build-system.requires" "(setuptools)\s*[><=]+.*" "\1"
+tomcli set pyproject.toml arrays replace "dependency-groups.dev" "(setuptools)\s*[><=]+.*" "\1"
+
+# setuptools < 77.0.3 doesn't support PEP 639
+tomcli set pyproject.toml del "project.license" "project.license-files"
+
+%if 0%{?fedora} <= 41
+# Drop version constraint on freezegun
+tomcli set pyproject.toml arrays replace "dependency-groups.test" "(freezegun)\s*[><=]+.*" "\1"
+# Drop version constraint on trio
+tomcli set pyproject.toml arrays replace "project.dependencies" "(trio)\s*[><=].*\s;\s*python_version>='3\.13'" "\1"
+%endif
+%endif
 
 
 %generate_buildrequires
@@ -81,6 +101,7 @@ tomcli set pyproject.toml arrays delitem "dependency-groups.docs" "furo\s*[><=]+
 
 # Generate man pages
 PYTHONPATH=$PWD/src %make_build -C docs/ man SPHINXOPTS=-j%{?_smp_build_ncpus}
+
 # Generate shell completion files
 PYTHONPATH=$PWD/src ./script/build-shell-completions.sh
 
@@ -91,6 +112,7 @@ PYTHONPATH=$PWD/src ./script/build-shell-completions.sh
 
 # Install man page
 install -Dpm 0644 docs/_build/man/%{srcname}.1 $RPM_BUILD_ROOT%{_mandir}/man1/%{srcname}.1
+
 # Install shell completion files
 install -Dpm 0644 -t $RPM_BUILD_ROOT%{bash_completions_dir} completions/bash/%{srcname}
 install -Dpm 0644 -t $RPM_BUILD_ROOT%{zsh_completions_dir} completions/zsh/_%{srcname}
@@ -101,6 +123,7 @@ install -Dpm 0644 -t $RPM_BUILD_ROOT%{zsh_completions_dir} completions/zsh/_%{sr
 # Skip failing tests due to freezegun version incompatibility
 export PYTEST_ADDOPTS="--deselect tests/test_logger.py::TestLogging::test_datefmt_custom"
 %endif
+
 %pytest
 
 
@@ -120,6 +143,9 @@ export PYTEST_ADDOPTS="--deselect tests/test_logger.py::TestLogging::test_datefm
 
 
 %changelog
+* Sun Nov 02 2025 Mohamed El Morabity <melmorabity@fedoraproject.org> - 7.6.0-1
+- Update to 6.7.0
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 7.5.0-5
 - Rebuilt for Python 3.14.0rc3 bytecode
 

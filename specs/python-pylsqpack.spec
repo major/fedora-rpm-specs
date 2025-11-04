@@ -10,20 +10,13 @@
 %global pypi_name pylsqpack
 
 Name:           python-%{pypi_name}
-Version:        0.3.17
+Version:        0.3.23
 Release:        %autorelease
 Summary:        %{pypi_name} is a wrapper around the ls-qpack library
-# vendor/ls-qpack/deps/xxhash/xxhash.* are BSD-2-Clause
-# vendor/ls-qpack/lsqpack.* are MIT
-# pylsqpack is BSD-3-Clause
-License:        BSD-3-Clause AND MIT AND BSD-2-Clause
+License:        BSD-3-Clause
 URL:            https://github.com/aiortc/%{pypi_name}
 Source0:        %{pypi_source}
-
-# This release of pylsqpack does not work with latest ls-qpack-2.5.3;
-# using that one bundled
-Provides:       bundled(ls-qpack-devel) = 1.0.3
-Provides:       bundled(xxhash-devel)
+Patch0:         %{name}-unbundle_vendor_libs.patch
 
 %description
 It provides Python Decoder and Encoder objects
@@ -32,6 +25,7 @@ to read or write HTTP/3 headers compressed with QPACK.
 %package -n python3-%{pypi_name}
 Summary: %{pypi_name} is a wrapper around the ls-qpack library
 BuildRequires:  gcc
+BuildRequires:  ls-qpack-devel
 
 %if %{with pyproject}
 BuildRequires:  pyproject-rpm-macros
@@ -75,6 +69,7 @@ rm -rf src/%{pypi_name}.egg-info
 %endif
 
 %check
+export LD_PRELOAD=%{_libdir}/libls-qpack.so
 %pytest -v
 
 %if %{with pyproject}

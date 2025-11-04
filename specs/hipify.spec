@@ -21,8 +21,8 @@
 #
 %global upstreamname HIPIFY
 
-%global rocm_release 7.0
-%global rocm_patch 1
+%global rocm_release 7.1
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 # This is a clang tool so best to build with clang
@@ -96,6 +96,9 @@ rm -rf %{buildroot}%{_includedir}
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Oct 31 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
+- Update to 7.1.0
+
 * Fri Sep 19 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-1
 - Update to 7.0.1
 

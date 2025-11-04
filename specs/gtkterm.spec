@@ -1,10 +1,13 @@
 Name:           gtkterm
 Version:        1.3.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Serial port terminal
 License:        GPL-2.0-or-later AND GPL-3.0-or-later
 URL:            https://github.com/wvdakker/gtkterm
-Source0:        https://github.com/wvdakker/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+# https://bugzilla.redhat.com/show_bug.cgi?id=2407298
+# updates for glibc2.42
+Patch0:         %{url}/pull/82.patch
 BuildRequires:  gcc
 BuildRequires:  desktop-file-utils
 BuildRequires:  pkgconfig(gtk+-3.0)
@@ -45,6 +48,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Sun Nov 02 2025 Dan Horák <dan[at]danny.cz> - 1.3.1-4
+- updates for glibc 2.42 (rhbz#2407298)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

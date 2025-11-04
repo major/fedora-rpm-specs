@@ -51,7 +51,7 @@
 %else
 # Break chromaprint dependency cycle (Fedora-only):
 #   ffmpeg (libavcodec-free) → chromaprint → ffmpeg
-%bcond chromaprint %{?_with_bootstrap:0}%{!?_with_bootstrap:1}
+%bcond chromaprint %{?with_bootstrap:0}%{!?with_bootstrap:1}
 %bcond flite 1
 %bcond lc3 1
 %endif
@@ -100,7 +100,7 @@ Name:           ffmpeg
 %global pkg_name %{name}%{?pkg_suffix}
 
 Version:        7.1.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A complete solution to record, convert and stream audio and video
 License:        GPL-3.0-or-later
 URL:            https://ffmpeg.org/
@@ -901,6 +901,7 @@ cp -a doc/examples/{*.c,Makefile,README} _doc/examples/
     --enable-nvdec \
     --enable-nvenc \
 %endif
+    --enable-openal \
     --disable-openssl \
     --enable-postproc \
     --enable-pthreads \
@@ -1003,6 +1004,9 @@ rm -rf %{buildroot}%{_datadir}
 
 
 %changelog
+* Sun Nov 02 2025 Dominik Mierzejewski <dominik@greysector.net> - 7.1.2-3
+- Re-enable openal support (dropped by accident in commit 5917b714, resolves rhbz#2404091)
+
 * Thu Oct 02 2025 Robert-André Mauchin <zebob.m@gmail.com> - 7.1.2-2
 - Rebuild for svt-av1 soname bump
 
