@@ -8,11 +8,11 @@
 %bcond_with relax_requires
 
 # The minimum required osbuild version
-%global min_osbuild_version 160
+%global min_osbuild_version 163
 
 %global goipath         github.com/osbuild/osbuild-composer
 
-Version:        153
+Version:        154
 
 %gometa
 
@@ -82,27 +82,27 @@ Provides: bundled(golang(github.com/Microsoft/hcsshim)) = 0.13.0
 Provides: bundled(golang(github.com/VividCortex/ewma)) = 1.2.0
 Provides: bundled(golang(github.com/acarl005/stripansi)) = 5a71ef0
 Provides: bundled(golang(github.com/apapsch/go-jsonmerge/v2)) = 2.0.0
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2)) = 1.39.2
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2)) = 1.39.3
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream)) = 1.7.1
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/config)) = 1.31.12
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/credentials)) = 1.18.16
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/feature/ec2/imds)) = 1.18.9
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/config)) = 1.31.13
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/credentials)) = 1.18.17
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/feature/ec2/imds)) = 1.18.10
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/feature/s3/manager)) = 1.19.4
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/configsources)) = 1.4.9
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/endpoints/v2)) = 2.7.9
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/ini)) = 1.8.3
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/configsources)) = 1.4.10
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/endpoints/v2)) = 2.7.10
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/ini)) = 1.8.4
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/internal/v4a)) = 1.4.6
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/autoscaling)) = 1.59.3
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/ec2)) = 1.254.1
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding)) = 1.13.1
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/autoscaling)) = 1.59.4
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/ec2)) = 1.257.2
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding)) = 1.13.2
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/checksum)) = 1.8.6
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/presigned-url)) = 1.13.9
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/presigned-url)) = 1.13.10
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/internal/s3shared)) = 1.19.6
 Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/s3)) = 1.87.3
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/sso)) = 1.29.6
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/ssooidc)) = 1.35.1
-Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/sts)) = 1.38.6
-Provides: bundled(golang(github.com/aws/smithy-go)) = 1.23.0
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/sso)) = 1.29.7
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/ssooidc)) = 1.35.2
+Provides: bundled(golang(github.com/aws/aws-sdk-go-v2/service/sts)) = 1.38.7
+Provides: bundled(golang(github.com/aws/smithy-go)) = 1.23.1
 Provides: bundled(golang(github.com/aymerick/douceur)) = 0.2.0
 Provides: bundled(golang(github.com/beorn7/perks)) = 1.0.1
 Provides: bundled(golang(github.com/cenkalti/backoff/v4)) = 4.3.0
@@ -135,9 +135,9 @@ Provides: bundled(golang(github.com/envoyproxy/go-control-plane/envoy)) = 1.32.4
 Provides: bundled(golang(github.com/envoyproxy/protoc-gen-validate)) = 1.2.1
 Provides: bundled(golang(github.com/felixge/httpsnoop)) = 1.0.4
 Provides: bundled(golang(github.com/getkin/kin-openapi)) = 0.133.0
-Provides: bundled(golang(github.com/getsentry/sentry-go)) = 0.35.3
-Provides: bundled(golang(github.com/getsentry/sentry-go/echo)) = 0.35.3
-Provides: bundled(golang(github.com/getsentry/sentry-go/logrus)) = 0.35.3
+Provides: bundled(golang(github.com/getsentry/sentry-go)) = 0.36.0
+Provides: bundled(golang(github.com/getsentry/sentry-go/echo)) = 0.36.0
+Provides: bundled(golang(github.com/getsentry/sentry-go/logrus)) = 0.36.0
 Provides: bundled(golang(github.com/go-jose/go-jose/v4)) = 4.0.5
 Provides: bundled(golang(github.com/go-logr/logr)) = 1.4.3
 Provides: bundled(golang(github.com/go-logr/stdr)) = 1.2.2
@@ -211,7 +211,7 @@ Provides: bundled(golang(github.com/opencontainers/selinux)) = 1.12.0
 Provides: bundled(golang(github.com/openshift-online/ocm-sdk-go)) = 0.1.478
 Provides: bundled(golang(github.com/oracle/oci-go-sdk/v54)) = 54.0.0
 Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.16.0
-Provides: bundled(golang(github.com/osbuild/images)) = 0.204.0
+Provides: bundled(golang(github.com/osbuild/images)) = 0.209.0
 Provides: bundled(golang(github.com/osbuild/osbuild-composer/pkg/splunk_logger)) = 0239db5
 Provides: bundled(golang(github.com/perimeterx/marshmallow)) = 1.1.5
 Provides: bundled(golang(github.com/pkg/browser)) = 5ac0b6a
@@ -660,6 +660,35 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Wed Oct 29 2025 Packit <hello@packit.dev> - 154-1
+Changes with 154
+----------------
+  - CI: run testing on RHEL 9.8 and 10.2 nightly (HMS-9226) (#4893)
+    - Author: Tomáš Hozza, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - Update snapshots to 20251023 (#4905)
+    - Author: SchutzBot, Reviewers: Sanne Raymaekers, Simon de Vlieger
+  - chore: bump dependencies via gobump (#4895)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Lukáš Zapletal, Simon de Vlieger
+  - cloudapi: add new dnf customizations [HMS-9335] (#4899)
+    - Author: Achilleas Koutsou, Reviewers: Brian C. Lane, Tomáš Hozza
+  - cloudapi: split out resolver job enqueueing into a separate function (#4894)
+    - Author: Achilleas Koutsou, Reviewers: Sanne Raymaekers, Tomáš Hozza
+  - fix worker AMI builds by not running mock as root (#4902)
+    - Author: Ondřej Budai, Reviewers: Florian Schüller, Sanne Raymaekers
+  - gitlab: only update github status at the end of the pipeline(s) (#4900)
+    - Author: Achilleas Koutsou, Reviewers: Anna Vítová, Brian C. Lane, Sanne Raymaekers
+  - go.mod: update images to v0.209.0 (#4901)
+    - Author: Sanne Raymaekers, Reviewers: Achilleas Koutsou, Lukáš Zapletal
+  - go.mod: update osbuild/images to v0.208.0 (#4898)
+    - Author: Sanne Raymaekers, Reviewers: Lukáš Zapletal, Ondřej Budai
+  - test/cases/usbi-wsl: delete azure resources in order (#4896)
+    - Author: Sanne Raymaekers, Reviewers: Simon de Vlieger, Tomáš Hozza
+  - worker: support partial results (HMS-9343) (#4897)
+    - Author: Sanne Raymaekers, Reviewers: Lukáš Zapletal, Tomáš Hozza
+
+— Somewhere on the Internet, 2025-10-29
+
+
 * Wed Oct 15 2025 Packit <hello@packit.dev> - 153-1
 Changes with 153
 ----------------

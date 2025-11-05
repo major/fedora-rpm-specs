@@ -141,6 +141,9 @@ sed -i 's,https://networkx.org/documentation/latest/,,' doc/conf.py
 # Use a free font instead of a proprietary font
 sed -i 's/Helvetica/sans-serif/' examples/drawing/plot_chess_masters.py
 
+# Do not run code coverage tools
+sed -i '/pytest-cov/d' pyproject.toml requirements/test.txt
+
 %build -a
 %if %{with doctest}
 # Build the documentation

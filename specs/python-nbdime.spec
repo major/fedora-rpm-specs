@@ -21,7 +21,7 @@ Patch:          %{name}-unbundle-fontawesome.patch
 # components for x86_64 and aarch64 only.  Check later releases to see if
 # the nx version has rolled forward to a version that supports more
 # architectures
-ExclusiveArch:  noarch x86_64 aarch64
+ExclusiveArch:  %{x86_64} %{arm64} noarch
 
 BuildArch:      noarch
 BuildSystem:    pyproject
@@ -39,8 +39,7 @@ BuildRequires:  nodejs-npm
 BuildRequires:  python3-docs
 BuildRequires:  yarnpkg
 
-%global _desc %{expand:
-Nbdime provides tools for diffing and merging of Jupyter notebooks.
+%global _desc %{expand:Nbdime provides tools for diffing and merging of Jupyter notebooks.
 
 - nbdiff: compare notebooks in a terminal-friendly way
 - nbmerge: three-way merge of notebooks with automatic conflict resolution
@@ -48,7 +47,8 @@ Nbdime provides tools for diffing and merging of Jupyter notebooks.
 - nbmerge-web: gives you a web-based three-way merge tool for notebooks
 - nbshow: present a single notebook in a terminal-friendly way}
 
-%description %_desc
+%description
+%_desc
 
 %package -n python3-nbdime
 # The nbdime project is released under the BSD-3-Clause license.
@@ -194,7 +194,8 @@ Provides:       bundled(npm(w3c-keyname)) = 2.2.8
 Provides:       bundled(npm(y-protocols)) = 1.0.6
 Provides:       bundled(npm(yjs)) = 13.6.18
 
-%description -n python3-nbdime %_desc
+%description -n python3-nbdime
+%_desc
 
 %package        doc
 # The content is BSD-3-Clause.  Other licenses are due to Sphinx files.
@@ -244,6 +245,8 @@ sed -e "s|\('https://docs\.python\.org/3\.5', \)None|\1'%{_docdir}/python3-docs/
 # Do not depend on jupyter_server_mathjax; it doesn't work in jupyterlab 4.10+
 # https://github.com/jupyter-server/jupyter_server_mathjax/issues/20
 sed -i '/jupyter_server_mathjax/d' pyproject.toml
+# Do not run code coverage tools
+sed -i '/pytest-cov/d' pyproject.toml
 
 %build -p
 export YARN_CACHE_FOLDER="$PWD/.package-cache"

@@ -20,8 +20,8 @@
 # THE SOFTWARE.
 #
 %global upstreamname roctracer
-%global rocm_release 7.0
-%global rocm_patch 1
+%global rocm_release 7.1
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain clang
@@ -45,7 +45,7 @@
 
 Name:           roctracer
 Version:        %{rocm_version}
-Release:        6%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm Tracer Callback/Activity Library for Performance tracing AMD GPUs
 
 Url:            https://github.com/ROCm/%{upstreamname}
@@ -180,14 +180,14 @@ rm -rf rm %{buildroot}%{_datadir}/html
 
 %files
 %dir %{_libdir}/%{name}
-%license LICENSE
+%license LICENSE.md
 %doc README.md
 %{_libdir}/lib%{name}64.so.*
 %{_libdir}/libroctx64.so.*
 %{_libdir}/%{name}/libfile_plugin.so
 %{_libdir}/%{name}/libhip_stats.so
 %{_libdir}/%{name}/libroctracer_tool.so
-%exclude %{_docdir}/%{name}*/LICENSE
+%exclude %{_docdir}/%{name}*/LICENSE.md
 
 %files devel
 %{_includedir}/%{name}
@@ -207,6 +207,9 @@ rm -rf rm %{buildroot}%{_datadir}/html
 %endif
 
 %changelog
+* Fri Oct 31 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
+- Update to 7.1.0
+
 * Sat Sep 20 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-1
 - Update to 7.0.1
 

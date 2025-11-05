@@ -70,6 +70,8 @@ Documentation for %{name}.
 # Unpin pytest and myst-parser's version
 sed -i "/pytest~=/s/~=8\.3//" pyproject.toml
 sed -i "/myst-parser>=/s/>=2,<4//" pyproject.toml
+# Do not run code coverage tools
+sed -i "/pytest-cov/d" pyproject.toml
 
 %build -a
 # Build documentation

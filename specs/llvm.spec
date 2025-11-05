@@ -1416,7 +1416,10 @@ cd llvm/utils/lit
 %global runtimes %{runtimes};offload
 %endif
 
-%global cfg_file_content --gcc-triple=%{_target_cpu}-redhat-linux
+%global gcc_triple --gcc-triple=%{_target_cpu}-redhat-linux
+
+%global cfg_file_content %{gcc_triple}
+%global cfg_file_content_flang %{gcc_triple}
 
 # We want to use DWARF-5 on all snapshot builds.
 %if %{without snapshot_build} && %{defined rhel} && 0%{?rhel} < 10
@@ -2343,6 +2346,14 @@ find %{buildroot}%{install_includedir}/flang -type f -a ! -iname '*.mod' -delete
 
 # this is a test binary
 rm -v %{buildroot}%{install_bindir}/f18-parse-demo
+
+# Probably this directory already existed before
+mkdir -pv %{buildroot}%{_sysconfdir}/%{pkg_name_clang}/
+echo " %{cfg_file_content_flang}" >> %{buildroot}%{_sysconfdir}/%{pkg_name_clang}/%{_target_platform}-flang.cfg
+%ifarch x86_64
+# On x86_64, install an additional config file.
+echo " %{cfg_file_content_flang}" >> %{buildroot}%{_sysconfdir}/%{pkg_name_clang}/i386-redhat-linux-gnu-flang.cfg
+%endif
 %endif
 #endregion flang installation
 
@@ -3683,6 +3694,10 @@ fi
     flang/omp_lib.mod
     flang/omp_lib_kinds.mod
 }}
+%{_sysconfdir}/%{pkg_name_clang}/%{_target_platform}-flang.cfg
+%ifarch x86_64
+%{_sysconfdir}/%{pkg_name_clang}/i386-redhat-linux-gnu-flang.cfg
+%endif
 
 %{_prefix}/lib/clang/%{maj_ver}/include/ISO_Fortran_binding.h
 

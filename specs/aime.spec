@@ -1,7 +1,7 @@
 %global libname libaime
 
 Name:            aime
-Version:         8.20241231
+Version:         8.20250217
 Release:         %autorelease
 Summary:         An application embeddable programming language interpreter
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -32,7 +32,9 @@ use %{name}.
 %autosetup -p 1
 
 %build
-%configure
+# workaround for bug 2336032 aime fails to build with GCC 15/C23
+%set_build_flags CFLAGS="%{optflags} -std=gnu17"
+%configure CFLAGS="$CFLAGS"
 %make_build
 
 %check

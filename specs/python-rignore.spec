@@ -1,5 +1,5 @@
 Name:           python-rignore
-Version:        0.7.3
+Version:        0.7.4
 Release:        %autorelease
 Summary:        Python bindings for the ignore crate
 
@@ -13,6 +13,9 @@ BuildOption(generate_buildrequires): -g dev
 
 BuildRequires:  tomcli
 BuildRequires:  cargo-rpm-macros >= 24
+
+# Some tests need to create temporary git repositories.
+BuildRequires:  git-core
 
 %global common_description %{expand:
 rignore is a Python module that provides a high-performance, Rust-powered file
@@ -40,6 +43,10 @@ License:        %{shrink:
 
 
 %prep -a
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+tomcli set pyproject.toml lists delitem dependency-groups.dev \
+    '(pytest-cov|coverage)\b.*'
+
 %cargo_prep
 
 

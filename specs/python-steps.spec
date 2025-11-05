@@ -166,8 +166,8 @@ Provides:       bundled(sundials2) = %{sundials_version}
 rm -rf CMake/FindBLAS.cmake
 %autopatch -p1
 
-# gtest/gmock 1.13.0 requires C++14 or later
-sed -r -i 's/(CXX_DIALECT_OPT_CXX)11/\114/' CMakeLists.txt
+# gtest/gmock 1.17.0 requires C++17 or later
+sed -r -i 's/(CXX_DIALECT_OPT_CXX)11/\117/' CMakeLists.txt
 
 %if %{with system_sundials}
 # We add %%{_includedir}/sundials2 to the CXXFLAGS in %%build; we must also

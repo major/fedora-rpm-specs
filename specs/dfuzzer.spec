@@ -15,11 +15,14 @@ Source0:       https://github.com/dbus-fuzzer/dfuzzer/archive/%{commit}/%{name}-
 %else
 Source0:       https://github.com/dbus-fuzzer/dfuzzer/archive/v%{version}/%{name}-%{version}.tar.gz
 %endif
+BuildRequires: dbus-devel
 BuildRequires: docbook-style-xsl
 BuildRequires: gcc
 BuildRequires: glib2-devel
 BuildRequires: libxslt
 BuildRequires: meson
+BuildRequires: pkgconfig
+BuildRequires: systemd
 
 %description
 Tool for fuzz testing processes communicating through D-Bus. It can be

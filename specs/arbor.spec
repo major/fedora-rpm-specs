@@ -49,6 +49,9 @@ Patch:          fix-missing-includes.patch
 # These were eventually included in
 # 76120d16c00ae67128c3c69421ab712f985f3445, along with many other changes.
 Patch:          0001-Fix-a-few-typos-that-cause-failure-to-compile-with-G.patch
+# Remove the hard-coded pybind11 version check so that we can build with
+# pybind11 3.0; this is part of https://github.com/arbor-sim/arbor/pull/2481.
+Patch:          arbor-0.9.0-pybind11-3.0.patch
 
 # Random123 does not support:
 #   mips64r2 mips32r2 s390

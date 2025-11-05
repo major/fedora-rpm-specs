@@ -26,8 +26,8 @@
 %endif
 
 %global upstreamname rocALUTION
-%global rocm_release 7.0
-%global rocm_patch 1
+%global rocm_release 7.1
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -208,6 +208,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/rocalution/LICENSE.md
 %endif
 
 %changelog
+* Fri Oct 31 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
+- Update to 7.1.0
+
 * Sat Sep 20 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-1
 - Update to 7.0.1
 

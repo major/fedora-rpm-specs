@@ -2,7 +2,7 @@
 %global uuid        %{extension}@aunetx
 
 Name:           gnome-shell-extension-%{extension}
-Version:        69
+Version:        70
 Release:        %autorelease
 Summary:        Adds a blur look to different parts of the GNOME Shell
 License:        GPL-3.0-or-later

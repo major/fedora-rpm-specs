@@ -2,7 +2,7 @@
 
 %global luajit_version_major 2
 %global luajit_version_minor 1
-%global luajit_version_patch 1748459687
+%global luajit_version_patch 1761727121
 %global luajit_version %{luajit_version_major}.%{luajit_version_minor}.%{luajit_version_patch}
 
 

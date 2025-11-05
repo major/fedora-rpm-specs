@@ -6,13 +6,15 @@
 
 Name:           libbluray
 Version:        1.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library to access Blu-Ray disks for video playback 
 License:        LGPL-2.0-or-later
 URL:            https://www.videolan.org/developers/libbluray.html
 
 Source0:        https://download.videolan.org/pub/videolan/%{name}/%{version}/%{name}-%{version}.tar.xz
 Patch0:         libbluray-0.8.0-no_doxygen_timestamp.patch
+# https://code.videolan.org/videolan/libbluray/-/commit/48d76414455ab6a7d270cec96d6e83673df8a00d
+Patch1:         libbluray-1.4.0-java_23_support.patch
 
 BuildRequires:  doxygen
 BuildRequires:  fontconfig-devel
@@ -25,9 +27,7 @@ BuildRequires:  libxml2-devel
 BuildRequires:  meson
 BuildRequires:  texlive-latex
 %if %{build_bdj}
-# Does not build with Java 24+
-# https://code.videolan.org/videolan/libbluray/-/issues/46
-BuildRequires:  ant-openjdk21
+BuildRequires:  ant
 BuildRequires:  java-devel >= 1:1.8.0
 BuildRequires:  jpackage-utils
 %endif
@@ -69,6 +69,7 @@ developing applications that use %{name}.
 %prep
 %setup -q
 %patch -P0 -p1 -b .no_timestamp
+%patch -P1 -p1 -b .java_23
 
 rm -rf contrib/libudfread
 
@@ -117,6 +118,9 @@ mv %{buildroot}%{_docdir}/%{name}/html .
 
 
 %changelog
+* Mon Nov 03 2025 Xavier Bachelot <xavier@bachelot.org> - 1.4.0-2
+- Fix build with java 23+
+
 * Tue Sep 30 2025 Xavier Bachelot <xavier@bachelot.org> - 1.4.0-1
 - Update to 1.4.0 (RHBZ#2390718)
 

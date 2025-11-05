@@ -17,6 +17,7 @@ Source1: https://github.com/main-branch/%{gem_name}/archive/v%{version}/%{gem_na
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby >= 3.0.0
+BuildRequires: rubygem(logger)
 BuildRequires: rubygem(rspec)
 BuildRequires: rubygem(track_open_instances)
 
@@ -38,6 +39,8 @@ An API for executing commands in a sub process
 
 %prep
 %setup -q -n %{gem_name}-%{version}
+# From lib/process_executer.rb
+%gemspec_add_dep -g logger
 
 # unpack only the spec files from SOURCE1.
 tar zxf %{SOURCE1} %{gem_name}-%{version}/spec --strip-components 1

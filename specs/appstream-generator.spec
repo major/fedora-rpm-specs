@@ -1,3 +1,6 @@
+%global appstream_minver 1.1.0
+%global glib2_minver 2.80
+
 %global asgen_jsdir %{_datadir}/appstream/templates/default/static/js
 
 # missing js dependencies
@@ -5,8 +8,8 @@
 %bcond_without vendored_js
 
 Name:           appstream-generator
-Version:        0.9.1
-Release:        9%{?dist}
+Version:        0.10.1
+Release:        1%{?dist}
 Summary:        Fast AppStream metadata generator
 
 License:        LGPL-3.0-or-later AND MIT
@@ -19,19 +22,25 @@ Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 # $ cd ../../ && tar czvf %{name}-nodemodules.tar.gz contrib/setup/node_modules
 Source1:        %{name}-nodemodules.tar.gz
 
-BuildRequires:  pkgconfig(glib-2.0)
-BuildRequires:  pkgconfig(gobject-2.0)
-BuildRequires:  pkgconfig(gio-2.0)
-BuildRequires:  pkgconfig(glibd-2.0)
-BuildRequires:  pkgconfig(appstream) >= 1.0.0
-BuildRequires:  pkgconfig(appstream-compose) >= 1.0.0
-BuildRequires:  pkgconfig(lmdb) >= 0.9
+# Backports from upstream
+Patch0001:      0001-tests-Combine-results-and-registry-tests-to-make-the.patch
+
+BuildRequires:  gcc-c++ >= 14.0
+BuildRequires:  pkgconfig(glib-2.0) >= %{glib2_minver}
+BuildRequires:  pkgconfig(gobject-2.0) >= %{glib2_minver}
+BuildRequires:  pkgconfig(gio-2.0) >= %{glib2_minver}
+BuildRequires:  pkgconfig(appstream) >= %{appstream_minver}
+BuildRequires:  pkgconfig(appstream-compose) >= %{appstream_minver}
+BuildRequires:  pkgconfig(lmdb) >= 0.9.22
 BuildRequires:  pkgconfig(libarchive) >= 3.2
 BuildRequires:  pkgconfig(libcurl)
-BuildRequires:  pkgconfig(gobject-introspection-1.0)
-BuildRequires:  gir-to-d >= 0.18.0
-BuildRequires:  ldc >= 1:1.1.0
-BuildRequires:  meson >= 0.46.0
+BuildRequires:  pkgconfig(libfyaml)
+BuildRequires:  pkgconfig(tbb)
+BuildRequires:  pkgconfig(icu-uc)
+BuildRequires:  pkgconfig(inja)
+BuildRequires:  pkgconfig(libxml-2.0)
+BuildRequires:  pkgconfig(catch2-with-main)
+BuildRequires:  meson >= 1.0
 # For man pages
 BuildRequires:  %{_bindir}/xsltproc
 BuildRequires:  docbook-dtds
@@ -54,10 +63,11 @@ Requires:       js-highlight
 Requires:       js-jquery
 %endif
 
-ExclusiveArch:  %{ldc_arches}
-
 Recommends:     ffmpeg-free
 Recommends:     optipng
+
+# We don't need to build for 32-bit architectures...
+ExcludeArch:    %{ix86} %{arm32}
 
 %description
 appstream-generator is a tool to generate distribution metadata
@@ -74,12 +84,11 @@ as JSON documents and HTML pages.
 %endif
 %autopatch -p1
 
-%build
-# Drop '-specs=/usr/lib/rpm/redhat/redhat-hardened-ld' as LDC doesn't support it
-export LDFLAGS="-Wl,-z,relro"
-# Export DFLAGS
-export DFLAGS="%{_d_optflags}"
+%conf
 %meson -Ddownload-js=false
+
+
+%build
 %meson_build
 
 
@@ -117,6 +126,9 @@ install contrib/setup/node_modules/jquery-flot/jquery.flot*.js -t %{buildroot}%{
 %{_datadir}/metainfo/org.freedesktop.appstream.generator.metainfo.xml
 
 %changelog
+* Mon Nov 03 2025 Neal Gompa <ngompa@fedoraproject.org> - 0.10.1-1
+- Rebase to 0.10.1
+
 * Sun Oct 26 2025 Kalev Lember <klember@redhat.com> - 0.9.1-9
 - Rebuilt for ldc 1.41
 

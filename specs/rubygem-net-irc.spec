@@ -7,7 +7,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	0.0.9
-Release:	28.D%{gitdate_num}git%{shorthash}%{?dist}
+Release:	29.D%{gitdate_num}git%{shorthash}%{?dist}
 
 Summary:	Library for implementing IRC server and client
 # Ruby's
@@ -27,6 +27,7 @@ Patch0:	net-irc-dup-string-for-force_encoding.patch
 
 BuildRequires:	ruby(release)
 BuildRequires:	rubygems-devel
+BuildRequires:	rubygem(ostruct)
 BuildRequires:	rubygem(rake)
 BuildRequires:	rubygem(rdoc)
 BuildRequires:	rubygem(rspec)
@@ -87,8 +88,11 @@ grep -rl "Thread\.exclusive" . | \
 	's|Thread\.exclusive|m = Thread::Mutex.new ; m.synchronize|' \
 	%{nil}
 %endif
-	
+
 gem specification -l --ruby ../%{gem_name}-%{version}.gem > %{gem_name}.gemspec
+
+# From lib/net/irc.rb
+%gemspec_add_dep -g ostruct -s ./%{gem_name}.gemspec
 
 %build
 cd %{gem_name}-%{githash}/pkg/%{gem_name}-%{version}
@@ -129,6 +133,9 @@ rspec spec/
 %{gem_instdir}/examples/
 
 %changelog
+* Mon Nov 03 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.0.9-29.D20121021git4cf339fa69
+- Add explicit ostruct dep for ruby3_5
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.9-28.D20121021git4cf339fa69
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

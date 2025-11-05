@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.0.12
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: Between Meals
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License: Apache-2.0
@@ -16,6 +16,7 @@ Source1: rubygem-%{gem_name}-%{version}-specs.tar.gz
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
+BuildRequires: rubygem(logger)
 BuildRequires: rubygem-rspec
 BuildRequires: rubygem-simplecov
 BuildRequires: rubygem-mixlib-shellout
@@ -40,6 +41,9 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b 1
+
+# From lib/between_meals/cmd.rb
+%gemspec_add_dep -g logger
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -72,6 +76,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Mon Nov 03 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.0.12-13
+- Add explicit logger dep for ruby3_5
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.12-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

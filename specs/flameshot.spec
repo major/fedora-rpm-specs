@@ -5,7 +5,7 @@
 %global qtcolor_url https://gitlab.com/mattbas/Qt-Color-Widgets
 
 Name: flameshot
-Version: 13.1.0
+Version: 13.3.0
 Release: %autorelease
 
 # Main code: GPL-3.0-or-later

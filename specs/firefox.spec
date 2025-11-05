@@ -270,8 +270,10 @@ Patch241:        0025-Add-KDE-integration-to-Firefox-toolkit-parts.patch
 Patch242:        0026-Add-KDE-integration-to-Firefox.patch
 
 # Upstream patches
-Patch402:        mozilla-1196777.patch
-Patch407:        mozilla-1667096.patch
+Patch400:        mozilla-1196777.patch
+Patch401:        mozilla-1667096.patch
+# https://webrtc-review.googlesource.com/c/src/+/401602
+Patch402:        libwebrtc-update-pipewire-headers.patch
 
 # PGO/LTO patches
 Patch600:        pgo.patch
@@ -585,8 +587,9 @@ cat %{SOURCE49} | sed -e "s|LIBCLANG_RT_PLACEHOLDER|`pwd`/wasi-sdk-25/build/sysr
 %patch -P229 -p1 -b .firefox-nss-addon-hack
 %patch -P231 -p1 -b .fedora-customization
 
-%patch -P402 -p1 -b .1196777
-%patch -P407 -p1 -b .1667096
+%patch -P400 -p1 -b .1196777
+%patch -P401 -p1 -b .1667096
+%patch -P402 -p1 -b .libwebrtc-update-pipewire-headers
 
 # PGO patches
 %if %{build_with_pgo}

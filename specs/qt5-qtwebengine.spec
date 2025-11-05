@@ -47,8 +47,8 @@
 
 Summary: Qt5 - QtWebEngine components
 Name:    qt5-qtwebengine
-Version: 5.15.18
-Release: 6%{?dist}
+Version: 5.15.19
+Release: 1%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 # See also http://qt-project.org/doc/qt-5.0/qtdoc/licensing.html
@@ -91,6 +91,7 @@ Patch24: qtwebengine-everywhere-src-5.11.3-aarch64-new-stat.patch
 Patch32: qtwebengine-skia-missing-includes.patch
 Patch34: qtwebengine-fix-build.patch
 Patch35: qt5-qtwebengine-c99.patch
+Patch36: qtwebengine-chromium-141-glibc-2.42-SYS_SECCOMP.patch
 
 # Working with ffmpeg
 Patch60: qtwebengine-ffmpeg5.patch
@@ -100,9 +101,7 @@ Patch61: qt5-qtwebengine-ffmpeg7.patch
 # Fix build
 Patch70: qtwebengine-5.15.13_p20240322-ninja1.12.patch
 Patch71: fix_build_pdf_extension_util.patch
-Patch72: python3.12-imp.patch
 Patch73: python3.12-six.patch
-Patch74: python3.13-pipes.patch
 
 # Fix building with ICU 75
 # https://gitlab.archlinux.org/archlinux/packaging/packages/qt5-webengine/-/blob/97c4d298f/qt5-webengine-icu-75.patch
@@ -384,16 +383,17 @@ popd
 %patch -P24 -p1 -b .aarch64-new-stat
 %patch -P32 -p1 -b .skia-missing-includes
 %patch -P34 -p1 -b .fix-build
-
 %patch -P35 -p1 -b .c99
+
+%if 0%{?fedora} > 43
+%patch -P36 -p1 -b .chromium-141-glibc-2.42-SYS_SECCOMP
+%endif
 
 %patch -P60 -p1
 %patch -P61 -p1
 %patch -P70 -p1
 %patch -P71 -p1
-%patch -P72 -p1
 %patch -P73 -p1
-%patch -P74 -p1
 
 %patch -P80 -p1
 
@@ -577,6 +577,9 @@ done
 %{_qt5_examplesdir}/
 
 %changelog
+* Mon Nov 03 2025 Jan Grulich <jgrulich@redhat.com> - 5.15.19-1
+- 5.15.19
+
 * Wed Aug 06 2025 František Zatloukal <fzatlouk@redhat.com> - 5.15.18-6
 - Rebuilt for icu 77.1
 

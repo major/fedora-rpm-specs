@@ -33,8 +33,8 @@
 %endif
 
 %global upstreamname hipFFT
-%global rocm_release 7.0
-%global rocm_patch 2
+%global rocm_release 7.1
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -84,6 +84,9 @@ Source0:        %{url}/archive/%{commit0}/rocm-libraries-%{shortcommit0}.tar.gz
 Url:            https://github.com/ROCm/%{upstreamname}
 Source0:        %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-rocm-%{version}.tar.gz
 %endif
+
+# https://github.com/ROCm/rocm-libraries/issues/2400
+Patch1:         0001-hipfft-hipfftw-soversion.patch
 
 # Only x86_64 works right now
 ExclusiveArch:  x86_64
@@ -215,12 +218,14 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library:$LD_LIBRARY_PATH
 %endif
 
 %{_libdir}/libhipfft.so.0{,.*}
+%{_libdir}/libhipfftw.so.0{,.*}
 
 %files devel
 %dir %{_libdir}/cmake/hipfft
 %dir %{_includedir}/hipfft
 %{_includedir}/hipfft/*
 %{_libdir}/libhipfft.so
+%{_libdir}/libhipfftw.so
 %{_libdir}/cmake/hipfft/*.cmake
 
 %if %{with test}
@@ -229,6 +234,9 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Fri Oct 31 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
+- Update to 7.1.0
+
 * Sat Oct 11 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.2-1
 - Update to 7.0.2
 

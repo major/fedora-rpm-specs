@@ -2,8 +2,8 @@
 %bcond python 1
 %bcond rebuild_yaml_data 0
 
-# Upstream defaults to C++11, but gtest 1.13.0 requires C++14 or later.
-%global cxx_std 14
+# Upstream defaults to C++11, but gtest 1.17.0 requires C++17 or later.
+%global cxx_std 17
 
 Name:           rapidyaml
 Summary:        A library to parse and emit YAML, and do it fast

@@ -33,8 +33,8 @@
 %endif
 
 %global upstreamname rocSOLVER
-%global rocm_release 7.0
-%global rocm_patch 2
+%global rocm_release 7.1
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -125,8 +125,8 @@ Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{ro
 %endif
 
 # https://github.com/ROCm/rocSOLVER/pull/652
-Patch0:         0001-Add-llvm-style-compile-and-link-options.patch
-Patch1:         0001-rocsolver-offload-compress.patch
+Patch0:         0001-rocsolver-ninja-job-pools.patch
+# Patch1:         0001-rocsolver-offload-compress.patch
 # https://github.com/ROCm/rocSOLVER/pull/962
 Patch2:         0001-rocsolver-parallel-jobs.patch
 
@@ -350,6 +350,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/rocsolver/LICENSE.md
 %endif
 
 %changelog
+* Thu Oct 30 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
+- Update to 7.1.0
+
 * Sat Oct 11 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.2-1
 - Update to 7.0.2
 

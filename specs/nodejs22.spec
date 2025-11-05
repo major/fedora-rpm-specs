@@ -54,8 +54,8 @@
 # than a Fedora release lifecycle.
 %global nodejs_epoch 1
 %global nodejs_major 22
-%global nodejs_minor 20
-%global nodejs_patch 0
+%global nodejs_minor 21
+%global nodejs_patch 1
 # nodejs_soversion - from NODE_MODULE_VERSION in src/node_version.h
 %global nodejs_soversion 127
 %global nodejs_abi %{nodejs_soversion}
@@ -122,7 +122,7 @@
 
 # npm - from deps/npm/package.json
 %global npm_epoch 1
-%global npm_version 10.9.3
+%global npm_version 10.9.4
 
 # In order to avoid needing to keep incrementing the release version for the
 # main package forever, we will just construct one for npm that is guaranteed
@@ -361,7 +361,7 @@ Requires: nodejs-cjs-module-lexer
 %endif
 
 %if %{with bundled_undici}
-Provides: bundled(nodejs-undici) = 6.21.2
+Provides: bundled(nodejs-undici) = 6.22.0
 %else
 BuildRequires: nodejs-undici
 Requires: nodejs-undici

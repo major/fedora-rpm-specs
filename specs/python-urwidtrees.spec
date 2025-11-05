@@ -1,85 +1,76 @@
-%global srcname urwidtrees
-%global sum Tree Widget Container API for the urwid toolkit
-%global owner pazz
-%global gittag 1.0.3
+Name:           python-urwidtrees
+Version:        1.0.4
+Release:        1%{?dist}
+Summary:        Tree Widget Container API for the urwid toolkit
 
-Name:           python-%{srcname}
-Version:        1.0.3
-Release:        20%{?dist}
-Summary:        %{sum}
-
-# Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
                 # PyPI release is not maintained by pazz, so let's stick with github
-URL:            https://github.com/%{owner}/%{srcname}
-Source0:        https://github.com/%{owner}/%{srcname}/archive/%{gittag}/%{name}-%{version}.tar.gz
+URL:            https://github.com/pazz/urwidtrees
+Source:         https://github.com/pazz/urwidtrees/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  make
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 
 
-%description
+%global _description %{expand:
 It uses an MVC approach and allows to build trees of widgets. Its design
 goals are
 
  * clear separation classes that define, decorate and display trees of widgets
  * representation of trees by local operations on node positions
  * easy to use default implementation for simple trees
- * Collapses are considered decoration
+ * Collapses are considered decoration}
 
+%description %_description
 
-%package -n python3-%{srcname}
-Requires:       python3-urwid
-# there is `import urwidtrees` in setup.py, which results into `import urwid`
-BuildRequires:  python3-urwid
+%package -n     python3-urwidtrees
+Summary:        %{summary}
 
-Summary:        %{sum}
-%{?python_provide:%python_provide python3-%{srcname}}
+%description -n python3-urwidtrees %_description
 
-%description -n python3-%{srcname}
-It uses an MVC approach and allows to build trees of widgets. Its design
-goals are
-
- * clear separation classes that define, decorate and display trees of widgets
- * representation of trees by local operations on node positions
- * easy to use default implementation for simple trees
- * Collapses are considered decoration
-
-
-%package -n python-%{srcname}-doc
+%package -n python3-urwidtrees-doc
 BuildRequires:  python3-sphinx
-Summary:        Documentation for %{srcname}
-%description -n python-%{srcname}-doc
-Development documentation for %{srcname}
+Summary:        Documentation for urwidtrees
 
+%description -n python3-urwidtrees-doc
+Development documentation for urwidtrees
 
 %prep
-%autosetup -n %{srcname}-%{gittag}
+%autosetup -p1 -n urwidtrees-%{version}
+
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 
 %build
-%py3_build
+%pyproject_wheel
 pushd docs/
 make -e SPHINXBUILD=/usr/bin/sphinx-build-3 html
 popd
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l urwidtrees
 
 
-%files -n python3-%{srcname}
+%check
+%pyproject_check_import
+
+
+%files -n python3-urwidtrees -f %{pyproject_files}
 %license LICENSE.md
-%{python3_sitelib}/*
 
-%files -n python-%{srcname}-doc
+%files -n python3-urwidtrees-doc
 %license LICENSE.md
 %doc docs/build/html
 
-
 %changelog
+* Sat Nov  1 2025 Dick Marinus <dick@mrns.nl> - 1.0.4-1
+- Cleanup and version bump
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0.3-20
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -28,11 +28,7 @@ BuildRequires:	libedit-devel
 BuildRequires:	pcsc-lite-devel
 BuildRequires:	clang
 BuildRequires:	pkg-config
-%if 0%{?fedora} > 36
-BuildRequires: libusb-compat-0.1-devel
-%else
-BuildRequires:	libusb-devel
-%endif
+BuildRequires:	libusb-compat-0.1-devel
 BuildRequires:	chrpath
 BuildRequires:	gnupg2
 

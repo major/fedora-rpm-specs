@@ -21,8 +21,8 @@
 #
 
 # Upstream tags are based on rocm releases:
-%global rocm_release 7.0
-%global rocm_patch 2
+%global rocm_release 7.1
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 # What LLVM is upstream using (use LLVM_VERSION_MAJOR from llvm/CMakeLists.txt):
@@ -49,8 +49,6 @@ Summary:        ROCm OpenMP
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        Apache-2.0 WITH LLVM-exception OR NCSA AND MIT
 Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{name}-%{rocm_version}.tar.gz
-
-# Patch3:         0001-Remove-err_drv_duplicate_config-check.patch
 
 BuildRequires:  binutils-devel
 BuildRequires:  cmake
@@ -220,6 +218,9 @@ rm -rf %{buildroot}%{bundle_prefix}/lib/cmake/omptest
 %files static
 
 %changelog
+* Fri Oct 31 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
+- Update to 7.1.0
+
 * Sat Oct 11 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.2-1
 - Update to 7.0.2
 

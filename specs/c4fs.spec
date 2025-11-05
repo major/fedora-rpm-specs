@@ -5,11 +5,11 @@
 %global snapdate 20250929
 
 # Upstream defaults to C++11, but recommends building c4core and rapidyaml with
-# the same standard; and rapidyaml is built as C++14 because gtest 1.13.0 or
-# later requires C++14 or later. Since c4fs supports the tests for c4core, it
+# the same standard; and rapidyaml is built as C++17 because gtest 1.17.0 or
+# later requires C++17 or later. Since c4fs supports the tests for c4core, it
 # makes sense to apply the same advice here as well. See:
 # https://github.com/biojppm/rapidyaml/issues/465#issuecomment-2307668270
-%global cxx_std 14
+%global cxx_std 17
 
 Name:           c4fs
 Summary:        C++ file system utilities

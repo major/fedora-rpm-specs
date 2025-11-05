@@ -7,13 +7,12 @@ Summary: Interface components for OpenPGP
 License: LicenseRef-Callaway-LGPLv2+
 URL:     http://projects.gnome.org/seahorse/
 Source0: http://download.gnome.org/sources/libcryptui/3.12/%{name}-%{version}.tar.xz
-Patch0:  libcryptui-3.12.2-gpg22.patch
+Patch0:  libcryptui-3.12.2-gpg24.patch
 Patch1:  libcryptui-3.12.2-use-gcr.patch
-Patch2:  libcryptui-gpg_version_fix.patch
 Patch3:  libcryptui-3.12.2-gpgme2fix.patch
 
 BuildRequires: autoconf automake
-BuildRequires: gnupg1
+BuildRequires: gnupg
 BuildRequires: gobject-introspection-devel
 BuildRequires: gpgme-devel
 BuildRequires: gtk-doc

@@ -17,8 +17,8 @@
 
 Summary:        The SCSI target daemon and utility programs
 Name:           scsi-target-utils
-Version:        1.0.96
-Release:        2%{?dist}
+Version:        1.0.97
+Release:        1%{?dist}
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
 URL:            http://stgt.sourceforge.net/
@@ -28,10 +28,8 @@ Source2:        sysconfig.tgtd
 Source3:        targets.conf
 Source4:        sample.conf
 Source5:        tgtd.conf
-Patch1:         0002-remove-check-for-xsltproc.patch
-Patch2:         0003-default-config.patch
-# Adapt to glusterfs-api 7.6.3, not tested
-Patch3:         tgt-1.0.79-Adapt-to-glusterfs-api-7.6.3.patch
+Patch:          0002-remove-check-for-xsltproc.patch
+Patch:          0003-default-config.patch
 BuildRequires:  docbook-style-xsl
 BuildRequires:  gcc
 BuildRequires:  libaio-devel
@@ -81,7 +79,8 @@ Adds support for the Gluster glfs backstore to scsi-target-utils.
 
 %build
 %{__sed} -i -e 's|-g -O2 -fno-strict-aliasing|%{optflags} -fcommon|' -e 's| -Werror | |' usr/Makefile
-%{__make} %{?_smp_mflags} %{?with_rdma:ISCSI_RDMA=1} %{?with_rbd:CEPH_RBD=1} %{?with_glfs:GLFS_BD=1} SD_NOTIFY=1 libdir=%{_libdir}/tgt
+%{__make} %{?_smp_mflags} doc V=1
+%{__make} %{?_smp_mflags} %{?with_rdma:ISCSI_RDMA=1} %{?with_rbd:CEPH_RBD=1} %{?with_glfs:GLFS_BD=1} SD_NOTIFY=1 libdir=%{_libdir}/tgt V=1
 
 %install
 install -D -p -m 0755 scripts/tgt-setup-lun %{buildroot}%{_sbindir}/tgt-setup-lun
@@ -139,6 +138,10 @@ pushd usr
 %endif
 
 %changelog
+* Mon Nov 03 2025 Terje Rosten <terjeros@gmail.com> - 1.0.97-1
+- 1.0.97
+- Remove patch now upstream
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.96-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

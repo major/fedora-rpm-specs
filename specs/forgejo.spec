@@ -13,7 +13,7 @@
 %global __node_deps_path ^%{_bindir}/%{name}$
 
 Name:           forgejo
-Version:        13.0.1
+Version:        13.0.2
 Release:        %autorelease
 Summary:        A lightweight software forge
 
@@ -172,7 +172,6 @@ hardlink --ignore-time %{buildroot}
 %dir %license %{_defaultlicensedir}/%{name}/public
 %dir %license %{_defaultlicensedir}/%{name}/public/assets
 %license %{_defaultlicensedir}/%{name}/public/assets/licenses.txt
-%license %{_defaultlicensedir}/%{name}/vendor/modules.txt
 %doc CONTRIBUTING.md README.md RELEASE-NOTES.md
 %doc custom/conf/app.example.ini
 

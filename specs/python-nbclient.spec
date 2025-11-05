@@ -15,8 +15,7 @@ Version:        0.10.2
 Release:        %autorelease
 Summary:        A client library for executing notebooks
 
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-3-Clause
 URL:            https://jupyter.org
 Source0:        %{pypi_source}
 
@@ -43,6 +42,8 @@ Summary:        %{summary}
 rm -rf %{pypi_name}.egg-info
 # Drop version limit from pytest
 sed -i "/pytest/s/,<8//" pyproject.toml
+# Remove unused dependency on pytest-cov
+sed -Ei '/"pytest-cov>=.+",/d' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires %{?with_check:-x test}

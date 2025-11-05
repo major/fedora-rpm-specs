@@ -28,8 +28,8 @@
 %endif
 
 %global upstreamname hipBLAS-common
-%global rocm_release 7.0
-%global rocm_patch 1
+%global rocm_release 7.1
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 Name:           hipblas-common
@@ -38,7 +38,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 %endif
 Summary:        Common files shared by hipBLAS and hipBLASLt
 License:        MIT
@@ -109,6 +109,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/hipblas-common/LICENSE.md
 %{_datadir}/cmake/%{name}
 
 %changelog
+* Fri Oct 31 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
+- Update to 7.1.0
+
 * Fri Oct 10 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.0-2
 - Remove stray backlash
 

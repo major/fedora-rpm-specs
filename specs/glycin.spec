@@ -7,7 +7,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           glycin
-Version:        2.0.3
+Version:        2.0.4
 Release:        %autorelease
 Summary:        Sandboxed image rendering
 

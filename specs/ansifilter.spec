@@ -11,7 +11,7 @@
 %endif
 
 Name:           ansifilter
-Version:        2.21
+Version:        2.22
 Release:        %autorelease
 Summary:        ANSI terminal escape code converter
 # Automatically converted from old format: GPLv3+ - review is highly recommended.

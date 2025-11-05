@@ -13,11 +13,11 @@ URL: https://www.python.org/
 
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
-%global general_version %{pybasever}.24
+%global general_version %{pybasever}.25
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 2%{?dist}
+Release: 1%{?dist}
 License: Python
 
 
@@ -1877,6 +1877,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Mon Nov 03 2025 Karolina Surma <ksurma@redhat.com> - 3.9.25-1
+- Update to Python 3.9.25
+
 * Wed Oct 15 2025 Miro Hrončok <mhroncok@redhat.com> - 3.9.24-2
 - On Fedora 44+, split this package into multiple subpackages
 - This mimics newer Python versions

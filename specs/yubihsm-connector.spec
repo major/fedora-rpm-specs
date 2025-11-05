@@ -45,7 +45,7 @@ BuildRequires:  golang(github.com/spf13/cobra)
 BuildRequires:  golang(github.com/spf13/viper)
 BuildRequires:  golang(gopkg.in/yaml.v2)
 %else
-BuildRequires: libusb-devel
+BuildRequires: libusb-compat-0.1-devel
 %endif
 BuildRequires:  gnupg2
 Recommends:     yubihsm-shell

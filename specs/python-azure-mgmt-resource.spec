@@ -5,13 +5,13 @@
 %global         tarball_name     azure_mgmt_resource
 
 Name:           python-%{srcname}
-Version:        23.3.0
+Version:        24.0.0
 %global         pypi_version    %{version}
 Release:        %autorelease
 Summary:        Microsoft Azure Resource Management Client Library for Python
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
-Source0:        %{pypi_source %{tarball_name} %{pypi_version}}
+Source:         %{pypi_source %{tarball_name} %{pypi_version}}
 
 BuildArch:      noarch
 
@@ -55,7 +55,7 @@ Summary:        %{summary}
 
 %install
 %pyproject_install
-%pyproject_save_files azure
+%pyproject_save_files -l azure
 
 
 %check

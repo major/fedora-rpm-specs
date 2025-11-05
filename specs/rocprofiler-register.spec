@@ -20,8 +20,8 @@
 # THE SOFTWARE.
 #
 %global upstreamname rocprofiler-register
-%global rocm_release 7.0
-%global rocm_patch 2
+%global rocm_release 7.1
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global glog_version 0.7.1
@@ -134,7 +134,7 @@ cp -p external/glog/COPYING COPYING.glog
 # Do not install the test source etc
 rm -rf %{buildroot}%{_prefix}/share/rocprofiler-register
 rm -rf %{buildroot}%{_prefix}/share/modulefiles
-rm -rf %{buildroot}%{_prefix}/share/doc/rocprofiler-register/LICENSE
+rm -rf %{buildroot}%{_prefix}/share/doc/rocprofiler-register/LICENSE.md
 
 %if %{with check}
 %check
@@ -142,7 +142,7 @@ rm -rf %{buildroot}%{_prefix}/share/doc/rocprofiler-register/LICENSE
 %endif
 
 %files
-%license LICENSE COPYING.glog
+%license LICENSE.md COPYING.glog
 %{_libdir}/librocprofiler-register.so.0{,.*}
 
 %files devel
@@ -152,6 +152,9 @@ rm -rf %{buildroot}%{_prefix}/share/doc/rocprofiler-register/LICENSE
 %{_libdir}/cmake/rocprofiler-register/
 
 %changelog
+* Fri Oct 31 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
+* Update to 7.1.0
+
 * Fri Oct 10 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.2-1
 - Update to 7.0.2
 

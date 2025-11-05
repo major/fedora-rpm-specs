@@ -14,7 +14,7 @@ BuildRequires:  lua >= %{lua_version}
 BuildRequires:  lua-devel >= %{lua_version}
 
 Name:           lua-mpack
-Version:        1.0.12
+Version:        1.0.13
 Release:        %autorelease
 
 License:        MIT

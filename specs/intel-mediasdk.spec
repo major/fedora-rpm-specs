@@ -5,11 +5,14 @@
 Summary: Hardware-accelerated video processing on Intel integrated GPUs library
 Name: intel-mediasdk
 Version: 23.2.2
-Release: 8%{?dist}
+Release: 9%{?dist}
 URL: https://github.com/Intel-Media-SDK/MediaSDK
 Source0: %{url}/archive/%{name}-%{version}.tar.gz
 # fix build with GCC 13
 Patch0: %{name}-gcc13.patch
+# gtest 1.17 requires C++17
+# Downstream-only because the upstream project is archived
+Patch1: %{name}-cpp17.patch
 License: MIT
 ExclusiveArch: x86_64
 BuildRequires: cmake3
@@ -64,6 +67,7 @@ questions and issues.
 %prep
 %setup -q -n MediaSDK-%{name}-%{version}
 %patch 0 -p1 -b .gcc13
+%patch 1 -p1 -b .cpp17
 
 %build
 %cmake3 \
@@ -113,6 +117,9 @@ questions and issues.
 %{_libdir}/libmfx-tracer.so.%{mfx_version}
 
 %changelog
+* Mon Nov 03 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 23.2.2-9
+- Build as C++17 for compatibility with gtest 1.17
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 23.2.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

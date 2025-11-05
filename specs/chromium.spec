@@ -300,12 +300,13 @@ Patch97: chromium-141-glibc-2.42-SYS_SECCOMP.patch
 # need for old ffmpeg 5.x on epel9
 Patch128: chromium-138-el9-ffmpeg-deprecated-apis.patch
 Patch129: chromium-el9-ffmpeg-AV_CODEC_FLAG_COPY_OPAQUE.patch
+Patch130: chromium-142-el9-ffmpeg-5.x-duration.patch
 # disable the check
 Patch131: chromium-107-proprietary-codecs.patch
 # fix tab crash with SIGTRAP error when using system ffmpeg
 Patch132: chromium-118-sigtrap_system_ffmpeg.patch
 # need for old ffmpeg 6.0/5.x on epel9 and fedora < 40
-Patch133: chromium-139-el9-ffmpeg-5.1.x.patch
+Patch133: chromium-142-el9-ffmpeg-5.1.x.patch
 # revert, it causes build error: use of undeclared identifier 'AVFMT_FLAG_NOH264PARSE'
 Patch135: chromium-133-disable-H.264-video-parser-during-demuxing.patch
 # Workaround for youtube stop working
@@ -342,6 +343,10 @@ Patch311: chromium-rust-no-alloc-shim-is-unstable.patch
 
 # enable fstack-protector-strong
 Patch312: chromium-123-fstack-protector-strong.patch
+
+# Fix FTBFS on EL9
+# - error: undefined symbol: __rust_alloc_error_handler_should_panic
+Patch313: chromium-142-el9-rust_alloc_error_handler_should_panic.patch
 
 # old rust version causes build error on el8:
 # error[E0599]: no method named `is_none_or` found for enum `Option` in the current scope
@@ -1003,6 +1008,7 @@ Qt6 UI for chromium.
 %if 0%{?rhel} == 9
 %patch -P128 -p1 -b .el9-ffmpeg-deprecated-apis
 %patch -P129 -p1 -b .el9-ffmpeg-AV_CODEC_FLAG_COPY_OPAQUE
+%patch -P130 -p1 -b .el9-ffmpeg-5.x-duration
 %patch -P133 -p1 -b .el9-ffmpeg-5.1.x
 %endif
 %patch -P131 -p1 -b .prop-codecs
@@ -1036,6 +1042,7 @@ Qt6 UI for chromium.
 %patch -P310 -p1 -b .rust-FTBFS-suppress-warnings
 %patch -P311 -p1 -b .rust-no-alloc-shim-is-unstable
 %patch -P312 -p1 -b .fstack-protector-strong
+%patch -P313 -p1 -b .el9-rust_alloc_error_handler_should_panic
 
 %if 0%{?rhel} && 0%{?rhel} < 10
 %patch -P315 -p1 -b .rust-libadler2

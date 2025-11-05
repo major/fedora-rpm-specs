@@ -3,7 +3,7 @@
 #   bzrmajor:  main bzr version
 #   Version: bzr version, add subrelease version here
 %global brzmajor 3.3
-%global brzminor .12
+%global brzminor .17
 
 Name:           breezy
 Version:        %{brzmajor}%{?brzminor}
@@ -12,7 +12,7 @@ Summary:        Friendly distributed version control system
 
 # breezy is GPL-2.0-or-later, but it has Rust dependencies
 # see packaged LICENSE.dependencies for details
-License:        GPL-2.0-or-later AND (MIT OR Apache-2.0) AND Unicode-DFS-2016 AND Apache-2.0 AND MIT AND (Unlicense OR MIT)
+License:        GPL-2.0-or-later AND (MIT OR Apache-2.0) AND Unicode-DFS-2016 AND MIT AND (Unlicense OR MIT)
 URL:            http://www.breezy-vcs.org/
 Source0:        https://github.com/breezy-team/breezy/archive/brz-%{version}%{?brzrc}.tar.gz
 Source1:        brz-icon-64.png
@@ -72,6 +72,9 @@ sed -i '1{/#![[:space:]]*\/usr\/bin\/\(python\|env\)/d}' \
 # Remove Cython generated .c files
 find . -name '*_pyx.c' -exec rm \{\} \;
 
+# Don't strip debug symbols, we generate debuginfo packages
+sed -i 's/Strip.All/Strip.No/' setup.py
+
 
 %generate_buildrequires
 %cargo_generate_buildrequires
@@ -97,10 +100,12 @@ done
 popd
 
 # Add Rust licenses
+%{cargo_license_summary}
 %{cargo_license} > LICENSE.dependencies
 
 %install
 %pyproject_install
+%pyproject_save_files -l breezy
 chmod -R a+rX contrib
 chmod 0644 contrib/debian/init.d
 chmod 0644 contrib/bzr_ssh_path_limiter  # note the bzr here
@@ -135,9 +140,18 @@ then
   mv %{buildroot}%{buildroot}%{_datadir}/locale %{buildroot}%{_datadir}
 fi
 %find_lang %{name}
+cat %{name}.lang >> %{pyproject_files}
 
-%files -f %{name}.lang
-%license COPYING.txt LICENSE.dependencies
+
+%check
+# for now, at least run a basic smoke test to prevent undetected major breakages
+# like https://bugzilla.redhat.com/2366194
+export %{py3_test_envvars}
+brz init-repo testrepo
+
+
+%files -f %{pyproject_files}
+%license LICENSE.dependencies
 %doc NEWS README.rst TODO contrib/
 %{_bindir}/brz
 %{_bindir}/bzr-*-pack
@@ -145,8 +159,6 @@ fi
 %{_bindir}/bzr
 %{_bindir}/git-remote-bzr
 %{_mandir}/man1/*
-%{python3_sitearch}/%{name}/
-%{python3_sitearch}/*.dist-info/
 %{bash_completions_dir}/brz
 %{_datadir}/pixmaps/brz.png
 

@@ -44,18 +44,22 @@ BuildRequires:  gcc-c++
 BuildRequires:  make
 BuildRequires:  nodejs-devel
 BuildRequires:  nodejs-npm
-BuildRequires:  python3-devel
 BuildRequires:  yarnpkg
 
-%global _description %{expand:
-This package contains a Sphinx extension for creating document components
+Provides:       bundled(js-bootstrap) = 5.3.3
+
+%if %{without docs}
+Obsoletes:      %{name}-doc < 0.13.0-1
+%endif
+
+%global _description %{expand:This package contains a Sphinx extension for creating document components
 optimized for HTML+CSS.
 
-- The panels directive creates panels of content in a grid layout,
-  utilizing both the Bootstrap 5 grid system, and cards layout.
+- The panels directive creates panels of content in a grid layout, utilizing
+  both the Bootstrap 5 grid system, and cards layout.
 
-- The link-button directive creates a clickable button, linking to a URL
-  or reference, and can also be used to make an entire panel clickable.
+- The link-button directive creates a clickable button, linking to a URL or
+  reference, and can also be used to make an entire panel clickable.
 
 - The dropdown directive creates content that can be toggled.
 
@@ -65,7 +69,8 @@ optimized for HTML+CSS.
 
 See https://pydata-sphinx-theme.readthedocs.io/ for documentation.}
 
-%description %_description
+%description
+%_description
 
 %package     -n python3-pydata-sphinx-theme
 Summary:        Bootstrap-based Sphinx theme from the PyData community
@@ -77,7 +82,8 @@ Provides:       bundled(js-bootstrap) = 5.3.7
 Obsoletes:      %{name}-doc < 0.13.0-1
 %endif
 
-%description -n python3-pydata-sphinx-theme %_description
+%description -n python3-pydata-sphinx-theme
+%_description
 
 %if %{with docs}
 %package        doc
@@ -106,6 +112,8 @@ sed -i 's,^\(node-version = \)".*",\1"%{nodejs_version}",' pyproject.toml
 %generate_buildrequires -p
 # The Fedora sphinx package does not provide sphinx[test]
 sed -i 's/\(sphinx\)\[test\]/\1/' pyproject.toml
+# Do not run code coverage tools
+sed -i 's/, "pytest-cov"//' pyproject.toml
 
 %build -p
 export YARN_CACHE_FOLDER="$PWD/.package-cache"

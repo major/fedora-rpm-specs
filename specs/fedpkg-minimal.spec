@@ -1,6 +1,6 @@
 Name:           fedpkg-minimal
 Version:        1.2.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Script to allow fedpkg fetch to work
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -8,6 +8,8 @@ License:        GPL-2.0-or-later
 URL:            https://pagure.io/%{name}
 Source0:        https://releases.pagure.org/%{name}/%{name}-%{version}.tar.gz
 Patch1:         0001-curl-max-time-in-seconds-not-minutes.patch
+Patch2:         0002-Add-Accept-Encoding-identity-header-to-curl-requests.patch
+Patch3:         0003-Add-Accept-Encoding-identity-header-to-curl-requests-tests.patch
 
 
 BuildArch:      noarch
@@ -42,6 +44,10 @@ install -pm 755 bin/fedpkg-base %{buildroot}%{_bindir}/fedpkg-base
 %{_bindir}/fedpkg-base
 
 %changelog
+* Mon Nov 03 2025 Ondřej Nosek <onosek@redhat.com> - 1.2.0-16
+- Add Accept-Encoding: identity header to curl requests. - apply the patch
+- Add Accept-Encoding: identity header to curl requests. - unittests
+
 * Wed Oct 15 2025 Fabio Valentini <decathorpe@gmail.com> - 1.2.0-15
 - Add Accept-Encoding: identity header to curl requests.
 

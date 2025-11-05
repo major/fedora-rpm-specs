@@ -53,8 +53,6 @@ flags=( -std=gnu++11
 export ITK_DIR=%{_libdir}/cmake/InsightToolkit
 %cmake \
 -DCMAKE_CXX_FLAGS:STRING="$CXXFLAGS ${flags[*]}"
-# no idea where -lGTest::GTest comes from. It doesn't seem to work.
-grep -r GTest::Main -l|xargs sed -r -i 's/GTest::Main/gtest_main/; s/GTest::GTest/gtest/'
 
 %cmake_build
 

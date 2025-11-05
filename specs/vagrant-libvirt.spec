@@ -4,7 +4,7 @@
 
 Name: %{vagrant_plugin_name}
 Version: 0.11.2
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: libvirt provider for Vagrant
 License: MIT
 URL: https://github.com/vagrant-libvirt/vagrant-libvirt
@@ -30,6 +30,9 @@ Patch2: vagrant-libvirt-pr1837-testsuite-support-rexml-332.patch
 # no longer supported by fog-libvirt
 # https://github.com/vagrant-libvirt/vagrant-libvirt/pull/1835
 Patch3: vagrant-libvirt-0.12.2-Remove-config-unsupported-by-fog-libvirt.patch
+# Fix compatibility with REXML 3.4.2+
+# https://github.com/vagrant-libvirt/vagrant-libvirt/pull/1861
+Patch4: vagrant-libvirt-0.12.2-Fix-REXML-3-4-2-compatibility.patch
 
 # Enable QEMU Session by default
 # https://github.com/vagrant-libvirt/vagrant-libvirt/pull/969
@@ -80,6 +83,7 @@ Documentation for %{name}.
 %patch 1 -p1
 %patch 2 -p1
 %patch 3 -p1
+%patch 4 -p1
 %patch 100 -p1
 
 %build
@@ -149,6 +153,9 @@ popd
 %{vagrant_plugin_instdir}/spec
 
 %changelog
+* Mon Nov 03 2025 Vít Ondruch <vondruch@redhat.com> - 0.11.2-8
+- Fix compatibility with REXML 3.4.2+
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

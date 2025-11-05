@@ -1842,10 +1842,10 @@ fi
 %endif
 
 %changelog
-* Mon Oct 27 2025 Lukas Javorsky <ljavorsk@redhat.com> - 3:11.8.3-5
+* Wed Oct 29 2025 Lukas Javorsky <ljavorsk@redhat.com> - 3:11.8.3-5
 - Revert to soft static allocation of MariaDB and MySQL sysusers.d files
 
-* Thu Oct 29 2025 Nikola Davidova <ndavidov@redhat.com> - 3:11.8.3-4
+* Wed Oct 29 2025 Nikola Davidova <ndavidov@redhat.com> - 3:11.8.3-4
 - Bump release for tmpfiles.d change
 
 * Tue Sep 30 2025 Petr Khartskhaev <pkhartsk@redhat.com> - 3:11.8.3-3

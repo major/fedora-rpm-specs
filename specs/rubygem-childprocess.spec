@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 4.1.0
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: A gem for controlling external programs running in the background
 License: MIT
 URL: http://github.com/enkessler/childprocess
@@ -13,6 +13,7 @@ Patch0: rubygem-childprocess-4.1.0-Make-validates-cleanly-spec-compatible-with-R
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: rubygem(ffi)
+BuildRequires: rubygem(logger)
 BuildRequires: rubygem(rspec) >= 3
 BuildArch: noarch
 # posix_spaw is not implemented everywhere, use just Intel for build.
@@ -34,6 +35,9 @@ Documentation for %{name}.
 %prep
 %setup -q -n %{gem_name}-%{version}
 %patch 0 -p1
+
+# ref: https://github.com/enkessler/childprocess/pull/199/
+%gemspec_add_dep -g logger
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -86,6 +90,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Mon Nov 03 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.0-12
+- Add explicit logger dep for ruby3_5
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -14,8 +14,8 @@ print(string.sub(hash, 0, 16))
 }
 
 Name: libgcrypt
-Version: 1.11.1
-Release: 2%{?dist}
+Version: 1.11.2
+Release: 1%{?dist}
 URL: https://www.gnupg.org/
 Source0: https://www.gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-%{version}.tar.bz2
 Source1: https://www.gnupg.org/ftp/gcrypt/libgcrypt/libgcrypt-%{version}.tar.bz2.sig
@@ -174,6 +174,9 @@ mkdir -p -m 755 $RPM_BUILD_ROOT/etc/gcrypt
 %license COPYING
 
 %changelog
+* Mon Nov 03 2025 Jakub Jelen <jjelen@redhat.com> - 1.11.2-1
+- New upstream release (#2406804)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -10,7 +10,7 @@
 
 # https://github.com/lxc/incus
 %global goipath github.com/lxc/incus
-Version:        6.15
+Version:        6.18
 
 %gometa
 
@@ -18,7 +18,7 @@ Version:        6.15
 %global golicenses COPYING
 
 Name:           incus
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Powerful system container and virtual machine manager
 License:        Apache-2.0
 URL:            https://linuxcontainers.org/incus
@@ -456,6 +456,9 @@ export CGO_LDFLAGS_ALLOW="(-Wl,-wrap,pthread_create)|(-Wl,-z,now)"
 %endif
 
 %changelog
+* Mon Nov 03 2025 Robby Callicotte <rcallicotte@fedoraproject.org> - 6.18-1
+- Updated to incus-6.18
+
 * Fri Oct 10 2025 Alejandro Sáez <asm@redhat.com> - 6.15-3
 - rebuild
 

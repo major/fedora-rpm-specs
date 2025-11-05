@@ -4,7 +4,7 @@
 %bcond moto 0
 
 Name:           python-smart_open
-Version:        7.4.2
+Version:        7.4.3
 Release:        %autorelease
 Summary:        Utils for streaming large files (S3, HDFS, gzip, bz2, and more)
 

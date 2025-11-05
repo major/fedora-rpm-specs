@@ -1,10 +1,9 @@
 # Created by pyp2rpm-3.2.2
 %global pypi_name cheroot
-# sphinx-tabs not available in fedora for docs build
-%bcond_with docs
+%bcond_without docs
 
 Name:           python-%{pypi_name}
-Version:        11.0.0
+Version:        11.1.0
 Release:        %autorelease
 Summary:        Highly-optimized, pure-python HTTP server
 
@@ -55,6 +54,8 @@ Summary:        cheroot documentation
 
 BuildRequires:  python3dist(sphinx)
 BuildRequires:  python3-sphinx-theme-alabaster
+BuildRequires:  python3-sphinx-tabs
+BuildRequires:  python3-sphinxcontrib-apidoc
 BuildRequires:  python3dist(rst-linker)
 BuildRequires:  python3dist(jaraco-packaging)
 BuildRequires:  python3dist(docutils)
@@ -74,6 +75,16 @@ sed -i -e '/pytest_cov/d' -e /--cov/d -e '/--no-cov-on-fail/d' pytest.ini
 sed -i '/setuptools_scm_git_archive/d' setup.cfg
 # RHEL 9 has setuptools_scm 6
 sed -i 's/setuptools_scm >= 7.0.0/setuptools_scm >= 6.0.0/' setup.cfg
+
+# Remove development bin directory with ambiguous shebang
+rm -rf bin/
+
+# Remove optional/problematic sphinx extensions
+sed -i "/sphinxcontrib.towncrier.ext/d" docs/conf.py
+sed -i "/spelling_stub_ext/d" docs/conf.py
+sed -i "/jaraco.packaging.sphinx/d" docs/conf.py
+# Use alabaster theme instead of furo (not packaged)
+sed -i "s/html_theme = 'furo'/html_theme = 'alabaster'/" docs/conf.py
 
 # doctor a few tests because of unpackaged deps in fedora
 # pypytools
@@ -97,6 +108,8 @@ rm -rf html/.{doctrees,buildinfo}
 %install
 %pyproject_install
 %pyproject_save_files %{pypi_name}
+# Remove docs source that shouldn't be in site-packages
+rm -rf %{buildroot}%{python3_sitelib}/docs/
 
 %check
 LANG=C.utf-8 %{__python3} -m pytest --ignore=build -W ignore::DeprecationWarning -p no:unraisableexception

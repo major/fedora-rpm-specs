@@ -33,8 +33,8 @@
 %endif
 
 %global upstreamname hipRAND
-%global rocm_release 7.0
-%global rocm_patch 1
+%global rocm_release 7.1
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -75,7 +75,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 %endif
 Summary:        HIP random number generator
 License:        MIT AND BSD-3-Clause
@@ -189,7 +189,7 @@ cd projects/hiprand
 %endif
 %cmake_install
 
-rm -f %{buildroot}%{_prefix}/share/doc/hiprand/LICENSE.txt
+rm -f %{buildroot}%{_prefix}/share/doc/hiprand/LICENSE.md
 rm -f %{buildroot}%{_prefix}/bin/hipRAND/CTestTestfile.cmake
 
 %check
@@ -206,10 +206,10 @@ export LD_LIBRARY_PATH=$PWD/build/library:$LD_LIBRARY_PATH
 %files
 %if %{with gitcommit}
 %doc projects/hiprand/README.md
-%license projects/hiprand/LICENSE.txt
+%license projects/hiprand/LICENSE.md
 %else
 %doc README.md
-%license LICENSE.txt
+%license LICENSE.md
 %endif
 %{_libdir}/libhiprand.so.1{,.*}
 
@@ -226,6 +226,9 @@ export LD_LIBRARY_PATH=$PWD/build/library:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Fri Oct 31 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
+- Update to 7.1.0
+
 * Mon Oct 20 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-2
 - Turn on -test for fedora
 

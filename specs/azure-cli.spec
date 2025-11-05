@@ -9,7 +9,7 @@
 
 %global         srcname     azure-cli
 %global         forgeurl    https://github.com/Azure/azure-cli
-Version:        2.74.0
+Version:        2.78.0
 %global         tag         %{srcname}-%{version}
 %global         distprefix  %{nil}
 %forgemeta
@@ -114,6 +114,10 @@ sed -i 's/azure-mgmt-hdinsight==9.0.0b3/azure-mgmt-hdinsight>=9,<10/' src/azure-
 
 sed -i 's/azure-monitor-query==1.2.0/azure-monitor-query>=1.2,<2/' src/azure-cli/setup.py
 sed -i 's/azure-monitor-query==1.2.0/azure-monitor-query>=1.2,<2/' src/azure-cli/requirements.py3.Linux.txt
+
+# Upstream broke themselves somehow since the pinned version conflicts with other packages
+sed -i 's/azure-mgmt-resource==23.3/azure-mgmt-resource>=24.0/' src/azure-cli/setup.py
+sed -i 's/azure-mgmt-resource==23.3/azure-mgmt-resource>=24.0/' src/azure-cli/requirements.py3.Linux.txt
 
 # Rawhide has 1.7.1 at the moment
 sed -i 's/azure-appconfiguration==1.7/azure-appconfiguration>=1.7,<2/' src/azure-cli/setup.py

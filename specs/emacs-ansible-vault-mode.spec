@@ -1,19 +1,18 @@
 %global pkg ansible-vault-mode
 
 Name:           emacs-%{pkg}
-Version:        0.5.3
-Release:        2%{?dist}
+Version:        0.6.1
+Release:        1%{?dist}
 Summary:        Minor mode for in place manipulation of ansible-vault
 
-# Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
-URL:            https://github.com/zellio/%{pkg}/
+URL:            https://github.com/freehck/%{pkg}
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        %{pkg}-init.el
 
-BuildRequires:  emacs
+BuildRequires:  emacs-nw
 Requires:       ansible-core
-Requires:       emacs(bin) >= %{_emacs_version}
+Requires:       emacs(bin)%{?_emacs_version: >= %{_emacs_version}}
 BuildArch:      noarch
 
 %description
@@ -43,6 +42,9 @@ install -Dpm 0644 %{SOURCE1} $RPM_BUILD_ROOT%{_emacs_sitestartdir}/%{pkg}-init.e
 
 
 %changelog
+* Mon Nov 03 2025 Mohamed El Morabity <melmorabity@fedoraproject.org> - 0.6.1-1
+- Update to 0.6.1
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

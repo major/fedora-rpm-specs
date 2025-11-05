@@ -10,7 +10,7 @@
 
 Name:           python-sphinx-theme-builder
 Version:        0.2.0
-Release:        0.26.%{prerel}%{?dist}
+Release:        0.27.%{prerel}%{?dist}
 Summary:        Streamline the Sphinx theme development workflow
 
 # Most of the code is MIT.  However,
@@ -56,7 +56,7 @@ sed -e 's|\("https://docs\.python\.org/3", \)None|\1"%{_docdir}/python3-docs/htm
 
 %generate_buildrequires -p
 # Skip test packages not available in Fedora
-sed -i '/pytest-clarity/d;/pytest-pspec/d' tests/requirements.txt
+sed -i '/pytest-/d' tests/requirements.txt
 
 %install -a
 %if %{without bootstrap}
@@ -81,6 +81,9 @@ rm %{buildroot}%{_bindir}/stb
 %doc README.md
 
 %changelog
+* Mon Nov 03 2025 Jerry James  <loganjerry@gmail.com> - 0.2.0-0.27.b2
+- Drop dependency on pytest-cov
+
 * Fri Oct 31 2025 Jerry James <loganjerry@gmail.com> - 0.2.0-0.26.b2
 - Use the pyproject declarative buildsystem
 

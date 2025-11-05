@@ -1,4 +1,4 @@
-%global baserelease 22
+%global baserelease 1
 
 #%%global commit 1e7ef9e7e6952f5d29ef0f5c25fd062798de55f3
 #%%global shortcommit %(c=%{commit}; echo ${c:0:7})
@@ -7,7 +7,7 @@
 %global imaplib2_shortcommit %(c=%{imaplib2_commit}; echo ${c:0:7})
 
 Name:           offlineimap
-Version:        8.0.0
+Version:        8.0.1
 Release:        %{baserelease}%{?dist}
 Summary:        Powerful IMAP/Maildir synchronization and reader support
 
@@ -20,12 +20,10 @@ Source0:        https://github.com/OfflineIMAP/offlineimap3/archive/refs/tags/v%
 Source3:        https://github.com/jazzband/imaplib2/archive/%{imaplib2_commit}/imaplib2-%{imaplib2_shortcommit}.tar.gz
 
 
-Patch0:         bundled_imaplib2.patch
-Patch1:         disable_rfc6555.patch
-Patch2:         https://github.com/OfflineIMAP/offlineimap3/pull/137.diff
-Patch3:         https://github.com/OfflineIMAP/offlineimap3/pull/120.diff
-Patch4:         https://github.com/OfflineIMAP/offlineimap3/pull/161.diff
-Patch5:         doc.patch
+Patch0:         0001-PATCH-Vendor-imaplib2.patch
+Patch1:         0002-PATCH-no-eyeballs.patch
+Patch3:         0003-PATCH-Sphinx-doc-compat.patch
+Patch4:         0004-PATCH-Loosen-urllib3-requirements.patch
 
 # Patches for imaplib2, keep the numbers above 200
 Patch201:       https://github.com/jazzband/imaplib2/pull/4.patch
@@ -109,6 +107,9 @@ install -p docs/offlineimapui.7.gz %{buildroot}/%{_mandir}/man7/
 %{_mandir}/man7/%{name}ui.7*
 
 %changelog
+* Wed Oct 29 2025 Serge Guelton <sergesanspaille@free.fr> - 8.0.1-1
+- Upstream release
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 8.0.0-22
 - Rebuilt for Python 3.14.0rc3 bytecode
 

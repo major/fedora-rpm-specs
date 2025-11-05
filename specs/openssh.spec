@@ -43,7 +43,7 @@
 Summary: An open source implementation of SSH protocol version 2
 Name: openssh
 Version: %{openssh_ver}
-Release: 7%{?dist}
+Release: 8%{?dist}
 URL: http://www.openssh.com/portable.html
 Source0: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz
 Source1: ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-%{version}.tar.gz.asc
@@ -182,6 +182,7 @@ Patch0051: 0051-Provide-better-error-for-non-supported-private-keys.patch
 Patch0052: 0052-Ignore-bad-hostkeys-in-known_hosts-file.patch
 # https://github.com/openssh/openssh-portable/pull/500
 Patch0053: 0053-support-authentication-indicators-in-GSSAPI.patch
+Patch0054: 0054-openssh-10.0-mlkem-nist.patch
 
 #https://bugzilla.mindrot.org/show_bug.cgi?id=2581
 Patch1000: 1000-openssh-coverity.patch
@@ -586,6 +587,9 @@ test -f %{sysconfig_anaconda} && \
 %attr(0755,root,root) %{_libdir}/sshtest/sk-dummy.so
 
 %changelog
+* Mon Nov 03 2025 Dmitry Belyavskiy <dbelyavs@redhat.com> - 10.0p1-8
+- Implement mlkem768nistp256-sha256 and mlkem1024nistp384-sha384 KEX methods
+
 * Mon Sep 15 2025 Dmitry Belyavskiy <dbelyavs@redhat.com> - 10.0p1-7
 - rebuilt
 

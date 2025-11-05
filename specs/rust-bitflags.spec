@@ -5,7 +5,7 @@
 %global crate bitflags
 
 Name:           rust-bitflags
-Version:        2.9.4
+Version:        2.10.0
 Release:        %autorelease
 Summary:        Macro to generate structures which behave like bitflags
 
@@ -98,6 +98,18 @@ This package contains library source intended for building other packages which
 use the "serde" feature of the "%{crate}" crate.
 
 %files       -n %{name}+serde-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+serde_core-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+serde_core-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "serde_core" feature of the "%{crate}" crate.
+
+%files       -n %{name}+serde_core-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+std-devel

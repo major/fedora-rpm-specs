@@ -6,7 +6,7 @@
 %global forgeurl https://github.com/datalad/datalad
 
 Name:           python-datalad
-Version:        1.2.0
+Version:        1.2.3
 %global tag     %{version}
 %forgemeta
 Release:        %autorelease

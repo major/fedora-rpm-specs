@@ -1,7 +1,7 @@
 %global srcname mapnik
 
-%global commitdate 20240614
-%global commit 248003c9da0de1ec7996cebd007c982f9875f2a3
+%global commitdate 20250925
+%global commit 4b51d57911dc6a1a9f35c62c681fbdeb56fc69d4
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %global testcommit 41c4ceeb0be4e5e699cdd50bd808054a826c922b
@@ -10,7 +10,7 @@
 %global mapnik_version 4.0.0
 
 Name:           python-%{srcname}
-Version:        3.0.23^%{commitdate}git%{shortcommit}
+Version:        4.1.3~%{commitdate}git%{shortcommit}
 Release:        %autorelease
 Summary:        Python bindings for Mapnik
 
@@ -27,8 +27,8 @@ Patch:          python-mapnik-precision.patch
 Patch:          python-mapnik-pkgconfig.patch
 # Fix for mapnik 4.0.0 compatiblity
 Patch:          python-mapnik-mapnik4.patch
-# Update test results for https://github.com/mapnik/mapnik/pull/4468
-Patch:          python-mapnik-split-bbox.patch
+# Adjust required versions to match Fedora versions
+Patch:          python-mapnik-pyproject.patch
 
 # Exclude big endian architectures as mapnik does not support them
 # https://github.com/mapnik/mapnik/issues/2313
