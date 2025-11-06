@@ -1,16 +1,13 @@
 # Upstream has marked all of their tests as skipped.
 %bcond_with     tests
 
-%global         srcname         azure-mgmt-containerservice
-%global         tarball_name    azure_mgmt_containerservice
-
-Name:           python-%{srcname}
-Version:        39.1.0
+Name:           python-azure-mgmt-containerservice
+Version:        40.0.0
 Release:        %autorelease
 Summary:        Microsoft Azure Container Service Management Client Library for Python
 License:        MIT
-URL:            https://pypi.org/project/%{srcname}/
-Source0:        %{pypi_source %{tarball_name} %{version}}
+URL:            https://pypi.org/project/azure-mgmt-containerservice/
+Source:         %{pypi_source azure_mgmt_containerservice %{version}}
 
 BuildArch:      noarch
 
@@ -35,13 +32,13 @@ Microsoft Azure Container Service Management Client Library for Python}
 %description %{_description}
 
 
-%package -n python3-%{srcname}
+%package -n python3-azure-mgmt-containerservice
 Summary:        %{summary}
-%description -n python3-%{srcname} %{_description}
+%description -n python3-azure-mgmt-containerservice %{_description}
 
 
 %prep
-%autosetup -n %{tarball_name}-%{version}
+%autosetup -n azure_mgmt_containerservice-%{version}
 
 
 %generate_buildrequires
@@ -54,7 +51,7 @@ Summary:        %{summary}
 
 %install
 %pyproject_install
-%pyproject_save_files azure
+%pyproject_save_files -l azure
 
 
 %check
@@ -65,7 +62,7 @@ Summary:        %{summary}
 %endif
 
 
-%files -n python3-%{srcname} -f %{pyproject_files}
+%files -n python3-azure-mgmt-containerservice -f %{pyproject_files}
 %doc README.md
 
 

@@ -29,8 +29,8 @@
 
 Name:           freerdp
 Epoch:          2
-Version:        3.16.0
-Release:        4%{?dist}
+Version:        3.17.2
+Release:        3%{?dist}
 Summary:        Free implementation of the Remote Desktop Protocol (RDP)
 
 # The effective license is Apache-2.0 but:
@@ -47,8 +47,15 @@ URL:            http://www.freerdp.com/
 Source0:        FreeRDP-%{version}-repack.tar.gz
 Source1:        freerdp_download_and_repack.sh
 
-# Fix s390x builds
-Patch0:         https://github.com/FreeRDP/FreeRDP/commit/efbc9f7cbc887825dbd409ac1b3fa5f6003ad303.patch
+# Fix aarch64, ppc64le, s390x builds
+# https://github.com/FreeRDP/FreeRDP/issues/11874
+Patch:          11877.patch
+Patch:          11878.patch
+Patch:          11880.patch
+
+# Fix cmake/pkg-config requires fields
+# https://github.com/FreeRDP/FreeRDP/pull/11876
+Patch:          11876.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -376,6 +383,15 @@ find %{buildroot} -name "*.a" -delete
 %{_libdir}/pkgconfig/winpr-tools3.pc
 
 %changelog
+* Tue Nov  4 2025 Tom Callaway <spot@fedoraproject.org> - 2:3.17.2-3
+- apply upstream commit to properly set requires fields in cmake/pkgconfig files
+
+* Tue Nov  4 2025 Tom Callaway <spot@fedoraproject.org> - 2:3.17.2-2
+- rebuild for new fuse3
+
+* Mon Nov 03 2025 Ondrej Holy <oholy@redhat.com> - 2:3.17.2-1
+- Update to 3.17.2 (#2390289)
+
 * Wed Aug 06 2025 František Zatloukal <fzatlouk@redhat.com> - 2:3.16.0-4
 - Rebuilt for icu 77.1
 

@@ -2,16 +2,17 @@
 
 Name:           ktikz
 Version:        0.13.2
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        KDE Editor for the TikZ language
 
 # ktikz/qtikz are GPLv2+, documentation is GFDL
-# Automatically converted from old format: GPLv2+ and GFDL - review is highly recommended.
-License:        GPL-2.0-or-later AND LicenseRef-Callaway-GFDL
-URL:            https://github.com/fhackenberger/%{name}/
+License:        GPL-2.0-or-later AND GFDL-1.2-or-later
+URL:            https://github.com/fhackenberger/%{name}
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 # Use xdg-open instead of kwrite as defaut editor in qtikz
 Patch0:         %{name}-0.12-default_editor.patch
+# Fix build with CMake 4.0
+Patch1:         %{name}-0.13.2-cmake_4.0.patch
 
 BuildRequires:  cmake
 BuildRequires:  cmake(KF5DocTools)
@@ -29,12 +30,12 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  extra-cmake-modules
 BuildRequires:  gcc-c++
 BuildRequires:  gettext
-BuildRequires:  kf5-kdelibs4support
+BuildRequires:  kf5-rpm-macros
 BuildRequires:  libappstream-glib
-BuildRequires:  pkgconfig(poppler)
+BuildRequires:  make
 BuildRequires:  pkgconfig(poppler-qt5)
+BuildRequires:  pkgconfig(poppler)
 BuildRequires:  qt5-qttools-devel
-BuildRequires: make
 # Required to display help
 Requires:       khelpcenter
 # pdftops required by ktikz
@@ -118,6 +119,7 @@ rm -r $RPM_BUILD_ROOT%{_datadir}/%{name}/locale/
 %find_lang %{name} --with-kde --with-html
 %find_lang qtikz --with-qt
 
+
 # Install AppData files
 install -Dpm 0644 data/%{name}.appdata.xml $RPM_BUILD_ROOT%{_datadir}/metainfo/%{name}.appdata.xml
 # Since no AppData file is provided for qtikz, create one from the ktikz one
@@ -169,12 +171,19 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/qtikz.
 %{_datadir}/applications/qtikz.desktop
 %{_datadir}/icons/hicolor/*/apps/qtikz.*
 %{_datadir}/mime/packages/qtikz.xml
-%{_datadir}/qtikz/
+%dir %{_datadir}/qtikz/
+%{_datadir}/qtikz/*.png
+%{_datadir}/qtikz/documentation/
+%dir %{_datadir}/qtikz/locale/
+%{_datadir}/qtikz/templates/
 %{_datadir}/metainfo/qtikz.appdata.xml
 %{_mandir}/man1/qtikz.1.*
 
 
 %changelog
+* Tue Nov 04 2025 Mohamed El Morabity <melmorabity@fedoraproject.org> - 0.13.2-13
+- Fix build with CMake 4.0 (RHBZ #2380693)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

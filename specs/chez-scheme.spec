@@ -5,7 +5,9 @@
 
 Name:           chez-scheme
 Summary:        Scheme incremental optimizing compiler
-Version:        10.2.0
+# need to rebuild dependents when bumping version: idris2 schemesh
+# (`fedora-repoquery --koji rawhide --whatrequires chez-scheme`)
+Version:        10.3.0
 Release:        %autorelease
 URL:            https://cisco.github.io/ChezScheme
 # zlib and lz4 source are removed in prep
@@ -18,6 +20,9 @@ Source0:        https://github.com/cisco/ChezScheme/releases/download/v%{version
 
 BuildRequires:  gcc
 BuildRequires:  libX11-devel
+%ifarch ppc64le s390x
+BuildRequires:  libffi-devel
+%endif
 BuildRequires:  lz4-devel
 BuildRequires:  make
 BuildRequires:  ncurses-devel
@@ -95,14 +100,15 @@ rm -r lz4 zlib
 %build
 case %{_arch} in
      x86_64) MACHINE=-m=ta6le ;;
-     i686) MACHINE=-m=ti3le ;;
+     i386) MACHINE=-m=ti3le ;;
      aarch64) MACHINE=-m=tarm64le ;;
      riscv64) MACHINE=-m=trv64le ;;
-     *) MACHINE=--pb ;;
+     ppc64le) MACHINE="-m=tpb64l --enable-libffi" ;;
+     s390x) MACHINE="-m=tpb64b --enable-libffi" ;;
 esac
 
 ./configure --installbin=%{_bindir} --installlib=%{_libdir} --installman=%{_mandir} --temproot=%{buildroot} --threads $MACHINE ZLIB=-lz LZ4=-llz4
-make
+make ZUO_JOBS=$RPM_BUILD_NCPUS
 
 %install
 %make_install
@@ -110,6 +116,13 @@ make
 chmod u+w %{buildroot}%{_libdir}/csv%{version}/*/{main.o,petite,scheme,scheme-script,lib*.a}
 
 rm -rf %{buildroot}%{_libdir}/csv%{version}/examples
+
+
+# https://github.com/cisco/ChezScheme/issues/956
+%ifnarch ppc64le s390x
+%check
+make ZUO_JOBS=$RPM_BUILD_NCPUS test-some-fast
+%endif
 
 
 %files

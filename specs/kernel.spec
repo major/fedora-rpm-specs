@@ -176,13 +176,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.18.0
 %define specversion 6.18.0
 %define patchversion 6.18
-%define pkgrelease 0.rc4.37
+%define pkgrelease 0.rc4.251104gc9cfc122f0371.38
 %define kversion 6
-%define tarfile_release 6.18-rc4
+%define tarfile_release 6.18-rc4-7-gc9cfc122f0371
 # This is needed to do merge window version magic
 %define patchlevel 18
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc4.37%{?buildid}%{?dist}
+%define specrelease 0.rc4.251104gc9cfc122f0371.38%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.18.0
 
@@ -4500,13 +4500,19 @@ fi\
 #
 #
 %changelog
-* Mon Nov 03 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.18.0-0.rc4.37]
+* Tue Nov 04 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.18.0-0.rc4.251104gc9cfc122f0371.38]
+- Linux v6.18.0-0.rc4.251104gc9cfc122f0371
+
+* Tue Nov 04 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc4.c9cfc122f037.38]
 - rust: kbuild: workaround `rustdoc` doctests modifier bug (Miguel Ojeda)
 - rust: kbuild: treat `build_error` and `rustdoc` as kernel objects (Miguel Ojeda)
-
-* Mon Nov 03 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc4.37]
 - powerpc/tools: drop `-o pipefail` in gcc check scripts (Jan Stancek)
 - redhat/configs: clang_lto: disable CONFIG_FORTIFY_KUNIT_TEST (Scott Weaver)
+
+* Tue Nov 04 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc4.c9cfc122f037.37]
+- redhat: configs: rhel: Enable OV08X40 sensor to support Intel MIPI camera (Kate Hsuan)
+- redhat: configs: rhel: Enable usbio-drivers to supower Intel MIPI camera (Kate Hsuan)
+- Linux v6.18.0-0.rc4.c9cfc122f037
 
 * Mon Nov 03 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc4.36]
 - redhat: configs: Enable DWC3 Generic Platform Driver on RHEL automotive (Desnes Nunes) [RHEL-119326]

@@ -24,7 +24,6 @@ Source0:        %{nanobind_giturl}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  clang
 BuildRequires:  cmake
 BuildRequires:  eigen3-devel
-BuildRequires:  librsvg2
 BuildRequires:  ninja-build
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-pytest

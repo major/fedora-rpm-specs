@@ -1,12 +1,12 @@
 Name:           bindfs
-Version:        1.17.7
+Version:        1.18.3
 Release:        %autorelease
 Summary:        Fuse filesystem to mirror a directory
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            http://bindfs.org/
-Source0:        http://bindfs.org/downloads//bindfs-%{version}.tar.gz
-BuildRequires:  fuse-devel
+Source0:        http://bindfs.org/downloads/bindfs-%{version}.tar.gz
+BuildRequires:  fuse3-devel
 BuildRequires:  gcc
 BuildRequires:  make
 # for test suite
@@ -16,9 +16,9 @@ BuildRequires:  ruby >= 3.0.0
 BuildRequires:  valgrind
 %if 0%{?fedora}
 # Needed to mount bindfs via fstab
-Recommends:     fuse
+Recommends:     fuse3
 %else
-Requires:     fuse
+Requires:       fuse3
 %endif
 
 %description

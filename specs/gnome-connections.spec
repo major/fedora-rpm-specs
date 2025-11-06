@@ -7,7 +7,7 @@
 
 Name:           gnome-connections
 Version:        49.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A remote desktop client for the GNOME desktop environment
 
 License:        GPL-3.0-or-later AND CC-BY-SA-3.0 AND CC0-1.0
@@ -22,6 +22,7 @@ BuildRequires:  meson
 BuildRequires:  vala
 BuildRequires:  yelp-tools
 BuildRequires:  pkgconfig(freerdp3)
+BuildRequires:  pkgconfig(winpr3)
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:  pkgconfig(gtk-vnc-2.0)
@@ -86,6 +87,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Connections
 %{_datadir}/mime/packages/org.gnome.Connections.xml
 
 %changelog
+* Tue Nov  4 2025 Tom Callaway <spot@fedoraproject.org> - 49.0-2
+- rebuild for new fuse3
+
 * Mon Sep 15 2025 Felipe Borges <felipeborges@gnome.org> - 49.0-1
 - Update to 49.0
 

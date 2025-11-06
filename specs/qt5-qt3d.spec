@@ -4,8 +4,8 @@
 
 Summary: Qt5 - Qt3D QML bindings and C++ APIs
 Name:    qt5-%{qt_module}
-Version: 5.15.17
-Release: 3%{?dist}
+Version: 5.15.18
+Release: 1%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 # See also http://doc.qt.io/qt-5/licensing.html
@@ -179,6 +179,9 @@ popd
 
 
 %changelog
+* Tue Nov 04 2025 Jan Grulich <jgrulich@redhat.com> - 5.15.18-1
+- 5.15.18
+
 * Mon Aug 18 2025 Sandro Mani <manisandro@gmail.com> - 5.15.17-3
 - Rebuild (assimp)
 

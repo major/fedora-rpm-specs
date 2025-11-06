@@ -1,5 +1,5 @@
 Name:           ulauncher
-Version:        5.15.7
+Version:        5.15.15
 Release:        %{autorelease}
 Summary:        Linux Application Launcher
 BuildArch:      noarch
@@ -7,8 +7,6 @@ BuildArch:      noarch
 License:        GPL-3.0-or-later
 URL:            https://github.com/Ulauncher/Ulauncher
 Source0:        %{url}/releases/download/%{version}/%{name}_%{version}.tar.gz
-# https://bugzilla.redhat.com/show_bug.cgi?id=2293346
-Patch:          https://github.com/Ulauncher/Ulauncher/commit/08b52d2.patch#/support-gir1.2-webkit2-4.1.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  intltool
@@ -16,6 +14,8 @@ BuildRequires:  keybinder3-devel
 BuildRequires:  python3-dbus
 BuildRequires:  python3-devel >= 3.6
 BuildRequires:  python3-distutils-extra
+# Need to call out setuptools since distutils-extra uses it, but doesn't list it as a requirement
+BuildRequires:  python3-setuptools
 BuildRequires:  python3-gobject-devel >= 3.30
 BuildRequires:  python3-inotify
 BuildRequires:  python3-Levenshtein

@@ -1,6 +1,6 @@
 Name:          jackson-parent
 Version:       2.18.1
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       Parent pom for all Jackson components
 License:       Apache-2.0
 
@@ -10,7 +10,12 @@ Source0:       %{url}/archive/%{name}-%{version}.tar.gz
 # reported @ https://github.com/FasterXML/jackson-parent/issues/1
 Source1:       http://www.apache.org/licenses/LICENSE-2.0.txt
 
+%if 0%{?rhel} || 0%{?fedora} && 0%{?fedora} <= 42
+BuildRequires:  maven-local
+%else
 BuildRequires:  maven-local-openjdk25
+%endif
+
 BuildRequires:  mvn(com.fasterxml:oss-parent:pom:)
 
 BuildArch:      noarch
@@ -38,6 +43,9 @@ sed -i 's/\r//' LICENSE
 %license LICENSE
 
 %changelog
+* Mon Nov 3 2025 Dogtag PKI Team <devel@lists.dogtagpki.org> - 2.18.1-5
+- Restore support for RHEL and older Fedora
+
 * Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 2.18.1-4
 - Rebuilt for java-25-openjdk as preffered jdk
 

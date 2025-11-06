@@ -1,5 +1,5 @@
 %global	urlver		3.6
-%global	mainver		3.6.0
+%global	mainver		3.6.1
 
 %global	core_least_ver	3.6.0
 
@@ -419,6 +419,9 @@ popd
 %{_datadir}/cairo-dock/plug-ins/Dbus/CDApplet.h
 
 %changelog
+* Tue Nov 04 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.6.1-1
+- 3.6.1
+
 * Wed Oct 01 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.6.0-1
 - 3.6.0
 

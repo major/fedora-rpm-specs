@@ -2,7 +2,7 @@
 
 Name: tuna
 Version: 0.20
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-only AND LGPL-2.1-only
 Summary: Application tuning GUI & command line utility
 Source: https://www.kernel.org/pub/software/utils/%{name}/%{name}-%{version}.tar.xz
@@ -10,6 +10,9 @@ URL: https://rt.wiki.kernel.org/index.php/Tuna
 BuildArch: noarch
 BuildRequires: python3-devel, gettext
 BuildRequires: pyproject-rpm-macros
+BuildRequires: python3-pip
+BuildRequires: python3-setuptools
+BuildRequires: python3-wheel
 Requires: python3-linux-procfs >= 0.6
 # This really should be a Suggests...
 # Requires: python-inet_diag
@@ -45,6 +48,12 @@ priority is changed, be it using tuna or plain chrt & taskset.
 
 %prep
 %autosetup -v -p1
+# Delete setup.py so pyproject.toml build doesn't use it
+rm -f setup.py
+# Prepare tuna script for installation (save to a separate location to avoid directory conflict)
+cp -p tuna-cmd.py %{_builddir}/tuna-script
+# Compress man page
+gzip -c docs/tuna.8 > %{_builddir}/tuna.8.gz
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -55,13 +64,16 @@ priority is changed, be it using tuna or plain chrt & taskset.
 %install
 %pyproject_install
 %pyproject_save_files tuna
+# Install the tuna script
+install -D -m 0755 %{_builddir}/tuna-script %{buildroot}%{_bindir}/tuna
+# Install the compressed man page
+install -D -m 0644 %{_builddir}/tuna.8.gz %{buildroot}%{_mandir}/man8/tuna.8.gz
 
 mkdir -p %{buildroot}/%{_sysconfdir}/tuna/
-mkdir -p %{buildroot}/{%{_datadir}/tuna/help/kthreads,%{_mandir}/man8}
+mkdir -p %{buildroot}/%{_datadir}/tuna/help/kthreads
 mkdir -p %{buildroot}/%{_datadir}/polkit-1/actions/
 install -p -m644 tuna/tuna_gui.glade %{buildroot}/%{_datadir}/tuna/
 install -p -m644 help/kthreads/* %{buildroot}/%{_datadir}/tuna/help/kthreads/
-install -p -m644 docs/tuna.8 %{buildroot}/%{_mandir}/man8/
 install -p -m644 etc/tuna/example.conf %{buildroot}/%{_sysconfdir}/tuna/
 install -p -m644 etc/tuna.conf %{buildroot}/%{_sysconfdir}/
 install -p -m644 org.tuna.policy %{buildroot}/%{_datadir}/polkit-1/actions/
@@ -79,7 +91,7 @@ done
 %doc ChangeLog
 %{_bindir}/tuna
 %{_datadir}/tuna/
-%{_mandir}/man8/tuna.8*
+%{_mandir}/man8/tuna.8.gz
 %{_sysconfdir}/tuna.conf
 %{_sysconfdir}/tuna/*
 %{_datadir}/polkit-1/actions/org.tuna.policy
@@ -92,6 +104,12 @@ done
 %endif
 
 %changelog
+* Tue Nov 04 2025 John Kacur <jkacur@redhat.com> - 0.20-2
+- Add python3-pip, python3-setuptools, python3-wheel BuildRequires
+- Delete setup.py in %%prep so pyproject.toml build is used
+- Compress man page during %%prep similar to rteval
+- Install tuna script and compressed man page explicitly
+
 * Mon Oct 27 2025 John Kacur <jkacur@redhat.com> - 0.20-1
 - Update to upstream version 0.20
 - Convert to pyproject-rpm-macros for modern Python packaging

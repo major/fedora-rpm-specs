@@ -13,13 +13,13 @@ Name:           jss
 # Downstream release number:
 # - development/stabilization (unsupported): 0.<n> where n >= 1
 # - GA/update (supported): <n> where n >= 1
-%global         release_number 0.6
+%global         release_number 1
 
 # Development phase:
 # - development (unsupported): alpha<n> where n >= 1
 # - stabilization (unsupported): beta<n> where n >= 1
 # - GA/update (supported): <none>
-%global         phase beta4
+#global         phase
 
 %if 0%{?rhel} && 0%{?rhel} >= 10
 %global enable_nss_version_pqc_def_flag -DENABLE_NSS_VERSION_PQC_DEF=ON
@@ -314,7 +314,7 @@ touch %{_vpath_builddir}/.targets/finished_generate_javadocs
     --lib-dir=%{_libdir} \
     --sysconf-dir=%{_sysconfdir} \
     --share-dir=%{_datadir} \
-    --cmake=%{__cmake} \
+    --cmake="%{__cmake} %{?enable_nss_version_pqc_def_flag}" \
     --java-home=%{java_home} \
     --jni-dir=%{_jnidir} \
     --version=%{version} \
@@ -397,6 +397,9 @@ cp base/target/jss-tests.jar %{buildroot}%{_datadir}/jss/tests/lib
 
 ################################################################################
 %changelog
+* Tue Nov 04 2025 Dogtag PKI Team <devel@lists.dogtagpki.org> 5.8.0-1
+- Rebase to JSS 5.8.0-1
+
 * Fri Aug 22 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 5.8.0-0.6.beta4
 - Build with Java 25 for ELN
 

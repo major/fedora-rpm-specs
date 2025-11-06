@@ -24,7 +24,7 @@
 Summary:        A multimedia engine
 Name:           xine-lib
 Version:        1.2.13
-Release:        26%{?snapshot:.%{date}hg%{revision}}%{?dist}
+Release:        27%{?snapshot:.%{date}hg%{revision}}%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://www.xine-project.org/
 %if ! 0%{?snapshot}
@@ -361,6 +361,9 @@ mkdir -p %{buildroot}%{codecdir}
 
 
 %changelog
+* Tue Nov 04 2025 Dominik Mierzejewski <dominik@greysector.net> - 1.2.13-27
+- Rebuilt for FFmpeg 8
+
 * Mon Sep 15 2025 Xavier Bachelot <xavier@bachelot.org>- 1.2.13-26
 - Add upstream patch for ffmpeg 8 compatibility
 

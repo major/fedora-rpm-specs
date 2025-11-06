@@ -1,15 +1,19 @@
 %global pypi_name XStatic-Bootstrap-SCSS
 
 Name:           python-%{pypi_name}
-Version:        3.3.7.1
-Release:        31%{?dist}
+Version:        3.4.1.0
+Release:        %autorelease
 Summary:        Bootstrap-SCSS (XStatic packaging standard)
 
 License:        MIT
-URL:            http://getbootstrap.org/
-Source0:        https://files.pythonhosted.org/packages/source/X/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
+URL:            https://getbootstrap.com/
+Source0:        %{pypi_source}
 Source1:        halflings-license.eml
+
 BuildArch:      noarch
+
+BuildRequires:  python3-devel
+BuildRequires:  pyproject-rpm-macros
 
 %description
 JavaScript library packaged for setuptools (easy_install) / pip.
@@ -19,16 +23,14 @@ This package is intended to be used by any project that needs these files.
 It intentionally does not provide any extra code except some metadata
 nor has any extra requirements.
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %package -n python3-%{pypi_name}
 Summary:        %{summary}
 
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-
 Requires:       python3-XStatic
 Requires:       xstatic-bootstrap-scss-common
-
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
 JavaScript library packaged for setuptools (easy_install) / pip.
@@ -65,10 +67,10 @@ sed -i "s|^BASE_DIR = .*|BASE_DIR = '%{_jsdir}/bootstrap_scss'|" xstatic/pkg/boo
 cp %{SOURCE1} .
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
 mkdir -p %{buildroot}%{_jsdir}/bootstrap_scss
 mv %{buildroot}%{python3_sitelib}/xstatic/pkg/bootstrap_scss/data/* %{buildroot}%{_jsdir}/bootstrap_scss
@@ -79,9 +81,9 @@ chmod 644 %{buildroot}%{_jsdir}/bootstrap_scss/js/bootstrap/*.js
 
 %files -n python3-%{pypi_name}
 %doc README.txt
-%{python3_sitelib}/xstatic/pkg/bootstrap_scss
-%{python3_sitelib}/XStatic_Bootstrap_SCSS-%{version}-py%{python3_version}.egg-info
+%{python3_sitelib}/xstatic/
 %{python3_sitelib}/XStatic_Bootstrap_SCSS-%{version}-py%{python3_version}-nspkg.pth
+%{python3_sitelib}/xstatic_bootstrap_scss-%{version}.dist-info/
 
 %files -n xstatic-bootstrap-scss-common
 %doc README.txt
@@ -89,6 +91,9 @@ chmod 644 %{buildroot}%{_jsdir}/bootstrap_scss/js/bootstrap/*.js
 %{_jsdir}/bootstrap_scss
 
 %changelog
+* Tue Nov 04 2025 Jiri Kyjovsky <j1.kyjovsky@gmail.com> - 3.4.1.0-1
+- Update to 3.4.1.0
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.3.7.1-31
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:    bluedevil
 Summary: Bluetooth stack for KDE
-Version: 6.5.1
+Version: 6.5.2
 Release: 1%{?dist}
 
 License: GPL-2.0-or-later
@@ -100,6 +100,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.bluedevil
 
 
 %changelog
+* Tue Nov 04 2025 Steve Cossette <farchord@gmail.com> - 6.5.2-1
+- 6.5.2
+
 * Tue Oct 28 2025 Steve Cossette <farchord@gmail.com> - 6.5.1-1
 - 6.5.1
 

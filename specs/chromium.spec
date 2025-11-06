@@ -1754,6 +1754,26 @@ fi
 %changelog
 * Thu Oct 30 2025 Than Ngo <than@redhat.com> - 142.0.7444.59-1
 - Update to 142.0.7444.59
+  * High CVE-2025-12428: Type Confusion in V8
+  * High CVE-2025-12429: Inappropriate implementation in V8
+  * High CVE-2025-12430: Object lifecycle issue in Media
+  * High CVE-2025-12431: Inappropriate implementation in Extensions
+  * High CVE-2025-12432: Race in V8
+  * High CVE-2025-12433: Inappropriate implementation in V8
+  * High CVE-2025-12036: Inappropriate implementation in V8
+  * Medium CVE-2025-12434: Race in Storage
+  * Medium CVE-2025-12435: Incorrect security UI in Omnibox
+  * Medium CVE-2025-12436: Policy bypass in Extensions
+  * Medium CVE-2025-12437: Use after free in PageInfo
+  * Medium CVE-2025-12438: Use after free in Ozone
+  * Medium CVE-2025-12439: Inappropriate implementation in App-Bound Encryption
+  * Low CVE-2025-12440: Inappropriate implementation in Autofill
+  * Medium CVE-2025-12441: Out of bounds read in V8
+  * Medium CVE-2025-12443: Out of bounds read in WebXR
+  * Low CVE-2025-12444: Incorrect security UI in Fullscreen UI
+  * Low CVE-2025-12445: Policy bypass in Extensions
+  * Low CVE-2025-12446: Incorrect security UI in SplitView
+  * Low CVE-2025-12447: Incorrect security UI in Omnibox
   * Refreshed ppc64le patches
   * Refreshed system-brotli patch
   * Refreshed clang++-unknown-argument patch

@@ -4,13 +4,19 @@
 %bcond reauth 0
 # Since grpc is a challenging package, it’s helpful to maintain the ability to
 # break this dependency.
-%bcond grpcio 1
 
+%if 0%{?rhel}
+%bcond grpcio 0
+%bcond tests 0
+%else
+%bcond grpcio 1
 %bcond tests 1
+%endif
+
 %bcond pytest_localserver %[ %{undefined el10} && %{undefined el9} ]
 
 Name:           python-google-auth
-Version:        2.41.1
+Version:        2.42.1
 Release:        2%{?dist}
 Epoch:          1
 Summary:        Google Authentication Library
@@ -201,6 +207,9 @@ k="${k-}${k+ and }not (TestAsyncAuthorizedSession and test_request_provided_auth
 
 
 %changelog
+* Thu Oct 30 2025 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 1:2.42.1-1
+- Update to 2.42.1 (#2406878)
+
 * Sun Oct 19 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 1:2.41.1-2
 - Migrate to pyproject-rpm-macros (fix RHBZ#2377753)
 - Add missing extras metapackages

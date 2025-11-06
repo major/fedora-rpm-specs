@@ -6,8 +6,8 @@
 %endif
 
 Name:           perl-PPI
-Version:        1.283
-Release:        2%{?dist}
+Version:        1.284
+Release:        1%{?dist}
 Summary:        Parse, Analyze and Manipulate Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/PPI
@@ -74,9 +74,6 @@ Parse, analyze and manipulate Perl (without perl).
 %prep
 %setup -q -n PPI-%{version}
 
-# Fix bogus exec permissions
-chmod -c -x Changes LICENSE README
-
 %if %{without XSAccessor}
 rm lib/PPI/XSAccessor.pm
 sed -i '/^lib\/PPI\/XSAccessor\.pm$/d' MANIFEST
@@ -101,6 +98,11 @@ make test
 %{_mandir}/man3/PPI*.3*
 
 %changelog
+* Tue Nov  4 2025 Paul Howarth <paul@city-fan.org> - 1.284-1
+- Update to 1.284
+  - Fix regex anchors in PPI::Statement::Compound->type (GH#316)
+  - Fix author tests: pod-no404s.t (GH#315)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.283-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

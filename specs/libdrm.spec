@@ -44,7 +44,7 @@ end}
 %bcond_without install_test_programs
 %bcond_without udev
 
-%global lib_version 127
+%global lib_version 128
 
 Name:           libdrm
 Summary:        Direct Rendering Manager runtime library
@@ -82,10 +82,6 @@ BuildRequires:  chrpath
 Patch1001:      libdrm-make-dri-perms-okay.patch
 # remove backwards compat not needed on Fedora
 Patch1002:      libdrm-2.4.0-no-bc.patch
-# use /proc/cpuinfo to identify AMD APU
-Patch1003:	amdgpu-apu.patch
-Patch1004:	amdgpu-slice.patch
-Patch1005:	amdgpu-fallback.patch
 
 %description
 Direct Rendering Manager runtime library

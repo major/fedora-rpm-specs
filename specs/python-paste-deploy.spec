@@ -4,6 +4,8 @@ files.  PasteScript provides commands to serve applications based on\
 this configuration file.
 %global sum Load, configure, and compose WSGI applications and servers
 %global srcname PasteDeploy
+# this has a circular dependency on python-paste and python-paste-script
+%bcond tests 1
 
 Name:           python-paste-deploy
 Version:        3.1.0
@@ -15,9 +17,11 @@ Source0:        %pypi_source
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+%if %{with tests}
 BuildRequires:  python3-pytest
 #BuildRequires:  python3-pytest-cov
 BuildRequires:  python3-paste-script
+%endif
 
 %description
 %{desc}
@@ -41,7 +45,7 @@ Requires:       python3-setuptools
 
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires
 
 
 %build
@@ -57,8 +61,10 @@ rm -rf %{buildroot}%{python3_sitelib}/test
 
 
 %check
-%pyproject_check_import
+%pyproject_check_import -e paste.deploy.paster_templates
+%if %{with tests}
 %pytest
+%endif
 
 
 %files -n python3-paste-deploy -f %{pyproject_files}

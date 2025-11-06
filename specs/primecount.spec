@@ -1,6 +1,6 @@
 Name:           primecount
-Version:        7.19
-Release:        3%{?dist}
+Version:        7.20
+Release:        1%{?dist}
 Summary:        Fast prime counting function implementation
 
 # BSD-2-Clause: the project as a whole
@@ -107,6 +107,19 @@ export CXXFLAGS='%{build_cxxflags} -DLIBDIVIDE_SSE2'
 %{_libdir}/pkgconfig/primecount.pc
 
 %changelog
+* Tue Nov 04 2025 Kim Walisch <walki@fedoraproject.org> - 7.20-1
+- pi_gourdon.cpp: Quickly verify pi(x) results
+- pi_deleglise_rivat.cpp: Quickly verify pi(x) results
+- pi_lmo_parallel.cpp: Quickly verify pi(x) results
+- CmdOptions.cpp: Add --double-check option
+- build_mingw64_arm64.sh: Enable ARM SVE for Mingw-w64 on ARM64
+- doc/Easy-Special-Leaves.pdf: Converted Markdown to LaTeX
+- doc/Hard-Special-Leaves.pdf: Converted Markdown to LaTeX
+- doc/Partial-Sieve-Function.pdf: Converted Markdown to LaTeX
+- ci.yml: Add WebAssembly/Emscripten test
+- BUILD.md: Add WebAssembly/Emscripten build instructions
+- README.md: Updated Algorithms section
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.19-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

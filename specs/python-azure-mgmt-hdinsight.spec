@@ -5,13 +5,13 @@
 %global         underscore_srcname     azure_mgmt_hdinsight
 
 Name:           python-%{srcname}
-Version:        9.1.0~b1
-%global         pypi_version 9.1.0b1
+Version:        9.1.0~b2
+%global         pypi_version 9.1.0b2
 Release:        %autorelease
 Summary:        Microsoft Azure HDInsight Management Client Library for Python
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
-Source0:        %{pypi_source %{underscore_srcname} %{pypi_version}}
+Source:         %{pypi_source %{underscore_srcname} %{pypi_version}}
 
 BuildArch:      noarch
 
@@ -53,7 +53,7 @@ Summary:        %{summary}
 
 %install
 %pyproject_install
-%pyproject_save_files azure
+%pyproject_save_files -l azure
 
 
 %check

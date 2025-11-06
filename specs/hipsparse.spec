@@ -12,8 +12,8 @@
 %endif
 
 %global upstreamname hipSPARSE
-%global rocm_release 7.0
-%global rocm_patch 1
+%global rocm_release 7.1
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -66,7 +66,7 @@ Url:            https://github.com/ROCmSoftwarePlatform/%{upstreamname}
 Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
 %endif
 
-Patch1:         0002-refactor-setting-matrices-download-dir.patch
+Patch1:         0001-hipsparse-change-test-download-dir.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -133,8 +133,8 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %if %{with gitcommit}
 %setup -q -n rocm-libraries-%{commit0}
 cd projects/hiprand
+%patch -P1 -p1
 %else
-%patch -P0 -p1
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
 %endif
 
@@ -217,6 +217,9 @@ install -pm 644 %{_builddir}/%{name}-test-matrices/* %{buildroot}/%{_datadir}/%{
 %endif
 
 %changelog
+* Fri Oct 31 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
+- Update to 7.1.0
+
 * Sat Sep 20 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.0-1
 - Update to 7.0.1
 

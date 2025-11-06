@@ -3,12 +3,13 @@
 
 Name:           mpv
 Version:        0.40.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 Summary:        Movie player playing most video formats and DVDs
 URL:            https://%{name}.io/
 Source0:        https://github.com/%{name}-player/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+Patch0:         https://github.com/mpv-player/mpv/commit/26b29fba02a2782f68e2906f837d21201fc6f1b9.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
@@ -224,6 +225,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Tue Nov 04 2025 Dominik Mierzejewski <dominik@greysector.net> - 0.40.0-5
+- Backport patch to fix build with FFmpeg 8
+
 * Mon Oct 27 2025 Simone Caronni <negativo17@gmail.com> - 0.40.0-4
 - Rebuild for updated vapoursynth.
 

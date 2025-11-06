@@ -5,13 +5,18 @@
 
 Name:           libopenshot
 Version:        0.4.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Library for creating and editing videos
 
 # See .reuse/dep5 for details
 License:        LGPL-3.0-or-later and BSD-3-Clause
 URL:            http://www.openshot.org/
 Source0:        https://github.com/OpenShot/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+# Fix build with FFmpeg 8
+# https://github.com/OpenShot/libopenshot/pull/1018
+Patch0:         %{name}-ffmpeg8.patch
+# Fix babl detection
+Patch1:         %{name}-fix-babl-detection.patch
 
 # libopenshot is completely broken on ppc64le, see rfbz #5528
 ExcludeArch:    ppc64le
@@ -88,7 +93,33 @@ rm -rf third_party/jsoncpp
 
 %check
 # Some tests soft-fail because of missing OpenH264
-%cmake_build --target test || :
+# https://github.com/OpenShot/libopenshot/issues/1020
+export QT_QPA_PLATFORM=offscreen
+%ctest --output-on-failure \
+--exclude-regex "AudioWaveformer:Extract waveform data sintel|\
+Clip:effects|\
+Clip:verify parent Timeline|\
+Clip:has_video|\
+Clip:resample_audio_8000_to_48000_reverse|\
+Clip:time remapping|\
+FFmpegReader:DisplayInfo|\
+FFmpegReader:Multiple_Open_and_Close|\
+FFmpegReader:verify parent Timeline|\
+FFmpegReader:Seek|\
+FFmpegReader:Frame_Rate|\
+FFmpegWriter:DisplayInfo|\
+FFmpegWriter:Webm|\
+FFmpegWriter:Options_Overloads|\
+FFmpegWriter:Gif|\
+Frame:Convert_Image|\
+Frame:Data_Access|\
+FrameMapper:resample_audio_48000_to_41000|\
+FrameMapper:resample_audio_mapper|\
+KeyFrame:AttachToObject|\
+Timeline:ApplyJSONDiff Update Reader Info|\
+Timeline:Multi-threaded Timeline Add/Remove Clip|\
+Timeline:Multi-threaded Timeline GetFrame|\
+ImageWriter:Gif"
 
 %install
 %cmake_install
@@ -111,6 +142,11 @@ rm -rf third_party/jsoncpp
 %{ruby_vendorarchdir}/openshot.so
 
 %changelog
+* Wed Oct 15 2025 Dominik Mierzejewski <dominik@greysector.net> - 0.4.0-7
+- Fixed build with FFmpeg 8
+- Skip only known test failures instead of ignoring all
+- Fixed babl detection
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.4.0-6
 - Rebuilt for Python 3.14.0rc3 bytecode
 

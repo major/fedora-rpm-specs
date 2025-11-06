@@ -1,6 +1,6 @@
 Name: numad
 Version: 0.5
-Release: 48.20251031git%{?dist}
+Release: 49.20251104git%{?dist}
 Summary: NUMA user daemon
 
 License: LGPL-2.1-only
@@ -47,6 +47,9 @@ install -D -p -m 644 {,%{buildroot}%{_sysconfdir}/logrotate.d/%{name}/}numad.log
 %systemd_postun numad.service
 
 %changelog
+* Tue Nov 04 2025 Lukas Nykryn <lnykryn@redhat.com> - 0.5-49.20251031git
+- improve single-node system support
+
 * Mon Nov 03 2025 Lukas Nykryn <lnykryn@redhat.com> - 0.5-48.20251031git
 - numad v20251031
 

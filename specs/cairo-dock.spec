@@ -1,5 +1,5 @@
 %global	urlver	3.6
-%global	mainver	3.6.0
+%global	mainver	3.6.1
 
 %global	plugin_least_ver	3.6.0
 
@@ -10,7 +10,7 @@
 
 %global	tarballver	%{mainver}%{?use_git:-%{gitdate}git%{shorthash}}
 
-%global	baserelease	2
+%global	baserelease	1
 %dnl %global	alphatag		.rcb
 
 %undefine _ld_strict_symbol_defs
@@ -270,6 +270,9 @@ popd
 %{_libdir}/pkgconfig/gldi.pc
 
 %changelog
+* Tue Nov 04 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.6.1-1
+- 3.6.1
+
 * Fri Oct 17 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.6.0-2
 - Upstream patch for warning for disabling zoom effect
 

@@ -1,4 +1,4 @@
-%if %{defined rhel}
+%if %{defined el9}
 %global debug_package %{nil}
 %endif
 
@@ -27,7 +27,7 @@
 %endif
 
 Name:           idris2
-Version:        0.7.0
+Version:        0.8.0
 Release:        %autorelease
 Summary:        Purely functional programming language with first class types
 
@@ -35,9 +35,9 @@ License:        BSD-3-Clause
 URL:            https://www.idris-lang.org
 Source0:        https://github.com/idris-lang/Idris2/archive/v%{version}/%{name}-%{version}.tar.gz
 
-# i686 crashes: invalid memory reference.  Some debugging context lost
-# ppc64le: extremely slow with Racket portable bytecode vm
-# s390x: Exception: (while loading libc.so) /lib64/libc.so: invalid ELF header
+# i686: idris_signal.c:21:1: error: static assertion failed: "when not lock free, atomic functions are not async-signal-safe"
+# ppc64le & s390x: Exception: (while loading libc.so) /lib64/libc.so: invalid ELF header
+# ppc64le with Racket: extremely slow with portable bytecode vm
 ExcludeArch:    ppc64le s390x %{ix86}
 BuildRequires:  gcc
 BuildRequires:  gmp-devel
@@ -63,6 +63,7 @@ Requires:       chez-scheme%{?_isa} = %{chez_version}
 %endif
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Provides:       %{name}-static = %{version}-%{release}
+Recommends:     rlwrap
 
 %description
 Idris is a programming language designed to encourage Type-Driven Development.

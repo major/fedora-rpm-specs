@@ -1,13 +1,18 @@
 Name:           jackson-bom
 Version:        2.18.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Bill of materials POM for Jackson projects
 License:        Apache-2.0
 
 URL:            https://github.com/FasterXML/jackson-bom
 Source0:        %{url}/archive/%{name}-%{version}.tar.gz
 
+%if 0%{?rhel} || 0%{?fedora} && 0%{?fedora} <= 42
+BuildRequires:  maven-local
+%else
 BuildRequires:  maven-local-openjdk25
+%endif
+
 BuildRequires:  mvn(com.fasterxml.jackson:jackson-parent:pom:) >= 2.17
 BuildRequires:  mvn(junit:junit)
 
@@ -43,6 +48,9 @@ A "bill of materials" POM for Jackson dependencies.
 %license LICENSE
 
 %changelog
+* Mon Nov 3 2025 Dogtag PKI Team <devel@lists.dogtagpki.org> - 2.18.2-5
+- Restore support for RHEL and older Fedora
+
 * Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 2.18.2-4
 - Rebuilt for java-25-openjdk as preffered jdk
 

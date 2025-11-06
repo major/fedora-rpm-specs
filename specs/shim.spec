@@ -5,7 +5,7 @@
 
 Name:		shim
 Version:	16.1
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	First-stage UEFI bootloader
 License:	BSD-3-Clause
 URL:		https://github.com/rhboot/shim/
@@ -110,12 +110,15 @@ set -eu
 
 # On image mode, bootupd takes care of installing bootloader updates to the ESP
 if [[ ! -e "/run/ostree-booted" ]]; then
-   cp -a %{shim_efi_dir}/.  %{efi_esp_dir} || :
-   cp -a %{shim_boot_dir}/. %{efi_esp_boot} || :
+   cp -pR %{shim_efi_dir}/.  %{efi_esp_dir} || :
+   cp -pR %{shim_boot_dir}/. %{efi_esp_boot} || :
 fi
 
 %changelog
-* Thu Oct 30 2025 Peter Jones <pjones@redhat.com> - 16.1-3
+* Mon Nov 03 2025 Zbigniew Jędrzejewski-Szmek  <zbyszek@in.waw.pl> - 16.1-5
+- Do not replicate hardlink state when copying files
+
+* Thu Oct 30 2025 Peter Jones <pjones@redhat.com> - 16.1-4
 - Bump the release number so this is newer than f43.
 
 * Mon Oct 27 2025 Peter Jones <pjones@redhat.com> - 16.1-1

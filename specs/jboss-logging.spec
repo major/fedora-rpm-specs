@@ -3,7 +3,7 @@
 
 Name:             jboss-logging
 Version:          3.6.0
-Release:          5%{?dist}
+Release:          6%{?dist}
 Summary:          The JBoss Logging Framework
 License:          Apache-2.0
 
@@ -16,7 +16,12 @@ Patch3:           0003-Drop-TestCase-that-depend-on-retired-package.patch
 BuildArch:        noarch
 ExclusiveArch:    %{java_arches} noarch
 
+%if 0%{?rhel} || 0%{?fedora} && 0%{?fedora} <= 42
+BuildRequires:    maven-local
+%else
 BuildRequires:    maven-local-openjdk25
+%endif
+
 BuildRequires:    mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:    mvn(org.junit:junit-bom:pom:)
 BuildRequires:    mvn(org.apache.logging:logging-parent:pom:)
@@ -46,6 +51,9 @@ This package contains the JBoss Logging Framework.
 %license LICENSE.txt
 
 %changelog
+* Mon Nov 3 2025 Dogtag PKI Team <devel@lists.dogtagpki.org> - 3.6.0-6
+- Restore support for RHEL and older Fedora
+
 * Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 3.6.0-5
 - Rebuilt for java-25-openjdk as preffered jdk
 

@@ -1,7 +1,7 @@
 Summary: Interface statistics
 Name: ifstat
 Version: 1.1
-Release: 47%{?dist}
+Release: 48%{?dist}
 License: GPL-2.0-or-later
 URL: http://gael.roualland.free.fr/ifstat/
 Source0: http://gael.roualland.free.fr/ifstat/ifstat-%{version}.tar.gz
@@ -33,13 +33,18 @@ autoconf
 %install
 %{__rm} -rf %{buildroot}
 %{__make} install DESTDIR=%{buildroot}
+mv %{buildroot}%{_bindir}/ifstat %{buildroot}%{_bindir}/ifstat-ifstat
+mv %{buildroot}%{_mandir}/man1/ifstat.1 %{buildroot}%{_mandir}/man1/ifstat-ifstat.1
 
 %files
 %doc COPYING HISTORY README TODO
-%{_mandir}/man1/ifstat.1*
-%{_bindir}/ifstat
+%{_mandir}/man1/ifstat-ifstat.1*
+%{_bindir}/ifstat-ifstat
 
 %changelog
+* Tue Nov 4 2025 Boian Bonev <bbonev@ipacct.com> - 1.1-48
+- Rename binary and man page to avoid iproute conflict (BZ: 2411858)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-47
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

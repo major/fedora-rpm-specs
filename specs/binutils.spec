@@ -7,7 +7,7 @@ Name: binutils%{?_with_debug:-debug}
 # The variable %%{source} (see below) should be set to indicate which of these
 # origins is being used.
 Version: 2.45.50
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -802,7 +802,11 @@ run_target_configuration()
 
     %set_build_flags
 
-    export CFLAGS="$RPM_OPT_FLAGS"
+    # RHEL-121799: Builders may want to restrict the number of CPUs used by
+    # the LTO compiler.  The normal way to do this is to set RPM_BUILD_NCPUS.
+    # But this only affects the -j option passed to make.  By adding -flto=N
+    # we can also restrict the number of threads used by the LTO compiler.
+    export CFLAGS="$RPM_OPT_FLAGS -flto=$RPM_BUILD_NCPUS"
 
 %ifarch %{power64}
     export CFLAGS="$CFLAGS -Wno-error"
@@ -1465,6 +1469,9 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Tue Nov 04 2025 Nick Clifton <nickc@redhat.com> - 2.45.50-7
+- Pass -flto=$RPM_BUILD_NCPUS in CFLAGS.  (RHEL-121799)
+
 * Tue Oct 28 2025 Nick Clifton <nickc@redhat.com> - 2.45.50-6
 - Rebase to commit 2006dea18d5
 

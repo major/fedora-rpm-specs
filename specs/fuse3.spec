@@ -5,12 +5,12 @@
 %global _udevrulesdir %{_prefix}/lib/udev/rules.d
 %endif
 
-%global xyz_version 3.17.1
+%global xyz_version 3.17.4
 %global xy_version %(sed 's/\\(.*\\)\\..*/\\1/'<<<%{xyz_version})
 
 Name:		fuse3
 Version:	%{xyz_version}
-Release:	3%{?dist}
+Release:	1%{?dist}
 Summary:	File System in Userspace (FUSE) v3 utilities
 License:	GPL-1.0-or-later
 URL:		http://fuse.sf.net
@@ -18,7 +18,6 @@ Source0:	https://github.com/libfuse/libfuse/releases/download/fuse-%{version}/fu
 Source1:	https://github.com/libfuse/libfuse/releases/download/fuse-%{version}/fuse-%{version}.tar.gz.sig
 Source2:	https://raw.githubusercontent.com/libfuse/libfuse/master/signify/fuse-%{xy_version}.pub
 Source3:	fuse.conf
-Patch:		fuse3-0001-lib-remove-second-fuse_main_real_versioned-declarati.patch
 
 %if %{undefined rhel}
 BuildRequires:	signify
@@ -122,6 +121,9 @@ rm -f %{buildroot}%{_udevrulesdir}/99-fuse3.rules
 %config(noreplace) %{_sysconfdir}/fuse.conf
 
 %changelog
+* Tue Nov  4 2025 Tom Callaway <spot@fedoraproject.org> - 3.17.4-1
+- update to 3.17.4
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.17.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

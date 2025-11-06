@@ -2,7 +2,7 @@
 
 Name:           python-tw2-core
 Version:        2.3.0
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Web widget creation toolkit based on TurboGears widgets
 
 License:        MIT
@@ -22,7 +22,7 @@ BuildRequires:  python3-simplejson >= 2.0
 BuildRequires:  python3-decorator
 BuildRequires:  python3-markupsafe
 BuildRequires:  python3-speaklater
-BuildRequires:  python3-paste-deploy
+#BuildRequires:  python3-paste-deploy
 BuildRequires:  python3-six
 
 # Specifically for the test suite
@@ -55,7 +55,7 @@ Requires: python3-simplejson >= 2.0
 Requires: python3-decorator
 Requires: python3-markupsafe
 Requires: python3-speaklater
-Requires: python3-paste-deploy
+#Requires: python3-paste-deploy
 Requires: python3-six
 
 
@@ -91,6 +91,9 @@ sed -i '1s=^#!/usr/bin/\(python\|env python\)[0-9.]*=#!%{__python3}=' tw2/core/t
 %{python3_sitelib}/%{modname}-%{version}*
 
 %changelog
+* Tue Nov 04 2025 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 2.3.0-24
+- Removed dependency on paste-deploy
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.3.0-23
 - Rebuilt for Python 3.14.0rc3 bytecode
 

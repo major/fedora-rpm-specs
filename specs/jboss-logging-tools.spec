@@ -3,7 +3,7 @@
 
 Name:             jboss-logging-tools
 Version:          2.2.1
-Release:          20%{?dist}
+Release:          21%{?dist}
 Summary:          JBoss Logging I18n Annotation Processor
 # Not available license file https://issues.jboss.org/browse/LOGTOOL-107
 # ./annotations/src/main/java/org/jboss/logging/annotations/*.java: Apache (v2.0)
@@ -16,7 +16,12 @@ Patch1:           0001-Add-getEnclosingMethod-to-DelegatingExecutableElemen.patc
 BuildArch:        noarch
 ExclusiveArch:    %{java_arches} noarch
 
+%if 0%{?rhel} || 0%{?fedora} && 0%{?fedora} <= 42
+BuildRequires:    maven-local
+%else
 BuildRequires:    maven-local-openjdk25
+%endif
+
 BuildRequires:    mvn(junit:junit)
 BuildRequires:    mvn(org.jboss:jboss-parent:pom:)
 BuildRequires:    mvn(org.jboss.jdeparser:jdeparser)
@@ -50,6 +55,9 @@ rm processor/src/test/java/org/jboss/logging/processor/generated/GeneratedSource
 %doc README.adoc
 
 %changelog
+* Mon Nov 3 2025 Dogtag PKI Team <devel@lists.dogtagpki.org> - 2.2.1-21
+- Restore support for RHEL and older Fedora
+
 * Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 2.2.1-20
 - Rebuilt for java-25-openjdk as preffered jdk
 

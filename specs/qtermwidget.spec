@@ -11,7 +11,6 @@ BuildRequires:  pkgconfig(lxqt)
 BuildRequires:	pkgconfig(Qt6Widgets)
 BuildRequires:  cmake(Qt6LinguistTools)
 BuildRequires:  lxqt-build-tools
-BuildRequires:  qt-devel
 %if 0%{?el7}
 BuildRequires:  devtoolset-7-gcc-c++
 %endif

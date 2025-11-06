@@ -43,7 +43,7 @@ Epoch: 101
 # Keep Version in upstream specfile at 0. It will be automatically set
 # to the correct value by Packit for copr and koji builds.
 # IGNORE this comment if you're looking at it in dist-git.
-Version: 0.9
+Version: 1.0
 %if %{defined autorelease}
 Release: %autorelease
 %else
@@ -157,6 +157,7 @@ fi
 %license LICENSE
 %doc CODE-OF-CONDUCT.md NOTICE README.md SECURITY.md
 %dir %{_datadir}/selinux
+%dir %{_sysconfdir}/containers/systemd/qm.container.d
 %{_datadir}/selinux/*
 %dir %{_datadir}/qm
 %{_datadir}/qm/containers.conf
@@ -183,6 +184,9 @@ fi
 %{_mandir}/man1/qmctl.*
 
 %changelog
+* Tue Nov 04 2025 Packit <hello@packit.dev> - 101:1.0-1
+- Update to version 1.0
+
 * Tue Aug 05 2025 Packit <hello@packit.dev> - 0.9-1
 - Update to version 0.9
 

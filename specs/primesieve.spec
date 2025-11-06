@@ -1,6 +1,6 @@
 Name:     primesieve
-Version:  12.9
-Release:  2%{?dist}
+Version:  12.10
+Release:  1%{?dist}
 Summary:  Fast prime number generator
 License:  LicenseRef-Callaway-BSD
 URL:      https://github.com/kimwalisch/primesieve
@@ -71,6 +71,12 @@ It also contains the API documentation of the library.
 %{_libdir}/pkgconfig/primesieve.pc
 
 %changelog
+* Tue Nov 04 2025 Kim Walisch <walki@fedoraproject.org> - 12.10-1
+- Fix undefined behavior in Bucket allocation
+- Enable ARM SVE for Mingw-w64 on ARM64
+- Improve Windows libprimesieve.dll support
+- BUILD.md: Add WebAssembly/Emscripten build instructions
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 12.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

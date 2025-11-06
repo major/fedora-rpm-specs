@@ -12,6 +12,10 @@ License:        BSD-3-Clause
 URL:            %{forgeurl}
 Source0:        %{forgesource}
 
+# Fix segfault happening with Python 3.15.0a1
+# https://github.com/dvarrazzo/py-setproctitle/pull/158
+Patch:          158.patch
+
 BuildRequires:  gcc
 BuildRequires:  python3-devel
 # Tests
@@ -45,6 +49,7 @@ It's based on PostgreSQL implementation which has proven to be portable.
 
 %prep
 %forgesetup
+%patch -p1 0
 
 %generate_buildrequires
 %pyproject_buildrequires -t

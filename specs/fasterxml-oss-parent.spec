@@ -2,14 +2,19 @@
 
 Name:          fasterxml-oss-parent
 Version:       62
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       FasterXML parent pom
 License:       Apache-2.0
 
 URL:           https://github.com/FasterXML/oss-parent
 Source0:       %{url}/archive/%{srcname}-%{version}.tar.gz
 
+%if 0%{?rhel} || 0%{?fedora} && 0%{?fedora} <= 42
+BuildRequires: maven-local
+%else
 BuildRequires: maven-local-openjdk25
+%endif
+
 BuildRequires: mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires: mvn(org.codehaus.mojo:build-helper-maven-plugin)
 
@@ -52,6 +57,9 @@ This package contains the parent pom file for FasterXML.com projects.
 %license LICENSE NOTICE
 
 %changelog
+* Mon Nov 3 2025 Dogtag PKI Team <devel@lists.dogtagpki.org> - 62-5
+- Restore support for RHEL and older Fedora
+
 * Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 62-4
 - Rebuilt for java-25-openjdk as preffered jdk
 

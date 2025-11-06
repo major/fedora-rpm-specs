@@ -30,8 +30,8 @@
 %endif
 
 %global upstreamname composable_kernel
-%global rocm_release 7.0
-%global rocm_patch 1
+%global rocm_release 7.1
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -94,7 +94,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 %endif
 Summary:        Performance Portable Programming Model for Machine Learning Tensor Operators
 License:        MIT
@@ -289,6 +289,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/composablekernel/LICENSE
 %endif
 
 %changelog
+* Fri Oct 31 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
+- Update to 7.1.0
+
 * Thu Sep 25 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-2
 - Add with cklibs option to disable lib builds
 

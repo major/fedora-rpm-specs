@@ -47,7 +47,7 @@
 
 Name:           obs-studio
 Version:        31.1.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Open Broadcaster Software Studio
 
 # OBS itself is GPL-2.0-or-later, while various plugin dependencies are of various other licenses
@@ -63,6 +63,7 @@ Source1:        https://github.com/obsproject/obs-websocket/archive/%{obswebsock
 Source2:        https://github.com/obsproject/obs-browser/archive/%{obsbrowser_commit}/obs-browser-%{obsbrowser_commit}.tar.gz
 
 # Backports from upstream
+Patch0001:      https://github.com/obsproject/obs-studio/commit/69162b12ecadb3edaca0529b34da93b4df606c11.patch#/%{name}-ffmpeg8.patch
 
 # Proposed upstream
 ## From: https://github.com/obsproject/obs-studio/pull/12326
@@ -387,6 +388,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 
 
 %changelog
+* Wed Oct 15 2025 Dominik Mierzejewski <dominik@greysector.net> - 31.1.1-4
+- Fixed build with FFmpeg 8
+
 * Tue Sep 30 2025 Jan Grulich <jgrulich@redhat.com> - 31.1.1-3
 - Rebuild (qt6)
 

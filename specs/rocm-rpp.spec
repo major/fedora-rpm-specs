@@ -20,8 +20,8 @@
 # THE SOFTWARE.
 #
 %global upstreamname rpp
-%global rocm_release 7.0
-%global rocm_patch 1
+%global rocm_release 7.1
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -55,6 +55,10 @@ License:        MIT AND Apache-2.0 AND LicenseRef-Fedora-Public-Domain
 #   src/modules/md5.cpp
 
 Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
+# Problems building mivsionx
+# CMake Error at /usr/lib64/cmake/rpp/rpp-config.cmake:28 (message):
+#  File or directory //include referenced by variable rpp_INCLUDE_DIR does not
+Patch1:         0001-rocm-rpp-fix-cmake-install-vars.patch
 
 BuildRequires:  chrpath
 BuildRequires:  cmake
@@ -128,6 +132,8 @@ rm -rf libs/third_party
        -DBACKEND=HIP \
        -DBUILD_FILE_REORG_BACKWARD_COMPATIBILITY=OFF \
        -DCMAKE_BUILD_TYPE=%{build_type} \
+       -DCMAKE_C_COMPILER=%rocmllvm_bindir/clang \
+       -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/clang++ \
        -DHIP_PLATFORM=amd \
        -DROCM_SYMLINK_LIBS=OFF \
        -DRPP_AUDIO_SUPPORT=OFF \
@@ -154,8 +160,10 @@ chrpath -r %{rocmllvm_libdir} %{buildroot}%{_libdir}/librpp.so.2.*.*
 
 %files devel
 %doc README.md
+%dir %{_libdir}/cmake/rpp
 %{_includedir}/rpp
 %{_libdir}/librpp.so
+%{_libdir}/cmake/rpp/*.cmake
 
 %if %{with test}
 %files test
@@ -165,6 +173,9 @@ chrpath -r %{rocmllvm_libdir} %{buildroot}%{_libdir}/librpp.so.2.*.*
 %endif
 
 %changelog
+* Fri Oct 31 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
+- Update to 7.1.0
+
 * Sun Sep 21 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-1
 - Update to 7.0.1
 

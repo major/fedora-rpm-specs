@@ -289,7 +289,7 @@
 Summary: Library providing a simple virtualization API
 Name: libvirt
 Version: 11.9.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND OFL-1.1
 URL: https://libvirt.org/
 
@@ -2693,6 +2693,9 @@ exit 0
 
 
 %changelog
+* Tue Nov  4 2025 Tom Callaway <spot@fedoraproject.org> - 11.9.0-2
+- rebuild against new fuse3
+
 * Mon Nov  3 2025 Daniel P. Berrangé <berrange@redhat.com> - 11.9.0-1
 - Update to 11.9.0 release
 

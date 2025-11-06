@@ -4,8 +4,8 @@
 %global sover 0
 
 Name:           gtkd
-Version:        3.10.0
-Release:        16%{?dist}
+Version:        3.11.0
+Release:        2%{?dist}
 Summary:        D binding and OO wrapper of GTK+
 
 License:        LGPL-3.0-or-later
@@ -14,6 +14,8 @@ Source0:        https://github.com/gtkd-developers/GtkD/archive/v%{version}/%{na
 # Backported from upstream
 # https://github.com/gtkd-developers/GtkD/pull/361
 Patch0:         361.patch
+# https://github.com/gtkd-developers/GtkD/pull/363
+Patch1:         gtkd-fix-version.patch
 
 ExclusiveArch:  %{ldc_arches}
 
@@ -132,6 +134,12 @@ make %{?_smp_mflags} DC=ldc2 libdir=%{?_lib} DCFLAGS="%{_d_optflags}" LDFLAGS=""
 %{_datadir}/geany/tags/gtkd.d.tags
 
 %changelog
+* Tue Nov 04 2025 Kalev Lember <kalevlember@gmail.com> - 3.11.0-2
+- Backport an upstream patch to fix the version in .pc file
+
+* Tue Nov 04 2025 Carl George <carlwgeorge@fedoraproject.org> - 3.11.0-1
+- Update to version 3.11.0
+
 * Sun Oct 26 2025 Kalev Lember <klember@redhat.com> - 3.10.0-16
 - Rebuilt for ldc 1.41
 

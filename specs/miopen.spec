@@ -33,8 +33,8 @@
 %endif
 
 %global upstreamname MIOpen
-%global rocm_release 7.0
-%global rocm_patch 1
+%global rocm_release 7.1
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -344,7 +344,7 @@ cd projects/miopen
 %endif
 %cmake_install
 
-rm -f %{buildroot}%{_prefix}/share/doc/miopen-hip/LICENSE.txt
+rm -f %{buildroot}%{_prefix}/share/doc/miopen-hip/LICENSE.md
 
 %if 0%{?fedora} || 0%{?suse_version}
 %fdupes %{buildroot}%{_prefix}
@@ -356,10 +356,10 @@ rm -f %{buildroot}%{_prefix}/share/doc/miopen-hip/LICENSE.txt
 %files
 %if %{with gitcommit}
 %doc projects/miopen/README.md
-%license projects/miopen/LICENSE.txt
+%license projects/miopen/LICENSE.md
 %else
 %doc README.md
-%license LICENSE.txt
+%license LICENSE.md
 %endif
 
 %dir %_libexecdir/miopen
@@ -382,6 +382,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/miopen-hip/LICENSE.txt
 %endif
 
 %changelog
+* Sat Nov 1 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
+- Update to 7.1.0
+
 * Sun Sep 21 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-1
 - Update to 7.0.1
 

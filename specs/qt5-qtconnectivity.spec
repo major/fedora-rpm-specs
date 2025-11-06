@@ -2,8 +2,8 @@
 
 Summary: Qt5 - Connectivity components
 Name:    qt5-%{qt_module}
-Version: 5.15.17
-Release: 2%{?dist}
+Version: 5.15.18
+Release: 1%{?dist}
 
 # See LICENSE.GPL3, respectively, for exception details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -14,9 +14,8 @@ Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submod
 ## upstream patches
 ## repo: https://invent.kde.org/qt/qt/qtconnectivity
 ## branch: kde/5.15
-## git format-patch v5.15.17-lts-lgpl
-Patch1:  0001-sdpscanner-fix-format-strings-for-u-int64_t.patch
-Patch2:  0002-QLowEnergyControllerPrivateBluez-guard-against-malfo.patch
+## git format-patch v5.15.18-lts-lgpl
+Patch1:  0001-QLowEnergyControllerPrivateBluez-guard-against-malfo.patch
 
 Patch100: %{name}-gcc11.patch
 
@@ -121,6 +120,9 @@ popd
 
 
 %changelog
+* Tue Nov 04 2025 Jan Grulich <jgrulich@redhat.com> - 5.15.18-1
+- 5.15.18
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.17-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

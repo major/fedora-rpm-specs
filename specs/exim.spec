@@ -11,8 +11,8 @@
 
 Summary: The exim mail transfer agent
 Name: exim
-Version: 4.98.2
-Release: 4%{?dist}
+Version: 4.99
+Release: 1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 Url: https://www.exim.org/
@@ -42,10 +42,10 @@ Source24: exim.service
 Source25: exim-gen-cert
 Source26: clamd.exim.service
 
-Patch: exim-4.97-config.patch
+Patch: exim-4.99-config.patch
 Patch: exim-4.94-libdir.patch
 Patch: exim-4.97-dlopen-localscan.patch
-Patch: exim-4.96-pic.patch
+Patch: exim-4.99-pic.patch
 
 Requires: /etc/pki/tls/certs /etc/pki/tls/private
 Requires: /etc/aliases
@@ -97,6 +97,9 @@ BuildRequires: perl-File-FcntlLock
 BuildRequires:  epel-rpm-macros >= 8-5
 %endif
 BuildRequires: make
+
+# i686 repo is broken, stop building it
+ExcludeArch: %{ix86}
 
 %description
 Exim is a message transfer agent (MTA) developed at the University of
@@ -231,7 +234,7 @@ install -m 4775 exim $RPM_BUILD_ROOT%{_sbindir}
 for i in eximon eximon.bin exim_dumpdb exim_fixdb exim_tidydb \
 	exinext exiwhat exim_dbmbuild exicyclog exim_lock \
 	exigrep eximstats exipick exiqgrep exiqsumm \
-	exim_checkaccess convert4r4
+	exim_checkaccess
 do
 	install -m 0755 $i $RPM_BUILD_ROOT%{_sbindir}
 done
@@ -410,7 +413,6 @@ fi
 %{_sbindir}/exiqsumm
 %{_sbindir}/exim_lock
 %{_sbindir}/exim_checkaccess
-%{_sbindir}/convert4r4
 %{_sbindir}/sendmail.exim
 %{_bindir}/mailq.exim
 %{_bindir}/runq.exim
@@ -510,6 +512,10 @@ fi
 %{_sysconfdir}/cron.daily/greylist-tidy.sh
 
 %changelog
+* Tue Nov 04 2025 Jaroslav Škarvada  <jskarvad@redhat.com> - 4.99-1
+- New version
+  Resolves: rhbz#2406726
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.98.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

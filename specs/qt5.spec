@@ -6,8 +6,8 @@
 
 Name: qt5
 # This version MUST remain in sync with Qt5 versions!
-Version: 5.15.17
-Release: 2%{?dist}
+Version: 5.15.18
+Release: 1%{?dist}
 Summary: Qt5 meta package
 License: GPL-3.0-only
 URL:     https://getfedora.org/
@@ -191,6 +191,9 @@ echo "- Qt5 devel meta package" > %{buildroot}%{_docdir}/qt5-devel/README
 
 
 %changelog
+* Tue Nov 04 2025 Jan Grulich <jgrulich@redhat.com> - 5.15.18-1
+- 5.15.18
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.17-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,11 +1,17 @@
 %global udevdir %(pkg-config --variable=udevdir udev)
 
+%if "%{_arch}" == "ppc64le"
+%bcond_with plugins
+%else
+%bcond_without plugins
+%endif
+
 #global gitdate 20141211
 %global gitversion 58abea394
 
 Name:           libinput
-Version:        1.29.2
-Release:        1%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+Version:        1.29.901
+Release:        2%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 Summary:        Input device library
 
 # SPDX
@@ -28,6 +34,10 @@ BuildRequires:  pkgconfig(libevdev) >= 0.4
 BuildRequires:  pkgconfig(libwacom) >= 0.20
 BuildRequires:  pkgconfig(udev)
 BuildRequires:  python3-rpm-macros
+
+%if %{with plugins}
+BuildRequires:  luajit-devel
+%endif
 
 %description
 libinput is a library that handles input devices for display servers and other
@@ -73,6 +83,11 @@ intended to be run by users.
        -Ddocumentation=false \
        -Dtests=true \
        -Dinstall-tests=true \
+%if %{with plugins}
+       -Dautoload-plugins=true \
+%else
+       -Dlua-plugins=disabled \
+%endif
        -Dudev-dir=%{udevdir}
 %meson_build
 
@@ -158,6 +173,12 @@ intended to be run by users.
 
 
 %changelog
+* Tue Nov 04 2025 Peter Hutterer <peter.hutterer@redhat.com> - 1.29.901-2
+- Disable plugins on ppc64le - there's no luajit
+
+* Tue Nov 04 2025 Peter Hutterer <peter.hutterer@redhat.com> - 1.29.901-1
+- libinput 1.29.901 - with plugin autoload enabled
+
 * Tue Oct 21 2025 Peter Hutterer <peter.hutterer@redhat.com> - 1.29.2-1
 - libinput 1.29.2
 

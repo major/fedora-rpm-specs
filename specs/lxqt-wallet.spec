@@ -52,7 +52,7 @@ cp -p backend/README README-backend
 cp -p frontend/README README-frontend
 
 %build
-%cmake_lxqt
+%cmake
 %cmake_build
 
 %install

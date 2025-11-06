@@ -28,7 +28,7 @@
 %endif
 
 # https://github.com/kata-containers/kata-containers
-Version: 3.21.0
+Version: 3.22.0
 %global tag         %{version}%{?rcstr}
 
 %global domain      github.com
@@ -56,7 +56,7 @@ workload isolation and security advantages of VMs. https://katacontainers.io/.}
 # Unlike for RHEL, we cannot strip it down because we build all components
 # (RHEL builds only build kata-agent)
 Name:       %{repo}
-Release:    1%{?rcrel}%{?dist}.2
+Release:    1%{?rcrel}%{?dist}
 Summary:    Kata Containers version 3.x repository
 License:    Apache-2.0
 Url:        https://%{download}
@@ -390,6 +390,9 @@ fi
 
 
 %changelog
+* Mon Nov 03 2025 Christophe de Dinechin <dinechin@redhat.com> - 3.22.0-1
+- kata-containers 3.22.0
+
 * Sun Oct 12 2025 Maxwell G <maxwell@gtmx.me> - 3.21.0-1.2
 - Rebuild for golang 1.25.2
 

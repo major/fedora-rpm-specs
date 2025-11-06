@@ -3,7 +3,7 @@
 
 Name:    schemesh
 Version: 0.9.1
-Release: 2%{?dist}
+Release: 4%{?dist}
 Summary: Fusion between a Unix shell and a Lisp REPL
 
 %forgemeta
@@ -19,6 +19,7 @@ BuildRequires: lz4-devel
 BuildRequires: ncurses-devel
 BuildRequires: libuuid-devel
 BuildRequires: zlib-devel
+ExcludeArch:   ppc64le s390x
 
 Requires: chez-scheme%{?_isa} = %{chez_version}
 
@@ -54,6 +55,12 @@ time ./schemesh_test
 %{_libdir}/schemesh/
 
 %changelog
+* Tue Nov 04 2025 Jens Petersen <petersen@redhat.com> - 0.9.1-4
+- rebuild against newer chez-scheme
+
+* Tue Nov 04 2025 Jens Petersen <petersen@redhat.com> - 0.9.1-3
+- exclude ppc64le and s390x which are failing (#2385621)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -14,20 +14,20 @@
 
 # upstream can produce releases with a different tag than the SDK version
 #%%global upstream_tag v%%{runtime_version}
-%global upstream_tag v10.0.100-rc.1.25451.107
+%global upstream_tag v10.0.100-rc.2.25502.107
 %global upstream_tag_without_v %(echo %{upstream_tag} | sed -e 's|^v||')
 
 %global hostfxr_version %{runtime_version}
-%global runtime_version 10.0.0-rc.1.25451.107
-%global aspnetcore_runtime_version 10.0.0-rc.1.25451.107
-%global sdk_version 10.0.100-rc.1.25451.107
+%global runtime_version 10.0.0-rc.2.25502.107
+%global aspnetcore_runtime_version 10.0.0-rc.2.25502.107
+%global sdk_version 10.0.100-rc.2.25502.107
 %global sdk_feature_band_version %(echo %{sdk_version} | cut -d '-' -f 1 | sed -e 's|[[:digit:]][[:digit:]]$|00|')
 %global templates_version %{aspnetcore_runtime_version}
 #%%global templates_version %%(echo %%{runtime_version} | awk 'BEGIN { FS="."; OFS="." } {print $1, $2, $3+1 }')
 
-%global runtime_rpm_version 10.0.0~rc.1.25451.107
-%global aspnetcore_runtime_rpm_version 10.0.0~rc.1.25451.107
-%global sdk_rpm_version 10.0.100~rc.1.25451.107
+%global runtime_rpm_version 10.0.0~rc.2.25502.107
+%global aspnetcore_runtime_rpm_version 10.0.0~rc.2.25502.107
+%global sdk_rpm_version 10.0.100~rc.2.25502.107
 
 %global use_bundled_brotli 0
 %global use_bundled_libunwind 1
@@ -77,14 +77,16 @@
 
 Name:           dotnet%{dotnetver}
 Version:        %{sdk_rpm_version}
-Release:        0.8%{?dist}
+Release:        0.10%{?dist}
 Summary:        .NET %{dotnetver} Runtime and SDK
 License:        0BSD AND Apache-2.0 AND (Apache-2.0 WITH LLVM-exception) AND APSL-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause AND BSL-1.0 AND bzip2-1.0.6 AND CC0-1.0 AND CC-BY-3.0 AND CC-BY-4.0 AND CC-PDDC AND CNRI-Python AND EPL-1.0 AND GPL-2.0-only AND (GPL-2.0-only WITH GCC-exception-2.0) AND GPL-2.0-or-later AND GPL-3.0-only AND ICU AND ISC AND LGPL-2.1-only AND LGPL-2.1-or-later AND LicenseRef-Fedora-Public-Domain AND LicenseRef-ISO-8879 AND MIT AND MIT-Wu AND MS-PL AND MS-RL AND NCSA AND OFL-1.1 AND OpenSSL AND Unicode-DFS-2015 AND Unicode-DFS-2016 AND W3C-19980720 AND X11 AND Zlib
 
 URL:            https://github.com/dotnet/
 
-Source0:        https://github.com/dotnet/dotnet/archive/refs/tags/%{upstream_tag}.tar.gz#/dotnet-%{upstream_tag_without_v}.tar.gz
-Source1:        https://github.com/dotnet/dotnet/releases/download/%{upstream_tag}/dotnet-%{upstream_tag_without_v}.tar.gz.sig
+#Source0:        https://github.com/dotnet/dotnet/archive/refs/tags/%%{upstream_tag}.tar.gz#/dotnet-%%{upstream_tag_without_v}.tar.gz
+#Source1:        https://github.com/dotnet/dotnet/releases/download/%%{upstream_tag}/dotnet-%%{upstream_tag_without_v}.tar.gz.sig
+Source0:        https://builds.dotnet.microsoft.com/dotnet/source-build/dotnet-source-%{upstream_tag_without_v}.tar.gz
+Source1:        https://github.com/dotnet/dotnet/releases/download/%{upstream_tag}/dotnet-source-%{upstream_tag_without_v}.tar.gz.sig
 Source2:        https://dotnet.microsoft.com/download/dotnet/release-key-2023.asc
 Source3:        https://github.com/dotnet/dotnet/releases/download/%{upstream_tag}/release.json
 %if %{with bootstrap}
@@ -484,7 +486,7 @@ if [[ ${release_json_tag} != %{upstream_tag} ]]; then
    exit 1
 fi
 
-%setup -q -n dotnet-%{upstream_tag_without_v}
+%setup -q -c -n dotnet-%{upstream_tag_without_v}
 
 # Remove all prebuilts and binaries
 rm -rf .dotnet/
@@ -829,10 +831,6 @@ rm %{buildroot}%{_libdir}/dotnet/ThirdPartyNotices.txt
 rm %{buildroot}%{_libdir}/dotnet/dotnet
 %endif
 
-# Removed by upstream in .NET 10 RC 2
-rm -r %{buildroot}%{_libdir}/dotnet/packs/NETStandard.Library.Ref/2.1.0
-rmdir  %{buildroot}%{_libdir}/dotnet/packs/NETStandard.Library.Ref
-
 
 
 %check
@@ -933,6 +931,9 @@ export COMPlus_LTTng=0
 
 
 %changelog
+* Sun Nov 02 2025 Omair Majid <omajid@redhat.com> - 10.0.100~rc.2.25502.107-0.10
+- Update to .NET SDK 10.0.100-rc.2.25502.107 and Runtime 10.0.0-rc.2.25502.107
+
 * Thu Oct 30 2025 Omair Majid <omajid@redhat.com> - 10.0.100~rc.1.25451.107-0.9
 - Disable bootstrap
 

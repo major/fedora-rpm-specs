@@ -34,7 +34,7 @@ ExcludeArch: %{ix86}
 Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
-Version:       1.57.5
+Version:       1.57.6
 Release:       1%{?dist}
 License:       LGPL-2.1-or-later
 
@@ -1082,6 +1082,9 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Tue Nov 04 2025 Richard W.M. Jones <rjones@redhat.com> - 1:1.57.6-1
+- New upstream development version 1.57.6
+
 * Fri Oct 17 2025 Richard W.M. Jones <rjones@redhat.com> - 1:1.57.5-1
 - New upstream development version 1.57.5
 - Test direct backend in %%check

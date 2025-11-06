@@ -56,8 +56,8 @@
 
 Name:    qt5-qtbase
 Summary: Qt5 - QtBase components
-Version: 5.15.17
-Release: 7%{?dist}
+Version: 5.15.18
+Release: 1%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, for exception details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -144,11 +144,11 @@ Patch90: %{name}-gcc11.patch
 
 ## upstream patches
 # https://invent.kde.org/qt/qt/qtbase, kde/5.15 branch
-# git diff v5.15.17-lts-lgpl..HEAD | gzip > kde-5.15-rollup-$(date +%Y%m%d).patch.gz
+# git diff v5.15.18-lts-lgpl..HEAD | gzip > kde-5.15-rollup-$(date +%Y%m%d).patch.gz
 # patch100 in lookaside cache due to large'ish size -- rdieter
-Patch100: kde-5.15-rollup-20250526.patch.gz
+Patch100: kde-5.15-rollup-20251104.patch.gz
 # HACK to make 'fedpkg sources' consider it 'used"
-Source100: kde-5.15-rollup-20250526.patch.gz
+Source100: kde-5.15-rollup-20251104.patch.gz
 
 Patch101: qtbase-5.15.10-fix-missing-qtsan-include.patch
 # Workaround for font rendering issue with cjk-vf-fonts
@@ -190,8 +190,7 @@ Patch168: 0019-Fix-tooltip-palette-issue-in-gtk3-theme.patch
 Patch169: 0020-QGtk3Theme-define-light-midlight-mid-dark-shadow-colors.patch
 
 # Security
-# CVE-2025-5455 - https://download.qt.io/archive/qt/5.15/CVE-2025-5455-qtbase-5.15.patch
-Patch180: CVE-2025-5455-qtbase-5.15.patch 
+
 
 # Latest QGnomePlatform needs to be specified to be used
 Patch200: qtbase-use-qgnomeplatform-as-default-platform-theme-on-gnome.patch
@@ -508,7 +507,6 @@ Qt5 libraries used for drawing widgets and OpenGL items.
 %patch -P167 -p1
 %patch -P168 -p1
 %patch -P169 -p1
-%patch -P180 -p1
 %endif
 
 %if 0%{?fedora} < 39
@@ -678,7 +676,7 @@ translationdir=%{_qt5_translationdir}
 
 Name: Qt5
 Description: Qt5 Configuration
-Version: 5.15.17
+Version: 5.15.18
 EOF
 
 # rpm macros
@@ -1180,6 +1178,9 @@ fi
 
 
 %changelog
+* Tue Nov 04 2025 Jan Grulich <jgrulich@redhat.com> - 5.15.18-1
+- 5.15.18
+
 * Tue Oct 21 2025 Than Ngo <than@redhat.com> - 5.15.17-7
 - Fix CVE-2025-5455, qt5-qtbase: QtCore Assertion Failure Denial of Service
 
@@ -1386,7 +1387,7 @@ fi
 - 5.15.5
 
 * Tue Jun 21 2022 Than Ngo <than@redhat.com> - 5.15.4-4
-- bz#2099267, backport patch to fix download problem from Settings 
+- bz#2099267, backport patch to fix download problem from Settings
 
 * Mon May 30 2022 Than Ngo <than@redhat.com> - 5.15.4-3
 - bz#1994719, CVE-2021-38593

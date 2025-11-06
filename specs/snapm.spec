@@ -1,7 +1,7 @@
 %global summary A set of tools for managing snapshots
 
 Name:		snapm
-Version:	0.5.0
+Version:	0.5.1
 Release:	%autorelease
 Summary:	%{summary}
 
@@ -16,6 +16,7 @@ BuildRequires:	lvm2
 BuildRequires:	make
 BuildRequires:	stratis-cli
 BuildRequires:	stratisd
+BuildRequires:	systemd-rpm-macros
 BuildRequires:	python3-devel
 BuildRequires:	python3-sphinx
 %if 0%{?fedora}
@@ -88,6 +89,13 @@ mkdir -p ${RPM_BUILD_ROOT}/%{_unitdir}
 %{__install} -p -m 644 systemd/snapm-gc@.service ${RPM_BUILD_ROOT}/%{_unitdir}
 %{__install} -p -m 644 systemd/snapm-gc@.timer ${RPM_BUILD_ROOT}/%{_unitdir}
 
+mkdir -p ${RPM_BUILD_ROOT}/%{_tmpfilesdir}
+%{__install} -p -m 644 systemd/tmpfiles.d/%{name}.conf ${RPM_BUILD_ROOT}/%{_tmpfilesdir}/
+
+%{__install} -d -m 0700 ${RPM_BUILD_ROOT}/%{_rundir}/%{name}
+%{__install} -d -m 0700 ${RPM_BUILD_ROOT}/%{_rundir}/%{name}/mounts
+%{__install} -d -m 0700 ${RPM_BUILD_ROOT}/%{_rundir}/%{name}/lock
+
 %check
 %pytest --log-level=debug -v tests/
 
@@ -104,6 +112,10 @@ mkdir -p ${RPM_BUILD_ROOT}/%{_unitdir}
 %attr(644, -, -) %{_unitdir}/snapm-create@.timer
 %attr(644, -, -) %{_unitdir}/snapm-gc@.service
 %attr(644, -, -) %{_unitdir}/snapm-gc@.timer
+%attr(644, -, -) %{_tmpfilesdir}/%{name}.conf
+%dir %{_rundir}/%{name}/
+%dir %{_rundir}/%{name}/mounts
+%dir %{_rundir}/%{name}/lock
 
 %files -n python3-snapm
 # license for snapm (Apache-2.0)

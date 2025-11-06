@@ -1,9 +1,6 @@
 # Run breezy/bazaar integration tests?
-#
-# breezy dumps core with Python 3.14: Segmentation fault when invoking brz
-# whoami 'Your Name <name@example.com>'
-# https://bugzilla.redhat.com/show_bug.cgi?id=2366194
-%bcond breezy 0
+# Useful to disable when breezy is broken with new Python version.
+%bcond breezy 1
 
 %global _description %{expand:
 Dunamai is a Python 3.5+ library and command line tool for producing dynamic,

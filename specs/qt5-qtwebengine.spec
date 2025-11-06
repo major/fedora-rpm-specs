@@ -48,7 +48,7 @@
 Summary: Qt5 - QtWebEngine components
 Name:    qt5-qtwebengine
 Version: 5.15.19
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 # See also http://qt-project.org/doc/qt-5.0/qtdoc/licensing.html
@@ -577,6 +577,9 @@ done
 %{_qt5_examplesdir}/
 
 %changelog
+* Tue Nov 04 2025 Jan Grulich <jgrulich@redhat.com> - 5.15.19-2
+- Rebuild (qt5)
+
 * Mon Nov 03 2025 Jan Grulich <jgrulich@redhat.com> - 5.15.19-1
 - 5.15.19
 

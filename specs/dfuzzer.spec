@@ -1,12 +1,11 @@
 Name:          dfuzzer
-Version:       2.3
+Version:       2.5
 Release:       %autorelease
 Summary:       D-Bus fuzz testing tool
 
 #global commit 15fcfa6b5f8109e07f06c7ada0b8690a36f91654
 %{?commit:%global shortcommit %(c=%{commit}; echo ${c:0:7})}
 
-# Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:       GPL-3.0-or-later
 URL:           https://github.com/dbus-fuzzer/dfuzzer
 

@@ -8,8 +8,8 @@ ExcludeArch: %{ix86}
 %global giturl  https://github.com/c-cube/qcheck
 
 Name:           ocaml-qcheck
-Version:        0.26
-Release:        4%{?dist}
+Version:        0.27
+Release:        1%{?dist}
 Summary:        QuickCheck inspired property-based testing for OCaml
 
 License:        BSD-2-Clause
@@ -31,12 +31,12 @@ BuildRequires:  python3-pygments
 Requires:       %{name}-core%{?_isa} = %{version}-%{release}
 Requires:       %{name}-ounit%{?_isa} = %{version}-%{release}
 
-%global _desc %{expand:
-Qcheck enables checking invariants (properties of a type) over randomly
+%global _desc %{expand:Qcheck enables checking invariants (properties of a type) over randomly
 generated instances of the type.  It provides combinators for generating
 instances and printing them.}
 
-%description %_desc
+%description
+%_desc
 
 This package is a compatibility wrapper for qcheck.  New code should
 use either ocaml-qcheck-alcotest or ocaml-qcheck-ounit.
@@ -49,7 +49,8 @@ Requires:       %{name}-core-devel%{?_isa} = %{version}-%{release}
 Requires:       %{name}-ounit-devel%{?_isa} = %{version}-%{release}
 
 
-%description    devel %_desc
+%description    devel
+%_desc
 
 The %{name}-devel package contains libraries and signature files
 for developing applications that use the qcheck compatibility wrapper.
@@ -61,7 +62,8 @@ New code should instead use %{name}-alcotest-devel or
 Summary:        QuickCheck inspired property-based testing for OCaml
 
 
-%description    core %_desc
+%description    core
+%_desc
 This package provides alcotest support for qcheck.
 
 
@@ -70,7 +72,8 @@ Summary:        Development files for %{name}-core
 Requires:       %{name}-core%{?_isa} = %{version}-%{release}
 
 
-%description    core-devel %_desc
+%description    core-devel
+%_desc
 
 The %{name}-core-devel package contains libraries and signature
 files for developing applications that use %{name}-core.
@@ -81,7 +84,8 @@ Summary:        OUnit support for %{name}
 Requires:       %{name}-core%{?_isa} = %{version}-%{release}
 
 
-%description    ounit %_desc
+%description    ounit
+%_desc
 
 This package provides ounit support for qcheck.
 
@@ -93,7 +97,8 @@ Requires:       %{name}-core-devel%{?_isa} = %{version}-%{release}
 Requires:       ocaml-ounit-devel%{?_isa}
 
 
-%description    ounit-devel %_desc
+%description    ounit-devel
+%_desc
 
 The %{name}-ounit-devel package contains libraries and signature
 files for developing applications that use %{name}-ounit.
@@ -104,7 +109,8 @@ Summary:        Alcotest support for %{name}
 Requires:       %{name}-core%{?_isa} = %{version}-%{release}
 
 
-%description    alcotest %_desc
+%description    alcotest
+%_desc
 
 This package provides alcotest support for qcheck.
 
@@ -116,7 +122,8 @@ Requires:       %{name}-core-devel%{?_isa} = %{version}-%{release}
 Requires:       ocaml-alcotest-devel%{?_isa}
 
 
-%description    alcotest-devel %_desc
+%description    alcotest-devel
+%_desc
 
 The %{name}-alcotest-devel package contains libraries and signature
 files for developing applications that use %{name}-alcotest.
@@ -127,7 +134,8 @@ Summary:        PPX deriver for QCheck
 Requires:       %{name}-core%{?_isa} = %{version}-%{release}
 
 
-%description  -n ocaml-ppx-deriving-qcheck %_desc
+%description  -n ocaml-ppx-deriving-qcheck
+%_desc
 
 This package provides a PPX deriver for QCheck.
 
@@ -138,7 +146,8 @@ Requires:       %{name}-core-devel%{?_isa} = %{version}-%{release}
 Requires:       ocaml-ppxlib-devel%{?_isa}
 
 
-%description -n ocaml-ppx-deriving-qcheck-devel %_desc
+%description -n ocaml-ppx-deriving-qcheck-devel
+%_desc
 
 The ocaml-ppx-deriving-qcheck-devel package contains libraries and
 signature files for developing applications that use
@@ -194,6 +203,9 @@ asciidoc README.adoc
 %files -n ocaml-ppx-deriving-qcheck-devel -f .ofiles-ppx_deriving_qcheck-devel
 
 %changelog
+* Tue Nov 04 2025 Jerry James  <loganjerry@gmail.com> - 0.27-1
+- Version 0.27
+
 * Tue Oct 14 2025 Richard W.M. Jones <rjones@redhat.com> - 0.26-4
 - OCaml 5.4.0 rebuild
 
@@ -203,7 +215,7 @@ asciidoc README.adoc
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.26-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Sat Jul 12 2025 Jerry James  <loganjerry@gmail.com> - 0.26-1
+* Sat Jul 12 2025 Jerry James <loganjerry@gmail.com> - 0.26-1
 - Version 0.26
 - Drop upstreamed asciidoc patch
 

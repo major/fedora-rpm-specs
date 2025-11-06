@@ -54,8 +54,6 @@ Recommends:    pipewire >= %{pipewire_version}
 Requires:      pipewire-libs%{?_isa} >= %{pipewire_version}
 # Required for the document portal.
 Requires:      fuse3
-# Required for the GMemoryMonitor GIO API
-Recommends:    low-memory-monitor >= %{low_memory_monitor_version}
 
 # https://github.com/containers/composefs/pull/229#issuecomment-1838735764
 %if 0%{?rhel} >= 10

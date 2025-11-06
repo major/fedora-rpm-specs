@@ -10,15 +10,13 @@
 %{?el7:%global __python %__python3}
 
 Name:          charliecloud
-Version:       0.40
-Release:       2%{?dist}
+Version:       0.42
+Release:       1%{?dist}
 Summary:       Lightweight user-defined software stacks for high-performance computing
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:       Apache-2.0
 URL:           https://%{name}.io/v%{version}
-Source0:       https://gitlab.com/charliecloud/main/-/package_files/204172900/download#/charliecloud-%{version}.tar.gz
-Patch0:        macro-str.patch
-Patch1:        i686.patch
+Source0:       https://gitlab.com/charliecloud/charliecloud/-/package_files/232789969/download#/charliecloud-%{version}.tar.gz
 BuildRequires: gcc rsync bash findutils
 %if 0%{?fedora} > 36
 Requires:      fuse3 squashfuse cjson
@@ -75,8 +73,6 @@ Test fixtures for %{name}.
 
 %prep
 %setup -q
-%patch -P 0 -p1
-%patch -P 1 -p1
 
 %build
 # Use old inlining behavior, see:
@@ -148,6 +144,10 @@ CFLAGS=${CFLAGS:-%optflags -fgnu89-inline}; export CFLAGS
 %{_mandir}/man1/ch-test.1*
 
 %changelog
+* Tue Nov  4 2025 Tom Callaway <spot@fedoraproject.org> - 0.42-1
+- rebuild for new fuse3
+- update to 0.42
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.40-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

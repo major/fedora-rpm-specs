@@ -2,8 +2,8 @@
 
 Summary: Qt5 - Support for rendering and displaying SVG
 Name:    qt5-%{qt_module}
-Version: 5.15.17
-Release: 3%{?dist}
+Version: 5.15.18
+Release: 1%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -99,6 +99,9 @@ popd
 
 
 %changelog
+* Tue Nov 04 2025 Jan Grulich <jgrulich@redhat.com> - 5.15.18-1
+- 5.15.18
+
 * Thu Oct 09 2025 Than Ngo <than@redhat.com> - 5.15.17-3
 - Fixed CVE-2025-10729
 

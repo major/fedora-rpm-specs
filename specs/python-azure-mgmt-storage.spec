@@ -4,13 +4,13 @@
 %global         srcname     azure-mgmt-storage
 %global         tarball_name     azure_mgmt_storage
 
-Name:           python-%{srcname}
-Version:        23.1.0
+Name:           python-azure-mgmt-storage
+Version:        24.0.0
 Release:        %autorelease
 Summary:        Microsoft Azure Storage Management Client Library for Python
 License:        MIT
-URL:            https://pypi.org/project/%{srcname}/
-Source0:        %{pypi_source %{tarball_name} %{version}}
+URL:            https://pypi.org/project/azure-mgmt-storage/
+Source:         %{pypi_source azure_mgmt_storage %{version}}
 
 BuildArch:      noarch
 
@@ -32,14 +32,14 @@ Microsoft Azure Storage Management Client Library for Python}
 %description %{_description}
 
 
-%package -n python3-%{srcname}
+%package -n python3-azure-mgmt-storage
 Summary:        %{summary}
 
-%description -n python3-%{srcname} %{_description}
+%description -n python3-azure-mgmt-storage %{_description}
 
 
 %prep
-%autosetup -n %{tarball_name}-%{version}
+%autosetup -n azure_mgmt_storage-%{version}
 
 
 %generate_buildrequires
@@ -52,7 +52,7 @@ Summary:        %{summary}
 
 %install
 %pyproject_install
-%pyproject_save_files azure
+%pyproject_save_files -l azure
 
 
 %check
@@ -63,7 +63,7 @@ Summary:        %{summary}
 %endif
 
 
-%files -n python3-%{srcname} -f %{pyproject_files}
+%files -n python3-azure-mgmt-storage -f %{pyproject_files}
 %doc README.md CHANGELOG.md
 
 

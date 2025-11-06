@@ -1,6 +1,6 @@
 Name:           libudfread
 Version:        1.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        UDF reader library
 License:        LGPL-2.0-or-later
 URL:            https://code.videolan.org/videolan/libudfread
@@ -51,6 +51,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Tue Nov 04 2025 Xavier Bachelot <xavier@bachelot.org> 1.2.0-2
+- Bump Release: tag
+
 * Tue Sep 30 2025 Xavier Bachelot <xavier@bachelot.org> 1.2.0-1
 - Update to 1.2.0 (RHBZ#2390021)
 

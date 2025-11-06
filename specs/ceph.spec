@@ -180,7 +180,7 @@
 #################################################################################
 Name:		ceph
 Version:	20.1.1
-Release:	4%{?dist}
+Release:	5%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -2742,6 +2742,9 @@ exit 0
 %{python3_sitelib}/ceph_node_proxy-*
 
 %changelog
+* Tue Nov  4 2025 Tom Callaway <spot@fedoraproject.org> - 2:20.1.1-4
+- rebuild for new fuse3
+
 * Fri Oct 24 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:20.1.1-2
 - ceph-20.1.1 RC, rebuild with libarrow-22.0.0, side tag f44-build-side-121464
 

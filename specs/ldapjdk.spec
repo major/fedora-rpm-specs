@@ -13,13 +13,13 @@ Name:             ldapjdk
 # Downstream release number:
 # - development/stabilization (unsupported): 0.<n> where n >= 1
 # - GA/update (supported): <n> where n >= 1
-%global           release_number 0.1
+%global           release_number 1
 
 # Development phase:
 # - development (unsupported): alpha<n> where n >= 1
 # - stabilization (unsupported): beta<n> where n >= 1
 # - GA/update (supported): <none>
-%global           phase alpha1
+#global           phase alpha1
 
 %undefine         timestamp
 %undefine         commit_id
@@ -28,7 +28,7 @@ Summary:          LDAP SDK
 URL:              https://github.com/dogtagpki/ldap-sdk
 License:          MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.1-or-later
 Version:          %{major_version}.%{minor_version}.%{update_version}
-Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}.4
+Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}
 
 # To create a tarball from a version tag:
 # $ git archive \
@@ -57,13 +57,15 @@ ExclusiveArch:    %{java_arches} noarch
 %define java_devel java-25-openjdk-devel
 %define java_headless java-25-openjdk-headless
 %define java_home %{_jvmdir}/jre-25-openjdk
+%define maven_local maven-local-openjdk25
+
 ################################################################################
 # Build Dependencies
 ################################################################################
 
 BuildRequires:    ant-openjdk25 
 BuildRequires:    %{java_devel}
-BuildRequires:    maven-local-openjdk25
+BuildRequires:    %{maven_local}
 BuildRequires:    mvn(org.slf4j:slf4j-api)
 BuildRequires:    mvn(org.slf4j:slf4j-jdk14)
 BuildRequires:    mvn(org.dogtagpki.jss:jss-base) >= 5.6.0
@@ -160,6 +162,9 @@ ln -sf %{name}/ldaptools.pom %{buildroot}%{_mavenpomdir}/JPP-ldaptools.pom
 
 ################################################################################
 %changelog
+* Tue Nov 04 2025  Dogtag PKI Team <devel@lists.dogtagpki.org> - 5.6.0-1
+- Rebase to LDAP SDK 5.6.0
+
 * Wed Jul 30 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 5.6.0-0.1.alpha1.4
 - Really rebuilt for java-25-openjdk as system jdk
 

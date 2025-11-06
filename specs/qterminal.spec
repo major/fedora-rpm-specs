@@ -21,7 +21,6 @@ BuildRequires:  lxqt-build-tools
 BuildRequires:  cmake(Qt6Test)
 BuildRequires:	pkgconfig(qtermwidget6)
 BuildRequires:  pkgconfig(glib-2.0)
-BuildRequires:  qt-devel
 BuildRequires:  libcanberra-devel
 BuildRequires:  perl-devel
 %if 0%{?el7}

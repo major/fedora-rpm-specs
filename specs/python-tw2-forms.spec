@@ -2,7 +2,7 @@
 
 Name:           python-tw2-forms
 Version:        2.2.6
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Forms for ToscaWidgets2
 
 License:        MIT
@@ -14,7 +14,7 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-webob >= 0.9.7
 BuildRequires:  python3-tw2-core >= 2.1.4
-BuildRequires:  python3-paste-deploy
+#BuildRequires:  python3-paste-deploy
 
 # Specifically for the test suite
 #BuildRequires:  python3-nose
@@ -75,6 +75,9 @@ This package contains the basic form widgets build for python3.
 %{python3_sitelib}/%{modname}-%{version}*
 
 %changelog
+* Tue Nov 04 2025 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 2.2.6-29
+- Removed dependency on paste-deploy
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.2.6-28
 - Rebuilt for Python 3.14.0rc3 bytecode
 

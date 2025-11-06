@@ -6,17 +6,19 @@
 
 %global plugindir %(%___build_pre; pkg-config audacious --variable=plugin_dir 2>/dev/null)
 
-Summary: FC & Hippel TFMX input plugin for Audacious
+Summary: TFMX & Future Composer input plugin for Audacious
 Name: audacious-plugin-fc
-Version: 0.9.1
+Version: 0.9.2
 Release: 1%{?dist}
 Provides: audacious-plugins-fc = %{version}-%{release}
 URL: https://github.com/mschwendt/audacious-plugins-fc
 License: GPL-2.0-or-later
 Source0: https://github.com/mschwendt/audacious-plugins-fc/releases/download/%{version}/audacious-plugins-fc-%{version}.tar.bz2
 
+Patch0: audfc-metainfo.patch
+
 BuildRequires: pkgconfig(audacious) >= 3.8
-BuildRequires: libfc14audiodecoder-devel
+BuildRequires: libtfmxaudiodecoder-devel
 BuildRequires: pkgconfig
 BuildRequires: libtool automake
 BuildRequires: gcc-c++ make
@@ -26,9 +28,9 @@ BuildRequires: libappstream-glib
 
 
 %description
-This is an input plugin for Audacious which can play FC & Hippel TFMX
-chiptune music from AMIGA. Song-length detection and seek are
-implemented, too.
+This is an input plugin for Audacious which can play back TFMX
+and Future Composer music files from AMIGA. Song-length detection
+and seek are implemented, too.
 
 
 %prep
@@ -43,12 +45,12 @@ pkg-config --print-variables audacious | grep ^plugin_dir
 
 %build
 %configure --disable-static
-make %{?_smp_mflags}
+%make_build
 
 
 %install
-make DESTDIR=${RPM_BUILD_ROOT} install
-appstream-util validate-relax --nonet ${RPM_BUILD_ROOT}%{_datadir}/appdata/*.xml
+%make_install
+appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.xml
 
 
 %files
@@ -60,6 +62,9 @@ appstream-util validate-relax --nonet ${RPM_BUILD_ROOT}%{_datadir}/appdata/*.xml
 
 
 %changelog
+* Mon Nov 03 2025 Michael Schwendt <mschwendt@fedoraproject.org> - 0.9.2-1
+- update to 0.9.2 and build with libtfmxaudiodecoder
+
 * Sat Oct 04 2025 Michael Schwendt <mschwendt@fedoraproject.org> - 0.9.1-1
 - update to 0.9.1
 

@@ -2,7 +2,7 @@
 
 Name:		nvidia-texture-tools
 Version:	2.1.2
-Release:	13%{?dist}
+Release:	14%{?dist}
 Summary:	Collection of image processing and texture manipulation tools
 # Automatically converted from old format: MIT and ASL 2.0 and BSD - review is highly recommended.
 License:	LicenseRef-Callaway-MIT AND Apache-2.0 AND LicenseRef-Callaway-BSD
@@ -71,7 +71,14 @@ Headers and libraries for development with %{name}.
 %endif
 
 %build
-%cmake -DNVTT_SHARED=1 -DCMAKE_SKIP_RPATH=1	\
+%cmake -DNVTT_SHARED=1 -DCMAKE_SKIP_RPATH=1 -DCMAKE_POLICY_VERSION_MINIMUM=3.5	\
+  -DINCLUDE_INSTALL_DIR:PATH=%{_includedir} \
+   -DLIB_INSTALL_DIR:PATH=%{_libdir} \
+   -DSYSCONF_INSTALL_DIR:PATH=%{_sysconfdir} \
+   -DSHARE_INSTALL_PREFIX:PATH=%{_datadir} \
+   %if "%{?_lib}" == "lib64"
+     %{?_cmake_lib_suffix64} \
+   %endif
 %ifnarch %{ix86} x86_64
 	-DBUILD_SQUISH_WITH_SSE2=OFF		\
 %endif
@@ -115,6 +122,9 @@ export LD_LIBRARY_PATH=$RPM_BUILD_ROOT/%{_libdir}:
 %{_libdir}/lib*.so
 
 %changelog
+* Tue Nov 04 2025 Gwyn Ciesla <gwync@protonmail.com> - 2.1.2-14
+- CMake fixes
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

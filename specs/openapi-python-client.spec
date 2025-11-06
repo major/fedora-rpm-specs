@@ -1,5 +1,5 @@
 Name:           openapi-python-client
-Version:        0.26.2
+Version:        0.27.1
 Release:        %autorelease
 Summary:        Generate modern Python clients from OpenAPI
 

@@ -21,7 +21,7 @@
 
 Name:           libnbd
 Version:        1.23.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        NBD client library in userspace
 
 License:        LGPL-2.0-or-later AND BSD-3-Clause
@@ -401,6 +401,9 @@ make %{?_smp_mflags} check || {
 
 
 %changelog
+* Tue Nov  4 2025 Tom Callaway <spot@fedoraproject.org> - 1.23.10-2
+- rebuild for new fuse3
+
 * Sun Nov  2 2025 Richard W.M. Jones <rjones@redhat.com> - 1.23.10-1
 - New upstream development version 1.23.10
 - New tools nbddiscard and nbdzero.

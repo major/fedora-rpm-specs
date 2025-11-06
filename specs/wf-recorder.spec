@@ -1,7 +1,7 @@
 # -*-Mode: rpm-spec -*-
 # Use 0 for release and 1 for git
 %global   git 0
-Version:  0.5.0
+Version:  0.6.0
 %global   forgeurl https://github.com/ammen99/wf-recorder
 %if %{?git}
 %global   commit a9725f75dd3469e1434c99e32607ad2b7ef62ace
@@ -11,7 +11,7 @@ Version:  0.5.0
 
 Name:     wf-recorder
 Summary:  Screen recorder for wlroots-based compositors eg swaywm
-Release:  5%{?dist}
+Release:  1%{?dist}
 License:  MIT
 URL:      %{forgeurl}
 Source0:  %{forgesource}
@@ -58,6 +58,7 @@ and xdg-output).
 
 %files
 %{_bindir}/wf-recorder*
+%{_datadir}/fish/fish/vendor_completions.d/wf-recorder.fish
 
 %doc README.md
 %{_mandir}/man1/%{name}.1.*
@@ -65,6 +66,9 @@ and xdg-output).
 %license LICENSE
 
 %changelog
+* Fri Oct 31 2025 Dominik Mierzejewski <dominik@greysector.net> - 0.6.0-1
+- Updated to 0.6.0
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

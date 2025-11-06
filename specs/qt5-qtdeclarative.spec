@@ -11,8 +11,8 @@
 
 Summary: Qt5 - QtDeclarative component
 Name:    qt5-%{qt_module}
-Version: 5.15.17
-Release: 2%{?dist}
+Version: 5.15.18
+Release: 1%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -27,28 +27,30 @@ Source5: qv4global_p-multilib.h
 ## upstream patches
 ## repo: https://invent.kde.org/qt/qt/qtdeclarative
 ## branch: kde/5.15
-## git format-patch v5.15.17-lts-lgpl
-Patch1:  0001-Remove-unused-QPointer-QQuickPointerMask.patch
-Patch2:  0002-QQmlDelegateModel-Refresh-the-view-when-a-column-is-.patch
-Patch3:  0003-Fix-TapHandler-so-that-it-actually-registers-a-tap.patch
-Patch4:  0004-Revert-Fix-TapHandler-so-that-it-actually-registers-.patch
-Patch5:  0005-Make-sure-QQuickWidget-and-its-offscreen-window-s-sc.patch
-Patch6:  0006-Don-t-convert-QByteArray-in-startDrag.patch
-Patch7:  0007-Fix-build-after-95290f66b806a307b8da1f72f8fc2c698019.patch
-Patch8:  0008-Implement-accessibility-for-QQuickWidget.patch
-Patch9:  0009-Send-ObjectShow-event-for-visible-components-after-i.patch
-Patch10: 0010-QQuickItem-avoid-emitting-signals-during-destruction.patch
-Patch11: 0011-a11y-track-item-enabled-state.patch
-Patch12: 0012-Make-QaccessibleQuickWidget-private-API.patch
-Patch13: 0013-QQmlImportDatabase-Make-sure-the-newly-added-import-.patch
-Patch14: 0014-Models-Avoid-crashes-when-deleting-cache-items.patch
-Patch15: 0015-qv4function-Fix-crash-due-to-reference-being-invalid.patch
-Patch16: 0016-Quick-Animations-Fix-crash.patch
-Patch17: 0017-Prevent-crash-when-destroying-asynchronous-Loader.patch
-Patch18: 0018-QQuickItem-Fix-effective-visibility-for-items-withou.patch
-Patch19: 0019-Revert-QQuickItem-Fix-effective-visibility-for-items.patch
-Patch20: 0020-QML-Fortify-qmlExecuteDeferred-some-more.patch
-Patch21: 0021-QtQml-Clean-up-QQmlData-ctor.patch
+## git format-patch v5.15.18-lts-lgpl
+Patch0:  0001-Remove-unused-QPointer-QQuickPointerMask.patch
+Patch1:  0002-QQmlDelegateModel-Refresh-the-view-when-a-column-is-.patch
+Patch2:  0003-Fix-TapHandler-so-that-it-actually-registers-a-tap.patch
+Patch3:  0004-Revert-Fix-TapHandler-so-that-it-actually-registers-.patch
+Patch4:  0005-Make-sure-QQuickWidget-and-its-offscreen-window-s-sc.patch
+Patch5:  0006-Don-t-convert-QByteArray-in-startDrag.patch
+Patch6:  0007-Fix-build-after-95290f66b806a307b8da1f72f8fc2c698019.patch
+Patch7:  0008-Implement-accessibility-for-QQuickWidget.patch
+Patch8:  0009-Send-ObjectShow-event-for-visible-components-after-i.patch
+Patch9:  0010-QQuickItem-avoid-emitting-signals-during-destruction.patch
+Patch10: 0011-a11y-track-item-enabled-state.patch
+Patch11: 0012-Make-QaccessibleQuickWidget-private-API.patch
+Patch12: 0013-QQmlImportDatabase-Make-sure-the-newly-added-import-.patch
+Patch13: 0014-Models-Avoid-crashes-when-deleting-cache-items.patch
+Patch14: 0015-qv4function-Fix-crash-due-to-reference-being-invalid.patch
+Patch15: 0016-Quick-Animations-Fix-crash.patch
+Patch16: 0017-Prevent-crash-when-destroying-asynchronous-Loader.patch
+Patch17: 0018-QQuickItem-Fix-effective-visibility-for-items-withou.patch
+Patch18: 0019-Revert-QQuickItem-Fix-effective-visibility-for-items.patch
+Patch19: 0020-QML-Fortify-qmlExecuteDeferred-some-more.patch
+Patch20: 0021-QtQml-Clean-up-QQmlData-ctor.patch
+Patch21: 0022-Avoid-undefined-behavior-in-the-JIT.patch
+
 
 ## upstreamable patches
 Patch100: %{name}-gcc11.patch
@@ -232,6 +234,9 @@ make check -k -C tests ||:
 
 
 %changelog
+* Tue Nov 04 2025 Jan Grulich <jgrulich@redhat.com> - 5.15.18-1
+- 5.15.18
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.17-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

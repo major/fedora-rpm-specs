@@ -33,8 +33,8 @@
 %endif
 
 %global upstreamname hipSOLVER
-%global rocm_release 7.0
-%global rocm_patch 1
+%global rocm_release 7.1
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -73,7 +73,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 %endif
 Summary:        ROCm SOLVER marshalling library
 License:        MIT
@@ -224,6 +224,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/hipsolver/LICENSE.md
 %endif
 
 %changelog
+* Fri Oct 31 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
+- Update to 7.0.1
+
 * Mon Oct 20 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-2
 - Turn on -test for fedora
 

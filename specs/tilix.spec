@@ -1,4 +1,4 @@
-%global gtkd_version 3.8.5
+%global gtkd_version 3.11.0
 
 # Package notes writer does not support the gold linker, used for D packages.
 # See rhbz: 2043178, 2064996
@@ -10,7 +10,7 @@
 
 Name:           tilix
 Version:        1.9.6
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Tiling terminal emulator
 
 # The tilix source code is MPL-2.0,
@@ -27,6 +27,9 @@ Source0:        https://github.com/gnunn1/tilix/archive/%{version}/%{name}-%{ver
 # Fix test failure
 # metainfo: Add a developer-id
 Patch:          https://github.com/gnunn1/tilix/commit/69fe457b58b58eb6f679bc50ef040d08b40fb65d.patch
+# Backported from upstream
+# https://github.com/gnunn1/tilix/pull/2248
+Patch:          tilix-support-gtkd-3.11.0.patch
 
 ExclusiveArch:  %{ldc_arches}
 
@@ -141,6 +144,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/com.gexperts.Tilix
 
 
 %changelog
+* Tue Nov 04 2025 Kalev Lember <kalevlember@gmail.com> - 1.9.6-11
+- Backport an upstream patch for gtkd 3.11.0 support
+
 * Sun Oct 26 2025 Kalev Lember <klember@redhat.com> - 1.9.6-10
 - Rebuilt for ldc 1.41
 
