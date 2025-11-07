@@ -1,7 +1,7 @@
 %bcond_without check
 
 %global forgeurl https://github.com/jbagg/QtZeroConf
-%global commit 38083c612603c1634017838b449c63781d05e7ae
+%global commit d13a7eb4be3723e843758fa86182e99ea3f92d79
 
 Name:			qtzeroconf
 Version:		0.1.0

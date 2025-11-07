@@ -1,7 +1,7 @@
 Name:    glaxnimate
 Summary: A simple vector graphics animation program
 Version: 0.5.80
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: GPL-2.0-or-later AND LGPL-3.0-or-later AND MIT AND BSD-2-Clause AND CC0-1.0 AND CC-BY-SA-4.0 AND GPL-3.0-or-later
 URL:     https://glaxnimate.mattbas.org/
@@ -75,6 +75,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.glaxnimat
 %{_kf6_metainfodir}/org.kde.glaxnimate.metainfo.xml
 
 %changelog
+* Sat Oct 11 2025 Dominik Mierzejewski <dominik@greysector.net> - 0.5.80-4
+- Rebuilt for FFmpeg 8
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.80-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

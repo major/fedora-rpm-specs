@@ -3,7 +3,7 @@
 ExcludeArch: %{ix86}
 
 Name:          qrca
-Version:       25.08.2
+Version:       25.08.3
 Release:       1%{?dist}
 License:       CC0-1.0 AND BSD-3-Clause AND BSD-2-Clause AND GPL-2.0-or-later AND LGPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.1-or-later
 Summary:       QR code scanner for KDE Plasma
@@ -73,6 +73,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_kf6_metainfodir}/org.kde.qrca.appdata.xml
 
 %changelog
+* Tue Nov 04 2025 Steve Cossette <farchord@gmail.com> - 25.08.3-1
+- 25.08.3
+
 * Wed Oct 08 2025 Steve Cossette <farchord@gmail.com> - 25.08.2-1
 - 25.08.2
 

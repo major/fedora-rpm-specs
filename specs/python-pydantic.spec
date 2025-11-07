@@ -11,6 +11,9 @@ License:        MIT
 URL:            https://github.com/pydantic/pydantic
 Source:         %{url}/archive/v%{version}/pydantic-%{version}.tar.gz
 
+# Upstream patch to fix the compatibility with newest cloudpickle
+Patch:          https://github.com/pydantic/pydantic/commit/6a90254f.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

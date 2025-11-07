@@ -8,18 +8,13 @@
 %global crate get-size2
 
 Name:           rust-get-size2
-Version:        0.7.0
+Version:        0.7.1
 Release:        %autorelease
 Summary:        Determine the size in bytes an object occupies inside RAM
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/get-size2
 Source:         %{crates_source}
-# * Fix missing LICENSE file in the published get-size2 crate
-# * https://github.com/bircni/get-size2/pull/36
-Source10:       https://github.com/bircni/get-size2/raw/b6f29700a268daa9e3fd1954bfe04906e43d90f7/LICENSE
-# Manually created patch for downstream crate metadata changes
-Patch:          get-size2-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -188,8 +183,6 @@ use the "url" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-# Copy the license file into the source.
-cp -p '%{SOURCE10}' .
 %cargo_prep
 
 %generate_buildrequires

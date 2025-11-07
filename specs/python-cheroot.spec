@@ -3,7 +3,7 @@
 %bcond_without docs
 
 Name:           python-%{pypi_name}
-Version:        11.1.0
+Version:        11.1.1
 Release:        %autorelease
 Summary:        Highly-optimized, pure-python HTTP server
 

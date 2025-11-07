@@ -1,6 +1,6 @@
 Name:           qmmp-plugin-pack
 Version:        2.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A set of extra plugins for Qmmp
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -64,6 +64,9 @@ Plugin pack is a set of extra plugins for Qmmp.
 
 
 %changelog
+* Wed Nov 05 2025 Dominik Mierzejewski <dominik@greysector.net> - 2.3.0-2
+- Rebuilt for FFmpeg 8
+
 * Thu Oct 16 2025 Karel Volný <kvolny@redhat.com> 2.3.0-1
 - new version 2.3.0 (rhbz#2403551)
 - add MMS plugin (moved from qmmp)

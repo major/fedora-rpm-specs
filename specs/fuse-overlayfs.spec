@@ -3,7 +3,7 @@
 %{!?_modulesloaddir:%global _modulesloaddir %{_usr}/lib/modules-load.d}
 
 Name: fuse-overlayfs
-Version: 1.13
+Version: 1.16
 Release: %autorelease
 ExclusiveArch: %{arm64} ppc64le s390x x86_64 riscv64
 License: GPL-3.0-or-later

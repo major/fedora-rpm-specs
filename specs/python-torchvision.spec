@@ -39,6 +39,8 @@ Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz#/vision-v%{version}.
 # Find where ffmpeg header and libs are
 # Patch0:         0001-prepare-python-torchvision-setup-for-fedora.patch
 Patch1:         0001-A-better-cuda-version.patch
+# Fix build with FFmpeg 8
+Patch2:         %{name}-ffmpeg8.patch
 
 # Limit to these because that is what torch is on
 ExclusiveArch:  aarch64 x86_64

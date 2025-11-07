@@ -31,11 +31,6 @@
 %global have_msr 1
 %endif
 
-# Until we actually have seen it outside x86
-%ifarch i686 x86_64
-%global have_thunderbolt 1
-%endif
-
 # only available recently
 %if 0%{?fedora} >= 30
 %global have_modem_manager 1
@@ -47,7 +42,7 @@
 
 Summary:   Firmware update daemon
 Name:      fwupd
-Version:   2.0.16
+Version:   2.0.17
 Release:   %autorelease
 License:   LGPL-2.1-or-later
 URL:       https://github.com/fwupd/fwupd
@@ -71,6 +66,7 @@ BuildRequires: libarchive-devel
 BuildRequires: libcbor-devel
 BuildRequires: libblkid-devel
 BuildRequires: readline-devel
+BuildRequires: libmnl-devel
 %if 0%{?have_passim}
 BuildRequires: passim-devel
 %endif

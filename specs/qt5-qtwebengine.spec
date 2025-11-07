@@ -48,7 +48,7 @@
 Summary: Qt5 - QtWebEngine components
 Name:    qt5-qtwebengine
 Version: 5.15.19
-Release: 2%{?dist}
+Release: 4%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 # See also http://qt-project.org/doc/qt-5.0/qtdoc/licensing.html
@@ -97,6 +97,8 @@ Patch36: qtwebengine-chromium-141-glibc-2.42-SYS_SECCOMP.patch
 Patch60: qtwebengine-ffmpeg5.patch
 # Adapt for ffmpeg7 (from openSUSE)
 Patch61: qt5-qtwebengine-ffmpeg7.patch
+# Adapt for ffmpeg8
+Patch62: qt5-qtwebengine-ffmpeg8.patch
 
 # Fix build
 Patch70: qtwebengine-5.15.13_p20240322-ninja1.12.patch
@@ -391,6 +393,7 @@ popd
 
 %patch -P60 -p1
 %patch -P61 -p1
+%patch -P62 -p1 -b .ffmpeg8
 %patch -P70 -p1
 %patch -P71 -p1
 %patch -P73 -p1
@@ -577,6 +580,12 @@ done
 %{_qt5_examplesdir}/
 
 %changelog
+* Wed Nov 05 2025 Dominik Mierzejewski <dominik@greysector.net> - 5.15.19-4
+- Rebuilt for Qt5 5.15.18
+
+* Wed Nov 05 2025 Dominik Mierzejewski <dominik@greysector.net> - 5.15.19-3
+- Fixed build with FFmpeg 8
+
 * Tue Nov 04 2025 Jan Grulich <jgrulich@redhat.com> - 5.15.19-2
 - Rebuild (qt5)
 

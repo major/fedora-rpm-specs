@@ -70,7 +70,7 @@
 %bcond_with          liburiparser
 
 %global upver        8.5.0
-%global rcver        RC3
+%global rcver        RC4
 
 Summary: PHP scripting language for creating dynamic web sites
 %if %{with rename}
@@ -79,7 +79,7 @@ Name: php%{major_version}
 Name: php
 %endif
 Version: %{upver}%{?rcver:~%{rcver}}
-Release: 2%{?dist}
+Release: 1%{?dist}
 # All files licensed under PHP version 3.01, except
 # Zend is licensed under Zend
 # TSRM is licensed under BSD
@@ -1644,6 +1644,9 @@ systemctl try-restart php-fpm.service >/dev/null 2>&1 || :
 
 
 %changelog
+* Wed Nov  5 2025 Remi Collet <remi@remirepo.net> - 8.5.0~RC4-1
+- update to 8.5.0RC4
+
 * Tue Oct 28 2025 Remi Collet <remi@remirepo.net> - 8.5.0~RC3-2
 - add build option to rename to php8.5
 

@@ -768,8 +768,11 @@ find %{buildroot}%{_libdir}/dotnet/ -type f -name '*.txt' -exec chmod -x {} \;
 find %{buildroot}%{_libdir}/dotnet/ -type f -name '*.xml' -exec chmod -x {} \;
 
 %if %{is_latest_dotnet}
+
+%if 0%{?fedora} < 44 || 0%{?rhel} < 11
 install -dm 0755 %{buildroot}%{_sysconfdir}/profile.d/
 install dotnet.sh %{buildroot}%{_sysconfdir}/profile.d/
+%endif
 
 # Install dynamic completions
 install -dm 0755 %{buildroot}/%{bash_completions_dir}
@@ -864,7 +867,9 @@ export COMPlus_LTTng=0
 %license %{_libdir}/dotnet/ThirdPartyNotices.txt
 %doc %{_mandir}/man1/dotnet*.1.*
 %doc %{_mandir}/man7/dotnet*.7.*
+%if 0%{?fedora} < 44 || 0%{?rhel} < 11
 %config(noreplace) %{_sysconfdir}/profile.d/dotnet.sh
+%endif
 %config(noreplace) %{_sysconfdir}/dotnet
 %dir %{_datadir}/bash-completion
 %dir %{bash_completions_dir}

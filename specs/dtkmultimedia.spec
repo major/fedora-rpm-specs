@@ -23,6 +23,8 @@ Patch0:         dtkmultimedia-ffmpeg7.patch
 Patch1:         https://github.com/linuxdeepin/dtkmultimedia/pull/67.patch
 
 Patch2:         dtkmultimedia-fix-build-against-qt-6-10.patch
+# Port to FFmpeg 8
+Patch3:         dtkmultimedia-ffmpeg8.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake

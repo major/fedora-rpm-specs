@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:    kqtquickcharts
 Summary: A QtQuick plugin to render beautiful and interactive charts
-Version: 25.08.2
+Version: 25.08.3
 Release: 1%{?dist}
 
 # KDE e.V. may determine that future LGPL versions are accepted
@@ -55,6 +55,9 @@ Provides: %{name}-devel%{?_isa} = %{version}-%{release}
 %{_kf6_libdir}/cmake/KQtQuickCharts/KQtQuickChartsConfig.cmake
 
 %changelog
+* Tue Nov 04 2025 Steve Cossette <farchord@gmail.com> - 25.08.3-1
+- 25.08.3
+
 * Wed Oct 08 2025 Steve Cossette <farchord@gmail.com> - 25.08.2-1
 - 25.08.2
 

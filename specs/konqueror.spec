@@ -4,8 +4,8 @@
 #global tests 1
 
 Name:    konqueror
-Version: 25.08.2
-Release: 3%{?dist}
+Version: 25.08.3
+Release: 1%{?dist}
 Summary: KDE File Manager and Browser
 
 # Automatically converted from old format: GPLv2+ and LGPLv2+ and GFDL - review is highly recommended.
@@ -211,6 +211,9 @@ make test -C %{_target_platform} ARGS="--output-on-failure --timeout 300" ||:
 %{_kf6_plugindir}/parts/webenginepart.so
 
 %changelog
+* Tue Nov 04 2025 Steve Cossette <farchord@gmail.com> - 25.08.3-1
+- 25.08.3
+
 * Thu Oct 30 2025 Steve Cossette <farchord@gmail.com> - 25.08.2-3
 - Rebuild for Qt 6.10
 

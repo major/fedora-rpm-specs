@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:    kcron
 Summary: Cron KDE configuration module
-Version: 25.08.2
+Version: 25.08.3
 Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -63,6 +63,9 @@ Systemsettings module for the cron task scheduler.
 %{_kf6_qtplugindir}/plasma/kcms/systemsettings/kcm_cron.so
 
 %changelog
+* Tue Nov 04 2025 Steve Cossette <farchord@gmail.com> - 25.08.3-1
+- 25.08.3
+
 * Wed Oct 08 2025 Steve Cossette <farchord@gmail.com> - 25.08.2-1
 - 25.08.2
 

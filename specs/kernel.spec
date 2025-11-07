@@ -176,13 +176,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.18.0
 %define specversion 6.18.0
 %define patchversion 6.18
-%define pkgrelease 0.rc4.251104gc9cfc122f0371.38
+%define pkgrelease 0.rc4.251105g1c353dc8d962d.39
 %define kversion 6
-%define tarfile_release 6.18-rc4-7-gc9cfc122f0371
+%define tarfile_release 6.18-rc4-25-g1c353dc8d962d
 # This is needed to do merge window version magic
 %define patchlevel 18
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc4.251104gc9cfc122f0371.38%{?buildid}%{?dist}
+%define specrelease 0.rc4.251105g1c353dc8d962d.39%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.18.0
 
@@ -4500,14 +4500,18 @@ fi\
 #
 #
 %changelog
-* Tue Nov 04 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.18.0-0.rc4.251104gc9cfc122f0371.38]
-- Linux v6.18.0-0.rc4.251104gc9cfc122f0371
+* Wed Nov 05 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.18.0-0.rc4.251105g1c353dc8d962d.39]
+- Linux v6.18.0-0.rc4.251105g1c353dc8d962d
 
-* Tue Nov 04 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc4.c9cfc122f037.38]
+* Wed Nov 05 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc4.1c353dc8d962.39]
 - rust: kbuild: workaround `rustdoc` doctests modifier bug (Miguel Ojeda)
 - rust: kbuild: treat `build_error` and `rustdoc` as kernel objects (Miguel Ojeda)
 - powerpc/tools: drop `-o pipefail` in gcc check scripts (Jan Stancek)
 - redhat/configs: clang_lto: disable CONFIG_FORTIFY_KUNIT_TEST (Scott Weaver)
+
+* Wed Nov 05 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc4.1c353dc8d962.38]
+- redhat: use RELEASE_LOCALVERSION also for dist-get-tag (Jan Stancek)
+- Linux v6.18.0-0.rc4.1c353dc8d962
 
 * Tue Nov 04 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc4.c9cfc122f037.37]
 - redhat: configs: rhel: Enable OV08X40 sensor to support Intel MIPI camera (Kate Hsuan)

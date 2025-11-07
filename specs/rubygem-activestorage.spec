@@ -13,7 +13,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 8.0.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Local and cloud file storage framework
 License: MIT
 URL: https://rubyonrails.org
@@ -25,6 +25,9 @@ Source1: %{gem_name}-%{version}%{?prerelease}-tests.tar.gz
 # git clone https://github.com/rails/rails.git && cd rails/activestorage
 # git archive -v -o activestorage-8.0.3-js.tar.gz v8.0.3 package.json rollup.config.js
 Source2: %{gem_name}-%{version}%{?prerelease}-js.tar.gz
+# Fix a test failing with FFmpeg 8
+# https://github.com/rails/rails/issues/56069
+Patch0: %{gem_name}-ffmpeg8.patch
 
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
@@ -71,6 +74,8 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version}%{?prerelease} -b1 -b2
+cd ..
+%patch -P0 -p0 -b .ffmpeg8
 
 %build
 %if %{with js_recompilation}
@@ -176,6 +181,9 @@ bundle exec ruby -Itest -ractive_storage/engine -e 'Dir.glob "./test/**/*_test.r
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Wed Oct 15 2025 Dominik Mierzejewski <dominik@greysector.net> - 8.0.3-2
+- Fixed a test failing with FFmpeg 8
+
 * Mon Oct 06 2025 Vít Ondruch <vondruch@redhat.com> - 8.0.3-1
 - Update to Active Storage 8.0.3.
   Related: rhzb#2388437

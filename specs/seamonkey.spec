@@ -34,8 +34,8 @@
 
 Name:           seamonkey
 Summary:        Web browser, e-mail, news, IRC client, HTML editor
-Version:        2.53.21
-Release:        3%{?dist}
+Version:        2.53.22
+Release:        1%{?dist}
 URL:            http://www.seamonkey-project.org
 License:        MPL-2.0
 
@@ -55,7 +55,7 @@ Patch3:		seamonkey-2.53.17-mozilla-1516803.patch
 Patch4:		seamonkey-2.53.18-mozilla-1862601.patch
 Patch5:		firefox-35-rhbz-1173156.patch
 Patch7:		firefox-51-mozilla-1005640.patch
-Patch8:		seamonkey-2.53.19-mozilla-1882209.patch
+Patch8:		seamonkey-2.53.22-mozilla-1882209.patch
 Patch9:		seamonkey-2.53.1-mozilla-revert-1332139.patch
 Patch11:	seamonkey-2.53.16-mozilla-1434478.patch
 Patch13:	seamonkey-2.53.10-mozilla-1460295.patch
@@ -64,8 +64,8 @@ Patch15:	seamonkey-2.53.17-mozilla-1442861.patch
 Patch16:	seamonkey-2.53.14-fix-1485179.patch
 Patch17:	seamonkey-2.53.8-mozilla-1661070-1.patch
 Patch18:	seamonkey-2.53.8-mozilla-1661070-2.patch
-Patch19:	seamonkey-2.53.20-system-av1.patch
-Patch21:	seamonkey-2.53.18-media-document.patch
+Patch19:	seamonkey-2.53.22-system-av1.patch
+Patch21:	seamonkey-2.53.22-media-document.patch
 Patch23:	seamonkey-2.53.9-revert-1593550.patch
 Patch24:	seamonkey-2.53.20-install_man.patch
 Patch25:	seamonkey-2.53.7-mailnews-useragent.patch
@@ -83,11 +83,12 @@ Patch38:	seamonkey-2.53.8-mozilla-521861.patch
 Patch39:	seamonkey-2.53.8.1-dateformat.patch
 Patch40:	seamonkey-2.53.10-slowscript.patch
 Patch42:	seamonkey-2.53.10-postmessage-event.patch
-Patch43:	seamonkey-2.53.20-mozilla-1502802.patch
+Patch43:	seamonkey-2.53.22-mozilla-1502802.patch
+Patch44:	seamonkey-2.53.22-mozilla-1363875.patch
 
 Patch60:	seamonkey-2.53.11-ua-update.patch
 Patch61:	seamonkey-2.53.13-ua-update-preload.patch
-Patch62:	seamonkey-2.53.20-compat-version.patch
+Patch62:	seamonkey-2.53.22-compat-version.patch
 Patch65:	seamonkey-2.53.17-fix-1406821.patch
 Patch66:	seamonkey-2.53.11-startupcache1.patch
 Patch69:	seamonkey-2.53.20-stylo_config.patch
@@ -106,7 +107,6 @@ BuildRequires:  libpng-devel
 BuildRequires:  libjpeg-turbo-devel
 BuildRequires:  zlib-devel
 BuildRequires:  zip
-BuildRequires:  libIDL-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  gtk3-devel
 BuildRequires:  dbus-glib-devel
@@ -214,6 +214,7 @@ cp %{SOURCE3} GNUmakefile
 %patch 40 -p0 -b .slowscript
 %patch 42 -p1 -b .postmessage-event
 %patch 43 -p1 -b .1502802
+%patch 44 -p1 -b .1363875
 
 %patch 60 -p1 -b .ua-update
 %patch 61 -p1 -b .ua-update-preload
@@ -502,6 +503,9 @@ mkdir -p $RPM_BUILD_ROOT%{_libdir}/mozilla/extensions/%{seamonkey_app_id}
 
 
 %changelog
+* Wed Nov  5 2025 Dmitry Butskoy <Dmitry@Butskoy.name> 2.53.22-1
+- update to 2.53.22
+
 * Wed Aug 20 2025 Dominik Mierzejewski <dominik@greysector.net> - 2.53.21-3
 - Drop unused yasm build dependency
   See: https://fedoraproject.org/wiki/Changes/DeprecateYASM

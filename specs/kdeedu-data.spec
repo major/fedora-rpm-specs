@@ -1,6 +1,6 @@
 Name:    kdeedu-data
 Summary: Shared icons, artwork and data files for educational applications
-Version: 25.08.2
+Version: 25.08.3
 Release: 1%{?dist}
 
 # Automatically converted from old format: GPLv2 - review is highly recommended.
@@ -42,6 +42,9 @@ Requires: hicolor-icon-theme
 
 
 %changelog
+* Tue Nov 04 2025 Steve Cossette <farchord@gmail.com> - 25.08.3-1
+- 25.08.3
+
 * Wed Oct 08 2025 Steve Cossette <farchord@gmail.com> - 25.08.2-1
 - 25.08.2
 

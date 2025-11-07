@@ -1,6 +1,6 @@
 %global project_version_prime 5
-%global project_version_major 2
-%global project_version_minor 17
+%global project_version_major 3
+%global project_version_minor 0
 %global project_version_micro 0
 
 %bcond dnf5_obsoletes_dnf %[0%{?fedora} > 40 || 0%{?rhel} > 10]
@@ -12,6 +12,8 @@ Summary:        Command-line package manager
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf5
 Source0:        %{url}/archive/%{version}/dnf5-%{version}.tar.gz
+Patch0:         0001-test_conf.cpp-make-comparing-size_type-cross-platfor.patch
+Patch1:         0002-python_plugins_loader-disable-sign-compare-check-err.patch
 
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Requires:       libdnf5-cli%{?_isa} = %{version}-%{release}
@@ -83,7 +85,9 @@ Provides:       dnf5-command(versionlock)
 %bcond_without plugin_appstream
 %bcond_without plugin_expired_pgp_keys
 %bcond_without plugin_rhsm
+%bcond_without plugin_manifest
 %bcond_without python_plugins_loader
+%bcond_without plugin_local
 
 %bcond_without comps
 %bcond_without modulemd
@@ -204,6 +208,9 @@ BuildRequires:  pkgconfig(smartcols)
 
 %if %{with dnf5_plugins}
 BuildRequires:  libcurl-devel >= 7.62.0
+%if %{with plugin_manifest}
+BuildRequires:  pkgconfig(libpkgmanifest)
+%endif
 %endif
 
 %if %{with dnf5daemon_server}
@@ -358,6 +365,7 @@ It supports RPM packages, modulemd modules, and comps groups & environments.
 %{_mandir}/man7/dnf*-system-state.7.*
 %{_mandir}/man7/dnf*-changes-from-dnf4.7.*
 %{_mandir}/man5/dnf*.conf.5.*
+%{_mandir}/man5/dnf*.conf-vendorpolicy.5.*
 %{_mandir}/man5/dnf*.conf-todo.5.*
 %{_mandir}/man5/dnf*.conf-deprecated.5.*
 %endif
@@ -404,10 +412,14 @@ Package management library.
 %dir %{_sysconfdir}/dnf/libdnf5-plugins
 %dir %{_datadir}/dnf5/repos.d
 %dir %{_datadir}/dnf5/vars.d
+%dir %{_datadir}/dnf5/vendors.d
+%dir %{_sysconfdir}/dnf/vendors.d
 %dir %{_libdir}/libdnf5
 %{_libdir}/libdnf5.so.2*
 %dir %{_prefix}/lib/sysimage/libdnf5
 %attr(0755, root, root) %ghost %dir %{_prefix}/lib/sysimage/libdnf5/comps_groups
+%attr(0755, root, root) %ghost %dir %{_prefix}/lib/sysimage/libdnf5/comps_groups/environments
+%attr(0755, root, root) %ghost %dir %{_prefix}/lib/sysimage/libdnf5/comps_groups/groups
 %verify(not md5 size mtime) %attr(0644, root, root) %ghost %{_prefix}/lib/sysimage/libdnf5/environments.toml
 %verify(not md5 size mtime) %attr(0644, root, root) %ghost %{_prefix}/lib/sysimage/libdnf5/groups.toml
 %verify(not md5 size mtime) %attr(0644, root, root) %ghost %{_prefix}/lib/sysimage/libdnf5/modules.toml
@@ -435,7 +447,7 @@ Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Library for working with a terminal in a command-line package manager.
 
 %files -n libdnf5-cli -f libdnf5-cli.lang
-%{_libdir}/libdnf5-cli.so.2*
+%{_libdir}/libdnf5-cli.so.3*
 %license COPYING.md
 %license lgpl-2.1.txt
 %endif
@@ -710,8 +722,30 @@ Libdnf5 plugin that allows loading Python plugins.
 
 %files -n python3-libdnf5-python-plugins-loader
 %{_libdir}/libdnf5/plugins/python_plugins_loader.*
+%config %{_sysconfdir}/dnf/libdnf5-plugins/python_plugins_loader.conf
+%dir %{_sysconfdir}/dnf/libdnf5-plugins/python_plugins_loader.d
 %dir %{python3_sitelib}/libdnf_plugins/
 %doc %{python3_sitelib}/libdnf_plugins/README
+%endif
+
+# ========== libdnf5-plugin-local ==========
+
+%if %{with plugin_local}
+%package -n libdnf5-plugin-local
+Summary:        Libdnf5 plugin that automatically copies all downloaded packages to a local repository
+License:        LGPL-2.1-or-later
+Requires:       libdnf5%{?_isa} = %{version}-%{release}
+Requires:       createrepo_c
+
+%description -n libdnf5-plugin-local
+Libdnf5 plugin that automatically copies all downloaded packages to a repository on the local filesystem and generates repo metadata.
+
+%files -n libdnf5-plugin-local
+%{_libdir}/libdnf5/plugins/local.*
+%config %{_sysconfdir}/dnf/libdnf5-plugins/local.conf
+%if %{with man}
+%{_mandir}/man8/libdnf5-local.8.*
+%endif
 %endif
 
 
@@ -818,8 +852,8 @@ Provides:       dnf5-command(reposync)
 Provides:       dnf5-command(repomanage)
 
 %description -n dnf5-plugins
-Core DNF5 plugins that enhance dnf5 with builddep, changelog,
-config-manager, copr, repoclosure, repomanage and reposync commands.
+Core DNF5 plugins that enhance dnf5 with builddep, changelog, config-manager,
+copr, needs-restarting, repoclosure, repomanage, and reposync commands.
 
 %files -n dnf5-plugins -f dnf5-plugin-builddep.lang -f dnf5-plugin-changelog.lang -f dnf5-plugin-config-manager.lang -f dnf5-plugin-copr.lang -f dnf5-plugin-needs-restarting.lang -f dnf5-plugin-repoclosure.lang -f dnf5-plugin-reposync.lang
 %{_libdir}/dnf5/plugins/builddep_cmd_plugin.so
@@ -884,7 +918,29 @@ automatically and regularly from systemd timers, cron jobs or similar.
 %exclude %{_bindir}/dnf-automatic
 %endif
 
+# ========== dnf5-manifest plugin ==========
+
+%if %{with plugin_manifest}
+%package plugin-manifest
+Summary:        DNF5 plugin for working with RPM package manifest files
+License:        LGPL-2.1-or-later
+Requires:       dnf5%{?_isa} = %{version}-%{release}
+Requires:       libdnf5%{?_isa} = %{version}-%{release}
+Requires:       libdnf5-cli%{?_isa} = %{version}-%{release}
+Requires:       pkgconfig(libpkgmanifest)
+Provides:       dnf5-command(manifest)
+
+%description plugin-manifest
+DNF5 plugin for working with RPM package manifest files.
+
+%files plugin-manifest
+%{_libdir}/dnf5/plugins/manifest_cmd_plugin.so
+%if %{with man}
+%{_mandir}/man8/dnf*-manifest.8.*
 %endif
+%endif  # %{with plugin_manifest}
+
+%endif  # %{with dnf5_plugins}
 
 
 # ========== unpack, build, check & install ==========
@@ -910,6 +966,7 @@ automatically and regularly from systemd timers, cron jobs or similar.
     -DWITH_PLUGIN_APPSTREAM=%{?with_plugin_appstream:ON}%{!?with_plugin_appstream:OFF} \
     -DWITH_PLUGIN_EXPIRED_PGP_KEYS=%{?with_plugin_expired_pgp_keys:ON}%{!?with_plugin_expired_pgp_keys:OFF} \
     -DWITH_PLUGIN_RHSM=%{?with_plugin_rhsm:ON}%{!?with_plugin_rhsm:OFF} \
+    -DWITH_PLUGIN_MANIFEST=%{?with_plugin_manifest:ON}%{!?with_plugin_manifest:OFF} \
     -DWITH_PYTHON_PLUGINS_LOADER=%{?with_python_plugins_loader:ON}%{!?with_python_plugins_loader:OFF} \
     \
     -DWITH_COMPS=%{?with_comps:ON}%{!?with_comps:OFF} \
@@ -1027,6 +1084,13 @@ mkdir -p %{buildroot}%{_libdir}/libdnf5/plugins
 %ldconfig_scriptlets
 
 %changelog
+* Wed Nov 05 2025 Ales Matej <amatej@redhat.com> - 5.3.0.0-2
+- Fix build for various architectures other than x86_64
+
+* Tue Nov 04 2025 Packit <hello@packit.dev> - 5.3.0.0-1
+- Update to version 5.3.0.0
+- Resolves: rhbz#2412261
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 5.2.17.0-2
 - Rebuilt for Python 3.14.0rc3 bytecode
 

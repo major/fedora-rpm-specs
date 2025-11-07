@@ -3,7 +3,7 @@
 ExcludeArch: %{ix86}
 
 Name:           isoimagewriter
-Version:        25.08.2
+Version:        25.08.3
 Release:        1%{?dist}
 Summary:        KDE ISO Image Writer, a tool to write a .iso file to a USB disk
 
@@ -75,6 +75,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Tue Nov 04 2025 Steve Cossette <farchord@gmail.com> - 25.08.3-1
+- 25.08.3
+
 * Wed Oct 08 2025 Steve Cossette <farchord@gmail.com> - 25.08.2-1
 - 25.08.2
 

@@ -1,5 +1,5 @@
 Name:           python-tox-uv
-Version:        1.28.0
+Version:        1.28.1
 Release:        %autorelease
 Summary:        Integration of uv with tox
 
@@ -35,7 +35,7 @@ Summary:        %{summary}
 # Remove unpackaged (devpi-process) and coverage test dependencies
 sed -Ei '/"(devpi-process|covdefaults|diff-cover|pytest-cov)/d' pyproject.toml
 # Relax some build/test dependencies
-sed -Ei 's/"(hatchling|pytest(-mock)?)>=[^"]+"/"\1"/' pyproject.toml
+sed -Ei 's/"(hatch(ling|-vcs)|pytest(-mock)?)>=[^"]+"/"\1"/' pyproject.toml
 
 
 %generate_buildrequires

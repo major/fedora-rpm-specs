@@ -11,7 +11,7 @@
 
 Name: audacious-plugins
 Version: 4.5.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 %global tar_ver %{version}
 
@@ -394,6 +394,9 @@ install -p -m0644 %{SOURCE103} ${RPM_BUILD_ROOT}%{_datadir}/appdata
 
 
 %changelog
+* Mon Sep 29 2025 Dominik Mierzejewski <dominik@greysector.net> - 4.5.1-2
+- Rebuilt for FFmpeg 8
+
 * Sun Sep 07 2025 Michael Schwendt <mschwendt@fedoraproject.org> - 4.5.1-1
 - update to 4.5.1
 

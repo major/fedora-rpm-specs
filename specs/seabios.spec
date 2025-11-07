@@ -14,6 +14,7 @@ Source0:        http://code.coreboot.org/p/seabios/downloads/get/%{name}-%{versi
 
 Patch0001:      0001-Workaround-for-a-win8.1-32-S4-resume-bug.patch
 Patch0003:      0003-vgabios-Reorder-video-modes-to-work-around-a-Windows.patch
+Patch0009:      0001-update-release-date.patch
 
 Source10:       config.vga-cirrus
 Source11:       config.vga-isavga

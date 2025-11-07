@@ -14,7 +14,7 @@ ExclusiveArch: %{qt5_qtwebengine_arches}
 Name:    digikam
 Summary: A digital camera accessing & photo management application
 Version: 8.8.0
-Release: 2%{?beta}%{?dist}
+Release: 3%{?beta}%{?dist}
 
 License: GPL-2.0-or-later
 URL:     http://www.digikam.org/
@@ -334,6 +334,9 @@ update-desktop-database -q &> /dev/null
 
 
 %changelog
+* Fri Oct 31 2025 Dominik Mierzejewski <dominik@greysector.net> - 8.8.0-3
+- Rebuilt for FFmpeg 8
+
 * Thu Oct 30 2025 Jan Grulich <jgrulich@redhat.com> - 8.8.0-2
 - Rebuild (qt6)
 

@@ -13,10 +13,10 @@
 # For rc, beta, alpha releases substitute tilde (~) for dash (-)
 # in version0. tag0 reverses the substitution
 # e.g.  global version0        27.4.0~rc.4
-%global version0        28.5.1
+%global version0        28.5.2
 %{lua:
-    local version0 = rpm.expand("%{version0}")
-    rpm.define("tag0 " .. version0:gsub("~", "-"))
+    local version0 = rpm.expand("%{version0}"):gsub("~", "-")
+    rpm.define("tag0 " .. "v" .. version0)
 }
 
 # https://github.com/docker/cli
@@ -309,6 +309,11 @@ skiptest \
     "TestJoinGoodSymlink" \
     "TestJoinWithSymlinkReplace" \
     "TestJoinCloseInvalidates" \
+    %dnl no such file or directory \
+    "TestImageLoadMissing" \
+    %dnl create tmp file - invalid argument \
+    "TestContentStoreForPull" \
+    "TestManifestStore" \
     %ifarch s390x
     %dnl Test timeout
     "TestCloseRunningCommand" \

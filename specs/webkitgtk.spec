@@ -19,7 +19,7 @@
 %endif
 
 Name:           webkitgtk
-Version:        2.50.1
+Version:        2.51.1
 Release:        %autorelease
 Summary:        GTK web content engine library
 
@@ -57,15 +57,11 @@ Source1:        https://webkitgtk.org/releases/webkitgtk-%{version}.tar.xz.asc
 # $ gpg --export --export-options export-minimal 013A0127AC9C65B34FFA62526C1009B693975393 5AA3BC334FD7E3369E7C77B291C559DBE4C9123B > webkitgtk-keys.gpg
 Source2:        webkitgtk-keys.gpg
 
-# Fix for building with clang-22
-# This patch comes from:
-# https://skia.googlesource.com/skcms.git/+/135488419331644e59091ecc73e682299d3937a4
-# This was bundled into skia here:
-# https://github.com/google/skia/commit/9ab05b08ae3e83c80ac69c69008ed1048e9a0923
-# Then bundled into webkit in this commit:
-# https://github.com/WebKit/WebKit/commit/7257554fb8cae41212228361c22c15c2557a0cbb
-# I would expect this fix to be part of the next webkit release.
-Patch: 0001-Change-use-of-removed-intrinsic.patch
+# https://bugs.webkit.org/show_bug.cgi?id=301512
+Patch:          i686-build.patch
+
+# https://bugzilla.redhat.com/show_bug.cgi?id=2408418
+Patch:          no-file-prefix-map.patch
 
 BuildRequires:  bison
 BuildRequires:  bubblewrap
@@ -139,7 +135,7 @@ BuildRequires:  pkgconfig(wayland-server)
 BuildRequires:  pkgconfig(xt)
 
 # Filter out provides for private libraries
-%global __provides_exclude_from ^(%{_libdir}/webkit2gtk-4\\.0/.*\\.so|%{_libdir}/webkit2gtk-4\\.1/.*\\.so|%{_libdir}/webkitgtk-6\\.0/.*\\.so)$
+%global __provides_exclude_from ^(%{_libdir}/webkit2gtk-4\\.1/.*\\.so|%{_libdir}/webkitgtk-6\\.0/.*\\.so)$
 
 %description
 WebKitGTK is the port of the WebKit web rendering engine to the

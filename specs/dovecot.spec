@@ -6,7 +6,7 @@ Name: dovecot
 Epoch: 1
 Version: 2.4.1
 %global prever -4
-Release: 7%{?dist}
+Release: 8%{?dist}
 #dovecot itself is MIT, a few sources are PD, pigeonhole is LGPLv2
 License: MIT AND LGPL-2.1-only
 
@@ -49,7 +49,7 @@ Patch18: dovecot-2.3.15-valbasherr.patch
 Patch23: dovecot-2.4.1-nolibotp.patch
 Patch24: dovecot-2.4.1-gssapi.patch
 #from upstream, for <= 2.4.1, rhbz#2402122
-#https://github.com/dovecot/core/commit/a70ce7d3e2f983979e971414c5892c4e30197231.diff
+#https://github.com/dovecot/core/compare/a70ce7d3e2f983979e971414c5892c4e30197231%5E...34caed79b76a7b82a2a9c94cf35371bec6c2b826.patch
 Patch25: dovecot-2.4.1-cve-2025-30189.patch
 
 BuildRequires: gcc, gcc-c++, openssl-devel, pam-devel, zlib-devel, bzip2-devel, libcap-devel
@@ -479,6 +479,9 @@ make check
 %{_libdir}/%{name}/dict/libdriver_pgsql.so
 
 %changelog
+* Wed Nov 05 2025 Michal Hlavinka <mhlavink@redhat.com> - 1:2.4.1-8
+- update patch for CVE-2025-30189
+
 * Wed Oct 15 2025 Michal Hlavinka <mhlavink@redhat.com> - 1:2.4.1-7
 - enable fts flatcurve
 

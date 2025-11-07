@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 43.46
+Version: 44.1
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -16,7 +16,7 @@ Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{vers
 # Versions of required components (done so we make sure the buildrequires
 # match the requires versions of things).
 
-%bcond glade %{undefined rhel}
+%bcond glade %[%{undefined rhel} && %{undefined eln}]
 %bcond live %[%{defined fedora} || %{defined eln}]
 %if ! 0%{?rhel}
 %define blivetguiver 2.4.2-3
@@ -37,7 +37,7 @@ Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{vers
 %define nmver 1.0
 %define pykickstartver 3.65-1
 %define pypartedver 2.5-2
-%define pythonblivetver 1:3.12.1-1
+%define pythonblivetver 1:3.13.0-1
 %define rpmver 4.15.0
 %define simplelinever 1.9.0-1
 %define subscriptionmanagerver 1.29.31
@@ -372,6 +372,8 @@ runtime on NFS/HTTP/FTP servers or local disks.
 # Work around an issue where a version mismatch between the automake version on
 # the build system and what was used when the tarball was created will cause
 # a failure.
+# The glade configuration is passed to m4 via environment variable.
+%{!?with_glade:export ANACONDA_DISABLE_GLADE=yes}
 autoreconf -vfi
 
 # use actual build-time release number, not tarball creation time release number
@@ -510,6 +512,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Nov 05 2025 Packit <hello@packit.dev> - 44.1-1
+- Update to version 44.1
+
 * Thu Oct 16 2025 Packit <hello@packit.dev> - 43.46-1
 - Introduce SetXKeyboardDefaults D-Bus method for setting sensible keyboard
   defaults (k.koukiou)

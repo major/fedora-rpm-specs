@@ -3,7 +3,7 @@
 ExcludeArch: %{ix86}
 
 Name:    kmouth
-Version: 25.08.2
+Version: 25.08.3
 Release: 1%{?dist}
 Summary: A program that speaks for you 
 
@@ -70,6 +70,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.kmouth.de
 
 
 %changelog
+* Tue Nov 04 2025 Steve Cossette <farchord@gmail.com> - 25.08.3-1
+- 25.08.3
+
 * Wed Oct 08 2025 Steve Cossette <farchord@gmail.com> - 25.08.2-1
 - 25.08.2
 

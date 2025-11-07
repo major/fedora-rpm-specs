@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        163
+Version:        164
 
 %forgemeta
 
@@ -390,6 +390,37 @@ fi
 %{pkgdir}/solver.json
 
 %changelog
+* Wed Nov 05 2025 Packit <hello@packit.dev> - 164-1
+Changes with 164
+----------------
+  - Stages: remove `org.osbuild.dnf*.sbom.spdx` (#2234)
+    - Author: Tomáš Hozza, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - Support building pipelines in a VM (#2228)
+    - Author: Alexander Larsson, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - Update images dependency ref to latest (#2223)
+    - Author: SchutzBot, Reviewers: Ondřej Budai, Simon de Vlieger
+  - Update images dependency ref to latest (#2231)
+    - Author: SchutzBot, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - Update images dependency ref to latest (#2235)
+    - Author: SchutzBot, Reviewers: Simon de Vlieger, Tomáš Hozza
+  - move container_mount into library; support mpp-resolve for org.osbuild.containers-storage (#2222)
+    - Author: Dusty Mabe, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - org.osbuild.treeinfo: new stage to create .treeinfo files (#2200)
+    - Author: Lukáš Zapletal, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - schutzbot: update terraform ID (#2232)
+    - Author: Achilleas Koutsou, Reviewers: Florian Schüller, Sanne Raymaekers
+  - stages/dracut.conf: `remove_items` (#2225)
+    - Author: Simon de Vlieger, Reviewers: Brian C. Lane, Lukáš Zapletal
+  - stages/dracut: `remove` (#2224)
+    - Author: Simon de Vlieger, Reviewers: Brian C. Lane, Lukáš Zapletal
+  - stages: add new ln stage (#2226)
+    - Author: Jean-Baptiste Trystram, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - test/mod: new test file for the util/containers.py library (#2230)
+    - Author: Dusty Mabe, Reviewers: Brian C. Lane, Simon de Vlieger
+
+— Somewhere on the Internet, 2025-11-05
+
+
 * Wed Oct 22 2025 Packit <hello@packit.dev> - 163-1
 Changes with 163
 ----------------

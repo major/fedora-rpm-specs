@@ -1,5 +1,5 @@
 Name:           showcert
-Version:        0.4.7
+Version:        0.4.8
 Release:        1%{?dist}
 Summary:        inspect TLS certificates presented by remote servers
 
@@ -53,6 +53,9 @@ gencert --help
 %{_bindir}/gencert
 
 %changelog
+* Wed Nov 05 2025 Felix Schwarz <fschwarz@fedoraproject.org> - 0.4.8-1
+- update to 0.4.8
+
 * Fri Oct 10 2025 Felix Schwarz <fschwarz@fedoraproject.org> - 0.4.7-1
 - update to 0.4.7
 

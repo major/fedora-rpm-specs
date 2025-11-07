@@ -6,7 +6,7 @@
 %global crate bitfield-struct
 
 Name:           rust-bitfield-struct
-Version:        0.11.0
+Version:        0.12.1
 Release:        %autorelease
 Summary:        Struct-like procedural macro for bitfields
 

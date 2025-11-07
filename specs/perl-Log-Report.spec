@@ -2,7 +2,7 @@
 %bcond_without perl_Log_Report_enables_optional_test
 
 Name:           perl-Log-Report
-Version:        1.41
+Version:        1.42
 Release:        1%{?dist}
 Summary:        Report a problem with exceptions and translation support
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -20,10 +20,6 @@ BuildRequires:  perl(warnings)
 # Run-time:
 BuildRequires:  perl(base)
 BuildRequires:  perl(Devel::GlobalDestruction) >= 0.09
-# Dancer::Logger::Abstract not used at tests
-BuildRequires:  perl(Dancer2::Core::Role::Logger)
-BuildRequires:  perl(Dancer2::Core::Types)
-BuildRequires:  perl(Dancer2::Plugin) >= 0.207
 # DBIx::Class::Storage::Statistics not used at tests
 BuildRequires:  perl(Devel::GlobalDestruction) >= 0.09
 BuildRequires:  perl(Encode) >= 2.00
@@ -56,16 +52,12 @@ BuildRequires:  perl(constant)
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(lib)
-BuildRequires:  perl(Test::More) >= 0.86
+BuildRequires:  perl(Test::More) >= 1.00
 %if %{with perl_Log_Report_enables_optional_test}
 # Optional tests:
-BuildRequires:  perl(Dancer2) > 0.166001
-BuildRequires:  perl(HTTP::Cookies)
-BuildRequires:  perl(HTTP::Request::Common)
 BuildRequires:  perl(Log::Dispatch::File)
 BuildRequires:  perl(Log::Log4perl) >= 1.00
 BuildRequires:  perl(Mojolicious) >= 2.16
-BuildRequires:  perl(Plack::Test)
 BuildRequires:  perl(XML::LibXML)
 BuildRequires:  perl(XML::LibXML::Error)
 %endif
@@ -78,7 +70,7 @@ Requires:       perl(Log::Report::Util) >= 1.07
 Requires:       perl(overload)
 
 # Remove under-specified dependencies
-%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\((Dancer2|Devel::GlobalDestruction|Encode|Log::Report::Minimal::Domain|Log::Report::Util|Sys::Syslog|Test::More)\\)$
+%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\((Devel::GlobalDestruction|Encode|Log::Report::Minimal::Domain|Log::Report::Util|Sys::Syslog|Test::More)\\)$
 
 # Remove private redefinitions
 %global __provides_exclude %{?__provides_exclude:%__provides_exclude|}^perl\\(DB\\)
@@ -92,26 +84,6 @@ Handling messages directed to users can be a hassle, certainly when the same
 software is used for command-line and in a graphical interfaces (you may not
 know how it is used), or has to cope with internationalization; these modules
 try to simplify this.
-
-%package Dancer
-Summary:    Reroute Dancer logs into Log::Report
-Requires:   perl(Exporter)
-Requires:   perl-Log-Report = %{?epoch:%epoch:}%{version}-%{release}
-
-%description Dancer
-When you use this logger in your Dancer application, it will nicely integrate
-with non-Dancer modules which need logging.
-
-%package Dancer2
-Summary:    Reroute Dancer2 logs into Log::Report
-Requires:   perl(Dancer2::Core::Role::Logger)
-Requires:   perl-Log-Report = %{?epoch:%epoch:}%{version}-%{release}
-
-%description Dancer2
-This logger allows the use of the many logging back-ends available in
-Log::Report. It will process all of the Dancer2 log messages, and also allow
-any other module to use the same logging facilities. The same log messages can
-be sent to multiple destinations at the same time via flexible dispatchers.
 
 %package DBIC
 Summary:    Query profiler for DBIx::Class
@@ -165,7 +137,7 @@ extension that can route Mojo messages into Log::Report logging framework.
 Summary:        Tests for %{name}
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
-Requires:       perl(Test::More) >= 0.86
+Requires:       perl(Test::More) >= 1.00
 Requires:       perl(Log::Report::Dispatcher::Callback)
 Requires:       perl(Log::Report::Dispatcher::File)
 Requires:       perl(Log::Report::Dispatcher::Log4perl)
@@ -177,14 +149,10 @@ Requires:       perl(Log::Report::Domain)
 Requires:       perl(Log::Report::Exception)
 Requires:       perl(Log::Report::Translator)
 %if %{with perl_Log_Report_enables_optional_test}
-Requires:       perl(Dancer2) > 0.166001
-Requires:       perl(HTTP::Cookies)
-Requires:       perl(HTTP::Request::Common)
 Requires:       perl(Log::Dispatch::File)
 Requires:       perl(Log::Log4perl) >= 1.00
 Requires:       perl(Mojolicious) >= 2.16
 Requires:       perl(MojoX::Log::Report)
-Requires:       perl(Plack::Test)
 Requires:       perl(XML::LibXML)
 Requires:       perl(XML::LibXML::Error)
 %endif
@@ -239,14 +207,6 @@ make test
 %exclude %{_mandir}/man3/Log::Report::Dispatcher::LogDispatch.*
 %exclude %{_mandir}/man3/Log::Report::Dispatcher::Syslog.*
 
-%files Dancer
-%{perl_vendorlib}/Dancer
-%{_mandir}/man3/Dancer::*
-
-%files Dancer2
-%{perl_vendorlib}/Dancer2
-%{_mandir}/man3/Dancer2::*
-
 %files DBIC
 %{perl_vendorlib}/Log/Report/DBIC
 %{_mandir}/man3/Log::Report::DBIC::Profiler.*
@@ -271,6 +231,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Nov 05 2025 Petr Pisar <ppisar@redhat.com> - 1.42-1
+- 1.42 bump
+
 * Thu Sep 11 2025 Petr Pisar <ppisar@redhat.com> - 1.41-1
 - 1.41 bump
 

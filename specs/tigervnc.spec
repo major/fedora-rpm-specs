@@ -6,7 +6,7 @@
 
 Name:           tigervnc
 Version:        1.15.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A TigerVNC remote display system
 
 %global _hardened_build 1
@@ -407,6 +407,9 @@ fi
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Wed Oct 15 2025 Dominik Mierzejewski <dominik@greysector.net> - 1.15.0-8
+- Rebuilt for FFmpeg 8
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

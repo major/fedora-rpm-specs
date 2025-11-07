@@ -8,7 +8,7 @@
 %global srcname the_Foundation
 
 Name:           the_foundation
-Version:        1.9.1
+Version:        1.10.1
 Release:        %autorelease
 Summary:        Opinionated C11 library for low-level functionality
 

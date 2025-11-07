@@ -3,7 +3,7 @@
 ExcludeArch: %{ix86}
 
 Name:    akonadi-calendar
-Version: 25.08.2
+Version: 25.08.3
 Release: 1%{?dist}
 Summary: The Akonadi Calendar Library
 
@@ -116,6 +116,9 @@ find ./po -type f -name libakonadi-calendar5-serializer.po -execdir mv {} libako
 
 
 %changelog
+* Tue Nov 04 2025 Steve Cossette <farchord@gmail.com> - 25.08.3-1
+- 25.08.3
+
 * Wed Oct 08 2025 Steve Cossette <farchord@gmail.com> - 25.08.2-1
 - 25.08.2
 

@@ -23,7 +23,7 @@
 Name:           musescore
 Summary:        Music Composition & Notation Software
 Version:        %{musescore_ver}
-Release:        28%{?dist}
+Release:        29%{?dist}
 
 # The MuseScore project itself is GPL-3.0-only WITH Font-exception-2.0.  Other
 # licenses in play:
@@ -238,6 +238,8 @@ Patch:          %{name}-fluidsynth-2.3.7.patch
 # https://github.com/KDAB/KDDockWidgets/commit/5a86cf69207bfbcc683343b2faf1d3466be2af56.patch
 # https://github.com/musescore/MuseScore/pull/30422
 Patch:          musescore-fix-build-against-qt-6-10.patch
+# Fix build with FFmpeg 8
+Patch:          %{name}-ffmpeg8.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -301,7 +303,7 @@ BuildRequires:  pkgconfig(libavformat)
 BuildRequires:  pkgconfig(libavutil)
 BuildRequires:  pkgconfig(liblouis)
 BuildRequires:  pkgconfig(libopusenc)
-BuildRequires:  pkgconfig(libpostproc)
+BuildRequires:  (pkgconfig(libpostproc) if libavcodec-free < 8.0)
 BuildRequires:  pkgconfig(libpipewire-0.3)
 BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  pkgconfig(libswscale)
@@ -775,6 +777,9 @@ ln -s ../mscore-%{musescore_maj}/sound/MS\ Basic.sf3 \
 %fontfiles -z 9
 
 %changelog
+* Wed Nov 05 2025 Dominik Mierzejewski <dominik@greysector.net> - 4.6.2-29
+- Fixed build with FFmpeg 8
+
 * Thu Oct 30 2025 Jan Grulich <jgrulich@redhat.com> - 4.6.2-28
 - Rebuild (qt6)
 

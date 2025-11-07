@@ -86,7 +86,7 @@ License:  MPL-2.0 AND ISC AND MIT AND BSD-3-Clause AND BSD-2-Clause
 # Before rebasing bind, ensure bind-dyndb-ldap is ready to be rebuild and use side-tag with it.
 # Updating just bind will cause freeipa-dns-server package to be uninstallable.
 Version:  9.18.41
-Release:  1%{?dist}
+Release:  2%{?dist}
 Epoch:    32
 Url:      https://www.isc.org/downloads/bind/
 #
@@ -142,6 +142,10 @@ Patch32: bind-9.18-partial-additional-records.patch
 Patch33: bind-9.18-dig-idn-input-always.patch
 # downstream only too
 Patch34: bind-9.18-dig-idn-input-always-test.patch
+# https://gitlab.isc.org/isc-projects/bind9/-/merge_requests/11194
+Patch35: bind-9.20-CVE-2025-8677-dual-signing.patch
+# https://gitlab.isc.org/isc-projects/bind9/-/merge_requests/11195
+Patch36: bind-9.20-CVE-2025-8677-dual-signing-test.patch
 
 %{?systemd_ordering}
 # https://fedoraproject.org/wiki/Changes/RPMSuportForSystemdSysusers
@@ -943,6 +947,10 @@ fi;
 %endif
 
 %changelog
+* Fri Oct 31 2025 Petr Menšík <pemensik@redhat.com> - 32:9.18.41-2
+- Fix upstream reported regression in recent CVE fix (CVE-2025-8677)
+- Add upstream dnssec system test testcase for this problem
+
 * Fri Oct 24 2025 Petr Menšík <pemensik@redhat.com> - 32:9.18.41-1
 - Update to 9.18.41 (rhbz#2405786, CVE-2025-8677 CVE-2025-40778 CVE-2025-40780)
 

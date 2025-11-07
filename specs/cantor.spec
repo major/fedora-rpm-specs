@@ -7,7 +7,7 @@
 %if 0%{?fedora}
 # match julia.spec: ExclusiveArch:  x86_64
 %ifarch x86_64
-%global julia %{undefined flatpak}
+%global julia %%{undefined flatpak}
 %endif
 %global libr 1
 %endif
@@ -24,7 +24,7 @@
 
 Name:    cantor
 Summary: KDE Frontend to Mathematical Software
-Version: 25.08.2
+Version: 25.08.3
 Release: 1%{?dist}
 
 License: GPL-2.0-or-later
@@ -35,6 +35,9 @@ Source:  https://download.kde.org/%{stable_kf6}/release-service/%{version}/src/%
 %{?qt6_qtwebengine_arches:ExclusiveArch: %{qt6_qtwebengine_arches}}
 
 ## upstream fixes
+# Fix for Cantor build crashing with newer julia versions
+# https://invent.kde.org/education/cantor/-/merge_requests/121
+Patch0:  121.patch
 
 ## upstreamable patches
 # Kill using cantor internal API
@@ -264,6 +267,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Tue Nov 04 2025 Steve Cossette <farchord@gmail.com> - 25.08.3-1
+- 25.08.3
+
 * Wed Oct 08 2025 Steve Cossette <farchord@gmail.com> - 25.08.2-1
 - 25.08.2
 

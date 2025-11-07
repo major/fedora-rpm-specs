@@ -88,7 +88,7 @@
 Summary: Qt6 - QtWebEngine components
 Name:    qt6-qtwebengine
 Version: 6.10.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 # See also http://qt-project.org/doc/qt-5.0/qtdoc/licensing.html
@@ -845,6 +845,9 @@ done
 %endif
 
 %changelog
+* Thu Oct 30 2025 Dominik Mierzejewski <dominik@greysector.net> - 6.10.0-4
+- Rebuilt for FFmpeg 8
+
 * Thu Oct 30 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0-3
 - Fix FTBS in rawhide due to glib and PipeWire updates
 

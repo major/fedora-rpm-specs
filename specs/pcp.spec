@@ -1,6 +1,6 @@
 Name:    pcp
 Version: 7.0.2
-Release: 1%{?dist}
+Release: 3%{?dist}
 Summary: System-level performance monitoring and performance management
 License: GPL-2.0-or-later AND LGPL-2.1-or-later AND CC-BY-3.0
 URL:     https://pcp.io
@@ -9,6 +9,10 @@ Source0: https://github.com/performancecopilot/pcp/releases/pcp-%{version}.src.t
 %if 0%{?fedora} >= 40 || 0%{?rhel} >= 10
 ExcludeArch: %{ix86}
 %endif
+
+Patch0: pmda-hdb-selinux.patch
+Patch1: graceful-fail-when-pmdahdb-fails-to-connect.patch
+Patch2: pmlogger-selinux.patch
 
 # The additional linker flags break out-of-tree PMDAs.
 # https://bugzilla.redhat.com/show_bug.cgi?id=2043092
@@ -3435,6 +3439,13 @@ fi
 %files zeroconf -f pcp-zeroconf-files.rpm
 
 %changelog
+* Wed Nov 5 2025 Sam Feifer <sfeifer@redhat.com> - 7.0.2-3
+- Selinux policy update for pmlogger AVC denials
+
+* Tue Nov 4 2025 Sam Feifer <sfeifer@redhat.com> - 7.0.2-2
+- Update selinux policy to fix pmda-hdb selinux issue
+- Patch pmda-hdb to fail gracefully when connection fails
+
 * Wed Oct 15 2025 Nathan Scott <nathans@redhat.com> - 7.0.2-1
 - Latest upstream bugfix release.
 

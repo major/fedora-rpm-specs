@@ -7,7 +7,7 @@
 Summary: A fast, open source AsciiDoc implementation in Ruby
 Name: rubygem-%{gem_name}
 Version: 2.0.20
-Release: 10%{?dist}
+Release: 11%{?dist}
 License: MIT
 URL: https://asciidoctor.org
 Source0: https://github.com/asciidoctor/asciidoctor/archive/%{gittag}/%{gem_name}-%{version}%{pre}.tar.gz
@@ -35,6 +35,7 @@ BuildRequires: rubygem(coderay)
 BuildRequires: rubygem(concurrent-ruby)
 BuildRequires: rubygem(erubi)
 BuildRequires: rubygem(haml)
+BuildRequires: rubygem(logger)
 BuildRequires: rubygem(minitest)
 BuildRequires: rubygem(nokogiri)
 BuildRequires: rubygem(rouge)
@@ -48,7 +49,7 @@ Provides: rubygem(%{gem_name}) = %{version}
 %endif
 
 %if %{?pre:1}
-%global gem_instdir %{gem_dir}/gems/%{gem_name}-%{version}%{pre}
+%global gem_instdir() %{gem_dir}/gems/%{gem_name}-%{version}%{pre}
 %global gem_cache   %{gem_dir}/cache/%{gem_name}-%{version}%{pre}.gem
 %global gem_spec    %{gem_dir}/specifications/%{gem_name}-%{version}%{pre}.gemspec
 %global gem_docdir  %{gem_dir}/doc/%{gem_name}-%{version}%{pre}
@@ -77,6 +78,11 @@ sed -i -e 's/#\(s\.test_files\)/\1/' %{gem_name}.gemspec
 
 # Fix shebang (avoid Requires: /usr/bin/env)
 sed -i -e 's|#!/usr/bin/env ruby|#!/usr/bin/ruby|' bin/%{gem_name}
+
+# ref: https://github.com/asciidoctor/asciidoctor/issues/4684
+# the upstream plans to remove logger dep, but for now
+# add logger dep explicitly for ruby3_5
+%gemspec_add_dep -g logger -s ./%{gem_name}.gemspec
 
 %build
 gem build %{gem_name}.gemspec
@@ -133,6 +139,9 @@ cp -a .%{gem_instdir}/man/*.1 \
 %doc %{gem_docdir}
 
 %changelog
+* Wed Nov 05 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.0.20-11
+- Add logger dep for ruby3_5
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.20-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

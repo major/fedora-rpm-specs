@@ -5,13 +5,18 @@
 %global crate reqsign-http-send-reqwest
 
 Name:           rust-reqsign-http-send-reqwest
-Version:        2.0.0
+Version:        2.0.1
 Release:        %autorelease
 Summary:        Reqwest-based HTTP client implementation for reqsign
 
 License:        Apache-2.0
 URL:            https://crates.io/crates/reqsign-http-send-reqwest
 Source:         %{crates_source}
+# Automatically generated patch to strip dependencies and normalize metadata
+Patch:          reqsign-http-send-reqwest-fix-metadata-auto.diff
+# Manually created patch for downstream crate metadata changes
+# * Downstream-only: omit wasm-bindgen-test dev-dependency
+Patch:          reqsign-http-send-reqwest-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

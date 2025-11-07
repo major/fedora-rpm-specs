@@ -6,7 +6,7 @@
 ExcludeArch: %{ix86}
 
 Name:           kclock
-Version:        25.08.2
+Version:        25.08.3
 Release:        1%{?dist}
 License:        LGPL-2.1-or-later AND LGPL-2.0-or-later AND GPL-3.0-or-later AND CC-BY-4.0 AND GPL-2.0-or-later
 Summary:        Clock app for Plasma Mobile
@@ -110,6 +110,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 %{_qt6_plugindir}/plasma/applets/org.kde.plasma.%{name}_1x2.so
 
 %changelog
+* Tue Nov 04 2025 Steve Cossette <farchord@gmail.com> - 25.08.3-1
+- 25.08.3
+
 * Wed Oct 08 2025 Steve Cossette <farchord@gmail.com> - 25.08.2-1
 - 25.08.2
 

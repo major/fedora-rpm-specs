@@ -102,9 +102,11 @@ pushd $RPM_BUILD_ROOT/%{_bindir}
     done
 popd
 
+%ifnarch %{ix86}
 %check
 export LD_LIBRARY_PATH=$RPM_BUILD_ROOT/%{_libdir}:
 %ctest
+%endif
 
 %ldconfig_scriptlets
 

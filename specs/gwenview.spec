@@ -5,8 +5,8 @@ ExcludeArch: %{ix86}
 Name:    gwenview
 Summary: An image viewer
 Epoch:   1
-Version: 25.08.2
-Release: 2%{?dist}
+Version: 25.08.3
+Release: 1%{?dist}
 
 # app: GPLv2+
 # lib:  IJG and (LGPLv2 or LGPLv3 or LGPLv3+ (KDE e.V.)) and LGPLv2+ and GPLv2+
@@ -126,6 +126,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.gwenview.
 
 
 %changelog
+* Tue Nov 04 2025 Steve Cossette <farchord@gmail.com> - 1:25.08.3-1
+- 25.08.3
+
 * Wed Oct 29 2025 Steve Cossette <farchord@gmail.com> - 1:25.08.2-2
 - Bump for rebuild for plasma 6.5 + PackageKit-Qt
 

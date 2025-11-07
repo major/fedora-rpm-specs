@@ -4,7 +4,7 @@
 
 Name:       cryptlib
 Version:    3.4.8  
-Release:    15%{?dist}
+Release:    16%{?dist}
 Summary:    Security library and toolkit for encryption and authentication services    
 
 License:    Sleepycat and OpenSSL and BSD-3-Clause   
@@ -15,7 +15,7 @@ Source1:    https://senderek.ie/fedora/cryptlib-fedora-3.4.8.tar.gz.sig
 # and never be used with a URL to make impersonation attacks harder
 # (verified: https://senderek.ie/keys/codesigningkey)
 Source2:    gpgkey-3274CB29956498038A9C874BFBF6E2C28E9C98DD.asc
-Source3:    https://senderek.ie/fedora/README-manual
+Source3:    https://senderek.ie/fedora/README-details
 Source4:    https://senderek.ie/fedora/cryptlib-tests.tar.gz
 Source5:    https://senderek.ie/fedora/cryptlib-perlfiles.tar.gz
 Source6:    https://senderek.ie/fedora/cryptlib-tools.tar.gz
@@ -307,7 +307,7 @@ cp /%{buildroot}%{cryptlibdir}/tools/man/clsmime.1 %{buildroot}%{_mandir}/man1
 %license   %{_datadir}/licenses/%{name}/COPYING
 %doc       %{_docdir}/%{name}/README
 %doc       %{_docdir}/%{name}/stestlib.log
-%doc       %{_docdir}/%{name}/README-manual
+%doc       %{_docdir}/%{name}/README-details
 
 
 %files devel
@@ -346,6 +346,9 @@ cp /%{buildroot}%{cryptlibdir}/tools/man/clsmime.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Wed Nov 05 2025 Ralf Senderek <innovation@senderek.ie> 3.4.8-16
+- rename README-manual in spec file [Bug 2412433]
+
 * Tue Sep 23 2025 Ralf Senderek <innovation@senderek.ie> 3.4.8-15
 - Update cryptlib-3.4.8 with source code https://github.com/cryptlib/cryptlib
 - Update all files in the cryptlib tools package to version 1.1

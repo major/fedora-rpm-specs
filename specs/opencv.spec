@@ -75,7 +75,7 @@ Version:        4.11.0
 %global minorver %(foo=%{version}; a=(${foo//./ }); echo ${a[1]} )
 %global padding  %(digits=00; num=%{minorver}; echo ${digits:${#num}:${#digits}} )
 %global abiver   %(echo %{majorver}%{padding}%{minorver} )
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Collection of algorithms for computer vision
 # This is normal three clause BSD.
 License:        BSD-3-Clause AND Apache-2.0 AND ISC
@@ -648,6 +648,9 @@ cp config-*.py %{buildroot}/%{python3_sitelib}/cv2/
 
 
 %changelog
+* Wed Nov 05 2025 Dominik Mierzejewski <dominik@greysector.net> - 4.11.0-18
+- Rebuilt for FFmpeg 8
+
 * Wed Oct 29 2025 Federico Pellegrin <fede@evolware.org> - 4.11.0-17
 - Fix importing of Python module (#2406800)
 

@@ -1,6 +1,6 @@
 Name:    mbox-importer
 Summary: MBox Importer
-Version: 25.08.2
+Version: 25.08.3
 Release: 1%{?dist}
 
 License: BSD-3-Clause AND CC0-1.0 AND GPL-2.0-or-later
@@ -66,6 +66,9 @@ desktop-file-validate %{buildroot}%{_kf6_datadir}/applications/org.kde.mboximpor
 
 
 %changelog
+* Tue Nov 04 2025 Steve Cossette <farchord@gmail.com> - 25.08.3-1
+- 25.08.3
+
 * Wed Oct 08 2025 Steve Cossette <farchord@gmail.com> - 25.08.2-1
 - 25.08.2
 

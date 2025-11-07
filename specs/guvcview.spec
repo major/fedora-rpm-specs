@@ -2,7 +2,7 @@
 
 Name:           guvcview
 Version:        2.1.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        GTK+ UVC Viewer and Capturer
 License:        GPL-2.0-or-later
 URL:            http://guvcview.sourceforge.net/
@@ -121,6 +121,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 
 
 %changelog
+* Wed Nov 05 2025 Dominik Mierzejewski <dominik@greysector.net> - 2.1.0-9
+- Rebuilt for FFmpeg 8
+
 * Sat Oct 11 2025 Dominik Mierzejewski <dominik@greysector.net> - 2.1.0-8
 - Fix build with FFmpeg 8
 

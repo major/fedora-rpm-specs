@@ -1,7 +1,7 @@
 %bcond autoreconf 1
 
 Name:           rlwrap
-Version:        0.46.2
+Version:        0.47.1
 Release:        %autorelease
 Summary:        Wrapper for GNU readline
 
@@ -10,6 +10,7 @@ URL:            https://github.com/hanslub42/rlwrap
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc
+BuildRequires:  libptytty-devel
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  python3-rpm-macros

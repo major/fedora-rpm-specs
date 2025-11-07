@@ -2,18 +2,21 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.36.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: SVG renderer for Prawn PDF library
 License: MIT
 URL: http://github.com/mogest/prawn-svg
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
+# https://github.com/mogest/prawn-svg/commit/9538e0211ce0b38df9bb893c7698ea0e204ece2e
+# Fix testsuite for rexml 3.4.3 and above
+Patch0:  prawn-svg-0.36.2-testsuite-rexml-3_4_3.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
 BuildRequires: rubygem(rspec)
 BuildRequires: rubygem(prawn)
 BuildRequires: rubygem(css_parser)
-BuildRequires: rubygem(rexml)
+BuildRequires: rubygem(rexml) >= 3.4.3
 BuildArch: noarch
 
 %description
@@ -31,6 +34,7 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n  %{gem_name}-%{version}
+%patch -P0 -p1
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -73,6 +77,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Wed Nov 05 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.36.2-3
+- Backport upstream change for new rexml behavior
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.36.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

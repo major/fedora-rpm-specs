@@ -12,6 +12,8 @@ Source0:	%{url}/releases/download/v%{version}/%{mod_name}-%{version}.tar.xz
 Source1:	%{url}/releases/download/v%{version}/%{mod_name}-%{version}.tar.xz.asc
 Source2:	https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x1e1fb0017c998a8ae2c498a6c2eaa8a26adc59ee#/1E1FB0017C998A8AE2C498A6C2EAA8A26ADC59EE.gpg
 
+Patch0:		https://github.com/fossfreedom/alternative-toolbar/commit/8a379a970ceb2ce080ddb80d28dc2de009273064.patch
+
 BuildRequires:	gcc
 BuildRequires:	intltool
 BuildRequires:	glib2-devel
@@ -33,7 +35,7 @@ Decorated or Compact toolbar which can be hidden.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%autosetup -n %{mod_name}-%{version}
+%autosetup -n %{mod_name}-%{version} -p1
 
 %build
 %configure

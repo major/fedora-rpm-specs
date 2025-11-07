@@ -4,7 +4,7 @@ ExcludeArch: %{ix86}
 
 Name:           massif-visualizer
 Summary:        Visualizer for Massif heap memory profiler data files
-Version:        25.08.2
+Version:        25.08.3
 Release:        1%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://apps.kde.org/massif_visualizer/
@@ -73,6 +73,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/*.appdata.
 
 
 %changelog
+* Tue Nov 04 2025 Steve Cossette <farchord@gmail.com> - 25.08.3-1
+- 25.08.3
+
 * Wed Oct 08 2025 Steve Cossette <farchord@gmail.com> - 25.08.2-1
 - 25.08.2
 

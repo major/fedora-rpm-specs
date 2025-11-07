@@ -5,7 +5,7 @@
 %global _docdir_fmt python3-zope-testrunner
 
 Name:           python-zope-testrunner
-Version:        6.6
+Version:        8.1
 Release:        %autorelease
 Summary:        Zope testrunner script
 
@@ -13,7 +13,6 @@ License:        ZPL-2.1
 URL:            https://pypi.python.org/pypi/zope.testrunner
 VCS:            https://github.com/zopefoundation/zope.testrunner
 Source:         %{vcs}/archive/%{version}/zope.testrunner-%{version}.tar.gz
-Patch:          zope.testrunner-allow-new-setuptools.diff
 
 BuildArch:      noarch
 BuildRequires:  help2man
@@ -46,6 +45,9 @@ Documentation for zope.testrunner.
 
 %prep
 %autosetup -n zope.testrunner-%{version} -p1
+
+# Allow newer setuptools
+sed -i 's/setuptools == [0-9\.]\+/setuptools/' pyproject.toml tox.ini
 
 # Update the sphinx HTML theme name
 sed -i "s/'default'/'classic'/" docs/conf.py
@@ -114,7 +116,6 @@ unset PYTHONHOME
 %license COPYRIGHT LICENSE.md
 %{_bindir}/zope-testrunner
 %{_mandir}/man1/zope-testrunner.1*
-%{python3_sitelib}/zope.testrunner*.pth
 %exclude %{python3_sitelib}/zope/testrunner/tests
 
 %files doc

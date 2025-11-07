@@ -2,7 +2,7 @@
 
 Name:           rubygem-%{gem_name}
 Version:        1.0.9
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Uploads Ruby test coverage data to Code Climate
 
 License:        MIT
@@ -13,6 +13,7 @@ Source0:        https://rubygems.org/gems/%{gem_name}-%{version}.gem
 Source1: 		%{gem_name}-%{version}-specs.tar.gz
 
 Buildrequires:  rubygems-devel
+BuildRequires:  rubygem(logger)
 BuildRequires:  rubygem(rspec)
 BuildRequires:  rubygem(webmock)
 BuildRequires:  rubygem(pry)
@@ -36,6 +37,8 @@ Documentation for %{name}.
 %autosetup -n %{gem_name}-%{version} -a 1 -S git
 sed -i '/bundler/d' spec/spec_helper.rb
 sed -i 's/0.13/0.13.0/g' ../%{gem_name}-%{version}.gemspec
+# from lib/code_climate/test_reporter/configuration.rb
+%gemspec_add_dep -g logger
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -68,6 +71,9 @@ rspec -Ilib spec
 %doc %{gem_docdir}
 
 %changelog
+* Wed Nov 05 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0.9-7
+- Add logger dep explicitly for ruby3_5
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.9-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

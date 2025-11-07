@@ -1,12 +1,10 @@
 Name:           hpx
-Version:        1.10.0
-Release:        8%{?dist}
+Version:        1.11.0
+Release:        1%{?dist}
 Summary:        General Purpose C++ Runtime System
 License:        BSL-1.0
 URL:            https://hpx.stellar-group.org/
-Source0:        https://github.com/STEllAR-GROUP/hpx/archive/%{version}/%{name}-%{version}.tar.gz
-# Upstream patch to be used by kokkos, https://github.com/kokkos/kokkos/pull/7331#discussion_r1951626331
-Patch0:         hpx_handle.patch
+Source0:        https://github.com/STEllAR-GROUP/hpx/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc-c++ >= 4.9
 BuildRequires:  gperftools-devel
@@ -279,6 +277,10 @@ done
 %{_libdir}/lib*.so*
 
 %changelog
+* Tue Nov 04 2025 Christoph Junghans <junghans@votca.org> - 1.11.0-1
+- Version bump to v1.11.0
+- Fixes: rhbz#2411986
+
 * Thu Aug 14 2025 Christoph Junghans <junghans@votca.org> - 1.10.0-8
 - Fix build with Ninja
 - Drop s390x and ppc64le build - unsupported by upstream

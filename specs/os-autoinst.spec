@@ -31,7 +31,7 @@
 
 Name:           os-autoinst
 Version:        %{github_version}%{?github_date:^%{github_date}git%{shortcommit}}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        OS-level test automation
 # there are some files under other licenses in the tarball, but we
 # do not distribute any of them in the binary packages
@@ -275,6 +275,9 @@ fi
 %files devel
 
 %changelog
+* Wed Oct 15 2025 Dominik Mierzejewski <dominik@greysector.net> - 5^20250707gitd55ec72-4
+- Rebuilt for FFmpeg 8
+
 * Tue Sep 16 2025 Adam Williamson <awilliam@redhat.com> - 5^20250707gitd55ec72-3
 - Backport PR #2750 to allow slow typing with (assert_)script_run
 - Backport PR #2751 to fix tests with IPC::Run 20250809.0

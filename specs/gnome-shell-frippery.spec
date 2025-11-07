@@ -2,7 +2,7 @@
 %global gschemadir %{_datadir}/glib-2.0/schemas
 
 Name:           gnome-shell-frippery
-Version:        48.0
+Version:        49.0
 Release:        %autorelease
 Summary:        Extensions to provide a user experience more like that of GNOME 2
 
@@ -12,32 +12,34 @@ Source:         %{url}/%{name}-%{version}.tgz
 
 BuildArch:      noarch
 
-Requires:       (gnome-shell-extension-common >= 46 and gnome-shell-extension-common < 49)
-
 %description
 This package contains some GNOME Shell extensions to provide a user experience
 more like that of GNOME 2.
 
 %package -n     gnome-shell-extension-frippery-applications-menu
 Summary:        Replace Activities button with an Applications menu
+Requires:       (gnome-shell-extension-common >= 46 and gnome-shell-extension-common < 50)
 %description -n gnome-shell-extension-frippery-applications-menu
 This GNOME Shell extension replaces the Activities button in the panel with an
 Applications menu.
 
 %package -n     gnome-shell-extension-frippery-bottom-panel
 Summary:        Add a bottom panel to the shell
+Requires:       (gnome-shell-extension-common >= 49 and gnome-shell-extension-common < 50)
 %description -n gnome-shell-extension-frippery-bottom-panel
 This GNOME Shell extension adds a bottom panel, including a window list and
 workspace switcher.
 
 %package -n     gnome-shell-extension-frippery-move-clock
 Summary:        Move clock to left of status menu button
+Requires:       (gnome-shell-extension-common >= 46 and gnome-shell-extension-common < 50)
 %description -n gnome-shell-extension-frippery-move-clock
 This GNOME Shell extension moves the clock from the centre of the panel
 towards the right.
 
 %package -n     gnome-shell-extension-frippery-panel-favorites
 Summary:        Add launchers for Favorites to the panel
+Requires:       (gnome-shell-extension-common >= 49 and gnome-shell-extension-common < 50)
 %description -n gnome-shell-extension-frippery-panel-favorites
 This GNOME Shell extension places a launcher for each favourite application in
 the panel. Right clicking on the icons invokes a menu that lets one perform

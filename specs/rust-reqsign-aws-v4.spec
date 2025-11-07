@@ -5,7 +5,7 @@
 %global crate reqsign-aws-v4
 
 Name:           rust-reqsign-aws-v4
-Version:        2.0.0
+Version:        2.0.1
 Release:        %autorelease
 Summary:        AWS SigV4 signing implementation for reqsign
 

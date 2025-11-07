@@ -6,7 +6,7 @@ ExcludeArch: %{ix86}
 
 Name:           markdownpart
 Summary:        Markdown KPart
-Version:        25.08.2
+Version:        25.08.3
 Release:        1%{?dist}
 License:        LGPL-2.1-or-later
 URL:            https://apps.kde.org/categories/utilities/
@@ -53,6 +53,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/%{app_id}.
 
 
 %changelog
+* Tue Nov 04 2025 Steve Cossette <farchord@gmail.com> - 25.08.3-1
+- 25.08.3
+
 * Wed Oct 08 2025 Steve Cossette <farchord@gmail.com> - 25.08.2-1
 - 25.08.2
 
