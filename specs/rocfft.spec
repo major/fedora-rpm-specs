@@ -120,7 +120,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        ROCm Fast Fourier Transforms (FFT) library
 License:        MIT
@@ -227,7 +227,7 @@ cd projects/rocfft
 %endif
 
 # Do not care so much about the sqlite version
-sed -i -e 's@SQLite3 3.36 @SQLite3 @' cmake/sqlite.cmake
+sed -i -e 's@SQLite3 3.50.2 @SQLite3 @' cmake/sqlite.cmake
 
 %build
 %if %{with gitcommit}
@@ -301,6 +301,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/rocfft/LICENSE.md
 %endif
 
 %changelog
+* Wed Nov 5 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
+- Remove sqlite version check
+
 * Thu Oct 30 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
 - Update to 7.1.0
 

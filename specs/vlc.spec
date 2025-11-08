@@ -11,6 +11,8 @@
 # not compatible with libplacebo-6
 # https://code.videolan.org/videolan/vlc/-/merge_requests/3950
 %bcond placebo %[!(0%{?fedora} >= 39 || 0%{?rhel} >= 10)]
+# libpostproc was removed in FFmpeg 8 (F44+)
+%bcond postproc %[!(0%{?fedora} >= 44)]
 # disabled due to various issues
 %bcond projectm 0
 
@@ -53,6 +55,12 @@ Patch:		https://code.videolan.org/videolan/vlc/-/merge_requests/6273.patch
 Patch:		https://code.videolan.org/videolan/vlc/-/merge_requests/6606.patch
 # nfs: fix libnfs API v2 support (rhbz#2341791)
 Patch:		https://code.videolan.org/videolan/vlc/-/merge_requests/6527.patch
+# port to FFmpeg 8
+# https://code.videolan.org/videolan/vlc/-/merge_requests/6656
+# https://code.videolan.org/videolan/vlc/-/merge_requests/6657
+# https://code.videolan.org/videolan/vlc/-/merge_requests/6659
+# https://code.videolan.org/videolan/vlc/-/issues/29278
+Patch:		ffmpeg8.patch
 
 ## upstreamable patches
 
@@ -169,7 +177,9 @@ BuildRequires:	pkgconfig(libnotify) pkgconfig(gtk+-3.0)
 %if %{with placebo}
 BuildRequires:	pkgconfig(libplacebo) < 6
 %endif
+%if %{with postproc}
 BuildRequires:	pkgconfig(libpostproc)
+%endif
 %if %{with projectm}
 BuildRequires:	pkgconfig(libprojectM)
 %endif
@@ -652,7 +662,7 @@ export LIVE555_PREFIX=%{_prefix}
 	--enable-libva						\
 	--enable-avformat					\
 	--enable-swscale					\
-	--enable-postproc					\
+	--enable-postproc%{!?with_postproc:=no}			\
 	--enable-faad						\
 	--enable-aom						\
 	--enable-dav1d						\
@@ -1108,7 +1118,9 @@ make check
 %{vlc_plugindir}/text_renderer/libtdummy_plugin.so
 %exclude %{vlc_plugindir}/video_chroma/libswscale_plugin.so
 %{vlc_plugindir}/video_chroma/*.so
+%if %{with postproc}
 %exclude %{vlc_plugindir}/video_filter/libpostproc_plugin.so
+%endif
 %exclude %{vlc_plugindir}/video_filter/libopencv_*.so
 %{vlc_plugindir}/video_filter/*.so
 %{vlc_plugindir}/video_output/libfb_plugin.so
@@ -1195,7 +1207,9 @@ make check
 %{vlc_plugindir}/stream_out/libstream_out_chromaprint_plugin.so
 %{vlc_plugindir}/vdpau/libvdpau_avcodec_plugin.so
 %{vlc_plugindir}/video_chroma/libswscale_plugin.so
+%if %{with postproc}
 %{vlc_plugindir}/video_filter/libpostproc_plugin.so
+%endif
 
 %files plugin-fluidsynth
 %{vlc_plugindir}/codec/libfluidsynth_plugin.so

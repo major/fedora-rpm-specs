@@ -47,7 +47,7 @@ possible), plus lots of nifty extra stuff on top.}
 %package -n python3-smart-open
 Summary:        %{summary}
 
-%if %[ %{defined fc42} || %{defined fc41} ]
+%if %{defined fc42}
 # For backwards compatibility with old manual Requires
 Requires:       python3-smart-open+s3 = %{version}-%{release}
 Requires:       python3-smart-open+http = %{version}-%{release}

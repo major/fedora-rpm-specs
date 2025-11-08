@@ -1,11 +1,11 @@
 Name:           plasma-settings
-Version:        25.07.0
-Release:        2%{?dist}
+Version:        25.11.0
+Release:        1%{?dist}
 # Automatically converted from old format: BSD and CC0 and GPLv2 and GPLv2+ and GPLv3 and GPLv3+ and LGPLv2 and LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-BSD AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LicenseRef-Callaway-LGPLv2 AND LicenseRef-Callaway-LGPLv2+
 Summary:        Convergent Plasma Mobile settings application
 Url:            https://invent.kde.org/plasma-mobile/plasma-settings
-Source0:        https://download.kde.org/stable/plasma-settings/%{name}-%{version}.tar.xz
+Source0:        https://download.kde.org/stable/plasma-settings/%{name}-v%{version}.tar.xz
 
 BuildRequires:  appstream
 BuildRequires:  cmake
@@ -45,7 +45,7 @@ Notice that Wi-Fi, mobile broadband and hotspot KConfig
 modules are provided separately, by plasma-nm.
 
 %prep
-%autosetup
+%autosetup -p1 -n %{name}-v%{version}
 
 %build
 %cmake_kf6
@@ -69,6 +69,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf6_metainfodir}/org.kde.mo
 %{_kf6_datadir}/plasma-settings/
 
 %changelog
+* Fri Nov 07 2025 Steve Cossette <farchord@gmail.com> - 25.11.0-1
+- 25.11.0
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 25.07.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

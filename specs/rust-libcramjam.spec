@@ -6,7 +6,7 @@
 # to eventually need to maintain a compat package to preserve its API/ABI
 # stability. For the time being, we don’t plan to ship a shared library in any
 # EPEL release unless someone specifically asks for it.
-%bcond capi %{expr:%{undefined fc42} && %{undefined fc41} && %{undefined epel}}
+%bcond capi %[ %{undefined fc42} && %{undefined epel} ]
 
 %global crate libcramjam
 

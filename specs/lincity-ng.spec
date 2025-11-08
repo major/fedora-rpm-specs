@@ -5,20 +5,21 @@
 %global baserelease 2
 
 Name:		lincity-ng
-Version:	2.13.1
+Version:	2.14.2
 Release:	1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:	GPL-2.0-or-later
 Summary:	City Simulation Game
 URL:		http://lincity-ng.berlios.de/
 Source0:	https://github.com/lincity-ng/lincity-ng/releases/download/lincity-ng-%{version}/lincity-ng-%{version}-Source.tar.xz
-Patch0:		lincity-ng-2.13.1-manfix.patch
+Patch0:		lincity-ng-2.14.2-manfix.patch
 BuildRequires:	gcc-c++
 BuildRequires:	cmake, physfs-devel, zlib-devel, zlib-static, libxml2-devel, libxml++50-devel, xz-devel
 BuildRequires:	libxslt-devel
 BuildRequires:	SDL2-devel, SDL2_mixer-devel, SDL2_image-devel, SDL2_gfx-devel
 BuildRequires:	SDL2_ttf-devel, desktop-file-utils
 BuildRequires:	xorg-x11-proto-devel, libX11-devel, mesa-libGL-devel, mesa-libGLU-devel
+BuildRequires:	fmt-devel
 BuildRequires:	fontconfig %{fonts} dejavu-sans-fonts
 Requires:	%{name}-data = %{version}-%{release}
 
@@ -56,61 +57,21 @@ pushd $RPM_BUILD_ROOT
 ln -f -s $(fc-match -f "%{file}" "sans") $RPM_BUILD_ROOT%{_datadir}/%{name}/fonts/sans.ttf
 popd
 
-desktop-file-install --delete-original		\
-  --dir $RPM_BUILD_ROOT%{_datadir}/applications	\
-  --mode 0644					\
-  $RPM_BUILD_ROOT%{_datadir}/applications/%{name}.desktop
-
-# Register as an application to be visible in the software center
-#
-# NOTE: It would be *awesome* if this file was maintained by the upstream
-# project, translated and installed into the right place during `make install`.
-#
-# See http://www.freedesktop.org/software/appstream/docs/ for more details.
-#
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/appdata
-cat > $RPM_BUILD_ROOT%{_datadir}/appdata/%{name}.appdata.xml <<EOF
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright 2014 Edgar Muniz Berlinck <edgar.vv@gmail.com> -->
-<!--
-BugReportURL: https://code.google.com/p/lincity-ng/issues/detail?id=3&thanks=3&ts=1411587797
-SentUpstream: 2014-09-24
--->
-<application>
-  <id type="desktop">lincity-ng.desktop</id>
-  <metadata_license>CC0-1.0</metadata_license>
-  <summary>LinCity-NG</summary>
-  <description>
-    <p>
-      LinCity-NG is a game where you are the mayor of a small town and your goal
-      is to make it prosper gerenciand building improvements and the resources of
-      their city.
-    </p>
-    <p>
-      Good game for Sim City fans.
-    </p>
-  </description>
-  <url type="homepage">http://sourceforge.net/projects/lincity-ng.berlios/</url>
-  <screenshots>
-    <screenshot type="default">http://a.fsdn.com/con/app/proj/lincity-ng.berlios/screenshots/Lincity-ng-2.0.png</screenshot>
-    <screenshot>http://a.fsdn.com/con/app/proj/lincity-ng.berlios/screenshots/NewSolar.png</screenshot>
-    <screenshot>http://a.fsdn.com/con/app/proj/lincity-ng.berlios/screenshots/Height.png</screenshot>
-  </screenshots>
-</application>
-EOF
-
 %files
 %doc %{_pkgdocdir}
 %{_bindir}/lincity-ng
-%{_datadir}/appdata/*.appdata.xml
+%{_datadir}/metainfo/io.github.lincity_ng.lincity-ng.metainfo.xml
 %{_datadir}/applications/*lincity-ng.desktop
-%{_datadir}/icons/hicolor/*/apps/lincity-ng.png
+%{_datadir}/icons/hicolor/*/apps/*lincity-ng.png
 %{_mandir}/man6/lincity-ng.*
 
 %files data
 %{_datadir}/lincity-ng/
 
 %changelog
+* Thu Nov  6 2025 Tom Callaway <spot@fedoraproject.org> - 2.14.2-1
+- update to 2.14.2
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.13.1-1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

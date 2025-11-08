@@ -4,7 +4,7 @@
 %global systemd_version                 208
 %global dbus_version                    1.4.0
 %global with_gtk_doc                    1
-%global libblockdev_version             3.2
+%global libblockdev_version             3.4
 
 %define with_btrfs                      1
 %ifnarch %{ix86}
@@ -24,7 +24,7 @@
 
 Name:    udisks2
 Summary: Disk Manager
-Version: 2.10.91
+Version: 2.11.0
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL:     https://github.com/storaged-project/udisks
@@ -340,6 +340,9 @@ fi
 %endif
 
 %changelog
+* Thu Nov 06 2025 Tomas Bzatek <tbzatek@redhat.com> - 2.11.0-1
+- Version 2.11.0
+
 * Fri Aug 29 2025 Tomas Bzatek <tbzatek@redhat.com> - 2.10.91-1
 - Version 2.10.91
 

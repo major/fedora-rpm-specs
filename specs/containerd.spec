@@ -3,7 +3,7 @@
 
 # https://github.com/containerd/containerd
 %global goipath         github.com/containerd/containerd
-Version:                2.1.4
+Version:                2.2.0
 %global tag             v%{gsub %{version} ~ -}
 
 %gometa -L -f
@@ -64,7 +64,7 @@ GO_LDFLAGS="" GO_BUILDFLAGS=""
     PREFIX=%{_prefix} \\
     REVISION=%{release} \\
     SHIM_CGO_ENABLED=1 \\
-    VERSION=%{version} \\
+    VERSION=%{gsub %{version} ~ -} \\
 }
 %make_build %{makeflags} binaries man
 
@@ -77,7 +77,26 @@ install -Dpm 0644 containerd.toml %{buildroot}%{_sysconfdir}/containerd/config.t
 %check
 %go_vendor_license_check -c %{S:2}
 %if %{with check}
-%make_build %{makeflags} test
+# %%make_build %%{makeflags} test
+%global test_ignores %{shrink:
+    %dnl tests below fail with create tmp file: open ... invalid argument
+    -s "TestWriterTruncateRecoversFromIncompleteWrite"
+    -s "TestWriteReadEmptyFileTimestamp"
+    -s "TestWalkBlobs"
+    -s "TestContentWriter"
+    -s "TestContent"
+    -s "TestSkipNonDistributableBlobs"
+    -s "TestMetadataCollector"
+    -s "TestIngestLeased"
+    -s "TestContentLeased"
+    -s "TestContent"
+    -s "TestUsageCalculation"
+    %dnl integration tests need network
+    -t integration
+    %dnl api is a separate module
+    -d api
+}
+%gocheck2 %{test_ignores}
 %endif
 
 %post

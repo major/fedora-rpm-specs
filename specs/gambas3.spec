@@ -29,7 +29,7 @@
 
 Name:		gambas3
 Summary:	IDE based on a basic interpreter with object extensions
-Version:	3.20.4
+Version:	3.21.0
 Release:	1%{?dist}
 License:	GPL-1.0-or-later
 URL:		http://gambas.sourceforge.net/
@@ -100,8 +100,6 @@ Patch5:		%{name}-3.14.1-gst1.patch
 
 # If we're using C++20 then we can't override toupper/tolower, it is not allowed.
 Patch6:		gambas3-3.19.4-c++20-do-not-try-to-override-std-functions.patch
-
-Patch8:		gambas3-3.20.2-poppler-25.07.0.patch
 
 %description
 Gambas3 is a free development environment based on a Basic interpreter
@@ -1210,7 +1208,6 @@ Requires:	%{name}-gb-xml = %{version}-%{release}
 %patch -P 2 -p1 -b .noliconv
 %patch -P 5 -p1 -b .gst1
 %patch -P 6 -p1 -b .c++20
-%patch -P 8 -p1 -b .poppler-25.07.0
 for i in `find . |grep acinclude.m4`; do
 	sed -i 's|$AM_CFLAGS -O3|$AM_CFLAGS|g' $i
 	sed -i 's|$AM_CXXFLAGS -Os -fno-omit-frame-pointer|$AM_CXXFLAGS|g' $i
@@ -2047,6 +2044,9 @@ install -m 0644 -p main/mime/application-x-gambas3.xml %{buildroot}%{_datadir}/m
 %{_datadir}/%{name}/info/gb.xml.xslt.*
 
 %changelog
+* Thu Nov  6 2025 Tom Callaway <spot@fedoraproject.org> - 3.21.0-1
+- update to 3.21.0
+
 * Wed Oct  1 2025 Tom Callaway <spot@fedoraproject.org> - 3.20.4-1
 - update to 3.20.4
 

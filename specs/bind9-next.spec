@@ -39,9 +39,6 @@
 # Visit https://bugzilla.redhat.com/show_bug.cgi?id=1540300
 %undefine _strict_symbol_defs_build
 
-# BIND9 does not work with fortify 3 level, make builds work on Fedora
-%global _fortify_level 2
-
 # Upstream package name
 %global upname bind
 # Provide only bind-utils on f37+, it has better behaviour
@@ -55,7 +52,7 @@ Summary:  The Berkeley Internet Name Domain (BIND) DNS (Domain Name System) serv
 Name:     bind9-next
 License:  MPL-2.0 AND ISC AND BSD-3-clause AND MIT AND BSD-2-clause
 #
-Version:  9.21.11
+Version:  9.21.14
 Release:  %autorelease
 Epoch:    32
 Url:      https://www.isc.org/downloads/bind/
@@ -96,8 +93,8 @@ Patch3: bind-9.21-unittest-isc_rwlock-s390x.patch
 # https://gitlab.isc.org/isc-projects/bind9/-/issues/5328
 # avoid often fails on i386, unsupported upstream
 Patch4: bind-9.21-unittest-qpdb-i386.patch
-# Downstream patch to include version in libraries
-Patch5: meson-libs.patch
+Patch5: bind-9.21-dual-sign-continue.patch
+Patch6: bind-9.21-dual-sign-continue-test.patch
 
 %{?systemd_ordering}
 Requires:       coreutils
@@ -357,6 +354,7 @@ export LIBDIR_SUFFIX
 %meson \
   --includedir=%{_includedir}/bind9 \
   -Didn=enabled \
+  -Dfuzzing=disabled \
 %if %{without DTRACE}
   -Dtracing=disabled \
 %endif
@@ -703,6 +701,7 @@ fi;
 # FIXME: current build targets filters into %%_libdir/bind again?
 %dir %{_libdir}/bind
 %{_libdir}/bind/filter*.so
+%{_libdir}/bind/synthrecord.so
 %dir %{_libdir}/named
 %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/sysconfig/named
 %config(noreplace) %attr(0644,root,named) %{_sysconfdir}/named.root.key

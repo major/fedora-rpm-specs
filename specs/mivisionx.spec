@@ -43,7 +43,7 @@
 
 Name:           mivisionx
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        AMD's computer vision toolkit
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT AND Apache-2.0 AND MIT-Khronos-old AND GPL-3.0-or-later
@@ -127,6 +127,9 @@ sed -i -e 's@/opt/rocm@%{_prefix}@' CMakeLists.txt
 
 %build
 
+# Use this to debugging finding rpp
+#    --debug-find-pkg=rpp
+
 %cmake \
     -DAMDGPU_TARGETS=%{rocm_gpu_list_default} \
     -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/clang++ \
@@ -161,6 +164,7 @@ rm -rf %{buildroot}%{_datadir}/%{name}/test
 %{_libdir}/libopenvx.so.1{,.*}
 %{_libdir}/libvx_amd_custom.so.1{,.*}
 %{_libdir}/libvx_opencv.so.1{,.*}
+%{_libdir}/libvx_rpp.so.3{,.*}
 %{_libdir}/libvxu.so.1{,.*}
 
 %files devel
@@ -170,9 +174,14 @@ rm -rf %{buildroot}%{_datadir}/%{name}/test
 %{_libdir}/libopenvx.so
 %{_libdir}/libvx_amd_custom.so
 %{_libdir}/libvx_opencv.so
+%{_libdir}/libvx_rpp.so
 %{_libdir}/libvxu.so
 
 %changelog
+
+* Thu Nov 6 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-3
+- Fix rpp
+
 * Wed Nov 05 2025 Dominik Mierzejewski <dominik@greysector.net> - 7.1.0-2
 - Rebuilt for FFmpeg 8
 

@@ -308,8 +308,9 @@ files for developing applications that use JavaScript engine from webkit2gtk-4.1
 %global optflags %(echo %{optflags} | sed 's/-mbranch-protection=standard /-mbranch-protection=pac-ret /')
 %endif
 
-%define _vpath_builddir %{_vendor}-%{_target_os}-build/webkitgtk-6.0
-%cmake \
+mkdir webkitgtk-6.0
+pushd webkitgtk-6.0
+%cmake -S .. \
   -GNinja \
   -DPORT=GTK \
   -DCMAKE_BUILD_TYPE=Release \
@@ -319,9 +320,11 @@ files for developing applications that use JavaScript engine from webkit2gtk-4.1
   -DENABLE_DOCUMENTATION=OFF \
 %endif
   %{nil}
+popd
 
-%define _vpath_builddir %{_vendor}-%{_target_os}-build/webkit2gtk-4.1
-%cmake \
+mkdir webkit2gtk-4.1
+pushd webkit2gtk-4.1
+%cmake -S .. \
   -GNinja \
   -DPORT=GTK \
   -DCMAKE_BUILD_TYPE=Release \
@@ -332,21 +335,26 @@ files for developing applications that use JavaScript engine from webkit2gtk-4.1
   -DENABLE_DOCUMENTATION=OFF \
 %endif
   %{nil}
+popd
 
-%define _vpath_builddir %{_vendor}-%{_target_os}-build/webkitgtk-6.0
+pushd webkitgtk-6.0
 export NINJA_STATUS="[1/2][%f/%t %es] "
 %cmake_build %limit_build -m 3072
+popd
 
-%define _vpath_builddir %{_vendor}-%{_target_os}-build/webkit2gtk-4.1
+pushd webkit2gtk-4.1
 export NINJA_STATUS="[2/2][%f/%t %es] "
 %cmake_build %limit_build -m 3072
+popd
 
 %install
-%define _vpath_builddir %{_vendor}-%{_target_os}-build/webkitgtk-6.0
+pushd webkitgtk-6.0
 %cmake_install
+popd
 
-%define _vpath_builddir %{_vendor}-%{_target_os}-build/webkit2gtk-4.1
+pushd webkit2gtk-4.1
 %cmake_install
+popd
 
 %find_lang WebKitGTK-6.0
 %find_lang WebKitGTK-4.1

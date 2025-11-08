@@ -21,8 +21,8 @@
 #
 %global upstreamname rocAL
 
-%global rocm_release 7.0
-%global rocm_patch 2
+%global rocm_release 7.1
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 # mixing gcc and clang, some flags need to be removed
@@ -64,6 +64,8 @@ License:        MIT AND BSD-3-Clause
 # bundled rapidjson is MIT AND BSD-3-Clause
 Source0:        %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 
+Patch1:         0001-rocal-find-mivisionx.patch
+
 #
 # rapidjson bundling
 # rocAL uses unreleased ToT rapidjson API, see rocAL-setup.py
@@ -85,19 +87,19 @@ BuildRequires:  half-devel
 BuildRequires:  lmdb-devel
 BuildRequires:  libjpeg-turbo-devel
 BuildRequires:  libsndfile-devel
-BuildRequires:  mivisionx-devel >= %{rocm_release}
+BuildRequires:  mivisionx-devel
 BuildRequires:  protobuf-devel
 BuildRequires:  pybind11-devel
-BuildRequires:  rocdecode-devel >= %{rocm_release}
-BuildRequires:  rocjpeg-devel >= %{rocm_release}
-BuildRequires:  rocm-cmake >= %{rocm_release}
+BuildRequires:  rocdecode-devel
+BuildRequires:  rocjpeg-devel
+BuildRequires:  rocm-cmake
 BuildRequires:  rocm-comgr-devel
 BuildRequires:  rocm-compilersupport-macros
-BuildRequires:  rocm-hip-devel >= %{rocm_release}
-BuildRequires:  rocm-omp-devel >= %{rocm_release}
-BuildRequires:  rocm-rpp-devel >= %{rocm_release}
-BuildRequires:  rocm-runtime-devel >= %{rocm_release}
-BuildRequires:  rocm-rpm-macros >= %{rocm_release}
+BuildRequires:  rocm-hip-devel
+BuildRequires:  rocm-omp-devel
+BuildRequires:  rocm-rpp-devel
+BuildRequires:  rocm-runtime-devel
+BuildRequires:  rocm-rpm-macros
 BuildRequires:  turbojpeg-devel
 
 # License info copied from the rapidjson spec
@@ -186,6 +188,7 @@ cd build
 cd ../..
 
 %cmake \
+    --debug-find-pkg=MIVisionX \
     -DAMDGPU_TARGETS=%{rocm_gpu_list_default} \
     -DBUILD_SHARED_LIBS=ON \
     -DCMAKE_BUILD_TYPE=%{build_type} \
@@ -236,6 +239,10 @@ chrpath -r %{rocmllvm_libdir} %{buildroot}%{_libdir}/librocal.so.2.*.*
 %endif
 
 %changelog
+* Tue Nov 4 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
+- Update to 7.1.0
+- Remove buildrequires version contraints
+
 * Sat Oct 11 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.2-1
 - Update to 7.0.2
 

@@ -8,8 +8,8 @@
 %global _docdir_fmt %{name}
 
 Name:           python-zope-event
-Version:        5.1
-Release:        5%{?dist}
+Version:        6.0
+Release:        1%{?dist}
 Summary:        Zope Event Publication
 License:        ZPL-2.1
 URL:            https://pypi.python.org/pypi/zope.event/
@@ -89,7 +89,6 @@ rm -f docs/_build/html/.buildinfo
 %license LICENSE.txt
 %exclude %{python3_sitelib}/zope/event/tests.py*
 %exclude %{python3_sitelib}/zope/event/__pycache__/tests*
-%{python3_sitelib}/zope.event-*-nspkg.pth
 
 %files doc
 %if %{with docs}
@@ -97,6 +96,9 @@ rm -f docs/_build/html/.buildinfo
 %endif
 
 %changelog
+* Sun Nov 02 2025 Lumír Balhar <lbalhar@redhat.com> - 6.0-1
+- Update to 6.0 (rhbz#1475058)
+
 * Tue Oct 14 2025 Miro Hrončok <mhroncok@redhat.com> - 5.1-5
 - Allow build with setuptools > 78.1.1
 - Fixes: rhbz#2403568

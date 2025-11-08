@@ -1,12 +1,10 @@
 Name:           screengrab
 Summary:        Crossplatform tool for fast making screenshots
-Version:        3.0.0
-Release:        3%{?dist}
+Version:        3.1.0
+Release:        1%{?dist}
 License:        GPL-2.0-only
 URL:            https://lxqt-project.org/
 Source0:        https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
-
-Patch0:         screengrab-fix-build-against-qt-6-10.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -63,13 +61,12 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/screengrab.desktop
 %{_datadir}/applications/screengrab.desktop
 %{_datadir}/icons/hicolor/scalable/apps/screengrab.svg
 %{_metainfodir}/screengrab.metainfo.xml
-%{_docdir}/screengrab/html/default.css
-%{_docdir}/screengrab/html/en/index.html
-%{_docdir}/screengrab/html/pt_BR/index.html
-%{_docdir}/screengrab/html/ru/index.html
 %{_datadir}/screengrab/screengrab.conf
 
 %changelog
+* Thu Nov 06 2025 Shawn W Dunn <sfalken@opensuse.org> - 3.1.0-1
+- Update to 3.1.0
+
 * Thu Oct 02 2025 Jan Grulich <jgrulich@redhat.com> - 3.0.0-3
 - Rebuild (qt6)
 

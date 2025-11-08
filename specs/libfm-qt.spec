@@ -1,12 +1,10 @@
 Name:          libfm-qt
-Version:       2.2.0
-Release:       3%{?dist}
+Version:       2.3.0
+Release:       1%{?dist}
 Summary:       Companion library for PCManFM
 License:       GPL-2.0-or-later
 URL:           https://lxqt-project.org
 Source0:       https://github.com/lxqt/libfm-qt/archive/%{version}/libfm-qt-%{version}.tar.gz
-
-Patch0:        libfm-qt-fix-build-against-qt-6-10.patch
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -65,8 +63,8 @@ This package provides translations for the libfm-qt package.
 %files
 %doc AUTHORS CHANGELOG README.md
 %license LICENSE
-%{_libdir}/libfm-qt6.so.16
-%{_libdir}/libfm-qt6.so.16.*
+%{_libdir}/libfm-qt6.so.17
+%{_libdir}/libfm-qt6.so.17.*
 %{_datadir}/libfm-qt6
 
 %files devel
@@ -85,6 +83,9 @@ This package provides translations for the libfm-qt package.
 %dir %{_datadir}/libfm-qt6/translations
 
 %changelog
+* Wed Nov 05 2025 Shawn W Dunn <sfalken@opensuse.org> - 2.3.0-1
+- Update to 2.3.0
+
 * Tue Sep 30 2025 Jan Grulich <jgrulich@redhat.com> - 2.2.0-3
 - Rebuild (qt6)
 

@@ -2,8 +2,8 @@
 %bcond hyprland_session 0
 
 Name:           lxqt-wayland-session
-Version:        0.2.1
-Release:        2%{?dist}
+Version:        0.3.0
+Release:        1%{?dist}
 Summary:        Wayland session files for LXQt
 # See "LICENSE" for a breakdown of license usage
 License:        LGPL-2.1-only AND GPL-3.0-only AND MIT AND GPL-2.0-only AND BSD-3-Clause
@@ -51,6 +51,7 @@ actually supported compositors.
 %dir %{_datadir}/lxqt/wayland
 %dir %{_datadir}/lxqt/wayland/firstrun
 %{_bindir}/startlxqtwayland
+%{_bindir}/lxqt-qdbus
 %{_datadir}/wayland-sessions/lxqt-wayland.desktop
 %{_datadir}/lxqt/wayland/firstrun/autostart
 %{_datadir}/lxqt/wallpapers/origami-dark-labwc.png
@@ -245,6 +246,9 @@ rm -v %{buildroot}%{_datadir}/lxqt/wayland/lxqt-hyprland.conf
 %fdupes -s %{buildroot}%{_datadir}/themes/
 
 %changelog
+* Thu Nov 06 2025 Shawn W Dunn <sfalken@opensuse.org> - 0.3.0-1
+- Update to 0.3.0
+
 * Wed Oct 08 2025 Shawn W Dunn <sfalken@opensuse.org> - 0.2.1-2
 - rebase patches
 

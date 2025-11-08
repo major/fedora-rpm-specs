@@ -2,7 +2,7 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
 #
 # We can generate PDF documentation as a substitute.
-%bcond doc %[ %{defined fc42} || %{defined fc41} ]
+%bcond doc %{defined fc42}
 
 # For now, we treat https://github.com/wtclarke/mrs_nifti_standard as a bundled
 # dependency. However, it’s not clear if it makes sense to try to unbundle it

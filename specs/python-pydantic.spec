@@ -1,7 +1,7 @@
 %bcond tests 1
 
 Name:           python-pydantic
-Version:        2.12.3
+Version:        2.12.4
 #%%global srcversion %%{lua:return(rpm.expand("%%{version}"):gsub("~",""))}
 Release:        %autorelease
 Summary:        Data validation using Python type hinting
@@ -10,9 +10,6 @@ Summary:        Data validation using Python type hinting
 License:        MIT
 URL:            https://github.com/pydantic/pydantic
 Source:         %{url}/archive/v%{version}/pydantic-%{version}.tar.gz
-
-# Upstream patch to fix the compatibility with newest cloudpickle
-Patch:          https://github.com/pydantic/pydantic/commit/6a90254f.patch
 
 BuildArch:      noarch
 

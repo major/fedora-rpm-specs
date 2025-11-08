@@ -4,7 +4,7 @@ Name: rubygem-%{gem_name}
 Version: 3.2.3
 # Introduce Epoch (related to bug 552972)
 Epoch:  1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A modular Ruby webserver interface
 # lib/rack/show_{status,exceptions}.rb contains snippets from Django under BSD license.
 License: MIT AND BSD-3-Clause
@@ -16,6 +16,7 @@ Source1: rack-%{version}-tests.tar.gz
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby >= 2.4.0
+BuildRequires: rubygem(logger)
 BuildRequires: rubygem(minitest)
 BuildArch: noarch
 
@@ -81,6 +82,9 @@ ruby -Itest -e 'Dir.glob "./test/spec_*.rb", &method(:require)'
 %doc %{gem_instdir}/SPEC.rdoc
 
 %changelog
+* Thu Nov 06 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:3.2.3-3
+- Add BR: rubygem(logger) for ruby3_5
+
 * Mon Oct 13 2025 Vít Ondruch <vondruch@redhat.com> - 1:3.2.3-1
 - Update to Rack 3.2.3
   Resolves: rhbz#2385295

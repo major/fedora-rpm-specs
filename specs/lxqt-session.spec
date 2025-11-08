@@ -1,7 +1,7 @@
 Name:         lxqt-session
 Summary:      Main session for LXQt desktop suite
-Version:      2.2.0
-Release:      5%{?dist}
+Version:      2.3.0
+Release:      1%{?dist}
 License:      LGPL-2.1-only
 URL:          https://lxqt-project.org/
 Source0:      https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -16,7 +16,6 @@ Patch0103:    0103-set-locale1-envar-for-miriway.patch
 
 # Downstream only
 Patch1001:    1001-Drop-Hyprland-entry-for-Wayland-window-managers.patch
-Patch1002:    1002-fix-build-against-qt-6-10.patch
 
 
 BuildRequires:  cmake
@@ -138,6 +137,9 @@ sed -i 's/cursor_theme=whiteglass/cursor_theme=breeze_cursors/g;/General/a windo
 %{_datadir}/lxqt/translations/lxqt-session/lxqt-session_arn.qm
 
 %changelog
+* Thu Nov 06 2025 Shawn W Dunn <sfalken@opensuse.org> - 2.3.0-1
+- Update to 2.3.0
+
 * Sat Oct 11 2025 Shawn W Dunn <sfalken@opensuse.org> - 2.2.0-5
 - Add 0103-set-locale1-envar-for-miriway.patch
 - Add 1002-fix-build-against-qt-6-10.patch

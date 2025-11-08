@@ -1,12 +1,10 @@
 Name:          xdg-desktop-portal-lxqt
-Version:       1.2.0
-Release:       4%{?dist}
+Version:       1.3.0
+Release:       1%{?dist}
 Summary:       A backend implementation for xdg-desktop-portal that is using Qt/KF5/libfm-qt
 License:       LGPL-2.0-or-later
 URL:           https://lxqt-project.org
 Source0:       https://github.com/lxqt/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz
-
-Patch0:        xdg-desktop-portal-lxqt-fix-build-against-qt-6-10.patch
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -35,6 +33,17 @@ Requires:      xdg-desktop-portal
 %install
 %cmake_install
 
+%post
+%systemd_user_post %{name}.service
+
+%preun
+%systemd_user_preun %{name}.service
+
+%postun
+%systemd_user_postun_with_restart %{name}.service
+%systemd_user_postun_with_reload %{name}.service
+%systemd_user_postun %{name}.service
+
 %files
 %doc CHANGELOG README.md
 %license LICENSE
@@ -45,8 +54,12 @@ Requires:      xdg-desktop-portal
 %{_datadir}/applications/org.freedesktop.impl.portal.desktop.lxqt.desktop
 %{_datadir}/xdg-desktop-portal/lxqt-portals.conf
 %{_libexecdir}/xdg-desktop-portal-lxqt
+%{_userunitdir}/%{name}.service
 
 %changelog
+* Thu Nov 06 2025 Shawn W Dunn <sfalken@opensuse.org> - 1.3.0-1
+- Update to 1.3.0
+
 * Fri Oct 03 2025 Jan Grulich <jgrulich@redhat.com> - 1.2.0-4
 - Rebuild (qt6)
 

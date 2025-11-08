@@ -26,8 +26,8 @@
 %endif
 
 %global upstreamname RCCL
-%global rocm_release 7.0
-%global rocm_patch 2
+%global rocm_release 7.1
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -212,7 +212,7 @@ COMPILE_JOBS_MEM=`eval "expr 1 + ${MEM_GB} / ${BUILD_MEM}"`
 if [ "$COMPILE_JOBS_MEM" -lt "$COMPILE_JOBS" ]; then
     COMPILE_JOBS=$COMPILE_JOBS_MEM
 fi
-LINK_MEM=24
+LINK_MEM=65
 LINK_JOBS=`eval "expr 1 + ${MEM_GB} / ${LINK_MEM}"`
 
 sed -i -e "s@rccl PRIVATE -parallel-jobs=12@rccl PRIVATE -parallel-jobs=${COMPILE_JOBS}@" CMakeLists.txt
@@ -269,6 +269,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/rccl/LICENSE.txt
 %endif
 
 %changelog
+* Fri Oct 31 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
+- Update to 7.1.0
+
 * Sat Oct 11 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.2-1
 - Update to 7.0.2
 

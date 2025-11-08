@@ -5,7 +5,7 @@
 %global crate remoteprocess
 
 Name:           rust-remoteprocess
-Version:        0.5.0
+Version:        0.5.1
 Release:        %autorelease
 Summary:        Cross platform api for getting information on a running processes
 
@@ -14,6 +14,8 @@ URL:            https://crates.io/crates/remoteprocess
 Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          remoteprocess-fix-metadata-auto.diff
+# * Remove execute permissions from Rust sources
+Patch10:        https://github.com/benfred/remoteprocess/pull/112.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

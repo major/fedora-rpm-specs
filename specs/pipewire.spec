@@ -1,6 +1,6 @@
 %global majorversion 1
 %global minorversion 5
-%global microversion 81
+%global microversion 83
 
 %global apiversion   0.3
 %global spaversion   0.2
@@ -9,7 +9,7 @@
 %global ms_version   0.4.2
 
 # For rpmdev-bumpspec and releng automation
-%global baserelease 2
+%global baserelease 1
 
 #global snapdate   20210107
 #global gitcommit  b17db2cebc1a5ab2c01851d29c05f79cd2f262bb
@@ -86,7 +86,6 @@ Source1:        pipewire.sysusers
 ## upstreamable patches
 
 ## fedora patches
-Patch:          0001-revert-audio-bump-max-channels-to-128.patch
 
 BuildRequires:  gettext
 BuildRequires:  meson >= 0.59.0
@@ -931,6 +930,9 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_datadir}/pipewire/pipewire.conf.d/50-raop.conf
 
 %changelog
+* Thu Nov 06 2025 Wim Taymans <wtaymans@redhat.com> - 1.5.83-1
+- Update version to 1.5.83
+
 * Fri Oct 17 2025 Fabio Valentini <decathorpe@gmail.com> - 1.5.81-2
 - Revert: audio: bump max channels to 128
 

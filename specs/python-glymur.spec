@@ -26,9 +26,7 @@ BuildOption(install):   -l glymur
 %global debug_package %{nil}
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-%if %{undefined fc41}
 ExcludeArch:    %{ix86}
-%endif
 
 # Test dependencies are now only listed in CI configurations, e.g.
 # ci/travis-313.yaml, so we must enumerate them manually.
@@ -44,7 +42,7 @@ BuildRequires:  %{py3_dist gdal}
 BuildRequires:  openjpeg2
 BuildRequires:  libtiff
 
-%if %[ %{defined fc42} || %{defined fc41} ]
+%if %{defined fc42}
 # Workaround for setuptools<77.0.3; see
 # https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#license-and-license-files.
 %global no_pep_639_backend 1

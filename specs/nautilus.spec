@@ -55,12 +55,17 @@ Requires:       gnome-autoar%{_isa} >= %{gnome_autoar_version}
 Requires:       gsettings-desktop-schemas%{_isa}
 Requires:       gtk4%{_isa} >= %{gtk4_version}
 Requires:       gvfs%{_isa}
+%if ! 0%{?flatpak}
+Recommends:     gvfs-fuse%{_isa}
+%endif
 Requires:       libadwaita%{_isa} >= %{libadwaita_version}
 # the main binary links against libnautilus-extension.so
 # don't depend on soname, rather on exact version
 Requires:       %{name}-extensions%{_isa} = %{version}-%{release}
 # For the org.freedesktop.Tracker3.Miner.Files GSettings schema
 Requires:       localsearch
+
+Recommends:     glycin-thumbnailer%{_isa}
 
 Provides:       bundled(libgd)
 
@@ -83,6 +88,10 @@ Summary:        Support for developing nautilus extensions
 License:        LGPL-2.1-or-later
 Requires:       %{name}%{_isa} = %{version}-%{release}
 Requires:       %{name}-extensions%{_isa} = %{version}-%{release}
+# Because web fonts from upstream are not bundled in the gi-docgen package,
+# packages containing documentation generated with gi-docgen should depend on
+# this metapackage to ensure the proper system fonts are present.
+Recommends:     gi-docgen-fonts
 
 %description devel
 This package provides libraries and header files needed

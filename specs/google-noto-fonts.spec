@@ -9,7 +9,7 @@ between multiple scripts. Noto family supports almost all scripts available\
 in Unicode.\
 %{nil}
 
-%global srcver	2025.10.01
+%global srcver	2025.11.01
 %global majorver	%{lua: v, _ = string.gsub(rpm.expand("%{srcver}"), "(%d+)%.%d+%.%d+", "%1"); print(v)}
 %global minorver	%{lua: v, _ = string.gsub(rpm.expand("%{srcver}"), "%d+%.(%d+)%.%d+", "%1"); print(v)}
 %global patchver	%{lua: v, _ = string.gsub(rpm.expand("%{srcver}"), "%d+%.%d+%.(%d+)", "%1"); print(v)}
@@ -484,6 +484,7 @@ local subpackages = {
       default=true
     },
     { alias="serif",      family="Serif Hebrew", lang={ "he", "yi" } },
+    { alias="serif",      family="Serif Hentaigana" },
     { alias="serif",      family="Serif Kannada", lang={ "kn" },
       default=true
     },
@@ -525,6 +526,7 @@ local subpackages = {
     { alias="serif",      family="Serif Tibetan", lang={ "bo", "dz" },
       obsoletes={ "sans-tibetan" }
     },
+    { alias="serif",      family="Serif Todhri" },
     { alias="serif",      family="Serif Toto" },
     { alias="serif",      family="Serif Vithkuqi" },
     { alias="serif",      family="Serif Yezidi" },
@@ -711,6 +713,7 @@ local subpackages = {
       default=true
     },
     { alias="serif",      variable=true, family="Serif Hebrew", lang={ "he", "yi" } },
+    { alias="serif",      variable=true, family="Serif Hentaigana" },
     { alias="serif",      variable=true, family="Serif Kannada", lang={ "kn" },
       default=true
     },
@@ -1220,6 +1223,11 @@ done
 
 
 %changelog
+* Thu Nov  6 2025 Akira TAGOH <tagoh@redhat.com> - 20251101-1
+- Updates to monthly release of 2025.11.01.
+- New sub packages added: google-noto-serif-hentaigana-fonts,
+  google-noto-serif-hentaigana-vf-fonts, google-noto-serif-todhri-fonts
+
 * Mon Oct  6 2025 Akira TAGOH <tagoh@redhat.com> - 20251001-1
 - Updates to monthly release of 2025.10.01.
 

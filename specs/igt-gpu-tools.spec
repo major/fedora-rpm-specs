@@ -3,11 +3,54 @@
 #%%global gitrev .%%{gitdate}git%%(c=%%{gitcommit}; echo ${c:0:7})
 
 Name:           igt-gpu-tools
-Version:        2.0
-Release:        2%{?dist}
+Version:        2.2
+Release:        1%{?dist}
 Summary:        Test suite and tools for DRM drivers
 
-License:        MIT
+# MIT AND ISC:
+#  - COPYING
+# GPL-1.0-or-later WITH Linux-syscall-note:
+#  - include/linux-uapi/sync_file.h
+# GPL-2.0-only OR MIT:
+#  - docs/testplan/conf.py
+#  - lib/igt_vmwgfx.c
+#  - lib/igt_vmwgfx.h
+#  - lib/svga/
+#  - scripts/code_cov_gather_on_test
+#  - scripts/doc_to_xls.py
+#  - scripts/gen_rst_index
+#  - scripts/igt_doc.py
+#  - scripts/test_list.py
+#  - scripts/xls_to_doc.py
+#  - tests/vmwgfx/vmw_execution_buffer.c
+#  - tests/vmwgfx/vmw_prime.c
+#  - tests/vmwgfx/vmw_ref_count.c
+#  - tools/intel-gfx-fw-info
+# GPL-2.0-only WITH Linux-syscall-note OR MIT
+#  - include/drm-uapi/lima_drm.h
+#  - include/drm-uapi/pvr_drm.h
+#  - include/drm-uapi/vmwgfx_drm.h
+# GPL-2.0-or-later WITH Linux-syscall-note:
+#  - include/drm-uapi/armada_drm.h
+#  - include/drm-uapi/etnaviv_drm.h
+#  - include/drm-uapi/exynos_drm.h
+#  - include/drm-uapi/habanalabs_accel.h
+#  - include/drm-uapi/ivpu_accel.h
+#  - include/drm-uapi/omap_drm.h
+#  - include/drm-uapi/qaic_accel.h
+# HPND-sell-variant:
+#  - assembler/brw_disasm.c
+#  - assembler/disasm-main.c
+#  - assembler/gen8_disasm.c
+# ICU:
+#  - overlay/x11/dri2.c
+# ISC:
+#  - lib/uwildmat/uwildmat.c
+# MIT AND LGPL-3.0-or-later:
+#  - assembler/ralloc.h
+# X11:
+#  - lib/igt_map.c
+License:        (MIT AND ISC) AND (GPL-1.0-or-later WITH Linux-syscall-note) AND (GPL-2.0-only OR MIT) AND (GPL-2.0-only WITH Linux-syscall-note OR MIT) AND GPL-2.0-or-later WITH Linux-syscall-note AND HPND-sell-variant AND ICU AND ISC AND (MIT AND LGPL-3.0-or-later) AND X11
 URL:            https://gitlab.freedesktop.org/drm/igt-gpu-tools
 
 %if 0%{?gitdate}
@@ -133,6 +176,7 @@ rm %{buildroot}/%{_libdir}/libigt.so
 
 %files
 %license COPYING
+%{_bindir}/intel_hdcp
 %{_bindir}/intel-gen4asm
 %{_bindir}/intel-gen4disasm
 %{_libdir}/libigt.so.0
@@ -192,6 +236,7 @@ rm %{buildroot}/%{_libdir}/libigt.so
 %{_bindir}/xe-perf-reader
 %{_bindir}/xe-perf-recorder
 %{_mandir}/man1/intel_*.1*
+%{_mandir}/man1/lsgpu.1*
 
 %files devel
 %license COPYING
@@ -207,6 +252,11 @@ rm %{buildroot}/%{_libdir}/libigt.so
 %{_datadir}/gtk-doc/html/igt-gpu-tools/*
 
 %changelog
+* Sun Sep 28 2025 Robert-André Mauchin <zebob.m@gmail.com> - 2.2-1
+- Update to 2.2
+- Close: rhbz#2352408
+- Refresh license field (analysed with scancode-toolkit and manually reviewed)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

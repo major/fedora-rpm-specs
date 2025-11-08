@@ -1,6 +1,6 @@
 Name:           pyxdg
 Version:        0.27
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Python library to access freedesktop.org standards
 License:        LGPL-2.0-only
 URL:            http://freedesktop.org/Software/pyxdg
@@ -8,8 +8,16 @@ Source0:        %pypi_source
 # Upstream did not include the test/examples directory in the source tarball
 # This tarball is a copy of the directory from https://cgit.freedesktop.org/xdg/pyxdg/
 Source1:        pyxdg-test-example.tar.gz
+# https://cgit.freedesktop.org/xdg/pyxdg/commit/?id=275865e620471c194560824232be632c9cb61600
+Patch0:         pyxdg-replace-imp-with-importlib.patch
+# https://cgit.freedesktop.org/xdg/pyxdg/commit/?id=9291d419017263c922869d79ac1fe8d423e5f929
+Patch1:         pyxdg-handle-python-3.14-ast.Str-changes.patch
+# https://cgit.freedesktop.org/xdg/pyxdg/commit/?id=63033ac306aa26d32e1439417e59ae8f8a4c9820
+Patch2:         pyxdg-handle-python-3.15-deprecations.patch
+
 BuildArch:      noarch
 # These are needed for the nose tests.
+BuildRequires:  python3-nose2
 BuildRequires:  hicolor-icon-theme
 BuildRequires:  shared-mime-info
 
@@ -18,12 +26,6 @@ PyXDG is a python library to access freedesktop.org standards.
 
 %package -n python%{python3_pkgversion}-pyxdg
 Summary:        Python3 library to access freedesktop.org standards
-BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
-%if %{with check}
-# These are needed for the nose tests.
-BuildRequires:  python%{python3_pkgversion}-nose
-%endif
 %{?python_provide:%python_provide python%{python3_pkgversion}-pyxdg}
 
 %description -n python%{python3_pkgversion}-pyxdg
@@ -32,25 +34,35 @@ package contains a Python 3 version of PyXDG.
 
 %prep
 %setup -q -a 1
+%patch -P0 -p1 -b .replace-imp-with-importlib
+%patch -P1 -p1 -b .handle-python-3.14-ast.Str-changes
+%patch -P2 -p1 -b .handle-python-3.15-deprecations
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l xdg
 
 %check
 # icon-test currently fails
 # https://bugs.freedesktop.org/show_bug.cgi?id=104846
-nosetests-%{python3_version} || :
+nose2 || :
 
-%files -n python%{python3_pkgversion}-pyxdg
+%files -n python%{python3_pkgversion}-pyxdg -f %{pyproject_files}
 %license COPYING
 %doc AUTHORS ChangeLog README TODO
-%{python3_sitelib}/xdg
-%{python3_sitelib}/pyxdg-*.egg-info
 
 %changelog
+* Thu Nov  6 2025 Tom Callaway <spot@fedoraproject.org> - 0.27-19
+- apply upstream cleanup commits for modern python support
+- modernize package for new python macros
+- thanks to John for the heads-up
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.27-18
 - Rebuilt for Python 3.14.0rc3 bytecode
 

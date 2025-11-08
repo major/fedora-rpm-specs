@@ -118,6 +118,8 @@ Source5:        %{short_url}/libretro-database/archive/v%{version}/libretro-data
 Source10:       %{name}-enable-network-access.sh
 
 Source11:       README.fedora.md
+# https://github.com/libretro/RetroArch/commit/21776a2e59f5f5899ff2198c0df25a95b5020012
+Patch0:         %{name}-ffmpeg8.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++ >= 7
@@ -298,6 +300,7 @@ database of ROMs that are known to be good copies.
 %setup -n RetroArch-%{version} -q -D -T -a3
 %setup -n RetroArch-%{version} -q -D -T -a4
 %setup -n RetroArch-%{version} -q -D -T -a5
+%patch -P0 -p1 -b .ffmpeg8
 
 # Unbundling
 pushd deps

@@ -1,6 +1,6 @@
 Name: swayidle
-Version: 1.8.0
-Release: 8%{?dist}
+Version: 1.9.0
+Release: 1%{?dist}
 Summary: An idle daemon for wayland compositors
 
 # Automatically converted from old format: MIT and LGPLv2+ - review is highly recommended.
@@ -11,10 +11,10 @@ Source1: %{url}/releases/download/%{version}/%{name}-%{version}.tar.gz.sig
 # 0FDE7BE0E88F5E48: emersion <contact@emersion.fr>
 Source2: https://emersion.fr/.well-known/openpgpkey/hu/dj3498u4hyyarh35rkjfnghbjxug6b19#/gpgkey-0FDE7BE0E88F5E48.gpg
 
-BuildRequires: meson >= 0.48.0
+BuildRequires: meson >= 0.59.0
 BuildRequires: gcc
 BuildRequires: gnupg2
-BuildRequires: pkgconfig(wayland-protocols) >= 1.27
+BuildRequires: pkgconfig(wayland-protocols) >= 1.40
 BuildRequires: pkgconfig(wayland-client)
 BuildRequires: pkgconfig(wayland-server)
 BuildRequires: pkgconfig(libsystemd)
@@ -53,6 +53,9 @@ swayidle is an idle management daemon for Wayland compositors.
 %{_mandir}/man1/%{name}.1.gz
 
 %changelog
+* Thu Nov 06 2025 Jack Hildebrandt <jack@jackhil.de> - 1.9.0-1
+- Update to 1.9.0
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

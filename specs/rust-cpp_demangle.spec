@@ -5,7 +5,7 @@
 %global crate cpp_demangle
 
 Name:           rust-cpp_demangle
-Version:        0.4.5
+Version:        0.5.0
 Release:        %autorelease
 Summary:        Crate for demangling C++ symbols
 
@@ -75,18 +75,6 @@ This package contains library source intended for building other packages which
 use the "logging" feature of the "%{crate}" crate.
 
 %files       -n %{name}+logging-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+run_libiberty_tests-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+run_libiberty_tests-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "run_libiberty_tests" feature of the "%{crate}" crate.
-
-%files       -n %{name}+run_libiberty_tests-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+std-devel

@@ -1,5 +1,5 @@
 Name:           dgit
-Version:        12.3
+Version:        13.17
 Release:        %autorelease
 Summary:        Integration between git and Debian-style archives
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -54,6 +54,7 @@ make install DESTDIR="%{buildroot}" \
 %{_bindir}/dgit
 %{_bindir}/git-playtree-setup
 %{_bindir}/mini-git-tag-fsck
+%{_bindir}/tag2upload-obtain-origs
 %{_datadir}/%{name}
 %{_mandir}/man1/dgit*.1*
 %{_mandir}/man7/dgit*.7*

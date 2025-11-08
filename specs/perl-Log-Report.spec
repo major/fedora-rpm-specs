@@ -3,7 +3,7 @@
 
 Name:           perl-Log-Report
 Version:        1.42
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Report a problem with exceptions and translation support
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Log-Report
@@ -68,6 +68,12 @@ Requires:       perl(Encode) >= 2.00
 Requires:       perl(Log::Report::Minimal::Domain) >= 1.07
 Requires:       perl(Log::Report::Util) >= 1.07
 Requires:       perl(overload)
+# Removed from perl-Log-Report-1.42 upstream, their dependency on exact
+# perl-Log-Report version would break an upgrade.
+# The two packages will be replaced with perl-Dancer2-Plugin-LogReport
+# SRPM once packaged.
+Obsoletes:      perl-Log-Report-Dancer < 1.42
+Obsoletes:      perl-Log-Report-Dancer2 < 1.42
 
 # Remove under-specified dependencies
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\((Devel::GlobalDestruction|Encode|Log::Report::Minimal::Domain|Log::Report::Util|Sys::Syslog|Test::More)\\)$
@@ -231,6 +237,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Nov 06 2025 Petr Pisar <ppisar@redhat.com> - 1.42-2
+- Obsolete removed perl-Log-Report-Dancer and perl-Log-Report-Dancer2 packages
+  (bug #2412310)
+
 * Wed Nov 05 2025 Petr Pisar <ppisar@redhat.com> - 1.42-1
 - 1.42 bump
 

@@ -148,7 +148,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        BLAS implementation for ROCm
 %if %{with gitcommit}
@@ -184,14 +184,9 @@ BuildRequires: %{python_module tensile-devel}
 BuildRequires: %{python_module joblib}
 %else
 BuildRequires:  python3dist(tensile)
-%if 0%{?rhel}
-%global tensile_verbose 2
-%global tensile_library_format yaml
-%else
 BuildRequires:  msgpack-devel
 %global tensile_verbose 1
 %global tensile_library_format msgpack
-%endif
 %endif # suse_version
 %else
 %global tensile_verbose %{nil}
@@ -393,6 +388,9 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library/src:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Wed Nov 5 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
+- Turn down verbose output on RHEL
+
 * Thu Oct 30 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
 - Update to 7.1.0
 

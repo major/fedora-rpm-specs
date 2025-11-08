@@ -4,7 +4,7 @@
 
 %global x11_app_defaults_dir %{_datadir}/X11/app-defaults
 
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 9
 %bcond_without wx
 %else
 %bcond_with wx
@@ -154,15 +154,24 @@ autoreconf -fiv
 #remove binaries from source tarball
 rm -rf demo/plugin/*.so demo/plugin/*.o
 
+# avoid running configure in top level directory to prevent install failure on EL10 due to config.status check
+%global _configure ../configure
 %global configure_opts --with-readline=builtin \\\
  --enable-history-file --with-texdir=/usr/share/texlive/texmf-dist/tex/latex/gnuplot
 
 # at first create minimal version of gnuplot for server SIG purposes
 mkdir minimal
 cd minimal
-ln -s ../configure .
 %configure %{configure_opts} --disable-wxwidgets --without-qt %{?with_libcerf:--with-libcerf} %{!?with_libcerf:--without-libcerf}
 %make_build
+
+# build docs
+make -C docs
+make -C docs html info
+export GNUPLOT_PS_DIR=../../../term/PostScript
+cp -al ../docs/psdoc docs/psdoc
+make -C docs/psdoc ps_symbols.ps ps_fontfile_doc.pdf
+rm -rf docs/htmldocs/images.idx
 cd -
 
 # create full version of gnuplot
@@ -170,7 +179,6 @@ cd -
 # With wxGTK support (Fedora only)
 mkdir wx
 cd wx
-ln -s ../configure .
 %configure %{configure_opts} --without-qt %{?with_libcerf:--with-libcerf} %{!?with_libcerf:--without-libcerf}
 %make_build
 cd -
@@ -179,20 +187,9 @@ cd -
 # With Qt support
 mkdir qt
 cd qt
-ln -s ../configure .
 %configure %{configure_opts} --disable-wxwidgets --with-qt %{?with_libcerf:--with-libcerf} %{!?with_libcerf:--without-libcerf}
 %make_build
 cd -
-
-
-# Docs don't build properly out of tree
-%configure  %{configure_opts}
-ln -s ../minimal/src/gnuplot src/
-make -C docs
-make -C docs html info
-export GNUPLOT_PS_DIR=../../term/PostScript
-make -C docs/psdoc ps_symbols.ps ps_fontfile_doc.pdf
-rm -rf docs/htmldocs/images.idx
 
 %install
 %if %{with wx}
@@ -211,7 +208,7 @@ mv $RPM_BUILD_ROOT%{_bindir}/gnuplot $RPM_BUILD_ROOT%{_bindir}/gnuplot-qt
 install -p -m 755 minimal/src/gnuplot $RPM_BUILD_ROOT%{_bindir}/gnuplot-minimal
 
 # install info
-make -C docs install-info DESTDIR=$RPM_BUILD_ROOT INSTALL='install -p'
+make -C minimal/docs install-info DESTDIR=$RPM_BUILD_ROOT INSTALL='install -p'
 
 #packaged by info package, updated by post-installation script, do not package here
 rm -f $RPM_BUILD_ROOT%{_infodir}/dir
@@ -270,8 +267,8 @@ fi
 
 %files doc
 %doc Copyright
-%doc docs/psdoc/ps_guide.ps docs/psdoc/ps_symbols.ps docs/psdoc/ps_file.doc demo
-%doc docs/psdoc/ps_fontfile_doc.pdf docs/html
+%doc minimal/docs/psdoc/ps_guide.ps minimal/docs/psdoc/ps_symbols.ps minimal/docs/psdoc/ps_file.doc demo
+%doc minimal/docs/psdoc/ps_fontfile_doc.pdf minimal/docs/html
 
 %files common
 %doc BUGS Copyright FAQ.pdf NEWS README RELEASE_NOTES

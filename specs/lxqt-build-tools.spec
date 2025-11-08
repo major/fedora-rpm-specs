@@ -1,14 +1,12 @@
 %global         project lxqt-build-tools
 Name:           lxqt-build-tools
-Version:        2.2.0
-Release:        3%{?dist}
+Version:        2.3.0
+Release:        1%{?dist}
 Summary:        Packaging tools for LXQt
 
 License:        BSD-3-Clause
 URL:            https://lxqt-project.org/
 Source0:        https://github.com/lxqt/%{project}/releases/download/%{version}/%{project}-%{version}.tar.xz
-
-Patch0:         https://github.com/lxqt/lxqt-build-tools/commit/1dc654a8836cc69139342f454f09aadb3da7a1be.patch
 
 BuildArch:      noarch
 
@@ -42,6 +40,9 @@ Various packaging tools and scripts for LXQt applications.
 
 
 %changelog
+* Wed Nov 05 2025 Shawn W Dunn <sfalken@opensuse.org> - 2.3.0-1
+- Update to 2.3.0
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

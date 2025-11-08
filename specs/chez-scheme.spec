@@ -17,6 +17,9 @@ URL:            https://cisco.github.io/ChezScheme
 # ./zuo/configure: FSF Unlimited License [generated file]
 License:        Apache-2.0 AND MIT
 Source0:        https://github.com/cisco/ChezScheme/releases/download/v%{version}/csv%{version}.tar.gz
+# https://github.com/cisco/ChezScheme/issues/956
+Patch0:         https://github.com/cisco/ChezScheme/pull/989.patch
+Patch1:         https://github.com/cisco/ChezScheme/pull/990.patch
 
 BuildRequires:  gcc
 BuildRequires:  libX11-devel
@@ -86,6 +89,9 @@ The package provides the examples files from Chez-Scheme.
 %package devel
 Summary:        Chez-Scheme development files
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+%ifarch ppc64le s390x
+Requires:       libffi-devel
+%endif
 Provides:       %{name}-static = %{version}-%{release}
 
 %description devel
@@ -118,11 +124,8 @@ chmod u+w %{buildroot}%{_libdir}/csv%{version}/*/{main.o,petite,scheme,scheme-sc
 rm -rf %{buildroot}%{_libdir}/csv%{version}/examples
 
 
-# https://github.com/cisco/ChezScheme/issues/956
-%ifnarch ppc64le s390x
 %check
 make ZUO_JOBS=$RPM_BUILD_NCPUS test-some-fast
-%endif
 
 
 %files

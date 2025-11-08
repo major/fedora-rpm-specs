@@ -2,10 +2,10 @@
 # no longer build the Python extension on i686; in the medium term, we wish to
 # drop i686 support altogether, but we must coordinate all reverse dependencies
 # doing so first; see the notes in %%check.
-%bcond python %[ %{?__isa_bits} != 32 || %{defined fc41} ]
+%bcond python %[ %{?__isa_bits} != 32 ]
 
 Name:           re2
-%global tag 2025-08-12
+%global tag 2025-11-05
 %global so_version 11
 %global base_version %(echo '%{tag}' | tr -d -)
 # Ensure this matches the version in the metadata / setup.py!

@@ -42,6 +42,11 @@ Source1:        %{bpftool_url}/archive/%{bpftool_commit}/bpftool-%{bpftool_versi
 Source2:        %{libbpf_url}/archive/%{libbpf_commit}/libbpf-%{libbpf_version}.tar.gz
 Source3:        README.Fedora
 
+# Update gimli, addr2line, backtrace
+# https://github.com/anakryiko/retsnoop/pull/96
+# (Without changes to Cargo.lock)
+Patch:          retsnoop-0.11-gimli-0.32-etc.patch
+
 # has a Rust component
 ExclusiveArch:  %{rust_arches}
 # bpftool not compiling on ix86

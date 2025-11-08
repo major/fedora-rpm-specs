@@ -36,6 +36,10 @@ Summary:        %{summary}
 sed -Ei '/"(devpi-process|covdefaults|diff-cover|pytest-cov)/d' pyproject.toml
 # Relax some build/test dependencies
 sed -Ei 's/"(hatch(ling|-vcs)|pytest(-mock)?)>=[^"]+"/"\1"/' pyproject.toml
+%if %{defined fc42}
+# https://src.fedoraproject.org/rpms/python-tox-uv/pull-request/48#comment-289650
+sed -Ei 's/("packaging>=)25"/\124\.2"/' pyproject.toml
+%endif
 
 
 %generate_buildrequires

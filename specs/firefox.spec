@@ -273,7 +273,7 @@ Patch242:        0026-Add-KDE-integration-to-Firefox.patch
 Patch400:        mozilla-1196777.patch
 Patch401:        mozilla-1667096.patch
 # https://webrtc-review.googlesource.com/c/src/+/401602
-Patch402:        libwebrtc-update-pipewire-headers.patch
+#Patch402:        libwebrtc-update-pipewire-headers.patch
 
 # PGO/LTO patches
 Patch600:        pgo.patch
@@ -589,7 +589,8 @@ cat %{SOURCE49} | sed -e "s|LIBCLANG_RT_PLACEHOLDER|`pwd`/wasi-sdk-25/build/sysr
 
 %patch -P400 -p1 -b .1196777
 %patch -P401 -p1 -b .1667096
-%patch -P402 -p1 -b .libwebrtc-update-pipewire-headers
+# Temporary disabled, doesn't apply to 145
+#%patch -P402 -p1 -b .libwebrtc-update-pipewire-headers
 
 # PGO patches
 %if %{build_with_pgo}

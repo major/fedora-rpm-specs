@@ -226,7 +226,7 @@ ExcludeArch:    %{ix86}
 
 # Compilation may fail on builders with very many cores (e.g. 192 cores) due to
 # “too many open files.” Try to keep the files/core ratio from getting too low.
-%global _smp_ncpus_max 128
+%global _smp_ncpus_max 96
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  rust2rpm-helper
@@ -234,10 +234,6 @@ BuildRequires:  tomcli
 BuildRequires:  python3-devel
 %if %{with check} && %{with it}
 # See trove classifiers in pyproject.toml for supported Pythons.
-%if %{defined fc41}
-# https://fedoraproject.org/wiki/Changes/RetirePython3.8
-BuildRequires:  /usr/bin/python3.8
-%endif
 BuildRequires:  /usr/bin/python3.9
 BuildRequires:  /usr/bin/python3.10
 BuildRequires:  /usr/bin/python3.11
@@ -756,7 +752,7 @@ skip="${skip-} --skip registry_client::tests::test_redirect_to_server_with_crede
 # https://github.com/astral-sh/uv/pull/13699#issuecomment-2916115588.
 skip="${skip-} --skip remote_metadata::remote_metadata_with_and_without_cache"
 
-%if %[ %{defined fc41} || %{defined el10} ]
+%if %{defined el10}
 # Trivial difference in snapshots: packages appear in a different order.
 skip="${skip-} --skip lock::tests::missing_dependency_source_unambiguous"
 skip="${skip-} --skip lock::tests::missing_dependency_version_dynamic"

@@ -11,7 +11,7 @@
 %bcond acceptance_python 1
 
 Name:           gherkin
-Version:        36.0.0
+Version:        36.1.0
 # While SONAME versions are based on the major version number, we repeat them
 # here as a reminder, hopefully reducing the chance of an unintended SONAME
 # version bump.

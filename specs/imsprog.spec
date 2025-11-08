@@ -1,6 +1,6 @@
 Name: imsprog
-Version: 1.6.2
-Release: 2%dist
+Version: 1.7.1
+Release: 1%dist
 
 Summary: I2C, SPI and MicroWire EEPROM/Flash chip programmer for CH341a devices
 Summary(ru_RU.UTF-8): I2C, SPI and MicroWire EEPROM/Flash программатор для CH341a устройств
@@ -185,6 +185,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.xml
 %license LICENSE
 
 %changelog
+* Wed Nov 6 2025 Mikhail Medvedev 1.7.2-1
+- Fix: pressing the Stop key did not stop auto operations
+- Added support for SPI NAND flash
+- Added traditional chinese translation
+- New chips added to database
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

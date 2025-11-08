@@ -1,11 +1,11 @@
 %global forgeurl https://github.com/openjdk/jfx17u
 %global openjfxdir %{_jvmdir}/%{name}
-%global rtdir jfx17u-17.0.13-0
+%global rtdir jfx17u-17.0.17-1
 
 Name:           openjfx
 Epoch:          3
-Version:        17.0.13.0
-Release:        5%{?dist}
+Version:        17.0.17.1
+Release:        1%{?dist}
 Summary:        Rich client application platform for Java
 %forgemeta
 
@@ -163,6 +163,9 @@ cp -a modules/javafx.graphics/mvn-lib{decora,javafx_font,javafx_font_freetype,ja
 %doc README.md
 
 %changelog
+* Thu Nov 06 2025 Nicolas De Amicis <deamicis@bluewin.ch> - 3:17.0.17.1-1
+- Bump to 17.0.17
+
 * Mon Jul 28 2025 jiri vanek <jvanek@redhat.com> - 3:17.0.13.0-5
 - Rebuilt for java-25-openjdk as preffered jdk
 

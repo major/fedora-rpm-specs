@@ -3,7 +3,7 @@
 
 Name:    schemesh
 Version: 0.9.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Fusion between a Unix shell and a Lisp REPL
 
 %forgemeta
@@ -19,7 +19,6 @@ BuildRequires: lz4-devel
 BuildRequires: ncurses-devel
 BuildRequires: libuuid-devel
 BuildRequires: zlib-devel
-ExcludeArch:   ppc64le s390x
 
 Requires: chez-scheme%{?_isa} = %{chez_version}
 
@@ -33,12 +32,15 @@ replacing bash, zsh, pdksh etc.
 %forgesetup
 
 %build
+%ifarch ppc64le s390x
+EXTRA_LDFLAGS="-lffi"
+%endif
 %make_build \
     prefix=%{_prefix} \
     libdir=%{_libdir} \
     bindir=%{_bindir} \
     CFLAGS="$CFLAGS" \
-    LDFLAGS="$LDFLAGS"
+    LDFLAGS="$LDFLAGS $EXTRA_LDFLAGS"
 
 %install
 %make_install prefix=%{_prefix} libdir=%{_libdir} bindir=%{_bindir}
@@ -55,6 +57,9 @@ time ./schemesh_test
 %{_libdir}/schemesh/
 
 %changelog
+* Thu Nov 06 2025 Jens Petersen <petersen@redhat.com> - 0.9.1-5
+- fix build on ppc64le and s390x
+
 * Tue Nov 04 2025 Jens Petersen <petersen@redhat.com> - 0.9.1-4
 - rebuild against newer chez-scheme
 

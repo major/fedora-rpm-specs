@@ -1,32 +1,33 @@
-# Created by pyp2rpm-3.2.3
 %global pypi_name scitokens
 
 Name:           python-%{pypi_name}
-Version:        1.8.1
-Release:        10%{?dist}
+Version:        1.9.5
+Release:        1%{?dist}
 Summary:        SciToken reference implementation library
 
 License:        Apache-2.0
 URL:            https://scitokens.org
-Source0:        %{pypi_source %{pypi_name}}
+Source0:        %pypi_source %{pypi_name}
 BuildArch:      noarch
+Prefix:         %{_prefix}
 
 # build requirements
 BuildRequires:  python3-devel
+BuildRequires:  python3dist(wheel)
+%if 0%{?rhel} >= 9
+BuildRequires:  pyproject-rpm-macros
+BuildRequires:  python3dist(setuptools)
+BuildRequires:  python3dist(tomli)
+%else
+# EL8 does not support pyproject-rpm-macros or tomli by default
 BuildRequires:  python3-setuptools
+%endif
 
 # test requirements
-%if 0%{?rhel} == 7
-BuildRequires:  python%{python3_pkgversion}-cryptography
-BuildRequires:  python%{python3_pkgversion}-pytest
-BuildRequires:  python%{python3_pkgversion}-jwt >= 1.6.1
-BuildRequires:  python%{python3_pkgversion}-requests
-%else
-BuildRequires:  python3-cryptography
-BuildRequires:  python3-pytest
-BuildRequires:  python3-jwt >= 1.6.1
-BuildRequires:  python3-requests
-%endif
+BuildRequires:  python3dist(cryptography)
+BuildRequires:  python3dist(pyjwt) >= 1.6.1
+BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(requests)
 
 %description
 SciToken reference implementation library
@@ -40,35 +41,61 @@ SciToken reference implementation library
 
 %prep
 %autosetup -n %{pypi_name}-%{version}
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
 
-%build
-%py3_build
-
-%install
-%py3_install
-
-%check
-%if 0%{?rhel} == 7
-export PYTHONPATH="%{buildroot}%{python3_sitelib}"
-(cd tests/ && %{__python3} -m pytest --verbose -ra . --no-network)
-%else
-%pytest --verbose -ra tests/ --no-network
+%if 0%{?rhel} >= 9
+%generate_buildrequires
+%pyproject_buildrequires
 %endif
 
+%build
+%if 0%{?rhel} >= 9
+%py3_build_wheel
+%else
+%py3_build
+%endif
+
+%install
+%if 0%{?rhel} >= 9
+%py3_install_wheel %{pypi_name}-%{version}-*.whl
+%else
+%py3_install
+%endif
+
+%check
+%pytest --verbose -ra tests/ --no-network --no-intensive
+
 %files -n python3-%{pypi_name}
-%license LICENSE
-%{python3_sitelib}/%{pypi_name}/
-%{python3_sitelib}/%{pypi_name}-%{version}-py*.egg-info
 %doc README.rst
+%license LICENSE
+%{python3_sitelib}/*
 %{_bindir}/scitokens-admin-create-key
 %{_bindir}/scitokens-admin-create-token
 %{_bindir}/scitokens-verify-token
 
 %changelog
+* Thu Nov 6 2025 Derek Weitzel <dweitzel@unl.edu> - 1.9.5-1
+- Marking intensive tests and adding --no-intensive option to skip them
+
+* Thu Nov 6 2025 Derek Weitzel <dweitzel@unl.edu> - 1.9.4-1
+- Marking intensive tests and adding --no-intensive option to skip them
+
+* Thu Nov 6 2025 Derek Weitzel <dweitzel@unl.edu> - 1.9.3-1
+- Fixing tests to for network independence
+
+* Thu Nov 6 2025 Derek Weitzel <dweitzel@unl.edu> - 1.9.2-1
+- Add conditionals to build requirements for RHEL 9+
+
+* Wed Nov 5 2025 Derek Weitzel <dweitzel@unl.edu> - 1.9.0-1
+- Create simple CLI tool to examine keycache in Python and refresh all entries in keycache
+- Verify Thread-safe + Unwritable Cache + Negative Cache
+- Revamp Sphinx documentation
+- Patch Enforcer to validate against multiple issuers
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.8.1-10
 - Rebuilt for Python 3.14.0rc3 bytecode
+
+* Tue Aug 19 2025 Derek Weitzel <dweitzel@unl.edu> - 1.8.2-1
+- Update spec file to remove outdated build macros
 
 * Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.8.1-9
 - Rebuilt for Python 3.14.0rc2 bytecode

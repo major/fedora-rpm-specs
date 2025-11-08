@@ -1,12 +1,10 @@
 Name:          lxqt-panel
 Summary:       Main panel bar for LXQt desktop suite
-Version:       2.2.2
-Release:       3%{?dist}
+Version:       2.3.0
+Release:       1%{?dist}
 License:       LGPL-2.1-or-later
 URL:           https://lxqt-project.org/
 Source0:       https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
-
-Patch0:        lxqt-panel-fix-build-against-qt-6-10.patch
 
 # Proposed upstream
 # https://github.com/lxqt/lxqt-panel/pull/2161
@@ -119,6 +117,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/lxqt-panel.desktop |
 %{_mandir}/man1/lxqt-panel*
 %config(noreplace) %{_sysconfdir}/xdg/autostart/lxqt-panel.desktop
 %{_datadir}/applications/lxqt-panel.desktop
+%config %{_sysconfdir}/xdg/lxqt/panel.conf
 
 %files devel
 %dir %{_includedir}/lxqt
@@ -130,6 +129,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/lxqt-panel.desktop |
 %dir %{_datadir}/lxqt/translations/lxqt-panel
 
 %changelog
+* Wed Nov 05 2025 Shawn W Dunn <sfalken@opensuse.org> - 2.3.0-1
+- Update to 2.3.0
+
 * Tue Sep 30 2025 Jan Grulich <jgrulich@redhat.com> - 2.2.2-3
 - Rebuild (qt6)
 

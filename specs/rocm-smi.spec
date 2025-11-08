@@ -19,8 +19,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-%global rocm_release 7.0
-%global rocm_patch 2
+%global rocm_release 7.1
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 %global upstreamname rocm_smi_lib
 
@@ -41,7 +41,6 @@ Summary:    ROCm System Management Interface Library
 License:    MIT AND NCSA
 URL:        https://github.com/ROCm/%{upstreamname}
 Source0:    %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
-# Patch0:     0001-rocm-smi-fix-empty-return.patch
 
 %if 0%{?rhel} || 0%{?suse_version}
 ExclusiveArch:  x86_64
@@ -122,7 +121,7 @@ sed -i '/#include <string.*/a#include <iomanip>' tests/rocm_smi_test/test_base.h
 # For Fedora < 38, the README is not installed if doxygen is disabled:
 install -D -m 644 README.md %{buildroot}%{_docdir}/rocm_smi/README.md
 
-rm -f %{buildroot}%{_datadir}/doc/rocm-smi-lib/LICENSE.txt
+rm -f %{buildroot}%{_datadir}/doc/rocm-smi-lib/LICENSE.md
 
 %if 0%{?suse_version}
 %post   -p /sbin/ldconfig
@@ -131,7 +130,7 @@ rm -f %{buildroot}%{_datadir}/doc/rocm-smi-lib/LICENSE.txt
 
 %files
 %doc %{_docdir}/rocm_smi
-%license License.txt
+%license LICENSE.md
 %{_bindir}/rocm-smi
 %{_libexecdir}/rocm_smi
 %{_libdir}/librocm_smi64.so.1{,.*}
@@ -150,6 +149,9 @@ rm -f %{buildroot}%{_datadir}/doc/rocm-smi-lib/LICENSE.txt
 %endif
 
 %changelog
+* Fri Oct 31 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
+- Update to 7.1.0
+
 * Fri Oct 10 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.2-1
 - Update to 7.0.2
 

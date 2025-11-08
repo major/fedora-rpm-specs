@@ -1,7 +1,7 @@
 Name:          lxqt-config
 Summary:       Config tools for LXQt desktop suite
-Version:       2.2.0
-Release:       2%{?dist}
+Version:       2.3.0
+Release:       1%{?dist}
 License:       LGPL-2.1-only
 URL:           https://lxqt-project.org/
 Source0:       https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -80,13 +80,15 @@ desktop-file-edit \
 %{_bindir}/lxqt-config-input
 %{_bindir}/lxqt-config-monitor
 %{_bindir}/lxqt-config-locale
-%{_datadir}/applications/lxqt-config-appearance.desktop
-%{_datadir}/applications/lxqt-config-file-associations.desktop
-%{_datadir}/applications/lxqt-config-input.desktop
-%{_datadir}/applications/lxqt-config-monitor.desktop
-%{_datadir}/applications/lxqt-config-locale.desktop
-%{_datadir}/applications/lxqt-config.desktop
-%{_datadir}/applications/lxqt-config-brightness.desktop
+%{_datadir}/applications/%{name}-appearance.desktop
+%{_datadir}/applications/%{name}-file-associations.desktop
+%{_datadir}/applications/%{name}-input.desktop
+%{_datadir}/applications/%{name}-monitor.desktop
+%{_datadir}/applications/%{name}-monitor-autostart.desktop
+%{_datadir}/applications/%{name}-locale.desktop
+%{_datadir}/applications/%{name}.desktop
+%{_datadir}/applications/%{name}-brightness.desktop
+%{_datadir}/applications/%{name}-touchpad-autostart.desktop
 %{_libdir}/lxqt-config/liblxqt-config-cursor.so
 %{_datadir}/icons/*/*
 %{_datadir}/lxqt/icons/*
@@ -120,6 +122,9 @@ desktop-file-edit \
 %{_datadir}/lxqt/translations/lxqt-config/lxqt-config_ast.qm
 
 %changelog
+* Wed Nov 05 2025 Shawn W Dunn <sfalken@opensuse.org> - 2.3.0-1
+- Update to 2.3.0
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

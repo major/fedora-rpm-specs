@@ -1,9 +1,8 @@
 %global udevdir %(pkg-config --variable=udevdir udev)
 
-%if "%{_arch}" == "ppc64le"
-%bcond_with plugins
-%else
-%bcond_without plugins
+# Plugins require luajit or lua-5.1
+%if "%{_arch}" != "ppc64le"
+%bcond plugins %{undefined rhel}
 %endif
 
 #global gitdate 20141211
@@ -11,7 +10,7 @@
 
 Name:           libinput
 Version:        1.29.901
-Release:        2%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+Release:        3%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 Summary:        Input device library
 
 # SPDX
@@ -173,6 +172,9 @@ intended to be run by users.
 
 
 %changelog
+* Fri Nov 07 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 1.29.901-3
+- Disable plugins on RHEL
+
 * Tue Nov 04 2025 Peter Hutterer <peter.hutterer@redhat.com> - 1.29.901-2
 - Disable plugins on ppc64le - there's no luajit
 

@@ -6,12 +6,12 @@
 %global _docdir_fmt %{name}
 
 Name:		python-zope-interface
-Version:	7.2
+Version:	8.0.1
 Release:	%autorelease
 Summary:	Zope 3 Interface Infrastructure
 License:	ZPL-2.1
 URL:		https://pypi.io/project/zope.interface
-Source0:	%{pypi_source zope.interface}
+Source0:	%{pypi_source zope_interface}
 
 %description
 Interfaces are a mechanism for labeling objects as conforming to a given API
@@ -43,7 +43,7 @@ Documentation for %{name}.
 %endif
 
 %prep
-%autosetup -n zope.interface-%{version} -p1
+%autosetup -n zope_interface-%{version} -p1
 
 # Remove version limit from setuptools
 sed -i '/setuptools/s/<.*"/"/' pyproject.toml
@@ -90,7 +90,6 @@ popd
 %exclude %{python3_sitearch}/zope/interface/common/tests/
 # C files don't need to be packaged
 %exclude %{python3_sitearch}/zope/interface/*.c
-%{python3_sitearch}/zope.interface-*-nspkg.pth
 
 %if %{with docs}
 %files doc

@@ -2,7 +2,7 @@
 %bcond micromamba 0
 
 Name:           libmamba
-Version:        2.3.2
+Version:        2.3.3
 Release:        %autorelease
 Summary:        C++ API for mamba depsolving library
 
@@ -12,8 +12,6 @@ Source0:        https://github.com/mamba-org/mamba/archive/%{version}/%{name}-%{
 # Use Fedora versions of zstd
 # Install into /etc/profile.d
 Patch:          libmamba-fedora.patch
-# Use scikit-build-core https://github.com/mamba-org/mamba/pull/3802
-Patch:          https://github.com/mamba-org/mamba/pull/3802.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++

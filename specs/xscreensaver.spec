@@ -11,7 +11,7 @@
 %define split_getimage   1
 %endif
 
-%define baserelease    4
+%define baserelease    5
 
 %global use_clang_as_cc 0
 %global use_clang_analyze 0
@@ -1213,6 +1213,9 @@ exit 0
 %endif
 
 %changelog
+* Thu Nov 06 2025 Dominik Mierzejewski <dominik@greysector.net> - 1:6.12-5
+- Rebuilt for FFmpeg 8
+
 * Wed Oct 15 2025 Dominik Mierzejewski <dominik@greysector.net> - 1:6.12-4
 - Fixed build with FFmpeg 8
 

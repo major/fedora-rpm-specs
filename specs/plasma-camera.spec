@@ -1,11 +1,11 @@
 Name:          plasma-camera
-Version:       2.0.0
-Release:       3%{?dist}
+Version:       2.1.0
+Release:       1%{?dist}
 License:       BSD-3-Clause AND GPL-2.0-or-later AND CC0-1.0 AND GPL-3.0-or-later
 Summary:       Camera application for Plasma Mobile
 URL:           https://apps.kde.org/plasma.camera/
 
-Source0:       https://download.kde.org/stable/%{name}/%{name}-%{version}.tar.xz
+Source0:       https://download.kde.org/stable/%{name}/%{name}-v%{version}.tar.xz
 
 # libcamera does not currently build on these architectures
 ExcludeArch: s390x ppc64le
@@ -32,6 +32,7 @@ BuildRequires: cmake(KF6I18n)
 BuildRequires: cmake(KF6Config)
 
 BuildRequires: pkgconfig(libcamera)
+BuildRequires: pkgconfig(exiv2)
 
 %description
 %{summary}.
@@ -40,7 +41,7 @@ switching between different camera devices.
 
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{name}-v%{version}
 
 
 %build
@@ -63,6 +64,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_metainfodir}/org.kde.plasma.camera.appdata.xml
 
 %changelog
+* Fri Nov 07 2025 Steve Cossette <farchord@gmail.com> - 2.1.0-1
+- 2.1.0
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

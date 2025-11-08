@@ -1,7 +1,7 @@
 Name: trousers
 Summary: TCG's Software Stack v1.2
 Version: 0.3.15
-Release: 15%{?dist}
+Release: 16%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License: LicenseRef-Callaway-BSD
 Url: http://trousers.sourceforge.net
@@ -65,7 +65,7 @@ sed -i -e 's|/var/tpm|/var/lib/tpm|g' -e 's|/usr/local/var|/var|g' man/man5/tcsd
 
 # Create a sysusers.d config file
 cat >trousers.sysusers.conf <<EOF
-u tss 59 'Account used for TPM access' /dev/null -
+u tss 59 'Account used for TPM access' - -
 EOF
 
 %build
@@ -119,6 +119,9 @@ install -m0644 -D trousers.sysusers.conf %{buildroot}%{_sysusersdir}/trousers.co
 %{_libdir}/libtddl.a
 
 %changelog
+* Thu Nov 06 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.3.15-16
+- Change home directory of tss user to avoid warning
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.15-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -23,7 +23,12 @@ Source:         %{crates_source %{crate} %{crate_version}}
 # * drop unneeded reqwest, xz2, zip
 # * clean up dependencies of generate-* features
 # * drop nightly feature from stats_alloc
+# * allow gimli 0.32, addr2line 0.25, cpp_demangle 0.5
 Patch:          blazesym-fix-metadata.diff
+# * Source-code change required for compatibility with cpp_demangle 0.5; see
+#   also: Update cpp_demangle dependency to 0.5,
+#   https://github.com/libbpf/blazesym/commit/e4f0557f6a0d02dc03526bca6977a6100e9cce94
+Patch10:        blazesym-0.2.0-rc.0-cpp_demangle-0.5.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

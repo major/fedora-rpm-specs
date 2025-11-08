@@ -1,22 +1,19 @@
+%global __cmake_in_source_build 1
+
 Name:		xbase
-Summary: 	XBase compatible database library
-Version: 	3.1.2
-Release: 	34%{?dist}
-License: 	LGPL-2.1-or-later
+Summary:	XBase compatible database library
+Version:	4.2.6
+Release:	1%{?dist}
+License:	LGPL-3.0-or-later
 URL:		http://linux.techass.com/projects/xdb/
 Source0:	http://downloads.sourceforge.net/xdb/%{name}64-%{version}.tar.gz
-Patch0:		xbase-3.1.2-fixconfig.patch
-Patch1:		xbase-3.1.2-gcc44.patch
-Patch2:		xbase-2.0.0-ppc.patch
-Patch3:		xbase-3.1.2-xbnode.patch
-Patch4:		xbase-3.1.2-lesserg.patch
-Patch5:		xbase-3.1.2-gcc47.patch
-Patch6:		xbase-3.1.2-gcc6.patch
-Patch7:		xbase-3.1.2-configure-gcc-version-fix.patch
-Patch8:		xbase-3.1.2-gcc7.patch
-BuildRequires: make
-BuildRequires:  gcc-c++
-BuildRequires:	doxygen, libtool
+Patch0:		xbase-4.2.6-fix-sover.patch
+Patch1:		xbase-4.2.6-no-local-no-namespace.patch
+Patch2:		xbase-4.2.6-fix-mandir.patch
+Patch3:		xbase-4.2.6-missing-includes.patch
+BuildRequires:	make
+BuildRequires:	gcc-c++
+BuildRequires:	doxygen, libtool, cmake
 Provides:	xbase64 = %{version}-%{release}
 
 %description
@@ -30,18 +27,18 @@ DBF (dBase version 3 and 4) data files, NDX and NTX indexes, and DBT
 OS's.
 
 %package devel
-Summary: XBase development libraries and headers
-Requires: %{name} = %{version}-%{release}
-Provides: xbase64-devel = %{version}-%{release}
+Summary:	XBase development libraries and headers
+Requires:	%{name}%{?_isa} = %{version}-%{release}
+Provides:	xbase64-devel = %{version}-%{release}
 
 %description devel
 Headers and libraries for compiling programs that use the XBase library.
 
 %package utils
-Summary: XBase utilities / tools
-License: GPL-2.0-or-later
-Provides: xbase64-utils = %{version}-%{release}
-Requires: %{name} = %{version}-%{release}
+Summary:	XBase utilities / tools
+License:	GPL-3.0-or-later
+Provides:	xbase64-utils = %{version}-%{release}
+Requires:	%{name}%{?_isa} = %{version}-%{release}
 
 %description utils
 This package contains various utilities for working with X-Base files:
@@ -53,68 +50,79 @@ zap (remove all records from a DBF file).
 
 %prep
 %setup -q -n %{name}64-%{version}
-%patch -P0 -p1
-%patch -P1 -p1 -b .gcc44
-%patch -P2 -p1
-%patch -P3 -p1
-%patch -P4 -p1 -b .lesserg
-%patch -P5 -p1 -b .gcc47
-%patch -P6 -p1 -b .gcc6
-%patch -P7 -p1 -b .verfix
-%patch -P8 -p1 -b .gcc7
+%patch -P0 -p1 -b .fix-sover
+%patch -P1 -p1 -b .no-local-no-namespace
+%patch -P2 -p1 -b .fix-mandir
+%patch -P3 -p1 -b .missing-includes
+
+chmod -x NEWS README docs/html/*
 
 %build
-touch AUTHORS README NEWS
-cp -p copying COPYING
-autoreconf -i
-%configure --disable-static
+cd build/linux64
+%cmake .
 make %{?_smp_mflags}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make DESTDIR=$RPM_BUILD_ROOT install
+pushd build/linux64
+%cmake_install
+popd
 rm -rf $RPM_BUILD_ROOT%{_libdir}/*.la
 
 # Fix files for multilib
-touch -r COPYING $RPM_BUILD_ROOT%{_bindir}/xbase-config
 touch -r COPYING docs/html/*.html
 
 pushd $RPM_BUILD_ROOT%{_libdir}
-ln -s libxbase64.so.1.0.0 libxbase.so.1.0.0
-ln -s libxbase64.so.1 libxbase.so.1
+ln -s libxbase64.so.%{version} libxbase.so.%{version}
+ln -s libxbase64.so.4 libxbase.so.4
 ln -s libxbase64.so libxbase.so
 popd
 
 pushd $RPM_BUILD_ROOT%{_includedir}
-ln -s xbase64 xbase
+ln -s Xbase64 xbase
+popd
+
+%check
+pushd build/linux64
+make test
 popd
 
 %ldconfig_scriptlets
 
 %files
-%doc COPYING ChangeLog
+%license COPYING
+%doc NEWS README
 %{_libdir}/*.so.*
 
 %files devel
 %doc docs/html
 %{_includedir}/xbase*
-%{_bindir}/xbase*-config
+%{_includedir}/Xbase64
 %{_libdir}/libxbase*.so
 
 %files utils
-%{_bindir}/checkndx
-%{_bindir}/copydbf
-%{_bindir}/dbfxtrct
-%{_bindir}/deletall
-%{_bindir}/dumphdr
-%{_bindir}/dumprecs
-%{_bindir}/packdbf
-%{_bindir}/reindex
-%{_bindir}/undelall
-%{_bindir}/zap
-%{_bindir}/dbfutil1
+%{_bindir}/xb_cfg_check
+%{_bindir}/xb_clearix
+%{_bindir}/xb_copydbf
+%{_bindir}/xb_dbfutil
+%{_bindir}/xb_deletall
+%{_bindir}/xb_dumpdbt
+%{_bindir}/xb_dumprecs
+%{_bindir}/xb_execsql
+%{_bindir}/xb_import
+%{_bindir}/xb_pack
+%{_bindir}/xb_reindex
+%{_bindir}/xb_tblinfo
+%{_bindir}/xb_undelall
+%{_mandir}/man1/xb_*.1*
 
 %changelog
+* Thu Nov  6 2025 Tom Callaway <spot@fedoraproject.org> - 4.2.6-1
+- so, funny story. turns out this thing is still being actively developed.
+  and... i just noticed. whoops. sorry.
+- anyways, new achievement: Back From The Dead
+- update to 4.2.6
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.2-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

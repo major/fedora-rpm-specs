@@ -6,7 +6,7 @@
 %global vectortileshortcommit %(c=%{vectortilecommit}; echo ${c:0:7})
 
 Name:      mapnik
-Version:   4.1.3
+Version:   4.1.4
 Release:   %autorelease
 Summary:   Free Toolkit for developing mapping applications
 License:   LGPL-2.1-only

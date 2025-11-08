@@ -1,13 +1,12 @@
 Name:           bonnie++
 Version:        2.00a
-Release:        14%{?dist}
+Release:        %autorelease
 Summary:        Filesystem and disk benchmark & burn-in suite
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
 URL:            http://www.coker.com.au/bonnie++/
 Source0:        http://www.coker.com.au/bonnie++/experimental/bonnie++-%{version}.tgz
 Patch0:         %{name}-makefile.patch
-
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  make
@@ -50,163 +49,4 @@ test servers.
 
 
 %changelog
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.00a-14
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.00a-13
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Mon Jul 29 2024 Miroslav Suchý <msuchy@redhat.com> - 2.00a-12
-- convert license to SPDX
-
-* Wed Jul 17 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.00a-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Tue Jan 23 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.00a-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 2.00a-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.00a-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.00a-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Wed Sep 07 2022 Filipe Rosset <rosset.filipe@gmail.com> - 2.00a-6
-- spec cleanup and modernization
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.00a-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.00a-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.00a-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.00a-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Fri Jan  1 2021 Filipe Rosset <rosset.filipe@gmail.com> - 2.00a-1
-- Update to 2.00a fixes rhbz#1881454
-
-* Tue Aug 18 2020 Jeff Law <law@redhat.com> - 1.98-5
-- Force C++14 as this code is not C++17 ready
-
-* Sat Aug 01 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.98-4
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.98-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.98-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Wed Jul 03 2019 Filipe Rosset <rosset.filipe@gmail.com> - 1.98-1
-- new upstream release 1.98, fixes rhbz #1668945
-
-* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.97.3-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Thu Jul 12 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.97.3-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.97.3-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Wed Aug 02 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.97.3-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
-
-* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.97.3-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.97.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Mon Dec 19 2016 Filipe Rosset <rosset.filipe@gmail.com> - 1.97.3-1
-- Rebuilt for new upstream release 1.97.3, fixes rhbz #1114277
-
-* Mon Dec 19 2016 Filipe Rosset <rosset.filipe@gmail.com> - 1.96-13
-- Spec clean up, silent rpmlint
-
-* Wed Feb 03 2016 Fedora Release Engineering <releng@fedoraproject.org> - 1.96-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
-
-* Tue Feb 02 2016 Jonathan Wakely <jwakely@redhat.com> - 1.96-11
-- Patched to build with GCC 6
-
-* Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.96-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
-
-* Sat May 02 2015 Kalev Lember <kalevlember@gmail.com> - 1.96-9
-- Rebuilt for GCC 5 C++11 ABI change
-
-* Fri Aug 15 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.96-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
-
-* Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.96-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
-
-* Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.96-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
-
-* Wed Feb 13 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.96-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
-
-* Wed Jul 18 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.96-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
-
-* Thu Jan 12 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.96-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
-
-* Mon Feb 07 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.96-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
-
-* Wed Dec  9 2009 Rob Myers <rmyers@fedoraproject.org> - 1.96
-- Update to experimental version (#490895)
-- Merge patch from David Fetter
-
-* Fri Jul 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.03e-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
-
-* Fri Jun 12 2009 Ville Skyttä <ville.skytta at iki.fi> - 1.03e-2
-- Don't strip binaries before -debuginfo is generated (#505570).
-
-* Wed May 13 2009 Steven Pritchard <steve@kspei.com> 1.03e-1
-- Update to 1.03e
-- Drop gcc43 patch (upstream has a fix)
-- Use configure and patch Makefile to install correctly
-
-* Mon Feb 23 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.03c-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
-
-* Mon Jul 14 2008 Tom "spot" Callaway <tcallawa@redhat.com> 1.03c-1
-- update to 1.03c
-- fix license tag
-
-* Fri Feb 08 2008 Warren Togami <wtogami@redhat.com> 1.03a-9
-- rebuild for gcc-4.3
-
-* Tue Aug 21 2007 Warren Togami <wtogami@redhat.com> 1.03a-7
-- rebuild for F8
-
-* Thu Sep 14 2006 Warren Togami <wtogami@redhat.com> 0:1.03a-6
-- rebuild for FC6
-
-* Thu Mar 16 2006 Warren Togami <wtogami@redhat.com> 0:1.03a-5
-- rebuild for FC5
-
-* Thu Apr  7 2005 Michael Schwendt <mschwendt[AT]users.sf.net>
-- rebuilt
-
-* Mon Dec 20 2004 Ville Skyttä <ville.skytta at iki.fi> - 0:1.03a-3
-- Let rpmbuild take care of stripping binaries.
-
-* Sun May 18 2003 Warren Togami <warren@togami.com> - 0:1.03-0.fdr.2.a
-- #267 Ville's docs, optflags and mandir patch
-
-* Tue May 06 2003 Warren Togami <warren@togami.com> - 0:1.03-0.fdr.1.a
-- Initial RPM release
+%autochangelog

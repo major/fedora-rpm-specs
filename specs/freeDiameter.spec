@@ -1,7 +1,7 @@
 %global _hardened_build 1
 
 Name:           freeDiameter
-Version:        1.5.0
+Version:        1.6.0
 Release:        %autorelease
 Summary:        A Diameter protocol open implementation
 
@@ -16,7 +16,8 @@ BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  gnutls-devel
 BuildRequires:  libgcrypt-devel
-BuildRequires:  libidn-devel
+BuildRequires:  libidn2-devel
+BuildRequires:  libpq-devel
 BuildRequires:  lksctp-tools-devel
 
 %description
@@ -37,6 +38,7 @@ for %{name} package.
 
 %build
 %cmake -DCMAKE_INSTALL_PREFIX=%{_prefix} -DCMAKE_BUILD_TYPE=None . -Wno-dev
+#       -DCMAKE_C_STANDARD=17
 %cmake_build
 
 %install
@@ -48,10 +50,8 @@ for %{name} package.
 %doc doc
 %{_bindir}/freeDiameterd
 %{_bindir}/%{name}d-%{version}
-%{_libdir}/libfdcore.so.6
-%{_libdir}/libfdproto.so.6
-%{_libdir}/libfdcore.so.%{version}
-%{_libdir}/libfdproto.so.%{version}
+%{_libdir}/libfdcore.so.*
+%{_libdir}/libfdproto.so.*
 
 %files devel
 %{_includedir}/%{name}/

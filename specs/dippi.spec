@@ -1,8 +1,8 @@
-%global appname com.github.cassidyjames.dippi
+%global appname com.cassidyjames.dippi
 
 Name:           dippi
 Summary:        Calculate display info like DPI and aspect ratio
-Version:        4.1.1
+Version:        4.2.0
 Release:        %autorelease
 # The entire source is GPL-3.0-only, except:
 #   - data/metadata.metainfo.xml.in is CC0-1.0, which is allowed for content

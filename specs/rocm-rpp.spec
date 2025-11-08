@@ -43,7 +43,7 @@
 
 Name:           rocm-rpp
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm Performace Primatives for computer vision
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT AND Apache-2.0 AND LicenseRef-Fedora-Public-Domain
@@ -173,6 +173,9 @@ chrpath -r %{rocmllvm_libdir} %{buildroot}%{_libdir}/librpp.so.2.*.*
 %endif
 
 %changelog
+* Thu Nov 6 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
+- Fix cmake patch
+
 * Fri Oct 31 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
 - Update to 7.1.0
 

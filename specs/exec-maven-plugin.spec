@@ -1,5 +1,5 @@
 Name:           exec-maven-plugin
-Version:        3.5.1
+Version:        3.6.2
 Release:        %autorelease
 Summary:        Exec Maven Plugin
 

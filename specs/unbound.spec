@@ -4,7 +4,8 @@
 %bcond_without dnstap
 %bcond_without systemd
 %bcond_without doh
-%if 0%{?rhel} >= 10 || 0%{?fedora} >= 43
+%if 0%{?fedora} >= 43 && !0%{?rhel}
+# Do not build with QUIC support in RHEL, until we have also client support.
 %bcond_without ngtcp2
 %endif
 %if 0%{?rhel} && ! 0%{?epel}

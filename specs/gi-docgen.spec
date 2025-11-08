@@ -6,7 +6,7 @@
 # HTML documentation but unbundle Doxygen-inserted JavaScript assets from the
 # HTML documentation as much as possible, as prescribed in
 # https://src.fedoraproject.org/rpms/doxygen/blob/f42/f/README.rpm-packaging.
-%bcond doc_pdf %[ %{defined fc41} || %{defined fc42} ]
+%bcond doc_pdf %{defined fc42}
 
 
 Name:           gi-docgen

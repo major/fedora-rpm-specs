@@ -1,17 +1,29 @@
 Name:		qlipper
 Version:	5.1.2
-Release:	21%{?dist}
+Release:	22%{?dist}
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:	GPL-3.0-or-later
 Summary:	Lightweight clipboard history
 URL:		https://github.com/pvanek/qlipper
 Source0:	https://github.com/pvanek/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Patch0:		0001-Remove-Qt-version-checks-for-older-versions-and-upda.patch
+Patch1:		0002-Fully-port-to-Qt-6.patch
+Patch2:		0003-Update-lxqt-build-tools-lxqt2-build-tools.patch
+Patch3:		0004-qt6-Fixes-corrections-of-porting-commits.patch
+Patch4:		0005-Add-wayland-support-by-use-of-KF6GuiAddons.patch
+Patch5:		0006-item-Fix-possible-SEGFAULT.patch
+Patch6:		0007-item-Remove-unused-data-member.patch
+Patch7:		0008-CMake-FTBFS-with-Qt-6.10.patch
+
 BuildRequires:	gcc-c++
 BuildRequires:	cmake
 BuildRequires:	desktop-file-utils
-BuildRequires:	pkgconfig(Qt5Widgets)
-BuildRequires:	qt5-qttools-devel
-BuildRequires:	qt5-qtbase-private-devel
+BuildRequires:	lxqt-build-tools
+BuildRequires:	perl
+BuildRequires:	pkgconfig(Qt6Widgets)
+BuildRequires:	pkgconfig(KF6GuiAddons)
+BuildRequires:	qt6-qttools-devel
+BuildRequires:	qt6-qtbase-private-devel
 # Contains a modified copy of qxt, we cannot use the Fedora one (segfaults)
 Provides:       bundled(libqxt) = 0.7.0
 
@@ -20,11 +32,11 @@ Lightweight clipboard history applet.
 
 
 %prep
-%setup -q
+%autosetup -p1
 
 
 %build
-%cmake -DCMAKE_BUILD_TYPE=release -DUSE_SYSTEM_QXT=OFF -DUSE_SYSTEM_QTSA=ON -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+%cmake -DCMAKE_BUILD_TYPE=release -DUSE_SYSTEM_QXT=OFF -DUSE_SYSTEM_QTSA=ON -DENABLE_LXQT_AUTOSTART=ON -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake_build
 
 
@@ -36,12 +48,17 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %files -f %{name}.lang
 %license COPYING
 %doc README
+%{_sysconfdir}/xdg/autostart/lxqt-qlipper-autostart.desktop
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/128x128/apps/qlipper.png
 
 
 %changelog
+* Wed Nov 05 2025 Alexey Kurov <nucleo@fedoraproject.org> - 5.1.2-22
+- Qt6 port
+- Enable LXQT autostart
+
 * Sat Jul 26 2025 TI_Eugene <ti.eugene@gmail.com> - 5.1.2-21
 - Cmake 4.x fix (rhbz #2381391)
 

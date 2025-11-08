@@ -3,10 +3,12 @@
 Summary: HTTP Accept* for Ruby/Rack
 Name: rubygem-%{gem_name}
 Version: 0.4.5
-Release: 22%{?dist}
+Release: 23%{?dist}
 License: MIT
 URL: https://github.com/mjackson/rack-accept
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
+# https://github.com/mjackson/rack-accept/pull/23
+Patch0:  rack-accept-pr23-rack3.patch
 BuildRequires: rubygems-devel
 BuildRequires: rubygem(rack)
 BuildRequires: rubygem(test-unit)
@@ -24,10 +26,13 @@ Requires: %{name} = %{version}-%{release}
 This package contains documentation for %{gem_name}.
 
 %prep
-%setup -q -c -T
-%gem_install -n %{SOURCE0}
+%setup -q -n %{gem_name}-%{version}
+%patch -P0 -p1
+mv ../%{gem_name}-%{version}.gemspec .
 
 %build
+gem build ./%{gem_name}-%{version}.gemspec
+%gem_install
 
 %install
 mkdir -p %{buildroot}%{gem_dir}
@@ -55,6 +60,9 @@ popd
 
 
 %changelog
+* Thu Nov 06 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.4.5-23
+- Backport upstream PR for rack3
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.5-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

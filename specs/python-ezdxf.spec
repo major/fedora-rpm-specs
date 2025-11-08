@@ -74,9 +74,7 @@ BuildOption(generate_buildrequires): -x draw,dev,draw5,dev5
 BuildOption(install):   -l ezdxf
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-%if %{undefined fc41}
 ExcludeArch:    %{ix86}
-%endif
 
 BuildRequires:  dos2unix
 # For %%py3_shebang_fix in %%prep, before generated BR’s are ready:
