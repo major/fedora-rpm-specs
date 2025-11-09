@@ -6,7 +6,7 @@
 Name:           mingw-python-%{pkg_name}
 Summary:        MinGW Python %{pkg_name}
 Version:        1.19.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 BuildArch:      noarch
 
 License:        BSD-2-Clause
@@ -83,6 +83,9 @@ rm -rf pyqtbuild/bundle/dlls/
 
 
 %changelog
+* Fri Nov 07 2025 Sandro Mani <manisandro@gmail.com> - 1.19.0-2
+- Rebuild (sip)
+
 * Sun Oct 19 2025 Sandro Mani <manisandro@gmail.com> - 1.19.0-1
 - Update to 1.19.0
 

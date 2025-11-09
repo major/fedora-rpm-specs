@@ -51,8 +51,8 @@
 
 
 Name:          gdal
-Version:       3.11.4
-Release:       6%{?dist}
+Version:       3.11.5
+Release:       1%{?dist}
 Summary:       GIS file format library
 License:       MIT
 URL:           http://www.gdal.org
@@ -850,6 +850,9 @@ done
 
 
 %changelog
+* Fri Nov 07 2025 Sandro Mani <manisandro@gmail.com> - 3.11.5-1
+- Update to 3.11.5
+
 * Wed Oct 29 2025 Stephen Gallagher <sgallagh@redhat.com> - 3.11.4-6
 - Rebuild for libarrow 22
 

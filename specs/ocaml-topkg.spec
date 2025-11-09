@@ -7,14 +7,14 @@
 %bcond care 0
 
 Name:           ocaml-topkg
-Version:        1.1.0
+Version:        1.1.1
 Release:        %autorelease
 Summary:        The transitory OCaml software packager
 
 License:        ISC
 URL:            https://erratique.ch/software/topkg/
 VCS:            git:https://erratique.ch/repos/topkg.git
-Source:         https://github.com/dbuenzli/topkg/archive/v%{version}/topkg-%{version}.tar.gz
+Source:         %{url}releases/topkg-%{version}.tbz
 
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}
@@ -34,13 +34,13 @@ BuildRequires:  ocaml-webbrowser-devel
 BuildRequires:  ocaml-opam-format-devel >= 2.0.0
 %endif
 
-%global _desc %{expand:
-Topkg is a packager for distributing OCaml software.  It provides an
-API to describe the files a package installs in a given build
-configuration and to specify information about the package's
-distribution, creation and publication procedures.}
+%global _desc %{expand:Topkg is a packager for distributing OCaml software.  It provides an API to
+describe the files a package installs in a given build configuration and to
+specify information about the package's distribution, creation and publication
+procedures.}
 
-%description %_desc
+%description
+%_desc
 
 %package        devel
 Summary:        Development files for %{name}
@@ -56,7 +56,8 @@ Summary:        Command line tool for the transitory OCaml software packager
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       ocaml-ocamlbuild%{?_isa}
 
-%description    care %_desc
+%description    care
+%_desc
 
 This package provides a command line tool which helps with various
 aspects of a package's life cycle: creating and linting a distribution,

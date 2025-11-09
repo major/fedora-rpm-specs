@@ -1,4 +1,4 @@
-%global version_base 4.0.2
+%global version_base 4.1.2
 %dnl %global version_pre beta.1
 %dnl %global gitnum 1
 %dnl %global githash b82d0fcbcc44eb259cf2209b04f7a41c1f324e27
@@ -31,8 +31,6 @@ License:        Apache-2.0 OR MIT and GPL-2.0-only AND LGPL-2.0-or-later AND MIT
 URL:            https://fishshell.com
 %if %{undefined gitnum}
 Source0:        https://github.com/fish-shell/fish-shell/releases/download/%{version}/%{name}-%{version}.tar.xz
-Source1:        https://github.com/fish-shell/fish-shell/releases/download/%{version}/%{name}-%{version}.tar.xz.asc
-Source2:        gpgkey-003837986104878835FA516D7A67D962D88A709A.gpg
 %else
 Source0:        https://github.com/fish-shell/fish-shell/archive/%{githash}/%{name}-%{githash}.tar.gz
 %endif
@@ -41,20 +39,13 @@ Source0:        https://github.com/fish-shell/fish-shell/archive/%{githash}/%{na
 Source10:       https://github.com/fish-shell/rust-pcre2/archive/%{rust_pcre2_fish_tag}/rust-pcre2-%{rust_pcre2_fish_tag}.tar.gz
 
 # Backports from upstream (0001~500)
-## From: https://github.com/fish-shell/fish-shell/commit/a42c5b4025abfb0113af8c51c096795d47ef0802
-Patch0001:      0001-Remove-fish.desktop-file-as-it-was-only-needed-for-A.patch
-## From: https://github.com/fish-shell/fish-shell/commit/ef4fad763febfcd91f3d08c9c721047f82ea574f
-Patch0002:      0002-Remove-fish.desktop-harder.patch
 
 # Proposed upstream (501~1000)
-# Proposed in a different form (with Cargo.lock changes) upstream: https://github.com/fish-shell/fish-shell/pull/11311
-Patch0502:      0502-Update-lru-to-0.13.0.patch
 
 # Downstream-only (1001+)
 Patch1001:      1001-cargo-Use-internal-copy-of-rust-pcre2-instead-of-fet.patch
 Patch1002:      1002-cmake-Use-rpm-profile-for-RelWithDebInfo.patch
-## Already exists in a different form upstream: https://github.com/fish-shell/fish-shell/commit/0c9c5e3a341903a9820c26b04fc9d1c7ed6e4053
-Patch1003:      1003-cargo-Bump-serial_test-to-v3.patch
+Patch1003:      1003-cargo-Drop-unneeded-dependency-on-unix_path.patch
 
 # Patches for bundled dependencies (10000+)
 ## For forked pcre2 crate that includes https://github.com/BurntSushi/rust-pcre2/pull/38
@@ -100,9 +91,6 @@ highlighting, autosuggestions, and tab completions that just work, with
 nothing to learn or configure.
 
 %prep
-%if %{undefined gitnum}
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%endif
 %autosetup -N %{?gitnum:-n fish-shell-%{githash}}
 
 # For forked pcre2 crate that includes https://github.com/BurntSushi/rust-pcre2/pull/38
@@ -163,8 +151,6 @@ sed -i 's^/usr/local/^/usr/^g' %{_vpath_builddir}/*.pc
 cp -a README.rst %{buildroot}%{_pkgdocdir}
 cp -a CONTRIBUTING.rst %{buildroot}%{_pkgdocdir}
 
-%find_lang %{name}
-
 
 %check
 %cmake_build --target fish_run_tests
@@ -188,7 +174,7 @@ if [ "$1" = 0 ] && [ -f %{_sysconfdir}/shells ] ; then
 fi
 
 
-%files -f %{name}.lang
+%files
 %license COPYING
 %license LICENSE.dependencies
 %{_mandir}/man1/fish*.1*

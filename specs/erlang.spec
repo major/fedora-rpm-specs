@@ -68,7 +68,7 @@
 
 
 Name:		erlang
-Version:	26.2.5.15
+Version:	26.2.5.16
 Release:	1%{?dist}
 Summary:	General-purpose programming language and runtime environment
 

@@ -15,7 +15,7 @@
 ExclusiveArch: %{x86_64} %{arm64}
 
 Name:           openmw
-Version:        0.49.0
+Version:        0.50.0
 Release:        %autorelease
 Summary:        OpenMW is an open-source game engine
 
@@ -46,15 +46,9 @@ Source0:        %{forgesource0}
 Source1:        %{forgesource1}
 Source2:        %{forgesource2}
 Source3:        %{forgesource3}
-# Fixes a unit test that can fail due to a static initialization order fiasco
-# Merged upstream for future release https://gitlab.com/OpenMW/openmw/-/merge_requests/4807
-Patch0:         4807.patch
 # openmw-cs currently runs under wayland, but there's bugs that make it basically unusable
 # this patches the default desktop file to add QT_QPA_PLATFORM=xcb
-Patch1:         csxcb.patch
-# Fixes build with Qt 6.10
-# https://gitlab.com/OpenMW/openmw/-/merge_requests/4941
-Patch2:         4941.patch
+Patch0:         csxcb.patch
 
 # OpenMW Build Dependencies
 BuildRequires:  boost-devel

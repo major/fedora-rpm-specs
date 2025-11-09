@@ -4,7 +4,7 @@
 %global release_version %(echo %{version} | awk -F. '{print $1}')
 
 Name:           mingw-gsettings-desktop-schemas
-Version:        49.0
+Version:        49.1
 Release:        1%{?dist}
 Summary:        MinGW Windows gsettings-desktop-schemas
 
@@ -90,6 +90,9 @@ settings shared by various components of a desktop.
 
 
 %changelog
+* Fri Nov 07 2025 Sandro Mani <manisandro@gmail.com> - 49.1-1
+- Update to 49.1
+
 * Thu Sep 18 2025 Sandro Mani <manisandro@gmail.com> - 49.0-1
 - Update to 49.0
 

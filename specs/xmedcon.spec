@@ -1,5 +1,5 @@
 Name:           xmedcon
-Version:        0.24.1
+Version:        0.25.3
 Release:        %autorelease
 Summary:        A medical image conversion utility and library
 
@@ -100,7 +100,7 @@ desktop-file-install                                    \
 --dir=${RPM_BUILD_ROOT}%{_datadir}/applications         \
 %{SOURCE1}
 
-appstream-util validate-relax --nonet ${RPM_BUILD_ROOT}%{_datadir}/appdata/*.appdata.xml
+appstream-util validate-relax --nonet ${RPM_BUILD_ROOT}%{_datadir}/metainfo/xmedcon.appdata.xml
 
 # remove static libraries
 find $RPM_BUILD_ROOT -name "*.a" -execdir rm -fv '{}' \;
@@ -117,7 +117,7 @@ find $RPM_BUILD_ROOT -name "*.la" -execdir rm -fv '{}' \;
 %{_bindir}/%{name}
 %{_libdir}/*so.*
 %{_mandir}/man1/*
-%{_datadir}/appdata/%{name}.appdata.xml
+%{_datadir}/metainfo/xmedcon.appdata.xml
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/48x48/apps/%{name}.png
 

@@ -5,7 +5,7 @@
 %global crate pyo3-log
 
 Name:           rust-pyo3-log
-Version:        0.12.4
+Version:        0.13.2
 Release:        %autorelease
 Summary:        Logging bridge from pyo3 native extension to python
 
@@ -49,6 +49,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+kv-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+kv-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "kv" feature of the "%{crate}" crate.
+
+%files       -n %{name}+kv-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

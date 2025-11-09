@@ -5,7 +5,7 @@
 %global crate libcryptsetup-rs-sys
 
 Name:           rust-libcryptsetup-rs-sys
-Version:        0.6.0
+Version:        0.6.1
 Release:        %autorelease
 Summary:        Low level bindings for libcryptsetup
 

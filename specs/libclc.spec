@@ -2,7 +2,7 @@
 %global debug_package %{nil}
 
 %global shortname clc
-%global libclc_version 21.1.4
+%global libclc_version 21.1.5
 #global rc_ver 3
 %global libclc_srcdir libclc-%{libclc_version}%{?rc_ver:-rc%{rc_ver}}.src
 
@@ -105,6 +105,10 @@ export CFLAGS="%{build_cflags} -D__extern_always_inline=inline"
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Tue Nov 04 2025 Packit <hello@packit.dev> - 21.1.5-1
+- Update to version 21.1.5
+- Resolves: rhbz#2402496
+
 * Tue Oct 21 2025 Packit <hello@packit.dev> - 21.1.4-1
 - Update to version 21.1.4
 - Resolves: rhbz#2402496

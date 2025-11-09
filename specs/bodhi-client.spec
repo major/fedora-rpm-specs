@@ -1,5 +1,5 @@
 Name:           bodhi-client
-Version:        25.5.1
+Version:        25.11.1
 Release:        %autorelease
 Summary:        Bodhi client
 

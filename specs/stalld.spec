@@ -1,5 +1,5 @@
 Name:		stalld
-Version:	1.24.1
+Version:	1.25.1
 Release:	1%{?dist}
 Summary:	Daemon that finds starving tasks and gives them a temporary boost
 
@@ -62,6 +62,106 @@ allow 10 microseconds of runtime for 1 second of clock time.
 %systemd_postun_with_restart %{name}.service
 
 %changelog
+* Fri Nov 07 2025 Clark Williams <williams@redhat.com> - 1.25.1-1
+- docs: add CLAUDE.md, .claude agents, and update .gitignore
+- tests: Add comprehensive test suite with infrastructure and functional tests
+- tests: Add Phase 2 command-line option tests (8 new tests)
+- docs: Add project rules and agent usage guidelines
+- docs: Update context snapshot with Phase 2 completion
+- tests: Add Phase 3.1 core logic tests (starvation detection and parsing)
+- tests: Add Phase 3.2 boosting mechanism tests (DEADLINE, FIFO, restoration)
+- tests: Add Phase 3.3 task merging and idle detection tests - Phase 3 COMPLETE
+- tests: Add RT throttling save/restore helpers
+- tests: Automatically save and restore RT throttling state
+- tests: Fix test_task_merging empty variable errors and add DL-server check
+- tests: Add DL-server save/disable/restore support
+- docs: Update TODO.md with DL-server management and recent improvements
+- docs: Update context snapshot with Phase 3 completion and state management
+- tests: Add legacy test integration and backend selection support
+- test01: add ability to specify backend
+- tests: remove binary accidentally committed
+- tests: Fix cleanup EXIT trap to preserve test exit codes
+- tests: Fix test_log_only.sh timing and starvation reliability
+- tests: Add backend selection support to individual tests
+- saved claude context snapshot and moved CLAUDE.md to .claude dir
+- .claude: Add context-snapshot.json and update CLAUDE.md
+- tests: Fix starvation_gen to create actual RT starvation
+- tests: Fix test_starvation_detection.sh to respect backend selection
+- tests: Fix test_starvation_detection.sh timing and idle detection issues
+- tests: Fix EPERM errors in cleanup by improving process termination handling
+- docs: Update CLAUDE.md with backend selection and debugfs/procfs clarification
+- tests: Fix infinite hang in test_starvation_detection.sh Test 5
+- tests: Rewrite test_cpu_selection.sh to use modern test framework
+- tests: Rewrite test_boost_period.sh to fix hanging issues
+- tests: Fix PID tracking and backgrounding issues in test suite
+- tests: Rewrite test_starvation_threshold.sh to fix undefined variables
+- tests: Fix test_starvation_threshold.sh log file collision issue
+- tests: Update TODO.md with 2025-10-09 progress and old-style test issues
+- tests: Update context snapshot for 2025-10-09 test framework hardening session
+- tests: Rewrite all remaining old-style Phase 2 tests using modern framework
+- tests: Fix EPERM errors in test cleanup by replacing wait with polling
+- tests: Fix Phase 1 test issues (affinity, backend_selection, fifo_boosting)
+- tests: Add -N flag to disable idle detection in starvation/FIFO tests
+- tests: Fix argument ordering in backend selection tests
+- tests: Fix hanging issues in test_boost_duration.sh
+- tests: Fix test_boost_runtime.sh hanging and improve reliability
+- save LLM context
+- add helpers for git-scm-master AI agent
+- tests: Fix output redirection issues in test_affinity.sh
+- test: Fix test_pidfile.sh output handling and CLI options
+- tests: Fix test_boost_period.sh helper integration and reliability
+- test: Fix test_boost_restoration.sh for stability and standard infrastructure
+- docs: Document mass test suite fixes session with 7 tests and 4 critical discoveries
+- tests: Fix grep pattern in test_starvation_threshold.sh for actual log format
+- docs: Update context snapshot for queue_track backend test fixes
+- tests: Implement matrix testing for backends and threading modes
+- docs: Update CLAUDE.md with correct threading mode flags and matrix testing
+- context: Document matrix testing infrastructure implementation
+- tests: Add timeout protection to test01_wrapper.sh
+- Document queue_track backend limitation in test_starvation_threshold.sh
+- docs: Update documentation with segfault fix and queue_track limitation
+- tests: Add FIFO-on-FIFO priority starvation test
+- tests: Enhance starvation_gen and fix test infrastructure
+- .claude: Update context snapshot
+- .claude: Update context snapshot - BPF RT task tracking fix completed
+- tests: Change starvation_gen default work_target to 1
+- .claude: Update context snapshot - 14/16 tests passing with queue_track
+- tests: Improve starvation_gen thread coordination and shutdown
+- .claude: Update context snapshot - starvation_gen improvements and test progress
+- tests: Add --test option to run individual tests by name
+- .claude: Update context snapshot - test infrastructure improvements complete
+- tests: Fix test_boost_restoration to properly test SCHED_FIFO restoration
+- tests: Add SCHED_OTHER option to starvation_gen
+- tests: Update test_boost_restoration Test 3 to use SCHED_OTHER
+- context snapshot
+- tests: Add kworker denylist to test_boost_restoration
+- tests: Fix Test 5 timing and parameter validation
+- tests: Add journal logging for test activity correlation
+- context snapshot
+- tests: Increase test01 timeout and document kworker competition
+- context snapshot
+- tests: Add unified test environment management framework
+- context snapshot
+- tests: Fix timing race conditions in starvation detection tests
+- docs: Update TODO.md with test suite timing race condition fixes
+- docs: Add context snapshot for test suite timing race fixes
+- tests: Fix timing race conditions in starvation detection tests
+- tests: Fix timing race conditions in test_deadline_boosting
+- tests: Fix timing race conditions in 4 remaining functional tests
+- tests: Fix output buffering and kernel worker interference
+- tests: Fix output buffering in test_starvation_detection Test 3
+- docs: Context snapshot for Nov 3 evening session - timing fixes and buffering issues
+- tests: Fix test_starvation_detection Test 3 flawed counting logic
+- tests: Consolidate duplicate helper functions (Part 1 complete)
+- context snapshot
+- bpf: Add BPF CO-RE compatibility for older kernels
+- Makefile: Make BPF compilation verbose
+- Makefile: Append -std=c99 to CFLAGS
+- doc: update Releases.md for repository instructions
+- tests: Fix start_stalld() PID detection for daemon and slow architectures
+- doc: Release notes for v1.25.1 release
+- Makefile: version bump to v1.25.1
+
 * Fri Oct 24 2025 Clark Williams <williams@redhat.com> - 1.24.1-1
 - sched_debug: Unify parsing methods for task_info
 - sched_debug: Fix runqueue task parsing logic and state filtering

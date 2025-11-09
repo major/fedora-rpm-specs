@@ -5,7 +5,7 @@
 %global crate cpp_demangle
 
 Name:           rust-cpp_demangle
-Version:        0.5.0
+Version:        0.5.1
 Release:        %autorelease
 Summary:        Crate for demangling C++ symbols
 

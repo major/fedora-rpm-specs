@@ -68,7 +68,7 @@ Url:            https://systemd.io
 # But don't do that on OBS, otherwise the version subst fails, and will be
 # like 257-123-gabcd257.1 instead of 257-123-gabcd
 %if %{without obs}
-Version:        %{?version_override}%{!?version_override:258.1}
+Version:        %{?version_override}%{!?version_override:258.2}
 %else
 Version:        %{?version_override}%{!?version_override:%(cat meson.version)}
 %endif
@@ -136,6 +136,10 @@ Patch:          https://github.com/systemd/systemd/pull/26494.patch
 # Create user journals for users with high UIDs
 # https://bugzilla.redhat.com/show_bug.cgi?id=2251843
 Patch:          https://github.com/systemd/systemd/pull/30846.patch
+
+# Again create runlevelX.target. Dropping those files breaks upgrades.
+# https://bugzilla.redhat.com/show_bug.cgi?id=2411195
+Patch:          0001-Revert-units-drop-runlevel-0-6-.target.patch
 
 # userdb: create userdb root directory with correct label
 # We can drop this after SELinux policy is updated to handle the transition.

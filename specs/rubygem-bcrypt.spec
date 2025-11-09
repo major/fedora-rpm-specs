@@ -1,18 +1,19 @@
 %global gem_name bcrypt
 
 Name: rubygem-%{gem_name}
-Version: 3.1.18
-Release: 10%{?dist}
+Version: 3.1.20
+Release: 1%{?dist}
 Summary: Wrapper around bcrypt() password hashing algorithm
-# ext/mri/* - Public Domain
+# ext/mri/* - bcrypt-Solar-Designer
+# Non of theses are part of resulting package.
 # ext/jruby/* - ISC
 # spec/TestBCrypt.java - ISC
-# TODO: SPDX conversion blocked on Public Domain
-# https://gitlab.com/fedora/legal/fedora-license-data/-/merge_requests/239
-# Automatically converted from old format: MIT and Public Domain and ISC - review is highly recommended.
-License: LicenseRef-Callaway-MIT AND LicenseRef-Callaway-Public-Domain AND ISC
-URL: https://github.com/codahale/bcrypt-ruby
+License: MIT AND bcrypt-Solar-Designer
+URL: https://github.com/bcrypt-ruby/bcrypt-ruby
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
+# git clone https://github.com/bcrypt-ruby/bcrypt-ruby.git && cd bcrypt-ruby
+# git archive -v -o bcrypt-3.1.20-specs.tar.gz v3.1.20 spec/
+Source1: bcrypt-%{version}-specs.tar.gz
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby-devel
@@ -33,7 +34,7 @@ BuildArch: noarch
 Documentation for %{name}.
 
 %prep
-%setup -q -n %{gem_name}-%{version}
+%setup -q -n %{gem_name}-%{version} -b 1
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -52,13 +53,13 @@ rm -rf %{buildroot}%{gem_instdir}/ext/
 
 %check
 pushd .%{gem_instdir}
+ln -s %{builddir}/spec .
 rspec -I$(dirs +1)%{gem_extdir_mri} spec
 popd
 
 %files
 %dir %{gem_instdir}
 %{gem_extdir_mri}
-%exclude %{gem_instdir}/.*
 %license %{gem_instdir}/COPYING
 %{gem_libdir}
 %exclude %{gem_cache}
@@ -67,13 +68,13 @@ popd
 %files doc
 %doc %{gem_docdir}
 %doc %{gem_instdir}/CHANGELOG
-%{gem_instdir}/Gemfile
 %doc %{gem_instdir}/README.md
-%{gem_instdir}/Rakefile
-%{gem_instdir}/%{gem_name}.gemspec
-%{gem_instdir}/spec
 
 %changelog
+* Fri Nov 07 2025 Vít Ondruch <vondruch@redhat.com> - 3.1.20-1
+- Update to BCrypt 3.1.20.
+  Resolves: rhbz#2216825
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.18-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

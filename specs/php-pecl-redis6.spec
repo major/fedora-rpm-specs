@@ -32,20 +32,17 @@
 # after 40-igbinary and 40-msgpack
 %global ini_name     50-%{pecl_name}.ini
 
-%global upstream_version 6.2.0
+%global upstream_version 6.3.0
 #global upstream_prever  RC2
 %global sources          %{pecl_name}-%{upstream_version}%{?upstream_prever}
 
 Summary:       PHP extension for interfacing with key-value stores
 Name:          %{php_base}-pecl-redis6
 Version:       %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:       4%{?dist}
+Release:       1%{?dist}
 License:       PHP-3.01
 URL:           https://pecl.php.net/package/redis
 Source0:       https://pecl.php.net/get/%{sources}.tgz
-
-Patch0:        redis-8.0.patch
-Patch1:        2677.patch
 
 ExcludeArch:   %{ix86}
 
@@ -135,9 +132,6 @@ sed -e 's/role="test"/role="src"/' \
     -i package.xml
 
 cd %{sources}
-%patch -P0 -p1
-%patch -P1 -p1
-
 # Use system library
 rm -r liblzf
 
@@ -318,6 +312,10 @@ exit $ret
 
 
 %changelog
+* Fri Nov  7 2025 Remi Collet <remi@remirepo.net> - 6.3.0-1
+- update to 6.3.0
+- drop patches merged upstream
+
 * Tue Oct 28 2025 Remi Collet <remi@remirepo.net> - 6.2.0-4
 - add php_base option to create namespaced packages
 

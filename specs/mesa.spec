@@ -86,9 +86,6 @@ Source0:        https://archive.mesa3d.org/mesa-%{ver}.tar.xz
 # Fedora opts to ignore the optional part of clause 2 and treat that code as 2 clause BSD.
 Source1:        Mesa-MLAA-License-Clarification-Email.txt
 
-# zink + nvk + hotplug fails
-# https://gitlab.freedesktop.org/mesa/mesa/-/issues/14148
-Patch10:        wayland-display-hacks.patch
 # In CentOS/RHEL, Rust crates required to build NVK are vendored.
 # The minimum target versions are obtained from the .wrap files
 # https://gitlab.freedesktop.org/mesa/mesa/-/tree/main/subprojects
@@ -105,6 +102,13 @@ Source12:       https://crates.io/api/v1/crates/quote/%{rust_quote_ver}/download
 Source13:       https://crates.io/api/v1/crates/syn/%{rust_syn_ver}/download#/syn-%{rust_syn_ver}.tar.gz
 Source14:       https://crates.io/api/v1/crates/unicode-ident/%{rust_unicode_ident_ver}/download#/unicode-ident-%{rust_unicode_ident_ver}.tar.gz
 Source15:       https://crates.io/api/v1/crates/rustc-hash/%{rustc_hash_ver}/download#/rustc-hash-%{rustc_hash_ver}.tar.gz
+
+# fix zink/device-select bug
+Patch10:        0001-device-select-add-a-layer-setting-to-disable-device-.patch
+Patch11:        0002-zink-use-device-select-layer-settings-to-disable-dev.patch
+
+# fix c11/threads builds problem on f44
+Patch20:        0001-c11-threads-fix-build-on-fedora-44.patch
 
 BuildRequires:  meson >= 1.3.0
 BuildRequires:  gcc

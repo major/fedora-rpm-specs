@@ -1,7 +1,7 @@
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 
 Name:           g2clib
-Version:        2.2.0
+Version:        2.3.0
 Release:        %autorelease
 Summary:        GRIB2 encoder/decoder and search/indexing routines in C
 

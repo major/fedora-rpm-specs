@@ -12,7 +12,7 @@ compress the static files for you. If you don't have that option
 Flask-Compress will solve the problem for you.}
 
 Name:           python-%{pypi_name}
-Version:        1.20
+Version:        1.23
 Release:        %autorelease
 Summary:        Compress responses in your Flask app with gzip or brotli
 %forgemeta

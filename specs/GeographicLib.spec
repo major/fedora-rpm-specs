@@ -1,5 +1,5 @@
 Name:           GeographicLib
-Version:        2.6
+Version:        2.7
 Release:        1%{?dist}
 Summary:        Library for geographic coordinate transformations
 
@@ -185,6 +185,9 @@ MinGW Windows %{name} library.
 
 
 %changelog
+* Fri Nov 07 2025 Sandro Mani <manisandro@gmail.com> - 2.7-1
+- Update to 2.7
+
 * Fri Oct 10 2025 Sandro Mani <manisandro@gmail.com> - 2.6-1
 - Update to 2.6
 

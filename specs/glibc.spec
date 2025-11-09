@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.42.9000-361-g013f5167b9
+%global glibcsrcdir glibc-2.42.9000-458-g58a31b4316
 %global glibcversion 2.42.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 8
+%global baserelease 9
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -2389,6 +2389,107 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Fri Nov 07 2025 Arjun Shankar <arjun@redhat.com> - 2.42.9000-9
+- Auto-sync with upstream branch master,
+  commit 58a31b4316f1f687184eb147ffa1c676bc6a190e:
+- posix: Fix invalid flags test for p{write,read}v2
+- support: Exit on consistency check failure in resolv_response_add_name
+- AArch64: Fix instability in AdvSIMD sinh
+- AArch64: Fix instability in AdvSIMD tan
+- AArch64: Optimise SVE scalar callbacks
+- support: Fix FILE * leak in check_for_unshare_hints in test-container
+- i386: Simplify powl computation for small integral y [BZ #33586]
+- math: Remove the SVID error handling from tgammaf
+- math: Remove the SVID error handling from lgammaf/lgammaf_r
+- Add FD_PIDFS_ROOT from Linux 6.17 to bits/fcntl-linux.h
+- Add AT_EXECVE_CHECK from Linux 6.14 to bits/fcntl-linux.h
+- Add AT_HANDLE_CONNECTABLE from Linux 6.13 to bits/fcntl-linux.h
+- linux: Update statx-generic.h with linux 6.16
+- linux: Update statx-generic.h with linux 6.14
+- linux: Add STATX_WRITE_ATOMIC/STATX_ATTR_WRITE_ATOMIC definitions to generic statx
+- linux: Add STATX_SUBVOL definition to generic statx
+- linux: Add STATX_DOALIGN definition to generic statx
+- linux: Add STATX_MNT_ID_UNIQUE definition to generic statx
+- Update syscall lists for Linux 6.17
+- Update PIDFD_* constants for Linux 6.17
+- Update kernel version to 6.17 in header constant tests
+- math: Remove the SVID error handling from atan2f
+- Add feature test macros for POSIX.1-2024.
+- Rename fromfp files in preparation for changing types for C23
+- Add C23 long_double_t, _FloatN_t
+- riscv: Add vector registers to __SYSCALL_CLOBBERS
+- Regenerate charmap-kw.h and locfile-kw.h with gperf 3.3
+- math: Remove the SVID error handling wrapper from sqrt
+- math: Remove the SVID error handling from sinhf
+- math: Remove the SVID error handling from remainder
+- math: Remove the SVID error handling from remainderf
+- nptl: Remove ATOMIC_EXCHANGE_USES_CAS usage
+- Define __HAVE_64B_ATOMICS from compiler support
+- atomic: Consolidate atomic_write_barrier implementation
+- atomic: Consolidate atomic_read_barrier implementation
+- atomic: Consolidate atomic_full_barrier implementation
+- microblaze: Remove USE_ATOMIC_COMPILER_BUILTINS definition
+- alpha: Remove USE_ATOMIC_COMPILER_BUILTINS definition
+- sh: Move atomic-machine to generic sysdep
+- riscv: Consolidade atomic-machine.h and remove ununsed atomic macros
+- powerpc: Consolidate atomic-machine.h
+- loongarch: Consolidate atomic-machine.h and remove ununsed atomic macros
+- m68k: Consolidade atomic-machine.h and Remove ununsed atomic macros
+- hppa: Move atomic-machine to generic sysdep
+- arm: Consolidate atomic-machine.h and Remove ununsed atomic macros
+- x86: Remove ununsed atomic macros
+- sparc: Remove ununsed atomic macros
+- s390: Remove ununsed atomic macros
+- or1k: Remove ununsed atomic macros
+- mips: Remove ununsed atomic macros
+- csky: Remove ununsed atomic macros
+- arc: Remove ununsed atomic macros
+- aarch64: Remove ununsed atomic macros
+- Build programs in $(others-noinstall) like tests if libgcc_s is available
+- Support assert as a variadic macro for C23
+- docs: Add dynamic linker environment variable docs
+- tls: Add debug logging for TLS and TCB management
+- riscv: Add Zbkb optimized repeat_bytes helper
+- math: Remove xfail from pow test [BZ #33563]
+- math: Fix pow special case [BZ #33563]
+- math: Fix powf special case [BZ #33563]
+- debug: mark __libc_message_wrapper as always inline
+- aarch64: fix cfi directives around __libc_arm_za_disable
+- cdefs: allow __attribute__ on tcc
+- Cleanup some recently added whitespace.
+- riscv: memcpy_noalignment: Reorder to store via a3, then bump a3
+- riscv: memcpy_noalignment: Fold SZREG/BLOCK_SIZE alignment to single andi
+- riscv: memcpy_noalignment: Make register allocation Zca-friendly
+- math: Remove the SVID error handling wrapper from yn/jn
+- math: Remove the SVID error handling wrapper from y1/j1
+- math: Remove the SVID error handling wrapper from y0/j0
+- math: Remove the SVID error handling from coshf
+- math: Remove the SVID error handling from atanhf
+- math: Remove the SVID error handling from acoshf
+- math: Remove the SVID error handling from asinf
+- math: Remove the SVID error handling from acosf
+- math: Remove the SVID error handling from log10f
+- m68k: Remove SVID error handling on fmod
+- m68k: Avoid include e_fmod.c on fmod/remainder implementation
+- m68k: Remove the SVID error handling from fmodf
+- i386: Remove the SVID error handling from fmodf
+- i386: Remove the SVID error handling from fmod
+- x86: fix wmemset ifunc stray '!' (bug 33542)
+- Updates struct tcp_zerocopy_receive from 5.11 to netinet/tcp.h.
+- aarch64: Fix tst-ifunc-arg-4 on clang-18
+- Enable --no-undefined-version by default
+- Supress unused command arguments warning with clang
+- Annotate swtich fall-through
+- argp: Move attribute_hidden to argp-fmtstream.h
+- argp: Expand argp_usage, _option_is_short, and _option_is_end
+- Replace count_leading_zeros with stdc_leading_zeros
+- malloc: Remove unused tcache_set_inactive
+- include: Sync gnulib intprops
+- i386: Build s_erf_common.c with -fexcess-precision=standard
+- Build programs in $(others-noinstall) like tests
+- Fix incorrect setrlimit return value checks in tests
+- Rename uimaxabs to umaxabs (bug 33325)
+
 * Mon Oct 27 2025 Patsy Griffin <patsy@redhat.com> - 2.42.9000-8
 - Auto-sync with upstream branch master,
   commit 013f5167b9c091dc78779841c3ca1c6c2f218ff2.

@@ -3,8 +3,8 @@
 %endif
 
 Name:           eccodes
-Version:        2.42.0
-Release:        6%{?dist}
+Version:        2.44.0
+Release:        1%{?dist}
 Summary:        WMO data format decoding and encoding
 
 # force the shared libraries to have these so versions
@@ -458,6 +458,10 @@ ctest3 -V %{?_smp_mflags}
 %doc %{_datadir}/doc/%{name}/
 
 %changelog
+
+* Fri Nov 07 2025 Jos de Kloe <josdekloe@gmail.com> - 2.44.0-1
+- Update to 2.44.0
+
 * Fri Aug 22 2025 Orion Poplawski <orion@nwra.com> - 2.42.0-6
 - Rebuild for netcdf 4.9.3 soname bump
 

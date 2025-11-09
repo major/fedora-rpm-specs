@@ -2,7 +2,7 @@
 %{!?version_no_tilde: %define version_no_tilde %{shrink:%(echo '%{version}' | tr '~' '-')}}
 
 Name:           btrfs-progs
-Version:        6.17
+Version:        6.17.1
 Release:        1%{?dist}
 Summary:        Userspace programs for btrfs
 
@@ -169,6 +169,10 @@ popd >/dev/null
 
 
 %changelog
+* Fri Nov 07 2025 Packit <hello@packit.dev> - 6.17.1-1
+- Update to version 6.17.1
+- Resolves: rhbz#2413317
+
 * Mon Sep 29 2025 Packit <hello@packit.dev> - 6.17-1
 - Update to version 6.17
 - Resolves: rhbz#2400219

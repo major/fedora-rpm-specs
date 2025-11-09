@@ -493,9 +493,12 @@ Patch2202: 0001-22-polly-shared-libs.patch
 #region RHEL patches
 # RHEL 8 only
 Patch501: 0001-Fix-page-size-constant-on-aarch64-and-ppc64le.patch
-# Ensure that the BPF backend does not require kfunc __bpf_trap which is not
-# available on RHEL 8.
-Patch502: 0001-BPF-Revert-the-behavior-when-handling-traps.patch
+# Backport a fix for https://github.com/llvm/llvm-project/issues/165696 from
+# LLVM 22. The first patch is a requirement of the second patch.
+# Apply the fix to RHEL8 only because the other distros do not need this fix
+# because they already support kfunc __bpf_trap.
+Patch502: 0001-BPF-Support-Jump-Table-149715.patch
+Patch503: 0002-BPF-Remove-unused-weak-symbol-__bpf_trap-166003.patch
 #endregion RHEL patches
 
 # Fix a pgo miscompilation triggered by building Rust 1.87 with pgo on ppc64le.
@@ -1306,6 +1309,7 @@ Flang runtime libraries.
 %if %{defined rhel} && 0%{?rhel} == 8
 %patch -p1 -P501
 %patch -p1 -P502
+%patch -p1 -P503
 %endif
 
 #region LLVM preparation

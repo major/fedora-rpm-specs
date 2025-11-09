@@ -1,7 +1,16 @@
+%if 0%{?rhel} > 10
+%bcond build_from_src 0
+%else
+%bcond build_from_src 1
+%endif
+
+%if %{with build_from_src}
 BuildRequires: fontforge
+BuildRequires: python3
+%endif
 
 Version: 2.000
-Release: 41%{?dist}
+Release: 42%{?dist}
 URL: http://madanpuraskar.org/
 
 %global fontlicense       GPL-1.0-or-later
@@ -24,19 +33,23 @@ Source3: sfd2ttf.pe
 # Below files will make sure "fc-scan madan.ttf |grep lang:" will show ne
 Source4: madan.py
 Source5: madan_u0970_glyph.svg
+Source6: madan.ttf
 
 %fontpkg
 
 %prep
+%if %{with build_from_src}
 %autosetup -c
 cp -p %{SOURCE2} %{SOURCE3} \
       %{SOURCE4} %{SOURCE5} .
-
-%linuxtext license.txt
-
 chmod 755 sfd2ttf.pe madan.py 
-./madan.py madan.ttf madan_u0970_glyph.svg
+%{python3} ./madan.py madan.ttf madan_u0970_glyph.svg
 ./sfd2ttf.pe madan.sfd
+%else
+%setup -c -T
+cp -p %{SOURCE2} %{SOURCE6} .
+%endif
+%linuxtext license.txt
 
 %build
 %fontbuild
@@ -50,6 +63,10 @@ chmod 755 sfd2ttf.pe madan.py
 %fontfiles
 
 %changelog
+* Tue Nov 04 2025 Parag Nemade <pnemade AT redhat DOT com> - 2.000-42
+- Build from source only on Fedora
+- Use binary ttf file for RHEL > 10 releases to drop BR: fontforge
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.000-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

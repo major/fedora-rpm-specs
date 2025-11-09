@@ -1,7 +1,7 @@
 %global libzen_version  0.4.41
 
 Name:           libmediainfo
-Version:        25.09
+Version:        25.10
 Release:        1%{?dist}
 Summary:        Library for supplies technical and tag information about a video or audio file
 
@@ -103,6 +103,9 @@ rm -f %{buildroot}%{_libdir}/%{name}.la
 %{_libdir}/cmake/mediainfolib/
 
 %changelog
+* Fri Nov 07 2025 Vasiliy Glazov <vascom2@gmail.com> - 25.10-1
+- Update to 25.10
+
 * Fri Oct 10 2025 Vasiliy Glazov <vascom2@gmail.com> - 25.09-1
 - Update to 25.09
 

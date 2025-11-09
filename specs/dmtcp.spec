@@ -1,7 +1,7 @@
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
 
 %global forgeurl https://github.com/dmtcp/dmtcp
-Version:        3.1.2
+Version:        4.0.0
 %global tag %{version}
 %forgemeta
 
@@ -28,7 +28,7 @@ BuildRequires:  python3
 ## In the next relase, we won't need the trampoline.  We'll interpose
 ##   entirely on pthread_create, and not on __clone3
 ## ExclusiveArch: x86_64 aarch64
-ExclusiveArch: x86_64
+ExclusiveArch: x86_64 aarch64
 
 %description
 DMTCP is a tool to transparently checkpoint the state of multiple simultaneous

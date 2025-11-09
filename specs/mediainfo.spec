@@ -1,7 +1,7 @@
 %global libzen_version  0.4.41
 
 Name:           mediainfo
-Version:        25.09
+Version:        25.10
 Release:        1%{?dist}
 Summary:        Supplies technical and tag information about a video or audio file (CLI)
 
@@ -235,6 +235,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.appdata.
 
 
 %changelog
+* Fri Nov 07 2025 Vasiliy Glazov <vascom2@gmail.com> - 25.10-1
+- Update to 25.10
+
 * Fri Oct 10 2025 Vasiliy Glazov <vascom2@gmail.com> - 25.09-1
 - Update to 25.09
 

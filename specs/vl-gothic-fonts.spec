@@ -13,9 +13,9 @@
 # “fonts-2-multi”:  multi-family fonts packaging
 # “fonts-3-sub”:    packaging fonts, released as part of something else
 #
-Version: 20220612
-Release: 9%{?dist}
-URL:     http://dicey.org/vlgothic
+Version: 20230918
+Release: 1%{?dist}
+URL:     http://vlgothic.dicey.org
 
 # The following declarations will be aliased to [variable]0 and reused for all
 # generated *-fonts packages unless overriden by a specific [variable][number]
@@ -72,8 +72,7 @@ non-Japanese characters.
 }
 
 
-# https://ja.osdn.net/frs/redir.php?m=gigenet&f=vlgothic%2F77450%2FVLGothic-%%{version}.tar.xz
-Source0:  https://mirrors.gigenet.com/OSDN/vlgothic/77450/VLGothic-%{version}.tar.xz
+Source0:  https://vlgothic.dicey.org/releases/VLGothic-%{version}.tar.xz
 Source10: 65-3-%{fontpkgname0}.conf
 Source11: 65-2-%{fontpkgname1}.conf
 
@@ -128,6 +127,10 @@ mv README.sazanami.tmp README.sazanami
 %fontfiles -a
 
 %changelog
+* Fri Nov  7 2025 Akira TAGOH <tagoh@redhat.com> - 20230918-1
+- Update to 20230918.
+  Resolves: rhbz#2370251
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 20220612-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

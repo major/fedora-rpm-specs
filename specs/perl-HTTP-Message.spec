@@ -1,8 +1,8 @@
 %bcond perl_HTTP_Message_enables_IO_Compress_Brotli %{undefined rhel}
 
 Name:           perl-HTTP-Message
-Version:        7.00
-Release:        4%{?dist}
+Version:        7.01
+Release:        1%{?dist}
 Summary:        HTTP style message
 # CONTRIBUTING.md:  CC0-1.0
 # other files:      GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -134,6 +134,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Nov 07 2025 Michal Josef Špaček <mspacek@redhat.com> - 7.01-1
+- 7.01 bump
+
 * Mon Sep 01 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 7.00-4
 - Avoid IO::Compress::Brotli dependency in RHEL builds
 

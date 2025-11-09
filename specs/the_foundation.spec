@@ -15,6 +15,8 @@ Summary:        Opinionated C11 library for low-level functionality
 License:        BSD-2-Clause
 URL:            https://codeberg.org/skyjake/the_Foundation
 Source:         %{url}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+# Compatibility with glibc 2.43 defining `once_init`
+Patch:          %{url}/pulls/34.patch#/%{name}-glibc-2.43-once_init-compat.diff
 
 BuildRequires:  cmake
 BuildRequires:  gcc

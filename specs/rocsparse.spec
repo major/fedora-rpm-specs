@@ -105,13 +105,13 @@
   -DBUILD_CLIENTS_TESTS_OPENMP=OFF \\\
   -DBUILD_FORTRAN_CLIENTS=OFF
 
-Name:           %{rocsparse_name}
+Name:           rocsparse
 %if %{with gitcommit}
 Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        SPARSE implementation for ROCm
 License:        MIT
@@ -179,13 +179,19 @@ ROCm runtime and toolchains. rocSPARSE is created using
 the HIP programming language and optimized for AMD's
 latest discrete GPUs.
 
-%post -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
+%if 0%{?suse_version}
+%package -n %{rocsparse_name}
+Summary:        Shared libraries for %{name}
+
+%description -n %{rocsparse_name}
+%{summary}
+
+%ldconfig_scriptlets -n %{rocsparse_name}
+%endif
 
 %package devel
 Summary:        Libraries and headers for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-Provides:       rocsparse-devel = %{version}-%{release}
+Requires:       %{rocsparse_name}%{?_isa} = %{version}-%{release}
 
 %description devel
 %{summary}
@@ -253,7 +259,7 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library:$LD_LIBRARY_PATH
 %endif
 %endif
 
-%files
+%files -n %{rocsparse_name}
 %if %{with gitcommit}
 %doc projects/rocsparse/README.md
 %license projects/rocsparse/LICENSE.md
@@ -283,6 +289,9 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Fri Nov 7 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
+- Better handling of shared library on opensuse
+
 * Thu Oct 30 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
 - Update to 7.1.0
 

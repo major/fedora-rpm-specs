@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        2.39
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        %{sum}
 
 License:        GPL-2.0-or-later
@@ -20,6 +20,7 @@ scrollkeeper based documentation into Python's distutils.
 %package -n python3-%{srcname}
 Summary:        %{sum}
 Requires:       intltool
+Requires:       python3dist(setuptools)
 %{?python_provide:%python_provide python3-%{srcname}}
 
 %description -n python3-%{srcname}
@@ -45,6 +46,9 @@ scrollkeeper based documentation into Python's distutils.
 %{python3_sitelib}/python_distutils_extra*.dist-info
 
 %changelog
+* Fri Nov 07 2025 David Auer <dreua@posteo.de> - 2.39-39
+- Add missing dependency to setuptools (rhel#2412157)
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.39-38
 - Rebuilt for Python 3.14.0rc3 bytecode
 

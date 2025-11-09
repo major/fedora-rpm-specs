@@ -62,6 +62,11 @@
 %define _find_debuginfo_opts --no-ar-files
 %endif
 
+# linker
+# only really has a big effect on ppc64le for prof (can save 1+ hours)
+# https://bugzilla.redhat.com/show_bug.cgi?id=2411712
+%bcond use_lld 0
+
 # make sure ghc libraries' ABI hashes unchanged
 %bcond abicheck 0
 
@@ -76,20 +81,24 @@
 %if %{defined el9}
 %global llvm_major 12
 %else
-%if %{defined el10} || %{defined fc41}
+%if %{defined fc41}
 %global llvm_major 18
 %else
+%if %{defined fc42} || %{defined el10}
 %global llvm_major 19
+%else
+%global llvm_major 20
+%endif
 %endif
 %endif
 %global ghc_llvm_archs s390x
 %global ghc_unregisterized_arches s390 %{mips}
 
 Name: %{ghc_name}
-Version: %{ghc_major}.%{ghc_patchlevel}.20251028
+Version: %{ghc_major}.%{ghc_patchlevel}.20251031
 # Since library subpackages are versioned:
 # - release can only be reset if *all* library versions get bumped simultaneously
-Release: 0.7%{?dist}
+Release: 0.9%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD-3-Clause AND HaskellReport
@@ -106,11 +115,6 @@ Source7: runghc.man
 Patch1: ghc-gen_contents_index-haddock-path.patch
 Patch2: ghc-Cabal-install-PATH-warning.patch
 Patch3: ghc-gen_contents_index-nodocs.patch
-# https://gitlab.haskell.org/ghc/ghc/-/issues/25963 for 64bit 9.8.4 boot
-#Patch6: https://gitlab.haskell.org/ghc/ghc/-/commit/0dabd3c132f6b15548944d8d479d7d0415be813e.patch
-# https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9604
-# should be in 9.14 and enabled by default for release flavor
-#Patch9: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9604.patch
 
 # unregisterised
 Patch16: ghc-hadrian-C-backend-rts--qg.patch
@@ -170,6 +174,12 @@ BuildRequires: perl-interpreter
 BuildRequires: python3
 %if %{with manual}
 BuildRequires: python3-sphinx
+%endif
+%if %{with dwarf}
+BuildRequires: elfutils-devel
+%endif
+%if %{with use_lld}
+BuildRequires: lld%{llvm_major}
 %endif
 BuildRequires: llvm%{llvm_major}
 BuildRequires: clang%{llvm_major}
@@ -262,6 +272,9 @@ Obsoletes: %{name}-ghc-internal-prof < 9.1202.0-6
 Obsoletes: %{name}-manual < %{version}-%{release}
 %endif
 Requires: binutils
+%if %{with use_lld}
+Requires: lld%{llvm_major}
+%endif
 %ifarch %{ghc_llvm_archs}
 Requires: llvm%{llvm_major}
 Requires: clang%{llvm_major}
@@ -289,6 +302,7 @@ Conflicts: ghc9.4-compiler-default
 Conflicts: ghc9.6-compiler-default
 Conflicts: ghc9.8-compiler-default
 Conflicts: ghc9.10-compiler-default
+Conflicts: ghc9.12-compiler-default
 
 %description compiler-default
 The package contains symlinks to make %{name} the default GHC compiler.
@@ -365,7 +379,7 @@ This provides the hadrian tool which can be used to build ghc.
 %ghc_lib_subpackage -d -l %BSDHaskellReport containers-0.8
 %ghc_lib_subpackage -d -l %BSDHaskellReport deepseq-1.5.1.0
 %ghc_lib_subpackage -d -l %BSDHaskellReport directory-%{directory_ver}
-%ghc_lib_subpackage -d -l %BSDHaskellReport exceptions-0.10.9
+%ghc_lib_subpackage -d -l %BSDHaskellReport exceptions-0.10.11
 %ghc_lib_subpackage -d -l BSD-3-Clause file-io-%{file_io_ver}
 %ghc_lib_subpackage -d -l BSD-3-Clause filepath-1.5.4.0
 # in ghc not ghc-libraries:
@@ -386,7 +400,7 @@ This provides the hadrian tool which can be used to build ghc.
 %ghc_lib_subpackage -d -x -l BSD-3-Clause hpc-%{hpc_ver}
 # see below for integer-gmp
 %ghc_lib_subpackage -d -l BSD-3-Clause mtl-2.3.1
-%ghc_lib_subpackage -d -l BSD-3-Clause os-string-2.0.7
+%ghc_lib_subpackage -d -l BSD-3-Clause os-string-2.0.8
 %ghc_lib_subpackage -d -l BSD-3-Clause parsec-3.1.18.0
 %ghc_lib_subpackage -d -l BSD-3-Clause pretty-1.1.3.6
 %ghc_lib_subpackage -d -l %BSDHaskellReport process-1.6.26.1
@@ -441,19 +455,8 @@ Installing this package causes %{name}-*-prof packages corresponding to
 %patch -P1 -p1 -b .orig
 #%%patch -P2 -p1 -b .orig
 %patch -P3 -p1 -b .orig
-#%%patch -P9 -p1 -b .orig
 
 rm libffi-tarballs/libffi-*.tar.gz
-
-# Unique Word64 disabled on fedora ghc-9.8.4.i686 (but not ghc9.8)
-# remove for ghc-9.10
-# %%if 0%%{?fedora} >= 43
-# %%ifnarch %%{ix86}
-# %%patch -P6 -p1 -b .orig
-# %%endif
-# %%else
-# %%patch -P6 -p1 -b .orig
-# %%endif
 
 %ifarch %{ghc_unregisterized_arches}
 %patch -P16 -p1 -b .orig
@@ -474,6 +477,11 @@ rm libffi-tarballs/libffi-*.tar.gz
 %build
 %ghc_set_gcc_flags
 export CC=%{_bindir}/gcc
+%if %{with use_lld}
+# does not seem to work for 9.14
+# https://gitlab.haskell.org/ghc/ghc/-/issues/26544
+export LD=%{_bindir}/ld.lld-%{llvm_major}
+%endif
 export LLC=%{_bindir}/llc-%{llvm_major}
 export OPT=%{_bindir}/opt-%{llvm_major}
 
@@ -490,10 +498,12 @@ export GHC=%{_bindir}/ghc%{?ghcboot_major:-%{ghcboot_major}}
   --datadir=%{_datadir} --includedir=%{_includedir} --libdir=%{_libdir} \
   --libexecdir=%{_libexecdir} --localstatedir=%{_localstatedir} \
   --sharedstatedir=%{_sharedstatedir} --mandir=%{_mandir} \
-  --docdir=%{_docdir}/%{name} --with-system-libffi --disable-ld-override \
+  --docdir=%{_docdir}/%{name} --with-system-libffi \
+  %{!?with_use_lld:--disable-ld-override} \
 %ifarch %{ghc_unregisterized_arches}
   --enable-unregisterised \
 %endif
+  %{?with_dwarf:--enable-dwarf-unwind} \
 %{nil}
 
 # avoid "ghc: hGetContents: invalid argument (invalid byte sequence)"
@@ -553,9 +563,12 @@ cp -p LICENSE ../LICENSE.hadrian
 %endif
 export LLC=%{_bindir}/llc-%{llvm_major}
 export OPT=%{_bindir}/opt-%{llvm_major}
+%if %{with use_lld}
+export LD=%{_bindir}/ld.lld-%{llvm_major}
+%endif
 (
 cd _build/bindist/ghc-%{version}-*
-./configure --prefix=%{buildroot}%{ghclibdir} --bindir=%{buildroot}%{_bindir} --libdir=%{buildroot}%{_libdir} --mandir=%{buildroot}%{_mandir} --docdir=%{buildroot}%{_docdir}/%{name} --disable-ld-override
+./configure --prefix=%{buildroot}%{ghclibdir} --bindir=%{buildroot}%{_bindir} --libdir=%{buildroot}%{_libdir} --mandir=%{buildroot}%{_mandir} --docdir=%{buildroot}%{_docdir}/%{name} %{!?with_use_lld:--disable-ld-override}
 make install
 )
 
@@ -905,6 +918,14 @@ make test
 
 
 %changelog
+* Fri Nov 07 2025 Jens Petersen <petersen@redhat.com> - 9.14.0.20251031-0.9
+- 9.14.1 RC2
+- https://downloads.haskell.org/ghc/9.14.1-rc2/docs/users_guide/9.14.1-notes.html
+
+* Sun Nov 02 2025 Jens Petersen <petersen@redhat.com> - 9.14.0.20251028-0.8
+- bump llvm to 20 for f43+
+- conflicts ghc9.12-compiler-default
+
 * Fri Oct 31 2025 Jens Petersen <petersen@redhat.com> - 9.14.0.20251028-0.7
 - 9.14.1 rc1
 - https://downloads.haskell.org/ghc/9.14.1-rc1/docs/users_guide/9.14.1-notes.html

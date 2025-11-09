@@ -12,7 +12,7 @@
 # https://code.videolan.org/videolan/vlc/-/merge_requests/3950
 %bcond placebo %[!(0%{?fedora} >= 39 || 0%{?rhel} >= 10)]
 # libpostproc was removed in FFmpeg 8 (F44+)
-%bcond postproc %[!(0%{?fedora} >= 44)]
+%bcond postproc %[!(0%{?fedora} >= 44 || 0%{?rhel} >= 11)]
 # disabled due to various issues
 %bcond projectm 0
 

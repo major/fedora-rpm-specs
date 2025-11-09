@@ -2,17 +2,18 @@
 %undefine _hardened_build
 
 Name:           libgdiplus
-Version:        6.1
-Release:        10%{?dist}
+Version:        6.2
+Release:        2%{?dist}
 Summary:        An Open Source implementation of the GDI+ API
 License:        MIT
-URL:            http://www.mono-project.com/Main_Page
-Source0:        http://download.mono-project.com/sources/%{name}/%{name}-%{version}.tar.gz
+URL:            https://gitlab.winehq.org/mono/libgdiplus
+Source0:        https://dl.winehq.org/mono/sources/libgdiplus/%{name}-%{version}.tar.gz
 BuildRequires:  gcc gcc-c++
 BuildRequires:  freetype-devel glib2-devel libjpeg-devel libtiff-devel
 BuildRequires:  libpng-devel fontconfig-devel
 BuildRequires:  cairo-devel giflib-devel libexif-devel
 BuildRequires:  zlib-devel
+BuildRequires:  pango-devel
 BuildRequires: make
 
 %description
@@ -36,7 +37,7 @@ export CFLAGS
 export CXXFLAGS
 
 %build
-%configure --disable-static
+%configure --disable-static --with-pango
 make %{?_smp_mflags}
 
 %install
@@ -56,6 +57,12 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_libdir}/lib*.so
 
 %changelog
+* Fri Nov 07 2025 Timotheus Pokorra <timotheus.pokorra@solidcharity.com> - 6.2-2
+- enable pango for right to left mode eg. arabic
+
+* Sun Nov 02 2025 Julian Sikorski <belegdol@fedoraproject.org> - 6.2-1
+- update to 6.2
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

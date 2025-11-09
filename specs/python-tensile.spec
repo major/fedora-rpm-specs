@@ -50,7 +50,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 %endif
 Summary:        Tool for creating benchmark-driven backend libraries for GEMMs
 
@@ -68,6 +68,7 @@ Patch2:         0001-tensile-gfx1153.patch
 Patch3:         0001-tensile-set-default-paths.patch
 Patch4:         0001-tensile-ignore-cache-check.patch
 Patch5:         0001-tensile-add-cmake-arches.patch
+Patch6:         0001-tensile-gfx1036.patch
 
 %if 0%{?fedora} || 0%{?suse_version}
 BuildRequires:  fdupes
@@ -243,6 +244,9 @@ mv %{buildroot}%{_datadir}/cmake/Tensile/*.cmake %{buildroot}%{python3_sitelib}/
 %{python_sitelib}/%{upstreamname}*.egg-info/*
 
 %changelog
+* Fri Nov 7 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-3
+- enable gfx1036
+
 * Wed Nov 5 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
 - Allow msgpack on RHEL
 

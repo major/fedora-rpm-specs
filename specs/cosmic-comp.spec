@@ -7,12 +7,12 @@ ExcludeArch: %{ix86}
 # While our version corresponds to an upstream tag, we still need to define
 # these macros in order to set the VERGEN_GIT_SHA and VERGEN_GIT_COMMIT_DATE
 # environment variables in multiple sections of the spec file.
-%global commit 23db1b9ec389c1f99e0cb1331261768246a863fc
-%global commitdatestring 2025-10-21 08:50:17 -0600
-%global cosmic_minver 1.0.0~beta.3
+%global commit 6e4164643ea81d3a2c3b40ffc441950722a61bfb
+%global commitdatestring 2025-10-31 16:14:45 +0100
+%global cosmic_minver 1.0.0~beta.5
 
 Name:           cosmic-comp
-Version: 1.0.0~beta.3
+Version: 1.0.0~beta.5
 Release:        %autorelease
 Summary:        Compositor for the COSMIC Desktop Environment
 
@@ -93,7 +93,8 @@ make install DESTDIR=%{buildroot} prefix=%{_prefix}
 export VERGEN_GIT_COMMIT_DATE="date --utc '%{commitdatestring}'"
 export VERGEN_GIT_SHA="%{commit}"
 export GIT_HASH="%{commit}"
-%cargo_test
+# Don't cargo test until https://github.com/pop-os/cosmic-comp/issues/1791 is resolved.
+# %%cargo_test
 %endif
 
 %files

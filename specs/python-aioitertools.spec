@@ -1,7 +1,7 @@
 %global pypi_name aioitertools
 
 Name:           python-%{pypi_name}
-Version:        0.12.0
+Version:        0.13.0
 Release:        %autorelease
 Summary:        Itertools and builtins for AsyncIO and mixed iterables
 

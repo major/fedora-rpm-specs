@@ -2,12 +2,24 @@
 %global __provides_exclude_from ^(%{python3_sitearch})/.*\\.so.*$
 
 Name:       pygrib
-Version:    2.1.7
+Version:    2.1.8
 Release:    1%{?dist}
 Summary:    Python module for reading and modifying GRIB files
 
 # this software uses the "MIT:Modern Style with sublicense" license
-License:    MIT
+License:    MIT AND BSD-2-Clause
+# note:
+#
+# all files are MIT licensed except
+#
+# BSD license:
+# docs/_build/html/_static/basic.css
+# docs/_build/html/_static/doctools.js
+# docs/_build/html/_static/language_data.js
+# docs/_build/html/_static/nature.css
+# docs/_build/html/_static/searchtools.js
+
+
 URL:        https://github.com/jswhit/%{name}
 Source0:    https://files.pythonhosted.org/packages/source/p/%{name}/%{name}-%{version}.tar.gz
 
@@ -173,6 +185,10 @@ cd  $TESTROOT/test
 %{_mandir}/man1/grib_*
 
 %changelog
+* Fri Nov 07 2025 Jos de Kloe <josdekloe@gmail.com> 2.1.8-1
+- Update to 2.1.8 (#2406074)
+- Update license following discussion on https://github.com/jswhit/pygrib/issues/275
+    
 * Sat Oct 25 2025 Jos de Kloe <josdekloe@gmail.com> 2.1.7-1
 - Update to 2.1.7 (#2406074)
 - Introduce new style pyproject macros
