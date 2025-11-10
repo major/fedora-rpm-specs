@@ -3,7 +3,7 @@
 %global         soversion 1.13.0
 
 Name:           partio
-Version:        1.19.0
+Version:        1.19.2
 Release:        %autorelease
 Summary:        Library for manipulating common animation particle
 

@@ -1,24 +1,19 @@
 %global pypi_name openneuro-py
 # The importable module is called 'openneuro'
 %global module_name openneuro
-%global forgeurl https://github.com/hoechenberger/openneuro-py
 
 Name:           python-%{module_name}
-Version:        2024.2.0
+Version:        2025.2.0
 Release:        %{autorelease}
 Summary:        A Python client for OpenNeuro
+
+%global forgeurl https://github.com/hoechenberger/openneuro-py
+%global tag v%{version}
 %forgemeta
+
 License:        GPL-3.0-only
 URL:            %forgeurl
 Source:         %forgesource
-
-# Update the typer[all] dependency to typer-slim[standard]
-#
-# Required for typer 0.12.1; see https://typer.tiangolo.com/release-notes/#0121
-# and https://github.com/tiangolo/typer/discussions/785.
-#
-# https://github.com/hoechenberger/openneuro-py/pull/155
-Patch:          %{forgeurl}/pull/155.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -78,7 +73,7 @@ k="${k-}${k+ and }not test_resume_download"
 k="${k-}${k+ and }not test_ds000248"
 k="${k-}${k+ and }not test_doi_handling"
 k="${k-}${k+ and }not test_restricted_dataset"
-%pytest -v ${k+-k }"${k-}"
+%pytest -r fEs ${k+-k "${k-}"}
 
 # Also run import test since majority of tests cannot be run in mock
 %pyproject_check_import

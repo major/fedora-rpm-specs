@@ -2,7 +2,7 @@
 
 Summary: Tools for managing the Oracle Cluster Filesystem 2
 Name: ocfs2-tools
-Version: 1.8.8
+Version: 1.8.9
 Release: %autorelease
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License: GPL-2.0-only

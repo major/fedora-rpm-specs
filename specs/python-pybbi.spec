@@ -1,7 +1,7 @@
 %global pypi_name pybbi
 
 Name:           python-%{pypi_name}
-Version:        0.4.1
+Version:        0.4.2
 Release:        %{autorelease}
 Summary:        Python bindings to the UCSC source for Big Binary Indexed (bigWig/bigBed) files
 
@@ -13,10 +13,6 @@ Summary:        Python bindings to the UCSC source for Big Binary Indexed (bigWi
 License:        MIT AND BSD-4-Clause
 URL:            %forgeurl
 Source:         %forgesource
-
-# Do not use function pointers of unspecified arguments
-# Fixes compatiblity with C23 / GCC 15
-Patch:          %{forgeurl}/pull/57.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

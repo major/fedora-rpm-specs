@@ -14,6 +14,9 @@ URL:            https://crates.io/crates/sequoia-ipc
 Source:         %{crates_source}
 # Automatically generated patch to strip dependencies and normalize metadata
 Patch:          sequoia-ipc-fix-metadata-auto.diff
+# Manually created patch for downstream crate metadata changes
+# * Allow dirs 6: https://gitlab.com/sequoia-pgp/sequoia/-/merge_requests/1798
+Patch:          sequoia-ipc-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 

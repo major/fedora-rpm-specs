@@ -50,6 +50,8 @@ Patch1003:      1003-cargo-Drop-unneeded-dependency-on-unix_path.patch
 # Patches for bundled dependencies (10000+)
 ## For forked pcre2 crate that includes https://github.com/BurntSushi/rust-pcre2/pull/38
 Patch10001:     10001-rust-pcre2-cargo-Drop-workspace-definition.patch
+## For hopefully avoiding timeouts for tests on ppc64le and s390x
+Patch10002:     10002-tests-Raise-the-default-timeout-for-pexpect-tests.patch
 
 
 BuildRequires:  cargo

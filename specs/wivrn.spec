@@ -2,10 +2,10 @@
 %bcond_with x264
 
 %global forgeurl0      https://github.com/WiVRn/WiVRn
-%global wivrn_version  25.10~alpha1
-%global commit0        de32f6e24f1f457dcea78974b945e1cb3ac6dee8
-#%%global tag0           v%%{wivrn_version}
-%global date           20251025
+%global wivrn_version  25.11
+#%%global commit0        
+%global tag0           v%%{wivrn_version}
+%global date           20251108
 
 # WiVRn is based on Monado, we need the full source
 # Monado base source (find in monado-rev file)
@@ -85,23 +85,23 @@ Source1:        %{forgeurl1}/-/archive/%{commit1}/monado-src-%{commit1}.tar.bz2
 # For tagged releases: https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%%{tag0}/patches/monado/
 # For commit releases: https://raw.githubusercontent.com/WiVRn/WiVRn/%%{commit0}/patches/monado/
 # downstream-only - WiVRn specific Monado patches
-Patch0001:      https://raw.githubusercontent.com/WiVRn/WiVRn/%{commit0}/patches/monado/0001-c-multi-early-wake-of-compositor.patch
+Patch0001:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0001-c-multi-early-wake-of-compositor.patch
 # downstream-only - WiVRn specific Monado patches
-Patch0002:      https://raw.githubusercontent.com/WiVRn/WiVRn/%{commit0}/patches/monado/0002-ipc-server-Always-listen-to-stdin.patch
+Patch0002:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0002-ipc-server-Always-listen-to-stdin.patch
 # downstream-only - WiVRn specific Monado patches
-Patch0003:      https://raw.githubusercontent.com/WiVRn/WiVRn/%{commit0}/patches/monado/0003-Use-extern-socket-fd.patch
+Patch0003:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0003-Use-extern-socket-fd.patch
 # downstream-only - WiVRn specific Monado patches
-Patch0004:      https://raw.githubusercontent.com/WiVRn/WiVRn/%{commit0}/patches/monado/0004-change-environment-blend-mode-selection-logic.patch
+Patch0004:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0004-change-environment-blend-mode-selection-logic.patch
 # downstream-only - WiVRn specific Monado patches
-Patch0005:      https://raw.githubusercontent.com/WiVRn/WiVRn/%{commit0}/patches/monado/0005-st-oxr-forward-0-refresh-rate.patch
+Patch0005:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0005-st-oxr-forward-0-refresh-rate.patch
 # downstream-only - WiVRn specific Monado patches
-Patch0006:      https://raw.githubusercontent.com/WiVRn/WiVRn/%{commit0}/patches/monado/0006-Replace-distortion-with-foveation.patch
+Patch0006:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0006-Replace-distortion-with-foveation.patch
 # downstream-only - WiVRn specific Monado patches
-Patch0007:      https://raw.githubusercontent.com/WiVRn/WiVRn/%{commit0}/patches/monado/0007-Limit-foveation-samples-per-pixel.patch
+Patch0007:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0007-Limit-foveation-samples-per-pixel.patch
 # downstream-only - WiVRn specific Monado patches
-Patch0008:      https://raw.githubusercontent.com/WiVRn/WiVRn/%{commit0}/patches/monado/0008-ipc-Add-callbacks-and-unify-main-functions.patch
+Patch0008:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0008-ipc-Add-callbacks-and-unify-main-functions.patch
 # downstream-only - WiVRn specific Monado patches
-Patch0009:      https://raw.githubusercontent.com/WiVRn/WiVRn/%{commit0}/patches/monado/0009-d-steamvr_lh-prevent-crash-on-vive-pro2-WiVRn.patch
+Patch0009:      https://raw.githubusercontent.com/WiVRn/WiVRn/refs/tags/%{tag0}/patches/monado/0009-d-steamvr_lh-prevent-crash-on-vive-pro2-WiVRn.patch
 
 
 # If BuildRequires change, be sure to update envision-wivrn Requires
@@ -175,6 +175,8 @@ BuildRequires:  pkgconfig(x264)
 %endif
 BuildRequires:  pkgconfig(xrandr)
 BuildRequires:  qcoro-qt6-devel
+BuildRequires:  qt6-qtbase-private-devel
+BuildRequires:  qt6-qtdeclarative-devel
 BuildRequires:  qt6qml(org.kde.desktop)
 BuildRequires:  systemd-rpm-macros
 

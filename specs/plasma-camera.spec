@@ -5,7 +5,7 @@ License:       BSD-3-Clause AND GPL-2.0-or-later AND CC0-1.0 AND GPL-3.0-or-late
 Summary:       Camera application for Plasma Mobile
 URL:           https://apps.kde.org/plasma.camera/
 
-Source0:       https://download.kde.org/stable/%{name}/%{name}-v%{version}.tar.xz
+Source0:       https://download.kde.org/stable/%{name}/%{name}-%{version}.tar.xz
 
 # libcamera does not currently build on these architectures
 ExcludeArch: s390x ppc64le
@@ -41,7 +41,7 @@ switching between different camera devices.
 
 
 %prep
-%autosetup -p1 -n %{name}-v%{version}
+%autosetup -p1
 
 
 %build

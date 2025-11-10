@@ -1,6 +1,6 @@
 Summary: Intrusion Detection System
 Name: suricata
-Version: 8.0.1
+Version: 8.0.2
 Release: 1%{?dist}
 License: GPL-2.0-only
 URL: https://suricata.io/
@@ -195,6 +195,9 @@ fi
 %endif
 
 %changelog
+* Sat Nov 08 2025 Jason Taylor <jtfas90@proton.me> 8.0.2-1
+- Upstream security/bugfix release
+
 * Thu Oct 09 2025 Jason Taylor <jtfas90@proton.me> 8.0.1-1
 - Migrate to 8.0.x release
 - Addresses CVE-2025-59147, CVE-2025-59148

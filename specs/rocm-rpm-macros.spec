@@ -21,7 +21,7 @@
 #
 Name:           rocm-rpm-macros
 Version:        7.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm RPM macros
 License:        GPL-2.0-or-later
 
@@ -131,6 +131,9 @@ cp -p modules/* %{buildroot}%{_datadir}/modulefiles/rocm/
 %endif
 
 %changelog
+* Fri Nov 7 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
+- Add gfx1036
+
 * Fri Oct 31 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
 - Update to 7.1.0
 

@@ -1,4 +1,4 @@
-%global commit 58242977b4092cf5eb94a10dd144691c12c87001
+%global commit 25f12dacfd56618b9612cbbe405305ea03fff3cc
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 # not compatible with newer clang versions
@@ -7,7 +7,7 @@
 %endif
 
 Name: intel-opencl-clang
-Version: 15.0.1
+Version: 15.0.3
 Release: %autorelease
 Summary: Library to compile OpenCL C kernels to SPIR-V modules
 

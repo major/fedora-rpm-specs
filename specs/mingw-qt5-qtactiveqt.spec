@@ -16,8 +16,8 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt5-%{qt_module}
-Version:        5.15.17
-Release:        2%{?dist}
+Version:        5.15.18
+Release:        1%{?dist}
 Summary:        Qt5 for Windows - QtActiveQt component
 
 License:        LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -26,7 +26,7 @@ URL:            http://qt.io/
 %if 0%{?commit:1}
 Source0:        https://github.com/qt/%{qt_module}/archive/%{commit}/%{qt_module}-everywhere-src-%{commit}.tar.gz
 %else
-Source0:        http://download.qt.io/%{?pre:development}%{?!pre:official}_releases/qt/%{release_version}/%{version}%{?pre:-%pre}/submodules/%{qt_module}-everywhere-opensource-src-%{version}%{?pre:-%pre}.tar.xz
+Source0:        https://download.qt.io/archive/qt/%{release_version}/%{version}%{?pre:-%pre}/submodules/%{qt_module}-everywhere-opensource-src-%{version}%{?pre:-%pre}.tar.xz
 %endif
 
 BuildArch:      noarch
@@ -157,6 +157,9 @@ find %{buildroot} -name "*.prl" -delete
 
 
 %changelog
+* Sat Nov 08 2025 Sandro Mani <manisandro@gmail.com> - 5.15.18-1
+- Update to 5.15.18
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.17-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

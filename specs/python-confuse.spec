@@ -1,12 +1,11 @@
 Name:           python-confuse
-Version:        2.0.1
-Release:        12%{?dist}
+Version:        2.1.0
+Release:        %autorelease
 Summary:        A Python module for handling YAML configuration files
 
 License:        MIT
 URL:            https://github.com/beetbox/confuse
 Source0:        %{url}/archive/v%{version}/confuse-%{version}.tar.gz
-Patch0:         python-confuse-py314.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -38,7 +37,6 @@ Summary:        %{summary}
 %pyproject_save_files confuse
 
 %check
-%pytest
 
 %files -n python3-confuse -f %{pyproject_files}
 %license LICENSE

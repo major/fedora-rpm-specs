@@ -1,5 +1,5 @@
 
-%global commit a077a090060f953ba7dd024208980ca837233d87
+%global commit 7343d7096e2437db18b57f9964011105ee0da8ae
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           spirv-llvm15.0-translator

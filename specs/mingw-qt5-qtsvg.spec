@@ -16,8 +16,8 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt5-%{qt_module}
-Version:        5.15.17
-Release:        3%{?dist}
+Version:        5.15.18
+Release:        1%{?dist}
 Summary:        Qt5 for Windows - QtSvg component
 
 License:        LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -26,7 +26,7 @@ URL:            http://qt.io/
 %if 0%{?commit:1}
 Source0:        https://github.com/qt/%{qt_module}/archive/%{commit}/%{qt_module}-everywhere-src-%{commit}.tar.gz
 %else
-Source0:        http://download.qt.io/%{?pre:development}%{?!pre:official}_releases/qt/%{release_version}/%{version}%{?pre:-%pre}/submodules/%{qt_module}-everywhere-opensource-src-%{version}%{?pre:-%pre}.tar.xz
+Source0:        https://download.qt.io/archive/qt/%{release_version}/%{version}%{?pre:-%pre}/submodules/%{qt_module}-everywhere-opensource-src-%{version}%{?pre:-%pre}.tar.xz
 %endif
 # Backport patch for CVE-2025-10729
 # https://code.qt.io/cgit/qt/qtsvg.git/diff/src/svg/qsvghandler.cpp?id=7e8898903265d931df0aa54b3913f2c49d4d7bf2
@@ -133,6 +133,9 @@ mkdir .git
 
 
 %changelog
+* Sat Nov 08 2025 Sandro Mani <manisandro@gmail.com> - 5.15.18-1
+- Update to 5.15.18
+
 * Thu Oct 09 2025 Sandro Mani <manisandro@gmail.com> - 5.15.17-3
 - Backport patch for CVE-2025-10729
 

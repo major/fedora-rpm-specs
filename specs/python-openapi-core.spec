@@ -32,6 +32,10 @@ Patch:          openapi-core-0.19.5-starlette-0.50.patch
 # choice: we must use the version that is packaged, even if this breaks things.
 Patch:          0001-Downstream-only-remove-werkzeug-version-pin.patch
 
+# Support aioitertools 0.13
+# https://github.com/python-openapi/openapi-core/pull/1039
+Patch:          0001-Support-aioitertools-0.13.patch
+
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  tomcli

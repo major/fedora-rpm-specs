@@ -1,8 +1,5 @@
-#
 # Specfile for DAR, the disk archiver
-#
 # https://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=210790
-#
 
 # Static build is disabled by default by fedora policy, but also because the
 # latest versions of glibc don't seem to compile proper static binaries.  Use
@@ -10,31 +7,33 @@
 %define with_static %{?_with_static: 1} %{?!_with_static: 0}
 
 Name:           dar
-Version:        2.7.16
+Version:        2.8.1
 Release:        %autorelease
 Summary:        Software for making/restoring incremental CD/DVD backups
-
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
 URL:            http://dar.linux.free.fr
-
-Source0:	ftp://ftp.dm3c.org/dar.linux.free.fr/Releases/Source_code/%{name}-%{version}.tar.gz
+Source0:        ftp://ftp.dm3c.org/dar.linux.free.fr/Releases/Source_code/%{name}-%{version}.tar.gz
 Source1:        README.Fedora
 
-BuildRequires:  gcc-c++
-BuildRequires:  zlib-devel
 BuildRequires:  bzip2-devel
-BuildRequires:  openssl-devel
-BuildRequires:  libattr-devel
 BuildRequires:  e2fsprogs-devel
-BuildRequires:	lzo-devel
+BuildRequires:  gcc-c++
+BuildRequires:  gpgme-devel
 BuildRequires:  libargon2-devel
-BuildRequires:	libcurl
-BuildRequires:	libcurl-devel
-BuildRequires:	xz-devel
-BuildRequires:	libgcrypt-devel
-BuildRequires:	make
-Requires:	par2cmdline
+BuildRequires:  libattr-devel
+BuildRequires:  libcurl-devel
+BuildRequires:  libgcrypt-devel
+BuildRequires:  librsync-devel
+BuildRequires:  libzstd-devel
+BuildRequires:  lz4-devel
+BuildRequires:  lzo-devel
+BuildRequires:  make
+BuildRequires:  openssl-devel
+BuildRequires:  rhash-devel
+BuildRequires:  xz-devel
+BuildRequires:  zlib-devel
+Requires:       par2cmdline
 
 %description
 DAR is a command line tool to backup a directory tree and files. DAR is

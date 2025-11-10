@@ -16,6 +16,8 @@ Source2:        https://gitlab.com/sequoia-pgp/sequoia-keystore/-/raw/server/v0.
 # Manually created patch for downstream crate metadata changes
 # * switch crypto backend from Nettle to OpenSSL (matching other Sequoia tools)
 # * drop features for unsupported crypto backends
+# * allow dirs 6:
+#   https://gitlab.com/sequoia-pgp/sequoia-keystore/-/merge_requests/118
 Patch:          sequoia-keystore-server-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

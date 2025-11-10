@@ -11,7 +11,7 @@
 %bcond it %{undefined el10}
 
 Name:           uv
-Version:        0.9.7
+Version:        0.9.8
 Release:        %autorelease
 Summary:        An extremely fast Python package installer and resolver, written in Rust
 
@@ -623,13 +623,13 @@ tomcli set Cargo.toml str workspace.dependencies.etcetera.version \
     '>=0.10.0, <0.12.0'
 
 # spdx
-#   wanted: 0.10.6
+#   wanted: 0.12.0
 #   currently packaged: 0.10.9 (but we want to update to 0.12)
 #   https://bugzilla.redhat.com/show_bug.cgi?id=2387258
 #   Update the spdx dependency to version 0.12
 #   https://github.com/astral-sh/uv/pull/16552
 tomcli set Cargo.toml str workspace.dependencies.spdx.version \
-    '>=0.10.6, <0.13.0'
+    '>=0.10.9, <0.13.0'
 
 %cargo_prep
 

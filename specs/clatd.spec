@@ -2,7 +2,7 @@
 
 Name:		clatd
 Version:	2.1.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	CLAT / SIIT-DC Edge Relay implementation for Linux
 
 License:	MIT
@@ -24,6 +24,7 @@ Requires:	perl(Net::DNS)
 Requires:	perl(IO::Socket::IP)
 Requires:	perl(File::Temp)
 Requires:	perl(Net::IP)
+Requires:       perl(IPC::Cmd)
 
 Requires(post):		systemd
 Requires(preun):	systemd
@@ -82,6 +83,9 @@ install -p -D -m0644 scripts/%{name}.systemd %{buildroot}%{_unitdir}/%{name}.ser
 
 
 %changelog
+* Sat Nov 08 2025 Ingvar Hagelund <ingvar@redpill-linpro.com> - 2.1.0-3
+- Changed perl deps since last version, bz#2413482
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

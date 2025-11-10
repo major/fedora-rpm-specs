@@ -1,5 +1,5 @@
 Name:           patool
-Version:        4.0.0
+Version:        4.0.2
 Release:        %autorelease
 Summary:        Portable command line archive file manager
 
@@ -10,23 +10,23 @@ Summary:        Portable command line archive file manager
 License:        GPL-3.0-or-later
 URL:            http://wummel.github.io/patool/
 Source:         %forgesource
-# https://github.com/wummel/patool/pull/181
-Patch:          0001-Fix-Star-testing-parameters.patch
-# Use binary basename instead of full path
-# https://bugzilla.redhat.com/show_bug.cgi?id=2373874
-Patch:          use_binary_basename.patch
 
 BuildArch:      noarch
-BuildRequires:  python3-devel >= 3.11
-BuildRequires:  python3-setuptools
+BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
+BuildRequires:  tomcli
 
 BuildRequires:  /usr/bin/7z
 BuildRequires:  /usr/bin/7za
+BuildRequires:  /usr/bin/7zr
+BuildRequires:  /usr/bin/7zz
 BuildRequires:  /usr/bin/ar
+BuildRequires:  /usr/bin/arc
+BuildRequires:  /usr/bin/arj
 BuildRequires:  /usr/bin/bsdcpio
 BuildRequires:  /usr/bin/bsdtar
 BuildRequires:  /usr/bin/bzip2
+BuildRequires:  /usr/bin/bzip3
 BuildRequires:  /usr/bin/cabextract
 BuildRequires:  /usr/bin/compress
 BuildRequires:  /usr/bin/cpio
@@ -36,7 +36,10 @@ BuildRequires:  /usr/bin/flac
 BuildRequires:  /usr/bin/genisoimage
 BuildRequires:  /usr/bin/gzip
 BuildRequires:  /usr/bin/isoinfo
+BuildRequires:  /usr/bin/jar
 BuildRequires:  /usr/bin/lbzip2
+BuildRequires:  /usr/bin/lha
+BuildRequires:  /usr/bin/lz4
 BuildRequires:  /usr/bin/lzip
 BuildRequires:  /usr/bin/lzma
 BuildRequires:  /usr/bin/lzop
@@ -48,6 +51,8 @@ BuildRequires:  /usr/bin/rzip
 BuildRequires:  /usr/bin/shar
 BuildRequires:  /usr/bin/star
 BuildRequires:  /usr/bin/tar
+BuildRequires:  /usr/bin/unar
+BuildRequires:  /usr/bin/unrar
 BuildRequires:  /usr/bin/unshar
 BuildRequires:  /usr/bin/unzip
 BuildRequires:  /usr/bin/xdms
@@ -74,9 +79,11 @@ Recommends:     /usr/bin/genisoimage
 Recommends:     /usr/bin/gzip
 Recommends:     /usr/bin/isoinfo
 Recommends:     /usr/bin/lbzip2
+Recommends:     /usr/bin/lha
 Recommends:     /usr/bin/lzip
 Recommends:     /usr/bin/lzma
 Recommends:     /usr/bin/lzop
+Recommends:     /usr/bin/mac
 Recommends:     /usr/bin/nomarch
 Recommends:     /usr/bin/pbzip2
 Recommends:     /usr/bin/pigz
@@ -85,6 +92,7 @@ Recommends:     /usr/bin/rzip
 Recommends:     /usr/bin/shar
 Recommends:     /usr/bin/star
 Recommends:     /usr/bin/tar
+Recommends:     /usr/bin/unrar
 Recommends:     /usr/bin/unshar
 Recommends:     /usr/bin/unzip
 Recommends:     /usr/bin/xdms
@@ -94,10 +102,7 @@ Recommends:     /usr/bin/zopfli
 Recommends:     /usr/bin/zpaq
 
 # Available through RPMFusion
-Recommends:     /usr/bin/lha
-Recommends:     /usr/bin/mac
 Recommends:     /usr/bin/unace
-Recommends:     /usr/bin/unrar
 
 # Not available in Fedora
 # Recommends:     /usr/bin/lcab
@@ -149,6 +154,13 @@ Summary:        %{summary}
 %prep
 %forgeautosetup -p1
 
+# Upstream switched to setuptools-reproducible, which is not in Fedora.
+# Revert to setuptools / setuptools.build_meta
+tomcli set pyproject.toml arrays replace \
+    build-system.requires 'setuptools-reproducible' 'setuptools'
+tomcli set pyproject.toml replace \
+    build-system.build-backend 'setuptools_reproducible' 'setuptools.build_meta'
+
 %generate_buildrequires
 %pyproject_buildrequires
 
@@ -162,7 +174,7 @@ mkdir -p %{buildroot}%{_mandir}/man1/
 install -Dpm 0644 doc/patool.1 %{buildroot}%{_mandir}/man1/patool.1
 
 %check
-%pytest
+%pytest -r fEs
 
 %files
 %license COPYING

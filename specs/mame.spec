@@ -325,8 +325,10 @@ rm -rf docs/build/html/_sources
 find $RPM_BUILD_ROOT%{_datadir}/%{name} -name LICENSE -exec rm {} \;
 
 
+%ifnarch %power64
 %check
 ./%{name} -validate
+%endif
 
 
 %files

@@ -1,11 +1,10 @@
 Name:           plasma-settings
 Version:        25.11.0
 Release:        1%{?dist}
-# Automatically converted from old format: BSD and CC0 and GPLv2 and GPLv2+ and GPLv3 and GPLv3+ and LGPLv2 and LGPLv2+ - review is highly recommended.
-License:        LicenseRef-Callaway-BSD AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LicenseRef-Callaway-LGPLv2 AND LicenseRef-Callaway-LGPLv2+
+License:        BSD-2-Clause, CC-BY-4.0, CC0-1.0, GPL-2.0-only, GPL-2.0-or-later, GPL-3.0-only
 Summary:        Convergent Plasma Mobile settings application
 Url:            https://invent.kde.org/plasma-mobile/plasma-settings
-Source0:        https://download.kde.org/stable/plasma-settings/%{name}-v%{version}.tar.xz
+Source0:        https://download.kde.org/stable/plasma-settings/%{name}-%{version}.tar.xz
 
 BuildRequires:  appstream
 BuildRequires:  cmake
@@ -45,7 +44,7 @@ Notice that Wi-Fi, mobile broadband and hotspot KConfig
 modules are provided separately, by plasma-nm.
 
 %prep
-%autosetup -p1 -n %{name}-v%{version}
+%autosetup -p1
 
 %build
 %cmake_kf6

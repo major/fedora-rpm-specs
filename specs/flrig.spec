@@ -2,8 +2,8 @@
 %global alpha 0
 
 Name:           flrig
-Version:        2.0.07
-Release:        2%{?dist}
+Version:        2.0.09
+Release:        1%{?dist}
 Summary:        Transceiver control program
 
 License:        GPL-3.0-or-later AND LGPL-3.0-or-later AND GPL-3.0-only
@@ -14,6 +14,7 @@ Source0:        https://www.w1hkj.org/alpha/%{name}/%{name}-%{version}.tar.gz
 Source0:        https://www.w1hkj.org/files/%{name}/%{name}-%{version}.tar.gz
 %endif
 Source100:      flrig.appdata.xml
+Source101:      flrig.png
 
 Patch0:         flrig-headers.patch
 
@@ -58,6 +59,9 @@ export CXXFLAGS="-std=c++17 $RPM_OPT_FLAGS"
 %install
 %make_install
 
+# Install icon file manually as provided XPM icon does not work in all desktop environments.
+install -D %{SOURCE101} %{buildroot}%{_datadir}/icons/hicolor/64x64/apps/flrig.png
+
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 %if 0%{?fedora}
@@ -73,10 +77,14 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}.xpm
+%{_datadir}/icons/hicolor/64x64/apps/flrig.png
 %{?fedora:%{_datadir}/metainfo/*.appdata.xml}
 
 
 %changelog
+* Sat Nov 08 2025 Richard Shaw <hobbes1069@gmail.com> - 2.0.09-1
+- Update to 2.0.09.
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.07-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

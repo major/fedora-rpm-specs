@@ -20,8 +20,8 @@
 # THE SOFTWARE.
 #
 %global upstreamname AMDMIGraphX
-%global rocm_release 7.0
-%global rocm_patch 1
+%global rocm_release 7.1
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global bundled_llvm_version 21.0.0
@@ -157,10 +157,12 @@ License:        MIT AND (Apache-2.0 WITH LLVM-exception OR NCSA)
 
 URL:            https://github.com/ROCm/AMDMIGraphX
 Source0:        %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
-Source1:        https://github.com/ROCm/rocMLIR/archive/rocm-%{version}.tar.gz#/rocMLIR-%{version}.tar.gz
+# ROCm 7.1.0 has been mistared as 7.1
+# version -> rocm_release
+Source1:        https://github.com/ROCm/rocMLIR/archive/rocm-%{rocm_release}.tar.gz#/rocMLIR-%{rocm_release}.tar.gz
 # Need to manually patch Source1
 # https://github.com/ROCm/rocMLIR/pull/1953
-Source100:      0001-rocmlir-add-job-pools.patch
+# Source100:      0001-rocmlir-add-job-pools.patch
 
 # https://github.com/ROCm/AMDMIGraphX/issues/4368
 Patch1:         0001-migraphx-check-if-use_hipblaslt-before-call-gfx_defa.patch
@@ -205,8 +207,8 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 %prep
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
 tar xf %{SOURCE1}
-cd rocMLIR-rocm-%{version}
-patch -p1 < %{SOURCE100}
+cd rocMLIR-rocm-%{rocm_release}
+# patch -p1 < %{SOURCE100}
 cp -p LICENSE.TXT ../LICENSE.rocMLIR.TXT
 cp -p external/llvm-project/LICENSE.TXT ../LICENSE.llvm-project.TXT
 
@@ -242,7 +244,7 @@ fi
 LINK_MEM=32
 LINK_JOBS=`eval "expr 1 + ${MEM_GB} / ${LINK_MEM}"`
 
-%global _vpath_srcdir rocMLIR-rocm-%{version}
+%global _vpath_srcdir rocMLIR-rocm-%{rocm_release}
 %global _vpath_builddir build-rocmlir
 # so we can find install
 p=$PWD
@@ -310,6 +312,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/migraphx/LICENSE
 %{_libdir}/cmake/migraphx/*.cmake
 
 %changelog
+* Sat Nov 8 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
+- Update to 7.1.0
+
 * Sat Oct 4 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-1
 - Update to 7.0.1
 - Add fedora copyright

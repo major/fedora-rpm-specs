@@ -18,6 +18,7 @@ Source:         %{crates_source}
 # * drop features for unsupported crypto backends
 # * allow indicatif 0.18:
 #   https://gitlab.com/sequoia-pgp/sequoia-sq/-/merge_requests/582
+# * allow dirs 6: https://gitlab.com/sequoia-pgp/sequoia-sq/-/merge_requests/598
 Patch:          sequoia-sq-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

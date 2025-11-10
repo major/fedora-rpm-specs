@@ -16,6 +16,8 @@ Source:         %{crates_source}
 Patch:          sequoia-keystore-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * drop unused OpenPGP card and TPM backend support (missing dependencies)
+# * allow dirs 6:
+#   https://gitlab.com/sequoia-pgp/sequoia-keystore/-/merge_requests/118
 Patch:          sequoia-keystore-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

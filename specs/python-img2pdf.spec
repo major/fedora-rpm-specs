@@ -8,7 +8,7 @@ smaller PDF files than an ImageMagick convert command.\
 The img2pdf command complements the pdfimages command.
 
 Name:           python-%{srcname}
-Version:        0.6.1
+Version:        0.6.3
 Release:        %autorelease
 Summary:        Lossless images to PDF conversion library and command
 
@@ -18,8 +18,6 @@ Source0:        %pypi_source
 
 # XXX remove when https://gitlab.mister-muffin.de/josch/img2pdf/issues/204 is fixed
 Patch0:         magick-prog.patch
-# XXX remove when https://gitlab.mister-muffin.de/josch/img2pdf/pulls/211 is resolved
-Patch1:         add-tox-ini.diff
 
 
 BuildArch:      noarch
@@ -82,7 +80,7 @@ sed -i '1{/^#!\//d}' src/*.py
 
 %install
 %pyproject_install
-%pyproject_save_files -l %{srcname} jp2
+%pyproject_save_files -l %{srcname}
 
 
 %check

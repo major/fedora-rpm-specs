@@ -28,6 +28,11 @@ Patch:          Switch-wlroots-to-the-new-pc-filename.patch
 Patch:          Add-pixman-udev-deps.patch
 Patch:          Use-system-stb-glm.patch
 
+# HDR fixup for KDE Plasma
+# https://github.com/ValveSoftware/gamescope/pull/1999
+# https://bugzilla.redhat.com/show_bug.cgi?id=2412031
+Patch:          1999.patch
+
 # Fixup GNOME/mutter support
 # https://github.com/ValveSoftware/gamescope/pull/1867
 Patch:          1867.patch

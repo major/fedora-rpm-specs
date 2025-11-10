@@ -1,22 +1,18 @@
 %global qt_minver 6.8
 
-%global commit 1e00f77b60a3af67b0b459e5b619c4373ae48af2
+%global commit d230dbaa42d652419d2b7299bd0e650f63e5dbea
 %global shortcommit %{sub %{commit} 1 7}
-%global commitdate 20250617
+%global commitdate 20251108
 
 
 Name:           slitherer
 Version:        0~git%{commitdate}.%{shortcommit}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Simple QtWebView based runner for Anaconda installer Web UI
 
 License:        MPL-2.0 and BSD-3-Clause
 URL:            https://gitlab.com/VelocityLimitless/Projects/slitherer
 Source:         %{url}/-/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
-
-# Make slitherer operate in fullscreen mode
-## TODO: Get done upstream in a configurable fashion
-Patch:          slitherer-fullscreen-window.patch
 
 BuildRequires:  cmake
 BuildRequires:  ninja-build
@@ -65,6 +61,9 @@ ln -sr %{buildroot}%{_bindir}/%{name} %{buildroot}%{_bindir}/%{name}-anaconda
 
 
 %changelog
+* Sat Nov 08 2025 Neal Gompa <ngompa@fedoraproject.org> - 0~git20251108.d230dba-1
+- Bump to new git snapshot
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0~git20250617.1e00f77-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -14,7 +14,7 @@ License:        MIT OR X11 OR Apache-2.0
 URL:            https://crates.io/crates/confy
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * bump directories dependency from ^2 to ^5
+# * bump directories dependency from ^2 to >=5,<7
 Patch:          confy-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

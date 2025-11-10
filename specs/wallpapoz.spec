@@ -7,7 +7,7 @@
 
 %define         mainver         0.6.2
 %undefine         betaver
-%define         baserelease		19
+%define         baserelease		20
 
 %define         rel             %{?betaver:0.}%{baserelease}%{?betaver:.%betaver}
 
@@ -101,6 +101,7 @@ BuildArch:      noarch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
+BuildRequires:  gobject-introspection
 BuildRequires:  python3-devel
 BuildRequires:  python3-imaging
 BuildRequires:  gtk3
@@ -114,6 +115,7 @@ BuildRequires:  /usr/bin/gtk-builder-convert
 # Because wallpapoz uses gconftool-2 or so
 Requires:       GConf2
 Requires:       gtk3
+Requires:       gobject-introspection
 Requires:       python3-gobject
 Requires:       python3-imaging
 #Requires:       gnome-python2-gnome
@@ -220,6 +222,9 @@ install -cpm 0644  \
 %{_datadir}/applications/*%{name}.desktop
 
 %changelog
+* Sat Nov 08 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.6.2-20
+- Add dep for gobject-introspection explicitly
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
