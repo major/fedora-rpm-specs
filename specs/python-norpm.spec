@@ -1,5 +1,5 @@
 Name:           python-norpm
-Version:        1.6
+Version:        1.7
 Release:        1%?dist
 Summary:        RPM Macro Expansion in Python
 
@@ -57,6 +57,10 @@ Summary:        %summary
 
 
 %changelog
+* Sun Nov 09 2025 Pavel Raiskup <praiskup@redhat.com> - 1.7-1
+- new upstream release:
+  https://github.com/praiskup/norpm/releases/tag/v1.7
+
 * Tue Oct 14 2025 Pavel Raiskup <praiskup@redhat.com> - 1.6-1
 - new upstream release:
   https://github.com/praiskup/norpm/releases/tag/v1.6

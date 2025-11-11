@@ -2,7 +2,7 @@ Name:          rtorrent
 # OpenSSL exception, see README
 # Automatically converted from old format: GPLv2+ with exceptions - review is highly recommended.
 License:       LicenseRef-Callaway-GPLv2+-with-exceptions
-Version:       0.16.0
+Version:       0.16.2
 Release:       1%{?dist}
 Summary:       BitTorrent client based on libtorrent 
 URL:           https://github.com/rakshasa/rtorrent
@@ -13,7 +13,7 @@ BuildRequires: make
 BuildRequires: gcc-c++
 BuildRequires: libstdc++-devel
 BuildRequires: libsigc++20-devel
-BuildRequires: libtorrent-devel >= 0.16.0
+BuildRequires: libtorrent-devel >= 0.16.2
 BuildRequires: ncurses-devel
 BuildRequires: pkgconfig
 BuildRequires: xmlrpc-c-devel
@@ -53,6 +53,9 @@ install -Dpm 0644 %SOURCE1 %{buildroot}/%{_mandir}/man1/rtorrent.1
 %{_datadir}/%{name}/lua/%{name}.lua
 
 %changelog
+* Sun Nov 09 2025 Conrad Meyer <cse.cem@gmail.com> - 0.16.2-1
+- Update to 0.16.2 (#2404407)
+
 * Sat Sep 06 2025 Conrad Meyer <cse.cem@gmail.com> - 0.16.0-1
 - Update to 0.16.0
 

@@ -5,7 +5,7 @@
 %global crate devicemapper-sys
 
 Name:           rust-devicemapper-sys
-Version:        0.3.2
+Version:        0.3.3
 Release:        %autorelease
 Summary:        Low level bindings for devicemapper
 

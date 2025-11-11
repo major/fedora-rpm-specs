@@ -1,7 +1,7 @@
-%global upstream_version        1.0.1
+%global upstream_version        1.1.0
 
 Name:                   libxchange
-Version:                1.0.1
+Version:                1.1.0
 Release:                %autorelease
 Summary:                Structured data representation and JSON support for C/C++
 License:                Unlicense
@@ -55,7 +55,7 @@ make PACKAGE_NAME=%{name} DESTDIR=%{buildroot} libdir=%{_libdir} install
 %{_libdir}/%{name}.so.1{,.*}
 
 %files devel
-%{_includedir}/*
+%{_includedir}/*.h
 %{_libdir}/libxchange.so
 %doc CONTRIBUTING.md
 %doc examples

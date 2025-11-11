@@ -1,24 +1,23 @@
 Name:		mdk
-Version:	1.3.0
+Version:	1.3.1
 Release:	%autorelease
 Summary:	GNU MIX Development Kit
-
 # Automatically converted from old format: GPLv3+ and GFDL - review is highly recommended.
 License:	GPL-3.0-or-later AND LicenseRef-Callaway-GFDL
 URL:		http://www.gnu.org/software/mdk/
 Source0:	http://ftp.gnu.org/gnu/mdk/v%{version}/%{name}-%{version}.tar.gz
 Source1:	mdk.desktop
 Patch0:		glib-deprecated.patch
-
-BuildRequires: make
-BuildRequires:  gcc
-BuildRequires:	guile30-devel
-BuildRequires:	libglade2-devel
-BuildRequires:	gettext
 BuildRequires:	desktop-file-utils
-BuildRequires:	readline-devel
-BuildRequires:	ncurses-devel
+BuildRequires:	gcc
+BuildRequires:	gettext
+BuildRequires:	gtk3-devel
+BuildRequires:	guile30-devel
 BuildRequires:	intltool
+BuildRequires:	libglade2-devel
+BuildRequires:	make
+BuildRequires:	ncurses-devel
+BuildRequires:	readline-devel
 
 %package	doc
 Summary:	GNU MIX Development Kit Documentation and Samples
@@ -50,12 +49,11 @@ Samples and documentation for the MDK package.
 %autosetup -p1
 
 %build
-autoconf
 %configure
-%{make_build}
+%make_build
 
 %install
-%{make_install}
+%make_install
 rm -f $RPM_BUILD_ROOT/%{_infodir}/dir
 desktop-file-install \
 	--dir=${RPM_BUILD_ROOT}%{_datadir}/applications \
@@ -66,6 +64,7 @@ desktop-file-install \
 %files -f %{name}.lang
 %license COPYING
 %doc AUTHORS README THANKS
+%{_bindir}/gmixvm
 %{_bindir}/mixasm
 %{_bindir}/mixvm
 %{_bindir}/mixguile

@@ -5,7 +5,7 @@
 %global crate wayland-protocols-wlr
 
 Name:           rust-wayland-protocols-wlr
-Version:        0.3.8
+Version:        0.3.9
 Release:        %autorelease
 Summary:        Generated API for the WLR wayland protocol extensions
 

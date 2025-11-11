@@ -1,7 +1,7 @@
 %global gvdb_commit 4758f6fb7f889e074e13df3f914328f3eecb1fd3
 
 Name:		phoc
-Version:	0.50.0
+Version:	0.51~rc1
 Release:	%{autorelease}
 Summary:	Display compositor designed for phones
 

@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 3.7.1
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: Listen to file modifications
 License: MIT
 URL: https://github.com/guard/listen
@@ -17,6 +17,7 @@ Patch0: rubygem-listen-3.7.1-Fix-kwargs-matching-with-rspec-mock-3.12-and-Ruby-3
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
+BuildRequires: rubygem(logger)
 BuildRequires: rubygem(rb-inotify)
 BuildRequires: rubygem(thor)
 BuildRequires: rubygem(rspec)
@@ -46,6 +47,8 @@ popd
 # (except rb-inotify), they are platform specific and not needed.
 # https://github.com/guard/listen/pull/54
 %gemspec_remove_dep -g rb-fsevent [">= 0.10.3", "~> 0.10"]
+# https://github.com/guard/listen/pull/587
+%gemspec_add_dep -g logger
 sed -i '/def self.usable?$/a         return false' lib/listen/adapter/darwin.rb
 
 %build
@@ -96,6 +99,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Sun Nov 09 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.7.1-9
+- Add dep for logger explicitly for ruby4_0
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

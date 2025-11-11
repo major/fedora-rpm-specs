@@ -7,7 +7,7 @@ Name:           pgadmin4
 # NOTE: Also regenerate requires as indicated below when updating!
 # Verify Patch4 on next update
 Version:        9.9
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Administration tool for PostgreSQL
 
 # i686, armv7hl: The webpack terser plugin aborts with JS heap memory exhaustion on these arches
@@ -79,7 +79,7 @@ Requires: python3dist(flask-sqlalchemy) >= 3
 Requires: (python3dist(flask-wtf) >= 1.2 with python3dist(flask-wtf) < 1.3)
 Requires: (python3dist(flask) >= 3.1 with python3dist(flask) < 3.2)
 Requires: (python3dist(google-api-python-client) >= 2 with python3dist(google-api-python-client) < 3)
-Requires: python3dist(google-auth-oauthlib) = 1.2.2
+Requires: python3dist(google-auth-oauthlib) >= 1.2.2
 Requires: python3dist(gssapi) >= 1.7
 Requires: (python3dist(jsonformatter) >= 0.3.4 with python3dist(jsonformatter) < 0.4)
 Requires: (python3dist(keyring) >= 25 with python3dist(keyring) < 26)
@@ -259,6 +259,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Sun Nov 09 2025 Sandro Mani <manisandro@gmail.com> - 9.9-3
+- Relax python-google-auth-oauthlib requires
+
 * Mon Oct 20 2025 Sandro Mani <manisandro@gmail.com> - 9.9-2
 - Fix psutil Requires
 

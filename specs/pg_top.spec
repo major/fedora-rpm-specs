@@ -1,6 +1,6 @@
 Summary:	'top' for PostgreSQL process
 Name:		pg_top
-Version:	4.1.2
+Version:	4.1.3
 Release:	%autorelease
 License:	BSD-3-Clause
 Source:		https://gitlab.com/pg_top/pg_top/-/archive/v%{version}/pg_top-v%{version}.tar.bz2

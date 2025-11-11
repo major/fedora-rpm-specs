@@ -3,7 +3,7 @@
 %global srcname h5netcdf
 
 Name: python-%{srcname}
-Version: 1.7.2
+Version: 1.7.3
 Release: %autorelease
 Summary: Python interface for the netCDF4 file-format in HDF5 files
 License: BSD-3-Clause

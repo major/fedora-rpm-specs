@@ -1,10 +1,10 @@
 Name:           perl-WWW-Mechanize
-Version:        2.19
-Release:        3%{?dist}
+Version:        2.20
+Release:        1%{?dist}
 Summary:        Automates web page form & link interaction
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
-URL:            https://metacpan.org/release/WWW-Mechanize
-Source0:        https://cpan.metacpan.org/authors/id/S/SI/SIMBABQUE/WWW-Mechanize-%{version}.tar.gz
+URL:            https://metacpan.org/dist/WWW-Mechanize
+Source0:        https://cpan.metacpan.org/authors/id/O/OA/OALDERS/WWW-Mechanize-%{version}.tar.gz
 BuildArch:      noarch
 # build requirements
 BuildRequires:  coreutils
@@ -35,6 +35,7 @@ BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(FindBin)
 BuildRequires:  perl(HTTP::Daemon) >= 6.12
+BuildRequires:  perl(HTTP::Message) >= 7.01
 BuildRequires:  perl(lib)
 BuildRequires:  perl(LWP)
 BuildRequires:  perl(LWP::Simple)
@@ -46,7 +47,6 @@ BuildRequires:  perl(Test::Memory::Cycle)
 BuildRequires:  perl(Test::More) >= 0.96
 BuildRequires:  perl(Test::NoWarnings) >= 1.04
 BuildRequires:  perl(Test::Output)
-BuildRequires:  perl(Test::Taint) >= 1.08
 BuildRequires:  perl(Test::Warn)
 BuildRequires:  perl(Test::Warnings)
 BuildRequires:  perl(URI)
@@ -91,6 +91,9 @@ make test TEST_VERBOSE=1
 %{_mandir}/man3/WWW::Mechanize::*.3pm*
 
 %changelog
+* Sun Oct 26 2025 Emmanuel Seyman <emmanuel@seyman.fr> - 2.20-1
+- Update to 2.20
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.19-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

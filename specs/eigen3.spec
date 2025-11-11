@@ -21,7 +21,7 @@
 %bcond metis %{undefined rhel}
 
 Name:           eigen3
-Version:        5.0.0
+Version:        5.0.1
 Release:        1%{?dist}
 Summary:        A lightweight C++ template library for vector and matrix math
 
@@ -199,11 +199,11 @@ MINGW64_CMAKE_ARGS="-DINCLUDE_INSTALL_DIR=%{mingw64_includedir}/%{name} -DCMAKEP
 
 %files blas
 %{_libdir}/libeigen_blas.so
-%{_libdir}/libeigen_blas_static.so
+%{_libdir}/libeigen_blas_static.a
 
 %files lapack
 %{_libdir}/libeigen_lapack.so
-%{_libdir}/libeigen_lapack_static.so
+%{_libdir}/libeigen_lapack_static.a
 
 %files doc
 %doc %{_vpath_builddir}/doc/html
@@ -224,6 +224,9 @@ MINGW64_CMAKE_ARGS="-DINCLUDE_INSTALL_DIR=%{mingw64_includedir}/%{name} -DCMAKEP
 
 
 %changelog
+* Sun Nov 09 2025 Sandro Mani <manisandro@gmail.com> - 5.0.1-1
+- Update to 5.0.1
+
 * Mon Sep 22 2025 Sandro Mani <manisandro@gmail.com> - 5.0.0-1
 - Update to 5.0.0
 

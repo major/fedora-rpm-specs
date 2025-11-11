@@ -1,25 +1,13 @@
 %bcond_without check
 
-%global forgeurl https://github.com/blend2d/blend2d
-%global date 20240224
-%global commit 5a263ce51f3f880ee6c60f6345d18c3eccbe200f
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-
 Name:           blend2d
-Version:        0.10.6
+Version:        0.21.2
 Release:        %autorelease
 Summary:        2D Vector Graphics Engine Powered by a JIT Compiler
 
-%forgemeta
-
 License:        Zlib
-URL:            %{forgeurl}
-Source0:        %{forgesource}
-
-# Fix build on big endian systems
-Patch0:         https://github.com/blend2d/blend2d/pull/197.patch
-# [Bug] Fixed PRGB32->A8 conversion on big endian targets
-Patch1:         https://github.com/blend2d/blend2d/commit/e4656f4317b79891c85865023039507db142e6d3.patch
+URL:            https://blend2d.com/
+Source0:        https://blend2d.com/download/blend2d-%{version}.tar.gz
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -45,15 +33,13 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 The %{name}-devel package contains development files for %{name}.
 
 %prep
-%forgeautosetup -p1
+%autosetup -n blend2d -p1
 
-sed -i 's/set_target_properties(${target} PROPERTIES DEFINE_SYMBOL "")/set_target_properties(${target} PROPERTIES SOVERSION 0 DEFINE_SYMBOL "")/' CMakeLists.txt
+sed -i 's/set_target_properties(${target} PROPERTIES/set_target_properties(${target} PROPERTIES SOVERSION 0/' CMakeLists.txt
 
 %build
 %cmake \
     -GNinja \
-    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-    -DBLEND2D_NO_JIT=ON \
 %if %{with check}
     -DBLEND2D_TEST=ON \
 %endif
@@ -74,9 +60,6 @@ sed -i 's/set_target_properties(${target} PROPERTIES DEFINE_SYMBOL "")/set_targe
 %{_libdir}/libblend2d.so.0
 
 %files devel
-%{_includedir}/blend2d-debug.h
-%{_includedir}/blend2d-impl.h
-%{_includedir}/blend2d.h
 %{_includedir}/blend2d/
 %{_libdir}/cmake/blend2d/
 %{_libdir}/libblend2d.so

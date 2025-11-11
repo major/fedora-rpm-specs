@@ -1,7 +1,7 @@
 %global package_name	psycopg
 %global src_name		%{package_name}3
 
-%global pool_version	3.2.6
+%global pool_version	3.2.7
 %global pool_name		pool-%{pool_version}
 
 %if 0%{?fedora}
@@ -25,8 +25,8 @@ any other DB-API 2.0 database adapter, but allows to use more modern PostgreSQL 
 and Python features.
 
 Name:		python-%{src_name}
-Version:	3.2.10
-Release:	1%{?dist}
+Version:	3.2.12
+Release:	%autorelease
 Summary:	Psycopg 3 is a modern implementation of a PostgreSQL adapter for Python
 
 License:	LGPL-3.0-only
@@ -194,128 +194,4 @@ export PSYCOPG_TEST_DSN="port=$PGPORT dbname=${PGTESTS_DATABASES##*:} sslmode=di
 %endif
 
 %changelog
-* Fri Oct 3 2025 Ales Nezbeda <anezbeda@redhat.com> - 3.2.10-1
-- Update
-- Fix tests
-
-* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.2.9-5
-- Rebuilt for Python 3.14.0rc3 bytecode
-
-* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.2.9-4
-- Rebuilt for Python 3.14.0rc2 bytecode
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.9-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 3.2.9-2
-- Rebuilt for Python 3.14
-
-* Tue May 13 2025 Packit <hello@packit.dev> - 3.2.9-1
-- Update to version 3.2.9
-- Resolves: rhbz#2363122
-
-* Wed Apr 30 2025 Packit <hello@packit.dev> - 3.2.7-1
-- Update to version 3.2.7
-- Resolves: rhbz#2363122
-
-* Wed Apr 30 2025 Packit <hello@packit.dev> - 3.2.6-1
-- Update to version 3.2.6
-- Resolves: rhbz#2312477
-
-* Wed Apr 02 2025 Jason Montleon <jmontleo@redhat.com> - 3.2.1-6
-- Added specific test to skip for riscv64
-
-* Fri Mar 28 2025 Tim Landscheidt <tim@tim-landscheidt.de> - 3.2.1-5
-- Fix summary and description for python3-psycopg3
-
-* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Tue Jul 30 2024 Ondrej Sloup <osloup@redhat.com> - 3.2.1-3
-- Added specific tests to skip (test_pipeline) as it fails on s390x (rhbz#2301198)
-
-* Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Wed Jul 10 2024 Ondrej Sloup <osloup@redhat.com> - 3.2.1-1
-- Rebase to the latest upstream version (rhbz#2295550)
-- Added specific tests to skip (test_pipeline, test_multirange, test_datetime, test_range, test_string, test_notify)
-
-* Tue Jun 11 2024 Python Maint <python-maint@redhat.com> - 3.1.19-2
-- Rebuilt for Python 3.13
-
-* Mon Jun 10 2024 Ondrej Sloup <osloup@redhat.com> - 3.1.19-1
-- Rebase to the latest upstream version
-
-* Mon Jun 10 2024 Ondrej Sloup <osloup@redhat.com> - 3.1.18-6
-- Correct Requires libpq everywhere (rhbz#2266555)
-
-* Sun Jun 09 2024 Python Maint <python-maint@redhat.com> - 3.1.18-5
-- Rebuilt for Python 3.13
-
-* Wed Apr 17 2024 Michel Lind <salimma@fedoraproject.org> - 3.1.18-4
-- Make Cython and PyPy conditional, and only enable on Fedora for now
-- Disable tests on non-Fedora builds due to missing dependencies
-
-* Wed Apr 03 2024 Ondrej Sloup <osloup@redhat.com> -  3.1.18-3
-- Confirm libpq require for (rhbz#2266555)
-- Fix architectures for specific subpackages (rhbz#2268354)
-
-* Tue Apr 02 2024 Sandro Mani <manisandro@gmail.com> - 3.1.18-2
-- Add Requires: libpq (#2266555)
-
-* Wed Jan 31 2024 Ondrej Sloup <osloup@redhat.com> -  3.1.18-1
-- Add Cython version of psycopg and psycopg_pool as subpackages
-- Rebase to the latest upstream version (rhbz#2250316)
-- Update license tag to the SPDX format (LGPL-3.0-only) 
-
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.12-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.12-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Wed Sep 27 2023 Ondrej Sloup <osloup@redhat.com> -  3.1.12-1
-- Rebase to the latest upstream version (rhbz#2240358)
-
-* Mon Aug 07 2023 Ondrej Sloup <osloup@redhat.com> -  3.1.10-1
-- Rebase to the latest upstream version (rhbz#2229392)
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.9-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 3.1.9-2
-- Rebuilt for Python 3.12
-
-* Fri May 05 2023 Ondrej Sloup <osloup@redhat.com> -  3.1.9-1
-- Rebase to the latest upstream version (rhbz#2192620)
-- Remove the version for anyio from setup.py
-
-* Fri Jan 20 2023 Ondrej Sloup <osloup@redhat.com>  - 3.1.8-1
-- Rebase to the latest upstream version (rhbz#2161450)
-
-* Wed Dec 21 2022 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 3.1.7-1
-- Release bump rhbz#2155285
-- Enable postgresql server for tests
-
-* Fri Oct 14 2022 Ondrej Sloup <osloup@redhat.com> - 3.0.16-2
-- Release bump
-
-* Thu Aug 04 2022 Ondrej Sloup <osloup@redhat.com> - 3.0.16-1
-- Rebase to the latest upstream version
-- Create patch files instead of sed
-- Fix release numbering
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.11-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Tue Jun 14 2022 Python Maint <python-maint@redhat.com> - 3.0.11-3
-- Rebuilt for Python 3.11
-
-* Fri May 13 2022 Ondrej Sloup <osloup@redhat.com> - 3.0.11-2
-- Add support for Fedora 35 and 36
-- Remove spaces at the end of the file
-- Pray that Friday 13 will not break anything
-
-* Thu Apr 28 2022 Ondrej Sloup <osloup@redhat.com> - 3.0.11-1
-- Create package from git source (#2079251)
+%autochangelog

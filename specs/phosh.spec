@@ -1,8 +1,8 @@
 %global gvc_commit 5f9768a2eac29c1ed56f1fbb449a77a3523683b6
-%global libcall_ui_version 0.1.4
+%global libcall_ui_version f8483d4e8ffbb3b4af798e44e88bdfc33d5b8241
 
 Name:		phosh
-Version:	0.50.1
+Version:	0.51_rc1
 Release:	%autorelease
 Summary:	Graphical shell for mobile devices
 License:	GPL-3.0-or-later
@@ -12,7 +12,7 @@ Source0:	https://gitlab.gnome.org/World/Phosh/phosh/-/archive/v%{version_no_tild
 # Other projects such as gnome-shell use it this way.
 Source1:	https://gitlab.gnome.org/GNOME/libgnome-volume-control/-/archive/%{gvc_commit}/libgnome-volume-control-%{gvc_commit}.tar.gz
 # Similar situation as gvc
-Source2:	https://gitlab.gnome.org/World/Phosh/libcall-ui/-/archive/v%{libcall_ui_version}/libcall-ui-v%{libcall_ui_version}.tar.gz
+Source2:	https://gitlab.gnome.org/World/Phosh/libcall-ui/-/archive/%{libcall_ui_version}/libcall-ui-%{libcall_ui_version}.tar.gz
 Source3:	phosh
 
 ExcludeArch:	%{ix86}
@@ -153,6 +153,7 @@ SH
 %{_datadir}/glib-2.0/schemas/sm.puri.phosh.plugins.launcher-box.gschema.xml
 %{_datadir}/glib-2.0/schemas/sm.puri.phosh.plugins.upcoming-events.gschema.xml
 %{_datadir}/glib-2.0/schemas/mobi.phosh.plugins.pomodoro.gschema.xml
+%{_datadir}/glib-2.0/schemas/mobi.phosh.plugins.caffeine-quick-setting.gschema.xml
 %{_datadir}/gnome-session/sessions/phosh.session
 %{_datadir}/wayland-sessions/phosh.desktop
 %{_datadir}/phosh
@@ -171,6 +172,7 @@ SH
 %{_libdir}/phosh/plugins/dark-mode-quick-setting.plugin
 %{_libdir}/phosh/plugins/emergency-info.plugin
 %{_libdir}/phosh/plugins/launcher-box.plugin
+%{_libdir}/phosh/plugins/location-quick-setting.plugin
 %{_libdir}/phosh/plugins/mobile-data-quick-setting.plugin
 %{_libdir}/phosh/plugins/night-light-quick-setting.plugin
 %{_libdir}/phosh/plugins/simple-custom-quick-setting.plugin
@@ -185,6 +187,7 @@ SH
 %{_libdir}/phosh/plugins/libphosh-plugin-dark-mode-quick-setting.so
 %{_libdir}/phosh/plugins/libphosh-plugin-emergency-info.so
 %{_libdir}/phosh/plugins/libphosh-plugin-launcher-box.so
+%{_libdir}/phosh/plugins/libphosh-plugin-location-quick-setting.so
 %{_libdir}/phosh/plugins/libphosh-plugin-mobile-data-quick-setting.so
 %{_libdir}/phosh/plugins/libphosh-plugin-night-light-quick-setting.so
 %{_libdir}/phosh/plugins/libphosh-plugin-simple-custom-quick-setting.so

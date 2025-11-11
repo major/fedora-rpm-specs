@@ -1,12 +1,8 @@
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
-%global forgeurl https://gitlab.com/free-astro/siril
-%global tag 1.4.0-beta4
-%forgemeta
-
 Name:           siril
-Version:        1.4.0~beta4
+Version:        1.4.0~rc1
 Release:        %autorelease
 Summary:        Astronomical image processing software
 
@@ -21,11 +17,9 @@ Summary:        Astronomical image processing software
 # 'Zlib' used in:
 # - src/pixelMath/tinyexpr.c
 # - src/pixelMath/tinyexpr.h
-#
-# https://gitlab.com/free-astro/siril/-/issues/1192
 License:        GPL-3.0-or-later AND GPL-2.0-or-later AND BSL-1.0 AND Zlib
 URL:            https://siril.org
-Source:         %{forgesource}
+Source:         https://free-astro.org/download/siril-1.4.0-rc1.tar.bz2
 
 BuildRequires:  make
 BuildRequires:  cmake
@@ -74,7 +68,7 @@ SER files)
 
 
 %prep
-%forgeautosetup -p1
+%autosetup -C -p1
 
 # Remove bundled subprojects
 # just to be sure we're not accidentally use them

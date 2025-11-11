@@ -59,6 +59,18 @@ use the "aws" feature of the "%{crate}" crate.
 %files       -n %{name}+aws-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+azure-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+azure-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "azure" feature of the "%{crate}" crate.
+
+%files       -n %{name}+azure-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+default-context-devel
 Summary:        %{summary}
 BuildArch:      noarch

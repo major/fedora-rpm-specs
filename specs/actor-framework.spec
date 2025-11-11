@@ -1,7 +1,6 @@
 %global forgeurl https://github.com/actor-framework/actor-framework
-Version:        1.0.2
-%global commit aea399b2532a02811e6bbb3138a750237c869b16
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
+Version:        1.1.0
+%global tag %{version}
 %forgemeta
 
 Name:           actor-framework

@@ -1,6 +1,6 @@
 Name: psfex
 Version: 3.24.1
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Model the Point Spread Function from FITS images
 
 License: GPL-3.0-only
@@ -14,7 +14,7 @@ BuildRequires: automake
 BuildRequires: libtool
 
 BuildRequires: fftw-devel
-BuildRequires: openblas-devel
+BuildRequires: flexiblas-devel
 BuildRequires: plplot-devel
 
 %description
@@ -28,7 +28,9 @@ morphological analyses.
 
 %build
 ./autogen.sh
-%configure --enable-plplot=yes --enable-openblas=yes
+sed -i 's/openblas/flexiblas/g' configure
+%configure --enable-plplot=yes --enable-flexiblas=yes \
+    --with-flexiblas-incdir=%{_includedir}/flexiblas
 %make_build
 
 %install
@@ -43,6 +45,9 @@ morphological analyses.
 %{_datadir}/%{name}/
 
 %changelog
+* Mon Oct 27 2025 Iñaki Úcar <iucar@fedoraproject.org> - 3.24.1-7
+- https://fedoraproject.org/wiki/Changes/FlexiBLAS_as_BLAS/LAPACK_manager
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.24.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,13 +1,23 @@
 %bcond tests 1
 
+# Package an unreleased snapshot to fix Python 3.14 issues,
+# https://github.com/python-pendulum/pendulum/issues/900.
+%global commit 628fd8510a8956647beedc685c0f0b6bfdc1eeec
+%global snapdate 20251024
+
 Name:           python-pendulum
-Version:        3.1.0
-Release:        4%{?dist}
+Version:        3.2.0~dev0^%{snapdate}git%{sub %{commit} 1 7}
+Release:        1%{?dist}
 Summary:        Python datetimes made easy
 
 License:        MIT
 URL:            https://pendulum.eustace.io
-Source0:        https://github.com/sdispater/pendulum/archive/%{version}/pendulum-%{version}.tar.gz
+%global forgeurl https://github.com/sdispater/pendulum
+# Source:         %%{forgeurl}/archive/%%{version}/pendulum-%%{version}.tar.gz
+Source:         %{forgeurl}/archive/%{commit}/pendulum-%{commit}.tar.gz
+
+# Downstream-only: allow PyO3 0.26 until we have 0.27, RHBZ#2404994
+Patch:          0001-Allow-PyO3-0.26-until-we-have-0.27-RHBZ-2404994.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  cargo-rpm-macros
@@ -18,7 +28,6 @@ BuildRequires:  tzdata
 # Even though there is now a [test] extra, some test dependencies are still
 # only listed in [tool.poetry.group.test.dependencies].
 BuildRequires:  %{py3_dist pytest}
-BuildRequires:  %{py3_dist pytz}
 %endif
 
 %global common_description %{expand:
@@ -46,7 +55,7 @@ Requires:       tzdata
 %description -n python3-pendulum %{common_description}
 
 %prep
-%autosetup -n pendulum-%{version} -p1
+%autosetup -n pendulum-%{commit} -p1
 # Remove tzdata dependency. We can rely on a system-wide timezone database.
 tomcli-set pyproject.toml lists delitem project.dependencies 'tzdata.*'
 # Remove pytest-benchmark dependency. We don't care about it in RPM builds.
@@ -87,18 +96,16 @@ popd
 %check
 %pyproject_check_import
 %if %{with tests}
-# some tests are temporarily skipped to make the package build with python3.14
-# upstream issue: https://github.com/python-pendulum/pendulum/issues/900
-k="${k-}${k+ and }not test_from_format"
-k="${k-}${k+ and }not test_local_time_positive_integer"
-k="${k-}${k+ and }not test_local_time_negative_integer"
-%pytest -k "${k-}"
+%pytest
 %endif
 
 %files -n python3-pendulum -f %{pyproject_files}
 %doc README.rst
 
 %changelog
+* Tue Oct 28 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 3.2.0~dev0^20251024git628fd85-1
+- Update to an unreleased snapshot with Python 3.14 support
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.1.0-4
 - Rebuilt for Python 3.14.0rc3 bytecode
 

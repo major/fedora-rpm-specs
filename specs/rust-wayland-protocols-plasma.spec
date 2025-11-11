@@ -5,7 +5,7 @@
 %global crate wayland-protocols-plasma
 
 Name:           rust-wayland-protocols-plasma
-Version:        0.3.8
+Version:        0.3.9
 Release:        %autorelease
 Summary:        Generated API for the Plasma wayland protocol extensions
 

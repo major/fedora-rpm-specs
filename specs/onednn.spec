@@ -1,17 +1,11 @@
 Name:           onednn
-Version:        3.9.2
+Version:        3.10
 Release:        %autorelease
 Summary:     The oneAPI Deep Neural Network Library
 
 License:         Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BSL-1.0 AND MIT
 URL:               https://github.com/oneapi-src/oneDNN/
 Source0:        %{url}/archive/v%{version}/onednn-%{version}.tar.gz
-
-# This fails to build because the assembly code is unconditionally
-# built for power10 and we're building for power8. This just patches
-# it out for now until upstream sorts it out.
-# https://github.com/uxlfoundation/oneDNN/issues/3749
-Patch0:         0001-ppc64-nerf-the-cpu-code.patch
 
 # This package only work in 64bit arches for now
 ExclusiveArch:  x86_64 aarch64 ppc64le s390x

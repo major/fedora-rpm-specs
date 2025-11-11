@@ -24,7 +24,7 @@ Requires:       hdparm
 Requires:       hddtemp
 Requires:       python3-docutils
 
-%{?python_provide:%python_provide python3-%{pypi_name}}
+%py_provides    python3-%{pypi_name}
 
 %description
 HDD Fan control is a command line tool to dynamically control fan speed
@@ -32,8 +32,6 @@ according to hard drive temperature on Linux.
 
 %prep
 %autosetup -n %{pypi_name}-%{version} -p1
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -58,6 +56,7 @@ cp -a systemd/hddfancontrol.service %{buildroot}%{_unitdir}/
 cp -a systemd/hddfancontrol.conf %{buildroot}%{_sysconfdir}/
 
 %check
+%pyproject_check_import
 %py3_test_envvars %{python3} -m unittest -v
 
 %files -n hddfancontrol -f %{pyproject_files}

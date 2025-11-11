@@ -1,22 +1,11 @@
 Summary:       Library of functions for manipulating TIFF format image files
 Name:          libtiff
-Version:       4.7.0
-Release:       9%{?dist}
+Version:       4.7.1
+Release:       1%{?dist}
 License:       libtiff
 URL:           http://www.simplesystems.org/libtiff/
 
 Source:        http://download.osgeo.org/libtiff/tiff-%{version}.tar.gz
-#from upstream, for <=4.7.0, fix s390x test failure, upstream issue #652
-Patch1:        libsndfile-1.2.2-fixdirectorytest.patch
-#from upstream, for <=4.7.0, fix CVE-2025-8177, rhbz#2383827
-Patch2:        libtiff-4.7.0-mr737.diff
-Patch3:        libtiff-4.7.0-mr727.patch
-Patch4:        libtiff-4.6.0-CVE-2024-13978.patch
-Patch5:        libtiff-4.6.0-CVE-2025-8534.patch
-# from upstream, for <=4.7.0, fix CVE-2025-9165, rhbz#2389608
-Patch6:        libtiff-4.7.0-ed14128.patch
-# from upstream, for <=4.7.0, fix CVE-2025-8961, rhbz#2388596
-Patch7:        libtiff-4.7.0-CVE-2025-8961.patch
 
 BuildRequires: gcc, gcc-c++
 BuildRequires: zlib-devel libjpeg-devel jbigkit-devel libzstd-devel libwebp-devel liblerc-devel
@@ -69,13 +58,6 @@ image files using the libtiff library.
 
 %prep
 %autosetup -n tiff-%{version} -N
-%patch -P 1 -p1 -b .fixdirtest
-%patch -P 2 -p1 -b .mr737
-%patch -P 3 -p1 -b .mr727
-%patch -P 4 -p1 -b .CVE-2024-13978
-%patch -P 5 -p1 -b .CVE-2025-8534
-%patch -P 6 -p1 -b .ed14128
-%patch -P 7 -p2 -b .CVE-2025-8961
 
 # Use build system's libtool.m4, not the one in the package.
 rm -f libtool.m4
@@ -186,6 +168,9 @@ fi
 %{_mandir}/man1/*
 
 %changelog
+* Sun Nov 09 2025 Michal Hlavinka <mhlavink@redhat.com> - 4.7.1-1
+- updated to 4.7.1 (#2396475)
+
 * Wed Sep 24 2025 Michal Hlavinka <mhlavink@redhat.com> - 4.7.0-9
 - fix CVE-2025-8961 memory corruption in tiffcrop(rhbz#2388596)
 

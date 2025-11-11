@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.3.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Thor is a toolkit for building powerful command-line interfaces
 License: MIT
 URL: http://whatisthor.com/
@@ -21,6 +21,7 @@ BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
 BuildRequires: rubygem(rake)
+BuildRequires: rubygem(readline)
 BuildRequires: rubygem(rspec)
 BuildRequires: rubygem(webmock)
 BuildRequires: %{_bindir}/git
@@ -95,6 +96,9 @@ rspec spec
 %{gem_instdir}/thor.gemspec
 
 %changelog
+* Sun Nov 09 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.3.2-3
+- Add BuildRequires: rubygem(readline) for ruby4_0
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

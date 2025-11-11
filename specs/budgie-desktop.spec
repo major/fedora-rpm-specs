@@ -7,7 +7,7 @@
 %global vala_version 0.52.5
 
 Name:           budgie-desktop
-Version:        10.9.3
+Version:        10.9.4
 Release:        1%{?dist}
 Summary:        A feature-rich, modern desktop designed to keep out the way of the user
 
@@ -35,6 +35,7 @@ ExcludeArch:    %{ix86}
 BuildRequires:  pkgconfig(accountsservice) >= 0.6.55
 BuildRequires:  pkgconfig(alsa) >= 1.2.6
 BuildRequires:  pkgconfig(gee-0.8) >= 0.20.0
+BuildRequires:  pkgconfig(girepository-2.0)
 BuildRequires:  pkgconfig(gnome-desktop-3.0) >= %{gnome_desktop_version}
 BuildRequires:  pkgconfig(gnome-settings-daemon) >= %{gnome_settings_daemon_version}
 BuildRequires:  pkgconfig(gstreamer-1.0) >= 1.20.0
@@ -42,7 +43,7 @@ BuildRequires:  pkgconfig(gudev-1.0)
 BuildRequires:  pkgconfig(ibus-1.0) >= 1.5.10
 BuildRequires:  pkgconfig(libcanberra) >= 0.30
 BuildRequires:  pkgconfig(libnotify) >= 0.7
-BuildRequires:  pkgconfig(libpeas-1.0) >= 1.26.0
+BuildRequires:  pkgconfig(libpeas-2) >= 2.2.0
 BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  pkgconfig(libwacom)
 BuildRequires:  pkgconfig(libwnck-3.0) >= 3.36.0
@@ -152,8 +153,8 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/polkit-1/actions/org.buddiesofbudgie.settings-daemon.plugins.*.policy
 %{_datadir}/xdg-desktop-portal/budgie-portals.conf
 %{_datadir}/xsessions/%{name}.desktop
-%{_libdir}/girepository-1.0/Budgie-1.0.typelib
-%{_libdir}/girepository-1.0/BudgieRaven-1.0.typelib
+%{_libdir}/girepository-1.0/Budgie-2.0.typelib
+%{_libdir}/girepository-1.0/BudgieRaven-2.0.typelib
 %{_libdir}/%{name}/libgvc.so
 %{_libdir}/%{name}/plugins/*/*.plugin
 %{_libdir}/%{name}/plugins/*/*.so*
@@ -179,8 +180,8 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %dir %{_datadir}/vala
 %dir %{_datadir}/vala/vapi
 %dir %{_includedir}/%{name}
-%{_datadir}/gir-1.0/Budgie-1.0.gir
-%{_datadir}/gir-1.0/BudgieRaven-1.0.gir
+%{_datadir}/gir-1.0/Budgie-2.0.gir
+%{_datadir}/gir-1.0/BudgieRaven-2.0.gir
 %{_datadir}/vala/vapi/budgie-*.deps
 %{_datadir}/vala/vapi/budgie-*.vapi
 %{_includedir}/budgie-settings-daemon-48/budgie-settings-daemon/*.h
@@ -191,8 +192,8 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_libdir}/libbudgie-raven-plugin.so
 %{_libdir}/libbudgietheme.so
 %{_libdir}/libraven.so
-%{_libdir}/pkgconfig/budgie-1.0.pc
-%{_libdir}/pkgconfig/budgie-raven-plugin-1.0.pc
+%{_libdir}/pkgconfig/budgie-2.0.pc
+%{_libdir}/pkgconfig/budgie-raven-plugin-2.0.pc
 %{_libdir}/pkgconfig/budgie-settings-daemon.pc
 %{_libdir}/pkgconfig/budgie-theme-1.0.pc
 
@@ -202,6 +203,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-doc/html/%{name}/*
 
 %changelog
+* Sun Nov 09 2025 Joshua Strobl <joshua@buddiesofbudgie.org> - 10.9.4-1
+- Update to 10.9.4 for libpeas2 / girepository compat
+
 * Sun Sep 07 2025 Joshua Strobl <joshua@buddiesofbudgie.org> - 10.9.3-1
 - Update to 10.9.3 for GNOME 49.x compatibility
 - Patch cleanup

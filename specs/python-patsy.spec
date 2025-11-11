@@ -8,7 +8,7 @@ design matrices. It is closely inspired by and compatible with
 the 'formula' mini-language used in R and S.}
 
 Name: python-%{srcname}
-Version: 1.0.1
+Version: 1.0.2
 Release: %autorelease
 Summary: Describing statistical models in Python using symbolic formulas
 # All code is under BSD except patsy.compat that is under Python

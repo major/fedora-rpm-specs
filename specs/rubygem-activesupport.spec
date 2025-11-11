@@ -5,7 +5,7 @@
 Name: rubygem-%{gem_name}
 Epoch: 1
 Version: 8.0.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A support libraries and Ruby core extensions extracted from the Rails framework
 License: MIT
 URL: https://rubyonrails.org
@@ -92,6 +92,12 @@ touch ../tools/strict_warnings.rb
 
 sed -i '/require .bundler./ s/^/#/' test/abstract_unit.rb
 
+# backported from:
+# https://github.com/rails/rails/commit/632b2c5128581731c2451459081176a43f474f74
+# benchmark 0.5.0 in ruby4_0 defines Benchmark.ms{}, so the following
+# test is no longer needed
+sed -i test/core_ext/benchmark_test.rb -e '\@test_is_deprecated@s@$@ ; skip ""@'
+
 # Start a testing Valkey (Redis) server instance
 %ifnarch %{ix86}
 VALKEY_DIR=$(mktemp -d)
@@ -127,6 +133,10 @@ kill -INT $(cat $VALKEY_DIR/valkey.pid)
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Sun Nov 09 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:8.0.3-2
+- Backport upstream change for testsuite removal for new benchmark gem in
+  ruby4_0
+
 * Mon Oct 06 2025 Vít Ondruch <vondruch@redhat.com> - 1:8.0.3-1
 - Update to Active Support 8.0.3.
   Related: rhzb#2388437

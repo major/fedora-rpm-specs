@@ -5,7 +5,7 @@
 %global crate wayland-cursor
 
 Name:           rust-wayland-cursor
-Version:        0.31.10
+Version:        0.31.11
 Release:        %autorelease
 Summary:        Bindings to libwayland-cursor
 

@@ -10,7 +10,7 @@
 Name:           qbs
 # qbs was previously packaged as part of qt-creator, using the qt-creator version, hence the epoch bump
 Epoch:          1
-Version:        3.1.0
+Version:        3.1.1
 Release:        1%{?dist}
 Summary:        Cross platform build tool
 # Fails to build on i686
@@ -155,6 +155,9 @@ rm %{buildroot}%{_bindir}/clang-format-test
 
 
 %changelog
+* Sun Nov 09 2025 Sandro Mani <manisandro@gmail.com> - 1:3.1.1-1
+- Update to 3.1.1
+
 * Thu Oct 09 2025 Sandro Mani <manisandro@gmail.com> - 1:3.1.0-1
 - Update to 3.1.0
 

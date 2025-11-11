@@ -4,7 +4,7 @@
 %bcond uvloop 0
 
 Name:           python-hypercorn
-Version:        0.17.3
+Version:        0.18.0
 Release:        %autorelease
 Summary:        ASGI Server based on Hyper libraries and inspired by Gunicorn
 
@@ -14,21 +14,26 @@ URL:            https://github.com/pgjones/hypercorn
 # PyPI source distributions lack tests, changelog, etc.; use the GitHub archive
 Source:         %{url}/archive/%{version}/hypercorn-%{version}.tar.gz
 
-# Downstream-only:
-#
-# - Patch out coverage analysis:
-#   https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+# Downstream-only: Patch out coverage analysis.
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 Patch:          0001-Downstream-only-patch-out-coverage-analysis.patch
-# - Patch out pytest-sugar. It is unnecessary; its only purpose is to make
-#   pytest output prettier.
-Patch:          0002-Downstream-only-patch-out-pytest-sugar.patch
-# Remove unnecessary aioquic version limit
-# https://github.com/pgjones/hypercorn/pull/267
-Patch:          %{url}/pull/267.patch
 
 BuildSystem:            pyproject
-BuildOption(generate_buildrequires): -t -x h3,trio%{?with_uvloop:,uvloop}
+BuildOption(generate_buildrequires): %{shrink:
+    -x h3
+    -x trio
+    %{?with_uvloop:-x uvloop}
+    -g dev
+    }
 BuildOption(install):   -L hypercorn
+%if %{defined fc44}
+# python-pylsqpack: Fails to import in F44/Rawhide
+# https://bugzilla.redhat.com/show_bug.cgi?id=2413628
+BuildOption(check):     %{shrink:
+    -e hypercorn.protocol.h3
+    -e hypercorn.protocol.quic
+    }
+%endif
 
 BuildArch:      noarch
 
@@ -67,7 +72,7 @@ install -d %{buildroot}%{_mandir}/man1
 
 
 %check -a
-%tox -- -- -v -k "${k-}"
+%pytest -v
 
 
 %files -n python3-hypercorn -f %{pyproject_files}

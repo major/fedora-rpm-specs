@@ -2,15 +2,13 @@
 %global common_desc Astro-SCRAPPY is designed to detect cosmic rays in images (numpy arrays).
 
 Name:           python-%{srcname}
-Version:        1.2.0
+Version:        1.3.0
 Release:        %autorelease
 Summary:        Cosmic Ray Annihilation
 
 License:        BSD-3-Clause
 URL:            https://pypi.python.org/pypi/%{srcname}
 Source:         %{pypi_source}
-# https://github.com/astropy/astroscrappy/issues/94
-Patch:          fix-c23.patch
 
 BuildRequires:  gcc
 ExcludeArch: %{ix86}

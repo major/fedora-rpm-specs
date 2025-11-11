@@ -1,7 +1,7 @@
 Name:          libtorrent
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:       GPL-2.0-or-later
-Version:       0.16.0
+Version:       0.16.2
 Release:       1%{?dist}
 Summary:       BitTorrent library with a focus on high performance & good code
 URL:           https://github.com/rakshasa/libtorrent/
@@ -58,6 +58,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_libdir}/*.so
 
 %changelog
+* Sun Nov 09 2025 Conrad Meyer <cse.cem@gmail.com> - 0.16.2-1
+- Update to 0.16.2 (#2404407)
+
 * Sat Sep 06 2025 Conrad Meyer <cse.cem@gmail.com> - 0.16.0-1
 - Update to 0.16.0
 

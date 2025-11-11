@@ -1,10 +1,10 @@
 Name:           perl-HTML-Form
-Version:        6.12
-Release:        3%{?dist}
+Version:        6.13
+Release:        2%{?dist}
 Summary:        Class that represents an HTML form element
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
-URL:            https://metacpan.org/release/HTML-Form
-Source0:        https://cpan.metacpan.org/authors/id/S/SI/SIMBABQUE/HTML-Form-%{version}.tar.gz
+URL:            https://metacpan.org/dist/HTML-Form
+Source0:        https://cpan.metacpan.org/authors/id/O/OA/OALDERS/HTML-Form-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -17,7 +17,7 @@ BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(HTML::TokeParser)
 BuildRequires:  perl(HTTP::Request) >= 6
 BuildRequires:  perl(HTTP::Request::Common) >= 6.03
-BuildRequires:  perl(HTTP::Response)
+BuildRequires:  perl(HTTP::Response) >= 7.01
 BuildRequires:  perl(lib)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Test)
@@ -60,6 +60,12 @@ passed to the request() method of LWP::UserAgent.
 %{_mandir}/man3/*
 
 %changelog
+* Sun Nov 09 2025 Emmanuel Seyman <emmanuel@seyman.fr> - 6.13-2
+- Fix URL and Source0
+
+* Sun Nov 09 2025 Emmanuel Seyman <emmanuel@seyman.fr> - 6.13-1
+- Update to 6.13
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.12-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

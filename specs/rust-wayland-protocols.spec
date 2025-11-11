@@ -5,7 +5,7 @@
 %global crate wayland-protocols
 
 Name:           rust-wayland-protocols
-Version:        0.32.8
+Version:        0.32.9
 Release:        %autorelease
 Summary:        Generated API for the officials wayland protocol extensions
 
@@ -31,8 +31,6 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE.txt
-%license %{crate_instdir}/protocols/COPYING
-%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

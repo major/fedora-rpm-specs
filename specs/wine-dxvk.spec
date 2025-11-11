@@ -154,6 +154,13 @@ else
     %{_sbindir}/alternatives --install %{_libdir}/wine/%{winepedir}/d3d9.dll 'wine-d3d9%{?_isa}' %{_libdir}/wine/%{winepedir}/dxvk-d3d9.dll 20
 fi
 
+%posttrans d3d8
+if vulkaninfo |& grep "ERROR_INITIALIZATION_FAILED\|ERROR_SURFACE_LOST_KHR\|Vulkan support is incomplete" > /dev/null; then
+    %{_sbindir}/alternatives --install %{_libdir}/wine/%{winepedir}/d3d8.dll 'wine-d3d8%{?_isa}' %{_libdir}/wine/%{winepedir}/dxvk-d3d8.dll 5
+else
+    %{_sbindir}/alternatives --install %{_libdir}/wine/%{winepedir}/d3d8.dll 'wine-d3d8%{?_isa}' %{_libdir}/wine/%{winepedir}/dxvk-d3d8.dll 20
+fi
+
 %postun
 %{_sbindir}/alternatives --remove 'wine-d3d11%{?_isa}' %{_libdir}/wine/%{winepedir}/dxvk-d3d11.dll
 
@@ -162,6 +169,9 @@ fi
 
 %postun d3d9
 %{_sbindir}/alternatives --remove 'wine-d3d9%{?_isa}' %{_libdir}/wine/%{winepedir}/dxvk-d3d9.dll
+
+%postun d3d8
+%{_sbindir}/alternatives --remove 'wine-d3d8%{?_isa}' %{_libdir}/wine/%{winepedir}/dxvk-d3d8.dll
 
 %postun dxgi
 %{_sbindir}/alternatives --remove 'wine-dxgi%{?_isa}' %{_libdir}/wine/%{winepedir}/dxvk-dxgi.dll

@@ -16,6 +16,8 @@ Source:         %{crates_source}
 Patch:          sequoia-cert-store-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * exclude integration tests, test data, and scripts from installed files
+# * allow dirs 6:
+#   https://gitlab.com/sequoia-pgp/sequoia-cert-store/-/merge_requests/92
 Patch:          sequoia-cert-store-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

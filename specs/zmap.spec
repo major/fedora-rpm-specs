@@ -3,13 +3,14 @@
 %bcond_without  debug
 
 Name:           zmap
-Version:        4.3.1
+Version:        4.3.4
 Release:        %autorelease
 Summary:        Network scanner for Internet-wide network studies
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
 URL:            https://zmap.io
 Source0:        https://github.com/%{name}/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Patch0:         zmap-bin-sbin-merge.patch
 BuildRequires:  byacc
 BuildRequires:  cmake
 BuildRequires:  flex
@@ -40,7 +41,7 @@ respect requests to stop scanning and to exclude these networks from ongoing
 scanning.
 
 %prep
-%autosetup
+%autosetup -p 0
 
 %build
 %cmake -DENABLE_DEVELOPMENT=OFF           \
@@ -61,10 +62,10 @@ find ./examples/ -type f -exec sed -i 's/\r$//' {} \+
 %license LICENSE
 %dir %{_sysconfdir}/%{name}
 %config(noreplace) %{_sysconfdir}/%{name}/*
-%{_sbindir}/zmap
-%{_sbindir}/zblocklist
-%{_sbindir}/ziterate
-%{_sbindir}/ztee
+%{_bindir}/zmap
+%{_bindir}/zblocklist
+%{_bindir}/ziterate
+%{_bindir}/ztee
 %{_mandir}/man1/zmap.1*
 %{_mandir}/man1/zblocklist.1*
 %{_mandir}/man1/ziterate.1*

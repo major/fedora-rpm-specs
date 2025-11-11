@@ -12,7 +12,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 6.4.2
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: A simple, fast, threaded, and highly concurrent HTTP 1.1 server
 # MIT: lib/puma/sd_notify.rb
 # https://github.com/puma/puma/issues/3311
@@ -48,6 +48,13 @@ Patch6: rubygem-puma-6.4.2-Update-all-certs.patch
 # anymore.
 # https://github.com/puma/puma/pull/3333
 Patch7: rubygem-puma-3.4.2-CI-Ruby-head-changed-odd-backtick-in-error-messages-to.patch
+# https://github.com/puma/puma/pull/3743
+# Renew ssl related certs files again
+# git binary patch is removed
+Patch8: rubygem-puma-pr3743-update-all-certs.patch
+# https://github.com/puma/puma/pull/3615
+# Patch for ruby4_0 OpenSSL set_minmax_proto_version removal
+Patch9: rubygem-puma-pr3615-ruby40-OpenSSL-set_minmax_proto_version-removal.patch
 
 BuildRequires: openssl-devel
 BuildRequires: ruby(release)
@@ -102,6 +109,8 @@ pushd %{builddir}
 %patch 5 -p1
 %patch 6 -p1
 %patch 7 -p1
+%patch 8 -p1
+%patch 9 -p1
 popd
 
 %if %{with ragel}
@@ -242,6 +251,10 @@ popd
 %{gem_instdir}/tools
 
 %changelog
+* Sun Nov 09 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 6.4.2-9
+- Backport upstream change for updating SSL certs again for testsuite
+- Backport upstream fix for some OpenSSL method removal for ruby4_0
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

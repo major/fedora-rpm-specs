@@ -338,7 +338,7 @@ echo "INCLUDEPATH += $(pkgconf --variable=includedir miniz)" | tee -a */*.pro >/
 # Unbundle catch2
 rm -v tests/src/catch.hpp
 sed -r -i '/\bcatch\.hpp/d' tests/tests.pro
-echo 'INCLUDEPATH += "%{_includedir}/catch2"' >> tests/tests.pro
+echo "INCLUDEPATH += $(pkgconf --variable=includedir catch2)/catch2" >> tests/tests.pro
 
 
 %conf

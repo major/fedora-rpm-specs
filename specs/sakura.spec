@@ -2,7 +2,7 @@
 %global build_ldflags %{build_ldflags} -flto
 
 Name:           sakura
-Version:        3.8.8
+Version:        3.8.9
 Release:        %autorelease
 Summary:        Terminal emulator based on GTK and VTE
 
@@ -10,7 +10,6 @@ Summary:        Terminal emulator based on GTK and VTE
 License:        GPL-2.0-only
 URL:            https://launchpad.net/sakura
 Source0:        https://launchpad.net/sakura/trunk/%{version}/+download/sakura-%{version}.tar.bz2
-Patch0:         0001-Add-Keywords-field-to-desktop-file.patch
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig(glib-2.0) >= 2.20
@@ -26,8 +25,7 @@ have a decent terminal emulator.
 
 
 %prep
-%autosetup -p1
-
+%autosetup
 
 %build
 find . -type f -name CMakeCache.txt -exec rm -rf {} \;

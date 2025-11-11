@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.17.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: FFI Extensions for Ruby
 License: BSD-3-Clause
 URL: https://github.com/ffi/ffi/wiki
@@ -14,6 +14,15 @@ Source1: %{gem_name}-%{version}-spec.txz
 # https://bugzilla.redhat.com/show_bug.cgi?id=2313598
 # https://github.com/ffi/ffi/pull/1124
 Patch0: rubygem-ffi-1.17.0-Ensure-GC-ing-closures-before-fork.patch
+# Fix making FFI::Function shareable for Ractor
+# https://github.com/ffi/ffi/pull/1146
+Patch1: rubygem-ffi-pr1146-make-ffi_function-sharable.patch
+# Use Ractor#value instead of deprecated #take
+# https://github.com/ffi/ffi/pull/1152
+Patch2: rubygem-ffi-pr1152-Ractor_take-deprecation.patch
+# Fix Ractor tests on FFI::DynamicLibrary
+# https://github.com/ffi/ffi/commit/350b3a1327396839b6c78d335fc9c6197737598b
+Patch3: rubygem-ffi-350b3a1-fix-ractor-tests.patch
 BuildRequires: make
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
@@ -24,6 +33,7 @@ BuildRequires: gcc
 BuildRequires: libffi-devel
 BuildRequires: rubygem(rspec) >= 3
 BuildRequires: rubygem(bigdecimal)
+BuildRequires: rubygem(fiddle)
 
 %description
 Ruby-FFI is a ruby extension for programmatically loading dynamic
@@ -43,11 +53,12 @@ BuildArch: noarch
 Documentation for %{name}.
 
 %prep
-%setup -q -n  %{gem_name}-%{version} -b 1
+%setup -q -n  %{gem_name}-%{version} -a 1
 
-pushd %{builddir}
 %patch 0 -p1
-popd
+%patch 1 -p1
+%patch 2 -p1
+%patch 3 -p1
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -67,9 +78,9 @@ rm -rf %{buildroot}%{gem_instdir}/ext/
 
 
 %check
-pushd .%{gem_instdir}
-ln -s %{_builddir}/spec spec
+ln -s $(pwd)/spec .%{gem_instdir}/spec
 
+pushd .%{gem_instdir}
 # Build the test library with Fedora build options.
 pushd spec/ffi/fixtures
 make JFLAGS="%{optflags}"
@@ -101,6 +112,9 @@ popd
 %{gem_instdir}/rakelib
 
 %changelog
+* Sun Nov 09 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.17.0-5
+- Backport upstream fix for ruby4_0 Ractor changes
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

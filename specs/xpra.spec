@@ -24,7 +24,7 @@
 %global build_opts -C--global-option=--without-nvidia -C--global-option=--without-pandoc_lua -C--global-option=--with-verbose -C--global-option=--with-Xdummy -C--global-option=--with-Xdummy_wrapper -C--global-option=--without-strict -C--global-option=--with-vpx %{?with_debug:-C--global-option=--with-debug} %{?with_openh264:-C--global-option=--with-openh264} -C--global-option=--without-cuda_rebuild -C--global-option=--with-client -C--global-option=--without-qt6_client -C--global-option=--without-pyglet_client -C--global-option=--without-enc_x264
 
 Name:           xpra
-Version:        6.3.5
+Version:        6.3.6
 Release:        %autorelease
 Epoch:          1
 Summary:        Remote display server for applications and desktops
@@ -34,6 +34,10 @@ Source0:        https://github.com/Xpra-org/xpra/archive/refs/tags/v%{version}/%
 
 # Appdata file for Fedora
 Source1:        %{name}.appdata.xml
+
+# Suggested from update testing
+# https://bodhi.fedoraproject.org/updates/FEDORA-2025-0882918c25#comment-4407961
+Patch0:         %{name}-fix_audio.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  gtk3-devel
@@ -71,6 +75,7 @@ BuildRequires:  libasan
 BuildRequires:  python3-cairo-devel
 BuildRequires:  xorg-x11-server-Xorg
 BuildRequires:  xorg-x11-drv-dummy
+BuildRequires:  xorg-x11-server-Xvfb
 BuildRequires:  xorg-x11-xauth
 BuildRequires:  xxhash-devel
 BuildRequires:  xkbcomp
@@ -140,7 +145,11 @@ BuildRequires:		xclip
 This package contains the GTK3 xpra client.
 
 %prep
-%autosetup -n %{name}-%{version}
+%autosetup -n %{name}-%{version} -N
+
+%if 0%{?fedora} || 0%{?rhel} >= 9
+%patch -P 0 -p1 -b .backup
+%endif
 
 rm -rf *.egg-info
 
@@ -152,6 +161,12 @@ sed -i 's|-mfpmath=387|-mfloat-abi=hard|' setup.py
 # Create a sysusers.d config file
 cat >xpra.sysusers.conf <<EOF
 g xpra -
+EOF
+
+# Error: Only console users are allowed to run the X server (rhbz#2413528)
+# Create a Xwrapper.config config file
+cat >Xwrapper.config <<EOF
+allowed_users=anybody
 EOF
 
 %generate_buildrequires
@@ -225,6 +240,7 @@ rm -rf %{buildroot}%{_docdir}/xpra/Build
 install -pm 644 README.md %{buildroot}%{_docdir}/xpra/
 
 install -m0644 -D xpra.sysusers.conf %{buildroot}%{_sysusersdir}/xpra.conf
+install -pm 644 Xwrapper.config %{buildroot}%{_sysconfdir}/X11/
 
 %post
 %systemd_post xpra-encoder.service
@@ -257,6 +273,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %config(noreplace) %{_sysconfdir}/xpra/nvenc.keys
 %config(noreplace) %{_sysconfdir}/xpra/conf.d/*.conf
 %config(noreplace) %{_sysconfdir}/X11/xorg.conf.d/90-xpra-virtual.conf
+%config(noreplace) %{_sysconfdir}/X11/Xwrapper.config
 %config(noreplace) %{_sysconfdir}/dbus-1/system.d/xpra.conf
 %config(noreplace) %{_sysconfdir}/sysconfig/xpra
 %config(noreplace) %{_sysconfdir}/pam.d/xpra

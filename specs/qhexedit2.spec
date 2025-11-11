@@ -1,4 +1,4 @@
-%if 0%{?rhel}
+%if 0%{?rhel} || 0%{?flatpak}
 %bcond_with python
 %else
 %bcond_without python

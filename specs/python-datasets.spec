@@ -1,5 +1,5 @@
 Name:           python-datasets
-Version:        4.4.0
+Version:        4.4.1
 Release:        %autorelease
 Summary:        HuggingFace community-driven open-source library of datasets
 
@@ -74,7 +74,7 @@ BuildArch:      noarch
 
 %prep
 %autosetup -p1 -n datasets-%{version}
-# The project pins dill and multiprocess due to concerns about determinism.
+# TODO: improve sed lines to remove the need for changes when the upper bound is updated
 # Relax dill version bound for distro purposes
 sed -i "s/dill>=0.4.1,<0.3.9/dill>=0.4.1/" setup.py
 # Relax multiprocess version bound for distro purposes

@@ -1,9 +1,9 @@
-%global commit 740c78b712b54a1ced4abbecbdeb3be0b4e026e6
+%global commit cdd9b3a38aed53a1512631dff4c80bc55be63a61
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name: libtfmxaudiodecoder
 Version: 1.0.0
-Release: 0.2.20251104git%{shortcommit}%{?dist}
+Release: 0.2.20251109git%{shortcommit}%{?dist}
 
 Summary: C wrapper library for TFMX & FC music files
 License: GPL-2.0-or-later
@@ -57,6 +57,9 @@ autoreconf -f -i
 
 
 %changelog
+* Sun Nov 09 2025 Michael Schwendt <mschwendt@fedoraproject.org> - 1.0.0-0.2.20251109gitcdd9b3a
+- latest snapshot
+
 * Tue Nov 04 2025 Michael Schwendt <mschwendt@fedoraproject.org> - 1.0.0-0.2.20251104git740c78b
 - spec changes as suggested during Fedora review
 

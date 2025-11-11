@@ -3,12 +3,12 @@
 %global pkgname g2clib
 
 Name:          mingw-%{pkgname}
-Version:       2.2.0
+Version:       2.3.0
 Release:       1%{?dist}
 Summary:       MinGW Windows g2clib library
 
 BuildArch:     noarch
-License:       LGPL-3.0
+License:       LGPL-3.0-only
 URL:           https://github.com/NOAA-EMC/NCEPLIBS-g2c
 Source0:       https://github.com/NOAA-EMC/NCEPLIBS-g2c/archive/v%{version}/%{pkgname}-%{version}.tar.gz
 # Add missing link libs
@@ -86,6 +86,9 @@ MinGW Windows g2clib library.
 
 
 %changelog
+* Sun Nov 09 2025 Sandro Mani <manisandro@gmail.com> - 2.3.0-1
+- Update to 2.3.0
+
 * Fri Aug 08 2025 Sandro Mani <manisandro@gmail.com> - 2.2.0-1
 - Update to 2.2.0
 
