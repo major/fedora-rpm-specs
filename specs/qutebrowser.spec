@@ -1,7 +1,7 @@
 %global srcname qutebrowser
 
 Name:		%{srcname}
-Version:	3.5.1
+Version:	3.6.1
 Release:	%autorelease
 Summary:	A keyboard-driven, vim-like browser based on PyQt5 and QtWebEngine
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -33,6 +33,8 @@ It was inspired by other browsers/addons like dwb and Vimperator/Pentadactyl.
 %prep
 %autosetup -p 1 -n %{srcname}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
 # Compile the man page
@@ -42,11 +44,13 @@ a2x -f manpage doc/qutebrowser.1.asciidoc
 # then replace it with '#!/usr/bin/python3' (if it's the 1st line).
 find . -type f -iname "*.py" -exec sed -i '1s_^#!/usr/bin/env python3$_#!/usr/bin/python3_' {} +
 
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+
+%pyproject_save_files -l qutebrowser
 
 # Install desktop and appdata files
 desktop-file-install \
@@ -71,18 +75,13 @@ done
 # Set __main__.py as executable
 chmod 755 %{buildroot}%{python3_sitelib}/%{srcname}/__main__.py
 
-# Remove zero-length files:
-# https://fedoraproject.org/wiki/Packaging_tricks#Zero_length_files
-find %{buildroot} -size 0 -delete
 
 %check
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata.xml
 
-%files
+%files -f %{pyproject_files}
 %license LICENSE
-%doc README.asciidoc doc/changelog.asciidoc doc
-%{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info
-%{python3_sitelib}/%{srcname}
+%doc README.asciidoc
 %{_bindir}/%{srcname}
 %{_datadir}/applications/org.%{srcname}.%{srcname}.desktop
 %{_mandir}/man1/%{srcname}.1*
@@ -96,6 +95,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 %{_datadir}/icons/hicolor/256x256/apps/%{srcname}.png
 %{_datadir}/icons/hicolor/512x512/apps/%{srcname}.png
 %{_datadir}/metainfo/org.qutebrowser.qutebrowser.appdata.xml
+# exclude zero length file, unneeded
+%exclude %{python3_sitelib}/%{srcname}/git-commit-id
+
 
 %changelog
 %autochangelog

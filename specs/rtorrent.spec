@@ -3,7 +3,7 @@ Name:          rtorrent
 # Automatically converted from old format: GPLv2+ with exceptions - review is highly recommended.
 License:       LicenseRef-Callaway-GPLv2+-with-exceptions
 Version:       0.16.2
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       BitTorrent client based on libtorrent 
 URL:           https://github.com/rakshasa/rtorrent
 Source0:       https://github.com/rakshasa/rtorrent/releases/download/v%{version}/rtorrent-%{version}.tar.gz
@@ -36,7 +36,7 @@ done
 touch -r aclocal.m4 scripts/common.m4
 
 %build
-%configure --with-xmlrpc-c --enable-ipv6
+%configure --with-xmlrpc-tinyxml2 --enable-ipv6
 %make_build
 
 %install
@@ -53,6 +53,9 @@ install -Dpm 0644 %SOURCE1 %{buildroot}/%{_mandir}/man1/rtorrent.1
 %{_datadir}/%{name}/lua/%{name}.lua
 
 %changelog
+* Mon Nov 10 2025 Conrad Meyer <cse.cem@gmail.com> - 0.16.2-2
+- Switch to tinyxml2 (#2413668)
+
 * Sun Nov 09 2025 Conrad Meyer <cse.cem@gmail.com> - 0.16.2-1
 - Update to 0.16.2 (#2404407)
 

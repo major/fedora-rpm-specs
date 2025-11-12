@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 9
+%global baserelease 10
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -339,6 +339,7 @@ rpm.define("__debug_install_post bash " .. wrapper
 Patch13: glibc-fedora-localedata-rh61908.patch
 Patch17: glibc-cs-path.patch
 Patch23: glibc-python3.patch
+Patch24: glibc-once_flag-cpp.patch
 # https://bugs.winehq.org/show_bug.cgi?id=58523
 # revert 3d3572f59059e2b19b8541ea648a6172136ec42e to fix wine build
 # applied with PP powers as we really need to build wine to fix scriptlet problems
@@ -2389,6 +2390,9 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Mon Nov 10 2025 Florian Weimer  <fweimer@redhat.com> - 2.42.9000-10
+- Do not define once_flag in <stdlib.h> for C++ (#2413097)
+
 * Fri Nov 07 2025 Arjun Shankar <arjun@redhat.com> - 2.42.9000-9
 - Auto-sync with upstream branch master,
   commit 58a31b4316f1f687184eb147ffa1c676bc6a190e:

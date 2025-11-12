@@ -6,7 +6,7 @@
 %{?haskell_setup}
 
 # https://github.com/kazu-yamamoto/crypton/issues/49
-%ifnarch ppc64le s390x
+%ifnarch ppc64le s390x riscv64
 %bcond tests 1
 %endif
 

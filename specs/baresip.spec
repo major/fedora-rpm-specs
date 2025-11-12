@@ -420,9 +420,13 @@ This module provides the X11 video output driver.
 . /opt/rh/gcc-toolset-12/enable
 %endif
 
+# DHAVE_THREADS is to make sure we use C11 threads in libre: see
+# https://github.com/baresip/baresip/issues/3559
+# remove if that gets fixed
 %cmake \
   -DDEFAULT_CAFILE:PATH="%{_sysconfdir}/pki/tls/certs/ca-bundle.crt" \
   -DDEFAULT_CAPATH:PATH="%{_sysconfdir}/pki/tls/certs" \
+  -DHAVE_THREADS=1 \
 %if 0%{?fedora} || 0%{?rhel} >= 9
   -DDEFAULT_AUDIO_DEVICE:STRING="pipewire" \
 %else
@@ -630,8 +634,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %{_libdir}/%{name}/modules/x11.so
 
 %changelog
-* Fri Oct 03 2025 Dominik Mierzejewski <dominik@greysector.net> - 4.1.0-2
+* Mon Nov 10 2025 Adam Williamson <awilliam@redhat.com> - 4.1.0-2
 - rebuild for FFmpeg 8
+- build with -DHAVE_THREADS=1 to fix build failure with recent glibc
 
 * Sat Sep 13 2025 Robert Scheck <robert@fedoraproject.org> 4.1.0-1
 - Upgrade to 4.1.0 (#2394394)

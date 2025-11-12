@@ -2,7 +2,7 @@
 Name:    lucene++
 Summary: A high-performance, full-featured text search engine written in C++
 Version: 3.0.9
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # Automatically converted from old format: ASL 2.0 or LGPLv3+ - review is highly recommended.
 License: Apache-2.0 OR LGPL-3.0-or-later
@@ -16,6 +16,10 @@ Patch0: lucene++-3.0.9-fix_install_path_for_liblucene++.pc.patch
 # Fix compilation with clang-17
 # https://github.com/luceneplusplus/LucenePlusPlus/commit/b77d1c7
 Patch1: lucene++-3.0.9-fix_compilation_with_clang-17.patch
+
+# Fix build with CMake 4.0
+# https://github.com/luceneplusplus/LucenePlusPlus/commit/2857419
+Patch2: lucene++-3.0.9-fix_cmake-4.0.patch
 
 BuildRequires: boost-devel
 BuildRequires: cmake >= 3.5
@@ -68,6 +72,9 @@ Development files for lucene++, a high-performance, full-featured text search en
 
 
 %changelog
+* Mon Nov 10 2025 Wolfgang Stöggl <c72578@yahoo.de> - 3.0.9-2
+- Add lucene++-3.0.9-fix_cmake-4.0.patch
+
 * Wed Aug 13 2025 Wolfgang Stöggl <c72578@yahoo.de> - 3.0.9-1
 - Update to 3.0.9
   This also fixes CMake 4.0 FTBFS (#2380880)

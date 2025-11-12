@@ -175,7 +175,7 @@ fi                                          \
 
 
 Name:           libxcrypt
-Version:        4.5.1
+Version:        4.5.2
 Release:        1%{?dist}
 Summary:        Extended crypt library for descrypt, md5crypt, bcrypt, and others
 
@@ -551,6 +551,9 @@ done
 
 
 %changelog
+* Mon Nov 10 2025 Björn Esser <besser82@fedoraproject.org> - 4.5.2-1
+- New upstream release
+
 * Fri Nov 07 2025 Björn Esser <besser82@fedoraproject.org> - 4.5.1-1
 - New upstream release
 

@@ -28,6 +28,8 @@ Summary:        An image viewer with vim-like keybindings
 License:        GPL-3.0-or-later
 URL:            https://karlch.github.io/vimiv-qt/
 Source0:        https://github.com/karlch/vimiv-qt/archive/v%{version}/%{name}-%{version}.tar.gz
+# Backport: https://github.com/karlch/vimiv-qt/commit/0902c81a4cefc516cfdac3627a23bcd133291580
+Patch:          0001-fix-check-version.patch
 BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  python3-devel
@@ -59,7 +61,7 @@ Obsoletes:  vimiv < 0.9.1-14
 %description %_description
 
 %prep
-%autosetup -n vimiv-qt-%{version}
+%autosetup -n vimiv-qt-%{version} -p1
 rm -rf vimiv-qt.egg-info
 # Don't do the python bit there
 mv -v misc/Makefile .

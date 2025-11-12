@@ -1,5 +1,5 @@
 Name:           bijiben
-Version:        40.1
+Version:        40.2
 Release:        %autorelease
 Summary:        Simple Note Viewer
 
@@ -9,7 +9,6 @@ License:        GPL-3.0-or-later AND LGPL-3.0-only AND LGPL-2.0-or-later
 Url:            http://www.gnome.org
 Source0:        http://download.gnome.org/sources/%{name}/40/%{name}-%{version}.tar.xz
 
-Patch01:        meson-0.61-build.patch
 Patch02:        webkitdep.patch
 
 BuildRequires:  desktop-file-utils

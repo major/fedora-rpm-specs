@@ -1,10 +1,10 @@
 Name:          lxqt-archiver
 Summary:       A simple & lightweight desktop-agnostic Qt file archiver
 Version:       1.3.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       GPL-2.0-or-later
 URL:           https://lxqt.github.io/
-Source0:       https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:       https://github.com/lxqt/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz
 Source1:       %{name}.appdata.xml
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -65,6 +65,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_datadir}/%{name}/translations/%{name}_ast.qm
 
 %changelog
+* Mon Nov 10 2025 Shawn W Dunn <sfalken@opensuse.org> - 1.3.0-2
+- Upstream revised release tarball https://github.com/lxqt/lxqt-archiver/issues/460
+
 * Wed Nov 05 2025 Shawn W Dunn <sfalken@opensuse.org> - 1.3.0-1
 - Update to 1.3.0
 

@@ -22,6 +22,7 @@ BuildArch:      noarch
 
 # Test dependencies; see environment_gcsfs.yaml
 BuildRequires:  %{py3_dist pytest}
+BuildRequires:  %{py3_dist pytest-asyncio}
 BuildRequires:  %{py3_dist pytest-timeout}
 
 # Dropped for F43; remove Obsoletes after F45.

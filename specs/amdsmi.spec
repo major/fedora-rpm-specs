@@ -53,6 +53,7 @@ Source0:    %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.ta
 %global esmi_ver 4.2
 Source1:    https://github.com/amd/esmi_ib_library/archive/refs/tags/esmi_pkg_ver-%{esmi_ver}.tar.gz
 Patch1:     0002-option-use-system-gtest.patch
+Patch2:     0003-test-client-includes-for-gcc-15.patch
 
 ExclusiveArch: x86_64
 
@@ -203,10 +204,13 @@ mv %{buildroot}%{_datadir}/tests %{buildroot}%{_datadir}/amdsmi/.
 %if %{with test}
 %files test
 %{_datadir}/amdsmi
-%{_datadir}/amdsmi/tests
 %endif
 
 %changelog
+* Mon Nov 10 2025 Tim Flink <tflink@fedoraproject.org> - 7.1.0-2
+- update and re-enable gcc15 include patch for upstream 7.1.0 so test subpackage builds
+- removed extra dir in test subpackage
+
 * Fri Oct 31 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
 - Update to 7.1.0
 

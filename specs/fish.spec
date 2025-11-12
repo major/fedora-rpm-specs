@@ -1,4 +1,4 @@
-%global version_base 4.1.2
+%global version_base 4.2.0
 %dnl %global version_pre beta.1
 %dnl %global gitnum 1
 %dnl %global githash b82d0fcbcc44eb259cf2209b04f7a41c1f324e27
@@ -31,6 +31,8 @@ License:        Apache-2.0 OR MIT and GPL-2.0-only AND LGPL-2.0-or-later AND MIT
 URL:            https://fishshell.com
 %if %{undefined gitnum}
 Source0:        https://github.com/fish-shell/fish-shell/releases/download/%{version}/%{name}-%{version}.tar.xz
+Source1:        https://github.com/fish-shell/fish-shell/releases/download/%{version}/%{name}-%{version}.tar.xz.asc
+Source2:        https://github.com/krobelus.gpg
 %else
 Source0:        https://github.com/fish-shell/fish-shell/archive/%{githash}/%{name}-%{githash}.tar.gz
 %endif
@@ -93,6 +95,9 @@ highlighting, autosuggestions, and tab completions that just work, with
 nothing to learn or configure.
 
 %prep
+%if %{undefined gitnum}
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%endif
 %autosetup -N %{?gitnum:-n fish-shell-%{githash}}
 
 # For forked pcre2 crate that includes https://github.com/BurntSushi/rust-pcre2/pull/38

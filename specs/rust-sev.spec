@@ -8,7 +8,7 @@
 %global supported_arches x86_64
 
 Name:           rust-sev
-Version:        6.2.1
+Version:        6.3.1
 Release:        %autorelease
 Summary:        Library for AMD SEV
 
@@ -18,7 +18,9 @@ Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * Relax bitfield and dirs dependencies to what's packaged in Fedora
 # * Drop the vendored feature from the openssl dependency
+# * update kvm-bindings dep
 Patch:          sev-fix-metadata.diff
+Patch:          bitfield0.15-compat.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

@@ -6,7 +6,7 @@
 %endif
 
 Name:		pgbouncer
-Version:	1.24.1
+Version:	1.25.0
 Release:	%autorelease
 Summary:	Lightweight connection pooler for PostgreSQL
 License:	ISC and BSD-2-Clause
@@ -22,8 +22,10 @@ Patch0:		%{name}-ini.patch
 BuildRequires:	c-ares-devel >= 1.11
 BuildRequires:	make
 BuildRequires:	gcc
+BuildRequires:	openldap-devel
 BuildRequires:	openssl-devel
 BuildRequires:	pam-devel
+BuildRequires:	pandoc
 BuildRequires:	pkgconfig(libevent)
 # For Fedora and EL9+ systemd-rpm-macros would be enough:
 BuildRequires:	systemd-devel
@@ -66,6 +68,7 @@ EOF
 %configure \
 	--enable-debug \
 	--with-cares \
+	--with-ldap \
 	--with-pam \
 	--with-systemd
 

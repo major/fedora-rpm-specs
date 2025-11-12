@@ -2,7 +2,7 @@
 %global libcall_ui_version f8483d4e8ffbb3b4af798e44e88bdfc33d5b8241
 
 Name:		phosh
-Version:	0.51_rc1
+Version:	0.51~rc1
 Release:	%autorelease
 Summary:	Graphical shell for mobile devices
 License:	GPL-3.0-or-later
@@ -113,7 +113,7 @@ Development headers for libphosh.
 %setup -a1 -a2 -q -n %{name}-v%{version_no_tilde _}
 
 mv libgnome-volume-control-%{gvc_commit} subprojects/gvc
-mv libcall-ui-v%{libcall_ui_version} subprojects/libcall-ui
+mv libcall-ui-%{libcall_ui_version} subprojects/libcall-ui
 
 %build
 %meson -Dphoc_tests=disabled -Dbindings-lib=true -Dsearchd=true

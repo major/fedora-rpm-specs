@@ -17,7 +17,7 @@ Summary: OpenPrinting CUPS filters for CUPS 2.X
 Name:    cups-filters
 Epoch:   1
 Version: 2.0.1
-Release: 10%{?dist}
+Release: 11%{?dist}
 
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
@@ -362,6 +362,9 @@ fi
 
 
 %changelog
+* Mon Nov 10 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0.1-11
+- change return value of foomatic-hash if built without libppd
+
 * Wed Oct 01 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0.1-10
 - protect older Fedoras from F43+ changes, fix installability report about hashes.new
 

@@ -2,8 +2,8 @@
 %global pypi_name optuna
 
 Name:           python-%{pypi_name}
-Version:        4.5.0
-Release:        2%{?dist}
+Version:        4.6.0
+Release:        1%{?dist}
 Summary:        A hyperparameter optimization framework
 
 License:        MIT AND BSD-3-Clause AND SunPro
@@ -63,6 +63,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}.dist-info/
 
 %changelog
+* Mon Nov 10 2025 Gwyn Ciesla <gwync@protonmail.com> - 4.6.0-1
+- 4.6.0
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.5.0-2
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -20,7 +20,7 @@
 %undefine _py3_shebang_s
 
 Name:           python-tox
-Version:        4.30.3
+Version:        4.32.0
 Release:        %autorelease
 Summary:        Virtualenv-based automation of test activities
 
@@ -102,11 +102,13 @@ Recommends:     python3-devel
 
 # Upstream updates dependencies too aggressively
 # see https://github.com/tox-dev/tox/pull/2843#discussion_r1065028356
-sed -ri -e 's/"(packaging|filelock|platformdirs|psutil|pyproject-api|pytest|pytest-mock|pytest-xdist|wheel|distlib|cachetools|build\[virtualenv\]|setuptools|flaky|hatch-vcs)>=.*/"\1",/g' \
-        -e 's/"(time-machine)>=[^;"]+/"\1/' \
+# First, carefully adjust the pins of build and runtime dependencies,
+# then remove all the >= specifiers from tests deps, whatever they are.
+sed -ri -e 's/"(packaging|filelock|platformdirs|pyproject-api|cachetools|hatch-vcs)>=.*/"\1",/g' \
         -e 's/"(virtualenv)>=.*/"\1>=20.29",/g' \
         -e 's/"(hatchling)>=.*/"\1>=1.13",/g' \
         -e 's/"(pluggy)>=.*/"\1>=1.5",/g' \
+        -e '/^test = \[/,/^\]/ { s/>=[^;"]+// }' \
     pyproject.toml
 
 %generate_buildrequires

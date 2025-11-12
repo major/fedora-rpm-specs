@@ -1,7 +1,7 @@
 Summary: High-performance and highly configurable free RADIUS server
 Name: freeradius
-Version: 3.2.7
-Release: 6%{?dist}
+Version: 3.2.8
+Release: 1%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: http://www.freeradius.org/
 
@@ -14,7 +14,7 @@ URL: http://www.freeradius.org/
 
 %global dist_base freeradius-server-%{version}
 
-Source0: ftp://ftp.freeradius.org/pub/radius/%{dist_base}.tar.bz2
+Source0: https://www.freeradius.org/ftp/pub/freeradius/%{dist_base}.tar.bz2
 Source100: radiusd.service
 Source102: freeradius-logrotate
 Source103: freeradius-pam-conf
@@ -203,6 +203,16 @@ BuildRequires: json-c-devel
 
 %description rest
 This plugin provides the REST support for the FreeRADIUS server project.
+
+
+%package kafka
+Summary: Kafka producer support for FreeRADIUS
+Requires: %{name} = %{version}-%{release}
+Requires: librdkafka
+BuildRequires: librdkafka-devel
+
+%description kafka
+This plugin provides Kafka producer support for the FreeRADIUS server project.
 
 %prep
 %setup -q -n %{dist_base}
@@ -902,7 +912,16 @@ EOF
 %{_libdir}/freeradius/rlm_rest.so
 %attr(640,root,radiusd) %config(noreplace) /etc/raddb/mods-available/rest
 
+%files kafka
+%{_libdir}/freeradius/rlm_kafka.so
+%attr(640,root,radiusd) %config(noreplace) /etc/raddb/mods-available/kafka
+%attr(640,root,radiusd) %config(noreplace) /etc/raddb/mods-available/kafka_async
+%attr(640,root,radiusd) %config(noreplace) /etc/raddb/mods-config/kafka/messages-json.conf
+
 %changelog
+* Mon Nov 10 2025 Antonio Torres <antorres@redhat.com> - 3.2.8-1
+- Update to upstream release 3.2.8
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.7-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,11 +1,11 @@
 %global selinuxtype targeted
-%global moduletype contrib
+%global moduletype distributed
 %define semodule_version 1.0
 
 Summary: Application Whitelisting Daemon
 Name: fapolicyd
 Version: 1.4.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-3.0-or-later
 URL: https://github.com/linux-application-whitelisting/fapolicyd
 Source0: https://github.com/linux-application-whitelisting/fapolicyd/releases/download/v%{version}/fapolicyd-%{version}.tar.gz
@@ -23,6 +23,8 @@ Source20: https://github.com/troydhanson/uthash/archive/refs/tags/v2.3.0.tar.gz#
 # $ git format-patch -N --start-number 100 --src-prefix=a/fapolicyd-selinux-1.0/ --dst-prefix=b/fapolicyd-selinux-1.0/ v1.0
 # $ for j in [0-9]*.patch; do printf "Patch%s: %s\n" ${j/-*/} $j; done
 # Patch list start
+Patch0100: 0100-Improve-install-process.patch
+Patch0101: 0101-fapolicyd-hardening-do-not-block-sigkill.patch
 # Patch list end
 
 BuildRequires: gcc
@@ -140,8 +142,9 @@ chmod 644 %{buildroot}/%{_datadir}/%{name}/default-ruleset.known-libs
 # selinux
 install -d %{buildroot}%{_datadir}/selinux/packages/%{selinuxtype}
 install -m 0644 %{name}-selinux-%{semodule_version}/%{name}.pp.bz2 %{buildroot}%{_datadir}/selinux/packages/%{selinuxtype}
+install -m 0644 %{name}-selinux-%{semodule_version}/%{name}-hardening.cil %{buildroot}%{_datadir}/selinux/packages/%{selinuxtype}
 install -d -p %{buildroot}%{_datadir}/selinux/devel/include/%{moduletype}
-install -p -m 644 %{name}-selinux-%{semodule_version}/%{name}.if %{buildroot}%{_datadir}/selinux/devel/include/%{moduletype}/ipp-%{name}.if
+install -p -m 644 %{name}-selinux-%{semodule_version}/%{name}.if %{buildroot}%{_datadir}/selinux/devel/include/%{moduletype}/%{name}.if
 
 #cleanup
 find %{buildroot} \( -name '*.la' -o -name '*.a' \) -delete
@@ -209,22 +212,26 @@ fi
 
 %files selinux
 %{_datadir}/selinux/packages/%{selinuxtype}/%{name}.pp.bz2
+%{_datadir}/selinux/packages/%{selinuxtype}/%{name}-hardening.cil
 %ghost %verify(not md5 size mode mtime) %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{name}
-%{_datadir}/selinux/devel/include/%{moduletype}/ipp-%{name}.if
+%{_datadir}/selinux/devel/include/%{moduletype}/%{name}.if
 
 %post selinux
-%selinux_modules_install -s %{selinuxtype} %{_datadir}/selinux/packages/%{selinuxtype}/%{name}.pp.bz2
+%selinux_modules_install -s %{selinuxtype} %{_datadir}/selinux/packages/%{selinuxtype}/%{name}.pp.bz2 %{_datadir}/selinux/packages/%{selinuxtype}/%{name}-hardening.cil
 %selinux_relabel_post -s %{selinuxtype}
 
 %postun selinux
 if [ $1 -eq 0 ]; then
-    %selinux_modules_uninstall -s %{selinuxtype} %{name}
+    %selinux_modules_uninstall -s %{selinuxtype} %{name}-hardening %{name}
 fi
 
 %posttrans selinux
 %selinux_relabel_post -s %{selinuxtype}
 
 %changelog
+* Fri Nov 07 2025 Petr Lautrbach <lautrbach@redhat.com> - 1.4.1-2
+- Install SELinux policy hardening module
+
 * Fri Oct 31 2025 Petr Lautrbach <lautrbach@redhat.com> - 1.4.1-1
 - Fix deadlock on reconfigure
 - On reconfigure, update the trust list and reload the rpm filter

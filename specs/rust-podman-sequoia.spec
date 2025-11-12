@@ -13,7 +13,11 @@ URL:            https://crates.io/crates/podman-sequoia
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * default to the OpenSSL crypto backend of sequoia-openpgp
+# * allow dirs 6:
+#   https://github.com/ueno/podman-sequoia/commit/d208572e252c19b64fdd1266c110df8b5ed9b8f9
 Patch:          podman-sequoia-fix-metadata.diff
+# * Fix E0282 in the signature test
+Patch10:        https://github.com/ueno/podman-sequoia/commit/5e465f7281e90e938236d829ac3761ddda90935e.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 BuildRequires:  clang-devel >= 3.5

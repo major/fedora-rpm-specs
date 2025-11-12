@@ -12,6 +12,7 @@ License:        MIT
 URL:            https://crates.io/crates/qemu-rdp
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
+# * Allow dirs 5
 Patch:          qemu-rdp-fix-metadata.diff
 # * Drop rustc_tools_util, following upstream
 Patch2:         https://gitlab.com/marcandre.lureau/qemu-display/-/commit/b81e4478eab3ff943899140892a8ecd9fe380e4e.diff

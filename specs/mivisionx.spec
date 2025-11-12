@@ -43,7 +43,7 @@
 
 Name:           mivisionx
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        AMD's computer vision toolkit
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT AND Apache-2.0 AND MIT-Khronos-old AND GPL-3.0-or-later
@@ -178,6 +178,8 @@ rm -rf %{buildroot}%{_datadir}/%{name}/test
 %{_libdir}/libvxu.so
 
 %changelog
+* Mon Nov 10 2025 Adam Williamson <awilliam@redhat.com> - 7.1.0-4
+- Rebuild for ffmpeg 8 again
 
 * Thu Nov 6 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-3
 - Fix rpp

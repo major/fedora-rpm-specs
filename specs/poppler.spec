@@ -17,7 +17,7 @@
 Summary: PDF rendering library
 Name:    poppler
 Version: 25.07.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: (GPL-2.0-only OR GPL-3.0-only) AND GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
 URL:     https://poppler.freedesktop.org/
 Source0: https://poppler.freedesktop.org/poppler-%{version}.tar.xz
@@ -30,6 +30,8 @@ Source3: %{name}-test-%{test_date}-%{test_sha}.tar.xz
 Patch1:  poppler-0.90.0-position-independent-code.patch
 
 Patch3:  poppler-21.01.0-glib-introspection.patch
+
+Patch4:  poppler-25.07.0-cert-db.patch
 
 BuildRequires: make
 BuildRequires: cmake
@@ -287,6 +289,10 @@ test "$(pkg-config --modversion poppler-qt6)" = "%{version}"
 %{_mandir}/man1/*
 
 %changelog
+* Mon Nov 10 2025 Marek Kasik <mkasik@redhat.com> - 25.07.0-3
+- Fix search for directory with NSS database
+- Resolves: #2401577
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 25.07.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

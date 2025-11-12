@@ -1,6 +1,6 @@
 Name:           python-texext
-Version:        0.6.7
-Release:        18%{?dist}
+Version:        0.6.8
+Release:        %autorelease
 Summary:        Sphinx extensions for working with LaTeX math
 
 # BSD-2-Clause: the project as a whole
@@ -9,24 +9,9 @@ License:        BSD-2-Clause AND Unlicense
 URL:            https://github.com/matthew-brett/texext
 VCS:            git:%{url}.git
 Source:         %pypi_source texext
-# Update versioneer to fix FTBFS with python 3.12
-# https://github.com/matthew-brett/texext/pull/13
-Patch:          %{name}-versioneer.patch
-# Update expected docstring regex for Sphinx 7.2.x
-# https://github.com/matthew-brett/texext/pull/14
-Patch:          %{name}-sphinx72.patch
 # Remove undeclared dependency on six
 # https://github.com/matthew-brett/texext/pull/15
 Patch:          %{name}-remove-six.patch
-# Update expected plot directive regex for Sphinx 8.2.x
-# https://github.com/matthew-brett/texext/pull/16
-Patch:          %{name}-sphinx82.patch
-# Use packaging.version instead of distutils.LooseVersion
-# https://github.com/matthew-brett/texext/pull/17
-Patch:          %{name}-looseversion.patch
-# Fix warnings about autodoc
-# https://github.com/matthew-brett/texext/pull/18
-Patch:          %{name}-autodoc.patch
 
 BuildArch:      noarch
 BuildSystem:    pyproject
@@ -55,135 +40,4 @@ rst2html --no-datestamp README.rst README.html
 %doc README.html
 
 %changelog
-* Fri Oct 31 2025 Jerry James <loganjerry@gmail.com> - 0.6.7-18
-- Use the pyproject declarative buildsystem
-
-* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.6.7-17
-- Rebuilt for Python 3.14.0rc3 bytecode
-
-* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.6.7-16
-- Rebuilt for Python 3.14.0rc2 bytecode
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.7-15
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Thu Jun 05 2025 Python Maint <python-maint@redhat.com> - 0.6.7-14
-- Rebuilt for Python 3.14
-
-* Wed Mar 19 2025 Jerry James <loganjerry@gmail.com> - 0.6.7-13
-- Fix FTBFS with Sphinx 8.2.3 (rhbz#2353341)
-
-* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.7-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.7-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Mon Jun 10 2024 Python Maint <python-maint@redhat.com> - 0.6.7-10
-- Rebuilt for Python 3.13
-
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.7-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.7-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Oct 30 2023 Jerry James <loganjerry@gmail.com> - 0.6.7-7
-- Adapt to Sphinx 7.2.x (rhbz#2246970)
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.7-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Fri Jul 14 2023 Jerry James <loganjerry@gmail.com> - 0.6.7-5
-- Add Unlicense to License tag due to versioneer
-
-* Fri Jun 30 2023 Jerry James <loganjerry@gmail.com> - 0.6.7-5
-- Add versioneer patch to fix FTBFS with python 3.12
-
-* Fri Jun 30 2023 Python Maint <python-maint@redhat.com> - 0.6.7-5
-- Rebuilt for Python 3.12
-
-* Fri Feb 24 2023 Jerry James <loganjerry@gmail.com> - 0.6.7-4
-- Dynamically generate BuildRequires
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.7-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Tue Dec 13 2022 Jerry James <loganjerry@gmail.com> - 0.6.7-3
-- Convert License tag to SPDX
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.7-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Fri Jun 17 2022 Python Maint <python-maint@redhat.com> - 0.6.7-2
-- Rebuilt for Python 3.11
-
-* Thu Jun  2 2022 Jerry James <loganjerry@gmail.com> - 0.6.7-1
-- Version 0.6.7
-- All patches have been upstreamed
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.6-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.6-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Wed Jun 23 2021 Jerry James <loganjerry@gmail.com> - 0.6.6-7
-- Add upstream patch for Sphinx 4 support
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 0.6.6-6
-- Rebuilt for Python 3.10
-
-* Fri Feb 19 2021 Jerry James <loganjerry@gmail.com> - 0.6.6-5
-- Add -sphinx3.5 patch to fix FTBFS with Sphinx 3.5 (bz 1930797)
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.6-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Jul 29 2020 Jerry James <loganjerry@gmail.com> - 0.6.6-3
-- Add -docutils patch to fix build
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.6-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 0.6.6-2
-- Rebuilt for Python 3.9
-
-* Sun Apr 12 2020 Jerry James <loganjerry@gmail.com> - 0.6.6-1
-- Version 0.6.6
-
-* Fri Mar  6 2020 Jerry James <loganjerry@gmail.com> - 0.6.5-1
-- Version 0.6.5
-- All patches have been upstreamed; drop them all
-
-* Fri Jan 31 2020 Jerry James <loganjerry@gmail.com> - 0.6.1-8
-- Add -still-more-sphinx2 patch to fix FTBFS in Rawhide
-
-* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Mon Nov  4 2019 Jerry James <loganjerry@gmail.com> - 0.6.1-7
-- Add -more-sphinx2 patch
-- Ship README in html form instead of rst
-
-* Thu Oct 03 2019 Miro Hrončok <mhroncok@redhat.com> - 0.6.1-6
-- Rebuilt for Python 3.8.0rc1 (#1748018)
-
-* Mon Aug 19 2019 Miro Hrončok <mhroncok@redhat.com> - 0.6.1-5
-- Rebuilt for Python 3.8
-
-* Tue Aug 13 2019 Jerry James <loganjerry@gmail.com> - 0.6.1-4
-- Add -sphinx2 patch to fix FTBFS (bz 1736543)
-
-* Fri Jul 26 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Sat Feb 02 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Thu Nov 22 2018 Jerry James <loganjerry@gmail.com> - 0.6.1-2
-- Drop python2 subpackage (bz 1651177)
-- Add -escape patch
-
-* Mon Sep  3 2018 Jerry James <loganjerry@gmail.com> - 0.6.1-1
-- Initial RPM
+%autochangelog

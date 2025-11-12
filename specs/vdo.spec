@@ -1,7 +1,7 @@
 Summary: Management tools for Virtual Data Optimizer
 Name: vdo
-Version: 8.3.0.73
-Release: 2%{?dist}
+Version: 8.3.2.1
+Release: 1%{?dist}
 
 License: GPL-2.0-only
 URL: https://github.com/dm-vdo/vdo
@@ -59,6 +59,7 @@ This package provides the user-space support tools for VDO.
 
 %files
 %license COPYING
+%{_bindir}/vdocalculatesize
 %{_bindir}/vdoforcerebuild
 %{_bindir}/vdoformat
 %{_bindir}/vdostats
@@ -69,6 +70,7 @@ This package provides the user-space support tools for VDO.
 %doc %{_defaultdocdir}/%{name}/examples/monitor/monitor_check_vdostats_logicalSpace.pl
 %doc %{_defaultdocdir}/%{name}/examples/monitor/monitor_check_vdostats_physicalSpace.pl
 %doc %{_defaultdocdir}/%{name}/examples/monitor/monitor_check_vdostats_savingPercent.pl
+%{_mandir}/man8/vdocalculatesize.8*
 %{_mandir}/man8/vdoforcerebuild.8*
 %{_mandir}/man8/vdoformat.8*
 %{_mandir}/man8/vdostats.8*
@@ -93,6 +95,9 @@ This package provides the user-space support tools for VDO.
 %{_mandir}/man8/vdorecover.8*
 
 %changelog
+* Mon Nov 10 2025  - Chung Chung <cchung@redhat.com> - 8.3.2.1-1
+- Update to 8.3.2.1
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 8.3.0.73-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

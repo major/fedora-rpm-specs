@@ -1,15 +1,21 @@
 %{?mingw_package_header}
 
+%global snap dev2507081429
+
 Name:           mingw-python-qt5
 Summary:        MinGW Windows PyQt5
-Version:        5.15.11
-Release:        3%{?dist}
+Version:        5.15.12
+Release:        0.1%{?snap:.%snap}%{?dist}
 BuildArch:      noarch
 
 # Some examples are BSD-3-Clause and MIT, but examples are not packaged
 License:        GPL-3.0-only
 Url:            http://www.riverbankcomputing.com/software/pyqt/
+%if 0%{?snap:1}
+Source0:        https://www.riverbankcomputing.com/pypi/packages/pyqt5/pyqt5-%{version}.%{snap}.tar.gz
+%else
 Source0:        %{pypi_source PyQt5}
+%endif
 
 
 BuildRequires:  make
@@ -71,7 +77,7 @@ MinGW Windows Python3-Qt5
 
 
 %prep
-%autosetup -p1 -n PyQt5-%{version}
+%autosetup -p1 -n pyqt5-%{version}%{?snap:.%{snap}}
 
 
 %build
@@ -89,7 +95,7 @@ mingw64-sip-build --build-dir=build_win64 --no-make --qt-shared --confirm-licens
 %{mingw32_libdir}/qt5/plugins/designer/pyqt5.dll
 %{mingw32_libdir}/qt5/plugins/PyQt5/
 %{mingw32_python3_sitearch}/PyQt5/
-%{mingw32_python3_sitearch}/pyqt5-%{version}.dist-info/
+%{mingw32_python3_sitearch}/pyqt5-%{version}%{?snap:.%{snap}}.dist-info/
 
 
 %files -n mingw64-python3-qt5
@@ -97,10 +103,13 @@ mingw64-sip-build --build-dir=build_win64 --no-make --qt-shared --confirm-licens
 %{mingw64_libdir}/qt5/plugins/designer/pyqt5.dll
 %{mingw64_libdir}/qt5/plugins/PyQt5/
 %{mingw64_python3_sitearch}/PyQt5/
-%{mingw64_python3_sitearch}/pyqt5-%{version}.dist-info/
+%{mingw64_python3_sitearch}/pyqt5-%{version}%{?snap:.%{snap}}.dist-info/
 
 
 %changelog
+* Mon Nov 10 2025 Sandro Mani <manisandro@gmail.com> - 5.15.12-0.1.dev2507081429
+- Update to 5.15.12 dev snapshot
+
 * Sun Oct 19 2025 Sandro Mani <manisandro@gmail.com> - 5.15.11-3
 - Rebuild (sip)
 

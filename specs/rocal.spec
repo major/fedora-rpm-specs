@@ -55,7 +55,7 @@
 
 Name:           rocal
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm Augmentation Library
 
 Url:            https://github.com/ROCm/rocAL
@@ -239,6 +239,9 @@ chrpath -r %{rocmllvm_libdir} %{buildroot}%{_libdir}/librocal.so.2.*.*
 %endif
 
 %changelog
+* Mon Nov 10 2025 Adam Williamson <awilliam@redhat.com> - 7.1.0-2
+- Rebuild for new ffmpeg / mivisionx
+
 * Tue Nov 4 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
 - Update to 7.1.0
 - Remove buildrequires version contraints

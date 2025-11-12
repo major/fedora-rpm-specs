@@ -3,11 +3,10 @@ Version: 1.0.0
 Release: %autorelease
 Summary: PAR 2.0 compatible file verification and repair tool
 
-# Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 URL: https://github.com/Parchive/par2cmdline/
-Source0: https://github.com/Parchive/par2cmdline/releases/download/v%{version}/par2cmdline-%{version}.tar.bz2
-Source1: https://github.com/Parchive/par2cmdline/releases/download/v%{version}/par2cmdline-%{version}.tar.bz2.sig
+Source0: %{url}/releases/download/v%{version}/par2cmdline-%{version}.tar.bz2
+Source1: %{url}/releases/download/v%{version}/par2cmdline-%{version}.tar.bz2.sig
 # GitHub releases are signed by GitHub user https://github.com/BlackIkeEagle
 # which has verified his GitHub handle via his Keybase.io profile
 # https://keybase.io/blackikeeagle.

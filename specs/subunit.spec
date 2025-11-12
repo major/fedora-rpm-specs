@@ -1,6 +1,3 @@
-# NOTE: python2 support is no longer available.  Do not build for EPEL versions
-# that do not support python3.
-#
 # NOTE: perl support was dropped in version 1.4.3.  It is available here:
 # https://github.com/jelmer/subunit-perl
 
@@ -8,8 +5,8 @@
 %bcond bootstrap 0
 
 Name:           subunit
-Version:        1.4.4
-Release:        9%{?dist}
+Version:        1.4.5
+Release:        %autorelease
 Summary:        C bindings for subunit
 
 %global majver  %(cut -d. -f-2 <<< %{version})
@@ -19,8 +16,6 @@ License:        Apache-2.0 OR BSD-3-Clause
 URL:            https://launchpad.net/subunit
 VCS:            git:%{giturl}.git
 Source:         %{giturl}/archive/%{version}/%{name}-%{version}.tar.gz
-# Add another possible byte ordering to TestSubUnitTags.test_add_tag
-Patch:          %{name}-test-ordering.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -188,9 +183,6 @@ chmod 0755 %{buildroot}%{python3_sitelib}/%{name}/tests/sample-two-script.py
 mkdir -p %{buildroot}%{_sysconfdir}/profile.d
 cp -p shell/share/%{name}.sh %{buildroot}%{_sysconfdir}/profile.d
 
-# Remove unwanted libtool files
-rm -f %{buildroot}%{_libdir}/*.la
-
 # Fix permissions
 chmod 0755 %{buildroot}%{python3_sitelib}/%{name}/filter_scripts/*.py
 chmod 0644 %{buildroot}%{python3_sitelib}/%{name}/filter_scripts/__init__.py
@@ -211,9 +203,9 @@ make check
 %endif
 
 %files
-%doc NEWS README.rst
+%doc NEWS README.md
 %license Apache-2.0 BSD COPYING
-%{_libdir}/lib%{name}.so.0*
+%{_libdir}/lib%{name}.so.0{,.*}
 
 %files devel
 %doc c/README
@@ -223,7 +215,7 @@ make check
 %{_libdir}/pkgconfig/lib%{name}.pc
 
 %files cppunit
-%{_libdir}/libcppunit_%{name}.so.0*
+%{_libdir}/libcppunit_%{name}.so.0{,.*}
 
 %files cppunit-devel
 %doc c++/README
@@ -253,287 +245,4 @@ make check
 %{_bindir}/tap2subunit
 
 %changelog
-* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.4.4-9
-- Rebuilt for Python 3.14.0rc3 bytecode
-
-* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 1.4.4-8
-- Rebuilt for Python 3.14.0rc2 bytecode
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 1.4.4-6
-- Rebuilt for Python 3.14
-
-* Thu Jan 23 2025 Jerry James <loganjerry@gmail.com> - 1.4.4-5
-- Add patch to work around a test failure
-
-* Sun Jan 19 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Wed Jan 15 2025 Jerry James <loganjerry@gmail.com> - 1.4.4-4
-- Move configuration steps to %conf
-
-* Sat Jul 20 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Sat Jun 08 2024 Python Maint <python-maint@redhat.com> - 1.4.4-3
-- Rebuilt for Python 3.13
-
-* Sat Jan 27 2024 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Nov 17 2023 Jerry James <loganjerry@gmail.com> - 1.4.4-1
-- Version 1.4.4
-
-* Wed Nov  8 2023 Jerry James <loganjerry@gmail.com> - 1.4.3-1
-- Version 1.4.3
-- python-iso8601 is no longer bundled in python3-subunit
-- perl support has moved to https://github.com/jelmer/subunit-perl
-
-* Sat Jul 22 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Thu Jun 15 2023 Python Maint <python-maint@redhat.com> - 1.4.2-3
-- Rebuilt for Python 3.12
-
-* Fri Feb 24 2023 Jerry James <loganjerry@gmail.com> - 1.4.2-2
-- Dynamically generate python BuildRequires
-
-* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Nov 17 2022 Jerry James <loganjerry@gmail.com> - 1.4.2-1
-- Version 1.4.2
-
-* Sat Nov  5 2022 Jerry James <loganjerry@gmail.com> - 1.4.1-1
-- Version 1.4.1
-- Upstream no longer provides GPG signatures
-- Convert License tag to SPDX
-- Python 2 is no longer supported
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-13
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Jun 15 2022 Python Maint <python-maint@redhat.com> - 1.4.0-12
-- Rebuilt for Python 3.11
-
-* Mon May 30 2022 Jitka Plesnikova <jplesnik@redhat.com> - 1.4.0-11
-- Perl 5.36 rebuild
-
-* Sat Jan 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jan 14 2022 Jerry James <loganjerry@gmail.com> - 1.4.0-9
-- Update python macros for the python3 cases
-- Simplify python2 conditional
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 1.4.0-8
-- Rebuilt for Python 3.10
-
-* Fri May 21 2021 Jitka Plesnikova <jplesnik@redhat.com> - 1.4.0-7
-- Perl 5.34 rebuild
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Sat Aug 01 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-5
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Mon Jun 22 2020 Jitka Plesnikova <jplesnik@redhat.com> - 1.4.0-3
-- Perl 5.32 rebuild
-
-* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 1.4.0-2
-- Rebuilt for Python 3.9
-
-* Wed Mar 18 2020 Jerry James <loganjerry@gmail.com> - 1.4.0-1
-- Version 1.4.0
-- Drop all patches; all have been upstreamed
-- Verify the source tarball
-
-* Wed Mar 11 2020 Jerry James <loganjerry@gmail.com> - 1.3.0-19
-- Drop the -decode-binary-to-unicode patch; it doesn't work with the bundled
-  version of iso8601.
-- Add 0003 and 0004 patches to fix bugs reported to upstream.
-
-* Tue Mar 10 2020 Jerry James <loganjerry@gmail.com> - 1.3.0-18
-- The python iso8601 module in Fedora has diverged too much from the bundled
-  version.  Allow this package to bundle it (bz 1811697).
-
-* Fri Jan 31 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-17
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Wed Dec 25 2019 David Tardon <dtardon@redhat.com> - 1.3.0-16
-- rebuild for cppunit 1.15.1
-
-* Sat Dec 21 2019 David Tardon <dtardon@redhat.com> - 1.3.0-15
-- rebuild for cppunit 1.15.0
-
-* Wed Oct 16 2019 Jerry James <loganjerry@gmail.com> - 1.3.0-14
-- Fix symlinks for python 3.8
-
-* Fri Sep 20 2019 Jerry James <loganjerry@gmail.com> - 1.3.0-13
-- Drop python2 support in Fedora 32+ and EPEL 9+ (bz 1753957)
-
-* Mon Aug 19 2019 Miro Hrončok <mhroncok@redhat.com> - 1.3.0-12
-- Rebuilt for Python 3.8
-
-* Sat Jul 27 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Thu May 30 2019 Jitka Plesnikova <jplesnik@redhat.com> - 1.3.0-10
-- Perl 5.30 rebuild
-
-* Thu Mar 28 2019 Jerry James <loganjerry@gmail.com> - 1.3.0-9
-- Do not ship the python 2 tests for F30+
-- Run tests on aarch64 again
-
-* Wed Mar 20 2019 Andreas Schneider <asn@redhat.com> - 1.3.0-8
-- Ship the python tests, needed by Samba
-
-* Sun Feb 03 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Wed Jan  9 2019 Haïkel Guémar <hguemar@fedoraproject.org> - 1.3.0-6
-- Ensure patches get applied
-
-* Wed Jan  2 2019 Haïkel Guémar <hguemar@fedoraproject.org> - 1.3.0-5
-- Fix python3 compatibility
-
-* Fri Nov 30 2018 Haïkel Guémar <hguemar@fedoraproject.org> - 1.3.0-4
-- Migrate GUI filters to Gtk3/GObject introspection
-- Migrate filters to python3
-
-* Sat Jul 14 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Tue Jul  3 2018 Jerry James <loganjerry@gmail.com> - 1.3.0-2
-- One more perl 5.28 rebuild
-
-* Tue Jul  3 2018 Jerry James <loganjerry@gmail.com> - 1.3.0-1
-- New upstream release
-- Add -static subpackage (bz 1575054)
-
-* Tue Jul 03 2018 Petr Pisar <ppisar@redhat.com> - 1.2.0-21
-- Perl 5.28 rebuild
-
-* Wed Jun 27 2018 Jitka Plesnikova <jplesnik@redhat.com> - 1.2.0-20
-- Perl 5.28 rebuild
-
-* Tue Jun 19 2018 Miro Hrončok <mhroncok@redhat.com> - 1.2.0-19
-- Rebuilt for Python 3.7
-
-* Mon Feb 12 2018 Iryna Shcherbina <ishcherb@redhat.com> - 1.2.0-18
-- Update Python 2 dependency declarations to new packaging standards
-  (See https://fedoraproject.org/wiki/FinalizingFedoraSwitchtoPython3)
-
-* Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-17
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Thu Aug 03 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-16
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
-
-* Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-15
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Mon Jun 26 2017 Jerry James <loganjerry@gmail.com> - 1.2.0-14
-- Rebuild to fix broken perl dependencies
-
-* Sun Jun 04 2017 Jitka Plesnikova <jplesnik@redhat.com> - 1.2.0-13
-- Perl 5.26 rebuild
-
-* Fri May  5 2017 Jerry James <loganjerry@gmail.com> - 1.2.0-12
-- Rebuild for cppunit 1.14.0
-
-* Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Sun Jan 29 2017 Jerry James <loganjerry@gmail.com> - 1.2.0-10
-- Add Requires on python-junitxml to -filter subpackage (bz 1417291)
-
-* Tue Dec 20 2016 Miro Hrončok <mhroncok@redhat.com> - 1.2.0-9
-- Rebuild for Python 3.6
-
-* Tue Jul 19 2016 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.2.0-8
-- https://fedoraproject.org/wiki/Changes/Automatic_Provides_for_Python_RPM_Packages
-
-* Fri Jun  3 2016 Jerry James <loganjerry@gmail.com> - 1.2.0-7
-- Fix -python3 dependency on /usr/bin/python (bz 1342508)
-- Comply with latest python packaging guidelines
-- Drop workaround for bz 1251568, now fixed
-
-* Sat May 14 2016 Jitka Plesnikova <jplesnik@redhat.com> - 1.2.0-6
-- Perl 5.24 rebuild
-
-* Mon Apr 18 2016 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 1.2.0-5
-- Added missing check for %%with_py3 to make it buildable under RHEL/CentOS
-
-* Sun Feb 14 2016 David Tardon <dtardon@redhat.com> - 1.2.0-4
-- rebuild for cppunit 1.13.2
-
-* Fri Feb 05 2016 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
-
-* Tue Nov 10 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.2.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Changes/python3.5
-
-* Fri Oct 23 2015 Jerry James <loganjerry@gmail.com> - 1.2.0-1
-- New upstream release
-
-* Wed Sep  2 2015 Haïkel Guémar <hguemar@fedoraproject.org> - 1.1.0-5
-- Backport upstream patches (RHBZ#1259286)
-
-* Fri Aug  7 2015 Jerry James <loganjerry@gmail.com> - 1.1.0-4
-- Fix FTBFS due to older python-testtools (bz 1249714)
-
-* Tue Jul 14 2015 Slavek Kabrda <bkabrda@redhat.com> - 1.1.0-3
-- Symlink iso8601 file into subunit Python dirs to preserve compatibility while unbundling
-Resolves: rhbz#1233581
-
-* Fri Jun 19 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.1.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
-
-* Fri Jun 12 2015 Jerry James <loganjerry@gmail.com> - 1.1.0-1
-- New upstream release
-- Enable python3 tests
-
-* Wed Jun 03 2015 Jitka Plesnikova <jplesnik@redhat.com> - 1.0.0-3
-- Perl 5.22 rebuild
-
-* Sat May 02 2015 Kalev Lember <kalevlember@gmail.com> - 1.0.0-2
-- Rebuilt for GCC 5 C++11 ABI change
-
-* Tue Dec  9 2014 Jerry James <loganjerry@gmail.com> - 1.0.0-1
-- New upstream release (bz 1171483 and 1172204)
-- Add python3 subpackage (bz 1172195)
-
-* Wed Nov 19 2014 Pádraig Brady <pbrady@redhat.com> - 0.0.21-2
-- Make python-subunit egginfo available for pip etc.
-
-* Fri Sep 19 2014 Jerry James <loganjerry@gmail.com> - 0.0.21-1
-- New upstream release
-- Fix license handling
-
-* Wed Aug 27 2014 Jitka Plesnikova <jplesnik@redhat.com> - 0.0.18-5
-- Perl 5.20 rebuild
-
-* Mon Aug 18 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.0.18-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
-
-* Sun Jun 08 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.0.18-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
-
-* Thu Apr 24 2014 Jerry James <loganjerry@gmail.com> - 0.0.18-2
-- Add license text to all independent packages
-- Add perl module Requires to the -perl subpackage
-- Fix timestamps after install
-
-* Fri Feb 14 2014 Jerry James <loganjerry@gmail.com> - 0.0.18-1
-- Initial RPM
+%autochangelog

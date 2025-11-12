@@ -37,7 +37,7 @@ Python wrapper module.
 This is the python3 package.
 
 %prep
-%setup -q
+%autosetup -p1
 sed -i 's/,"swig"//' pyproject.toml
 
 %generate_buildrequires

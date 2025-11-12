@@ -3,7 +3,7 @@
 
 Name: argyllcms
 Version: 3.4.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # Main code - AGPL-3.0-or-later
 # spectro, xml - GPL-2.0-or-later
@@ -162,6 +162,9 @@ mv %{buildroot}%{_bindir}/com.argyllcms.metainfo.xml %{buildroot}%{_metainfodir}
 %{_datadir}/color/argyll/
 
 %changelog
+* Mon Nov 10 2025 Gwyn Ciesla <gwync@protonmail.com> - 3.4.1-2
+- Bump EVR for f43 build
+
 * Tue Aug 26 2025 Gwyn Ciesla <gwync@protonmail.com> - 3.4.1-1
 - 3.4.1
 

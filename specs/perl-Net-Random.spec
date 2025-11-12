@@ -1,8 +1,8 @@
 %global pkgname Net-Random
 
 Name:           perl-Net-Random
-Version:        2.32
-Release:        16%{?dist}
+Version:        2.33
+Release:        1%{?dist}
 Summary:        A module gets random data from online sources
 License:        GPL-2.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-Random
@@ -32,6 +32,9 @@ Suggests:       perl(LWP::Protocol::https)
 %description
 This module can get random data from online sources such as websites.
 
+This module is unsupported, unmaintained, obsolete, and DEPRECATED.
+It is recommended to switch to using Crypt::URandom.
+
 %prep
 %setup -qn %{pkgname}-%{version}
 
@@ -53,6 +56,9 @@ make test
 %{_mandir}/man3/Net::Random*
 
 %changelog
+* Mon Nov 10 2025 Jitka Plesnikova <jplesnik@redhat.com> - 2.33-1
+- 2.33 bump (rhbz#2413697)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.32-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

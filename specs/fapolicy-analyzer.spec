@@ -5,21 +5,38 @@
 Summary:       File Access Policy Analyzer
 Name:          fapolicy-analyzer
 Version:       1.5.0
-Release:       7%{?dist}
+Release:       8%{?dist}
 
 SourceLicense: GPL-3.0-or-later
+# (MIT OR Apache-2.0) AND Unicode-DFS-2016
+# 0BSD OR MIT OR Apache-2.0
 # Apache-2.0
 # Apache-2.0 OR MIT
 # Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT
-# BSD-3-Clause
+# CC0-1.0
+# GPL-3.0-or-later
 # ISC
-# ISC AND OpenSSL AND MIT
 # MIT
 # MIT OR Apache-2.0
 # MIT OR X11 OR Apache-2.0
+# MIT OR Zlib OR Apache-2.0
 # MPL-2.0
 # Unlicense OR MIT
-License:       GPL-3.0-or-later AND Apache-2.0 AND BSD-3-Clause AND ISC AND MIT AND MPL-2.0 AND OpenSSL AND (Apache-2.0 OR MIT) AND (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND (MIT OR X11 OR Apache-2.0) AND (Unlicense OR MIT)
+License:       %{shrink:
+    GPL-3.0-or-later AND
+    Apache-2.0 AND
+    CC0-1.0 AND
+    ISC AND
+    MIT AND
+    MPL-2.0 AND
+    Unicode-DFS-2016 AND
+    (0BSD OR MIT OR Apache-2.0) AND
+    (Apache-2.0 OR MIT) AND
+    (Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT) AND
+    (MIT OR X11 OR Apache-2.0) AND
+    (MIT OR Zlib OR Apache-2.0) AND
+    (Unlicense OR MIT)
+    }
 
 URL:           https://github.com/ctc-oss/fapolicy-analyzer
 Source0:       %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -28,6 +45,9 @@ Source0:       %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Source1:       %{url}/releases/download/v%{version}/vendor-docs-%{version}.tar.gz
 
 Patch:         0001-pyo3-0.23-support.patch
+# Allow directories 6
+# https://github.com/ctc-oss/fapolicy-analyzer/pull/1081
+Patch:         allow-directories6.patch
 
 # Drop python-toml dependency
 # Cherry-picked from https://github.com/ctc-oss/fapolicy-analyzer/pull/1070
@@ -192,6 +212,10 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %license LICENSE.dependencies
 
 %changelog
+* Fri Nov 07 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 1.5.0-8
+- Allow directories 6
+- Update License expression
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.5.0-7
 - Rebuilt for Python 3.14.0rc3 bytecode
 

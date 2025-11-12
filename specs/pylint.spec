@@ -22,7 +22,6 @@ BuildRequires:  pyproject-rpm-macros
 BuildRequires:  python3-devel
 # For tests
 BuildRequires:  python3-GitPython
-BuildRequires:  python3-pytest-benchmark
 BuildRequires:  python3-pytest-xdist
 BuildRequires:  python3-typing-extensions
 BuildRequires:  graphviz
@@ -74,7 +73,7 @@ done
 %check
 # Skip benchmarks
 # Deselect all tests failing with Python 3.14
-%pytest -v --ignore=benchmark \
+%pytest -v --ignore=tests/benchmark \
   -n auto \
   --deselect=tests/test_functional.py::test_functional[missing_timeout] \
   --deselect=tests/config/pylint_config/test_pylint_config_help.py::test_pylint_config_main_messages \

@@ -1,7 +1,7 @@
 %global pypi_name pytest-testmon
 
 Name:           python-%{pypi_name}
-Version:        2.1.3
+Version:        2.1.4
 Release:        %autorelease
 Summary:        A py.test plug-in which executes only tests affected by recent changes
 License:        MIT

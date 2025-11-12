@@ -5,9 +5,9 @@
 %bcond_without check
 
 %define majorver 3
-%define realver 3500400
-%define docver 3500400
-%define rpmver 3.50.4
+%define realver 3510000
+%define docver 3510000
+%define rpmver 3.51.0
 %define year 2025
 
 Summary: Library that implements an embeddable SQL database engine
@@ -266,7 +266,7 @@ install -D -m0755 sqlite3-debug $RPM_BUILD_ROOT/%{_bindir}/sqlite3-debug
 # fix up permissions to enable dep extraction
 install -d $RPM_BUILD_ROOT%{tcl_sitearch}
 mv $RPM_BUILD_ROOT%{_datadir}/tcl%{tcl_version}/sqlite* $RPM_BUILD_ROOT%{tcl_sitearch}/
-chmod 0755 ${RPM_BUILD_ROOT}/%{tcl_sitearch}/sqlite%{majorver}/*.so
+chmod 0755 ${RPM_BUILD_ROOT}/%{tcl_sitearch}/sqlite*/*.so
 # Install sqlite3_analyzer
 install -D -m0755 sqlite3_analyzer $RPM_BUILD_ROOT/%{_bindir}/sqlite3_analyzer
 %endif
@@ -281,7 +281,7 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/*.{la,a}
 %endif
 
 # This is needed since rpath removal using sed won't work for tcl library for some reason
-chrpath --delete $RPM_BUILD_ROOT/%{tcl_sitearch}/sqlite%{majorver}/*.so
+chrpath --delete $RPM_BUILD_ROOT/%{tcl_sitearch}/sqlite*/*.so
 chrpath --delete $RPM_BUILD_ROOT/%{_libdir}/*.so.%{version}
 
 chrpath --delete $RPM_BUILD_ROOT/%{_bindir}/sqlite3
@@ -337,7 +337,7 @@ make test
 
 %if %{with tcl}
 %files tcl
-%{tcl_sitearch}/sqlite%{majorver}
+%{tcl_sitearch}/sqlite*
 
 %if %{with sqldiff}
 %files tools
@@ -349,6 +349,10 @@ make test
 %endif
 
 %changelog
+* Fri Nov 07 2025 Ales Nezbeda <anezbeda@redhat.com> - 3.51.0-1
+- Update to 3.51.0
+- Resolves: rhbz#2412364
+
 * Wed Aug 06 2025 Packit <hello@packit.dev> - 3.50.4-1
 - Update to version 3.50.4
 - Resolves: rhbz#2381707

@@ -6,7 +6,7 @@ The KIWI Image System provides an operating system image builder \
 for Linux supported hardware platforms as well as for virtualization \
 and cloud systems like Xen, KVM, VMware, EC2 and more.
 
-%bcond check 0
+%bcond check 1
 
 Name:           kiwi
 Version:        10.2.33

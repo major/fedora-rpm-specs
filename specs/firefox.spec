@@ -272,8 +272,6 @@ Patch242:        0026-Add-KDE-integration-to-Firefox.patch
 # Upstream patches
 Patch400:        mozilla-1196777.patch
 Patch401:        mozilla-1667096.patch
-# https://webrtc-review.googlesource.com/c/src/+/401602
-#Patch402:        libwebrtc-update-pipewire-headers.patch
 
 # PGO/LTO patches
 Patch600:        pgo.patch
@@ -589,8 +587,6 @@ cat %{SOURCE49} | sed -e "s|LIBCLANG_RT_PLACEHOLDER|`pwd`/wasi-sdk-25/build/sysr
 
 %patch -P400 -p1 -b .1196777
 %patch -P401 -p1 -b .1667096
-# Temporary disabled, doesn't apply to 145
-#%patch -P402 -p1 -b .libwebrtc-update-pipewire-headers
 
 # PGO patches
 %if %{build_with_pgo}
@@ -896,7 +892,9 @@ export CCACHE_DISABLE=1
 export GCOV_PREFIX=`pwd -P`/objdir
 export GCOV_PREFIX_STRIP=$(( $(echo `pwd -P`|tr -c -d '/' |wc -c )+2 ))
 env | grep GCOV
-echo "ac_add_options --enable-lto" >> .mozconfig
+#echo "ac_add_options --enable-lto" >> .mozconfig
+# Temporary disable due to https://gcc.gnu.org/PR122620
+echo "ac_add_options --disable-lto" >> .mozconfig
 echo "ac_add_options MOZ_PGO=1" >> .mozconfig
 %endif
 

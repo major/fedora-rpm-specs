@@ -5,7 +5,7 @@
 %global crate libmimalloc-sys
 
 Name:           rust-libmimalloc-sys
-Version:        0.1.42
+Version:        0.1.44
 Release:        %autorelease
 Summary:        Sys crate wrapping the mimalloc allocator
 
@@ -19,7 +19,8 @@ BuildRequires:  cargo-rpm-macros >= 24
 # or ask mimalloc dev to switch to mimalloc-sys
 # https://github.com/purpleprotocol/mimalloc_rust/issues/73
 # use get-bundled-mimalloc-ver.sh after unpacking the crate
-Provides:       bundled(mimalloc) = 2.2.3
+Provides:       bundled(mimalloc) = 2.2.4
+Provides:       bundled(mimalloc) = 3.1.5
 
 %global _description %{expand:
 Sys crate wrapping the mimalloc allocator.}
@@ -37,7 +38,8 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE.txt
-%license %{crate_instdir}/c_src/mimalloc/LICENSE
+%license %{crate_instdir}/c_src/mimalloc/v2/LICENSE
+%license %{crate_instdir}/c_src/mimalloc/v3/LICENSE
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -158,6 +160,18 @@ This package contains library source intended for building other packages which
 use the "secure" feature of the "%{crate}" crate.
 
 %files       -n %{name}+secure-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+v3-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+v3-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "v3" feature of the "%{crate}" crate.
+
+%files       -n %{name}+v3-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

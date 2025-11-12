@@ -10,8 +10,8 @@
 %endif
 
 Name:           gscan2pdf
-Version:        2.13.4
-Release:        5%{?dist}
+Version:        2.13.5
+Release:        1%{?dist}
 Summary:        GUI for producing a multipage PDF from a scan
 # icons/180_degree.svg: GPL-3.0-only
 # icons/scanner.svg:    GPL-2.0-only
@@ -30,15 +30,9 @@ Source2:        gpgkey-463293E4AE33871846F30227B321F203110FCAF3.gpg
 Patch0:         gscan2pdf-2.9.0-Do-not-warn-about-missing-pdftk.patch
 # Replace copies of gscan2pdf.svg with links, not upstreamable
 Patch1:         gscan2pdf-2.12.7-Symlink-gscan2pdf.svg-files.patch
-# Adapt tests to libtiff-4.6.0, proposed to the upstream,
-# <https://sourceforge.net/p/gscan2pdf/bugs/427/>
-Patch2:         gscan2pdf-2.13.3-Remove-tiff2ps-and-tiff2pdf.patch
-# Adapt to ImageMagick 7, propsed to the upstream,
-# <https://sourceforge.net/p/gscan2pdf/bugs/431/>
-Patch3:         gscan2pdf-2.13.3-Execute-magick-instead-of-convert-command.patch
-# Fix a hang when saving PNG and G4 TIFF images to PDF, proposed upstream,
-# <https://sourceforge.net/p/gscan2pdf/patches/25/>
-Patch4:         gscan2pdf-2.13.4-Pass-PNG-and-TIFF-images-by-a-file-name-to-PDF-Build.patch
+# Fix locale in tests, proposed upstream,
+# <https://sourceforge.net/p/gscan2pdf/patches/26/>
+Patch2:         gscan2pdf-2.13.5-Set-locale-to-C-for-tests-that-compare-textual-messa.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  desktop-file-utils
@@ -58,8 +52,9 @@ BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # ImageMagick for "convert" tool executed from _thread_threshold() and
 # _write_image_object()
 BuildRequires:  ImageMagick
-# libtiff-tools for /usr/bin/tiffcp
-BuildRequires:  libtiff-tools
+# libtiff-tools for /usr/bin/tiffcp and
+# (/usr/bin/tiff2ps or poppler-utils) for PostScript support
+BuildRequires:  libtiff-tools >= 4.7.0
 BuildRequires:  perl(Archive::Tar)
 BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
@@ -98,6 +93,7 @@ BuildRequires:  perl(if)
 BuildRequires:  perl(Image::Magick)
 BuildRequires:  perl(Image::Sane)
 BuildRequires:  perl(IO::Handle)
+BuildRequires:  perl(IPC::Cmd)
 BuildRequires:  perl(IPC::Open3)
 BuildRequires:  perl(JSON::PP)
 BuildRequires:  perl(List::MoreUtils)
@@ -139,7 +135,6 @@ BuildRequires:  ghostscript
 BuildRequires:  ImageMagick-djvu
 BuildRequires:  perl(Exception::Class)
 BuildRequires:  perl(File::stat)
-BuildRequires:  perl(IPC::Cmd)
 BuildRequires:  perl(IPC::System::Simple)
 BuildRequires:  perl(MIME::Base64)
 BuildRequires:  perl(Scalar::Util)
@@ -183,8 +178,9 @@ Recommends:     djvulibre
 # gdk-pixbuf2-modules-2.42.11 and later added as a separate package.
 Requires:       gdk-pixbuf2-modules-extra
 %endif
-# libtiff-tools for /usr/bin/tiffcp
-Requires:       libtiff-tools
+# libtiff-tools for /usr/bin/tiffcp and
+# (/usr/bin/tiff2ps or poppler-utils) for PostScript support
+Requires:       libtiff-tools >= 4.7.0
 Requires:       perl(if)
 Recommends:     perl(Image::Magick)
 Requires:       perl(PDF::Builder) >= 3.022
@@ -380,6 +376,9 @@ fi
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Nov 10 2025 Petr Pisar <ppisar@redhat.com> - 2.13.5-1
+- 2.13.5 bump
+
 * Tue Sep 30 2025 Petr Pisar <ppisar@redhat.com> - 2.13.4-5
 - Fix a hang when saving PNG and G4 TIFF images to PDF
 

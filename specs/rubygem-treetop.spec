@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.6.12
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: A Ruby-based text parsing and interpretation DSL
 License: MIT
 URL: https://github.com/cjheath/treetop
@@ -10,6 +10,11 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/cjheath/treetop.git && cd treetop
 # git archive -v -o treetop-%%{version}-specs.tar.gz v%%{version} spec/
 Source1: %{gem_name}-%{version}-specs.tar.gz
+# https://github.com/cjheath/treetop/issues/61
+# https://github.com/cjheath/treetop/commit/b12a87d665c180346e356cd9cb0a61512b883b4d
+# Replace Kernel#open with pipe usage with IO#popen
+# Former usage is removed in ruby4_0
+Patch0:  treetop-gh61-IO_popen-ruby40.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -33,6 +38,10 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b 1
+(
+cd %{_builddir}
+%patch -P0 -p1
+)
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -87,6 +96,9 @@ popd
 %{gem_instdir}/treetop.gemspec
 
 %changelog
+* Mon Nov 10 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.6.12-8
+- Backport upstream fix for ruby4_0 Kernel#open with pipe usage removal
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.12-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
