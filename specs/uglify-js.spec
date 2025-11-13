@@ -5,7 +5,7 @@
 
 Name:           uglify-js
 Version:        3.19.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        JavaScript parser, mangler/compressor and beautifier toolkit
 License:        BSD-2-Clause
 URL:            https://github.com/mishoo/UglifyJS

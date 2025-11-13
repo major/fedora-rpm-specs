@@ -19,6 +19,10 @@ Patch:          https://github.com/quickemu-project/quickemu/pull/1579.patch
 # Import an upstream commit that fixes quickemu on QEMU versions above 10.0.0
 Patch:          https://github.com/quickemu-project/quickemu/commit/f25205f4513c4fa72be6940081c62e613d1fddc6.patch
 
+# Import an accepted upstream fix that fixes the installation of Windows 11
+# 25H2 as a virtual guest:
+Patch:          https://github.com/quickemu-project/quickemu/pull/1745.patch
+
 BuildArch:      noarch
 
 # The optional dependency 'zsync', used by quickget to download diffs of

@@ -1,5 +1,5 @@
 Name:           i3lock
-Version:        2.15
+Version:        2.16
 Release:        %autorelease
 Summary:        Simple X display locker like slock
 License:        MIT
@@ -31,7 +31,7 @@ BuildRequires:  pam-devel
 
 # gpg verification
 BuildRequires:  gnupg2
-BuildRequires: make
+BuildRequires:  make
 
 %description
 i3lock is a simple screen locker like slock. After starting it, you will see a

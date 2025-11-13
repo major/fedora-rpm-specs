@@ -2,14 +2,12 @@
 
 Name:           tmux
 Version:        3.5a
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A terminal multiplexer
 
 License:        ISC AND BSD-2-Clause AND BSD-3-Clause AND SSH-short AND LicenseRef-Fedora-Public-Domain
 URL:            https://tmux.github.io/
 Source0:        https://github.com/tmux/%{name}/releases/download/%{version}/%{name}-%{version}.tar.gz
-# Examples has been removed - so include the bash_completion here
-Source1:        bash_completion_tmux.sh
 Source2:        tmux@.service
 Source3:        README.polkit
 BuildRequires:  byacc
@@ -42,9 +40,6 @@ as GNU Screen.
 %install
 %make_install
 
-# Install the bash completion file
-install -Dpm 644 %{SOURCE1} %{buildroot}%{_datadir}/bash-completion/completions/tmux
-
 # Install the systemd file
 install -Dpm 644 %{SOURCE2} %{buildroot}%{_unitdir}/tmux@.service
 
@@ -75,10 +70,12 @@ fi
 %doc CHANGES README* example_tmux.conf README.polkit
 %{_bindir}/tmux
 %{_mandir}/man1/tmux.1.*
-%{_datadir}/bash-completion/completions/tmux
 %{_unitdir}/tmux@.service
 
 %changelog
+* Tue Nov 11 2025 Yanko Kaneti <yaneti@declera.com> - 3.5a-6
+- Drop bash-completeion snippet as now its in bash-completion upstream
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.5a-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

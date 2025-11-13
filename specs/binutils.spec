@@ -7,7 +7,7 @@ Name: binutils%{?_with_debug:-debug}
 # The variable %%{source} (see below) should be set to indicate which of these
 # origins is being used.
 Version: 2.45.50
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: GPL-3.0-or-later AND (GPL-3.0-or-later WITH Bison-exception-2.2) AND (LGPL-2.0-or-later WITH GCC-exception-2.0) AND BSD-3-Clause AND GFDL-1.3-or-later AND GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later
 URL: https://sourceware.org/binutils
 
@@ -121,7 +121,7 @@ URL: https://sourceware.org/binutils
 # correctly.  Note %%(echo) is used because you cannot directly set a
 # spec variable to a hexadecimal string value.
 
-%define commit_id %(echo "2006dea18d5")
+%define commit_id %(echo "96b8a8a633a")
 
 #----End of Configure Options------------------------------------------------
 
@@ -1469,6 +1469,9 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Tue Nov 11 2025 Nick Clifton <nickc@redhat.com> - 2.45.50-8
+- Rebase to commit 96b8a8a633a
+
 * Tue Nov 04 2025 Nick Clifton <nickc@redhat.com> - 2.45.50-7
 - Pass -flto=$RPM_BUILD_NCPUS in CFLAGS.  (RHEL-121799)
 

@@ -1,7 +1,7 @@
 %global giturl  https://github.com/hannesm/patch
 
 Name:           ocaml-patch
-Version:        3.0.0
+Version:        3.1.0
 Release:        %autorelease
 Summary:        Parse unified and git diff output and apply patches in memory
 
@@ -17,7 +17,8 @@ Source1:        https://codeberg.org/kit-ty-kate/ocaml-patch-tests/archive/main.
 # OCaml packages not built on i686 since OCaml 5 / Fedora 39.
 ExcludeArch:    %{ix86}
 
-BuildRequires:  ocaml >= 4.08
+BuildRequires:  help2man
+BuildRequires:  ocaml >= 4.14
 BuildRequires:  ocaml-dune >= 3.0
 
 # Test dependencies
@@ -43,6 +44,13 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 The %{name}-devel package contains libraries and signature
 files for developing applications that use %{name}.
 
+%package     -n opatch
+Summary:        Command line tool to apply a diff to a directory
+
+%description -n opatch
+This package contains a pure OCaml command line tool to apply a unified or git
+patch to a directory.
+
 %prep
 %autosetup -n patch-%{version}
 tar -C test/data/external --strip-components=1 -xf %{SOURCE1}
@@ -51,18 +59,30 @@ tar -C test/data/external --strip-components=1 -xf %{SOURCE1}
 %dune_build
 
 %install
-%dune_install
+%dune_install -s
+
+# Skip a useless empty META file
+rm %{buildroot}%{ocamldir}/opatch/META
+sed -i '/META/d' .ofiles-opatch
+
+# Create a man patch for opatch
+mkdir -p %{buildroot}%{_mandir}/man1
+help2man -N -n 'Apply a diff to a directory' \
+  -o %{buildroot}%{_mandir}/man1/opatch.1 %{buildroot}%{_bindir}/opatch
 
 %ifarch %{x86_64}
 %check
 %dune_check
 %endif
 
-%files -f .ofiles
+%files -f .ofiles-patch
 %doc CHANGES.md README.md
 %license LICENSE.md
 
-%files devel -f .ofiles-devel
+%files devel -f .ofiles-patch-devel
+
+%files -n opatch -f .ofiles-opatch -f .ofiles-opatch-devel
+%{_mandir}/man1/opatch.1*
 
 %changelog
 %autochangelog

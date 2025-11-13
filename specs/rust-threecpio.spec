@@ -7,22 +7,13 @@
 %global crate threecpio
 
 Name:           rust-threecpio
-Version:        0.11.0
+Version:        0.12.0
 Release:        %autorelease
 Summary:        Manage initrd cpio archives
 
 License:        ISC
 URL:            https://crates.io/crates/threecpio
 Source:         %{crates_source}
-# * Remove executable permissions from the LICENSE file; fixes
-#   https://github.com/bdrung/3cpio/issues/30
-Patch10:        https://github.com/bdrung/3cpio/commit/1994d529b67cd584dddea9bacde0360fe1a124a5.patch
-# * On 32-bit platforms, panic if a time does not fit in time_t
-# * Fixes failure to compile on 32-bit platforms.
-Patch11:        0001-On-32-bit-platforms-panic-if-a-time-does-not-fit-in-.patch
-# * test: do not hard-code expected mode and gid in block device test; fixes
-#   https://github.com/bdrung/3cpio/issues/28
-Patch12:        https://github.com/bdrung/3cpio/commit/e32d80fbaefce61683bb950bf4f834bb82514420.patch
 
 BuildRequires:  cargo-rpm-macros >= 26
 BuildRequires:  /usr/bin/asciidoctor
@@ -62,17 +53,45 @@ License:        ISC AND MIT AND (MIT OR Apache-2.0)
 %cargo_generate_buildrequires
 
 %build
+%if 0%{?__isa_bits} == 32
+# The system libc is already compiled with dual-time support,
+# https://sourceware.org/glibc/manual/2.42/html_node/64_002dbit-time-symbol-handling.html.
+#
+# The following environment variable affects the rust libc crate, which
+# currently still normally exposes 32-bit time_t,
+# https://github.com/rust-lang/libc/issues/3223.
+#
+# This was suggested in
+# https://github.com/bdrung/3cpio/issues/31#issuecomment-3514094683 as an
+# alternative to the previous downstream patch.
+#
+# It should be safe enough, since we are sufficiently confident that this
+# package will not link any shared libraries that may have been compiled with
+# 32-bit time_t. Besides, with this environment variable unset, the
+# complementary problem could have existed linking shared libraries compiled
+# with 64-bit time_t, so we are not really making things worse. Dealing with
+# 32-bit architectures in 2025 is a fraught exercise no matter what we do.
+export RUST_LIBC_UNSTABLE_GNU_TIME_BITS=64
+%endif
 %cargo_build
 %{cargo_license_summary}
 %{cargo_license} > LICENSE.dependencies
 asciidoctor -b manpage man/3cpio.1.adoc
 
 %install
+%if 0%{?__isa_bits} == 32
+# See comments in %%build.
+export RUST_LIBC_UNSTABLE_GNU_TIME_BITS=64
+%endif
 %cargo_install
 install -p -m 0644 -D -t '%{buildroot}%{_mandir}/man1' man/3cpio.1
 
 %if %{with check}
 %check
+%if 0%{?__isa_bits} == 32
+# See comments in %%build.
+export RUST_LIBC_UNSTABLE_GNU_TIME_BITS=64
+%endif
 # * Test test_file_from_line_location_character_device requires /dev/console,
 #   which does not exist in the mock chroot.
 %cargo_test -- -- --skip test_file_from_line_location_character_device

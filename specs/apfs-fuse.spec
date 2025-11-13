@@ -11,7 +11,7 @@
 Name:          apfs-fuse
 Summary:       A read-only FUSE driver for Apple's APFS
 Version:       0
-Release:       30.%{date}git%{short_gittag}%{?dist}
+Release:       31.%{date}git%{short_gittag}%{?dist}
 License:       GPL-2.0-or-later
 URL:           https://github.com/sgan81/apfs-fuse
 Source0:       https://github.com/sgan81/%{name}/archive/%{short_gittag}/%{name}-%{short_gittag}.tar.gz
@@ -38,7 +38,7 @@ tar zxf %{SOURCE1}
 mv lzfse-* lzfse
 
 %build
-%cmake -DBUILD_SHARED_LIBS:BOOL=OFF
+%cmake -DBUILD_SHARED_LIBS:BOOL=OFF -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake_build
 
 %install
@@ -55,6 +55,9 @@ ln -sr %{buildroot}/%{_bindir}/apfs-fuse %{buildroot}/%{_sbindir}/mount.apfs
 %license LICENSE
 
 %changelog
+* Tue Nov  4 2025 Tom Callaway <spot@fedoraproject.org> - 0-31.20200928gitee71aa5
+- rebuild for new fuse3
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-30.20200928gitee71aa5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

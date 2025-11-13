@@ -1,10 +1,10 @@
-%global DATE 20251022
-%global gitrev ad903636211be01b8c06d8cf09ee5710ac43b2cb
+%global DATE 20251111
+%global gitrev 43c569d5324a7f22a16fb0d245a2373e8a85473e
 %global gcc_version 15.2.1
 %global gcc_major 15
 # Note, gcc_release must be integer, if you want to add suffixes to
 # %%{release}, append them after %%{gcc_release} on Release: line.
-%global gcc_release 3
+%global gcc_release 4
 %global nvptx_tools_gitrev a0c1fff6534a4df9fb17937c3c4a4b1071212029
 %global newlib_cygwin_gitrev d35cc82b5ec15bb8a5fe0fe11e183d1887992e99
 %global _unpackaged_files_terminate_build 0
@@ -3769,7 +3769,19 @@ end
 %endif
 
 %changelog
-* Wed Oct 21 2025 Jakub Jelinek <jakub@redhat.com> 15.2.1-3
+* Tue Nov 11 2025 Jakub Jelinek <jakub@redhat.com> 15.2.1-4
+- update from releases/gcc-15 branch
+  - PRs ada/81087, ada/118208, ada/118782, c++/122192, c++/122253, c++/122310,
+	c++/122381, c++/122421, fortran/107968, fortran/114023,
+	fortran/122206, fortran/122386, rtl-optimization/122321,
+	target/99930, target/118460, target/119079, target/120674,
+	target/121604, target/122097, target/122270, target/122323,
+	target/122516, target/122527, tree-optimization/122012,
+	tree-optimization/122394, tree-optimization/122408,
+	tree-optimization/122505
+  - fix ICE while building firefox with LTO+PGO (#2395476, PR lto/122620)
+
+* Wed Oct 22 2025 Jakub Jelinek <jakub@redhat.com> 15.2.1-3
 - update from releases/gcc-15 branch
   - PRs ada/107536, ada/113536, ada/117517, ada/118343, c/122188, c++/120757,
 	c++/121981, c++/122302, fortran/108581, fortran/121616,

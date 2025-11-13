@@ -1,6 +1,6 @@
 %global upstreamname ROCmValidationSuite
-%global rocm_release 7.0
-%global rocm_patch 2
+%global rocm_release 7.1
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -18,7 +18,7 @@
 
 Name:           rocm-validation-suite
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm Validation Suite (rvs)
 
 Url:            https://github.com/ROCm/ROCmValidationSuite
@@ -204,6 +204,9 @@ done
 %{_libdir}/rvs/libtst.so
 
 %changelog
+* Tue Nov 4 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
+- Update to 7.1.0
+
 * Thu Oct 16 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.2-2
 - link rvslib with libomp
 

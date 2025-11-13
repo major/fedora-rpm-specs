@@ -8,7 +8,7 @@
 # This is stable release:
 #%%global rcversion RC1
 Name:       pcre2
-Version:    10.46
+Version:    10.47
 Release:    %{?rcversion:0.}1%{?rcversion:.%rcversion}%{?dist}
 %global     myversion %{version}%{?rcversion:-%rcversion}
 Summary:    Perl-compatible regular expression library
@@ -262,6 +262,10 @@ make %{?_smp_mflags} check VERBOSE=yes
 %{_mandir}/man1/pcre2test.*
 
 %changelog
+* Fri Nov 07 2025 Lukas Javorsky <ljavorsk@redhat.com> - 10.47-1
+- Rebase to version 10.47
+- Resolves: rhbz#2405255
+
 * Mon Sep 01 2025 Lukas Javorsky <ljavorsk@redhat.com> - 10.46-1
 - Rebase to version 10.46
 

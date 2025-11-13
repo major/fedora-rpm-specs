@@ -3,17 +3,13 @@
 a Python DB-API (PEP-249) interface to Microsoft SQL Server.}
 
 Name:           python-%{pypi_name}
-Version:        2.3.2
-Release:        7%{?dist}
+Version:        2.3.9
+Release:        1%{?dist}
 Summary:        DB-API interface to Microsoft SQL Server
 
 License:        LGPL-2.0-or-later
 URL:            http://pymssql.org/
 Source0:        %{pypi_source}
-
-# Fix compatibility with Cython >= 3.1
-# Backported from upstream: https://github.com/pymssql/pymssql/pull/938
-Patch:          fix-cython-3.1-build.patch
 
 BuildRequires:  freetds-devel
 BuildRequires:  gcc
@@ -21,8 +17,10 @@ BuildRequires:  krb5-devel
 BuildRequires:  openssl-devel
 BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist cython}
+# For easy patching of pyproject.toml
+BuildRequires:  tomcli
 
-# Testing is only possible after sqlalchemy is built and sqlalchemy BuildRequires pymssql.
+# Testing is only possible after sqlalchemy is built and BuildRequires pymssql.
 # This bcond allows to build this package without tests when necessary.
 %bcond tests 1
 
@@ -39,12 +37,23 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n %{pypi_name}-%{version} -p1
+%autosetup -n %{pypi_name}-%{version}
 
-# - Drop non-mandatory test dependencies not available in Fedora
-# - Remove version constraints for some test dependencies
-%if 0%{?with_tests}
-sed -i  's/\(psutil\).*/\1/; /^standard-distutils\b/d' dev/requirements-dev.txt
+# Drop version constraint on setuptools/setuptools_scm
+tomcli set pyproject.toml arrays replace "build-system.requires" "(setuptools(_scm\[toml\])?)\s*[><=]+.*" "\1"
+sed -i -E 's/^(\s*setuptools(_scm\[toml\])?)\s*[><=]+.*$/\1/' setup.cfg %{?with_tests:dev/requirements-dev.txt}
+
+# Drop unneeded dependencies not available in Fedora
+tomcli set pyproject.toml arrays delitem "build-system.requires" "standard-distutils\b.*"
+%{?with_tests:sed -i -E '/^\s*standard-distutils\b/d' dev/requirements-dev.txt}
+
+%if 0%{?fedora} < 43
+# Drop version constraint on setuptools/setuptools_scm
+tomcli set pyproject.toml arrays replace "build-system.requires" "(Cython)\s*[><=]+.*" "\1"
+sed -i -E 's/^(\s*cython)\s*[><=]+.*$/\1/' setup.cfg %{?with_tests:dev/requirements-dev.txt}
+
+# setuptools < 77.0.3 doesn't support PEP 639
+tomcli set pyproject.toml del "project.license"
 %endif
 
 
@@ -74,6 +83,9 @@ LINK_FREETDS_STATICALLY=no %pyproject_wheel
 
 
 %changelog
+* Mon Nov 10 2025 Mohamed El Morabity <melmorabity@fedoraproject.org> - 2.3.9-1
+- Update to 2.3.9
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.3.2-7
 - Rebuilt for Python 3.14.0rc3 bytecode
 

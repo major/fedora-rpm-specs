@@ -67,6 +67,8 @@ rm -vrf doc/build/html/_sources
 rm -fv doc/build/html/{.buildinfo,objects.inv}
 
 %check
+%pyproject_check_import
+
 # needs python3-tox bz #1010767
 %if %{with tests}
 %tox

@@ -47,6 +47,18 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+aliyun-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+aliyun-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "aliyun" feature of the "%{crate}" crate.
+
+%files       -n %{name}+aliyun-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+aws-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -81,6 +93,30 @@ This package contains library source intended for building other packages which
 use the "default-context" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-context-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+google-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+google-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "google" feature of the "%{crate}" crate.
+
+%files       -n %{name}+google-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+tencent-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+tencent-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "tencent" feature of the "%{crate}" crate.
+
+%files       -n %{name}+tencent-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

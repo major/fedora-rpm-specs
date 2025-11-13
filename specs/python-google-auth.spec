@@ -16,7 +16,7 @@
 %bcond pytest_localserver %[ %{undefined el10} && %{undefined el9} ]
 
 Name:           python-google-auth
-Version:        2.42.1
+Version:        2.43.0
 Release:        2%{?dist}
 Epoch:          1
 Summary:        Google Authentication Library
@@ -207,6 +207,9 @@ k="${k-}${k+ and }not (TestAsyncAuthorizedSession and test_request_provided_auth
 
 
 %changelog
+* Tue Nov 11 2025 Jason Montleon <jmontleo@redhat.com> - 1:2.43.0-1
+- Update to 2.43.0 (#2413000)
+
 * Thu Oct 30 2025 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 1:2.42.1-1
 - Update to 2.42.1 (#2406878)
 
@@ -281,10 +284,10 @@ k="${k-}${k+ and }not (TestAsyncAuthorizedSession and test_request_provided_auth
 * Fri Jun 07 2024 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 1:2.30.0-1
 - Update to 2.30.0 (#2290820)
 
-* Fri May 31 2024 Jason Montloon <jmontleo@redhat.com> - 1:2.29.0-2
+* Fri May 31 2024 Jason Montleon <jmontleo@redhat.com> - 1:2.29.0-2
 - Add directory to files (#2284084)
 
-* Sat Apr 13 2024 Jason Montloon <jmontleo@redhat.com> - 1:2.29.0-1
+* Sat Apr 13 2024 Jason Montleon <jmontleo@redhat.com> - 1:2.29.0-1
 - Update to 2.29.0 (#2270854)
 
 * Sat Mar 09 2024 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 1:2.28.2-1

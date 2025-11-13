@@ -1,16 +1,13 @@
-%global gitdate 20250824.094649
-%global commit0 6bf37e55a2fc3895e07f6d77236542a2ce0e763f
-%global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
-
 Name:           plasma-keyboard
-Version:        1.0~%{gitdate}.%{shortcommit0}
-Release:        2%{?dist}
+Epoch:          1
+Version:        0.1.0
+Release:        1%{?dist}
 Summary:        Virtual Keyboard for Qt based desktops
 
 License:        LGPL-2.1-only AND GPL-2.0-only AND CC0-1.0 AND LGPL-3.0-only AND GPL-3.0-or-later AND GPL-2.0-or-later AND GPL-3.0-only
 URL:            https://invent.kde.org/plasma/%{name}/
 
-Source0:        https://invent.kde.org/plasma/%{name}/-/archive/%{commit0}/%{name}-%{commit0}.tar.gz
+Source0:        https://download.kde.org/unstable/%{name}/%{name}-%{version}.tar.xz
 
 BuildRequires:  kf6-rpm-macros
 BuildRequires:  cmake
@@ -41,12 +38,12 @@ integrate in Plasma.
 
 %package -n kcm-%{name}
 Summary: KDE KCM for %{name}
-Requires: %{name} = %{version}-%{release}
+Requires: %{name} = %{epoch}:%{version}-%{release}
 %description -n kcm-%{name}
 %{summary}.
 
 %prep
-%autosetup -n %{name}-%{commit0}
+%autosetup
 
 
 %build
@@ -55,12 +52,13 @@ Requires: %{name} = %{version}-%{release}
 
 %install
 %cmake_install
+%find_lang plasma-keyboard
 %find_lang kcm_plasmakeyboard
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.plasma.keyboard.desktop
 
-%files
+%files -f plasma-keyboard.lang
 %license LICENSES/*
 %doc README.md
 %{_bindir}/plasma-keyboard
@@ -68,12 +66,17 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.plasma.keyboa
 %{_kf6_qmldir}/QtQuick/VirtualKeyboard/
 %{_kf6_qmldir}/org/kde/plasma/keyboard/
 %{_kf6_datadir}/plasma/keyboard/
+%{_kf6_metainfodir}/org.kde.plasma.keyboard.metainfo.xml
 
 %files -n kcm-%{name} -f kcm_plasmakeyboard.lang
 %{_kf6_qtplugindir}/plasma/kcms/systemsettings/kcm_plasmakeyboard.so
 %{_datadir}/applications/kcm_plasmakeyboard.desktop
 
 %changelog
+* Tue Nov 11 2025 Alessandro Astone <ales.astone@gmail.com> - 1:0.1.0-1
+- First official release 0.1.0
+- Bump epoch
+
 * Thu Oct 02 2025 Jan Grulich <jgrulich@redhat.com> - 1.0~20250824.094649.6bf37e5-2
 - Rebuild (qt6)
 

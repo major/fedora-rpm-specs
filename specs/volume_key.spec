@@ -32,7 +32,7 @@
 Summary: An utility for manipulating storage encryption keys and passphrases
 Name: volume_key
 Version: 0.3.12
-Release: 28%{?dist}
+Release: 29%{?dist}
 License: GPL-2.0-only AND (MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.1-or-later)
 URL: https://pagure.io/%{name}/
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
@@ -173,6 +173,9 @@ exit 1; \
 %endif
 
 %changelog
+* Tue Nov 11 2025 Michal Hlavinka <mhlavink@redhat.com> - 0.3.12-29
+- rebuild for gpgme 2.0
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.3.12-28
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -65,6 +65,7 @@ BuildRequires: cmake(PlasmaWaylandProtocols)
 BuildRequires: cmake(Plasma)
 BuildRequires: cmake(KWayland)
 
+Requires: feedbackd
 Requires: kf6-bluez-qt
 Requires: kf6-kactivities
 Requires: kf6-kdeclarative

@@ -7,7 +7,7 @@
 Summary:   NetworkManager VPN plugin for L2TP and L2TP/IPsec
 Name:      NetworkManager-l2tp
 Version:   1.20.20
-Release:   4%{?dist}
+Release:   5%{?dist}
 License:   GPL-2.0-or-later
 URL:       https://github.com/nm-l2tp/NetworkManager-l2tp
 Source:    https://github.com/nm-l2tp/NetworkManager-l2tp/releases/download/%{version}/%{name}-%{version}.tar.xz
@@ -36,7 +36,7 @@ Requires: NetworkManager >= 1:1.20.0
 Requires: ppp = %{ppp_version}
 %if 0%{?fedora} > 42
 # Note: go-l2tp is a package alias of golang-github-katalix-l2tp
-Requires: go-l2tp
+Requires: (go-l2tp or xl2tpd)
 %else
 Requires: (xl2tpd or go-l2tp)
 %endif
@@ -95,6 +95,53 @@ mkdir -p %{buildroot}%{_sysconfdir}/strongswan/ipsec.d
 touch %{buildroot}%{_sysconfdir}/ipsec.d/ipsec.nm-l2tp.secrets
 touch %{buildroot}%{_sysconfdir}/strongswan/ipsec.d/ipsec.nm-l2tp.secrets
 
+
+mkdir -p %{buildroot}%{_docdir}/%{name}
+# Create README.EPEL for EPEL or README.Fedora for Fedora
+%if 0%{?rhel}
+cat > %{buildroot}%{_docdir}/%{name}/README.EPEL <<'EOF'
+README.EPEL
+-----------
+%else
+cat > %{buildroot}%{_docdir}/%{name}/README.Fedora <<'EOF'
+README.Fedora
+-------------
+%endif
+
+This file serves as a README outlining prerequisite steps needed to enable
+successful L2TP/IPsec connections.
+
+Disable blacklisting of L2TP kernel modules
+-------------------------------------------
+
+Kernel modules in the kernel-modules-extra package are blacklisted by default,
+this includes L2TP kernel modules.
+
+To disable the blacklisting of L2TP kernel modules, issue the following on
+the command-line:
+
+sudo sed -e '/blacklist l2tp_netlink/s/^b/#b/g' -i /etc/modprobe.d/l2tp_netlink-blacklist.conf
+sudo sed -e '/blacklist l2tp_ppp/s/^b/#b/g' -i /etc/modprobe.d/l2tp_ppp-blacklist.conf
+
+Enable IKEv1 if using Libreswan as IPsec daemon
+-----------------------------------------------
+
+%if 0%{?rhel} == 9
+To re-enable IKEv1, add following line :
+	ikev1-policy=accept
+to the config setup section of /etc/ipsec.conf
+%else
+IKEv1 is deprecated and disabled by default with Libreswan >= 5.0.
+
+You can re-enable IKEv1 by uncommenting the #ikev1-policy=accept line in
+/etc/ipsec.conf which can be achieved by running the following command:
+
+sudo sed -e 's/#ikev1-policy=accept/ikev1-policy=accept/' -i /etc/ipsec.conf
+%endif
+
+EOF
+
+
 %find_lang %{name}
 
 %pre
@@ -111,7 +158,11 @@ exit 0
 %{_libdir}/pppd/%{ppp_version}/nm-l2tp-pppd-plugin.so
 %ghost %attr(0600 - -) %{_sysconfdir}/ipsec.d/ipsec.nm-l2tp.secrets
 %ghost %attr(0600 - -) %{_sysconfdir}/strongswan/ipsec.d/ipsec.nm-l2tp.secrets
-%doc AUTHORS README.md NEWS
+%if 0%{?rhel}
+%doc AUTHORS README.md NEWS README.EPEL
+%else
+%doc AUTHORS README.md NEWS README.Fedora
+%endif
 %license COPYING
 
 %files gnome
@@ -123,7 +174,12 @@ exit 0
 %endif
 
 %changelog
-* Tue Aug 26 2025 Douglas Kosovic <doug@uq.edu.au> - 1.20.20-2
+* Wed Nov 12 2025 Douglas Kosovic <doug@uq.edu.au> - 1.20.20-5
+- Add README.Fedora for Fedora or README.EPEL for EPEL
+- Use (go-l2tp or xl2tpd) dependency for Fedora 43 to handle upgrades
+  from earlier Fedora versions that had xl2tpd installed.
+
+* Tue Aug 26 2025 Douglas Kosovic <doug@uq.edu.au> - 1.20.20-4
 - Fix orphaned xl2tpd dependency issue, switch to go-l2tp (rhbz#2390669,rhbz#2390688)
 
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.20.20-3

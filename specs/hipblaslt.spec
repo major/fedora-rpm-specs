@@ -38,8 +38,8 @@
 %endif
 
 %global upstreamname hipBLASLt
-%global rocm_release 7.0
-%global rocm_patch 2
+%global rocm_release 7.1
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 %global toolchain rocm
@@ -100,7 +100,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 %endif
 Summary:        ROCm general matrix operations beyond BLAS
 License:        MIT AND BSD-3-Clause
@@ -118,17 +118,12 @@ Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{ro
 Patch1:         0001-hipblaslt-tensilelite-remove-yappi-dependency.patch
 # change hard coded vendor paths to fedoras
 Patch2:         0001-hipblaslt-tensilelite-use-fedora-paths.patch
-
-# https://github.com/ROCm/hipBLASLt/issues/1959
-# Patch0:         0001-hipblaslt-find-toolchain.patch
-# https://github.com/ROCm/hipBLASLt/issues/1960
-# Patch1:         0001-hipblaslt-handle-missing-joblib.patch
-# https://github.com/ROCm/hipBLASLt/issues/2060
-# https://github.com/AngryLoki/gentoo/blob/b211598514d2876dcbc75ae86d1dd24898f61cab/sci-libs/hipBLASLt/files/hipBLASLt-6.4.1-upstream-clang.patch
-# Patch2:         hipBLASLt-6.4.1-upstream-clang.patch
+# https://github.com/ROCm/rocm-libraries/issues/2422
+Patch3:         0001-hipblaslt-find-origami-package.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
+BuildRequires:  gcc-gfortran
 BuildRequires:  git
 BuildRequires:  hipblas-devel
 BuildRequires:  hipcc
@@ -140,6 +135,7 @@ BuildRequires:  rocm-comgr-devel
 BuildRequires:  rocm-compilersupport-macros
 BuildRequires:  rocm-hip-devel
 BuildRequires:  rocm-llvm-devel
+BuildRequires:  rocm-origami-devel
 BuildRequires:  rocm-runtime-devel
 BuildRequires:  rocm-rpm-macros
 BuildRequires:  rocm-smi-devel
@@ -253,16 +249,10 @@ sed -i -e 's@set(CMAKE_INSTALL_LIBDIR@#set(CMAKE_INSTALL_LIBDIR@' CMakeLists.txt
 sed -i -e 's@virtualenv_install@#virtualenv_install@'                          CMakeLists.txt
 
 # Disable trying to download rocm-cmake
-sed -i -e 's@if(NOT ROCM_FOUND)@if(FALSE)@' cmake/Dependencies.cmake
+sed -i -e 's@if(NOT ROCmCMakeBuildTools_FOUND)@if(FALSE)@' cmake/dependencies.cmake
 
 # Disable download of nanobind
 sed -i -e 's@FetchContent_MakeAvailable(nanobind)@find_package(nanobind)@' tensilelite/rocisa/CMakeLists.txt
-
-#%if 0%{?suse_version}
-#sed -i -e 's@\(.*find_package(msgpack \+REQUIRED\))@\1 NAMES msgpack msgpack-cxx msgpack-c)@' tensilelite/Tensile/Source/lib/CMakeLists.txt
-#%endif
-
-#sed -i 's@find_package(LLVM REQUIRED CONFIG)@find_package(LLVM REQUIRED CONFIG PATHS "%{rocmllvm_cmakedir}")@' tensilelite/Tensile/Source/lib/CMakeLists.txt
 
 # As of 6.4, there is a long poll
 # compile_code_object.sh gfx90a,gfx1100,gfx1101,gfx1151,gfx1200,gfx1201 RelWithDebInfo sha1 hipblasltTransform.hsaco
@@ -331,8 +321,10 @@ export Tensile_DIR=${TL}%{python3_sitelib}/Tensile
        -DCMAKE_PREFIX_PATH=%{python3_sitelib}/nanobind \
        -DCMAKE_VERBOSE_MAKEFILE=ON \
        -DHIP_PLATFORM=amd \
+       -DHIPBLASLT_ENABLE_CLIENT=%{build_test} \
        -DHIPBLASLT_ENABLE_MARKER=OFF \
-       -DHIPBLASLT_USE_ROCROLLER=OFF \
+       -DHIPBLASLT_ENABLE_OPENMP=OFF \
+       -DHIPBLASLT_ENABLE_ROCROLLER=OFF \
        -DROCM_SYMLINK_LIBS=OFF \
        -DTensile_LIBRARY_FORMAT=msgpack \
        -DTensile_VERBOSE=%{tensile_verbose} \
@@ -370,6 +362,7 @@ rm -f %{buildroot}%{_prefix}/share/doc/hipblaslt/LICENSE.md
 
 %files devel
 %{_includedir}/hipblaslt
+%{_includedir}/hipblaslt-*.h
 %{_libdir}/cmake/hipblaslt/
 %{_libdir}/libhipblaslt.so
 
@@ -379,6 +372,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/hipblaslt/LICENSE.md
 %endif
 
 %changelog
+* Sat Nov 1 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
+- Update to 7.1.0
+
 * Sat Oct 11 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.2-1
 - Update to 7.0.2
 

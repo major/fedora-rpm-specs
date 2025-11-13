@@ -5,31 +5,31 @@
 %bcond tests 0
 %endif
 
-Name:		pgbouncer
-Version:	1.25.0
-Release:	%autorelease
-Summary:	Lightweight connection pooler for PostgreSQL
-License:	ISC and BSD-2-Clause
-URL:		https://www.pgbouncer.org
+Name:       pgbouncer
+Version:    1.25.0
+Release:    %autorelease
+Summary:    Lightweight connection pooler for PostgreSQL
+License:    ISC and BSD-2-Clause
+URL:        https://www.pgbouncer.org
 
-Source0:	%{url}/downloads/files/%{version}/%{name}-%{version}.tar.gz
-Source3:	%{name}.logrotate
-Source4:	%{name}.service
-Source6:	%{name}.pam
+Source0:    %{url}/downloads/files/%{version}/%{name}-%{version}.tar.gz
+Source3:    %{name}.logrotate
+Source4:    %{name}.service
+Source6:    %{name}.pam
 
-Patch0:		%{name}-ini.patch
+Patch0:     %{name}-ini.patch
+Patch1:     https://github.com/pgbouncer/pgbouncer/commit/fa3286799c9aea6236e13e8ad1ba04eaa1f6c800.patch
 
-BuildRequires:	c-ares-devel >= 1.11
-BuildRequires:	make
-BuildRequires:	gcc
-BuildRequires:	openldap-devel
-BuildRequires:	openssl-devel
-BuildRequires:	pam-devel
-BuildRequires:	pandoc
-BuildRequires:	pkgconfig(libevent)
+BuildRequires:  c-ares-devel >= 1.11
+BuildRequires:  make
+BuildRequires:  gcc
+BuildRequires:  openldap-devel
+BuildRequires:  openssl-devel
+BuildRequires:  pam-devel
+BuildRequires:  pandoc
+BuildRequires:  pkgconfig(libevent)
 # For Fedora and EL9+ systemd-rpm-macros would be enough:
-BuildRequires:	systemd-devel
-
+BuildRequires:  systemd-devel
 
 %if %{with tests}
 # Test dependencies:
@@ -44,17 +44,17 @@ BuildRequires:  python3dist(pytest-timeout)
 BuildRequires:  python3dist(pytest-xdist)
 %endif
 
-Requires:	systemd
-Requires:	logrotate
-Requires:	python3-psycopg2
-Requires:	c-ares >= 1.11
+Requires:   systemd
+Requires:   logrotate
+Requires:   python3-psycopg2
+Requires:   c-ares >= 1.11
 
 %description
 pgbouncer is a lightweight connection pooler for PostgreSQL and uses libevent
 for low-level socket handling.
 
 %prep
-%autosetup -p0
+%autosetup -p1
 
 sed -i -e 's|/usr/bin/env python.*|%__python3|g' etc/mkauth.py
 
@@ -66,11 +66,11 @@ EOF
 %build
 # Building with systemd flag tries to enable notify support:
 %configure \
-	--enable-debug \
-	--with-cares \
-	--with-ldap \
-	--with-pam \
-	--with-systemd
+    --enable-debug \
+    --with-cares \
+    --with-ldap \
+    --with-pam \
+    --with-systemd
 
 %make_build V=1
 

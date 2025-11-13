@@ -1,8 +1,7 @@
 Name:		portsentry
 
 %global forgeurl https://github.com/portsentry/portsentry
-%global version0 2.0.5
-%global commit 3fdfd7cc456f4089cbacef816e39ab2a56d2d388
+%global version0 2.0.6
 %forgemeta
 Version:	%forgeversion
 Release:	%autorelease
@@ -13,7 +12,6 @@ License:	BSD-2-Clause AND BSD-1-Clause AND CPL-1.0
 URL:		https://portsentry.xyz/
 Source0:	%forgesource
 Source1:	fail2ban-jail.conf
-Patch1:		private-devices.patch
 
 BuildRequires:	cmake
 BuildRequires:	gcc

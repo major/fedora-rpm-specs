@@ -107,7 +107,8 @@ ExcludeArch: i686
 %global build_with_pgo    0
 %ifarch x86_64
 %if %{release_build}
-%global build_with_pgo    1
+# Temporary disable due to https://gcc.gnu.org/PR122620
+%global build_with_pgo    0
 %endif
 %endif
 %if 0%{?flatpak}
@@ -201,13 +202,13 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        145.0
-Release:        1%{?pre_tag}%{?dist}
+Release:        2%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 # Automatically converted from old format: MPLv1.1 or GPLv2+ or LGPLv2+ - review is highly recommended.
 License:        LicenseRef-Callaway-MPLv1.1 OR GPL-2.0-or-later OR LicenseRef-Callaway-LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
 %if %{with langpacks}
-Source1:        firefox-langpacks-%{version}%{?pre_version}-20251105.tar.xz
+Source1:        firefox-langpacks-%{version}%{?pre_version}-20251111.tar.xz
 %endif
 Source2:        cbindgen-vendor.tar.xz
 Source3:        dump_syms-vendor.tar.xz
@@ -892,9 +893,7 @@ export CCACHE_DISABLE=1
 export GCOV_PREFIX=`pwd -P`/objdir
 export GCOV_PREFIX_STRIP=$(( $(echo `pwd -P`|tr -c -d '/' |wc -c )+2 ))
 env | grep GCOV
-#echo "ac_add_options --enable-lto" >> .mozconfig
-# Temporary disable due to https://gcc.gnu.org/PR122620
-echo "ac_add_options --disable-lto" >> .mozconfig
+echo "ac_add_options --enable-lto" >> .mozconfig
 echo "ac_add_options MOZ_PGO=1" >> .mozconfig
 %endif
 
@@ -1262,6 +1261,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Tue Nov 11 2025 Martin Stransky <stransky@redhat.com> - 145.0-2
+- Updated to 145.0 B2
+
 * Wed Nov 05 2025 Martin Stransky <stransky@redhat.com> - 145.0-1
 - Updated to 145.0
 

@@ -1,5 +1,6 @@
 %ifnarch s390x
 %global with_hardware 1
+%global with_nvk 1
 %global with_radeonsi 1
 %global with_vmware 1
 %global with_vulkan_hw 1
@@ -8,9 +9,6 @@
 %global with_r300 1
 %global with_r600 1
 %global with_opencl 1
-%endif
-%if !0%{?rhel} || 0%{?rhel} >= 10
-%global with_nvk %{with_vulkan_hw}
 %endif
 %global base_vulkan %{?with_vulkan_hw:,amd}%{!?with_vulkan_hw:%{nil}}
 %endif

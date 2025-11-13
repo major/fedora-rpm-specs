@@ -234,7 +234,7 @@ Provides: nodejs = %{nodejs_envr}
 # preferable to an "extra" interpreter. For example, nodejs-20.5.0 will
 # replace nodejs20-20.6.0.
 %define unversioned_obsoletes_of_nodejsXX_if_default() %{expand:\
-Obsoletes: nodejs%{nodejs_pkg_major}%{?1:-%{1}}\
+Obsoletes: nodejs%{nodejs_pkg_major}%{?1:-%{1}} < %{nodejs_envr}\
 Provides: nodejs%{nodejs_pkg_major}%{?1:-%{1}} = %{nodejs_envr}\
 }
 %else
@@ -503,7 +503,7 @@ Obsoletes: npm < 1:9
 
 # Obsolete others. We can't use %%unversioned_obsoletes_of_nodejsXX_if_default
 # here because the Provides: needs its own version
-Obsoletes: nodejs%{nodejs_pkg_major}-npm
+Obsoletes: nodejs%{nodejs_pkg_major}-npm < %{npm_envr}
 Provides: nodejs%{nodejs_pkg_major}-npm = %{npm_envr}
 %endif
 

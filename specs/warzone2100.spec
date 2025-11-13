@@ -2,8 +2,8 @@
 %global _cmake_shared_libs %{nil}
 
 Name:           warzone2100
-Version:        4.5.5
-Release:        3%{?dist}
+Version:        4.6.1
+Release:        1%{?dist}
 Summary:        Innovative 3D real-time strategy
 
 # Automatically converted from old format: GPLv2+ and CC-BY-SA - review is highly recommended.
@@ -12,11 +12,12 @@ URL:            http://wz2100.net/
 Source0:        https://github.com/Warzone2100/warzone2100/releases/download/%{version}/warzone2100_src.tar.xz
 Source1:        https://github.com/Warzone2100/wz-sequences/releases/download/v3/high-quality-en-sequences.wz
 
-Patch0:         SQLiteCPP-gcc15.patch
 Patch1:         cmake4.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
+# https://github.com/Warzone2100/warzone2100/issues/4577
+ExcludeArch:    s390x
 
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
@@ -32,11 +33,13 @@ BuildRequires:  libpng-devel
 BuildRequires:  libsodium-devel
 BuildRequires:  libtheora-devel
 BuildRequires:  libvorbis-devel
+BuildRequires:  libzip-devel
 BuildRequires:  openal-soft-devel
 BuildRequires:  openssl-devel
 BuildRequires:  opus-devel
 BuildRequires:  p7zip
 BuildRequires:  physfs-devel
+BuildRequires:  protobuf-devel
 BuildRequires:  rubygem-asciidoctor
 BuildRequires:  SDL2-devel
 BuildRequires:  sqlite-devel
@@ -96,6 +99,9 @@ mv $RPM_BUILD_ROOT%{_datadir}/icons/net.wz2100.warzone2100.png \
 %{_datadir}/warzone2100/sequences.wz
 
 %changelog
+* Tue Sep 16 2025 Gwyn Ciesla <gwync@protonmail.com> - 4.6.1-1
+- 4.6.1
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:    kwin
 Version: 6.5.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Window manager
 
 License: BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND (GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only) AND MIT
@@ -16,6 +16,8 @@ Source1: http://download.kde.org/%{stable_kf6}/plasma/%{maj_ver_kf6}.%{min_ver_k
 ## proposed patches
 ### Fix for when the drm device is taking too long to be ready (cf. rhbz#2404966)
 Patch0101:      https://invent.kde.org/plasma/kwin/-/merge_requests/8348.patch
+### Fix for consistent cursor size rounding, fixes disappearing cursor on Macbook Pro 14-inch at 170% scale
+Patch0102:      https://invent.kde.org/plasma/kwin/-/merge_requests/8403.patch
 
 
 # Base
@@ -276,6 +278,9 @@ ln -sr %{buildroot}%{_kf6_bindir}/kwin_wayland %{buildroot}%{_bindir}/kwin
 
 
 %changelog
+* Mon Nov 10 2025 Janne Grunau <janne-fdr@jannau.net> - 6.5.2-2
+- Add patch to snap items to pixelgrid
+
 * Tue Nov 04 2025 Steve Cossette <farchord@gmail.com> - 6.5.2-1
 - 6.5.2
 

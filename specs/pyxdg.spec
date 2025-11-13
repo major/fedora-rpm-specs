@@ -1,6 +1,6 @@
 Name:           pyxdg
 Version:        0.27
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Python library to access freedesktop.org standards
 License:        LGPL-2.0-only
 URL:            http://freedesktop.org/Software/pyxdg
@@ -16,8 +16,8 @@ Patch1:         pyxdg-handle-python-3.14-ast.Str-changes.patch
 Patch2:         pyxdg-handle-python-3.15-deprecations.patch
 
 BuildArch:      noarch
-# These are needed for the nose tests.
-BuildRequires:  python3-nose2
+# These are needed for the tests.
+BuildRequires:  python3-pytest
 BuildRequires:  hicolor-icon-theme
 BuildRequires:  shared-mime-info
 
@@ -49,15 +49,17 @@ package contains a Python 3 version of PyXDG.
 %pyproject_save_files -l xdg
 
 %check
-# icon-test currently fails
-# https://bugs.freedesktop.org/show_bug.cgi?id=104846
-nose2 || :
+%pyproject_check_import
+%pytest test/test-*.py
 
 %files -n python%{python3_pkgversion}-pyxdg -f %{pyproject_files}
 %license COPYING
 %doc AUTHORS ChangeLog README TODO
 
 %changelog
+* Sun Nov 09 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 0.27-20
+- Run tests with pytest
+
 * Thu Nov  6 2025 Tom Callaway <spot@fedoraproject.org> - 0.27-19
 - apply upstream cleanup commits for modern python support
 - modernize package for new python macros

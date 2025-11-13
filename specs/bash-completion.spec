@@ -2,11 +2,11 @@
 %bcond_with tests
 # The *.py files we ship are not python scripts, #813651
 %global _python_bytecompile_errors_terminate_build 0
-%define upstream_version 2.16.0
+%define upstream_version 2.17.0
 
 Name:           bash-completion
-Version:        2.16
-Release:        3%{?dist}
+Version:        2.17
+Release:        1%{?dist}
 Epoch:          1
 Summary:        Programmable completion for Bash
 
@@ -94,6 +94,10 @@ make -C completions check
 %{_datadir}/pkgconfig/bash-completion.pc
 
 %changelog
+* Tue Nov 11 2025 Siteshwar Vashisht <svashisht@redhat.com> - 1:2.17-1
+- Update to version 2.17
+  Resolves: #2408890
+
 * Tue Aug 26 2025 Adam Williamson <awilliam@redhat.com> - 1:2.16-3
 - Remove interdiff completion as patchutils started shipping one
   Resolves: #2391218

@@ -14,7 +14,7 @@
 
 Name:           lua
 Version:        %{major_version}.8
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Powerful light-weight programming language
 License:        MIT
 URL:            https://www.lua.org/
@@ -37,6 +37,9 @@ Patch5:         %{name}-5.3.0-autotoolize.patch
 Patch6:		%{name}-5.3.5-luac-shared-link-fix.patch
 %endif
 # https://www.lua.org/bugs.html
+Patch10:	lua-5.4.8-bug1.patch
+Patch11:	lua-5.4.8-bug2.patch
+Patch12:	lua-5.4.8-bug3.patch
 
 BuildRequires:  automake autoconf libtool readline-devel ncurses-devel
 BuildRequires:  make
@@ -90,6 +93,12 @@ mv src/luaconf.h src/luaconf.h.template.in
 %patch -P1 -p1 -z .idsize
 #%% patch -P2 -p1 -z .luac-shared
 %patch -P3 -p1 -z .configure-linux
+
+# Bug patches here
+%patch -P10 -p1 -b .bug1
+%patch -P11 -p1 -b .bug2
+%patch -P12 -p1 -b .bug3
+
 # Put proper version in configure.ac, patch0 hardcodes 5.3.0
 sed -i 's|5.3.0|%{version}|g' configure.ac
 autoreconf -ifv
@@ -207,6 +216,9 @@ popd
 %{_libdir}/*.a
 
 %changelog
+* Tue Nov 11 2025 Tom Callaway <spot@fedoraproject.org> - 5.4.8-3
+- apply fixes for upstream bug1, bug2, bug3
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

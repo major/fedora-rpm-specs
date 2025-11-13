@@ -12,6 +12,8 @@ Summary:        Generated API for the officials wayland protocol extensions
 License:        MIT
 URL:            https://crates.io/crates/wayland-protocols
 Source:         %{crates_source}
+# * https://github.com/Smithay/wayland-rs/issues/831
+Source2:        https://gitlab.freedesktop.org/wayland/wayland-protocols/-/raw/main/COPYING#/COPYING.PROTOCOLS
 
 BuildRequires:  cargo-rpm-macros >= 24
 
@@ -31,6 +33,7 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE.txt
+%license %{crate_instdir}/protocols/COPYING
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -130,6 +133,7 @@ use the "wayland-server" feature of the "%{crate}" crate.
 
 %install
 %cargo_install
+install -pv -m0644 %{SOURCE2} %{buildroot}%{crate_instdir}/protocols/COPYING
 
 %if %{with check}
 %check

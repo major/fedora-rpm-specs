@@ -7,8 +7,8 @@
 
 Summary:	Free implementation of the server-side SMTP protocol as defined by RFC 5321
 Name:		opensmtpd
-Version:	7.7.0p0
-Release:	5%{?dist}
+Version:	7.8.0p0
+Release:	1%{?dist}
 
 License:	ISC
 URL:		http://www.opensmtpd.org/
@@ -154,9 +154,6 @@ done
 sed -i -e 's|/etc/mail/aliases|/etc/aliases|g' %{buildroot}/%{_sysconfdir}/opensmtpd/smtpd.conf
 ln -s %{_sysconfdir}/aliases %{buildroot}/%{_sysconfdir}/opensmtpd/aliases
 
-# fix group in man pages
-sed -i -e 's|_smtpd|smtpd|g' %{buildroot}/%{_mandir}/man5/smtpd.conf.5
-
 # set mbox delivery method
 sed -i -e 's|^action "local" maildir|action "local" mbox|g' %{buildroot}/%{_sysconfdir}/opensmtpd/smtpd.conf
 
@@ -272,6 +269,9 @@ exit 0
 
 
 %changelog
+* Tue Nov 11 2025 Denis Fateyev <denis@fateyev.com> - 7.8.0p0-1
+- Update to 7.8.0p0 release
+
 * Fri Oct 24 2025 Denis Fateyev <denis@fateyev.com> - 7.7.0p0-5
 - Fix /usr/sbin/sendmail symlink creation
 

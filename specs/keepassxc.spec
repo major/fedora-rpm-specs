@@ -3,7 +3,7 @@
 
 Name:           keepassxc
 Version:        2.7.10
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Cross-platform password manager
 # Automatically converted from old format: Boost and BSD and CC0 and GPLv3 and LGPLv2 and LGPLv2+ and LGPLv3+ and Public Domain - review is highly recommended.
 License:        BSL-1.0 AND LicenseRef-Callaway-BSD AND CC0-1.0 AND GPL-3.0-only AND LicenseRef-Callaway-LGPLv2 AND LicenseRef-Callaway-LGPLv2+ AND LGPL-3.0-or-later AND LicenseRef-Callaway-Public-Domain
@@ -40,7 +40,11 @@ Source2:        https://keepassxc.org/keepassxc_master_signing_key.asc
 # Fedora >= 38
 Patch0:         xcb.patch
 
+%if (%{defined fedora} && 0%{?fedora} >= 44)
+BuildRequires:  botan3-devel
+%else
 BuildRequires:  botan2-devel
+%endif
 BuildRequires:  cmake >= 3.1
 BuildRequires:  desktop-file-utils
 %if %{defined rhel} && 0%{?rhel} < 9
@@ -215,6 +219,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.%{nam
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Tue Nov 11 2025 Germano Massullo (Thetra) <germano.massullo@thetra.eu> - 2.7.10-5
+- Replace botan2 with botan3 on Fedora>=44
+
 * Tue Nov 04 2025 Jan Grulich <jgrulich@redhat.com> - 2.7.10-4
 - Rebuild (qt5)
 
