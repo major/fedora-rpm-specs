@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-podman
-Version:        116
+Version:        117
 Release:        1%{?dist}
 Summary:        Cockpit component for Podman containers
 License:        LGPL-2.1-or-later
@@ -45,12 +45,12 @@ Requires:       criu-libs
 Requires:       libcriu2
 %endif
 
-Provides: bundled(npm(@patternfly/patternfly)) = 6.3.1
-Provides: bundled(npm(@patternfly/react-core)) = 6.3.1
-Provides: bundled(npm(@patternfly/react-icons)) = 6.3.1
-Provides: bundled(npm(@patternfly/react-styles)) = 6.3.1
-Provides: bundled(npm(@patternfly/react-table)) = 6.3.1
-Provides: bundled(npm(@patternfly/react-tokens)) = 6.3.1
+Provides: bundled(npm(@patternfly/patternfly)) = 6.4.0
+Provides: bundled(npm(@patternfly/react-core)) = 6.4.0
+Provides: bundled(npm(@patternfly/react-icons)) = 6.4.0
+Provides: bundled(npm(@patternfly/react-styles)) = 6.4.0
+Provides: bundled(npm(@patternfly/react-table)) = 6.4.0
+Provides: bundled(npm(@patternfly/react-tokens)) = 6.4.0
 Provides: bundled(npm(@xterm/addon-canvas)) = 0.7.0
 Provides: bundled(npm(@xterm/xterm)) = 5.5.0
 Provides: bundled(npm(attr-accept)) = 2.2.5
@@ -92,6 +92,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Wed Nov 12 2025 Packit <hello@packit.dev> - 117-1
+- Performance and stability improvements
+
+
 * Wed Oct 29 2025 Packit <hello@packit.dev> - 116-1
 - Support stopping/starting/restart quadlets
 

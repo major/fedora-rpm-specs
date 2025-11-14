@@ -104,7 +104,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        A SPARSE marshaling library
 License:        MIT
@@ -348,6 +348,9 @@ chrpath -r %{rocmllvm_libdir} %{buildroot}%{_bindir}/hipsparselt-test
 %endif
 
 %changelog
+* Wed Nov 12 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-2
+- Rebuild for 7.1.0
+
 * Fri Sep 26 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-1
 - Update to 7.0.1
 

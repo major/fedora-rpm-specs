@@ -1,6 +1,6 @@
 # Name of the package without any prefixes
 %global majorname mysql
-%global package_version 8.0.43
+%global package_version 8.0.44
 %define majorversion %(echo %{package_version} | cut -d'.' -f1-2 )
 %global pkgnamepatch mysql
 
@@ -102,7 +102,7 @@
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          2%{?with_debug:.debug}%{?dist}
+Release:          1%{?with_debug:.debug}%{?dist}
 Summary:          MySQL client programs and shared libraries
 URL:              http://www.mysql.com
 
@@ -1117,6 +1117,9 @@ popd
 %endif
 
 %changelog
+* Thu Oct 30 2025 Pavol Sloboda <psloboda@redhat.com> - 8.0.44-1
+- Rebase to MySQL 8.0.44
+
 * Mon Oct 27 2025 Lukas Javorsky <ljavorsk@redhat.com> - 8.0.43-2
 - Revert to soft static allocation of MariaDB and MySQL sysusers.d files
 

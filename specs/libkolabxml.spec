@@ -49,7 +49,7 @@
 
 Name:           libkolabxml
 Version:        1.2.0
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Kolab XML format collection parser library
 
 License:        LGPL-3.0-or-later
@@ -162,6 +162,8 @@ sed -i "s/-php/-php7/g" src/php/CMakeLists.txt
 
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380728)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake \
     -DBUILD_TESTS:BOOL=OFF \
 %if 0%{?with_csharp} > 0
@@ -248,6 +250,9 @@ popd
 
 
 %changelog
+* Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 1.2.0-36
+- Allow to build with CMake 4.0 (rhbz#2380728)
+
 * Thu Oct 09 2025 Remi Collet <remi@remirepo.net> - 1.2.0-35
 - rebuild for https://fedoraproject.org/wiki/Changes/php85
 

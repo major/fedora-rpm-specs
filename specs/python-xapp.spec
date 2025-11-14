@@ -1,6 +1,6 @@
 Name:           python-xapp
-Version:        2.4.2
-Release:        8%{?dist}
+Version:        3.0.0
+Release:        1%{?dist}
 Summary:        Python bindings for xapps
 
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
@@ -49,6 +49,9 @@ Requires:      xapps
 
 
 %changelog
+* Wed Nov 12 2025 Leigh Scott <leigh123linux@gmail.com> - 3.0.0-1
+- Update to 3.0.0
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.4.2-8
 - Rebuilt for Python 3.14.0rc3 bytecode
 

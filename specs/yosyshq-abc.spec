@@ -1,7 +1,7 @@
 # Upstream doesn't make releases.  We have to check the code out of git.
-%global commit0 8827bafb7f288de6749dc6e30fa452f2040949c0
+%global commit0 1c5ed1ce378cc04beac30bb31abc4c37c8467042
 %global shortcommit0 %%(c=%%{commit0}; echo ${c:0:7})
-%global snapdate 20250810
+%global snapdate 20251111
 
 # This is a fork of github.com/berkeley-abc/abc.git maintained by YosysHQ
 %global prjname abc
@@ -23,7 +23,7 @@
 # This should be done for each branch in which abc-libs will be updated.
 
 Name:           yosyshq-%{prjname}
-Version:        0.57
+Version:        0.59
 Release:        1.%{snapdate}git%{shortcommit0}%{?dist}
 Summary:        Sequential logic synthesis and formal verification
 # The ABC code itself is MIT-Modern-Variant.
@@ -124,7 +124,9 @@ CXXFLAGS="$CXXFLAGS -DEPD_BIG_ENDIAN"
 %endif
 export ABC_MAKE_VERBOSE=1
 export ABC_USE_STDINT_H=1
-%cmake -DCMAKE_SKIP_RPATH:BOOL=YES -DCMAKE_SKIP_INSTALL_RPATH:BOOL=YES
+%cmake -DCMAKE_SKIP_RPATH:BOOL=YES \
+	-DCMAKE_SKIP_INSTALL_RPATH:BOOL=YES \
+	-DABC_SKIP_TESTS:BOOL=yes
 %cmake_build
 
 %install
@@ -165,6 +167,9 @@ install -p -m 0644 %{prjname}.1 %{buildroot}%{_mandir}/man1
 %{_libdir}/lib%{prjname}.so
 
 %changelog
+* Tue Nov 11 2025 Gabriel Somlo <gsomlo@gmail.com> - 0.59-1.20251111git1c5ed1c
+- update to 0.59 snapshot
+
 * Thu Sep 04 2025 Gabriel Somlo <gsomlo@gmail.com> - 0.57-1.20250904git8827baf
 - update to 0.57 snapshot
 

@@ -3,7 +3,7 @@
 
 Name:    libcamera
 Version: 0.5.2
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: A library to support complex camera ISPs
 # see .reuse/dep5 and COPYING for details
 License: LGPL-2.1-or-later
@@ -234,6 +234,9 @@ rm -rf ${RPM_BUILD_ROOT}/%{_docdir}/%{name}-*/html/.doctrees
 %{python3_sitearch}/*
 
 %changelog
+* Wed Nov 12 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 0.5.2-5
+- Rebuilt for gtest 1.17.0
+
 * Sun Sep 28 2025 Hans de Goede <hdegoede@redhat.com> - 0.5.2-4
 - Add upstream patch to enable IPU7 (Lunar Lake) support (rhbz#2333383)
 - Add upstream patches to fix AGC oscillation (rhbz#2368538)

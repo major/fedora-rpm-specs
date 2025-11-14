@@ -1,7 +1,7 @@
 Name:       fann
 Summary:    A fast artificial neural network library
 Version:    2.2.0
-Release:    36%{?dist}
+Release:    37%{?dist}
 License:    LGPL-2.0-or-later
 URL:        http://leenissen.dk/fann/wp/
 
@@ -37,6 +37,8 @@ LIBS=-lm
 export LIBS
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380569)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %{cmake} -DPKGCONFIG_INSTALL_DIR=/%{_lib}/pkgconfig \
 	%if "%{?_lib}" == "lib64"
 		%{?_cmake_lib_suffix64} \
@@ -74,6 +76,9 @@ find $RPM_BUILD_ROOT -name "*.la" -exec rm {} \;
 %{_includedir}/*.h
 
 %changelog
+* Mon Nov 10 2025 Cristian Le <git@lecris.dev> - 2.2.0-37
+Allow to build with CMake 4.0 (rhbz#2380569)
+
 * Mon Jul 28 2025 Tomas Smetana <tsmetana@redhat.com> - 2.2.0-36
 - Fix FTBFS on i380: rhbz#2381207
 

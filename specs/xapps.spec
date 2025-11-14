@@ -1,6 +1,6 @@
 Name:           xapps
-Version:        2.8.8
-Release:        6%{?dist}
+Version:        3.2.0
+Release:        1%{?dist}
 Summary:        Common files for XApp desktop apps
 
 License:        LGPL-3.0-only
@@ -124,6 +124,9 @@ rm %{buildroot}%{_datadir}/format
 %{python3_sitearch}/gi/overrides/__pycache__/XApp.cpython-%{python3_version_nodots}*.py*
 
 %changelog
+* Wed Nov 12 2025 Leigh Scott <leigh123linux@gmail.com> - 3.2.0-1
+- Update to 3.2.0
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.8.8-6
 - Rebuilt for Python 3.14.0rc3 bytecode
 

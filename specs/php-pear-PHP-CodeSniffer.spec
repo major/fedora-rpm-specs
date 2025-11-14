@@ -13,15 +13,15 @@
 
 %bcond_without       tests
 
-%global gh_commit    06113cfdaf117fc2165f9cd040bd0f17fcd5242d
+%global gh_commit    0525c73950de35ded110cffafb9892946d7771b5
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
-%global gh_date      2025-06-17
+%global gh_date      2025-11-10
 %global gh_owner     PHPCSStandards
 %global gh_project   PHP_CodeSniffer
 # keep in old PEAR tree
 %global pear_phpdir  %{_datadir}/pear
 
-%global upstream_version 4.0.0
+%global upstream_version 4.0.1
 #global upstream_prever  rc1
 
 Name:           php-pear-PHP-CodeSniffer
@@ -144,6 +144,9 @@ exit $ret
 
 
 %changelog
+* Wed Nov 12 2025 Remi Collet <remi@remirepo.net> - 4.0.1-1
+- update to 4.0.1
+
 * Mon Sep 15 2025 Remi Collet <remi@remirepo.net> - 4.0.0-1
 - update to 4.0.0
 - raise dependency on PHP 7.2

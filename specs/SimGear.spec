@@ -1,5 +1,5 @@
 Name:           SimGear
-Version:        2024.1.2
+Version:        2024.1.3
 Release:        1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -70,6 +70,9 @@ rm -rf simgear/xml/*.h simgear/xml/*.c
 %{_libdir}/cmake/SimGear
 
 %changelog
+* Wed Nov 05 2025 Fabrice Bellet <fabrice@bellet.info> - 2024.1.3-1
+- new upstream release
+
 * Sun Sep 21 2025 Fabrice Bellet <fabrice@bellet.info> - 2024.1.2-1
 - new upstream release
 

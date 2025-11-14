@@ -5,7 +5,7 @@
 %global crate proptest-macro
 
 Name:           rust-proptest-macro
-Version:        0.3.1
+Version:        0.4.0
 Release:        %autorelease
 Summary:        Procedural macros for the proptest crate
 

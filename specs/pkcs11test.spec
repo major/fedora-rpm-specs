@@ -39,7 +39,7 @@ This package provides a test suite for PKCS#11.
 
 # Build system fixes
 # * Replace bundled gtest with the system one
-# * Switch to C++14 as now required by the system gtest package
+# * Switch to C++17 as now required by the system gtest package
 # * Fix library path for opencryptoki
 rm -r gtest-1.10.0
 sed -i makefile \

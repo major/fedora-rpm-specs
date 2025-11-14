@@ -26,7 +26,7 @@
 
 Name:		gnuradio
 Version:	3.10.12.0
-Release:	8%{?alphatag:.%{alphatag}}%{?dist}
+Release:	9%{?alphatag:.%{alphatag}}%{?dist}
 Summary:	Software defined radio framework
 
 License:	GPL-3.0-or-later
@@ -85,6 +85,8 @@ BuildRequires:	volk-devel
 BuildRequires:	libsndfile-devel
 BuildRequires:	SoapySDR-devel
 BuildRequires:	spdlog-devel
+BuildRequires:	libiio-devel
+BuildRequires:	libad9361-iio-devel
 # for pygccxml
 #BuildRequires:	castxml
 
@@ -223,6 +225,9 @@ done
 %{_datadir}/gnuradio/examples
 
 %changelog
+* Wed Nov 12 2025 Jaroslav Škarvada  <jskarvad@redhat.com> - 3.10.12.0-9
+- Enabled iio
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.10.12.0-8
 - Rebuilt for Python 3.14.0rc3 bytecode
 

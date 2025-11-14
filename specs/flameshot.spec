@@ -63,6 +63,8 @@ mkdir -p external/Qt-Color-Widgets
 tar -xf %{SOURCE1} -C external/Qt-Color-Widgets --strip-components=1
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380594)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake -G Ninja \
     -DCMAKE_BUILD_TYPE=Release \
     -DUSE_BUNDLED_KDSINGLEAPPLICATION:BOOL=OFF \

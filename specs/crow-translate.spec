@@ -80,6 +80,8 @@ rm -r src/qgittag
 
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380523)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 # https://github.com/crow-translate/crow-translate/issues/615#issuecomment-1762934229
 # Statically link bundled modules
 #   Problem: conflicting requests

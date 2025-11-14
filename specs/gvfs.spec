@@ -22,7 +22,7 @@
 
 Name:    gvfs
 Version: 1.58.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Backends for the gio framework in GLib
 
 License: LGPL-2.0-or-later AND GPL-3.0-only AND MPL-2.0 AND BSD-3-Clause-Sun
@@ -430,6 +430,9 @@ killall -USR1 gvfsd >&/dev/null || :
 
 
 %changelog
+* Wed Nov 12 2025 Adam Williamson <awilliam@redhat.com> - 1.58.0-4
+- combined rebuild for *both* fuse3 and libbluray
+
 * Fri Nov 07 2025 Dominik Mierzejewski <dominik@greysector.net> - 1.58.0-3
 - Rebuilt for libbluray
 

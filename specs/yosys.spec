@@ -1,10 +1,10 @@
-%global commit0 9a12d92551096cd458fd635ed84acf3ba0f2c423
+%global commit0 529886f7fb8f0dd6339bca470a01db5e289755b5
 %global shortcommit0 %%(c=%%{commit0}; echo ${c:0:7})
 
-%global snapdate 20251010
+%global snapdate 20251111
 
 Name:           yosys
-Version:        0.58
+Version:        0.59
 Release:        1.%{snapdate}git%{shortcommit0}%{?dist}
 Summary:        Yosys Open SYnthesis Suite, including Verilog synthesizer
 License:        ISC and MIT
@@ -39,7 +39,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  cxxopts-devel
 BuildRequires:  bison flex readline-devel pkgconfig
 BuildRequires:  tcl-devel libffi-devel
-BuildRequires:  yosyshq-abc >= 0.57
+BuildRequires:  yosyshq-abc >= 0.59
 BuildRequires:  iverilog >= 12.0
 BuildRequires:  python%{python3_pkgversion}
 BuildRequires:  python3-devel
@@ -55,6 +55,7 @@ BuildRequires: python3-click
 BuildRequires: python3-furo
 BuildRequires: python3-sphinx-latex
 BuildRequires: python3-sphinxcontrib-bibtex
+BuildRequires: python3-sphinx-inline-tabs
 BuildRequires: texlive-comment
 BuildRequires: texlive-pgfplots
 BuildRequires: texlive-standalone
@@ -173,6 +174,9 @@ make test ABCEXTERNAL=%{_bindir}/abc SEED=314159265359
 
 
 %changelog
+* Tue Nov 11 2025 Gabriel Somlo <gsomlo@gmail.com> - 0.59.1.20251111git529886f
+- update to 0.59 snapshot
+
 * Fri Oct 10 2025 Gabriel Somlo <gsomlo@gmail.com> - 0.58.1.20251010git9a12d92
 - update to 0.58 snapshot
 

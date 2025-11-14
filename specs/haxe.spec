@@ -6,7 +6,7 @@ ExcludeArch: %{ix86}
 
 Name:           haxe
 Version:        4.3.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Multi-target universal programming language
 
 # As described in https://haxe.org/foundation/open-source.html:
@@ -70,6 +70,8 @@ pushd extra/haxelib_src && tar -xf %{SOURCE1} --strip-components=1 && popd
 pushd extra/haxelib_src/hx3compat && tar -xf %{SOURCE2} --strip-components=1 && popd
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380634)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 # note that the Makefile does not support parallel building
 make
 
@@ -124,6 +126,9 @@ popd
 %{_datadir}/%{name}/
 
 %changelog
+* Mon Nov 10 2025 Cristian Le <git@lecris.dev> - 4.3.7-3
+- Allow to build with CMake 4.0 (rhbz#2380634)
+
 * Wed Oct 15 2025 Richard W.M. Jones <rjones@redhat.com> - 4.3.7-2
 - OCaml 5.4.0 rebuild
 

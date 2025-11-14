@@ -7,7 +7,7 @@
 %global modulename %{name}
 
 Name:           cepces
-Version:        0.3.10
+Version:        0.3.12
 Release:        %autorelease
 Summary:        Certificate Enrollment through CEP/CES
 
@@ -16,6 +16,8 @@ URL:            https://github.com/openSUSE/%{name}
 Source0:        https://github.com/openSUSE/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
+
+BuildRequires:  python3dist(pytest)
 
 Requires:       python%{python3_pkgversion}-%{name} = %{version}-%{release}
 %if %{with selinux}
@@ -38,6 +40,11 @@ have been tested.
 
 %package -n python%{python3_pkgversion}-%{name}
 Summary:        Python part of %{name}
+# Uses keyctl for keyring handling
+Recommends:     keyutils
+# Uses pinentry for username/password
+Recommends:     pinentry
+Recommends:     (pinentry-qt6 if plasma-workspace)
 
 %description -n python%{python3_pkgversion}-%{name}
 %{name} is an application for enrolling certificates through CEP and CES.
@@ -121,9 +128,7 @@ EOF
 
 %check
 %pyproject_check_import
-pushd tests
-%{py3_test_envvars} %{python3} runner.py
-popd
+%pytest
 
 %if %{with selinux}
 %pre selinux

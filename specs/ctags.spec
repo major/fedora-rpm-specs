@@ -1,6 +1,6 @@
 Summary: A C programming language indexing and/or cross-reference tool
 Name: ctags
-Version: 6.2.0
+Version: 6.2.1
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL: https://ctags.io/
@@ -62,6 +62,9 @@ Install ctags if you are going to use your system for C programming.
 %{_mandir}/man7/*
 
 %changelog
+* Wed Nov 12 2025 Than Ngo <than@redhat.com> - 6.2.1-1
+- Update to 6.2.1
+
 * Wed Sep 24 2025 Than Ngo <than@redhat.com> - 6.2.0-1
 - Fix rhbz#2397816 - Update to 6.2.0
 

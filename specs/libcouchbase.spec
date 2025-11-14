@@ -1,7 +1,7 @@
 Summary: Client and protocol library for the Couchbase project
 Name: libcouchbase
 Version: 3.3.18
-Release: 1%{?dist}
+Release: 2%{?dist}
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License: Apache-2.0
 BuildRequires: gcc, gcc-c++
@@ -68,6 +68,8 @@ Development files for the Couchbase client Library.
 %cmake -DLCB_NO_MOCK=1 -DLCB_BUILD_DTRACE=0
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380712)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake_build
 
 %install
@@ -106,6 +108,9 @@ export CTEST_OUTPUT_ON_FAILURE=1
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Wed Nov 12 2025 Cristian Le <git@lecris.dev> - 3.3.18-2
+- Allow to build with CMake 4.0 (rhbz#2380712)
+
 * Thu Sep 11 2025 Sergey Avseyev <sergey.avseyev@gmail.com> - 3.3.18-1
 - Update to 3.3.18
 

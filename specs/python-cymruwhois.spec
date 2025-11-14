@@ -57,7 +57,7 @@ install -p -m 644 docs/cymruwhois.1 %{buildroot}%{_mandir}/man1/
 %pyproject_check_import
 # Do not use tests that require network access or building html
 # documentation
-%pytest -k "not (test_common_lookups and test_asn) and not test_doctest"
+%pytest --ignore=tests/test_common_lookups.py --ignore=tests/test_doctest.py
 
 %files -n python3-cymruwhois -f %{pyproject_files}
 %{_bindir}/cymruwhois

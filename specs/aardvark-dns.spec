@@ -22,7 +22,7 @@ Epoch: 2
 # If that's what you're reading, Version must be 0, and will be updated by Packit for
 # copr and koji builds.
 # If you're reading this on dist-git, the version is automatically filled in by Packit.
-Version: 1.16.0
+Version: 1.17.0
 # The `AND` needs to be uppercase in the License for SPDX compatibility
 License: Apache-2.0 AND MIT AND Zlib
 Release: %autorelease
@@ -61,7 +61,7 @@ Requires: bats
 Requires: bind-utils
 Requires: jq
 Requires: netavark
-Requires: nmap-ncat
+Requires: socat
 Requires: dnsmasq
 
 %description tests
@@ -97,7 +97,7 @@ tar fx %{SOURCE1}
 
 %{__install} -d -p %{buildroot}%{_datadir}/%{name}/test
 %{__cp} -rp test/* %{buildroot}%{_datadir}/%{name}/test/
-%{__rm} -rf %{buildroot}%{_datadir}/%{name}/test/tmt/    
+%{__rm} -rf %{buildroot}%{_datadir}/%{name}/test/tmt/
 
 # Add empty check section to silence rpmlint warning.
 # No tests meant to be run here.

@@ -33,7 +33,7 @@ in Unicode.\
 
 Name:           %{fontname}-fonts
 Version:        %{rpmver}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Hinted and Non Hinted OpenType fonts for Unicode scripts
 License:        OFL-1.1
 URL:            https://notofonts.github.io/
@@ -759,7 +759,7 @@ local _metainfobuild = ''
 local _filelistbuild = ''
 
 local function is_nonlatin(table)
-    latin_langs = { "af", "ar", "az", "bs", "ca", "cs", "cy", "da", "de", "en", "es", "et", "fil", "fi", "fo", "fr", "ga", "gd", "gl", "hr", "hu", "id", "is", "it", "kk", "ky", "lb", "lt", "lv", "mk", "mont", "ms", "mt", "nl", "no", "pl", "pt", "ro", "sk", "sl", "sq", "sr", "sv", "sw", "tg", "tk", "tr", "uz" }
+    latin_langs = { "af", "ar", "az", "bs", "ca", "cs", "cy", "da", "de", "en", "es", "et", "fil", "fi", "fo", "fr", "ga", "gd", "gl", "hr", "hu", "id", "is", "it", "ka", "kk", "ky", "lb", "lt", "lv", "mk", "mont", "ms", "mt", "nl", "no", "pl", "pt", "ro", "sk", "sl", "sq", "sr", "sv", "sw", "tg", "tk", "tr", "uz" }
     if table.lang then
         for i = 1, #table.lang do
             for j = 1, #latin_langs do
@@ -1223,6 +1223,11 @@ done
 
 
 %changelog
+* Wed Nov 12 2025 Akira TAGOH <tagoh@redhat.com> - 20251101-2
+- Change the config priority for Georgian to avoid unexpected overwritten with
+  dejavu-sans-mono-fonts for example.
+  Resolves: rhbz#2402647
+
 * Thu Nov  6 2025 Akira TAGOH <tagoh@redhat.com> - 20251101-1
 - Updates to monthly release of 2025.11.01.
 - New sub packages added: google-noto-serif-hentaigana-fonts,

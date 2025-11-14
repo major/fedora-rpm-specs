@@ -4,7 +4,7 @@
 
 Name:           libbtbb
 Version:        %{POSTYEAR}.%{POSTMONTH}.R%{POSTNUM}
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        A Bluetooth baseband decoding library
 # Automatically converted from old format: GPLv2 - review is highly recommended.
 License:        GPL-2.0-only
@@ -36,6 +36,8 @@ developing applications that use %{name}.
 
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380708)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake -DENABLE_PYTHON=OFF -B . -S .
 %make_build
 
@@ -58,6 +60,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 2020.12.R1-15
+- Allow to build with CMake 4.0 (rhbz#2380708)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2020.12.R1-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

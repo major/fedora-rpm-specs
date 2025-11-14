@@ -4,7 +4,7 @@
 
 Name:           nodejs-colors
 Version:        1.2.1
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Get colors in your Node.js console
 
 License:        MIT
@@ -48,6 +48,9 @@ cp -pr package.json safe.js lib themes/ \
 
 
 %changelog
+* Tue Nov 11 2025 Tomas Juhasz <tjuhasz@redhat.com> - 1.2.1-18
+- Rebuilt for nodejs-packaging
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

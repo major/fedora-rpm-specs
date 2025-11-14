@@ -18,14 +18,14 @@
 %global with_perl 0
 %global with_python 0
 %else
-%global with_ruby 0
+%global with_ruby 1
 %global with_perl 1
 %global with_python 1
 %endif
 
 Name:		openwsman
 Version:	2.8.1
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	Open source Implementation of WS-Management
 
 License:	BSD-3-Clause AND MIT
@@ -51,6 +51,9 @@ Patch4:		openwsman-2.6.5-http-status-line.patch
 Patch5:		openwsman-2.6.8-update-ssleay-conf.patch
 Patch6:		openwsman-2.7.2-gcc15-fix.patch
 Patch7:		openwsman-2.8.1-post-quantum.patch
+Patch8:		openwsman-2.7.2-ssl-certs-gen-changes.patch
+Patch9:		openwsman-2.8.1-rdoc-ruby34.patch
+Patch10:	openwsman-2.8.1-fix-ruby-io.patch
 BuildRequires:	make
 BuildRequires:	swig
 BuildRequires:	libcurl-devel libxml2-devel pam-devel sblim-sfcc-devel
@@ -417,6 +420,10 @@ fi
 %endif
 
 %changelog
+* Wed Nov 12 2025 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.8.1-11
+- Update OpenSSL certificates set up
+- Fix ruby binding, enable it
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.8.1-10
 - Rebuilt for Python 3.14.0rc3 bytecode
 

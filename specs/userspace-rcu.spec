@@ -1,5 +1,5 @@
 Name:           userspace-rcu
-Version:        0.15.4
+Version:        0.15.5
 Release:        1%{?dist}
 Summary:        RCU (read-copy-update) implementation in user-space
 License:        LGPL-2.1-or-later
@@ -91,6 +91,9 @@ make regtest
 
 
 %changelog
+* Wed Nov 12 2025 Michael Jeanson <mjeanson@efficios.com> - 0.15.5-1
+- New upstream release
+
 * Mon Nov 10 2025 Michael Jeanson <mjeanson@efficios.com> - 0.15.4-1
 - New upstream release
 

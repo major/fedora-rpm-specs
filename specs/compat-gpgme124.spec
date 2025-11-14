@@ -14,7 +14,7 @@
 Name:           compat-gpgme124
 Summary:        GnuPG Made Easy - high level crypto API
 Version:        1.24.3
-Release:        1%{?dist}
+Release:        10%{?dist}
 
 # MIT: src/cJSON.{c,h} (used by gpgme-json)
 License:        LGPL-2.1-or-later AND MIT
@@ -320,6 +320,9 @@ popd
 %endif
 
 %changelog
+* Wed Nov 12 2025 Michal Hlavinka <mhlavink@redhat.com> - 1.24.3-10
+- bump release number to be higher than old non-compat package
+
 * Fri Oct 17 2025 Michal Hlavinka <mhlavink@redhat.com> - 1.24.3-1
 - intial build
 

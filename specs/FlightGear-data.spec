@@ -1,6 +1,6 @@
 Name:           FlightGear-data
 Summary:        FlightGear base scenery and data files
-Version:        2024.1.2
+Version:        2024.1.3
 Release:        1%{?dist}
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -62,6 +62,9 @@ done
 %{_datadir}/flightgear
 
 %changelog
+* Wed Nov 05 2025 Fabrice Bellet <fabrice@bellet.info> - 2024.1.3-1
+- new upstream release
+
 * Sun Sep 21 2025 Fabrice Bellet <fabrice@bellet.info> - 2024.1.2-1
 - new upstream release
 

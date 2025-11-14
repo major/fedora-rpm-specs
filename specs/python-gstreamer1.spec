@@ -1,7 +1,7 @@
 %global gstreamer1_version 1.8.0
 
 Name:           python-gstreamer1
-Version:        1.26.7
+Version:        1.26.8
 Release:        1%{?dist}
 Summary:        Python bindings for GStreamer
 
@@ -61,6 +61,9 @@ find -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python3}|'
 %{_libdir}/gstreamer-1.0/libgstpython.*so
 
 %changelog
+* Wed Nov 12 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.26.8-1
+- 1.26.8
+
 * Tue Oct 14 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.26.7-1
 - 1.26.7
 

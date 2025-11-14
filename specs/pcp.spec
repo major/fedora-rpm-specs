@@ -1,6 +1,6 @@
 Name:    pcp
-Version: 7.0.2
-Release: 3%{?dist}
+Version: 7.0.3
+Release: 1%{?dist}
 Summary: System-level performance monitoring and performance management
 License: GPL-2.0-or-later AND LGPL-2.1-or-later AND CC-BY-3.0
 URL:     https://pcp.io
@@ -9,10 +9,6 @@ Source0: https://github.com/performancecopilot/pcp/releases/pcp-%{version}.src.t
 %if 0%{?fedora} >= 40 || 0%{?rhel} >= 10
 ExcludeArch: %{ix86}
 %endif
-
-Patch0: pmda-hdb-selinux.patch
-Patch1: graceful-fail-when-pmdahdb-fails-to-connect.patch
-Patch2: pmlogger-selinux.patch
 
 # The additional linker flags break out-of-tree PMDAs.
 # https://bugzilla.redhat.com/show_bug.cgi?id=2043092
@@ -172,17 +168,6 @@ Patch2: pmlogger-selinux.patch
 %global disable_systemd 1
 %endif
 
-# static probes, missing before el6 and on some architectures
-%if 0%{?rhel} == 0 || 0%{?rhel} > 5
-%global disable_sdt 0
-%else
-%ifnarch ppc ppc64
-%global disable_sdt 0
-%else
-%global disable_sdt 1
-%endif
-%endif
-
 # libuv async event library
 %if 0%{?fedora} >= 28 || 0%{?rhel} > 7
 %global disable_libuv 0
@@ -271,9 +256,6 @@ BuildRequires: chan-devel HdrHistogram_c-devel
 %endif
 %if !%{disable_perfevent}
 BuildRequires: libpfm-devel >= 4
-%endif
-%if !%{disable_sdt}
-BuildRequires: systemtap-sdt-devel
 %endif
 %if !%{disable_libuv}
 BuildRequires: libuv-devel >= 1.0
@@ -666,6 +648,7 @@ Summary: Performance Co-Pilot tools for importing ganglia data into PCP archive 
 URL: https://pcp.io
 Requires: pcp-libs = %{version}-%{release}
 Requires: perl-PCP-LogImport = %{version}-%{release}
+BuildRequires: rrdtool-perl
 
 %description import-ganglia2pcp
 Performance Co-Pilot (PCP) front-end tools for importing ganglia data
@@ -3439,6 +3422,9 @@ fi
 %files zeroconf -f pcp-zeroconf-files.rpm
 
 %changelog
+* Wed Nov 12 2025 Nathan Scott <nathans@redhat.com> - 7.0.3-1
+- Latest upstream release.
+
 * Wed Nov 5 2025 Sam Feifer <sfeifer@redhat.com> - 7.0.2-3
 - Selinux policy update for pmlogger AVC denials
 

@@ -30,7 +30,7 @@ Epoch: 102
 %else
 Epoch: 2
 %endif
-Version: 1.16.1
+Version: 1.17.0
 Release: %autorelease
 # The `AND` needs to be uppercase in the License for SPDX compatibility
 License: Apache-2.0 AND BSD-3-Clause AND MIT
@@ -118,10 +118,12 @@ cd docs
 %preun
 %systemd_preun %{name}-dhcp-proxy.service
 %systemd_preun %{name}-firewalld-reload.service
+%systemd_preun %{name}-nftables-reload.service
 
 %postun
 %systemd_postun %{name}-dhcp-proxy.service
 %systemd_postun %{name}-firewalld-reload.service
+%systemd_postun %{name}-nftables-reload.service
 
 %files
 %license LICENSE
@@ -136,6 +138,7 @@ cd docs
 %{_unitdir}/%{name}-dhcp-proxy.service
 %{_unitdir}/%{name}-dhcp-proxy.socket
 %{_unitdir}/%{name}-firewalld-reload.service
+%{_unitdir}/%{name}-nftables-reload.service
 
 %changelog
 %autochangelog

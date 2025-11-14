@@ -3,7 +3,7 @@
 
 Name:           FlightGear
 Summary:        The FlightGear Flight Simulator
-Version:        2024.1.2
+Version:        2024.1.3
 Release:        1%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -14,6 +14,7 @@ Patch:          0003-make-fglauncher-a-static-library.patch
 Patch:          0004-desktop-use-fgfs-wrapper.patch
 Patch:          0005-make-fgqmlui-a-static-library.patch
 Patch:          0006-fgviewer-fix-crash-on-exit.patch
+Patch:          0007-Revert-Fix-deployment-bugs.patch
 
 URL:            http://www.flightgear.org/
 BuildRequires:  openal-soft-devel, SimGear-devel >= %{version}
@@ -82,6 +83,10 @@ rm -rf $RPM_BUILD_ROOT/usr/appdir
 %{_datadir}/metainfo/*.metainfo.xml
 
 %changelog
+* Mon Nov 10 2025 Fabrice Bellet <fabrice@bellet.info> - 2024.1.3-1
+- new upstream release
+- Revert "Fix deployment bugs"
+
 * Sun Sep 21 2025 Fabrice Bellet <fabrice@bellet.info> - 2024.1.2-1
 - new upstream release
 

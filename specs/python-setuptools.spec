@@ -12,7 +12,7 @@
 
 Name:           python-setuptools
 # When updating, update the bundled libraries versions bellow!
-Version:        78.1.1
+Version:        80.9.0
 Release:        %autorelease
 Summary:        Easily build and distribute Python packages
 # setuptools is MIT
@@ -208,7 +208,7 @@ test ! -d %{buildroot}%{python3_sitelib}/setuptools/_distutils/tests
 # Upstream tests
 # --ignore=setuptools/tests/integration/
 # --ignore=setuptools/tests/config/test_apply_pyprojecttoml.py
-# -k "not test_pip_upgrade_from_source and not test_equivalent_output"
+# -k "not test_pip_upgrade_from_source and not test_equivalent_output and not test_namespace_package_importable"
 #   the tests require internet connection
 # --ignore=setuptools/tests/test_editable_install.py
 #   the tests require pip-run which we don't have in Fedora
@@ -222,7 +222,7 @@ PYTHONPATH=$(pwd) %pytest \
  --ignore=setuptools/tests/test_editable_install.py \
  --ignore=setuptools/tests/config/test_apply_pyprojecttoml.py \
  --ignore=tools \
- -k "not test_pip_upgrade_from_source and not test_wheel_includes_cli_scripts and not test_equivalent_output"
+ -k "not test_pip_upgrade_from_source and not test_wheel_includes_cli_scripts and not test_equivalent_output and not test_namespace_package_importable"
 %endif # with tests
 
 

@@ -86,9 +86,9 @@ Recommends:     p11-kit-server
 
 # Make sure the document portal is installed
 %if 0%{?fedora} || 0%{?rhel} > 7
-Recommends:     xdg-desktop-portal > 0.10
+Recommends:     xdg-desktop-portal > 1.5.3
 %else
-Requires:       xdg-desktop-portal > 0.10
+Requires:       xdg-desktop-portal > 1.5.3
 %endif
 
 %description
@@ -171,7 +171,9 @@ This package contains installed tests for %{name}.
 %meson_install
 install -pm 644 NEWS README.md %{buildroot}/%{_pkgdocdir}
 # The system repo is not installed by the flatpak build system.
+install -d %{buildroot}%{_datadir}/%{name}/remotes.d
 install -d %{buildroot}%{_localstatedir}/lib/flatpak
+install -d %{buildroot}%{_sysconfdir}/%{name}/installations.d
 install -d %{buildroot}%{_sysconfdir}/flatpak/remotes.d
 
 %if 0%{?fedora}
@@ -244,6 +246,7 @@ fi
 %{_mandir}/man5/flatpakref.5*
 %{_mandir}/man5/flatpakrepo.5*
 %dir %{_sysconfdir}/flatpak
+%{_sysconfdir}/%{name}/installations.d
 %{_sysconfdir}/flatpak/remotes.d
 %{_sysconfdir}/profile.d/flatpak.csh
 %{_sysconfdir}/profile.d/flatpak.sh

@@ -19,13 +19,13 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 #
-%global rocm_release 7.0
-%global rocm_patch 1
+%global rocm_release 7.1
+%global rocm_patch 0
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 Name:           rocm
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm tools for computing on AMD GPU
 License:        MIT
 
@@ -56,7 +56,7 @@ Requires: rocsparse >= %{rocm_release}
 %if 0%{?fedora}
 Requires: aqlprofile
 Requires: hipblaslt >= %{rocm_release}
-Requires: hipsparselt >= %{rocm_release}
+Requires: hipsparselt
 Requires: miopen >= %{rocm_release}
 Requires: mivisionx >= %{rocm_release}
 Requires: rccl >= %{rocm_release}
@@ -118,7 +118,7 @@ Requires: rocsparse-devel >= %{rocm_release}
 %if 0%{?fedora}
 Requires: aqlprofile-devel
 Requires: hipblaslt-devel >= %{rocm_release}
-Requires: hipsparselt-devel >= %{rocm_release}
+Requires: hipsparselt-devel
 Requires: hipify >= %{rocm_release}
 Requires: miopen-devel >= %{rocm_release}
 Requires: mivisionx-devel >= %{rocm_release}
@@ -155,6 +155,7 @@ This is a meta package for all of the ROCm devel packages.
 Summary:        Tests for ROCm
 Requires: kfdtest             >= %{rocm_release}
 %if 0%{?fedora}
+Requires: hip-tests >= %{rocm_release}
 Requires: rocm-bandwidth-test
 Requires: rocblas-test >= %{rocm_release}
 Requires: rocm-validation-suite >= %{rocm_release}
@@ -181,6 +182,9 @@ install -pm 644 %{SOURCE0} .
 %license License.txt
 
 %changelog
+* Wed Nov 12 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
+- Update to 7.1.0
+
 * Wed Oct 29 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-2
 - Improve description
 

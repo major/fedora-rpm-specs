@@ -18,7 +18,7 @@ BuildRequires:  rust-std-static-x86_64-unknown-uefi
 %endif
 
 Name:           virt-firmware-rs
-Version:        25.10
+Version:        25.11
 Release:        %autorelease
 Summary:        Tools for EFI and virtual machine firmware
 
@@ -37,6 +37,8 @@ License:        %{shrink:
 
 URL:            https://gitlab.com/kraxel/virt-firmware-rs
 Source:         https://gitlab.com/kraxel/%{name}/-/archive/v%{version}/%{name}-v%{version}.tar.gz
+
+Patch1:		downgrade-dialoguer.patch
 
 ExclusiveArch:  x86_64 aarch64 riscv64
 BuildRequires:  cargo-rpm-macros >= 24
@@ -62,12 +64,13 @@ firmware.  This package has EFI applications for %{efiarch}.
 %autosetup -n %{name}-v%{version} -p1
 %cargo_prep
 # drop unused packages from workspace to reduce dependencies.
+sed -i Cargo.toml -e '/bios-64/d'
 %if %{without efi_apps}
 sed -i Cargo.toml -e '/efi-apps/d'
 %endif
 
 %generate_buildrequires
-%cargo_generate_buildrequires
+%cargo_generate_buildrequires -f std,json,pem,udev
 
 %build
 %cargo_build -- --package virtfw-efi-tools --features udev
@@ -86,10 +89,11 @@ install -d %{buildroot}%{_bindir}
 install -v -m 755 target/rpm/generate-boot-csv %{buildroot}%{_bindir}
 install -v -m 755 target/rpm/list-sb-vars %{buildroot}%{_bindir}
 install -v -m 755 target/rpm/mini-bootcfg %{buildroot}%{_bindir}
-install -v -m 755 target/rpm/setup-efi-vars %{buildroot}%{_bindir}
+install -v -m 755 target/rpm/virt-fw-vars-setup %{buildroot}%{_bindir}
 install -v -m 755 target/rpm/uefi-boot-menu %{buildroot}%{_bindir}/uefi-boot-menu-rs
 install -v -m 755 target/rpm/igvm-inspect %{buildroot}%{_bindir}
 install -v -m 755 target/rpm/igvm-wrap %{buildroot}%{_bindir}
+install -v -m 755 target/rpm/igvm-update %{buildroot}%{_bindir}
 %if %{with efi_apps}
 # efi-apps
 install -d %{buildroot}%{_datadir}/%{name}/%{efiarch}
@@ -98,6 +102,11 @@ install -v -m 644 target/*-unknown-uefi/rpm/*.efi %{buildroot}%{_datadir}/%{name
 # rename readme files
 for dir in efi-apps efi-tools igvm-tools; do
     cp -v ${dir}/README.md README.${dir}.md
+done
+# man pages
+mkdir -p %{buildroot}%{_mandir}/man1
+for app in virt-fw-vars-setup igvm-inspect igvm-wrap igvm-update; do
+    %{buildroot}%{_bindir}/${app} --manpage > %{buildroot}%{_mandir}/man1/${app}.1
 done
 
 %if %{with check}
@@ -116,10 +125,12 @@ done
 %{_bindir}/generate-boot-csv
 %{_bindir}/list-sb-vars
 %{_bindir}/mini-bootcfg
-%{_bindir}/setup-efi-vars
+%{_bindir}/virt-fw-vars-setup
 %{_bindir}/uefi-boot-menu-rs
 %{_bindir}/igvm-inspect
 %{_bindir}/igvm-wrap
+%{_bindir}/igvm-update
+%{_mandir}/man1/*
 
 %if %{with efi_apps}
 %files -n %{name}-%{efiarch}

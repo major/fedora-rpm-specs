@@ -1,13 +1,10 @@
 Name: libgbinder
-Version: 1.1.42
-Release: 2%{?dist}
+Version: 1.1.43
+Release: 1%{?dist}
 Summary: Binder client library
 License: BSD
 URL: https://github.com/mer-hybris/libgbinder
 Source0: %{url}/archive/refs/tags/%{version}.tar.gz
-
-# Fix compatibility with C23 for gcc15
-Patch0:  c23.patch
 
 %global libglibutil_version 1.0.52
 
@@ -85,6 +82,9 @@ Binder command line utilities
 %{_bindir}/binder-call
 
 %changelog
+* Wed Nov 12 2025 Alessandro Astone <ales.astone@gmail.com> - 1.1.43-1
+- new version
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.42-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

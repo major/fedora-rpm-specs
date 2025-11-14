@@ -167,6 +167,8 @@ cp -a bionetgen-BioNetGen-%{version} mpich
 %endif
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380479)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 CFLAGS="$CFLAGS -Wno-unused-variable -Wno-unused-but-set-variable -std=gnu17"
 CXXFLAGS="$CXXFLAGS -Wno-deprecated-declarations"
 

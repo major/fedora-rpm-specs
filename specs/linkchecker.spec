@@ -20,9 +20,6 @@ BuildRequires:  python3dist(polib)
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pytest-xdist)
 BuildRequires:  python3dist(pyopenssl)
-BuildRequires:  python3dist(parameterized)
-# Not packaged yet
-# BuildRequires:  python3dist(miniboa)
 
 %description
 LinkChecker is a website validator. LinkChecker checks links in web documents or full websites.

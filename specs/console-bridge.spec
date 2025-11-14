@@ -4,7 +4,7 @@
 
 Name:           console-bridge
 Version:        1.0.2
-Release:        3%{?dist}
+Release:        5%{?dist}
 Summary:        Lightweight set of macros used for reporting information in libraries
 
 License:        BSD-3-Clause
@@ -31,6 +31,8 @@ developing applications that use %{name}.
 %autosetup -p1 -n %{realname}-%{version}
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380515)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=ON
 %cmake_build
 
@@ -52,6 +54,12 @@ developing applications that use %{name}.
 %{_libdir}/%{realname}
 
 %changelog
+* Wed Nov 12 2025 Scott K Logan <logans@cottsay.net> - 1.0.2-5
+- Fix changelog formatting in 1.0.2-4
+
+* Mon Nov 10 2025 Cristian Le <git@lecris.dev> - 1.0.2-4
+- Allow to build with CMake 4.0 (rhbz#2380515)
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

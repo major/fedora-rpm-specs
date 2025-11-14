@@ -3,7 +3,7 @@
 
 Name:           kf5-%{framework}
 Version: 5.116.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary:        KDE Frameworks 5 Tier 1 addon for advanced thread management
 
 License:        CC0-1.0 AND LGPL-2.0-or-later
@@ -36,6 +36,8 @@ developing applications that use %{name}.
 
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380680)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %{cmake_kf5}
 %cmake_build
 
@@ -60,6 +62,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 5.116.0-5
+- Allow to build with CMake 4.0 (rhbz#2380680)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.116.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

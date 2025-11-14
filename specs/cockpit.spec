@@ -57,7 +57,7 @@ Summary:        Web Console for Linux servers
 License:        LGPL-2.1-or-later
 URL:            https://cockpit-project.org/
 
-Version:        350
+Version:        351
 Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 
@@ -362,7 +362,7 @@ Provides: bundled(npm(react)) = 18.3.1
 Provides: bundled(npm(remarkable)) = 2.0.1
 Provides: bundled(npm(scheduler)) = 0.23.2
 Provides: bundled(npm(sprintf-js)) = 1.0.3
-Provides: bundled(npm(tabbable)) = 6.2.0
+Provides: bundled(npm(tabbable)) = 6.3.0
 Provides: bundled(npm(throttle-debounce)) = 5.0.2
 Provides: bundled(npm(tslib)) = 2.8.1
 Provides: bundled(npm(uuid)) = 13.0.0
@@ -650,6 +650,9 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Nov 12 2025 Packit <hello@packit.dev> - 351-1
+- Firewall ports can be deleted individually
+
 * Wed Oct 29 2025 Packit <hello@packit.dev> - 350-1
 - networking: fix renaming of bridges and other groups (RHEL-117883)
 - bridge: fix OpenSSH_10.2p1 host key detection

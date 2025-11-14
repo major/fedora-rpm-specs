@@ -7,7 +7,7 @@
 
 %global goipath         github.com/osbuild/image-builder-cli
 
-Version:        40
+Version:        41
 
 %gometa
 
@@ -145,7 +145,7 @@ Provides: bundled(golang(github.com/opencontainers/image-spec)) = 1.1.1
 Provides: bundled(golang(github.com/opencontainers/runtime-spec)) = 1.2.1
 Provides: bundled(golang(github.com/opencontainers/selinux)) = 1.12.0
 Provides: bundled(golang(github.com/osbuild/blueprint)) = 1.16.0
-Provides: bundled(golang(github.com/osbuild/images)) = 0.210.0
+Provides: bundled(golang(github.com/osbuild/images)) = 0.216.0
 Provides: bundled(golang(github.com/pkg/errors)) = 0.9.1
 Provides: bundled(golang(github.com/pmezard/go-difflib)) = 5d4384e
 Provides: bundled(golang(github.com/proglottis/gpgme)) = 0.1.4
@@ -259,6 +259,23 @@ cd $PWD/_build/src/%{goipath}
 %{_bindir}/image-builder
 
 %changelog
+* Wed Nov 12 2025 Packit <hello@packit.dev> - 41-1
+Changes with 41
+----------------
+  - Drop the need for --privileged for all subcommands except `build` (#361)
+    - Author: Ondřej Budai, Reviewers: Lukáš Zapletal, Simon de Vlieger
+  - ci: add gobump action (#365)
+    - Author: Lukáš Zapletal, Reviewers: Achilleas Koutsou, Simon de Vlieger, Tomáš Hozza
+  - main: add `--rpmmd-cache` options [HMS-9646] (#358)
+    - Author: Michael Vogt, Reviewers: Lukáš Zapletal, Simon de Vlieger
+  - main: fix missing append of `repositories` when using --data-dirs (#360)
+    - Author: Michael Vogt, Reviewers: Achilleas Koutsou, Brian C. Lane
+  - many: update all refs to Fedora 43 (#362)
+    - Author: Ondřej Budai, Reviewers: Achilleas Koutsou, Michael Vogt, Simon de Vlieger
+
+— Somewhere on the Internet, 2025-11-12
+
+
 * Wed Oct 29 2025 Packit <hello@packit.dev> - 40-1
 Changes with 40
 ----------------

@@ -1,6 +1,6 @@
 Name:      spatialindex
 Version:   2.1.0
-Release:   2%{?dist}
+Release:   3%{?dist}
 %global so_version 8
 Summary:   Spatial index library 
 
@@ -49,12 +49,12 @@ rm -rv test/gtest/gtest-*
 # retain the workaround of undefining them in case this version of the spec
 # file is branched to EPEL10.
 #
-# GTest >=1.13 requires C++14 (-DCMAKE_CXX_STANDARD=14).
+# GTest >=1.17 requires C++17 (-DCMAKE_CXX_STANDARD=17).
 %cmake \
     -DBUILD_TESTING:BOOL=ON \
     -DSYSTEM_GTEST:BOOL=ON \
     -UINCLUDE_INSTALL_DIR -ULIB_INSTALL_DIR \
-    -DCMAKE_CXX_STANDARD=14
+    -DCMAKE_CXX_STANDARD=17
 
 
 %build
@@ -84,6 +84,9 @@ rm -rv test/gtest/gtest-*
 
 
 %changelog
+* Wed Nov 12 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 2.1.0-3
+- Build as C++17 for compatibility with gtest 1.17
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

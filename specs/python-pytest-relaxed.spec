@@ -1,11 +1,14 @@
 Name:           python-pytest-relaxed
 Version:        2.0.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Relaxed test discovery/organization for pytest
 
 License:        BSD-2-Clause
 URL:            https://github.com/bitprophet/pytest-relaxed
 Source:         %{url}/archive/%{version}/pytest-relaxed-%{version}.tar.gz
+
+# Backport patch for compatibility with pytest 8.4+
+Patch:          https://github.com/bitprophet/pytest-relaxed/pull/34.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -53,6 +56,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Mon Nov 10 2025 Tomáš Hrnčiar <thrnciar@redhat.com> - 2.0.2-9
+- Backport patch for compatibility with pytest 8.4+
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.0.2-8
 - Rebuilt for Python 3.14.0rc3 bytecode
 

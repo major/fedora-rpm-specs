@@ -34,8 +34,8 @@
 #global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
 
 Name:           gstreamer1-plugins-good
-Version:        1.26.7
-Release:        4%{?dist}
+Version:        1.26.8
+Release:        1%{?dist}
 Summary:        GStreamer plugins with good code and licensing
 
 License:        CC0-1.0 AND GPL-2.0-only AND LGPL-2.0-only AND LGPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND xlock AND MIT AND BSD-3-Clause AND CC-BY-3.0 
@@ -54,8 +54,6 @@ Source0:        http://gstreamer.freedesktop.org/src/gst-plugins-good/gst-plugin
 # project, translated and installed into the right place during `make install`.
 # See http://www.freedesktop.org/software/appstream/docs/ for more details.
 Source1:        gstreamer-good.appdata.xml
-
-Patch0:         9870.diff
 
 BuildRequires:  meson >= 0.48.0
 BuildRequires:  gcc
@@ -219,8 +217,6 @@ to be installed.
 %prep
 %setup -q -n gst-plugins-good-%{version}
 
-%patch -P0 -p3
-
 %build
 %meson \
   -D package-name='Fedora GStreamer-plugins-good package' \
@@ -377,6 +373,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -fv {} ';'
 
 
 %changelog
+* Wed Nov 12 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.26.8-1
+- 1.26.8
+
 * Sat Nov 01 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.26.7-4
 - Qt6 re-rebuild
 

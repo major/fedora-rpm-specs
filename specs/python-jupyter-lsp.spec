@@ -10,6 +10,7 @@ Source:         %{pypi_source jupyter_lsp}
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
+BuildRequires:  python3-pytest-asyncio
 
 %global _description %{expand:
 Multi-Language Server WebSocket proxy for your Jupyter notebook or lab server.
@@ -52,7 +53,12 @@ mv -v %{buildroot}{%{_prefix},}%{_sysconfdir}/jupyter/jupyter_server_config.d/ju
 
 %check
 # test_r_package_detection fails if R language server is not installed
-%pytest -k "not test_r_package_detection"
+# test_listener and test_session were silently skipped until pytest 8.4+ made them fail
+# we are skipping them for the time being
+# upstream report: github.com/jupyter-lsp/jupyterlab-lsp/issues/1159
+%pytest -k "not test_r_package_detection" \
+        --ignore jupyter_lsp/tests/test_listener.py \
+        --ignore jupyter_lsp/tests/test_session.py
 
 
 %files -n python3-jupyter-lsp -f %{pyproject_files}

@@ -1,5 +1,5 @@
 Name:           cockpit-image-builder
-Version:        81
+Version:        82
 Release:        1%{?dist}
 Summary:        Image builder plugin for Cockpit
 
@@ -46,6 +46,47 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Wed Nov 12 2025 Packit <hello@packit.dev> - 82-1
+Changes with 82
+----------------
+  - Playwright: Add non-repeatable build integration test (HMS-9497) (#3724)
+    - Author: Tomáš Koscielniak, Reviewers: Klara Simickova, Michal Gold
+  - Update latest API (HMS-9637) (#3784)
+    - Author: Michal Gold, Reviewers: Klara Simickova
+  - Update latest API (HMS-9685) (#3808)
+    - Author: Michal Gold, Reviewers: Gianluca Zuccarelli, Klara Simickova
+  - Wizard: Compliance revamp (HMS-9396) (#3732)
+    - Author: Katarína Sieklová, Reviewers: Klara Simickova
+  - build(deps-dev): bump @vitejs/plugin-react from 5.0.3 to 5.1.0 (#3782)
+    - Author: dependabot[bot], Reviewers: Klara Simickova
+  - chore(deps): lock file maintenance (#3728)
+    - Author: red-hat-konflux[bot], Reviewers: Gianluca Zuccarelli, Klara Simickova
+  - chore(deps): lock file maintenance (#3812)
+    - Author: red-hat-konflux[bot], Reviewers: Michal Gold
+  - chore(deps): update build-tools digest to 098cc75 (#3793)
+    - Author: red-hat-konflux[bot], Reviewers: Klara Simickova
+  - chore(deps): update build-tools digest to f15b565 (#3814)
+    - Author: red-hat-konflux[bot], Reviewers: Michal Gold
+  - chore(deps): update konflux references (#3789)
+    - Author: red-hat-konflux[bot], Reviewers: Michal Gold
+  - chore(deps): update react monorepo (#3797)
+    - Author: red-hat-konflux[bot], Reviewers: Klara Simickova
+  - chore(deps): update typescript-eslint monorepo to v8.46.3 (#3815)
+    - Author: red-hat-konflux[bot], Reviewers: Tomáš Koscielniak
+  - cockpit-image-builder: export blueprints (RHEL-123840) (#3779)
+    - Author: Sanne Raymaekers, Reviewers: Gianluca Zuccarelli
+  - dependabot: Switch from daily to weekly updates (HMS-9650) (#3787)
+    - Author: Klara Simickova, Reviewers: Michal Gold
+  - devDeps: Bump eslint-plugin-playwright from 2.2.2 to 2.3.0 (HMS-9654) (#3795)
+    - Author: Klara Simickova, Reviewers: Tomáš Koscielniak
+  - fix(deps): update dependency @redhat-cloud-services/frontend-components to v7.0.13 (#3816)
+    - Author: red-hat-konflux[bot], Reviewers: Tomáš Koscielniak
+  - packit.yaml: Release into fedora-all (HMS-9619) (#3778)
+    - Author: Klara Simickova, Reviewers: Sanne Raymaekers
+
+— Somewhere on the Internet, 2025-11-12
+
+
 * Wed Oct 29 2025 Packit <hello@packit.dev> - 81-1
 Changes with 81
 ----------------

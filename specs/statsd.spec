@@ -5,7 +5,7 @@
 
 Name:       statsd
 Version:    0.8.6
-Release:    13%{?dist}
+Release:    14%{?dist}
 Summary:    A simple, lightweight network daemon to collect metrics over UDP
 License:    MIT
 URL:        https://github.com/statsd/statsd
@@ -112,6 +112,9 @@ install -m0644 -D statsd.sysusers.conf %{buildroot}%{_sysusersdir}/statsd.conf
 
 
 %changelog
+* Tue Nov 11 2025 Tomas Juhasz <tjuhasz@redhat.com> - 0.8.6-14
+- Rebuilt for nodejs-packaging
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.6-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

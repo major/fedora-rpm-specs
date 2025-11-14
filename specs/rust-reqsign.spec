@@ -107,6 +107,18 @@ use the "google" feature of the "%{crate}" crate.
 %files       -n %{name}+google-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+huaweicloud-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+huaweicloud-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "huaweicloud" feature of the "%{crate}" crate.
+
+%files       -n %{name}+huaweicloud-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+tencent-devel
 Summary:        %{summary}
 BuildArch:      noarch

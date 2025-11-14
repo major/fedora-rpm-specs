@@ -40,6 +40,8 @@ sed -i 's/-O3//' CMakeLists.txt
 sed -i 's/^install.*-static.*$//' src/CMakeLists.txt
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380544)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake
 %cmake_build
 

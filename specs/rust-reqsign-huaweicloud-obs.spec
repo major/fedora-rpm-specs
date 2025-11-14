@@ -2,36 +2,27 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate libz-ng-sys
+%global crate reqsign-huaweicloud-obs
 
-Name:           rust-libz-ng-sys
-Version:        1.1.23
+Name:           rust-reqsign-huaweicloud-obs
+Version:        2.0.1
 Release:        %autorelease
-Summary:        Low-level bindings to zlib-ng
+Summary:        Huawei Cloud OBS signing implementation for reqsign
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/libz-ng-sys
+License:        Apache-2.0
+URL:            https://crates.io/crates/reqsign-huaweicloud-obs
 Source:         %{crates_source}
-# * Replace the upstream script for building zlib-ng with one that
-#   unconditionally links the system one. The result is so trivial and has so
-#   little in common with the original that it makes sense to ship an
-#   alternative source rather than a patch.
-Source10:       cmake.rs
 
 BuildRequires:  cargo-rpm-macros >= 24
-BuildRequires:  tomcli
-BuildRequires:  pkgconfig(zlib-ng)
 
 %global _description %{expand:
-Low-level bindings to zlib-ng (libz-ng), a high-performance zlib
-library.}
+Huawei Cloud OBS signing implementation for reqsign.}
 
 %description %{_description}
 
 %package        devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       pkgconfig(zlib-ng)
 
 %description    devel %{_description}
 
@@ -39,9 +30,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/README-zng.md
+%license %{crate_instdir}/LICENSE
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -58,12 +47,6 @@ use the "default" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-# Remove the bundled copy of zlib-ng and replace its build script
-rm -rv src/zlib-ng
-cp -p '%{SOURCE10}' zng/
-# We don’t need CMake since we are not building zlib-ng:
-tomcli set Cargo.toml del build-dependencies.cmake
-
 %cargo_prep
 
 %generate_buildrequires

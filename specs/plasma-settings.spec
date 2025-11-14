@@ -1,7 +1,7 @@
 Name:           plasma-settings
 Version:        25.11.0
 Release:        1%{?dist}
-License:        BSD-2-Clause, CC-BY-4.0, CC0-1.0, GPL-2.0-only, GPL-2.0-or-later, GPL-3.0-only
+License:        BSD-2-Clause AND CC-BY-4.0 AND CC0-1.0 AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only
 Summary:        Convergent Plasma Mobile settings application
 Url:            https://invent.kde.org/plasma-mobile/plasma-settings
 Source0:        https://download.kde.org/stable/plasma-settings/%{name}-%{version}.tar.xz

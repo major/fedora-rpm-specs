@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-machines
-Version:        343
+Version:        344
 Release:        1%{?dist}
 Summary:        Cockpit user interface for virtual machines
 License:        LGPL-2.1-or-later AND MIT
@@ -120,6 +120,12 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Nov 12 2025 Packit <hello@packit.dev> - 344-1
+- Port forwarding for user session VMs
+- "Shutdown and restart" action
+- Faster startup
+
+
 * Thu Oct 30 2025 Packit <hello@packit.dev> - 343-1
 - Memory usage now shows numbers reported by the guest (RHEL-116731)
 

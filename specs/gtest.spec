@@ -1,16 +1,21 @@
 Summary:        Google C++ testing framework
 Name:           gtest
-Version:        1.15.2
-Release:        4%{?dist}
+Version:        1.17.0
+
+%global forgeurl https://github.com/google/googletest
+%forgemeta
+
+Release:        1%{?dist}
 # scripts/generator/* are Apache-2.0
 License:        BSD-3-Clause and Apache-2.0
-URL:            https://github.com/google/googletest
-Source0:        https://github.com/google/googletest/archive/refs/tags/v%{version}.tar.gz
-Patch1:         gtest-ciso646.patch
+URL:            %forgeurl
+Source0:        %forgesource
+
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  python3-devel
+
 %description
 Framework for writing C++ tests on a variety of platforms (GNU/Linux,
 Mac OS X, Windows, Windows CE, and Symbian). Based on the xUnit
@@ -51,10 +56,7 @@ Requires:       gmock = %{version}-%{release}
 This package contains development files for gmock.
 
 %prep
-%autosetup -p1 -n googletest-%{version}
-
-# Set the version correctly
-sed -e "s/set(GOOGLETEST_VERSION .*)/set(GOOGLETEST_VERSION %{version})/" -i CMakeLists.txt
+%forgeautosetup -p1
 
 
 %build
@@ -100,6 +102,9 @@ sed -e "s/set(GOOGLETEST_VERSION .*)/set(GOOGLETEST_VERSION %{version})/" -i CMa
 %{_libdir}/pkgconfig/gmock_main.pc
 
 %changelog
+* Mon Sep 15 2025 Zephyr Lykos <fedora@mochaa.ws> - 1.17.0-1
+- new version
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

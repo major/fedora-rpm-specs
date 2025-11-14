@@ -125,6 +125,14 @@ install --mode=644 contrib/Orochi/Orochi/*.h %{buildroot}%{_includedir}/Orochi
 install --mode=644 contrib/Orochi/contrib/hipew/include/hipew.h %{buildroot}%{_includedir}/Orochi
 sed -i -e 's@../contrib/hipew/include/hipew.h@hipew.h@' %{buildroot}%{_includedir}/Orochi/Orochi.h
 
+# blender 4.5.4 has this error
+# CMake Error at redhat-linux-build/source/creator/cmake_install.cmake:1238 (file):
+#   file INSTALL cannot find "/usr/include/hiprt/impl/Geometry.h": No such file
+# fake one.
+mkdir -p %{buildroot}%{_includedir}/hiprt/impl
+echo "// A fake file for blender" > %{buildroot}%{_includedir}/hiprt/impl/Geometry.h
+echo "// A fake file for blender" > %{buildroot}%{_includedir}/hiprt/impl/Scene.h
+
 %files
 %license license.txt
 %{_libdir}/lib%{name}%{lib_suffix}.so.*

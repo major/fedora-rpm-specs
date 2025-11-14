@@ -120,7 +120,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 %endif
 Summary:        ROCm Fast Fourier Transforms (FFT) library
 License:        MIT
@@ -301,6 +301,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/rocfft/LICENSE.md
 %endif
 
 %changelog
+* Wed Nov 12 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-3
+- Rebuild for gfx1036
+
 * Wed Nov 5 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
 - Remove sqlite version check
 

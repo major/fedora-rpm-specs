@@ -1,7 +1,7 @@
 Name: kover
 Summary: WYSIWYG CD cover printer with CDDB support
 Version: 6
-Release: 38%{?dist}
+Release: 39%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 Source0: http://lisas.de/kover/kover-6.tar.bz2
@@ -19,6 +19,8 @@ Kover is an easy to use WYSIWYG CD cover printer with CDDB support.
 %setup -q
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380686)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 mkdir -p %{_target_platform}
 pushd %{_target_platform}
 %{cmake_kde4} ..
@@ -65,6 +67,9 @@ rm -rfv %{buildroot}%{_datadir}/icons/locolor
 %{_kde4_bindir}/kover
 
 %changelog
+* Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 6-39
+- Allow to build with CMake 4.0 (rhbz#2380686)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

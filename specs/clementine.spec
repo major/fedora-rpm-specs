@@ -146,6 +146,8 @@ rm -rfv 3rdparty/*
 mv {qocoa,qsqlite,qtiocompressor,utf8-cpp}/ 3rdparty/
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380506)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake \
   -DBUILD_WERROR:BOOL=OFF \
   -DCMAKE_BUILD_TYPE:STRING=Release \

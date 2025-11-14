@@ -121,7 +121,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        ROCm random number generator
 
@@ -270,6 +270,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/rocrand/LICENSE.md
 %endif
 
 %changelog
+* Wed Nov 12 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
+- Rebuild for gfx1036
+
 * Thu Oct 30 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
 - Update to 7.1.0
 
