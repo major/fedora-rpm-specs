@@ -1,6 +1,6 @@
 Name:           eiskaltdcpp
 Version:        2.4.2
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Direct Connect client
 
 # The entire source code is GPLv3+ except FlowLayout.cpp and .h which is LGPLv2+
@@ -83,6 +83,8 @@ rm -rf data/examples/*.php eiskaltdcpp-qt/qtscripts/gnome/*.php
 sed -i '/SSL_CTX_set_cipher_list/d' dcpp/CryptoManager.cpp
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380564)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake \
     -DUSE_ASPELL=ON \
     -DFREE_SPACE_BAR_C=ON \
@@ -142,6 +144,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Mon Nov 10 2025 Cristian Le <git@lecris.dev> - 2.4.2-22
+- Allow to build with CMake 4.0 (rhbz#2380564)
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

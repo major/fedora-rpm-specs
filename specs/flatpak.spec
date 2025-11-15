@@ -6,12 +6,13 @@
 %global ostree_version 2020.8
 %global wayland_protocols_version 1.32
 %global wayland_scanner_version 1.15
+%global xdg_portal_version 1.7.0
 
 # Disable parental control for RHEL builds
 %bcond malcontent %[!0%{?rhel}]
 
 Name:           flatpak
-Version:        1.16.1
+Version:        1.17.0
 Release:        %autorelease
 Summary:        Application deployment framework for desktop apps
 
@@ -86,9 +87,9 @@ Recommends:     p11-kit-server
 
 # Make sure the document portal is installed
 %if 0%{?fedora} || 0%{?rhel} > 7
-Recommends:     xdg-desktop-portal > 1.5.3
+Recommends:     xdg-desktop-portal >= %{xdg_portal_version}
 %else
-Requires:       xdg-desktop-portal > 1.5.3
+Requires:       xdg-desktop-portal >= %{xdg_portal_version}
 %endif
 
 %description
@@ -152,7 +153,6 @@ This package contains installed tests for %{name}.
 
 %build
 %meson \
-    -Ddbus_config_dir=/usr/share/dbus-1/system.d \
     -Dinstalled_tests=true \
     -Dsystem_bubblewrap=/usr/bin/bwrap \
     -Dsystem_dbus_proxy=/usr/bin/xdg-dbus-proxy \
@@ -171,9 +171,11 @@ This package contains installed tests for %{name}.
 %meson_install
 install -pm 644 NEWS README.md %{buildroot}/%{_pkgdocdir}
 # The system repo is not installed by the flatpak build system.
+install -d %{buildroot}%{_datadir}/%{name}/preinstall.d
 install -d %{buildroot}%{_datadir}/%{name}/remotes.d
 install -d %{buildroot}%{_localstatedir}/lib/flatpak
 install -d %{buildroot}%{_sysconfdir}/%{name}/installations.d
+install -d %{buildroot}%{_sysconfdir}/%{name}/preinstall.d
 install -d %{buildroot}%{_sysconfdir}/flatpak/remotes.d
 
 %if 0%{?fedora}
@@ -247,6 +249,7 @@ fi
 %{_mandir}/man5/flatpakrepo.5*
 %dir %{_sysconfdir}/flatpak
 %{_sysconfdir}/%{name}/installations.d
+%{_sysconfdir}/%{name}/preinstall.d
 %{_sysconfdir}/flatpak/remotes.d
 %{_sysconfdir}/profile.d/flatpak.csh
 %{_sysconfdir}/profile.d/flatpak.sh

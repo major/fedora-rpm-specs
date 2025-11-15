@@ -1,5 +1,5 @@
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0xf8675126e2411e7748dd46662fc2093e4682645f
+%global sources_gpg_sign 0xb8e9315f48553ec5aff9ffe5e69d97da9efb5aff
 %global pypi_name hacking
 
 # disable tests for now, see
@@ -17,8 +17,8 @@
 %global excluded_brs doc8 bandit pre-commit hacking flake8-import-order
 
 Name:           python-%{pypi_name}
-Version:        7.0.0
-Release:        6%{?dist}
+Version:        8.0.0
+Release: %autorelease
 Summary:        OpenStack Hacking Guideline Enforcement
 
 License:        Apache-2.0
@@ -149,174 +149,5 @@ rm -rf doc/build/html/.{doctrees,buildinfo} doc/build/html/objects.inv
 %{python3_sitelib}/%{pypi_name}
 
 %changelog
-* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 7.0.0-6
-- Rebuilt for Python 3.14.0rc3 bytecode
+%autochangelog
 
-* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 7.0.0-5
-- Rebuilt for Python 3.14.0rc2 bytecode
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Wed Jun 04 2025 Python Maint <python-maint@redhat.com> - 7.0.0-3
-- Rebuilt for Python 3.14
-
-* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Tue Oct 08 2024 Joel Capitao <jcapitao@redhat.com> 7.0.0-1
-- Update to upstream version 7.0.0
-
-* Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Wed Jul 10 2024 Hirotaka Wakabayashi <hiwkby@yahoo.com> 6.1.0-3
-- Move patch to git rather than sources (PR#2 by churchyard)
-
-* Wed Jul 10 2024 Hirotaka Wakabayashi <hiwkby@yahoo.com> 6.1.0-2
-- Adds a workaround for a building error(eventlet)
-
-* Mon May 06 2024 Alfredo Moralejo <amoralej@redhat.com> 6.1.0-1
-- Update to upstream version 6.1.0
-
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Thu Oct 26 2023 Alfredo Moralejo <amoralej@gmail.com> 6.0.1-1
-- Update to upstream version 6.0.1
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Fri Jul 14 2023 Python Maint <python-maint@redhat.com> - 4.0.0-8
-- Rebuilt for Python 3.12
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jun 16 2022 Python Maint <python-maint@redhat.com> - 4.0.0-5
-- Rebuilt for Python 3.11
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 4.0.0-2
-- Rebuilt for Python 3.10
-
-* Mon Feb 01 2021 Matthias Runge <mrunge@redhat.com> - 4.0.0-1
-- rebase to 4.0.0 (rhbz#1893428)
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-13
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 1.1.0-11
-- Rebuilt for Python 3.9
-
-* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Oct 03 2019 Miro Hrončok <mhroncok@redhat.com> - 1.1.0-9
-- Rebuilt for Python 3.8.0rc1 (#1748018)
-
-* Mon Aug 19 2019 Miro Hrončok <mhroncok@redhat.com> - 1.1.0-8
-- Rebuilt for Python 3.8
-
-* Fri Jul 26 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Thu Apr 25 2019 Matthias Runge <mrunge@redhat.com> - 1.1.0-6
-- drop python2 package (rhbz#1701951)
-
-* Sat Feb 02 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Tue Jan 29 2019 Matthias Runge <mrunge@redhat.com> - 1.1.0-4
-- drop requirements pyflakes, pep8, flake8 and use pycodestyle instead
-
-* Sat Jul 14 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Tue Jun 19 2018 Miro Hrončok <mhroncok@redhat.com> - 1.1.0-2
-- Rebuilt for Python 3.7
-
-* Wed May 09 2018 Matthias Runge <mrunge@redhat.com> - 1.1.0-1
-- update to 1.1.0 (rhbz#1576139)
-
-* Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Fri Jan 19 2018 Iryna Shcherbina <ishcherb@redhat.com> - 0.13.0-4
-- Update Python 2 dependency declarations to new packaging standards
-  (See https://fedoraproject.org/wiki/FinalizingFedoraSwitchtoPython3)
-
-* Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Mon Feb 20 2017 Matthias Runge <mrunge@redhat.com> - 0.13.0-2
-- disable tests for now (see above for links to bugs)
-
-* Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Thu Dec 22 2016 Adam Williamson <awilliam@redhat.com> - 0.13.0-1
-- Update to 0.13.0 (some fixes for flake8 3.x compat from upstream)
-- Patch test suite to be compatible with flake8 2.x and 3.x
-- Disable 'local-check' feature on >F25 (incompatible with flake8 3.x)
-- Re-enable Python 3 tests (they seem to work again now)
-
-* Mon Dec 19 2016 Miro Hrončok <mhroncok@redhat.com> - 0.10.2-5
-- Rebuild for Python 3.6
-
-* Tue Jul 19 2016 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.10.2-4
-- https://fedoraproject.org/wiki/Changes/Automatic_Provides_for_Python_RPM_Packages
-
-* Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
-
-* Tue Nov 10 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.10.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Changes/python3.5
-
-* Tue Sep 01 2015 Lukas Bezdicka <lbezdick@redhat.com> - 0.10.2-1
-- Add python3 sub package and update to 0.10.2
-
-* Thu Jun 18 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.10.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
-
-* Tue Mar 03 2015 Matthias Runge <mrunge@redhat.com> - 0.10.1-1
-- update to 0.10.1
-
-* Mon Oct 20 2014 Matthias Runge <mrunge@redhat.com> - 0.9.2-1
-- udapte to 0.9.2
-
-* Tue Jun 10 2014 Matthias Runge <mrunge@redhat.com> - 0.9.1-1
-- update to 0.9.1
-
-* Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.8.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
-
-* Fri Mar 28 2014 Matthias Runge <mrunge@redhat.com> - 0.8.1-1
-- update to 0.8.1
-
-* Tue Nov 19 2013 Matthias Runge <mrunge@redhat.com> - 0.8.0-1
-- update to 0.8.0
-
-* Tue Sep 17 2013 Matthias Runge <mrunge@redhat.com> - 0.7.2-1
-- update to 0.7.2
-
-* Fri Jun 07 2013 Matthias Runge <mrunge@redhat.com> - 0.5.3-2
-- also use checks and move requirements to rpm-requiremens
-
-* Mon Apr 29 2013 Matthias Runge <mrunge@redhat.com> - 0.5.3-1
-- Initial package.

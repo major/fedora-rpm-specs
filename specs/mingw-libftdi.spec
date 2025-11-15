@@ -3,7 +3,7 @@
 %global name1 libftdi
 Name:           mingw-%{name1}
 Version:        1.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        MinGW library to program and control the FTDI USB controller
 
 # Automatically converted from old format: LGPLv2 and GPLv2 - review is highly recommended.
@@ -66,6 +66,8 @@ FT232BM and FT245BM type chips including the popular bitbang mode.
 
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380906)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %mingw_cmake -DSTATICLIBS=off -DFTDIPP=on -DPYTHON_BINDINGS=off -DDOCUMENTATION=on -DEXAMPLES=off .
 
 %mingw_make %{?_smp_mflags}
@@ -113,6 +115,9 @@ rm -rf $RPM_BUILD_ROOT/build_win64/examples
 %{mingw64_libdir}/pkgconfig/libftdipp1.pc
 
 %changelog
+* Wed Nov 12 2025 Cristian Le <git@lecris.dev> - 1.5-3
+- Allow to build with CMake 4.0 (rhbz#2380906)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Python
 
 
@@ -1526,6 +1526,10 @@ CheckPython optimized
 %dir %{pylibdir}/site-packages/
 %dir %{pylibdir}/site-packages/__pycache__/
 %{pylibdir}/site-packages/README.txt
+
+%exclude %{pylibdir}/_sysconfigdata_d_linux_%{platform_triplet}.py
+%exclude %{pylibdir}/__pycache__/_sysconfigdata_d_linux_%{platform_triplet}%{bytecode_suffixes}
+
 %{pylibdir}/*.py
 %dir %{pylibdir}/__pycache__/
 %{pylibdir}/__pycache__/*%{bytecode_suffixes}
@@ -1854,6 +1858,9 @@ CheckPython optimized
 %{dynload_dir}/_testinternalcapi.%{SOABI_debug}.so
 %{dynload_dir}/_testmultiphase.%{SOABI_debug}.so
 
+%{pylibdir}/_sysconfigdata_d_linux_%{platform_triplet}.py
+%{pylibdir}/__pycache__/_sysconfigdata_d_linux_%{platform_triplet}%{bytecode_suffixes}
+
 %endif # with debug_build
 
 # We put the debug-gdb.py file inside /usr/lib/debug to avoid noise from ldconfig
@@ -1877,6 +1884,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Mon Nov 10 2025 Tomas Orsava <torsava@redhat.com> - 3.9.25-2
+- Move _sysconfigdata_d_linux*.py to the debug subpackage
+
 * Mon Nov 03 2025 Karolina Surma <ksurma@redhat.com> - 3.9.25-1
 - Update to Python 3.9.25
 

@@ -37,7 +37,7 @@
 %global sum_zh FastAPI 框架
 
 Name:           python-fastapi
-Version:        0.121.1
+Version:        0.121.2
 Release:        %autorelease
 Summary:        %{sum_en}
 
@@ -319,17 +319,18 @@ de APIs com Python, baseado nos type hints padrões do Python.
 
 Os recursos chave são:
 
+
   • Rápido: alta performance, equivalente a NodeJS e Go (graças ao Starlette e
     Pydantic). Um dos frameworks mais rápidos disponíveis.
   • Rápido para codar: Aumenta a velocidade para desenvolver recursos entre
     200% a 300%. *
   • Poucos bugs: Reduz cerca de 40% de erros induzidos por humanos
     (desenvolvedores). *
-  • Intuitivo: Grande suporte a IDEs. Auto-Complete em todos os lugares. Menos
-    tempo debugando.
+  • Intuitivo: Grande suporte a IDEs. Preenchimento automático em todos os
+    lugares. Menos tempo debugando.
   • Fácil: Projetado para ser fácil de aprender e usar. Menos tempo lendo
     documentação.
-  • Enxuto: Minimize duplicação de código. Múltiplos recursos para cada
+  • Enxuto: Minimize duplicação de código. Múltiplas funcionalidades para cada
     declaração de parâmetro. Menos bugs.
   • Robusto: Tenha código pronto para produção. E com documentação interativa
     automática.

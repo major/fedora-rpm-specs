@@ -6,7 +6,7 @@
 
 Name:           vid.stab
 Version:        1.1.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Video stabilize library for fmpeg, mlt or transcode
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:        GPL-2.0-or-later
@@ -43,6 +43,8 @@ sed -i 's|-Wall -O0|-Wall -O|' tests/CMakeLists.txt
 sed -i 's|return units_failed==0;|return units_failed>0;|' tests/testframework.c
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2381628)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake
 %cmake_build
 
@@ -71,6 +73,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} tests/tests || :
 %{_libdir}/pkgconfig/vidstab.pc
 
 %changelog
+* Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 1.1.1-7
+- Allow to build with CMake 4.0 (rhbz#2381628)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

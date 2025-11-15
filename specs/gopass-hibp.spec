@@ -3,7 +3,7 @@
 
 # https://github.com/gopasspw/gopass-hibp
 %global goipath         github.com/gopasspw/gopass-hibp
-Version:                1.15.18
+Version:                1.16.0
 
 %gometa -L -f
 

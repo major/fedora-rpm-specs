@@ -4,7 +4,7 @@
 
 Name:           fancontrol-gui
 Version:        0.8
-Release:        7.%{date}git%{gitcommit}%{?dist}
+Release:        8.%{date}git%{gitcommit}%{?dist}
 Summary:        GUI for fancontrol
 
 License:        GPL-2.0-or-later
@@ -70,6 +70,8 @@ Plasmoid for %{name}.
 
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380570)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake_kf5 -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_KCM=on -DBUILD_PLASMOID=on
 %cmake_build
 
@@ -111,6 +113,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.kde.fancon
 %{_datadir}/plasma/plasmoids/org.kde.fancontrol.plasmoid
 
 %changelog
+* Mon Nov 10 2025 Cristian Le <git@lecris.dev> - 0.8-8.20220606git5bfa8fa
+- Allow to build with CMake 4.0 (rhbz#2380570)
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-7.20220606git5bfa8fa
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %global nixbld_group nixbld
 
 # needs mdbook: https://bugzilla.redhat.com/show_bug.cgi?id=2332609
-%bcond docs 0
+%bcond docs 1
 # test failures complain NIX_STORE undefined
 # and missing rapidcheck
 %bcond tests 0
@@ -10,7 +10,7 @@ Name:           nix
 # 2.32 needs boost >= 1.87 (https://bugzilla.redhat.com/show_bug.cgi?id=2406036)
 # (https://github.com/NixOS/nix/pull/14340)
 Version:        2.31.2
-Release:        8%{?dist}
+Release:        %autorelease
 Summary:        A purely functional package manager
 
 License:        LGPL-2.1-or-later
@@ -30,6 +30,9 @@ Patch1:         https://patch-diff.githubusercontent.com/raw/NixOS/nix/pull/1400
 Patch2:         https://patch-diff.githubusercontent.com/raw/NixOS/nix/pull/14005.patch
 # https://github.com/NixOS/nix/pull/14018
 Patch3:         https://patch-diff.githubusercontent.com/raw/NixOS/nix/pull/14018.patch
+# disable mdbook
+# https://github.com/NixOS/nix/issues/14548
+Patch4:         nix-disable-mdbook.patch
 
 # https://nixos.org/manual/nix/unstable/installation/prerequisites-source
 # missing aws-cpp-sdk-s3 aws-c-auth aws-c-s3
@@ -47,6 +50,7 @@ BuildRequires:  busybox
 BuildRequires:  cmake
 %if %{with docs}
 BuildRequires:  doxygen
+BuildRequires:  rsync
 %endif
 BuildRequires:  flex
 BuildRequires:  gc-devel
@@ -78,14 +82,10 @@ BuildRequires:  sqlite-devel
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  toml11-devel
 BuildRequires:  xz-devel
-Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+Requires:       %{name}-core = %{version}-%{release}
 Recommends:     (%{name}-daemon = %{version}-%{release} if systemd)
+Recommends:     %{name}-legacy = %{version}-%{release}
 Recommends:     %{name}-system = %{version}-%{release}
-%ifarch x86_64 aarch64 ppc64le
-Recommends:     busybox
-%endif
-# added at F43
-Obsoletes:      nix-core < %{version}-%{release}
 
 %description
 Nix is a purely functional package manager. It allows multiple
@@ -96,6 +96,20 @@ other features. It is the basis of the NixOS Linux distribution, but
 it can be used equally well under other Unix systems.
 
 See the README.fedora.md file for setup instructions.
+
+
+%package        core
+Summary:        Core nix tool
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+%ifarch x86_64 aarch64 ppc64le
+Recommends:     busybox
+%endif
+
+%description    core
+This package provides the core nix tool for modern flake-based commands.
+
+Most users should probably install the main nix package instead,
+or also nix-legacy if you need the older pre-flake nix-* commands.
 
 
 %package daemon
@@ -135,6 +149,15 @@ Obsoletes:      nix-singleuser < %{version}-%{release}
 
 %description    filesystem
 The package provides the /nix root directory for the nix package manager.
+
+
+%package        legacy
+Summary:        nix classical commands
+BuildArch:      noarch
+Requires:       nix-core = %{version}-%{release}
+
+%description    legacy
+This package provides the symlinks for the older nix-* commands.
 
 
 %package libs
@@ -238,22 +261,11 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{buildroot}%{_bindir}/nix --help
 
 
 %files
+
+
+%files core
 %doc README.md README.fedora.md
 %{_bindir}/nix
-%{_bindir}/nix-build
-%{_bindir}/nix-channel
-%{_bindir}/nix-collect-garbage
-%{_bindir}/nix-copy-closure
-%{_bindir}/nix-env
-%{_bindir}/nix-hash
-%{_bindir}/nix-instantiate
-%{_bindir}/nix-prefetch-url
-%{_bindir}/nix-shell
-%{_bindir}/nix-store
-%if %{with tests}
-%exclude %{_bindir}/nix*-test
-%endif
-%exclude %{_bindir}/nix-daemon
 %{_libexecdir}/nix
 %config(noreplace) %{_sysconfdir}/nix/nix.conf
 %config(noreplace) %{_sysconfdir}/nix/registry.json
@@ -263,6 +275,12 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{buildroot}%{_bindir}/nix --help
 %{fish_completions_dir}/nix.fish
 %{zsh_completions_dir}/_nix
 %{zsh_completions_dir}/run-help-nix
+%if %{with docs}
+%{_mandir}/man1/nix.1*
+%{_mandir}/man1/nix3-*.1*
+%{_mandir}/man5/nix.conf.5*
+%{_mandir}/man5/nix-profiles.5*
+%endif
 
 
 %files daemon
@@ -272,6 +290,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{buildroot}%{_bindir}/nix --help
 %{_tmpfilesdir}/nix-daemon.conf
 %ghost /nix/var/nix/daemon-socket
 %ghost /nix/var/nix/builds
+%if %{with docs}
+%{_mandir}/man8/nix-daemon.8*
+%endif
 
 
 %files devel
@@ -304,6 +325,22 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{buildroot}%{_bindir}/nix --help
 # FHS Exception: https://pagure.io/fesco/issue/3473
 %{_tmpfilesdir}/nix-filesystem.conf
 %ghost %dir /nix
+
+
+%files legacy
+%{_bindir}/nix-build
+%{_bindir}/nix-channel
+%{_bindir}/nix-collect-garbage
+%{_bindir}/nix-copy-closure
+%{_bindir}/nix-env
+%{_bindir}/nix-hash
+%{_bindir}/nix-instantiate
+%{_bindir}/nix-prefetch-url
+%{_bindir}/nix-shell
+%{_bindir}/nix-store
+%if %{with docs}
+%{_mandir}/man1/nix-*.1*
+%endif
 
 
 %files libs
@@ -347,71 +384,4 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} %{buildroot}%{_bindir}/nix --help
 
 
 %changelog
-* Mon Oct 27 2025 Jens Petersen <petersen@redhat.com> - 2.31.2-8
-- drop redundant sysusers and tmpfiles.d scriptlets (#2388768)
-- add obsoletes for petersen/nix copr subpackages
-
-* Sat Oct 25 2025 Jens Petersen <petersen@redhat.com> - 2.31.2-7
-- recommends nix-daemon if systemd
-
-* Sat Oct 25 2025 Jens Petersen <petersen@redhat.com> - 2.31.2-6
-- rename users subpackage to system
-- improve /nix/var dirs ownership and perms
-- rename sysusers file to nix.conf
-- move nix-daemon tmpfiles.d to nix-daemon
-
-* Sat Oct 25 2025 Jens Petersen <petersen@redhat.com> - 2.31.2-5
-- split nix-users from nix-daemon and drop nix-singleuser
-- drop all conflicts
-
-* Fri Oct 24 2025 Jens Petersen <petersen@redhat.com> - 2.31.2-4
-- drop filesystem subpackage and ghost singleuser dirs
-- nix-daemon and nix-singleuser conflict with each other
-
-* Thu Oct 23 2025 Jens Petersen <petersen@redhat.com> - 2.31.2-3
-- use tmpfiles.d for nix-filesystem
-- improve the readme
-- list bin files explicitly
-- nix-singleuser now owns its dirs
-- add nix-daemon conflicts for ostree and containers
-- add nix-singleuser recommends for containers
-
-* Sat Oct 18 2025 Jens Petersen <petersen@redhat.com> - 2.31.2-2
-- FHS Exception for /nix was approved (https://pagure.io/fesco/issue/3473)
-- add multiuser setup to daemon subpackage
-- add singleuser and nix-filesystem subpackages
-
-* Mon Sep 22 2025 Jens Petersen <petersen@redhat.com> - 2.31.2-1
-- update to 2.31.2
-
-* Wed Sep 17 2025 Jens Petersen <petersen@redhat.com> - 2.31.1-6
-- list .so files explicitly without globbing (#2388768)
-- disable /usr/lib/tmpfiles.d/nix-daemon.conf for now (#2388768)
-
-* Mon Sep 15 2025 Jens Petersen <petersen@redhat.com> - 2.31.1-5
-- set the soversion to the nix version (#13995, #14001, #14005)
-
-* Sun Sep 14 2025 Jens Petersen <petersen@redhat.com> - 2.31.1-4
-- add simple check with LD_LIBRARY_PATH
-
-* Fri Sep 12 2025 Jens Petersen <petersen@redhat.com> - 2.31.1-3
-- revert to shared libs, add libs subpackage and restore devel
-- apply upstream submitted PR to enable soname versioning (#13966)
-
-* Thu Sep 11 2025 Jens Petersen <petersen@redhat.com> - 2.31.1-2
-- noarch nix-daemon subpackage cannot use _isa requires
-
-* Wed Sep 10 2025 Jens Petersen <petersen@redhat.com> - 2.31.1-1
-- https://github.com/NixOS/nix/blob/2.31.1/doc/manual/source/release-notes/rl-2.31.md
-- rename nix-core to base package
-- use readline (#2388768)
-- improve MESON_OPTS setup (zbyszek, #2388768)
-- use static libs and drop devel package
-- disable perl binding
-
-* Sat Aug 16 2025 Jens Petersen <petersen@redhat.com> - 2.30.2-2
-- fix nix-devel requires
-- add systemd scriptlets for nix-daemon
-
-* Fri Aug 15 2025 Jens Petersen <petersen@redhat.com> - 2.30.2-1
-- initial packaging of nix programs without /nix
+%autochangelog

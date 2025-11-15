@@ -3,7 +3,7 @@
 
 Name:           glues
 Version:        1.5
-Release:        14.20200105git44cb7c6%{?dist}
+Release:        15.20200105git44cb7c6%{?dist}
 Summary:        GLU port for OpenGL ES
 
 # SGI FREE SOFTWARE LICENSE B (Version 2.0, Sept. 18, 2008)
@@ -39,6 +39,8 @@ find source/libnurbs -type d -print -exec rm -rv '{}/*' \;
 
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380618)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake
 %cmake_build
 
@@ -63,6 +65,9 @@ cp -pr source/*.h %{buildroot}%{_includedir}/%{name}
 
 
 %changelog
+* Mon Nov 10 2025 Cristian Le <git@lecris.dev> - 1.5-15.20200105git44cb7c6
+- Allow to build with CMake 4.0 (rhbz#2380618)
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-14.20200105git44cb7c6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

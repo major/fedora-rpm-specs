@@ -2,8 +2,8 @@
 %global sum A fast and thorough lazy object proxy
 
 Name:           python-%{srcname}
-Version:        1.11.0
-Release:        5%{?dist}
+Version:        1.12.0
+Release:        1%{?dist}
 Summary:        %{sum}
 
 License:        BSD-2-Clause
@@ -50,6 +50,9 @@ sed -Ei '/\b(objproxies|hunter)\b/d' tox.ini
 %exclude %{python3_sitearch}/lazy_object_proxy/cext.c
 
 %changelog
+* Wed Nov 12 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.12.0-1
+- 1.12.0
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.11.0-5
 - Rebuilt for Python 3.14.0rc3 bytecode
 

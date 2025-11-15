@@ -51,6 +51,8 @@ sed -i 's/\r$//' README.md
 
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380764)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake
 %cmake_build
 

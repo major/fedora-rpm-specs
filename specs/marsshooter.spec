@@ -7,7 +7,7 @@
 Summary:        M.A.R.S. - A Ridiculous Shooter
 Name:           marsshooter
 Version:        0.7.6
-Release:        34%{?dist}
+Release:        35%{?dist}
 # Engine is GPLv3+, the libs under ext_libs_for_windows are LGPLv2+ / MPLv1.1
 # but those are unused, so the resulting binary is pure GPLv3+
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -72,6 +72,8 @@ rm -fr data_src ext_libs_for_windows
 
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380893)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake -Dmars_DATA_DEST_DIR=%{_datadir}/%{name} -Dmars_EXE_DEST_DIR=%{_bindir} .
 %cmake_build
 
@@ -113,6 +115,9 @@ appstream-util validate-relax --nonet \
 %{_datadir}/%{name}/
 
 %changelog
+* Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 0.7.6-35
+- Allow to build with CMake 4.0 (rhbz#2380893)
+
 * Sat Aug 30 2025 Hans de Goede <hans@hansg.org> - 0.7.6-34
 - Switch back to https://github.com/thelaui/M.A.R.S. upstream which has
   merged all the patches to remove non-free data files

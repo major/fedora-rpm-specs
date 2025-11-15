@@ -1,13 +1,13 @@
 # remirepo/fedora spec file for php-zetacomponents-base
 #
-# Copyright (c) 2015-2022 Remi Collet
-# License: CC-BY-SA
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2015-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
 
-%global gh_commit    b6ae5f6177f6e51c5fc3514800e1c3fb076ec4be
+%global gh_commit    f91dd2f04280741de7125350a8c47b6673fc8537
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     zetacomponents
 %global gh_project   Base
@@ -23,12 +23,11 @@
 %endif
 
 Name:           php-%{gh_owner}-%{cname}
-Version:        1.9.4
-Release:        9%{?dist}
+Version:        1.9.5
+Release:        1%{?dist}
 Summary:        Zeta Base Component
 
 Group:          Development/Libraries
-# Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:        Apache-2.0
 URL:            http://zetacomponents.org/
 Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{name}-%{version}-%{gh_short}.tar.gz
@@ -107,7 +106,7 @@ EOF
 
 : Run test test suite
 ret=0
-for cmd in php php80 php81 php82; do
+for cmd in php php81 php82 php83 php84 php85; do
   if which $cmd; then
     $cmd %{_bindir}/phpunit9 || ret=1
   fi
@@ -131,6 +130,10 @@ exit $ret
 
 
 %changelog
+* Thu Nov 13 2025 Remi Collet <remi@remirepo.net> - 1.9.5-1
+- update to 1.9.5
+- re-license spec file to CECILL-2.1
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.4-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name:           bino
-Version:        2.5
+Version:        2.6
 Release:        %autorelease
 Summary:        3D video player
 
@@ -24,8 +24,6 @@ BuildRequires:  qt6-qtbase-devel
 BuildRequires:  qt6-qtmultimedia-devel
 BuildRequires:  qt6-qttools-devel
 BuildRequires:  qvr-devel
-# https://github.com/marlam/bino/commit/dc1cd458df74f52196be733076822cd9ef5d35ee
-Patch:          bino-2.5-qt-6.9-fix.patch
 
 %description
 Bino is a 3D video player. It supports stereoscopic 3D video with a wide

@@ -16,8 +16,8 @@
 Summary: A documentation system for C/C++
 Name:    doxygen
 Epoch:   2
-Version: 1.14.0
-Release: 4%{?dist}
+Version: 1.15.0
+Release: 1%{?dist}
 # No version is specified.
 License: GPL-2.0-or-later
 Url: https://github.com/doxygen
@@ -30,8 +30,6 @@ Source3: README.rpm-packaging
 Source4: doxygen-unbundler
 
 # upstream fixes
-# fix input buffer overflow
-Patch1: doxygen-input-buffer-overflow.patch
 
 BuildRequires: %{_bindir}/python3
 BuildRequires: perl-interpreter, perl-open
@@ -158,7 +156,8 @@ Javascript files for use by locally installed Doxygen documentation.
 %package doxywizard
 Summary: A GUI for creating and editing configuration files
 Requires: %{name} = %{epoch}:%{version}-%{release}
-BuildRequires: qt5-qtbase-devel
+BuildRequires: qt6-qtbase-devel
+BuildRequires: qt6-qtsvg-devel
 
 %description doxywizard
 Doxywizard is a GUI for creating and editing configuration files that
@@ -244,11 +243,6 @@ Requires: texlive-epstopdf
 %prep
 %autosetup -p1 -a2
 
-# convert into utf-8
-iconv --from=ISO-8859-1 --to=UTF-8 LANGUAGE.HOWTO > LANGUAGE.HOWTO.new
-touch -r LANGUAGE.HOWTO LANGUAGE.HOWTO.new
-mv LANGUAGE.HOWTO.new LANGUAGE.HOWTO
-
 cp %{SOURCE3} .
 
 %build
@@ -296,8 +290,8 @@ rm -f %{buildroot}/%{_mandir}/man1/doxyindexer.1* %{buildroot}/%{_mandir}/man1/d
 rm -rf %{buildroot}/%{_docdir}/packages
 
 # Install the asset files.
-install -m644 -D --target-directory=%{buildroot}%{_jsdir}/doxygen \
-  templates/html/*.js
+install -m644 -D --target-directory=%{buildroot}%{_jsdir}/doxygen templates/html/*.js
+
 # Generate the macros file.  Expand version/release/%%_jsdir.
 mkdir -p %{buildroot}%{_rpmconfigdir}/macros.d
 cat > %{buildroot}%{_rpmconfigdir}/macros.d/macros.doxygen <<'EOF'
@@ -305,7 +299,8 @@ cat > %{buildroot}%{_rpmconfigdir}/macros.d/macros.doxygen <<'EOF'
 %%doxygen_unbundle_buildroot() %%{_rpmconfigdir}/redhat/doxygen-unbundler "%{_jsdir}" "%%{buildroot}" %%[ %%# == 0 ? "%%{_docdir}" : "%%1"]
 %%doxygen_unbundle() %{_rpmconfigdir}/redhat/doxygen-unbundler "%{_jsdir}" "" %%*
 EOF
-# Install the unbundler script.
+
+ # Install the unbundler script.
 install -m755 -D --target-directory=%{buildroot}%{_rpmconfigdir}/redhat %{SOURCE4}
 
 %check
@@ -345,6 +340,9 @@ install -m755 -D --target-directory=%{buildroot}%{_rpmconfigdir}/redhat %{SOURCE
 %endif
 
 %changelog
+* Thu Nov 13 2025 Than Ngo <than@redhat.com> - 2:1.15.0-1
+- Update to 1.15.0
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:1.14.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -50,7 +50,6 @@ help2man --no-discard-stderr %{buildroot}%{_bindir}/aw-cli -o %{buildroot}%{_man
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.md
-%license %{python3_sitelib}/aw_core-%{version}.dist-info/LICENSE.txt
 %{_mandir}/man1/aw-cli.1*
 %{_bindir}/aw-cli
 

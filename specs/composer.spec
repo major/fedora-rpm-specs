@@ -8,15 +8,15 @@
 #
 
 
-%global gh_commit    3e38919bc9a2c3c026f2151b5e56d04084ce8f0b
+%global gh_commit    5b236f4fb611083885d18031a9e503e1cdb6a3f6
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_branch    2.0-dev
 %global gh_owner     composer
 %global gh_project   composer
-%global api_version  2.6.0
+%global api_version  2.9.0
 %global run_version  2.2.2
 
-%global upstream_version 2.8.12
+%global upstream_version 2.9.0
 #global upstream_prever  RC1
 #global upstream_lower   rc1
 
@@ -56,45 +56,50 @@ BuildRequires:  composer-generators
 
 # From composer.json, "require": {
 #        "php": "^7.2.5 || ^8.0",
-#        "composer/ca-bundle": "^1.0",
+#        "ext-json": "*",
+#        "composer/ca-bundle": "^1.5",
+#        "composer/class-map-generator": "^1.4.0",
 #        "composer/metadata-minifier": "^1.0",
-#        "composer/semver": "^3.0",
-#        "composer/spdx-licenses": "^1.2",
+#        "composer/semver": "^3.3",
+#        "composer/spdx-licenses": "^1.5.7",
 #        "composer/xdebug-handler": "^2.0.2 || ^3.0.3",
-#        "justinrainbow/json-schema": "^5.2.11",
-#        "psr/log": "^1.0 || ^2.0 || ^3.0"
-#        "seld/jsonlint": "~1.4",
+#        "justinrainbow/json-schema": "^6.5.1",
+#        "psr/log": "^1.0 || ^2.0 || ^3.0",
+#        "seld/jsonlint": "^1.4",
 #        "seld/phar-utils": "^1.2",
-#        "symfony/console": "^5.4.1 || ^6.0",
-#        "symfony/filesystem": "^5.4 || ^6.0",
-#        "symfony/finder": "^5.4 || ^6.0",
-#        "symfony/process": "^5.4 || ^6.0",
-#        "react/promise": "^2.8",
-#        "composer/pcre": "^2 || ^3"
+#        "symfony/console": "^5.4.47 || ^6.4.25 || ^7.1.10 || ^8.0",
+#        "symfony/filesystem": "^5.4.45 || ^6.4.24 || ^7.1.10 || ^8.0",
+#        "symfony/finder": "^5.4.45 || ^6.4.24 || ^7.1.10 || ^8.0",
+#        "symfony/process": "^5.4.47 || ^6.4.25 || ^7.1.10 || ^8.0",
+#        "react/promise": "^3.3",
+#        "composer/pcre": "^2.3 || ^3.3",
 #        "symfony/polyfill-php73": "^1.24",
-#        "symfony/polyfill-php80": "^1.24"
+#        "symfony/polyfill-php80": "^1.24",
+#        "symfony/polyfill-php81": "^1.24",
+#        "seld/signal-handler": "^2.0"
 Requires:       php(language)                           >= 7.2.5
+Requires:       php-json
 Requires:       php-cli
 # System certificates
 Requires:       /etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem
 
 # From composer.json, suggest
-#        "ext-openssl": "Enabling the openssl extension allows you to access https URLs for repositories and packages",
-#        "ext-zip": "Enabling the zip extension allows you to unzip archives",
-#        "ext-zlib": "Allow gzip compression of HTTP requests"
+#        "ext-curl": "Provides HTTP support (will fallback to PHP streams if missing)",
+#        "ext-openssl": "Enables access to repositories and packages over HTTPS",
+#        "ext-zip": "Allows direct extraction of ZIP archives (unzip/7z binaries will be used instead if available)",
+#        "ext-zlib": "Enables gzip for HTTP requests"
+Requires:       php-curl
 Requires:       php-openssl
 Requires:       php-zip
 Requires:       php-zlib
 # From phpcompatinfo for version 2.2.5
 Requires:       php-ctype
-Requires:       php-curl
 Requires:       php-date
 Requires:       php-dom
 Requires:       php-filter
 Requires:       php-hash
 Requires:       php-iconv
 Requires:       php-intl
-Requires:       php-json
 Requires:       php-libxml
 Requires:       php-mbstring
 Requires:       php-pcntl
@@ -209,6 +214,9 @@ php -r '
 
 
 %changelog
+* Thu Nov 13 2025 Remi Collet <remi@remirepo.net> - 2.9.0-1
+- update to 2.9.0
+
 * Fri Sep 19 2025 Remi Collet <remi@remirepo.net> - 2.8.12-1
 - update to 2.8.12
 

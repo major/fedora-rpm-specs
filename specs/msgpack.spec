@@ -1,6 +1,6 @@
 Name:		msgpack
 Version:	3.1.0
-Release:	21%{?dist}
+Release:	22%{?dist}
 Summary:	Binary-based efficient object serialization library
 
 # Automatically converted from old format: Boost - review is highly recommended.
@@ -39,6 +39,8 @@ Libraries and header files for %{name}
 sed -i "s|-std=c++98|-std=gnu++17|g" CMakeLists.txt
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380918)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake -DCMAKE_INSTALL_LIBDIR=%{_libdir} -Dlibdir=%{_libdir} -DBUILD_SHARED_LIBS=ON
 %cmake_build
 
@@ -65,6 +67,9 @@ cat %_vpath_builddir/Testing/Temporary/LastTest.log
 
 
 %changelog
+* Wed Nov 12 2025 Cristian Le <git@lecris.dev> - 3.1.0-22
+- Allow to build with CMake 4.0 (rhbz#2380918)
+
 * Sat Oct 04 2025 Terje Røsten <terjeros@gmail.com> - 3.1.0-21
 - Bump to C++17 for gtest 1.17.0
 

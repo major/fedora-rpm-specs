@@ -2,8 +2,8 @@
 %bcond_with perl_PPIx_Regexp_enables_optional_test
 
 Name:           perl-PPIx-Regexp
-Version:        0.089
-Release:        2%{?dist}
+Version:        0.091
+Release:        1%{?dist}
 Summary:        Represent a regular expression of some sort
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/PPIx-Regexp
@@ -121,6 +121,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Nov 12 2025 Michal Josef Špaček <mspacek@redhat.com> - 0.091-1
+- 0.091 bump
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.089-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

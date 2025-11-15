@@ -2,7 +2,7 @@
 %define libname libnmstate
 
 Name:           nmstate
-Version:        2.2.54
+Version:        2.2.55
 Release:        %autorelease
 Summary:        Declarative network manager API
 License:        Apache-2.0 AND LGPL-2.1-or-later

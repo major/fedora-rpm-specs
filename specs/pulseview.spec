@@ -1,6 +1,6 @@
 Name:           pulseview
 Version:        0.4.2
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Signal acquisition and analysis GUI for sigrok
 # Combined GPLv3+ (libsigrok and libsigrokdecode) and GPLv2+ (pulseview)
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -37,6 +37,8 @@ libraries under the hood.
 %autosetup -p1
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2381376)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake -DCMAKE_BUILD_TYPE=Release -DDISABLE_WERROR=True
 %cmake_build
 
@@ -62,6 +64,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/*.appdata
 %{_datadir}/appdata/org.sigrok.PulseView.appdata.xml
 
 %changelog
+* Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 0.4.2-23
+- Allow to build with CMake 4.0 (rhbz#2381376)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

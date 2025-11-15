@@ -19,7 +19,7 @@ Summary: KDE Workspace
 Name:    kde-workspace
 Epoch:   1
 Version: 4.11.22
-Release: 44%{?dist}
+Release: 45%{?dist}
 
 License: GPL-2.0-only
 URL:     https://github.com/KDE/%{name}
@@ -335,6 +335,8 @@ done
 
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380675)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 
 # workaround bug #1316964
 export CFLAGS="%{optflags} -Dinline=__inline__"
@@ -579,6 +581,9 @@ rm -rfv %{buildroot}%{_kde4_docdir}/HTML/en/kcontrol/colors/
 
 
 %changelog
+* Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 1:4.11.22-45
+- Allow to build with CMake 4.0 (rhbz#2380675)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.11.22-44
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name: gretl	
-Version: 2025b
-Release: 2%{?dist}
+Version: 2025c
+Release: 1%{?dist}
 Summary: A tool for econometric analysis
 
 %if 0%{?fedora} >= 33
@@ -16,6 +16,7 @@ Source1: gretl_plugins.txt
 %if 0%{?fedora} >= 40
 ExcludeArch: %{ix86}
 %endif
+Patch1:	gretl-fix-s390x-build.patch
 
 
 
@@ -75,6 +76,7 @@ This package contains the binary openmpi files for %{name}.
 
 %prep
 %setup -q
+%patch -P 1 -p1 -b .build_fix
 
 CC=mpicc
 CXX=mpic++
@@ -150,6 +152,9 @@ desktop-file-install						\
 %{_libdir}/openmpi/bin/gretl_openmpi
 
 %changelog
+* Thu Nov 13 2025 Johannes Lips <hannes@fedoraproject.org> - 2025c-1
+- Update to 2025c
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2025b-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

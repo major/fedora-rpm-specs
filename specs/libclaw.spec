@@ -1,6 +1,6 @@
 Name:           libclaw
 Version:        1.7.4
-Release:        42%{?dist}
+Release:        43%{?dist}
 Summary:        C++ Library of various utility functions
 # Automatically converted from old format: LGPLv2 - review is highly recommended.
 License:        LicenseRef-Callaway-LGPLv2
@@ -60,6 +60,8 @@ Wonderful).
 
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380711)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake
 %cmake_build
 find examples -type f |
@@ -99,6 +101,9 @@ done
 
 
 %changelog
+* Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 1.7.4-43
+- Allow to build with CMake 4.0 (rhbz#2380711)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.4-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

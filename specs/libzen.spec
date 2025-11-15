@@ -1,6 +1,6 @@
 Name:           libzen
 Version:        0.4.41
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Shared library for libmediainfo and medianfo*
 
 License:        Zlib
@@ -43,6 +43,8 @@ chmod 644 Source/ZenLib/*.h Source/ZenLib/*.cpp \
     Source/ZenLib/Format/Http/*.h Source/ZenLib/Format/Http/*.cpp
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380772)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 #Make documentation
 pushd Source/Doc/
     doxygen -u Doxyfile
@@ -77,6 +79,9 @@ popd
 
 
 %changelog
+* Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 0.4.41-8
+- Allow to build with CMake 4.0 (rhbz#2380772)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.41-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

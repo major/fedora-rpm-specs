@@ -1,11 +1,41 @@
+# tests currently fail in a way that stalls Koji
+#
+# test_unpredictable_token_factory (mailman.utilities.tests.test_uid.TestUID.test_unpredictable_token_factory) ... ok
+# /builddir/build/BUILD/mailman3-3.3.10-build/mailman-3.3.10/venv/bin/python: can't open file '/builddir/build/BUILD/mailman3-3.3.10-build/mailman-3.3.10/venv/bin/runner': [Errno 2] No such file or directory
+# /builddir/build/BUILD/mailman3-3.3.10-build/mailman-3.3.10/venv/bin/python: can't open file '/builddir/build/BUILD/mailman3-3.3.10-build/mailman-3.3.10/venv/bin/runner': [Errno 2] No such file or directory
+# Exception in thread Thread-7 (loop):
+# Traceback (most recent call last):
+#   File "/usr/lib64/python3.14/threading.py", line 1081, in _bootstrap_inner
+#     self._context.run(self.run)
+#     ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+#   File "/usr/lib64/python3.14/threading.py", line 1023, in run
+#     self._target(*self._args, **self._kwargs)
+#     ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#   File "/builddir/build/BUILD/mailman3-3.3.10-build/mailman-3.3.10/src/mailman/testing/helpers.py", line 203, in loop
+#     self.start_check()
+#     ~~~~~~~~~~~~~~~~^^
+#   File "/builddir/build/BUILD/mailman3-3.3.10-build/mailman-3.3.10/src/mailman/rest/tests/test_membership.py", line 675, in _wait_for_both
+#     cls.client = get_lmtp_client(quiet=True)
+#                  ~~~~~~~~~~~~~~~^^^^^^^^^^^^
+#   File "/builddir/build/BUILD/mailman3-3.3.10-build/mailman-3.3.10/src/mailman/testing/helpers.py", line 241, in get_lmtp_client
+#     raise RuntimeError('Connection refused')
+# RuntimeError: Connection refused
+%bcond tests 0
+
+%if %{defined rhel} && 0%{?rhel} <= 9
+%bcond downgrade_deps 1
+%else
+%bcond downgrade_deps 0
+%endif
+
 %global pypi_name mailman
 
-%global baseversion 3.3.9
+%global baseversion 3.3.10
 #global prerelease rc2
 
 Name:           mailman3
 Version:        %{baseversion}%{?prerelease:~%{prerelease}}
-Release:        7%{?dist}
+Release:        1%{?dist}
 Summary:        The GNU mailing list manager
 
 License:        GPL-3.0-or-later
@@ -18,6 +48,10 @@ Source4:        mailman3.logrotate
 Source5:        mailman3-digests.service
 Source6:        mailman3-digests.timer
 Source7:        mailman3-sysusers.conf
+# Fix the package name for the Python >= 3.13 nntplib requirement
+Patch:          mailman3-fix-pyproject-escaping.diff
+# rebased from https://gitlab.com/mailman/mailman/-/commit/3a22537382d41ab3e46b859054547755963b069d.patch
+Patch:          mailman3-py313-nntplib.diff
 
 BuildArch:      noarch
 
@@ -48,6 +82,9 @@ BuildRequires:  hardlink
 BuildRequires:  systemd-rpm-macros
 %{?systemd_requires}
 
+%if %{with downgrade_deps}
+BuildRequires:  sed
+%endif
 
 %description
 This is GNU Mailman, a mailing list management system distributed under the
@@ -59,9 +96,11 @@ case second `m'.  Any other spelling is incorrect.
 %prep
 %autosetup -p1 -n %{pypi_name}-%{baseversion}%{?prerelease}
 
+%if %{with downgrade_deps}
 # Downgrade a few dependencies to satisfiable compatible versions
 sed -e "s/flufl.i18n>=3.2/flufl.i18n>=2.0/" \
-    -i setup.py
+    -i pyproject.toml
+%endif
 
 # SELinux
 mkdir SELinux
@@ -91,7 +130,10 @@ cd -
 
 %install
 %pyproject_install
-%pyproject_save_files %{pypi_name}
+# license file is actually copied in but not tagged as license
+# make build fails when this changes so we know to change it
+# to -l
+%pyproject_save_files -L %{pypi_name}
 
 # move scripts away from _bindir to avoid conflicts and create a wrapper script
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
@@ -141,6 +183,17 @@ hardlink -cv %{buildroot}%{_datadir}/selinux
 
 
 %check
+# alembic's is_offline_mode does not work without proper
+# initialization; _proxy not defined
+# the mailman.rest.* modules transitively imports mailman.rest.users which does not work
+# for a similar but different reason
+#   File "/builddir/build/BUILD/mailman3-3.3.10-build/BUILDROOT/usr/lib/python3.13/site-packages/mailman/rest/users.py", line 61, in __init__
+#     super().__init__(config.password_context.encrypt)
+#                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+# AttributeError: 'NoneType' object has no attribute 'encrypt'
+%pyproject_check_import -e mailman.database.alembic.env -e mailman.rest.domains -e mailman.rest.gunicorn -e mailman.rest.root -e mailman.rest.users -e mailman.rest.wsgiapp -e mailman.runners.rest
+
+%if %{with tests}
 # tests need a proper locale
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
@@ -150,6 +203,7 @@ export LC_ALL=en_US.UTF-8
 # Tests fail with nspawn mock due to lack of access to /dev/stdout
 # TODO: Figure out a fix for this
 venv/bin/python -m nose2 -v || :
+%endif
 
 
 %pre
@@ -188,8 +242,8 @@ done
 
 
 %files -f %{pyproject_files}
-%doc README.rst
-%license COPYING
+%doc README.md
+%license %{python3_sitelib}/mailman-%{version}.dist-info/licenses/COPYING
 %{_unitdir}/*.service
 %{_unitdir}/*.timer
 %{_tmpfilesdir}/%{name}.conf
@@ -209,6 +263,10 @@ done
 
 
 %changelog
+* Thu Nov 13 2025 Michel Lind <salimma@fedoraproject.org> - 3.3.10-1
+- Update to 3.3.10
+- Fix dependency on nntplib for Python >= 3.13; Resolves: RHBZ#2318976
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.3.9-7
 - Rebuilt for Python 3.14.0rc3 bytecode
 

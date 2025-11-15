@@ -23,7 +23,7 @@
 
 Name:		nordugrid-arc
 Version:	7.1.1
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Advanced Resource Connector Middleware
 #		Apache-2.0: most files
 #		MIT: src/external/cJSON/cJSON.c src/external/cJSON/cJSON.h
@@ -34,6 +34,7 @@ Source:		https://download.nordugrid.org/packages/%{name}/releases/%{version}/src
 #		https://github.com/nordugrid/arc/pull/15
 #		https://source.coderefinery.org/nordugrid/arc/-/merge_requests/1964
 Patch0:		0001-Handle-Python-multi-phase-initialization-support-in-.patch
+Patch1:		0001-Fix-compilation-with-Python-3.15.patch
 
 #		Packages dropped without replacements
 Obsoletes:	%{name}-arcproxyalt < 6.0.0
@@ -556,6 +557,7 @@ publishes metrics about jobs and datastaging on the ARC-CE.
 %prep
 %setup -q
 %patch -P0 -p1
+%patch -P1 -p1
 
 %build
 autoreconf -v -f -i
@@ -1134,6 +1136,9 @@ semanage fcontext -a -t slapd_var_run_t "/var/run/arc/bdii/db(/.*)?" 2>/dev/null
 %{_sbindir}/arc-exporter
 
 %changelog
+* Wed Nov 12 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 7.1.1-3
+- Fix for Python 3.15 compatibility
+
 * Tue Oct 28 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 7.1.1-2
 - Support SWIG 4.4.0 (patch from William S Fulton)
 

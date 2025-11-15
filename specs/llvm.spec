@@ -571,6 +571,10 @@ BuildRequires:	python3-scipy
 %endif
 %endif
 
+%else
+%if %{with use_lld}
+BuildRequires:	lld
+%endif
 %endif
 
 # This intentionally does not use python3_pkgversion. RHEL 8 does not have
@@ -1308,8 +1312,11 @@ Flang runtime libraries.
 
 %if %{defined rhel} && 0%{?rhel} == 8
 %patch -p1 -P501
+%if %{maj_ver} < 22
+# The following patches have been backported from LLVM 22.
 %patch -p1 -P502
 %patch -p1 -P503
+%endif
 %endif
 
 #region LLVM preparation
@@ -3130,8 +3137,17 @@ fi
 %{expand_bins %{expand:
     llvm-ir2vec
     llvm-offload-wrapper
+}}
+
+%if %{with offload}
+%{expand_bins %{expand:
     llvm-offload-binary
 }}
+
+%{expand_mans %{expand:
+    llvm-offload-binary
+}}
+%endif
 %endif
 
 %{expand_mans %{expand:
@@ -3195,7 +3211,6 @@ fi
 %if %{maj_ver} >= 22
 %{expand_mans %{expand:
     llvm-ir2vec
-    llvm-offload-binary
 }}
 %endif
 

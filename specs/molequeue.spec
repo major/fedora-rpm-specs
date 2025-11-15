@@ -1,7 +1,7 @@
 Name:    molequeue
 Summary: Desktop integration of high performance computing resources
 Version: 0.9.0
-Release: 26%{?dist}
+Release: 27%{?dist}
 License: BSD-3-Clause
 URL:     https://github.com/OpenChemistry/molequeue
 Source0: https://github.com/OpenChemistry/molequeue/archive/%{version}/%{name}-%{version}.tar.gz
@@ -73,6 +73,8 @@ rm -rf thirdparty/qt5json
 %endif
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380916)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake -Wno-dev \
  -DENABLE_RPATH:BOOL=OFF \
  -DCMAKE_SKIP_INSTALL_RPATH:BOOL=YES \
@@ -126,6 +128,9 @@ desktop-file-install %{name}.desktop --dir %{buildroot}%{_datadir}/applications
 %license LICENSE
 
 %changelog
+* Wed Nov 12 2025 Cristian Le <git@lecris.dev> - 0.9.0-27
+- Allow to build with CMake 4.0 (rhbz#2380916)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

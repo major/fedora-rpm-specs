@@ -1,6 +1,6 @@
 Name:           fuse-encfs
 Version:        1.9.5
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Encrypted pass-thru filesystem in userspace
 
 License:        GPL-3.0-or-later AND LGPL-3.0-or-later
@@ -43,6 +43,8 @@ rm -rf vendor/github.com/leethomasson
 mkdir %{_target_platform}
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380604)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake \
     -DCMAKE_SKIP_RPATH=ON \
     -DBUILD_STATIC_LIBS=OFF \
@@ -67,6 +69,9 @@ rm -f %{buildroot}/%{_libdir}/*.so
 %{_mandir}/man1/encfs*
 
 %changelog
+* Mon Nov 10 2025 Cristian Le <git@lecris.dev> - 1.9.5-27
+- Allow to build with CMake 4.0 (rhbz#2380604)
+
 * Sat Aug 23 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 1.9.5-26
 - Rebuilt for tinyxml2 11.0.0
 

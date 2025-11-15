@@ -13,7 +13,7 @@
 Summary: Qt5 - QtTool components
 Name:    qt5-qttools
 Version: 5.15.18
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -189,6 +189,8 @@ Requires: %{name}-common = %{version}-%{release}
 
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2381396)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %{qmake_qt5} \
   CONFIG+=disable_external_rpath \
   %{?no_examples}
@@ -491,6 +493,9 @@ fi
 
 
 %changelog
+* Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 5.15.18-2
+- Allow to build with CMake 4.0 (rhbz#2381396)
+
 * Tue Nov 04 2025 Jan Grulich <jgrulich@redhat.com> - 5.15.18-1
 - 5.15.18
 

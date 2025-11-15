@@ -10,14 +10,10 @@ License: LGPL-2.1-or-later
 %endif
 URL: https://www.candlepinproject.org/
 
-Source0: %{name}-%{version}.tar.xz
-Source1: %{name}-node-%{version}.tar.xz
+Source0: https://github.com/cockpit-project/subscription-manager-cockpit/releases/download/%{version}/%{name}-%{version}.tar.xz
+Source1: https://github.com/cockpit-project/subscription-manager-cockpit/releases/download/%{version}/%{name}-node-%{version}.tar.xz
 BuildArch: noarch
 ExclusiveArch: %{nodejs_arches} noarch
-%if 0%{?fedora}
-BuildRequires: nodejs-devel
-%endif
-BuildRequires: nodejs
 BuildRequires: make
 BuildRequires: libappstream-glib
 BuildRequires: gettext
@@ -55,11 +51,9 @@ of Red Hat subscriptions: subscription-manager-gui, subscription-manager-cockpit
 
 %prep
 %autosetup -n %{name} -a 1
-# ignore pre-built webpack in release tarball and rebuild it
-rm -rf dist
 
 %build
-ESLINT=0 NODE_ENV=production make
+# Nothing to build, build is done via the Makefile
 
 %install
 %make_install PREFIX=/usr

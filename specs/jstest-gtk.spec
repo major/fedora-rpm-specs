@@ -32,6 +32,8 @@ pressed, a way to remap axis and buttons and a way to calibrate your joystick.
 
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380664)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake
 %cmake_build
 

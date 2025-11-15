@@ -6,7 +6,7 @@ ExcludeArch: %{ix86}
 
 Name:           haxe
 Version:        4.3.7
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Multi-target universal programming language
 
 # As described in https://haxe.org/foundation/open-source.html:
@@ -126,6 +126,9 @@ popd
 %{_datadir}/%{name}/
 
 %changelog
+* Thu Nov 13 2025 Jerry James <loganjerry@gmail.com> - 4.3.7-4
+- Rebuild for ocaml-ctypes 0.24.0
+
 * Mon Nov 10 2025 Cristian Le <git@lecris.dev> - 4.3.7-3
 - Allow to build with CMake 4.0 (rhbz#2380634)
 
@@ -140,7 +143,7 @@ popd
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
-* Sat Jul 12 2025 Jerry James  <loganjerry@gmail.com> - 4.3.6-3
+* Sat Jul 12 2025 Jerry James <loganjerry@gmail.com> - 4.3.6-3
 - Rebuild to fix OCaml dependencies
 
 * Wed Mar 19 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 4.3.6-2

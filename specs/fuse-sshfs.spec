@@ -1,6 +1,6 @@
 Name:           fuse-sshfs
-Version:        3.7.3
-Release:        13%{?dist}
+Version:        3.7.5
+Release:        2%{?dist}
 Summary:        FUSE-Filesystem to access remote filesystems via SSH
 License:        GPL-2.0-only
 URL:            https://github.com/libfuse/sshfs
@@ -17,7 +17,7 @@ Source1:        https://github.com/libfuse/sshfs/releases/download/sshfs-%{versi
 #
 # gpg --no-default-keyring --keyring ./keyring.gpg --keyserver keyserver.ubuntu.com --recv-key ED31791B2C5C1613AF388B8AD113FCAC3C4E599F
 # gpg --no-default-keyring --keyring ./keyring.gpg  --output ED31791B2C5C1613AF388B8AD113FCAC3C4E599F.gpg --export
-Source2:	ED31791B2C5C1613AF388B8AD113FCAC3C4E599F.gpg
+Source2:        A56509CB6B3585A814B1A735C76141536EC77B36.gpg
 
 Patch1:         sshfs-0001-Refer-to-mount.fuse3-instead-of-mount.fuse.patch
 
@@ -69,7 +69,7 @@ cd %{_vpath_builddir}
 
 
 %files
-%doc AUTHORS README.rst ChangeLog.rst
+%doc AUTHORS README.md ChangeLog.rst
 %license COPYING
 %{_bindir}/sshfs
 %{_sbindir}/mount.sshfs
@@ -78,6 +78,12 @@ cd %{_vpath_builddir}
 
 
 %changelog
+* Thu Nov 13 2025 Adam Williamson <awilliam@redhat.com> - 3.7.5-2
+- Rebuild for new fuse3, again
+
+* Thu Nov 13 2025 Vasiliy Glazov <vascom2@gmail.com> - 3.7.5-1
+- Update to 3.7.5
+
 * Tue Nov  4 2025 Tom Callaway <spot@fedoraproject.org> - 3.7.3-13
 - rebuild for new fuse3
 

@@ -12,10 +12,10 @@ ExcludeArch: %{ix86}
 # environment variables in multiple sections of the spec file.
 %global commit 86410278881367a871fa4a6fe06e756baf6b3aee
 %global commitdatestring 2025-11-04 10:31:37 -0700
-%global cosmic_minver 1.0.0~beta.5
+%global cosmic_minver 1.0.0~beta.6
 
 Name:           xdg-desktop-portal-cosmic
-Version: 1.0.0~beta.5
+Version: 1.0.0~beta.6
 Release:        %autorelease
 Summary:        XDG Desktop Portals for the COSMIC Desktop Environment
 

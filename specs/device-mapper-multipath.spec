@@ -1,6 +1,6 @@
 Name:    device-mapper-multipath
 Version: 0.13.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Tools to manage multipath devices using device-mapper
 # readline uses GPL-3.0-only
 License: GPL-2.0-only AND GPL-3.0-only
@@ -234,6 +234,9 @@ fi
 %{_pkgconfdir}/libdmmp.pc
 
 %changelog
+* Thu Nov 13 2025 Benjamin Marzinski <bmarzins@redhat.com> - 0.13.0-2
+- Move STI tests to TMT
+
 * Tue Nov  4 2025 Benjamin Marzinski <bmarzins@redhat.com> - 0.13.0-1
 - Update source to upstream release 0.13.0
   * Previous patches 0001-0004 are included in the tarball

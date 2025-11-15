@@ -3,7 +3,7 @@
 %endif
 
 Name:           ptpython
-Version:        3.0.23
+Version:        3.0.31
 Release:        %autorelease
 Summary:        Python REPL build on top of prompt_toolkit
 License:        BSD-3-Clause
@@ -60,15 +60,11 @@ rm %{buildroot}%{_bindir}/ptipython*
 %files -n ptpython3 -f %{pyproject_files}
 %doc CHANGELOG README.rst
 %{_bindir}/ptpython
-%{_bindir}/ptpython3
-%{_bindir}/ptpython%{python3_version}
 
 
 %if %{with ptipython}
 %pyproject_extras_subpkg -n ptpython3 ptipython
 %{_bindir}/ptipython
-%{_bindir}/ptipython3
-%{_bindir}/ptipython%{python3_version}
 %endif
 
 

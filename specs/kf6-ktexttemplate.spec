@@ -1,7 +1,7 @@
 %global		framework ktexttemplate
 
 Name:		kf6-%{framework}
-Version:	6.19.0
+Version:	6.20.0
 Release:	1%{?dist}
 Summary:	Separates the structure of documents from their data
 License:	CC0-1.0 AND LGPL-2.0-or-later AND LGPL-2.1-or-later
@@ -73,6 +73,9 @@ Developer Documentation files for %{name} in HTML format
 %exclude %{_qt6_docdir}/*/*.index
 
 %changelog
+* Thu Nov 13 2025 Steve Cossette <farchord@gmail.com> - 6.20.0-1
+- 6.20.0
+
 * Sun Oct 05 2025 Steve Cossette <farchord@gmail.com> - 6.19.0-1
 - 6.19.0
 

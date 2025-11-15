@@ -1,6 +1,6 @@
 Name:           libtins
 Version:        4.5
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A high-level, multiplatform C++ network packet sniffing and crafting library
 
 License:        BSD
@@ -43,6 +43,8 @@ developing applications that use %{name}.
 sed -i 's|stdint.h|cstdint|' include/tins/ip_address.h
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380755)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake -DLIBTINS_BUILD_TESTS=OFF -DCMAKE_INSTALL_LIBDIR=%{_lib}
 %cmake_build
 %cmake_build --target docs
@@ -67,6 +69,9 @@ sed -i 's|stdint.h|cstdint|' include/tins/ip_address.h
 
 
 %changelog
+* Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 4.5-8
+- Allow to build with CMake 4.0 (rhbz#2380755)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.5-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

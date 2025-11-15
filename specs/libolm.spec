@@ -2,7 +2,7 @@
 
 Name: libolm
 Version: 3.2.16
-Release: 9%{?dist}
+Release: 10%{?dist}
 
 Summary: Double Ratchet cryptographic library
 License: Apache-2.0
@@ -42,6 +42,8 @@ Requires: %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 sed -e "s@/build@/%{_vpath_builddir}@g" -e 's@"build"@"%{_vpath_builddir}"@g' -i python/olm_build.py
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380743)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake -G Ninja \
     -DCMAKE_BUILD_TYPE=Release \
     -DOLM_TESTS=ON
@@ -80,6 +82,9 @@ popd
 %{python3_sitearch}/python_%{appname}-*.egg-info
 
 %changelog
+* Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 3.2.16-10
+- Allow to build with CMake 4.0 (rhbz#2380743)
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.2.16-9
 - Rebuilt for Python 3.14.0rc3 bytecode
 

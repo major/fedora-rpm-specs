@@ -6,7 +6,7 @@ Version:        1.5.4
 
 %forgemeta
 Name:           waydroid
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Container-based approach to boot a full Android system on GNU/Linux
 License:        GPL-3.0-only
 URL:            %{forgeurl}
@@ -152,6 +152,9 @@ fi
 %{_datadir}/selinux/%{selinuxtype}/%{name}.pp
 
 %changelog
+* Thu Nov 13 2025 Alessandro Astone <ales.astone@gmail.com> - 1.5.4-6
+- sepolicy: Further silence audit for /usr/bin/systemctl (rhbz#2412288)
+
 * Sat Oct 04 2025 Alessandro Astone <ales.astone@gmail.com> - 1.5.4-5
 - Fix running the graphical initializer on Python3.14 (rhbz#2394967)
 

@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.12
-Release:	46%{?dist}
+Release:	47%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPL-3.0-or-later
 URL:		http://www.gnu.org/software/grub/
@@ -609,6 +609,9 @@ fi
 %endif
 
 %changelog
+* Thu Nov 13 2025 Leo Sandoval <lsandova@redhat.com> - 2.12-47
+- blsuki: do not register blscfg command
+
 * Tue Nov  4 2025 Tom Callaway <spot@fedoraproject.org> - 2.12-46
 - rebuild for new fuse3
 

@@ -16,12 +16,12 @@
 %global pie_vend   xdebug
 %global pie_proj   xdebug
 %global pecl_name  xdebug
-%global gh_commit  377ffc53e5dd761c02bd5c64f853de9e7b85cf04
+%global gh_commit  02e2f164bc5133e93041c6da90b465a50a784eb2
 %global gh_short   %(c=%{gh_commit}; echo ${c:0:7})
 
 # version/release
 %global upstream_version 3.5.0
-%global upstream_prever  alpha2
+%global upstream_prever  alpha3
 %global upstream_lower   %(echo %{upstream_prever} | tr '[:upper:]' '[:lower:]')
 %global sources          src
 
@@ -31,7 +31,7 @@
 Name:           %{php_base}-pecl-xdebug3
 Summary:        Provides functions for function traces and profiling
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_lower}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Source0:        https://github.com/%{pecl_name}/%{pecl_name}/archive/%{gh_commit}/%{pecl_name}-%{upstream_version}%{?upstream_prever}-%{gh_short}.tar.gz
 
 License:        Xdebug-1.03
@@ -216,6 +216,9 @@ TEST_PHP_ARGS="-n $modules -d zend_extension=%{buildroot}%{php_extdir}/%{pecl_na
 
 
 %changelog
+* Thu Nov 13 2025 Remi Collet <remi@remirepo.net> - 3.5.0~alpha3-1
+- update to 3.5.0alpha3
+
 * Tue Oct 28 2025 Remi Collet <remi@remirepo.net> - 3.5.0~alpha2-2
 - add php_base option to create namespaced packages
 

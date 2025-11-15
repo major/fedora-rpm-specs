@@ -18,7 +18,7 @@
 
 Name:           qt5-%{qt_module}
 Version:        5.212.0
-Release:        0.95%{?prerel}%{?dist}
+Release:        0.96%{?prerel}%{?dist}
 Summary:        Qt5 - QtWebKit components
 
 License:        LGPL-2.0-only AND BSD-3-Clause
@@ -136,6 +136,8 @@ test -f Source/WebCore/Resources/textAreaResizeCorner.png
 
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2381397)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 # QT is known not to work properly with LTO at this point.  Some of the issues
 # are being worked on upstream and disabling LTO should be re-evaluated as
 # we update this change.  Until such time...
@@ -273,6 +275,9 @@ test -z "$(pkg-config --cflags Qt5WebKit | grep Qt5WebKit)"
 
 
 %changelog
+* Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 5.212.0-0.96alpha4
+- Allow to build with CMake 4.0 (rhbz#2381397)
+
 * Tue Nov 04 2025 Jan Grulich <jgrulich@redhat.com> - 5.212.0-0.95alpha4
 - Rebuild (qt5)
 

@@ -4,7 +4,7 @@
 Name:    oxygen-gtk2
 Summary: Oxygen GTK+2 theme
 Version: 1.4.6
-Release: 29%{?dist}
+Release: 30%{?dist}
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
 License: LicenseRef-Callaway-LGPLv2+
@@ -38,6 +38,8 @@ otherwise breaks every time some setting is changed in KDE.
 
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2381350)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake \
   -DOXYGEN_FORCE_KDE_ICONS_AND_FONTS=0
 
@@ -57,6 +59,9 @@ otherwise breaks every time some setting is changed in KDE.
 
 
 %changelog
+* Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 1.4.6-30
+- Allow to build with CMake 4.0 (rhbz#2381350)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.6-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

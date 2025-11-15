@@ -90,7 +90,7 @@ Version:        %{llvm_maj_ver}
 %if %{with gitcommit}
 Release:        0.rocm%{rocm_version}^git%{date0}.%{shortcommit0}%{?dist}
 %else
-Release:        5.rocm%{rocm_version}%{?dist}
+Release:        6.rocm%{rocm_version}%{?dist}
 %endif
 
 Summary:        Various AMD ROCm LLVM related services
@@ -1115,6 +1115,9 @@ rm -f %{buildroot}%{_bindir}/hipvars.pm
 %endif
 
 %changelog
+* Thu Nov 13 2025 Tom Rix <Tom.Rix@amd.com> - 20-6.rocm7.1.0
+- Rebuild
+
 * Thu Oct 30 2025 Tom Rix <Tom.Rix@amd.com> - 20-5.rocm7.1.0
 - Update to 7.1.0
 

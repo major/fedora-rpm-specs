@@ -1,7 +1,7 @@
 %undefine __cmake_in_source_build
 Name:           kdesvn
 Version:        2.1.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Subversion client for KDE
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -50,6 +50,8 @@ for konqueror and/or kate will made.
 
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380672)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 # erase invalid tag order (2.0 before 2.1)
 sed -i -e '/release version="2.0" date="2016-12-10"/d' src/org.kde.kdesvn.appdata.xml
 
@@ -95,6 +97,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 
 
 %changelog
+* Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 2.1.0-15
+Allow to build with CMake 4.0 (rhbz#2380672)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

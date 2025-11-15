@@ -4,7 +4,7 @@
 %define _binaries_in_noarch_packages_terminate_build 0
 
 Name:		linux-firmware
-Version:	20251021
+Version:	20251111
 Release:	1%{?dist}
 Summary:	Firmware files used by the Linux kernel
 License:	GPL-1.0-or-later AND GPL-2.0-or-later AND MIT AND LicenseRef-Callaway-Redistributable-no-modification-permitted
@@ -721,6 +721,36 @@ end
 %{_firmwarepath}/v4l-cx2*
 
 %changelog
+* Wed Nov 12 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 20251111-1
+- Update to 20251111
+- rtl_bt: Update RTL8922A BT USB firmware to 0x41C0_C905
+- add firmware for mt7987 internal 2.5G ethernet phy
+- rtw88: 8822b: Update firmware to v30.20.0
+- rtl_nic: add firmware rtl8125k-1
+- ASoC: tas2781: Update dsp firmware for HP and ASUS projects
+- amdgpu: DMCUB updates for various ASICs
+- qcom: add SOCCP firmware for kaanapali platform
+- xe: Update GUC to v70.53.0 for BMG, LNL, PTL
+- i915: Update GUC to v70.53.0 for DG2, MTL
+- rtw89: 8851b: update fw to v0.29.41.5
+- rtw89: 8852b: update fw to v0.29.128.0 with format suffix -2
+- rtw89: 8852b: update fw to v0.29.29.14
+- rtw89: 8852bt: update fw to v0.29.127.0 with format suffix -1
+- Update firmware file for Intel BlazarI/BlazarU core
+- Create audio folder in ti folder, and move all the audio firmwares into it
+- amdgpu: DMCUB updates for various ASICs
+- Update AMD cpu microcode
+- mediatek MT7925: update bluetooth firmware to 20251015213201
+- rtl_bt: Add firmware and config files for RTL8761CUV
+- Update AMD cpu microcode
+- qcom: add ADSP firmware for kaanapali platform
+- amdgpu: DMCUB updates for various ASICs
+- mediatek MT7920: update bluetooth firmware to 20251020151255
+- update firmware for MT7920/MT7922/MT7925 WiFi device
+- amd-ucode: Fix minimum revisions in README
+- cirrus: cs35l41: Rename various Asus Laptop firmware files to not have Speaker ID
+- mediatek MT7922: update bluetooth firmware to 20251020143443
+
 * Tue Oct 21 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 20251021-1
 - Update to 20251021
 - Revert "update firmware for MT7922 WiFi device"

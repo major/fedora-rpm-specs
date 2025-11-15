@@ -7,7 +7,7 @@
 Summary: A utility for getting files from remote servers (FTP, HTTP, and others)
 Name: curl
 Version: 8.17.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: curl
 Source0: https://curl.se/download/%{name}-%{version_no_tilde}.tar.xz
 Source1: https://curl.se/download/%{name}-%{version_no_tilde}.tar.xz.asc
@@ -366,6 +366,11 @@ rm -rf ${RPM_BUILD_ROOT}%{_datadir}/fish
 
 rm -f ${RPM_BUILD_ROOT}%{_libdir}/libcurl.la
 
+# do not install bundled wcurl utility
+# it is provided by the wcurl package
+rm -f ${RPM_BUILD_ROOT}%{_bindir}/wcurl
+rm -f ${RPM_BUILD_ROOT}%{_mandir}/man1/wcurl.1*
+
 %ldconfig_scriptlets -n libcurl
 
 %ldconfig_scriptlets -n libcurl-minimal
@@ -381,8 +386,6 @@ rm -f ${RPM_BUILD_ROOT}%{_libdir}/libcurl.la
 %doc docs/TheArtOfHttpScripting.md
 %{_bindir}/curl
 %{_mandir}/man1/curl.1*
-%{_bindir}/wcurl
-%{_mandir}/man1/wcurl.1*
 %{_datadir}/zsh
 
 %files -n libcurl
@@ -407,7 +410,10 @@ rm -f ${RPM_BUILD_ROOT}%{_libdir}/libcurl.la
 %{_libdir}/libcurl.so.4.[0-9].[0-9].minimal
 
 %changelog
-*Mon Nov 10 2025 Jan Macku <jamacku@redhat.com> - 8.17.0-1
+* Thu Nov 13 2025 Jan Macku <jamacku@redhat.com> - 8.17.0-2
+- remove bundled wcurl utility that was added in 8.14.0~rc1, use wcurl package instead
+
+* Mon Nov 10 2025 Jan Macku <jamacku@redhat.com> - 8.17.0-1
 - new upstream release
 
 * Thu Oct 30 2025 Jan Macku <jamacku@redhat.com> - 8.17.0~rc3-1

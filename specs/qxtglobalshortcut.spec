@@ -5,7 +5,7 @@
 
 Name:           qxtglobalshortcut
 Version:        0.0.1
-Release:        0.29.%{commitdate}git%{shortcommit}%{?dist}
+Release:        0.30.%{commitdate}git%{shortcommit}%{?dist}
 Summary:        Cross-platform library for handling system-wide shortcuts in Qt applications
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -37,6 +37,8 @@ rm -rf utils/appveyor/
 rm -f appveyor.yml
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2381403)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake \
  -DCMAKE_SHARED_LINKER_FLAGS="-Wl,--as-needed"
 %cmake_build
@@ -58,6 +60,9 @@ rm -f appveyor.yml
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 0.0.1-0.30.20171021git1644620
+- Allow to build with CMake 4.0 (rhbz#2381403)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.1-0.29.20171021git1644620
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

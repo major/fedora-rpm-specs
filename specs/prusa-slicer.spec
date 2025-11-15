@@ -7,7 +7,7 @@
 %endif
 
 Name:           prusa-slicer
-Version:        2.9.3
+Version:        2.9.4
 Release:        %autorelease
 Summary:        3D printing slicer optimized for Prusa printers
 
@@ -29,6 +29,7 @@ Source3:        https://github.com/prusa3d/libbgcode/archive/%{libbgcode_commit}
 Source4:        https://github.com/atomicobject/heatshrink/archive/refs/tags/v0.4.1.tar.gz#/heatshrink-0.4.1.tar.gz
 Source5:        https://github.com/prusa3d/openvdb/archive/a68fd58d0e2b85f01adeb8b13d7555183ab10aa5.tar.gz#/openvdb-8.2.tar.gz
 Source6:        https://github.com/catchorg/Catch2/archive/refs/tags/v3.8.0.tar.gz#/Catch2-3.8.0.tar.gz
+Source7:        https://gitlab.com/libeigen/eigen/-/archive/3.3.7/eigen-3.3.7.tar.bz2
 
 # Fix a couple of segfaults that happen with wxWidgets 3.2 (from Debian)
 Patch5:         prusa-slicer-fix-uninitialized-imgui-segfault.patch
@@ -69,7 +70,8 @@ BuildRequires:  cereal-devel
 BuildRequires:  CGAL-devel
 BuildRequires:  curl-devel
 BuildRequires:  desktop-file-utils
-BuildRequires:  eigen3-devel
+# Fedora's eigen is too new (3.3.7 is what this wants)
+# BuildRequires:  eigen3-devel
 BuildRequires:  expat-devel
 BuildRequires:  gcc-c++
 BuildRequires:  gettext
@@ -234,6 +236,11 @@ Provides: bundled(heatshrink) = 0.4.1
 # Upstream: https://github.com/prusa3d/openvdb
 Provides: bundled(openvdb) = 8.2.0
 
+# Fedora's eigen3 is too new (5.0.0)
+# License: Apache-2.0 AND MPL-2.0 AND BSD-3-Clause AND Minpack
+# Upstream: http://eigen.tuxfamily.org/index.php?title=Main_Page
+Provides: bundled(eigen) = 3.3.7
+
 # In case someone tries to install the upstream name
 Provides: PrusaSlicer = %version-%release
 
@@ -283,9 +290,16 @@ sed -i 's#URL https.*#SOURCE_DIR ../../bundled_deps/openvdb#; s/-DUSE_BLOSC=ON/-
 ( cd bundled_deps && tar xvzf %SOURCE6 && mv Catch2-* Catch2 )
 sed -i 's#URL "https.*#SOURCE_DIR ../../bundled_deps/Catch2#' deps/+Catch2/Catch2.cmake
 
+( cd bundled_deps && tar xvjf %SOURCE7 && mv eigen-* Eigen )
+sed -i 's#URL "https.*#SOURCE_DIR ../../bundled_deps/Eigen#' deps/+Eigen/Eigen.cmake
+
+# We can't trivially patch Eigen to enable support for Cmake4, so here come the sed hacks
+sed -i 's#cmake_minimum_required(VERSION 2.8.5#cmake_minimum_required(VERSION 2.8.5...4.0#' bundled_deps/Eigen/CMakeLists.txt
+
+
 mkdir deps/ignored
 mv deps/+* deps/ignored
-mv deps/ignored/+LibBGCode deps/ignored/+heatshrink deps/ignored/+OpenVDB deps/ignored/+Catch2 deps
+mv deps/ignored/+LibBGCode deps/ignored/+heatshrink deps/ignored/+OpenVDB deps/ignored/+Catch2 deps/ignored/+Eigen deps
 
 # Copy out specific license files so we can reference them later.
 license () { basename=$( basename $1 ) ; mv bundled_deps/$1/$2 $2-$basename; git add $2-$basename; echo %%license $2-$basename >> license-files; }
@@ -296,6 +310,10 @@ license libnest2d LICENSE.txt
 license libbgcode LICENSE
 license heatshrink LICENSE
 license openvdb LICENSE
+license Eigen COPYING.README
+license Eigen COPYING.BSD
+license Eigen COPYING.MINPACK
+license Eigen COPYING.MPL2
 git add license-files
 commit "Move license files"
 

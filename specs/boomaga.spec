@@ -6,7 +6,7 @@
 
 Name:           boomaga
 Version:        3.3.0
-Release:        24.git%{shortcommit0}%{?dist}
+Release:        25.git%{shortcommit0}%{?dist}
 Summary:        A virtual printer for viewing a document before printing
 
 # Automatically converted from old format: GPLv2 and LGPLv2+ - review is highly recommended.
@@ -68,6 +68,8 @@ find -name .gitignore -type f -or -name .travis.yml -type f | xargs rm -rfv
 sed -i -e 's|find "/usr/local/lib" "/usr/lib" -name|find "/usr/local/lib" "%{_libdir}" -name|' scripts/testBackend.sh
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380483)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake \
     -DUSE_QT5=Yes \
     -DCUPS_BACKEND_DIR=%{_cups_serverbin}/backend \
@@ -164,6 +166,9 @@ fi
 %{_datadir}/selinux/*/%{modulename}.pp
 
 %changelog
+* Mon Nov 10 2025 Cristian Le <git@lecris.dev> - 3.3.0-25.git7f7ad47
+- Allow to build with CMake 4.0 (rhbz#2380483)
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-24.git7f7ad47
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

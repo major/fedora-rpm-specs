@@ -1,7 +1,7 @@
 Name:           screengrab
 Summary:        Crossplatform tool for fast making screenshots
 Version:        3.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPL-2.0-only
 URL:            https://lxqt-project.org/
 Source0:        https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -43,6 +43,8 @@ desktop environment.
 %autosetup -p1
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2381657)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake
 %cmake_build
 
@@ -64,6 +66,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/screengrab.desktop
 %{_datadir}/screengrab/screengrab.conf
 
 %changelog
+* Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 3.1.0-2
+- Allow to build with CMake 4.0 (rhbz#2381657)
+
 * Thu Nov 06 2025 Shawn W Dunn <sfalken@opensuse.org> - 3.1.0-1
 - Update to 3.1.0
 

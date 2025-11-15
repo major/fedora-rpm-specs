@@ -1,6 +1,6 @@
 Name:           libass
-Version:        0.17.3
-Release:        4%{?dist}
+Version:        0.17.4
+Release:        1%{?dist}
 Summary:        Portable library for SSA/ASS subtitles rendering
 License:        ISC
 URL:            https://github.com/libass
@@ -9,16 +9,16 @@ Source0:        https://github.com/%{name}/%{name}/releases/download/%{version}/
 
 BuildRequires:  automake
 BuildRequires:  gcc
+BuildRequires:  make
 BuildRequires:  nasm
 BuildRequires:  pkgconfig(fontconfig) >= 2.10.92
-BuildRequires:  pkgconfig(freetype2) >= 9.10.3
-BuildRequires:  pkgconfig(fribidi) >= 0.19.0
-BuildRequires:  pkgconfig(harfbuzz) >= 0.9.5
+BuildRequires:  pkgconfig(freetype2) >= 9.17.3
+BuildRequires:  pkgconfig(fribidi) >= 0.19.1
+BuildRequires:  pkgconfig(harfbuzz) >= 1.2.3
 BuildRequires:  pkgconfig(libpng) >= 1.2.0
 %ifnarch %{ix86}
 BuildRequires:  pkgconfig(libunibreak) >= 1.1
 %endif
-BuildRequires:  make
 
 %description
 Libass is a portable library for SSA/ASS subtitles rendering.
@@ -59,6 +59,10 @@ make check
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Nov 13 2025 Xavier Bachelot <xavier@bachelot.org> - 0.17.4-1
+- Update to 0.17.4 (RHBZ#2370952)
+- Fix BR:s minimal versions
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

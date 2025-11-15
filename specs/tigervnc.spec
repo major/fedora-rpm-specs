@@ -6,7 +6,7 @@
 
 Name:           tigervnc
 Version:        1.15.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A TigerVNC remote display system
 
 %global _hardened_build 1
@@ -220,6 +220,8 @@ sed -i -e '/add_subdirectory.*vnc/d' unix/CMakeLists.txt
 # Downstream patches
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2381485)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %ifarch sparcv9 sparc64 s390 s390x
 export CFLAGS="$RPM_OPT_FLAGS -fPIC"
 %else
@@ -407,6 +409,9 @@ fi
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 1.15.0-9
+- Allow to build with CMake 4.0 (rhbz#2381485)
+
 * Wed Oct 15 2025 Dominik Mierzejewski <dominik@greysector.net> - 1.15.0-8
 - Rebuilt for FFmpeg 8
 

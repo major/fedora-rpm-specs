@@ -4,7 +4,7 @@
 
 Name:           libcorrect
 Version:        0
-Release:        17.%{date}git%{gitcommit}%{?dist}
+Release:        18.%{date}git%{gitcommit}%{?dist}
 Summary:        C library for Convolutional codes and Reed-Solomon
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
@@ -47,6 +47,8 @@ sed -e "s|DESTINATION lib|DESTINATION %{_lib}|" \
 
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380713)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake -G Ninja \
     -DCMAKE_BUILD_TYPE=Release
 %cmake_build
@@ -64,6 +66,9 @@ sed -e "s|DESTINATION lib|DESTINATION %{_lib}|" \
 %{_libdir}/libcorrect.so
 
 %changelog
+* Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 0-18.20181010gitf5a28c7
+- Allow to build with CMake 4.0 (rhbz#2380713)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-17.20181010gitf5a28c7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

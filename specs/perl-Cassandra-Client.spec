@@ -3,7 +3,7 @@
 
 Name:           perl-Cassandra-Client
 Version:        0.21
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Perl library for accessing Cassandra using its binary network protocol
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Cassandra-Client
@@ -19,7 +19,6 @@ BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(:VERSION) >= 5.10.0
 BuildRequires:  perl(AnyEvent)
-# Not reviewed
 BuildRequires:  perl(AnyEvent::XSPromises)
 BuildRequires:  perl(Clone) >= 0.36
 BuildRequires:  perl(constant)
@@ -63,7 +62,7 @@ BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::More)
 Requires:       perl(AnyEvent)
 Requires:       perl(EV) >= 4
-Requires:       perl(Math::BingInt)
+Requires:       perl(Math::BigInt)
 
 
 %description
@@ -119,6 +118,9 @@ make test
 
 
 %changelog
+* Thu Nov 13 2025 Xavier Bachelot <xavier@bachelot.org> 0.21-3
+- Fix typo (RHBZ#2414652)
+
 * Fri Nov 07 2025 Xavier Bachelot <xavier@bachelot.org> 0.21-2
 - Review fixes
 

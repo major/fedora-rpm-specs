@@ -2,7 +2,7 @@
 %global debug_package %{nil}
 
 Name:     elixir
-Version:  1.19.2
+Version:  1.19.3
 
 %global __requires_exclude_from ^%{_datadir}/%{name}/%{version}/bin/.+\\.ps1$
 

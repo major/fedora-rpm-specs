@@ -6,7 +6,7 @@
 Summary:        Qt5 - QtConfiguration module
 Name:           qt5-%{qt_module}
 Version:        0.3.1
-Release:        26%{?dist}
+Release:        27%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 # Automatically converted from old format: LGPLv2 with exceptions or GPLv3 with exceptions - review is highly recommended.
@@ -40,6 +40,8 @@ Requires:       qt5-qtbase-devel%{?_isa}
 
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2381394)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake
 
 %cmake_build
@@ -66,6 +68,9 @@ Requires:       qt5-qtbase-devel%{?_isa}
 
 
 %changelog
+* Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 0.3.1-27
+- Allow to build with CMake 4.0 (rhbz#2381394)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

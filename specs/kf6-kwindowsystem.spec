@@ -1,8 +1,8 @@
 %global		framework kwindowsystem
 
 Name:		kf6-%{framework}
-Version:	6.19.0
-Release:	3%{?dist}
+Version:	6.20.0
+Release:	1%{?dist}
 Summary:	KDE Frameworks 6 Tier 1 integration module with classes for windows management
 License:	CC0-1.0 AND LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-3.0-only AND MIT
 URL:		https://invent.kde.org/frameworks/%{framework}
@@ -10,9 +10,6 @@ Source0:	https://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{f
 Source1:	https://download.kde.org/%{stable_kf6}/frameworks/%{majmin_ver_kf6}/%{framework}-%{version}.tar.xz.sig
 
 # Upstream patches
-# Fix for global shortcuts not working in 6.4.91
-# https://invent.kde.org/frameworks/kwindowsystem/-/merge_requests/190
-Patch0:         190.patch
 
 BuildRequires:	cmake
 BuildRequires:	gcc-c++
@@ -105,6 +102,9 @@ Developer Documentation files for %{name} in HTML format
 
 
 %changelog
+* Thu Nov 13 2025 Steve Cossette <farchord@gmail.com> - 6.20.0-1
+- 6.20.0
+
 * Wed Oct 29 2025 Steve Cossette <farchord@gmail.com> - 6.19.0-3
 - Bump for Plasma/Qt6.10 rebuild
 

@@ -94,7 +94,7 @@ Patch16:        atuin-update-paseto-paserk.patch
 Patch17:        atuin-relax-directories.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
-%if %{with check}
+%if %{with check} && %{with pgtests}
 BuildRequires:  postgresql-test-rpm-macros
 %endif
 
@@ -187,6 +187,7 @@ install -Dpm 0755 other_installs/profile.d/atuin.sh %{buildroot}%{_sysconfdir}/p
 
 %if %{with check}
 %check
+%if %{with pgtests}
 # start a postgres instance for the tests to use
 export PGTESTS_LOCALE="C.UTF-8"
 export PGTESTS_USERS="atuin:pass"
@@ -194,6 +195,9 @@ export PGTESTS_DATABASES="atuin:atuin"
 export PGTESTS_PORT=5432
 %postgresql_tests_run
 %cargo_test -a
+%else
+%cargo_test -a -- -- --skip sync --skip change_password --skip multi_user_test --skip registration
+%endif
 %endif
 
 %files

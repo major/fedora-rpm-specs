@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.42.9000-458-g58a31b4316
+%global glibcsrcdir glibc-2.42.9000-487-g1f79bc4838
 %global glibcversion 2.42.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 10
+%global baserelease 11
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -339,7 +339,6 @@ rpm.define("__debug_install_post bash " .. wrapper
 Patch13: glibc-fedora-localedata-rh61908.patch
 Patch17: glibc-cs-path.patch
 Patch23: glibc-python3.patch
-Patch24: glibc-once_flag-cpp.patch
 # https://bugs.winehq.org/show_bug.cgi?id=58523
 # revert 3d3572f59059e2b19b8541ea648a6172136ec42e to fix wine build
 # applied with PP powers as we really need to build wine to fix scriptlet problems
@@ -2390,6 +2389,39 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Thu Nov 13 2025 Frédéric Bérat <fberat@redhat.com> - 2.42.9000-11
+- Auto-sync with upstream branch master,
+  commit 1f79bc48382cc204a9cb0eae1d3cca2515af1f3c:
+- Change fromfp functions to return floating types following C23 (bug 28327) (Joseph Myers)
+- math: Remove float_t and double_t [BZ #33563] (Wilco Dijkstra)
+- math: Remove ldbl-128/s_fma.c (Wilco Dijkstra)
+- linux: Add mseal syscall support (Adhemerval Zanella)
+- aarch64: fix includes in SME tests (Yury Khrustalev)
+- LoongArch: Call elf_ifunc_invoke for R_LARCH_IRELATIVE in elf_machine_rela (Xi Ruoyao)
+- hurd: Drop remnants of cthreads (Samuel Thibault)
+- cdefs: Fix some typos in comments. (Bruno Haible)
+- stdlib: Do not define once_flag, ONCE_FLAG_INIT for C++ (Florian Weimer)
+- x86-64: Fix a typo in fesetenv.c [BZ #33619] (H.J. Lu)
+- Set Prefer_No_AVX512 flag for hygon platform (Xie jiamei)
+- math: Optimize frexpl (binary128) with fast path for normal numbers (Osama Abdelkader)
+- math: Optimize frexp (binary64) with fast path for normal numbers (Osama Abdelkader)
+- math: Optimize frexpf (binary32) with fast path for normal numbers (Osama Abdelkader)
+- benchtests: Add benchmarks for frexp functions (Osama Abdelkader)
+- math: Sync acosh from CORE-MATH (Adhemerval Zanella)
+- Filter out internal abort during ld.so build (Adhemerval Zanella)
+- x86: Fix THREAD_GSCOPE_RESET_FLAG build on clang (Adhemerval Zanella)
+- x86: Adapt "%v" usage on clang to emit VEX enconding (Adhemerval Zanella)
+- x86: math: Use of __libgcc_cmp_return__ iff compiler supports it (Adhemerval Zanella)
+- string: Check if attribute can declared after function declaration (Adhemerval Zanella)
+- nss: Suppress clang -Wstring-plus-int on __nss_shlib_revision definition (Adhemerval Zanella)
+- stdlib: Remove mp_clz_tab.c (Adhemerval Zanella)
+- hurd: make setpriority clamp nice values to 0..2*NZERO-1 [BZ #33614] (Samuel Thibault)
+- Revert "hurd: Make rename refuse trailing slashes [BZ #32570]" (Samuel Thibault)
+- Add missing $(rpath-link) to elf/ld.so --library-path (Samuel Thibault)
+- Add missing $(rpath-link) to /elf/ld.so --library-path (Samuel Thibault)
+- nss: Add ERANGE testing to tst-nss-test4 (bug 33361) (Carlos O'Donell)
+- aarch64: Remove $(aarch64-bti) check (Florian Weimer)
+
 * Mon Nov 10 2025 Florian Weimer  <fweimer@redhat.com> - 2.42.9000-10
 - Do not define once_flag in <stdlib.h> for C++ (#2413097)
 

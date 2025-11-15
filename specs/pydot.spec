@@ -8,7 +8,7 @@ tools dot, neato, twopi.
 
 Name:		pydot
 Version:	4.0.1
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Python interface to Graphviz's Dot language
 License:	MIT
 URL:		https://github.com/pydot/pydot
@@ -19,9 +19,12 @@ Patch0:		https://github.com/pydot/pydot/commit/103a1a1d7027d90eab7577a8860dba2b0
 # Nevertheless, this test isn't about jpeg rendering, so I swapped it to png so we can get this package going again.
 # https://github.com/pydot/pydot/issues/501
 Patch1:		pydot-4.0.1-testfix-replace-jpe-with-png.patch
+# Replace parameterized with built-in pytest functionality
+# https://github.com/pydot/pydot/pull/515
+Patch2:		%{url}/pull/515.patch
 BuildArch:	noarch
 
-BuildRequires:  tomcli
+BuildRequires:	tomcli
 
 %description
 %{common_desc}
@@ -40,6 +43,7 @@ Provides:	%{name} = %{version}-%{release}
 %setup -q
 %patch -P 0 -p1 -b .103a1a1d
 %patch -P 1 -p1 -b .fixtest
+%patch -P 2 -p1 -b .515
 
 # Do not depend on linters, typecheckers, or coverage tools
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
@@ -67,6 +71,9 @@ sed -r -i 's/--cov\b//' setup.cfg
 %doc ChangeLog README.md
 
 %changelog
+* Wed Nov 12 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 4.0.1-4
+- Replace parameterized with built-in pytest functionality
+
 * Mon Oct 27 2025 Tom Callaway <spot@fedoraproject.org> - 4.0.1-3
 - do not depend on linters, typecheckers, or coverage tools
 

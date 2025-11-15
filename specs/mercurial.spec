@@ -10,7 +10,7 @@
 Summary: A fast, lightweight Source Control Management system
 Name: mercurial
 Version: 7.1.1
-Release: 2.1%{?dist}
+Release: 3%{?dist}
 
 # Release: 1.rc1%%{?dist}
 
@@ -143,8 +143,12 @@ sed -i.wish8 -e '1,1s/wish/\08/' contrib/hgk
 pushd rust
 %cargo_prep
 popd
+%endif
 
 %generate_buildrequires
+%pyproject_buildrequires
+
+%if %{with rust}
 for crate in rust/hg-core rust/hg-pyo3 rust/rhg rust/pyo3-sharedref; do
   cd $crate
   # Temporarily remove  hg-core = { path = "../hg-core"}  dependencies while generating buildrequires.
@@ -155,14 +159,13 @@ for crate in rust/hg-core rust/hg-pyo3 rust/rhg rust/pyo3-sharedref; do
   cd - >/dev/null
 done
 %endif
-# /with rust
 
 # These are shipped as examples in /usr/share/docs and should not be executable
 chmod -x hgweb.cgi contrib/hgweb.fcgi
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 # chg will invoke the 'hg' command - no direct Python dependency
 pushd contrib/chg
@@ -178,7 +181,7 @@ popd
 
 
 %install
-%py3_install
+%pyproject_install
 make install-doc DESTDIR=%{buildroot} MANDIR=%{_mandir}
 
 # Overrule setup.py policy "c" for module usage: always allow rust extension (if available)
@@ -244,7 +247,7 @@ rm -rf %{buildroot}%{python3_sitearch}/mercurial/locale
 %if %{with rust}
 %exclude %{python3_sitearch}/mercurial/rustext%{python3_ext_suffix}
 %endif
-%{python3_sitearch}/mercurial-%{version}-py%{python3_version}.egg-info/
+%{python3_sitearch}/mercurial-%{version}.dist-info/
 %{python3_sitearch}/mercurial/
 %{python3_sitearch}/hgext/
 %{python3_sitearch}/hgext3rd/
@@ -276,6 +279,9 @@ rm -rf %{buildroot}%{python3_sitearch}/mercurial/locale
 
 
 %changelog
+* Thu Nov 13 2025 Mads Kiilerich <mads@kiilerich.com> - 7.1.1-3
+- Switch to using pyproject.toml using python3-setuptools-80.9.0 (#2377325)
+
 * Mon Oct 13 2025 Mads Kiilerich <mads@kiilerich.com> - 7.1.1-2.1
 - Launch hgk with wish8 / tk8 to avoid regression with 8-bit encodings (#2384296)
 

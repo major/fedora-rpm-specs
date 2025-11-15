@@ -6,7 +6,7 @@
 
 Name:           falkon-pdfreader
 Version:        0
-Release:        0.20.%{date}git%{gitcommit}%{?dist}
+Release:        0.21.%{date}git%{gitcommit}%{?dist}
 Summary:        PDF reader extension for Falkon using pdf.js
 
 # Automatically converted from old format: GPLv3+ and ASL 2.0 - review is highly recommended.
@@ -33,6 +33,8 @@ mv pdfreader/pdfjs/LICENSE LICENSE_pdfjs
 
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380571)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake_kf5
 
 
@@ -48,6 +50,9 @@ mv pdfreader/pdfjs/LICENSE LICENSE_pdfjs
 
 
 %changelog
+* Mon Nov  10 2025 Cristian Le <git@lecris.dev> - 0-0.21.20200924gitdcb8453
+- Allow to build with CMake 4.0 (rhbz#2380571)
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.20.20200924gitdcb8453
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
