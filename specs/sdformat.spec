@@ -4,7 +4,7 @@
 
 Name:		sdformat
 Version:	6.3.1
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	The Simulation Description Format
 
 License:	Apache-2.0
@@ -71,6 +71,8 @@ rm -rf src/urdf
 sed -i 's/unset/#unset/g' CMakeLists.txt
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2381441)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake \
   -DCMAKE_BUILD_TYPE=Release \
   -DLIB_INSTALL_DIR:STRING=%{_lib} \
@@ -119,6 +121,9 @@ export GTEST_COLOR=no
 %doc %{_vpath_builddir}/doxygen/html
 
 %changelog
+* Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 6.3.1-8
+- Allow to build with CMake 4.0 (rhbz#2381441)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

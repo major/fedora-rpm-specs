@@ -245,7 +245,7 @@
 
 Name:	chromium
 Version: 142.0.7444.162
-Release: 2%{?dist}
+Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD-3-Clause AND LGPL-2.1-or-later AND Apache-2.0 AND IJG AND MIT AND GPL-2.0-or-later AND ISC AND OpenSSL AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.0-only)
@@ -338,11 +338,11 @@ Patch309: chromium-132-el8-unsupport-rustc-flags.patch
 # Fix rhbz#2387446, FTBFS with rust-1.89.0
 Patch310: chromium-139-rust-FTBFS-suppress-warnings.patch
 
-# Fix FTBFS: undefined symbol: __rust_no_alloc_shim_is_unstable
-Patch311: chromium-rust-no-alloc-shim-is-unstable.patch
-
 # enable fstack-protector-strong
-Patch312: chromium-123-fstack-protector-strong.patch
+Patch311: chromium-123-fstack-protector-strong.patch
+
+# Fix FTBFS: undefined symbol: __rust_no_alloc_shim_is_unstable on EL9
+Patch312: chromium-142-el9-rust-no-alloc-shim-is-unstable.patch
 
 # Fix FTBFS on EL9
 # - error: undefined symbol: __rust_alloc_error_handler_should_panic
@@ -1036,9 +1036,12 @@ Qt6 UI for chromium.
 %endif
 
 %patch -P310 -p1 -b .rust-FTBFS-suppress-warnings
-%patch -P311 -p1 -b .rust-no-alloc-shim-is-unstable
-%patch -P312 -p1 -b .fstack-protector-strong
+%patch -P311 -p1 -b .fstack-protector-strong
+
+%if 0%{?rhel} == 9
+%patch -P312 -p1 -b .el9-rust-no-alloc-shim-is-unstable
 %patch -P313 -p1 -b .el9-rust_alloc_error_handler_should_panic
+%endif
 
 %if 0%{?rhel} && 0%{?rhel} < 10
 %patch -P354 -p1 -b .split-threshold-for-reg-with-hint

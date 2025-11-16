@@ -1,6 +1,6 @@
 Name:		megaglest-data
 Version:	3.13.0
-Release:	17%{?dist}
+Release:	18%{?dist}
 Summary:	Mega Glest data files
 # Automatically converted from old format: CC-BY-SA - review is highly recommended.
 License:	LicenseRef-Callaway-CC-BY-SA
@@ -27,6 +27,8 @@ game at no cost.
 %autosetup -n %{name}-%{version}
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380904)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 mkdir -p %{_vpath_builddir}
 %cmake \
   -DMEGAGLEST_ICON_INSTALL_PATH=%{_datadir}/icons
@@ -63,6 +65,9 @@ rm %{buildroot}/%{_datadir}/menu/megaglest
 %{_datadir}/megaglest/tutorials/
 
 %changelog
+* Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 3.13.0-18
+- Allow to build with CMake 4.0 (rhbz#2380904)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

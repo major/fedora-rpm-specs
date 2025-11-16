@@ -22,7 +22,7 @@ Summary: CUPS printing system
 Name: cups
 Epoch: 1
 Version: 2.4.14
-Release: 2%{?dist}
+Release: 3%{?dist}
 # backend/failover.c - BSD-3-Clause
 # cups/md5* - Zlib
 # scheduler/colorman.c - Apache-2.0 WITH LLVM-exception AND BSD-2-Clause
@@ -455,6 +455,8 @@ d %{_rundir}/cups 0755 root lp -
 d %{_rundir}/cups/certs 0511 lp sys -
 
 d /var/spool/cups/tmp - - - 30d
+
+d /var/log/cups 0755 root lp -
 EOF
 
 # /usr/lib/tmpfiles.d/cups-lp.conf (bug #812641)
@@ -829,6 +831,9 @@ rm -f %{cups_serverbin}/backend/smb
 %{_mandir}/man7/ippeveps.7.gz
 
 %changelog
+* Fri Nov 14 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.14-3
+- install /var/log/cups via systemd-tmpfiles
+
 * Tue Sep 23 2025 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.14-2
 - Fix setting print-as-raster default option (fedora#2369654)
 

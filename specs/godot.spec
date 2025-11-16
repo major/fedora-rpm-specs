@@ -15,7 +15,7 @@
 %define rdnsname org.godotengine.Godot
 
 Name:           godot
-Version:        4.5
+Version:        4.5.1
 Release:        1%{?dist}
 Summary:        Multi-platform 2D and 3D game engine with a feature-rich editor
 %if 0%{?mageia}
@@ -29,8 +29,6 @@ Source1:        https://github.com/godotengine/godot-builds/releases/download/%{
 
 # Preconfigure Blender and oidnDenoise paths to use system-installed versions.
 Patch0:         preconfigure-blender-oidn-paths.patch
-# https://github.com/godotengine/godot/pull/110540
-Patch1:         0001-Linux-Allow-unbundling-libjpeg-turbo-to-use-system-p.patch
 
 # Upstream does not support this arch (for now)
 ExcludeArch:    s390x
@@ -276,6 +274,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{rdnsname}.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{rdnsname}.appdata.xml
 
 %changelog
+* Fri Nov 14 2025 Rémi Verschelde <akien@fedoraproject.org> - 4.5.1-1
+- Version 4.5.1-stable
+
 * Mon Sep 15 2025 Rémi Verschelde <akien@fedoraproject.org> - 4.5-1
 - Version 4.5-stable
 - Adds SDL3 and libturbojpeg dependencies (unbundled)

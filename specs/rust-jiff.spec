@@ -61,10 +61,6 @@ use the "%{crate}" crate.
 %license %{crate_instdir}/COPYING
 %license %{crate_instdir}/LICENSE-MIT
 %license %{crate_instdir}/UNLICENSE
-%doc %{crate_instdir}/CHANGELOG.md
-%doc %{crate_instdir}/COMPARE.md
-%doc %{crate_instdir}/DESIGN.md
-%doc %{crate_instdir}/PLATFORM.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

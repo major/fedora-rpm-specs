@@ -14,7 +14,7 @@
 %endif
 
 Name:           ipython
-Version:        9.6.0
+Version:        9.7.0
 Release:        %autorelease
 Summary:        An enhanced interactive Python shell
 

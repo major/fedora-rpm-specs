@@ -1,5 +1,5 @@
 Name:           anaconda-webui
-Version:        56
+Version:        57
 Release:        1%{?dist}
 Summary:        Anaconda installer Web interface
 License:        LGPL-2.1-or-later AND MIT
@@ -120,6 +120,10 @@ exit 0
 
 # The changelog is automatically generated and merged
 %changelog
+* Tue Nov 11 2025 Packit <hello@packit.dev> - 57-1
+- localization: scroll selected item in menu into view only once on
+  mount (rhbz#2404634)
+
 * Fri Oct 17 2025 Packit <hello@packit.dev> - 56-1
 - Launch slitherer as XWayland app to address the autoclose issue (rhbz#2404424)
 - localization: keyboard: do not apply any keyboard config in Workstation (rhbz#2404629)

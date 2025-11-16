@@ -1,8 +1,8 @@
 Summary: GNU macro processor
 Name: m4
 Version: 1.4.20
-Release: 2%{?dist}
-License: GPL-3.0-or-later AND GFDL-1.3-or-later
+Release: 3%{?dist}
+License: GPL-3.0-or-later AND GFDL-1.3-or-later AND FSFULLR AND GPL-3.0-or-later WITH Autoconf-exception-generic-3.0 AND GPL-3.0-or-later WITH Texinfo-exception AND GPL-2.0-or-later WITH Autoconf-exception-generic AND GPL-3.0-or-later WITH Autoconf-exception-generic-3.0 AND MIT
 Source0: https://ftp.gnu.org/gnu/m4/m4-%{version}.tar.xz
 Source1: https://ftp.gnu.org/gnu/m4/m4-%{version}.tar.xz.sig
 URL: https://www.gnu.org/software/m4/
@@ -50,6 +50,9 @@ make %{?_smp_mflags} check
 %{_mandir}/man1/m4.1*
 
 %changelog
+* Fri Nov 14 2025 Florian Weimer  <fweimer@redhat.com> - 1.4.20-3
+- Update License tag with build system licenses
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.20-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

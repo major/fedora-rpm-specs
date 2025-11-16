@@ -149,11 +149,16 @@ done
 # Update an obsolete autoconf macro
 sed -i 's/AC_PROG_LIBTOOL/LT_INIT/' configure.ac
 
+%if %{with bootstrap}
+# We do not run tests in bootstrap mode, so don't look for check
+sed -i '/PKG_CHECK_MODULES.*CHECK/d' configure.ac
+%endif
+
 # Generate the configure script
 autoreconf -fi
 
 %generate_buildrequires
-%pyproject_buildrequires -x docs,test
+%pyproject_buildrequires -x docs%{!?with_bootstrap:,test}
 
 %build
 # Build for python3

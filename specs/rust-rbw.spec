@@ -15,7 +15,8 @@ License:        MIT
 URL:            https://crates.io/crates/rbw
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * relax directories dependency from =5.0.0 to 5.0.0
+# * relax directories dependency from =5.0.0 to >=5.0.0, <7.0.0:
+#   https://git.tozt.net/rbw/commit/Cargo.toml?id=f3959385a509a6013cec6b466a986fd6e64908c1
 # * relax tokio-tungstenite dependency to allow 0.23 as well as 0.24
 # * relax url dependency to allow 2.5.x, not just 2.5.4+
 Patch:          rbw-fix-metadata.diff

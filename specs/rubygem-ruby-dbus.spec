@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.22.1
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: Ruby module for interaction with D-Bus
 # MIT: lib/dbus/core_ext/*
 License: LGPL-2.1-or-later AND MIT
@@ -20,6 +20,9 @@ BuildRequires: rubygem(rspec)
 # https://github.com/mvidner/ruby-dbus/issues/137
 BuildRequires: rubygem(nokogiri)
 BuildRequires: rubygem(rexml)
+# https://github.com/mvidner/ruby-dbus/pull/147
+BuildRequires: rubygem(logger)
+BuildRequires: rubygem(ostruct)
 BuildRequires: %{_bindir}/dbus-daemon
 BuildArch: noarch
 
@@ -46,6 +49,10 @@ chmod a-x Rakefile
 # Fix shebangs.
 find {examples,spec} -type f -executable -exec sed -i 's|env ||' '{}' \;
 find {examples,spec} -type f -executable -exec sed -r -i 's|#!.?/bin|#!/usr/bin|' '{}' \;
+
+# https://github.com/mvidner/ruby-dbus/pull/147
+%gemspec_add_dep -g logger
+%gemspec_add_dep -g ostruct
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -87,6 +94,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Fri Nov 14 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.22.1-8
+- Add dependency for logger, ostruct for ruby4_0
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.22.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

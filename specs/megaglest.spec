@@ -1,6 +1,6 @@
 Name:       megaglest
 Version:    3.13.0
-Release:    30%{?dist}
+Release:    31%{?dist}
 Summary:    Open Source 3d real time strategy game
 License:    GPL-3.0-or-later AND GPL-1.0-or-later
 Url:        http://megaglest.org/
@@ -93,6 +93,8 @@ game at no cost.
 %patch -P12 -p1
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380894)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 mkdir -p %{_vpath_builddir}
 export XERCESC_INCLUDE_DIR=%{_includedir}/xercesc-2.7.0
 export XERCESC_LIBRARY_DIR=%{_libdir}/xerces-c-2.7.0
@@ -116,6 +118,9 @@ install -d %{buildroot}/%{_datadir}/%{name}
 %{_datadir}/%{name}/
 
 %changelog
+* Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 3.13.0-31
+- Allow to build with CMake 4.0 (rhbz#2380894)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.0-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

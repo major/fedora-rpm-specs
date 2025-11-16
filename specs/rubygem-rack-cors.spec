@@ -2,7 +2,7 @@
 
 Name:           rubygem-%{gem_name}
 Version:        1.1.1
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Middleware for enabling Cross-Origin Resource Sharing in Rack apps
 
 License:        MIT
@@ -10,9 +10,18 @@ URL:            https://github.com/cyu/rack-cors
 Source0:        https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # https://github.com/cyu/rack-cors/pull/266
 Patch0:         rack-cors-pr266-minitest-mocha-compatibility.patch
+# Fix compatibility with Rack3, taken from following changes:
+#   Add missing include for Rack3
+#     https://github.com/cyu/rack-cors/pull/262
+#   Rack3: Rack::Lint does not accept uppercase character in header name
+#     commit: a48a55807afa49f2906de69e101d2c196a65ffed
+#     commit: 75d4510378462b098e092a0461cf3a1788bf9a6a
+#     commit: 41511184d1158c855226811028eb102ed88b82ca
+Patch1:         rack-cors-1.1.1-rack3-compat.patch
 
 BuildArch:      noarch
 BuildRequires:  rubygems-devel
+BuildRequires:  rubygem(logger)
 BuildRequires:  rubygem(minitest) >= 5.11.0
 BuildRequires:  rubygem(mocha) >= 1.6.0
 BuildRequires:  rubygem(rack-test)
@@ -37,9 +46,12 @@ gem unpack %{SOURCE0}
 
 %setup -q -D -T -n  %{gem_name}-%{version}
 %patch -P0 -p1
+%patch -P1 -p1
 
 gem spec %{SOURCE0} -l --ruby > %{gem_name}.gemspec
 
+# ref: https://github.com/cyu/rack-cors/pull/286
+%gemspec_add_dep -g logger -s %{gem_name}.gemspec
 
 %build
 gem build %{gem_name}.gemspec
@@ -78,6 +90,10 @@ popd
 
 
 %changelog
+* Fri Nov 14 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.1.1-15
+- Backport upstream fix for rack3 compatibility
+- Add logger dependency explicitly for ruby4_0
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

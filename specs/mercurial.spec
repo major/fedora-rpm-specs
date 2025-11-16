@@ -9,8 +9,8 @@
 
 Summary: A fast, lightweight Source Control Management system
 Name: mercurial
-Version: 7.1.1
-Release: 3%{?dist}
+Version: 7.1.2
+Release: 1%{?dist}
 
 # Release: 1.rc1%%{?dist}
 
@@ -279,6 +279,9 @@ rm -rf %{buildroot}%{python3_sitearch}/mercurial/locale
 
 
 %changelog
+* Fri Nov 14 2025 Mads Kiilerich <mads@kiilerich.com> - 7.1.2-1
+- mercurial 7.1.2
+
 * Thu Nov 13 2025 Mads Kiilerich <mads@kiilerich.com> - 7.1.1-3
 - Switch to using pyproject.toml using python3-setuptools-80.9.0 (#2377325)
 

@@ -1,7 +1,4 @@
-# There is a dependency cycle with xarray.
-# F43FailsToInstall: python3-xarray+io, python3-xarray
-# https://bugzilla.redhat.com/show_bug.cgi?id=2372200
-%bcond xarray 0
+%bcond xarray 1
 # Not yet packaged: python-uncertainties
 %bcond uncertainties 0
 # Requires babel <= 2.8; F42 has 2.16.0
@@ -10,14 +7,12 @@
 %bcond pandas 0
 # Not yet packaged: python-mip
 %bcond mip 0
-# F43FailsToInstall: python3-dask+array, python3-dask+bag,
-# python3-dask+dataframe, python3-dask+delayed, python3-dask+distributed,
-# python3-dask
-# https://bugzilla.redhat.com/show_bug.cgi?id=2371852
+# Requires dask < 2025.3.0 but F43 and Rawhide are at 2025.9.1
+# See: https://github.com/dask/dask-ml/issues/1016
 %bcond dask 0
 
 Name:           python-pint
-Version:        0.25
+Version:        0.25.2
 Release:        %autorelease
 Summary:        Physical quantities module
 

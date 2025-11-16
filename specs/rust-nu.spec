@@ -26,6 +26,8 @@ Patch:          nu-fix-metadata-auto.diff
 # * drop unused tango-bench dependency and benchmarks
 # * temporarily bump reedline from 0.36.0 to 0.37.0
 # * update rstest to 0.26: github.com/nushell/nushell/pull/16359
+# * allow dirs 6:
+#   https://github.com/nushell/nushell/commit/007b223acc1f0dd57ebbefc101ce1a6e46f707d0
 Patch:          nu-fix-metadata.diff
 
 # OOM when linking. We don't ship binaries on ix86 anyway, exclude it

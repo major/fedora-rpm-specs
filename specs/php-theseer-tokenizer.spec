@@ -1,12 +1,14 @@
 # remirepo/fedora spec file for php-theseer-tokenizer
 #
-# Copyright (c) 2017-2024 Remi Collet
-# License: CC-BY-SA-4.0
-# http://creativecommons.org/licenses/by-sa/4.0/
+# SPDX-FileCopyrightText:  Copyright 2017-2025 Remi Collet
+# SPDX-License-Identifier: CECILL-2.1
+# http://www.cecill.info/licences/Licence_CeCILL_V2-en.txt
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    737eda637ed5e28c3413cb1ebe8bb52cbf1ca7a2
+%bcond_without       tests
+
+%global gh_commit    d74205c497bfbca49f34d4bc4c19c17e22db4ebb
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_vendor    theseer
 %global gh_project   tokenizer
@@ -14,8 +16,8 @@
 %global ns_project   Tokenizer
 
 Name:           php-%{gh_vendor}-%{gh_project}
-Version:        1.2.3
-Release:        4%{?dist}
+Version:        1.3.0
+Release:        1%{?dist}
 Summary:        Library for converting tokenized PHP source code into XML
 
 License:        BSD-3-Clause
@@ -30,10 +32,12 @@ BuildRequires:  php-dom
 BuildRequires:  php-tokenizer
 BuildRequires:  php-pcre
 BuildRequires:  php-spl
-# Autoloader
-BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
+%if %{with tests}
 # Tests
 BuildRequires:  phpunit9
+%endif
+# Autoloader
+BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 
 # From composer.json, "require": {
 #    "php": "^7.0 || ^8.0",
@@ -73,9 +77,10 @@ mkdir -p   %{buildroot}%{_datadir}/php/%{ns_vendor}
 cp -pr src %{buildroot}%{_datadir}/php/%{ns_vendor}/%{ns_project}
 
 
+%if %{with tests}
 %check
 ret=0
-for cmdarg in php php81 php82 php83; do
+for cmdarg in php php81 php82 php83 php84 php85; do
   if which $cmdarg; then
       $cmdarg -d auto_prepend_file=%{buildroot}%{_datadir}/php/%{ns_vendor}/%{ns_project}/autoload.php \
         %{_bindir}/phpunit9 \
@@ -83,6 +88,7 @@ for cmdarg in php php81 php82 php83; do
   fi
 done
 exit $ret
+%endif
 
 
 %files
@@ -93,6 +99,10 @@ exit $ret
 
 
 %changelog
+* Fri Nov 14 2025 Remi Collet <remi@remirepo.net> - 1.3.0-1
+- update to 1.3.0
+- re-license spec file to CECILL-2.1
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

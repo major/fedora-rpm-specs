@@ -31,7 +31,7 @@
 
 Name:           os-autoinst
 Version:        %{github_version}%{?github_date:^%{github_date}git%{shortcommit}}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        OS-level test automation
 # there are some files under other licenses in the tarball, but we
 # do not distribute any of them in the binary packages
@@ -53,6 +53,10 @@ Patch:          0001-testapi-allow-passing-max_interval-through-assert_-s.patch
 # https://github.com/os-autoinst/os-autoinst/pull/2751
 # Fix tests with IPC::Run 20250809.0
 Patch:          0001-t-consoles-s3270.t-fix-with-IPC-Run-20250809.0.patch
+
+# https://github.com/os-autoinst/os-autoinst/pull/2772
+# Add a usb_disconnect function (bet you can't guess what it does)
+Patch:          0001-Add-disconnect_usb-qemu-only-for-now.patch
 
 # on SUSE this is conditional, for us it doesn't have to be but we
 # still use a macro just to keep build_requires similar for ease of
@@ -275,6 +279,9 @@ fi
 %files devel
 
 %changelog
+* Fri Nov 14 2025 Adam Williamson <awilliam@redhat.com> - 5^20250707gitd55ec72-5
+- Backport PR #2772 to add disconnect_usb function
+
 * Wed Oct 15 2025 Dominik Mierzejewski <dominik@greysector.net> - 5^20250707gitd55ec72-4
 - Rebuilt for FFmpeg 8
 

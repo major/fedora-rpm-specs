@@ -1,11 +1,10 @@
 Summary: A text file browser similar to more, but better
 Name: less
 Version: 685
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPL-3.0-only and BSD-2-Clause
 Source0: https://www.greenwoodsoftware.com/less/%{name}-%{version}.tar.gz
-%global lesspipe_version 2.20
-Source1: https://github.com/wofr06/lesspipe/archive/refs/tags/v%{lesspipe_version}.tar.gz#/lesspipe-%{lesspipe_version}.tar.gz
+Source1: lesspipe.sh
 Source2: less.sh
 Source3: less.csh
 Source4: lesspipe.sh.1
@@ -21,12 +20,6 @@ URL: https://www.greenwoodsoftware.com/less/
 BuildRequires: ncurses-devel
 BuildRequires: autoconf automake libtool
 BuildRequires: make
-# for lesspipe make test
-BuildRequires: perl-Archive-Tar
-# for lesspipe
-Recommends: unzip
-Recommends: html2text
-Recommends: 7zip
 
 %description
 The less utility is a text file browser that resembles more, but has
@@ -39,7 +32,7 @@ You should install less because it is a basic utility for viewing text
 files, and you'll use it frequently.
 
 %prep
-%setup -q -a 1
+%setup -q
 %patch -P 4 -p1 -b .time
 %patch -P 5 -p2 -b .fsync
 %patch -P 6 -p1 -b .manpage-add-old-bot-option
@@ -56,29 +49,13 @@ autoreconf -fiv
 %configure
 %make_build CFLAGS="%{optflags} -D_GNU_SOURCE -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64"
 
-pushd lesspipe-%{lesspipe_version}
-#fix shebangs
-sed -i "s|^#!/usr/bin/env bash|^#!/usr/bin/bash|" lesspipe.sh
-
-./configure --prefix=%{_prefix}
-%make_build
-popd
-
 %install
 %make_install
 mkdir -p $RPM_BUILD_ROOT/etc/profile.d
+install -p        %{SOURCE1} $RPM_BUILD_ROOT%{_bindir}
 install -p -m 644 %{SOURCE2} $RPM_BUILD_ROOT/etc/profile.d
 install -p -m 644 %{SOURCE3} $RPM_BUILD_ROOT/etc/profile.d
-
-pushd lesspipe-%{lesspipe_version}
-%make_install
-rm -f $RPM_BUILD_ROOT/usr/share/bash-completion/less_completion
-popd
-
-%check
-pushd lesspipe-%{lesspipe_version}
-make test ||:
-popd
+install -p -m 644 %{SOURCE4} $RPM_BUILD_ROOT/%{_mandir}/man1/lesspipe.sh.1
 
 %files
 %doc README NEWS INSTALL
@@ -88,6 +65,9 @@ popd
 %{_mandir}/man1/*
 
 %changelog
+* Fri Nov 14 2025 Adam Williamson <awilliam@redhat.com> - 685-5
+- Revert new lesspipe filter due to hard perl dependency
+
 * Wed Nov 12 2025 Michal Hlavinka <mhlavink@redhat.com> - 685-4
 - use more feature rich lesspipe filter (#2308285)
 

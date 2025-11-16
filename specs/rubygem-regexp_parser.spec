@@ -2,14 +2,14 @@
 %global gem_name regexp_parser
 
 Name: rubygem-%{gem_name}
-Version: 2.5.0
-Release: 7%{?dist}
+Version: 2.11.3
+Release: 1%{?dist}
 Summary: Scanner, lexer, parser for ruby's regular expressions
 License: MIT
 URL: https://github.com/ammar/regexp_parser
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
-# git clone https://github.com/ammar/regexp_parser.git && cd regexp_parser \
-# git archive -v -o regexp_parser-2.5.0-specs.tar.gz v2.5.0 spec/
+# git clone https://github.com/ammar/regexp_parser.git && cd regexp_parser
+# git archive -v -o regexp_parser-2.11.3-specs.tar.gz v2.11.3 spec/
 Source1: %{gem_name}-%{version}-specs.tar.gz
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
@@ -45,15 +45,16 @@ cp -a .%{gem_dir}/* \
 
 
 %check
-pushd .%{gem_instdir}
+( cd .%{gem_instdir}
 ln -s %{_builddir}/spec spec
 
-# We don't have 'ice_nine' in Fedora anymore.
-sed -i '/ice_nine/ s/^/#/' spec/spec_helper.rb
-sed -i -r '/IceNine/ s/IceNine.deep_freeze\((.*)\)/\1/' spec/expression/to_s_spec.rb
+# We don't have 'leto' in Fedora.
+sed -i '/leto/ s/^/#/' spec/spec_helper.rb
+sed -i -r '/Leto/ s/Leto.deep_freeze\((.*)\)/\1/' spec/expression/to_s_spec.rb
+sed -i -r '/Leto/i\    skip/' spec/expression/clone_spec.rb
 
 rspec spec
-popd
+)
 
 %files
 %dir %{gem_instdir}
@@ -64,13 +65,15 @@ popd
 
 %files doc
 %doc %{gem_docdir}
-%doc %{gem_instdir}/CHANGELOG.md
 %{gem_instdir}/Gemfile
-%doc %{gem_instdir}/README.md
 %{gem_instdir}/Rakefile
 %{gem_instdir}/regexp_parser.gemspec
 
 %changelog
+* Thu Nov 13 2025 Vít Ondruch <vondruch@redhat.com> - 2.11.3-1
+- Update to regexp_parser 2.11.3.
+  Resolves: rhbz#2130036
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

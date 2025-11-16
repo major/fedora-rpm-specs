@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 44.1
+Version: 44.2
 Release: 1%{?dist}
 ExcludeArch: %{ix86}
 License: GPL-2.0-or-later
@@ -512,6 +512,9 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Nov 11 2025 Packit <hello@packit.dev> - 44.2-1
+- fix: remove the unused file 'a' (lonicerae)
+
 * Wed Nov 05 2025 Packit <hello@packit.dev> - 44.1-1
 - Update to version 44.1
 

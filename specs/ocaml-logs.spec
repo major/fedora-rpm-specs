@@ -1,12 +1,9 @@
-# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
-ExcludeArch: %{ix86}
-
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
 
 Name:           ocaml-logs
-Version:        0.9.0
+Version:        0.10.0
 Release:        %autorelease
 Summary:        Logging infrastructure for OCaml
 
@@ -14,6 +11,9 @@ License:        ISC
 URL:            https://erratique.ch/software/logs
 VCS:            git:https://erratique.ch/repos/logs.git
 Source:         %{url}/releases/logs-%{version}.tbz
+
+# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
+ExcludeArch:    %{ix86}
 
 BuildRequires:  ocaml >= 4.14.0
 BuildRequires:  ocaml-cmdliner-devel >= 1.3.0
@@ -24,7 +24,7 @@ BuildRequires:  ocaml-lwt-devel
 BuildRequires:  ocaml-mtime-devel
 BuildRequires:  ocaml-ocamlbuild
 BuildRequires:  ocaml-rpm-macros
-BuildRequires:  ocaml-topkg-devel >= 1.0.3
+BuildRequires:  ocaml-topkg-devel >= 1.1.0
 
 # Do not require ocaml-compiler-libs at runtime
 %global __ocaml_requires_opts -i Asttypes -i Build_path_prefix_map -i Cmi_format -i Env -i Format_doc -i Ident -i Identifiable -i Load_path -i Location -i Longident -i Misc -i Outcometree -i Parsetree -i Path -i Primitive -i Shape -i Subst -i Toploop -i Type_immediacy -i Types -i Warnings

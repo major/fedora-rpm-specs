@@ -1,6 +1,6 @@
 Name:		rteval
-Version:	3.8
-Release:	8%{?dist}
+Version:	3.10
+Release:	3%{?dist}
 Summary:	Utility to evaluate system suitability for RT Linux
 
 Group:		Development/Tools
@@ -10,11 +10,14 @@ Source0:	https://www.kernel.org/pub/linux/utils/%{name}/%{name}-%{version}.tar.x
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:	python3-devel
-BuildRequires:  python3-setuptools
+BuildRequires:	python3-setuptools >= 61.0
+BuildRequires:	python3-wheel
+BuildRequires:	python3-pip
+BuildRequires:	pyproject-rpm-macros
 Requires:	python3-lxml
 Requires:	python3-libxml2
 Requires:	realtime-tests
-Requires:	rteval-loads >= 1.6-5
+Requires:	rteval-loads >= 6.17.7-1
 Requires:	sysstat
 Requires:	xz bzip2 tar gzip m4 gawk
 Requires:	kernel-headers
@@ -29,7 +32,7 @@ Requires:	perl-interpreter, perl-devel, perl-generators
 Requires:	libmpc, libmpc-devel
 Requires:	dwarves
 # not available on all arches
-Recommends:     dmidecode
+Recommends:	dmidecode
 BuildArch:	noarch
 
 %description
@@ -42,27 +45,53 @@ a statistical analysis of the event response times is done and printed
 to the screen.
 
 %prep
-%setup -q
+%autosetup -v -p1
+# Delete setup.py so pyproject.toml build doesn't use it
+rm -f setup.py
 
 %build
-%{__python3} setup.py build
+%pyproject_wheel
 
 %install
-%{__python3} setup.py install --root=$RPM_BUILD_ROOT
+%pyproject_install
+%pyproject_save_files rteval
 
-%files
+# Manually install rteval-cmd as rteval (pyproject.toml doesn't define scripts)
+install -D -m 0755 rteval-cmd %{buildroot}%{_bindir}/rteval
+
+# Manually install man page
+mkdir -p %{buildroot}%{_mandir}/man8
+gzip -c doc/rteval.8 > %{buildroot}%{_mandir}/man8/rteval.8.gz
+
+# Manually install XSL files
+mkdir -p %{buildroot}%{_datadir}/%{name}
+install -m 0644 rteval/rteval_*.xsl %{buildroot}%{_datadir}/%{name}/
+
+# Manually install config file
+mkdir -p %{buildroot}%{_sysconfdir}
+install -m 0644 rteval.conf %{buildroot}%{_sysconfdir}/rteval.conf
+
+%files -f %{pyproject_files}
 %defattr(-,root,root,-)
-%{python3_sitelib}/*.egg-info
 %doc README doc/rteval.txt
 %license COPYING
 %dir %{_datadir}/%{name}
-%{python3_sitelib}/rteval
 %{_mandir}/man8/rteval.8.gz
 %config(noreplace) %{_sysconfdir}/rteval.conf
 %{_datadir}/%{name}/rteval_*.xsl
 %{_bindir}/rteval
 
 %changelog
+* Fri Nov 14 2025 John Kacur <jkacur@redhat.com> - 3.10-3
+- Add BuildRequires python3-pip
+
+* Fri Nov 14 2025 John Kacur <jkacur@redhat.com> - 3.10-2
+- Update rteval-loads requirement to >= 6.17.7-1
+
+* Fri Nov 14 2025 John Kacur <jkacur@redhat.com> - 3.10-1
+- Update to rteval-3.10
+- Migrate to pyproject.toml build system
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.8-8
 - Rebuilt for Python 3.14.0rc3 bytecode
 

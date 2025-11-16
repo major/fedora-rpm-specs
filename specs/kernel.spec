@@ -176,13 +176,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.18.0
 %define specversion 6.18.0
 %define patchversion 6.18
-%define pkgrelease 0.rc5.251112g24172e0d79900.46
+%define pkgrelease 0.rc5.251114g6da43bbeb6918.48
 %define kversion 6
-%define tarfile_release 6.18-rc5-81-g24172e0d79900
+%define tarfile_release 6.18-rc5-214-g6da43bbeb6918
 # This is needed to do merge window version magic
 %define patchlevel 18
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc5.251112g24172e0d79900.46%{?buildid}%{?dist}
+%define specrelease 0.rc5.251114g6da43bbeb6918.48%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.18.0
 
@@ -4506,13 +4506,21 @@ fi\
 #
 #
 %changelog
-* Wed Nov 12 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.18.0-0.rc5.251112g24172e0d79900.46]
-- Linux v6.18.0-0.rc5.251112g24172e0d79900
+* Fri Nov 14 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.18.0-0.rc5.251114g6da43bbeb6918.48]
+- Linux v6.18.0-0.rc5.251114g6da43bbeb6918
 
-* Wed Nov 12 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc5.24172e0d7990.46]
-- Only rust/bindings.o build fail on rust-1.91.0 (Sami Tolvanen)
+* Fri Nov 14 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc5.6da43bbeb691.48]
+- gendwarfksyms: Skip files with no exports (Sami Tolvanen)
 - powerpc/tools: drop `-o pipefail` in gcc check scripts (Jan Stancek)
 - redhat/configs: clang_lto: disable CONFIG_FORTIFY_KUNIT_TEST (Scott Weaver)
+
+* Fri Nov 14 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc5.6da43bbeb691.47]
+- Linux v6.18.0-0.rc5.6da43bbeb691
+
+* Thu Nov 13 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc5.6fa9041b7177.46]
+- redhat/configs: Move CONFIG_MICROCODE_DBG to common/generic/x86 (Waiman Long)
+- redhat/configs: Set CONFIG_SCHED_PROXY_EXEC=n (Waiman Long)
+- Linux v6.18.0-0.rc5.6fa9041b7177
 
 * Wed Nov 12 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc5.24172e0d7990.45]
 - Add loongarch to kernel-headers for Fedora (Justin M. Forbes)

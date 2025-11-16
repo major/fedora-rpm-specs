@@ -532,10 +532,9 @@ install -p -m 0644 %SOURCE6 %{buildroot}%{site_lisp}
 echo "(setq source-directory \"%{_datadir}/emacs/%{version}/\")" \
  >> %{buildroot}%{site_lisp}/site-start.el
 
-mv %{buildroot}%{_bindir}/{etags,etags.emacs}
 mv %{buildroot}%{_mandir}/man1/{ctags.1.gz,gctags.1.gz}
-mv %{buildroot}%{_mandir}/man1/{etags.1.gz,etags.emacs.1.gz}
 mv %{buildroot}%{_bindir}/{ctags,gctags}
+
 # BZ 927996
 mv %{buildroot}%{_infodir}/{info.info.gz,info.gz}
 
@@ -725,13 +724,7 @@ fi
 %endif
 
 %preun common
-if [ $1 = 0 ]; then
-  /usr/sbin/alternatives --remove emacs.etags %{_bindir}/etags.emacs || :
-fi
-
-%posttrans common
-/usr/sbin/alternatives --install %{_bindir}/etags emacs.etags %{_bindir}/etags.emacs 80 \
-       --slave %{_mandir}/man1/etags.1.gz emacs.etags.man %{_mandir}/man1/etags.emacs.1.gz || :
+/usr/sbin/alternatives --remove emacs.etags %{_bindir}/etags.emacs || :
 
 
 %files
@@ -779,7 +772,7 @@ fi
 %license build-pgtk/etc/COPYING
 %doc build-pgtk/doc/NEWS build-pgtk/BUGS build-pgtk/README
 %{_bindir}/ebrowse
-%{_bindir}/etags.emacs
+%{_bindir}/etags
 %{_bindir}/gctags
 %{_datadir}/applications/emacs.desktop
 %{_datadir}/applications/emacs-mail.desktop
@@ -790,7 +783,7 @@ fi
 %{_datadir}/icons/hicolor/scalable/mimetypes/emacs-document.svg
 %{_mandir}/man1/ebrowse.1*
 %{_mandir}/man1/emacs.1*
-%{_mandir}/man1/etags.emacs.1*
+%{_mandir}/man1/etags.1*
 %{_mandir}/man1/gctags.1*
 %dir %{_datadir}/emacs/%{version}
 %{_datadir}/emacs/%{version}/etc

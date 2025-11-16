@@ -7,7 +7,7 @@
 Summary: A utility for getting files from remote servers (FTP, HTTP, and others)
 Name: curl
 Version: 8.17.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: curl
 Source0: https://curl.se/download/%{name}-%{version_no_tilde}.tar.xz
 Source1: https://curl.se/download/%{name}-%{version_no_tilde}.tar.xz.asc
@@ -27,6 +27,11 @@ Provides: curl-full = %{version}-%{release}
 Provides: curl-minimal = %{version}-%{release}
 Provides: webclient
 URL: https://curl.se/
+
+%if 0%{?fedora}
+# instead of bundled wcurl utility, recommend wcurl package
+Recommends: wcurl
+%endif
 
 # The reason for maintaining two separate packages for curl is no longer valid.
 # The curl-minimal is currently almost identical to curl-full, so let's drop curl-minimal.
@@ -410,6 +415,9 @@ rm -f ${RPM_BUILD_ROOT}%{_mandir}/man1/wcurl.1*
 %{_libdir}/libcurl.so.4.[0-9].[0-9].minimal
 
 %changelog
+* Thu Nov 13 2025 Jan Macku <jamacku@redhat.com> - 8.17.0-3
+- recommend wcurl package instead of bundled wcurl utility
+
 * Thu Nov 13 2025 Jan Macku <jamacku@redhat.com> - 8.17.0-2
 - remove bundled wcurl utility that was added in 8.14.0~rc1, use wcurl package instead
 

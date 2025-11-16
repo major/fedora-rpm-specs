@@ -20,8 +20,8 @@
 %global source_directory 1.23-development
 
 Name:           libnbd
-Version:        1.23.10
-Release:        2%{?dist}
+Version:        1.23.11
+Release:        1%{?dist}
 Summary:        NBD client library in userspace
 
 License:        LGPL-2.0-or-later AND BSD-3-Clause
@@ -401,6 +401,9 @@ make %{?_smp_mflags} check || {
 
 
 %changelog
+* Fri Nov 14 2025 Richard W.M. Jones <rjones@redhat.com> - 1.23.11-1
+- New upstream development version 1.23.11
+
 * Tue Nov  4 2025 Tom Callaway <spot@fedoraproject.org> - 1.23.10-2
 - rebuild for new fuse3
 

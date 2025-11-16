@@ -1,11 +1,10 @@
-%{?python_enable_dependency_generator}
 %global realname parsedatetime
 
 %bcond_without tests
 
 Name:           python-%{realname}
 Version:        2.6
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Parse human-readable date/time strings in Python
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -15,7 +14,6 @@ Source0:        https://github.com/bear/%{realname}/archive/v%{version}.tar.gz#/
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 %if %{with tests}
 BuildRequires:  python3-pytest
 %endif
@@ -27,7 +25,6 @@ strings.
 
 %package -n python3-%{realname}
 Summary:        Parse human-readable date/time strings in Python
-%{?python_provide:%python_provide python3-%{realname}}
 
 %description -n python3-%{realname}
 parsedatetime is a python module that can parse human-readable date/time
@@ -37,28 +34,35 @@ strings.
 %autosetup -n %{realname}-%{version}
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{realname}
 # It makes no sense to ship all these tests in the package
 # just use them during the build
 rm -rf %{buildroot}%{python3_sitelib}/%{realname}/tests
 
 %check
+%pyproject_check_import
+
 %if %{with tests}
 py.test-3 -x tests/*.py
 %endif
 
-%files -n python3-%{realname}
-%license LICENSE.txt
+%files -n python3-%{realname} -f %{pyproject_files}
 %doc AUTHORS.txt CHANGES.txt README.rst
-%{python3_sitelib}/%{realname}
-%{python3_sitelib}/%{realname}*.egg-info
 
 %changelog
+* Fri Nov 14 2025 Michele Baldessari <michele@acksyn.org> - 2.6-21
+- Use new python macros (RHBZ#2377973)
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.6-20
 - Rebuilt for Python 3.14.0rc3 bytecode
 

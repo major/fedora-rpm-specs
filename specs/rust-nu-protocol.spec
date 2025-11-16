@@ -20,6 +20,8 @@ Patch:          nu-protocol-fix-metadata-auto.diff
 #   (downstream-only because upstream will want to wait for dependencies to
 #   adopt brotli 8.0 first)
 # * Update to rstest 0.26: https://github.com/nushell/nushell/pull/16359
+# * Allow dirs 6:
+#   https://github.com/nushell/nushell/commit/007b223acc1f0dd57ebbefc101ce1a6e46f707d0
 Patch:          nu-protocol-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24

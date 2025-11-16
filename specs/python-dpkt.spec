@@ -2,7 +2,7 @@
 
 Name:           python-dpkt
 Version:        1.9.8
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        %{sum}
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -17,7 +17,6 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest-cov
 BuildRequires:  python3-pytest
-BuildRequires:  python3-setuptools
 
 %description
 Fast, simple packet creation and parsing library
@@ -25,7 +24,6 @@ with definitions for the basic TCP/IP protocols.
 
 %package -n python3-dpkt
 Summary:        %{sum}
-%{?python_provide:%python_provide python3-dpkt}
 
 %description -n python3-dpkt
 Fast, simple packet creation and parsing library
@@ -37,13 +35,19 @@ with definitions for the basic TCP/IP protocols.
 #%patch0 -p1
 #%patch1 -p1
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l dpkt
 
 %check
+%pyproject_check_import
+
 # One test, "test_deprecated_decorator" fails, but doesn't appear
 # to test actual functionality.
 %ifarch s390x
@@ -51,13 +55,13 @@ with definitions for the basic TCP/IP protocols.
 %endif
 
 
-%files -n python3-dpkt
-%license LICENSE 
+%files -n python3-dpkt -f %{pyproject_files}
 %doc AUTHORS LICENSE README.md examples docs
-%{python3_sitelib}/dpkt
-%{python3_sitelib}/dpkt*.egg-info
 
 %changelog
+* Fri Nov 14 2025 Michele Baldessari <michele@acksyn.org> - 1.9.8-14
+- Use new python macros (RHBZ#2377675)
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.9.8-13
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -220,7 +220,7 @@
 %global chromium_major 142
 %global chromium_branch 7444
 # Where possible, track Chromium versions already released in Fedora.
-%global chromium_minor 134
+%global chromium_minor 162
 %global chromium_version %{chromium_major}.0.%{chromium_branch}.%{chromium_minor}
 %global cef_commit 29548e2f2917bf92b22eae57d3ac6f081251fddd
 %global cef_branch %{chromium_branch}

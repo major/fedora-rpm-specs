@@ -2,27 +2,24 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate nu-path
+%global crate astral-tl
 
-Name:           rust-nu-path
-Version:        0.99.1
+Name:           rust-astral-tl
+Version:        0.7.9
 Release:        %autorelease
-Summary:        Path handling library for Nushell
+Summary:        Fast HTML parser written in pure Rust
 
 License:        MIT
-URL:            https://crates.io/crates/nu-path
+URL:            https://crates.io/crates/astral-tl
 Source:         %{crates_source}
-# Automatically generated patch to strip dependencies and normalize metadata
-Patch:          nu-path-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
-# * Allow dirs 6:
-#   https://github.com/nushell/nushell/commit/007b223acc1f0dd57ebbefc101ce1a6e46f707d0
-Patch:          nu-path-fix-metadata.diff
+# * Do not depend on criterion; it is needed only for benchmarks.
+Patch:          astral-tl-fix-metadata.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Path handling library for Nushell.}
+Fast HTML parser written in pure Rust.}
 
 %description %{_description}
 
@@ -37,6 +34,7 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

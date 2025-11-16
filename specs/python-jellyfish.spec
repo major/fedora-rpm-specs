@@ -4,7 +4,7 @@
 
 Name:           python-%{realname}
 Version:        0.9.1
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        A python library for doing approximate and phonetic matching of strings
 
 # Automatically converted from old format: BSD - review is highly recommended.
@@ -22,7 +22,6 @@ Patch1:         test-only-python-implementation.diff
 Patch2:         nocimplementation-fix-0.9.1.patch
 BuildArch:      noarch
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-pytest
 
 %global _description\
@@ -49,23 +48,29 @@ Python 3 Version.
 %autosetup -n %{realname}-%{version} -p1
 tar xf %{SOURCE1} -C testdata
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{realname}
 
 %check
+%pyproject_check_import
+
 # testdata is here: https://github.com/jamesturk/jellyfish-testdata.git
 PYTHONPATH=. pytest-3 jellyfish/test.py
 
-%files -n python3-%{realname}
-%license LICENSE
+%files -n python3-%{realname} -f %{pyproject_files}
 %doc README.md docs/
-%{python3_sitelib}/%{realname}
-%{python3_sitelib}/%{realname}*.egg-info
 
 %changelog
+* Fri Nov 14 2025 Michele Baldessari <michele@acksyn.org> - 0.9.1-15
+- Use new python macros (RHBZ#2377819)
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.9.1-14
 - Rebuilt for Python 3.14.0rc3 bytecode
 

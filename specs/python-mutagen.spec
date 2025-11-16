@@ -4,7 +4,7 @@
 
 Name:           python-%{modname}
 Version:        1.47.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Mutagen is a Python module to handle audio meta-data
 
 # licensecheck -r . | grep -vEe "UNKNOWN" -e "GNU General Public License v2.0" | sort
@@ -40,7 +40,6 @@ Summary:        %{summary}
 BuildRequires:  python3-devel
 BuildRequires:  python3-hypothesis
 BuildRequires:  python3-pytest
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-sphinx_rtd_theme
 Obsoletes:      python2-mutagen < 1.42.0-10
 
@@ -58,13 +57,17 @@ Contains the html documentation for python mutagen.
 %prep
 %autosetup -n %{modname}-%{version} -p1
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 sphinx-build -b html -n docs docs/_build
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{modname}
 
 install -D -p -m 0644 man/*.1 %{buildroot}%{_mandir}/man1
 
@@ -72,14 +75,12 @@ install -D -p -m 0644 man/*.1 %{buildroot}%{_mandir}/man1
 rm -rf docs/_build/{.buildinfo,.doctrees}
 
 %check
+%pyproject_check_import
 %pytest
 
 
-%files -n python3-%{modname}
-%license COPYING
+%files -n python3-%{modname} -f %{pyproject_files}
 %doc NEWS README.rst
-%{python3_sitelib}/%{modname}-*.egg-info
-%{python3_sitelib}/%{modname}/
 
 %{_bindir}/mid3cp
 %{_bindir}/mid3iconv
@@ -99,6 +100,9 @@ rm -rf docs/_build/{.buildinfo,.doctrees}
 %doc docs/_build/*
 
 %changelog
+* Fri Nov 14 2025 Michele Baldessari <michele@baldessari.info> - 1.47.0-11
+- Use new python macros (RHBZ#2377913)
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.47.0-10
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -1,6 +1,9 @@
+# https://bugzilla.redhat.com/show_bug.cgi?id=2414355
+%global __brp_mangle_shebangs_exclude_from ^%{_prefix}/lib/pbuilder/pdebuild-internal$
+
 Name:           pbuilder
 Version:        0.231.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Personal package builder for Debian packages
 
 License:        GPL-2.0-or-later
@@ -143,6 +146,9 @@ make check
 
 
 %changelog
+* Mon Nov 14 2025 Javier Hernández <jhernandez@cloudlinux.com> - 0.231.1-7
+- Disable shebang mangling of pdebuild-internal (rhbz#2414355)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.231.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

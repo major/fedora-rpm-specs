@@ -5,7 +5,7 @@
 %global crate etcetera
 
 Name:           rust-etcetera
-Version:        0.10.0
+Version:        0.11.0
 Release:        %autorelease
 Summary:        Obtain configuration, data, cache, & other directories
 

@@ -3137,17 +3137,8 @@ fi
 %{expand_bins %{expand:
     llvm-ir2vec
     llvm-offload-wrapper
-}}
-
-%if %{with offload}
-%{expand_bins %{expand:
     llvm-offload-binary
 }}
-
-%{expand_mans %{expand:
-    llvm-offload-binary
-}}
-%endif
 %endif
 
 %{expand_mans %{expand:
@@ -3211,6 +3202,7 @@ fi
 %if %{maj_ver} >= 22
 %{expand_mans %{expand:
     llvm-ir2vec
+    llvm-offload-binary
 }}
 %endif
 
@@ -3647,6 +3639,12 @@ fi
     libMLIR*.so.%{maj_ver}*
 }}
 
+%if %{maj_ver} >= 22
+%{expand_libs %{expand:
+    libmlir_apfloat_wrappers.so.%{maj_ver}*
+}}
+%endif
+
 %files -n %{pkg_name_mlir}-static
 %expand_libs libMLIR*.a
 
@@ -3677,6 +3675,12 @@ fi
     libmlir_runner_utils.so
     libMLIR*.so
 }}
+
+%if %{maj_ver} >= 22
+%{expand_libs %{expand:
+    libmlir_apfloat_wrappers.so
+}}
+%endif
 
 %files -n python%{python3_pkgversion}-%{pkg_name_mlir}
 %{python3_sitearch}/mlir/

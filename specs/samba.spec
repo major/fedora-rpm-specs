@@ -342,6 +342,8 @@ BuildRequires: pkgconfig(libsystemd)
 %if 0%{?fedora} >= 43
 BuildRequires: pkgconfig(libngtcp2)
 BuildRequires: pkgconfig(libngtcp2_crypto_gnutls)
+%else
+Provides:      bundled(ngtcp2)
 %endif
 
 %if %{with varlink}

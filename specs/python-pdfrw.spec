@@ -3,15 +3,16 @@
 
 Name: python-%{srcname}
 Version: 0.4
-Release: 30%{?dist}
+Release: 31%{?dist}
 Summary: Python library to read and write PDF files
 License: MIT
 
 URL:     https://github.com/pmaupin/pdfrw
-Source0: %{pypi_source}
+Source0: %{pypi_source %{srcname}}
 
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
+BuildRequires: python3-pip
 BuildArch: noarch
 
 %description
@@ -21,30 +22,39 @@ of existing PDFs in new PDFs created with reportlab.
 
 
 %package -n python3-%{srcname}
-Summary: Python library to read and write PDF files
-%{?python_provide:%python_provide python3-%{srcname}}
+Summary: %{summary}
+BuildRequires: %{py3_dist reportlab}
+Requires: %{py3_dist reportlab}
 
 %description -n python3-%{srcname}
 pdfrw is a Python library and utility that reads and writes PDF files. pdfrw
 can also be used in conjunction with reportlab, in order to re-use portions
 of existing PDFs in new PDFs created with reportlab.
 
+
 %prep
 %autosetup -n %{srcname}-%{version}
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
-%files -n python3-%{srcname}
-%{!?_licensedir:%global license %%doc}
+%pyproject_save_files -l pdfrw
+
+%check
+%pyproject_check_import
+
+%files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE.txt
 %doc README.rst examples
-%{python3_sitelib}/*
 
 %changelog
+* Fri Nov 14 2025 Sergio Pascual <sergiopr at fedoraproject.org> - 0.4-31
+- Update python macros (rhbz #2377982)
+- Add dependency on reportlab
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.4-30
 - Rebuilt for Python 3.14.0rc3 bytecode
 

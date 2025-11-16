@@ -10,12 +10,14 @@ and cloud systems like Xen, KVM, VMware, EC2 and more.
 
 Name:           kiwi
 Version:        10.2.33
-Release:        2%{?dist}
+Release:        3%{?dist}
 URL:            http://osinside.github.io/kiwi/
 Summary:        Flexible operating system image builder
 License:        GPL-3.0-or-later
 # We must use the version uploaded to pypi, as it contains all the required files.
 Source0:        https://files.pythonhosted.org/packages/source/k/%{name}/%{name}-%{version}.tar.gz
+# qemu-img dependency is not available
+ExcludeArch:    %{ix86}
 
 # Backports from upstream
 
@@ -638,6 +640,9 @@ popd
 
 
 %changelog
+* Fri Nov 14 2025 Daniel P. Berrangé <berrange@redhat.com> - 10.2.33-3
+- Add ExcludeArch to remove dep on i686 QEMU
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 10.2.33-2
 - Rebuilt for Python 3.14.0rc3 bytecode
 

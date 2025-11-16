@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        0.5.0
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        %{sum}
 
 License:        MIT
@@ -13,7 +13,6 @@ Source0:        https://files.pythonhosted.org/packages/df/ea/0b20b8e09a6ba1df6d
 BuildArch:      noarch
  
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-click >= 0.5
 
 %description
@@ -21,7 +20,6 @@ Multithreaded support for python click (CLI creation kit) applications.
 
 %package -n     python3-%{srcname}
 Summary:        %{sum}
-%{?python_provide:%python_provide python3-%{srcname}}
 Requires:       python3-click >= 0.5
 
 %description -n python3-%{srcname}
@@ -31,19 +29,26 @@ Multithreaded support for python 3 click (CLI creation kit) applications.
 %prep
 %setup -q -n %{srcname}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files -l %{pyname}
 
-%files -n python3-%{srcname}
-%license LICENSE
+%check
+%pyproject_check_import
+
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst
-%{python3_sitelib}/%{pyname}
-%{python3_sitelib}/%{pyname}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Nov 14 2025 Michele Baldessari <michele@acksyn.org> - 0.5.0-17
+- Use new python macros (Fixes RHBZ#2377518)
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.5.0-16
 - Rebuilt for Python 3.14.0rc3 bytecode
 

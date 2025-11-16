@@ -47,13 +47,11 @@
 # Disable dependencies not available or wanted on RHEL/EPEL
 %bcond chromaprint 0
 %bcond flite 0
-%bcond lc3 0
 %else
 # Break chromaprint dependency cycle (Fedora-only):
 #   ffmpeg (libavcodec-free) → chromaprint → ffmpeg
 %bcond chromaprint %{?with_bootstrap:0}%{!?with_bootstrap:1}
 %bcond flite 1
-%bcond lc3 1
 %endif
 
 %if 0%{?rhel} && 0%{?rhel} <= 9
@@ -63,6 +61,14 @@
 %else
 %bcond lcms2 1
 %bcond placebo 1
+%endif
+
+%if 0%{?el10}
+# Disable temporarily while we want for liblc3 to be upgraded
+# Cf. https://issues.redhat.com/browse/RHEL-127169
+%bcond lc3 0
+%else
+%bcond lc3 1
 %endif
 
 # For using an alternative build of EVC codecs
@@ -99,7 +105,7 @@ Name:           ffmpeg
 %global pkg_name %{name}%{?pkg_suffix}
 
 Version:        8.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A complete solution to record, convert and stream audio and video
 License:        GPL-3.0-or-later
 URL:            https://ffmpeg.org/
@@ -962,6 +968,9 @@ rm -rf %{buildroot}%{_datadir}
 
 
 %changelog
+* Fri Nov 14 2025 Neal Gompa <ngompa@fedoraproject.org> - 8.0-2
+- Disable lc3 only on RHEL 10
+
 * Sun Nov 02 2025 Neal Gompa <ngompa@fedoraproject.org> - 8.0-1
 - Rebase to version 8.0
 

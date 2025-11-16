@@ -1,5 +1,5 @@
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0x2ef3fe0ec2b075ab7458b5f8b702b20b13df2318
+%global sources_gpg_sign 0xc71b007ef97887fd8fb6365ceb4fd6d618e62181
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 # we are excluding some BRs from automatic generator
 %global excluded_brs doc8 bandit pre-commit hacking flake8-import-order
@@ -7,6 +7,7 @@
 %global with_doc 1
 
 %global pypi_name oslo.metrics
+%global pypi_name_under oslo_metrics
 %global pkg_name oslo-metrics
 %global common_desc \
 The OpenStack Oslo Metrics library. \
@@ -14,15 +15,15 @@ Oslo metrics API supports collecting metrics data from other Oslo \
 libraries and exposing the metrics data to monitoring system.
 
 Name:           python-oslo-metrics
-Version:        0.8.0
+Version:        0.13.0
 Release:        %autorelease
 Summary:        OpenStack Oslo Metrics library
 
 License:        Apache-2.0
 URL:            https://opendev.org/openstack/oslo.metrics
-Source0:        https://tarballs.openstack.org/%{pypi_name}/%{pypi_name}-%{upstream_version}.tar.gz
+Source0:        https://tarballs.openstack.org/%{pypi_name}/%{pypi_name_under}-%{upstream_version}.tar.gz
 %if 0%{?sources_gpg} == 1
-Source101:      https://tarballs.openstack.org/%{pypi_name}/%{pypi_name}-%{upstream_version}.tar.gz.asc
+Source101:      https://tarballs.openstack.org/%{pypi_name}/%{pypi_name_under}-%{upstream_version}.tar.gz.asc
 Source102:      https://releases.openstack.org/_static/%{sources_gpg_sign}.txt
 %endif
 BuildArch:      noarch
@@ -71,7 +72,7 @@ Tests for the Oslo Metrics library.
 %if 0%{?sources_gpg} == 1
 %{gpgverify}  --keyring=%{SOURCE102} --signature=%{SOURCE101} --data=%{SOURCE0}
 %endif
-%autosetup -n %{pypi_name}-%{upstream_version} -S git
+%autosetup -n %{pypi_name_under}-%{upstream_version} -S git
 
 sed -i /^[[:space:]]*-c{env:.*_CONSTRAINTS_FILE.*/d tox.ini
 sed -i "s/^deps = -c{env:.*_CONSTRAINTS_FILE.*/deps =/" tox.ini

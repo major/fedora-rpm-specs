@@ -16,8 +16,8 @@
 
 Name:           s390utils
 Summary:        Utilities and daemons for IBM z Systems
-Version:        2.38.0
-Release:        2%{?dist}
+Version:        2.39.0
+Release:        1%{?dist}
 Epoch:          2
 # MIT covers nearly all the files, except init files (LGPL-2.1-or-later)
 #
@@ -74,7 +74,7 @@ Patch0:         s390-tools-zipl-invert-script-options.patch
 Patch1:         s390-tools-zipl-blscfg-rpm-nvr-sort.patch
 
 # upstream fixes/updates
-#Patch100:       s390utils-%%{version}-fedora.patch
+Patch100:       s390utils-%%{version}-fedora.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -207,6 +207,7 @@ fi
 
 # move tools to searchable dir
 mv %{buildroot}%{_datadir}/s390-tools/netboot/mk-s390image %{buildroot}%{_bindir}
+mv %{buildroot}%{_datadir}/s390-tools/netboot/mk-s390image.1 %{buildroot}%{_mandir}/man1
 
 mkdir -p %{buildroot}{/boot,%{_udevrulesdir},%{_sysconfdir}/{profile.d,sysconfig},%{_prefix}/lib/modules-load.d}
 install -p -m 644 zipl/boot/tape0.bin %{buildroot}/boot/tape0
@@ -256,10 +257,10 @@ touch %{buildroot}%{_sysconfdir}/zipl.conf
 # install systemd sysusers and tmpfiles
 mkdir -p %{buildroot}{%{_sysusersdir},%{_tmpfilesdir}}/
 for f in s390utils-*.conf.usr; do
-    install -p $f %{buildroot}%{_sysusersdir}/$(basename -s .usr $f)
+    install -p -m 644 $f %{buildroot}%{_sysusersdir}/$(basename -s .usr $f)
 done
 for f in s390utils-*.conf.tmp; do
-    install -p $f %{buildroot}%{_tmpfilesdir}/$(basename -s .tmp $f)
+    install -p -m 644 $f %{buildroot}%{_tmpfilesdir}/$(basename -s .tmp $f)
 done
 
 %endif
@@ -331,6 +332,7 @@ License:        MIT
 Summary:        S390 core tools
 Provides:       s390-tools-core = %{epoch}:%{version}-%{release}
 Requires:       coreutils
+Requires:       makedumpfile
 %{?systemd_requires}
 # BRs are covered via the base package
 
@@ -406,6 +408,7 @@ This package provides minimal set of tools needed to system to boot.
 %{_udevrulesdir}/56-dasd.rules
 %{_udevrulesdir}/56-zfcp.rules
 %{_udevrulesdir}/59-dasd.rules
+%{_udevrulesdir}/59-virtio-blk.rules
 %{_udevrulesdir}/60-readahead.rules
 %{_udevrulesdir}/81-ccw.rules
 %{_udevrulesdir}/81-dpm.rules
@@ -639,9 +642,9 @@ For more information refer to the following publications:
 %{_bindir}/cpacfinfo
 %{_bindir}/dump2tar
 %{_bindir}/genprotimg
+%{_bindir}/mk-s390image
 %{_bindir}/pvapconfig
 %{_bindir}/pvimg
-%{_bindir}/mk-s390image
 %{_bindir}/pvattest
 %{_bindir}/pvextract-hdr
 %{_bindir}/pvsecret
@@ -674,6 +677,7 @@ For more information refer to the following publications:
 %{_mandir}/man1/cpacfinfo.1*
 %{_mandir}/man1/dump2tar.1*
 %{_mandir}/man1/genprotimg.1*
+%{_mandir}/man1/mk-s390image.1*
 %{_mandir}/man1/pvapconfig.1*
 %{_mandir}/man1/pvattest.1*
 %{_mandir}/man1/pvattest-check.1*
@@ -960,6 +964,7 @@ fi
 %{_mandir}/man1/ts-shell.1*
 %{_mandir}/man7/af_iucv.7*
 %{_mandir}/man8/chiucvallow.8*
+%{_mandir}/man8/lsiucvallow.8*
 %{_mandir}/man9/hvc_iucv.9*
 %{_unitdir}/iucvtty-login@.service
 %{_unitdir}/ttyrun-getty@.service
@@ -1124,6 +1129,9 @@ User-space development files for the s390/s390x architecture.
 
 
 %changelog
+* Thu Nov 13 2025 Dan Horák <dan[at]danny.cz> - 2:2.39.0-1
+- rebased to 2.39.0 (rhbz#2403755)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2:2.38.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

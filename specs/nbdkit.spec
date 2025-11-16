@@ -54,7 +54,7 @@
 %global source_directory 1.45-development
 
 Name:           nbdkit
-Version:        1.45.12
+Version:        1.45.13
 Release:        1%{?dist}
 Summary:        NBD server
 
@@ -85,11 +85,6 @@ Source5:        nbdkit-find-provides
 Source6:        %{modulename}.te
 Source7:        %{modulename}.if
 Source8:        %{modulename}.fc
-
-# Fix vram tests.  Upstream in > 1.45.12.
-Patch:          0001-vram-Skip-listing-devices-when-no-platforms-are-foun.patch
-# Fix for getline change in glibc-2.42.9000-7.fc44
-Patch:          0002-linuxdisk-Fix-parsing-of-last-line-of-du-command-out.patch
 
 # For applying the patches:
 BuildRequires:  git
@@ -1587,6 +1582,9 @@ fi
 
 
 %changelog
+* Fri Nov 14 2025 Richard W.M. Jones <rjones@redhat.com> - 1.45.13-1
+- New upstream version 1.45.13
+
 * Mon Oct 27 2025 Richard W.M. Jones <rjones@redhat.com> - 1.45.12-1
 - New upstream version 1.45.12
 - Add new nbdkit-vram-plugin

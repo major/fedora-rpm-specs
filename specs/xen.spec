@@ -50,8 +50,8 @@
 
 Summary: Xen is a virtual machine monitor
 Name:    xen
-Version: 4.20.1
-Release: 9%{?dist}
+Version: 4.20.2
+Release: 2%{?dist}
 # Automatically converted from old format: GPLv2+ and LGPLv2+ and BSD - review is highly recommended.
 License: GPL-2.0-or-later AND LicenseRef-Callaway-LGPLv2+ AND LicenseRef-Callaway-BSD
 URL:     http://xen.org/
@@ -78,15 +78,6 @@ Patch43: xen.gcc11.fixes.patch
 Patch45: xen.gcc12.fixes.patch
 Patch46: xen.efi.build.patch
 Patch49: xen.python3.12.patch
-Patch50: xen.git-7cda6b65098f790e6573f555c5ef170d3f373c6e.patch
-Patch51: xsa472-1.patch
-Patch52: xsa472-2.patch
-Patch53: xsa472-3.patch
-Patch54: xsa473-1.patch
-Patch55: xsa473-2.patch
-Patch56: xsa475-1.patch
-Patch57: xsa475-2.patch
-Patch58: xsa476-4.20.patch
 Patch59: dropped.regs.patch
 
 
@@ -267,15 +258,6 @@ manage Xen virtual machines.
 %patch 45 -p1
 %patch 46 -p1
 %patch 49 -p1
-%patch 50 -p1
-%patch 51 -p1
-%patch 52 -p1
-%patch 53 -p1
-%patch 54 -p1
-%patch 55 -p1
-%patch 56 -p1
-%patch 57 -p1
-%patch 58 -p1
 %patch 59 -p1
 
 # stubdom sources
@@ -826,6 +808,10 @@ fi
 %endif
 
 %changelog
+* Thu Nov 13 2025 Michael Young <m.a.young@durham.ac.uk> - 4.20.2-2.fc44
+- update to xen 4.20.2
+  remove patches now included or superceded upstream
+
 * Sun Oct 26 2025 Michael Young <m.a.young@durham.ac.uk> - 4.20.1-9
 - teecr32_el1 and teehbr32_el1 support dropped in binutils 2.45.50-5.fc44
 
