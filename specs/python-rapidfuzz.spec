@@ -1,5 +1,5 @@
 Name:           python-rapidfuzz
-Version:        3.14.1
+Version:        3.14.3
 Release:        %autorelease
 Summary:        Rapid fuzzy string matching in Python and C++ using the Levenshtein Distance
 

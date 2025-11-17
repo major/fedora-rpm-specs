@@ -1,6 +1,6 @@
 Name:           waf
-Version:        2.1.6
-Release:        4%{?dist}
+Version:        2.1.9
+Release:        1%{?dist}
 Summary:        A Python-based build system
 # The entire source code is BSD apart from pproc.py (taken from Python 2.5)
 # Automatically converted from old format: BSD and Python - review is highly recommended.
@@ -138,6 +138,9 @@ rm -f docs/sphinx/build/html/.buildinfo
 
 
 %changelog
+* Sat Nov 15 2025 Thomas Moschny <thomas.moschny@gmx.de> - 2.1.9-1
+- Update to 2.1.9.
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.1.6-4
 - Rebuilt for Python 3.14.0rc3 bytecode
 

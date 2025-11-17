@@ -2,8 +2,8 @@
 %global repo onedrive
 
 Name:           onedrive
-Version:        2.5.7
-Release:        2%{?dist}
+Version:        2.5.9
+Release:        1%{?dist}
 Summary:        OneDrive Free Client written in D
 # Automatically converted from old format: GPLv3 - review is highly recommended.
 License:        GPL-3.0-only
@@ -48,19 +48,23 @@ chmod a-x %{buildroot}/%{_mandir}/man1/%{name}*
 %systemd_preun %{name}@.service
 
 %files
-%doc readme.md LICENSE changelog.md
 %{_bindir}/%{name}
 %if 0%{?el8} || 0%{?el9} || 0%{?el10}
+%doc readme.md LICENSE changelog.md
 %{_unitdir}/%{name}.service
 %else
 %{_userunitdir}/%{name}.service
 %endif
 %{_unitdir}/%{name}@.service
 %{_mandir}/man1/%{name}.1.gz
+%{_datadir}/icons/hicolor/scalable/places/onedrive.svg
 %{_docdir}/%{name}
 %config %{_sysconfdir}/logrotate.d/onedrive
 
 %changelog
+* Thu Nov 13 2025 Zamir SUN <sztsian@gmail.com> - 2.5.9-1
+- Update to 2.5.9 (#2412410)
+
 * Sun Oct 26 2025 Kalev Lember <klember@redhat.com> - 2.5.7-2
 - Rebuilt for ldc 1.41
 

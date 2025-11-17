@@ -1,16 +1,13 @@
 %global srcname flask_sqlalchemy_lite
 
 Name:           python-flask-sqlalchemy-lite
-Version:        0.1.0
-Release:        7%{?dist}
+Version:        0.2.0
+Release:        1%{?dist}
 Summary:        Adds SQLAlchemy support to Flask application
 
 License:        MIT
 URL:            https://github.com/pallets-eco/flask-sqlalchemy-lite
 Source0:        %{pypi_source flask_sqlalchemy_lite}
-# Tighten depenency to avoid ambiguous python3dist(sqlalchemy[asyncio]) BR
-# (Fedora provides multiple python-sqlalchemyX.Y versions)
-Patch0:         flask_sqlalchemy_lite-dep.patch
 
 BuildArch:      noarch
 
@@ -71,6 +68,9 @@ Python 3 version.
 
 
 %changelog
+* Sat Nov 15 2025 Sandro Mani <manisandro@gmail.com> - 0.2.0-1
+- Update to 0.2.0
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.1.0-7
 - Rebuilt for Python 3.14.0rc3 bytecode
 

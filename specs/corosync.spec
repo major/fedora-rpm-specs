@@ -14,15 +14,11 @@
 
 Name: corosync
 Summary: The Corosync Cluster Engine and Application Programming Interfaces
-Version: 3.1.9
-Release: 5%{?dist}
+Version: 3.1.10
+Release: 1%{?dist}
 License: BSD-3-Clause
 URL: http://corosync.github.io/corosync/
-Source0: http://build.clusterlabs.org/corosync/releases/%{name}-%{version}.tar.gz
-
-Patch0: totemsrp-Check-size-of-orf_token-msg.patch
-Patch1: exec-Add-support-for-env-STATE_DIRECTORY.patch
-Patch2: init-Use-LogsDirectory-in-systemd-unit-file.patch
+Source0: https://github.com/%{name}/%{name}/releases/download/v%{version}/%{name}-%{version}%{?gittarver}.tar.gz
 
 # Runtime bits
 # The automatic dependency overridden in favor of explicit version lock
@@ -293,6 +289,9 @@ network splits)
 %endif
 
 %changelog
+* Sat Nov 15 2025 Jan Friesse <jfriesse@redhat.com> - 3.1.10-1
+- New upstream release
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.9-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

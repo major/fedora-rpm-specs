@@ -1,5 +1,5 @@
 Name:           iperf3
-Version:        3.19.1
+Version:        3.20
 Release:        1%{?dist}
 Summary:        Measurement tool for TCP/UDP bandwidth performance
 
@@ -12,8 +12,6 @@ Summary:        Measurement tool for TCP/UDP bandwidth performance
 License:        BSD-3-Clause-LBNL AND MIT AND dtoa AND BSD-3-Clause AND NCSA AND LicenseRef-Fedora-Public-Domain
 URL:            https://github.com/esnet/iperf
 Source0:        %{url}/archive/%{version}/iperf-%{version}.tar.gz
-# Add some reporting: https://github.com/esnet/iperf/pull/1278
-Patch0:         1278-rebase.patch
 BuildRequires:  libuuid-devel
 BuildRequires:  gcc
 BuildRequires:  lksctp-tools-devel
@@ -60,6 +58,9 @@ rm -f %{buildroot}%{_libdir}/libiperf.la
 %{_libdir}/*.so
 
 %changelog
+* Sat Nov 15 2025 Kevin Fenzi <kevin@scrye.com> - 3.20-1
+- Update to 3.20. Fixes rhbz#2415155
+
 * Sat Jul 26 2025 Kevin Fenzi <kevin@scrye.com> - 3.19.1-1
 - Update to 3.19.1. Fixes rhbz#2383609
 

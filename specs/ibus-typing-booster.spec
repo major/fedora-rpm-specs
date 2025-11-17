@@ -1,5 +1,5 @@
 Name:       ibus-typing-booster
-Version:    2.28.3
+Version:    2.28.4
 Release:    %autorelease
 Summary:    A completion input method
 License:    GPL-3.0-or-later AND Apache-2.0
@@ -171,6 +171,16 @@ desktop-file-validate \
     $RPM_BUILD_ROOT%{_datadir}/applications/ibus-setup-typing-booster.desktop
 desktop-file-validate \
     $RPM_BUILD_ROOT%{_datadir}/applications/emoji-picker.desktop
+# Test whether any python file has syntax errors (some might not be executed by any test case):
+# On my development system, I do this check in .git/hook/pre-commit for every commit,
+# but there I usually have a very new Python version. And what works there is not
+# guaranteed to work on older Python versions. To detect this early, it is good to
+# do a syntax check with older Python versions as well:
+for i in */*.py
+do
+    echo python3 -m py_compile $i
+    python3 -m py_compile $i
+done
 pushd engine
     # run doctests
     # commented out because of https://bugzilla.redhat.com/show_bug.cgi?id=2218460

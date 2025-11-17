@@ -2,7 +2,7 @@
 %global gem_name git
 
 Name: rubygem-%{gem_name}
-Version: 4.0.5
+Version: 4.0.6
 Release: %autorelease
 Summary: Ruby/Git is a Ruby library that can be used to create, read and manipulate Git repositories by wrapping system calls to the git binary
 License: MIT
@@ -104,6 +104,12 @@ ruby  -Ilib -I. -Itests -e 'Dir.glob "tests/**/*.rb", &method(:require)'
 %exclude %{gem_instdir}/redesign/1_architecture_existing.md
 %exclude %{gem_instdir}/redesign/2_architecture_redesign.md
 %exclude %{gem_instdir}/redesign/3_architecture_implementation.md
+%exclude %{gem_instdir}/tasks/gem_tasks.rake
+%exclude %{gem_instdir}/tasks/rubocop.rake
+%exclude %{gem_instdir}/tasks/test.rake
+%exclude %{gem_instdir}/tasks/test_gem.rake
+%exclude %{gem_instdir}/tasks/yard.rake
+
 
 %license LICENSE
 

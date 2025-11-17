@@ -461,6 +461,7 @@ Patch1000: chromium-142-missing-include-for-form_field_data.patch
 ## CEF: CEF-specific fix patches
 Patch900: cef-no-sysroot.patch
 Patch901: cef-no-libxml-visibility-patch.patch
+Patch902: cef-disable-broken-patches.patch
 ## END CEF
 
 # Use chromium-latest.py to generate clean tarball from released build tarballs, found here:
@@ -1093,6 +1094,7 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 %if ! %{bundlelibxml}
 %patch -P901 -p1 -b .cef-no-libxml-visibility-patch
 %endif
+%patch -P902 -p1 -b .cef-disable-broken-patches
 
 # Redirect the git version stuff to use the version file contents instead
 cat >>cef/VERSION.in <<EOF

@@ -1,11 +1,11 @@
 Name:           perl-Dist-Build
-Version:        0.020
-Release:        3%{?dist}
+Version:        0.021
+Release:        1%{?dist}
 Summary:        Modern module builder with author tools not included
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Dist-Build
-Source0:        http://www.cpan.org/authors/id/L/LE/LEONT/Dist-Build-%{version}.tar.gz
+Source0:        https://www.cpan.org/authors/id/L/LE/LEONT/Dist-Build-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  coreutils
@@ -102,6 +102,10 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/Dist::Build*
 
 %changelog
+* Sat Nov 15 2025 Charles R. Anderson <cra@alum.wpi.edu> 0.021-1
+- Update to 0.021
+- Use https for Source0
+
 * Wed Aug 20 2025 Charles R. Anderson <cra@alum.wpi.edu> 0.020-3
 - BR: coreutils for _fixperms macro
 - BR: perl(Config)

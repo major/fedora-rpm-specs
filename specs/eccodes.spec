@@ -4,7 +4,7 @@
 
 Name:           eccodes
 Version:        2.44.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        WMO data format decoding and encoding
 
 # force the shared libraries to have these so versions
@@ -260,6 +260,8 @@ tar xf %SOURCE1
 popd
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380563)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 
 #-- The following features are disabled by default and not switched on:
 #
@@ -458,6 +460,9 @@ ctest3 -V %{?_smp_mflags}
 %doc %{_datadir}/doc/%{name}/
 
 %changelog
+
+* Mon Nov 10 2025 Cristian Le <git@lecris.dev> - 2.44.0-2
+- Allow to build with CMake 4.0 (rhbz#2380563)
 
 * Fri Nov 07 2025 Jos de Kloe <josdekloe@gmail.com> - 2.44.0-1
 - Update to 2.44.0

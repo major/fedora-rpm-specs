@@ -58,6 +58,7 @@ BuildRequires: pkgconfig(libswscale)
 Requires:      kde-filesystem
 Requires:      hicolor-icon-theme
 Requires:      kf6-kirigami%{?_isa}
+Requires:      kf6-kitemmodels%{?_isa}
 Requires:      kf6-qqc2-desktop-style%{?_isa}
 Recommends:    yt-dlp
 

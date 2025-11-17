@@ -85,12 +85,21 @@
 %global build_sa OFF
 %endif
 
+# build gold plugin
+%bcond_without gold
+%if %{with gold}
+%global build_gold ON
+%else
+%global build_gold OFF
+%endif
+
+
 Name:           rocm-compilersupport
 Version:        %{llvm_maj_ver}
 %if %{with gitcommit}
 Release:        0.rocm%{rocm_version}^git%{date0}.%{shortcommit0}%{?dist}
 %else
-Release:        6.rocm%{rocm_version}%{?dist}
+Release:        7.rocm%{rocm_version}%{?dist}
 %endif
 
 Summary:        Various AMD ROCm LLVM related services
@@ -118,8 +127,9 @@ Patch2:         0001-comgr-link-with-static-llvm.patch
 Patch3:         0001-rocm-llvm-work-around-new-assert-in-array.patch
 # https://github.com/ROCm/llvm-project/issues/301
 Patch4:         0001-rocm-compilersupport-force-hip-runtime-detection.patch
-# Patch5:         0001-rocm-compilersupport-define-max.patch
-Patch6:         0001-rocm-compilersupport-simplify-use-runtime-wrapper-ch.patch
+Patch5:         0001-rocm-compilersupport-simplify-use-runtime-wrapper-ch.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2415065
+Patch6:         0001-lld-workaround-.gnu.version-change.patch
 
 BuildRequires:  cmake
 %if 0%{?fedora} || 0%{?suse_version}
@@ -129,7 +139,9 @@ BuildRequires:  libffi-devel
 BuildRequires:  libzstd-devel
 BuildRequires:  rocm-cmake
 BuildRequires:  zlib-devel
+%if %{with gold}
 BuildRequires:  binutils-devel
+%endif
 BuildRequires:  gcc-c++
 Provides:       bundled(llvm-project) = %{llvm_maj_ver}
 
@@ -471,7 +483,7 @@ p=$PWD
  -DLLVM_INCLUDE_EXAMPLES=OFF \\\
  -DLLVM_INCLUDE_TESTS=OFF \\\
  -DLLVM_TARGETS_TO_BUILD=%{targets_to_build} \\\
- -DLLVM_TOOL_GOLD_BUILD=ON \\\
+ -DLLVM_TOOL_GOLD_BUILD=%{build_gold} \\\
  -DLLVM_TOOL_LLVM_AS_FUZZER_BUILD=OFF \\\
  -DLLVM_TOOL_LLVM_DIS_FUZZER_BUILD=OFF \\\
  -DLLVM_TOOL_LLVM_DLANG_DEMANGLE_FUZZER_BUILD=OFF \\\
@@ -1008,7 +1020,9 @@ rm -f %{buildroot}%{_bindir}/hipvars.pm
 %{bundle_prefix}/lib/libLLVM.so
 %{bundle_prefix}/lib/libLTO.so
 %{bundle_prefix}/lib/libRemarks.so
+%if %{with gold}
 %{bundle_prefix}/lib/LLVMgold.so
+%endif
 
 %files -n rocm-llvm-static
 %license llvm/LICENSE.TXT
@@ -1115,6 +1129,10 @@ rm -f %{buildroot}%{_bindir}/hipvars.pm
 %endif
 
 %changelog
+* Thu Nov 13 2025 Tom Rix <Tom.Rix@amd.com> - 20-7.rocm7.1.0
+- Workaround broken .gnu.version 
+- Add --with gold to remove use of binutils-devel
+
 * Thu Nov 13 2025 Tom Rix <Tom.Rix@amd.com> - 20-6.rocm7.1.0
 - Rebuild
 

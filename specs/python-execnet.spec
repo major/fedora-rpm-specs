@@ -6,8 +6,8 @@
 %bcond optional_test_deps %{undefined rhel}
 
 Name:           python-%{srcname}
-Version:        2.1.1
-Release:        10%{?dist}
+Version:        2.1.2
+Release:        1%{?dist}
 Summary:        Distributed Python deployment and communication
 License:        MIT
 URL:            https://github.com/pytest-dev/execnet
@@ -88,6 +88,9 @@ py.test-%{python3_version} -r s \
 
 
 %changelog
+* Sat Nov 15 2025 Thomas Moschny <thomas.moschny@gmx.de> - 2.1.2-1
+- Update to 2.1.2.
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.1.1-10
 - Rebuilt for Python 3.14.0rc3 bytecode
 

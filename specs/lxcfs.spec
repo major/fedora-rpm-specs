@@ -1,6 +1,6 @@
 Name:		  lxcfs
 Version:	  6.0.5
-Release:	  1%{?dist}
+Release:	  2%{?dist}
 Summary:	  FUSE based filesystem for LXC
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
 License:	  Apache-2.0
@@ -11,7 +11,7 @@ BuildRequires:	  gcc
 BuildRequires:	  python3-jinja2
 BuildRequires:	  gawk
 BuildRequires:	  make
-BuildRequires:	  fuse-devel
+BuildRequires:	  fuse3-devel
 BuildRequires:	  help2man
 BuildRequires:	  systemd
 Requires(post):	  systemd
@@ -76,6 +76,9 @@ mkdir -p %{buildroot}%{_sharedstatedir}/%{name}
 
 
 %changelog
+* Wed Oct 29 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 6.0.5-2
+- Build against fuse3
+
 * Tue Aug 26 2025 Thomas Moschny <thomas.moschny@gmx.de> - 6.0.5-1
 - Update to 6.0.5.
 

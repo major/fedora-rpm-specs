@@ -50,8 +50,8 @@ sed -i '/set(speedcrunch_VERSION/c\set(speedcrunch_VERSION "0.12")' src/CMakeLis
 
 # regenerate qch and qhc files
 for lang in en_US de_DE fr_FR es_ES; do
-    $(qmake6 -query QT_HOST_LIBEXECS)/qhelpgenerator doc/build_html_embedded/${lang}/manual-${lang}.qhp
-    $(qmake6 -query QT_HOST_LIBEXECS)/qhelpgenerator doc/build_html_embedded/${lang}/manual-${lang}.qhcp
+    $(qtpaths6 --query QT_HOST_LIBEXECS)/qhelpgenerator doc/build_html_embedded/${lang}/manual-${lang}.qhp
+    $(qtpaths6 --query QT_HOST_LIBEXECS)/qhelpgenerator doc/build_html_embedded/${lang}/manual-${lang}.qhcp
 done
 
 %build
