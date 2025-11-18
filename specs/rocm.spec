@@ -25,7 +25,7 @@
 
 Name:           rocm
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm tools for computing on AMD GPU
 License:        MIT
 
@@ -57,6 +57,7 @@ Requires: rocsparse >= %{rocm_release}
 Requires: aqlprofile
 Requires: hipblaslt >= %{rocm_release}
 Requires: hipsparselt
+Requires: migraphx
 Requires: miopen >= %{rocm_release}
 Requires: mivisionx >= %{rocm_release}
 Requires: rccl >= %{rocm_release}
@@ -68,6 +69,7 @@ Requires: rocm-clinfo >= %{rocm_release}
 Requires: rocm-core >= %{rocm_release}
 Requires: rocm-omp >= %{rocm_release}
 Requires: rocm-opencl >= %{rocm_release}
+Requires: rocm-origami
 Requires: rocm-rpp >= %{rocm_release}
 Requires: rocprofiler-register >= %{rocm_release}
 Requires: roctracer >= %{rocm_release}
@@ -83,7 +85,6 @@ Requires: rocm-core >= %{rocm_release}
 Requires: rocm-opencl >= %{rocm_release}
 Requires: roctracer >= %{rocm_release}
 %endif
-
 
 %description
 This is a collection of ROCm tools and libraries for programming
@@ -120,6 +121,7 @@ Requires: aqlprofile-devel
 Requires: hipblaslt-devel >= %{rocm_release}
 Requires: hipsparselt-devel
 Requires: hipify >= %{rocm_release}
+Requires: migraphx
 Requires: miopen-devel >= %{rocm_release}
 Requires: mivisionx-devel >= %{rocm_release}
 Requires: python3-tensile-devel >= %{rocm_release}
@@ -135,6 +137,7 @@ Requires: rocm-rpp-devel >= %{rocm_release}
 Requires: rocprofiler-register-devel >= %{rocm_release}
 Requires: rocthrust-devel >= %{rocm_release}
 Requires: roctracer-devel >= %{rocm_release}
+Requires: rocm-origami-devel
 Requires: rocwmma-devel >= %{rocm_release}
 %endif
 
@@ -156,6 +159,7 @@ Summary:        Tests for ROCm
 Requires: kfdtest             >= %{rocm_release}
 %if 0%{?fedora}
 Requires: hip-tests >= %{rocm_release}
+Requires: rccl-tests
 Requires: rocm-bandwidth-test
 Requires: rocblas-test >= %{rocm_release}
 Requires: rocm-validation-suite >= %{rocm_release}
@@ -182,6 +186,9 @@ install -pm 644 %{SOURCE0} .
 %license License.txt
 
 %changelog
+* Sun Nov 16 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
+- For fedora add migraphx, rccl-tests, rocm-origami
+
 * Wed Nov 12 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
 - Update to 7.1.0
 

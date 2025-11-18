@@ -16,6 +16,9 @@ URL:            %forgeurl
 Source:         %forgesource
 # Backport patch addressing test failing with sdl2-compat
 Patch:          %{forgeurl}/pull/280.patch
+# Adjust tolerances for FreeType >= 2.14.0
+# https://github.com/py-sdl/py-sdl2/issues/286
+Patch:          %{forgeurl}/pull/288.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

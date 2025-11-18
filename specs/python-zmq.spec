@@ -47,12 +47,12 @@ Source:         %{forgeurl}/archive/v%{version}/pyzmq-%{version}.tar.gz
 
 BuildSystem:            pyproject
 BuildOption(generate_buildrequires): test-requirements-filtered.txt
-# https://scikit-build-core.readthedocs.io/en/latest/configuration.html
+# https://scikit-build-core.readthedocs.io/en/latest/configuration/index.html
 BuildOption(build):     %{shrink:
                         -Ccmake.define.PYZMQ_LIBZMQ_RPATH:BOOL=OFF
                         -Ccmake.define.PYZMQ_NO_BUNDLE=ON
                         -Clogging.level=INFO
-                        -Ccmake.verbose=true
+                        -Cbuild.verbose=true
                         -Ccmake.build-type="RelWithDebInfo"}
 BuildOption(install):   -L zmq
 # - The cffi backend does not apply when we build with Cython.

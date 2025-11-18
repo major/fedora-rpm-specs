@@ -22,7 +22,7 @@ Version:        1.0.81
 Release:        0.12%{snapshottag}%{?dist}
 %else
 Version:        1.0.03
-Release:        10%{?dist}
+Release:        11%{?dist}
 %endif
 URL:            http://otter-browser.org/
 Epoch:          1
@@ -59,6 +59,8 @@ Web browser aiming to recreate classic Opera (12.x) UI using Qt5.
 %endif
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2381348)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake .
 %cmake_build
 
@@ -92,6 +94,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.appdata.
 
 
 %changelog
+* Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 1:1.0.03-11
+- Allow to build with CMake 4.0 (rhbz#2381348)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.0.03-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

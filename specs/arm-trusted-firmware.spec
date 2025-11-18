@@ -1,4 +1,4 @@
-#global candidate rc0
+%global candidate rc0
 
 # Binaries not used in standard manner so debuginfo is useless
 %global debug_package %{nil}
@@ -13,14 +13,13 @@
 %bcond_with cross
 
 Name:    arm-trusted-firmware
-Version: 2.13.0
-Release: 4%{?candidate:.%{candidate}}%{?dist}
+Version: 2.14
+Release: 0.1%{?candidate:.%{candidate}}%{?dist}
 Summary: ARM Trusted Firmware
 License: BSD-3-clause
 URL:     https://github.com/TrustedFirmware-A/trusted-firmware-a
 Source0: %{url}/archive/v%{version}%{?candidate:-%{candidate}}.tar.gz#/%{pname}-%{version}%{?candidate:-%{candidate}}.tar.gz
 Source1: aarch64-bl31
-Patch1:  rk356x-scmi-clk-reset.patch
 
 %if %{with cross}
 BuildRequires: gcc-aarch64-linux-gnu
@@ -132,6 +131,9 @@ done
 %endif
 
 %changelog
+* Thu Nov 13 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 2.14-0.1.rc0
+- Update to 2.14 RC0
+
 * Tue Oct 14 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 2.13.0-4
 - Enable more NXP i.MX and AMD Xilinx devices
 

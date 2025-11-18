@@ -4,8 +4,8 @@
 
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       78.1.1
-Release:       2%{?dist}
+Version:       80.9.0
+Release:       1%{?dist}
 BuildArch:     noarch
 
 License:       MIT
@@ -100,6 +100,9 @@ find %{buildroot}%{mingw64_python3_sitearch}/ -name '*.exe' | xargs rm -f
 
 
 %changelog
+* Sun Nov 16 2025 Sandro Mani <manisandro@gmail.com> - 80.9.0-1
+- Update to 80.9.0
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 78.1.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

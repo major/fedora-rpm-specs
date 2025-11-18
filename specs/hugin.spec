@@ -1,10 +1,9 @@
 Summary: A panoramic photo stitcher and more
 Name: hugin
-Version: 2024.0.0
-Release: 11%{?dist}
+Version: 2025.0.0
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: https://downloads.sourceforge.net/hugin/%{name}-%{version}.tar.bz2
-Patch:  hugin-2024.0.0-UseGNUInstallDirs.patch
 URL: http://hugin.sourceforge.net/
 Requires: shared-mime-info
 Requires: webclient
@@ -16,6 +15,8 @@ BuildRequires: cmake desktop-file-utils OpenEXR-devel exiv2-devel libepoxy-devel
 BuildRequires: python3-devel swig perl-Image-ExifTool
 BuildRequires: mesa-libGLU-devel libXmu-devel sqlite-devel vigra-devel
 BuildRequires: perl-podlators fftw-devel lcms2-devel
+# contains deprecated distutils
+BuildRequires: python3-setuptools
 
 %description
 hugin can be used to stitch multiple images together. The resulting image can
@@ -64,11 +65,14 @@ desktop-file-install --vendor="" --delete-original \
 desktop-file-install --vendor="" --delete-original \
   --dir=%{buildroot}/%{_datadir}/applications \
   %{buildroot}/%{_datadir}/applications/pto_gen.desktop
+desktop-file-install --vendor="" --delete-original \
+  --dir=%{buildroot}/%{_datadir}/applications \
+  %{buildroot}/%{_datadir}/applications/hugin_toolbox_gui.desktop
 %find_lang %{name}
 
 # Merge applications into one software center item
-mkdir -p $RPM_BUILD_ROOT%{_datadir}/metainfo
-cat > $RPM_BUILD_ROOT%{_datadir}/metainfo/calibrate_lens_gui.appdata.xml <<EOF
+mkdir -p %{buildroot}/%{_datadir}/metainfo
+cat > %{buildroot}/%{_datadir}/metainfo/calibrate_lens_gui.appdata.xml <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright 2014 Richard Hughes <richard@hughsie.com> -->
 <component type="desktop">
@@ -89,6 +93,7 @@ EOF
 %{_bindir}/icpfind
 %{_bindir}/calibrate_lens_gui
 %{_bindir}/hugin_executor
+%{_bindir}/hugin_toolbox
 %{_libdir}/%{name}/libhuginbasewx.so*
 %{_libdir}/%{name}/libicpfindlib.so*
 %{_datadir}/%{name}/xrc
@@ -96,12 +101,14 @@ EOF
 %{_datadir}/applications/PTBatcherGUI.desktop
 %{_datadir}/applications/calibrate_lens_gui.desktop
 %{_datadir}/applications/pto_gen.desktop
+%{_datadir}/applications/hugin_toolbox_gui.desktop
 %{_datadir}/icons/hicolor/*/apps/*
 %{_datadir}/icons/hicolor/*/mimetypes/*
 %{_datadir}/mime/packages/%{name}.xml
 %{_datadir}/metainfo/PTBatcherGUI.appdata.xml
 %{_datadir}/metainfo/calibrate_lens_gui.appdata.xml
 %{_datadir}/metainfo/hugin.appdata.xml
+%{_datadir}/metainfo/hugin_toolbox.appdata.xml
 %{_mandir}/man1/PTBatcherGUI.*
 %{_mandir}/man1/calibrate_lens_gui.*
 %{_mandir}/man1/hugin.*
@@ -110,8 +117,8 @@ EOF
 %{_mandir}/man1/hugin_executor.*
 %{_mandir}/man1/hugin_stacker.*
 
-%doc AUTHORS README TODO src/celeste/LICENCE_LIBSVM doc/nona.txt doc/fulla.html doc/executor_file_format.txt src/hugin1/hugin/xrc/data/help_en_EN/LICENCE.manual
-%license COPYING.txt
+%doc AUTHORS README TODO doc/nona.txt doc/fulla.html doc/executor_file_format.txt
+%license COPYING.txt src/celeste/LICENCE_LIBSVM src/hugin1/hugin/xrc/data/help_en_EN/LICENCE.manual
 
 %files base
 %{_bindir}/align_image_stack
@@ -181,6 +188,9 @@ EOF
 %{_mandir}/man1/hugin_lensdb.*
 
 %changelog
+* Sun Nov 16 2025 Bruno Postle <bruno@postle.net> - 2025.0.0-1
+- stable release
+
 * Sun Oct 05 2025 Bruno Postle <bruno@postle.net> - 2024.0.0-11
 - Rebuild without orphaned flann-devel BuildRequires
 

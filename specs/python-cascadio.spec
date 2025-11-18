@@ -16,11 +16,11 @@ BuildSystem:            pyproject
 %if %{with tests}
 BuildOption(generate_buildrequires): -x tests
 %endif
-# https://scikit-build-core.readthedocs.io/en/latest/configuration.html
+# https://scikit-build-core.readthedocs.io/en/latest/configuration/index.html
 BuildOption(build):     %{shrink:
                         -Ccmake.define.SYSTEM_OPENCASCADE=ON
                         -Clogging.level=INFO
-                        -Ccmake.verbose=true
+                        -Cbuild.verbose=true
                         -Ccmake.build-type="RelWithDebInfo"
                         -Cinstall.strip=false}
 BuildOption(install):   -L cascadio

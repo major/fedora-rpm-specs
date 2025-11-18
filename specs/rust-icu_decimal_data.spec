@@ -2,22 +2,21 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate jql-runner
+%global crate icu_decimal_data
 
-Name:           rust-jql-runner
-Version:        8.0.9
+Name:           rust-icu_decimal_data
+Version:        2.1.1
 Release:        %autorelease
-Summary:        Runner for jql - the JSON Query Language tool
+Summary:        Data for the icu_decimal crate
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/jql-runner
+License:        Unicode-3.0
+URL:            https://crates.io/crates/icu_decimal_data
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
-BuildRequires:  tomcli
 
 %global _description %{expand:
-Runner for jql - the JSON Query Language tool.}
+Data for the icu_decimal crate.}
 
 %description %{_description}
 
@@ -31,8 +30,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
+%license %{crate_instdir}/LICENSE
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -50,8 +48,6 @@ use the "default" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-# Drop benchmark dependency
-tomcli-set Cargo.toml del 'dev-dependencies.criterion'
 %cargo_prep
 
 %generate_buildrequires

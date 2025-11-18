@@ -1,6 +1,6 @@
 Name: drbd
 Summary: DRBD user-land tools and scripts
-Version: 9.32.0
+Version: 9.33.0
 Release: 1%{?dist}
 Source0: https://pkg.linbit.com/downloads/%{name}/utils/%{name}-utils-%{version}.tar.gz
 Patch0: drbd-utils-9.28.0-disable_xsltproc_network_read.patch
@@ -112,6 +112,7 @@ This packages includes the DRBD administration tools.
 %{_prefix}/lib/drbd/drbdadm-*
 %{_prefix}/lib/drbd/drbdsetup-*
 %{_prefix}/lib/drbd/*.sh
+%{_prefix}/lib/drbd/tnf-drbd-fence.py
 %{_sbindir}/drbd-events-log-supplier
 
 %defattr(-,root,root,-)
@@ -243,6 +244,9 @@ fi
 
 
 %changelog
+* Sun Nov 16 2025 Peter Hanecak <hany@hany.sk> - 9.33.0-1
+- Upstream release of 9.33.0
+
 * Sun Aug 24 2025 Peter Hanecak <hany@hany.sk> - 9.32.0-1
 - Upstream release of 9.32.0 (#2165406)
 - Removed rgmanager and xen subpackages, now obsolete

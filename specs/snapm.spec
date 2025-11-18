@@ -1,7 +1,7 @@
 %global summary A set of tools for managing snapshots
 
 Name:		snapm
-Version:	0.5.1
+Version:	0.5.2
 Release:	%autorelease
 Summary:	%{summary}
 

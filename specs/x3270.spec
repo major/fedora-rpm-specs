@@ -4,7 +4,7 @@
 Summary: An X Window System based IBM 3278/3279 terminal emulator
 Name: x3270
 Version: 4.4ga6
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: BSD-3-Clause AND HPND-sell-variant AND MIT AND Apache-2.0
 URL: https://x3270.miraheze.org/wiki/Main_Page
 Source0: http://downloads.sourceforge.net/%{name}/suite3270-%{version}-src.tgz
@@ -28,6 +28,7 @@ Summary: IBM 3278/3279 terminal emulator for the X Window System
 BuildRequires: mkfontdir bdftopcf
 BuildRequires: libXaw-devel
 Requires: %{name} = %{version}
+Requires: xrdb
 
 %package text
 Summary: IBM 3278/3279 terminal emulator for text mode
@@ -116,6 +117,9 @@ desktop-file-install \
 
 
 %changelog
+* Sun Nov 16 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 4.4ga6-3
+- Add xrdb dependency
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.4ga6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

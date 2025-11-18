@@ -239,7 +239,7 @@ export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 
 %build
 export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
-# https://scikit-build-core.readthedocs.io/en/latest/configuration.html
+# https://scikit-build-core.readthedocs.io/en/latest/configuration/index.html
 # USE_TURBOJPEG: Use TurboJPEG to decode classic JPEG
 # USE_JASPER: Build with JPEG2000 support using Jasper
 # USE_OPENJPEG: Build with JPEG2000 support using OpenJPEG
@@ -266,7 +266,7 @@ export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
     -Ccmake.define.YAML-CPP_IMPLEMENTATION:STRING=System \
     -Ccmake.define.ZLIB_IMPLEMENTATION:STRING=System \
     -Clogging.level=INFO \
-    -Ccmake.verbose=true \
+    -Cbuild.verbose=true \
     -Ccmake.build-type="RelWithDebInfo"}
 
 

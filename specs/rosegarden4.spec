@@ -2,7 +2,7 @@
 
 Name:          rosegarden4
 Version:       %{major}
-Release:       10%{?dist}
+Release:       11%{?dist}
 Summary:       MIDI, audio and notation editor
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License:       GPL-2.0-or-later
@@ -47,6 +47,8 @@ musicians, music students, and small studio or home recording environments.
 chmod 644 src/gui/widgets/BaseTextFloat.*
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2381409)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake
 %cmake_build
 
@@ -81,6 +83,9 @@ desktop-file-install \
 %{_datadir}/metainfo/rosegarden.appdata.xml
 
 %changelog
+* Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 21.12-11
+- Allow to build with CMake 4.0 (rhbz#2381409)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 21.12-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

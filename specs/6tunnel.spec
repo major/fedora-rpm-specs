@@ -1,6 +1,6 @@
 Name:           6tunnel
-Version:        0.13
-Release:        12%{?dist}
+Version:        0.14
+Release:        1%{?dist}
 Summary:        Tunnelling for application that don't speak IPv6
 
 License:        GPL-2.0-only
@@ -13,11 +13,6 @@ BuildRequires:  gcc
 BuildRequires:  make
 # needed for tests
 BuildRequires:  python3
-
-# https://github.com/wojtekka/6tunnel/issues/11
-# issue is closed but commit is not in a tagged release
-# anything after 0.13 should have it natively
-Patch:          9e4119f03f57eec67b97dddbf09d363b638791dc.patch
 
 %description
 6tunnel allows you to use services provided by IPv6 hosts with IPv4-only
@@ -50,6 +45,9 @@ autoreconf -vif
 
 
 %changelog
+* Sun Nov 16 2025 Filipe Rosset <rosset.filipe@gmail.com> - 0.14-1
+- update to 0.14 remove upstreamed patch
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -162,7 +162,7 @@ cp %{SOURCE2} %{__cmake_builddir}/downloads
   -GNinja \
   -DCMAKE_BUILD_TYPE=RelWithDebInfo \
   -DOPTIMIZE=portable \
-  -DINSTALL_USER_UDEV_RULES=ON \
+  -DINSTALL_USER_UDEV_RULES=%{!?flatpak:ON}%{?flatpak:OFF} \
   -DWARNINGS_FATAL=OFF \
   -DBATTERY=ON \
   -DBROADCAST=ON \
@@ -251,8 +251,10 @@ appstreamcli \
 %{_datadir}/icons/hicolor/512x512/apps/%{name}.png
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 %{_metainfodir}/org.mixxx.Mixxx.metainfo.xml
+%if %{undefined flatpak}
 %dir %{_udevrulesdir}
 %{_udevrulesdir}/69-%{name}-usb-uaccess.rules
+%endif
 
 %changelog
 * Sat Nov 08 2025 Dominik Mierzejewski <dominik@greysector.net> - 2.5.3-4

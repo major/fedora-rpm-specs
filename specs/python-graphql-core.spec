@@ -1,7 +1,7 @@
 %global pypi_name graphql-core
 
 Name:           python-%{pypi_name}
-Version:        3.2.6
+Version:        3.2.7
 Release:        %autorelease
 Summary:        GraphQL implementation for Python
 

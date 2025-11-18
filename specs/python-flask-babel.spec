@@ -7,8 +7,8 @@
 %endif
 
 Name:           python-%{pkg_name}
-Version:        4.0.0
-Release:        11%{?dist}
+Version:        4.1.0
+Release:        1%{?dist}
 Summary:        Adds i18n/l10n support to Flask applications
 License:        BSD-3-Clause
 URL:            https://github.com/mitsuhiko/%{pkg_name}/
@@ -78,6 +78,9 @@ rm -f docs/_build/html/.buildinfo
 
 
 %changelog
+* Sun Nov 16 2025 Sandro Mani <manisandro@gmail.com> - 4.1.0-1
+- Update to 4.1.0
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.0.0-11
 - Rebuilt for Python 3.14.0rc3 bytecode
 

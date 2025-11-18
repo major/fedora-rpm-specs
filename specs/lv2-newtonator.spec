@@ -1,6 +1,6 @@
 Name:           lv2-newtonator
 Version:        0.6.0
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        An LV2 soft synth
 
 # stated as GPLv2 on project page
@@ -26,6 +26,8 @@ find . -name "*.h"  -exec chmod -x {} \; ;
 find . -name "*.cpp" -exec chmod -x {} \; ;
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380885)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %ifarch sparcv9 sparc64 s390 s390x
 export CXXFLAGS="%{optflags} -fPIC"
 %else
@@ -46,6 +48,9 @@ export CXXFLAGS="%{optflags} -fpic"
 %{_libdir}/lv2/newtonator_gtk.lv2
 
 %changelog
+* Wed Nov 12 2025 Cristian Le <git@lecris.dev> - 0.6.0-34
+- Allow to build with CMake 4.0 (rhbz#2380885)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

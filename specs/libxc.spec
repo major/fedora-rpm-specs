@@ -16,7 +16,7 @@
 Name:           libxc
 Summary:        Library of exchange and correlation functionals for density-functional theory
 Version:        7.0.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 License:        MPL-2.0
 Source0:        https://gitlab.com/libxc/libxc/-/archive/%{version}/%{name}-%{version}.tar.gz
 # Don't rebuild libxc for pylibxc
@@ -81,6 +81,8 @@ This package contains the Python3 interface library to libxc.
 sed -i "s|@SOVERSION@|%{soversion}|g;s|@LIBDIR@|%{_libdir}|g" pylibxc/core.py
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380769)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 # Disable var tracking assignments for C sources, since it fails anyhow due to the size of the sources
 export CFLAGS="%{optflags} -fno-var-tracking-assignments"
 %cmake -DDISABLE_VXC=OFF -DDISABLE_FXC=OFF -DDISABLE_KXC=OFF %{lxcflag} -DENABLE_FORTRAN=ON -DENABLE_PYTHON=ON -DENABLE_XHOST=OFF
@@ -128,6 +130,9 @@ sed -i 's|includedir=${prefix}/include/|includedir=%{_libdir}/gfortran/modules|g
 %{python3_sitearch}/pylibxc/
 
 %changelog
+* Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 7.0.0-9
+- Allow to build with CMake 4.0 (rhbz#2380769)
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 7.0.0-8
 - Rebuilt for Python 3.14.0rc3 bytecode
 

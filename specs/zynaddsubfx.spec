@@ -1,7 +1,7 @@
 Summary:        Real-time software synthesizer
 Name:           zynaddsubfx
 Version:        3.0.6
-Release:        10%{?dist}
+Release:        11%{?dist}
 # Source is a collective work, distributed by
 # Automatically converted from old format: GPLv2 and GPLv2+ - review is highly recommended.
 License:        GPL-2.0-only AND GPL-2.0-or-later
@@ -111,6 +111,8 @@ done
 
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2381655)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake \
   -DDefaultOutput=jack -DPluginLibDir=%{_libdir} \
   -DBASHCOMP_PKG_PATH=%{_datadir}/bash-completion/completions \
@@ -168,6 +170,9 @@ install -d -m 0755 %{buildroot}%{_libdir}/%{name}
 %{_libdir}/vst/*.so
 
 %changelog
+* Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 3.0.6-11
+- Allow to build with CMake 4.0 (rhbz#2381655)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.6-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

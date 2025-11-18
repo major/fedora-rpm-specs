@@ -48,6 +48,8 @@ This package contains development files for %{name}.
 iconv -f iso8859-1 -t utf8 doc/guichan-copyright.txt > doc/guichan-copyright.utf8 && mv -f doc/guichan-copyright.{utf8,txt}
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2381466)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 mkdir build
 pushd build
 %cmake .. -DENABLE_DEV=ON -DLUA_INCLUDE_DIR=%{_includedir}/lua-5.1

@@ -1,5 +1,5 @@
 Name:		xcb-util-cursor
-Version:	0.1.5
+Version:	0.1.6
 Release:	%autorelease
 Summary:	Cursor library on top of libxcb
 License:	X11-distribute-modifications-variant

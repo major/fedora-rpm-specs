@@ -4,7 +4,7 @@
 %global crate just
 
 Name:           rust-just
-Version:        1.43.0
+Version:        1.43.1
 Release:        %autorelease
 Summary:        Just a command runner
 
@@ -59,6 +59,9 @@ License:        %{shrink:
                 AND (Unlicense OR MIT)
                 }
 # LICENSE.dependencies contains a full license breakdown
+
+# needed for --choose flag
+Recommends:     fzf
 
 %description -n %{crate} %{_description}
 

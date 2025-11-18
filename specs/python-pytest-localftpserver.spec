@@ -1,7 +1,7 @@
 %global pypi_name pytest-localftpserver
 
 Name:           python-%{pypi_name}
-Version:        1.3.2
+Version:        1.5.0
 Release:        %{autorelease}
 Summary:        A PyTest plugin which provides an FTP fixture for your tests
 
@@ -12,16 +12,6 @@ Summary:        A PyTest plugin which provides an FTP fixture for your tests
 License:        MIT
 URL:            https://pytest-localftpserver.readthedocs.io/
 Source:         %forgesource
-
-# Avoid the multiprocessing forkserver method
-# https://github.com/oz123/pytest-localftpserver/pull/351
-#
-# Fixes:
-#
-# python-pytest-localftpserver fails to build with Python 3.14: multiprocessing
-# has changed the start method to 'forkserver'
-# https://bugzilla.redhat.com/show_bug.cgi?id=2328701
-Patch:          %{forgeurl}/pull/351.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

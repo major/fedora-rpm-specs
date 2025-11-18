@@ -12,10 +12,17 @@ ExcludeArch:    aarch64 ppc64le s390x
 # Build the next version of ollama
 %bcond next 0
 
+# systemd testing
+%bcond systemd 1
+
 # https://github.com/ollama/ollama
 %global goipath         github.com/ollama/ollama
 %global forgeurl        https://github.com/ollama/ollama
-Version:                0.12.3
+%if %{with next}
+Version:                0.12.10
+%else
+Version:                0.12.10
+%endif
 
 %gometa -L -f
 
@@ -35,10 +42,18 @@ Summary:        Get up and running AI LLMs
 License:        Apache-2.0 AND MIT
 URL:            %{gourl}
 Source:         %{gosource}
+
+%if %{with systemd}
+Source10:       ollama.service
+Source11:       ollama.sysusers
+%endif
+
 # Fixup ollama to look at gtt vs vram mem and enable iGPU's
 # https://github.com/Crandel/ollama-amd-igpu.git
 # d70b7b91791181c0bca95dbbc223f9f3543f3747
-Patch0:         0001-rewrite-for-ollama-4.0.patch
+# Patch0:         0001-rewrite-for-ollama-4.0.patch
+
+Patch2:         0001-ollama-handle-load.patch
 
 BuildRequires:  fdupes
 BuildRequires:  gcc-c++
@@ -58,6 +73,12 @@ Requires:       hipblas
 Requires:       rocblas
 %endif
 
+%if %{with systemd}
+BuildRequires:  systemd-rpm-macros
+
+%{?systemd_requires}
+%endif
+
 # Only tested on x86_64:
 
 %description %{common_description}
@@ -65,7 +86,7 @@ Requires:       rocblas
 %gopkg
 
 %prep
-%goprep -A
+%goprep -p1 -A
 # Remove some .git cruft
 for f in `find . -name '.gitignore'`; do
     rm $f
@@ -79,18 +100,13 @@ mv macapp/README.md macapp-README.md
 
 # install dir is off, lib -> lib64
 # cmake install location
-sed -i -e 's@${CMAKE_INSTALL_PREFIX}/lib/ollama@${CMAKE_INSTALL_PREFIX}/lib64/ollama@' CMakeLists.txt
-# overwrite discover/path.go so instead of attempting to discover, LibOllamaPath is set to our path
-echo -e 'package discover\nvar LibOllamaPath string = "/usr/lib64/ollama"' > discover/path.go
+# sed -i -e 's@${CMAKE_INSTALL_PREFIX}/lib/ollama@${CMAKE_INSTALL_PREFIX}/lib64/ollama@' CMakeLists.txt
 # for dlopens
-sed -i -e 's@"lib/ollama"@"lib64/ollama"@' ml/backend/ggml/ggml/src/ggml.go
-
+# sed -i -e 's@filepath.Dir(exe), "..", "lib", "ollama"@filepath.Dir(exe), "..", "lib64", "ollama"@' ml/backend/ggml/ggml/src/ggml.go
+# make sure the new lib64 is not skipped
+# sed -i -e 's@filepath.FromSlash("lib/ollama")@filepath.FromSlash("lib64/ollama")@' ml/backend/ggml/ggml/src/ggml.go
 # install dir for backend *.so's is off usr/bin -> usr/lib64/ollama
-sed -i -e 's@${CMAKE_INSTALL_BINDIR}@${OLLAMA_INSTALL_DIR}@' ml/backend/ggml/ggml/src/CMakeLists.txt
-
-# https://github.com/ollama/ollama/issues/12479
-# hipblas.so soversion changes in ROCm 7
-sed -i -e 's@libhipblas.so.2@libhipblas.so.3@' discover/amd_linux.go
+# sed -i -e 's@${CMAKE_INSTALL_BINDIR}@${OLLAMA_INSTALL_DIR}@' ml/backend/ggml/ggml/src/CMakeLists.txt
 
 %generate_buildrequires
 %go_generate_buildrequires
@@ -121,47 +137,61 @@ export LDFLAGS=
 # remove copies of system libraries
 runtime_removal="hipblas rocblas amdhip64 rocsolver amd_comgr hsa-runtime64 rocsparse tinfo rocprofiler-register drm drm_amdgpu numa elf"
 for rr in $runtime_removal; do
-    rm -rf %{buildroot}%{_libdir}/ollama/rocm/lib${rr}*
+    rm -rf %{buildroot}%{_prefix}/lib/ollama/lib${rr}*
 done
-rm -rf %{buildroot}%{_libdir}/ollama/rocm/rocblas
+rm -rf %{buildroot}%{_prefix}/lib/ollama/rocblas
 
 mkdir -p %{buildroot}%{_bindir}
-mkdir -p %{buildroot}%{_libdir}/ollama/bin
-install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_libdir}/ollama/bin/
+install -m 0755 -vp %{gobuilddir}/bin/ollama %{buildroot}%{_bindir}
 
-pushd .
-cd %{buildroot}%{_bindir}
-ln -s ../%{_lib}/ollama/bin/ollama ollama
-popd
+rm -rf %{buildroot}%{_bindir}/*.so
 
-#Clean up dupes:
-%fdupes %{buildroot}%{_prefix}
+%if %{with systemd}
+install -p -D -m 0644 %{SOURCE10} %{buildroot}%{_unitdir}/ollama.service
+install -p -D -m 0644 %{SOURCE11} %{buildroot}%{_sysusersdir}/ollama.conf
+# home dir
+mkdir -p %{buildroot}%{_var}/lib/ollama
+%endif
 
 %if %{with check}
 %check
 %gocheck
 %endif
 
+%if %{with systemd}
+%preun
+%systemd_preun ollama.service
+
+%post
+%systemd_post ollama.service
+
+%postun
+%systemd_postun_with_restart ollama.service
+%endif
+
 %files
 %license LICENSE
 %doc CONTRIBUTING.md SECURITY.md README.md app-README.md integration-README.md
 %doc llama-README.md macapp-README.md
-%dir %{_libdir}/ollama
-%{_libdir}/ollama/libggml-base.so
-%{_libdir}/ollama/libggml-cpu-alderlake.so
-%{_libdir}/ollama/libggml-cpu-haswell.so
-%{_libdir}/ollama/libggml-cpu-icelake.so
-%{_libdir}/ollama/libggml-cpu-sandybridge.so
-%{_libdir}/ollama/libggml-cpu-skylakex.so
-%{_libdir}/ollama/libggml-cpu-sse42.so
-%{_libdir}/ollama/libggml-cpu-x64.so
+%{_prefix}/lib/ollama/libggml-base.so
+%{_prefix}/lib/ollama/libggml-cpu-alderlake.so
+%{_prefix}/lib/ollama/libggml-cpu-haswell.so
+%{_prefix}/lib/ollama/libggml-cpu-icelake.so
+%{_prefix}/lib/ollama/libggml-cpu-sandybridge.so
+%{_prefix}/lib/ollama/libggml-cpu-skylakex.so
+%{_prefix}/lib/ollama/libggml-cpu-sse42.so
+%{_prefix}/lib/ollama/libggml-cpu-x64.so
 
-%dir %{_libdir}/ollama/bin
-%{_libdir}/ollama/bin/ollama
-%{_bindir}/ollama
+%{_bindir}/*
 
 %if %{with rocm}
-%{_libdir}/ollama/libggml-hip.so
+%{_prefix}/lib/ollama/libggml-hip.so
+%endif
+
+%if %{with systemd}
+%attr(0755,ollama,ollama) %dir  %{_var}/lib/ollama/
+%{_unitdir}/ollama.service
+%{_sysusersdir}/ollama.conf
 %endif
 
 %changelog

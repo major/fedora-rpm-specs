@@ -51,6 +51,8 @@ gpasm and gpdasm.
 
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380694)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake -Wno-dev
 %cmake_build
 

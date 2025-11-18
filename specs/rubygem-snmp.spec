@@ -6,7 +6,7 @@ Release:        %autorelease
 Summary:        A Ruby implementation of SNMP (the Simple Network Management Protocol)
 License:        MIT
 URL:            https://github.com/hallidave/ruby-snmp
-VCS:            https://github.com/hallidave/ruby-snmp
+VCS:            git:%{url}
 # GEM           https://rubygems.org/gems/snmp/
 Source0:        https://rubygems.org/gems/%{gem_name}-%{version}.gem
 BuildRequires:  ruby(release)

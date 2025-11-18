@@ -2,8 +2,8 @@
 
 Summary: ELF utils that can check files for security relevant properties
 Name: pax-utils
-Version: 1.3.8
-Release: 3%{?dist}
+Version: 1.3.9
+Release: 1%{?dist}
 # http://packages.gentoo.org/package/app-misc/pax-utils
 URL: https://wiki.gentoo.org/wiki/Hardened/PaX_Utilities
 #Source0: https://distfiles.gentoo.org/distfiles/%{name}-%{version}.tar.xz
@@ -72,6 +72,9 @@ export LD_LIBRARY_PATH=%{_libdir}
 %{_mandir}/man1/scanmacho.1*
 
 %changelog
+* Sat Nov 15 2025 Dominik Mierzejewski <dominik@greysector.net> - 1.3.9-1
+- update to 1.3.9 (resolves rhbz#2414346)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

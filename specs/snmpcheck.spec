@@ -5,8 +5,8 @@ Summary:        An utility to get information via SNMP protocols
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
 License:        GPL-3.0-or-later
-URL:            http://www.nothink.org/perl/snmpcheck/
-Source0:        http://www.nothink.org/perl/snmpcheck/downloads/%{name}-%{version}.rb
+URL:            https://www.nothink.org/codes/snmpcheck/
+Source0:        https://www.nothink.org/codes/snmpcheck/%{name}-%{version}.rb
 #Manual page
 Source1:        snmpcheck.1
 BuildArch:      noarch

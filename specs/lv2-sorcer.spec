@@ -4,7 +4,7 @@
 
 Name:           lv2-sorcer
 Version:        1.1.3
-Release:        0.12.%{prerelease}git%{shortcommit}%{?dist}
+Release:        0.13.%{prerelease}git%{shortcommit}%{?dist}
 Summary:        An audio compressor for JACK
 
 # Automatically converted from old format: GPLv3+ - review is highly recommended.
@@ -48,6 +48,8 @@ sed -i -e 's|-msse2 -mfpmath=sse||g' CMakeLists.txt
 %endif
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380883)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake .
 %cmake_build
 
@@ -60,6 +62,9 @@ sed -i -e 's|-msse2 -mfpmath=sse||g' CMakeLists.txt
 %{_libdir}/lv2/*
 
 %changelog
+* Wed Nov 12 2025 Cristian Le <git@lecris.dev> - 1.1.3-0.13.20171126git0a8cef4
+- Allow to build with CMake 4.0 (rhbz#2380883)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-0.12.20171126git0a8cef4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

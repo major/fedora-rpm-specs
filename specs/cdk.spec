@@ -1,14 +1,13 @@
 %global mainver 5.0
-%global datever 20240619
+%global datever 20250116
 
 Name:           cdk
 Version:        %{mainver}.%{datever}
 Release:        %autorelease
 Summary:        Curses Development Kit
-# Automatically converted from old format: BSD with advertising - review is highly recommended.
-License:        LicenseRef-Callaway-BSD-with-advertising
-URL:            http://invisible-island.net/cdk/
-Source0:        ftp://invisible-island.net/cdk-%{mainver}-%{datever}.tgz
+License:        MIT-X11
+URL:            https://invisible-island.net/cdk/
+Source0:        https://invisible-island.net/cdk-%{mainver}-%{datever}.tgz
 BuildRequires:  gcc
 BuildRequires:  ncurses-devel
 BuildRequires:  make
@@ -32,6 +31,9 @@ developing applications that use %{name}.
 %build
 %configure --with-ncurses --enable-const
 make cdkshlib %{?_smp_mflags}
+
+%check
+echo "sample programs are interactive"
 
 %install
 make install installCDKSHLibrary DESTDIR=%{buildroot} INSTALL="install -pD"

@@ -1,6 +1,6 @@
 Name:		packmol
 Version:	21.1.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Packing optimization for molecular dynamics simulations
 License:	MIT
 URL:		https://m3g.github.io/packmol
@@ -36,6 +36,8 @@ find . -name \*.o -delete
 tar zxvf %{SOURCE2}
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2381351)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 export FC=gfortran
 %cmake
 %cmake_build
@@ -63,6 +65,9 @@ done
 %{_bindir}/packmol_solvate
 
 %changelog
+* Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 21.1.0-2
+- Allow to build with CMake 4.0 (rhbz#2381351)
+
 * Thu Aug 21 2025 Susi Lehtola <jussilehtola@fedoraproject.org> - 21.1.0-1
 - Update to 21.1.0.
 

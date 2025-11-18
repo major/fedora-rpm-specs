@@ -1,5 +1,5 @@
 Name:           scapy
-Version:        2.6.0
+Version:        2.6.1
 Release:        %autorelease
 Summary:        Interactive packet manipulation tool and network scanner
 
@@ -7,15 +7,16 @@ Summary:        Interactive packet manipulation tool and network scanner
 %global         gitname         scapy
 %global         commit          9473f77d8b548c8e478e52838bdd4c12f5d4f4ff
 %global         shortcommit     %(c=%{commit}; echo ${c:0:7})
+%global         giturl          https://github.com/%{gituser}/%{gitname}
 
 License:        GPL-2.0-only
 URL:            https://scapy.net/
 #was            http://www.secdev.org/projects/scapy/
-VCS:            https://github.com/secdev/scapy
+VCS:            git:%{giturl}
 #               https://github.com/secdev/scapy/releases
 #               https://bitbucket.org/secdev/scapy/pull-request/80
 #               https://scapy.readthedocs.io/en/latest/introduction.html
-Source0:        %{vcs}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source0:        %{giturl}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 %global         common_desc %{expand:
 Scapy is a powerful interactive packet manipulation program built on top

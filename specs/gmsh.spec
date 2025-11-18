@@ -9,7 +9,7 @@
 %endif
 %bcond_without mpich
 
-%global sover 4.14
+%global sover 4.15
 
 %if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
 %bcond_without flexiblas
@@ -17,8 +17,8 @@
 
 Name:       gmsh
 Summary:    A three-dimensional finite element mesh generator
-Version:    4.14.1
-Release:    2%{?dist}
+Version:    4.15.0
+Release:    1%{?dist}
 # MPI not available on i686
 ExcludeArch: %{ix86}
 
@@ -41,6 +41,8 @@ Patch2:     gmsh_julia.patch
 Patch3:     gmsh_install.patch
 # Unbundle gl2ps
 Patch4:     gmsh_unbundle_gl2ps.patch
+# Make gmm use superlu
+Patch5:     gmsh_gmm.patch
 
 BuildRequires: ann-devel
 %if %{with flexiblas}
@@ -48,17 +50,13 @@ BuildRequires:  flexiblas-devel
 %else
 BuildRequires:  blas-devel, lapack-devel
 %endif
-BuildRequires: eigen3-devel
 BuildRequires: cgnslib-devel
 BuildRequires: cmake
 BuildRequires: desktop-file-utils
 BuildRequires: fltk-devel
 BuildRequires: gcc-c++
 BuildRequires: gcc-gfortran
-# gmm is retired in Fedora
-%if 0%{?fedora} < 44
 BuildRequires: gmm-devel
-%endif
 BuildRequires: gmp-devel
 BuildRequires: hdf5-devel
 BuildRequires: libjpeg-turbo-devel
@@ -72,6 +70,7 @@ BuildRequires: netgen-mesher-devel-private
 BuildRequires: opencascade-devel
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
+BuildRequires: SuperLU-devel
 BuildRequires: voro++-devel
 BuildRequires: zlib-devel
 BuildRequires: texinfo
@@ -221,10 +220,12 @@ cp contrib/Netgen/nglib_gmsh.h contrib/Netgen/nglib_gmsh.cpp src/mesh
 # hxt: see contrib/hxt/CREDITS.txt
 # kbipack: Source not available on the net anymore
 # onelab: gmsh internal module
+# WinslowUntangler: gmsh internal module (?)
 (
 cd contrib;
 ls -1 | \
     grep -v ^bamg$ | \
+    grep -v ^blossom$ | \
     grep -v ^DiscreteIntegration$ | \
     grep -v ^MeshOptimizer$ | \
     grep -v ^HighOrderMeshOptimizer$ | \
@@ -233,6 +234,7 @@ ls -1 | \
     grep -v ^kbipack$ | \
     grep -v ^onelab$ | \
     grep -v ^tinyobjloader$ | \
+    grep -v ^WinslowUntangler$ | \
 xargs rm -rf
 )
 
@@ -247,18 +249,11 @@ gmsh_cmake_args="\
     -DENABLE_BUILD_LIB=YES \
     -DENABLE_BUILD_SHARED=YES \
     -DENABLE_BUILD_DYNAMIC=YES \
-    -DENABLE_MPEG_ENCODE=NO \
-    -DENABLE_METIS=YES \
-    -DENABLE_BLOSSOM=NO \
-    -DENABLE_CGNS=YES \
-    -DENABLE_MED=YES \
-    -DENABLE_EIGEN=YES \
-    -DEIGEN_INC=%{_includedir}/eigen3 \
-    -DENABLE_OCC=YES"
+    -DENABLE_MPEG_ENCODE=NO"
 
 ### serial version ###
 %define _vpath_builddir %{_target_platform}
-%cmake .. \
+%cmake \
     -DENABLE_OPENMP=ON \
     $gmsh_cmake_args
 
@@ -269,7 +264,7 @@ gmsh_cmake_args="\
 %{_openmpi_load}
 export CXX=mpicxx
 %define _vpath_builddir %{_target_platform}-openmpi
-%cmake .. \
+%cmake \
     -DENABLE_MPI=YES \
     -DCMAKE_INSTALL_BINDIR=$MPI_BIN \
     -DCMAKE_INSTALL_LIBDIR=$MPI_LIB \
@@ -285,7 +280,7 @@ export CXX=mpicxx
 %{_mpich_load}
 export CXX=mpicxx
 %define _vpath_builddir %{_target_platform}-mpich
-%cmake .. \
+%cmake \
     -DENABLE_MPI=YES \
     -DCMAKE_INSTALL_BINDIR=$MPI_BIN \
     -DCMAKE_INSTALL_LIBDIR=$MPI_LIB \
@@ -325,7 +320,7 @@ cp -a src/parser/Gmsh.* %{_target_platform}-mpich
 find %{buildroot} -type f -name libgmsh.a -exec rm -f {} \;
 
 # Install icon and .desktop file
-magick -scale 128 utils/icons/gmsh.png icon_128x128.png
+magick utils/icons/gmsh.png -scale 128 icon_128x128.png
 install -Dpm 0644 icon_128x128.png  %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/%{name}.png
 desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
 
@@ -405,6 +400,9 @@ rm -f %{buildroot}%{_defaultdocdir}/%{name}/LICENSE.txt
 
 
 %changelog
+* Sun Oct 26 2025 Sandro Mani <manisandro@gmail.com> - 4.15.0-1
+- Update to 4.15.0
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.14.1-2
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -1,7 +1,7 @@
 %global pypi_name roman
 
 Name:           python-%{pypi_name}
-Version:        5.1
+Version:        5.2
 Release:        %autorelease
 Summary:        Integer to Roman numerals converter
 
@@ -40,7 +40,7 @@ Provides:       roman = %{?epoch:%{epoch}:}%{version}-%{release}
 
 # Drop version constraint from setuptools
 tomcli set pyproject.toml arrays replace \
-    build-system.requires "^(setuptools)[<>= ]+[0-9.]+" "\1"
+    build-system.requires "^(setuptools)[<>= ]+[0-9.]+.*" "\1"
 
 
 %generate_buildrequires
@@ -76,3 +76,4 @@ tomcli set pyproject.toml arrays replace \
 
 %changelog
 %autochangelog
+                   -

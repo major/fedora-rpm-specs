@@ -10,6 +10,7 @@ Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 
 Requires:       dracut
+Requires:       dracut-network
 Requires:       openssh-server
 
 

@@ -1,8 +1,8 @@
 %global gvc_commit 5f9768a2eac29c1ed56f1fbb449a77a3523683b6
-%global libcall_ui_version f8483d4e8ffbb3b4af798e44e88bdfc33d5b8241
+%global libcall_ui_version v0.1.5
 
 Name:		phosh
-Version:	0.51~rc1
+Version:	0.51.0
 Release:	%autorelease
 Summary:	Graphical shell for mobile devices
 License:	GPL-3.0-or-later
@@ -201,6 +201,7 @@ SH
 %{_libdir}/phosh/plugins/prefs/libphosh-plugin-prefs-ticket-box.so
 %{_libdir}/phosh/plugins/prefs/libphosh-plugin-prefs-upcoming-events.so
 %{_libdir}/phosh/plugins/prefs/libphosh-plugin-prefs-pomodoro-quick-setting.so
+%{_libdir}/phosh/plugins/prefs/libphosh-plugin-prefs-caffeine-quick-setting.so
 
 %doc README.md
 %license COPYING
