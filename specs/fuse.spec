@@ -3,7 +3,7 @@ Version:	2.9.9
 Release:	24%{?dist}
 Summary:	File System in Userspace (FUSE) v2 utilities
 License:	GPL-1.0-or-later
-URL:		http://fuse.sf.net
+URL:		https://github.com/libfuse/libfuse/
 Source0:	https://github.com/libfuse/libfuse/releases/download/%{name}-%{version}.tar.gz
 
 Patch1: fuse2-0001-More-parentheses.patch

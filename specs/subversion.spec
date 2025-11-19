@@ -65,6 +65,10 @@ Patch8: subversion-1.14.3-zlib-ng.patch
 Patch9: subversion-1.14.5-progenv.patch
 # Fix tests with Python 3.14, https://github.com/apache/subversion/pull/30
 Patch10: subversion-1.14.5-python314.patch
+# https://github.com/apache/subversion/pull/28
+Patch11: subversion-1.14.5-davgetpath.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2405291
+Patch12: subversion-1.14.5-r1929560.patch
 BuildRequires: make
 BuildRequires: libxcrypt-devel
 BuildRequires: autoconf, libtool, texinfo, which, gcc, gcc-c++
@@ -170,9 +174,9 @@ passwords in the KDE Wallet.
 
 %package -n mod_dav_svn
 Summary: Apache httpd module for Subversion server
-Requires: httpd-mmn = %{_httpd_mmn}
+%{?!_httpd_requires: Requires: httpd-mmn = %{_httpd_mmn}}
 Requires: subversion-libs%{?_isa} = %{version}-%{release}
-BuildRequires: httpd-devel >= 2.0.45
+BuildRequires: httpd-devel >= 2.4.63-4
 
 %description -n mod_dav_svn
 The mod_dav_svn package allows access to a Subversion repository
@@ -274,7 +278,7 @@ export LT_CFLAGS="$CFLAGS"
 
 %configure --with-apr=%{_prefix} --with-apr-util=%{_prefix} \
         --disable-debug \
-        --with-swig --with-serf=%{_prefix} \
+        --with-swig --with-serf \
         --with-ruby-sitedir=%{ruby_vendorarchdir} \
         --with-ruby-test-verbose=verbose \
         --with-apxs=%{_httpd_apxs} --disable-mod-activation \

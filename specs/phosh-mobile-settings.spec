@@ -1,7 +1,7 @@
 %global gvc_commit 5f9768a2eac29c1ed56f1fbb449a77a3523683b6
 
 Name:		phosh-mobile-settings
-Version:	0.50~rc1
+Version:	0.51.0
 Release:	%autorelease
 Summary:	Mobile Settings App for phosh and related components
 License:	GPL-3.0-or-later AND LGPL-3.0-or-later
@@ -14,15 +14,17 @@ Source1:	https://gitlab.gnome.org/GNOME/libgnome-volume-control/-/archive/%{gvc_
 Patch0:	shorter-xdg_runtime_dir-path.patch
 
 ExcludeArch:	%{ix86}
+# https://bugzilla.redhat.com/show_bug.cgi?id=2415478
+ExcludeArch:    s390x
 
 BuildRequires:	gcc
 BuildRequires:	gcc-c++
 BuildRequires:	meson >= 1.7.0
 
-BuildRequires:	pkgconfig(glib-2.0) >= 2.76
-BuildRequires:	pkgconfig(gio-2.0) >= 2.76
-BuildRequires:	pkgconfig(gio-unix-2.0) >= 2.76
-BuildRequires:	pkgconfig(gmodule-2.0) >= 2.76
+BuildRequires:	pkgconfig(glib-2.0) >= 2.84
+BuildRequires:	pkgconfig(gio-2.0) >= 2.84
+BuildRequires:	pkgconfig(gio-unix-2.0) >= 2.84
+BuildRequires:	pkgconfig(gmodule-2.0) >= 2.84
 BuildRequires:	pkgconfig(gmobile) >= 0.4.0
 BuildRequires:	pkgconfig(gsound)
 BuildRequires:	pkgconfig(gtk4) >= 4.18.0

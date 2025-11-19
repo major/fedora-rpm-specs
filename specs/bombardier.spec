@@ -1,11 +1,11 @@
 Name: bombardier
-Version: 0.8.3
-Release: 29%{?dist}
+Version: 0.8.4
+Release: 1%{?dist}
 Summary: The GNU Bombing utility
 
 License: GPL-2.0-or-later        
 URL: http://packages.debian.org/stable/source/bombardier
-Source0: http://http.debian.net/debian/pool/main/b/bombardier/bombardier_0.8.3+nmu4.tar.xz
+Source0: http://http.debian.net/debian/pool/main/b/bombardier/bombardier_%{version}.tar.xz
 Source1: bombardier.desktop
 Source2: bombardier-logo.png
 Patch0: bombardier-height.patch
@@ -56,6 +56,9 @@ install -p -m 644 %{SOURCE2} \
 
 
 %changelog
+* Mon Nov 17 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.8.4-1
+- 0.8.4
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.3-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

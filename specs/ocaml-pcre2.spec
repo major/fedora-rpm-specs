@@ -1,5 +1,5 @@
 Name:           ocaml-pcre2
-Version:        8.0.3
+Version:        8.0.4
 Release:        %autorelease
 Summary:        OCaml bindings to the pcre2 library
 
@@ -33,6 +33,10 @@ files for developing applications that use %{name}.
 %prep
 %autosetup -n pcre2-ocaml-%{version}
 
+%conf
+# dune-compiledb functionality not needed for an RPM build
+sed -i '/dune-compiledb/d' dune-project pcre2.opam
+
 %build
 %dune_build
 
@@ -43,7 +47,7 @@ files for developing applications that use %{name}.
 %dune_check
 
 %files -f .ofiles
-%doc README.md CHANGES.md
+%doc README.md CHANGELOG.md
 %license LICENSE.md
 
 %files devel -f .ofiles-devel

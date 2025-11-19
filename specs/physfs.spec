@@ -23,12 +23,13 @@ determine if CD-ROMs are available, the user's home directory, where in the
 real filesystem your program is running, etc.}
 
 Name:		physfs
-Version:	3.0.2
+Version:	3.2.0
 Release:	%autorelease
 License:	Zlib
 Summary:	Library to provide abstract access to various archives
 URL:		https://www.icculus.org/physfs/
-Source0:	https://www.icculus.org/physfs/downloads/physfs-%{version}.tar.bz2
+Source0:	https://github.com/icculus/physfs/archive/refs/tags/release-%{version}.tar.gz
+Patch0:		https://github.com/icculus/physfs/commit/32858b462a7d8017697a0f20bab160b5a4d8507a.patch
 BuildRequires:  gcc-c++
 BuildRequires:	doxygen, readline-devel, libtool, cmake
 # Only needed to build a test program.
@@ -101,7 +102,7 @@ Static version of the MinGW Win64 compiled physfs library.
 %{?mingw_debug_package}
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{name}-release-%{version}
 
 %build
 %cmake
@@ -158,6 +159,7 @@ rm -rf $RPM_BUILD_ROOT%{_libdir}/*.a
 %{_bindir}/test_physfs
 %{_includedir}/physfs.h
 %{_libdir}/*.so
+%{_libdir}/cmake/PhysFS/
 %{_libdir}/pkgconfig/physfs.pc
 %{_mandir}/man3/*
 
@@ -169,6 +171,7 @@ rm -rf $RPM_BUILD_ROOT%{_libdir}/*.a
 %{mingw32_bindir}/libphysfs.dll
 %{mingw32_includedir}/physfs.h
 %{mingw32_libdir}/libphysfs.dll.a
+%{mingw32_libdir}/cmake/PhysFS/
 %{mingw32_libdir}/pkgconfig/physfs.pc
 
 %files -n mingw32-physfs-static
@@ -180,6 +183,7 @@ rm -rf $RPM_BUILD_ROOT%{_libdir}/*.a
 %{mingw64_bindir}/libphysfs.dll
 %{mingw64_includedir}/physfs.h
 %{mingw64_libdir}/libphysfs.dll.a
+%{mingw64_libdir}/cmake/PhysFS/
 %{mingw64_libdir}/pkgconfig/physfs.pc
 
 %files -n mingw64-physfs-static

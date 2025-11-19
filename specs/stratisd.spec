@@ -4,7 +4,7 @@
 %global dracutdir %(pkg-config --variable=dracutdir dracut)
 
 Name:           stratisd
-Version:        3.8.5
+Version:        3.8.6
 Release:        %autorelease
 Summary:        Daemon that manages block devices to create filesystems
 
@@ -109,11 +109,7 @@ a2x -f manpage docs/stratis-dumpmetadata.txt
 
 %if %{with check}
 %check
-%if 0%{?rhel} && 0%{?rhel} < 10
-%cargo_test --no-run
-%else
 %cargo_test -- --no-run
-%endif
 %endif
 
 %post

@@ -2,7 +2,7 @@
 
 Name:           tmux
 Version:        3.5a
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A terminal multiplexer
 
 License:        ISC AND BSD-2-Clause AND BSD-3-Clause AND SSH-short AND LicenseRef-Fedora-Public-Domain
@@ -73,6 +73,9 @@ fi
 %{_unitdir}/tmux@.service
 
 %changelog
+* Mon Nov 17 2025 Filipe Rosset <rosset.filipe@gmail.com> - 3.5a-7
+- Bump rawhide build to avoid older Fedora with newer builds
+
 * Tue Nov 11 2025 Yanko Kaneti <yaneti@declera.com> - 3.5a-6
 - Drop bash-completeion snippet as now its in bash-completion upstream
 

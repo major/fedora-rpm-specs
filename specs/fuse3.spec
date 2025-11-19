@@ -13,7 +13,7 @@ Version:	%{xyz_version}
 Release:	1%{?dist}
 Summary:	File System in Userspace (FUSE) v3 utilities
 License:	GPL-1.0-or-later
-URL:		http://fuse.sf.net
+URL:		https://github.com/libfuse/libfuse/
 Source0:	https://github.com/libfuse/libfuse/releases/download/fuse-%{version}/fuse-%{version}.tar.gz
 Source1:	https://github.com/libfuse/libfuse/releases/download/fuse-%{version}/fuse-%{version}.tar.gz.sig
 Source2:	https://raw.githubusercontent.com/libfuse/libfuse/master/signify/fuse-%{xy_version}.pub

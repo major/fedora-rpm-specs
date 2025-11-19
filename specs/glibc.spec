@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.42.9000-487-g1f79bc4838
+%global glibcsrcdir glibc-2.42.9000-500-gc7d699b55b
 %global glibcversion 2.42.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -152,7 +152,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 11
+%global baserelease 12
 Release: %{baserelease}%{?dist}
 
 # Licenses:
@@ -170,6 +170,14 @@ Release: %{baserelease}%{?dist}
 # * GPLv2+ with exceptions is used for parts of the Arm unwinder.
 #
 # * GFDL is used for the documentation.
+#
+# * GPLv3+ is used for scripts/move-if-change.
+#
+# * Autoconf-related files are licensed as GPL-3.0-or-later WITH
+#   Autoconf-exception-generic-3.0.
+#
+# * Texinfo-related files are licensed as GPL-3.0-or-later WITH
+#   Texinfo-exception.
 #
 # * UNICODE v3 is used for the Unicode data files.
 #
@@ -205,7 +213,7 @@ Release: %{baserelease}%{?dist}
 # SPDX license string based on evaluation of glibc-2.39 sources by
 # ScanCode toolkit (https://github.com/nexB/scancode-toolkit),
 # and accounting for exceptions listed above:
-License: LGPL-2.1-or-later AND SunPro AND LGPL-2.1-or-later WITH GCC-exception-2.0 AND BSD-3-Clause AND GPL-2.0-or-later AND LGPL-2.1-or-later WITH GNU-compiler-exception AND GPL-2.0-only AND ISC AND LicenseRef-Fedora-Public-Domain AND HPND AND CMU-Mach AND LGPL-2.0-or-later AND Unicode-3.0 AND GFDL-1.1-or-later AND GPL-1.0-or-later AND FSFUL AND MIT AND Inner-Net-2.0 AND X11 AND GPL-2.0-or-later WITH GCC-exception-2.0 AND GFDL-1.3-only AND GFDL-1.1-only
+License: LGPL-2.1-or-later AND SunPro AND LGPL-2.1-or-later WITH GCC-exception-2.0 AND BSD-3-Clause AND GPL-2.0-or-later AND LGPL-2.1-or-later WITH GNU-compiler-exception AND GPL-2.0-only AND ISC AND LicenseRef-Fedora-Public-Domain AND HPND AND CMU-Mach AND LGPL-2.0-or-later AND Unicode-3.0 AND GFDL-1.1-or-later AND GPL-1.0-or-later AND FSFUL AND MIT AND Inner-Net-2.0 AND X11 AND GPL-2.0-or-later WITH GCC-exception-2.0 AND GFDL-1.3-only AND GFDL-1.1-only AND GPL-3.0-or-later AND GPL-3.0-or-later WITH Autoconf-exception-generic-3.0 AND GPL-3.0-or-later WITH Texinfo-exception
 
 URL: http://www.gnu.org/software/glibc/
 Source0: %{?glibc_release_url}%{glibcsrcdir}.tar.xz
@@ -2389,6 +2397,23 @@ update_gconv_modules_cache ()
 %endif
 
 %changelog
+* Mon Nov 17 2025 Frédéric Bérat <fberat@redhat.com> - 2.42.9000-12
+- Auto-sync with upstream branch master,
+  commit c7d699b55b4e2f5644495a156b0d778105a5e4e3:
+- htl: Add missing include (Samuel Thibault)
+- loongarch: Remove TLS_TCB_ALIGN (Samuel Thibault)
+- hurd: Fix restoring SSE state on signal (Samuel Thibault)
+- Remove TLS_TCB_ALIGN and TLS_INIT_TCB_ALIGN (Samuel Thibault)
+- math: Optimize frexpl (intel96) with fast path for normal numbers (Osama Abdelkader)
+- Revert __HAVE_64B_ATOMICS configure check (Adhemerval Zanella)
+- x86: Increase allowable TSX abort rate to 6%. (Carlos O'Donell)
+- htl: Remove errno and herrno from libpthread (Samuel Thibault)
+- htl: Drop pthread-functions infrastructure (Samuel Thibault)
+- htl: Move __pthread_cleanup_stack out of libc_pthread_init.c (Samuel Thibault)
+- htl: move {,_IO_}f{,un,try}lockfile implementation into libc (Samuel Thibault)
+- linux: Add mseal to mips32 nofpu abilist (Adhemerval Zanella)
+- hppa: Consistently reference LGPL in copyright header (Florian Weimer)
+
 * Thu Nov 13 2025 Frédéric Bérat <fberat@redhat.com> - 2.42.9000-11
 - Auto-sync with upstream branch master,
   commit 1f79bc48382cc204a9cb0eae1d3cca2515af1f3c:

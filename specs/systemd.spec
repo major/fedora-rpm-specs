@@ -68,7 +68,7 @@ Url:            https://systemd.io
 # But don't do that on OBS, otherwise the version subst fails, and will be
 # like 257-123-gabcd257.1 instead of 257-123-gabcd
 %if %{without obs}
-Version:        %{?version_override}%{!?version_override:258.2}
+Version:        %{?version_override}%{!?version_override:259~rc1}
 %else
 Version:        %{?version_override}%{!?version_override:%(cat meson.version)}
 %endif
@@ -333,6 +333,12 @@ Provides:       /usr/sbin/shutdown
 Provides:       /usr/sbin/telinit
 %endif
 
+# libmount is always required, even in containers, so make it a hard dependency.
+Requires:       libmount.so.1%{?elf_suffix}
+Requires:       libmount.so.1(MOUNT_2.26)%{?elf_bits}
+# Various systemd services have syscall filters so make libseccomp a hard dependency.
+Requires:       libseccomp.so.2%{?elf_suffix}
+
 # Recommends to replace normal Requires deps for stuff that is dlopen()ed
 Recommends:     libxkbcommon.so.0%{?elf_suffix}
 Recommends:     libidn2.so.0%{?elf_suffix}
@@ -476,6 +482,9 @@ Conflicts:      systemd-networkd < %{version}-%{release}
 # want to load modules, so make this into a hard dependency here.
 Requires:       libkmod.so.2%{?elf_suffix}
 Requires:       libkmod.so.2(LIBKMOD_5)%{?elf_bits}
+# udev uses libblkid in various builtins so make it a hard dependency.
+Requires:       libblkid.so.1%{?elf_suffix}
+Requires:       libblkid.so.1(BLKID_2.30)%{?elf_bits}
 
 # Recommends to replace normal Requires deps for stuff that is dlopen()ed
 # used by dissect, integritysetup, veritysetyp, growfs, repart, cryptenroll, home
@@ -1107,12 +1116,13 @@ mv -v %{buildroot}/usr/sbin/* %{buildroot}%{_bindir}/
 # We skip this on upstream builds so that new users and groups
 # can be added without breaking the build.
 %if 0%{?fedora} >= 43
-%{python3} %{SOURCE4} /usr/lib/sysusers.d/setup.conf %{buildroot}/usr/lib/sysusers.d/basic.conf
+IGNORED=empower \
+  %{python3} %{SOURCE4} /usr/lib/sysusers.d/setup.conf %{buildroot}/usr/lib/sysusers.d/basic.conf
 %else
 %{python3} %{SOURCE4} /usr/lib/sysusers.d/20-setup-{users,groups}.conf %{buildroot}/usr/lib/sysusers.d/basic.conf
 %endif
 %endif
-rm %{buildroot}/usr/lib/sysusers.d/basic.conf
+sed -n -r -i '1,7p; /can .do.|empower/p' %{buildroot}/usr/lib/sysusers.d/basic.conf
 %endif
 
 # Disable sshd_config.d/20-systemd-userdb.conf for now.

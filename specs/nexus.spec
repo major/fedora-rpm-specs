@@ -3,7 +3,7 @@
 
 Name:           nexus
 Version:        4.4.3
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Libraries and tools for the NeXus scientific data file format
 
 # The entire source code is GPLv2+ except nxdir which is MIT
@@ -72,6 +72,8 @@ BuildRequires:  pkgconfig(readline)
 %patch -P2 -p1 -b .nxtranslate
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380952)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake \
        -DENABLE_HDF5=1 \
        -DENABLE_HDF4=1 \
@@ -119,6 +121,9 @@ rm %{buildroot}%{_libdir}/libNeXusCPP.a
 
 
 %changelog
+* Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 4.4.3-22
+- Allow to build with CMake 4.0 (rhbz#2380952)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.3-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

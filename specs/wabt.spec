@@ -1,16 +1,16 @@
 %undefine __cmake_in_source_build
 %bcond_without check
-%global commit 3e826ecde1adfba5f88d10d361131405637e65a3
+%global commit ad75c5edcdff96d73c245b57fbc07607aaca9f95
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global ts_commit cbc54d77065e5202bcb69e0d1c53ceccc29a7984
+%global ts_commit d76759e746f3564a03f6106ae19679742f2a1831
 %global ts_shortcommit %(c=%{ts_commit}; echo ${c:0:7})
 %global wc_commit b6dd1fb658a282c64b029867845bc50ae59e1497
 %global wc_shortcommit %(c=%{wc_commit}; echo ${c:0:7})
 
 Summary: The WebAssembly Binary Toolkit
 Name: wabt
-Version: 1.0.37
-Release: 2%{?dist}
+Version: 1.0.39
+Release: 1%{?dist}
 URL: https://github.com/WebAssembly/wabt
 Source0: https://github.com/WebAssembly/wabt/archive/%{version}/%{name}-%{version}.tar.gz
 Source1: https://github.com/WebAssembly/testsuite/archive/%{ts_commit}/%{name}-testsuite-%{ts_shortcommit}.tar.gz
@@ -137,6 +137,9 @@ cmake --build redhat-linux-build --verbose --target run-tests %{?_smp_mflags}
 %{_mandir}/man1/wat2wasm.1*
 
 %changelog
+* Mon Nov 17 2025 Dominik Mierzejewski <dominik@greysector.net> 1.0.39-1
+- update to 1.0.39 (resolves rhbz#2401391)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.37-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

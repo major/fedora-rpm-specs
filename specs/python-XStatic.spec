@@ -1,14 +1,19 @@
 %global pypi_name XStatic
 
 Name:           python-%{pypi_name}
-Version:        1.0.1
-Release:        40%{?dist}
+Version:        1.0.3
+Release:        %autorelease
 Summary:        XStatic base package with minimal support code
 
 License:        MIT
-URL:            http://bitbucket.org/thomaswaldmann/xstatic
-Source0:        https://pypi.python.org/packages/source/X/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
+URL:            https://github.com/xstatic-py/xstatic
+Source0:        %{pypi_source}
+
 BuildArch:      noarch
+
+BuildRequires:  python3-devel
+BuildRequires:  python3dist(setuptools)
+
 
 %description
 The goal of XStatic family of packages is to provide static
@@ -21,9 +26,7 @@ XStatic-* packages.
 
 %package -n python3-%{pypi_name}
 Summary:       XStatic base package with minimal support code
-BuildRequires: python3-devel
-BuildRequires: python3-setuptools
-%{?python_provide:%python_provide python3-%{pypi_name}}
+
 
 %description -n python3-%{pypi_name}
 
@@ -35,27 +38,38 @@ XStatic has some minimal support code for working with the
 XStatic-* packages.
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %prep
 %autosetup -n %{pypi_name}-%{version}
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
-mkdir %{buildroot}/%{python3_sitelib}/xstatic/pkg
+%pyproject_install
+%pyproject_save_files xstatic
+mkdir -p %{buildroot}%{python3_sitelib}/xstatic/pkg
 
 
-%files -n python3-%{pypi_name}
+%check
+%pyproject_check_import xstatic
+
+
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.txt
-%{python3_sitelib}/xstatic
-%{python3_sitelib}/XStatic-%{version}-py%{python3_version}.egg-info
 %{python3_sitelib}/XStatic-%{version}-py%{python3_version}-nspkg.pth
 
 
 %changelog
+* Tue Nov 04 2025 Jiri Kyjovsky <j1.kyjovsky@gmail.com> - 1.0.3-1
+- Unorphan the package and revert dead package
+- Update to 1.0.3
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0.1-40
 - Rebuilt for Python 3.14.0rc3 bytecode
 

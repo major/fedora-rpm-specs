@@ -1,7 +1,7 @@
 Name:     stevia
-Version:  0.50.1
+Version:  0.51.0
 Release:  %autorelease
-Summary:  Alternative keyboard for Phosh
+Summary:  On screen keyboard (OSK) Phosh
 License:  GPL-3.0-or-later
 URL:      https://gitlab.gnome.org/World/Phosh/stevia
 Source:   %{url}/-/archive/v%{version_no_tilde _}/%{name}-v%{version_no_tilde _}.tar.gz
@@ -39,7 +39,7 @@ BuildRequires:  words
 BuildRequires:  systemd-rpm-macros
 
 %description
-Stevia is an alternative keyboard for Phosh.
+Stevia is an on screen keyboard (OSK) for Phosh.
 
 The purpose of Stevia is:
 * to make typing pleasant and fast on touch screens

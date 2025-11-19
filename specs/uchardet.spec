@@ -2,7 +2,7 @@
 
 Name:          uchardet
 Version:       0.0.8
-Release:       8%{?dist}
+Release:       9%{?dist}
 Summary:       An encoding detector library ported from Mozilla
 
 License:       MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.0-or-later
@@ -32,6 +32,8 @@ for developing tools for uchardet.
 %autosetup
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2381619)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake \
   -DCMAKE_INSTALL_LIBDIR=%{_libdir} \
   -DBUILD_STATIC=OFF
@@ -66,6 +68,9 @@ popd
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 0.0.8-9
+- Allow to build with CMake 4.0 (rhbz#2381619)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.8-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

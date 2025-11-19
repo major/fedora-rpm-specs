@@ -1,4 +1,4 @@
-Version:        4.6.5
+Version:        4.6.6
 
 %global forgeurl https://github.com/cminyard/ser2net
 %forgemeta
@@ -70,7 +70,7 @@ install -Dpm0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/%{name}.conf
 %dir %{_sysconfdir}/%{name}
 %config(noreplace) %{_sysconfdir}/%{name}/%{name}.yaml
 %{_unitdir}/%{name}.service
-%{_sbindir}/%{name}
+%{_bindir}/%{name}
 %{_sysusersdir}/%{name}.conf
 %{_mandir}/man5/%{name}.yaml.5.gz
 %{_mandir}/man8/%{name}.8.gz

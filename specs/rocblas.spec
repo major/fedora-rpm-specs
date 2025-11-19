@@ -145,10 +145,10 @@
 Name:           rocblas
 %if %{with gitcommit}
 Version:        git%{date0}.%{shortcommit0}
-Release:        1%{?dist}
+Release:        2%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 %endif
 Summary:        BLAS implementation for ROCm
 %if %{with gitcommit}
@@ -388,6 +388,9 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library/src:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Mon Nov 17 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 7.1.0-3
+- Rebuilt for gtest 1.17.0
+
 * Wed Nov 5 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
 - Turn down verbose output on RHEL
 

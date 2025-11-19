@@ -47,10 +47,16 @@ Recommends:     /usr/bin/ffprobe
 
 Suggests:       python3dist(keyring)
 
-# Remove in Fedora 46
+# START: Remove in Fedora 46
+Provides:       yt-dlp-bash-completion = %{version}-%{release}
 Obsoletes:      yt-dlp-bash-completion < 2025.09.26-2
+
+Provides:       yt-dlp-fish-completion = %{version}-%{release}
 Obsoletes:      yt-dlp-fish-completion < 2025.09.26-2
+
+Provides:       yt-dlp-zsh-completion = %{version}-%{release}
 Obsoletes:      yt-dlp-zsh-completion < 2025.09.26-2
+# END: Remove in Fedora 46
 
 %description
 yt-dlp is a command-line program to download videos from many different online

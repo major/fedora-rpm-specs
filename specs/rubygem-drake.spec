@@ -6,7 +6,7 @@
 
 Name:           rubygem-%{gem_name}
 Version:        0.9.2.0.3.1
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        A branch of Rake supporting automatic parallelizing of tasks
 
 License:        MIT
@@ -45,6 +45,8 @@ gem unpack %{SOURCE0}
 %setup -q -D -T -n  %{gem_name}-%{version}
 gem spec %{SOURCE0} -l --ruby >%{gem_name}.gemspec
 
+# From lib/rake.rb
+%gemspec_add_dep -g logger -s %{gem_name}.gemspec
 
 %build
 gem build %{gem_name}.gemspec
@@ -90,6 +92,9 @@ chmod 644 %{buildroot}%{gem_instdir}/lib/rake/ruby182_test_unit_fix.rb
 
 
 %changelog
+* Mon Nov 17 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.9.2.0.3.1-25
+- Add logger dep explicitly for ruby4_0
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2.0.3.1-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

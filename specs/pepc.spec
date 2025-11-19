@@ -1,5 +1,5 @@
 Name:		pepc
-Version:	1.5.41
+Version:	1.6.10
 Release:	%autorelease
 Summary:	Power, Energy, and Performance Configurator
 
@@ -38,7 +38,7 @@ Pepc Python libraries
 
 %install
 %pyproject_install
-%pyproject_save_files pepclibs pepctool pepcdata
+%pyproject_save_files pepclibs pepctools pepcdata
 
 %check
 # skip heavy tests for non-x86_64 archs

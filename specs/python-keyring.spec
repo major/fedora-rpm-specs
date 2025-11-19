@@ -2,7 +2,7 @@
 %bcond desktop_tests 1
 
 Name:           python-keyring
-Version:        25.6.0
+Version:        25.7.0
 Release:        %autorelease
 Summary:        Store and access your passwords safely
 
@@ -26,6 +26,7 @@ BuildOption(check):     %{shrink:
 BuildArch:      noarch
 
 BuildRequires:  help2man
+BuildRequires:  tomcli
 
 %if %{with tests}
 %if %{with desktop_tests}
@@ -89,6 +90,15 @@ be installed.
 # This will be installed in site-packages without the executable bit set, so
 # the shebang should be removed.
 sed -r -i '1{/^#!/d}' keyring/cli.py
+
+# The coherent.licensed build dependency copies a license file from outside the
+# repository; see https://github.com/jaraco/skeleton/issues/174 for an overview
+# of how this is supposed to work. This would need some sort of workaround if
+# we were building from a GitHub source archive, since its normal operation
+# requires network access. Fortunately, we’re using the PyPI sdist, so the
+# LICENSE file is already copied in, and we can simply omit the dependency.
+tomcli set pyproject.toml lists delitem build-system.requires \
+    'coherent\.licensed\b.*'
 
 
 %install -a

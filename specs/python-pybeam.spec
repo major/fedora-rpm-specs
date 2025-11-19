@@ -1,7 +1,7 @@
 %global pypi_name pybeam
 
 Name:		python-%{pypi_name}
-Version:	0.8
+Version:	0.8.1
 Release:	%autorelease
 Summary:	Python module to parse Erlang BEAM files
 License:	MIT
@@ -11,7 +11,6 @@ Source0:	%{pypi_source %{pypi_name}}
 BuildArch:	noarch
 BuildRequires:	python3-pytest
 BuildSystem:	pyproject
-BuildOption(prep):	-n %{pypi_name}-%{version}
 BuildOption(install):	-l %{pypi_name}
 
 %description

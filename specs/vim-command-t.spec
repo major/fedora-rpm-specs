@@ -2,7 +2,7 @@
 
 Name: vim-command-t
 Version: 5.0.5
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: An extremely fast, intuitive mechanism for opening files in VIM
 License: BSD-2-Clause
 URL: https://github.com/wincent/command-t
@@ -28,6 +28,7 @@ BuildRequires: make
 BuildRequires: ruby(release)
 BuildRequires: ruby-devel
 BuildRequires: rubygems
+BuildRequires: rubygem(ostruct)
 BuildRequires: rubygem(rspec) >= 3
 BuildRequires: gcc
 # Defines %%vimfiles_root
@@ -110,6 +111,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
+* Mon Nov 17 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.0.5-5
+- Add BR: rubygem(ostruct) for ruby4_0
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

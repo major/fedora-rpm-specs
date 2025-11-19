@@ -518,6 +518,23 @@ skip="${skip-} --skip parallel_join::execute_cancellation"
 skip="${skip-} --skip parallel_map::execute_cancellation"
 skip="${skip-} --skip parallel_scope::execute_cancellation"
 
+# These tests are flaky, e.g.:
+#   thread 'python_environment::ty_environment_and_discovered_venv' panicked at
+#     /usr/share/cargo/registry/insta-cmd-0.6.0/src/spawn.rs:103:27:
+#   called `Result::unwrap()` on an `Err` value: Os { code: 26, kind:
+#     ExecutableFileBusy, message: "Text file busy" }
+# This seems to be a testing issue, since the panic comes from insta. It might
+# be fixed by using “cargo nextest” instead of “cargo test,” as upstream does,
+# since nextest has better test isolation. For now, we skip these and move on.
+# Confirmed flaky on ppc64le:
+skip="${skip-} --skip python_environment::ty_environment_and_active_environment"
+# Confirmed flaky on ppc64le:
+skip="${skip-} --skip python_environment::ty_environment_and_discovered_venv"
+# Confirmed flaky on ppc64le and x86_64:
+skip="${skip-} --skip python_environment::ty_environment_is_only_environment"
+# Not confirmed flaky, but the other ty_environment_* ones are, so…
+skip="${skip-} --skip python_environment::ty_environment_is_system_not_virtual"
+
 %cargo_test -- -- ${skip-}
 %endif
 

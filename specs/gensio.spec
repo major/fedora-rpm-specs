@@ -1,4 +1,4 @@
-Version:        2.8.15
+Version:        3.0.1
 
 %global forgeurl https://github.com/cminyard/gensio
 %forgemeta
@@ -153,6 +153,7 @@ install -Dpm 0644 tools/gtlsshd.service %{buildroot}/%{_unitdir}/gtlsshd.service
 %{_bindir}/gagwpe
 %{_bindir}/gmdns
 %{_bindir}/greflector
+%{_bindir}/gsh
 %{_bindir}/gsound
 %{_bindir}/gtlssh
 %{_bindir}/gtlssh-keygen
@@ -161,12 +162,12 @@ install -Dpm 0644 tools/gtlsshd.service %{buildroot}/%{_unitdir}/gtlsshd.service
 %{_mandir}/man1/%{name}t.1.gz
 %{_mandir}/man1/gmdns.1.gz
 %{_mandir}/man1/greflector.1.gz
+%{_mandir}/man1/gsh.1.gz
 %{_mandir}/man1/gsound.1.gz
 %{_mandir}/man1/gtlssh-keygen.1.gz
 %{_mandir}/man1/gtlssh.1.gz
 %{_mandir}/man1/gtlssync.1.gz
 %{_mandir}/man5/%{name}.5.gz
-%{_mandir}/man5/ser%{name}.5.gz
 %{_mandir}/man8/gtlsshd.8.gz
 %{_unitdir}/gtlsshd.service
 
@@ -184,6 +185,7 @@ install -Dpm 0644 tools/gtlsshd.service %{buildroot}/%{_unitdir}/gtlsshd.service
 %{_libexecdir}/%{name}/%{version}/lib%{name}_afskmdm.so
 %{_libexecdir}/%{name}/%{version}/lib%{name}_ax25.so
 %{_libexecdir}/%{name}/%{version}/lib%{name}_certauth.so
+%{_libexecdir}/%{name}/%{version}/lib%{name}_chardelay.so
 %{_libexecdir}/%{name}/%{version}/lib%{name}_cm108gpio.so
 %{_libexecdir}/%{name}/%{version}/lib%{name}_conacc.so
 %{_libexecdir}/%{name}/%{version}/lib%{name}_dgram.so
@@ -216,7 +218,6 @@ install -Dpm 0644 tools/gtlsshd.service %{buildroot}/%{_unitdir}/gtlsshd.service
 %{_libdir}/lib%{name}*.so
 %{_libdir}/pkgconfig/lib%{name}*.pc
 %{_mandir}/man3/%{name}*
-%{_mandir}/man3/ser%{name}*
 %{_mandir}/man3/str_to_%{name}.3.gz
 %{_mandir}/man3/str_to_%{name}_accepter.3.gz
 %{_mandir}/man3/str_to_%{name}_accepter_child.3.gz

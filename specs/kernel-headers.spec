@@ -5,10 +5,10 @@
 
 # define buildid .local
 %define specversion 6.18.0
-%define tarfile_release 6.18-rc5
+%define tarfile_release 6.18-rc6
 # This is needed to do merge window version magic
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc5.44%{?buildid}%{?dist}
+%define specrelease 0.rc6.51%{?buildid}%{?dist}
 
 # This package doesn't contain any binary, thus no debuginfo package is needed
 %global debug_package %{nil}
@@ -57,7 +57,7 @@ cross-glibc package.
 
 %install
 # List of architectures we support and want to copy their headers
-ARCH_LIST="arm arm64 powerpc riscv s390 x86"
+ARCH_LIST="arm arm64 loongarch powerpc riscv s390 x86"
 
 ARCH=%_target_cpu
 case $ARCH in
@@ -66,6 +66,9 @@ case $ARCH in
 		;;
 	aarch64)
 		ARCH=arm64
+		;;
+	loongarch64*)
+		ARCH=loongarch
 		;;
 	ppc64*)
 		ARCH=powerpc

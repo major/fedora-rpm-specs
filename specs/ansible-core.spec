@@ -13,7 +13,7 @@
 %undefine _py3_shebang_s
 
 Name:           ansible-core
-Version:        2.18.9
+Version:        2.18.11
 %global uversion %{version_no_tilde %{quote:%nil}}
 Release:        1%{?dist}
 Summary:        A radically simple IT automation system
@@ -265,6 +265,9 @@ install -Dpm 0644 licenses/* -t %{buildroot}%{_pkglicensedir}
 
 
 %changelog
+* Mon Nov 17 2025 Packit <hello@packit.dev> - 2.18.11-1
+- Update to version 2.18.11
+
 * Sat Sep 27 2025 Maxwell G <maxwell@gtmx.me> - 2.18.9-1
 - Update to 2.18.9.
 

@@ -4,7 +4,7 @@
 
 Name:           procenv
 Version:        0.60
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Utility to show process environment
 
 License:        GPL-3.0-or-later
@@ -28,6 +28,8 @@ process runs in, and for comparing system environments.
 %setup -q
 
 %build
+# See https://github.com/jamesodhunt/procenv/issues/39
+export CFLAGS="$CFLAGS -Wno-error=address"
 %configure
 %make_build
 
@@ -45,6 +47,9 @@ make check
 %license COPYING
 
 %changelog
+* Mon Nov 17 2025 Dave Love <loveshack@fedoraproject.org> - 0.60-13
+- Fix FTBFS in rawhide
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.60-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

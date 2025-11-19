@@ -10,7 +10,7 @@
 
 # Only the package for the latest dotnet version should provide RPMs like
 # dotnet-host and netstandard-targeting-pack-2.1
-%global is_latest_dotnet 1
+%global is_latest_dotnet 0
 
 # upstream can produce releases with a different tag than the SDK version
 #%%global upstream_tag v%%{runtime_version}
@@ -453,9 +453,7 @@ applications using the .NET SDK.
 %dotnet_targeting_pack dotnet-apphost-pack-%{dotnetver} %{runtime_rpm_version} Microsoft.NETCore.App %{dotnetver} Microsoft.NETCore.App.Host.%{runtime_id}
 %dotnet_targeting_pack dotnet-targeting-pack-%{dotnetver} %{runtime_rpm_version} Microsoft.NETCore.App %{dotnetver} Microsoft.NETCore.App.Ref
 %dotnet_targeting_pack aspnetcore-targeting-pack-%{dotnetver} %{aspnetcore_runtime_rpm_version} Microsoft.AspNetCore.App %{dotnetver} Microsoft.AspNetCore.App.Ref
-%if %{is_latest_dotnet}
 %dotnet_targeting_pack netstandard-targeting-pack-2.1 %{sdk_rpm_version} NETStandard.Library 2.1 NETStandard.Library.Ref
-%endif
 
 
 %package -n dotnet-sdk-%{dotnetver}-source-built-artifacts
@@ -802,8 +800,6 @@ find %{buildroot}%{_libdir}/dotnet/sdk -type f -name '*.pdb'  | sed -E 's|%{buil
 rm %{buildroot}%{_libdir}/dotnet/LICENSE.txt
 rm %{buildroot}%{_libdir}/dotnet/ThirdPartyNotices.txt
 rm %{buildroot}%{_libdir}/dotnet/dotnet
-# Provided by netstandard-targeting-pack-2.1 from another SRPM
-rm -rf %{buildroot}%{_libdir}/dotnet/packs/NETStandard.Library.Ref/2.1.0
 %endif
 
 

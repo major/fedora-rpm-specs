@@ -1,12 +1,14 @@
 Name:           tomcat-jakartaee-migration
 Version:        1.0.9
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Tomcat Migration Tool for Jakarta EE
 
 License:        Apache-2.0
 URL:            http://tomcat.apache.org/
 Source0:        http://www.apache.org/dist/tomcat/jakartaee-migration/v%{version}/source/jakartaee-migration-%{version}-src.tar.gz
 Source1:        javax2jakarta
+# Do not generate manifest Class-Path, we rely on system-installed JARs
+Patch0:         tomcat-jakartaee-migration-1.0.9-no-manifest-classpath.patch
 
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -37,6 +39,7 @@ API documentation for %{name}.
 
 %prep
 %setup -q -n jakartaee-migration-%{version}
+%patch 0 -p0
 %pom_remove_plugin :maven-javadoc-plugin
 %pom_remove_plugin org.jacoco:jacoco-maven-plugin
 
@@ -62,6 +65,9 @@ API documentation for %{name}.
 %license LICENSE.txt
 
 %changelog
+* Mon Nov 17 2025 Dimitris Soumis <dsoumis@redhat.com> - 1.0.9-8
+- Disable manifest Class-Path in jakartaee-migration.jar to match Fedora system-JAR layout
+
 * Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 1.0.9-7
 - Rebuilt for java-25-openjdk as preffered jdk
 

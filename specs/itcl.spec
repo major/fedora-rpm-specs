@@ -1,9 +1,9 @@
-%{!?tcl_version: %define tcl_version %(echo 'puts $tcl_version' | tclsh)}
+%{!?tcl_version: %define tcl_version %(echo 'puts $tcl_version' | tclsh || echo 0)}
 %{!?tcl_sitearch: %define tcl_sitearch %{_libdir}/tcl%{tcl_version}}
 
 Name:           itcl
 Version:        4.3.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Object oriented extensions to Tcl and Tk
 
 License:        TCL
@@ -12,10 +12,10 @@ Source0:        https://downloads.sourceforge.net/incrtcl/itcl%{version}.tar.gz
 Patch1:         itcl-libdir.patch
 Patch2:         itcl-soname.patch
 
-Requires:       tcl(abi) = 8.6
+Requires:       tcl(abi) = %{tcl_version}
 BuildRequires:  gcc
 BuildRequires:  tcl-devel >= 1:8.6
-BuildRequires: make
+BuildRequires:  make
 
 %description
 [incr Tcl] is Tcl extension that provides object-oriented features that are
@@ -38,10 +38,11 @@ Development headers and libraries for linking against itcl.
 
 %install
 %make_install
+chmod +x '%{buildroot}%{tcl_sitearch}/%{name}%{version}/'*.so
 
 # Patch the updated location of the stub library
 sed -i -e "s#%{_libdir}/%{name}%{version}#%{tcl_sitearch}/%{name}%{version}#" \
-        $RPM_BUILD_ROOT%{_libdir}/itclConfig.sh
+        '%{buildroot}%{_libdir}/itclConfig.sh'
 
 %check
 make test
@@ -61,6 +62,11 @@ make test
 %{_libdir}/itclConfig.sh
 
 %changelog
+* Sun Nov 16 2025 Patrick Monnerat <patrick@monnerat.net> 4.3.2-2
+- Include shared library info in debuginfo subpackage.
+- Require proper Tcl ABI version.
+  https://bugzilla.redhat.com/show_bug.cgi?id=2337721
+
 * Fri Aug 15 2025 Dmitrij S. Kryzhevich <kryzhev@ispms.ru> - 4.3.2-1
 - Update to new 4.3.2.
 

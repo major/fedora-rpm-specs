@@ -1,14 +1,13 @@
 %global __cmake_in_source_build 1
 Summary:        A freely licensed alternative to the GLUT library
 Name:           freeglut
-Version:        3.6.0
-Release:        6%{?dist}
+Version:        3.8.0
+Release:        1%{?dist}
 URL:            http://freeglut.sourceforge.net
 Source0:        https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 # For the manpages
 Source1:        https://downloads.sourceforge.net/openglut/openglut-0.6.3-doc.tar.gz
 Patch0:         common.patch
-Patch1:         0001-egl-fix-fgPlatformDestroyContext-prototype-for-C23.patch
 
 License:        MIT
 
@@ -55,7 +54,6 @@ license.
 %prep
 %setup -q -a 1
 %patch -P 0 -p0
-%patch -P 1 -p1
 
 %build
 %cmake -DFREEGLUT_BUILD_STATIC_LIBS=OFF -DCMAKE_POLICY_VERSION_MINIMUM=3.5 .
@@ -87,6 +85,9 @@ install -p -m 644 doc/man/*.3 $RPM_BUILD_ROOT/%{_mandir}/man3
 %{_libdir}/cmake/FreeGLUT/*
 
 %changelog
+* Mon Nov 17 2025 Gwyn Ciesla <gwync@protonmail.com> - 3.8.0-1
+- 3.8.0
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

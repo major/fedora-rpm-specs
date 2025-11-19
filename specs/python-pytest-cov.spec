@@ -23,7 +23,7 @@ pytest-cov’s command line options or through coverage’s config file.
 %bcond_without tests
 
 Name:           python-%{srcname}
-Version:        5.0.0
+Version:        7.0.0
 %forgemeta
 Release:        %autorelease
 Summary:        Coverage plugin for pytest
@@ -42,9 +42,6 @@ Summary: %{summary}
 
 %prep
 %forgeautosetup -p1
-# The “hunter” testing dependency (https://github.com/ionelmc/python-hunter) is
-# not packaged, but it also does not seem to be used.
-sed -r -i '/^[[:blank:]]*.hunter.,[[:blank:]]*$/d' setup.py
 
 %generate_buildrequires
 %pyproject_buildrequires -r %{?with_tests:-x testing}
@@ -60,11 +57,16 @@ sed -r -i '/^[[:blank:]]*.hunter.,[[:blank:]]*$/d' setup.py
 %check
 k="$(awk 'NR>1 {pre=" and " } { printf "%snot %s", pre, $0 }' <<EOF
 test_append_coverage_subprocess
+test_celery
 test_central_subprocess
 test_cleanup_on_sigterm
-test_dist_missing_data
+test_contexts[nodist]
+test_contexts[1xdist]
+test_contexts[2xdist]
+test_contexts[3xdist]
 test_dist_subprocess_collocated
 test_dist_subprocess_not_collocated
+test_filterwarnings_error
 test_subprocess_with_path_aliasing
 EOF
 )"
@@ -74,7 +76,6 @@ EOF
 %files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE
 %doc *.rst
-%{python3_sitelib}/%{srcname}.pth
 
 %changelog
 %autochangelog

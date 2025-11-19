@@ -7,7 +7,7 @@
 %global crate sudo-rs
 
 Name:           sudo-rs
-Version:        0.2.9
+Version:        0.2.10
 Release:        %autorelease
 Summary:        Memory safe implementation of sudo and su
 

@@ -176,13 +176,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.18.0
 %define specversion 6.18.0
 %define patchversion 6.18
-%define pkgrelease 0.rc5.251114g6da43bbeb6918.48
+%define pkgrelease 0.rc6.51
 %define kversion 6
-%define tarfile_release 6.18-rc5-214-g6da43bbeb6918
+%define tarfile_release 6.18-rc6
 # This is needed to do merge window version magic
 %define patchlevel 18
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc5.251114g6da43bbeb6918.48%{?buildid}%{?dist}
+%define specrelease 0.rc6.51%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.18.0
 
@@ -4506,13 +4506,20 @@ fi\
 #
 #
 %changelog
-* Fri Nov 14 2025 Justin M. Forbes <jforbes@fedoraproject.org> [6.18.0-0.rc5.251114g6da43bbeb6918.48]
-- Linux v6.18.0-0.rc5.251114g6da43bbeb6918
-
-* Fri Nov 14 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc5.6da43bbeb691.48]
-- gendwarfksyms: Skip files with no exports (Sami Tolvanen)
+* Mon Nov 17 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc6.51]
 - powerpc/tools: drop `-o pipefail` in gcc check scripts (Jan Stancek)
 - redhat/configs: clang_lto: disable CONFIG_FORTIFY_KUNIT_TEST (Scott Weaver)
+
+* Mon Nov 17 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc6.50]
+- Linux v6.18.0-0.rc6
+
+* Sun Nov 16 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc5.f824272b6e3f.49]
+- redhat/configs: enable Micel PHY for NXP Automotive SoCs S32G2xx/S32G3xx/S32R45 (Alessandro Carminati)
+- redhat/configs: enable Synopsis DWMAC IP on NXP Automotive SoCs S32G2xx/S32G3xx/S32R45 (Alessandro Carminati)
+- Linux v6.18.0-0.rc5.f824272b6e3f
+
+* Sat Nov 15 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc5.7a0892d2836e.48]
+- Linux v6.18.0-0.rc5.7a0892d2836e
 
 * Fri Nov 14 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc5.6da43bbeb691.47]
 - Linux v6.18.0-0.rc5.6da43bbeb691

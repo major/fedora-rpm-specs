@@ -33,7 +33,7 @@ in Unicode.\
 
 Name:           %{fontname}-fonts
 Version:        %{rpmver}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Hinted and Non Hinted OpenType fonts for Unicode scripts
 License:        OFL-1.1
 URL:            https://notofonts.github.io/
@@ -106,7 +106,7 @@ local subpackages = {
     { alias="sans-serif", family="Sans Arabic",
       default=true, fallback={ "monospace" }
     },
-    { alias="sans-serif", family="Sans Arabic UI",
+    { alias="system-ui",  family="Sans Arabic UI",
       priority=rpm.expand('%{lprio}'), nogroup=1,
     },
     { alias="sans-serif", family="Sans Armenian", lang={ "hy" },
@@ -122,7 +122,7 @@ local subpackages = {
     { alias="sans-serif", family="Sans Bengali", lang={ "as", "bn", "mni" },
       default=true, fallback={ "monospace" }
     },
-    { alias="sans-serif", family="Sans Bengali UI", lang={ "as", "bn", "mni" },
+    { alias="system-ui",  family="Sans Bengali UI", lang={ "as", "bn", "mni" },
       priority=rpm.expand('%{lprio}'), nogroup=1,
       obsoletes={ "sans-bengali-ui-vf" },
     },
@@ -161,7 +161,7 @@ local subpackages = {
     { alias="sans-serif", family="Sans Devanagari", lang={ "bh", "bho", "brx", "doi", "hi", "hne", "kok", "ks@devanagari", "mai", "mr", "ne", "sa", "sat", "sd@devanagari" },
       default=true, fallback={ "monospace" }
     },
-    { alias="sans-serif", family="Sans Devanagari UI", lang={ "bh", "bho", "brx", "doi", "hi", "hne", "kok", "ks@devanagari", "mai", "mr", "ne", "sa", "sat", "sd@devanagari" },
+    { alias="system-ui",  family="Sans Devanagari UI", lang={ "bh", "bho", "brx", "doi", "hi", "hne", "kok", "ks@devanagari", "mai", "mr", "ne", "sa", "sat", "sd@devanagari" },
       priority=rpm.expand('%{lprio}'), nogroup=1,
       obsoletes={ "sans-devanagari-ui-vf" }
     },
@@ -187,14 +187,14 @@ local subpackages = {
     { alias="sans-serif", family="Sans Gujarati", lang={ "gu" },
       default=true, fallback={ "monospace" }
     },
-    { alias="sans-serif", family="Sans Gujarati UI", lang={ "gu" },
+    { alias="system-ui",  family="Sans Gujarati UI", lang={ "gu" },
       priority=rpm.expand('%{lprio}'), nogroup=1
     },
     { alias="sans-serif", family="Sans Gunjala Gondi" },
     { alias="sans-serif", family="Sans Gurmukhi", lang={ "pa" },
       default=true
     },
-    { alias="sans-serif", family="Sans Gurmukhi UI", lang={ "pa" },
+    { alias="system-ui",  family="Sans Gurmukhi UI", lang={ "pa" },
       priority=rpm.expand('%{lprio}'), nogroup=1,
       obsoletes={ "sans-gurmukhi-ui-vf" },
     },
@@ -220,7 +220,7 @@ local subpackages = {
     { alias="sans-serif", family="Sans Kannada", lang={ "kn" },
       default=true, fallback={ "monospace" }
     },
-    { alias="sans-serif", family="Sans Kannada UI", lang={ "kn" },
+    { alias="system-ui",  family="Sans Kannada UI", lang={ "kn" },
       priority=rpm.expand('%{lprio}'), nogroup=1,
     },
     { alias="sans-serif", family="Sans Kawi" },
@@ -256,7 +256,7 @@ local subpackages = {
     },
     { alias="sans-serif", family="Sans Mahajani" },
     { alias="sans-serif", family="Sans Malayalam", lang={ "ml" } },
-    { alias="sans-serif", family="Sans Malayalam UI", lang={ "ml" },
+    { alias="system-ui",  family="Sans Malayalam UI", lang={ "ml" },
       priority=rpm.expand('%{lprio}'), nogroup=1,
     },
     { alias="sans-serif", family="Sans Mandaic",
@@ -354,7 +354,7 @@ local subpackages = {
       default=true, fallback={ "monospace" },
       fcconfexfile=rpm.expand('%{SOURCE8}')
     },
-    { alias="sans-serif", family="Sans Sinhala UI", lang={ "si" },
+    { alias="system-ui",  family="Sans Sinhala UI", lang={ "si" },
       priority=rpm.expand('%{lprio}'), nogroup=1,
       obsoletes={ "sans-sinhala-ui-vf" },
     },
@@ -389,14 +389,14 @@ local subpackages = {
     { alias="sans-serif", family="Sans Tamil Supplement", lang={ "ta" },
       excludeci=true, nogroup=1
     },
-    { alias="sans-serif", family="Sans Tamil UI", lang={ "ta" },
+    { alias="system-ui",  family="Sans Tamil UI", lang={ "ta" },
       priority=rpm.expand('%{lprio}'), nogroup=1
     },
     { alias="sans-serif", family="Sans Tangsa" },
     { alias="sans-serif", family="Sans Telugu", lang={ "te" },
       default=true, fallback= { "monospace" }
     },
-    { alias="sans-serif", family="Sans Telugu UI", lang={ "te" },
+    { alias="system-ui",  family="Sans Telugu UI", lang={ "te" },
       priority=rpm.expand('%{lprio}'), nogroup=1,
     },
     { alias="sans-serif", family="Sans Thaana", lang={ "dv" },
@@ -446,7 +446,7 @@ local subpackages = {
       fcconfexfile=rpm.expand('%{SOURCE3}'),
       default=true
     },
-    { alias="serif",      family="Naskh Arabic UI",
+    { alias="system-ui",  family="Naskh Arabic UI",
       priority=rpm.expand('%{lprio}')
     },
     { alias="serif",      family="Serif",
@@ -555,7 +555,7 @@ local subpackages = {
     { alias="sans-serif", variable=true, family="Sans Arabic",
       default=true, fallback={ "monospace" }
     },
-    { alias="sans-serif", variable=true, family="Sans Arabic UI",
+    { alias="system-ui",  variable=true, family="Sans Arabic UI",
       priority=rpm.expand('%{lprio}'), nogroup=1,
     },
     { alias="sans-serif", variable=true, family="Sans Armenian", lang={ "hy" },
@@ -600,7 +600,7 @@ local subpackages = {
     { alias="sans-serif", variable=true, family="Sans Kannada", lang={ "kn" },
       default=true, fallback={ "monospace" }
     },
-    { alias="sans-serif", variable=true, family="Sans Kannada UI", lang={ "kn" },
+    { alias="system-ui",  variable=true, family="Sans Kannada UI", lang={ "kn" },
       priority=rpm.expand('%{lprio}'), nogroup=1,
       fontname="SansKannada-UI",
     },
@@ -620,7 +620,7 @@ local subpackages = {
     { alias="sans-serif", variable=true, family="Sans Lisu" },
     { alias="sans-serif", variable=true, family="Sans Nag Mundari" },
     { alias="sans-serif", variable=true, family="Sans Malayalam", lang={ "ml" } },
-    { alias="sans-serif", variable=true, family="Sans Malayalam UI", lang={ "ml" },
+    { alias="system-ui",  variable=true, family="Sans Malayalam UI", lang={ "ml" },
       priority=rpm.expand('%{lprio}'), nogroup=1,
       fontname="SansMalayalam-UI",
     },
@@ -657,7 +657,7 @@ local subpackages = {
       obsoletes={ "sans-tamil-supplement-vf" },
       default=true, fallback={ "monospace" }
     },
-    { alias="sans-serif", variable=true, family="Sans Tamil UI", lang={ "ta" },
+    { alias="system-ui",  variable=true, family="Sans Tamil UI", lang={ "ta" },
       priority=rpm.expand('%{lprio}'), nogroup=1,
       fontname="SansTamil-UI",
     },
@@ -665,7 +665,7 @@ local subpackages = {
     { alias="sans-serif", variable=true, family="Sans Telugu", lang={ "te" },
       default=true, fallback={ "monospace" }
     },
-    { alias="sans-serif", variable=true, family="Sans Telugu UI", lang={ "te" },
+    { alias="system-ui",  variable=true, family="Sans Telugu UI", lang={ "te" },
       priority=rpm.expand('%{lprio}'), nogroup=1,
       fontname="SansTelugu-UI",
     },
@@ -684,7 +684,7 @@ local subpackages = {
       fcconfexfile=rpm.expand('%{SOURCE3}'),
       default=true
     },
-    { alias="serif",      variable=true, family="Naskh Arabic UI",
+    { alias="sytem-ui",   variable=true, family="Naskh Arabic UI",
       priority=rpm.expand('%{lprio}'), nogroup=1
     },
     { alias="serif",      variable=true, family="Serif",
@@ -1223,6 +1223,10 @@ done
 
 
 %changelog
+* Mon Nov 17 2025 Akira TAGOH <tagoh@redhat.com> - 20251101-3
+- Change the generic alias for UI fonts to system-ui.
+  Resolves: rhbz#2402101
+
 * Wed Nov 12 2025 Akira TAGOH <tagoh@redhat.com> - 20251101-2
 - Change the config priority for Georgian to avoid unexpected overwritten with
   dejavu-sans-mono-fonts for example.

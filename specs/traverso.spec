@@ -15,7 +15,7 @@
 
 Name:           traverso
 Version:        0.49.6
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Multitrack Audio Recording and Editing Suite
 
 License:        GPL-2.0-or-later
@@ -94,6 +94,8 @@ sed -i 's|libslv2|slv2|g' CMakeLists.txt
 
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2381612)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 # Build the actual program
 %{cmake}                                               \
          -DWANT_MP3_ENCODE=ON                          \
@@ -141,6 +143,9 @@ install -pm 644 resources/x-%{name}.xml %{buildroot}%{_datadir}/mime/packages/
 %{_datadir}/mime/packages/*.xml
 
 %changelog
+* Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 0.49.6-18
+- Allow to build with CMake 4.0 (rhbz#2381612)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.49.6-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

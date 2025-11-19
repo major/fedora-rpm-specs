@@ -12,7 +12,7 @@
 Summary: The exim mail transfer agent
 Name: exim
 Version: 4.99
-Release: 1%{?dist}
+Release: 2%{?dist}
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
 License: GPL-2.0-or-later
 Url: https://www.exim.org/
@@ -240,10 +240,10 @@ do
 done
 
 mkdir -p $RPM_BUILD_ROOT%{_libdir}/exim/%{version}-%{release}/lookups
-for i in mysql.so pgsql.so
+for i in mysql pgsql
 do 
-	install -m755 lookups/$i \
-	 $RPM_BUILD_ROOT%{_libdir}/exim/%{version}-%{release}/lookups
+	install -m755 lookups/${i}.so \
+	 $RPM_BUILD_ROOT%{_libdir}/exim/%{version}-%{release}/lookups/${i}_lookup.so
 done
 
 cd ..
@@ -462,10 +462,10 @@ fi
 %{_sysusersdir}/exim.conf
 
 %files mysql
-%{_libdir}/exim/%{version}-%{release}/lookups/mysql.so
+%{_libdir}/exim/%{version}-%{release}/lookups/mysql_lookup.so
 
 %files pgsql
-%{_libdir}/exim/%{version}-%{release}/lookups/pgsql.so
+%{_libdir}/exim/%{version}-%{release}/lookups/pgsql_lookup.so
 
 %files mon
 %{_sbindir}/eximon
@@ -512,6 +512,10 @@ fi
 %{_sysconfdir}/cron.daily/greylist-tidy.sh
 
 %changelog
+* Mon Nov 17 2025 Jaroslav Škarvada  <jskarvad@redhat.com> - 4.99-2
+- Fixed lookup libraries names
+  Resolves: rhbz#2415008
+
 * Tue Nov 04 2025 Jaroslav Škarvada  <jskarvad@redhat.com> - 4.99-1
 - New version
   Resolves: rhbz#2406726

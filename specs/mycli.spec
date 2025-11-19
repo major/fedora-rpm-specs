@@ -1,18 +1,15 @@
 %global         pypi_name mycli
 Summary:        Interactive CLI for MySQL Database with auto-completion and syntax highlighting
 Name:           mycli
-Version:        1.37.1
-Release:        3%{?dist}
+Version:        1.41.1
+Release:        1%{?dist}
 # Automatically converted from old format: BSD - review is highly recommended.
 License:        LicenseRef-Callaway-BSD
 URL:            https://mycli.net
 Source0:        %{pypi_source}
-Patch1:         0001-SQL-quote-test-fix.patch
-Patch2:         0002-Switch-from-pyaes-to-pycryptodomex.patch
-Patch4:         0004-Python-3.13.patch
-Patch5:         0005-Revert-to-sqlglot-5.1.3.patch
-Patch6:         0006-Revert-to-older-toml-format.patch
-Patch7:         0007-Relax-click-reqs.patch
+Patch:          0001-Revert-to-sqlglot-5.1.3.patch
+Patch:          0002-Revert-to-older-toml-format.patch
+Patch:          0003-Relax-click-reqs.patch
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  pyproject-rpm-macros
@@ -28,6 +25,7 @@ BuildRequires:  python3dist(configobj) >= 5.0.5
 BuildRequires:  python3dist(pycryptodomex)
 BuildRequires:  python3dist(pymysql) >= 0.9.2
 BuildRequires:  python3dist(pyperclip)
+BuildRequires:  python3dist(sshtunnel)
 Suggests:       python3-mycli+ssh
 %py_provides    python3-%{pypi_name}
 
@@ -35,19 +33,19 @@ Suggests:       python3-mycli+ssh
 Nice interactive shell for MySQL Database with auto-completion and
 syntax highlighting.
 
+
 %pyproject_extras_subpkg -n python3-%{pypi_name} ssh
-%generate_buildrequires
-%pyproject_buildrequires -x ssh
+
+%pyproject_extras_subpkg -n python3-%{pypi_name} llm
 
 %prep
-%autosetup -N -p1
-%if 0%{?fedora} > 42
-%autopatch -p1 -m 2
-%else
-%autopatch -p1 -m 1
-%endif
+%autosetup -p1
+
 %build
 %pyproject_wheel
+
+%generate_buildrequires
+%pyproject_buildrequires -x ssh -x llm
 
 %install
 %pyproject_install
@@ -62,6 +60,9 @@ syntax highlighting.
 %{_bindir}/%{pypi_name}
 
 %changelog
+* Mon Nov 17 2025 Terje Rosten <terjeros@gmail.com> - 1.41.1-1
+- 1.41.1
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.37.1-3
 - Rebuilt for Python 3.14.0rc3 bytecode
 

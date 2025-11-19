@@ -49,7 +49,7 @@ This package contains the full API documentation for python3-%{srcname}.
 %autosetup -n %{srcname}-%{version} -p1
 
 %generate_buildrequires
-%pyproject_buildrequires -x test
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel

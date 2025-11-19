@@ -4,7 +4,7 @@
 
 Name:           svt-vp9
 Version:        0.3.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Scalable Video Technology for VP9 Encoder
 
 # ISC license for Source/Lib/ASM_SSE2/x86inc.asm
@@ -61,6 +61,8 @@ sed -e "s|install: true,|install: true, include_directories : [ include_director
 
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380809)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake -G Ninja \
     -DCMAKE_SKIP_BUILD_RPATH=TRUE
 %cmake_build
@@ -97,6 +99,9 @@ popd
 %{_libdir}/gstreamer-1.0/libgstsvtvp9enc.so
 
 %changelog
+* Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 0.3.0-16
+- Allow to build with CMake 4.0 (rhbz#2380809)
+
 * Tue Jul 29 2025 Dominik Mierzejewski <dominik@greysector.net> - 0.3.0-15
 - use nasm instead of unmaintained yasm, see:
   https://fedoraproject.org/wiki/Changes/DeprecateYASM

@@ -12,7 +12,7 @@
 
 Name: criu
 Version: 4.2
-Release: 1%{?dist}
+Release: 11%{?dist}
 Summary: Tool for Checkpoint/Restore in User-space
 License: GPL-2.0-only AND LGPL-2.1-only AND MIT
 URL: http://criu.org/
@@ -185,7 +185,10 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libcriu.a
 %tmpfiles_create %{name}.conf
 
 %changelog
-* Mon Nov 17 2025 Adrian Reber <adrian@lisas.de> - 4.2
+* Mon Nov 17 2025 Cristian Le <git@lecris.dev> - 4.2-11
+- Convert STI tests to TMT (rhbz#2382879)
+
+* Mon Nov 17 2025 Adrian Reber <adrian@lisas.de> - 4.2-5
 - Update to 4.2
 
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.1.1-4

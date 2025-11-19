@@ -13,7 +13,7 @@
 %undefine	betaver
 %define	betarel	%(echo %betaver | sed -e 's|-|_|' | sed -e 's|^_||')
 
-%global	baserelease	16
+%global	baserelease	17
 
 %undefine        _changelog_trimtime
 
@@ -143,6 +143,12 @@ sed -i.ruby3 skf_convert.h \
 sed -i configure.ac configure \
 	-e '\@^[ \t][ \t]*ruby_19_preferred="yes"@i ruby_21_preferred="yes";@' \
 	-e '\@^RUBY=.*false@d' \
+	%{nil}
+
+# Support ruby4
+sed -i.ruby4 \
+	skf_convert.i config.h.in \
+	-e 's@|| defined(SKF_RUBY3)@|| defined(SKF_RUBY3) || defined(SKF_RUBY4)@' \
 	%{nil}
 
 ## configure option, etc
@@ -359,6 +365,9 @@ sh %{SOURCE1}
 %{perl_vendorarch}/auto/skf/
 
 %changelog
+* Mon Nov 17 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.10.16-17
+- Support ruby4
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.10.16-16
 - Rebuilt for Python 3.14.0rc3 bytecode
 

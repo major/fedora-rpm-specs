@@ -1,5 +1,5 @@
 Name:           qalculate-qt
-Version:        5.8.1
+Version:        5.8.2
 Release:        %autorelease
 Summary:        Powerful and easy to use calculator
 # For translations, check data/io.github.Qalculate.qalculate-qt.metainfo.xml.

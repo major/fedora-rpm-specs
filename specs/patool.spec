@@ -18,8 +18,11 @@ BuildRequires:  tomcli
 
 BuildRequires:  /usr/bin/7z
 BuildRequires:  /usr/bin/7za
+# Provided by 7zip in F43+
+%if 0%{?fedora} > 42
 BuildRequires:  /usr/bin/7zr
 BuildRequires:  /usr/bin/7zz
+%endif
 BuildRequires:  /usr/bin/ar
 BuildRequires:  /usr/bin/arc
 BuildRequires:  /usr/bin/arj
@@ -62,9 +65,15 @@ BuildRequires:  /usr/bin/zopfli
 BuildRequires:  /usr/bin/zpaq
 
 Requires:       python3-%{name}
+Recommends:     python3-%{name}+argcompletion
 
 Recommends:     /usr/bin/7z
 Recommends:     /usr/bin/7za
+# Provided by 7zip in F43+
+%if 0%{?fedora} > 42
+Recommends:     /usr/bin/7zr
+Recommends:     /usr/bin/7zz
+%endif
 Recommends:     /usr/bin/ar
 Recommends:     /usr/bin/bsdcpio
 Recommends:     /usr/bin/bsdtar
@@ -151,6 +160,12 @@ Summary:        %{summary}
 
 %description -n python3-%{name} %{_description}
 
+# Add the completion scripts to the extras subpackage.
+# While argcompletion is recommended, patool works without it.
+%pyproject_extras_subpkg -n python3-patool argcompletion
+%config(noreplace) %{bash_completions_dir}/patool.bash
+%config(noreplace) %{fish_completions_dir}/patool.fish
+
 %prep
 %forgeautosetup -p1
 
@@ -161,17 +176,29 @@ tomcli set pyproject.toml arrays replace \
 tomcli set pyproject.toml replace \
     build-system.build-backend 'setuptools_reproducible' 'setuptools.build_meta'
 
+# Unpin argcomplete for older branches
+tomcli set pyproject.toml arrays replace \
+    project.optional-dependencies.argcompletion 'argcomplete.*' 'argcomplete'
+
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires -x argcompletion
 
 %build
 %pyproject_wheel
+
+# Create autocompletion shell scripts
+register-python-argcomplete --shell bash patool > patool.bash
+register-python-argcomplete --shell fish patool > patool.fish
 
 %install
 %pyproject_install
 %pyproject_save_files %{name}ib
 mkdir -p %{buildroot}%{_mandir}/man1/
 install -Dpm 0644 doc/patool.1 %{buildroot}%{_mandir}/man1/patool.1
+
+# Install autocompletion shell scripts
+%{__install} -D -p -m 0644 patool.bash -t %{buildroot}%{bash_completions_dir}
+%{__install} -D -p -m 0644 patool.fish -t %{buildroot}%{fish_completions_dir}
 
 %check
 %pytest -r fEs

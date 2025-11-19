@@ -66,13 +66,13 @@
 %global _source_payload w7T0.xzdio
 %global _binary_payload w7T0.xzdio
 
-Name:           %{hipblas_name}
+Name:           hipblas
 %if %{with gitcommit}
 Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        ROCm BLAS marshalling library
 License:        MIT
@@ -129,14 +129,19 @@ application. hipBLAS exports an interface that does not require
 the client to change, regardless of the chosen backend. Currently,
 hipBLAS supports rocBLAS and cuBLAS as backends.
 
-%post -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
+%if 0%{?suse_version}
+%package -n %{hipblas_name}
+Summary:        Shared libraries for %{name}
+
+%description -n %{hipblas_name}
+%{summary}
+
+%ldconfig_scriptlets -n %{hipblas_name}
+%endif
 
 %package devel
 Summary:        Libraries and headers for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       hipblas-common-devel
-Provides:       hipblas-devel = %{version}-%{release}
+Requires:       %{hipblas_name}%{?_isa} = %{version}-%{release}
 
 %description devel
 %{summary}
@@ -196,7 +201,7 @@ cd projects/hipblas
 
 rm -f %{buildroot}%{_prefix}/share/doc/hipblas/LICENSE.md
 
-%files
+%files  -n %{hipblas_name}
 %if %{with gitcommit}
 %license projects/hipblas/LICENSE.md
 %doc projects/hipblas/README.md
@@ -219,6 +224,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/hipblas/LICENSE.md
 %endif
 
 %changelog
+* Thu Nov 13 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
+- Better handling of shared library on opensuse
+
 * Fri Oct 31 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
 - Update to 7.1.0
 
