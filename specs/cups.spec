@@ -7,13 +7,6 @@
 # but we use lib for compatibility with 3rd party drivers (at upstream request).
 %global cups_serverbin %{_exec_prefix}/lib/cups
 
-# we still need something for python2...
-%if 0%{?rhel} >= 8 || 0%{?fedora}
-%global __python %{__python3}
-%else
-%global __python /usr/bin/python2
-%endif
-
 #%%global prever rc1
 #%%global VERSION %%{version}%%{prever}
 %global VERSION %{version}
@@ -38,9 +31,6 @@ Source0: https://github.com/OpenPrinting/cups/releases/download/v%{VERSION}/cups
 Source1: cupsprinter.png
 # cups_serverbin macro definition for use during builds
 Source2: macros.cups
-# upgrade script for CUPS-Get-Document fix
-# remove after Fedora 40 is EOL and C10S is released
-Source3: upgrade_get_document.py.in
 
 # cups-config from devel package conflicted on multilib arches,
 # fixed hack with pkg-config calling for gnutls' libdir variable
@@ -137,20 +127,14 @@ Recommends: nss-mdns
 %endif
 # avahi is needed for mDNS discovery and sharing queues
 Recommends: avahi
-%if 0%{?fedora} >= 38 || 0%{?rhel} >= 9
 # for better migration - cups-browsed was part of cups-filters in the past,
 # now it was splitted and no longer depends on cups-filters - the daemon will
 # vanish during upgrade without a weak dependency at least
-# remove once C10X is released
 Recommends: cups-browsed
 # for IPP-over-USB device support
 Recommends: ipp-usb
-%endif
-
-%if 0%{?fedora} >= 40 || 0%{?rhel} >= 9
 # driverless stuff was splitted from cups-filters
 Recommends: cups-filters-driverless
-%endif
 
 # we use password-auth or system-auth PAM modules for authentication,
 # provided by authselect-libs
@@ -173,9 +157,6 @@ Requires(post): systemd
 Requires(post): grep, sed
 Requires(preun): systemd
 Requires(postun): systemd
-
-# for upgrade-get-document script - remove after C10S is released and F40 is EOL
-Requires(post): %{__python}
 
 
 %package client
@@ -478,30 +459,7 @@ s:.*\('%{_datadir}'/\)\([^/_]\+\)\(.*\.po$\):%lang(\2) \1\2\3:
 /^\([^%].*\)/d
 ' > %{name}.lang
 
-# install get-document upgrade script - remove it after
-# C10S is released and Fedora 40 is EOL
-install -m 0755 %{SOURCE3} %{buildroot}%{_sbindir}/upgrade_get_document
-
-# adjust shebang for old python2 if needed - remove once C10S is released and F40 EOL
-sed -i 's,@PYTHON_SHEBANG@,#!%{__python},' %{buildroot}%{_sbindir}/upgrade_get_document
-
 %post
-# remove after CentOS Stream 10 is released
-# Require authentication for accessing /admin location
-# - needed for finding printers via Find New Printers button in Web UI
-# upstream PR https://github.com/OpenPrinting/cups/pull/518
-# Implementation: we need to get a scope for /admin location, which starts with <Location /admin>
-# and ends with the first </Location>, so once we find the opening tag via sed, we implement a sed loop,
-# which saves all lines which don't match the ending tag into pattern space, and once there is
-# the ending tag, print the whole pattern buffer. The buffer is checked for AuthType and Require directives.
-# If they already exist, we don't add anything. cupsd.conf.rpmsave is created as a backup.
-sed -ne '/^\s*<Location \/admin>/ { :loop; /<\/Location>/ ! {N; b loop}; p }' %{_sysconfdir}/cups/cupsd.conf \
-| grep -E '^\s*(AuthType|Require)' &> /dev/null || \
-sed -i.rpmsave '/^\s*<Location \/admin>/a\  AuthType Default\n  Require user @SYSTEM' %{_sysconfdir}/cups/cupsd.conf
-
-# remove after C10S release and Fedora 40 EOL
-%{_sbindir}/upgrade_get_document
-
 # required for systemd units
 %systemd_post %{name}.path %{name}.socket %{name}.service
 

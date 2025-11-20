@@ -2,7 +2,7 @@
 
 Name:           python-coverage
 Summary:        Code coverage testing module for Python
-Version:        7.11.3
+Version:        7.12.0
 Release:        1%{?dist}
 # There is a jquery file in tests/ that is MIT OR GPL-2.0-only
 # but it does not end up in the binary package
@@ -70,6 +70,9 @@ popd
 %{_bindir}/coverage-3*
 
 %changelog
+* Tue Nov 18 2025 Tom Callaway <spot@fedoraproject.org> - 7.12.0-1
+- update to 7.12.0
+
 * Tue Nov 11 2025 Tom Callaway <spot@fedoraproject.org> - 7.11.3-1
 - update to 7.11.3
 

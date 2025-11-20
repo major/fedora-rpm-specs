@@ -1,8 +1,8 @@
-%global         testcommit  591b5a053f9aa15245ccbd1d334cf3f8031b1035
+%global         testcommit  db92588773a24f67cda2f331b945825ca3a63fa7
 %global         testshortcommit  %(c=%{testcommit}; echo ${c:0:7})
 %global         srcname muon
 Name:           muon-meson
-Version:        0.4.0
+Version:        0.5.0
 Release:        %{autorelease}
 Summary:        C implementation of meson
 
@@ -27,8 +27,6 @@ License:        Apache-2.0 AND GPL-3.0-only AND MIT AND Unlicense
 URL:            https://muon.build
 Source0:        https://git.sr.ht/~lattis/%{srcname}/archive/%{version}.tar.gz#/muon-%{version}.tar.gz
 Source1:        https://github.com/muon-build/meson-tests/archive/%{testcommit}/meson-tests-%{testshortcommit}.tar.gz
-# Skip tests which fail
-Patch:          skip-tests.patch
 
 BuildRequires:  git
 BuildRequires:  gcc
@@ -55,18 +53,24 @@ An implementation of the meson build system in c99 with minimal dependencies.
 %autosetup -n %{srcname}-%{version} -p 1
 tar xf %{SOURCE1}
 mv meson-tests-%{testcommit} subprojects/meson-tests
+# Make sure not used
+rm -r subprojects/bestline
 
 %build
 CFLAGS="-fPIE -DBOOTSTRAP_NO_TRACY %{optflags}" ./bootstrap.sh %{_vpath_builddir}
 %{_vpath_builddir}/muon-bootstrap setup \
  -Dprefix=%{_prefix} \
- -Dwebsite=false \
+ -Dwebsite=disabled \
  -Dstatic=false \
- -Ddocs=enabled \
+ -Dman-pages=enabled \
  -Dsamurai=enabled \
  -Dlibarchive=enabled \
  -Dlibcurl=enabled \
  -Dlibpkgconf=enabled \
+ -Dreadline=builtin \
+ -Dui=disabled \
+ -Dmeson-docs=disabled \
+ -Dtracy=disabled \
  %{_vpath_builddir}
 %{_vpath_builddir}/muon-bootstrap -C %{_vpath_builddir} samu
 

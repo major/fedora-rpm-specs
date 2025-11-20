@@ -8,21 +8,21 @@
 %bcond_without check
 
 # https://github.com/moby/moby
-%global goipath         github.com/docker/docker
-%global forgeurl        https://github.com/moby/moby
+%global goipath0        github.com/moby/moby
 # For rc, beta, alpha releases substitute tilde (~) for dash (-)
 # in version0. tag0 reverses the substitution
 # e.g.  global version0        27.4.0~rc.4
-%global version0        28.5.2
+%global version0        29.0.2
 %{lua:
     local version0 = rpm.expand("%{version0}"):gsub("~", "-")
-    rpm.define("tag0 " .. "v" .. version0)
+    rpm.define("tag0 " .. "docker-v" .. version0)
+    rpm.define("distprefix0 %{nil}")
+    rpm.define("tag2 " .. "v" .. version0)
 }
 
 # https://github.com/docker/cli
 %global goipath2        github.com/docker/cli
 %global version2        %{version0}
-%global tag2            %{tag0}
 
 %gometa -L -a -f
 %global engine_dir ../%{topdir0}
@@ -41,7 +41,7 @@ depending on a particular stack or provider.
 }
 
 Name:           moby-engine
-Version:        %{forgeversion}
+Version:        %{version0}
 Release:        %autorelease
 Summary:        The open-source application container engine
 
@@ -75,6 +75,7 @@ BuildRequires:  make
 BuildRequires:  pkg-config
 BuildRequires:  systemd-devel
 BuildRequires:  /usr/bin/go-md2man
+BuildRequires:  nftables-devel
 
 
 # docker.service depends on containerd
@@ -90,6 +91,7 @@ Requires:       tini-static
 Requires:       container-selinux
 Requires:       iptables
 Requires:       libseccomp
+Requires:       nftables
 Requires:       pigz
 Requires:       systemd
 Requires:       tar
@@ -181,9 +183,6 @@ tar -xf %{S:1}
 # Leave this here despite warnings so we can easily add and remove patches.
 %autopatch -M999 -p1
 cp -p %{S:100} %{S:101} %{S:102} .
-# See comment in go-vendor-tools.toml
-cp go.mod vendor.mod
-cp go.sum vendor.sum
 
 # docker-cli
 cd %{cli_dir}
@@ -193,8 +192,6 @@ tar -xf %{S:3}
 # Leave this here despite warnings so we can easily add and remove patches.
 %autopatch -m1000 -p1
 # See comment in go-vendor-tools.toml
-cp go.mod vendor.mod
-cp go.sum vendor.sum
 rm -f man/go.mod
 
 
@@ -205,13 +202,13 @@ rm -f man/go.mod
 %go_vendor_license_buildrequires -c %{S:201}
 
 %build
-GO_LDFLAGS="" GO_BUILDTAGS=""
-export CGO_ENABLED=1
+export GO_LDFLAGS="" GO_BUILDTAGS="" CGO_ENABLED=1
+%global gomodulesmode GO111MODULE=on
 
 # moby-engine
 cd %{engine_dir}
 # DOCKER_DEBUG: Ensure that all debuginfo is preserved
-BUILDFLAGS="%{gocompilerflags} -a -v -x" \
+BUILDFLAGS="%{gocompilerflags} -a -v" \
 CGO_CFLAGS="%{build_cflags}" \
 CGO_LDFLAGS="%{build_ldflags}" \
 DOCKER_BUILDTAGS="rpm_crashback journald" \
@@ -249,10 +246,6 @@ install -Dpm 0755 bundles/dynbinary*/* -t %{buildroot}%{_bindir}
 install -Dpm 0644 contrib/init/systemd/* -t %{buildroot}%{_unitdir}
 # Install sysusers config
 install -Dpm 0644 moby-engine-systemd-sysusers.conf %{buildroot}%{_sysusersdir}/moby-engine.conf
-# Install udev rules
-install -Dpm 0644 contrib/udev/80-docker.rules -t %{buildroot}%{_udevrulesdir}
-# Install nano syntax
-install -Dpm 644 contrib/syntax/nano/Dockerfile.nanorc -t %{buildroot}%{_datadir}/nano/
 install -Dpm 644 man/man8/*.8 -t %{buildroot}%{_mandir}/man8/
 
 # docker-cli
@@ -278,12 +271,6 @@ mkdir %{buildroot}%{_libexecdir}/docker/cli-plugins
 install -Dpm 0644 macros.moby -t %{buildroot}%{_rpmmacrodir}
 
 %check
-skiptest() {
-    for test in "$@"; do
-        awk -i inplace '/^func.*'"${test}"'\(/ { print; print "\tt.Skip(\"disabled failing test\")"; next}1' \
-            $(grep -rl "${test}")
-    done
-}
 export PATH="%{buildroot}%{_bindir}:${PATH}" TZ=utc
 
 # moby-engine
@@ -298,49 +285,51 @@ cd %{cli_dir}
 # moby-engine
 cd %{engine_dir}
 # Manually skip specific tests
-skiptest \
-    "TestSCTP4Proxy" \
+%global engine_ignores %{shrink:
+   %dnl assertion failed
+    -s "TestC8dSnapshotterWithUsernsRemap"
+    -s "TestSCTP4Proxy"
     %dnl Failed to enter netns: operation not permitted
-    %dnl "TestSCTP4ProxyNoListener"
-    %dnl "TestSCTP6ProxyNoListener"
+    %dnl -s "TestSCTP4ProxyNoListener"
+    %dnl -s "TestSCTP6ProxyNoListener"
     %dnl network_proxy_linux_test.go:73: protocol not supported; fails in COPR rawhide
-    "TestIfaceAddrs" \
+    -s "TestIfaceAddrs"
     %dnl failed to mount resolved path: operation not permitted
-    "TestJoinGoodSymlink" \
-    "TestJoinWithSymlinkReplace" \
-    "TestJoinCloseInvalidates" \
-    %dnl no such file or directory \
-    "TestImageLoadMissing" \
-    %dnl create tmp file - invalid argument \
-    "TestContentStoreForPull" \
-    "TestManifestStore" \
-    %ifarch s390x
+    -s "TestJoinGoodSymlink"
+    -s "TestJoinWithSymlinkReplace"
+    -s "TestJoinCloseInvalidates"
     %dnl Test timeout
-    "TestCloseRunningCommand" \
-    %endif
-
-# graphdriver tests require extra permissions
-# integration tests require a running docker daemon
-# libnetwork tests cannot create netns in mock
-# pkg/archive do not work in mock, either
-# daemon/graphdriver/fuse-overlayfs tests fail with permission errors
-%gocheck -t daemon/graphdriver -t integration -t libnetwork -d pkg/archive
+    -s "TestImageLoad"
+    %dnl doesn't provide the requested platform
+    -s "TestContentStoreForPull"
+    -s "TestManifestStore"
+    %dnl all with error is not nil: create tmp file
+    %[ "%{_arch}" == "s390x" ? "-s TestCloseRunningCommand" : "" ]
+    %dnl graphdriver tests require extra permissions
+    -t daemon/graphdriver
+    %dnl integration tests require a running docker daemon
+    -t integration
+    %dnl libnetwork tests cannot create netns in mock
+    -t daemon/libnetwork
+    %dnl integration-cli: we don't want to run integration tests or benchmarks
+    -d integration-cli
+}
+%gocheck2 -F %{engine_ignores}
 
 # docker-cli
 cd %{cli_dir}
-skiptest \
-    "TestInitializeFromClientHangs" \
+%global cli_ignores %{shrink:
+    -s "TestInitializeFromClientHangs"
     %dnl Needs network
-    "TestRunBuildFromGitHubSpecialCase" \
+    -s "TestRunBuildFromGitHubSpecialCase"
     %dnl Test is flaky
-    "TestConnectAndWait" \
+    -s "TestConnectAndWait"
     %dnl Test panics
-    "TestRunAttachTermination" \
-    "TestRunPullTermination" \
-    "TestUpgradePromptTermination"
-    %dnl Unknown test failure
-
-%gocheck -z2 -t e2e
+    -s "TestRunAttachTermination"
+    -s "TestRunPullTermination"
+    -s "TestUpgradePromptTermination"
+}
+%gocheck2 -F -t e2e %{cli_ignores}
 %endif
 
 
@@ -364,7 +353,6 @@ skiptest \
 %{_bindir}/docker-proxy
 %{_bindir}/dockerd
 %{_sysusersdir}/moby-engine.conf
-%{_udevrulesdir}/80-docker.rules
 %{_unitdir}/docker.service
 %{_unitdir}/docker.socket
 %{_mandir}/man8/dockerd.8*
@@ -374,7 +362,6 @@ skiptest \
 %license %{engine_dir}/AUTHORS
 %license %{engine_dir}/LICENSE
 %license %{engine_dir}/NOTICE
-%{_datadir}/nano/Dockerfile.nanorc
 
 
 %files -n docker-cli -f %{cli_dir}/%{go_vendor_license_filelist}

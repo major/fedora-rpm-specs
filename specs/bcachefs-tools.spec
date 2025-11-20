@@ -15,7 +15,7 @@
 %global make_opts VERSION="%{version}" %{?with_fuse:BCACHEFS_FUSE=1} %{!?with_rust:NO_RUST=1} BUILD_VERBOSE=1 PREFIX=%{_prefix} ROOT_SBINDIR=%{_sbindir}
 
 Name:           bcachefs-tools
-Version:        1.32.0
+Version:        1.32.1
 Release:        1%{?dist}
 Summary:        Userspace tools for bcachefs
 
@@ -215,6 +215,10 @@ rm -rf %{buildroot}%{_usrsrc}
 
 
 %changelog
+* Mon Nov 10 2025 Packit <hello@packit.dev> - 1.32.1-1
+- Update to version 1.32.1
+- Resolves: rhbz#2413809
+
 * Sun Nov 09 2025 Packit <hello@packit.dev> - 1.32.0-1
 - Update to version 1.32.0
 - Resolves: rhbz#2413666

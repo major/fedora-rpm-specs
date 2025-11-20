@@ -13,16 +13,6 @@
 # /usr/bin/ld: /tmp/ccWKJhwL.ltrans0.ltrans.o: relocation R_X86_64_PC32 against symbol `_Z16aesm_thread_procPv' can not be used when making a shared object; recompile with -fPIC
 %global _lto_cflags %nil
 
-# The nodejs sqlite3 module will trigger a warning
-#
-# ERROR   0001: file '/usr/lib/node_modules_22/pccs/node_modules/sqlite3/build/Release/node_sqlite3.node' contains a standard runpath '/usr/lib64' in [/usr/lib64]
-# ERROR   0001: file '/usr/lib/node_modules_22/pccs/node_modules/sqlite3/build/Release/obj.target/node_sqlite3.node' contains a standard runpath '/usr/lib64' in [/usr/lib64]
-#
-# since these are harmless just disable the check for now
-# rather than trying to figure out how to remove them
-
-%global __brp_check_rpaths %{nil}
-
 ############################################################
 #
 # Note about the approach to bundling...
@@ -102,7 +92,7 @@
 # From DCAP git submodule
 %global wamr_version 1.0.0
 # From SGX external/tinyxml2
-%global tinyxml2_version 7.0.0
+%global tinyxml2_version 10.0.0
 
 # From SGX external/epid-sdk/CHANGELOG.md
 %global epid_version 6.0.0
@@ -280,6 +270,11 @@ Provides: bundled(jwt-cpp) = %{jwt_cpp_version}
 Source13: https://github.com/bytecodealliance/wasm-micro-runtime/archive/refs/tags/WAMR-%{wamr_version}.tar.gz#/wasm-micro-runtime-%{wamr_version}.tar.gz
 Provides: bundled(wasm-micro-runtime} = %{wamr_version}
 
+Source14: https://github.com/leethomason/tinyxml2/archive/refs/tags/%{tinyxml2_version}.tar.gz#/tinyxml2-%{tinyxml2_version}.tar.gz
+%if ! %{with_host_tinyxml2}
+Provides: bundled(tinyxml2) = %{tinyxml2_version}
+%endif
+
 
 ############################################################
 # Misc distro integration files SourceN in (40..59)
@@ -399,6 +394,7 @@ BuildRequires: ocaml-ocamlbuild
 BuildRequires: openssl
 BuildRequires: openssl-devel
 BuildRequires: libcurl-devel
+BuildRequires: patchelf
 BuildRequires: python3-devel
 BuildRequires: perl-generators
 BuildRequires: perl-interpreter
@@ -729,6 +725,15 @@ rm -rf external/{dnnl,openmp,protobuf} sdk/sample_libcrypto
 
 
 ############################################################
+# tinyxml2
+%if ! %{with_host_tinyxml2}
+(
+  cd external/tinyxml2
+  tar zxf %{SOURCE14} --strip 1
+)
+%endif
+
+############################################################
 # prebuilt enclaves
 
 # repack.sh strips pre-built enclaves we don't ship, but
@@ -934,8 +939,9 @@ LDFLAGS="%{build_ldflags}" \
     done
 
     # Keep brp-mangle-shebangs happy
-    perl -i -p -e 's,/usr/bin/env python,/usr/bin/env python3,' node_modules/ffi-napi/deps/libffi/generate-darwin-source-and-headers.py
     find node_modules -type f -exec chmod -x {} \;
+
+    patchelf --remove-rpath node_modules/sqlite3/build/Release/node_sqlite3.node
 
     tar zxvf %{SOURCE55}
     (
@@ -994,7 +1000,6 @@ done
 
 # Dirs for host OS software
 %__install -d %{buildroot}%{_bindir}
-%__install -d %{buildroot}%{_sbindir}
 %__install -d %{buildroot}%{_libdir}/pkgconfig
 %__install -d %{buildroot}%{_libexecdir}
 %__install -d %{buildroot}%{_datadir}
@@ -1125,13 +1130,13 @@ ln -s ../../..%{_datadir}/aesmd/white_list_cert_to_be_verify.bin \
 
 # XXX it looks for files relative to its binary, so we
 # need this wrapper. Patch the source and kill this
-cat >> %{buildroot}%{_sbindir}/aesmd <<EOF
+cat >> %{buildroot}%{_bindir}/aesmd <<EOF
 #!/bin/sh
 
 export LD_LIBRARY_PATH=%{_libdir}/aesmd/
 exec %{_libdir}/aesmd/aesm_service "\$@"
 EOF
-chmod +x %{buildroot}%{_sbindir}/aesmd
+chmod +x %{buildroot}%{_bindir}/aesmd
 
 rm -f %{buildroot}/root/lib/systemd/system/aesmd.service
 %__install %{SOURCE40} %{buildroot}%{_sysusersdir}/aesmd.conf
@@ -1170,6 +1175,9 @@ rmdir %{buildroot}/root/opt/intel/sgx-dcap-pccs
     # Node JS deps bundle
     cd external/dcap_source/QuoteGeneration/pccs
     rm -f install.sh README.md
+
+    # So find-debuginfo processes it
+    chmod +x node_modules/sqlite3/build/Release/node_sqlite3.node
 
     cp -a node_modules %{buildroot}%{nodejs_sitearch}/pccs/node_modules
 )
@@ -1224,7 +1232,7 @@ rmdir %{buildroot}/root/opt/intel/sgx-pck-id-retrieval-tool
 mv %{buildroot}/root/opt/intel/sgx-ra-service/mpa_manage \
    %{buildroot}%{_bindir}/mpa_manage
 mv %{buildroot}/root/opt/intel/sgx-ra-service/mpa_registration \
-   %{buildroot}%{_sbindir}/mpa_registration
+   %{buildroot}%{_bindir}/mpa_registration
 mv %{buildroot}/root/etc/mpa_registration.conf \
    %{buildroot}%{_sysconfdir}/mpa_registration.conf
 rm -f %{buildroot}/root/opt/intel/sgx-ra-service/mpa_registration_tool.conf
@@ -1252,7 +1260,7 @@ mv %{buildroot}/root/usr/lib64/libmpa*.so* \
 mv %{buildroot}/root/etc/qgs.conf \
    %{buildroot}%{_sysconfdir}/qgs.conf
 mv %{buildroot}/root/opt/intel/tdx-qgs/qgs \
-   %{buildroot}%{_sbindir}/qgs
+   %{buildroot}%{_bindir}/qgs
 
 # Switch from vsock to unix socket to avoid exposing it
 # to all VMs unconditionally
@@ -1629,7 +1637,7 @@ fi
 
 %if %{with_aesm}
 %files -n sgx-aesm
-%{_sbindir}/aesmd
+%{_bindir}/aesmd
 %{_unitdir}/aesmd.service
 %config(noreplace) %{_sysconfdir}/aesmd.conf
 %dir %{_libdir}/aesmd
@@ -1685,14 +1693,14 @@ fi
 
 %files -n sgx-mpa
 %{_bindir}/mpa_manage
-%{_sbindir}/mpa_registration
+%{_bindir}/mpa_registration
 %{_unitdir}/mpa_registration.service
 %config(noreplace) %{_sysconfdir}/mpa_registration.conf
 
 
 %files -n tdx-qgs
 %config(noreplace) %{_sysconfdir}/sysconfig/qgs
-%{_sbindir}/qgs
+%{_bindir}/qgs
 %{_unitdir}/qgs.service
 %config(noreplace) %{_sysconfdir}/qgs.conf
 %{_sysusersdir}/qgs.conf

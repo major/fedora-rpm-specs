@@ -1,8 +1,8 @@
 %global basever 3.0.0
-%global prerel rc5
-%global commit 225e3ebd25c4bcd821b49369fd7c328a8ed09b43
-%global shortcommit %{sub %{commit} 1 7}
-%global snapdate 20250830
+%global prerel rc8
+%dnl %global commit 225e3ebd25c4bcd821b49369fd7c328a8ed09b43
+%dnl %global shortcommit %{sub %{commit} 1 7}
+%dnl %global snapdate 20250830
 
 %global somajor 3.0
 
@@ -19,8 +19,11 @@ Summary:        Fast and lightweight package manager originally for Alpine
 SourceLicense:  GPL-2.0-only AND BSD-3-Clause
 License:        GPL-2.0-only
 URL:            https://gitlab.alpinelinux.org/alpine/apk-tools
-%dnl Source0:        %{url}/-/archive/v%{version}/%{name}-v%{version}.tar.gz
+%if %{defined snapdate}
 Source0:        %{url}/-/archive/%{commit}/%{name}-%{commit}.tar.gz
+%else
+Source0:        %{url}/-/archive/v%{basever}%{?prerel:_%{prerel}}/%{name}-v%{basever}%{?prerel:_%{prerel}}.tar.gz
+%endif
 
 BuildRequires:  gcc
 BuildRequires:  git-core
@@ -53,6 +56,7 @@ package management solution made for Alpine Linux.
 %dir %{_sysconfdir}/apk
 %ghost %{_sysconfdir}/apk/{arch,keys,repositories,world}
 %dir %{_localstatedir}/cache/apk
+%{_datadir}/bash-completion/completions/_apk
 
 %dnl --------------------------------------------------------------------
 
@@ -121,8 +125,11 @@ developing applications that use libapk.
 %dnl --------------------------------------------------------------------
 
 %prep
-%dnl %autosetup -n %{name}-v%{version} -S git_am
+%if %{defined snapdate}
 %autosetup -n %{name}-%{commit} -S git_am
+%else
+%autosetup -n %{name}-v%{basever}%{?prerel:_%{prerel}} -S git_am
+%endif
 
 
 %conf
@@ -159,6 +166,9 @@ export OPENSSL_ENABLE_SHA1_SIGNATURES
 
 
 %changelog
+* Tue Nov 18 2025 Neal Gompa <ngompa@fedoraproject.org> - 3.0.0~rc8-1
+- Bump to new upstream release
+
 * Tue Sep 09 2025 Neal Gompa <ngompa@fedoraproject.org> - 3.0.0~rc5^git20250830.225e3eb-1
 - Update to post-release git snapshot on 3.0.0~rc5
 

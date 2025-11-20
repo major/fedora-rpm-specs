@@ -1,12 +1,14 @@
 Name:           pungi
 Version:        4.10.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Distribution compose tool
 
 License:        GPL-2.0-only
 URL:            https://pagure.io/pungi
 Source0:        https://pagure.io/releases/%{name}/%{name}-%{version}.tar.bz2
 Patch:          https://pagure.io/pungi/pull-request/1860.patch
+# https://pagure.io/pungi/pull-request/1885
+Patch:          0001-Drop-parameterized-dependency.patch
 
 BuildRequires:  make
 BuildRequires:  python3-pytest
@@ -26,7 +28,6 @@ BuildRequires:  python3-PyYAML
 BuildRequires:  python3-libmodulemd >= 2.8.0
 BuildRequires:  python3-gobject
 BuildRequires:  python3-createrepo_c
-BuildRequires:  python3-parameterized
 BuildRequires:  python3-flufl-lock
 
 #deps for doc building
@@ -134,6 +135,9 @@ gzip _build/man/pungi.1
 %{_bindir}/%{name}-cache-cleanup
 
 %changelog
+* Tue Nov 18 2025 Lubomír Sedlář <lsedlar@redhat.com> - 4.10.1-4
+- Remove dependency on python3-parameterized
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.10.1-3
 - Rebuilt for Python 3.14.0rc3 bytecode
 

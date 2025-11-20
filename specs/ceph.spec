@@ -179,8 +179,8 @@
 # main package definition
 #################################################################################
 Name:		ceph
-Version:	20.1.1
-Release:	5%{?dist}
+Version:	20.2.0
+Release:	1%{?dist}
 %if 0%{?fedora} || 0%{?rhel}
 Epoch:		2
 %endif
@@ -2742,6 +2742,9 @@ exit 0
 %{python3_sitelib}/ceph_node_proxy-*
 
 %changelog
+* Tue Nov 18 2025 Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 2:20.2.0-1
+- ceph-20.2.0 GA
+
 * Tue Nov  4 2025 Tom Callaway <spot@fedoraproject.org> - 2:20.1.1-4
 - rebuild for new fuse3
 

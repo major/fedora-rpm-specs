@@ -19,8 +19,8 @@
 %bcond_without tests_long
 
 Name:              openvpn
-Version:           2.7_beta3
-Release:           2%{?dist}
+Version:           2.7_rc2
+Release:           1%{?dist}
 Summary:           A full-featured TLS VPN solution
 URL:               https://community.openvpn.net/
 Source0:           https://build.openvpn.net/downloads/releases/%{name}-%{version}.tar.gz
@@ -237,6 +237,9 @@ done
 
 
 %changelog
+* Tue Nov 18 2025 Frank Lichtenheld <frank@lichtenheld.com> - 2.7_rc2
+- Update to upstream 2.7_rc2 release
+
 * Tue Oct 14 2025 Frank Lichtenheld <frank@lichtenheld.com> - 2.7_beta3
 - Update to upstream 2.7_beta3 release
 

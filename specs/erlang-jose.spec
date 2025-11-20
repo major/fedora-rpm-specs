@@ -2,7 +2,7 @@
 
 
 Name:      erlang-%{srcname}
-Version:   1.11.10
+Version:   1.11.11
 Release:   %autorelease
 BuildArch: noarch
 License:   MIT

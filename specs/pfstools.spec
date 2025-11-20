@@ -1,6 +1,6 @@
 Name:		pfstools
 Version:	2.2.0
-Release:	23%{?dist}
+Release:	24%{?dist}
 Summary:	Programs for handling high-dynamic range images
 
 License:	GPL-2.0-or-later
@@ -130,6 +130,8 @@ etc., for developing programs which can handle HDR graphics files.
 %autosetup -p1
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2381359)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %{cmake} -DBUILD_SHARED_LIBS=ON \
 	-DLIB_DIR=%{_lib} \
 	-DWITH_OpenCV=OFF \
@@ -309,6 +311,9 @@ etc., for developing programs which can handle HDR graphics files.
 %{_includedir}/pfs
 
 %changelog
+* Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 2.2.0-24
+- Allow to build with CMake 4.0 (rhbz#2381359)
+
 * Thu Aug 07 2025 Orion Poplawski <orion@nwra.com> - 2.2.0-23
 - Rebuild for Octave 10.2
 

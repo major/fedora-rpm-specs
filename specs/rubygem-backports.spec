@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 3.23.0
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: Backports of Ruby features for older Ruby
 License: MIT
 URL: http://github.com/marcandre/backports
@@ -53,7 +53,11 @@ ln -s %{_builddir}/test test
 # TODO: More test could be enabled, if MSpec and RubySpec are available
 # in Fedora.
 
+# ref: https://github.com/marcandre/backports/issues/198
+# Upstream simply disabled Ractor related tests
+mv test/ractor_extra_test.rb{,.skip}
 ruby -Ilib -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
+mv test/ractor_extra_test.rb{.skip,}
 popd
 
 %files
@@ -72,6 +76,9 @@ popd
 %{gem_instdir}/backports.gemspec
 
 %changelog
+* Tue Nov 18 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.23.0-9
+- Skip Ractor related tests for ruby4_0 following upstream
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.23.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

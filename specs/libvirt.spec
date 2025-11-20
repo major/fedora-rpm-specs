@@ -289,7 +289,7 @@
 Summary: Library providing a simple virtualization API
 Name: libvirt
 Version: 11.9.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.1-only AND LGPL-2.1-or-later AND OFL-1.1
 URL: https://libvirt.org/
 
@@ -298,6 +298,12 @@ URL: https://libvirt.org/
 %endif
 Source: https://download.libvirt.org/%{?mainturl}libvirt-%{version}.tar.xz
 
+# Fix parallel libguestfs.  Upstream in libvirt > 11.9.0
+# https://github.com/libguestfs/libguestfs/issues/234
+Patch: 0001-selinux-Match-remember-recall-arguments-for-SavedSta.patch
+Patch: 0002-selinux-Don-t-remember-labels-for-shareable-SCSI-dev.patch
+Patch: 0003-selinux-Add-is_shared-plumbing-to-RestoreFileLabel.patch
+Patch: 0004-selinux-Mark-anything-using-content_context-as-share.patch
 
 Requires: libvirt-daemon = %{version}-%{release}
 Requires: libvirt-daemon-config-network = %{version}-%{release}
@@ -2693,6 +2699,9 @@ exit 0
 
 
 %changelog
+* Mon Nov 17 2025 Richard W.M. Jones <rjones@redhat.com> - 11.9.0-3
+- Add upstream patches to fix parallel libguestfs
+
 * Tue Nov  4 2025 Tom Callaway <spot@fedoraproject.org> - 11.9.0-2
 - rebuild against new fuse3
 

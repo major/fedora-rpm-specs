@@ -39,9 +39,10 @@
 # build_cxxflags does not honor CMAKE_BUILD_TYPE, strip out -g
 %global build_cxxflags %(echo %{optflags} | sed -e 's/-fstack-protector-strong/-Xarch_host -fstack-protector-strong/' -e 's/-fcf-protection/-Xarch_host -fcf-protection/' -e 's/-g / /' )
 
-# This package takes a very long time to build.
-# For the review using only the test gpu, gfx1100
-%global gpu_list "gfx1100"
+# This package takes a very long time to build, build only the most useful.
+# ck is needed for hipTensor but hipTensor only supports gfx908,gfx90a,gfx942,gfx950
+%global ck_gpu_list "gfx11-generic;gfx12-generic"
+
 
 %bcond_with debug
 %if %{with debug}
@@ -63,12 +64,46 @@
 %global build_compile_db OFF
 %endif
 
-# Only build the header of ck
-%bcond_with cklibs
-%if %{with cklibs}
-%global build_header_only OFF
+%bcond_without ck_contraction
+%if %{with ck_contraction}
+%global build_ck_contraction ON
 %else
-%global build_header_only ON
+%global build_ck_contraction OFF
+%endif
+
+%bcond_without ck_conv
+%if %{with ck_conv}
+%global build_ck_conv ON
+%else
+%global build_ck_conv OFF
+%endif
+
+%bcond_without ck_gemm
+%if %{with ck_gemm}
+%global build_ck_gemm ON
+%else
+%global build_ck_gemm OFF
+%endif
+
+%bcond_without ck_mha
+%if %{with ck_mha}
+%global build_ck_mha ON
+%else
+%global build_ck_mha OFF
+%endif
+
+%bcond_without ck_other
+%if %{with ck_other}
+%global build_ck_other ON
+%else
+%global build_ck_other OFF
+%endif
+
+%bcond_without ck_reduction
+%if %{with ck_reduction}
+%global build_ck_reduction ON
+%else
+%global build_ck_reduction OFF
 %endif
 
 # Testing depends on having GPU hw, build only for these gpus to speed up tests
@@ -94,7 +129,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        Performance Portable Programming Model for Machine Learning Tensor Operators
 License:        MIT
@@ -107,12 +142,13 @@ Url:            https://github.com/ROCm
 Source0:        %{url}/%{upstreamname}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 %endif
 
-Patch1:         0001-composable_kernel-add-build-header-only-cmake-option.patch
+Patch1:         0001-composable_kernel-per-dir-build.patch
 
 BuildRequires:  cmake
 BuildRequires:  fdupes
 BuildRequires:  gcc-c++
 BuildRequires:  git
+BuildRequires:  ninja-build
 BuildRequires:  rocm-cmake
 BuildRequires:  rocm-comgr-devel
 BuildRequires:  rocm-compilersupport-macros
@@ -208,6 +244,7 @@ if [ ${COMPILE_JOBS} = 1 ]; then
 fi
 
 # Take into account memmory usage per core, do not thrash real memory
+# conv 4
 BUILD_MEM=6
 MEM_KB=0
 MEM_KB=`cat /proc/meminfo | grep MemTotal | awk '{ print $2 }'`
@@ -220,26 +257,32 @@ fi
 
 LINK_MEM=12
 LINK_JOBS=`eval "expr 1 + ${MEM_GB} / ${LINK_MEM}"`
-JOBS=${COMPILE_JOBS}
-if [ "$LINK_JOBS" -lt "$JOBS" ]; then
-    JOBS=$LINK_JOBS
-fi
 
-%cmake \
-    -DBUILD_HEADER_ONLY=%{build_header_only} \
+# hipTensors needs contraction,other,reduction
+
+%cmake -G Ninja \
     -DBUILD_TESTING=%{build_test} \
+    -DCK_BUILD_DEVICE_CONV=%{build_ck_conv} \
+    -DCK_BUILD_DEVICE_CONTRACTION=%{build_ck_contraction} \
+    -DCK_BUILD_DEVICE_GEMM=%{build_ck_gem} \
+    -DCK_BUILD_DEVICE_MHA=%{build_ck_mha} \
+    -DCK_BUILD_DEVICE_OTHER=%{build_ck_other} \
+    -DCK_BUILD_DEVICE_REDUCTION=%{build_ck_reduction} \
+    -DCK_PARALLEL_COMPILE_JOBS=${COMPILE_JOBS} \
+    -DCK_PARALLEL_LINK_JOBS=${LINK_JOBS} \
     -DCMAKE_BUILD_TYPE=%{build_type} \
     -DCMAKE_CXX_COMPILER=%rocmllvm_bindir/clang++ \
     -DCMAKE_CXX_FLAGS="-fuse-ld=bfd" \
     -DCMAKE_EXPORT_COMPILE_COMMANDS=%{build_compile_db} \
-    -DCMAKE_HIP_ARCHITECTURES=%gpu_list \
+    -DCMAKE_HIP_ARCHITECTURES=%ck_gpu_list \
     -DCMAKE_HIP_COMPILER=%rocmllvm_bindir/clang++ \
     -DCMAKE_INSTALL_LIBDIR=%{_libdir} \
-    -DGPU_TARGETS=%gpu_list \
+    -DENABLE_CLANG_CPP_CHECKS=OFF \
+    -DGPU_ARCHS=%ck_gpu_list \
     -DHIP_PLATFORM=amd \
     -DROCM_SYMLINK_LIBS=OFF
 
-%cmake_build -j ${JOBS}
+%cmake_build
 
 %install
 %if %{with gitcommit}
@@ -267,8 +310,17 @@ rm -f %{buildroot}%{_prefix}/share/doc/composablekernel/LICENSE
 %endif
 
 %{_libdir}/libutility.so.*
-%if %{with cklibs}
-%{_libdir}/libdevice_*.so.*
+%if %{with ck_conv} || %{with ck_gemm}
+%{_libdir}/libdevice_conv_operations.so.*
+%endif
+%if %{with ck_gemm} || %{with ck_conv} || %{with ck_mha} || %{with ck_reduction} || %{with ck_contraction}
+%{_libdir}/libdevice_gemm_operations.so.*
+%endif
+%if %{with ck_other}
+%{_libdir}/libdevice_other_operations.so.*
+%endif
+%if %{with ck_reduction}
+%{_libdir}/libdevice_reduction_operations.so.*
 %endif
 
 %files devel
@@ -279,8 +331,17 @@ rm -f %{buildroot}%{_prefix}/share/doc/composablekernel/LICENSE
 %{_includedir}/ck_tile/*
 %{_libdir}/cmake/%{name}/*
 %{_libdir}/libutility.so
-%if %{with cklibs}
-%{_libdir}/libdevice_*.so
+%if %{with ck_conv} || %{with ck_gemm}
+%{_libdir}/libdevice_conv_operations.so
+%endif
+%if %{with ck_gemm} || %{with ck_mha} || %{with ck_conv} || %{with ck_reduction} || %{with ck_contraction}
+%{_libdir}/libdevice_gemm_operations.so
+%endif
+%if %{with ck_other}
+%{_libdir}/libdevice_other_operations.so
+%endif
+%if %{with ck_reduction}
+%{_libdir}/libdevice_reduction_operations.so
 %endif
 
 %if %{with test}
@@ -289,6 +350,10 @@ rm -f %{buildroot}%{_prefix}/share/doc/composablekernel/LICENSE
 %endif
 
 %changelog
+* Tue Nov 18 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
+- Rework to use generic targets
+- Selectively disable parts of build
+
 * Fri Oct 31 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
 - Update to 7.1.0
 

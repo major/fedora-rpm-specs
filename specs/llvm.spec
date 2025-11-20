@@ -236,8 +236,8 @@ end
 %global __cxx /usr/bin/clang++-%{host_clang_maj_ver}
 %endif
 
-%if %{defined rhel} && 0%{?rhel} < 10
-%global gts_version 14
+%if %{defined rhel}
+%global gts_version 15
 %endif
 
 %if %{defined rhel} && 0%{?rhel} <= 8

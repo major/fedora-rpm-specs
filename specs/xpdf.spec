@@ -2,8 +2,8 @@
 
 Summary: A PDF file viewer for the X Window System
 Name: xpdf
-Version: 4.05
-Release: 8%{?dist}
+Version: 4.06
+Release: 1%{?dist}
 License: (GPL-2.0-only OR GPL-3.0-only) AND BSD-3-Clause
 Epoch: 1
 Url: https://www.xpdfreader.com/
@@ -39,7 +39,8 @@ Source5: xpdf-japanese-2020-dec-22-NOCMAP.tar.gz
 Source6: xpdf-korean-2023-dec-05-NOCMAP.tar.gz
 # cyrillic and thai don't have CMap files to worry about.
 Source7: ftp://ftp.foolabs.com/pub/xpdf/xpdf-cyrillic-2011-aug-15.tar.gz
-Source8: ftp://ftp.foolabs.com/pub/xpdf/xpdf-thai-2011-aug-15.tar.gz
+# thai: 2025-08-13
+Source8: https://dl.xpdfreader.com/xpdf-thai.tar.gz
 Source10: xpdf.desktop
 Source11: xpdf.png
 Source12: ftp://ftp.foolabs.com/pub/xpdf/xpdf-arabic-2011-aug-15.tar.gz
@@ -55,7 +56,7 @@ Patch11: xpdf-4.01-crash.patch
 Patch12: xpdf-4.01-64bit.patch
 Patch15: xpdf-3.04-nocmap.patch
 Patch25: xpdf-4.00-versionedlib.patch
-Patch26: xpdf-4.05-urw-base35-fonts.patch
+Patch26: xpdf-4.06-urw-base35-fonts.patch
 Patch28: xpdf-4.04-GlobalParams-null-fix.patch
 # https://forum.xpdfreader.com/viewtopic.php?t=42521
 Patch29: xpdf-4.04-shared-xpdf-lib.patch
@@ -65,10 +66,11 @@ Patch29: xpdf-4.04-shared-xpdf-lib.patch
 # https://gitlab.freedesktop.org/poppler/poppler/commit/cdb7ad95f7c8fbf63ade040d8a07ec96467042fc
 # https://gitlab.freedesktop.org/poppler/poppler/commit/bf4aae25a244b1033a2479b9a8f633224f7d5de5
 Patch101: xpdf-4.02-CVE-2019-12360.patch
-Patch102: xpdf-4.05-CVE-2024-4141.patch
+# merged in 4.06
+# Patch102: xpdf-4.05-CVE-2024-4141.patch
 
 # Debian patches
-Patch200: xpdf-4.02-permissions.patch
+Patch200: xpdf-4.06-permissions.patch
 # Proper stream encoding on 64bit platforms
 Patch203: fix-444648.dpatch
 
@@ -150,7 +152,7 @@ Libraries from xpdf.
 
 # security patches
 %patch -P101 -p1 -b .CVE-2019-12360
-%patch -P102 -p1 -b .CVE-2024-4141
+# %%patch -P102 -p1 -b .CVE-2024-4141
 
 # debian patches
 %patch -P200 -p1 -b .permissions
@@ -341,6 +343,9 @@ sed -i -e 's:/usr/local/share/:%{_datadir}/:g' $RPM_BUILD_ROOT%{_sysconfdir}/xpd
 %{_libdir}/lib*.so.*
 
 %changelog
+* Tue Nov 18 2025 Tom Callaway <spot@fedoraproject.org> - 1:4.06-1
+- update to 4.06
+
 * Thu Jul 31 2025 Tom Callaway <spot@fedoraproject.org> - 1:4.05-8
 - passing -DCMAKE_POLICY_VERSION_MINIMUM=3.5 to fix FTBFS with CMake4 (bz2381643)
 

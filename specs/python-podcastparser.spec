@@ -2,8 +2,8 @@
 %global sum     Simplified, fast RSS parsing library
 
 Name:               python-%{modname}
-Version:            0.6.10
-Release:            12%{?dist}
+Version:            0.6.11
+Release:            1%{?dist}
 Summary:            %{sum}
 
 License:            ISC
@@ -54,6 +54,9 @@ find . -type f -name '*.py' -exec sed -i /env\ python/d {} ';'
 
 
 %changelog
+* Tue Nov 18 2025 Gwyn Ciesla <gwync@protonmail.com> - 0.6.11-1
+- 0.6.11
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.6.10-12
 - Rebuilt for Python 3.14.0rc3 bytecode
 

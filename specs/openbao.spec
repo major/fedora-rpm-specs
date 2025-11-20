@@ -1825,7 +1825,7 @@ Vault package.
 # this prevents it from complaining that ui assets are too old
 touch http/web_ui/index.html
 
-GO_BUILDTAGS="ui"
+GO_BUILDTAGS="ui hsm"
 GO_LDFLAGS="-X github.com/%{name}/%{name}/version.fullVersion=%{version}-%{release}"
 GO_LDFLAGS+=" -X github.com/%{name}/%{name}/version.GitCommit="
 BUILD_DATE="$(date -d "@${SOURCE_DATE_EPOCH:-$(date +%s)}" +%Y-%m-%d)"

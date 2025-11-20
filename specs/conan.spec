@@ -1,5 +1,8 @@
+
+%bcond_without check
+
 Name: conan
-Version: 2.22.1
+Version: 2.22.2
 Release: %autorelease
 
 License: MIT
@@ -9,6 +12,18 @@ Source0: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 BuildArch: noarch
 
 BuildRequires: python3-devel
+# For testing only
+%if %{with check}
+BuildRequires: python3-pytest
+BuildRequires: python3-webtest
+BuildRequires: python3-bottle
+BuildRequires: python3-jwt
+BuildRequires: python3-pluginbase
+BuildRequires: python3-parameterized
+BuildRequires: git
+# Hopefully soon to be removed: https://github.com/conan-io/conan/pull/19264
+BuildRequires: python3-mock
+%endif
 
 Requires: cmake
 Requires: gcc
@@ -48,6 +63,17 @@ find -name '*.py' \( \! -perm /u+x,g+x,o+x -exec sed -e '/^#!/Q 0' -e 'Q 1' {} \
 %install
 %pyproject_install
 %pyproject_save_files %{name} %{name}s
+
+%check
+%if %{with check}
+%{pytest} -v test/unittests
+# Fail currently:
+# - toolchains/gnu/test_autotoolsdeps.py to be investigated further why
+# - toolchains/microsoft/test_vs_layout.py cannot run on ppc64
+# - workspace/test_workspace.py MSBuildDeps problems, unsure what that is
+rm test/integration/toolchains/gnu/test_autotoolsdeps.py test/integration/toolchains/microsoft/test_vs_layout.py test/integration/workspace/test_workspace.py
+%{pytest} -v test/integration
+%endif
 
 %files -f %{pyproject_files}
 %license LICENSE.md

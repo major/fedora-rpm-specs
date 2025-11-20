@@ -71,6 +71,11 @@
 %global vendor_nvk_crates 1
 %endif
 
+# We've gotten a report that enabling LTO for mesa breaks some games. See
+# https://bugzilla.redhat.com/show_bug.cgi?id=1862771 for details.
+# Disable LTO for now
+%global _lto_cflags %nil
+
 Name:           mesa
 Summary:        Mesa graphics libraries
 %global ver 25.3.0
@@ -425,11 +430,6 @@ rewrite_wrap_file unicode-ident
 rewrite_wrap_file paste
 rewrite_wrap_file rustc-hash
 %endif
-
-# We've gotten a report that enabling LTO for mesa breaks some games. See
-# https://bugzilla.redhat.com/show_bug.cgi?id=1862771 for details.
-# Disable LTO for now
-%define _lto_cflags %{nil}
 
 %meson \
   -Dplatforms=x11,wayland \

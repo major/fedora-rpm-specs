@@ -222,10 +222,10 @@
 # Where possible, track Chromium versions already released in Fedora.
 %global chromium_minor 162
 %global chromium_version %{chromium_major}.0.%{chromium_branch}.%{chromium_minor}
-%global cef_commit 29548e2f2917bf92b22eae57d3ac6f081251fddd
+%global cef_commit ceaf5788b9ccc1ca17973231a33f181d77c01006
 %global cef_branch %{chromium_branch}
 %global cef_minor 0
-%global cef_patch 10
+%global cef_patch 14
 %global cef_version %{chromium_major}.%{cef_minor}.%{cef_patch}
 %global shortcommit %(c=%{cef_commit}; echo ${c:0:7})
 
@@ -332,11 +332,11 @@ Patch309: chromium-132-el8-unsupport-rustc-flags.patch
 # Fix rhbz#2387446, FTBFS with rust-1.89.0
 Patch310: chromium-139-rust-FTBFS-suppress-warnings.patch
 
-# Fix FTBFS: undefined symbol: __rust_no_alloc_shim_is_unstable
-Patch311: chromium-rust-no-alloc-shim-is-unstable.patch
-
 # enable fstack-protector-strong
-Patch312: chromium-123-fstack-protector-strong.patch
+Patch311: chromium-123-fstack-protector-strong.patch
+
+# Fix FTBFS: undefined symbol: __rust_no_alloc_shim_is_unstable on EL9
+Patch312: chromium-142-el9-rust-no-alloc-shim-is-unstable.patch
 
 # Fix FTBFS on EL9
 # - error: undefined symbol: __rust_alloc_error_handler_should_panic
@@ -345,10 +345,6 @@ Patch313: chromium-142-el9-rust_alloc_error_handler_should_panic.patch
 # old rust version causes build error on el8:
 # error[E0599]: no method named `is_none_or` found for enum `Option` in the current scope
 Patch314: chromium-136-rust-skrifa-build-error.patch
-
-# build error: libadler2 not found, rust-1.86 or newer replaces adler with adler2
-# we have rust-1.86 in f41 and newer
-Patch315: chromium-134-rust-libadler2.patch
 
 # add -ftrivial-auto-var-init=zero and -fwrapv
 Patch316: chromium-122-clang-build-flags.patch
@@ -1007,12 +1003,14 @@ mv %{_builddir}/cef-%{cef_commit} ./cef
 %endif
 
 %patch -P310 -p1 -b .rust-FTBFS-suppress-warnings
-%patch -P311 -p1 -b .rust-no-alloc-shim-is-unstable
-%patch -P312 -p1 -b .fstack-protector-strong
+%patch -P311 -p1 -b .fstack-protector-strong
+
+%if 0%{?rhel} == 9
+%patch -P312 -p1 -b .el9-rust-no-alloc-shim-is-unstable
 %patch -P313 -p1 -b .el9-rust_alloc_error_handler_should_panic
+%endif
 
 %if 0%{?rhel} && 0%{?rhel} < 10
-%patch -P315 -p1 -b .rust-libadler2
 %patch -P354 -p1 -b .split-threshold-for-reg-with-hint
 %endif
 %patch -P316 -p1 -b .clang-build-flags

@@ -1,7 +1,7 @@
 # kdump-utils has no debug source
 %global debug_package %{nil}
 Name: kdump-utils
-Version: 1.0.58
+Version: 1.0.59
 Release: %autorelease
 Summary: Kernel crash dump collection utilities
 
@@ -23,8 +23,6 @@ Requires: dracut-squash >= 058
 Requires: ethtool
 Requires: gawk
 Requires: util-linux
-# Needed for UKI support
-Recommends: binutils
 Recommends: grubby
 Recommends: hostname
 BuildRequires: make

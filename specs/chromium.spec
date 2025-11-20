@@ -244,7 +244,7 @@
 %endif
 
 Name:	chromium
-Version: 142.0.7444.162
+Version: 142.0.7444.175
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -282,9 +282,6 @@ Patch93: chromium-141-csss_style_sheet.patch
 
 # Revert due to incorrect display of links on startpage in Darkmode
 Patch94: chromium-141-revert-remove-darkmode-image-policy.patch
-
-# FTBFS - fatal error: 'gpu/webgpu/dawn_commit_hash.h' file not found
-Patch95: chromium-142-dawn-commit-hash.patch
 
 # FTBFS - error: cannot find attribute `sanitize` in this scope
 #    --> ../../third_party/crabbyavif/src/src/capi/io.rs:210:41
@@ -993,7 +990,6 @@ Qt6 UI for chromium.
 %patch -P92 -p1 -b .nodejs-checkversion
 %patch -P93 -p1 -b .ftbfs-csss_style_sheet
 %patch -P94 -p1 -R -b .revert-remove-darkmode-image-policy
-%patch -P95 -p1 -b .dawn-commit-hash
 %patch -P96 -p1 -b .crabbyavif-ftbfs-old-rust
 
 %if 0%{?fedora} > 43
@@ -1750,6 +1746,14 @@ fi
 %endif
 
 %changelog
+* Tue Nov 18 2025 Than Ngo <than@redhat.com> - 142.0.7444.175-1
+- Update to 142.0.7444.175
+  * High CVE-2025-13223: Type Confusion in V8
+  * High CVE-2025-13224: Type Confusion in V8
+
+* Sat Nov 15 2025 LuK1337 <priv.luk@gmail.com> - 142.0.7444.162-2
+- Disable LensOverlay feature by default
+
 * Thu Nov 13 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 142.0.7444.162-2
 - Rebuild for ffmpeg 8 again
 
