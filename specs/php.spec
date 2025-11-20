@@ -70,7 +70,7 @@
 %bcond_with          liburiparser
 
 %global upver        8.5.0
-%global rcver        RC5
+#global rcver        RC5
 
 Summary: PHP scripting language for creating dynamic web sites
 %if %{with rename}
@@ -1341,8 +1341,8 @@ mv $RPM_BUILD_ROOT%{_sysconfdir}/php-fpm.d/www.conf.default .
 # install systemd unit files and scripts for handling server startup
 install -m 755 -d $RPM_BUILD_ROOT%{_sysconfdir}/systemd/system/php-fpm.service.d
 install -Dm 644 %{SOURCE6}  $RPM_BUILD_ROOT%{_unitdir}/php-fpm.service
-install -Dm 644 %{SOURCE12} $RPM_BUILD_ROOT%{_sysconfdir}/systemd/system/httpd.service.d/php-fpm.conf
-install -Dm 644 %{SOURCE12} $RPM_BUILD_ROOT%{_sysconfdir}/systemd/system/nginx.service.d/php-fpm.conf
+install -Dm 644 %{SOURCE12} $RPM_BUILD_ROOT%{_unitdir}/httpd.service.d/php-fpm.conf
+install -Dm 644 %{SOURCE12} $RPM_BUILD_ROOT%{_unitdir}/nginx.service.d/php-fpm.conf
 # LogRotate
 install -m 755 -d $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d
 install -m 644 %{SOURCE7} $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/php-fpm
@@ -1352,7 +1352,7 @@ install -D -m 644 %{SOURCE14} $RPM_BUILD_ROOT%{_sysconfdir}/nginx/default.d/php.
 
 TESTCMD="$RPM_BUILD_ROOT%{_bindir}/php --no-php-ini"
 # Ensure all provided extensions are really there
-for mod in core date filter hash libxml openssl pcntl pcre readline reflection session spl standard zlib
+for mod in core date filter hash json lexbor libxml openssl pcntl pcre random readline reflection session spl standard uri zlib
 do
      $TESTCMD --modules | grep -qi $mod
 done
@@ -1577,8 +1577,8 @@ systemctl try-restart php-fpm.service >/dev/null 2>&1 || :
 %config(noreplace) %{_sysconfdir}/nginx/conf.d/php-fpm.conf
 %config(noreplace) %{_sysconfdir}/nginx/default.d/php.conf
 %{_unitdir}/php-fpm.service
-%config(noreplace) %{_sysconfdir}/systemd/system/httpd.service.d/php-fpm.conf
-%config(noreplace) %{_sysconfdir}/systemd/system/nginx.service.d/php-fpm.conf
+%{_unitdir}/httpd.service.d/php-fpm.conf
+%{_unitdir}/nginx.service.d/php-fpm.conf
 %{_sbindir}/php-fpm
 %dir %{_sysconfdir}/systemd/system/php-fpm.service.d
 %dir %{_sysconfdir}/php-fpm.d
@@ -1644,6 +1644,10 @@ systemctl try-restart php-fpm.service >/dev/null 2>&1 || :
 
 
 %changelog
+* Wed Nov 19 2025 Remi Collet <remi@remirepo.net> - 8.5.0-1
+- Update to 8.5.0 GA
+- move httpd/nginx drop-ins back to /usr/lib/systemd/system #2415127
+
 * Wed Nov 12 2025 Remi Collet <remi@remirepo.net> - 8.5.0~RC5-1
 - update to 8.5.0RC5
 

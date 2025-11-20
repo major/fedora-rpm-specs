@@ -25,34 +25,22 @@ fi \
 
 %global giturl  https://github.com/robol/MPSolve
 
+# Upstream has not tagged a release since version 3.2.1
+# Build from this commit, which the Macaulay2 devs call 3.2.3 beta
+%global commit  8450a4da8f02be0aefb3b0abaf084584a615e41d
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+
 Name:           mpsolve
-Version:        3.2.1
-Release:        29%{?dist}
+Version:        3.2.3~beta
+Release:        %autorelease
 Summary:        Multiprecision polynomial solver
 
 License:        GPL-3.0-or-later
 URL:            https://numpi.dm.unipi.it/software/mpsolve
 VCS:            git:%{giturl}.git
-Source:         %{giturl}/archive/%{version}/%{name}-%{version}.tar.gz
-# Fix mutex and condvar leaks
-# https://github.com/robol/MPSolve/commit/a3f7bf39b4efdaab3fe6becb948b61c4e5ab390b
-# https://github.com/robol/MPSolve/commit/1d073406146920b37d292357fdef5884d1670d67
-Patch:          %{name}-mutex-leak.patch
-# Fix configure.ac to work with autoconf 2.70+
-# https://github.com/robol/MPSolve/commit/3a890878239717e1d5d23f574e4c0073a7249f7a
-Patch:          %{name}-autoconf-2.70.patch
-# Fix coefficient leaks
-# https://github.com/robol/MPSolve/commit/2545de499edb272dbe7c4b03861d13e022d8b5d2
-Patch:          %{name}-coefficient-leak.patch
-# Updates for octave 6.x
-# https://github.com/robol/MPSolve/pull/31
-Patch:          %{name}-octave.patch
+Source:         %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 # Fix LTO warnings about mismatched types
 Patch:          %{name}-lto.patch
-# Fix configure tests with Modern C
-# See https://fedoraproject.org/wiki/Changes/PortingToModernC
-# https://github.com/robol/MPSolve/pull/33
-Patch:          %{name}-modern-c.patch
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -78,35 +66,35 @@ BuildRequires:  tex(dvips)
 
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
-%global _desc %{expand:
-MPSolve stands for Multiprecision Polynomial SOLVEr.  It aims to provide
-an easy to use universal blackbox for solving polynomials and secular
-equations.
+%global _desc %{expand:MPSolve stands for Multiprecision Polynomial SOLVEr.  It aims to provide an
+easy to use universal blackbox for solving polynomials and secular equations.
 
 Its features include:
 - Arbitrary precision approximation.
 - Guaranteed inclusion radii for the results.
-- Exploiting of polynomial structures: it can take advantage of sparsity
-  as well as coefficients in a particular domain (i.e. integers or
-  rationals).
-- It can be specialized for specific classes of polynomials.  As an
-  example, the roots of the Mandelbrot polynomial of degree 2,097,151
-  were computed in about 10 days on a dual Xeon server.}
+- Exploiting of polynomial structures: it can take advantage of sparsity as
+  well as coefficients in a particular domain (i.e. integers or rationals).
+- It can be specialized for specific classes of polynomials.  As an   example,
+  the roots of the Mandelbrot polynomial of degree 2,097,151 were computed in
+  about 10 days on a dual Xeon server.}
 
-%description %_desc
+%description
+%_desc
 
 This package contains command-line interfaces to %{name}.
 
 %package        libs
 Summary:        Multiprecision polynomial solver library
 
-%description    libs %_desc
+%description    libs
+%_desc
 
 %package        doc
 Summary:        Developer documentation for %{name}
 BuildArch:      noarch
 
-%description    doc %_desc
+%description    doc
+%_desc
 
 This package contains developer documentation for %{name}.
 
@@ -125,7 +113,8 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:       hicolor-icon-theme
 Requires:       shared-mime-info%{?_isa}
 
-%description -n xmpsolve %_desc
+%description -n xmpsolve
+%_desc
 
 This package contains a Qt-based graphical interface to mpsolve.
 
@@ -134,7 +123,8 @@ Summary:        Python 3 interface to mpsolve
 BuildArch:      noarch
 Requires:       %{name}-libs = %{version}-%{release}
 
-%description -n python3-mpsolve %_desc
+%description -n python3-mpsolve
+%_desc
 
 This package contains a python 3 interface to mpsolve.
 
@@ -147,12 +137,13 @@ Requires:       octave(api) = %{?octave_api}%{!?octave_api:0}
 Requires(post): octave
 Requires(postun): octave
 
-%description -n octave-mpsolve %_desc
+%description -n octave-mpsolve
+%_desc
 
 This package contains an octave interface to mpsolve.
 
 %prep
-%autosetup -n MPSolve-%{version} -p1
+%autosetup -n MPSolve-%{commit} -p1
 
 %conf
 # Fix the version number in the octave interface
@@ -167,9 +158,6 @@ sed -i '/GENERATE_LATEX/s/YES/NO/' doc/Doxyfile.in
 
 # Doxygen wants the CSS file up one level
 cp -p doc/doxygen/doxygen.css doc
-
-# Invoke python3, not python
-sed -i 's,%{_bindir}/env python,%{python3},' examples/python/tests/*.py
 
 # Do not force use of -fomit-frame-pointer
 sed -i '/-fomit-frame-pointer/d' configure.ac
@@ -214,9 +202,6 @@ cd -
 %install
 %make_install
 
-# We do not want the libtool files
-rm -f %{buildroot}%{_libdir}/*.la
-
 # Move the icon
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/192x192/apps
 mv %{buildroot}%{_datadir}/icons/xmpsolve.png \
@@ -225,7 +210,7 @@ mv %{buildroot}%{_datadir}/icons/xmpsolve.png \
 # Generate more icon sizes
 for sz in 16 22 24 32 36 48 64 72 96 128 256; do
   mkdir -p %{buildroot}%{_datadir}/icons/hicolor/${sz}x${sz}/apps
-  convert src/xmpsolve/xmpsolve.png -resize ${sz}x${sz} \
+  magick src/xmpsolve/xmpsolve.png -resize ${sz}x${sz} \
     %{buildroot}%{_datadir}/icons/hicolor/${sz}x${sz}/apps/xmpsolve.png
 done
 
@@ -291,113 +276,4 @@ make check
 %doc %{octpkgdir}/doc-cache
 
 %changelog
-* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 3.2.1-29
-- Rebuilt for Python 3.14.0rc3 bytecode
-
-* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 3.2.1-28
-- Rebuilt for Python 3.14.0rc2 bytecode
-
-* Thu Aug 07 2025 Orion Poplawski <orion@nwra.com> - 3.2.1-27
-- Rebuild for Octave 10.2
-
-* Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-26
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Mon Jun 02 2025 Python Maint <python-maint@redhat.com> - 3.2.1-25
-- Rebuilt for Python 3.14
-
-* Fri Jan 17 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-24
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Mon Nov 18 2024 Jerry James <loganjerry@gmail.com> - 3.2.1-23
-- Rebuild for octave 9.2.0
-
-* Thu Jul 18 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-22
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Mon Jun 10 2024 Jerry James <loganjerry@gmail.com> - 3.2.1-21
-- Update %%my_octave_pkg_install for recent rpm changes
-
-* Fri Jun 07 2024 Python Maint <python-maint@redhat.com> - 3.2.1-21
-- Rebuilt for Python 3.13
-
-* Thu Jan 25 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-20
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Sun Jan 21 2024 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-19
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Tue Jan 16 2024 Jerry James <loganjerry@gmail.com> - 3.2.1-18
-- Stop building for 32-bit x86
-
-* Thu Jul 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-18
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Tue Jul 18 2023 Jerry James <loganjerry@gmail.com> - 3.2.1-17
-- Validate metainfo with appstream-util
-
-* Tue Jun 13 2023 Python Maint <python-maint@redhat.com> - 3.2.1-17
-- Rebuilt for Python 3.12
-
-* Sun Apr 09 2023 Orion Poplawski <orion@nwra.com> - 3.2.1-16
-- Rebuild for octave 8.1.0
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-15
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Mon Nov 28 2022 Jerry James <loganjerry@gmail.com> - 3.2.1-14
-- Add modern-c patch
-- Convert License tag to SPDX
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-13
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 3.2.1-12
-- Rebuilt for Python 3.11
-
-* Wed Jun 01 2022 Orion Poplawski <orion@nwra.com> - 3.2.1-11
-- Rebuild for octave 7.1
-
-* Tue May 24 2022 Jerry James <loganjerry@gmail.com> - 3.2.1-10
-- Fix FTBFS with octave 7.1 (rhbz#2083937)
-- Add -coefficient-leak patch to plug another memory leak
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Tue Aug 17 2021 Jerry James <loganjerry@gmail.com> - 3.2.1-8
-- Rebuild for octave 6.3.0
-- Add -octave and -lto patches to fix build issues
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 3.2.1-6
-- Rebuilt for Python 3.10
-
-* Thu Mar 25 2021 Jerry James <loganjerry@gmail.com> - 3.2.1-5
-- Add -autoconf-2.70 patch (bz 1943108)
-- Add -mutex-leak patch
-- Upstream suggests building the matlab interface with octave in preference to
-  the unmaintained octave interface
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Sat Aug 01 2020 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-3
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Fri Jun 12 2020 Jerry James <loganjerry@gmail.com> - 3.2.1-1
-- Version 3.2.1
-- The formerly missing files are now included in the tarball
-
-* Thu Jun 11 2020 Jerry James <loganjerry@gmail.com> - 3.2.0-1
-- Version 3.2.0
-- Drop upstreamed patches: -strict-aliasing and -mpq-canonicalize
-
-* Wed May 27 2020 Jerry James <loganjerry@gmail.com> - 3.1.8-1
-- Initial RPM
+%autochangelog

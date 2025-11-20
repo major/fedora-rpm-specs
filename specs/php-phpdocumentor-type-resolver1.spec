@@ -10,8 +10,8 @@
 
 %global github_owner     phpDocumentor
 %global github_name      TypeResolver
-%global github_version   1.10.0
-%global github_commit    679e3ce485b99e84c775d28e2e96fade9a7fb50a
+%global github_version   1.10.1
+%global github_commit    431c02da15e566adb0ad9c5030fa6f6204d9de9e
 
 %global composer_vendor  phpdocumentor
 %global composer_project type-resolver
@@ -39,7 +39,7 @@
 
 Name:          php-%{composer_vendor}-%{composer_project}%{major}
 Version:       %{github_version}
-Release:       4%{?github_release}%{?dist}
+Release:       1%{?github_release}%{?dist}
 Summary:       A PSR-5 based resolver of Class names, Types and Structural Element Names
 
 Group:         Development/Libraries
@@ -142,7 +142,7 @@ BOOTSTRAP
 
 : Upstream tests
 RETURN_CODE=0
-for cmdarg in "php %{phpunit}" php81 php82 php83 php84; do
+for cmdarg in "php %{phpunit}" php81 php82 php83 php84 php85; do
     if which $cmdarg; then
         set $cmdarg
         $1 -d auto_prepend_file=$PWD/bootstrap.php \
@@ -169,6 +169,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Wed Nov 19 2025 Remi Collet <remi@remirepo.net> - 1.10.1-1
+- update to 1.10.1
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -4,7 +4,7 @@ Summary:        IB Performance Tests
 # Issue "Please avoid dashes in version":
 #   https://github.com/linux-rdma/perftest/issues/18
 %global upstream_ver 25.04.0-0.84
-Version:        %{lua: print((string.gsub(rpm.expand("%{upstream_ver}"),"-",".")))}
+Version:        %{gsub %upstream_ver - .}
 Release:        %autorelease
 License:        GPL-2.0-only OR BSD-2-Clause
 Source:		https://github.com/linux-rdma/perftest/releases/download/25.04.0-0.84/perftest-25.04.0-0.84.g97da83e.tar.gz

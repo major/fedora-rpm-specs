@@ -1,28 +1,25 @@
 %bcond tests 1
-%global srcname pytest-split
-%global slugname pytest_split
 
-Name:           python-%{srcname}
+Name:           python-pytest-split
 Summary:        Pytest plugin to split the test suite into sub-suites
 Version:        0.10.0
 Release:        %autorelease
 
 License:         MIT
 URL:             https://github.com/jerry-git/pytest-split
-Source:          %{url}/archive/refs/tags/%{version}/%{srcname}-%{version}.tar.gz
+Source:          %{url}/archive/refs/tags/%{version}/pytest-split-%{version}.tar.gz
 BuildArch:       noarch
 
 # The upstream patch for Python 3.14 test issue #2325447
 # https://github.com/jerry-git/pytest-split/pulls/107
-# It can be removed in the next upstream release
+# It can be removed in the next upstream release > 0.10.0
 Patch0:          107.patch
 
 BuildRequires:   python3-devel
 BuildRequires:   help2man
+BuildRequires:   tomcli
 BuildRequires:   python3dist(poetry-core)
 BuildRequires:   python3dist(pytest)
-BuildRequires:   python3dist(pytest-cov)
-Requires:        python3dist(pytest)
 
 %global _description %{expand:
 Pytest plugin which splits the test suite to equally sized
@@ -30,13 +27,15 @@ sub suites based on test execution time.}
 
 %description %_description
 
-%package -n python3-%{srcname}
+%package -n python3-pytest-split
 Summary:        %{summary}
 
-%description -n python3-%{srcname} %_description
+%description -n python3-pytest-split %_description
 
 %prep
-%autosetup -p1 -n %{srcname}-%{version}
+%autosetup -p1 -n pytest-split-%{version}
+# Remove pytest configuration to avoid dependency on coverage (pytest-cov)
+tomcli set pyproject.toml del 'tool.pytest.ini_options'
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -46,6 +45,7 @@ Summary:        %{summary}
 
 %install
 %pyproject_install
+%pyproject_save_files -L pytest_split
 mkdir -p %{buildroot}%{_mandir}/man1
 PYTHONPATH="%{buildroot}%{python3_sitelib}" help2man \
     --version-string %{version} \
@@ -53,18 +53,16 @@ PYTHONPATH="%{buildroot}%{python3_sitelib}" help2man \
     gzip > %{buildroot}%{_mandir}/man1/slowest-tests.1.gz
 
 %check
-%py3_check_import %{slugname}
+%pyproject_check_import
 
 %if %{with tests}
-%pytest --no-cov tests
+%pytest tests
 %endif
 
-%files -n python3-%{srcname}
+%files -n python3-pytest-split -f %{pyproject_files}
 %doc README.md
 %doc CHANGELOG.md
 %license LICENSE
-%{python3_sitelib}/%{slugname}-%{version}.dist-info/
-%{python3_sitelib}/%{slugname}/
 %{_bindir}/slowest-tests
 %{_mandir}/man1/slowest-tests.1.*
 

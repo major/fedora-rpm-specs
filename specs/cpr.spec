@@ -1,5 +1,5 @@
 Name:           cpr
-Version:        1.12.0
+Version:        1.13.0
 Release:        %autorelease
 Summary:        C++ Requests: Curl for People, a spiritual port of Python Requests
 
@@ -11,7 +11,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  ninja-build
 BuildRequires:  openssl-devel
-BuildRequires:  curl-devel
+BuildRequires:  libcurl-devel
 
 %description
 C++ Requests is a simple wrapper around libcurl inspired by the excellent Python
@@ -26,6 +26,7 @@ idioms.
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       libcurl-devel
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -35,9 +36,7 @@ developing applications that use %{name}.
 %autosetup
 
 %build
-%cmake -G Ninja \
-  -DCMAKE_BUILD_TYPE=Release \
-  -DCPR_USE_SYSTEM_CURL=ON
+%cmake -DCPR_USE_SYSTEM_CURL=ON
 
 %cmake_build
 

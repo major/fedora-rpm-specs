@@ -9,7 +9,7 @@
 %global ms_version   0.4.2
 
 # For rpmdev-bumpspec and releng automation
-%global baserelease 1
+%global baserelease 2
 
 #global snapdate   20210107
 #global gitcommit  b17db2cebc1a5ab2c01851d29c05f79cd2f262bb
@@ -121,10 +121,10 @@ BuildRequires:  libsndfile-devel
 BuildRequires:  ncurses-devel
 BuildRequires:  pulseaudio-libs-devel
 BuildRequires:  avahi-devel
-%if 0%{?fedora} >= 40 || 0%{?rhel} >= 10
+%if (0%{?fedora} && 0%{?fedora} < 44) || (0%{?rhel} && 0%{?rhel} < 11)
 BuildRequires:  pkgconfig(webrtc-audio-processing-1)
 %else
-BuildRequires:  pkgconfig(webrtc-audio-processing) >= 0.2
+BuildRequires:  pkgconfig(webrtc-audio-processing-2)
 %endif
 BuildRequires:  libusb1-devel
 BuildRequires:  readline-devel
@@ -930,6 +930,9 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_datadir}/pipewire/pipewire.conf.d/50-raop.conf
 
 %changelog
+* Wed Nov 19 2025 Neal Gompa <ngompa@fedoraproject.org> - 1.5.83-2
+- Use webrtc-audio-processing-2 with Fedora 44+ and RHEL 11+
+
 * Thu Nov 06 2025 Wim Taymans <wtaymans@redhat.com> - 1.5.83-1
 - Update version to 1.5.83
 

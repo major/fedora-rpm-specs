@@ -1,13 +1,13 @@
 %bcond_without check
 
 Name:           rust2rpm
-Version:        27.1.1
+Version:        28.0.0
 Release:        %autorelease
 Summary:        Generate RPM spec files for Rust crates
 License:        MIT
 
-URL:            https://pagure.io/fedora-rust/rust2rpm
-Source:         %{url}/archive/v%{version}/rust2rpm-%{version}.tar.gz
+URL:            https://codeberg.org/rust2rpm/rust2rpm
+Source:         %{url}/archive/v%{version}.tar.gz
 
 BuildArch:      noarch
 
@@ -36,7 +36,7 @@ rust2rpm is a tool that automates the generation of RPM spec files for
 Rust crates.
 
 %prep
-%autosetup -p1
+%autosetup -n rust2rpm -p1
 
 %generate_buildrequires
 %pyproject_buildrequires %{?with_check:-t}

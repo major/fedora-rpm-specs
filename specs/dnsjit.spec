@@ -1,4 +1,4 @@
-# Page at dns-oarch.net:
+# Page at dns-oarc.net:
 # https://www.dns-oarc.net/tools/dnsjit
 %global url_files https://www.dns-oarc.net/files/%{name}
 
@@ -116,14 +116,7 @@ cp -p examples/*.lua %{buildroot}%{_libexecdir}/%{name}/
 
 
 %check
-%ifnarch s390x
 %make_build test
-%else
-# Some tests are failing on s390x only, known issue
-# https://codeberg.org/DNS-OARC/dnsjit/issues/250
-# https://bugzilla.redhat.com/show_bug.cgi?id=2323980#c7
-%make_build test TEST_IPSPLIT=''
-%endif
 
 
 %files

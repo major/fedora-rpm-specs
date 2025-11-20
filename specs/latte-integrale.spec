@@ -1,6 +1,6 @@
 Name:           latte-integrale
 Version:        1.7.6
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Lattice point enumeration
 
 %global tarver  %(tr . _ <<< %{version})
@@ -43,8 +43,8 @@ BuildRequires:  gmp-devel
 BuildRequires:  libtool
 BuildRequires:  lrslib-utils
 BuildRequires:  make
-BuildRequires:  ntl-devel
 BuildRequires:  perl-interpreter
+BuildRequires:  pkgconfig(ntl)
 BuildRequires:  sqlite-devel
 BuildRequires:  TOPCOM
 
@@ -59,13 +59,13 @@ Suggests:       lrslib-utils
 Provides:       bundled(gnulib)
 
 %description
-LattE (Lattice point Enumeration) is a computer software dedicated to
-the problems of counting lattice points and integration inside convex
-polytopes.  LattE contains the first ever implementation of Barvinok's
-algorithm.  The LattE macchiato version (by M. Köppe) incorporated
-fundamental improvements and speed ups.  Now the latest version, LattE
-integrale, has the ability to directly compute integrals of polynomial
-functions over polytopes and in particular to do volume computations.
+LattE (Lattice point Enumeration) is a computer software dedicated to the
+problems of counting lattice points and integration inside convex polytopes.
+LattE contains the first ever implementation of Barvinok's algorithm.  The
+LattE macchiato version (by M. Köppe) incorporated fundamental improvements
+and speed ups.  Now the latest version, LattE integrale, has the ability to
+directly compute integrals of polynomial functions over polytopes and in
+particular to do volume computations.
 
 %prep
 %setup -q -n latte-int-%{version}
@@ -149,9 +149,6 @@ for bin in count integrate triangulate; do
   mv %{buildroot}%{_bindir}/$bin %{buildroot}%{_bindir}/latte-$bin
 done
 
-# We don't need or want libtool files
-rm -f %{buildroot}%{_libdir}/*.la
-
 # Internal libraries only; don't install the .so since there are no headers
 rm -f %{buildroot}%{_libdir}/lib{latte,normalize}.so
 
@@ -190,6 +187,9 @@ make check
 %{_libdir}/libnormalize.so.0.*
 
 %changelog
+* Wed Nov 19 2025 Jerry James <loganjerry@gmail.com> - 1.7.6-14
+- Rebuild for ntl 11.6.0
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.6-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

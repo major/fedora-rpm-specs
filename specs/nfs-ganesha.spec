@@ -134,7 +134,7 @@ Requires: openSUSE-release
 
 Name:		nfs-ganesha
 Version:	8.1
-Release:	2%{?dev:%{dev}}%{?dist}
+Release:	3%{?dev:%{dev}}%{?dist}
 Summary:	NFS-Ganesha is a NFS Server running in user space
 License:	LGPL-3.0-or-later
 Url:		https://github.com/nfs-ganesha/nfs-ganesha/wiki
@@ -643,13 +643,13 @@ install -m 644 config_samples/rgw.conf %{buildroot}%{_sysconfdir}/ganesha
 
 mkdir -p %{buildroot}%{_unitdir}
 %if ( 0%{?fedora} ) || ( 0%{?rhel} && 0%{?rhel} >= 8 )
-mkdir -p %{buildroot}%{_sysconfdir}/systemd/system/nfs-ganesha-lock.service.d
+mkdir -p %{buildroot}%{_unitdir}/nfs-ganesha-lock.service.d
 %endif
 
 install -m 644 scripts/systemd/nfs-ganesha.service.el7	%{buildroot}%{_unitdir}/nfs-ganesha.service
 %if ( 0%{?fedora} ) || ( 0%{?rhel} && 0%{?rhel} >= 8 )
 install -m 644 scripts/systemd/nfs-ganesha-lock.service.el8    %{buildroot}%{_unitdir}/nfs-ganesha-lock.service
-install -m 644 scripts/systemd/rpc-statd.conf.el8      %{buildroot}%{_sysconfdir}/systemd/system/nfs-ganesha-lock.service.d/rpc-statd.conf
+install -m 644 scripts/systemd/rpc-statd.conf.el8      %{buildroot}%{_unitdir}/nfs-ganesha-lock.service.d/rpc-statd.conf
 %else
 install -m 644 scripts/systemd/nfs-ganesha-lock.service.el7	%{buildroot}%{_unitdir}/nfs-ganesha-lock.service
 %endif
@@ -759,7 +759,7 @@ killall -SIGHUP dbus-daemon >/dev/null 2>&1 || :
 %{_unitdir}/nfs-ganesha-lock.service
 %{_unitdir}/nfs-ganesha-config.service
 %if ( 0%{?fedora} ) || ( 0%{?rhel} && 0%{?rhel} >= 8 )
-%{_sysconfdir}/systemd/system/nfs-ganesha-lock.service.d/rpc-statd.conf
+%{_unitdir}/nfs-ganesha-lock.service.d/rpc-statd.conf
 %endif
 
 %if ( 0%{?with_man_page} )
@@ -965,6 +965,9 @@ killall -SIGHUP dbus-daemon >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Wed Nov 19 2025 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 8.1-3
+- NFS-Ganesha 8.1, rpc-statd in unitdir, rhbz#2415128
+
 * Thu Oct 30 2025 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 8.1-2
 - NFS-Ganesha 8.1, python cleanup
 

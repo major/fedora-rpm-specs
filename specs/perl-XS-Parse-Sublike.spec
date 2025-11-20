@@ -13,7 +13,7 @@
 %endif
 
 Name:           perl-XS-Parse-Sublike
-Version:        0.39
+Version:        0.40
 Release:        1%{?dist}
 Summary:        XS functions to assist in parsing sub-like syntax
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -43,7 +43,7 @@ BuildRequires:  perl(B::Deparse)
 BuildRequires:  perl(feature)
 BuildRequires:  perl(Sub::Util)
 BuildRequires:  perl(Test2::Require::Module)
-BuildRequires:  perl(Test2::V0)
+BuildRequires:  perl(Test2::V0) >= 0.000147
 %if %{optional_tests}
 # Optional tests:
 %global Future_AsyncAwait_min_ver 0.66
@@ -167,6 +167,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Nov 19 2025 Petr Pisar <ppisar@redhat.com> - 0.40-1
+- 0.40 bump
+
 * Mon Sep 15 2025 Petr Pisar <ppisar@redhat.com> - 0.39-1
 - 0.39 bump
 

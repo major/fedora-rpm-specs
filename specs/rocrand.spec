@@ -50,11 +50,7 @@
 
 # flags for testing, neither should be enabled for official builds in koji
 # relevant HW is required to run %check
-%if 0%{?fedora}
-%bcond_without test
-%else
 %bcond_with test
-%endif
 # enable building of tests if test is enabled
 %if %{with test}
 %global build_test ON
@@ -121,7 +117,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        2%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 %endif
 Summary:        ROCm random number generator
 
@@ -256,20 +252,21 @@ rm -f %{buildroot}%{_prefix}/share/doc/rocrand/LICENSE.md
 %{_libdir}/librocrand.so.1{,.*}
 
 %files devel 
-%dir %{_libdir}/cmake/rocrand
-%dir %{_includedir}/rocrand
-%{_includedir}/rocrand/*.{h,hpp}
-%{_libdir}/cmake/rocrand/*.cmake
+%{_includedir}/rocrand/
+%{_libdir}/cmake/rocrand/
 %{_libdir}/librocrand.so
 
 %if %{with test}
 %files test
-%dir %{_bindir}/rocRAND
 %{_bindir}/test_*
-%{_bindir}/rocRAND/*.cmake
+%{_bindir}/rocRAND/
 %endif
 
 %changelog
+* Wed Nov 19 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-4
+- Remove dir tags
+- -test fails fedora-review, turn off
+
 * Mon Nov 17 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 7.1.0-3
 - Rebuilt for gtest 1.17.0
 

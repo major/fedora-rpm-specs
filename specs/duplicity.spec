@@ -26,6 +26,10 @@ Source0:        https://gitlab.com/duplicity/duplicity/-/archive/rel.%{version}/
 # https://gitlab.com/duplicity/duplicity/-/commit/e6671cdf4ed8b21b4a8bd1973bd458f62792cd29
 Patch0:         e6671cdf4ed8b21b4a8bd1973bd458f62792cd29.patch
 Patch1:         334.patch
+Patch2:         338.patch
+Patch3:         e82df376913628a5ba152e4d362181abde8a6406.patch
+Patch4:         9a36384d59520e07ccca2caacc147c6e9fb05de6.patch
+Patch5:         493643c306fe809643aecd26c10e4f5671a96806.patch
 
 Requires:       ca-certificates
 Requires:       gnupg >= 1.0.6

@@ -5,8 +5,8 @@
 %global __requires_exclude_from ^%{python3_sitelib}/gns3server/compute/docker/resources/.*$
 
 Name:           gns3-server
-Version:        2.2.54
-Release:        7%{?dist}
+Version:        2.2.55
+Release:        1%{?dist}
 Summary:        Graphical Network Simulator 3
 
 # Automatically converted from old format: GPLv3 - review is highly recommended.
@@ -15,8 +15,6 @@ URL:            http://gns3.com
 Source0:        https://github.com/GNS3/gns3-server/archive/v%{git_tag}/%{name}-%{git_tag}.tar.gz
 Source1:        gns3.service
 Patch0:         0001-changing-busybox-udhcpc-script-path.patch
-# https://github.com/GNS3/gns3-server/issues/2541
-Patch1:         gns3-server-2.2.54-asyncio-fix.patch
 BuildArch:      noarch
 
 BuildRequires:  git-core
@@ -55,7 +53,7 @@ Requires: %{name} = %{version}-%{release}
 # Relax requirements
 sed -i -r 's/==/>=/g' requirements.txt
 sed -i -r 's/distro>=1.9.*/distro>=1.5.0/' requirements.txt
-sed -i -r 's/psutil>=7.0.0/psutil>=5.8.0/' requirements.txt
+sed -i -r 's/psutil>=7.1.3/psutil>=5.8.0/' requirements.txt
 sed -i -r 's/aiofiles>=24.1.0,<25.0/aiofiles>=0.7/' requirements.txt
 sed -i -r 's/aiohttp>=3.10.11,<3.11/aiohttp>=3.9.3/' requirements.txt
 sed -i -r 's/aiohttp-cors>=0.7.0,<0.8/aiohttp-cors>=0.7.0/' requirements.txt
@@ -148,6 +146,9 @@ cp -fp %{_datadir}/edk2/ovmf/OVMF_VARS.fd %{python3_sitelib}/gns3server/disks/OV
 %systemd_postun_with_restart gns3.service
 
 %changelog
+* Wed Nov 19 2025 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.55-1
+- Update to 2.2.55
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 2.2.54-7
 - Rebuilt for Python 3.14.0rc3 bytecode
 

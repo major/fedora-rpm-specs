@@ -1,11 +1,11 @@
 Name:           libtsm
-Version:        4.1.0
+Version:        4.3.0
 Release:        1%{?dist}
 Summary:        DEC-VT terminal emulator state machine
 License:        MIT AND LGPL-2.1-or-later
 URL:            https://github.com/Aetf/libtsm
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-BuildRequires:  cmake
+BuildRequires:  meson
 BuildRequires:  gcc
 BuildRequires:  pkgconfig
 BuildRequires:  xz
@@ -38,12 +38,17 @@ in %{name}.
 %prep
 %autosetup -p1
 
+%conf
+%meson
+
 %build
-%cmake
-%cmake_build
+%meson_build
 
 %install
-%cmake_install
+%meson_install
+
+%check
+%meson_test
 
 %files
 %license COPYING LICENSE_htable
@@ -54,9 +59,11 @@ in %{name}.
 %{_includedir}/libtsm.h
 %{_libdir}/libtsm.so
 %{_libdir}/pkgconfig/*.pc
-%{_libdir}/cmake/
 
 %changelog
+* Fri Nov 14 2025 Jocelyn Falempe <jfalempe@redhat.com> - 4.3.0-1
+- Update to 4.3.0, and switch to meson
+
 * Wed Jul 2 2025 Jocelyn Falempe <jfalempe@redhat.com> - 4.1.0
 - Update to 4.1.0, and clean the spec file
 

@@ -46,8 +46,8 @@
 # 0%%{?fedora}
 
 Name:           wine
-Version:        10.18
-Release:        2%{?dist}
+Version:        10.19
+Release:        1%{?dist}
 Summary:        A compatibility layer for windows applications
 
 License:        LGPL-2.1-or-later
@@ -206,7 +206,7 @@ BuildRequires:  mingw64-zlib
 
 Requires:       wine-common = %{version}-%{release}
 Requires:       wine-desktop = %{version}-%{release}
-Requires:       (steam if steam else wine-ntsync = %{version}-%{release})
+#Requires:       wine-ntsync = %{version}-%{release}
 Requires:       wine-winefonts = %{version}-%{release}
 
 # x86-32 parts
@@ -2303,6 +2303,9 @@ fi
 %endif
 
 %changelog
+* Tue Nov 18 2025 Michael Cronenworth <mike@cchtml.com> - 10.19-1
+- version update
+
 * Sun Nov 02 2025 Michael Cronenworth <mike@cchtml.com> - 10.18-2
 - wine-mono 10.3.0
 

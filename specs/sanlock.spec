@@ -1,8 +1,8 @@
 Name:           sanlock
-Version:        3.9.5
-Release:        5%{?dist}
+Version:        4.2.0
+Release:        1%{?dist}
 Summary:        A shared storage lock manager
-License:	GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.0-or-later
+License:        GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.0-or-later
 URL:            https://pagure.io/sanlock/
 BuildRequires:  gcc
 BuildRequires:  libaio-devel
@@ -27,7 +27,7 @@ The sanlock daemon manages leases for applications on hosts using shared storage
 
 %prep
 %setup -q
-# %patch0 -p1
+#%%patch0 -p1
 
 %build
 %set_build_flags
@@ -51,9 +51,9 @@ make -C python \
         PY_VERSION=3
 
 
-install -D -m 0644 init.d/sanlock.service.native $RPM_BUILD_ROOT/%{_unitdir}/sanlock.service
-install -D -m 0755 init.d/systemd-wdmd $RPM_BUILD_ROOT/usr/lib/systemd/systemd-wdmd
-install -D -m 0644 init.d/wdmd.service $RPM_BUILD_ROOT/%{_unitdir}/wdmd.service
+install -D -m 0644 init.d/sanlock.service.native $RPM_BUILD_ROOT%{_unitdir}/sanlock.service
+install -D -m 0755 init.d/systemd-wdmd $RPM_BUILD_ROOT%{_prefix}/lib/systemd/systemd-wdmd
+install -D -m 0644 init.d/wdmd.service $RPM_BUILD_ROOT%{_unitdir}/wdmd.service
 
 install -p -D -m 0644 src/sanlock.sysusers $RPM_BUILD_ROOT/%{_sysusersdir}/sanlock.conf
 
@@ -91,7 +91,7 @@ getent passwd sanlock > /dev/null || /usr/sbin/useradd \
 %systemd_postun wdmd.service sanlock.service
 
 %files
-/usr/lib/systemd/systemd-wdmd
+%{_prefix}/lib/systemd/systemd-wdmd
 %{_unitdir}/sanlock.service
 %{_unitdir}/wdmd.service
 %{_sbindir}/sanlock
@@ -157,6 +157,9 @@ developing applications that use %{name}.
 %{_libdir}/pkgconfig/libsanlock_client.pc
 
 %changelog
+* Wed Nov 19 2025 Marian Csontos <mcsontos@redhat.com> - 4.2.0-1
+- new upstream release
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
@@ -194,7 +197,7 @@ developing applications that use %{name}.
 - new upstream release
 
 * Wed Apr 17 2024 David Teigland <teigland@redhat.com> - 3.9.2-2
-- Fix build when %_bindir==%_sbindir
+- Fix build when %%_bindir==%%_sbindir
 
 * Tue Apr 16 2024 David Teigland <teigland@redhat.com> - 3.9.2-1
 - new upstream release

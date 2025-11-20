@@ -2,7 +2,7 @@
 %bcond bootstrap 0
 
 Name:           mkdocs-material
-Version:        9.6.16
+Version:        9.7.0
 Release:        %autorelease
 Summary:        Material design theme for MkDocs
 
@@ -33,6 +33,9 @@ This package provides a powerful documentation framework on top of MkDocs.
 
 # Relax version pins
 sed -i 's/~=/>=/g' pyproject.toml requirements.txt
+
+# Relax pillow requirement
+sed -i 's/pillow>=10.2,<12.0/pillow>=10.2,<13.0/' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires %{!?with_bootstrap:-x git,imaging,recommended}

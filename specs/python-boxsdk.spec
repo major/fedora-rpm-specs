@@ -3,7 +3,7 @@
 %bcond_with tests
 
 Name:               python-boxsdk
-Version:            10.0.1
+Version:            10.1.0
 Release:            1%{?dist}
 Summary:            Python wrapper for the Box API
 
@@ -67,6 +67,9 @@ pytest-3
 %doc *.md
 
 %changelog
+* Wed Nov 19 2025 Gwyn Ciesla <gwync@protonmail.com> - 10.1.0-1
+- 10.1.0
+
 * Mon Oct 06 2025 Gwyn Ciesla <gwync@protonmail.com> - 10.0.1-1
 - 10.0.1
 

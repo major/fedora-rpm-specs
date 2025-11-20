@@ -1,9 +1,6 @@
-%global additional_version 20140218
-%global additional_name man-pages-additional-%{additional_version}
-
 Summary: Linux kernel and C library user-space interface documentation
 Name: man-pages
-Version: 6.9.1
+Version: 6.13
 Release: %autorelease
 # List of all licenses - each with an example of a man-page that uses it
 # (complete list of all man-pages per license would be too long)
@@ -24,9 +21,17 @@ Release: %autorelease
 # Spencer-94: man7/regex.7
 License: BSD-2-Clause AND BSD-3-Clause AND BSD-4.3TAHOE AND BSD-4-Clause-UC AND GPL-1.0-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND LicenseRef-Fedora-Public-Domain AND LicenseRef-Fedora-UltraPermissive AND Linux-man-pages-1-para AND Linux-man-pages-copyleft AND Linux-man-pages-copyleft-2-para AND Linux-man-pages-copyleft-var AND MIT AND Spencer-94
 URL: http://www.kernel.org/doc/man-pages/
-Source: http://www.kernel.org/pub/linux/docs/man-pages/man-pages-%{version}.tar.xz
-# additional man-pages, the source tarball is fedora/rhel only
-Source1: %{additional_name}.tar.xz
+# Verify signature:
+# wget http://www.kernel.org/pub/linux/docs/man-pages/man-pages-%%{version}.tar.xz
+# wget http://www.kernel.org/pub/linux/docs/man-pages/man-pages-%%{version}.tar.sign
+# gpg --armour \
+# 	--no-default-keyring \
+#	--keyring ./man-pages.gpg --import ./man-pages.keyring
+# gpg --no-default-keyring --keyring ./man-pages.gpg \
+# 	--verify man-pages-%%{version}.tar.sign man-pages-%%{version}.tar.xz
+# Verify "Good signature from" for the stored key.
+Source0: http://www.kernel.org/pub/linux/docs/man-pages/man-pages-%{version}.tar.xz
+Source1: http://www.kernel.org/pub/linux/docs/man-pages/man-pages-%{version}.tar.sign
 
 BuildRequires: make
 Requires(post): %{_sbindir}/update-alternatives
@@ -51,13 +56,17 @@ BuildArch: noarch
 # https://bugzilla.kernel.org/show_bug.cgi?id=53781
 Patch21: man-pages-3.42-close.patch
 
+# Add rtas.2, swapcontext.2 and cons.saver.8 man pages
+Patch28: additional-man-pages.patch
+
 %description
 A large collection of manual pages from the Linux Documentation Project (LDP).
 
 %prep
-%setup -q -a 1
+%setup -q -a 0
 
 %patch -P 21 -p1
+%patch -P 28 -p1
 
 ## Remove man pages we are not going to use ##
 
@@ -77,14 +86,25 @@ rm man3/crypt{,_r}.3
 # nothing to build
 
 %install
-make install prefix=/usr DESTDIR=$RPM_BUILD_ROOT
-pushd %{additional_name}
-make install prefix=/usr DESTDIR=$RPM_BUILD_ROOT
-popd
+make -R install prefix=/usr DESTDIR=$RPM_BUILD_ROOT
 
+# The man.7 manual page is empty and references groff_man.7, but we
+# don't want to explicitly require installing groff to make the set
+# of man pages complete.
+#
 # rename files for alternative usage
 mv %{buildroot}%{_mandir}/man7/man.7 %{buildroot}%{_mandir}/man7/man.%{name}.7
 touch %{buildroot}%{_mandir}/man7/man.7
+
+# Remove binaries we don't use and their man pages.
+rm %{buildroot}%{_bindir}/diffman-git
+rm %{buildroot}%{_bindir}/mansect
+rm %{buildroot}%{_bindir}/pdfman
+rm %{buildroot}%{_bindir}/sortman
+rm %{buildroot}%{_mandir}/man1/mansect.1
+rm %{buildroot}%{_mandir}/man1/diffman-git.1
+rm %{buildroot}%{_mandir}/man1/pdfman.1
+rm %{buildroot}%{_mandir}/man1/sortman.1
 
 %pre
 # remove alternativized files if they are not symlinks
@@ -109,7 +129,7 @@ fi
 
 %files
 %doc README Changes
-%ghost %{_mandir}/man7/man.7*
+%ghost %{_mandir}/man7/man.7.gz
 %{_mandir}/man*/*
 
 %changelog

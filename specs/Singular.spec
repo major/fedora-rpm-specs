@@ -70,10 +70,10 @@ BuildRequires:	libtool
 BuildRequires:	lrcalc
 BuildRequires:	make
 BuildRequires:	normaliz
-BuildRequires:	ntl-devel
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	pkgconfig(mathicgb)
 BuildRequires:	pkgconfig(ncurses)
+BuildRequires:	pkgconfig(ntl)
 BuildRequires:	pkgconfig(readline)
 BuildRequires:	pkgconfig(tbb)
 BuildRequires:	pkgconfig(zlib)
@@ -169,14 +169,14 @@ Summary:	C++ class library for multivariate polynomial data
 Requires:	factory-gftables = %{version}-%{release}
 
 %description	-n factory
-Factory is a C++ class library that implements a recursive
-representation of multivariate polynomial data.  It handles sparse
-multivariate polynomials over different coefficient domains, such as Z,
-Q and GF(q), as well as algebraic extensions over Q and GF(q) in an
-efficient way.  Factory includes algorithms for computing univariate and
-multivariate gcds, resultants, chinese remainders, and algorithms to
-factorize multivariate polynomials and to compute the absolute
-factorization of multivariate polynomials with integer coefficients.
+Factory is a C++ class library that implements a recursive representation of
+multivariate polynomial data.  It handles sparse multivariate polynomials over
+different coefficient domains, such as Z, Q and GF(q), as well as algebraic
+extensions over Q and GF(q) in an efficient way.  Factory includes algorithms
+for computing univariate and multivariate gcds, resultants, chinese
+remainders, and algorithms to factorize multivariate polynomials and to
+compute the absolute factorization of multivariate polynomials with integer
+coefficients.
 
 %package	-n factory-devel
 Summary:	Development files for the Singular factory
@@ -198,8 +198,8 @@ Summary:	C++ class library for polynomials in Singular
 Requires:	factory%{?_isa} = %{version}-%{release}
 
 %description	libpolys
-Libpolys contains the data structures and basic algorithms for
-polynomials in Singular.
+Libpolys contains the data structures and basic algorithms for polynomials in
+Singular.
 
 %package	libpolys-devel
 Summary:	Development files for libpolys
@@ -306,10 +306,6 @@ sed -i 's/ -lflint.*//;s/Libs\.private.*/& -lflint -lmpfr -lntl -lgmp/' \
   %{buildroot}%{_libdir}/pkgconfig/factory.pc
 sed -i 's/ -lflint.*//;s/Libs\.private.*/& -lflint -lmpfr -lgmp/' \
   %{buildroot}%{_libdir}/pkgconfig/libpolys.pc
-
-# We don't want the libtool files
-rm -f %{buildroot}%{_libdir}/*.la
-rm -f %{buildroot}%{_libdir}/singular/MOD/*.la
 
 # Remove files we don't want in the installed tree
 rm -f %{buildroot}%{_datadir}/singular/emacs/{ChangeLog,COPYING,NEWS}

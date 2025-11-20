@@ -1,25 +1,29 @@
-Name:           webrtc-audio-processing
-Version:        2.1
-Release:        2%{?dist}
+Name:           webrtc-audio-processing1
+Version:        1.3
+Release:        10%{?dist}
 Summary:        Library for echo cancellation
 
 License:        BSD-3-Clause
 URL:            http://www.freedesktop.org/software/pulseaudio/webrtc-audio-processing/
-Source:         http://freedesktop.org/software/pulseaudio/webrtc-audio-processing/%{name}-%{version}.tar.xz
+Source0:        http://freedesktop.org/software/pulseaudio/webrtc-audio-processing/webrtc-audio-processing-%{version}.tar.xz
 
-# Backports from upstream
-Patch:         0001-Fix-compilation-with-gcc-15.patch
-Patch:         0001-arch.h-Add-s390x-support.patch
-Patch:         0001-Fix-build-with-abseil-cpp-202508.patch
+Patch0:         arches.patch
+Patch1:         65f002e.patch
+# Add missing #include for GCC 15
+#
+# Downstream-only because the package is significantly behind upstream, and the
+# code in question has changed quite a bit in the latest release.
+Patch2:         webrtc-audio-processing-1.3-gcc15.patch
 
 BuildRequires: meson
 BuildRequires: gcc gcc-c++
 BuildRequires: abseil-cpp-devel
+#BuildRequires: neon-devel
 
 %description
-%{name} is a library derived from Google WebRTC project that
+webrtc-audio-processing is a library derived from Google WebRTC project that
 provides echo cancellation functionality. This library is used by for example
-PipeWire to provide echo cancellation.
+PulseAudio to provide echo cancellation.
 
 %package        devel
 Summary:        Development files for %{name}
@@ -30,42 +34,39 @@ The %{name}-devel package contains libraries and header
 files for developing applications that use %{name}.
 
 %prep
-%autosetup -p1
-
-
-%conf
-%meson \
-%ifnarch %{arm32} %{arm64}
-  -Dneon=disabled \
-%endif
-  %{nil}
-
+%autosetup -n webrtc-audio-processing-%{version} -p1
 
 %build
-%meson_build
+%meson
+%meson_build \
+#%%ifarch %%{arm} aarch64
+#  -Dneon=no \
+#%endif
 
 
 %install
 %meson_install
 
 
+%ldconfig_scriptlets
+
 %files
 %doc NEWS AUTHORS README.md
 %license COPYING
-%{_libdir}/libwebrtc-audio-processing-2.so.1*
+%{_libdir}/libwebrtc-audio-coding-1.so.3*
+%{_libdir}/libwebrtc-audio-processing-1.so.3*
 
 %files devel
-%{_libdir}/libwebrtc-audio-processing-2.so
-%{_libdir}/pkgconfig/webrtc-audio-processing-2.pc
-%{_includedir}/webrtc-audio-processing-2/
+%{_libdir}/libwebrtc-audio-coding-1.so
+%{_libdir}/libwebrtc-audio-processing-1.so
+%{_libdir}/pkgconfig/webrtc-audio-coding-1.pc
+%{_libdir}/pkgconfig/webrtc-audio-processing-1.pc
+%{_includedir}/webrtc-audio-processing-1/
 
 
 %changelog
-* Wed Nov 19 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 2.1-2
-- Drop unused neon dependency
-
-* Wed Nov 19 2025 Neal Gompa <ngompa@fedoraproject.org> - 2.1-1
-- Rebase to version 2.1
+* Wed Nov 19 2025 Neal Gompa <ngompa@fedoraproject.org> - 1.3-10
+- Split out as a compatibility package
 
 * Mon Sep 08 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 1.3-9
 - Rebuilt for abseil-cpp 20250814.0

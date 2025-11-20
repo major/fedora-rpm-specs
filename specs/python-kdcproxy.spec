@@ -1,31 +1,33 @@
 %global realname kdcproxy
 
 Name:           python-%{realname}
-Version:        1.0.0
-Release:        24%{?dist}
+Version:        1.1.0
+Release:        1%{?dist}
 Summary:        MS-KKDCP (kerberos proxy) WSGI module
 
 License:        MIT
 URL:            https://github.com/latchset/%{realname}
-Source0:        https://github.com/latchset/%{realname}/archive/%{realname}-%{version}.tar.gz
+Source0:        https://github.com/latchset/%{realname}/releases/download/v%{version}/%{realname}-%{version}.tar.gz
+Source1:        https://github.com/latchset/%{realname}/releases/download/v%{version}/%{realname}-%{version}.tar.gz.sha512sum.txt
 
-Patch0: Drop-coverage-from-tests.patch
-Patch1: Use-exponential-backoff-for-connection-retries.patch
-Patch2: Use-dedicated-kdcproxy-logger.patch
+# Patches
 
 BuildArch:      noarch
-BuildRequires:  git-core
 
+BuildRequires:  git-core
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
 
 %generate_buildrequires
 %pyproject_buildrequires
 
-%description
+%global _description %{expand:
 This package contains a Python WSGI module for proxying KDC requests over
 HTTP by following the MS-KKDCP protocol. It aims to be simple to deploy, with
 minimal configuration.
+}
+
+%description %{_description}
 
 %package -n python3-%{realname}
 Summary:        MS-KKDCP (kerberos proxy) WSGI module
@@ -34,31 +36,36 @@ Requires:       python3-pyasn1
 
 %{?python_provide:%python_provide python3-%{realname}}
 
-%description -n python3-%{realname}
-This package contains a Python 3.x WSGI module for proxying KDC requests over
-HTTP by following the MS-KKDCP protocol. It aims to be simple to deploy, with
-minimal configuration.
+%description -n python3-%{realname} %{_description}
 
 %prep
-%autosetup -S git -n %{realname}-%{version}
+%autosetup -S git_am -n %{realname}-%{version}
 
 %build
 %pyproject_wheel
 
 %install
 %pyproject_install
-ls -ld %{python3_sitelib}/
+%pyproject_save_files %{realname}
 
 %check
-%{pytest}
+%pyproject_check_import
+%pytest
 
-%files -n python3-%{realname}
+%files -n python%{python3_pkgversion}-%{realname} -f %{pyproject_files}
 %doc README
 %license COPYING
-%{python3_sitelib}/%{realname}/
-%{python3_sitelib}/%{realname}-%{version}*.dist-info
 
 %changelog
+* Wed Nov 19 2025 Julien Rische <jrische@redhat.com> - 1.1.0-1
+- New upstream version (1.1.0)
+- Use DNS discovery for declared realms only (CVE-2025-59088)
+  Resolves: rhbz#2415861
+- Fix DoS vulnerability based on unbounded TCP buffering (CVE-2025-59089)
+  Resolves: rhbz#2415860
+- Stop using deprecated %py3_build/%py3_install macros
+  Resolves: rhbz#2377837
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.0.0-24
 - Rebuilt for Python 3.14.0rc3 bytecode
 

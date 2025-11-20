@@ -19,7 +19,7 @@
 # The last version on which the full testsuite has been run
 # In case of further rebuilds of that version, don't require full testsuite to be run
 # run only "main" suite
-%global last_tested_version 8.0.42
+%global last_tested_version 8.0.44
 # Set to 1 to force run the testsuite even if it was already tested in current version
 %global force_run_testsuite 0
 
@@ -102,7 +102,7 @@
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          1%{?with_debug:.debug}%{?dist}
+Release:          2%{?with_debug:.debug}%{?dist}
 Summary:          MySQL client programs and shared libraries
 URL:              http://www.mysql.com
 
@@ -993,11 +993,14 @@ popd
 
 %{_tmpfilesdir}/%{daemon_name}.conf
 %{_sysusersdir}/%{name}.conf
+
+# Remember to also update the mysql.tmpfiles.d.in file when updating these permissions
 %attr(0755,mysql,mysql) %dir %{dbdatadir}
 %attr(0750,mysql,mysql) %dir %{_localstatedir}/lib/mysql-files
 %attr(0700,mysql,mysql) %dir %{_localstatedir}/lib/mysql-keyring
 %attr(0755,mysql,mysql) %dir %{pidfiledir}
 %attr(0750,mysql,mysql) %dir %{logfiledir}
+
 %config(noreplace) %{logrotateddir}/%{daemon_name}
 
 %if %{with devel}
@@ -1117,6 +1120,9 @@ popd
 %endif
 
 %changelog
+* Mon Nov 3 2025 Nikola Davidova <ndavidov@redhat.com> - 8.0.44-2
+- Bump release for tmpfiles.d change
+
 * Thu Oct 30 2025 Pavol Sloboda <psloboda@redhat.com> - 8.0.44-1
 - Rebase to MySQL 8.0.44
 

@@ -5,7 +5,7 @@
 %global crate unit-prefix
 
 Name:           rust-unit-prefix
-Version:        0.5.1
+Version:        0.5.2
 Release:        %autorelease
 Summary:        Format numbers with metric and binary unit prefixes
 

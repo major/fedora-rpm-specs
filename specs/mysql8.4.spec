@@ -104,7 +104,7 @@ ExcludeArch: %{ix86}
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          1%{?with_debug:.debug}%{?dist}
+Release:          2%{?with_debug:.debug}%{?dist}
 Summary:          MySQL client programs and shared libraries
 URL:              http://www.mysql.com
 
@@ -977,11 +977,14 @@ popd
 
 %{_tmpfilesdir}/%{daemon_name}.conf
 %{_sysusersdir}/%{name}.conf
+
+# Remember to also update the mysql.tmpfiles.d.in file when updating these permissions
 %attr(0755,mysql,mysql) %dir %{dbdatadir}
 %attr(0750,mysql,mysql) %dir %{_localstatedir}/lib/mysql-files
 %attr(0700,mysql,mysql) %dir %{_localstatedir}/lib/mysql-keyring
 %attr(0755,mysql,mysql) %dir %{pidfiledir}
 %attr(0750,mysql,mysql) %dir %{logfiledir}
+
 %config(noreplace) %{logrotateddir}/%{daemon_name}
 
 %if %{with devel}
@@ -1116,6 +1119,9 @@ popd
 %endif
 
 %changelog
+* Mon Nov 3 2025 Nikola Davidova <ndavidov@redhat.com> - 8.4.7-2
+- Bump release for tmpfiles.d change
+
 * Thu Oct 30 2025 Pavol Sloboda <psloboda@redhat.com> - 8.4.7-1
 - Rebase to 8.4.7
 

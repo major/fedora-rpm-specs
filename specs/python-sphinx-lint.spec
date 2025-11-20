@@ -1,5 +1,5 @@
 Name:           python-sphinx-lint
-Version:        1.0.0
+Version:        1.0.2
 Release:        %autorelease
 Summary:        Check stylistic and formal issues in .rst and .py files in the documentation
 License:        PSF-2.0

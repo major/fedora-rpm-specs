@@ -120,7 +120,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 %endif
 Summary:        ROCm Fast Fourier Transforms (FFT) library
 License:        MIT
@@ -288,11 +288,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/rocfft/LICENSE.md
 %{_libdir}/librocfft.so.0{,.*}
 
 %files devel
-%dir %{_libdir}/cmake/rocfft
-%dir %{_includedir}/rocfft
-%{_includedir}/rocfft/*.h
+%{_includedir}/rocfft/
 %{_libdir}/librocfft.so
-%{_libdir}/cmake/rocfft/*.cmake
+%{_libdir}/cmake/rocfft/
 
 %if %{with test}
 %files test
@@ -301,6 +299,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/rocfft/LICENSE.md
 %endif
 
 %changelog
+* Wed Nov 19 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-4
+- Remove dir tags
+
 * Wed Nov 12 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-3
 - Rebuild for gfx1036
 

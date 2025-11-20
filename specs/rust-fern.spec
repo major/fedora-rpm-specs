@@ -111,6 +111,30 @@ use the "meta-logging-in-format" feature of the "%{crate}" crate.
 %files       -n %{name}+meta-logging-in-format-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+syslog-6-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+syslog-6-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "syslog-6" feature of the "%{crate}" crate.
+
+%files       -n %{name}+syslog-6-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+syslog6-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+syslog6-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "syslog6" feature of the "%{crate}" crate.
+
+%files       -n %{name}+syslog6-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %prep
 %autosetup -n %{crate}-%{version} -p1
 %cargo_prep

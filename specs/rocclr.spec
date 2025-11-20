@@ -41,7 +41,12 @@
 %global build_type RelWithDebInfo
 %endif
 
+%if 0%{?suse_version} <= 1600
+# python3-CppHeaderParser not available on 15.6
+%bcond_with cppheaderparser
+%else
 %bcond_without cppheaderparser
+%endif
 %if %{with cppheaderparser}
 %global build_prof_api ON
 %else
@@ -77,7 +82,7 @@
 
 Name:           rocclr
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm Compute Language Runtime
 Url:            https://github.com/ROCm/clr
 License:        MIT
@@ -90,6 +95,10 @@ Patch1:         0001-rocclr-long-variants-for-__ffsll.patch
 
 #https://github.com/ROCm/clr/pull/97
 patch2:        %{url}/pull/97/commits/909fa3dcb644f7ca422ed1a980a54ac426d831b1.patch
+
+# std::filesystem is c++17 and that is too new for suse 15
+# https://github.com/ROCm/rocm-systems/issues/1947
+patch3:        0001-rocclr-replace-std-filesystem-exists-with-access.patch
 
 BuildRequires:  cmake
 %if %{with docs}
@@ -397,6 +406,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/hip/LICENSE.md
 %endif
 
 %changelog
+* Wed Nov 19 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
+- Fix building on SUSE 15.6
+
 * Thu Oct 30 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
 - Update to 7.1.0
 

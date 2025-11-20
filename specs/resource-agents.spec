@@ -20,7 +20,7 @@
 #
 
 %global upstream_prefix ClusterLabs-resource-agents
-%global upstream_version 56e76b01
+%global upstream_version 7a4080a0
 
 # Whether this platform defaults to using systemd as an init system
 # (needs to be evaluated prior to BuildRequires being enumerated and
@@ -51,8 +51,8 @@
 
 Name:		resource-agents
 Summary:	Open Source HA Reusable Cluster Resource Scripts
-Version:	4.16.0
-Release:	2%{?rcver:%{rcver}}%{?numcomm:.%{numcomm}}%{?alphatag:.%{alphatag}}%{?dirty:.%{dirty}}%{?dist}.2
+Version:	4.17.0
+Release:	1%{?rcver:%{rcver}}%{?numcomm:.%{numcomm}}%{?alphatag:.%{alphatag}}%{?dirty:.%{dirty}}%{?dist}
 License:	GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:		https://github.com/ClusterLabs/resource-agents
 Source0:	%{upstream_prefix}-%{upstream_version}.tar.gz
@@ -116,9 +116,13 @@ Requires: /sbin/fsck
 Requires: /usr/sbin/fsck.ext2 /usr/sbin/fsck.ext3 /usr/sbin/fsck.ext4
 Requires: /usr/sbin/fsck.xfs
 %if 0%{?fedora} > 40 || 0%{?rhel} > 9 || 0%{?suse_version}
-Requires: /usr/sbin/mount.nfs /usr/sbin/mount.nfs4
+Recommends: /usr/sbin/mount.nfs /usr/sbin/mount.nfs4
+%else
+%if 0%{?rhel} > 8
+Recommends: /sbin/mount.nfs /sbin/mount.nfs4
 %else
 Requires: /sbin/mount.nfs /sbin/mount.nfs4
+%endif
 %endif
 %if (0%{?fedora} && 0%{?fedora} < 33) || (0%{?rhel} && 0%{?rhel} < 9) || (0%{?centos} && 0%{?centos} < 9) || 0%{?suse_version}
 %if (0%{?rhel} && 0%{?rhel} < 8) || (0%{?centos} && 0%{?centos} < 8)
@@ -136,11 +140,19 @@ Requires: /usr/sbin/lvm
 
 # nfsserver / netfs.sh
 %if 0%{?fedora} > 40 || 0%{?rhel} > 9 || 0%{?suse_version}
-Requires: /usr/sbin/rpc.statd
+Recommends: /usr/sbin/rpc.statd
+%else
+%if 0%{?rhel} > 8
+Recommends: /sbin/rpc.statd
 %else
 Requires: /sbin/rpc.statd
 %endif
+%endif
+%if 0%{?fedora} > 40 || 0%{?rhel} > 8 || 0%{?suse_version}
+Recommends: /usr/sbin/rpc.nfsd /usr/sbin/rpc.mountd
+%else
 Requires: /usr/sbin/rpc.nfsd /usr/sbin/rpc.mountd
+%endif
 
 # rgmanager
 %if %{with rgmanager}
@@ -394,6 +406,9 @@ ccs_update_schema > /dev/null 2>&1 ||:
 %endif
 
 %changelog
+* Wed Nov 19 2025 Oyvind Albrigtsen <oalbrigt@redhat.com> - 4.17.0-1
+- Rebase to resource-agents 4.17.0 upstream release.
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.16.0-2.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

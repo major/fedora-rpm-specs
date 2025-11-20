@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.3.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Tool to invoke vcs commands on multiple repositories
 
 # Automatically converted from old format: ASL 2.0 - review is highly recommended.
@@ -103,7 +103,8 @@ ln -s vcs %{buildroot}%{_datadir}/bash-completion/completions/vcs-%{python3_vers
   --ignore test/test_commands.py \\\
   test
 
-%{__python3} -m pytest %pytest_options
+PYTHONWARNINGS=ignore \
+  %{__python3} -m pytest %pytest_options
 
 
 %files -n python%{python3_pkgversion}-%{srcname} -f py3_bins
@@ -118,6 +119,9 @@ ln -s vcs %{buildroot}%{_datadir}/bash-completion/completions/vcs-%{python3_vers
 
 
 %changelog
+* Wed Nov 19 2025 Scott K Logan <logans@cottsay.net> - 0.3.0-15
+- Ignore warnings during pytest (rhbz#2403567)
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.3.0-14
 - Rebuilt for Python 3.14.0rc3 bytecode
 

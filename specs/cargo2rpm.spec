@@ -1,13 +1,13 @@
 %bcond_without check
 
 Name:           cargo2rpm
-Version:        0.1.18
+Version:        0.3.0
 Release:        %autorelease
 Summary:        Translation layer between cargo and RPM
 License:        MIT
 
-URL:            https://pagure.io/fedora-rust/cargo2rpm
-Source:         %{url}/archive/%{version}/cargo2rpm-%{version}.tar.gz
+URL:            https://codeberg.org/rust2rpm/cargo2rpm
+Source:         %{url}/archive/v%{version}.tar.gz
 
 BuildArch:      noarch
 
@@ -24,7 +24,7 @@ provides a CLI interface (for implementing RPM macros and generators)
 and a Python API (which rust2rpm is built upon).
 
 %prep
-%autosetup -p1
+%autosetup -n cargo2rpm -p1
 
 %generate_buildrequires
 %pyproject_buildrequires

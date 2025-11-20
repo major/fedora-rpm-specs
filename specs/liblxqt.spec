@@ -17,7 +17,6 @@ BuildRequires: cmake
 BuildRequires: gcc-c++
 BuildRequires: libXScrnSaver-devel
 BuildRequires: lxqt-build-tools
-BuildRequires: qt-devel
 BuildRequires: cmake(Qt6Widgets)
 BuildRequires: cmake(Qt6DBus)
 BuildRequires: cmake(Qt6LinguistTools)

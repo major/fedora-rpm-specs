@@ -40,7 +40,7 @@
 
 Name:       amdsmi
 Version:    %{rocm_version}
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    AMD System Management Interface
 
 License:    NCSA AND MIT AND BSD-3-Clause
@@ -54,6 +54,8 @@ Source0:    %{url}/archive/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.ta
 Source1:    https://github.com/amd/esmi_ib_library/archive/refs/tags/esmi_pkg_ver-%{esmi_ver}.tar.gz
 Patch1:     0002-option-use-system-gtest.patch
 Patch2:     0003-test-client-includes-for-gcc-15.patch
+# SUSE 15.6 does not have filesystem
+Patch3:     0001-amdsmi-remove-unneeded-include-fileystem.patch
 
 ExclusiveArch: x86_64
 
@@ -207,6 +209,9 @@ mv %{buildroot}%{_datadir}/tests %{buildroot}%{_datadir}/amdsmi/.
 %endif
 
 %changelog
+* Wed Nov 19 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-3
+- Fix SUSE 15.6 build, remove unneeded include
+
 * Mon Nov 10 2025 Tim Flink <tflink@fedoraproject.org> - 7.1.0-2
 - update and re-enable gcc15 include patch for upstream 7.1.0 so test subpackage builds
 - removed extra dir in test subpackage

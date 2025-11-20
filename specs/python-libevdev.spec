@@ -1,5 +1,5 @@
 Name:		python-libevdev
-Version:	0.13
+Version:	0.13.1
 Release:	1%{?dist}
 Summary:	Python bindings to the libevdev evdev device wrapper library
 
@@ -51,6 +51,9 @@ devices and create uinput devices.
 %{python3_sitelib}/libevdev-%{version}.dist-info
 
 %changelog
+* Wed Nov 19 2025 Peter Hutterer <peter.hutterer@redhat.com> - 0.13.1-1
+- python-libevdev 0.13.1
+
 * Fri Nov 14 2025 Peter Hutterer <peter.hutterer@redhat.com> - 0.13-1
 - python-libevdev 0.13
 

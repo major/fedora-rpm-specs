@@ -1,8 +1,6 @@
 Name:           dionaea
 Version:        0.11.0
 Summary:        Low interaction honeypot
-# Show as the RPM release number (keep same number line for tarball and git builds)
-%global         baserelease     9
 
 %if 0%{?rhel}
 # Group needed for EPEL
@@ -16,7 +14,7 @@ Group:          Applications/System
 License:        LicenseRef-Callaway-GPLv2-with-exceptions
 URL:            https://dionaea.readthedocs.io/
 #    Current source:
-VCS:            https://github.com/DinoTools/dionaea
+VCS:            git:https://github.com/DinoTools/dionaea
 #    Original site (dissappeared in 2013, but still available from archives):
 #               https://dionaea.carnivore.it -> https://web.archive.org/web/20150820080019/https://dionaea.carnivore.it
 #    Another forks:
@@ -54,10 +52,10 @@ VCS:            https://github.com/DinoTools/dionaea
 
 %if 0%{?with_snapshot}
 #               not using 0. on the beginning of release as this git snapshot is past the 0.7.0 release
-Release:        %{baserelease}.%{gitdate}git%{shortcommit}%{?dist}
+Release:        %autorelease -s %{gitdate}git%{shortcommit}
 Source0:        https://github.com/%{gituser}/%{gitname}/archive/%{commit}/%{name}-%{version}-%{shortcommit}.tar.gz
 %else
-Release:        %{baserelease}%{?dist}
+Release:        %autorelease
 Source0:        https://github.com/%{gituser}/%{gitname}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 %endif
 
@@ -446,166 +444,4 @@ install -m0644 -D dionaea.sysusers.conf %{buildroot}%{_sysusersdir}/dionaea.conf
 
 
 %changelog
-* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 0.11.0-9.20210228git4e459f1
-- Rebuilt for Python 3.14.0rc3 bytecode
-
-* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 0.11.0-8.20210228git4e459f1
-- Rebuilt for Python 3.14.0rc2 bytecode
-
-* Tue Aug 05 2025 Charalampos Stratakis <cstratak@redhat.com> - 0.11.0-7.20210228git4e459f1
-- Fix compatibility with Cython >= 3.1
-- Fixes: rhbz#2377036
-
-* Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-6.20210228git4e459f1
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 0.11.0-5.20210228git4e459f1
-- Rebuilt for Python 3.14
-
-* Tue Feb 11 2025 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 0.11.0-4.20210228git4e459f1
-- Add sysusers.d config file to allow rpm to create users/groups automatically
-
-* Thu Jan 16 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-3.20210228git4e459f1
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Wed Aug 28 2024 Miroslav Suchý <msuchy@redhat.com> - 0.11.0-2.20210228git4e459f1
-- convert license to SPDX
-
-* Thu Jul 04 2024 Michal Ambroz <rebus at, seznam.cz> 0.11.0-1
-- bump to 0.11.0
-
-* Fri Jun 07 2024 Python Maint <python-maint@redhat.com> - 0.7.0-29
-- Rebuilt for Python 3.13
-
-* Mon Mar 25 2024 Nils Philippsen <nils@tiptoe.de> - 0.7.0-28
-- Revert constraining SQLAlchemy version
-
-* Tue Mar 19 2024 Nils Philippsen <nils@tiptoe.de> - 0.7.0-27
-- Add dependency on setuptools Python package
-
-* Tue Mar 19 2024 Nils Philippsen <nils@tiptoe.de> - 0.7.0-26
-- Depend on SQLAlchemy < 2
-
-* Wed Jan 24 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-25
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jan 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-24
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Thu Oct 05 2023 Michal Ambroz <rebus at, seznam.cz> 0.7.0-22
-- add version metadata to the python module to fix FTBFS
-
-* Sun Jul 23 2023 Python Maint <python-maint@redhat.com> - 0.7.0-21
-- Rebuilt for Python 3.12
-
-* Wed Jul 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-20
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Wed Jun 14 2023 Python Maint <python-maint@redhat.com> - 0.7.0-19
-- Rebuilt for Python 3.12
-
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-18
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-17
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 0.7.0-16
-- Rebuilt for Python 3.11
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-15
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Tue Sep 14 2021 Sahana Prasad <sahana@redhat.com> - 0.7.0-14
-- Rebuilt with OpenSSL 3.0.0
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-13
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 0.7.0-12
-- Rebuilt for Python 3.10
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-10
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 0.7.0-9
-- Rebuilt for Python 3.9
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Oct 24 2019 Michal Ambroz <rebus at, seznam.cz> 0.7.0-7
-- switch to glib2 based on #1766678 to modernize and prepare for epel8
-
-* Thu Oct 24 2019 Michal Ambroz <rebus at, seznam.cz> 0.7.0-6
-- rebuilt rawhide after ressurection of libdasm/libemu
-
-* Mon Aug 19 2019 Miro Hrončok <mhroncok@redhat.com> - 0.7.0-5.3
-- Rebuilt for Python 3.8
-
-* Wed Jul 24 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-5.2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-5.1
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Mon Jul 30 2018 Adam Williamson <awilliam@redhat.com> - 0.7.0-5
-- Disable -Werror to fix build (see upstream #225)
-
-* Thu Jul 12 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-4.2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Tue Jun 19 2018 Miro Hrončok <mhroncok@redhat.com> - 0.7.0-4.1
-- Rebuilt for Python 3.7
-
-* Mon Jun 18 2018 Michal Ambroz <rebus at, seznam.cz> 0.7.0-4
-- anothe improvement of logrotate script
-- add the empty files for dionaea.sqlite dionaea_incident.sqlite sipaccounts.sqlite
-
-* Mon Jun 04 2018 Michal Ambroz <rebus at, seznam.cz> 0.7.0-3
-- fix logrotate script
-- use the current version of openssl (needs to be same as curllib is using)
-
-* Thu May 10 2018 Michal Ambroz <rebus at, seznam.cz> 0.7.0-1
-- bump to release 0.7.0
-
-* Mon May 07 2018 Michal Ambroz <rebus at, seznam.cz> 0.6.0-10.20180326git1748f3b
-- cosmetics, changing description in the systemd service
-
-* Mon Apr 30 2018 Michal Ambroz <rebus at, seznam.cz> 0.6.0-9.20180326git1748f3b
-- add runtime python dependencies
-- fix location of sip user database
-
-* Mon Apr 30 2018 Iryna Shcherbina <shcherbina.iryna@gmail.com> - 0.6.0-8.20180326git1748f3b
-- Fix condition for python-sphinx on Fedora
-
-* Fri Apr 20 2018 Michal Ambroz <rebus at, seznam.cz> 0.6.0-7.20180326git1748f3b
-- fix the link creation to python core library 
-
-* Mon Apr 09 2018 Michal Ambroz <rebus at, seznam.cz> 0.6.0-6.20180326git1748f3b
-- fix log rotation, move the logs to /var/log/dionaea
-- create user dionaea:dionaea
-- grant shared stare dir/files to the dionaea user account
-
-* Mon Apr 09 2018 Michal Ambroz <rebus at, seznam.cz> 0.6.0-5.20180326git1748f3b
-- clean-up based on review in #1564716
-
-* Fri Apr 06 2018 Michal Ambroz <rebus at, seznam.cz> 0.6.0-4.20180326git1748f3b
-- update to current git snapshot, add logrotate and service files
-
-* Wed Mar 21 2018 Michal Ambroz <rebus at, seznam.cz> 0.6.0-3.20180313gitd2efb76
-- fix openssl dependency for EPEL7 build
-
-* Wed Mar 21 2018 Michal Ambroz <rebus at, seznam.cz> 0.6.0-2.20180313gitd2efb76
-- bump to commit d2efb768e753a7f1ddca6dbf402548d741f33574
-- unbundle pyev and refer to system-installed pyev
-- remove the hardcoded default prefix /opt/dionaea
-- move from /var/dionaea to /var/lib/dionaea
-- fix the doc generation warnings
-
-* Thu Dec 28 2017 Michal Ambroz <rebus at, seznam.cz> 0.6.0-1
-- initial package
-
+%autochangelog

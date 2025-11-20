@@ -12,7 +12,7 @@
 Name:           fbrnch
 Version:        1.7.1
 # can only be reset when all subpkgs bumped
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Fedora packager tool to build package branches
 
 # copr-api: GPLv3+
@@ -54,7 +54,7 @@ BuildRequires:  ghc-pagure-devel
 BuildRequires:  ghc-pretty-terminal-devel
 BuildRequires:  ghc-process-devel
 BuildRequires:  ghc-rpm-nvr-devel
-BuildRequires:  ghc-rpmbuild-order-devel
+BuildRequires:  ghc-rpmbuild-order-devel >= 0.4.13
 BuildRequires:  ghc-safe-devel
 #BuildRequires:  ghc-say-devel
 BuildRequires:  ghc-select-rpms-devel
@@ -135,6 +135,9 @@ Requires:       rpmdevtools
 Recommends:     copr-cli
 Recommends:     fedora-review
 Recommends:     koji-tool
+%if %{defined rhel}
+Recommends:     epel-rpm-macros
+%endif
 
 %description
 Fbrnch (fedora branch or "f-branch" for short) is a convenient packaging tool
@@ -205,6 +208,11 @@ help2man --no-info %{buildroot}%{_bindir}/%{name} > %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Wed Nov 19 2025 Jens Petersen <petersen@redhat.com> - 1.7.1-34
+- rebuild for haxr xmlrpc to Accept: application/xml
+- use rpmbuild-order 0.4.13
+- [epel] recommends epel-rpm-macros
+
 * Mon Aug 11 2025 Jens Petersen <petersen@redhat.com> - 1.7.1-33
 - Rebuild
 

@@ -8,7 +8,7 @@
 #
 %bcond_without       tests
 
-%global gh_commit    d74205c497bfbca49f34d4bc4c19c17e22db4ebb
+%global gh_commit    b7489ce515e168639d17feec34b8847c326b0b3c
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_vendor    theseer
 %global gh_project   tokenizer
@@ -16,7 +16,7 @@
 %global ns_project   Tokenizer
 
 Name:           php-%{gh_vendor}-%{gh_project}
-Version:        1.3.0
+Version:        1.3.1
 Release:        1%{?dist}
 Summary:        Library for converting tokenized PHP source code into XML
 
@@ -99,6 +99,9 @@ exit $ret
 
 
 %changelog
+* Wed Nov 19 2025 Remi Collet <remi@remirepo.net> - 1.3.1-1
+- update to 1.3.1
+
 * Fri Nov 14 2025 Remi Collet <remi@remirepo.net> - 1.3.0-1
 - update to 1.3.0
 - re-license spec file to CECILL-2.1

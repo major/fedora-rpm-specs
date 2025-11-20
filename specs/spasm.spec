@@ -53,15 +53,16 @@ BuildRequires:  pkgconfig(givaro)
 BuildRequires:  pkgconfig(lemon)
 BuildRequires:  pkgconfig(linbox)
 BuildRequires:  pkgconfig(mpfr)
+BuildRequires:  pkgconfig(ntl)
 
 Requires:       environment(modules)
 Requires:       libspasm%{?_isa} = %{version}-%{release}
 
-%global _desc %{expand:
-SpaSM is a software library devoted to sparse gaussian elimination
-modulo a small prime _p_.}
+%global _desc %{expand:SpaSM is a software library devoted to sparse gaussian elimination modulo a
+small prime _p_.}
 
-%description %_desc
+%description
+%_desc
 
 This package contains command line binaries for accessing spasm
 functionality.
@@ -69,7 +70,8 @@ functionality.
 %package     -n libspasm
 Summary:        Sparse gaussian elimination modulo a small prime
 
-%description -n libspasm %_desc
+%description -n libspasm
+%_desc
 
 This package contains the spasm shared library.
 
@@ -78,7 +80,8 @@ Summary:        Development files for libspasm
 
 Requires:       libspasm%{?_isa} = %{version}-%{release}
 
-%description -n libspasm-devel %_desc
+%description -n libspasm-devel
+%_desc
 
 This package contains headers and library links for developing
 applications that use libspasm.

@@ -15,6 +15,8 @@ URL:            https://hackage.haskell.org/package/haxr
 # Begin cabal-rpm sources:
 Source0:        https://hackage.haskell.org/package/%{pkgver}/%{pkgver}.tar.gz
 # End cabal-rpm sources
+# https://github.com/byorgey/haxr/pull/37
+Patch0:         https://patch-diff.githubusercontent.com/raw/byorgey/haxr/pull/37.patch
 
 # Begin cabal-rpm deps:
 BuildRequires:  ghc-Cabal-devel
@@ -106,6 +108,7 @@ This package provides the Haskell %{pkg_name} profiling library.
 %prep
 # Begin cabal-rpm setup:
 %setup -q -n %{pkgver}
+%autopatch -p1
 # End cabal-rpm setup
 chmod a-x examples/*
 cabal-tweak-drop-dep mtl-compat

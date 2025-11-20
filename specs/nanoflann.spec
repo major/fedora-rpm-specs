@@ -2,7 +2,7 @@
 %global debug_package %{nil}
 
 %global forgeurl https://github.com/jlblancoc/nanoflann
-Version:        1.7.0
+Version:        1.8.0
 %forgemeta
 
 Name:           nanoflann
@@ -39,10 +39,7 @@ The %{name}-devel package contains development files for %{name}.
 rm -r tests/gtest-1.8.0
 
 %build
-%cmake \
-    -GNinja \
-    -DCMAKE_BUILD_TYPE=Release \
-    -DNANOFLANN_USE_SYSTEM_GTEST=ON \
+%cmake -DNANOFLANN_USE_SYSTEM_GTEST=ON
 
 %cmake_build
 

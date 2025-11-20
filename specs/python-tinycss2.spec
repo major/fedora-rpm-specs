@@ -6,13 +6,15 @@
 
 
 Name:           python-%{srcname}
-Version:        1.4.0
-Release:        6%{?dist}
+Version:        1.5.0
+Release:        1%{?dist}
 Summary:        Low-level CSS parser for Python
 
 License:        BSD-3-Clause
 URL:            https://www.courtbouillon.org/tinycss2/
 Source0:        %{pypi_source tinycss2}
+# generated using ./export-git-snapshot.sh <GITHASH>
+Source1:        css-parsing-tests-88fc3fc.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -40,7 +42,8 @@ specification.
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n %{srcname}-%{version} -a 1
+mv css-parsing-tests-*/* tests/css-parsing-tests/
 
 
 %generate_buildrequires
@@ -71,6 +74,9 @@ rm -rf %{buildroot}%{python3_sitelib}/%{srcname}/__pycache__/test.*.py?
 
 
 %changelog
+* Wed Nov 19 2025 Felix Schwarz <fschwarz@fedoraproject.org> - 1.5.0-1
+- update to 1.5.0
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 1.4.0-6
 - Rebuilt for Python 3.14.0rc3 bytecode
 

@@ -7,8 +7,9 @@
 %bcond opencv %{defined fedora}
 %bcond openh264 %{defined fedora}
 %bcond svtav1 %{defined fedora}
-# requires new webrtc-audio-processing-1
+# requires new webrtc-audio-processing-1/-2
 %bcond webrtc %[ %{defined fedora} || 0%{?rhel} >= 10 ]
+%bcond webrtc1 %[ %{with webrtc} && ! (0%{?fedora} >= 44 || 0%{?rhel} >= 11) ]
 # The 1394 stack is not built on s390x
 # libldac is not built on s390x, see rhbz#1677491
 %ifnarch s390x
@@ -29,7 +30,7 @@
 
 Name:           gstreamer1-plugins-bad-free
 Version:        1.26.8
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        GStreamer streaming media framework "bad" plugins
 
 # Automatically converted from old format: LGPLv2+ and LGPLv2 - review is highly recommended.
@@ -118,8 +119,12 @@ BuildRequires:  pkgconfig(SvtAv1Enc)
 BuildRequires:  pkgconfig(vpl) >= 2.2
 %endif
 %if %{with webrtc}
+%if %{with webrtc1}
 BuildRequires:  pkgconfig(webrtc-audio-coding-1)
 BuildRequires:  pkgconfig(webrtc-audio-processing-1)
+%else
+BuildRequires:  pkgconfig(webrtc-audio-processing-2)
+%endif
 %endif
 %if %{with extras}
 BuildRequires:  faad2-devel
@@ -343,8 +348,10 @@ aren't tested well enough, or the code is not of good enough quality.
     -D msdk=disabled \
     -D qsv=disabled \
 %endif
-%if %{without webrtc}
+%if %{without webrtc1}
     -D isac=disabled \
+%endif
+%if %{without webrtc}
     -D webrtcdsp=disabled \
 %endif
 %if %{without extras}
@@ -665,8 +672,10 @@ EOF
 %if %{with svtav1}
 %{_libdir}/gstreamer-%{majorminor}/libgstsvtav1.so
 %endif
-%if %{with webrtc}
+%if %{with webrtc1}
 %{_libdir}/gstreamer-%{majorminor}/libgstisac.so
+%endif
+%if %{with webrtc}
 %{_libdir}/gstreamer-%{majorminor}/libgstwebrtcdsp.so
 %endif
 %if %{with extras}
@@ -890,6 +899,12 @@ EOF
 
 
 %changelog
+* Wed Nov 19 2025 Yaakov Selkowitz <yselkowi@redhat.com> - 1.26.8-3
+- Disable isac on F44+/EL11+
+
+* Wed Nov 19 2025 Neal Gompa <ngompa@fedoraproject.org> - 1.26.8-2
+- Use webrtc-audio-processing-2 with Fedora 44+ and RHEL 11+
+
 * Wed Nov 12 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.26.8-1
 - 1.26.8
 

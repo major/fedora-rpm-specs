@@ -72,7 +72,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 %endif
 Summary:        ROCm BLAS marshalling library
 License:        MIT
@@ -142,6 +142,7 @@ Summary:        Shared libraries for %{name}
 %package devel
 Summary:        Libraries and headers for %{name}
 Requires:       %{hipblas_name}%{?_isa} = %{version}-%{release}
+Requires:       hipblas-common-devel
 
 %description devel
 %{summary}
@@ -224,6 +225,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/hipblas/LICENSE.md
 %endif
 
 %changelog
+* Wed Nov 19 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-3
+- hipblas cmake looks for hipblas-common
+
 * Thu Nov 13 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
 - Better handling of shared library on opensuse
 

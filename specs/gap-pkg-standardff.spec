@@ -27,7 +27,7 @@ BuildRequires:  gap-pkg-factint
 BuildRequires:  gap-pkg-spinsym
 BuildRequires:  gap-pkg-io
 BuildRequires:  gcc-c++
-BuildRequires:  ntl-devel
+BuildRequires:  pkgconfig(ntl)
 
 Requires:       gap-core%{?_isa}
 
