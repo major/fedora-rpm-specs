@@ -17,7 +17,7 @@
 %define qt_version %(echo %{version} | cut -d~ -f1)
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.10.0
+Version:        6.10.1
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - Qt Positioning component
 
@@ -123,7 +123,6 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %{mingw32_libdir}/cmake/Qt6/FindGconf.cmake
 %{mingw32_libdir}/cmake/Qt6/FindGypsy.cmake
 %{mingw32_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtPositioningTestsConfig.cmake
-%{mingw32_libdir}/cmake/Qt6Bundled_Clip2Tri/
 %{mingw32_libdir}/cmake/Qt6Positioning/
 %{mingw32_libdir}/cmake/Qt6PositioningPrivate/
 %{mingw32_libdir}/cmake/Qt6PositioningQuick/
@@ -157,7 +156,6 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 %{mingw64_libdir}/cmake/Qt6/FindGconf.cmake
 %{mingw64_libdir}/cmake/Qt6/FindGypsy.cmake
 %{mingw64_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtPositioningTestsConfig.cmake
-%{mingw64_libdir}/cmake/Qt6Bundled_Clip2Tri/
 %{mingw64_libdir}/cmake/Qt6Positioning/
 %{mingw64_libdir}/cmake/Qt6PositioningPrivate/
 %{mingw64_libdir}/cmake/Qt6PositioningQuick/
@@ -181,6 +179,9 @@ export MINGW64_CXXFLAGS="%{mingw64_cflags} -msse2"
 
 
 %changelog
+* Thu Nov 20 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.1-1
+- 6.10.1
+
 * Tue Oct 07 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0-1
 - 6.10.0
 

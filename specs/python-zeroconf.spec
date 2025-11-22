@@ -7,6 +7,10 @@ License:        LGPL-2.1-or-later
 URL:            https://github.com/jstasiak/python-zeroconf
 Source0:        %{url}/archive/%{version}/zeroconf-%{version}.tar.gz
 
+# Fixup the Cython declaration of zeroconf._handlers.record_manager.async_updates_complete to match the Python type
+# Partially cherry-picked from https://github.com/python-zeroconf/python-zeroconf/commit/9eac0a12
+Patch:          cython-3.2.patch
+
 BuildRequires:  gcc
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest

@@ -1,5 +1,5 @@
 Name:           easyeffects
-Version:        7.2.5
+Version:        8.0.3
 Release:        1%{?dist}
 Summary:        Audio effects for PipeWire applications
 
@@ -10,37 +10,76 @@ Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Provides:       pulseeffects = 6.1.1-1
 Obsoletes:      pulseeffects < 6.1.1-1
 
+BuildRequires:  cmake
+BuildRequires:  extra-cmake-modules
 BuildRequires:  gcc-c++
 BuildRequires:  libappstream-glib
-BuildRequires:  boost-devel >= 1.70
 BuildRequires:  desktop-file-utils
 BuildRequires:  itstool
-BuildRequires:  pkgconfig(libxml-2.0)
-BuildRequires:  meson
+
+# Qt dependencies
+BuildRequires:  cmake(Qt6Core)
+BuildRequires:  cmake(Qt6DBus)
+BuildRequires:  cmake(Qt6Graphs)
+BuildRequires:  cmake(Qt6Gui)
+BuildRequires:  cmake(Qt6Network)
+BuildRequires:  cmake(Qt6Qml)
+BuildRequires:  cmake(Qt6Quick)
+BuildRequires:  cmake(Qt6QuickControls2)
+BuildRequires:  cmake(Qt6Widgets)
+BuildRequires:  cmake(Qt6WebEngineQuick)
+
+# KF dependencies
+BuildRequires:  cmake(KF6ColorScheme)
+BuildRequires:  cmake(KF6Config)
+BuildRequires:  cmake(KF6ConfigWidgets)
+BuildRequires:  cmake(KF6CoreAddons)
+BuildRequires:  cmake(KF6I18n)
+BuildRequires:  cmake(KF6IconThemes)
+BuildRequires:  cmake(KF6Kirigami)
+BuildRequires:  cmake(KF6KirigamiAddons)
+BuildRequires:  cmake(KF6QQC2DesktopStyle)
+
+# QML dependencies
+BuildRequires:  qt6qml(org.kde.kirigami)
+
+# The rest...
+BuildRequires:  cmake(TBB)
+
+BuildRequires:  pkgconfig(libpipewire-0.3) >= 1.0.6
+BuildRequires:  pkgconfig(lilv-0) >= 0.24
+BuildRequires:  pkgconfig(libebur128) >= 1.2.6
 BuildRequires:  pkgconfig(fftw3)
-BuildRequires:  pkgconfig(gtk4)
-BuildRequires:  pkgconfig(gtkmm-4.0)
-BuildRequires:  pkgconfig(glibmm-2.68)
-BuildRequires:  pkgconfig(libbs2b)
-BuildRequires:  pkgconfig(libebur128)
-BuildRequires:  pkgconfig(libpipewire-0.3)
-BuildRequires:  pkgconfig(lilv-0)
-BuildRequires:  pkgconfig(samplerate)
-BuildRequires:  pkgconfig(sigc++-2.0)
-BuildRequires:  pkgconfig(sndfile)
-BuildRequires:  zita-convolver-devel >= 3.1.0
-BuildRequires:  pkgconfig(rnnoise)
-BuildRequires:  pkgconfig(rubberband)
+BuildRequires:  pkgconfig(fftw3f)
 BuildRequires:  pkgconfig(speexdsp)
 BuildRequires:  pkgconfig(nlohmann_json)
-BuildRequires:  pkgconfig(tbb)
-BuildRequires:  pkgconfig(libadwaita-1)
-BuildRequires:  pkgconfig(fmt)
 BuildRequires:  pkgconfig(gsl)
-BuildRequires:  cmake
-BuildRequires:  pkgconfig(speex)
+BuildRequires:  pkgconfig(libbs2b)
+BuildRequires:  pkgconfig(samplerate)
+BuildRequires:  pkgconfig(sndfile)
+BuildRequires:  pkgconfig(rnnoise)
 BuildRequires:  pkgconfig(soundtouch)
+BuildRequires:  pkgconfig(libportal)
+BuildRequires:  pkgconfig(libportal-qt6)
+BuildRequires:  pkgconfig(webrtc-audio-processing-2)
+
+BuildRequires:  zita-convolver-devel >= 3.1.0
+
 BuildRequires:  ladspa-devel
+
+# Visual style stuff
+Requires:       breeze-icon-theme
+## Default theme in code
+Requires:       kf6-qqc2-desktop-style%{?_isa}
+## Upstream recommendation
+Recommends:     plasma-breeze%{?_isa}
+
+# Required runtime QML modules
+Requires:       qt6qml(org.kde.kirigami)
+Requires:       qt6qml(org.kde.kirigamiaddons.components)
+Requires:       qt6qml(QtGraphs)
+Requires:       qt6qml(QtWebEngine)
+
 
 Requires:       hicolor-icon-theme
 Requires:       dbus-common
@@ -51,6 +90,10 @@ Recommends:     lsp-plugins-lv2
 Recommends:     lv2-zam-plugins
 
 
+# Because of QtWebEngine dependency
+ExclusiveArch:  %{qt6_qtwebengine_arches}
+
+
 %description
 Limiters, compressor, reverberation, high-pass filter, low pass filter,
 equalizer many more effects for PipeWire applications.
@@ -58,42 +101,38 @@ equalizer many more effects for PipeWire applications.
 %prep
 %autosetup
 
+
+%conf
+%cmake
+
+
 %build
-%meson
-%meson_build
+%cmake_build
+
 
 %install
-%meson_install
-
-desktop-file-install %{buildroot}%{_datadir}/applications/com.github.wwmm.%{name}.desktop \
---dir=%{buildroot}%{_datadir}/applications
+%cmake_install
 
 %find_lang %{name}
-%find_lang %{name}-news
-cat %{name}-news.lang >> %{name}.lang
-
-# Change absolute symlinks to relative
-# https://github.com/wwmm/pulseeffects/issues/590
-find %{buildroot}%{_datadir}/help/ -type l -exec bash -c 'ln -sf ../../../C/easyeffects/figures/$(basename {}) {}' \;
 
 
 %check
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/com.github.wwmm.%{name}.metainfo.xml
 
+
 %files -f %{name}.lang
 %doc README.md
 %license LICENSE
 %{_bindir}/%{name}
-%{_datadir}/applications/*
-%{_datadir}/glib-2.0/schemas/*
-%{_datadir}/icons/hicolor/scalable/apps/com.github.wwmm.%{name}.svg
-%{_datadir}/icons/hicolor/symbolic/apps/com.github.wwmm.%{name}-symbolic.svg
+%{_datadir}/applications/com.github.wwmm.%{name}.desktop
+%{_datadir}/icons/hicolor/scalable/apps/com.github.wwmm.%{name}{,-symbolic}.svg
 %{_datadir}/metainfo/com.github.wwmm.%{name}.metainfo.xml
-%{_datadir}/help/*
-%{_datadir}/dbus-1/services/com.github.wwmm.%{name}.service
 
 
 %changelog
+* Wed Nov 19 2025 Neal Gompa <ngompa@fedoraproject.org> - 8.0.3-1
+- Rebase to 8.0.3
+
 * Wed Aug 06 2025 Vasiliy Glazov <vascom2@gmail.com> - 7.2.5-1
 - Update to 7.2.5
 

@@ -1,5 +1,5 @@
 Name:           showcert
-Version:        0.4.9
+Version:        0.4.10
 Release:        1%{?dist}
 Summary:        inspect TLS certificates presented by remote servers
 
@@ -7,9 +7,7 @@ License:        MIT
 URL:            https://github.com/yaroslaff/showcert
 Source:         %{pypi_source showcert}
 
-# https://github.com/yaroslaff/showcert/pull/12
-Patch1:         showcert-add-optional-support-for-python-file-magic.patch
-Patch2:         showcert-remove-dependency-on-python-magic.patch
+Patch1:         showcert-remove-dependency-on-python-magic.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -60,6 +58,9 @@ gencert --help
 %{_bindir}/gencert
 
 %changelog
+* Thu Nov 20 2025 Felix Schwarz <fschwarz@fedoraproject.org> - 0.4.10-1
+- update to 0.4.10
+
 * Sun Nov 16 2025 Felix Schwarz <fschwarz@fedoraproject.org> - 0.4.9-1
 - update to 0.4.9
 - ability to use python3-file-magic instead of python3-magic

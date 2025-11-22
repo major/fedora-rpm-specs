@@ -123,6 +123,8 @@ Patch425:       build-disable-elfhack.patch
 # Build patches
 Patch32:        build-rust-ppc64le.patch
 Patch35:        build-ppc-jit.patch
+Patch36:        build-botan-target.patch
+Patch37:        build-c11-threads-avail.patch
 # Fixing missing cacheFlush when JS_CODEGEN_NONE is used (s390x)
 Patch40:        build-aarch64-skia.patch
 Patch44:        build-arm-libopus.patch
@@ -293,6 +295,10 @@ debug %{name}, you want to install %{name}-debuginfo instead.
 #%patch -P 226 -p1 -b .1354671
 %endif
 #FIXME %%patch -P 416 -p1 -b .SIOCGSTAMP
+%patch -P36 -p1 -b .build-botan
+%if 0%{?fedora} > 43
+%patch -P37 -p1 -b .build-c11-threads-avail
+%endif
 %patch -P 418 -p1 -b .mozbz-1512162
 # most likely fixed
 #%%patch -P 419 -p1 -b .bindgen

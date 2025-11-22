@@ -10,7 +10,7 @@
 
 Summary: Qt6 - SerialPort component
 Name:    qt6-%{qt_module}
-Version: 6.10.0
+Version: 6.10.1
 Release: 1%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
@@ -110,6 +110,9 @@ popd
 %endif
 
 %changelog
+* Thu Nov 20 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.1-1
+- 6.10.1
+
 * Tue Oct 07 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0-1
 - 6.10.0
 

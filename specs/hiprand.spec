@@ -75,7 +75,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        2%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 %endif
 Summary:        HIP random number generator
 License:        MIT AND BSD-3-Clause
@@ -214,11 +214,9 @@ export LD_LIBRARY_PATH=$PWD/build/library:$LD_LIBRARY_PATH
 %{_libdir}/libhiprand.so.1{,.*}
 
 %files devel
-%dir %{_libdir}/cmake/hiprand
-%dir %{_includedir}/hiprand
-%{_includedir}/hiprand/*
+%{_includedir}/hiprand/
 %{_libdir}/libhiprand.so
-%{_libdir}/cmake/hiprand/*.cmake
+%{_libdir}/cmake/hiprand/
 
 %if %{with test}
 %files test
@@ -226,6 +224,9 @@ export LD_LIBRARY_PATH=$PWD/build/library:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Thu Nov 20 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-3
+- Remove dir tags
+
 * Mon Nov 17 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 7.1.0-2
 - Rebuilt for gtest 1.17.0
 

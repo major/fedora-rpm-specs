@@ -31,12 +31,15 @@ Patch:          nu-command-fix-metadata-auto.diff
 # * Update lscolors from 0.17 to 0.20:
 #   https://github.com/nushell/nushell/pull/15737
 # * Allow indicatif 0.18: https://github.com/nushell/nushell/pull/16248
+# * Allow dirs 6:
+#   https://github.com/nushell/nushell/commit/007b223acc1f0dd57ebbefc101ce1a6e46f707d0
 Patch:          nu-command-fix-metadata.diff
 # * Allow compiling with quick-xml 0.33+
 # * https://github.com/nushell/nushell/pull/14354
 Patch2:         nu-command-fix-for-quick-xml-0_33.diff
 
 BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  dos2unix
 
 %global _description %{expand:
 Nushell's built-in commands.}
@@ -131,6 +134,9 @@ use the "trash-support" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
+# Fix sources with CRNL (DOS/Windows-style) newlines and/or execute bit
+dos2unix --keepdate src/progress_bar.rs
+find . -type f -name '*.rs' -executable -exec chmod -v a-x '{}' '+'
 %cargo_prep
 
 %generate_buildrequires

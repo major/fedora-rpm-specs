@@ -62,7 +62,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        ROCm port of CUDA CUB library
 
@@ -190,12 +190,14 @@ rm -f %{buildroot}%{_prefix}/share/doc/hipcub/LICENSE.txt
 
 %if %{with test}
 %files test
-%dir %{_bindir}/hipcub
 %{_bindir}/test_*
-%{_bindir}/hipcub/*.cmake
+%{_bindir}/hipcub/
 %endif
 
 %changelog
+* Thu Nov 20 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
+- Remove dir tags
+
 * Thu Oct 30 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
 - Update to 7.1.0
 

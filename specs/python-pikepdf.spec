@@ -5,7 +5,7 @@
 %bcond tests 1
 
 Name:           python-%{srcname}
-Version:        9.9.0
+Version:        10.0.2
 Release:        %autorelease
 Summary:        Read and write PDFs with Python, powered by qpdf
 

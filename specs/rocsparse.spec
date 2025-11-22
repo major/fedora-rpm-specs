@@ -111,7 +111,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 %endif
 Summary:        SPARSE implementation for ROCm
 License:        MIT
@@ -271,24 +271,23 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library:$LD_LIBRARY_PATH
 %{_libdir}/librocsparse.so.1{,.*}
 
 %files devel
-%dir %{_libdir}/cmake/rocsparse
-%dir %{_includedir}/rocsparse
-%{_includedir}/rocsparse/*
+%{_includedir}/rocsparse/
 %{_libdir}/librocsparse.so
-%{_libdir}/cmake/rocsparse/*.cmake
+%{_libdir}/cmake/rocsparse/
 
 %if %{with test}
 %files test
-%dir %{_datadir}/rocsparse
-%dir %{_libdir}/rocsparse
 %{_bindir}/rocsparse*
 %{_datadir}/rocsparse/test/rocsparse_*
-%{_libdir}/rocsparse/rocsparseio-*
-%{_datadir}/rocsparse/matrices/*
+%{_libdir}/rocsparse/
+%{_datadir}/rocsparse/
 
 %endif
 
 %changelog
+* Thu Nov 20 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-3
+- Remove dir tags
+
 * Fri Nov 7 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
 - Better handling of shared library on opensuse
 

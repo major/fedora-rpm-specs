@@ -1,13 +1,11 @@
 Name:           ls-qpack
-Version:        2.5.3
-Release:        6%{?dist}
+Version:        2.6.2
+Release:        1%{?dist}
 Summary:        QPACK compression library for use with HTTP/3
 
 License:        MIT
 URL:            https://github.com/litespeedtech/ls-qpack
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-
-Patch0:         soname-and-external-libxxhash.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -50,7 +48,7 @@ Development files for ls-qpack
 %autosetup -p1
 # remove failing test
 # https://github.com/litespeedtech/ls-qpack/issues/51
-sed -i '/dyn_table_cap_mismatch/d' test/CMakeLists.txt
+#sed -i '/dyn_table_cap_mismatch/d' test/CMakeLists.txt
 # Do not want rpath
 sed -i 's/PRIVATE ls-qpack/PUBLIC ls-qpack/g' bin/CMakeLists.txt
 # Remove bundled xxhash
@@ -91,10 +89,14 @@ chmod 755 $RPM_BUILD_ROOT%{_bindir}/interop-encode
 %files devel
 %{_includedir}/lsqpack.h
 %{_includedir}/lsxpack_header.h
-%{_libdir}/pkgconfig/ls-qpack.pc
+%{_libdir}/pkgconfig/lsqpack.pc
 %{_libdir}/libls-qpack.so
+%{_libdir}/cmake/ls-qpack/
 
 %changelog
+* Thu Nov 20 2025 Benson Muite <fed500@fedoraproject.org> - 2.6.2-1
+- Update to latest release 2.6.2
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

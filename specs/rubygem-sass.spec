@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 3.7.4
-Release: 13%{?dist}
+Release: 14%{?dist}
 Summary: A powerful but elegant CSS compiler that makes CSS fun again
 License: MIT
 URL: http://sass-lang.com/
@@ -23,6 +23,9 @@ Patch0: rubygem-sass-3.5.6-use-listen.patch
 Patch1: rubygem-sass-3.7.4-Remove-warnings-for-literal-string-being-frozen-in-r.patch
 # Support caller format change in ruby3.4
 Patch2: rubygem-sass-3.7.4-Support-caller-format-change-in-ruby3.4.patch
+# Support for method owner in backtrace introduced in Ruby 4.0
+# https://bugs.ruby-lang.org/issues/21698
+Patch3: rubygem-sass-3.7.4-Backtrace-now-includes-method-owner.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: rubygem(listen)
@@ -52,6 +55,7 @@ Documentation for %{name}.
 %patch 0 -p1
 %patch 1 -p2
 %patch 2 -p2
+%patch 3 -p1
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -111,6 +115,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Thu Nov 20 2025 Vít Ondruch <vondruch@redhat.com> - 3.7.4-14
+- Fix Ruby 4.0 compatibility.
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.4-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

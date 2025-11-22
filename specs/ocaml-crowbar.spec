@@ -1,8 +1,5 @@
-# OCaml packages not built on i686 since OCaml 5 / Fedora 39.
-ExcludeArch: %{ix86}
-
 Name:           ocaml-crowbar
-Version:        0.2.1
+Version:        0.2.2
 Release:        %autorelease
 Summary:        Code fuzzer for OCaml
 
@@ -21,7 +18,6 @@ BuildRequires:  ocaml-calendar-devel >= 2.0
 BuildRequires:  ocaml-cmdliner-devel >= 1.1.0
 BuildRequires:  ocaml-dune >= 2.9
 BuildRequires:  ocaml-fpath-devel
-BuildRequires:  ocaml-ocplib-endian-devel
 BuildRequires:  ocaml-pprint-devel
 BuildRequires:  ocaml-uucp-devel
 BuildRequires:  ocaml-uunf-devel

@@ -63,7 +63,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        ROCm parallel primatives
 
@@ -196,12 +196,14 @@ sed -i -e 's@\.\.@\/usr\/bin@' %{buildroot}%{_bindir}/%{name}/CTestTestfile.cmak
 %files test
 %{_bindir}/test*
 %{_datadir}/libtest*
-%dir %{_bindir}/%{name}
-%{_bindir}/%{name}/CTestTestfile.cmake
+%{_bindir}/%{name}/
 %endif
 
 
 %changelog
+* Thu Nov 20 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
+- Remove dir tags
+
 * Thu Oct 30 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
 - Update to 7.0.1
 

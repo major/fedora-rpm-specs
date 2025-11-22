@@ -73,7 +73,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        2%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 %endif
 Summary:        ROCm SOLVER marshalling library
 License:        MIT
@@ -209,21 +209,21 @@ rm -f %{buildroot}%{_prefix}/share/doc/hipsolver/LICENSE.md
 %{_libdir}/libhipsolver_fortran.so.1{,.*}
 
 %files devel
-%dir %{_libdir}/cmake/hipsolver
-%dir %{_includedir}/hipsolver
-%{_includedir}/hipsolver/*
+%{_includedir}/hipsolver/
 %{_libdir}/libhipsolver.so
 %{_libdir}/libhipsolver_fortran.so
-%{_libdir}/cmake/hipsolver/*.cmake
+%{_libdir}/cmake/hipsolver/
 
 %if %{with test}
 %files test
-%dir %{_datadir}/hipsolver
-%{_datadir}/hipsolver/test/*
+%{_datadir}/hipsolver/
 %{_bindir}/hipsolver*
 %endif
 
 %changelog
+* Thu Nov 20 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-3
+- Remove dir tags
+
 * Mon Nov 17 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 7.1.0-2
 - Rebuilt for gtest 1.17.0
 

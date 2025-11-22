@@ -774,6 +774,11 @@ install -m 644 %{SOURCE2} %{buildroot}/%{_rpmconfigdir}/macros.d
 rm -f %{buildroot}%{pypyprefix}/bin/pypy.debug
 rm -f %{buildroot}%{pypyprefix}/bin/libpypy-c.so.debug
 
+%if %{without rpmwheels}
+# Inject SBOM into the installed wheels
+%{?python_wheel_inject_sbom:%python_wheel_inject_sbom %{buildroot}%{pypyprefix}/lib-python/%{pylibver}/ensurepip/_bundled/*.whl}
+%endif
+
 %check
 topdir=$(pwd)
 

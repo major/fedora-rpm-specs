@@ -1,5 +1,5 @@
 Name:           tmt
-Version:        1.61.0
+Version:        1.62.1
 Release:        %autorelease
 Summary:        Test Management Tool
 

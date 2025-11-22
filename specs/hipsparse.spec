@@ -53,7 +53,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        ROCm SPARSE marshalling library
 License:        MIT
@@ -202,21 +202,20 @@ install -pm 644 %{_builddir}/%{name}-test-matrices/* %{buildroot}/%{_datadir}/%{
 %{_libdir}/libhipsparse.so.4{,.*}
 
 %files devel
-%dir %{_libdir}/cmake/hipsparse
-%dir %{_includedir}/hipsparse
-%{_includedir}/hipsparse/*
+%{_includedir}/hipsparse/
 %{_libdir}/libhipsparse.so
-%{_libdir}/cmake/hipsparse/*.cmake
+%{_libdir}/cmake/hipsparse/
 
 %if %{with test}
 %files test
-%dir %{_datadir}/hipsparse
 %{_bindir}/hipsparse*
-%{_datadir}/hipsparse/test/*
-%{_datadir}/hipsparse/matrices/*
+%{_datadir}/hipsparse/
 %endif
 
 %changelog
+* Thu Nov 20 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
+- Remove dir tags
+
 * Fri Oct 31 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
 - Update to 7.1.0
 

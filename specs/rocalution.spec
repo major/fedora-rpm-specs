@@ -69,7 +69,7 @@
 
 Name:           %{rocalution_name}
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Next generation library for iterative sparse solvers for ROCm platform
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
@@ -195,12 +195,10 @@ rm -f %{buildroot}%{_prefix}/share/doc/rocalution/LICENSE.md
 
 %files devel
 %doc README.md
-%dir %{_libdir}/cmake/rocalution
-%dir %{_includedir}/rocalution
-%{_includedir}/rocalution/*
+%{_includedir}/rocalution/
 %{_libdir}/librocalution.so
 %{_libdir}/librocalution_hip.so
-%{_libdir}/cmake/rocalution/*.cmake
+%{_libdir}/cmake/rocalution/
 
 %if %{with test}
 %files test
@@ -208,6 +206,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/rocalution/LICENSE.md
 %endif
 
 %changelog
+* Thu Nov 20 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
+- Remove dir tags
+
 * Fri Oct 31 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
 - Update to 7.1.0
 

@@ -12,16 +12,12 @@ sha256sum:close()
 print(string.sub(hash, 0, 16))
 }
 
-Version: 3.8.10
+Version: 3.8.11
 Release: %{?autorelease}%{!?autorelease:1%{?dist}}
 Patch: gnutls-3.2.7-rpath.patch
 
 # follow https://gitlab.com/gnutls/gnutls/-/issues/1443
 Patch: gnutls-3.8.8-tests-ktls-skip-tls12-chachapoly.patch
-# add tests/ktls_utils.h missing in the distribution
-Patch: gnutls-3.8.10-tests-ktls.patch
-# run tests/cert-test/mldsa.sh in VPATH build
-Patch: gnutls-3.8.10-tests-mldsa.patch
 
 %bcond_without bootstrap
 %bcond_without dane
@@ -144,7 +140,7 @@ Source201:	gnutls-3.8.8-tests-rsa-default.patch
 %endif
 
 %if %{with leancrypto}
-Source300:	leancrypto-1.5.0.tar.gz
+Source300:	leancrypto-1.6.0.tar.gz
 %endif
 
 # Wildcard bundling exception https://fedorahosted.org/fpc/ticket/174
@@ -315,7 +311,8 @@ meson setup -Dprefix="$PWD/install" -Dlibdir="$PWD/install/lib" \
         -Dx509_parser=disabled -Dx509_generator=disabled \
         -Dpkcs7_parser=disabled -Dpkcs7_generator=disabled \
         -Dsha2-256=disabled \
-        -Dchacha20=disabled -Dchacha20_drng=disabled \
+	-Daes_gcm=disabled -Daes_cbc=disabled -Daes_ctr=disabled -Daes_xts=disabled \
+        -Dchacha20=disabled -Dchacha20poly1305=disabled -Dchacha20_drng=disabled \
         -Ddrbg_hash=disabled -Ddrbg_hmac=disabled \
         -Dhash_crypt=disabled \
         -Dhmac=disabled -Dhkdf=disabled \

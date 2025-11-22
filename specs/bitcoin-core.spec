@@ -12,9 +12,9 @@ License:    MIT
 URL:        https://bitcoincore.org/
 
 # In .gitignore, so no chance to commit to SCM:
-Source0:    https://bitcoincore.org/bin/bitcoin-core-%{version}/%{project_name}-%{version}.tar.gz
-Source1:    https://bitcoincore.org/bin/bitcoin-core-%{version}/SHA256SUMS.asc
-Source2:    https://bitcoincore.org/bin/bitcoin-core-%{version}/SHA256SUMS
+Source0:    https://bitcoincore.org/bin/%{name}-%{version}/%{project_name}-%{version}.tar.gz
+Source1:    https://bitcoincore.org/bin/%{name}-%{version}/SHA256SUMS.asc
+Source2:    https://bitcoincore.org/bin/%{name}-%{version}/SHA256SUMS
 
 # Key verificaton process - Make official verify method work offline
 # - Keys listed to sign the release are listed in SHA256SUMS.asc.
@@ -136,13 +136,13 @@ Provides:   bundled(secp256k1)
 Provides:   bundled(univalue)
 
 %description server
-This package provides a stand-alone bitcoin-core daemon. For most users, this
+This package provides a stand-alone %{name} daemon. For most users, this
 package is only needed if they need a full-node without the graphical client.
 
 Some third party wallet software will want this package to provide the actual
-bitcoin-core node they use to connect to the network.
+%{name} node they use to connect to the network.
 
-If you use the graphical bitcoin-core client then you almost certainly do not
+If you use the graphical %{name} client then you almost certainly do not
 need this package.
 
 %prep
@@ -159,7 +159,7 @@ grep -q $(sha256sum %{SOURCE0}) %{SOURCE2}
 cp -p %{SOURCE11} %{SOURCE12} %{SOURCE13} %{SOURCE14} .
 
 # Create a sysusers.d config file
-cat >bitcoin-core.sysusers.conf <<EOF
+cat >%{name}.sysusers.conf <<EOF
 u bitcoin - 'Bitcoin wallet server' /var/lib/%{project_name} -
 EOF
 
@@ -227,7 +227,7 @@ install -p -m 644 -D %{SOURCE18} %{buildroot}%{_metainfodir}/%{project_name}-qt.
 # Remove test files so that they aren't shipped. Tests have already been run.
 rm -f %{buildroot}%{_bindir}/test_*
 
-install -m0644 -D bitcoin-core.sysusers.conf %{buildroot}%{_sysusersdir}/bitcoin-core.conf
+install -m0644 -D %{name}.sysusers.conf %{buildroot}%{_sysusersdir}/%{name}.conf
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{project_name}-qt.desktop
@@ -307,7 +307,7 @@ test/functional/test_runner.py --tmpdirprefix `pwd` --extended
 %{_tmpfilesdir}/%{project_name}.conf
 %{_unitdir}/%{project_name}.service
 %{_userunitdir}/%{project_name}.service
-%{_sysusersdir}/bitcoin-core.conf
+%{_sysusersdir}/%{name}.conf
 
 %changelog
 %autochangelog

@@ -15,8 +15,8 @@
 
 Summary: Qt6 - QtDeclarative component
 Name:    qt6-%{qt_module}
-Version: 6.10.0
-Release: 2%{?dist}
+Version: 6.10.1
+Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -36,8 +36,6 @@ Source5: qv4global_p-multilib.h
 ## upstream patches
 # https://codereview.qt-project.org/c/qt/qtdeclarative/+/678924
 Patch0:  qtdeclarative-quickshapes-make-module-public.patch
-# https://codereview.qt-project.org/c/qt/qtdeclarative/+/682564
-Patch1:  qtdeclarative-fix-write-access-to-qvariantmap.patch
 
 
 ## upstreamable patches
@@ -739,6 +737,9 @@ make check -k -C tests ||:
 %endif
 
 %changelog
+* Thu Nov 20 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.1-1
+- 6.10.1
+
 * Tue Oct 21 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0-2
 - Backport - QmlCompiler: Fix write access to optional QVariantMap
 

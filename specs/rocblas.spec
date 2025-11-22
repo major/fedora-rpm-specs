@@ -148,7 +148,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        2%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 %endif
 Summary:        BLAS implementation for ROCm
 %if %{with gitcommit}
@@ -176,8 +176,12 @@ BuildRequires:  rocm-rpm-macros
 
 %if %{with tensile}
 %if 0%{?suse_version}
+%if 0%{?suse_version} <= 1600
+%global tensile_library_format yaml
+%else
 BuildRequires:  msgpack-cxx-devel
 %global tensile_library_format msgpack
+%endif
 # OBS vm times out without console output
 %global tensile_verbose 2
 BuildRequires: %{python_module tensile-devel}
@@ -364,10 +368,7 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library/src:$LD_LIBRARY_PATH
 %endif
 %{_libdir}/librocblas.so.5{,.*}
 %if %{with tensile}
-%dir %{_libdir}/rocblas
-%dir %{_libdir}/rocblas/library
-%{_libdir}/rocblas/library/Kernels*
-%{_libdir}/rocblas/library/Tensile*
+%{_libdir}/rocblas/
 %endif
 
 %files devel
@@ -376,10 +377,8 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library/src:$LD_LIBRARY_PATH
 %else
 %doc README.md
 %endif
-%dir %{_libdir}/cmake/rocblas
-%dir %{_includedir}/rocblas
-%{_includedir}/rocblas/*
-%{_libdir}/cmake/rocblas/*.cmake
+%{_includedir}/rocblas/
+%{_libdir}/cmake/rocblas/
 %{_libdir}/librocblas.so
 
 %if %{with test}
@@ -388,6 +387,10 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library/src:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Wed Nov 19 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-4
+- Remove dir tags
+- Fix build on SUSE 15.6
+
 * Mon Nov 17 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 7.1.0-3
 - Rebuilt for gtest 1.17.0
 

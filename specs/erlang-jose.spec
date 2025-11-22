@@ -1,8 +1,7 @@
 %global srcname jose
 
-
 Name:      erlang-%{srcname}
-Version:   1.11.11
+Version:   1.11.12
 Release:   %autorelease
 BuildArch: noarch
 License:   MIT
@@ -17,27 +16,21 @@ BuildRequires: erlang-triq
 Recommends: erlang-jiffy
 Recommends: erlang-jsx
 
-
 %description
 %{summary}.
-
 
 %prep
 %autosetup -p1 -n %{name}-%{version}
 
-
 %build
 %{erlang3_compile}
-
 
 %install
 %{erlang3_install}
 
-
 %check
 # FIXME Not enough dependencies
 #%%{erlang3_test}
-
 
 %files
 %license LICENSE.md
@@ -46,7 +39,6 @@ Recommends: erlang-jsx
 %doc examples
 %doc README.md
 %{erlang_appdir}
-
 
 %changelog
 %autochangelog

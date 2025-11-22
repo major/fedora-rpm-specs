@@ -78,7 +78,7 @@
 %global _package_note_file  %{_builddir}/%{name}-%{real_version}/.package_note-%{name}-%{version}-%{release}.%{_arch}.ld
 
 Name:           git
-Version:        2.51.1
+Version:        2.52.0
 Release:        1%{?dist}
 Summary:        Fast Version Control System
 License:        BSD-3-Clause AND GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
@@ -137,7 +137,7 @@ Patch5:         git-test-apache-davlockdbtype-config.patch
 # The default behaviour of Git remains unchanged.
 #
 # https://github.com/gitgitgadget/git/pull/1853
-Patch6:         git-2.51-sanitize-sideband-channel-messages.patch
+Patch6:         git-2.52-sanitize-sideband-channel-messages.patch
 
 %if %{with docs}
 # pod2man is needed to build Git.3pm
@@ -232,7 +232,7 @@ BuildRequires:  glibc-langpack-is
 BuildRequires:  gnupg2-smime
 %endif
 # endif fedora or el >= 9
-%if 0%{?fedora} || ( 0%{?rhel} >= 7 && ( "%{_arch}" == "ppc64le" || "%{_arch}" == "x86_64" ) )
+%if 0%{?fedora} || 0%{?rhel} >= 8 || ( 0%{?rhel} == 7 && ( "%{_arch}" == "ppc64le" || "%{_arch}" == "x86_64" ) )
 BuildRequires:  highlight
 %endif
 # endif fedora or el7+ (ppc64le/x86_64)
@@ -875,10 +875,11 @@ GIT_SKIP_TESTS="$GIT_SKIP_TESTS t5300.1[02348] t5300.2[03459] t5300.30 t5300.4[5
 # Skip tests which fail on s390x
 #
 # The following tests are failing on s390x.
-# https://lore.kernel.org/git/Z8dIZmscTdi8dZAY@teonanacatl.net/
+# https://lore.kernel.org/git/4dc4c8cd-c0cc-4784-8fcf-defa3a051087@mit.edu/
 #
-# t5620.4 'do partial clone 2, backfill min batch size'
-GIT_SKIP_TESTS="$GIT_SKIP_TESTS t5620.4"
+# t8020.16 'cross merge boundaries in blaming'
+# t8020.19 'last-modified merge undoes changes'
+GIT_SKIP_TESTS="$GIT_SKIP_TESTS t8020.16 t8020.19"
 %endif
 # endif "%{_arch}" == "s390x"
 export GIT_SKIP_TESTS
@@ -1042,6 +1043,9 @@ rmdir --ignore-fail-on-non-empty "$testdir"
 %{?with_docs:%{_pkgdocdir}/git-svn.html}
 
 %changelog
+* Thu Nov 20 2025 Ondřej Pohořelský <opohorel@redhat.com> - 2.52.0-1
+- update to 2.52.0
+
 * Thu Oct 23 2025 Ondřej Pohořelský <opohorel@redhat.com> - 2.51.1-1
 - update to 2.51.1
 

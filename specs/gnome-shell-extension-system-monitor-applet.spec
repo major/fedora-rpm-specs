@@ -8,15 +8,15 @@
 
 %if 0%{?git_post_release_enabled}
   # Git commit is needed for post-release version.
-  %global gitcommit 7958f01e5caf457326e2d9cdda8069d48232fbe9
+  %global gitcommit c4969d993074db75d6d256ace9b845792912d4f9
   %global gitshortcommit %(c=%{gitcommit}; echo ${c:0:7})
-  %global gitsnapinfo .20250923git%{gitshortcommit}
+  %global gitsnapinfo .20251120git%{gitshortcommit}
 %endif
 
 Name:           gnome-shell-extension-system-monitor-applet
 Epoch:          1
 Version:        38
-Release:        39%{?gitsnapinfo}%{?dist}
+Release:        40%{?gitsnapinfo}%{?dist}
 Summary:        A Gnome shell system monitor extension
 
 # The entire source code is GPLv3+ except convenience.js, which is BSD
@@ -86,6 +86,12 @@ fi
 
 
 %changelog
+* Thu Nov 20 2025 Nicolas Viéville <nicolas.vieville@uphf.fr> - 1:38-40.20251120gitc4969d9
+- Updated to last upstream commits
+- Makefile, README: Add gschemas compile target for local installs
+- extension: Add polling logic for battery proxy initialization
+- extension: Add short name for battery label
+
 * Tue Sep 23 2025 Nicolas Viéville <nicolas.vieville@uphf.fr> - 1:38-39.20250923git7958f01
 - Updated to last upstream commits
 - Fix gnome-shell 49 support - RHBZ#2397683

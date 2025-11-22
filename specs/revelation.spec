@@ -3,12 +3,10 @@
 %global gtk3_version 3.22
 
 Name:           revelation
-Version:        0.5.5
+Version:        0.5.6
 Release:        %autorelease
 Summary:        A password manager for the GNOME desktop
-# The entire source code is GPLv2 except src/lib/PBKDF2.py which is MIT
-# Automatically converted from old format: GPLv2 - review is highly recommended.
-License:        GPL-2.0-only
+License:        GPL-2.0-or-later
 URL:            https://revelation.olasagasti.info
 Source0:        https://github.com/mikelolasagasti/%{name}/releases/download/%{name}-%{version}/%{name}-%{version}.tar.xz
 BuildArch:      noarch
@@ -22,6 +20,7 @@ BuildRequires:  glib2-devel >= %{glib2_version}
 BuildRequires:  gtk3-devel >= %{gtk3_version}
 BuildRequires:  dconf-devel
 BuildRequires:  gsettings-desktop-schemas-devel
+BuildRequires:  pkgconfig(gobject-introspection-1.0)
 BuildRequires:  python3dist(pwquality)
 BuildRequires:  python3dist(pycryptodomex)
 BuildRequires:  python3dist(pwquality)

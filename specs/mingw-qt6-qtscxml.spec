@@ -14,7 +14,7 @@
 %define qt_version %(echo %{version} | cut -d~ -f1)
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.10.0
+Version:        6.10.1
 Release:        %autorelease
 Summary:        Qt6 for Windows - QtScxml component
 

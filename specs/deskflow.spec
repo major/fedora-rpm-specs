@@ -2,13 +2,14 @@
 %global qt6ver 6.7.0
 
 Name:		deskflow
-Version:	1.22.0
+Version:	1.24.0
 Release:	2%{?dist}
 Summary:	Share mouse and keyboard between multiple computers over the network
 
 License:	GPL-2.0-only
 URL:		https://github.com/%{name}/%{name}
 Source:		%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+ExcludeArch:    i686
 
 BuildRequires:	cmake >= 3.24
 BuildRequires:	desktop-file-utils
@@ -40,10 +41,6 @@ BuildRequires:	pkgconfig(xrandr)
 BuildRequires:	pkgconfig(xtst)
 Requires:	hicolor-icon-theme
 
-# Replace synergy
-Obsoletes:	synergy < 1:1.14.6.19-4
-Provides:	synergy = 1:%{version}-%{release}
-
 %description
 Deskflow is software that mimics the functionality of a KVM switch, which
 historically would allow you to use a single keyboard and mouse to control
@@ -52,7 +49,7 @@ machine you're controlling at any given moment.
 
 Deskflow does this in software, allowing you to tell it which machine to
 control by moving your mouse to the edge of the screen, or by using a
-keypress to switch focus to a different system.
+key press to switch focus to a different system.
 
 
 %prep
@@ -67,6 +64,16 @@ keypress to switch focus to a different system.
 %install
 %cmake_install
 
+# Add deskflow-server and deskflow-client as shell script
+echo -e "#!/bin/sh\n%{_bindir}/%{name}-core server \$@" > %{buildroot}/%{_bindir}/%{name}-server
+echo -e "#!/bin/sh\n%{_bindir}/%{name}-core client \$@" > %{buildroot}/%{_bindir}/%{name}-client
+chmod 755 %{buildroot}/%{_bindir}/%{name}-server  %{buildroot}/%{_bindir}/%{name}-client
+
+# For some reason, LICENSE_EXCEPTION is not in tarball, but generated
+cp %{buildroot}%{_datadir}/licenses/deskflow/LICENSE_EXCEPTION .
+
+# remove the html because koji does not build it
+rm -fr  %{buildroot}%{_docdir}/%{name}/html
 
 %check
 export QT_QPA_PLATFORM=minimal
@@ -84,16 +91,30 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{rdnn_name}.desktop
 
 %files
 %license LICENSE LICENSE_EXCEPTION
-%doc README.md doc/*.md
+%doc README.md
+%{_bindir}/%{name}
+%{_bindir}/%{name}-core
 %{_bindir}/%{name}-client
 %{_bindir}/%{name}-server
-%{_bindir}/%{name}
 %{_datadir}/icons/hicolor/*/apps/%{rdnn_name}.png
 %{_datadir}/applications/%{rdnn_name}.desktop
 %{_metainfodir}/%{rdnn_name}.metainfo.xml
 
 
 %changelog
+* Thu Nov 20 2025 Ding-Yi Chen <dingyichen@gmail.com> - 1.24.0-2
+- ExcludeArch: i686
+
+* Thu Nov 20 2025 Ding-Yi Chen <dingyichen@gmail.com> - 1.24.0-1
+- Update to version 1.24.0
+  + Resolves: rhbz#2383142
+  + Upstream removed deskflow-server and deskflow-client
+  + Upstream provide deskflow-core [client|server] instead
+  + shell script deskflow-server and deskflow-client are created
+  + html doc included
+- Resolves: rhbz#2400833 Deskflow incorrectly replaces Synergy package 
+  + deskflow no longer provide or conflict with synergy
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 %bcond tests %{with inline_snapshot}
 
 Name:           python-rich-toolkit
-Version:        0.15.1
+Version:        0.16.0
 Release:        %autorelease
 Summary:        Rich toolkit for building command-line applications
 
@@ -26,6 +26,8 @@ BuildRequires:  %{py3_dist pytest} >= 8.3.2
 %if %{with inline_snapshot}
 BuildRequires:  %{py3_dist inline-snapshot} >= 0.12.1
 %endif
+# For tests/test_input_validator.py:
+BuildRequires:  %{py3_dist pydantic}
 %endif
 
 %global common_description %{expand:

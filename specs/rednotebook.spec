@@ -1,5 +1,5 @@
 Name: rednotebook
-Version: 2.39
+Version: 2.41
 Release: %autorelease
 Summary: Daily journal with calendar, templates and keyword searching
 

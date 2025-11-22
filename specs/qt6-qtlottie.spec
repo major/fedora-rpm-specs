@@ -10,7 +10,7 @@
 
 Summary: Qt6 - Lottie Animation
 Name:    qt6-%{qt_module}
-Version: 6.10.0
+Version: 6.10.1
 Release: 1%{?dist}
 
 License: GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -93,7 +93,6 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %dir %{_qt6_libdir}/cmake/Qt6LottieVectorImageGeneratorPrivate
 %dir %{_qt6_libdir}/cmake/Qt6LottieVectorImageHelpers
 %dir %{_qt6_libdir}/cmake/Qt6LottieVectorImageHelpersPrivate
-%dir %{_qt6_libdir}/cmake/Qt6QuickVectorImageGeneratorPrivate
 %{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtLottieTestsConfig.cmake
 %{_qt6_libdir}/cmake/Qt6Lottie/*.cmake
 %{_qt6_libdir}/cmake/Qt6LottiePrivate/*.cmake
@@ -101,8 +100,8 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %{_qt6_libdir}/cmake/Qt6LottieVectorImageGeneratorPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6LottieVectorImageHelpers/*.cmake
 %{_qt6_libdir}/cmake/Qt6LottieVectorImageHelpersPrivate/*.cmake
-%{_qt6_libdir}/cmake/Qt6QuickVectorImageGeneratorPrivate/*.cmake
 %{_qt6_libdir}/cmake/Qt6Qml/QmlPlugins/*.cmake
+%{_qt6_libdir}/cmake/Qt6Quick/*.cmake
 %{_qt6_archdatadir}/mkspecs/modules/*
 %{_qt6_libdir}/qt6/metatypes/qt6*_metatypes.json
 %{_qt6_libdir}/qt6/modules/*.json
@@ -114,6 +113,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %endif
 
 %changelog
+* Thu Nov 20 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.1-1
+- 6.10.1
+
 * Tue Oct 07 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0-1
 - 6.10.0
 

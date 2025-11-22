@@ -10,10 +10,15 @@ Name:      scons
 Version:   4.10.1
 Release:   %autorelease
 Summary:   An Open Source software construction tool
-License:   MIT
+# SCons/Tool/docbook/docbook-xsl-1.76.1/ are licensed under DocBook-Stylesheet
+# MIT is main license
+License:   MIT AND DocBook-Stylesheet
 URL:       http://www.scons.org
 Source0:   %{pypi_source}
 Source1:   https://scons.org/doc/production/scons-doc-%{version}.tar.gz
+
+# Support python-setuptools < 79
+Patch0:    scons-4.10.1-license_old_style.patch
 
 BuildArch: noarch
 BuildRequires: make
@@ -80,6 +85,11 @@ defined Builder and/or Scanner objects.
 %autosetup -n scons-%{version} -N -T -b 0
 %endif
 
+%if 0%{?fedora} < 43 || 0%{?rhel} > 9
+%patch -P 0 -p1 -b .backup
+%endif
+
+
 %generate_buildrequires
 %pyproject_buildrequires -x tests
 
@@ -101,12 +111,13 @@ install -pm 644 *.1 %{buildroot}%{_mandir}/man1/
 rm -f %{buildroot}%{_prefix}/*.1
 
 %files -n python3-%{name} -f %{pyproject_files}
+%if 0%{?fedora} < 43 || 0%{?rhel} > 9
+%license LICENSE SCons/Tool/docbook/docbook-xsl-1.76.1/COPYING
+%endif
 %{_bindir}/%{name}
 %{_bindir}/%{name}ign
 %{_bindir}/%{name}-configure-cache
 %{_mandir}/man1/*
-# This is an ugly hack to fix FTBFS. The actual issue should be found and fixed. -Gwyn Ciesla
-%exclude %{python3_sitelib}/SCons/Tool/docbook/docbook-xsl-*/.*
 
 %if %{with doc}
 %files doc

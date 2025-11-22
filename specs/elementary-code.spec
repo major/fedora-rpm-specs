@@ -5,7 +5,7 @@
 
 Name:           elementary-code
 Summary:        Code editor from elementary
-Version:        7.4.0
+Version:        8.1.2
 Release:        %autorelease
 License:        GPL-3.0-or-later AND LGPL-3.0-only AND LGPL-3.0-or-later AND GPL-2.0-or-later
 
@@ -25,17 +25,16 @@ BuildRequires:  pkgconfig(editorconfig)
 BuildRequires:  pkgconfig(fontconfig)
 BuildRequires:  pkgconfig(gee-0.8) >= 0.8.5
 BuildRequires:  pkgconfig(gio-unix-2.0) >= 2.20
-BuildRequires:  pkgconfig(glib-2.0) >= 2.30.0
+BuildRequires:  pkgconfig(glib-2.0) >= 2.74.0
 BuildRequires:  pkgconfig(granite) >= 6.0.0
 BuildRequires:  pkgconfig(gtksourceview-4)
 BuildRequires:  pkgconfig(gtkspell3-3.0)
 BuildRequires:  pkgconfig(gtk+-3.0) >= 3.6.0
-BuildRequires:  pkgconfig(libgit2-glib-1.0)
+BuildRequires:  pkgconfig(libgit2-glib-1.0) >= 1.2.0
 BuildRequires:  pkgconfig(libhandy-1) >= 0.90.0
-BuildRequires:  pkgconfig(libpeas-1.0)
-BuildRequires:  pkgconfig(libpeas-gtk-1.0)
+BuildRequires:  pkgconfig(libpeas-2)
 BuildRequires:  pkgconfig(libvala-0.56)
-BuildRequires:  pkgconfig(libsoup-2.4)
+BuildRequires:  pkgconfig(libsoup-3.0)
 BuildRequires:  pkgconfig(pangoft2)
 BuildRequires:  pkgconfig(vte-2.91)
 

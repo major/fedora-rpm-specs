@@ -25,6 +25,7 @@ BuildRequires:  python3dist(dask[array]) >= 2023.11
 BuildRequires:  python3dist(dask[dataframe]) >= 2023.11
 BuildRequires:  python3dist(pint) >= 0.22
 BuildRequires:  python3dist(pytest) >= 2.7.1
+BuildRequires:  python3dist(pytest-asyncio)
 BuildRequires:  python3dist(pytest-xdist)
 BuildRequires:  python3dist(pytest-timeout)
 BuildRequires:  python3dist(rasterio) >= 1.3

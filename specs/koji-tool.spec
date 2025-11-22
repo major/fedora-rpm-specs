@@ -24,7 +24,7 @@ BuildRequires:  ghc-extra-devel
 BuildRequires:  ghc-filepath-devel
 BuildRequires:  ghc-formatting-devel
 BuildRequires:  ghc-http-conduit-devel
-BuildRequires:  ghc-http-directory-devel
+BuildRequires:  ghc-http-directory-devel >= 0.1.12
 BuildRequires:  ghc-koji-devel
 BuildRequires:  ghc-pretty-simple-devel
 BuildRequires:  ghc-rpm-nvr-devel

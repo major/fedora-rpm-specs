@@ -72,7 +72,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 %endif
 Summary:        ROCm BLAS marshalling library
 License:        MIT
@@ -213,11 +213,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/hipblas/LICENSE.md
 %{_libdir}/libhipblas.so.3{,.*}
 
 %files devel
-%dir %{_libdir}/cmake/hipblas
-%dir %{_includedir}/hipblas
-%{_includedir}/hipblas/*
+%{_includedir}/hipblas/
 %{_libdir}/libhipblas.so
-%{_libdir}/cmake/hipblas/*.cmake
+%{_libdir}/cmake/hipblas/
 
 %if %{with test}
 %files test
@@ -225,6 +223,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/hipblas/LICENSE.md
 %endif
 
 %changelog
+* Thu Nov 20 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-4
+- Remove dir tags
+
 * Wed Nov 19 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-3
 - hipblas cmake looks for hipblas-common
 

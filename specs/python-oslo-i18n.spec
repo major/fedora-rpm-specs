@@ -18,7 +18,7 @@ The oslo.i18n library contain utilities for working with internationalization \
 or library.
 
 Name:           python-oslo-i18n
-Version:        6.7.0
+Version:        6.7.1
 Release:        1%{?dist}
 Summary:        OpenStack i18n library
 License:        Apache-2.0
@@ -144,6 +144,9 @@ mv %{buildroot}%{python3_sitelib}/oslo_i18n/locale %{buildroot}%{_datadir}/local
 %license LICENSE
 
 %changelog
+* Thu Nov 20 2025 Gwyn Ciesla <gwync@protonmail.com> - 6.7.1-1
+- 6.7.1
+
 * Thu Nov 13 2025 Gwyn Ciesla <gwync@protonmail.com> - 6.7.0-1
 - 6.7.0
 

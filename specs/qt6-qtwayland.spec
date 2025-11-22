@@ -10,8 +10,8 @@
 
 Summary: Qt6 - Wayland platform support and QtCompositor module
 Name:    qt6-%{qt_module}
-Version: 6.10.0
-Release: 2%{?dist}
+Version: 6.10.1
+Release: 1%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -25,8 +25,7 @@ Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submod
 %endif
 
 # Upstream patches
-# https://codereview.qt-project.org/c/qt/qtwayland/+/678263
-Patch0:  qtwaylandadwaitadecoration-unify-window-border-into-single-path.patch
+
 
 # Upstreamable patches
 
@@ -197,6 +196,9 @@ popd
 %endif
 
 %changelog
+* Thu Nov 20 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.1-1
+- 6.10.1
+
 * Fri Oct 10 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.0-2
 - Move Qt6WaylandAdwaitaDecoration cmake fiels to its subpackage
 

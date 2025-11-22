@@ -411,6 +411,8 @@ install -p -m 0644 ./nginx.conf \
     %{buildroot}%{_sysconfdir}/nginx
 
 rm -f %{buildroot}%{_datadir}/nginx/html/index.html
+rm -f %{buildroot}%{_datadir}/nginx/html/50x.html
+
 %if 0%{?el7}
 ln -s ../../doc/HTML/index.html \
       %{buildroot}%{_datadir}/nginx/html/index.html

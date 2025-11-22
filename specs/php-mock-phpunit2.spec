@@ -6,16 +6,16 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    29f90fe44a04105959d6ae835b10c9e0da2fcaa7
+%global gh_commit    c074f7a260cb80bdc7cf0823dc23174bc49064e1
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
-%global gh_date      2025-09-23
+%global gh_date      2025-11-19
 %global gh_owner     php-mock
 %global gh_project   php-mock-phpunit
 %global with_tests   0%{!?_without_tests:1}
 %global major        2
 
 Name:           php-mock-phpunit%{major}
-Version:        2.13.1
+Version:        2.14.0
 Release:        1%{?dist}
 Summary:        Mock built-in PHP functions with PHPUnit.
 
@@ -171,6 +171,9 @@ exit $ret
 
 
 %changelog
+* Thu Nov 20 2025 Remi Collet <remi@remirepo.net> - 2.14.0-1
+- update to 2.14.0
+
 * Tue Sep 23 2025 Remi Collet <remi@remirepo.net> - 2.13.1-1
 - update to 2.13.1
 

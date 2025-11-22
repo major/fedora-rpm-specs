@@ -1,6 +1,6 @@
 Name:           sslscan
 Version:        2.2.0
-%global         bundled_openssl_version    3.5.0
+%global         bundled_openssl_version    3.5.4
 Release:        %autorelease
 Summary:        Security assessment tool for SSL/TLS
 
@@ -20,9 +20,6 @@ Source1:        https://www.openssl.org/source/openssl-%{bundled_openssl_version
 Patch0:         sslscan-override-CFLAGS.patch
 Patch1:         sslscan-disable-opensslpull.patch
 
-# Comment out patented technology not enabled in Fedora
-# EC patents expired in 2020, not needed anymore
-# Patch2:         sslscan-fedora-patents.patch
 
 BuildRequires:  gcc
 BuildRequires:  make

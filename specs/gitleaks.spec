@@ -3,7 +3,7 @@
 
 # https://github.com/gitleaks/gitleaks
 %global goipath         github.com/zricethezav/gitleaks/v8
-Version:                8.29.0
+Version:                8.29.1
 
 %gometa -L -f
 
@@ -37,7 +37,7 @@ Requires:       git-core
 %go_vendor_license_buildrequires -c %{S:2}
 
 %build
-export LDFLAGS="-X=github.com/zricethezav/gitleaks/v8/cmd.Version=%{VERSION}"
+export LDFLAGS="-X=github.com/zricethezav/gitleaks/v8/version.Version=%{VERSION}"
 %gobuild -o %{gobuilddir}/bin/gitleaks %{goipath}
 %{gobuilddir}/bin/%{name} completion bash > %{name}.bash
 %{gobuilddir}/bin/%{name} completion fish > %{name}.fish

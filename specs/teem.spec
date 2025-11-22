@@ -6,16 +6,12 @@ Version:        1.11.0
 Release:        %autorelease -b 13
 Summary:        Libraries for processing and visualizing scientific raster data
 
-# The entire source is LGPL-2.1-or-later (but see below), except files noted at
-# the License fields of certain subpackages.
+# The entire source is LGPL-2.1-or-later WITH Simple-Library-Usage-exception,
+# except files noted at the License fields of certain subpackages.
 #
-# The project has a custom exception for the LGPL-2.1-or-later, currently under
-# review:
-#   License/exception review: Simple Library Usage License
-#   https://gitlab.com/fedora/legal/fedora-license-data/-/issues/658
-License:        %{shrink:
-    LGPL-2.1-or-later WITH AdditionRef-Fedora-Temporary-Simple-Library-exception
-    }
+# See https://gitlab.com/fedora/legal/fedora-license-data/-/issues/658,
+# https://github.com/spdx/license-list-xml/issues/2745.
+License:        LGPL-2.1-or-later WITH Simple-Library-Usage-exception
 # Additionally, the following are removed in %%prep to assert that they do not
 # contribute to the built package:
 #
@@ -26,12 +22,7 @@ License:        %{shrink:
 #   python/ctypes/pullDemo.py
 #   python/ctypes/teem-gen.py
 #   python/ctypes/teem.py
-SourceLicense:  %{shrink:
-                %{license} AND
-                BSD-3-Clause AND
-                MIT AND
-                Zlib
-                }
+SourceLicense:  %{license} AND BSD-3-Clause AND MIT AND Zlib
 URL:            https://teem.sourceforge.net
 Source0:        https://downloads.sourceforge.net/project/teem/teem/%{version}/teem-%{version}-src.tar.gz
 
@@ -243,15 +234,15 @@ applications that use Teem.
 
 %package examples
 Summary:        Examples for developing with for teem
-# The entire contents of this subpackage are LGPL-2.1-or-later WITH
-# LicenseRef-Fedora-Temporary-Simple-Library-exception, except:
+# The entire contents of this subpackage are
+# LGPL-2.1-or-later WITH Simple-Library-Usage-exception, except:
 #
 # Zlib:
 #   UseTeemCMakeDemo/sanity.c
 # BSD-3-Clause:
 #   Examples/sanity/sanity.c
 License:        %{shrink:
-    LGPL-2.1-or-later WITH AdditionRef-Fedora-Temporary-Simple-Library-exception AND
+    LGPL-2.1-or-later WITH Simple-Library-Usage-exception AND
     Zlib AND
     BSD-3-Clause
     }

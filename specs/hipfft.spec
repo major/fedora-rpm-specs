@@ -72,7 +72,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        ROCm FFT marshalling library
 License:        MIT
@@ -221,12 +221,10 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library:$LD_LIBRARY_PATH
 %{_libdir}/libhipfftw.so.0{,.*}
 
 %files devel
-%dir %{_libdir}/cmake/hipfft
-%dir %{_includedir}/hipfft
-%{_includedir}/hipfft/*
+%{_includedir}/hipfft/
 %{_libdir}/libhipfft.so
 %{_libdir}/libhipfftw.so
-%{_libdir}/cmake/hipfft/*.cmake
+%{_libdir}/cmake/hipfft/
 
 %if %{with test}
 %files test
@@ -234,6 +232,9 @@ export LD_LIBRARY_PATH=%{_vpath_builddir}/library:$LD_LIBRARY_PATH
 %endif
 
 %changelog
+* Thu Nov 20 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
+- Remove dir tags
+
 * Fri Oct 31 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
 - Update to 7.1.0
 

@@ -104,7 +104,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 %endif
 Summary:        Next generation LAPACK implementation for ROCm platform
 
@@ -342,20 +342,20 @@ rm -f %{buildroot}%{_prefix}/share/doc/rocsolver/LICENSE.md
 %{_libdir}/librocsolver.so.0{,.*}
 
 %files devel
-%dir %{_libdir}/cmake/rocsolver
-%dir %{_includedir}/rocsolver
-%{_includedir}/rocsolver/*
+%{_includedir}/rocsolver/
 %{_libdir}/librocsolver.so
-%{_libdir}/cmake/rocsolver/*.cmake
+%{_libdir}/cmake/rocsolver/
 
 %if %{with test}
 %files test
-%dir %{_datadir}/rocsolver
-%{_datadir}/rocsolver/test/*
+%{_datadir}/rocsolver/
 %{_bindir}/rocsolver*
 %endif
 
 %changelog
+* Thu Nov 20 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-3
+- Remove dir tags
+
 * Tue Nov 11 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
 - Better handling of shared library on opensuse
 

@@ -95,7 +95,7 @@ BuildRequires:	tbb-devel
 BuildRequires:	onnx-devel
 BuildRequires:	protobuf-devel
 BuildRequires:	opencv-devel
-BuildRequires:	OpenCL-ICD-Loader-devel
+BuildRequires:	pkgconfig(OpenCL)
 BuildRequires:	opencl-headers
 Requires:	lib%{name}-ir-frontend = %{version}
 Requires:	lib%{name}-pytorch-frontend = %{version}

@@ -102,7 +102,7 @@
 
 Name:             %{majorname}%{majorversion}
 Version:          %{package_version}
-Release:          2%{?with_debug:.debug}%{?dist}
+Release:          3%{?with_debug:.debug}%{?dist}
 Summary:          MySQL client programs and shared libraries
 URL:              http://www.mysql.com
 
@@ -1120,6 +1120,9 @@ popd
 %endif
 
 %changelog
+* Thu Nov 20 2025 Michal Schorm <mschorm@redhat.com> - 8.0.44-3
+- Bump release for tmpfiles.d fixup
+
 * Mon Nov 3 2025 Nikola Davidova <ndavidov@redhat.com> - 8.0.44-2
 - Bump release for tmpfiles.d change
 

@@ -11,12 +11,12 @@
 %bcond acceptance_python 1
 
 Name:           gherkin
-Version:        36.1.0
+Version:        37.0.0
 # While SONAME versions are based on the major version number, we repeat them
 # here as a reminder, hopefully reducing the chance of an unintended SONAME
 # version bump.
-%global cpp_soversion 36
-%global c_soversion 36
+%global cpp_soversion 37
+%global c_soversion 37
 Release:        %autorelease
 Summary:        A parser and compiler for the Gherkin language
 
@@ -57,7 +57,7 @@ BuildRequires:  jq
 # For C++ only:
 BuildRequires:  gcc-c++
 BuildRequires:  cmake(nlohmann_json)
-BuildRequires:  cmake(cucumber_messages)
+BuildRequires:  cmake(cucumber_messages) >= 31
 
 # For Python only:
 BuildRequires:  python3-devel

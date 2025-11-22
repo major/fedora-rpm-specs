@@ -4,7 +4,7 @@
 %global forgeurl https://github.com/timvink/mkdocs-git-authors-plugin
 
 Name:           python-mkdocs-git-authors-plugin
-Version:        0.9.2
+Version:        0.10.0
 Release:        %autorelease
 Summary:        Mkdocs plugin to display git authors of a page
 
