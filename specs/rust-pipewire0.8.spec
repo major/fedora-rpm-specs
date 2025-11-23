@@ -4,8 +4,8 @@
 
 %global crate pipewire
 
-Name:           rust-pipewire
-Version:        0.9.2
+Name:           rust-pipewire0.8
+Version:        0.8.0
 Release:        %autorelease
 Summary:        Rust bindings for PipeWire
 

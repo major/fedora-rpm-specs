@@ -4,7 +4,7 @@
 
 Name:           bcd
 Version:        1.1
-Release:        18.%{?date0}git%{?shortcommit0}%{?dist}
+Release:        19.%{?date0}git%{?shortcommit0}%{?dist}
 Summary:        Bayesian Collaborative Denoiser for Monte-Carlo Rendering
 # BSD: main program
 # AGPLv3+: src/io/exr
@@ -102,6 +102,8 @@ developing applications that use %{name}.
 
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380473)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 export CXXFLAGS="%{optflags} $(pkgconf --cflags eigen3 OpenEXR) $(pkgconf --cflags --keep-system-cflags nlohmann_json)/nlohmann"
 export LDFLAGS="%{build_ldflags} $(pkgconf --libs eigen3 OpenEXR)"
 %cmake \
@@ -142,6 +144,9 @@ cp -pr include/* %{buildroot}%{_includedir}
 
 
 %changelog
+* Mon Nov 10 2025 Cristian Le <git@lecris.dev> - 1.1-19.20180610gitd94c9fa
+- Allow to build with CMake 4.0 (rhbz#2380473)
+
 * Wed Oct 15 2025 Sandro Mani <manisandro@gmail.com> - 1.1-18.20180610gitd94c9fa
 - Fix build against eigen3-5.0.0
 

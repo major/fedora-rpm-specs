@@ -19,6 +19,24 @@
   %bcond_with gold
 %endif
 
+# Enable this in order to disable a lot of features and get to clang as fast
+# as possible. This is useful in order to bisect issues affecting LLVM, clang
+# or LLD.
+%bcond_with fastclang
+%if %{with fastclang}
+%define bcond_override_default_lldb 0
+%define bcond_override_default_offload 0
+%define bcond_override_default_mlir 0
+%define bcond_override_default_flang 0
+%define bcond_override_default_build_bolt 0
+%define bcond_override_default_polly 0
+%define bcond_override_default_pgo 0
+%define bcond_override_default_libcxx 0
+%define bcond_override_default_lto_build 0
+%define bcond_override_default_check 0
+%define _find_debuginfo_dwz_opts %{nil}
+%endif
+
 # Build compat packages llvmN instead of main package for the current LLVM
 # version. Used on Fedora.
 %bcond_with compat_build
@@ -526,6 +544,13 @@ Patch2201: 0001-clang-Add-a-hack-to-fix-the-offload-build-with-the-m.patch
 %global __python3 /usr/bin/python3.12
 %endif
 
+%if %{with fastclang}
+# fastclang depends on overriding default conditionals via
+# bcond_override_default which is only available on RPM 4.20 and newer.
+# More info:
+# https://rpm-software-management.github.io/rpm/manual/conditionalbuilds.html#overriding-defaults
+BuildRequires:	rpm >= 4.20
+%endif
 %if %{defined gts_version}
 # Required for 64-bit atomics on i686.
 BuildRequires: gcc-toolset-%{gts_version}-libatomic-devel
@@ -1386,7 +1411,7 @@ cd llvm/utils/lit
 %ifarch %ix86
 %global reduce_debuginfo 1
 %endif
-%if 0%{?rhel} == 8
+%if 0%{?rhel} == 8 || %{with fastclang}
 %global reduce_debuginfo 1
 %endif
 

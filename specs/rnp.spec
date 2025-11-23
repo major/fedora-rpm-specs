@@ -25,7 +25,7 @@
 
 Name:          rnp
 Summary:       OpenPGP (RFC4880) tools
-Version:       0.18.0
+Version:       0.18.1
 Release:       2%{?dist}
 # See rnp-files-by-license.txt and upstream LICENSE* files
 License:       BSD-2-Clause AND Apache-2.0 AND MIT
@@ -188,6 +188,13 @@ FILTER="s2k_iteration_tuning|test_key_add_userid|test_ffi_security_profile|Encry
 
 
 %changelog
+* Fri Nov 21 2025 Remi Collet <remi@remirepo.net> - 0.18.1-2
+- re-enable gpg check
+
+* Fri Nov 21 2025 Remi Collet <remi@remirepo.net> - 0.18.1-1
+- update to 0.18.1 for CVE-2025-13402
+- disable gpg check reported as https://github.com/rnpgp/rnp/issues/2375
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

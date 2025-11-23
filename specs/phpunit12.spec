@@ -16,8 +16,8 @@
 %bcond_with          defcmd
 %endif
 
-%global gh_commit    d8f644d8d9bb904867f7a0aeb1bd306e0d966949
-%global gh_date      2025-11-13
+%global gh_commit    9253ec75a672e39fcc9d85bdb61448215b8162c7
+%global gh_date      2025-11-21
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   phpunit
@@ -30,7 +30,7 @@
 %global ver_major    12
 %global ver_minor    4
 
-%global upstream_version 12.4.3
+%global upstream_version 12.4.4
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
@@ -284,6 +284,9 @@ exit $ret
 
 
 %changelog
+* Fri Nov 21 2025 Remi Collet <remi@remirepo.net> - 12.4.4-1
+- update to 12.4.4
+
 * Thu Nov 13 2025 Remi Collet <remi@remirepo.net> - 12.4.3-1
 - update to 12.4.3
 

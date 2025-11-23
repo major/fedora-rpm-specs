@@ -6,7 +6,7 @@
 %endif
 
 Name:           soplex
-Version:        7.1.5
+Version:        7.1.6
 Release:        %autorelease
 Summary:        Sequential object-oriented simplex
 
@@ -50,30 +50,29 @@ BuildRequires:  python3
 Requires:       libsoplex%{?_isa} = %{version}-%{release}
 
 %global _desc %{expand:
-SoPlex is an optimization package for solving linear programming
-problems (LPs) based on an advanced implementation of the primal and
-dual revised simplex algorithm.  It provides special support for the
-exact solution of LPs with rational input data.  It can be used as a
-standalone solver reading MPS or LP format files via a command line
-interface as well as embedded into other programs via a C++ class
-library.  The main features of SoPlex are:
+SoPlex is an optimization package for solving linear programming problems
+(LPs) based on an advanced implementation of the primal and dual revised
+simplex algorithm.  It provides special support for the exact solution of LPs
+with rational input data.  It can be used as a standalone solver reading MPS
+or LP format files via a command line interface as well as embedded into other
+programs via a C++ class library.  The main features of SoPlex are:
 
-- presolving, scaling, exploitation of sparsity, hot-starting from any
-  regular basis,
+- presolving, scaling, exploitation of sparsity, hot-starting from any regular
+  basis,
 - column- and row-oriented form of the simplex algorithm,
 - an object-oriented software design written in C++,
 - a compile-time option to use 80bit extended ("quad") precision for
   numerically difficult LPs,
-- an LP iterative refinement procedure to compute high-precision
-  solution, and
+- an LP iterative refinement procedure to compute high-precision solution, and
 - routines for an exact rational LU factorization and continued fraction
   approximations in order to compute exact solutions.
 
-SoPlex has been used in numerous research and industry projects and is
-the standard LP solver linked to the mixed-integer nonlinear programming
-and constraint integer programming solver SCIP.}
+SoPlex has been used in numerous research and industry projects and is the
+standard LP solver linked to the mixed-integer nonlinear programming and
+constraint integer programming solver SCIP.}
 
-%description %_desc
+%description
+%_desc
 
 This package contains a command-line tool to access SoPlex
 functionality.
@@ -84,7 +83,8 @@ Summary:        Library for sequential object-oriented simplex
 # The bundled version of fmt is incompatible with version 10 in Rawhide.
 Provides:       bundled(fmt) = 7.1.3
 
-%description -n libsoplex %_desc
+%description -n libsoplex
+%_desc
 
 This package contains a library interface to SoPlex functionality.
 

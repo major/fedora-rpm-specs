@@ -47,8 +47,8 @@ readily with other Python GIS packages such as pyproj, Rtree, and Shapely.
 %prep
 %autosetup -n %{Srcname}-%{uversion} -p1
 
-# Remove upper bound version restriction for Cython
-sed -i 's/cython~=3\.0\.2/cython>=3.0.2,<3.2/' pyproject.toml
+# Remove Cython version restrictions
+sed -i -E 's/cython~=([0-9.]+)/cython>=\1/' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires -x calc,test

@@ -1,4 +1,4 @@
-%global blender_api 4.5
+%global blender_api 5.0
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 %global _without_bundled_deps 1
 
@@ -6,11 +6,11 @@
 %bcond clang      0   # Use Clang compiler
 %bcond draco      1   # Draco mesh compression support
 %bcond llvm       1   # Required for OSL support
+%bcond manifold   0   # Manifold support
 %bcond manpage    1   # Generate manpage
 %bcond materialx  0   # MaterialX support
 %bcond nanovdb    1   # NanoVDB support
 %bcond ninja      1   # Use Ninja build system
-%bcond openshading 1  # OpenShadingLanguage support
 %bcond openvdb    1   # OpenVDB support
 %bcond sdl        0   # SDL backend
 %bcond system_eigen3 1 # Use system Eigen3
@@ -30,6 +30,7 @@
     %bcond hiprt 1    # HIP ray tracing (requires Fedora 42+)
     %bcond oidn  1    # OpenImageDenoise
     %bcond oneapi 0   # Intel OneAPI support
+    %bcond openshading 1  # OpenShadingLanguage support
     %bcond opgl  1    # OpenPGL
     %global llvm_compat 18
     %endif
@@ -47,7 +48,7 @@
 
 Name:           blender
 Epoch:          1
-Version:        4.5.4
+Version:        5.0.0
 Release:        %autorelease
 
 Summary:        3D modeling, animation, rendering and post-production
@@ -69,10 +70,6 @@ URL:            https://www.blender.org
 Source0:        https://download.%{name}.org/source/%{name}-%{version}.tar.xz
 # Custom RPM macros
 Source1:        %{name}-macros-source
-# Fix build with FFmpeg 8
-Patch0:         https://projects.blender.org/blender/blender/commit/49a6c426206e283f8abb4a438bdc0e93e46e9799.patch#/%{name}-ffmpeg8.patch
-# Fix bundled audaspace build with FFmpeg 8
-Patch1:         https://projects.blender.org/blender/blender/commit/ebfad2c071d712d126a5c3d93ebed8a226821feb.patch#/%{name}-audaspace-ffmpeg8.patch
 
 # Build requirements
 BuildRequires:  boost-devel
@@ -226,6 +223,12 @@ BuildRequires:  cmake(ceres)
 %if %{with embree}
 BuildRequires:  embree-devel
 %endif
+%if %{with manifold}
+BuildRequires:	pkgconfig(assimp)
+BuildRequires:	pkgconfig(manifold)
+# Needed by manifold
+BuildRequires:	polyclipping2-static
+%endif
 %if %{with materialx}
 BuildRequires:  materialx-devel
 %endif
@@ -290,10 +293,11 @@ BuildRequires:  jack-audio-connection-kit-devel
 BuildRequires:  pkgconfig(ao)
 BuildRequires:  pkgconfig(flac)
 BuildRequires:  pkgconfig(freealut)
+BuildRequires:	pkgconfig(libpipewire-0.3)
 BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  pkgconfig(ogg)
 BuildRequires:  pkgconfig(opus)
-BuildRequires:	pkgconfig(libpipewire-0.3)
+BuildRequires:	pkgconfig(rubberband)
 BuildRequires:  pkgconfig(samplerate)
 BuildRequires:  pkgconfig(sndfile)
 BuildRequires:  pkgconfig(vorbis)
@@ -334,7 +338,9 @@ Requires:       shared-mime-info
 Provides:       blender(ABI) = %{blender_api}
 
 # Starting from 2.90, Blender support only 64-bits architectures
-ExcludeArch:	%{ix86} %{arm}
+# Starting from 5.0.0, Blender dropped big endian support impacting s390x arch
+# https://projects.blender.org/blender/blender/commit/bc80ef136e8af0a355d234205ed6c7b0acaa84ab
+ExcludeArch:	%{ix86} %{arm} s390x
 
 %description
 Blender is the essential software solution you need for 3D, from modeling,
@@ -355,11 +361,6 @@ rm -f build_files/cmake/Modules/FindOpenJPEG.cmake
 %py3_shebang_fix .
 sed -i "s/date_time/date_time python%{python3_version_nodots}/" \
         build_files/cmake/platform/platform_unix.cmake
-
-# Fix proper detection of numpy path
-# https://projects.blender.org/blender/blender/issues/137635    
-sed -i "s|core/include|_core/include|" CMakeLists.txt
-
 
 %build
 %if %{with hip}

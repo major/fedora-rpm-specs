@@ -5,18 +5,17 @@
 %endif
 
 Name:    bluez
-Version: 5.84
-Release: 2%{?dist}
+Version: 5.85
+Release: 1%{?dist}
 Summary: Bluetooth utilities
 License: GPL-2.0-or-later
 URL:     http://www.bluez.org/
 
 Source0: https://www.kernel.org/pub/linux/bluetooth/%{name}-%{version}.tar.xz
-Patch0: 0001-media-fix-pac_config_cb-error-code-return.patch
 
 BuildRequires: dbus-devel >= 1.6
 BuildRequires: glib2-devel
-BuildRequires: libell-devel >= 0.37
+BuildRequires: libell-devel >= 0.39
 BuildRequires: libical-devel
 BuildRequires: make
 BuildRequires: readline-devel
@@ -335,6 +334,9 @@ install emulator/btvirt ${RPM_BUILD_ROOT}/%{_libexecdir}/bluetooth/
 %{_userunitdir}/obex.service
 
 %changelog
+* Fri Nov 21 2025 Peter Robinson <pbrobinson@fedoraproject.org> - 5.85-1
+- Update to 5.85
+
 * Wed Sep 24 2025 Bastien Nocera <bnocera@redhat.com> - 5.84-2
 + bluez-5.84-2
 - Fix Bluetooth LE audio

@@ -1,5 +1,5 @@
 Name:           python-jiter
-Version:        0.11.1
+Version:        0.12.0
 Release:        %autorelease
 Summary:        Fast iterable JSON parser
 

@@ -9,41 +9,21 @@
 # Not yet in EPEL10: https://bugzilla.redhat.com/show_bug.cgi?id=2356387
 %bcond pendulum %{undefined el10}
 
-# By default, orjson uses a bundled copy of the C library yyjson,
-# https://github.com/ibireme/yyjson, as the JSON deserialization backend. It is
-# forked (customized) and compiled with a particular set of options via
-# preprocessor defines (see build.rs), so it is not a candidate for unbundling.
-#
-# We do have the option to disable the yyjson backend, in which case the json
-# crate from the Rust standard library, https://docs.rs/json, is used instead.
-%bcond yyjson 0
-
 Name:           python-orjson
-Version:        3.11.3
+Version:        3.11.4
 Release:        %autorelease
 Summary:        Fast, correct Python JSON library
 
 # The entire source is (Apache-2.0 OR MIT), except:
 #
-%if %{with yyjson}
 # MIT:
 # - include/yyjson/yyjson.c
 # - include/yyjson/yyjson.h
 #
-%endif
 # Apache-2.0:
 # - src/serialize/writer/str/mod.rs
 # - src/serialize/writer/str/sse2.rs
-License:        (Apache-2.0 OR MIT) AND Apache-2.0%{?with_yyjson: AND MIT}
-%if %{without yyjson}
-# Additionally, the following are removed in %%prep and do not contribute to
-# the licenses of the binary RPMs:
-#
-# MIT:
-# - include/yyjson/yyjson.c
-# - include/yyjson/yyjson.h
-%endif
-SourceLicense:  (Apache-2.0 OR MIT) AND Apache-2.0 AND MIT
+License:        (Apache-2.0 OR MIT) AND Apache-2.0 AND MIT
 URL:            https://github.com/ijl/orjson
 # We must be careful about the source archive.
 #
@@ -96,6 +76,7 @@ Summary:        %{summary}
 # (Apache-2.0 OR MIT) AND BSD-3-Clause
 # Apache-2.0 OR BSL-1.0
 # Apache-2.0 OR MIT
+# BSD-2-Clause OR Apache-2.0 OR MIT
 # BSL-1.0
 # MIT
 # MIT OR Apache-2.0
@@ -106,16 +87,24 @@ License:        %{shrink:
                 (Apache-2.0 OR MIT) AND
                 Apache-2.0 AND
                 (Apache-2.0 OR BSL-1.0) AND
+                (Apache-2.0 OR BSD-2-Clause OR MIT) AND
                 BSD-3-Clause AND
                 BSL-1.0 AND
                 MIT AND
                 (Unlicense OR MIT)
                 }
 
-%if %{with yyjson}
 # Version from YYJSON_VERSION_STRING in include/yyjson/yyjson.h
+#
+# Since version 3.11.4, orjson unconditionally uses a bundled copy of the C
+# library yyjson, https://github.com/ibireme/yyjson, as the JSON
+# deserialization backend. It is forked (customized) and compiled with a
+# particular set of options via preprocessor defines (see build.rs), so it is
+# not a candidate for unbundling. (Prior to version 3.11.4, this could be
+# disabled, and the json crate from the Rust standard library,
+# https://docs.rs/json, would be used instead, but this is no longer
+# supported.)
 Provides:       bundled(yyjson) = 0.9.0
-%endif
 
 %description -n python3-orjson %{_description}
 
@@ -128,10 +117,6 @@ Provides:       bundled(yyjson) = 0.9.0
 # “Avoid bundling libgcc on musl.”
 tomcli-set Cargo.toml del 'features.unwind'
 tomcli-set Cargo.toml del 'dependencies.unwinding'
-%if %{without yyjson}
-# Remove bundled yyjson.
-rm -rv include/yyjson/
-%endif
 
 %if %{without pendulum}
 sed -i '/^pendulum\b/d' test/requirements.txt
@@ -152,9 +137,6 @@ sed -i '/pytest-random-order/d' test/requirements.txt
 export RUSTFLAGS='%{build_rustflags}'
 %cargo_license_summary
 %{cargo_license} > LICENSES.dependencies
-%if %{without yyjson}
-export ORJSON_DISABLE_YYJSON=1
-%endif
 %pyproject_wheel
 
 

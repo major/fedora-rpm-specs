@@ -104,8 +104,8 @@
 Name:           ffmpeg
 %global pkg_name %{name}%{?pkg_suffix}
 
-Version:        8.0
-Release:        2%{?dist}
+Version:        8.0.1
+Release:        1%{?dist}
 Summary:        A complete solution to record, convert and stream audio and video
 License:        GPL-3.0-or-later
 URL:            https://ffmpeg.org/
@@ -692,7 +692,7 @@ sed -i "s|check_host_cflags -O3|check_host_cflags %{optflags}|" configure
 install -m0755 -d _doc/examples
 cp -a doc/examples/{*.c,Makefile,README} _doc/examples/
 
-%build
+%conf
 %set_build_flags
 
 # This is not a normal configure script, don't use %%configure
@@ -942,6 +942,9 @@ for i in H264 HEVC; do
 done
 %endif
 
+%build
+%set_build_flags
+
 %make_build V=1
 %make_build documentation V=1
 %make_build alltools V=1
@@ -968,6 +971,10 @@ rm -rf %{buildroot}%{_datadir}
 
 
 %changelog
+* Fri Nov 21 2025 Dominik Mierzejewski <dominik@greysector.net> - 8.0.1-1
+- Update to 8.0.1 (resolves rhbz#2416044)
+- Split configure step to conf stage
+
 * Fri Nov 14 2025 Neal Gompa <ngompa@fedoraproject.org> - 8.0-2
 - Disable lc3 only on RHEL 10
 

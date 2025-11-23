@@ -38,7 +38,7 @@ rendered image data.
 
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:       cmake%{?_isa}
 Requires:       imath-devel%{?_isa}
 

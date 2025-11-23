@@ -1,6 +1,6 @@
 Name:           frei0r-plugins
 Version:        2.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Frei0r - a minimalist plugin API for video effects
 
 # Automatically converted from old format: GPLv2+ - review is highly recommended.
@@ -42,6 +42,8 @@ developing applications that use %{name}.
 
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380603)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake -DCMAKE_INSTALL_LIBDIR=%{_lib} \
 
 %cmake_build
@@ -74,6 +76,9 @@ rm -rf %{buildroot}%{_docdir}/%{name}
 %{_libdir}/pkgconfig/frei0r.pc
 
 %changelog
+* Mon Nov 10 2025 Cristian Le <git@lecris.dev> - 2.5.0-2
+- Allow to build with CMake 4.0 (rhbz#2380603)
+
 * Mon Oct 20 2025 Nicolas Chauvet <kwizart@gmail.com> - 2.5.0-1
 - Update to 2.5.0
 

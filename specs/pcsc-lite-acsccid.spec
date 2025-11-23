@@ -2,7 +2,7 @@
 
 Name:		pcsc-lite-acsccid
 Version:	1.1.13
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	ACS CCID PC/SC Driver for Linux/Mac OS X
 
 # Automatically converted from old format: LGPLv2+ - review is highly recommended.
@@ -20,6 +20,10 @@ BuildRequires:	libusb-compat-0.1-devel
 BuildRequires:	flex
 BuildRequires:	perl
 BuildRequires:	pkg-config
+# for udev.pc dependency
+BuildRequires:  systemd
+Requires(post): systemd
+Requires(postun): systemd
 BuildRequires:	systemd-rpm-macros
 
 Requires:	pcsc-lite
@@ -52,6 +56,7 @@ information.
 install -p -m 644 src/openct/LICENSE LICENSE.openct
 install -p -m 644 src/towitoko/README README.towitoko
 
+install -Dpm 644 src/92_pcscd_acsccid.rules %{buildroot}%{_udevrulesdir}/92_pcscd_acsccid.rules
 
 %post
 %systemd_postun_with_restart pcscd.service
@@ -73,8 +78,12 @@ install -p -m 644 src/towitoko/README README.towitoko
 %{dropdir}/ifd-acsccid.bundle/Contents/Info.plist
 %dir %{dropdir}/ifd-acsccid.bundle/Contents/Linux/
 %{dropdir}/ifd-acsccid.bundle/Contents/Linux/libacsccid.so
+%{_prefix}/lib/udev/rules.d/92_pcscd_acsccid.rules
 
 %changelog
+* Fri Nov 21 2025 Jakub Jelen <jjelen@redhat.com> - 1.1.13-2
+- Install missing udev rules
+
 * Thu Nov 20 2025 Jakub Jelen <jjelen@redhat.com> - 1.1.13-1
 - New upstrem release (#2416050)
 

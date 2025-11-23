@@ -3,7 +3,7 @@
 # NOTE: To avoid NVR clashes of nspr* packages:
 # - reset %%{nspr_release} to 1, when updating %%{nspr_version}
 # - increment %%{nspr_version}, when updating the NSS part only
-%global baserelease 1
+%global baserelease 2
 %global nss_release %baserelease
 # use "%%global nspr_release %%[%%baserelease+n]" to handle offsets when
 # release number between nss and nspr are different.
@@ -111,6 +111,7 @@ Source23:         cert8.db.xml
 Source25:         key3.db.xml
 Source27:         secmod.db.xml
 %endif
+Source30:         nss-3.118-ml-dsa-test-for-sign-verify-pkcs12_files.tar.xz
 
 Source101:        nspr-config.xml
 
@@ -133,6 +134,15 @@ Patch40:          nss-no-dbm-man-page.patch
 
 # https://issues.redhat.com/browse/FC-1613
 Patch50:          nss-3.110-dissable_test-ssl_policy_pkix_oscp.patch
+
+# ML-DSA support patches that haven't made it to the 3.118.1 release
+Patch60:          nss-3.118-ml-dsa-leancrypto.patch
+Patch61:          nss-3.118-ml-dsa-tls.patch
+#Patch62:          nss-3.118-prefer-all-hybrid.patch
+
+Patch65:          nss-3.118-ml-dsa-test-for-sign-verify-pkcs12.patch
+Patch66:          nss-3.118-ml-dsa-tls-test.patch
+Patch67:          nss-3.118-ml-dsa-unittests.patch
 
 Patch70:          nss-3.118.1-fix-test-typo.patch
 
@@ -301,6 +311,9 @@ popd
 pushd nss
 %autopatch -p1 -M 99
 popd
+
+tar -xf %{SOURCE30}
+cp -r nss-3.118-ml-dsa-test-for-sign-verify-pkcs12_files/* nss/tests/tools/
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=1247353
 find nss/lib/libpkix -perm /u+x -type f -exec chmod -x {} \;
@@ -1085,7 +1098,10 @@ fi
 
 
 %changelog
-* Wed Oct 15 2025 Frantisek Krenzelok <krenzelok.frantisek@gmail.com> - 3.118.1-1
+* Wed Nov 19 2025 Frantisek Krenzelok <krenzelok.frantisek@gmail.com> - 3.118.1-2
+- Add the rest of the patches for ML-DSA support (not yet in 3.118.1 upstream).
+
+* Wed Nov 19 2025 Frantisek Krenzelok <krenzelok.frantisek@gmail.com> - 3.118.1-1
 - Update NSS to 3.118.1
 
 * Wed Oct 15 2025 Frantisek Krenzelok <krenzelok.frantisek@gmail.com> - 3.117.0-1

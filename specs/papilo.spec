@@ -13,7 +13,7 @@
 %global giturl  https://github.com/scipopt/papilo/
 
 Name:           papilo
-Version:        2.4.3
+Version:        2.4.4
 Release:        %autorelease
 Summary:        Parallel presolve for integer and linear optimization
 
@@ -58,21 +58,22 @@ BuildRequires:  cmake(soplex)
 
 Requires:       libpapilo%{?_isa} = %{version}-%{release}
 
-%global _desc %{expand:
-PaPILO provides parallel presolve routines for (mixed integer) linear
-programming problems.  The routines are implemented using templates
-which allows switching to higher precision or rational arithmetic using
-the boost multiprecision package.}
+%global _desc %{expand:PaPILO provides parallel presolve routines for (mixed integer) linear
+programming problems.  The routines are implemented using templates which
+allows switching to higher precision or rational arithmetic using the boost
+multiprecision package.}
 
-%description %_desc
+%description
+%_desc
 
 %package     -n libpapilo
 Summary:        Library interface to PaPILO
 
-# The bundled version of fmt is incompatible with version 10 in Rawhide.
+# The bundled version of fmt is incompatible with version 11 in Rawhide.
 Provides:       bundled(fmt) = 7.1.3
 
-%description -n libpapilo %_desc
+%description -n libpapilo
+%_desc
 
 This package provides a library interface to the PaPILO functionality.
 
@@ -84,7 +85,8 @@ Requires:       lusol-devel%{?_isa}
 Requires:       pdqsort-static
 Requires:       tbb-devel%{?_isa}
 
-%description -n libpapilo-devel %_desc
+%description -n libpapilo-devel
+%_desc
 
 This package contains headers and library links to develop applications
 that use libpapilo.

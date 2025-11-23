@@ -62,6 +62,8 @@ find . -name "*.cpp" -exec chmod 644 {} \;
 chmod 644 README.md
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380464)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake -DCMAKE_SKIP_RPATH=True
 %cmake_build
 

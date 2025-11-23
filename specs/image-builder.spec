@@ -428,10 +428,10 @@ Changes with 31
 * Mon Aug 11 2025 Packit <hello@packit.dev> - 30-1
 Changes with 30
 ----------------
-  * image-builder: move to latest images library (#272)
-    * Author: Michael Vogt, Reviewers: Achilleas Koutsou, Simon de Vlieger
-  * image-builder: use `github.com/osbuild/blueprint` (#273)
-    * Author: Michael Vogt, Reviewers: Achilleas Koutsou, Gianluca Zuccarelli
+  - image-builder: move to latest images library (#272)
+    - Author: Michael Vogt, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - image-builder: use `github.com/osbuild/blueprint` (#273)
+    - Author: Michael Vogt, Reviewers: Achilleas Koutsou, Gianluca Zuccarelli
 
 — Somewhere on the Internet, 2025-08-11
 
@@ -439,8 +439,8 @@ Changes with 30
 * Fri Aug 01 2025 Packit <hello@packit.dev> - 29-1
 Changes with 29
 ----------------
-  * deps: fix images 0.168 (#266)
-    * Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Lukáš Zapletal
+  - deps: fix images 0.168 (#266)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Lukáš Zapletal
 
 — Somewhere on the Internet, 2025-08-01
 
@@ -448,16 +448,16 @@ Changes with 29
 * Thu Jul 31 2025 Packit <hello@packit.dev> - 28-1
 Changes with 28
 ----------------
-  * README.md: document `--ignore-warnings` (#254)
-    * Author: Michael Vogt, Reviewers: Lukáš Zapletal, Simon de Vlieger
-  * ci/packit: remove EPEL release automation (#258)
-    * Author: Simon de Vlieger, Reviewers: Ondřej Budai, Tomáš Hozza
-  * ci: upgrade golangci-lint to 2.3.0 (#257)
-    * Author: Lukáš Zapletal, Reviewers: Michael Vogt, Simon de Vlieger
-  * deps: update `images` to 0.168 (HMS-8949, HMS-8922) (#262)
-    * Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Michael Vogt, Tomáš Hozza
-  * spec: fix up version number (#259)
-    * Author: Simon de Vlieger, Reviewers: Lukáš Zapletal, Ondřej Budai, Tomáš Hozza
+  - README.md: document `--ignore-warnings` (#254)
+    - Author: Michael Vogt, Reviewers: Lukáš Zapletal, Simon de Vlieger
+  - ci/packit: remove EPEL release automation (#258)
+    - Author: Simon de Vlieger, Reviewers: Ondřej Budai, Tomáš Hozza
+  - ci: upgrade golangci-lint to 2.3.0 (#257)
+    - Author: Lukáš Zapletal, Reviewers: Michael Vogt, Simon de Vlieger
+  - deps: update `images` to 0.168 (HMS-8949, HMS-8922) (#262)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Michael Vogt, Tomáš Hozza
+  - spec: fix up version number (#259)
+    - Author: Simon de Vlieger, Reviewers: Lukáš Zapletal, Ondřej Budai, Tomáš Hozza
 
 — Somewhere on the Internet, 2025-07-31
 
@@ -468,8 +468,8 @@ Changes with 28
 * Wed Jul 23 2025 Packit <hello@packit.dev> - 27-1
 Changes with 27
 ----------------
-  * chore: set specfile version at build (#253)
-    * Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Lukáš Zapletal
+  - chore: set specfile version at build (#253)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Lukáš Zapletal
 
 — Somewhere on the Internet, 2025-07-23
 
@@ -477,12 +477,12 @@ Changes with 27
 * Mon Jul 21 2025 Packit <hello@packit.dev> - 26-1
 Changes with 26
 ----------------
-  * deps: bump images to 0.164 (#252)
-    * Author: Simon de Vlieger, Reviewers: Michael Vogt, Ondřej Budai
-  * main: add `--ignore-warnings` cmdline option (#250)
-    * Author: Michael Vogt, Reviewers: Lukáš Zapletal, Sanne Raymaekers, Simon de Vlieger
-  * testutil: trivial cleanup/rename (#249)
-    * Author: Michael Vogt, Reviewers: Ondřej Budai, Simon de Vlieger
+  - deps: bump images to 0.164 (#252)
+    - Author: Simon de Vlieger, Reviewers: Michael Vogt, Ondřej Budai
+  - main: add `--ignore-warnings` cmdline option (#250)
+    - Author: Michael Vogt, Reviewers: Lukáš Zapletal, Sanne Raymaekers, Simon de Vlieger
+  - testutil: trivial cleanup/rename (#249)
+    - Author: Michael Vogt, Reviewers: Ondřej Budai, Simon de Vlieger
 
 — Somewhere on the Internet, 2025-07-21
 
@@ -490,12 +490,12 @@ Changes with 26
 * Wed Jul 16 2025 Packit <hello@packit.dev> - 25-1
 Changes with 25
 ----------------
-  * deps: update images to 0.162.0 (#247)
-    * Author: Simon de Vlieger, Reviewers: Lukáš Zapletal, Michael Vogt, Ondřej Budai
-  * main: `--version` includes git commit (#230)
-    * Author: Simon de Vlieger, Reviewers: Brian C. Lane, Michael Vogt
-  * packit: enable RHEL 10 builds (HMS-8829) (#246)
-    * Author: Ondřej Budai, Reviewers: Florian Schüller, Sanne Raymaekers, Simon de Vlieger
+  - deps: update images to 0.162.0 (#247)
+    - Author: Simon de Vlieger, Reviewers: Lukáš Zapletal, Michael Vogt, Ondřej Budai
+  - main: `--version` includes git commit (#230)
+    - Author: Simon de Vlieger, Reviewers: Brian C. Lane, Michael Vogt
+  - packit: enable RHEL 10 builds (HMS-8829) (#246)
+    - Author: Ondřej Budai, Reviewers: Florian Schüller, Sanne Raymaekers, Simon de Vlieger
 
 — Somewhere on the Internet, 2025-07-16
 
@@ -503,16 +503,16 @@ Changes with 25
 * Mon Jul 14 2025 Packit <hello@packit.dev> - 24-1
 Changes with 24
 ----------------
-  * Always set rhsm.Facts when generating manifests (#239)
-    * Author: Tomáš Hozza, Reviewers: Achilleas Koutsou, Simon de Vlieger
-  * doc/01-usage.md: avoid multiple h1 in one document (#235)
-    * Author: Florian Schüller, Reviewers: Michael Vogt, Simon de Vlieger
-  * doc/10-faq.md: add image types documentation (#236)
-    * Author: Florian Schüller, Reviewers: Michael Vogt, Simon de Vlieger
-  * docs: subscription basic info (#205)
-    * Author: Lukáš Zapletal, Reviewers: Brian C. Lane, Michael Vogt
-  * readme: mention mount for container (#232)
-    * Author: Simon de Vlieger, Reviewers: Brian C. Lane, Jelle van der Waa, Michael Vogt
+  - Always set rhsm.Facts when generating manifests (#239)
+    - Author: Tomáš Hozza, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - doc/01-usage.md: avoid multiple h1 in one document (#235)
+    - Author: Florian Schüller, Reviewers: Michael Vogt, Simon de Vlieger
+  - doc/10-faq.md: add image types documentation (#236)
+    - Author: Florian Schüller, Reviewers: Michael Vogt, Simon de Vlieger
+  - docs: subscription basic info (#205)
+    - Author: Lukáš Zapletal, Reviewers: Brian C. Lane, Michael Vogt
+  - readme: mention mount for container (#232)
+    - Author: Simon de Vlieger, Reviewers: Brian C. Lane, Jelle van der Waa, Michael Vogt
 
 — Somewhere on the Internet, 2025-07-09
 
@@ -520,8 +520,8 @@ Changes with 24
 * Wed Jun 25 2025 Packit <hello@packit.dev> - 23-1
 Changes with 23
 ----------------
-  * cmd/describe: ensure that all image types can be described (HMS-7044) (#231)
-    * Author: Tomáš Hozza, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - cmd/describe: ensure that all image types can be described (HMS-7044) (#231)
+    - Author: Tomáš Hozza, Reviewers: Achilleas Koutsou, Simon de Vlieger
 
 — Somewhere on the Internet, 2025-06-25
 
@@ -529,10 +529,10 @@ Changes with 23
 * Sun Jun 22 2025 Packit <hello@packit.dev> - 22-1
 Changes with 22
 ----------------
-  * GHA: add the common-stale-action (#225)
-    * Author: Tomáš Hozza, Reviewers: Lukáš Zapletal, Simon de Vlieger
-  * chore: bump `images` (#228)
-    * Author: Simon de Vlieger, Reviewers: Tomáš Hozza
+  - GHA: add the common-stale-action (#225)
+    - Author: Tomáš Hozza, Reviewers: Lukáš Zapletal, Simon de Vlieger
+  - chore: bump `images` (#228)
+    - Author: Simon de Vlieger, Reviewers: Tomáš Hozza
 
 — Somewhere on the Internet, 2025-06-22
 
@@ -540,10 +540,10 @@ Changes with 22
 * Wed Jun 11 2025 Packit <hello@packit.dev> - 21-1
 Changes with 21
 ----------------
-  * image-builder: fix cross-arch uploading (#218)
-    * Author: Michael Vogt, Reviewers: Achilleas Koutsou, Simon de Vlieger
-  * packit: rename epel9-next (#224)
-    * Author: Simon de Vlieger, Reviewers: Lukáš Zapletal
+  - image-builder: fix cross-arch uploading (#218)
+    - Author: Michael Vogt, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - packit: rename epel9-next (#224)
+    - Author: Simon de Vlieger, Reviewers: Lukáš Zapletal
 
 — Somewhere on the Internet, 2025-06-11
 
@@ -551,8 +551,8 @@ Changes with 21
 * Fri May 30 2025 Packit <hello@packit.dev> - 20-1
 Changes with 20
 ----------------
-  * deps: update (#219)
-    * Author: Simon de Vlieger, Reviewers: Achilleas Koutsou
+  - deps: update (#219)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou
 
 — Somewhere on the Internet, 2025-05-30
 
@@ -560,8 +560,8 @@ Changes with 20
 * Wed May 14 2025 Packit <hello@packit.dev> - 19-1
 Changes with 19
 ----------------
-  * refactor: use standard logger instead of logrus (#214)
-    * Author: Lukáš Zapletal, Reviewers: Michael Vogt
+  - refactor: use standard logger instead of logrus (#214)
+    - Author: Lukáš Zapletal, Reviewers: Michael Vogt
 
 — Somewhere on the Internet, 2025-05-14
 
@@ -569,8 +569,8 @@ Changes with 19
 * Thu Apr 17 2025 Packit <hello@packit.dev> - 17-1
 Changes with 17
 ----------------
-  * deps: bump images (#207)
-    * Author: Simon de Vlieger, Reviewers: Achilleas Koutsou
+  - deps: bump images (#207)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou
 
 — Somewhere on the Internet, 2025-04-17
 
@@ -578,34 +578,34 @@ Changes with 17
 * Wed Apr 02 2025 Packit <hello@packit.dev> - 15-1
 Changes with 15
 ----------------
-  * README: document that cross building works (#168)
-    * Author: Michael Vogt, Reviewers: Simon de Vlieger
-  * Revert "blueprintload: enable strict checking for toml" (#174)
-    * Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Michael Vogt
-  * blueprintload: enable strict checking for toml (#163)
-    * Author: Michael Vogt, Reviewers: Achilleas Koutsou, Brian C. Lane
-  * go.mod: update to latest version of `github.com/osbuild/blueprint` (#172)
-    * Author: Michael Vogt, Reviewers: Achilleas Koutsou
-  * import: `progress` from `bootc-image-builder` (#179)
-    * Author: Simon de Vlieger, Reviewers: Achilleas Koutsou
-  * import: `setup`, `util`, `podmanutil` from `bootc-image-builder` (#178)
-    * Author: Simon de Vlieger, Reviewers: Achilleas Koutsou
-  * main: Add a --version flag to show the build version (#175)
-    * Author: Brian C. Lane, Reviewers: Michael Vogt, Simon de Vlieger
-  * main: allow seed setting (#176)
-    * Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Michael Vogt
-  * main: automatically cross build when --arch <foreign> is passed (#164)
-    * Author: Michael Vogt, Reviewers: Achilleas Koutsou, Simon de Vlieger
-  * main: show output directory content after image build (#162)
-    * Author: Michael Vogt, Reviewers: Brian C. Lane
-  * main: tweak handling of --output-name to avoid adding double extensions (#161)
-    * Author: Michael Vogt, Reviewers: Simon de Vlieger
-  * main: tweak how ibcli determines if bootstraping is needed (#167)
-    * Author: Michael Vogt, Reviewers: Achilleas Koutsou
-  * many: move to use the new github.com/osbuild/blueprint module (HMS-5804) (#169)
-    * Author: Michael Vogt, Reviewers: Achilleas Koutsou
-  * progress: set --cache-max-size in osbuild (#182)
-    * Author: Simon de Vlieger, Reviewers: Michael Vogt
+  - README: document that cross building works (#168)
+    - Author: Michael Vogt, Reviewers: Simon de Vlieger
+  - Revert "blueprintload: enable strict checking for toml" (#174)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Michael Vogt
+  - blueprintload: enable strict checking for toml (#163)
+    - Author: Michael Vogt, Reviewers: Achilleas Koutsou, Brian C. Lane
+  - go.mod: update to latest version of `github.com/osbuild/blueprint` (#172)
+    - Author: Michael Vogt, Reviewers: Achilleas Koutsou
+  - import: `progress` from `bootc-image-builder` (#179)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou
+  - import: `setup`, `util`, `podmanutil` from `bootc-image-builder` (#178)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou
+  - main: Add a --version flag to show the build version (#175)
+    - Author: Brian C. Lane, Reviewers: Michael Vogt, Simon de Vlieger
+  - main: allow seed setting (#176)
+    - Author: Simon de Vlieger, Reviewers: Achilleas Koutsou, Michael Vogt
+  - main: automatically cross build when --arch <foreign> is passed (#164)
+    - Author: Michael Vogt, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - main: show output directory content after image build (#162)
+    - Author: Michael Vogt, Reviewers: Brian C. Lane
+  - main: tweak handling of --output-name to avoid adding double extensions (#161)
+    - Author: Michael Vogt, Reviewers: Simon de Vlieger
+  - main: tweak how ibcli determines if bootstraping is needed (#167)
+    - Author: Michael Vogt, Reviewers: Achilleas Koutsou
+  - many: move to use the new github.com/osbuild/blueprint module (HMS-5804) (#169)
+    - Author: Michael Vogt, Reviewers: Achilleas Koutsou
+  - progress: set --cache-max-size in osbuild (#182)
+    - Author: Simon de Vlieger, Reviewers: Michael Vogt
 
 — Somewhere on the Internet, 2025-04-02
 
@@ -613,20 +613,20 @@ Changes with 15
 * Fri Mar 14 2025 Packit <hello@packit.dev> - 14-1
 Changes with 14
 ----------------
-  * build(deps): bump github.com/cheggaaa/pb/v3 from 3.1.6 to 3.1.7 in the go-deps group (#147)
-    * Author: dependabot[bot], Reviewers: Simon de Vlieger
-  * doc: fix typo (#152)
-    * Author: Simon de Vlieger, Reviewers: Michael Vogt
-  * ibcli: add new --output-name flag and predictable default names (#158)
-    * Author: Michael Vogt, Reviewers: Achilleas Koutsou, Simon de Vlieger
-  * main: fix creating output dir for `--with-buildlog` (#150)
-    * Author: Michael Vogt, Reviewers: Achilleas Koutsou, Simon de Vlieger
-  * main: show "success" message with output dir when build finishes (#154)
-    * Author: Michael Vogt, Reviewers: Simon de Vlieger
-  * main: skip arch checks on`IMAGE_BUILDER_EXPERIMENTAL=bootstrap` (#155)
-    * Author: Michael Vogt, Reviewers: Achilleas Koutsou
-  * packit: enable epel-9 and epel-10 (#149)
-    * Author: Simon de Vlieger, Reviewers: Michael Vogt, Ondřej Budai
+  - build(deps): bump github.com/cheggaaa/pb/v3 from 3.1.6 to 3.1.7 in the go-deps group (#147)
+    - Author: dependabot[bot], Reviewers: Simon de Vlieger
+  - doc: fix typo (#152)
+    - Author: Simon de Vlieger, Reviewers: Michael Vogt
+  - ibcli: add new --output-name flag and predictable default names (#158)
+    - Author: Michael Vogt, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - main: fix creating output dir for `--with-buildlog` (#150)
+    - Author: Michael Vogt, Reviewers: Achilleas Koutsou, Simon de Vlieger
+  - main: show "success" message with output dir when build finishes (#154)
+    - Author: Michael Vogt, Reviewers: Simon de Vlieger
+  - main: skip arch checks on`IMAGE_BUILDER_EXPERIMENTAL=bootstrap` (#155)
+    - Author: Michael Vogt, Reviewers: Achilleas Koutsou
+  - packit: enable epel-9 and epel-10 (#149)
+    - Author: Simon de Vlieger, Reviewers: Michael Vogt, Ondřej Budai
 
 — Somewhere on the Internet, 2025-03-14
 
@@ -634,16 +634,16 @@ Changes with 14
 * Wed Mar 05 2025 Packit <hello@packit.dev> - 13-1
 Changes with 13
 ----------------
-  * chore: bump deps (#146)
-    * Author: Simon de Vlieger, Reviewers: Brian C. Lane
-  * main: add build --with-buildlog (#106)
-    * Author: Michael Vogt, Reviewers: Ondřej Budai, Simon de Vlieger
-  * main: argument names (#138)
-    * Author: Simon de Vlieger, Reviewers: Michael Vogt, Tomáš Hozza
-  * more doc updates (#132)
-    * Author: Simon de Vlieger, Reviewers: Michael Vogt
-  * readme: update installation instructions (#143)
-    * Author: Simon de Vlieger, Reviewers: Ondřej Budai
+  - chore: bump deps (#146)
+    - Author: Simon de Vlieger, Reviewers: Brian C. Lane
+  - main: add build --with-buildlog (#106)
+    - Author: Michael Vogt, Reviewers: Ondřej Budai, Simon de Vlieger
+  - main: argument names (#138)
+    - Author: Simon de Vlieger, Reviewers: Michael Vogt, Tomáš Hozza
+  - more doc updates (#132)
+    - Author: Simon de Vlieger, Reviewers: Michael Vogt
+  - readme: update installation instructions (#143)
+    - Author: Simon de Vlieger, Reviewers: Ondřej Budai
 
 — Somewhere on the Internet, 2025-03-05
 
@@ -651,20 +651,20 @@ Changes with 13
 * Fri Feb 14 2025 Packit <hello@packit.dev> - 11-1
 Changes with 11
 ----------------
-  * describeimg: typo in describe output (#129)
-    * Author: Simon de Vlieger, Reviewers: Michael Vogt
-  * go.mod: update to get the latest `progress` fixes from `bib` (#127)
-    * Author: Michael Vogt, Reviewers: Simon de Vlieger
-  * main: add `-v,--verbose` switch that enables verbose build logging (#126)
-    * Author: Michael Vogt, Reviewers: Ondřej Budai
-  * main: add add `--force-repo` flag (#134)
-    * Author: Michael Vogt, Reviewers: Simon de Vlieger, Tomáš Hozza
-  * main: add new `--extra-repo` flag (#113)
-    * Author: Michael Vogt, Reviewers: Achilleas Koutsou, Tomáš Hozza
-  * main: add new upload command (#119)
-    * Author: Michael Vogt, Reviewers: Tomáš Hozza
-  * main: update for new reporegistry.New() api (c.f. pr#1179) (#128)
-    * Author: Michael Vogt, Reviewers: Achilleas Koutsou
+  - describeimg: typo in describe output (#129)
+    - Author: Simon de Vlieger, Reviewers: Michael Vogt
+  - go.mod: update to get the latest `progress` fixes from `bib` (#127)
+    - Author: Michael Vogt, Reviewers: Simon de Vlieger
+  - main: add `-v,--verbose` switch that enables verbose build logging (#126)
+    - Author: Michael Vogt, Reviewers: Ondřej Budai
+  - main: add add `--force-repo` flag (#134)
+    - Author: Michael Vogt, Reviewers: Simon de Vlieger, Tomáš Hozza
+  - main: add new `--extra-repo` flag (#113)
+    - Author: Michael Vogt, Reviewers: Achilleas Koutsou, Tomáš Hozza
+  - main: add new upload command (#119)
+    - Author: Michael Vogt, Reviewers: Tomáš Hozza
+  - main: update for new reporegistry.New() api (c.f. pr#1179) (#128)
+    - Author: Michael Vogt, Reviewers: Achilleas Koutsou
 
 — Somewhere on the Internet, 2025-02-14
 
@@ -672,10 +672,10 @@ Changes with 11
 * Wed Feb 05 2025 Packit <hello@packit.dev> - 10-1
 Changes with 10
 ----------------
-  * main: fix auto-detected distro that is non-visible, tweak order (#124)
-    * Author: Michael Vogt, Reviewers: Ondřej Budai
-  * main: reset the terminal properly on SIGINT (#125)
-    * Author: Michael Vogt, Reviewers: Ondřej Budai
+  - main: fix auto-detected distro that is non-visible, tweak order (#124)
+    - Author: Michael Vogt, Reviewers: Ondřej Budai
+  - main: reset the terminal properly on SIGINT (#125)
+    - Author: Michael Vogt, Reviewers: Ondřej Budai
 
 — Somewhere on the Internet, 2025-02-05
 
@@ -683,10 +683,10 @@ Changes with 10
 * Mon Feb 03 2025 Packit <hello@packit.dev> - 9-1
 Changes with 9
 ----------------
-  * ci/packit: set downstream name (#116)
-    * Author: Simon de Vlieger, Reviewers: Ondřej Budai
-  * specfile: build requires `libxcrypt-compat` (#117)
-    * Author: Simon de Vlieger, Reviewers: Ondřej Budai
+  - ci/packit: set downstream name (#116)
+    - Author: Simon de Vlieger, Reviewers: Ondřej Budai
+  - specfile: build requires `libxcrypt-compat` (#117)
+    - Author: Simon de Vlieger, Reviewers: Ondřej Budai
 
 — Somewhere on the Internet, 2025-02-03
 

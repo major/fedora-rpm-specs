@@ -1,8 +1,8 @@
 %global libso_major 2
 
 Name:           sdbus-cpp
-Version:        2.1.0
-Release:        4%{?dist}
+Version:        2.2.0
+Release:        1%{?dist}
 Summary:        High-level C++ D-Bus library
 
 License:        LGPL-2.1-only
@@ -13,9 +13,6 @@ BuildRequires:  cmake >= 3.14
 BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig(libsystemd) >= 238
 BuildRequires:  pkgconfig(gmock) >= 1.10.0
-
-# temporary bundle sdbus-cpp-1 to allow dnf5 rebuild
-BuildRequires: sdbus-cpp
 
 %description
 High-level C++ D-Bus library for Linux designed to provide easy-to-use
@@ -84,9 +81,6 @@ mkdir -p %{buildroot}%{_datadir}/dbus-1/system.d/
 mv %{buildroot}%{_sysconfdir}/dbus-1/system.d/org.sdbuscpp.integrationtests.conf %{buildroot}%{_datadir}/dbus-1/system.d/
 rm -rf %{buildroot}%{_sysconfdir}
 
-# temporary bundle sdbus-cpp-1 to allow dnf5 rebuild
-cp %{_libdir}/libsdbus-c++.so.1.* %{buildroot}%{_libdir}
-
 
 %files
 %license %{_docdir}/sdbus-c++/COPYING
@@ -96,9 +90,6 @@ cp %{_libdir}/libsdbus-c++.so.1.* %{buildroot}%{_libdir}
 %doc %{_docdir}/sdbus-c++/NEWS
 %doc %{_docdir}/sdbus-c++/README.md
 %{_libdir}/libsdbus-c++.so.%{libso_major}{,.*}
-
-# temporary bundle sdbus-cpp-1 to allow dnf5 rebuild
-%{_libdir}/libsdbus-c++.so.1{,.*}
 
 
 %files devel
@@ -127,6 +118,9 @@ cp %{_libdir}/libsdbus-c++.so.1.* %{buildroot}%{_libdir}
 
 
 %changelog
+* Fri Nov 21 2025 Marek Blaha <mblaha@redhat.com> - 2.2.0-1
+- Update to version 2.2.0
+
 * Wed Nov 12 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 2.1.0-4
 - Rebuilt for gtest 1.17.0
 

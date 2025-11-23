@@ -3,7 +3,7 @@
 
 Name:           rttr
 Version:        0.9.7
-Release:        0.12git%{shortcommit0}%{?dist}
+Release:        0.13git%{shortcommit0}%{?dist}
 Summary:        Run Time Type Reflection
 
 License:        MIT
@@ -76,6 +76,8 @@ sed -i -e 's/target_compile_options/#target_compile_options/' CMake/utility.cmak
 
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2381435)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake3 \
   -DCMAKE_INSTALL_CMAKEDIR=cmake \
   -DCMAKE_INSTALL_LIBDIR=%{_lib} \
@@ -116,6 +118,9 @@ rm -rf %{buildroot}%{_datadir}/rttr/{LICENSE.txt,README.md}
 
 
 %changelog
+* Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 0.9.7-0.13git7edbd58
+- Allow to build with CMake 4.0 (rhbz#2381435)
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.7-0.12git7edbd58
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

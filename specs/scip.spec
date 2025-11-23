@@ -1,5 +1,5 @@
 Name:           scip
-Version:        9.2.3
+Version:        9.2.4
 Release:        %autorelease
 Summary:        Solving Constraint Integer Programs
 
@@ -50,18 +50,17 @@ BuildRequires:  python3
 
 Requires:       libscip%{?_isa} = %{version}-%{release}
 
-%global _desc %{expand:
-Welcome to what is currently one of the fastest academically developed
-solvers for mixed integer programming (MIP) and mixed integer nonlinear
-programming (MINLP).  In addition, SCIP provides a highly flexible
-framework for constraint integer programming and branch-cut-and-price.
-It allows for total control of the solution process and the access of
-detailed information down to the guts of the solver.}
+%global _desc %{expand:Welcome to what is currently one of the fastest academically developed solvers
+for mixed integer programming (MIP) and mixed integer nonlinear programming
+(MINLP).  In addition, SCIP provides a highly flexible framework for
+constraint integer programming and branch-cut-and-price.  It allows for total
+control of the solution process and the access of detailed information down to
+the guts of the solver.}
 
-%description %_desc
+%description
+%_desc
 
-This package contains a command-line tool to access SCIP
-functionality.
+This package contains a command-line tool to access SCIP functionality.
 
 %package -n     libscip
 Summary:        Library for solving constraint integer programs
@@ -80,7 +79,8 @@ Provides:       bundled(fmt) = 3.0.1
 # We bundle sassy temporarily until it can be included as a Fedora package
 Provides:       bundled(sassy) = 1.1
 
-%description -n libscip %_desc
+%description -n libscip
+%_desc
 
 This package contains a library for solving constraint integer programs.
 

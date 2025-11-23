@@ -1,5 +1,5 @@
 Name:           cockpit-image-builder
-Version:        82
+Version:        83
 Release:        1%{?dist}
 Summary:        Image builder plugin for Cockpit
 
@@ -46,6 +46,31 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Fri Nov 21 2025 Packit <hello@packit.dev> - 83-1
+Changes with 83
+----------------
+  - Wizard: Disk customization (HMS-8945) (#3692)
+    - Author: Klara Simickova, Reviewers: Nobody
+  - Wizard: fix repeatable build behavior in pkg and repo steps (#3731)
+    - Author: Dominik Vágner, Reviewers: Klara Simickova
+  - Wizard: remove add and clear buttons from the LabelInput (HMS-9576) (#3818)
+    - Author: Katarína Sieklová, Reviewers: Gianluca Zuccarelli, Klara Simickova
+  - api: stop updating provisioning (HMS-5862) (#3829)
+    - Author: Sanne Raymaekers, Reviewers: Klara Simickova
+  - onPrem: Hide blueprint version warning (HMS-9782) (#3842)
+    - Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+  - playwright: Add "node" to tsconfig types (HMS-9772) (#3834)
+    - Author: Klara Simickova, Reviewers: Gianluca Zuccarelli
+  - playwright: Add Satellite boot tests (HMS-6024) (#3810)
+    - Author: Klara Simickova, Reviewers: Nobody
+  - store/cockpit: correct users customization (#3847)
+    - Author: Sanne Raymaekers, Reviewers: Gianluca Zuccarelli
+  - store/cockpit: simplify customization conversion (HMS-9786) (#3846)
+    - Author: Gianluca Zuccarelli, Reviewers: Sanne Raymaekers
+
+— Somewhere on the Internet, 2025-11-21
+
+
 * Wed Nov 12 2025 Packit <hello@packit.dev> - 82-1
 Changes with 82
 ----------------

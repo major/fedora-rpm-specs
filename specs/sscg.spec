@@ -9,7 +9,7 @@
 %{!?meson_test: %global meson_test %{__meson} test -C %{_vpath_builddir} --num-processes %{_smp_build_ncpus} --print-errorlogs}
 
 Name:           sscg
-Version:        4.0.0
+Version:        4.0.1
 Release:        %autorelease
 Summary:        Simple Signed Certificate Generator
 
@@ -21,7 +21,6 @@ BuildRequires:  libtalloc-devel
 BuildRequires:  openssl
 BuildRequires:  openssl-devel
 BuildRequires:  popt-devel
-BuildRequires:  libpath_utils-devel
 BuildRequires:  meson
 BuildRequires:  ninja-build
 BuildRequires:  help2man

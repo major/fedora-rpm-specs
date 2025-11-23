@@ -7,17 +7,17 @@
 # Please, preserve the changelog entries
 #
 # see https://github.com/tecnickcom/TCPDF/releases
-%global gh_commit    ca5b6de294512145db96bcbc94e61696599c391d
+%global gh_commit    7a2701251e5d52fc3d508fd71704683eb54f5939
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     tecnickcom
-%global gh_date      2025-05-27
+%global gh_date      2025-11-21
 %global gh_project   TCPDF
 %global real_name    tcpdf
 
 Name:           php-tcpdf
 Summary:        PHP class for generating PDF documents and barcodes
-Version:        6.10.0
-Release:        2%{?dist}
+Version:        6.10.1
+Release:        1%{?dist}
 
 URL:            http://www.tcpdf.org
 License:        LGPL-3.0-or-later
@@ -37,13 +37,10 @@ Requires:       php(language) >= 7.1
 Requires:       php-curl
 # From phpcompatinfo report form version 6.3.0
 Requires:       php-bcmath
-Requires:       php-date
 Requires:       php-gd
-Requires:       php-hash
 Requires:       php-json
 Requires:       php-mbstring
 Requires:       php-openssl
-Requires:       php-pcre
 Requires:       php-posix
 Requires:       php-tidy
 Requires:       php-xml
@@ -316,6 +313,9 @@ php -r 'require "%{buildroot}%{_datadir}/php/%{real_name}/autoload.php";
 
 
 %changelog
+* Fri Nov 21 2025 Remi Collet <remi@remirepo.net> - 6.10.1-1
+- update to 6.10.1
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 6.10.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

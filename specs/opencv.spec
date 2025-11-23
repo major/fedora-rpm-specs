@@ -75,7 +75,7 @@ Version:        4.11.0
 %global minorver %(foo=%{version}; a=(${foo//./ }); echo ${a[1]} )
 %global padding  %(digits=00; num=%{minorver}; echo ${digits:${#num}:${#digits}} )
 %global abiver   %(echo %{majorver}%{padding}%{minorver} )
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Collection of algorithms for computer vision
 # This is normal three clause BSD.
 License:        BSD-3-Clause AND Apache-2.0 AND ISC
@@ -466,6 +466,8 @@ cd modules/python/package
 %pyproject_buildrequires
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2381337)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 # enabled by default if libraries are presents at build time:
 # GTK, GSTREAMER, 1394, V4L, eigen3
 # non available on Fedora: FFMPEG, XINE
@@ -648,6 +650,9 @@ cp config-*.py %{buildroot}/%{python3_sitelib}/cv2/
 
 
 %changelog
+* Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 4.11.0-19
+- Allow to build with CMake 4.0 (rhbz#2381337)
+
 * Wed Nov 05 2025 Dominik Mierzejewski <dominik@greysector.net> - 4.11.0-18
 - Rebuilt for FFmpeg 8
 

@@ -4,14 +4,16 @@
 
 %global crate convert_case
 
-Name:           rust-convert_case
-Version:        0.8.0
+Name:           rust-convert_case0.7
+Version:        0.7.1
 Release:        %autorelease
 Summary:        Convert strings into any case
 
 License:        MIT
 URL:            https://crates.io/crates/convert_case
 Source:         %{crates_source}
+# * fix typo in code block attribute to fix issues with Rust 1.80+
+Patch:          0001-Fix-typo-in-code-block-attribute-to-fix-issues-with-.patch
 
 BuildRequires:  cargo-rpm-macros >= 24
 

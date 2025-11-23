@@ -4,7 +4,7 @@
 %bcond doc 0
 
 Name:           python-pyproject-metadata
-Version:        0.9.1
+Version:        0.10.0
 Release:        %autorelease
 Summary:        PEP 621 metadata parsing
 
@@ -18,6 +18,7 @@ BuildSystem:    pyproject
 BuildOption(generate_buildrequires): -x test%{?with_doc:,docs}
 BuildOption(install): -l pyproject_metadata
 
+BuildRequires:  %{py3_dist pytest}
 %if %{with doc}
 BuildRequires:  python3-docs
 %endif

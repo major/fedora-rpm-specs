@@ -2,27 +2,31 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate convert_case
+%global crate libspa-sys
 
-Name:           rust-convert_case
+Name:           rust-libspa-sys0.8
 Version:        0.8.0
 Release:        %autorelease
-Summary:        Convert strings into any case
+Summary:        Rust FFI bindings for libspa
 
 License:        MIT
-URL:            https://crates.io/crates/convert_case
+URL:            https://crates.io/crates/libspa-sys
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  pkgconfig(libpipewire-0.3) >= 0.3
+BuildRequires:  pkgconfig(libspa-0.2) >= 0.2
 
 %global _description %{expand:
-Convert strings into any case.}
+Rust FFI bindings for libspa.}
 
 %description %{_description}
 
 %package        devel
 Summary:        %{summary}
 BuildArch:      noarch
+Requires:       pkgconfig(libpipewire-0.3) >= 0.3
+Requires:       pkgconfig(libspa-0.2) >= 0.2
 
 %description    devel %{_description}
 
@@ -46,28 +50,17 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+rand-devel
+%package     -n %{name}+v0_3_65-devel
 Summary:        %{summary}
 BuildArch:      noarch
+Requires:       pkgconfig(libpipewire-0.3) >= 0.3.65
 
-%description -n %{name}+rand-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "rand" feature of the "%{crate}" crate.
-
-%files       -n %{name}+rand-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+random-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+random-devel %{_description}
+%description -n %{name}+v0_3_65-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "random" feature of the "%{crate}" crate.
+use the "v0_3_65" feature of the "%{crate}" crate.
 
-%files       -n %{name}+random-devel
+%files       -n %{name}+v0_3_65-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

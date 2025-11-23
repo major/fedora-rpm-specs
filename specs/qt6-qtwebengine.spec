@@ -88,7 +88,7 @@
 Summary: Qt6 - QtWebEngine components
 Name:    qt6-qtwebengine
 Version: 6.10.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 # See also http://qt-project.org/doc/qt-5.0/qtdoc/licensing.html
@@ -481,7 +481,9 @@ popd
 %patch -P2 -p1 -b .link-pipewire
 %patch -P3 -p1 -b .aarch64-new-stat
 %patch -P4 -p1 -b .use-openh264
+%if 0%{?fedora} > 43
 %patch -P5 -p1 -b .chromium-141-glibc-2.42-SYS_SECCOMP
+%endif
 
 ## upstream patches
 %patch -P80 -p1 -b .fix-arm-build
@@ -845,6 +847,9 @@ done
 %endif
 
 %changelog
+* Fri Nov 21 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.1-2
+- Rebuild for Koji infra issue
+
 * Thu Nov 20 2025 Jan Grulich <jgrulich@redhat.com> - 6.10.1-1
 - 6.10.1
 

@@ -5,7 +5,7 @@
 %global test_data_rls b5ff09ebb67d959ae68118a058fe344a6994b046
 
 Name:           python-%{pypi_name}
-Version:        5.1.0
+Version:        5.2.0
 Release:        %autorelease
 Summary:        MaxMind GeoIP2 API
 
@@ -38,13 +38,16 @@ This package provides the documentation for %{pypi_name}.
 %autosetup -n %{srcname}-%{version} -a 1
 rmdir tests/data
 mv -f %{test_data}-%{test_data_rls} tests/data
+# Remove version constraint on maxminddb and uv-build
+sed -i 's/"maxminddb.*"/"maxminddb"/' pyproject.toml
+sed -i 's/"uv_build.*"/"uv_build"/' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires
 
 %build
 %pyproject_wheel
-sphinx-build -b html docs html
+PYTHONPATH=src sphinx-build -b html docs html
 rm -rf html/.{buildinfo,doctrees}
 
 %install

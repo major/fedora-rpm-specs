@@ -176,13 +176,13 @@ Summary: The Linux kernel
 %define specrpmversion 6.18.0
 %define specversion 6.18.0
 %define patchversion 6.18
-%define pkgrelease 0.rc6.251120g23cb64fb7625.54
+%define pkgrelease 0.rc6.251121gfd95357fd8c6.55
 %define kversion 6
-%define tarfile_release 6.18-rc6-96-g23cb64fb7625
+%define tarfile_release 6.18-rc6-180-gfd95357fd8c6
 # This is needed to do merge window version magic
 %define patchlevel 18
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc6.251120g23cb64fb7625.54%{?buildid}%{?dist}
+%define specrelease 0.rc6.251121gfd95357fd8c6.55%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.18.0
 
@@ -4512,9 +4512,14 @@ fi\
 #
 #
 %changelog
-* Thu Nov 20 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc6.23cb64fb7625.54]
+* Fri Nov 21 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc6.fd95357fd8c6.55]
 - powerpc/tools: drop `-o pipefail` in gcc check scripts (Jan Stancek)
 - redhat/configs: clang_lto: disable CONFIG_FORTIFY_KUNIT_TEST (Scott Weaver)
+
+* Fri Nov 21 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc6.fd95357fd8c6.54]
+- Change RZ_DMAC from m to y for Fedora (Justin M. Forbes)
+- redhat/configs: automotive: enable CAN_FLEXCAN (Jared Kangas)
+- Linux v6.18.0-0.rc6.fd95357fd8c6
 
 * Thu Nov 20 2025 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.18.0-0.rc6.23cb64fb7625.53]
 - Revert "Removing Obsolete hba pci-ids from rhel8" (Scott Weaver)

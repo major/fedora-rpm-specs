@@ -2,27 +2,29 @@
 %bcond check 1
 %global debug_package %{nil}
 
-%global crate convert_case
+%global crate pipewire-sys
 
-Name:           rust-convert_case
+Name:           rust-pipewire-sys0.8
 Version:        0.8.0
 Release:        %autorelease
-Summary:        Convert strings into any case
+Summary:        Rust FFI bindings for PipeWire
 
 License:        MIT
-URL:            https://crates.io/crates/convert_case
+URL:            https://crates.io/crates/pipewire-sys
 Source:         %{crates_source}
 
 BuildRequires:  cargo-rpm-macros >= 24
+BuildRequires:  pkgconfig(libpipewire-0.3) >= 0.3
 
 %global _description %{expand:
-Convert strings into any case.}
+Rust FFI bindings for PipeWire.}
 
 %description %{_description}
 
 %package        devel
 Summary:        %{summary}
 BuildArch:      noarch
+Requires:       pkgconfig(libpipewire-0.3) >= 0.3
 
 %description    devel %{_description}
 
@@ -44,30 +46,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+rand-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+rand-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "rand" feature of the "%{crate}" crate.
-
-%files       -n %{name}+rand-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+random-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+random-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "random" feature of the "%{crate}" crate.
-
-%files       -n %{name}+random-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

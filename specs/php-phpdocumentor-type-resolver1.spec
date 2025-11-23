@@ -10,8 +10,8 @@
 
 %global github_owner     phpDocumentor
 %global github_name      TypeResolver
-%global github_version   1.11.0
-%global github_commit    8cbe6100e8971efbf8e2e7da3a202ba83eafd5a3
+%global github_version   1.11.1
+%global github_commit    f626740b38009078de0dc8b2b9dc4e7f749c6eba
 
 %global composer_vendor  phpdocumentor
 %global composer_project type-resolver
@@ -169,6 +169,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Fri Nov 21 2025 Remi Collet <remi@remirepo.net> - 1.11.1-1
+- update to 1.11.1
+
 * Thu Nov 20 2025 Remi Collet <remi@remirepo.net> - 1.11.0-1
 - update to 1.11.0
 

@@ -13,17 +13,17 @@
 
 Name:		xrootd
 Epoch:		1
-Version:	5.9.0
+Version:	5.9.1
 Release:	1%{?dist}
 Summary:	Extended ROOT file server
 License:	LGPL-3.0-or-later AND BSD-2-Clause AND BSD-3-Clause AND curl AND MIT AND Zlib
 URL:		https://xrootd.web.cern.ch
 Source0:	%{url}/download/v%{version}/%{name}-%{version}.tar.gz
 Source1:	%{name}-sysusers.conf
-#		https://github.com/xrootd/xrootd/pull/2615
-Patch0:		0001-Tests-Fix-xcache-test-failure.patch
-#		https://github.com/xrootd/xrootd/pull/2617
-Patch1:		0001-Fix-spelling-errors-found-by-lintian.patch
+#		https://github.com/xrootd/xrootd/pull/2649
+Patch0:		0001-Tests-Avoid-test-segfault-on-32-bit-architectures.patch
+#		Backport from upstream git
+Patch1:		0001-Tests-Ensure-extra-test-fixtures-are-ready-before-se.patch
 
 BuildRequires:	cmake
 BuildRequires:	gcc-c++
@@ -673,6 +673,9 @@ fi
 %doc %{_pkgdocdir}
 
 %changelog
+* Tue Nov 18 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:5.9.1-1
+- Update to version 5.9.1
+
 * Fri Oct 10 2025 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:5.9.0-1
 - Update to version 5.9.0
 

@@ -47,7 +47,7 @@
 
 Name:           wine
 Version:        10.19
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A compatibility layer for windows applications
 
 License:        LGPL-2.1-or-later
@@ -206,7 +206,7 @@ BuildRequires:  mingw64-zlib
 
 Requires:       wine-common = %{version}-%{release}
 Requires:       wine-desktop = %{version}-%{release}
-#Requires:       wine-ntsync = %{version}-%{release}
+#Requires:       ntsync-autoload = %{version}-%{release}
 Requires:       wine-winefonts = %{version}-%{release}
 
 # x86-32 parts
@@ -419,12 +419,14 @@ BuildArch:      noarch
 Desktop integration features for wine, including mime-types and a binary format
 handler service.
 
-%package ntsync
+%package -n ntsync-autoload
 Summary:       Kernel module load file for ntsync
 BuildArch:     noarch
 Conflicts:     steam
+Provides:      wine-ntsync = %{version}-%{release}
+Obsoletes:     wine-ntsync < %{version}-%{release}
 
-%description ntsync
+%description -n ntsync-autoload
 Kernel module load file for ntsync
 
 %package winefonts
@@ -2230,7 +2232,7 @@ fi
 %{_metainfodir}/%{name}.appdata.xml
 %{_datadir}/icons/hicolor/scalable/apps/*svg
 
-%files ntsync
+%files -n ntsync-autoload
 %{_modulesloaddir}/ntsync.conf
 
 %files systemd
@@ -2303,6 +2305,9 @@ fi
 %endif
 
 %changelog
+* Fri Nov 21 2025 Michael Cronenworth <mike@cchtml.com> - 10.19-2
+- wine-ntsync rename to ntsync-autoload
+
 * Tue Nov 18 2025 Michael Cronenworth <mike@cchtml.com> - 10.19-1
 - version update
 

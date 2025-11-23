@@ -4,7 +4,7 @@
 
 Name:           libspatialaudio
 Version:        3.1
-Release:        23.%{date0}git%{?shortcommit0}%{?dist}
+Release:        24.%{date0}git%{?shortcommit0}%{?dist}
 Summary:        Ambisonic encoding / decoding and binauralization library
 
 License:        LGPL-2.1-or-later
@@ -44,6 +44,8 @@ developing applications that use %{name}.
 
 
 %build
+# TODO: Please submit an issue to upstream (rhbz#2380758)
+export CMAKE_POLICY_VERSION_MINIMUM=3.5
 %cmake \
   -DBUILD_STATIC_LIBS=OFF
 
@@ -67,6 +69,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 3.1-24.20200406gitd926a2e
+- Allow to build with CMake 4.0 (rhbz#2380758)
+
 * Thu Jul 24 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-23.20200406gitd926a2e
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

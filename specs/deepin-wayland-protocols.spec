@@ -1,14 +1,13 @@
 %global debug_package %{nil}
-%global _tag 1.6.0-deepin.1.2
 
 Name:           deepin-wayland-protocols
 Epoch:          1
-Version:        1.6.0
+Version:        1.10.0.31
 Release:        %autorelease
 Summary:        Deepin Specific Protocols for Wayland
 License:        LGPL-2.1-or-later AND MIT-CMU AND BSD-3-Clause
 URL:            https://github.com/linuxdeepin/deepin-wayland-protocols
-Source0:        %{url}/archive/%{_tag}/%{name}-%{_tag}.tar.gz
+Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -26,7 +25,7 @@ Summary:        Development files for %{name}
 adds functionality not available in the Wayland core protocol.
 
 %prep
-%autosetup -p1 -n %{name}-%{_tag}
+%autosetup -p1 -n %{name}-%{version}
 
 %build
 %cmake

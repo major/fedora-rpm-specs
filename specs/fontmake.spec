@@ -6,7 +6,7 @@
 %bcond repacker 1
 
 Name:           fontmake
-Version:        3.11.0
+Version:        3.11.1
 Release:        %autorelease
 Summary:        Compile fonts from sources (UFO, Glyphs) to binary (OpenType, TrueType)
 
@@ -23,7 +23,7 @@ Summary:        Compile fonts from sources (UFO, Glyphs) to binary (OpenType, Tr
 License:        Apache-2.0
 SourceLicense:  %{license} AND MIT AND OFL-1.1
 URL:            https://github.com/googlefonts/fontmake
-Source:         %{pypi_source fontmake %{version} zip}
+Source:         %{pypi_source fontmake}
 
 BuildArch:      noarch
 

@@ -1,5 +1,5 @@
 Name:           python-scripttest
-Version:        1.3.0
+Version:        2.0.post1
 Release:        %autorelease
 Summary:        Helper to test command-line scripts
 

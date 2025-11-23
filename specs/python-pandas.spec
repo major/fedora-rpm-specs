@@ -16,7 +16,7 @@
 
 Name:           python-pandas
 Version:        2.3.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python library providing high-performance data analysis tools
 
 # Drop support for i686 in preparation for `libarrow`
@@ -93,6 +93,9 @@ Patch:          0004-TST-Fix-test_str_encode-on-big-endian-machines.patch
 Patch:          0005-Use-zoneinfo-instead-of-pytz.patch
 Patch:          0006-Adjust-test-to-accomodate-changes-in-Python.patch
 Patch:          0007-Replace-deprecated-xarray.cftime_range.patch
+# Fix build with Cython 3.2
+# Resolved upstream: https://github.com/pandas-dev/pandas/pull/62832
+Patch:          0008-Fix-Cython-3.2-build.patch
 
 %global _description %{expand:
 pandas is an open source, BSD-licensed library providing
@@ -707,6 +710,10 @@ export PYTHONHASHSEED="$(
 
 
 %changelog
+* Fri Nov 21 2025 Charalampos Stratakis <cstratak@redhat.com> - 2.3.3-3
+- Fix build with Cython 3.2
+- Fixes: rhbz#2413931
+
 * Thu Oct 23 2025 Sandro <devel@penguinpee.nl> - 2.3.3-2
 - limit number of tests
 - patch tests accomodating changes in dependencies

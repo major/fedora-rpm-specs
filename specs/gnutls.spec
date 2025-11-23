@@ -31,6 +31,7 @@ Patch: gnutls-3.8.8-tests-ktls-skip-tls12-chachapoly.patch
 %endif
 %bcond_without certificate_compression
 %bcond_without leancrypto
+%bcond_without crypto_auditing
 %bcond_without tests
 
 %if 0%{?fedora} && 0%{?fedora} < 38
@@ -86,6 +87,9 @@ BuildRequires: libunistring-devel
 BuildRequires: net-tools, softhsm, gcc, gcc-c++
 BuildRequires: gnupg2
 BuildRequires: git-core
+%if %{with crypto_auditing}
+BuildRequires: systemtap-sdt-devel
+%endif
 
 # for a sanity check on cert loading
 BuildRequires: p11-kit-trust, ca-certificates
@@ -129,6 +133,7 @@ Source1: https://www.gnupg.org/ftp/gcrypt/gnutls/v%{short_version}/%{name}-%{ver
 Source2: https://gnutls.org/gnutls-release-keyring.gpg
 
 %if %{with bundled_gmp}
+Provides:	bundled(gmp) = 6.2.1
 Source100:	gmp-6.2.1.tar.xz
 # Taken from the main gmp package
 Source101:	gmp-6.2.1-intel-cet.patch
@@ -140,6 +145,7 @@ Source201:	gnutls-3.8.8-tests-rsa-default.patch
 %endif
 
 %if %{with leancrypto}
+Provides:	bundled(leancrypto) = 1.6.0
 Source300:	leancrypto-1.6.0.tar.gz
 %endif
 
@@ -311,7 +317,7 @@ meson setup -Dprefix="$PWD/install" -Dlibdir="$PWD/install/lib" \
         -Dx509_parser=disabled -Dx509_generator=disabled \
         -Dpkcs7_parser=disabled -Dpkcs7_generator=disabled \
         -Dsha2-256=disabled \
-	-Daes_gcm=disabled -Daes_cbc=disabled -Daes_ctr=disabled -Daes_xts=disabled \
+        -Daes_gcm=disabled -Daes_cbc=disabled -Daes_ctr=disabled -Daes_xts=disabled \
         -Dchacha20=disabled -Dchacha20poly1305=disabled -Dchacha20_drng=disabled \
         -Ddrbg_hash=disabled -Ddrbg_hmac=disabled \
         -Dhash_crypt=disabled \
@@ -405,6 +411,11 @@ pushd native_build
            --with-leancrypto \
 %else
            --without-leancrypto \
+%endif
+%if %{with crypto_auditing}
+           --enable-crypto-auditing \
+%else
+           --disable-crypto-auditing \
 %endif
            --disable-rpath \
            --with-default-priority-string="@SYSTEM"
