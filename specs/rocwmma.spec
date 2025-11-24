@@ -35,7 +35,7 @@
 
 Name:           rocwmma
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ROCm Matrix Multiple and Accumulate library
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT
@@ -89,12 +89,14 @@ Provides:       %{name}-static = %{version}-%{release}
 %cmake_install
 
 %files devel
-%dir %{_includedir}/%{name}/
 %license LICENSE.md
 %exclude %{_docdir}/%{name}/LICENSE.md
-%{_includedir}/%{name}/*
+%{_includedir}/%{name}/
 
 %changelog
+* Sat Nov 22 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
+- Remove dir tags
+
 * Fri Oct 31 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
 - Update to 7.1.0
 

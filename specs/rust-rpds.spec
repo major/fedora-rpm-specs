@@ -5,7 +5,7 @@
 %global crate rpds
 
 Name:           rust-rpds
-Version:        1.1.2
+Version:        1.2.0
 Release:        %autorelease
 Summary:        Persistent data structures with structural sharing
 
@@ -50,16 +50,16 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+fatal-warnings-devel
+%package     -n %{name}+rayon-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+fatal-warnings-devel %{_description}
+%description -n %{name}+rayon-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "fatal-warnings" feature of the "%{crate}" crate.
+use the "rayon" feature of the "%{crate}" crate.
 
-%files       -n %{name}+fatal-warnings-devel
+%files       -n %{name}+rayon-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+serde-devel

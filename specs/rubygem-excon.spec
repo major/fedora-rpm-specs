@@ -8,7 +8,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.2.7
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Speed, persistence, http(s)
 License: MIT
 URL: https://github.com/excon/excon
@@ -16,6 +16,10 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/excon/excon.git --no-checkout && cd excon
 # git archive -v -o excon-1.2.7-tests.tar.gz v1.2.7 tests/ spec/
 Source1: %{gem_name}-%{version}-tests.tar.gz
+# https://github.com/excon/excon/commit/fbe4748d49ac87504ee8d3e7352da0de3485144c
+# https://github.com/excon/excon/issues/892
+# adjust ractor usage for Ruby 3.5+
+Patch0:  excon-GH892-ractor-usage-ruby40.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -46,7 +50,10 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b 1
-
+(
+cd %{_builddir}
+%patch -P0 -p1
+)
 
 # Use system crypto policies.
 # https://fedoraproject.org/wiki/Packaging:CryptoPolicies
@@ -124,6 +131,9 @@ popd
 %{gem_instdir}/excon.gemspec
 
 %changelog
+* Sat Nov 22 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.2.7-3
+- Backport upstream fix for Ractor behavior change on ruby4_0
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

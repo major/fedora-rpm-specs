@@ -3,11 +3,11 @@
 # https://bugzilla.redhat.com/show_bug.cgi?id=2325424
 
 
-%global build_number 660-2204
+%global build_number 914-2404
 ExcludeArch: %{ix86}
 
 Name:    web-eid
-Version: 2.7.0
+Version: 2.8.0
 Release: 1%{?dist}
 Summary: Web eID browser extension helper application
 License: MIT
@@ -99,6 +99,9 @@ fi
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 
 %changelog
+* Sat Nov 22 2025 Dmitri Smirnov <dmitri@smirnov.ee> - 2.8.0-1
+- 2.8.0 upstream release
+
 * Tue Oct 14 2025 Dmitri Smirnov <dmitri@smirnov.ee> - 2.7.0-1
 - 2.7.0 upstream release
 

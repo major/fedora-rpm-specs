@@ -59,7 +59,7 @@
 
 Name:           %{rocdecode_name}
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        High-performance video decode SDK for AMD GPUs
 
 Url:            https://github.com/ROCm/rocDecode
@@ -171,14 +171,16 @@ rm -f %{buildroot}%{_prefix}/share/doc/packages/%{name}-asan/LICENSE
 %{_libdir}/librocdecode.so.1{,.*}
 
 %files devel
-%dir %{_libdir}/cmake/rocdecode
 %{_libdir}/librocdecode.so
-%{_libdir}/cmake/rocdecode/*.cmake
+%{_libdir}/cmake/rocdecode/
 %{_includedir}/rocdecode
 %{_datadir}/rocdecode
 %exclude %{_datadir}/rocdecode/samples
 
 %changelog
+* Sat Nov 22 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
+- Remove dir tags
+
 * Fri Oct 31 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
 - Update to 7.1.0
 

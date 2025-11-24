@@ -1,11 +1,11 @@
 %global zig_pixman_ver 0.3.0
-%global zig_wayland_ver 0.3.0
-%global zig_wlroots_ver 0.19.2
+%global zig_wayland_ver 0.4.0
+%global zig_wlroots_ver 0.19.3
 %global zig_xkbcommon_ver 0.3.0
 
 Name:           river
-Version:        0.3.11
-Release:        2%{?dist}
+Version:        0.3.13
+Release:        1%{?dist}
 Summary:        Dynamic tiling Wayland compositor
 
 # river: GPL-3.0-only
@@ -19,9 +19,9 @@ Summary:        Dynamic tiling Wayland compositor
 # protocol/wlr-layer-shell-unstable-v1.xml: HPND-sell-variant
 # protocol/wlr-output-power-management-unstable-v1.xml: MIT
 License:        GPL-3.0-only AND HPND-sell-variant AND ISC AND MIT
-URL:            https://codeberg.org/river/river
-Source0:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
-Source1:        %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz.sig
+URL:            https://codeberg.org/river/river-classic
+Source0:        %{url}/releases/download/v%{version}/%{name}-classic-%{version}.tar.gz
+Source1:        %{url}/releases/download/v%{version}/%{name}-classic-%{version}.tar.gz.sig
 # Isaac Freund <mail@isaacfreund.com>
 Source2:        https://isaacfreund.com/public_key.txt#/gpgkey-86DED400DDFD7A11.gpg
 Source3:        %{name}.desktop
@@ -35,7 +35,7 @@ ExclusiveArch:  %{zig_arches}
 BuildRequires:  gcc
 BuildRequires:  gnupg2
 BuildRequires:  scdoc
-BuildRequires:  (zig >= 0.14 with zig < 0.15)
+BuildRequires:  (zig >= 0.15.2 with zig < 0.16)
 BuildRequires:  zig-rpm-macros
 
 BuildRequires:  pkgconfig(libevdev)
@@ -83,7 +83,7 @@ License:        ISC
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%setup -q -a 4 -a 5 -a 6 -a 7
+%setup -q -a 4 -a 5 -a 6 -a 7 -n %{name}-classic-%{version}
 
 %zig_fetch zig-pixman
 %zig_fetch zig-wayland
@@ -131,6 +131,9 @@ install -D -m644 -pv %{SOURCE3} %{buildroot}%{_datadir}/wayland-sessions/%{name}
 %{_datadir}/river-protocols/*.xml
 
 %changelog
+* Fri Oct 17 2025 Jan200101 <sentrycraft123@gmail.com> - 0.3.13-1
+- Update to 0.3.13
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name:           python-pandas-flavor
-Version:        0.7.0
+Version:        0.8.1
 Release:        %autorelease
 Summary:        The easy way to write your own flavor of Pandas
 
@@ -13,6 +13,7 @@ BuildArch:      noarch
 ExcludeArch: %{ix86}
 
 BuildRequires:  python3-devel
+BuildRequires:  tomcli
 
 # This is easier than running the tests with the unittest module.
 BuildRequires:  python3dist(pytest)
@@ -66,6 +67,10 @@ Obsoletes:      python3-pandas_flavor < 0.3.0^20220417gitf930814-7
 
 %prep
 %autosetup -n pandas_flavor-%{version}
+
+# Remove pytest options for coverage:
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+tomcli set pyproject.toml del tool.pytest.ini_options.addopts
 
 
 %generate_buildrequires

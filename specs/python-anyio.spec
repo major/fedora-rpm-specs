@@ -6,38 +6,12 @@ of either asyncio or trio.  It implements trio-like structured concurrency (SC)
 on top of asyncio, and works in harmony with the native SC of trio itself.}
 
 Name:           python-%{srcname}
-Version:        4.8.0
-Release:        7%{?dist}
+Version:        4.11.0
+Release:        1%{?dist}
 Summary:        Compatibility layer for multiple asynchronous event loop implementations
 License:        MIT
 URL:            https://github.com/agronholm/anyio
 Source:         %{pypi_source %{srcname}}
-
-# Downstream-only: remove the hard test dependency on exceptiongroup
-#
-# This can’t be sent upstream because it uses syntax introduced in Python 3.11.
-Patch:          0001-Downstream-only-remove-the-hard-test-dependency-on-e.patch
-
-# Fixed test failures caused by Python 3.14.0a5 
-# https://github.com/agronholm/anyio/commit/8bad9c05d966f6edfa58f26257015cb657d4e5ef
-# Cherry-picked to 4.8.0.
-# Fixes: https://bugzilla.redhat.com/show_bug.cgi?id=2349445
-Patch:          0001-Fixed-test-failures-caused-by-Python-3.14.0a5.patch
-# Fixed Path tests on Python 3.14.0a6
-# https://github.com/agronholm/anyio/commit/f051fd45a1d34bae8dd70dba726e711e7a49deee
-# Cherry-picked to 4.8.0.
-# Fixes: https://bugzilla.redhat.com/show_bug.cgi?id=2357902
-Patch:          0002-Fixed-Path-tests-on-Python-3.14.0a6.patch
-# Fixed Path.copy() and Path.copy_info failing on Python 3.14.0a7
-# https://github.com/agronholm/anyio/commit/e0e2531de14c54eed895c92b4c8e87b44f47634b
-# Cherry-picked to 4.8.0.
-# Fixes: https://bugzilla.redhat.com/show_bug.cgi?id=2367992
-Patch:          0003-Fixed-Path.copy-and-Path.copy_info-failing-on-Python-3.14.0a7.patch
-# Adjust to _interpqueues API changes in Python 3.14.0b2+
-# https://github.com/agronholm/anyio/pull/927
-# Cherry-picked to 4.8.0.
-Patch:          0004-Adjust-to-_interpqueues-API-changes-in-Python-3.14.0b2.patch
-
 
 BuildArch:      noarch
 
@@ -71,12 +45,15 @@ Obsoletes:      python-%{srcname}-doc < 3.7.1-7
 # - Drop test dependency on python3dist(uvloop), packaged but outdated and
 #   FTBFS, https://bugzilla.redhat.com/show_bug.cgi?id=2307494,
 #   https://bugzilla.redhat.com/show_bug.cgi?id=2341233
-tomcli set pyproject.toml lists delitem --type regex --no-first \
-    project.optional-dependencies.test '(coverage|truststore|uvloop)\b.*'
+# = Drop test dependency on blockbuster; see
+#   https://github.com/cbornet/blockbuster/issues/46 for why we would prefer
+#   not to package it
+tomcli set pyproject.toml lists delitem \
+    dependency-groups.test '(blockbuster|coverage|truststore|uvloop)\b.*'
 
 
 %generate_buildrequires
-%pyproject_buildrequires -x trio,test
+%pyproject_buildrequires -x trio -g test
 
 
 %build
@@ -89,6 +66,9 @@ tomcli set pyproject.toml lists delitem --type regex --no-first \
 
 
 %check
+# https://github.com/agronholm/anyio/pull/1020#issuecomment-3477923712
+k="${k-}${k+ and }not (TestCapacityLimiter and test_bad_init_value[trio])"
+
 %pytest -Wdefault -m "not network" -k "${k-}" -rsx -v
 
 
@@ -97,6 +77,12 @@ tomcli set pyproject.toml lists delitem --type regex --no-first \
 
 
 %changelog
+* Thu Nov 13 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 4.11.0-1
+- Update to 4.11.0 (close RHBZ#2352829)
+
+* Thu Nov 13 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 4.10.0-1
+- Update to 4.10.0
+
 * Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.8.0-7
 - Rebuilt for Python 3.14.0rc3 bytecode
 

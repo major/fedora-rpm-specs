@@ -104,7 +104,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 %endif
 Summary:        A SPARSE marshaling library
 License:        MIT
@@ -331,14 +331,11 @@ chrpath -r %{rocmllvm_libdir} %{buildroot}%{_bindir}/hipsparselt-test
 %doc README.md
 %license LICENSE.md
 %endif
-%dir %{_libdir}/cmake/hipsparselt/
-%dir %{_libdir}/hipsparselt/
-%dir %{_libdir}/hipsparselt/library/
 %{_libdir}/libhipsparselt.so.*
-%{_libdir}/hipsparselt/library/*
+%{_libdir}/hipsparselt/
 
 %files devel
-%{_includedir}/hipsparselt
+%{_includedir}/hipsparselt/
 %{_libdir}/cmake/hipsparselt/
 %{_libdir}/libhipsparselt.so
 
@@ -348,6 +345,9 @@ chrpath -r %{rocmllvm_libdir} %{buildroot}%{_bindir}/hipsparselt-test
 %endif
 
 %changelog
+* Sat Nov 22 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-3
+- Remove dir tags
+
 * Wed Nov 12 2025 Tom Rix <Tom.Rix@amd.com> - 7.0.1-2
 - Rebuild for 7.1.0
 

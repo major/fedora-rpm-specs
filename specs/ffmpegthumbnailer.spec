@@ -1,6 +1,6 @@
 %global forgeurl https://github.com/dirkvdb/ffmpegthumbnailer
-Version:        2.2.3
-%global tag %{version}
+Version:        2.2.4
+%global tag v%{version}
 %forgemeta
 
 Name:           ffmpegthumbnailer
@@ -9,7 +9,6 @@ Summary:        Lightweight video thumbnailer that can be used by file managers
 License:        GPL-2.0-or-later
 URL:            %{forgeurl}
 Source0:        %{forgesource}
-Patch0:         https://github.com/dirkvdb/ffmpegthumbnailer/pull/240.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -50,8 +49,7 @@ This package contains the development files for %{name}.
 %cmake \
     -GNinja \
     -DENABLE_GIO=ON \
-    -DENABLE_THUMBNAILER=ON \
-
+    -DENABLE_THUMBNAILER=ON
 %cmake_build
 
 %install

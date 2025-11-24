@@ -1,5 +1,5 @@
 # Use soversion
-%global soversion 12.1
+%global soversion 13.0
 
 # Set to 1 to enable testsuite. Fails everywhere with GCC 8+.
 %bcond tests 0
@@ -23,7 +23,7 @@ It is developed and maintained by Academy Software Foundation for use in
 volumetric applications typically encountered in feature film production.}
 
 Name:           openvdb
-Version:        12.1.1
+Version:        13.0.0
 Release:        %autorelease
 Summary:        C++ library for sparse volumetric data discretized on three-dimensional grids
 License:        Apache-2.0

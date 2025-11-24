@@ -9,11 +9,13 @@
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit   b298986c4f2c75ff080d9f6f4839bec46bda70f3
+%global gh_commit   2194f58d0f024ce923e685cdf92af3daf9951908
 %global gh_short    %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner    maxmind
 %global gh_project  MaxMind-DB-Reader-php
 # Extension
+%global pie_vend    maxmind-db
+%global pie_proj    reader-ext
 %global pecl_name   maxminddb
 %global ini_name    40-%{pecl_name}.ini
 # pure PHP library
@@ -29,7 +31,7 @@
 
 Summary:       MaxMind DB Reader extension
 Name:          php-maxminddb
-Version:       1.13.0
+Version:       1.13.1
 Release:       1%{?dist}
 License:       Apache-2.0
 URL:           https://github.com/%{gh_owner}/%{gh_project}
@@ -57,6 +59,9 @@ Provides:       php-pecl-%{pecl_name}          = %{version}-%{release}
 Provides:       php-pecl-%{pecl_name}%{?_isa}  = %{version}-%{release}
 Provides:       php-pecl(%{pecl_name})         = %{version}
 Provides:       php-pecl(%{pecl_name})%{?_isa} = %{version}
+# PIE
+Provides:       %{?scl_prefix}php-pie(%{pie_vend}/%{pie_proj}) = %{version}
+Provides:       %{?scl_prefix}php-%{pie_vend}-%{pie_proj} = %{version}
 
 
 %description
@@ -228,6 +233,10 @@ exit $ret
 
 
 %changelog
+* Sat Nov 22 2025 Remi Collet <remi@remirepo.net> - 1.13.1-1
+- update to 1.13.1 (no changes)
+- add pie virtual provides
+
 * Fri Nov 21 2025 Remi Collet <remi@remirepo.net> - 1.13.0-1
 - update to 1.13.0
 

@@ -1,7 +1,7 @@
 %bcond check 1
 
 Name:           ruff
-Version:        0.14.5
+Version:        0.14.6
 # The ruff package has a permanent exception to the Updates Policy in Fedora,
 # so it can be updated in stable releases across SemVer boundaries (subject to
 # good judgement and actual compatibility of any reverse dependencies). See
@@ -108,6 +108,7 @@ SourceLicense:  %{shrink:
 # output of %%{cargo_license_summary}. This should automatically include the
 # licenses of the crates that were bundled as additional Sources.
 #
+### BEGIN LICENSE SUMMARY ###
 # (MIT OR Apache-2.0) AND Unicode-3.0
 # (MIT OR Apache-2.0) AND Unicode-DFS-2016
 # Apache-2.0
@@ -131,6 +132,7 @@ SourceLicense:  %{shrink:
 # WTFPL
 # Zlib
 # Zlib OR Apache-2.0 OR MIT
+###  END LICENSE SUMMARY  ###
 License:        %{shrink:
     MIT AND
     Apache-2.0 AND
@@ -187,17 +189,17 @@ Source100:      %{lsp_types_git}/archive/%{lsp_types_rev}/lsp-types-%{lsp_types_
 # observe the version and https://github.com/salsa-rs/commit/%%{salsa_rev} to
 # observe the date.
 %global salsa_git https://github.com/salsa-rs/salsa
-%global salsa_rev 05a9af7f554b64b8aadc2eeb6f2caf73d0408d09
+%global salsa_rev a885bb4c4c192741b8a17418fef81a71e33d111e
 %global salsa_baseversion 0.24.0
-%global salsa_snapdate 20251105
+%global salsa_snapdate 20251113
 Source200:      %{salsa_git}/archive/%{salsa_rev}/salsa-%{salsa_rev}.tar.gz
 
 # Get this from ruff/crates/ty_vendored/vendor/typeshed/source_commit.txt.
-%global typeshed_rev bf7214784877c52638844c065360d4814fae4c65
+%global typeshed_rev f8cdc0bd526301e873cd952eb0d457bdf2554e57
 # The typeshed project as a whole has never been versioned.
 %global typeshed_baseversion 0
 # Inspect https://github.com/python/typeshed/commit/%%{typeshed_rev}.
-%global typeshed_snapdate 20251031
+%global typeshed_snapdate 20251114
 
 # Downstream patch: always find the system-wide ruff executable
 #

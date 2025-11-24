@@ -1,5 +1,5 @@
 Name:           python-accelerate
-Version:        1.11.0
+Version:        1.12.0
 Release:        %autorelease
 Summary:        Accelerate PyTorch with distributed training and inference
 

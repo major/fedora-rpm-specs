@@ -100,7 +100,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        ROCm general matrix operations beyond BLAS
 License:        MIT AND BSD-3-Clause
@@ -354,15 +354,13 @@ rm -f %{buildroot}%{_prefix}/share/doc/hipblaslt/LICENSE.md
 %license LICENSE.md
 %endif
 
-%dir %{_libdir}/cmake/hipblaslt/
-%dir %{_libdir}/hipblaslt/
-%dir %{_libdir}/hipblaslt/library/
 %{_libdir}/libhipblaslt.so.*
-%{_libdir}/hipblaslt/library/*
+%{_libdir}/hipblaslt/
 
 %files devel
-%{_includedir}/hipblaslt
-%{_includedir}/hipblaslt-*.h
+%{_includedir}/hipblaslt/
+%{_includedir}/hipblaslt-export.h
+%{_includedir}/hipblaslt-version.h
 %{_libdir}/cmake/hipblaslt/
 %{_libdir}/libhipblaslt.so
 
@@ -372,6 +370,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/hipblaslt/LICENSE.md
 %endif
 
 %changelog
+* Thu Nov 20 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
+- Remove dir tags
+
 * Sat Nov 1 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
 - Update to 7.1.0
 

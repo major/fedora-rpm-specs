@@ -4,7 +4,7 @@ Release: %autorelease
 Summary: Daily journal with calendar, templates and keyword searching
 
 License: GPL-2.0-or-later
-URL: http://rednotebook.sourceforge.net
+URL: https://rednotebook.app/
 Source0: https://github.com/jendrikseipp/rednotebook/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildArch: noarch
 

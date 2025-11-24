@@ -1,10 +1,12 @@
 Name:           rpi-imager
-Version:        1.9.0
+Version:        1.9.6
 Release:        %autorelease
 Summary:        Graphical user-interface to write disk images and format SD cards
 License:        Apache-2.0
 URL:            https://github.com/raspberrypi/rpi-imager
 Source0:        %{URL}/archive/v%{version}/%{name}-%{version}.tar.gz
+# adopted from OpenMandriva Linux
+Patch0:         https://github.com/OpenMandrivaAssociation/rpi-imager/raw/refs/heads/master/rpi-imager-1.9.6-remove-vendoring.patch
 
 # https://github.com/raspberrypi/rpi-imager/blob/v1.9.0/src/CMakeLists.txt#L235
 ExcludeArch:    s390x
@@ -12,6 +14,7 @@ ExcludeArch:    s390x
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  ninja-build
+
 BuildRequires:  cmake(Qt6Core)
 BuildRequires:  cmake(Qt6Quick)
 BuildRequires:  cmake(Qt6LinguistTools)
@@ -19,16 +22,15 @@ BuildRequires:  cmake(Qt6Svg)
 BuildRequires:  cmake(Qt6Widgets)
 BuildRequires:  cmake(Qt6DBus)
 
-BuildRequires:  gnutls-devel
+BuildRequires:  pkgconfig(liblzma)
+BuildRequires:  libzstd-devel
+BuildRequires:  pkgconfig(zlib)
+BuildRequires:  pkgconfig(libarchive)
+BuildRequires:  curl-devel
+BuildRequires:  pkgconfig(gnutls)
 
 BuildRequires:  libappstream-glib
 BuildRequires:  desktop-file-utils
-
-Provides:       bundled(xz) = 5.6.2
-Provides:       bundled(zstd) = 1.5.6
-Provides:       bundled(zlib) = 1.3.1
-Provides:       bundled(libarchive) = 3.7.4
-Provides:       bundled(curl) = 8.8.0
 
 Requires:       hicolor-icon-theme
 Requires:       dosfstools
@@ -51,27 +53,24 @@ pushd src
     -DENABLE_CHECK_VERSION=OFF \
     -DENABLE_TELEMETRY=OFF
 %cmake_build
+popd
 
 %install
-install -pDm755 src/%{_vpath_builddir}/%{name} %{buildroot}%{_bindir}/%{name}
-install -pDm644 src/linux/org.raspberrypi.rpi-imager.desktop \
-    %{buildroot}%{_datadir}/applications/org.raspberrypi.%{name}.desktop
-install -pDm644 debian/rpi-imager.png \
-    %{buildroot}%{_datadir}/icons/hicolor/128x128/apps/%{name}.png
-install -pDm644 debian/rpi-imager.metainfo.xml \
-    %{buildroot}%{_metainfodir}/%{name}.metainfo.xml
+pushd src
+%cmake_install
+popd
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metainfo.xml
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 %files
 %license license.txt
 %doc README.md
-%{_bindir}/%{name}
-%{_datadir}/applications/org.raspberrypi.%{name}.desktop
-%{_datadir}/icons/hicolor/128x128/apps/%{name}.png
-%{_metainfodir}/%{name}.metainfo.xml
+%{_bindir}/rpi-imager
+%{_datadir}/applications/org.raspberrypi.rpi-imager.desktop
+%{_datadir}/icons/hicolor/128x128/apps/rpi-imager.png
+%{_metainfodir}/org.raspberrypi.rpi-imager.metainfo.xml
 
 %changelog
 %autochangelog

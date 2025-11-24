@@ -49,7 +49,7 @@
 
 Name:           migraphx
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        AMD's graph optimization engine
 License:        MIT AND (Apache-2.0 WITH LLVM-exception OR NCSA)
 
@@ -305,13 +305,14 @@ rm -f %{buildroot}%{_prefix}/share/doc/migraphx/LICENSE
 %{_libdir}/libmigraphx*.so.*
 
 %files devel
-%dir %{_includedir}/migraphx
-%dir %{_libdir}/cmake/migraphx
-%{_includedir}/migraphx/*
+%{_includedir}/migraphx/
 %{_libdir}/libmigraphx*.so
-%{_libdir}/cmake/migraphx/*.cmake
+%{_libdir}/cmake/migraphx/
 
 %changelog
+* Sat Nov 22 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
+- Remove dir tags
+
 * Sat Nov 8 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
 - Update to 7.1.0
 

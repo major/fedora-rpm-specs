@@ -3,7 +3,7 @@
 %endif
 
 %global forgeurl https://github.com/jeromerobert/hmat-oss
-Version:        1.10.0
+Version:        1.11.0
 %global tag %{version}
 %forgemeta
 
@@ -54,7 +54,7 @@ The %{name}-devel package contains development files for %{name}.
 %license LICENSE.md
 %doc README.md
 %{_libdir}/libhmat.so.4
-%{_libdir}/libhmat.so.%{version}
+%{_libdir}/libhmat.so.1*
 
 %files devel
 %{_libdir}/libhmat.so

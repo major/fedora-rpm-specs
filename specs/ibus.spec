@@ -61,9 +61,9 @@
 %global dbus_python_version 0.83.0
 
 Name:           ibus
-Version:        1.5.33
+Version:        1.5.34~alpha1
 # https://github.com/fedora-infra/rpmautospec/issues/101
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.1-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -72,7 +72,6 @@ Source1:        https://github.com/ibus/%name/releases/download/%{source_version
 Source2:        %{name}-xinput
 Source3:        %{name}.conf.5
 # Patch0:         %%{name}-HEAD.patch
-Patch0:         %{name}-HEAD.patch
 # Under testing #1349148 #1385349 #1350291 #1406699 #1432252 #1601577
 Patch1:         %{name}-1385349-segv-bus-proxy.patch
 
@@ -639,6 +638,10 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Sat Nov 22 2025 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.34~alpha1-1
+- Bump to 1.5.34-alpha1
+- Delete gnome-themes-extra from Fedora CI
+
 * Tue Nov 18 2025 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.33-2
 - Resolves: #2413790 - Load EN compose file in pt-BR locale
 - Update simple.xml with xkeyboard-config 2.46

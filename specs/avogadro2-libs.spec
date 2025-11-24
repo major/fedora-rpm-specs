@@ -2,7 +2,7 @@
 %bcond qt6 1
 
 Name:           avogadro2-libs
-Version:        1.100.0
+Version:        1.102.1
 Release:        %autorelease
 Summary:        Avogadro2 libraries
 
@@ -17,9 +17,6 @@ Source2: https://github.com/OpenChemistry/molecules/archive/refs/tags/%{version}
 Source3: https://github.com/OpenChemistry/crystals/archive/refs/tags/%{version}/crystals-%{version}.tar.gz
 Source4: https://github.com/OpenChemistry/fragments/archive/refs/tags/%{version}/fragments-%{version}.tar.gz
 
-# https://github.com/OpenChemistry/avogadrolibs/pull/2026
-Patch0:  avogadro2-libs-1.100.0-cmake.patch
-
 BuildRequires:  boost-devel
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  cmake
@@ -33,6 +30,7 @@ BuildRequires:  mesa-libGLU-devel
 BuildRequires:  hdf5-devel
 BuildRequires:  mmtf-cpp-devel, jsoncpp-devel
 BuildRequires:  spglib-devel
+BuildRequires:  JKQtPlotter-devel
 %if %{with qt6}
 BuildRequires:  qt6-qtbase-devel
 BuildRequires:  qt6-qttools-devel
@@ -81,7 +79,7 @@ BuildRequires: make
 HTML documentation of %{name}.
 
 %prep
-%autosetup -p1 -n avogadrolibs-%{version}
+%autosetup -n avogadrolibs-%{version}
 
 tar -xf %{SOURCE1} && mv avogenerators-%{version} avogadrogenerators
 tar -xf %{SOURCE2} && mv molecules-%{version} molecules

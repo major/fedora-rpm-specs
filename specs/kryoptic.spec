@@ -4,10 +4,9 @@
 # Enable gpg signature verification by default
 %bcond gpgcheck 1
 
-# prevent library files from being installed
-%global cargo_install_lib 0
-
 %global soname libkryoptic_pkcs11
+
+%global features kryoptic-lib/nssdb,kryoptic-lib/pqc,kryoptic-lib/standard,kryoptic-lib/dynamic
 
 Name:           kryoptic
 Version:        1.3.1
@@ -66,22 +65,17 @@ Most notably a migration tool for the SoftHSM database.
 %cargo_prep
 
 %generate_buildrequires
-%cargo_generate_buildrequires -f nssdb,pqc
+%cargo_generate_buildrequires -f %{features}
 
 %build
 export CONFDIR=%{_sysconfdir}
-%cargo_build -f nssdb,pqc -- --all
-%{cargo_license_summary -f nssdb,pqc}
-%{cargo_license -f nssdb,pqc} > LICENSE.dependencies
+%cargo_build -f %{features} -- --package kryoptic
+%cargo_build -f %{features} -- --package kryoptic-tools
+%{cargo_license_summary -f %{features}}
+%{cargo_license -f %{features}} > LICENSE.dependencies
 
 %install
-# Have to cd because the macro already defines --path . and cargo install
-# in workspaces does not take a --all, requires to install each package
-# explicitly, and we care only for the tools, as install does not install
-# cdylib package outputs.
-pushd tools
-%cargo_install -f kryoptic-lib/nssdb,kryoptic-lib/pqc,kryoptic-lib/standard,kryoptic-lib/dynamic -- --bin softhsm_migrate
-popd
+install -Dp target/rpm/softhsm_migrate $RPM_BUILD_ROOT%{_bindir}/softhsm_migrate
 install -Dp target/rpm/%{soname}.so $RPM_BUILD_ROOT%{_libdir}/pkcs11/%{soname}.so
 
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/p11-kit/modules/
@@ -89,7 +83,7 @@ echo "module: %{soname}.so" > $RPM_BUILD_ROOT%{_datadir}/p11-kit/modules/kryopti
 
 %if %{with check}
 %check
-%cargo_test -f nssdb,pqc
+%cargo_test -f %{features}
 %endif
 
 %files

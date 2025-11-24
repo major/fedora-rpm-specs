@@ -1,8 +1,8 @@
 %bcond mingw %[%{undefined rhel} && %{undefined flatpak}]
 
 Name:          enchant2
-Version:       2.8.12
-Release:       4%{?dist}
+Version:       2.8.14
+Release:       1%{?dist}
 Summary:       An Enchanting Spell Checking Library
 
 License:       LGPL-2.0-or-later
@@ -240,6 +240,9 @@ find %{buildroot} -name '*.la' -delete
 
 
 %changelog
+* Sat Nov 22 2025 Sandro Mani <manisandro@gmail.com> - 2.8.14-1
+- Update to 2.8.14
+
 * Mon Aug 18 2025 Sandro Mani <manisandro@gmail.com> - 2.8.12-4
 - Make icu BR explicit
 

@@ -100,7 +100,7 @@ Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        AMD's Machine Intelligence Library
 License:        MIT AND BSD-2-Clause AND Apache-2.0 AND %{?fedora:LicenseRef-Fedora-Public-Domain}%{?suse_version:SUSE-Public-Domain}
@@ -362,19 +362,14 @@ rm -f %{buildroot}%{_prefix}/share/doc/miopen-hip/LICENSE.md
 %license LICENSE.md
 %endif
 
-%dir %_libexecdir/miopen
 %{_libdir}/libMIOpen.so.1{,.*}
-%{_libexecdir}/miopen/install*.sh
+%{_libexecdir}/miopen/
 
 %files devel
-%dir %_datadir/miopen
-%dir %_datadir/miopen/db
-%dir %_includedir/miopen
-%dir %_libdir/cmake/miopen
-%_datadir/miopen/*
-%_includedir/miopen/*
+%_datadir/miopen/
+%_includedir/miopen/
 %{_libdir}/libMIOpen.so
-%{_libdir}/cmake/miopen/*.cmake
+%{_libdir}/cmake/miopen/
 
 %if %{with test}
 %files test
@@ -382,6 +377,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/miopen-hip/LICENSE.md
 %endif
 
 %changelog
+* Sat Nov 22 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
+- Remove dir tags
+
 * Sat Nov 1 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-1
 - Update to 7.1.0
 

@@ -289,9 +289,13 @@ cd %{engine_dir}
    %dnl assertion failed
     -s "TestC8dSnapshotterWithUsernsRemap"
     -s "TestSCTP4Proxy"
+    %dnl flaky test will fail on x86_64 - sometimes
+    -s "TestSCTP6Proxy"
     %dnl Failed to enter netns: operation not permitted
     %dnl -s "TestSCTP4ProxyNoListener"
     %dnl -s "TestSCTP6ProxyNoListener"
+    %dnl possibly flaky test failing on ppc64le
+    %[ "%{_arch}" == "ppc64le" ? "-s TestSCTP6ProxyNoListener" : "" ]
     %dnl network_proxy_linux_test.go:73: protocol not supported; fails in COPR rawhide
     -s "TestIfaceAddrs"
     %dnl failed to mount resolved path: operation not permitted

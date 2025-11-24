@@ -1,7 +1,7 @@
 %global srcname flask_sqlalchemy_lite
 
 Name:           python-flask-sqlalchemy-lite
-Version:        0.2.0
+Version:        0.2.1
 Release:        1%{?dist}
 Summary:        Adds SQLAlchemy support to Flask application
 
@@ -68,6 +68,9 @@ Python 3 version.
 
 
 %changelog
+* Sat Nov 22 2025 Sandro Mani <manisandro@gmail.com> - 0.2.1-1
+- Update to 0.2.1
+
 * Sat Nov 15 2025 Sandro Mani <manisandro@gmail.com> - 0.2.0-1
 - Update to 0.2.0
 

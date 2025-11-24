@@ -1,4 +1,4 @@
-%global pkgver 2.2.18
+%global pkgver 2.2.19
 #global prerel rc1
 %global baserelease 1
 
@@ -157,6 +157,13 @@ fi
 %{_mandir}/man1/bluefish.1*
 
 %changelog
+* Sat Nov 22 2025 Paul Howarth <paul@city-fan.org> - 2.2.19-1
+- Update to 2.2.19 (rhbz#2416526)
+  - Fix a regression in 2.2.18 that could cause a crash when right clicking in
+    a document of type Text
+  - The dynamic shortcut key setting that was re-introduced in 2.2.18 for the
+    main menu is now also working in the snippets menu
+
 * Fri Oct 31 2025 Paul Howarth <paul@city-fan.org> - 2.2.18-1
 - Update to 2.2.18 (rhbz#2407559)
   - Much better CSS language support

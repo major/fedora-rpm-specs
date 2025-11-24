@@ -4,11 +4,11 @@
 %global         public_key RWSGOq2NVecA2UPNdBUZykf1CCb147pkmdtYxgb3Ti+JO/wCYvhbAb/U
 
 # note here at which Fedora or EL release we need to use compat LLVM packages
-%if 0%{?fedora} >= 42 || 0%{?rhel} >= 9
-%define         llvm_compat 19
+%if 0%{?fedora} >= 43 || 0%{?rhel} >= 9
+%define         llvm_compat 20
 %endif
 
-%global         llvm_version 19.0.0
+%global         llvm_version 20.0.0
 
 %bcond bootstrap 0
 %bcond docs      %{without bootstrap}
@@ -43,8 +43,8 @@
 }
 
 Name:           zig
-Version:        0.14.1
-Release:        2%{?dist}
+Version:        0.15.2
+Release:        1%{?dist}
 Summary:        Programming language for maintaining robust, optimal, and reusable software
 
 License:        MIT AND NCSA AND LGPL-2.1-or-later AND LGPL-2.1-or-later WITH GCC-exception-2.0 AND GPL-2.0-or-later AND GPL-2.0-or-later WITH GCC-exception-2.0 AND BSD-3-Clause AND Inner-Net-2.0 AND ISC AND LicenseRef-Fedora-Public-Domain AND GFDL-1.1-or-later AND ZPL-2.1
@@ -56,24 +56,6 @@ Source2:        macros.%{name}
 # this is unlikely to be upstreamed in its current state because upstream
 # wants to work around the shortcomings of NixOS
 Patch:          0001-remove-native-lib-directories-from-rpath.patch
-# Adds a build option for setting the build-id
-# some projects are not programmed to handle a build-id's
-# by having it as a flag we can make sure no developer runs into
-# any trouble because of packaging demands
-# https://github.com/ziglang/zig/pull/22516
-Patch:          0002-std.Build-add-build-id-option.patch
-# Zig has a feature that allows the developer to specify max memory usage
-# during compilation, this allows the compiler to split up tasks efficiently.
-# Annoyingly if any singular step goes above this it will fail after completion
-# this patch has been merged upstream and turns the error into a warning
-# https://github.com/ziglang/zig/pull/23894
-Patch:          0003-std.Build-Demote-errors-for-exceeding-max_rss-to-war.patch
-# lld will try to resolve every dependency of a shared object that is used directly
-# but by default zig won't add any library directories, this patch adds them back. 
-# This wasn't an issue with the cc binary present because zig will call it to figure
-# out more system paths.
-# https://github.com/ziglang/zig/pull/23850
-Patch:          0004-link.Elf-add-root-directory-of-libraries-to-linker-p.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -89,7 +71,7 @@ BuildRequires:  help2man
 BuildRequires:  minisign
 
 %if %{without bootstrap}
-BuildRequires:  (zig >= 0.14 with zig < 0.15)
+BuildRequires:  (zig >= 0.15 with zig < 0.16)
 %endif
 
 %if %{with test}
@@ -163,6 +145,11 @@ rm -f stage1/zig1.wasm
 %endif
 
 %build
+
+# Fedora supports using ccache systemwide
+# Zig generates a large C file for bootstrapping which does not
+# behave well with ccache so we explicitly disable it.
+export CCACHE_DISABLE=1
 
 # zig doesn't know how to dynamically link llvm on its own so we need cmake to generate a header ahead of time
 # if we provide the header we need to also build zigcpp
@@ -243,6 +230,9 @@ install -D -pv -m 0644 %{SOURCE2} %{buildroot}%{_rpmmacrodir}/macros.%{name}
 %endif
 
 %changelog
+* Sun Oct 12 2025 Jan200101 <sentrycraft123@gmail.com> - 0.15.2-1
+- Update to 0.15.2
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
@@ -331,7 +321,6 @@ install -D -pv -m 0644 %{SOURCE2} %{buildroot}%{_rpmmacrodir}/macros.%{name}
 
 * Sat Jan 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
 
 * Mon Dec 20 2021 Jan Drögehoff <sentrycraft123@gmail.com> - 0.9.0-1
 - Update to 0.9.0

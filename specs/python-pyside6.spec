@@ -10,7 +10,7 @@
 
 Name:           python-%{pypi_name}
 Version:        6.9.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python bindings for the Qt 6 cross-platform application and UI framework
 
 License:        LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
@@ -375,6 +375,9 @@ export LD_LIBRARY_PATH="%{buildroot}%{_libdir}"
 %endif
 
 %changelog
+* Sat Nov 22 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.2-4
+- Rebuild (qt6)
+
 * Tue Sep 30 2025 Jan Grulich <jgrulich@redhat.com> - 6.9.2-3
 - Rebuild (qt6)
 

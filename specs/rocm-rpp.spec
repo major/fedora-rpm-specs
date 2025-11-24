@@ -43,7 +43,7 @@
 
 Name:           rocm-rpp
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        ROCm Performace Primatives for computer vision
 Url:            https://github.com/ROCm/%{upstreamname}
 License:        MIT AND Apache-2.0 AND LicenseRef-Fedora-Public-Domain
@@ -160,19 +160,19 @@ chrpath -r %{rocmllvm_libdir} %{buildroot}%{_libdir}/librpp.so.2.*.*
 
 %files devel
 %doc README.md
-%dir %{_libdir}/cmake/rpp
-%{_includedir}/rpp
+%{_includedir}/rpp/
 %{_libdir}/librpp.so
-%{_libdir}/cmake/rpp/*.cmake
+%{_libdir}/cmake/rpp/
 
 %if %{with test}
 %files test
-%dir %{_datadir}/rpp
-%{_datadir}/rpp/*
-
+%{_datadir}/rpp/
 %endif
 
 %changelog
+* Sat Nov 22 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-3
+- Remove dir tags
+
 * Thu Nov 6 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
 - Fix cmake patch
 
