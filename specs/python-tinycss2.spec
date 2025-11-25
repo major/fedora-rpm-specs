@@ -1,20 +1,14 @@
 
 %global srcname tinycss2
 
-
-%global py3_prefix python%{python3_pkgversion}
-
-
 Name:           python-%{srcname}
-Version:        1.5.0
+Version:        1.5.1
 Release:        1%{?dist}
 Summary:        Low-level CSS parser for Python
 
 License:        BSD-3-Clause
 URL:            https://www.courtbouillon.org/tinycss2/
 Source0:        %{pypi_source tinycss2}
-# generated using ./export-git-snapshot.sh <GITHASH>
-Source1:        css-parsing-tests-88fc3fc.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -30,20 +24,18 @@ tinycss with a simpler API, based on the more recent CSS Syntax Level 3
 specification.
 
 
-%package     -n %{py3_prefix}-%{srcname}
+%package     -n python3-%{srcname}
 Summary:        Low-level CSS parser for Python 3
-Requires:       %{py3_prefix}-webencodings >= 0.4
-%{?python_provide:%python_provide %{py3_prefix}-%{srcname}}
+%{?python_provide:%python_provide python3-%{srcname}}
 
-%description -n %{py3_prefix}-%{srcname}
+%description -n python3-%{srcname}
 tinycss2 is a modern, low-level CSS parser for Python. tinycss2 is a rewrite of
 tinycss with a simpler API, based on the more recent CSS Syntax Level 3
 specification.
 
 
 %prep
-%autosetup -n %{srcname}-%{version} -a 1
-mv css-parsing-tests-*/* tests/css-parsing-tests/
+%autosetup -n %{srcname}-%{version}
 
 
 %generate_buildrequires
@@ -66,7 +58,7 @@ rm -rf %{buildroot}%{python3_sitelib}/%{srcname}/test.py
 rm -rf %{buildroot}%{python3_sitelib}/%{srcname}/__pycache__/test.*.py?
 
 
-%files -n %{py3_prefix}-%{srcname}
+%files -n python3-%{srcname}
 %license LICENSE
 %doc README.rst
 %{python3_sitelib}/%{srcname}/
@@ -74,6 +66,9 @@ rm -rf %{buildroot}%{python3_sitelib}/%{srcname}/__pycache__/test.*.py?
 
 
 %changelog
+* Sun Nov 23 2025 Felix Schwarz <fschwarz@fedoraproject.org> - 1.5.1-1
+- update to 1.5.1
+
 * Wed Nov 19 2025 Felix Schwarz <fschwarz@fedoraproject.org> - 1.5.0-1
 - update to 1.5.0
 

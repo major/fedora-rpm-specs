@@ -1,14 +1,31 @@
+%bcond check 1
+
 Name:           hyfetch
-Version:        1.99.0
+Version:        2.0.5
 Release:        %autorelease
-Summary:        Customizable Linux System Information Tool
+Summary:        Customizable Linux System Information Script
 
-License:        MIT
-URL:            https://github.com/hykilpikonna/HyFetch
-Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+License:        %{shrink:
+    Apache-2.0 AND
+    Apache-2.0 OR BSL-1.0 AND
+    Apache-2.0 OR MIT AND
+    Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT AND
+    ISC AND
+    LGPL-3.0-or-later AND
+    MIT AND
+    MIT OR Apache-2.0 AND
+    MIT OR Apache-2.0 OR CC0-1.0 AND
+    MPL-2.0 AND
+    Unlicense OR MIT
+}
 
-BuildArch:      noarch
-BuildRequires:  python3-devel
+URL:            https://github.com/hykilpikonna/hyfetch
+Source0:        https://github.com/hykilpikonna/hyfetch/archive/%{version}/hyfetch-%{version}.tar.gz
+Source1:        hyfetch-vendor-%{version}.tar.gz
+Source2:        hyfetch-vendor-config-%{version}.toml
+Patch0:         hyfetch-fix-metadata-auto.patch
+
+BuildRequires:  cargo-rpm-macros
 
 %description
 HyFetch is a command line tool to display information about your
@@ -17,30 +34,31 @@ version, active GTK theme, CPU info, and used/available memory.
 It is a fork of neofetch, and adds pride flag coloration to the OS logo.
 
 %prep
-%autosetup -p1 -n %{name}-%{version}
-
-# remove tools/ directory to conform to its pypi source
-rm -rf tools/
-
-%generate_buildrequires
-%pyproject_buildrequires
+%autosetup -n %{name}-%{version} -p1 -a1
+%cargo_prep -v vendor
 
 %build
-%pyproject_wheel
+%cargo_build
+%{cargo_license_summary}
+%{cargo_license} > LICENSE.dependencies
+%{cargo_vendor_manifest}
 
 %install
-%pyproject_install
-%pyproject_save_files -l hyfetch
+install -pDm755 target/release/hyfetch %{buildroot}%{_bindir}/hyfetch
+install -pDm644 docs/hyfetch.1 %{buildroot}%{_mandir}/man1/hyfetch.1
+install -pDm644 hyfetch/scripts/autocomplete.bash %{buildroot}%{bash_completions_dir}/hyfetch
+install -pDm644 hyfetch/scripts/autocomplete.zsh %{buildroot}%{zsh_completions_dir}/_hyfetch
 
-install -pDm 644 hyfetch/scripts/autocomplete.bash %{buildroot}%{bash_completions_dir}/hyfetch
-install -pDm 644 hyfetch/scripts/autocomplete.zsh %{buildroot}%{zsh_completions_dir}/_hyfetch
-
+%if %{with check}
 %check
-%pyproject_check_import
+%cargo_test
+%endif
 
-%files -n hyfetch -f %{pyproject_files}
+%files
+%license LICENSE.md
+%license LICENSE.dependencies
 %{_bindir}/hyfetch
-%{_bindir}/neowofetch
+%{_mandir}/man1/hyfetch.1*
 %{bash_completions_dir}/hyfetch
 %{zsh_completions_dir}/_hyfetch
 

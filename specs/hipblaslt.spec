@@ -94,13 +94,21 @@
 %global cmake_generator %{nil}
 %endif
 
+# Request for python-nanobind on EPEL
+# https://bugzilla.redhat.com/show_bug.cgi?id=2402409
+%if 0%{?fedora}
+%bcond_without nanobind
+%else
+%bcond_with nanobind
+%endif
+
 Name:           %{hipblaslt_name}
 %if %{with gitcommit}
 Version:        git%{date0}.%{shortcommit0}
 Release:        1%{?dist}
 %else
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 %endif
 Summary:        ROCm general matrix operations beyond BLAS
 License:        MIT AND BSD-3-Clause
@@ -113,6 +121,13 @@ Url:            https://github.com/ROCm/%{upstreamname}
 Source0:        %{url}/archive/rocm-%{rocm_version}.tar.gz#/%{upstreamname}-%{rocm_version}.tar.gz
 %endif
 
+%global nanobind_version 2.9.2
+%global nanobind_giturl https://github.com/wjakob/nanobind
+Source1:        %{nanobind_giturl}/archive/v%{nanobind_version}/nanobind-%{nanobind_version}.tar.gz
+%global robinmap_version 1.3.0
+%global robinmap_giturl https://github.com/Tessil/robin-map
+Source2:        %{robinmap_giturl}/archive/v%{robinmap_version}/robin-map-%{robinmap_version}.tar.gz
+
 # yappi was removed from fedora
 # yappi is used in tensilelite to generate profiling data, we are not using that in the build
 Patch1:         0001-hipblaslt-tensilelite-remove-yappi-dependency.patch
@@ -120,6 +135,8 @@ Patch1:         0001-hipblaslt-tensilelite-remove-yappi-dependency.patch
 Patch2:         0001-hipblaslt-tensilelite-use-fedora-paths.patch
 # https://github.com/ROCm/rocm-libraries/issues/2422
 Patch3:         0001-hipblaslt-find-origami-package.patch
+# do not try to fetch, point to the nanobind tarball
+Patch4:         0001-hipblaslt-tensilelite-use-nanobind-tarball.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -158,7 +175,9 @@ BuildRequires:  %{python_module simplejson}
 BuildRequires:  python3-devel
 BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(pyyaml)
+%if %{with nanobind}
 BuildRequires:  python3dist(nanobind)
+%endif
 %global tensile_verbose 1
 BuildRequires:  python3dist(joblib)
 # https://github.com/ROCm/hipBLASLt/issues/1734
@@ -201,6 +220,12 @@ BuildRequires:  ninja
 
 Provides:       hipblaslt = %{version}-%{release}
 Provides:       bundled(python-tensile) = %{tensile_version}
+
+%if %{without nanobind}
+# BSD-3-Clause
+Provides:       bundled(nanobind) = %{nanobind_version}
+Provides:       bundled(robin-map) = %{robinmap_version}
+%endif
 
 # Only x86_64 works right now:
 ExclusiveArch:  x86_64
@@ -251,8 +276,19 @@ sed -i -e 's@virtualenv_install@#virtualenv_install@'                          C
 # Disable trying to download rocm-cmake
 sed -i -e 's@if(NOT ROCmCMakeBuildTools_FOUND)@if(FALSE)@' cmake/dependencies.cmake
 
+%if %{with nanobind}
 # Disable download of nanobind
 sed -i -e 's@FetchContent_MakeAvailable(nanobind)@find_package(nanobind)@' tensilelite/rocisa/CMakeLists.txt
+%else
+# Use bundled nanobind
+tar xf %{SOURCE1}
+mv nanobind-* nanobind
+cd nanobind
+tar xf %{SOURCE2}
+cp -r robin-map-*/* ext/robin_map/
+cd ..
+tar czf nanobind.tar.gz nanobind
+%endif
 
 # As of 6.4, there is a long poll
 # compile_code_object.sh gfx90a,gfx1100,gfx1101,gfx1151,gfx1200,gfx1201 RelWithDebInfo sha1 hipblasltTransform.hsaco
@@ -370,6 +406,9 @@ rm -f %{buildroot}%{_prefix}/share/doc/hipblaslt/LICENSE.md
 %endif
 
 %changelog
+* Sun Nov 23 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-3
+- Bundle nanobind for EPEL
+
 * Thu Nov 20 2025 Tom Rix <Tom.Rix@amd.com> - 7.1.0-2
 - Remove dir tags
 

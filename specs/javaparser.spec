@@ -6,7 +6,7 @@
 %endif
 
 Name:           javaparser
-Version:        3.26.3
+Version:        3.27.1
 Release:        %autorelease
 Summary:        Java 1 to 13 Parser and Abstract Syntax Tree for Java
 License:        LGPL-2.0-or-later OR Apache-2.0
@@ -26,7 +26,7 @@ BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  maven-local-openjdk25
 BuildRequires:  mvn(javax.annotation:javax.annotation-api)
-BuildRequires:  mvn(junit:junit)
+BuildRequires:  mvn(org.junit:junit-bom:pom:)
 BuildRequires:  mvn(net.java.dev.javacc:javacc)
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
 BuildRequires:  mvn(org.codehaus.mojo:javacc-maven-plugin)
@@ -49,6 +49,7 @@ sed -i 's/\r//' readme.md
 # Remove plugins unnecessary for RPM builds
 %pom_remove_plugin -r :jacoco-maven-plugin
 %pom_remove_plugin :maven-source-plugin
+%pom_remove_plugin :central-publishing-maven-plugin
 
 %if %{without bnd_maven_plugin}
 %pom_remove_plugin :bnd-maven-plugin javaparser-core

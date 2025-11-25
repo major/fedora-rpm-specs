@@ -8,8 +8,8 @@ Name:		rubygem-%{gem_name}
 # 3.6.0 and above is for F-39+ only as 3.5.8 and above
 # changes default progress style
 # (For 3.5.8 and 3.5.9, F-38 and below reverted this change)
-Version:	3.7.0
-Release:	101%{?dist}
+Version:	3.7.1
+Release:	1%{?dist}
 # SPDX confirmed
 # lib/test/unit/diff.rb is under (BSD-2-Clause OR Ruby) AND Python-2.0.1
 # lib/test-unit.rb changed to BSD-2-Clause or Ruby (from 3.3.7)
@@ -103,6 +103,9 @@ popd
 %{gem_docdir}/
 
 %changelog
+* Sun Nov 23 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.7.1-1
+- 3.7.1
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.0-101
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

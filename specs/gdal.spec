@@ -51,7 +51,7 @@
 
 
 Name:          gdal
-Version:       3.11.5
+Version:       3.12.0
 Release:       1%{?dist}
 Summary:       GIS file format library
 License:       MIT
@@ -60,7 +60,7 @@ URL:           http://www.gdal.org
 # See PROVENANCE.TXT-fedora and the cleaner script for details!
 
 Source0:       %{name}-%{version}%{?pre:%pre}-fedora.tar.xz
-Source1:       http://download.osgeo.org/%{name}/%{version}/%{name}autotest-%{version}%{?pre:%pre}.tar.gz
+Source1:       http://download.osgeo.org/%{name}/%{version}/%{name}autotest-%{version}%{?pre:%pre}.zip
 # Multilib compatible cpl-config.h header
 Source2:       cpl-config.h
 # Multilib compatible gdal-config script
@@ -93,6 +93,7 @@ BuildRequires: proj-devel >= 5.2.0
 BuildRequires: sqlite-devel
 BuildRequires: swig
 BuildRequires: unixODBC-devel
+BuildRequires: unzip
 BuildRequires: xz-devel
 BuildRequires: zlib-devel
 
@@ -396,7 +397,7 @@ rm -rf mrf/LERCV1
 rm -rf third_party/LercLib
 
 # Setup autotest directory
-tar xf %{SOURCE1}
+unzip %{SOURCE1}
 mv %{name}autotest-%{version}%{?pre:%pre} autotest
 
 # Need to patch autotest
@@ -471,7 +472,9 @@ done
 
 %if 0%{run_tests}
 %check
+%ifnarch s390x
 %ctest || :
+%endif
 %endif
 
 
@@ -533,15 +536,40 @@ done
 %{_datadir}/bash-completion/completions/ogrlineref
 %{_datadir}/bash-completion/completions/ogrtindex
 %{_datadir}/bash-completion/completions/sozip
+%{_mandir}/man1/gdal.1*
+%{_mandir}/man1/gdaladdo.1*
+%{_mandir}/man1/gdalbuildvrt.1*
+%{_mandir}/man1/gdal_contour.1*
 %{_mandir}/man1/gdal-convert.1*
+%{_mandir}/man1/gdal_create.1*
+%{_mandir}/man1/gdal-dataset.1.gz
+%{_mandir}/man1/gdal-dataset-copy.1.gz
+%{_mandir}/man1/gdal-dataset-delete.1.gz
+%{_mandir}/man1/gdal-dataset-identify.1.gz
+%{_mandir}/man1/gdal-dataset-rename.1.gz
+%{_mandir}/man1/gdaldem.1*
+%{_mandir}/man1/gdal_footprint.1*
+%{_mandir}/man1/gdal_grid.1*
 %{_mandir}/man1/gdal-info.1*
+%{_mandir}/man1/gdalinfo.1*
+%{_mandir}/man1/gdallocationinfo.1*
+%{_mandir}/man1/gdalmanage.1*
+%{_mandir}/man1/gdal-mdim.1*
 %{_mandir}/man1/gdal-mdim-convert.1*
 %{_mandir}/man1/gdal-mdim-info.1*
-%{_mandir}/man1/gdal-mdim.1*
+%{_mandir}/man1/gdalmdiminfo.1*
+%{_mandir}/man1/gdal-mdim-mosaic.1.gz
+%{_mandir}/man1/gdalmdimtranslate.1*
+%{_mandir}/man1/gdal-pipeline.1.gz
+%{_mandir}/man1/gdal-raster.1*
+%{_mandir}/man1/gdal-raster-as-features.1.gz
+%{_mandir}/man1/gdal-raster-aspect.1.gz
 %{_mandir}/man1/gdal-raster-calc.1*
 %{_mandir}/man1/gdal-raster-clean-collar.1*
 %{_mandir}/man1/gdal-raster-clip.1*
+%{_mandir}/man1/gdal-raster-color-blend.1.gz
 %{_mandir}/man1/gdal-raster-color-map.1*
+%{_mandir}/man1/gdal-raster-compare.1.gz
 %{_mandir}/man1/gdal-raster-contour.1*
 %{_mandir}/man1/gdal-raster-convert.1*
 %{_mandir}/man1/gdal-raster-create.1*
@@ -551,15 +579,22 @@ done
 %{_mandir}/man1/gdal-raster-hillshade.1*
 %{_mandir}/man1/gdal-raster-index.1*
 %{_mandir}/man1/gdal-raster-info.1*
+%{_mandir}/man1/gdal_rasterize.1*
 %{_mandir}/man1/gdal-raster-mosaic.1*
+%{_mandir}/man1/gdal-raster-neighbors.1.gz
+%{_mandir}/man1/gdal-raster-nodata-to-alpha.1.gz
 %{_mandir}/man1/gdal-raster-overview-add.1*
 %{_mandir}/man1/gdal-raster-overview-delete.1*
+%{_mandir}/man1/gdal-raster-overview-refresh.1.gz
+%{_mandir}/man1/gdal-raster-pansharpen.1.gz
 %{_mandir}/man1/gdal-raster-pipeline.1*
 %{_mandir}/man1/gdal-raster-pixel-info.1*
 %{_mandir}/man1/gdal-raster-polygonize.1*
+%{_mandir}/man1/gdal-raster-proximity.1.gz
 %{_mandir}/man1/gdal-raster-reclassify.1*
 %{_mandir}/man1/gdal-raster-reproject.1*
 %{_mandir}/man1/gdal-raster-resize.1*
+%{_mandir}/man1/gdal-raster-rgb-to-palette.1.gz
 %{_mandir}/man1/gdal-raster-roughness.1*
 %{_mandir}/man1/gdal-raster-scale.1*
 %{_mandir}/man1/gdal-raster-select.1*
@@ -571,54 +606,48 @@ done
 %{_mandir}/man1/gdal-raster-tpi.1*
 %{_mandir}/man1/gdal-raster-tri.1*
 %{_mandir}/man1/gdal-raster-unscale.1*
+%{_mandir}/man1/gdal-raster-update.1.gz
 %{_mandir}/man1/gdal-raster-viewshed.1*
-%{_mandir}/man1/gdal-raster.1*
+%{_mandir}/man1/gdal-raster-zonal-stats.1.gz
+%{_mandir}/man1/gdalsrsinfo.1*
+%{_mandir}/man1/gdaltindex.1*
+%{_mandir}/man1/gdaltransform.1*
+%{_mandir}/man1/gdal_translate.1*
+%{_mandir}/man1/gdal-vector.1*
+%{_mandir}/man1/gdal-vector-buffer.1.gz
+%{_mandir}/man1/gdal-vector-check-coverage.1.gz
+%{_mandir}/man1/gdal-vector-check-geometry.1.gz
+%{_mandir}/man1/gdal-vector-clean-coverage.1.gz
 %{_mandir}/man1/gdal-vector-clip.1*
+%{_mandir}/man1/gdal-vector_concat.1*
 %{_mandir}/man1/gdal-vector-convert.1*
 %{_mandir}/man1/gdal-vector-edit.1*
+%{_mandir}/man1/gdal-vector-explode-collections.1.gz
 %{_mandir}/man1/gdal-vector-filter.1*
-%{_mandir}/man1/gdal-vector-geom-buffer.1*
-%{_mandir}/man1/gdal-vector-geom-explode-collections.1*
-%{_mandir}/man1/gdal-vector-geom-make-valid.1*
-%{_mandir}/man1/gdal-vector-geom-segmentize.1*
-%{_mandir}/man1/gdal-vector-geom-set-type.1*
-%{_mandir}/man1/gdal-vector-geom-simplify.1*
-%{_mandir}/man1/gdal-vector-geom-swap-xy.1*
-%{_mandir}/man1/gdal-vector-geom.1*
 %{_mandir}/man1/gdal-vector-grid.1*
+%{_mandir}/man1/gdal-vector-index.1.gz
 %{_mandir}/man1/gdal-vector-info.1*
+%{_mandir}/man1/gdal-vector-layer-algebra.1.gz
+%{_mandir}/man1/gdal-vector-make-point.1.gz
+%{_mandir}/man1/gdal-vector-make-valid.1.gz
+%{_mandir}/man1/gdal-vector-partition.1.gz
 %{_mandir}/man1/gdal-vector-pipeline.1*
 %{_mandir}/man1/gdal-vector-rasterize.1*
+%{_mandir}/man1/gdal-vector-segmentize.1.gz
 %{_mandir}/man1/gdal-vector-select.1*
+%{_mandir}/man1/gdal-vector-set-field-type.1.gz
+%{_mandir}/man1/gdal-vector-set-geom-type.1.gz
+%{_mandir}/man1/gdal-vector-simplify.1.gz
 %{_mandir}/man1/gdal-vector-sql.1*
-%{_mandir}/man1/gdal-vector.1*
-%{_mandir}/man1/gdal-vector_concat.1*
+%{_mandir}/man1/gdal-vector-swap-xy.1.gz
+%{_mandir}/man1/gdal_viewshed.1*
+%{_mandir}/man1/gdal-vsi.1*
 %{_mandir}/man1/gdal-vsi-copy.1*
 %{_mandir}/man1/gdal-vsi-delete.1*
 %{_mandir}/man1/gdal-vsi-list.1*
 %{_mandir}/man1/gdal-vsi-move.1*
 %{_mandir}/man1/gdal-vsi-sozip.1*
 %{_mandir}/man1/gdal-vsi-sync.1*
-%{_mandir}/man1/gdal-vsi.1*
-%{_mandir}/man1/gdal.1*
-%{_mandir}/man1/gdaladdo.1*
-%{_mandir}/man1/gdalbuildvrt.1*
-%{_mandir}/man1/gdal_contour.1*
-%{_mandir}/man1/gdal_create.1*
-%{_mandir}/man1/gdaldem.1*
-%{_mandir}/man1/gdal_footprint.1*
-%{_mandir}/man1/gdal_grid.1*
-%{_mandir}/man1/gdalinfo.1*
-%{_mandir}/man1/gdallocationinfo.1*
-%{_mandir}/man1/gdalmanage.1*
-%{_mandir}/man1/gdalmdiminfo.1*
-%{_mandir}/man1/gdalmdimtranslate.1*
-%{_mandir}/man1/gdal_rasterize.1*
-%{_mandir}/man1/gdalsrsinfo.1*
-%{_mandir}/man1/gdaltindex.1*
-%{_mandir}/man1/gdaltransform.1*
-%{_mandir}/man1/gdal_translate.1*
-%{_mandir}/man1/gdal_viewshed.1*
 %{_mandir}/man1/gdalwarp.1*
 %{_mandir}/man1/gnmanalyse.1*
 %{_mandir}/man1/gnmmanage.1*
@@ -632,8 +661,8 @@ done
 %files libs
 %license LICENSE.TXT
 %doc NEWS.md PROVENANCE.TXT COMMITTERS PROVENANCE.TXT-fedora
-%{_libdir}/libgdal.so.37
-%{_libdir}/libgdal.so.37.*
+%{_libdir}/libgdal.so.38
+%{_libdir}/libgdal.so.38.*
 %{_datadir}/%{name}/
 %{_libdir}/gdalplugins/
 
@@ -737,7 +766,7 @@ done
 %if %{with mingw}
 %files -n mingw32-%{name}
 %license LICENSE.TXT
-%{mingw32_bindir}/libgdal-37.dll
+%{mingw32_bindir}/libgdal-38.dll
 %{mingw32_bindir}/gdal-config
 %{mingw32_libdir}/libgdal.dll.a
 %{mingw32_libdir}/cmake/gdal/
@@ -793,7 +822,7 @@ done
 
 %files -n mingw64-%{name}
 %license LICENSE.TXT
-%{mingw64_bindir}/libgdal-37.dll
+%{mingw64_bindir}/libgdal-38.dll
 %{mingw64_bindir}/gdal-config
 %{mingw64_libdir}/libgdal.dll.a
 %{mingw64_libdir}/cmake/gdal/
@@ -850,6 +879,9 @@ done
 
 
 %changelog
+* Sun Nov 16 2025 Sandro Mani <manisandro@gmail.com> - 3.12.0-1
+- Update to 3.12.0
+
 * Fri Nov 07 2025 Sandro Mani <manisandro@gmail.com> - 3.11.5-1
 - Update to 3.11.5
 

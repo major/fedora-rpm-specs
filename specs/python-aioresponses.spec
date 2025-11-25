@@ -58,6 +58,9 @@ Provides:       bundled(js-searchtools)
 %prep
 %autosetup -p1 -n %{pypi_name}-%{version}
 
+# remove linting and other superfluous build dependencies
+sed -e '/flake\|tox\|coverage\|pytest-cov\|pytest-html\|Sphinx/d' requirements-dev.txt -i
+
 
 %generate_buildrequires
 %pyproject_buildrequires

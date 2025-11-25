@@ -1,0 +1,68 @@
+# RPM Spec file for retry
+
+Name:      retry
+Version:   1.0.6
+Release:   1%{?dist}
+Summary:   Repeat a command until success
+License:   Apache-2.0
+
+URL:       https://github.com/minfrin/%{name}
+Source0:   %{URL}/releases/download/%{name}-%{version}/%{name}-%{version}.tar.gz
+BuildRequires: clang
+BuildRequires: autoconf
+BuildRequires: automake
+BuildRequires: libtool
+
+%description
+The tool repeats the given command until the command is successful,
+backing off with a configurable delay between each attempt.
+
+Retry captures stdin into memory as the data is passed to the repeated
+command, and this captured stdin is then replayed should the command
+be repeated. This makes it possible to embed the retry tool into shell
+pipelines.
+
+Retry captures stdout into memory, and if the command was successful
+stdout is passed on to stdout as normal, while if the command was
+repeated stdout is passed to stderr instead. This ensures that output
+is passed to stdout once and once only.
+
+%prep
+%setup -q
+
+%build
+%configure
+%make_build
+
+%install
+%make_install
+
+%files
+%{_bindir}/retry
+%{_mandir}/man1/retry.1*
+
+%doc AUTHORS ChangeLog README
+%license COPYING
+
+%changelog
+* Sun Jun 15 2025 Graham Leggett <minfrin@sharp.fm> - 1.0.6-1
+- Add optional jitter to the delay.
+- Avoid the final delay when running a command a specific number of times.
+- Generate the man page during the dist hook, and not at build time.
+* Wed Jan 04 2023 Graham Leggett <minfrin@sharp.fm> - 1.0.5-1
+- Allow multiple comma separated delay values.
+- End getopt parsing on first non-option argument.
+* Tue Feb 18 2020 Graham Leggett <minfrin@sharp.fm> - 1.0.4-1
+- Fix an issue where the stdout of the retried command
+  was not correctly captured on the second try.
+* Wed Jan 29 2020 Graham Leggett <minfrin@sharp.fm> - 1.0.3-1
+- Switch from help2man to txt2man.
+* Wed Jan 15 2020 Graham Leggett <minfrin@sharp.fm> - 1.0.2-1
+- Add help2man to debian packaging build dependencies.
+* Tue Jan 14 2020 Graham Leggett <minfrin@sharp.fm> - 1.0.1-1
+- Add the --times option to repeat at most N times.
+- Move the close logic to the same place as the open logic.
+- Allow zero delay.
+* Sun Jan 05 2020 Graham Leggett <minfrin@sharp.fm> - 1.0.0-1
+- Initial version of the package
+

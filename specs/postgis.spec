@@ -17,7 +17,7 @@
 
 Name:          postgis
 Version:       3.6.1
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Geographic Information Systems Extensions to PostgreSQL
 License:       GPL-2.0-or-later
 
@@ -470,6 +470,9 @@ fi
 
 
 %changelog
+* Sun Nov 23 2025 Sandro Mani <manisandro@gmail.com> - 3.6.1-2
+- Rebuild (gdal)
+
 * Sun Nov 16 2025 Sandro Mani <manisandro@gmail.com> - 3.6.1-1
 - Update to 3.6.1
 

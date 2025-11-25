@@ -36,6 +36,10 @@ BuildRequires: libnotify-devel
 Requires:   filesystem
 Requires:   redhat-menus
 Requires:   gvfs
+# >= f43 , see rhbz (#2411809)
+%if 0%{?fedora} && 0%{?fedora} >= 43
+Requires:   glycin-thumbnailer
+%endif
 
 # the main binary links against libcaja-extension.so
 # don't depend on soname, rather on exact version

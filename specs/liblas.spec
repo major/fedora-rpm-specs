@@ -1,9 +1,9 @@
-%global commit 62f3d57215ba1b074a84ff08a1539b69e69e38fb
+%global commit 0756b73ed41211d1bb8d9b96c6767f2350d8fe2b
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           liblas
 Version:        1.8.2
-Release:        0.26%{?shortcommit:.git%shortcommit}%{?dist}
+Release:        0.28%{?shortcommit:.git%shortcommit}%{?dist}
 Summary:        Library for reading and writing the very common LAS LiDAR format
 
 License:        BSD-3-Clause AND BSL-1.0
@@ -14,25 +14,19 @@ Source0:        https://github.com/libLAS/libLAS/archive/%{commit}/libLAS-%{shor
 Source0:        https://download.osgeo.org/%{name}/libLAS-%{version}.tar.bz2
 %endif
 
-# Fix build against recent gdal3+
-# https://github.com/libLAS/libLAS/issues/164
-# From https://github.com/OSGeo/gdal/blob/master/gdal/MIGRATION_GUIDE.TXT:
-#  removal of OSRFixup() and OSRFixupOrdering(): no longer needed since objects constructed are always valid
-Patch1:         liblas_gdal3.patch
-# Fix incorrect libgeotiff pkgconfig require resulting in broken dependencies
 # Fix incorrect includedir and libdir paths
-Patch2:         liblas_pkgconfig.patch
+Patch1:         liblas_pkgconfig.patch
 # Fix FTBFS with boost 1.73
-Patch3:         liblas_boost173.patch
+Patch2:         liblas_boost173.patch
 # Don't switch to std=c++11 if gdal is detected, liblas requires std=c++14 to build
-Patch4:         liblas_stdc++14.patch
+Patch3:         liblas_stdc++14.patch
 # Fix build with gcc15
-Patch5:         liblas-gcc15.patch
+Patch4:         liblas-gcc15.patch
 # Increase minimum cmake version to 3.5
-Patch6:         liblas_cmakever.patch
+Patch5:         liblas_cmakever.patch
 # Fix loading of cmake module not finding PROJ::proj
 # https://github.com/libLAS/libLAS/issues/229
-Patch7:         liblas-proj.patch
+Patch6:         liblas-proj.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  boost-devel >= 1.53
@@ -114,6 +108,12 @@ libLAS utility applications.
 
 
 %changelog
+* Sun Nov 23 2025 Sandro Mani <manisandro@gmail.com> - 1.8.2-0.28.git0756b73
+- Update to snapshot 0756b73 for gdal-3.12 support
+
+* Sun Nov 23 2025 Sandro Mani <manisandro@gmail.com> - 1.8.2-0.27.git62f3d57
+- Rebuild (gdal)
+
 * Sat Aug 02 2025 Orion Poplawski <orion@nwra.com> - 1.8.2-0.26.git62f3d57
 - Add patch to fix loading of cmake module
 

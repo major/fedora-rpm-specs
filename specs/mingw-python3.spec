@@ -24,7 +24,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       3.11.14
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       MinGW Windows %{pkgname}
 
 BuildArch:     noarch
@@ -70,6 +70,8 @@ Patch13:       mingw-python3_module-select.patch
 Patch14:       mingw-python3_pkgconfig.patch
 # Backport: Fix build with tcl9
 Patch15:       https://github.com/python/cpython/commit/e0799352823289fafb8131341abd751923ee9c08.patch
+# Backport fix for CVE-2025-6075
+Patch16:       https://github.com/python/cpython/commit/5dceb93486176e6b4a6d9754491005113eb23427.patch
 
 
 BuildRequires: make
@@ -510,6 +512,9 @@ chmod +x %{buildroot}%{mingw64_bindir}/python3-config
 
 
 %changelog
+* Sun Nov 23 2025 Sandro Mani <manisandro@gmail.com> - 3.11.14-3
+- Backport fix for CVE-2025-6075
+
 * Sun Oct 12 2025 Sandro Mani <manisandro@gmail.com> - 3.11.14-2
 - Rebuild (tcl9)
 

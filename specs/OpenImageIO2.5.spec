@@ -3,7 +3,7 @@
 
 Name:           OpenImageIO2.5
 Version:        2.5.19.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Library for reading and writing images
 
 License:        BSD-3-Clause AND MIT
@@ -139,6 +139,9 @@ rm -rf %{buildroot}%{python3_sitearch}
 
 
 %changelog
+* Sun Nov 23 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 2.5.19.1-3
+- Rebuilt for OpenVDB 13.0.0
+
 * Thu Oct 02 2025 Richard Shaw <hobbes1069@gmail.com> - 2.5.19.1-2
 - Rebuild for OpenVDB 12.1.1.
 

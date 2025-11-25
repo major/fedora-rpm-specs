@@ -5,8 +5,8 @@
 
 Name:           clojure
 Epoch:          1
-Version:        1.12.0
-Release:        4%{?dist}
+Version:        1.12.3
+Release:        1%{?dist}
 Summary:        A dynamic programming language that targets the Java Virtual Machine
 
 License:        EPL-1.0
@@ -41,7 +41,9 @@ can avoid reflection.
 %setup -q -n %{archivename}-%{version}
 
 %pom_remove_plugin :maven-release-plugin
-%pom_remove_plugin :nexus-staging-maven-plugin
+%pom_remove_plugin :central-publishing-maven-plugin
+%pom_remove_plugin :maven-javadoc-plugin
+
 
 %build
 %mvn_build -f -j
@@ -59,6 +61,11 @@ can avoid reflection.
 %{_bindir}/%{name}
 
 %changelog
+* Sun Nov 23 2025 Markku Korkeala <markku.korkeala@iki.fi> - 1:1.12.3-1
+- Update to upstream release 1.12.3, closes rhbz#2186974
+- Remove central-publishing-maven-plugin from pom
+- Remove maven-javadoc-plugin from pom
+
 * Tue Jul 29 2025 jiri vanek <jvanek@redhat.com> - 1:1.12.0-4
 - Rebuilt for java-25-openjdk as preffered jdk
 

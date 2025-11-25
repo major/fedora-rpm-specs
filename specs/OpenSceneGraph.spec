@@ -42,7 +42,7 @@
 
 Name:           OpenSceneGraph
 Version:        3.6.5
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        High performance real-time graphics toolkit
 
 # The OSGPL is just the wxWidgets license.
@@ -794,6 +794,9 @@ mkdir -p %{buildroot}%{_datadir}/OpenSceneGraph
 %endif
 
 %changelog
+* Sun Nov 23 2025 Sandro Mani <manisandro@gmail.com> - 3.6.5-38
+- Rebuild (gdal)
+
 * Sun Aug 10 2025 Sandro Mani <manisandro@gmail.com> - 3.6.5-37
 - Rebuild (imath)
 

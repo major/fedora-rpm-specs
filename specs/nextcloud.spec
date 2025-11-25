@@ -5,7 +5,7 @@
 %endif
 
 Name:           nextcloud
-Version:        32.0.1
+Version:        32.0.2
 Release:        %autorelease
 Summary:        Private file sync and share server
 # Automatically converted from old format: AGPLv3+ and MIT and BSD and ASL 2.0 and WTFPL and CC-BY-SA and GPLv3+ and Adobe - review is highly recommended.

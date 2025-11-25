@@ -5,7 +5,7 @@ provides an easy to use programmatic interface to a SOAP server.
 
 Name:           python-%{srcname}
 Version:        4.3.2
-Release:        1%{?dist}
+Release:        %autorelease
 Summary:        A fast and modern Python SOAP client
 
 # Automatically converted from old format: MIT and BSD - review is highly recommended.
@@ -44,7 +44,7 @@ Summary:        %{summary}
 %autosetup -p1 -n %{srcname}-%{version}
 
 # disable linting dependencies and exact test dependencies
-sed -i -e '/isort\|flake\|coverage\[toml\]/d' -e 's/\([a-z]\)[>=]\{2\}[0-9.]\+/\1/' pyproject.toml
+sed -i -e '/isort\|flake\|coverage\[toml\]\|pytest-cov/d' -e 's/\([a-z]\)[>=]\{2\}[0-9.]\+/\1/' pyproject.toml
 
 
 %generate_buildrequires
@@ -71,127 +71,4 @@ PYTHONPATH=src %{__python3} -m pytest tests -v -k 'not (SHA1 or test_sign_pw or 
 
 
 %changelog
-* Thu Sep 25 2025 Georg Sauthoff <mail@gms.tf> - 4.3.2-1
-- import 4.3.2 upstream release (fixes fedora#2395170)
-- remove optional xmlsec dependency
-
-* Fri Sep 19 2025 Python Maint <python-maint@redhat.com> - 4.3.1-7
-- Rebuilt for Python 3.14.0rc3 bytecode
-
-* Fri Aug 15 2025 Python Maint <python-maint@redhat.com> - 4.3.1-6
-- Rebuilt for Python 3.14.0rc2 bytecode
-
-* Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
-
-* Tue Jun 03 2025 Python Maint <python-maint@redhat.com> - 4.3.1-4
-- Rebuilt for Python 3.14
-
-* Sat May 31 2025 Georg Sauthoff <mail@gms.tf> - 4.3.1-3
-- Fix compatibility with newer httpx versions (fixes fedora#2368530)
-
-* Sat Jan 18 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_42_Mass_Rebuild
-
-* Sun Oct 27 2024 Georg Sauthoff <mail@gms.tf> - 4.3.1-1
-- bump to latest upstream release (fixes fedora#2318398)
-
-* Sun Sep 08 2024 Georg Sauthoff <mail@gms.tf> - 4.2.1-10
-- Ship sha1 tests for Fedora 41 (fixes fedora#2301221)
-
-* Wed Sep 04 2024 Miroslav Suchý <msuchy@redhat.com> - 4.2.1-9
-- convert license to SPDX
-
-* Fri Jul 19 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.1-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
-
-* Thu Jun 27 2024 Georg Sauthoff <mail@gms.tf> - 4.2.1-7
-- Fix Python 3.13 compatibility (fixes fedora#2291986)
-
-* Thu Jun 20 2024 Python Maint <python-maint@redhat.com> - 4.2.1-6
-- Rebuilt for Python 3.13
-
-* Fri Jan 26 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Mon Jan 22 2024 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
-
-* Fri Jul 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_39_Mass_Rebuild
-
-* Mon Jul 03 2023 Python Maint <python-maint@redhat.com> - 4.2.1-2
-- Rebuilt for Python 3.12
-
-* Sun Mar 26 2023 Georg Sauthoff <mail@gms.tf> - 4.2.1-1
-- bump version (fixes fedora#2144333)
-- migrate to build-time dependency generator as proposed in #2079681#c4
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Sat Nov 05 2022 Georg Sauthoff <mail@gms.tf> - 4.2.0-1
-- bump version (fixes fedora#2139784)
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Jun 15 2022 Python Maint <python-maint@redhat.com> - 4.1.0-4
-- Rebuilt for Python 3.11
-
-* Sat Feb 05 2022 Georg Sauthoff <mail@gms.tf> - 4.1.0-3
-- Adapt tests for pytest_httpx API churn (fixes fedora#2046921)
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Sep 01 2021 Georg Sauthoff <mail@gms.tf> - 4.1.0-1
-- bump version (fixes fedora#1993701)
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 4.0.0-3
-- Rebuilt for Python 3.10
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Tue Nov 10 2020 Georg Sauthoff <mail@gms.tf> - 4.0.0-1
-- bump version
-
-* Fri Sep 11 2020 Georg Sauthoff <mail@gms.tf> - 3.4.0-8
-- add tornado dependency for tests
-- cleanup dependencies
-
-* Thu Sep 10 2020 Georg Sauthoff <mail@gms.tf> - 3.4.0-7
-- EPEL8: exclude s390x because of aiohttp
-- activate more tests
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.0-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Fri Jun 26 2020 Georg Sauthoff <mail@gms.tf> - 3.4.0-5
-- Be more explicit regarding setuptools depenency,
-  cf. https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/message/GCPGM34ZGEOVUHSBGZTRYR5XKHTIJ3T7/
-
-* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 3.4.0-4
-- Rebuilt for Python 3.9
-
-* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Sun Dec 08 2019 Georg Sauthoff <mail@gms.tf> - 3.4.0-2
-- fix date format
-
-* Sun Dec 08 2019 Georg Sauthoff <mail@gms.tf> - 3.4.0-1
-- bump to latest upstream
-
-* Mon Aug 19 2019 Miro Hrončok <mhroncok@redhat.com> - 3.3.1-3
-- Rebuilt for Python 3.8
-
-* Fri Jul 26 2019 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Tue Mar 26 2019 Georg Sauthoff <mail@gms.tf> - 3.3.1-1
-- initial packaging
+%autochangelog

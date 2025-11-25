@@ -5,7 +5,7 @@ Summary:	LZMA compression utilities
 Name:		xz
 Epoch:		1
 Version:	5.8.1
-Release:	3%{?dist}
+Release:	4%{?dist}
 
 # liblzma - 0BSD
 # xz{,dec}, lzma{dec,info} - 0BSD
@@ -26,9 +26,11 @@ Source101:	colorxzgrep.csh
 
 # https://github.com/tukaani-project/xz/issues/199
 # https://issues.redhat.com/browse/RHEL-125143
-# (Upstream, but in the rhel9landlock branch)
+# Upstream in > 5.8.1
 Patch:          0001-Landlock-Cache-the-ABI-version.patch
 Patch:          0002-Landlock-Workaround-a-bug-in-RHEL-9-kernel.patch
+#Patch:          0003-Update-THANKS.patch
+Patch:          0004-Landlock-Add-missing-ifdefs.patch
 
 URL:		https://tukaani.org/%{name}/
 Requires:	%{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
@@ -186,6 +188,9 @@ LD_LIBRARY_PATH=$PWD/src/liblzma/.libs make check
 
 
 %changelog
+* Sun Nov 23 2025 Richard W.M. Jones <rjones@redhat.com> - 1:5.8.1-4
+- Add final workaround for "Failed to enable the sandbox" (RHEL-125143)
+
 * Sat Nov 22 2025 Richard W.M. Jones <rjones@redhat.com> - 1:5.8.1-3
 - Add workaround for "Failed to enable the sandbox" (RHEL-125143)
 

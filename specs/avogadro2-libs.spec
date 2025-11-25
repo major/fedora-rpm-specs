@@ -1,5 +1,5 @@
 # Qt6 builds for testing
-%bcond qt6 1
+%bcond qt6 0
 
 Name:           avogadro2-libs
 Version:        1.102.1
@@ -30,7 +30,7 @@ BuildRequires:  mesa-libGLU-devel
 BuildRequires:  hdf5-devel
 BuildRequires:  mmtf-cpp-devel, jsoncpp-devel
 BuildRequires:  spglib-devel
-BuildRequires:  JKQtPlotter-devel
+BuildRequires:  JKQtPlotter-qt5-devel
 %if %{with qt6}
 BuildRequires:  qt6-qtbase-devel
 BuildRequires:  qt6-qttools-devel

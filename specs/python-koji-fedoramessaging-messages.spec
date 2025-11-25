@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/fedora-infra/koji-fedoramessaging-messages
-Version:        1.2.6
+Version:        1.3.0
 %forgemeta
 
 %global srcname koji-fedoramessaging-messages

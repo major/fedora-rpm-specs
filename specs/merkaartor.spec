@@ -4,7 +4,7 @@
 
 Name:           merkaartor
 Version:        0.20.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Qt-Based OpenStreetMap editor
 
 # GPL-2.0-or-later: main program
@@ -20,6 +20,8 @@ Source0:        https://github.com/openstreetmap/merkaartor/archive/%{version}/%
 Patch0:         merkaartor-0.19.0-CMAKE_INSTALL_LIBDIR.patch
 # https://github.com/openstreetmap/merkaartor/pull/292
 Patch1:         merkaartor-0.20.0-system-qtsingleapplication.patch
+# Fix build against gdal-3.12.0
+Patch2:         https://github.com/openstreetmap/merkaartor/commit/28cca84e9f5db0aaba87c2084ed32f9677598823.patch
 
 BuildRequires:  appstream
 BuildRequires:  cmake
@@ -61,6 +63,7 @@ transparent display of map features like roads and curved roads.
 
 %patch -P0 -p1 -b .CMAKE_INSTALL_LIBDIR
 %patch -P1 -p1 -b .system-qtsingleapplication
+%patch -P2 -p1 -b .gdal312
 
 %if 0%{?system_qtsingleapplication}
 # Use packaged qtsingleapplication instead of bundled version
@@ -102,6 +105,9 @@ appstreamcli validate --no-net %{buildroot}%{_metainfodir}/org.%{name}.%{name}.a
 %{_metainfodir}/org.%{name}.%{name}.appdata.xml
 
 %changelog
+* Sun Nov 23 2025 Sandro Mani <manisandro@gmail.com> - 0.20.0-7
+- Rebuild (gdal)
+
 * Tue Jul 29 2025 Sandro Mani <manisandro@gmail.com> - 0.20.0-6
 - Rebuild (gdal)
 

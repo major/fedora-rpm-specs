@@ -2,8 +2,8 @@
 
 # Note: 1.1.7 -> 1.2.0: just the upstream URL changed
 Name:		rubygem-%{gem_name}
-Version:	2.0.5
-Release:	102%{?dist}
+Version:	3.0.1
+Release:	1%{?dist}
 
 Summary:	Power Assert for Ruby
 # SPDX confirmed
@@ -88,6 +88,9 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Sun Nov 23 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.0.1-1
+- 3.0.1
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.5-102
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

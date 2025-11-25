@@ -1,22 +1,26 @@
 # Generated from htmlentities-4.0.0.gem by gem2rpm -*- rpm-spec -*-
 %global	gem_name		htmlentities
+%global	test_version	4.4.1
 
 # Some functions removed on 4.2.4. Please don't upgrade this rpm
 # to 4.3.0+ on F-14-
 
 Summary:	A module for encoding and decoding (X)HTML entities
 Name:		rubygem-%{gem_name}
-Version:	4.3.4
-Release:	21%{?dist}
+Version:	4.4.2
+Release:	1%{?dist}
 License:	MIT
 URL:		https://github.com/threedaymonk/htmlentities
 Source0:	http://rubygems.org/gems/%{gem_name}-%{version}.gem
+Source1:	%{gem_name}-%{test_version}-tests.tar.gz
+# Source1 is created by bash %%SOURCE2 %%test_version
+Source2:	htmlentities-create-missing-files.sh
 
 Requires:	ruby(release)
 BuildRequires:	ruby(release)
 
 BuildRequires:	rubygems-devel
-BuildRequires:	rubygem(test-unit)
+BuildRequires:	rubygem(rspec)
 Requires:	ruby(rubygems)
 BuildArch:	noarch
 Provides:	rubygem(%{gem_name}) = %{version}-%{release}
@@ -44,43 +48,43 @@ Provides:	ruby(%{gem_name}) = %{version}-%{release}
 This package provides non-Gem support for %{gem_name}.
 
 %prep
-# First install rubygems under %%_builddir to execute some
-# tests
-%setup -q -c -T
-%gem_install -n %{SOURCE0}
+%setup -q -n %{gem_name}-%{version} -a 1
+
+mv ../%{gem_name}-%{version}.gemspec .
 
 %build
+gem build %{gem_name}-%{version}.gemspec
+%gem_install
 
 %install
-rm -rf %{buildroot}
 mkdir -p %{buildroot}%{gem_dir}
-cp -a ./%{gem_dir}/* %{buildroot}%{gem_dir}/
+cp -a .%{gem_dir}/* \
+	%{buildroot}%{gem_dir}/
 
-# Cleanups
-rm -f %{buildroot}%{gem_instdir}/setup.rb
+rm -f %{buildroot}%{gem_cache}
 
 %check
+cp -a %{gem_name}-%{test_version}/spec ./%{gem_instdir}
 pushd ./%{gem_instdir}/
 
-sed -i -e '2i gem "test-unit"' test/test_helper.rb
-
-ruby -Ilib:. -e 'Dir.glob("test/*.rb").each{|f| require f}'
+rspec spec
 
 %files
+%license	%{gem_instdir}/COPYING.txt
 %dir	%{gem_instdir}
-%doc	%{gem_instdir}/[A-Z]*
-%{gem_instdir}/lib/
+%doc	%{gem_instdir}/History.txt
 
-%{gem_cache}
+%{gem_libdir}/
 %{gem_spec}
 
 %files	doc
-%{gem_instdir}/perf/
-%{gem_instdir}/test/
 %{gem_docdir}/
 
 
 %changelog
+* Sun Nov 23 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.4.2-1
+- 4.4.2
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.4-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

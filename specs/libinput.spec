@@ -1,13 +1,11 @@
 %global udevdir %(pkg-config --variable=udevdir udev)
 
-%bcond plugins %{undefined rhel}
-
 #global gitdate 20141211
 %global gitversion 58abea394
 
 Name:           libinput
 Version:        1.29.902
-Release:        1%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+Release:        2%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 Summary:        Input device library
 
 # SPDX
@@ -31,9 +29,7 @@ BuildRequires:  pkgconfig(libwacom) >= 0.20
 BuildRequires:  pkgconfig(udev)
 BuildRequires:  python3-rpm-macros
 
-%if %{with plugins}
 BuildRequires:  lua-devel
-%endif
 
 %description
 libinput is a library that handles input devices for display servers and other
@@ -79,11 +75,7 @@ intended to be run by users.
        -Ddocumentation=false \
        -Dtests=true \
        -Dinstall-tests=true \
-%if %{with plugins}
        -Dautoload-plugins=true \
-%else
-       -Dlua-plugins=disabled \
-%endif
        -Dudev-dir=%{udevdir}
 %meson_build
 
@@ -169,6 +161,9 @@ intended to be run by users.
 
 
 %changelog
+* Mon Nov 24 2025 Peter Hutterer <peter.hutterer@redhat.com> - 1.29.902-2
+- Re-enable plugins on RHEL - lua 5.4 is available
+
 * Tue Nov 18 2025 Peter Hutterer <peter.hutterer@redhat.com> - 1.29.902-1
 - libinput 1.29.902 - reenable ppc64le
 

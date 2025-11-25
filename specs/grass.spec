@@ -2,8 +2,8 @@
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 
 Name:		grass
-Version:	8.4.1
-Release:	8%{?dist}
+Version:	8.4.2
+Release:	2%{?dist}
 Summary:	GRASS GIS - Geographic Resources Analysis Support System
 
 %if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
@@ -331,6 +331,12 @@ fi
 %{_libdir}/%{name}%{shortver}/include
 
 %changelog
+* Sun Nov 23 2025 Sandro Mani <manisandro@gmail.com> - 8.4.2-2
+- Rebuild (gdal)
+
+* Sun Nov 23 2025 Markus Neteler <neteler@mundialis.de> - 8.4.2-1
+- Update to GRASS 8.4.2 (#2416357)
+
 * Sat Sep 27 2025 Markus Neteler <neteler@mundialis.de> - 8.4.1-8
 - Rebuilt for F43
 

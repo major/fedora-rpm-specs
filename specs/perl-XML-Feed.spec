@@ -1,39 +1,51 @@
 Name:           perl-XML-Feed
-Version:        0.65
-Release:        4%{?dist}
+Version:        1.0.0
+Release:        1%{?dist}
 Summary:        Syndication feed parser and auto-discovery
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
-URL:            https://metacpan.org/release/XML-Feed
-Source0:        https://cpan.metacpan.org/authors/id/D/DA/DAVECROSS/XML-Feed-%{version}.tar.gz
+URL:            https://metacpan.org/dist/XML-Feed
+Source0:        https://cpan.metacpan.org/authors/id/D/DA/DAVECROSS/XML-Feed-v%{version}.tar.gz
 BuildArch:      noarch
+# build requirements
 BuildRequires:  make
+BuildRequires:  coreutils
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl(Module::Build)
+# runtime requirements
+BuildRequires:  perl(Carp)
 BuildRequires:  perl(Class::ErrorHandler)
-BuildRequires:  perl(DateTime)
 BuildRequires:  perl(DateTime::Format::Flexible)
 BuildRequires:  perl(DateTime::Format::ISO8601)
 BuildRequires:  perl(DateTime::Format::Mail)
 BuildRequires:  perl(DateTime::Format::Natural)
 BuildRequires:  perl(DateTime::Format::W3CDTF)
-BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl(Exporter)
 BuildRequires:  perl(Feed::Find)
-BuildRequires:  perl(FindBin)
 BuildRequires:  perl(HTML::Entities)
-BuildRequires:  perl(HTML::TokeParser)
-BuildRequires:  perl(List::Util)
 BuildRequires:  perl(LWP::UserAgent)
+BuildRequires:  perl(List::Util)
 BuildRequires:  perl(Module::Pluggable)
-BuildRequires:  perl(Test::More)
+BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(URI::Fetch)
-BuildRequires:  perl(XML::Atom) >= 0.38
+BuildRequires:  perl(XML::Atom::Content) >= 0.38
+BuildRequires:  perl(XML::Atom::Entry) >= 0.38
+BuildRequires:  perl(XML::Atom::Feed) >= 0.38
 BuildRequires:  perl(XML::LibXML) >= 1.66
+BuildRequires:  perl(base)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
+# test requirement
+BuildRequires:  perl(DateTime)
+BuildRequires:  perl(File::Spec)
+BuildRequires:  perl(FindBin)
+BuildRequires:  perl(Test::More)
+BuildRequires:  perl(URI)
 BuildRequires:  perl(XML::RSS) >= 1.47
 BuildRequires:  perl(XML::RSS::LibXML)
 BuildRequires:  perl(XML::XPath)
-BuildRequires:  perl(Test::HasVersion)
-BuildRequires:  perl(Test::Pod)
-BuildRequires:  perl(Test::Pod::Coverage)
+BuildRequires:  perl(vars)
 Requires:       perl(Class::ErrorHandler)
 Requires:       perl(XML::RSS) >= 1.47
 
@@ -44,7 +56,7 @@ XML::Feed is a syndication feed parser for both RSS and Atom feeds. It also
 implements feed auto-discovery for finding feeds, given a URI.
 
 %prep
-%setup -q -n XML-Feed-%{version}
+%setup -q -n XML-Feed-v%{version}
 
 %build
 /usr/bin/perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -58,11 +70,16 @@ implements feed auto-discovery for finding feeds, given a URI.
 %{make_build} test
 
 %files
-%doc ChangeLog.md README
+%doc ChangeLog.md README eg
 %{perl_vendorlib}/XML*
 %{_mandir}/man3/XML*
 
 %changelog
+* Sun Nov 23 2025 Emmanuel Seyman <emmanuel@seyman.fr> - 1.0.0-1
+- Update to 1.0.0
+- Update requirements
+- Add eg directory to documentation
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.65-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

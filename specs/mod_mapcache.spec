@@ -9,7 +9,7 @@ ExcludeArch: i686
 
 Name:           mod_mapcache
 Version:        %{maj}.%{min}.%{micro}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Caching server for WMS layers
 
 # mapcache-1.14.0/lib/hmac-sha.c - bsd-3
@@ -163,6 +163,9 @@ xmltoman %{SOURCE3} > %{buildroot}%{_mandir}/man1/mapcache_seed.1
 
 
 %changelog
+* Sun Nov 23 2025 Sandro Mani <manisandro@gmail.com> - 1.14.1-6
+- Rebuild (gdal)
+
 * Tue Jul 29 2025 Sandro Mani <manisandro@gmail.com> - 1.14.1-5
 - Rebuild (gdal)
 

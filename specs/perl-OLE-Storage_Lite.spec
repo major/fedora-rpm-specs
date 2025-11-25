@@ -1,6 +1,6 @@
 Name:		perl-OLE-Storage_Lite
-Version:	0.22
-Release:	7%{?dist}
+Version:	0.24
+Release:	1%{?dist}
 Summary:	Simple Class for OLE document interface
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/OLE-Storage_Lite
@@ -13,10 +13,10 @@ BuildRequires:	make
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
 BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:	perl(warnings)
 # Run-time:
 BuildRequires:	perl(Carp)
 BuildRequires:	perl(constant)
-BuildRequires:	perl(Exporter)
 BuildRequires:	perl(Fcntl)
 BuildRequires:	perl(IO::File)
 BuildRequires:	perl(IO::Handle)
@@ -25,7 +25,6 @@ BuildRequires:	perl(List::Util)
 BuildRequires:	perl(POSIX)
 BuildRequires:	perl(strict)
 BuildRequires:	perl(Time::Local)
-BuildRequires:	perl(vars)
 # Tests:
 BuildRequires:	perl(Test::More)
 # Dependencies:
@@ -57,6 +56,9 @@ make test
 %{_mandir}/man3/OLE::Storage_Lite.3*
 
 %changelog
+* Sun Nov 23 2025 Paul Howarth <paul@city-fan.org> - 0.24-1
+- 0.24 bump
+
 * Fri Jul 25 2025 Fedora Release Engineering <releng@fedoraproject.org> - 0.22-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

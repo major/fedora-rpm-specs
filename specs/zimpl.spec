@@ -1,11 +1,9 @@
 %global giturl  https://github.com/scipopt/zimpl
 
 Name:           zimpl
-Version:        3.6.2
+Version:        3.7.0
 Release:        %autorelease
 Summary:        Zuse Institut Mathematical Programming Language
-
-%global upver   %(sed 's/\\.//g' <<< %{version})
 
 # LGPL-3.0-or-later: the project as a whole
 # Other licenses are due to fonts embedded in the PDF manual:
@@ -15,7 +13,7 @@ Summary:        Zuse Institut Mathematical Programming Language
 License:        LGPL-3.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND GPL-1.0-or-later
 URL:            https://zimpl.zib.de/
 VCS:            git:%{giturl}.git
-Source:         %{giturl}/archive/v%{upver}/%{name}-%{version}.tar.gz
+Source:         %{giturl}/archive/v%{version}/%{name}-%{version}.tar.gz
 # Build a shared library instead of a static library.  ZIMPL leaves some symbols
 # undefined, namely those listed in src/zimpl/xlpglue.h.  They take advantage of
 # the fact that linking with a static library only pulls in the referenced
@@ -45,16 +43,15 @@ BuildRequires:  pkgconfig(zlib-ng)
 
 Requires:       libzimpl%{?_isa} = %{version}-%{release}
 
-%global _desc %{expand:
-Zimpl is a little language to translate the mathematical model of a
-problem into a linear or nonlinear (mixed-) integer mathematical program
-expressed in .lp or .mps file format which can be read and (hopefully)
-solved by a LP or MIP solver.}
+%global _desc %{expand:Zimpl is a little language to translate the mathematical model of a problem
+into a linear or nonlinear (mixed-) integer mathematical program expressed in
+.lp or .mps file format which can be read and (hopefully) solved by a LP or
+MIP solver.}
 
-%description %_desc
+%description
+%_desc
 
-This package contains a command-line tool to access ZIMPL
-functionality.
+This package contains a command-line tool to access ZIMPL functionality.
 
 %package -n     libzimpl
 # LGPL-3.0-or-later: the project as a whole
@@ -63,7 +60,8 @@ functionality.
 License:        LGPL-3.0-or-later AND LGPL-2.0-or-later AND GPL-3.0-or-later WITH Bison-exception-2.2
 Summary:        Zuse Institut Mathematical Programming Language
 
-%description -n libzimpl %_desc
+%description -n libzimpl
+%_desc
 
 This package contains a library interface to ZIMPL functionality.
 
@@ -80,14 +78,9 @@ This package contains headers and library links for developing
 applications that use libzimpl.
 
 %prep
-%autosetup -n %{name}-%{upver} -p1
+%autosetup -p1
 
 %conf
-# Fix installation directories
-if [ "%{_lib}" != "lib" ]; then
-  sed -i 's,\(DESTINATION \)lib,\1%{_lib},' src/CMakeLists.txt
-fi
-
 # Avoid warnings about obsolete invocations of grep
 sed -i 's/fgrep/grep -F/' check/check.sh
 
@@ -102,8 +95,11 @@ export CXXFLAGS='%{build_cxxflags} -DFREEMEM -DNO_MSHELL'
 mkdir -p %{buildroot}%{_mandir}/man1
 cp -p doc/zimpl.man %{buildroot}%{_mandir}/man1/zimpl.1
 
+# We do this in %%files with the %%license macro
+rm -fr %{buildroot}%{_datadir}/licenses
+
 # FIXME: Test qubo.zpl (qbo: lp) fails on ppc64le
-%ifnarch ppc64le
+%ifnarch %{power64}
 %check
 export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 cd check

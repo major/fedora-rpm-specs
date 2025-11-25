@@ -2,8 +2,8 @@
 %global gem_name minitest
 
 Name: rubygem-%{gem_name}
-Version: 5.26.0
-Release: 100%{?dist}
+Version: 5.26.2
+Release: 1%{?dist}
 Summary: minitest provides a complete suite of testing facilities
 # README.rdoc
 # SPDX confirmed
@@ -100,6 +100,9 @@ popd
 %{gem_instdir}/design_rationale.rb
 
 %changelog
+* Sun Nov 23 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.26.2-1
+- 5.26.2
+
 * Thu Oct 09 2025 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.26.0-100
 - 5.26.0
 

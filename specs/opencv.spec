@@ -75,7 +75,7 @@ Version:        4.11.0
 %global minorver %(foo=%{version}; a=(${foo//./ }); echo ${a[1]} )
 %global padding  %(digits=00; num=%{minorver}; echo ${digits:${#num}:${#digits}} )
 %global abiver   %(echo %{majorver}%{padding}%{minorver} )
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Collection of algorithms for computer vision
 # This is normal three clause BSD.
 License:        BSD-3-Clause AND Apache-2.0 AND ISC
@@ -650,6 +650,9 @@ cp config-*.py %{buildroot}/%{python3_sitelib}/cv2/
 
 
 %changelog
+* Sun Nov 23 2025 Sandro Mani <manisandro@gmail.com> - 4.11.0-20
+- Rebuild (gdal)
+
 * Tue Nov 11 2025 Cristian Le <git@lecris.dev> - 4.11.0-19
 - Allow to build with CMake 4.0 (rhbz#2381337)
 

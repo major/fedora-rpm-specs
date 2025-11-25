@@ -2,20 +2,23 @@
 %global gtk3_version 3.24
 %global vala_version 0.48
 
+%{!?version_no_tilde: %define version_no_tilde %{shrink:%(echo '%{version}' | tr '~' '-')}}
+
 Name:           budgie-desktop-view
-Version:        1.3
-Release:        8%{?dist}
+Version:        10.10~preview.1
+Release:        1%{?dist}
 Summary:        Official Budgie desktop icons application / implementation
 
 License:        Apache-2.0
 URL:            https://github.com/BuddiesOfBudgie/budgie-desktop-view
-Source0:        %{url}/releases/download/v%{version}/%{name}-v%{version}.tar.xz
-Patch0:         0001-fix-compilation-under-newer-meson-and-gcc.patch
+Source0:        %{url}/releases/download/v%{version_no_tilde}/%{name}-v%{version_no_tilde}.tar.xz
 
 BuildRequires:  pkgconfig(glib-2.0) >= %{glib2_version}
 BuildRequires:  pkgconfig(gio-unix-2.0) >= %{glib2_version}
 BuildRequires:  pkgconfig(gdk-3.0) >= %{gtk3_version}
+BuildRequires:  pkgconfig(gtk-layer-shell-0)
 BuildRequires:  pkgconfig(gtk+-3.0) >= %{gtk3_version}
+BuildRequires:  pkgconfig(libxfce4windowing-0)
 BuildRequires:  pkgconfig(vapigen) >= %{vala_version}
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
@@ -30,7 +33,7 @@ Requires: gtk3%{?_isa} >= %{gtk3_version}
 Official Budgie desktop icons application / implementation.
 
 %prep
-%autosetup
+%autosetup -n %{name}-%{version_no_tilde}
 
 %build
 %meson
@@ -52,6 +55,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.buddiesofbudgie.b
 %{_sysconfdir}/xdg/autostart/org.buddiesofbudgie.budgie-desktop-view-autostart.desktop
 
 %changelog
+* Sun Nov 23 2025 Joshua Strobl <joshua@buddiesofbudgie.org) - 10.10~preview.1
+- Update to 10.10~preview.1
+
 * Wed Jul 23 2025 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 

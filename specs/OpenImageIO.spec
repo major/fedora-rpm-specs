@@ -3,7 +3,7 @@
 
 Name:           OpenImageIO
 Version:        3.0.11.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Epoch:          1
 Summary:        Library for reading and writing images
 
@@ -202,6 +202,9 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Sun Nov 23 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 1:3.0.11.0-3
+- Rebuilt for OpenVDB 13.0.0
+
 * Thu Oct 02 2025 Benjamin A. Beasley <code@musicinmybrain.net> - 1:3.0.11.0-2
 - Rebuilt for openvdb 12.1.1
 

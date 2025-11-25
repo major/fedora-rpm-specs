@@ -6,10 +6,13 @@
 %global polkit_version 0.105
 %global upower_version 0.99.8
 %global vala_version 0.52.5
+%global rdnn_name org.buddiesofbudgie.controlcenter
+
+%{!?version_no_tilde: %define version_no_tilde %{shrink:%(echo '%{version}' | tr '~' '-')}}
 
 Name:          budgie-control-center
-Version:       1.4.1
-Release:       2%{?dist}
+Version:       2.0.0~preview.1
+Release:       1%{?dist}
 Summary:       A fork of GNOME Control Center for the Budgie 10 Series
 
 # GPL-2.0-or-later: the entire project
@@ -39,8 +42,7 @@ Summary:       A fork of GNOME Control Center for the Budgie 10 Series
 # - panels/universal-access/*
 License:       GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later AND LicenseRef-Fedora-Public-Domain
 URL:           https://github.com/BuddiesOfBudgie/budgie-control-center
-Source0:       %{url}/releases/download/v%{version}/budgie-control-center-%{version}.tar.xz
-Patch0:        0001-Reduce-gsd-dep-to-49.alpha.patch
+Source0:       %{url}/releases/download/v%{version_no_tilde}/budgie-control-center-%{version_no_tilde}.tar.xz
 
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:   %{ix86}
@@ -87,7 +89,6 @@ BuildRequires:  pkgconfig(upower-glib) >= 0.99.13
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xi)
 %ifnarch s390 s390x
-BuildRequires:  pkgconfig(gnome-bluetooth-1.0) >= 3.34.0
 BuildRequires:  pkgconfig(libwacom)
 %endif
 
@@ -98,9 +99,6 @@ Requires: gnome-settings-daemon%{?_isa} >= %{gnome_stack}
 Requires: gsettings-desktop-schemas%{?_isa} >= %{gnome_stack}
 Requires: gtk3%{?_isa} >= %{gtk3_version}
 Requires: upower%{?_isa} >= %{upower_version}
-%ifnarch s390 s390x
-Requires: gnome-bluetooth%{?_isa}
-%endif
 
 # Need common
 Requires: %{name}-common = %{version}-%{release}
@@ -163,10 +161,11 @@ Requires: hicolor-icon-theme
 This package contains architecture-agnostic common assets for ${name}
 
 %prep
-%autosetup -p1 -n %{name}-%{version}
+%autosetup -p1 -n %{name}-%{version_no_tilde}
 
 %build
 %meson \
+    -Dbluetooth=false \
     -Ddark_mode_distributor_logo=%{_datadir}/pixmaps/system-logo-white.png \
     -Ddocumentation=true \
     -Dmalcontent=true
@@ -182,7 +181,7 @@ chrpath --delete %{buildroot}%{_bindir}/%{name}
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
-appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{rdnn_name}.metainfo.xml
 
 %files
 %license LICENSE
@@ -193,7 +192,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.a
 %{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/scalable/apps/org.buddiesofbudgie.Settings-*.svg
 %{_datadir}/man/man1/%{name}.1*
-%{_datadir}/metainfo/%{name}.appdata.xml
+%{_datadir}/metainfo/%{rdnn_name}.metainfo.xml
 
 %files common -f %{name}.lang
 %dir %{_datadir}/budgie
@@ -220,6 +219,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.a
 %{_datadir}/pixmaps/budgie-faces/legacy/*.png
 %{_datadir}/pixmaps/budgie-logo.png
 %{_datadir}/%{name}/keybindings/*.xml
+%{_datadir}/%{name}/keyfile/labwc_keyfile.ini
 %{_datadir}/%{name}/pixmaps/noise-texture-light.png
 %{_datadir}/icons/hicolor/scalable/*/budgie-*.svg
 %{_datadir}/icons/hicolor/scalable/apps/org.buddiesofbudgie.Settings.Devel.svg
@@ -230,6 +230,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.a
 %{_datadir}/sounds/budgie/default/alerts/*.ogg
 
 %changelog
+* Sun Nov 23 2025 Joshua Strobl <joshua@buddiesofbudgie.org> - 2.0.0~preview.1-1
+- Update to 2.0.0~preview.1
+
 * Sun Sep 07 2025 Joshua Strobl <joshua@buddiesofbudgie.org> - 1.4.1-2
 - Reduce gsd dep down to 49.alpha
 

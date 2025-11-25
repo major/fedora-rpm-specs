@@ -8,12 +8,10 @@ Name:           avogadro2
 Version:        1.102.1
 Release:        %autorelease
 Summary:        Advanced molecular editor
-# Automatically converted from old format: BSD - review is highly recommended.
-License:        LicenseRef-Callaway-BSD
+License:        BSD-3-Clause
 URL:            http://avogadro.openmolecules.net/
 Source0:        https://github.com/OpenChemistry/avogadroapp/archive/%{version}/avogadroapp-%{version}.tar.gz
-Source1:        %{name}.appdata.xml
-Source2:        https://github.com/OpenChemistry/avogadro-i18n/archive/refs/tags/avogadro-i18n-%{version}.tar.gz
+Source1:        https://github.com/OpenChemistry/avogadro-i18n/archive/refs/tags/avogadro-i18n-%{version}.tar.gz
 
 Patch0:         %{name}-avoid_i18n_download.patch
 
@@ -23,29 +21,33 @@ BuildRequires:  epel-rpm-macros
 BuildRequires:  cmake
 BuildRequires:  make
 BuildRequires:  chrpath
+BuildRequires:  cups-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  avogadro2-libs-devel >= 0:%{version}
 BuildRequires:  molequeue-devel
 BuildRequires:  spglib-devel
+BuildRequires:  python3-devel
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  doxygen
 BuildRequires:  eigen3-devel
 BuildRequires:  hdf5-devel
 BuildRequires:  glew-devel
-BuildRequires:  JKQtPlotter-devel
+BuildRequires:  JKQtPlotter-qt5-devel
 %if %{with qt6}
 BuildRequires:  qt6-qtbase-devel
 BuildRequires:  qt6-qttools-devel
+BuildRequires:  cmake(Qt6Svg)
 %else
 BuildRequires:  qt5-qtbase-devel
 BuildRequires:  qt5-qttools-devel
+BuildRequires:  cmake(Qt5Svg)
 %endif
 %if 0%{?fedora}
 BuildRequires:  libappstream-glib
 %endif
 
-Requires: python%{python3_pkgversion}
+Requires: %{python3}
 Requires: openbabel%{?_isa} >= 3.1.1
 Requires: xtb%{?_isa}
 Requires: avogadro2-libs%{?_isa} >= 0:%{version}
@@ -144,8 +146,8 @@ Supplements:    (%{name} = %{version}-%{release} and langpacks-%{1})\
 %endif
 
 %prep
-%setup -n avogadroapp-%{version} -a 2 -q
-%autopatch -p1
+%setup -n avogadroapp-%{version} -a 1 -q
+%patch -P 0 -p1 -b .backup
 
 %if %{with lang}
 cd avogadro-i18n-%{version}
@@ -160,7 +162,7 @@ export CXXFLAGS="%{optflags} -I%{_includedir}/%{name}"
 %ifarch %{power64}
 export CXXFLAGS="%{optflags} -DEIGEN_ALTIVEC_DISABLE_MMA"
 %endif
-%cmake3 -DCMAKE_BUILD_TYPE:STRING=Release \
+%cmake -DCMAKE_BUILD_TYPE:STRING=Release \
  -Wno-dev \
  -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE \
  -DENABLE_RPATH:BOOL=ON \
@@ -176,14 +178,10 @@ rm -rf %{buildroot}%{_datadir}/doc
 
 chrpath -d %{buildroot}%{_bindir}/%{name}
 
+mv %{buildroot}%{_datadir}/applications/org.openchemistry.Avogadro2.desktop %{buildroot}%{_datadir}/applications/Avogadro2.desktop
 desktop-file-edit --set-key=Exec --set-value='env QT_QPA_PLATFORM=wayland LD_LIBRARY_PATH=%{_libdir}/avogadro2 %{name} %f' \
  --set-key=Icon --set-value=%{_datadir}/icons/%{name}/avogadro2_128.png \
- %{buildroot}%{_datadir}/applications/%{name}.desktop
-
-cp -p %{buildroot}%{_datadir}/applications/%{name}.desktop %{buildroot}%{_datadir}/applications/%{name}-x11.desktop
- desktop-file-edit --set-key=Exec --set-value='env QT_QPA_PLATFORM=xcb LD_LIBRARY_PATH=%{_libdir}/avogadro2 %{name} %f' \
-  --set-name='Avogadro2 for X11' \
- %{buildroot}%{_datadir}/applications/%{name}-x11.desktop
+ %{buildroot}%{_datadir}/applications/Avogadro2.desktop
 
 mkdir -p %{buildroot}%{_datadir}/icons/%{name}
 cp -a avogadro/icons/* %{buildroot}%{_datadir}/icons/%{name}/
@@ -192,12 +190,6 @@ cp -a avogadro/icons/* %{buildroot}%{_datadir}/icons/%{name}/
 mkdir -p %{buildroot}%{_datadir}/%{name}/i18n
 install -pm 644 avogadro-i18n-%{version}/avogadroapp/* %{buildroot}%{_datadir}/%{name}/i18n/
 install -pm 644 avogadro-i18n-%{version}/avogadrolibs/* %{buildroot}%{_datadir}/%{name}/i18n/
-%endif
-
-%if 0%{?fedora}
-## Install appdata file
-mkdir -p %{buildroot}%{_metainfodir}
-install -pm 644 %{SOURCE1} %{buildroot}%{_metainfodir}/
 %endif
 
 %if 0%{?rhel}
@@ -215,21 +207,17 @@ fi
 %endif
 
 %check
-%if 0%{?fedora}
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
-%endif
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 %files
 %doc README.md
 %license LICENSE
 %{_bindir}/%{name}
-%{_datadir}/applications/%{name}.desktop
-%{_datadir}/applications/%{name}-x11.desktop
-%if 0%{?fedora}
-%{_metainfodir}/*.appdata.xml
-%endif
-%{_datadir}/pixmaps/%{name}.png
-%{_datadir}/icons/%{name}
+%{_datadir}/applications/Avogadro2.desktop
+%{_metainfodir}/*.metainfo.xml
+%{_datadir}/icons/%{name}/
+%{_datadir}/icons/hicolor/*x*/apps/*Avogadro2.png
+%{_datadir}/icons/hicolor/scalable/apps/*Avogadro2.svg
 %if %{with lang}
 %dir %{_datadir}/%{name}
 %exclude %{_datadir}/%{name}/i18n
